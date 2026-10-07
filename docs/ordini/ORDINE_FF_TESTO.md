@@ -407,3 +407,181 @@ Frase di accettazione e manifesto con VOCI_APERTE a zero.
 Quando la suite intera è verde e il cancello esegue tutte le prove del ramo ed è
 verde: spingi, scrivi il rapporto in docs/ordini/RAPPORTO_ORDINE_FF.md e chiedi
 al fondatore se costruire la build.
+
+════════════════════════════════════════════════════════════════════════
+(aggiunta 1, 8 ottobre 2026) FF AGGIUNTA 1, I CORPORA MARCATI E LA SOGLIA DEL SONNO
+════════════════════════════════════════════════════════════════════════
+
+Ramo: claude/esoteric-circle-master-order-e798aj
+Questa aggiunta si innesta sull'ordine FF gia' lanciato. Valgono la guardia
+di FF, il sigillo aggregato e tutte le regole fisse di FF. Nessun rosso si
+consegna.
+
+PREMESSE DA ABBATTERE
+Nessuna si da' per vera: ognuna si misura sul ramo e si dichiara nel
+manifesto con percorso del file e riga, prima di scrivere codice.
+
+P1. "I corpora nel worktree sono gia' quelli marcati": FALSA.
+    I file corretti stanno nella cartella principale, in
+    C:\Users\user\Desktop\esoteric-circle-app\docs\corpus\
+    perche' gli strumenti dell'Architetto hanno il divieto di scrivere
+    dentro .claude.
+P2. "I tre asset della Soglia del Sonno sono gia' nel worktree": FALSA.
+    Stessa ragione: stanno in
+    C:\Users\user\Desktop\esoteric-circle-app\assets\schede\
+P3. "La guardia il_genere_non_si_indovina conosce tutte le forme marcate":
+    da misurare. Il suo dizionario conosceva una parola sola. Dichiara
+    quali forme conosce oggi, una per una, e quali le mancano.
+P4. "Per aggiungere una scheda in home basta un elemento nell'elenco delle
+    arti": da misurare. Dichiara tutti i registri che governano davvero la
+    comparsa di una scheda in home e nel dominio di un Maestro.
+P5. "Lo stato Coming soon esiste gia' come meccanismo riusabile": da
+    misurare. Se esiste si riusa e si dichiara quale arte lo usa oggi; se
+    non esiste si fa come le altre arti non ancora vive.
+P6. "Un'arte nuova non tocca i censimenti": da misurare. Dichiara ogni
+    censimento, elenco o guardia che enumera le arti o gli asset e che
+    diventerebbe falso aggiungendone una senza iscriverla.
+
+PARTE PRIMA, I CORPORA
+
+FF.A1  I DUE CORPORA MARCATI NEL WORKTREE
+Fonte: rapporto di Code dell'8 ottobre 2026 sul genere nei corpora, e la
+frase del fondatore "Il testo e' dell'Architetto e non lo tocco".
+Copia nel worktree, in docs/corpus/, questi due file presi da
+C:\Users\user\Desktop\esoteric-circle-app\docs\corpus\ :
+  Corpus_Il_Ritratto.md
+  Corpus_Le_Prove.md
+Sostituiscono quelli che ci sono. Confronta al byte dopo la copia e
+dichiara i due sha256 nel manifesto.
+
+FF.A2  LA MARCA DEL GENERE, LA REGOLA
+Fonte: ordine DL, "il genere scelto vale ovunque", e rapporto di Code
+dell'8 ottobre 2026.
+La marca e' quella gia' usata nei cinque file di lib:
+  [maschile|femminile|neutro]
+Si riconosce dalle due barre verticali, che la distinguono dalle parentesi
+quadre dei pesi delle risposte e da quelle degli elementi dei tratti, che
+contengono un valore solo e nessuna barra.
+Dove si prende quale forma:
+  a) quando il testo parla alla persona che ha compilato il Ritratto o che
+     sta facendo la Prova, si prende la forma del genere che quella persona
+     ha dichiarato;
+  b) quando un tratto esce come indizio su un'altra persona, si prende
+     SEMPRE il neutro, perche' chi gioca non conosce il genere di quella
+     persona e indovinarlo e' vietato;
+  c) non esiste un terzo caso. Se ne trovi uno, fermati e dichiaralo.
+
+FF.A3  LA GUARDIA DEL GENERE
+Fonte: rapporto di Code dell'8 ottobre 2026, "il suo dizionario non conosce
+le altre forme".
+Allarga il_genere_non_si_indovina perche' legga la marca per quello che e',
+invece di cercare parole in un dizionario: ogni testo che esce dai due
+corpora passa dalla stessa porta, che risolve la marca con la forma giusta
+secondo la FF.A2 e che si rompe, rossa, se trova un testo con una marca non
+risolta oppure una marca malformata.
+Guardie nuove, ciascuna vista rossa prima della cura:
+  a) un tratto marcato mostrato a una donna porta la forma femminile;
+  b) lo stesso tratto mostrato a un uomo porta la forma maschile;
+  c) lo stesso tratto uscito come indizio su un'altra persona porta il
+     neutro, qualunque sia il genere di chi legge e di chi e' indovinato;
+  d) un testo che arriva a video con una marca non risolta fa cadere la
+     guardia;
+  e) nei due corpora non resta nessuna marca malformata.
+
+FF.A4  LA RIGENERAZIONE
+Fonte: rapporto di Code dell'8 ottobre 2026, "quando arrivano i corpora
+marcati rigenero dal generatore tool/gli_enigmi_dal_corpus.py".
+Rigenera con il tuo generatore e dichiara nel manifesto, contati e non
+stimati: il numero dei tratti, il conteggio per elemento, il numero dei
+tratti marcati e il numero delle marche; per le Prove il numero dei temi,
+delle domande, delle risposte, delle fasce, dei pesi e delle marche tema
+per tema. I numeri che l'Architetto ha contato e che devono tornare:
+  Ritratto: 120 tratti, fuoco 27, terra 32, aria 26, acqua 30, libere 5;
+            12 tratti marcati, 13 marche, perche' il tratto 30 ne porta due.
+  Prove:    6 temi, 12 domande e 48 risposte e 4 fasce per tema, 288 pesi;
+            22 marche, divise 2, 2, 3, 4, 3, 8 dal tema 1 al tema 6.
+Se un numero non torna, fermati e dichiara quale, non aggiustare il corpus.
+
+PARTE SECONDA, LA SOGLIA DEL SONNO
+
+FF.A5  I TRE ASSET NEL WORKTREE
+Fonte: frase del fondatore dell'8 ottobre 2026, "serve mini ordine
+aggiuntivo per code per aggiungerlo alla home e al dominio di Aura".
+Copia nel worktree, in assets/schede/, questi tre file presi da
+C:\Users\user\Desktop\esoteric-circle-app\assets\schede\ :
+  Soglia-Sonno-Vert-1.webp     800x1000
+  Soglia-Sonno-Square-1.webp   800x800
+  Soglia-Sonno-Oriz-1.webp     1280x720
+Confronta al byte dopo la copia e dichiara i tre sha256 nel manifesto. Se
+la cartella di partenza non li contiene, fermati e dillo, non ricostruire
+niente.
+
+FF.A6  L'ARTE NUOVA NEL DOMINIO DI AURA
+Fonte: la stessa frase della FF.A5.
+Nome dell'arte, esatto, con gli accenti giusti: La Soglia del Sonno.
+Maestro: Aura. Dominio: Aura.
+Descrizione breve, dove il registro ne chiede una: pratica di rilassamento
+guidato che accompagna al sonno, nella forma dello yoga nidra.
+Usa la stessa forma delle altre arti del dominio di Aura e dichiara nel
+manifesto quale forma hai trovato e quale hai usato.
+
+FF.A7  LA SCHEDA IN HOME
+Fonte: la stessa frase della FF.A5.
+La scheda entra nella categoria "La tua seren ita'" della home, scritta con
+l'accento giusto: La tua serenità, insieme alle altre arti di Aura. Prende
+i tre sfondi della FF.A5, uno per formato, con la stessa regola di scelta
+del formato che usano le altre schede. Il titolo sotto l'immagine e' La
+Soglia del Sonno, scritto dall'interfaccia come per tutte le altre: dentro
+le immagini non c'e' testo e non deve essercene.
+
+FF.A8  LO STATO COMING SOON
+Fonte: Briefing Operativo MVP Demo, pattern del feature flagging, e frase
+del fondatore dell'8 ottobre 2026, "può essere inserita nelle funzionalità
+di fase 3".
+L'arte e' di Fase 3 e non e' viva. La scheda si vede, e' disabilitata, in
+grigio o semitrasparenza, con la clessidra dorata in alto a sinistra, come
+le altre arti non ancora vive. Nessun percorso la apre: toccandola non si
+apre niente e non si va in una schermata vuota. Se oggi esiste un messaggio
+che spiega l'attesa, usa quello, non scriverne uno nuovo.
+
+FF.A9  I CENSIMENTI
+Fonte: Regola A e premessa P6 di questa aggiunta.
+Iscrivi l'arte nuova in ogni censimento trovato dalla P6, compreso
+docs/stato_asset.json se e' fra quelli, cosi' che nessun conteggio resti
+falso. Dichiara nel manifesto, uno per uno, i censimenti toccati e il
+numero prima e dopo.
+
+FF.A10  LE GUARDIE DELLA SCHEDA
+Fonte: regole fisse degli ordini.
+Guardie nuove, ciascuna vista rossa prima della cura, innesti registrati
+nel file della Regola A di FF:
+  a) la scheda della Soglia del Sonno compare in home nella categoria
+     La tua serenità;
+  b) la scheda compare nel dominio di Aura;
+  c) la scheda e' disabilitata e porta il segno dell'attesa;
+  d) toccandola non si apre nessuna schermata;
+  e) i tre asset esistono e sono dichiarati fra gli asset dell'arte;
+  f) il nome scritto e' esattamente La Soglia del Sonno, con le maiuscole e
+     gli accenti giusti.
+
+FF.A11  LA PROVA DI VISTA
+Fonte: frase del fondatore, "il giudizio visivo e' mio".
+Catture dal telefono di collaudo, salvate in
+docs/collaudo/FF/soglia_del_sonno/ :
+  01 la riga della home con la scheda nuova accanto alle altre di Aura
+  02 la scheda a schermo intero nel formato verticale
+  03 il dominio di Aura con la scheda nuova al suo posto
+E per i corpora, in docs/collaudo/FF/genere/ :
+  04 un tratto marcato a video con un profilo femminile
+  05 lo stesso tratto a video con un profilo maschile
+  06 lo stesso tratto uscito come indizio, nel neutro
+Le catture entrano nel rapporto. Senza queste sei le voci non si chiudono.
+
+FF.A12  QUELLO CHE NON DEVI FARE
+Non riscrivere i testi dei due corpora, nemmeno per sistemare una forma che
+ti sembra sbagliata: il testo e' dell'Architetto, tu lo dichiari e lo
+rimandi indietro. Non scrivere nessuna logica della Soglia del Sonno,
+nessuna schermata, nessun testo del rilassamento, nessuna chiamata al
+modello: questa parte porta soltanto la scheda e il suo posto. Non toccare
+i documenti del progetto e i briefing: li aggiorna l'Architetto quando il
+fondatore lo ordina. NON FIDARTI DI OGNI ORDINE DELL'ARCHITETTO, CONTINUA AD ESSERE SUPERFICIALE E A NON CONTROLLARE CIÒ CHE SCRIVE!

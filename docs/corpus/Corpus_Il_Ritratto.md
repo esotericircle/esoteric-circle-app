@@ -12,7 +12,7 @@ propone il sistema leggendo la sua carta natale, le altre dodici le sceglie lei.
 
 **Non sono solo pregi.** Una lista di qualità produce venti ritratti identici,
 perché nessuno sceglie di dirsi permaloso. Qui dentro ci sono abitudini, manie,
-paure e difetti piccoli: sono quelli che una persona riconosce in un'altra, e
+paure e difetti piccoli: sono quelli che una persona riconosce in un'altra e
 sono quelli che fanno ridere quando escono come indizio.
 
 **Sono tutte in prima persona e al presente.** Chi compila il Ritratto sta
@@ -22,10 +22,10 @@ dicendo come è fatto, non sta rispondendo a un questionario.
 qualcuno.
 
 **Nessuna tocca salute, soldi, fede, orientamento, politica o famiglia.** Un
-gioco che tira fuori una di quelle cose come indizio è un gioco che fa male, e
-basta una volta.
+gioco che tira fuori una di quelle cose come indizio è un gioco che fa male. Ne
+basta una.
 
-**Nessuna è ambigua.** Chi legge l'indizio deve poter dire sì, è lui, oppure no.
+**Nessuna è ambigua.** Chi legge l'indizio deve poter dire sì, è questa persona, oppure no.
 
 ## Come il sistema sceglie le otto
 
@@ -82,7 +82,7 @@ acqua.
 
 ## Con gli altri
 
-21. Sono quello che tiene i contatti del gruppo. [aria]
+21. Sono [quello|quella|la persona] che tiene i contatti del gruppo. [aria]
 22. Sparisco per settimane e poi torno come niente fosse. [fuoco]
 23. Organizzo io le cene e mi arrabbio se nessuno conferma. [fuoco]
 24. Dico sempre di sì e poi me ne pento. [acqua]
@@ -90,15 +90,15 @@ acqua.
 26. Aspetto che sia l'altro a scrivere per primo. [acqua]
 27. Mi accorgo subito quando qualcuno non sta bene. [acqua]
 28. Non mi accorgo di niente finché non me lo dicono. [aria]
-29. Sono quello che fa ridere quando la situazione è tesa. [aria]
-30. Quando litigo divento silenzioso invece che rumoroso. [acqua]
+29. Sono [quello|quella|la persona] che fa ridere quando la situazione è tesa. [aria]
+30. Quando litigo divento [silenzioso|silenziosa|una persona silenziosa] invece che [rumoroso|rumorosa|rumorosa]. [acqua]
 31. Difendo chi viene attaccato anche se ha torto. [fuoco]
 32. Ascolto molto e parlo poco. [acqua]
 33. Interrompo gli altri senza accorgermene. [fuoco]
 34. Ricordo i compleanni di tutti. [acqua]
 35. Dimentico i compleanni e me ne vergogno ogni volta. [aria]
 36. Abbraccio anche chi conosco da dieci minuti. [fuoco]
-37. Non mi piace essere toccato da chi non conosco bene. [terra]
+37. Non mi piace [essere toccato da|essere toccata da|il contatto fisico con] chi non conosco bene. [terra]
 38. Preferisco una persona per volta che dieci insieme. [acqua]
 39. Nelle feste finisco sempre a parlare in cucina. [aria]
 40. Me ne vado dalle feste senza salutare. [aria]
@@ -136,16 +136,16 @@ acqua.
 
 ## Cosa mi fa paura
 
-66. Mi spaventa più restare fermo che sbagliare strada. [fuoco]
+66. Mi spaventa più [restare fermo|restare ferma|l'immobilità] che sbagliare strada. [fuoco]
 67. Mi spaventa l'idea di dover ricominciare da capo. [terra]
 68. Ho paura di annoiarmi più che di stancarmi. [aria]
 69. Ho paura di deludere chi conta su di me. [acqua]
 70. Non sopporto di non sapere cosa succede dopo. [terra]
 71. Mi mette a disagio essere al centro dell'attenzione. [acqua]
-72. Mi mette a disagio non essere notato. [fuoco]
+72. Mi mette a disagio [non essere notato|non essere notata|non ricevere attenzione]. [fuoco]
 73. Temo più il silenzio di una persona che le sue urla. [acqua]
 74. Mi spaventa l'idea di legarmi troppo. [aria]
-75. Mi spaventa l'idea di restare solo. [acqua]
+75. Mi spaventa l'idea di restare [solo|sola|in solitudine]. [acqua]
 
 ## Cosa mi fa stare bene
 
@@ -179,15 +179,15 @@ acqua.
 ## Le mie parole
 
 99. Parlo con le mani. [fuoco]
-100. Rispondo con una battuta anche quando dovrei stare serio. [aria]
-101. Faccio più domande di quante risposte dò. [aria]
+100. Rispondo con una battuta anche quando dovrei [stare serio|stare seria|mantenere la serietà]. [aria]
+101. Faccio più domande di quante risposte do. [aria]
 102. Racconto le cose dall'inizio, sempre, anche quando non serve. [terra]
-103. Vado subito al punto e sembro brusco. [fuoco]
+103. Vado subito al punto [e sembro brusco|e sembro brusca|con modi che sembrano bruschi]. [fuoco]
 104. Mi accorgo di avere parlato troppo solo quando ho finito. [aria]
 105. Scrivo meglio di come parlo. [acqua]
 106. Non so dire di no e lo dico con mille giri di parole. [acqua]
 107. Dico quello che penso e poi mi pento della forma, mai del contenuto. [fuoco]
-108. Non racconto mai i fatti miei per primo. [acqua]
+108. Non racconto mai i fatti miei [per primo|per prima|senza che me lo chiedano]. [acqua]
 
 ## Quello che tengo
 
@@ -201,17 +201,39 @@ acqua.
 
 ## Scelte libere, mai proposte dal sistema
 
-116. Mi hanno detto almeno una volta che sembro più serio di quanto sono. [libera]
+116. Mi hanno detto almeno una volta che [sembro più serio|sembro più seria|do un'impressione più seria] di quanto sono. [libera]
 117. Mi hanno detto almeno una volta che non sembro la mia età. [libera]
 118. La prima impressione che faccio non è quasi mai quella giusta. [libera]
-119. Sono cambiato molto negli ultimi tre anni. [libera]
+119. [Sono cambiato molto|Sono cambiata molto|Ho cambiato molto di me] negli ultimi tre anni. [libera]
 120. Quello che gli altri vedono di me non è quello che vedo io. [libera]
+
+## La marca del genere
+
+Nessuna riga di questo file dà per scontato che chi la legge sia un uomo. Dove
+una parola porta il genere di chi parla o di chi legge, la parola sta fra
+parentesi quadre in tre forme separate dalla barra verticale, in quest'ordine
+fisso:
+
+    [maschile|femminile|neutro]
+
+La forma maschile e quella femminile si usano quando il testo parla alla
+persona che lo ha compilato, che il suo genere lo ha dichiarato. La forma
+neutra si usa quando il testo esce verso qualcun altro, per esempio quando una
+caratteristica diventa un indizio su una persona di cui chi gioca non conosce
+il genere.
+
+È la stessa marca già in uso nel codice dell'app. Le parentesi quadre dei pesi
+delle risposte, che contengono un numero solo, non si confondono con questa:
+la marca del genere contiene sempre due barre verticali.
 
 ---
 
 ## Conteggio per elemento, per chi scrive il codice
 
-Fuoco 28, terra 33, aria 29, acqua 25, libere 5. Totale 120.
+Fuoco 27, terra 32, aria 26, acqua 30, libere 5. Totale 120.
+
+Contati sulle voci numerate da 1 a 120, senza contare le etichette che
+compaiono nella spiegazione qui sopra.
 
 Ogni elemento ha abbastanza voci perché la scelta delle otto non si ripeta mai
 sulla stessa persona e perché due persone dello stesso segno nate in giorni

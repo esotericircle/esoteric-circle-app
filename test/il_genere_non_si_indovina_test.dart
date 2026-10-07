@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
+import 'package:esoteric_circle/core/cerchio/il_ritratto.dart';
+import 'package:esoteric_circle/core/cerchio/il_testo_degli_enigmi.dart';
+import 'package:esoteric_circle/core/cerchio/la_prova.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/cammino/ritrovamento.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -260,5 +264,98 @@ void main() {
       expect(testo.contains(forma), isTrue,
           reason: 'la porta del genere ha perso "$forma"');
     }
+  });
+
+  // ORDINE FF AGGIUNTA 1, voce A3, 8 ottobre 2026. I due corpora degli Enigmi
+  // portano la marca del genere, e ogni loro testo passa dalla porta
+  // `IlTestoDegliEnigmi`: la forma dichiarata a chi ha compilato, il neutro
+  // in ogni indizio su un'altra persona. Il tratto 21: "Sono [quello|quella|
+  // la persona] che tiene i contatti del gruppo."
+  final ventuno = IlRitratto.tratto(21)!.testoMarcato;
+
+  test('FF.A3 a) un tratto marcato mostrato a una donna e\' al femminile', () {
+    expect(IlTestoDegliEnigmi.perChiCompila(ventuno, CourtesyForm.feminine),
+        'Sono quella che tiene i contatti del gruppo.');
+  });
+
+  test('FF.A3 b) lo stesso tratto mostrato a un uomo e\' al maschile', () {
+    expect(IlTestoDegliEnigmi.perChiCompila(ventuno, CourtesyForm.masculine),
+        'Sono quello che tiene i contatti del gruppo.');
+  });
+
+  test('FF.A3 c) come indizio su un\'altra persona porta sempre il neutro', () {
+    // Qualunque sia il genere di chi legge: la porta dell'indizio non lo
+    // riceve nemmeno, e la forma corrente dell'app non la tocca.
+    for (final forma in CourtesyForm.values) {
+      LaMarcaDelGenere.formaCorrente = forma;
+      expect(IlTestoDegliEnigmi.comeIndizio(ventuno),
+          'Sono la persona che tiene i contatti del gruppo.');
+    }
+    LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown;
+  });
+
+  test('FF.A3 d) un testo con una marca non risolta non arriva a video', () {
+    expect(() => IlTestoDegliEnigmi.comeIndizio('Sono [quello|quella] e basta'),
+        throwsA(isA<MarcaNonRisolta>()));
+    expect(
+        () => IlTestoDegliEnigmi.perChiCompila(
+            'Resto [solo|sola|in solitudine', CourtesyForm.feminine),
+        throwsA(isA<MarcaNonRisolta>()));
+    // E ogni testo dei due corpora, in ogni forma, esce pulito.
+    final testi = [
+      for (final t in IlRitratto.tutti) t.testoMarcato,
+      for (final tema in LaProva.temi) ...[
+        for (final d in tema.domande) ...[
+          d.testoMarcato,
+          for (final r in d.risposte) r.testoMarcato,
+        ],
+        for (final f in tema.fasce) f.testoMarcato,
+      ],
+    ];
+    cardinaleMinimo(testi.length, 120 + 6 * (12 + 48 + 4),
+        cosa: 'testi dei due corpora degli Enigmi',
+        perche: '120 tratti, sei temi da 12 domande, 48 risposte e 4 fasce');
+    for (final t in testi) {
+      for (final forma in CourtesyForm.values) {
+        final fuori = IlTestoDegliEnigmi.perChiCompila(t, forma);
+        expect(fuori.contains('[') || fuori.contains('|'), isFalse);
+      }
+      IlTestoDegliEnigmi.comeIndizio(t);
+    }
+  });
+
+  test('FF.A3 e) nei due corpora nessuna marca e\' malformata', () {
+    final colpe = <String>[];
+    var marche = 0;
+    for (final nome in ['Corpus_Il_Ritratto.md', 'Corpus_Le_Prove.md']) {
+      final testo = File('docs/corpus/$nome').readAsStringSync();
+      // Ogni quadra che porta una barra e' una marca: tre campi, nessuno
+      // vuoto, e sulla stessa riga (una marca spezzata dal markdown la legge
+      // male chiunque non la ricomponga).
+      for (final m in RegExp(r'\[[^\[\]]*\|[^\[\]]*\]').allMatches(testo)) {
+        marche++;
+        final campi =
+            m.group(0)!.substring(1, m.group(0)!.length - 1).split('|');
+        if (campi.length != 3 ||
+            campi.any((c) => c.trim().isEmpty) ||
+            m.group(0)!.contains('\n')) {
+          colpe.add('$nome: ${m.group(0)}');
+        }
+      }
+      // Una quadra aperta che non si chiude sulla sua riga.
+      for (final riga in testo.split('\n')) {
+        if ('['.allMatches(riga).length != ']'.allMatches(riga).length) {
+          colpe.add('$nome: quadre spaiate in "$riga"');
+        }
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE FF AGGIUNTA 1: marche nei due corpora $marche, malformate '
+        '${colpe.length}');
+    cardinaleMinimo(marche, 35,
+        cosa: 'marche dei due corpora',
+        perche: '13 nel Ritratto e 22 nelle Prove, contate l\'8 ottobre 2026 '
+            '(piu\' le due della spiegazione)');
+    expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 }

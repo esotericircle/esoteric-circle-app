@@ -24,6 +24,7 @@ BANCO_FILO = 'tool/banchi_col_modello/il_filo_del_consulto_col_modello_test.dart
 PROVA_VERDETTI = 'flutter test test/i_verdetti_del_filo_test.dart -r expanded'
 IPHONE = 'flutter test test/le_push_arrivano_su_iphone_test.dart -r expanded'
 PRESENZA = 'flutter test test/chi_esce_dal_cerchio_esce_dal_conto_test.dart -r expanded'
+GENERE = 'flutter test test/il_genere_non_si_indovina_test.dart -r expanded'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -92,6 +93,23 @@ INNESTI = [
      '      if (_passo != null) unawaited(_porta.esciDalCerchio());',
      '      // uscita tolta',
      PRESENZA, 'le scritture di una sessione di dieci minuti'),
+    # FF aggiunta 1, voce A3: la marca del genere nei corpora degli Enigmi.
+    ('F16', 'FF.A3', 'lib/core/cerchio/il_testo_degli_enigmi.dart',
+     '      _risolvi(testoMarcato, CourtesyForm.neutral);',
+     '      _risolvi(testoMarcato, CourtesyForm.feminine);',
+     GENERE, 'FF.A3 c)'),
+    ('F17', 'FF.A3', 'lib/core/cerchio/il_testo_degli_enigmi.dart',
+     '  static String perChiCompila(String testoMarcato, CourtesyForm forma) =>\n      _risolvi(testoMarcato, forma);',
+     '  static String perChiCompila(String testoMarcato, CourtesyForm forma) =>\n      _risolvi(testoMarcato, CourtesyForm.masculine);',
+     GENERE, 'FF.A3 a)'),
+    ('F18', 'FF.A3', 'lib/core/cerchio/il_testo_degli_enigmi.dart',
+     '      throw MarcaNonRisolta(testo);',
+     '      return fuori;',
+     GENERE, 'FF.A3 d)'),
+    ('F19', 'FF.A3', 'docs/corpus/Corpus_Il_Ritratto.md',
+     '29. Sono [quello|quella|la persona] che',
+     '29. Sono [quello|quella] che',
+     GENERE, 'FF.A3 e)'),
 ]
 
 
