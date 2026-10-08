@@ -336,6 +336,11 @@ flutter:
     # presenti: nessun ripiego dipinto.
     - assets/img/zodiac/
     - assets/img_thumb/zodiac/
+    # I dodici veli dorati del Real Time Cosmo, ordine FG parte 0: cotti e
+    # consegnati dall'Architetto l'8 ottobre 2026 dagli emblemi qui sopra, con
+    # la taratura dentro l'asset (specifica, sezione 14). Non si generano e
+    # non si ritoccano.
+    - assets/img/zodiac_velo/
     # Arte di scena del dominio di Caligo: il tamburo sciamanico dell'Animale
     # Guida, immagine unica, non una famiglia con miniatura.
     - assets/img/caligo/
