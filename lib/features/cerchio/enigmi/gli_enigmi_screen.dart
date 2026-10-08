@@ -304,62 +304,70 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
               : null,
         ),
       ],
+      // **IL NOME SOPRA, I GESTI SOTTO.** Visto sul Realme l'8 ottobre 2026:
+      // con Presagio e Lettura a due accanto, "Maurino: non l'ha ancora
+      // fatta" si spezzava su quattro righe. Il nome ha la sua riga intera.
       for (final a in v.amici)
         Padding(
           padding: const EdgeInsets.only(top: SpacingTokens.sm),
-          child: Row(children: [
-            Expanded(
-              child: Text(
-                  a.fatta
-                      ? '${a.nome}: ${_naturaDi(tema, a.punteggio)?.nomeInFrase ?? 'la Prova fatta'}'
-                      : a.scommessa != null
-                          ? '${a.nome}: hai presagito '
-                              '${NaturaDellaProva.diIndice(a.scommessa)?.nomeInFrase ?? 'la sua natura'}'
-                          : '${a.nome}: non l’ha ancora fatta',
-                  key: Key('enigmi_amico_${a.uid}'),
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textPrimary)),
-            ),
-            if (!a.fatta &&
-                a.scommessa == null &&
-                v.scommesse < v.scommesseAlGiorno)
-              TextButton(
-                key: Key('enigmi_presagio_${a.uid}'),
-                style: TextButton.styleFrom(
-                    foregroundColor: MaestroPalette.neutral.goldSoft),
-                onPressed: () async {
-                  final n = await _unaNatura(
-                      'Che natura senti in ${a.nome}?',
-                      'Prima che faccia la Prova, presagisci con quale dei '
-                          'quattro elementi vivrà la domanda del cielo.');
-                  if (n != null && mounted) {
-                    await _gesto(() =>
-                        context.read<IlCerchioSociale>().scommetti(a.uid, n));
-                  }
-                },
-                child: const Text('Presagio'),
-              ),
-            if (!a.fatta &&
-                v.provaFatta &&
-                v.puoiSfidare &&
-                !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))
-              TextButton(
-                key: Key('enigmi_lettura_${a.uid}'),
-                style: TextButton.styleFrom(
-                    foregroundColor: MaestroPalette.neutral.goldSoft),
-                onPressed: () async {
-                  final n = await _unaNatura(
-                      'Lettura a due con ${a.nome}',
-                      'Ciascuno presagisce la natura dell’altro nella Prova '
-                          'di questa settimana. Ventiquattro ore.');
-                  if (n != null && mounted) {
-                    await _gesto(
-                        () => context.read<IlCerchioSociale>().sfida(a.uid, n));
-                  }
-                },
-                child: const Text('Lettura a due'),
-              ),
-          ]),
+          child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: SpacingTokens.sm,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                      a.fatta
+                          ? '${a.nome}: ${_naturaDi(tema, a.punteggio)?.nomeInFrase ?? 'la Prova fatta'}'
+                          : a.scommessa != null
+                              ? '${a.nome}: hai presagito '
+                                  '${NaturaDellaProva.diIndice(a.scommessa)?.nomeInFrase ?? 'la sua natura'}'
+                              : '${a.nome}: non l’ha ancora fatta',
+                      key: Key('enigmi_amico_${a.uid}'),
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textPrimary)),
+                ),
+                if (!a.fatta &&
+                    a.scommessa == null &&
+                    v.scommesse < v.scommesseAlGiorno)
+                  TextButton(
+                    key: Key('enigmi_presagio_${a.uid}'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: MaestroPalette.neutral.goldSoft),
+                    onPressed: () async {
+                      final n = await _unaNatura(
+                          'Che natura senti in ${a.nome}?',
+                          'Prima che faccia la Prova, presagisci con quale dei '
+                              'quattro elementi vivrà la domanda del cielo.');
+                      if (n != null && mounted) {
+                        await _gesto(() => context
+                            .read<IlCerchioSociale>()
+                            .scommetti(a.uid, n));
+                      }
+                    },
+                    child: const Text('Presagio'),
+                  ),
+                if (!a.fatta &&
+                    v.provaFatta &&
+                    v.puoiSfidare &&
+                    !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))
+                  TextButton(
+                    key: Key('enigmi_lettura_${a.uid}'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: MaestroPalette.neutral.goldSoft),
+                    onPressed: () async {
+                      final n = await _unaNatura(
+                          'Lettura a due con ${a.nome}',
+                          'Ciascuno presagisce la natura dell’altro nella Prova '
+                              'di questa settimana. Ventiquattro ore.');
+                      if (n != null && mounted) {
+                        await _gesto(() =>
+                            context.read<IlCerchioSociale>().sfida(a.uid, n));
+                      }
+                    },
+                    child: const Text('Lettura a due'),
+                  ),
+              ]),
         ),
       if (v.sfide.isNotEmpty) ...[
         const SezioneDegliEnigmi('Le letture a due aperte'),

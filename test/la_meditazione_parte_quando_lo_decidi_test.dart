@@ -156,6 +156,26 @@ void main() {
   });
 
   testWidgets(
+      '8 ottobre: scelta un\'altra frequenza, la riga del giorno non dice '
+      'piu\' il suo numero', (tester) async {
+    // Visto sul Realme: scelta la 432 dal menu, la riga diceva ancora "i 639
+    // hertz. È la frequenza di questa sessione".
+    await monta(tester);
+    final riga = find.byKey(const Key('meditation_perche_la_frequenza'));
+    expect(riga, findsOneWidget,
+        reason: 'con la frequenza del giorno la riga del perche\' c\'e\'');
+    final menu = find.byKey(const Key('meditazione_scelta_frequenza'));
+    await tester.ensureVisible(menu);
+    await tester.tap(menu);
+    await attendiIlMenu(tester);
+    await tester
+        .tap(find.byKey(const Key('meditazione_frequenza_calm432')).last);
+    await attendiIlMenu(tester);
+    expect(riga, findsNothing,
+        reason: 'scelta la 432 la riga dice ancora la frequenza del giorno');
+  });
+
+  testWidgets(
       'la frequenza si sceglie da UN controllo solo: le bolle non ci '
       'sono piu', (tester) async {
     await monta(tester);

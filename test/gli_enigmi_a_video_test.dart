@@ -492,6 +492,12 @@ void main() {
     await finoA(t, find.byKey(const Key('enigmi_amico_u-selene')));
     expect(find.byKey(const Key('enigmi_lettura_u-selene')), findsNothing);
     expect(find.byKey(const Key('enigmi_lettura_u-orione')), findsOneWidget);
+    // Il nome sopra, i gesti sotto (Realme, 8 ottobre: "Maurino: non l'ha
+    // ancora fatta" spezzato su quattro righe dai due pulsanti accanto).
+    final nome = t.getRect(find.byKey(const Key('enigmi_amico_u-orione')));
+    final gesto = t.getRect(find.byKey(const Key('enigmi_lettura_u-orione')));
+    expect(gesto.top, greaterThanOrEqualTo(nome.bottom - 1),
+        reason: 'i gesti stanno accanto al nome e lo stringono');
     final presagio = find.byKey(const Key('enigmi_presagio_u-selene'));
     await finoA(t, presagio);
     await t.tap(presagio);

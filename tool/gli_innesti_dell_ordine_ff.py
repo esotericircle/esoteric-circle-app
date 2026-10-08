@@ -272,6 +272,15 @@ INNESTI = [
      "        File('${cartella.path}/cerchio_tono_${_alternaIlTono++ % 2}');",
      'flutter test test/il_tono_su_iphone_e_un_file_wav_test.dart -r expanded',
      'su iPhone il tono'),
+    ('F56', 'FUORI ORDINE', 'lib/features/maestri/aura/meditation/meditation_screen.dart',
+     "                      if (_praticaScelta == null &&\n                          _preset ==\n",
+     "                      if (_praticaScelta == null ||\n                          _preset ==\n",
+     'flutter test test/la_meditazione_parte_quando_lo_decidi_test.dart -r expanded',
+     "la riga del giorno non dice"),
+    ('F57', 'FF.05', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
+     "                  width: double.infinity,\n",
+     "                  width: 160,\n",
+     VIDEO, 'il presagio sceglie una natura'),
 ]
 
 

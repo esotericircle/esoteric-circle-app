@@ -849,7 +849,15 @@ class _MeditationScreenState extends State<MeditationScreen>
                       // e adattarla vorrebbe dire farle dire una cosa che non
                       // sa. Quando la scelta e' di chi guarda, a parlare resta
                       // la riga della pratica scelta, che dice il vero.
-                      if (_praticaScelta == null)
+                      //
+                      // **E NEMMENO QUANDO SI SCEGLIE UNA FREQUENZA DAL MENU'.**
+                      // Visto sul Realme l'8 ottobre 2026: scelta la 432, la
+                      // riga diceva ancora "i 639 hertz. È la frequenza di
+                      // questa sessione". Resta solo finche' suona la
+                      // frequenza del centro di oggi; il menu' dice l'altra.
+                      if (_praticaScelta == null &&
+                          _preset ==
+                              MeditationPreset.perCentro(_indiceDelCentro))
                         ParagrafiDiLettura(
                           testo: FrequenzaDelGiorno.perche(
                               widget.now ?? DateTime.now()),
