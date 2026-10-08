@@ -107,25 +107,10 @@ abstract final class IPianetiDiMeeus {
   /// in tempo dinamico. [corpo] e' uno fra mercurio, venere, marte, giove,
   /// saturno, urano, nettuno, plutone.
   static double longitudine(String corpo, double jde) {
-    final terra = _terra(jde);
-    final ct = math.cos(terra.b);
-    final x0 = terra.r * ct * math.cos(terra.l);
-    final y0 = terra.r * ct * math.sin(terra.l);
-    final z0 = terra.r * math.sin(terra.b);
-    var x = 0.0, y = 0.0, z = 0.0;
-    var tau = 0.0;
-    // Il tempo di luce, iterato (Meeus 33.3): due giri bastano al decimo di
-    // secondo d'arco anche per Mercurio.
-    for (var giro = 0; giro < 3; giro++) {
-      final p = _eliocentrica(corpo, jde - tau);
-      final cb = math.cos(p.b);
-      x = p.r * cb * math.cos(p.l) - x0;
-      y = p.r * cb * math.sin(p.l) - y0;
-      z = p.r * math.sin(p.b) - z0;
-      tau = _luce * math.sqrt(x * x + y * y + z * z);
-    }
-    final lambda = math.atan2(y, x);
-    final beta = math.atan2(z, math.sqrt(x * x + y * y));
+    final g = _geocentrica(corpo, jde);
+    final terra = g.terra;
+    final lambda = g.lambda;
+    final beta = g.beta;
     final t = (jde - 2451545.0) / 36525.0;
     // L'aberrazione, Meeus 23.2, col Sole visto dalla Terra.
     final e = 0.016708634 - t * (0.000042037 + t * 0.0000001267);
@@ -143,6 +128,46 @@ abstract final class IPianetiDiMeeus {
         (aberrazione + fk5) / 3600.0 +
         LaLunaIntera.nutazioneInLongitudine(jde);
     return _norm(gradi);
+  }
+
+  /// Latitudine eclittica geocentrica di un pianeta, in gradi, per il giorno
+  /// giuliano [jde] in tempo dinamico, col tempo di luce (Meeus 33.3) e
+  /// senza le correzioni di secondi d'arco (aberrazione e FK5 sulla beta
+  /// restano sotto il secondo e mezzo). Ordine FG parte 2: il cielo del Real
+  /// Time Cosmo disegna i pianeti dove sono, e con la sola longitudine
+  /// Plutone sbaglierebbe fino a diciassette gradi.
+  static double latitudine(String corpo, double jde) =>
+      _geocentrica(corpo, jde).beta / _grad;
+
+  /// La posizione geocentrica geometrica di un pianeta, col tempo di luce:
+  /// la parte comune a [longitudine] e [latitudine].
+  static ({
+    double lambda,
+    double beta,
+    ({double l, double b, double r}) terra
+  }) _geocentrica(String corpo, double jde) {
+    final terra = _terra(jde);
+    final ct = math.cos(terra.b);
+    final x0 = terra.r * ct * math.cos(terra.l);
+    final y0 = terra.r * ct * math.sin(terra.l);
+    final z0 = terra.r * math.sin(terra.b);
+    var x = 0.0, y = 0.0, z = 0.0;
+    var tau = 0.0;
+    // Il tempo di luce, iterato (Meeus 33.3): due giri bastano al decimo di
+    // secondo d'arco anche per Mercurio.
+    for (var giro = 0; giro < 3; giro++) {
+      final p = _eliocentrica(corpo, jde - tau);
+      final cb = math.cos(p.b);
+      x = p.r * cb * math.cos(p.l) - x0;
+      y = p.r * cb * math.sin(p.l) - y0;
+      z = p.r * math.sin(p.b) - z0;
+      tau = _luce * math.sqrt(x * x + y * y + z * z);
+    }
+    return (
+      lambda: math.atan2(y, x),
+      beta: math.atan2(z, math.sqrt(x * x + y * y)),
+      terra: terra,
+    );
   }
 
   /// Longitudine eclittica geocentrica apparente del Sole, in gradi [0, 360),

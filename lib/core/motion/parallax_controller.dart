@@ -511,7 +511,17 @@ class ParallaxController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **LA GRAVITA' GREZZA DELL'ULTIMA LETTURA**, in metri al secondo quadrato
+  /// negli assi del telefono. Ordine FG parte 2: il Real Time Cosmo ricava
+  /// l'orientamento assoluto da gravita' e bussola, e l'accelerometro ha una
+  /// porta sola (`test/lo_scuotimento_ha_una_porta_sola_test.dart`): la
+  /// lettura passa da qui invece di aprire un secondo ascolto. Nulla finche'
+  /// il sensore non ha mai risposto.
+  ({double x, double y, double z})? get gravitaGrezza => _gravitaGrezza;
+  ({double x, double y, double z})? _gravitaGrezza;
+
   void _onAccel(AccelerometerEvent e) {
+    _gravitaGrezza = (x: e.x, y: e.y, z: e.z);
     // La gravita' normalizzata su g, senza tagli: qui e' il riferimento da cui
     // si misura, non ancora un valore da mostrare.
     final gx = -e.x / 9.8;

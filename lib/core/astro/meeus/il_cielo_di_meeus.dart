@@ -125,6 +125,20 @@ abstract final class IlCieloDiMeeus {
     return LaLunaIntera.latitudine(jdUt);
   }
 
+  /// Latitudine eclittica geocentrica di [corpo], in gradi, al giorno
+  /// giuliano [jdUt] in tempo universale. Per il Sole e' zero (la beta del
+  /// Sole resta sotto il secondo d'arco), per la Luna e' Meeus 47.B, per i
+  /// pianeti la beta del VSOP87D col tempo di luce. Ordine FG parte 2: serve
+  /// a disegnare i pianeti dove sono e non sull'eclittica.
+  static double latitudine(CorpoCeleste corpo, double jdUt) {
+    _pretendi('la latitudine di ${corpo.nome}', jdUt);
+    return switch (corpo) {
+      CorpoCeleste.sole => 0.0,
+      CorpoCeleste.luna => LaLunaIntera.latitudine(jdUt),
+      _ => IPianetiDiMeeus.latitudine(corpo.name, effemeridi(jdUt)),
+    };
+  }
+
   /// Tutti i corpi a un istante, nell'ordine dell'enum.
   static Map<CorpoCeleste, double> tutte(double jdUt) => {
         for (final c in CorpoCeleste.values) c: longitudine(c, jdUt),

@@ -70,6 +70,21 @@ void main() {
     expect(peggio, lessThan(0.01));
   });
 
+  // Ordine FG parte 2: la latitudine dei pianeti, nuova nella porta. La fonte
+  // terza e' l'esempio 33.a di Meeus (Astronomical Algorithms, seconda
+  // edizione): Venere il 20 dicembre 1992 a 0h TD, latitudine apparente
+  // -2,08474 gradi. La porta da' la geometrica col tempo di luce, che
+  // dall'apparente differisce per l'aberrazione, sotto il secondo d'arco;
+  // la differenza fra 0h TD e 0h UT (circa 59 secondi) sposta Venere di
+  // meno di un decimillesimo di grado.
+  test('la latitudine di Venere e\' quella dell\'esempio 33.a di Meeus', () {
+    final beta = IlCieloDiMeeus.latitudine(CorpoCeleste.venere, 2448976.5);
+    expect((beta - -2.08474).abs(), lessThan(0.0005), reason: 'beta $beta');
+    expect(IlCieloDiMeeus.latitudine(CorpoCeleste.sole, 2448976.5), 0.0);
+    expect(IlCieloDiMeeus.latitudine(CorpoCeleste.luna, 2448976.5),
+        IlCieloDiMeeus.latitudineDellaLuna(2448976.5));
+  });
+
   test('c) fuori dall\'intervallo verificato la chiamata non gira', () {
     const prima = IlCieloDiMeeus.primoGiornoVerificato - 1;
     const dopo = IlCieloDiMeeus.ultimoGiornoVerificato;
