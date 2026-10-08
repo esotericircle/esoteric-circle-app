@@ -225,6 +225,31 @@ class TestiDelleFonti {
   ///
   /// La tradizione ha nomi e opere precise, e vanno dette: senza, il
   /// calcolo sembra una regola inventata dall'app.
+  /// Il Real Time Cosmo, ordine FG voce 1.9: l'attribuzione ad astronexus
+  /// che la licenza CC BY-SA 4.0 del catalogo chiede, la nota del World
+  /// Magnetic Model che il 17 U.S.C. 403 chiede, e i limiti dichiarati. Chi
+  /// apre il foglio ci aggiunge il disclaimer gia' in uso nell'app.
+  static const String realTimeCosmo =
+      'Le stelle vengono dal catalogo HYG v4.1 di astronexus (Hipparcos, '
+      'Yale, Gliese), github.com/astronexus/HYG-Database, distribuito con '
+      'licenza Creative Commons BY-SA 4.0. Il Cerchio ne usa le 5.070 stelle '
+      'fino alla sesta magnitudine; il file derivato è distribuito con la '
+      'stessa licenza.\n\n'
+      'Il Sole, la Luna e i pianeti vengono dal motore del cielo del Cerchio, '
+      'che segue gli Astronomical Algorithms di Jean Meeus con le serie '
+      'VSOP87. Le stelle stanno alle coordinate dell\'epoca J2000: la '
+      'precessione le sposta di poco più di un grado in un secolo, cioè di '
+      'qualche punto sullo schermo.\n\n'
+      'Il nord della bussola diventa nord vero con la declinazione magnetica '
+      'del World Magnetic Model 2025 della NOAA e del British Geological '
+      'Survey, materiale del governo degli Stati Uniti non soggetto a diritto '
+      'd\'autore. Il telefono non ha un orientamento già pronto: lo ricava '
+      'da gravità e bussola, che il ferro vicino può far sbagliare. Per '
+      'questo puoi esplorare sempre col dito e puoi riallineare la bussola '
+      'su un astro vero.\n\n'
+      'Le figure dorate dei segni sono arte del Cerchio. Le linee che uniscono '
+      'le stelle non ci sono: la figura le sostituisce.';
+
   static const String cartaDiNascita =
       'La Carta di nascita nasce nella linea della Golden Dawn, poi la '
       'codificano nella pratica moderna Angeles Arrien con The Tarot '

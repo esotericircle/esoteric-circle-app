@@ -146,6 +146,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // Il menu' delle notifiche, ordine BC voce 05: si apre dall'account ed e'
   // una schermata di regolazione, come le Impostazioni.
   'NotificheScreen': PresenzaDellaBarra.assente,
+  // Il Real Time Cosmo, ordine FG: la voce temporanea del menu e il cielo
+  // immersivo dei suoi tre modi. Si tolgono con la voce.
+  'RealTimeCosmoScreen': PresenzaDellaBarra.assente,
+  'CieloRealeScreen': PresenzaDellaBarra.assente,
   'ProfileScreen': PresenzaDellaBarra.assente,
   'PricingScreen': PresenzaDellaBarra.assente,
 };
