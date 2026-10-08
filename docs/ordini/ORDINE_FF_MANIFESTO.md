@@ -22,11 +22,11 @@ ordine (FF.10 e' la A1, FF.20 la A11): il lettore dei manifesti riconosce
 una voce dal suo numero. La A12 dice cosa non fare e non e' una voce.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 8
-VOCI_APERTE: 12
+VOCI_CHIUSE: 11
+VOCI_APERTE: 9
 VOCI_DA_FARE: 0
 
-**Perche' dodici restano aperte, e cosa le chiude.** Il codice e' scritto,
+**Perche' nove restano aperte, e cosa le chiude.** Il codice e' scritto,
 agganciato e provato, ma non e' ancora stato guardato sul telefono: le
 porte nuove del server (la presenza, il Ritratto, i giochi) non sono
 pubblicate, e il deploy delle funzioni lo fa il fondatore. Il fondatore ha
@@ -199,7 +199,7 @@ ACCETTAZIONE: so dove si sceglie la forma
 **CHIUSA.** La guardia legge la marca: cinque prove nuove, viste rosse.
 
 DOMANDA: "il suo dizionario non conosce le altre forme"
-PROVA: test/il_genere_non_si_indovina_test.dart e docs/collaudo/FF/regola_a_ff.txt
+PROVA: test/il_genere_non_si_indovina_test.dart
 MISURA: innesti rossi 4 su 4 (F16-F19); marche nei corpora 37, malformate 0; testi dei corpora risolti 504 in 4 forme, marche rimaste 0
 ACCETTAZIONE: so che una marca rotta non arriva a video
 
@@ -224,36 +224,37 @@ ACCETTAZIONE: so che le immagini sono quelle del fondatore
 
 ## VOCE FF.15, L'ARTE NUOVA NEL DOMINIO DI AURA
 
-**APERTA IN ATTESA DI VERIFICA.** `soglia_del_sonno` nel catalogo, nella
-sezione Energia di Aura dopo le Sleep Stories, nella stessa forma delle
-altre (id, titolo, teaser, icona, stato, fase, cornice). La chiude la
-cattura 03 sul telefono.
+**CHIUSA.** `soglia_del_sonno` nel catalogo, nella sezione Energia di Aura
+dopo le Sleep Stories, nella stessa forma delle altre (id, titolo, teaser,
+icona, stato, fase, cornice; nessun campo sottotitolo: la descrizione e' il
+teaser, sul retro della scheda). Vista sul Realme col pacchetto locale 2302
+l'8 ottobre 2026.
 
 DOMANDA: "serve mini ordine aggiuntivo per code per aggiungerlo alla home e al dominio di Aura"
-PROVA: test/la_soglia_del_sonno_test.dart
-MISURA: dominio di Aura in Energia 1 su 1; arti di Aura 24 -> 25
+PROVA: docs/collaudo/FF/soglia_del_sonno/03_il_dominio_di_aura.png
+MISURA: dominio di Aura in Energia 1 su 1, sul telefono dopo le Sleep Stories; arti di Aura 24 -> 25
 ACCETTAZIONE: so dove sta l'arte e quando la vedo
 
 ## VOCE FF.16, LA SCHEDA IN HOME
 
-**APERTA IN ATTESA DI VERIFICA.** Nella riga La tua serenità, accanto alle
-Sleep Stories, coi tre sfondi scelti dal formato della riga come per tutte.
-La chiudono le catture 01 e 02.
+**CHIUSA.** Nella riga La tua serenità, accanto alle Sleep Stories, coi tre
+sfondi scelti dal formato della riga come per tutte: orizzontale in home,
+verticale in Vedi tutto e nel dominio. Vista sul Realme.
 
 DOMANDA: "La scheda entra nella categoria La tua serenità della home"
-PROVA: test/la_soglia_del_sonno_test.dart
-MISURA: arti in home 67 -> 68; titoli composti 201 -> 204
+PROVA: docs/collaudo/FF/soglia_del_sonno/01_la_riga_della_home.png
+MISURA: arti in home 67 -> 68; titoli composti 201 -> 204; catture dal Realme 2 su 2
 ACCETTAZIONE: so dove la trovo in home
 
 ## VOCE FF.17, LO STATO COMING SOON
 
-**APERTA IN ATTESA DI VERIFICA.** In arrivo, Fase 3, con la clessidra
-dorata; al tocco si gira e dice "In arrivo, Fase 3", nessuna pagina. Senza
-velo grigio, come le altre (premessa abbattuta). La chiude la cattura 02.
+**CHIUSA.** In arrivo, Fase 3, con la clessidra dorata; al tocco si gira e
+dice "In arrivo, Fase 3", nessuna pagina. Senza velo grigio, come le altre
+(premessa abbattuta). Visto sul Realme.
 
 DOMANDA: "La scheda si vede, è disabilitata, in grigio o semitrasparenza, con la clessidra dorata in alto a sinistra"
-PROVA: test/la_soglia_del_sonno_test.dart
-MISURA: pagine aperte al tocco 0; clessidra 1 su 1
+PROVA: docs/collaudo/FF/soglia_del_sonno/02b_al_tocco_in_arrivo_fase_3.png
+MISURA: pagine aperte al tocco 0 sul telefono e nella prova; clessidra 1 su 1
 ACCETTAZIONE: so che si vede e non apre niente
 
 ## VOCE FF.18, I CENSIMENTI
@@ -262,7 +263,7 @@ ACCETTAZIONE: so che si vede e non apre niente
 dopo; `docs/stato_asset.json` non conta `assets/schede` e non cambia.
 
 DOMANDA: "Iscrivi l'arte nuova in ogni censimento trovato dalla P6"
-PROVA: test/gli_sfondi_delle_schede_test.dart e test/le_schede_della_home_e_i_loro_titoli_test.dart
+PROVA: test/gli_sfondi_delle_schede_test.dart
 MISURA: WebP 246 -> 249, usati 240 -> 243, sfondi 67 -> 68, arti in home 67 -> 68, titoli 201 -> 204, censimenti aggiornati 7
 ACCETTAZIONE: so che nessun conto resta falso
 
@@ -271,17 +272,23 @@ ACCETTAZIONE: so che nessun conto resta falso
 **CHIUSA.** Sei prove nuove, viste rosse.
 
 DOMANDA: "Guardie nuove, ciascuna vista rossa prima della cura"
-PROVA: test/la_soglia_del_sonno_test.dart e docs/collaudo/FF/regola_a_ff.txt
+PROVA: test/la_soglia_del_sonno_test.dart
 MISURA: innesti rossi 5 su 5 (F20-F24); sfondi uguali al fondatore 3 su 3
 ACCETTAZIONE: so che la scheda e' sorvegliata
 
 ## VOCE FF.20, LA PROVA DI VISTA
 
-**APERTA IN ATTESA DI VERIFICA.** Le sei catture dal telefono di collaudo.
-La 06 (un tratto come indizio) vuole una partita vera, quindi il deploy
-delle funzioni.
+**APERTA IN ATTESA DI VERIFICA.** Le catture 01, 02 e 03 vengono dal
+Realme col pacchetto locale 2302 (piu' la 02b, il tocco). Le 04, 05 e 06
+no: sul Realme il genere si dichiara solo nell'onboarding, e rifarlo
+cancellerebbe i dati del telefono di collaudo (571 momenti custoditi), e la
+06 vuole una partita vera, quindi il deploy. Dal Realme c'e' la forma che
+il profilo di collaudo ha, il neutro (07); la 04 (donna), la 05 (uomo) e la
+06 (indizio) sono anteprime a 360x797 della stessa schermata. Sul Realme si
+e' visto anche un difetto, il codice "NOT_FOUND" a video con la porta non
+pubblicata, curato (00).
 
 DOMANDA: "il giudizio visivo e' mio"
-PROVA: docs/collaudo/FF/regola_a_ff.txt
-MISURA: catture fatte 0 su 6
+PROVA: docs/collaudo/FF/genere/07_sul_realme_il_profilo_senza_genere_legge_il_neutro.png
+MISURA: catture dal telefono 3 su 6 (01, 02, 03), anteprime 3 su 6 (04, 05, 06); il neutro sul telefono 1 (07)
 ACCETTAZIONE: so quali catture mancano e perche'

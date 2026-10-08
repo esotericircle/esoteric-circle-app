@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/cerchio/i_tempi_dei_giochi.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
 import 'package:esoteric_circle/core/cerchio/il_ritratto.dart';
 import 'package:esoteric_circle/core/cerchio/le_icone_del_cerchio.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -97,6 +98,23 @@ void main() {
           .writeAsBytesSync(dati!.buffer.asUint8List());
       print('ORDINE FF ANTEPRIMA: ${dir.path}/$nome.png '
           '${img.width ~/ 3}x${img.height ~/ 3} punti');
+      img.dispose();
+    });
+  }
+
+  Future<void> scattaIn(
+      WidgetTester tester, String cartella, String nome) async {
+    if (!aggiorna) return;
+    await tester.runAsync(() async {
+      final rb =
+          radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
+      final img = await rb.toImage(pixelRatio: 3.0);
+      final dati = await img.toByteData(format: ui.ImageByteFormat.png);
+      final dir = Directory(cartella);
+      if (!dir.existsSync()) dir.createSync(recursive: true);
+      File('${dir.path}/$nome.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
+      print('ORDINE FF ANTEPRIMA: ${dir.path}/$nome.png');
       img.dispose();
     });
   }
@@ -357,6 +375,50 @@ void main() {
     expect(find.text('NOT_FOUND'), findsNothing);
     expect(
         find.textContaining('Il Cerchio non risponde adesso'), findsOneWidget);
+  });
+
+  // FF aggiunta 1 voce A11, le catture del genere: lo stesso tratto marcato
+  // (il 29, "Sono [quello|quella|la persona] che fa ridere") a una donna, a
+  // un uomo, e uscito come indizio su un'altra persona, nel neutro. Sul
+  // Realme il genere si dichiara solo nell'onboarding, e rifarlo
+  // cancellerebbe i dati del telefono di collaudo: le due forme dichiarate
+  // si mostrano qui, a 360x797, in docs/collaudo/FF/genere/.
+  for (final (forma, nome, attesa) in [
+    (
+      CourtesyForm.feminine,
+      '04_il_tratto_a_una_donna',
+      'Sono quella che fa ridere quando la situazione è tesa.'
+    ),
+    (
+      CourtesyForm.masculine,
+      '05_il_tratto_a_un_uomo',
+      'Sono quello che fa ridere quando la situazione è tesa.'
+    ),
+  ]) {
+    testWidgets('FF.A11 $nome', (t) async {
+      LaMarcaDelGenere.formaCorrente = forma;
+      addTearDown(() => LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown);
+      await monta(t,
+          const IlRitrattoScreen(tratti: [29, 21, 30, 37, 75], proposte: []));
+      expect(find.text(attesa), findsOneWidget);
+      await scattaIn(t, 'docs/collaudo/FF/genere', nome);
+    });
+  }
+
+  testWidgets('FF.A11 06 lo stesso tratto come indizio, nel neutro', (t) async {
+    LaMarcaDelGenere.formaCorrente = CourtesyForm.masculine;
+    addTearDown(() => LaMarcaDelGenere.formaCorrente = CourtesyForm.unknown);
+    await monta(
+        t,
+        LIndovinelloScreen(
+            partita: PartitaDellEnigma.da(GliEnigmiFinti.partita(indizi: const [
+          {'fonte': 'ritratto', 'valore': '29'},
+        ]))));
+    expect(
+        find.text('1. «Sono la persona che fa ridere quando la situazione è '
+            'tesa»'),
+        findsOneWidget);
+    await scattaIn(t, 'docs/collaudo/FF/genere', '06_il_tratto_come_indizio');
   });
 }
 
