@@ -74,6 +74,30 @@ export interface Volto extends DatiDellaPersona {
   archetipo?: string | null;
 }
 
+/**
+ * **CHI PUO' COMPARIRE NEI GIOCHI DEGLI ALTRI**, voce FF.04.4: chi ha il
+ * Ritratto compilato, non ha spento l'interruttore e ha quattordici anni.
+ */
+export function puoComparire(p: {ritratto: unknown; fuoriDaiGiochi?: unknown;
+  quattordici: boolean}): boolean {
+  return ritrattoValido(p.ritratto) !== null && p.fuoriDaiGiochi !== true &&
+    p.quattordici;
+}
+
+/**
+ * **LA SCOMMESSA SI PIAZZA FINCHE' L'AMICO NON HA FATTO LA PROVA**, voce
+ * FF.05.3: dopo e' tardi e si vede il punteggio. Una sola per amico a
+ * settimana, e dentro il limite del giorno.
+ */
+export function scommessaAmmessa(a: {provaDellAmico: boolean; gia: boolean;
+  usateOggi: number; limite: number}):
+  "ok" | "tardi" | "gia" | "limite" {
+  if (a.provaDellAmico) return "tardi";
+  if (a.gia) return "gia";
+  if (a.usateOggi >= a.limite) return "limite";
+  return "ok";
+}
+
 /** I tipi di domanda: tutte con la risposta da un dato vero. */
 export type TipoDiDomanda = "tratto" | "elemento" | "archetipo" | "animale";
 

@@ -1,5 +1,6 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
 import {
   domandeDellaSettimana,
   esitoDellaSfida,
@@ -13,10 +14,12 @@ import {
   numeroDellaSettimana,
   piuVicini,
   punteggioDi,
+  puoComparire,
   quattroVolti,
   rispostaDellIndovinello,
   ritrattoValido,
   SCOMMESSE_AL_GIORNO,
+  scommessaAmmessa,
   settimanaValida,
   sfidaPerIlPiano,
   Volto,
@@ -140,4 +143,46 @@ test("FF.06 la meta del Pellegrinaggio non si raggiunge da soli", () => {
   assert.equal(lunaValida("2026-10-26", "2026-10-20"), "2026-10-26");
   assert.equal(lunaValida("2026-10-27", "2026-10-20"), null);
   assert.equal(lunaValida("2026-10-19", "2026-10-20"), null);
+});
+
+test("FF.04 c) chi spegne l'interruttore non compare in nessun gioco, su un Cerchio di otto", () => {
+  const otto = Array.from({length: 8}, (_, i) => ({
+    uid: `p${i}`,
+    ritratto: Array.from({length: 20}, (_, k) => k + 1),
+    // Due persone si sono tolte dai giochi, una non ha il Ritratto.
+    fuoriDaiGiochi: i === 2 || i === 5,
+    quattordici: true,
+  }));
+  otto[7].ritratto = [1, 2, 3];
+  const candidati = otto.filter((p) => puoComparire(p));
+  assert.deepEqual(candidati.map((p) => p.uid), ["p0", "p1", "p3", "p4", "p6"]);
+  const viste = new Set<string>();
+  for (let s = 0; s < 200; s++) {
+    for (const v of quattroVolti(candidati, `seme-${s}`)) viste.add(v.uid);
+  }
+  for (const fuori of ["p2", "p5", "p7"]) assert.ok(!viste.has(fuori), fuori);
+  assert.equal(puoComparire({ritratto: otto[0].ritratto, quattordici: false}), false);
+});
+
+test("FF.05 d) la scommessa non si piazza dopo che l'amico ha fatto la Prova", () => {
+  assert.equal(scommessaAmmessa({provaDellAmico: true, gia: false, usateOggi: 0, limite: 3}), "tardi");
+  assert.equal(scommessaAmmessa({provaDellAmico: false, gia: true, usateOggi: 0, limite: 3}), "gia");
+  assert.equal(scommessaAmmessa({provaDellAmico: false, gia: false, usateOggi: 1, limite: 1}), "limite");
+  assert.equal(scommessaAmmessa({provaDellAmico: false, gia: false, usateOggi: 0, limite: 1}), "ok");
+});
+
+test("FF.04 d) cio' che viaggia verso chi e' indovinato non porta chi indovina", () => {
+  // La porta scrive nel ramo dell'indovinato solo il numero e il segno: la
+  // misura legge la scrittura vera nel sorgente della porta.
+  const porta = readFileSync("src/il_cerchio_sociale.ts", "utf8");
+  const i = porta.indexOf("tx.set(statoDi(giustaUid, \"indovinato\")");
+  assert.ok(i > 0, "la scrittura del ritorno non si trova");
+  const scrittura = porta.slice(i, porta.indexOf("{merge: true});", i));
+  assert.ok(!/\buid\b/.test(scrittura.replace("giustaUid", "")),
+    `il ritorno porta un identificativo: ${scrittura}`);
+  assert.ok(scrittura.includes("io.segno"));
+  // E la partita che torna a chi gioca non porta il Ritratto fotografato.
+  const vista = porta.slice(porta.indexOf("function vistaDellaPartita"),
+    porta.indexOf("export const scopriUnSegno"));
+  assert.ok(!vista.includes("dati"), "la vista della partita porta il Ritratto altrui");
 });

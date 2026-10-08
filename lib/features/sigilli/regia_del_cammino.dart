@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/natal_chart_controller.dart';
+import '../../core/cerchio/i_tempi_dei_giochi.dart';
+import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/viaggio/i_quattro_viaggi.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/misura/misura_del_ritorno.dart';
@@ -123,6 +125,20 @@ class RegiaDelCammino {
       // chiuso, che e' il vincolo di questa voce.
       RegistroDelRitorno.segnalo(EventoDelRitorno.ritoCompiuto,
           contesto: gesto);
+      // **UN PASSO DEL PELLEGRINAGGIO, ordine FF voce 06.2**: nella
+      // settimana che porta alla luna piena ogni rito compiuto porta il
+      // Cerchio avanti di un passo. Il server ne conta uno al giorno per
+      // persona; senza il Cerchio montato (le prove) non si fa niente.
+      final adesso = DateTime.now();
+      if (ITempiDeiGiochi.eIlTempoDelPellegrinaggio(adesso)) {
+        final luna = ITempiDeiGiochi.prossimaLunaPiena(adesso);
+        try {
+          final sociale = context.read<IlCerchioSociale>();
+          if (luna != null) unawaited(sociale.unPassoDelPellegrinaggio(luna));
+        } catch (senzaIlCerchio) {
+          // Nessun Cerchio nell'albero: il passo non si conta.
+        }
+      }
     }
     // **SULLA FESTA SUONA UNA VOCE SOLA, e non e' quella del responso.**
     // Ordine CO voce 03, 3 settembre 2026.

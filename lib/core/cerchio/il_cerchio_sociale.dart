@@ -10,6 +10,7 @@ import '../brand/brand.dart';
 import '../condivisione/porta_della_condivisione.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
+import 'gli_enigmi_del_cerchio.dart';
 import 'il_nome_iniziatico.dart';
 import 'le_icone_del_cerchio.dart';
 import 'l_arte_di_adesso.dart';
@@ -359,6 +360,11 @@ class EsitoDelGesto {
   final bool ok;
   final String? riga;
   final Map<String, Object?> dati;
+
+  /// **IL MOTIVO DEL RIFIUTO**, scritto dal server come parola chiave
+  /// (`limite`, `eos`, `ritratto`, ...): mai mostrato, letto in un punto solo.
+  String? get motivo => dati[_chiaveDelMotivo] as String?;
+  static const String _chiaveDelMotivo = 'perche';
 
   /// **IL RIPIEGO DICHIARATO**: senza rete o con la funzione non ancora
   /// pubblicata il gesto non parte, e la persona lo legge.
@@ -944,6 +950,109 @@ class IlCerchioSociale extends ChangeNotifier {
   /// **CHI SE NE VA PORTA VIA ANCHE IL SUO CERCHIO**: il profilo, gli
   /// amici, i segni in memoria, il codice del link, il nome proposto e il
   /// Maestro di riferimento. Sul server se ne vanno con la cancellazione.
+  // --- GLI ENIGMI DEL CERCHIO, ordine FF ----------------------------------
+  //
+  // Le porte della parte E del server. I dati arrivano come identificativi e
+  // numeri; le parole le compone `gli_enigmi_del_cerchio.dart`.
+
+  /// **IL TUO RITRATTO E LE TUE SCELTE SUI GIOCHI**: senza argomenti li
+  /// legge, coi campi li scrive. Il Ritratto si scrive solo intero.
+  Future<EsitoDelGesto> ilMioRitratto({
+    List<int>? tratti,
+    bool? fuoriDaiGiochi,
+    String? archetipo,
+    bool togliArchetipo = false,
+    String? animale,
+    bool togliAnimale = false,
+  }) async =>
+      _esito(await _chiedi('ilMioRitratto', {
+        if (tratti != null) 'tratti': tratti,
+        if (fuoriDaiGiochi != null) 'fuoriDaiGiochi': fuoriDaiGiochi,
+        if (archetipo != null || togliArchetipo) 'archetipo': archetipo,
+        if (animale != null || togliAnimale) 'animale': animale,
+      }));
+
+  /// La vista d'insieme degli Enigmi. [lunaPiena] e' la luna piena che chiude
+  /// il Pellegrinaggio, dalla porta unica del cielo: il server non ne ha una
+  /// sua.
+  Future<VistaDegliEnigmi?> gliEnigmi({DateTime? lunaPiena}) async {
+    final e = await _chiedi('gliEnigmi', {
+      if (lunaPiena != null) 'luna': _giorno(lunaPiena),
+    });
+    if (e == null || e.rifiutato) return null;
+    return VistaDegliEnigmi.da(e.dati);
+  }
+
+  static String _giorno(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  /// Apre un indovinello di Chi del Cerchio.
+  Future<EsitoDelGesto> apriUnIndovinello() async =>
+      _esito(await _chiedi('unIndovinello', {
+        'azione': 'apri',
+        'partita': PortaDelCerchio.nuovoIdentificativo('partita'),
+      }));
+
+  /// Il primo indizio di ogni partita e' gratis.
+  Future<EsitoDelGesto> ilPrimoIndizio(String partita) => _indizio(partita);
+
+  /// Dal secondo indizio, cinque Eos: pretende il consenso della conferma.
+  Future<EsitoDelGesto> unIndizioInPiu(String partita,
+          {required ConsensoDellaSpesa consenso}) =>
+      _indizio(partita);
+
+  Future<EsitoDelGesto> _indizio(String partita) async => _esito(await _chiedi(
+      'unIndovinello', {'azione': 'indizio', 'partita': partita}));
+
+  /// La risposta: [scelta] e' l'identificativo del volto toccato.
+  Future<EsitoDelGesto> rispondiAllIndovinello(
+          String partita, String scelta) async =>
+      _esito(await _chiedi('unIndovinello',
+          {'azione': 'rispondi', 'partita': partita, 'scelta': scelta}));
+
+  /// Il segno di chi ti ha indovinato: venti Eos, col consenso.
+  Future<EsitoDelGesto> scopriUnSegno(String chiave,
+          {required ConsensoDellaSpesa consenso}) async =>
+      _esito(await _chiedi('scopriUnSegno', {
+        'chiave': chiave,
+        'idMovimento': PortaDelCerchio.nuovoIdentificativo('segno'),
+      }));
+
+  /// Consegna la Prova: [scelte] sono le posizioni delle risposte nel corpus.
+  Future<EsitoDelGesto> consegnaLaProva(int tema, List<int> scelte) async =>
+      _esito(await _chiedi(
+          'laProva', {'azione': 'consegna', 'tema': tema, 'scelte': scelte}));
+
+  /// Scommette sul punteggio di un amico, finche' non ha fatto la Prova.
+  Future<EsitoDelGesto> scommetti(String amico, int valore) async =>
+      _esito(await _chiedi('laProva',
+          {'azione': 'scommetti', 'amico': amico, 'valore': valore}));
+
+  /// Sfida un amico sulla Prova: [stima] e' il punteggio che gli dai.
+  Future<EsitoDelGesto> sfida(String amico, int stima) async =>
+      _esito(await _chiedi('laProva', {
+        'azione': 'sfida',
+        'amico': amico,
+        'valore': stima,
+        'sfida': PortaDelCerchio.nuovoIdentificativo('sfida'),
+      }));
+
+  /// Risponde a una sfida: la stima del punteggio di chi ti ha sfidato.
+  Future<EsitoDelGesto> rispondiAllaSfida(
+          String sfida, String amico, int stima) async =>
+      _esito(await _chiedi('laProva', {
+        'azione': 'rispondiAllaSfida',
+        'sfida': sfida,
+        'amico': amico,
+        'valore': stima,
+      }));
+
+  /// Un passo del Pellegrinaggio, dopo un rito compiuto nella settimana che
+  /// porta alla luna piena.
+  Future<EsitoDelGesto> unPassoDelPellegrinaggio(DateTime lunaPiena) async =>
+      _esito(await _chiedi(
+          'unPassoDelPellegrinaggio', {'luna': _giorno(lunaPiena)}));
+
   Future<void> dimenticaChiSeNeVa() async {
     _profilo = null;
     _cerchio = const IlMioCerchio();

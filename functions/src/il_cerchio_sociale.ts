@@ -40,9 +40,11 @@ import {
   metaDelPellegrinaggio,
   piuVicini,
   punteggioDi,
+  puoComparire,
   quattroVolti,
   rispostaDellIndovinello,
   ritrattoValido,
+  scommessaAmmessa,
   sfidaPerIlPiano,
 } from "./gli_enigmi";
 import {
@@ -1761,11 +1763,12 @@ async function amiciNeiGiochi(uid: string): Promise<string[]> {
 async function voltoDi(uid: string): Promise<Volto | null> {
   const [r, g, i] = await Promise.all([statoDi(uid, "ritratto").get(),
     statoDi(uid, "giochi").get(), statoDi(uid, "identita").get()]);
-  const tratti = ritrattoValido(r.data()?.tratti);
-  if (tratti === null) return null;
-  if (g.data()?.fuoriDaiGiochi === true) return null;
   const io = identitaDa(i.data());
-  if (!io.quattordici) return null;
+  if (!puoComparire({ritratto: r.data()?.tratti,
+    fuoriDaiGiochi: g.data()?.fuoriDaiGiochi, quattordici: io.quattordici})) {
+    return null;
+  }
+  const tratti = ritrattoValido(r.data()?.tratti) as number[];
   return {
     uid,
     ritratto: tratti.map(String),
@@ -2029,7 +2032,7 @@ export const unIndovinello = onCall(OPZIONI_SOCIALI, async (request) => {
           {causale: "spesa", motivo: "indizio_del_cerchio", importo: -costo,
             saldoDopo: saldo - costo, quando: FieldValue.serverTimestamp()});
       }
-      return {ok: true, indizio, n, costo,
+      return {ok: true, indizio, n, costo, saldo: saldo - costo,
         costoProssimo: n < INDIZI_MASSIMI ? costoDellIndizio(n + 1) : null};
     });
     return esito;
@@ -2144,7 +2147,8 @@ export const scopriUnSegno = onCall(OPZIONI_SOCIALI, async (request) => {
       importo: -PREZZO_DEL_SEGNO, saldoDopo: saldo - PREZZO_DEL_SEGNO,
       quando: FieldValue.serverTimestamp()});
     const dopo = {...per, [chiave]: {...voce, rivelati: rivelati + 1}};
-    return {ok: true, gia: false, ritorno: ilRitornoDi({perDomanda: dopo})};
+    return {ok: true, gia: false, saldo: saldo - PREZZO_DEL_SEGNO,
+      ritorno: ilRitornoDi({perDomanda: dopo})};
   });
 });
 
@@ -2246,11 +2250,12 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
         tx.get(PROVA(amico, settimana)), tx.get(ref),
         tx.get(statoDi(uid, "enigmi"))]);
       // Dopo e' tardi: il punteggio si vede, e la scommessa non si piazza.
-      if (suaProva.exists) return {ok: false, perche: "tardi"};
-      if (gia.exists) return {ok: false, perche: "gia"};
       const c = contatoriDeiGiochi(stato.data(), oggi);
-      if (c.scommesse >= SCOMMESSE_AL_GIORNO[piano]) {
-        return {ok: false, perche: "limite", limite: SCOMMESSE_AL_GIORNO[piano]};
+      const ammessa = scommessaAmmessa({provaDellAmico: suaProva.exists,
+        gia: gia.exists, usateOggi: c.scommesse,
+        limite: SCOMMESSE_AL_GIORNO[piano]});
+      if (ammessa !== "ok") {
+        return {ok: false, perche: ammessa, limite: SCOMMESSE_AL_GIORNO[piano]};
       }
       tx.set(ref, {da: uid, amico, settimana, valore, quando: Date.now(),
         vinta: null});

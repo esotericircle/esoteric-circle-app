@@ -110,6 +110,12 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'ScegliDallaRubricaScreen': PresenzaDellaBarra.assente,
   'SchedaDellAmicoScreen': PresenzaDellaBarra.assente,
   'ConfrontoDelCieloScreen': PresenzaDellaBarra.assente,
+  // GLI ENIGMI DEL CERCHIO, ordine FF: si aprono dal Cerchio, come lui
+  // senza barra.
+  'GliEnigmiScreen': PresenzaDellaBarra.assente,
+  'IlRitrattoScreen': PresenzaDellaBarra.assente,
+  'LIndovinelloScreen': PresenzaDellaBarra.assente,
+  'LaProvaScreen': PresenzaDellaBarra.assente,
   'SkyOverviewScreen': PresenzaDellaBarra.assente,
   'AngelsScreen': PresenzaDellaBarra.assente,
   'SinastriaGalleryScreen': PresenzaDellaBarra.assente,

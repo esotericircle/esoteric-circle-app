@@ -88,9 +88,9 @@ Il Viaggio dello Sciamano      orizzontale 137 punti  2 righe  "Il Viaggio dello
 Rituali Guidati Interattivi    verticale   128 punti  2 righe  "Rituali Guidati / Interattivi"
 Rituali Guidati Interattivi    quadrata    128 punti  2 righe  "Rituali Guidati / Interattivi"
 Rituali Guidati Interattivi    orizzontale 137 punti  2 righe  "Rituali Guidati / Interattivi"
-Oroscopo Personalizzato        verticale   128 punti  2 righe  "Oroscopo / Personalizzato"
-Oroscopo Personalizzato        quadrata    128 punti  2 righe  "Oroscopo / Personalizzato"
-Oroscopo Personalizzato        orizzontale 137 punti  2 righe  "Oroscopo / Personalizzato"
+Oroscopo Universale            verticale   128 punti  2 righe  "Oroscopo / Universale"
+Oroscopo Universale            quadrata    128 punti  2 righe  "Oroscopo / Universale"
+Oroscopo Universale            orizzontale 137 punti  2 righe  "Oroscopo / Universale"
 Human Design                   verticale   128 punti  1 righe  "Human Design"
 Human Design                   quadrata    128 punti  1 righe  "Human Design"
 Human Design                   orizzontale 137 punti  1 righe  "Human Design"
@@ -181,6 +181,9 @@ Sinastria NFC e QR             orizzontale 137 punti  2 righe  "Sinastria NFC e 
 Sleep Stories                  verticale   128 punti  1 righe  "Sleep Stories"
 Sleep Stories                  quadrata    128 punti  1 righe  "Sleep Stories"
 Sleep Stories                  orizzontale 137 punti  1 righe  "Sleep Stories"
+La Soglia del Sonno            verticale   128 punti  2 righe  "La Soglia del / Sonno"
+La Soglia del Sonno            quadrata    128 punti  2 righe  "La Soglia del / Sonno"
+La Soglia del Sonno            orizzontale 137 punti  2 righe  "La Soglia del / Sonno"
 Specchio dell'Anima            verticale   128 punti  2 righe  "Specchio / dell'Anima"
 Specchio dell'Anima            quadrata    128 punti  2 righe  "Specchio / dell'Anima"
 Specchio dell'Anima            orizzontale 137 punti  2 righe  "Specchio / dell'Anima"
@@ -203,7 +206,7 @@ Cosmic Voice Analysis          verticale   128 punti  2 righe  "Cosmic Voice / A
 Cosmic Voice Analysis          quadrata    128 punti  2 righe  "Cosmic Voice / Analysis"
 Cosmic Voice Analysis          orizzontale 137 punti  2 righe  "Cosmic Voice / Analysis"
 
-Arti della home: 67. Titoli composti: 201.
-Titoli su piu' di due righe: 0 su 201.
-Titoli con una riga fuori dalla scheda (tagliati): 0 su 201.
+Arti della home: 68. Titoli composti: 204.
+Titoli su piu' di due righe: 0 su 204.
+Titoli con una riga fuori dalla scheda (tagliati): 0 su 204.
 Titoli andati a capo col trattino: 4 [Astrocartografia (verticale), Astrocartografia (quadrata), Calendario Lunare Personale (verticale), Calendario Lunare Personale (quadrata)]

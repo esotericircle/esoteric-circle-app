@@ -87,6 +87,19 @@ class Esenzione {
 /// un'esenzione rimasta su un numero sbagliato esentava in silenzio una riga
 /// qualunque. Undici esenzioni prima, undici dopo.
 const esenzioni = <Esenzione>[
+  // Ordine FF, 8 ottobre 2026: le chiavi dei dati che il server degli
+  // Enigmi manda, "perche" (il motivo di un rifiuto) e "da" (chi ha lanciato
+  // una sfida). Non sono parole: sono chiavi di una mappa, mai mostrate, e si
+  // leggono in un punto solo.
+  Esenzione(
+      'lib/core/cerchio/il_cerchio_sociale.dart',
+      "static const String _chiaveDelMotivo = 'perche';",
+      'e la chiave del motivo nei dati del server, mai mostrata'),
+  Esenzione(
+      'lib/core/cerchio/gli_enigmi_del_cerchio.dart',
+      "da: _stringa(d['da']),",
+      'e la chiave di chi ha lanciato la sfida nei dati del server, mai '
+          'mostrata'),
   // Ordine EB voce 03, 21 settembre 2026: la preposizione "da" dentro
   // l'elenco delle parole di servizio del cancello delle arti. Non e' il
   // verbo "da" con l'accento, e non si mostra a nessuno: e' una parola

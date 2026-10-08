@@ -11,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'enigmi/gli_enigmi_screen.dart';
 import 'invita_nel_cerchio_screen.dart';
 import 'profilo_nel_cerchio_screen.dart';
 import 'scheda_dell_amico_screen.dart';
@@ -153,6 +154,21 @@ class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen>
                         .push(InvitaNelCerchioScreen.route()),
                     icon: const Icon(Icons.person_add_alt_1_rounded),
                     label: Text('Chiama nel tuo Cerchio',
+                        style: TypographyTokens.etichetta()),
+                  ),
+                  // Ordine FF: la casa dei giochi del Cerchio.
+                  const SizedBox(height: SpacingTokens.sm),
+                  OutlinedButton.icon(
+                    key: const Key('cerchio_enigmi'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: palette.goldSoft,
+                      side: BorderSide(color: palette.goldSoft),
+                      minimumSize: const Size.fromHeight(48),
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context).push(GliEnigmiScreen.route()),
+                    icon: const Icon(Icons.extension_rounded),
+                    label: Text('Gli Enigmi del Cerchio',
                         style: TypographyTokens.etichetta()),
                   ),
                   if (c.ricevuti.isNotEmpty) ...[

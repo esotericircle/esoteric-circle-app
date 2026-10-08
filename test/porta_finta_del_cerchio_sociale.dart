@@ -1,5 +1,7 @@
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 
+import 'gli_enigmi_finti.dart';
+
 /// **LA PORTA FINTA DEL CERCHIO SOCIALE**, per le prove e le anteprime
 /// dell'ordine EY. Risponde come le porte del server, con la stessa forma dei
 /// dati, e tiene il conto di cio' che le e' stato chiesto: una prova guarda
@@ -21,6 +23,10 @@ class PortaFintaDelCerchioSociale extends PortaSpentaDelCerchio {
   /// Gli amici presenti che la tendina riceve; nulla vuol dire la sola
   /// Stella Lieve (ordine FB voce 01: la prova coi centocinquanta).
   final List<Map<String, Object?>>? amiciPresenti;
+
+  /// Il Ritratto che la porta custodisce (ordine FF): vuoto finche' non si
+  /// scrive.
+  List<int> ritratto = [];
 
   /// Ogni porta chiesta, col suo corpo.
   final List<(String, Map<String, Object?>)> chieste = [];
@@ -194,6 +200,41 @@ class PortaFintaDelCerchioSociale extends PortaSpentaDelCerchio {
           },
           'semaforo': 'spento',
         });
+      // Gli Enigmi del Cerchio, ordine FF.
+      case 'ilMioRitratto':
+        if (corpo['tratti'] is List) {
+          ritratto = [...corpo['tratti'] as List<int>];
+        }
+        return EsitoSociale(dati: {
+          'ok': true,
+          'tratti': ritratto,
+          'fuoriDaiGiochi': corpo['fuoriDaiGiochi'] == true,
+          'archetipo': corpo['archetipo'],
+          'animale': corpo['animale'],
+        });
+      case 'gliEnigmi':
+        return EsitoSociale(
+            dati:
+                GliEnigmiFinti.vista(ritrattoCompilato: ritratto.length == 20));
+      case 'unIndovinello':
+        return switch (corpo['azione']) {
+          'apri' => ritratto.length == 20
+              ? EsitoSociale(dati: GliEnigmiFinti.partita())
+              : const EsitoSociale(dati: {'ok': false, 'perche': 'ritratto'}),
+          'indizio' => const EsitoSociale(dati: {
+              'ok': true,
+              'indizio': {'fonte': 'elemento', 'valore': 'aria'},
+              'n': 1,
+              'costo': 0,
+              'costoProssimo': 5,
+            }),
+          _ => const EsitoSociale(dati: {
+              'ok': true,
+              'giusta': true,
+              'punti': 2,
+              'era': 'u-orione'
+            }),
+        };
       default:
         return const EsitoSociale(dati: {'ok': true});
     }
