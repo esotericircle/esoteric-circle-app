@@ -443,9 +443,10 @@ class MotoreAudio implements MotoreSonoro {
       // non partire mai, in silenzio e senza un log. **Curare un difetto in
       // un posto solo vuol dire vederlo tornare dall'altro**, ed e'
       // esattamente cio' che e' successo fra l'ordine CN e questo.
-      unawaited(() async {
-        await _toni.play(await sorgenteDelTono(byte));
-      }()
+      // La sorgente si prepara (su iPhone un file da scrivere), il play no:
+      // nessuno lo attende, nemmeno qui dentro.
+      unawaited(sorgenteDelTono(byte)
+          .then((sorgente) => _toni.play(sorgente))
           .catchError((Object e) {
         debugPrint('Tono non riprodotto: $e');
       }));
