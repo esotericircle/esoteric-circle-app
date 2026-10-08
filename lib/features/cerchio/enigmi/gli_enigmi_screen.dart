@@ -120,10 +120,11 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                       .copyWith(color: ColorTokens.textPrimary)),
               const SizedBox(height: SpacingTokens.xs),
               RigaDegliEnigmi(spiega),
+              const SizedBox(height: SpacingTokens.md),
               Text('${valore.round()}',
                   key: const Key('enigmi_numero'),
-                  style: TypographyTokens.cerimoniale().copyWith(
-                      color: MaestroPalette.neutral.goldSoft, fontSize: 44)),
+                  style: TypographyTokens.numeroDelGiorno()
+                      .copyWith(color: MaestroPalette.neutral.goldSoft)),
               Slider(
                 key: const Key('enigmi_cursore'),
                 value: valore,

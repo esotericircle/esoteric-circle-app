@@ -111,8 +111,8 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
                 Text('$punteggio',
                     key: const Key('prova_punteggio'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.cerimoniale()
-                        .copyWith(color: palette.goldSoft, fontSize: 56)),
+                    style: TypographyTokens.punteggioDellaProva()
+                        .copyWith(color: palette.goldSoft)),
                 Text(fascia.figura,
                     textAlign: TextAlign.center,
                     style: TypographyTokens.titoloScheda()

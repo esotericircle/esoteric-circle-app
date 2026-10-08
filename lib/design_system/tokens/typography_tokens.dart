@@ -133,6 +133,12 @@ class TypographyTokens {
   static TextStyle numeroDelGiorno({double weight = 600}) =>
       display(size: 40, weight: weight).copyWith(height: 1.0, letterSpacing: 0);
 
+  /// **IL PUNTEGGIO DELLA PROVA**, ordine FF: la cifra che la persona ha
+  /// fatto nella Prova della settimana, sola al centro sopra la sua figura.
+  /// E' il momento della rivelazione della Prova, uno per schermata.
+  static TextStyle punteggioDellaProva({double weight = 600}) =>
+      display(size: 56, weight: weight).copyWith(height: 1.0, letterSpacing: 0);
+
   /// Il titolo di una sezione dentro una schermata.
   static TextStyle titoloSezione({double weight = 600}) =>
       display(size: 22, weight: weight);
