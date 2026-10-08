@@ -182,7 +182,7 @@ Cerchio, la sfida a due dall'Iniziato per ventiquattro ore.
 
 DOMANDA: "le sfide, perché funzionano sempre, ma bisogna sviluppare tutto, accetto proposte"
 PROVA: test/gli_enigmi_rispettano_le_regole_test.dart e functions/src/gli_enigmi.test.ts
-MISURA: righe con classifica e qualita' 0; barra 4, 3, 2, 1 e 10 mancanti; meta da soli 15 contro 7 passi possibili; sfida scaduta col punto a chi ha giocato 1 su 1; anteprime 08 e 09
+MISURA: righe con classifica e qualita' 0; barra 4, 3, 2, 1 e 10 mancanti; meta da soli 15 contro 7 passi possibili; lettura a due scaduta chiusa senza letture 1 su 1 (fino all'8 ottobre sera: col punto a chi aveva giocato); presagi giusti sulla natura, nessuno vince, 4 casi su 4; anteprime 08 e 09
 ACCETTAZIONE: so che le sfide giudicano i gesti e non le persone
 
 ## VOCE FF.07, I TEMPI
