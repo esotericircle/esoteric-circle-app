@@ -245,9 +245,14 @@ void main() {
     // QUATTORDICI DALL'ORDINE DT: il Rito dell'Alba e l'Arcano del Giorno
     // non ci sono piu', e l'Arcano dell'Alba non chiede la nascita, perche'
     // estrae dal sacchetto della persona.
-    expect(elenco.length, 14,
+    // QUINDICI DALL'ORDINE FF, 8 ottobre 2026: il Ritratto propone otto
+    // caratteristiche dalla carta (Sole, Luna, Ascendente e giorno di
+    // nascita). Legge il profilo e la carta dai loro controller, non tiene
+    // copie, e senza la data di nascita non propone niente: la persona
+    // sceglie tutte e venti a mano.
+    expect(elenco.length, 15,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 14:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 15:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });
