@@ -21,6 +21,7 @@ import {
   SCOMMESSE_AL_GIORNO,
   scommessaAmmessa,
   settimanaValida,
+  sfidaGiaAperta,
   sfidaPerIlPiano,
   Volto,
 } from "./gli_enigmi";
@@ -119,6 +120,15 @@ test("FF.05 la scommessa: vince chi si avvicina di piu', a pari tutti", () => {
   assert.deepEqual(piuVicini([{chi: "x", valore: 40}, {chi: "y", valore: 70}], 60), ["y"]);
   assert.deepEqual(piuVicini([{chi: "x", valore: 50}, {chi: "y", valore: 70}], 60), ["x", "y"]);
   assert.deepEqual(piuVicini([], 60), []);
+});
+
+test("FF.06 d) una sfida alla volta fra due persone", () => {
+  assert.equal(sfidaGiaAperta([], 10), false);
+  assert.equal(sfidaGiaAperta([{chiusa: false, scade: 11}], 10), true);
+  assert.equal(sfidaGiaAperta([{chiusa: true, scade: 11}], 10), false);
+  assert.equal(sfidaGiaAperta([{chiusa: false, scade: 10}], 10), false);
+  assert.equal(sfidaGiaAperta([{chiusa: false, scade: 5},
+    {chiusa: false, scade: 20}], 10), true);
 });
 
 test("FF.06 d) la sfida a due si chiude dopo ventiquattro ore e il punto va a chi ha giocato", () => {

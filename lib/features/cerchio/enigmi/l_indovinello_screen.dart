@@ -153,9 +153,7 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('Chi del Cerchio',
-                style: TypographyTokens.titoloDiSchermata()
-                    .copyWith(color: palette.goldSoft)),
+            title: const TitoloDegliEnigmi('Chi del Cerchio'),
           ),
           body: ListView(
             key: const Key('l_indovinello'),

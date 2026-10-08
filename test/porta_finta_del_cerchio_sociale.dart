@@ -212,6 +212,8 @@ class PortaFintaDelCerchioSociale extends PortaSpentaDelCerchio {
           'archetipo': corpo['archetipo'],
           'animale': corpo['animale'],
         });
+      case 'laProva' when corpo['azione'] == 'consegna':
+        return const EsitoSociale(dati: {'ok': true, 'punteggio': 57});
       case 'gliEnigmi':
         return EsitoSociale(
             dati:

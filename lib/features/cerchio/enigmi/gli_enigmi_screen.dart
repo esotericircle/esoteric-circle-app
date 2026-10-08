@@ -130,6 +130,9 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                 value: valore,
                 max: 100,
                 divisions: 100,
+                // Un punteggio della Prova, non una percentuale: il lettore
+                // di schermo diceva "cinquanta per cento".
+                semanticFormatterCallback: (v) => '${v.round()} punti',
                 activeColor: MaestroPalette.neutral.goldSoft,
                 onChanged: (v) => aggiorna(() => valore = v),
               ),
@@ -194,9 +197,7 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('Gli Enigmi del Cerchio',
-                style: TypographyTokens.titoloDiSchermata()
-                    .copyWith(color: palette.goldSoft)),
+            title: const TitoloDegliEnigmi('Gli Enigmi del Cerchio'),
           ),
           body: v == null
               ? Center(
@@ -331,7 +332,10 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                 },
                 child: const Text('Scommetti'),
               ),
-            if (!a.fatta && v.provaFatta && v.puoiSfidare)
+            if (!a.fatta &&
+                v.provaFatta &&
+                v.puoiSfidare &&
+                !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))
               TextButton(
                 key: Key('enigmi_sfida_${a.uid}'),
                 style: TextButton.styleFrom(
@@ -359,7 +363,7 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
               Expanded(
                 child: Text(
                     '${s.tua ? 'La tua sfida con ${_nomeDi(v, s.a)}' : 'La sfida di ${_nomeDi(v, s.da)}'}: '
-                    'restano ${ilTempoCheResta(ITempiDeiGiochi.resta(s.scade, _adesso))}.',
+                    'finisce fra ${ilTempoCheResta(ITempiDeiGiochi.resta(s.scade, _adesso))}.',
                     key: Key('enigmi_sfida_aperta_${s.id}'),
                     style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textPrimary)),

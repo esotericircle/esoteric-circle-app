@@ -198,9 +198,7 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('Il tuo Ritratto',
-                style: TypographyTokens.titoloDiSchermata()
-                    .copyWith(color: palette.goldSoft)),
+            title: const TitoloDegliEnigmi('Il tuo Ritratto'),
           ),
           bottomNavigationBar: SafeArea(
             child: Padding(
@@ -353,37 +351,44 @@ class _RigaDelTratto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const oro = MaestroPalette.neutral;
-    return InkWell(
-      onTap: spento ? null : onTap,
-      enableFeedback: false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Icon(
-              scelto
-                  ? Icons.radio_button_checked_rounded
-                  : Icons.radio_button_unchecked_rounded,
-              size: 22,
-              color: scelto ? oro.goldSoft : ColorTokens.textSecondary),
-          const SizedBox(width: SpacingTokens.sm),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(testo,
-                    style: TypographyTokens.corpo().copyWith(
-                        color: spento
-                            ? ColorTokens.textSecondary
-                            : ColorTokens.textPrimary,
-                        height: 1.3)),
-                if (proposto)
-                  Text('Dalla tua carta',
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: oro.goldSoft)),
-              ],
+    // Chi legge col lettore di schermo sente se la caratteristica e' scelta:
+    // sul Realme l'albero dell'accessibilita' diceva "non scelta" per tutte
+    // e venti, anche per quelle accese.
+    return Semantics(
+      checked: scelto,
+      enabled: !spento,
+      child: InkWell(
+        onTap: spento ? null : onTap,
+        enableFeedback: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xs),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Icon(
+                scelto
+                    ? Icons.radio_button_checked_rounded
+                    : Icons.radio_button_unchecked_rounded,
+                size: 22,
+                color: scelto ? oro.goldSoft : ColorTokens.textSecondary),
+            const SizedBox(width: SpacingTokens.sm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(testo,
+                      style: TypographyTokens.corpo().copyWith(
+                          color: spento
+                              ? ColorTokens.textSecondary
+                              : ColorTokens.textPrimary,
+                          height: 1.3)),
+                  if (proposto)
+                    Text('Dalla tua carta',
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: oro.goldSoft)),
+                ],
+              ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }

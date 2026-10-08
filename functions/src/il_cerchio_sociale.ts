@@ -45,6 +45,7 @@ import {
   rispostaDellIndovinello,
   ritrattoValido,
   scommessaAmmessa,
+  sfidaGiaAperta,
   sfidaPerIlPiano,
 } from "./gli_enigmi";
 import {
@@ -2275,6 +2276,14 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
     const adesso = Date.now();
     const ref = SFIDE().doc(id);
     if ((await ref.get()).exists) return {ok: true, gia: true};
+    const [mie, sue] = await Promise.all([
+      SFIDE().where("da", "==", uid).where("a", "==", amico).get(),
+      SFIDE().where("da", "==", amico).where("a", "==", uid).get(),
+    ]);
+    if (sfidaGiaAperta([...mie.docs, ...sue.docs].map((d) => d.data()),
+      adesso)) {
+      return {ok: false, perche: "sfidaAperta"};
+    }
     await ref.set({da: uid, a: amico, settimana, quando: adesso,
       scade: adesso + DURATA_DELLA_SFIDA_MS, punteggioDa: mia.data()?.punteggio,
       stimaDa: valore, punteggioA: null, stimaA: null, chiusa: false});

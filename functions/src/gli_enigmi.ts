@@ -277,6 +277,17 @@ export const PUNTI_DELLA_SCOMMESSA = 3;
 export const DURATA_DELLA_SFIDA_MS = 24 * 60 * 60 * 1000;
 
 /**
+ * **UNA SFIDA ALLA VOLTA FRA DUE PERSONE.** Visto sul Realme l'8 ottobre
+ * 2026: con una sfida aperta il pulsante restava, e ogni tocco ne apriva
+ * un'altra con un'altra notifica all'amico. Vero se fra le sfide gia' scritte
+ * fra le due persone, in un verso o nell'altro, una e' ancora aperta.
+ */
+export function sfidaGiaAperta(sfide: {chiusa?: unknown; scade?: unknown}[],
+  adesso: number): boolean {
+  return sfide.some((s) => s.chiusa !== true && Number(s.scade) > adesso);
+}
+
+/**
  * **L'ESITO DI UNA SFIDA A DUE.** Si invita una persona sulla Prova della
  * settimana e ciascuno stima il punteggio dell'altro: vince chi si avvicina
  * di piu' (si sfida quello che le persone fanno, mai quello che sono). Se

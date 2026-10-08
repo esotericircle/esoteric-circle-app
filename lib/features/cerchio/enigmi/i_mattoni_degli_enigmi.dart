@@ -48,6 +48,29 @@ class PulsanteDegliEnigmi extends StatelessWidget {
   }
 }
 
+/// **IL TITOLO DELLA BARRA DEGLI ENIGMI.** Visto sul Realme l'8 ottobre
+/// 2026 col server vero: con la freccia indietro accanto, "Gli Enigmi del
+/// Cerchio" e "La Prova della settimana" finivano coi tre puntini, e un
+/// titolo tagliato non dice dove sei. Le anteprime non lo vedevano perche'
+/// montano la schermata senza una rotta sotto, quindi senza freccia. Se non
+/// ci sta si rimpicciolisce, la stessa forma del titolo dell'Oroscopo per un
+/// amico (ordine FC).
+class TitoloDegliEnigmi extends StatelessWidget {
+  const TitoloDegliEnigmi(this.titolo, {super.key});
+  final String titolo;
+
+  @override
+  Widget build(BuildContext context) => FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(titolo,
+            key: const Key('enigmi_titolo'),
+            maxLines: 1,
+            softWrap: false,
+            style: TypographyTokens.titoloDiSchermata()
+                .copyWith(color: MaestroPalette.neutral.goldSoft)),
+      );
+}
+
 class SezioneDegliEnigmi extends StatelessWidget {
   const SezioneDegliEnigmi(this.titolo, {super.key});
   final String titolo;

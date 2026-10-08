@@ -40,6 +40,7 @@ import 'porta_finta_del_cerchio_sociale.dart';
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
   final radice = GlobalKey();
+  final navigatore = GlobalKey<NavigatorState>();
 
   /// I sensori del movimento non esistono nelle prove: lo sfondo li chiede,
   /// e qui rispondono a vuoto (lo stesso delle anteprime del Cerchio).
@@ -137,18 +138,25 @@ void main() {
       child: RepaintBoundary(
         key: radice,
         child: MaterialApp(
+          navigatorKey: navigatore,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.dark(),
           builder: (c, figlio) => MediaQuery(
             data: MediaQuery.of(c).copyWith(disableAnimations: true),
             child: MaestroScope(neutro: true, child: figlio!),
           ),
-          // Una chiave nuova a ogni montatura: la stessa schermata montata
-          // due volte nella stessa prova ripartirebbe dallo stato di prima.
-          home: KeyedSubtree(key: UniqueKey(), child: s),
+          home: const SizedBox.shrink(),
         ),
       ),
     ));
+    // **SOPRA UN'ALTRA SCHERMATA, COME SUL TELEFONO.** Sul Realme, l'8
+    // ottobre 2026, la freccia indietro accanto al titolo lo tagliava ("Gli
+    // Enigmi del Cerchi..."), e queste prove montavano la schermata come
+    // prima pagina, senza freccia: il difetto non poteva vedersi. Una chiave
+    // nuova a ogni montatura: la stessa schermata montata due volte nella
+    // stessa prova ripartirebbe dallo stato di prima.
+    navigatore.currentState!.push(MaterialPageRoute<void>(
+        builder: (_) => KeyedSubtree(key: UniqueKey(), child: s)));
     await passa(tester);
     // Le icone dei volti si caricano prima della cattura: senza, la prima
     // anteprima mostra le iniziali e la seconda le figure.
@@ -302,7 +310,7 @@ void main() {
     final prova = 'Finisce fra ${resta(DateTime(2026, 10, 26))}.';
     await finoA(t, find.text(prova));
     expect(find.text(prova), findsOneWidget);
-    final sfida = 'La tua sfida con Selene: restano '
+    final sfida = 'La tua sfida con Selene: finisce fra '
         '${resta(adesso.add(const Duration(hours: 17)))}.';
     await finoA(t, find.text(sfida));
     expect(find.text(sfida), findsOneWidget);
@@ -419,6 +427,102 @@ void main() {
             'tesa»'),
         findsOneWidget);
     await scattaIn(t, 'docs/collaudo/FF/genere', '06_il_tratto_come_indizio');
+  });
+
+  // **VISTI SUL REALME COL SERVER VERO, 8 ottobre 2026.** Dopo il deploy
+  // delle funzioni il collaudo sul telefono ha trovato cinque difetti che
+  // nessuna prova vedeva. Ognuna di queste e' stata vista rossa col suo
+  // difetto rimesso a mano (docs/collaudo/FF/regola_a_ff.txt).
+  testWidgets('FF Realme a) i titoli delle quattro schermate non si tagliano',
+      (t) async {
+    final schermate = <String, Widget>{
+      'Gli Enigmi del Cerchio': laPagina(),
+      'Il tuo Ritratto': IlRitrattoScreen(tratti: [...otto], proposte: otto),
+      'Chi del Cerchio': LIndovinelloScreen(
+          partita: PartitaDellEnigma.da(GliEnigmiFinti.partita())),
+      'La Prova della settimana': LaProvaScreen(adesso: adesso),
+    };
+    for (final e in schermate.entries) {
+      await monta(t, e.value);
+      expect(find.byType(BackButton), findsOneWidget,
+          reason: '${e.key} senza la freccia: la prova non misura il telefono');
+      final titolo = find.byKey(const Key('enigmi_titolo'));
+      expect(t.widget<Text>(titolo).data, e.key);
+      final p = t.renderObject<RenderParagraph>(
+          find.descendant(of: titolo, matching: find.byType(RichText)));
+      expect(p.didExceedMaxLines, isFalse, reason: '${e.key} e\' tagliato');
+      print('ORDINE FF REALME: titolo "${e.key}" intero, '
+          'largo ${t.getSize(titolo).width.round()} punti');
+    }
+  });
+
+  testWidgets('FF Realme b) la riga del Ritratto dice se e\' scelta',
+      (t) async {
+    final h = t.ensureSemantics();
+    await monta(t, IlRitrattoScreen(tratti: [...otto], proposte: otto));
+    final scelto = IlRitratto.tutti.firstWhere((x) => otto.contains(x.numero));
+    final libero = IlRitratto.tutti.firstWhere((x) => !otto.contains(x.numero));
+    // In ordine di numero: la pagina si scorre solo in giu'.
+    final due = [(scelto, true), (libero, false)]
+      ..sort((x, y) => x.$1.numero.compareTo(y.$1.numero));
+    for (final (tr, atteso) in due) {
+      final k = find.byKey(Key('tratto_${tr.numero}'));
+      await finoA(t, k);
+      final d = t.getSemantics(k).getSemanticsData();
+      final stato = d.flagsCollection.isChecked;
+      expect(stato, isNot(ui.CheckedState.none),
+          reason: 'il tratto ${tr.numero} non dice se e\' scelto');
+      expect(stato == ui.CheckedState.isTrue, atteso,
+          reason: 'il tratto ${tr.numero}');
+    }
+    h.dispose();
+  });
+
+  testWidgets(
+      'FF Realme c) il cursore dice punti, la sfida doppia non si offre, '
+      'la Prova finisce con la sua azione', (t) async {
+    final h = t.ensureSemantics();
+    await monta(t, laPagina(provaFatta: true));
+    // Selene ha gia' una sfida aperta con te: nessun secondo pulsante.
+    // Orione no: il suo resta.
+    await finoA(t, find.byKey(const Key('enigmi_amico_u-selene')));
+    expect(find.byKey(const Key('enigmi_sfida_u-selene')), findsNothing);
+    expect(find.byKey(const Key('enigmi_sfida_u-orione')), findsOneWidget);
+    final scommetti = find.byKey(const Key('enigmi_scommetti_u-selene'));
+    await finoA(t, scommetti);
+    await t.tap(scommetti);
+    await passa(t);
+    // I valori che il lettore di schermo dice, letti da tutto l'albero.
+    final valori = <String>[];
+    bool visita(SemanticsNode n) {
+      final v = n.getSemanticsData().value;
+      if (v.isNotEmpty) valori.add(v);
+      n.visitChildren(visita);
+      return true;
+    }
+
+    visita(
+        t.binding.renderViews.first.owner!.semanticsOwner!.rootSemanticsNode!);
+    print('ORDINE FF REALME: valori letti $valori');
+    expect(valori, contains('50 punti'));
+    expect(valori.where((v) => v.contains('%')), isEmpty);
+    h.dispose();
+
+    await monta(t, LaProvaScreen(adesso: adesso));
+    for (var i = 0; i < 10; i++) {
+      final r = find.byKey(Key('prova_${i}_1'));
+      await finoA(t, r);
+      await t.tap(r);
+      await t.pump();
+    }
+    final consegna = find.byKey(const Key('prova_consegna'));
+    await finoA(t, consegna);
+    await t.tap(consegna);
+    await passa(t);
+    expect(find.text('57'), findsOneWidget);
+    await finoA(t, find.byKey(const Key('prova_agli_amici')));
+    expect(find.byKey(const Key('prova_agli_amici')), findsOneWidget);
+    await scatta(t, '10_la_prova_finisce_con_la_sua_azione');
   });
 }
 

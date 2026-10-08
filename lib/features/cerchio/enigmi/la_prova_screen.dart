@@ -89,9 +89,7 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('La Prova della settimana',
-                style: TypographyTokens.titoloDiSchermata()
-                    .copyWith(color: palette.goldSoft)),
+            title: const TitoloDegliEnigmi('La Prova della settimana'),
           ),
           body: ListView(
             key: const Key('la_prova'),
@@ -120,6 +118,16 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
                 const SizedBox(height: SpacingTokens.sm),
                 RigaDegliEnigmi(IlTestoDegliEnigmi.perChiCompila(
                     fascia.testoMarcato, forma)),
+                // L'azione del responso: dopo il punteggio la pagina finiva
+                // nel vuoto (visto sul Realme). Le scommesse e le sfide
+                // stanno nella pagina degli Enigmi, da cui si e' arrivati.
+                const SizedBox(height: SpacingTokens.lg),
+                PulsanteDegliEnigmi(
+                  key: const Key('prova_agli_amici'),
+                  etichetta: 'Sfida i tuoi amici',
+                  icona: Icons.groups_2_rounded,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
               ] else ...[
                 for (var i = 0; i < _domande.length; i++) ...[
                   SezioneDegliEnigmi('Domanda ${i + 1} di 10'),

@@ -216,6 +216,40 @@ INNESTI = [
      "    return frase ? r : silenzio.riga!;",
      "    return r.isNotEmpty ? r : silenzio.riga!;",
      VIDEO, 'non mostra un codice'),
+    # Visti sul Realme col server vero, 8 ottobre 2026.
+    ('F45', 'FF.02', 'lib/features/cerchio/enigmi/i_mattoni_degli_enigmi.dart',
+     "  Widget build(BuildContext context) => FittedBox(\n"
+     "        fit: BoxFit.scaleDown,\n"
+     "        child: Text(titolo,\n"
+     "            key: const Key('enigmi_titolo'),\n"
+     "            maxLines: 1,\n"
+     "            softWrap: false,",
+     "  Widget build(BuildContext context) => SizedBox(\n"
+     "        child: Text(titolo,\n"
+     "            key: const Key('enigmi_titolo'),\n"
+     "            maxLines: 1,\n"
+     "            overflow: TextOverflow.ellipsis,",
+     VIDEO, 'i titoli delle quattro schermate'),
+    ('F46', 'FF.02', 'lib/features/cerchio/enigmi/il_ritratto_screen.dart',
+     "      checked: scelto,",
+     "      checked: null,",
+     VIDEO, 'la riga del Ritratto dice se e'),
+    ('F47', 'FF.05', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
+     "                semanticFormatterCallback: (v) => '${v.round()} punti',\n",
+     "",
+     VIDEO, 'il cursore dice punti'),
+    ('F48', 'FF.06', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
+     "                !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))",
+     "                v.sfide.length >= 0)",
+     VIDEO, 'il cursore dice punti'),
+    ('F49', 'FF.06', 'functions/src/gli_enigmi.ts',
+     "  return sfide.some((s) => s.chiusa !== true && Number(s.scade) > adesso);",
+     "  return sfide.some((s) => s.chiusa !== true && adesso < 0);",
+     'cd functions && npm test', 'una sfida alla volta'),
+    ('F50', 'FF.05', 'lib/features/cerchio/enigmi/la_prova_screen.dart',
+     "                  key: const Key('prova_agli_amici'),",
+     "                  key: const Key('prova_agli_amici_spento'),",
+     VIDEO, 'il cursore dice punti'),
 ]
 
 
