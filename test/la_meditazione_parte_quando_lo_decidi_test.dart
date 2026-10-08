@@ -105,6 +105,57 @@ void main() {
   });
 
   testWidgets(
+      '8 ottobre: a suono acceso una scelta nuova ferma il suono e torna '
+      'il Play', (tester) async {
+    // Il fondatore: "se faccio partire l'audio e poi cambio la frequenza o
+    // scelgo un altro sintomo, il suono non si ferma, semplicemente cambia
+    // immediatamente il suono. Invece, ad una nuova scelta, dovrebbe fermarsi
+    // il suono attuale e tornare il pulsante Play."
+    final lettore = await monta(tester);
+    final play = find.byKey(const Key('meditation_play'));
+    Finder icona(IconData i) =>
+        find.descendant(of: play, matching: find.byIcon(i));
+
+    // La frequenza.
+    await tester.ensureVisible(play);
+    await tester.tap(play);
+    await tester.pump();
+    expect(lettore.inSuono, isTrue);
+    final menu = find.byKey(const Key('meditazione_scelta_frequenza'));
+    await tester.ensureVisible(menu);
+    await tester.tap(menu);
+    await attendiIlMenu(tester);
+    await tester
+        .tap(find.byKey(const Key('meditazione_frequenza_cuore639')).last);
+    await attendiIlMenu(tester);
+    expect(lettore.inSuono, isFalse,
+        reason: 'cambiata la frequenza il suono di prima continua');
+    expect(lettore.suonate.length, 1,
+        reason: 'cambiata la frequenza il suono nuovo parte da solo');
+    expect(icona(Icons.play_arrow_rounded), findsOneWidget,
+        reason: 'cambiata la frequenza non torna il Play');
+
+    // Il sintomo.
+    await tester.ensureVisible(play);
+    await tester.tap(play);
+    await tester.pump();
+    expect(lettore.inSuono, isTrue);
+    await apriISintomi(tester);
+    final primo = LibreriaDeiRespiri.pronte.first;
+    final voce = find.byKey(Key('meditazione_respiro_${primo.id}'));
+    await tester.ensureVisible(voce);
+    await tester.tap(voce);
+    await tester.pump(const Duration(seconds: 1));
+    expect(lettore.inSuono, isFalse,
+        reason: 'scelto un sintomo il suono di prima continua');
+    expect(lettore.suonate.length, 2,
+        reason: 'scelto un sintomo il suono nuovo parte da solo');
+    await tester.ensureVisible(play);
+    expect(icona(Icons.play_arrow_rounded), findsOneWidget,
+        reason: 'scelto un sintomo non torna il Play');
+  });
+
+  testWidgets(
       'la frequenza si sceglie da UN controllo solo: le bolle non ci '
       'sono piu', (tester) async {
     await monta(tester);

@@ -22,11 +22,21 @@ ordine (FF.10 e' la A1, FF.20 la A11): il lettore dei manifesti riconosce
 una voce dal suo numero. La A12 dice cosa non fare e non e' una voce.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 13
-VOCI_APERTE: 7
+VOCI_CHIUSE: 12
+VOCI_APERTE: 8
 VOCI_DA_FARE: 0
 
-**Perche' sette restano aperte, e cosa le chiude.** L'8 ottobre il
+**LE QUATTRO NATURE, 8 ottobre 2026 sera.** Il fondatore: *"Non possiamo
+parlare di gioco o sfide o punteggi nella nostra app. Si trattano di test
+sempre legati a tradizioni esoteriche e i risultati devono essere coerenti
+con trattati, metodi, fonti e tradizioni esoteriche."* Scelta "Quattro
+temperamenti": la Prova da' la natura (la Terra melancolica, l'Acqua
+flemmatica, l'Aria sanguigna, il Fuoco collerico), mai il numero; scommessa
+e sfida diventano presagio e lettura a due; la classifica si chiama "Chi
+legge il Cerchio". Per questo **FF.05 torna aperta**: era chiusa sul
+telefono col numero, e il risultato adesso e' un altro.
+
+**Perche' otto restano aperte, e cosa le chiude.** L'8 ottobre il
 fondatore ha pubblicato le funzioni e il collaudo sul Realme col server
 vero ha chiuso il Ritratto (FF.02) e la Prova (FF.05), e ha trovato cinque
 difetti, curati lo stesso giorno (titoli tagliati dalla freccia, riga del
@@ -133,10 +143,14 @@ ACCETTAZIONE: so che il gioco c'e' e che nessun nome viaggia
 
 ## VOCE FF.05, LA PROVA
 
-**CHIUSA.** Sul Realme, l'8 ottobre col server vero: le dieci domande
-della settimana di "Quello che comincia", il punteggio 57 calcolato dal
-server con la figura Il Sentiero, il punteggio nella pagina degli Enigmi e
-una scommessa di 62 su Collaudo Due registrata. Visti li' due difetti,
+**APERTA IN ATTESA DI VERIFICA.** Era chiusa: sul Realme, l'8 ottobre
+col server vero, le dieci domande di "Quello che comincia", il punteggio 57
+dal server con la figura Il Sentiero e una scommessa registrata. La sera
+stessa il fondatore ha tolto i punteggi dall'app: la Prova adesso da' una
+delle quattro nature col suo temperamento, che cosa fare e da dove viene
+(Tolomeo, Ippocrate, Galeno, Agrippa, il Timeo), e il presagio sceglie una
+natura. Vista nelle anteprime 07 e 10; la chiude il telefono dopo il deploy
+delle funzioni e un pacchetto nuovo. Visti li' due difetti,
 curati e provati nelle anteprime: il cursore che diceva "50%" al lettore di
 schermo, e la pagina del risultato senza un'azione (adesso "Sfida i tuoi
 amici", anteprima 10). Il tema dal cielo del lunedi' con la porta di Meeus, dieci domande della settimana, il punteggio calcolato dal
@@ -144,8 +158,8 @@ server coi pesi del corpus, la figura della fascia, la scommessa finche'
 l'amico non l'ha fatta.
 
 DOMANDA: "proponiamo al cerchio un test di personalità il cui punteggio determina la personalità o altra caratteristica dell'utente, e gli altri prima di scoprire il punteggio devono indovinarlo"
-PROVA: docs/collaudo/FF/realme/13_la_prova_il_punteggio_dal_server.png
-MISURA: sul telefono risposte 10 su 10, punteggio dal server 1 (57, Il Sentiero), scommesse registrate 0 -> 1 (15_la_scommessa_registrata.png); quattro settimane del 2026 con quattro temi diversi (1, 2, 4, 5); punteggio di dieci risposte uguale due volte (57); scommessa dopo la Prova 0 piazzate; settimane del 2026 lette 52; anteprime 06 e 07
+PROVA: docs/preview/FF/10_la_prova_finisce_con_la_sua_azione.png e functions/src/gli_enigmi.test.ts
+MISURA: numeri a video 1 -> 0 (la natura al posto del 57); figure con una tradizione 0 -> 24 su 24 (quattro elementi per sei temi, con FARE e FONTE); parole da gioco negli Enigmi 0 su 981 frasi (guardia del lessico); sul telefono, prima delle nature, risposte 10 su 10 e una scommessa registrata (13_la_prova_il_punteggio_dal_server.png); quattro settimane del 2026 con quattro temi diversi (1, 2, 4, 5); punteggio di dieci risposte uguale due volte (57); scommessa dopo la Prova 0 piazzate; settimane del 2026 lette 52; anteprime 06 e 07
 ACCETTAZIONE: so che la Prova cambia col cielo e quando la vedo
 
 ## VOCE FF.06, LE SFIDE

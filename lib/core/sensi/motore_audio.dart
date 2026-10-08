@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'guardia_del_suono.dart';
 
@@ -101,8 +102,7 @@ class MotoreAudio implements MotoreSonoro {
   ///
   /// Nulla quando il suono non parte o la durata non si legge: chi chiama ha il
   /// proprio ripiego, e il rito continua lo stesso.
-  Future<Duration?> effetto(String percorsoAsset,
-      {double volume = 1.0}) async {
+  Future<Duration?> effetto(String percorsoAsset, {double volume = 1.0}) async {
     if (senzaLettori) return null;
     try {
       await _preparaGliEffetti();
@@ -352,7 +352,8 @@ class MotoreAudio implements MotoreSonoro {
       ));
       await _tamburo.setReleaseMode(ReleaseMode.loop);
       await _tamburo.setVolume(volume.clamp(0.0, 1.0));
-      unawaited(_tamburo.play(AssetSource(percorsoAsset)).catchError((Object e) {
+      unawaited(
+          _tamburo.play(AssetSource(percorsoAsset)).catchError((Object e) {
         debugPrint('Tamburo non partito ($percorsoAsset): $e');
       }));
     } catch (e) {
@@ -398,6 +399,34 @@ class MotoreAudio implements MotoreSonoro {
   /// due cose diverse.
   bool get tamburoStaSuonando => _tamburoPigro?.state == PlayerState.playing;
 
+  /// **SU IPHONE IL TONO E' UN FILE .WAV VERO.** 8 ottobre 2026, il
+  /// fondatore: *"Si iPhone il suono non si sente"* (la Meditazione). Su iOS
+  /// audioplayers non suona i byte: li scrive in un file temporaneo SENZA
+  /// ESTENSIONE e senza tipo, e AVPlayer, che riconosce il WAV dall'estensione
+  /// o dal tipo dichiarato, non lo apre; l'errore si perdeva nel `play` non
+  /// atteso. Adesso il file lo scriviamo noi, `.wav`, col suo tipo. Due nomi
+  /// che si alternano: il tono nuovo non riscrive il file che sta suonando.
+  /// Su Android i byte si suonano nativamente, come prima. Vale per ogni tono:
+  /// la Meditazione, il Sigillo del Sogno, l'anteprima delle voci.
+  @visibleForTesting
+  static Future<Directory> Function() cartellaDeiToni = getTemporaryDirectory;
+  static int _alternaIlTono = 0;
+
+  /// La sorgente di un tono WAV per la piattaforma [piattaforma].
+  @visibleForTesting
+  static Future<Source> sorgenteDelTono(Uint8List byte,
+      {TargetPlatform? piattaforma}) async {
+    final p = piattaforma ?? defaultTargetPlatform;
+    if (kIsWeb || (p != TargetPlatform.iOS && p != TargetPlatform.macOS)) {
+      return BytesSource(byte);
+    }
+    final cartella = await cartellaDeiToni();
+    final file =
+        File('${cartella.path}/cerchio_tono_${_alternaIlTono++ % 2}.wav');
+    await file.writeAsBytes(byte, flush: true);
+    return DeviceFileSource(file.path, mimeType: 'audio/wav');
+  }
+
   /// Riproduce byte sintetizzati, per esempio un tono binaurale in WAV.
   ///
   /// In ciclo continuo quando [inCiclo] e' vero, che e' il caso della
@@ -414,7 +443,10 @@ class MotoreAudio implements MotoreSonoro {
       // non partire mai, in silenzio e senza un log. **Curare un difetto in
       // un posto solo vuol dire vederlo tornare dall'altro**, ed e'
       // esattamente cio' che e' successo fra l'ordine CN e questo.
-      unawaited(_toni.play(BytesSource(byte)).catchError((Object e) {
+      unawaited(() async {
+        await _toni.play(await sorgenteDelTono(byte));
+      }()
+          .catchError((Object e) {
         debugPrint('Tono non riprodotto: $e');
       }));
     } catch (e) {
@@ -528,8 +560,7 @@ class MotoreAudio implements MotoreSonoro {
       }
     }
     if (avviate.isEmpty) return;
-    await Future.wait(avviate)
-        .timeout(entro, onTimeout: () => const <void>[]);
+    await Future.wait(avviate).timeout(entro, onTimeout: () => const <void>[]);
   }
 
   /// Quali lettori esistono davvero, per nome.

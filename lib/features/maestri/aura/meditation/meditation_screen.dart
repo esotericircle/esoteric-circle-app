@@ -540,8 +540,15 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// Qui l'ordine DD voce 12 aveva scritto *"scelto il sintomo, Aura fa
   /// partire la pratica adatta subito"*. Il fondatore ha visto il suono
   /// partire prima di aver deciso: **aprire e scegliere non e' cominciare**.
-  /// Vince la voce piu' recente. Se la sessione e' gia' viva, la scelta
-  /// cambia il suono, perche' la persona sta gia' ascoltando e ha scelto lei.
+  /// Vince la voce piu' recente.
+  ///
+  /// **UNA SCELTA NUOVA FERMA IL SUONO.** 8 ottobre 2026, il fondatore: *"se
+  /// faccio partire l'audio e poi cambio la frequenza o scelgo un altro
+  /// sintomo, il suono non si ferma, semplicemente cambia immediatamente il
+  /// suono. Invece, ad una nuova scelta, dovrebbe fermarsi il suono attuale e
+  /// tornare il pulsante Play."* Prima (ordine DS voce 05) a sessione viva la
+  /// scelta cambiava il suono: adesso la ferma, come il tocco sulla pausa, e
+  /// il suono nuovo parte dal Play.
   ///
   /// **E LA FREQUENZA SEGUE LA PRATICA.** Una pratica del centro del cuore
   /// suona il tono del cuore: e' l'unico modo perche' il numero che la
@@ -555,17 +562,18 @@ class _MeditationScreenState extends State<MeditationScreen>
       // misurato sul telefono, zero pixel.
       _praticaScelta = r;
     });
-    if (_active) widget.player.play(_preset);
+    if (_active) _togglePlay();
   }
 
   /// **SCELTA UNA FREQUENZA, si sceglie e basta.** Ordine DS voce 05.
   ///
   /// Qui l'ordine DD voce 17 faceva partire la sessione. **La risposta al
   /// tocco adesso si vede nel menu'**, che scrive la frequenza scelta, e il
-  /// suono parte dal play. A sessione viva il suono cambia subito.
+  /// suono parte dal play. A sessione viva la scelta nuova ferma il suono e
+  /// torna il Play (8 ottobre 2026, vedi sopra).
   void _scegliLaFrequenza(MeditationPreset preset) {
     setState(() => _preset = preset);
-    if (_active) widget.player.play(preset);
+    if (_active) _togglePlay();
   }
 
   @override

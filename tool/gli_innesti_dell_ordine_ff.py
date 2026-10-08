@@ -261,6 +261,17 @@ INNESTI = [
      "  return presagi.filter((p) => p.valore === n).map((p) => p.chi);",
      "  return presagi.filter((p) => p.valore >= 0 || n < 0).map((p) => p.chi);",
      'cd functions && npm test', 'il presagio'),
+    # La Meditazione, segnalazioni del fondatore dell'8 ottobre 2026.
+    ('F54', 'FUORI ORDINE', 'lib/features/maestri/aura/meditation/meditation_screen.dart',
+     "    setState(() => _preset = preset);\n    if (_active) _togglePlay();",
+     "    setState(() => _preset = preset);\n    if (_active) widget.player.play(preset);",
+     'flutter test test/la_meditazione_parte_quando_lo_decidi_test.dart -r expanded',
+     'una scelta nuova ferma il suono'),
+    ('F55', 'FUORI ORDINE', 'lib/core/sensi/motore_audio.dart',
+     "        File('${cartella.path}/cerchio_tono_${_alternaIlTono++ % 2}.wav');",
+     "        File('${cartella.path}/cerchio_tono_${_alternaIlTono++ % 2}');",
+     'flutter test test/il_tono_su_iphone_e_un_file_wav_test.dart -r expanded',
+     'su iPhone il tono'),
 ]
 
 
