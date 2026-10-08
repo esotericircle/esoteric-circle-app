@@ -56,6 +56,9 @@ class ScrittaDaPosare {
 class FotogrammaDelCielo {
   final List<CorpoDaPosare> corpi = [for (var i = 0; i < 7; i++) CorpoDaPosare()];
 
+  /// Falso mentre il ritorno parla al centro: i nomi dei corpi tacciono.
+  bool nomiDeiCorpi = true;
+
   /// La Luna cotta (vedi `LunaCotta` nella schermata), il suo centro e il
   /// lato a schermo.
   ui.Image? luna;
@@ -149,7 +152,7 @@ class PittoreDelCielo extends CustomPainter {
         Rect.fromCircle(center: Offset(c.x, c.y), radius: c.raggio),
         _corpo,
       );
-      c.nome?.paint(canvas, Offset(c.x - c.nome!.width / 2, c.y + c.raggio * 0.6 + 4));
+      if (f.nomiDeiCorpi) c.nome?.paint(canvas, Offset(c.x - c.nome!.width / 2, c.y + c.raggio * 0.6 + 4));
     }
 
     // LA LUNA, cotta da LunaReale.

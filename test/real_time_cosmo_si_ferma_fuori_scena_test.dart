@@ -43,7 +43,7 @@ void main() {
         ));
     await fg.carica(tester);
     // Un campo magnetico vero, cosi' la bussola e' pronta e non ripiega.
-    campo.add(MagnetometerEvent(0, 22, -40, DateTime.now()));
+    campo.add(MagnetometerEvent(0, 22, -40, fg.adesso));
     MisureDelCosmo.foschieCotte = 0;
     MisureDelCosmo.luneCotte = 0;
     await fg.passa(tester, 15);

@@ -30,7 +30,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/arts/art_catalog.dart';
 import '../../core/astro/celestial.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
 import '../../core/astro/luogo_attuale.dart';
@@ -45,6 +44,7 @@ import '../../core/astro/real_time_cosmo/la_griglia_del_tocco.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/motion/l_orientamento_del_telefono.dart';
 import '../../core/motion/parallax_controller.dart';
@@ -302,13 +302,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   void _leggiLaNascita() {
-    ProfileController? profilo;
-    try {
-      profilo = context.read<ProfileController?>();
-    } catch (_) {
-      profilo = null;
-    }
-    final id = profilo?.identity;
+    // Un tipo nullabile che manca da' null da solo: niente try.
+    final id = context.read<ProfileController?>()?.identity;
     final luogo = id?.birthPlace;
     if (id == null || id.isExample || luogo == null) {
       _mancaLaNascita = true;
@@ -368,7 +363,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   TextPainter _scritta(String testo, TextStyle stile) =>
-      TextPainter(text: TextSpan(text: testo, style: stile), textDirection: TextDirection.ltr)
+      // Le scritte del cielo si leggono come testo, non stanno dentro una
+      // figura: seguono la scala che la persona ha scelto nel sistema.
+      TextPainter(
+          text: TextSpan(text: testo, style: stile),
+          textDirection: TextDirection.ltr,
+          textScaler: MediaQuery.textScalerOf(context))
         ..layout();
 
   void _preparaLeScritte() {
@@ -384,8 +384,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           TypographyTokens.etichetta().copyWith(color: ColorTokens.goldBright))));
     }
     const nomi = ['Sole', 'Luna', 'Mercurio', 'Venere', 'Marte', 'Giove', 'Saturno'];
-    final stileCorpo = TypographyTokens.didascalia()
-        .copyWith(color: ColorTokens.textSecondary, fontSize: 11);
+    final stileCorpo = TypographyTokens.etichetta(weight: 500)
+        .copyWith(color: ColorTokens.textSecondary);
     for (var i = 0; i < 7; i++) {
       _fotogramma.corpi[i].nome = i == 1 ? null : _scritta(nomi[i], stileCorpo);
     }
@@ -396,13 +396,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     if (dato != null) {
       _telefono = dato;
     } else {
-      ParallaxController? parallasse;
-      try {
-        parallasse = context.read<ParallaxController?>();
-      } catch (_) {
-        parallasse = null;
-      }
-      final p = parallasse;
+      final p = context.read<ParallaxController?>();
       _telefono = OrientamentoDelTelefono(
           gravita: () => p?.gravitaGrezza);
     }
@@ -520,6 +514,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     }
 
     if (widget.modo == ModoDelCielo.ritorno) _avanzaIlRitorno(ora);
+    _fotogramma.nomiDeiCorpi = widget.modo != ModoDelCielo.ritorno ||
+        _fase.value == FaseDelRitorno.fermo;
 
     // L'orientamento: il sensore se c'e' e se e' permesso, il dito sempre.
     final telefono = _telefono;
@@ -551,12 +547,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // La parallasse: l'inclinazione del telefono dal suo riposo.
     var tx = 0.0, ty = 0.0;
     if (!_riduciMovimento) {
-      ParallaxController? p;
-      try {
-        p = context.read<ParallaxController?>();
-      } catch (_) {
-        p = null;
-      }
+      final p = context.read<ParallaxController?>();
       tx = p?.tiltX ?? 0;
       ty = p?.tiltY ?? 0;
     }
@@ -1194,8 +1185,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _apriLeFonti(MaestroPalette palette) {
     FoglioDelleFonti.apri(context,
         palette: palette,
-        testo: '${TestiDelleFonti.realTimeCosmo}\n\n'
-            '${ArtCatalog.disclaimerCornice}',
+        testo: TestiDelleFonti.realTimeCosmo,
         chiave: 'real_time_cosmo_fonti');
   }
 
@@ -1383,8 +1373,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     return femminili.contains(nome) ? 'della $nome' : 'del $nome';
   }
 
-  static String _numero(double v) =>
-      v.toStringAsFixed(1).replaceAll('.', ',');
+  static String _numero(double v) => NumeroDelCerchio.conCifre(v, 1);
 
   static String _direzione(double az) {
     const nomi = [
@@ -1399,10 +1388,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     return ValueListenableBuilder<FaseDelRitorno>(
       valueListenable: _fase,
       builder: (context, fase, _) {
-        final grande = TypographyTokens.cerimonialeGrande()
-            .copyWith(color: ColorTokens.goldBright, fontSize: 88);
-        final frase = TypographyTokens.cerimoniale()
-            .copyWith(color: ColorTokens.textPrimary, fontSize: 18, letterSpacing: 1.4);
+        final grande = TypographyTokens.numeroDellaScena()
+            .copyWith(color: ColorTokens.goldBright);
+        final frase = TypographyTokens.titoloSezione()
+            .copyWith(color: ColorTokens.textPrimary);
         final corpo = TypographyTokens.corpo()
             .copyWith(color: ColorTokens.textSecondary);
         switch (fase) {

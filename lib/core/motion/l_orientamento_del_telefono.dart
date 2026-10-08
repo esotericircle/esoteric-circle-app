@@ -29,6 +29,7 @@ library;
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../astro/real_time_cosmo/la_camera_del_cielo.dart';
@@ -76,7 +77,11 @@ class OrientamentoDelTelefono {
         onError: (_) => _guasto = true,
         cancelOnError: false,
       );
-    } catch (_) {
+    } catch (errore) {
+      // Il telefono senza magnetometro: non e' un guasto dell'app, e' un
+      // telefono senza bussola. Si dice a schermo (il ripiego col dito) e
+      // nel registro, e non si riprova.
+      debugPrint('Real Time Cosmo: la bussola non si apre ($errore)');
       _guasto = true;
     }
   }

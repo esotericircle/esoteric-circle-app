@@ -65,6 +65,9 @@ class RealTimeCosmoScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                   child: InkWell(
                     key: Key('real_time_cosmo_${s.modo.name}'),
+                    // L'interruttore del silenzio del Cerchio: niente click
+                    // di sistema.
+                    enableFeedback: false,
                     borderRadius: BorderRadius.circular(18),
                     onTap: () => Navigator.of(context)
                         .push(CieloRealeScreen.route(s.modo)),

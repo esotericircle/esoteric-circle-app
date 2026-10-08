@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 167 -->
-<!-- FILE_CON_VUOTI: 74 -->
+<!-- VUOTI_CENSITI: 174 -->
+<!-- FILE_CON_VUOTI: 76 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **167** |
-| File che ne contengono | **74** |
+| Vuoti verticali dichiarati | **174** |
+| File che ne contengono | **76** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -24,15 +24,15 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 0 | 1 |
 | 2 | 88 |
 | 3 | 8 |
-| 4 | 32 |
+| 4 | 35 |
 | 5 | 2 |
-| 6 | 15 |
+| 6 | 16 |
 | 7 | 3 |
 | 8 | 6 |
 | 9 | 2 |
-| 10 | 3 |
-| 12 | 1 |
-| 16 | 1 |
+| 10 | 4 |
+| 12 | 2 |
+| 16 | 2 |
 | 24 | 1 |
 | 40 | 1 |
 | 44 | 1 |
@@ -42,7 +42,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 ## I vuoti oltre la soglia
 
 - `lib/features/synastry/sinastria_share_card.dart:132` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:810` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:830` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -58,6 +58,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/la_testa_della_tradizione.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
+| `lib/features/real_time_cosmo/cielo_reale_screen.dart` | 4 | 0 |
 | `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
@@ -67,6 +68,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
+| `lib/features/real_time_cosmo/real_time_cosmo_screen.dart` | 3 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |
