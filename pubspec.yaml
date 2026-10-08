@@ -341,6 +341,10 @@ flutter:
     # la taratura dentro l'asset (specifica, sezione 14). Non si generano e
     # non si ritoccano.
     - assets/img/zodiac_velo/
+    # Il catalogo delle stelle del Real Time Cosmo, ordine FG parte 1: HYG
+    # v4.1 di astronexus tagliato a magnitudine 6,0, CC BY-SA 4.0 con la sua
+    # licenza accanto. Lo cuoce tool/il_catalogo_delle_stelle_hyg.py.
+    - assets/astro/
     # Arte di scena del dominio di Caligo: il tamburo sciamanico dell'Animale
     # Guida, immagine unica, non una famiglia con miniatura.
     - assets/img/caligo/
