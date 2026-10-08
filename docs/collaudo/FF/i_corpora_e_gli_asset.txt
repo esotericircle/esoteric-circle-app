@@ -26,3 +26,7 @@ I tre asset della Soglia del Sonno, copiati e uguali al byte:
   Vert: 800x1000
   Square: 800x800
   Oriz: 1280x720
+
+Le quattro nature, 8 ottobre 2026 sera, per la regola del fondatore ("Non possiamo parlare di gioco o sfide o punteggi nella nostra app ... i risultati devono essere coerenti con trattati, metodi, fonti e tradizioni esoteriche"), scelta "Quattro temperamenti":
+  Prove: le 24 figure inventate (Il Pozzo, Il Ponte, Il Sentiero...) diventano i quattro elementi nella scala del Timeo, la Terra, l'Acqua, l'Aria, il Fuoco, col loro temperamento (Ippocrate, Galeno, Agrippa I, 3); ogni fascia porta FARE (che cosa fare), ogni tema FONTE (Tolomeo, Tetrabiblos; Bonatti; Galeno); domande, risposte, pesi e marche invariati (288 pesi, 22 marche).
+  Corpus_Le_Prove.md     sha256 4abbe80bbb663918aefc52db36e6c0043bdc3c0f8aa3fb2017a971f4393abfa0, uguale al byte nella cartella principale.

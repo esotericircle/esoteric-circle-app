@@ -26,24 +26,42 @@ Delle dodici domande del tema se ne pescano dieci, saltando le due che si
 trovano alle posizioni date dal resto della divisione del numero della settimana
 per dodici.
 
-## Come si calcola il punteggio
+## Come si legge la natura
 
-Ogni risposta vale zero, uno, due o tre. Dieci domande fanno al massimo trenta.
-Il punteggio su cento è la somma per cento diviso trenta, arrotondata.
-Deterministico: stesse risposte, stesso punteggio.
+La Prova non da' un punteggio a chi la fa: le dice **con quale delle quattro
+nature** vive la domanda del cielo di questa settimana. Il fondatore, 8 ottobre
+2026: *"Si trattano di test sempre legati a tradizioni esoteriche e i risultati
+devono essere coerenti con trattati, metodi, fonti e tradizioni esoteriche."*
 
-## Cosa significa il punteggio e cosa non significa
+Ogni risposta pesa zero, uno, due o tre: zero e' la risposta che trattiene, tre
+quella che porta fuori. Dieci domande fanno al massimo trenta; la somma per
+cento diviso trenta, arrotondata, cade in una delle quattro fasce, e ogni fascia
+e' un elemento. Deterministico: stesse risposte, stessa natura. Il numero resta
+nel server e non si mostra.
 
-Il punteggio non dice se una persona è brava o scarsa. Dice **da che parte sta**
-in quella domanda del cielo. Per questo nessuna fascia è un difetto e tutte e
-quattro le figure hanno dignità. Chi legge la propria fascia deve riconoscersi,
-mai difendersi.
+Le quattro fasce seguono la scala degli elementi dal piu' grave al piu' sottile,
+come nel *Timeo* di Platone: la Terra, l'Acqua, l'Aria, il Fuoco. Ogni elemento
+porta le sue qualita' e il suo temperamento, come li descrive la tradizione
+ippocratica e galenica e come li raccoglie Agrippa (*De occulta philosophia*,
+libro I, capitolo 3):
+
+- **la Terra**, fredda e secca, il temperamento melancolico;
+- **l'Acqua**, fredda e umida, il temperamento flemmatico;
+- **l'Aria**, calda e umida, il temperamento sanguigno;
+- **il Fuoco**, caldo e secco, il temperamento collerico.
+
+Nessuna natura e' un difetto. Chi legge la propria deve riconoscersi, mai
+difendersi. Ogni fascia porta il suo testo, che cosa fare questa settimana
+(`FARE:`), e ogni tema porta da dove viene la sua domanda del cielo
+(`FONTE:`).
 
 ---
 
 # TEMA 1. LE PAROLE CHE NON ARRIVANO
 Quando Mercurio è retrogrado. Misura quanto una persona porta fuori quello che
 ha dentro.
+
+FONTE: Mercurio governa la parola, lo scambio e l'intelletto (Tolomeo, Tetrabiblos, III, 13). Retrogrado, per la tradizione medievale la sua forza si ritira (Guido Bonatti, Liber astronomiae).
 
 D1. Una cosa ti ha dato fastidio e la persona non se ne è accorta.
    a) Lascio perdere, passerà [0]
@@ -118,19 +136,21 @@ D12. Devi chiedere un favore.
    d) Lo chiedo chiaramente e dico anche perché mi serve [3]
 
 FASCE
-0-25 **Il Pozzo.** Quello che hai dentro resta dentro e non per paura: perché
-non tutto va detto. Chi ti conosce lo sa e viene a cercarti.
-26-50 **La Soglia.** Parli quando ne vale la pena e prima pesi. Chi ti ascolta
-sa che se apri bocca c'è un motivo.
-51-75 **Il Ponte.** Le cose le dici e le dici in tempo. È la posizione più
-scomoda e la più utile a chi ti sta intorno.
-76-100 **Il Vento.** Esce tutto e subito. A volte arriva prima delle parole
-giuste, ma nessuno deve indovinare cosa pensi.
+0-25 **La Terra.** Quello che hai dentro resta dentro. Non è paura: pesi ogni parola prima di lasciarla andare, come vuole la natura fredda e secca della Terra. Chi ti conosce lo sa e viene a cercarti.
+FARE: Scrivi quello che non dici: la parola trattenuta trova la sua forma sulla carta.
+26-50 **L'Acqua.** Parli quando ne vale la pena e lasci che le cose si posino prima. Chi ti ascolta sa che se apri bocca c'è un motivo.
+FARE: Prima di rispondere a un messaggio difficile lascia passare una notte.
+51-75 **L'Aria.** Le cose le dici e le dici in tempo. Le parole ti scorrono facili e arrivano a chi ti sta intorno.
+FARE: Rileggi prima di mandare: con Mercurio che torna indietro anche la parola facile vuole una seconda occhiata.
+76-100 **Il Fuoco.** Esce tutto e subito. A volte arriva prima delle parole giuste, ma nessuno deve indovinare cosa pensi.
+FARE: Conta fino a tre prima di parlare di ciò che ti scalda: in questi giorni le parole viaggiano storte.
 
 ---
 
 # TEMA 2. COME AMI ADESSO
 Quando Venere cambia segno. Misura cosa cerchi in un legame in questo momento.
+
+FONTE: Venere governa l'amore e i legami (Tolomeo, Tetrabiblos, IV, 5). Quando cambia segno cambia il modo in cui i legami si cercano.
 
 D1. La sera perfetta con la persona a cui tieni.
    a) Ognuno per conto suo nella stessa stanza [0]
@@ -205,19 +225,22 @@ D12. L'amore che vorresti.
    d) Forte, che si sente addosso [3]
 
 FASCE
-0-25 **La Radice.** Ami stando, non dicendo. Chi ti sceglie deve avere la
-pazienza di accorgersene e chi la trova non se ne va più.
-26-50 **La Casa.** Costruisci piano e tieni. Non è freddezza, è il modo in cui
-le cose durano.
-51-75 **Il Cammino.** Ami muovendoti insieme. Hai bisogno che un legame vada da
-qualche parte, non solo che resti.
+0-25 **La Terra.** Ami stando, non dicendo. La tua fedeltà è quella della Terra: lenta da muovere, impossibile da smuovere. Chi la trova non se ne va più.
+FARE: Fai un gesto concreto per chi ami: per te l'amore passa dalle mani.
+26-50 **L'Acqua.** Costruisci piano e tieni. Non è freddezza: è il modo dell'Acqua, che accoglie e prende la forma del legame.
+FARE: Di' a voce una cosa che di solito lasci capire.
+51-75 **L'Aria.** Ami muovendoti insieme. Hai bisogno che un legame respiri e vada da qualche parte, non solo che resti.
+FARE: Proponi una cosa nuova da fare in due prima che Venere cambi ancora.
 76-100 **Il Fuoco.** Ami forte e si vede da fuori. Dai molto e chiedi altrettanto. Con te nessuno resta nel dubbio.
+FARE: Ascolta prima di chiedere: il tuo calore arriva meglio se lascia spazio.
 
 ---
 
 # TEMA 3. DOVE METTI LA FORZA
 Quando Marte cambia segno. Misura come una persona reagisce quando qualcosa si
 mette di traverso.
+
+FONTE: Marte governa l'ardire, l'ira e la forza (Tolomeo, Tetrabiblos, III, 13). Quando cambia segno cambia il modo in cui la forza si spende.
 
 D1. Un ostacolo inatteso a metà di una cosa importante.
    a) Mi fermo e aspetto che si sistemi [0]
@@ -292,21 +315,22 @@ D12. Difendere una persona cara.
    d) Mi metto davanti e perdo la testa [3]
 
 FASCE
-0-25 **L'Acqua Ferma.** Non spendi forza dove non serve. Sembri cedevole e
-invece [sei quello che|sei quella che|sei chi] resta in piedi quando gli altri si sono
-consumati.
-26-50 **L'Arco.** Tendi quando serve e lasci andare al momento giusto. La tua
-forza si vede solo nel risultato.
-51-75 **La Lama.** Affronti e non ti nascondi. Chi ti ha accanto sa che in una
-difficoltà ci sei.
-76-100 **Il Maglio.** Spingi con tutto quello che hai. Apri strade che gli altri
-non aprirebbero e qualche volta sfondi anche porte aperte.
+0-25 **La Terra.** Non spendi forza dove non serve. La tua è la resistenza della Terra: [sei quello che|sei quella che|sei chi] resta in piedi quando gli altri si sono consumati.
+FARE: Scegli una sola battaglia per questi giorni e lascia cadere le altre.
+26-50 **L'Acqua.** Tendi quando serve e lasci andare al momento giusto. Come l'acqua aggiri l'ostacolo invece di spaccarlo.
+FARE: Davanti a un muro cerca il passaggio laterale prima di spingere.
+51-75 **L'Aria.** Affronti e non ti nascondi. La tua forza è agile: arrivi dove serve prima degli altri.
+FARE: Usa la prontezza per sbloccare una cosa ferma da tempo.
+76-100 **Il Fuoco.** Spingi con tutto quello che hai. Apri strade che gli altri non aprirebbero. Qualche volta sfondi anche porte aperte.
+FARE: Prima di partire guarda se la porta è davvero chiusa.
 
 ---
 
 # TEMA 4. QUELLO CHE È MATURO
 Nella settimana della Luna piena. Misura quanto una persona sa riconoscere
 quando una cosa è arrivata e va raccolta o lasciata.
+
+FONTE: La Luna piena è il culmine della sua luce: dalla piena all'ultimo quarto la Luna è secca, il tempo del raccolto (Tolomeo, Tetrabiblos, I, 8).
 
 D1. Una cosa che va avanti per inerzia.
    a) Continuo, cambiare costa di più [0]
@@ -381,21 +405,22 @@ D12. Una verità che hai capito solo col tempo.
    d) Sì, hanno cambiato come vivo [3]
 
 FASCE
-0-25 **Il Grano Fermo.** Tieni tutto e niente va perduto.
-[Sei quello che|Sei quella che|Sei chi] conserva anche quando gli altri hanno già
-buttato.
-26-50 **La Falce Lenta.** Raccogli quando [sei sicuro|sei sicura|hai la certezza].
-Arrivi dopo, ma non sbagli raccolto.
-51-75 **La Luna Alta.** Vedi quando una cosa è arrivata e la chiudi. È la
-posizione di chi non si porta dietro peso inutile.
-76-100 **Il Campo Aperto.** Lasci andare prima ancora che diventi necessario.
-Per questo hai sempre spazio per la cosa dopo.
+0-25 **La Terra.** Tieni tutto e niente va perduto. [Sei quello che|Sei quella che|Sei chi] conserva anche quando gli altri hanno già buttato.
+FARE: Sotto questa Luna piena lascia andare una sola cosa che non usi più.
+26-50 **L'Acqua.** Raccogli quando [sei sicuro|sei sicura|hai la certezza]. Arrivi dopo, ma non sbagli raccolto.
+FARE: Chiudi una cosa rimasta a metà: è il suo tempo.
+51-75 **L'Aria.** Vedi quando una cosa è arrivata e la chiudi. Non ti porti dietro peso inutile.
+FARE: Scrivi tre cose che in questo mese sono arrivate a compimento.
+76-100 **Il Fuoco.** Lasci andare prima ancora che diventi necessario. Per questo hai sempre spazio per la cosa dopo.
+FARE: Prima di lasciare andare la prossima cosa guarda se ha finito di dare frutto.
 
 ---
 
 # TEMA 5. QUELLO CHE COMINCIA
 Nella settimana della Luna nuova. Misura quanto una persona si muove verso
 quello che non conosce.
+
+FONTE: La Luna nuova apre il suo ciclo: dalla congiunzione col Sole al primo quarto la Luna è umida, il tempo del seme (Tolomeo, Tetrabiblos, I, 8).
 
 D1. Un'occasione che non hai cercato.
    a) La lascio passare [0]
@@ -470,21 +495,22 @@ D12. Il tuo prossimo passo.
    d) So già qual è [3]
 
 FASCE
-0-25 **La Pietra.** Sai dove stai e non ti serve altro. Chi ha bisogno di un
-punto fermo guarda te.
-26-50 **La Porta Socchiusa.** Il nuovo ti interessa se entra piano. Non ti butti
-e non ti chiudi.
-51-75 **Il Sentiero.** Ti muovi verso quello che non conosci, con gli occhi
-aperti. È la posizione di chi cambia davvero, non per noia.
-76-100 **La Prua.** [Vai per primo|Vai per prima|Apri la strada] e gli altri ti
-seguono. Qualche volta arrivi
-dove non c'era niente da trovare e qualche volta trovi tutto.
+0-25 **La Terra.** Sai dove stai e non ti serve altro. Chi ha bisogno di un appoggio fermo guarda te.
+FARE: Comincia una cosa piccola e concreta, una sola: la Terra semina poco e raccoglie.
+26-50 **L'Acqua.** Il nuovo ti interessa se entra piano. Non ti butti e non ti chiudi.
+FARE: Lascia entrare una novità in una cosa che fai già.
+51-75 **L'Aria.** Ti muovi verso quello che non conosci, con gli occhi aperti. Cambi davvero, non per noia.
+FARE: Scrivi l'intenzione di questo mese nella notte della Luna nuova.
+76-100 **Il Fuoco.** [Vai per primo|Vai per prima|Apri la strada] e gli altri ti seguono. Qualche volta arrivi dove non c'era niente da trovare. Qualche volta trovi tutto.
+FARE: Prima di aprire la prossima strada finisci di tracciare quella di ieri.
 
 ---
 
 # TEMA 6. CHI STAI DIVENTANDO
 Settimana senza eventi del cielo. Misura quanto una persona si riconosce in
 quello che era e in quello che è.
+
+FONTE: Nessun passaggio forte nel cielo di questa settimana: la Prova guarda la natura di fondo, il temperamento (Galeno, De temperamentis).
 
 D1. Quanto somigli a [te stesso|te stessa|chi eri] di cinque anni fa.
    a) [Sono identico|Sono identica|Non è cambiato niente] [0]
@@ -559,15 +585,14 @@ D12. Fra cinque anni.
    d) Sto già andando lì [3]
 
 FASCE
-0-25 **La Quercia.** [Sei rimasto quello|Sei rimasta quella|Niente è cambiato]
-e non è poco: in un mondo che cambia
-tutto, sapere dove sei tu è un valore.
-26-50 **Il Fiume Lento.** Cambi senza accorgertene e un giorno guardi indietro
-e la riva è lontana.
-51-75 **La Soglia Attraversata.** Hai cambiato per scelta e lo sai. Non è stato
-gratis e non lo rifaresti diversamente.
-76-100 **La Muta.** Hai lasciato indietro più di una pelle. Chi ti ha conosciuto
-prima fatica a seguirti, chi ti conosce adesso non immagina com'eri.
+0-25 **La Terra.** [Sei rimasto quello|Sei rimasta quella|Niente è cambiato] e non è poco: in un mondo che cambia tutto, sapere dove sei tu è un valore.
+FARE: Rileggi una cosa che hai scritto anni fa: vedrai cosa è rimasto vero.
+26-50 **L'Acqua.** Cambi senza accorgertene. Un giorno guardi indietro e la riva è lontana.
+FARE: Guarda una tua fotografia di un anno fa e nomina una cosa che è cambiata.
+51-75 **L'Aria.** Hai cambiato per scelta e lo sai. Non è stato gratis e non lo rifaresti diversamente.
+FARE: Scrivi in una riga chi vuoi essere fra un anno.
+76-100 **Il Fuoco.** Hai lasciato indietro più di una pelle. Chi ti ha conosciuto prima fatica a seguirti. Chi ti conosce adesso non immagina com'eri.
+FARE: Racconta a una persona di oggi una cosa di chi eri.
 
 ---
 

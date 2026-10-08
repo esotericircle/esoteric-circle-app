@@ -186,13 +186,14 @@ class PartitaDellEnigma {
       punti: punti);
 }
 
-/// I punti a video: tre, due, uno, mezzo.
-String puntiADetto(double punti) => switch (punti) {
-      3 => 'tre punti',
-      2 => 'due punti',
-      1 => 'un punto',
-      0.5 => 'mezzo punto',
-      _ => 'nessun punto',
+/// **L'ESITO DI UN ENIGMA RICONOSCIUTO**, con quanti indizi. Il fondatore,
+/// 8 ottobre 2026: niente punti a video, gli Enigmi non sono un gioco. I
+/// punti restano nel server, dove ordinano chi legge il Cerchio.
+String lettoConGliIndizi(int indizi) => switch (indizi) {
+      0 => 'Riconosciuto senza indizi.',
+      1 => 'Riconosciuto con un indizio.',
+      2 => 'Riconosciuto con due indizi.',
+      _ => 'Riconosciuto con tre indizi.',
     };
 
 /// Chi ti ha indovinato, per una domanda: il numero e i segni scoperti.

@@ -71,10 +71,9 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
       _perche = esito.motivo;
       _riga = switch (_perche) {
         'ritratto' =>
-          'Prima di giocare compila il tuo Ritratto: otto caselle sono già '
+          'Prima di entrare compila il tuo Ritratto: otto caselle sono già '
               'pronte dalla tua carta.',
-        'limite' =>
-          'Hai giocato gli indovinelli di oggi. Domani ne arrivano altri.',
+        'limite' => 'Hai aperto gli enigmi di oggi. Domani ne arrivano altri.',
         'pochi' =>
           'Servono quattro persone del tuo Cerchio col Ritratto compilato: '
               'per ora ne trovo ${esito.dati['quanti'] ?? 0}.',
@@ -134,7 +133,7 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
             (esito.dati['punti'] as num? ?? 0).toDouble());
       } else if (esito.motivo == 'limite') {
         _riga =
-            'Hai giocato gli indovinelli di oggi. Domani ne arrivano altri.';
+            'Hai aperto gli enigmi di oggi. Domani ne arrivano altri.';
       } else {
         _riga = esito.rigaPerLaPersona;
       }
@@ -211,7 +210,7 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
                   const SizedBox(height: SpacingTokens.md),
                   Text(
                       (p.punti ?? 0) > 0
-                          ? 'Giusto: ${puntiADetto(p.punti!)}.'
+                          ? lettoConGliIndizi(p.indizi.length)
                           : 'Era ${p.facce.firstWhere((v) => v.uid == p.era, orElse: () => p.facce.first).nome}.',
                       key: const Key('indovinello_esito'),
                       textAlign: TextAlign.center,
@@ -220,14 +219,13 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
                   const SizedBox(height: SpacingTokens.sm),
                   PulsanteDegliEnigmi(
                     key: const Key('indovinello_un_altro'),
-                    etichetta: 'Un altro indovinello',
+                    etichetta: 'Un altro enigma',
                     onPressed: _apri,
                   ),
                 ] else ...[
                   const SezioneDegliEnigmi('Gli indizi'),
                   if (p.indizi.isEmpty)
-                    const RigaDegliEnigmi(
-                        'Nessun indizio ancora. Se indovini adesso prendi tre punti.'),
+                    const RigaDegliEnigmi('Nessun indizio ancora.'),
                   for (var i = 0; i < p.indizi.length; i++)
                     Padding(
                       padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
@@ -236,14 +234,6 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
                           style: TypographyTokens.corpo().copyWith(
                               color: ColorTokens.textPrimary, height: 1.4)),
                     ),
-                  if (p.indizi.isNotEmpty)
-                    RigaDegliEnigmi(
-                        'Se indovini adesso prendi ${puntiADetto(const [
-                      3.0,
-                      2.0,
-                      1.0,
-                      0.5
-                    ][p.indizi.length])}.'),
                   const SizedBox(height: SpacingTokens.sm),
                   if (p.costoProssimo != null)
                     PulsanteDegliEnigmi(

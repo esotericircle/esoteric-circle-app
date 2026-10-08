@@ -275,7 +275,7 @@ class ListinoDegliEos {
   /// alla volta. Il segno si', il nome mai, a nessun prezzo.
   static const segnoDiChiTiHaIndovinato = VoceDelListino(
     id: 'segno_di_chi_indovina',
-    nome: 'Il segno di chi ti ha indovinato',
+    nome: 'Il segno di chi ti ha riconosciuto',
     costo: 20,
     budget: null,
     gratisAlGiorno: {

@@ -9,6 +9,8 @@ const List<TemaDellaProva> temiDelCorpus = [
   TemaDellaProva(
     numero: 1,
     nome: 'Le parole che non arrivano',
+    fonte:
+        'Mercurio governa la parola, lo scambio e l\'intelletto (Tolomeo, Tetrabiblos, III, 13). Retrogrado, per la tradizione medievale la sua forza si ritira (Guido Bonatti, Liber astronomiae).',
     domande: [
       DomandaDellaProva(
           1, 'Una cosa ti ha dato fastidio e la persona non se ne è accorta.', [
@@ -95,19 +97,37 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'Il Pozzo',
-          'Quello che hai dentro resta dentro e non per paura: perché non tutto va detto. Chi ti conosce lo sa e viene a cercarti.'),
-      FasciaDellaProva(26, 50, 'La Soglia',
-          'Parli quando ne vale la pena e prima pesi. Chi ti ascolta sa che se apri bocca c\'è un motivo.'),
-      FasciaDellaProva(51, 75, 'Il Ponte',
-          'Le cose le dici e le dici in tempo. È la posizione più scomoda e la più utile a chi ti sta intorno.'),
-      FasciaDellaProva(76, 100, 'Il Vento',
-          'Esce tutto e subito. A volte arriva prima delle parole giuste, ma nessuno deve indovinare cosa pensi.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          'Quello che hai dentro resta dentro. Non è paura: pesi ogni parola prima di lasciarla andare, come vuole la natura fredda e secca della Terra. Chi ti conosce lo sa e viene a cercarti.',
+          'Scrivi quello che non dici: la parola trattenuta trova la sua forma sulla carta.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Parli quando ne vale la pena e lasci che le cose si posino prima. Chi ti ascolta sa che se apri bocca c\'è un motivo.',
+          'Prima di rispondere a un messaggio difficile lascia passare una notte.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Le cose le dici e le dici in tempo. Le parole ti scorrono facili e arrivano a chi ti sta intorno.',
+          'Rileggi prima di mandare: con Mercurio che torna indietro anche la parola facile vuole una seconda occhiata.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          'Esce tutto e subito. A volte arriva prima delle parole giuste, ma nessuno deve indovinare cosa pensi.',
+          'Conta fino a tre prima di parlare di ciò che ti scalda: in questi giorni le parole viaggiano storte.'),
     ],
   ),
   TemaDellaProva(
     numero: 2,
     nome: 'Come ami adesso',
+    fonte:
+        'Venere governa l\'amore e i legami (Tolomeo, Tetrabiblos, IV, 5). Quando cambia segno cambia il modo in cui i legami si cercano.',
     domande: [
       DomandaDellaProva(1, 'La sera perfetta con la persona a cui tieni.', [
         RispostaDellaProva('Ognuno per conto suo nella stessa stanza', 0),
@@ -188,19 +208,37 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'La Radice',
-          'Ami stando, non dicendo. Chi ti sceglie deve avere la pazienza di accorgersene e chi la trova non se ne va più.'),
-      FasciaDellaProva(26, 50, 'La Casa',
-          'Costruisci piano e tieni. Non è freddezza, è il modo in cui le cose durano.'),
-      FasciaDellaProva(51, 75, 'Il Cammino',
-          'Ami muovendoti insieme. Hai bisogno che un legame vada da qualche parte, non solo che resti.'),
-      FasciaDellaProva(76, 100, 'Il Fuoco',
-          'Ami forte e si vede da fuori. Dai molto e chiedi altrettanto. Con te nessuno resta nel dubbio.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          'Ami stando, non dicendo. La tua fedeltà è quella della Terra: lenta da muovere, impossibile da smuovere. Chi la trova non se ne va più.',
+          'Fai un gesto concreto per chi ami: per te l\'amore passa dalle mani.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Costruisci piano e tieni. Non è freddezza: è il modo dell\'Acqua, che accoglie e prende la forma del legame.',
+          'Di\' a voce una cosa che di solito lasci capire.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Ami muovendoti insieme. Hai bisogno che un legame respiri e vada da qualche parte, non solo che resti.',
+          'Proponi una cosa nuova da fare in due prima che Venere cambi ancora.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          'Ami forte e si vede da fuori. Dai molto e chiedi altrettanto. Con te nessuno resta nel dubbio.',
+          'Ascolta prima di chiedere: il tuo calore arriva meglio se lascia spazio.'),
     ],
   ),
   TemaDellaProva(
     numero: 3,
     nome: 'Dove metti la forza',
+    fonte:
+        'Marte governa l\'ardire, l\'ira e la forza (Tolomeo, Tetrabiblos, III, 13). Quando cambia segno cambia il modo in cui la forza si spende.',
     domande: [
       DomandaDellaProva(
           1, 'Un ostacolo inatteso a metà di una cosa importante.', [
@@ -283,19 +321,37 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'L\'Acqua Ferma',
-          'Non spendi forza dove non serve. Sembri cedevole e invece [sei quello che|sei quella che|sei chi] resta in piedi quando gli altri si sono consumati.'),
-      FasciaDellaProva(26, 50, 'L\'Arco',
-          'Tendi quando serve e lasci andare al momento giusto. La tua forza si vede solo nel risultato.'),
-      FasciaDellaProva(51, 75, 'La Lama',
-          'Affronti e non ti nascondi. Chi ti ha accanto sa che in una difficoltà ci sei.'),
-      FasciaDellaProva(76, 100, 'Il Maglio',
-          'Spingi con tutto quello che hai. Apri strade che gli altri non aprirebbero e qualche volta sfondi anche porte aperte.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          'Non spendi forza dove non serve. La tua è la resistenza della Terra: [sei quello che|sei quella che|sei chi] resta in piedi quando gli altri si sono consumati.',
+          'Scegli una sola battaglia per questi giorni e lascia cadere le altre.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Tendi quando serve e lasci andare al momento giusto. Come l\'acqua aggiri l\'ostacolo invece di spaccarlo.',
+          'Davanti a un muro cerca il passaggio laterale prima di spingere.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Affronti e non ti nascondi. La tua forza è agile: arrivi dove serve prima degli altri.',
+          'Usa la prontezza per sbloccare una cosa ferma da tempo.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          'Spingi con tutto quello che hai. Apri strade che gli altri non aprirebbero. Qualche volta sfondi anche porte aperte.',
+          'Prima di partire guarda se la porta è davvero chiusa.'),
     ],
   ),
   TemaDellaProva(
     numero: 4,
     nome: 'Quello che è maturo',
+    fonte:
+        'La Luna piena è il culmine della sua luce: dalla piena all\'ultimo quarto la Luna è secca, il tempo del raccolto (Tolomeo, Tetrabiblos, I, 8).',
     domande: [
       DomandaDellaProva(1, 'Una cosa che va avanti per inerzia.', [
         RispostaDellaProva('Continuo, cambiare costa di più', 0),
@@ -374,19 +430,37 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'Il Grano Fermo',
-          'Tieni tutto e niente va perduto. [Sei quello che|Sei quella che|Sei chi] conserva anche quando gli altri hanno già buttato.'),
-      FasciaDellaProva(26, 50, 'La Falce Lenta',
-          'Raccogli quando [sei sicuro|sei sicura|hai la certezza]. Arrivi dopo, ma non sbagli raccolto.'),
-      FasciaDellaProva(51, 75, 'La Luna Alta',
-          'Vedi quando una cosa è arrivata e la chiudi. È la posizione di chi non si porta dietro peso inutile.'),
-      FasciaDellaProva(76, 100, 'Il Campo Aperto',
-          'Lasci andare prima ancora che diventi necessario. Per questo hai sempre spazio per la cosa dopo.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          'Tieni tutto e niente va perduto. [Sei quello che|Sei quella che|Sei chi] conserva anche quando gli altri hanno già buttato.',
+          'Sotto questa Luna piena lascia andare una sola cosa che non usi più.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Raccogli quando [sei sicuro|sei sicura|hai la certezza]. Arrivi dopo, ma non sbagli raccolto.',
+          'Chiudi una cosa rimasta a metà: è il suo tempo.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Vedi quando una cosa è arrivata e la chiudi. Non ti porti dietro peso inutile.',
+          'Scrivi tre cose che in questo mese sono arrivate a compimento.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          'Lasci andare prima ancora che diventi necessario. Per questo hai sempre spazio per la cosa dopo.',
+          'Prima di lasciare andare la prossima cosa guarda se ha finito di dare frutto.'),
     ],
   ),
   TemaDellaProva(
     numero: 5,
     nome: 'Quello che comincia',
+    fonte:
+        'La Luna nuova apre il suo ciclo: dalla congiunzione col Sole al primo quarto la Luna è umida, il tempo del seme (Tolomeo, Tetrabiblos, I, 8).',
     domande: [
       DomandaDellaProva(1, 'Un\'occasione che non hai cercato.', [
         RispostaDellaProva('La lascio passare', 0),
@@ -463,19 +537,37 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'La Pietra',
-          'Sai dove stai e non ti serve altro. Chi ha bisogno di un punto fermo guarda te.'),
-      FasciaDellaProva(26, 50, 'La Porta Socchiusa',
-          'Il nuovo ti interessa se entra piano. Non ti butti e non ti chiudi.'),
-      FasciaDellaProva(51, 75, 'Il Sentiero',
-          'Ti muovi verso quello che non conosci, con gli occhi aperti. È la posizione di chi cambia davvero, non per noia.'),
-      FasciaDellaProva(76, 100, 'La Prua',
-          '[Vai per primo|Vai per prima|Apri la strada] e gli altri ti seguono. Qualche volta arrivi dove non c\'era niente da trovare e qualche volta trovi tutto.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          'Sai dove stai e non ti serve altro. Chi ha bisogno di un appoggio fermo guarda te.',
+          'Comincia una cosa piccola e concreta, una sola: la Terra semina poco e raccoglie.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Il nuovo ti interessa se entra piano. Non ti butti e non ti chiudi.',
+          'Lascia entrare una novità in una cosa che fai già.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Ti muovi verso quello che non conosci, con gli occhi aperti. Cambi davvero, non per noia.',
+          'Scrivi l\'intenzione di questo mese nella notte della Luna nuova.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          '[Vai per primo|Vai per prima|Apri la strada] e gli altri ti seguono. Qualche volta arrivi dove non c\'era niente da trovare. Qualche volta trovi tutto.',
+          'Prima di aprire la prossima strada finisci di tracciare quella di ieri.'),
     ],
   ),
   TemaDellaProva(
     numero: 6,
     nome: 'Chi stai diventando',
+    fonte:
+        'Nessun passaggio forte nel cielo di questa settimana: la Prova guarda la natura di fondo, il temperamento (Galeno, De temperamentis).',
     domande: [
       DomandaDellaProva(1,
           'Quanto somigli a [te stesso|te stessa|chi eri] di cinque anni fa.', [
@@ -562,14 +654,30 @@ const List<TemaDellaProva> temiDelCorpus = [
       ]),
     ],
     fasce: [
-      FasciaDellaProva(0, 25, 'La Quercia',
-          '[Sei rimasto quello|Sei rimasta quella|Niente è cambiato] e non è poco: in un mondo che cambia tutto, sapere dove sei tu è un valore.'),
-      FasciaDellaProva(26, 50, 'Il Fiume Lento',
-          'Cambi senza accorgertene e un giorno guardi indietro e la riva è lontana.'),
-      FasciaDellaProva(51, 75, 'La Soglia Attraversata',
-          'Hai cambiato per scelta e lo sai. Non è stato gratis e non lo rifaresti diversamente.'),
-      FasciaDellaProva(76, 100, 'La Muta',
-          'Hai lasciato indietro più di una pelle. Chi ti ha conosciuto prima fatica a seguirti, chi ti conosce adesso non immagina com\'eri.'),
+      FasciaDellaProva(
+          0,
+          25,
+          'La Terra',
+          '[Sei rimasto quello|Sei rimasta quella|Niente è cambiato] e non è poco: in un mondo che cambia tutto, sapere dove sei tu è un valore.',
+          'Rileggi una cosa che hai scritto anni fa: vedrai cosa è rimasto vero.'),
+      FasciaDellaProva(
+          26,
+          50,
+          'L\'Acqua',
+          'Cambi senza accorgertene. Un giorno guardi indietro e la riva è lontana.',
+          'Guarda una tua fotografia di un anno fa e nomina una cosa che è cambiata.'),
+      FasciaDellaProva(
+          51,
+          75,
+          'L\'Aria',
+          'Hai cambiato per scelta e lo sai. Non è stato gratis e non lo rifaresti diversamente.',
+          'Scrivi in una riga chi vuoi essere fra un anno.'),
+      FasciaDellaProva(
+          76,
+          100,
+          'Il Fuoco',
+          'Hai lasciato indietro più di una pelle. Chi ti ha conosciuto prima fatica a seguirti. Chi ti conosce adesso non immagina com\'eri.',
+          'Racconta a una persona di oggi una cosa di chi eri.'),
     ],
   ),
 ];

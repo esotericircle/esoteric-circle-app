@@ -101,63 +101,63 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
     await _carica();
   }
 
-  /// Il foglio col numero da zero a cento: la scommessa, la sfida, la
-  /// risposta alla sfida.
-  Future<int?> _unNumero(String titolo, String spiega) {
-    var valore = 50.0;
+  /// **IL FOGLIO DELLE QUATTRO NATURE**: il presagio su un amico, la
+  /// lettura a due, la risposta alla lettura. Il fondatore, 8 ottobre 2026:
+  /// *"Non possiamo parlare di gioco o sfide o punteggi nella nostra app."*
+  /// Si sceglie una natura, mai un numero. Torna la posizione (0-3).
+  Future<int?> _unaNatura(String titolo, String spiega) {
     return foglioDelCerchio<int>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (c) => StatefulBuilder(
-        builder: (c, aggiorna) => fondoDelFoglio(
-          c,
-          Padding(
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text(titolo,
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: ColorTokens.textPrimary)),
-              const SizedBox(height: SpacingTokens.xs),
-              RigaDegliEnigmi(spiega),
-              const SizedBox(height: SpacingTokens.md),
-              Text('${valore.round()}',
-                  key: const Key('enigmi_numero'),
-                  style: TypographyTokens.numeroDelGiorno()
-                      .copyWith(color: MaestroPalette.neutral.goldSoft)),
-              Slider(
-                key: const Key('enigmi_cursore'),
-                value: valore,
-                max: 100,
-                divisions: 100,
-                // Un punteggio della Prova, non una percentuale: il lettore
-                // di schermo diceva "cinquanta per cento".
-                semanticFormatterCallback: (v) => '${v.round()} punti',
-                activeColor: MaestroPalette.neutral.goldSoft,
-                onChanged: (v) => aggiorna(() => valore = v),
+      builder: (c) => fondoDelFoglio(
+        c,
+        Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Text(titolo,
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: ColorTokens.textPrimary)),
+            const SizedBox(height: SpacingTokens.xs),
+            RigaDegliEnigmi(spiega),
+            const SizedBox(height: SpacingTokens.md),
+            for (final n in NaturaDellaProva.values)
+              Padding(
+                padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                child: OutlinedButton(
+                  key: Key('enigmi_natura_${n.index}'),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(52),
+                    foregroundColor: MaestroPalette.neutral.goldSoft,
+                    side: BorderSide(
+                        color:
+                            MaestroPalette.neutral.gold.withValues(alpha: 0.5)),
+                  ),
+                  onPressed: () => Navigator.of(c).pop(n.index),
+                  child: Text('${n.nome}, ${n.temperamento}'),
+                ),
               ),
-              PulsanteDegliEnigmi(
-                key: const Key('enigmi_conferma_numero'),
-                etichetta: 'Conferma',
-                onPressed: () => Navigator.of(c).pop(valore.round()),
-              ),
-            ]),
-          ),
+          ]),
         ),
       ),
     );
   }
+
+  /// La natura di un amico dalla sua Prova di questa settimana.
+  NaturaDellaProva? _naturaDi(TemaDellaProva tema, int? punteggio) =>
+      punteggio == null ? null : LaProva.natura(tema, punteggio);
 
   Future<void> _gesto(Future<EsitoDelGesto> Function() fai) async {
     final esito = await fai();
     if (!mounted) return;
     final perche = esito.motivo;
     final riga = switch (perche) {
-      'tardi' => 'Ha già fatto la Prova: adesso si vede il punteggio.',
-      'limite' => 'Hai usato le scommesse di oggi.',
-      'piano' => 'La sfida a due si apre dall’Iniziato in su.',
-      'prova' => 'Prima fai la Prova della settimana, poi sfida.',
-      'scaduta' => 'La sfida è scaduta.',
+      'tardi' => 'Ha già fatto la Prova: adesso si vede la sua natura.',
+      'limite' => 'Hai usato i presagi di oggi.',
+      'piano' => 'La lettura a due si apre dall’Iniziato in su.',
+      'prova' => 'Prima fai la Prova della settimana, poi chiedi la lettura.',
+      'scaduta' => 'La lettura a due è chiusa.',
+      'sfidaAperta' => 'Con questa persona hai già una lettura a due aperta.',
       _ => esito.ok ? null : esito.rigaPerLaPersona,
     };
     if (riga != null) {
@@ -205,7 +205,7 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                       ? const Padding(
                           padding: EdgeInsets.all(SpacingTokens.lg),
                           child: RigaDegliEnigmi(
-                              'Il Cerchio non risponde adesso: i giochi '
+                              'Il Cerchio non risponde adesso: gli Enigmi '
                               'tornano appena c’è la rete.'),
                         )
                       : const CircularProgressIndicator())
@@ -226,12 +226,14 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
         v.tema != null ? LaProva.temi[v.tema! - 1] : LaProva.temaDi(_adesso);
     final scadeLaProva =
         ITempiDeiGiochi.scadenza(GiocoDelCerchio.prova, _adesso)!;
+    final tuaNatura = v.provaFatta ? _naturaDi(tema, v.punteggio) : null;
     return [
       if (!v.ritrattoCompilato) ...[
         const SezioneDegliEnigmi('Il tuo Ritratto'),
         const RigaDegliEnigmi(
-            'Per giocare serve il tuo Ritratto: venti caratteristiche, otto '
-            'già pronte dalla tua carta natale. Lo vedi intero solo tu.'),
+            'Per entrare negli Enigmi serve il tuo Ritratto: venti '
+            'caratteristiche, otto già pronte dalla tua carta natale. Lo vedi '
+            'intero solo tu.'),
         const SizedBox(height: SpacingTokens.sm),
         PulsanteDegliEnigmi(
           key: const Key('enigmi_compila_ritratto'),
@@ -242,19 +244,19 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
       ],
       const SezioneDegliEnigmi('Chi del Cerchio'),
       RigaDegliEnigmi(v.indovinelliRimasti == 1
-          ? 'Ti resta un indovinello oggi.'
-          : 'Ti restano ${v.indovinelliRimasti} indovinelli oggi.'),
+          ? 'Ti resta un enigma oggi.'
+          : 'Ti restano ${v.indovinelliRimasti} enigmi oggi.'),
       const SizedBox(height: SpacingTokens.sm),
       PulsanteDegliEnigmi(
         key: const Key('enigmi_gioca'),
-        etichetta: 'Gioca a Chi del Cerchio',
+        etichetta: 'Apri Chi del Cerchio',
         icona: Icons.groups_2_rounded,
         onPressed: v.ritrattoCompilato && v.indovinelliRimasti > 0
             ? () => _apri(LIndovinelloScreen.route())
             : null,
       ),
       if (v.ritorno.isNotEmpty) ...[
-        const SezioneDegliEnigmi('Chi ti ha indovinato'),
+        const SezioneDegliEnigmi('Chi ti ha riconosciuto'),
         for (final r in v.ritorno) ...[
           Text(r.frase,
               key: Key('enigmi_ritorno_${r.chiave}'),
@@ -272,7 +274,7 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                     foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () => _scopri(r),
                 icon: IconaDegliEos(colore: MaestroPalette.neutral.goldSoft),
-                label: Text('Scopri il segno di chi ti ha indovinato, '
+                label: Text('Scopri il segno di chi ti ha riconosciuto, '
                     '${ListinoDegliEos.segnoDiChiTiHaIndovinato.costo} Eos'),
               ),
             ),
@@ -284,9 +286,11 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
               .copyWith(color: MaestroPalette.neutral.goldSoft)),
       RigaDegliEnigmi(
           'Finisce fra ${ilTempoCheResta(ITempiDeiGiochi.resta(scadeLaProva, _adesso))}.'),
-      if (v.provaFatta && v.punteggio != null)
-        Text('Il tuo punteggio: ${v.punteggio}, ${v.figura ?? ''}.',
-            key: const Key('enigmi_tuo_punteggio'),
+      if (tuaNatura != null)
+        Text(
+            'La tua natura: ${tuaNatura.nomeInFrase}, il temperamento '
+            '${tuaNatura.temperamento}.',
+            key: const Key('enigmi_tua_natura'),
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary)),
       if (!v.provaFatta) ...[
@@ -307,9 +311,10 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
             Expanded(
               child: Text(
                   a.fatta
-                      ? '${a.nome} ha fatto ${a.punteggio}'
+                      ? '${a.nome}: ${_naturaDi(tema, a.punteggio)?.nomeInFrase ?? 'la Prova fatta'}'
                       : a.scommessa != null
-                          ? '${a.nome}: hai scommesso ${a.scommessa}'
+                          ? '${a.nome}: hai presagito '
+                              '${NaturaDellaProva.diIndice(a.scommessa)?.nomeInFrase ?? 'la sua natura'}'
                           : '${a.nome}: non l’ha ancora fatta',
                   key: Key('enigmi_amico_${a.uid}'),
                   style: TypographyTokens.corpo()
@@ -319,52 +324,54 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                 a.scommessa == null &&
                 v.scommesse < v.scommesseAlGiorno)
               TextButton(
-                key: Key('enigmi_scommetti_${a.uid}'),
+                key: Key('enigmi_presagio_${a.uid}'),
                 style: TextButton.styleFrom(
                     foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () async {
-                  final n = await _unNumero('Quanto farà ${a.nome}?',
-                      'Chi si avvicina di più al suo punteggio guadagna.');
+                  final n = await _unaNatura(
+                      'Che natura senti in ${a.nome}?',
+                      'Prima che faccia la Prova, presagisci con quale dei '
+                          'quattro elementi vivrà la domanda del cielo.');
                   if (n != null && mounted) {
                     await _gesto(() =>
                         context.read<IlCerchioSociale>().scommetti(a.uid, n));
                   }
                 },
-                child: const Text('Scommetti'),
+                child: const Text('Presagio'),
               ),
             if (!a.fatta &&
                 v.provaFatta &&
                 v.puoiSfidare &&
                 !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))
               TextButton(
-                key: Key('enigmi_sfida_${a.uid}'),
+                key: Key('enigmi_lettura_${a.uid}'),
                 style: TextButton.styleFrom(
                     foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () async {
-                  final n = await _unNumero(
-                      'Sfida ${a.nome}',
-                      'Quanto farà nella Prova? Vince chi indovina meglio il '
-                          'punteggio dell’altro. Ventiquattro ore.');
+                  final n = await _unaNatura(
+                      'Lettura a due con ${a.nome}',
+                      'Ciascuno presagisce la natura dell’altro nella Prova '
+                          'di questa settimana. Ventiquattro ore.');
                   if (n != null && mounted) {
                     await _gesto(
                         () => context.read<IlCerchioSociale>().sfida(a.uid, n));
                   }
                 },
-                child: const Text('Sfida'),
+                child: const Text('Lettura a due'),
               ),
           ]),
         ),
       if (v.sfide.isNotEmpty) ...[
-        const SezioneDegliEnigmi('Le sfide aperte'),
+        const SezioneDegliEnigmi('Le letture a due aperte'),
         for (final s in v.sfide)
           Padding(
             padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
             child: Row(children: [
               Expanded(
                 child: Text(
-                    '${s.tua ? 'La tua sfida con ${_nomeDi(v, s.a)}' : 'La sfida di ${_nomeDi(v, s.da)}'}: '
+                    '${s.tua ? 'La tua lettura con ${_nomeDi(v, s.a)}' : 'La lettura di ${_nomeDi(v, s.da)}'}: '
                     'finisce fra ${ilTempoCheResta(ITempiDeiGiochi.resta(s.scade, _adesso))}.',
-                    key: Key('enigmi_sfida_aperta_${s.id}'),
+                    key: Key('enigmi_lettura_aperta_${s.id}'),
                     style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textPrimary)),
               ),
@@ -374,8 +381,10 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
                   style: TextButton.styleFrom(
                       foregroundColor: MaestroPalette.neutral.goldSoft),
                   onPressed: () async {
-                    final n = await _unNumero('Rispondi alla sfida',
-                        'Quanto ha fatto nella Prova chi ti ha sfidato?');
+                    final n = await _unaNatura(
+                        'Che natura senti in ${_nomeDi(v, s.da)}?',
+                        'Ti ha chiesto una lettura a due: presagisci la sua '
+                            'natura nella Prova di questa settimana.');
                     if (n != null && mounted) {
                       await _gesto(() => context
                           .read<IlCerchioSociale>()
@@ -390,12 +399,12 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
       const SezioneDegliEnigmi('Il Pellegrinaggio'),
       ..._ilPellegrinaggio(v.pellegrinaggio),
       if (v.classifica.length > 1) ...[
-        const SezioneDegliEnigmi('Chi conosce il Cerchio'),
+        const SezioneDegliEnigmi('Chi legge il Cerchio'),
         for (var i = 0; i < v.classifica.length; i++)
           Text(
               '${i + 1}. ${v.classifica[i].tu ? 'Tu' : v.classifica[i].nome}: '
-              '${v.classifica[i].quanti == 1 ? 'un indovinello azzeccato' : '${v.classifica[i].quanti} indovinelli azzeccati'}',
-              key: Key('enigmi_classifica_$i'),
+              '${v.classifica[i].quanti == 1 ? 'un riconoscimento' : '${v.classifica[i].quanti} riconoscimenti'}',
+              key: Key('enigmi_chi_legge_$i'),
               style: TypographyTokens.corpo().copyWith(
                   color: v.classifica[i].tu
                       ? MaestroPalette.neutral.goldSoft

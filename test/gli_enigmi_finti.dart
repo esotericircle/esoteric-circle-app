@@ -81,7 +81,7 @@ abstract final class GliEnigmiFinti {
             'nome': 'Orione',
             'fatta': false,
             'punteggio': null,
-            'scommessa': {'valore': 40, 'vinta': null},
+            'scommessa': {'valore': 1, 'vinta': null},
           },
           {
             'uid': 'u-selene',

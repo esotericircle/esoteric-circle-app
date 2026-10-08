@@ -141,12 +141,102 @@ void main() {
     expect(corpoDi('gliEnigmi'), contains('metaDelPellegrinaggio('));
   });
 
-  test('FF.07.3 b) un gioco scaduto si chiude da solo col risultato che c\'e\'',
-      () {
-    // La sfida scaduta si chiude alla prima lettura di chiunque dei due, e
-    // il punto va a chi ha giocato.
+  test('FF.07.3 b) una lettura a due scaduta si chiude da sola', () {
+    // La lettura a due scaduta si chiude alla prima lettura di chiunque dei
+    // due. **8 ottobre 2026, il fondatore**: "Non possiamo parlare di gioco
+    // o sfide o punteggi". Prima il punto andava a chi aveva giocato; adesso
+    // nessuno vince sull'altro, e scaduta si chiude senza letture.
     expect(corpoDi('gliEnigmi'), contains('chiudiLeSfideScadute(uid, adesso)'));
     expect(
-        enigmi, contains('if (adesso >= s.scade) return {vincitori: [s.da]'));
+        enigmi,
+        contains(
+            'if (adesso >= s.scade) return {vincitori: [], perche: "tempo"}'));
+  });
+
+  test('FF, 8 ottobre: negli Enigmi nessuna parola da gioco', () {
+    // **IL FONDATORE, 8 ottobre 2026**: "Non possiamo parlare di gioco o
+    // sfide o punteggi nella nostra app. Si trattano di test sempre legati a
+    // tradizioni esoteriche e i risultati devono essere coerenti con
+    // trattati, metodi, fonti e tradizioni esoteriche." La guardia legge le
+    // frasi (le stringhe con uno spazio: le chiavi e i campi dei dati non ne
+    // hanno) di tutto cio' che arriva alla persona dagli Enigmi: le
+    // schermate, il modello, i corpora generati, i segni del Cerchio, il
+    // listino, la privacy; e dal server le notifiche e le frasi d'errore. I
+    // commenti non contano: spiegano la regola, non la mostrano.
+    final ludiche = RegExp(
+        r'(?<![A-Za-zÀ-ÿ])(gioc\w*|sfid\w*|punteggi\w*|punti|scommess\w*|'
+        r'scommett\w*|vinc\w*|vint[oaie]|vittori\w*|partit[ae]|azzecc\w*|'
+        r'indovinell\w*|classific\w*)(?![A-Za-zÀ-ÿ])',
+        caseSensitive: false);
+    final stringa = RegExp(r"'((?:[^'\\\n]|\\.)*)'|" r'"((?:[^"\\\n]|\\.)*)"');
+    // **LE ECCEZIONI DICHIARATE**, frase per frase. "Devo vincere" e' una
+    // risposta del corpus delle Prove alla domanda "La competizione" del tema
+    // di Marte: misura l'indole della persona nella vita, non presenta l'app
+    // come un gioco. "Punto" non e' fra le parole: "vado subito al punto".
+    const eccezioni = {'Devo vincere'};
+    // Il codice interpolato dentro una frase non e' testo a video.
+    final interpolato = RegExp(r'\$\{[^}]*\}');
+    final telefono = [
+      ...Directory('lib/features/cerchio/enigmi')
+          .listSync()
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.dart')),
+      for (final p in [
+        'lib/core/cerchio/gli_enigmi_del_cerchio.dart',
+        'lib/core/cerchio/la_prova.dart',
+        'lib/core/cerchio/le_prove_del_corpus.g.dart',
+        'lib/core/cerchio/il_ritratto_del_corpus.g.dart',
+        'lib/core/cerchio/il_testo_degli_enigmi.dart',
+        'lib/core/cerchio/i_segni_del_cerchio.dart',
+        'lib/core/entitlement/listino_degli_eos.dart',
+        'lib/core/legal/privacy_policy.dart',
+      ])
+        File(p),
+    ];
+    var frasi = 0;
+    final colpe = <String>[];
+    void leggi(String nome, String riga, int n) {
+      final t = riga.trimLeft();
+      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) {
+        return;
+      }
+      for (final m in stringa.allMatches(riga)) {
+        final testo =
+            (m.group(1) ?? m.group(2) ?? '').replaceAll(interpolato, ' ');
+        if (!testo.trim().contains(' ') || eccezioni.contains(testo)) continue;
+        frasi++;
+        for (final w in ludiche.allMatches(testo)) {
+          // Un campo del codice dentro un'interpolazione annidata
+          // (`a.punteggio`): una parola a video non ha un punto attaccato.
+          if (w.start > 0 && testo[w.start - 1] == '.') continue;
+          colpe.add('$nome:$n "${w.group(0)}" in "$testo"');
+        }
+      }
+    }
+
+    for (final f in telefono) {
+      final righe = f.readAsLinesSync();
+      for (var i = 0; i < righe.length; i++) {
+        leggi(f.path, righe[i], i + 1);
+      }
+    }
+    // Dal server: solo cio' che arriva alla persona, le notifiche
+    // (`avvisa`) e le frasi d'errore (`HttpsError`), con la riga dopo.
+    final righe = porte.split('\n');
+    for (var i = 0; i < righe.length; i++) {
+      if (!righe[i].contains('avvisa(') && !righe[i].contains('HttpsError(')) {
+        continue;
+      }
+      for (var j = i; j < i + 3 && j < righe.length; j++) {
+        leggi('functions/src/il_cerchio_sociale.ts', righe[j], j + 1);
+      }
+    }
+    print('ORDINE FF, LESSICO: frasi lette ${telefono.length} file e il '
+        'server, $frasi frasi, parole da gioco ${colpe.length}');
+    cardinaleMinimo(frasi, 400,
+        cosa: 'frasi degli Enigmi',
+        perche: 'schermate, corpora generati, segni, listino, privacy e '
+            'server: oltre seicento l\'8 ottobre 2026');
+    expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 }

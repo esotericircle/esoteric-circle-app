@@ -59,10 +59,10 @@ void main() {
     expect(irraggiungibili, isEmpty,
         reason: 'questi segni aprono una cosa che non esiste: '
             '$irraggiungibili');
-    expect(quindici.testo, 'Sfidami con un VIP');
+    expect(quindici.testo, 'Leggiamoci con un VIP');
     expect(quindici.rigaDiChiRiceve,
-        'Qualcuno ti sfida: con quale VIP fai più scintille?');
-    expect(quindici.risposte, ['Accetto la sfida', 'Più tardi']);
+        'Qualcuno ti invita: con quale VIP fai più scintille?');
+    expect(quindici.risposte, ['Accetto', 'Più tardi']);
     expect(quindici.apre, ArteDellaRichiesta.sinastriaVip);
     expect(quindici.categoria, CategoriaDelSegno.richieste);
   });

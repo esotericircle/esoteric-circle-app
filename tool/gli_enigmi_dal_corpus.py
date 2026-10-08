@@ -145,13 +145,19 @@ def le_prove():
         fasce = []
         for fm in re.finditer(r'^(\d+)-(\d+) \*\*(.+?)\*\* (.+?)(?=^\d+-\d+ \*\*|\Z)',
                               fasce_testo, re.M | re.S):
+            # **LE QUATTRO NATURE**, 8 ottobre 2026: ogni fascia porta il suo
+            # testo e, su una riga sua, che cosa fare (`FARE:`).
+            corpo_fascia, _, fare = fm.group(4).partition('\nFARE:')
             fasce.append((int(fm.group(1)), int(fm.group(2)), fm.group(3).strip().rstrip('.'),
-                          re.sub(r'\s*\n\s*', ' ', fm.group(4)).strip()))
-        temi.append((numero, nome, intro, domande, fasce))
+                          re.sub(r'\s*\n\s*', ' ', corpo_fascia).strip(),
+                          re.sub(r'\s*\n\s*', ' ', fare).strip()))
+        # E ogni tema porta da dove viene la sua domanda del cielo (`FONTE:`).
+        fonte = re.search(r'^FONTE: (.+)$', intro, re.M)
+        temi.append((numero, nome, intro, domande, fasce, fonte.group(1).strip() if fonte else ''))
     errori = []
     if [x[0] for x in temi] != list(range(1, 7)):
         errori.append('i temi non sono sei, numerati da 1')
-    for numero, nome, _, domande, fasce in temi:
+    for numero, nome, _, domande, fasce, fonte in temi:
         if [d[0] for d in domande] != list(range(1, 13)):
             errori.append('tema %d: le domande non sono dodici' % numero)
         for d in domande:
@@ -159,6 +165,12 @@ def le_prove():
                 errori.append('tema %d D%d: pesi %s' % (numero, d[0], [p for _, p in d[2]]))
         if [(f[0], f[1]) for f in fasce] != [(0, 25), (26, 50), (51, 75), (76, 100)]:
             errori.append('tema %d: fasce %s' % (numero, [(f[0], f[1]) for f in fasce]))
+        if [f[2] for f in fasce] != ['La Terra', "L'Acqua", "L'Aria", 'Il Fuoco']:
+            errori.append('tema %d: le fasce non sono le quattro nature in ordine' % numero)
+        if any(not f[4] for f in fasce):
+            errori.append('tema %d: una fascia senza FARE' % numero)
+        if not fonte:
+            errori.append('tema %d: senza FONTE' % numero)
     if errori:
         raise SystemExit('PROVE: ' + '; '.join(errori))
 
@@ -170,10 +182,11 @@ def le_prove():
          '',
          '/// I sei temi, nell\'ordine dei criteri del cielo.',
          'const List<TemaDellaProva> temiDelCorpus = [']
-    for numero, nome, intro, domande, fasce in temi:
+    for numero, nome, intro, domande, fasce, fonte in temi:
         d.append('  TemaDellaProva(')
         d.append('    numero: %d,' % numero)
         d.append('    nome: %s,' % dart(nome.capitalize() if nome.isupper() else nome))
+        d.append('    fonte: %s,' % dart(fonte))
         d.append('    domande: [')
         for n, testo, risposte in domande:
             d.append('      DomandaDellaProva(%d, %s, [' % (n, dart(testo)))
@@ -182,8 +195,9 @@ def le_prove():
             d.append('      ]),')
         d.append('    ],')
         d.append('    fasce: [')
-        for da, a, figura, testo in fasce:
-            d.append('      FasciaDellaProva(%d, %d, %s, %s),' % (da, a, dart(figura), dart(testo)))
+        for da, a, figura, testo, fare in fasce:
+            d.append('      FasciaDellaProva(%d, %d, %s, %s, %s),' % (
+                da, a, dart(figura), dart(testo), dart(fare)))
         d.append('    ],')
         d.append('  ),')
     d.append('];')
@@ -194,23 +208,23 @@ def le_prove():
          '',
          '/** Per ogni tema (1-6), i pesi delle quattro risposte di ogni domanda (D1-D12). */',
          'export const PESI_DELLE_PROVE: Record<number, number[][]> = {']
-    for numero, _, _, domande, _ in temi:
+    for numero, _, _, domande, _, _ in temi:
         s.append('  %d: [%s],' % (numero, ', '.join(
             '[%s]' % ', '.join(str(p) for _, p in d[2]) for d in domande)))
     s.append('};')
     s.append('')
     s.append('/** Le figure delle quattro fasce di ogni tema: da, a, nome. */')
     s.append('export const FASCE_DELLE_PROVE: Record<number, [number, number, string][]> = {')
-    for numero, _, _, _, fasce in temi:
+    for numero, _, _, _, fasce, _ in temi:
         s.append('  %d: [%s],' % (numero, ', '.join(
             '[%d, %d, %s]' % (f[0], f[1], ts(f[2])) for f in fasce)))
     s.append('};')
     scrivi('functions/src/le_prove_del_corpus.ts', '\n'.join(s) + '\n')
     conti = []
-    for numero, nome, intro, domande, fasce in temi:
+    for numero, nome, intro, domande, fasce, fonte in temi:
         testi = [d[1] for d in domande] + \
             [r[0] for d in domande for r in d[2]] + \
-            [f[2] + ' ' + f[3] for f in fasce]
+            [f[2] + ' ' + f[3] + ' ' + f[4] for f in fasce] + [fonte]
         risposte = sum(len(d[2]) for d in domande)
         conti.append((numero, len(domande), risposte, len(fasce), risposte,
                       sum(len(marche_di(x)) for x in testi)))

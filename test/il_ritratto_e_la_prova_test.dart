@@ -120,9 +120,27 @@ void main() {
       expect(LaProva.punteggio([3, 2, 1, 0, 3, 2, 1, 0, 3, 2]), 57);
       expect(LaProva.punteggio([3, 2, 1, 0, 3, 2, 1, 0, 3, 2]), 57);
       final tema = LaProva.temi.first;
-      expect(LaProva.fascia(tema, 25).figura, 'Il Pozzo');
-      expect(LaProva.fascia(tema, 26).figura, 'La Soglia');
-      expect(LaProva.fascia(tema, 100).figura, 'Il Vento');
+      // Le quattro nature, 8 ottobre 2026: le fasce sono gli elementi nella
+      // scala del Timeo, dal piu' grave al piu' sottile.
+      expect(LaProva.fascia(tema, 25).figura, 'La Terra');
+      expect(LaProva.fascia(tema, 26).figura, "L'Acqua");
+      expect(LaProva.fascia(tema, 100).figura, 'Il Fuoco');
+      expect(LaProva.natura(tema, 57), NaturaDellaProva.aria);
+      expect(LaProva.natura(tema, 57).temperamento, 'sanguigno');
+      for (final t in LaProva.temi) {
+        expect([
+          for (final f in t.fasce) f.figura
+        ], [
+          'La Terra',
+          "L'Acqua",
+          "L'Aria",
+          'Il Fuoco'
+        ], reason: 'tema ${t.numero}');
+        expect(t.fonte, contains('('), reason: 'tema ${t.numero} senza fonte');
+        for (final f in t.fasce) {
+          expect(f.fareMarcato, isNotEmpty, reason: 'tema ${t.numero}');
+        }
+      }
     });
   });
 }

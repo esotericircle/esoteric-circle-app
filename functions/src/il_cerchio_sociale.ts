@@ -26,7 +26,7 @@ import {
   Domanda,
   INDOVINELLI_AL_GIORNO,
   PREZZO_DEL_SEGNO,
-  PUNTI_DELLA_SCOMMESSA,
+  PESO_DEL_PRESAGIO,
   SCOMMESSE_AL_GIORNO,
   Volto,
   chiaveDellaDomanda,
@@ -38,7 +38,9 @@ import {
   laDomanda,
   lunaValida,
   metaDelPellegrinaggio,
-  piuVicini,
+  naturaDi,
+  naturaValida,
+  presagiGiusti,
   punteggioDi,
   puoComparire,
   quattroVolti,
@@ -1960,14 +1962,16 @@ export const unIndovinello = onCall(OPZIONI_SOCIALI, async (request) => {
   await tettoDellaPorta(uid, "unIndovinello");
   const corpo = (request.data ?? {}) as Record<string, unknown>;
   const id = idDelGesto(corpo.partita);
-  if (id === null) throw new HttpsError("invalid-argument", "Partita sconosciuta.");
+  if (id === null) {
+    throw new HttpsError("invalid-argument", "Enigma sconosciuto.");
+  }
   const azione = String(corpo.azione ?? "");
   const oggi = chiaveDelGiorno();
   if (azione === "apri") {
     const gia = await PARTITE().doc(id).get();
     if (gia.exists) {
       if (gia.data()?.di !== uid) {
-        throw new HttpsError("permission-denied", "Partita di un altro.");
+        throw new HttpsError("permission-denied", "Enigma di un altro.");
       }
       return vistaDellaPartita(id, gia.data() ?? {});
     }
@@ -2086,7 +2090,7 @@ export const unIndovinello = onCall(OPZIONI_SOCIALI, async (request) => {
     });
     if (esito.ok && "nuovo" in esito && esito.giusta) {
       await avvisa(String(esito.era),
-        "Qualcuno del tuo Cerchio ti ha riconosciuto in un indovinello.",
+        "Qualcuno del tuo Cerchio ti ha riconosciuto in un enigma.",
         "indovinato");
     }
     if ("nuovo" in esito) delete (esito as {nuovo?: boolean}).nuovo;
@@ -2161,7 +2165,7 @@ async function chiudiLeScommesse(amico: string, settimana: string,
   const stime = aperte.docs.filter((d) => d.data().vinta == null)
     .map((d) => ({chi: String(d.data().da), valore: Number(d.data().valore),
       ref: d.ref}));
-  const vincitori = new Set(piuVicini(stime, punteggio));
+  const vincitori = new Set(presagiGiusti(stime, punteggio));
   const oggi = chiaveDelGiorno();
   for (const s of stime) {
     await db().runTransaction(async (tx) => {
@@ -2171,7 +2175,7 @@ async function chiudiLeScommesse(amico: string, settimana: string,
       tx.set(s.ref, {vinta, punteggio}, {merge: true});
       if (vinta) {
         tx.set(statoDi(s.chi, "enigmi"),
-          {...c, punti: c.punti + PUNTI_DELLA_SCOMMESSA}, {merge: true});
+          {...c, punti: c.punti + PESO_DEL_PRESAGIO}, {merge: true});
       }
     });
   }
@@ -2222,12 +2226,14 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
       }
       if (gia.exists) {
         return {ok: true, gia: true, punteggio: gia.data()?.punteggio,
+          natura: naturaDi(Number(gia.data()?.punteggio)),
           figura: figuraDi(tema, Number(gia.data()?.punteggio))};
       }
       if (!sett.exists) tx.set(SETTIMANA(settimana), {tema});
       tx.set(PROVA(uid, settimana), {tema, scelte: corpo.scelte, punteggio,
         quando: Date.now()});
-      return {ok: true, gia: false, punteggio, figura: figuraDi(tema, punteggio)};
+      return {ok: true, gia: false, punteggio, natura: naturaDi(punteggio),
+        figura: figuraDi(tema, punteggio)};
     });
     if (esito.ok && esito.gia === false) {
       await chiudiLeScommesse(uid, settimana, punteggio);
@@ -2239,9 +2245,11 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
   if (!(await amiciNeiGiochi(uid)).includes(amico)) {
     return {ok: false, perche: "amico"};
   }
-  const valore = Number(corpo.valore);
-  if (!Number.isInteger(valore) || valore < 0 || valore > 100) {
-    throw new HttpsError("invalid-argument", "Un punteggio va da 0 a 100.");
+  // Un presagio e una lettura a due nominano una delle quattro nature.
+  const valore = naturaValida(corpo.valore);
+  if (valore === null) {
+    throw new HttpsError("invalid-argument",
+      "Si presagisce una delle quattro nature.");
   }
   if (azione === "scommetti") {
     const piano = await pianoDi(uid);
@@ -2272,7 +2280,9 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
     const mia = await PROVA(uid, settimana).get();
     if (!mia.exists) return {ok: false, perche: "prova"};
     const id = idDelGesto(corpo.sfida);
-    if (id === null) throw new HttpsError("invalid-argument", "Sfida sconosciuta.");
+    if (id === null) {
+      throw new HttpsError("invalid-argument", "Lettura a due sconosciuta.");
+    }
     const adesso = Date.now();
     const ref = SFIDE().doc(id);
     if ((await ref.get()).exists) return {ok: true, gia: true};
@@ -2289,14 +2299,17 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
       stimaDa: valore, punteggioA: null, stimaA: null, chiusa: false});
     const io = await schedaPubblica(uid);
     if (io !== null) {
-      await avvisa(amico, `${io.nome} ti sfida sulla Prova della settimana`,
+      await avvisa(amico,
+        `${io.nome} ti chiede una lettura a due sulla Prova della settimana`,
         "sfida");
     }
     return {ok: true, gia: false, scade: adesso + DURATA_DELLA_SFIDA_MS};
   }
   if (azione === "rispondiAllaSfida") {
     const id = idDelGesto(corpo.sfida);
-    if (id === null) throw new HttpsError("invalid-argument", "Sfida sconosciuta.");
+    if (id === null) {
+      throw new HttpsError("invalid-argument", "Lettura a due sconosciuta.");
+    }
     const ref = SFIDE().doc(id);
     const snap = await ref.get();
     const s = snap.data();

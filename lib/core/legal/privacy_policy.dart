@@ -73,16 +73,17 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'cerchiamo chi della tua rubrica è già nel Cerchio. L’invito parte '
         'dall’app dei messaggi del tuo telefono: lo mandi tu.',
   ),
-  // **GLI ENIGMI DEL CERCHIO.** Ordine FF, 8 ottobre 2026: i giochi tengono
-  // sul server il Ritratto, le Prove, le partite, le scommesse e le sfide.
+  // **GLI ENIGMI DEL CERCHIO.** Ordine FF, 8 ottobre 2026: gli Enigmi
+  // tengono sul server il Ritratto, le Prove, gli enigmi aperti, i presagi e
+  // le letture a due.
   SezioneDellaPolicy(
     titolo: 'Gli Enigmi del Cerchio',
-    corpo: 'Per i giochi del Cerchio teniamo il tuo Ritratto, le venti '
+    corpo: 'Per gli Enigmi del Cerchio teniamo il tuo Ritratto, le venti '
         'caratteristiche che scegli: lo vedi intero solo tu. Agli altri ne '
-        'arriva una per volta come indizio, solo se non ti sei tolto dai '
-        'giochi dal tuo profilo. Teniamo anche le Prove che fai col loro '
-        'punteggio, le scommesse, le sfide e gli indovinelli giocati. A chi '
-        'viene indovinato arriva il numero di chi lo ha riconosciuto e, se '
+        'arriva una per volta come indizio, solo se non ti sei tolto dagli '
+        'Enigmi dal tuo profilo. Teniamo anche le Prove che fai con la natura '
+        'che ne esce, i presagi, le letture a due e gli enigmi aperti. A chi '
+        'viene riconosciuto arriva il numero di chi lo ha riconosciuto e, se '
         'lo scopre, il suo segno: mai il nome. Tutto questo resta finché vive '
         'il tuo account e se ne va quando cancelli i tuoi dati o l’account.',
   ),

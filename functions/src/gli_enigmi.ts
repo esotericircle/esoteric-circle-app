@@ -247,7 +247,7 @@ export function punteggioDi(tema: number, lunedi: string,
   return Math.round(somma * 100 / 30);
 }
 
-/** La figura della fascia del punteggio. */
+/** La figura della fascia del punteggio: l'elemento, "La Terra"... */
 export function figuraDi(tema: number, punteggio: number): string | null {
   const f = (FASCE_DELLE_PROVE[tema] ?? [])
     .find(([da, a]) => punteggio >= da && punteggio <= a);
@@ -255,19 +255,33 @@ export function figuraDi(tema: number, punteggio: number): string | null {
 }
 
 /**
- * **CHI SI AVVICINA DI PIU'.** Fra le stime sullo stesso punteggio vince la
- * distanza minima; a pari distanza vincono tutti.
+ * **LA NATURA DI UN PUNTEGGIO**, 8 ottobre 2026: la Prova non mostra un
+ * numero, mostra una delle quattro nature (0 la Terra, 1 l'Acqua, 2 l'Aria,
+ * 3 il Fuoco), la posizione della fascia. Il fondatore: *"Non possiamo
+ * parlare di gioco o sfide o punteggi nella nostra app."*
  */
-export function piuVicini(stime: {chi: string; valore: number}[],
-  punteggio: number): string[] {
-  if (stime.length === 0) return [];
-  const min = Math.min(...stime.map((s) => Math.abs(s.valore - punteggio)));
-  return stime.filter((s) => Math.abs(s.valore - punteggio) === min)
-    .map((s) => s.chi);
+export function naturaDi(punteggio: number): number {
+  return punteggio <= 25 ? 0 : punteggio <= 50 ? 1 : punteggio <= 75 ? 2 : 3;
 }
 
-/** I punti di chi si avvicina di piu' in una scommessa. */
-export const PUNTI_DELLA_SCOMMESSA = 3;
+/** Un presagio e' una delle quattro nature: 0, 1, 2 o 3. */
+export function naturaValida(valore: unknown): number | null {
+  const n = Number(valore);
+  return Number.isInteger(n) && n >= 0 && n <= 3 ? n : null;
+}
+
+/**
+ * **I PRESAGI GIUSTI.** Prima che un amico faccia la Prova si presagisce la
+ * sua natura; quando la fa, ha letto giusto chi ha presagito la sua.
+ */
+export function presagiGiusti(presagi: {chi: string; valore: number}[],
+  punteggio: number): string[] {
+  const n = naturaDi(punteggio);
+  return presagi.filter((p) => p.valore === n).map((p) => p.chi);
+}
+
+/** Quanto conta nei contatori un presagio giusto. */
+export const PESO_DEL_PRESAGIO = 3;
 
 // ---------------------------------------------------------------------------
 // LE SFIDE
@@ -288,11 +302,12 @@ export function sfidaGiaAperta(sfide: {chiusa?: unknown; scade?: unknown}[],
 }
 
 /**
- * **L'ESITO DI UNA SFIDA A DUE.** Si invita una persona sulla Prova della
- * settimana e ciascuno stima il punteggio dell'altro: vince chi si avvicina
- * di piu' (si sfida quello che le persone fanno, mai quello che sono). Se
- * l'invitato non gioca entro ventiquattro ore la sfida si chiude e il punto
- * va a chi ha giocato. Nullo se la sfida e' ancora aperta.
+ * **L'ESITO DI UNA LETTURA A DUE.** Si invita una persona sulla Prova della
+ * settimana e ciascuno presagisce la natura dell'altro: ha letto giusto chi
+ * la riconosce, uno, tutti e due o nessuno; nessuno vince sull'altro. Se
+ * l'invitato non risponde entro ventiquattro ore la lettura si chiude senza
+ * letture. Nullo se e' ancora aperta. (I nomi dei campi, `vincitori` e le
+ * stime, restano quelli scritti nelle collezioni.)
  */
 export function esitoDellaSfida(s: {
   da: string; a: string; scade: number;
@@ -302,13 +317,12 @@ export function esitoDellaSfida(s: {
   const completa = s.punteggioA != null && s.stimaA != null &&
     s.punteggioDa != null && s.stimaDa != null;
   if (completa) {
-    const errDa = Math.abs((s.stimaDa as number) - (s.punteggioA as number));
-    const errA = Math.abs((s.stimaA as number) - (s.punteggioDa as number));
-    const vincitori = errDa < errA ? [s.da] : errA < errDa ? [s.a] :
-      [s.da, s.a];
+    const vincitori: string[] = [];
+    if (s.stimaDa === naturaDi(s.punteggioA as number)) vincitori.push(s.da);
+    if (s.stimaA === naturaDi(s.punteggioDa as number)) vincitori.push(s.a);
     return {vincitori, perche: "stime"};
   }
-  if (adesso >= s.scade) return {vincitori: [s.da], perche: "tempo"};
+  if (adesso >= s.scade) return {vincitori: [], perche: "tempo"};
   return null;
 }
 

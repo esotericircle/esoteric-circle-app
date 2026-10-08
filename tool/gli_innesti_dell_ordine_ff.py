@@ -234,14 +234,16 @@ INNESTI = [
      "      checked: scelto,",
      "      checked: null,",
      VIDEO, 'la riga del Ritratto dice se e'),
-    ('F47', 'FF.05', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
-     "                semanticFormatterCallback: (v) => '${v.round()} punti',\n",
-     "",
-     VIDEO, 'il cursore dice punti'),
+    # F47 rifatta l'8 ottobre: il cursore del numero non c'e' piu' (le
+    # quattro nature); il difetto e' il numero della Prova che torna a video.
+    ('F47', 'FF.05', 'lib/features/cerchio/enigmi/la_prova_screen.dart',
+     "                Text(natura.nome,\n",
+     "                Text('$punteggio'),\n                Text(natura.nome,\n",
+     VIDEO, 'il presagio sceglie una natura'),
     ('F48', 'FF.06', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
      "                !v.sfide.any((s) => s.da == a.uid || s.a == a.uid))",
      "                v.sfide.length >= 0)",
-     VIDEO, 'il cursore dice punti'),
+     VIDEO, 'la lettura doppia non si'),
     ('F49', 'FF.06', 'functions/src/gli_enigmi.ts',
      "  return sfide.some((s) => s.chiusa !== true && Number(s.scade) > adesso);",
      "  return sfide.some((s) => s.chiusa !== true && adesso < 0);",
@@ -249,7 +251,16 @@ INNESTI = [
     ('F50', 'FF.05', 'lib/features/cerchio/enigmi/la_prova_screen.dart',
      "                  key: const Key('prova_agli_amici'),",
      "                  key: const Key('prova_agli_amici_spento'),",
-     VIDEO, 'il cursore dice punti'),
+     VIDEO, 'il presagio sceglie una natura'),
+    # Le quattro nature e il lessico, 8 ottobre 2026.
+    ('F51', 'FF.04', 'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
+     "        etichetta: 'Apri Chi del Cerchio',",
+     "        etichetta: 'Gioca a Chi del Cerchio',",
+     REGOLE, 'nessuna parola da gioco'),
+    ('F52', 'FF.05', 'functions/src/gli_enigmi.ts',
+     "  return presagi.filter((p) => p.valore === n).map((p) => p.chi);",
+     "  return presagi.filter((p) => p.valore >= 0 || n < 0).map((p) => p.chi);",
+     'cd functions && npm test', 'il presagio'),
 ]
 
 

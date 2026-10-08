@@ -16,7 +16,15 @@
 ///
 /// **Il punteggio**: ogni risposta vale da zero a tre, dieci domande fanno
 /// al massimo trenta, il punteggio su cento e' la somma per cento diviso
-/// trenta, arrotondata. Deterministico.
+/// trenta, arrotondata. Deterministico. **Non si mostra mai.**
+///
+/// **LE QUATTRO NATURE**, 8 ottobre 2026. Il fondatore: *"Non possiamo
+/// parlare di gioco o sfide o punteggi nella nostra app. Si trattano di test
+/// sempre legati a tradizioni esoteriche e i risultati devono essere
+/// coerenti con trattati, metodi, fonti e tradizioni esoteriche."* Le quattro
+/// fasce di ogni tema sono i quattro elementi col loro temperamento, nella
+/// scala dal piu' grave al piu' sottile del Timeo: la persona legge la sua
+/// natura, mai un numero.
 library;
 
 import '../astro/il_segno_del_cielo.dart';
@@ -43,22 +51,72 @@ class DomandaDellaProva {
 }
 
 class FasciaDellaProva {
-  const FasciaDellaProva(this.da, this.a, this.figura, this.testoMarcato);
+  const FasciaDellaProva(
+      this.da, this.a, this.figura, this.testoMarcato, this.fareMarcato);
   final int da;
   final int a;
+
+  /// L'elemento della fascia, col suo articolo: "La Terra", "L'Acqua"...
   final String figura;
   final String testoMarcato;
+
+  /// Che cosa fare questa settimana, la seconda parte del responso.
+  final String fareMarcato;
+}
+
+/// **LE QUATTRO NATURE**, nell'ordine delle fasce: dal piu' grave al piu'
+/// sottile, come nel Timeo di Platone. Le qualita' e i temperamenti sono
+/// quelli della tradizione ippocratica e galenica, raccolti da Agrippa
+/// (De occulta philosophia, libro I, capitolo 3).
+enum NaturaDellaProva {
+  terra('La Terra', 'la Terra', 'fredda e secca', 'melancolico'),
+  acqua('L’Acqua', 'l’Acqua', 'fredda e umida', 'flemmatico'),
+  aria('L’Aria', 'l’Aria', 'calda e umida', 'sanguigno'),
+  fuoco('Il Fuoco', 'il Fuoco', 'caldo e secco', 'collerico');
+
+  const NaturaDellaProva(
+      this.nome, this.nomeInFrase, this.qualita, this.temperamento);
+
+  /// "La Terra", in testa a una riga.
+  final String nome;
+
+  /// "la Terra", dentro una frase.
+  final String nomeInFrase;
+
+  /// Le due qualita' dell'elemento.
+  final String qualita;
+
+  /// Il temperamento che la tradizione gli lega.
+  final String temperamento;
+
+  /// La natura di una fascia (0-3), o nulla fuori dall'elenco.
+  static NaturaDellaProva? diIndice(int? i) =>
+      i == null || i < 0 || i >= values.length ? null : values[i];
+
+  /// "Il temperamento melancolico."
+  String get riga => 'Il temperamento $temperamento';
+
+  /// Da dove viene la natura, in una frase con le sue fonti.
+  String get fonte => '$nome è $qualita: '
+      'è il temperamento $temperamento (Ippocrate, Sulla natura dell’uomo; '
+      'Galeno, De temperamentis; Agrippa, De occulta philosophia, I, 3). '
+      'Le quattro nature vanno dalla più grave alla più sottile, come nel '
+      'Timeo di Platone: la Terra, l’Acqua, l’Aria, il Fuoco.';
 }
 
 class TemaDellaProva {
   const TemaDellaProva({
     required this.numero,
     required this.nome,
+    required this.fonte,
     required this.domande,
     required this.fasce,
   });
   final int numero;
   final String nome;
+
+  /// Da dove viene la domanda del cielo di questo tema, con la sua fonte.
+  final String fonte;
   final List<DomandaDellaProva> domande;
   final List<FasciaDellaProva> fasce;
 }
@@ -158,4 +216,13 @@ abstract final class LaProva {
   static FasciaDellaProva fascia(TemaDellaProva tema, int punteggio) =>
       tema.fasce.firstWhere((f) => punteggio >= f.da && punteggio <= f.a,
           orElse: () => tema.fasce.last);
+
+  /// La natura di un punteggio: la posizione della sua fascia.
+  static NaturaDellaProva natura(TemaDellaProva tema, int punteggio) =>
+      NaturaDellaProva.values[tema.fasce.indexOf(fascia(tema, punteggio))];
+
+  /// **Da dove viene**, la terza parte del responso: la domanda del cielo
+  /// di questa settimana e la natura, con le loro fonti.
+  static String daDoveViene(TemaDellaProva tema, NaturaDellaProva n) =>
+      '${tema.fonte} ${n.fonte}';
 }

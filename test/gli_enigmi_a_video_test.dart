@@ -242,7 +242,7 @@ void main() {
     // E la porta dell'indovinello, senza Ritratto, rimanda al Ritratto.
     await monta(t, const LIndovinelloScreen());
     await passa(t);
-    expect(find.textContaining('Prima di giocare compila il tuo Ritratto'),
+    expect(find.textContaining('Prima di entrare compila il tuo Ritratto'),
         findsOneWidget);
     expect(find.byKey(const Key('indovinello_al_ritratto')), findsOneWidget);
   });
@@ -271,7 +271,8 @@ void main() {
     expect(
         find.text('2. «Rispondo ai messaggi dopo due giorni e poi mi scuso»'),
         findsOneWidget);
-    expect(find.text('Se indovini adesso prendi un punto.'), findsOneWidget);
+    // Niente punti a video (8 ottobre 2026): gli Enigmi non sono un gioco.
+    expect(find.textContaining('punt'), findsNothing);
     expect(find.textContaining('5 Eos'), findsOneWidget);
     await scatta(t, '04_indovinello_dopo_due_indizi');
   });
@@ -282,7 +283,7 @@ void main() {
     await monta(t, const LIndovinelloScreen(), porta: _PortaAlLimite());
     await passa(t);
     expect(
-        find.text('Hai giocato gli indovinelli di oggi. Domani ne arrivano '
+        find.text('Hai aperto gli enigmi di oggi. Domani ne arrivano '
             'altri.'),
         findsOneWidget);
   });
@@ -310,7 +311,7 @@ void main() {
     final prova = 'Finisce fra ${resta(DateTime(2026, 10, 26))}.';
     await finoA(t, find.text(prova));
     expect(find.text(prova), findsOneWidget);
-    final sfida = 'La tua sfida con Selene: finisce fra '
+    final sfida = 'La tua lettura con Selene: finisce fra '
         '${resta(adesso.add(const Duration(hours: 17)))}.';
     await finoA(t, find.text(sfida));
     expect(find.text(sfida), findsOneWidget);
@@ -350,12 +351,15 @@ void main() {
     await scatta(t, '06_la_prova_della_settimana');
 
     await monta(t, laPagina(provaFatta: true));
-    final scommetti = find.byKey(const Key('enigmi_scommetti_u-selene'));
-    await finoA(t, scommetti);
-    await t.tap(scommetti);
+    final presagio = find.byKey(const Key('enigmi_presagio_u-selene'));
+    await finoA(t, presagio);
+    await t.tap(presagio);
     await passa(t);
-    expect(find.text('Quanto farà Selene?'), findsOneWidget);
-    await scatta(t, '07_la_scommessa_su_un_amico');
+    expect(find.text('Che natura senti in Selene?'), findsOneWidget);
+    for (var i = 0; i < 4; i++) {
+      expect(find.byKey(Key('enigmi_natura_$i')), findsOneWidget);
+    }
+    await scatta(t, '07_il_presagio_su_un_amico');
   });
 
   testWidgets('FF.02.5 il Ritratto si cambia dal profilo, quando si vuole',
@@ -479,19 +483,23 @@ void main() {
   });
 
   testWidgets(
-      'FF Realme c) il cursore dice punti, la sfida doppia non si offre, '
-      'la Prova finisce con la sua azione', (t) async {
+      'FF Realme c) il presagio sceglie una natura, la lettura doppia non si '
+      'offre, la Prova finisce con la natura e la sua azione', (t) async {
     final h = t.ensureSemantics();
     await monta(t, laPagina(provaFatta: true));
-    // Selene ha gia' una sfida aperta con te: nessun secondo pulsante.
-    // Orione no: il suo resta.
+    // Selene ha gia' una lettura a due aperta con te: nessun secondo
+    // pulsante. Orione no: il suo resta.
     await finoA(t, find.byKey(const Key('enigmi_amico_u-selene')));
-    expect(find.byKey(const Key('enigmi_sfida_u-selene')), findsNothing);
-    expect(find.byKey(const Key('enigmi_sfida_u-orione')), findsOneWidget);
-    final scommetti = find.byKey(const Key('enigmi_scommetti_u-selene'));
-    await finoA(t, scommetti);
-    await t.tap(scommetti);
+    expect(find.byKey(const Key('enigmi_lettura_u-selene')), findsNothing);
+    expect(find.byKey(const Key('enigmi_lettura_u-orione')), findsOneWidget);
+    final presagio = find.byKey(const Key('enigmi_presagio_u-selene'));
+    await finoA(t, presagio);
+    await t.tap(presagio);
     await passa(t);
+    // Il presagio sceglie fra le quattro nature: nessun numero, nessuna
+    // percentuale per il lettore di schermo (sul Realme diceva "50%").
+    expect(find.text('La Terra, melancolico'), findsOneWidget);
+    expect(find.text('Il Fuoco, collerico'), findsOneWidget);
     // I valori che il lettore di schermo dice, letti da tutto l'albero.
     final valori = <String>[];
     bool visita(SemanticsNode n) {
@@ -504,7 +512,6 @@ void main() {
     visita(
         t.binding.renderViews.first.owner!.semanticsOwner!.rootSemanticsNode!);
     print('ORDINE FF REALME: valori letti $valori');
-    expect(valori, contains('50 punti'));
     expect(valori.where((v) => v.contains('%')), isEmpty);
     h.dispose();
 
@@ -519,9 +526,15 @@ void main() {
     await finoA(t, consegna);
     await t.tap(consegna);
     await passa(t);
-    expect(find.text('57'), findsOneWidget);
-    await finoA(t, find.byKey(const Key('prova_agli_amici')));
-    expect(find.byKey(const Key('prova_agli_amici')), findsOneWidget);
+    // 57 e' l'Aria: si legge la natura, mai il numero.
+    expect(find.text('57'), findsNothing);
+    expect(find.text('L’Aria'), findsOneWidget);
+    expect(find.text('Il temperamento sanguigno'), findsOneWidget);
+    for (final k in ['prova_fare', 'prova_da_dove_viene', 'prova_agli_amici']) {
+      await finoA(t, find.byKey(Key(k)));
+      expect(find.byKey(Key(k)), findsOneWidget, reason: k);
+    }
+    expect(find.textContaining('Agrippa'), findsOneWidget);
     await scatta(t, '10_la_prova_finisce_con_la_sua_azione');
   });
 }

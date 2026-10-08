@@ -233,7 +233,7 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
                     Text(
                         'Venti caratteristiche che dicono come sei fatto. '
                         'Lo vedi intero solo tu: agli altri ne arriva una '
-                        'per volta, come indizio nei giochi del Cerchio.',
+                        'per volta, come indizio negli Enigmi del Cerchio.',
                         style: TypographyTokens.corpo().copyWith(
                             color: ColorTokens.textSecondary, height: 1.4)),
                     if (_proposte.isNotEmpty)
@@ -281,15 +281,15 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
                             onTap: () => _tocca(t.numero),
                           ),
                     ],
-                    const _Sezione('Nei giochi degli altri'),
+                    const _Sezione('Negli Enigmi degli altri'),
                     InterruttoreDelCerchio(
                       key: const Key('ritratto_fuori_dai_giochi'),
                       acceso: _fuoriDaiGiochi,
                       onCambia: (v) => _scegli(fuori: v),
-                      titolo: 'Non comparire nei giochi degli altri',
+                      titolo: 'Non comparire negli Enigmi degli altri',
                       sottotitolo: _fuoriDaiGiochi
-                          ? 'Nessuno può indovinarti. Tu continui a giocare sugli altri.'
-                          : 'Puoi comparire fra i quattro volti di un indovinello.',
+                          ? 'Nessuno può riconoscerti. Tu continui a riconoscere gli altri.'
+                          : 'Puoi comparire fra i quattro volti di un enigma.',
                     ),
                     if (archetipo != null)
                       InterruttoreDelCerchio(
@@ -297,7 +297,7 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
                         acceso: _archetipo != null,
                         onCambia: (v) =>
                             _scegli(archetipo: v ? archetipo : null),
-                        titolo: 'Il tuo archetipo nei giochi',
+                        titolo: 'Il tuo archetipo negli Enigmi',
                         sottotitolo: _archetipo != null
                             ? 'Il risultato del tuo Test può essere una risposta.'
                             : 'Il risultato del tuo Test resta tuo.',
@@ -307,9 +307,9 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
                         key: const Key('ritratto_animale'),
                         acceso: _animale != null,
                         onCambia: (v) => _scegli(animale: v ? animale : null),
-                        titolo: 'Il tuo animale guida nei giochi',
+                        titolo: 'Il tuo animale guida negli Enigmi',
                         sottotitolo: _animale != null
-                            ? 'Chi gioca può cercarti dal tuo animale.'
+                            ? 'Chi ti cerca può riconoscerti dal tuo animale.'
                             : 'Il tuo animale resta tuo.',
                       ),
                   ],

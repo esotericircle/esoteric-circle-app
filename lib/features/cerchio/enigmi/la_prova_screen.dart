@@ -81,6 +81,7 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
     final resta = ilTempoCheResta(ITempiDeiGiochi.resta(scade, _adesso));
     final punteggio = _punteggio;
     final fascia = punteggio == null ? null : LaProva.fascia(_tema, punteggio);
+    final natura = punteggio == null ? null : LaProva.natura(_tema, punteggio);
     return conIPulsantiDOro(
         context,
         Scaffold(
@@ -104,27 +105,39 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
                   key: const Key('prova_tempo'),
                   style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textSecondary)),
-              if (fascia != null) ...[
+              if (fascia != null && natura != null) ...[
+                // **IL RESPONSO DELLA PROVA**, 8 ottobre 2026: la natura,
+                // mai un numero. Prima la risposta, poi che cosa fare, poi
+                // da dove viene, col simbolo e le sue fonti in fondo.
                 const SizedBox(height: SpacingTokens.lg),
-                Text('$punteggio',
-                    key: const Key('prova_punteggio'),
+                Text(natura.nome,
+                    key: const Key('prova_natura'),
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.punteggioDellaProva()
+                    style: TypographyTokens.cerimonialeGrande()
                         .copyWith(color: palette.goldSoft)),
-                Text(fascia.figura,
+                Text(natura.riga,
                     textAlign: TextAlign.center,
                     style: TypographyTokens.titoloScheda()
                         .copyWith(color: ColorTokens.textPrimary)),
                 const SizedBox(height: SpacingTokens.sm),
                 RigaDegliEnigmi(IlTestoDegliEnigmi.perChiCompila(
                     fascia.testoMarcato, forma)),
-                // L'azione del responso: dopo il punteggio la pagina finiva
-                // nel vuoto (visto sul Realme). Le scommesse e le sfide
+                const SezioneDegliEnigmi('Che cosa fare'),
+                Text(
+                    IlTestoDegliEnigmi.perChiCompila(fascia.fareMarcato, forma),
+                    key: const Key('prova_fare'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+                const SezioneDegliEnigmi('Da dove viene'),
+                RigaDegliEnigmi(LaProva.daDoveViene(_tema, natura),
+                    key: const Key('prova_da_dove_viene')),
+                // L'azione del responso: dopo il risultato la pagina finiva
+                // nel vuoto (visto sul Realme). I presagi e le letture a due
                 // stanno nella pagina degli Enigmi, da cui si e' arrivati.
                 const SizedBox(height: SpacingTokens.lg),
                 PulsanteDegliEnigmi(
                   key: const Key('prova_agli_amici'),
-                  etichetta: 'Sfida i tuoi amici',
+                  etichetta: 'Leggi i tuoi amici',
                   icona: Icons.groups_2_rounded,
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -170,8 +183,7 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
                 if (_riga != null) RigaDegliEnigmi(_riga!, oro: true),
                 PulsanteDegliEnigmi(
                   key: const Key('prova_consegna'),
-                  etichetta:
-                      _scrivo ? 'Un momento...' : 'Scopri il tuo punteggio',
+                  etichetta: _scrivo ? 'Un momento...' : 'Scopri la tua natura',
                   onPressed:
                       !_scelte.contains(null) && !_scrivo ? _consegna : null,
                 ),

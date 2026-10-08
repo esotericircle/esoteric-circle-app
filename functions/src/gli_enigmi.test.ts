@@ -12,7 +12,9 @@ import {
   lunaValida,
   metaDelPellegrinaggio,
   numeroDellaSettimana,
-  piuVicini,
+  naturaDi,
+  naturaValida,
+  presagiGiusti,
   punteggioDi,
   puoComparire,
   quattroVolti,
@@ -112,14 +114,26 @@ test("FF.05 la settimana, le domande e il punteggio come sul telefono", () => {
   assert.equal(punteggioDi(1, "2026-10-12", Array(10).fill(0)), 0);
   assert.equal(punteggioDi(1, "2026-10-12", Array(9).fill(0)), null);
   assert.equal(punteggioDi(9, "2026-10-12", Array(10).fill(0)), null);
-  assert.equal(figuraDi(1, 30), "La Soglia");
+  assert.equal(figuraDi(1, 30), "L'Acqua");
   assert.equal(figuraDi(2, 80), "Il Fuoco");
+  assert.equal(figuraDi(3, 10), "La Terra");
+  assert.equal(figuraDi(4, 60), "L'Aria");
 });
 
-test("FF.05 la scommessa: vince chi si avvicina di piu', a pari tutti", () => {
-  assert.deepEqual(piuVicini([{chi: "x", valore: 40}, {chi: "y", valore: 70}], 60), ["y"]);
-  assert.deepEqual(piuVicini([{chi: "x", valore: 50}, {chi: "y", valore: 70}], 60), ["x", "y"]);
-  assert.deepEqual(piuVicini([], 60), []);
+test("FF.05 le quattro nature: le fasce sono la Terra, l'Acqua, l'Aria e il Fuoco", () => {
+  assert.deepEqual([0, 25, 26, 50, 51, 75, 76, 100].map(naturaDi),
+    [0, 0, 1, 1, 2, 2, 3, 3]);
+  assert.equal(naturaValida(2), 2);
+  assert.equal(naturaValida(4), null);
+  assert.equal(naturaValida(62), null);
+  assert.equal(naturaValida("x"), null);
+});
+
+test("FF.05 il presagio: legge giusto chi presagisce la natura, nessuno vince", () => {
+  assert.deepEqual(presagiGiusti([{chi: "x", valore: 1}, {chi: "y", valore: 2}], 60), ["y"]);
+  assert.deepEqual(presagiGiusti([{chi: "x", valore: 2}, {chi: "y", valore: 2}], 60), ["x", "y"]);
+  assert.deepEqual(presagiGiusti([{chi: "x", valore: 0}], 60), []);
+  assert.deepEqual(presagiGiusti([], 60), []);
 });
 
 test("FF.06 d) una sfida alla volta fra due persone", () => {
@@ -131,14 +145,18 @@ test("FF.06 d) una sfida alla volta fra due persone", () => {
     {chiusa: false, scade: 20}], 10), true);
 });
 
-test("FF.06 d) la sfida a due si chiude dopo ventiquattro ore e il punto va a chi ha giocato", () => {
+test("FF.06 d) la lettura a due: ciascuno legge la natura dell'altro, scaduta si chiude senza letture", () => {
   const base = {da: "x", a: "y", scade: 1000, punteggioDa: 60, stimaDa: 50};
   assert.equal(esitoDellaSfida(base, 999), null);
-  assert.deepEqual(esitoDellaSfida(base, 1000), {vincitori: ["x"], perche: "tempo"});
-  assert.deepEqual(esitoDellaSfida({...base, punteggioA: 52, stimaA: 70}, 10),
-    {vincitori: ["x"], perche: "stime"});
-  assert.deepEqual(esitoDellaSfida({...base, punteggioA: 40, stimaA: 61}, 10),
+  assert.deepEqual(esitoDellaSfida(base, 1000), {vincitori: [], perche: "tempo"});
+  // x presagisce l'Acqua (1) di y, che fa 40: giusto. y presagisce l'Aria
+  // (2) di x, che ha fatto 60: giusto anche lui. Tutti e due hanno letto.
+  assert.deepEqual(esitoDellaSfida({...base, stimaDa: 1, punteggioA: 40, stimaA: 2}, 10),
+    {vincitori: ["x", "y"], perche: "stime"});
+  assert.deepEqual(esitoDellaSfida({...base, stimaDa: 3, punteggioA: 40, stimaA: 2}, 10),
     {vincitori: ["y"], perche: "stime"});
+  assert.deepEqual(esitoDellaSfida({...base, stimaDa: 3, punteggioA: 40, stimaA: 0}, 10),
+    {vincitori: [], perche: "stime"});
 });
 
 test("FF.06 la classifica ordina solo per indovinelli azzeccati", () => {

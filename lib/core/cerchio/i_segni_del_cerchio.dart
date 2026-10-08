@@ -211,9 +211,11 @@ abstract final class ISegniDelCerchio {
         // faremo la sinastria per amici o sinastria approfondita, aggiorneremo
         // il collegamento". Quel giorno il segno tornera' a parlare di voi
         // due; l'identificativo resta, perche' lo conosce il server.
-        testo: 'Sfidami con un VIP',
-        rigaDiChiRiceve: 'Qualcuno ti sfida: con quale VIP fai più scintille?',
-        risposte: ['Accetto la sfida', 'Più tardi'],
+        // **NIENTE SFIDE NELL'APP**, il fondatore l'8 ottobre 2026: "Non
+        // possiamo parlare di gioco o sfide o punteggi nella nostra app."
+        testo: 'Leggiamoci con un VIP',
+        rigaDiChiRiceve: 'Qualcuno ti invita: con quale VIP fai più scintille?',
+        risposte: ['Accetto', 'Più tardi'],
         motivo: MotivoDelSegno.spirale,
         apre: ArteDellaRichiesta.sinastriaVip),
     SegnoDelCerchio(
