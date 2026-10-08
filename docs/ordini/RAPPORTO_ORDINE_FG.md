@@ -51,7 +51,11 @@ ACCETTAZIONE: apri il menu utente dal tuo volto nella barra, scorri in fondo: Re
 ## PARTE 7, LE GUARDIE (commit `a60ab21d`)
 
 Sei guardie nuove, ciascuna con la sua prova di vista: 7.1 il cielo si dipinge una volta, 7.2 nessuna seconda porta sull'astronomia, 7.3 il catalogo e' letto (Sirio, Vega e Betelgeuse contro SIMBAD, scarto massimo 0,003 gradi; la Polare da Roma all'altezza della latitudine in ventiquattro ore), 7.4 il velo ha il suo asset, 7.5 nessuna linea di asterismo, 7.6 i due cataloghi non si incrociano. La 7.8 ha la sua prova sulla schermata vera: in scena disegna, sotto un'altra rotta e in pausa si ferma e spegne la bussola, al ritorno riparte.
-**7.7, le quattro misure sul telefono, e' APERTA**: millesimi per fotogramma nel cielo fermo e nel ritorno, stelle a schermo in tre inquadrature, memoria grafica in transizione. Le misuro sul Realme appena ordini una build: e' l'unico pezzo dell'ordine che dipende da lei.
+**7.7, le misure sul telefono**, prese sul Realme 767f596c con la 2303 costruita per la consegna, l'8 ottobre 2026 alle 23 (metodo: `dumpsys SurfaceFlinger --timestats` sul livello di Flutter, `SurfaceView[com.esotericircle.esoteric_circle/...]`, perche' `gfxinfo` non vede i fotogrammi di Flutter; `dumpsys meminfo`, riga Graphics):
+- **cielo fermo**: 656 fotogrammi in 10,9 s, cioe' 60 al secondo sullo schermo a 60 Hz, **16,6 ms per fotogramma, 0 persi**; trascinando il cielo col dito per 11,3 s: 611 fotogrammi, **54 al secondo, circa 18,5 ms**, 0 persi;
+- **memoria grafica in transizione**: 119 MB nel menu delle tre prove, **146-147 MB** a 1, 3 e 7 secondi dall'apertura del ritorno (passaggio compreso), **118,6 MB** tornando al menu: nessuna perdita;
+- **stelle a schermo**: contate dalla cattura nell'inquadratura verso ovest, senza veli, circa **230** punti luminosi (257 macchie meno le lettere delle scritte); con i veli in quadro il conto dai pixel non regge (le incisioni chiare dei veli diventano migliaia di "punti"), e vale la misura della scena, 191, 194 e 211;
+- **il ritorno**: NON misurabile su questo telefono. Il Realme ha le tre scale di animazione a 0 (impostazioni del fondatore, non si toccano), quindi Riduci Movimento e' attivo e il ritorno e' un passaggio secco, come vuole la 3.4. Questa misura resta aperta, e con lei la chiusura piena della parte 2: si prende su un telefono con le animazioni accese.
 
 ## PARTE 8, LE PROVE DI VISTA (commit `fb8a8685`)
 
