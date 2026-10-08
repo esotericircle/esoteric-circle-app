@@ -17,6 +17,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import 'enigmi/il_ritratto_screen.dart';
 import 'widgets/disegni_del_cerchio.dart';
 
 /// **IL TUO NOME NEL CERCHIO, ordine EY voce 03.** Una schermata sola, dal
@@ -271,6 +272,26 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                   sottotitolo: p.soloColSigillo
                       ? 'Chi ti ha solo visto in un elenco non può invitarti.'
                       : 'Oggi ti può invitare chiunque ti veda nel Cerchio.',
+                ),
+                // **IL RITRATTO DAL PROFILO, ordine FF voce 02.5**: si
+                // cambia quando si vuole; un gioco gia' cominciato continua
+                // col Ritratto di quando e' cominciato.
+                const _Sezione('Il tuo Ritratto'),
+                Text(
+                    'Le venti caratteristiche dei giochi del Cerchio. Le vedi '
+                    'intere solo tu.',
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary)),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    key: const Key('profilo_ritratto'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: MaestroPalette.neutral.goldSoft),
+                    onPressed: () =>
+                        Navigator.of(context).push(IlRitrattoScreen.route()),
+                    child: const Text('Apri il tuo Ritratto'),
+                  ),
                 ),
                 const _Sezione('Il tuo link d’invito'),
                 Text(

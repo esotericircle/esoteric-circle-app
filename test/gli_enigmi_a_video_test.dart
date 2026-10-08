@@ -15,6 +15,7 @@ import 'package:esoteric_circle/features/cerchio/enigmi/gli_enigmi_screen.dart';
 import 'package:esoteric_circle/features/cerchio/enigmi/il_ritratto_screen.dart';
 import 'package:esoteric_circle/features/cerchio/enigmi/l_indovinello_screen.dart';
 import 'package:esoteric_circle/features/cerchio/enigmi/la_prova_screen.dart';
+import 'package:esoteric_circle/features/cerchio/profilo_nel_cerchio_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
@@ -329,6 +330,19 @@ void main() {
     await passa(t);
     expect(find.text('Quanto farà Selene?'), findsOneWidget);
     await scatta(t, '07_la_scommessa_su_un_amico');
+  });
+
+  testWidgets('FF.02.5 il Ritratto si cambia dal profilo, quando si vuole',
+      (t) async {
+    final porta = PortaFintaDelCerchioSociale();
+    await monta(t, const ProfiloNelCerchioScreen(), porta: porta);
+    await t.runAsync(() async => Future<void>.delayed(Duration.zero));
+    await passa(t);
+    final apri = find.byKey(const Key('profilo_ritratto'));
+    await finoA(t, apri);
+    await t.tap(apri);
+    await passa(t, 12);
+    expect(find.byType(IlRitrattoScreen), findsOneWidget);
   });
 }
 

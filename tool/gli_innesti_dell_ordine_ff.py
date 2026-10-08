@@ -208,6 +208,10 @@ INNESTI = [
      "        body: defaultTargetPlatform == TargetPlatform.iOS",
      "        body: defaultTargetPlatform == TargetPlatform.fuchsia",
      IPHONE, 'FF.09.4'),
+    ('F43', 'FF.02', 'lib/features/cerchio/profilo_nel_cerchio_screen.dart',
+     "                        Navigator.of(context).push(IlRitrattoScreen.route()),",
+     "                        Navigator.of(context).maybePop(),",
+     VIDEO, 'FF.02.5'),
 ]
 
 
