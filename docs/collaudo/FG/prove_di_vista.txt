@@ -1,0 +1,70 @@
+LE PROVE DI VISTA DELL'ORDINE FG, 08/10/2026 21:09
+
+== 7.1 a, il cielo si dipinge una volta (MaskFilter nel fotogramma)
+iniezione in lib/features/real_time_cosmo/pittore_del_cielo.dart; entrata: si
+guardia test/real_time_cosmo_il_cielo_si_dipinge_una_volta_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/pittore_del_cielo.dart, void paint(Canvas canvas, Size size) { riga 117: un MaskFilter nel fotogramma'
+   lib/features/real_time_cosmo/pittore_del_cielo.dart, void paint(Canvas canvas, Size size) { riga 117: un MaskFilter nel fotogramma
+ripristino verificato al byte: si
+
+== 7.1 b, gli strati pesanti esistono nella cache (Luna senza toImageSync)
+iniezione in lib/features/real_time_cosmo/cielo_reale_screen.dart; entrata: si
+guardia test/real_time_cosmo_il_cielo_si_dipinge_una_volta_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/cielo_reale_screen.dart, void _cuociLaLuna(: manca toImageSync'
+   lib/features/real_time_cosmo/cielo_reale_screen.dart, void _cuociLaLuna(: manca toImageSync
+ripristino verificato al byte: si
+
+== 7.2, nessuna seconda porta sull'astronomia
+iniezione in lib/features/real_time_cosmo/la_scena_del_cielo.dart; entrata: si
+guardia test/real_time_cosmo_nessuna_seconda_porta_sull_astronomia_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/la_scena_del_cielo.dart riga 43: una seconda conversione da equatoriali a orizzontali'
+   lib/features/real_time_cosmo/la_scena_del_cielo.dart riga 43: una seconda conversione da equatoriali a orizzontali
+ripristino verificato al byte: si
+
+== 7.3, il catalogo e' letto e non inventato (ascensione retta spostata di 0,01 gradi)
+iniezione in lib/core/astro/real_time_cosmo/catalogo_delle_stelle.dart; entrata: si
+guardia test/real_time_cosmo_il_catalogo_e_letto_non_inventato_test.dart: CADUTA
+   Expected: a value less than or equal to <0.003>
+   Actual: <0.009428650289457646>
+ripristino verificato al byte: si
+
+== 7.4, il velo non si disegna senza il suo asset (velo del Toro tolto)
+iniezione: tolto assets/img/zodiac_velo/velo_toro.webp; entrata: si
+guardia test/real_time_cosmo_il_velo_ha_il_suo_asset_test.dart: CADUTA
+   Expected: empty
+   Actual: ['Toro: manca assets/img/zodiac_velo/velo_toro.webp']
+   Toro: manca assets/img/zodiac_velo/velo_toro.webp
+ripristino verificato al byte: si
+
+== 7.5, nessuna linea di asterismo (drawLine nel pittore)
+iniezione in lib/features/real_time_cosmo/pittore_del_cielo.dart; entrata: si
+guardia test/real_time_cosmo_nessuna_linea_di_asterismo_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/pittore_del_cielo.dart riga 117: una linea disegnata (.drawLine()'
+   lib/features/real_time_cosmo/pittore_del_cielo.dart riga 117: una linea disegnata (.drawLine()
+ripristino verificato al byte: si
+
+== 7.6, i due cataloghi non si incrociano (il Real Time Cosmo legge bright_stars.json)
+iniezione in lib/features/real_time_cosmo/cielo_reale_screen.dart; entrata: si
+guardia test/real_time_cosmo_i_due_cataloghi_non_si_incrociano_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/cielo_reale_screen.dart riga 273: il Real Time Cosmo legge il catalogo del Cielo esistente'
+   lib/features/real_time_cosmo/cielo_reale_screen.dart riga 273: il Real Time Cosmo legge il catalogo del Cielo esistente
+ripristino verificato al byte: si
+
+== 7.8, si ferma fuori scena (la bussola non si spegne)
+iniezione in lib/features/real_time_cosmo/cielo_reale_screen.dart; entrata: si
+guardia test/real_time_cosmo_si_ferma_fuori_scena_test.dart: CADUTA
+   Expected: false
+   Actual: <true>
+ripristino verificato al byte: si
+
+ESITO: ogni iniezione e' entrata, ogni guardia e' caduta, ogni file e' ripristinato
