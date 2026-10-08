@@ -114,7 +114,7 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
       _animale = dal['animale'] as String?;
       _pronto = true;
       if (!esito.ok && tratti.isEmpty && esito.riga != null) {
-        _riga = esito.riga;
+        _riga = esito.rigaPerLaPersona;
       }
     });
   }
@@ -138,7 +138,7 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
     if (esito.ok) {
       Navigator.of(context).pop(true);
     } else {
-      setState(() => _riga = esito.riga ?? EsitoDelGesto.silenzio.riga);
+      setState(() => _riga = esito.rigaPerLaPersona);
     }
   }
 

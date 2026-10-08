@@ -227,3 +227,9 @@ if __name__ == '__main__':
         print('RITRATTO:', il_ritratto())
     if 'prove' in quale:
         print('PROVE: temi', le_prove())
+    # Il codice generato esce gia' formattato, come quello nel ramo: senza,
+    # ogni rigenerazione lascerebbe una differenza che non cambia niente.
+    import subprocess
+    subprocess.run('dart format lib/core/cerchio/il_ritratto_del_corpus.g.dart '
+                   'lib/core/cerchio/le_prove_del_corpus.g.dart',
+                   shell=True, capture_output=True)

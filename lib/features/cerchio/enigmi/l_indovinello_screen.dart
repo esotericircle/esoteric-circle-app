@@ -79,7 +79,7 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
               'per ora ne trovo ${esito.dati['quanti'] ?? 0}.',
         'nessunaDomanda' =>
           'Oggi i quattro volti si somigliano troppo: riprova fra poco.',
-        _ => esito.riga ?? EsitoDelGesto.silenzio.riga,
+        _ => esito.rigaPerLaPersona,
       };
     });
   }
@@ -135,7 +135,7 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
         _riga =
             'Hai giocato gli indovinelli di oggi. Domani ne arrivano altri.';
       } else {
-        _riga = esito.riga ?? EsitoDelGesto.silenzio.riga;
+        _riga = esito.rigaPerLaPersona;
       }
     });
   }

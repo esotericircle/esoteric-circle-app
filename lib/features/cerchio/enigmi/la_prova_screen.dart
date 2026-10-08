@@ -68,7 +68,7 @@ class _LaProvaScreenState extends State<LaProvaScreen> {
         _riga =
             'La Prova di questa settimana è cambiata: riaprila dal Cerchio.';
       } else {
-        _riga = esito.riga ?? EsitoDelGesto.silenzio.riga;
+        _riga = esito.rigaPerLaPersona;
       }
     });
   }

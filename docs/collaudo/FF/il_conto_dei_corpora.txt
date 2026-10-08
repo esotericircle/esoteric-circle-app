@@ -1,0 +1,10 @@
+ORDINE FF AGGIUNTA 1, voce A4: l'uscita di python tool/gli_enigmi_dal_corpus.py sui corpora corretti, 8 ottobre 2026.
+RITRATTO: {'fuoco': 27, 'terra': 32, 'aria': 26, 'acqua': 30, 'libera': 5, 'tratti marcati': 12, 'marche': 13}
+  tema 1: domande 12, risposte 48, fasce 4, pesi 48, marche 2
+  tema 2: domande 12, risposte 48, fasce 4, pesi 48, marche 2
+  tema 3: domande 12, risposte 48, fasce 4, pesi 48, marche 3
+  tema 4: domande 12, risposte 48, fasce 4, pesi 48, marche 4
+  tema 5: domande 12, risposte 48, fasce 4, pesi 48, marche 3
+  tema 6: domande 12, risposte 48, fasce 4, pesi 48, marche 8
+  totale: pesi 288, marche 22
+PROVE: temi 6

@@ -153,7 +153,7 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
       'piano' => 'La sfida a due si apre dall’Iniziato in su.',
       'prova' => 'Prima fai la Prova della settimana, poi sfida.',
       'scaduta' => 'La sfida è scaduta.',
-      _ => esito.ok ? null : (esito.riga ?? EsitoDelGesto.silenzio.riga),
+      _ => esito.ok ? null : esito.rigaPerLaPersona,
     };
     if (riga != null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(riga)));

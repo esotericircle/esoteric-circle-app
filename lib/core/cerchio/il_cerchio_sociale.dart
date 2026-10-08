@@ -366,6 +366,16 @@ class EsitoDelGesto {
   String? get motivo => dati[_chiaveDelMotivo] as String?;
   static const String _chiaveDelMotivo = 'perche';
 
+  /// **LA RIGA PER LA PERSONA**: quella del server se e' una frase, il
+  /// ripiego dichiarato se e' un codice. Ordine FF, visto sul Realme l'8
+  /// ottobre 2026: con la porta del Ritratto non ancora pubblicata il server
+  /// rispondeva "NOT_FOUND", e il Ritratto lo mostrava cosi'.
+  String get rigaPerLaPersona {
+    final r = riga?.trim() ?? '';
+    final frase = r.contains(' ') && r != r.toUpperCase();
+    return frase ? r : silenzio.riga!;
+  }
+
   /// **IL RIPIEGO DICHIARATO**: senza rete o con la funzione non ancora
   /// pubblicata il gesto non parte, e la persona lo legge.
   static const EsitoDelGesto silenzio = EsitoDelGesto(

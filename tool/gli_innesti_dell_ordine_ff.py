@@ -212,6 +212,10 @@ INNESTI = [
      "                        Navigator.of(context).push(IlRitrattoScreen.route()),",
      "                        Navigator.of(context).maybePop(),",
      VIDEO, 'FF.02.5'),
+    ('F44', 'FF.02', 'lib/core/cerchio/il_cerchio_sociale.dart',
+     "    return frase ? r : silenzio.riga!;",
+     "    return r.isNotEmpty ? r : silenzio.riga!;",
+     VIDEO, 'non mostra un codice'),
 ]
 
 

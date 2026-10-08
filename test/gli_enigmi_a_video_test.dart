@@ -344,6 +344,20 @@ void main() {
     await passa(t, 12);
     expect(find.byType(IlRitrattoScreen), findsOneWidget);
   });
+
+  testWidgets(
+      'FF.02 senza la porta pubblicata il Ritratto non mostra un codice',
+      (t) async {
+    // Visto sul Realme l'8 ottobre 2026 col pacchetto locale: la porta
+    // ilMioRitratto non ancora pubblicata rispondeva "NOT_FOUND", e il
+    // Ritratto lo scriveva sotto il testo.
+    await monta(t, const IlRitrattoScreen(), porta: _PortaNonPubblicata());
+    await t.runAsync(() async => Future<void>.delayed(Duration.zero));
+    await passa(t);
+    expect(find.text('NOT_FOUND'), findsNothing);
+    expect(
+        find.textContaining('Il Cerchio non risponde adesso'), findsOneWidget);
+  });
 }
 
 /// La porta al limite: il quarto indovinello del giorno del Viandante.
@@ -354,6 +368,19 @@ class _PortaAlLimite extends PortaFintaDelCerchioSociale {
     if (porta == 'unIndovinello') {
       return const EsitoSociale(
           dati: {'ok': false, 'perche': 'limite', 'limite': 3});
+    }
+    return super.sociale(porta, corpo);
+  }
+}
+
+/// La porta del Ritratto non ancora pubblicata: risponde col codice grezzo.
+class _PortaNonPubblicata extends PortaFintaDelCerchioSociale {
+  @override
+  Future<EsitoSociale?> sociale(String porta,
+      [Map<String, Object?> corpo = const {}]) async {
+    if (porta == 'ilMioRitratto') {
+      return const EsitoSociale(
+          dati: {}, errore: 'not-found', riga: 'NOT_FOUND');
     }
     return super.sociale(porta, corpo);
   }
