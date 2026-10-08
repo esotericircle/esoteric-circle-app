@@ -14,11 +14,16 @@ class PulsanteDegliEnigmi extends StatelessWidget {
     required this.etichetta,
     required this.onPressed,
     this.icona,
+    this.segno,
   });
 
   final String etichetta;
   final VoidCallback? onPressed;
   final IconData? icona;
+
+  /// Un segno disegnato al posto dell'icona: il denaro del Cerchio,
+  /// `IconaDegliEos`, sui gesti che costano Eos.
+  final Widget? segno;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,10 @@ class PulsanteDegliEnigmi extends StatelessWidget {
       minimumSize: const Size.fromHeight(48),
     );
     final testo = Text(etichetta, style: TypographyTokens.etichetta());
+    if (segno != null) {
+      return FilledButton.icon(
+          style: stile, onPressed: onPressed, icon: segno!, label: testo);
+    }
     return icona == null
         ? FilledButton(style: stile, onPressed: onPressed, child: testo)
         : FilledButton.icon(

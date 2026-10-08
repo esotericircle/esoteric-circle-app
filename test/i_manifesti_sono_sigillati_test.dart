@@ -359,6 +359,10 @@ void main() {
     // Lab), le diciotto della FE.22 (Diario Cosmico) e la FE.23 (il filo in
     // cima).
     'FE': 44,
+    // FF: venti voci, contate coi titoli "## VOCE FF." del manifesto l'8
+    // ottobre 2026: FF.01-FF.09 dell'ordine, FF.10-FF.20 per le undici
+    // dell'aggiunta 1 (FF.A1-FF.A11).
+    'FF': 20,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

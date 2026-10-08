@@ -5,6 +5,7 @@ import '../../../core/cerchio/gli_enigmi_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
 import '../../../core/entitlement/listino_degli_eos.dart';
 import '../../../core/entitlement/question_allowance.dart';
+import '../../../design_system/components/icona_degli_eos.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -250,6 +251,11 @@ class _LIndovinelloScreenState extends State<LIndovinelloScreen> {
                     PulsanteDegliEnigmi(
                       key: const Key('indovinello_indizio'),
                       icona: Icons.lightbulb_outline_rounded,
+                      // Il gesto che costa porta il segno del denaro.
+                      segno: p.costoProssimo == 0
+                          ? null
+                          : IconaDegliEos(
+                              colore: MaestroPalette.neutral.onPrimary),
                       etichetta: p.costoProssimo == 0
                           ? 'Chiedi un indizio, il primo è gratis'
                           : 'Un indizio in più, '

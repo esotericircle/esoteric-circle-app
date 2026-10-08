@@ -2315,23 +2315,22 @@ export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
  * settimana che porta alla luna piena porta il Cerchio avanti di un passo,
  * uno al giorno per persona. Aperto a ogni piano.
  */
-export const unPassoDelPellegrinaggio = onCall(OPZIONI_SOCIALI,
-  async (request) => {
-    const uid = uidDi(request);
-    await tettoDellaPorta(uid, "unPassoDelPellegrinaggio");
-    const oggi = chiaveDelGiorno();
-    const luna = lunaValida(request.data?.luna, oggi);
-    if (luna === null) return {ok: false, perche: "luna"};
-    return db().runTransaction(async (tx) => {
-      const doc = statoDi(uid, "pellegrinaggio");
-      const snap = await tx.get(doc);
-      const giorni = snap.data()?.luna === luna ? elenco(snap.data()?.giorni) : [];
-      if (giorni.includes(oggi)) return {ok: true, passi: giorni.length, gia: true};
-      const dopo = [...giorni, oggi];
-      tx.set(doc, {luna, giorni: dopo});
-      return {ok: true, passi: dopo.length, gia: false};
-    });
+export const unPassoDelPellegrinaggio = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "unPassoDelPellegrinaggio");
+  const oggi = chiaveDelGiorno();
+  const luna = lunaValida(request.data?.luna, oggi);
+  if (luna === null) return {ok: false, perche: "luna"};
+  return db().runTransaction(async (tx) => {
+    const doc = statoDi(uid, "pellegrinaggio");
+    const snap = await tx.get(doc);
+    const giorni = snap.data()?.luna === luna ? elenco(snap.data()?.giorni) : [];
+    if (giorni.includes(oggi)) return {ok: true, passi: giorni.length, gia: true};
+    const dopo = [...giorni, oggi];
+    tx.set(doc, {luna, giorni: dopo});
+    return {ok: true, passi: dopo.length, gia: false};
   });
+});
 
 /** Per le prove: le porte di questo file e i loro tetti si contano insieme. */
 export const PORTE_SOCIALI = Object.keys(TETTI_DELLE_PORTE);

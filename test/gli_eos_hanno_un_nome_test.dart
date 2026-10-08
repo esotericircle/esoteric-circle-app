@@ -49,6 +49,10 @@ void main() {
     // **LA FESTA DELLA REGISTRAZIONE, ordine BH voce 02**: mostra il
     // premio in grande, col segno del denaro del Cerchio accanto.
     'lib/features/account/festa_della_registrazione.dart',
+    // **GLI ENIGMI DEL CERCHIO, ordine FF**: l'indizio in piu' (5 Eos) e il
+    // segno di chi ti ha indovinato (20 Eos), prezzi dal listino.
+    'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
+    'lib/features/cerchio/enigmi/l_indovinello_screen.dart',
   ];
 
   String sorgente(String p) => File(p).readAsStringSync();

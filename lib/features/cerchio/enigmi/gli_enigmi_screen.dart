@@ -8,6 +8,7 @@ import '../../../core/cerchio/il_cerchio_sociale.dart';
 import '../../../core/cerchio/la_prova.dart';
 import '../../../core/entitlement/listino_degli_eos.dart';
 import '../../../core/entitlement/question_allowance.dart';
+import '../../../design_system/components/icona_degli_eos.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -263,12 +264,13 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
           if (r.daScoprire > 0)
             Align(
               alignment: Alignment.centerLeft,
-              child: TextButton(
+              child: TextButton.icon(
                 key: Key('enigmi_scopri_${r.chiave}'),
                 style: TextButton.styleFrom(
                     foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () => _scopri(r),
-                child: Text('Scopri il segno di chi ti ha indovinato, '
+                icon: IconaDegliEos(colore: MaestroPalette.neutral.goldSoft),
+                label: Text('Scopri il segno di chi ti ha indovinato, '
                     '${ListinoDegliEos.segnoDiChiTiHaIndovinato.costo} Eos'),
               ),
             ),
@@ -437,8 +439,9 @@ class _GliEnigmiScreenState extends State<GliEnigmiScreen> {
             if (p.meta > p.totale)
               Expanded(
                 flex: p.meta - p.totale,
+                // La strada che manca: l'oro spento, non un grigio di testo.
                 child: Container(
-                    color: ColorTokens.textSecondary.withValues(alpha: 0.2)),
+                    color: MaestroPalette.neutral.gold.withValues(alpha: 0.18)),
               ),
           ]),
         ),

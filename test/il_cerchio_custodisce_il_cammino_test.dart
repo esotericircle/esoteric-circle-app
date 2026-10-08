@@ -233,8 +233,17 @@ void main() {
     // di un'altra persona per un segno o un dono), e un gesto che tocca un
     // terzo ha bisogno della sua porta con le sue difese, come
     // `riscattaLInvito`.
-    expect(callable.length, 29,
-        reason: 'le callable non sono piu\' ventinove: $callable. Se ne '
+    // **TRENTACINQUE, ordine FF, 8 ottobre 2026**: sei porte degli Enigmi
+    // del Cerchio, in `il_cerchio_sociale.ts` col loro tetto, motivate nel
+    // rapporto dell'ordine FF. Non potevano viaggiare dentro
+    // `statoDelCerchio`: il Ritratto si scrive intero e si restituisce solo
+    // a chi lo possiede; le partite, le scommesse e le sfide stanno in
+    // collezioni chiuse al telefono, perche' portano il Ritratto o il nome
+    // di un'altra persona; l'indizio in piu' e il segno di chi indovina
+    // spendono Eos in transazione; il passo del Pellegrinaggio parte a ogni
+    // rito compiuto, non all'apertura.
+    expect(callable.length, 35,
+        reason: 'le callable non sono piu\' trentacinque: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // E OGNI PORTA SOCIALE HA IL SUO TETTO, contato prima di ogni altra cosa
     // (EY.16): una porta nuova non puo' nascere senza.
