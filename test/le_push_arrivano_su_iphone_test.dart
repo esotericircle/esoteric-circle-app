@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/permissions/app_permission.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// **LE PUSH ARRIVANO SU IPHONE.** Ordine FF voce 09, 7 ottobre 2026.
@@ -60,6 +62,19 @@ void main() {
     expect(custode, contains('messaggi.getAPNSToken()'));
     expect(custode, contains('return await messaggi.getToken();'));
     expect(_leggi('lib/app.dart'), contains('RecapitoVero()'));
+  });
+
+  test('FF.09.4 su iPhone il foglio del permesso dice la frase del fondatore',
+      () {
+    // iOS non lascia testo all'app nella finestra di sistema: la frase sta
+    // nel foglio che la precede. Su Android resta l'elenco dei Doni.
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    final ios = permissionCopy(AppPermission.notifications).body;
+    debugDefaultTargetPlatformOverride = TargetPlatform.android;
+    final android = permissionCopy(AppPermission.notifications).body;
+    debugDefaultTargetPlatformOverride = null;
+    expect(ios, 'I Doni del Giorno arrivano all’ora giusta e nulla di più.');
+    expect(android, startsWith('Un avviso per ciascun Dono del giorno'));
   });
 
   test('c) il server spinge al recapito, anche su iPhone', () {

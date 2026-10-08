@@ -204,6 +204,10 @@ INNESTI = [
      '  const salta = new Set([r, (r + 1) % 12]);',
      '  const salta = new Set([r, (r + 2) % 12]);',
      'cd functions && npm test', 'FF.05 la settimana'),
+    ('F42', 'FF.09', 'lib/core/permissions/app_permission.dart',
+     "        body: defaultTargetPlatform == TargetPlatform.iOS",
+     "        body: defaultTargetPlatform == TargetPlatform.fuchsia",
+     IPHONE, 'FF.09.4'),
 ]
 
 

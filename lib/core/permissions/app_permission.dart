@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../design_system/theme/maestro_palette.dart';
@@ -7,6 +8,10 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../maestro/maestro.dart';
 import '../rituals/daily_elements.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+
+/// La frase del permesso delle notifiche su iPhone, ordine FF voce 09.4.
+const String fraseDelPermessoSuIPhone =
+    'I Doni del Giorno arrivano all’ora giusta e nulla di più.';
 
 /// I permessi di sistema che l'app puo' chiedere. Ognuno si chiede solo nel
 /// momento in cui serve la sua funzione, mai tutti all'avvio.
@@ -90,8 +95,17 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         // programma (le ricorrenze del cielo e i transiti). Gli avvisi veri
         // sono i Doni, ognuno col suo interruttore e il suo orario. **Dall'
         // ordine DT i nomi e il numero si compongono dai doni.**
-        body:
-            'Un avviso per ciascun Dono del giorno, alla sua ora: ${DailyElements.elencoInFrase}. Ognuno si spegne e si sposta da solo.',
+        //
+        // **SU IPHONE LA FRASE DEL FONDATORE, ordine FF voce 09.4**: "I Doni
+        // del Giorno arrivano all'ora giusta, e nulla di più." iOS non lascia
+        // all'app nessun testo dentro la finestra di sistema delle notifiche
+        // (non esiste una chiave di Info.plist per questo permesso): il posto
+        // piu' vicino e' questo foglio, l'ultimo testo prima della finestra.
+        // La virgola prima della "e" e' tolta per la regola della lingua,
+        // come per le cornici del presagio (nessuna deroga, il fondatore).
+        body: defaultTargetPlatform == TargetPlatform.iOS
+            ? fraseDelPermessoSuIPhone
+            : 'Un avviso per ciascun Dono del giorno, alla sua ora: ${DailyElements.elencoInFrase}. Ognuno si spegne e si sposta da solo.',
         cta: 'Attiva gli avvisi',
       );
     case AppPermission.location:
