@@ -95,6 +95,13 @@ extension CostellazioneDelSegno on Zodiac {
         Zodiac.pisces => 'Psc',
       };
 
+  /// Il segno con l'aggettivo possessivo: "Il tuo Leone", ma "I tuoi
+  /// Gemelli" e "I tuoi Pesci", che sono plurali. Visto sul Realme l'8
+  /// ottobre 2026: la freccia diceva "Il tuo Gemelli".
+  String get ilTuo => this == Zodiac.gemini || this == Zodiac.pisces
+      ? 'I tuoi $italianName'
+      : 'Il tuo $italianName';
+
   /// Il file del velo, `assets/img/zodiac_velo/velo_<segno>.webp`.
   String get assetDelVelo =>
       'assets/img/zodiac_velo/velo_${italianName.toLowerCase()}.webp';

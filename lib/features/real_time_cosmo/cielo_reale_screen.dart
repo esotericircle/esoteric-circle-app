@@ -380,7 +380,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final segno = _segno;
     if (segno != null) {
       _fotogramma.scritte.add(ScrittaDaPosare(_scritta(
-          'Il tuo ${segno.italianName}',
+          segno.ilTuo,
           TypographyTokens.etichetta().copyWith(color: ColorTokens.goldBright))));
     }
     const nomi = ['Sole', 'Luna', 'Mercurio', 'Venere', 'Marte', 'Giove', 'Saturno'];
@@ -907,7 +907,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     if (vecchia == null ||
         vecchia.gradi != gradi ||
         (vecchia.angolo - angolo).abs() > 0.02) {
-      _guida.value = _Guida(segno.italianName, gradi, angolo);
+      _guida.value = _Guida(segno.ilTuo, gradi, angolo);
     }
   }
 
@@ -1254,6 +1254,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final righe = <Widget>[];
     final s = _scelta;
     if (s != null) righe.add(_schedaDellaScelta(s));
+    if (widget.modo == ModoDelCielo.ritorno && _piano != null) {
+      righe.add(ValueListenableBuilder<FaseDelRitorno>(
+        valueListenable: _fase,
+        builder: (context, fase, _) => fase != FaseDelRitorno.fermo
+            ? const SizedBox.shrink()
+            : _Riga(
+                key: const Key('real_time_cosmo_rivedi'),
+                testo: _fraseDellaLuna(),
+                azione: 'Rivedi il ritorno',
+                onAzione: _rivediIlRitorno,
+              ),
+      ));
+    }
     if (_mancaLaNascita && widget.modo != ModoDelCielo.adesso) {
       righe.add(_Riga(
         testo: 'Per il cielo della tua nascita servono la data e il luogo. '
@@ -1392,8 +1405,6 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
             .copyWith(color: ColorTokens.goldBright);
         final frase = TypographyTokens.titoloSezione()
             .copyWith(color: ColorTokens.textPrimary);
-        final corpo = TypographyTokens.corpo()
-            .copyWith(color: ColorTokens.textSecondary);
         switch (fase) {
           case FaseDelRitorno.eta:
           case FaseDelRitorno.ritorno:
@@ -1418,45 +1429,34 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
               ),
             );
           case FaseDelRitorno.arrivo:
-          case FaseDelRitorno.fermo:
-            final luna = _cielo?.corpo(CorpoCeleste.luna);
-            final sole = _cielo?.corpo(CorpoCeleste.sole);
-            final quando =
-                (sole?.sopraLOrizzonte ?? false) ? 'quel giorno' : 'quella notte';
-            final dellaLuna = luna == null
-                ? ''
-                : luna.sopraLOrizzonte
-                    ? 'La Luna di $quando era lassù. Toccala per sapere '
-                        'dov\'era.'
-                    : 'La Luna di $quando era sotto l\'orizzonte, verso '
-                        '${_direzione(luna.azimutGradi)}.';
             return Positioned(
               left: 24,
               right: 24,
               top: MediaQuery.paddingOf(context).top + 88,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (fase == FaseDelRitorno.arrivo)
-                    Text('QUESTO ERA IL CIELO SOPRA DI TE ALLA TUA NASCITA',
-                        textAlign: TextAlign.center, style: frase),
-                  if (fase == FaseDelRitorno.fermo) ...[
-                    Text(dellaLuna, textAlign: TextAlign.center, style: corpo),
-                    const SizedBox(height: 10),
-                    TextButton(
-                      key: const Key('real_time_cosmo_rivedi'),
-                      onPressed: _rivediIlRitorno,
-                      child: Text('Rivedi il ritorno',
-                          style: TypographyTokens.etichetta()
-                              .copyWith(color: ColorTokens.goldLight)),
-                    ),
-                  ],
-                ],
-              ),
+              child: Text('QUESTO ERA IL CIELO SOPRA DI TE ALLA TUA NASCITA',
+                  textAlign: TextAlign.center, style: frase),
             );
+          case FaseDelRitorno.fermo:
+            // A scena ferma la frase della Luna e "Rivedi il ritorno" stanno
+            // nel pie' di pagina, lontano dalla freccia della guida, che li'
+            // in alto ci finiva sopra (visto sul Realme l'8 ottobre 2026).
+            return const SizedBox.shrink();
         }
       },
     );
+  }
+
+  /// La frase della Luna dell'istante raggiunto, a scena ferma.
+  String _fraseDellaLuna() {
+    final luna = _cielo?.corpo(CorpoCeleste.luna);
+    final sole = _cielo?.corpo(CorpoCeleste.sole);
+    if (luna == null) return '';
+    final quando =
+        (sole?.sopraLOrizzonte ?? false) ? 'quel giorno' : 'quella notte';
+    return luna.sopraLOrizzonte
+        ? 'La Luna di $quando era lassù. Toccala per sapere dov\'era.'
+        : 'La Luna di $quando era sotto l\'orizzonte, verso '
+            '${_direzione(luna.azimutGradi)}.';
   }
 }
 
@@ -1583,7 +1583,7 @@ class _FrecciaDellaGuida extends StatelessWidget {
                   color: ColorTokens.goldBright, size: 26),
             ),
             Text(
-              'Il tuo ${guida.nome}\n${guida.gradi}°',
+              '${guida.nome}\n${guida.gradi}°',
               textAlign: TextAlign.center,
               style: TypographyTokens.etichetta()
                   .copyWith(color: ColorTokens.goldBright),
@@ -1597,6 +1597,7 @@ class _FrecciaDellaGuida extends StatelessWidget {
 
 class _Riga extends StatelessWidget {
   const _Riga({
+    super.key,
     required this.testo,
     this.azione,
     this.onAzione,

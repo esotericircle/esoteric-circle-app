@@ -49,4 +49,13 @@ void main() {
     );
     expect(difetti, isEmpty, reason: difetti.join('\n'));
   });
+
+  // Visto sul Realme l'8 ottobre 2026: la freccia diceva "Il tuo Gemelli".
+  test('il possessivo del segno segue il numero del nome', () {
+    final plurali = {Zodiac.gemini, Zodiac.pisces};
+    for (final s in Zodiac.values) {
+      expect(s.ilTuo,
+          plurali.contains(s) ? 'I tuoi ${s.italianName}' : 'Il tuo ${s.italianName}');
+    }
+  });
 }
