@@ -22,16 +22,26 @@ ordine (FF.10 e' la A1, FF.20 la A11): il lettore dei manifesti riconosce
 una voce dal suo numero. La A12 dice cosa non fare e non e' una voce.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 11
-VOCI_APERTE: 9
+VOCI_CHIUSE: 13
+VOCI_APERTE: 7
 VOCI_DA_FARE: 0
 
-**Perche' nove restano aperte, e cosa le chiude.** Il codice e' scritto,
-agganciato e provato, ma non e' ancora stato guardato sul telefono: le
-porte nuove del server (la presenza, il Ritratto, i giochi) non sono
-pubblicate, e il deploy delle funzioni lo fa il fondatore. Il fondatore ha
-scelto "Niente build per ora" (8 ottobre). Le chiude il deploy col collaudo
-sul Realme, e per FF.09 la build iOS di Codemagic, che parte solo a mano.
+**Perche' sette restano aperte, e cosa le chiude.** L'8 ottobre il
+fondatore ha pubblicato le funzioni e il collaudo sul Realme col server
+vero ha chiuso il Ritratto (FF.02) e la Prova (FF.05), e ha trovato cinque
+difetti, curati lo stesso giorno (titoli tagliati dalla freccia, riga del
+Ritratto muta al lettore di schermo, cursore che diceva per cento,
+"restano 1 giorno", seconda sfida verso chi ne ha gia' una aperta); le
+correzioni sono viste nelle anteprime, non sul telefono, perche' il
+fondatore ha scelto "Niente build per ora". Restano aperte: Chi del Cerchio
+e gli indizi (FF.03, FF.04, e la cattura 06 della FF.20), che vogliono
+quattro persone del Cerchio col Ritratto compilato, e il profilo di
+collaudo ha due amici, nessuno col Ritratto; la presenza (FF.01), che vuole
+due telefoni accesi insieme; il Pellegrinaggio, che si apre il 19 ottobre,
+e la sfida scaduta che si chiude alla prima lettura, il 9 ottobre (FF.06,
+FF.07); le push su iPhone (FF.09), che vogliono la build iOS di Codemagic.
+La seconda sfida rifiutata dal server vuole un secondo deploy delle
+funzioni.
 
 ## LE SCELTE DEL FONDATORE
 
@@ -78,20 +88,26 @@ ACCETTAZIONE: so che il codice c'e' e quando si vede sul telefono
 
 ## VOCE FF.02, IL RITRATTO
 
-**APERTA IN ATTESA DI VERIFICA.** Venti caratteristiche fra le 120 del
-corpus, otto proposte dalla carta (Sole, Luna, Ascendente, giorno di
+**CHIUSA.** Sul Realme, l'8 ottobre col server vero, le otto proposte
+dalla carta, poi le altre dodici fino a venti, il pulsante acceso solo a
+venti, il Ritratto scritto dalla porta ilMioRitratto e i giochi aperti
+subito dopo. Visti li' due difetti, curati e provati nelle anteprime: la
+riga muta al lettore di schermo e il titolo tagliato. Venti caratteristiche
+fra le 120 del corpus, otto proposte dalla carta (Sole, Luna, Ascendente, giorno di
 nascita), si chiude solo a venti, si cambia dal profilo, il server lo
 restituisce solo a chi lo possiede e fotografa quello del gioco
 all'apertura.
 
 DOMANDA: "Ogni persona ha un Ritratto: venti caratteristiche scelte da una lista di centoventi"
-PROVA: test/il_ritratto_e_la_prova_test.dart e test/gli_enigmi_a_video_test.dart e test/gli_enigmi_rispettano_le_regole_test.dart
-MISURA: proposte 8 su 8 deterministiche, 0 libere; carte diverse 2 su 2 proposte diverse; Ritratto con 19 caratteristiche 0 chiusure; letture del Ritratto sul server 5, tutte dello stesso uid; anteprime 01 e 02
+PROVA: docs/collaudo/FF/realme/09_il_ritratto_venti_scelte.png
+MISURA: sul telefono scelte 8 -> 20 e pulsante spento -> acceso, Ritratto scritto 1 su 1, giochi chiusi -> aperti (10_enigmi_dal_server.png); righe che dicono se sono scelte 0 -> 20 (prova b, innesto F46); proposte 8 su 8 deterministiche, 0 libere; carte diverse 2 su 2 proposte diverse; Ritratto con 19 caratteristiche 0 chiusure; letture del Ritratto sul server 5, tutte dello stesso uid; anteprime 01 e 02
 ACCETTAZIONE: so che il Ritratto e' fatto e quando lo vedo sul telefono
 
 ## VOCE FF.03, IL MOTORE DEGLI INDIZI
 
-**APERTA IN ATTESA DI VERIFICA.** Una porta sola, `functions/src/gli_indizi.ts`:
+**APERTA IN ATTESA DI VERIFICA.** Sul Realme non si gioca: servono quattro
+persone del Cerchio col Ritratto compilato, il profilo di collaudo ne ha 0
+(11_chi_del_cerchio_senza_quattro_ritratti.png). Una porta sola, `functions/src/gli_indizi.ts`:
 fonti in elenco chiuso senza comportamenti, primo indizio gratis poi 5 Eos
 in transazione col saldo nuovo nella risposta, punti 3/2/1/0,5.
 
@@ -102,7 +118,10 @@ ACCETTAZIONE: so come costano gli indizi e quanto valgono
 
 ## VOCE FF.04, CHI DEL CERCHIO
 
-**APERTA IN ATTESA DI VERIFICA.** Quattro volti fra chi ha il Ritratto e
+**APERTA IN ATTESA DI VERIFICA.** Sul Realme il server risponde "Servono
+quattro persone del tuo Cerchio col Ritratto compilato: per ora ne trovo
+0": il profilo di collaudo ha due amici, nessuno col Ritratto. La chiude
+una partita con quattro profili col Ritratto. Quattro volti fra chi ha il Ritratto e
 non si e' tolto, la domanda da un dato vero che appartiene a uno solo, il
 risultato subito; all'indovinato il numero e i segni (20 Eos l'uno), mai il
 nome; l'interruttore nel Ritratto e nel profilo; limiti 3/10/50/150.
@@ -114,19 +133,30 @@ ACCETTAZIONE: so che il gioco c'e' e che nessun nome viaggia
 
 ## VOCE FF.05, LA PROVA
 
-**APERTA IN ATTESA DI VERIFICA.** Il tema dal cielo del lunedi' con la
-porta di Meeus, dieci domande della settimana, il punteggio calcolato dal
+**CHIUSA.** Sul Realme, l'8 ottobre col server vero: le dieci domande
+della settimana di "Quello che comincia", il punteggio 57 calcolato dal
+server con la figura Il Sentiero, il punteggio nella pagina degli Enigmi e
+una scommessa di 62 su Collaudo Due registrata. Visti li' due difetti,
+curati e provati nelle anteprime: il cursore che diceva "50%" al lettore di
+schermo, e la pagina del risultato senza un'azione (adesso "Sfida i tuoi
+amici", anteprima 10). Il tema dal cielo del lunedi' con la porta di Meeus, dieci domande della settimana, il punteggio calcolato dal
 server coi pesi del corpus, la figura della fascia, la scommessa finche'
 l'amico non l'ha fatta.
 
 DOMANDA: "proponiamo al cerchio un test di personalità il cui punteggio determina la personalità o altra caratteristica dell'utente, e gli altri prima di scoprire il punteggio devono indovinarlo"
-PROVA: test/il_ritratto_e_la_prova_test.dart e functions/src/gli_enigmi.test.ts
-MISURA: quattro settimane del 2026 con quattro temi diversi (1, 2, 4, 5); punteggio di dieci risposte uguale due volte (57); scommessa dopo la Prova 0 piazzate; settimane del 2026 lette 52; anteprime 06 e 07
+PROVA: docs/collaudo/FF/realme/13_la_prova_il_punteggio_dal_server.png
+MISURA: sul telefono risposte 10 su 10, punteggio dal server 1 (57, Il Sentiero), scommesse registrate 0 -> 1 (15_la_scommessa_registrata.png); quattro settimane del 2026 con quattro temi diversi (1, 2, 4, 5); punteggio di dieci risposte uguale due volte (57); scommessa dopo la Prova 0 piazzate; settimane del 2026 lette 52; anteprime 06 e 07
 ACCETTAZIONE: so che la Prova cambia col cielo e quando la vedo
 
 ## VOCE FF.06, LE SFIDE
 
-**APERTA IN ATTESA DI VERIFICA.** Nessuna classifica sulle qualita', il
+**APERTA IN ATTESA DI VERIFICA.** Sul Realme col server vero: la sfida a
+Collaudo Due aperta per ventiquattro ore e la classifica di chi conosce il
+Cerchio (17_la_sfida_aperta.png). Visto li' un difetto: con la sfida aperta
+il pulsante restava e ogni tocco ne apriva un'altra, con un'altra notifica;
+curato sul telefono e sul server (`sfidaGiaAperta`, innesti F48 e F49), e
+la parte del server vuole un secondo deploy. Il Pellegrinaggio si apre il
+19 ottobre. Nessuna classifica sulle qualita', il
 Pellegrinaggio per ogni piano con la barra di ciascuno (un passo al giorno
 per rito, meta che nessuno raggiunge da solo), la classifica dentro il
 Cerchio, la sfida a due dall'Iniziato per ventiquattro ore.
@@ -138,7 +168,10 @@ ACCETTAZIONE: so che le sfide giudicano i gesti e non le persone
 
 ## VOCE FF.07, I TEMPI
 
-**APERTA IN ATTESA DI VERIFICA.** Ogni gioco aperto dice quanto gli resta;
+**APERTA IN ATTESA DI VERIFICA.** Sul Realme la Prova dice "Finisce fra 3
+giorni e 16 ore" e la sfida il suo tempo; li' diceva "restano 1 giorno",
+curato in "finisce fra". La sfida a Collaudo Due scade il 9 ottobre: la
+chiude la prima lettura dopo, e il Pellegrinaggio il 19. Ogni gioco aperto dice quanto gli resta;
 la sfida scaduta si chiude alla prima lettura; la luna piena del
 Pellegrinaggio e' il passaggio dell'opposizione, non l'inizio dell'evento
 dei Doni.

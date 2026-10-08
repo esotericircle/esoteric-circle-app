@@ -56,3 +56,9 @@ Scritto, agganciato, provato e spinto: il server dei giochi (sei porte, con tett
 1. **Il deploy delle funzioni**, che apre la presenza nuova e i giochi.
 2. **La build**: hai scelto "Niente build per ora". Il cancello della consegna vuole un giro dei banchi col modello sul codice nuovo (l'ultimo 5,51 dollari).
 3. **La build iOS su Codemagic**, per chiudere FF.09.
+
+**Aggiunta del giorno 8 ottobre 2026, ordine FF, voce chiusa**: FF.02, il Ritratto: docs/collaudo/FF/realme/09_il_ritratto_venti_scelte.png (dopo il deploy delle funzioni, sul Realme col pacchetto locale 2302: le otto proposte dalla carta e le altre dodici fino a venti, il Ritratto scritto dal server e i giochi aperti subito dopo).
+
+**Aggiunta del giorno 8 ottobre 2026, ordine FF, voce chiusa**: FF.05, la Prova: docs/collaudo/FF/realme/13_la_prova_il_punteggio_dal_server.png (dieci risposte, il punteggio 57 calcolato dal server con la figura Il Sentiero, una scommessa di 62 su Collaudo Due registrata).
+
+**Aggiunta del giorno 8 ottobre 2026, ordine FF, il collaudo col server vero.** Sul Realme sono comparsi cinque difetti che nessuna prova vedeva, tutti dell'ordine FF voci 02, 05 e 06 e curati nel commit cee43662: i titoli delle schermate tagliati dalla freccia indietro (le prove montavano la schermata senza freccia, adesso la montano sopra un'altra); la riga del Ritratto muta al lettore di schermo; il cursore della scommessa che diceva "50%"; "restano 1 giorno"; una seconda sfida possibile verso chi ne ha gia' una aperta, con un'altra notifica (curata anche sul server: vuole un secondo deploy delle funzioni). Le correzioni sono viste nelle anteprime, non sul telefono: il pacchetto nuovo non l'ho costruito, per la tua scelta "Niente build per ora". Chi del Cerchio non si puo' giocare sul Realme: servono quattro persone del Cerchio col Ritratto, il profilo di collaudo ha due amici e nessuno col Ritratto.
