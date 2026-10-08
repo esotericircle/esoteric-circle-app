@@ -149,8 +149,13 @@ dal server con la figura Il Sentiero e una scommessa registrata. La sera
 stessa il fondatore ha tolto i punteggi dall'app: la Prova adesso da' una
 delle quattro nature col suo temperamento, che cosa fare e da dove viene
 (Tolomeo, Ippocrate, Galeno, Agrippa, il Timeo), e il presagio sceglie una
-natura. Vista nelle anteprime 07 e 10; la chiude il telefono dopo il deploy
-delle funzioni e un pacchetto nuovo. Visti li' due difetti,
+natura. Vista nelle anteprime 07 e 10. Dopo il deploy, sul Realme col
+pacchetto locale 84ff37d7: "La tua natura: l'Aria, il temperamento
+sanguigno" dal server, il foglio del presagio con le quattro nature (aperto
+e chiuso senza scegliere). Restano da vedere sul telefono la pagina del
+risultato, che si rivede con la Prova della settimana prossima, e un
+presagio registrato con le nature: l'unico amico libero del profilo di
+collaudo e' Maurino, che potrebbe essere una persona vera. Visti li' due difetti,
 curati e provati nelle anteprime: il cursore che diceva "50%" al lettore di
 schermo, e la pagina del risultato senza un'azione (adesso "Sfida i tuoi
 amici", anteprima 10). Il tema dal cielo del lunedi' con la porta di Meeus, dieci domande della settimana, il punteggio calcolato dal
@@ -339,3 +344,5 @@ DOMANDA: "il giudizio visivo e' mio"
 PROVA: docs/collaudo/FF/genere/07_sul_realme_il_profilo_senza_genere_legge_il_neutro.png
 MISURA: catture dal telefono 3 su 6 (01, 02, 03), anteprime 3 su 6 (04, 05, 06); il neutro sul telefono 1 (07)
 ACCETTAZIONE: so quali catture mancano e perche'
+
+**Aggiunta del giorno 8 ottobre 2026, ordine FF, il collaudo delle quattro nature e della Meditazione sul Realme** (pacchetti locali 2d0d2518 e 84ff37d7, autorizzati dal fondatore, non distribuiti). Visti: la natura dal server nella pagina degli Enigmi, il foglio del presagio, il presagio vecchio letto senza errori (docs/collaudo/FF/realme/18_enigmi_con_le_nature.png, 19_il_presagio_sul_telefono.png, 20_la_riga_dell_amico_intera.png); il tono della Meditazione che suona su Android e che si ferma alla scelta nuova (docs/collaudo/meditazione/01, 02, 03). Trovati e curati due difetti: la riga di un amico spezzata su quattro righe dai due gesti (ordine FF, voce 05 di questa sera), la riga del giorno che diceva 639 hertz con la 432 scelta (ordine CZ voce 07, commit ce057933). FF.05 resta aperta: la pagina del risultato e un presagio registrato con le nature non sono ancora visti sul telefono.
