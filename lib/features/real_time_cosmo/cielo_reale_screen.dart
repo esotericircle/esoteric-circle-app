@@ -381,9 +381,16 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     for (var k = 0; k < _veli.length; k++) {
       _figuraDelVelo[k] = _linee?.indiceDi(_veli[k].segno.sigleIau) ?? -1;
     }
+    // LA PRESENZA DEL VELO (ordine FH parte 4): la forza della sua figura,
+    // dal conto di stelle fino alla quarta magnitudine del file delle linee,
+    // per la presenza in piu' del segno della persona (venti per cento, voce
+    // 2.3), che non scende mai sotto 0,70 di forza (voce 4.4).
     for (final v in _veli) {
-      _fotogramma.presenza[v] =
-          v.segno == _segno ? 1.0 : 1.0 / kPresenzaDelSegno;
+      final figura = _linee?.indiceDi(v.segno.sigleIau);
+      final forza = figura == null ? 1.0 : _linee!.figure[figura].forza;
+      final eIlSegno = v.segno == _segno;
+      _fotogramma.presenza[v] = forzaDelVelo(forza, eIlSegno: eIlSegno) *
+          (eIlSegno ? 1.0 : 1.0 / kPresenzaDelSegno);
     }
     // La taratura nuova dei veli (ordine FH voce 2.1), uno dopo l'altro in
     // un isolato: finche' un velo non e' pronto, non si accende.
