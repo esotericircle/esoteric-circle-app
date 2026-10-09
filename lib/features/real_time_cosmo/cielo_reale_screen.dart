@@ -35,6 +35,7 @@ import '../../core/astro/il_fuso_della_nascita.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/meeus/il_cielo_di_meeus.dart';
 import '../../core/astro/real_time_cosmo/catalogo_delle_stelle.dart';
+import '../../core/astro/real_time_cosmo/i_bersagli_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/i_nomi_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/il_cielo_in_un_istante.dart';
 import '../../core/astro/real_time_cosmo/il_riavvolgimento.dart';
@@ -56,6 +57,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'il_velo_delle_costellazioni.dart';
@@ -66,6 +68,12 @@ import 'lo_stile_del_cielo.dart';
 import 'pittore_del_cielo.dart';
 
 enum ModoDelCielo { adesso, nascita, ritorno }
+
+/// L'AVVISO DEL SOLE (ordine FH voce 5.7): una regola di sicurezza, non di
+/// stile. Quando il bersaglio e' il Sole e il Sole e' sopra l'orizzonte, la
+/// riga dell'indicatore lo dice PRIMA della direzione. Il testo esatto e'
+/// materiale del fondatore: questa e' la forma da usare finche' non lo da'.
+const String kAvvisoDelSole = 'Non guardare il Sole direttamente';
 
 /// Roma, il luogo di ripiego quando non si conosce ne' la posizione ne' la
 /// nascita. Si dichiara a schermo (regola R9).
@@ -172,6 +180,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   // --- La guida e la scelta ---
   final ValueNotifier<_Guida?> _guida = ValueNotifier(null);
+
+  // --- Il bersaglio dell'indicatore (ordine FH parte 5) ---
+  Map<CategoriaDelBersaglio, List<BersaglioDelCielo>> _bersagli = const {};
+  BersaglioDelCielo? _bersaglio;
+  bool _primoASorgere = false;
+  DateTime? _sorgeIlBersaglio;
+  DateTime _ultimaLevata = DateTime.fromMillisecondsSinceEpoch(0);
   final ValueNotifier<String?> _invito = ValueNotifier(null);
   _Scelta? _scelta;
   String? _avvisoDellaBussola;
@@ -303,6 +318,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       await _leggiIlLuogo();
       await _caricaIVeli(catalogo);
       if (!mounted) return;
+      _preparaIBersagli(catalogo);
       _preparaLeScritte();
       _preparaLaBussola();
       _preparaIlModo();
@@ -312,7 +328,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       if (mounted) {
         setState(() => _guastoDelCielo =
             'Questo istante sta fuori dagli anni che il motore del cielo '
-            'sa calcolare con certezza, dal 1900 al 2099.');
+                'sa calcolare con certezza, dal 1900 al 2099.');
       }
     } catch (e) {
       debugPrint('Real Time Cosmo: il cielo non si carica ($e)');
@@ -335,7 +351,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _nascitaConOra = id.hasBirthTime;
     _nascitaUtc = IlFusoDellaNascita.inUtc(id.birthMoment, luogo.timeZoneId);
     _luogoDiNascita = SkyPlace(
-        latitude: luogo.latitude, longitude: luogo.longitude, citta: luogo.city);
+        latitude: luogo.latitude,
+        longitude: luogo.longitude,
+        citta: luogo.city);
   }
 
   Future<void> _leggiIlLuogo() async {
@@ -417,13 +435,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     for (final p in const ['N', 'E', 'S', 'O']) {
       _fotogramma.scritte.add(ScrittaDaPosare(_scritta(p, cardinale)));
     }
-    final segno = _segno;
-    if (segno != null) {
-      _fotogramma.scritte.add(ScrittaDaPosare(_scritta(
-          segno.ilTuo,
-          TypographyTokens.etichetta().copyWith(color: ColorTokens.goldBright))));
-    }
-    const nomi = ['Sole', 'Luna', 'Mercurio', 'Venere', 'Marte', 'Giove', 'Saturno'];
+    // L'etichetta che si accende sul bersaglio in quadro (indice 4).
+    _fotogramma.scritte.add(ScrittaDaPosare(_scritta(_bersaglio?.nome ?? '',
+        TypographyTokens.etichetta().copyWith(color: ColorTokens.goldBright))));
+    const nomi = [
+      'Sole',
+      'Luna',
+      'Mercurio',
+      'Venere',
+      'Marte',
+      'Giove',
+      'Saturno'
+    ];
     final stileCorpo = TypographyTokens.etichetta(weight: 500)
         .copyWith(color: ColorTokens.textSecondary);
     for (var i = 0; i < 7; i++) {
@@ -437,8 +460,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       _telefono = dato;
     } else {
       final p = context.read<ParallaxController?>();
-      _telefono = OrientamentoDelTelefono(
-          gravita: () => p?.gravitaGrezza);
+      _telefono = OrientamentoDelTelefono(gravita: () => p?.gravitaGrezza);
     }
     final d = declinazioneMagnetica(
       latitudine: _luogo.latitude,
@@ -620,6 +642,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       luceSotto: kLuceSottoLOrizzonte,
     );
     _posaLeScritte(proiezione, cieloSposta);
+    _aggiornaLaLevata();
     _posaLaGuida(a, proiezione);
     _posaLAnello(proiezione, cieloSposta);
     _aggiornaLInvito(a);
@@ -737,8 +760,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _lunaCottaLato = lato;
   }
 
-  void _posaIVeli(CieloInUnIstante a, CieloInUnIstante? b,
-      ProiezioneDelCielo proiezione, Offset cieloSposta, Offset veloSposta,
+  void _posaIVeli(
+      CieloInUnIstante a,
+      CieloInUnIstante? b,
+      ProiezioneDelCielo proiezione,
+      Offset cieloSposta,
+      Offset veloSposta,
       double dt) {
     final catalogo = _catalogo!;
     final passo = dt * 1000 / kDissolvenzaDelVelo.inMilliseconds;
@@ -821,9 +848,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _posaLaFoschia(
       Set<Zodiac> inQuadro, ProiezioneDelCielo proiezione, Offset sposta) {
     final riferimento = _riferimentoDellaFoschia(inQuadro);
-    final deriva = riferimento == null
-        ? Offset.zero
-        : riferimento - _foschiaRiferimento;
+    final deriva =
+        riferimento == null ? Offset.zero : riferimento - _foschiaRiferimento;
     final daRifare = !_stessiSegni(inQuadro, _veliDellaFoschia) ||
         (_campo - _campoDellaFoschia).abs() > 0.5 ||
         deriva.distance > kDerivaDellaFoschia;
@@ -907,7 +933,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         Rect.fromLTWH(
             0, 0, v.immagine.width.toDouble(), v.immagine.height.toDouble()),
         Rect.fromCenter(
-            center: posa.centro.translate(_fotogramma.veloDx, _fotogramma.veloDy),
+            center:
+                posa.centro.translate(_fotogramma.veloDx, _fotogramma.veloDy),
             width: v.immagine.width * posa.scala,
             height: v.immagine.height * posa.scala),
         maschera,
@@ -941,56 +968,128 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   void _posaLaGuida(CieloInUnIstante cielo, ProiezioneDelCielo proiezione) {
-    final segno = _segno;
+    final b = _bersaglio;
     // Mentre il ritorno parla al centro dello schermo la guida tace.
     final parla = widget.modo == ModoDelCielo.ritorno &&
         _fase.value != FaseDelRitorno.fermo;
-    if (segno == null || parla) {
-      if (_fotogramma.scritte.length > 4) _fotogramma.scritte[4].luce = 0;
-      _guida.value = null;
+    final scritta =
+        _fotogramma.scritte.length > 4 ? _fotogramma.scritte[4] : null;
+    if (b == null || parla) {
+      scritta?.luce = 0;
+      if (_guida.value != null) _guida.value = null;
       return;
     }
-    final velo = _veli.firstWhere((v) => v.segno == segno);
-    var x = 0.0, y = 0.0, z = 0.0;
-    for (final i in velo.principali) {
-      final d = _versoreDi(cielo, _cieloB, i);
-      x += d.x;
-      y += d.y;
-      z += d.z;
-    }
-    final l = math.sqrt(x * x + y * y + z * z);
-    if (l == 0) return;
-    x /= l;
-    y /= l;
-    z /= l;
-    final scritta = _fotogramma.scritte.length > 4 ? _fotogramma.scritte[4] : null;
-    final distanza = ProiezioneDelCielo.distanzaDallAsse(_orientamento, x, y, z);
+    final v = b.versore(cielo);
+    final x = v.x, y = v.y, z = v.z;
+    final sotto = z < 0;
+    final distanza =
+        ProiezioneDelCielo.distanzaDallAsse(_orientamento, x, y, z);
     final dentro = proiezione.proietta(_orientamento, x, y, z, _punto) &&
         _punto[0] > 24 &&
         _punto[0] < _misura.width - 24 &&
         _punto[1] > 90 &&
         _punto[1] < _misura.height - 140;
-    if (dentro) {
-      // Il bersaglio e' in quadro: la freccia sparisce e il nome si accende.
+    final soleSopra = b.eIlSole && !sotto;
+    if (dentro && !sotto && !soleSopra) {
+      // Il bersaglio e' in quadro e sopra l'orizzonte: la freccia sparisce e
+      // il nome si accende (voce 5.1); resta la sola etichetta che riapre il
+      // menu, perche' non sia un vicolo cieco.
       scritta
         ?..x = _punto[0]
         ..y = _punto[1] - 34
         ..luce = 1;
-      if (_guida.value != null) _guida.value = null;
+      final g = _Guida.inQuadro(b.nome);
+      if (_guida.value != g) _guida.value = g;
       return;
     }
     scritta?.luce = 0;
     final m = _orientamento.m;
     final cx = m[0] * x + m[1] * y + m[2] * z;
     final cy = m[3] * x + m[4] * y + m[5] * z;
-    final angolo = math.atan2(-cy, cx);
+    // In quadro (il Sole alto, o un bersaglio sotto l'orizzonte ma visibile)
+    // la scritta sta in alto: in basso finirebbe dietro il pie' di pagina.
+    // In quadro la freccia non serve (si vede dov'e'): l'angolo NaN la toglie.
+    final angolo = dentro ? double.nan : math.atan2(-cy, cx);
     final gradi = distanza.round();
+    // La riga: l'avviso del Sole PRIMA della direzione (voce 5.7), l'ora in
+    // cui sorge se e' sotto l'orizzonte (voce 5.6), e la dichiarazione del
+    // primo a sorgere quando la categoria non ne ha nessuno sopra (voce 5.4).
+    String? riga;
+    if (sotto) {
+      final quando = _sorgeIlBersaglio;
+      riga = quando == null
+          ? 'Adesso è sotto l\'orizzonte e oggi non sorge'
+          : 'Sotto l\'orizzonte: sorge alle ${_ora(quando)}';
+      if (_primoASorgere) riga = 'Nessuno è sopra l\'orizzonte. $riga';
+    }
+    final posizione =
+        _posizioneDellaGuida(angolo.isNaN ? -math.pi / 2 : angolo);
+    final g = _Guida(
+      nome: b.nome,
+      gradi: gradi,
+      angolo: angolo,
+      x: posizione.dx,
+      y: posizione.dy,
+      riga: riga,
+      avviso: soleSopra ? kAvvisoDelSole : null,
+    );
     final vecchia = _guida.value;
     if (vecchia == null ||
-        vecchia.gradi != gradi ||
-        (vecchia.angolo - angolo).abs() > 0.02) {
-      _guida.value = _Guida(segno.ilTuo, gradi, angolo);
+        vecchia.gradi != g.gradi ||
+        vecchia.riga != g.riga ||
+        vecchia.avviso != g.avviso ||
+        vecchia.inQuadroSoltanto ||
+        (vecchia.x - g.x).abs() > 2 ||
+        (vecchia.y - g.y).abs() > 2) {
+      _guida.value = g;
     }
+  }
+
+  static String _ora(DateTime t) {
+    final l = t.toLocal();
+    return '${l.hour.toString().padLeft(2, '0')}:'
+        '${l.minute.toString().padLeft(2, '0')}';
+  }
+
+  /// La misura della scritta dell'indicatore, per la sua posizione.
+  static const Size _misuraDellaGuida = Size(170, 64);
+
+  /// Dove sta l'indicatore: sul bordo, dalla parte del bersaglio; e se la sua
+  /// scritta copre il nome di un pianeta, il nome del pianeta ha la
+  /// precedenza e la scritta si sposta (voce 14.1).
+  Offset _posizioneDellaGuida(double angolo) {
+    const margine = 44.0;
+    final cx = _misura.width / 2, cy = _misura.height / 2;
+    final dx = math.cos(angolo), dy = math.sin(angolo);
+    final sx = dx.abs() < 1e-6 ? double.infinity : (cx - margine) / dx.abs();
+    final sy =
+        dy.abs() < 1e-6 ? double.infinity : (cy - margine - 70) / dy.abs();
+    final s = math.min(sx, sy);
+    final w = _misuraDellaGuida.width, h = _misuraDellaGuida.height;
+    var left = (cx + dx * s - w / 2).clamp(8.0, _misura.width - w - 8);
+    var top = (cy + dy * s - h / 2).clamp(80.0, _misura.height - 120 - h);
+    for (var giro = 0; giro < 3; giro++) {
+      final scatola = Rect.fromLTWH(left, top, w, h);
+      Rect? coperto;
+      for (final c in _fotogramma.corpi) {
+        final nome = c.nome;
+        if (!c.visibile || nome == null) continue;
+        final r = Rect.fromLTWH(c.x - nome.width / 2, c.y + c.raggio * 0.6 + 4,
+            nome.width, nome.height);
+        if (r.overlaps(scatola)) {
+          coperto = r;
+          break;
+        }
+      }
+      if (coperto == null) break;
+      // Sopra o sotto il nome, dalla parte dove c'e' piu' posto.
+      final suPosto = coperto.top - 80;
+      final giuPosto = _misura.height - 120 - coperto.bottom;
+      top = suPosto > giuPosto
+          ? (coperto.top - h - 6).clamp(80.0, _misura.height - 120 - h)
+          : (coperto.bottom + 6).clamp(80.0, _misura.height - 120 - h);
+    }
+    return Offset(left, top);
   }
 
   void _posaLAnello(ProiezioneDelCielo proiezione, Offset sposta) {
@@ -1047,8 +1146,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           }
         }
       case FaseDelRitorno.ritorno:
-        final s = (trascorso.inMicroseconds /
-                (kDurataDelRiavvolgimento * 1e6))
+        final s = (trascorso.inMicroseconds / (kDurataDelRiavvolgimento * 1e6))
             .clamp(0.0, 1.0);
         final kf = s * (piano.length - 1);
         final k0 = kf.floor().clamp(0, piano.length - 1);
@@ -1112,6 +1210,102 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   // =====================================================================
+  // IL BERSAGLIO DELL'INDICATORE (ordine FH parte 5)
+  // =====================================================================
+
+  void _preparaIBersagli(CatalogoDelleStelle catalogo) {
+    final linee = _linee;
+    if (linee == null) return;
+    final n = _nascitaUtc;
+    _bersagli = iBersagliDelCielo(
+      linee: linee,
+      catalogo: catalogo,
+      segno: _segno,
+      jdNascita: n == null ? null : Celestial.julianDay(n),
+    );
+    // Il bersaglio di partenza e' sempre la costellazione del segno della
+    // persona (voce 5.5). Chi non ha dato la nascita parte dalla Luna, e
+    // l'indicatore lo dice col suo nome.
+    final ilTuo = _bersagli[CategoriaDelBersaglio.ilTuoCielo] ?? const [];
+    _bersaglio = ilTuo.isNotEmpty
+        ? ilTuo.first
+        : _bersagli[CategoriaDelBersaglio.lunaESole]!.first;
+  }
+
+  /// La scelta fatta a mano vale finche' la schermata resta aperta (voce
+  /// 5.5): sta nello stato, non nelle preferenze.
+  void _scegliIlBersaglio(BersaglioDelCielo b, {bool primoASorgere = false}) {
+    _bersaglio = b;
+    _primoASorgere = primoASorgere;
+    _ultimaLevata = DateTime.fromMillisecondsSinceEpoch(0);
+    _aggiornaLaLevata();
+    if (_fotogramma.scritte.length > 4) {
+      final vecchia = _fotogramma.scritte[4].testo;
+      _fotogramma.scritte[4] = ScrittaDaPosare(_scritta(
+          b.nome,
+          TypographyTokens.etichetta()
+              .copyWith(color: ColorTokens.goldBright)));
+      vecchia.dispose();
+    }
+    _guida.value = null;
+  }
+
+  /// L'ora in cui il bersaglio sorge: al cambio di bersaglio e una volta al
+  /// minuto, non a ogni fotogramma.
+  void _aggiornaLaLevata() {
+    final b = _bersaglio;
+    if (b == null) return;
+    final adesso = _istanteDelCielo;
+    if (adesso.difference(_ultimaLevata).inSeconds.abs() < 60) return;
+    _ultimaLevata = adesso;
+    _sorgeIlBersaglio = quandoSorgeIlBersaglio(
+        b, adesso, _luogoDelCielo.latitude, _luogoDelCielo.longitude);
+  }
+
+  /// L'istante e il luogo del cielo mostrato: adesso, o la nascita.
+  DateTime get _istanteDelCielo {
+    final c = _cieloA ?? _cielo;
+    return c == null ? _adesso : IlCieloDiMeeus.istanteDi(c.jd);
+  }
+
+  SkyPlace get _luogoDelCielo {
+    final c = _cieloA ?? _cielo;
+    return c == null
+        ? _luogo
+        : SkyPlace(latitude: c.latitudine, longitude: c.longitudine);
+  }
+
+  void _apriIlMenuDeiBersagli() {
+    final palette = MaestroScope.of(context);
+    foglioDelCerchio<void>(
+      context: context,
+      backgroundColor: palette.surface,
+      isScrollControlled: true,
+      builder: (contesto) => _MenuDeiBersagli(
+        bersagli: _bersagli,
+        attuale: _bersaglio,
+        onScelta: (b) {
+          Navigator.of(contesto).pop();
+          setState(() => _scegliIlBersaglio(b));
+        },
+        onCategoria: (cat) {
+          final scelta = sceltaNellaCategoria(
+              _bersagli[cat] ?? const [],
+              _istanteDelCielo,
+              _luogoDelCielo.latitude,
+              _luogoDelCielo.longitude);
+          final b = scelta.bersaglio;
+          Navigator.of(contesto).pop();
+          if (b != null) {
+            setState(() =>
+                _scegliIlBersaglio(b, primoASorgere: scelta.primoASorgere));
+          }
+        },
+      ),
+    );
+  }
+
+  // =====================================================================
   // I GESTI
   // =====================================================================
 
@@ -1119,7 +1313,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   void _alPizzico(ScaleUpdateDetails d) {
     final ppg = ProiezioneDelCielo(
-            larghezza: _misura.width, altezza: _misura.height, campoGradi: _campo)
+            larghezza: _misura.width,
+            altezza: _misura.height,
+            campoGradi: _campo)
         .puntiPerGrado;
     if (d.pointerCount >= 2) {
       _campo = (_campoAlPizzico / d.scale).clamp(kCampoMinimo, kCampoMassimo);
@@ -1229,9 +1425,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         (_telefono?.pronto ?? false)) {
       final astro = _astroDaPuntare(cielo);
       if (astro != null) {
-        final nome = astro.corpo == CorpoCeleste.luna
-            ? 'La Luna'
-            : astro.corpo.nome;
+        final nome =
+            astro.corpo == CorpoCeleste.luna ? 'La Luna' : astro.corpo.nome;
         testo = '$nome è lassù: portala al centro e tocca qui per un nord '
             'più preciso.';
       }
@@ -1317,7 +1512,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
               valueListenable: _guida,
               builder: (context, g, _) => g == null || _misura.isEmpty
                   ? const SizedBox.shrink()
-                  : _FrecciaDellaGuida(guida: g, misura: _misura),
+                  : _FrecciaDellaGuida(
+                      guida: g,
+                      misura: _misura,
+                      onTocco: _apriIlMenuDeiBersagli),
             ),
             if (widget.modo == ModoDelCielo.ritorno) _sceneDelRitorno(),
             Positioned(
@@ -1375,7 +1573,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         onAzione: _usaLaPosizione,
       ));
     }
-    if (_avvisoDelPermesso != null) righe.add(_Riga(testo: _avvisoDelPermesso!));
+    if (_avvisoDelPermesso != null)
+      righe.add(_Riga(testo: _avvisoDelPermesso!));
     if (_avvisoDellaBussola != null) {
       righe.add(_Riga(testo: _avvisoDellaBussola!));
     } else if (!_usaIlSensore && widget.modo == ModoDelCielo.adesso) {
@@ -1393,7 +1592,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final r in righe) Padding(padding: const EdgeInsets.only(top: 6), child: r),
+        for (final r in righe)
+          Padding(padding: const EdgeInsets.only(top: 6), child: r),
       ],
     );
   }
@@ -1414,7 +1614,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       if (proprio != null && sigla != null) dettagli.add(sigla);
       final con = catalogo.costellazioneDi(i);
       if (con != null) {
-        dettagli.add('nella costellazione ${_della(kCostellazioniInItaliano[con] ?? con)}');
+        dettagli.add(
+            'nella costellazione ${_della(kCostellazioniInItaliano[con] ?? con)}');
       }
       dettagli.add('magnitudine ${_numero(catalogo.magnitudine[i])}');
       final d = _versoreDi(cielo, _cieloB, i);
@@ -1432,7 +1633,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       y = c.y;
       z = c.z;
       if (c.corpo == CorpoCeleste.luna) {
-        dettagli.add('illuminata al ${(cielo.illuminazioneDellaLuna * 100).round()} per cento');
+        dettagli.add(
+            'illuminata al ${(cielo.illuminazioneDellaLuna * 100).round()} per cento');
       }
     }
     final alt = (math.asin(z.clamp(-1.0, 1.0)) * 180 / math.pi).round();
@@ -1452,12 +1654,39 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final minuscolo = nome.toLowerCase();
     if (RegExp(r'^[aeiou]').hasMatch(minuscolo)) return 'dell\'$nome';
     const femminili = {
-      'Balena', 'Bilancia', 'Bussola', 'Carena', 'Cassiopea', 'Chioma di Berenice',
-      'Colomba', 'Corona Australe', 'Corona Boreale', 'Croce del Sud', 'Fenice',
-      'Fornace', 'Freccia', 'Giraffa', 'Gru', 'Lepre', 'Lince', 'Lira', 'Lucertola',
-      'Macchina Pneumatica', 'Mensa', 'Mosca', 'Poppa', 'Squadra',
-      'Vergine', 'Vele', 'Volpetta', 'Orsa Maggiore', 'Orsa Minore', 'Idra',
-      'Idra Maschio', 'Andromeda', 'Aquila',
+      'Balena',
+      'Bilancia',
+      'Bussola',
+      'Carena',
+      'Cassiopea',
+      'Chioma di Berenice',
+      'Colomba',
+      'Corona Australe',
+      'Corona Boreale',
+      'Croce del Sud',
+      'Fenice',
+      'Fornace',
+      'Freccia',
+      'Giraffa',
+      'Gru',
+      'Lepre',
+      'Lince',
+      'Lira',
+      'Lucertola',
+      'Macchina Pneumatica',
+      'Mensa',
+      'Mosca',
+      'Poppa',
+      'Squadra',
+      'Vergine',
+      'Vele',
+      'Volpetta',
+      'Orsa Maggiore',
+      'Orsa Minore',
+      'Idra',
+      'Idra Maschio',
+      'Andromeda',
+      'Aquila',
     };
     if (nome == 'Lupo') return 'del $nome';
     if (nome == 'Vele') return 'delle $nome';
@@ -1472,7 +1701,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   static String _direzione(double az) {
     const nomi = [
-      'nord', 'nord-est', 'est', 'sud-est', 'sud', 'sud-ovest', 'ovest',
+      'nord',
+      'nord-est',
+      'est',
+      'sud-est',
+      'sud',
+      'sud-ovest',
+      'ovest',
       'nord-ovest',
     ];
     return nomi[((az + 22.5) % 360 ~/ 45)];
@@ -1497,8 +1732,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                   children: [
                     ValueListenableBuilder<int>(
                       valueListenable: _anni,
-                      builder: (context, anni, _) =>
-                          Text('$anni', key: const Key('real_time_cosmo_anni'), style: grande),
+                      builder: (context, anni, _) => Text('$anni',
+                          key: const Key('real_time_cosmo_anni'),
+                          style: grande),
                     ),
                     if (fase == FaseDelRitorno.ritorno)
                       Padding(
@@ -1543,13 +1779,56 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 }
 
 class _Guida {
-  const _Guida(this.nome, this.gradi, this.angolo);
+  const _Guida({
+    required this.nome,
+    required this.gradi,
+    required this.angolo,
+    required this.x,
+    required this.y,
+    this.riga,
+    this.avviso,
+  }) : inQuadroSoltanto = false;
+
+  /// Il bersaglio e' in quadro: resta solo l'etichetta che apre il menu.
+  const _Guida.inQuadro(this.nome)
+      : gradi = 0,
+        angolo = 0,
+        x = 0,
+        y = 0,
+        riga = null,
+        avviso = null,
+        inQuadroSoltanto = true;
+
   final String nome;
   final int gradi;
 
   /// L'angolo sullo schermo verso il bersaglio, in radianti (0 a destra,
   /// positivo verso il basso).
   final double angolo;
+
+  /// L'angolo in alto a sinistra della scritta.
+  final double x, y;
+
+  /// La riga sotto il nome: quando sorge, il primo a sorgere.
+  final String? riga;
+
+  /// L'avviso del Sole, che viene prima della direzione (voce 5.7).
+  final String? avviso;
+  final bool inQuadroSoltanto;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _Guida &&
+      other.nome == nome &&
+      other.inQuadroSoltanto == inQuadroSoltanto &&
+      other.gradi == gradi &&
+      other.riga == riga &&
+      other.avviso == avviso &&
+      other.x == x &&
+      other.y == y;
+
+  @override
+  int get hashCode => Object.hash(nome, gradi, riga, avviso, x, y);
 }
 
 class _Scelta {
@@ -1591,7 +1870,8 @@ class _Testata extends StatelessWidget {
               IconButton(
                 tooltip: 'Indietro',
                 onPressed: onIndietro,
-                icon: const Icon(Icons.arrow_back_rounded, color: ColorTokens.textPrimary),
+                icon: const Icon(Icons.arrow_back_rounded,
+                    color: ColorTokens.textPrimary),
               ),
               Expanded(
                 child: FittedBox(
@@ -1608,12 +1888,13 @@ class _Testata extends StatelessWidget {
               if (sensoreDisponibile)
                 IconButton(
                   key: const Key('real_time_cosmo_sensore'),
-                  tooltip: colSensore
-                      ? 'Esplora col dito'
-                      : 'Segui il telefono',
+                  tooltip:
+                      colSensore ? 'Esplora col dito' : 'Segui il telefono',
                   onPressed: onSensore,
                   icon: Icon(
-                    colSensore ? Icons.explore_rounded : Icons.touch_app_rounded,
+                    colSensore
+                        ? Icons.explore_rounded
+                        : Icons.touch_app_rounded,
                     color: ColorTokens.goldLight,
                   ),
                 ),
@@ -1621,7 +1902,8 @@ class _Testata extends StatelessWidget {
                 key: const Key('real_time_cosmo_fonti_bottone'),
                 tooltip: 'Fonti e metodo',
                 onPressed: onFonti,
-                icon: const Icon(Icons.info_outline_rounded, color: ColorTokens.textSecondary),
+                icon: const Icon(Icons.info_outline_rounded,
+                    color: ColorTokens.textSecondary),
               ),
             ],
           ),
@@ -1631,45 +1913,76 @@ class _Testata extends StatelessWidget {
   }
 }
 
-/// LA FRECCIA DI GUIDA (voce 2.11): sul bordo dello schermo, dalla parte del
-/// segno della persona, col nome e la distanza in gradi dal centro, che
-/// scende mentre ci si avvicina. Sparisce quando il segno entra in quadro.
+/// L'INDICATORE UNICO (voci 2.11 FG e 5.1-5.7 FH): sul bordo dello schermo,
+/// dalla parte del bersaglio, col nome, l'icona che dice che si tocca per
+/// scegliere, e la distanza in gradi dal centro che scende mentre ci si
+/// avvicina. Quando il bersaglio e' in quadro la freccia sparisce e resta
+/// solo l'etichetta col nome, in alto, che riapre il menu.
 class _FrecciaDellaGuida extends StatelessWidget {
-  const _FrecciaDellaGuida({required this.guida, required this.misura});
+  const _FrecciaDellaGuida(
+      {required this.guida, required this.misura, required this.onTocco});
   final _Guida guida;
   final Size misura;
+  final VoidCallback onTocco;
 
   @override
   Widget build(BuildContext context) {
-    const margine = 44.0;
-    final cx = misura.width / 2, cy = misura.height / 2;
-    final dx = math.cos(guida.angolo), dy = math.sin(guida.angolo);
-    final sx = dx.abs() < 1e-6 ? double.infinity : (cx - margine) / dx.abs();
-    final sy = dy.abs() < 1e-6
-        ? double.infinity
-        : (cy - margine - 70) / dy.abs();
-    final s = math.min(sx, sy);
-    final x = cx + dx * s, y = cy + dy * s;
-    return Positioned(
-      left: (x - 70).clamp(8.0, misura.width - 148),
-      top: (y - 24).clamp(80.0, misura.height - 120),
-      width: 140,
-      child: IgnorePointer(
-        child: Column(
+    final stile =
+        TypographyTokens.etichetta().copyWith(color: ColorTokens.goldBright);
+    final nome = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: Text(guida.nome,
+              key: const Key('real_time_cosmo_guida_nome'),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: stile),
+        ),
+        const Icon(Icons.arrow_drop_down_rounded,
+            color: ColorTokens.goldBright, size: 22),
+      ],
+    );
+    if (guida.inQuadroSoltanto) {
+      return Positioned(
+        left: 12,
+        top: MediaQuery.paddingOf(context).top + 60,
+        child: GestureDetector(
           key: const Key('real_time_cosmo_guida'),
+          behavior: HitTestBehavior.opaque,
+          onTap: onTocco,
+          child: Padding(padding: const EdgeInsets.all(6), child: nome),
+        ),
+      );
+    }
+    final piccolo =
+        TypographyTokens.didascalia().copyWith(color: ColorTokens.goldLight);
+    return Positioned(
+      left: guida.x,
+      top: guida.y,
+      width: _CieloRealeScreenState._misuraDellaGuida.width,
+      child: GestureDetector(
+        key: const Key('real_time_cosmo_guida'),
+        behavior: HitTestBehavior.opaque,
+        onTap: onTocco,
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Transform.rotate(
-              angle: guida.angolo,
-              child: const Icon(Icons.arrow_forward_rounded,
-                  color: ColorTokens.goldBright, size: 26),
-            ),
-            Text(
-              '${guida.nome}\n${guida.gradi}°',
-              textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: ColorTokens.goldBright),
-            ),
+            if (guida.avviso != null)
+              Text(guida.avviso!,
+                  key: const Key('real_time_cosmo_avviso_del_sole'),
+                  textAlign: TextAlign.center,
+                  style: stile.copyWith(color: ColorTokens.textPrimary)),
+            if (!guida.angolo.isNaN)
+              Transform.rotate(
+                angle: guida.angolo,
+                child: const Icon(Icons.arrow_forward_rounded,
+                    color: ColorTokens.goldBright, size: 26),
+              ),
+            nome,
+            Text(guida.riga ?? '${guida.gradi}°',
+                textAlign: TextAlign.center,
+                style: guida.riga == null ? stile : piccolo),
           ],
         ),
       ),
@@ -1698,7 +2011,8 @@ class _Riga extends StatelessWidget {
     final riga = Container(
       padding: EdgeInsets.fromLTRB(12, 8, 12, azione == null ? 8 : 0),
       decoration: BoxDecoration(
-        color: ColorTokens.medoraDeepest.withValues(alpha: discreta ? 0.55 : 0.82),
+        color:
+            ColorTokens.medoraDeepest.withValues(alpha: discreta ? 0.55 : 0.82),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
@@ -1730,7 +2044,8 @@ class _Riga extends StatelessWidget {
 }
 
 class _Scheda extends StatelessWidget {
-  const _Scheda({required this.titolo, required this.testo, required this.onChiudi});
+  const _Scheda(
+      {required this.titolo, required this.testo, required this.onChiudi});
   final String titolo;
   final String testo;
   final VoidCallback onChiudi;
@@ -1766,7 +2081,8 @@ class _Scheda extends StatelessWidget {
           IconButton(
             tooltip: 'Chiudi',
             onPressed: onChiudi,
-            icon: const Icon(Icons.close_rounded, color: ColorTokens.textSecondary),
+            icon: const Icon(Icons.close_rounded,
+                color: ColorTokens.textSecondary),
           ),
         ],
       ),
@@ -1788,4 +2104,91 @@ class _Messaggio extends StatelessWidget {
                   .copyWith(color: ColorTokens.textSecondary)),
         ),
       );
+}
+
+/// IL MENU DEI BERSAGLI (ordine FH voce 5.3): due livelli, le cinque
+/// categorie e poi gli oggetti della categoria. Il primo elemento di ogni
+/// categoria con piu' oggetti e' la scelta automatica: il piu' alto sopra
+/// l'orizzonte, o il primo a sorgere (voce 5.4).
+class _MenuDeiBersagli extends StatefulWidget {
+  const _MenuDeiBersagli({
+    required this.bersagli,
+    required this.attuale,
+    required this.onScelta,
+    required this.onCategoria,
+  });
+
+  final Map<CategoriaDelBersaglio, List<BersaglioDelCielo>> bersagli;
+  final BersaglioDelCielo? attuale;
+  final ValueChanged<BersaglioDelCielo> onScelta;
+  final ValueChanged<CategoriaDelBersaglio> onCategoria;
+
+  @override
+  State<_MenuDeiBersagli> createState() => _MenuDeiBersagliState();
+}
+
+class _MenuDeiBersagliState extends State<_MenuDeiBersagli> {
+  CategoriaDelBersaglio? _categoria;
+
+  @override
+  Widget build(BuildContext context) {
+    final titolo =
+        TypographyTokens.titoloDiRiga().copyWith(color: ColorTokens.goldBright);
+    final voce =
+        TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary);
+    final cat = _categoria;
+    final righe = <Widget>[];
+    if (cat == null) {
+      righe.add(Padding(
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+        child: Text('Dove deve puntare l\'indicatore?', style: titolo),
+      ));
+      for (final c in CategoriaDelBersaglio.values) {
+        final elenco = widget.bersagli[c] ?? const [];
+        if (elenco.isEmpty) continue;
+        righe.add(ListTile(
+          key: Key('real_time_cosmo_categoria_${c.name}'),
+          title: Text(c.nome, style: voce),
+          trailing: const Icon(Icons.chevron_right_rounded,
+              color: ColorTokens.textSecondary),
+          onTap: () => setState(() => _categoria = c),
+        ));
+      }
+    } else {
+      final elenco = widget.bersagli[cat] ?? const [];
+      righe.add(ListTile(
+        leading: const Icon(Icons.arrow_back_rounded,
+            color: ColorTokens.textSecondary),
+        title: Text(cat.nome, style: titolo),
+        onTap: () => setState(() => _categoria = null),
+      ));
+      if (elenco.length > 1) {
+        righe.add(ListTile(
+          key: Key('real_time_cosmo_automatico_${cat.name}'),
+          title: Text('Il più alto adesso', style: voce),
+          subtitle: Text('o il primo a sorgere, se nessuno è sopra',
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary)),
+          onTap: () => widget.onCategoria(cat),
+        ));
+      }
+      for (final b in elenco) {
+        righe.add(ListTile(
+          key: Key('real_time_cosmo_bersaglio_${b.id}'),
+          title: Text(b.nome, style: voce),
+          trailing: b.id == widget.attuale?.id
+              ? const Icon(Icons.check_rounded, color: ColorTokens.goldLight)
+              : null,
+          onTap: () => widget.onScelta(b),
+        ));
+      }
+    }
+    return SafeArea(
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.7),
+        child: ListView(shrinkWrap: true, children: righe),
+      ),
+    );
+  }
 }

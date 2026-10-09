@@ -6,6 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'birth_details.dart';
 import 'birth_place.dart';
 import 'celestial.dart';
+import 'il_primo_istante_sopra.dart';
 import 'moon_phase.dart';
 
 /// Una costellazione del catalogo: stelle in coordinate equatoriali J2000 e le
@@ -225,22 +226,9 @@ DateTime? quandoSorge(
     return false;
   }
 
-  if (sopra(da)) return da;
-  var precedente = da;
-  for (var m = 10; m <= 24 * 60; m += 10) {
-    final t = da.add(Duration(minutes: m));
-    if (!sopra(t)) {
-      precedente = t;
-      continue;
-    }
-    // Affinamento al minuto dentro l'intervallo trovato.
-    for (var k = 1; k <= 10; k++) {
-      final f = precedente.add(Duration(minutes: k));
-      if (sopra(f)) return f;
-    }
-    return t;
-  }
-  return null;
+  // La ricerca vive in un posto solo dall'ordine FH (voce 7.4): il Real Time
+  // Cosmo la usa coi suoi bersagli. Il comportamento e' lo stesso di prima.
+  return primoIstanteSopra(sopra, da);
 }
 
 /// LA MEZZANOTTE DELLA NOTTE CHE VIENE, l'unico istante della schermata del

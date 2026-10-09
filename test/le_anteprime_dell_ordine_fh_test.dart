@@ -9,6 +9,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -56,6 +57,58 @@ void main() {
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 20);
     await scatta(tester, 'fh_02_il_cielo_di_adesso_a_sud');
+  });
+
+  testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
+    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
+    await fg.passa(tester, 6);
+    expect(find.byKey(const Key('real_time_cosmo_categoria_costellazioni')),
+        findsOneWidget);
+    await scatta(tester, 'fh_05_il_menu_le_categorie');
+    await tester.tap(
+        find.byKey(const Key('real_time_cosmo_categoria_nebuloseEGalassie')));
+    await fg.passa(tester, 4);
+    await scatta(tester, 'fh_06_il_menu_dentro_la_categoria');
+    await tester.tap(find.byKey(const Key('real_time_cosmo_bersaglio_m45')));
+    await fg.passa(tester, 10);
+    await scatta(tester, 'fh_07_l_indicatore_sulle_pleiadi');
+  });
+
+  testWidgets('FH.5: il Sole sotto l\'orizzonte dice quando sorge',
+      (tester) async {
+    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
+    await fg.passa(tester, 6);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
+    await fg.passa(tester, 4);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_bersaglio_sole')));
+    await fg.passa(tester, 10);
+    expect(find.textContaining('sorge alle'), findsOneWidget);
+    await scatta(tester, 'fh_08_il_sole_sotto_l_orizzonte');
+  });
+
+  testWidgets('FH.5: il Sole alto porta il suo avviso', (tester) async {
+    await fg.monta(
+        tester,
+        CieloRealeScreen(
+          modo: ModoDelCielo.adesso,
+          orologio: () => DateTime.utc(2026, 10, 8, 10),
+          posizione: const DisabledSkyLocation(),
+        ));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
+    await fg.passa(tester, 6);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
+    await fg.passa(tester, 4);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_bersaglio_sole')));
+    await fg.passa(tester, 10);
+    await scatta(tester, 'fh_09_l_avviso_del_sole');
   });
 
   testWidgets('FH.1-2: un velo solo, leggero, verso est', (tester) async {

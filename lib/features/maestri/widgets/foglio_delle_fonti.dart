@@ -249,7 +249,7 @@ class TestiDelleFonti {
       'su un astro vero.\n\n'
       'Le figure dorate dei segni sono arte del Cerchio. Le linee che uniscono '
       'le stelle seguono le forme classiche degli atlanti: le coppie di stelle '
-      'sono scritte per Esoteric Circle sul catalogo HYG, e nessuna riga è '
+      'sono scritte per Esoteric Circle sul catalogo HYG. Nessuna riga è '
       'presa da Stellarium.';
 
   static const String cartaDiNascita =
