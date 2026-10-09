@@ -147,6 +147,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   /// I segni in quadro nel fotogramma: riscritto, mai rigenerato.
   final Set<Zodiac> _inQuadroOra = {};
+
+  /// Le distanze e le luci dei dodici veli: riscritte, mai rigenerate.
+  final Float64List _distanzeDeiVeli = Float64List(12);
+  final Float64List _luciDeiVeli = Float64List(12);
+
+  /// Il velo che sta al centro adesso (ordine FH parte 1).
+  int? _veloAlCentro;
   Offset _foschiaRiferimento = Offset.zero;
   double _campoDellaFoschia = 0;
 
@@ -360,6 +367,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       _fotogramma.presenza[v] =
           v.segno == _segno ? 1.0 : 1.0 / kPresenzaDelSegno;
     }
+    // La taratura nuova dei veli (ordine FH voce 2.1), uno dopo l'altro in
+    // un isolato: finche' un velo non e' pronto, non si accende.
+    unawaited(() async {
+      for (final v in _veli) {
+        if (!mounted) return;
+        await v.alleggerisci();
+      }
+    }());
   }
 
   TextPainter _scritta(String testo, TextStyle stile) =>
@@ -691,10 +706,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final catalogo = _catalogo!;
     final passo = dt * 1000 / kDissolvenzaDelVelo.inMilliseconds;
     final inQuadroOra = _inQuadroOra..clear();
-    for (final v in _veli) {
+    for (var k = 0; k < _veli.length; k++) {
+      final v = _veli[k];
       var n = 0;
+      var cx = 0.0, cy = 0.0, cz = 0.0;
       for (final i in v.principali) {
         final d = _versoreDi(a, b, i);
+        // Il centro della costellazione nel cielo: il baricentro dei versori
+        // pesato per luminosita', come il centro del velo (voce 4.5 FG).
+        final peso = math.pow(10, -0.4 * catalogo.magnitudine[i]).toDouble();
+        cx += d.x * peso;
+        cy += d.y * peso;
+        cz += d.z * peso;
         if (!proiezione.proietta(_orientamento, d.x, d.y, d.z, _punto)) {
           continue;
         }
@@ -719,9 +742,31 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           c.dy >= 0 &&
           c.dx <= _misura.width &&
           c.dy <= _misura.height;
-      // Compare e si dissolve in 400 millesimi, mai di colpo (voce 4.6).
-      v.luce = (v.luce + (v.inQuadro ? passo : -passo)).clamp(0.0, 1.0);
-      if (v.inQuadro && posa != null) {
+      final l = math.sqrt(cx * cx + cy * cy + cz * cz);
+      v.distanza = v.inQuadro && l > 0
+          ? ProiezioneDelCielo.distanzaDallAsse(
+              _orientamento, cx / l, cy / l, cz / l)
+          : double.infinity;
+      _distanzeDeiVeli[k] = v.distanza;
+      _luciDeiVeli[k] = v.luce;
+    }
+    // UN VELO ALLA VOLTA (ordine FH parte 1): quello al centro, con
+    // l'isteresi di cinque gradi, e mai due accesi nello stesso fotogramma.
+    _veloAlCentro = veloAlCentro(_distanzeDeiVeli, _veloAlCentro);
+    // Un velo non ancora alleggerito non si accende (voce 2.1): se e' quello
+    // al centro, passa avanti nella fila dell'alleggerimento.
+    final alCentro = _veloAlCentro;
+    final accendibile =
+        alCentro != null && _veli[alCentro].leggero ? alCentro : null;
+    if (alCentro != null && !_veli[alCentro].leggero) {
+      unawaited(_veli[alCentro].alleggerisci());
+    }
+    aggiornaLaLuceDeiVeli(_luciDeiVeli, accendibile, passo);
+    for (var k = 0; k < _veli.length; k++) {
+      final v = _veli[k];
+      v.luce = _luciDeiVeli[k];
+      final posa = v.posa;
+      if (v.luce > 0 && posa != null) {
         v.cuociAlone(posa.scala);
         inQuadroOra.add(v.segno);
       }

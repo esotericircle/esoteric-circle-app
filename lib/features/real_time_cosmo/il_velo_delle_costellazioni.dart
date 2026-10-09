@@ -16,9 +16,11 @@
 /// sostituisce.
 library;
 
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 import '../../core/astro/real_time_cosmo/catalogo_delle_stelle.dart';
@@ -37,8 +39,118 @@ const int kMinimoDellePrincipali = 5;
 const int kMassimoDellePrincipali = 12;
 const double kMagnitudineDellePrincipali = 4.5;
 
-/// Il lato del velo e' 1,25 volte il riquadro delle principali (voce 4.4).
-const double kAbbondanzaDelVelo = 1.25;
+/// Il lato del velo e' 1,05 volte il riquadro delle principali. Ordine FH
+/// voce 2.2: era 1,25 nell'ordine FG, quando i veli dovevano sbordare per
+/// stare su un altro piano accanto ad altri veli; adesso il velo e' uno solo
+/// e non spartisce lo spazio con nessuno.
+const double kAbbondanzaDelVelo = 1.05;
+
+// ---------------------------------------------------------------------------
+// ORDINE FH PARTE 1, UN VELO ALLA VOLTA
+// ---------------------------------------------------------------------------
+
+/// L'isteresi fra due veli, in gradi (voce 1.3): il velo nuovo subentra solo
+/// se il centro della sua costellazione e' piu' vicino al centro del quadro di
+/// almeno cinque gradi rispetto a quella che ha il velo adesso. Senza, sul
+/// confine fra due segni i veli si alternerebbero a ogni tremolio della mano.
+const double kIsteresiDelVelo = 5;
+
+/// Quale velo deve stare acceso: l'indice della costellazione il cui centro
+/// e' piu' vicino al centro del quadro, fra quelle col centro dentro il campo
+/// (voce 1.1), tenuto conto dell'isteresi rispetto all'[attuale] (voce 1.3).
+/// [distanze] porta per ogni costellazione la distanza in gradi del suo
+/// centro dall'asse della camera, `double.infinity` se il centro e' fuori dal
+/// quadro. Nullo se nessuna costellazione ha il centro in quadro (voce 1.4).
+int? veloAlCentro(List<double> distanze, int? attuale,
+    {double isteresi = kIsteresiDelVelo}) {
+  int? migliore;
+  var dMigliore = double.infinity;
+  for (var i = 0; i < distanze.length; i++) {
+    if (distanze[i] < dMigliore) {
+      dMigliore = distanze[i];
+      migliore = i;
+    }
+  }
+  if (migliore == null) return null;
+  if (attuale != null &&
+      attuale != migliore &&
+      distanze[attuale].isFinite &&
+      dMigliore > distanze[attuale] - isteresi) {
+    return attuale;
+  }
+  return migliore;
+}
+
+/// La luce dei veli in un passo di [passo] (frazione della dissolvenza di 400
+/// millesimi, voce 1.2), quando deve stare acceso [scelto]. **Mai due veli
+/// accesi nello stesso fotogramma** (guardia 15.1): il velo che deve
+/// scomparire si spegne del tutto prima che quello nuovo cominci ad
+/// accendersi, cosi' il cambio dura due dissolvenze invece di una incrociata.
+void aggiornaLaLuceDeiVeli(List<double> luci, int? scelto, double passo) {
+  var altroAcceso = false;
+  for (var i = 0; i < luci.length; i++) {
+    if (i == scelto) continue;
+    luci[i] = (luci[i] - passo).clamp(0.0, 1.0);
+    if (luci[i] > 0) altroAcceso = true;
+  }
+  if (scelto != null && !altroAcceso) {
+    luci[scelto] = (luci[scelto] + passo).clamp(0.0, 1.0);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// ORDINE FH PARTE 2, IL VELO SI ALLEGGERISCE
+// ---------------------------------------------------------------------------
+
+/// La taratura cotta nell'asset dall'Architetto (ordine FG, specifica
+/// sezione 14): alfa del pixel per 0,62 e per (0,38 + 0,62 L).
+const double kVelaturaCotta = 0.62;
+const double kPavimentoCotto = 0.38;
+
+/// La taratura nuova (voce 2.1): fattore 0,42 e pavimento 0,26, cioe' alfa
+/// per 0,42 e per (0,26 + 0,74 L). Si applica a runtime sull'asset, che non
+/// si rigenera.
+const double kVelaturaNuova = 0.42;
+const double kPavimentoNuovo = 0.26;
+
+/// Il fattore che porta l'alfa di un pixel dalla taratura cotta a quella
+/// nuova, data la luminanza [l] del pixel nella taratura (da 0 a 1).
+double fattoreDellaVelatura(double l) {
+  final cotta = kVelaturaCotta * (kPavimentoCotto + (1 - kPavimentoCotto) * l);
+  final nuova = kVelaturaNuova * (kPavimentoNuovo + (1 - kPavimentoNuovo) * l);
+  return nuova / cotta;
+}
+
+/// Alleggerisce i pixel di un velo, RGBA a alfa diritta, e restituisce i
+/// byte nuovi. La luminanza della taratura si rilegge dal rosso, che la
+/// taratura porta da 170 a 255 linearmente (specifica, sezione 14: "oro:
+/// rosso da 170 a 255"); i pixel del bordo sotto 170 valgono luminanza zero.
+/// Funzione pura, da lanciare in un isolato: per un velo da 786 per 820 sono
+/// 644.520 pixel, e sul fotogramma bloccherebbero lo schermo.
+///
+/// **I byte che escono sono PREMOLTIPLICATI**, perche' `decodeImageFromPixels`
+/// li legge cosi': misurato il 10 ottobre 2026, il pixel 200, 100, 40 con
+/// alfa 128 consegnato a alfa diritta tornava 255, 199, 80, cioe' il velo
+/// usciva piu' luminoso e piu' pieno, il contrario della voce 2.1.
+Uint8List alleggerisciIPixel(Uint8List rgba) {
+  final fuori = Uint8List.fromList(rgba);
+  for (var i = 0; i + 3 < fuori.length; i += 4) {
+    final a = fuori[i + 3];
+    if (a == 0) {
+      fuori[i] = 0;
+      fuori[i + 1] = 0;
+      fuori[i + 2] = 0;
+      continue;
+    }
+    final l = ((fuori[i] - 170) / 85).clamp(0.0, 1.0);
+    final nuova = (a * fattoreDellaVelatura(l)).round().clamp(0, 255);
+    fuori[i] = (fuori[i] * nuova / 255).round();
+    fuori[i + 1] = (fuori[i + 1] * nuova / 255).round();
+    fuori[i + 2] = (fuori[i + 2] * nuova / 255).round();
+    fuori[i + 3] = nuova;
+  }
+  return fuori;
+}
 
 /// La dissolvenza d'entrata e d'uscita (voce 4.6).
 const Duration kDissolvenzaDelVelo = Duration(milliseconds: 400);
@@ -159,8 +271,19 @@ class VeloDiCostellazione {
         mags = List<double>.filled(kMassimoDellePrincipali, 0);
 
   final Zodiac segno;
-  final ui.Image immagine;
+
+  /// L'immagine che si disegna: l'asset cotto finche' [alleggerisci] non ha
+  /// finito, poi la sua versione alleggerita (ordine FH voce 2.1).
+  ui.Image immagine;
   final List<int> principali;
+
+  /// Vero quando l'immagine e' gia' quella alleggerita: prima il velo non
+  /// si accende, cosi' non compare mai con la taratura vecchia.
+  bool leggero = false;
+
+  /// La distanza in gradi del centro della costellazione dall'asse della
+  /// camera, nell'ultimo fotogramma; infinita se il centro e' fuori quadro.
+  double distanza = double.infinity;
 
   /// Le posizioni a schermo delle principali dell'ultimo fotogramma:
   /// riscritte, mai rigenerate.
@@ -198,6 +321,30 @@ class VeloDiCostellazione {
       Paint()..imageFilter = ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
     );
     alone = registratore.endRecording().toImageSync(w.ceil(), h.ceil());
+  }
+
+  /// Porta l'immagine alla taratura nuova (ordine FH voce 2.1): legge i
+  /// pixel, li alleggerisce in un isolato con [alleggerisciIPixel] e rifa'
+  /// l'immagine. Una volta sola per velo.
+  Future<void> alleggerisci() => _inCorso ??= _alleggerisci();
+  Future<void>? _inCorso;
+
+  Future<void> _alleggerisci() async {
+    if (leggero) return;
+    final dati =
+        await immagine.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
+    if (dati == null) return;
+    final nuovi = await compute(alleggerisciIPixel, dati.buffer.asUint8List());
+    final pronta = Completer<ui.Image>();
+    ui.decodeImageFromPixels(nuovi, immagine.width, immagine.height,
+        ui.PixelFormat.rgba8888, pronta.complete);
+    final leggera = await pronta.future;
+    final vecchia = immagine;
+    immagine = leggera;
+    vecchia.dispose();
+    alone?.dispose();
+    alone = null;
+    leggero = true;
   }
 
   void libera() {
