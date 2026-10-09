@@ -59,6 +59,32 @@ void main() {
     await scatta(tester, 'fh_02_il_cielo_di_adesso_a_sud');
   });
 
+  testWidgets('FH.6: la Luna sotto l\'orizzonte, la vista sul piu\' brillante',
+      (tester) async {
+    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    expect(find.byKey(const Key('real_time_cosmo_riga_della_luna')),
+        findsOneWidget);
+    await scatta(tester, 'fh_10_la_luna_non_c_e');
+  });
+
+  testWidgets('FH.6: la Luna sopra l\'orizzonte, la vista parte da lei',
+      (tester) async {
+    await fg.monta(
+        tester,
+        CieloRealeScreen(
+          modo: ModoDelCielo.adesso,
+          orologio: () => DateTime.utc(2026, 10, 20, 18),
+          posizione: const DisabledSkyLocation(),
+        ));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    expect(find.byKey(const Key('real_time_cosmo_riga_della_luna')),
+        findsNothing);
+    await scatta(tester, 'fh_11_la_vista_parte_dalla_luna');
+  });
+
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
     await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);

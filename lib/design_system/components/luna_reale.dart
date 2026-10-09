@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -85,6 +86,15 @@ class LunaReale {
   ///
   /// [visibilita] moltiplica ogni opacita', cosi' la Luna puo' comparire e
   /// sparire senza che il chiamante rifaccia i colori.
+  ///
+  /// [volto] e' l'asset della Luna (ordine FH voce 6.3, `assets/img/cosmo/
+  /// luna.webp`): quando c'e', la parte illuminata e' l'asset ritagliato sulla
+  /// stessa curva del terminatore, e la parte in ombra e' lo stesso asset
+  /// appena visibile, la luce cinerea. L'asset e' una Luna piena illuminata in
+  /// piano, senza ombra di fase (misurato il 10 ottobre 2026: il bordo vale
+  /// 163,7 di luminanza media e il centro 148, cioe' nessun oscuramento; la
+  /// meta' sinistra piu' scura sono i mari), quindi la fase la fa soltanto il
+  /// ritaglio. Senza [volto] la Luna resta quella dipinta di sempre.
   static void dipingi(
     Canvas canvas,
     Offset c,
@@ -94,26 +104,21 @@ class LunaReale {
     double visibilita = 1.0,
     bool alone = true,
     bool mari = true,
+    ui.Image? volto,
   }) {
     final vis = visibilita.clamp(0.0, 1.0);
     if (vis <= 0.01 || r <= 0) return;
 
     final disco = Path()..addOval(Rect.fromCircle(center: c, radius: r));
 
-    if (alone) {
-      // Alone a piu' strati, morbido, che fa da luce attorno al corpo.
-      for (final s in const [4.6, 3.0, 1.9]) {
-        canvas.drawCircle(
-          c,
-          r * s,
-          Paint()
-            ..shader = RadialGradient(colors: [
-              const Color(0xFFCFDDFF).withValues(alpha: 0.15 * vis),
-              const Color(0x00000000),
-            ]).createShader(Rect.fromCircle(center: c, radius: r * s)),
-        );
-      }
+    if (volto != null) {
+      if (alone) _alone(canvas, c, r, vis);
+      _dipingiIlVolto(canvas, c, r, volto, disco,
+          illuminazione: illuminazione, crescente: crescente, vis: vis);
+      return;
     }
+
+    if (alone) _alone(canvas, c, r, vis);
 
     // Luce cinerea: il disco in ombra resta appena illuminato, cosi' anche la
     // Luna nuova si vede. La luce riflessa dalla Terra esiste davvero, e senza
@@ -181,6 +186,49 @@ class LunaReale {
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, r * 0.14),
       );
     }
+    canvas.restore();
+  }
+
+  /// Alone a piu' strati, morbido, che fa da luce attorno al corpo.
+  static void _alone(Canvas canvas, Offset c, double r, double vis) {
+    for (final s in const [4.6, 3.0, 1.9]) {
+      canvas.drawCircle(
+        c,
+        r * s,
+        Paint()
+          ..shader = RadialGradient(colors: [
+            const Color(0xFFCFDDFF).withValues(alpha: 0.15 * vis),
+            const Color(0x00000000),
+          ]).createShader(Rect.fromCircle(center: c, radius: r * s)),
+      );
+    }
+  }
+
+  /// IL DISCO DELL'ASSET DELLA LUNA, misurato il 10 ottobre 2026 sui pixel con
+  /// alfa oltre 128: da 100 a 924 in orizzontale, da 91 a 922 in verticale,
+  /// su un'immagine di 1024 per 1024. Si posa questo riquadro sul disco.
+  static const Rect discoDelVolto = Rect.fromLTRB(100, 91, 925, 923);
+
+  /// La luce cinerea sul volto: quanto resta visibile la parte in ombra.
+  static const double luceCinereaDelVolto = 0.16;
+
+  static void _dipingiIlVolto(
+      Canvas canvas, Offset c, double r, ui.Image volto, Path disco,
+      {required double illuminazione,
+      required bool crescente,
+      required double vis}) {
+    final destinazione = Rect.fromCircle(center: c, radius: r);
+    final pennello = Paint()..filterQuality = FilterQuality.medium;
+    canvas.save();
+    canvas.clipPath(disco);
+    // La parte in ombra: lo stesso volto, appena visibile.
+    pennello.color = Color.fromRGBO(255, 255, 255, luceCinereaDelVolto * vis);
+    canvas.drawImageRect(volto, discoDelVolto, destinazione, pennello);
+    // La parte illuminata: il volto intero, ritagliato sul terminatore.
+    canvas.clipPath(parteIlluminata(c, r,
+        illuminazione: illuminazione, crescente: crescente));
+    pennello.color = Color.fromRGBO(255, 255, 255, vis);
+    canvas.drawImageRect(volto, discoDelVolto, destinazione, pennello);
     canvas.restore();
   }
 }

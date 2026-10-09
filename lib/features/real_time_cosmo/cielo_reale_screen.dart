@@ -192,6 +192,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   String? _avvisoDellaBussola;
   String? _avvisoDelPermesso;
 
+  /// Il volto della Luna, l'asset che LunaReale ritaglia sulla fase (voce
+  /// 6.3 FH).
+  ui.Image? _voltoDellaLuna;
+
+  /// La riga che dice che la Luna adesso non c'e' e quando sorge (voce 6.2).
+  String? _rigaDellaLuna;
+
   // --- Il ritorno ---
   PianoDelRiavvolgimento? _piano;
   final Map<int, CieloInUnIstante> _istantiCalcolati = {};
@@ -317,6 +324,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       _leggiLaNascita();
       await _leggiIlLuogo();
       await _caricaIVeli(catalogo);
+      final datiLuna = await rootBundle.load(AssetDelCosmo.luna.percorso);
+      final codecLuna =
+          await ui.instantiateImageCodec(datiLuna.buffer.asUint8List());
+      _voltoDellaLuna = (await codecLuna.getNextFrame()).image;
       if (!mounted) return;
       _preparaIBersagli(catalogo);
       _preparaLeScritte();
@@ -484,6 +495,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
             latitudine: _luogo.latitude,
             longitudine: _luogo.longitude));
         _ultimoRicalcolo = _adesso;
+        _partiDallaLuna();
       case ModoDelCielo.nascita:
         final n = _nascitaUtc;
         final l = _luogoDiNascita;
@@ -535,6 +547,57 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _impostaIlCielo(CieloInUnIstante cielo) {
     _cielo = cielo;
     _griglia = null;
+  }
+
+  /// IL CIELO DI ADESSO PARTE DALLA LUNA (ordine FH parte 6). E' l'unico
+  /// corpo che cambia forma: la vista si apre centrata su di lei. Quando la
+  /// Luna e' sotto l'orizzonte si apre sul corpo piu' brillante sopra
+  /// l'orizzonte fra il Sole, i pianeti e le stelle di prima magnitudine (fino
+  /// a 1,5), e una riga dice che la Luna adesso non c'e' e quando sorge.
+  void _partiDallaLuna() {
+    final cielo = _cielo;
+    final catalogo = _catalogo;
+    if (cielo == null || catalogo == null) return;
+    final luna = cielo.corpo(CorpoCeleste.luna);
+    _rigaDellaLuna = null;
+    if (luna.sopraLOrizzonte) {
+      _azimut = luna.azimutGradi;
+      _altezza = luna.altezzaGradi;
+      return;
+    }
+    var magMigliore = double.infinity;
+    double? az, alt;
+    for (final c in cielo.corpi) {
+      if (c.corpo == CorpoCeleste.luna || !c.sopraLOrizzonte) continue;
+      if (c.magnitudine < magMigliore) {
+        magMigliore = c.magnitudine;
+        az = c.azimutGradi;
+        alt = c.altezzaGradi;
+      }
+    }
+    for (var i = 0;
+        i < catalogo.numeroDiStelle && catalogo.magnitudine[i] <= 1.5;
+        i++) {
+      if (cielo.z[i] <= 0 || catalogo.magnitudine[i] >= magMigliore) continue;
+      magMigliore = catalogo.magnitudine[i];
+      alt = math.asin(cielo.z[i].clamp(-1.0, 1.0)) * 180 / math.pi;
+      var a = math.atan2(cielo.x[i], cielo.y[i]) * 180 / math.pi;
+      if (a < 0) a += 360;
+      az = a;
+    }
+    if (az != null && alt != null) {
+      _azimut = az;
+      _altezza = alt;
+    }
+    final sorge = quandoSorgeIlBersaglio(
+        const BersaglioCorpo('luna', 'La Luna', CategoriaDelBersaglio.lunaESole,
+            CorpoCeleste.luna),
+        _adesso,
+        _luogo.latitude,
+        _luogo.longitude);
+    _rigaDellaLuna = sorge == null
+        ? 'La Luna adesso non c\'è e oggi non sorge.'
+        : 'La Luna adesso non c\'è: sorge alle ${_ora(sorge)}.';
   }
 
   /// La camera si gira verso la Luna di quel cielo, se e' sopra
@@ -751,7 +814,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final registratore = ui.PictureRecorder();
     final tela = Canvas(registratore);
     LunaReale.dipingi(tela, Offset(px / 2, px / 2), px / 10,
-        illuminazione: illum, crescente: crescente);
+        illuminazione: illum, crescente: crescente, volto: _voltoDellaLuna);
     final vecchia = _fotogramma.luna;
     _fotogramma.luna = registratore.endRecording().toImageSync(px, px);
     vecchia?.dispose();
@@ -1080,6 +1143,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           coperto = r;
           break;
         }
+      }
+      // La Luna ha la stessa precedenza dei nomi dei pianeti: e' il soggetto
+      // del cielo di adesso (parte 6), e la scritta non le va sopra.
+      final f = _fotogramma;
+      if (coperto == null && f.luna != null && f.lunaLuce > 0) {
+        final disco = Rect.fromCircle(
+            center: Offset(f.lunaX, f.lunaY), radius: f.lunaLato / 10 + 6);
+        if (disco.overlaps(scatola)) coperto = disco;
       }
       if (coperto == null) break;
       // Sopra o sotto il nome, dalla parte dove c'e' piu' posto.
@@ -1573,8 +1644,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         onAzione: _usaLaPosizione,
       ));
     }
-    if (_avvisoDelPermesso != null)
+    if (_avvisoDelPermesso != null) {
       righe.add(_Riga(testo: _avvisoDelPermesso!));
+    }
+    if (_rigaDellaLuna != null) {
+      righe.add(_Riga(
+          key: const Key('real_time_cosmo_riga_della_luna'),
+          testo: _rigaDellaLuna!));
+    }
     if (_avvisoDellaBussola != null) {
       righe.add(_Riga(testo: _avvisoDellaBussola!));
     } else if (!_usaIlSensore && widget.modo == ModoDelCielo.adesso) {
