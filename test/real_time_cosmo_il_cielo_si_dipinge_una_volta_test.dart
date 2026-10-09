@@ -30,6 +30,8 @@ const _schermata = 'lib/features/real_time_cosmo/cielo_reale_screen.dart';
 const Map<String, List<String>> _camminoPerFotogramma = {
   _pittore: ['  void paint(Canvas canvas, Size size) {'],
   _scena: ['  void prepara({'],
+  // Ordine FH voce 15.2: anche le linee delle figure.
+  'lib/features/real_time_cosmo/le_linee_in_scena.dart': ['  void prepara({'],
   _schermata: [
     '  void _fotogrammaNuovo(Duration ora) {',
     '  void _posaICorpi(',

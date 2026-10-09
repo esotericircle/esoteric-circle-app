@@ -16,6 +16,7 @@ import 'package:flutter/rendering.dart';
 
 import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
+import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 
 /// Il battito del cielo: a ogni fotogramma la schermata lo fa battere e il
@@ -71,6 +72,9 @@ class FotogrammaDelCielo {
 
   /// La foschia della profondita' di campo, in cache, e dove posarla.
   ui.Image? foschia;
+
+  /// Le linee delle figure (ordine FH parte 3), coi loro buffer.
+  LineeInScena? linee;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -113,10 +117,31 @@ class PittoreDelCielo extends CustomPainter {
   /// la misura che la voce 2.1 pretende (una).
   static int chiamateDelleStelleAllUltimoFotogramma = 0;
 
+  /// Quante chiamate di disegno delle linee: una (voce 3.2 FH).
+  static int chiamateDelleLineeAllUltimoFotogramma = 0;
+
+  final Paint _linee = Paint();
+
   @override
   void paint(Canvas canvas, Size size) {
     final f = fotogramma;
     canvas.drawRect(Offset.zero & size, _fondo);
+
+    // LE LINEE DELLE FIGURE: una chiamata sola, sotto le stelle.
+    final linee = f.linee;
+    chiamateDelleLineeAllUltimoFotogramma = 0;
+    if (linee != null && linee.vertici > 0) {
+      canvas.drawVertices(
+        ui.Vertices.raw(
+          ui.VertexMode.triangles,
+          Float32List.sublistView(linee.posizioni, 0, linee.vertici * 2),
+          colors: Int32List.sublistView(linee.colori, 0, linee.vertici),
+        ),
+        BlendMode.dst,
+        _linee,
+      );
+      chiamateDelleLineeAllUltimoFotogramma = 1;
+    }
 
     // LE STELLE: una chiamata sola.
     final n = scena.quante;

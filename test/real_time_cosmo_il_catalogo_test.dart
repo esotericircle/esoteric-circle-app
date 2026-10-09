@@ -31,6 +31,9 @@ void main() {
     expect(c.epocaJd, 2451545.0);
     expect(c.nomi.length, 347);
     expect(c.costellazioni.length, 88);
+    // Ordine FH, fatto 1: la mappa da HIP a indice, 5.041 stelle su 5.070.
+    expect(c.perHip.length, 5041);
+    expect(c.nomi[c.perHip[32349]!], 'Sirius');
     expect(c.indiceDiColore.where((x) => x.isNaN).length, 23);
     expect(c.magnitudine.every((m) => m <= 6.0), isTrue);
     // In ordine di magnitudine crescente, Sirio in testa.

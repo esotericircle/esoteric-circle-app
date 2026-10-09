@@ -56,6 +56,7 @@ class CatalogoDelleStelle {
     required this.nomi,
     required this.sigle,
     required this.costellazioni,
+    required this.perHip,
   });
 
   static const String firma = 'ECHY';
@@ -85,6 +86,11 @@ class CatalogoDelleStelle {
   /// La costellazione IAU (sigla di tre lettere) -> indici delle sue stelle,
   /// gia' in ordine di magnitudine crescente.
   final Map<String, List<int>> costellazioni;
+
+  /// Il numero HIP -> l'indice nel binario, per le stelle che ce l'hanno.
+  /// Ordine FH, fatto 1: le linee delle figure nominano le stelle per HIP, e
+  /// la mappa la scrive lo stesso generatore del binario.
+  final Map<int, int> perHip;
 
   int get numeroDiStelle => raGradi.length;
 
@@ -169,6 +175,12 @@ class CatalogoDelleStelle {
             (e.value as List).map((x) => x as int)),
     };
 
+    final perHip = <int, int>{
+      for (final e
+          in ((datiCost['hip'] as Map<String, dynamic>?) ?? const {}).entries)
+        int.parse(e.key): e.value as int,
+    };
+
     return CatalogoDelleStelle._(
       raGradi: ra,
       decGradi: dec,
@@ -179,6 +191,7 @@ class CatalogoDelleStelle {
       nomi: Map.unmodifiable(nomi),
       sigle: Map.unmodifiable(sigle),
       costellazioni: Map.unmodifiable(costellazioni),
+      perHip: Map.unmodifiable(perHip),
     );
   }
 

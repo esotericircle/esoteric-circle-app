@@ -146,6 +146,7 @@ def cuoci(percorso_csv):
         round(TAGLIO_MAG * 100), 0, EPOCA_JD))
     nomi = []
     costellazioni = {}
+    per_hip = {}
     sigle = {}
     for i, r in enumerate(scelte):
         ra = round(float(r['ra']) * 15 * 1000) % 360000
@@ -156,6 +157,9 @@ def cuoci(percorso_csv):
         binario += struct.pack(FORMATO_STELLA, ra, dec, mag, ci)
         if r['proper'].strip():
             nomi.append({'i': i, 'nome': r['proper'].strip()})
+        hip = r['hip'].strip()
+        if hip:
+            per_hip[hip] = i
         con = r['con'].strip()
         if con:
             costellazioni.setdefault(con, []).append(i)
@@ -182,6 +186,10 @@ def cuoci(percorso_csv):
             'costellazioni': {k: costellazioni[k]
                               for k in sorted(costellazioni)},
             'sigle': sigle,
+            # Ordine FH, fatto 1: il numero HIP di ogni stella che ce l'ha,
+            # verso il suo indice nel binario. Lo scrive lo stesso generatore
+            # del binario, cosi' le due cose non possono divergere.
+            'hip': per_hip,
         }),
         LICENZA: TESTO_DELLA_LICENZA.encode('utf-8'),
     }
@@ -197,6 +205,7 @@ def cuoci(percorso_csv):
                                       if _numero(r['ci']) is None),
         'costellazioni': len(costellazioni),
         'sigle': len(sigle),
+        'numeri_hip': len(per_hip),
         'impronta_del_csv': impronta,
     }
     return file, misure

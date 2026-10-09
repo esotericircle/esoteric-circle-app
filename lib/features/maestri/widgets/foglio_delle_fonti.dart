@@ -248,7 +248,9 @@ class TestiDelleFonti {
       'questo puoi esplorare sempre col dito e puoi riallineare la bussola '
       'su un astro vero.\n\n'
       'Le figure dorate dei segni sono arte del Cerchio. Le linee che uniscono '
-      'le stelle non ci sono: la figura le sostituisce.';
+      'le stelle seguono le forme classiche degli atlanti: le coppie di stelle '
+      'sono scritte per Esoteric Circle sul catalogo HYG, e nessuna riga è '
+      'presa da Stellarium.';
 
   static const String cartaDiNascita =
       'La Carta di nascita nasce nella linea della Golden Dawn, poi la '

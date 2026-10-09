@@ -41,6 +41,7 @@ import '../../core/astro/real_time_cosmo/il_riavvolgimento.dart';
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/la_declinazione_magnetica.dart';
 import '../../core/astro/real_time_cosmo/la_griglia_del_tocco.dart';
+import '../../core/astro/real_time_cosmo/le_linee_delle_figure.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
@@ -58,7 +59,9 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'il_velo_delle_costellazioni.dart';
+import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
+import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 import 'pittore_del_cielo.dart';
 
@@ -105,6 +108,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   // --- Il catalogo e il cielo ---
   CatalogoDelleStelle? _catalogo;
   ScenaDelCielo? _scena;
+
+  /// Le linee delle figure (ordine FH parte 3) e, per ogni velo, l'indice
+  /// della sua figura nel file delle linee.
+  LeLineeDelleFigure? _linee;
+  LineeInScena? _lineeInScena;
+  final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
   CieloInUnIstante? _cielo;
   GrigliaDelTocco? _griglia;
@@ -284,6 +293,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       if (!mounted) return;
       _catalogo = catalogo;
       _scena = ScenaDelCielo(catalogo);
+      final linee =
+          await LeLineeDelleFigure.carica(catalogo, kLineeDelleFigure);
+      if (!mounted) return;
+      _linee = linee;
+      _lineeInScena = LineeInScena(linee);
+      _fotogramma.linee = _lineeInScena;
       _leggiLaNascita();
       await _leggiIlLuogo();
       await _caricaIVeli(catalogo);
@@ -363,6 +378,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _fotogramma.veli
       ..clear()
       ..addAll(_veli);
+    for (var k = 0; k < _veli.length; k++) {
+      _figuraDelVelo[k] = _linee?.indiceDi(_veli[k].segno.sigleIau) ?? -1;
+    }
     for (final v in _veli) {
       _fotogramma.presenza[v] =
           v.segno == _segno ? 1.0 : 1.0 / kPresenzaDelSegno;
@@ -582,6 +600,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     );
     _posaICorpi(a, b, proiezione, cieloSposta);
     _posaIVeli(a, b, proiezione, cieloSposta, veloSposta, dt);
+    final alCentro = _veloAlCentro;
+    _lineeInScena?.prepara(
+      cielo: a,
+      poi: b,
+      t: _tFraIstanti,
+      orientamento: _orientamento,
+      proiezione: proiezione,
+      spostamentoX: cieloSposta.dx,
+      spostamentoY: cieloSposta.dy,
+      figuraAlCentro: alCentro == null ? null : _figuraDelVelo[alCentro],
+      luceSotto: kLuceSottoLOrizzonte,
+    );
     _posaLeScritte(proiezione, cieloSposta);
     _posaLaGuida(a, proiezione);
     _posaLAnello(proiezione, cieloSposta);
