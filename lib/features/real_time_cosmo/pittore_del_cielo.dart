@@ -16,6 +16,7 @@ import 'package:flutter/rendering.dart';
 
 import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
+import 'l_orizzonte_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 
@@ -55,7 +56,9 @@ class ScrittaDaPosare {
 
 /// Tutto cio' che il pittore posa in un fotogramma, scritto dalla schermata.
 class FotogrammaDelCielo {
-  final List<CorpoDaPosare> corpi = [for (var i = 0; i < 7; i++) CorpoDaPosare()];
+  final List<CorpoDaPosare> corpi = [
+    for (var i = 0; i < 7; i++) CorpoDaPosare()
+  ];
 
   /// Falso mentre il ritorno parla al centro: i nomi dei corpi tacciono.
   bool nomiDeiCorpi = true;
@@ -75,6 +78,9 @@ class FotogrammaDelCielo {
 
   /// Le linee delle figure (ordine FH parte 3), coi loro buffer.
   LineeInScena? linee;
+
+  /// L'orizzonte che si attraversa (ordine FH parte 7).
+  OrizzonteInScena? orizzonte;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -177,7 +183,10 @@ class PittoreDelCielo extends CustomPainter {
         Rect.fromCircle(center: Offset(c.x, c.y), radius: c.raggio),
         _corpo,
       );
-      if (f.nomiDeiCorpi) c.nome?.paint(canvas, Offset(c.x - c.nome!.width / 2, c.y + c.raggio * 0.6 + 4));
+      if (f.nomiDeiCorpi) {
+        c.nome?.paint(
+            canvas, Offset(c.x - c.nome!.width / 2, c.y + c.raggio * 0.6 + 4));
+      }
     }
 
     // LA LUNA, cotta da LunaReale.
@@ -226,6 +235,26 @@ class PittoreDelCielo extends CustomPainter {
       );
     }
 
+    // IL TERRENO (ordine FH parte 7): la calotta nera e la sagoma, sopra
+    // tutto il cielo, col velo che si apre guardando in basso.
+    final terra = f.orizzonte;
+    if (terra != null && terra.opacita > 0) {
+      canvas.drawVertices(
+        ui.Vertices.raw(ui.VertexMode.triangles, terra.calottaPosizioni,
+            colors: terra.calottaColori),
+        BlendMode.dst,
+        terra.pennelloDellaCalotta,
+      );
+      terra.pennelloDellaSagoma.color =
+          Color.fromRGBO(255, 255, 255, terra.opacita);
+      canvas.drawVertices(
+        ui.Vertices.raw(ui.VertexMode.triangles, terra.fasciaPosizioni,
+            textureCoordinates: terra.fasciaTessitura),
+        BlendMode.srcOver,
+        terra.pennelloDellaSagoma,
+      );
+    }
+
     // L'ANELLO dell'oggetto scelto.
     if (f.anello) {
       _anello.color = const Color(0xCCF0D77B);
@@ -235,7 +264,8 @@ class PittoreDelCielo extends CustomPainter {
     // LE SCRITTE, cotte una volta.
     for (final s in f.scritte) {
       if (s.luce <= 0) continue;
-      s.testo.paint(canvas, Offset(s.x - s.testo.width / 2, s.y - s.testo.height / 2));
+      s.testo.paint(
+          canvas, Offset(s.x - s.testo.width / 2, s.y - s.testo.height / 2));
     }
   }
 

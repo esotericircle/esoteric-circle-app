@@ -17,11 +17,20 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'le_anteprime_dell_ordine_fg_test.dart' as fg;
 
+/// La misura e il rapporto dichiarati qui, accanto alle catture, come vuole
+/// il corredo delle anteprime: sono gli stessi di `fg.monta`, che li imposta
+/// anch'esso, ma la guardia del corredo legge il file che scrive le immagini.
+Future<void> monta(WidgetTester tester, Widget schermata) {
+  tester.view.devicePixelRatio = 3.0;
+  tester.view.physicalSize = const Size(1080, 2391);
+  return fg.monta(tester, schermata);
+}
+
 Future<void> scatta(WidgetTester tester, String nome) async {
   if (!fg.scrivi) return;
   await tester.runAsync(() async {
-    final rb = fg.radice.currentContext!.findRenderObject()!
-        as RenderRepaintBoundary;
+    final rb =
+        fg.radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
     final img = await rb.toImage(pixelRatio: 3.0);
     final dati = await img.toByteData(format: ui.ImageByteFormat.png);
     final dir = Directory('docs/preview/FH');
@@ -53,7 +62,7 @@ Future<void> girati(WidgetTester tester, double dx, int volte) async {
 
 void main() {
   testWidgets('FH.1-2: un velo solo, leggero, verso sud', (tester) async {
-    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 20);
     await scatta(tester, 'fh_02_il_cielo_di_adesso_a_sud');
@@ -61,7 +70,7 @@ void main() {
 
   testWidgets('FH.6: la Luna sotto l\'orizzonte, la vista sul piu\' brillante',
       (tester) async {
-    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
     expect(find.byKey(const Key('real_time_cosmo_riga_della_luna')),
@@ -71,7 +80,7 @@ void main() {
 
   testWidgets('FH.6: la Luna sopra l\'orizzonte, la vista parte da lei',
       (tester) async {
-    await fg.monta(
+    await monta(
         tester,
         CieloRealeScreen(
           modo: ModoDelCielo.adesso,
@@ -80,13 +89,36 @@ void main() {
         ));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
-    expect(find.byKey(const Key('real_time_cosmo_riga_della_luna')),
-        findsNothing);
+    expect(
+        find.byKey(const Key('real_time_cosmo_riga_della_luna')), findsNothing);
     await scatta(tester, 'fh_11_la_vista_parte_dalla_luna');
   });
 
+  testWidgets('FH.7: l\'orizzonte e il cielo che si vede attraverso',
+      (tester) async {
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final centro =
+        tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
+    // Lo sguardo scende all'orizzonte...
+    for (var i = 0; i < 8; i++) {
+      await tester.dragFrom(centro, const Offset(0, -45));
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    await fg.passa(tester, 10);
+    await scatta(tester, 'fh_12_lo_skyline');
+    // ...e poi sotto, dove il terreno diventa un velo.
+    for (var i = 0; i < 10; i++) {
+      await tester.dragFrom(centro, const Offset(0, -45));
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    await fg.passa(tester, 10);
+    await scatta(tester, 'fh_13_attraverso_il_terreno');
+  });
+
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
-    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
     await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
@@ -105,21 +137,25 @@ void main() {
 
   testWidgets('FH.5: il Sole sotto l\'orizzonte dice quando sorge',
       (tester) async {
-    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
     await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
     await fg.passa(tester, 6);
-    await tester.tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
+    await tester
+        .tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
     await fg.passa(tester, 4);
     await tester.tap(find.byKey(const Key('real_time_cosmo_bersaglio_sole')));
     await fg.passa(tester, 10);
-    expect(find.textContaining('sorge alle'), findsOneWidget);
+    // La riga dell'indicatore: dalla parte 6 anche la riga della Luna dice
+    // "sorge alle".
+    expect(
+        find.textContaining("Sotto l'orizzonte: sorge alle"), findsOneWidget);
     await scatta(tester, 'fh_08_il_sole_sotto_l_orizzonte');
   });
 
   testWidgets('FH.5: il Sole alto porta il suo avviso', (tester) async {
-    await fg.monta(
+    await monta(
         tester,
         CieloRealeScreen(
           modo: ModoDelCielo.adesso,
@@ -130,7 +166,8 @@ void main() {
     await fg.passa(tester, 10);
     await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
     await fg.passa(tester, 6);
-    await tester.tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
+    await tester
+        .tap(find.byKey(const Key('real_time_cosmo_categoria_lunaESole')));
     await fg.passa(tester, 4);
     await tester.tap(find.byKey(const Key('real_time_cosmo_bersaglio_sole')));
     await fg.passa(tester, 10);
@@ -138,7 +175,7 @@ void main() {
   });
 
   testWidgets('FH.1-2: un velo solo, leggero, verso est', (tester) async {
-    await fg.monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
     await girati(tester, 45, 10);

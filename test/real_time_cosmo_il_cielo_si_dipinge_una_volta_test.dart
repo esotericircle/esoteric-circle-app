@@ -32,6 +32,11 @@ const Map<String, List<String>> _camminoPerFotogramma = {
   _scena: ['  void prepara({'],
   // Ordine FH voce 15.2: anche le linee delle figure.
   'lib/features/real_time_cosmo/le_linee_in_scena.dart': ['  void prepara({'],
+  // Ordine FH parte 7: il terreno, proiettato a ogni fotogramma.
+  'lib/features/real_time_cosmo/l_orizzonte_in_scena.dart': [
+    '  void prepara(',
+    '  void _proietta(',
+  ],
   _schermata: [
     '  void _fotogrammaNuovo(Duration ora) {',
     '  void _posaICorpi(',
@@ -51,30 +56,43 @@ final List<(String, RegExp)> _vietati = [
   ('un MaskFilter', RegExp(r'MaskFilter')),
   ('uno shader', RegExp(r'createShader|\bshader\s*=|Gradient\.')),
   ('un filtro d\'immagine', RegExp(r'ImageFilter')),
-  ('una lista rigenerata',
-      RegExp(r'List\.(generate|filled|of|from)|\.toList\(\)|<[\w<>, ?]+>\[|\[\s*for\b|\[\s*\.\.\.')),
-  ('un insieme o una mappa nuovi', RegExp(r'<[\w<>, ?]+>\{|\{\s*\.\.\.|Set\.|Map\.')),
+  (
+    'una lista rigenerata',
+    RegExp(
+        r'List\.(generate|filled|of|from)|\.toList\(\)|<[\w<>, ?]+>\[|\[\s*for\b|\[\s*\.\.\.')
+  ),
+  (
+    'un insieme o una mappa nuovi',
+    RegExp(r'<[\w<>, ?]+>\{|\{\s*\.\.\.|Set\.|Map\.')
+  ),
   ('un array tipizzato nuovo', RegExp(r'(Float32|Float64|Int32|Uint8)List\(')),
 ];
 
 /// Le cotture: dove gli strati pesanti DEVONO esserci.
 const Map<String, List<(String, List<String>)>> _cotture = {
   _pittore: [
-    ('ui.Image preparaLoSpriteDellaStella()', ['ui.Gradient.radial', 'toImageSync']),
+    (
+      'ui.Image preparaLoSpriteDellaStella()',
+      ['ui.Gradient.radial', 'toImageSync']
+    ),
   ],
   'lib/features/real_time_cosmo/il_velo_delle_costellazioni.dart': [
     ('  void cuociAlone(double scala) {', ['ImageFilter.blur', 'toImageSync']),
   ],
   _schermata: [
     ('  void _cuociLaLuna(', ['LunaReale.dipingi', 'toImageSync']),
-    ('  void _cuociLaFoschia(', ['ImageFilter.blur', 'BlendMode.dstIn', 'toImageSync']),
+    (
+      '  void _cuociLaFoschia(',
+      ['ImageFilter.blur', 'BlendMode.dstIn', 'toImageSync']
+    ),
   ],
 };
 
 /// Il corpo del metodo che comincia alla riga che inizia con [firma]: righe
 /// e numero della prima. Le graffe si contano sul codice senza testo, cosi'
 /// una graffa dentro una stringa non sposta la fine.
-({int prima, List<String> righe})? corpoDelMetodo(String sorgente, String firma) {
+({int prima, List<String> righe})? corpoDelMetodo(
+    String sorgente, String firma) {
   final crude = sorgente.split('\n');
   final pulite = codiceSenzaTesto(sorgente).split('\n');
   final inizio = crude.indexWhere((r) => r.startsWith(firma));

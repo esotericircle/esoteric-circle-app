@@ -67,6 +67,7 @@ double luceDellaStella(double magnitudine, double limite) {
   return d / kSfumaturaDelLimite;
 }
 
-/// Sotto l'orizzonte le stelle restano, piu' deboli: la terra non e' nera
-/// come un muro, ma la persona deve capire dov'e' il suolo.
-const double kLuceSottoLOrizzonte = 0.32;
+/// Sotto l'orizzonte il cielo si disegna INTERO (ordine FH voce 7.3): lo
+/// smorza il velo del terreno, con la sua opacita', e non un'attenuazione
+/// stella per stella. Fino all'ordine FG valeva 0,32 e il terreno non c'era.
+const double kLuceSottoLOrizzonte = 1.0;

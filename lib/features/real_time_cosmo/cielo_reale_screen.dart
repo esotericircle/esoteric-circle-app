@@ -63,6 +63,7 @@ import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'il_velo_delle_costellazioni.dart';
 import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
+import 'l_orizzonte_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 import 'pittore_del_cielo.dart';
@@ -121,6 +122,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// della sua figura nel file delle linee.
   LeLineeDelleFigure? _linee;
   LineeInScena? _lineeInScena;
+  OrizzonteInScena? _orizzonte;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
   CieloInUnIstante? _cielo;
@@ -198,6 +200,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   /// La riga che dice che la Luna adesso non c'e' e quando sorge (voce 6.2).
   String? _rigaDellaLuna;
+
+  /// L'ora di levata dell'oggetto scelto, calcolata una volta per scelta.
+  _Scelta? _sceltaDellaLevata;
+  DateTime? _levataDellaScelta;
 
   // --- Il ritorno ---
   PianoDelRiavvolgimento? _piano;
@@ -328,6 +334,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       final codecLuna =
           await ui.instantiateImageCodec(datiLuna.buffer.asUint8List());
       _voltoDellaLuna = (await codecLuna.getNextFrame()).image;
+      final datiTerra = await rootBundle.load(AssetDelCosmo.orizzonte.percorso);
+      final codecTerra =
+          await ui.instantiateImageCodec(datiTerra.buffer.asUint8List());
+      _orizzonte = OrizzonteInScena((await codecTerra.getNextFrame()).image);
+      _fotogramma.orizzonte = _orizzonte;
       if (!mounted) return;
       _preparaIBersagli(catalogo);
       _preparaLeScritte();
@@ -693,6 +704,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _posaICorpi(a, b, proiezione, cieloSposta);
     _posaIVeli(a, b, proiezione, cieloSposta, veloSposta, dt);
     final alCentro = _veloAlCentro;
+    _orizzonte?.prepara(_orientamento, proiezione,
+        spostamentoX: cieloSposta.dx, spostamentoY: cieloSposta.dy);
     _lineeInScena?.prepara(
       cielo: a,
       poi: b,
@@ -762,7 +775,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       posa.x = _punto[0] + sposta.dx;
       posa.y = _punto[1] + sposta.dy;
       posa.colore = _coloriDeiCorpi[k];
-      posa.luce = z < 0 ? kLuceSottoLOrizzonte + 0.2 : 1.0;
+      // Sotto l'orizzonte lo smorza il velo del terreno (voce 7.3 FH).
+      posa.luce = 1.0;
       if (ca.corpo == CorpoCeleste.luna) {
         posa.visibile = false;
         _posaLaLuna(a, b, posa.x, posa.y, ppg, z < 0);
@@ -805,7 +819,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       ..lunaX = x
       ..lunaY = y
       ..lunaLato = lato
-      ..lunaLuce = sotto ? 0.45 : 1.0;
+      ..lunaLuce = 1.0;
   }
 
   void _cuociLaLuna(double illum, bool crescente, double lato) {
@@ -1015,10 +1029,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     for (var k = 0; k < 4; k++) {
       final s = _fotogramma.scritte[k];
       final az = azimut[k] * math.pi / 180;
-      // Un grado sopra l'orizzonte, per non stare sotto il bordo.
-      final x = math.sin(az) * math.cos(0.02);
-      final y = math.cos(az) * math.cos(0.02);
-      const z = 0.02;
+      // Sullo skyline, nei quattro punti veri (voce 7.5 FH): cinque gradi
+      // sopra l'orizzonte, sopra le colline piu' alte della sagoma (3,6).
+      const e = 5 * math.pi / 180;
+      final x = math.sin(az) * math.cos(e);
+      final y = math.cos(az) * math.cos(e);
+      final z = math.sin(e);
       if (proiezione.proietta(_orientamento, x, y, z, _punto)) {
         s
           ..x = _punto[0] + sposta.dx
@@ -1720,6 +1736,25 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     dettagli.add(alt >= 0
         ? 'alta $alt gradi sull\'orizzonte, verso ${_direzione(az)}'
         : 'sotto l\'orizzonte di ${-alt} gradi, verso ${_direzione(az)}');
+    // Sotto l'orizzonte la scheda dice anche quando sorge (voce 7.4 FH, la
+    // regola del Cielo esistente): calcolata una volta per scelta.
+    if (alt < 0) {
+      if (!identical(_sceltaDellaLevata, s)) {
+        _sceltaDellaLevata = s;
+        final BersaglioDelCielo b = s.stella != null
+            ? BersaglioFisso(
+                'stella', titolo, CategoriaDelBersaglio.costellazioni,
+                raGradi: catalogo.raGradi[s.stella!],
+                decGradi: catalogo.decGradi[s.stella!])
+            : BersaglioCorpo(
+                s.corpo!.name, titolo, CategoriaDelBersaglio.pianeti, s.corpo!);
+        _levataDellaScelta = quandoSorgeIlBersaglio(b, _istanteDelCielo,
+            _luogoDelCielo.latitude, _luogoDelCielo.longitude);
+      }
+      final quando = _levataDellaScelta;
+      dettagli.add(
+          quando == null ? 'oggi non sorge' : 'sorge alle ${_ora(quando)}');
+    }
     return _Scheda(
       titolo: titolo,
       testo: dettagli.join(', '),

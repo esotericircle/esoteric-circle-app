@@ -28,6 +28,7 @@ import '../../core/astro/real_time_cosmo/catalogo_delle_stelle.dart';
 import '../../core/astro/real_time_cosmo/il_cielo_in_un_istante.dart';
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/la_griglia_del_tocco.dart';
+import 'l_orizzonte_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 
 /// Il lato dello sprite della stella, in pixel dell'immagine.
@@ -82,7 +83,11 @@ class ScenaDelCielo {
   int quante = 0;
 
   /// Quante di quelle hanno luce piena o quasi (oltre meta'): i "punti
-  /// luminosi" della densita' della voce 2.5.
+  /// luminosi" della densita' della voce 2.5. Si conta la luce che arriva
+  /// all'occhio: sotto l'orizzonte quella che il velo del terreno lascia
+  /// passare (ordine FH parte 7). Senza, dal giorno in cui il cielo sotto
+  /// l'orizzonte si disegna intero si contavano anche le stelle coperte dal
+  /// terreno pieno: 236 punti a sud a quaranta gradi, misurato.
   int luminose = 0;
 
   final List<double> _punto = [0, 0];
@@ -107,6 +112,7 @@ class ScenaDelCielo {
     final b = poi;
     var n = 0;
     var forti = 0;
+    final passaIlTerreno = 1 - opacitaDelTerreno(orientamento.altezzaGradi);
     for (var i = 0; i < catalogo.numeroDiStelle; i++) {
       // Le stelle sono in ordine di magnitudine: oltre il limite non ce ne
       // sono piu' di accese, e il giro si ferma.
@@ -145,7 +151,8 @@ class ScenaDelCielo {
       xSchermo[n] = px;
       ySchermo[n] = py;
       inQuadro[n] = i;
-      if (luce > 0.5 && px >= 0 && py >= 0 && px <= w && py <= h) forti++;
+      final allOcchio = z < 0 ? luce * passaIlTerreno : luce;
+      if (allOcchio > 0.5 && px >= 0 && py >= 0 && px <= w && py <= h) forti++;
       n++;
     }
     quante = n;
