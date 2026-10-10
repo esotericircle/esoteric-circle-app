@@ -199,6 +199,26 @@ void main() {
     await scatta(tester, 'i11_la_luna_quasi_piena');
   });
 
+  testWidgets('I9 ed E9: con Riduci Movimento il salto senza corsa',
+      (tester) async {
+    // Visto sul Realme il 10 ottobre 2026: la prima stesura mostrava per 1,8
+    // secondi l'eta' di oggi prima del salto. Qui il salto e' immediato e la
+    // frase d'arrivo compare subito.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    await monta(tester, _macchina());
+    await fh.caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
+    await fg.passa(tester, 2);
+    expect(find.byKey(const Key('real_time_cosmo_anni')), findsNothing);
+    expect(
+        find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
+        findsOneWidget);
+    await scatta(tester, 'i09_il_salto_con_riduci_movimento');
+  });
+
   testWidgets('I10: la riga del luogo nei suoi due stati', (tester) async {
     await monta(tester, _macchina(posizione: const _Milano()));
     await fh.caricaEAlleggerisci(tester);

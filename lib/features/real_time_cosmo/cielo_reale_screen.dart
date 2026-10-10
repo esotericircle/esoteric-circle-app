@@ -1739,6 +1739,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _altezzaDellaCorsa = null;
     _scelta = null;
     _posaLaData(piano.istanti.first);
+    // Riduci Movimento: nessuna corsa e nemmeno la fase dell'eta', la data
+    // cambia di colpo e compare subito la frase d'arrivo (voce E9). Visto sul
+    // Realme il 10 ottobre 2026: la prima stesura mostrava per 1,8 secondi
+    // l'eta' di oggi prima del salto.
+    if (_riduciMovimento) _vaiAllaNascita(Duration.zero);
     setState(() {});
   }
 
