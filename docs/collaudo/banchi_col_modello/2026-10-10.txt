@@ -1,0 +1,40 @@
+I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18
+commit: 31047010a0567157aa150137d26461201885929b
+inizio: 2026-10-10T11:24:52+00:00
+fine: 2026-10-10T11:25:46+00:00
+comando: python tool/banchi_col_modello/i_banchi_col_modello.py --costo --rifai-i-rossi docs/collaudo/banchi_col_modello/2026-10-10-giro1.txt
+rifatti: RISULTATO 8 dal giro 2026-10-10-giro1.txt; gli altri esiti sono quelli di quel giro, sullo stesso commit
+
+RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
+  misura: il classificatore delle domande libere del Viaggio, col modello vero, sul banco delle domande di prova
+RISULTATO 2: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: le cinque misure su cento discese, col modello vero
+  misura: cento discese del Viaggio dello Sciamano col modello vero: le cinque misure della ripetizione e il costo di una discesa
+RISULTATO 3: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: G, venti cammini col modello vero
+  misura: venti cammini interi: quanto si ripetono gli strati del racconto
+RISULTATO 4: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: il segno col modello vero, dodici domande
+  misura: il segno dell'animale scelto dal modello su dodici domande
+RISULTATO 5: PASSATO | la_sonda_del_sigillo_test.dart | Tre chiamate vere per ogni sigillo, lette tutte
+  misura: i testi del Sigillo dell'Intenzione: tre chiamate per sigillo, ogni testo letto e controllato
+RISULTATO 6: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 A, tre domande di fila allo stesso Maestro sullo stesso tema
+  misura: percorso A del filo del consulto: zero contraddizioni e nove risposte su dieci che portano avanti il punto
+RISULTATO 7: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 B, la stessa domanda a Medora, poi a Caligo, poi ad Aura
+  misura: percorso B: il secondo e il terzo Maestro ricevono la scheda, la portano avanti e nominano chi ha parlato prima
+RISULTATO 8: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 C, la persona riprende la frase che il Maestro le ha suggerito
+  misura: percorso C: la frase suggerita ripresa vale come continuazione
+RISULTATO 9: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 D, una domanda, un tema diverso, poi il ritorno al primo tema
+  misura: percorso D: tornando al primo tema il Maestro riprende il suo parere
+RISULTATO 10: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 E, il consulto comincia scritto e continua a voce sullo stesso tema
+  misura: percorso E: dallo scritto alla voce il parere resta lo stesso
+RISULTATO 11: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 F, il consulto si interrompe e riprende dopo dieci minuti
+  misura: percorso F: dopo dieci minuti il Maestro ritrova il suo filo
+
+--- le misure stampate da il_filo_del_consulto_col_modello_test.dart
+  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito
+  ORDINE FE VOCE 18, costo dei sei banchi: 20 chiamate, 91829 token di ingresso, 5030 di uscita col ragionamento, 0.040 dollari a listino
+
+--- il costo, da Cloud Monitoring (token_count), finestra di 173 secondi
+  gemini-2.5-flash input: 106649 token, 0.0320 dollari
+  gemini-2.5-flash output: 5030 token, 0.0126 dollari
+  totale 0.0446 dollari, cambio BCE del 2026-10-09: 1 euro = 1.1206 dollari
+COSTO DEL GIRO: 0.04 euro
+  (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)
