@@ -37,6 +37,10 @@ const Map<String, List<String>> _camminoPerFotogramma = {
   'lib/features/real_time_cosmo/la_via_lattea_in_scena.dart': [
     '  void prepara('
   ],
+  // Ordine FH parte 10: i cinque oggetti del cielo profondo.
+  'lib/features/real_time_cosmo/il_cielo_profondo_in_scena.dart': [
+    '  void prepara(',
+  ],
   'lib/features/real_time_cosmo/l_orizzonte_in_scena.dart': [
     '  void prepara(',
     '  void _proietta(',

@@ -9,8 +9,11 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/astro/real_time_cosmo/i_bersagli_del_cielo.dart';
+import 'package:esoteric_circle/core/astro/real_time_cosmo/le_schede_del_cielo_profondo.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
+import 'package:esoteric_circle/features/real_time_cosmo/pittore_del_cielo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -152,6 +155,54 @@ void main() {
         find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
         findsOneWidget);
     await scatta(tester, 'fh_15_l_arrivo_col_genere');
+  });
+
+  testWidgets('FH.10: un oggetto del cielo profondo e la sua scheda',
+      (tester) async {
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final fotogramma = tester
+        .widgetList<CustomPaint>(find.byType(CustomPaint))
+        .map((c) => c.painter)
+        .whereType<PittoreDelCielo>()
+        .first
+        .fotogramma;
+    // Si gira col dito finche' un oggetto non sta nella parte libera dello
+    // schermo, sopra il pie' di pagina.
+    int? trovato;
+    for (var giro = 0; giro < 16 && trovato == null; giro++) {
+      final p = fotogramma.profondo!;
+      for (var i = 0; i < kCieloProfondo.length; i++) {
+        if (p.visibile[i] == 1 &&
+            p.x[i] > 40 &&
+            p.x[i] < 320 &&
+            p.y[i] > 140 &&
+            p.y[i] < 420) {
+          trovato = i;
+          break;
+        }
+      }
+      if (trovato == null) await girati(tester, 45, 2);
+      await fg.passa(tester, 2);
+    }
+    expect(trovato, isNotNull, reason: 'nessun oggetto profondo in vista');
+    final p = fotogramma.profondo!;
+    // ignore: avoid_print
+    print('FH.10: ${kCieloProfondo[trovato!].nome} a '
+        '${p.x[trovato].round()}, ${p.y[trovato].round()}, lato '
+        '${p.lato[trovato].toStringAsFixed(1)} punti');
+    await scatta(tester, 'fh_17_il_cielo_profondo');
+    await tester.tapAt(Offset(p.x[trovato], p.y[trovato]));
+    await fg.passa(tester, 6);
+    expect(find.byKey(const Key('real_time_cosmo_scheda_profonda')),
+        findsOneWidget);
+    expect(
+        find.text(kSchedeDelCieloProfondo
+            .firstWhere((s) => s.id == kCieloProfondo[trovato!].id)
+            .apertura),
+        findsOneWidget);
+    await scatta(tester, 'fh_18_la_scheda_del_cielo_profondo');
   });
 
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {

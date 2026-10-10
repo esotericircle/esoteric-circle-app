@@ -17,6 +17,7 @@ import 'package:flutter/rendering.dart';
 import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
+import 'il_cielo_profondo_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
@@ -85,6 +86,9 @@ class FotogrammaDelCielo {
 
   /// La Via Lattea, sotto tutto (ordine FH parte 9).
   ViaLatteaInScena? viaLattea;
+
+  /// I cinque oggetti del cielo profondo (ordine FH parte 10).
+  CieloProfondoInScena? profondo;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -169,6 +173,26 @@ class PittoreDelCielo extends CustomPainter {
         _linee,
       );
       chiamateDelleLineeAllUltimoFotogramma = 1;
+    }
+
+    // IL CIELO PROFONDO (ordine FH parte 10): cinque immagini in
+    // composizione luminosa a 0,85, alla loro larghezza vera.
+    final profondo = f.profondo;
+    if (profondo != null) {
+      for (var i = 0; i < profondo.immagini.length; i++) {
+        if (profondo.visibile[i] == 0) continue;
+        final img = profondo.immagini[i];
+        canvas.drawImageRect(
+          img,
+          Rect.fromLTWH(0, 0, img.width.toDouble(), img.height.toDouble()),
+          Rect.fromCenter(
+            center: Offset(profondo.x[i], profondo.y[i]),
+            width: profondo.lato[i],
+            height: profondo.lato[i],
+          ),
+          profondo.pennello,
+        );
+      }
     }
 
     // LE STELLE: una chiamata sola.

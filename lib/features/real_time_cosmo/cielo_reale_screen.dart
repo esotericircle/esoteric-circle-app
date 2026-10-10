@@ -44,6 +44,7 @@ import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/la_declinazione_magnetica.dart';
 import '../../core/astro/real_time_cosmo/la_griglia_del_tocco.dart';
 import '../../core/astro/real_time_cosmo/le_linee_delle_figure.dart';
+import '../../core/astro/real_time_cosmo/le_schede_del_cielo_profondo.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
@@ -66,6 +67,7 @@ import 'il_velo_delle_costellazioni.dart';
 import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
+import 'il_cielo_profondo_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
@@ -137,6 +139,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   LineeInScena? _lineeInScena;
   OrizzonteInScena? _orizzonte;
   ViaLatteaInScena? _viaLattea;
+  CieloProfondoInScena? _cieloProfondo;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
   CieloInUnIstante? _cielo;
@@ -379,6 +382,15 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         datiVia.buffer.asUint8List(),
       );
       _viaLattea = ViaLatteaInScena((await codecVia.getNextFrame()).image);
+      // I cinque oggetti del cielo profondo, nell'ordine di kCieloProfondo.
+      final immaginiProfonde = <ui.Image>[];
+      for (final o in kCieloProfondo) {
+        final dati = await rootBundle.load('assets/img/cosmo/${o.asset}.webp');
+        final codec = await ui.instantiateImageCodec(dati.buffer.asUint8List());
+        immaginiProfonde.add((await codec.getNextFrame()).image);
+      }
+      _cieloProfondo = CieloProfondoInScena(immaginiProfonde);
+      _fotogramma.profondo = _cieloProfondo;
       _fotogramma.viaLattea = _viaLattea;
       if (!mounted) return;
       _preparaIBersagli(catalogo);
@@ -806,6 +818,15 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       spostamentoY: cieloSposta.dy,
     );
     _viaLattea?.prepara(
+      _orientamento,
+      proiezione,
+      a.assi,
+      b?.assi,
+      _tFraIstanti,
+      spostamentoX: cieloSposta.dx,
+      spostamentoY: cieloSposta.dy,
+    );
+    _cieloProfondo?.prepara(
       _orientamento,
       proiezione,
       a.assi,
@@ -1343,7 +1364,16 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       return;
     }
     final double x, y, z;
-    if (s.stella != null) {
+    final profondo = _cieloProfondo;
+    if (s.profondo != null) {
+      if (profondo == null) {
+        _fotogramma.anello = false;
+        return;
+      }
+      x = profondo.versori[s.profondo! * 3];
+      y = profondo.versori[s.profondo! * 3 + 1];
+      z = profondo.versori[s.profondo! * 3 + 2];
+    } else if (s.stella != null) {
       final d = _versoreDi(cielo, _cieloB, s.stella!);
       x = d.x;
       y = d.y;
@@ -1731,6 +1761,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         return;
       }
     }
+    // Poi i cinque oggetti del cielo profondo (ordine FH voce 10.3).
+    final profondo = _cieloProfondo;
+    if (profondo != null) {
+      for (var i = 0; i < kCieloProfondo.length; i++) {
+        if (profondo.visibile[i] == 0) continue;
+        final raggio = math.max(26.0, profondo.lato[i] * kFrazioneAccesa / 2);
+        if ((Offset(profondo.x[i], profondo.y[i]) - p).distance < raggio) {
+          setState(() => _scelta = _Scelta.profondo(i));
+          return;
+        }
+      }
+    }
     final griglia = _griglia ??= GrigliaDelTocco.di(cielo);
     final i = scena.piuVicina(
       sx: p.dx,
@@ -2011,7 +2053,53 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     );
   }
 
+  /// LA SCHEDA DI UN OGGETTO DEL CIELO PROFONDO (ordine FH voci 10.3-10.5):
+  /// le quattro parti del corpus dell'Architetto, il testo cosi' com'e', e la
+  /// riga pratica composta dal motore con i dati di adesso. Nessuna riga viene
+  /// dal modello.
+  Widget _schedaProfonda(_Scelta s) {
+    final i = s.profondo!;
+    final o = kCieloProfondo[i];
+    final scheda = kSchedeDelCieloProfondo.firstWhere((k) => k.id == o.id);
+    final v = _cieloProfondo!.versori;
+    final alt =
+        (math.asin(v[i * 3 + 2].clamp(-1.0, 1.0)) * 180 / math.pi).round();
+    var az = math.atan2(v[i * 3], v[i * 3 + 1]) * 180 / math.pi;
+    if (az < 0) az += 360;
+    final String adesso;
+    if (alt >= 0) {
+      adesso = 'Adesso a $alt gradi sull\'orizzonte, verso ${_direzione(az)}.';
+    } else {
+      if (!identical(_sceltaDellaLevata, s)) {
+        _sceltaDellaLevata = s;
+        _levataDellaScelta = quandoSorgeIlBersaglio(
+          o.comeBersaglio,
+          _istanteDelCielo,
+          _luogoDelCielo.latitude,
+          _luogoDelCielo.longitude,
+        );
+      }
+      final quando = _levataDellaScelta;
+      final sorge = scheda.plurale ? 'sorgono' : 'sorge';
+      final sta = scheda.plurale ? 'sono' : 'è';
+      adesso = quando == null
+          ? 'Adesso $sta sotto l\'orizzonte e oggi non $sorge.'
+          : 'Adesso $sta sotto l\'orizzonte: $sorge alle ${_ora(quando)}.';
+    }
+    return _SchedaProfonda(
+      titolo: scheda.titolo,
+      paragrafi: [
+        scheda.apertura,
+        scheda.fatto,
+        scheda.fattoUmano,
+        '$adesso ${scheda.stagione}',
+      ],
+      onChiudi: () => setState(() => _scelta = null),
+    );
+  }
+
   Widget _schedaDellaScelta(_Scelta s) {
+    if (s.profondo != null) return _schedaProfonda(s);
     final cielo = _cieloA ?? _cielo!;
     final catalogo = _catalogo!;
     String titolo;
@@ -2358,10 +2446,20 @@ class _Guida {
 }
 
 class _Scelta {
-  const _Scelta.stella(this.stella) : corpo = null;
-  const _Scelta.corpo(this.corpo) : stella = null;
+  const _Scelta.stella(this.stella)
+      : corpo = null,
+        profondo = null;
+  const _Scelta.corpo(this.corpo)
+      : stella = null,
+        profondo = null;
+  const _Scelta.profondo(this.profondo)
+      : stella = null,
+        corpo = null;
   final int? stella;
   final CorpoCeleste? corpo;
+
+  /// L'indice in kCieloProfondo (ordine FH parte 10).
+  final int? profondo;
 }
 
 class _Testata extends StatelessWidget {
@@ -2641,6 +2739,72 @@ class _Scheda extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          IconButton(
+            tooltip: 'Chiudi',
+            onPressed: onChiudi,
+            icon: const Icon(
+              Icons.close_rounded,
+              color: ColorTokens.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// La scheda di un oggetto del cielo profondo: il titolo e le quattro parti
+/// del corpus, che si scorrono se non stanno nel pie' di pagina.
+class _SchedaProfonda extends StatelessWidget {
+  const _SchedaProfonda({
+    required this.titolo,
+    required this.paragrafi,
+    required this.onChiudi,
+  });
+  final String titolo;
+  final List<String> paragrafi;
+  final VoidCallback onChiudi;
+
+  @override
+  Widget build(BuildContext context) {
+    final alta = MediaQuery.sizeOf(context).height * 0.45;
+    return Container(
+      key: const Key('real_time_cosmo_scheda_profonda'),
+      constraints: BoxConstraints(maxHeight: alta),
+      padding: const EdgeInsets.fromLTRB(16, 12, 4, 14),
+      decoration: BoxDecoration(
+        color: ColorTokens.medoraDeepest.withValues(alpha: 0.92),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: ColorTokens.gold.withValues(alpha: 0.35)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    titolo,
+                    style: TypographyTokens.titoloDiRiga().copyWith(
+                      color: ColorTokens.goldBright,
+                    ),
+                  ),
+                  for (final p in paragrafi) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      p,
+                      style: TypographyTokens.corpo().copyWith(
+                        color: ColorTokens.textSecondary,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             ),
           ),
           IconButton(
