@@ -291,8 +291,13 @@ void main() {
     }
     expect(f.eclittica!.vertici, greaterThan(0));
     expect(f.eclittica!.scrittaVisibile, isTrue);
-    await fg.passa(tester, 6);
-    await scatta(tester, 'fh_20_l_eclittica');
+    // LAPIDE della regola vecchia (ordine FH parte 13: il nome sempre
+    // acceso). Il fondatore, 10 ottobre 2026: "e' proprio necessario tenere
+    // sempre visibile la scritta? Si sovrappone a tutto". Il posto per il nome
+    // c'e', ma il nome tace: parla solo dopo che la persona accende
+    // l'eclittica dal menu, per cinque secondi.
+    expect(f.nomeDellEclittica, isFalse,
+        reason: "il nome del filo parla senza che nessuno l'abbia acceso");
     await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
     await fg.passa(tester, 6);
     await tester.tap(find.byKey(const Key('real_time_cosmo_eclittica')));
@@ -303,6 +308,19 @@ void main() {
     await tester.tapAt(const Offset(180, 40));
     await fg.passa(tester, 8);
     expect(f.eclittica, isNull);
+    // Riaccesa dal menu: il nome parla, poi tace.
+    await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
+    await fg.passa(tester, 6);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_eclittica')));
+    await fg.passa(tester, 4);
+    await tester.tapAt(const Offset(180, 40));
+    await fg.passa(tester, 8);
+    expect(f.nomeDellEclittica, isTrue,
+        reason: 'riaccesa dal menu, il nome del filo non parla');
+    await scatta(tester, 'fh_20_l_eclittica');
+    await fg.passa(tester, 50);
+    expect(f.nomeDellEclittica, isFalse,
+        reason: 'dopo cinque secondi il nome del filo parla ancora');
   });
 
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {

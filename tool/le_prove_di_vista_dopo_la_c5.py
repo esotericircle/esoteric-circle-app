@@ -79,6 +79,14 @@ INNESTI = [
      '      ScaffoldMessenger.maybeOf(context)\n        ?..hideCurrentSnackBar()',
      '      (null as ScaffoldMessengerState?)\n        ?..hideCurrentSnackBar()',
      MACCHINA, 'il pulsante riparte'),
+    ('C13 la bussola ignora la schermata orizzontale', ORIENTAMENTO,
+     '    if (!orizzontale) {',
+     '    if (true) {',
+     'test/real_time_cosmo_il_telefono_orizzontale_test.dart', None),
+    ("C14 il nome dell'eclittica parla sempre", SCHERMATA,
+     '      _fotogramma.nomeDellEclittica = ora < _nomeDellEclitticaFino;',
+     '      _fotogramma.nomeDellEclittica = true;',
+     'test/le_anteprime_dell_ordine_fh_test.dart', 'FH.13'),
 ]
 
 

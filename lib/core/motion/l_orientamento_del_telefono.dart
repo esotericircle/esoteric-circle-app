@@ -121,7 +121,12 @@ class OrientamentoDelTelefono {
   /// secondi (dal campo visivo, `costanteDiTempoPerCampo`). Restituisce
   /// l'orientamento della camera posteriore, o nullo se le letture mancano o
   /// sono degeneri (il telefono in caduta, il campo parallelo alla gravita').
-  OrientamentoDellaCamera? passo(double dt, double costanteDiTempo) {
+  ///
+  /// [orizzontale] dice che la schermata e' girata in orizzontale: allora
+  /// "destra" e "su" della vista sono i lati lunghi del telefono, non quelli
+  /// della posa verticale (vedi [orientamentoDa]).
+  OrientamentoDellaCamera? passo(double dt, double costanteDiTempo,
+      {bool orizzontale = false}) {
     final g = gravita();
     final c = _campo;
     if (g == null || c == null || _guasto) return null;
@@ -172,6 +177,7 @@ class OrientamentoDelTelefono {
       my: _my,
       mz: _mz,
       declinazioneGradi: declinazioneGradi + correzioneGradi,
+      orizzontale: orizzontale,
     );
     // LA SCATOLA: finche' il filtrato resta entro [kSogliaDellaQuiete] dalla
     // vista, la vista resta dov'e' (il residuo del rumore si vedeva come un
@@ -258,6 +264,7 @@ class OrientamentoDelTelefono {
     required double my,
     required double mz,
     double declinazioneGradi = 0,
+    bool orizzontale = false,
   }) {
     // Est = campo x alto.
     var hx = my * gz - mz * gy;
@@ -282,8 +289,26 @@ class OrientamentoDelTelefono {
     // all'alto (un vettore all'azimut magnetico a sta all'azimut vero a + D).
     List<double> vero(double e, double n, double u) =>
         [e * cd + n * sd, -e * sd + n * cd, u];
-    final destra = vero(hx, nx, ax);
-    final su = vero(hy, ny, ay);
+    final x = vero(hx, nx, ax);
+    final y = vero(hy, ny, ay);
+    // IL TELEFONO ORIZZONTALE (segnalato dal fondatore il 10 ottobre 2026: la
+    // schermata girava in orizzontale e il cielo della bussola restava
+    // verticale). Con la schermata girata la destra e il su della vista sono
+    // gli assi del telefono girati di un quarto, come fa
+    // `SensorManager.remapCoordinateSystem` di Android; quale dei due versi
+    // lo dice la gravita': il lato destro del telefono in alto (gx > 0) e' la
+    // cima a sinistra.
+    final List<double> destra, su;
+    if (!orizzontale) {
+      destra = x;
+      su = y;
+    } else if (gx >= 0) {
+      destra = [-y[0], -y[1], -y[2]];
+      su = x;
+    } else {
+      destra = y;
+      su = [-x[0], -x[1], -x[2]];
+    }
     // La camera posteriore guarda lungo -z del telefono.
     final avanti = vero(-hz, -nz, -az);
     return OrientamentoDellaCamera([...destra, ...su, ...avanti]);

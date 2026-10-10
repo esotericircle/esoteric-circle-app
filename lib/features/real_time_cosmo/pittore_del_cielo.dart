@@ -102,6 +102,10 @@ class FotogrammaDelCielo {
   /// L'eclittica col suo nome (ordine FH parte 13): niente se spenta.
   EclitticaInScena? eclittica;
   TextPainter? scrittaDellEclittica;
+
+  /// Se il nome del filo parla: solo nei secondi dopo che la persona ha
+  /// acceso l'eclittica dal menu ([kDurataDelNomeDellEclittica]).
+  bool nomeDellEclittica = false;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -199,7 +203,7 @@ class PittoreDelCielo extends CustomPainter {
         _linee,
       );
       final nome = f.scrittaDellEclittica;
-      if (nome != null && eclittica.scrittaVisibile) {
+      if (nome != null && eclittica.scrittaVisibile && f.nomeDellEclittica) {
         nome.paint(
           canvas,
           Offset(eclittica.scrittaX - nome.width / 2,

@@ -34,9 +34,13 @@ const double kPixelPerGrado = 4096 / 360;
 /// La riga dell'asset che sta all'altezza zero.
 const double kRigaDellOrizzonte = 118;
 
-/// L'opacita' del terreno per l'altezza dello sguardo (voce 7.2).
-const double kOpacitaDelTerrenoAlMinimo = 0.55;
-const double kAltezzaDelVeloPieno = -20;
+/// L'opacita' del terreno per l'altezza dello sguardo (voce 7.2). Era 0,55
+/// a venti gradi sotto; il fondatore, 10 ottobre 2026: "quando vado oltre
+/// l'orizzonte e va in semitrasparenza... meglio aumentare un po' la
+/// trasparenza in modo che sia un po' piu' chiaro il cielo che sta sotto".
+/// Ora 0,35, gia' a quindici gradi sotto.
+const double kOpacitaDelTerrenoAlMinimo = 0.35;
+const double kAltezzaDelVeloPieno = -15;
 
 double opacitaDelTerreno(double altezzaDelloSguardo) {
   if (altezzaDelloSguardo >= 0) return 1.0;

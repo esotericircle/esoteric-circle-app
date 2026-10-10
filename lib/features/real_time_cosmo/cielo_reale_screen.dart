@@ -165,6 +165,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// dei pianeti, il nome dell'eclittica e i punti cardinali tacciono. Si
   /// riaccende dal menu o dal bottone della testata.
   bool _senzaDistrazioni = false;
+
+  /// Il nome dell'eclittica parla fino a questo istante del battito; si
+  /// arma quando la persona accende l'eclittica dal menu e parte dal primo
+  /// fotogramma dopo, cioe' a menu chiuso.
+  Duration _nomeDellEclitticaFino = Duration.zero;
+  bool _nomeDellEclitticaDaArmare = false;
   int _giornoDelleMeteore = -1;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
@@ -810,7 +816,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final telefono = _telefono;
     OrientamentoDellaCamera? dalSensore;
     if (_usaIlSensore && telefono != null) {
-      dalSensore = telefono.passo(dt, costanteDiTempoPerCampo(_campo));
+      // La schermata girata in orizzontale (segnalazione del fondatore del
+      // 10 ottobre 2026): la bussola prende destra e su dai lati lunghi.
+      dalSensore = telefono.passo(dt, costanteDiTempoPerCampo(_campo),
+          orizzontale: _misura.width > _misura.height);
       if (dalSensore == null &&
           _avvisoDellaBussola == null &&
           ora - _accesoDa > const Duration(seconds: 2)) {
@@ -909,6 +918,16 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       if (_ilRitornoParla || _senzaDistrazioni) {
         _eclittica.scrittaVisibile = false;
       }
+      if (_nomeDellEclitticaDaArmare) {
+        _nomeDellEclitticaDaArmare = false;
+        _nomeDellEclitticaFino = ora + kDurataDelNomeDellEclittica;
+      }
+      // Il battito riparte da zero quando la schermata torna in scena: un
+      // termine piu' lontano della durata intera e' di prima, e si spegne.
+      if (_nomeDellEclitticaFino - ora > kDurataDelNomeDellEclittica) {
+        _nomeDellEclitticaFino = Duration.zero;
+      }
+      _fotogramma.nomeDellEclittica = ora < _nomeDellEclitticaFino;
       _fotogramma.eclittica = _eclittica;
     } else {
       _fotogramma.eclittica = null;
@@ -1045,7 +1064,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final inCorsa = widget.modo == ModoDelCielo.ritorno &&
         _fase.value == FaseDelRitorno.ritorno;
     final cotto = inCorsa ? riposo * kScalaDiScena : riposo;
-    if ((illum - _lunaCottaIlluminazione).abs() > 0.01 ||
+    // Nella corsa la fase cambia quasi a ogni fotogramma: ricuocerla a ogni
+    // centesimo voleva dire una cottura ogni due fotogrammi (315 in una corsa
+    // verso la nascita, misurate sul Realme il 10 ottobre 2026). A quella
+    // velocita' quattro centesimi non si vedono.
+    final passoDellaFase = inCorsa ? 0.04 : 0.01;
+    if ((illum - _lunaCottaIlluminazione).abs() > passoDellaFase ||
         (cotto - _lunaCottaLato).abs() > _lunaCottaLato * 0.1) {
       _cuociLaLuna(illum, crescente, cotto);
     }
@@ -2023,7 +2047,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         bersagli: _bersagli,
         attuale: _bersaglio,
         eclitticaAccesa: _eclitticaAccesa,
-        onEclittica: (acceso) => setState(() => _eclitticaAccesa = acceso),
+        onEclittica: (acceso) => setState(() {
+          _eclitticaAccesa = acceso;
+          _nomeDellEclitticaDaArmare = acceso;
+        }),
         senzaDistrazioni: _senzaDistrazioni,
         onSenzaDistrazioni: (acceso) =>
             setState(() => _senzaDistrazioni = acceso),

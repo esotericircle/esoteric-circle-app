@@ -33,6 +33,13 @@ import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 const String kScrittaDellEclittica =
     "L'eclittica, la strada del Sole, della Luna e dei pianeti";
 
+/// QUANTO PARLA IL NOME DEL FILO. Il fondatore, 10 ottobre 2026: "e'
+/// proprio necessario tenere sempre visibile la scritta? Si sovrappone a
+/// tutto e crea confusione". Il nome si accende solo quando la persona accende
+/// l'eclittica dal menu, per questo tempo, e poi resta il filo soltanto; la
+/// riga del menu dice gia' che cos'e'.
+const Duration kDurataDelNomeDellEclittica = Duration(seconds: 5);
+
 /// Il filo: spessore e luce. Acceso appena, piu' tenue delle linee delle
 /// figure.
 const double kSpessoreDellEclittica = 1.0;
