@@ -18,6 +18,7 @@ import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_place.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/astro/real_time_cosmo/il_riavvolgimento.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -92,7 +93,9 @@ Future<void> monta(WidgetTester tester, Widget figlio) async {
   SharedPreferences.setMockInitialValues({});
   finestra(tester);
   await tester.pumpWidget(MultiProvider(
-    providers: [ChangeNotifierProvider<ProfileController>(create: (_) => profilo())],
+    providers: [
+      ChangeNotifierProvider<ProfileController>(create: (_) => profilo())
+    ],
     child: RepaintBoundary(
       key: radice,
       child: MaterialApp(
@@ -183,7 +186,8 @@ void main() {
     await carica(tester);
     await passa(tester, 25);
     // Verso est: 90 gradi a sinistra del sud col dito.
-    final centro = tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
+    final centro =
+        tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
     for (var i = 0; i < 10; i++) {
       await tester.dragFrom(centro, const Offset(45, 0));
       await tester.pump(const Duration(milliseconds: 50));
@@ -209,10 +213,23 @@ void main() {
     await passa(tester, 30);
     expect(find.text('STO TORNANDO INDIETRO NEL TEMPO'), findsOneWidget);
     await scatta(tester, 'fg_06_il_ritorno_la_corsa');
-    await passa(tester, 70);
-    expect(find.text('QUESTO ERA IL CIELO SOPRA DI TE ALLA TUA NASCITA'),
+    // Lapide: fino all'ordine FH la corsa arrivava alla nascita in sette
+    // secondi, la frase era "ALLA TUA NASCITA" e il tetto 169 istanti. Dalla
+    // parte 8 FH ci sono i due tempi, sette secondi di corsa e otto di
+    // rallentamento, e la frase porta la marca del genere: qui la forma non e'
+    // scelta, e parla neutro.
+    await passa(tester, 140);
+    expect(
+        find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
         findsOneWidget);
     await scatta(tester, 'fg_07_il_ritorno_l_arrivo');
-    expect(MisureDelCosmo.istantiCalcolatiNelRitorno, lessThanOrEqualTo(169));
+    // Il tetto della voce 3.3 sui due tempi, piu' il cielo della nascita.
+    expect(
+        MisureDelCosmo.istantiCalcolatiNelRitorno,
+        lessThanOrEqualTo(
+            ((kDurataDelRiavvolgimento + kDurataDelRallentamento) *
+                        kIstantiAlSecondo)
+                    .ceil() +
+                1));
   });
 }

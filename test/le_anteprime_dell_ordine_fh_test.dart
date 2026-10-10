@@ -117,6 +117,21 @@ void main() {
     await scatta(tester, 'fh_13_attraverso_il_terreno');
   });
 
+  testWidgets('FH.8: il rallentamento agganciato alla Luna, poi l\'arrivo',
+      (tester) async {
+    await monta(tester, fg.cielo(ModoDelCielo.ritorno));
+    await caricaEAlleggerisci(tester);
+    // L'eta' (1,8 secondi) e la corsa (7): a 4 secondi dentro l'ultimo anno.
+    await fg.passa(tester, 110);
+    expect(find.text('STO TORNANDO INDIETRO NEL TEMPO'), findsOneWidget);
+    await scatta(tester, 'fh_14_il_rallentamento');
+    await fg.passa(tester, 55);
+    expect(
+        find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
+        findsOneWidget);
+    await scatta(tester, 'fh_15_l_arrivo_col_genere');
+  });
+
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
     await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);

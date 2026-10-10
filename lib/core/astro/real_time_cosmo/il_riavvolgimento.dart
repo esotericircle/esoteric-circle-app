@@ -31,7 +31,21 @@
 /// Cosi' le stelle girano fluide, la Luna scorre le sue fasi, i pianeti
 /// tornano sui loro passi, e niente e' inventato: ogni istante calcolato e'
 /// un momento reale, al piu' quindici giorni lontano dalla data che scorre.
-/// L'ultimo e' l'istante della nascita, esatto.
+///
+/// **I DUE TEMPI, ordine FH parte 8.** In trentasette anni la Luna compie 457
+/// lunazioni: dentro sette secondi sono 65 al secondo, una fase ogni mezzo
+/// fotogramma, invisibile (voce 8.1). Per questo la corsa qui sopra si ferma
+/// UN ANNO prima della nascita, e l'ultimo anno e' il rallentamento (voce
+/// 8.2): [kGiorniSideraliDellUltimoAnno] giorni siderali percorsi in
+/// [kDurataDelRallentamento] secondi, con passi che scendono in modo lineare
+/// da quasi tre giorni a un giorno solo. Ogni istante del rallentamento sta a
+/// un numero INTERO di giorni siderali dalla nascita: il tempo siderale e'
+/// sempre quello della nascita, le stelle restano ferme sull'orizzonte e la
+/// Luna cammina fra loro mostrando le sue ultime dodici o tredici lunazioni
+/// una per una, fino a fermarsi su quella della notte di nascita. I passi non
+/// scendono mai sotto il giorno: con passi piu' corti due istanti di fila
+/// cadrebbero sullo stesso giorno siderale e la Luna si fermerebbe per poi
+/// saltare. L'ultimo istante e' quello della nascita, esatto.
 library;
 
 import 'dart:math' as math;
@@ -44,6 +58,19 @@ const int kIstantiAlSecondo = 24;
 /// Quanto dura la corsa, in secondi.
 const double kDurataDelRiavvolgimento = 7.0;
 
+/// Quanto dura il rallentamento dell'ultimo anno, in secondi (ordine FH voce
+/// 8.2): dodici lunazioni e mezza in otto secondi, poco piu' di mezzo secondo
+/// l'una, e ognuna piu' lenta della precedente.
+const double kDurataDelRallentamento = 8.0;
+
+/// L'ultimo anno in giorni siderali: 365,25 giorni solari sono 366,25 giorni
+/// siderali, e il rallentamento ne percorre un numero intero.
+const int kGiorniSideraliDellUltimoAnno = 366;
+
+/// Sotto questo distacco fra l'adesso e l'inizio del rallentamento la corsa
+/// non c'e': chi e' nato da poco piu' di un anno passa subito all'ultimo.
+const double kGiorniMinimiDellaCorsa = 30;
+
 /// I giri all'indietro del cielo in piu' della differenza vera.
 const int kGiriDelCielo = 6;
 
@@ -54,7 +81,7 @@ const int kLunazioni = 24;
 const int kGiorniDellaFinestra = 15;
 
 /// Fra i candidati della finestra, quanti si calcolano davvero dopo la stima.
-const int kCandidatiCalcolati = 5;
+const int kCandidatiCalcolati = 3;
 
 /// La curva degli anni: frazione dell'intervallo ancora da percorrere al
 /// punto s fra 0 e 1. Scende accelerando (voce 3.2): lenta all'inizio,
@@ -76,7 +103,8 @@ double giriRimasti(double s) {
 /// per giorno: 4 il giorno dopo la nuova, 178 alla piena, 352 la vigilia della
 /// nuova); la prima stesura lo ripiegava in due con `waxing`, e nella meta'
 /// calante la fase voluta girava al contrario.
-double angoloDiFase(double jd) => _norm(Celestial.moonIllumination(jd).elongationDeg);
+double angoloDiFase(double jd) =>
+    _norm(Celestial.moonIllumination(jd).elongationDeg);
 
 double _norm(double a) {
   final r = a % 360;
@@ -86,13 +114,60 @@ double _norm(double a) {
 /// Il piano del riavvolgimento: gli istanti (giorni giuliani) e il luogo di
 /// ciascuno. Il luogo scivola da quello di adesso a quello della nascita.
 class PianoDelRiavvolgimento {
-  PianoDelRiavvolgimento._(this.istanti, this.latitudini, this.longitudini);
+  PianoDelRiavvolgimento._(this.istanti, this.latitudini, this.longitudini,
+      {required this.fineDellaCorsa,
+      required this.durataDellaCorsa,
+      required this.durataDelRallentamento});
 
   final List<double> istanti;
   final List<double> latitudini;
   final List<double> longitudini;
 
+  /// L'indice dell'istante dove finisce la corsa e comincia il rallentamento
+  /// (ordine FH voce 8.2). Senza rallentamento e' l'ultimo.
+  final int fineDellaCorsa;
+
+  /// Le durate dei due tempi in secondi: il tetto della voce 3.3 vale per
+  /// tutti e due, (istanti del tempo) / (durata) mai sopra
+  /// [kIstantiAlSecondo].
+  final double durataDellaCorsa;
+  final double durataDelRallentamento;
+
   int get length => istanti.length;
+
+  /// Il punto fra gli istanti, da 0 a length - 1, dopo [secondi] dall'inizio
+  /// della corsa.
+  double puntoAl(double secondi) {
+    if (secondi < durataDellaCorsa) {
+      return secondi / durataDellaCorsa * fineDellaCorsa;
+    }
+    if (durataDelRallentamento <= 0) return (length - 1).toDouble();
+    final r =
+        ((secondi - durataDellaCorsa) / durataDelRallentamento).clamp(0.0, 1.0);
+    return fineDellaCorsa + r * (length - 1 - fineDellaCorsa);
+  }
+
+  /// La durata intera dei due tempi.
+  double get durata => durataDellaCorsa + durataDelRallentamento;
+
+  /// Gli istanti del rallentamento, dall'inizio alla nascita: [giorni]
+  /// giorni siderali in [passi] passi lineari che finiscono a un giorno.
+  static List<double> ultimoAnno(
+      double jdNascita, double giornoSiderale, int giorni, int passi) {
+    final fuori = <double>[jdNascita + giorni * giornoSiderale];
+    if (passi < 1) return fuori;
+    // Il primo passo vale a, l'ultimo uno: la somma e' passi * (a + 1) / 2,
+    // cioe' i giorni.
+    final a = 2 * giorni / passi - 1;
+    var fatti = 0.0;
+    for (var j = 1; j <= passi; j++) {
+      fatti +=
+          passi == 1 ? giorni.toDouble() : a + (1 - a) * (j - 1) / (passi - 1);
+      final m = j == passi ? giorni : fatti.round();
+      fuori.add(jdNascita + (giorni - m) * giornoSiderale);
+    }
+    return fuori;
+  }
 
   static PianoDelRiavvolgimento prepara({
     required double jdAdesso,
@@ -103,12 +178,41 @@ class PianoDelRiavvolgimento {
     required double lonNascita,
     int istantiAlSecondo = kIstantiAlSecondo,
   }) {
+    // IL SECONDO TEMPO, l'ultimo anno (ordine FH voce 8.2).
+    final lst0 = Celestial.localSiderealDegrees(jdNascita, lonNascita);
+    final lst1 = Celestial.localSiderealDegrees(jdNascita + 0.25, lonNascita);
+    final giornoSiderale = 360 / (_norm(lst1 - lst0) * 4);
+    final giorni = math.max(
+        0,
+        math.min(kGiorniSideraliDellUltimoAnno,
+            ((jdAdesso - jdNascita) / giornoSiderale).floor()));
+    final passi =
+        math.min((kDurataDelRallentamento * istantiAlSecondo).floor(), giorni);
+    final ultimo = ultimoAnno(jdNascita, giornoSiderale, giorni, passi);
+    final durataDelRallentamento = passi / istantiAlSecondo;
+    final traguardo = ultimo.first;
+
+    if (jdAdesso - traguardo < kGiorniMinimiDellaCorsa) {
+      // Nessuna corsa: dall'adesso si passa all'ultimo anno.
+      final istanti = [jdAdesso, ...ultimo];
+      return PianoDelRiavvolgimento._(
+        istanti,
+        [latAdesso, for (final _ in ultimo) latNascita],
+        [lonAdesso, for (final _ in ultimo) lonNascita],
+        fineDellaCorsa: 1,
+        durataDellaCorsa: 1 / istantiAlSecondo,
+        durataDelRallentamento: durataDelRallentamento,
+      );
+    }
+
+    // IL PRIMO TEMPO, la corsa: dall'adesso fino al traguardo, un anno prima
+    // della nascita.
     final n = math.max(2, (kDurataDelRiavvolgimento * istantiAlSecondo).ceil());
     final lstAdesso = Celestial.localSiderealDegrees(jdAdesso, lonAdesso);
-    final lstNascita = Celestial.localSiderealDegrees(jdNascita, lonNascita);
+    final lstNascita = Celestial.localSiderealDegrees(traguardo, lonNascita);
     final giriTotali = _norm(lstAdesso - lstNascita) + 360.0 * kGiriDelCielo;
     final faseAdesso = angoloDiFase(jdAdesso);
-    final faseNascita = angoloDiFase(jdNascita);
+    final faseNascita = angoloDiFase(traguardo);
     final fasiTotali = _norm(faseAdesso - faseNascita) + 360.0 * kLunazioni;
     final istanti = <double>[];
     final lat = <double>[];
@@ -124,21 +228,30 @@ class PianoDelRiavvolgimento {
         continue;
       }
       if (k == n - 1) {
-        istanti.add(jdNascita);
+        istanti.add(traguardo);
         continue;
       }
-      final data = jdNascita + (jdAdesso - jdNascita) * anniRimasti(s);
+      final data = traguardo + (jdAdesso - traguardo) * anniRimasti(s);
       final lstVoluto = lstNascita + giriTotali * giriRimasti(s);
       final faseVoluta = faseNascita + fasiTotali * anniRimasti(s);
-      istanti.add(_istanteVicino(data, lstVoluto, faseVoluta, lo, jdNascita));
+      istanti.add(_istanteVicino(data, lstVoluto, faseVoluta, lo, traguardo));
     }
-    return PianoDelRiavvolgimento._(istanti, lat, lon);
+    for (var j = 1; j < ultimo.length; j++) {
+      istanti.add(ultimo[j]);
+      lat.add(latNascita);
+      lon.add(lonNascita);
+    }
+    return PianoDelRiavvolgimento._(istanti, lat, lon,
+        fineDellaCorsa: n - 1,
+        durataDellaCorsa: kDurataDelRiavvolgimento,
+        durataDelRallentamento: durataDelRallentamento);
   }
 
   /// Fra i giorni attorno a [data], il momento col tempo siderale
   /// [lstVoluto] e la fase della Luna piu' vicina a [faseVoluta].
   ///
-  /// **Mai prima della nascita.** Un'ipotesi della prima stesura diceva che
+  /// **Mai prima del traguardo della corsa**, che dall'ordine FH e' l'inizio
+  /// dell'ultimo anno: prima era la nascita. Un'ipotesi della prima stesura diceva che
   /// questo confine costasse precisione a ridosso della fine (la fase
   /// sbagliava fino a 93 gradi); misurata, e' caduta: con e senza confine lo
   /// scarto era lo stesso, e la causa vera era [angoloDiFase] ripiegato in
@@ -146,12 +259,19 @@ class PianoDelRiavvolgimento {
   ///
   /// **La fase si stima e poi si calcola.** Calcolarla in tutti i trentuno
   /// candidati costava 1.850 millisecondi per piano nella prova; qui si stima
-  /// con la sua velocita' misurata nel giorno della data, e la si calcola
-  /// davvero solo nei [kCandidatiCalcolati] migliori. Con tre la stima
-  /// sbagliava candidato e lo scarto arrivava a 17,8 gradi; con cinque e'
-  /// 6,84 gradi, in 429 millisecondi.
-  static double _istanteVicino(double data, double lstVoluto,
-      double faseVoluta, double lon, double nascita) {
+  /// e la si calcola davvero solo nei [kCandidatiCalcolati] migliori.
+  ///
+  /// Fino all'ordine FG la stima usava la sola velocita' della fase nel
+  /// giorno della data: con tre candidati calcolati lo scarto arrivava a 17,8
+  /// gradi, con cinque era 6,84. Nell'ordine FH la corsa finisce un anno
+  /// prima della nascita, le date cambiano, e con cinque lo scarto e' salito a
+  /// 12,1 gradi: all'istante 98 il candidato migliore (2,88 gradi) stava al
+  /// bordo della finestra, dove la Luna accelera, e la stima lo metteva in
+  /// fondo anche con otto calcolati. Con la stima a tratti qui sotto lo scarto
+  /// peggiore e' 6,68 gradi gia' con due calcolati; se ne tengono tre, 570
+  /// millisecondi per il piano intero coi due tempi.
+  static double _istanteVicino(double data, double lstVoluto, double faseVoluta,
+      double lon, double nascita) {
     // La velocita' del tempo siderale si misura, non si scrive: le costanti
     // del cielo vivono nella porta di Meeus.
     final lst0 = Celestial.localSiderealDegrees(data, lon);
@@ -160,14 +280,33 @@ class PianoDelRiavvolgimento {
     final gradiAlGiorno = _norm(lst1 - lst0) * 4;
     final giornoSiderale = 360 / gradiAlGiorno;
     final base = data + _norm(lstVoluto - lst0) / gradiAlGiorno;
-    final fase0 = angoloDiFase(base);
-    final faseAlGiorno = _norm(angoloDiFase(base + 1) - fase0);
+    // LA STIMA A TRATTI (ordine FH parte 8): la fase esatta nei nodi della
+    // finestra, dispiegata (cresce sempre, meno di un giro fra due nodi), e in
+    // mezzo la retta fra i due nodi accanto. La stima con la sola velocita'
+    // del giorno di mezzo sbagliava di decine di gradi ai bordi, dove la
+    // Luna accelera o rallenta, e lasciava fuori il candidato migliore.
+    const f = kGiorniDellaFinestra, m = kGiorniDellaFinestra ~/ 2;
+    const nodi = [-f, -m, 0, m, f];
+    final fasiDeiNodi = <double>[];
+    for (final j in nodi) {
+      final v = angoloDiFase(base + j * giornoSiderale);
+      fasiDeiNodi.add(fasiDeiNodi.isEmpty
+          ? v
+          : fasiDeiNodi.last + _norm(v - fasiDeiNodi.last));
+    }
     final stime = <(double, double)>[];
     for (var j = -kGiorniDellaFinestra; j <= kGiorniDellaFinestra; j++) {
       final t = base + j * giornoSiderale;
       // Mai prima della nascita: il riavvolgimento si ferma li'.
       if (t < nascita) continue;
-      final stimata = fase0 + faseAlGiorno * (t - base);
+      var n = 0;
+      while (n < nodi.length - 2 && j > nodi[n + 1]) {
+        n++;
+      }
+      final stimata = fasiDeiNodi[n] +
+          (fasiDeiNodi[n + 1] - fasiDeiNodi[n]) *
+              (j - nodi[n]) /
+              (nodi[n + 1] - nodi[n]);
       stime.add((t, (_norm(stimata - faseVoluta + 180) - 180).abs()));
     }
     stime.sort((a, b) => a.$2.compareTo(b.$2));
