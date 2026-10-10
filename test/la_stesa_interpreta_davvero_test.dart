@@ -58,7 +58,7 @@ void main() {
       for (final verso in const ['dritta', 'capovolta']) {
         final testi = carteNellaPosizione['${c.name}|$verso'];
         if (testi == null ||
-            testi.length != SpreadPosition.values.length ||
+            testi.length != SpreadPosition.treCarte.length ||
             testi.any((t) => t.trim().isEmpty)) {
           mancanti.add('${c.name}|$verso');
         }

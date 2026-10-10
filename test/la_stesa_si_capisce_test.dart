@@ -520,7 +520,7 @@ void main() {
 
       final scatto = await cattura(tester, radice);
       final medie = <String, List<double>>{};
-      for (final posizione in SpreadPosition.values) {
+      for (final posizione in SpreadPosition.treCarte) {
         final bolla = find.byKey(Key('stesa_letta_${posizione.name}'));
         expect(bolla, findsOneWidget);
         // **LA FASCIA SI E' SPOSTATA SUL BORDO, ordine BU voce 02, e la
@@ -536,7 +536,7 @@ void main() {
             mediaDellaFascia(scatto, tester.getRect(bolla), da: 0, alta: 2);
       }
       final dellaChiave = medie[chiave.name]!;
-      final altre = SpreadPosition.values
+      final altre = SpreadPosition.treCarte
           .where((p) => p != chiave)
           .map((p) => medie[p.name]!)
           .toList();
@@ -565,7 +565,7 @@ void main() {
       expect(marcatura, findsOneWidget,
           reason: 'la bolla chiave non porta nessuna marcatura');
       // E le altre due non ce l'hanno.
-      for (final posizione in SpreadPosition.values) {
+      for (final posizione in SpreadPosition.treCarte) {
         if (posizione == chiave.drawn.position) continue;
         expect(
             find.byKey(Key('stesa_marcatura_${posizione.name}')), findsNothing);
@@ -649,7 +649,7 @@ void main() {
       final consiglio = find.byKey(const Key('stesa_consiglio'));
       expect(consiglio, findsOneWidget);
       final suo = tester.getTopLeft(consiglio).dy;
-      for (final posizione in SpreadPosition.values) {
+      for (final posizione in SpreadPosition.treCarte) {
         final bolla = find.byKey(Key('stesa_letta_${posizione.name}'));
         expect(suo, lessThan(tester.getTopLeft(bolla).dy),
             reason: 'il consiglio sta sotto la bolla di ${posizione.name}: e\' '
@@ -666,7 +666,7 @@ void main() {
         (tester) async {
       await monta(tester);
       final colpevoli = <String>[];
-      for (final posizione in SpreadPosition.values) {
+      for (final posizione in SpreadPosition.treCarte) {
         for (final quale in const ['name', 'meaning']) {
           final chiave = Key('stesa_${quale}_${posizione.name}');
           final trovato = find.byKey(chiave);

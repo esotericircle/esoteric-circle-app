@@ -131,7 +131,7 @@ void main() {
       (tester) async {
     await monta(tester);
 
-    for (final posizione in SpreadPosition.values) {
+    for (final posizione in SpreadPosition.treCarte) {
       // Il testo della BOLLA, che e' la fonte.
       final bolla = find.byKey(Key('stesa_letta_${posizione.name}'));
       expect(bolla, findsOneWidget,
@@ -181,7 +181,7 @@ void main() {
   testWidgets('ogni carta ha almeno 48 per 48 punti di bersaglio',
       (tester) async {
     await monta(tester);
-    for (final posizione in SpreadPosition.values) {
+    for (final posizione in SpreadPosition.treCarte) {
       final carta = find.byKey(Key('stesa_apri_${posizione.name}'));
       final r = tester.getRect(carta);
       expect(r.width, greaterThanOrEqualTo(48),

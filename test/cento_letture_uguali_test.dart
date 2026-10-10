@@ -164,7 +164,7 @@ void main() {
         for (var i = 0; i < 3; i++)
           DrawnCard(
             card: carta(tre[i].$1),
-            position: SpreadPosition.values[i],
+            position: SpreadPosition.treCarte[i],
             reversed: tre[i].$2,
           ),
       ]);

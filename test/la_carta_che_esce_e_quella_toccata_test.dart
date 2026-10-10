@@ -26,7 +26,7 @@ void main() {
       final mazzo = TarotSpread.mazzoMescolato(seed: giro);
       var stesa = StesaInCorso.nuova(mazzo: mazzo, seme: giro);
 
-      for (var n = 0; n < SpreadPosition.values.length; n++) {
+      for (var n = 0; n < SpreadPosition.treCarte.length; n++) {
         // Fra una carta e l'altra si mescola e si taglia, che e' il momento in
         // cui prima la corrispondenza si rompeva senza dirlo.
         if (n > 0) {
@@ -46,7 +46,7 @@ void main() {
         // QUALE CARTA STA SOTTO IL DITO, letta PRIMA di assegnare.
         final attesa = TarotDeck.cards[stesa.mazzoDisposto[toccata]!];
 
-        stesa = stesa.assegna(SpreadPosition.values[n], dalVentaglio: toccata);
+        stesa = stesa.assegna(SpreadPosition.treCarte[n], dalVentaglio: toccata);
         final uscita = stesa.assegnate[n];
 
         if (uscita == null) {
@@ -69,11 +69,11 @@ void main() {
     final mazzo = TarotSpread.mazzoMescolato(seed: 3);
     var stesa = StesaInCorso.nuova(mazzo: mazzo, seme: 3);
     final prima = TarotDeck.cards[stesa.mazzoDisposto[10]!];
-    stesa = stesa.assegna(SpreadPosition.values[0], dalVentaglio: 10);
+    stesa = stesa.assegna(SpreadPosition.treCarte[0], dalVentaglio: 10);
     expect(stesa.assegnate[0]!.card.stem, prima.stem);
 
     // La stessa posizione, di nuovo: e' vuota.
-    final dopo = stesa.assegna(SpreadPosition.values[1], dalVentaglio: 10);
+    final dopo = stesa.assegna(SpreadPosition.treCarte[1], dalVentaglio: 10);
     expect(dopo.assegnate[1], isNull,
         reason: 'una posizione gia\' presa deve restare senza risposta: '
             'ripiegare sulla prima carta del mazzo vorrebbe dire dare a chi '
@@ -86,7 +86,7 @@ void main() {
     for (final fuori in [-1, mazzo.length, mazzo.length + 40]) {
       expect(
           stesa
-              .assegna(SpreadPosition.values[0], dalVentaglio: fuori)
+              .assegna(SpreadPosition.treCarte[0], dalVentaglio: fuori)
               .assegnate[0],
           isNull,
           reason: 'la posizione $fuori non esiste nell\'arco: prima qui si '
@@ -97,7 +97,7 @@ void main() {
   test('mischia e taglio riordinano SOTTO le posizioni, senza riempirle', () {
     final mazzo = TarotSpread.mazzoMescolato(seed: 9);
     var stesa = StesaInCorso.nuova(mazzo: mazzo, seme: 9);
-    stesa = stesa.assegna(SpreadPosition.values[0], dalVentaglio: 4);
+    stesa = stesa.assegna(SpreadPosition.treCarte[0], dalVentaglio: 4);
     expect(stesa.mazzoDisposto[4], isNull);
 
     final lunghezzaPrima = stesa.mazzoDisposto.length;

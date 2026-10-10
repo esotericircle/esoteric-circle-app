@@ -193,21 +193,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _responsoPronto = true;
     // Ordine BN voce 02: si assegnano le prime posizioni dell'arco, e non tre
     // volte la posizione zero, che dalla cura non esiste piu' dopo la prima.
-    for (var i = 0; i < SpreadPosition.values.length; i++) {
-      stesa = stesa.assegna(SpreadPosition.values[i], dalVentaglio: i);
+    for (var i = 0; i < SpreadPosition.treCarte.length; i++) {
+      stesa = stesa.assegna(SpreadPosition.treCarte[i], dalVentaglio: i);
     }
     return stesa;
   }
 
   /// Le carte gia' assegnate, per le parti della schermata che le leggono.
   TarotSpread get _spread => TarotSpread([
-        for (var i = 0; i < SpreadPosition.values.length; i++)
+        for (var i = 0; i < SpreadPosition.treCarte.length; i++)
           _stesa.assegnate[i] ??
               DrawnCard(
                 card: TarotDeck.cards[_stesa.mazzoResiduo.isEmpty
                     ? 0
                     : _stesa.mazzoResiduo[i % _stesa.mazzoResiduo.length]],
-                position: SpreadPosition.values[i],
+                position: SpreadPosition.treCarte[i],
                 reversed: false,
               ),
       ]);
@@ -486,7 +486,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   int _giroDellAttesa = 0;
 
   /// Quante carte sono gia' state pescate, da 0 a 3.
-  late int _drawn = widget.revealAll ? SpreadPosition.values.length : 0;
+  late int _drawn = widget.revealAll ? SpreadPosition.treCarte.length : 0;
 
   /// Quali carte del ventaglio sono gia' state prese.
   final Set<int> _taken = {};
@@ -718,7 +718,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
   DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
 
-  bool get _complete => _drawn >= SpreadPosition.values.length;
+  bool get _complete => _drawn >= SpreadPosition.treCarte.length;
 
   /// La scelta: la carta si stacca dal ventaglio, vola nel suo slot con una
   /// scia di stelle, poi il flip la gira sulla faccia.
@@ -764,7 +764,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // riordinavano il residuo sotto posizioni ferme, e oltre la lunghezza
       // si ripiegava sulla prima carta del mazzo.
       _stesa =
-          _stesa.assegna(SpreadPosition.values[slot], dalVentaglio: fanIndex);
+          _stesa.assegna(SpreadPosition.treCarte[slot], dalVentaglio: fanIndex);
       _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
@@ -1271,13 +1271,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             animation: _filo,
             builder: (context, _) => LayoutBuilder(
               builder: (context, vincoli) {
-                final larga = vincoli.maxWidth / SpreadPosition.values.length;
+                final larga = vincoli.maxWidth / SpreadPosition.treCarte.length;
                 return FiloFraLeCarte(
                   centri: [
-                    for (var i = 0; i < SpreadPosition.values.length; i++)
+                    for (var i = 0; i < SpreadPosition.treCarte.length; i++)
                       Offset(larga * (i + 0.5), vincoli.maxHeight * 0.42),
                   ],
-                  dallaChiave: SpreadPosition.values
+                  dallaChiave: SpreadPosition.treCarte
                       .indexOf(_reading.chiave.drawn.position),
                   avanzamento: _reduceMotion ? 0.5 : _filo.value,
                   palette: palette,
@@ -1295,10 +1295,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       key: const Key('stesa_slots'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var i = 0; i < SpreadPosition.values.length; i++) ...[
+        for (var i = 0; i < SpreadPosition.treCarte.length; i++) ...[
           Expanded(
             child: _Slot(
-              position: SpreadPosition.values[i],
+              position: SpreadPosition.treCarte[i],
               drawn: i < _drawn ? _spread.cards[i] : null,
               palette: palette,
               // **LA CARTA SI APRE AL TOCCO, ordine BN voce 04.** Prima le
@@ -1317,7 +1317,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               // linguaggio inventato qui.
               eLaChiave: _responsoInScena &&
                   i < _drawn &&
-                  _reading.chiave.drawn.position == SpreadPosition.values[i],
+                  _reading.chiave.drawn.position == SpreadPosition.treCarte[i],
               conIntestazione: _responsoInScena,
               revealSpec: _revealSlot == i ? _revealSpec : null,
               revealProgress: _revealSlot == i ? _reveal.value : 0,
@@ -1335,7 +1335,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   : TiltListener.fluttuazioneDi(i, _galleggio.value),
             ),
           ),
-          if (i < SpreadPosition.values.length - 1)
+          if (i < SpreadPosition.treCarte.length - 1)
             const SizedBox(width: SpacingTokens.xs),
         ],
       ],
@@ -1480,7 +1480,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           Text(
             _drawn == 0
                 ? 'Scegli tre carte dal ventaglio'
-                : 'Scegli ancora ${SpreadPosition.values.length - _drawn}',
+                : 'Scegli ancora ${SpreadPosition.treCarte.length - _drawn}',
             key: const Key('stesa_prompt'),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta()

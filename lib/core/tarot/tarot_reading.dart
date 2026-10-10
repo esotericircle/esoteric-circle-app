@@ -379,7 +379,7 @@ class PosizioneLetta {
       // parole regalate a ogni confronto. La lente resta il taglio con cui la
       // carta si legge, ma non e' piu' lei a fare da attacco.
       apertura: VoceDellaStesa.aperturaDellaPosizione(
-          spread, SpreadPosition.values.indexOf(drawn.position)),
+          spread, SpreadPosition.treCarte.indexOf(drawn.position)),
       // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
       // c'era il significato del verso, uguale nel passato, nel presente e
       // nel futuro e per qualunque domanda: l'Architetto l'ha letto nel

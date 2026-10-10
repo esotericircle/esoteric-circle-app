@@ -77,7 +77,7 @@ void main() {
         expect(stems.length, 3, reason: 'carta ripetuta col seme $seed');
         // Le tre posizioni sono quelle giuste, nell'ordine di lettura.
         expect(spread.cards.map((c) => c.position).toList(),
-            SpreadPosition.values);
+            SpreadPosition.treCarte);
       }
     });
 
@@ -504,7 +504,7 @@ void main() {
       // Nessun selettore per posizione: le tre posizioni sono una lettura
       // unica e continua, e una profondita' per posizione darebbe un racconto
       // sbilanciato.
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         expect(find.byKey(Key('stesa_depth_${p.name}')), findsNothing,
             reason: 'e rimasta una profondita in ${p.label}');
       }
@@ -533,18 +533,20 @@ void main() {
       expect(titolo.data, 'Stesa di Tarocchi');
     });
 
-    test('Le tre stese esistono, solo la prima e aperta', () {
-      expect(TarotSpreadType.values.length, 3);
+    // LAPIDE della regola di prima (tre stese, solo la prima aperta).
+    // Ordine FI voce 01, 10 ottobre 2026: le stese sono cinque. Finche' le
+    // nuove non hanno il corpus delle loro posizioni e il loro tavolo resta
+    // aperta solo quella a tre carte, e le altre sono Coming soon.
+    test('Le cinque stese esistono, solo quella a tre carte e aperta', () {
+      expect(TarotSpreadType.values.length, 5);
       expect(TarotSpreadType.treCarte.disponibile, isTrue);
       expect(TarotSpreadType.treCarte.carte, 3);
-      for (final t in const [
-        TarotSpreadType.setteCarte,
-        TarotSpreadType.dieciCarte,
-      ]) {
+      for (final t in TarotSpreadType.values) {
+        if (t == TarotSpreadType.treCarte) continue;
         expect(t.disponibile, isFalse, reason: '${t.nome} non e Coming soon');
       }
       // Ogni stesa porta il proprio nome, e sono tutti diversi.
-      expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 3);
+      expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 5);
       for (final t in TarotSpreadType.values) {
         expect(t.nome, contains('Stesa'));
         expect(t.carte, greaterThan(0));
@@ -568,7 +570,7 @@ void main() {
       expect(reading.sintesi.startsWith(VoceDellaStesa.titolo(spread)), isTrue,
           reason: 'il titolo non viene piu dalla sintesi del Presente');
       // 2. Le tre posizioni col testo ricco.
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         expect(find.byKey(Key('stesa_letta_${p.name}')), findsOneWidget);
       }
       // 3. IL CONSIGLIO, e adesso e' l'unica bolla oltre alle tre posizioni.

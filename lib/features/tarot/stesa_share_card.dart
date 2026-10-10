@@ -60,7 +60,7 @@ class StesaShareCard extends StatelessWidget {
   static double larghezzaDellePosizioni(MaestroPalette palette) {
     final stile = stileDellaPosizione(palette);
     var massima = 0.0;
-    for (final p in SpreadPosition.values) {
+    for (final p in SpreadPosition.treCarte) {
       // La scala e' dichiarata, ed e' uno: la card vive dentro
       // `CardAMisuraFissa`, che la scala del testo la toglie.
       final pittore = TextPainter(

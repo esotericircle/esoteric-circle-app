@@ -1,16 +1,64 @@
 import 'dart:math';
 
+import '../chat/la_marca_del_genere.dart';
 import 'tarot_card.dart';
 
-/// Le tre posizioni della stesa, nell'ordine di lettura.
+/// LE POSIZIONI DELLE STESE. Ordine FI voce 04, 10 ottobre 2026: da tre a
+/// diciassette. Le prime tre sono quelle della Stesa di Medora a tre carte e
+/// non si toccano; le altre quattordici servono alla carta sola, alla croce di
+/// Dora, al ferro di cavallo e alla Croce Celtica di Waite. Quali posizioni ha
+/// una stesa, e in che ordine, lo dice la stesa stessa
+/// ([TarotSpreadType.posizioni]): questo elenco non e' una stesa.
+///
+/// Le sette etichette della Croce Celtica vengono da Arthur Edward Waite, The
+/// Pictorial Key to the Tarot, 1911, che per le prime sei usa le formule
+/// "this covers him", "this crosses him", "this crowns him", "this is beneath
+/// him", "this is behind him", "this is before him". La quinta e la sesta
+/// carta di Waite, il dietro e il davanti, sono il passato e il futuro.
 enum SpreadPosition {
   passato('Passato'),
   presente('Presente'),
-  futuro('Futuro');
+  futuro('Futuro'),
+
+  /// La stesa a una carta.
+  cartaSola('La carta'),
+
+  /// La croce di Dora: il consultante in basso, i due lati, l'esito in alto.
+  consultante('Il consultante'),
+  lato('Il lato'),
+
+  /// L'esito della croce di Dora, del ferro di cavallo e della Croce Celtica.
+  esito("L'esito"),
+
+  /// Il ferro di cavallo.
+  consiglio('Il consiglio'),
+  ostacolo("L'ostacolo"),
+  ambiente("L'ambiente"),
+
+  /// La Croce Celtica di Waite.
+  copre('Ciò che copre'),
+  attraversa('Ciò che attraversa'),
+  corona('Ciò che corona'),
+  sotto('Il fondamento'),
+
+  /// "Te stesso" dice a chi legge un genere: passa dalla marca, come ogni
+  /// testo rivolto alla persona (ordine FI voce 05).
+  seStesso('[Te stesso|Te stessa|Tu]'),
+  laCasa('La tua casa'),
+  speranzeOTimori('Speranze o timori');
 
   const SpreadPosition(this.label);
 
+  /// L'etichetta come e' scritta, con la marca del genere dove serve.
   final String label;
+
+  /// L'etichetta da mostrare, con la marca del genere risolta.
+  String get etichetta => LaMarcaDelGenere.risolvi(label);
+
+  /// Le tre posizioni della Stesa di Medora a tre carte, nell'ordine di
+  /// lettura. Prima dell'ordine FI erano tutto l'elenco, e la stesa le
+  /// leggeva come `SpreadPosition.values`.
+  static const List<SpreadPosition> treCarte = [passato, presente, futuro];
 }
 
 /// Una carta pescata: la carta, la sua posizione e il verso in cui e' uscita.
@@ -105,10 +153,10 @@ class TarotSpread {
   /// stessa stesa, ed e' cio' che ci si aspetta da un mazzo di carte.
   static TarotSpread dalMazzo(List<int> ordine, {int seed = 0}) {
     return TarotSpread([
-      for (var i = 0; i < SpreadPosition.values.length; i++)
+      for (var i = 0; i < SpreadPosition.treCarte.length; i++)
         DrawnCard(
           card: TarotDeck.cards[ordine[i]],
-          position: SpreadPosition.values[i],
+          position: SpreadPosition.treCarte[i],
           reversed:
               Random(ordine[i] * 7919 + seed).nextDouble() < reversedChance,
         ),
@@ -142,10 +190,10 @@ class TarotSpread {
     final indici = List<int>.generate(TarotDeck.cards.length, (i) => i)
       ..shuffle(random);
     return TarotSpread([
-      for (var i = 0; i < SpreadPosition.values.length; i++)
+      for (var i = 0; i < SpreadPosition.treCarte.length; i++)
         DrawnCard(
           card: TarotDeck.cards[indici[i]],
-          position: SpreadPosition.values[i],
+          position: SpreadPosition.treCarte[i],
           reversed: random.nextDouble() < reversedChance,
         ),
     ]);

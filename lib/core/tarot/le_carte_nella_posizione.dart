@@ -22,7 +22,7 @@ abstract final class LeCarteNellaPosizione {
   /// niente, e la guardia del corpus pretende che non succeda mai.
   static String di(DrawnCard d) {
     final testi = carteNellaPosizione[chiaveDi(d)];
-    if (testi == null || testi.length != SpreadPosition.values.length) {
+    if (testi == null || testi.length != SpreadPosition.treCarte.length) {
       return d.meaning;
     }
     return testi[d.position.index];

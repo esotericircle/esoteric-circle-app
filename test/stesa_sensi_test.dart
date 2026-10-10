@@ -284,7 +284,7 @@ void main() {
       await pump(tester, reduceMotion: true);
       await tester.pump();
       // La scena e' gia' composta: nessuna aura in giro.
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         expect(find.byKey(Key('stesa_reveal_${p.name}')), findsNothing);
       }
       // E pescando una carta non parte nessun moto: arriva gia' posata.
@@ -292,7 +292,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 2));
       expect(tester.takeException(), isNull);
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         expect(find.byKey(Key('stesa_reveal_${p.name}')), findsNothing,
             reason: 'con Riduci Movimento l\'aura non deve comparire');
       }

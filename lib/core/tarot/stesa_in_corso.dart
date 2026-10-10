@@ -51,7 +51,7 @@ class StesaInCorso {
   /// pescare.
   factory StesaInCorso.nuova({required List<int> mazzo, int seme = 0}) =>
       StesaInCorso._(
-        assegnate: List<DrawnCard?>.filled(SpreadPosition.values.length, null),
+        assegnate: List<DrawnCard?>.filled(SpreadPosition.treCarte.length, null),
         mazzoDisposto: List<int?>.unmodifiable(mazzo),
         seme: seme,
       );
@@ -82,7 +82,7 @@ class StesaInCorso {
   /// Quante posizioni sono gia' state scelte.
   int get quanteAssegnate => assegnate.where((c) => c != null).length;
 
-  bool get eCompleta => quanteAssegnate == SpreadPosition.values.length;
+  bool get eCompleta => quanteAssegnate == SpreadPosition.treCarte.length;
 
   /// La stesa finita, quando tutte le posizioni sono piene.
   TarotSpread? get stesaCompiuta =>
@@ -99,7 +99,7 @@ class StesaInCorso {
   /// mazzo, cioe' si dava a chi aveva toccato una posizione una carta che non
   /// aveva scelto. Un gesto senza risposta e' meglio di una risposta falsa.
   StesaInCorso assegna(SpreadPosition posizione, {required int dalVentaglio}) {
-    final i = SpreadPosition.values.indexOf(posizione);
+    final i = SpreadPosition.treCarte.indexOf(posizione);
     if (assegnate[i] != null) return this;
     if (dalVentaglio < 0 || dalVentaglio >= mazzoDisposto.length) return this;
     final indiceCarta = mazzoDisposto[dalVentaglio];

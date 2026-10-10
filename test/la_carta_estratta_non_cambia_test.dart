@@ -60,8 +60,8 @@ void main() {
 
   test('mischia e taglio non toccano nessuna delle carte gia\' uscite', () {
     var stesa = StesaInCorso.nuova(mazzo: mazzoDiProva(), seme: 3);
-    for (var i = 0; i < SpreadPosition.values.length; i++) {
-      stesa = stesa.assegna(SpreadPosition.values[i], dalVentaglio: i);
+    for (var i = 0; i < SpreadPosition.treCarte.length; i++) {
+      stesa = stesa.assegna(SpreadPosition.treCarte[i], dalVentaglio: i);
     }
     final scelte = [for (final c in stesa.assegnate) c!.card.name];
 

@@ -53,6 +53,9 @@ class LetturaDelModello {
         SpreadPosition.passato => passato,
         SpreadPosition.presente => presente,
         SpreadPosition.futuro => futuro,
+        // Le posizioni delle altre stese (ordine FI): la lettura dal modello
+        // e' ancora quella delle tre carte, e qui non hanno un campo.
+        _ => '',
       };
 
   /// **OGNI PEZZO PASSA DALLE REGOLE DI LINGUA DI CASA**, come le risposte

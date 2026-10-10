@@ -117,7 +117,7 @@ void main() {
       await monta(tester, m.larghezza, m.ios);
       final distanze = <String, double>{};
       final cime = <String, double>{};
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         final carta = tester.getRect(find.byKey(Key('stesa_carta_${p.name}')));
         final scritta =
             tester.getRect(find.byKey(Key('stesa_etichetta_${p.name}')));
@@ -198,7 +198,7 @@ void main() {
       expect(find.byKey(const Key('stesa_reversed_presente')), findsOneWidget,
           reason: 'il seme $scelto non porta il Presente capovolto a video');
       final sinistre = <String, double>{};
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         final segno = find.byKey(Key('stesa_reversed_${p.name}'));
         if (segno.evaluate().isEmpty) continue;
         final rSegno = tester.getRect(
@@ -240,7 +240,7 @@ void main() {
       ),
     ));
     await tester.pump();
-    for (final p in SpreadPosition.values) {
+    for (final p in SpreadPosition.treCarte) {
       final r = tester.renderObject<RenderParagraph>(
           find.byKey(Key('card_posizione_${p.name}')));
       final righe = r.righeNecessarie;

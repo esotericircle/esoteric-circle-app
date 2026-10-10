@@ -181,11 +181,11 @@ void main() {
       final chiave = lettura.chiave.drawn.position;
 
       final misure = <SpreadPosition, double>{};
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         misure[p] = await scrittaSopra(tester, radice, p);
       }
       final altre = [
-        for (final p in SpreadPosition.values)
+        for (final p in SpreadPosition.treCarte)
           if (p != chiave) misure[p]!,
       ];
       // ignore: avoid_print
@@ -431,7 +431,7 @@ void main() {
       TarotTopic.bivio,
     );
     final chiave = lettura.chiave.drawn.position;
-    for (final p in SpreadPosition.values) {
+    for (final p in SpreadPosition.treCarte) {
       expect(find.byKey(Key('stesa_chiave_${p.name}')), findsNothing,
           reason: 'la cornice azzurra e\' tornata sopra la carta ${p.name}');
     }
@@ -527,7 +527,7 @@ void main() {
     // con le altre due carte, che nessuno copre. Una copertura stesa sopra la
     // figura fa saltare quel rapporto di colpo, una cornice no.
     final conti = <SpreadPosition, int>{};
-    for (final posizione in SpreadPosition.values) {
+    for (final posizione in SpreadPosition.treCarte) {
       final r =
           tester.getRect(find.byKey(Key('stesa_carta_${posizione.name}')));
       // Otto punti di rientro, non tre: la cornice e' larga due, ma ha gli
@@ -539,7 +539,7 @@ void main() {
     }
     final coperti = conti[chiave]!;
     final altre = [
-      for (final p in SpreadPosition.values)
+      for (final p in SpreadPosition.treCarte)
         if (p != chiave) conti[p]!,
     ];
     final piuBassa = altre.reduce((x, y) => x < y ? x : y);
@@ -570,7 +570,7 @@ void main() {
     // La misura vera e' quella DIPINTA, non quella del riquadro di layout: la
     // scala e' un Transform, e il riquadro non la vede.
     final dipinta = <SpreadPosition, Rect>{};
-    for (final p in SpreadPosition.values) {
+    for (final p in SpreadPosition.treCarte) {
       final ro = tester
           .element(find.byKey(Key('stesa_carta_${p.name}')))
           .renderObject! as RenderBox;
@@ -579,7 +579,7 @@ void main() {
     }
     final altaChiave = dipinta[chiave]!.height;
     final altre = [
-      for (final p in SpreadPosition.values)
+      for (final p in SpreadPosition.treCarte)
         if (p != chiave) dipinta[p]!.height,
     ];
     final piuAlta = altre.reduce((x, y) => x > y ? x : y);
@@ -626,7 +626,7 @@ void main() {
     // **E LA CARTA CRESCIUTA NON DEVE TOCCARE LE VICINE.** Un difetto nuovo
     // al posto di quello vecchio non sarebbe una cura.
     final segnoDipinto = dipinta[chiave]!;
-    for (final p in SpreadPosition.values) {
+    for (final p in SpreadPosition.treCarte) {
       if (p == chiave) continue;
       final aria = segnoDipinto.left > dipinta[p]!.left
           ? segnoDipinto.left - dipinta[p]!.right
@@ -659,7 +659,7 @@ void main() {
       await monta(tester,
           altezzaFinestra: altezza, larghezzaFinestra: larghezza);
       final fuori = <String>[];
-      for (final p in SpreadPosition.values) {
+      for (final p in SpreadPosition.treCarte) {
         final ro = tester
             .element(find.byKey(Key('stesa_carta_${p.name}')))
             .renderObject! as RenderBox;
