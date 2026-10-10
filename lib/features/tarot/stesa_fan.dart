@@ -268,7 +268,16 @@ class _StesaFanState extends State<StesaFan> {
     // Il mazzo si compone DENTRO l'arco del ventaglio, non sotto: a +44 le
     // carte raccolte uscivano dal ritaglio della fascia e il taglio si
     // vedeva come un ventaglio vuoto. Visto sull'anteprima, non dedotto.
-    final mazzo = Offset(w / 2 - cardW / 2, StesaFan.arcoDi(0) - 8);
+    //
+    // **E nemmeno sopra.** Segnalato dal fondatore l'11 ottobre 2026: "quando
+    // faccio taglia o mischia il mazzo esce dal riquadro dell'animazione
+    // mentre dovrebbe stare al centro". Il mazzo stava a -8, cioe' 8 punti
+    // sopra il bordo alto della fascia, e la meta' di sopra del taglio saliva
+    // di altri 26: il ritaglio la mangiava (prova
+    // il_mazzo_resta_nel_riquadro_test). Adesso sta al centro della fascia,
+    // alta una carta piu' 34 punti.
+    final cardH = cardW / TarotFrame.aspect;
+    final mazzo = Offset(w / 2 - cardW / 2, (cardH + 34 - cardH) / 2);
     if (widget.taglio > 0 && widget.taglio < 1) {
       final posa = TaglioPose.of(
         sede: offset,

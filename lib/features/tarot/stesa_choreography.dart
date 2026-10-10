@@ -372,6 +372,12 @@ class TaglioFasi {
 /// Quattro atti: il ventaglio si ricompone in mazzo, il mazzo si DIVIDE IN
 /// DUE, il taglio si RICOMPONE con le meta' scambiate, le carte si ristendono
 /// a partire dal mazzo.
+/// Quanto sale la meta' di sopra quando il taglio divide il mazzo, in punti.
+/// Era 26, e col mazzo al centro della fascia del ventaglio (17 punti dal
+/// bordo alto) la meta' di sopra usciva dal riquadro: 14 la tiene dentro e
+/// la divisione si legge ancora come due blocchi.
+const double kSaliteDelTaglio = 14;
+
 class TaglioPose {
   const TaglioPose._();
 
@@ -432,8 +438,9 @@ class TaglioPose {
           ((t - fineRaccolta) / (fineDivisione - fineRaccolta)).clamp(0.0, 1.0);
       final e = Curves.easeOutCubic.transform(locale);
       return (
-        offset:
-            mazzo + Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
+        offset: mazzo +
+            Offset(sopra ? 64 * e : -64 * e,
+                sopra ? -kSaliteDelTaglio * e : 12 * e),
         angolo: (sopra ? 0.06 : -0.05) * e,
         scala: 1,
       );
@@ -445,8 +452,9 @@ class TaglioPose {
               .clamp(0.0, 1.0);
       final e = 1 - Curves.easeInCubic.transform(locale);
       return (
-        offset:
-            mazzo + Offset(sopra ? 64 * e : -64 * e, sopra ? -26 * e : 12 * e),
+        offset: mazzo +
+            Offset(sopra ? 64 * e : -64 * e,
+                sopra ? -kSaliteDelTaglio * e : 12 * e),
         angolo: (sopra ? 0.06 : -0.05) * e,
         scala: 1,
       );
