@@ -124,6 +124,9 @@ void main() {
       (tester) async {
     await monta(tester, fg.cielo(ModoDelCielo.ritorno));
     await caricaEAlleggerisci(tester);
+    // La corsa parte dal pulsante (aggiunta della Macchina del tempo).
+    await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
+    await tester.pump(const Duration(milliseconds: 50));
     // All'inizio "38 anni" e la data di oggi (aggiunta del fondatore).
     expect(find.text('38'), findsOneWidget);
     expect(find.text('anni'), findsOneWidget);
@@ -150,7 +153,7 @@ void main() {
         tester.widget<Text>(find.byKey(const Key('real_time_cosmo_data'))).data,
         anyOf(endsWith('1988'), endsWith('1989')));
     await scatta(tester, 'fh_14_il_rallentamento');
-    await fg.passa(tester, 55);
+    await fg.passa(tester, 60);
     expect(
         find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
         findsOneWidget);

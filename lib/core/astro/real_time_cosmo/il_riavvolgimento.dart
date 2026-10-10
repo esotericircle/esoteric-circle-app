@@ -67,6 +67,22 @@ const double kDurataDelRallentamento = 8.0;
 /// siderali, e il rallentamento ne percorre un numero intero.
 const int kGiorniSideraliDellUltimoAnno = 366;
 
+/// LA CORSA DELLA MACCHINA DEL TEMPO, in secondi (aggiunta all'ordine FH,
+/// voce E1): sei secondi per qualunque distanza, verso una data che non e' la
+/// nascita.
+const double kDurataDellaMacchina = 6.0;
+
+/// Oltre questa distanza in giorni la corsa della Macchina segue la regola
+/// della corsa FG (data che scorre, tempo siderale che gira, fase che scorre
+/// i suoi cicli); sotto, va a giorni siderali interi; sotto
+/// [kGiorniDelTempoContinuo] scorre continua. A 430 giorni un passo di 143
+/// e' tre giorni: la fase della Luna salta di 36 gradi, ancora leggibile.
+const double kGiorniDellaCorsaLunga = 430;
+
+/// Sotto questa distanza il tempo scorre continuo: in dodici giorni il cielo
+/// gira dodici volte, al piu' trenta gradi fra un istante e il successivo.
+const double kGiorniDelTempoContinuo = 12;
+
 /// Sotto questo distacco fra l'adesso e l'inizio del rallentamento la corsa
 /// non c'e': chi e' nato da poco piu' di un anno passa subito all'ultimo.
 const double kGiorniMinimiDellaCorsa = 30;
@@ -117,7 +133,18 @@ class PianoDelRiavvolgimento {
   PianoDelRiavvolgimento._(this.istanti, this.latitudini, this.longitudini,
       {required this.fineDellaCorsa,
       required this.durataDellaCorsa,
-      required this.durataDelRallentamento});
+      required this.durataDelRallentamento,
+      this.dataSullaCurva = true});
+
+  /// Se la data mostrata scorre sulla curva degli anni (la corsa FG e quella
+  /// della Macchina sopra [kGiorniDellaCorsaLunga]) o sugli istanti stessi,
+  /// quando gli istanti vanno sempre nello stesso verso.
+  final bool dataSullaCurva;
+
+  /// Se la curva degli anni e' una retta: la corsa della Macchina ha la
+  /// velocita' costante della voce E1, la corsa verso la nascita accelera.
+  bool get _curvaDritta => durataDelRallentamento == 0 && !_conRallentamento;
+  bool _conRallentamento = false;
 
   final List<double> istanti;
   final List<double> latitudini;
@@ -156,9 +183,11 @@ class PianoDelRiavvolgimento {
   /// quella del cielo disegnato.
   double dataAlPunto(double k) {
     final fine = fineDellaCorsa;
-    if (k < fine && fine > 1) {
+    if (dataSullaCurva && k < fine && fine > 1) {
       final traguardo = istanti[fine];
-      return traguardo + (istanti.first - traguardo) * anniRimasti(k / fine);
+      final s = k / fine;
+      final resta = _curvaDritta ? 1 - s : anniRimasti(s);
+      return traguardo + (istanti.first - traguardo) * resta;
     }
     final k0 = k.floor().clamp(0, length - 1);
     final k1 = math.min(k0 + 1, length - 1);
@@ -262,7 +291,108 @@ class PianoDelRiavvolgimento {
     return PianoDelRiavvolgimento._(istanti, lat, lon,
         fineDellaCorsa: n - 1,
         durataDellaCorsa: kDurataDelRiavvolgimento,
-        durataDelRallentamento: durataDelRallentamento);
+        durataDelRallentamento: durataDelRallentamento)
+      .._conRallentamento = true;
+  }
+
+  /// LA CORSA DELLA MACCHINA DEL TEMPO (aggiunta all'ordine FH, voci E1 e
+  /// E2): da [jdDa] a [jdA], indietro o avanti, in [kDurataDellaMacchina]
+  /// secondi, col tetto della voce 3.3. Ogni istante e' un istante vero del
+  /// cielo, scelto secondo la distanza:
+  ///
+  /// - oltre [kGiorniDellaCorsaLunga] giorni, la regola della corsa FG nei
+  ///   due versi, con la data che scorre a velocita' costante (voce E1): il
+  ///   tempo siderale gira [kGiriDelCielo] volte in piu' e la fase della Luna
+  ///   scorre [kLunazioni] cicli in piu', perche' campionare alla lettera
+  ///   ottant'anni in centoquaranta istanti sarebbe rumore (voce 8.1);
+  /// - fra [kGiorniDelTempoContinuo] e [kGiorniDellaCorsaLunga] giorni, a
+  ///   giorni siderali interi, come il rallentamento della parte 8: le stelle
+  ///   restano ferme e la Luna cammina fra loro mostrando le fasi vere;
+  /// - sotto, il tempo scorre continuo.
+  ///
+  /// Il luogo scivola da quello della partenza a quello dell'arrivo.
+  static PianoDelRiavvolgimento corsaFra({
+    required double jdDa,
+    required double jdA,
+    required double latDa,
+    required double lonDa,
+    required double latA,
+    required double lonA,
+    int istantiAlSecondo = kIstantiAlSecondo,
+  }) {
+    final n = math.max(2, (kDurataDellaMacchina * istantiAlSecondo).ceil());
+    final distanza = (jdA - jdDa).abs();
+    final indietro = jdA < jdDa;
+    final istanti = <double>[];
+    final lat = <double>[];
+    final lon = <double>[];
+    var sullaCurva = false;
+    void luogo(double u) {
+      lat.add(latDa + (latA - latDa) * u);
+      lon.add(lonDa + (lonA - lonDa) * u);
+    }
+
+    if (distanza > kGiorniDellaCorsaLunga) {
+      sullaCurva = true;
+      final lstDa = Celestial.localSiderealDegrees(jdDa, lonDa);
+      final lstA = Celestial.localSiderealDegrees(jdA, lonA);
+      final faseDa = angoloDiFase(jdDa);
+      final faseA = angoloDiFase(jdA);
+      // Indietro il cielo gira all'indietro e la fase scende; avanti il
+      // contrario. In tutti e due i casi a s = 0 si torna alla partenza.
+      final giri = (indietro ? _norm(lstDa - lstA) : _norm(lstA - lstDa)) +
+          360.0 * kGiriDelCielo;
+      final fasi = (indietro ? _norm(faseDa - faseA) : _norm(faseA - faseDa)) +
+          360.0 * kLunazioni;
+      final verso = indietro ? 1.0 : -1.0;
+      final basso = math.min(jdDa, jdA), alto = math.max(jdDa, jdA);
+      for (var k = 0; k < n; k++) {
+        final s = k / (n - 1);
+        luogo(s);
+        if (k == 0) {
+          istanti.add(jdDa);
+          continue;
+        }
+        if (k == n - 1) {
+          istanti.add(jdA);
+          continue;
+        }
+        final data = jdA + (jdDa - jdA) * (1 - s);
+        final lstVoluto = lstA + verso * giri * giriRimasti(s);
+        final faseVoluta = faseA + verso * fasi * (1 - s);
+        istanti.add(_istanteVicino(data, lstVoluto, faseVoluta, lon.last, basso,
+            oltre: alto));
+      }
+    } else if (distanza >= kGiorniDelTempoContinuo) {
+      final lst0 = Celestial.localSiderealDegrees(jdA, lonA);
+      final lst1 = Celestial.localSiderealDegrees(jdA + 0.25, lonA);
+      final giornoSiderale = 360 / (_norm(lst1 - lst0) * 4);
+      final giorni = (distanza / giornoSiderale).floor();
+      final passi = math.min(n - 1, giorni);
+      final verso = indietro ? 1.0 : -1.0;
+      for (var k = 0; k <= passi; k++) {
+        final u = k / passi;
+        luogo(u);
+        if (k == 0) {
+          istanti.add(jdDa);
+          continue;
+        }
+        final m = (giorni * (1 - u)).round();
+        istanti.add(jdA + verso * m * giornoSiderale);
+      }
+    } else {
+      for (var k = 0; k < n; k++) {
+        final u = k / (n - 1);
+        luogo(u);
+        istanti.add(jdDa + (jdA - jdDa) * u);
+      }
+    }
+    final p = PianoDelRiavvolgimento._(istanti, lat, lon,
+        fineDellaCorsa: istanti.length - 1,
+        durataDellaCorsa: kDurataDellaMacchina,
+        durataDelRallentamento: 0,
+        dataSullaCurva: sullaCurva);
+    return p;
   }
 
   /// Fra i giorni attorno a [data], il momento col tempo siderale
@@ -289,7 +419,8 @@ class PianoDelRiavvolgimento {
   /// peggiore e' 6,68 gradi gia' con due calcolati; se ne tengono tre, 570
   /// millisecondi per il piano intero coi due tempi.
   static double _istanteVicino(double data, double lstVoluto, double faseVoluta,
-      double lon, double nascita) {
+      double lon, double nascita,
+      {double oltre = double.infinity}) {
     // La velocita' del tempo siderale si misura, non si scrive: le costanti
     // del cielo vivono nella porta di Meeus.
     final lst0 = Celestial.localSiderealDegrees(data, lon);
@@ -316,7 +447,7 @@ class PianoDelRiavvolgimento {
     for (var j = -kGiorniDellaFinestra; j <= kGiorniDellaFinestra; j++) {
       final t = base + j * giornoSiderale;
       // Mai prima della nascita: il riavvolgimento si ferma li'.
-      if (t < nascita) continue;
+      if (t < nascita || t > oltre) continue;
       var n = 0;
       while (n < nodi.length - 2 && j > nodi[n + 1]) {
         n++;

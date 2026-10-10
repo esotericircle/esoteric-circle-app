@@ -1,7 +1,7 @@
 /// IL CIELO REALE, la schermata del Real Time Cosmo. Ordine FG parti 2-5.
 ///
 /// **Una schermata, un motore, tre modi** (voce 3.1): il cielo di adesso, il
-/// cielo della nascita e il ritorno indietro nel tempo sono questa stessa
+/// cielo della nascita e la macchina del tempo sono questa stessa
 /// classe con un altro istante e un altro luogo. I tre si aprono separati dal
 /// menu temporaneo (`real_time_cosmo_screen.dart`, parte 6), cosi' il
 /// fondatore li giudica uno per uno.
@@ -58,11 +58,14 @@ import '../../design_system/components/luna_reale.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
+import 'il_pannello_del_tempo.dart';
+import 'il_tempo_del_cosmo.dart';
 import 'il_velo_delle_costellazioni.dart';
 import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
@@ -72,6 +75,10 @@ import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 import 'pittore_del_cielo.dart';
+
+// Le fasi della corsa stanno col tempo del cosmo (aggiunta della Macchina
+// del tempo all'ordine FH, voce C1): chi le usava da qui le trova ancora qui.
+export 'il_tempo_del_cosmo.dart' show FaseDelRitorno;
 
 enum ModoDelCielo { adesso, nascita, ritorno }
 
@@ -123,9 +130,6 @@ class CieloRealeScreen extends StatefulWidget {
   @override
   State<CieloRealeScreen> createState() => _CieloRealeScreenState();
 }
-
-/// Le fasi della scena del ritorno (docs/Specifica_Real_Time_Cosmo.md, 1-bis).
-enum FaseDelRitorno { eta, ritorno, arrivo, fermo }
 
 class _CieloRealeScreenState extends State<CieloRealeScreen>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
@@ -233,16 +237,35 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   _Scelta? _sceltaDellaLevata;
   DateTime? _levataDellaScelta;
 
-  // --- Il ritorno ---
-  PianoDelRiavvolgimento? _piano;
+  // --- Il tempo e la corsa ---
+  /// LA SORGENTE UNICA DELLA DATA (aggiunta della Macchina del tempo
+  /// all'ordine FH, voci C1-C3): l'istante mostrato, il luogo, la corsa.
+  late final IlTempoDelCosmo _tempo =
+      IlTempoDelCosmo(orologio: widget.orologio);
+  PianoDelRiavvolgimento? get _piano => _tempo.piano;
+  ValueNotifier<FaseDelRitorno> get _fase => _tempo.fase;
+  Duration get _inizioDellaFase => _tempo.inizioDellaFase;
+  set _inizioDellaFase(Duration d) => _tempo.inizioDellaFase = d;
   final Map<int, CieloInUnIstante> _istantiCalcolati = {};
-  final ValueNotifier<FaseDelRitorno> _fase = ValueNotifier(FaseDelRitorno.eta);
+
+  /// Gli anni nella corsa verso la nascita, l'anno in ogni altra corsa.
   final ValueNotifier<int> _anni = ValueNotifier(0);
 
-  /// Vero durante il rallentamento (ordine FH parte 8): la Luna sta al centro
-  /// del quadro, e il contatore e la frase salgono in alto per non coprirla.
-  final ValueNotifier<bool> _nelRallentamento = ValueNotifier(false);
-  Duration _inizioDellaFase = Duration.zero;
+  /// La scelta della Macchina del tempo: il giorno, il luogo, se e' adesso
+  /// (voci D2-D5).
+  SceltaDelTempo? _sceltaDelTempo;
+
+  /// La frase d'arrivo della corsa in corso (voce E11).
+  String _fraseDArrivo = '';
+
+  /// Il momento di nascita come la persona lo conosce, e il suo fuso: l'ora
+  /// di nascita si porta sul giorno scelto (voce D4).
+  DateTime? _momentoDiNascita;
+  String? _fusoDiNascita;
+
+  /// La licenza di scena della corsa (voci F2 e F4): la Luna ingrandita e la
+  /// terra velata. Fuori dalla corsa valgono 1.
+  double _scalaDellaLuna = 1;
   CieloInUnIstante? _cieloA, _cieloB;
   double _tFraIstanti = 0;
 
@@ -324,10 +347,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _battito.dispose();
     _guida.dispose();
     _invito.dispose();
-    _fase.dispose();
+    _tempo.dispose();
     _anni.dispose();
     _giornoDelRitorno.dispose();
-    _nelRallentamento.dispose();
     for (final v in _veli) {
       v.libera();
     }
@@ -347,7 +369,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   // IL CARICAMENTO (fuori dal fotogramma)
   // =====================================================================
 
-  DateTime get _adesso => (widget.orologio ?? DateTime.now)();
+  /// L'adesso: lo dice il tempo del cosmo, l'unico che legge l'orologio
+  /// (guardia un_solo_tempo).
+  DateTime get _adesso => _tempo.adesso();
 
   Future<void> _carica() async {
     try {
@@ -430,6 +454,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _nascitaConOra = id.hasBirthTime;
     _nascitaUtc = IlFusoDellaNascita.inUtc(id.birthMoment, luogo.timeZoneId);
     final m = id.birthMoment;
+    _momentoDiNascita = m;
+    _fusoDiNascita = luogo.timeZoneId;
     _scartoDellaNascita = DateTime.utc(
       m.year,
       m.month,
@@ -612,6 +638,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         );
         _guardaVersoLaLuna();
       case ModoDelCielo.ritorno:
+        // LA MACCHINA DEL TEMPO non parte da sola: mostra il cielo di adesso,
+        // tiene pronta la scelta (la nascita, o oggi) e la corsa parte dal
+        // pulsante (frase del fondatore del 10 ottobre 2026).
         _colSensore = false;
         _impostaIlCielo(
           CieloInUnIstante.calcola(
@@ -621,36 +650,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
             longitudine: _luogo.longitude,
           ),
         );
-        final n = _nascitaUtc;
-        final l = _luogoDiNascita;
-        if (n == null || l == null) return;
-        _anni.value = _etaIntera(n);
         _guardaVersoLaLuna();
-        _piano = PianoDelRiavvolgimento.prepara(
-          jdAdesso: adesso,
-          jdNascita: Celestial.julianDay(n),
-          latAdesso: _luogo.latitude,
-          lonAdesso: _luogo.longitude,
-          latNascita: l.latitude,
-          lonNascita: l.longitude,
-        );
-        _posaLaData(_piano!.istanti.first);
+        _tempo.fase.value = FaseDelRitorno.fermo;
+        _sceltaDelTempo = _sceltaDiPartenza();
     }
-  }
-
-  int _etaIntera(DateTime nascitaUtc) {
-    final a = _adesso.toUtc();
-    var anni = a.year - nascitaUtc.year;
-    if (a.month < nascitaUtc.month ||
-        (a.month == nascitaUtc.month && a.day < nascitaUtc.day)) {
-      anni--;
-    }
-    return math.max(0, anni);
   }
 
   void _impostaIlCielo(CieloInUnIstante cielo) {
     _cielo = cielo;
     _griglia = null;
+    _tempo.mostra(
+      cielo.jd,
+      SkyPlace(latitude: cielo.latitudine, longitude: cielo.longitudine),
+    );
   }
 
   /// IL CIELO DI ADESSO PARTE DALLA LUNA (ordine FH parte 6). E' l'unico
@@ -922,7 +934,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           ? math.max(14.0, ppg * 1.5)
           // I pianeti con la regola delle stelle, ma con un tetto: Giove a
           // -2,3 darebbe un globo di cinquanta punti, Venere di ottanta.
-          : math.min(20.0, raggioDellaStella(ca.magnitudine));
+          // e nessuno con un alone piu' grande del disco della Luna a riposo
+          // (aggiunta della Macchina del tempo, voce F6): nella cattura del
+          // fondatore Giove sotto la Luna le rubava la scena.
+          : math.min(
+              math.min(20.0, raggioDellaStella(ca.magnitudine)),
+              math.max(9.0, ppg),
+            );
     }
   }
 
@@ -952,10 +970,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         : a.illuminazioneDellaLuna;
     final crescente =
         b != null && _tFraIstanti > 0.5 ? b.lunaCrescente : a.lunaCrescente;
-    final lato = math.max(9.0, ppg) * 10;
+    // La misura a riposo, che nel cielo fermo non cambia (voce H4), e quella
+    // di scena della corsa (voce F2): nella corsa la Luna si cuoce gia'
+    // grande cinque volte e si posa alla misura del momento, cosi' crescere
+    // non la ricuoce a ogni fotogramma.
+    final riposo = math.max(9.0, ppg) * 10;
+    final lato = riposo * _scalaDellaLuna;
+    final inCorsa = widget.modo == ModoDelCielo.ritorno &&
+        _fase.value == FaseDelRitorno.ritorno;
+    final cotto = inCorsa ? riposo * kScalaDiScena : riposo;
     if ((illum - _lunaCottaIlluminazione).abs() > 0.01 ||
-        (lato - _lunaCottaLato).abs() > _lunaCottaLato * 0.1) {
-      _cuociLaLuna(illum, crescente, lato);
+        (cotto - _lunaCottaLato).abs() > _lunaCottaLato * 0.1) {
+      _cuociLaLuna(illum, crescente, cotto);
     }
     _fotogramma
       ..lunaX = x
@@ -1419,7 +1445,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           }
         }
       case FaseDelRitorno.ritorno:
-        // I due tempi (ordine FH parte 8): la corsa e poi l'ultimo anno.
+        // Riduci Movimento: nessuna corsa, la data cambia di colpo (voce E9).
+        if (_riduciMovimento) {
+          _vaiAllaNascita(ora);
+          break;
+        }
+        // I due tempi (ordine FH parte 8) verso la nascita, sei secondi verso
+        // ogni altro giorno (aggiunta della Macchina del tempo, voce E1).
         final secondi = trascorso.inMicroseconds / 1e6;
         final kf = piano.puntoAl(secondi);
         final k0 = kf.floor().clamp(0, piano.length - 1);
@@ -1428,10 +1460,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         _cieloB = k1 == k0 ? null : _istante(k1);
         _tFraIstanti = kf - k0;
         _posaLaData(piano.dataAlPunto(kf));
-        _nelRallentamento.value = kf > piano.fineDellaCorsa;
-        if (kf > piano.fineDellaCorsa) {
-          _agganciaAllaLuna(secondi - piano.durataDellaCorsa, piano);
-        }
+        // La camera agganciata alla Luna per tutta la corsa (voce F1), la
+        // Luna che cresce e torna (F2), la terra velata (F4).
+        _agganciaAllaLuna(secondi, piano);
+        _scalaDellaLuna = fattoreDiScena(secondi / piano.durata);
+        _fotogramma.terraDiScena = kTerraDiScena;
         if (secondi >= piano.durata) _vaiAllaNascita(ora);
       case FaseDelRitorno.arrivo:
         if (trascorso >= _durataDellArrivo) {
@@ -1514,8 +1547,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     az = _versoAngolo(_azimutDellaCorsa!, az, entrata);
     alt = _altezzaDellaCorsa! + (alt - _altezzaDellaCorsa!) * entrata;
     final uscita = _dolce(
-      (secondi - (piano.durataDelRallentamento - _uscitaDallAggancio)) /
-          _uscitaDallAggancio,
+      (secondi - (piano.durata - _uscitaDallAggancio)) / _uscitaDallAggancio,
     );
     _azimut = _versoAngolo(az, _azimutDellArrivo!, uscita);
     _altezza = (alt + (_altezzaDellArrivo! - alt) * uscita).clamp(-89.5, 89.5);
@@ -1543,7 +1575,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _tFraIstanti = 0;
     _posaLaData(piano.istanti.last);
     _fase.value = FaseDelRitorno.arrivo;
-    _nelRallentamento.value = false;
+    // All'arrivo la licenza di scena finisce (voce F3): la camera si stacca,
+    // la Luna torna alla sua misura, la terra torna piena.
+    _scalaDellaLuna = 1;
+    _fotogramma.terraDiScena = 1;
     _guardaVersoLaLuna();
     _azimutDellaCorsa = null;
     _altezzaDellaCorsa = null;
@@ -1557,15 +1592,23 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// in quel giorno, contata sul calendario.
   void _posaLaData(double jd) {
     final piano = _piano;
-    final nascitaUtc = _nascitaUtc;
-    if (piano == null || nascitaUtc == null) return;
-    final nascita = piano.istanti.last, adesso = piano.istanti.first;
-    final f = adesso > nascita
-        ? ((jd - nascita) / (adesso - nascita)).clamp(0.0, 1.0)
-        : 0.0;
-    final scarto = _scartoDellaNascita +
-        (_adesso.timeZoneOffset - _scartoDellaNascita) * f;
+    if (piano == null) return;
+    final da = piano.istanti.first, a = piano.istanti.last;
+    // Lo scarto dal tempo universale scivola da quello della partenza a
+    // quello dell'arrivo, come il luogo.
+    final f =
+        (a - da).abs() > 1e-9 ? ((jd - da) / (a - da)).clamp(0.0, 1.0) : 1.0;
+    final scarto = _tempo.scartoDellaPartenza +
+        (_tempo.scartoDellArrivo - _tempo.scartoDellaPartenza) * f;
     final giorno = IlCieloDiMeeus.istanteDi(jd).add(scarto);
+    _giornoDelRitorno.value =
+        giorno.year * 10000 + giorno.month * 100 + giorno.day;
+    final nascitaUtc = _nascitaUtc;
+    if (!_tempo.conLEta || nascitaUtc == null) {
+      // Verso ogni altro giorno scorre l'anno (voce E4).
+      _anni.value = giorno.year;
+      return;
+    }
     final nato = nascitaUtc.add(_scartoDellaNascita);
     var anni = giorno.year - nato.year;
     if (giorno.month < nato.month ||
@@ -1573,27 +1616,163 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       anni--;
     }
     _anni.value = math.max(0, anni);
-    _giornoDelRitorno.value =
-        giorno.year * 10000 + giorno.month * 100 + giorno.day;
   }
 
-  void _rivediIlRitorno() {
+  // =====================================================================
+  // LA MACCHINA DEL TEMPO (aggiunta all'ordine FH)
+  // =====================================================================
+
+  /// Il giorno di nascita come la persona lo conosce, o nessuno.
+  DateTime? get _giornoDiNascita {
+    final m = _momentoDiNascita;
+    return m == null ? null : DateTime(m.year, m.month, m.day);
+  }
+
+  DateTime get _oggi {
+    final a = _adesso;
+    return DateTime(a.year, a.month, a.day);
+  }
+
+  /// La scelta all'apertura: la data di nascita (voce D2), oppure oggi se la
+  /// nascita non c'e' (voce D3), col luogo della regola D5.
+  SceltaDelTempo _sceltaDiPartenza() {
+    final n = _giornoDiNascita;
+    if (n != null && _luogoDiNascita != null) {
+      return SceltaDelTempo(n, LuogoDelTempo.nascita);
+    }
+    return SceltaDelTempo(_oggi, LuogoDelTempo.attuale, adesso: true);
+  }
+
+  /// Il nome del luogo attuale, o nessuno se il telefono non l'ha dato.
+  String? get _nomeDelLuogoAttuale =>
+      _luogoDiRipiego ? null : (_luogo.citta ?? 'dove sei ora');
+
+  /// Il luogo della scelta: quello di nascita, o quello attuale; senza la
+  /// nascita resta quello attuale, e senza posizione quello di ripiego.
+  SkyPlace _luogoDellaScelta(SceltaDelTempo s) =>
+      s.luogo == LuogoDelTempo.nascita ? (_luogoDiNascita ?? _luogo) : _luogo;
+
+  /// L'istante della scelta (voce D4): l'ora di nascita portata sul giorno
+  /// scelto, nell'ora del luogo; senza l'ora di nascita le 12:00; "Adesso"
+  /// e' l'istante di adesso.
+  DateTime _istanteDellaScelta(SceltaDelTempo s) {
+    if (s.adesso) return _adesso.toUtc();
+    final m = _momentoDiNascita;
+    final conOra = m != null && _nascitaConOra;
+    final locale = DateTime(s.giorno.year, s.giorno.month, s.giorno.day,
+        conOra ? m.hour : 12, conOra ? m.minute : 0);
+    if (s.luogo == LuogoDelTempo.nascita && _fusoDiNascita != null) {
+      return IlFusoDellaNascita.inUtc(locale, _fusoDiNascita);
+    }
+    return locale.toUtc();
+  }
+
+  /// Lo scarto dal tempo universale di un luogo della Macchina.
+  Duration _scartoDel(LuogoDelTempo l) =>
+      l == LuogoDelTempo.nascita && _luogoDiNascita != null
+          ? _scartoDellaNascita
+          : _adesso.timeZoneOffset;
+
+  /// FA PARTIRE LA CORSA verso la scelta [s] (voci E1, E2, E9): dal cielo
+  /// mostrato al giorno scelto. Verso la nascita, partendo dopo, i due tempi
+  /// della parte 8 con l'eta' (voce E3); verso ogni altro giorno sei secondi
+  /// con l'anno (voce E4). Se il giorno e' quello mostrato, nessuna corsa.
+  void _avviaLaCorsa(SceltaDelTempo s) {
+    final catalogo = _catalogo;
+    if (catalogo == null) return;
+    _sceltaDelTempo = s;
+    final luogoA = _luogoDellaScelta(s);
+    var jdA = Celestial.julianDay(_istanteDellaScelta(s));
+    // Dentro la finestra verificata delle effemeridi, sempre.
+    jdA = jdA.clamp(IlCieloDiMeeus.primoGiornoVerificato,
+        IlCieloDiMeeus.ultimoGiornoVerificato - 1e-6);
+    final jdDa = _tempo.jdMostrato;
+    final luogoDa = _tempo.luogoMostrato ?? _luogo;
+    if ((jdA - jdDa).abs() < 1 / 1440) {
+      setState(() {});
+      return;
+    }
+    final nascitaUtc = _nascitaUtc;
+    final jdNascita =
+        nascitaUtc == null ? null : Celestial.julianDay(nascitaUtc);
+    final arrivo = arrivoAl(s.giorno, _giornoDiNascita, _oggi);
+    final versoLaNascita = jdNascita != null &&
+        arrivo == ArrivoDellaCorsa.nascita &&
+        (jdA - jdNascita).abs() < 1e-6 &&
+        jdDa > jdA;
+    final piano = versoLaNascita
+        ? PianoDelRiavvolgimento.prepara(
+            jdAdesso: jdDa,
+            jdNascita: jdA,
+            latAdesso: luogoDa.latitude,
+            lonAdesso: luogoDa.longitude,
+            latNascita: luogoA.latitude,
+            lonNascita: luogoA.longitude,
+          )
+        : PianoDelRiavvolgimento.corsaFra(
+            jdDa: jdDa,
+            jdA: jdA,
+            latDa: luogoDa.latitude,
+            lonDa: luogoDa.longitude,
+            latA: luogoA.latitude,
+            lonA: luogoA.longitude,
+          );
+    _tempo
+      ..arrivo = arrivo
+      ..giornoDArrivo = s.giorno
+      ..scartoDellaPartenza = _scartoDel(_luogoDiNascita != null &&
+              luogoDa.latitude == _luogoDiNascita!.latitude &&
+              luogoDa.longitude == _luogoDiNascita!.longitude
+          ? LuogoDelTempo.nascita
+          : LuogoDelTempo.attuale)
+      ..scartoDellArrivo = _scartoDel(s.luogo)
+      ..parti(piano, conLEta: versoLaNascita);
+    _fraseDArrivo = LaMarcaDelGenere.risolvi(
+        fraseDArrivo(arrivo, dataItalianaEstesa(s.giorno)));
     _istantiCalcolati.clear();
+    _cieloDellaNascita = null;
     _azimutDellaCorsa = null;
     _altezzaDellaCorsa = null;
-    _inizioDellaFase = Duration.zero;
-    _fase.value = FaseDelRitorno.eta;
-    _posaLaData(_piano!.istanti.first);
-    _impostaIlCielo(
-      CieloInUnIstante.calcola(
-        _catalogo!,
-        jd: _piano!.istanti.first,
-        latitudine: _piano!.latitudini.first,
-        longitudine: _piano!.longitudini.first,
+    _scelta = null;
+    _posaLaData(piano.istanti.first);
+    setState(() {});
+  }
+
+  /// Apre il pannello del tempo (voce D7).
+  void _apriIlPannello() {
+    final palette = MaestroScope.of(context);
+    final scelta = _sceltaDelTempo ?? _sceltaDiPartenza();
+    foglioDelCerchio<void>(
+      context: context,
+      backgroundColor: palette.surface,
+      isScrollControlled: true,
+      // Il foglio vive sopra la scope della schermata: riceve la sua, la
+      // stessa di Medora con cui si apre il Real Time Cosmo.
+      builder: (contesto) => MaestroScope(
+        maestro: Maestro.medora,
+        child: PannelloDelTempo(
+          key: const Key('macchina_pannello'),
+          scelta: scelta,
+          nascita: _luogoDiNascita == null ? null : _giornoDiNascita,
+          oggi: _oggi,
+          nomeDelLuogoDiNascita: _luogoDiNascita?.citta,
+          nomeDelLuogoAttuale: _nomeDelLuogoAttuale,
+          onParti: (s) {
+            Navigator.of(contesto).pop();
+            _avviaLaCorsa(s);
+          },
+        ),
       ),
     );
-    _guardaVersoLaLuna();
-    setState(() {});
+  }
+
+  /// La riga del luogo in uso (voce D5).
+  String _rigaDelLuogo(SceltaDelTempo s) {
+    final natale = _luogoDiNascita?.citta ?? 'il luogo di nascita';
+    final attuale = _nomeDelLuogoAttuale ?? _origineDelLuogo;
+    return s.luogo == LuogoDelTempo.nascita
+        ? 'Cielo su $natale, il tuo luogo di nascita.'
+        : 'Cielo su $attuale, dove sei ora.';
   }
 
   // =====================================================================
@@ -1743,6 +1922,15 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   void _alTocco(TapUpDetails d) {
+    // Un tocco durante la corsa la chiude e porta all'arrivo (voce E10).
+    if (widget.modo == ModoDelCielo.ritorno &&
+        _piano != null &&
+        (_fase.value == FaseDelRitorno.eta ||
+            _fase.value == FaseDelRitorno.ritorno)) {
+      _vaiAllaNascita(Duration.zero);
+      setState(() {});
+      return;
+    }
     final cielo = _cieloA ?? _cielo;
     final scena = _scena;
     if (cielo == null || scena == null) return;
@@ -1888,7 +2076,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     FoglioDelleFonti.apri(
       context,
       palette: palette,
-      testo: TestiDelleFonti.realTimeCosmo,
+      testo: widget.modo == ModoDelCielo.ritorno
+          ? TestiDelleFonti.macchinaDelTempo
+          : TestiDelleFonti.realTimeCosmo,
       chiave: 'real_time_cosmo_fonti',
     );
   }
@@ -1896,7 +2086,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   String get _titolo => switch (widget.modo) {
         ModoDelCielo.adesso => 'Il cielo di adesso',
         ModoDelCielo.nascita => 'Il cielo della tua nascita',
-        ModoDelCielo.ritorno => 'Il ritorno nel tempo',
+        ModoDelCielo.ritorno => 'La macchina del tempo',
       };
 
   @override
@@ -1964,18 +2154,85 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final righe = <Widget>[];
     final s = _scelta;
     if (s != null) righe.add(_schedaDellaScelta(s));
-    if (widget.modo == ModoDelCielo.ritorno && _piano != null) {
+    if (widget.modo == ModoDelCielo.ritorno) {
+      // I COMANDI DELLA MACCHINA DEL TEMPO, a cielo fermo: il giorno scelto
+      // col pannello, la riga del luogo sempre visibile (voce D5) e il
+      // pulsante che fa partire la corsa (frase del fondatore del 10 ottobre
+      // 2026).
       righe.add(
         ValueListenableBuilder<FaseDelRitorno>(
           valueListenable: _fase,
-          builder: (context, fase, _) => fase != FaseDelRitorno.fermo
-              ? const SizedBox.shrink()
-              : _Riga(
-                  key: const Key('real_time_cosmo_rivedi'),
-                  testo: _fraseDellaLuna(),
-                  azione: 'Rivedi il ritorno',
-                  onAzione: _rivediIlRitorno,
+          builder: (context, fase, _) {
+            final s = _sceltaDelTempo;
+            if (fase != FaseDelRitorno.fermo || s == null) {
+              return const SizedBox.shrink();
+            }
+            final palette = MaestroScope.of(context);
+            final altro = s.luogo == LuogoDelTempo.nascita
+                ? _nomeDelLuogoAttuale
+                : _luogoDiNascita?.citta;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_piano != null) ...[
+                  _Riga(
+                    key: const Key('real_time_cosmo_rivedi'),
+                    testo: _fraseDellaLuna(),
+                  ),
+                  const SizedBox(height: 6),
+                ],
+                _Riga(
+                  key: const Key('macchina_giorno_scelto'),
+                  testo: s.adesso
+                      ? 'Il giorno scelto: adesso.'
+                      : 'Il giorno scelto: ${dataItalianaEstesa(s.giorno)}.',
+                  azione: 'Scegli il giorno',
+                  onAzione: _apriIlPannello,
                 ),
+                const SizedBox(height: 6),
+                _Riga(
+                  key: const Key('macchina_riga_del_luogo_in_cielo'),
+                  testo: _rigaDelLuogo(s),
+                  azione: altro == null
+                      ? null
+                      : (s.luogo == LuogoDelTempo.nascita
+                          ? 'Usa dove sei ora'
+                          : 'Usa il luogo di nascita'),
+                  onAzione: altro == null
+                      ? null
+                      : () => setState(
+                            () => _sceltaDelTempo = SceltaDelTempo(
+                              s.giorno,
+                              s.luogo == LuogoDelTempo.nascita
+                                  ? LuogoDelTempo.attuale
+                                  : LuogoDelTempo.nascita,
+                              adesso: s.adesso,
+                            ),
+                          ),
+                ),
+                const SizedBox(height: 6),
+                FilledButton(
+                  key: const Key('macchina_viaggia_dal_cielo'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.gold,
+                    foregroundColor: palette.deepest,
+                    minimumSize: const Size.fromHeight(kVoceDellaRuota),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(SpacingTokens.radiusPill),
+                    ),
+                  ),
+                  onPressed: () => _avviaLaCorsa(s),
+                  child: Text(
+                    kEtichettaDelViaggio,
+                    style: TypographyTokens.corpo(weight: 600)
+                        .copyWith(color: palette.deepest),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       );
     }
@@ -2260,30 +2517,27 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         final frase = TypographyTokens.titoloSezione().copyWith(
           color: ColorTokens.textPrimary,
         );
+        final altezza = MediaQuery.sizeOf(context).height;
         switch (fase) {
           case FaseDelRitorno.eta:
           case FaseDelRitorno.ritorno:
-            // Nel rallentamento la Luna e' agganciata al centro (voce 8.4): il
-            // contatore sale dove sta la frase d'arrivo, altrimenti la
-            // coprirebbe proprio mentre mostra le sue fasi (visto
-            // nell'anteprima fh_14 della prima stesura).
-            final alto = MediaQuery.paddingOf(context).top + 88;
-            return Positioned.fill(
-              child: IgnorePointer(
-                child: ValueListenableBuilder<bool>(
-                  valueListenable: _nelRallentamento,
-                  builder: (context, su, colonna) => Align(
-                    alignment: su ? Alignment.topCenter : Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: su ? alto : 0),
-                      child: colonna,
-                    ),
-                  ),
+            // IL BLOCCO DEI NUMERI SCENDE (aggiunta della Macchina del tempo,
+            // voce E6): centrato al 72 per cento dell'altezza, lontano dal
+            // centro del quadro, che nella corsa e' il posto della Luna.
+            // Verso la nascita l'eta' con la parola "anni" (voce E3), verso
+            // ogni altro giorno l'anno, senza parola (voce E4); sotto la data
+            // che scorre e la riga del verso (voce E5).
+            return Positioned(
+              left: 0,
+              right: 0,
+              top: altezza * kAltezzaDeiNumeri,
+              child: FractionalTranslation(
+                translation: const Offset(0, -0.5),
+                child: IgnorePointer(
                   child: Column(
+                    key: const Key('macchina_blocco_dei_numeri'),
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // "50 anni", e sotto la data che scorre con l'eta'
-                      // (aggiunta del fondatore all'ordine FH parte 8).
                       ValueListenableBuilder<int>(
                         valueListenable: _anni,
                         builder: (context, anni, _) => Padding(
@@ -2300,16 +2554,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                                   key: const Key('real_time_cosmo_anni'),
                                   style: grande,
                                 ),
-                                const SizedBox(width: 12),
-                                Text(
-                                  anni == 1 ? 'anno' : 'anni',
-                                  key: const Key(
-                                    'real_time_cosmo_parola_degli_anni',
+                                if (_tempo.conLEta) ...[
+                                  const SizedBox(width: 12),
+                                  Text(
+                                    anni == 1 ? 'anno' : 'anni',
+                                    key: const Key(
+                                      'real_time_cosmo_parola_degli_anni',
+                                    ),
+                                    style: frase.copyWith(
+                                      color: ColorTokens.goldBright,
+                                    ),
                                   ),
-                                  style: frase.copyWith(
-                                    color: ColorTokens.goldBright,
-                                  ),
-                                ),
+                                ],
                               ],
                             ),
                           ),
@@ -2320,12 +2576,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                         builder: (context, g, _) => g == 0
                             ? const SizedBox.shrink()
                             : Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                  24,
-                                  0,
-                                  24,
-                                  12,
-                                ),
+                                padding:
+                                    const EdgeInsets.fromLTRB(24, 0, 24, 12),
                                 child: Text(
                                   dataItalianaEstesa(
                                     DateTime(
@@ -2344,7 +2596,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: Text(
-                            'STO TORNANDO INDIETRO NEL TEMPO',
+                            rigaDellaCorsa(
+                              versoIlPassato: _tempo.versoIlPassato,
+                            ),
+                            key: const Key('macchina_riga_della_corsa'),
                             textAlign: TextAlign.center,
                             style: frase,
                           ),
@@ -2355,17 +2610,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
               ),
             );
           case FaseDelRitorno.arrivo:
+            // La frase d'arrivo al 78 per cento, su due righe al massimo
+            // (voce E7); la marca del genere nella forma a posizioni.
             return Positioned(
               left: 24,
               right: 24,
-              top: MediaQuery.paddingOf(context).top + 88,
-              // La marca del genere nella forma a posizioni (ordine FH voce
-              // 8.5, fatto 3 della risposta del fondatore).
-              child: Text(
-                LaMarcaDelGenere.risolvi(kFraseDellArrivo),
-                key: const Key('real_time_cosmo_frase_dell_arrivo'),
-                textAlign: TextAlign.center,
-                style: frase,
+              top: altezza * kAltezzaDellArrivo,
+              child: FractionalTranslation(
+                translation: const Offset(0, -0.5),
+                child: _FraseSuDueRighe(
+                  key: const Key('real_time_cosmo_frase_dell_arrivo'),
+                  testo: _fraseDArrivo,
+                  stile: frase,
+                ),
               ),
             );
           case FaseDelRitorno.fermo:
@@ -2817,6 +3074,48 @@ class _SchedaProfonda extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Una frase su due righe al massimo (voce E7): se alla misura dello stile
+/// ne servirebbero di piu', il carattere scende finche' ci sta, misurato con
+/// la scala del testo della persona.
+class _FraseSuDueRighe extends StatelessWidget {
+  const _FraseSuDueRighe({
+    super.key,
+    required this.testo,
+    required this.stile,
+  });
+  final String testo;
+  final TextStyle stile;
+
+  @override
+  Widget build(BuildContext context) {
+    final scala = MediaQuery.textScalerOf(context);
+    return LayoutBuilder(
+      builder: (context, vincoli) {
+        var s = stile;
+        for (var i = 0; i < 12; i++) {
+          final misura = TextPainter(
+            text: TextSpan(text: testo, style: s),
+            textDirection: TextDirection.ltr,
+            textAlign: TextAlign.center,
+            textScaler: scala,
+            maxLines: 2,
+          )..layout(maxWidth: vincoli.maxWidth);
+          final troppo = misura.didExceedMaxLines;
+          misura.dispose();
+          if (!troppo) break;
+          s = s.copyWith(fontSize: (s.fontSize ?? 20) * 0.92);
+        }
+        return Text(
+          testo,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          style: s,
+        );
+      },
     );
   }
 }

@@ -207,6 +207,10 @@ void main() {
       (tester) async {
     await monta(tester, cielo(ModoDelCielo.ritorno));
     await carica(tester);
+    // Lapide: fino all'aggiunta della Macchina del tempo all'ordine FH il
+    // ritorno partiva da solo. Adesso parte dal pulsante (frase del fondatore
+    // del 10 ottobre 2026), con la nascita gia' scelta.
+    await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
     await passa(tester, 6);
     expect(find.text('38'), findsOneWidget);
     await scatta(tester, 'fg_05_il_ritorno_l_eta');

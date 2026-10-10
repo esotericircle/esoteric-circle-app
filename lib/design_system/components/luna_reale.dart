@@ -112,9 +112,10 @@ class LunaReale {
     final disco = Path()..addOval(Rect.fromCircle(center: c, radius: r));
 
     if (volto != null) {
-      if (alone) _alone(canvas, c, r, vis);
+      if (alone) _aloneFuoriDalDisco(canvas, c, r, vis);
       _dipingiIlVolto(canvas, c, r, volto, disco,
           illuminazione: illuminazione, crescente: crescente, vis: vis);
+      _bordoDelDisco(canvas, c, r, vis);
       return;
     }
 
@@ -202,6 +203,45 @@ class LunaReale {
           ]).createShader(Rect.fromCircle(center: c, radius: r * s)),
       );
     }
+  }
+
+  /// L'ALONE DELLA LUNA DEL VOLTO, che comincia al bordo del disco e non
+  /// dentro (aggiunta della Macchina del tempo all'ordine FH, voce F7): con
+  /// l'alone che partiva dal centro, la Luna piena e il suo alone si
+  /// fondevano e nella cattura del fondatore si leggeva un disco di luce, non
+  /// una Luna. L'alone resta piu' ampio di quello di ogni pianeta (F6).
+  static void _aloneFuoriDalDisco(
+      Canvas canvas, Offset c, double r, double vis) {
+    for (final s in const [4.6, 3.0, 1.9]) {
+      final bordo = 1 / s;
+      canvas.drawCircle(
+        c,
+        r * s,
+        Paint()
+          ..shader = RadialGradient(
+            colors: [
+              const Color(0x00000000),
+              const Color(0x00000000),
+              const Color(0xFFCFDDFF).withValues(alpha: 0.15 * vis),
+              const Color(0x00000000),
+            ],
+            stops: [0, bordo * 0.98, bordo * 1.04, 1],
+          ).createShader(Rect.fromCircle(center: c, radius: r * s)),
+      );
+    }
+  }
+
+  /// IL BORDO DEL DISCO (voce F7): un filo scuro sul lembo, cosi' anche la
+  /// Luna piena si legge come un disco col suo contorno e non come una luce.
+  static void _bordoDelDisco(Canvas canvas, Offset c, double r, double vis) {
+    canvas.drawCircle(
+      c,
+      r * 0.985,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = r * 0.03
+        ..color = const Color(0xFF0A1024).withValues(alpha: 0.55 * vis),
+    );
   }
 
   /// IL DISCO DELL'ASSET DELLA LUNA, misurato il 10 ottobre 2026 sui pixel con

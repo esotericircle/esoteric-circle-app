@@ -159,6 +159,26 @@ class CieloInUnIstante {
     CorpoCeleste.saturno,
   ];
 
+  /// I versori equatoriali J2000 delle stelle di un catalogo, calcolati una
+  /// volta (voce E8 dell'aggiunta della Macchina del tempo).
+  static final Expando<Float64List> _versoriPerCatalogo = Expando();
+
+  static Float64List _versoriEquatoriali(CatalogoDelleStelle catalogo) {
+    final gia = _versoriPerCatalogo[catalogo];
+    if (gia != null) return gia;
+    final n = catalogo.numeroDiStelle;
+    final e = Float64List(n * 3);
+    const g = math.pi / 180;
+    for (var i = 0; i < n; i++) {
+      final ra = catalogo.raGradi[i] * g, dec = catalogo.decGradi[i] * g;
+      final cd = math.cos(dec);
+      e[i * 3] = cd * math.cos(ra);
+      e[i * 3 + 1] = cd * math.sin(ra);
+      e[i * 3 + 2] = math.sin(dec);
+    }
+    return _versoriPerCatalogo[catalogo] = e;
+  }
+
   static ({double x, double y, double z}) _versore(HorizontalCoord h) {
     final alt = h.altDeg * math.pi / 180;
     final az = h.azDeg * math.pi / 180;
@@ -175,18 +195,37 @@ class CieloInUnIstante {
     required double longitudine,
   }) {
     final lst = Celestial.localSiderealDegrees(jd, longitudine);
-    final n = catalogo.numeroDiStelle;
-    final x = Float32List(n), y = Float32List(n), z = Float32List(n);
-    for (var i = 0; i < n; i++) {
+    final assi = Float64List(9);
+    const versi = [(0.0, 0.0), (90.0, 0.0), (0.0, 90.0)];
+    for (var k = 0; k < 3; k++) {
       final v = _versore(Celestial.equatorialToHorizontal(
-        raDeg: catalogo.raGradi[i],
-        decDeg: catalogo.decGradi[i],
-        latDeg: latitudine,
-        lstDeg: lst,
-      ));
-      x[i] = v.x;
-      y[i] = v.y;
-      z[i] = v.z;
+          raDeg: versi[k].$1,
+          decDeg: versi[k].$2,
+          latDeg: latitudine,
+          lstDeg: lst));
+      assi[k * 3] = v.x;
+      assi[k * 3 + 1] = v.y;
+      assi[k * 3 + 2] = v.z;
+    }
+
+    // LE STELLE NON SI RICALCOLANO DAL CATALOGO (aggiunta della Macchina del
+    // tempo all'ordine FH, voce E8): i loro versori equatoriali sono fissi e
+    // si calcolano una volta per catalogo; a ogni istante si girano con i tre
+    // assi della porta unica, nove moltiplicazioni per stella. Il loro posto
+    // dipende solo dal tempo siderale e dalla latitudine, cioe' dagli assi.
+    // La prova real_time_cosmo_la_via_lattea misura che la rotazione e la
+    // porta coincidono stella per stella.
+    final n = catalogo.numeroDiStelle;
+    final e = _versoriEquatoriali(catalogo);
+    final x = Float32List(n), y = Float32List(n), z = Float32List(n);
+    final m0 = assi[0], m1 = assi[1], m2 = assi[2];
+    final m3 = assi[3], m4 = assi[4], m5 = assi[5];
+    final m6 = assi[6], m7 = assi[7], m8 = assi[8];
+    for (var i = 0; i < n; i++) {
+      final ex = e[i * 3], ey = e[i * 3 + 1], ez = e[i * 3 + 2];
+      x[i] = ex * m0 + ey * m3 + ez * m6;
+      y[i] = ex * m1 + ey * m4 + ez * m7;
+      z[i] = ex * m2 + ey * m5 + ez * m8;
     }
 
     final corpi = <CorpoNelCielo>[];
@@ -213,19 +252,6 @@ class CieloInUnIstante {
           y: v.y,
           z: v.z,
           magnitudine: kMagnitudineTipica[c]!));
-    }
-
-    final assi = Float64List(9);
-    const versi = [(0.0, 0.0), (90.0, 0.0), (0.0, 90.0)];
-    for (var k = 0; k < 3; k++) {
-      final v = _versore(Celestial.equatorialToHorizontal(
-          raDeg: versi[k].$1,
-          decDeg: versi[k].$2,
-          latDeg: latitudine,
-          lstDeg: lst));
-      assi[k * 3] = v.x;
-      assi[k * 3 + 1] = v.y;
-      assi[k * 3 + 2] = v.z;
     }
 
     final luna = Celestial.moonIllumination(jd);

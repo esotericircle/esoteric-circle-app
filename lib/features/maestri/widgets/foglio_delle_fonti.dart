@@ -252,6 +252,23 @@ class TestiDelleFonti {
       'sono scritte per Esoteric Circle sul catalogo HYG. Nessuna riga è '
       'presa da Stellarium.';
 
+  /// La Macchina del tempo: le fonti del cosmo e le quattro righe
+  /// dell'Architetto dell'aggiunta all'ordine FH, voce G1, con gli accenti
+  /// veri (voce E14).
+  static const String macchinaDelTempo = '$realTimeCosmo\n\n'
+      'La finestra va dal 1900 al 2100. Le posizioni dei pianeti e della '
+      'Luna vengono dalle teorie VSOP87D ed ELP2000 nella forma pubblicata da '
+      'Jean Meeus in Astronomical Algorithms.\n\n'
+      'Le posizioni delle stelle sono riferite all\'equinozio del 2000 e non '
+      'vengono riportate all\'equinozio della data. Agli estremi della '
+      'finestra lo scostamento arriva a circa 1,4 gradi, cioè circa tre '
+      'diametri della Luna piena.\n\n'
+      'Il moto proprio delle stelle non è applicato. Dentro questa finestra '
+      'il suo effetto non è visibile a occhio nudo.\n\n'
+      'Durante l\'animazione la Luna viene ingrandita per renderla leggibile. '
+      'Quando l\'animazione finisce torna alla sua misura, che è quella del '
+      'cielo che vedi alzando il telefono.';
+
   static const String cartaDiNascita =
       'La Carta di nascita nasce nella linea della Golden Dawn, poi la '
       'codificano nella pratica moderna Angeles Arrien con The Tarot '

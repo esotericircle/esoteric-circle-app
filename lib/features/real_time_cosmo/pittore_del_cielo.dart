@@ -84,6 +84,10 @@ class FotogrammaDelCielo {
   /// L'orizzonte che si attraversa (ordine FH parte 7).
   OrizzonteInScena? orizzonte;
 
+  /// Quanto si vede la terra: 1, e nella corsa della Macchina del tempo il
+  /// venti per cento (voce F4).
+  double terraDiScena = 1;
+
   /// La Via Lattea, sotto tutto (ordine FH parte 9).
   ViaLatteaInScena? viaLattea;
 
@@ -235,21 +239,6 @@ class PittoreDelCielo extends CustomPainter {
       }
     }
 
-    // LA LUNA, cotta da LunaReale.
-    final luna = f.luna;
-    if (luna != null && f.lunaLuce > 0) {
-      _immagine.color = Color.fromRGBO(255, 255, 255, f.lunaLuce);
-      canvas.drawImageRect(
-        luna,
-        Rect.fromLTWH(0, 0, luna.width.toDouble(), luna.height.toDouble()),
-        Rect.fromCenter(
-            center: Offset(f.lunaX, f.lunaY),
-            width: f.lunaLato,
-            height: f.lunaLato),
-        _immagine,
-      );
-    }
-
     // I VELI: l'alone al 40 per cento, poi l'immagine, in modalita' luminosa.
     for (final v in f.veli) {
       final posa = v.posa;
@@ -281,10 +270,30 @@ class PittoreDelCielo extends CustomPainter {
       );
     }
 
+    // LA LUNA, cotta da LunaReale, PER ULTIMA fra gli oggetti del cielo
+    // (aggiunta della Macchina del tempo, voce F5): sopra le stelle, le
+    // linee, il cielo profondo, i pianeti e i veli.
+    final luna = f.luna;
+    if (luna != null && f.lunaLuce > 0) {
+      _immagine.color = Color.fromRGBO(255, 255, 255, f.lunaLuce);
+      canvas.drawImageRect(
+        luna,
+        Rect.fromLTWH(0, 0, luna.width.toDouble(), luna.height.toDouble()),
+        Rect.fromCenter(
+            center: Offset(f.lunaX, f.lunaY),
+            width: f.lunaLato,
+            height: f.lunaLato),
+        _immagine,
+      );
+    }
+
     // IL TERRENO (ordine FH parte 7): la calotta nera e la sagoma, sopra
-    // tutto il cielo, col velo che si apre guardando in basso.
+    // tutto il cielo, col velo che si apre guardando in basso. Nella corsa
+    // della Macchina del tempo e' al venti per cento (voce F4).
     final terra = f.orizzonte;
     if (terra != null && terra.opacita > 0) {
+      terra.pennelloDellaCalotta.color =
+          Color.fromRGBO(0, 0, 0, f.terraDiScena);
       canvas.drawVertices(
         ui.Vertices.raw(ui.VertexMode.triangles, terra.calottaPosizioni,
             colors: terra.calottaColori),
@@ -292,7 +301,7 @@ class PittoreDelCielo extends CustomPainter {
         terra.pennelloDellaCalotta,
       );
       terra.pennelloDellaSagoma.color =
-          Color.fromRGBO(255, 255, 255, terra.opacita);
+          Color.fromRGBO(255, 255, 255, terra.opacita * f.terraDiScena);
       canvas.drawVertices(
         ui.Vertices.raw(ui.VertexMode.triangles, terra.fasciaPosizioni,
             textureCoordinates: terra.fasciaTessitura),

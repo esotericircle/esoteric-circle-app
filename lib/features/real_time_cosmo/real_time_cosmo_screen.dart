@@ -33,8 +33,8 @@ class RealTimeCosmoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titolo = TypographyTokens.titoloDiRiga()
-        .copyWith(color: ColorTokens.goldBright);
+    final titolo =
+        TypographyTokens.titoloDiRiga().copyWith(color: ColorTokens.goldBright);
     final testo =
         TypographyTokens.corpo().copyWith(color: ColorTokens.textSecondary);
     return Scaffold(
@@ -119,9 +119,12 @@ class RealTimeCosmoScreen extends StatelessWidget {
     _SceltaDelCielo(
       ModoDelCielo.ritorno,
       Icons.history_rounded,
-      'Il ritorno indietro nel tempo',
-      'Gli anni scendono fino a zero mentre il cielo gira all\'indietro, '
-          'fino alla tua nascita.',
+      // Aggiunta della Macchina del tempo all'ordine FH, voce B1: "vorrei
+      // cambiarlo in la macchina del tempo". Il testo sotto diceva solo il
+      // ritorno alla nascita, e adesso si va anche avanti.
+      'La macchina del tempo',
+      'Scegli un giorno fra il 1900 e il 2100 e il cielo corre fin lì, '
+          'indietro o avanti. Si parte dalla tua nascita.',
     ),
   ];
 }

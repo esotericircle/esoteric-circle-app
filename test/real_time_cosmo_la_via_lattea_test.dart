@@ -38,17 +38,22 @@ void main() {
         jd: Celestial.julianDay(DateTime.utc(2026, 10, 8, 20)),
         latitudine: 40.85,
         longitudine: 14.27);
-    final m = cielo.assi;
+    // Dall'aggiunta della Macchina del tempo (voce E8) anche le stelle del
+    // cielo di un istante si girano con gli assi: la prova le confronta con
+    // la porta unica chiamata qui, stella per stella, cosi' misura sia la Via
+    // Lattea sia le stelle, e non confronta gli assi con se stessi.
+    final lst = Celestial.localSiderealDegrees(cielo.jd, 14.27);
     var peggiore = 0.0;
     for (var i = 0; i < catalogo.numeroDiStelle; i += 7) {
-      final ra = catalogo.raGradi[i] * math.pi / 180;
-      final dec = catalogo.decGradi[i] * math.pi / 180;
-      final ex = math.cos(dec) * math.cos(ra);
-      final ey = math.cos(dec) * math.sin(ra);
-      final ez = math.sin(dec);
-      final x = ex * m[0] + ey * m[3] + ez * m[6];
-      final y = ex * m[1] + ey * m[4] + ez * m[7];
-      final z = ex * m[2] + ey * m[5] + ez * m[8];
+      final h = Celestial.equatorialToHorizontal(
+          raDeg: catalogo.raGradi[i],
+          decDeg: catalogo.decGradi[i],
+          latDeg: 40.85,
+          lstDeg: lst);
+      final alt = h.altDeg * math.pi / 180, az = h.azDeg * math.pi / 180;
+      final x = math.cos(alt) * math.sin(az);
+      final y = math.cos(alt) * math.cos(az);
+      final z = math.sin(alt);
       final d = (x - cielo.x[i]).abs() +
           (y - cielo.y[i]).abs() +
           (z - cielo.z[i]).abs();

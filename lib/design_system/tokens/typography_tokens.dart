@@ -134,7 +134,7 @@ class TypographyTokens {
       display(size: 40, weight: weight).copyWith(height: 1.0, letterSpacing: 0);
 
   /// **IL NUMERO DELLA SCENA**, solo al centro di uno schermo vuoto. Ordine
-  /// FG parte 3: nel ritorno indietro nel tempo l'eta' della persona sta al
+  /// FG parte 3: nella macchina del tempo l'eta' della persona sta al
   /// centro del cielo e scende fino a zero (specifica del Real Time Cosmo,
   /// 1-bis, "al centro compare la sua eta'"); e' il protagonista della scena,
   /// non un dato in una scheda, e il numero del giorno da 40 si perdeva nel
