@@ -91,6 +91,18 @@ Future<void> viaggia(WidgetTester tester) async {
   await fg.passa(tester, 66);
 }
 
+/// Mentre la corsa o l'arrivo parlano al centro, i punti cardinali e il
+/// nome dell'eclittica tacciono (visto sul Realme il 10 ottobre 2026: la S
+/// toccava la frase d'arrivo, il nome del filo passava sopra la Luna).
+void _taccionoLeScritteDelCielo(FotogrammaDelCielo f, String quando) {
+  expect(f.scritte.length, greaterThanOrEqualTo(4));
+  for (var k = 0; k < 4; k++) {
+    expect(f.scritte[k].luce, 0, reason: 'il punto cardinale $k parla $quando');
+  }
+  expect(f.eclittica?.scrittaVisibile ?? false, isFalse,
+      reason: "il nome dell'eclittica parla $quando");
+}
+
 void main() {
   testWidgets('I1: il menu con la voce rinominata', (tester) async {
     await monta(tester, const RealTimeCosmoScreen());
@@ -167,11 +179,13 @@ void main() {
         'a riposo disco ${(riposo * 3 / 10 * 2).round()} px; alone del '
         'pianeta piu\' grande in campo ${(aloneDelPianeta * 3).round()} px di '
         'raggio; Luna in x ${f.lunaX.round()} y ${f.lunaY.round()}');
+    _taccionoLeScritteDelCielo(f, 'nella corsa');
     await scatta(tester, 'i07_anteprima_la_luna_grande_nella_corsa');
     await fg.passa(tester, 62);
     expect(
         find.text('QUESTO ERA IL CIELO SOPRA DI TE QUANDO SEI VENUTO AL MONDO'),
         findsOneWidget);
+    _taccionoLeScritteDelCielo(_fotogramma(tester), "all'arrivo");
     await scatta(tester, 'i06_l_arrivo_sulla_nascita');
   });
 
@@ -229,6 +243,123 @@ void main() {
     await fg.passa(tester, 4);
     expect(find.textContaining('Milano, dove sei ora'), findsOneWidget);
     await scatta(tester, 'i10_il_luogo_attuale');
+  });
+
+  testWidgets("la riga del luogo del pannello e' larga quanto il pannello",
+      (tester) async {
+    // Visto sul Realme il 10 ottobre 2026: sulla stessa riga del bottone
+    // "Usa il luogo di nascita" il testo "Cielo su Roma, dove sei ora." andava
+    // a capo in quattro righe strette. Il testo sta sopra, largo quanto la
+    // riga, in tutti e due gli stati.
+    await monta(tester, _macchina(posizione: const _Milano()));
+    await fh.caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    await apriIlPannello(tester);
+    var stati = 0;
+    for (final atteso in ['il tuo luogo di nascita', 'dove sei ora']) {
+      if (atteso == 'dove sei ora') {
+        await tester.tap(find.byKey(const Key('macchina_cambia_luogo')));
+        await fg.passa(tester, 4);
+      }
+      final testo = find.byKey(const Key('macchina_testo_del_luogo'));
+      expect(tester.widget<Text>(testo).data, contains(atteso));
+      final largo = tester.getSize(testo).width;
+      final riga = tester
+          .getSize(find.byKey(const Key('macchina_riga_del_luogo')))
+          .width;
+      // ignore: avoid_print
+      print('LUOGO ($atteso): testo largo ${largo.round()} su ${riga.round()}');
+      expect(largo, greaterThanOrEqualTo(riga * 0.95),
+          reason: "la riga del luogo '$atteso' e' stretta");
+      stati++;
+    }
+    expect(stati, 2);
+  });
+
+  testWidgets('esplora senza distrazioni, e le scritte si riaccendono',
+      (tester) async {
+    // Richiesta del fondatore del 10 ottobre 2026: troppe scritte sul cielo,
+    // una voce del menu dell'indicatore che le spegne, e che si riaccende.
+    await monta(tester, _macchina());
+    await fh.caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final guida = find.byKey(const Key('real_time_cosmo_guida_nome'));
+    expect(guida, findsOneWidget);
+    var f = _fotogramma(tester);
+    var cardinali = 0;
+    for (var k = 0; k < 4; k++) {
+      if (f.scritte[k].luce > 0) cardinali++;
+    }
+    expect(cardinali, greaterThan(0));
+    await tester.tap(guida);
+    await fg.passa(tester, 8);
+    await tester
+        .tap(find.byKey(const Key('real_time_cosmo_senza_distrazioni')));
+    await fg.passa(tester, 4);
+    await tester.tapAt(const Offset(180, 60));
+    await fg.passa(tester, 8);
+    f = _fotogramma(tester);
+    for (var k = 0; k < f.scritte.length; k++) {
+      expect(f.scritte[k].luce, 0, reason: 'la scritta $k parla');
+    }
+    expect(f.nomiDeiCorpi, isFalse);
+    expect(f.eclittica?.scrittaVisibile ?? false, isFalse);
+    expect(guida, findsNothing);
+    await scatta(tester, 'esplora_senza_distrazioni');
+    // Si riaccende dalla testata.
+    await tester
+        .tap(find.byKey(const Key('real_time_cosmo_riaccendi_le_scritte')));
+    await fg.passa(tester, 8);
+    expect(guida, findsOneWidget);
+    expect(_fotogramma(tester).nomiDeiCorpi, isTrue);
+    expect(find.byKey(const Key('real_time_cosmo_riaccendi_le_scritte')),
+        findsNothing);
+  });
+
+  testWidgets('il pulsante riparte dopo un cambio di data o di luogo',
+      (tester) async {
+    // Segnalato dal fondatore il 10 ottobre 2026: "quando entro posso
+    // cliccare sul pulsante e parte l'animazione, ma se poi modifico la data
+    // o il luogo senza uscire, se rifaccio click sul pulsante non funziona".
+    await monta(tester, _macchina(posizione: const _Milano()));
+    await fh.caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final numeri = find.byKey(const Key('macchina_blocco_dei_numeri'));
+    final viaggia = find.byKey(const Key('macchina_viaggia_dal_cielo'));
+    // La prima corsa, verso la nascita, fino a scena ferma.
+    await tester.tap(viaggia);
+    await fg.passa(tester, 240);
+    expect(viaggia, findsOneWidget);
+
+    // 1. La data cambiata nel pannello, chiuso senza "Portami lì".
+    await apriIlPannello(tester);
+    await ruota(tester, 'macchina_ruota_anno', 100);
+    await tester.tapAt(const Offset(180, 30));
+    await fg.passa(tester, 8);
+    expect(find.byKey(const Key('macchina_pannello')), findsNothing);
+    expect(find.textContaining('2000'), findsWidgets,
+        reason: 'la schermata non ha tenuto il giorno scelto nel pannello');
+    await tester.tap(viaggia);
+    await fg.passa(tester, 10);
+    expect(numeri, findsOneWidget, reason: 'dopo la data la corsa non parte');
+    await fg.passa(tester, 120);
+
+    // 2. Il solo luogo cambiato sulla schermata.
+    final riga = find.byKey(const Key('macchina_riga_del_luogo_in_cielo'));
+    await tester
+        .tap(find.descendant(of: riga, matching: find.textContaining('Usa')));
+    await fg.passa(tester, 4);
+    await tester.tap(viaggia);
+    await fg.passa(tester, 10);
+    expect(numeri, findsOneWidget, reason: 'dopo il luogo la corsa non parte');
+    await fg.passa(tester, 120);
+
+    // 3. Niente di cambiato: nessuna corsa, ma una risposta.
+    await tester.tap(viaggia);
+    await fg.passa(tester, 3);
+    expect(numeri, findsNothing);
+    expect(find.byKey(const Key('macchina_gia_qui')), findsOneWidget,
+        reason: 'il tocco non ha risposto: un vicolo cieco');
   });
 
   testWidgets('I12: le fonti della Macchina con le quattro righe',

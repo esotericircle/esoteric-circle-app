@@ -28,9 +28,34 @@ import 'dart:ui' as ui;
 
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/la_via_lattea.dart';
+import 'lo_stile_del_cielo.dart';
 
 /// L'opacita' della Via Lattea, in composizione luminosa (voce 9.2).
 const double kOpacitaDellaViaLattea = 0.55;
+
+/// **LA COMPOSIZIONE LUMINOSA SENZA LEGGERE LO SCHERMO.** Misurato sul Realme
+/// il 10 ottobre 2026 (ordine FH, voce C5 dell'aggiunta): la corsa della
+/// Macchina del tempo faceva 44 fotogrammi al secondo, e il peso era la Via
+/// Lattea in modalita' `screen`, che su questo motore grafico e' una fusione
+/// avanzata e legge lo schermo sotto di se': disegno medio 14,7 ms, 242
+/// fotogrammi su 638 oltre i 16,7. In modalita' `plus`, che somma soltanto,
+/// 7,8 ms e 13 su 369. Il risultato e' lo STESSO, non uno simile: sotto la
+/// Via Lattea c'e' solo il fondo F (si disegna subito dopo di lui), e
+/// screen(s, F) = s + F - s F = s (1 - F) + F, cioe' `plus` con la sorgente
+/// moltiplicata per (1 - F), canale per canale. Il fattore sta nei colori dei
+/// vertici, che gia' moltiplicano la tessitura.
+const ui.BlendMode kComposizioneDellaViaLattea = ui.BlendMode.plus;
+
+/// Il colore di un vertice con luce [luce] (0-255), gia' moltiplicato per
+/// (1 - F): con la composizione `plus` da' lo stesso cielo di `screen`.
+int coloreDelVertice(int luce) {
+  int canale(int f) => (luce * (255 - f) / 255).round();
+  const f = kFondoDelCielo;
+  final r = (f.r * 255).round(),
+      g = (f.g * 255).round(),
+      b = (f.b * 255).round();
+  return 0xFF000000 | (canale(r) << 16) | (canale(g) << 8) | canale(b);
+}
 
 /// Il passo della maglia in gradi, e la latitudine galattica dove finisce.
 const double _passo = 5;
@@ -77,7 +102,7 @@ class ViaLatteaInScena {
         final punto = puntoDellAsset(l, b, w, h);
         tessitura[i * 2] = punto.u;
         tessitura[i * 2 + 1] = punto.v;
-        colori[i] = 0xFF000000 | (luce << 16) | (luce << 8) | luce;
+        colori[i] = coloreDelVertice(luce);
       }
     }
     final triangoli = (colonne - 1) * (righe - 1) * 2;
@@ -101,7 +126,7 @@ class ViaLatteaInScena {
           Float64List.fromList(
               const [1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0]))
       ..filterQuality = ui.FilterQuality.medium
-      ..blendMode = ui.BlendMode.screen
+      ..blendMode = kComposizioneDellaViaLattea
       ..color = const ui.Color.fromRGBO(255, 255, 255, kOpacitaDellaViaLattea);
   }
 

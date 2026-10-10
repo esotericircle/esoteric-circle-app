@@ -1,0 +1,33 @@
+LE PROVE DI VISTA DOPO LA C5, ordine FH, 10 ottobre 2026, giro parziale: C10 C11 C12
+
+C10 il pannello non dice il cambio alla schermata
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | il pulsante riparte
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: il pul
+    Expected: at least one matching candidate
+    Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing 2000: []>
+  ripristinato al byte: si
+
+C11 il solo luogo cambiato non fa partire la corsa
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | il pulsante riparte
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: il pul
+    Expected: exactly one matching candidate
+    Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'macchina_blocco_dei_numeri'>]: []>
+  ripristinato al byte: si
+
+C12 il tocco senza cambi non risponde
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | il pulsante riparte
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: il pul
+    Expected: exactly one matching candidate
+    Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'macchina_gia_qui'>]: []>
+  ripristinato al byte: si
+
+TUTTE ROSSE COI DIFETTI ENTRATI E I FILE RIPRISTINATI: SI

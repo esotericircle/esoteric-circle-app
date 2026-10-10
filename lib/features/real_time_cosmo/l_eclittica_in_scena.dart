@@ -12,10 +12,19 @@
 /// L'etichetta sta sopra il punto del filo piu' vicino al centro del
 /// riquadro, ed e' la [kScrittaDellEclittica]. Si spegne dal menu della
 /// funzione (voce 13.2) e nasce accesa.
+///
+/// **L'etichetta non copre niente.** Visto sul Realme il 10 ottobre 2026: la
+/// Luna corre sull'eclittica e la camera la mette al centro, quindi il punto
+/// del filo piu' vicino al centro e' quasi sempre sotto la Luna, e la
+/// scritta le passava sopra; all'apertura copriva anche l'indicatore della
+/// costellazione. Ora la scritta va sul punto piu' vicino al centro la cui
+/// scatola non tocca nessuno degli [ostacoli] (la Luna, i pianeti coi loro
+/// nomi, l'indicatore); se non c'e', tace.
 library;
 
 import 'dart:math' as math;
 import 'dart:typed_data';
+import 'dart:ui' show Rect;
 
 import '../../core/astro/meeus/il_cielo_di_meeus.dart';
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
@@ -75,7 +84,9 @@ class EclitticaInScena {
       Float64List assi, Float64List? poi, double t,
       {double spostamentoX = 0,
       double spostamentoY = 0,
-      double mezzaScritta = 40}) {
+      double mezzaScritta = 40,
+      double altezzaScritta = 40,
+      List<Rect> ostacoli = const []}) {
     var m0 = assi[0], m1 = assi[1], m2 = assi[2];
     var m3 = assi[3], m4 = assi[4], m5 = assi[5];
     var m6 = assi[6], m7 = assi[7], m8 = assi[8];
@@ -112,16 +123,23 @@ class EclitticaInScena {
         // riquadro, sopra l'orizzonte e sopra il pie' di pagina, che occupa
         // il terzo basso (vista nell'anteprima fh_20 della prima stesura,
         // tagliata a destra e coperta dalle righe).
+        // Vicino ai bordi la scritta scorre di lato quanto basta per stare
+        // intera nel riquadro, sempre sopra il filo: cosi' ha piu' posti
+        // dove andare quando il centro e' occupato.
         if (z > 0.05 &&
-            _x[k] > mezzaScritta + 8 &&
-            _x[k] < w - mezzaScritta - 8 &&
+            _x[k] > 8 &&
+            _x[k] < w - 8 &&
             _y[k] > 100 &&
             _y[k] < h * 0.6) {
+          final cx = _x[k].clamp(mezzaScritta + 8, w - mezzaScritta - 8);
           final dx = _x[k] - w / 2, dy = _y[k] - h / 2;
           final d = dx * dx + dy * dy;
-          if (d < migliore) {
+          if (d < migliore &&
+              _libera(
+                  scatolaDellaScritta(cx, _y[k], mezzaScritta, altezzaScritta),
+                  ostacoli)) {
             migliore = d;
-            scrittaX = _x[k];
+            scrittaX = cx;
             scrittaY = _y[k];
             scrittaVisibile = true;
           }
@@ -149,6 +167,19 @@ class EclitticaInScena {
       v = _vertice(v, x1 + nx, y1 + ny, colore);
     }
     vertici = v;
+  }
+
+  /// La scatola dell'etichetta posata sopra il punto ([x], [y]) del filo: la
+  /// stessa regola del pittore, che la disegna sei punti sopra.
+  static Rect scatolaDellaScritta(
+          double x, double y, double mezza, double altezza) =>
+      Rect.fromLTWH(x - mezza, y - altezza - 6, mezza * 2, altezza);
+
+  static bool _libera(Rect scatola, List<Rect> ostacoli) {
+    for (final o in ostacoli) {
+      if (o.overlaps(scatola)) return false;
+    }
+    return true;
   }
 
   int _vertice(int v, double x, double y, int c) {

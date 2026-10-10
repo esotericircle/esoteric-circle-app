@@ -61,6 +61,8 @@ const Map<String, List<String>> _camminoPerFotogramma = {
     '  void _posaLeMeteore(',
     '  void _aggiornaLInvito(',
     '  void _avanzaIlRitorno(',
+    // La scritta dell'eclittica che non copre niente (10 ottobre 2026).
+    '  List<Rect> _ostacoliDellEclittica(',
   ],
 };
 

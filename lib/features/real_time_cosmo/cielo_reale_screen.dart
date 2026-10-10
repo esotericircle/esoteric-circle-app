@@ -157,6 +157,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// L'eclittica (ordine FH parte 13): nasce accesa e si spegne dal menu.
   final EclitticaInScena _eclittica = EclitticaInScena();
   bool _eclitticaAccesa = true;
+
+  /// ESPLORA SENZA DISTRAZIONI (richiesta del fondatore del 10 ottobre
+  /// 2026: "valuta la sovrapposizione dei testi a schermo che a volte sono
+  /// troppi... inserire esplora senza distrazioni, ma poi deve essere
+  /// riattivabile"). Acceso, il cielo non porta scritte: l'indicatore, i nomi
+  /// dei pianeti, il nome dell'eclittica e i punti cardinali tacciono. Si
+  /// riaccende dal menu o dal bottone della testata.
+  bool _senzaDistrazioni = false;
   int _giornoDelleMeteore = -1;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
@@ -794,8 +802,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     }
 
     if (widget.modo == ModoDelCielo.ritorno) _avanzaIlRitorno(ora);
-    _fotogramma.nomiDeiCorpi = widget.modo != ModoDelCielo.ritorno ||
-        _fase.value == FaseDelRitorno.fermo;
+    _fotogramma.nomiDeiCorpi = !_senzaDistrazioni &&
+        (widget.modo != ModoDelCielo.ritorno ||
+            _fase.value == FaseDelRitorno.fermo);
 
     // L'orientamento: il sensore se c'e' e se e' permesso, il dito sempre.
     final telefono = _telefono;
@@ -892,7 +901,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         spostamentoX: cieloSposta.dx,
         spostamentoY: cieloSposta.dy,
         mezzaScritta: (_fotogramma.scrittaDellEclittica?.width ?? 80) / 2,
+        altezzaScritta: _fotogramma.scrittaDellEclittica?.height ?? 40,
+        ostacoli: _ostacoliDellEclittica(),
       );
+      // Mentre il ritorno parla al centro dello schermo il nome del filo
+      // tace, come la guida e i punti cardinali.
+      if (_ilRitornoParla || _senzaDistrazioni) {
+        _eclittica.scrittaVisibile = false;
+      }
       _fotogramma.eclittica = _eclittica;
     } else {
       _fotogramma.eclittica = null;
@@ -1266,10 +1282,62 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     MisureDelCosmo.foschieCotte++;
   }
 
+  /// Vero mentre la corsa o l'arrivo parlano al centro dello schermo: la
+  /// guida, i punti cardinali e il nome dell'eclittica tacciono. Visto sul
+  /// Realme il 10 ottobre 2026: all'arrivo al 2100 la S del sud toccava la
+  /// frase d'arrivo, e nella corsa il nome dell'eclittica passava sulla Luna.
+  bool get _ilRitornoParla =>
+      widget.modo == ModoDelCielo.ritorno &&
+      _fase.value != FaseDelRitorno.fermo;
+
+  /// Cio' che il nome dell'eclittica non copre: la Luna col suo bordo, i
+  /// pianeti coi loro nomi, l'indicatore della guida.
+  final List<Rect> _ostacoli = [];
+
+  List<Rect> _ostacoliDellEclittica() {
+    final o = _ostacoli..clear();
+    final f = _fotogramma;
+    if (f.luna != null && f.lunaLuce > 0) {
+      o.add(Rect.fromCircle(
+          center: Offset(f.lunaX, f.lunaY), radius: f.lunaLato / 10 * 1.6 + 8));
+    }
+    for (final c in f.corpi) {
+      if (!c.visibile) continue;
+      o.add(Rect.fromCircle(center: Offset(c.x, c.y), radius: c.raggio));
+      final nome = c.nome;
+      if (nome != null) {
+        o.add(Rect.fromLTWH(c.x - nome.width / 2, c.y + c.raggio * 0.6 + 4,
+            nome.width, nome.height));
+      }
+    }
+    final g = _guida.value;
+    if (g != null && !g.inQuadroSoltanto) {
+      // La scatola dichiarata della guida, larga quanto la sua riga piu'
+      // lunga ("Sotto l'orizzonte: sorge alle 23:13" passa i 170 punti).
+      o.add(Rect.fromLTWH(g.x - 24, g.y - 8, _misuraDellaGuida.width + 48,
+          _misuraDellaGuida.height + 32));
+    }
+    if (f.scritte.length > 4) {
+      final s = f.scritte[4];
+      if (s.luce > 0) {
+        o.add(Rect.fromCenter(
+            center: Offset(s.x, s.y),
+            width: s.testo.width + 16,
+            height: s.testo.height + 8));
+      }
+    }
+    return o;
+  }
+
   void _posaLeScritte(ProiezioneDelCielo proiezione, Offset sposta) {
     const azimut = [0.0, 90.0, 180.0, 270.0];
+    final tacciono = _ilRitornoParla || _senzaDistrazioni;
     for (var k = 0; k < 4; k++) {
       final s = _fotogramma.scritte[k];
+      if (tacciono) {
+        s.luce = 0;
+        continue;
+      }
       final az = azimut[k] * math.pi / 180;
       // Sullo skyline, nei quattro punti veri (voce 7.5 FH): cinque gradi
       // sopra l'orizzonte, sopra le colline piu' alte della sagoma (3,6).
@@ -1290,9 +1358,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   void _posaLaGuida(CieloInUnIstante cielo, ProiezioneDelCielo proiezione) {
     final b = _bersaglio;
-    // Mentre il ritorno parla al centro dello schermo la guida tace.
-    final parla = widget.modo == ModoDelCielo.ritorno &&
-        _fase.value != FaseDelRitorno.fermo;
+    // Mentre il ritorno parla al centro dello schermo la guida tace, e senza
+    // distrazioni anche.
+    final parla = _ilRitornoParla || _senzaDistrazioni;
     final scritta =
         _fotogramma.scritte.length > 4 ? _fotogramma.scritte[4] : null;
     if (b == null || parla) {
@@ -1766,7 +1834,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         IlCieloDiMeeus.ultimoGiornoVerificato - 1e-6);
     final jdDa = _tempo.jdMostrato;
     final luogoDa = _tempo.luogoMostrato ?? _luogo;
-    if ((jdA - jdDa).abs() < 1 / 1440) {
+    // Nessuna corsa solo se giorno E luogo sono quelli mostrati: cambiato il
+    // solo luogo, l'istante restava lo stesso e il pulsante non faceva niente
+    // (visto dal fondatore il 10 ottobre 2026). E anche allora il tocco ha
+    // una risposta, mai un vicolo cieco.
+    final stessoLuogo = (luogoA.latitude - luogoDa.latitude).abs() < 1e-6 &&
+        (luogoA.longitude - luogoDa.longitude).abs() < 1e-6;
+    if ((jdA - jdDa).abs() < 1 / 1440 && stessoLuogo) {
+      ScaffoldMessenger.maybeOf(context)
+        ?..hideCurrentSnackBar()
+        ..showSnackBar(const SnackBar(
+          key: Key('macchina_gia_qui'),
+          content: Text(kGiaInQuestoCielo),
+        ));
       setState(() {});
       return;
     }
@@ -1843,6 +1923,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           onParti: (s) {
             Navigator.of(contesto).pop();
             _avviaLaCorsa(s);
+          },
+          onCambia: (s) {
+            if (mounted) setState(() => _sceltaDelTempo = s);
           },
         ),
       ),
@@ -1941,6 +2024,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         attuale: _bersaglio,
         eclitticaAccesa: _eclitticaAccesa,
         onEclittica: (acceso) => setState(() => _eclitticaAccesa = acceso),
+        senzaDistrazioni: _senzaDistrazioni,
+        onSenzaDistrazioni: (acceso) =>
+            setState(() => _senzaDistrazioni = acceso),
         onScelta: (b) {
           Navigator.of(contesto).pop();
           setState(() => _scegliIlBersaglio(b));
@@ -2210,6 +2296,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                 onIndietro: () => Navigator.of(context).maybePop(),
                 onFonti: () => _apriLeFonti(palette),
                 onSensore: _seguiIlTelefono,
+                senzaDistrazioni: _senzaDistrazioni,
+                onRiaccendi: () => setState(() => _senzaDistrazioni = false),
               ),
               ValueListenableBuilder<_Guida?>(
                 valueListenable: _guida,
@@ -2812,6 +2900,8 @@ class _Testata extends StatelessWidget {
     required this.onIndietro,
     required this.onFonti,
     required this.onSensore,
+    required this.senzaDistrazioni,
+    required this.onRiaccendi,
   });
 
   final String titolo;
@@ -2820,6 +2910,12 @@ class _Testata extends StatelessWidget {
   final VoidCallback onIndietro;
   final VoidCallback onFonti;
   final VoidCallback onSensore;
+
+  /// Senza distrazioni l'indicatore, che apre il menu, tace: la testata
+  /// porta il bottone che riaccende le scritte, perche' non sia un vicolo
+  /// cieco.
+  final bool senzaDistrazioni;
+  final VoidCallback onRiaccendi;
 
   @override
   Widget build(BuildContext context) {
@@ -2854,6 +2950,16 @@ class _Testata extends StatelessWidget {
                   ),
                 ),
               ),
+              if (senzaDistrazioni)
+                IconButton(
+                  key: const Key('real_time_cosmo_riaccendi_le_scritte'),
+                  tooltip: 'Riaccendi le scritte',
+                  onPressed: onRiaccendi,
+                  icon: const Icon(
+                    Icons.text_fields_rounded,
+                    color: ColorTokens.goldLight,
+                  ),
+                ),
               if (sensoreDisponibile)
                 IconButton(
                   key: const Key('real_time_cosmo_sensore'),
@@ -3236,11 +3342,17 @@ class _MenuDeiBersagli extends StatefulWidget {
     required this.onCategoria,
     required this.eclitticaAccesa,
     required this.onEclittica,
+    required this.senzaDistrazioni,
+    required this.onSenzaDistrazioni,
   });
 
   /// L'eclittica, che si spegne da qui (ordine FH voce 13.2).
   final bool eclitticaAccesa;
   final ValueChanged<bool> onEclittica;
+
+  /// Esplora senza distrazioni: nessuna scritta sul cielo.
+  final bool senzaDistrazioni;
+  final ValueChanged<bool> onSenzaDistrazioni;
 
   final Map<CategoriaDelBersaglio, List<BersaglioDelCielo>> bersagli;
   final BersaglioDelCielo? attuale;
@@ -3254,6 +3366,7 @@ class _MenuDeiBersagli extends StatefulWidget {
 class _MenuDeiBersagliState extends State<_MenuDeiBersagli> {
   CategoriaDelBersaglio? _categoria;
   late bool _eclittica = widget.eclitticaAccesa;
+  late bool _senza = widget.senzaDistrazioni;
 
   @override
   Widget build(BuildContext context) {
@@ -3300,6 +3413,22 @@ class _MenuDeiBersagliState extends State<_MenuDeiBersagli> {
             onCambia: (acceso) {
               setState(() => _eclittica = acceso);
               widget.onEclittica(acceso);
+            },
+          ),
+        ),
+      );
+      righe.add(
+        MaestroScope(
+          maestro: Maestro.medora,
+          child: InterruttoreDelCerchio(
+            key: const Key('real_time_cosmo_senza_distrazioni'),
+            acceso: _senza,
+            titolo: 'Esplora senza distrazioni',
+            sottotitolo: 'Nessuna scritta sul cielo: restano stelle, Luna e '
+                'pianeti. Le riaccendi da qui o dal bottone in alto.',
+            onCambia: (acceso) {
+              setState(() => _senza = acceso);
+              widget.onSenzaDistrazioni(acceso);
             },
           ),
         ),

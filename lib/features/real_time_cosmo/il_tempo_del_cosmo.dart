@@ -137,6 +137,11 @@ double fattoreDiScena(double s) {
 /// il blocco dei numeri centrato al 72 per cento (voce E6), la frase
 /// d'arrivo al 78 (voce E7).
 const double kAltezzaDeiNumeri = 0.72;
+
+/// La risposta del pulsante quando il giorno e il luogo scelti sono quelli
+/// gia' mostrati.
+const String kGiaInQuestoCielo =
+    'Sei già nel cielo di questo giorno: scegli un altro giorno o un altro luogo.';
 const double kAltezzaDellArrivo = 0.78;
 
 /// LA FINESTRA DELLA MACCHINA (voce D1): dal 1 gennaio 1900 al 31 dicembre

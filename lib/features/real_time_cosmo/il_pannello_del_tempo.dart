@@ -56,6 +56,7 @@ class PannelloDelTempo extends StatefulWidget {
     required this.nomeDelLuogoDiNascita,
     required this.nomeDelLuogoAttuale,
     required this.onParti,
+    this.onCambia,
   });
 
   /// La scelta di partenza: la nascita, se c'e' (D2), oppure oggi (D3).
@@ -70,6 +71,12 @@ class PannelloDelTempo extends StatefulWidget {
   final String? nomeDelLuogoAttuale;
 
   final ValueChanged<SceltaDelTempo> onParti;
+
+  /// Ogni cambio del giorno o del luogo, anche se il pannello si chiude senza
+  /// "Portami lì": la schermata tiene la scelta. Visto dal fondatore il 10
+  /// ottobre 2026: cambiata la data e chiuso il pannello, "Viaggia nel tempo"
+  /// ripartiva verso il giorno gia' mostrato e non succedeva niente.
+  final ValueChanged<SceltaDelTempo>? onCambia;
 
   @override
   State<PannelloDelTempo> createState() => _PannelloDelTempoState();
@@ -108,6 +115,9 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
     return LuogoDelTempo.nascita;
   }
 
+  void _avvisaIlCambio() =>
+      widget.onCambia?.call(SceltaDelTempo(_giorno, _luogo, adesso: _adesso));
+
   void _cambia(int anno, int mese, int giorno) {
     final nuovo = giornoValido(anno, mese, giorno);
     if (nuovo == _giorno) return;
@@ -116,6 +126,7 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
       _adesso = false;
       _luogo = _luogoDelGiorno(nuovo);
     });
+    _avvisaIlCambio();
     // Il giorno che scala all'ultimo valido del mese (D8) si vede anche
     // sulla ruota.
     if (_ruotaDelGiorno.hasClients &&
@@ -130,6 +141,7 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
       _adesso = adesso;
       _luogo = _luogoDelGiorno(g);
     });
+    _avvisaIlCambio();
     _ruotaDellAnno.jumpToItem(g.year - kPrimoAnnoDellaMacchina);
     _ruotaDelMese.jumpToItem(g.month - 1);
     _ruotaDelGiorno.jumpToItem(g.day - 1);
@@ -245,31 +257,40 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
               ),
             ),
             const SizedBox(height: SpacingTokens.md),
-            Row(
+            // La riga del luogo sopra e il bottone sotto, a destra, come nella
+            // scheda della schermata: sulla stessa riga "Usa il luogo di
+            // nascita" prendeva la larghezza e la riga andava a capo in
+            // quattro righe strette (visto sul Realme il 10 ottobre 2026).
+            Column(
               key: const Key('macchina_riga_del_luogo'),
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: Text(
-                    rigaDelLuogo,
-                    style: TypographyTokens.corpo().copyWith(
-                        color: palette.goldSoft.withValues(alpha: 0.85)),
-                  ),
+                Text(
+                  rigaDelLuogo,
+                  key: const Key('macchina_testo_del_luogo'),
+                  style: TypographyTokens.corpo().copyWith(
+                      color: palette.goldSoft.withValues(alpha: 0.85)),
                 ),
                 if (altro != null)
-                  TextButton(
-                    key: const Key('macchina_cambia_luogo'),
-                    onPressed: () => setState(() => _luogo =
-                        _luogo == LuogoDelTempo.nascita
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      key: const Key('macchina_cambia_luogo'),
+                      onPressed: () {
+                        setState(() => _luogo = _luogo == LuogoDelTempo.nascita
                             ? LuogoDelTempo.attuale
-                            : LuogoDelTempo.nascita),
-                    child: Text(
-                      _luogo == LuogoDelTempo.nascita
-                          ? 'Usa dove sei ora'
-                          : 'Usa il luogo di nascita',
-                      // Lo stile delle azioni di casa: l'oro in corpo non
-                      // arrivava al contrasto di 7 sui fondi dei Maestri.
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: ColorTokens.goldLight),
+                            : LuogoDelTempo.nascita);
+                        _avvisaIlCambio();
+                      },
+                      child: Text(
+                        _luogo == LuogoDelTempo.nascita
+                            ? 'Usa dove sei ora'
+                            : 'Usa il luogo di nascita',
+                        // Lo stile delle azioni di casa: l'oro in corpo non
+                        // arrivava al contrasto di 7 sui fondi dei Maestri.
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: ColorTokens.goldLight),
+                      ),
                     ),
                   ),
               ],

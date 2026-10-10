@@ -34,6 +34,20 @@ import 'package:sensors_plus/sensors_plus.dart';
 
 import '../astro/real_time_cosmo/la_camera_del_cielo.dart';
 
+/// Sotto questo scarto fra la lettura e il filtrato, in gradi, il telefono e'
+/// fermo e cio' che cambia e' rumore: il filtro rallenta.
+const double kMotoDellaQuiete = 2.5;
+
+/// La costante di tempo del filtro col telefono fermo, in secondi.
+const double kCostanteDellaQuiete = 1.5;
+
+/// Per quanto il filtro resta pronto dopo un moto vero, in secondi.
+const double kMemoriaDelMoto = 1.0;
+
+/// La mezza larghezza della scatola, in gradi: a settanta gradi di campo e'
+/// poco piu' di un punto.
+const double kSogliaDellaQuiete = 0.2;
+
 class OrientamentoDelTelefono {
   OrientamentoDelTelefono({
     required this.gravita,
@@ -54,6 +68,15 @@ class OrientamentoDelTelefono {
   double _gx = 0, _gy = 0, _gz = 0;
   double _mx = 0, _my = 0, _mz = 0;
   bool _primo = true;
+
+  /// L'ultimo orientamento dato alla schermata: sotto [kSogliaDellaQuiete]
+  /// resta quello (vedi [passo]).
+  OrientamentoDellaCamera? _dato;
+
+  /// Quanto il telefono si e' mosso da poco, fra 0 (fermo) e 1: un giro vero
+  /// tiene il filtro pronto fino in fondo, anche quando l'ultimo tratto e'
+  /// piccolo (senza, gli ultimi cinque gradi si seguivano col filtro lento).
+  double _agitazione = 0;
 
   /// La declinazione magnetica del luogo, in gradi, positiva a est.
   double declinazioneGradi = 0;
@@ -90,6 +113,8 @@ class OrientamentoDelTelefono {
     _ascolto?.cancel();
     _ascolto = null;
     _primo = true;
+    _dato = null;
+    _agitazione = 0;
   }
 
   /// Un passo del filtro: [dt] secondi dall'ultimo, [costanteDiTempo] in
@@ -109,7 +134,29 @@ class OrientamentoDelTelefono {
       _mz = c.z;
       _primo = false;
     } else {
-      final a = 1 - math.exp(-dt / math.max(0.001, costanteDiTempo));
+      // IL FILTRO SI ADATTA AL MOTO (segnalazione del fondatore del 10
+      // ottobre 2026: col telefono fermo, anche appoggiato, il cielo tremava).
+      // Il rumore del magnetometro e' di un grado circa a lettura: con la
+      // costante del campo (fra 0,08 e 0,45 secondi) passava quasi intero, e
+      // la vista percorreva 358 punti in dieci secondi senza che il telefono
+      // si muovesse. Quando le letture si scostano dal filtrato di meno di
+      // [kMotoDellaQuiete] gradi il filtro rallenta fino a
+      // [kCostanteDellaQuiete]; oltre il doppio torna quello del campo, e un
+      // giro vero si segue come prima.
+      final moto = math.max(
+        _scarto(g.x, g.y, g.z, _gx, _gy, _gz),
+        _scarto(c.x, c.y, c.z, _mx, _my, _mz),
+      );
+      final adesso =
+          ((moto - kMotoDellaQuiete) / kMotoDellaQuiete).clamp(0.0, 1.0);
+      _agitazione =
+          math.max(adesso, _agitazione * math.exp(-dt / kMemoriaDelMoto));
+      // Al quadrato: un'agitazione a meta' tiene il filtro quasi pronto.
+      final quiete = (1 - _agitazione) * (1 - _agitazione);
+      final costante = costanteDiTempo +
+          (math.max(costanteDiTempo, kCostanteDellaQuiete) - costanteDiTempo) *
+              quiete;
+      final a = 1 - math.exp(-dt / math.max(0.001, costante));
       _gx += (g.x - _gx) * a;
       _gy += (g.y - _gy) * a;
       _gz += (g.z - _gz) * a;
@@ -117,16 +164,85 @@ class OrientamentoDelTelefono {
       _my += (c.y - _my) * a;
       _mz += (c.z - _mz) * a;
     }
-    return orientamentoDa(
-      gx: _gx, gy: _gy, gz: _gz,
-      mx: _mx, my: _my, mz: _mz,
+    final nuovo = orientamentoDa(
+      gx: _gx,
+      gy: _gy,
+      gz: _gz,
+      mx: _mx,
+      my: _my,
+      mz: _mz,
       declinazioneGradi: declinazioneGradi + correzioneGradi,
     );
+    // LA SCATOLA: finche' il filtrato resta entro [kSogliaDellaQuiete] dalla
+    // vista, la vista resta dov'e' (il residuo del rumore si vedeva come un
+    // brulichio delle stelle); quando esce, la vista lo segue di quanto e'
+    // uscito, senza scatti. Una soglia secca faceva salti di quasi un punto.
+    final dato = _dato;
+    if (nuovo == null || dato == null) {
+      _dato = nuovo;
+      return nuovo;
+    }
+    final r = _rotazioneGradi(dato, nuovo);
+    if (r <= kSogliaDellaQuiete) return dato;
+    return _dato = _verso(dato, nuovo, (r - kSogliaDellaQuiete) / r);
+  }
+
+  /// Da [a] verso [b] per la frazione [t], tenendo la matrice una rotazione:
+  /// "avanti" e "su" interpolati e rimessi ortogonali, "destra" dal loro
+  /// prodotto (destra = avanti x su, come in [orientamentoDa]).
+  static OrientamentoDellaCamera _verso(
+      OrientamentoDellaCamera a, OrientamentoDellaCamera b, double t) {
+    var fx = a.m[6] + (b.m[6] - a.m[6]) * t;
+    var fy = a.m[7] + (b.m[7] - a.m[7]) * t;
+    var fz = a.m[8] + (b.m[8] - a.m[8]) * t;
+    final nf = math.sqrt(fx * fx + fy * fy + fz * fz);
+    fx /= nf;
+    fy /= nf;
+    fz /= nf;
+    var ux = a.m[3] + (b.m[3] - a.m[3]) * t;
+    var uy = a.m[4] + (b.m[4] - a.m[4]) * t;
+    var uz = a.m[5] + (b.m[5] - a.m[5]) * t;
+    final p = ux * fx + uy * fy + uz * fz;
+    ux -= p * fx;
+    uy -= p * fy;
+    uz -= p * fz;
+    final nu = math.sqrt(ux * ux + uy * uy + uz * uz);
+    ux /= nu;
+    uy /= nu;
+    uz /= nu;
+    final rx = fy * uz - fz * uy;
+    final ry = fz * ux - fx * uz;
+    final rz = fx * uy - fy * ux;
+    return OrientamentoDellaCamera([rx, ry, rz, ux, uy, uz, fx, fy, fz]);
+  }
+
+  /// L'angolo in gradi fra due letture (gia' filtrata e nuova).
+  static double _scarto(
+      double ax, double ay, double az, double bx, double by, double bz) {
+    final na = math.sqrt(ax * ax + ay * ay + az * az);
+    final nb = math.sqrt(bx * bx + by * by + bz * bz);
+    if (na < 1e-9 || nb < 1e-9) return 180;
+    final c = ((ax * bx + ay * by + az * bz) / (na * nb)).clamp(-1.0, 1.0);
+    return math.acos(c) * 180 / math.pi;
+  }
+
+  /// Quanto ha girato la camera fra due orientamenti, in gradi: il piu'
+  /// grande fra lo scarto della direzione "avanti" e quello del "su".
+  static double _rotazioneGradi(
+      OrientamentoDellaCamera a, OrientamentoDellaCamera b) {
+    double angolo(int i) {
+      final d =
+          a.m[i] * b.m[i] + a.m[i + 1] * b.m[i + 1] + a.m[i + 2] * b.m[i + 2];
+      return math.acos(d.clamp(-1.0, 1.0)) * 180 / math.pi;
+    }
+
+    return math.max(angolo(6), angolo(3));
   }
 
   /// Rimette in bolla l'azimut: la camera che il sensore dice puntata a
   /// [azimutMisurato] guarda in realta' l'oggetto all'azimut [azimutVero].
-  void correggiSu({required double azimutMisurato, required double azimutVero}) {
+  void correggiSu(
+      {required double azimutMisurato, required double azimutVero}) {
     var d = azimutVero - azimutMisurato;
     d = (d + 540) % 360 - 180;
     correzioneGradi += d;
