@@ -66,6 +66,7 @@ import 'il_velo_delle_costellazioni.dart';
 import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
+import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 import 'pittore_del_cielo.dart';
@@ -135,6 +136,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   LeLineeDelleFigure? _linee;
   LineeInScena? _lineeInScena;
   OrizzonteInScena? _orizzonte;
+  ViaLatteaInScena? _viaLattea;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
   CieloInUnIstante? _cielo;
@@ -372,6 +374,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       );
       _orizzonte = OrizzonteInScena((await codecTerra.getNextFrame()).image);
       _fotogramma.orizzonte = _orizzonte;
+      final datiVia = await rootBundle.load(AssetDelCosmo.viaLattea.percorso);
+      final codecVia = await ui.instantiateImageCodec(
+        datiVia.buffer.asUint8List(),
+      );
+      _viaLattea = ViaLatteaInScena((await codecVia.getNextFrame()).image);
+      _fotogramma.viaLattea = _viaLattea;
       if (!mounted) return;
       _preparaIBersagli(catalogo);
       _preparaLeScritte();
@@ -794,6 +802,15 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _orizzonte?.prepara(
       _orientamento,
       proiezione,
+      spostamentoX: cieloSposta.dx,
+      spostamentoY: cieloSposta.dy,
+    );
+    _viaLattea?.prepara(
+      _orientamento,
+      proiezione,
+      a.assi,
+      b?.assi,
+      _tFraIstanti,
       spostamentoX: cieloSposta.dx,
       spostamentoY: cieloSposta.dy,
     );

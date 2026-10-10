@@ -120,6 +120,7 @@ class CieloInUnIstante {
     required this.lunaCrescente,
     required this.elongazioneDellaLuna,
     required this.tempoSideraleLocale,
+    required this.assi,
   });
 
   final double jd;
@@ -136,6 +137,15 @@ class CieloInUnIstante {
   final bool lunaCrescente;
   final double elongazioneDellaLuna;
   final double tempoSideraleLocale;
+
+  /// I tre assi equatoriali J2000 visti dall'orizzonte (ordine FH parte 9):
+  /// i versori orizzontali dell'asse verso ascensione retta 0, di quello
+  /// verso 90 gradi e del polo nord celeste, nove numeri in fila. La
+  /// conversione da equatoriali a orizzontali e' una rotazione, e queste sono
+  /// le sue tre colonne: chi deve girare molti punti fissi del cielo, come la
+  /// maglia della Via Lattea, moltiplica invece di chiamare la porta per
+  /// ognuno. Vengono dalla porta stessa, `Celestial.equatorialToHorizontal`.
+  final Float64List assi;
 
   CorpoNelCielo corpo(CorpoCeleste c) => corpi.firstWhere((k) => k.corpo == c);
 
@@ -198,7 +208,24 @@ class CieloInUnIstante {
       final v = _versore(Celestial.equatorialToHorizontal(
           raDeg: ra, decDeg: dec, latDeg: latitudine, lstDeg: lst));
       corpi.add(CorpoNelCielo(
-          corpo: c, x: v.x, y: v.y, z: v.z, magnitudine: kMagnitudineTipica[c]!));
+          corpo: c,
+          x: v.x,
+          y: v.y,
+          z: v.z,
+          magnitudine: kMagnitudineTipica[c]!));
+    }
+
+    final assi = Float64List(9);
+    const versi = [(0.0, 0.0), (90.0, 0.0), (0.0, 90.0)];
+    for (var k = 0; k < 3; k++) {
+      final v = _versore(Celestial.equatorialToHorizontal(
+          raDeg: versi[k].$1,
+          decDeg: versi[k].$2,
+          latDeg: latitudine,
+          lstDeg: lst));
+      assi[k * 3] = v.x;
+      assi[k * 3 + 1] = v.y;
+      assi[k * 3 + 2] = v.z;
     }
 
     final luna = Celestial.moonIllumination(jd);
@@ -214,6 +241,7 @@ class CieloInUnIstante {
       lunaCrescente: luna.waxing,
       elongazioneDellaLuna: luna.elongationDeg,
       tempoSideraleLocale: lst,
+      assi: assi,
     );
   }
 }

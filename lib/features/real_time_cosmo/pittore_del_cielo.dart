@@ -17,6 +17,7 @@ import 'package:flutter/rendering.dart';
 import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
+import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
 
@@ -81,6 +82,9 @@ class FotogrammaDelCielo {
 
   /// L'orizzonte che si attraversa (ordine FH parte 7).
   OrizzonteInScena? orizzonte;
+
+  /// La Via Lattea, sotto tutto (ordine FH parte 9).
+  ViaLatteaInScena? viaLattea;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -132,6 +136,24 @@ class PittoreDelCielo extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final f = fotogramma;
     canvas.drawRect(Offset.zero & size, _fondo);
+
+    // LA VIA LATTEA (ordine FH parte 9): prima delle stelle, come fondo, in
+    // composizione luminosa a 0,55. Il colore dei vertici moltiplica la
+    // tessitura e spegne il taglio dell'asset a 45 gradi dal piano.
+    final via = f.viaLattea;
+    if (via != null && via.proiettati > 0) {
+      canvas.drawVertices(
+        ui.Vertices.raw(
+          ui.VertexMode.triangles,
+          via.posizioni,
+          textureCoordinates: via.tessitura,
+          colors: via.colori,
+          indices: via.indici,
+        ),
+        BlendMode.modulate,
+        via.pennello,
+      );
+    }
 
     // LE LINEE DELLE FIGURE: una chiamata sola, sotto le stelle.
     final linee = f.linee;

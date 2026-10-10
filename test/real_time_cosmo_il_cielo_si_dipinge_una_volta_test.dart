@@ -33,6 +33,10 @@ const Map<String, List<String>> _camminoPerFotogramma = {
   // Ordine FH voce 15.2: anche le linee delle figure.
   'lib/features/real_time_cosmo/le_linee_in_scena.dart': ['  void prepara({'],
   // Ordine FH parte 7: il terreno, proiettato a ogni fotogramma.
+  // Ordine FH parte 9: la maglia della Via Lattea.
+  'lib/features/real_time_cosmo/la_via_lattea_in_scena.dart': [
+    '  void prepara('
+  ],
   'lib/features/real_time_cosmo/l_orizzonte_in_scena.dart': [
     '  void prepara(',
     '  void _proietta(',
