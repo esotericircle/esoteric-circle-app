@@ -51,6 +51,7 @@ library;
 import 'dart:math' as math;
 
 import '../celestial.dart';
+import '../meeus/il_cielo_di_meeus.dart';
 
 /// Il tetto della voce 3.3.
 const int kIstantiAlSecondo = 24;
@@ -418,6 +419,17 @@ class PianoDelRiavvolgimento {
   /// fondo anche con otto calcolati. Con la stima a tratti qui sotto lo scarto
   /// peggiore e' 6,68 gradi gia' con due calcolati; se ne tengono tre, 570
   /// millisecondi per il piano intero coi due tempi.
+  /// [jd] riportato dentro la finestra verificata delle effemeridi, con un
+  /// giorno di margine: la fase della Luna misura la sua velocita' mezza
+  /// giornata prima e dopo, e anche quelle letture devono stare dentro.
+  static double _dentro(double jd) => jd.clamp(
+      IlCieloDiMeeus.primoGiornoVerificato + 1,
+      IlCieloDiMeeus.ultimoGiornoVerificato - 1);
+
+  static bool _stimabile(double jd) =>
+      jd >= IlCieloDiMeeus.primoGiornoVerificato + 1 &&
+      jd <= IlCieloDiMeeus.ultimoGiornoVerificato - 1;
+
   static double _istanteVicino(double data, double lstVoluto, double faseVoluta,
       double lon, double nascita,
       {double oltre = double.infinity}) {
@@ -434,11 +446,18 @@ class PianoDelRiavvolgimento {
     // mezzo la retta fra i due nodi accanto. La stima con la sola velocita'
     // del giorno di mezzo sbagliava di decine di gradi ai bordi, dove la
     // Luna accelera o rallenta, e lasciava fuori il candidato migliore.
+    //
+    // AI BORDI DELLA FINESTRA i nodi e i candidati restano dentro: dal 31
+    // dicembre 2100 verso la nascita la stima chiedeva il Sole a 5,8 giorni
+    // oltre la fine della finestra verificata, la porta di Meeus rifiutava e
+    // la corsa non partiva (registrazione I8 sul Realme, 10 ottobre 2026).
+    // Un nodo riportato dentro sposta solo la stima; la scelta finale si fa
+    // sulla fase esatta.
     const f = kGiorniDellaFinestra, m = kGiorniDellaFinestra ~/ 2;
     const nodi = [-f, -m, 0, m, f];
     final fasiDeiNodi = <double>[];
     for (final j in nodi) {
-      final v = angoloDiFase(base + j * giornoSiderale);
+      final v = angoloDiFase(_dentro(base + j * giornoSiderale));
       fasiDeiNodi.add(fasiDeiNodi.isEmpty
           ? v
           : fasiDeiNodi.last + _norm(v - fasiDeiNodi.last));
@@ -447,7 +466,7 @@ class PianoDelRiavvolgimento {
     for (var j = -kGiorniDellaFinestra; j <= kGiorniDellaFinestra; j++) {
       final t = base + j * giornoSiderale;
       // Mai prima della nascita: il riavvolgimento si ferma li'.
-      if (t < nascita || t > oltre) continue;
+      if (t < nascita || t > oltre || !_stimabile(t)) continue;
       var n = 0;
       while (n < nodi.length - 2 && j > nodi[n + 1]) {
         n++;
@@ -458,6 +477,7 @@ class PianoDelRiavvolgimento {
               (nodi[n + 1] - nodi[n]);
       stime.add((t, (_norm(stimata - faseVoluta + 180) - 180).abs()));
     }
+    if (stime.isEmpty) return _dentro(data);
     stime.sort((a, b) => a.$2.compareTo(b.$2));
     var migliore = stime.first.$1;
     var scartoMigliore = double.infinity;

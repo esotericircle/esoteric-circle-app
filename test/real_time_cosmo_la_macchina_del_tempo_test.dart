@@ -35,6 +35,66 @@ void _ilTetto(PianoDelRiavvolgimento p) {
 }
 
 void main() {
+  // AI BORDI DELLA FINESTRA. Presa dalla registrazione I8 sul Realme, 10
+  // ottobre 2026: dal 31 dicembre 2100 verso la nascita la corsa non partiva,
+  // perche' la stima della fase chiedeva il Sole a 5,8 giorni oltre la fine
+  // della finestra verificata e la porta di Meeus rifiutava. Le corse che
+  // partono o arrivano ai due bordi non lanciano niente, e ogni istante del
+  // piano sta dentro la finestra.
+  test('le corse ai bordi della finestra restano dentro la finestra', () {
+    // Le 12 di Roma, cioe' le 11 UT, l'ora che la Macchina porta sul giorno.
+    final fine = Celestial.julianDay(DateTime.utc(2100, 12, 31, 11));
+    final inizio = Celestial.julianDay(DateTime.utc(1900, 1, 1, 11));
+    final nascita = Celestial.julianDay(DateTime.utc(1990, 6, 15, 10));
+    final piani = <String, PianoDelRiavvolgimento Function()>{
+      'dal 2100 alla nascita': () => PianoDelRiavvolgimento.prepara(
+          jdAdesso: fine,
+          jdNascita: nascita,
+          latAdesso: 41.9,
+          lonAdesso: 12.5,
+          latNascita: 41.9,
+          lonNascita: 12.5),
+      'dal 2100 al 1900': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: fine,
+          jdA: inizio,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 1900 al 2100': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio,
+          jdA: fine,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 2100 a dieci giorni prima': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: fine,
+          jdA: fine - 10,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 2100 a un anno prima': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: fine,
+          jdA: fine - 365,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+    };
+    var istanti = 0;
+    for (final e in piani.entries) {
+      final p = e.value();
+      for (final jd in p.istanti) {
+        expect(IlCieloDiMeeus.verificato(jd), isTrue,
+            reason: '${e.key}: istante $jd fuori dalla finestra');
+        istanti++;
+      }
+    }
+    expect(istanti, greaterThan(400));
+  });
+
   test('una corsa lunga, indietro e avanti, in sei secondi', () {
     final adesso = DateTime.utc(2026, 10, 8, 20);
     for (final arrivo in [

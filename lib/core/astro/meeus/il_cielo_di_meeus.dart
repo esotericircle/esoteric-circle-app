@@ -17,7 +17,7 @@ class FuoriDalCieloVerificato implements Exception {
   @override
   String toString() => 'FuoriDalCieloVerificato: $cosa al giorno giuliano '
       '$jdUt, fuori da ${IlCieloDiMeeus.primoGiornoVerificato}-'
-      '${IlCieloDiMeeus.ultimoGiornoVerificato} (dal 31 dicembre 1899 al 31 dicembre 2099)';
+      '${IlCieloDiMeeus.ultimoGiornoVerificato} (dal 31 dicembre 1899 al 1 gennaio 2101 alle 12 UT)';
 }
 
 /// IL CIELO DI MEEUS, LA PORTA SOLA. Ordine FD voce 02.

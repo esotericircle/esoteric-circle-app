@@ -28,6 +28,7 @@ ECLITTICA = 'lib/features/real_time_cosmo/l_eclittica_in_scena.dart'
 VIA = 'lib/features/real_time_cosmo/la_via_lattea_in_scena.dart'
 ORIENTAMENTO = 'lib/core/motion/l_orientamento_del_telefono.dart'
 MACCHINA = 'test/le_anteprime_della_macchina_del_tempo_test.dart'
+RIAVVOLGIMENTO = 'lib/core/astro/real_time_cosmo/il_riavvolgimento.dart'
 
 # (nome, file, prima, dopo, prova, nome del caso o None)
 INNESTI = [
@@ -95,6 +96,10 @@ INNESTI = [
      '    final pie = _chiaveDelPieDiPagina.currentContext?.size?.height ?? 0;',
      '    const pie = 0.0;',
      MACCHINA, 'non copre la testata'),
+    ('C17 la stima della fase esce dalla finestra', RIAVVOLGIMENTO,
+     '      final v = angoloDiFase(_dentro(base + j * giornoSiderale));',
+     '      final v = angoloDiFase(base + j * giornoSiderale);',
+     'test/real_time_cosmo_la_macchina_del_tempo_test.dart', 'bordi della finestra'),
 ]
 
 
