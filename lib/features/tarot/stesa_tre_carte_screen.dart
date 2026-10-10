@@ -1910,8 +1910,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     }
     // **LA CHIAVE CHE IL PIANO NON APRE**, ordine FI voce 32: esiste, e a chi
     // non l'ha si dice da quale piano si apre, come per la stesa da dieci.
-    final chiave =
-        ReadingKey.values.where((k) => k.label == voce).firstOrNull;
+    final chiave = ReadingKey.values.where((k) => k.label == voce).firstOrNull;
     final dal = chiave == null ? null : PlanCatalog.dalPiano(chiave.apribileDa);
     if (chiave != null && dal != null) {
       showUpgradeInvite(

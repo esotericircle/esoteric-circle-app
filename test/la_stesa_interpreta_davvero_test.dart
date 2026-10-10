@@ -69,18 +69,18 @@ void main() {
         cosa: 'chiavi del corpus delle carte nella posizione',
         perche: 'settantotto carte per due versi: se il corpus si svuota, '
             'ogni carta torna al testo uguale per tutte le posizioni');
-    expect(mancanti, isEmpty, reason: 'carte senza i loro tre testi: $mancanti');
+    expect(mancanti, isEmpty,
+        reason: 'carte senza i loro tre testi: $mancanti');
     expect(carteNellaPosizione.length, TarotDeck.cards.length * 2,
         reason: 'il corpus porta chiavi che il mazzo non conosce');
   });
 
-  test('i tre testi di una carta sono diversi fra loro e dal significato',
-      () {
+  test('i tre testi di una carta sono diversi fra loro e dal significato', () {
     final colpe = <String>[];
     for (final c in TarotDeck.cards) {
       for (final capovolta in const [false, true]) {
-        final testi =
-            carteNellaPosizione['${c.name}|${capovolta ? 'capovolta' : 'dritta'}']!;
+        final testi = carteNellaPosizione[
+            '${c.name}|${capovolta ? 'capovolta' : 'dritta'}']!;
         if (testi.toSet().length != testi.length) {
           colpe.add('${c.name}: due posizioni con lo stesso testo');
         }
@@ -114,8 +114,7 @@ void main() {
       }
     }
     cardinaleMinimo(guardate, 180,
-        cosa: 'carte lette di casa',
-        perche: 'sessanta stese per tre carte');
+        cosa: 'carte lette di casa', perche: 'sessanta stese per tre carte');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 
@@ -138,7 +137,8 @@ void main() {
         domanda: domanda, argomento: TarotTopic.lavoroTrovare.label);
     expect(r, contains(domanda));
     expect(r, contains(TarotTopic.lavoroTrovare.label));
-    expect(r,
+    expect(
+        r,
         contains('Carta chiave: '
             '${TarotReading.chiaveDi(stesa).drawn.displayName}'),
         reason: 'la chiave del modello e\' quella della schermata');
@@ -235,13 +235,14 @@ void main() {
             con(risposta: 'Fra 3 mesi arriva la risposta.'), stesa),
         isNotNull,
         reason: 'una cifra');
-    expect(LaLetturaDellaStesa.scarto(con(risposta: 'x' * 400), stesa),
-        isNotNull,
+    expect(
+        LaLetturaDellaStesa.scarto(con(risposta: 'x' * 400), stesa), isNotNull,
         reason: 'una risposta oltre il tetto');
     expect(
         LaLetturaDellaStesa.scarto(
-            con(passato: '${stesa.passato.card.name} dice che ti tiene '
-                'legata a un vecchio posto.'),
+            con(
+                passato: '${stesa.passato.card.name} dice che ti tiene '
+                    'legata a un vecchio posto.'),
             stesa,
             forma: CourtesyForm.neutral),
         isNotNull,
@@ -263,8 +264,8 @@ void main() {
       'Rischi di restare solo con i tuoi pensieri.',
       'Non vuoi essere solo.',
     ]) {
-      expect(formeContrarieAllaForma(aggettivo, CourtesyForm.neutral),
-          isNotEmpty,
+      expect(
+          formeContrarieAllaForma(aggettivo, CourtesyForm.neutral), isNotEmpty,
           reason: aggettivo);
     }
   });
@@ -385,8 +386,8 @@ void main() {
     expect(riscritture.single, contains('ti senti sopraffatto'),
         reason: 'si manda al correttore la sola frase col genere');
     expect(letta!.presente, '$carta nel presente indica che senti un peso.');
-    expect(formeContrarieAllaForma(letta.presente, CourtesyForm.neutral),
-        isEmpty);
+    expect(
+        formeContrarieAllaForma(letta.presente, CourtesyForm.neutral), isEmpty);
   });
 
   test('il genere nella risposta non si cura: parla la lettura di casa',
@@ -538,7 +539,8 @@ void main() {
   /// riceve la stesa vera, letta dalla schermata dopo il pescaggio.
   Future<TarotSpread> leggiLeCarte(WidgetTester tester,
       Future<String?> Function(TarotSpread stesa, String richiesta) chiamata,
-      {ReadingKey? chiave, void Function(String istruzione)? istruzione}) async {
+      {ReadingKey? chiave,
+      void Function(String istruzione)? istruzione}) async {
     silenzia();
     // Alta abbastanza da costruire tutto il responso: la lista e' pigra, e
     // una bolla fuori dalla finestra non c'e' proprio.

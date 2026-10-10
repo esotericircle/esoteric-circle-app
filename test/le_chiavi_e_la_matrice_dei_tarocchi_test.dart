@@ -11,7 +11,6 @@
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
-import 'package:esoteric_circle/core/tarot/la_chiave_di_lettura.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/features/tarot/tarot_selectors.dart';
 import 'package:flutter_test/flutter_test.dart';

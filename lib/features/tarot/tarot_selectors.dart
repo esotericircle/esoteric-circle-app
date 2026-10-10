@@ -16,8 +16,7 @@ export '../../core/tarot/la_chiave_di_lettura.dart';
 /// Il mazzo con cui si legge.
 enum TarotDeckStyle {
   riderWaite('Rider-Waite', available: true),
-  marsiglia('Marsiglia',
-      available: false, riga: RigaDelPiano.mazzoDiMarsiglia),
+  marsiglia('Marsiglia', available: false, riga: RigaDelPiano.mazzoDiMarsiglia),
   thoth('Thoth', available: false, riga: RigaDelPiano.mazzoThoth);
 
   const TarotDeckStyle(this.label, {required this.available, this.riga});
@@ -332,8 +331,7 @@ class TarotSetupPanel extends StatelessWidget {
                       sottotitolo: (t) => t.descrizione,
                       bloccata: (t) => !t.apribileDa(piano),
                       perche: (t) => t.disponibile
-                          ? PlanCatalog.dalPiano(
-                                  (p) => t.apribileDa(p)) ??
+                          ? PlanCatalog.dalPiano((p) => t.apribileDa(p)) ??
                               'Coming soon'
                           : 'Coming soon',
                       onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
