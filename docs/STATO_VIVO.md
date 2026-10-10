@@ -6777,7 +6777,7 @@ Nove parti, arrivate in tre pezzi il 7 ottobre 2026, partenza `d483eae6`. Testo 
 - **Le stelle del cielo di un istante** si girano coi tre assi della porta unica invece di passare dalla porta stella per stella: scarto dalla porta 9,2e-8.
 - **Guardie e prove di vista** (parte 15): `docs/collaudo/FH/prove_di_vista.txt`, nove su nove cadute con l'innesto entrato e il ripristino al byte; registro delle guardie a 732.
 - **APERTO**: la misura C5 dell'aggiunta (fotogrammi al secondo nella corsa sul Realme) e le registrazioni I7 e I8. Sul Realme le tre scale di animazione sono a 0, cioe' Riduci Movimento acceso, e la corsa non parte: la richiesta di riaccenderle e' girata al fondatore. Una build di prova dal commit `a0d2dded` e' installata sul Realme (numero 2303, nessuna consegna); la correzione della voce E9 (commit `40f1c849`) entrera' nella prossima build.
-- **Da confermare dal fondatore**: il sottotitolo nuovo della voce del menu; l'etichetta del pulsante "Viaggia nel tempo"; due cuciture deboli dentro l'asset della Via Lattea (colonne 134 e 1320).
+- **Le conferme dell'Architetto** (10 ottobre 2026): il sottotitolo della voce e' "Il cielo di un giorno qualunque, dal 1900 al 2100. Si parte da quello della tua nascita."; il pulsante della schermata dice "Viaggia nel tempo" e quello del pannello "Portami lì". La cucitura della Via Lattea e' sul bordo (colonne 0 e 1455, righe 360-449), non dentro l'immagine come avevo scritto: l'asset corretto, largo 1336, arriva dall'Architetto. Il codice legge la larghezza dall'immagine; quando arriva si riscrivono il commento di `la_via_lattea.dart` e la nota_cosmo di `docs/stato_asset.json`.
 
 ## Regole ferree
 

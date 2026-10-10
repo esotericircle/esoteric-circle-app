@@ -35,8 +35,13 @@ class SceltaDelTempo {
   final bool adesso;
 }
 
-/// L'etichetta del pulsante che fa partire la corsa.
+/// L'etichetta del pulsante della schermata che fa partire la corsa: un
+/// invito (Architetto, 10 ottobre 2026).
 const String kEtichettaDelViaggio = 'Viaggia nel tempo';
+
+/// L'etichetta del pulsante del pannello che conferma il giorno scelto: dice
+/// che porta li' (Architetto, 10 ottobre 2026).
+const String kEtichettaDellaConferma = 'Portami lì';
 
 /// L'altezza di una voce delle ruote: l'area di tocco minima delle Linee
 /// Guida, 48 punti (D9).
@@ -283,7 +288,7 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
               onPressed: () => widget
                   .onParti(SceltaDelTempo(_giorno, _luogo, adesso: _adesso)),
               child: Text(
-                kEtichettaDelViaggio,
+                kEtichettaDellaConferma,
                 style: TypographyTokens.corpo(weight: 600)
                     .copyWith(color: palette.deepest),
               ),

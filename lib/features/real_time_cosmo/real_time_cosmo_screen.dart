@@ -120,11 +120,12 @@ class RealTimeCosmoScreen extends StatelessWidget {
       ModoDelCielo.ritorno,
       Icons.history_rounded,
       // Aggiunta della Macchina del tempo all'ordine FH, voce B1: "vorrei
-      // cambiarlo in la macchina del tempo". Il testo sotto diceva solo il
-      // ritorno alla nascita, e adesso si va anche avanti.
+      // cambiarlo in la macchina del tempo". Il sottotitolo e' quello
+      // dell'Architetto del 10 ottobre 2026, sul registro delle altre due
+      // voci: la cosa prima del comando.
       'La macchina del tempo',
-      'Scegli un giorno fra il 1900 e il 2100 e il cielo corre fin lì, '
-          'indietro o avanti. Si parte dalla tua nascita.',
+      'Il cielo di un giorno qualunque, dal 1900 al 2100. Si parte da quello '
+          'della tua nascita.',
     ),
   ];
 }
