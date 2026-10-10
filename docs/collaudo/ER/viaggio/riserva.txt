@@ -1,0 +1,139 @@
+ORDINE ER VOCE 02, AGGIUNTA 2 PUNTO 2: LE DISCESE FINITE SULLA RISERVA
+Le venti discese misurate di ogni file del banco (dieci domande, due volte ciascuna);
+"riserva" vuol dire che la risposta non e' del modello: tre chiamate scartate, poi la riga di casa.
+La riserva non prende posizione sulla domanda: nel conto della ER.02 conta fra le risposte che non la prendono.
+
+prima: discese 20, finite sulla riserva 6; scarti prima della riserva {'gergo': 2, 'previsioneCerta': 4, 'promessa': 5, 'statoDiUnTerzo': 6, 'anticipaLaScena': 1}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['gergo', 'gergo', 'previsioneCerta']
+    [5] Il mio cane è malato, cosa devo fare? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['promessa', 'promessa', 'promessa']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [14] Accetto l'offerta di lavoro a Milano anche se guadagno meno? -> "Chiediti quale delle due potresti ancora correggere." dopo ['anticipaLaScena', 'promessa', 'promessa']
+    [19] Devo dire a Marco che mi piace? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+giro1_esecuzione1: discese 20, finite sulla riserva 3; scarti prima della riserva {'genereContrario': 4, 'statoDiUnTerzo': 3, 'previsioneCerta': 2}
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [20] Devo dire a Marco che mi piace? -> "Chiediti quale delle due potresti ancora correggere." dopo ['genereContrario', 'previsioneCerta', 'previsioneCerta']
+giro1_esecuzione2: discese 20, finite sulla riserva 4; scarti prima della riserva {'previsioneCerta': 1, 'promessa': 1, 'gergo': 1, 'statoDiUnTerzo': 9}
+    [5] Il mio cane è malato, cosa devo fare? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'promessa', 'gergo']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+giro2_esecuzione1: discese 20, finite sulla riserva 7; scarti prima della riserva {'statoDiUnTerzo': 9, 'previsioneCerta': 9, 'genereContrario': 3}
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [14] Accetto l'offerta di lavoro a Milano anche se guadagno meno? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Il punto non è la meta: è che ti stai fermando." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [19] Devo dire a Marco che mi piace? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [20] Devo dire a Marco che mi piace? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+giro2_esecuzione2: discese 20, finite sulla riserva 7; scarti prima della riserva {'previsioneCerta': 7, 'nonNominaLaDomanda': 1, 'genereContrario': 7, 'statoDiUnTerzo': 5, 'gergo': 1}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'nonNominaLaDomanda', 'previsioneCerta']
+    [2] Mi trasferisco a Berlino per lavoro? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'genereContrario']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['gergo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Cambia il punto da cui lo guardi, invece di spingere ancora." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Quel blocco sta proteggendo qualcosa che non vuoi guardare." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [20] Devo dire a Marco che mi piace? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+giro3_esecuzione1: discese 20, finite sulla riserva 6; scarti prima della riserva {'decisioneGrave': 3, 'statoDiUnTerzo': 12, 'genereContrario': 3}
+    [2] Mi trasferisco a Berlino per lavoro? -> "Chiediti quale delle due potresti ancora correggere." dopo ['decisioneGrave', 'decisioneGrave', 'decisioneGrave']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [10] Mia madre non accetta la mia compagna, cosa faccio? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Il punto non è la meta: è che ti stai fermando." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro3_esecuzione2: discese 20, finite sulla riserva 7; scarti prima della riserva {'statoDiUnTerzo': 12, 'previsioneCerta': 2, 'nonNominaLaDomanda': 1, 'genereContrario': 5, 'gergo': 1}
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [16] Riuscirò a superare il concorso di ottobre? -> "Nel frattempo puoi preparare quello che serve dopo." dopo ['previsioneCerta', 'nonNominaLaDomanda', 'previsioneCerta']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Cambia il punto da cui lo guardi, invece di spingere ancora." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [19] Devo dire a Marco che mi piace? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'gergo']
+giro3b_esecuzione1: discese 20, finite sulla riserva 5; scarti prima della riserva {'statoDiUnTerzo': 9, 'previsioneCerta': 3, 'nonNominaLaDomanda': 1, 'genereContrario': 2}
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'previsioneCerta', 'previsioneCerta']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Il punto non è la meta: è che ti stai fermando." dopo ['nonNominaLaDomanda', 'genereContrario', 'genereContrario']
+giro3b_esecuzione2: discese 20, finite sulla riserva 9; scarti prima della riserva {'previsioneCerta': 10, 'gergo': 1, 'promessa': 3, 'statoDiUnTerzo': 9, 'anticipaLaScena': 1}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Il punto non è la meta: è che ti stai fermando." dopo ['previsioneCerta', 'previsioneCerta', 'gergo']
+    [6] Il mio cane è malato, cosa devo fare? -> "Chiediti quale delle due potresti ancora correggere." dopo ['promessa', 'promessa', 'promessa']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo []
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [13] Accetto l'offerta di lavoro a Milano anche se guadagno meno? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'anticipaLaScena']
+    [15] Riuscirò a superare il concorso di ottobre? -> "Muovi una cosa piccola, invece di aspettare quella grande." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [19] Devo dire a Marco che mi piace? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+giro4_esecuzione1: discese 20, finite sulla riserva 5; scarti prima della riserva {'statoDiUnTerzo': 5, 'previsioneCerta': 4, 'genereContrario': 3}
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [13] Accetto l'offerta di lavoro a Milano anche se guadagno meno? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo []
+    [16] Riuscirò a superare il concorso di ottobre? -> "Nel frattempo puoi preparare quello che serve dopo." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Quel blocco sta proteggendo qualcosa che non vuoi guardare." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro4_esecuzione2: discese 20, finite sulla riserva 4; scarti prima della riserva {'previsioneCerta': 3, 'statoDiUnTerzo': 3, 'genereContrario': 5, 'troppoLunga': 1}
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['previsioneCerta', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [9] Mia madre non accetta la mia compagna, cosa faccio? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'statoDiUnTerzo']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Quel blocco sta proteggendo qualcosa che non vuoi guardare." dopo ['troppoLunga', 'genereContrario', 'genereContrario']
+giro5_esecuzione1: discese 20, finite sulla riserva 8; scarti prima della riserva {'genereContrario': 12, 'promessa': 2, 'previsioneCerta': 1, 'statoDiUnTerzo': 8, 'nonNominaLaDomanda': 1}
+    [3] Lascio il lavoro in banca per aprire la mia bottega di ceramica? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [5] Il mio cane è malato, cosa devo fare? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['promessa', 'promessa', 'previsioneCerta']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [10] Mia madre non accetta la mia compagna, cosa faccio? -> "Chiediti quale delle due potresti ancora correggere." dopo ['nonNominaLaDomanda', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Il punto non è la meta: è che ti stai fermando." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Quel blocco sta proteggendo qualcosa che non vuoi guardare." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [19] Devo dire a Marco che mi piace? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro5_esecuzione2: discese 20, finite sulla riserva 6; scarti prima della riserva {'decisioneGrave': 1, 'genereContrario': 5, 'statoDiUnTerzo': 9, 'gergo': 2, 'nonNominaLaDomanda': 1}
+    [2] Mi trasferisco a Berlino per lavoro? -> "Chiediti quale delle due potresti ancora correggere." dopo ['decisioneGrave', 'genereContrario', 'genereContrario']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [9] Mia madre non accetta la mia compagna, cosa faccio? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['gergo', 'gergo', 'statoDiUnTerzo']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'nonNominaLaDomanda']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Le direzioni buone all'inizio sembrano tutte piccole." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro6_esecuzione1: discese 20, finite sulla riserva 6; scarti prima della riserva {'genereContrario': 3, 'previsioneCerta': 4, 'troppoLunga': 1, 'statoDiUnTerzo': 7, 'gergo': 3}
+    [5] Il mio cane è malato, cosa devo fare? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+    [6] Il mio cane è malato, cosa devo fare? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'troppoLunga']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'statoDiUnTerzo']
+    [17] Come faccio a sentirmi meno sola la sera? -> "Il punto non è la meta: è che ti stai fermando." dopo ['gergo', 'gergo', 'gergo']
+giro6_esecuzione2: discese 20, finite sulla riserva 7; scarti prima della riserva {'virgolaEe': 1, 'troppoLunga': 1, 'promessa': 1, 'previsioneCerta': 5, 'decisioneGrave': 1, 'genereContrario': 5, 'statoDiUnTerzo': 6}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Il punto non è la meta: è che ti stai fermando." dopo ['virgolaEe', 'troppoLunga', 'promessa']
+    [2] Mi trasferisco a Berlino per lavoro? -> "Chiediti quale delle due potresti ancora correggere." dopo ['previsioneCerta', 'previsioneCerta', 'decisioneGrave']
+    [3] Lascio il lavoro in banca per aprire la mia bottega di ceramica? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'previsioneCerta']
+    [11] Mio fratello non mi parla da mesi, lo chiamo io? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'statoDiUnTerzo', 'previsioneCerta']
+    [12] Mio fratello non mi parla da mesi, lo chiamo io? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [18] Come faccio a sentirmi meno sola la sera? -> "Le direzioni buone all'inizio sembrano tutte piccole." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro7_esecuzione1: discese 20, finite sulla riserva 2; scarti prima della riserva {'nonNominaLaDomanda': 1, 'previsioneCerta': 2, 'nonPrendePosizione': 1, 'statoDiUnTerzo': 2}
+    [5] Il mio cane è malato, cosa devo fare? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['nonNominaLaDomanda', 'previsioneCerta', 'previsioneCerta']
+    [7] Cosa pensa di me la mia collega? -> "Se ci pensi ogni giorno, il posto ce l'ha già." dopo ['nonPrendePosizione', 'statoDiUnTerzo', 'statoDiUnTerzo']
+giro7_esecuzione2: discese 20, finite sulla riserva 3; scarti prima della riserva {'nonNominaLaDomanda': 1, 'anticipaLaScena': 1, 'gergo': 1, 'statoDiUnTerzo': 4, 'previsioneCerta': 2}
+    [2] Mi trasferisco a Berlino per lavoro? -> "Chiediti quale delle due potresti ancora correggere." dopo ['nonNominaLaDomanda', 'anticipaLaScena', 'gergo']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['statoDiUnTerzo', 'previsioneCerta', 'previsioneCerta']
+    [10] Mia madre non accetta la mia compagna, cosa faccio? -> "Chiediti quale delle due potresti ancora correggere." dopo ['statoDiUnTerzo', 'statoDiUnTerzo', 'statoDiUnTerzo']
+giro8_esecuzione1: discese 20, finite sulla riserva 2; scarti prima della riserva {'previsioneCerta': 3, 'genereContrario': 3}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [13] Accetto l'offerta di lavoro a Milano anche se guadagno meno? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['genereContrario', 'genereContrario', 'genereContrario']
+giro8_esecuzione2: discese 20, finite sulla riserva 3; scarti prima della riserva {'previsioneCerta': 3, 'nonNominaLaDomanda': 1, 'statoDiUnTerzo': 3, 'genereContrario': 2}
+    [1] Mi trasferisco a Berlino per lavoro? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['previsioneCerta', 'previsioneCerta', 'previsioneCerta']
+    [8] Cosa pensa di me la mia collega? -> "Il posto che ha per te lo sai già: quello che manca è dirlo." dopo ['nonNominaLaDomanda', 'statoDiUnTerzo', 'statoDiUnTerzo']
+    [9] Mia madre non accetta la mia compagna, cosa faccio? -> "Una delle due la stai già facendo, in piccolo, da settimane." dopo ['statoDiUnTerzo', 'genereContrario', 'genereContrario']
+
+IL CONTO ALLA CIECA CON LA RISERVA FRA LE RISPOSTE CHE NON PRENDONO POSIZIONE
+(giudizi in docs/collaudo/ER/ciechi; "posizione" e' il giudizio sulla prima frase)
+== fascicolo del giro5
+  giro5_esecuzione1: prima frase che prende posizione 10 su 20 (il giudice ne dava 10; riserve 8, di cui giudicate con posizione 0)
+  giro5_esecuzione2: prima frase che prende posizione 11 su 20 (il giudice ne dava 11; riserve 6, di cui giudicate con posizione 0)
+  prima: prima frase che prende posizione 2 su 20 (il giudice ne dava 2; riserve 6, di cui giudicate con posizione 0)
+== fascicolo del giro7
+  giro7_esecuzione1: prima frase che prende posizione 12 su 20 (il giudice ne dava 12; riserve 2, di cui giudicate con posizione 0)
+  giro7_esecuzione2: prima frase che prende posizione 12 su 20 (il giudice ne dava 12; riserve 3, di cui giudicate con posizione 0)
+  prima: prima frase che prende posizione 0 su 20 (il giudice ne dava 0; riserve 6, di cui giudicate con posizione 0)
+== fascicolo del giro8
+  giro8_esecuzione1: prima frase che prende posizione 15 su 20 (il giudice ne dava 15; riserve 2, di cui giudicate con posizione 0)
+  giro8_esecuzione2: prima frase che prende posizione 16 su 20 (il giudice ne dava 16; riserve 3, di cui giudicate con posizione 0)
+  prima: prima frase che prende posizione 0 su 20 (il giudice ne dava 0; riserve 6, di cui giudicate con posizione 0)

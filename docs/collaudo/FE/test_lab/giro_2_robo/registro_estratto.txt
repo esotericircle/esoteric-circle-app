@@ -1,0 +1,18 @@
+Estratto del registro di Firebase Test Lab, giro 2 Robo (matrice 5586416649478358685, Xiaomi 14 houji, Android 15 API 35).
+Registro intero: gs://test-lab-fbt34a4rtt0j6-hdmtwm4twzy7z/2026-10-06_00:36:20.912831_xNJw/houji-35-it-portrait/logcat
+Righe di Flutter.
+
+10-05 15:42:27.776 25348 27002 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+10-05 15:42:27.823 25348 27014 I flutter : The Dart VM service is listening on http://127.0.0.1:38411/Pv1PvbSg8kE=/
+10-05 15:42:28.109 25348 25348 I flutter : 00:00 +0: il filo principale non resta fermo per il cielo
+10-05 15:42:30.652 25348 25348 I flutter : ORDINE FE VOCE 21: eventi in arrivo di 400 giorni sul filo 795 ms (la 2298, due volte per ogni istruzione); dalla porta fuori dal filo, filo fermo al massimo 13 ms
+10-05 15:42:30.672 25348 25348 I flutter : ORDINE FE VOCE 21: istruzione con una nascita, ms [medora 13, aura 2, caligo 2]
+10-05 15:42:32.957 25348 25348 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 15:42:35.042 25348 25348 I flutter : ORDINE FE VOCE 21: turno di medora, filo fermo al massimo 37 ms, risposta di 414 caratteri
+10-05 15:42:37.396 25348 25348 I flutter : ORDINE FE VOCE 21: turno di aura, filo fermo al massimo 12 ms, risposta di 570 caratteri
+10-05 15:42:39.440 25348 25348 I flutter : ORDINE FE VOCE 21: turno di caligo, filo fermo al massimo 11 ms, risposta di 411 caratteri
+10-05 15:42:42.293 25348 25348 I flutter : ORDINE FE VOCE 21: LIVE di medora non si apre: nonEPerTe
+10-05 15:42:42.567 25348 25348 I flutter : ORDINE FE VOCE 21: LIVE di aura non si apre: nonEPerTe
+10-05 15:42:42.879 25348 25348 I flutter : ORDINE FE VOCE 21: LIVE di caligo non si apre: nonEPerTe
+10-05 15:42:42.907 25348 25348 I flutter : 00:14 +1: (tearDownAll)
+10-05 15:42:42.910 25348 25348 I flutter : 00:14 +2: All tests passed!

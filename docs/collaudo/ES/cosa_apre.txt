@@ -1,0 +1,290 @@
+## albero
+26|E|I dodici Animali Guida, con il tuo fra loro
+42|E|I modi della gettata: una runa, tre rune, la croce
+58|E|La Runa del Tramonto, che cambia con l’ora vera del tuo luogo
+74|N|Il Sigillo del Sogno, col quaderno che lo raccoglie
+90|E|Il Sigillo d’Intenzione, che si incide e si custodisce
+107|D|Il rito della sera completo, dalla runa al sigillo del sonno
+123|D|Le ventiquattro rune dell’Elder Futhark, una per una
+139|E|Il Bosco del Cerchio, che cresce con chi lo attraversa
+156|D|Lo storico delle gettate, che senza cinque giorni non dice niente
+174|E|Il promemoria del Tramonto, che da qui segue l’ora vera
+191|E|Il calendario lunare del Cerchio, con le fasi che verranno
+208|D|Le ore rituali, che il Cerchio calcola sul tuo luogo vero
+225|N|Il quaderno dei sogni, con i giorni segnati uno per uno
+241|N|Le rune che tornano, che il Cerchio comincia a notare
+258|D|L’appuntamento con Caligo, che da qui ti aspetta a quell’ora
+275|N|La gettata dei cominciamenti, che vale solo a Luna nuova
+291|N|Il responso composto, dove gettata, runa e sogno si parlano
+308|N|La costanza larga, che perdona un giorno saltato
+324|E|La raccolta dei tuoi Sigilli, con quelli che si sono compiuti
+340|N|Le radure del Bosco, che si aprono solo a chi torna
+358|N|Il sogno dell’ombra, che la Luna opposta porta a galla
+376|E|Il registro dei transiti, con quelli che ti aspettano
+392|N|La lettura dei sogni ricorrenti, che serve un mese per vedere
+409|N|La tua runa dominante, che si calcola solo con questa storia
+426|D|La lettura incrociata, dove la runa girata spiega la gettata
+444|D|Le soglie della vita, che i transiti sull’Ascendente aprono
+462|N|La gettata solare, che si tira solo sotto il transito
+478|N|Le rune che non ti sono mai uscite, con la domanda del perché
+495|N|La runa del ripensamento, che esce solo a Mercurio retrogrado
+511|N|Il ritratto runico, che unisce gettata, intenzione e Bosco
+527|N|Il confronto fra le tue sere e le stagioni che le hanno viste
+544|N|La costanza riconosciuta, che Caligo nomina nelle sue risposte
+561|N|La gettata dell’eclissi, che il Cerchio conserva per sempre
+578|N|Il rito dell’equinozio, che torna due volte l’anno
+594|N|Lo Specchio delle rune, che confronta cento gettate
+611|D|La memoria lunga di Caligo, che ricorda le tue rune di marzo
+628|N|La gettata del ritorno, quando Mercurio riprende il cammino
+645|N|Il sogno della prova, che Saturno retrogrado porta con sé
+661|N|Il tuo mazzo di rune, con quelle che ti cercano più spesso
+678|N|Il ritratto dei quattro riti, che nessuno dei quattro dice da solo
+696|N|La stagione riconosciuta, con il tuo sogno dell’anno
+712|N|Il cuore del Bosco, dove si arriva solo a piedi
+729|N|Il tuo rito fisso, che Caligo protegge dalle notifiche
+747|N|La lettura dei nodi, quando tre transiti si affacciano insieme
+763|N|L’archivio completo delle tue sere, con la runa di ogni giorno
+780|N|Il capitolo dell’anno, che Caligo scrive solo per chi c’è stato
+797|N|Il legame con l’Animale, che si stringe solo con gli anni
+814|N|Il capitolo dell’espansione, che apre l’anno che viene
+831|N|La gettata della prova superata, che Saturno concede tornando diretto
+848|N|Il tuo anno di sogni, con i temi che sono tornati
+865|N|Il capitolo del legame ritrovato, uno ogni diciotto mesi
+882|N|Il titolo di custode del Tramonto, che pochi vedranno
+900|D|L’Albero intero, con tutti e sei i riti in una sola pagina
+916|N|Le rune che ti conoscono, con quella che ti è uscita di più
+933|N|Le dodici rune delle Lune piene, una accanto all’altra
+## costellazione
+26|E|Il Cosmic Passport, che senza carta natale resta un documento vuoto
+43|E|Gli orizzonti dell’Oroscopo: giorno, settimana, mese
+59|E|Le domande della stesa, che cambiano le carte che escono
+75|D|Il filo fra gli Arcani, che si vede solo dal terzo giorno
+91|E|La galleria dei cinquanta volti della Sinastria
+108|E|La lettura incrociata, dove il cielo del giorno spiega la carta uscita
+125|D|I settantadue Angeli dello Shem HaMephorash
+141|D|Lo storico degli Arcani, che comincia a dire qualcosa
+157|E|Le dodici case, che senza Ascendente non esistono
+174|E|Il promemoria dell’Arcano, che da qui sceglie la tua ora
+191|E|Il calendario lunare del Cerchio, con le fasi che verranno
+207|D|Le ore rituali, che il Cerchio calcola sul tuo luogo vero
+224|E|Il diario del Cammino, con i giorni segnati uno per uno
+240|D|Le coincidenze delle carte, che il Cerchio comincia a notare
+257|D|L’appuntamento con Medora, che da qui ti aspetta a quell’ora
+274|N|La lettura lunare dell’Ascendente, che vale solo a Luna piena
+290|N|Il responso composto, dove le tre arti si parlano
+307|N|La costanza larga, che perdona un giorno saltato
+323|N|La mappa degli Arcani incontrati, con quelli che mancano
+339|D|Le previsioni lunghe dell’Oroscopo, mese e stagione
+356|D|Il tuo Angelo del cuore, che si rivela con la Luna nel tuo segno
+375|E|Il registro dei transiti, con quelli che ti aspettano
+391|N|Le stese lunghe, con la croce celtica a dieci carte
+408|N|Il tuo Arcano dominante, che si calcola solo con questa storia
+425|D|La lettura del mattino, che unisce Arcano e cielo del giorno
+442|D|Le soglie della vita, che i transiti sull’Ascendente aprono
+460|N|Il ritratto solare, che si legge solo sotto il transito
+476|E|La classifica delle affinità, con i volti più vicini al tuo cielo
+494|N|Il quaderno dei ripensamenti, che si apre solo a Mercurio retrogrado
+511|N|La sintesi di stagione, che Medora scrive su sessanta giornate
+527|N|Il confronto fra il tuo anno e il cielo che l’ha attraversato
+544|N|La costanza riconosciuta, che Medora nomina nelle sue risposte
+561|N|La lettura dell’eclissi, che il Cerchio conserva per sempre
+578|N|Il rito del solstizio, che torna due volte l’anno
+594|N|Lo Specchio delle carte, che confronta cento letture
+611|E|La memoria lunga di Medora, che ricorda quello che dicevi a marzo
+629|N|La lettura del ritorno, quando Mercurio riprende il cammino
+646|N|Il capitolo della fortuna che si ripiega, raro e lungo
+662|N|Il tuo mazzo personale, con gli Arcani che ti cercano più spesso
+680|N|Il ritratto delle quattro arti, che nessuna delle quattro dice da sola
+698|N|La stagione riconosciuta, con il tuo Arcano dell’anno
+714|E|La mappa delle affinità, con i cieli che assomigliano al tuo
+731|N|Il tuo rito fisso, che Medora protegge dalle notifiche
+749|N|Il mese del compleanno, con la stesa che si legge una volta l’anno
+766|D|L’archivio completo delle tue stese, ricercabile per carta
+783|N|Il capitolo dell’anno, che Medora scrive solo per chi c’è stato
+800|N|La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano
+818|N|Il capitolo dell’espansione, che apre l’anno che viene
+835|N|La lettura della prova superata, che Saturno concede tornando diretto
+852|N|Il tuo anno confrontato col cielo, giorno per giorno
+869|N|Il capitolo degli affetti che tornano, uno ogni diciotto mesi
+886|N|Il titolo di custode dell’Arcano, che pochi vedranno
+903|D|La Costellazione intera, con tutte e cinque le arti in una pagina
+920|N|Il mazzo che ti conosce, con la carta che ti è uscita di più
+938|N|La carta del ritorno solare, il cielo del tuo anno nuovo
+## loto
+26|E|La Mappa del Viso, che da qui entra nel tuo profilo
+42|D|La parola del giorno, che cambia con l’ora in cui ti alzi
+58|E|Il respiro contato, con il ritmo che Aura ti propone
+74|E|I dodici Archetipi, con quello che ti governa
+90|E|Le meditazioni guidate lunghe, dai sette minuti in su
+107|D|Il rito del mattino completo, alba e Soffio uno dopo l’altro
+123|N|Il confronto fra il volto che mostri e quello che sei
+140|N|Il grafico del respiro, che senza cinque giorni non dice niente
+156|E|Le meditazioni sui chakra, una per centro
+173|E|Il promemoria dell’Alba, che da qui sceglie la tua ora
+190|E|Il calendario lunare del Cerchio, con le fasi che verranno
+206|D|Le ore rituali, che il Cerchio calcola sul tuo luogo vero
+223|N|Il diario del respiro, con i giorni segnati uno per uno
+239|D|Il confronto fra la prima lettura del viso e l’ultima
+256|D|L’appuntamento con Aura, che da qui ti aspetta a quell’ora
+273|N|Il respiro lunare, che si pratica solo a Luna piena
+289|D|La sequenza del risveglio, dove le tre pratiche si tengono
+306|N|La costanza larga, che perdona un giorno saltato
+322|E|Il tuo Archetipo in movimento, che cambia col tempo
+338|E|La storia dei tuoi volti, mese per mese
+355|N|La lettura lunare del volto, che vale solo nel tuo segno
+373|E|Il registro dei transiti, con quelli che ti aspettano
+389|N|Il respiro profondo, la pratica lunga da undici minuti
+406|N|Il tuo ritmo del mattino, che si calcola solo con questa storia
+423|N|La meditazione dell’alba, che si sblocca con la costanza
+441|D|Le soglie della vita, che i transiti sull’Ascendente aprono
+459|N|Il respiro solare, che si pratica solo sotto il transito
+475|N|La mappa completa dei tratti, con quelli che si sono mossi
+492|N|L’Archetipo dell’ombra, che si mostra solo a Mercurio retrogrado
+509|N|Il ritratto energetico, che unisce respiro e volto
+525|N|Il confronto fra le tue albe e le stagioni che le hanno viste
+542|E|La costanza riconosciuta, che Aura nomina nelle sue risposte
+559|N|Il rito dell’eclissi, che il Cerchio conserva per sempre
+576|N|Il respiro del solstizio, che torna due volte l’anno
+592|N|Lo Specchio del mattino, che confronta cento risvegli
+609|E|La memoria lunga di Aura, che ricorda come respiravi a marzo
+626|N|Il rito del ritorno, quando Mercurio riprende il cammino
+643|N|Il capitolo dell’abbondanza che si ripiega, raro e lungo
+659|N|Le meditazioni che Aura scrive per te, non più dal catalogo
+676|N|Il ritratto delle quattro pratiche, che nessuna dice da sola
+693|N|La stagione riconosciuta, con il tuo risveglio dell’anno
+709|D|La storia del tuo Archetipo, con tutte le sue mutazioni
+726|D|Il tuo rito fisso, che Aura protegge dalle notifiche
+744|N|Il mese del compleanno, col respiro che si pratica una volta l’anno
+761|N|L’archivio completo delle tue albe, con la parola di ogni giorno
+779|N|Il capitolo dell’anno, che Aura scrive solo per chi c’è stato
+795|N|Il ritratto lungo di Aura, che tiene insieme risveglio, Archetipo e volti
+813|N|Il capitolo dell’espansione, che apre l’anno che viene
+830|N|Il respiro della prova superata, che Saturno concede tornando diretto
+847|E|Il tuo volto nel tempo, con la lettura di come è cambiato
+864|N|Il capitolo degli affetti che tornano, uno ogni diciotto mesi
+881|N|Il titolo di custode dell’Alba, che pochi vedranno
+899|D|Il Fiore intero, con tutte e sei le pratiche in una sola pagina
+915|N|Il respiro che ti conosce, col ritmo che il tuo corpo ha scelto
+933|N|Il rito del ritorno solare, il risveglio del tuo anno nuovo
+{'E': 35, 'N': 99, 'D': 31} uniq 121
+  'Il Sigillo del Sogno, col quaderno che lo raccoglie',
+  'Il rito della sera completo, dalla runa al sigillo del sonno',
+  'Le ventiquattro rune dell’Elder Futhark, una per una',
+  'Lo storico delle gettate, che senza cinque giorni non dice niente',
+  'Le ore rituali, che il Cerchio calcola sul tuo luogo vero',
+  'Il quaderno dei sogni, con i giorni segnati uno per uno',
+  'Le rune che tornano, che il Cerchio comincia a notare',
+  'L’appuntamento con Caligo, che da qui ti aspetta a quell’ora',
+  'La gettata dei cominciamenti, che vale solo a Luna nuova',
+  'Il responso composto, dove gettata, runa e sogno si parlano',
+  'La costanza larga, che perdona un giorno saltato',
+  'Le radure del Bosco, che si aprono solo a chi torna',
+  'Il sogno dell’ombra, che la Luna opposta porta a galla',
+  'La lettura dei sogni ricorrenti, che serve un mese per vedere',
+  'La tua runa dominante, che si calcola solo con questa storia',
+  'La lettura incrociata, dove la runa girata spiega la gettata',
+  'Le soglie della vita, che i transiti sull’Ascendente aprono',
+  'La gettata solare, che si tira solo sotto il transito',
+  'Le rune che non ti sono mai uscite, con la domanda del perché',
+  'La runa del ripensamento, che esce solo a Mercurio retrogrado',
+  'Il ritratto runico, che unisce gettata, intenzione e Bosco',
+  'Il confronto fra le tue sere e le stagioni che le hanno viste',
+  'La costanza riconosciuta, che Caligo nomina nelle sue risposte',
+  'La gettata dell’eclissi, che il Cerchio conserva per sempre',
+  'Il rito dell’equinozio, che torna due volte l’anno',
+  'Lo Specchio delle rune, che confronta cento gettate',
+  'La memoria lunga di Caligo, che ricorda le tue rune di marzo',
+  'La gettata del ritorno, quando Mercurio riprende il cammino',
+  'Il sogno della prova, che Saturno retrogrado porta con sé',
+  'Il tuo mazzo di rune, con quelle che ti cercano più spesso',
+  'Il ritratto dei quattro riti, che nessuno dei quattro dice da solo',
+  'La stagione riconosciuta, con il tuo sogno dell’anno',
+  'Il cuore del Bosco, dove si arriva solo a piedi',
+  'Il tuo rito fisso, che Caligo protegge dalle notifiche',
+  'La lettura dei nodi, quando tre transiti si affacciano insieme',
+  'L’archivio completo delle tue sere, con la runa di ogni giorno',
+  'Il capitolo dell’anno, che Caligo scrive solo per chi c’è stato',
+  'Il legame con l’Animale, che si stringe solo con gli anni',
+  'Il capitolo dell’espansione, che apre l’anno che viene',
+  'La gettata della prova superata, che Saturno concede tornando diretto',
+  'Il tuo anno di sogni, con i temi che sono tornati',
+  'Il capitolo del legame ritrovato, uno ogni diciotto mesi',
+  'Il titolo di custode del Tramonto, che pochi vedranno',
+  'L’Albero intero, con tutti e sei i riti in una sola pagina',
+  'Le rune che ti conoscono, con quella che ti è uscita di più',
+  'Le dodici rune delle Lune piene, una accanto all’altra',
+  'Il filo fra gli Arcani, che si vede solo dal terzo giorno',
+  'I settantadue Angeli dello Shem HaMephorash',
+  'Lo storico degli Arcani, che comincia a dire qualcosa',
+  'Le coincidenze delle carte, che il Cerchio comincia a notare',
+  'L’appuntamento con Medora, che da qui ti aspetta a quell’ora',
+  'La lettura lunare dell’Ascendente, che vale solo a Luna piena',
+  'Il responso composto, dove le tre arti si parlano',
+  'La mappa degli Arcani incontrati, con quelli che mancano',
+  'Le previsioni lunghe dell’Oroscopo, mese e stagione',
+  'Il tuo Angelo del cuore, che si rivela con la Luna nel tuo segno',
+  'Le stese lunghe, con la croce celtica a dieci carte',
+  'Il tuo Arcano dominante, che si calcola solo con questa storia',
+  'La lettura del mattino, che unisce Arcano e cielo del giorno',
+  'Il ritratto solare, che si legge solo sotto il transito',
+  'Il quaderno dei ripensamenti, che si apre solo a Mercurio retrogrado',
+  'La sintesi di stagione, che Medora scrive su sessanta giornate',
+  'Il confronto fra il tuo anno e il cielo che l’ha attraversato',
+  'La costanza riconosciuta, che Medora nomina nelle sue risposte',
+  'La lettura dell’eclissi, che il Cerchio conserva per sempre',
+  'Il rito del solstizio, che torna due volte l’anno',
+  'Lo Specchio delle carte, che confronta cento letture',
+  'La lettura del ritorno, quando Mercurio riprende il cammino',
+  'Il capitolo della fortuna che si ripiega, raro e lungo',
+  'Il tuo mazzo personale, con gli Arcani che ti cercano più spesso',
+  'Il ritratto delle quattro arti, che nessuna delle quattro dice da sola',
+  'La stagione riconosciuta, con il tuo Arcano dell’anno',
+  'Il tuo rito fisso, che Medora protegge dalle notifiche',
+  'Il mese del compleanno, con la stesa che si legge una volta l’anno',
+  'L’archivio completo delle tue stese, ricercabile per carta',
+  'Il capitolo dell’anno, che Medora scrive solo per chi c’è stato',
+  'La lettura a tre voci, dove Arcano, volto e Ascendente si spiegano',
+  'La lettura della prova superata, che Saturno concede tornando diretto',
+  'Il tuo anno confrontato col cielo, giorno per giorno',
+  'Il capitolo degli affetti che tornano, uno ogni diciotto mesi',
+  'Il titolo di custode dell’Arcano, che pochi vedranno',
+  'La Costellazione intera, con tutte e cinque le arti in una pagina',
+  'Il mazzo che ti conosce, con la carta che ti è uscita di più',
+  'La carta del ritorno solare, il cielo del tuo anno nuovo',
+  'La parola del giorno, che cambia con l’ora in cui ti alzi',
+  'Il rito del mattino completo, alba e Soffio uno dopo l’altro',
+  'Il confronto fra il volto che mostri e quello che sei',
+  'Il grafico del respiro, che senza cinque giorni non dice niente',
+  'Il diario del respiro, con i giorni segnati uno per uno',
+  'Il confronto fra la prima lettura del viso e l’ultima',
+  'L’appuntamento con Aura, che da qui ti aspetta a quell’ora',
+  'Il respiro lunare, che si pratica solo a Luna piena',
+  'La sequenza del risveglio, dove le tre pratiche si tengono',
+  'La lettura lunare del volto, che vale solo nel tuo segno',
+  'Il respiro profondo, la pratica lunga da undici minuti',
+  'Il tuo ritmo del mattino, che si calcola solo con questa storia',
+  'La meditazione dell’alba, che si sblocca con la costanza',
+  'Il respiro solare, che si pratica solo sotto il transito',
+  'La mappa completa dei tratti, con quelli che si sono mossi',
+  'L’Archetipo dell’ombra, che si mostra solo a Mercurio retrogrado',
+  'Il ritratto energetico, che unisce respiro e volto',
+  'Il confronto fra le tue albe e le stagioni che le hanno viste',
+  'Il rito dell’eclissi, che il Cerchio conserva per sempre',
+  'Il respiro del solstizio, che torna due volte l’anno',
+  'Lo Specchio del mattino, che confronta cento risvegli',
+  'Il rito del ritorno, quando Mercurio riprende il cammino',
+  'Il capitolo dell’abbondanza che si ripiega, raro e lungo',
+  'Le meditazioni che Aura scrive per te, non più dal catalogo',
+  'Il ritratto delle quattro pratiche, che nessuna dice da sola',
+  'La stagione riconosciuta, con il tuo risveglio dell’anno',
+  'La storia del tuo Archetipo, con tutte le sue mutazioni',
+  'Il tuo rito fisso, che Aura protegge dalle notifiche',
+  'Il mese del compleanno, col respiro che si pratica una volta l’anno',
+  'L’archivio completo delle tue albe, con la parola di ogni giorno',
+  'Il capitolo dell’anno, che Aura scrive solo per chi c’è stato',
+  'Il ritratto lungo di Aura, che tiene insieme risveglio, Archetipo e volti',
+  'Il respiro della prova superata, che Saturno concede tornando diretto',
+  'Il titolo di custode dell’Alba, che pochi vedranno',
+  'Il Fiore intero, con tutte e sei le pratiche in una sola pagina',
+  'Il respiro che ti conosce, col ritmo che il tuo corpo ha scelto',
+  'Il rito del ritorno solare, il risveglio del tuo anno nuovo',

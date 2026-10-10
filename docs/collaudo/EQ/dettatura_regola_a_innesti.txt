@@ -1,0 +1,39 @@
+Il dettato che non si ferma alla prima parola, ordine EQ, 27 settembre 2026. Guardia test/il_dettato_non_si_ferma_alla_prima_parola_test.dart.
+
+== Regola A, dettato: torna il pauseFor di tre secondi
+   file lib/services/voce/dettatura_vera.dart, sha1 prima 2816c926f921, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: null
+   Actual: Duration:<0:00:03.000000>
+   ripristinato: sha1 2816c926f921, uguale
+== Regola A, dettato: la chiusura dell'enunciato chiude il dettato
+   file lib/core/voce/il_dettato_che_continua.dart, sha1 prima a21a3d1e5647, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 a21a3d1e5647, uguale
+== Regola A, dettato: anche notListening chiude l'enunciato
+   file lib/services/voce/dettatura_vera.dart, sha1 prima 2816c926f921, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 2816c926f921, uguale
+== Regola A, dettato: lo stop non ferma il dettato
+   file lib/services/voce/dettatura_vera.dart, sha1 prima 2816c926f921, innesto verificato col grep: NO
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 2816c926f921, uguale
+
+Il quarto innesto rifatto, con lo strumento corretto (il primo NO era un falso: l'innesto toglieva testo e lo strumento contava il testo nuovo):
+== Regola A, dettato: lo stop non ferma il dettato
+   file lib/services/voce/dettatura_vera.dart, sha1 prima 2816c926f921, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 2816c926f921, uguale

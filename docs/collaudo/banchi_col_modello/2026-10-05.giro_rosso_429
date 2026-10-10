@@ -1,0 +1,46 @@
+I CINQUE BANCHI COL MODELLO, ordine FD voce 03
+commit: 2edb46d82ded9c937abd76e89ebe3d1b34746138
+inizio: 2026-10-05T13:19:18+00:00
+fine: 2026-10-05T14:41:42+00:00
+comando: python tool/banchi_col_modello/i_cinque_banchi.py --costo
+
+RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
+  misura: il classificatore delle domande libere del Viaggio, col modello vero, sul banco delle domande di prova
+RISULTATO 2: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: le cinque misure su cento discese, col modello vero
+  misura: cento discese del Viaggio dello Sciamano col modello vero: le cinque misure della ripetizione e il costo di una discesa
+RISULTATO 3: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: G, venti cammini col modello vero
+  misura: venti cammini interi: quanto si ripetono gli strati del racconto
+RISULTATO 4: ROSSO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: il segno col modello vero, dodici domande
+  misura: il segno dell'animale scelto dal modello su dodici domande
+RISULTATO 5: PASSATO | la_sonda_del_sigillo_test.dart | Tre chiamate vere per ogni sigillo, lette tutte
+  misura: i testi del Sigillo dell'Intenzione: tre chiamate per sigillo, ogni testo letto e controllato
+
+--- le misure stampate da il_banco_delle_domande_libere_col_modello_test.dart
+  BANCO CON RETE: 41 giuste su 41, 100.0 per cento; deciso dal modello 40; la tabella da sola 28
+--- le misure stampate da la_prova_a_cento_discese_col_modello_test.dart
+      dal modello: C'è qualcosa che non vedi / I segni del viaggio ti dicono che ciò che ti trattiene è la convinzione che la strada sia una sola. Hai bisogno di uno sguardo nuovo per trovare un altro accesso. La soluzione è oltre questo ostacolo nascosto. / Entro domani, fai una passeggiata in un luogo che conosci bene e cerca qualcosa che non hai mai notato prima.
+      scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono che ciò che ti trattiene è una porta chiusa che non hai ancora visto. Hai bisogno di uno sguardo nuovo per trovarla. La soluzione è oltre questo ostacolo nascosto.
+      scartato risposta: anticipaLaScena: I segni del viaggio ti dicono che ciò che ti trattiene dall'arrivo di quello che aspetti è una porta chiusa che non hai ancora visto. Hai bisogno di uno sguardo nuovo per trovarla. La soluzione è oltre questo ostacolo nascosto.
+      dal modello: C'è qualcosa che non vedi / I segni del viaggio ti dicono che ciò che ti trattiene è la convinzione che la strada sia una sola. Hai bisogno di uno sguardo nuovo per trovare un altro accesso. La soluzione è oltre questo ostacolo nascosto. / Entro domani, fai una passeggiata in un luogo che conosci bene e cerca qualcosa che non hai mai notato prima.
+      scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono che ciò che ti trattiene è una porta chiusa che non hai ancora visto. Hai bisogno di uno sguardo nuovo per trovarla. La soluzione è oltre questo ostacolo nascosto.
+      scartato risposta: anticipaLaScena: I segni del viaggio ti dicono che ciò che ti trattiene dall'arrivo di quello che aspetti è una porta chiusa che non hai ancora visto. Hai bisogno di uno sguardo nuovo per trovarla. La soluzione è oltre questo ostacolo nascosto.
+  CHIAMATE AL MODELLO: 3227, token in ingresso 8295089, in uscita 382750
+  DQ.06 titolo dal modello: prima 86.5, dopo 96.4 per cento, su 1100 discese
+  DQ.06 risposta dal modello: prima 49.1, dopo 78.2 per cento, su 1100 discese
+  DQ.06 gesto dal modello: prima 87.9, dopo 97.4 per cento, su 1100 discese
+  DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 228, risposta: nonNominaLaDomanda 76, azione: chiedeDiScrivere 63, titolo: statoDiUnTerzo 51, titolo: titoloRipetuto 48, risposta: statoDiUnTerzo 36, titolo: troppoLunga 25, azione: virgolaEe 21, risposta: gergo 20, risposta: previsioneCerta 19, risposta: anticipaLaScena 19, risposta: troppoLunga 16, titolo: tempoNelTitolo 15, titolo: gergo 10, azione: troppoLunga 9, azione: consiglioDiVita 9, azione: previsioneCerta 8, titolo: previsioneCerta 8, azione: fuoco 7, azione: toccaUnTerzo 4, azione: genereContrario 4, risposta: genereContrario 3, azione: gergo 2, azione: ripeteUnoStrato 1, titolo: genereContrario 1, titolo: fuoco 1, risposta: promessa 1, azione: decisioneGrave 1, azione: promessa 1, risposta: ripeteUnoStrato 1, azione: senzaTempo 1, risposta: decisioneGrave 1, azione: saluteDenaroLegge 1
+  DQ.13 costo: 0.003062 dollari a discesa, 2742 chiamate della scena su 1100 discese
+  DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 0.0 per cento
+--- le misure stampate da la_sonda_del_sigillo_test.dart
+  === RIEPILOGO DO ===
+  sigilli 30, chiamate 104, token in ingresso 36474, in uscita 3946
+  costo di un sigillo completo: 0.00069 dollari
+
+--- il costo, da Cloud Monitoring (token_count), finestra di 5063 secondi
+  gemini-2.5-flash input: 17462136 token, 5.2386 dollari
+  gemini-2.5-flash output: 812034 token, 2.0301 dollari
+  gemini-2.5-flash-lite input: 630744 token, 0.0631 dollari
+  gemini-2.5-flash-lite output: 24740 token, 0.0099 dollari
+  totale 7.3417 dollari, cambio BCE del 2026-10-05: 1 euro = 1.1204 dollari
+COSTO DEL GIRO: 6.55 euro
+  (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)

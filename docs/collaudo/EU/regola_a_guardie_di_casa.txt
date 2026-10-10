@@ -1,0 +1,7 @@
+REGOLA A, ordine EU, 1 ottobre 2026: le guardie di casa a cui la suite intera ha dato da dichiarare frasi dei corpora dell'Architetto (genere, voce, ora e luogo, la parola "amico/a" del fondatore) e la guardia dell'apostrofo con la misura cambiata (le citazioni fra apici tolte prima di cercare) restano rosse su un difetto vero innestato.
+INNESTO A1 l'apostrofo al posto dell'accento ("e'") in una frase a video: grep del difetto nel file SI; prova test/testo_a_video_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO
+INNESTO A2 una citazione fra apici con un accento mancante dentro ("'perche' no'"): grep del difetto nel file SI; prova test/testo_a_video_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO
+INNESTO A3 il genere di chi legge ("Sei nato") fuori da una marca: grep del difetto nel file SI; prova test/il_genere_non_si_indovina_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO
+INNESTO A4 "voce" per dire il Maestro: grep del difetto nel file SI; prova test/la_parola_voce_resta_allaudio_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO
+INNESTO A5 un avviso di ora e luogo mancanti fuori dalla porta: grep del difetto nel file SI; prova test/la_carta_natale_sopravvive_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO
+INNESTO A6 due desinenze con la barra ("nato/a"): grep del difetto nel file SI; prova test/niente_vocativo_a_schermo_test.dart ROSSA; file rimesso sha1 2b437eb67701 -> 2b437eb67701 IDENTICO

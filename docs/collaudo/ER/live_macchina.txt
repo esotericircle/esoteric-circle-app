@@ -1,0 +1,24 @@
+ORDINE ER VOCI 12 E 13: IL LIVE SUL REALME, BUILD 2285, 28 settembre 2026
+Dieci turni di fila con Caligo, domande dette dalle casse del PC (voce di Windows, Elsa). Tappe dalla fine del parlato, riga "LIVE ATTESA" del registro del telefono; durata della voce dalla riga "audio di ... ms, scritto in ... ms". Registro: docs/collaudo/ER/realme/live_er13_registro.txt.
+
+== I DIECI TURNI (dopo)
+turno 1: trascritta 3282 ms, domanda scritta 4495 ms, prima lettera della risposta 4495 ms, si sente 9009 ms; a testo fermo 3282 ms
+turno 2: trascritta 1766 ms, domanda scritta 3050 ms, prima lettera della risposta 3050 ms, si sente 4572 ms; a testo fermo 1766 ms
+turno 3: trascritta 1502 ms, domanda scritta 2651 ms, prima lettera della risposta 2651 ms, si sente 4680 ms; a testo fermo 1502 ms
+turno 4: trascritta 1999 ms, domanda scritta 3114 ms, prima lettera della risposta 3114 ms, si sente 5129 ms; a testo fermo 1999 ms
+turno 5: trascritta 3537 ms, domanda scritta 4548 ms, prima lettera della risposta 4680 ms, si sente 6745 ms; a testo fermo 3669 ms
+turno 6: trascritta 1520 ms, domanda scritta 2456 ms, prima lettera della risposta 2554 ms, si sente 4788 ms; a testo fermo 1618 ms
+turno 7: trascritta 2000 ms, domanda scritta 3224 ms, prima lettera della risposta 3258 ms, si sente 5249 ms; a testo fermo 2034 ms
+turno 8: trascritta 1996 ms, domanda scritta 3084 ms, prima lettera della risposta 3051 ms, si sente 5164 ms; a testo fermo 1996 ms
+turno 9: trascritta 3236 ms, domanda scritta 4297 ms, prima lettera della risposta 4297 ms, si sente 8239 ms; a testo fermo 3236 ms
+turno 10: trascritta 1732 ms, domanda scritta 2881 ms, prima lettera della risposta 2881 ms, si sente 5041 ms; a testo fermo 1732 ms
+
+== ER.13, LA MACCHINA DA SCRIVERE
+PRIMA, build di prova EQ 3 (5 turni): la domanda compariva intera appena trascritta, la risposta a pezzi dal primo testo del modello; a testo fermo fino al primo testo: [2641, 2718, 3090, 4287, 4448] ms
+secondi a testo fermo fra la fine della domanda e la voce del Maestro, mediana: prima 3.09 s, dopo 2.00 s (minimo 1.50, massimo 3.67)
+"il Maestro si sente", mediana: prima 5710 ms (build di prova EQ 3), dopo 5146 ms (minimo 4572, massimo 9009) su 10 turni
+turni in cui la risposta comincia a scriversi dopo la voce: 0 su 10; turni in cui la scrittura finisce dopo la voce (la voce direbbe parole non ancora scritte): 0 su 9
+
+== ER.12, LE TRE FRASI (la durata vera della voce)
+durata della voce di ogni risposta, prima (LIVE di Caligo, ordine EQ, 4 risposte): mediana 29.0 s, da 9.2 a 30.4 s
+dopo (build 2285, 9 risposte): mediana 13.2 s, da 10.5 a 20.6 s

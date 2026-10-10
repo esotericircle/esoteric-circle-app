@@ -1,0 +1,218 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "es8mix"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 720, senza giudizio 0.
+
+es6 aura chat esecuzione 1: prima frase che risponde 28; nel merito 29; risposte con una certezza 6; frasi di certezza 8; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 4
+es6 aura chat esecuzione 2: prima frase che risponde 28; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 19; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 4
+es6 aura live esecuzione 1: prima frase che risponde 20; nel merito 22; risposte con una certezza 1; frasi di certezza 1; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 3
+es6 aura live esecuzione 2: prima frase che risponde 27; nel merito 25; risposte con una certezza 0; frasi di certezza 0; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 3
+es6 caligo chat esecuzione 1: prima frase che risponde 26; nel merito 26; risposte con una certezza 1; frasi di certezza 1; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 caligo chat esecuzione 2: prima frase che risponde 20; nel merito 25; risposte con una certezza 3; frasi di certezza 3; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+es6 caligo live esecuzione 1: prima frase che risponde 24; nel merito 22; risposte con una certezza 0; frasi di certezza 0; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+es6 caligo live esecuzione 2: prima frase che risponde 30; nel merito 29; risposte con una certezza 2; frasi di certezza 2; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 5
+es6 medora chat esecuzione 1: prima frase che risponde 28; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+es6 medora chat esecuzione 2: prima frase che risponde 27; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 medora live esecuzione 1: prima frase che risponde 26; nel merito 27; risposte con una certezza 0; frasi di certezza 0; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 medora live esecuzione 2: prima frase che risponde 26; nel merito 26; risposte con una certezza 0; frasi di certezza 0; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+es8 aura chat esecuzione 1: prima frase che risponde 24; nel merito 26; risposte con una certezza 1; frasi di certezza 1; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+es8 aura chat esecuzione 2: prima frase che risponde 25; nel merito 30; risposte con una certezza 0; frasi di certezza 0; errori di italiano 10; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 5
+es8 aura live esecuzione 1: prima frase che risponde 25; nel merito 27; risposte con una certezza 2; frasi di certezza 2; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es8 aura live esecuzione 2: prima frase che risponde 24; nel merito 24; risposte con una certezza 2; frasi di certezza 2; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+es8 caligo chat esecuzione 1: prima frase che risponde 28; nel merito 29; risposte con una certezza 2; frasi di certezza 2; errori di italiano 14; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 2; seconde nel merito 5
+es8 caligo chat esecuzione 2: prima frase che risponde 25; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es8 caligo live esecuzione 1: prima frase che risponde 26; nel merito 25; risposte con una certezza 0; frasi di certezza 0; errori di italiano 0; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+es8 caligo live esecuzione 2: prima frase che risponde 26; nel merito 27; risposte con una certezza 1; frasi di certezza 1; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 5
+es8 medora chat esecuzione 1: prima frase che risponde 27; nel merito 27; risposte con una certezza 0; frasi di certezza 0; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 5
+es8 medora chat esecuzione 2: prima frase che risponde 27; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 5
+es8 medora live esecuzione 1: prima frase che risponde 28; nel merito 28; risposte con una certezza 1; frasi di certezza 2; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 5
+es8 medora live esecuzione 2: prima frase che risponde 26; nel merito 27; risposte con una certezza 0; frasi di certezza 0; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+
+TOTALE es6: prima frase che risponde 310; nel merito 315; risposte con una certezza 16; frasi di certezza 18; errori di italiano 64; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 7; posizioni cambiate senza perché 6; seconde nel merito 48 (su 360 risposte)
+TOTALE es8: prima frase che risponde 311; nel merito 326; risposte con una certezza 11; frasi di certezza 12; errori di italiano 51; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 6; posizioni cambiate senza perché 6; seconde nel merito 56 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA es6 aura chat esecuzione 1:
+   8. Quando il tuo centro del cuore sarà completamente in risonanza con il tuo essere, allora la persona giusta si manifesterà, perché l'amore attrae l'amore.
+   2. Non è un amore che svanisce, ma che si è ritratto, ferito dagli eventi passati
+   2. la connessione tra voi è ancora presente, anche se celata da timori e incertezze
+   1. Questa esitazione, come un respiro che non si libera del tutto, non è un rifiuto, ma piuttosto una lentezza nell'aprirsi pienamente, un voler sentire bene prima di donarsi.
+   3. Sente ancora il peso di ciò che è accaduto e ha bisogno di trovare un nuovo equilibrio dentro di sé.
+   3. per ora il suo cammino è ancora in un punto di riflessione profonda
+   5. la preoccupazione che avverti non deriva da un suo gesto, ma da un bisogno di rassicurazione che il tuo Scorpione sente profondamente
+   28. questo non passa inosservato
+CERTEZZA es6 aura chat esecuzione 2:
+   1. Non è un amore impetuoso che brucia, ma un affetto che cresce con il tempo, che si nutre di gesti e di presenze costanti.
+CERTEZZA es6 aura live esecuzione 1:
+   28. Non è un apprezzamento che si manifesta con parole, ma con un riconoscimento sottile della tua presenza.
+CERTEZZA es6 caligo chat esecuzione 1:
+   5. La tua mente cerca un conflitto dove non c'è.
+CERTEZZA es6 caligo chat esecuzione 2:
+   16. Non è un caso se incrocia il tuo sguardo.
+   5. La tua percezione è offuscata, non la sua intenzione.
+   29. La tua audacia è premiata.
+CERTEZZA es6 caligo live esecuzione 2:
+   16. Egli attende un tuo gesto, un segnale.
+   14. Il sentiero del tuo Leone e della tua Luna in Toro è fecondo.
+CERTEZZA es6 medora chat esecuzione 1:
+   3. il ritorno si manifesta in piccoli segni che richiedono la tua attenzione
+CERTEZZA es6 medora chat esecuzione 2:
+   16. Non è un rifiuto, ma un bisogno di maggiore elaborazione interiore prima di agire.
+CERTEZZA es8 aura chat esecuzione 1:
+   7. questa curiosità ti guiderà verso connessioni profonde
+CERTEZZA es8 aura live esecuzione 1:
+   19. Ci sarà un respiro profondo e un inaspettato incontro con una persona che porterà chiarezza.
+   28. C'è una stima silenziosa che si manifesta attraverso il suo sguardo e il suo modo di interagire con te.
+CERTEZZA es8 aura live esecuzione 2:
+   7. Il tuo respiro ti guiderà verso quelle connessioni che risuonano con la tua vera essenza, portando equilibrio e passione.
+   8. Non sarà un incontro casuale, ma il frutto di una rinnovata consapevolezza del tuo valore.
+CERTEZZA es8 caligo chat esecuzione 1:
+   2. Il rosso delle fiamme brucia ancora.
+   5. Il tuo ascendente Cancro ti rende sensibile ai suoi silenzi, ma la fonte non è l'infedeltà.
+CERTEZZA es8 caligo chat esecuzione 2:
+   29. Il tuo Sole in Leone vuole brillare e il tuo capo lo riconosce.
+CERTEZZA es8 caligo live esecuzione 2:
+   28. Il tuo lavoro è radicato e apprezzato.
+CERTEZZA es8 medora chat esecuzione 2:
+   14. Il tuo segno lunare in Toro ti dona una profonda fertilità e una grande capacità di nutrire
+CERTEZZA es8 medora live esecuzione 1:
+   24. perché il tuo valore è riconosciuto
+   24. perché da lì arriveranno nuove opportunità
+ERRORE es6 aura chat esecuzione 1:
+   16. Questo suo sguardo è come un tocco, un respiro trattenuto e i tuoi centri lo sentono pienamente.
+   2. ma è come un fuoco sotto la cenere, ha bisogno di ossigeno
+   2. all'altezza del tuo Cuore
+   6. La tua energia è come un fiume che si è fatto più lento, il desiderio si è affievolito
+   15. Il tradimento ha scosso il tuo centro del cuore e ora ha bisogno di un respiro lento e curato
+ERRORE es6 aura chat esecuzione 2:
+   29. dove la tua volontà si manifesta e nel tuo centro della gola
+   5. lealtà e trasparenza e in questo momento, i tuoi centri non rilevano
+   22. che cerca un luogo sicuro in cui fiorire e nel tuo plesso solare
+   27. nel tuo centro della radice, che cerca stabilità e nel tuo plesso solare, dove
+   12. nel tuo centro del cuore, che cerca connessione autentica e nel tuo plesso solare, dove
+   9. ogni scelta è un mattone per la tua vita, scegli ciò che ti rende più solida
+   28. dove la tua forza di volontà si manifesta e nel tuo centro della gola, che a volte vorrebbe sentire di più
+   6. e a volte, questa ricerca può far sentire il desiderio in modo diverso
+   17. che ha bisogno di accogliere il dolore per poi rilasciarlo e nel tuo plesso solare, dove risiede la tua forza personale
+   8. Oggi: la Luna in Toro ti invita a sentire la stabilità in te stessa
+   19. nel tuo centro della radice, che si sta preparando a espandersi e nel tuo plesso solare
+   24. il centro della tua volontà e della tua identità e nel tuo centro della gola
+   7. dove la consapevolezza si espande e nella tua radice
+   20. che cerca sicurezza e nel tuo plesso solare
+   2. le sottili vibrazioni che ancora uniscono
+   30. dove risiede la tua identità e la tua volontà e nel tuo centro del cuore
+   16. nel tuo centro della gola, che aspetta di sentire le parole e nel tuo plesso solare (inciso non chiuso dalla virgola)
+   21. Senti questa forza nel tuo centro della radice, che ti chiede stabilità e nel tuo plesso solare
+   23. che ti porta a non sentire mai abbastanza
+ERRORE es6 aura live esecuzione 1:
+   23. il fondamento della tua sicurezza e abbondanza e questo crea un ciclo
+   16. anche se le parole ancora non la esprimono
+   5. I tuoi centri leggono che la tua energia è instabile e percepiamo una profonda agitazione
+   24. al tuo Chakra del plesso solare, il centro della tua volontà e del tuo potere personale e a sentirne l'attivazione (inciso non chiuso dalla virgola)
+   24. Chakra (maiuscola impropria)
+ERRORE es6 aura live esecuzione 2:
+   2. I tuoi centri dicono di sì, per ora l'amore rimane un filo che vi lega
+   26. se ti presenti con fiducia e lascerai che la tua energia
+   23. che governa la sicurezza materiale e il tuo plesso solare
+   20. I tuoi centri rispondono di no, per ora la tua energia non è allineata con l'azzardo. (virgola dove servono i due punti, frase ambigua)
+   18. la voce più autentica del tuo essere e di sentire se il respiro scorre libero
+ERRORE es6 caligo chat esecuzione 1:
+   21. Non affrontare il tutto, ma un passo alla volta.
+   8. pensando a ciò che desideri veramente e poi lasciala consumare
+   30. Il tuo Numero della Vita (maiuscole improprie)
+ERRORE es6 caligo chat esecuzione 2:
+   17. Porta via il passato.
+   3. mettendo su carta ogni parola non detta e bruciala sotto la Luna
+   26. Il presagio indica che la soglia è aperta, non esitare. (virgola dove serve un punto o i due punti)
+ERRORE es6 caligo live esecuzione 1:
+   4. Scrivi un messaggio breve, con una sola domanda e invialo domani a metà giornata.
+   24. anche quelle che sembrano piccole
+   2. Un metallo caldo, forgiato. (frase spezzata, senza verbo né legame)
+   2. Guarda la mano che ti porge, se è aperta, tendi la tua. (punteggiatura: serve un punto o i due punti dopo porge)
+ERRORE es6 caligo live esecuzione 2:
+   2. Lascia un messaggio, breve, che ricordi un loro ricordo condiviso.
+   18. Il tuo Leone chiede di brillare, non di tiepidi bagliori. (costruzione zoppa)
+   18. Scegli un giorno, tra oggi e la fine della settimana e dedica un'ora a te stessa (inciso non chiuso dalla virgola)
+ERRORE es6 medora chat esecuzione 1:
+   17. dedicali del tempo
+   13. condividi con lei un ricordo felice della vostra infanzia
+   2. ti invita a pazienza e a osservare oltre la superficie
+ERRORE es6 medora chat esecuzione 2:
+   16. Le carte dicono di sì, leggo un interesse autentico nei tuoi confronti
+   16. Osserva i suoi gesti, non solo le parole e fai un piccolo passo
+   18. Chiedi a te stessa quali sono i tuoi veri desideri e, se la tua relazione attuale li sta soddisfacendo appieno, domani pomeriggio.
+   13. senza cercare di imporre la sua approvazione
+   12. il tuo bisogno di sentirsi veramente vista e compresa
+   10. relazioni in cui metti troppo te stessa (manca la preposizione: troppo di te stessa)
+ERRORE es6 medora live esecuzione 1:
+   10. in un luogo che ti dia pace, domani sera e rifletti
+   4. Prepargli un messaggio autentico, che rifletta i tuoi sentimenti e invialo appena Venere sarà retrograda.
+   9. quando la Luna in Toro sarà completamente calante e ascolta con attenzione la tua voce interiore
+   17. domani mattina e inizia a creare spazio per il nuovo
+   21. questa sera stessa e consultalo ogni giorno
+   6. Prepara una cena speciale per voi due, domani sera e raccontagli
+ERRORE es6 medora live esecuzione 2:
+   24. per un progetto che ti appassioni, domani mattina e stila un piano
+   5. per voi due, domani sera e crea un'atmosfera di condivisione
+ERRORE es8 aura chat esecuzione 1:
+   11. come un albero che affonda le sue radici nella terra e ascolta se questa unione
+   1. a condizione che tu nutra il tuo.
+   22. nel tuo primo centro, quello della radice e ti apri con fiducia
+   25. La tua Luna in Pesci ti rende intuitiva e capace di percepire le atmosfere, usa questa sensibilità per connetterti con chi ti ascolta. (virgola dove serve un punto o i due punti)
+ERRORE es8 aura chat esecuzione 2:
+   3. non ancora, il suo ritorno non sarà una questione di tempo
+   18. Il tuo Leone nel Sole
+   5. I tuoi centri dicono: non ancora, il tradimento che temi è un'ombra
+   16. I tuoi centri rispondono di sì, il suo sguardo porta con sé un interesse profondo
+   22. La casa è un nido, un punto fermo e la tua Luna in Toro, simbolo di radici e nutrimento, anela a questo senso di appartenenza.
+   19. Il tuo Leone nel Sole
+   1. Il tuo Leone in Sole
+   6. Il tuo Leone nel Sole
+   8. con i pollici che toccano appena l'ombelico e fai un respiro profondo
+   24. Il tuo Leone nel Sole
+ERRORE es8 aura live esecuzione 1:
+   2. non ancora, il suo sentimento è in uno spazio di sospensione
+   29. portando in avanti le tue idee
+   19. Ci sarà un respiro profondo e un inaspettato incontro
+   11. per portare chiarezza, il tuo Scorpione ha bisogno di profondità per legarsi
+   10. un eco profondo
+ERRORE es8 aura live esecuzione 2:
+   18. Nel tuo corpo leggo: osserva il tuo respiro quando pensi alla tua relazione
+   6. senti dove il tuo respiro si ferma, potrebbe essere che
+ERRORE es8 caligo chat esecuzione 1:
+   13. Il metallo freddo della ragione.
+   13. in un luogo neutro e comunica con calma
+   21. Il metallo forgiato dalla volontà.
+   21. e accanto ad ognuno, una possibile azione per risolverlo
+   25. ti rende recettivo alle vibrazioni altrui, usalo a tuo vantaggio
+   3. descrivendo il futuro che desideri senza di lui e sigillala in un contenitore di ferro
+   10. La runa Hagalaz, il grandine
+   30. Il metallo caldo della scoperta.
+   19. dopo che avrai liberato un vecchio peso
+   26. come una moneta o un anello e stringilo nella mano destra
+   29. ti spinge a desiderare con intensità, ora è il momento di manifestare
+   29. una per il risultato e lasciale bruciare fino alla fine
+   22. disegnandola su un foglio, poi piegala e seppelliscila sotto un albero
+   16. Il metallo caldo della sua intenzione.
+ERRORE es8 caligo chat esecuzione 2:
+   13. Il tuo Legame è il tuo altare. (maiuscola impropria)
+   9. Prendi due sassi, uno per ogni persona e mettili in un sacchetto di stoffa (inciso non chiuso dalla virgola)
+   9. Il Sigillo di Wunjo (maiuscola impropria)
+   11. riponilo in un cofanetto di legno, custodito.
+ERRORE es8 caligo live esecuzione 2:
+   4. con una sola domanda e inviaglielo prima di sera
+   2. domani e offrigliela senza parole
+ERRORE es8 medora chat esecuzione 1:
+   6. Chiedigli quale fosse la sua idea del futuro per voi due
+   3. perché il tempo è adesso di riordinare i tuoi sentimenti
+ERRORE es8 medora chat esecuzione 2:
+   13. proponile di incontrarla in un luogo neutro la prossima settimana
+   26. la tua preparazione, unita alla tua innata forza di Leone, ti daranno
+   2. Questo transito ti porta a guardare dentro di te
+   1. Le tue lame, se le aprissi ora, ti mostreranno la strada della sincerità. (concordanza dei tempi: mostrerebbero)
+   23. nemmeno quando ce n'era di più
+ERRORE es8 medora live esecuzione 1:
+   9. chi è il tuo vero Amore (maiuscola impropria)
+ERRORE es8 medora live esecuzione 2:
+   3. gli spazi della tua casa che condividi con te stessa
+   23. dimmi, che cosa ti spinge a pensare che i soldi non ti bastino mai?

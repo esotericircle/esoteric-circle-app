@@ -1,0 +1,648 @@
+LA PROVA DEL ROSSO DELLA GUARDIA DEL PIANO ATTIVO
+Ordine CQ voce 1.01, Regola A.
+========================================================================
+ROSSA     il tetto delle gettate legge la riga sbagliata  attesa: per ogni piano e per ogni arte
+          caduta: per ogni piano e per ogni arte, il tetto applicato e quello promesso
+ROSSA     il piano del server non si traduce piu          attesa: il piano che il server dichiara
+          caduta: il piano che il server dichiara diventa il piano che l app applica
+ROSSA     il ponte del piano si stacca                    attesa: la sincronia col server porta il piano
+          caduta: la sincronia col server porta il piano, non solo i residui
+ROSSA     il no del server torna a scrivere un milione    attesa: al no del server il conto si chiude
+          caduta: al no del server il conto si chiude sul tetto vero, non su un milione
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+
+LA PROVA DEL ROSSO DEL RILANCIO PUNTO 1
+Ordine CQ, rilancio, Regola A.
+========================================================================
+VERDE     il tetto delle gettate scritto a mano nella schermata  attesa: il tetto delle gettate ha un lettore solo
+ROSSA     l Adepto non ha piu trenta gettate                    attesa: LE 29 SU 30 DELLO SCREENSHOT
+          caduta: LE 29 SU 30 DELLO SCREENSHOT: da dove viene quel trenta
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 2
+
+LA PROVA DEL ROSSO DEL RILANCIO PUNTO 1
+Ordine CQ, rilancio, Regola A.
+========================================================================
+ROSSA     il tetto delle gettate scritto a mano nella schermata  attesa: il tetto delle gettate ha un lettore solo
+          caduta: il tetto delle gettate ha un lettore solo, e passa dalla matrice
+ROSSA     l Adepto non ha piu trenta gettate                    attesa: LE 29 SU 30 DELLO SCREENSHOT
+          caduta: LE 29 SU 30 DELLO SCREENSHOT: da dove viene quel trenta
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEL VENTAGLIO
+Ordine CQ voce 1.03, Regola A.
+========================================================================
+ROSSA     il ventaglio torna a non rispondere al primo tocco
+          attesa: senza premere niente, il ventaglio posa la carta
+          caduta: il pulsante c e da subito, spento, e si accende alla terza
+          caduta: premuto il pulsante, il responso arriva
+          caduta: scegliere non consuma, premere si
+          caduta: senza premere niente, il ventaglio posa la carta
+ROSSA     il pulsante torna dentro il blocco delle carte da pescare
+          attesa: il pulsante c e da subito, spento, e si accende alla terza
+          caduta: il pulsante c e da subito, spento, e si accende alla terza
+          caduta: premuto il pulsante, il responso arriva
+          caduta: scegliere non consuma, premere si
+ROSSA     il pulsante e premibile anche a zero carte        
+          attesa: il pulsante c e da subito, spento, e si accende alla terza
+          caduta: il pulsante c e da subito, spento, e si accende alla terza
+ROSSA     la terza carta torna a consumare la stesa         
+          attesa: scegliere non consuma, premere si
+          caduta: scegliere non consuma, premere si
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELL EFFETTO
+Ordine CQ voce 1.04, Regola A.
+========================================================================
+ROSSA     l effetto torna ad aspettare la piattaforma       
+          attesa: nessun play di audioplayers si attende
+          caduta: nessun play di audioplayers si attende
+ROSSA     il tono torna ad aspettare la piattaforma         
+          attesa: nessun play di audioplayers si attende
+          caduta: nessun play di audioplayers si attende
+ROSSA     gli effetti tornano a chiedere il fuoco esclusivo 
+          attesa: il lettore degli effetti dichiara il suo contesto audio
+          caduta: il lettore degli effetti dichiara il suo contesto audio
+ROSSA     il contesto non si prepara piu prima di suonare   
+          attesa: il lettore degli effetti dichiara il suo contesto audio
+          caduta: il lettore degli effetti dichiara il suo contesto audio
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA DOMANDA LIBERA
+Ordine CQ voce 1.05, Regola A.
+========================================================================
+VERDE     il campo libero torna in fondo al pannello    
+          attesa: il campo libero sta fra le suggerite e la tendina dopo
+          caduta: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/test/la_domanda_libera_si_trova_test.dart
+ROSSA     il campo libero torna a mezza riga            
+          attesa: e prende la riga intera, non mezza
+          caduta: e prende la riga intera, non mezza
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 2
+
+LA PROVA DEL ROSSO, SECONDO INNESTO
+Ordine CQ voce 1.05, Regola A.
+========================================================================
+ROSSA     il campo libero finisce dopo le altre tendine
+          attesa: il campo libero sta fra le suggerite e la tendina dopo
+          caduta: il campo libero sta fra le suggerite e la tendina dopo
+========================================================================
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA GETTATA
+Ordine CQ voce 1.06, Regola A.
+========================================================================
+ROSSA     la scelta torna a gettare da sola             
+          attesa: dal responso, toccare una pillola non consuma e non rigetta
+          caduta: dal responso, toccare una pillola non consuma e non rigetta
+ROSSA     il pulsante smette di gettare                 
+          attesa: e il pulsante, invece, getta
+          caduta: e il pulsante, invece, getta
+ROSSA     le pillole tornano sotto il pulsante          
+          attesa: le pillole stanno sopra il pulsante, non sotto
+          caduta: dal responso, toccare una pillola non consuma e non rigetta
+          caduta: le pillole stanno sopra il pulsante, non sotto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DELLA STELLA
+Ordine CQ voce 1.07, Regola A.
+========================================================================
+ROSSA     il limite alla fascia sparisce                    
+          attesa: a qualunque inclinazione la stella resta nella fascia di cielo
+          caduta: a qualunque inclinazione la stella resta nella fascia di cielo
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+ROSSA     la stella viene inchiodata per far passare il limite
+          attesa: la stella si muove ancora: non e stata inchiodata
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+          caduta: la stella si muove ancora: non e stata inchiodata
+ROSSA     il testo comincia da un numero suo                
+          attesa: il testo comincia dove finisce la fascia, e la fascia e una sola
+          caduta: il testo comincia dove finisce la fascia, e la fascia e una sola
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEI SUONI NON SCELTI
+Ordine CQ voce 1.08, Regola A.
+========================================================================
+ROSSA     il tema riaccende il ritorno su una famiglia  
+          attesa: il tema spegne il ritorno di sistema su tutte le famiglie di comandi
+          caduta: il tema spegne il ritorno di sistema su tutte le famiglie di comandi
+ROSSA     un InkWell perde il suo interruttore          
+          attesa: ogni InkWell scritto a mano porta il suo interruttore
+          caduta: ogni InkWell scritto a mano porta il suo interruttore
+ROSSA     una schermata chiama la piattaforma per vibrare
+          attesa: nessuna schermata chiama la piattaforma per suonare o vibrare
+          caduta: nessuna schermata chiama la piattaforma per suonare o vibrare
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLE MONETE
+Ordine CQ, rilancio, Regola A.
+========================================================================
+ROSSA     il volo torna a fermarsi senza borsellino     
+          attesa: senza borsellino a schermo le monete volano lo stesso
+          caduta: senza borsellino a schermo le monete volano lo stesso
+ROSSA     le monete tornano a suonare piene             
+          attesa: il suono delle monete esce piu basso degli altri
+          caduta: il suono delle monete esce piu basso degli altri
+ROSSA     si abbassa anche un altro suono               
+          attesa: il suono delle monete esce piu basso degli altri
+          caduta: il suono delle monete esce piu basso degli altri
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEL FUSO
+Ordine CQ voce 1.09, Regola A.
+========================================================================
+ROSSA     il telefono torna a mandare il nome corto     
+          attesa: nessuno manda piu il nome corto del fuso
+          caduta: nessuno manda piu il nome corto del fuso
+ROSSA     la ricerca del fuso torna un nome senza barra 
+          attesa: il fuso che il telefono manda passa il controllo del server
+          caduta: il fuso che il telefono manda passa il controllo del server
+ROSSA     il ripiego non e piu un nome IANA             
+          attesa: il ripiego passa anche lui il controllo
+          caduta: il ripiego passa anche lui il controllo
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEGLI INDICI
+Ordine CQ voce 1.12, Regola A.
+========================================================================
+ROSSA     sparisce la dichiarazione di consumi
+ROSSA     la dichiarazione resta ma senza il gruppo
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA: 2 su 2
+
+LA MISURA DELLA VOCE 1.10, IL ROSSO A INTERMITTENZA
+Ordine CQ voce 1.10, 3 settembre 2026.
+========================================================================
+PRIMA   su 15 giri identici, 3 rossi e 12 verdi, coi numeri stampati
+        sempre uguali e nessun errore di pretesa: moriva l'isolato.
+CAUSA   ParallaxController nel costruttore si abbona all'accelerometro e
+        accende un Ticker. In un test nudo il canale del sensore risponde
+        con un errore ASINCRONO e il ticker resta acceso: chi arriva
+        prima fra l'errore e la fine della prova decide l'esito.
+CURA    guscio di prova, canali del sensore muti, controller chiuso in
+        tearDown. LE SOGLIE NON SONO STATE TOCCATE.
+DOPO    su 20 giri, 20 verdi e 0 rossi.
+========================================================================
+
+LA PROVA DEL ROSSO DEL FRENO DEL GESTO RIPETUTO
+Ordine CQ voce 1.11, Regola A.
+========================================================================
+ROSSA     il freno sparisce del tutto                   
+          attesa: lo stesso gesto con gli stessi dettagli conta una volta al giorno
+          caduta: e i dettagli diversi contano davvero, che e varieta e non abuso
+          caduta: il freno si apre al confine del giorno rituale
+          caduta: lo stesso gesto con gli stessi dettagli conta una volta al giorno
+ROSSA     il freno chiude sul solo nome del gesto       
+          attesa: e i dettagli diversi contano davvero, che e varieta e non abuso
+          caduta: e i dettagli diversi contano davvero, che e varieta e non abuso
+ROSSA     il freno non si apre piu al confine del giorno
+          attesa: il freno si apre al confine del giorno rituale
+          caduta: il freno si apre al confine del giorno rituale
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELL ARCANO INDIVIDUALE
+Ordine CQ voce 2.05, Regola A.
+========================================================================
+ROSSA     la nascita torna a entrare col solo numero della carta natale
+          attesa: due persone con la stessa carta natale non vedono lo stesso Arcano
+          caduta: due persone con la stessa carta natale non vedono lo stesso Arcano
+ROSSA     il Dono si spegne per chi non ha dato la nascita        
+          attesa: e chi non ha dato la nascita non perde il Dono
+          caduta: e chi non ha dato la nascita non perde il Dono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
+LA PROVA DEL ROSSO DELL ALBA E DEL SOFFIO
+Ordine CQ voce 2.02, Regola A.
+========================================================================
+ROSSA     il dono ignora la risposta propria di chi lo chiama     
+          attesa: la risposta del Soffio nasce dai suoi transiti, non dal rito dell Alba
+          caduta: la risposta del Soffio nasce dai suoi transiti, non dal rito dell Alba
+ROSSA     la risposta propria sostituisce anche il gesto e la parola
+          attesa: e il gesto invece resta comune, che e voluto
+          caduta: e il gesto invece resta comune, che e voluto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
+LA PROVA DEL ROSSO DEL PONTE CON LA CHAT
+Ordine CQ voce 2.15, Regola A.
+========================================================================
+ROSSA     il ponte si stacca dall istruzione di sistema 
+          attesa: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta: e nomina il prossimo passo del Cammino quando c e
+          caduta: il blocco entra nell istruzione di sistema, con un evento vero
+ROSSA     il Cammino non entra piu nel blocco           
+          attesa: e nomina il prossimo passo del Cammino quando c e
+          caduta: e nomina il prossimo passo del Cammino quando c e
+ROSSA     il blocco compare anche vuoto                 
+          attesa: e senza niente da dire il blocco NON compare
+          caduta: e senza niente da dire il blocco NON compare
+ROSSA     il tetto dei tre eventi sparisce              
+          attesa: il ponte non versa un elenco: al massimo tre eventi
+          caduta: il ponte non versa un elenco: al massimo tre eventi
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 4 su 4
+
+LA PROVA DEL ROSSO DEL SIGILLO E DELLA RUNA SOLA
+Ordine CQ voci 2.07 e 2.10, Regola A.
+========================================================================
+ROSSA     la riga che dice a cosa serve sparisce        
+          attesa: sotto il Sigillo c e scritto a cosa serve, prima della tradizione
+          caduta: sotto il Sigillo c e scritto a cosa serve, prima della tradizione
+ROSSA     la porta della runa sola sparisce             
+          attesa: a una runa sola il corpo della scheda sta dietro una porta
+          caduta: a una runa sola il corpo della scheda sta dietro una porta
+ROSSA     la riga dell uso promette un esito            
+          attesa: la riga dell uso non promette niente
+          caduta: la riga dell uso non promette niente
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA LEGGE DEI TESTI
+Ordine CQ voce 2.01, Regola A.
+========================================================================
+ROSSA     l Arcano torna senza fonte                    
+          attesa: ogni Dono porta i suoi strati, e nell ordine dettato
+          caduta: ogni Dono porta i suoi strati, e nell ordine dettato
+ROSSA     il Tramonto torna senza fonte                 
+          attesa: ogni Dono porta i suoi strati, e nell ordine dettato
+          caduta: ogni Dono porta i suoi strati, e nell ordine dettato
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 2 su 2
+
+
+LA PROVA DEL ROSSO DELLA GUARDIA DEL PONTE, RIFATTA
+Ordine CQ voce 5.05, Regola B. La pretesa era legata a un errore di
+ortografia: cercava CIO seguito da un apostrofo, e la guardia degli accenti
+lo ha corretto in CIO con l'accento vero. Cambiata la grandezza cercata, si
+riprova che la guardia veda ancora il ponte staccato.
+========================================================================
+ROSSA     il ponte si stacca, if (false) al posto di isNotEmpty
+          attesa: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta: il blocco entra nell istruzione di sistema, con un evento vero
+          caduta anche: e nomina il prossimo passo del Cammino quando c e
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 1 su 1
+
+LA PROVA DEL ROSSO DEL CONTROLLO DELL ALBERO
+Ordine CQ voce 6.12, Regola A. Il foglio si innesta, il difetto si verifica
+col grep dentro il file, e solo dopo si legge l'esito. Il ripristino si
+verifica confrontando i byte, non sulla parola del replace.
+========================================================================
+ROSSA     il controllo torna a nominare uno sha
+ROSSA     il ripiego FERMATI QUI sparisce
+ROSSA     il controllo della porta della Demo sparisce
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DEI SUONI SINTETIZZATI
+Ordine CQ voci 6.02 e 6.06, Regola A. Ogni innesto porta la SUA verifica: la
+prima stesura cercava la presenza di un pezzo anche per l'innesto che quel
+pezzo lo toglie, e si e' fermata lasciando il sorgente rotto, con la mappa
+degli otto responsi svuotata a sei. Adesso il ripristino sta in un finally.
+========================================================================
+ROSSA     il generatore torna nella voce del responso
+ROSSA     la mappa degli otto responsi si svuota
+ROSSA     un sorgente qualunque torna a generare un tono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DELLA DOMANDA NEL RESPONSO
+Ordine CQ voce 6.10, Regola A. Al primo giro DUE innesti su cinque sono
+restati verdi, e non si nascondono: le pretese erano accoppiate, cioe' ognuna
+poteva essere soddisfatta da un pezzo diverso della cura. La prima cercava le
+parole in tutto il consiglio, che finisce con la domanda in coda, quindi
+togliere l'apertura non le toglieva; la quarta confrontava due testi, e
+l'apertura da sola bastava a renderli diversi. Separate le grandezze, il
+primo paragrafo per l'apertura e la lente per la deduzione, tutti e cinque
+sono diventati rossi.
+========================================================================
+ROSSA     la domanda torna a non entrare nel consiglio
+ROSSA     la chiusura torna quella pescata dal corpus
+ROSSA     la lente non si deduce piu dalla domanda
+ROSSA     la schermata smette di passare la domanda
+ROSSA     una lente resta senza parole che la nominino
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 5 su 5
+MISURA DEL DIFETTO, PRIMA DELLA CURA: parole portanti della domanda 5,
+arrivate nel responso 0. Dopo la cura: 5 su 5.
+
+LA PROVA DEL ROSSO DELLA TERZA CARTA
+Ordine CQ voce 6.09, Regola A. Lo script ha imparato una cosa: l'uscita di
+flutter puo' arrivare vuota, e leggere None come "non contiene All tests
+passed" avrebbe scritto ROSSA su una prova mai partita. Adesso l'uscita vuota
+ferma lo script invece di diventare un rosso finto.
+========================================================================
+ROSSA     il blocco delle carte scelte sparisce alla terza
+ROSSA     le carte scelte spariscono del tutto, come prima
+ROSSA     il pulsante torna a dire Leggi il responso
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+
+LA PROVA DEL ROSSO DEL SUONO DELLA CARTA
+Ordine CQ voce 6.08, Regola A.
+========================================================================
+ROSSA     la rivelazione torna a stroncare la carta
+ROSSA     il tocco sulla carta smette di suonare
+ROSSA     conSuono smette di fermare il suono
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: posando una carta uscivano [carta, rivelazione] sullo stesso lettore
+nello stesso fotogramma. Adesso esce [carta] sola.
+
+LA PROVA DEL ROSSO DELLA STELLA TOCCABILE
+Ordine CQ voce 6.05, Regola A. Il secondo innesto conta doppio: allarga la
+fascia di cielo fino a far entrare il testo sulle stelle, e la guardia lo
+vede. Cioe' la guardia non e' cieca al caso che il fondatore descrive, anche
+se quel caso in prova non si presenta da solo.
+========================================================================
+ROSSA     le stelle tornano sotto il testo nella pila
+ROSSA     la fascia di cielo si allarga e il testo entra sulle stelle
+ROSSA     il tocco sulla stella non conta piu
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA, e il difetto NON si e' riprodotto: a 390 per 844 le quattro stelle
+misurano 52 punti per lato, stanno fra 96 e 369, il testo comincia a 388,
+zero sovrapposizioni, e il tocco porta il conto da 0 a 1.
+
+LA PROVA DEL ROSSO DEL FONDO DICHIARATO
+Ordine CQ voce 6.04, Regola A.
+========================================================================
+ROSSA     l Arcano torna a dichiarare il quasi nero
+ROSSA     il fondo peggiore si schiarisce e un accento non ce la fa
+ROSSA     una schermata scrive a mano un fondo piu scuro del vero
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: il blu di Medora portato sulla superficie DICHIARATA arrivava a
+#426DEE, che sul quasi nero misura 4,58, cioe' otto centesimi sopra la
+soglia; sul fondo vero lo stesso blu misura 3,15. Dichiarando il fondo vero
+il blu sale a #5A94FF e misura 4,83. Sul fondo vero i tre accenti stanno a
+medora 4,83, aura 4,89, caligo 4,50: Caligo tocca la soglia esatta, cioe'
+non ha nessun margine, e va detto.
+
+LA PROVA DEL ROSSO DEL SOFFIO
+Ordine CQ voce 6.03, Regola A.
+========================================================================
+ROSSA     il cartello LA RISPOSTA torna sopra il responso
+ROSSA     il riquadro della risposta perde la sua chiave
+ROSSA     i due comandi si accavallano a video
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA, e UN FALSO ALLARME MIO: la prima stesura della guardia ha letto i due
+comandi a 480 e 522 punti su una finestra dichiarata di 360, e ha gridato al
+traboccamento. Era il layout steso sugli 800 del tester, perche' la finestra
+passava solo dentro il MediaQuery. Pinnata sul tester: zero accavallamenti,
+zero fuori bordo.
+
+LA PROVA DEL ROSSO DEL CUORE CENTRATO
+Ordine CQ voce 6.07, Regola A.
+========================================================================
+ROSSA     il cuore d angolo torna appeso in alto
+ROSSA     il cuore d angolo perde il suo centraggio
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 2 su 2
+MISURA: nella BarraArte il cuore era gia' centrato col titolo, scarto 0,0.
+Il cuore storto era l'ALTRO, quello delle schermate senza barra, appeso a
+top zero piu' un'aria. Adesso le due quote coincidono, 28,0 e 28,0.
+
+LA PROVA DEL ROSSO DELLE BOLLE DELLE RUNE
+Ordine CQ voci 6.19 e 6.22, Regola A.
+========================================================================
+ROSSA     la porta delle fonti torna alla sola runa singola
+ROSSA     un paragrafo torna a una misura sua
+ROSSA     il paragrafo di mezzo perde il bianco
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: la bolla portava 1499 caratteri tutti a vista su tre rune, adesso
+690, cioe' 230 per runa. Il 54 per cento del testo sta dietro la porta.
+E la guardia dell'uniformita' non pretende piu' un ruolo per nome: raccoglie
+i ruoli trovati e ne vuole UNO. La prima stesura chiedeva lettura ed e'
+caduta quando la prosa e' salita alla misura ampia, pur essendo uniforme.
+
+LA PROVA DEL ROSSO DEL MOOD DEL CERCHIO
+Ordine CQ voci 6.23, 6.24 e 6.25, Regola A. Al primo giro DUE innesti su
+quattro sono restati verdi, e la ragione vale piu' dei due rossi: la guardia
+componeva i titoli passando per quattro date, sperando che producessero i tre
+dati del cielo. Ne producevano DUE, e un terzo del corpus non veniva mai
+guardato. Adesso gira tutte e nove le combinazioni di Maestro e dato.
+========================================================================
+ROSSA     un titolo torna a descrivere il cielo, lungo
+ROSSA     un titolo promette un esito
+ROSSA     la prosa torna a diciotto punti
+ROSSA     una schermata si apre una porta propria
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
+MISURA: i nove titoli passano da 62 caratteri di media a 39, e il piu' lungo
+da 74 a 53. La prosa di tutta l'app vale venti punti, con una misura sola.
+
+LA PROVA DEL ROSSO DELLA CARD CHE SI MANDA
+Ordine CQ voce 6.26, Regola A.
+========================================================================
+ROSSA     la card si riempie di righe di servizio
+ROSSA     il marchio sale sopra la frase
+ROSSA     la frase torna piccola come il testo di servizio
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3
+MISURA: la card delle rune portava sei blocchi di testo attorno al sigillo,
+adesso ne porta cinque e la frase e' al centro fra il nome dell'arte e il
+marchio. Sono censite 14 card da condividere: una passa dalla porta comune.
+
+LA PROVA DEL ROSSO DELLA MISURA DI LETTURA NELLA STESA
+Ordine CQ voce 6.23, Regola B: la guardia BU.01 e' stata vista rossa PRIMA e
+DOPO, e le due volte per ragioni diverse.
+========================================================================
+PRIMA, ROSSA PER LA RAGIONE SBAGLIATA. Salita la misura di lettura da
+diciotto a venti, BU.01 e' caduta su "Cinque di Spade rovesciata", che e' il
+NOME della carta e sta in titoloScheda a diciotto. La guardia separava il
+contenuto dal servizio con la LUNGHEZZA della stringa, meno di venticinque
+caratteri, e un nome lungo ventisei le passava per contenuto. Il rosso non
+diceva un difetto: diceva che la grandezza misurata era sbagliata.
+
+NON SI E' ABBASSATA LA SOGLIA. Si e' cambiata la grandezza: adesso la guardia
+cerca i ParagrafiDiLettura dentro la bolla, che sono il testo narrato di cui
+il fondatore ha detto "anche le altre bolle hanno il font piccolo", e non
+ogni Text piu' lungo di venticinque caratteri. Il vecchio conto ne trovava
+undici perche' contava anche i Text che il paragrafo stesso dipinge dentro di
+se': quattro paragrafi contati alla fonte valgono piu' di sette Text contati
+a valle.
+
+DOPO, ROSSA SUL DIFETTO VERO.
+ROSSA     il testo della bolla torna sotto la misura di lettura
+          innesto: fontSize: 14 sul ParagrafiDiLettura della bolla,
+          verificato col grep a riga 2270 prima di leggere l'esito
+          attesa: nessun testo di contenuto sta sotto la misura di lettura
+          caduta: bolla 0: Nasce la voglia di... e' scritto a 14.0, sotto la
+                  misura di lettura di 20.0
+          conto stampato: paragrafi di bolla 4, il piu' piccolo 14.0
+          ripristino verificato sul byte: 110142, e il grep non trova piu'
+          l'innesto
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+LA PROVA DEL ROSSO DELLA SPEZZATURA DELL OROSCOPO
+Ordine CQ voce 6.23, Regola B, e ci sono voluti TRE innesti.
+========================================================================
+PRIMA, ROSSA PER LA RAGIONE SBAGLIATA. Salita la lettura da diciotto a venti,
+la pretesa "da cinque a dieci righe, al massimo due blocchi" e' caduta: il
+testo costruito per DIECI righe adesso ne rende UNDICI, cioe' sta nella banda
+dei lunghi dove tre blocchi sono giusti. La prova bandiva sulle righe VOLUTE
+invece che su quelle RESE, mentre la pretesa accanto, "sotto cinque righe non
+si divide niente", gia' bandiva sulle rese. Corretta la banda, non la soglia.
+
+POI DUE INNESTI RESTATI VERDI, e dicono cosa questa pretesa NON copre.
+VERDE     sogliaBlocchiLunghi da 10 a 6
+          i testi da sette a dieci righe finiscono nel ramo dei lunghi, che
+          su dieci righe fa comunque due blocchi: la pretesa non li vede
+VERDE     il ramo dei corti ristretto a quattro righe
+          stessa ragione: il ramo dei lunghi su nove righe fa due blocchi
+
+POI IL ROSSO VERO.
+ROSSA     il ramo dei corti ristretto a quattro E le righe desiderate da
+          quattro a due, verificate col grep alle righe 122 e 151
+          attesa: da cinque a dieci righe, al massimo due blocchi
+          caduta: un responso di 9 righe e' uscito in 3 blocchi invece di due
+          ripristino verificato sul byte: 11539, e il grep ritrova le due
+          costanti vere
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 3, e i due verdi sono l'informazione utile
+
+LA PROVA DEL ROSSO DI CM.10, DUE CONTI DELLE STESSE SCHERMATE
+Ordine CQ voce 6.23, Regola B.
+========================================================================
+PRIMA, ROSSA E GIA' DIVERGENTE. Uscito il Sigillo a schermo basso dal registro
+dei rossi accettati, CM.10 e' caduta: pretendeva 17 righe e ne trovava 16. E la
+stessa prova ne teneva DUE conti: la parola scritta nel manifesto dell'ordine
+CM e un numero scritto a mano nella riga sotto. Erano gia' divergenti prima di
+essere toccati, perche' il numero diceva 17 e la frase accanto diceva ancora
+diciotto: riparare una schermata faceva cadere la prova due volte per la
+stessa ragione.
+
+NON SI E' AGGIORNATO IL NUMERO: E' STATO TOLTO. Adesso la prova legge la
+parola del manifesto e pretende che il registro dica lo stesso; il numero
+proprio non esiste piu'. E il nome della prova non porta piu' la cifra, che
+era la terza copia dello stesso conto.
+
+DOPO, ROSSA SUL DIFETTO VERO.
+ROSSA     il manifesto dichiara una schermata in meno di quante ne elenchi
+          il registro
+          innesto: RESTANO SEDICI -> RESTANO QUINDICI nel manifesto CM,
+          verificato col grep prima di leggere l'esito
+          attesa: CM.10, il terzo cancello e le righe accettate
+          caduta: il manifesto dichiara "QUINDICI" schermate rotte al testo
+                  massimo e il registro dei rossi ne elenca 16
+          ripristino verificato sul byte: 20697
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+LE PROVE DEL ROSSO DEL COLLAUDO A VIDEO
+Ordine CQ voci 6.27, 6.28 e 6.29, 5 settembre 2026. Regola A.
+========================================================================
+**TRE DI QUESTE QUATTRO SONO NATE ROSSE SENZA NESSUN INNESTO**, perche' il
+difetto era gia' dentro: il fondatore lo aveva visto sul telefono e la
+guardia nuova non ha dovuto fingerlo.
+
+ROSSA     6.09, il ventaglio sparisce alla terza carta
+          nessun innesto: il difetto era in produzione
+          attesa: il ventaglio resta in campo, spento
+          caduta: il ventaglio in campo prima della terza carta 1, dopo 0
+          verde dopo la cura: prima 1, dopo 1
+
+ROSSA     6.27, la materia storica apre la scena dell Estrazione Rune
+          nessun innesto: Tacito, l Edda e il metodo di calcolo stavano
+          aperti sopra il gesto
+          attesa: la materia storica sta dietro la porta
+          caduta: blocchi di testo a vista prima del gesto 20, dei quali
+                  materia storica 1
+          seconda pretesa, caduta: porte Da dove nasce nella scena 0
+          verde dopo la cura: 17 a vista, materia storica 0, porte 1
+
+ROSSA     6.29, la frase degli Angeli porta un numero scritto a mano
+          nessun innesto: diceva Tre nomi e ne mostrava due
+          attesa: il numero segue la lista
+          caduta: numeri in lettere scritti a mano 1: Tre nomi
+          seconda pretesa, caduta: la schermata nomina l ora di nascita
+                  come ragione del terzo Angelo: false
+          verde dopo la cura: 0 numeri a mano, la ragione c e
+
+E LA QUARTA E' L'INFORMAZIONE PIU' UTILE DEL GIRO, perche' e' un difetto
+che NON esiste e una pretesa che NON si puo' soddisfare.
+
+6.28, il responso del Soffio. Il fondatore lo vedeva tagliato, e io ho
+riportato che non scorreva. **Misurato: scorre di 400 punti su una
+trascinata di 400.** I due zeri che avevo letto prima erano miei: il primo
+leggeva `Scrollable.controller`, che e' NULLO quando la finestra non ne ha
+uno esplicito; il secondo posava il dito al centro della carta, che essendo
+alta 878 punti dentro una finestra di 263 ha il centro fuori dallo schermo.
+**Due zeri che non dicevano che la scena e' ferma, dicevano che stavo
+misurando male.**
+
+Resta vero il fatto: il responso e' alto 878 punti dentro una finestra di
+263, se ne vede il TRENTA per cento. Dargli piu' spazio si e' provato, e la
+prova ha detto di no:
+VERDE     cinque contro quattro: la scheda risale e copre 15,1 punti del
+          pulsante del respiro
+VERDE     quattro contro cinque: ne copre 90,4
+**Sono due pretese vere in conflitto su uno schermo che non cresce**, e la
+seconda e' un difetto che Mauro aveva gia' visto e fatto riparare. La
+proporzione e' tornata a sei contro tre e la pretesa misura adesso la
+RAGGIUNGIBILITA', che e' cio' che si puo' garantire: la fine del responso
+si raggiunge. Se il trenta per cento non basta, la via non e' la
+proporzione, e' una decisione sul Soffio che spetta al fondatore.
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 3 su 3, piu' due misure che hanno
+detto di no a una cura sbagliata
+
+LA PROVA DEL ROSSO DELLA TABELLA DEL CONTRASTO DELL ALBA
+Ordine CQ voce 6.30, 5 settembre 2026. Regola A e Regola C.
+========================================================================
+IL FATTO. Su Codemagic, dove la build iOS gira su macOS, lo sbarramento e'
+caduto su una prova sola: la tabella del contrasto dell'Alba. Il messaggio
+diceva per intero questo: *questi fondi resi sono piu' scuri della superficie
+chiara dichiarata, quindi gli inchiostri calcolati su di lei sono ottimisti:
+#989282*. Un colore, e nient'altro.
+
+**CON QUEL COLORE IN MANO NON SI CURA NIENTE.** Non si sa quale testo ci sta
+sopra, in quale momento, a quale riga: e' un difetto senza padre, e la Regola C
+dice che un difetto senza padre torna.
+
+LA CAUSA, TROVATA FACENDO PARLARE LA GUARDIA. Il giudizio separava i testi del
+regime chiaro da quelli del cielo con un filtro sulla LUMINANZA: se il fondo
+contrasta col bianco piu' di quattro, sta sul buio e non lo guardo. Su Windows
+i tre fondi piu' scuri sono #02090B, #0A0F17 e #031714, tutti notturni pieni,
+tutti scartati dal filtro. Su macOS un campione cade su un pixel di cielo IN
+TRANSIZIONE, #989282, che contrasta col bianco 2,7: il filtro non lo scarta, e
+confrontato con l'avorio della carta risulta piu' scuro.
+
+**LA STESSA GUARDIA DICEVA DUE COSE DIVERSE SU DUE MACCHINE**, ed e' il peggio
+che una guardia possa fare.
+
+LA CURA. Si separa per APPARTENENZA e non per luminanza: la superficie chiara
+riguarda la carta del Dono e nient'altro, e un testo appartiene a quel regime
+se vive in ritual_gift_card.dart, non se il suo fondo somiglia a un certo
+grigio. L'appartenenza si legge dal posto, che la prova gia' scrive in tabella.
+
+E OGNI FONDO PORTA ADESSO IL NOME DI CHI CI STA SOPRA, piu' i tre piu' scuri
+stampati SEMPRE, anche a prova verde: senza quei numeri la differenza fra due
+macchine non si vede affatto.
+
+IL ROSSO.
+ROSSA     la superficie chiara dichiarata piu' chiara del vero
+          innesto: superficieChiara da 0xFFB7B8AD a 0xFFF6F4EE, verificato
+                   col grep alla riga 47 prima di leggere l'esito
+          attesa: nessun fondo della carta e' piu' scuro della superficie
+          caduta, e ADESSO COI PADRI:
+            #DCDED2 sotto `alba_titolo_risposta`, ritual_gift_card.dart:158
+            #DCDED2 sotto `alba_orientamento`, ritual_gift_card.dart:209
+            #DCDED2 sotto `alba_etichetta_parola`, ritual_gift_card.dart:249
+          ripristino verificato sul byte: 11106, e il grep ritrova 0xFFB7B8AD
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1

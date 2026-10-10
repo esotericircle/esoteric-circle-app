@@ -1,0 +1,52 @@
+ORDINE EK VOCE 03, LE SEI FRASI CON TUTTE LE CURE, COMPRESO L'OROLOGIO DEL SILENZIO.
+Realme 767f596c, build 2280 di prova (sha1 fc3d8a07bbbc, dall'albero del commit 61c937cb con la cura
+dell'orologio e l'ingresso del sole dell'ordine EL), LIVE di Medora, 24 settembre 2026 sera, dopo la
+riapertura della fatturazione. Orari del registro del telefono in UTC+2. Stesse frasi e stessa voce delle
+prove prima (Microsoft Elsa dal portatile, scratchpad parla_nomi.ps1); scratchpad prova_cura.sh.
+Sessione di Protoface sess_01M3AC9FE8K1YXK0JBEREHY9GP: aperta alle 18:54:18 UTC, chiusa dal telefono alle
+19:00:58 UTC.
+
+IL REGISTRO:
+  20:54:21.623 LIVE: primo suono al volto dopo 1528 ms, audio di 7632 ms (il saluto)
+  20:54:28.881 LIVE: il volto ha finito dopo 10015 ms
+  20:55:07.467 LIVE: frase di 30640 ms in 1 pezzi, trascritta in 2790 ms: «» (si ascolta ancora)
+  20:55:17.992 LIVE: frase di 8160 ms, trascritta in 1559 ms: «Medora, ho pescato la Torre e poi l'Appeso. Cosa vogliono dire per me?» (parte)
+  20:55:18.156 LIVE: la chat ha risposto in 2 ms
+  20:55:52.452 LIVE: primo suono al volto dopo 791 ms, audio di 60206 ms
+  20:56:33.460 LIVE: frase di 6880 ms, trascritta in 1792 ms: «Calìgo, stamattina ho tirato Fehu, Thurisaz e Algiz.» (parte)
+  20:56:35.414 LIVE: la chat ha risposto in 1825 ms
+  20:57:05.130 LIVE: frase di 6080 ms, trascritta in 1528 ms: «Laura, sento un blocco ad Anahata e anche a Vishuddha.» (parte)
+  20:57:06.973 LIVE: la chat ha risposto in 1668 ms
+  20:57:39.090 LIVE: frase di 6880 ms, trascritta in 1331 ms: «Sono dello Scorpione con ascendente Sagittario e la Luna in Capricorno.» (parte)
+  20:57:39.253 LIVE: la chat ha risposto in 2 ms
+  20:59:04.209 LIVE: frase di 6640 ms, trascritta in 1563 ms: «Medora, la Papessa e l'Imperatrice sono uscite insieme.» (parte)
+  20:59:04.324 LIVE: la chat ha risposto in 2 ms
+  21:00:28.503 LIVE: frase di 6560 ms, trascritta in 1899 ms: «Calìgo, che cosa significa la Luna Eihwaz accanto a Perthro?» (parte)
+  21:00:28.609 LIVE: la chat ha risposto in 1 ms
+  21:00:47.219 LIVE: il volto ha finito dopo 18609 ms
+
+I NOMI:
+  1. Medora si, Torre si, Appeso si
+  2. Calìgo si, Fehu si, Thurisaz si, Algiz si
+  3. Aura NO (Laura), Anahata si, Vishuddha si
+  4. Scorpione si, Sagittario si, Capricorno si
+  5. Medora si, Papessa si, Imperatrice si
+  6. Calìgo si, Eihwaz si, Perthro si
+  TOTALE: 18 nomi giusti su 19. Prima: 7 su 19 con la 2279 (prima_2279.txt), 15 su 19 con Flash-Lite e i
+  nomi (dopo_2280_flash_lite.txt). Medora 2 su 2 e Calìgo 2 su 2 con l'accento; Aura 0 su 1, scritta Laura.
+  Fuori dall'elenco dei nomi: nella frase 6 "la runa" e' diventata "la Luna".
+
+L'OROLOGIO DEL SILENZIO. Dopo il saluto un pezzo di 30,6 secondi con voci nella stanza e' stato trascritto
+vuoto, e il LIVE non si e' chiuso: l'orologio si e' fermato mentre si parlava e mentre il pezzo si
+trascriveva. Con la build di prima, in riaperta_2280.txt, il LIVE si era chiuso a 30 secondi 134
+millisecondi prima che la domanda tornasse scritta.
+
+LE RISPOSTE DALLA MEMORIA DELLA CHAT. Le frasi 1, 4, 5 e 6 hanno avuto risposta in 1-2 millisecondi: la chat
+le aveva gia' ricevute nelle prove di oggi pomeriggio e ha servito la risposta dalla sua memoria, senza
+chiamare Gemini. Le frasi 2 e 3, nuove, hanno avuto una risposta vera in 1,8 e 1,7 secondi.
+
+LA MUSICA NEL LIVE (scratchpad musica_attiva.sh, audio_flinger):
+  18:54:48 UTC nel LIVE appena aperto: traccia 1338 usg 2 ct 1 (la chiamata), musica attiva 0
+  19:00:51 UTC nel LIVE a fine frasi: traccia 1338 usg 2 ct 1, musica attiva 0
+  19:01:00 UTC chat di Medora, sei secondi dopo l'uscita: traccia 1337 usg 1 ct 2, musica attiva 1
+Lo schermo e' rimasto acceso fino alla fine (KEEP_SCREEN_ON presente, mWakefulness Awake).

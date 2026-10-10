@@ -1,0 +1,5 @@
+docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T0157.txt: nessun consulto letto
+docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T0200.txt: 10 consulti a freddo; mediana prima 0.00410 dollari, dopo 0.00450 (+9.8 per cento); somma prima 0.0410, dopo 0.0449 (+9.5 per cento); ingresso mediano del secondo turno senza filo 5790, col filo 6152
+docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T0252.txt: 10 consulti a freddo; mediana prima 0.00418 dollari, dopo 0.00441 (+5.7 per cento); somma prima 0.0416, dopo 0.0445 (+7.1 per cento); ingresso mediano del secondo turno senza filo 5782, col filo 6150
+docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T1555.txt: 10 consulti a freddo; mediana prima 0.00399 dollari, dopo 0.00457 (+14.5 per cento); somma prima 0.0398, dopo 0.0506 (+27.2 per cento); ingresso mediano del secondo turno senza filo 5490, col filo 5946
+docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T1641.txt: 10 consulti a freddo; mediana prima 0.00400 dollari, dopo 0.00447 (+11.8 per cento); somma prima 0.0396, dopo 0.0457 (+15.3 per cento); ingresso mediano del secondo turno senza filo 5483, col filo 5894

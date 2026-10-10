@@ -3,73 +3,49 @@ import 'package:flutter/foundation.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 
-/// Le destinazioni della navigazione principale (bottom bar).
+/// Le due schermate ancorate nello shell, sotto la bottom bar.
 ///
-/// Il Santuario e' l'ancora neutra; i tre Maestri sono le altre voci. La
-/// bottom bar dei tre Maestri e il Santuario condividono questo insieme.
-enum AppDestination {
-  santuario,
-  medora,
-  aura,
-  caligo;
+/// Il Santuario e' la schermata eroe; il Cosmic Passport e' la quinta
+/// destinazione distinta. I tre Maestri della bottom bar non sono schermate a
+/// se': scelgono il busto centrale del Santuario. Il dominio di un Maestro e la
+/// chat sono route spinte sopra lo shell, con la loro freccia Indietro e senza
+/// bottom bar, cosi' restano superfici immersive.
+enum ShellView { santuario, passport }
 
-  /// Maestro associato alla destinazione, null per il Santuario.
-  Maestro? get maestro => switch (this) {
-        AppDestination.santuario => null,
-        AppDestination.medora => Maestro.medora,
-        AppDestination.aura => Maestro.aura,
-        AppDestination.caligo => Maestro.caligo,
-      };
-
-  static AppDestination forMaestro(Maestro? maestro) => switch (maestro) {
-        null => AppDestination.santuario,
-        Maestro.medora => AppDestination.medora,
-        Maestro.aura => AppDestination.aura,
-        Maestro.caligo => AppDestination.caligo,
-      };
-}
-
-/// Coordina la voce di navigazione attiva e la tiene sincronizzata con il
-/// Maestro attivo: cambiare tab cambia Maestro (e quindi il tema), e viceversa.
+/// Coordina la schermata dello shell e, con il controller del Maestro, il
+/// Maestro centrale del Santuario.
 class NavigationController extends ChangeNotifier {
-  NavigationController(this._maestro) {
-    _current = AppDestination.forMaestro(_maestro.activeMaestro);
-    _maestro.addListener(_syncFromMaestro);
-  }
+  NavigationController(this._maestro);
 
   final MaestroController _maestro;
-  late AppDestination _current;
 
-  AppDestination get current => _current;
-  int get index => _current.index;
+  ShellView _view = ShellView.santuario;
+  ShellView get view => _view;
 
-  /// Naviga a una destinazione e allinea il tema del Maestro.
-  void goTo(AppDestination destination) {
-    if (destination == _current) return;
-    _current = destination;
-    final maestro = destination.maestro;
-    if (maestro == null) {
-      _maestro.clearMaestro();
-    } else {
-      _maestro.selectMaestro(maestro);
+  /// Ancora al Santuario in stato neutro: la panoramica dei tre, nessuno
+  /// scelto. E' cio' che fa la voce Santuario della bottom bar.
+  void goToSantuario() {
+    _maestro.clearMaestro();
+    if (_view != ShellView.santuario) {
+      _view = ShellView.santuario;
     }
     notifyListeners();
   }
 
-  void goToIndex(int index) => goTo(AppDestination.values[index]);
-
-  /// Se il Maestro cambia da un'altra parte dell'app, aggiorna la tab.
-  void _syncFromMaestro() {
-    final target = AppDestination.forMaestro(_maestro.activeMaestro);
-    if (target != _current) {
-      _current = target;
-      notifyListeners();
-    }
+  /// Porta al Santuario e mette quel Maestro al centro (busti che ruotano,
+  /// aura predominante, cosmo che vira). E' cio' che fanno le voci Maestro
+  /// della bottom bar.
+  void selectCentral(Maestro maestro) {
+    _view = ShellView.santuario;
+    _maestro.selectMaestro(maestro);
+    notifyListeners();
   }
 
-  @override
-  void dispose() {
-    _maestro.removeListener(_syncFromMaestro);
-    super.dispose();
+  /// Quinta destinazione: il Cosmic Passport.
+  void goToPassport() {
+    if (_view != ShellView.passport) {
+      _view = ShellView.passport;
+      notifyListeners();
+    }
   }
 }

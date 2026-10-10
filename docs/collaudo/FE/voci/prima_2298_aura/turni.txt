@@ -1,0 +1,12 @@
+maestro aura, inizio 01:44:23
+sessione chiesta a 1.6 s
+saluto finito a 20.8 s (1 voci finite)
+domanda 1 detta a 22.1 s (01:44:45): Aura, la mia relazione si è raffreddata: posso ancora salvarla?
+  voce finita a 69.8 s
+domanda 2 detta a 71.7 s (01:45:35): E in pratica, cosa faccio questa settimana?
+  voce finita a 112.0 s
+domanda 3 detta a 113.9 s (01:46:17): Come capisco se lui vuole davvero ricominciare?
+  voce finita a 156.5 s
+domanda 4 detta a 158.4 s (01:47:01): E se le cose non vanno come speri?
+  voce finita a 199.1 s
+croce toccata a 200.9 s

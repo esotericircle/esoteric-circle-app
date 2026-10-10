@@ -1,0 +1,24 @@
+S01|NO|NA|NO|NO|NA|Risposta troncata a metà frase, nessuna azione concreta, non dice dove sta la Luna di stasera: massima generica, al limite sul cielo.
+S02|SI|NA|SI|SI|SI|Luna in Acquario, congiunzione con Plutone e quadratura con Mercurio giuste; azione concreta e seguito che aggiunge aspetti.
+S03|SI|NA|SI|SI|SI|Retrogradi corretti (Venere, Saturno, Urano, Nettuno, Plutone); il seguito spiega Venere in Scorpione e Saturno in Ariete.
+S04|NO|NA|NO|NO|NO|Parla di funzione del cielo e mostra il marcatore CHIEDO (messaggio di sistema); chiede la domanda già scritta, nessun fatto dato.
+S05|SI|NA|SI|SI|SI|Retrogradi giusti, azione con la ceramica; seguito concreto su Venere e Saturno applicati a Marco, Berlino e bottega.
+S06|SI|NA|SI|SI|NA|Luna in Cancro giusta, interpretazione legata alla sicurezza e alla famiglia, azione concreta della lista di tre cose.
+S07|SI|NA|NO|NO|NO|Non risponde a una domanda chiara; il seguito omette Venere retrograda, fatto errato. Al limite su A e E.
+S08|SI|NA|SI|SI|NA|Ultimo quarto e Luna in Cancro giusti; azione concreta della lettera, interpretazione specifica su radici e famiglia.
+S09|SI|NA|SI|SI|NA|Luna in Cancro giusta, azione della lettera alla famiglia; D al limite per una prima frase piuttosto generica.
+S10|SI|NA|SI|SI|SI|Retrogradi giusti, Luna in Cancro e Venere in Scorpione giuste; seguito aggiunge Saturno in Ariete e il significato.
+S11|SI|NA|SI|SI|SI|Quadratura Sole-Marte e Luna in Acquario quadrata a Mercurio giuste; azione concreta e seguito con il perché.
+S12|SI|NA|NO|SI|NA|Non dice mai dove sta la Luna di stasera pur essendo la domanda sul cielo, al limite; azione concreta delle tre cose.
+S13|SI|NA|SI|SI|SI|Retrogradi giusti, Venere in Scorpione e Saturno in Ariete giusti; seguito aggiunge un perché legato all'Ascendente.
+S14|SI|NA|NO|SI|NA|Nessun fatto del cielo sulla Luna di stasera, al limite; invito a una cena confortante concreto.
+S15|SI|NA|NO|SI|SI|Dice Luna in quadratura con Plutone ma è in congiunzione con Plutone: fatto sbagliato. Resto concreto, al limite sul seguito.
+S16|SI|NA|SI|SI|NA|Luna in Cancro giusta, azione concreta con Ombra, risposta calata sulla persona.
+S17|SI|NA|SI|SI|SI|Sole in Scorpione, Saturno retrogrado, Luna crescente in Acquario e quadratura con Mercurio tutti giusti; azione e seguito concreti.
+S18|SI|NA|SI|SI|NA|Luna in Cancro giusta, azione concreta della candela blu, interpretazione sul bisogno di sicurezza.
+S19|SI|NA|SI|SI|SI|Retrogradi giusti, Venere in Scorpione giusta; seguito aggiunge il significato dei retrogradi, al limite perché abbastanza generico.
+S20|SI|NA|NO|SI|SI|Sole congiunto a Mercurio è sbagliato (18 gradi di distanza); Marte-Giove tesi col Sole giusto. Seguito al limite, regge sul secondo punto.
+S21|SI|NA|NO|SI|NO|Nel seguito la Luna è data in ultimo quarto e poi in Cancro, ma il 15 novembre è crescente in Acquario; seguito poggia sul fatto sbagliato.
+S22|SI|NA|NO|SI|NO|Seguito dice Ultimo Quarto e Venere retrograda in Scorpione, ma il 15 novembre è crescente e Venere è in Bilancia; si contraddice con Luna crescente.
+S23|SI|NA|SI|SI|NO|Fatti giusti (Saturno retrogrado, Luna crescente in Acquario); seguito vago e di massime generiche, al limite sul merito e sul seguito.
+S24|SI|NA|SI|SI|SI|Retrogradi giusti, Venere in Scorpione e Saturno in Ariete giusti; seguito aggiunge un perché legato al Sole in Cancro.

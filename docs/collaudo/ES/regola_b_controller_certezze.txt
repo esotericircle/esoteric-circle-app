@@ -1,0 +1,2 @@
+REGOLA B, 30 settembre 2026, innesto "il controller non chiede piu' di nuovo la risposta con una certezza": grep nel file SI; prova le_certezze_e_l_italiano_del_maestro ROSSA
+file rimesso: sha1 prima b857eaabbd5a0c19b3a3e4e2448c1367e7c22457, dopo b857eaabbd5a0c19b3a3e4e2448c1367e7c22457, IDENTICO

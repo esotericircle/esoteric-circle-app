@@ -1,0 +1,36 @@
+Firebase Test Lab, innesto di Regola A: l'istruzione ricalcola gli eventi in arrivo sul filo (ProssimiEventi.da al posto di IlCieloCheArriva.gia in maestro_persona.dart), a35x Android 16.
+Registro intero: gs://test-lab-fbt34a4rtt0j6-hdmtwm4twzy7z/2026-10-06_02:32:32.926320_Coda/a35x-36-it-portrait/logcat
+
+10-05 17:38:09.438 21818 21921 I flutter : The Dart VM service is listening on http://127.0.0.1:35599/hZDggu4thIc=/
+10-05 17:38:09.487 21818 21913 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+10-05 17:38:09.737 21818 21818 I flutter : 00:00 +0: il filo principale non resta fermo oltre 100 ms in un turno
+10-05 17:38:14.432 21818 21818 I flutter : ORDINE FE VOCE 05: PRIMA, il calcolo della 2298 sul filo: filo fermo 3507 ms
+10-05 17:38:20.006 21818 21818 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 17:38:22.566 21818 21818 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di medora: filo fermo al massimo 1891 ms, risposta di 748 caratteri
+10-05 17:38:29.660 21818 21818 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di aura: filo fermo al massimo 1950 ms, risposta di 299 caratteri
+10-05 17:38:34.639 21818 21818 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 17:38:36.062 21818 21818 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di caligo: filo fermo al massimo 1856 ms, risposta di 360 caratteri
+10-05 17:38:38.071 21818 21818 I flutter : ORDINE FE VOCE 05: DOPO, fermo massimo su tre turni 1950 ms; istruzione ms [medora 1970, aura 1878, caligo 2009]
+10-05 17:38:38.072 21818 21818 I flutter : Expected: a value less than <100>
+10-05 17:38:38.072 21818 21818 I flutter :   Actual: <1950>
+10-05 17:38:38.072 21818 21818 I flutter :    Which: is not a value less than <100>
+10-05 17:38:38.072 21818 21818 I flutter : durante un turno di LIVE il filo principale e' rimasto fermo 1950 ms: la voce verso il volto si ferma con lui
+10-05 17:38:38.072 21818 21818 I flutter : 
+10-05 17:38:38.073 21818 21818 I flutter : #0      fail (package:matcher/src/expect/expect.dart:187)
+10-05 17:38:38.073 21818 21818 I flutter : #1      _expect (package:matcher/src/expect/expect.dart:182)
+10-05 17:38:38.073 21818 21818 I flutter : #2      expect (package:matcher/src/expect/expect.dart:65)
+10-05 17:38:38.073 21818 21818 I flutter : #3      expect (package:flutter_test/src/widget_tester.dart:473)
+10-05 17:38:38.073 21818 21818 I flutter : #4      main.<anonymous closure> (file:///C:/Users/user/fe_misura/integration_test/il_filo_resta_libero_test.dart:111)
+10-05 17:38:38.073 21818 21818 I flutter : <asynchronous suspension>
+10-05 17:38:38.073 21818 21818 I flutter : #5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192)
+10-05 17:38:38.073 21818 21818 I flutter : <asynchronous suspension>
+10-05 17:38:38.073 21818 21818 I flutter : #6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952)
+10-05 17:38:38.073 21818 21818 I flutter : <asynchronous suspension>
+10-05 17:38:38.073 21818 21818 I flutter : #7      TestWidgetsFlutterBinding._createTestCompletionHandler.<anonymous closure> (package:flutter_test/src/binding.dart:1706)
+10-05 17:38:38.073 21818 21818 I flutter : <asynchronous suspension>
+10-05 17:38:38.073 21818 21818 I flutter : 00:28 +0: il filo principale non resta fermo oltre 100 ms in un turno [E]
+10-05 17:38:38.073 21818 21818 I flutter :   Test failed. See exception logs above.
+10-05 17:38:38.073 21818 21818 I flutter :   The test description was: il filo principale non resta fermo oltre 100 ms in un turno
+10-05 17:38:38.073 21818 21818 I flutter :   
+10-05 17:38:38.073 21818 21818 I flutter : 00:28 +0 -1: (tearDownAll)
+10-05 17:38:38.077 21818 21818 I flutter : 00:28 +1 -1: Some tests failed.

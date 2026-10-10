@@ -1,0 +1,6 @@
+ORDINE ES VOCE 05, REGOLA A: ogni periodo si condivide con la sua card e il suo emblema (30 settembre 2026). Guardia l_oroscopo_visto_sul_realme.
+
+INNESTO sotto la Settimana e il Mese non c'e' il gesto della condivisione: grep del difetto nel file SI; prova test/l_oroscopo_visto_sul_realme_test.dart ROSSA; file rimesso sha1 cb630b86c52a -> cb630b86c52a IDENTICO
+INNESTO la card del periodo porta le schede del giorno, col numero: grep del difetto nel file SI; prova test/l_oroscopo_visto_sul_realme_test.dart ROSSA; file rimesso sha1 cb630b86c52a -> cb630b86c52a IDENTICO
+INNESTO la card dice "della" anche per il mese: grep del difetto nel file SI; prova test/l_oroscopo_visto_sul_realme_test.dart ROSSA; file rimesso sha1 cb630b86c52a -> cb630b86c52a IDENTICO
+INNESTO la card del periodo col riquadro del numero anche senza numero: grep del difetto nel file SI; prova test/l_oroscopo_visto_sul_realme_test.dart ROSSA; file rimesso sha1 718a65a4825a -> 718a65a4825a IDENTICO

@@ -1,0 +1,55 @@
+ORDINE EX VOCE 04, IL "VAI PIU' A FONDO" SCRITTO INSIEME ALLA RISPOSTA. 2 ottobre 2026.
+
+DOMANDA: "il "vai più a fondo" dovrebbe essere già generato, va solo scoperto, in modo da non fare un'altra chiamata, o sbaglio?"
+MISURA chiesta: chiamate al tocco, prima 1,45, dopo 0; costo di una domanda; confronto alla cieca.
+
+IL CODICE
+- lib/core/maestro/il_seguito_nascosto.dart: il segno [[SEGUITO]] e l'istruzione; IlSeguitoNascosto.dividi.
+- MaestroPersona.systemInstruction(conSeguito): l'istruzione in fondo e, accanto alla regola del consiglio finale ("l'ultima riga"), la riga "Quella riga è l'ultima della risposta; dopo di lei scrivi sempre [[SEGUITO]] e il seguito".
+- FirebaseMaestroAiProvider: per chi ha il seguito, il tetto d'uscita cresce dello spazio del seguito (_conLoSpazioDelSeguito).
+- Il controller divide il testo prima delle reti, tiene il seguito ripulito (SeguitoDellaLettura.pulisci, LeCertezzeDelMaestro.senzaLeFrasiCerte) in ChatMessage.seguitoNascosto, salvato in Firestore; approfondisci() lo scopre senza chiamare e registra il Vai più a fondo nel budget del piano come prima. Se il seguito manca, il tocco chiama il modello come prima (nessun vicolo cieco).
+- Solo nella chat scritta e per i piani col secondo strato; nel LIVE no.
+
+LA MISURA (tool/il_banco_della_qualita.dart, 24 casi di chat, ogni risposta toccata; python tool/i_conti_della_qualita.py)
+| Giro | Tocchi senza chiamata | Chiamate al tocco (media) | Costo di un tocco a freddo | Costo di una risposta a freddo |
+|---|---|---|---|---|
+| prima2 | 0 su 24 | 1,46 | 0,00390 $ | 0,00690 $ |
+| fine (istruzione solo in fondo) | 6 su 24 | 0,83 | 0,00229 $ | 0,00415 $ |
+| fine2 (riga accanto al consiglio finale) | 21 su 24 | 0,12 | 0,00033 $ | 0,00486 $ |
+| fine3 (fine2 + cielo nella correzione) | 20 su 24 | 0,17 | 0,00047 $ | 0,00462 $ |
+
+DIFETTO TROVATO E CURATO DENTRO LA VOCE: al giro "fine" il modello scriveva il seguito in 6 risposte su 24. Padre: ordine EX voce 04 (l'istruzione in fondo contro la regola del consiglio finale dell'ordine EQ voce 01, "chiudi con una riga a sé, l'ultima"). La sonda su otto casi con l'istruzione rinforzata: 5 su 8; con la riga accanto alla regola: 11 su 12, poi 21 e 20 su 24 sul banco intero.
+
+UNA DOMANDA COL SUO TOCCO, a freddo: prima 0,00690 + 0,00390 = 0,01080 $; dopo (fine3) 0,00462 + 0,00047 = 0,00509 $. Il seguito costa ora circa 170 token d'uscita dentro la risposta (Flash, 2,50 $ al milione: circa 0,0004 $), pagati anche quando la persona non tocca.
+
+IL RESTO NON E' ZERO: 3 o 4 tocchi su 24 chiamano ancora, quando il modello non ha scritto il segno o il seguito ripulito resta vuoto. La voce chiedeva "dopo 0": il dopo misurato e' 0,12 e 0,17.
+
+IL CONFRONTO ALLA CIECA, misura E (seguito): giro finale contro prima2, docs/collaudo/EX/qualita/finale3/.
+
+L'EX AGGIUNTA 4: IL TESTO C'E' SEMPRE GIA' QUANDO LA PERSONA TOCCA (2 ottobre 2026 sera)
+DOMANDA: "Voglio tutto sistemato." (EX Aggiunta 4: zero chiamate al tocco del "Vai più a fondo", prima 0,17.)
+MISURA chiesta: chiamate al tocco 0,17 -> 0; casi in cui il seguito non arriva con la risposta, prima e dopo; confronto alla cieca.
+
+DA DOVE VENIVANO LE CHIAMATE AL TOCCO: il modello saltava il seguito in 3 o 4 risposte su 24 (uscite da 29 a 95 token), e la correzione corta dell'EX.07 non lo chiedeva: una risposta corretta arrivava senza seguito.
+
+IL CODICE
+- La correzione corta chiede anche il seguito (MaestroPersona.istruzioneDellaCorrezione con conSeguito, FirebaseAiProvider.correggi), e il seguito che arriva e' quello della risposta corretta o nessuno.
+- Se la risposta arriva senza seguito, il controller lo prepara subito in sottofondo (MaestroChatController._preparaIlSeguitoSeManca), lo tiene nascosto nel messaggio e lo salva con lui; il tocco lo scopre, o aspetta quello in preparazione, senza chiamare. All'uscita dal LIVE si prepara quello dell'ultima risposta. All'apertura della chat no: la prima stesura lo preparava anche li', e al banco (giro ex07a) ogni apertura costava una chiamata anche a chi non tocca mai; tolto (padre: questa voce).
+- Prova nuova test/il_seguito_e_gia_pronto_test.dart (4 prove, nata rossa, A15). Nelle prove della suite la preparazione e' spenta (test/flutter_test_config.dart), perche' le prove che contano le chiamate della risposta ne vedrebbero una in piu' che non e' loro; la prova della preparazione la riaccende.
+
+LA MISURA (tool/il_banco_della_qualita.dart, 24 casi di chat, ogni risposta toccata; il banco registra i seguiti preparati, quelli aspettati dal tocco e quelli chiesti al tocco)
+| Giro | Chiamate al tocco | Risposte senza seguito, preparato in sottofondo | Costo di un tocco a freddo (con la preparazione) |
+|---|---|---|---|
+| fine4 (prima) | 0,17 (4 tocchi su 24 chiamano) | 4 su 24, chiesto al tocco | 0,00042 $ |
+| ex07e | 0 | 3 su 24 | 0,00034 $ |
+| ex07f | 0 | 3 su 24 | 0,00032 $ |
+| ex07g | 0 | 4 su 24 | 0,00057 $ |
+| ex07h | 0 | 4 su 24 | 0,00047 $ |
+| ex07i | 0 | 6 su 24 | 0,00068 $ |
+| ex07j (finale) | 0 | 1 su 24 | 0,00011 $ |
+Chiamate al tocco: prima 0,17, dopo 0 in sei giri su sei (144 tocchi). Il seguito che non arriva con la risposta costa ancora una chiamata, ma la paga l'app in sottofondo subito dopo la risposta, e la persona trova il testo gia' pronto.
+
+IL CONFRONTO ALLA CIECA, misura E (seguito), giro finale ex07j contro fine4, due giudici (docs/collaudo/EX/qualita/chat_ex07j/): 20 contro 14 e 21 contro 18 su 24. Al giro ex07i (chat_ex07i): 18 contro 12 e 22 contro 15.
+
+A VIDEO SUL REALME, build 2294, 3 ottobre 2026: domanda a Medora "Devo accettare il nuovo lavoro?", risposta col seguito nascosto; al tocco di "Vai più a fondo" il contatore scende da 3 a 2 approfondimenti, a 0,6 secondi il messaggio e' gia' aperto e il seguito sta dentro la risposta sopra la riga d'oro. Il registro del telefono, dalla pulizia delle 00:15:58 (prima della domanda) a dopo il tocco delle 00:22:31, non porta nessuna riga "SEGUITO" (che si scrive anche in rilascio ogni volta che il seguito si chiede al modello): nessuna chiamata, ne' in sottofondo ne' al tocco. Catture: docs/collaudo/EX/realme/vai_piu_a_fondo_2294_1_prima_del_tocco.jpg, _2_a_0_6_secondi.jpg, _3_il_seguito.jpg; registro: docs/collaudo/EX/realme/vai_piu_a_fondo_2294_registro.txt.
+STATO: CHIUSA.

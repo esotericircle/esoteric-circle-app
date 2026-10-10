@@ -1,0 +1,94 @@
+== EW.04, IL COSTO PER USO (dollari)
+chiamate lette 621
+chat, memoria vuota: usi 20, chiamate 42 (per uso media 2.10, massimo 6), ragionamento 0 token; medio 0.00252, massimo 0.00714; senza cache medio 0.00521, massimo 0.01533
+chat, memoria piena (20 turni, sintesi, 12 fatti): usi 30, chiamate 67 (per uso media 2.23, massimo 5), ragionamento 0 token; medio 0.00431, massimo 0.01171; senza cache medio 0.00694, massimo 0.01557
+chat, Vai piu' a fondo (memoria piena): usi 20, chiamate 29 (per uso media 1.45, massimo 4), ragionamento 0 token; medio 0.00236, massimo 0.00531; senza cache medio 0.00430, massimo 0.01180
+LIVE, la risposta del Maestro: usi 20, chiamate 38 (per uso media 1.90, massimo 4), ragionamento 0 token; medio 0.00328, massimo 0.00979; senza cache medio 0.00596, massimo 0.01272
+LIVE, la voce del Maestro della risposta: usi 20, chiamate 45 (per uso media 2.25, massimo 3), ragionamento 0 token; medio 0.00779, massimo 0.01211; senza cache medio 0.00779, massimo 0.01211
+Interroga i Maestri, tre lenti e la sintesi: usi 20, chiamate 80 (per uso media 4.00, massimo 4), ragionamento 24 token; medio 0.00219, massimo 0.00261; senza cache medio 0.00250, massimo 0.00264
+Tarocchi, la lettura della stesa: usi 20, chiamate 35 (per uso media 1.75, massimo 3), ragionamento 0 token; medio 0.00203, massimo 0.00416; senza cache medio 0.00207, massimo 0.00416
+Rune, la lettura della gettata: usi 20, chiamate 37 (per uso media 1.85, massimo 3), ragionamento 0 token; medio 0.00405, massimo 0.00881; senza cache medio 0.00601, massimo 0.01206
+Sigillo, titolo e responso: usi 20, chiamate 31 (per uso media 1.55, massimo 2), ragionamento 0 token; medio 0.00045, massimo 0.00061; senza cache medio 0.00045, massimo 0.00061
+Sigillo, la riformulazione: usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 0 token; medio 0.00012, massimo 0.00013; senza cache medio 0.00012, massimo 0.00013
+Sigillo, il compimento: usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 0 token; medio 0.00014, massimo 0.00015; senza cache medio 0.00014, massimo 0.00015
+Viaggio, una discesa con la domanda scritta: usi 20, chiamate 76 (per uso media 3.80, massimo 4), ragionamento 0 token; medio 0.00345, massimo 0.00393; senza cache medio 0.00350, massimo 0.00393
+Viaggio, un segno chiesto all'animale: usi 20, chiamate 21 (per uso media 1.05, massimo 2), ragionamento 2 token; medio 0.00012, massimo 0.00127; senza cache medio 0.00012, massimo 0.00127
+Il titolo della conversazione: usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 0 token; medio 0.00002, massimo 0.00002; senza cache medio 0.00002, massimo 0.00002
+Ricordi, la pagina del mese: usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 0 token; medio 0.00010, massimo 0.00017; senza cache medio 0.00010, massimo 0.00017
+LIVE, l'ascolto di una frase: usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 0 token; medio 0.00027, massimo 0.00031; senza cache medio 0.00027, massimo 0.00031
+Interroga, una lente Profonda (mai chiesta dall'app): usi 20, chiamate 20 (per uso media 1.00, massimo 1), ragionamento 8530 token; medio 0.00302, massimo 0.00348; senza cache medio 0.00322, massimo 0.00350
+
+== EW.05, LA GIORNATA AL MASSIMO SENZA LIVE (dollari)
+Viandante, costo medio per uso, cache misurata: al giorno 0.0179, in 30 giorni 0.54
+Viandante, costo medio per uso, senza cache: al giorno 0.0280, in 30 giorni 0.84
+Viandante, ogni uso al suo massimo, senza cache: al giorno 0.0673, in 30 giorni 2.02
+   domande (risposta del Maestro): 0.01564
+   titoli delle conversazioni (uno per domanda, al massimo): 0.00005
+   Vai piu' a fondo: 0.00000
+   confronti (Interroga i Maestri): 0.00000
+   stese dei tarocchi: 0.00207
+   gettate di rune: 0.00601
+   discese del Viaggio: 0.00350
+   segni dell'animale: 0.00002
+   sigilli (fatti, riformulati, compiuti): 0.00071
+   lettura del mese dei Ricordi: 0.00000
+Iniziato, costo medio per uso, cache misurata: al giorno 0.1293, in 30 giorni 3.88
+Iniziato, costo medio per uso, senza cache: al giorno 0.1887, in 30 giorni 5.66
+Iniziato, ogni uso al suo massimo, senza cache: al giorno 0.3854, in 30 giorni 11.56
+   domande (risposta del Maestro): 0.03468
+   titoli delle conversazioni (uno per domanda, al massimo): 0.00009
+   Vai piu' a fondo: 0.01291
+   confronti (Interroga i Maestri): 0.00751
+   stese dei tarocchi: 0.00827
+   gettate di rune: 0.12026
+   discese del Viaggio: 0.00350
+   segni dell'animale: 0.00005
+   sigilli (fatti, riformulati, compiuti): 0.00142
+   lettura del mese dei Ricordi: 0.00000
+Adepto, costo medio per uso, cache misurata: al giorno 0.2192, in 30 giorni 6.57
+Adepto, costo medio per uso, senza cache: al giorno 0.3257, in 30 giorni 9.77
+Adepto, ogni uso al suo massimo, senza cache: al giorno 0.6860, in 30 giorni 20.58
+   domande (risposta del Maestro): 0.06935
+   titoli delle conversazioni (uno per domanda, al massimo): 0.00017
+   Vai piu' a fondo: 0.04302
+   confronti (Interroga i Maestri): 0.01252
+   stese dei tarocchi: 0.01447
+   gettate di rune: 0.18039
+   discese del Viaggio: 0.00350
+   segni dell'animale: 0.00012
+   sigilli (fatti, riformulati, compiuti): 0.00214
+   lettura del mese dei Ricordi: 0.00000
+Illuminato, costo medio per uso, cache misurata: al giorno 0.5850, in 30 giorni 17.55
+Illuminato, costo medio per uso, senza cache: al giorno 0.8799, in 30 giorni 26.40
+Illuminato, ogni uso al suo massimo, senza cache: al giorno 1.8913, in 30 giorni 56.74
+   domande (risposta del Maestro): 0.34676
+   titoli delle conversazioni (uno per domanda, al massimo): 0.00086
+   Vai piu' a fondo: 0.12905
+   confronti (Interroga i Maestri): 0.05010
+   stese dei tarocchi: 0.04136
+   gettate di rune: 0.30065
+   discese del Viaggio: 0.00701
+   segni dell'animale: 0.00058
+   sigilli (fatti, riformulati, compiuti): 0.00356
+   lettura del mese dei Ricordi: 0.00000
+
+== EW.07, LA SESSIONE LIVE VERA (dollari)
+Protoface (volto): 0.0800 nella sessione, 0.0113 al minuto
+voce del Maestro (Gemini TTS): 0.0285 nella sessione, 0.0040 al minuto
+risposte (chat nel LIVE): 0.0238 nella sessione, 0.0034 al minuto
+ascolto (trascrizioni): 0.0177 nella sessione, 0.0025 al minuto
+LiveKit (piano Build, se confermato): 0.0000 nella sessione, 0.0000 al minuto
+totale 0.1500 in 7.05 minuti fatturati: 0.0213 al minuto
+minuto senza risposte (volto e ascolto): 0.0125
+Viandante: 0 minuti al mese dal codice, se tutti usati 0.00 dollari
+Iniziato: 0 minuti al mese dal codice, se tutti usati 0.00 dollari
+Adepto: 100 minuti al mese dal codice, se tutti usati 2.13 dollari
+Illuminato: 250 minuti al mese dal codice, se tutti usati 5.32 dollari
+
+== EW.05, I TRENTA GIORNI CONTRO IL PREZZO
+Viandante: modello al massimo 30 giorni 0.84 (ogni uso al massimo 2.02); LIVE coi minuti del piano 0.00; totale 0.84 (fino a 2.02); prezzo 0.00 euro = 0.00 dollari
+Iniziato: modello al massimo 30 giorni 5.66 (ogni uso al massimo 11.56); LIVE coi minuti del piano 0.00; totale 5.66 (fino a 11.56); prezzo 9.99 euro = 11.29 dollari
+Adepto: modello al massimo 30 giorni 9.77 (ogni uso al massimo 20.58); LIVE coi minuti del piano 2.13; totale 11.90 (fino a 22.71); prezzo 19.99 euro = 22.58 dollari
+Illuminato: modello al massimo 30 giorni 26.40 (ogni uso al massimo 56.74); LIVE coi minuti del piano 5.32; totale 31.72 (fino a 62.06); prezzo 29.99 euro = 33.88 dollari
+Iniziati al massimo che fanno 95 dollari al mese: 17
+... con ogni uso al suo massimo: 8

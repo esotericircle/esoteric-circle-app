@@ -1,0 +1,105 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.protoface.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Credits and limits
+
+> Credit reservations, concurrency ceilings, and session limits.
+
+API usage is billed in credits worth \$0.01 each. Per-model rates are on
+[protoface.com/pricing](https://www.protoface.com/pricing).
+
+`GET /v1/billing/plans` returns published plan limits and
+`GET /v1/billing/quota` returns where your account stands against them.
+`balance_credits` is your spendable total, and `can_start_session`
+accounts for that and your concurrency.
+
+## Model inference
+
+A generation reserves `credit_estimate.maximum_reserved_credits` against
+your balance up front. A completed run is charged that amount, and a
+failed run releases it.
+
+Canceling before the run starts releases the reservation. Canceling after
+it starts charges the full reserved amount. A request Protoface rejects
+outright reserves nothing.
+
+### Concurrency
+
+Concurrency is based on platform spend over the last 30 days: the price of
+your current plan plus any credits you buy. Refunded purchases do not
+count.
+
+Workers is how many generations can run at the same time. Requested is how
+many runs you can have queued or running. Extra runs wait until a worker is
+free. If you hit the requested limit, the API returns `429` with
+`error.code: "run.concurrency_exceeded"`.
+
+| Last 30-day spend | Workers | Requested |
+| - | - | - |
+| Under \$10 | 1 | 100 |
+| \$10+ | 3 | 300 |
+| \$100+ | 10 | 1,000 |
+| \$500+ | 30 | 3,000 |
+| \$1,000+ | 40 | 4,000 |
+
+Run submissions are separately capped at 60 per minute per key, and
+exceeding that returns `429` with `error.code: "run.rate_limited"`.
+
+Need higher limits? [Contact us](https://protoface.com/enterprise).
+
+## Realtime sessions
+
+Your plan sets how long each session lasts, and — except on Scale — how
+many sessions you can run at once. Every session response carries the
+effective limits for that session.
+
+| Plan | Concurrent sessions | Max session duration |
+| - | - | - |
+| Free | 1 | 2 minutes |
+| Starter | 2 | 10 minutes |
+| Launch | 10 | 20 minutes |
+| Scale | Uncapped\* | 60 minutes |
+
+\*Uncapped means no artificial cap on simultaneous sessions. Ramp and
+system technical limits still apply, and uncapped does not imply
+guaranteed concurrency.
+
+On capped plans, exceeding your concurrency returns `429` with
+`error.type: "quota_exceeded"` and `error.code: "concurrent_sessions"`.
+
+Session starts are ramp rate-limited on all plans to prevent abuse (see
+create rate limit below); this affects ramp-up speed only, not your
+total concurrency budget. If production frequently hits ramp limits,
+[contact us](https://protoface.com/enterprise) to discuss higher ramp
+limits.
+
+| Limit | Default |
+| - | - |
+| Idle timeout | 30 seconds without inbound audio, settable from 1 to 600 |
+| Metadata size | 8 KB |
+| Create rate limit | 4 requests per minute per org |
+| Idempotency window | 24 hours |
+
+If you send `max_duration_seconds`, Protoface applies the lower of your
+request and your plan limit.
+
+For early capacity planning, divide daily active users by 250 to estimate
+concurrent sessions.
+
+## Realtime credits
+
+Session time rounds up to the nearest minute, at one credit per minute.
+If your balance is empty, session creation returns `402` with
+`error.code: "insufficient_credit_balance"`. Free monthly credits do not
+roll over. Purchased credits roll over without expiry.
+
+## Metadata keys
+
+`metadata` is customer-owned JSON with two reservations. Session keys
+beginning with `_avatar.` are managed by Protoface and reserved for
+support-directed use. Model-run keys beginning with `protoface_` are
+rejected.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

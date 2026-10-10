@@ -1,0 +1,13 @@
+es2_esecuzione1: prima frase che prende posizione 15 su 20; finite sulla riserva 4 (con la frase della posizione 3, che per il giudice prendono posizione 3, che parlano di cose che la domanda non ha 3); risposte che parlano di cose che la domanda non ha 4; consiglio 18; frasi vuote 22; errori di italiano 1
+es2_esecuzione2: prima frase che prende posizione 15 su 20; finite sulla riserva 2 (con la frase della posizione 2, che per il giudice prendono posizione 0, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 2; consiglio 16; frasi vuote 26; errori di italiano 2
+es3_esecuzione1: prima frase che prende posizione 15 su 20; finite sulla riserva 6 (con la frase della posizione 6, che per il giudice prendono posizione 5, che parlano di cose che la domanda non ha 1); risposte che parlano di cose che la domanda non ha 4; consiglio 20; frasi vuote 17; errori di italiano 0
+es3_esecuzione2: prima frase che prende posizione 14 su 20; finite sulla riserva 2 (con la frase della posizione 2, che per il giudice prendono posizione 1, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 2; consiglio 18; frasi vuote 22; errori di italiano 2
+
+ERRORI es2_esecuzione1
+    9: invita tua compagna
+ERRORI es2_esecuzione2
+    4: chiedi a ognuno di loro
+    11: chiarire a te chi sei
+ERRORI es3_esecuzione2
+    12: metti in chiaro con te
+    18: Smetti di aspettare le serate, ma agisci per renderle come vuoi

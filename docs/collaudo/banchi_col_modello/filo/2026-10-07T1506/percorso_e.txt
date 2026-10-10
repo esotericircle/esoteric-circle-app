@@ -1,0 +1,102 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo mostra una fase di attesa che non è passività, ma preparazione: riceverai la promozione, se la tua azione si concentra sulla collaborazione.
+La configurazione attuale dei pianeti indica che il successo arriverà attraverso la tua capacità di lavorare in squadra e di sostenere chi ti sta intorno, piuttosto che con un'affermazione individuale. L'Arcano del Sole rovesciato suggerisce di rivedere le tue aspettative sul come raggiungere il tuo scopo, non sulla sua realizzazione.
+
+✦ In questi giorni, offri il tuo aiuto a un collega per un progetto che non sia il tuo.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Per ricevere la promozione che aspetti, continua a offrire il tuo supporto ai colleghi, in particolare a chi vedi in difficoltà. Questo gesto non solo rafforza la tua posizione agli occhi di chi deve decidere, ma ti permette di affinare quelle doti di leadership e collaborazione che il tuo cielo e l'Arcano ti chiedono di esprimere.
+
+✦ Domani, proponiti per guidare un piccolo compito in cui un collega ha bisogno di supporto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende e sviluppa il consiglio precedente sulla collaborazione e l'aiuto ai colleghi, specificando come continuare ad agire in tal senso per la promozione.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando ti accorgerai che il tuo ruolo è diventato un riferimento per gli altri, e non solo una posizione, allora il tuo cielo ti mostrerà il momento giusto.
+
+✦ Domani sera, pensa a tre persone diverse che hai aiutato in passato e a quello che ti hanno insegnato.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il tema del 'ruolo di riferimento' e della 'collaborazione' già accennato nelle risposte precedenti, collegandolo al 'momento giusto' per la promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Se senti forte il richiamo al movimento, ascolta il tuo corpo: a volte il cambiamento fisico è lo specchio di un bisogno profondo di rinnovamento. Immagina la tua vita in un nuovo luogo, senti le sensazioni che questo pensiero ti porta.
+
+A volte, quando il centro della radice, il Muladhara, è agitato, sentiamo il bisogno di cercare stabilità altrove. Non è tanto il luogo in sé, quanto il desiderio di ritrovare il tuo radicamento.
+
+✦ Porta la mano destra sull'addome, proprio sotto l'ombelico, e fai tre respiri profondi, sentendo il radicamento.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Ora, dopo aver sentito il tuo radicamento, il passo è immaginare con chiarezza la città che ti attira e visualizzare la tua quotidianità lì, sentendo come risuona con il tuo centro del cuore, Anahata. Non pensare solo al dove, ma al come ti vedresti vivere, respirare, agire in quel nuovo contesto.
+
+✦ Al risveglio, prima di alzarti, visualizza per un minuto il tuo nuovo quotidiano nella città che ti chiama.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio precedente ('dopo aver sentito il tuo radicamento') e lo sviluppa indicando il passo successivo ('immaginare con chiarezza la città') e un nuovo esercizio di visualizzazione.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai quando l'immagine nella tua mente si farà più vivida, quando il respiro si farà più pieno al pensiero di quel nuovo inizio. Questo sentire non ha un tempo preciso, si manifesta quando il tuo corpo e la tua anima sono allineati.
+
+✦ Mentre respiri, senti l'energia che sale dal tuo centro della radice e si espande verso il centro della corona.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sentire' e 'immagine vivida' già introdotto nelle risposte precedenti, e lo collega all'allineamento di corpo e anima, aggiungendo un nuovo esercizio di respirazione che unisce i centri energetici menzionati prima.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima il legame. La strada è nella rinascita, non nella semplice conservazione.
+
+Il metallo rovente forgiato dal fuoco può tornare lucente, ma richiede impegno. I segni indicano che la forza è ancora presente, attende solo di essere risvegliata.
+
+✦ Parla con verità al tuo compagno, usa il sigillo **Gebō** per onestà e reciprocità.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: La parola è la tua soglia. Chiedi un incontro, non un confronto. Non attendere un'occasione, creala.
+
+La nebbia può confondere, ma il sentiero è illuminato dalla chiarezza.
+
+✦ Scegli un momento di calma e digli che desideri parlargli a cuore aperto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'parlare con verità' dato nella risposta [1] e lo sviluppa, specificando come e quando approcciare il compagno ('chiedi un incontro', 'creala', 'scegli un momento di calma').
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non attendere il segnale, crealo tu. La decisione viene da dentro, non dal tempo che passa.
+
+Il fuoco interiore arde, la sua luce illumina la via.
+
+✦ Porta con te un piccolo oggetto significativo del vostro inizio, lo vedrai quando sarai pronta.
+    GIUDICE: IGNORA, La persona chiede 'quando lo capirò?', riferendosi probabilmente al successo del tentativo di rianimare il legame o al momento giusto per agire. La guida risponde con un consiglio generico sull'azione interiore ('Non attendere il segnale, crealo tu. La decisione viene da dentro') e introduce un nuovo elemento ('porta con te un piccolo oggetto significativo') senza riprendere o sviluppare il tema del 'quando' o del 'capire' in relazione ai consigli precedenti.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Le carte non indicano il momento ideale per iniziare il tuo progetto. Ti suggeriscono di attendere ancora, di lasciare che le idee maturino e prendano una forma più definita prima di lanciarti.
+
+Il Matto, pur essendo un arcano di inizio e di libertà, è ancora in una fase di esplorazione, non di concretizzazione. Ti invita a non avere fretta, a goderti il viaggio e la ricerca, senza sentirti pressata dall'urgenza di avviare qualcosa che non è ancora del tutto pronto. Lascia che la tua visione si chiarisca prima di fare il primo passo.
+
+✦ Osserva il cielo alla prossima Luna nuova e, se ti senti pronta, scrivi su un foglio le prime tre idee che ti vengono in mente.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso puoi riprendere quelle idee che avevi scritto e valutarle con una visione più chiara, chiedendoti quale di esse si è definita meglio nel tuo cielo.
+
+Il tempo trascorso ha permesso al tuo pensiero di decantare, e ora puoi guardare con occhio più consapevole ciò che avevi annotato. Non si tratta di agire immediatamente, ma di riconoscere la direzione che i tuoi Arcani e il tuo Ascendente ti mostrano.
+
+✦ Prendi le idee che avevi scritto e scegli quella che risuona di più con la tua energia in questo momento.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('quelle idee che avevi scritto') e lo sviluppa, indicando il passo successivo nel processo di maturazione delle idee.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Il momento in cui lo capirai è un passo che si rivela attraverso un processo interiore, non con un'illuminazione improvvisa.
+
+Osserva la tua idea, quella che hai scelto, e domandati se senti una risonanza profonda con essa, come se fosse un piccolo fuoco che si accende dentro di te. Non ci sarà un segno esterno, ma una percezione chiara e tranquilla, come un allineamento del tuo ascendente con il percorso che desideri intraprendere.
+
+✦ Scrivi su un nuovo foglio la tua idea scelta e tre domande che ti aiutino a comprenderne meglio la forma e il suo possibile inizio.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('E quando lo capirò?') riprendendo il concetto di 'visione più chiara' e 'scegli quella che risuona di più' dalle risposte precedenti, spiegando come riconoscere il momento giusto attraverso un processo interiore e fornendo un nuovo passo pratico ('Scrivi su un nuovo foglio la tua idea scelta e tre domande').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena sentirai che il tuo respiro si è fatto più lento.
+
+Questo è il momento di ascoltare davvero, senza anticipare, lasciando che le sue parole possano trovare il loro spazio. Ascolta il suo tono, l'andatura del suo respiro, cerca di sentire le sue emozioni e capirne il centro profondo, al di là delle parole di rabbia. Puoi sentire le sue parole con il tuo Cuore, il centro verde smeraldo che si trova al centro del tuo petto e che ti lega agli altri. La fisiognomica mi dice che guardare la parte alta del suo naso, tra le sopracciglia, ti aiuterà a mantenere la calma.
+
+✦ Appoggia le mani sul tuo Cuore per qualche istante.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Ora che hai ascoltato, il passo successivo è fare spazio anche alle tue parole, senza paura.
+
+Prenditi un momento per respirare, senti il tuo Cuore battere e poi, con calma, esprimi quello che senti, le tue ragioni e il tuo desiderio di ricostruire il ponte che vi unisce. Non è necessario un incontro per le tue parole, puoi scriverle, lasciando il tempo a lei di accoglierle.
+
+✦ Inspira lentamente per quattro conteggi, trattieni per sette, ed espira per otto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende esplicitamente il punto precedente ('Ora che hai ascoltato') e introduce il passo successivo logico nel processo di riconciliazione, sviluppando il tema della comunicazione.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai, non appena la tensione nel tuo corpo si allenterà, quando il respiro diventerà più profondo e regolare.
+
+Il corpo ha una sua saggezza e ti darà un segno inequivocabile: un senso di leggerezza, una pace interiore che prima non c'era. Non c'è una data precisa, solo un sentire che nasce dal tuo radicamento. Accogli questa sensazione e fidati di essa, perché è la voce della tua Radice, il centro rosso scarlatto che ti lega alla terra e al tuo senso di sicurezza.
+
+✦ Porta l'attenzione al tuo respiro, sentendo l'aria che entra ed esce dal tuo naso.
+    GIUDICE: PORTA_AVANTI, La risposta affronta direttamente la domanda della persona ('E quando lo capirò?') e sviluppa il concetto di 'sentire' già introdotto nella prima risposta ('non appena sentirai che il tuo respiro si è fatto più lento'), fornendo ulteriori dettagli sui segnali fisici e interiori.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 4

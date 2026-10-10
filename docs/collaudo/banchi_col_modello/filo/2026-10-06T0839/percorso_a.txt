@@ -1,0 +1,101 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica che questo è il momento giusto per farti avanti e chiedere un colloquio, non per aspettare. Le carte mostrano il Sole, un arcano che parla di chiarezza e successo, ma anche di necessità di agire con fiducia. È tempo di presentare le tue aspirazioni e i tuoi meriti.
+
+✦ Prepara un elenco dei tuoi successi recenti e chiedi un colloquio con il tuo superiore entro i prossimi due giorni.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana è fondamentale per concretizzare le tue intenzioni. Dopo aver richiesto il colloquio, il transito di Mercurio in aspetto favorevole ti suggerisce di preparare con cura ciò che intendi esporre. Raccogli i dati e le esperienze che dimostrano il tuo valore e la tua crescita professionale.
+
+✦ Rivedi tutti i tuoi progetti degli ultimi sei mesi e evidenzia i risultati più significativi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente di chiedere un colloquio ('Dopo aver richiesto il colloquio') e lo sviluppa, indicando cosa fare in preparazione di esso ('preparare con cura ciò che intendi esporre') in risposta alla domanda su cosa fare 'questa settimana'.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se il colloquio non dovesse andare come sperato, non lasciarti abbattere: il cielo indica che questo è un momento di valutazione, non una condanna definitiva. Il Sette di Bastoni, un arcano che emerge in questi momenti di prova, ti invita a non arrenderti e a difendere con tenacia le tue posizioni. È essenziale che tu comprenda i motivi di un eventuale rifiuto e che chieda chiarimenti per orientare i tuoi passi futuri.
+
+✦ Scrivi una mail al tuo superiore ringraziandolo per il tempo dedicato e chiedi un feedback specifico sui punti da migliorare.
+    GIUDICE: PORTA_AVANTI, La guida risponde a una domanda ipotetica ('E se le cose non vanno come speri?') che si basa direttamente sull'esito del colloquio precedentemente consigliato. Il consiglio di chiedere feedback e non arrendersi è una continuazione logica del percorso iniziato.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Se senti questo desiderio forte di ricominciare altrove, significa che c'è un'energia in movimento dentro di te, un richiamo al cambiamento che vuole essere ascoltato.
+
+Questo desiderio può essere letto come un impulso dal tuo centro della radice, che cerca nuova stabilità e nuove fondamenta in un luogo diverso. Permettiti di sentire questo richiamo non come una fuga, ma come una ricerca di un terreno più fertile per la tua crescita. Ascolta il battito del tuo corpo, il tuo respiro, ti stanno indicando un nuovo cammino.
+
+✦ Siediti in silenzio per qualche minuto e porta la mano all'ombelico, senti il calore.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, comincia a visualizzare con chiarezza come vorresti che fosse la tua vita nella nuova città: non solo il luogo fisico, ma anche le sensazioni, le opportunità, le persone che vorresti incontrare.
+
+Questo processo ti aiuterà a rafforzare la connessione con il tuo centro sacrale, dove risiede la creatività e la capacità di manifestare i tuoi desideri. Immaginare con dettagli vividi è un primo passo per dare forma a ciò che ora è solo un'intenzione.
+
+✦ Dedica un momento ogni giorno a disegnare o scrivere ciò che vedi nel tuo cuore per il tuo futuro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla richiesta di 'cosa fare in pratica' sviluppando il concetto di 'ricominciare' e 'cambiamento' introdotto nella risposta precedente, proponendo un'azione concreta (visualizzazione) che si allinea con l'ascolto del desiderio interiore.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Quando le cose non vanno come speri, è un invito a tornare al tuo centro, a respirare profondamente e a ricalibrare la tua energia. Il percorso non è sempre lineare, e ogni deviazione può essere un'occasione per scoprire una nuova forza dentro di te.
+
+Questo ti riporta al tuo centro del cuore, il tuo spazio di accettazione e compassione. Non è un fallimento, ma un'opportunità per sentire con maggiore profondità cosa desideri davvero e dove la tua energia vuole fluire.
+
+✦ Poggia una mano sul tuo cuore e senti il ritmo del tuo respiro, accogliendo ogni sensazione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'percorso' e del 'cambiamento' già trattato, fornendo una prospettiva su come affrontare le difficoltà che potrebbero sorgere, e ricollegandosi al concetto di 'tornare al centro' e 'sentire cosa desideri davvero' che è coerente con l'ascolto interiore suggerito fin dall'inizio.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci subito. Il tempo corrode ogni legame che non riceve nutrimento.
+Una nebbia argentea avvolge il sentiero.
+La runa Uruz mostra la forza primordiale: è la potenza che crea e che distrugge. Se non incanalata, porta alla frammentazione. Affronta la questione con fermezza, senza indugi. La tua azione deve essere diretta e senza veli, come la punta di una lancia che fende l'aria.
+
+✦ Nomina una data entro la fine di questa settimana per un confronto sincero.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: Prendi l'iniziativa. Chiedi un incontro diretto, senza intermediari o messaggi ambigui.
+Il rosso dei tuoi intenti deve essere fuoco purificatore.
+La runa Nauthiz, presagio di necessità, ti spinge a confrontarti con la realtà presente. Non attendere che la situazione cambi da sola; devi essere tu a forgiare il metallo finché è caldo. Prepara le tue parole, pondera ogni frase.
+
+✦ Scrivi un breve messaggio, non più di tre frasi, per proporre un appuntamento specifico.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di agire subito e di nominare una data per un confronto, specificando come farlo ('prendi l'iniziativa', 'chiedi un incontro diretto', 'scrivi un breve messaggio per proporre un appuntamento specifico').
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Accetta l'esito. Il vero coraggio sta nel percorrere il sentiero, non nel prevederne la fine.
+Una fiamma tremola, illuminando solo ciò che è vicino.
+La runa Hagalaz, il grandine, indica che alcuni eventi sono fuori dal tuo controllo. Non puoi piegare la volontà altrui. Il tuo potere risiede nella tua integrità e nella chiarezza delle tue azioni. Affida ciò che non puoi cambiare al flusso degli eventi.
+
+✦ Dopo l'incontro, scrivi su un foglio bianco le tue sensazioni e brucialo con una candela rossa, lasciando andare ogni residuo.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul possibile esito negativo dell'azione consigliata in precedenza, sviluppando il tema dell'accettazione e del coraggio, e aggiungendo un rituale post-incontro.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Lanciare il tuo progetto creativo richiede un allineamento particolare del tuo cielo. Le carte indicano una fase di attesa.
+
+Il Sole, tua forza vitale e creativa, si trova in quadratura a Saturno, il pianeta che governa la struttura e i limiti. Questo transito suggerisce che, per quanto la tua ispirazione sia forte, ci sono ancora degli aspetti pratici o delle fondamenta da consolidare prima di esporre la tua opera al mondo. Non è un rifiuto, ma un invito a perfezionare ciò che hai iniziato, a dare solidità alla tua visione.
+
+✦ Rivedi l'organizzazione del tuo progetto in questo periodo di Luna calante.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana, l'arcano del Due di Spade ti invita a trovare un equilibrio tra la visione e la sua realizzazione pratica. Non affrettare decisioni importanti riguardo alla presentazione del tuo progetto; piuttosto, dedicati a una fase di pianificazione dettagliata e di revisione interna. Sfrutta il transito di Mercurio in Toro per analizzare ogni aspetto con calma e precisione.
+
+✦ Prepara un elenco degli strumenti e dei materiali che ti servono per completare il tuo progetto prima di venerdì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'attesa' e 'perfezionamento' dato in precedenza, specificando azioni pratiche per la settimana ('pianificazione dettagliata e revisione interna') che sono coerenti con il consolidamento delle fondamenta e la revisione dell'organizzazione.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andassero come speri, non significa che il tuo progetto sia privo di valore. Il cielo ti indica di non forzare gli eventi, ma di osservare come il Due di Spade suggerisce di fare. La tua azione, in questo momento, è accogliere qualsiasi risultato e riflettere su di esso.
+
+✦ Scrivi un breve appunto su ciò che hai imparato dal tuo progetto, anche se piccolo, entro la fine della giornata di domani.
+    GIUDICE: PORTA_AVANTI, La guida continua a sviluppare il tema dell'attesa e della non-forzatura degli eventi, già introdotto nella prima risposta, e lo applica alla nuova domanda su cosa fare se le cose non vanno come sperato, suggerendo 'osservare' e 'riflettere' come azioni coerenti con la fase di attesa e perfezionamento.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella dopo una lite, prova a richiamare alla mente un momento felice che avete condiviso, un ricordo caldo che vi lega. In quel ricordo, cerca la sensazione di connessione che c'era tra voi.
+
+Il tuo cuore, il centro dell'amore e della compassione, può guidarti in questo. Quando senti che quel calore ti avvolge, prendi un momento per respirare profondamente e visualizzare quel ricordo. Poi, con calma e sincerità, cerca tua sorella per parlarle di quel ricordo, non della lite.
+
+✦ Appoggia una mano sul centro del petto e inspira lentamente per tre volte.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, dopo aver ritrovato quel ricordo, scegli un momento tranquillo per avvicinare tua sorella. Non forzare il tempo o il luogo, ma lascia che si presenti un'occasione naturale, come una chiamata inaspettata o un incontro casuale.
+
+Quando ti senti pronta, avvia la conversazione dicendole che quel ricordo felice ti è tornato in mente e che ti ha fatto sentire la mancanza del vostro legame. Questo non è un momento per analizzare la lite, ma per riaprire un canale di tenerezza.
+
+✦ Porta entrambe le mani al cuore e chiudi gli occhi per un istante, richiamando quel ricordo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di richiamare il ricordo felice e lo sviluppa, indicando come e quando avvicinare la sorella e cosa dire, in linea con il suggerimento precedente di parlare del ricordo e non della lite.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri, accogli questa sensazione come un'onda che passa. Il respiro del corpo ti insegna che ogni emozione ha un inizio e una fine, e che anche le situazioni più complesse richiedono pazienza e un ascolto profondo.
+
+Non forzare il fluire degli eventi, ma continua a coltivare in te la sensazione di quel ricordo felice. Forse il tempo non è ancora maturo, e l'energia tra voi ha bisogno di stabilizzarsi. Continua a prenderti cura del tuo centro del cuore, mantenendolo aperto e compassionevole.
+
+✦ Poggia la mano destra sulla pancia, appena sotto l'ombelico, e inspira, sentendo il respiro che porta tranquillità.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'non forzare' già introdotto nella risposta precedente ('Non forzare il tempo o il luogo') e lo estende al caso in cui le cose non vadano come sperato, suggerendo pazienza e di continuare a coltivare il ricordo felice e il 'centro del cuore', concetti già presenti nelle risposte precedenti.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento

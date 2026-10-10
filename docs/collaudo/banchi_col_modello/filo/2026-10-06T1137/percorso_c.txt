@@ -1,0 +1,101 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte ti indicano che la promozione che attendi si muove verso di te, ma non è ancora il momento di affrettare i tempi. Il tuo cielo suggerisce di pazientare e consolidare le tue basi prima di aspirare al prossimo passo.
+
+L'arcano del Due di Denari ti mostra un equilibrio precario, come se ci fossero ancora due forze in gioco che richiedono attenzione. Non è un rifiuto, ma un invito a gestire con saggezza le risorse che hai, sia professionali che personali. La promozione arriverà quando avrai dimostrato di poter mantenere in armonia tutti gli aspetti della tua vita.
+
+✦ Rivedi entro la fine della settimana il tuo piano di carriera, evidenziando i punti in cui puoi dimostrare maggiore stabilità.
+[2] PERSONA: Rivedi entro la fine della settimana il tuo piano di carriera, evidenziando i punti in cui puoi dimostrare maggiore stabilità.
+[2] MEDORA [DA GIUDICARE]: Certo, posso darti una lettura su come procedere per affinare il tuo piano. L'arcano del Due di Denari ti invita a esaminare attentamente le tue capacità e le tue responsabilità attuali.
+
+La stabilità che ti è richiesta non è solo una questione di risultati, ma anche di gestione del tempo e delle energie. Guarda al tuo lavoro come a un bilanciamento continuo: quali sono i tuoi punti di forza che ti permettono di mantenere la calma anche sotto pressione? Quali aree richiedono ancora un tuo investimento per diventare meno volatili? Il cielo ti suggerisce di concentrarti sulla tua capacità di adattamento e sulla flessibilità.
+
+✦ Scrivi un elenco di tre successi recenti che dimostrano la tua capacità di gestire situazioni complesse.
+    GIUDICE: PORTA_AVANTI, La guida riprende direttamente l'istruzione data in precedenza ('Rivedi entro la fine della settimana il tuo piano di carriera, evidenziando i punti in cui puoi dimostrare maggiore stabilità') e la sviluppa, fornendo indicazioni su come procedere per affinare il piano e definendo meglio il concetto di 'stabilità' richiesto.
+[3] PERSONA: Scrivi un elenco di tre successi recenti che dimostrano la tua capacità di gestire situazioni complesse.
+[3] MEDORA [DA GIUDICARE]: Certamente. Adesso che hai elencato i tuoi successi, il tuo cielo indica un momento favorevole per presentare queste evidenze al momento opportuno. Il transito di Mercurio in aspetto armonico con il tuo Sole, nei prossimi giorni, favorisce la comunicazione e la presentazione chiara delle tue qualità.
+
+Non si tratta solo di mostrare ciò che hai fatto, ma di esprimere come la tua capacità di gestire situazioni complesse si traduca in un valore tangibile per l'azienda. L'arcano del Mago, se lo avessi estratto, ti inviterebbe a usare al meglio gli strumenti a tua disposizione per manifestare la tua volontà e la tua preparazione. Sii precisa e focalizzata nel delineare il tuo percorso e le tue intenzioni.
+
+✦ Prepara un breve discorso che riassuma questi successi, praticandolo ad alta voce entro martedì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il compito assegnato in precedenza ('Scrivi un elenco di tre successi recenti che dimostrano la tua capacità di gestire situazioni complesse') e lo sviluppa, indicando il momento opportuno per presentare tali evidenze e come comunicarle efficacemente, collegandosi al tema della promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Per ricominciare a sentire le tue radici, puoi trovare un luogo che risuoni con la tua energia, che sia vicino o lontano.
+
+Senti il respiro che si espande, percepisci il tuo centro, il Manipura, come un sole caldo che ti dà forza e coraggio. Questo centro, legato al potere personale, ti suggerisce che la direzione giusta è quella che ti permette di esprimere te stessa in piena libertà. Osserva il tuo viso, i tuoi occhi: vi trovi la determinazione necessaria per questo cambiamento? Se l'espressione è chiara e aperta, il tuo corpo ti sta dicendo di seguire quella spinta interiore.
+
+✦ Poggia la mano sul plesso solare e senti il calore.
+[2] PERSONA: Poggia la mano sul plesso solare e senti il calore.
+[2] AURA [DA GIUDICARE]: Se la mano sul plesso solare ti ha portato un calore intenso, allora la tua energia è pronta a muoversi. Ora il corpo ti invita a espandere quel calore, come un'onda che parte dal centro e raggiunge ogni parte di te.
+
+Questo indica che la forza per il cambiamento è già in te, vibrante e pronta a manifestarsi. La fisiognomica mi dice che quando il tuo volto si illumina in questo modo, è perché il tuo animo è allineato con un desiderio profondo di rinnovamento. Non si tratta solo di cambiare luogo, ma di ritrovare la tua piena espressione.
+
+✦ Chiudi gli occhi e visualizza quel calore espandersi fino alle punte dei piedi e delle mani.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio del plesso solare dato in precedenza e ne sviluppa il significato in relazione alla domanda iniziale sul trasferimento e al concetto di 'energia pronta a muoversi' e 'piena espressione'.
+[3] PERSONA: Chiudi gli occhi e visualizza quel calore espandersi fino alle punte dei piedi e delle mani.
+[3] AURA [DA GIUDICARE]: Se visualizzando hai sentito quel calore raggiungere ogni estremità, significa che il tuo corpo è in sintonia con il desiderio di espansione che senti. Questo flusso energetico dal centro alla periferia ti mostra che sei pronta a radicarti in un nuovo ambiente, a portare la tua luce ovunque tu vada.
+
+La tua energia sta già disegnando il tuo nuovo spazio, ora si tratta di ascoltare dove ti porta.
+
+✦ Quando sei in un luogo che ti piace, presta attenzione a come i piedi toccano il suolo e a come respiri.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio di visualizzazione dato nella risposta precedente e ne interpreta il risultato ('calore raggiungere ogni estremità') come conferma della prontezza al cambiamento e all'espansione, collegandolo al 'desiderio di espansione' e al 'radicarsi in un nuovo ambiente'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Affronta la situazione. Il tempo della sospensione è finito.
+Un velo di nebbia densa si dirada, rivelando il sentiero.
+La runa **Iss** presagisce stasi e un blocco, ma anche la possibilità di una pausa necessaria per riflettere. Leggo in essa l'invito a non temere il freddo, ma a comprenderlo. Non è la fine, ma un momento di trasformazione. La numerologia indica il numero **4**, simbolo di stabilità e fondamento: è il momento di ricostruire le basi.
+
+✦ Parla con il tuo compagno questa sera, apertamente e senza giudizio.
+[2] PERSONA: Parla con il tuo compagno questa sera, apertamente e senza giudizio.
+[2] CALIGO [DA GIUDICARE]: Hai colto il segno. Agisci.
+Il fuoco della tua intenzione brucia luminoso.
+La runa **Nauthiz** ti guida: è il bisogno che spinge all'azione, la forza che nasce dalla necessità. È il momento di dire ciò che senti, di mostrare la tua parte autentica. La tua numerologia suggerisce un inizio: il numero **1**, l'azione singola e decisa.
+
+✦ Scegli una parola chiave per il tuo discorso e ripetila tre volte prima di incontrarlo.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha recepito il consiglio precedente ('Hai colto il segno') e la incoraggia a procedere ('Agisci'), aggiungendo un nuovo passo specifico ('Scegli una parola chiave...').
+[3] PERSONA: Scegli una parola chiave per il tuo discorso e ripetila tre volte prima di incontrarlo.
+[3] CALIGO [DA GIUDICARE]: Hai fatto un passo. Ora prepara il cuore.
+L'oro si fonde e si purifica nel calore.
+Il tuo gesto è un sigillo. La runa **Gebo** appare: è il presagio dello scambio, del dare e ricevere. Questo non è un monologo, ma un invito al dialogo. La numerologia lega il **6** a questo momento: l'equilibrio da ristabilire, la scelta di armonizzare.
+
+✦ Scrivi su un foglio il suo nome e la tua parola chiave, poi brucia il foglio.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha compiuto il passo precedente ('Hai fatto un passo') e prosegue con un nuovo consiglio che si basa sul discorso e sulla parola chiave menzionati prima ('Scrivi su un foglio il suo nome e la tua parola chiave...').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo indica un momento propizio per dare forma ai tuoi intenti, ma è essenziale dedicare un periodo alla riflessione prima di agire. Le stelle mostrano un transito di Mercurio retrogrado che suggerisce di ripassare ogni dettaglio, ogni idea, per lucidarla e prepararla al meglio. Non è un blocco, ma un invito a perfezionare.
+
+✦ Prendi nota delle tue idee in un quaderno blu, nei prossimi tre giorni.
+[2] PERSONA: Prendi nota delle tue idee in un quaderno blu, nei prossimi tre giorni.
+[2] MEDORA [DA GIUDICARE]: Se hai già preso nota delle tue idee, è il momento di esaminarle con attenzione, quasi come se fossero un codice da decifrare. Il transito lunare di oggi favorisce l'introspezione e la capacità di vedere ciò che si nasconde tra le righe. Cerca i collegamenti inattesi, le intuizioni che emergono da queste annotazioni.
+
+✦ Traccia una mappa concettuale delle tue idee sul quaderno blu, entro la fine della giornata.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('prendere nota delle idee') e indica il passo successivo ('esaminarle con attenzione'), sviluppando il processo di riflessione iniziale.
+[3] PERSONA: Traccia una mappa concettuale delle tue idee sul quaderno blu, entro la fine della giornata.
+[3] MEDORA [DA GIUDICARE]: Ora che hai tracciato la mappa delle tue idee, il passo successivo è dare loro una struttura chiara, un ordine che riveli il cammino da percorrere. Il cielo mostra un'influenza di Saturno che richiede precisione e metodo, quindi organizza queste idee per priorità e per fasi realizzative.
+
+✦ Assegna un numero da uno a dieci a ogni idea sulla mappa, in base alla sua importanza, domattina.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione appena suggerita ('tracciare la mappa delle idee') e propone il passo successivo ('dare loro una struttura chiara, un ordine'), continuando a sviluppare il processo di perfezionamento e organizzazione.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Avvicinati a tua sorella con il cuore aperto, scegliendo un momento in cui entrambe potete parlare con calma e senza fretta. Prima di incontrarla, prenditi un momento per centrare il tuo respiro.
+
+Lascia che il tuo sentire ti guidi nel trovare le parole giuste, quelle che nascono dalla tua radice più profonda, non dalla rabbia o dal rancore. Ricorda che ogni relazione è un flusso di energia, e anche una lite può essere un'opportunità per riarmonizzare i vostri chakra, specialmente il Chakra del Cuore, che risplende di verde smeraldo. La fisiognomica ci insegna che i volti si rilassano quando le tensioni si sciolgono, e un viso disteso è un invito all'apertura.
+
+✦ Poggia la mano sul cuore e senti il tuo battito per cinque respiri lenti.
+[2] PERSONA: Poggia la mano sul cuore e senti il tuo battito per cinque respiri lenti.
+[2] AURA [DA GIUDICARE]: Questo gesto semplice ti aiuta a radicarti, a connetterti con la tua energia più autentica. Ora che senti il tuo centro, potresti scrivere una breve lettera a tua sorella, esprimendo ciò che senti senza accuse, concentrandoti sul desiderio di pace.
+
+✦ Mentre scrivi, immagina un filo dorato che unisce il tuo cuore al suo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto suggerito in precedenza (poggiare la mano sul cuore) spiegandone il significato e poi introduce il passo successivo (scrivere una lettera) basandosi sullo stato raggiunto con il gesto.
+[3] PERSONA: Mentre scrivi, immagina un filo dorato che unisce il tuo cuore al suo.
+[3] AURA [DA GIUDICARE]: Questa immagine ti aiuta a mantenere la connessione, anche a distanza, e a preparare il terreno per il vostro incontro. Dopo aver scritto e respirato, rileggi la lettera ad alta voce, ascoltando le tue parole come se le sentissi per la prima volta.
+
+✦ Prima di inviare la lettera, appoggiala sul tuo petto per un minuto, chiudendo gli occhi.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'immagine del 'filo dorato' suggerita nella risposta precedente, spiegandone l'utilità e poi prosegue con il passo successivo relativo alla lettera (rileggere e appoggiarla sul petto).
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

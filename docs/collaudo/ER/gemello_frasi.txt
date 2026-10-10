@@ -1,0 +1,156 @@
+ER.16, LA FRASE DEL DISTACCO PER OGNI VIP AL PRIMO POSTO, 27 settembre 2026
+
+Il secondo e' il VIP che viene dopo nel catalogo; il distacco e' di un punto. PRIMA: la riga del commit 3a2c12d3, "gli sta addosso" per tutti. DOPO: la riga di adesso.
+
+Angelina Jolie (donna)
+  PRIMA: Il tuo gemello astrale è Angelina Jolie, ma Ariana Grande gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Angelina Jolie, ma Ariana Grande le sta addosso: fra i due c'è un punto solo.
+Ariana Grande (donna)
+  PRIMA: Il tuo gemello astrale è Ariana Grande, ma Bad Bunny gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Ariana Grande, ma Bad Bunny le sta addosso: fra i due c'è un punto solo.
+Bad Bunny (uomo)
+  PRIMA: Il tuo gemello astrale è Bad Bunny, ma Beyoncé gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Bad Bunny, ma Beyoncé gli sta addosso: fra i due c'è un punto solo.
+Beyoncé (donna)
+  PRIMA: Il tuo gemello astrale è Beyoncé, ma Bill Gates gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Beyoncé, ma Bill Gates le sta addosso: fra i due c'è un punto solo.
+Bill Gates (uomo)
+  PRIMA: Il tuo gemello astrale è Bill Gates, ma Billie Eilish gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Bill Gates, ma Billie Eilish gli sta addosso: fra i due c'è un punto solo.
+Billie Eilish (donna)
+  PRIMA: Il tuo gemello astrale è Billie Eilish, ma Brad Pitt gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Billie Eilish, ma Brad Pitt le sta addosso: fra i due c'è un punto solo.
+Brad Pitt (uomo)
+  PRIMA: Il tuo gemello astrale è Brad Pitt, ma Chiara Ferragni gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Brad Pitt, ma Chiara Ferragni gli sta addosso: fra i due c'è un punto solo.
+Chiara Ferragni (donna)
+  PRIMA: Il tuo gemello astrale è Chiara Ferragni, ma Damiano David gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Chiara Ferragni, ma Damiano David le sta addosso: fra i due c'è un punto solo.
+Damiano David (uomo)
+  PRIMA: Il tuo gemello astrale è Damiano David, ma Leonardo DiCaprio gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Damiano David, ma Leonardo DiCaprio gli sta addosso: fra i due c'è un punto solo.
+Leonardo DiCaprio (uomo)
+  PRIMA: Il tuo gemello astrale è Leonardo DiCaprio, ma Drake gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Leonardo DiCaprio, ma Drake gli sta addosso: fra i due c'è un punto solo.
+Drake (uomo)
+  PRIMA: Il tuo gemello astrale è Drake, ma Dwayne Johnson gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Drake, ma Dwayne Johnson gli sta addosso: fra i due c'è un punto solo.
+Dwayne Johnson (uomo)
+  PRIMA: Il tuo gemello astrale è Dwayne Johnson, ma Elon Musk gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Dwayne Johnson, ma Elon Musk gli sta addosso: fra i due c'è un punto solo.
+Elon Musk (uomo)
+  PRIMA: Il tuo gemello astrale è Elon Musk, ma Emma Watson gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Elon Musk, ma Emma Watson gli sta addosso: fra i due c'è un punto solo.
+Emma Watson (donna)
+  PRIMA: Il tuo gemello astrale è Emma Watson, ma Roger Federer gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Emma Watson, ma Roger Federer le sta addosso: fra i due c'è un punto solo.
+Roger Federer (uomo)
+  PRIMA: Il tuo gemello astrale è Roger Federer, ma Fedez gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Roger Federer, ma Fedez gli sta addosso: fra i due c'è un punto solo.
+Fedez (uomo)
+  PRIMA: Il tuo gemello astrale è Fedez, ma Giorgio Armani gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Fedez, ma Giorgio Armani gli sta addosso: fra i due c'è un punto solo.
+Giorgio Armani (uomo)
+  PRIMA: Il tuo gemello astrale è Giorgio Armani, ma Jeff Bezos gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Giorgio Armani, ma Jeff Bezos gli sta addosso: fra i due c'è un punto solo.
+Jeff Bezos (uomo)
+  PRIMA: Il tuo gemello astrale è Jeff Bezos, ma Kanye West gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Jeff Bezos, ma Kanye West gli sta addosso: fra i due c'è un punto solo.
+Kanye West (uomo)
+  PRIMA: Il tuo gemello astrale è Kanye West, ma Keanu Reeves gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Kanye West, ma Keanu Reeves gli sta addosso: fra i due c'è un punto solo.
+Keanu Reeves (uomo)
+  PRIMA: Il tuo gemello astrale è Keanu Reeves, ma Kim Kardashian gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Keanu Reeves, ma Kim Kardashian gli sta addosso: fra i due c'è un punto solo.
+Kim Kardashian (donna)
+  PRIMA: Il tuo gemello astrale è Kim Kardashian, ma Kylie Jenner gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Kim Kardashian, ma Kylie Jenner le sta addosso: fra i due c'è un punto solo.
+Kylie Jenner (donna)
+  PRIMA: Il tuo gemello astrale è Kylie Jenner, ma Lady Gaga gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Kylie Jenner, ma Lady Gaga le sta addosso: fra i due c'è un punto solo.
+Lady Gaga (donna)
+  PRIMA: Il tuo gemello astrale è Lady Gaga, ma LeBron James gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Lady Gaga, ma LeBron James le sta addosso: fra i due c'è un punto solo.
+LeBron James (uomo)
+  PRIMA: Il tuo gemello astrale è LeBron James, ma Margot Robbie gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è LeBron James, ma Margot Robbie gli sta addosso: fra i due c'è un punto solo.
+Margot Robbie (donna)
+  PRIMA: Il tuo gemello astrale è Margot Robbie, ma Mark Zuckerberg gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Margot Robbie, ma Mark Zuckerberg le sta addosso: fra i due c'è un punto solo.
+Mark Zuckerberg (uomo)
+  PRIMA: Il tuo gemello astrale è Mark Zuckerberg, ma Kylian Mbappé gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Mark Zuckerberg, ma Kylian Mbappé gli sta addosso: fra i due c'è un punto solo.
+Kylian Mbappé (uomo)
+  PRIMA: Il tuo gemello astrale è Kylian Mbappé, ma Lionel Messi gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Kylian Mbappé, ma Lionel Messi gli sta addosso: fra i due c'è un punto solo.
+Lionel Messi (uomo)
+  PRIMA: Il tuo gemello astrale è Lionel Messi, ma Michelle Obama gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Lionel Messi, ma Michelle Obama gli sta addosso: fra i due c'è un punto solo.
+Michelle Obama (donna)
+  PRIMA: Il tuo gemello astrale è Michelle Obama, ma Monica Bellucci gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Michelle Obama, ma Monica Bellucci le sta addosso: fra i due c'è un punto solo.
+Monica Bellucci (donna)
+  PRIMA: Il tuo gemello astrale è Monica Bellucci, ma Rafael Nadal gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Monica Bellucci, ma Rafael Nadal le sta addosso: fra i due c'è un punto solo.
+Rafael Nadal (uomo)
+  PRIMA: Il tuo gemello astrale è Rafael Nadal, ma Oprah Winfrey gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Rafael Nadal, ma Oprah Winfrey gli sta addosso: fra i due c'è un punto solo.
+Oprah Winfrey (donna)
+  PRIMA: Il tuo gemello astrale è Oprah Winfrey, ma Priyanka Chopra gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Oprah Winfrey, ma Priyanka Chopra le sta addosso: fra i due c'è un punto solo.
+Priyanka Chopra (donna)
+  PRIMA: Il tuo gemello astrale è Priyanka Chopra, ma Rihanna gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Priyanka Chopra, ma Rihanna le sta addosso: fra i due c'è un punto solo.
+Rihanna (donna)
+  PRIMA: Il tuo gemello astrale è Rihanna, ma Cristiano Ronaldo gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Rihanna, ma Cristiano Ronaldo le sta addosso: fra i due c'è un punto solo.
+Cristiano Ronaldo (uomo)
+  PRIMA: Il tuo gemello astrale è Cristiano Ronaldo, ma Scarlett Johansson gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Cristiano Ronaldo, ma Scarlett Johansson gli sta addosso: fra i due c'è un punto solo.
+Scarlett Johansson (donna)
+  PRIMA: Il tuo gemello astrale è Scarlett Johansson, ma Selena Gomez gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Scarlett Johansson, ma Selena Gomez le sta addosso: fra i due c'è un punto solo.
+Selena Gomez (donna)
+  PRIMA: Il tuo gemello astrale è Selena Gomez, ma Serena Williams gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Selena Gomez, ma Serena Williams le sta addosso: fra i due c'è un punto solo.
+Serena Williams (donna)
+  PRIMA: Il tuo gemello astrale è Serena Williams, ma Shakira gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Serena Williams, ma Shakira le sta addosso: fra i due c'è un punto solo.
+Shakira (donna)
+  PRIMA: Il tuo gemello astrale è Shakira, ma Jannik Sinner gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Shakira, ma Jannik Sinner le sta addosso: fra i due c'è un punto solo.
+Jannik Sinner (uomo)
+  PRIMA: Il tuo gemello astrale è Jannik Sinner, ma Snoop Dogg gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Jannik Sinner, ma Snoop Dogg gli sta addosso: fra i due c'è un punto solo.
+Snoop Dogg (uomo)
+  PRIMA: Il tuo gemello astrale è Snoop Dogg, ma Steve Jobs gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Snoop Dogg, ma Steve Jobs gli sta addosso: fra i due c'è un punto solo.
+Steve Jobs (uomo)
+  PRIMA: Il tuo gemello astrale è Steve Jobs, ma Taylor Swift gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Steve Jobs, ma Taylor Swift gli sta addosso: fra i due c'è un punto solo.
+Taylor Swift (donna)
+  PRIMA: Il tuo gemello astrale è Taylor Swift, ma The Weeknd gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Taylor Swift, ma The Weeknd le sta addosso: fra i due c'è un punto solo.
+The Weeknd (uomo)
+  PRIMA: Il tuo gemello astrale è The Weeknd, ma Timothée Chalamet gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è The Weeknd, ma Timothée Chalamet gli sta addosso: fra i due c'è un punto solo.
+Timothée Chalamet (uomo)
+  PRIMA: Il tuo gemello astrale è Timothée Chalamet, ma Tom Cruise gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Timothée Chalamet, ma Tom Cruise gli sta addosso: fra i due c'è un punto solo.
+Tom Cruise (uomo)
+  PRIMA: Il tuo gemello astrale è Tom Cruise, ma Usain Bolt gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Tom Cruise, ma Usain Bolt gli sta addosso: fra i due c'è un punto solo.
+Usain Bolt (uomo)
+  PRIMA: Il tuo gemello astrale è Usain Bolt, ma Valentino Rossi gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Usain Bolt, ma Valentino Rossi gli sta addosso: fra i due c'è un punto solo.
+Valentino Rossi (uomo)
+  PRIMA: Il tuo gemello astrale è Valentino Rossi, ma Warren Buffett gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Valentino Rossi, ma Warren Buffett gli sta addosso: fra i due c'è un punto solo.
+Warren Buffett (uomo)
+  PRIMA: Il tuo gemello astrale è Warren Buffett, ma Zendaya gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Warren Buffett, ma Zendaya gli sta addosso: fra i due c'è un punto solo.
+Zendaya (donna)
+  PRIMA: Il tuo gemello astrale è Zendaya, ma Angelina Jolie gli sta addosso: fra i due c'è un punto solo.
+  DOPO:  Il tuo gemello astrale è Zendaya, ma Angelina Jolie le sta addosso: fra i due c'è un punto solo.
+
+Frasi del distacco col pronome sbagliato: prima 21 su 50, dopo 0 su 50.

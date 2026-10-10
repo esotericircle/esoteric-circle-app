@@ -1,0 +1,115 @@
+ORDINE ER VOCI 03, 08, 09, 10 E 20: REGOLA A SULLE GUARDIE NUOVE E RISCRITTE DELLA HOME, DEI DOMINI E DEGLI SFONDI. 27 settembre 2026
+Gli stessi innesti valgono come Regola B per la voce 20, che ha toccato le stesse zone dopo.
+
+== Regola A/B, ER.08: due arti scambiate in 'Il tuo corpo'
+   file lib/features/santuario/le_righe_della_casa.dart, sha1 prima a921c6c000bc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:04 +0 -1: Some tests failed.
+   Expected: [
+   Actual: [
+   ripristinato: sha1 a921c6c000bc, uguale
+== Regola A/B, ER.08: la regola dei doppioni torna (la riga delle preferite rimanda in fondo l'Oroscopo)
+   file lib/features/santuario/le_righe_della_casa.dart, sha1 prima a921c6c000bc, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:03 +5: All tests passed!
+   ripristinato: sha1 a921c6c000bc, uguale
+== Regola A/B, ER.08: una riga della home cambia forma e fa coppia con la vicina
+   file lib/features/santuario/le_righe_della_casa.dart, sha1 prima a921c6c000bc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:04 +0 -1: Some tests failed.
+   Expected: FormatoDellaScheda:<FormatoDellaScheda.orizzontale>
+   Actual: FormatoDellaScheda:<FormatoDellaScheda.verticale>
+   ripristinato: sha1 a921c6c000bc, uguale
+== Regola A/B, ER.10: un'arte esce dalla sua sezione del dominio e torna nella riga In arrivo
+   file lib/core/arts/l_ordine_dei_domini.dart, sha1 prima 535d4ae54c58, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +6 -1: Some tests failed.
+   Expected: ['Energia', 'Chakra', 'Fisiognomica']
+   Actual: ['Energia', 'Chakra', 'Fisiognomica', 'In arrivo']
+   ripristinato: sha1 535d4ae54c58, uguale
+== Regola A/B, ER.10: un'arte perde lo sfondo
+   file lib/core/arts/gli_sfondi_delle_schede.dart, sha1 prima 001dc32dcee8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -2: Some tests failed.
+   Expected: <210>
+   Actual: <207>
+   Expected: empty
+   Actual: ['specchio_anima']
+   ripristinato: sha1 001dc32dcee8, uguale
+== Regola A, ER.09: le verticali della home tornano a 162
+   file lib/features/schede/la_scheda_dell_arte.dart, sha1 prima 20b98510ad0a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +4 -1: Some tests failed.
+   Expected: [128, 160]
+   Actual: [162.0, 202.5]
+   ripristinato: sha1 20b98510ad0a, uguale
+== Regola A, ER.09: il titolo non va piu' a capo col trattino (si torna al solo a capo fra le parole)
+   file lib/design_system/typography/il_titolo_col_trattino.dart, sha1 prima 28f910edbf0b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +4 -1: Some tests failed.
+   Expected: <0>
+   Actual: <2>
+   ripristinato: sha1 28f910edbf0b, uguale
+== Regola A, ER.09: la s impura resta con la sillaba prima
+   file lib/design_system/typography/il_titolo_col_trattino.dart, sha1 prima 28f910edbf0b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +4 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 28f910edbf0b, uguale
+== Regola A, ER.03: il Viaggio torna col titolo su tre righe decise a mano
+   file lib/features/schede/la_scheda_dell_arte.dart, sha1 prima 20b98510ad0a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +4 -1: Some tests failed.
+   Expected: <0>
+   Actual: <3>
+   ripristinato: sha1 20b98510ad0a, uguale
+
+IL VERDE, LETTO: la guardia dei doppioni confrontava la riga con le arti che la riga stessa riceve, quindi un riordino fatto prima non si vedeva. Guardia cieca, nata in questo ordine (voce ER.08): curata facendola confrontare con l'elenco scritto, e l'innesto rifatto:
+== Regola A/B, ER.08: la regola dei doppioni torna (la riga delle preferite rimanda in fondo l'Oroscopo) (rifatta dopo aver curato la guardia cieca)
+   file lib/features/santuario/le_righe_della_casa.dart, sha1 prima a921c6c000bc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:07 +1 -4: Some tests failed.
+   Expected: <0>
+   Actual: <3>
+   Expected: <0>
+   Actual: <3>
+   Expected: <0>
+   Actual: <3>
+   Expected: <0>
+   Actual: <2>
+   ripristinato: sha1 a921c6c000bc, uguale
+
+===================== voce 20 =====================
+== Regola A, ER.20: l'Iride perde lo sfondo
+   file lib/core/arts/gli_sfondi_delle_schede.dart, sha1 prima c310098f43db, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 c310098f43db, uguale
+== Regola A, ER.20: nel dominio l'Iride sta prima dello Specchio dell'Anima
+   file lib/core/arts/l_ordine_dei_domini.dart, sha1 prima 25dc913e51b0, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: 'specchio_anima'
+   Actual: 'voice_analysis'
+   Expected: specchio_a ...
+   Actual: voice_anal ...
+   ripristinato: sha1 25dc913e51b0, uguale
+== Regola A, ER.20: in 'La tua energia' due arti di Aura vicine
+   file lib/features/santuario/le_righe_della_casa.dart, sha1 prima 28a602f1a9be, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 28a602f1a9be, uguale
+== Regola A, ER.20: la frase della scheda cambia
+   file lib/core/arts/art_catalog.dart, sha1 prima 570a03547bbc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: 'La tua iride, letta come una mappa di segni.'
+   Actual: 'La tua iride, letta come una mappa.'
+   Expected: ...  una mappa di segni. ...
+   Actual: ...  una mappa.
+   ripristinato: sha1 570a03547bbc, uguale

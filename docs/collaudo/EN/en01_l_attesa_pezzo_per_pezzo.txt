@@ -1,0 +1,50 @@
+ORDINE EN VOCE 01, L'ATTESA FRA LA FINE DELLA DOMANDA E IL MAESTRO CHE PARLA, PEZZO PER PEZZO
+Realme 767f596c, stanza silenziosa, LIVE di Aura, domande dette dalla voce italiana di Windows dalle casse del PC.
+Millesimi dalla fine del parlato, dal registro "LIVE ATTESA" e "CHAT TEMPI" del telefono.
+
+I pezzi, come nell'ordine EM voce 11:
+  silenzio  = i due secondi di silenzio vero che chiudono la frase (ordine EJ voce 01, invariati: e' il vincolo)
+  trascr.   = dalla chiusura della frase al testo pronto
+  chat      = dal testo pronto alla risposta del Maestro scritta
+  voce      = dalla risposta al primo pezzo di voce mandato al volto
+  volto     = dal primo pezzo mandato al volto a Protoface che parla nella stanza
+
+PRIMA, build 2281, dal documento docs/collaudo/EM/em11_l_attesa_pezzo_per_pezzo.txt, le sole risposte NUOVE
+(le altre righe di quel giro erano letture ridette senza chiamare il modello: qui non valgono):
+  frase        silenzio  trascr.  chat   voce  volto | al primo audio  al volto che parla
+  EM frase 6   1999      1        2485   648   1382  | 5133            6515
+  EM Caligo    2000      43       2310   644   1562  | 4997            6559
+  Sul banco della stessa notte la chat vera prendeva 3,0, 3,1, 3,2, 4,4, 4,7 e 4,7 secondi.
+
+DOPO, build 2282 di prova (versionCode 2282), 25 settembre 2026 11:28-11:33, sette domande nuove (logcat_aura):
+  frase                                   silenzio  trascr.  chat   voce  volto | al primo audio  al volto che parla
+  1 "...chi si sposa a maggio..."         2003      31       1596   909   2069  | 4539            6608
+  2 "Il mio cane si chiama Argo..."       2008      1        1416   707   2370  | 4132            6502
+  3 "...mi sveglio alle quattro..."       1999      240      1461   714   1550  | 4414            5964
+  4 "...nodo alla gola..."                2006      104      1587   720   1811  | 4417            6228
+  5 "...colloquio di lavoro..."           1995      149      1382   773   1420  | 4299            5719
+  6 "...spalle pesanti..."                1993      34       1690   733   1641  | 4450            6091
+  7 "...mi sento svuotata..."             1996      1        1548   695   1528  | 4240            5768
+  mediana al volto che parla: 6.091 (da 5.719 a 6.608); prima 6.515 e 6.559
+  mediana al primo audio: 4.414 (da 4.132 a 4.539); prima 5.133 e 4.997
+  La domanda 8, "vorrei meditare", ha aperto la Meditazione senza chiamare il modello: 4.588 al volto, non entra
+  nel conto.
+
+LA CHAT, dentro (CHAT TEMPI): il modello risponde da 1.222 a 1.530 millesimi dall'inizio del turno; la consegna arriva allo stesso millesimo (prima +250-300: aspettava il salvataggio su Firestore); il turno in attesa si salva in
+parallelo, da 236 a 366 millesimi, invece di stare davanti al modello. Le risposte del LIVE sono di 230-378 caratteri
+(prima 305-760).
+
+COSA E' CAMBIATO E DA DOVE VIENE:
+- il modello non aspetta piu' il salvataggio del turno in attesa (ordine EN voce 01);
+- la voce non aspetta il salvataggio della risposta;
+- nel LIVE la risposta chiede al massimo tre frasi brevi: da 305-760 caratteri a 230-378;
+- nel LIVE la prima risposta senza un dato della persona non si chiede una seconda volta (qui: zero rigenerazioni).
+La parte che dipende dall'app, dalla frase chiusa al primo audio, e' scesa da 3,0-3,1 secondi a 2,1-2,5.
+
+COSA RESTA, E NON E' DI QUESTO ORDINE DECIDERLO: i due secondi di silenzio che chiudono la frase (vincolo della voce
+EJ.01, nessuna domanda troncata); la voce, 0,7-0,9 secondi al primo suono con Gemini-TTS (le voci Chirp 3 HD danno il
+primo suono in 0,21-0,32 secondi, docs/collaudo/EM/chirp_primo_suono.txt: e' una scelta del fondatore nel selettore);
+Protoface, 1,4-2,4 secondi dal primo audio al volto che parla, fuori dal nostro codice.
+
+UNA NOTA DI TRASCRIZIONE: la domanda 4, detta "Aura, quando parlo con mio padre...", e' arrivata come "Allora, quando
+parlo con mio padre...": la voce di Windows dice il nome in un modo che la trascrizione legge come una parola comune.

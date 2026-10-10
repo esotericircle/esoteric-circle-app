@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- SIGN IN WITH APPLE. Ordine S voce 14, causa 3.
+
+	     Sul portale Apple l'identificativo com.esotericircle.esotericCircle ha
+	     gia' la capacita', e non bastava: senza questo file la capacita' non e'
+	     dichiarata DENTRO l'app, e il fornitore rifiuta anche col portale a
+	     posto.
+
+	     Il file sta NEL REPOSITORY e non impostato a mano in Xcode, cosi' vale
+	     sia compilando da Xcode sia con la build in cloud. -->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+	<!-- IL LINK D'INGRESSO APRE L'APP ANCHE SU IPHONE. Ordine EA voce 19.
+
+	     Senza questa riga il messaggio aprirebbe Safari, e la persona
+	     resterebbe davanti a una pagina che non sa dove mandarla. Apple
+	     controlla da se' che il dominio sia nostro, leggendo
+	     https://esotericircle.app/.well-known/apple-app-site-association,
+	     che Firebase Hosting pubblica. -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:esotericircle.app</string>
+		<!-- Ordine EZ voce 07: i link d'invito oggi partono da qui
+		     (Brand.urlDegliInviti), e Firebase Hosting pubblica gia' da se'
+		     il file di Apple con Z3T97U389U.com.esotericircle.esotericCircle. -->
+		<string>applinks:esoteric-circle.web.app</string>
+	</array>
+	<!-- LE NOTIFICHE PUSH SU IPHONE. Ordine FF voce 09.2, 7 ottobre 2026.
+
+	     Senza questa chiave iOS non da' all'app il recapito APNs, Firebase
+	     Messaging non ha un token e nessuna notifica arriva. Il valore e'
+	     production perche' Codemagic firma con un profilo App Store
+	     (fetch-signing-files --type IOS_APP_STORE in codemagic.yaml) e la
+	     build va a TestFlight, che parla con l'APNs di produzione; un
+	     development lasciato in una build d'archivio e' rifiutato alla
+	     consegna ad Apple. Lo stesso file serve Debug, Profile e Release
+	     (CODE_SIGN_ENTITLEMENTS in project.pbxproj), e un file separato
+	     per il debug oggi non serve: l'unica build iOS che esiste e' quella
+	     d'archivio di Codemagic (flutter build ipa --release). Chi un
+	     giorno firmera' una build di sviluppo da un Mac dovra' dare al
+	     Debug un file suo con development. La capacita' Push Notifications
+	     sul portale Apple l'ha accesa il fondatore il 7 ottobre 2026. -->
+	<key>aps-environment</key>
+	<string>production</string>
+</dict>
+</plist>

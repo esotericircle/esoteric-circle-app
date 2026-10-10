@@ -1,0 +1,24 @@
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 1 aura: nel merito 3 su 12 lette, tempo del modello mediano 879 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 1 caligo: nel merito 7 su 12 lette, tempo del modello mediano 705 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 1 medora: nel merito 9 su 12 lette, tempo del modello mediano 812 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 2 aura: nel merito 5 su 12 lette, tempo del modello mediano 851 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 2 caligo: nel merito 5 su 12 lette, tempo del modello mediano 620 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash-Lite giro 2 medora: nel merito 7 su 12 lette, tempo del modello mediano 898 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1440 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 1 caligo: nel merito 9 su 12 lette, tempo del modello mediano 988 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1299 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 2 aura: nel merito 7 su 12 lette, tempo del modello mediano 1173 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 2 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1028 ms
+EQ.03 dopo_seconda_stesura LIVE con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1155 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 1 aura: nel merito 1 su 12 lette, tempo del modello mediano 1190 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 1 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1888 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 1 medora: nel merito 8 su 12 lette, tempo del modello mediano 1812 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 2 aura: nel merito 4 su 12 lette, tempo del modello mediano 1472 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 2 caligo: nel merito 11 su 12 lette, tempo del modello mediano 1446 ms
+EQ.03 dopo_seconda_stesura chat con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1643 ms
+
+TOTALE LIVE CON FLASH-LITE: nel merito 36 su 72 lette, tempo del modello mediano 834 ms su 72 risposte
+TOTALE LIVE CON FLASH: nel merito 52 su 72 lette, tempo del modello mediano 1182 ms su 72 risposte
+TOTALE CHAT CON FLASH: nel merito 45 su 72 lette, tempo del modello mediano 1584 ms su 72 risposte
+Modelli: chat gemini-2.5-flash, LIVE dell'app gemini-2.5-flash-lite; europe-west1.
+Il merito viene dalla lettura con la regola scritta, docs/collaudo/EQ/eq03/lettura_dopo_seconda_stesura.txt; le risposte e i tempi sono quelli della generazione.

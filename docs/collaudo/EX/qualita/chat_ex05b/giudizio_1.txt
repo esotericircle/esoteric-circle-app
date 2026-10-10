@@ -1,0 +1,60 @@
+S01|SI|NA|NA|SI|SI|sceglie la periferia con un motivo e un gesto concreto; il seguito porta Othala, runa reale della casa
+S02|SI|NA|SI|SI|NO|Luna in Cancro giusta; il seguito lega il Cancro alla Luna in Bilancia senza senso e resta generico, al limite
+S03|SI|NA|SI|SI|SI|Luna in Cancro e Ultimo quarto giusti; il seguito aggiunge la fase e il bilancio emotivo
+S04|SI|NA|NA|SI|SI|lista concreta delle spese in ordine; il seguito spiega la vergogna col centro della radice
+S05|SI|SI|NA|SI|SI|veterinario subito per Ombra; Hagalaz reale; il seguito aggiunge il perché, al limite
+S06|SI|NA|NA|SI|SI|dice di no con un motivo debole, al limite; il seguito aggiunge il numero 7
+S07|SI|NA|NA|SI|SI|gesto concreto per stasera; il seguito aggiunge una visualizzazione dai piedi alla testa
+S08|SI|NA|NA|SI|SI|mani sul ventre e respiro sulla radice; il seguito lega il sonno al colloquio
+S09|SI|NA|SI|SI|SI|Giove in Vergine giusto; il seguito un po' generico, al limite
+S10|SI|NA|SI|SI|SI|Venere in Scorpione giusta; il seguito aggiunge il legame con l'Ascendente
+S11|SI|SI|NA|SI|SI|nomina la sorella e propone un caffè; il seguito aggiunge il perché
+S12|SI|NA|NA|SI|SI|partire guardando le spese una alla volta, al limite; Manipura nel plesso solare corretto
+S13|SI|NO|NA|NO|NA|ignora che dorme male prima delle scadenze; respiro e meditazione guidata validi per chiunque, al limite
+S14|SI|SI|NA|SI|NA|nomina la sorella e propone di chiamarla per un caffè
+S15|SI|NA|NA|SI|SI|pagina da scrivere oggi pomeriggio; seguito un po' ripetitivo, al limite
+S16|SI|SI|NA|SI|SI|chiarezza con la sorella e messaggio; seguito in parte ripetitivo, aggiunge la madre, al limite
+S17|SI|NA|SI|SI|SI|Gemelli e gibbosa calante giusti; il seguito spiega segno e fase
+S18|SI|SI|NA|SI|SI|dice di sì e capisce l'incontro senza nominare Marco, al limite
+S19|SI|SI|NA|NO|NA|porta la tua voce e ascolta poi rispondi: massime valide per ogni colloquio; bruciare le qualità è strano, al limite
+S20|SI|SI|NA|SI|SI|sì condizionato alla radice, al limite; il seguito aggiunge il chakra della radice
+S21|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto
+S22|SI|SI|NA|SI|SI|scrivere sul colloquio; il seguito usa la meditazione e propone di rileggere, al limite per la memoria
+S23|SI|SI|NA|SI|NO|dice di no con motivo; il seguito parla di una Torre ipotetica non uscita e non approfondisce la lettura
+S24|SI|SI|NA|NO|NO|sentire la paura e mano sul cuore: inviti validi per chiunque; il seguito ripete senza un passo nuovo
+S25|SI|NA|SI|SI|SI|i quattro retrogradi giusti; il seguito aggiunge Saturno in Ariete e la madre, al limite
+S26|SI|SI|NA|SI|SI|lista dei successi da rileggere; il seguito aggiunge come presentarsi
+S27|SI|NA|NO|SI|NO|Sole in Bilancia congiunto all'Ascendente Scorpione è falso; Sole in settima casa impossibile con Ascendente Scorpione
+S28|SI|SI|NA|NO|NO|consiglia di parlare di Berlino e della bottega al colloquio, controproducente; stomaco chiuso ignorato; seguito ripete la ceramica
+S29|SI|NA|NA|NO|NA|la scelta è già chiara, agisci ora: frase valida per chiunque, non sa quale scelta
+S30|SI|NA|NA|SI|SI|no con gesto concreto sulla restituzione, al limite per il denaro; il seguito porta Fehu reale
+S31|SI|SI|NA|SI|SI|sì con l'argilla da modellare; seguito poco nuovo, al limite
+S32|SI|NA|SI|SI|SI|Saturno in Toro giusto, retrogrado per parte dell'anno corretto
+S33|SI|NA|NA|SI|SI|dice chi è e con quali arti aiuta; il seguito descrive i centri, al limite
+S34|SI|NA|NA|NO|NA|la tua scelta è chiara, non esitare: generico, non entra nella scelta
+S35|SI|NA|SI|SI|SI|i quattro retrogradi giusti; il seguito li legge uno per uno sulla sua vita
+S36|SI|NA|NA|SI|NA|sì condizionato e chiedere giorni al capo, al limite
+S37|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione congiunta a Mercurio giusto
+S38|SI|SI|NA|NO|NA|prepara ogni parola è generico; portare il quaderno dei sogni al colloquio non aiuta, al limite
+S39|SI|NA|NA|SI|SI|tempo con Ombra e la ceramica mercoledì, al limite; il seguito aggiunge la fase calante
+S40|SI|NA|SI|SI|SI|Sole in Bilancia opposto a Saturno retrogrado e Luna in Gemelli giusti, al limite per il merito
+S41|SI|NA|NA|SI|SI|no con motivo e una settimana da chiedere; il seguito aggiunge sorella e Marco
+S42|SI|SI|NA|SI|SI|veterinario subito per Ombra; Isa reale; il seguito aggiunge il perché
+S43|SI|NA|SI|SI|SI|Gemelli e gibbosa calante giusti
+S44|SI|NA|SI|SI|SI|no e rilettura giovedì, motivo debole al limite; Luna in Acquario e Saturno retrogrado giusti
+S45|SI|NA|NA|SI|NO|dice chi è; il seguito parla di un gesto mai dato e salta a Berlino e Marco
+S46|SI|NO|NA|SI|NA|ignora che dorme male prima delle scadenze; respiro sulla radice e mano sulla pancia, al limite
+S47|SI|NA|NA|SI|SI|no e priorità del mese, al limite per il denaro; Nauthiz reale nel seguito
+S48|SI|SI|NA|SI|SI|passeggiata con Ombra prima del lavoro; non usa la meditazione, al limite per la memoria
+S49|SI|NA|NA|SI|NA|sì condizionato e parlarne con la madre nel fine settimana, al limite
+S50|SI|NA|SI|SI|SI|Luna in Bilancia crescente, Giove congiunto Urano, Sole sestile Luna: tutto giusto
+S51|SI|SI|NA|SI|SI|sì con Berlino e Marco; questa è la tua strada quasi certezza, al limite
+S52|SI|SI|NA|SI|SI|sì e parlarne con la madre, al limite per il merito; il seguito porta la ceramica
+S53|SI|NA|SI|SI|NA|trigono a Mercurio e sestile a Giove giusti; non dice segno e fase, al limite
+S54|SI|NA|SI|SI|SI|Giove a 27 gradi in Vergine giusto
+S55|SI|NA|SI|SI|SI|crescente a 3 gradi in Bilancia giusto; seguito poco nuovo, al limite
+S56|SI|SI|NA|SI|NA|momento tranquillo con la sorella per ascoltare, al limite
+S57|SI|NA|NO|NO|NA|non dice segno né fase della Luna; equilibrio fra mente ed emozioni vale per chiunque
+S58|SI|SI|NA|SI|SI|parlare alla madre della bottega e di Berlino; il seguito dice quando, dopo la meditazione
+S59|SI|NA|NO|SI|NO|il 15 novembre Sole in Scorpione non Bilancia, Venere in Bilancia non Scorpione, Luna congiunta Plutone non quadrata
+S60|SI|NA|NA|SI|NO|sceglie il centro per la bottega; il seguito inventa la runa Pītha, non esiste

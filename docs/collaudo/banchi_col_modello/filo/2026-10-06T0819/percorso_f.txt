@@ -1,0 +1,111 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un tempo di attesa per la promozione, un periodo in cui affinare le tue strategie e mostrare la tua preparazione. Non è ancora il momento di affrettare le cose, ma di consolidare la tua posizione attuale.
+
+La lama del Due di Spade suggerisce una fase di stallo, dove le decisioni sono sospese e si richiede equilibrio. Questa arcano invita a non forzare gli eventi, ma a osservare con lucidità prima di agire, specialmente quando si tratta di aspettative professionali.
+
+✦ Rivedi i tuoi obiettivi professionali in un momento di calma, entro la fine della settimana.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di confrontarti direttamente con colleghi o superiori in questo momento; le stelle suggeriscono che un approccio più cauto e diplomatico porterà risultati migliori. Non mostrare impazienza, anche se il desiderio di avanzamento è forte.
+
+Il Due di Spade, che già ti è apparso, continua a indicare la necessità di mantenere un equilibrio e di non schierarsi apertamente. Qualsiasi pressione eccessiva potrebbe generare resistenze e ritardare ulteriormente la tua promozione.
+
+✦ Scrivi su un quaderno i pro e i contro di una mossa affrettata, prima della prossima luna nuova.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda specifica della persona ('cosa devo evitare?') e riprende esplicitamente il riferimento al 'Due di Spade' dalla risposta precedente, sviluppando il consiglio di cautela.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia da un bilancio delle tue competenze attuali e di quelle che il ruolo desiderato richiede, per colmare eventuali lacune con formazione o nuove esperienze. Questo ti permetterà di presentarti con maggiore solidità quando il cielo si aprirà a nuove opportunità.
+
+La tua Venere in Vergine, con il suo desiderio di perfezione e servizio, ti spinge a un'analisi dettagliata e metodica. Usa questa influenza per identificare i punti di forza da valorizzare e le aree dove puoi ancora crescere, preparando il terreno per il transito favorevole che verrà.
+
+✦ Dedica un'ora questa sera a elencare tre competenze che vorresti sviluppare per la tua carriera.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('Da dove comincio?') fornendo un'azione concreta ('bilancio delle tue competenze') che si allinea con il consiglio iniziale di 'affinare le tue strategie' e 'consolidare la tua posizione', preparando il terreno per il futuro.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare ti spinge a muoverti, a cercare un nuovo spazio per te. Senti nel tuo ventre questo bisogno di radicamento altrove.
+
+La tua radice, il primo centro, ti chiama a mettere radici in un nuovo luogo, a esplorare una terra che risuoni con il tuo bisogno di stabilità e di un nuovo inizio. Questa ricerca di un altro spazio è un passo importante per il tuo equilibrio, per sentire dove la tua energia può fluire con maggiore armonia.
+
+✦ Appoggia i piedi a terra, senti il contatto.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di portare con te le ansie e i vecchi schemi che hanno reso difficile il tuo radicamento precedente: lasciare un luogo non è solo spostare il corpo, ma anche alleggerire il cuore.
+
+Il tuo terzo centro, il plesso solare, ti invita a non agire d'impulso o con la fretta di chi vuole solo fuggire, ma a scegliere con consapevolezza dove l'energia può fluire liberamente senza ostacoli interiori. Questo è il tempo di lasciare andare ciò che appesantisce, non di accumulare nuove preoccupazioni.
+
+✦ Porta una mano al centro dell'ombelico, senti il calore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'radicamento' e 'nuovo inizio' dalla risposta precedente, sviluppandolo con consigli su cosa evitare per un vero cambiamento interiore.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Per cominciare, ascolta il tuo corpo: dove senti che si espande il tuo respiro quando immagini un nuovo luogo? Questo è il punto di partenza.
+
+Il tuo cuore, il quarto centro, ti indica che l'inizio non è tanto in un luogo fisico, quanto nel sentire la risonanza con un ambiente che nutre la tua anima. Permettiti di sognare, di visualizzare i colori e i suoni del posto che chiami casa, prima ancora di cercare una città specifica. Questo ti aiuterà a riconoscere il luogo giusto quando lo incontrerai.
+
+✦ Chiudi gli occhi per un istante, inspira profondamente e senti il tuo cuore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'nuovo inizio' e del 'trovare un nuovo spazio' (risposta 1) e del 'lasciare andare ciò che appesantisce' (risposta 2), fornendo un metodo pratico ('ascolta il tuo corpo', 'sogna') per iniziare la ricerca del luogo giusto.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: La relazione ha bisogno di una fiamma. Questo è il tempo di agire con decisione.
+
+Una nebbia argentea avvolge il sentiero che hai davanti, ma non è densa. Il numero Tre ti indica che un intervento concreto ora può mutare la direzione. Non aspettare che il gelo si diffonda.
+
+✦ Scrivi un messaggio onesto e diretto, da inviare questa sera, un sigillo per riaprire il dialogo.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: Evita il silenzio. Non nasconderti.
+
+Il tuo cuore è un metallo prezioso, non lasciarlo arrugginire nell'ombra. Il presagio ti chiede di affrontare, non di fuggire. Ogni parola non detta è un peso, ogni passo non fatto è una distanza.
+
+✦ Pronuncia il nome della relazione a voce alta, da sola, prima di coricarti.
+    GIUDICE: PORTA_AVANTI, La risposta chiarisce cosa evitare, che è l'opposto dell'agire con decisione e riaprire il dialogo consigliato in precedenza, sviluppando il punto iniziale.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: Comincia dalla parola. È il tuo primo ponte.
+
+Il tuo pensiero è un'esplosione di stelle che illumina la via. La runa Ansuz, la Parola, ti guida. Il sentiero si apre con la chiarezza delle tue intenzioni. Agisci con purezza di cuore.
+
+✦ Prepara un piccolo dono, semplice e simbolico, da offrire al momento della conversazione, per onorare il vostro legame.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'parola' e 'dialogo' già introdotto con il 'messaggio onesto e diretto' e lo sviluppa come 'primo ponte', aggiungendo un nuovo elemento (il dono simbolico) che si lega al concetto di 'agire con decisione'.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è il momento giusto per avviare il tuo progetto creativo, ma è quello ideale per preparare il terreno. La Luna in quadratura con Saturno, oggi, invita alla riflessione e alla pianificazione dettagliata, anziché all'azione precipitosa.
+
+Il tuo cielo suggerisce di dedicare tempo alla struttura e alla visione a lungo termine del progetto. Questo periodo di apparente stasi è in realtà una fase cruciale per consolidare le basi, rivedere ogni aspetto e assicurarti che tutto sia allineato con la tua vera intenzione. Le carte rivelano un bisogno di precisione e ordine prima di un lancio efficace.
+
+✦ Scrivi un piano dettagliato per il tuo progetto, definendo ogni passo da qui ai prossimi sei mesi.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di agire d'impulso o di cercare scorciatoie che ti facciano saltare tappe importanti. L'arcano del Carro, se estratto ora, suggerirebbe un movimento rapido ma privo di direzione chiara, che potrebbe portare a uno sforzo vano.
+
+Il transito attuale di Mercurio retrogrado invita a non prendere decisioni affrettate, specialmente quelle che implicano comunicazioni importanti o contratti. Non è il momento di farti trascinare dall'entusiasmo passeggero. Ogni azione dovrebbe essere ponderata e basata su solide fondamenta.
+
+✦ Rivedi tutte le comunicazioni e i documenti legati al tuo progetto, assicurandoti che non ci siano ambiguità.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'azione precipitosa' e 'pianificazione dettagliata' della risposta precedente, specificando cosa evitare in linea con quel consiglio.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia dalla visione complessiva del tuo progetto, ponendo attenzione alle energie che vuoi esprimere. Il Sole in congiunzione con Venere, nel tuo cielo di oggi, favorisce l'armonia e l'espressione creativa, indicandoti che il punto di partenza deve essere la tua passione più autentica.
+
+Questo allineamento astrale ti invita a immaginare il risultato finale con chiarezza, visualizzando l'impatto che desideri generare. Non concentrarti sui singoli passaggi, ma sull'essenza del tuo progetto e su come esso rifletterà i tuoi valori più profondi. Le lame ti suggeriscono di attingere alla tua fonte interiore di ispirazione.
+
+✦ Trascrivi su un quaderno la tua visione finale del progetto, descrivendo l'emozione che vuoi che generi.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il tema della 'preparazione del terreno' e della 'visione a lungo termine' già introdotto, specificando da dove iniziare questa preparazione ('visione complessiva').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi cominciare scegliendo un momento tranquillo, magari al risveglio o prima di una conversazione importante, per rivolgerti a lei con onestà. Ascolta il tuo respiro prima di parlare, in questo modo prepari il tuo corpo a un dialogo aperto.
+
+Sento che un piccolo movimento di apertura può venire dal tuo quarto centro, quello del cuore, che vibra nel verde smeraldo. Permettiti di sentire la connessione profonda che ti lega a lei, al di là delle parole aspre, ricordando i vostri legami e la vostra storia. Apri il tuo respiro a questo sentire, e lascia che il tuo corpo si disponga all'accoglienza, non alla chiusura.
+
+✦ Appoggia una mano sul tuo petto per un istante, prima di parlarle.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Per evitare che la situazione si irrigidisca di nuovo, evita di ripercorrere i dettagli della lite passata. Invece di concentrarti su chi ha avuto ragione o torto, porta l'attenzione sul presente e sul desiderio di ricostruire il vostro legame, lasciando che il tuo respiro si allunghi in questo intento.
+
+Il tuo centro della gola, collegato al blu, ti invita a esprimere le tue intenzioni con chiarezza e senza attaccare. Evita frasi che iniziano con "tu hai fatto" o "tu hai detto", che possono riportare la conversazione su un terreno di accusa. Concentrati su come ti senti tu, sui tuoi desideri per il vostro rapporto.
+
+✦ Stringi delicatamente le dita della mano destra nel palmo, per sentire la tua intenzione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del dialogo per la riconciliazione e lo sviluppa indicando cosa evitare, mantenendo il focus sul respiro e sui centri energetici come strumenti per la comunicazione.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Comincia con un gesto semplice e sincero, che non chieda nulla in cambio. Potrebbe essere un piccolo messaggio inaspettato, non sulle parole della lite, ma un ricordo comune, un pensiero gentile su un momento passato insieme che sai che le è caro. Ascolta il tuo respiro mentre lo prepari, e cerca la tranquillità.
+
+Questo gesto nutre il vostro centro radice, quello che ti lega alla terra e alle origini comuni, il primo dei sette centri, rosso e profondo, che porta stabilità. È da lì che nascono i legami più solidi, quelli che vanno oltre le parole.
+
+✦ Siediti con i piedi a terra, senti il contatto con il pavimento, e lascia che il tuo respiro si allunghi fino alle piante dei piedi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della riconciliazione e lo sviluppa indicando un primo passo concreto ('un gesto semplice e sincero'), collegandolo nuovamente al respiro e a un centro energetico (radice), in linea con i consigli precedenti.
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento

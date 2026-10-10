@@ -1,0 +1,40 @@
+== EQ.01 Regola B 1, su HEAD: il corpo tiene la riga col marcatore (il_consiglio_in_oro)
+   file lib/core/maestro/consiglio_finale.dart, sha1 prima be62a5249797, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +7 -2: Some tests failed.
+   Expected: not contains '✦'
+   Actual: 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. Quello che senti come confusione è un confine che si sposta.\n'
+   Expected: not contains '✦'
+   Actual: 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. Quello che senti come confusione è un confine che si sposta. Sotto la superficie lavora un secondo movimento, più lento, che dura da mesi senza chied
+   ripristinato: sha1 be62a5249797, uguale, compagni tornati: True
+== EQ.01 Regola B 2, su HEAD: il consiglio finale non conosce piu' l'eccezione (i_maestri_si_conoscono_e_non_rifiutano)
+   file lib/core/maestro/consiglio_finale.dart, sha1 prima be62a5249797, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +7 -1: Some tests failed.
+   Expected: contains 'chi sono gli altri Maestri, non c\'è un passo da dare'
+   Actual: 'IL CONSIGLIO FINALE, SEMPRE, IN OGNI RISPOSTA:\n'
+   ripristinato: sha1 be62a5249797, uguale, compagni tornati: True
+== EQ.01 Regola B 3, su HEAD: nel LIVE il segno del chiarimento arriva a video (il_live_scrive_e_parla_prima)
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 7396ac31c93d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Questa settimana'
+   Actual: '[[CHIEDO]]\n'
+   Expected: Questa set ...
+   Actual: [[CHIEDO]] ...
+   ripristinato: sha1 7396ac31c93d, uguale, compagni tornati: True
+== EQ.01 Regola B 4, su HEAD: la bolla non disegna piu' la riga d'oro (il_consiglio_e_lultima_riga)
+   file lib/features/maestri/chat/widgets/chat_bubble.dart, sha1 prima 072e07503772, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +1 -5: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'consiglio_medora'>]: []>
+   Expected: exactly one matching candidate
+   Actual: _TextContainingWidgetFinder:<Found 0 widgets with text containing Non decidere adesso:
+   Expected: exactly one matching candidate
+   Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'consiglio_medora'>]: []>
+   Expected: exactly one matching candidate
+   Actual: _DescendantWidgetFinder:<Found 0 widgets with icon "IconData(U+0E0B7)" descending from
+   Expected: exactly one matching candidate
+   Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'consiglio_medora'>]: []>
+   ripristinato: sha1 072e07503772, uguale, compagni tornati: True

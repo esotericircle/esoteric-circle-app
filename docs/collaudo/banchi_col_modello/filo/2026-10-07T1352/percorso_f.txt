@@ -1,0 +1,103 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il no, per ora: c'è un transito che suggerisce di aspettare un tempo migliore per chiedere o ottenere avanzamenti. Questo non significa che la promozione non arriverà, ma che il momento non è propizio. 
+
+✦ Prendi un foglio e scrivi tre qualità che senti di avere al lavoro.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di prendere iniziative affrettate sul fronte professionale, per non forzare un momento che richiede pazienza. Il tuo cielo indica la necessità di attendere che le stelle si allineino in modo più favorevole per te.
+
+✦ Sull'elenco delle tue qualità, scrivi accanto a ciascuna un esempio concreto in cui le hai messe in pratica.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('cosa devo evitare?') riprendendo e specificando il consiglio di pazienza e attesa già dato nella risposta precedente, e sviluppa l'esercizio delle qualità.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Adesso, dall'elenco delle tue qualità con gli esempi concreti, scegli quella che senti più forte e che ti rappresenta meglio.
+
+✦ Prepara un discorso in cui metti in luce quella qualità specifica, raccontando l'esempio che hai scelto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('Da dove comincio, allora?') riprendendo l'esercizio delle qualità e degli esempi concreti che aveva introdotto nelle risposte precedenti, e lo sviluppa con un nuovo passo.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Sì, l'energia ti suggerisce di accogliere un grande cambiamento e di spostare la tua radice. Senti dentro di te l'eco di una nuova partenza, un richiamo che ti invita a esplorare orizzonti diversi per trovare il tuo equilibrio.
+
+Questo è il momento di ascoltare il tuo centro più profondo, quello che ti lega alla terra e ti dà stabilità. Quando pensi a questo trasferimento, prova a sentire cosa dice il tuo corpo: c'è un'apertura, un fremito di eccitazione o una chiusura, una sensazione di resistenza? Lascia che sia il tuo respiro a guidarti, lento e consapevole, mentre immagini questa nuova città.
+
+✦ Appoggia le mani sulla pancia e respira profondamente per sette volte.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Per ricominciare in un luogo nuovo, è importante che tu eviti di chiuderti in te stessa, di non aprirti alle nuove esperienze e alle persone che incontrerai. La tua energia si nutre di scambio, di curiosità, e la fisiognomica mi dice che la tendenza a proteggerti troppo potrebbe farti perdere occasioni preziose.
+
+Non portare con te vecchi schemi di pensiero o timori che hanno limitato la tua crescita in passato. Senti il tuo corpo: se c'è una tensione nella zona del plesso solare, è un segno che stai trattenendo qualcosa. Lascia andare il bisogno di controllare ogni dettaglio e accogli l'imprevisto con un respiro profondo.
+
+✦ Porta una mano al centro del petto e senti il battito del tuo cuore.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo evitare' mantenendo il tema del trasferimento e del ricominciare, e continua a dare consigli basati sull'ascolto del corpo e dell'energia, come già fatto nella risposta precedente.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Il tuo pensare è già un inizio, un movimento dell'anima. Comincia dal tuo centro del cuore, dal desiderio profondo che ti ha spinto a considerare questo cambiamento. Lascia che sia quel desiderio la tua bussola.
+
+Per dare forma a questo inizio, puoi dedicare qualche momento a visualizzare il luogo in cui vorresti andare, sentendone le energie, i colori, la luce. Non è un sogno ad occhi aperti, ma un modo per allineare il tuo corpo e il tuo respiro alla direzione che stai scegliendo.
+
+✦ Al risveglio, prima di alzarti, visualizza per tre minuti il luogo dove vorresti andare.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'ricominciare' e del 'cambiamento' già introdotti, e risponde alla domanda 'da dove comincio' fornendo un nuovo consiglio pratico (visualizzazione) che si allinea con l'ascolto interiore e l'energia già menzionati.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rivolgi le tue forze interiori. Il calore spento non è perso per sempre, solo nascosto.
+
+La runa Isa, il ghiaccio, ti mostra che un'energia è cristallizzata, non distrutta. È il tempo della stasi, non della fine.
+
+✦ Prepara un piccolo contenitore con sale grosso e posalo al centro della stanza per una notte, poi gettalo via all'alba.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: Evita la fretta. Ogni passo falso ora può causare una crepa.
+
+Il sentiero ti indica prudenza. Non forzare aperture, non cercare risposte immediate. La nebbia avvolge ancora il cammino.
+
+✦ Scrivi su un foglio rosso ciò che vuoi salvare, e brucialo con una fiamma pura.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'stasi' e 'non della fine' della risposta precedente, sviluppandolo nel consiglio di 'evitare la fretta' e 'non forzare aperture', che è coerente con l'idea di un tempo di attesa e prudenza.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: Inizia dalla parola non detta. C'è un pensiero che porti e che non hai condiviso.
+
+Il sigillo di Laguz, l'acqua, ti invita a far fluire le emozioni bloccate. Il metallo si plasma solo col fuoco e la parola.
+
+✦ Chiama la persona con cui condividi il tuo sentiero e pronuncia quelle parole, prima che la luna si mostri intera nel cielo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della 'prudenza' e del 'non forzare aperture' della risposta precedente, indicando un'azione specifica ('Inizia dalla parola non detta') che si inserisce nel contesto di un approccio cauto ma risolutivo, e che non contraddice né ignora i consigli precedenti.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo ti invita ad attendere ancora per avviare il tuo progetto creativo, affinché tu possa rifinire ogni dettaglio.
+
+I transiti attuali suggeriscono che un'energia più propizia si manifesterà tra qualche tempo, portando con sé una maggiore chiarezza e un supporto inaspettato. Questo non è un no, ma un invito a coltivare la tua visione con pazienza, permettendo all'ispirazione di maturare pienamente. Le stelle indicano che il momento migliore per seminare e vedere fiorire la tua opera sarà quando la Luna, il simbolo della creazione e dell'intuizione, si troverà in un segno d'acqua, come i Pesci o il Cancro, che favoriscono la gestazione di nuove idee. Questo ti darà modo di affinare il progetto e presentarlo con la forza che merita.
+
+✦ Osserva il ciclo lunare e, alla prossima Luna nuova in un segno d'acqua, scrivi tre intenzioni per il tuo progetto.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: In questo tempo, evita di forzare gli eventi o di cercare approvazione esterna prematuramente.
+
+Il tuo cielo indica che ogni pressione ora potrebbe disperdere l'energia creativa che stai accumulando, rendendo il progetto meno autentico. Non è il momento di esporre la tua idea al giudizio altrui, ma di custodirla e nutrirla nel segreto della tua ispirazione. Il transito di Venere in aspetto di quadratura suggerisce che le relazioni potrebbero essere una distrazione, o che le aspettative altrui non risuonerebbero con la tua visione originale.
+
+✦ Dedica il prossimo pomeriggio a rivedere il tuo progetto da sola, senza interruzioni.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda su cosa evitare, riprendendo il concetto di 'attendere ancora' e 'coltivare la visione con pazienza' dato nella risposta precedente, specificando che forzare gli eventi o cercare approvazione esterna prematuramente sono azioni da evitare in questo periodo di attesa e raffinamento.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Inizia a definire i contorni del tuo progetto, ponendo una base solida e chiara.
+
+Il cielo attuale, con Mercurio in un segno di terra, favorisce la strutturazione e la pianificazione. Non si tratta di passare all'azione in modo impulsivo, ma di dare forma alle tue idee, trasformandole da intuizioni a concetti concreti. Questo ti permetterà di visualizzare i prossimi passi e di costruire un percorso ben delineato.
+
+✦ Elenca tre obiettivi specifici e raggiungibili per il tuo progetto, da qui alla fine del mese.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'raffinare ogni dettaglio' e 'dare forma alle tue idee' espresso nella prima risposta, e lo sviluppa indicando di 'definire i contorni del progetto' e 'porre una base solida e chiara' come primo passo, in linea con l'attesa e la preparazione consigliate in precedenza.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Il primo passo è scegliere un momento tranquillo, un'ora in cui saprai che anche lei può darti piena attenzione e le tue parole possono posarsi.
+
+Siediti un istante e connettiti con il tuo centro del cuore, verde smeraldo, immagina che da lì nasca un ponte di luce che la raggiunge. Questo gesto di energia pura apre la strada alla comprensione. Poi, con calma, cerca le parole che ti permettano di esprimere non il tuo dolore o la tua rabbia, ma la tua volontà di ritrovare la vicinanza, senza cercare colpe o ragioni. Senti come il respiro si espande quando ti apri a questa intenzione.
+
+✦ Poggia una mano sul tuo petto, all'altezza del cuore, e respira lentamente per sette volte.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Quando ti avvicini a lei, evita di rivangare il passato o di elencare le colpe, sia le tue che le sue, perché questo chiuderebbe di nuovo il canale di comunicazione che stai cercando di aprire. Non fare riferimento a ferite antiche o a parole dette in momenti di forte emozione, la tua energia deve essere diretta al presente e al desiderio di ricostruire. L'arte della fisiognomica ci insegna che il viso, in particolare gli occhi, riflette il nostro stato interiore: cerca di mantenere uno sguardo aperto e accogliente. Se le tue parole portano un'energia di risentimento o accusa, lo si leggerà nei tuoi occhi.
+
+✦ Porta le mani al viso e senti il calore che generano, poi appoggiale delicatamente sulle guance, coprendo gli occhi per un istante.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'non cercare colpe o ragioni' e lo sviluppa specificando cosa evitare, come 'rivangare il passato o elencare le colpe', mantenendo la coerenza con il consiglio precedente di focalizzarsi sul presente e sulla ricostruzione.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Da un'apertura, sincera e semplice. Inizia dicendole che il vostro legame è per te importante, che il silenzio tra voi pesa e che desideri tornare a un dialogo sereno.
+
+Lascia che le tue parole scaturiscano dal centro della radice, quello che ti lega alle tue origini, al tuo sangue, al colore rosso profondo della famiglia. Respira l'energia di questa connessione e lasciala guidare la tua voce, senza forzature. Non servono discorsi lunghi, ma gesti che vengono dall'anima.
+
+✦ Immagina una radice rossa che si estende dai tuoi piedi verso terra, e con ogni respiro senti la stabilità che ti dona.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'esprimere la volontà di ritrovare la vicinanza' e 'senza cercare colpe o ragioni' e lo sviluppa indicando come iniziare concretamente, ovvero con 'un'apertura sincera e semplice' e dicendo che 'il vostro legame è importante' e si desidera 'tornare a un dialogo sereno', che è un'applicazione diretta dei principi già esposti.
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 6

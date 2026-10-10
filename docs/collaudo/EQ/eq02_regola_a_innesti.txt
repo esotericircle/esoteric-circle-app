@@ -1,0 +1,49 @@
+== EQ.02 innesto 1: torna la regola del cerchio dell'ordine EN
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima c794942820ae, innesto verificato col grep: NO
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 c794942820ae, uguale
+== EQ.02 innesto 2: torna la riga del dominio che fa riconoscere e indicare
+   file lib/services/ai/maestro_persona.dart, sha1 prima b15863d35624, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 b15863d35624, uguale
+== EQ.02 innesto 3: la risposta nel merito torna a cominciare da cio' che non si puo' fare
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima 74bc7edaecd1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'dillo in UNA frase sola e passa subito'
+   Actual: 'RISPONDI SEMPRE NEL MERITO:\n'
+   ripristinato: sha1 74bc7edaecd1, uguale
+== EQ.02 innesto 4: la regola delle domande con piu' parti tolta
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima c0e5804abf8b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'UNA DOMANDA CON PIÙ PARTI HA PIÙ RISPOSTE'
+   Actual: 'RISPONDI SEMPRE NEL MERITO:\n'
+   ripristinato: sha1 c0e5804abf8b, uguale
+== EQ.02 innesto 5: chi chiede la carta a un altro Maestro non riceve il segno della sua arte
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima 19ef039163f6, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'rispondi con ciò che la tua arte vede al suo posto'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 19ef039163f6, uguale
+== EQ.02 innesto 6: il controllo prima di scrivere non arriva al modello
+   file lib/services/ai/maestro_persona.dart, sha1 prima 5f5c79071833, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a string ending with 'PRIMA DI SCRIVERE, CONTROLLA:\n'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 5f5c79071833, uguale
+== EQ.02 innesto 7: il controller non sposta piu' il rimando in fondo
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima ce65fae169c1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: null
+   Actual: Maestro:<Maestro.medora>
+   ripristinato: sha1 ce65fae169c1, uguale

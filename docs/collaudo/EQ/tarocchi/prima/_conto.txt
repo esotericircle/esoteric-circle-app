@@ -1,0 +1,3 @@
+EQ.04 prima: letture con la risposta diretta nelle prime due frasi 1 su 20; carte lette nella posizione e rispetto alla domanda 0 su 60; errori di concordanza e di grammatica 3
+EQ.04 prima: letture uguali su cento con la stessa domanda 0
+Chiamate per le letture 0, domande al giudice 260; modello gemini-2.5-flash, europe-west1.

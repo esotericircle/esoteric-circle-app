@@ -1,0 +1,106 @@
+LE PROVE DEL ROSSO DELL ORDINE CR
+Esoteric Circle. Regola A: nessuna guardia si scrive senza averla vista rossa.
+
+========================================================================
+CR.01, IL CANCELLO: SENZA VOLTO NON C E RESPONSO
+========================================================================
+NATA ROSSA SENZA NESSUN INNESTO, perche' il difetto era in produzione: il
+fondatore lo aveva visto fotografando un muro.
+
+ROSSA     la schermata costruisce la lettura da un ripiego
+          nessun innesto necessario
+          attesa: la schermata non costruisce piu' una lettura da un ripiego
+          caduta: punti che sostituiscono il volto mancante con la sagoma
+                  disegnata 2
+            riga 613: final contorni = _contorniVivi ?? FaceSilhouette.contorni();
+            riga 640: final contorni = _contorniVivi ?? FaceSilhouette.contorni();
+          verde dopo la cura: 0
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 1 su 1
+
+========================================================================
+CR.13, LE SOGLIE PROVVISORIE: ROSSA APPOSTA
+========================================================================
+Non e' una prova del rosso, e' un rosso VOLUTO che l'ordine chiede per nome:
+*una guardia deve cadere finche' quei valori restano marcati come non
+misurati*. Sta nel registro dei rossi accettati con la sua ragione, e non si
+ripara scrivendo codice.
+
+Stato al 6 settembre 2026: soglie tarate su un dispositivo FALSE, profilo 20
+gradi, inclinazione 15, tolleranza del fronte 5, tenuta 800 millisecondi.
+
+========================================================================
+CR.03 e CR.04, LA SCANSIONE A QUATTRO POSE E LA VITALITA'
+========================================================================
+Quattro innesti, uno per pretesa, ognuno verificato COL GREP prima di
+leggere l'esito, e il ripristino in un `finally`.
+
+PRIMO GIRO: 3 su 4.
+ROSSA     l aggancio non serve piu (if (!_agganciato) -> if (false))
+ROSSA     la posa si compie senza tenuta (>= soglie.tenuta -> >= zero)
+ROSSA     perdere l angolo non azzera (tolto _tenuta = Duration.zero)
+VERDE     ogni angolo va bene per ogni posa (Posa.destra => true)
+
+**E IL VERDE E' L'INFORMAZIONE PIU' UTILE DEL GIRO.** La pretesa della
+vitalita' diceva `expect(fermo.compiuta, isFalse)`, cioe' guardava se la
+SEQUENZA INTERA si compie da fermi. Con la sola posa destra sempre dentro
+soglia, restando immobili se ne compiva UNA e le altre tre no: la sequenza
+restava incompiuta e la guardia non vedeva niente.
+
+**Misurava il pezzo sano accanto al pezzo rotto**, che e' la famiglia di
+cecita' che il conto delle ore dell'ordine CQ aveva gia' contato sette volte
+su sette. Una posa compiuta senza muoversi e' gia' una crepa nel cancello, e
+il numero giusto da pretendere e' ZERO pose, non zero sequenze.
+
+SECONDO GIRO, con la pretesa corretta: 4 su 4.
+ROSSA     l aggancio non serve piu
+ROSSA     la posa si compie senza tenuta
+ROSSA     perdere l angolo non azzera
+ROSSA     ogni angolo va bene per ogni posa
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4, dopo che il primo giro ha
+trovato una pretesa debole
+
+========================================================================
+CR.02, I PUNTI DEL VOLTO DENTRO I 478 DELLA MESH
+========================================================================
+Gli indici dei gruppi canonici sono 131 numeri scritti a mano, e un numero
+scritto a mano si sbaglia in silenzio: un 463 al posto di 163 non fa cadere
+niente, sposta un punto dall'occhio a un'altra parte del viso e la misura del
+tratto diventa falsa senza che nessuno se ne accorga.
+
+La guardia DICHIARA cosa non puo' dire: se un indice sia quello GIUSTO non lo
+sa, perche' per saperlo servirebbe il modello davanti. Dice le tre cose che
+prendono gli errori veri.
+
+ROSSA     un indice fuori dai 478 punti (5, 4 -> 5, 999)
+ROSSA     un gruppo ridotto a un punto (base del naso a [98])
+ROSSA     il copia incolla fra i due lati (guancia destra = sinistra)
+ROSSA     lo stesso punto nominato tre volte (6, 6, 6 nel ponte del naso)
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4
+
+========================================================================
+CR.07, L ESPRESSIONE DELL ISTANTE
+========================================================================
+Quattro innesti, e IL SECONDO GIRO E' SERVITO.
+
+PRIMO GIRO: 3 su 4.
+ROSSA     una frase dice a qualcuno come sta (Stai filtrando -> Sei teso)
+ROSSA     un segno senza coefficienti (occhi spalancati a lista vuota)
+ROSSA     la soglia scende sotto il rumore (0.30 -> 0.01)
+VERDE     la lettura restituisce tutto invece di due segni (via il take(2))
+
+**E IL VERDE DICEVA CHE LA PRETESA MISURAVA IL CASO FACILE.** Il volto di
+prova era un sorriso: due coefficienti alti e tutti gli altri sotto soglia.
+Togliendo il tetto dei due segni ne usciva comunque UNO, cioe' il tetto non
+serviva mai in quel caso, e la guardia non poteva vedere niente.
+
+E' la SECONDA volta in questo ordine che la Regola A trova una pretesa debole
+invece di un difetto: la prima era la vitalita' della scansione, che guardava
+la sequenza intera invece delle singole pose.
+
+SECONDO GIRO, aggiunto un volto che fa quattro gesti insieme: 4 su 4.
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA GUARDIA: 4 su 4, dopo un giro che ha trovato
+una pretesa debole

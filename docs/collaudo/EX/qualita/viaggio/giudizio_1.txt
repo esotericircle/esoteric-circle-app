@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|Dice di aprire la bottega, con piano di tre mesi e contatto con chi ha una bottega simile.
+S02|SI|NA|NA|SI|NA|Indica di chiedere direttamente alla persona che cosa cerca e di incontrarla entro domani sera.
+S03|SI|NA|NA|NO|NA|Non dice nulla sul quando del matrimonio: massima sull'attesa e limite di tempo valgono per chiunque.
+S04|SI|NA|NA|NO|NA|Massima generica sul peso del rapporto e gesto di scrivere cosa fa stare meglio, nessuna indicazione sulla persona.
+S05|SI|NA|NA|NO|NA|Non risponde se lui tornerà: massima generica sull'attesa e limite di tempo validi per chiunque.
+S06|SI|NA|NA|NO|NA|Al limite: dice si' ma poi che non si puo' sapere; condizione vaga e cena con un amico estranea alla domanda.
+S07|SI|NA|NA|NO|NA|Al limite: ripete la domanda come invito a scegliere; il gesto sugli oggetti non dice che cosa farne.
+S08|SI|NA|NA|SI|NA|Al limite per il denaro: si' se sceglie come aiutare, parlare al fratello entro domenica chiedendo un piano.
+S09|SI|NA|NA|NO|NA|Nessuna indicazione su come fare pace con la madre: massima sul peso del rapporto e gesto generico.
+S10|SI|NA|NA|SI|NA|Indica di smettere di nascondersi e di dire cio' che pensa in una situazione scomoda entro domani.
+S11|SI|NA|NA|SI|NA|Indica di telefonare alla madre entro domenica e proporle un incontro a due per parlare con calma.
+S12|SI|NA|NA|NO|NA|Al limite: non dice che cosa la blocca, rimanda tutto a un gesto sul mostrare il talento.
+S13|SI|NA|NA|SI|NA|Si' a condizione del primo passo: incontro in luogo neutro e lettera alla sorella entro domani sera.
+S14|NO|NA|NA|NO|NA|Silenzio: nessun responso, nessuna indicazione concreta, la persona non riceve risposta.
+S15|SI|NA|NA|SI|NA|Al limite: afferma che Marco prova sentimenti e poi che non si puo' sapere; gesto generico.
+S16|SI|NA|NA|NO|NA|Massima vaga sul pezzo che manca e telefonata rimandata: nulla su come ritrovare la fiducia.
+S17|SI|NA|NA|NO|NA|Non dice se aprire la bottega: massima sulla scelta e gesto di scrivere generici.
+S18|SI|NA|NA|NO|NA|Al limite: dice che il blocco e' suo e propone di rompere un'abitudine, valido per chiunque.
+S19|SI|NA|NA|SI|NA|Al limite: il si' non c'entra col perche', ma indica il peso della disponibilita' e il telefono spento.
+S20|SI|NA|NA|NO|NA|Non dice nulla su Torino o Berlino: massima sulla scelta e gesto di scrivere generici.
+S21|SI|NA|NA|NO|NA|Non dice se cambiare casa quest'anno: massima sulla scelta e gesto generico.
+S22|SI|NA|NA|NO|NA|Non dice che cosa la blocca nel lavoro: massima vaga e telefonata rimandata generica.
+S23|SI|NA|NA|SI|NA|Al limite: dice di smettere di aspettare perche' non e' suo; gesto del silenzio generico.
+S24|SI|NA|NA|SI|NA|Si' condizionato: scrivere domani a tre persone a Berlino sulle difficolta' del trasferimento.
+S25|SI|NA|NA|NO|NA|Nulla sul perche' non dorme: parla di un blocco e di una telefonata rimandata, valido per chiunque.
+S26|SI|NA|NA|SI|NA|Al limite: indica di dare un limite di tempo all'attesa, pertinente alla domanda ma generico.
+S27|SI|NA|NA|NO|NA|Massima vaga sul pezzo che manca e telefonata rimandata, nulla su cio' che non supera.
+S28|SI|NA|NA|NO|NA|Non dice nulla sul successo del progetto: massima sull'attesa valida per chiunque.
+S29|SI|NA|NA|NO|NA|Non dice se prestare i soldi al fratello: massima sulla scelta e gesto generici.
+S30|SI|NA|NA|NO|NA|Al limite: criterio generico sulla scelta e gesto di scrivere, nessuna direzione su dove guardare.
+S31|SI|NA|NA|NO|NA|Nulla su Marco: massima sul peso del rapporto e gesto di scrivere generici.
+S32|NO|NA|NA|SI|NA|Previsione data per certa: i segni dicono di si' al colloquio; indica di sapere chi lo condurra'.
+S33|SI|NA|NA|NO|NA|Al limite: discorso astratto sui confini e gesto della mappa che non danno nessuna direzione.
+S34|SI|NA|NA|NO|NA|Al limite: invito generico a considerare priorita' e agire, nessuna indicazione su quale strada.
+S35|SI|NA|NA|SI|NA|Al limite: si' se coinvolge chi l'accompagna, un passo alla volta; gesto sull'impedimento generico.
+S36|SI|NA|NA|NO|NA|Non dice nulla sul colloquio: massima sull'attesa e limite di tempo generici.
+S37|SI|NA|NA|NO|NA|Frase oscura sulla porta aperta e gesto di riscrivere la domanda, nessuna indicazione su cosa farne.
+S38|NO|NA|NA|NO|NA|Al limite: la nuova casa e' gia' presente detta come certa; non dice se conviene cambiare quest'anno.
+S39|SI|NA|NA|NO|NA|Massima generica sul camminare e gesto vago, nessuna direzione indicata.
+S40|SI|NA|NA|NO|NA|Nulla sul perdono della sorella: massima sul peso del rapporto e gesto generico.

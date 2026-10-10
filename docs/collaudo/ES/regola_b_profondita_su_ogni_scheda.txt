@@ -1,0 +1,12 @@
+ORDINE ES, REGOLA B: prima di mettere la profondita' su ogni scheda (l'Anno, la Settimana e il Mese, l'oroscopo di un amico) e di portare in alto "L'oroscopo per un amico", le guardie della zona viste rosse, 30 settembre 2026.
+
+INNESTO l'anno con la variante fissa: grep del difetto nel file SI; prova test/l_anno_dal_compleanno_test.dart ROSSA; file rimesso sha1 a53ea12155c8 -> a53ea12155c8 IDENTICO
+INNESTO le righe della settimana col cielo del primo giorno: grep del difetto nel file SI; prova test/la_settimana_viene_dal_cielo_test.dart VERDE; file rimesso sha1 9736137a6009 -> 9736137a6009 IDENTICO
+INNESTO la Settimana aperta a tutti: grep del difetto nel file SI; prova test/il_periodo_si_apre_col_piano_test.dart ROSSA; file rimesso sha1 186d133df7f0 -> 186d133df7f0 IDENTICO
+INNESTO un posto regalato fra gli amici: grep del difetto nel file SI; prova test/gli_amici_offline_test.dart ROSSA; file rimesso sha1 87fd335057cc -> 87fd335057cc IDENTICO
+INNESTO la scelta della profondita' che non arriva alla schermata: grep del difetto nel file SI; prova test/la_profondita_si_sceglie_test.dart ROSSA; file rimesso sha1 186d133df7f0 -> 186d133df7f0 IDENTICO
+INNESTO l'Approfondita senza carta uguale alla Breve: grep del difetto nel file SI; prova test/l_approfondita_dice_di_piu_test.dart ROSSA; file rimesso sha1 034c437c4d1c -> 034c437c4d1c IDENTICO
+
+UNA GUARDIA NON COPRIVA LA SUA ZONA: la_settimana_viene_dal_cielo restava verde con le sette righe lette tutte dal cielo del primo giorno, perche' guardava solo che ogni riga avesse un fatto del cielo dietro. Riparata prima di toccare la zona: ogni riga e' quella che il cielo del suo giorno da', e senza carta le righe dei sette giorni cambiano almeno tre volte. Dopo la riparazione:
+INNESTO le righe della settimana col cielo del primo giorno, dopo aver riparato la guardia: grep del difetto nel file SI; prova test/la_settimana_viene_dal_cielo_test.dart ROSSA; ORDINE ES VOCE 02: righe che non sono quelle del cielo del loro giorno 80 su 112; senza carta, righe diverse nei sette giorni di un dominio, almeno 1; file rimesso sha1 9736137a6009 -> 9736137a6009 IDENTICO
+Guardie viste rosse 6 su 6 (una dopo la riparazione).

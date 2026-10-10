@@ -1,0 +1,21 @@
+USO DI PROTOFACE NEL MESE, scritto dal server a ogni apertura del LIVE (functions/src/live.ts, lUsoDelMese), letto da Cloud Logging il 24/09/2026.
+Colonne: ora UTC, riga, crediti addebitati nel mese, secondi fatturati nel mese, secondi per livello, livello chiesto all'apertura, sessioni nel mese.
+
+2026-09-24T03:14:47.646935Z	Uso di Protoface nel mese	151	7503	pro=155;standard=7348		37
+2026-09-24T03:14:45.386709Z	LIVE aperto				standard	
+2026-09-24T03:01:02.144890Z	Uso di Protoface nel mese	148	7338	pro=155;standard=7183		36
+2026-09-24T03:00:59.944938Z	LIVE aperto				standard	
+2026-09-24T02:45:35.835940Z	Uso di Protoface nel mese	145	7183	standard=7183		35
+2026-09-24T02:45:33.764197Z	LIVE aperto				pro	
+2026-09-24T02:33:39.034725Z	Uso di Protoface nel mese	141	6948	standard=6948		34
+2026-09-24T02:33:36.612654Z	LIVE aperto				standard	
+
+RISOLUZIONE DEL VIDEO RICEVUTO, dal registro del telefono (schermata_live.dart, _misuraIlVideo):
+LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 384x384 a 21.0 fps, codec video/VP8, decoder OMX.qcom.video.decoder.vp8; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/VP8, decoder OMX.qcom.video.decoder.vp8; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 384x384 a 24.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video

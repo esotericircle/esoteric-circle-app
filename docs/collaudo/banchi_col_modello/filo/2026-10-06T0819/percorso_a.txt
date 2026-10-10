@@ -1,0 +1,103 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il cielo indica che la promozione che attendi è prossima al tuo orizzonte professionale, ma richiede ancora un impegno mirato. La configurazione astrale suggerisce che le energie sono favorevoli a un riconoscimento, a patto che tu sappia mostrare appieno le tue capacità e la tua dedizione.
+
+✦ Presenta un progetto o un'idea che hai sviluppato all'inizio della prossima settimana.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana è il momento ideale per mettere in luce la tua preparazione e la tua visione. Le stelle indicano che un'azione chiara e diretta porterà i frutti sperati.
+
+✦ Prepara un piccolo report sui risultati che hai ottenuto negli ultimi mesi per la riunione di venerdì.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda specifica della persona su cosa fare 'questa settimana', fornendo un'azione concreta che sviluppa il concetto di 'impegno mirato' e 'mostrare appieno le tue capacità' già introdotto nella risposta precedente.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non dovessero andare come speri, la Luna nel tuo cielo ti invita a non scoraggiarti. Le carte suggeriscono che ogni esperienza, anche quella che sembra non portare al risultato atteso, è un passo fondamentale per comprendere meglio la tua direzione e affinare i tuoi obiettivi.
+
+✦ Rivedi i tuoi progetti professionali annotando ciò che funziona bene e ciò che puoi migliorare, entro la fine della settimana.
+    GIUDICE: IGNORA, La guida risponde a un'eventualità negativa ('se le cose non vanno come speri') con un consiglio generico di non scoraggiarsi e di rivedere i progetti, senza riprendere o sviluppare i consigli specifici dati in precedenza per ottenere la promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo corpo ti invita a radicarti, a sentire il terreno sotto i piedi prima di fare un passo così grande. Non è la distanza che ti darà un nuovo inizio, ma il modo in cui abiti lo spazio che ti è proprio.
+
+Immagina di portare la tua attenzione al tuo primo centro, quello della radice, in quel verde smeraldo che ti lega alla terra.
+
+✦ Chiudi gli occhi per un istante e visualizza le tue radici che affondano in profondità.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana concentrati sul mettere radici dove sei ora, anche se è solo per un attimo. Scegli un oggetto nella tua casa che ti dia un senso di stabilità e di appartenenza, qualcosa che ti trasmetta calma e forza. Può essere una pietra, una pianta, o un libro che ti ha accompagnato in un momento importante.
+
+Prenditi un momento ogni giorno per toccare quell'oggetto, senti la sua consistenza, il suo peso. Il tuo respiro ti accompagnerà in questo contatto, rendendolo un vero momento di presenza. Questo ti aiuterà a creare un punto fermo dentro di te, a prescindere dal luogo fisico.
+
+✦ Porta una mano sull'ombelico e senti il tuo centro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'radicarsi' e 'sentire il terreno sotto i piedi' introdotto nella risposta [1], fornendo un esercizio pratico ('cosa faccio questa settimana?') per applicarlo nel presente.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri, è il momento di ascoltare il tuo centro del cuore, nel tuo verde smeraldo più profondo, quello che ti ricorda che ogni esperienza, ogni incontro, porta con sé un insegnamento prezioso. Non c'è fallimento, solo un cammino che si mostra sotto una luce diversa.
+
+Permetti a te stessa di sentire ciò che emerge, senza giudizio. È proprio in quei momenti che puoi scoprire una forza inaspettata, una direzione nuova che prima non avevi considerato.
+
+✦ Poggia entrambe le mani sul petto e ascolta il battito.
+    GIUDICE: IGNORA, La guida introduce un nuovo concetto ('ascoltare il tuo centro del cuore', 'non c'è fallimento') senza riprendere o sviluppare il tema del 'radicarsi' o degli esercizi pratici per la stabilità introdotti nelle risposte precedenti, nonostante la persona stia continuando il discorso sulle difficoltà.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci ora. Il tempo dell'attesa è finito.
+Una nebbia fredda si è posata, offuscando il cammino che un tempo era chiaro.
+La runa **Isa** ti indica stasi, un blocco che richiede azione deliberata per essere spezzato. Non c'è salvezza nell'immobilità. Le vie dell'Albero della Vita richiedono movimento costante per mantenere il flusso.
+
+✦ Prepara un piccolo dono, avvolto in un panno rosso, e consegnalo questa sera.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: Prepara le parole. C'è un sentiero da riaprire.
+Il dono che hai preparato è un ponte, non un arrivo. Usa la runa **Ansuz** come guida, la parola è il tuo strumento. Sii chiara e diretta, senza recriminazioni.
+
+✦ Scrivi su un foglio rosso tre parole chiave per il vostro futuro condiviso, e mostragliele senza parlare.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il 'dono che hai preparato' dalla risposta precedente e lo sviluppa come un 'ponte', aggiungendo un nuovo passo pratico ('Prepara le parole') che si lega al consiglio iniziale di agire.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Accetta ogni esito. Il sigillo di Wunjo indica gioia solo se il cuore è aperto.
+Non puoi forzare il corso, ma puoi determinare il tuo. Ogni sentiero che si chiude apre nuove soglie. Se le cose non vanno come desideri, è tempo di onorare il tuo valore.
+
+✦ Scrivi un tuo desiderio su un nastro dorato e annodalo a un ramo di un albero robusto, sotto la luce della Luna.
+    GIUDICE: IGNORA, La persona chiede cosa fare 'se le cose non vanno come speri', ma la guida non riprende né sviluppa i consigli pratici dati in precedenza (dono, parole chiave) in relazione a un possibile fallimento. Invece, introduce un nuovo concetto ('Accetta ogni esito') e un nuovo rituale ('Scrivi un tuo desiderio su un nastro dorato') senza collegarlo ai passi precedenti.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto, perché un transito di Mercurio in aspetto disarmonico ti indica di riflettere ancora.
+
+Le lame ti mostrano che ci sono ancora dettagli da definire, aspetti che meritano maggiore attenzione prima di un lancio ufficiale. Il cielo ti invita alla pazienza, a un tempo di preparazione in cui puoi affinare la tua visione e consolidare le basi. Non affrettarti, un'attesa oggi può garantirti un successo più duraturo domani.
+
+✦ Scrivi i tuoi propositi per il progetto in un quaderno, la prossima Luna Nuova.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana, il cielo ti suggerisce di dedicarti alla revisione e all'organizzazione dei dettagli meno evidenti del tuo progetto, quelli che spesso vengono trascurati nella foga dell'avvio.
+
+Il transito di Mercurio retrogrado invita a riconsiderare, a tornare sui tuoi passi per affinare ciò che è già stato pensato. Non è tempo di nuove iniziative, ma di consolidamento. Prendi in mano i tuoi appunti, rileggi le idee che hai messo da parte e valuta se c'è qualcosa da integrare o modificare. Questa è una settimana per la preparazione interna, non per l'esposizione esterna.
+
+✦ Prepara un elenco dettagliato dei materiali o delle risorse che ti servono, entro sabato.
+    GIUDICE: PORTA_AVANTI, La risposta sviluppa il concetto di 'riflettere ancora' e 'preparazione' già introdotto nella risposta precedente, specificando le azioni da intraprendere questa settimana.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andranno come speri, accogli ogni risultato come un insegnamento prezioso e non come una sconfitta, perché ogni fase del cielo è un'occasione per apprendere.
+
+Il tuo cielo ti ricorda che anche gli imprevisti portano con sé chiarezza e nuove direzioni. Ogni ostacolo è un invito a guardare oltre, a modificare la rotta se necessario, senza perdere di vista l'obiettivo finale. Non lasciare che la paura di un risultato diverso ti impedisca di agire quando sarà il momento propizio.
+
+✦ Chiedi a chi di dovere (un consulente, un esperto) come tutelarti in caso di imprevisti, prima della prossima Luna Piena.
+    GIUDICE: IGNORA, La risposta non riprende né sviluppa i temi precedenti di tempistica, preparazione o consolidamento del progetto, ma introduce un nuovo argomento relativo alla gestione degli imprevisti e della paura del fallimento.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi avvicinarti a lei con un gesto che parta dal tuo centro del cuore, aprendoti all'ascolto. Scegli un momento sereno, magari dopo una giornata che ha lasciato spazio per riflettere, e proponi un breve incontro.
+
+Puoi prepararti con un respiro profondo e lento, sentendo l'aria che entra e che esce. Questo ti aiuterà a trovare la calma necessaria per esprimerti con chiarezza e accogliere le sue parole. Non è tanto il "cosa dire" ma il "come sentirlo" che conta ora. La fisiognomica ci insegna che il viso è uno specchio delle emozioni: cerca il suo sguardo, la morbidezza delle sue labbra, e rispecchia in lei la pace che vorresti sentire. Ricorda che anche il suo corpo le sta parlando.
+
+✦ Poggia la mano destra sul centro del cuore, chiudendo gli occhi per un momento.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, cerca un momento di tranquillità, magari al mattino presto, e scrivi una breve lettera a tua sorella. Non per consegnargliela, ma per te stessa: esprimi il tuo desiderio di riconciliazione e la tua disponibilità ad ascoltare, poi mettila via.
+
+Questo ti aiuterà a focalizzare la tua energia e a preparare il tuo centro del plesso solare, quello legato alla volontà e all'identità, per un approccio più morbido e aperto. La fisiognomica suggerisce che la tensione tra le sopracciglia spesso indica un conflitto interiore; rilasciando quella tensione con un pensiero gentile, prepari il tuo viso a un incontro più sereno.
+
+✦ Accarezza dolcemente il punto tra le sopraccacciglia.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa faccio questa settimana?' fornendo un'azione preparatoria (scrivere una lettera per sé) che sviluppa il concetto di 'prepararsi' e 'focalizzare l'energia' già introdotto nella risposta precedente, applicandolo a un lasso di tempo specifico.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri, accogli questa possibilità senza giudizio, come un respiro che si allunga. Non tutte le energie si allineano subito, e non tutti i centri si aprono allo stesso modo. La fisiognomica ti suggerisce di osservare il tuo viso allo specchio, cercando i segni della tua tensione, e poi di rilasciarli, un muscolo alla volta. Questo ti aiuterà a mantenere la tua calma, indipendentemente dalla reazione di tua sorella.
+
+Anche se il suo cuore dovesse restare chiuso per un po', il tuo respiro resta libero e il tuo centro della gola, quello della comunicazione, può rimanere aperto. Il tuo benessere non dipende solo dalla sua risposta, ma dal tuo modo di accogliere ogni esito.
+
+✦ Porta le mani alla base del collo, e poi scivola lentamente fino alle spalle, rilasciando ogni tensione.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'E se le cose non vanno come speri?' riprendendo i concetti di 'accogliere' e 'mantenere la calma' già presenti nella prima risposta (aprirsi all'ascolto, respiro profondo per la calma) e nella seconda (preparare il centro del plesso solare per un approccio più morbido), sviluppandoli in relazione a un possibile esito negativo.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 6, ignora 4, contraddice 0, quota 60 per cento

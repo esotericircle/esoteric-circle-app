@@ -1,0 +1,96 @@
+LE PROVE DI VISTA DOPO LA C5, ordine FH, 10 ottobre 2026
+
+C1 le scritte parlano nella corsa
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | I6 e I11
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: I6 e I
+    Expected: <0>
+    Actual: <1.0>
+    il punto cardinale 0 parla nella corsa
+  ripristinato al byte: si
+
+C2 senza distrazioni non spegne i punti cardinali
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | esplora senza distrazioni
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: esplor
+    Expected: <0>
+    Actual: <1.0>
+    la scritta 0 parla
+  ripristinato al byte: si
+
+C3 senza distrazioni senza il bottone che riaccende
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | esplora senza distrazioni
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: esplor
+  ripristinato al byte: si
+
+C4 la riga del luogo torna accanto al bottone
+  file: lib/features/real_time_cosmo/il_pannello_del_tempo.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | la riga del luogo del pannello
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: la rig
+    Expected: a value greater than or equal to <296.4>
+    Actual: <247.7539520263672>
+    la riga del luogo 'il tuo luogo di nascita' e' stretta
+  ripristinato al byte: si
+
+C5 il nome dell'eclittica ignora gli ostacoli
+  file: lib/features/real_time_cosmo/l_eclittica_in_scena.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_l_eclittica_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_l_eclittica_test.dart: la scritta dell'
+    00:00 +1: la scritta dell'eclittica non copre la Luna ne' l'indicatore
+    00:00 +1 -1: la scritta dell'eclittica non copre la Luna ne' l'indicatore [E]
+    Expected: false
+  ripristinato al byte: si
+
+C6 la Via Lattea torna in screen
+  file: lib/features/real_time_cosmo/la_via_lattea_in_scena.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_la_via_lattea_non_legge_lo_schermo_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_la_via_lattea_non_legge_lo_schermo_test
+    Expected: a value less than or equal to <13>
+    Actual: <14>
+    Expected: a value less than or equal to <1>
+  ripristinato al byte: si
+
+C7 i colori della Via Lattea senza il fondo
+  file: lib/features/real_time_cosmo/la_via_lattea_in_scena.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_la_via_lattea_non_legge_lo_schermo_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_la_via_lattea_non_legge_lo_schermo_test
+    Expected: a value less than or equal to <1>
+    Actual: <14>
+  ripristinato al byte: si
+
+C8 il filtro del sensore senza la quiete
+  file: lib/core/motion/l_orientamento_del_telefono.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_il_cielo_fermo_non_trema_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_il_cielo_fermo_non_trema_test.dart: col
+    Expected: a value less than <3>
+    Actual: <81.22829441387336>
+  ripristinato al byte: si
+
+C9 il filtro del sensore senza la scatola
+  file: lib/core/motion/l_orientamento_del_telefono.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_il_cielo_fermo_non_trema_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_il_cielo_fermo_non_trema_test.dart: col
+    Expected: a value less than <3>
+    Actual: <13.812091536786433>
+  ripristinato al byte: si
+
+TUTTE ROSSE COI DIFETTI ENTRATI E I FILE RIPRISTINATI: SI

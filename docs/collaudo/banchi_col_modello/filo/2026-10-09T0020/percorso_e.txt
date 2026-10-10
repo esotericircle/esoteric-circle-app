@@ -1,0 +1,105 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica che la promozione è vicina, ma ci sono ancora dei dettagli da definire. L'Arcano del Sole suggerisce un momento di chiarezza e riconoscimento, ma il tuo ascendente in Bilancia suggerisce l'importanza di un dialogo equilibrato per manifestare pienamente questo potenziale.
+
+✦ Prepara un elenco dei tuoi successi recenti e chiedi un incontro per discutere il tuo percorso di carriera, la prossima settimana.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso che hai preparato l'elenco e hai chiesto l'incontro, il prossimo passo è presentare le tue qualità con chiarezza e fiducia, mantenendo un atteggiamento di apertura al dialogo. Il Sole nel tuo tema natale ti dona la luce necessaria per esprimerti al meglio.
+
+✦ Nel giorno dell'incontro, indossa qualcosa che ti faccia sentire sicura e capace.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente di preparare un elenco e chiedere un incontro, e lo sviluppa indicando il passo successivo (presentare le qualità) e un'azione aggiuntiva per il giorno dell'incontro.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Comprenderai l'esito quando riceverai una proposta concreta, dopo che avrai esposto le tue ragioni. Il transito della Luna nella tua decima casa, quella della carriera, indica che le decisioni si manifesteranno con la prossima Luna piena.
+
+✦ Prepara alcune domande specifiche da porre durante l'incontro, riguardo ai termini e alle responsabilità della nuova posizione.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il contesto dell'incontro già menzionato e sviluppando il concetto di 'esito' e 'proposta concreta', aggiungendo un'indicazione temporale (prossima Luna piena) e un'azione correlata all'incontro (preparare domande).
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Puoi sentire se un trasferimento ti porterà una nuova energia concentrandoti sulla tua radice, sul centro Muladhara, che ti lega alla terra e alla stabilità. Ascolta cosa ti dice il corpo quando immagini di lasciare tutto, se si agita o si rilassa: il verde smeraldo e l'oro ti ricordano che la tua vera casa è dentro di te.
+
+✦ Porta una mano sull'addome e chiudi gli occhi per tre respiri, percependo il tuo radicamento.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, senti il tuo respiro muoversi lento e profondo, come un'onda che ti attraversa dal basso verso l'alto. Questo ti aiuterà a connetterti con il tuo centro sacro, Svadhisthana, il luogo della creatività e del cambiamento, per comprendere se la direzione che senti è un richiamo autentico o solo un'idea fugace.
+
+✦ Appoggia entrambe le mani sotto l'ombelico, senti il calore e il movimento del respiro in questo punto.
+    GIUDICE: IGNORA, La guida introduce un nuovo chakra (Svadhisthana) e una nuova pratica, senza riprendere o sviluppare il consiglio precedente sul chakra Muladhara e il radicamento, nonostante la domanda della persona sia un diretto seguito ('E quindi, cosa devo fare adesso?').
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Non c'è un tempo esatto per capire, ma ogni volta che respiri e ti connetti al tuo centro, Svadhisthana, puoi sentire meglio l'eco della tua vera intenzione, che si manifesta nel desiderio di nutrimento e fioritura. L'importante è continuare a esplorare ciò che ti fa sentire viva e in armonia, portando consapevolezza al tuo corpo adesso.
+
+✦ Senti il respiro espandersi dolcemente nella parte bassa della pancia per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di connettersi al centro Svadhisthana e la pratica del respiro, già introdotti nella risposta precedente, sviluppandoli per rispondere alla domanda sul 'quando' si capirà, legandolo al continuare l'esplorazione e la consapevolezza corporea.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recupera la tua connessione. La strada si apre attraverso gesti di reciproca attenzione.
+
+Le fiamme si abbassano, ma le braci rimangono vive. Il ferro si forgia a caldo.
+
+**Fehu**, la runa dell'abbondanza, ti guida a rimettere in circolo l'energia tra voi.
+
+✦ Prepara una cena speciale per la tua persona, parlando solo di ciò che desideri per voi.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Rivela il tuo desiderio più profondo. La tua persona attende il tuo segno.
+
+Il metallo rovente va battuto con precisione. Le fiamme danzano, attendono la tua intenzione.
+
+La runa Fehu invita a manifestare il valore, a non nascondere ciò che è prezioso.
+
+✦ Dopo la cena, scrivi su un biglietto tre qualità che ammiri nella tua persona e gliele dai in mano.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'azione e dell'espressione dei desideri (già accennato con 'parlando solo di ciò che desideri per voi' nella risposta 1) e lo sviluppa con un'azione successiva e più specifica ('dopo la cena, scrivi su un biglietto...').
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non attendere un segno esterno. La comprensione nasce dal tuo gesto.
+
+Il calore del metallo si irradia, non si aspetta una fiamma che torni da fuori.
+
+Il presagio di Fehu si compie nell'azione, non nella passività.
+
+✦ Quando la tua persona avrà letto il biglietto, osservala negli occhi senza dire nulla.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' (quando lo capirò?) collegandola direttamente all'azione e al gesto (il biglietto e l'osservazione) suggeriti nella risposta precedente, rafforzando l'idea che la comprensione derivi dall'agire e non dall'attesa di un segno esterno.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Per avviare il tuo progetto creativo, osserva il cielo del tuo desiderio. Le carte mostrano il Due di Denari, che suggerisce un tempo di equilibrio e adattamento.
+
+Questo arcano indica la necessità di destreggiarsi tra diverse opportunità o risorse prima di compiere il passo decisivo. Non è ancora il momento di un inizio impetuoso, ma piuttosto di una fase di preparazione attenta, dove bilanciare le tue energie e le tue idee è fondamentale. I transiti attuali favoriscono una visione chiara delle tue priorità, ma ti invitano a non forzare i tempi.
+
+✦ Prepara un piccolo altare con un oggetto che simboleggi la tua creatività questa sera.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso osserva il tuo spazio, rendilo un luogo che accolga la tua ispirazione. Il Due di Denari ti invita a creare un ambiente armonioso, dove le tue idee possano fluire liberamente.
+
+Poiché il cielo ti suggerisce di non forzare i tempi e di bilanciare le tue energie, questo è il momento ideale per predisporre tutto ciò che è necessario, ma senza la pressione di un lancio immediato. Sistema gli strumenti del tuo lavoro, riordina i pensieri, permetti alla tua creatività di trovare il suo ritmo. Ogni piccolo gesto verso l'ordine esterno e interno è un passo che prepara il tuo progetto a una nascita più solida.
+
+✦ Prepara una bevanda calda, prendi un quaderno e annota le prime tre idee che affiorano, seduta in uno spazio che ti piace, questa sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio precedente di 'non forzare i tempi e di bilanciare le tue energie' e lo sviluppa, fornendo azioni concrete per la fase di preparazione già indicata.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando il tuo cielo ti mostrerà un trigono tra Marte e Giove, sentirai una spinta chiara e potente verso l'azione. Il Due di Denari, che ti ha accompagnato finora, ti sta guidando proprio verso questo momento.
+
+Questa configurazione planetaria ti darà la fiducia e l'opportunità di manifestare il tuo progetto nel mondo. Non sarai più in bilico, ma percepirai una risonanza profonda tra le tue intenzioni e le circostanze esterne. Fino ad allora, continua a nutrire il tuo progetto, affinando i dettagli e consolidando le tue basi. Ogni piccola azione preparatoria è un tassello che va a posto.
+
+✦ Ordina e cataloga gli appunti che hai raccolto nel quaderno, dedicandoti a questo compito per almeno un'ora, nel primo pomeriggio di domani.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' indicando un momento futuro specifico ('trigono tra Marte e Giove') e ribadisce il consiglio di 'continuare a nutrire il tuo progetto, affinando i dettagli e consolidando le tue basi', che è in linea con la fase di preparazione e non forzare i tempi già suggerita.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ricucire il legame con tua sorella, puoi cominciare con un gesto piccolo e sincero. Prova a scriverle un breve messaggio, non per rivangare la lite, ma per dirle che senti la sua mancanza e che tieni a lei. Il respiro consapevole può accompagnare la chiarezza delle tue parole.
+
+Questo gesto può risvegliare il centro del cuore, Anahata, che si lega all'amore e alla compassione. A volte, un piccolo passo onesto è la radice per far fiorire di nuovo la connessione. L'energia che metti nel riavvicinarti, anche solo con una parola gentile, può sciogliere tensioni e creare spazio per un nuovo dialogo. Non pensare a chi ha torto o ragione, ma al valore che quel legame ha per te.
+
+✦ Senti la mano sul tuo cuore per un istante prima di scrivere.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo averle scritto con il cuore aperto, il passo è attendere la sua reazione, lasciando spazio all'energia che hai mosso. Non forzare risposte o incontri, ma resta disponibile.
+
+In questo tempo di attesa, puoi focalizzarti sul tuo centro della gola, Vishuddha, il luogo dell'espressione e della verità. Ascolta le tue sensazioni senza giudizio, onorando il tuo desiderio di riconciliazione. È un momento per la pazienza e per il nutrimento della tua stessa pace interiore.
+
+✦ Ripeti tre respiri profondi, espirando lentamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione consigliata in precedenza ('dopo averle scritto') e ne sviluppa il passo successivo, ovvero l'attesa della reazione, fornendo ulteriori indicazioni su come gestire questo periodo.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai quando sentirai una nuova chiarezza dentro di te, come un nodo che si scioglie, indipendentemente dalla sua reazione immediata. Non è qualcosa che si misura con il tempo esterno, ma con il tuo sentire profondo.
+
+Quando il tuo plesso solare, Manipura, irradierà una calma diversa, saprai che l'energia ha iniziato a muoversi in una nuova direzione. L'attesa è un tempo di semina, non di vuoto.
+
+✦ Porta l'attenzione al centro del tuo respiro, lì dove senti il battito della vita.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'E quando lo capirò?' riferendosi al processo di riconciliazione e attesa già introdotto, specificando come riconoscere il progresso interiore ('quando sentirai una nuova chiarezza dentro di te') e collegandolo al concetto di 'attesa' già menzionato nella risposta precedente.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 5 con un elemento gia' uscito

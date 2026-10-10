@@ -1,0 +1,52 @@
+ORDINE EM VOCE 11, L'ATTESA FRA LA FINE DELLA DOMANDA E IL MAESTRO CHE PARLA, PEZZO PER PEZZO
+Realme 767f596c, stanza silenziosa, le sei frasi della voce EK.03 dette dalle casse del PC. Millesimi.
+
+I pezzi, nell'ordine in cui succedono dopo l'ultima parola:
+  silenzio  = i due secondi di silenzio vero che chiudono la frase (regola dell'ordine EJ voce 01, invariata)
+  trascr.   = dalla chiusura della frase al testo pronto
+  chat      = dal testo pronto alla risposta del Maestro scritta
+  voce      = dalla risposta al primo pezzo di voce mandato al volto (Gemini TTS a flusso)
+  volto     = dal primo pezzo mandato al volto a Protoface che parla nella stanza (evento di LiveKit)
+
+PRIMA, build 2280, 25 settembre 2026 01:38-01:44 (scratchpad logcat_em_aura_prima_2280.txt); il registro della
+2280 non misurava il volto:
+  frase  silenzio  trascr.  chat   voce  | al primo audio
+  1      2000      1930     4437   728   | 9095
+  2      2000      1367     2315   742   | 6424
+  3      2000      1371     1950   666   | 5987
+  4      2000      1612     1586   595   | 5793
+  5      2000      1814     2614   639   | 7067
+  6      2000      1311     2317   637   | 6265
+  mediana al primo audio 6.345 millesimi
+
+DOPO, build 2281 finale (commit e2950a45), 25 settembre 2026 05:37-05:47 (registro "LIVE ATTESA" e "CHAT TEMPI"):
+  frase  silenzio  trascr.  chat   voce  volto | al primo audio  al volto che parla
+  1      2002      451      146*   661   1413  | 3260            4673
+  2      2001      58       131*   677   1473  | 2867            4340
+  3      2006      1387**   161*   676   1551  | 4230            5781
+  4      1998      440      160*   685   1338  | 3283            4621
+  5      2001      0        184*   668   1572  | 2853            4425
+  6      1999      1        2485   648   1382  | 5133            6515
+  Calìgo 2000      43       2310   644   1562  | 4997            6559   ("Raidho", domanda nuova)
+  *  la stessa domanda gia' fatta nello stesso giorno: la chat ridice la lettura senza chiamare il modello
+     (regola dell'ordine DS voce 08). Per la chat vera valgono le righe 6 e Calìgo, con le scene del banco della
+     stessa notte: 3,0, 3,1, 3,2, 4,4, 4,7 e 4,7 secondi.
+  ** la trascrizione anticipata e' tornata vuota; la seconda trascrizione dell'audio intero ha salvato la
+     domanda: 1,4 secondi in piu', invece della domanda persa.
+
+SULLA BUILD DI CONSEGNA (commit 803c19b4), 06:57, una domanda nuova: "Aura, oggi sento Muladhara pesante e
+Svadhisthana chiuso. Da quale chakra comincio?", arrivata intera. La trascrizione anticipata e' tornata vuota e la
+seconda ha preso 2.939 ms; il turno in attesa si e' salvato su Firestore in 1.866 ms invece dei soliti 200: il volto
+ha parlato a 11.860 ms. E' il caso peggiore visto, e dice dove sta il tempo quando la rete rallenta.
+
+LA CHAT, dentro (registro CHAT TEMPI, risposte nuove): il turno in attesa salvato su Firestore a 206-259 ms, la
+risposta del modello a 1.411-2.142 ms, la consegna salvata a 1.653-2.446 ms, per 305-760 caratteri.
+
+COSA E' CAMBIATO: la trascrizione comincia quando la frase va in pausa, a 700 ms di silenzio: alla chiusura e'
+gia' pronta: da 1.311-1.930 ms a 0-451 ms (1.387 quando serve la seconda prova). Con una chat vera il primo audio
+arriva a 5,0-5,1 secondi contro 5,8-9,1 di prima; il volto parla a 6,5 secondi.
+
+COSA RESTA, E NON E' DI QUESTO ORDINE DECIDERLO: la chat (1,4-4,7 secondi, dipende dalla lunghezza della
+risposta: le risposte del LIVE durano 15-60 secondi di voce), i due secondi di silenzio che chiudono la frase
+(accorciarli rischia la domanda troncata della voce EJ.01), infine Protoface (1,3-1,6 secondi dal primo audio al volto
+che parla, fuori dal nostro codice).

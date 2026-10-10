@@ -1,0 +1,9 @@
+innesto in lib/features/schede/la_scheda_dell_arte.dart: il vecchio compare 0 volte, il nuovo 1 volte ('        textAlign: TextAlign.left,\n        style: pieno,\n' -> '        textAlign: TextAlign.left,\n        style: pieno.copy')
+  Expected: <0>
+    Actual: <54>
+  00:04 +0 -1: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.0) [E]
+  Expected: <0>
+    Actual: <54>
+  00:07 +0 -2: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.3) [E]
+  00:07 +0 -2: Some tests failed.
+ripristino lib/features/schede/la_scheda_dell_arte.dart: sha1 10885c7fe871 -> 10885c7fe871, IDENTICO

@@ -1,0 +1,89 @@
+/// **LA VOCE DI UN MAESTRO NON SI CONFONDE CON QUELLA DI UN ALTRO.** Ordine
+/// EC voce 03, 21 settembre 2026.
+///
+/// **Il fatto, misurato col modello vero.** Il collaudo della voce EC.01 ha
+/// mandato le mosse del catalogo a Gemini due volte. In trenta risposte,
+/// **quattro contenevano una parola di firma di un altro Maestro**: Medora
+/// che dice *respiro* e poi *presagio* e *sentiero*, Caligo che dice *lama*.
+/// E **cambiavano a ogni giro**, cioe' non e' un difetto fisso del codice:
+/// e' un'istruzione che il modello rispetta quasi sempre e ogni tanto no.
+///
+/// **Perche' una rete e non una riga in piu' nell'istruzione.** Il divieto
+/// incrociato nell'istruzione c'e' dall'ordine BP voce 1, ed e' stato anche
+/// rafforzato in quest'ordine: fra il primo giro e il secondo le violazioni
+/// sono passate da una a tre. **Scrivere la regola piu' forte non la fa
+/// rispettare**, e insistere sarebbe stato scambiare una speranza per una
+/// cura. Quello che si puo' fare e' guardare cio' che torna e, se si e'
+/// confuso, chiedere un'altra volta.
+///
+/// **Il ritentativo e' UNO SOLO, e non blocca mai la persona.** Se anche la
+/// seconda risposta si confonde, passa quella con meno parole altrui e il
+/// guasto va nel registro: una risposta imperfetta vale piu' di nessuna
+/// risposta, e la persona non deve aspettare due volte per niente.
+library;
+
+import 'maestro.dart';
+import 'voce_del_maestro.dart';
+
+abstract final class LaVoceNonSiConfonde {
+  /// Le parole di firma degli ALTRI due Maestri che [testo] contiene.
+  ///
+  /// Si guardano come parole intere: *lama* non scatta dentro *lamenta*, e
+  /// *runa* non scatta dentro *pruna*.
+  ///
+  /// **LA PAROLA CHE LA PERSONA HA SCRITTO NON CONTA.** Ordine EX Aggiunta
+  /// 4, voce EX.07: a *"una in centro piccola, una in periferia grande.
+  /// Quale?"* Calìgo deve poter dire *"la casa in centro"*, e la rete
+  /// rifaceva la risposta per la firma di Aura. Le parole che stanno in
+  /// [domanda] non sono la firma di nessuno.
+  static List<String> paroleAltruiIn(Maestro maestro, String testo,
+      {String domanda = ''}) {
+    final basso = testo.toLowerCase();
+    final chiesto = domanda.toLowerCase();
+    bool c(String parola, String dove) =>
+        RegExp('\\b${RegExp.escape(parola.toLowerCase())}\\b').hasMatch(dove);
+    return [
+      for (final parola in VoceDelMaestro.lessicoDegliAltri(maestro))
+        if (c(parola, basso) && !c(parola, chiesto)) parola,
+    ];
+  }
+
+  /// Vero se [testo] porta almeno una parola di firma di un altro Maestro
+  /// che la persona non ha scritto in [domanda].
+  static bool siConfonde(Maestro maestro, String testo,
+          {String domanda = ''}) =>
+      paroleAltruiIn(maestro, testo, domanda: domanda).isNotEmpty;
+
+  /// **LA CORREZIONE DELLE PAROLE ALTRUI. Ordine EX Aggiunta 5, voce
+  /// EX.07.** Il fondatore: *"Restano riservate, correzione corta"*. Quando
+  /// la rete scatta la risposta non si rifa' piu' da capo: il Maestro la
+  /// riceve con le parole da cambiare, e cambia solo quelle.
+  ///
+  /// **NEMMENO NEL SEGUITO.** Alla sonda del banco la correzione toglieva la
+  /// parola dalla risposta e la rimetteva nel seguito che riscrive (Calìgo,
+  /// "ascendente"): la risposta corretta non portava meno parole altrui e
+  /// passava quella di prima. Padre: la prima stesura di questa riga.
+  static String correzione(List<String> parole) {
+    final elenco = [for (final p in parole) '"$p"'].join(', ');
+    final una = parole.length == 1;
+    return 'LE PAROLE CHE NON SONO TUE. Nella risposta hai scritto $elenco: '
+        '${una ? 'è una parola' : 'sono parole'} della voce di un altro '
+        'Maestro che tu non usi mai. Cambia solo '
+        '${una ? 'quella parola' : 'quelle parole'}, o la frase che '
+        '${una ? 'la' : 'le'} porta, con parole della tua voce; tutto il resto '
+        'resta com\'è. Non '
+        '${una ? 'usarla' : 'usarle'} in nessun punto, nemmeno in ciò che '
+        'scrivi dopo la risposta.';
+  }
+
+  /// Fra due risposte, quella che si confonde di meno.
+  ///
+  /// A parita' resta la prima: non si scambia una risposta con un'altra
+  /// uguale solo perche' e' arrivata dopo.
+  static String laMenoConfusa(Maestro maestro, String prima, String poi,
+          {String domanda = ''}) =>
+      paroleAltruiIn(maestro, poi, domanda: domanda).length <
+              paroleAltruiIn(maestro, prima, domanda: domanda).length
+          ? poi
+          : prima;
+}

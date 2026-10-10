@@ -1,0 +1,4 @@
+ORDINE ES VOCE 20, REGOLA B: le guardie della zona viste rosse prima di toccare la lettura ridetta nel LIVE (30 settembre 2026).
+
+INNESTO REGOLA B: la risposta del LIVE non porta il segno: grep del difetto nel file SI; prova test/l_invito_non_sta_sotto_la_voce_test.dart ROSSA; file rimesso sha1 c4f3bfa1b425 -> c4f3bfa1b425 IDENTICO
+INNESTO REGOLA B: nel LIVE il corpo tiene tre frasi anche col gesto: grep del difetto nel file SI; prova test/il_live_dice_tre_frasi_e_le_scrive_a_macchina_test.dart ROSSA; file rimesso sha1 5122c062039b -> 5122c062039b IDENTICO

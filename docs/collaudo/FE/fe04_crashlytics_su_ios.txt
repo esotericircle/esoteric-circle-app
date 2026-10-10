@@ -1,0 +1,13 @@
+FE.04, CRASHLYTICS SU iOS, letto il 6 ottobre 2026 alle 19:55 (ora italiana).
+iPhone 13 di collaudo (iPhone14,5, iOS 26.2.1), app com.esotericircle.esotericCircle 0.1.0 (2298) da TestFlight.
+Comandi: python -m pymobiledevice3 syslog live (90 secondi) e python -m pymobiledevice3 developer dvt launch com.esotericircle.esotericCircle.
+Righe del registro di sistema che nominano Crashlytics:
+
+2026-10-06 19:55:59.221115 Runner{Runner}[703] <NOTICE>: [Firebase/Crashlytics] Version 12.15.0
+2026-10-06 19:56:55.571219 runningboardd{RunningBoard}[34] <INFO>: [app<com.esotericircle.esotericCircle(FEEDEEEE-DDDD-CCCC-BBBB-0000000001F5)>:703]: Ignoring file /var/mobile/Containers/Data/Application/F87ED4FE-F561-4710-B65C-1921B005B531/Library/Caches/com.crashlytics.data/com.esotericircle.esotericCircle/v5/reports/active/258a4c7e0ba9402d8dc43338d0d02bb8/sdk.log because it is in an allowed path:  /var/mobile/Containers/Data/Application/F87ED4FE-F561-4710-B65C-1921B005B531
+2026-10-06 19:56:55.571230 runningboardd{RunningBoard}[34] <INFO>: [app<com.esotericircle.esotericCircle(FEEDEEEE-DDDD-CCCC-BBBB-0000000001F5)>:703]: Ignoring file because it is in an allowed path: /var/mobile/Containers/Data/Application/F87ED4FE-F561-4710-B65C-1921B005B531/Library/Caches/com.crashlytics.data/com.esotericircle.esotericCircle/v5/reports/active/258a4c7e0ba9402d8dc43338d0d02bb8/sdk.log
+
+Eventi iOS letti dall'API lo stesso giorno: python tool/i_crash_degli_utenti.py --ios
+(nessun evento: l'app su iOS non e' caduta; il kit e' acceso e tiene aperta la sua sessione dei rapporti)
+
+Nota: avviata dal PC con dvt launch mentre il telefono non era in mano, l'app ha mostrato lo schermo nero col solo audio dell'intro (catture delle 19:58 e 19:59); aperta a mano dal fondatore si vede normalmente (docs/collaudo/FE/iphone/2298_aperta_a_mano.png, 20:08). Il nero viene dall'avvio da remoto, non dall'app. Difetto separato visto nel registro: la build iOS non ha l'autorizzazione aps-environment, quindi su iPhone le notifiche push non si registrano.

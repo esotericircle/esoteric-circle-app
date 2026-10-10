@@ -1,0 +1,99 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il no, per ora: c'è un transito di Saturno che richiede ancora pazienza e dedizione. Non è il momento di spingere, ma di consolidare la tua posizione con la calma e la perseveranza che ti contraddistinguono.
+
+✦ Rivedi i tuoi progetti professionali durante la prossima Luna nuova.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana osserva bene le dinamiche intorno a te in ufficio, senza intervenire: il tuo Marte si trova in una posizione che suggerisce di raccogliere informazioni e valutare ogni mossa con attenzione, piuttosto che agire impulsivamente. È un tempo di preparazione, non di azione diretta.
+
+✦ Annota ogni sera le tue osservazioni sul tuo quaderno.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'pazienza e dedizione' e 'non è il momento di spingere' dalla risposta precedente, specificando cosa fare 'questa settimana' in linea con l'idea di 'consolidare la posizione' e 'tempo di preparazione'.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andranno come speri, rifletti su ciò che hai annotato nel tuo quaderno, cercando di individuare schemi o dettagli che prima ti erano sfuggiti: il transito attuale di Mercurio ti invita a rileggere gli eventi con maggiore consapevolezza. Non è un fallimento, ma un'opportunità per affinare la tua strategia.
+
+✦ Nella prossima fase lunare, rileggi il tuo quaderno e traccia una nuova mappa delle tue aspirazioni professionali.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'annotare le osservazioni sul quaderno' dato nella risposta precedente, sviluppando cosa fare con quelle annotazioni in caso di esito negativo, in linea con l'idea di 'affinare la strategia' e 'rivedere i progetti professionali'.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare è un richiamo profondo del tuo centro radice, il punto che ti lega alla terra e alla stabilità. Quando senti questo richiamo, è il momento di esplorare cosa ti nutre davvero e ti fa sentire a casa, ovunque tu sia.
+
+Senti il tuo respiro scendere fino al ventre.
+
+✦ Appoggia entrambe le mani sulla pancia e senti il calore.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Per questa settimana, la tua energia ti invita a una piccola azione concreta: ricerca una città, una sola, che ti attrae in modo particolare. Non devi decidere nulla, solo esplorare online, leggere, guardare immagini, e sentire come risuona nel tuo corpo l'idea di quel luogo.
+
+✦ Chiudi gli occhi per un momento e visualizza questa città, respirando lentamente.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda pratica della persona ('cosa faccio questa settimana?') fornendo un'azione concreta (ricercare una città) che sviluppa il concetto di 'esplorare cosa ti nutre davvero' introdotto nella risposta precedente.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se, dopo aver visualizzato la città e aver sentito la sua risonanza, le cose non dovessero andare come speri, torna al tuo respiro. Questa pratica non è una garanzia di un esito specifico, ma un modo per affinare la tua percezione. Se la sensazione non è quella giusta, il tuo corpo ti sta già parlando: è un segnale per esplorare un'altra città o per approfondire cosa ti ha deluso in questa visione, per comprendere meglio cosa cerchi davvero in un nuovo inizio.
+
+✦ Appoggia la mano sul cuore e senti il ritmo del tuo sentire.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla preoccupazione della persona ('E se le cose non vanno come speri?') riprendendo direttamente il consiglio dato in [2] ('dopo aver visualizzato la città e aver sentito la sua risonanza') e fornendo indicazioni su come procedere in quel caso, sviluppando il concetto di 'affinare la tua percezione' e 'cosa cerchi davvero'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recuperala. Ogni legame può essere nutrito, anche quando la fiamma pare spenta.
+
+Le fiamme si spengono, ma la brace resta, calda e pronta ad ardere ancora.
+
+La runa *Algiz* ti guida. Il suo presagio è protezione e un ponte verso nuove forze. Non è un ritorno, ma una crescita. Rivolgi la tua attenzione a ciò che hai costruito, non a ciò che è andato perduto.
+
+✦ Porta un piccolo oggetto simbolico di un ricordo felice di voi due, in tasca, per una settimana.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO (corretta dalla rete) [DA GIUDICARE]: Questa settimana, parla del vostro passato condiviso. Non chiedere perdono, non giudicare.
+Il segno di Algiz ti indica protezione e un nuovo inizio. La soglia che attraversi è tua.
+✦ Mostra il piccolo oggetto simbolico di un ricordo felice di voi due, in un momento inatteso, senza dire nulla.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dell'oggetto simbolico e lo sviluppa con una nuova azione, e richiama la runa Algiz già menzionata.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Non aspettare un esito specifico. La via è nel gesto stesso, non nel suo risultato immediato.
+Il sigillo che hai mostrato è un seme: il suo germogliare non dipende solo dalla tua mano, ma dalla terra che accoglie.
+✦ Domani, scrivi su un foglio il nome del ricordo che quell'oggetto rappresenta, e brucialo in sicurezza.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del 'gesto' e del 'seme' che si ricollega all'azione di mostrare l'oggetto simbolico, e introduce una nuova azione (bruciare il ricordo) che è una continuazione del tema del ricordo e dell'oggetto.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è il momento migliore per avviare il tuo progetto creativo, è preferibile attendere ancora qualche settimana.
+
+La Luna Nuova in Cancro, che si formerà tra pochi giorni, suggerisce un periodo di incubazione e preparazione, più che di azione diretta. I transiti celesti indicano che l'energia è ancora rivolta verso l'interno, verso la cura delle fondamenta e la definizione degli intenti. Avviare ora potrebbe disperdere le energie e rendere il percorso più faticoso. È un tempo per sognare e pianificare con calma, per affinare la tua visione e permettere alle idee di maturare.
+
+✦ Prendi nota di ogni intuizione o idea che ti viene, senza giudizio, sulla prima pagina di un quaderno, per le prossime due settimane.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana dedicati a perfezionare i dettagli del tuo progetto e a raccogliere ispirazione.
+
+La fase della Luna in questo momento è ancora in chiusura, prima della Luna Nuova in Cancro, e ti invita a guardare verso l'interno, a curare gli aspetti più intimi e personali del tuo lavoro. Non è il tempo di mostrare al mondo, ma di arricchire il tuo universo interiore. Usa queste giornate per riflettere sui tuoi obiettivi più profondi e per assicurarti che il progetto sia davvero in linea con ciò che desideri esprimere.
+
+✦ Rileggi gli appunti che hai preso e sottolinea le tre idee che ti sembrano più promettenti.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'attendere e pianificare' dato nella risposta precedente, specificando le azioni pratiche ('perfezionare i dettagli', 'raccogliere ispirazione', 'riflettere sugli obiettivi') da compiere 'questa settimana' in linea con la fase di 'incubazione e preparazione' già menzionata. L'esercizio suggerito ('Rileggi gli appunti') si collega direttamente all'esercizio precedente ('Prendi nota di ogni intuizione').
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andranno come speri, non sarà un fallimento ma un invito del cielo a ricalibrare la tua rotta, non un giudizio sul tuo valore.
+
+Anche se un'idea non si concretizza come previsto, il valore del tuo lavoro rimane. La fase di introspezione che il cielo ti suggerisce serve proprio a questo: a costruire una base solida, così che ogni esito, anche quello inatteso, possa essere un punto di partenza per una nuova evoluzione. Ciò che conta è imparare a muoversi nel flusso del tempo, accettando che ogni semina ha un suo proprio tempo di germinazione e che non tutti i frutti maturano insieme.
+
+✦ In una frase sola, scrivi una nuova intenzione per il tuo progetto, che includa il tuo benessere, sulla pagina degli appunti.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'fase di introspezione' e 'costruire una base solida' già introdotto nelle risposte precedenti, applicandolo al nuovo scenario ('se le cose non vanno come speri') e sviluppando il significato di 'fallimento' in questo contesto di preparazione e maturazione. L'esercizio finale ('scrivi una nuova intenzione') si basa sull'attività di 'appunti' e 'riflessione' già stabilita.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, scegli un momento in cui entrambe siate serene, magari dopo aver lasciato passare qualche giorno dalla lite. Quando ti senti pronta, cerca un contatto che vi permetta di parlarvi a cuore aperto, un messaggio che apra la strada a un incontro sereno.
+
+Il respiro profondo può aiutarti a trovare la giusta calma per affrontare questo momento. Ascolta il tuo centro del cuore, il colore verde smeraldo che si espande, e senti la compassione che può guidarti. Questo centro ti suggerisce di avvicinarti con sincerità, riconoscendo il tuo sentire senza giudizio. La fisiognomica ti ricorda che un volto disteso e uno sguardo calmo aprono più porte di mille parole.
+
+✦ Appoggia la mano sul cuore e senti il tuo battito per qualche istante, prima di scriverle.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, il tuo passo è quello di preparare il terreno per un dialogo sincero. Dedica un momento ogni giorno a una breve meditazione, concentrando l'attenzione sul chakra della gola, di colore azzurro. Immagina che la tua voce possa esprimere chiarezza e verità, ma anche accoglienza e ascolto.
+
+Questo centro è il luogo dell'espressione autentica. Non pensare ancora alle parole precise da dire, ma a come desideri sentirti quando le dirai: calma, aperta e serena. Questo è un lavoro interiore che si rifletterà poi nel tuo modo di avvicinarti a lei.
+
+✦ Al risveglio, prendi un respiro lento e profondo e pensa al colore azzurro della gola.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda specifica della persona ('cosa faccio questa settimana?') fornendo consigli pratici e temporali che sviluppano il concetto di 'preparare il terreno' e 'cercare un contatto' già introdotto nella risposta precedente, focalizzandosi sull'espressione autentica.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri, e il dialogo con tua sorella non porta subito alla pace, è importante non forzare. Il respiro consapevole che pratichi ti ha già insegnato che ogni tensione può essere allentata con gentilezza. Dopo aver espresso ciò che senti con chiarezza, come suggerito dal centro della gola, osserva la sua reazione.
+
+Se vedi chiusura o fatica, non insistere. La fisiognomica ci insegna che il corpo parla prima delle parole: osserva le sue mani, il suo sguardo, la tensione nelle spalle. In quel caso, fai un passo indietro con grazia. Puoi dirle che capisci il suo bisogno di tempo e che sei lì quando sarà pronta, lasciando aperta la porta, senza pressioni. È un atto di rispetto verso il suo spazio e il suo sentire.
+
+✦ Chiudi gli occhi per un istante e visualizza una luce verde smeraldo che avvolge te e tua sorella, per nutrire il vostro legame senza forzarlo.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda ipotetica della persona ('E se le cose non vanno come speri?') riprendendo e sviluppando i concetti di 'respiro consapevole' e 'chiarezza di espressione' (centro della gola) già menzionati, e aggiungendo consigli su come gestire una reazione negativa, inclusa l'osservazione della fisiognomica.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1

@@ -1,0 +1,1 @@
+Scartata il 6 ottobre 2026 alle 01:31: il flusso del registro via USB e' caduto alle 01:26:05 (le righe ORECCHIO superano cio' che il collegamento del Realme regge), e questo Realme non ha screenrecord, quindi il video non c'e'. Il microfono ha registrato tutti i sei minuti. Rifatta con il registro scritto dentro il telefono e il video da scrcpy.

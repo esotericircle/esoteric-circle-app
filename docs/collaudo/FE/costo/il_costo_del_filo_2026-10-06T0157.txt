@@ -1,0 +1,13 @@
+consulto 1 (Medora): ingresso senza filo 5961 (cache 5099), col filo 6269 (cache 0), turno dopo 6420 di cui 5093 dalla cache; costo prima 0.00232 dollari, dopo 0.00381
+consulto 2 (Medora poi Aura): ingresso senza filo 5626 (cache 5107), col filo 6030 (cache 5108), turno dopo 6303 di cui 0 dalla cache; costo prima 0.00217 dollari, dopo 0.00378
+consulto 3 (Aura): ingresso senza filo 5913 (cache 5099), col filo 6220 (cache 5100), turno dopo 6494 di cui 5093 dalla cache; costo prima 0.00256 dollari, dopo 0.00285
+consulto 4 (Aura poi Caligo): ingresso senza filo 5744 (cache 5107), col filo 6161 (cache 5108), turno dopo 6358 di cui 4080 dalla cache; costo prima 0.00194 dollari, dopo 0.00258
+consulto 5 (Caligo): ingresso senza filo 5922 (cache 5099), col filo 6222 (cache 0), turno dopo 6330 di cui 5092 dalla cache; costo prima 0.00185 dollari, dopo 0.00340
+consulto 6 (Caligo poi Medora): ingresso senza filo 5720 (cache 5107), col filo 6128 (cache 5108), turno dopo 6425 di cui 5100 dalla cache; costo prima 0.00218 dollari, dopo 0.00244
+consulto 7 (Medora): ingresso senza filo 5943 (cache 5099), col filo 6255 (cache 5100), turno dopo 6395 di cui 5092 dalla cache; costo prima 0.00225 dollari, dopo 0.00228
+consulto 8 (Medora poi Aura): ingresso senza filo 5629 (cache 5107), col filo 6041 (cache 5108), turno dopo 6289 di cui 5100 dalla cache; costo prima 0.00231 dollari, dopo 0.00261
+consulto 9 (Aura): ingresso senza filo 5833 (cache 5099), col filo 6130 (cache 5100), turno dopo 6334 di cui 5092 dalla cache; costo prima 0.00193 dollari, dopo 0.00240
+consulto 10 (Aura poi Caligo): ingresso senza filo 5741 (cache 5107), col filo 6145 (cache 5108), turno dopo 6380 di cui 5100 dalla cache; costo prima 0.00200 dollari, dopo 0.00242
+
+ORDINE FE VOCE 19: token di ingresso mediani su 10 consulti: prima del filo 5833, col filo senza cache 6161, col filo e con la cache 1325 pagati a prezzo pieno.
+ORDINE FE VOCE 20: costo mediano per consulto di tre turni: prima 0.00218 dollari, dopo 0.00261 dollari; totale dei dieci prima 0.0215, dopo 0.0286.

@@ -1,0 +1,4 @@
+REGOLA B, ordine EU voce 04, 1 ottobre 2026: prima di cambiare la testata dell'Oroscopo, la guardia della zona vista rossa.
+INNESTO B1 il sottotitolo con lo spazio che si spezza: grep del difetto nel file SI; prova test/l_oroscopo_visto_nelle_anteprime_test.dart ROSSA; file rimesso sha1 29c49b45e86d -> 29c49b45e86d IDENTICO
+REGOLA A della pretesa nuova (la testata su una riga, senza "Personalizzato"):
+INNESTO A1 la testata torna "Oroscopo Personalizzato": grep del difetto nel file SI; prova test/l_oroscopo_visto_nelle_anteprime_test.dart ROSSA; file rimesso sha1 393d213688a0 -> 393d213688a0 IDENTICO

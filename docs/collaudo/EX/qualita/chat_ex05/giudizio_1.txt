@@ -1,0 +1,60 @@
+S01|SI|SI|NA|SI|NO|Veterinario oggi, nomina Ombra. Seguito generico su Fehu e rimanda a Medora per l'animale.
+S02|NO|NA|SI|SI|NO|Fase e segno giusti, ma al limite presenta la Luna del 1969 come suo cielo di nascita; seguito insiste sull'errore.
+S03|SI|SI|NA|NO|SI|Risposta generica, solo respiro e lasciar andare; il seguito nomina la sorella e aggiunge il cuore, al limite.
+S04|SI|SI|NA|NO|NO|Parlare con sincerità e respirare vale per chiunque, al limite; seguito generico sul centro del cuore.
+S05|SI|NA|NA|SI|SI|No per ora, chiedere una settimana; seguito aggiunge Due di Spade e motivi.
+S06|SI|NA|SI|SI|SI|Luna in Gemelli gibbosa calante giusta; seguito aggiunge senso e passo concreto.
+S07|SI|NA|NA|SI|SI|Al limite: lasciar scorrere è generico ma la passeggiata con Ombra è concreta; seguito aggiunge la sorella.
+S08|SI|NO|NA|SI|NA|Tecnica di respiro concreta, al limite; non usa le scadenze che le tolgono il sonno.
+S09|SI|NA|NA|SI|SI|No per ora con motivo e rimando al consulente; seguito aggiunge motivazioni, al limite.
+S10|SI|NA|SI|SI|NO|Saturno in Toro giusto; seguito legge il transito del 2000 come attuale per lei, al limite.
+S11|SI|NA|NA|SI|SI|Ambiente, luci, mani sul cuore; seguito aggiunge tisana e niente schermi.
+S12|SI|NA|NA|SI|NA|Gesto concreto sui due esiti, voce solenne.
+S13|SI|NA|NO|SI|NO|Al limite: dice Luna quadrata a Plutone, ma è congiunzione. Seguito ripete la prudenza.
+S14|SI|NA|SI|SI|SI|Luna in Cancro e quadratura a Saturno retrogrado giuste.
+S15|SI|NA|SI|SI|NO|Saturno in Toro giusto; seguito generico sulla disciplina, al limite.
+S16|SI|SI|NA|SI|NO|Usa la meditazione mattutina, al limite concreto; seguito generico e ripetitivo.
+S17|SI|NO|NA|SI|NO|Al limite: ignora meditazione e banca; seguito inventa il colloquio di domani.
+S18|SI|NA|NA|SI|NA|Sì condizionato con passo concreto.
+S19|SI|SI|NA|NO|NA|Al limite: momento tranquillo e respiro valgono per chiunque, nessuna parola o modo per riavvicinarsi.
+S20|SI|SI|NA|SI|SI|Sì condizionato, al limite; seguito aggiunge madre e colloquio come primo passo.
+S21|SI|NA|NA|SI|SI|No per ora fino alla Luna piena; seguito aggiunge motivi.
+S22|SI|SI|NA|SI|NA|Telefonata alla sorella, concreta.
+S23|SI|NA|NA|SI|SI|Sceglie la periferia con Othala; seguito aggiunge senso della runa, al limite.
+S24|SI|NA|SI|SI|NO|Luna e fase giuste; seguito ripete la lista degli obiettivi.
+S25|SI|NA|NA|SI|SI|Sceglie la periferia con motivo; seguito aggiunge Othala e numero 7.
+S26|SI|SI|NA|SI|SI|Viaggio a Berlino concreto; seguito aggiunge motivo, al limite.
+S27|SI|SI|NA|SI|NO|Sì e respiro prima, al limite; seguito generico sulla Luna in Bilancia.
+S28|SI|NA|NA|SI|NO|Dice chi è e le arti; il seguito cambia argomento passando al colloquio.
+S29|SI|SI|NA|NO|NO|Al limite capisce il Natale; risposta e seguito generici su respiro e perdono.
+S30|SI|SI|NA|SI|NO|Sì, dare voce, oggetto in mano, al limite; seguito generico.
+S31|SI|NA|NA|SI|NO|Risposta concreta; il seguito sbaglia il suo Sole, detto in Bilancia anziché Cancro.
+S32|SI|SI|NA|SI|SI|Usa la ceramica, passo concreto; seguito aggiunge Gebo e madre.
+S33|SI|NA|SI|SI|NO|Luna in Cancro giusta; seguito ripete l'introspezione.
+S34|SI|NO|NA|NO|NA|Al limite: respiro generico, gesto incompleto; non usa le scadenze.
+S35|SI|NA|NA|SI|NA|Sì condizionato con lista pro e contro.
+S36|SI|NA|SI|SI|SI|Fase e segno giusti; seguito aggiunge senso, al limite.
+S37|SI|SI|NA|SI|SI|Veterinario entro un'ora, Ombra; seguito spiega Hagalaz, al limite.
+S38|SI|NA|NA|NO|SI|Risposta generica, gesto vago, al limite; seguito aggiunge tisana e motivo.
+S39|SI|SI|NA|SI|NA|Una parola scritta per il colloquio, al limite concreto.
+S40|SI|NA|SI|SI|NO|Luna sestile Giove giusto, al limite; il seguito rimanda ad Aura.
+S41|SI|NA|SI|SI|NO|Venere a 8 Scorpione giusta; seguito generico, al limite.
+S42|SI|NA|NA|SI|NA|Gesto concreto sulle paure, al limite.
+S43|SI|SI|NA|SI|SI|Colloquio e banca usati; seguito aggiunge Sole opposto a Saturno e trigono a Urano.
+S44|SI|NA|SI|SI|SI|Quattro retrogradi giusti; seguito aggiunge senso, al limite.
+S45|SI|NA|SI|NO|NO|Fatti giusti; risposta generica sulla riflessione, gesto strano dal medico; seguito vago.
+S46|SI|NA|NA|NO|SI|Solo respiro, nessun passo per l'ordine; seguito aggiunge gratificazioni senza denaro, al limite.
+S47|SI|NA|NA|SI|SI|Dice chi è e le arti; seguito aggiunge gli altri Maestri, al limite.
+S48|SI|NA|SI|SI|SI|Retrogradi giusti con segni; seguito aggiunge Saturno in Ariete.
+S49|SI|SI|NA|NO|SI|Solo sentire e respirare, nessuna via per gestire la madre; seguito aggiunge il perché, al limite.
+S50|SI|NA|NA|SI|NO|Scrivere le tre spese è concreto; seguito generico.
+S51|SI|NA|SI|SI|NA|Luna in Gemelli giusta, messaggio alla sorella.
+S52|SI|NO|NA|SI|SI|Inventa un'amica della ceramica; seguito aggiunge Sole e Luna, al limite.
+S53|SI|NA|SI|SI|SI|Quadrature del Sole a Marte e Giove giuste; seguito indica quando, al limite.
+S54|SI|NA|SI|SI|NO|Venere in Scorpione giusta, al limite; seguito generico.
+S55|SI|NA|NO|SI|NO|Giove in Vergine giusto; il seguito inventa Luna congiunta a Nettuno, non c'è.
+S56|SI|NA|SI|SI|NA|Luna in Gemelli giusta, gesto verso la madre.
+S57|SI|SI|NA|SI|NA|Leggere ad alta voce le motivazioni per il colloquio.
+S58|SI|NA|NA|SI|SI|Respiro guidato concreto; seguito aggiunge colore della radice e madre.
+S59|SI|NA|SI|SI|SI|Giove in Vergine giusto; seguito aggiunge passo, al limite.
+S60|SI|SI|NA|SI|SI|Argilla oggi; seguito aggiunge Uruz e madre.

@@ -1,0 +1,7 @@
+EQ.01 dopo giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+EQ.01 dopo giro A aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 1, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 2, sotto una presentazione 1, da rifare 0
+EQ.01 dopo giro A caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+EQ.01 dopo giro B medora: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 1, da rifare 0
+EQ.01 dopo giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+EQ.01 dopo giro B caligo: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 1
+Chiamate a Gemini 45. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.

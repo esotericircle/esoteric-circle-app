@@ -20,6 +20,17 @@ class AppTheme {
       brightness: Brightness.dark,
     ).copyWith(
       primary: base.primary,
+      // **LA SCRITTA SUL COLORE PRIMARIO SI LEGGE.** Visto sul Realme il 30
+      // settembre 2026, nella rivelazione del segno e nell'oroscopo di
+      // un'amica: "Condividi" e "Manda a Lucia" stavano in viola scuro sul
+      // pulsante viola, 1,6 di contrasto. Il primario lo si dichiarava qui, il
+      // colore di cio' che ci sta sopra no: restava quello che lo schema
+      // calcola dal seme per il SUO primario, che e' chiaro, e quindi era
+      // scuro. Dodici pulsanti pieni dell'app non dichiarano uno stile e lo
+      // prendevano da qui. **PROVENIENZA IGNOTA**: il tema non l'ha mai
+      // dichiarato, e nessuna voce lo ha tolto. La tavolozza lo dice da
+      // sempre (`onPrimary`), adesso lo dice anche lo schema.
+      onPrimary: base.onPrimary,
       secondary: ColorTokens.gold,
       surface: base.surface,
     );
@@ -38,6 +49,56 @@ class AppTheme {
         foregroundColor: ColorTokens.textPrimary,
       ),
       iconTheme: const IconThemeData(color: ColorTokens.textPrimary),
+      // **NESSUN SUONO CHE IL FONDATORE NON ABBIA SCELTO.**
+      // Ordine CQ voce 1.08, 3 settembre 2026.
+      //
+      // **Il fatto, parole del fondatore:** *"togli ogni effetto sonoro che
+      // non ho scelto io."*
+      //
+      // **La causa, misurata e non dedotta.** Ogni comando Material chiama
+      // il ritorno di sistema quando lo si preme, e su Android quel richiamo fa
+      // suonare al SISTEMA il suo click e vibrare il telefono. Non e' un
+      // suono di questa app: non sta nel catalogo, non passa dalla porta
+      // unica, non conosce l'interruttore del silenzio del Cerchio, e nessuna
+      // guardia del catalogo poteva vederlo perche' non e' un file negli
+      // asset. **In tutta l'app non c'era un solo `enableFeedback` scritto**,
+      // quindi valeva ovunque il vero di fabbrica.
+      //
+      // Si spegne QUI, sul tema, e non comando per comando: un interruttore
+      // per comando vorrebbe dire che il primo che si dimentica riporta il
+      // click di sistema, e nessuno saprebbe dove cercarlo. Gli `InkWell`
+      // scritti a mano non leggono il tema e portano il loro, ed e' una
+      // guardia a contarli.
+      //
+      // **PROVENIENZA IGNOTA.** Il comportamento e' quello di fabbrica di
+      // Flutter: non c'e' una voce che lo abbia introdotto, c'e' un ordine
+      // che non lo ha mai spento.
+      filledButtonTheme: const FilledButtonThemeData(
+          style: ButtonStyle(enableFeedback: false)),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(enableFeedback: false)),
+      textButtonTheme:
+          const TextButtonThemeData(style: ButtonStyle(enableFeedback: false)),
+      outlinedButtonTheme: const OutlinedButtonThemeData(
+          style: ButtonStyle(enableFeedback: false)),
+      iconButtonTheme:
+          const IconButtonThemeData(style: ButtonStyle(enableFeedback: false)),
+      segmentedButtonTheme: const SegmentedButtonThemeData(
+          style: ButtonStyle(enableFeedback: false)),
+      listTileTheme: const ListTileThemeData(enableFeedback: false),
+      dropdownMenuTheme: const DropdownMenuThemeData(
+          inputDecorationTheme: InputDecorationTheme()),
+      menuButtonTheme:
+          const MenuButtonThemeData(style: ButtonStyle(enableFeedback: false)),
+      // NESSUN AVVISO DI SISTEMA COL FONDO BIANCO, ordine L voce 1c. Il
+      // gating non passa piu' dalle SnackBar, ma le poche di servizio che
+      // restano (condivisioni fallite, esiti brevi) devono vestire il buio
+      // dell'app, non la superficie inversa chiara di fabbrica.
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: base.surfaceElevated,
+        contentTextStyle:
+            TypographyTokens.corpo().copyWith(color: ColorTokens.textPrimary),
+      ),
     );
   }
 }

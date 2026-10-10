@@ -1,0 +1,6 @@
+innesto in docs/ordini/ORDINE_EO_MANIFESTO.md: il vecchio compare 0 volte, il nuovo 1 volte ('## VOCE EO.17, NESSUN DOPPIONE' -> '## VOCE EO17 NESSUN DOPPIONE')
+  00:00 +0 -1: il manifesto esiste e porta tutte e diciassette le voci [E]
+    Expected: empty
+      Actual: ['EO.17']
+  00:00 +0 -1: Some tests failed.
+ripristino docs/ordini/ORDINE_EO_MANIFESTO.md: sha1 2d4227d0862c -> 2d4227d0862c, IDENTICO

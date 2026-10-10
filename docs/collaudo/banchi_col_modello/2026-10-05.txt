@@ -1,0 +1,56 @@
+I CINQUE BANCHI COL MODELLO, ordine FD voce 03
+commit: 5710ea7569cba78e9ab44d846af64ee03572d7be
+inizio: 2026-10-05T14:48:29+00:00
+fine: 2026-10-05T16:09:28+00:00
+comando: python tool/banchi_col_modello/i_cinque_banchi.py --costo
+
+RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
+  misura: il classificatore delle domande libere del Viaggio, col modello vero, sul banco delle domande di prova
+RISULTATO 2: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: le cinque misure su cento discese, col modello vero
+  misura: cento discese del Viaggio dello Sciamano col modello vero: le cinque misure della ripetizione e il costo di una discesa
+RISULTATO 3: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: G, venti cammini col modello vero
+  misura: venti cammini interi: quanto si ripetono gli strati del racconto
+RISULTATO 4: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: il segno col modello vero, dodici domande
+  misura: il segno dell'animale scelto dal modello su dodici domande
+RISULTATO 5: PASSATO | la_sonda_del_sigillo_test.dart | Tre chiamate vere per ogni sigillo, lette tutte
+  misura: i testi del Sigillo dell'Intenzione: tre chiamate per sigillo, ogni testo letto e controllato
+
+--- le misure stampate da il_banco_delle_domande_libere_col_modello_test.dart
+  BANCO CON RETE: 40 giuste su 41, 97.6 per cento; deciso dal modello 32; la tabella da sola 28
+--- le misure stampate da la_prova_a_cento_discese_col_modello_test.dart
+  === ORDINE DI VOCE 16, CON RETE, tema scelta ===
+  === ORDINE DI VOCE 16, CON RETE, tema persona ===
+  === ORDINE DI VOCE 16, CON RETE, tema blocco ===
+      scartato risposta: ripeteUnoStrato: I segni del viaggio indicano che ciò che ti trattiene dal superare il blocco è una parte di te che non vuoi mostrare. Questa parte si nasconde dietro un'immagine che non ti appartiene del tutto. Puoi lasciare che qualcuno veda ciò che è nascosto.
+  === ORDINE DI VOCE 16, CON RETE, tema attesa ===
+  === ORDINE DI VOCE 16, CON RETE, tema direzione ===
+  === ORDINE DI VOCE 16, CON RETE, tema finito ===
+  === ORDINE DI VOCE 16, CON RETE, libera 1 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 2 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 3 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 4 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 5 ===
+  === ORDINE DI VOCE 16, CON RETE ===
+      scartato risposta: ripeteUnoStrato: I segni del viaggio indicano che ciò che ti trattiene dal superare il blocco è una parte di te che non vuoi mostrare. Questa parte si nasconde dietro un'immagine che non ti appartiene del tutto. Puoi lasciare che qualcuno veda ciò che è nascosto.
+  CHIAMATE AL MODELLO: 3227, token in ingresso 8296046, in uscita 382394
+  DQ.06 titolo dal modello: prima 89.4, dopo 97.0 per cento, su 1100 discese
+  DQ.06 risposta dal modello: prima 44.9, dopo 76.1 per cento, su 1100 discese
+  DQ.06 gesto dal modello: prima 86.5, dopo 97.5 per cento, su 1100 discese
+  DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 266, risposta: nonNominaLaDomanda 92, azione: chiedeDiScrivere 79, titolo: titoloRipetuto 34, risposta: gergo 27, risposta: previsioneCerta 25, titolo: statoDiUnTerzo 25, risposta: statoDiUnTerzo 25, risposta: troppoLunga 18, titolo: tempoNelTitolo 17, azione: virgolaEe 17, risposta: anticipaLaScena 15, titolo: troppoLunga 14, azione: previsioneCerta 14, azione: consiglioDiVita 13, titolo: gergo 12, azione: toccaUnTerzo 10, azione: troppoLunga 10, azione: genereContrario 4, risposta: decisioneGrave 4, titolo: previsioneCerta 3, risposta: genereContrario 2, azione: primaPersona 2, risposta: ripeteUnoStrato 2, titolo: fuoco 1, azione: gergo 1, azione: statoDiUnTerzo 1, azione: promessa 1, azione: decisioneGrave 1, azione: nomeProprio 1, azione: ripeteUnoStrato 1, azione: fuoco 1
+  DQ.13 costo: 0.003059 dollari a discesa, 2742 chiamate della scena su 1100 discese
+  DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 0.0 per cento
+  === ORDINE DJ VOCE 08, IL SEGNO COL MODELLO VERO ===
+  accettati 11 su 12, gesti {siVolta: 4, siAllontana: 4, siAvvicina: 3}, 12 chiamate, in media 384 token in ingresso e 40.7 in uscita
+--- le misure stampate da la_sonda_del_sigillo_test.dart
+  === RIEPILOGO DO ===
+  sigilli 30, chiamate 105, token in ingresso 36916, in uscita 4152
+  costo di un sigillo completo: 0.00072 dollari
+
+--- il costo, da Cloud Monitoring (token_count), finestra di 4979 secondi
+  gemini-2.5-flash input: 8565922 token, 2.5698 dollari
+  gemini-2.5-flash output: 398671 token, 0.9967 dollari
+  gemini-2.5-flash-lite input: 327000 token, 0.0327 dollari
+  gemini-2.5-flash-lite output: 13348 token, 0.0053 dollari
+  totale 3.6045 dollari, cambio BCE del 2026-10-05: 1 euro = 1.1204 dollari
+COSTO DEL GIRO: 3.22 euro
+  (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)

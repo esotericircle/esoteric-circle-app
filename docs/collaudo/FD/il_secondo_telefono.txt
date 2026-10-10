@@ -1,0 +1,59 @@
+2026-10-05T09:26:21+00:00 nasci: account anonimo creato, uid Osut7u5TyGeq0sr6O54644VNxiE3 (nessuna porta del Cerchio chiamata)
+2026-10-05T09:37:40+00:00 ilMioProfiloNelCerchio {"quattordici": true, "maggiorenne": true, "segno": "libra", "maestro": "medora"} -> 200 {"uid": "Osut7u5TyGeq0sr6O54644VNxiE3", "sigillo": "XYYW", "nome": "", "icona": "segno:6", "visibilita": "amici", "visibilitaEffettiva": "amici", "chiPuoInvitare": "tutti", "nomeSiRiapre": null, "primoNomeLibero": true}
+2026-10-05T09:37:42+00:00 scegliIlNome {"nome": "Collaudo Due"} -> 200 {"ok": true, "perche": null, "riga": null, "profilo": {"uid": "Osut7u5TyGeq0sr6O54644VNxiE3", "sigillo": "XYYW", "nome": "Collaudo Due", "icona": "segno:6", "visibilita": "amici", "visibilitaEffettiva": "amici", "chiPuoInvitare": "tutti", "
+2026-10-05T09:39:35+00:00 chiediIlLegame {"codice": "X5Q8DG"} -> 200 {"ok": true, "perche": null, "semaforo": "verde", "riga": null}
+2026-10-05T09:39:43+00:00 chiEOnline {"arte": "oroscopo", "scheda": true} -> 200 {"quanti": 2}
+2026-10-05T09:40:43+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:41:44+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:41:45+00:00 chiEOnline {"esce": true} -> 200 {"quanti": 0}
+2026-10-05T09:42:45+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:43:42+00:00 chiEOnline {"arte": "oroscopo", "scheda": true} -> 200 {"quanti": 2}
+2026-10-05T09:43:45+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:44:42+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:44:45+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:45:43+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:45:46+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:46:44+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:46:46+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:47:44+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:48:45+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:49:45+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:50:46+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:51:46+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:52:47+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:53:47+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:54:48+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:55:48+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:56:49+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:57:49+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:58:50+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T09:59:50+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:00:51+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:01:51+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:02:52+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:03:53+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:04:53+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:05:54+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:06:54+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:07:54+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:08:55+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:09:55+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:10:55+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:11:56+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:12:56+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:13:56+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:14:57+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:15:57+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:16:57+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:17:58+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:18:58+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:19:59+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:20:59+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:21:59+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:23:00+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:24:01+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 2}
+2026-10-05T10:25:01+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 1}
+2026-10-05T10:26:02+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 1}
+2026-10-05T10:27:02+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 1}
+2026-10-05T10:28:03+00:00 chiEOnline {"arte": "oroscopo", "scheda": false} -> 200 {"quanti": 1}
+2026-10-05T10:31:47+00:00 chiEOnline {"esce": true} -> 200 {"quanti": 0}

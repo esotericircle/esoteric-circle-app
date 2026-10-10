@@ -1,0 +1,35 @@
+ORDINE ES VOCE 27: L'INTRO REGISTRATA SUL REALME. 29 settembre 2026.
+
+LA DOMANDA, dalla ET.10: "Ho creato una nuova cersione della intro da
+sostituire e la 5". Alla ET.10 Intro-Test-5 era nel pacchetto (6.116.324
+byte, 1080x1920, 14 secondi) ma non c'era la registrazione dal Realme: il
+Realme ha le animazioni di sistema a zero, e con le animazioni spente l'app,
+per scelta, salta l'intro (MediaQuery.disableAnimations). Il fondatore ha
+confermato che Code le riaccendesse solo per registrare ("Confermo tutto").
+
+LE IMPOSTAZIONI DEL REALME (767f596c), PRIMA, DURANTE E DOPO:
+
+  prima     scala animazione finestra 0,0, scala animazione transizione 0,0,
+            scala durata animatore 0,0
+  durante   tutte e tre a 1,0, dalla pagina delle Opzioni sviluppatore
+            guidata con uiautomator (il Realme rifiuta "settings put" da adb)
+  dopo      tutte e tre a 0,0. Rilette il 29 settembre da adb:
+            window_animation_scale=0.0, transition_animation_scale=0.0,
+            animator_duration_scale=0.0
+
+LA REGISTRAZIONE: docs/collaudo/ES/realme/es27_intro_intera.mp4, 2.362.254
+byte, 31,6 secondi, schermo e audio dal telefono (scrcpy), dall'avvio a
+freddo dell'app fino alla prima schermata.
+
+LA MISURA: i fotogrammi della registrazione allineati a quelli del sorgente
+(Intro-Test-5 nel pacchetto), correlazione 0,994.
+
+  l'intro comincia        a 2,6 secondi dall'inizio della registrazione
+  l'intro finisce         a 16,6 secondi
+  durata a video          14,0 secondi, uguale ai 14 secondi del sorgente
+  dissolvenza nell'app    da 16,7 a 17,2 secondi
+  audio dell'intro        -17,7 dB di media, -1,5 dB di picco: si sente
+
+Durata registrata uguale al sorgente, 14,0 contro 14; animazioni del Realme
+dopo la prova uguali a prima, 0,0 su tutte e tre. Il giudizio a video e' del
+fondatore, sulla registrazione.

@@ -1,0 +1,2 @@
+REGOLA A, ordine EU voce 16, 1 ottobre 2026: la guardia le_frasi_non_si_ripetono_fra_i_periodi vista rossa.
+INNESTO A1 il Mese con la voce della Settimana: grep del difetto nel file SI; prova test/le_frasi_non_si_ripetono_fra_i_periodi_test.dart ROSSA; ORDINE EU VOCE 16: frasi uguali fra periodi dello stesso giorno 1170 su 306 coppie di periodi; file rimesso sha1 45f213c6ac53 -> 45f213c6ac53 IDENTICO

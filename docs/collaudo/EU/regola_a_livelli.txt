@@ -1,0 +1,3 @@
+REGOLA A, ordine EU voce 09, 1 ottobre 2026: la guardia i_livelli_dei_giorni vista rossa.
+INNESTO A1 il clima dei lenti senza tetto, come prima: grep del difetto nel file SI; prova test/i_livelli_dei_giorni_test.dart ROSSA; file rimesso sha1 33ca1ee7dddc -> 33ca1ee7dddc IDENTICO
+INNESTO A2 la Luna del giorno tolta, come prima: grep del difetto nel file SI; prova test/i_livelli_dei_giorni_test.dart ROSSA; file rimesso sha1 33ca1ee7dddc -> 33ca1ee7dddc IDENTICO

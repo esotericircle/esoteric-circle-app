@@ -1,0 +1,16 @@
+ORDINE EX: QUANTE CHIAMATE HANNO FATTO LE PROVE COL MODELLO VERO, E QUANTO SONO COSTATE. 2 ottobre 2026.
+
+Finestra: dal commit di partenza 666d0745 (06:24:26 UTC) alle 10:47:56 UTC del 2 ottobre 2026. Fonte: Cloud Monitoring, sola lettura, metriche aiplatform.googleapis.com/publisher/online_serving/token_count e model_invocation_count, un periodo uguale alla finestra (15.810 secondi).
+
+Gemini, europe-west1 (l'unica regione con traffico):
+  chiamate: gemini-2.5-flash 1.253, gemini-2.5-flash-lite 93, gemini-2.5-flash-tts 16
+  gemini-2.5-flash      ingresso 8.293.603 token  2,4881 $   uscita 124.522 token  0,3113 $
+  gemini-2.5-flash-lite ingresso    45.685 token  0,0046 $   uscita   2.048 token  0,0008 $
+  gemini-2.5-flash-tts  ingresso     4.812 token  0,0024 $   uscita  38.481 token  0,3848 $
+  TOTALE GEMINI al massimo 3,19 $ (Monitoring non separa i token presi dalla cache, che costano il 10 per cento: il costo vero e' piu' basso). La voce TTS (16 chiamate) non viene dalle prove dell'ordine EX, che non hanno chiesto voci: e' uso dell'app nella stessa finestra.
+Protoface e LiveKit: 0, nessuna sessione LIVE (la misura "dopo" dell'EX.01 aspetta la pubblicazione delle funzioni).
+I giudizi alla cieca li hanno dati agenti Claude in questa sessione: nessun costo su Google.
+
+Che cosa contiene la finestra: il banco della qualita' (giri prima, prima2, ex07, fine, fine2, fine3, fine4 e le sonde, circa 30 casi ciascuno), la correzione corta a confronto (due giri), il Viaggio (modello, uno e due tentativi), la memoria compatta (due giri), la cache a dieci minuti (due giri di un'ora), il banco del cielo (prima, dopo, dopo2), l'attribuzione alla cieca dei Maestri (60 risposte e 60 giudizi), la regione dei Ricordi. La finestra puo' contenere anche chiamate di utenti veri: il totale e' un massimo.
+
+Il costo misurato e' al massimo 3,19 $. La cifra della stima dichiarata in chat all'inizio dell'ordine non e' stata ritrovata nella trascrizione al momento di scrivere questo file, e non si riscrive a memoria.

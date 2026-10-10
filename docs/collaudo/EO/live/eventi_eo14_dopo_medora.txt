@@ -1,0 +1,16 @@
+saluto finito 1790407201.439
+frase 1, inizio 1790407204.550: Medora, questo mese conviene cambiare casa?
+detta in 4.4 secondi: Medora, questo mese conviene cambiare casa?
+frase 1, fine 1790407210.659
+frase 1 trascritta 1790407212.420
+frase 1: risposta finita 1790407243.970
+frase 2, inizio 1790407247.399: Medora, come sarÃ  la mia settimana in amore?
+detta in 3.8 secondi: Medora, come sar… la mia settimana in amore?
+frase 2, fine 1790407251.924
+frase 2 trascritta 1790407253.773
+frase 2: risposta finita 1790407289.250
+frase 3, inizio 1790407292.603: Medora, cosa mi dice il cielo sul lavoro nuovo?
+detta in 4.1 secondi: Medora, cosa mi dice il cielo sul lavoro nuovo?
+frase 3, fine 1790407297.336
+frase 3 trascritta 1790407299.358
+frase 3: risposta finita 1790407331.343

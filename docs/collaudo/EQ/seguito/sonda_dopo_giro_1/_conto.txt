@@ -1,0 +1,3 @@
+SEGUITO medora: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO aura: arrivati 3 su 3 tocchi, frasi ripetute tolte 1
+SEGUITO caligo: arrivati 3 su 3 tocchi, frasi ripetute tolte 0

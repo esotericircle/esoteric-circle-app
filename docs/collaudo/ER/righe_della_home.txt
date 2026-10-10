@@ -1,0 +1,61 @@
+ORDINE ER VOCI 08, 10 E 20: LE RIGHE DELLA HOME E I DOMINI, PRIMA E DOPO. 27 settembre 2026
+PRIMA: commit 3a2c12d3, da cui parte l'ordine. DOPO: la copia di lavoro. Letto dai sorgenti, non a memoria.
+
+== PRIMA ==
+
+Le arti preferite (quadrata): Oroscopo Personalizzato, Stesa di Tarocchi, Estrazione Rune, Sinastria VIP, Meditazione, Mappa del Viso
+Trova una risposta (verticale): Stesa di Tarocchi, Estrazione Rune, Oracolo dei Cristalli, Oracolo degli Angeli, Pendolo, Interpretazione dei Sogni, I-Ching, Lettura dei Fondi di Caffè
+Da condividere (verticale): Mappa del Viso, Sinastria VIP, Numeri Ricorrenti, Analisi dell'Aura, Compatibilità tra Amici, Sigillo dell'Intenzione, Affinità Lunare, Numerologia del Destino, Pet Astrology
+Amore e affinità (orizzontale): Sinastria VIP, Affinità Lunare, Sinastria Approfondita, Compatibilità tra Amici, Pet Astrology
+Le stelle parlano (orizzontale): Oroscopo Personalizzato, Il Respiro della Luna, Destino Narrativo, Pet Astrology
+Conosci te stesso (orizzontale): Numerologia del Destino, Destino Narrativo, Il Viaggio dello Sciamano, Mood Tracker, Interpretazione dei Sogni
+Il tuo corpo (verticale): Mappa del Viso, Scan dei Chakra, Analisi dell'Aura, Bioritmo
+La tua serenità (orizzontale): Meditazione, Sleep Stories, Affermazioni del Giorno, Micro-rituali, Mood Tracker
+La tua intenzione (orizzontale): Sigillo dell'Intenzione, Affermazioni del Giorno, Micro-rituali, Numeri Ricorrenti, Il Viaggio dello Sciamano
+La tua energia (orizzontale): Scan dei Chakra, Oracolo dei Cristalli, Analisi dell'Aura, Purificazione Energetica, Bioritmo
+
+Righe della home: 10.
+Coppie di righe vicine con la stessa forma: 5 su 9.
+Righe con le arti di un solo Maestro: 4 su 10 ['Amore e affinità', 'Le stelle parlano', 'Il tuo corpo', 'La tua energia'].
+Arti del catalogo visibili in home: 30 (arti nel catalogo 56, di cui nel solo Passaporto 2).
+Arti nella riga "In arrivo" dei domini: 24.
+Arti del catalogo senza sfondo (fuori dal Passaporto): 24.
+Arti nuove del briefing scelte dal fondatore presenti nel catalogo: 0 su 12.
+Il Segreto dell'Iride nel catalogo: no.
+
+== DOPO ==
+
+Le arti preferite (verticale): Oroscopo Personalizzato, Mappa del Viso, Stesa di Tarocchi, Estrazione Rune, Sinastria VIP, Meditazione
+Trova una risposta (orizzontale): Estrazione Rune, Stesa di Tarocchi, Il Viaggio dello Sciamano, Oracolo dei Cristalli, I-Ching, Oracolo degli Angeli, Pendolo, Sfera di Cristallo, Lettura dei Fondi di Caffè, Cosmic Scan
+Per partner e amici (quadrata): Sinastria VIP, Magia Rossa, Sinastria Approfondita, Affinità Lunare, Compatibilità tra Amici, Cosmic Dating, Sinastria NFC e QR
+Il cielo ti parla (verticale): Oroscopo Personalizzato, Mood Tracker, Il Respiro della Luna, Numeri Ricorrenti, Carta Natale interattiva, Bioritmo, Pet Astrology
+I più condivisi (orizzontale): Sinastria VIP, Mappa del Viso, Oroscopo Personalizzato, Sigillo dell'Intenzione, Stesa di Tarocchi, Cosmic Wrapped, Affinità Lunare, Il Segreto dell'Iride
+Conosci te stesso (quadrata): Destino Narrativo, Specchio dell'Anima, Human Design, Analisi dell'Aura, Numerologia del Destino, Percorso di Risveglio, Cosmic Academy, Grafologia Esoterica, Cosmic Wrapped
+Il tuo corpo (verticale): Mappa del Viso, Finestre Fertili, Chiromanzia Ibrida, Magia Verde, Il Segreto dell'Iride
+La tua serenità (orizzontale): Meditazione, Interpretazione dei Sogni, Sleep Stories, Carte Angeliche Oracolari, Breathwork, Invocazione del Giorno, Sogni Lucidi
+La tua energia (quadrata): Scan dei Chakra, Magia Bianca, Cristalloterapia, Astrocartografia, Purificazione Energetica, Alchimia, Mudra, Opera al Nero, Cosmic Voice Analysis
+La tua intenzione (verticale): Sigillo dell'Intenzione, Affermazioni del Giorno, Micro-rituali, Calendario Lunare Personale, Rituali Guidati Interattivi, Arte delle Convinzioni, Rituali Collettivi, Feng Shui
+Il tuo destino (orizzontale): Lettura Karmica, Albero della Vita, Ritorni Planetari, Cabala, Time Machine Astrologica
+
+Righe della home: 11.
+Coppie di righe vicine con la stessa forma: 0 su 10.
+Righe con le arti di un solo Maestro: 0 su 11 [].
+Arti del catalogo visibili in home: 67 (arti nel catalogo 69, di cui nel solo Passaporto 2).
+Arti nella riga "In arrivo" dei domini: 0.
+Arti del catalogo senza sfondo (fuori dal Passaporto): 0.
+Arti nuove del briefing scelte dal fondatore presenti nel catalogo: 12 su 12.
+Il Segreto dell'Iride nel catalogo: si.
+
+== I DOMINI DOPO, SEZIONE PER SEZIONE ==
+Astrologia: Oroscopo Personalizzato, Pet Astrology, Carta Natale interattiva, Ritorni Planetari, Astrocartografia, Time Machine Astrologica
+Cartomanzia: Stesa di Tarocchi, Oracolo degli Angeli, Carte Angeliche Oracolari, Cosmic Scan
+Compatibilità: Sinastria VIP, Sinastria Approfondita, Compatibilità tra Amici, Cosmic Dating, Sinastria NFC e QR
+Lunologia: Il Respiro della Luna, Affinità Lunare, Finestre Fertili, Calendario Lunare Personale
+Destino: Destino Narrativo, Lettura Karmica
+Energia: Meditazione, Affermazioni del Giorno, Sleep Stories, Mood Tracker, Bioritmo, Mudra, Arte delle Convinzioni, Sogni Lucidi, Breathwork, Percorso di Risveglio
+Chakra: Scan dei Chakra, Analisi dell'Aura, Oracolo dei Cristalli, Purificazione Energetica, Cristalloterapia, Sfera di Cristallo, Feng Shui
+Fisiognomica: Mappa del Viso, Chiromanzia Ibrida, Grafologia Esoterica, Cosmic Voice Analysis, Specchio dell'Anima, Il Segreto dell'Iride
+Divinazione: Estrazione Rune, Pendolo, Interpretazione dei Sogni, I-Ching, Lettura dei Fondi di Caffè
+Rituali: Il Viaggio dello Sciamano, Micro-rituali, Invocazione del Giorno, Rituali Guidati Interattivi, Rituali Collettivi
+Magia: Sigillo dell'Intenzione, Magia Rossa, Magia Bianca, Magia Verde, Opera al Nero, Alchimia
+Numerologia: Numeri Ricorrenti, Numerologia del Destino, Cabala, Human Design, Cosmic Wrapped, Albero della Vita, Cosmic Academy

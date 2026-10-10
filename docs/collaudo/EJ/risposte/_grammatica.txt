@@ -1,0 +1,16 @@
+GRAMMATICA dopo aura: risposte 6, errori 0 
+GRAMMATICA dopo caligo: risposte 6, errori 0 
+GRAMMATICA dopo medora: risposte 6, errori 0 
+GRAMMATICA dopo2 aura: risposte 6, errori 0 
+GRAMMATICA dopo2 caligo: risposte 6, errori 0 
+GRAMMATICA dopo2 medora: risposte 6, errori 0 
+GRAMMATICA dopo3 aura: risposte 6, errori 1 il calmo => la calma
+GRAMMATICA dopo3 caligo: risposte 6, errori 0 
+GRAMMATICA dopo3 medora: risposte 6, errori 0 
+GRAMMATICA dopo4 aura: risposte 6, errori 0 
+GRAMMATICA dopo4 caligo: risposte 6, errori 0 
+GRAMMATICA dopo4 medora: risposte 6, errori 0 
+GRAMMATICA prima aura: risposte 6, errori 0 
+GRAMMATICA prima caligo: risposte 6, errori 0 
+GRAMMATICA prima medora: risposte 6, errori 0 
+Domande al giudice: 90.

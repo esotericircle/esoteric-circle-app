@@ -1,0 +1,13 @@
+44 fotogrammi in 10.5 s
+passo di impaginazione fra i fotogrammi 7 e 8 (1.75 s): dx 0.00, dy -15.97, affidabilita 0.95
+passo di impaginazione fra i fotogrammi 13 e 14 (3.22 s): dx 0.07, dy 0.77, affidabilita 0.85
+fotogrammi senza passi di impaginazione: dal 14 al 44, 31 fotogrammi in 7.3 s
+cambiamento della bocca fra fotogrammi consecutivi: 2.2 1.1 1.0 0.8 1.7 0.9 1.6 1.3 1.7 0.8 1.2 0.9 0.9 0.8 0.8 1.4 0.9 1.3 1.1 0.8 1.1 1.3 1.0 1.2 1.0 0.7 0.8 1.1 0.9 1.9
+
+capelli (testa)      deviazione nel tempo  5.49 livelli; spostamento rigido: orizzontale 10.88 px, verticale  0.50 px (31 fotogrammi affidabili su 31)
+occhi                deviazione nel tempo  6.91 livelli; spostamento rigido: orizzontale  8.63 px, verticale  0.33 px (31 fotogrammi affidabili su 31)
+bocca e barba        deviazione nel tempo  4.04 livelli; spostamento rigido: orizzontale  8.02 px, verticale  0.38 px (31 fotogrammi affidabili su 31)
+spalla sinistra      deviazione nel tempo  0.21 livelli; spostamento rigido: orizzontale  0.05 px, verticale  0.05 px (31 fotogrammi affidabili su 31)
+spalla destra        deviazione nel tempo  0.25 livelli; spostamento rigido: orizzontale  0.02 px, verticale  0.01 px (31 fotogrammi affidabili su 31)
+petto e fermaglio    deviazione nel tempo  0.25 livelli; spostamento rigido: orizzontale  0.01 px, verticale  0.01 px (31 fotogrammi affidabili su 31)
+sfondo (controllo)   deviazione nel tempo  0.00 livelli; spostamento rigido: orizzontale  0.00 px, verticale  0.00 px (31 fotogrammi affidabili su 31)

@@ -1,0 +1,32 @@
+ORDINE FF AGGIUNTA 1, voci A1 e A5: i file copiati dalla cartella principale e confrontati al byte (cmp), 8 ottobre 2026.
+
+I corpora come li ha consegnati l'Architetto (00:52 dell'8 ottobre), copiati e uguali al byte:
+  Corpus_Il_Ritratto.md  sha256 5a1ce25293bc2d9851fa3ec303b5d29362333e28d2ed14a0232d6795dd9edf16
+  Corpus_Le_Prove.md     sha256 8e0a36476bf49ce9cc32ae63722a41eeb7a22b8af46a8fa83c027c65d5b10bc3
+
+Corretti da Code per decisione del fondatore dell'8 ottobre ("Se puoi correggi tu errori e difetti dell'architetto"), e riallineati nella cartella principale:
+  Ritratto 37: neutro "il contatto fisico da chi" -> marca [essere toccato da|essere toccata da|il contatto fisico con]
+  Ritratto 100: neutro "stare sul serio" (senso cambiato) -> [stare serio|stare seria|mantenere la serieta']
+  Ritratto 119: neutro "Sono tutt'altra persona negli ultimi tre anni" (tempo del verbo) -> "Ho cambiato molto di me"
+  Prove tema 3 fascia 0-25 e tema 4 fascia 0-25: maschile e femminile senza il che ("sei quello resta in piedi") -> [sei quello che|sei quella che|sei chi]
+  Prove: tre marche spezzate a capo riga (tema 4 fasce 0-25 e 26-50, tema 6 D4 d) rimesse su una riga
+
+Dopo le correzioni:
+  bdfbb3b1ec9a48bd3b59f075462d3f245a39aac60179aac22e17ee6e49a48025 *docs/corpus/Corpus_Il_Ritratto.md
+  c6528d82d7ffbfdd864134988e7caf50d2e4b68200717499ea41aa3da62d21c7 *docs/corpus/Corpus_Le_Prove.md
+  cartella principale: uguali al byte (cmp)
+
+I tre asset della Soglia del Sonno, copiati e uguali al byte:
+  928c6b4bb5ff52d0fc1105df8dcd174762c18679d79774913a7274247a579964 *assets/schede/Soglia-Sonno-Vert-1.webp
+    uguale al byte (cmp)
+  4d13375103b1e9ac602bc0b5c80838fe0c81bd490870251fb8b1dc394cce3066 *assets/schede/Soglia-Sonno-Square-1.webp
+    uguale al byte (cmp)
+  e051404458c30f8ac63eac390320acaa0762217549ca4a875569b73391fd9913 *assets/schede/Soglia-Sonno-Oriz-1.webp
+    uguale al byte (cmp)
+  Vert: 800x1000
+  Square: 800x800
+  Oriz: 1280x720
+
+Le quattro nature, 8 ottobre 2026 sera, per la regola del fondatore ("Non possiamo parlare di gioco o sfide o punteggi nella nostra app ... i risultati devono essere coerenti con trattati, metodi, fonti e tradizioni esoteriche"), scelta "Quattro temperamenti":
+  Prove: le 24 figure inventate (Il Pozzo, Il Ponte, Il Sentiero...) diventano i quattro elementi nella scala del Timeo, la Terra, l'Acqua, l'Aria, il Fuoco, col loro temperamento (Ippocrate, Galeno, Agrippa I, 3); ogni fascia porta FARE (che cosa fare), ogni tema FONTE (Tolomeo, Tetrabiblos; Bonatti; Galeno); domande, risposte, pesi e marche invariati (288 pesi, 22 marche).
+  Corpus_Le_Prove.md     sha256 4abbe80bbb663918aefc52db36e6c0043bdc3c0f8aa3fb2017a971f4393abfa0, uguale al byte nella cartella principale.

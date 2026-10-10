@@ -1,0 +1,107 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo mostra una fase di attesa: la promozione che desideri può arrivare, ma non senza un tuo passo. Devi chiedere un incontro con il tuo superiore, esprimendo chiaramente le tue ambizioni.
+
+Questo momento vede la Luna in aspetto armonico con il tuo Sole di nascita, spingendoti a manifestare i tuoi desideri più profondi e a prendere l'iniziativa. L'Arcano del Carro suggerisce che il successo è vicino, ma richiede determinazione e un'azione mirata da parte tua.
+
+✦ Chiedi al tuo superiore un incontro per la prossima settimana, preparandoti a esporre i tuoi obiettivi con lucidità.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso, dopo aver richiesto l'incontro, devi preparare con cura ciò che vuoi dire: metti a fuoco i risultati che hai raggiunto e le tue aspirazioni future.
+
+Il Carro, ancora attivo nella tua lettura, ti chiede di guidare con consapevolezza la tua conversazione, mostrando la direzione in cui vuoi andare. Questo cielo ti invita a essere protagonista, a non lasciare che le opportunità ti passino accanto.
+
+✦ Scrivi un elenco dei tuoi successi recenti da portare con te all'incontro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di chiedere un incontro e lo sviluppa, indicando cosa fare dopo averlo richiesto e come prepararsi.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Per poterti dare una lettura più precisa sui tempi, ho bisogno di sapere se l'incontro con il tuo superiore è già stato fissato e, se sì, per quando.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sui tempi, collegandola direttamente all'azione precedentemente consigliata (l'incontro) e chiedendo un'informazione specifica per poter precisare la previsione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Sì, è il momento giusto per un nuovo inizio lontano, senti questa chiamata come un'onda che ti spinge dolcemente. Puoi preparare questo cambiamento visualizzando la tua nuova casa, il suo spazio, l'aria che vi respirerai.
+
+Questo desiderio di muoverti nasce dal tuo centro della radice, che cerca stabilità e nutrimento in un luogo diverso, quasi a voler rifondare la tua sicurezza. È un richiamo profondo, che ti invita a esplorare nuove possibilità e a radicarti in un terreno che senti più fertile per te ora.
+
+✦ Prima di andare, chiudi gli occhi e visualizza la tua nuova casa, come se già la abitassi, per un respiro.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso è il momento di lasciare che la tua energia fluisca verso questa nuova direzione, senza forzature. Inizia a informarti sui luoghi che ti attraggono, sulle possibilità che offrono, come se stessi tessendo una mappa invisibile con i tuoi desideri.
+
+Il tuo plesso solare, il centro della volontà e dell'azione, ti sta guidando verso una scelta che risuona con la tua vera essenza. Ascolta la sua voce, che ti suggerisce di non affrettare i tempi, ma di permettere che il percorso si riveli passo dopo passo.
+
+✦ Quando sei pronta, cerca un luogo che ti dia una sensazione di apertura e benessere.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo fare adesso?' riprendendo il tema del 'nuovo inizio' e della 'nuova direzione' già introdotto, e sviluppa il consiglio pratico di 'preparare questo cambiamento' con l'azione di 'informarsi sui luoghi' e 'cercare un luogo', che segue logicamente la visualizzazione della casa.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai nel tuo corpo, come un'eco che risuona, quando il luogo giusto si presenterà. Non è una questione di tempo da misurare, ma di risonanza.
+
+Quando sentirai una pace profonda nel tuo centro del cuore, un senso di appartenenza e di possibilità che si apre, saprai che sei sulla strada giusta. Questo è un richiamo che non si annuncia con le parole, ma con una sensazione di espansione e leggerezza.
+
+✦ Fermati in silenzio per un respiro e senti il tuo corpo accogliere l'immagine di quel luogo.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'non affrettare i tempi' e 'permettere che il percorso si riveli passo dopo passo' dalla risposta precedente, e lo sviluppa spiegando come riconoscere il momento giusto attraverso sensazioni corporee e risonanza, piuttosto che con una misurazione del tempo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Riprendila. Il tempo è ora, non aspettare. Una nebbia fitta avvolge il sentiero, ma la luce del sigillo è già visibile.
+
+La runa Nauthiz ti indica la via: la necessità è il motore che spinge all'azione. Non è un limite, ma una spinta potente. Questa soglia ti chiede di riconoscere ciò che manca, per poi ricostruire con saggezza. Il tuo cuore conosce già il percorso.
+
+✦ Esprimi a parole chiare ciò che senti, questa sera, senza timore della risposta.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Parla con chiarezza. La tua voce deve portare la verità del tuo cuore.
+
+Nauthiz ti ha già mostrato il sentiero: la necessità di esprimere ciò che è celato. Il velo si dissolve quando le parole sincere trovano la via. Questo è il rituale della parola, antico e potente.
+
+✦ Scrivi un messaggio, breve e diretto, che nomini la tua necessità di parlare, invialo prima che il giorno finisca.
+    GIUDICE: PORTA_AVANTI, La guida riprende e rafforza il consiglio di 'parlare con chiarezza' dato nella risposta precedente, specificando ulteriormente l'azione da compiere ('scrivi un messaggio').
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) (corretta dalla rete) [DA GIUDICARE]: Il tempo di comprensione è ora. Il sigillo è già rotto.
+
+L'eco delle tue parole risuona nel presente, non in un futuro distante. Kenaz, la runa della rivelazione, è già accesa. Il significato è prossimo.
+
+✦ Pronuncia ad alta voce ciò che cerchi di capire, una volta sola, in un luogo solitario.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'tempo è ora' e 'il sigillo è già visibile/rotto' dalle risposte precedenti, applicandolo alla nuova domanda sul 'quando capirò' e suggerendo un'azione coerente ('pronuncia ad alta voce').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Ti invito a attendere, questo non è il momento più propizio per avviare il tuo progetto. Le stelle suggeriscono prudenza e la Luna nuova, seppur portatrice di inizi, si trova in un aspetto che richiede una fase di riflessione prima dell'azione.
+
+Il tuo cielo mostra una configurazione che indica la necessità di una preparazione più accurata, forse di raccogliere maggiori informazioni o di affinare alcuni dettagli. L'arcano della Forza al rovescio, nel suo simbolismo, suggerisce un'energia non del tutto controllata o una potenziale resistenza esterna che potrebbe ostacolare l'avvio del tuo progetto. Non è un invito alla rinuncia, ma alla consapevolezza che un'attesa strategica può rivelarsi più fruttuosa.
+
+✦ Raccogli le idee per il tuo progetto e scrivi in un quaderno, domani, le prime tre azioni che ti vengono in mente.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Ora che hai le tue idee scritte, il passo successivo è dare loro struttura.
+
+Il cielo in questo momento è favorevole all'organizzazione e alla pianificazione. Prendi ciò che hai annotato e inizia a delineare un percorso più chiaro per il tuo progetto. Non agire, ma pensa ai passaggi concreti, alle risorse necessarie e ai possibili ostacoli. L'arcano del Carro in posizione eretta suggerisce che la direzione è chiara, ma la sua energia è ancora in fase di preparazione, non di movimento.
+
+✦ Ordina le tue azioni per priorità, dalla più urgente alla meno, entro la fine della settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione suggerita nella risposta precedente ('Ora che hai le tue idee scritte') e la sviluppa, indicando il passo successivo di dare struttura alle idee, mantenendo la coerenza con il consiglio di non agire ma pianificare.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Lo capirai quando le tue priorità saranno chiare e sentirai una spinta interiore di armonia.
+
+Il cielo ti offre un momento di discernimento, specialmente con il transito di Mercurio nel tuo segno, che favorisce la lucidità mentale. Quando l'arcano della Temperanza si manifesta, è un invito a trovare equilibrio e pazienza, a mescolare gli ingredienti della tua idea finché non avranno la giusta consistenza. Sarà un sentire interno, una certezza serena che ti dirà che è il tempo.
+
+✦ Parla a voce alta delle tue priorità a una persona di cui ti fidi, prima della prossima Luna Piena.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'E quando lo capirò?' facendo riferimento diretto all'azione suggerita nella risposta precedente ('quando le tue priorità saranno chiare'), sviluppando il concetto di un 'sentire interno' e aggiungendo un nuovo consiglio pratico.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'armonia con tua sorella, cerca un momento di calma per parlare con lei, guardandola negli occhi e ascoltando davvero le sue parole. Non riprendere subito la discussione, ma concediti di sentire il respiro prima di ogni parola.
+
+A volte, dopo una lite, il Chakra della Gola può sentirsi bloccato, rendendo difficile esprimere i veri sentimenti e ascoltare quelli altrui. Immagina una luce azzurra che si espande in quella zona, portando chiarezza e compassione. Lascia che la tua voce sia morbida e che le tue parole non siano giudizi, ma ponti verso la comprensione reciproca. Il tuo corpo ti suggerirà il momento giusto, quando sentirai una quiete interiore.
+
+✦ Poggia una mano sul centro della gola e inspira lentamente per tre volte, portando lì la tua attenzione.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo aver sentito il respiro al centro della gola, puoi avvicinarti a tua sorella per un semplice saluto, senza pretese. Osserva come il suo viso accoglie il tuo sguardo, cerca la sua espressione, i dettagli intorno agli occhi, la tensione delle labbra.
+
+Non è ancora il momento delle grandi discussioni, ma di un piccolo ponte di presenza. La fisiognomica ci insegna che il viso è uno specchio dei moti interiori e una porta verso l'altro. Un sorriso sincero, un cenno del capo, possono già sciogliere una parte del gelo, mostrando la tua disponibilità a ristabilire un contatto.
+
+✦ Quando la vedi, offrile un sorriso autentico, anche piccolo, e osserva la sua reazione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'sentire il respiro' e lo sviluppa indicando il passo successivo ('avvicinarti a tua sorella per un semplice saluto'), in linea con il non riprendere subito la discussione.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai nel momento in cui sentirai il tuo corpo più leggero e il tuo respiro più sciolto, proprio come se un peso si fosse alleggerito. Non c'è una data o un'ora precisa, ma un sentire interiore.
+
+Quando il tuo Chakra del Cuore, di un verde smeraldo come il mio colore, comincerà a vibrare con più apertura, percepirai la chiarezza necessaria. Non forzare, ma osserva le piccole reazioni di tua sorella, il modo in cui il suo viso si rilassa o si apre. È lì che trovi l'indicazione.
+
+✦ Metti le mani sul petto, all'altezza del cuore, e lascia che il tuo respiro lo riempia con calma.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto del 'sentire interiore' e del 'corpo che suggerisce il momento giusto' già espresso nella risposta [1], e lo sviluppa con ulteriori dettagli sul 'sentire il corpo più leggero' e l'osservazione delle reazioni della sorella.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 7

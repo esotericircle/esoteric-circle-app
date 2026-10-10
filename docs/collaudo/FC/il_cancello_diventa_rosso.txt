@@ -1,0 +1,29 @@
+IL CANCELLO DIVENTA ROSSO PER UNA PROVA ROSSA, ordine FC voce 08, 4 ottobre 2026.
+Metodo: i registri veri delle nove macchine del giro 37215562849 di "Verde di base" su bcf8eaff, scaricati da GitHub, e la decisione finale del cancello lanciata in locale come la lancia GitHub:
+  SBARRAMENTO_DA_REGISTRI=<registri> SBARRAMENTO_PEZZI=6 bash tool/sbarramento.sh
+
+1) Sui registri veri, senza toccare niente: uscita 0, "ROSSI ACCETTATI, E SOLO QUELLI".
+   Il verdetto nuovo del verde (bash tool/il_verdetto_del_cancello.sh <registro> verde) dice:
+   ::warning title=Il verde ha dei rossi accettati::VERDE CON 12 ROSSI ACCETTATI, ognuno con la sua ragione in tool/rossi_accettati.txt:
+        le soglie delle quattro pose sono state misurate su un telefono
+        SCALA 1,3: CI.04: a dito alzato la barra non resta a meta
+        SCALA 1,3: Cattura il Risveglio, il genere, schermo basso
+        SCALA 1,3: Cattura il Risveglio, il luogo offline
+        SCALA 1,3: Cattura il Risveglio, il luogo scelto
+        SCALA 1,3: Cattura il Risveglio, il sigillo
+        SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente
+        SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno
+        SCALA 1,3: Cattura la chat con la barra fuori
+        SCALA 1,3: Cattura la custodia del cielo
+        SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP
+        ogni voce dichiara uno stato terminale, e i conti tornano
+        
+
+2) Con una prova rossa innestata nel registro del pezzo 2 ("una prova rossa innestata dall'ordine FC"): uscita 1.
+     ROSSI NUOVI, NON ACCETTATI DA NESSUNO:
+       una prova rossa innestata dall'ordine FC
+       
+     L'ARCHIVIO NON SI PRODUCE.
+   ----------------------------------------------------------------------
+
+Il gettone locale dello sbarramento (build/sbarramento_passato.txt) e' stato messo da parte prima e rimesso dopo, uguale al byte.

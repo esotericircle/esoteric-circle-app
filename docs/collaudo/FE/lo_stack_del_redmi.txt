@@ -1,0 +1,1675 @@
+LO STACK DELL'ANR DEL REDMI NOTE 14 PRO 5G, ordine FE voce 01
+Letto da Crashlytics con: python tool/i_crash_degli_utenti.py --build 2298 --stack 227171118570
+Telefono 24090RA29G (Xiaomi Redmi Note 14 Pro 5G), Android 16, build 0.1.0 (2298), app in primo piano, 2026-10-05T19:19:37Z, tipo ANR.
+I passi Dart sono indirizzi dentro base.apk: la build non porta i simboli separati (vedi il rapporto FE).
+
+== filo main (accusato)
+    0 __kernel_sin   [libm.so] 124080
+    1 cos   [libm.so] 131884
+    2    [base.apk] 10634648
+    3    [base.apk] 10634592
+    4    [base.apk] 10633976
+    5    [base.apk] 10634852
+    6    [base.apk] 10627952
+    7    [base.apk] 10627888
+    8    [base.apk] 10612800
+    9    [base.apk] 10612556
+   10    [base.apk] 10608396
+   11    [base.apk] 17257012
+   12    [base.apk] 20257748
+   13    [base.apk] 20252428
+   14    [base.apk] 20207980
+   15    [base.apk] 20269528
+   16    [base.apk] 14285220
+   17    [base.apk] 20267588
+   18    [base.apk] 14228688
+   19    [base.apk] 14224660
+   20    [base.apk] 14223644
+   21    [base.apk] 14223244
+   22    [base.apk] 14706808
+   23    [base.apk] 17162164
+   24    [base.apk] 12885852
+   25    [base.apk] 11171144
+   26    [base.apk] 11171196
+   27    [base.apk] 12864864
+   28    [base.apk] 11171116
+   29    [base.apk] 11171196
+   30    [base.apk] 12865472
+   31    [base.apk] 11171116
+   32    [base.apk] 11171196
+   33    [base.apk] 12865472
+   34    [base.apk] 11171116
+   35    [base.apk] 11171196
+   36    [base.apk] 12864864
+   37    [base.apk] 11171116
+   38    [base.apk] 11171196
+   39    [base.apk] 12865472
+   40    [base.apk] 11171116
+   41    [base.apk] 11171196
+   42    [base.apk] 12865472
+   43    [base.apk] 11171116
+   44    [base.apk] 11171196
+   45    [base.apk] 12865472
+   46    [base.apk] 11171116
+   47    [base.apk] 11171196
+   48    [base.apk] 12864864
+   49    [base.apk] 11171116
+   50    [base.apk] 11171196
+   51    [base.apk] 12864864
+   52    [base.apk] 11171116
+   53    [base.apk] 11171196
+   54    [base.apk] 12864864
+   55    [base.apk] 11171116
+   56    [base.apk] 11171196
+   57    [base.apk] 12865472
+   58    [base.apk] 11171116
+   59    [base.apk] 11171196
+   60    [base.apk] 12864864
+   61    [base.apk] 11171116
+   62    [base.apk] 11171196
+   63    [base.apk] 12865472
+   64    [base.apk] 11171116
+   65    [base.apk] 11171196
+   66    [base.apk] 12864864
+   67    [base.apk] 11171116
+   68    [base.apk] 11171196
+   69    [base.apk] 12864864
+   70    [base.apk] 11171116
+   71    [base.apk] 11171196
+   72    [base.apk] 12864864
+   73    [base.apk] 11171116
+   74    [base.apk] 11171196
+   75    [base.apk] 12864864
+   76    [base.apk] 11171116
+   77    [base.apk] 11171196
+   78    [base.apk] 12864864
+   79    [base.apk] 11171116
+   80    [base.apk] 11171196
+   81    [base.apk] 12864864
+   82    [base.apk] 11171116
+   83    [base.apk] 11171196
+   84    [base.apk] 12865472
+   85    [base.apk] 11171116
+   86    [base.apk] 11171196
+   87    [base.apk] 12864864
+   88    [base.apk] 11171116
+   89    [base.apk] 11171196
+   90    [base.apk] 12864864
+   91    [base.apk] 11171116
+   92    [base.apk] 11171196
+   93    [base.apk] 12864864
+   94    [base.apk] 11171116
+   95    [base.apk] 11171196
+   96    [base.apk] 12864864
+   97    [base.apk] 11171116
+   98    [base.apk] 11171196
+   99    [base.apk] 12864864
+  100    [base.apk] 11171116
+  101    [base.apk] 11171196
+  102    [base.apk] 12865472
+  103    [base.apk] 11171116
+  104    [base.apk] 11171196
+  105    [base.apk] 12864864
+  106    [base.apk] 11171116
+  107    [base.apk] 11171196
+  108    [base.apk] 12864864
+  109    [base.apk] 11171116
+  110    [base.apk] 11171196
+  111    [base.apk] 12864864
+  112    [base.apk] 11171116
+  113    [base.apk] 11171196
+  114    [base.apk] 12864864
+  115    [base.apk] 11171116
+  116    [base.apk] 11171196
+  117    [base.apk] 12864864
+  118    [base.apk] 11171116
+  119    [base.apk] 11171012
+  120    [base.apk] 12814920
+  121    [base.apk] 11170948
+  122    [base.apk] 11170796
+  123    [base.apk] 10709156
+  124    [base.apk] 11170488
+  125    [base.apk] 11169924
+  126    [base.apk] 11168296
+  127    [base.apk] 11168236
+  128    [base.apk] 10761108
+  129    [base.apk] 10760492
+  130    [base.apk] 10760132
+  131    [base.apk] 10759824
+  132    [base.apk] 10716252
+  133    [base.apk] 10716100
+  134    [base.apk] 10716032
+  135    [base.apk] 10718164
+  136    [base.apk] 10435884
+  137    [base.apk] 9486888
+  138    [base.apk] 10906296
+  139    [base.apk] 8819344
+  140    [base.apk] 8769512
+  141    [base.apk] 8701408
+  142    [base.apk] 8806664
+  143    [base.apk] 5152188
+  144    [base.apk] 5168304
+  145 android::Looper::pollOnce   [libutils.so] 218504
+  146 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+  147 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+  148 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+  149 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+  150 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+  151 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+  152 android.app.ActivityThread.main ActivityThread.java 10090 [com.esotericircle.esoteric_circle] 
+  153 java.lang.reflect.Method.invoke Native method  [com.esotericircle.esoteric_circle] 
+  154 com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run RuntimeInit.java 616 [com.esotericircle.esoteric_circle] 
+  155 com.android.internal.os.ZygoteInit.main ZygoteInit.java 1137 [com.esotericircle.esoteric_circle] 
+== filo ReferenceQueueDaemon 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.Object.wait Object.java 528 [com.esotericircle.esoteric_circle] 
+    3 java.lang.Daemons$ReferenceQueueDaemon.runInternal Daemons.java 260 [com.esotericircle.esoteric_circle] 
+    4 java.lang.Daemons$Daemon.run Daemons.java 135 [com.esotericircle.esoteric_circle] 
+    5 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FinalizerDaemon 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.ref.ReferenceQueue.remove ReferenceQueue.java 207 [com.esotericircle.esoteric_circle] 
+    3 java.lang.ref.ReferenceQueue.remove ReferenceQueue.java 228 [com.esotericircle.esoteric_circle] 
+    4 java.lang.Daemons$FinalizerDaemon.runInternal Daemons.java 348 [com.esotericircle.esoteric_circle] 
+    5 java.lang.Daemons$Daemon.run Daemons.java 135 [com.esotericircle.esoteric_circle] 
+    6 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FinalizerWatchdogDaemon 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.Object.wait Object.java 528 [com.esotericircle.esoteric_circle] 
+    3 java.lang.Daemons$FinalizerWatchdogDaemon.sleepUntilNeeded Daemons.java 481 [com.esotericircle.esoteric_circle] 
+    4 java.lang.Daemons$FinalizerWatchdogDaemon.runInternal Daemons.java 461 [com.esotericircle.esoteric_circle] 
+    5 java.lang.Daemons$Daemon.run Daemons.java 135 [com.esotericircle.esoteric_circle] 
+    6 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Timer-0 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.Object.wait Object.java 528 [com.esotericircle.esoteric_circle] 
+    3 java.util.TimerThread.mainLoop Timer.java 562 [com.esotericircle.esoteric_circle] 
+    4 java.util.TimerThread.run Timer.java 540 [com.esotericircle.esoteric_circle] 
+== filo Timer-1 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.Object.wait Object.java 528 [com.esotericircle.esoteric_circle] 
+    3 java.util.TimerThread.mainLoop Timer.java 562 [com.esotericircle.esoteric_circle] 
+    4 java.util.TimerThread.run Timer.java 540 [com.esotericircle.esoteric_circle] 
+== filo OkHttp ConnectionPool 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 com.android.okhttp.ConnectionPool$1.run ConnectionPool.java 106 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1100 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    4 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo OkHttp TaskRunner 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 okhttp3.internal.concurrent.TaskRunner$RealBackend.coordinatorWait TaskRunner.java 294 [com.esotericircle.esoteric_circle] 
+    2 okhttp3.internal.concurrent.TaskRunner.awaitTaskToRun TaskRunner.kt 218 [com.esotericircle.esoteric_circle] 
+    3 okhttp3.internal.concurrent.TaskRunner$runnable$1.run TaskRunner.kt 59 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1100 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    6 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Okio Watchdog 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.lang.Object.wait Object.java 528 [com.esotericircle.esoteric_circle] 
+    3 com.android.okhttp.okio.AsyncTimeout.awaitTimeout AsyncTimeout.java 313 [com.esotericircle.esoteric_circle] 
+    4 com.android.okhttp.okio.AsyncTimeout.access$000 AsyncTimeout.java 42 [com.esotericircle.esoteric_circle] 
+    5 com.android.okhttp.okio.AsyncTimeout$Watchdog.run AsyncTimeout.java 288 [com.esotericircle.esoteric_circle] 
+== filo OkHttp europe-west1-esoteric-circle.cloudfunctions.net 
+    0 recvfrom   [libc.so] 917700
+    1 NET_Read   [libopenjdk.so] 184428
+    2 SocketInputStream_socketRead0   [libopenjdk.so] 187488
+    3 java.net.SocketInputStream.socketRead0 Native method  [com.esotericircle.esoteric_circle] 
+    4 java.net.SocketInputStream.socketRead SocketInputStream.java 118 [com.esotericircle.esoteric_circle] 
+    5 java.net.SocketInputStream.read SocketInputStream.java 173 [com.esotericircle.esoteric_circle] 
+    6 java.net.SocketInputStream.read SocketInputStream.java 143 [com.esotericircle.esoteric_circle] 
+    7 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readFromSocket ConscryptEngineSocket.java 1015 [com.esotericircle.esoteric_circle] 
+    8 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.processDataFromSocket ConscryptEngineSocket.java 979 [com.esotericircle.esoteric_circle] 
+    9 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readUntilDataAvailable ConscryptEngineSocket.java 894 [com.esotericircle.esoteric_circle] 
+   10 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.read ConscryptEngineSocket.java 867 [com.esotericircle.esoteric_circle] 
+   11 okio.InputStreamSource.read InputStreamSource.java 93 [com.esotericircle.esoteric_circle] 
+   12 okio.AsyncTimeout$source$1.read AsyncTimeout.kt 128 [com.esotericircle.esoteric_circle] 
+   13 okio.RealBufferedSource.request RealBufferedSource.kt 209 [com.esotericircle.esoteric_circle] 
+   14 okio.RealBufferedSource.require RealBufferedSource.kt 202 [com.esotericircle.esoteric_circle] 
+   15 okhttp3.internal.http2.Http2Reader.nextFrame Http2Reader.kt 89 [com.esotericircle.esoteric_circle] 
+   16 okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke Http2Connection.kt 618 [com.esotericircle.esoteric_circle] 
+   17 okhttp3.internal.http2.Http2Connection$ReaderRunnable.invoke Http2Connection.kt 609 [com.esotericircle.esoteric_circle] 
+   18 okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce TaskQueue.kt 98 [com.esotericircle.esoteric_circle] 
+   19 okhttp3.internal.concurrent.TaskRunner.runTask TaskRunner.kt 116 [com.esotericircle.esoteric_circle] 
+   20 okhttp3.internal.concurrent.TaskRunner.access$runTask TaskRunner.kt 42 [com.esotericircle.esoteric_circle] 
+   21 okhttp3.internal.concurrent.TaskRunner$runnable$1.run TaskRunner.kt 65 [com.esotericircle.esoteric_circle] 
+   22 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1100 [com.esotericircle.esoteric_circle] 
+   23 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   24 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo OkHttpClientTransport 
+    0 recvfrom   [libc.so] 917700
+    1 NET_Read   [libopenjdk.so] 184428
+    2 SocketInputStream_socketRead0   [libopenjdk.so] 187488
+    3 java.net.SocketInputStream.socketRead0 Native method  [com.esotericircle.esoteric_circle] 
+    4 java.net.SocketInputStream.socketRead SocketInputStream.java 118 [com.esotericircle.esoteric_circle] 
+    5 java.net.SocketInputStream.read SocketInputStream.java 173 [com.esotericircle.esoteric_circle] 
+    6 java.net.SocketInputStream.read SocketInputStream.java 143 [com.esotericircle.esoteric_circle] 
+    7 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readFromSocket ConscryptEngineSocket.java 1015 [com.esotericircle.esoteric_circle] 
+    8 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.processDataFromSocket ConscryptEngineSocket.java 979 [com.esotericircle.esoteric_circle] 
+    9 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readUntilDataAvailable ConscryptEngineSocket.java 894 [com.esotericircle.esoteric_circle] 
+   10 com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.read ConscryptEngineSocket.java 867 [com.esotericircle.esoteric_circle] 
+   11 okio.InputStreamSource.read InputStreamSource.java 93 [com.esotericircle.esoteric_circle] 
+   12 okio.AsyncTimeout$source$1.read AsyncTimeout.kt 128 [com.esotericircle.esoteric_circle] 
+   13 okio.RealBufferedSource.request RealBufferedSource.kt 209 [com.esotericircle.esoteric_circle] 
+   14 okio.RealBufferedSource.require RealBufferedSource.kt 202 [com.esotericircle.esoteric_circle] 
+   15 io.grpc.okhttp.internal.framed.Http2$Reader.nextFrame Http2.java 120 [com.esotericircle.esoteric_circle] 
+   16 io.grpc.okhttp.OkHttpClientTransport$ClientFrameHandler.run OkHttpClientTransport.java 1107 [com.esotericircle.esoteric_circle] 
+   17 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1100 [com.esotericircle.esoteric_circle] 
+   18 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   19 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo WebRtcVolumeLevelLoggerThread 
+    0 java.lang.Object.wait Native method  [com.esotericircle.esoteric_circle] 
+    1 java.lang.Object.wait Object.java 390 [com.esotericircle.esoteric_circle] 
+    2 java.util.TimerThread.mainLoop Timer.java 593 [com.esotericircle.esoteric_circle] 
+    3 java.util.TimerThread.run Timer.java 540 [com.esotericircle.esoteric_circle] 
+== filo Signal Catcher 
+    0 art::DumpNativeStack   [libart.so] 4339544
+    1 art::Thread::DumpStack const   [libart.so] 5868808
+    2 art::DumpCheckpoint::Run   [libart.so] 5867940
+    3 art::ThreadList::RunCheckpoint   [libart.so] 3030548
+    4 art::ThreadList::Dump   [libart.so] 5859672
+    5 art::ThreadList::DumpForSigQuit   [libart.so] 5857004
+    6 art::Runtime::DumpForSigQuit   [libart.so] 9800548
+    7 art::SignalCatcher::HandleSigQuit   [libart.so] 9863700
+    8 art::SignalCatcher::Run   [libart.so] 5644972
+    9 __pthread_start   [libc.so] 541580
+   10 __start_thread   [libc.so] 485552
+== filo Jit thread pool worker thread 0 
+    0 syscall   [libc.so] 632540
+    1 art::ConditionVariable::WaitHoldingLocks   [libart.so] 2301748
+    2 art::ThreadPoolWorker::Run   [libart.so] 2301484
+    3 art::ThreadPoolWorker::Callback   [libart.so] 5643692
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo perfetto_hprof_listener 
+    0 read   [libc.so] 910212
+    1 void* std::__1::__thread_proxy[abi:nn220000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, ArtPlugin_Initialize::$_7>>   [libperfetto_hprof.so] 214464
+    2 __pthread_start   [libc.so] 541580
+    3 __start_thread   [libc.so] 485552
+== filo HeapTaskDaemon 
+    0 syscall   [libc.so] 632540
+    1 art::ConditionVariable::WaitHoldingLocks   [libart.so] 2301748
+    2 art::gc::TaskProcessor::RunAllTasks   [libart.so] 3643776
+    3 dalvik.system.VMRuntime.runHeapTasks Native method  [com.esotericircle.esoteric_circle] 
+    4 java.lang.Daemons$HeapTaskDaemon.runInternal Daemons.java 764 [com.esotericircle.esoteric_circle] 
+    5 java.lang.Daemons$Daemon.run Daemons.java 135 [com.esotericircle.esoteric_circle] 
+    6 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo binder:12696_1 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo binder:12696_2 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo 12696-ScoutStateMachine 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo ActivityHelper 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo binder:12696_3 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo Profile Saver 
+    0 syscall   [libc.so] 632540
+    1 art::ConditionVariable::WaitHoldingLocks   [libart.so] 2301748
+    2 art::ProfileSaver::RunProfileSaverThread   [libart.so] 5641736
+    3 __pthread_start   [libc.so] 541580
+    4 __start_thread   [libc.so] 485552
+== filo MiuiMonitorThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo ScrollPolicy 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo AppCustomScenariorHandler 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo Firebase Background Thread #0 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Background Thread #1 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Background Thread #2 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Background Thread #3 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo signaling_threa - 19026 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 3668740
+    4    [base.apk] 3672808
+    5    [base.apk] 3644280
+    6    [base.apk] 3640916
+    7    [base.apk] 3647100
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo worker_thread - 19024 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 3668716
+    4    [base.apk] 3672808
+    5    [base.apk] 3644280
+    6    [base.apk] 3640916
+    7    [base.apk] 3647100
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo OkHttp Dispatcher 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FileObserver 
+    0 read   [libc.so] 910212
+    1 android::android_os_fileobserver_observe   [libandroid_runtime.so] 2488972
+    2 android.os.FileObserver$ObserverThread.observe Native method  [com.esotericircle.esoteric_circle] 
+    3 android.os.FileObserver$ObserverThread.run FileObserver.java 116 [com.esotericircle.esoteric_circle] 
+== filo pool-5-thread-1 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo pool-25-thread-9 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo GoogleApiHandler 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo Firebase-Messaging-Init 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase-Messaging-Topics-Io 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo pool-25-thread-6 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo TAG 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FramePolicy 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo RenderThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::uirenderer::renderthread::RenderThread::threadLoop   [libhwui.so] 6320224
+    3 android::Thread::_threadLoop   [libutils.so] 229064
+    4 libutil_thread_trampoline   [libutils.so] 244948
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo AICollector 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo network_thread - 19019 
+    0 __epoll_pwait   [libc.so] 920072
+    1    [base.apk] 3634612
+    2    [base.apk] 3633660
+    3    [base.apk] 3644280
+    4    [base.apk] 3640916
+    5    [base.apk] 3647100
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo flutter-worker-8 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-3 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo flutter-worker-10 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo LKAudioSwitchThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo ConscryptStatsLogWriter 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 com.android.org.conscrypt.metrics.StatsLogImpl.lambda$startWriterThread$0 StatsLogImpl.java 116 [com.esotericircle.esoteric_circle] 
+    8 com.android.org.conscrypt.metrics.StatsLogImpl.$r8$lambda$pJ0gOTL71EVYqteP615v2LjImTM unavailable  [com.esotericircle.esoteric_circle] 
+    9 com.android.org.conscrypt.metrics.StatsLogImpl$$ExternalSyntheticLambda0.run unavailable 2 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1100 [com.esotericircle.esoteric_circle] 
+   11 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo binder:12696_6 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo MessengerIpcClient 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FramePredictInitTh 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo hwuiTask0 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, android::uirenderer::CommonPool::CommonPool::$_0>>   [libhwui.so] 8042796
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo hwuiTask1 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, android::uirenderer::CommonPool::CommonPool::$_0>>   [libhwui.so] 8042796
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo binder:12696_4 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo FirestoreWorker 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 276 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos AbstractQueuedSynchronizer.java 1803 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1182 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    8 com.google.firebase.firestore.util.AsyncQueue$SynchronizedShutdownAwareExecutor$DelayedStartFactory.run AsyncQueue.java 235 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo ConnectivityThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-7 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo flutter-worker-9 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo flutter-worker-11 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase-Messaging-Task 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo queued-work-looper 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo TokenRefresher 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo OkHttp Dispatcher 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #5 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo AsyncTask #1 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 458 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.take SynchronousQueue.java 318 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo ExoPlayer:BackgroundExecutor 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo ExoPlayer:Playback 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo binder:12696_5 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo ExoPlayer:Loader:ProgressiveMediaPeriod 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo LKAudioSwitchThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo 1.raster 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 ALooper_pollOnce   [libandroid.so] 153492
+    3    [base.apk] 5168564
+    4    [base.apk] 5160188
+    5    [base.apk] 5159692
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo AudioPortEventHandler 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo SurfaceSyncGroupTimer 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo GoogleApiHandler 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo ProcessStablePhenotypeFlag 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo OkHttp Dispatcher 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo FirebaseInstanceId 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1170 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+   10 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   11 com.google.android.gms.common.util.concurrent.zza.run zza.java 2 [com.esotericircle.esoteric_circle] 
+   12 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-4 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo MediaCodec_looper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 android::ALooper::loop   [libstagefright_foundation.so] 122056
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo Firebase Lite Thread #3 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #1 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #2 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #0 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #4 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #6 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Firebase Lite Thread #7 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.park LockSupport.java 376 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block AbstractQueuedSynchronizer.java 520 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ForkJoinPool.unmanagedBlock ForkJoinPool.java 3797 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ForkJoinPool.managedBlock ForkJoinPool.java 3738 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1752 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.LinkedBlockingQueue.take LinkedBlockingQueue.java 435 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    9 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+   10 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   11 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo HwBinder:12696_1 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::hardware::IPCThreadState::joinThreadPool   [libhidlbase.so] 740492
+    3 android::hardware::PoolThread::threadLoop   [libhidlbase.so] 740184
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo DefaultDispatcher-worker-8 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo ExoPlayer:MediaCodecAsyncAdapter:Video 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo MediaCodec_looper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 android::ALooper::loop   [libstagefright_foundation.so] 122056
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo BatterynotifierHandler 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 android::ALooper::loop   [libstagefright_foundation.so] 122056
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo ExoPlayer:MediaCodecAsyncAdapter:Audio 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo TouchPolicy 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo Firebase Blocking Thread #6 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0 CustomThreadFactory.java 47 [com.esotericircle.esoteric_circle] 
+   10 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo Okio Watchdog 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 276 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await AbstractQueuedSynchronizer.java 1892 [com.esotericircle.esoteric_circle] 
+    3 okio.AsyncTimeout$Companion.awaitTimeout$okio AsyncTimeout.java 308 [com.esotericircle.esoteric_circle] 
+    4 okio.AsyncTimeout$Watchdog.run AsyncTimeout.kt 186 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-6 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-5 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo RecordThread-null 
+    0 syscall   [libc.so] 632540
+    1 android::ClientProxy::obtainBuffer   [libaudioclient.so] 978020
+    2 android::AudioRecord::obtainBuffer   [libaudioclient.so] 544204
+    3 android::AudioRecord::read   [libaudioclient.so] 563680
+    4 int android_media_AudioRecord_readInArray<_jshortArray*>   [libandroid_runtime.so] 2170180
+    5 android.media.AudioRecord.native_read_in_short_array Native method  [com.esotericircle.esoteric_circle] 
+    6 android.media.AudioRecord.read AudioRecord.java 1923 [com.esotericircle.esoteric_circle] 
+    7 android.media.AudioRecord.read AudioRecord.java 1875 [com.esotericircle.esoteric_circle] 
+    8 com.llfbandit.record.record.PCMReader.read PCMReader.kt 57 [com.esotericircle.esoteric_circle] 
+    9 com.llfbandit.record.record.recorder.RecordThread.startRecording$lambda$0 RecordThread.java 113 [com.esotericircle.esoteric_circle] 
+   10 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-2 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo OkHttp TaskRunner 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo DefaultDispatcher-worker-1 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.park CoroutineScheduler.kt 858 [com.esotericircle.esoteric_circle] 
+    3 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.tryPark CoroutineScheduler.kt 806 [com.esotericircle.esoteric_circle] 
+    4 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker CoroutineScheduler.kt 754 [com.esotericircle.esoteric_circle] 
+    5 kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run CoroutineScheduler.kt 707 [com.esotericircle.esoteric_circle] 
+== filo OkHttp TaskRunner 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo binder:12696_7 
+    0 __ioctl   [libc.so] 911816
+    1 ioctl   [libc.so] 519900
+    2 android::IPCThreadState::talkWithDriver   [libbinder.so] 874208
+    3 android::IPCThreadState::joinThreadPool   [libbinder.so] 873748
+    4 android::PoolThread::threadLoop   [libbinder.so] 980268
+    5 android::Thread::_threadLoop   [libutils.so] 229064
+    6 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    7 libutil_thread_trampoline   [libutils.so] 244948
+    8 __pthread_start   [libc.so] 541580
+    9 __start_thread   [libc.so] 485552
+== filo AudioRecord 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3 android::AudioRecord::AudioRecordThread::threadLoop   [libaudioclient.so] 539256
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo grpc-timer-0 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 276 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos AbstractQueuedSynchronizer.java 1803 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 1182 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take ScheduledThreadPoolExecutor.java 899 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1026 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    8 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo grpc-okhttp-0 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo AudioTrack 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3 android::AudioTrack::AudioTrackThread::threadLoop   [libaudioclient.so] 884048
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 android::AndroidRuntime::javaThreadShell   [libandroid_runtime.so] 1299724
+    6 libutil_thread_trampoline   [libutils.so] 244948
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo AudioTrackJavaThread 
+    0 syscall   [libc.so] 632540
+    1 android::ClientProxy::obtainBuffer   [libaudioclient.so] 978020
+    2 android::AudioTrack::obtainBuffer   [libaudioclient.so] 897752
+    3 android::AudioTrack::write   [libaudioclient.so] 951596
+    4 int writeToTrack<signed char>   [libandroid_runtime.so] 2293780
+    5 android_media_AudioTrack_write_native_bytes   [libandroid_runtime.so] 2266652
+    6 android.media.AudioTrack.native_write_native_bytes Native method  [com.esotericircle.esoteric_circle] 
+    7 android.media.AudioTrack.write AudioTrack.java 3559 [com.esotericircle.esoteric_circle] 
+    8 org.webrtc.audio.WebRtcAudioTrack$AudioTrackThread.run WebRtcAudioTrack.java 130 [com.esotericircle.esoteric_circle] 
+== filo VideoDecoderQue - 19240 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 3668740
+    4    [base.apk] 4351060
+    5    [base.apk] 3657180
+    6    [base.apk] 3656880
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo EglThread 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 android::android_os_MessageQueue_nativePollOnce   [libandroid_runtime.so] 2039084
+    3 android.os.MessageQueue.nativePollOnce Native method  [com.esotericircle.esoteric_circle] 
+    4 android.os.MessageQueue.nextLegacy MessageQueue.java 957 [com.esotericircle.esoteric_circle] 
+    5 android.os.MessageQueue.next MessageQueue.java 1099 [com.esotericircle.esoteric_circle] 
+    6 android.os.Looper.loopOnce Looper.java 217 [com.esotericircle.esoteric_circle] 
+    7 android.os.Looper.loop Looper.java 369 [com.esotericircle.esoteric_circle] 
+    8 android.os.HandlerThread.run HandlerThread.java 85 [com.esotericircle.esoteric_circle] 
+== filo IncomingVideoSt - 19241 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 3668740
+    4    [base.apk] 4351060
+    5    [base.apk] 3657180
+    6    [base.apk] 3656880
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo flutter-worker-4 
+    0 jdk.internal.misc.Unsafe.park Native method  [com.esotericircle.esoteric_circle] 
+    1 java.util.concurrent.locks.LockSupport.parkNanos LockSupport.java 417 [com.esotericircle.esoteric_circle] 
+    2 java.util.concurrent.LinkedTransferQueue$DualNode.await LinkedTransferQueue.java 452 [com.esotericircle.esoteric_circle] 
+    3 java.util.concurrent.SynchronousQueue$Transferer.xferLifo SynchronousQueue.java 194 [com.esotericircle.esoteric_circle] 
+    4 java.util.concurrent.SynchronousQueue.xfer SynchronousQueue.java 235 [com.esotericircle.esoteric_circle] 
+    5 java.util.concurrent.SynchronousQueue.poll SynchronousQueue.java 338 [com.esotericircle.esoteric_circle] 
+    6 java.util.concurrent.ThreadPoolExecutor.getTask ThreadPoolExecutor.java 1025 [com.esotericircle.esoteric_circle] 
+    7 java.util.concurrent.ThreadPoolExecutor.runWorker ThreadPoolExecutor.java 1086 [com.esotericircle.esoteric_circle] 
+    8 java.util.concurrent.ThreadPoolExecutor$Worker.run ThreadPoolExecutor.java 624 [com.esotericircle.esoteric_circle] 
+    9 java.lang.Thread.run Thread.java 1571 [com.esotericircle.esoteric_circle] 
+== filo mali-event-hand 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2    [libGLES_mali.so] 27688068
+    3    [libGLES_mali.so] 27703344
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo mali-mem-purge 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3 osup_sync_object_timedwait   [libGLES_mali.so] 29247132
+    4    [libGLES_mali.so] 27666652
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo mali-cpu-comman 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 sem_wait   [libc.so] 561436
+    3    [libGLES_mali.so] 27710420
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo ged-swd 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2 sync_wait   [libsync.so] 16492
+    3 ged_swd_handle_3D_fence_cb   [libged.so] 39936
+    4 ged_worker_thread   [libged.so] 37100
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo 1.io 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 ALooper_pollOnce   [libandroid.so] 153492
+    3    [base.apk] 5168564
+    4    [base.apk] 5160188
+    5    [base.apk] 5159692
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo io.worker.1 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.2 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo dart:io EventHa 
+    0 __epoll_pwait   [libc.so] 920072
+    1    [base.apk] 8965004
+    2    [base.apk] 9198328
+    3 __pthread_start   [libc.so] 541580
+    4 __start_thread   [libc.so] 485552
+== filo io.worker.1 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.2 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.3 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.4 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo mali-event-hand 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2    [libGLES_mali.so] 27688068
+    3    [libGLES_mali.so] 27703344
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo mali-mem-purge 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3 osup_sync_object_timedwait   [libGLES_mali.so] 29247132
+    4    [libGLES_mali.so] 27666652
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo IplrVkFenceWait 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 8602612
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo IplrVkResMgr 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 8630288
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo TracingMuxer 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2 perfetto::base::UnixTaskRunner::Run   [libperfetto_c.so] 347312
+    3 perfetto::base::ThreadTaskRunner::RunTaskThread   [libperfetto_c.so] 343416
+    4 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , perfetto::base::ThreadTaskRunner*, std::__1::function<void >>>   [libperfetto_c.so] 344504
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo HWC release 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::gui::FenceMonitor::threadLoop   [libgui.so] 2484388
+    5 android::gui::FenceMonitor::loop   [libgui.so] 2488176
+    6 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , android::gui::FenceMonitor*>>   [libgui.so] 2540280
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo mali-compiler 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [libGLES_mali.so] 27944180
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo 2.raster 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 ALooper_pollOnce   [libandroid.so] 153492
+    3    [base.apk] 5168564
+    4    [base.apk] 5160188
+    5    [base.apk] 5159692
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo 2.io 
+    0 __epoll_pwait   [libc.so] 920072
+    1 android::Looper::pollOnce   [libutils.so] 218252
+    2 ALooper_pollOnce   [libandroid.so] 153492
+    3    [base.apk] 5168564
+    4    [base.apk] 5160188
+    5    [base.apk] 5159692
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo io.worker.1 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.2 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.3 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo io.worker.4 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 5142852
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo mali-event-hand 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2    [libGLES_mali.so] 27688068
+    3    [libGLES_mali.so] 27703344
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo mali-mem-purge 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 sem_wait   [libc.so] 561436
+    3    [libGLES_mali.so] 27666612
+    4 __pthread_start   [libc.so] 541580
+    5 __start_thread   [libc.so] 485552
+== filo IplrVkFenceWait 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 8602612
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo IplrVkResMgr 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3    [base.apk] 5072620
+    4    [base.apk] 8630288
+    5 __pthread_start   [libc.so] 541580
+    6 __start_thread   [libc.so] 485552
+== filo GPU completion 
+    0 __ppoll   [libc.so] 920648
+    1 poll   [libc.so] 531756
+    2 sync_wait   [libsync.so] 16492
+    3 android::Fence::waitForever   [libui.so] 482108
+    4 android::gui::FenceMonitor::threadLoop   [libgui.so] 2483916
+    5 android::gui::FenceMonitor::loop   [libgui.so] 2488176
+    6 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , android::gui::FenceMonitor*>>   [libgui.so] 2540280
+    7 __pthread_start   [libc.so] 541580
+    8 __start_thread   [libc.so] 485552
+== filo CodecLooper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 android::ALooper::loop   [libstagefright_foundation.so] 122056
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 libutil_thread_trampoline   [libutils.so] 244948
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo CCodecWatchdog 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 android::ALooper::loop   [libstagefright_foundation.so] 122056
+    4 android::Thread::_threadLoop   [libutils.so] 229064
+    5 libutil_thread_trampoline   [libutils.so] 244948
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo TimerThread 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::videorecoverytimer::TimerThread::MonitorThread::threadFunc   [libvideorecovery.so] 44216
+    5 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, android::videorecoverytimer::TimerThread::MonitorThread::MonitorThread::$_0>>   [libvideorecovery.so] 46504
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo CodecLooper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl::invalidatorThread   [libstagefright_bufferpool@2.0.1.so] 127836
+    5 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , std::__1::reference_wrapper<std::__1::map<unsigned int, std::__1::weak_ptr<android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl> const, std::__1::less<unsigned int>, std::__1::allocator<std::__1::pair<unsigned int const, std::__1::weak_ptr<android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl> const>>>>, std::__1::reference_wrapper<std::__1::mutex>, std::__1::reference_wrapper<std::__1::condition_variable>, std::__1::reference_wrapper<bool>>>   [libstagefright_bufferpool@2.0.1.so] 129472
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo CodecLooper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl::evictorThread   [libstagefright_bufferpool@2.0.1.so] 129852
+    5 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , std::__1::reference_wrapper<std::__1::map<std::__1::weak_ptr<android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl> const, long, std::__1::owner_less<void>, std::__1::allocator<std::__1::pair<std::__1::weak_ptr<android::hardware::media::bufferpool::V2_0::implementation::Accessor::Impl> const, long>>>>, std::__1::reference_wrapper<std::__1::mutex>, std::__1::reference_wrapper<std::__1::condition_variable>>>   [libstagefright_bufferpool@2.0.1.so] 130784
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo CodecLooper 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::::SurfaceCallbackHandler::run   [libsfplugin_ccodec.so] 928688
+    5 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , android::::SurfaceCallbackHandler*>>   [libsfplugin_ccodec.so] 929436
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo blastAsyncWork 
+    0 syscall   [libc.so] 632540
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_wait   [libc.so] 537928
+    3 std::__1::condition_variable::wait   [libc++.so] 659240
+    4 android::AsyncWorker::run   [libgui.so] 2269616
+    5 void* std::__1::__thread_proxy[abi:nn200000]<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct>>, void , android::AsyncWorker*>>   [libgui.so] 2492568
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo <unknown> 
+== filo DartWorker 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 9285800
+    4    [base.apk] 10074252
+    5    [base.apk] 9935096
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo DartWorker 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 9285800
+    4    [base.apk] 10074252
+    5    [base.apk] 9935096
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo DartWorker 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 9285800
+    4    [base.apk] 10074252
+    5    [base.apk] 9935096
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo DartWorker 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 9285800
+    4    [base.apk] 10074252
+    5    [base.apk] 9935096
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552
+== filo DartWorker 
+    0 syscall   [libc.so] 632544
+    1 __futex_wait_ex   [libc.so] 480560
+    2 pthread_cond_timedwait   [libc.so] 538116
+    3    [base.apk] 9285800
+    4    [base.apk] 10074252
+    5    [base.apk] 9935096
+    6 __pthread_start   [libc.so] 541580
+    7 __start_thread   [libc.so] 485552

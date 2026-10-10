@@ -1,0 +1,52 @@
+ORDINE EX AGGIUNTA 6, I MINUTI DEL LIVE E LE DESCRIZIONI DEI PIANI. 3 ottobre 2026.
+
+DOMANDA: "Si fammi aggiunta ordine con aumento limiti di minuti. Ci saranno da cambiare anche le descrizione degli abbonamenti"
+E poi, durante il lavoro: "I testi degli store lasciali stare: i prodotti negli store non esistono ancora. Per il punto 2 dell'EX Aggiunta 6 conta solo l'app: ogni descrizione dei piani nel menù e nelle altre schermate deve dire i numeri della matrice (domande 3, 12, 18, 22 al giorno; minuti di LIVE 0, 0, 80, 150 al mese), con le catture dal Realme."
+
+1. I MINUTI DEL LIVE AL MESE
+Prima 0 / 0 / 60 / 120 (Viandante, Iniziato, Adepto, Illuminato), dopo 0 / 0 / 80 / 150.
+- La matrice dell'app: lib/core/entitlement/plan_catalog.dart, riga "Minuti di LIVE", da "60 al mese" e "120 al mese" a "80 al mese" e "150 al mese".
+- Il server: functions/src/live.ts, MINUTI_DEL_MESE, tier2 da 60 a 80 e tier3 da 120 a 150. Il ripiego dei minuti dei fondatori (configurazione/live.minutiDeiFondatori, quando il campo manca) segue il tetto dell'Illuminato e diventa 150 da se'.
+- Il conto dei minuti gia' usati nel mese non cambia: ilContoDeiMinuti e secondiRimasti sono gli stessi; cambia solo il tetto da cui si sottraggono i secondi usati.
+- Le prove del server (functions/src/live.test.ts) seguono i numeri nuovi: i minuti rimasti dell'Adepto dopo tre sessioni (4800 - 736 secondi), il mese finito dell'Illuminato (9100 secondi usati su 9000), la tavola dei minuti {0, 0, 80, 150}. npm test: 153 su 153.
+- La guardia che confronta server e matrice (test/i_limiti_del_server_sono_quelli_promessi_test.dart) vista rossa prima di toccare live.ts (B27), verde dopo.
+
+2. OGNI POSTO DELL'APP CHE DESCRIVE UN PIANO O UN LIMITE
+Ricognizione su tutto lib (grep dei numeri vicino a "minuti", "domande", "al giorno", "al mese" e dei nomi dei piani):
+- Le card dei piani (schermata dei piani, aperta dal menu' account e da ogni invito all'upgrade): lib/core/entitlement/plan_catalog.dart, PlanCatalog.plans. Due frasi con un numero diverso dalla matrice nuova: l'Adepto "Voce AI dei tre Maestri nel LIVE, 60 minuti al mese" e l'Illuminato "Voce AI dei tre Maestri nel LIVE, 120 minuti al mese". Cambiato solo il numero: 80 e 150. Le frasi delle domande dicevano gia' 3 ("Tre domande al giorno a un Maestro, senza memoria"), 12, 18 e 22.
+- La tabella del confronto fra i piani: la stessa matrice (FeatureRow "Minuti di LIVE" e "Domande ai Maestri"), che e' la fonte dei limiti; cambiata la riga dei minuti, quella delle domande era gia' 3/12/18/22.
+- Gli inviti quando finiscono le domande (PlanCatalog.promessaDomande) e i minuti del LIVE (PlanCatalog.minutiDelLiveAlMese, usato dalla porta del LIVE): leggono il numero dalla matrice, non lo scrivono.
+- Il foglio di chi non ha il LIVE (lib/features/maestri/chat/widgets/la_porta_del_vivo.dart): nomina il piano dell'Adepto, nessun numero.
+- L'avviso del LIVE quando i minuti finiscono (lib/features/maestri/live/stato_della_schermata_live.dart, "Ho chiuso la voce per non consumare i tuoi minuti."): nessun numero; i minuti rimasti arrivano dal server.
+Posti con un numero diverso dalla matrice: prima 2 (le due frasi delle card) piu' il server (live.ts), dopo 0.
+La guardia nuova test/le_card_dei_piani_dicono_i_numeri_della_matrice_test.dart pretende che ogni frase delle card sulle domande o sui minuti del LIVE dica il numero della matrice (nata rossa con le frasi di prima, 3 numeri diversi, A27; verde con 0).
+
+INCOERENZE DIVERSE DAI NUMERI (per il fondatore, nessuna toccata)
+- Nessuna trovata nelle frasi che nominano domande e minuti.
+
+I TESTI DEGLI STORE
+Lasciati stare per decisione del fondatore: i prodotti negli store non esistono ancora.
+
+3. LE FUNZIONI DEL SERVER DA RIPUBBLICARE
+Una sola: apriUnaSessioneLive, l'unica che legge MINUTI_DEL_MESE (functions/src/live.ts, il tetto dei minuti all'apertura della sessione). Le altre funzioni del LIVE (statoDellaSessioneLive, chiudiLaSessioneLive e le voci) non leggono il tetto.
+Il comando, da PowerShell, nella cartella della copia di lavoro del fondatore, dopo aver preso il ramo:
+  cd C:\Users\user\Desktop\esoteric-circle-app
+  git pull
+  firebase deploy --only functions:apriUnaSessioneLive
+Code non pubblica le funzioni: l'elenco e il comando vanno al fondatore, che conferma.
+Finche' la funzione non e' ripubblicata, il server dice ancora 60 e 120 minuti e le card ne promettono 80 e 150.
+Pubblicata dal fondatore il 4 ottobre 2026 alle 01:02 (23:02 UTC del 3), da PowerShell nella copia di lavoro di Code al commit f414b0f6: "Deploy complete!", apriUnaSessioneLive(europe-west1) "Successful update operation"; gcloud functions describe, in sola lettura: updateTime 2026-10-03T23:02:12Z, stato ACTIVE, nodejs22. Da qui il server concede 80 e 150 minuti. Il primo tentativo del fondatore dalla sua copia sul Desktop si era fermato prima di pubblicare: il git pull rifiutato per file suoi modificati e nuovi, poi "tsc" non riconosciuto; nulla pubblicato da li'.
+
+4. IL COSTO AL MESE AL MASSIMO, COI MINUTI NUOVI
+Senza cache, LIVE compreso (0,0213 dollari al minuto, EW.07), rune dal corpus, 30 giorni: tool/i_conti_del_costo_ex.py, uscita in docs/costi/i_conti_del_costo_ex.txt.
+Le domande e i tocchi del "Vai più a fondo" vengono dal giro piu' caro dei tre giri finali del banco della qualita' col codice consegnato (GIRO_DOPO=ag5_finale1: una domanda a freddo 0,00428 dollari, 1,38 chiamate per risposta).
+- Iniziato: 1,91 dollari (tetto 2,36), il LIVE non c'e'.
+- Adepto: 4,58 dollari (tetto 4,72), di cui LIVE 1,70 (80 minuti; con 60 erano 1,28).
+- Illuminato: 6,93 dollari (tetto 7,08), di cui LIVE 3,19 (150 minuti; con 120 erano 2,56).
+Adepto e Illuminato sotto il tetto: 2 su 2 (anche l'Iniziato, 3 su 3). Il margine che resta e' di 0,14 e 0,15 dollari al mese, circa una domanda e mezza al giorno.
+Il documento del costo: docs/costi/costo_per_utente_dopo_ex.md, sezione "Dopo le EX Aggiunte 5 e 6".
+
+DOMANDA: "Si fammi aggiunta ordine con aumento limiti di minuti. Ci saranno da cambiare anche le descrizione degli abbonamenti"
+PROVA: docs/collaudo/EX/minuti_e_descrizioni.txt
+MISURA: minuti del LIVE al mese, prima 0/0/60/120, dopo 0/0/80/150 nella matrice e nel server; posti dell'app con un numero diverso dalla matrice, prima 2 frasi delle card (piu' il server), dopo 0; testi degli store lasciati stare per decisione del fondatore; costo al mese al massimo, Adepto 4,58 e Illuminato 6,93 dollari, sotto il tetto 2 su 2.
+LE CATTURE DAL REALME delle card dei piani e della tabella del confronto, build 2295: docs/collaudo/EX/realme/ag6_piani_01 ... ag6_piani_08, descritte in docs/collaudo/EX/realme/ex12_e_piani_2295.txt. A video: Viandante "Tre domande al giorno", Iniziato 12, Adepto 18 domande e 80 minuti, Illuminato 22 domande e 150 minuti; nella tabella 3/12/18/22 al giorno e No/No/80/150 al mese.

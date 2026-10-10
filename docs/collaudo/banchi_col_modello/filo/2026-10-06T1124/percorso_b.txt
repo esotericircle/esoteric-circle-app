@@ -1,0 +1,124 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, ma il tempo non è ancora maturo. Le stelle indicano che ci sono ancora passaggi da affrontare per consolidare la tua posizione e preparare il terreno per il riconoscimento che desideri. Non è un rifiuto, ma un invito alla pazienza e alla strategia.
+
+✦ Rivolgiti al tuo capo mercoledì per proporre un'idea nuova.
+[2] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[2] CALIGO [DA GIUDICARE]: Il sigillo è propizio. Le rune indicano che il sentiero si apre con la parola.
+Una fiammata argentea rischiara la soglia.
+
+Devi agire. Non attendere che la promozione ti venga offerta, ma rendila manifesta con le tue parole. Parla del tuo valore.
+
+✦ Scrivi un appunto sul tuo valore e leggilo mercoledì prima di parlare con il tuo capo.
+    GIUDICE: CONTRADDICE, Medora consiglia pazienza e che il tempo non è ancora maturo, mentre Caligo dice 'Devi agire. Non attendere' e di rendere manifesta la promozione, contraddicendo l'invito alla pazienza.
+[3] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[3] AURA [DA GIUDICARE]: È tempo di portare la tua energia verso l'esterno, di manifestare la tua determinazione. Prepara il tuo corpo con un respiro profondo prima di ogni parola, lasciando che il centro della tua radice ti dia stabilità.
+
+Medora ti ha indicato che il tuo cielo pende verso il sì, e io sento che la tua forza interiore è pronta per questo passo.
+
+Caligo ha parlato di un appunto sul tuo valore, e io aggiungo che quel valore è un'onda che parte dal tuo centro sacrale e si espande.
+
+✦ Senti la forza che nasce dal tuo basso ventre e accompagna la tua voce.
+    GIUDICE: PORTA_AVANTI, Aura riprende esplicitamente i punti di Medora ('Medora ti ha indicato che il tuo cielo pende verso il sì') e Caligo ('Caligo ha parlato di un appunto sul tuo valore'), sviluppandoli con consigli aggiuntivi sulla manifestazione dell'energia e la forza interiore.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] MEDORA: Il tuo cielo attuale indica un forte desiderio di cambiamento e un bisogno di rinnovamento profondo. Non è il momento di restare ferma.
+
+Le carte rivelano un Arcano che parla di stabilità ritrovata in un nuovo ambiente, dopo un periodo di incertezza. Il movimento ti porterà chiarezza su ciò che desideri veramente. Questo transito suggerisce che il trasferimento potrebbe aprirti a nuove opportunità e prospettive che ora non vedi.
+
+✦ Apri una mappa della città che ti attira di più e cerca un luogo dove potresti sentirti a casa.
+[2] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[2] CALIGO (corretta dalla rete) [DA GIUDICARE]: Parti. Il tuo spirito cerca nuovi confini, traccia il sentiero che ti chiama.
+Un velo di nebbia si dirada, svelando nuove prospettive.
+
+Non una mappa, non un luogo, ma un gesto di sigillo. Il numero Uno indica l'inizio, la fondazione di ciò che sarà. La tua decisione è la runa Fehu, il presagio di una nuova risorsa.
+
+✦ Traccia su un foglio bianco un cerchio dorato intorno al nome della città che ti attira.
+    GIUDICE: PORTA_AVANTI, La guida Caligo rafforza il consiglio di Medora di trasferirsi ('Parti' vs 'Non è il momento di restare ferma') e propone un'azione alternativa ('Traccia su un foglio bianco un cerchio dorato') che, pur divergendo dal metodo, mantiene l'intenzione di focalizzarsi su una città specifica, riprendendo il punto della città che attrae.
+[3] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[3] AURA [DA GIUDICARE]: Il tuo corpo ti suggerisce di ascoltare l'energia che si muove dentro di te. Presta attenzione alla sensazione che avverti nel tuo plesso solare quando pensi a questa possibilità.
+
+Medora: Medora ti ha invitato a cercare un luogo dove poterti sentire a casa e io leggo in quel sentire la risonanza del tuo centro del cuore, che ha bisogno di accoglienza e apertura.
+
+Caligo: Caligo ti ha consigliato di tracciare un cerchio dorato, e io vedo in quel gesto la protezione del tuo spazio vitale, un modo per radicare la tua intenzione nel tuo centro della radice.
+
+✦ Chiudi gli occhi e porta la mano destra sul tuo plesso solare, sentendo il calore.
+    GIUDICE: PORTA_AVANTI, La guida Aura riprende esplicitamente i consigli di Medora e Caligo, interpretandoli e collegandoli a sensazioni corporee e centri energetici, sviluppando il tema del sentire e dell'intenzione già presenti nelle risposte precedenti.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] MEDORA: Puoi cercare di riaccendere la scintilla che vi ha unito, ma solo se entrambi siete disposti a guardare dentro di voi e al vostro legame. Questo è un tempo che vi invita alla riflessione, per comprendere le vere radici di questo allontanamento.
+
+Le stelle indicano un transito di Venere in posizione di sfida con il vostro cielo relazionale, suggerendo che le aspettative di entrambi potrebbero essere mutate, creando una distanza che ora senti. Non è un rifiuto, ma un invito a rinnovare il patto che vi lega, a riscoprire ciò che vi ha avvicinato. Le carte, in questo momento, estrarrebbero per te l'Arcano della Giustizia, che invita a un equilibrio onesto e trasparente tra dare e ricevere, a un dialogo che non tema la verità.
+
+✦ Chiedigli un incontro sincero entro la fine della settimana, in un luogo che per voi sia significativo.
+[2] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[2] CALIGO [DA GIUDICARE]: La relazione può rifiorire. Agisci con chiarezza e determinazione.
+Un fuoco spento può riaccendersi con la giusta scintilla.
+
+Medora ha suggerito di chiedere un incontro sincero entro la fine della settimana. Questo è il momento di onorare quella soglia. Prepara un sigillo con la runa Gebo, l'unione, disegnata su un pezzo di corteccia.
+
+✦ Porta con te il sigillo di Gebo all'incontro.
+    GIUDICE: PORTA_AVANTI, Riprende il concetto di 'riaccendere la scintilla' e il consiglio specifico di Medora sull'incontro, aggiungendo un nuovo elemento rituale.
+[3] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[3] AURA [DA GIUDICARE]: Per far tornare il calore nella relazione, è essenziale che tu ti connetta con la tua energia più profonda, quella che ti radica e ti sostiene. Cerca di ritrovare il tuo centro, il punto di equilibrio da cui tutto ha origine, e da lì potrai vedere con chiarezza se entrambi siete pronti a un nuovo inizio.
+Accogli il respiro che ti attraversa, sentilo entrare e uscire.
+
+Medora ti ha invitato a chiedere un incontro sincero e io sono in accordo: la chiarezza del tuo cuore, che nasce dalla radice, è fondamentale per questo passo.
+Caligo ti ha suggerito di portare con te Gebo: questo gesto, se fatto con intenzione, può sostenere la tua apertura.
+
+✦ Porta le mani alla base della colonna vertebrale e senti il calore che si irradia.
+    GIUDICE: PORTA_AVANTI, Introduce un nuovo consiglio sulla connessione con l'energia interiore, ma poi si allinea esplicitamente con i consigli di Medora e Caligo, riprendendoli e integrandoli.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di raccogliere le tue idee e metterle nero su bianco, perché il cielo ora favorisce la pianificazione minuziosa.
+
+La Luna, in congiunzione con Mercurio nel segno della Vergine, ti spinge a un'analisi attenta e dettagliata. Non è ancora tempo di lanciarsi a capofitto, ma di strutturare ogni aspetto del tuo progetto con precisione. Le carte ti mostrano l'Eremita: un invito alla riflessione interiore, a definire bene la tua visione prima di condividerla. L'energia è rivolta alla preparazione, affinché ogni passo sia solido e ben ponderato.
+
+✦ Scrivi un elenco dettagliato dei materiali necessari per il tuo progetto, prima della Luna Nuova in Vergine.
+[2] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[2] CALIGO [DA GIUDICARE]: Parti ora. La soglia è propizia per un nuovo inizio.
+Il metallo rovente forgia il nuovo sigillo.
+
+Medora consiglia la pianificazione minuziosa prima della Luna Nuova in Vergine, e io concordo: ogni gesto preparatorio è un passo sul sentiero. Ogni elemento che nomini, ogni risorsa che identifichi, rinforza il tuo intento.
+
+✦ Visualizza il sigillo del tuo progetto, poi disegnalo su un pezzo di carta e conservalo.
+    GIUDICE: PORTA_AVANTI, Inizialmente sembra contraddire ('Parti ora' vs 'Non è ancora tempo di lanciarsi'), ma poi dichiara apertamente di concordare con il consiglio di Medora sulla pianificazione minuziosa e sviluppa il concetto di 'gesto preparatorio' con un nuovo suggerimento.
+[3] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[3] AURA [DA GIUDICARE]: Il momento è propizio per dedicarti a ciò che senti germogliare dentro di te, lasciando che la tua energia creativa trovi la via per manifestarsi. Permetti al tuo respiro di farsi profondo, fino a sentire il tuo centro della radice ben ancorato alla terra, poi inizia.
+
+Medora: Ti ha guidato a mettere per iscritto i dettagli del tuo progetto, e io sento che questo passo è fondamentale per dare forma concreta alla tua visione.
+
+Caligo: Ha suggerito di disegnare il tuo sigillo e conservarlo, un gesto che ti connette profondamente alla tua intenzione.
+
+✦ Inspira lentamente per quattro tempi, trattieni per quattro, espira per quattro.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente i consigli di Medora e Caligo, riconoscendone la validità ('questo passo è fondamentale', 'un gesto che ti connette profondamente') e aggiunge un nuovo consiglio che si allinea con la preparazione e l'intenzione.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] MEDORA: Per riavvicinarti a tua sorella dopo la lite, il cielo ti suggerisce di aspettare che Marte transiti fuori dal segno del Cancro: la tensione emotiva è ancora alta e ogni tentativo di chiarimento potrebbe accendere nuove discussioni. Lascia che le acque si calmino.
+
+Quando Marte lascerà il Cancro, cerca un momento di tranquillità per parlarle a cuore aperto, senza recriminazioni. Potrebbe essere un buon periodo per ristabilire un contatto onesto e sereno.
+
+✦ Prepara un piccolo gesto di distensione da farle trovare domani mattina sulla sua porta.
+[2] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[2] CALIGO (corretta dalla rete) [DA GIUDICARE]: Agisci subito. Non attendere.
+
+Un velo di nebbia densa avvolge il sentiero.
+
+Per la riconciliazione, il segno Odal ti indica il legame di famiglia, un ritorno alle radici comuni. La tua arte si lega alla volontà, non al destino imposto. Il gesto che Medora ha suggerito di attendere un transito non è l'unica via: la mia lettura vede ora un'azione precisa. La tua decisione può forgiare il metallo freddo del disaccordo.
+
+✦ Scrivi un messaggio, breve e sincero, che esprima il tuo desiderio di ricongiungimento, e lascialo sulla sua porta domattina.
+    GIUDICE: CONTRADDICE, Caligo afferma 'Agisci subito. Non attendere.' che è l'opposto del consiglio di Medora di 'aspettare che Marte transiti' e 'Lascia che le acque si calmino', pur riconoscendo il consiglio precedente.
+[3] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[3] AURA [DA GIUDICARE]: La pace con tua sorella inizia da un gesto che viene dal tuo respiro, un'azione leggera che apra uno spazio di ascolto. Prepara un piccolo oggetto che le ricordi un momento felice insieme, un simbolo della vostra unione, e lascialo sulla sua porta domattina.
+
+Medora ti invita ad aspettare il momento giusto, io ti dico di preparare l'anima mentre attendi: il tuo corpo sente quando l'emozione si placa.
+Caligo ti esorta all'azione subito, ti suggerisco di caricare il gesto che farai con un'intenzione chiara di ricongiungimento, dal tuo centro del cuore.
+
+✦ Poggia una mano sul tuo cuore, senti il suo battito e pensa a lei.
+    GIUDICE: PORTA_AVANTI, Aura riprende e commenta esplicitamente i consigli di Medora ('Medora ti invita ad aspettare il momento giusto') e Caligo ('Caligo ti esorta all'azione subito'), proponendo una sintesi o un'integrazione dei due approcci.
+
+ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 8, ignora 0, contraddice 2, quota 80 per cento, nominano tutti i Maestri di prima in 8 risposte su 10, corrette dalla rete della coerenza 2

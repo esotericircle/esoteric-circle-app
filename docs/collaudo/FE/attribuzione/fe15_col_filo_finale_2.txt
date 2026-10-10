@@ -1,0 +1,61 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Modo: col filo di un altro Maestro (ordine FE voce 15).
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell: HTTP 429: {
+Shell:   "error": {
+Shell:     "code": 429,
+Shell:     "message": "Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.",
+Shell:     "status": "RESOURCE_EXHAUSTED"
+Shell:   }
+Shell: }
+Shell: 
+Shell:   41/60
+Shell:   47/60
+Shell:   53/60
+Shell:   59/60
+Shell: FE.14 medora: nomina Aura in 19 risposte su 20
+Shell: FE.14 aura: nomina Caligo in 18 risposte su 19
+Shell: FE.14 caligo: nomina Medora in 13 risposte su 20
+Shell: Faccio giudicare 59 risposte...
+Shell:   6/59
+Shell:   12/59
+Shell:   18/59
+Shell:   24/59
+Shell:   30/59
+Shell:   36/59
+Shell:   42/59
+Shell:   48/59
+Shell:   54/59
+Shell:   59/59
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         20        0        0       20   100.0%
+Shell: aura            0       18        1       19    94.7%
+Shell: caligo          0        1       19       20    95.0%
+Shell: 
+Shell: Attribuzione corretta: 57 su 59, cioe' 96.6 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- aura: 1 risposte attribuite ad altri
+Shell:   [creduto caligo] domanda: non riesco a lasciare andare
+Shell:      prima frase: Il tuo
+Shell: --- caligo: 1 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: ho perso la direzione
+Shell:      prima frase: Non fermare il tuo passo.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 98, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 4
+Shell: aura     frasi contate 98, frase mediana 19.5 parole, domande 0, parole che ammorbidiscono 4
+Shell: caligo   frasi contate 118, frase mediana 10.0 parole, domande 0, parole che ammorbidiscono 2
+01:07 +1: All tests passed!
+uscita 0

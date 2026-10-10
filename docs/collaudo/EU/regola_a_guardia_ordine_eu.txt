@@ -1,0 +1,3 @@
+REGOLA A, ordine EU, 1 ottobre 2026: la guardia dell ordine vista rossa.
+INNESTO G1 una voce tolta dal manifesto EU: grep del difetto nel file SI; prova test/ordine_eu_guard_test.dart ROSSA; file rimesso sha1 4a355eca0f40 -> 4a355eca0f40 IDENTICO
+INNESTO G2 una riga prosegue tolta dal manifesto ES: grep del difetto nel file SI; prova test/ordine_eu_guard_test.dart ROSSA; file rimesso sha1 9acf1b2dd505 -> 9acf1b2dd505 IDENTICO

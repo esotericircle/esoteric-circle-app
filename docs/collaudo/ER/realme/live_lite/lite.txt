@@ -1,0 +1,44 @@
+ORDINE ER VOCE 11: IL VOLTO DEL LIVE IN QUALITA' LITE, build 2286, Realme 767f596c, 28 settembre 2026
+
+Il cambio lo ha fatto il fondatore: configurazione/live.qualita = "lite" (la sua cattura:
+Catture fondatore/ER/firestore_live_qualita_lite.jpg, fuori dal repository). Code non legge Firestore.
+Due sessioni con Caligo: 01:55 (cinque turni; al sesto la trascrizione e' tornata vuota due volte
+su una voce chiara e il LIVE si e' chiuso per silenzio, vedi sotto) e 02:06 (i cinque turni che mancavano).
+Domande mai fatte quel giorno a Caligo, dette da Elsa dalle casse del PC, come nella misura in standard.
+Turni misurati 10; la chat ha risposto in 1408..3020 ms: il modello c'era sempre.
+
+"il Maestro si sente": mediana 5300 ms, valori [4871, 4902, 4907, 4971, 5151, 5449, 6494, 6576, 7030, 7461]
+"il volto parla": mediana 5620 ms, valori [5360, 5431, 5451, 5463, 5467, 5773, 6513, 6962, 7485, 8121]
+Qualita' standard, build 2285, 27 settembre (standard.txt): si sente 5146 ms, il volto parla 5529 ms.
+Riferimento dell'ordine (build di prova EQ 3): si sente 5710 ms, il volto parla 6226 ms.
+"dalla risposta al primo audio al volto": mediana in lite 40 ms, valori [1, 2, 3, 34, 39, 40, 54, 93, 198, 600];
+  in standard 354 ms, valori [183, 210, 292, 322, 337, 370, 529, 584, 610, 625] (live_er13_registro.txt); ordine EQ, terza build: 373 ms.
+
+IL VIDEO RICEVUTO (righe LIVE VIDEO, a 8 e 25 secondi dall'apertura):
+LIVE VIDEO: ricevuto 256x256 a 25.0 fps, cod  (01:55:49)
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, cod  (01:56:06)
+LIVE VIDEO: ricevuto 256x256 a 24.0 fps, cod  (02:06:13)
+LIVE VIDEO: ricevuto 512x512 a 25.0 fps, cod  (02:06:30)
+Medie WebRTC di fine sessione (WebRTC.Video.ReceivedWidthInPixels): 502 nella sessione dei turni
+delle 02:06, 457 nella sessione breve del saluto delle 02:11.
+In standard (27 settembre, 23:58, live_er13_registro.txt): 256x256 agli 8 secondi, 512x512 ai 25.
+Stesso andamento: la qualita' lite non cambia la risoluzione del video che arriva al telefono.
+Catture: er11_lite_volto_confronto.jpg (apertura, 384, 512), er11_lite_volto_caligo_apertura.jpg,
+er11_lite_volto_caligo_512.jpg.
+
+IL SESTO TURNO DELLA PRIMA SESSIONE (lite_registro.txt e il registro intero, 02:00:05-02:00:19): la
+voce e' arrivata forte (da -13 a -24 dB, parla true per 7,3 s), la trascrizione e' tornata vuota due
+volte, e il LIVE si e' chiuso "dopo 30 secondi di silenzio" quattordici secondi dopo che la persona
+aveva cominciato a parlare: 23 secondi di attesa dopo la risposta di prima piu' 7 dopo la frase non
+capita. La regola e' dell'ordine EJ voce 01 (una frase trascritta senza parole non e' presenza); il
+difetto e' la trascrizione vuota su una voce chiara, PROVENIENZA IGNOTA (il servizio di trascrizione).
+
+LA QUALITA' DELLA SESSIONE, dal registro delle funzioni (Cloud Logging, riga "LIVE aperto", campo qualita),
+letta il 28 settembre 2026 (orari UTC; in Italia +2):
+  2026-09-27T23:55:41.879168Z	caligo	lite   (01:55, prima sessione dei turni)
+  2026-09-28T00:06:05.783844Z	caligo	lite   (02:06, seconda sessione dei turni)
+  2026-09-28T00:11:16.463140Z	caligo	lite   (02:11, sessione breve del saluto, per le catture)
+Nella sessione delle 02:11: 384x384 agli 8 secondi (02:11:24), 512x512 ai 25 (02:11:41).
+
+Il giudizio sul volto in lite e' del fondatore, che lo prova sul telefono ("Preferisco provarlo io");
+la registrazione dello schermo non serve, per sua scelta del 28 settembre.

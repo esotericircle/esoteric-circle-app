@@ -1,0 +1,60 @@
+S01|SI|NA|NA|SI|SI|sceglie la periferia con un perché, Othala coerente con la casa
+S02|SI|NA|SI|SI|NO|Luna in Cancro domani giusta; il seguito è generico (ascoltare senza giudicare), al limite
+S03|SI|NA|SI|SI|SI|Luna in Cancro e Ultimo quarto giusti, il seguito aggiunge la fase
+S04|SI|NA|NA|SI|SI|lista concreta delle spese; seguito al limite, aggiunge poco
+S05|SI|SI|NA|SI|NO|veterinario subito con Ombra; il seguito dà la Luna natale in Cancro, falsa (è in Bilancia)
+S06|SI|NA|NA|NO|NO|al limite: solo un no con motivi generici, l'azione (meditare) non riguarda il ruolo; seguito generico
+S07|SI|NA|NA|SI|SI|al limite: gesto concreto per stasera, seguito aggiunge una visualizzazione
+S08|SI|NA|NA|SI|NO|gesto concreto; il seguito dà la Luna natale in Cancro, falsa
+S09|SI|NA|SI|SI|SI|Giove in Vergine giusto
+S10|SI|NA|SI|SI|SI|Venere in Scorpione giusta
+S11|SI|SI|NA|SI|SI|propone il caffè con la sorella e un messaggio adesso
+S12|SI|NA|NA|SI|SI|al limite: comincia guardando le spese una alla volta; seguito sul Manipura
+S13|SI|NO|NA|NO|NA|ignora le scadenze; meditazione guidata generica, chiudere gli occhi non è un passo
+S14|SI|SI|NA|SI|NA|chiamare la sorella e proporre un caffè, concreto
+S15|SI|NA|NA|SI|NO|scrivere una pagina oggi; seguito generico, al limite
+S16|SI|SI|NA|SI|NO|scrivere alla sorella; il seguito divaga sulla madre e resta generico, al limite
+S17|SI|NA|SI|SI|SI|Gemelli e gibbosa calante giusti
+S18|SI|NO|NA|SI|NO|non sa che lui è Marco; sì generico al limite; seguito generico sui chakra
+S19|SI|SI|NA|NO|NA|al limite: porta la tua voce è una massima, non dice cosa portare
+S20|SI|NO|NA|SI|SI|non sa che lui è Marco; sì al limite condizionato al sentire
+S21|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto
+S22|SI|SI|NA|SI|SI|al limite B: la meditazione compare solo nel seguito; scrivere sul colloquio, concreto
+S23|SI|SI|NA|SI|NO|al limite B; il seguito porta una Torre ipotetica, nessun passo nuovo
+S24|SI|SI|NA|NO|NO|sentire la paura è una massima, nulla su come parlare alla madre; seguito generico
+S25|SI|NA|SI|SI|SI|i quattro retrogradi giusti
+S26|SI|SI|NA|SI|SI|lista dei successi da rileggere la sera prima di dormire, concreta
+S27|SI|NA|NO|SI|NO|Sole in Bilancia in settima casa e congiunto all'Ascendente Scorpione: impossibile
+S28|SI|SI|NA|NO|NO|al limite: parlare di Berlino e ceramica al colloquio è incoerente, ignora lo stomaco; seguito ripete
+S29|SI|NA|NA|NO|NA|al limite: la scelta è chiara, agisci ora vale per chiunque
+S30|SI|NA|NA|SI|SI|no con un passo concreto, chiedere quando restituirà; seguito con Fehu
+S31|SI|SI|NA|SI|SI|argilla per dieci minuti, concreto; seguito al limite
+S32|SI|NA|SI|SI|SI|Saturno in Toro giusto
+S33|SI|NA|NA|SI|SI|dice chi è e le sue arti; seguito sui centri
+S34|SI|NA|NA|NO|NA|non esitare, primo passo oggi: massima per chiunque
+S35|SI|NA|SI|SI|SI|retrogradi giusti, il seguito li legge uno a uno
+S36|SI|NA|NA|SI|NA|sì con tempo, chiedere qualche giorno al capo
+S37|SI|NA|SI|SI|SI|Venere 8 Scorpione congiunta a Mercurio giusta; seguito al limite
+S38|SI|SI|NA|SI|NA|al limite: dice cosa portare, il quaderno dei sogni
+S39|SI|NA|NA|SI|NO|al limite: seguito ripete Saturno retrogrado e lasciar andare, generico
+S40|SI|NA|SI|SI|SI|al limite D: Sole in Bilancia e opposizione a Saturno giusti
+S41|SI|NA|NA|SI|SI|chiedere una settimana al capo; seguito dà un criterio
+S42|SI|SI|NA|SI|NO|veterinario subito; il seguito dà la Luna natale in Cancro, falsa
+S43|SI|NA|SI|SI|SI|Gemelli e gibbosa calante giusti; seguito al limite
+S44|SI|NA|SI|SI|SI|Luna in Acquario e Saturno retrogrado in Ariete giusti
+S45|SI|NA|NA|SI|NO|il seguito parla di un gesto mai dato e divaga su Berlino e Marco
+S46|SI|NO|NA|SI|NA|ignora che dorme male prima delle scadenze; respiro concreto
+S47|SI|NA|NA|SI|SI|al limite: no chiaro con disclaimer; seguito con Nauthiz
+S48|SI|NO|NA|SI|SI|al limite B: ignora meditazione e banca; passeggiata con Ombra concreta
+S49|SI|NA|NA|SI|NA|sì con condizione, parlare con la madre nel fine settimana
+S50|SI|NA|SI|SI|SI|Bilancia crescente, Giove e Urano congiunti, sestile Sole Luna: giusti
+S51|SI|SI|NA|SI|SI|al limite: sì condizionato, scrivere a Marco su Berlino
+S52|SI|SI|NA|SI|SI|al limite D: sì col costo, parlare alla madre; seguito nomina la ceramica
+S53|SI|NA|SI|SI|NA|trigono a Mercurio e sestile a Giove giusti, azione concreta
+S54|SI|NA|SI|SI|NO|Giove in Vergine giusto; il seguito inventa Giove natale in Cancro (nel 1992 era in Vergine)
+S55|SI|NA|SI|SI|SI|crescente a 3 Bilancia giusto; seguito al limite
+S56|SI|SI|NA|NO|NA|al limite: momento tranquillo e ascoltare è generico, nessun primo passo concreto verso la sorella
+S57|SI|NA|NO|NO|NA|al limite: non dice il segno né la fase della Luna; equilibrio mente emozioni generico
+S58|NO|SI|NA|SI|NO|al limite: Cancro lunare falso, la Luna natale è in Bilancia; seguito lo ripete
+S59|SI|NA|NO|SI|NO|Sole in Bilancia (è in Scorpione), Venere in Scorpione (è in Bilancia), quadratura Luna Plutone (è congiunzione)
+S60|SI|NA|NA|SI|NO|centro con un perché; il seguito inventa la runa Pītha

@@ -1,0 +1,151 @@
+LO STACK DELL'ANR DEL REDMI NOTE 14 PRO 5G, TRADOTTO IN FILE E RIGA. Ordine FE voce 01.
+Evento Crashlytics 227171118570, telefono 24090RA29G, Android 16, build 0.1.0 (2298), 2026-10-05T19:19:37Z, ANR, filo main.
+Come si e' tradotto: l'APK 2298 consegnato e' stato tirato dal Realme (255.779.584 byte); la stessa build e' stata rifatta dal commit d251c4c2 con
+  flutter build apk --release --target-platform android-arm64 --extra-gen-snapshot-options=--save-debugging-info=<cartella>/app.debug.so
+  (il codice .text di libapp.so e' identico al byte a quello consegnato: sha256 2afff12f3a6bb423c8ae... in tutti e due; --split-debug-info invece cambia il codice e non serve);
+  libapp.so sta nell'APK all'offset 3784704, lo stesso dichiarato dal crash; gli indirizzi si traducono con llvm-addr2line -f -C -e app.debug.so <indirizzo> (NDK 28.2).
+I passi 0 e 1 sono __kernel_sin e cos di libm.so; da 145 in giu' il ciclo dei messaggi di Android (Looper.loop, ActivityThread.main).
+
+  2 0xa24598 IPianetiDiMeeus._serie | package:esoteric_circle/core/astro/meeus/i_pianeti_di_meeus.dart:34
+  3 0xa24560 IPianetiDiMeeus._serie | package:esoteric_circle/core/astro/meeus/i_pianeti_di_meeus.dart:40
+  4 0xa242f8 IPianetiDiMeeus._vsop | package:esoteric_circle/core/astro/meeus/i_pianeti_di_meeus.dart:52
+  5 0xa24664 IPianetiDiMeeus._terra | package:esoteric_circle/core/astro/meeus/i_pianeti_di_meeus.dart:56
+  6 0xa22b70 IPianetiDiMeeus.longitudine | package:esoteric_circle/core/astro/meeus/i_pianeti_di_meeus.dart:110
+  7 0xa22b30 IlCieloDiMeeus.longitudine | package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart:114
+  8 0xa1f040 IlCieloDiMeeus.velocitaGiornaliera | package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart:136
+  9 0xa1ef4c IlCieloDiMeeus.retrogrado | package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart:145
+ 10 0xa1df0c EventiDelCielo.diOggi | package:esoteric_circle/core/sigilli/eventi_del_cielo.dart:197
+ 11 0x1075234 ProssimiEventi.da | package:esoteric_circle/core/astro/prossimi_eventi.dart:141
+ 12 0x1351bd4 MaestroPersona._cioCheArriva | package:esoteric_circle/services/ai/maestro_persona.dart:358
+ 13 0x135070c MaestroPersona.systemInstruction | package:esoteric_circle/services/ai/maestro_persona.dart:526
+ 14 0x134596c FirebaseMaestroAiProvider.reply | package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart:201
+ 15 0x13549d8 VoceSorvegliata.reply.chiedi | package:esoteric_circle/services/ai/voce_sorvegliata.dart:129
+ 16 0xd9f9a4 VoceSorvegliata._sorvegliando | package:esoteric_circle/services/ai/voce_sorvegliata.dart:71
+ 17 0x1354244 VoceSorvegliata.reply | package:esoteric_circle/services/ai/voce_sorvegliata.dart:140
+ 18 0xd91cd0 MaestroChatController._scriviIlSeguito.chiedi | package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart:1470
+ 19 0xd90d14 MaestroChatController._scriviIlSeguito | package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart:1482
+ 20 0xd9091c MaestroChatController._preparaIlSeguitoSeManca.<anonymous closure> | package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart:1538
+ 21 0xd9078c MaestroChatController._preparaIlSeguitoSeManca | package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart:1555
+ 22 0xe06878 MaestroChatController.nelLive= | package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart:190
+ 23 0x105dfb4 _SchermataLiveState.dispose | package:esoteric_circle/features/maestri/live/schermata_live.dart:327
+ 24 0xc49f5c StatefulElement.unmount | package:flutter/src/widgets/framework.dart:6030
+ 25 0xaa7548 _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2117
+ 26 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 27 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 28 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 29 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 30 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 31 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 32 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 33 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 34 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 35 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 36 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 37 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 38 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 39 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 40 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 41 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 42 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 43 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 44 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 45 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 46 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 47 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 48 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 49 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 50 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 51 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 52 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 53 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 54 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 55 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 56 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 57 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 58 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 59 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 60 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 61 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 62 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 63 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 64 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 65 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 66 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 67 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 68 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 69 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 70 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 71 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 72 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 73 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 74 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 75 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 76 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 77 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 78 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 79 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 80 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 81 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 82 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 83 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 84 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+ 85 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 86 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 87 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 88 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 89 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 90 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 91 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 92 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 93 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 94 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 95 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 96 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+ 97 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+ 98 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+ 99 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+100 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+101 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+102 0xc44fc0 _RawViewElement.visitChildren | package:flutter/src/widgets/view.dart:574
+103 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+104 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+105 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+106 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+107 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+108 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+109 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+110 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+111 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+112 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+113 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+114 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+115 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+116 0xaa757c _InactiveElements._unmount.<anonymous closure> | package:flutter/src/widgets/framework.dart:2115
+117 0xc44d60 ComponentElement.visitChildren | package:flutter/src/widgets/framework.dart:5871
+118 0xaa752c _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2113
+119 0xaa74c4 _InactiveElements._unmount | package:flutter/src/widgets/framework.dart:2103
+120 0xc38a48 ListIterable.forEach | dart:_internal/iterable.dart:49
+121 0xaa7484 _InactiveElements._unmountAll | package:flutter/src/widgets/framework.dart:2126
+122 0xaa73ec _InactiveElements._unmountAll | package:flutter/src/widgets/framework.dart:2121
+123 0xa368a4 BuildOwner.lockState | package:flutter/src/widgets/framework.dart:3020
+124 0xaa72b8 BuildOwner.finalizeTree | package:flutter/src/widgets/framework.dart:3344
+125 0xaa7084 WidgetsBinding.drawFrame | package:flutter/src/widgets/binding.dart:1578
+126 0xaa6a28 RendererBinding._handlePersistentFrameCallback | package:flutter/src/rendering/binding.dart:509
+127 0xaa69ec RendererBinding._handlePersistentFrameCallback | package:flutter/src/rendering/binding.dart:508
+128 0xa43394 SchedulerBinding._invokeFrameCallback | package:flutter/src/scheduler/binding.dart:1430
+129 0xa4312c SchedulerBinding.handleDrawFrame | package:flutter/src/scheduler/binding.dart:1345
+130 0xa42fc4 SchedulerBinding._handleDrawFrame | package:flutter/src/scheduler/binding.dart:1198
+131 0xa42e90 SchedulerBinding._handleDrawFrame | package:flutter/src/scheduler/binding.dart:1180
+132 0xa3845c _invoke | dart:ui/hooks.dart:423
+133 0xa383c4 PlatformDispatcher._drawFrame | dart:ui/platform_dispatcher.dart:447
+134 0xa38380 _drawFrame | dart:ui/hooks.dart:395
+135 0xa38bd4 _drawFrame | dart:ui/hooks.dart:393
+136 0x9f3d2c stub InvokeDartCode | ??:0
+137 0x90c228 _kDartIsolateSnapshotData | ??:0
+138 0xa66ab8 EditableTextState.insertTextPlaceholder | package:flutter/src/widgets/editable_text.dart:5203
+139 0x869290 _kDartIsolateSnapshotData | ??:0
+140 0x85cfe8 _kDartIsolateSnapshotData | ??:0
+141 0x84c5e0 _kDartIsolateSnapshotData | ??:0
+142 0x866108 _kDartIsolateSnapshotData | ??:0
+143 0x4e9dbc _kDartIsolateSnapshotData | ??:0
+144 0x4edcb0 _kDartIsolateSnapshotData | ??:0

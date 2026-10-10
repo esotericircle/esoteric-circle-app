@@ -16,10 +16,29 @@ class MaestroScope extends StatefulWidget {
   const MaestroScope({
     super.key,
     required this.child,
+    this.maestro,
+    this.neutro = false,
     this.transitionDuration = const Duration(milliseconds: 850),
   });
 
   final Widget child;
+
+  /// Vero per le schermate che NON sono di nessuno, come il Consiglio dei
+  /// Maestri: la palette resta quella neutra, senza seguire ne' un
+  /// proprietario ne' il Maestro attivo. Ordine 2163, voce 6: nel Consiglio
+  /// il fondo della barra e' neutro, e la regola vive qui, non nella barra.
+  final bool neutro;
+
+  /// Il proprietario di questa parte dell'albero, quando ce n'e' uno.
+  ///
+  /// Le arti appartengono a un Maestro, quindi il loro colore non dipende da
+  /// chi era attivo un istante prima: e' il loro. Dichiararlo qui vuol dire
+  /// che il colore c'e' dal primo frame, da qualunque strada si arrivi.
+  ///
+  /// Nullo per le schermate condivise, come il Santuario, che seguono il
+  /// Maestro attivo.
+  final Maestro? maestro;
+
   final Duration transitionDuration;
 
   static MaestroPalette of(BuildContext context) {
@@ -28,6 +47,31 @@ class MaestroScope extends StatefulWidget {
     assert(scope != null, 'MaestroScope non trovato nell\'albero dei widget.');
     return scope!.palette;
   }
+
+  /// LA PALETTE SE LO SCOPE C'E', altrimenti nulla, senza rompere niente.
+  ///
+  /// **Serve a chi si monta SOPRA una schermata invece che dentro.** La
+  /// celebrazione e la sua fascia sono sovrimpressioni: nascono da un gesto
+  /// compiuto in una schermata qualunque, e se quella schermata non ha uno
+  /// scope la festa non deve far cadere la schermata sotto. Chi chiede da
+  /// questa porta decide lui cosa fare del nulla, invece di far esplodere un
+  /// assert dentro il rito di qualcun altro.
+  static MaestroPalette? forse(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<_InheritedMaestroPalette>()
+      ?.palette;
+
+  /// LA PALETTE DI DESTINAZIONE, per chi rasterizza. Ordine AM voce 01.
+  ///
+  /// Durante il cambio di Maestro la palette esposta sfuma a ogni
+  /// fotogramma: chi ne fa una CACHE, come il cosmo coi suoi quattro teli,
+  /// deve poggiare su un colore fermo, altrimenti la cache non vale mai e
+  /// il costo della sfumatura si moltiplica per il costo di un raster a
+  /// schermo pieno. Chi dipinge al volo continua a usare `palette` e la
+  /// transizione si vede come sempre. Fuori da uno scope torna nulla, come
+  /// la sorella `forse`.
+  static MaestroPalette? destinazioneDi(BuildContext context) => context
+      .dependOnInheritedWidgetOfExactType<_InheritedMaestroPalette>()
+      ?.destinazione;
 
   @override
   State<MaestroScope> createState() => _MaestroScopeState();
@@ -53,10 +97,40 @@ class _MaestroScopeState extends State<MaestroScope>
     _to = MaestroPalette.neutral;
   }
 
+  /// La chiave di tema che questo scope deve mostrare.
+  ///
+  /// Se l'albero ha un proprietario dichiarato, e' la sua, e il Maestro attivo
+  /// nel resto dell'app non c'entra: nemmeno lo si osserva, cosi' un cambio di
+  /// tema avvenuto fuori non fa virare il colore sotto i piedi di chi sta
+  /// usando l'arte.
+  ThemeKey _chiaveDaMostrare() {
+    if (widget.neutro) return const ThemeKey.neutral();
+    final proprietario = widget.maestro;
+    if (proprietario != null) return ThemeKey.of(proprietario);
+    return context.watch<MaestroController>().activeKey;
+  }
+
+  @override
+  void didUpdateWidget(MaestroScope old) {
+    super.didUpdateWidget(old);
+    // IL PROPRIETARIO PUO' CAMBIARE DA FUORI: la barra del Cerchio passa il
+    // Maestro della rotta, che arriva un frame dopo il push. Il ricalcolo
+    // in sola didChangeDependencies non lo vede, perche' un parametro non
+    // e' una dipendenza ereditata: senza queste righe la barra restava
+    // neutra dentro il dominio. Ordine 2163, voce 6.
+    if (old.maestro != widget.maestro || old.neutro != widget.neutro) {
+      _aggiornaChiave();
+    }
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final key = context.watch<MaestroController>().activeKey;
+    _aggiornaChiave();
+  }
+
+  void _aggiornaChiave() {
+    final key = _chiaveDaMostrare();
     if (key == _lastKey) return;
     final target = MaestroPalette.forKey(key);
     if (_lastKey == null) {
@@ -89,11 +163,19 @@ class _MaestroScopeState extends State<MaestroScope>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
-        final curved =
-            Curves.easeInOutCubic.transform(_controller.value);
+        final curved = Curves.easeInOutCubic.transform(_controller.value);
         final palette = MaestroPalette.lerp(_from, _to, curved);
         return _InheritedMaestroPalette(
           palette: palette,
+          // **DOVE LA SFUMATURA VA A FINIRE, ordine AM voce 01.** Chi
+          // RASTERIZZA qualcosa sui colori del Maestro non puo' seguire i
+          // valori intermedi: ogni passo del lerp e' una tinta diversa, e
+          // per il cosmo voleva dire rifare i quattro teli a schermo pieno
+          // a ogni fotogramma della transizione (36 volte su 40, misurate).
+          // La destinazione e' un colore SOLO per tutta la sfumatura: chi
+          // dipinge al volo continua a usare la palette animata e la
+          // transizione resta dolce dove si vede.
+          destinazione: _to,
           child: child!,
         );
       },
@@ -105,14 +187,19 @@ class _MaestroScopeState extends State<MaestroScope>
 class _InheritedMaestroPalette extends InheritedWidget {
   const _InheritedMaestroPalette({
     required this.palette,
+    required this.destinazione,
     required super.child,
   });
 
   final MaestroPalette palette;
 
+  /// La palette a cui la sfumatura sta andando, ferma per tutta la sua
+  /// durata. La legge chi rasterizza (vedi MaestroScope.destinazioneDi).
+  final MaestroPalette destinazione;
+
   @override
   bool updateShouldNotify(_InheritedMaestroPalette oldWidget) =>
-      oldWidget.palette != palette;
+      oldWidget.palette != palette || oldWidget.destinazione != destinazione;
 }
 
 /// Scorciatoia leggibile per accedere alla palette del Maestro attivo.

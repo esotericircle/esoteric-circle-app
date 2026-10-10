@@ -1,0 +1,24 @@
+Firebase Test Lab, giro 3 Robo, matrice 7235979973329992315, a35x Android 16 (API 36), APK profile della cartella di misura al commit 48620ecb con la prova integration_test/il_filo_resta_libero_test.dart.
+Registro intero: gs://test-lab-fbt34a4rtt0j6-hdmtwm4twzy7z/2026-10-06_02:29:15.315673_SELu/a35x-36-it-portrait/logcat
+
+10-05 17:35:01.530  5715  5819 I flutter : The Dart VM service is listening on http://127.0.0.1:35951/kt7V2t3HzDw=/
+10-05 17:35:01.568  5715  5803 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+10-05 17:35:01.795  5715  5715 I flutter : 00:00 +0: il filo principale non resta fermo oltre 100 ms in un turno
+10-05 17:35:06.516  5715  5715 I flutter : ORDINE FE VOCE 05: PRIMA, il calcolo della 2298 sul filo: filo fermo 3441 ms
+10-05 17:35:10.265  5715  5715 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 17:35:12.311  5715  5715 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di medora: filo fermo al massimo 5 ms, risposta di 390 caratteri
+10-05 17:35:14.194  5715  5715 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di aura: filo fermo al massimo 4 ms, risposta di 244 caratteri
+10-05 17:35:15.367  5715  5715 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 17:35:17.909  5715  5715 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di caligo: filo fermo al massimo 1 ms, risposta di 570 caratteri
+10-05 17:35:17.924  5715  5715 I flutter : ORDINE FE VOCE 05: DOPO, fermo massimo su tre turni 5 ms; istruzione ms [medora 13, aura 6, caligo 14]
+10-05 17:35:17.933  5715  5715 I flutter : 00:16 +1: (tearDownAll)
+10-05 17:35:17.937  5715  5715 I flutter : 00:16 +2: All tests passed!
+10-05 17:35:19.972  5715  5715 I flutter : Some possible finders for the widgets at Instance of 'Offset':
+10-05 17:35:19.972  5715  5715 I flutter :   find.text('Test finished.')
+10-05 17:35:19.972  5715  5715 I flutter :   find.byType(Center)
+10-05 17:35:19.972  5715  5715 I flutter :   find.byType(Container)
+10-05 17:35:19.972  5715  5715 I flutter :   find.byType(Focus)
+10-05 17:35:19.972  5715  5715 I flutter :   find.byType(FocusTraversalGroup)
+10-05 17:35:19.972  5715  5715 I flutter :   find.byType(MediaQuery)
+10-05 17:35:19.972  5715  5715 I flutter :   find.widgetWithText(RawView, 'Test finished.')
+10-05 17:35:19.972  5715  5715 I flutter :   find.widgetWithText(View, 'Test finished.')

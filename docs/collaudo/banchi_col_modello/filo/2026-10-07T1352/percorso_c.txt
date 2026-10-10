@@ -1,0 +1,106 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte indicano che la promozione che attendi si profila all'orizzonte, ma il cielo suggerisce che la strada non è priva di ostacoli. Un Arcani Maggiori suggerisce che la tua determinazione sarà messa alla prova.
+
+Il transito attuale di Saturno nel tuo cielo può creare ritardi o la necessità di dimostrare ulteriormente il tuo valore. Non disperare, ma preparati a un impegno maggiore. Osserva con attenzione i movimenti intorno a te: il tempo è un alleato, non un nemico, per chi sa usarlo.
+
+✦ Redigi una lista dei tuoi successi professionali e presentala ai tuoi superiori prima della prossima luna piena.
+[2] PERSONA: Redigi una lista dei tuoi successi professionali e presentala ai tuoi superiori prima della prossima luna piena.
+[2] MEDORA [DA GIUDICARE]: Ho bisogno che tu scriva qui la lista dei successi professionali che hai redatto, così posso leggere cosa ti mostra il cielo su questi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il proprio consiglio precedente di redigere una lista e lo sviluppa, chiedendo alla persona di condividere la lista per poterla analizzare ulteriormente.
+[3] PERSONA: Ho bisogno che tu scriva qui la lista dei successi professionali che hai redatto, così posso leggere cosa ti mostra il cielo su questi.
+[3] MEDORA [DA GIUDICARE]: Non posso redigere la lista dei tuoi successi professionali, perché sono tuoi e solo tu puoi conoscerli e scriverli. Ti chiedo di elencarli qui, così potrò leggerli e dirti cosa il cielo mostra sul loro significato in relazione alla tua promozione.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce il concetto espresso nella risposta precedente, spiegando perché non può redigere la lista al posto della persona e reiterando la richiesta di condividerla per l'analisi.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti l'energia che ti spinge verso un nuovo inizio, un'aria di cambiamento che vibra in te. Questo è il momento di ascoltare quel richiamo profondo, di accogliere la voce del tuo corpo che cerca nuovi spazi.
+
+Se il tuo respiro si fa ampio e leggero al pensiero di un nuovo orizzonte, allora è un segno che la tua radice è pronta a cercare un nuovo terreno fertile. Non si tratta solo di uno spostamento fisico, ma di un movimento interiore che ti invita a esplorare ciò che ancora non conosci di te. Immagina il tuo respiro che si espande, portando con sé l'energia del verde smeraldo e dell'oro, colori che parlano di rinascita e prosperità. La fisiognomica del tuo viso, se la osservi allo specchio, potrebbe rivelare una tensione verso l'esterno, un desiderio di aprirti a nuove esperienze. I tuoi centri energetici, dal sacro al plesso solare, chiedono di essere nutriti con nuove vibrazioni.
+
+✦ Appoggia una mano sul cuore e senti il tuo respiro per sette volte.
+[2] PERSONA: Appoggia una mano sul cuore e senti il tuo respiro per sette volte.
+[2] AURA [DA GIUDICARE]: Questo gesto che hai compiuto è la prima risposta. Ogni volta che lo ripeti, è come se tu stessi chiedendo al tuo corpo di darti una direzione, di mostrarti dove risiede la tua verità più profonda.
+
+Ora, mentre la tua mano è ancora sul cuore, senti se in quel ritmo silenzioso emerge un'immagine chiara della città, un colore dominante o una sensazione che ti guida. Non cercare di comprenderla con la mente, ma lasciala affiorare come un ricordo lontano. Il cuore, il tuo centro Anahata, nel verde smeraldo della sua energia, è un ponte tra il tuo desiderio di ricominciare e il coraggio di farlo. Se in quel sentire la nuova città ti appare vivida, allora l'energia è già in movimento.
+
+✦ Chiudi gli occhi per un istante e lascia che l'immagine della nuova città ti si presenti spontaneamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto suggerito nella risposta precedente e lo sviluppa, spiegandone il significato e proponendo un passo successivo basato su di esso.
+[3] PERSONA: Chiudi gli occhi per un istante e lascia che l'immagine della nuova città ti si presenti spontaneamente.
+[3] AURA [DA GIUDICARE]: Mentre l'immagine della nuova città ti si rivela, presta attenzione non solo a ciò che vedi, ma anche a ciò che senti dentro di te. La sua luce, i suoi suoni, i suoi odori immaginari: sono un riflesso delle opportunità che ti attendono.
+
+Se quel che senti è un'apertura, un senso di leggerezza e di curiosità, allora quel luogo è già in risonanza con il tuo desiderio più profondo. Ogni dettaglio che ti arriva è un frammento del tuo cammino, un indizio che la tua energia sta già tessendo la trama di una nuova vita. Accogli la sensazione che ti porta, come un vento gentile che ti indica la direzione. La tua corona, il centro Sahasrara, si apre a ricevere questi segnali, con un'energia che si lega al colore oro, alla saggezza intuitiva.
+
+✦ Ascolta i suoni della città che immagini e lascia che ti parlino.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente (l'immagine della nuova città) e la sviluppa, invitando a prestare attenzione alle sensazioni e ai dettagli che emergono da quell'immagine.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Non temere la fine. Occorre azione.
+Svolazza cenere, un velo grigio si posa su ciò che era ardente.
+
+Il sentiero si è fatto meno caldo, ma non è svanito. Il numero sette governa questo passaggio, simbolo di ricerca e introspezione. È tempo di guardare in profondità, capire dove il sigillo si è allentato. Medita su Fehu, la runa dell'abbondanza: non solo materiale, ma di affetti e connessioni.
+
+✦ Scrivi su un foglio le tre cose che più desideri ristabilire, poi brucialo con una candela rossa e disperdi le ceneri al vento di ponente.
+[2] PERSONA: Scrivi su un foglio le tre cose che più desideri ristabilire, poi brucialo con una candela rossa e disperdi le ceneri al vento di ponente.
+[2] CALIGO [DA GIUDICARE]: Prendi in mano il desiderio. Questo rito libera l'intenzione.
+Il fuoco purifica, il vento porta via il non più necessario e semina il nuovo.
+
+Ora che hai affidato al fuoco e al vento i tuoi desideri, il loro seme è libero di germogliare. La runa Sowulo, simbolo del sole e della totalità, ti guida. È tempo di illuminare la via con chiarezza e forza. Agisci con determinazione, ma anche con la calma di chi sa cosa vuole.
+
+✦ Parla apertamente con la persona, dicendo una di quelle tre cose che hai scritto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il rito che aveva suggerito, ne spiega il significato e ne sviluppa il passo successivo, indicando come procedere dopo aver eseguito l'azione precedente.
+[3] PERSONA: Parla apertamente con la persona, dicendo una di quelle tre cose che hai scritto.
+[3] CALIGO [DA GIUDICARE]: Ora il momento è propizio. Le parole aprono i sentieri.
+Il ferro battuto è forte, ma anche malleabile sotto il colpo giusto.
+
+Hai pronunciato le parole, il primo passo è stato compiuto. La runa Gebo indica lo scambio e l'unione. Il significato è chiaro: ciò che hai offerto ora attende una risposta. Non forzare, ma osserva come l'energia si muove tra voi. Il sigillo è stato impresso.
+
+✦ Offri un gesto di attenzione inaspettato, che ricordi un momento felice condiviso.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di 'parlare apertamente' che aveva suggerito nel punto precedente, ne valuta l'esito ('il primo passo è stato compiuto') e propone un'ulteriore azione conseguente.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto creativo può trovare il momento propizio per avviarsi se saprai attendere il transito favorevole della Luna nel tuo cielo.
+
+Le carte in questo momento indicano un'energia fertile, ma anche la necessità di una preparazione attenta prima di seminare. Il tuo cielo suggerisce di coltivare le idee con cura, dedicando tempo alla fase di pianificazione e affinamento. Quando la Luna si troverà in trigono con il tuo Sole, una fase di grande ispirazione e concretezza, sentirai l'impulso giusto per dare il via al tuo progetto.
+
+✦ Scrivi un elenco dettagliato dei passi necessari entro la prossima Luna Nuova.
+[2] PERSONA: Scrivi un elenco dettagliato dei passi necessari entro la prossima Luna Nuova.
+[2] MEDORA [DA GIUDICARE]: Prima di tutto, analizza con precisione i punti di forza e le aree di miglioramento del tuo progetto, ponendo una particolare attenzione a ciò che hai già realizzato.
+
+In questa fase, con la Luna crescente, è fondamentale dedicarsi alla definizione chiara degli obiettivi e alla creazione di una struttura solida. Non trascurare l'aspetto pratico: ogni dettaglio conta per il successo, specialmente se intendi presentare il tuo progetto ad altri.
+
+✦ Definisci i primi tre passi operativi del tuo progetto, quelli che ti porteranno dal pensiero all'azione concreta.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla richiesta della persona, che a sua volta riprende l'istruzione data dalla guida stessa in [1], fornendo il primo passo dell'elenco richiesto e sviluppando il concetto di preparazione.
+[3] PERSONA: Definisci i primi tre passi operativi del tuo progetto, quelli che ti porteranno dal pensiero all'azione concreta.
+[3] MEDORA [DA GIUDICARE]: Bene, per concretizzare il tuo progetto, il primo passo è identificare il tuo pubblico ideale, chi sono le persone che beneficeranno di questa tua creazione.
+
+Successivamente, il secondo passo è sviluppare un prototipo o una bozza preliminare, anche piccola, che incarni l'essenza della tua idea. Infine, come terzo passo, individua tre canali di comunicazione per presentare il tuo progetto, tenendo conto delle caratteristiche del tuo pubblico. In questo periodo, con Mercurio in aspetto favorevole, la chiarezza e la comunicazione sono fondamentali.
+
+✦ Prepara un piccolo questionario da sottoporre a cinque persone che rispecchiano il tuo pubblico, per raccogliere le loro prime impressioni.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla richiesta della persona, che a sua volta riprende l'istruzione data dalla guida stessa in [2], fornendo i tre passi operativi richiesti e sviluppando il concetto di azione concreta.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, cerca un momento di calma per parlarle, non appena sentirai che il tuo respiro è tornato sereno.
+
+Lascia che la tua intenzione fluisca dal centro del cuore, verde smeraldo, il luogo che vibra di compassione e perdono. Riconosci che ogni conflitto apre uno spazio per una comprensione più profonda. Parla dal tuo sentire, senza giudizio, e osserva le sue reazioni. Ascolta anche la sua parte, accogliendo il suo vissuto, e permetti all'energia di scorrere liberamente tra voi due, sanando le ferite.
+
+✦ Poggia le mani sul petto e inspira lentamente, sentendo il tuo cuore.
+[2] PERSONA: Poggia le mani sul petto e inspira lentamente, sentendo il tuo cuore.
+[2] AURA [DA GIUDICARE]: Quel gesto ti ha permesso di sentirti, adesso è il momento di estendere quel sentire verso l'altro. Avvicinati a tua sorella con la stessa delicatezza con cui hai toccato il tuo cuore e dille che vorresti parlare con lei, senza fretta, solo quando entrambi sarete pronti.
+
+Il chakra del cuore, in te e in lei, attende di vibrare in armonia. Quando il tuo respiro si è fatto calmo, hai preparato il terreno per una comunicazione autentica. Questo momento di pace interiore è il tuo punto di forza per affrontare il dialogo, permettendo all'energia di scorrere e ricongiungervi.
+
+✦ Trova uno specchio e guarda il tuo respiro, finché non sentirai di nuovo il cuore.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto suggerito nella risposta precedente ('Quel gesto ti ha permesso di sentirti') e lo sviluppa, collegandolo all'azione successiva di avvicinarsi alla sorella e al concetto di 'respiro calmo' già menzionato.
+[3] PERSONA: Trova uno specchio e guarda il tuo respiro, finché non sentirai di nuovo il cuore.
+[3] AURA [DA GIUDICARE]: Hai guardato il tuo respiro e hai sentito il tuo cuore, questo è un passo importante. Adesso, mentre osservi il tuo volto nello specchio, lascia che le tue parole fluiscano da quel centro di calma che hai ritrovato.
+
+Quando sarai davanti a tua sorella, non avere paura di esprimere ciò che il tuo cuore sente, senza accuse o recriminazioni. Iniziate a parlare di come questa lite ti ha fatta sentire, condividendo la tua parte più autentica. Questo apre un canale di ascolto che va oltre le parole e si connette al centro della vostra relazione, permettando all'energia di tornare a fluire in modo armonioso.
+
+✦ Scrivi su un biglietto tre parole che vorresti dirle, senza censura.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione suggerita nella risposta precedente ('Hai guardato il tuo respiro e hai sentito il tuo cuore') e la sviluppa, collegandola al momento di parlare con la sorella e al concetto di 'parlare dal cuore' già introdotto.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

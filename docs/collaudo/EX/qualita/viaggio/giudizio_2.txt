@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|Al limite su A: apri la bottega detto deciso ma non e' consiglio professionale; piano di tre mesi e contatto pratico, nel merito.
+S02|SI|NA|NA|SI|NA|Dice di chiedere direttamente alla persona che cosa cerca e quando incontrarla: risponde al dubbio sul suo posto.
+S03|SI|NA|NA|NO|NA|Massima generica sull'attesa e limite di tempo vago; non dice nulla su quando o sul matrimonio.
+S04|SI|NA|NA|NO|NA|Il peso lo misuri solo tu e scrivi cosa ti farebbe stare meglio: frase buona per chiunque.
+S05|SI|NA|NA|NO|NA|Massima sull'attesa riusata; non dice nulla sul suo ritorno ne' su cosa fare con lui.
+S06|SI|NA|NA|NO|NA|Al limite: si' condizionato poi negato, gesto della cena con un'amica estraneo alla domanda.
+S07|SI|NA|NA|NO|NA|Al limite: scegli che cosa farne e' tautologico; il gesto dell'oggetto conservato resta generico.
+S08|SI|NA|NA|SI|NA|Al limite su A per il tema denaro; si' condizionato e chiedere al fratello un piano: nel merito.
+S09|SI|NA|NA|NO|NA|Formula generica sul peso del rapporto e foglio scritto; nessuna indicazione su come fare pace con la madre.
+S10|SI|NA|NA|SI|NA|Indica la causa, nascondere cio' che provi, e un gesto pertinente: dire cio' che pensi nel disagio.
+S11|SI|NA|NA|SI|NA|Telefonare alla madre entro domenica e proporre un incontro a due: preciso e nel merito.
+S12|SI|NA|NA|NO|NA|Al limite: non dice che cosa la blocca, rimanda al gesto; prendersi il merito resta implicito.
+S13|SI|NA|NA|SI|NA|Si' condizionato al primo passo, lettera alla sorella entro domani: risponde nel merito.
+S14|NO|NA|NA|NO|NA|Silenzio: nessuna risposta e nessuna indicazione alla persona.
+S15|NO|NA|NA|NO|NA|Afferma per certo che Marco prova sentimenti poi si contraddice; gesto generico del foglio scritto.
+S16|SI|NA|NA|NO|NA|Il pezzo che manca e' piccolo e la telefonata rimandata: generico, non parla della fiducia.
+S17|SI|NA|NA|NO|NA|Massima sulla scelta che sai portare avanti, valida per chiunque; nulla sulla bottega.
+S18|SI|NA|NA|NO|NA|Blocco che hai creato tu e rompere un'abitudine: generico, non tocca cio' che non supera.
+S19|SI|NA|NA|SI|NA|Al limite: il si' a un perche' e' incoerente, ma indica la causa e il gesto del telefono spento.
+S20|SI|NA|NA|NO|NA|Massima generica sulla scelta e foglio scritto; nulla su Torino o Berlino.
+S21|SI|NA|NA|NO|NA|Nomina la casa ma resta la massima generica sulla scelta; non dice se conviene.
+S22|SI|NA|NA|NO|NA|Pezzo piccolo e telefonata rimandata: risposta d'altro, non dice che cosa blocca nel lavoro.
+S23|SI|NA|NA|NO|NA|Al limite: no oscuro e peso non tuo vaghi; venti minuti di silenzio vanno bene per chiunque.
+S24|SI|NA|NA|SI|NA|Si' condizionato, scrivere a tre persone a Berlino sulle difficolta': concreto e nel merito.
+S25|SI|NA|NA|NO|NA|Parla del blocco e della telefonata rimandata, non del sonno: risposta d'altro.
+S26|SI|NA|NA|NO|NA|Al limite: massima sull'attesa riusata identica per altre domande; limite di tempo vago.
+S27|SI|NA|NA|NO|NA|Telefonata rimandata e pezzo piccolo: generico, non tocca cio' che torna.
+S28|SI|NA|NA|NO|NA|Parla di attesa e limite di tempo, non del successo del progetto: d'altro.
+S29|SI|NA|NA|NO|NA|Massima generica sulla scelta; nulla sul prestito al fratello.
+S30|SI|NA|NA|NO|NA|Massima generica e foglio su cosa ti farebbe stare meglio: buona per chiunque.
+S31|SI|NA|NA|NO|NA|Il peso del rapporto lo misuri tu: non dice nulla su Marco ne' sul suo amore.
+S32|NO|NA|NA|SI|NA|I segni dicono di si' senza condizione: previsione certa sul colloquio; gesto pertinente sugli esaminatori.
+S33|SI|NA|NA|NO|NA|Frasi oscure sul confine e mappa del percorso abituale: nessuna direzione per lei.
+S34|SI|NA|NA|SI|NA|Al limite: priorita' generiche, ma chiedere il primo pensiero a una persona fidata entro giovedi' e' un metodo pertinente.
+S35|SI|NA|NA|SI|NA|Al limite: si' condizionato a coinvolgere chi l'accompagna; il gesto dell'impedimento resta generico.
+S36|SI|NA|NA|NO|NA|Massima sull'attesa e limite di tempo, non dice nulla sul colloquio.
+S37|SI|NA|NA|NO|NA|Porta aperta e foglio con la domanda: generico, non dice che farne di cio' che e' finito.
+S38|NO|NA|NA|SI|NA|Al limite: la nuova casa e' gia' presente suona previsione certa; passi concreti sul trasloco.
+S39|SI|NA|NA|NO|NA|Al limite su A: la direzione si trova camminando e ripensa all'ultima volta: generico, nessuna direzione.
+S40|SI|NA|NA|NO|NA|Formula generica sul peso del rapporto; non dice nulla sul perdono della sorella.

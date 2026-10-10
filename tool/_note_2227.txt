@@ -1,0 +1,79 @@
+Build 2227. Quello che hai visto tu sul telefono.
+
+Questa build nasce dal collaudo a video del 5 settembre, con l'Android
+collegato. Tre difetti veri, e nessuno di loro era visibile a una prova che
+gira senza schermo.
+
+I TAROCCHI, LA TERZA CARTA.
+
+Avevi ragione. Spariva il VENTAGLIO: alla terza carta se ne andava in blocco
+tutto quello che era legato allo stato "stesa completa", e la pagina perdeva il
+suo oggetto piu' grande in un colpo. La cura di prima aveva rimesso cio' che
+ARRIVA, le carte e il pulsante, senza guardare cio' che SPARISCE.
+
+Adesso il ventaglio se ne va col RESPONSO e non con l'ultima carta: fra la
+terza carta e il tocco su "Leggi le Carte" la scena e' la stessa di un attimo
+prima, con una carta in piu' e un pulsante acceso. Il ventaglio si attenua al
+quaranta per cento per dire che ha finito, e non sparisce.
+
+L'ESTRAZIONE RUNE, E QUESTA E' LA PIU' GRAVE PER IL MOOD.
+
+Aprendo l'Estrazione Rune, prima ancora di gettare, si leggevano Tacito e la
+Germania al capitolo dieci, l'Edda poetica, la Voluspa, la Gylfaginning di
+Snorri Sturluson e il metodo di calcolo. Quattrocento caratteri di materia
+storica aperti sopra il gesto.
+
+E' l'informazione messa all'inizio, cioe' l'opposto esatto di quello che mi hai
+chiesto: "non gliene frega niente di transiti, pianeti, ecc. non dico di non
+scrivere da dove arrivano le risposte, ma non all'inizio".
+
+Adesso resta a vista il nome della gettata, che serve a sapere cosa hai scelto,
+e la materia scende dietro "Da dove nasce", come in tutte le altre arti. A
+vista si passa da venti blocchi di testo a diciassette.
+
+GLI ANGELI DEL RISVEGLIO.
+
+Diceva "Tre nomi dalla tradizione dei settantadue" e ne mostrava DUE. Non era
+un difetto del calcolo: il terzo Angelo nasce dall'ORA di nascita, e chi l'ora
+non la da' ne riceve due. A mentire era la frase, che portava il numero scritto
+a mano.
+
+Adesso il numero viene dalla lista, e quando il terzo manca si dice perche':
+"Il terzo nasce dall'ora di nascita, che non ci hai dato: quando la aggiungi,
+arriva anche lui."
+
+E DUE COSE CHE TI AVEVO RIPORTATO COME DIFETTI, E NON LO ERANO.
+
+Ti avevo detto che il responso del Soffio non scorreva. Misurato: SCORRE,
+quattrocento punti su una trascinata di quattrocento. I due zeri che mi avevano
+fatto dire il contrario erano miei, non dell'app.
+
+Resta vero che quel responso vive nel trenta per cento della sua schermata,
+878 punti dentro una finestra di 263. Dargli piu' spazio l'ho PROVATO e la
+misura ha detto di no: a cinque contro quattro la scheda copre 15,1 punti del
+pulsante del respiro, a quattro contro cinque ne copre 90,4, e quello e' un
+difetto che avevi gia' fatto riparare tu. Sono due pretese vere in conflitto su
+uno schermo che non cresce, e la scelta e' tua, non mia.
+
+I SUONI DELL'OROSCOPO, CHE MI HAI SEGNALATO.
+
+Non li ho eliminati, come mi hai detto. Ma adesso so cosa sono, e te lo scrivo
+perche' e' una cosa da decidere.
+
+Le due campane sono soglia.mp3, alla pressione di "Interroga il cielo"; il
+fischio e' rivelazione.mp3, alla comparsa del responso. Non sono suoni di
+sistema: sono due file dentro l'app.
+
+Il LEGGIMI di assets/audio dice che quella cartella deve restare VUOTA finche'
+non scegli tu i suoni su Envato Elements, e che senza file l'app resta in
+silenzio. Invece i file ci sono, tutti e tredici, entrati il 30 luglio dentro un
+commit che rimetteva verde la suite.
+
+Che siano segnaposto generati e' misurato: tutti e tredici hanno gli stessi
+identici parametri, 96 kbps contro i 128 che il LEGGIMI chiede, e durate che
+combaciano con la tabella piu' esattamente sette centesimi. Due coppie sono
+lunghe uguali AL BYTE: rivelazione e rito_compiuto 18.852, eos e firma 24.808.
+
+Restano dove sono finche' non decidi tu.
+
+DA FARE DAL TUO PC: niente.

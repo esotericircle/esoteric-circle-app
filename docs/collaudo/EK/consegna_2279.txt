@@ -1,0 +1,43 @@
+ORDINE EK VOCE 01, LA BUILD SUBITO. Consegna della build 2279 il 24 settembre 2026.
+
+Commit della build: b8b4a6a7 (EK.01: numero build 2279, prima dello sbarramento).
+Registro e note: commit 76be6933, spinto e verificato con git ls-remote.
+Sbarramento: "ROSSI ACCETTATI, E SOLO QUELLI. L'ARCHIVIO SI PRODUCE." Gettone numero 2279, 5823 prove.
+Comando di build: flutter build apk --release (Gradle assembleRelease 490,9 s, archivio 208,4 MB).
+
+USCITA DI tool/consegna.py, cosi' come l'ha scritta (la riga delle note rilette e' tolta: stampata dalla console
+di Windows perdeva gli accenti; le note sul server sono state rilette a parte in Unicode, zero U+FFFD):
+
+  prova di accensione...
+  prova di accensione: processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION.
+  numero letto dal dispositivo: 2279
+  archivio: build/app/outputs/flutter-apk/app-release.apk  218.561.910 byte
+  
+  == L'ARCHIVIO, GUARDATO DENTRO PRIMA DI CARICARE ==
+    assets/flutter_assets/: 725 voci
+    lib/arm64-v8a/: 11 librerie
+    architetture: dentro arm64-v8a, dichiarate arm64-v8a
+    famiglie dell'arte: 8 dichiarate, 0 incomplete
+    numero dall'archivio: 2279, ultimo consegnato: 2278
+    tutti i controlli passati.
+  
+  
+  == LO SBARRAMENTO, PRIMA DI CARICARE ==
+    prove=5823
+    esito=rossi accettati
+    lo sbarramento e passato su questo albero.
+  comando di build dichiarato: flutter build apk --release
+  carico...
+  operazione: projects/425821975933/apps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/-/operations/1aa87a18995cf46c9379125cdefb9a0c331b10fa2c555a2a771a7d90f4feebba
+  esito: RELEASE_CREATED
+  release: projects/425821975933/apps/1:425821975933:android:1b1ca4db8d4df69b940814/releases/6gqoq7qjcg7eg
+  distribuita a cloud@esotericircle.app
+  rilettura della release: stato 200, inviti non dichiarato, accettati 1
+  registro aggiornato: 2278 -> 2279
+
+IL REGISTRO docs/versione_distribuita.json dopo la consegna:
+  ultimo_distribuito 2279, quando 2026-09-24, release 6gqoq7qjcg7eg, peso 218561910 byte.
+
+Rilettura della release dal server (App Distribution, v1): displayVersion 0.1.0, buildVersion 2279,
+creata 2026-09-24T08:13:49Z, note con 7 caratteri non ASCII veri e nessun carattere di sostituzione;
+inviti accettati 1 (tester cloud@esotericircle.app).

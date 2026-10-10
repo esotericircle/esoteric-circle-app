@@ -1,0 +1,53 @@
+ORDINE ET VOCE 07: L'ATTESA DELLE RUNE SUL REALME E LA LETTURA CON LA DOMANDA SCRITTA A MANO. 28 settembre 2026.
+
+Build di prova finale dell'ordine (prova_et_4) sul Realme 767f596c. La
+schermata delle rune scrive nel registro, a ogni gettata, il tempo dal
+lancio al testo del modello, o alla lettura di casa se il modello non
+arriva (lib/features/maestri/caligo/rune/rune_draw_screen.dart, righe "RUNE
+ATTESA"). Registro: logcat del telefono, solo le righe di Flutter.
+
+LA STRADA DI UNA GETTATA: il lancio chiede il presagio al modello nello
+stesso momento (gemini-2.5-flash in europe-west1, con lo schema dei campi
+obbligatori); la lettura puo' essere chiesta fino a tre volte se una guardia
+la scarta, e all'ultima una lettura scartata solo per la forma si mostra;
+senza modello, o per il confine del responso, resta la lettura di casa.
+
+DIECI GETTATE, Le tre Norne, la stessa domanda scritta a mano, 16:30-16:35:
+
+  1. 4083 ms, testo del modello
+  2. 10186 ms, testo del modello
+  3. 4201 ms, testo del modello
+  4. 6180 ms, testo del modello
+  5. 3344 ms, testo del modello
+  6. 5867 ms, testo del modello
+  7. 9692 ms, testo del modello
+  8. 6316 ms, testo del modello
+  9. 7055 ms, testo del modello
+ 10. 10547 ms, testo del modello
+
+Mediana dal lancio al testo del modello: 6248 ms (minimo 3344, massimo
+10547). Cadute sulla lettura di casa: 0 su 10. Al banco, sul PC, il tempo
+del modello per lettura era 8,7-9,3 s di mediana (conti.txt), con tutte le
+chiamate rifatte dalle guardie; sul telefono l'attesa comincia al lancio,
+mentre le pietre cadono, e una parte si nasconde nell'animazione.
+
+LA LETTURA CON LA DOMANDA SCRITTA A MANO (la prima delle dieci), catture
+docs/collaudo/ET/realme/et07_rune_scritta_1..5.jpg:
+
+Domanda, scritta nel campo "Oppure scrivila con le tue parole": «Devo
+accettare il nuovo lavoro a Milano o restare dove sono?» (senza accenti:
+adb non li scrive).
+
+Il presagio di Caligo comincia: «Le pietre indicano di accettare il nuovo
+lavoro, ma con la consapevolezza di rafforzare le tue difese interiori.»
+Algiz in merkstave nella posizione di Urdhr, Sowilo diritta in Verdhandi,
+Ingwaz diritta in Skuld: ogni pietra dice la sua posizione e parla del
+nuovo lavoro o di Milano. Il consiglio: «Prima di accettare, prendi un
+momento per visualizzare uno scudo di luce intorno a te per tre mattine
+consecutive.»
+
+Da segnalare, letto a occhio e non alla cieca: «Il nuovo lavoro porterà
+una maturazione silenziosa, un raccolto che si rivelerà nel tempo.» e' un
+futuro dato per certo. La lettura delle rune non passa dalla rete delle
+certezze della chat (voce ET.01), che guarda soltanto le risposte dei
+Maestri.

@@ -1,0 +1,58 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Modo: col filo di un altro Maestro (ordine FE voce 15).
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: FE.14 medora: nomina Aura in 20 risposte su 20
+Shell: FE.14 aura: nomina Caligo in 18 risposte su 20
+Shell: FE.14 caligo: nomina Medora in 16 risposte su 20
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         19        0        1       20    95.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          0        3       17       20    85.0%
+Shell: 
+Shell: Attribuzione corretta: 56 su 60, cioe' 93.3 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- medora: 1 risposte attribuite ad altri
+Shell:   [creduto caligo] domanda: mi sento distante da chi amo
+Shell:      prima frase: Questa distanza è un invito a guardare dentro di te, non a forzare un riavvicinamento.
+Shell: --- caligo: 3 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: mi sento distante da chi amo
+Shell:      prima frase: Parla con chi ami.
+Shell:   [creduto aura] domanda: mi sento invisibile
+Shell:      prima frase: Osserva i nodi che ti le
+Shell:   [creduto aura] domanda: come faccio a fidarmi di nuovo
+Shell:      prima frase: Lascia cadere la fiducia come sabbia tra le dita.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 95, frase mediana 20.0 parole, domande 0, parole che ammorbidiscono 0
+Shell: aura     frasi contate 104, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 1
+Shell: caligo   frasi contate 117, frase mediana 10.0 parole, domande 0, parole che ammorbidiscono 0
+Shell: DA CORREGGERE: caligo scambiato per aura nel 15 per cento dei casi.
+00:36 +1: All tests passed!
+uscita 0

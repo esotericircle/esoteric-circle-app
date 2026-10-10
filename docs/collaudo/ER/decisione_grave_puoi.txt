@@ -1,0 +1,37 @@
+ORDINE ER, AGGIUNTA 2, PUNTO 1: LA GUARDIA DELLA DECISIONE GRAVE LEGGE "PUOI" COME UN ORDINE
+28 settembre 2026. Regola A: la prova nuova test/la_decisione_grave_legge_il_puoi_test.dart sul codice PRIMA della cura (commit e80e33ea piu' le correzioni della suite, guardia non toccata).
+
+ORDINE ER, AGGIUNTA 2, PUNTO 1: frasi del giro 7 col "puoi" scartate come decisione grave 2 su 2
+00:00 +0 -1: "puoi" con una decisione grave e' una posizione, e passa [E]
+  la guardia legge "puoi" come un ordine: [I segni del viaggio dicono di sì. Puoi trasferirti a Berlino per lavoro, ma prima devi chiarire alcuni aspetti importanti. La decisione è nelle tue mani., I segni del viaggio dicono di sì. Puoi trasferirti a Berlino per lavoro, ma ti è chiesto di guardare con molta attenzione ciò che dovrai affrontare.]
+ORDINE ER, AGGIUNTA 2, PUNTO 1: ordini su una decisione grave che passano la guardia 0 su 7
+00:00 +2 -2: "puoi" con le altre decisioni gravi della guardia passa [E]
+  la guardia legge "puoi" come un ordine: [Puoi separarti, se è ciò che senti da mesi., Puoi licenziarti: i segni lo reggono., Puoi vendere la casa, ma non prima dell'estate., Puoi andartene da quella città.]
+00:00 +2 -2: Some tests failed.
+
+== Regola B, ER.02: la guardia della decisione grave non vede piu' trasferisciti
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima 5e5646c77818, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: MotivoDelloScarto:<MotivoDelloScarto.decisioneGrave>
+   Actual: <null>
+   ripristinato: sha1 5e5646c77818, uguale
+
+DOPO LA CURA (lib/core/viaggio/le_guardie_del_responso.dart, _puoiConLaDecisione e _ordinaUnaDecisioneGrave):
+ORDINE ER, AGGIUNTA 2, PUNTO 1: frasi del giro 7 col "puoi" scartate come decisione grave 0 su 2
+ORDINE ER, AGGIUNTA 2, PUNTO 1: ordini su una decisione grave che passano la guardia 0 su 7
+00:04 +36: All tests passed!
+(la prova nuova insieme a il_responso_risponde_test e il_viaggio_prende_posizione_test)
+Le due frasi col "Puoi trasferirti" passano anche tutte le altre guardie della risposta: dellaRisposta torna null su tutte e due.
+Le due col "segui quello che senti" restano scartate come decisione grave (seconda prova, verde).
+
+IL BANCO DEL VIAGGIO, GIRO 8 (due esecuzioni sul codice corretto) CONTRO IL GIRO 7, contati dai file in docs/collaudo/ER/viaggio/:
+  giro7_esecuzione1: scarti decisioneGrave 3, di cui di frasi che dicono "puoi" senza ordinare 1
+  giro7_esecuzione2: scarti decisioneGrave 1, di cui di frasi che dicono "puoi" senza ordinare 1
+  giro8_esecuzione1: scarti decisioneGrave 0, di cui di frasi che dicono "puoi" senza ordinare 0
+  giro8_esecuzione2: scarti decisioneGrave 0, di cui di frasi che dicono "puoi" senza ordinare 0
+Le risposte mostrate alla domanda su Berlino nel giro 8:
+  esecuzione 1: "Una delle due la stai già facendo, in piccolo, da settimane." ({scena: modello, titolo: modello, risposta: riserva: previsioneCerta, gesto: modello})
+  esecuzione 1: "I segni del viaggio dicono di sì, ma non è una strada senza spese. Il lavoro a Berlino ti chiede di lasciare una parte di quello che hai costruito. Prepara bene il terreno per quello che vuoi far nascere." ({scena: modello, titolo: modello, risposta: modello, gesto: riserva: genereContrario})
+  esecuzione 2: "Una delle due la stai già facendo, in piccolo, da settimane." ({scena: modello, titolo: modello, risposta: riserva: previsioneCerta, gesto: modello})
+  esecuzione 2: "I segni del viaggio indicano che il trasferimento a Berlino è favorevole se ti prendi il tempo di preparare il terreno. La crescita che cerchi dipende da ciò che decidi di coltivare. Scegli con cura ciò che vuoi far fiorire nel nuovo contesto." ({scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata})

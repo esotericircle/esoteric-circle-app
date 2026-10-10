@@ -1,0 +1,6 @@
+URL: https://www.sammyfans.com/2024/02/24/samsung-galaxy-a35-5g-with-exynos-1380-soc-visits-geekbench/
+Letta il: 2026-10-06 (WebFetch, estratto restituito dallo strumento, non la pagina grezza)
+Data dell'articolo: 23-24 febbraio 2024 (prima dell'uscita commerciale)
+Modello: SM-A356E, Exynos 1380
+Geekbench 6 single-core: 1,020
+Geekbench 6 multi-core: 2,973

@@ -1,0 +1,8 @@
+ORDINE ER VOCE 20: GLI SFONDI DEL SEGRETO DELL'IRIDE, DAL PC AL REPOSITORY. 27 settembre 2026
+Cartella del PC: C:\Users\user\Desktop\esoteric-circle-app\assets\Sfondi Schede\webp
+
+Segreto-Iride-Vert-1.webp: sha1 PC 0974589405cc8d84d21c5e64d5a814fa42979234, sha1 assets/schede 0974589405cc8d84d21c5e64d5a814fa42979234, byte 74718
+Segreto-Iride-Square-1.webp: sha1 PC ef9a3b3bc9d92f6f20be8db5be3aa13e32763381, sha1 assets/schede ef9a3b3bc9d92f6f20be8db5be3aa13e32763381, byte 65168
+Segreto-Iride-Oriz-1.webp: sha1 PC 156af3f83823291edca11e2b7efbbfe18e0f9f3b, sha1 assets/schede 156af3f83823291edca11e2b7efbbfe18e0f9f3b, byte 95812
+
+webp uguali byte per byte a quelli del PC: prima 0 su 3, dopo 3 su 3.

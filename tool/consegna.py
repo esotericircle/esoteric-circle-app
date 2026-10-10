@@ -1,0 +1,717 @@
+# -*- coding: utf-8 -*-
+"""La consegna di un archivio a Firebase App Distribution, in un comando solo.
+
+**Perche' questo file esiste.** La consegna era una sequenza di chiamate curl
+scritte a mano a ogni giro, e in fondo alla sequenza c'era un passo che si
+faceva a mano: aggiornare `docs/versione_distribuita.json` col numero appena
+consegnato. Un passo a mano in fondo a una procedura lunga e' un passo che
+prima o poi salta, e quando salta il guardiano `versione_build_test.dart`
+smette di sorvegliare qualcosa di vero, perche' confronta il numero nuovo con
+un ultimo distribuito che non e' piu' l'ultimo.
+
+Qui la sequenza e' una sola, e **il file si aggiorna dentro la procedura**, solo
+dopo che il server ha confermato la distribuzione.
+
+**Nessuna chiave.** L'organizzazione vieta la creazione di chiavi JSON per gli
+account di servizio, ed e' una scelta giusta. Il token si ottiene al volo
+impersonando `distributore-app@`, dura un'ora e non si salva.
+
+Uso:
+  python tool/consegna.py build/app/outputs/flutter-apk/app-release.apk "Le note"
+"""
+
+import io
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.request
+
+import ispeziona_archivio
+
+APP = '1:425821975933:android:1b1ca4db8d4df69b940814'
+SERVIZIO = 'distributore-app@esoteric-circle.iam.gserviceaccount.com'
+# **IL DESTINATARIO E' UNO SOLO.** L'ordine AR voce 09 ne aveva messi due,
+# aggiungendo a quello del progetto l'indirizzo con cui Mauro usa il telefono;
+# Mauro l'ha revocato, e le build tornano al solo account di servizio.
+# Resta una lista di una voce sola, cosi' rimetterne un secondo domani non
+# tocca il resto della procedura.
+TESTER = ['cloud@esotericircle.app']
+REGISTRO = 'docs/versione_distribuita.json'
+
+
+def token():
+    """Il token impersonato, preso al volo e mai salvato."""
+    out = subprocess.run(
+        ['gcloud', 'auth', 'print-access-token',
+         '--impersonate-service-account=' + SERVIZIO],
+        capture_output=True, text=True, shell=True)
+    if out.returncode != 0:
+        raise SystemExit('token non ottenuto: ' + out.stderr.strip())
+    return out.stdout.strip()
+
+
+def chiama(url, tok, dati=None, metodo=None, binario=False):
+    intestazioni = {'Authorization': 'Bearer ' + tok}
+    corpo = None
+    if binario:
+        corpo = dati
+        intestazioni['Content-Type'] = 'application/octet-stream'
+        intestazioni['X-Goog-Upload-File-Name'] = 'app-release.apk'
+        intestazioni['X-Goog-Upload-Protocol'] = 'raw'
+    elif dati is not None:
+        corpo = json.dumps(dati).encode('utf-8')
+        intestazioni['Content-Type'] = 'application/json'
+    req = urllib.request.Request(url, data=corpo, headers=intestazioni,
+                                 method=metodo)
+    try:
+        with urllib.request.urlopen(req, timeout=1800) as r:
+            testo = r.read().decode('utf-8')
+            return r.status, (json.loads(testo) if testo.strip() else {})
+    except urllib.error.HTTPError as e:
+        return e.code, {'errore': e.read().decode('utf-8')}
+
+
+PACCHETTO = 'com.esotericircle.esoteric_circle'
+
+
+def _adb():
+    """Il percorso di adb, dal SDK locale o dal PATH."""
+    locale = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android', 'Sdk',
+                          'platform-tools', 'adb.exe')
+    return locale if os.path.isfile(locale) else 'adb'
+
+
+def _corri(args, timeout=180):
+    r = subprocess.run(args, capture_output=True, text=True,
+                       encoding='utf-8', errors='replace', timeout=timeout)
+    return r.returncode, (r.stdout or '') + (r.stderr or '')
+
+
+def prova_di_accensione(archivio, attesa_secondi=12):
+    """L'APK si accende davvero, oppure la consegna non parte.
+
+    Quattro pretese, ciascuna col suo perche':
+    1. c'e' UN dispositivo in stato `device`: senza, ci si ferma e lo si
+       dice, perche' consegnare al buio e' come e' arrivata la 2161 rotta;
+    2. l'APK appena costruito si installa (`adb install -r`);
+    3. avviata l'app, dopo l'attesa dichiarata il processo e' VIVO e il
+       sistema ha registrato `Displayed`, cioe' il primo fotogramma e' stato
+       disegnato: un processo vivo che non disegna e' un'app appesa;
+    4. nel log dell'avvio non c'e' nessun FATAL EXCEPTION del pacchetto.
+
+    Quando una pretesa cade si stampano LE RIGHE VERE del log, non un
+    riassunto, e la consegna muore prima di caricare qualunque cosa.
+    """
+    adb = _adb()
+    print('prova di accensione...')
+    _, fuori = _corri([adb, 'devices'])
+    righe = [r for r in fuori.strip().splitlines()[1:] if r.strip()]
+    vivi = [r.split()[0] for r in righe if r.strip().endswith('device')]
+    if len(vivi) != 1:
+        raise SystemExit(
+            'prova di accensione: serve UN dispositivo in stato "device", '
+            'trovato:\n' + fuori.strip() + '\nNon si consegna al buio: '
+            'collega il telefono o avvia un emulatore e riprova.')
+    codice, fuori = _corri([adb, 'install', '-r', archivio], timeout=600)
+    if codice != 0 or 'Success' not in fuori:
+        raise SystemExit('prova di accensione: install fallita:\n' + fuori)
+    _corri([adb, 'logcat', '-c'])
+    _corri([adb, 'shell', 'am', 'force-stop', PACCHETTO])
+    _corri([adb, 'shell', 'monkey', '-p', PACCHETTO, '-c',
+            'android.intent.category.LAUNCHER', '1'])
+    time.sleep(attesa_secondi)
+    # Il processo e' vivo?
+    _, pid = _corri([adb, 'shell', 'pidof', PACCHETTO])
+    # Il log dell'avvio: ci si leggono fotogramma e crash. **Si filtra sul
+    # telefono**, ordine EV del 1 ottobre 2026: sul Realme di collaudo ogni
+    # uscita dal telefono oltre una decina di KB faceva cadere il
+    # collegamento (16000 byte chiesti, 0 arrivati, e il telefono "offline"),
+    # mentre l'installazione, che va nell'altro verso, passava. Il log intero
+    # sono 750 KB: arrivava vuoto, e la prova diceva "nessun Displayed" con
+    # zero righe da mostrare. Dal telefono partono solo le righe che la prova
+    # legge, e le ultime 25 per il caso in cui una pretesa cade.
+    filtro = ("logcat -d -v threadtime | grep -E "
+              "'FATAL EXCEPTION|AndroidRuntime|Displayed' | tail -n 80")
+    _, log = _corri([adb, 'shell', filtro])
+    _, coda = _corri([adb, 'shell', 'logcat -d -v threadtime | tail -n 25'])
+    fatali = [r for r in log.splitlines() if 'FATAL EXCEPTION' in r
+              or (PACCHETTO in r and 'AndroidRuntime' in r)]
+    disegnato = any('Displayed' in r and PACCHETTO in r
+                    for r in log.splitlines())
+    log = log + '\n' + coda
+    if not pid.strip():
+        raise SystemExit(
+            'prova di accensione: il processo NON e\' vivo dopo '
+            + str(attesa_secondi) + ' secondi. Le righe del log:\n'
+            + '\n'.join(fatali[:25] or log.splitlines()[-25:]))
+    if fatali:
+        raise SystemExit(
+            'prova di accensione: FATAL EXCEPTION nel log di avvio:\n'
+            + '\n'.join(fatali[:25]))
+    if not disegnato:
+        raise SystemExit(
+            'prova di accensione: il sistema non ha registrato "Displayed" '
+            'per ' + PACCHETTO + ': il primo fotogramma non e\' stato '
+            'disegnato. Ultime righe del log:\n'
+            + '\n'.join(log.splitlines()[-25:]))
+    print('prova di accensione: processo vivo, primo fotogramma disegnato, '
+          'nessun FATAL EXCEPTION.')
+    # IL NUMERO SI LEGGE QUI, dal pacchetto appena installato: e' il numero
+    # dell'ARCHIVIO, letto dal dispositivo, non dal pubspec. Cosi' il passo
+    # del registro in fondo non muore piu' chiedendo una variabile: nelle
+    # consegne 2161 e 2162 la procedura e' morta due volte sullo stesso
+    # gradino, a caricamento gia' avvenuto.
+    # Filtrato sul telefono anche questo, ordine EV: la scheda del pacchetto
+    # intera e' grande, sul Realme di collaudo faceva cadere il collegamento
+    # e la consegna del 1 ottobre e' morta sul registro a release gia'
+    # distribuita. Se il dispositivo non risponde, il numero si legge
+    # dall'archivio con aapt2: e' lo stesso numero, mai quello del pubspec.
+    _, dump = _corri([adb, 'shell', 'dumpsys package ' + PACCHETTO
+                      + ' | grep versionCode='])
+    for r in dump.splitlines():
+        if 'versionCode=' in r:
+            numero = r.split('versionCode=')[1].split()[0]
+            os.environ.setdefault('NUMERO_CONSEGNATO', numero)
+            print('numero letto dal dispositivo: ' + numero)
+            break
+    else:
+        print('il dispositivo non ha detto il numero: lo si legge '
+              'dall\'archivio')
+        numero_da_aapt2(archivio)
+
+
+def numero_da_aapt2(archivio):
+    """Il versionCode letto dall'archivio con aapt2, quando nessun dispositivo
+    lo ha potuto leggere. Serve al registro: il numero e' dell'ARCHIVIO, mai
+    del pubspec."""
+    # **UNA PORTA SOLA PER IL NUMERO, ordine CH voce 07.** La lettura con
+    # aapt2 viveva qui e serviva anche all'ispezione dell'archivio: due modi
+    # di leggere lo stesso numero sono due numeri che un giorno divergono, ed
+    # e' la famiglia di difetti piu' numerosa di questo progetto. Adesso sta
+    # in ispeziona_archivio, che e' il posto che guarda dentro il file.
+    numero = ispeziona_archivio.versione_dall_archivio(archivio)
+    os.environ.setdefault('NUMERO_CONSEGNATO', str(numero))
+    print('numero letto dall\'archivio con aapt2: ' + str(numero))
+
+
+def lo_sbarramento_e_passato(numero_atteso):
+    """IL GETTONE DELLO SBARRAMENTO, e perche' questa funzione esiste.
+
+    **Ordine CZ voce 14, 8 settembre 2026.** CI.04 era rossa dall'ordine CT e
+    ha attraversato una consegna intera senza fermarla. Cercata la ragione
+    negli strumenti: **questo file non nominava lo sbarramento in nessuna
+    riga.** Erano due strumenti separati, e niente obbligava il primo a essere
+    passato prima del secondo: chi costruiva l'archivio e lo caricava
+    consegnava su qualunque rosso, senza scavalco e senza lasciare traccia.
+
+    Lo scavalco dichiarato, SPEDISCO_SU_ROSSO, almeno si stampa e va riportato
+    nel rapporto. **Saltare lo sbarramento invece non si vedeva.**
+
+    Il gettone lo scrive `tool/sbarramento.sh` nei tre rami che lasciano
+    produrre l'archivio, e porta il numero di build del pubspec: **un gettone
+    di ieri non vale per la build di oggi**, e la suite rossa lo cancella.
+    """
+    percorso = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), 'build', 'sbarramento_passato.txt')
+    if not os.path.exists(percorso):
+        return (False, 'il gettone non esiste: lo sbarramento non e mai '
+                       'stato passato su questo albero. Lancia '
+                       'bash tool/sbarramento.sh')
+    testo = io.open(percorso, encoding='utf-8').read()
+    if 'SBARRAMENTO_PASSATO' not in testo:
+        return (False, 'il gettone esiste ma non dichiara il passaggio')
+    letto = None
+    for riga in testo.splitlines():
+        if riga.startswith('numero='):
+            letto = riga.split('=', 1)[1].strip()
+    if letto != str(numero_atteso):
+        return (False,
+                'il gettone dello sbarramento porta il numero ' + str(letto) +
+                ' e questo archivio e il ' + str(numero_atteso) + ': quel '
+                'gettone viene da un altro albero. Rilancia lo sbarramento.')
+    for riga in testo.splitlines():
+        if riga.startswith('esito=') or riga.startswith('prove='):
+            print('  ' + riga)
+    return (True, None)
+
+
+RAMO_CANONICO = 'claude/esoteric-circle-master-order-e798aj'
+
+
+def _bash_di_git():
+    """Il bash di Git per Windows: quello di sistema potrebbe essere un altro."""
+    for c in (r'C:\Program Files\Git\bin\bash.exe',
+              r'C:\Program Files\Git\usr\bin\bash.exe',
+              '/usr/bin/bash', '/bin/bash'):
+        if os.path.exists(c):
+            return c
+    return 'bash'
+
+
+def lo_sbarramento_di_github(numero_atteso, archivio):
+    """LO SBARRAMENTO FATTO DA GITHUB, al posto di quello del PC.
+
+    **Ordine ACCELERA, 26 settembre 2026.** Il fondatore: *"Ma ancora
+    sbarramenti da 40 Min?"*. Lo sbarramento del PC (un i5 del 2012, quattro
+    processori) durava circa 40 minuti, e GitHub fa gia' lo stesso cancello a
+    ogni spinta, diviso su piu' macchine. Qui la consegna accetta il suo
+    verdetto, ma **solo se il verdetto e' di questo archivio**:
+      - l'albero non ha modifiche fuori dai commit;
+      - il commit e' sul ramo canonico di GitHub;
+      - il numero di build del pubspec del commit e' quello dell'archivio;
+      - l'archivio e' piu' recente del commit;
+      - `tool/il_cancello_ha_detto_verde.sh`, la stessa porta che usa
+        Codemagic, dice verde su quel commit.
+    Lo scavalco SPEDISCO_SU_ROSSO qui non passa: vale solo per lo sbarramento
+    del PC, dove si stampa.
+    """
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def git(*argomenti):
+        r = subprocess.run(['git'] + list(argomenti), cwd=radice,
+                           capture_output=True, text=True, encoding='utf-8',
+                           errors='replace')
+        return r.returncode, r.stdout.strip()
+
+    _, commit = git('rev-parse', 'HEAD')
+    _, sporco = git('status', '--porcelain')
+    if sporco:
+        return (False, 'l\'albero ha modifiche fuori dai commit, e il verde '
+                       'di GitHub copre il commit, non loro')
+    git('fetch', '-q', 'origin', RAMO_CANONICO)
+    dentro, _ = git('merge-base', '--is-ancestor', commit,
+                    'origin/' + RAMO_CANONICO)
+    if dentro != 0:
+        return (False, 'il commit ' + commit[:8] + ' non e\' sul ramo '
+                       'canonico di GitHub: spingilo e aspetta il suo verde')
+    _, pubspec = git('show', 'HEAD:pubspec.yaml')
+    trovato = re.search(r'^version: [0-9.]+[+]([0-9]+)', pubspec, re.M)
+    if not trovato or trovato.group(1) != str(numero_atteso):
+        return (False, 'il pubspec del commit dice ' +
+                (trovato.group(1) if trovato else '?') + ' e l\'archivio e\' '
+                'il ' + str(numero_atteso) + ': non viene da questo commit')
+    _, quando = git('log', '-1', '--format=%ct')
+    if os.path.getmtime(archivio) < int(quando or '0'):
+        return (False, 'l\'archivio e\' piu\' vecchio del commit: e\' stato '
+                       'costruito prima, rifallo')
+    ambiente = dict(os.environ, CM_COMMIT=commit, CM_BRANCH=RAMO_CANONICO,
+                    ATTESA_MASSIMA_DEL_LIMITE='120')
+    ambiente.pop('SPEDISCO_SU_ROSSO', None)
+    r = subprocess.run(
+        [_bash_di_git(), os.path.join(radice, 'tool',
+                                      'il_cancello_ha_detto_verde.sh')],
+        cwd=radice, env=ambiente, capture_output=True, text=True,
+        encoding='utf-8', errors='replace')
+    for riga in r.stdout.strip().splitlines()[-4:]:
+        print('  ' + riga)
+    if r.returncode != 0:
+        return (False, 'il cancello di GitHub non e\' verde sul commit ' +
+                commit[:8])
+    return (True, commit)
+
+
+def i_file_di_test_dei_banchi():
+    """I file di `test/` che i banchi eseguono davvero: quelli che importano,
+    seguendo gli import, gli export e i part a catena.
+
+    Prima il confronto prendeva tutta la cartella `test/`, e un `const` in
+    una prova che coi banchi non ha niente a che fare chiedeva un giro nuovo,
+    ottanta minuti e tre euro (ordine FD, 5 ottobre 2026). Il codice dei
+    banchi e' `lib`, la loro cartella e questi file: si confronta quello."""
+    radice = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+    cartella = os.path.join(radice, 'tool', 'banchi_col_modello')
+    da_leggere = [os.path.join(cartella, n) for n in os.listdir(cartella)
+                  if n.endswith('.dart')]
+    visti, di_test = set(), set()
+    rinvio = re.compile(r"""^\s*(?:import|export|part)\s+'([^']+)'""", re.M)
+    while da_leggere:
+        f = os.path.normpath(da_leggere.pop())
+        if f in visti or not os.path.isfile(f):
+            continue
+        visti.add(f)
+        relativo = os.path.relpath(f, radice).replace(os.sep, '/')
+        if relativo.startswith('test/'):
+            di_test.add(relativo)
+        testo = io.open(f, encoding='utf-8').read()
+        for m in rinvio.finditer(testo):
+            dove = m.group(1)
+            if ':' in dove:
+                continue  # package: e dart: stanno in lib o fuori dal repo
+            da_leggere.append(os.path.join(os.path.dirname(f), dove))
+    return sorted(di_test)
+
+
+def i_file_dei_banchi():
+    """I file che i banchi raggiungono davvero, in `lib`, in `test` e nella
+    loro cartella, seguendo import, export e part a catena, anche quelli in
+    `package:esoteric_circle/`.
+
+    **PERCHE'.** Fino al 10 ottobre 2026 la consegna pretendeva un giro nuovo
+    dei banchi a ogni cambio di `lib`, qualunque fosse. L'ordine FH, sul Real
+    Time Cosmo, aveva cambiato 30 file di `lib`, e solo 2 erano raggiunti dai
+    banchi (un commento e la finestra delle effemeridi oltre il 2099): il
+    giro e' costato 3,65 euro e 80 minuti senza misurare niente di nuovo. Il
+    fondatore ha scelto di restringere il controllo ai file dei banchi."""
+    radice = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+    cartella = os.path.join(radice, 'tool', 'banchi_col_modello')
+    da_leggere = [os.path.join(cartella, n) for n in os.listdir(cartella)
+                  if n.endswith('.dart')]
+    visti, raggiunti = set(), set()
+    rinvio = re.compile(r"""^\s*(?:import|export|part)\s+['"]([^'"]+)['"]""", re.M)
+    pacchetto = 'package:esoteric_circle/'
+    while da_leggere:
+        f = os.path.normpath(da_leggere.pop())
+        if f in visti or not os.path.isfile(f):
+            continue
+        visti.add(f)
+        raggiunti.add(os.path.relpath(f, radice).replace(os.sep, '/'))
+        testo = io.open(f, encoding='utf-8').read()
+        for m in rinvio.finditer(testo):
+            dove = m.group(1)
+            if dove.startswith(pacchetto):
+                da_leggere.append(os.path.join(radice, 'lib', dove[len(pacchetto):]))
+            elif ':' not in dove:
+                da_leggere.append(os.path.join(os.path.dirname(f), dove))
+    return sorted(raggiunti)
+
+
+def _senza_commenti(sorgente):
+    """Il codice Dart senza i commenti e senza gli spazi: due versioni che
+    differiscono solo nei commenti risultano uguali. Le stringhe restano
+    intere, anche quando contengono // o /*."""
+    fuori, i, n = [], 0, len(sorgente)
+    while i < n:
+        c = sorgente[i]
+        if sorgente.startswith('//', i):
+            j = sorgente.find('\n', i)
+            i = n if j < 0 else j
+            continue
+        if sorgente.startswith('/*', i):
+            j = sorgente.find('*/', i + 2)
+            i = n if j < 0 else j + 2
+            continue
+        if c in '\'"':
+            triplo = sorgente.startswith(c * 3, i)
+            chiusura = c * 3 if triplo else c
+            j = i + len(chiusura)
+            while j < n and not sorgente.startswith(chiusura, j):
+                j += 2 if sorgente[j] == '\\' else 1
+            j = min(n, j + len(chiusura))
+            fuori.append(sorgente[i:j])
+            i = j
+            continue
+        fuori.append(c)
+        i += 1
+    return re.sub(r'\s+', '', ''.join(fuori))
+
+
+def _alla_revisione(commit, percorso):
+    r = subprocess.run(['git', 'show', commit + ':' + percorso],
+                       capture_output=True, text=True, encoding='utf-8',
+                       errors='replace')
+    return r.stdout if r.returncode == 0 else ''
+
+
+def i_banchi_sono_passati():
+    """L'ultimo giro dei banchi col modello e' passato tutto, ed e'
+    stato fatto su un commit il cui codice (lib, test e i banchi) e' uguale a
+    quello di adesso. Ordine FD voce 03."""
+    cartella = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
+                            'docs', 'collaudo', 'banchi_col_modello')
+    if not os.path.isdir(cartella):
+        return (False, 'nessun giro dei banchi in docs/collaudo/banchi_col_modello')
+    giri = sorted(n for n in os.listdir(cartella) if n.endswith('.txt'))
+    if not giri:
+        return (False, 'nessun giro dei banchi in docs/collaudo/banchi_col_modello')
+    ultimo = os.path.join(cartella, giri[-1])
+    testo = io.open(ultimo, encoding='utf-8').read()
+    # **QUANTI SONO LO DICE IL COMANDO**, ordine FE voce 18: il cinque
+    # scritto qui avrebbe rifiutato ogni giro dopo l'aggiunta dei sei
+    # percorsi del consulto. E il numero del risultato ha piu' cifre.
+    attesi = len(subprocess.run(
+        [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      'banchi_col_modello',
+                                      'i_banchi_col_modello.py'), '--elenco'],
+        capture_output=True, text=True, encoding='utf-8').stdout.splitlines())
+    risultati = re.findall(r'^RISULTATO \d+: (\S+)', testo, re.M)
+    if attesi == 0 or len(risultati) != attesi:
+        return (False, giri[-1] + ' porta ' + str(len(risultati)) +
+                ' risultati invece di ' + str(attesi))
+    if any(r != 'PASSATO' for r in risultati):
+        return (False, giri[-1] + ' ha banchi non passati: ' + ', '.join(risultati))
+    trovato = re.search(r'^commit: ([0-9a-f]{40})$', testo, re.M)
+    if not trovato:
+        return (False, giri[-1] + ' non dice il commit')
+    # Si confrontano i soli file che i banchi raggiungono, senza i commenti
+    # (vedi i_file_dei_banchi).
+    diversi = []
+    for percorso in i_file_dei_banchi():
+        if not percorso.endswith('.dart'):
+            continue
+        prima = _senza_commenti(_alla_revisione(trovato.group(1), percorso))
+        adesso = _senza_commenti(_alla_revisione('HEAD', percorso))
+        if prima != adesso:
+            diversi.append(percorso)
+    if diversi:
+        return (False, 'i banchi di ' + giri[-1] + ' hanno girato sul commit ' +
+                trovato.group(1)[:8] + ', e nei file che usano il codice di '
+                'adesso e\' diverso: ' + ', '.join(diversi))
+    return (True, giri[-1] + ': ' + str(attesi) + ' banchi passati sul commit ' +
+            trovato.group(1)[:8] + ', codice uguale a quello consegnato')
+
+
+def main():
+    if len(sys.argv) < 3:
+        raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
+                         'consegna.py <archivio> @<file di note in UTF-8>')
+    archivio, note = sys.argv[1], sys.argv[2]
+
+    # LE NOTE CON GLI ACCENTI VANNO LETTE DA UN FILE, non passate a riga di
+    # comando.
+    #
+    # Su Windows gli argomenti arrivano decodificati con la codepage di
+    # sistema, e una "e" accentata nella riga di comando si presenta al server
+    # come un carattere rotto: la 2152 e' stata consegnata con "La Luna ?"
+    # nelle note, e se n'e' accorto solo chi ha riletto la risposta del server.
+    # L'API non c'entrava, il corpo JSON e' sempre stato in UTF-8: si rompeva
+    # prima, nel passaggio dalla shell a Python.
+    #
+    # Con la forma @file il testo non attraversa mai la riga di comando.
+    if note.startswith('@'):
+        note = io.open(note[1:], encoding='utf-8').read().strip()
+
+    # E SI DICHIARA SUBITO se il testo si e' gia' rotto per strada, invece di
+    # scoprirlo a consegna avvenuta: il carattere di sostituzione non compare
+    # mai in un testo scritto bene.
+    if '�' in note:
+        raise SystemExit(
+            'le note contengono un carattere rotto: sono passate da una shell '
+            'che non parla UTF-8. Scrivile in un file e passalo come @file.')
+    # LA PROVA DI ACCENSIONE, PRIMA DEL CARICAMENTO. Ordine 2162: la 2161 e'
+    # arrivata a Mauro con duemilaquarantasei prove verdi e moriva all'avvio,
+    # perche' nessuna prova avvia l'archivio: in `flutter test` Firebase e i
+    # plugin nativi non partono affatto. Da qui in poi NESSUNA consegna parte
+    # senza che l'APK si sia acceso davvero su un dispositivo: si installa, si
+    # avvia, si pretende il processo vivo e il primo fotogramma disegnato, e
+    # nessun FATAL EXCEPTION nel log. Se non c'e' un dispositivo, ci si ferma:
+    # non si consegna al buio.
+    # L'UNICO SALTO AMMESSO e' un ORDINE ESPLICITO di Mauro, scritto nella
+    # variabile con la ragione: la consegna lo dichiara a voce alta e il
+    # numero si legge dall'archivio con aapt2 invece che dal dispositivo.
+    # E' un ripiego e si dichiara come tale: l'APK parte senza che nessun
+    # dispositivo lo abbia acceso.
+    salto = os.environ.get('ACCENSIONE_SALTATA_PER_ORDINE', '').strip()
+    if salto:
+        print('ATTENZIONE: prova di accensione SALTATA per ordine esplicito: '
+              + salto)
+        print('Questa consegna parte al buio: nessun dispositivo ha acceso '
+              'questo archivio prima del caricamento.')
+        numero_da_aapt2(archivio)
+    else:
+        prova_di_accensione(archivio)
+
+    peso = os.path.getsize(archivio)
+    print('archivio: ' + archivio + '  ' + '{:,}'.format(peso).replace(',', '.')
+          + ' byte')
+
+    # **SI GUARDA DENTRO L'ARCHIVIO, PRIMA DI CARICARLO. Ordine CH voce 07.**
+    #
+    # Il cancello guarda il codice: le prove del client, quelle del server,
+    # l'analisi. Nessuna di loro apre mai il file che il telefono scarica, e
+    # fra il codice che passa le prove e l'archivio che parte ci sono Gradle,
+    # gli AAR dei plugin, i filtri degli ABI e le esclusioni del
+    # confezionamento. La 2216 e' uscita di li' senza il motore per i telefoni
+    # a 32 bit, ha superato 4.175 prove e lo sbarramento, e a trovarla e'
+    # stato il fondatore leggendo due pesi su App Tester.
+    #
+    # Da qui in avanti, se l'archivio non contiene cio' che promette la
+    # consegna SI FERMA e dice quale controllo e' caduto.
+    print('')
+    print('== L\'ARCHIVIO, GUARDATO DENTRO PRIMA DI CARICARE ==')
+    guai, righe = ispeziona_archivio.ispeziona(archivio)
+    for r in righe:
+        print('  ' + r)
+    if guai:
+        print('')
+        print('LA CONSEGNA SI FERMA: l\'archivio non contiene cio\' che '
+              'promette.')
+        for g in guai:
+            print('  - ' + g)
+        raise SystemExit('archivio rifiutato, niente e\' stato caricato')
+    print('  tutti i controlli passati.')
+    print('')
+
+    # **IL COMANDO CHE HA COSTRUITO QUESTO ARCHIVIO. Ordine CH voce 08.**
+    #
+    # Il comando della 2215 non era registrato da nessuna parte, e per sapere
+    # come fosse stata costruita si e' dovuto DEDURLO aprendo l'archivio. E'
+    # la ragione per cui una build fatta in modo diverso e' potuta uscire
+    # senza che nessuno se ne accorgesse.
+    #
+    # **Perche' si chiede invece di misurarlo.** Il comando non e' dentro il
+    # file: un archivio non conserva la riga che lo ha prodotto, e dedurlo
+    # dall'inventario e' un indizio, non una lettura. Quindi si dichiara. Cio'
+    # che cambia rispetto a prima e' che adesso e' OBBLIGATORIO e lo scrive la
+    # consegna nel registro: prima era facoltativo e non lo scriveva nessuno.
+    # **E LO SBARRAMENTO DEVE ESSERE PASSATO SU QUESTO ALBERO.**
+    # Ordine CZ voce 14: la falla per cui un rosso ha attraversato una
+    # consegna intera era che questo file non lo nominava affatto.
+    # **I BANCHI COL MODELLO, PRIMA DI CARICARE. Ordine FD voce 03.**
+    # I banchi che chiamano Gemini davvero non girano a ogni commit, perche'
+    # costano: girano a ogni consegna, e la consegna non parte se l'ultimo
+    # giro non e' passato tutto sullo stesso codice che si consegna.
+    print('')
+    print('== I BANCHI COL MODELLO ==')
+    passati, perche = i_banchi_sono_passati()
+    if not passati:
+        raise SystemExit('BANCHI COL MODELLO: ' + perche + '. Lancia: python '
+                         'tool/banchi_col_modello/i_banchi_col_modello.py --costo')
+    print('  ' + perche)
+
+    print('')
+    print('== LO SBARRAMENTO, PRIMA DI CARICARE ==')
+    numero_dell_archivio = ispeziona_archivio.versione_dall_archivio(archivio)
+    # **PRIMA GITHUB, poi il gettone del PC. Ordine ACCELERA.** Il verdetto di
+    # GitHub e' legato al commit, il gettone solo al numero di build.
+    su_github, dettaglio = lo_sbarramento_di_github(numero_dell_archivio,
+                                                    archivio)
+    if su_github:
+        cancello = 'github ' + dettaglio
+        print('  lo sbarramento e passato su GitHub, sul commit ' +
+              dettaglio[:8] + '.')
+    else:
+        print('  GitHub non basta: ' + dettaglio + '. Guardo il gettone del PC.')
+        passato, perche = lo_sbarramento_e_passato(numero_dell_archivio)
+        if not passato:
+            raise SystemExit('SBARRAMENTO NON PASSATO. ' + perche +
+                             '. E su GitHub: ' + dettaglio)
+        cancello = 'locale'
+        print('  lo sbarramento e passato su questo albero.')
+
+    comando = os.environ.get('COMANDO_DI_BUILD', '').strip()
+    if not comando:
+        raise SystemExit(
+            'COMANDO_DI_BUILD non impostato: il registro resterebbe senza il '
+            'comando che ha prodotto questo archivio, ed e\' esattamente il '
+            'buco della 2215. Rilancia dichiarandolo, per esempio '
+            'COMANDO_DI_BUILD="flutter build apk --release"')
+    print('comando di build dichiarato: ' + comando)
+
+    tok = token()
+
+    # 1. CARICAMENTO. Torna un'operazione, non la release: va attesa.
+    print('carico...')
+    stato, corpo = chiama(
+        'https://firebaseappdistribution.googleapis.com/upload/v1/projects/'
+        '425821975933/apps/' + APP + '/releases:upload',
+        tok, dati=io.open(archivio, 'rb').read(), binario=True)
+    if stato != 200:
+        raise SystemExit('caricamento fallito ' + str(stato) + ': ' + str(corpo))
+    operazione = corpo.get('name')
+    print('operazione: ' + str(operazione))
+
+    # 2. L'ATTESA. Un 200 sul caricamento NON e' una release pronta: e' una
+    #    richiesta accettata. La release esiste quando l'operazione e' done.
+    release, esito = None, None
+    for _ in range(60):
+        stato, corpo = chiama(
+            'https://firebaseappdistribution.googleapis.com/v1/' + operazione,
+            tok)
+        if corpo.get('done'):
+            risposta = corpo.get('response', {})
+            esito = risposta.get('result')
+            release = risposta.get('release', {}).get('name')
+            break
+        time.sleep(5)
+    if not release:
+        raise SystemExit('operazione non conclusa: ' + str(corpo))
+    print('esito: ' + str(esito))
+    print('release: ' + release)
+
+    # 3. LE NOTE, e si rileggono dal server invece di darle per scritte.
+    stato, corpo = chiama(
+        'https://firebaseappdistribution.googleapis.com/v1/' + release
+        + '?updateMask=releaseNotes.text',
+        tok, dati={'releaseNotes': {'text': note}}, metodo='PATCH')
+    if stato != 200:
+        raise SystemExit('note non applicate ' + str(stato) + ': ' + str(corpo))
+    print('note rilette dal server: ' + repr(
+        corpo.get('releaseNotes', {}).get('text')))
+
+    # 4. LA DISTRIBUZIONE al destinatario unico.
+    stato, corpo = chiama(
+        'https://firebaseappdistribution.googleapis.com/v1/' + release
+        + ':distribute',
+        tok, dati={'testerEmails': TESTER})
+    if stato != 200:
+        raise SystemExit('distribuzione fallita ' + str(stato) + ': '
+                         + str(corpo))
+    print('distribuita a ' + ', '.join(TESTER))
+    # **IL 200 NON E' LA PROVA, e si e' gia' pagato per crederlo.** La
+    # risposta della distribuzione torna 200 anche quando l'invito non
+    # raggiunge nessuno: si rilegge la release e si stampa quanti inviti
+    # risultano accettati, cosi' chi legge il rapporto sa cosa e' successo
+    # davvero invece di fidarsi di un codice di stato.
+    stato_v, corpo_v = chiama(
+        'https://firebaseappdistribution.googleapis.com/v1/' + release, tok)
+    print('rilettura della release: stato ' + str(stato_v) + ', inviti '
+          + str(corpo_v.get('testerCount', 'non dichiarato')) + ', accettati '
+          + str(corpo_v.get('acceptedInvitationCount', 'non dichiarato')))
+
+    # 5. IL REGISTRO, DENTRO LA PROCEDURA e non a mano, e solo adesso: prima di
+    #    qui non c'era niente di consegnato da registrare.
+    # Il numero vero e' quello dell'archivio, letto da chi ci ha gia' guardato
+    # dentro con aapt2 e passato qui: dal pubspec non si prende mai.
+    numero = int(os.environ.get('NUMERO_CONSEGNATO', '0'))
+    if numero <= 0:
+        raise SystemExit('NUMERO_CONSEGNATO non impostato: il registro non si '
+                         'aggiorna con un numero non letto dall archivio')
+    reg = json.loads(io.open(REGISTRO, encoding='utf-8').read())
+    prima = reg.get('ultimo_distribuito')
+    reg['ultimo_distribuito'] = numero
+    reg['quando'] = time.strftime('%Y-%m-%d')
+    reg['release'] = release.rstrip('/').split('/')[-1]
+    # **IL PESO E IL COMANDO LI SCRIVE LA CONSEGNA. Ordine CH voci 08 e 09.**
+    #
+    # Il peso era gia' calcolato qualche riga piu' su e finiva solo a video,
+    # mentre il campo del registro lo aggiornava una persona a mano: ha
+    # portato lo STESSO numero, 173.822.285, per cinque consegne di fila dalla
+    # 2208 alla 2213, poi 195.580.347 per la 2214 e ancora per la 2215, mentre
+    # l'archivio vero della 2215 ne pesa 195.596.827. E' stato giusto solo
+    # quando qualcuno si e' ricordato di scriverlo.
+    reg['peso_archivio_byte'] = peso
+    reg['comando_di_build'] = comando
+    # Quale cancello ha lasciato passare questo archivio (ordine ACCELERA).
+    reg['sbarramento'] = cancello
+    # **E SI SCRIVE ANCHE SE L'ARCHIVIO E' STATO ACCESO, ordine CN.**
+    #
+    # Il salto della prova di accensione si stampava a video e non
+    # finiva da nessuna parte: chi rilegge il registro un mese dopo non
+    # puo' distinguere una build che un telefono ha acceso davvero da
+    # una consegnata al buio. Sono due cose diverse, e la differenza
+    # conta proprio quando qualcosa va storto.
+    reg['prova_di_accensione'] = (
+        'SALTATA: ' + salto if salto else 'eseguita su un dispositivo')
+    # **E IL TELEFONO SI AZZERA COL SALTO, ordine CQ voce 6.23.**
+    #
+    # La voce CN che ha aggiunto `prova_di_accensione` non ha toccato
+    # `telefono_della_prova`, e alla prima consegna al buio il registro ha
+    # detto due cose che non stanno insieme: accensione SALTATA e, subito
+    # sotto, il telefono della consegna PRECEDENTE con la sua ora. Chi
+    # rilegge fra un mese vede un telefono e crede che qualcosa sia stato
+    # acceso.
+    if salto:
+        reg['telefono_della_prova'] = (
+            'NESSUNO per la ' + str(numero) + ': l' + chr(39) + 'accensione e' + chr(39) + 
+            ' stata saltata e nessun dispositivo ha visto questo archivio.')
+    io.open(REGISTRO, 'w', encoding='utf-8').write(
+        json.dumps(reg, ensure_ascii=False, indent=2) + '\n')
+    print('registro aggiornato: ' + str(prima) + ' -> ' + str(numero))
+
+
+if __name__ == '__main__':
+    main()

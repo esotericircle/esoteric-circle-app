@@ -1,0 +1,46 @@
+ORDINE ET VOCE 06: QUATTRO FRASI QUANDO LA DOMANDA HA PIU' PARTI. 28 settembre 2026.
+
+LA REGOLA (lib/features/maestri/live/le_tre_frasi_del_live.dart): il Maestro
+dice tre frasi; quattro quando la domanda ha piu' parti, cioe' quando ha
+almeno due frasi di almeno due parole (un fatto e la domanda: "Mia madre dice
+che è una follia partire. Cosa le rispondo?"), almeno due punti
+interrogativi, o almeno due desideri ("vorrei", "voglio", "desidero"). Il
+taglio lo fa il controller prima di salvare, cosi' la voce, il testo a video
+e la chat dicono le stesse parole (voce ET.02).
+
+IL BANCO (tool/collaudo_et01.dart con DOMANDE=er12, CANALI=live): le dodici
+domande di seguito del LIVE dell'ordine EQ voce 03, le stesse dei
+trentasei turni della voce ER.12, ai tre Maestri, due esecuzioni, col modello
+vero (gemini-2.5-flash, europe-west1), profilo maschile (le domande parlano
+di una compagna). Trascrizioni in docs/collaudo/ET/live_quattro_frasi/dopo/.
+Le risposte sono nuove, scritte dal codice di quest'ordine: non le settantadue
+dell'ordine EQ ritagliate, che misuravano solo il taglio.
+
+CONTI A MACCHINA, sulle 72 risposte dette (scratchpad et/fascicolo_et06.py):
+  domande con piu' parti secondo la regola: 30 su 72
+  risposte a una domanda di una parte sola in piu' di tre frasi: 0
+  risposte in piu' di quattro frasi: 0
+  risposte che finiscono a meta' frase: 0
+  durata della voce stimata a 13 caratteri al secondo (ordine EG), mediana:
+    ER.12, risposte intere: 30,3 s al primo giro, 23,9 s al secondo
+    ER.12, tagliate a tre frasi: 22,8 s e 23,9 s
+    ET.06, dette oggi: 20,8 s
+  (la durata vera si misura sul telefono, nella sessione del LIVE della
+  voce ET.01)
+
+MERITO ALLA CIECA, con la regola dell'ordine EQ voce 03
+(docs/collaudo/EQ/eq03/regola_della_lettura.md), un giudice agente che non
+conosce la chiave (docs/collaudo/ET/ciechi/cieco_et06_dopo.txt,
+chiave_et06_dopo.json, giudizio_et06_dopo.json):
+  esecuzione 1: nel merito 20 su 36
+  esecuzione 2: nel merito 18 su 36
+  domande con piu' parti in cui la risposta le tocca tutte: 14 su 15 e 12 su 15
+  riferimento dell'ordine ER.12 (altro giudice, risposte intere dell'ordine
+  EQ): 20 e 23 su 36; tagliate a tre frasi: 19 e 22.
+
+LETTURA: le forme sono rispettate in tutte e 72 le risposte (nessuna oltre
+la misura, nessuna tagliata a meta'). Il merito della seconda esecuzione, 18
+su 36, e' sotto il 23 che l'ordine chiede: la voce resta aperta. La
+variazione fra due giudizi dello stesso fascicolo, misurata in quest'ordine
+sulle rune (partenza giudicata due volte: dirette da 11 a 12, pietre da 16 a
+18), e' di due o tre voci su trentasei.

@@ -1,0 +1,7 @@
+ORDINE EV VOCE 03: IL REGISTRO DEL REALME (767f596c, build 0.1.0+2290 di collaudo, commit 42df2c2b) DI TRE DOMANDE A MEDORA CON DATE DIVERSE, 1 ottobre 2026.
+Domande scritte nella chat di Medora: "Urano e retrogrado oggi?" (18:49), "Come era il cielo il 21 dicembre 2020?" (18:50), "Che cosa succede nel cielo a dicembre 2026?" (18:51). Righe del registro del telefono (adb logcat), una per ogni chiamata che il modello ha fatto alla funzione del cielo eseguita sul telefono:
+10-01 18:49:12.411 29998 29998 I flutter : Cielo per il Maestro: cielo_del_giorno(2026-10-01)
+10-01 18:50:01.665 29998 29998 I flutter : Cielo per il Maestro: cielo_del_giorno(2020-12-21)
+10-01 18:51:26.968 29998 29998 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-12-01, 2026-12-31)
+10-01 18:51:29.943 29998 29998 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-12-01, 2026-12-31)
+Le risposte a video: realme/ev03_urano_retrogrado_oggi.png (Urano retrogrado a 5 gradi dei Gemelli), realme/ev03_cielo_del_21_dicembre_2020.png (Sole 0 Capricorno, Luna 24 Pesci primo quarto, Urano retrogrado 6 Toro, Giove e Saturno congiunti a 0 Acquario), realme/ev03_cielo_di_dicembre_2026.png (Sole in Sagittario, in Capricorno il 22). Il periodo di dicembre e' chiamato due volte, a tre secondi l'una dall'altra, nella stessa risposta: il registro non dice da quale delle due chiamate del turno venga la seconda.

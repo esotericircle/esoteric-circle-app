@@ -1,0 +1,20 @@
+ORDINE EP, voci EP.12-EP.15: uscita di test/la_chat_e_i_domini_dell_ordine_ep_test.dart, 26 settembre 2026
+00:00 +0: EP.12: in cima al dominio di medora la scheda "Consulta" illustrata apre la sua chat
+00:04 +1: EP.12: in cima al dominio di aura la scheda "Consulta" illustrata apre la sua chat
+00:06 +2: EP.12: in cima al dominio di caligo la scheda "Consulta" illustrata apre la sua chat
+00:07 +3: EP.13 ed EP.15: nella chat di medora il pulsante dice LIVE e il menu' ha il colore del Maestro
+00:09 +4: EP.13 ed EP.15: nella chat di aura il pulsante dice LIVE e il menu' ha il colore del Maestro
+00:10 +5: EP.13 ed EP.15: nella chat di caligo il pulsante dice LIVE e il menu' ha il colore del Maestro
+00:11 +6: EP.14: i due contatori stanno su due righe, a 360.0 punti e testo 1.0
+EP.14 MISURA a 360.0 punti, testo 1.0: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 73%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 77%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 73%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 77%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 73%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 77%)
+00:14 +7: EP.14: i due contatori stanno su due righe, a 360.0 punti e testo 1.3
+EP.14 MISURA a 360.0 punti, testo 1.3: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 56%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 60%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 56%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 60%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 56%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 60%)
+00:17 +8: EP.14: i due contatori stanno su due righe, a 390.0 punti e testo 1.0
+EP.14 MISURA a 390.0 punti, testo 1.0: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 83%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 88%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 83%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 88%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 83%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 88%)
+00:20 +9: EP.14: i due contatori stanno su due righe, a 390.0 punti e testo 1.3
+EP.14 MISURA a 390.0 punti, testo 1.3: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 65%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 68%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 65%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 68%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 65%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 68%)
+00:22 +10: EP.14: i due contatori stanno su due righe, a 412.0 punti e testo 1.0
+EP.14 MISURA a 412.0 punti, testo 1.0: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 91%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 96%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 91%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 96%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 91%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 96%)
+00:25 +11: EP.14: i due contatori stanno su due righe, a 412.0 punti e testo 1.3
+EP.14 MISURA a 412.0 punti, testo 1.3: righe dei contatori 6 per 3 chat (medora "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 71%; medora "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 75%; aura "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 71%; aura "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 75%; caligo "Ti restano 49 domande ai Maestri su 50, oggi" 1 riga, al 71%; caligo "Ti restano 29 approfondimenti su 30, oggi" 1 riga, al 75%)
+00:28 +12: All tests passed!

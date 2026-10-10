@@ -1,0 +1,6 @@
+innesto in lib/features/schede/la_scheda_dell_arte.dart: il vecchio compare 0 volte, il nuovo 1 volte ('      duration: LaSchedaDellArte.tempoDelGiro,\n      animati' -> '      duration: LaSchedaDellArte.tempoDelGiro)\n')
+  Expected: false
+    Actual: <true>
+  00:01 +1 -1: EO.04: con le animazioni del telefono a zero la scheda gira in tre dimensioni, non di colpo [E]
+  00:01 +1 -1: Some tests failed.
+ripristino lib/features/schede/la_scheda_dell_arte.dart: sha1 c2ded9e7c6d9 -> c2ded9e7c6d9, IDENTICO

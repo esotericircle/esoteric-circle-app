@@ -1,0 +1,16 @@
+dopo_esecuzione1: prima frase che prende posizione 14 su 20; finite sulla riserva 3 (con la frase della posizione 3, che per il giudice prendono posizione 1, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 0; consiglio 7; frasi vuote 25; errori di italiano 0
+dopo_esecuzione2: prima frase che prende posizione 14 su 20; finite sulla riserva 1 (con la frase della posizione 1, che per il giudice prendono posizione 0, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 3; consiglio 10; frasi vuote 23; errori di italiano 1
+partenza_esecuzione1: prima frase che prende posizione 17 su 20; finite sulla riserva 1 (con la frase della posizione 0, che per il giudice prendono posizione 0, che parlano di cose che la domanda non ha 1); risposte che parlano di cose che la domanda non ha 2; consiglio 11; frasi vuote 28; errori di italiano 4
+partenza_esecuzione2: prima frase che prende posizione 10 su 20; finite sulla riserva 3 (con la frase della posizione 0, che per il giudice prendono posizione 0, che parlano di cose che la domanda non ha 2); risposte che parlano di cose che la domanda non ha 2; consiglio 6; frasi vuote 27; errori di italiano 3
+
+ERRORI dopo_esecuzione2
+    13: avere più appoggi per le tue entrate
+ERRORI partenza_esecuzione1
+    5: Prendi il tempo per farti un'idea chiara
+    7: Puoi anche pensare che il suo pensiero non è rilevante
+    2: Non è una scelta che si può prendere a metà
+    17: Puoi raggiungerle se le cerchi
+ERRORI partenza_esecuzione2
+    6: La decisione non è tua da prendere sola
+    13: a condizione che tu sappia il tuo valore
+    4: Non è una scelta da cui scappare per stanchezza del presente

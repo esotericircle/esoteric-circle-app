@@ -1,0 +1,5 @@
+EJ prima medora: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 9, anticipazioni 0, senza passo concreto 5, non dirette 4, errori di regola 0, errori di grammatica 0
+EJ prima aura: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 4, anticipazioni 6, senza passo concreto 4, non dirette 6, errori di regola 0, errori di grammatica 0
+EJ prima caligo: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 4, anticipazioni 6, senza passo concreto 4, non dirette 5, errori di regola 0, errori di grammatica 0
+Taratura del giudice: "un soglia" -> 1 errori, testo corretto -> 0
+Chiamate a Gemini per i Maestri 25, domande al giudice 56. Modello gemini-2.5-flash, europe-west1.

@@ -1,0 +1,228 @@
+OCCORRENZE NEI TESTI ESPOSTI: 115
+
+lib/core/angels/angel_lore.dart:446
+    "Il gesto ripetuto che tiene insieme il senso. Sai che un rito non serve a ottenere, serve a ricordarti chi sei"
+lib/core/arts/art_catalog.dart:350
+    "La vista mensile a calendario, coi rituali e le indicazioni per ogni fase."
+lib/core/arts/art_catalog.dart:650
+    "Rituali"
+lib/core/arts/art_catalog.dart:670
+    "Micro-rituali"
+lib/core/arts/art_catalog.dart:688
+    "Rituali Guidati Interattivi"
+lib/core/arts/art_catalog.dart:689
+    "Riti guidati passo passo, più profondi."
+lib/core/astro/lingua_degli_eventi.dart:55
+    "rituali era il momento del raccolto e del bilancio."
+lib/core/astro/resonance.dart:276
+    "Caligo, che conosce i riti"
+lib/core/chat/immersive_intents.dart:218
+    "rituale con candela"
+lib/core/chat/immersive_intents.dart:219
+    "rito della candela"
+lib/core/chat/immersive_intents.dart:224
+    "Un rito con la candela si accende, non si racconta. Accendiamola."
+lib/core/chat/immersive_intents.dart:225
+    "Apri il rito della candela"
+lib/core/domande/domande_del_cerchio.dart:328
+    "Quale rito sostiene un mio traguardo?"
+lib/core/domande/domande_del_cerchio.dart:380
+    "Il mio Ascendente e la maschera rituale"
+lib/core/entitlement/plan_catalog.dart:127
+    "I quattro elementi giornalieri: Rito dell\"
+lib/core/entitlement/plan_catalog.dart:412
+    "Rito dell\"
+lib/core/identity/cio_che_e_tuo.dart:75
+    "rituale."
+lib/core/identity/scarico_dei_tuoi_dati.dart:51
+    "rituale."
+lib/core/identity/scarico_dei_tuoi_dati.dart:51
+    "I tuoi riti"
+lib/core/identity/scarico_dei_tuoi_dati.dart:79
+    "Le serie dei tuoi riti"
+lib/core/legal/privacy_policy.dart:43
+    "usano solo nel momento del rito che li chiede, sempre con la"
+lib/core/maestro/maestro.dart:45
+    "Custode delle rune e dei riti antichi"
+lib/core/maestro/maestro.dart:46
+    "I segni antichi, i riti, l\"
+lib/core/maestro/maestro.dart:47
+    "Rune, Rituali, Numerologia"
+lib/core/maestro/voce_del_maestro.dart:339
+    "Custode dei segni antichi e dei riti. Colori il rosso e l\"
+lib/core/maestro/voce_del_maestro.dart:359
+    "loro presagio simbolico. Riti simbolici semplici e reali."
+lib/core/maestro/voce_del_maestro.dart:367
+    "riti sulla volontà di terzi, che riformuli come crescita,"
+lib/core/permissions/app_permission.dart:67
+    "Questo rito ha bisogno della fotocamera"
+lib/core/permissions/registro_dei_permessi.dart:117
+    "Il Rito dell\"
+lib/core/ricordi/arti_con_responso.dart:144
+    "Rito dell\"
+lib/core/ricordi/arti_con_responso.dart:176
+    "Rito della Notte"
+lib/core/ricordi/artwork_del_ricordo.dart:105
+    "il Rito dell\"
+lib/core/ricordi/artwork_del_ricordo.dart:109
+    "il Rito della Notte raccoglie un sogno raccontato dalla"
+lib/core/rituals/avvisi_del_rito.dart:158
+    "Il Rito dell\"
+lib/core/rituals/avvisi_del_rito.dart:162
+    "Il sole è sorto. Il rito di oggi ti aspetta quando vuoi."
+lib/core/rituals/avvisi_del_rito.dart:182
+    "preferisci di no, i riti restano interi e li apri quando vuoi."
+lib/core/rituals/daily_elements.dart:21
+    "Rito dell\"
+lib/core/rituals/daily_elements.dart:33
+    "Respiri col simbolo che si apre e si chiude, per i giri che il rito conta."
+lib/core/rituals/daily_elements.dart:89
+    "Un giorno che non si chiude resta addosso: il rito della buonanotte gli mette un punto."
+lib/core/rituals/daily_elements.dart:182
+    "IL RITO DI STAMATTINA"
+lib/core/rituals/daily_elements.dart:183
+    "IL RITO DI OGGI"
+lib/core/rituals/daily_elements.dart:184
+    "IL RITO DI STASERA"
+lib/core/rituals/daily_elements.dart:185
+    "IL RITO DI STANOTTE"
+lib/core/rituals/dream_rite_corpus.dart:289
+    "data e sono gli stessi in ogni punto della Terra. Il rito non ha"
+lib/core/rituals/rito_alba.dart:521
+    "Chi compie il rito nella prima ora dopo il proprio sorgere del sole"
+lib/core/rituals/rito_alba.dart:523
+    "Il rito resta comunque intero: non manca niente altro."
+lib/core/rituals/rito_alba.dart:529
+    "Chi compie il rito dentro la fascia riceve una riga in più dal"
+lib/core/rituals/rito_alba.dart:531
+    "Chi arriva dopo compie il rito per intero: manca solo quella riga."
+lib/core/rituals/rito_alba_corpus.dart:425
+    "centro del rito: se fai solo questo, il rito è fatto."
+lib/core/rituals/rito_alba_corpus.dart:491
+    "e non rialzarle per tutto il rito."
+lib/core/rituals/rito_alba_corpus.dart:501
+    "Quattro dentro e quattro fuori, dieci giri. È il rito"
+lib/core/rituals/scelta_degli_avvisi.dart:43
+    "rituale.avviso.ora.${dono.name}"
+lib/core/rituals/scelta_degli_avvisi.dart:49
+    "rituale.avviso.${dono.name}"
+lib/core/sigilli/diario_del_cammino.dart:792
+    "${c.rito}:${c.arco}"
+lib/core/sigilli/sentiero_albero.dart:107
+    "Il rito della sera completo, dalla runa al sigillo del sonno"
+lib/core/sigilli/sentiero_albero.dart:208
+    "Le ore rituali, che il Cerchio calcola sul tuo luogo vero"
+lib/core/sigilli/sentiero_albero.dart:285
+    "I tre riti di Caligo"
+lib/core/sigilli/sentiero_albero.dart:578
+    "Il rito dell’equinozio, che torna due volte l’anno"
+lib/core/sigilli/sentiero_albero.dart:679
+    "Il ritratto dei quattro riti, che nessuno dei quattro dice da solo"
+lib/core/sigilli/sentiero_albero.dart:729
+    "Il tuo rito fisso, che Caligo protegge dalle notifiche"
+lib/core/sigilli/sentiero_albero.dart:900
+    "L’Albero intero, con tutti e sei i riti in una sola pagina"
+lib/core/sigilli/sentiero_costellazione.dart:207
+    "Le ore rituali, che il Cerchio calcola sul tuo luogo vero"
+lib/core/sigilli/sentiero_costellazione.dart:578
+    "Il rito del solstizio, che torna due volte l’anno"
+lib/core/sigilli/sentiero_costellazione.dart:731
+    "Il tuo rito fisso, che Medora protegge dalle notifiche"
+lib/core/sigilli/sentiero_loto.dart:39
+    "Hai compiuto il Rito dell’Alba in 2 giorni diversi."
+lib/core/sigilli/sentiero_loto.dart:104
+    "4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, nello stesso giorno."
+lib/core/sigilli/sentiero_loto.dart:107
+    "Il rito del mattino completo, alba e Soffio uno dopo l’altro"
+lib/core/sigilli/sentiero_loto.dart:170
+    "6 giorni con il Rito dell’Alba negli ultimi 8: nessuno te l’ha chiesto."
+lib/core/sigilli/sentiero_loto.dart:187
+    "La Luna è al primo quarto: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:203
+    "9 volte il Rito dell’Alba nell’ora vera dell’alba."
+lib/core/sigilli/sentiero_loto.dart:206
+    "Le ore rituali, che il Cerchio calcola sul tuo luogo vero"
+lib/core/sigilli/sentiero_loto.dart:253
+    "14 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto."
+lib/core/sigilli/sentiero_loto.dart:303
+    "18 giorni con il Rito dell’Alba negli ultimi 25: nessuno te l’ha chiesto."
+lib/core/sigilli/sentiero_loto.dart:371
+    "Un pianeta transita sulla tua Luna: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:404
+    "35 giorni con il Rito dell’Alba negli ultimi 45: nessuno te l’ha chiesto."
+lib/core/sigilli/sentiero_loto.dart:421
+    "40 giornate chiuse con il Rito dell’Alba e la Meditazione, nello stesso giorno."
+lib/core/sigilli/sentiero_loto.dart:439
+    "Un pianeta transita sul tuo Ascendente: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:523
+    "Hai compiuto il Rito dell’Alba in 75 giorni diversi."
+lib/core/sigilli/sentiero_loto.dart:557
+    "Il cielo porta un’eclissi: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:560
+    "Il rito dell’eclissi, che il Cerchio conserva per sempre"
+lib/core/sigilli/sentiero_loto.dart:590
+    "Hai compiuto il Rito dell’Alba in 100 giorni diversi."
+lib/core/sigilli/sentiero_loto.dart:624
+    "Mercurio torna diretto: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:627
+    "Il rito del ritorno, quando Mercurio riprende il cammino"
+lib/core/sigilli/sentiero_loto.dart:691
+    "160 giorni con il Rito dell’Alba negli ultimi 200: nessuno te l’ha chiesto."
+lib/core/sigilli/sentiero_loto.dart:724
+    "170 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto."
+lib/core/sigilli/sentiero_loto.dart:727
+    "Il tuo rito fisso, che Aura protegge dalle notifiche"
+lib/core/sigilli/sentiero_loto.dart:759
+    "Hai compiuto il Rito dell’Alba in 191 giorni diversi."
+lib/core/sigilli/sentiero_loto.dart:811
+    "Giove torna diretto: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:879
+    "300 giorni con il Rito dell’Alba negli ultimi 340: nessuno te l’ha chiesto."
+lib/core/sigilli/sentiero_loto.dart:931
+    "Il Sole torna dov’era quando sei nato: tu eri qui con il Rito dell’Alba."
+lib/core/sigilli/sentiero_loto.dart:934
+    "Il rito del ritorno solare, il risveglio del tuo anno nuovo"
+lib/core/sigilli/traguardo.dart:374
+    "seguito:$rito:$quanti"
+lib/core/sigilli/traguardo.dart:417
+    "arco:$rito:$quanti:$arco"
+lib/core/sigilli/traguardo.dart:427
+    "$rito:$arco"
+lib/core/sigilli/traguardo.dart:694
+    "ritornoalrito:$rito:$giorniSaltati"
+lib/design_system/components/dove_si_muove_il_cielo.dart:102
+    "Il Rito del Tramonto ha tre fondali DIPINTI, uno per momento,"
+lib/features/account/custodia_del_cielo.dart:455
+    "tra poco, alla fine del rito, oppure dal menu utente."
+lib/features/account/custodia_del_cielo.dart:994
+    "rito: potrai registrarti alla fine, oppure più tardi dal menu"
+lib/features/account/custodia_del_cielo.dart:1008
+    "Prosegui il rito"
+lib/features/debug/app_check_debug_view.dart:160
+    "Azzera profilo e identità, poi riapre il rito. Solo"
+lib/features/onboarding/onboarding_screen.dart:668
+    "Inizia il rito"
+lib/features/onboarding/primo_approdo.dart:114
+    "- CALIGO: Rune, Rituali, Numerologia\n"
+lib/features/rituals/dawn_rite_screen.dart:245
+    "Rito dell\"
+lib/features/rituals/dawn_rite_screen.dart:511
+    "La mia parola del giorno dal Rito dell\"
+lib/features/rituals/dream_rite_card.dart:54
+    "RITO DEL SOGNO"
+lib/features/rituals/dream_rite_screen.dart:998
+    "Il tuo Rito della Notte"
+lib/features/rituals/ritual_gift_card.dart:549
+    "Perché questo rito"
+lib/features/settings/consenso_alla_misura.dart:69
+    "le aperture, i riti cominciati, i riti finiti, i ritorni da"
+lib/features/settings/interruttore_della_misura.dart:66
+    "Aperture, riti cominciati e finiti, ritorni da una notifica"
+lib/services/avvisi_locali.dart:42
+    "Rito dell\"
+lib/services/avvisi_locali.dart:43
+    "Un avviso al giorno, quando il sole sorge, che il Rito dell\"
+lib/services/avvisi_locali.dart:64
+    "Un avviso al mattino, quando il sole sorge, che il Rito dell\"
+
+RIGHE DISTINTE: 112
