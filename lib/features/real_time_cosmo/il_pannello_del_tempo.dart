@@ -17,6 +17,7 @@ import 'package:flutter/semantics.dart';
 
 import '../../core/astro/data_italiana.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'il_tempo_del_cosmo.dart';
@@ -260,8 +261,10 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
                       _luogo == LuogoDelTempo.nascita
                           ? 'Usa dove sei ora'
                           : 'Usa il luogo di nascita',
-                      style: TypographyTokens.corpo(weight: 600)
-                          .copyWith(color: palette.gold),
+                      // Lo stile delle azioni di casa: l'oro in corpo non
+                      // arrivava al contrasto di 7 sui fondi dei Maestri.
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: ColorTokens.goldLight),
                     ),
                   ),
               ],

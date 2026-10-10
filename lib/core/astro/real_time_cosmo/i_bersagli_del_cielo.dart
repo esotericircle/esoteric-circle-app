@@ -241,7 +241,7 @@ BersaglioFisso bersaglioDellaFigura(
 
 const Map<CorpoCeleste, String> _nomiNatali = {
   CorpoCeleste.sole: 'Il tuo Sole di nascita',
-  CorpoCeleste.luna: 'La tua Luna di nascita',
+  CorpoCeleste.luna: 'La Luna della tua nascita',
   CorpoCeleste.mercurio: 'Il tuo Mercurio di nascita',
   CorpoCeleste.venere: 'La tua Venere di nascita',
   CorpoCeleste.marte: 'Il tuo Marte di nascita',
