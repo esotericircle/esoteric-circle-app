@@ -88,6 +88,8 @@ class ScaricoDeiTuoiDati {
     'ritual.': 'Le serie dei tuoi riti',
     // Ordine EX voce 03.
     'rune.presagio.': 'Le voci del presagio delle rune che hai già letto',
+    // Ordine FI voce 27.
+    'tarot.stesa_conservata': 'Le stese di Tarocchi di oggi, una per domanda',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
     'cerchio.': 'Il nome proposto nel Cerchio e il tuo Maestro di riferimento',

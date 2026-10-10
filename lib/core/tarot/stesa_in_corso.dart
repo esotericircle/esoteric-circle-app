@@ -51,10 +51,30 @@ class StesaInCorso {
   /// pescare.
   factory StesaInCorso.nuova({required List<int> mazzo, int seme = 0}) =>
       StesaInCorso._(
-        assegnate: List<DrawnCard?>.filled(SpreadPosition.treCarte.length, null),
+        assegnate:
+            List<DrawnCard?>.filled(SpreadPosition.treCarte.length, null),
         mazzoDisposto: List<int?>.unmodifiable(mazzo),
         seme: seme,
       );
+
+  /// UNA STESA CHE NASCE GIA' COMPIUTA dalle carte conservate (ordine FI voce
+  /// 27): le carte escono dal mazzo disposto come se fossero state prese, e
+  /// nessun gesto le puo' piu' toccare.
+  factory StesaInCorso.conservata({
+    required List<DrawnCard> carte,
+    required List<int> mazzo,
+    int seme = 0,
+  }) {
+    final prese = {
+      for (final c in carte) TarotDeck.cards.indexOf(c.card),
+    };
+    return StesaInCorso._(
+      assegnate: List<DrawnCard?>.unmodifiable(carte),
+      mazzoDisposto: List<int?>.unmodifiable(
+          [for (final i in mazzo) prese.contains(i) ? null : i]),
+      seme: seme,
+    );
+  }
 
   /// Le carte assegnate alle posizioni, nell'ordine di `SpreadPosition`.
   /// Nulla dove la posizione e' ancora vuota.

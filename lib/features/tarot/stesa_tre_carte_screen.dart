@@ -25,6 +25,7 @@ import '../../core/tarot/stesa_in_corso.dart';
 import '../../core/astro/moon_phase.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
+import '../../core/tarot/la_stesa_conservata.dart';
 import '../../core/tarot/voce_della_stesa.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -176,6 +177,35 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// carte gia' scelte dalla persona. La legge del dominio vive in
   /// `StesaInCorso`.
   late StesaInCorso _stesa = _stesaIniziale();
+
+  /// Vero quando le carte a schermo sono la stesa conservata di oggi su
+  /// questa domanda (ordine FI voce 27): il responso e' gia' stato pagato, e
+  /// la schermata lo dice.
+  bool _conservata = false;
+
+  /// La firma della stesa: il tipo e la domanda (ordine FI voce 27).
+  String get _firma => LaStesaConservata.firma(_setup.tipo,
+      domandaScritta: _setup.domandaScritta, argomento: _setup.topic);
+
+  /// **LA STESA COMPIUTA SU QUESTA DOMANDA TORNA.** Finche' nessuna carta e'
+  /// stata presa, se oggi su questa domanda c'e' gia' una stesa compiuta le
+  /// carte tornano quelle. Le prove e le anteprime col seme dichiarato non
+  /// la cercano: sono stese scritte apposta.
+  Future<void> _cercaLaStesaConservata() async {
+    if (widget.seed != null || widget.revealAll || _drawn > 0) return;
+    final firma = _firma;
+    final carte =
+        await LaStesaConservata.ritrova(firma, TarotSpreadType.treCarte);
+    if (!mounted || carte == null || _drawn > 0 || firma != _firma) return;
+    setState(() {
+      _stesa =
+          StesaInCorso.conservata(carte: carte, mazzo: _mazzo, seme: _seme);
+      _mazzo = List<int>.of(_stesa.mazzoResiduo);
+      _drawn = carte.length;
+      _scene = StesaScene.completa;
+      _conservata = true;
+    });
+  }
 
   /// LA STESA DI PARTENZA, e con [StesaTreCarteScreen.revealAll] e' gia' fatta.
   ///
@@ -572,6 +602,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _galleggio.repeat();
     }
     _apriScena();
+    unawaited(_cercaLaStesaConservata());
   }
 
   /// L'apertura: dal bianco dell'intro alla scena viva, poi le carte che
@@ -799,7 +830,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// che adesso la porta.
   Future<void> _apriIlResponso() async {
     if (!_complete || _responsoPronto || _stoPerRiflettere) return;
-    if (!_laStesaSiPuoAprire(riprova: _apriIlResponso)) return;
+    // La stesa conservata e' gia' stata pagata quando si e' aperta la prima
+    // volta: rileggerla non spende carte (ordine FI voce 27).
+    if (!_conservata && !_laStesaSiPuoAprire(riprova: _apriIlResponso)) {
+      return;
+    }
+    if (!_conservata && widget.seed == null && !widget.revealAll) {
+      unawaited(LaStesaConservata.conserva(_firma, _spread.cards));
+    }
     // **LA LETTURA PARTE QUI, ordine EQ voce 04**, al gesto che la chiede e
     // prima del filo e della scena di Medora: sono circa cinque secondi, e la
     // chiamata a Flash ci sta quasi sempre dentro. Non si aspetta qui, si
@@ -850,7 +888,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     RiflessioniInCorso.entra(() =>
         mounted && (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
     final borsa = _forse<QuestionAllowance>(context);
-    if (borsa != null) {
+    if (borsa != null && !_conservata) {
       // **LE CARTE, NON LA STESA**, ordine EX voce 02: si contano tutte le
       // carte della stesa letta.
       borsa.registraStesa(
@@ -1418,7 +1456,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             palette: palette,
             aperto: _setupAperto,
             onToggle: () => setState(() => _setupAperto = !_setupAperto),
-            onChanged: (s) => setState(() => _setup = s),
+            onChanged: (s) {
+              setState(() => _setup = s);
+              unawaited(_cercaLaStesaConservata());
+            },
             onLocked: _showComingSoon,
             piano: _forse<EntitlementService>(context)?.tier ?? Tier.free,
           ),
@@ -1657,6 +1698,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // vede anche che adesso non si puo'. Scegliere non consuma niente,
         // premere si'.
         if (!_responsoPronto) ...[
+          // **LA STESA CONSERVATA SI DICE**, ordine FI voce 27.
+          if (_conservata) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              LaStesaConservata.riga,
+              key: const Key('stesa_conservata'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.corpo()
+                  .copyWith(color: palette.goldSoft, height: 1.4),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.sm),
           Center(
             child: FilledButton.icon(

@@ -110,6 +110,9 @@ class CioCheETuo {
     // giorni, e l'identificativo che ne semina l'ordine: dicono che cosa ti
     // hanno detto le rune. Ordine EX voce 03.
     'rune.presagio.',
+    // La stesa di Tarocchi compiuta oggi su una domanda, che chi riapre la
+    // stessa stesa con la stessa domanda ritrova. Ordine FI voce 27.
+    'tarot.stesa_conservata',
     // I Sigilli accesi.
     'sigilli.',
     // Le coppie della Sinastria che hai scoperto.

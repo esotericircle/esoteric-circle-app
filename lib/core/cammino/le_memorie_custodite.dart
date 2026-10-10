@@ -79,6 +79,10 @@ abstract final class LeMemorieCustodite {
     // massimo ogni giorno puo' superare il peso di una famiglia (60.000
     // caratteri): allora il Cerchio tiene quella di prima.
     'rune': ['rune.presagio.'],
+    // La stesa di Tarocchi compiuta oggi su una domanda: senza, chi
+    // reinstalla l'app nella stessa giornata potrebbe rilanciare la stessa
+    // domanda finche' non esce il responso che vuole. Ordine FI voce 27.
+    'tarocchi': ['tarot.stesa_conservata'],
   };
 
   /// I prefissi di `CioCheETuo` che tornano con una porta loro, e quale.
