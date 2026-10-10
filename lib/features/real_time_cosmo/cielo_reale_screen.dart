@@ -57,6 +57,7 @@ import '../../core/motion/parallax_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/luna_reale.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/components/interruttore_del_cerchio.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -72,6 +73,7 @@ import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
 import 'il_cielo_profondo_in_scena.dart';
+import 'l_eclittica_in_scena.dart';
 import 'le_meteore_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
@@ -150,6 +152,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// Le stelle cadenti (ordine FH parte 12) e il giorno per cui sono
   /// configurate.
   final MeteoreInScena _meteore = MeteoreInScena();
+
+  /// L'eclittica (ordine FH parte 13): nasce accesa e si spegne dal menu.
+  final EclitticaInScena _eclittica = EclitticaInScena();
+  bool _eclitticaAccesa = true;
   int _giornoDelleMeteore = -1;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
@@ -584,6 +590,21 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     for (var i = 0; i < 7; i++) {
       _fotogramma.corpi[i].nome = i == 1 ? null : _scritta(nomi[i], stileCorpo);
     }
+    // Il nome dell'eclittica (ordine FH voce 13.1).
+    // Su due righe, centrate, larghe al piu' 220 punti: su una riga sola
+    // l'etichetta era piu' larga di mezzo schermo e non trovava mai un posto
+    // dove stare intera.
+    _fotogramma.scrittaDellEclittica = TextPainter(
+      text: TextSpan(
+        text: kScrittaDellEclittica,
+        style: TypographyTokens.etichetta(weight: 500).copyWith(
+          color: ColorTokens.goldLight.withValues(alpha: 0.7),
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+      textScaler: MediaQuery.textScalerOf(context),
+    )..layout(maxWidth: 220);
   }
 
   void _preparaLaBussola() {
@@ -860,6 +881,21 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       spostamentoY: cieloSposta.dy,
     );
     _posaLeMeteore(a, proiezione, cieloSposta, dt);
+    if (_eclitticaAccesa) {
+      _eclittica.prepara(
+        _orientamento,
+        proiezione,
+        a.assi,
+        b?.assi,
+        _tFraIstanti,
+        spostamentoX: cieloSposta.dx,
+        spostamentoY: cieloSposta.dy,
+        mezzaScritta: (_fotogramma.scrittaDellEclittica?.width ?? 80) / 2,
+      );
+      _fotogramma.eclittica = _eclittica;
+    } else {
+      _fotogramma.eclittica = null;
+    }
     _lineeInScena?.prepara(
       cielo: a,
       poi: b,
@@ -1900,6 +1936,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       builder: (contesto) => _MenuDeiBersagli(
         bersagli: _bersagli,
         attuale: _bersaglio,
+        eclitticaAccesa: _eclitticaAccesa,
+        onEclittica: (acceso) => setState(() => _eclitticaAccesa = acceso),
         onScelta: (b) {
           Navigator.of(contesto).pop();
           setState(() => _scegliIlBersaglio(b));
@@ -3193,7 +3231,13 @@ class _MenuDeiBersagli extends StatefulWidget {
     required this.attuale,
     required this.onScelta,
     required this.onCategoria,
+    required this.eclitticaAccesa,
+    required this.onEclittica,
   });
+
+  /// L'eclittica, che si spegne da qui (ordine FH voce 13.2).
+  final bool eclitticaAccesa;
+  final ValueChanged<bool> onEclittica;
 
   final Map<CategoriaDelBersaglio, List<BersaglioDelCielo>> bersagli;
   final BersaglioDelCielo? attuale;
@@ -3206,6 +3250,7 @@ class _MenuDeiBersagli extends StatefulWidget {
 
 class _MenuDeiBersagliState extends State<_MenuDeiBersagli> {
   CategoriaDelBersaglio? _categoria;
+  late bool _eclittica = widget.eclitticaAccesa;
 
   @override
   Widget build(BuildContext context) {
@@ -3239,6 +3284,23 @@ class _MenuDeiBersagliState extends State<_MenuDeiBersagli> {
           ),
         );
       }
+      // L'interruttore dell'eclittica (ordine FH voce 13.2). Il foglio vive
+      // sopra la scope della schermata: riceve la sua.
+      righe.add(
+        MaestroScope(
+          maestro: Maestro.medora,
+          child: InterruttoreDelCerchio(
+            key: const Key('real_time_cosmo_eclittica'),
+            acceso: _eclittica,
+            titolo: 'L\'eclittica',
+            sottotitolo: 'La strada del Sole, della Luna e dei pianeti',
+            onCambia: (acceso) {
+              setState(() => _eclittica = acceso);
+              widget.onEclittica(acceso);
+            },
+          ),
+        ),
+      );
     } else {
       final elenco = widget.bersagli[cat] ?? const [];
       righe.add(

@@ -236,6 +236,46 @@ void main() {
     await scatta(tester, 'fh_19_una_stella_cadente');
   });
 
+  testWidgets('FH.13: l\'eclittica accesa, poi spenta dal menu',
+      (tester) async {
+    await monta(tester, fg.cielo(ModoDelCielo.adesso));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final f = tester
+        .widgetList<CustomPaint>(find.byType(CustomPaint))
+        .map((c) => c.painter)
+        .whereType<PittoreDelCielo>()
+        .first
+        .fotogramma;
+    expect(f.eclittica, isNotNull);
+    // Lo sguardo scende di qualche grado e gira finche' il filo e il suo
+    // nome entrano nel riquadro: a quest'ora l'eclittica sta bassa.
+    final centro =
+        tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
+    for (var i = 0; i < 3; i++) {
+      await tester.dragFrom(centro, const Offset(0, -45));
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    for (var i = 0; i < 16 && !f.eclittica!.scrittaVisibile; i++) {
+      await girati(tester, -45, 2);
+      await fg.passa(tester, 2);
+    }
+    expect(f.eclittica!.vertici, greaterThan(0));
+    expect(f.eclittica!.scrittaVisibile, isTrue);
+    await fg.passa(tester, 6);
+    await scatta(tester, 'fh_20_l_eclittica');
+    await tester.tap(find.byKey(const Key('real_time_cosmo_guida')));
+    await fg.passa(tester, 6);
+    await tester.tap(find.byKey(const Key('real_time_cosmo_eclittica')));
+    await fg.passa(tester, 4);
+    await scatta(tester, 'fh_21_il_menu_con_l_eclittica_spenta');
+    // A foglio aperto la schermata coperta non disegna: si chiude il foglio
+    // col tocco fuori, e il fotogramma dopo non porta piu' il filo.
+    await tester.tapAt(const Offset(180, 40));
+    await fg.passa(tester, 8);
+    expect(f.eclittica, isNull);
+  });
+
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
     await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);

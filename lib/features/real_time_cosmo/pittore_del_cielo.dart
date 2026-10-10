@@ -18,6 +18,7 @@ import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
 import 'il_cielo_profondo_in_scena.dart';
+import 'l_eclittica_in_scena.dart';
 import 'le_meteore_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
@@ -97,6 +98,10 @@ class FotogrammaDelCielo {
 
   /// Le stelle cadenti (ordine FH parte 12).
   MeteoreInScena? meteore;
+
+  /// L'eclittica col suo nome (ordine FH parte 13): niente se spenta.
+  EclitticaInScena? eclittica;
+  TextPainter? scrittaDellEclittica;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -177,6 +182,30 @@ class PittoreDelCielo extends CustomPainter {
         BlendMode.dst,
         aria.pennelloDellAlone,
       );
+    }
+
+    // L'ECLITTICA (ordine FH parte 13): un filo sottile, acceso appena, e il
+    // suo nome sopra il punto piu' vicino al centro.
+    final eclittica = f.eclittica;
+    if (eclittica != null && eclittica.vertici > 0) {
+      canvas.drawVertices(
+        ui.Vertices.raw(
+          ui.VertexMode.triangles,
+          Float32List.sublistView(
+              eclittica.posizioni, 0, eclittica.vertici * 2),
+          colors: Int32List.sublistView(eclittica.colori, 0, eclittica.vertici),
+        ),
+        BlendMode.dst,
+        _linee,
+      );
+      final nome = f.scrittaDellEclittica;
+      if (nome != null && eclittica.scrittaVisibile) {
+        nome.paint(
+          canvas,
+          Offset(eclittica.scrittaX - nome.width / 2,
+              eclittica.scrittaY - nome.height - 6),
+        );
+      }
     }
 
     // LE LINEE DELLE FIGURE: una chiamata sola, sotto le stelle.

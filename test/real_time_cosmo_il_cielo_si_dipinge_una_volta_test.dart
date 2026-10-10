@@ -37,6 +37,8 @@ const Map<String, List<String>> _camminoPerFotogramma = {
   'lib/features/real_time_cosmo/la_via_lattea_in_scena.dart': [
     '  void prepara('
   ],
+  // Ordine FH parte 13: l'eclittica.
+  'lib/features/real_time_cosmo/l_eclittica_in_scena.dart': ['  void prepara('],
   // Ordine FH parte 12: le stelle cadenti.
   'lib/features/real_time_cosmo/le_meteore_in_scena.dart': ['  void prepara('],
   // Ordine FH parte 10: i cinque oggetti del cielo profondo.
