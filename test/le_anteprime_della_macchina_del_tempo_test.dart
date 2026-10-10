@@ -379,9 +379,15 @@ void main() {
     final cielo =
         tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
     final guida = find.byKey(const Key('real_time_cosmo_guida'));
+    // E nemmeno il pie' di pagina della Macchina: con lo sguardo in basso
+    // l'indicatore finiva dietro "Cielo su Roma" (visto sul Realme lo stesso
+    // giorno), perche' il suo margine basso era fisso a 120 punti.
     final testata = [
       find.text('La macchina del tempo'),
       find.byKey(const Key('real_time_cosmo_fonti_bottone')),
+      find.byKey(const Key('macchina_giorno_scelto')),
+      find.byKey(const Key('macchina_riga_del_luogo_in_cielo')),
+      find.byKey(const Key('macchina_viaggia_dal_cielo')),
     ];
     var guardate = 0;
     final coperte = <String>[];
@@ -399,7 +405,7 @@ void main() {
           }
         }
       }
-      await tester.dragFrom(cielo, const Offset(0, -60));
+      await tester.dragFrom(cielo, Offset(0, v < 2 ? -60 : 150));
       await fg.passa(tester, 3);
     }
     // ignore: avoid_print

@@ -1470,6 +1470,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         '${l.minute.toString().padLeft(2, '0')}';
   }
 
+  /// Il pie' di pagina, misurato: l'indicatore non ci va dietro.
+  final GlobalKey _chiaveDelPieDiPagina = GlobalKey();
+
   /// La misura della scritta dell'indicatore, per la sua posizione.
   static const Size _misuraDellaGuida = Size(170, 64);
 
@@ -1491,7 +1494,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // l'indicatore saliva sul titolo (visto sul Realme il 10 ottobre 2026).
     final bordi = MediaQuery.paddingOf(context);
     final alto = kMargineAlto + bordi.top;
-    final basso = kMargineBasso + bordi.bottom;
+    // In basso, sopra il pie' di pagina vero: nella Macchina del tempo e'
+    // alto il doppio del margine fisso, e l'indicatore finiva dietro "Cielo
+    // su Roma" (visto sul Realme il 10 ottobre 2026).
+    final pie = _chiaveDelPieDiPagina.currentContext?.size?.height ?? 0;
+    final basso =
+        math.max(kMargineBasso + bordi.bottom, 16 + bordi.bottom + pie + 8);
     final top = (cy + dy * s - h / 2).clamp(alto, _misura.height - basso - h);
     // La scritta cede il posto ai nomi dei pianeti e al disco della Luna
     // (ordine FH voce 14.1): la regola sta in la_scritta_che_cede.dart.
@@ -2347,7 +2355,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                 left: 16,
                 right: 16,
                 bottom: 16 + MediaQuery.paddingOf(context).bottom,
-                child: _pieDiPagina(),
+                child: KeyedSubtree(
+                  key: _chiaveDelPieDiPagina,
+                  child: _pieDiPagina(),
+                ),
               ),
             ],
           );

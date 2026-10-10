@@ -91,6 +91,10 @@ INNESTI = [
      '    final alto = kMargineAlto + bordi.top;',
      '    final alto = kMargineAlto;',
      MACCHINA, 'non copre la testata'),
+    ("C16 l'indicatore non misura il pie' di pagina", SCHERMATA,
+     '    final pie = _chiaveDelPieDiPagina.currentContext?.size?.height ?? 0;',
+     '    const pie = 0.0;',
+     MACCHINA, 'non copre la testata'),
 ]
 
 
