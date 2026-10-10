@@ -15,6 +15,7 @@ import '../l10n/la_lingua_del_modello.dart';
 import '../responsi/confine_del_responso.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'tarot_reading.dart';
+import 'la_chiave_di_lettura.dart';
 import 'tarot_spread.dart';
 import '../../services/ai/l_etichetta_della_funzione.dart';
 
@@ -254,7 +255,12 @@ abstract final class LaLetturaDellaStesa {
   };
 
   /// L'istruzione, con la voce di Medora e le regole della lettura.
-  static String istruzione(CourtesyForm forma) => '''
+  ///
+  /// La [chiave] entra come voce prima dell'ultima riga (ordine FI voce 07);
+  /// la Predittiva non aggiunge niente, e l'istruzione resta quella di sempre.
+  static String istruzione(CourtesyForm forma,
+          {ReadingKey chiave = ReadingKey.predittiva}) =>
+      '''
 Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa di tre carte dei Tarocchi Rider-Waite, nelle posizioni passato, presente e futuro. Leggila in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
 
 COME SI LEGGE:
@@ -271,7 +277,7 @@ ${LaLinguaDelModello.ilGenereDelleCarte}
 ${forma.agree(masculine: '', feminine: '', neutral: senzaGenere)}
 ${ConfineDelResponso.perIlModello}
 
-${IlBloccoDiCortesia.perForma(forma)}
+${IlBloccoDiCortesia.perForma(forma)}${chiave.voce == null ? '' : '\n${chiave.voce}'}
 Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente", "futuro", "legame" e "consiglio".''';
 
   /// **LE PAROLE DEL CONFINE, DETTE AL MODELLO.** Ordine EQ voce 04: la
@@ -353,6 +359,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     required String domanda,
     required String argomento,
     required CourtesyForm forma,
+    ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
   }) async {
@@ -365,6 +372,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         domanda: domanda,
         argomento: argomento,
         forma: forma,
+        chiave: chiave,
         chiamata: chiamata,
         entro: entro);
     if (lettura != null) {
@@ -382,6 +390,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     required String domanda,
     required String argomento,
     required CourtesyForm forma,
+    ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
   }) async {
@@ -405,7 +414,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         testo = await primaCheTorna(
           () => (chiamata ?? _chiamataVera)(
             IlFiloDelConsulto.conIlFilo(
-                istruzione(forma), Maestro.medora, domanda),
+                istruzione(forma, chiave: chiave), Maestro.medora, domanda),
             richiesta(spread,
                 domanda: domanda,
                 argomento: argomento,

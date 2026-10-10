@@ -270,7 +270,10 @@ void main() {
       // LIVE.
       // QUARANTUNO dall'ordine EY: le righe del motore sociale, amici nel
       // Cerchio, segni, confronti del cielo e i doni.
-      expect(PlanCatalog.matrix.length, 41);
+      // CINQUANTUNO dall'ordine FI voce 32: le dieci righe dei tarocchi
+      // (croce, ferro di cavallo, le chiavi, i mazzi, la versione lunga, il
+      // ritorno della carta, la rilettura e la card).
+      expect(PlanCatalog.matrix.length, 51);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

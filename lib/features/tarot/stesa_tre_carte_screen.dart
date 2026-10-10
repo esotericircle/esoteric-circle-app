@@ -78,7 +78,12 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.topic,
     this.skipIntro = false,
     this.chiamata,
+    this.chiave,
   });
+
+  /// La chiave di lettura di partenza. Nulla, la Predittiva; le prove e le
+  /// anteprime partono da un'altra chiave senza passare dalla tendina.
+  final ReadingKey? chiave;
 
   /// La chiamata al modello per la lettura, ordine EQ voce 04. Nulla, quella
   /// vera a Flash; le prove ne passano una finta, come fa il Sigillo.
@@ -495,8 +500,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   bool _renderCard = false;
 
   /// I selettori prima della stesa. Le voci non pronte restano Coming soon.
-  late TarotSetup _setup =
-      TarotSetup(topic: widget.topic ?? TarotTopic.predefinito);
+  late TarotSetup _setup = TarotSetup(
+      topic: widget.topic ?? TarotTopic.predefinito,
+      key: widget.chiave ?? ReadingKey.predittiva);
 
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
@@ -807,6 +813,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       domanda: sua ?? _setup.topic.label,
       argomento: _setup.topic.label,
       forma: LaMarcaDelGenere.formaCorrente,
+      chiave: _setup.key,
       chiamata: widget.chiamata,
     );
     // Lo stesso momento sensoriale che l'ordine CO voce 07 aveva messo
@@ -1721,6 +1728,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
+          // **LA LETTURA DI CASA SI DICHIARA**, ordine FI voce 08: senza il
+          // modello parla la lettura di casa, che e' nella chiave Predittiva.
+          if (_dalModello == null && _setup.key != ReadingKey.predittiva) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              _setup.key.rigaDellaLetturaDiCasa,
+              key: const Key('stesa_lettura_di_casa'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.md),
         ],
         // Le carte: quelle del responso, e quelle del momento fra l'ultima
@@ -1886,6 +1905,20 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         title: 'La stesa a dieci carte è dell’Adepto',
         message: 'La stesa a dieci carte si apre dal piano Adepto in su, '
             'insieme a dieci carte al giorno.',
+      );
+      return;
+    }
+    // **LA CHIAVE CHE IL PIANO NON APRE**, ordine FI voce 32: esiste, e a chi
+    // non l'ha si dice da quale piano si apre, come per la stesa da dieci.
+    final chiave =
+        ReadingKey.values.where((k) => k.label == voce).firstOrNull;
+    final dal = chiave == null ? null : PlanCatalog.dalPiano(chiave.apribileDa);
+    if (chiave != null && dal != null) {
+      showUpgradeInvite(
+        context,
+        title: 'La chiave ${chiave.label}',
+        message: '${dal.replaceFirst('Dall’', 'Si apre dal piano ')} in su. '
+            '${chiave.tradizione}',
       );
       return;
     }

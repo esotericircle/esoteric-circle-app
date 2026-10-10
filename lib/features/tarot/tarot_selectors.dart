@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../core/entitlement/plan_catalog.dart';
 import '../../core/entitlement/tier.dart';
+import '../../core/tarot/la_chiave_di_lettura.dart';
 import '../../core/tarot/tarot_spread_type.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -9,36 +11,31 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../horoscope/answer_depth.dart';
 
-/// La chiave con cui si legge la stesa.
-///
-/// La Riflessione e' citata come ispirazione al lavoro di Alejandro Jodorowsky,
-/// senza alcun rapporto ufficiale: mai un marchio, sempre col suo disclaimer.
-enum ReadingKey {
-  predittiva('Predittiva di Medora', available: true),
-  riflessione('Riflessione Jodorowsky', available: false),
-  esoterica('Esoterica Caligo', available: false);
-
-  const ReadingKey(this.label, {required this.available});
-
-  final String label;
-  final bool available;
-
-  /// Nota da mostrare sotto la voce, quando serve.
-  String? get note => this == ReadingKey.riflessione
-      ? 'Ispirata al lavoro di Alejandro Jodorowsky, senza rapporto ufficiale.'
-      : null;
-}
+export '../../core/tarot/la_chiave_di_lettura.dart';
 
 /// Il mazzo con cui si legge.
 enum TarotDeckStyle {
   riderWaite('Rider-Waite', available: true),
-  marsiglia('Marsiglia', available: false),
-  thoth('Thoth', available: false);
+  marsiglia('Marsiglia',
+      available: false, riga: RigaDelPiano.mazzoDiMarsiglia),
+  thoth('Thoth', available: false, riga: RigaDelPiano.mazzoThoth);
 
-  const TarotDeckStyle(this.label, {required this.available});
+  const TarotDeckStyle(this.label, {required this.available, this.riga});
 
   final String label;
+
+  /// Se il mazzo e' gia' nell'app. Marsiglia e Thoth arrivano con la parte 4
+  /// dell'ordine FI.
   final bool available;
+
+  /// La riga della matrice dei piani che lo apre (ordine FI voce 32).
+  final RigaDelPiano? riga;
+
+  /// Se questo piano puo' scegliere questo mazzo.
+  bool apribileDa(Tier tier) {
+    final r = riga;
+    return available && (r == null || PlanCatalog.apre(r, tier));
+  }
 }
 
 /// Lo stato dei selettori prima della stesa.
@@ -334,6 +331,11 @@ class TarotSetupPanel extends StatelessWidget {
                       etichetta: (t) => t.breve,
                       sottotitolo: (t) => t.descrizione,
                       bloccata: (t) => !t.apribileDa(piano),
+                      perche: (t) => t.disponibile
+                          ? PlanCatalog.dalPiano(
+                                  (p) => t.apribileDa(p)) ??
+                              'Coming soon'
+                          : 'Coming soon',
                       onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
                       onLocked: (t) => onLocked(t.nome),
                     ),
@@ -350,7 +352,9 @@ class TarotSetupPanel extends StatelessWidget {
                       // La nota etica su Jodorowsky compare solo sulla sua
                       // voce, dentro la tendina, dove sta in contesto.
                       sottotitolo: (k) => k.note,
-                      bloccata: (k) => !k.available,
+                      bloccata: (k) => !k.apribileDa(piano),
+                      perche: (k) =>
+                          PlanCatalog.dalPiano(k.apribileDa) ?? 'Coming soon',
                       onSelect: (k) => onChanged(setup.copyWith(key: k)),
                       onLocked: (k) => onLocked(k.label),
                     ),
@@ -364,7 +368,10 @@ class TarotSetupPanel extends StatelessWidget {
                       voci: TarotDeckStyle.values,
                       palette: palette,
                       etichetta: (d) => d.label,
-                      bloccata: (d) => !d.available,
+                      bloccata: (d) => !d.apribileDa(piano),
+                      perche: (d) => d.available
+                          ? PlanCatalog.dalPiano(d.apribileDa) ?? 'Coming soon'
+                          : 'Coming soon',
                       onSelect: (d) => onChanged(setup.copyWith(deck: d)),
                       onLocked: (d) => onLocked(d.label),
                     ),
@@ -379,7 +386,16 @@ class TarotSetupPanel extends StatelessWidget {
                       voci: AnswerDepth.shown,
                       palette: palette,
                       etichetta: (d) => d.label,
-                      bloccata: (d) => d.premium,
+                      // La Lunga dall'Iniziato (ordine FI voce 32): prima
+                      // era chiusa per tutti, anche per chi la pagava.
+                      bloccata: (d) =>
+                          d.premium &&
+                          !PlanCatalog.apre(
+                              RigaDelPiano.profonditaDellaStesa, piano),
+                      perche: (d) =>
+                          PlanCatalog.dalPiano((p) => PlanCatalog.apre(
+                              RigaDelPiano.profonditaDellaStesa, p)) ??
+                          'Coming soon',
                       onSelect: (d) => onChanged(setup.copyWith(depth: d)),
                       onLocked: (d) => onLocked(d.label),
                     ),
@@ -426,6 +442,7 @@ class TendinaSelettore<T> extends StatelessWidget {
     this.sottotitolo,
     this.gruppo,
     this.inRilievo = false,
+    this.perche,
   });
 
   /// La chiave del bottone, per i test.
@@ -450,6 +467,11 @@ class TendinaSelettore<T> extends StatelessWidget {
   final bool inRilievo;
 
   final bool Function(T) bloccata;
+
+  /// Perche' una voce e' bloccata, scritto accanto al lucchetto: "Coming
+  /// soon" se non c'e' ancora, il piano che la apre se c'e' (ordine FI voce
+  /// 32). Nulla, "Coming soon" per tutte, come prima.
+  final String Function(T)? perche;
   final ValueChanged<T> onSelect;
   final ValueChanged<T> onLocked;
 
@@ -510,7 +532,7 @@ class TendinaSelettore<T> extends StatelessWidget {
               Icon(Icons.lock_rounded,
                   size: 13, color: palette.goldSoft.withValues(alpha: 0.75)),
               const SizedBox(width: 4),
-              Text('Coming soon',
+              Text(perche?.call(v) ?? 'Coming soon',
                   style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.75),
                       letterSpacing: 0.4)),

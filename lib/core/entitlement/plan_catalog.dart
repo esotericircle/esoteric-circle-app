@@ -141,6 +141,21 @@ enum RigaDelPiano {
   /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02.
   stesaDaDieci,
 
+  /// **LA MATRICE DEI TAROCCHI, ordine FI voce 32**, 10 ottobre 2026: le
+  /// altre stese, le chiavi di lettura, i mazzi, la profondita' della stesa,
+  /// il ritorno della carta, la rilettura e la card. Le righe sì/no si
+  /// leggono con [PlanCatalog.apre].
+  stesaACroce,
+  stesaDelFerroDiCavallo,
+  chiaveRiflessione,
+  chiaviEsotericaEArchetipica,
+  mazzoDiMarsiglia,
+  mazzoThoth,
+  profonditaDellaStesa,
+  ritornoDellaCarta,
+  rileggereLaStesa,
+  cardDellaStesa,
+
   /// I minuti del LIVE al mese. Ordine EX voce 02; il server li conta in
   /// `functions/src/live.ts`, `MINUTI_DEL_MESE`.
   minutiLive,
@@ -431,6 +446,28 @@ class PlanCatalog {
       quanti: numero == null ? 0 : int.parse(numero.group(1)!),
       allaSettimana: cella.contains('settiman'),
     );
+  }
+
+  /// **DA QUALE PIANO SI APRE UNA VOCE**, per dirlo a video: "Dall’Iniziato",
+  /// "Dall’Adepto", "Dall’Illuminato". Nulla se si apre a tutti o a nessuno.
+  /// Ordine FI voce 32: una voce che esiste e che il piano chiude non e'
+  /// Coming soon, e scriverlo sarebbe falso.
+  static String? dalPiano(bool Function(Tier) apre) {
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    if (apre(Tier.free)) return null;
+    for (var i = 1; i < ordine.length; i++) {
+      if (apre(ordine[i])) return 'Dall’${columns[i]}';
+    }
+    return null;
+  }
+
+  /// **SE QUEL PIANO APRE UNA RIGA SÌ/NO DELLA MATRICE.** Ordine FI voce 32:
+  /// la cella dice "Sì" o "No", e una riga che non c'e' non apre niente.
+  static bool apre(RigaDelPiano chiave, Tier tier) {
+    final riga = matrix.where((r) => r.chiave == chiave);
+    if (riga.isEmpty) return false;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    return riga.first.values[ordine.indexOf(tier)] == 'Sì';
   }
 
   /// **SE QUEL PIANO APRE LA STESA DA DIECI CARTE.** Ordine EX voce 02: solo
@@ -731,6 +768,33 @@ class PlanCatalog {
         chiave: RigaDelPiano.stese),
     FeatureRow('Stesa da 10 carte', ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.stesaDaDieci),
+    // **LA MATRICE DEI TAROCCHI, ordine FI voce 32**, 10 ottobre 2026: la
+    // tabella dell'Architetto approvata dal fondatore, "tabella ok", e per il
+    // Viandante "vorrei mantenere le opzioni di base come sono adesso con
+    // stesa a 3 carte e 1 carta, chiave di lettura Medora, mazzo rider-waite
+    // e profondita' breve". Le due righe sopra (le carte del giorno e la
+    // stesa da dieci) non si toccano. Le funzioni non ancora pronte stanno
+    // nella tabella come nell'app: visibili, e Coming soon dove si usano.
+    FeatureRow('Stesa a croce, 4 carte', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.stesaACroce),
+    FeatureRow('Ferro di cavallo, 7 carte', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.stesaDelFerroDiCavallo),
+    FeatureRow('Chiave Riflessione', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.chiaveRiflessione),
+    FeatureRow('Chiavi Esoterica e Archetipica', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.chiaviEsotericaEArchetipica),
+    FeatureRow('Mazzo di Marsiglia', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.mazzoDiMarsiglia),
+    FeatureRow('Mazzo Thoth', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.mazzoThoth),
+    FeatureRow('Stesa nella versione lunga', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.profonditaDellaStesa),
+    FeatureRow('Il ritorno della carta', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.ritornoDellaCarta),
+    FeatureRow('Rileggere una stesa', ['No', 'No', 'No', 'Sì'],
+        chiave: RigaDelPiano.rileggereLaStesa),
+    FeatureRow('Card della stesa da condividere', ['Sì', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.cardDellaStesa),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
     // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O

@@ -181,6 +181,17 @@ enum TarotSpreadType {
   /// **SE QUESTO PIANO PUO' APRIRE QUESTA STESA.** Ordine EX voce 02: la
   /// stesa da dieci carte solo dall'Adepto, *"la stesa a 10 solo dal tier 2
   /// 19,99"*. Una stesa non ancora disponibile non si apre per nessuno.
+  ///
+  /// Ordine FI voce 32: la croce dall'Iniziato, il ferro di cavallo
+  /// dall'Adepto, la carta sola e le tre carte a tutti.
   bool apribileDa(Tier tier) =>
-      disponibile && (carte < 10 || PlanCatalog.haLaStesaDaDieci(tier));
+      disponibile &&
+      switch (this) {
+        TarotSpreadType.unaCarta || TarotSpreadType.treCarte => true,
+        TarotSpreadType.croceQuattro =>
+          PlanCatalog.apre(RigaDelPiano.stesaACroce, tier),
+        TarotSpreadType.setteCarte =>
+          PlanCatalog.apre(RigaDelPiano.stesaDelFerroDiCavallo, tier),
+        TarotSpreadType.dieciCarte => PlanCatalog.haLaStesaDaDieci(tier),
+      };
 }

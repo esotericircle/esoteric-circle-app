@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
+import 'package:esoteric_circle/core/tarot/la_chiave_di_lettura.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione_dati.dart';
@@ -536,8 +537,8 @@ void main() {
   /// Monta la stesa, pesca tre carte e preme "Leggi le Carte". [chiamata]
   /// riceve la stesa vera, letta dalla schermata dopo il pescaggio.
   Future<TarotSpread> leggiLeCarte(WidgetTester tester,
-      Future<String?> Function(TarotSpread stesa, String richiesta)
-          chiamata) async {
+      Future<String?> Function(TarotSpread stesa, String richiesta) chiamata,
+      {ReadingKey? chiave, void Function(String istruzione)? istruzione}) async {
     silenzia();
     // Alta abbastanza da costruire tutto il responso: la lista e' pigra, e
     // una bolla fuori dalla finestra non c'e' proprio.
@@ -550,7 +551,11 @@ void main() {
       seed: 2,
       skipIntro: true,
       topic: TarotTopic.bivio,
-      chiamata: (i, r, c) => chiamata(stesa, r),
+      chiave: chiave,
+      chiamata: (i, r, c) {
+        istruzione?.call(i);
+        return chiamata(stesa, r);
+      },
     )));
     await tester.pump();
     for (var i = 0; i < 12; i++) {
@@ -612,5 +617,43 @@ void main() {
           reason: '${d.position.label}: senza modello si legge il testo della '
               'sua posizione');
     }
+  });
+
+  // LE CHIAVI DI LETTURA ARRIVANO AL MODELLO, E LA LETTURA DI CASA SI DICHIARA.
+  // Ordine FI voci 07 e 08: la chiave entra nell'istruzione come voce (la
+  // Predittiva non aggiunge niente), e quando il modello non risponde la
+  // lettura di casa, che e' nella chiave Predittiva, lo dice a chi ha scelto
+  // un'altra chiave.
+  testWidgets('la chiave scelta arriva al modello come voce', (tester) async {
+    final istruzioni = <String>[];
+    await leggiLeCarte(tester, (s, r) async => jsonEncode(buona(s).toJson()),
+        chiave: ReadingKey.riflessione, istruzione: istruzioni.add);
+    expect(istruzioni, isNotEmpty);
+    expect(istruzioni.first, contains(ReadingKey.riflessione.voce!));
+    expect(istruzioni.first, contains('mai come un annuncio'));
+    // Col modello che risponde la riga della lettura di casa non c'e'.
+    expect(find.byKey(const Key('stesa_lettura_di_casa')), findsNothing);
+  });
+
+  testWidgets('senza modello la lettura di casa dice la sua chiave',
+      (tester) async {
+    await leggiLeCarte(
+        tester, (s, r) async => throw const SocketException('niente rete'),
+        chiave: ReadingKey.esoterica);
+    final riga = find.byKey(const Key('stesa_lettura_di_casa'));
+    expect(riga, findsOneWidget);
+    expect(tester.widget<Text>(riga).data,
+        ReadingKey.esoterica.rigaDellaLetturaDiCasa);
+    expect(tester.widget<Text>(riga).data, contains('Predittiva'));
+  });
+
+  testWidgets('con la Predittiva la lettura di casa non ha niente da dire',
+      (tester) async {
+    final istruzioni = <String>[];
+    await leggiLeCarte(
+        tester, (s, r) async => throw const SocketException('niente rete'),
+        istruzione: istruzioni.add);
+    expect(find.byKey(const Key('stesa_lettura_di_casa')), findsNothing);
+    expect(istruzioni.first, isNot(contains('LA CHIAVE DI LETTURA')));
   });
 }

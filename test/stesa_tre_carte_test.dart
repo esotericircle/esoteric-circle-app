@@ -20,6 +20,7 @@ import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/tarot/tarot_selectors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -285,10 +286,13 @@ void main() {
   });
 
   group('Selettori prima della stesa', () {
+    // LAPIDE della regola di prima (una chiave sola viva, Riflessione ed
+    // Esoterica in arrivo). Ordine FI voce 06: le quattro chiavi esistono
+    // tutte, e chi le puo' scegliere lo dice il piano (voce 32).
     test('Le voci pronte e quelle in arrivo sono quelle giuste', () {
-      expect(ReadingKey.predittiva.available, isTrue);
-      expect(ReadingKey.riflessione.available, isFalse);
-      expect(ReadingKey.esoterica.available, isFalse);
+      for (final k in ReadingKey.values) {
+        expect(k.available, isTrue, reason: k.name);
+      }
       expect(TarotDeckStyle.riderWaite.available, isTrue);
       expect(TarotDeckStyle.marsiglia.available, isFalse);
       expect(TarotDeckStyle.thoth.available, isFalse);
@@ -374,6 +378,8 @@ void main() {
               setup: const TarotSetup(),
               palette: palette,
               aperto: true,
+              // Il Viandante: le chiavi che non sono sue mostrano il piano.
+              piano: Tier.free,
               onChanged: (_) {},
               onLocked: (_) {},
             ),
@@ -383,15 +389,20 @@ void main() {
       await tester.pumpAndSettle();
       // Da chiuse, le tendine non occupano righe con le voci bloccate: prima
       // Chiave e Mazzo si mangiavano tre righe ciascuno.
-      expect(find.text('Riflessione Jodorowsky'), findsNothing);
+      expect(find.text('Riflessione'), findsNothing);
       expect(find.text('Marsiglia'), findsNothing);
 
-      // Aperta la Chiave, le voci in arrivo sono li' col lucchetto e la nota.
+      // LAPIDE: aperta la Chiave c'erano due voci Coming soon. Ordine FI voci
+      // 06 e 32: le quattro chiavi esistono, e a chi il piano non le apre il
+      // lucchetto dice da quale piano si aprono, non che arrivano presto.
       await tester.tap(find.byKey(const Key('stesa_chiave')));
       await tester.pumpAndSettle();
-      expect(find.text('Riflessione Jodorowsky'), findsOneWidget);
-      expect(find.text('Esoterica Caligo'), findsOneWidget);
-      expect(find.text('Coming soon'), findsNWidgets(2));
+      expect(find.text('Riflessione'), findsOneWidget);
+      expect(find.text('Esoterica'), findsOneWidget);
+      expect(find.text('Archetipica'), findsOneWidget);
+      expect(find.text('Dall’Iniziato'), findsOneWidget);
+      expect(find.text('Dall’Adepto'), findsNWidgets(2));
+      expect(find.text('Coming soon'), findsNothing);
       // La nota etica compare in contesto, sulla sua voce.
       expect(find.textContaining('Jodorowsky, senza rapporto ufficiale'),
           findsOneWidget);
