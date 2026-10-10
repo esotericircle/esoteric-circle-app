@@ -208,6 +208,34 @@ void main() {
     await scatta(tester, 'fh_18_la_scheda_del_cielo_profondo');
   });
 
+  testWidgets('FH.12: una stella cadente nella notte delle Perseidi',
+      (tester) async {
+    await monta(
+        tester,
+        CieloRealeScreen(
+          modo: ModoDelCielo.adesso,
+          orologio: () => DateTime.utc(2026, 8, 12, 23),
+          posizione: const DisabledSkyLocation(),
+        ));
+    await caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final f = tester
+        .widgetList<CustomPaint>(find.byType(CustomPaint))
+        .map((c) => c.painter)
+        .whereType<PittoreDelCielo>()
+        .first
+        .fotogramma;
+    // La nascita forzata: la frequenza vera, cento all'ora, ne fa vedere una
+    // ogni pochi minuti nel riquadro.
+    f.meteore!.prossimaSubito = true;
+    await fg.passa(tester, 4, const Duration(milliseconds: 60));
+    // ignore: avoid_print
+    print('FH.12: meteore nate ${f.meteore!.nate}, vertici '
+        '${f.meteore!.vertici}');
+    expect(f.meteore!.vertici, greaterThan(0));
+    await scatta(tester, 'fh_19_una_stella_cadente');
+  });
+
   testWidgets('FH.5: il menu dei bersagli, i due livelli', (tester) async {
     await monta(tester, fg.cielo(ModoDelCielo.adesso));
     await caricaEAlleggerisci(tester);

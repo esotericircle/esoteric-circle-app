@@ -36,6 +36,7 @@ import '../../core/astro/il_fuso_della_nascita.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/meeus/il_cielo_di_meeus.dart';
 import '../../core/astro/real_time_cosmo/catalogo_delle_stelle.dart';
+import '../../core/astro/real_time_cosmo/gli_sciami_di_meteore.dart';
 import '../../core/astro/real_time_cosmo/i_bersagli_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/i_nomi_del_cielo.dart';
 import '../../core/astro/real_time_cosmo/il_cielo_in_un_istante.dart';
@@ -71,6 +72,7 @@ import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
 import 'il_cielo_profondo_in_scena.dart';
+import 'le_meteore_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
@@ -144,6 +146,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   OrizzonteInScena? _orizzonte;
   ViaLatteaInScena? _viaLattea;
   CieloProfondoInScena? _cieloProfondo;
+
+  /// Le stelle cadenti (ordine FH parte 12) e il giorno per cui sono
+  /// configurate.
+  final MeteoreInScena _meteore = MeteoreInScena();
+  int _giornoDelleMeteore = -1;
   final Int32List _figuraDelVelo = Int32List(12);
   ui.Image? _sprite;
   CieloInUnIstante? _cielo;
@@ -415,6 +422,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       }
       _cieloProfondo = CieloProfondoInScena(immaginiProfonde);
       _fotogramma.profondo = _cieloProfondo;
+      _fotogramma.meteore = _meteore;
       _fotogramma.viaLattea = _viaLattea;
       if (!mounted) return;
       _preparaIBersagli(catalogo);
@@ -851,6 +859,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       spostamentoX: cieloSposta.dx,
       spostamentoY: cieloSposta.dy,
     );
+    _posaLeMeteore(a, proiezione, cieloSposta, dt);
     _lineeInScena?.prepara(
       cielo: a,
       poi: b,
@@ -1620,6 +1629,32 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       anni--;
     }
     _anni.value = math.max(0, anni);
+  }
+
+  /// LE STELLE CADENTI (ordine FH parte 12): lo sciame del giorno mostrato,
+  /// scelto una volta per giorno; nessuna meteora con Riduci Movimento (voce
+  /// 12.4) ne' durante la corsa della Macchina del tempo.
+  void _posaLeMeteore(CieloInUnIstante a, ProiezioneDelCielo proiezione,
+      Offset sposta, double dt) {
+    final inCorsa = widget.modo == ModoDelCielo.ritorno &&
+        (_fase.value == FaseDelRitorno.eta ||
+            _fase.value == FaseDelRitorno.ritorno);
+    if (_riduciMovimento || inCorsa) {
+      _meteore.vertici = 0;
+      return;
+    }
+    final giorno = a.jd.floor();
+    if (giorno != _giornoDelleMeteore) {
+      _giornoDelleMeteore = giorno;
+      final s = sciameDelGiorno(IlCieloDiMeeus.istanteDi(a.jd));
+      _meteore.configura(
+        raGradi: s?.sciame.raGradi,
+        decGradi: s?.sciame.decGradi,
+        frequenza: s?.frequenza ?? kSporadicheAllOra,
+      );
+    }
+    _meteore.prepara(_orientamento, proiezione, a.assi, dt,
+        spostamentoX: sposta.dx, spostamentoY: sposta.dy);
   }
 
   // =====================================================================

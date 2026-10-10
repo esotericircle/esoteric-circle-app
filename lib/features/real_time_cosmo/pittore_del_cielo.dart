@@ -18,6 +18,7 @@ import 'il_velo_delle_costellazioni.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
 import 'il_cielo_profondo_in_scena.dart';
+import 'le_meteore_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
 import 'lo_stile_del_cielo.dart';
@@ -93,6 +94,9 @@ class FotogrammaDelCielo {
 
   /// I cinque oggetti del cielo profondo (ordine FH parte 10).
   CieloProfondoInScena? profondo;
+
+  /// Le stelle cadenti (ordine FH parte 12).
+  MeteoreInScena? meteore;
   double foschiaX = 0, foschiaY = 0, foschiaLuce = 0;
 
   /// I quattro punti cardinali e le altre scritte.
@@ -279,6 +283,22 @@ class PittoreDelCielo extends CustomPainter {
             0, 0, v.immagine.width.toDouble(), v.immagine.height.toDouble()),
         Rect.fromCenter(center: centro, width: w, height: h),
         _velo,
+      );
+    }
+
+    // LE STELLE CADENTI (ordine FH parte 12): nastri di triangoli, la
+    // stessa chiamata delle linee, nessuna sfocatura; sotto la Luna, che resta
+    // l'ultima (voce F5 dell'aggiunta).
+    final meteore = f.meteore;
+    if (meteore != null && meteore.vertici > 0) {
+      canvas.drawVertices(
+        ui.Vertices.raw(
+          ui.VertexMode.triangles,
+          Float32List.sublistView(meteore.posizioni, 0, meteore.vertici * 2),
+          colors: Int32List.sublistView(meteore.colori, 0, meteore.vertici),
+        ),
+        BlendMode.dst,
+        _linee,
       );
     }
 
