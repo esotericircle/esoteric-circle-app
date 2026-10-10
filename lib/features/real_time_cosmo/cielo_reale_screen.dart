@@ -911,6 +911,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         spostamentoY: cieloSposta.dy,
         mezzaScritta: (_fotogramma.scrittaDellEclittica?.width ?? 80) / 2,
         altezzaScritta: _fotogramma.scrittaDellEclittica?.height ?? 40,
+        margineAlto: 100 + MediaQuery.paddingOf(context).top,
         ostacoli: _ostacoliDellEclittica(),
       );
       // Mentre il ritorno parla al centro dello schermo il nome del filo
@@ -1485,10 +1486,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final s = math.min(sx, sy);
     final w = _misuraDellaGuida.width, h = _misuraDellaGuida.height;
     var left = (cx + dx * s - w / 2).clamp(8.0, _misura.width - w - 8);
-    final top = (cy + dy * s - h / 2).clamp(
-      kMargineAlto,
-      _misura.height - kMargineBasso - h,
-    );
+    // I margini partono dal margine di sistema: sul telefono la schermata
+    // vive sotto la barra dell'app, che arriva come margine superiore, e
+    // l'indicatore saliva sul titolo (visto sul Realme il 10 ottobre 2026).
+    final bordi = MediaQuery.paddingOf(context);
+    final alto = kMargineAlto + bordi.top;
+    final basso = kMargineBasso + bordi.bottom;
+    final top = (cy + dy * s - h / 2).clamp(alto, _misura.height - basso - h);
     // La scritta cede il posto ai nomi dei pianeti e al disco della Luna
     // (ordine FH voce 14.1): la regola sta in la_scritta_che_cede.dart.
     // La Luna ha la stessa precedenza dei nomi: e' il soggetto del cielo di
@@ -1502,6 +1506,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         w: w,
         h: h,
         altezza: _misura.height,
+        margineAlto: alto,
+        margineBasso: basso,
         ostacoli: f.corpi.length + 1,
         ostacolo: (i) {
           if (i == f.corpi.length) {

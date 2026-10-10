@@ -25,6 +25,8 @@ double altezzaCheCede({
   required double altezza,
   required int ostacoli,
   required Rect? Function(int) ostacolo,
+  double margineAlto = kMargineAlto,
+  double margineBasso = kMargineBasso,
 }) {
   var t = top;
   for (var giro = 0; giro < 3; giro++) {
@@ -39,11 +41,11 @@ double altezzaCheCede({
     }
     if (coperto == null) break;
     // Sopra o sotto l'ostacolo, dalla parte dove c'e' piu' posto.
-    final suPosto = coperto.top - kMargineAlto;
-    final giuPosto = altezza - kMargineBasso - coperto.bottom;
+    final suPosto = coperto.top - margineAlto;
+    final giuPosto = altezza - margineBasso - coperto.bottom;
     t = suPosto > giuPosto
-        ? (coperto.top - h - 6).clamp(kMargineAlto, altezza - kMargineBasso - h)
-        : (coperto.bottom + 6).clamp(kMargineAlto, altezza - kMargineBasso - h);
+        ? (coperto.top - h - 6).clamp(margineAlto, altezza - margineBasso - h)
+        : (coperto.bottom + 6).clamp(margineAlto, altezza - margineBasso - h);
   }
   return t;
 }

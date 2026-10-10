@@ -87,6 +87,10 @@ INNESTI = [
      '      _fotogramma.nomeDellEclittica = ora < _nomeDellEclitticaFino;',
      '      _fotogramma.nomeDellEclittica = true;',
      'test/le_anteprime_dell_ordine_fh_test.dart', 'FH.13'),
+    ("C15 l'indicatore senza il margine di sistema", SCHERMATA,
+     '    final alto = kMargineAlto + bordi.top;',
+     '    final alto = kMargineAlto;',
+     MACCHINA, 'non copre la testata'),
 ]
 
 

@@ -362,6 +362,53 @@ void main() {
         reason: 'il tocco non ha risposto: un vicolo cieco');
   });
 
+  testWidgets("l'indicatore non copre la testata, in ogni direzione",
+      (tester) async {
+    // Visto sul Realme il 10 ottobre 2026 sera: con lo sguardo che manda il
+    // bersaglio in alto, la freccia e "I tuoi Gemelli" con la riga di quando
+    // sorge salivano sul titolo della schermata. Si gira lo sguardo in
+    // orizzontale e in verticale e, dove l'indicatore c'e', il suo riquadro
+    // vero non tocca il titolo ne' i bottoni della testata. Sul telefono la
+    // schermata vive sotto la barra dell'app, che arriva come margine
+    // superiore: qui un margine di 90 punti, come sul Realme.
+    tester.view.padding = const FakeViewPadding(top: 270);
+    addTearDown(tester.view.resetPadding);
+    await monta(tester, _macchina());
+    await fh.caricaEAlleggerisci(tester);
+    await fg.passa(tester, 10);
+    final cielo =
+        tester.getCenter(find.byKey(const Key('real_time_cosmo_cielo')));
+    final guida = find.byKey(const Key('real_time_cosmo_guida'));
+    final testata = [
+      find.text('La macchina del tempo'),
+      find.byKey(const Key('real_time_cosmo_fonti_bottone')),
+    ];
+    var guardate = 0;
+    final coperte = <String>[];
+    for (var v = 0; v < 5; v++) {
+      for (var h = 0; h < 8; h++) {
+        await tester.dragFrom(cielo, const Offset(90, 0));
+        await fg.passa(tester, 3);
+        if (guida.evaluate().isEmpty) continue;
+        final r = tester.getRect(guida);
+        guardate++;
+        for (final t in testata) {
+          if (t.evaluate().isEmpty) continue;
+          if (tester.getRect(t).overlaps(r)) {
+            coperte.add('giro $v.$h: $r sopra ${tester.getRect(t)}');
+          }
+        }
+      }
+      await tester.dragFrom(cielo, const Offset(0, -60));
+      await fg.passa(tester, 3);
+    }
+    // ignore: avoid_print
+    print('INDICATORE: $guardate posizioni guardate, ${coperte.length} '
+        'sulla testata');
+    expect(guardate, greaterThanOrEqualTo(10));
+    expect(coperte, isEmpty, reason: coperte.join(' | '));
+  });
+
   testWidgets('I12: le fonti della Macchina con le quattro righe',
       (tester) async {
     await monta(tester, _macchina());

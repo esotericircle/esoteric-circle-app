@@ -93,6 +93,7 @@ class EclitticaInScena {
       double spostamentoY = 0,
       double mezzaScritta = 40,
       double altezzaScritta = 40,
+      double margineAlto = 100,
       List<Rect> ostacoli = const []}) {
     var m0 = assi[0], m1 = assi[1], m2 = assi[2];
     var m3 = assi[3], m4 = assi[4], m5 = assi[5];
@@ -136,7 +137,7 @@ class EclitticaInScena {
         if (z > 0.05 &&
             _x[k] > 8 &&
             _x[k] < w - 8 &&
-            _y[k] > 100 &&
+            _y[k] > margineAlto + altezzaScritta &&
             _y[k] < h * 0.6) {
           final cx = _x[k].clamp(mezzaScritta + 8, w - mezzaScritta - 8);
           final dx = _x[k] - w / 2, dy = _y[k] - h / 2;
