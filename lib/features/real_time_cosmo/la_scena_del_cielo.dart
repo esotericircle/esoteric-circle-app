@@ -92,6 +92,21 @@ class ScenaDelCielo {
 
   final List<double> _punto = [0, 0];
 
+  static const double _gradi = 180 / math.pi;
+
+  /// Il seno di venti gradi: sopra non si scintilla.
+  static final double kSenoDelloScintillio =
+      math.sin(kAltezzaDelloScintillio * math.pi / 180);
+
+  static final int _ambraR = (kAmbraDellOrizzonte.r * 255).round();
+  static final int _ambraG = (kAmbraDellOrizzonte.g * 255).round();
+  static final int _ambraB = (kAmbraDellOrizzonte.b * 255).round();
+
+  static int _canale(int pieno, int ambra, double t) {
+    final c = pieno & 0xFF;
+    return (c + (ambra - c) * t).round().clamp(0, 255);
+  }
+
   /// Riempie i buffer per il cielo [cielo] (o, nel riavvolgimento, per il
   /// punto [t] fra [cielo] e [poi]) visto con [orientamento] e [proiezione].
   /// [spostamento] e' lo scostamento di parallasse del piano del cielo (parte
@@ -104,6 +119,8 @@ class ScenaDelCielo {
     required ProiezioneDelCielo proiezione,
     double spostamentoX = 0,
     double spostamentoY = 0,
+    double tempo = 0,
+    bool scintillio = true,
   }) {
     final limite = magnitudineLimite(proiezione.campoGradi);
     final w = proiezione.larghezza, h = proiezione.altezza;
@@ -138,16 +155,38 @@ class ScenaDelCielo {
           py > h + kMargineDelQuadro) {
         continue;
       }
-      var luce = luceDellaStella(m, limite);
+      // L'aria (ordine FH parte 11): la stella bassa e' piu' debole, piu'
+      // ambra e, sotto i venti gradi, scintilla.
+      final perdita = estinzione(z);
+      var luce = luceDellaStella(m + perdita, limite);
       if (z < 0) luce *= kLuceSottoLOrizzonte;
       if (luce <= 0) continue;
+      if (scintillio && z < kSenoDelloScintillio && z > -kSenoDelloScintillio) {
+        final ampiezza =
+            ampiezzaDelloScintillio(math.asin(z.clamp(-1.0, 1.0)) * _gradi);
+        if (ampiezza > 0) {
+          // Un ritmo irregolare e diverso per ogni stella: due seni di
+          // frequenze vicine e fasi prese dall'indice.
+          final f1 = 7.1 + (i % 7) * 0.9, f2 = 11.3 + (i % 5) * 1.3;
+          final o =
+              math.sin(tempo * f1 + i * 1.7) * math.sin(tempo * f2 + i * 0.6);
+          luce = (luce * (1 + ampiezza * o)).clamp(0.0, 1.0);
+        }
+      }
       final scala = _raggi[i] / kRaggioNelloSprite;
       final o = n * 4;
       trasformazioni[o] = scala;
       trasformazioni[o + 1] = 0;
       trasformazioni[o + 2] = px - kRaggioNelloSprite * scala;
       trasformazioni[o + 3] = py - kRaggioNelloSprite * scala;
-      colori[n] = ((luce * 255).round() << 24) | _coloriPieni[i];
+      final pieno = _coloriPieni[i];
+      final ambra = ambraDellaStella(perdita);
+      final colore = ambra < 0.01
+          ? pieno
+          : (_canale(pieno >> 16, _ambraR, ambra) << 16) |
+              (_canale(pieno >> 8, _ambraG, ambra) << 8) |
+              _canale(pieno, _ambraB, ambra);
+      colori[n] = ((luce * 255).round() << 24) | colore;
       xSchermo[n] = px;
       ySchermo[n] = py;
       inQuadro[n] = i;

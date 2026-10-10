@@ -819,6 +819,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       proiezione: proiezione,
       spostamentoX: cieloSposta.dx,
       spostamentoY: cieloSposta.dy,
+      // Lo scintillio delle stelle basse (ordine FH voce 11.2), fermo con
+      // Riduci Movimento.
+      tempo: ora.inMicroseconds / 1e6,
+      scintillio: !_riduciMovimento,
     );
     _posaICorpi(a, b, proiezione, cieloSposta);
     _posaIVeli(a, b, proiezione, cieloSposta, veloSposta, dt);

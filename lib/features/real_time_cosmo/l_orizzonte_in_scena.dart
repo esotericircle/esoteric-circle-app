@@ -27,6 +27,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
+import 'lo_stile_del_cielo.dart';
 
 const double kPixelPerGrado = 4096 / 360;
 
@@ -57,6 +58,10 @@ class OrizzonteInScena {
     _colonne = colonne;
     final vf = colonne * (_fasciaAlt.length - 1) * 6;
     final vc = colonne * (_calottaAlt.length - 1) * 6;
+    final va = colonne * (_aloneAlt.length - 1) * 6;
+    alonePosizioni = Float32List(va * 2);
+    aloneColori = Int32List(va);
+    _aloneDir = Float32List(va * 3);
     fasciaPosizioni = Float32List(vf * 2);
     fasciaTessitura = Float32List(vf * 2);
     calottaPosizioni = Float32List(vc * 2);
@@ -65,6 +70,17 @@ class OrizzonteInScena {
     _calottaDir = Float32List(vc * 3);
     _riempi(_fasciaAlt, _fasciaDir, fasciaTessitura);
     _riempi(_calottaAlt, _calottaDir, null);
+    _riempi(_aloneAlt, _aloneDir, null);
+    // L'alone dell'aria (ordine FH voce 11.3): il colore dell'alone, con la
+    // luce che scende dall'orizzonte a zero a quindici gradi.
+    final c = kColoreDellAlone.toARGB32() & 0x00FFFFFF;
+    for (var i = 0; i < va; i++) {
+      final alt =
+          math.asin(_aloneDir[i * 3 + 2].clamp(-1.0, 1.0)) * 180 / math.pi;
+      final t = (1 - alt / kAltezzaDellAlone).clamp(0.0, 1.0);
+      final a = (kLuceDellAloneAllOrizzonte * t * t * 255).round();
+      aloneColori[i] = (a << 24) | c;
+    }
     for (var i = 0; i < vc; i++) {
       calottaColori[i] = 0xFF000000;
     }
@@ -88,6 +104,13 @@ class OrizzonteInScena {
 
   late final Float32List fasciaPosizioni, fasciaTessitura;
   late final Float32List calottaPosizioni;
+
+  /// L'alone dell'aria all'orizzonte (ordine FH voce 11.3).
+  late final Float32List alonePosizioni;
+  late final Int32List aloneColori;
+  late final Float32List _aloneDir;
+  final List<double> _aloneAlt = const [0, 2, 5, 9, kAltezzaDellAlone];
+  final ui.Paint pennelloDellAlone = ui.Paint();
   late final Int32List calottaColori;
   late final Float32List _fasciaDir, _calottaDir;
   final List<double> _fasciaAlt, _calottaAlt;
@@ -171,6 +194,7 @@ class OrizzonteInScena {
       {double spostamentoX = 0, double spostamentoY = 0}) {
     _proietta(_fasciaDir, fasciaPosizioni, o, p, spostamentoX, spostamentoY);
     _proietta(_calottaDir, calottaPosizioni, o, p, spostamentoX, spostamentoY);
+    _proietta(_aloneDir, alonePosizioni, o, p, spostamentoX, spostamentoY);
     opacita = opacitaDelTerreno(o.altezzaGradi);
     final colore = ((opacita * 255).round() << 24) & 0xFF000000;
     for (var i = 0; i < calottaColori.length; i++) {

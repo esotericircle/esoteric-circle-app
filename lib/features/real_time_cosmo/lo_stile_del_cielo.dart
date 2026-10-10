@@ -43,9 +43,12 @@ double raggioDellaStella(double magnitudine) {
 /// misurata in tre inquadrature, in
 /// `test/real_time_cosmo_la_densita_del_cielo_test.dart`. Il primo capo largo
 /// provato era 4,15, e la misura l'ha bocciato: 145, 149 e 151 punti, sotto
-/// il bersaglio. Con 4,55 sono 191, 194 e 211 (limite a settanta gradi 5,08).
+/// il bersaglio. Con 4,55 erano 191, 194 e 211 (limite a settanta gradi 5,08).
+/// Dall'ordine FH parte 11 le stelle basse perdono luce con l'estinzione, e
+/// con 4,55 i punti sono scesi a 143, 143 e 176: ritarato su 4,75, che da'
+/// 170, 169 e 210 (con 4,85 il nord sale a 228, fuori dal bersaglio).
 const double kLimiteCampoStretto = 6.0;
-const double kLimiteCampoLargo = 4.55;
+const double kLimiteCampoLargo = 4.75;
 
 /// La magnitudine limite al campo [campoGradi] (fra 18 e 100), lineare fra i
 /// due capi.
@@ -66,6 +69,56 @@ double luceDellaStella(double magnitudine, double limite) {
   if (d >= kSfumaturaDelLimite) return 1;
   return d / kSfumaturaDelLimite;
 }
+
+/// L'ARIA FRA NOI E LE STELLE (ordine FH parte 11).
+///
+/// **L'estinzione (voce 11.1).** Vicino all'orizzonte la luce di una stella
+/// attraversa piu' aria: la magnitudine apparente cresce di 0,28 per la massa
+/// d'aria meno uno. La massa d'aria e' uno diviso il seno dell'altezza,
+/// limitata a [kMassaDAriaMassima] verso l'orizzonte. Sotto l'orizzonte, dove
+/// il cielo si vede attraverso il velo del terreno, la legge si legge allo
+/// specchio, cosi' sulla linea dell'orizzonte non c'e' un gradino.
+const double kCoefficienteDiEstinzione = 0.28;
+const double kMassaDAriaMassima = 38;
+
+/// Di quante magnitudini si indebolisce una stella col seno dell'altezza [z].
+double estinzione(double z) {
+  final s = z.abs();
+  final massa = s <= 1 / kMassaDAriaMassima ? kMassaDAriaMassima : 1 / s;
+  return kCoefficienteDiEstinzione * (massa - 1);
+}
+
+/// L'ambra verso cui scivola il colore di una stella bassa.
+const Color kAmbraDellOrizzonte = Color.fromARGB(255, 255, 178, 110);
+
+/// Quanto del colore e' ambra, con la stessa legge (voce 11.1): niente in
+/// alto, la meta' a tre magnitudini di estinzione (circa sei gradi), quasi
+/// tutto verso l'orizzonte.
+double ambraDellaStella(double estinzioneInMagnitudini) {
+  final e = estinzioneInMagnitudini <= 0 ? 0.0 : estinzioneInMagnitudini;
+  return e / (e + 3);
+}
+
+/// LO SCINTILLIO (voce 11.2): solo sotto [kAltezzaDelloScintillio] gradi,
+/// appena percepibile li' e pieno a due gradi. Restituisce l'ampiezza
+/// dell'oscillazione della luce, da 0 a [kScintillioMassimo].
+const double kAltezzaDelloScintillio = 20;
+const double kScintillioMassimo = 0.45;
+
+double ampiezzaDelloScintillio(double altezzaGradi) {
+  if (altezzaGradi >= kAltezzaDelloScintillio || altezzaGradi <= -90) return 0;
+  final a = altezzaGradi.abs();
+  if (a <= 2) return kScintillioMassimo;
+  if (a >= kAltezzaDelloScintillio) return 0;
+  final t = (kAltezzaDelloScintillio - a) / (kAltezzaDelloScintillio - 2);
+  return kScintillioMassimo * t * t;
+}
+
+/// L'ALONE DELL'ARIA (voce 11.3): il fondo schiarisce appena verso
+/// l'orizzonte e si spegne a [kAltezzaDellAlone] gradi.
+const double kAltezzaDellAlone = 15;
+const Color kColoreDellAlone = Color.fromARGB(255, 46, 58, 96);
+const double kLuceDellAloneAllOrizzonte = 0.55;
 
 /// Sotto l'orizzonte il cielo si disegna INTERO (ordine FH voce 7.3): lo
 /// smorza il velo del terreno, con la sua opacita', e non un'attenuazione

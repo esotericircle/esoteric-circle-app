@@ -163,6 +163,18 @@ class PittoreDelCielo extends CustomPainter {
       );
     }
 
+    // L'ALONE DELL'ARIA (ordine FH voce 11.3): il fondo schiarisce appena
+    // verso l'orizzonte, sotto le stelle.
+    final aria = f.orizzonte;
+    if (aria != null) {
+      canvas.drawVertices(
+        ui.Vertices.raw(ui.VertexMode.triangles, aria.alonePosizioni,
+            colors: aria.aloneColori),
+        BlendMode.dst,
+        aria.pennelloDellAlone,
+      );
+    }
+
     // LE LINEE DELLE FIGURE: una chiamata sola, sotto le stelle.
     final linee = f.linee;
     chiamateDelleLineeAllUltimoFotogramma = 0;
