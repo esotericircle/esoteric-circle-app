@@ -31,6 +31,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/celestial.dart';
+import '../../core/astro/data_italiana.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/meeus/il_cielo_di_meeus.dart';
@@ -145,6 +146,15 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   bool _luogoDiRipiego = true;
   String _origineDelLuogo = 'Roma, in attesa della tua posizione';
   DateTime? _nascitaUtc;
+
+  /// Lo scarto fra l'ora del luogo di nascita e il tempo universale, quel
+  /// giorno: la data che scorre nel ritorno finisce sul giorno di nascita
+  /// come la persona lo conosce, non su quello di Greenwich.
+  Duration _scartoDellaNascita = Duration.zero;
+
+  /// Il giorno mostrato sotto gli anni nel ritorno, come anno * 10000 + mese
+  /// * 100 + giorno; zero finche' non c'e'.
+  final ValueNotifier<int> _giornoDelRitorno = ValueNotifier(0);
   bool _nascitaConOra = true;
   SkyPlace? _luogoDiNascita;
   Zodiac? _segno;
@@ -278,8 +288,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _accorda({bool coperta = false}) {
     if (!mounted) return;
     final rotta = ModalRoute.of(context);
-    final inScena =
-        !_appDavveroVia.contains(_cicloDiVita) &&
+    final inScena = !_appDavveroVia.contains(_cicloDiVita) &&
         !coperta &&
         (rotta == null || rotta.isCurrent);
     final pronto = _scena != null && _cielo != null;
@@ -312,6 +321,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _invito.dispose();
     _fase.dispose();
     _anni.dispose();
+    _giornoDelRitorno.dispose();
     _nelRallentamento.dispose();
     for (final v in _veli) {
       v.libera();
@@ -374,7 +384,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         setState(
           () => _guastoDelCielo =
               'Questo istante sta fuori dagli anni che il motore del cielo '
-              'sa calcolare con certezza, dal 1900 al 2099.',
+                  'sa calcolare con certezza, dal 1900 al 2099.',
         );
       }
     } catch (e) {
@@ -399,6 +409,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _segno = id.sunSign;
     _nascitaConOra = id.hasBirthTime;
     _nascitaUtc = IlFusoDellaNascita.inUtc(id.birthMoment, luogo.timeZoneId);
+    final m = id.birthMoment;
+    _scartoDellaNascita = DateTime.utc(
+      m.year,
+      m.month,
+      m.day,
+      m.hour,
+      m.minute,
+    ).difference(_nascitaUtc!);
     _luogoDiNascita = SkyPlace(
       latitude: luogo.latitude,
       longitude: luogo.longitude,
@@ -459,8 +477,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       final figura = _linee?.indiceDi(v.segno.sigleIau);
       final forza = figura == null ? 1.0 : _linee!.figure[figura].forza;
       final eIlSegno = v.segno == _segno;
-      _fotogramma.presenza[v] =
-          forzaDelVelo(forza, eIlSegno: eIlSegno) *
+      _fotogramma.presenza[v] = forzaDelVelo(forza, eIlSegno: eIlSegno) *
           (eIlSegno ? 1.0 : 1.0 / kPresenzaDelSegno);
     }
     // La taratura nuova dei veli (ordine FH voce 2.1), uno dopo l'altro in
@@ -530,8 +547,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     );
     _telefono!.declinazioneGradi = d.gradi;
     if (_riduciMovimento) {
-      _avvisoDellaBussola =
-          'Riduci movimento è attivo: il cielo resta fermo '
+      _avvisoDellaBussola = 'Riduci movimento è attivo: il cielo resta fermo '
           'e lo esplori col dito.';
     }
   }
@@ -598,6 +614,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           latNascita: l.latitude,
           lonNascita: l.longitude,
         );
+        _posaLaData(_piano!.istanti.first);
     }
   }
 
@@ -642,11 +659,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         alt = c.altezzaGradi;
       }
     }
-    for (
-      var i = 0;
-      i < catalogo.numeroDiStelle && catalogo.magnitudine[i] <= 1.5;
-      i++
-    ) {
+    for (var i = 0;
+        i < catalogo.numeroDiStelle && catalogo.magnitudine[i] <= 1.5;
+        i++) {
       if (cielo.z[i] <= 0 || catalogo.magnitudine[i] >= magMigliore) continue;
       magMigliore = catalogo.magnitudine[i];
       alt = math.asin(cielo.z[i].clamp(-1.0, 1.0)) * 180 / math.pi;
@@ -717,8 +732,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     }
 
     if (widget.modo == ModoDelCielo.ritorno) _avanzaIlRitorno(ora);
-    _fotogramma.nomiDeiCorpi =
-        widget.modo != ModoDelCielo.ritorno ||
+    _fotogramma.nomiDeiCorpi = widget.modo != ModoDelCielo.ritorno ||
         _fase.value == FaseDelRitorno.fermo;
 
     // L'orientamento: il sensore se c'e' e se e' permesso, il dito sempre.
@@ -898,9 +912,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final illum = b != null && _tFraIstanti > 0.5
         ? b.illuminazioneDellaLuna
         : a.illuminazioneDellaLuna;
-    final crescente = b != null && _tFraIstanti > 0.5
-        ? b.lunaCrescente
-        : a.lunaCrescente;
+    final crescente =
+        b != null && _tFraIstanti > 0.5 ? b.lunaCrescente : a.lunaCrescente;
     final lato = math.max(9.0, ppg) * 10;
     if ((illum - _lunaCottaIlluminazione).abs() > 0.01 ||
         (lato - _lunaCottaLato).abs() > _lunaCottaLato * 0.1) {
@@ -977,8 +990,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           : null;
       v.posa = posa;
       final c = posa?.centro;
-      v.inQuadro =
-          c != null &&
+      v.inQuadro = c != null &&
           c.dx >= 0 &&
           c.dy >= 0 &&
           c.dx <= _misura.width &&
@@ -1001,9 +1013,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // Un velo non ancora alleggerito non si accende (voce 2.1): se e' quello
     // al centro, passa avanti nella fila dell'alleggerimento.
     final alCentro = _veloAlCentro;
-    final accendibile = alCentro != null && _veli[alCentro].leggero
-        ? alCentro
-        : null;
+    final accendibile =
+        alCentro != null && _veli[alCentro].leggero ? alCentro : null;
     if (alCentro != null && !_veli[alCentro].leggero) {
       unawaited(_veli[alCentro].alleggerisci());
     }
@@ -1033,11 +1044,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     Offset sposta,
   ) {
     final riferimento = _riferimentoDellaFoschia(inQuadro);
-    final deriva = riferimento == null
-        ? Offset.zero
-        : riferimento - _foschiaRiferimento;
-    final daRifare =
-        !_stessiSegni(inQuadro, _veliDellaFoschia) ||
+    final deriva =
+        riferimento == null ? Offset.zero : riferimento - _foschiaRiferimento;
+    final daRifare = !_stessiSegni(inQuadro, _veliDellaFoschia) ||
         (_campo - _campoDellaFoschia).abs() > 0.5 ||
         deriva.distance > kDerivaDellaFoschia;
     if (daRifare) {
@@ -1168,12 +1177,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _posaLaGuida(CieloInUnIstante cielo, ProiezioneDelCielo proiezione) {
     final b = _bersaglio;
     // Mentre il ritorno parla al centro dello schermo la guida tace.
-    final parla =
-        widget.modo == ModoDelCielo.ritorno &&
+    final parla = widget.modo == ModoDelCielo.ritorno &&
         _fase.value != FaseDelRitorno.fermo;
-    final scritta = _fotogramma.scritte.length > 4
-        ? _fotogramma.scritte[4]
-        : null;
+    final scritta =
+        _fotogramma.scritte.length > 4 ? _fotogramma.scritte[4] : null;
     if (b == null || parla) {
       scritta?.luce = 0;
       if (_guida.value != null) _guida.value = null;
@@ -1188,8 +1195,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       y,
       z,
     );
-    final dentro =
-        proiezione.proietta(_orientamento, x, y, z, _punto) &&
+    final dentro = proiezione.proietta(_orientamento, x, y, z, _punto) &&
         _punto[0] > 24 &&
         _punto[0] < _misura.width - 24 &&
         _punto[1] > 90 &&
@@ -1268,9 +1274,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final cx = _misura.width / 2, cy = _misura.height / 2;
     final dx = math.cos(angolo), dy = math.sin(angolo);
     final sx = dx.abs() < 1e-6 ? double.infinity : (cx - margine) / dx.abs();
-    final sy = dy.abs() < 1e-6
-        ? double.infinity
-        : (cy - margine - 70) / dy.abs();
+    final sy =
+        dy.abs() < 1e-6 ? double.infinity : (cy - margine - 70) / dy.abs();
     final s = math.min(sx, sy);
     final w = _misuraDellaGuida.width, h = _misuraDellaGuida.height;
     var left = (cx + dx * s - w / 2).clamp(8.0, _misura.width - w - 8);
@@ -1375,11 +1380,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         _cieloA = _istante(k0);
         _cieloB = k1 == k0 ? null : _istante(k1);
         _tFraIstanti = kf - k0;
-        final jd =
-            piano.istanti[k0] +
-            (piano.istanti[k1] - piano.istanti[k0]) * _tFraIstanti;
-        final nascita = piano.istanti.last;
-        _anni.value = math.max(0, ((jd - nascita) / 365.2425).floor());
+        _posaLaData(piano.dataAlPunto(kf));
         _nelRallentamento.value = kf > piano.fineDellaCorsa;
         if (kf > piano.fineDellaCorsa) {
           _agganciaAllaLuna(secondi - piano.durataDellaCorsa, piano);
@@ -1493,12 +1494,40 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _cieloA = null;
     _cieloB = null;
     _tFraIstanti = 0;
-    _anni.value = 0;
+    _posaLaData(piano.istanti.last);
     _fase.value = FaseDelRitorno.arrivo;
     _nelRallentamento.value = false;
     _guardaVersoLaLuna();
     _azimutDellaCorsa = null;
     _altezzaDellaCorsa = null;
+  }
+
+  /// GLI ANNI E LA DATA DEL RITORNO al giorno giuliano [jd] (aggiunta del
+  /// fondatore all'ordine FH parte 8, 10 ottobre 2026): sotto "50 anni" la
+  /// data, che scorre da oggi alla nascita insieme all'eta'. Il giorno e'
+  /// quello del luogo: lo scarto dal tempo universale scivola da quello di
+  /// adesso a quello della nascita, come il luogo. Gli anni sono l'eta' vera
+  /// in quel giorno, contata sul calendario.
+  void _posaLaData(double jd) {
+    final piano = _piano;
+    final nascitaUtc = _nascitaUtc;
+    if (piano == null || nascitaUtc == null) return;
+    final nascita = piano.istanti.last, adesso = piano.istanti.first;
+    final f = adesso > nascita
+        ? ((jd - nascita) / (adesso - nascita)).clamp(0.0, 1.0)
+        : 0.0;
+    final scarto = _scartoDellaNascita +
+        (_adesso.timeZoneOffset - _scartoDellaNascita) * f;
+    final giorno = IlCieloDiMeeus.istanteDi(jd).add(scarto);
+    final nato = nascitaUtc.add(_scartoDellaNascita);
+    var anni = giorno.year - nato.year;
+    if (giorno.month < nato.month ||
+        (giorno.month == nato.month && giorno.day < nato.day)) {
+      anni--;
+    }
+    _anni.value = math.max(0, anni);
+    _giornoDelRitorno.value =
+        giorno.year * 10000 + giorno.month * 100 + giorno.day;
   }
 
   void _rivediIlRitorno() {
@@ -1507,7 +1536,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _altezzaDellaCorsa = null;
     _inizioDellaFase = Duration.zero;
     _fase.value = FaseDelRitorno.eta;
-    _anni.value = _etaIntera(_nascitaUtc!);
+    _posaLaData(_piano!.istanti.first);
     _impostaIlCielo(
       CieloInUnIstante.calcola(
         _catalogo!,
@@ -1753,11 +1782,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         (_telefono?.pronto ?? false)) {
       final astro = _astroDaPuntare(cielo);
       if (astro != null) {
-        final nome = astro.corpo == CorpoCeleste.luna
-            ? 'La Luna'
-            : astro.corpo.nome;
-        testo =
-            '$nome è lassù: portala al centro e tocca qui per un nord '
+        final nome =
+            astro.corpo == CorpoCeleste.luna ? 'La Luna' : astro.corpo.nome;
+        testo = '$nome è lassù: portala al centro e tocca qui per un nord '
             'più preciso.';
       }
     }
@@ -1808,10 +1835,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   String get _titolo => switch (widget.modo) {
-    ModoDelCielo.adesso => 'Il cielo di adesso',
-    ModoDelCielo.nascita => 'Il cielo della tua nascita',
-    ModoDelCielo.ritorno => 'Il ritorno nel tempo',
-  };
+        ModoDelCielo.adesso => 'Il cielo di adesso',
+        ModoDelCielo.nascita => 'Il cielo della tua nascita',
+        ModoDelCielo.ritorno => 'Il ritorno nel tempo',
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -1896,8 +1923,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     if (_mancaLaNascita && widget.modo != ModoDelCielo.adesso) {
       righe.add(
         _Riga(
-          testo:
-              'Per il cielo della tua nascita servono la data e il luogo. '
+          testo: 'Per il cielo della tua nascita servono la data e il luogo. '
               'Per ora vedi il cielo di adesso.',
           azione: 'Aggiungi i dati di nascita',
           onAzione: () =>
@@ -1910,8 +1936,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         widget.modo != ModoDelCielo.adesso) {
       righe.add(
         _Riga(
-          testo:
-              'Senza l\'ora di nascita posso portarti al giorno, non '
+          testo: 'Senza l\'ora di nascita posso portarti al giorno, non '
               'all\'istante: il cielo è quello di mezzogiorno.',
           azione: 'Aggiungi l\'ora',
           onAzione: () =>
@@ -1946,8 +1971,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     } else if (!_usaIlSensore && widget.modo == ModoDelCielo.adesso) {
       righe.add(
         const _Riga(
-          testo:
-              'Esplori col dito. Tocca la bussola in alto per seguire il '
+          testo: 'Esplori col dito. Tocca la bussola in alto per seguire il '
               'telefono.',
         ),
       );
@@ -1999,8 +2023,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       final c = cielo.corpo(s.corpo!);
       titolo = c.corpo == CorpoCeleste.luna
           ? (widget.modo == ModoDelCielo.adesso
-                ? 'La Luna di stanotte'
-                : 'La Luna della tua nascita')
+              ? 'La Luna di stanotte'
+              : 'La Luna della tua nascita')
           : c.corpo.nome;
       x = c.x;
       y = c.y;
@@ -2153,13 +2177,63 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // "50 anni", e sotto la data che scorre con l'eta'
+                      // (aggiunta del fondatore all'ordine FH parte 8).
                       ValueListenableBuilder<int>(
                         valueListenable: _anni,
-                        builder: (context, anni, _) => Text(
-                          '$anni',
-                          key: const Key('real_time_cosmo_anni'),
-                          style: grande,
+                        builder: (context, anni, _) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  '$anni',
+                                  key: const Key('real_time_cosmo_anni'),
+                                  style: grande,
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  anni == 1 ? 'anno' : 'anni',
+                                  key: const Key(
+                                    'real_time_cosmo_parola_degli_anni',
+                                  ),
+                                  style: frase.copyWith(
+                                    color: ColorTokens.goldBright,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
+                      ),
+                      ValueListenableBuilder<int>(
+                        valueListenable: _giornoDelRitorno,
+                        builder: (context, g, _) => g == 0
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                  24,
+                                  0,
+                                  24,
+                                  12,
+                                ),
+                                child: Text(
+                                  dataItalianaEstesa(
+                                    DateTime(
+                                      g ~/ 10000,
+                                      g ~/ 100 % 100,
+                                      g % 100,
+                                    ),
+                                  ),
+                                  key: const Key('real_time_cosmo_data'),
+                                  textAlign: TextAlign.center,
+                                  style: frase,
+                                ),
+                              ),
                       ),
                       if (fase == FaseDelRitorno.ritorno)
                         Padding(
@@ -2204,13 +2278,12 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final luna = _cielo?.corpo(CorpoCeleste.luna);
     final sole = _cielo?.corpo(CorpoCeleste.sole);
     if (luna == null) return '';
-    final quando = (sole?.sopraLOrizzonte ?? false)
-        ? 'quel giorno'
-        : 'quella notte';
+    final quando =
+        (sole?.sopraLOrizzonte ?? false) ? 'quel giorno' : 'quella notte';
     return luna.sopraLOrizzonte
         ? 'La Luna di $quando era lassù. Toccala per sapere dov\'era.'
         : 'La Luna di $quando era sotto l\'orizzonte, verso '
-              '${_direzione(luna.azimutGradi)}.';
+            '${_direzione(luna.azimutGradi)}.';
   }
 }
 
@@ -2227,13 +2300,13 @@ class _Guida {
 
   /// Il bersaglio e' in quadro: resta solo l'etichetta che apre il menu.
   const _Guida.inQuadro(this.nome)
-    : gradi = 0,
-      angolo = 0,
-      x = 0,
-      y = 0,
-      riga = null,
-      avviso = null,
-      inQuadroSoltanto = true;
+      : gradi = 0,
+        angolo = 0,
+        x = 0,
+        y = 0,
+        riga = null,
+        avviso = null,
+        inQuadroSoltanto = true;
 
   final String nome;
   final int gradi;
@@ -2327,9 +2400,8 @@ class _Testata extends StatelessWidget {
               if (sensoreDisponibile)
                 IconButton(
                   key: const Key('real_time_cosmo_sensore'),
-                  tooltip: colSensore
-                      ? 'Esplora col dito'
-                      : 'Segui il telefono',
+                  tooltip:
+                      colSensore ? 'Esplora col dito' : 'Segui il telefono',
                   onPressed: onSensore,
                   icon: Icon(
                     colSensore
@@ -2574,17 +2646,17 @@ class _Messaggio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-    child: Padding(
-      padding: const EdgeInsets.all(32),
-      child: Text(
-        testo,
-        textAlign: TextAlign.center,
-        style: TypographyTokens.corpo().copyWith(
-          color: ColorTokens.textSecondary,
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Text(
+            testo,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo().copyWith(
+              color: ColorTokens.textSecondary,
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }
 
 /// IL MENU DEI BERSAGLI (ordine FH voce 5.3): due livelli, le cinque

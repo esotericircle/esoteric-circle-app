@@ -121,9 +121,31 @@ void main() {
       (tester) async {
     await monta(tester, fg.cielo(ModoDelCielo.ritorno));
     await caricaEAlleggerisci(tester);
+    // All'inizio "38 anni" e la data di oggi (aggiunta del fondatore).
+    expect(find.text('38'), findsOneWidget);
+    expect(find.text('anni'), findsOneWidget);
+    expect(find.text('8 ottobre 2026'), findsOneWidget);
+    // A meta' della corsa la data e gli anni scendono insieme.
+    await fg.passa(tester, 45);
+    final meta =
+        tester.widget<Text>(find.byKey(const Key('real_time_cosmo_data')));
+    final anniAMeta = int.parse(tester
+        .widget<Text>(find.byKey(const Key('real_time_cosmo_anni')))
+        .data!);
+    final annoAMeta = int.parse(meta.data!.split(' ').last);
+    // ignore: avoid_print
+    print('FH.8 a meta\' corsa: $anniAMeta anni, ${meta.data}');
+    expect(anniAMeta, inInclusiveRange(1, 37));
+    // L'eta' e' quella vera in quel giorno: nato nel 1988, a maggio.
+    expect(annoAMeta - 1988 - anniAMeta, inInclusiveRange(0, 1));
+    await scatta(tester, 'fh_16_la_corsa_con_la_data');
     // L'eta' (1,8 secondi) e la corsa (7): a 4 secondi dentro l'ultimo anno.
-    await fg.passa(tester, 110);
+    await fg.passa(tester, 65);
     expect(find.text('STO TORNANDO INDIETRO NEL TEMPO'), findsOneWidget);
+    expect(find.text('0'), findsOneWidget);
+    expect(
+        tester.widget<Text>(find.byKey(const Key('real_time_cosmo_data'))).data,
+        anyOf(endsWith('1988'), endsWith('1989')));
     await scatta(tester, 'fh_14_il_rallentamento');
     await fg.passa(tester, 55);
     expect(

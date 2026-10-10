@@ -147,6 +147,24 @@ class PianoDelRiavvolgimento {
     return fineDellaCorsa + r * (length - 1 - fineDellaCorsa);
   }
 
+  /// LA DATA CHE SCORRE, al punto [k] fra gli istanti (aggiunta del
+  /// fondatore all'ordine FH parte 8, 10 ottobre 2026: sotto gli anni la
+  /// data, da oggi alla nascita). Si legge sulla curva degli anni e non sugli
+  /// istanti della corsa: quelli stanno fino a quindici giorni lontano dalla
+  /// curva, avanti e indietro, e una data che torna su' mentre scende si
+  /// vedrebbe. Nel rallentamento gli istanti scendono sempre, e la data e'
+  /// quella del cielo disegnato.
+  double dataAlPunto(double k) {
+    final fine = fineDellaCorsa;
+    if (k < fine && fine > 1) {
+      final traguardo = istanti[fine];
+      return traguardo + (istanti.first - traguardo) * anniRimasti(k / fine);
+    }
+    final k0 = k.floor().clamp(0, length - 1);
+    final k1 = math.min(k0 + 1, length - 1);
+    return istanti[k0] + (istanti[k1] - istanti[k0]) * (k - k0);
+  }
+
   /// La durata intera dei due tempi.
   double get durata => durataDellaCorsa + durataDelRallentamento;
 
