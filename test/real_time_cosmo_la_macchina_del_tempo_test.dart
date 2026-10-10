@@ -83,15 +83,124 @@ void main() {
           latA: 41.9,
           lonA: 12.5),
     };
+    // Ogni caso si valuta anche se un altro cade (sul codice di prima il
+    // primo caso cadeva e gli altri non venivano guardati).
     var istanti = 0;
+    final guasti = <String>[];
     for (final e in piani.entries) {
-      final p = e.value();
-      for (final jd in p.istanti) {
-        expect(IlCieloDiMeeus.verificato(jd), isTrue,
-            reason: '${e.key}: istante $jd fuori dalla finestra');
-        istanti++;
+      try {
+        final p = e.value();
+        for (final jd in p.istanti) {
+          if (!IlCieloDiMeeus.verificato(jd)) {
+            guasti.add('${e.key}: istante $jd fuori dalla finestra');
+          }
+          istanti++;
+        }
+      } on FuoriDalCieloVerificato catch (errore) {
+        guasti.add('${e.key}: $errore');
       }
     }
+    expect(guasti, isEmpty, reason: guasti.join(' | '));
+    expect(istanti, greaterThan(400));
+  });
+
+  // LA GEMELLA DEL BORDO BASSO. L'Architetto, 10 ottobre 2026: "lo stesso
+  // deve poter accadere al bordo basso, andando indietro verso l'1 gennaio
+  // 1900". La prova sopra tocca il 1900 solo con le due corse lunghe; qui le
+  // stesse forme del bordo alto, rovesciate: la corsa verso una nascita a
+  // ridosso del 1900, le corse brevi che arrivano al 1900 e quelle che ne
+  // partono.
+  test('le corse al bordo basso della finestra restano dentro la finestra', () {
+    // Le 12 di Roma del primo giorno, le 11 UT.
+    final inizio = Celestial.julianDay(DateTime.utc(1900, 1, 1, 11));
+    final piani = <String, PianoDelRiavvolgimento Function()>{
+      'da un anno dopo alla nascita del primo giorno': () =>
+          PianoDelRiavvolgimento.prepara(
+              jdAdesso: inizio + 365,
+              jdNascita: inizio,
+              latAdesso: 41.9,
+              lonAdesso: 12.5,
+              latNascita: 41.9,
+              lonNascita: 12.5),
+      "da trent'anni dopo alla nascita del primo giorno": () =>
+          PianoDelRiavvolgimento.prepara(
+              jdAdesso: inizio + 365.25 * 30,
+              jdNascita: inizio,
+              latAdesso: 41.9,
+              lonAdesso: 12.5,
+              latNascita: 41.9,
+              lonNascita: 12.5),
+      'da dieci giorni dopo al 1900': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio + 10,
+          jdA: inizio,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'da un anno dopo al 1900': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio + 365,
+          jdA: inizio,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 1900 a dieci giorni dopo': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio,
+          jdA: inizio + 10,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 1900 a un anno dopo': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio,
+          jdA: inizio + 365,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      // Le corse lunghe, oltre 430 giorni, sono quelle che passano dalla
+      // stima della fase: il primo passo di una corsa che parte dal 1900 cade
+      // a ridosso del bordo, come quello della corsa dal 2100 della I8.
+      'dal 1900 a due anni dopo': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio,
+          jdA: inizio + 730,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'dal 1900 al 2100': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio,
+          jdA: Celestial.julianDay(DateTime.utc(2100, 12, 31, 11)),
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+      'da due anni dopo al 1900': () => PianoDelRiavvolgimento.corsaFra(
+          jdDa: inizio + 730,
+          jdA: inizio,
+          latDa: 41.9,
+          lonDa: 12.5,
+          latA: 41.9,
+          lonA: 12.5),
+    };
+    // Ogni caso si valuta anche se un altro cade: nella prova del bordo alto
+    // il primo caso cadeva e gli altri non venivano mai guardati.
+    var istanti = 0;
+    final guasti = <String>[];
+    for (final e in piani.entries) {
+      try {
+        final p = e.value();
+        for (final jd in p.istanti) {
+          if (!IlCieloDiMeeus.verificato(jd)) {
+            guasti.add('${e.key}: istante $jd fuori dalla finestra');
+          }
+          istanti++;
+        }
+      } on FuoriDalCieloVerificato catch (errore) {
+        guasti.add('${e.key}: $errore');
+      }
+    }
+    expect(guasti, isEmpty, reason: guasti.join(' | '));
     expect(istanti, greaterThan(400));
   });
 

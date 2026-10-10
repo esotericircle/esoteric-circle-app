@@ -1,0 +1,13 @@
+LE PROVE DI VISTA DOPO LA C5, ordine FH, 10 ottobre 2026, giro parziale: C18
+
+C18 la stima della fase esce dal bordo basso
+  file: lib/core/astro/real_time_cosmo/il_riavvolgimento.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_la_macchina_del_tempo_test.dart | bordo basso
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_la_macchina_del_tempo_test.dart: le cor
+    Expected: empty
+    Actual: [
+  ripristinato al byte: si
+
+TUTTE ROSSE COI DIFETTI ENTRATI E I FILE RIPRISTINATI: SI

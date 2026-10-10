@@ -100,6 +100,10 @@ INNESTI = [
      '      final v = angoloDiFase(_dentro(base + j * giornoSiderale));',
      '      final v = angoloDiFase(base + j * giornoSiderale);',
      'test/real_time_cosmo_la_macchina_del_tempo_test.dart', 'bordi della finestra'),
+    ('C18 la stima della fase esce dal bordo basso', RIAVVOLGIMENTO,
+     '      final v = angoloDiFase(_dentro(base + j * giornoSiderale));',
+     '      final v = angoloDiFase(base + j * giornoSiderale);',
+     'test/real_time_cosmo_la_macchina_del_tempo_test.dart', 'bordo basso'),
 ]
 
 
