@@ -1,0 +1,73 @@
+LE PROVE DI VISTA DELL'ORDINE FH, 10/10/2026 04:36
+
+== 15.1, il velo e' sempre uno solo (il velo nuovo si accende col vecchio ancora acceso)
+iniezione in lib/features/real_time_cosmo/il_velo_delle_costellazioni.dart; entrata: si
+guardia test/real_time_cosmo_un_velo_solo_test.dart: CADUTA
+   Expected: a value less than or equal to <1>
+   Actual: <2>
+ripristino verificato al byte: si
+
+== 15.2, il cielo si dipinge una volta (una lista nuova nella maglia della Via Lattea)
+iniezione in lib/features/real_time_cosmo/la_via_lattea_in_scena.dart; entrata: si
+guardia test/real_time_cosmo_il_cielo_si_dipinge_una_volta_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/la_via_lattea_in_scena.dart, void prepara( riga 149: una lista rigenerata nel fotogramma'
+   lib/features/real_time_cosmo/la_via_lattea_in_scena.dart, void prepara( riga 149: una lista rigenerata nel fotogramma
+ripristino verificato al byte: si
+
+== 15.3, nessuna linea inventata (l'ultima coppia del file non si disegna)
+iniezione in lib/features/real_time_cosmo/le_linee_in_scena.dart; entrata: si
+guardia test/real_time_cosmo_nessuna_linea_inventata_test.dart: CADUTA
+   Expected: empty
+   Actual: Set:['63090-66249']
+ripristino verificato al byte: si
+
+== 15.4, il peso segue il dato (la forza rovesciata)
+iniezione in lib/core/astro/real_time_cosmo/le_linee_delle_figure.dart; entrata: si
+guardia test/real_time_cosmo_il_peso_segue_il_dato_test.dart: CADUTA
+   Expected: true
+   Actual: <false>
+ripristino verificato al byte: si
+
+== 15.5, ogni asset ha il suo file (tolta la Laguna)
+iniezione: tolto assets/img/cosmo/laguna.webp; entrata: si
+guardia test/real_time_cosmo_ogni_asset_ha_il_suo_file_test.dart: CADUTA
+   Expected: empty
+   Actual: ['manca assets/img/cosmo/laguna.webp']
+   manca assets/img/cosmo/laguna.webp
+ripristino verificato al byte: si
+
+== 15.6, le schede non vengono dal modello (il file della scena nomina gemini)
+iniezione in lib/features/real_time_cosmo/il_cielo_profondo_in_scena.dart; entrata: si
+guardia test/real_time_cosmo_le_schede_non_vengono_dal_modello_test.dart: CADUTA
+   Expected: false
+   Actual: <true>
+ripristino verificato al byte: si
+
+== 15.7, i due cataloghi restano separati (il Real Time Cosmo legge bright_stars.json)
+iniezione in lib/features/real_time_cosmo/cielo_reale_screen.dart; entrata: si
+guardia test/real_time_cosmo_i_due_cataloghi_non_si_incrociano_test.dart: CADUTA
+   Expected: empty
+   Actual: [
+   'lib/features/real_time_cosmo/cielo_reale_screen.dart riga 389: il Real Time Cosmo legge il catalogo del Cielo esistente'
+   lib/features/real_time_cosmo/cielo_reale_screen.dart riga 389: il Real Time Cosmo legge il catalogo del Cielo esistente
+ripristino verificato al byte: si
+
+== 15.8, il Sole porta il suo avviso (l'avviso tolto)
+iniezione in lib/features/real_time_cosmo/cielo_reale_screen.dart; entrata: si
+guardia test/real_time_cosmo_il_sole_porta_il_suo_avviso_test.dart: CADUTA
+   Expected: exactly one matching candidate
+   Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'real_time_cosmo_avviso_del_sole'>]: []>
+   il Sole e' sopra l'orizzonte e l'avviso non c'e'
+ripristino verificato al byte: si
+
+== aggiunta C2, un solo tempo (DateTime.now nella scena del cielo profondo)
+iniezione in lib/features/real_time_cosmo/il_cielo_profondo_in_scena.dart; entrata: si
+guardia test/un_solo_tempo_test.dart: CADUTA
+   Expected: empty
+   Actual: ['lib/features/real_time_cosmo/il_cielo_profondo_in_scena.dart riga 19']
+   lib/features/real_time_cosmo/il_cielo_profondo_in_scena.dart riga 19
+ripristino verificato al byte: si
+
+ESITO: ogni iniezione e' entrata, ogni guardia e' caduta, ogni file e' ripristinato
