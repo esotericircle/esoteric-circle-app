@@ -19,6 +19,15 @@ senza essere stampato ne' scritto.
 
 `--elenco` stampa i casi e i loro file senza lanciare niente: e' cio'
 che usa la prova `i_banchi_col_modello_hanno_un_comando_test.dart`.
+
+`--rifai-i-rossi <giro.txt>` rifa' SOLO i casi rossi di quel giro, sullo
+stesso commit, ciascuno per nome, e scrive un giro completo: gli esiti
+passati del giro vecchio e quelli nuovi dei casi rifatti, con la riga che
+dice quali sono rifatti e da quale giro. Nasce il 10 ottobre 2026, ordine FH:
+un caso del consulto e' caduto per l'oscillazione del modello (70 per cento
+contro 80, dove l'8 ottobre aveva fatto 100 e 90) e rifare il giro intero
+costava 3,65 euro e 80 minuti; il fondatore ha scelto di rifare solo il caso
+caduto. Non sovrascrive mai un giro che esiste gia'.
 """
 import datetime
 import io
@@ -177,18 +186,61 @@ def main():
         raise SystemExit('albero non pulito in lib, test o nei banchi: il '
                          'risultato non varrebbe per un commit.\n' + sporco)
     commit = git('rev-parse', 'HEAD')
+    # I CASI ROSSI DI UN GIRO, da rifare da soli (vedi la testa del file).
+    vecchio = None
+    da_rifare = set()
+    if '--rifai-i-rossi' in sys.argv:
+        i = sys.argv.index('--rifai-i-rossi')
+        if i + 1 >= len(sys.argv):
+            raise SystemExit('--rifai-i-rossi vuole il file del giro')
+        vecchio = sys.argv[i + 1]
+        testo_vecchio = io.open(vecchio, encoding='utf-8').read()
+        c = re.search(r'^commit: ([0-9a-f]{40})$', testo_vecchio, re.M)
+        if not c:
+            raise SystemExit('il giro ' + vecchio + ' non dice il suo commit')
+        if c.group(1) != commit:
+            # Lo stesso codice si misura come lo misura la consegna: i soli
+            # file che i banchi raggiungono, senza i commenti.
+            sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+            import consegna
+            diversi = [p for p in consegna.i_file_dei_banchi() if p.endswith('.dart')
+                       and consegna._senza_commenti(consegna._alla_revisione(c.group(1), p))
+                       != consegna._senza_commenti(consegna._alla_revisione('HEAD', p))]
+            if diversi:
+                raise SystemExit('il giro ' + vecchio + ' e\' stato fatto su un '
+                                 'codice diverso: i casi rossi si rifanno solo '
+                                 'sullo stesso codice. Diversi: ' + ', '.join(diversi))
+        esiti_vecchi = dict(re.findall(r'^RISULTATO (\d+): (\S+)', testo_vecchio,
+                                       re.M))
+        if len(esiti_vecchi) != len(BANCHI):
+            raise SystemExit('il giro ' + vecchio + ' non porta tutti i casi')
+        da_rifare = {int(k) for k, v in esiti_vecchi.items() if v != 'PASSATO'}
+        if not da_rifare:
+            raise SystemExit('il giro ' + vecchio + ' non ha casi rossi')
     tok = gettone()
     ambiente = dict(os.environ, VERTEX_TOKEN=tok)
     inizio = datetime.datetime.now(datetime.timezone.utc)
     uscite = {}
-    for f in sorted({b[0] for b in BANCHI}, key=[b[0] for b in BANCHI].index):
-        print(f'== {f}', flush=True)
-        r = subprocess.run(['flutter', 'test', '-r', 'expanded', f'{CARTELLA}/{f}'],
-                           capture_output=True, text=True, encoding='utf-8',
-                           errors='replace', env=ambiente, shell=os.name == 'nt')
-        uscite[f] = (r.stdout or '') + (r.stderr or '')
-        print(uscite[f].strip().splitlines()[-1] if uscite[f].strip() else '(vuota)',
-              flush=True)
+    if vecchio is None:
+        for f in sorted({b[0] for b in BANCHI}, key=[b[0] for b in BANCHI].index):
+            print(f'== {f}', flush=True)
+            r = subprocess.run(['flutter', 'test', '-r', 'expanded', f'{CARTELLA}/{f}'],
+                               capture_output=True, text=True, encoding='utf-8',
+                               errors='replace', env=ambiente, shell=os.name == 'nt')
+            uscite[f] = (r.stdout or '') + (r.stderr or '')
+            print(uscite[f].strip().splitlines()[-1] if uscite[f].strip() else '(vuota)',
+                  flush=True)
+    else:
+        for n in sorted(da_rifare):
+            f, nome, _ = BANCHI[n - 1]
+            print(f'== rifaccio il caso {n}: {f} | {nome}', flush=True)
+            r = subprocess.run(['flutter', 'test', '-r', 'expanded',
+                                '--plain-name', nome, f'{CARTELLA}/{f}'],
+                               capture_output=True, text=True, encoding='utf-8',
+                               errors='replace', env=ambiente, shell=os.name == 'nt')
+            uscite[f] = uscite.get(f, '') + (r.stdout or '') + (r.stderr or '')
+            print(uscite[f].strip().splitlines()[-1] if uscite[f].strip() else '(vuota)',
+                  flush=True)
     fine = datetime.datetime.now(datetime.timezone.utc)
 
     righe = [f'I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18',
@@ -196,10 +248,19 @@ def main():
              f'inizio: {inizio.isoformat(timespec="seconds")}',
              f'fine: {fine.isoformat(timespec="seconds")}',
              f'comando: python {CARTELLA}/i_banchi_col_modello.py'
-             + (' --costo' if '--costo' in sys.argv else ''), '']
+             + (' --costo' if '--costo' in sys.argv else '')
+             + (f' --rifai-i-rossi {vecchio}' if vecchio else ''), '']
+    if vecchio:
+        righe.insert(-1, 'rifatti: ' + ', '.join(f'RISULTATO {n}' for n in
+                                                 sorted(da_rifare))
+                     + f' dal giro {os.path.basename(vecchio)}; gli altri '
+                     'esiti sono quelli di quel giro, sullo stesso commit')
     rossi = 0
     for i, (f, nome, cosa) in enumerate(BANCHI, 1):
-        e = esito_di(uscite[f], nome)
+        if vecchio and i not in da_rifare:
+            e = esiti_vecchi[str(i)]
+        else:
+            e = esito_di(uscite[f], nome)
         if e != 'PASSATO':
             rossi += 1
         righe.append(f'RISULTATO {i}: {e} | {f} | {nome}')
@@ -248,6 +309,11 @@ def main():
                      'e\' contata intera)')
     os.makedirs(USCITA, exist_ok=True)
     nome_file = f'{USCITA}/{inizio.astimezone().date().isoformat()}.txt'
+    if os.path.exists(nome_file):
+        # **UN GIRO NON SI SOVRASCRIVE.** Il giro dell'8 ottobre sera ne aveva
+        # cancellato uno della mattina.
+        raise SystemExit(nome_file + ' esiste gia\': rinominalo prima di '
+                         'un giro nuovo, con un nome che ordini prima')
     io.open(nome_file, 'w', encoding='utf-8', newline='\n').write('\n'.join(righe) + '\n')
     print('scritto ' + nome_file)
     # **L'USCITA INTERA SI TIENE.** Nel giro dell'ordine FD un banco e'

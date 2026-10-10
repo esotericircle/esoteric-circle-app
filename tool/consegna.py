@@ -345,6 +345,77 @@ def i_file_di_test_dei_banchi():
     return sorted(di_test)
 
 
+def i_file_dei_banchi():
+    """I file che i banchi raggiungono davvero, in `lib`, in `test` e nella
+    loro cartella, seguendo import, export e part a catena, anche quelli in
+    `package:esoteric_circle/`.
+
+    **PERCHE'.** Fino al 10 ottobre 2026 la consegna pretendeva un giro nuovo
+    dei banchi a ogni cambio di `lib`, qualunque fosse. L'ordine FH, sul Real
+    Time Cosmo, aveva cambiato 30 file di `lib`, e solo 2 erano raggiunti dai
+    banchi (un commento e la finestra delle effemeridi oltre il 2099): il
+    giro e' costato 3,65 euro e 80 minuti senza misurare niente di nuovo. Il
+    fondatore ha scelto di restringere il controllo ai file dei banchi."""
+    radice = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+    cartella = os.path.join(radice, 'tool', 'banchi_col_modello')
+    da_leggere = [os.path.join(cartella, n) for n in os.listdir(cartella)
+                  if n.endswith('.dart')]
+    visti, raggiunti = set(), set()
+    rinvio = re.compile(r"""^\s*(?:import|export|part)\s+['"]([^'"]+)['"]""", re.M)
+    pacchetto = 'package:esoteric_circle/'
+    while da_leggere:
+        f = os.path.normpath(da_leggere.pop())
+        if f in visti or not os.path.isfile(f):
+            continue
+        visti.add(f)
+        raggiunti.add(os.path.relpath(f, radice).replace(os.sep, '/'))
+        testo = io.open(f, encoding='utf-8').read()
+        for m in rinvio.finditer(testo):
+            dove = m.group(1)
+            if dove.startswith(pacchetto):
+                da_leggere.append(os.path.join(radice, 'lib', dove[len(pacchetto):]))
+            elif ':' not in dove:
+                da_leggere.append(os.path.join(os.path.dirname(f), dove))
+    return sorted(raggiunti)
+
+
+def _senza_commenti(sorgente):
+    """Il codice Dart senza i commenti e senza gli spazi: due versioni che
+    differiscono solo nei commenti risultano uguali. Le stringhe restano
+    intere, anche quando contengono // o /*."""
+    fuori, i, n = [], 0, len(sorgente)
+    while i < n:
+        c = sorgente[i]
+        if sorgente.startswith('//', i):
+            j = sorgente.find('\n', i)
+            i = n if j < 0 else j
+            continue
+        if sorgente.startswith('/*', i):
+            j = sorgente.find('*/', i + 2)
+            i = n if j < 0 else j + 2
+            continue
+        if c in '\'"':
+            triplo = sorgente.startswith(c * 3, i)
+            chiusura = c * 3 if triplo else c
+            j = i + len(chiusura)
+            while j < n and not sorgente.startswith(chiusura, j):
+                j += 2 if sorgente[j] == '\\' else 1
+            j = min(n, j + len(chiusura))
+            fuori.append(sorgente[i:j])
+            i = j
+            continue
+        fuori.append(c)
+        i += 1
+    return re.sub(r'\s+', '', ''.join(fuori))
+
+
+def _alla_revisione(commit, percorso):
+    r = subprocess.run(['git', 'show', commit + ':' + percorso],
+                       capture_output=True, text=True, encoding='utf-8',
+                       errors='replace')
+    return r.stdout if r.returncode == 0 else ''
+
+
 def i_banchi_sono_passati():
     """L'ultimo giro dei banchi col modello e' passato tutto, ed e'
     stato fatto su un commit il cui codice (lib, test e i banchi) e' uguale a
@@ -375,13 +446,20 @@ def i_banchi_sono_passati():
     trovato = re.search(r'^commit: ([0-9a-f]{40})$', testo, re.M)
     if not trovato:
         return (False, giri[-1] + ' non dice il commit')
-    r = subprocess.run(['git', 'diff', '--quiet', trovato.group(1), 'HEAD', '--',
-                        'lib', 'tool/banchi_col_modello',
-                        ':(exclude)tool/banchi_col_modello/README.md',
-                        *i_file_di_test_dei_banchi()])
-    if r.returncode != 0:
+    # Si confrontano i soli file che i banchi raggiungono, senza i commenti
+    # (vedi i_file_dei_banchi).
+    diversi = []
+    for percorso in i_file_dei_banchi():
+        if not percorso.endswith('.dart'):
+            continue
+        prima = _senza_commenti(_alla_revisione(trovato.group(1), percorso))
+        adesso = _senza_commenti(_alla_revisione('HEAD', percorso))
+        if prima != adesso:
+            diversi.append(percorso)
+    if diversi:
         return (False, 'i banchi di ' + giri[-1] + ' hanno girato sul commit ' +
-                trovato.group(1)[:8] + ', e il codice di adesso e\' diverso')
+                trovato.group(1)[:8] + ', e nei file che usano il codice di '
+                'adesso e\' diverso: ' + ', '.join(diversi))
     return (True, giri[-1] + ': ' + str(attesi) + ' banchi passati sul commit ' +
             trovato.group(1)[:8] + ', codice uguale a quello consegnato')
 
