@@ -83,6 +83,21 @@ trova il codice gia' scritto e conferma con un tocco. Diciotto ore.
 Trenta ore in tutto, nessun fornitore terzo dentro l'app, e la stessa
 `riscattaLInvito` sotto tutte e due le piattaforme.
 
+## ORDINE FI, LA STESA DI TAROCCHI: DA DOVE SI RIPARTE (11 ottobre 2026)
+
+Testo: `docs/ordini/ORDINE_FI_TESTO.md`. Manifesto: `docs/ordini/ORDINE_FI_MANIFESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FI.md`. La dichiarazione di R10 all'inizio: chiuse per intero le parti 1, 2, 3, 6 e 8 (salvo le voci dette qui sotto), misurate FI.13 e FI.16; aperte e lasciate intatte le parti 4, 5 e 7.
+
+**Chiuso:** FI.01, FI.02, FI.04, FI.05 (le cinque stese e le diciassette posizioni come dato, con la geometria), FI.06, FI.07, FI.08 (le quattro chiavi, la voce al modello, la lettura di casa che si dichiara), FI.16 (i cartigli: 156 carte misurate, 0 con testo), FI.26, FI.27, FI.28, FI.41 (la stesa che si conserva, con la guardia dall'avvio vero), FI.32 (le dieci righe della matrice dei tarocchi), e la correzione di taglio e mescolamento chiesta dal fondatore l'11 ottobre.
+
+**Da dove si riparte, nell'ordine:**
+
+1. **FI.13, la decisione del fondatore sui mazzi.** Misurati 54.871.350 byte (54,9 MB, 52,3 MiB) per Marsiglia e Thoth con le miniature (`docs/collaudo/FI/peso_dei_mazzi.txt`): l'archivio passerebbe da 260 a circa 315 MB. La domanda e' girata a Mauro: dentro l'app come il Rider-Waite, oppure sul bucket con CDN. Fino alla risposta la parte 4 (FI.09-FI.12, FI.14, FI.15, FI.36-FI.38) resta intatta. Le tabelle di corrispondenza si scrivono dall'ELENCO_DEFINITIVO.md del Marsiglia (78 carte, cornice v3, dorso v2) e dall'ultima versione di ogni file del Thoth (v1, il Cinque di Dischi v3), mai sostituendo il prefisso: la Forza e la Giustizia sono scambiate (VIII e XI).
+2. **FI AGGIUNTA, la scrittura dei corpus: ferma sulla premessa PA1, falsa nella lettera.** In `docs/corpus/` ci sono 26 voci (17 .md, 7 .json, 2 cartelle), non quattordici; cinque .md non dichiarano in testa ne' chi li ha scritti ne' come (oroscopo_annuale, oroscopo_cinese, oroscopo_vedico, stesa_interpretazione, tarocchi). Vero che solo tarocchi_nella_posizione.md dichiara Gemini 2.5 Flash. Nessun testo del corpus generato dal modello in quest'ordine (A2: niente da spostare). Quando l'Architetto riscrive PA1: il tool `tool/genera_carte_nella_posizione.py` esteso a diciassette posizioni, tre varianti e tre registri senza modello, i diciotto file vuoti della fonte (A4), le guardie FI.39 e FI.40, il montaggio della lettura.
+3. **Parte 5 e le stese nuove a video.** Le stese a una, quattro, sette e dieci carte restano Coming soon (A6) finche' tutte le loro posizioni non hanno il corpus; poi il loro tavolo a video legge `TarotSpreadType.tavolo`, la lettura dal modello impara le posizioni nuove (oggi l'istruzione e lo schema sono delle tre carte), FI.03 (la regola di Dora sull'esito) si aggancia, FI.33 (la carta sola pesa una carta, detto prima di scegliere) e FI.47 (la riga che distingue la carta sola dall'Arcano dell'Alba) si scrivono a video.
+4. **Parte 7, la card**, dopo i mazzi (dorso e cornice del mazzo scelto) e dopo il tavolo delle stese nuove (la figura della Croce Celtica).
+5. **FI.45, le anteprime** della croce, del ferro di cavallo, della Croce Celtica e della card, con le stese a video.
+6. **FI.44, i token** di una stesa a tre carte e di una a dieci, quando la lettura dal modello sapra' leggere dieci carte.
+
 # RIPRESA, ARCHIVIO CHIUSO
 
 **QUESTO FILE NON E' LO STATO VIVO, ED E' FERMO AL 5 AGOSTO 2026.**
