@@ -69,6 +69,7 @@ import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'il_pannello_del_tempo.dart';
 import 'il_tempo_del_cosmo.dart';
 import 'il_velo_delle_costellazioni.dart';
+import 'la_scritta_che_cede.dart';
 import 'gli_asset_del_cosmo.dart';
 import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
@@ -1392,43 +1393,45 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final s = math.min(sx, sy);
     final w = _misuraDellaGuida.width, h = _misuraDellaGuida.height;
     var left = (cx + dx * s - w / 2).clamp(8.0, _misura.width - w - 8);
-    var top = (cy + dy * s - h / 2).clamp(80.0, _misura.height - 120 - h);
-    for (var giro = 0; giro < 3; giro++) {
-      final scatola = Rect.fromLTWH(left, top, w, h);
-      Rect? coperto;
-      for (final c in _fotogramma.corpi) {
-        final nome = c.nome;
-        if (!c.visibile || nome == null) continue;
-        final r = Rect.fromLTWH(
-          c.x - nome.width / 2,
-          c.y + c.raggio * 0.6 + 4,
-          nome.width,
-          nome.height,
-        );
-        if (r.overlaps(scatola)) {
-          coperto = r;
-          break;
-        }
-      }
-      // La Luna ha la stessa precedenza dei nomi dei pianeti: e' il soggetto
-      // del cielo di adesso (parte 6), e la scritta non le va sopra.
-      final f = _fotogramma;
-      if (coperto == null && f.luna != null && f.lunaLuce > 0) {
-        final disco = Rect.fromCircle(
-          center: Offset(f.lunaX, f.lunaY),
-          radius: f.lunaLato / 10 + 6,
-        );
-        if (disco.overlaps(scatola)) coperto = disco;
-      }
-      if (coperto == null) break;
-      // Sopra o sotto il nome, dalla parte dove c'e' piu' posto.
-      final suPosto = coperto.top - 80;
-      final giuPosto = _misura.height - 120 - coperto.bottom;
-      top = suPosto > giuPosto
-          ? (coperto.top - h - 6).clamp(80.0, _misura.height - 120 - h)
-          : (coperto.bottom + 6).clamp(80.0, _misura.height - 120 - h);
-    }
-    return Offset(left, top);
+    final top = (cy + dy * s - h / 2).clamp(
+      kMargineAlto,
+      _misura.height - kMargineBasso - h,
+    );
+    // La scritta cede il posto ai nomi dei pianeti e al disco della Luna
+    // (ordine FH voce 14.1): la regola sta in la_scritta_che_cede.dart.
+    // La Luna ha la stessa precedenza dei nomi: e' il soggetto del cielo di
+    // adesso (parte 6), e la scritta non le va sopra.
+    final f = _fotogramma;
+    return Offset(
+      left,
+      altezzaCheCede(
+        left: left,
+        top: top,
+        w: w,
+        h: h,
+        altezza: _misura.height,
+        ostacoli: f.corpi.length + 1,
+        ostacolo: (i) {
+          if (i == f.corpi.length) {
+            return f.luna != null && f.lunaLuce > 0
+                ? Rect.fromCircle(
+                    center: Offset(f.lunaX, f.lunaY),
+                    radius: f.lunaLato / 10 + 6,
+                  )
+                : null;
+          }
+          final c = f.corpi[i];
+          final nome = c.nome;
+          if (!c.visibile || nome == null) return null;
+          return Rect.fromLTWH(
+            c.x - nome.width / 2,
+            c.y + c.raggio * 0.6 + 4,
+            nome.width,
+            nome.height,
+          );
+        },
+      ),
+    );
   }
 
   void _posaLAnello(ProiezioneDelCielo proiezione, Offset sposta) {
