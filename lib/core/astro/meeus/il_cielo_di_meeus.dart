@@ -53,14 +53,23 @@ abstract final class IlCieloDiMeeus {
   /// 1900 dei selettori della data, nell'ora di Roma, cade ancora li'.
   static const double primoGiornoVerificato = 2415019.5;
 
-  /// Il giorno giuliano dopo l'ultimo verificato, 2100-01-01 0h UT.
-  static const double ultimoGiornoVerificato = 2488069.5;
+  /// Il giorno giuliano dopo l'ultimo verificato, 2101-01-01 12h UT.
+  ///
+  /// Fino all'aggiunta della Macchina del tempo all'ordine FH (10 ottobre
+  /// 2026) era 2100-01-01 0h UT. La Macchina arriva al 31 dicembre 2100
+  /// compreso, con l'ora di nascita ereditata: a ovest di Greenwich quel
+  /// giorno cade gia' nel 2101 in tempo universale, fino a dodici ore. La
+  /// finestra si e' allungata solo dopo la misura: dodici istanti nuovi fra
+  /// il 1 gennaio 2100 e questo, contro il JPL DE440s
+  /// (`tool/riferimenti_del_cielo_jpl.py`), dentro gli stessi scarti
+  /// dichiarati in [scartoMisurato].
+  static const double ultimoGiornoVerificato = 2488435.0;
 
   /// Il primo istante verificato.
   static final DateTime primoIstanteVerificato = DateTime.utc(1899, 12, 31);
 
   /// L'istante dopo l'ultimo verificato.
-  static final DateTime ultimoIstanteVerificato = DateTime.utc(2100);
+  static final DateTime ultimoIstanteVerificato = DateTime.utc(2101, 1, 1, 12);
 
   /// Se il giorno giuliano [jdUt] sta dentro l'intervallo verificato.
   static bool verificato(double jdUt) =>

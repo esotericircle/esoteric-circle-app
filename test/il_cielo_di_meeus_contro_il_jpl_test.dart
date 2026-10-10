@@ -9,7 +9,8 @@ import 'cardinale_minimo.dart';
 ///
 /// La fonte terza e' il JPL DE440s letto con skyfield
 /// (`tool/riferimenti_del_cielo_jpl.py`): sessanta istanti fra il 1900 e il
-/// 2099, la longitudine eclittica apparente della data dei dieci corpi e la
+/// 2099, piu' dodici fra il 1 gennaio 2100 e il 1 gennaio 2101 alle 12 UT
+/// (aggiunta della Macchina del tempo all'ordine FH), la longitudine eclittica apparente della data dei dieci corpi e la
 /// latitudine della Luna, in `docs/collaudo/FD/riferimenti_del_cielo.csv`.
 ///
 /// Si misura la PORTA, `IlCieloDiMeeus`, e non i motori dietro: e' la porta
@@ -106,8 +107,17 @@ void main() {
         isA<double>());
     expect(IlCieloDiMeeus.istanteVerificato(DateTime.utc(1899, 12, 30, 23)),
         isFalse);
+    // Lapide: fino all'aggiunta della Macchina del tempo all'ordine FH la
+    // finestra finiva il 1 gennaio 2100 alle 0 UT, e il 2100 era fuori. Ora
+    // arriva al 31 dicembre 2100 di ogni fuso, cioe' fino al 1 gennaio 2101
+    // alle 12 UT, misurata contro il JPL.
     expect(IlCieloDiMeeus.istanteVerificato(DateTime.utc(2099, 12, 31, 23)),
         isTrue);
-    expect(IlCieloDiMeeus.istanteVerificato(DateTime.utc(2100)), isFalse);
+    expect(IlCieloDiMeeus.istanteVerificato(DateTime.utc(2100, 12, 31, 23)),
+        isTrue);
+    expect(
+        IlCieloDiMeeus.istanteVerificato(DateTime.utc(2101, 1, 1, 11)), isTrue);
+    expect(IlCieloDiMeeus.istanteVerificato(DateTime.utc(2101, 1, 1, 12)),
+        isFalse);
   });
 }

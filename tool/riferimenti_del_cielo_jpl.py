@@ -4,7 +4,11 @@ Scrive `docs/collaudo/FD/riferimenti_del_cielo.csv`: la longitudine
 eclittica geocentrica apparente (eclittica ed equinozio veri della data) dei
 dieci corpi e la latitudine della Luna, dal JPL DE440s letto con skyfield,
 su sessanta istanti fra il 31 dicembre 1899 e il 31 dicembre 2099, i due
-estremi compresi. E' la fonte terza contro cui la prova
+estremi compresi, piu' (FH aggiunta, la Macchina del tempo, 10 ottobre 2026)
+dodici istanti fra il 1 gennaio 2100 e il 1 gennaio 2101 alle 12 UT: la
+finestra della Macchina arriva al 31 dicembre 2100 compreso, e con l'ora di
+nascita ereditata quel giorno a ovest di Greenwich cade gia' nel 2101 in
+tempo universale. E' la fonte terza contro cui la prova
 `il_cielo_di_meeus_contro_il_jpl_test.dart` misura il motore di Meeus.
 
 Gli istanti sono in tempo universale (UT1), come li usa l'app.
@@ -40,6 +44,12 @@ PRIMO = 2415019.5   # 1899-12-31 0h: il 1 gennaio 1900 di Roma in UT
 ULTIMO = 2488069.5  # 2100-01-01
 istanti = [PRIMO, ULTIMO - 0.01]
 istanti += sorted(caso.uniform(PRIMO, ULTIMO) for _ in range(58))
+# L'estensione dell'aggiunta della Macchina del tempo, con un seme suo: i
+# sessanta istanti di prima restano gli stessi, riga per riga.
+ESTESO = 2488435.0  # 2101-01-01 12h UT
+caso_esteso = random.Random(20261010)
+istanti += [ESTESO - 0.01]
+istanti += sorted(caso_esteso.uniform(ULTIMO, ESTESO) for _ in range(11))
 
 out = io.StringIO()
 out.write('# JPL DE440s con skyfield, longitudine eclittica apparente della data, gradi\n')
