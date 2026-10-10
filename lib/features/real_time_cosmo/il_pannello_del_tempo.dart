@@ -276,6 +276,8 @@ class _PannelloDelTempoState extends State<PannelloDelTempo> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       key: const Key('macchina_cambia_luogo'),
+                      style: TextButton.styleFrom(
+                          foregroundColor: ColorTokens.goldLight),
                       onPressed: () {
                         setState(() => _luogo = _luogo == LuogoDelTempo.nascita
                             ? LuogoDelTempo.attuale
