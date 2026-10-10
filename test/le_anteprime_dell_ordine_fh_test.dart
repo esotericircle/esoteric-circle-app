@@ -118,6 +118,35 @@ void main() {
     }
     await fg.passa(tester, 10);
     await scatta(tester, 'fh_13_attraverso_il_terreno');
+    // 7.4: la scheda di una stella sotto l'orizzonte dice quando sorge. Lo
+    // sguardo e' sotto l'orizzonte: si tocca la stella accesa piu' vicina al
+    // centro del riquadro.
+    final scena = tester
+        .widgetList<CustomPaint>(find.byType(CustomPaint))
+        .map((c) => c.painter)
+        .whereType<PittoreDelCielo>()
+        .first
+        .scena;
+    var migliore = -1;
+    var distanza = double.infinity;
+    for (var n = 0; n < scena.quante; n++) {
+      final d =
+          (scena.xSchermo[n] - 180).abs() + (scena.ySchermo[n] - 400).abs();
+      if (d < distanza) {
+        distanza = d;
+        migliore = n;
+      }
+    }
+    expect(migliore, greaterThanOrEqualTo(0));
+    await tester
+        .tapAt(Offset(scena.xSchermo[migliore], scena.ySchermo[migliore]));
+    await fg.passa(tester, 6);
+    expect(find.byKey(const Key('real_time_cosmo_scheda')), findsOneWidget);
+    final scheda = find.descendant(
+        of: find.byKey(const Key('real_time_cosmo_scheda')),
+        matching: find.textContaining(RegExp('sorge alle|oggi non sorge')));
+    expect(scheda, findsOneWidget);
+    await scatta(tester, 'fh_22_la_scheda_sotto_l_orizzonte');
   });
 
   testWidgets('FH.8: il rallentamento agganciato alla Luna, poi l\'arrivo',
