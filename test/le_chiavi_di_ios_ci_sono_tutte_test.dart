@@ -60,6 +60,9 @@ void main() {
     // ogni chiamata al modello. E' Dart puro (nessuna cartella `ios/` ne'
     // `darwin/` nel pacchetto 1.6.0): nessun framework di Apple.
     'http': null,
+    // Ordine FJ voce 12: l'impronta dei file dei mazzi scaricati. Dart puro
+    // (nessuna cartella `ios/` ne' `darwin/` nel pacchetto 3.0.7).
+    'crypto': null,
     'path_provider': null,
     'timezone': null,
     'video_player': null,

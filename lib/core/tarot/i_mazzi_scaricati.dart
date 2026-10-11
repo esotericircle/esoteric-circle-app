@@ -84,8 +84,10 @@ class IMazziScaricati {
           versione: dati['versione'] as int,
           file: (dati['file'] as Map).cast<String, String>(),
         );
-      } catch (_) {
-        // Un segno illeggibile vale un mazzo non installato: si riscarica.
+      } catch (errore) {
+        // Un segno illeggibile vale un mazzo non installato: alla scelta il
+        // mazzo si riscarica, e non c'e' niente da dire a chi legge.
+        debugPrint('Segno del mazzo ${d.label} illeggibile: $errore');
       }
     }
   }
@@ -190,7 +192,7 @@ class IMazziScaricati {
       _pulisci(lavoro);
       return EsitoDelDownload.annullato;
     } catch (e) {
-      debugPrint('Il mazzo ${d.label} non si e\' scaricato: $e');
+      debugPrint('Il mazzo ${d.label} non si è scaricato: $e');
       _pulisci(lavoro);
       return EsitoDelDownload.nonRiuscito;
     }
@@ -199,7 +201,11 @@ class IMazziScaricati {
   void _pulisci(Directory d) {
     try {
       if (d.existsSync()) d.deleteSync(recursive: true);
-    } catch (_) {}
+    } catch (errore) {
+      // Una cartella di lavoro che non si toglie non installa niente: il
+      // segno non c'e', e il prossimo download la ricrea da capo.
+      debugPrint('Cartella di lavoro dei mazzi non tolta: $errore');
+    }
   }
 }
 

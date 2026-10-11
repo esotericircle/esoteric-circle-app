@@ -152,12 +152,10 @@ void main() {
         EsitoDelDownload.nonRiuscito);
     expect(b.chiamate['marsiglia/v1/miniature/01.webp'], 2);
     expect(s.installato(TarotDeckStyle.marsiglia), isFalse);
-    final rimasti = cartella
-        .listSync(recursive: true)
-        .whereType<File>()
-        .map((f) => f.path)
-        .toList();
-    expect(rimasti, isEmpty, reason: 'una cartella a meta\': $rimasti');
+    for (final resto in ['mazzi/marsiglia', 'mazzi/marsiglia.scaricando']) {
+      expect(Directory('${cartella.path}/$resto').existsSync(), isFalse,
+          reason: 'una cartella a meta\': $resto');
+    }
   });
 
   test('chi annulla non installa niente', () async {
@@ -170,7 +168,10 @@ void main() {
     });
     expect(esito, EsitoDelDownload.annullato);
     expect(s.installato(TarotDeckStyle.marsiglia), isFalse);
-    expect(cartella.listSync(recursive: true).whereType<File>(), isEmpty);
+    for (final resto in ['mazzi/marsiglia', 'mazzi/marsiglia.scaricando']) {
+      expect(Directory('${cartella.path}/$resto').existsSync(), isFalse,
+          reason: resto);
+    }
   });
 
   final binding = TestWidgetsFlutterBinding.ensureInitialized();

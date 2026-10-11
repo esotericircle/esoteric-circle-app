@@ -559,8 +559,10 @@ void main() {
     // Ordine FI voce 01, 10 ottobre 2026: le stese sono cinque. Finche' le
     // nuove non hanno il corpus delle loro posizioni e il loro tavolo resta
     // aperta solo quella a tre carte, e le altre sono Coming soon.
-    test('Le cinque stese esistono, solo quella a tre carte e aperta', () {
-      expect(TarotSpreadType.values.length, 5);
+    // E dall'ordine FJ, aggiunta 2, sono quattro: il ferro di cavallo e'
+    // tolto.
+    test('Le quattro stese esistono, solo quella a tre carte e aperta', () {
+      expect(TarotSpreadType.values.length, 4);
       expect(TarotSpreadType.treCarte.disponibile, isTrue);
       expect(TarotSpreadType.treCarte.carte, 3);
       for (final t in TarotSpreadType.values) {
@@ -568,7 +570,7 @@ void main() {
         expect(t.disponibile, isFalse, reason: '${t.nome} non e Coming soon');
       }
       // Ogni stesa porta il proprio nome, e sono tutti diversi.
-      expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 5);
+      expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 4);
       for (final t in TarotSpreadType.values) {
         expect(t.nome, contains('Stesa'));
         expect(t.carte, greaterThan(0));

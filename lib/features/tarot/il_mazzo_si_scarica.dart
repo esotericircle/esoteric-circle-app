@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/tarot/i_mazzi_dei_tarocchi.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 import '../../core/tarot/i_mazzi_scaricati.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -45,7 +46,11 @@ Future<bool> scegliIlMazzo(
   final esito = await dialogoDelCerchio<EsitoDelDownload>(
     context: context,
     barrierDismissible: false,
-    builder: (_) => _IlDownload(mazzo: d, palette: palette, servizio: mazzi),
+    builder: (_) => _IlDownload(
+        mazzo: d,
+        palette: palette,
+        servizio: mazzi,
+        backgroundColor: palette.surfaceElevated),
   );
   if (esito == EsitoDelDownload.installato) return true;
   if (esito == EsitoDelDownload.nonRiuscito) {
@@ -63,11 +68,15 @@ class _IlDownload extends StatefulWidget {
     required this.mazzo,
     required this.palette,
     required this.servizio,
+    required this.backgroundColor,
   });
 
   final TarotDeckStyle mazzo;
   final MaestroPalette palette;
   final IMazziScaricati servizio;
+
+  /// Il fondo del dialogo, dichiarato da chi lo apre (ordine AL voce 04).
+  final Color backgroundColor;
 
   @override
   State<_IlDownload> createState() => _IlDownloadState();
@@ -94,7 +103,7 @@ class _IlDownloadState extends State<_IlDownload> {
     });
   }
 
-  String _mb(int byte) => (byte / 1e6).toStringAsFixed(1).replaceAll('.', ',');
+  String _mb(int byte) => NumeroDelCerchio.conCifre(byte / 1e6, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +111,7 @@ class _IlDownloadState extends State<_IlDownload> {
     final quota = _totali == 0 ? null : _fatti / _totali;
     return Dialog(
       key: const Key('mazzo_in_download'),
-      backgroundColor: p.surfaceElevated,
+      backgroundColor: widget.backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(SpacingTokens.lg),
         child: Column(

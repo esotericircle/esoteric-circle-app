@@ -6,6 +6,7 @@
 // I definitivi stanno nella copia principale del progetto, fuori dal repo:
 // la prova li cerca in MAZZI_SORGENTE e, senza STATO, monta e non scrive.
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -41,29 +42,24 @@ void main() {
       TarotDeckStyle.marsiglia: '$_sorgente/Mazzo Marsiglia',
       TarotDeckStyle.thoth: '$_sorgente/Mazzo Thoth',
     };
+    final manifesto = jsonDecode(
+            File('docs/collaudo/FJ/manifest_dei_mazzi.json').readAsStringSync())
+        as Map<String, dynamic>;
     String? file(TarotDeckStyle d, TarotCard c) {
-      final cartella = Directory(cartelle[d]!);
-      if (!cartella.existsSync()) return null;
-      final pre = d == TarotDeckStyle.marsiglia ? 'tar_mar' : 'tar_tho';
-      final posto = TarotDeckStyle.postoDi(c).toString().padLeft(2, '0');
-      final candidati = cartella
-          .listSync()
-          .map((e) => e.path.replaceAll('\\', '/'))
-          .where(
-              (p) => RegExp('/${pre}_${posto}_.*_v\\d+\\.webp\$').hasMatch(p))
-          .toList()
-        ..sort();
-      if (d == TarotDeckStyle.marsiglia) {
-        final elenco =
-            File('${cartella.path}/ELENCO_DEFINITIVO.md').readAsStringSync();
-        return candidati.firstWhere((p) =>
-            elenco.contains('`${p.split('/').last.replaceAll('.webp', '')}`'));
-      }
-      return candidati.last;
+      // Il file d'origine di ogni carta lo dice il manifest pubblicato
+      // (tool/pubblica_i_mazzi.py): la prova non elenca cartelle.
+      final mazzo = (manifesto['mazzi'] as List)
+          .cast<Map>()
+          .firstWhere((m) => m['id'] == d.sulBucket);
+      final voce = (mazzo['file'] as List)
+          .cast<Map>()
+          .firstWhere((f) => f['carta'] == c.stem);
+      final percorso = '${cartelle[d]}/${voce['origine']}.webp';
+      return File(percorso).existsSync() ? percorso : null;
     }
 
-    tester.view.devicePixelRatio = 2.0;
-    tester.view.physicalSize = const Size(1200, 1500);
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1800, 2250);
     addTearDown(tester.view.reset);
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final radice = GlobalKey();
@@ -132,7 +128,7 @@ void main() {
     await tester.runAsync(() async {
       final rb =
           radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-      final img = await rb.toImage(pixelRatio: 2.0);
+      final img = await rb.toImage(pixelRatio: 3.0);
       final dati = await img.toByteData(format: ui.ImageByteFormat.png);
       final dir = Directory('docs/preview/prima_dopo');
       if (!dir.existsSync()) dir.createSync(recursive: true);
