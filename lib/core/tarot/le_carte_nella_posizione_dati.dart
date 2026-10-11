@@ -1412,6 +1412,786 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'futuro|Re di Spade|capovolta': [
     'Un approccio troppo distaccato e privo di considerazione per gli altri tende a portare a un isolamento emotivo. Questa rigidità può farti ottenere risultati immediati, ma ti allontana da relazioni significative.',
   ],
+  'lato|Il Matto|dritta': [
+    'Ti chiama un inizio che non ti mostra il suo esito e la leggerezza con cui ne afferri il primo passo vale il coraggio che sembra mancarti.',
+    'La fiducia che ti muove adesso non nasce da una mappa completa ma dalla voglia di partire con poco addosso e senza garanzie.',
+    'Una partenza che nessuna garanzia sostiene ti pesa meno di quanto credi e la libertà di cominciare non si misura in bagagli.',
+  ],
+  'lato|Il Matto|capovolta': [
+    'Lo slancio che ti spinge non ha una direzione e il timore ti trattiene sull\'orlo proprio mentre vorresti spiccare il volo.',
+    'Un impulso di cui non conosci la sorgente ti muove i piedi prima che tu abbia guardato da dove nasce: coraggio e fuga si somigliano molto, da fuori.',
+    'Partire senza sapere perché è un modo di restare fedele all\'impulso, oppure di scappare da qualcosa che non hai guardato in faccia.',
+  ],
+  'lato|Il Mago|dritta': [
+    'Gli strumenti li hai già addosso e la volontà di usarli ti appartiene, perciò un\'intenzione può farsi gesto, parola detta, passo compiuto, senza aspettare condizioni perfette.',
+    'Sai fare la cosa che pensi e la tua mano risponde al pensiero senza ritardo. Un progetto tenuto nella testa può scendere nelle dita e diventare oggetto, frase pronunciata, inizio.',
+    'Quel che tieni fermo nella volontà può passare al mondo visibile adesso, perché hai la capacità e il materiale. Nulla ti trattiene tranne l\'attesa di un segnale esterno.',
+  ],
+  'lato|Il Mago|capovolta': [
+    'Hai annunciato una cosa e la mano non l\'ha ancora consegnata: il dire è corso avanti, il fare è rimasto indietro. Gli strumenti stanno sul tavolo, il talento dentro il cassetto.',
+    'La distanza tra quello che prometti e quello che le mani portano a termine. Il dono sta dove l\'hai lasciato, in un cassetto, mentre la parola data annuncia una misura che il gesto non raggiunge.',
+    'Mentre la tua parola dichiara, le dita restano ferme sugli attrezzi già pronti: il talento c\'è per intero e il tratto che va dall\'annuncio al gesto si è allargato.',
+  ],
+  'lato|La Papessa|dritta': [
+    'Il sapere che porti dentro non passa dalle parole: lo riconosci prima di poterlo spiegare, come acqua ferma che lascia vedere il fondo quando la tua mente tace.',
+    'Dentro di te una conoscenza quieta sa già e la scopri soltanto nei momenti in cui smetti di interrogarla, come un segreto che si apre al primo istante di quiete.',
+    'Un velo sottile tiene distante ciò che intuisci dalla parola che lo direbbe. Senza fretta, nell\'attesa, trovi la risposta che le tue domande rumorose coprivano.',
+  ],
+  'lato|La Papessa|capovolta': [
+    'Copri con le tue ragioni, o col frastuono, un intuito che aveva già risposto; il timore di sentire la risposta tiene la mente occupata.',
+    'Un fiuto esatto resta sotto le spiegazioni che ti dai. Il segreto che cerchi non scappa, aspetta soltanto di venire accolto senza fretta.',
+    'Le parole ordinate pesano sopra una certezza muta. Fermarti ad ascoltarla ti spaventa un poco, eppure è lì dentro che il sapere dorme.',
+  ],
+  'lato|L\'Imperatrice|dritta': [
+    'La fertilità che ti attraversa nutre qualcosa di vivo senza affrettarne la crescita: un\'idea, un legame, un seme interrato che matura col ritmo suo.',
+    'Dare abbondanza ti riesce senza sforzo e la dolcezza con cui tocchi le cose le fa aprire, perché nelle tue mani la vita trova il modo di moltiplicarsi.',
+    'Una generosità che non misura nulla scorre dalle tue dita e ciò che sfiori cresce perché lo lasci crescere con il tempo suo, senza strattoni.',
+  ],
+  'lato|L\'Imperatrice|capovolta': [
+    'La radice da cui nasce ciò che generi resta senz\'acqua mentre tutto quello che hai piantato fuori la riceve, così la tua fecondità si ferma per fame alla sorgente.',
+    'Hai nutrito ogni cosa cresciuta attorno a te e hai saltato la radice tua: adesso il generare non arriva al frutto, non perché manchi il seme, ma perché manca il nutrimento a monte.',
+    'Qualcosa di vivo in te non arriva a forma. La terra da cui dovrebbe venire è rimasta asciutta mentre l\'acqua andava tutta al giardino intorno. Senza radice nutrita, niente fiore.',
+  ],
+  'lato|L\'Imperatore|dritta': [
+    'La solidità che ti circonda ha fondamenta vere, non apparenze. Regge il peso delle tue decisioni e tiene insieme pezzi che da soli si sfalderebbero.',
+    'Dentro la tua domanda agisce un principio d\'ordine: dà forma, fissa confini, stabilisce chi risponde di cosa. Non ti stringe per capriccio, ti costruisce un riparo.',
+    'Un\'autorità ferma tiene il tuo quadro con regole, misure, responsabilità definite. La forza che la sostiene resiste perfino nei giorni in cui tu vacilli.',
+  ],
+  'lato|L\'Imperatore|capovolta': [
+    'Quando la regola si stringe oltre il suo compito ti toglie respiro; se le fondamenta mancano, il tuo peso oscilla senza appoggio.',
+    'Una rigidità che non piega più nulla, oppure un vuoto sotto i piedi. La stessa forza ti tocca serrata fino all\'eccesso o del tutto assente.',
+    'Ordine e disordine fanno un nodo solo. Una norma che fissa ogni dettaglio ti blocca il movimento; la sua assenza ti lascia sopra un terreno che cede.',
+  ],
+  'lato|Il Papa|dritta': [
+    'Hai accanto un sapere più antico della tua domanda, tramandato di mano in mano prima che tu nascessi. Il maestro che te lo consegna non si mette al tuo posto.',
+    'La fiducia in un maestro ti lega a una catena più lunga della tua vita. Non perdi la testa affidandola a chi insegna, impari a usarla.',
+    'Un ordine che non hai inventato ti sostiene e il maestro onesto ti istruisce perché tu possa fare a meno di lui.',
+  ],
+  'lato|Il Papa|capovolta': [
+    'Il dover essere che hai imparato ti sta addosso come un abito cucito per un altro corpo. Non lo stai tradendo se lo misuri con il tuo respiro.',
+    'Una regola ricevuta senza discussione smette di tenerti e accorgersene non è ribellione ma crescita: il senso tuo lo cerchi anche fuori da chi te l\'ha insegnato.',
+    'Dentro di te un dover essere imparato da altri perde autorità e il tuo senso proprio lo riconosci dal respiro che ti lascia.',
+  ],
+  'lato|Gli Amanti|dritta': [
+    'Una decisione d\'amore tocca i tuoi valori di fondo e al bivio tiene la scelta in cui l\'affetto e chi sei combaciano.',
+    'A un bivio i valori a cui tieni contano più del desiderio di un momento e l\'amore tiene quando ti somiglia fino alla radice.',
+    'Il bivio dell\'amore poggia sui valori che riconosci tuoi e dal loro accordo con l\'affetto dipende la scelta che fai.',
+  ],
+  'lato|Gli Amanti|capovolta': [
+    'Il disaccordo con chi ami ripete una divisione che hai dentro: due valori reclamano entrambi di essere i tuoi e a uno dei due stai dando una risposta che non è sincera. Per questo la scelta resta sospesa.',
+    'Due cose che per te contano davvero si contendono il campo: finché non dichiari quale delle due regge, nessun accordo con la persona che ami tiene, perché manca prima quello con te.',
+    'Sotto il dubbio su quel legame sta una bugia piccola che racconti a te. Finché la tieni, il rinvio tiene: due valori restano in lotta e nessuna decisione presa in due sta in piedi.',
+  ],
+  'lato|Il Carro|dritta': [
+    'Tieni le redini di due forze che tirano in versi opposti e le fai andare insieme verso una meta. La padronanza, non la fortuna, è ciò che ti fa avanzare.',
+    'Lo slancio ce l\'hai e la direzione pure: due tensioni che si contrastano diventano un unico traino sotto la tua guida.',
+    'Due tiri che vanno in direzioni avverse stanno nelle tue mani come un attacco solo e il governo del movimento vale come vittoria senza bisogno di fortuna.',
+  ],
+  'lato|Il Carro|capovolta': [
+    'Le redini si allentano tra le tue dita e il tiro si disunisce, oppure la corsa prosegue senza una meta scelta. Rallentare rimette il centro al suo posto.',
+    'Spinte che tirano in versi opposti ti fanno sbandare, oppure acceleri senza avere scelto la meta. Il governo del movimento ti sfugge, non la forza di tenerlo.',
+    'Corri con slancio intatto mentre la guida vacilla e il centro da cui parti si è spostato. Una sosta breve ti rimette le cinghie in mano senza togliere nulla alla spinta.',
+  ],
+  'lato|La Giustizia|dritta': [
+    'Una bilancia pesa senza sconti: ciò che hai messo in moto torna a te con la misura esatta con cui lo hai mandato.',
+    'La verità non si negozia, la responsabilità resta in mano a te. Guardare in faccia il peso delle tue azioni rimette d\'accordo i due piatti.',
+    'Pesare senza indulgenza ciò che hai fatto ti rende la misura esatta delle cose, perché causa ed effetto reggono lo stesso filo.',
+  ],
+  'lato|La Giustizia|capovolta': [
+    'Una cosa che ti spetta è rimasta da fare e ogni volta l\'hai spostata alla prossima occasione. Il conto non si chiude da solo: resta aperto a tuo nome e pesa senza farsi vedere.',
+    'La responsabilità che tocca a te, rimandata una volta di più, è il peso che non riesci a posare. Finché non la riconosci come tua, l\'assetto non torna.',
+    'Un conto a tuo nome resta da saldare e lo sposti avanti da tempo. La bilancia tiene un piatto più basso e si rimette in pari solo quando ti dici com\'è andata davvero.',
+  ],
+  'lato|L\'Eremita|dritta': [
+    'Il silenzio ti serve più della compagnia e la lampada che porti rischiara soltanto lo spazio accanto ai piedi tuoi, abbastanza per scegliere il prossimo appoggio.',
+    'Rallenti e porti la domanda dentro, lontano dal rumore degli altri; una lanterna piccola in mano tua vale la luce del giorno quando ti fidi del buio intorno.',
+    'Una ricerca solitaria ti chiama e il poco chiarore che tieni alto basta a mostrarti il gradino successivo, non l\'intero disegno.',
+  ],
+  'lato|L\'Eremita|capovolta': [
+    'La solitudine che doveva schiarirti le idee ti pesa addosso e la lampada girata contro il muro non mostra più il volto di nessuno.',
+    'Chiuderti a chiave ha smesso di darti chiarezza e il raccoglimento somiglia a un nascondiglio, con la lanterna spenta fra le dita tue.',
+    'C\'è un buio attorno che non rischiari più e il ritiro tuo tiene lontane anche le mani tese verso di te, mentre la fiamma resta girata all\'interno.',
+  ],
+  'lato|La Ruota della Fortuna|dritta': [
+    'Un giro largo tocca la tua domanda. Ciò che sta in alto scende, ciò che sta in basso risale; il momento dello scatto non lo decidi tu.',
+    'Gira il destino e porta in cima ciò che stava sotto. La tua vicenda non ha una forma stabile ma una fase; nessuna fase dura.',
+    'C\'è una rotazione in corso che non attende il tuo permesso: alza, abbassa, rimescola. La sorte che ti riguarda adesso somiglia a un ingranaggio in moto.',
+  ],
+  'lato|La Ruota della Fortuna|capovolta': [
+    'Niente gira come dovrebbe. La rotazione si è impuntata e il tempo che passa non ti restituisce nulla, oppure ti rende il contrario di ciò che avevi messo.',
+    'Un ciclo resta appeso a metà, oppure prosegue di sbieco. La presa ti sfugge, non è forza che manca, è il momento a non combaciare con la tua spinta.',
+    'La sosta fa parte del giro, pure quando sembra un guasto. Adesso l\'ingranaggio della tua domanda trattiene lo scatto e non ti manda segnali.',
+  ],
+  'lato|La Forza|dritta': [
+    'Una mitezza che non cede nulla addomestica in te l\'istinto scalpitante e il tuo nervo più selvatico si calma perché nessuno lo aggredisce.',
+    'Ti bastano una mano calma e un cuore mite per tenere l\'istinto che si agita. Il vigore che non chiude il pugno è il tuo.',
+    'Il coraggio che ti riguarda ora è dolce. Domini la belva che hai dentro accarezzandola e non colpendola, con fermezza tenera.',
+  ],
+  'lato|La Forza|capovolta': [
+    'Dubiti della tua tenuta, oppure usi con te la durezza che eviteresti con un altro. Il vigore stretto a pugno ti sfugge.',
+    'La mano che stringe per domare non doma. Quando la tua mitezza viene a mancare anche l\'istinto ti sembra ingovernabile.',
+    'Una severità puntata contro di te ti indurisce il coraggio e il nervo che ti pare fuori controllo perde la dolcezza che lo teneva.',
+  ],
+  'lato|L\'Appeso|dritta': [
+    'La resa volontaria ha un suo frutto. Quando smetti di spingere, l\'attesa che pare ferma ti apre un\'angolazione che il movimento teneva nascosta.',
+    'Tenere le mani ferme diventa un modo di vedere: il tempo che non riempi ti mostra la questione da un punto che l\'azione ti negava.',
+    'Fermarti non spegne la tua forza, rallenta la fretta che la consumava. Da questa pausa nasce uno sguardo che prima non avevi.',
+  ],
+  'lato|L\'Appeso|capovolta': [
+    'Un\'attesa che ha smesso di insegnare ti trattiene nello stallo e la rinuncia in cui ti tieni somiglia al timore travestito da nobiltà.',
+    'Da questa pausa non ti torna più nulla e il sacrificio che ti imponi non riscatta nessuno. Lo stallo si regge sul timore di scendere.',
+    'L\'attesa ha esaurito la sua lezione e ciò che chiami pazienza ti trattiene senza darti nulla in cambio. Il nodo sta nel timore di muoverti.',
+  ],
+  'lato|La Morte|dritta': [
+    'Una cosa è giunta al suo termine e il suo chiudersi apre il posto a ciò che nasce. Non c\'è distruzione in questo, c\'è mutamento: la mano che si apre ti libera le dita.',
+    'Ciò che finisce lo fa perché un seme possa aprirsi al posto suo e la trasformazione non ti toglie nulla, sostituisce. Lascia cadere la foglia che ha compiuto il suo tempo.',
+    'Un ciclo chiude i suoi battenti e nello stesso istante qualcosa di non nato trova aria. Il taglio netto che ti attraversa non distrugge niente, sgombera il terreno.',
+  ],
+  'lato|La Morte|capovolta': [
+    'Tieni per il bordo una cosa che ha già finito di esistere e le tue dita si stringono sopra un guscio vuoto. La fine è avvenuta, il riconoscerla no.',
+    'Il mutamento è accaduto fuori di te mentre la tua presa resiste ancora. Il peso sta nelle mani che stringono, non nella cosa che se ne sta andando.',
+    'A mani chiuse reggi il coperchio di qualcosa che ha già smesso. Allarga le tue dita e il dolore cambia natura, da strappo diventa respiro.',
+  ],
+  'lato|La Temperanza|dritta': [
+    'Il dosaggio paziente unisce due cose che sembravano incompatibili. Mescoli poco per volta e misuri senza fretta, finché ciò che hai in pezzi ritrova forma.',
+    'Un travaso lento fra due vasi tiene insieme il caldo e il freddo mentre tu non ne scegli nessuno. L\'armonia nasce dalla calma con cui dosi.',
+    'Andando piano accordi fra loro le parti di te che non si parlavano. La tua pazienza è un\'arte di misura, non una rinuncia.',
+  ],
+  'lato|La Temperanza|capovolta': [
+    'Un ingrediente copre tutti gli altri e il ritmo ti salta fra scatti e pause, mentre due parti di te hanno smesso di parlarsi.',
+    'Corri su una cosa sola e lasci l\'altra a secco. Dentro di te due metà non si accordano, perché l\'armonia nasce da una pratica di ogni giorno.',
+    'La misura ti sfugge fra uno slancio e un rinvio, mentre due spinte interne tirano in direzioni opposte senza accordarsi.',
+  ],
+  'lato|Il Diavolo|dritta': [
+    'Ti tiene qualcosa che ammetti a metà, una catena fatta di desiderio e di abitudine, mentre il suo potere dura fino al momento in cui la chiami per nome.',
+    'Il legame che ti incatena nasce da un piacere vero e proprio per questo regge, finché non lo guardi in faccia e lo chiami col suo nome esatto.',
+    'Una presa che ti piace tenere addosso ti lega più di quanto riesci ad ammettere; nell\'ombra non abita colpa, soltanto materia da guardare.',
+  ],
+  'lato|Il Diavolo|capovolta': [
+    'Vedi il nodo che ti tratteneva e la catena perde di colpo metà del peso suo, perché senza il buio attorno non ha la forza che sembrava avere.',
+    'Un anello si apre fra le dita tue e il desiderio che ti comandava dal buio adesso sta davanti, sciolto a metà solo perché lo hai riconosciuto.',
+    'Qualcosa che ti legava ha smesso di essere invisibile e scioglierlo diventa un gesto lento, fatto con dolcezza, non uno strappo.',
+  ],
+  'lato|La Torre|dritta': [
+    'Il colpo dall\'alto non discute: abbatte in un istante ciò che stava su basi finte. Dopo, in piedi ti resta soltanto il materiale sano.',
+    'Cade adesso la costruzione che reggeva su un\'apparenza. Il frastuono è grande; fra le macerie trovi intatto soltanto ciò che ti appartiene.',
+    'Una scossa improvvisa smonta l\'impalcatura e lascia nudo il nucleo. Non intacca il solido ma elimina il finto, mostrandoti su cosa poggia la tua domanda.',
+  ],
+  'lato|La Torre|capovolta': [
+    'Rimandi una caduta che si annuncia, oppure la stai attraversando con le ossa ancora dolenti. In ogni caso il falso regge in apparenza e ti costa fatica tenerlo su.',
+    'La scossa resta sospesa. Qualcosa nel tuo quadro vacilla da sotto e tiene ancora, puntellato da sforzi che fai senza nominarli.',
+    'Trattenere il crollo assorbe energia. Tu lo senti nel fiato corto, nella stanchezza di reggere una cosa che da sé starebbe già a terra.',
+  ],
+  'lato|La Stella|dritta': [
+    'La speranza che credevi finita ti bagna di nuovo e l\'ispirazione che ti arriva ora non fa rumore ma ti versa addosso una calma chiara.',
+    'Una quiete luminosa ti rassicura senza gridare e l\'ispirazione che ti torna addosso somiglia a un cielo lavato dalla pioggia.',
+    'Dopo la tempesta ti resta una luce piccola e ferma. La fiducia torna senza clamore, come acqua versata nella sete.',
+  ],
+  'lato|La Stella|capovolta': [
+    'Un\'acqua che non scorre più ti rende difficile sperare e la luce che cercavi non si è spenta: una nube sottile te la copre.',
+    'Fatichi a credere che le cose si rimettano a posto, la tua fiducia si è fatta stanca e l\'ispirazione tace. Non è luce spenta, è luce velata da una nube.',
+    'Le tue sorgenti di speranza sembrano asciutte e l\'ispirazione non ti parla, mentre la luce resta dietro un velo che non hai ancora attraversato.',
+  ],
+  'lato|La Luna|dritta': [
+    'Non tutto ti è chiaro e il buio non si schiarisce a comando. L\'intuito ti parla nella lingua dei sogni mentre le cose mostrano un profilo diverso dal vero.',
+    'Le apparenze non combaciano con la sostanza e di notte il tuo timore si allarga, perché l\'inconscio ti parla per immagini e non per ragioni.',
+    'Una luce incerta ti lascia riconoscere le forme a metà. Fidarti del passo, nel dubbio, ti porta oltre il bisogno di vedere subito tutto il resto.',
+  ],
+  'lato|La Luna|capovolta': [
+    'C\'è una nebbia che si apre e le dimensioni delle tue paure tornano a quelle vere: alla luce avevano più ombra che peso.',
+    'Alla luce del giorno la sagoma che ti spaventava si ridimensiona e l\'inganno notturno perde il suo potere su di te.',
+    'La confusione si dirada e distingui di nuovo i profili. Tornare a fidarti dei tuoi occhi ti costa meno adesso che l\'ombra si è ritirata.',
+  ],
+  'lato|Il Sole|dritta': [
+    'La chiarezza ti arriva addosso come calore e niente di te resta in ombra, perché la luce che hai non ha bisogno di nascondigli. Fiorisce ciò che tocchi.',
+    'Ridi senza doverti coprire e il calore che emani raggiunge chi ti sta vicino. Una stagione luminosa illumina tutto di te, anche le parti che tenevi all\'ombra.',
+    'Pieno mezzogiorno sopra di te: le cose crescono, la riuscita è visibile e la gioia non chiede scuse. Nulla di te ha bisogno di rimanere coperto.',
+  ],
+  'lato|Il Sole|capovolta': [
+    'La luce non è calata di un grado, soltanto non ti raggiunge la pelle: un velo sottile ti separa dal calore ed è fatto spesso di un pensiero vecchio.',
+    'Il tuo entusiasmo resta trattenuto dietro una nube e il calore, pur presente, non ti tocca la pelle. Spostala e la gioia torna addosso.',
+    'Ridere ti costa fatica mentre la giornata è chiara, perché un pensiero vecchio si è messo davanti al tuo calore. Niente si è spento, qualcosa sta in ombra.',
+  ],
+  'lato|Il Giudizio|dritta': [
+    'Senti un richiamo che non viene da fuori e ti chiede se la storia che abiti è ancora tua. Non ti mette sotto accusa, ti sveglia.',
+    'La chiamata ti raggiunge come un suono che attraversa il sonno. Tiri le somme di ciò che hai fatto e il bilancio apre una vita più vera, più tua.',
+    'C\'è un appello che ti nomina e non ti condanna: lasci indietro chi eri per fare spazio a chi stai diventando adesso.',
+  ],
+  'lato|Il Giudizio|capovolta': [
+    'Il bilancio che avverti necessario slitta ancora, oppure te lo fai addosso con una durezza che non apre niente.',
+    'Rimandi le somme che pure ti sembrano urgenti, o trasformi il richiamo in un rimprovero contro di te. Il risveglio passa dall\'ascolto, non dall\'asprezza.',
+    'Una durezza tutta tua copre il perdono che non ti concedi, così la rinascita resta sospesa a metà senza trovare un inizio.',
+  ],
+  'lato|Il Mondo|dritta': [
+    'Il cerchio si chiude intero e tutto ciò che hai attraversato adesso ti appartiene, cucito dentro di te come una cosa sola, prima dell\'apertura seguente.',
+    'Arrivi al compimento e nulla resta sparso: le parti tue tornano insieme in una pienezza che puoi abitare per un poco, senza corse verso il prossimo inizio.',
+    'Una pienezza senza buchi ti aspetta alla fine del giro e la gioia sta nel sostare dentro, non nel correre ad aprire il cerchio successivo.',
+  ],
+  'lato|Il Mondo|capovolta': [
+    'Manca poco alla chiusura e un pezzo resta fuori dal cerchio, un dettaglio piccolo che tiene aperta la pienezza mentre tutto il resto tuo è a posto.',
+    'La pienezza ti sfiora già e un ultimo frammento ancora sciolto tiene il giro aperto, abbastanza vicino da sentirlo sotto le dita.',
+    'Un compimento quasi tuo resta sospeso per un dettaglio e la soglia che ti separa dall\'intero è sottile, larga come un gesto rimasto da fare.',
+  ],
+  'lato|Asso di Bastoni|dritta': [
+    'Una scintilla si apre nel tuo desiderio e vuole combustibile subito. È calore allo stato grezzo, senza disegno ancora; ha la fretta tipica delle cose appena nate.',
+    'Brucia in te un avvio, un\'idea che spinge per uscire e non sopporta rinvii. L\'energia non ti manca, difetta soltanto di forma.',
+    'Il fuoco iniziale ti attraversa adesso e dura quanto dura una fiammata, intenso e breve, spento se nessuno lo alimenta.',
+  ],
+  'lato|Asso di Bastoni|capovolta': [
+    'Sotto la cenere resta brace viva, le manca ossigeno. Il tuo slancio si avvia e ricade, trattenuto da un timore che non hai ancora nominato.',
+    'Un impulso trattenuto gira a vuoto e ti lascia addosso un\'irritazione senza bersaglio. Il combustibile non difetta, manca il permesso che ti dai.',
+    'Acceso il desiderio, spento il gesto. Uno scarto ti separa dalla partenza e somiglia alla paura di non riuscire, un timore che smorza prima dell\'inizio.',
+  ],
+  'lato|Due di Bastoni|dritta': [
+    'Guardi oltre il confine di ciò che conosci e un progetto chiede una direzione, mentre il mondo ti sta in mano come una sfera piccola.',
+    'Il disegno che hai in testa supera il recinto che conosci e la scelta dell\'orizzonte viene prima del passo, coi mezzi che tieni già in mano.',
+    'Un\'ambizione larga ti misura il mondo da fermo: tieni la mappa, pesi due terre lontane e la direzione che preferisci non l\'hai ancora detta.',
+  ],
+  'lato|Due di Bastoni|capovolta': [
+    'Il mondo che tieni in mano non ti dice ancora da che parte andare e due possibilità ugualmente aperte ti fermano sul bordo.',
+    'Una paura di osare ti tiene sulla soglia e la direzione che credevi chiara ti si confonde mentre tieni la mappa in mano.',
+    'Vedi largo e non ti muovi: l\'orizzonte ti attrae, il primo passo ti sfugge e il disegno resta senza bordi precisi.',
+  ],
+  'lato|Tre di Bastoni|dritta': [
+    'Hai spinto una cosa al largo e adesso la guardi tornare: i frutti di quella semina stanno facendo strada verso di te, da una distanza che non accorci con le mani.',
+    'L\'attesa di un rientro da lontano. Quello che hai lanciato viaggia fuori dal tuo campo, si allarga e torna indietro col passo delle cose che devono coprire una distanza.',
+    'Fuori dal tuo campo, in viaggio, c\'è quello che hai messo in moto: rientra per la strada che ha preso e i suoi frutti arrivano da lontano, non dal solco sotto i tuoi piedi.',
+  ],
+  'lato|Tre di Bastoni|capovolta': [
+    'Non è solo il tempo a slittare: quello che aspettavi non torna nella forma che gli avevi dato in testa. Restano aperte due strade, pazientare ancora un poco o correggere la rotta con lucidità.',
+    'La rotta che avevi scelto si misura adesso, mentre quello che hai mandato avanti tarda e rientra in una forma che non avevi previsto. Il tempo che prende è suo, non è un rifiuto.',
+    'Aspetti un ritorno che non arriva nei termini immaginati. Su questo l\'attesa pesa: o le concedi ancora un poco di tempo o cambi la direzione che avevi dato, scegliendo con lucidità e non per scoraggiamento.',
+  ],
+  'lato|Quattro di Bastoni|dritta': [
+    'Hai raggiunto una soglia e le fondamenta sotto di te reggono il peso, perciò il momento si festeggia con chi c\'era. Riconoscere il bello costruito vale come riposo.',
+    'Festeggia: ciò che hai messo in piedi ha radici e il tetto tiene. Mostrarlo agli altri non ti espone, la gioia divisa rende solida la base.',
+    'Un traguardo tocca terra sotto i tuoi piedi e intorno c\'è gente che lo riconosce. Prenderti il tempo della festa non ti ruba niente al passo successivo.',
+  ],
+  'lato|Quattro di Bastoni|capovolta': [
+    'La tua armonia si è allentata e sotto la superficie le radici non hanno ancora preso del tutto. La festa è pronta, la base no.',
+    'Prima che il brindisi parta, il terreno sotto le travi va guardato: qualcosa nelle radici tiene ma non ti sostiene del tutto.',
+    'Senti stonature nell\'accordo attorno a te e il traguardo che volevi celebrare resta in sospeso finché la base non regge.',
+  ],
+  'lato|Cinque di Bastoni|dritta': [
+    'Un attrito vivo accende i pensieri: ti scontri, ribolli, ti misuri con chi ti sta davanti senza che nessuno voglia ferire.',
+    'Giochi di braccio con chi ha idee diverse dalle tue. Il calore dello scontro ti fa crescere se lo spendi per misurarti, non per schiacciare.',
+    'La competizione scalda l\'aria intorno a te, perché nessuna delle parti vuole cedere. Da un confronto tenuto bene esci con muscoli nuovi.',
+  ],
+  'lato|Cinque di Bastoni|capovolta': [
+    'Spendi forze in scaramucce che non ti portano niente, oppure lasci covare sotto la cenere un attrito che non nomini.',
+    'Una tensione girata a vuoto ti porta via fiato, o l\'urto che eviti brontola dentro la pelle senza uscire allo scoperto.',
+    'Scintille piccole ti bruciano addosso una dopo l\'altra, mentre l\'asprezza che non affronti resta a scaldarsi da sola, lontana dalle parole.',
+  ],
+  'lato|Sei di Bastoni|dritta': [
+    'Gli occhi degli altri si posano su te con approvazione e il riconoscimento che ricevi poggia su lavoro vero, non su fortuna.',
+    'Ricevi applauso davanti a testimoni e il merito tuo viene nominato in pubblico, portato bene quando lo tieni alla misura esatta.',
+    'Un onore pubblico ti spetta per ciò che hai portato a termine e reggerlo senza gonfiarti né rimpicciolirti è la parte delicata della faccenda.',
+  ],
+  'lato|Sei di Bastoni|capovolta': [
+    'Il valore tuo regge anche quando nessuna mano batte le palme e il silenzio attorno dice poco della sostanza che porti addosso.',
+    'Aspetti un riconoscimento che tarda e il dubbio su te cresce nel vuoto lasciato dagli altri, mentre la sostanza del lavoro tuo non è diminuita di un grammo.',
+    'Nessuno nomina il risultato tuo e il valore si appoggia tutto alle spalle tue, senza mani che applaudono a confermarlo.',
+  ],
+  'lato|Sette di Bastoni|dritta': [
+    'La difesa che ti tocca adesso è di chi sta più in alto e lo sa. Attorno premono richieste, obiezioni, pretese; il terreno sotto i tuoi piedi resta tuo.',
+    'Resistere costa fatica e in questo momento ti riesce. La pressione esterna è reale, il tuo punto non arretra di un dito.',
+    'Un assedio attorno a ciò in cui credi mette alla prova il tuo coraggio e insieme lo dimostra. Hai braccia, fiato, ragioni: il vantaggio sta dalla tua parte.',
+  ],
+  'lato|Sette di Bastoni|capovolta': [
+    'Contro un\'ombra tieni la guardia alta e ti consumi a difendere un terreno sgombro. L\'assalto che aspetti è fermo.',
+    'Un allarme che non cala ti porta a tenere una collina che l\'avversario ha già lasciato e di fronti aperti ne senti troppi.',
+    'Il fronte si è svuotato e la guardia alta ti porta via le forze. La fatica di tenere ferme le colline ti sommerge.',
+  ],
+  'lato|Otto di Bastoni|dritta': [
+    'Una corsa già partita ti porta con sé: le cose capitano in fretta, i messaggi si accavallano e il tuo tempo di pensare si accorcia.',
+    'Tutto accelera insieme, le notizie ti raggiungono a raffica e il ritmo ti passa sotto i piedi senza chiederti il permesso.',
+    'Le risposte che attendevi ti piovono addosso in poco tempo, una dopo l\'altra. La rapidità con cui accadono ti supera di un passo.',
+  ],
+  'lato|Otto di Bastoni|capovolta': [
+    'Corri e non sai verso che cosa, oppure aspetti e non accade niente: il ritmo ti si è scomposto e le notizie ti raggiungono fuori ordine.',
+    'I tempi si allungano oppure la tua fretta corre senza bersaglio e la rapidità che avevi ti si ingarbuglia addosso.',
+    'Ti arriva tutto in una volta e senza un bersaglio preciso, mentre le risposte che attendi restano appese dietro un ritardo.',
+  ],
+  'lato|Nove di Bastoni|dritta': [
+    'Una stanchezza vera ti accompagna a un passo dalla fine e la tenacia che ti resta conta come tutto il lavoro già fatto.',
+    'Hai già portato il carico per quasi tutta la salita e l\'ultima prova misura la tenuta, non la partenza. Resistere adesso pesa quanto tutto il resto.',
+    'La tenacia ti tiene in piedi quando le riserve sono basse e l\'ultimo colpo da assorbire somiglia, per peso, a tutti i primi.',
+  ],
+  'lato|Nove di Bastoni|capovolta': [
+    'Nessuno sta sferrando un colpo, eppure la guardia non scende. Chi fa un passo verso di te la incontra alzata, perché la stanchezza ha reso sospetto ogni avvicinamento.',
+    'Una mano tesa senza secondi fini incontra la stessa barriera che incontrerebbe un assalto: la fatica ti ha chiuso a riccio e le punte stanno fuori verso tutto quello che arriva.',
+    'La diffidenza ha smesso di distinguere. Chi si avvicina per starti vicino resta fuori dallo scudo come il resto. Quello da cui ti stai riparando non è un attacco.',
+  ],
+  'lato|Dieci di Bastoni|dritta': [
+    'Porti sulle spalle un fascio di carichi e la schiena si curva sotto il volume. Distinguere il peso tuo da quello preso in prestito cambia il modo di reggerlo.',
+    'Le braccia ti sono piene fino al mento e il passo si accorcia. Chiediti con onestà quale di questi fardelli ti appartiene e quali puoi posare a terra.',
+    'Hai accettato un fardello dopo l\'altro e adesso il corpo lo sente tutto insieme. Tenere ogni cosa non è vigore, scegliere il carico è lucidità.',
+  ],
+  'lato|Dieci di Bastoni|capovolta': [
+    'Un fardello che non nasce da te ti resta addosso per abitudine, oppure per un dovere che non hai scelto. Posarlo non toglie niente a chi ti sta intorno.',
+    'Reggi anche il pezzo che non ti riguarda e lo tieni su per inerzia. Mollare quella parte non ti rende sleale verso nessuno, ti restituisce il respiro.',
+    'Dentro il fascio che trasporti ci sono pesi raccolti per abitudine e non per necessità. Lasciarne cadere qualcuno ti alleggerisce le braccia senza caricare nessuno.',
+  ],
+  'lato|Fante di Bastoni|dritta': [
+    'L\'idea giovane che ti bussa in testa non ha ancora prove a suo favore, eppure ti tira per la manica e ti fa venire voglia di provarla.',
+    'Qualcosa di nuovo ti incuriosisce e hai le gambe per andarci a vedere, con una fretta allegra che non pretende di conoscere la meta.',
+    'Ti brucia una curiosità fresca e le mani ti partono prima della testa, come all\'inizio di un\'avventura che non sai ancora quanto lontano porta.',
+  ],
+  'lato|Fante di Bastoni|capovolta': [
+    'Una cosa ti prende, la cominci e si esaurisce da sé prima del frutto, poi ne arriva un\'altra che rifà lo stesso giro accanto a te.',
+    'L\'entusiasmo si spegne prima che il lavoro chiesto sia arrivato a maturare: parte, scalda per un poco, cade; la partenza dopo riparte da zero.',
+    'Hai acceso più di una cosa e si sono spente una a una, ciascuna a metà strada: l\'energia ti torna addosso, la durata no; ciò che hai aperto resta dove l\'hai lasciato.',
+  ],
+  'lato|Cavaliere di Bastoni|dritta': [
+    'Parti di slancio verso ciò che desideri e il coraggio ti scalda prima del ragionamento, con l\'occhio comunque fisso alla meta lontana.',
+    'Un fuoco ti spinge in avanti e l\'avventura ti sembra più leggera del dubbio, purché la direzione resti incollata agli occhi tuoi mentre corri.',
+    'La passione ti mette in moto e osare adesso costa meno dell\'esitare, con il galoppo tuo tenuto dritto su una meta visibile.',
+  ],
+  'lato|Cavaliere di Bastoni|capovolta': [
+    'La fretta ti ha messo in sella prima che una rotta fosse scelta e adesso tieni aperte più strade insieme, con lo slancio spartito fra loro mentre il galoppo continua.',
+    'Una foga già lanciata, che apre una direzione dopo l\'altra senza fermarsi a scegliere fra loro: accanto a te corre un ardore più veloce della sua meta.',
+    'Hai dato di sprone prima di guardare dove portava la strada: l\'impazienza governa l\'andatura e tratto dopo tratto la meta si moltiplica invece di avvicinarsi.',
+  ],
+  'lato|Regina di Bastoni|dritta': [
+    'Altri ti vengono vicino per il calore che tieni acceso senza sforzo e in quella luce trovano posto anche loro.',
+    'Senza limarti per piacere attiri gli altri e il tuo calore li scalda uno a uno, poi loro coprono il resto della distanza.',
+    'Una sicurezza calma e tua attira gli altri e il tuo ardore li tiene vicini mentre non ti muovi di lì per raccoglierli.',
+  ],
+  'lato|Regina di Bastoni|capovolta': [
+    'Dubiti del tuo valore proprio mentre gli altri lo riconoscono. Un confronto costante ti appanna la luce e trasforma il calore in pretesa di conferme.',
+    'Una gelosia sottile offusca il tuo calore e lo piega in rivalità. Brilli a intermittenza, con un occhio fisso su chi occupa la luce accanto a te.',
+    'Fuori dal tuo centro la fiamma si agita e brucia senza scaldare. Il calore che hai si mescola al bisogno di una conferma e perde nitidezza.',
+  ],
+  'lato|Re di Bastoni|dritta': [
+    'La tua fiamma indica una direzione agli altri senza spingerli e l\'autorità che hai conquistata diventa generosa quando insegna.',
+    'Un\'ispirazione che hai già collaudato ti porta alla testa di qualcosa e il calore con cui accompagni gli altri decide il tuo modo di guidare.',
+    'Guidi per esempio e non per comando: la tua fiamma scalda chi ti sta accanto e la volontà matura che porti apre un varco nel muro.',
+  ],
+  'lato|Re di Bastoni|capovolta': [
+    'Un\'impazienza da comandante ti fa correre avanti mentre gli altri restano indietro e l\'esempio che dai pesa come una pretesa.',
+    'Spingi prima di ascoltare e la fiamma che porti brucia chi ti sta vicino senza accendere nessuno. L\'autorità tua si è fatta rigida.',
+    'Il comando che hai in mano scotta e l\'autorità si irrigidisce, mentre la spinta che dai agli altri va avanti senza il loro ascolto.',
+  ],
+  'lato|Asso di Coppe|dritta': [
+    'Ti sale dentro un sentire pulito, senza calcolo, come una sorgente che trova la sua apertura. La dolcezza che provi non ti indebolisce.',
+    'La tenerezza precede le ragioni e ti riempie senza chiederti il permesso. Un inizio affettivo nuovo ha questa qualità di acqua che sale.',
+    'Un\'emozione limpida ti attraversa e scorre, se la lasci andare dove vuole. La grazia di questo sentire sta nel non avere ancora nessuna forma.',
+  ],
+  'lato|Asso di Coppe|capovolta': [
+    'Tieni la mano sopra la tua stessa sorgente perché aprirla fa male e l\'acqua che non esce si ferma sul fondo. Non c\'è un legame da ricucire: c\'è un sentire che non hai fatto partire.',
+    'Il tuo sentire tenuto a chiave da dentro, prima che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l\'acqua ferma resta nella coppa.',
+    'Finché rimandi di sentire, la fonte spinge e non trova una via d\'uscita: non c\'è un malinteso da sciogliere con qualcuno, c\'è l\'acqua che si è fermata dove nasce.',
+  ],
+  'lato|Due di Coppe|dritta': [
+    'Qualcuno ti riconosce e tu rispondi con la stessa misura: il patto si sigilla da sé, senza contratto. Coltivarlo adesso conta come costruirlo.',
+    'Il legame si stringe su una parità vera e chi ti sta davanti dà quanto prende. Trattalo con cura, perché ciò che nasce adesso è giovane.',
+    'Specchiarsi in qualcuno senza perdersi moltiplica la forza che hai. L\'accordo che si firma adesso tiene insieme pari e pari, non chi guida e chi segue.',
+  ],
+  'lato|Due di Coppe|capovolta': [
+    'Un malinteso si è infilato nel legame e l\'accordo stona, mentre l\'affetto sotto resta intero. Ascoltare fino in fondo ricuce lo strappo che ti pesa.',
+    'L\'accordo pende da un verso solo e il riconoscimento che c\'era si è appannato. Parlare chiaro con chi ti riguarda scioglie il nodo prima che si stringa.',
+    'Qualcosa di non detto siede tra te e chi ti sta accanto e il legame tiene pur suonando stonato. Dire la frase rimasta indietro rimette l\'accordo a posto.',
+  ],
+  'lato|Tre di Coppe|dritta': [
+    'Un brindisi alzato insieme moltiplica la gioia, perché il bene che ti vogliono gli amici torna indietro raddoppiato quando lo festeggi con loro.',
+    'Hai motivo di stappare qualcosa e gente intorno con cui farlo. La contentezza divisa fra più bicchieri cresce, mentre chiusa addosso resta piccola.',
+    'Attorno a te si stringono persone che ti vogliono bene e tengono la stessa allegria. Una cosa buona merita un cerchio di amici, non un angolo in silenzio.',
+  ],
+  'lato|Tre di Coppe|capovolta': [
+    'Il cerchio intorno a te si è allargato oltre la misura che riesci a tenere, oppure brindi molto e ti nutri poco di quelle presenze.',
+    'Una tavolata affollata ti disperde, mentre gli affetti che nutrono stanno in poche mani e aspettano la tua cura.',
+    'Festeggi con tanti e ti riconosci in pochi, così il legame sincero resta coperto dal rumore di compagnie che ti scaldano appena.',
+  ],
+  'lato|Quattro di Coppe|dritta': [
+    'C\'è una mano che ti porge qualcosa e il tuo sguardo sta altrove. Non manca l\'occasione, manca la voglia: la noia ha preso il posto del desiderio e tiene gli occhi dove non succede niente.',
+    'Il dono teso proprio accanto a te resta fuori dal tuo sguardo. Non per fretta né per un calcolo sbagliato: per apatia, perché in questo momento nulla ti smuove.',
+    'Qualcuno ti ha offerto qualcosa e tu hai lasciato gli occhi altrove. La coppa sta a un palmo dalla tua mano e il torpore basta a tenerla invisibile. Quello che non desideri non lo vedi.',
+  ],
+  'lato|Quattro di Coppe|capovolta': [
+    'Mentre il torpore cede ritorni a sentire le persone e i fatti e una curiosità nuova ti chiama da un punto che non sai nominare.',
+    'Una curiosità piccola ti punge appena il torpore cede e il gusto di seguirla ti torna insieme a un\'apertura nuova.',
+    'Dopo la noia una curiosità nuova ti prende quasi di sorpresa e il torpore si scioglie e ricominci a interessarti.',
+  ],
+  'lato|Cinque di Coppe|dritta': [
+    'Due coppe versate ti tengono gli occhi incollati a terra. Il rimpianto occupa il primo piano e misura la tua domanda su ciò che hai perduto.',
+    'Dietro le tue spalle due coppe stanno ancora in piedi. Lo sguardo tuo sta davanti al versato: il peso di ciò che manca copre tutto il resto.',
+    'Una perdita vera pesa nella tua domanda. Il dolore ha ragione di esserci; il conteggio che ne fai lascia fuori ciò che è rimasto intatto.',
+  ],
+  'lato|Cinque di Coppe|capovolta': [
+    'Giri il collo verso ciò che resta e il movimento ti riesce rigido, impacciato, però avviene. Il perdono che concedi, a te o a un altro, scioglie un groppo.',
+    'Lo sguardo si stacca dal versato e trova due coppe in piedi. Non è euforia, è accettazione; il dolore smette di occupare il tuo intero campo.',
+    'C\'è una ripresa lenta nel modo in cui guardi la tua perdita: il dolore resta, la mira cambia, torni a dare valore a ciò che non è andato.',
+  ],
+  'lato|Sei di Coppe|dritta': [
+    'Ti torna addosso una tenerezza antica, un affetto sincero che il passato ti riconsegna e la dolcezza dei ricordi ti nutre come pane.',
+    'Il passato ti manda un affetto pulito con dei ricordi cari e l\'innocenza che avevi allora ti scalda ancora le mani.',
+    'Una nostalgia buona ti addolcisce la giornata: qualcuno ti vuole bene da lontano nel tempo e la bontà di allora ti raggiunge intatta.',
+  ],
+  'lato|Sei di Coppe|capovolta': [
+    'La dolcezza di prima ti tiene per la manica e il presente aspetta il tuo turno di guardarlo, mentre i ricordi occupano la stanza.',
+    'Un affetto di allora ti scalda ancora. Proprio per questo ti tira indietro, mentre il presente ti chiama da una stanza che non apri.',
+    'Abiti un tempo che non c\'è più e la tenerezza antica ti trattiene, mentre il presente resta fuori dalla porta ad aspettare.',
+  ],
+  'lato|Sette di Coppe|dritta': [
+    'Le possibilità si affollano davanti a te e ciascuna promette più di ciò che porta. Il piacere di immaginarle ti tiene lontano dalla scelta.',
+    'Immaginare ti costa poco e per questo le visioni si moltiplicano, mentre la verifica di ognuna sta ancora tutta da fare.',
+    'Sognare in grande ti allarga il respiro e nello stesso tempo ti confonde, perché fra tante promesse non tutte hanno un fondo.',
+  ],
+  'lato|Sette di Coppe|capovolta': [
+    'Fra tanti desideri uno ti risulta vero e gli altri perdono attrattiva. Scegliere elimina il resto e proprio il vuoto che lascia ti alleggerisce.',
+    'Una sola delle tue voglie regge la prova della messa a fuoco e le altre si sgonfiano da sole. La rinuncia che segue non ti impoverisce.',
+    'C\'è una chiarezza nuova nel tuo volere: fra molte immagini ne resta una che ti riguarda e lasciar cadere le altre ti restituisce forza.',
+  ],
+  'lato|Otto di Coppe|dritta': [
+    'Volti le spalle a ciò che non ti nutre e te ne vai in silenzio, senza sbattere porte. La direzione la conosci prima di saperla spiegare.',
+    'Un posto che ti ha dato quanto poteva resta indietro e tu avanzi in silenzio verso un senso che ancora non ha nome. L\'andarsene pulito è un atto intero.',
+    'Né scenate né rancore: ti allontani da ciò che hai svuotato fino in fondo, perché una fame di significato ti chiama altrove.',
+  ],
+  'lato|Otto di Coppe|capovolta': [
+    'Sei ancora dentro e già sulla porta. Non è una scelta fra due strade: è una sola domanda, se andartene da qui oppure restare. La risposta viene dall\'ascoltarti con sincerità.',
+    'Quello che resta in bilico è l\'andare via da dove stai. Nessun passo è stato fatto, né fuori né indietro. Solo l\'ascolto sincero dice se il tempo di lasciare è venuto.',
+    'La porta l\'hai aperta e non l\'hai attraversata. Resti sul punto in cui si decide se lasciare quello che hai, senza fretta addosso ma anche senza alibi che tengano.',
+  ],
+  'lato|Nove di Coppe|dritta': [
+    'Tieni fra le mani una cosa che avevi chiesto al cielo e l\'hai avuta, quindi puoi goderla senza sentirti in debito con nessuno.',
+    'C\'è un augurio avverato che ti riguarda. Il benessere arrivato non ti obbliga a scusarti, la contentezza non chiede permesso.',
+    'Una soddisfazione piena siede con te a tavola. Riconosci la fortuna che ti è capitata e assaporala, lasciando la colpa fuori dalla porta.',
+  ],
+  'lato|Nove di Coppe|capovolta': [
+    'Un piacere dopo l\'altro ti attraversa senza lasciare niente, perché la contentezza che mostri fuori non tocca il fondo dentro di te.',
+    'Hai in mano una soddisfazione di facciata che ti distrae appena, quindi il desiderio vero resta sotto, senza trovare nome.',
+    'Ti riempi di cose gradevoli e rimani con la stessa fame, segno che la gioia cercata abita a una profondità che il piacere di superficie non raggiunge.',
+  ],
+  'lato|Dieci di Coppe|dritta': [
+    'L\'affetto attorno a te forma un arco intero e la tua ricchezza vive nei legami, in una gratitudine semplice per chi siede al tavolo accanto.',
+    'Condividi pienezza con chi ami e la gioia non resta chiusa dentro di te, respira nei volti attorno e torna indietro moltiplicata.',
+    'Un\'armonia piena ti circonda e il bene che hai costruito con altri regge il peso di tutti, come un arcobaleno teso sopra le teste di chi ami.',
+  ],
+  'lato|Dieci di Coppe|capovolta': [
+    'Una distanza si è aperta dentro la casa e la sentono tutti quelli che ci vivono. Dietro non c\'è un torto grosso ma una fila di parole che nessuno dice: il freddo si scioglie dove tornano a dirsi.',
+    'L\'armonia di casa con un punto saltato: il cerchio degli affetti si è raffreddato senza rompersi e la crepa resta aperta quanto dura il silenzio fra chi lo abita.',
+    'Parlando si ricuce quello che il tacere ha allargato. Fra te e le persone con cui dividi la casa è passata una tensione minuta, abbastanza perché nelle stanze si parli meno di prima.',
+  ],
+  'lato|Fante di Coppe|dritta': [
+    'Una tenerezza inesperta affiora nella tua domanda e porta immagini, sogni, parole trattenute. È piccola, è vera, non sa dirsi ancora.',
+    'Nella tua domanda affiora un messaggio obliquo, un sogno, un\'intuizione, un gesto gentile da parte di chi non te lo dice in faccia.',
+    'Il sentire ti precede sul pensare. Emozione nuova, fantasia, delicatezza, un materiale poetico che si rompe se lo maneggi come una pratica da sbrigare.',
+  ],
+  'lato|Fante di Coppe|capovolta': [
+    'Senti con una pelle sottile e ti chiudi per non prendere altri colpi: la delicatezza resta fragile là sotto, tenuta nascosta come una cosa da non far vedere.',
+    'Un cuore ritirato dietro una porta che hai tirato tu. Il sentire là dentro è rimasto giovane e scoperto, lo tieni al coperto come se fosse una cosa da farsi perdonare.',
+    'Quello che senti ti arriva addosso senza filtro, così lo metti via e lo tieni fuori vista. Dietro il riparo la fragilità resta quella di prima e vibra uguale, adesso al chiuso.',
+  ],
+  'lato|Cavaliere di Coppe|dritta': [
+    'Un\'apertura affettuosa ti attraversa e porgi quel che senti oppure lo ricevi, mentre il garbo del gesto pesa come il suo contenuto.',
+    'Ti viene offerto qualcosa con garbo, oppure sei tu a tendere l\'offerta e lo slancio del sentimento conta nel modo in cui lo porgi.',
+    'Il sentimento ti muove prima della ragione e un invito arriva con grazia, tuo o di un altro, mentre la bellezza ti corteggia senza fretta.',
+  ],
+  'lato|Cavaliere di Coppe|capovolta': [
+    'Prometti oppure ti promettono molto e i fatti restano indietro, mentre l\'emozione corre avanti da sola senza mettere radici.',
+    'Le parole dolci non hanno ancora un gesto che le regga e l\'incanto che ti arriva oppure offri tu resta senza radici.',
+    'Un sentimento incostante ti gira intorno con parole belle ma pochi gesti e la bellezza di adesso non dice ancora se dura.',
+  ],
+  'lato|Regina di Coppe|dritta': [
+    'Una sensibilità che legge gli altri in profondità è la tua risorsa adesso. La stessa cura che offri intorno può volgersi anche verso te.',
+    'Capisci gli altri senza che parlino e questo intuito ti dà un potere delicato: accogliere non ti svuota, se sai anche ricevere.',
+    'La comprensione con cui accogli chi ti sta intorno non è un cedimento e regge il peso delle emozioni altrui senza spezzarsi.',
+  ],
+  'lato|Regina di Coppe|capovolta': [
+    'Lo stato d\'animo degli altri ti entra addosso senza filtro e il tuo si perde dentro il loro, finché non sai più quale sentire ti appartiene.',
+    'Un\'empatia senza argine ti fa assorbire ogni umore che passa e la cura che dai agli altri non torna indietro verso di te.',
+    'Amare fino a sparire non è profondità, è una dimenticanza di te. L\'acqua degli altri ti riempie e del tuo sentire resta poco.',
+  ],
+  'lato|Re di Coppe|dritta': [
+    'Le onde ti passano attraverso senza ribaltarti e sai dare un nome a ogni emozione mentre la vivi. Gli altri si appoggiano alla tua quiete perché la vedono ferma.',
+    'Governi il mare interno con mano leggera e nulla di ciò che provi ti travolge. Sei un approdo per te e per chi arriva: la calma che offri non è gelo.',
+    'Una maturità affettiva ti permette di sentire tutto e di non annegare in niente. Chi ti sta vicino trova in te un posto fermo, non un muro freddo.',
+  ],
+  'lato|Re di Coppe|capovolta': [
+    'Governare ciò che senti ti costa una fatica nuova: la stessa stretta tiene l\'onda sotto il coperchio oppure la lascia andare fuori misura. Non è il sentire a essersi guastato, è il comando su di esso.',
+    'L\'onda tua sfugge al comando in due modi opposti: premuta giù finché non si sente oppure lasciata correre oltre misura. In mezzo resta da dire il nome di ciò che provi.',
+    'Quello che vacilla non è il cuore, è la presa su di esso: il tuo sentire esce a scatti e poi si rovescia intero, perché dirlo apertamente ti sembra più rischioso che tenerlo dentro.',
+  ],
+  'lato|Asso di Denari|dritta': [
+    'Il terreno che hai sotto i piedi è fertile e una sola apertura concreta ti basta, perché ciò che metti giù adesso attacca con radici buone.',
+    'Davanti a te si apre una cosa solida e palpabile, non una speranza: il momento regge il peso di un inizio che poggia su basi vere.',
+    'Qualcosa di tangibile ti viene offerto e il suolo lo accoglie, così puoi mettere giù adesso una base robusta che porta frutto.',
+  ],
+  'lato|Asso di Denari|capovolta': [
+    'Sfiori senza vederla un\'apertura concreta, oppure misuri il rischio soltanto a occhio mentre il seme buono ti rimane chiuso in tasca.',
+    'Un\'occasione solida passa accanto a te e i tuoi occhi stanno altrove. Il terreno sta pronto, il chicco resta asciutto dentro il sacco.',
+    'La misura del rischio ti è sfuggita, oppure l\'apertura davanti a te sfuma mentre aspetti il segno di una certezza che non viene.',
+  ],
+  'lato|Due di Denari|dritta': [
+    'Tieni insieme più cose e il polso tuo le fa ruotare senza che cadano, perché il ritmo conta e la leggerezza fa il resto.',
+    'Una mano tua sale mentre l\'altra scende e il peso passa da un palmo all\'altro con ritmo costante, senza che nulla tocchi terra.',
+    'Passi da un impegno all\'altro con agilità e il segreto sta nelle ginocchia morbide, non nella forza delle braccia tue.',
+  ],
+  'lato|Due di Denari|capovolta': [
+    'Le cose che tieni in aria sono più di quante le mani ne passino da una all\'altra: il tempo del giro si è perso, non la forza del braccio.',
+    'Il numero ha superato la mano: un impegno, preso per sé, starebbe in piedi e insieme agli altri chiede un ritmo che la rotazione non tiene più.',
+    'Hai aggiunto un pezzo al giro e l\'alternanza che li teneva su ha perso il passo, perché il conto delle cose, non il carico sulle spalle, ha passato la misura delle tue mani.',
+  ],
+  'lato|Tre di Denari|dritta': [
+    'L\'opera che hai per le mani regge su più teste. La tua parte combacia con quella degli altri e i primi risultati si vedono già.',
+    'Mani diverse convergono sulla stessa opera e nessuna basta da sé. Il tuo apporto viene notato per quel che vale, non per chi lo firma.',
+    'Un sapere concreto, tuo e di chi ti sta accanto, si somma. I primi frutti ti dicono che la misura presa è buona e che l\'insieme tiene.',
+  ],
+  'lato|Tre di Denari|capovolta': [
+    'Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà di costruire c\'è da tutte le parti, è la parola sui ruoli che non è passata.',
+    'I ruoli che nessuno ha messo in chiaro sono la stonatura di questo lavoro a più mani. Due di voi fanno lo stesso gesto e un pezzo dell\'opera non lo prende in mano nessuno.',
+    'Vi siete messi insieme a costruire senza dividere i compiti e adesso il cantiere va a scatti. Nessuno rema contro: manca il modo di dirsi chi tiene cosa.',
+  ],
+  'lato|Quattro di Denari|dritta': [
+    'La mano chiusa intorno a ciò che hai ti tiene al sicuro e il controllo su quel poco o molto che possiedi ti dà una base ferma.',
+    'Una presa salda su beni ed energie ti garantisce stabilità e la prudenza con cui conservi ti vale come una muraglia.',
+    'Tieni stretto ciò che è tuo e lo difendi da chi lo vorrebbe. Il risparmio di oggi ti costruisce un riparo che regge il vento.',
+  ],
+  'lato|Quattro di Denari|capovolta': [
+    'Trattieni con le dita strette ciò che hai di prezioso. La paura di perderlo ti costa la mano libera e il respiro largo.',
+    'Stringi e la mano non si apre più, così il timore di perdere ti irrigidisce le dita e ciò che trattieni ti trattiene.',
+    'C\'è un pugno chiuso intorno alle tue energie e il timore di restare senza lo serra fino a bloccare ogni scambio.',
+  ],
+  'lato|Cinque di Denari|dritta': [
+    'Ti resta addosso la sensazione di stare fuori dalla porta. Una mancanza concreta ti pesa e il tepore sembra riservato ad altri.',
+    'La mancanza ti isola e il tepore sta più vicino di come lo immagini, a portata di una domanda che non hai ancora fatto a nessuno.',
+    'Un\'esclusione silenziosa e una scarsità concreta ti lasciano al freddo nello stesso tempo, mentre il tepore resta a pochi passi da te.',
+  ],
+  'lato|Cinque di Denari|capovolta': [
+    'Un sostegno viene da fuori e il freddo cede. L\'abbondanza torna senza fretta e la fiducia te la riprendi come era prima.',
+    'Dopo la mancanza un sostegno è tornato da fuori e il freddo allenta. All\'abbondanza e alla fiducia ti riapri lentamente.',
+    'A tornare è un sostegno che non nasce da te e il freddo scema. L\'abbondanza riparte piano e alla fiducia fai di nuovo posto.',
+  ],
+  'lato|Sei di Denari|dritta': [
+    'Dai con la mano aperta e ricevi nella stessa misura, così la bilancia resta in pari. L\'abbondanza che ti passa attraverso cresce solo circolando.',
+    'Uno scambio equo ti attraversa e il peso sui piatti si pareggia da sé. Quanto doni ritorna, ciò che ricevi riparte: la ricchezza sta nel movimento.',
+    'La generosità che pratichi rientra da sola, perché il dare e il prendere stanno sullo stesso filo. Tieni i piatti in equilibrio e nulla si perde per te.',
+  ],
+  'lato|Sei di Denari|capovolta': [
+    'La bilancia pende da un piatto solo: esce da un verso e non rientra dall\'altro, così la tua generosità resta senza ritorno.',
+    'Dai a chi non restituisce e il piatto dalla tua parte si alleggerisce fino a suonare vuoto. Misurare lo scambio in andata e in ritorno rimette le cose a pari.',
+    'Un debito aperto, oppure una mano tesa verso chi non la stringe, tiene la tua bilancia inclinata. Il pareggio si misura anche su ciò che entra, non soltanto su ciò che esce.',
+  ],
+  'lato|Sette di Denari|dritta': [
+    'Una pianta che hai curato cresce con un tempo suo e non col tuo, perciò la stai guardando senza toccare mentre il frutto si fa pesante.',
+    'Guardi crescere ciò che hai piantato e tieni le mani ferme, perché un raccolto strappato in anticipo non sa di niente.',
+    'Pesi da lontano il lavoro che hai fatto e lo lasci maturare al suo ritmo, dato che una cosa solida non arriva in fretta.',
+  ],
+  'lato|Sette di Denari|capovolta': [
+    'Tiri verso di te un frutto ancora verde, oppure guardi lo sforzo speso e non vedi ritorno, mentre il tempo del raccolto resta fuori dalle tue mani.',
+    'La fretta ti porta la mano addosso al ramo, o il ritardo ti fa chiedere se la tua fatica abbia radici nel punto in cui l\'hai messa.',
+    'Un\'impazienza sottile ti spinge a strappare prima del tempo. Lo sforzo sembra ripagato poco, eppure il seme e la stagione pesano in modo diverso.',
+  ],
+  'lato|Otto di Denari|dritta': [
+    'Limi un dettaglio alla volta e le mani tue imparano da sole, perché la pratica ripetuta deposita abilità dentro i gesti senza fretta.',
+    'Una dedizione paziente ti tiene al banco e ogni ripetizione aggiunge un grado di precisione alla mano tua, invisibile oggi e solida domani.',
+    'Ripeti il gesto finché diventa esatto e la cura minuta di adesso si annida nelle dita tue come una memoria del corpo.',
+  ],
+  'lato|Otto di Denari|capovolta': [
+    'Una ripetizione svuotata ti tiene le mani occupate e il senso di ciò che fai è rimasto indietro, mentre i gesti proseguono puntuali e spenti.',
+    'La precisione tua resta intatta mentre il calore dentro il gesto si è raffreddato e il giorno ripetuto somiglia a una stanza senza finestre.',
+    'Lo stesso movimento torna identico ogni giorno e la dedizione tua ha smarrito la ragione per cui era nata, ridotta a routine delle dita.',
+  ],
+  'lato|Nove di Denari|dritta': [
+    'Un benessere costruito con le tue mani tiene da solo, senza puntelli esterni. Hai un recinto fiorito e nessuno te lo ha regalato.',
+    'Frutti maturi pendono dai rami che hai piantato tu. La tranquillità che ne viene non dipende da un permesso altrui e nessuno può ritirarla.',
+    'Il giardino è tuo, curato per stagioni intere, adesso restituisce. Dentro questa misura ti muovi con agio, senza dover chiedere licenza.',
+  ],
+  'lato|Nove di Denari|capovolta': [
+    'Quello che hai attorno l\'hai messo su con le tue mani e adesso ti chiedi quanto valga chi lo abita. Il conto delle cose risponde al posto tuo, mentre gli eccessi che ti concedi limano la quiete.',
+    'Un\'insicurezza dentro una casa che si regge da sé: ti misuri sul prezzo di quello che possiedi e quello che ti concedi in più assottiglia la serenità da dentro.',
+    'Dentro un\'autonomia che tiene, si muove il dubbio di valere quanto le cose raccolte e ciò che ti concedi senza misura tocca la quiete prima del portafoglio.',
+  ],
+  'lato|Dieci di Denari|dritta': [
+    'Costruisci qualcosa che dura oltre te e la stabilità profonda ti regge sotto i piedi, mentre quelli che vengono dopo trovano la tavola già apparecchiata.',
+    'Le radici che hai messo giù tengono il peso di parecchie generazioni. Ciò che costruisci resta in piedi anche senza la tua mano.',
+    'Una ricchezza lenta ti mette al sicuro e lega la tua vita a quella dei tuoi, con radici che affondano sotto il tempo di una vita.',
+  ],
+  'lato|Dieci di Denari|capovolta': [
+    'Una contesa sui beni passa fra i tuoi e tocca la parte del patrimonio che stava in piedi da prima di te, non il conto di questa stagione.',
+    'Dentro la famiglia si discute di ciò che appartiene a più di uno e la discussione scende fino alle fondamenta della casa, dove le cose e i legami si tengono insieme.',
+    'Il patrimonio comune come terreno di discussione fra parenti: la tensione corre sulle cose di casa e arriva all\'armonia di chi quelle cose le divide con te.',
+  ],
+  'lato|Fante di Denari|dritta': [
+    'Quello che hai davanti ti mette in posizione di allievo: va imparato prima di essere condotto e il mestiere lo prendi con l\'esercizio, una prova dopo l\'altra.',
+    'Un\'applicazione da scolaro accanto a te: ripeti le mosse finché tengono, prendi appunti su ciò che non sapevi fare; lo studio porta avanti la cosa.',
+    'Hai preso quella promessa concreta come si prende una materia da studiare: ci metti ore, la provi, impari a farla mentre la fai; il passo avanza quanto l\'esercizio.',
+  ],
+  'lato|Fante di Denari|capovolta': [
+    'Un progetto cominciato da poco è rimasto a metà e la testa è andata altrove. Il tempo perso non si recupera in blocco: quella pretesa è esattamente ciò che lo tiene fermo un altro giorno.',
+    'La promessa dell\'inizio senza il seguito: l\'impegno preso con quel lavoro si è sfilato per distrazione, non per una caduta. Torna un passo per volta, non con lo scatto che vorresti.',
+    'Si è fermato a metà quello che avevi avviato, perché l\'attenzione si è spostata altrove. Quando ripartirà sarà a passi piccoli: tutto l\'arretrato insieme non si riprende.',
+  ],
+  'lato|Cavaliere di Denari|dritta': [
+    'Avanzi di un passo per volta senza accelerare e il metodo tiene al posto dello slancio. La lentezza con cui procedi è la ragione per cui non ti fermi.',
+    'Mantieni la stessa andatura anche quando nulla si vede muovere e il tuo ritmo non brilla, non si spezza. La costanza è il materiale che regge.',
+    'Un impegno paziente ti porta avanti di poco ogni giorno e la meta si avvicina senza strappi. Non è un limite muoversi piano, è il motivo per cui arrivi.',
+  ],
+  'lato|Cavaliere di Denari|capovolta': [
+    'L\'andatura che avevi preso si è piantata a metà strada e una prudenza che pretende il momento perfetto la tiene ferma lì. Quel passo torna a muoversi al primo spostamento, anche piccolissimo.',
+    'C\'è una fermata che non è riposo: il momento giusto non arriva mai abbastanza giusto e intanto la strada resta dove l\'avevi lasciata. Una cosa qualunque messa in movimento le ridà presa.',
+    'Cercare le condizioni perfette ha fermato un passo che stava già avanzando. Resta a mezz\'aria e ciò che lo rimette in moto è un movimento qualsiasi, non un piano migliore.',
+  ],
+  'lato|Regina di Denari|dritta': [
+    'Sai nutrire e tenere in ordine con le stesse mani, perciò chi ti sta vicino mangia e i progetti tuoi crescono con i piedi per terra.',
+    'Un\'abbondanza senza sfarzo esce dalle tue cure quotidiane, perché unisci la tenerezza alla praticità e il risultato si vede nelle cose.',
+    'Accogli e sfami con gesti pratici, non con promesse: la tua generosità tocca il concreto e lo fa fiorire fra le dita.',
+  ],
+  'lato|Regina di Denari|capovolta': [
+    'Tieni in ordine la casa, il lavoro e le persone che ti stanno attorno, una cosa dopo l\'altra; nell\'elenco di chi va nutrito il tuo nome non compare.',
+    'Una cura pratica che arriva a tutto: i pasti, i conti, le stanze, chi ti chiama. Ti occupi del giardino intero e la pianta che sei tu resta fuori dal giro dell\'annaffiatoio.',
+    'Mentre mandi avanti le cose di tutti, con le mani dentro i dettagli concreti, hai smesso di contarti tra quelle di cui occuparti: ti dimentichi di te nel gesto stesso con cui curi.',
+  ],
+  'lato|Re di Denari|dritta': [
+    'La solidità che hai costruito ti sostiene da sé e la generosità matura apre il granaio agli altri, misurando bene e senza vanto.',
+    'Un\'abbondanza concreta ti sta fra le mani e saperla distribuire fa parte della ricchezza stessa, come il sapere quanto trattenerne.',
+    'Possiedi qualcosa di stabile e la mano tua resta aperta, perché la prosperità nelle dita di chi sa gestirla diventa anche saggezza.',
+  ],
+  'lato|Re di Denari|capovolta': [
+    'Stringi forte ciò che hai costruito e le dita non si aprono più, così la ricchezza ferma nel pugno comincia a pesare sul braccio tuo.',
+    'C\'è una rigidità attorno ai beni tuoi e il bisogno di trattenerli si è messo al posto della generosità, con il granaio sigillato dall\'interno.',
+    'Tieni chiuso il magazzino e le cose che possiedi hanno preso le redini, mentre la mano tua si irrigidisce intorno a ciò che ha accumulato.',
+  ],
+  'lato|Asso di Spade|dritta': [
+    'La lama del pensiero taglia netto e separa il vero dal falso senza riguardi. Nella tua domanda c\'è un\'idea che non ammette sfumature comode.',
+    'Vedi con nitidezza. Un taglio del pensiero divide ciò che prima sembrava un impasto unico e ti consegna una frase sola, esatta, scomoda da pronunciare.',
+    'C\'è un filo tagliente nel tuo ragionamento adesso: distingue, nomina, chiude le ambiguità. La verità che ne viene fuori non è morbida e regge il peso.',
+  ],
+  'lato|Asso di Spade|capovolta': [
+    'La nebbia sta sulle idee prima che sulla lingua: il filo che tieni in mano non separa più niente e ogni frase che esce da lì taglia senza avere visto.',
+    'Un\'unica lama, due usi: libera oppure ferisce secondo come la impugni. Adesso la impugni in una luce scarsa, con i pensieri confusi fra loro e una decisione che aspetta.',
+    'Quello che si è annebbiato è lo strumento stesso con cui distingui, non la tua voglia di capire. Da lì nascono parole affilate usate di sbieco, perché la mano stringe il filo prima che la mente si schiarisca.',
+  ],
+  'lato|Due di Spade|dritta': [
+    'Un equilibrio precario ti tiene immobile fra due pesi uguali: decidere ti pare impossibile e intanto la questione resta intera.',
+    'Tieni due pesi in equilibrio a occhi chiusi e la scelta che rimandi non svanisce per questo, ti aspetta dietro la benda.',
+    'C\'è uno stallo che tieni in piedi a occhi coperti e la fatica di non guardare ti pesa senza far sparire la scelta.',
+  ],
+  'lato|Due di Spade|capovolta': [
+    'Vedi ciò che prima coprivi e la questione sospesa ti torna davanti con la sua domanda, senza la copertura che le avevi messo.',
+    'C\'è un nodo che ti si scioglie e la scelta rimandata torna a chiederti una risposta, mentre la benda cade dagli occhi.',
+    'Una scelta che avevi messo da parte ti ritrova e gli occhi scoperti ti mostrano i due pesi che tenevi uguali senza guardarli.',
+  ],
+  'lato|Tre di Spade|dritta': [
+    'Ti attraversa un dolore netto, di quelli che hanno un taglio preciso e un nome. Il pianto che lasci uscire muove la ferita, quello trattenuto la fissa.',
+    'La delusione ha fatto un taglio netto e il tuo petto se ne accorge prima della testa. Le lacrime che scorrono portano via qualcosa, le altre restano dentro.',
+    'Una ferita aperta non si lascia ragionare e il dolore che senti fino in fondo si richiude, mentre quello respinto ti resta uguale.',
+  ],
+  'lato|Tre di Spade|capovolta': [
+    'Il dolore comincia a sfumare e il perdono che concedi o che ricevi chiude la tua ferita senza cancellarne la memoria.',
+    'Un respiro più ampio ti torna nel petto mentre la ferita smette di sanguinare. Il ricordo rimane, privo della lama che aveva.',
+    'Smettere di sanguinare non significa dimenticare e la pioggia che si allontana lascia il tuo petto libero di respirare.',
+  ],
+  'lato|Quattro di Spade|dritta': [
+    'Dopo la fatica il silenzio vale come cura e fermarti non ti sottrae niente. La quiete ricarica la mente quanto il corpo.',
+    'Una pausa aperta sopra di te ti mette a disposizione il silenzio e la stanchezza si scarica senza che tu faccia altro. Il recupero rende quanto l\'azione.',
+    'Smetti di combattere per un intervallo e la mente trova la quiete che il corpo reclama. Il tempo passato immobile ti restituisce la forza intera.',
+  ],
+  'lato|Quattro di Spade|capovolta': [
+    'La sosta ha reso tutto il suo frutto e adesso l\'immobilità pesa sulle tue spalle. Rientrare in movimento con misura evita il contraccolpo.',
+    'Hai riposato a sufficienza e le gambe lo sanno prima della testa. Riprendere senza strafare al primo colpo tiene il recupero in piedi.',
+    'Basta quiete: il silenzio ha reso quanto doveva e la ripresa ti tocca adesso, a passo misurato e senza slanci da primo giorno.',
+  ],
+  'lato|Cinque di Spade|dritta': [
+    'C\'è una vittoria che ti lascia il campo e ti porta via dei pezzi, perché l\'orgoglio ha parlato prima di te nello scontro.',
+    'Il sapore di avere vinto si mescola a un vuoto, dato che ottieni il punto e lasci sul terreno una cosa che ti apparteneva.',
+    'Qualcosa conquistato con le armi ti resta in mano senza gusto. Il prezzo dell\'orgoglio soddisfatto si conta a cose perdute.',
+  ],
+  'lato|Cinque di Spade|capovolta': [
+    'Abbassi la spada prima dell\'altro in uno scontro dove la ragione sta dalla tua parte e quella ragione la lasci cadere invece di portarla fino in fondo.',
+    'La ragione ce l\'hai e la deponi comunque: la voglia di riconciliare arriva con le armi ancora in mano e il perdono prende il posto che spettava alla rivendicazione.',
+    'Una resa offerta da chi non era in torto: il primo gesto verso la pace parte da te e ciò che potevi far valere contro l\'altro resta senza essere usato.',
+  ],
+  'lato|Sei di Spade|dritta': [
+    'C\'è una barca che ti porta lontano dalle acque mosse e la riva davanti promette quiete, raggiunta remando piano senza strappi.',
+    'Il rumore della tempesta si allontana dietro di te e l\'acqua sotto lo scafo torna liscia, mentre avanzi con un colpo di remo per volta.',
+    'Lasci dietro le onde alte e la traversata procede lenta sotto di te, con la sponda quieta che si avvicina a ogni spinta di remo.',
+  ],
+  'lato|Sei di Spade|capovolta': [
+    'Una corda invisibile ti trattiene alla riva vecchia e il distacco pesa più del previsto, mentre la barca aspetta con i remi pronti.',
+    'Qualcosa del passato sale a bordo insieme a te e la partenza costa fatica, possibile comunque anche con la valigia pesante in braccio.',
+    'C\'è una riva che non lasci andare e il remo tuo affonda con fatica mentre gli occhi restano puntati indietro, verso l\'acqua già attraversata.',
+  ],
+  'lato|Sette di Spade|dritta': [
+    'Una mossa obliqua attraversa il tuo campo: silenzio, tempismo, niente clamore. L\'ingegno fa il grosso del lavoro e tu resti fuori dai riflettori.',
+    'C\'è astuzia al lavoro nella tua domanda e procede in punta di piedi. Ottiene senza annunciare, aggira la resistenza, lascia la tua mano invisibile.',
+    'Prudenza e calcolo al posto dell\'urto diretto. L\'ingegno ti riesce; il confine fra arte e imbroglio lo conosci soltanto tu.',
+  ],
+  'lato|Sette di Spade|capovolta': [
+    'Viene a galla un doppio fondo, tuo o di un altro; la coscienza lo registra prima della testa. Mantenere la finzione occupa energia che non torna.',
+    'Un inganno pesa sulla scena, non importa da quale mano arrivi. Il silenzio che lo copre ti consuma attenzione ogni giorno in cui lo tieni su.',
+    'Il gioco sotterraneo si scopre da sé. Carte sottratte, versioni diverse dello stesso fatto, un peso che la tua coscienza registra senza che tu lo dica.',
+  ],
+  'lato|Otto di Spade|dritta': [
+    'C\'è un recinto di pensieri intorno a te e il limite che senti sta soprattutto nella tua testa, mentre le corde restano più larghe di quanto credi.',
+    'Ti pare di non poterti muovere e il buio sugli occhi insieme alle braccia legate ti fa credere a una prigione con pareti di pensiero.',
+    'Senti il limite addosso e lo prendi per vero, mentre il primo movimento che ti resta sta nel vedere che un\'uscita esiste.',
+  ],
+  'lato|Otto di Spade|capovolta': [
+    'Dopo il senso di trappola trovi un varco aperto e le corde non tengono. La tua capacità di muoverti era intera già prima.',
+    'C\'è un varco aperto e le braccia ti si liberano, mentre il racconto della paura smette di coincidere con la tua misura.',
+    'Cadono le corde e il varco che non vedevi sta aperto davanti a te, mentre la paura che ti descriveva la prigione perde credito.',
+  ],
+  'lato|Nove di Spade|dritta': [
+    'Di notte la tua mente monta pensieri che il giorno non confermerebbe e l\'insonnia dà alle paure una taglia che non hanno.',
+    'C\'è un pensiero che gira a vuoto nelle ore senza sonno e ingrandisce ogni timore fino a riempirti il petto, mentre il tuo corpo chiede riposo.',
+    'Tornano i pensieri cupi appena si spegne la luce e la tua testa li tratta come fatti compiuti, non come ipotesi da verificare.',
+  ],
+  'lato|Nove di Spade|capovolta': [
+    'Parlarne con qualcuno taglia il peso a metà e la paura che hai rigirato nel silenzio perde la sua presa quando esce dalla tua testa.',
+    'La morsa dell\'angoscia si allenta e il pensiero smette di girare sullo stesso punto, abbastanza perché tu senta la differenza.',
+    'Una paura detta a qualcuno pesa meno della stessa cosa rimuginata al buio. Il tuo respiro cambia appena il silenzio si rompe.',
+  ],
+  'lato|Dieci di Spade|dritta': [
+    'Un ciclo doloroso tira la tenda e tu senti il pavimento sotto la schiena. La discesa ha trovato il suo limite, più in basso il terreno non cede.',
+    'Tocchi il fondo con tutto il tuo peso e la resa arriva senza trattative. Non c\'è margine da difendere, c\'è una chiusura compiuta.',
+    'Arrivi in fondo alla discesa e non rimane altro da perdere, perché la caduta ha incontrato il suo pavimento. La resa che ti attraversa è reale, non è debolezza.',
+  ],
+  'lato|Dieci di Spade|capovolta': [
+    'La parte più dura l\'hai già attraversata e adesso ti rialzi dal punto in cui eri a terra: quello che è finito non riparte, ricomincia qualcos\'altro, con tutta la lentezza che chiede.',
+    'Il ricominciare da capo dopo una chiusura completa: ti rimetti su piano, senza strappi, verso un inizio che non è la ripresa di quello che avevi.',
+    'Da terra ti tiri su senza strappi e la parte più dura ti resta dietro: davanti c\'è un da capo, coi tempi lunghi di chi riparte da zero.',
+  ],
+  'lato|Fante di Spade|dritta': [
+    'Stai in sentinella su una cosa che vuoi sapere e ancora non sai: fai domande, raccogli voci, metti insieme i pezzi prima di avere qualcosa da pronunciare.',
+    'Una curiosità in cerca di prove: controlli, verifichi, torni a guardare; la verità resta da trovare invece di essere già formata dentro di te.',
+    'Hai cominciato a informarti su qualcosa e non stacchi gli occhi: le tue domande vengono prima delle affermazioni e le parole pronte le pesi a una a una.',
+  ],
+  'lato|Fante di Spade|capovolta': [
+    'C\'è una lingua che corre prima della verifica, o pensieri sparpagliati che pungono senza costruire niente intorno a te.',
+    'Riporti notizie non controllate, oppure spari idee acute che bucano e non tengono su nulla. Le parole buttate ti tornano indietro addosso.',
+    'La punta della lingua esce prima del controllo, mentre i pensieri sparsi colpiscono senza tenere insieme niente. Il rimbalzo ti raggiunge.',
+  ],
+  'lato|Cavaliere di Spade|dritta': [
+    'Già deciso, il pensiero punta diritto allo scopo. La tua rapidità passa sopra chi ti sta accanto se diventa fretta cieca.',
+    'Decise le idee, la rapidità ti porta diritta allo scopo e chi hai accanto lo travolgi quando la fretta si fa cieca.',
+    'La decisione è già presa e la mira va diritta allo scopo e sotto quella spinta chi ti è vicino lo investi in pieno.',
+  ],
+  'lato|Cavaliere di Spade|capovolta': [
+    'Parti prima di pensare e le parole tue escono affilate dalla bocca, con il cavallo già in movimento mentre le redini restano a terra.',
+    'Dalla bocca tua esce qualcosa di più veloce della testa e la fretta taglia l\'aria senza guardare chi sta davanti, lasciando piccoli tagli dietro.',
+    'Vai avanti al galoppo e la lucidità tua resta indietro di un passo, mentre le frasi che lanci arrivano prima di avere trovato una forma.',
+  ],
+  'lato|Regina di Spade|dritta': [
+    'La tua franchezza esce senza giri e disegna confini netti attorno a te. Chi ti parla sa fin dove può andare; la chiarezza ti fa da riparo.',
+    'Il pensiero taglia pulito e la tua parola lo segue. Niente eufemismi, poche curve: dici le cose per nome e il nome tiene, anche quando scomoda.',
+    'Distingui il vero dal recitato. La lucidità ti serve da scudo e l\'onestà con cui la usi tiene lontano chi vive di approssimazioni.',
+  ],
+  'lato|Regina di Spade|capovolta': [
+    'Porti la durezza come una corazza: tiene lontano chi potrebbe ferirti e insieme chi potrebbe scaldarti. La lama con cui misuri tutto, per prima cosa, taglia chi la impugna.',
+    'Il giudizio che non fa sconti a nessuno comincia da te. La durezza ti fa da guscio e quello che tiene fuori non è soltanto chi ferisce, è anche chi porta calore.',
+    'La solitudine qui è un\'armatura, non una sosta. Il taglio con cui tieni il mondo a distanza si gira verso dentro e il primo a riceverlo sei tu.',
+  ],
+  'lato|Re di Spade|dritta': [
+    'Per gli altri decidi con equità e la tua ragione sta al servizio del bene. Loro ti guardano come il punto lucido e onesto.',
+    'Altri aspettano una tua parola e la dici con onestà, perché la mente che adoperi serve il bene e non comanda lei.',
+    'La tua autorità è quella della mente e delibera per gli altri e la lucidità onesta ti rende il luogo a cui vengono.',
+  ],
+  'lato|Re di Spade|capovolta': [
+    'Hai ragione e perdi il legame, perché il freddo con cui tagli non lascia spazio alla compassione. L\'autorità tua pesa senza scaldare.',
+    'Ragioni al netto delle persone che hai davanti e la logica con cui vinci una discussione ti scolla proprio i legami che tenevi.',
+    'C\'è un rigore senza tenerezza nel tuo modo di pensare e le persone che contano restano fuori dal ragionamento con cui decidi.',
+  ],
 };
 
 /// I registri delle carte, il metodo di Dora (ordine FI voce 20): per

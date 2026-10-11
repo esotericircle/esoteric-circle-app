@@ -336,10 +336,14 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         ..add('${d.position.label.toUpperCase()}: ${d.displayName}')
         ..add('Significato tradizionale: ${d.meaning}');
       // **IL REGISTRO ARRIVA AL MODELLO, lo scheletro no** (ordine FI,
-      // aggiunta A3). Il registro dice di che cosa parla la carta
-      // nell'ambito della domanda e il modello lo usa come taglio; lo
-      // scheletro della posizione resta alla lettura di casa, perche'
-      // nelle sonde 13 e 14 dell'ordine EQ il modello lo parafrasava.
+      // aggiunta A3; decisione dell'Architetto, ordine FJ voce 23). Il
+      // registro dice di che cosa parla la carta nell'ambito della domanda
+      // e il modello lo usa come taglio; lo scheletro della posizione resta
+      // alla lettura di casa, perche' nelle sonde 13 e 14 dell'ordine EQ il
+      // modello lo parafrasava invece di leggere la carta sulla domanda.
+      // **Si rivede solo con la misura appaiata dell'ordine FJ voce 24**:
+      // le due condizioni nello stesso giro, sulle stesse domande, giudicate
+      // alla cieca e bilanciate; due giri separati ballano di nove punti.
       final registro =
           gruppo == null ? null : LeCarteNellaPosizione.registroDi(d, gruppo);
       if (registro != null) {

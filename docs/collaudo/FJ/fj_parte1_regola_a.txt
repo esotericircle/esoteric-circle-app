@@ -1,0 +1,22 @@
+LA PROVA DEL ROSSO DELLE PROVE NUOVE DELL'ORDINE FJ, PARTE 1
+
+== FJ.4 senza il paragrafo di provenienza del lato (docs/corpus/tarocchi_posizione/lato.md, '**Le tre varianti vengono' -> 'Le tre varianti vengono')
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== FJ.4 senza il paragrafo di provenienza del passato (docs/corpus/tarocchi_posizione/passato.md)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== FJ.5 la variante sempre la prima (lib/core/tarot/le_carte_nella_posizione.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== ordine_fj_guard: il marcatore delle chiuse alzato
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== ordine_fj_guard: una voce rinominata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

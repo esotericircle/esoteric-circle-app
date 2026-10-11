@@ -26,7 +26,8 @@ import 'cardinale_minimo.dart';
 
 /// **LO STATO DICHIARATO**: quante varianti piene ha oggi ogni posizione.
 /// Le tre della stesa a tre carte hanno la variante 1 del corpus del 27
-/// settembre; le altre quattordici aspettano i testi dell'Architetto. Quando
+/// settembre; il lato ha le tre varianti dall'ordine FJ (la prima ondata
+/// dell'Architetto, commit 65fceaae); le altre tredici aspettano. Quando
 /// arriva un'ondata, il numero di quella posizione passa a 3.
 const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.passato: 1,
@@ -34,7 +35,7 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.futuro: 1,
   SpreadPosition.cartaSola: 0,
   SpreadPosition.consultante: 0,
-  SpreadPosition.lato: 0,
+  SpreadPosition.lato: 3,
   SpreadPosition.esito: 0,
   SpreadPosition.consiglio: 0,
   SpreadPosition.ostacolo: 0,
@@ -191,6 +192,32 @@ void main() {
             'tre varianti (aggiunta A4)');
     expect(colpe.take(10).toList(), isEmpty,
         reason: '${colpe.length} scostamenti fra fonte e Dart');
+  });
+
+  // **LA PROVENIENZA NON SI PERDE.** Ordine FJ voce 4: una posizione che porta
+  // testi dice in testa da dove vengono e con quale misura sono stati scelti.
+  // Senza quel paragrafo, fra un mese nessuno sa piu' da dove vengono 468 testi.
+  // `prepara` non riscrive mai un file che esiste; questa prova prende chi lo
+  // toglie a mano.
+  test('FJ.4: ogni posizione con testi dice da dove vengono', () {
+    final senza = <String>[];
+    var guardate = 0;
+    for (final p in SpreadPosition.values) {
+      if ((variantiDichiarate[p] ?? 0) == 0) continue;
+      guardate++;
+      final testa = File('$_fonte/${fileDi(p)}.md')
+          .readAsStringSync()
+          .split(RegExp(r'^## ', multiLine: true))
+          .first;
+      final provenienza = RegExp(
+          r'^\*\*(La variante 1 viene|Le tre varianti vengono)',
+          multiLine: true);
+      if (!provenienza.hasMatch(testa)) senza.add(fileDi(p));
+    }
+    cardinaleMinimo(guardate, 4,
+        cosa: 'posizioni con testi',
+        perche: 'passato, presente, futuro e lato');
+    expect(senza, isEmpty, reason: 'senza la provenienza: $senza');
   });
 
   test('FI.40: ogni carta ha i suoi tre registri, oppure nessuna', () {

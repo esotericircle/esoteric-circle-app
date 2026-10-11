@@ -107,11 +107,23 @@ MISURA: carte misurate da 4 (le quattro dell'Architetto) a 156; carte con testo 
 
 ## VOCE FI.17
 
-**DA FARE.** Aspetta i testi dell'Architetto (aggiunta A1). Pronto cio' che non ha bisogno dei testi: la fonte di ogni posizione ha le tre varianti `- 1:`, `- 2:`, `- 3:` (docs/corpus/tarocchi_posizione/), il tool le legge e il Dart le porta, la rotazione le sceglie (FI.18). Oggi le tre posizioni della stesa a tre carte hanno la variante 1, le varianti 2 e 3 e le altre quattordici posizioni aspettano.
+**DA FARE.** Aspetta i testi dell'Architetto (aggiunta A1). Pronto cio' che non ha bisogno dei testi: la fonte di ogni posizione ha le tre varianti `- 1:`, `- 2:`, `- 3:` (docs/corpus/tarocchi_posizione/), il tool le legge e il Dart le porta, la rotazione le sceglie (FI.18). Dall'ordine FJ (11 ottobre 2026, la prima ondata dell'Architetto, commit 65fceaae) una posizione su diciassette ha tutte e tre le varianti, il lato; tre hanno la variante 1, passato, presente e futuro; tredici aspettano.
+
+**Le posizioni che mancano a ogni stesa** (ordine FJ voce 7). Una stesa si apre quando tutte le sue posizioni hanno la fonte (`TarotSpreadType.disponibile`, aggiunta A6) e la schermata la sa stendere (`costruita`, oggi vero solo per la stesa a tre carte):
+
+| stesa | carte | posizioni distinte | con la fonte | mancano |
+|---|---|---|---|---|
+| a una carta | 1 | 1 | nessuna | `cartaSola` |
+| a tre carte | 3 | 3 | tutte (variante 1) | nessuna, aperta |
+| croce di Dora | 4 | 3 | `lato` | `consultante`, `esito` |
+| ferro di cavallo | 7 | 7 | `passato`, `presente`, `futuro` | `consiglio`, `ambiente`, `ostacolo`, `esito` |
+| Croce Celtica | 10 | 10 | `passato`, `futuro` | `copre`, `attraversa`, `corona`, `sotto`, `seStesso`, `laCasa`, `speranzeOTimori`, `esito` |
+
+La croce di Dora resta chiusa col solo lato. La stesa che si apre col minor numero di testi e' quella a una carta, con un'ondata sola.
 
 ## VOCE FI.18
 
-**APERTA IN ATTESA DI VERIFICA.** La rotazione c'e' ed e' agganciata: `LeUsciteDelleCarte` conta quante volte una carta, in quel verso e in quella posizione, e' gia' uscita a questa persona, la schermata la conta una volta sola quando il responso si apre e la conserva con la stesa, e la lettura di casa sceglie la variante con quel numero. A video non si puo' vedere finche' una posizione ha una variante sola: si guarda alla prima ondata dell'Architetto.
+**APERTA IN ATTESA DI VERIFICA.** La rotazione c'e' ed e' agganciata: `LeUsciteDelleCarte` conta quante volte una carta, in quel verso e in quella posizione, e' gia' uscita a questa persona, la schermata la conta una volta sola quando il responso si apre e la conserva con la stesa, e la lettura di casa sceglie la variante con quel numero. Con la prima ondata (il lato, ordine FJ) la rotazione e' provata sulle tre varianti vere nella catena dell'app (docs/collaudo/FJ/rotazione_del_lato.txt), **ma a video non si vede ancora**: il lato sta solo nella croce di Dora, che resta chiusa, e le tre posizioni della stesa aperta hanno una variante sola. Si guarda quando la croce si apre o quando passato, presente e futuro hanno le varianti 2 e 3.
 
 ## VOCE FI.19
 

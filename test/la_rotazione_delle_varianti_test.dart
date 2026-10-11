@@ -63,6 +63,28 @@ void main() {
     expect(await esce(nel(SpreadPosition.presente)), varianti[2]);
   });
 
+  // **LA PRIMA ONDATA VERA, ordine FJ voce 5.** Il lato ha le tre varianti
+  // dell'Architetto: la catena dell'app (conta, lettura di casa) sui testi
+  // veri, senza la fonte di prova. Il lato sta solo nella croce di Dora, che
+  // resta chiusa: a video non si vede ancora, qui si vede la catena.
+  test('FJ.5: il lato ruota sulle sue tre varianti vere', () async {
+    LeCarteNellaPosizione.fonteDiProva = null;
+    for (final capovolta in const [false, true]) {
+      final d = nel(SpreadPosition.lato, capovolta: capovolta);
+      final vere = LeCarteNellaPosizione.variantiDi(d);
+      expect(vere, hasLength(3), reason: 'il lato porta tre varianti');
+      final testi = [for (var i = 0; i < 4; i++) await esce(d)];
+      // ignore: avoid_print
+      print('ROTAZIONE DEL LATO, La Torre '
+          '${capovolta ? 'capovolta' : 'dritta'}:\n'
+          '${[
+        for (var i = 0; i < 4; i++) '  uscita ${i + 1}: ${testi[i]}'
+      ].join('\n')}');
+      expect(testi, [vere[0], vere[1], vere[2], vere[0]]);
+      expect(testi.take(3).toSet(), hasLength(3));
+    }
+  });
+
   test('FI.18: la stesa conservata ritrova le sue uscite', () async {
     final carte = [nel(SpreadPosition.presente)];
     await LeUsciteDelleCarte.conta(carte);
