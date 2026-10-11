@@ -88,10 +88,27 @@ abstract final class LaStesaConservata {
     return esce;
   }
 
+  /// Le uscite delle carte della stesa conservata oggi con questa [firma],
+  /// nello stesso ordine; zero per una carta conservata senza.
+  static Future<List<int>?> usciteDi(String firma, {DateTime? oggi}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final dati = _leggi(prefs);
+    if (dati['giorno'] != _giorno(oggi ?? DateTime.now())) return null;
+    final carte = (dati['stese'] as Map? ?? {})[firma] as List?;
+    if (carte == null) return null;
+    return [
+      for (final voce in carte)
+        (voce as Map)['uscita'] is int ? voce['uscita'] as int : 0,
+    ];
+  }
+
   /// Conserva la stesa compiuta con questa [firma] per la giornata. Le stese
   /// di ieri si tolgono: la chiave tiene solo il giorno di oggi.
+  ///
+  /// Con le [uscite] di ogni carta (voce FI.18): chi rilegge la stesa
+  /// ritrova anche le stesse varianti, senza contarla di nuovo.
   static Future<void> conserva(String firma, List<DrawnCard> carte,
-      {DateTime? oggi}) async {
+      {List<int>? uscite, DateTime? oggi}) async {
     final prefs = await SharedPreferences.getInstance();
     final giorno = _giorno(oggi ?? DateTime.now());
     final dati = _leggi(prefs);
@@ -100,7 +117,12 @@ abstract final class LaStesaConservata {
             (dati['stese'] as Map? ?? {}).cast<String, dynamic>())
         : <String, dynamic>{};
     stese[firma] = [
-      for (final c in carte) {'stem': c.card.stem, 'rovescia': c.reversed},
+      for (var i = 0; i < carte.length; i++)
+        {
+          'stem': carte[i].card.stem,
+          'rovescia': carte[i].reversed,
+          if (uscite != null && i < uscite.length) 'uscita': uscite[i],
+        },
     ];
     await prefs.setString(
         chiave, jsonEncode({'giorno': giorno, 'stese': stese}));

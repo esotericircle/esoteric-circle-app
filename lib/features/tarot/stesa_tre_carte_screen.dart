@@ -26,6 +26,7 @@ import '../../core/astro/moon_phase.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../core/tarot/la_stesa_conservata.dart';
+import '../../core/tarot/le_uscite_delle_carte.dart';
 import '../../core/tarot/voce_della_stesa.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -197,6 +198,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     final carte =
         await LaStesaConservata.ritrova(firma, TarotSpreadType.treCarte);
     if (!mounted || carte == null || _drawn > 0 || firma != _firma) return;
+    final uscite = await LaStesaConservata.usciteDi(firma);
+    if (!mounted || _drawn > 0 || firma != _firma) return;
+    _uscite = uscite;
     setState(() {
       _stesa =
           StesaInCorso.conservata(carte: carte, mazzo: _mazzo, seme: _seme);
@@ -254,6 +258,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// mosso il mazzo sarebbe scoprire le carte, cioe' finire il rito.
   @visibleForTesting
   TarotSpread get stesaCorrente => _spread;
+
+  /// Le uscite con cui la lettura di casa sceglie le varianti (voce FI.18),
+  /// per la guardia della rotazione.
+  @visibleForTesting
+  List<int>? get usciteCorrenti => _uscite;
 
   // --- La regia della scena ---
 
@@ -547,7 +556,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       depth: _setup.depth,
       fattoDelCielo: _fattoDelCielo,
       domandaScritta: _setup.domandaScritta,
-      dalModello: _dalModello);
+      dalModello: _dalModello,
+      uscite: _uscite);
+
+  /// **LE USCITE DI OGNI CARTA, ordine FI voce 18**: quante volte ognuna
+  /// era gia' uscita a questa persona in quella posizione, che sceglie la
+  /// variante del suo testo. Nulla prima del responso: vale la prima.
+  List<int>? _uscite;
 
   /// **IL CIELO VERO DI QUESTA PERSONA, ordine BN voce 07.**
   ///
@@ -836,7 +851,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       return;
     }
     if (!_conservata && widget.seed == null && !widget.revealAll) {
-      unawaited(LaStesaConservata.conserva(_firma, _spread.cards));
+      // Si contano le uscite una volta sola, qui, e si conservano con la
+      // stesa: rileggerla ritrova le stesse varianti (voce FI.18).
+      final firma = _firma;
+      final carte = _spread.cards;
+      unawaited(LeUsciteDelleCarte.conta(carte).then((uscite) {
+        if (mounted) setState(() => _uscite = uscite);
+        return LaStesaConservata.conserva(firma, carte, uscite: uscite);
+      }));
     }
     // **LA LETTURA PARTE QUI, ordine EQ voce 04**, al gesto che la chiede e
     // prima del filo e della scena di Medora: sono circa cinque secondi, e la
@@ -850,6 +872,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       spread: _spread,
       domanda: sua ?? _setup.topic.label,
       argomento: _setup.topic.label,
+      gruppo: _setup.topic.group,
       forma: LaMarcaDelGenere.formaCorrente,
       chiave: _setup.key,
       chiamata: widget.chiamata,

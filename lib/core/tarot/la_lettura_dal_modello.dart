@@ -14,7 +14,9 @@ import '../config/la_regione_dei_dati.dart';
 import '../l10n/la_lingua_del_modello.dart';
 import '../responsi/confine_del_responso.dart';
 import '../viaggio/la_domanda_capita.dart';
+import 'le_carte_nella_posizione.dart';
 import 'tarot_reading.dart';
+import 'tarot_topic.dart';
 import 'la_chiave_di_lettura.dart';
 import 'tarot_spread.dart';
 import '../../services/ai/l_etichetta_della_funzione.dart';
@@ -319,6 +321,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
   static String richiesta(TarotSpread spread,
       {required String domanda,
       required String argomento,
+      TarotTopicGroup? gruppo,
       String? scartataPerche}) {
     final righe = <String>[
       'Domanda della persona: $domanda',
@@ -332,6 +335,16 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         ..add('')
         ..add('${d.position.label.toUpperCase()}: ${d.displayName}')
         ..add('Significato tradizionale: ${d.meaning}');
+      // **IL REGISTRO ARRIVA AL MODELLO, lo scheletro no** (ordine FI,
+      // aggiunta A3). Il registro dice di che cosa parla la carta
+      // nell'ambito della domanda e il modello lo usa come taglio; lo
+      // scheletro della posizione resta alla lettura di casa, perche'
+      // nelle sonde 13 e 14 dell'ordine EQ il modello lo parafrasava.
+      final registro =
+          gruppo == null ? null : LeCarteNellaPosizione.registroDi(d, gruppo);
+      if (registro != null) {
+        righe.add('In ${gruppo!.label.toLowerCase()} parla di: $registro');
+      }
     }
     if (scartataPerche != null) {
       righe
@@ -359,6 +372,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     required String domanda,
     required String argomento,
     required CourtesyForm forma,
+    TarotTopicGroup? gruppo,
     ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
@@ -372,6 +386,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         domanda: domanda,
         argomento: argomento,
         forma: forma,
+        gruppo: gruppo,
         chiave: chiave,
         chiamata: chiamata,
         entro: entro);
@@ -390,6 +405,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     required String domanda,
     required String argomento,
     required CourtesyForm forma,
+    TarotTopicGroup? gruppo,
     ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
@@ -418,6 +434,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
             richiesta(spread,
                 domanda: domanda,
                 argomento: argomento,
+                gruppo: gruppo,
                 scartataPerche: perQuesta),
             campi,
           ),

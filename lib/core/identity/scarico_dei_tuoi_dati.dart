@@ -90,6 +90,9 @@ class ScaricoDeiTuoiDati {
     'rune.presagio.': 'Le voci del presagio delle rune che hai già letto',
     // Ordine FI voce 27.
     'tarot.stesa_conservata': 'Le stese di Tarocchi di oggi, una per domanda',
+    // Ordine FI voce 18.
+    'tarot.uscite_delle_carte':
+        'Quante volte ogni carta ti è uscita in ogni posizione',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
     'cerchio.': 'Il nome proposto nel Cerchio e il tuo Maestro di riferimento',

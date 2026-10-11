@@ -1,0 +1,27 @@
+Primo giro: l'innesto 'la stesa conservata contata di nuovo' restava VERDE, perche' la prova non ripremeva il pulsante sulla stesa ritrovata. Cambiata la grandezza misurata (dopo il rientro la prova riapre il responso), non la soglia. Secondo giro, sulla prova corretta:
+
+== la variante sempre la prima (lib/core/tarot/le_carte_nella_posizione.dart, prova "FI.42")
+   innesto: 'return varianti[uscita % varianti.length];' -> 'return varianti[0 % varianti.length];'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il contatore che non conta (lib/core/tarot/le_uscite_delle_carte.dart, prova "FI.42")
+   innesto: 'uscite[_di(d)] = n + 1;' -> 'uscite[_di(d)] = n;'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il verso dimenticato nel conto (lib/core/tarot/le_uscite_delle_carte.dart, prova "il verso conta")
+   innesto: "'${d.position.name}|${d.card.name}|${d.reversed ? 'capovolta' : 'dritta'}';" -> "'${d.position.name}|${d.card.name}';"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la schermata che non passa le uscite alla lettura (lib/features/tarot/stesa_tre_carte_screen.dart, prova "la schermata conta")
+   innesto: 'if (mounted) setState(() => _uscite = uscite);' -> 'if (mounted) setState(() {});'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la stesa conservata contata di nuovo (lib/features/tarot/stesa_tre_carte_screen.dart, prova "la schermata conta")
+   innesto: 'if (!_conservata && widget.seed == null && !widget.revealAll) {\n      // Si cont' -> 'if (widget.seed == null && !widget.revealAll) {\n      // Si contano'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

@@ -1,5 +1,6 @@
 import '../entitlement/plan_catalog.dart';
 import '../entitlement/tier.dart';
+import 'le_carte_nella_posizione.dart';
 import 'tarot_spread.dart';
 
 /// UN POSTO SUL TAVOLO: dove va una carta della stesa e se sta di traverso.
@@ -38,7 +39,7 @@ enum TarotSpreadType {
     tavolo: [PostoSulTavolo(0, 0)],
     fonte: 'La carta del giorno della cartomanzia, forma minima della '
         'lettura.',
-    disponibile: false,
+    costruita: false,
   ),
   treCarte(
     nome: 'Stesa di Tarocchi',
@@ -52,7 +53,7 @@ enum TarotSpreadType {
     ],
     fonte: 'Etteilla per le posizioni fisse, anni 1780; diffusa da Eden '
         'Gray, The Tarot Revealed, 1960.',
-    disponibile: true,
+    costruita: true,
   ),
   croceQuattro(
     nome: 'Stesa a Croce',
@@ -74,7 +75,7 @@ enum TarotSpreadType {
     ],
     fonte: 'Il tirage en croix della tradizione francese, letto col mazzo di '
         'Marsiglia; la variante dei due lati aperti è la lettura del Cerchio.',
-    disponibile: false,
+    costruita: false,
   ),
   setteCarte(
     nome: 'Stesa del Ferro di Cavallo',
@@ -101,7 +102,7 @@ enum TarotSpreadType {
     ],
     fonte: 'Forma diffusa nella cartomanzia moderna, senza autore '
         'documentato.',
-    disponibile: false,
+    costruita: false,
   ),
   dieciCarte(
     nome: 'Stesa della Croce Celtica',
@@ -137,7 +138,7 @@ enum TarotSpreadType {
     ],
     fonte: 'Arthur Edward Waite, The Pictorial Key to the Tarot, 1911, '
         'capitolo "An Ancient Celtic Method of Divination".',
-    disponibile: false,
+    costruita: false,
   );
 
   const TarotSpreadType({
@@ -147,7 +148,7 @@ enum TarotSpreadType {
     required this.posizioni,
     required this.tavolo,
     required this.fonte,
-    required this.disponibile,
+    required this.costruita,
   });
 
   /// Il nome per esteso, quello che va nel titolo della schermata.
@@ -172,8 +173,15 @@ enum TarotSpreadType {
   /// Cosa promette la stesa, in poche parole.
   final String descrizione;
 
-  /// Se e' gia' apribile o se resta Coming soon col lucchetto.
-  final bool disponibile;
+  /// Se la schermata sa gia' stenderla, geometria e lettura comprese.
+  final bool costruita;
+
+  /// **SE E' GIA' APRIBILE o se resta Coming soon col lucchetto.**
+  /// Ordine FI, aggiunta A6 e A7: una stesa costruita si apre solo quando
+  /// tutte le sue posizioni hanno la fonte del corpus, mai ripiegando sul
+  /// testo del verso. La stesa a tre carte ce l'ha dall'ordine EQ.
+  bool get disponibile =>
+      costruita && posizioni.every(LeCarteNellaPosizione.haLaFonte);
 
   /// La stesa della Demo, l'unica viva.
   static const TarotSpreadType predefinita = TarotSpreadType.treCarte;

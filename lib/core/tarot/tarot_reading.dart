@@ -123,6 +123,7 @@ class TarotReading {
     String? fattoDelCielo,
     String? domandaScritta,
     LetturaDelModello? dalModello,
+    List<int>? uscite,
   }) {
     // **LA DOMANDA DELLA PERSONA ENTRA QUI, ordine CQ voce 6.10.**
     //
@@ -138,9 +139,8 @@ class TarotReading {
     // prima sarebbe la sua frase incollata sopra un testo generale, ed e'
     // esattamente cio' che il fondatore ha chiamato "generiche".
     final sua = DomandaDellaPersona.pulita(domandaScritta);
-    final lente = sua == null
-        ? topic
-        : DomandaDellaPersona.lenteDedotta(sua) ?? topic;
+    final lente =
+        sua == null ? topic : DomandaDellaPersona.lenteDedotta(sua) ?? topic;
     final domanda = sua ?? domandaDi(spread, topic);
     return TarotReading(
       spread: spread,
@@ -149,9 +149,10 @@ class TarotReading {
       sintesi: TettiDellaStesa.dentro(
           spread.presente.summary, TettiDellaStesa.sintesi),
       posizioni: [
-        for (final drawn in spread.cards)
-          PosizioneLetta.of(drawn, topic, spread,
-              testoDelModello: dalModello?.della(drawn.position)),
+        for (var i = 0; i < spread.cards.length; i++)
+          PosizioneLetta.of(spread.cards[i], topic, spread,
+              testoDelModello: dalModello?.della(spread.cards[i].position),
+              uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
       ],
       chiave: chiaveDi(spread),
       // **LA DOMANDA PULITA E NON LA FRASE GIA' CONFEZIONATA.** Ordine DF
@@ -236,8 +237,7 @@ class TarotReading {
   /// arriva mai alla parte che cambia"*.
   static String consiglioDi(
       TarotSpread spread, TarotTopic topic, String domanda,
-      [String? fattoDelCielo,
-      String? apertura]) {
+      [String? fattoDelCielo, String? apertura]) {
     final paragrafi = VoceDellaStesa.paragrafi(
       spread,
       topic,
@@ -263,8 +263,7 @@ class TarotReading {
     // riconosciuta nella prima riga e in coda non si ripete. Se non l'ha
     // scritta, in coda va la domanda del corpus, che nasce **dalle carte** e
     // quindi cambia a ogni estrazione.
-    final laRipete =
-        apertura != null && apertura.trim().isNotEmpty;
+    final laRipete = apertura != null && apertura.trim().isNotEmpty;
     final coda = laRipete ? '' : '\n\n$domanda';
     final prosa = tutti.join('\n\n');
     return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'
@@ -371,7 +370,7 @@ class PosizioneLetta {
 
   static PosizioneLetta of(
       DrawnCard drawn, TarotTopic topic, TarotSpread spread,
-      {String? testoDelModello}) {
+      {String? testoDelModello, int uscita = 0}) {
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,
@@ -386,7 +385,11 @@ class PosizioneLetta {
       // codice, il fondatore nelle catture. Adesso, senza modello, la carta
       // si legge col testo della sua posizione (`LeCarteNellaPosizione`,
       // 468 testi scritti una volta sola dal significato di casa).
-      testo: testoDelModello ?? LeCarteNellaPosizione.di(drawn),
+      // Dall'ordine FI, aggiunta A3: lo scheletro e dopo di lui il
+      // registro del gruppo dell'argomento, quando la fonte lo porta.
+      testo: testoDelModello ??
+          LeCarteNellaPosizione.letturaDiCasa(drawn, topic.group,
+              uscita: uscita),
     );
   }
 }

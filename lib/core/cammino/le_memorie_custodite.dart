@@ -82,7 +82,10 @@ abstract final class LeMemorieCustodite {
     // La stesa di Tarocchi compiuta oggi su una domanda: senza, chi
     // reinstalla l'app nella stessa giornata potrebbe rilanciare la stessa
     // domanda finche' non esce il responso che vuole. Ordine FI voce 27.
-    'tarocchi': ['tarot.stesa_conservata'],
+    // E le uscite di ogni carta in ogni posizione, che scelgono la
+    // variante: senza, la rotazione ricomincerebbe dalla prima. Ordine FI
+    // voce 18.
+    'tarocchi': ['tarot.stesa_conservata', 'tarot.uscite_delle_carte'],
   };
 
   /// I prefissi di `CioCheETuo` che tornano con una porta loro, e quale.

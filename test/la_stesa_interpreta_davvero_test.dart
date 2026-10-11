@@ -55,23 +55,39 @@ void main() {
 
   test('ogni carta ha i suoi tre testi, in tutti e due i versi', () {
     final mancanti = <String>[];
-    for (final c in TarotDeck.cards) {
-      for (final verso in const ['dritta', 'capovolta']) {
-        final testi = carteNellaPosizione['${c.name}|$verso'];
-        if (testi == null ||
-            testi.length != SpreadPosition.treCarte.length ||
-            testi.any((t) => t.trim().isEmpty)) {
-          mancanti.add('${c.name}|$verso');
+    for (final posizione in SpreadPosition.treCarte) {
+      for (final c in TarotDeck.cards) {
+        for (final verso in const ['dritta', 'capovolta']) {
+          final testi =
+              scheletriDelleCarte['${posizione.name}|${c.name}|$verso'];
+          if (testi == null ||
+              testi.isEmpty ||
+              testi.any((t) => t.trim().isEmpty)) {
+            mancanti.add('${posizione.name}|${c.name}|$verso');
+          }
         }
       }
     }
-    cardinaleMinimo(carteNellaPosizione.length, 156,
+    // Dall'ordine FI la chiave porta la posizione: le tre della stesa a tre
+    // carte sono 468 chiavi, e ciascuna almeno una variante.
+    cardinaleMinimo(
+        scheletriDelleCarte.keys
+            .where((k) =>
+                SpreadPosition.treCarte.any((p) => k.startsWith('${p.name}|')))
+            .length,
+        468,
         cosa: 'chiavi del corpus delle carte nella posizione',
         perche: 'settantotto carte per due versi: se il corpus si svuota, '
             'ogni carta torna al testo uguale per tutte le posizioni');
     expect(mancanti, isEmpty,
         reason: 'carte senza i loro tre testi: $mancanti');
-    expect(carteNellaPosizione.length, TarotDeck.cards.length * 2,
+    final nomi = {
+      for (final p in SpreadPosition.values)
+        for (final c in TarotDeck.cards)
+          for (final v in const ['dritta', 'capovolta'])
+            '${p.name}|${c.name}|$v'
+    };
+    expect(scheletriDelleCarte.keys.where((k) => !nomi.contains(k)), isEmpty,
         reason: 'il corpus porta chiavi che il mazzo non conosce');
   });
 
@@ -79,8 +95,11 @@ void main() {
     final colpe = <String>[];
     for (final c in TarotDeck.cards) {
       for (final capovolta in const [false, true]) {
-        final testi = carteNellaPosizione[
-            '${c.name}|${capovolta ? 'capovolta' : 'dritta'}']!;
+        final verso = capovolta ? 'capovolta' : 'dritta';
+        final testi = [
+          for (final p in SpreadPosition.treCarte)
+            scheletriDelleCarte['${p.name}|${c.name}|$verso']!.first,
+        ];
         if (testi.toSet().length != testi.length) {
           colpe.add('${c.name}: due posizioni con lo stesso testo');
         }
@@ -103,7 +122,9 @@ void main() {
       final lettura = TarotReading.of(stesa, TarotTopic.momentoCheVivo);
       for (final p in lettura.posizioni) {
         guardate++;
-        if (p.testo != LeCarteNellaPosizione.di(p.drawn)) {
+        if (p.testo !=
+            LeCarteNellaPosizione.letturaDiCasa(
+                p.drawn, TarotTopic.momentoCheVivo.group)) {
           colpe.add('seme $seme, ${p.drawn.displayName}: non e\' il testo '
               'della sua posizione');
         }

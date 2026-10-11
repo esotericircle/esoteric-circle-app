@@ -133,7 +133,10 @@ void main() {
         // l'ha tolto apposta: il fondatore l'ha chiamato *"testi buttati li'"*
         // e il collaudo "prima" gli ha dato ragione. Senza modello la carta
         // si legge col testo della sua posizione.
-        expect(p.testo, LeCarteNellaPosizione.di(p.drawn));
+        expect(
+            p.testo,
+            LeCarteNellaPosizione.letturaDiCasa(
+                p.drawn, TarotTopic.carriera.group));
         expect(p.testo, isNot(p.drawn.meaning));
       }
       expect(r.chiave.perche, isNotEmpty);

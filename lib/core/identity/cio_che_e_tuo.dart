@@ -113,6 +113,9 @@ class CioCheETuo {
     // La stesa di Tarocchi compiuta oggi su una domanda, che chi riapre la
     // stessa stesa con la stessa domanda ritrova. Ordine FI voce 27.
     'tarot.stesa_conservata',
+    // Quante volte ogni carta ti e' uscita in ogni posizione, che sceglie
+    // la variante del suo testo. Ordine FI voce 18.
+    'tarot.uscite_delle_carte',
     // I Sigilli accesi.
     'sigilli.',
     // Le coppie della Sinastria che hai scoperto.
