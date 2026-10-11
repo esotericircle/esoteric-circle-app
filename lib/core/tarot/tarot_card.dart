@@ -52,7 +52,10 @@ class TarotCard {
     required String reversed,
     required this.stem,
     this.reversedAgreement = ReversedAgreement.maschile,
-  }) : _uprightSummary = uprightSummary, _upright = upright, _reversedSummary = reversedSummary, _reversed = reversed;
+  })  : _uprightSummary = uprightSummary,
+        _upright = upright,
+        _reversedSummary = reversedSummary,
+        _reversed = reversed;
 
   final String name;
   final TarotArcana arcana;
@@ -230,7 +233,7 @@ class TarotDeck {
           'C\'è amore e c\'è un bivio: una decisione che tocca i tuoi valori più veri, non solo il desiderio del momento. Il cielo ti chiede di scegliere con [tutto te stesso|tutta te stessa|tutto ciò che sei], testa e cuore insieme. Quando l\'amore è allineato a ciò che sei, la strada si fa chiara.',
       reversedSummary: 'La scelta rimandata.',
       reversed:
-          'Dubbio, disaccordo, valori che si contendono il campo: qualcosa dentro non è ancora sincero con sé stesso. Prima di decidere con l\'altro, mettiti d\'accordo con te. La scelta giusta pesa meno quando smetti di mentirti.',
+          'Un disaccordo interiore fra ciò in cui credi e ciò che desideri: i due termini della scelta sono valori tuoi, non due strade venute da fuori: finché uno dei due resta zitto, l\'altro non convince. Prima di decidere con l\'altro, mettiti d\'accordo con te.',
       stem: 'tar_rw_06_gli-amanti_v1',
       reversedAgreement: ReversedAgreement.maschilePlurale,
     ),
@@ -257,7 +260,7 @@ class TarotDeck {
           'Equilibrio, causa ed effetto, responsabilità: raccogli con lucidità ciò che hai seminato, senza sconti e senza colpe inutili. È un tempo di verità e di scelte giuste. Agisci con onestà e la bilancia peserà a tuo favore.',
       reversedSummary: 'Il conto sospeso.',
       reversed:
-          'C\'è una verità che eviti, oppure una responsabilità che continui a rimandare. Finché resta in ombra, pesa. Guardala in faccia con calma, l\'equilibrio torna nel momento in cui [sei onesto con te stesso|sei onesta con te stessa|smetti di mentirti].',
+          'Una conseguenza delle tue scelte che non riconosci come tua: il conto resta aperto a tuo nome anche se lo attribuisci ad altri o al caso. Finché resta in sospeso, l\'equilibrio non torna.',
       stem: 'tar_rw_11_la-giustizia_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -471,9 +474,9 @@ class TarotDeck {
       uprightSummary: 'Le navi in mare.',
       upright:
           'Hai seminato e messo in moto qualcosa e ora comincia l\'attesa dei frutti, l\'espansione avviata. Guarda arrivare ciò che hai lanciato, con fiducia. I risultati sono in viaggio verso di te, [tienti pronto|tienti pronta|preparati] ad accoglierli.',
-      reversedSummary: 'L\'attesa che pesa.',
+      reversedSummary: 'Il ritorno diverso dall\'atteso.',
       reversed:
-          'Arrivano ritardi, o le aspettative non tornano come speravi. Puoi pazientare ancora un poco, oppure correggere la rotta con lucidità, senza scoraggiarti. Un ritardo non è un no, spesso è solo un tempo diverso.',
+          'Ciò che hai mandato lontano torna, ma non nella forma che avevi immaginato: le navi rientrano con un carico diverso da quello atteso. Le aspettative vanno rilette su ciò che arriva davvero, non su ciò che avevi previsto.',
       stem: 'tar_rw_bastoni_03_v1',
     ),
     TarotCard(
@@ -486,7 +489,7 @@ class TarotDeck {
           'Stabilità, celebrazione, un traguardo raggiunto che si condivide: è tempo di gioire di ciò che hai costruito. Le fondamenta reggono e questo va festeggiato. Concediti di riconoscere il bello che c\'è, senza correre già al prossimo.',
       reversedSummary: 'La festa sospesa.',
       reversed:
-          'C\'è un\'armonia da ritrovare, o radici ancora un po\' incerte sotto la superficie. Prima di festeggiare, cura le fondamenta perché reggano davvero. La gioia piena arriva quando la base è solida.',
+          'La festa è rimandata o vissuta a metà. Il traguardo raggiunto non trova il momento di essere celebrato, come una casa nuova in cui non si è ancora fatto ingresso.',
       stem: 'tar_rw_bastoni_04_v1',
     ),
     TarotCard(
@@ -551,7 +554,7 @@ class TarotDeck {
           '[Sei stanco ma vicino|Sei stanca ma vicina|La stanchezza c\'è, ma sei vicino] al traguardo e la tenacia ora è tutto. Hai già fatto il più, non mollare proprio l\'ultimo tratto. Un\'ultima prova, poi potrai posare lo scudo.',
       reversedSummary: 'La difesa irrigidita.',
       reversed:
-          'Una diffidenza di troppo, o una stanchezza che ti fa chiudere a riccio. Abbassa un poco lo scudo, non tutto ciò che arriva è una minaccia. Ti difendi anche da chi vorrebbe solo avvicinarsi.',
+          'Una diffidenza di troppo: ti difendi anche da chi vorrebbe solo avvicinarsi. Chi tieni lontano non è un avversario, sono le ferite passate a farti scambiare per un attacco chi bussa soltanto.',
       stem: 'tar_rw_bastoni_09_v1',
     ),
     TarotCard(
@@ -577,7 +580,7 @@ class TarotDeck {
           'Curiosità, entusiasmo fresco, un\'idea giovane che bussa alla porta. Seguila con slancio, è il tempo di esplorare e di provare. Le grandi avventure iniziano da una scintilla curiosa come questa.',
       reversedSummary: 'L\'entusiasmo disperso.',
       reversed:
-          'Un\'impulsività che si accende e si spegne, uno slancio che svanisce prima di dare frutti. Dai forma all\'energia prima che si disperda. L\'entusiasmo diventa qualcosa solo se lo incanali.',
+          'Un entusiasmo che si accende e si spegne prima di dare frutti. Ogni idea nuova scalza la precedente prima che abbia avuto il tempo di crescere.',
       stem: 'tar_rw_bastoni_11_v1',
     ),
     TarotCard(
@@ -666,7 +669,7 @@ class TarotDeck {
       number: 4,
       uprightSummary: 'L\'offerta non vista.',
       upright:
-          'Apatia, noia, un dono che ti viene teso ma che non stai guardando. Alza lo sguardo, qualcosa di buono ti aspetta proprio accanto. A volte la fortuna bussa mentre fissi altrove.',
+          'Sazietà, noia, un\'offerta che ti viene tesa accanto e che rifiuti senza guardarla. Hai già abbastanza, o così ti sembra: quello che arriva non riesce a interessarti.',
       reversedSummary: 'Il risveglio dell\'interesse.',
       reversed:
           'Esci dal torpore e torni a sentire, una nuova apertura ti chiama. Accoglila, il cuore si sta ridestando. Dopo la noia arriva sempre una curiosità nuova, seguila.',
@@ -745,9 +748,9 @@ class TarotDeck {
       uprightSummary: 'L\'arcobaleno della famiglia.',
       upright:
           'Armonia affettiva, pienezza condivisa, l\'amore attorno a te che diventa la tua ricchezza. È un tempo di gratitudine per i legami che hai. La felicità qui non è un traguardo solitario, è condivisa.',
-      reversedSummary: 'L\'armonia da ricucire.',
+      reversedSummary: 'La casa divisa.',
       reversed:
-          'Tensioni negli affetti, una distanza in famiglia o nella coppia. Torna al legame con dialogo e pazienza, la casa si ricompone. Le crepe negli affetti si riparano parlando, non tacendo.',
+          'Tensioni negli affetti, una distanza fra le persone di casa. Sotto lo stesso tetto ognuno tira dalla sua parte e la serenità del gruppo ne risente.',
       stem: 'tar_rw_coppe_10_v1',
     ),
     TarotCard(
@@ -760,7 +763,7 @@ class TarotDeck {
           'Sensibilità, creatività, un messaggio d\'amore che affiora. Ascolta l\'emozione nuova che nasce, anche se è fragile. C\'è poesia in ciò che senti, dalle spazio.',
       reversedSummary: 'La sensibilità ferita.',
       reversed:
-          'Un\'emotività fragile, o un cuore che si è chiuso per proteggersi. Abbi cura della tua sensibilità senza murarla del tutto. Sentire molto è un dono, non un difetto da nascondere.',
+          'Un\'emotività fragile, o un cuore che si è chiuso per proteggersi. Abbi cura della tua sensibilità senza murarla del tutto.',
       stem: 'tar_rw_coppe_11_v1',
     ),
     TarotCard(
@@ -798,9 +801,9 @@ class TarotDeck {
       uprightSummary: 'La calma del cuore.',
       upright:
           'Equilibrio emotivo, saggezza affettiva, la capacità di guidare i sentimenti con serenità matura. Sei il porto sicuro, per te e per gli altri. La padronanza qui non è freddezza, è calma profonda.',
-      reversedSummary: 'L\'onda trattenuta.',
+      reversedSummary: 'Il cuore senza governo.',
       reversed:
-          'Emozioni represse, o al contrario instabili, che fatichi a governare. Dai voce a ciò che senti senza temerlo. Il controllo vero non è soffocare l\'onda, è saperla cavalcare.',
+          'Gli sbalzi d\'umore prendono il posto della guida: chi dovrebbe dare calma agli altri si lascia condurre dai propri umori, o li usa per ottenere qualcosa. La maturità affettiva c\'è, ma oggi non è lei a governare.',
       stem: 'tar_rw_coppe_14_v1',
     ),
     TarotCard(
@@ -826,7 +829,7 @@ class TarotDeck {
           'Gestisci più cose insieme, ti adatti, tieni il ritmo tra impegni diversi. Fallo con leggerezza, come un giocoliere, senza irrigidirti. La flessibilità qui è la tua alleata.',
       reversedSummary: 'L\'equilibrio perso.',
       reversed:
-          'Troppe cose insieme minacciano di farti cadere tutto. Scegli le priorità prima che il gioco ti sfugga di mano. Meglio poche cose tenute bene che tante lasciate cadere.',
+          'Troppe cose insieme: il ritmo si è rotto e qualcosa sta già scivolando. Scegli le priorità prima che il gioco ti sfugga di mano. Meglio poche cose tenute bene che tante lasciate cadere.',
       stem: 'tar_rw_denari_02_v1',
     ),
     TarotCard(
@@ -849,7 +852,7 @@ class TarotDeck {
       number: 4,
       uprightSummary: 'La mano che stringe.',
       upright:
-          'Sicurezza, risparmio, controllo su ciò che possiedi: proteggi ciò che hai. Attento però a non chiuderti troppo, la mano stretta non riceve. La stabilità è buona, l\'attaccamento un po\' meno.',
+          'Sicurezza, risparmio, controllo su ciò che possiedi: proteggi ciò che hai. Attento però a non chiuderti troppo, la mano stretta non riceve.',
       reversedSummary: 'La presa da allentare.',
       reversed:
           'Un attaccamento eccessivo, o la paura di perdere che ti irrigidisce. Apri la mano, il denaro e le energie servono per fluire, non per essere trattenuti. Ciò che stringi troppo, ti stringe a sua volta.',
@@ -917,7 +920,7 @@ class TarotDeck {
           'Autonomia, agiatezza, frutti meritati con le tue mani: goditi ciò che hai costruito da te. È la carta dell\'indipendenza serena. [Ti sei guadagnato|Ti sei guadagnata|Hai guadagnato] il tuo spazio, abitalo con piacere.',
       reversedSummary: 'L\'indipendenza da curare.',
       reversed:
-          'Un\'insicurezza, o eccessi che minano la tua serenità. Ritrova l\'equilibrio tra il valore di te e quello di ciò che possiedi. Non sei ciò che hai, sei molto di più.',
+          'La libertà costruita col tuo lavoro vacilla. Spese oltre misura, o il bisogno di mostrare ciò che possiedi, la consumano.',
       stem: 'tar_rw_denari_09_v1',
     ),
     TarotCard(
@@ -928,9 +931,9 @@ class TarotDeck {
       uprightSummary: 'L\'eredità della casa.',
       upright:
           'Ricchezza duratura, famiglia, radici solide: ciò che costruisci resta e nutrirà chi verrà dopo di te. È un tempo di stabilità profonda. Stai piantando qualcosa che dura oltre te.',
-      reversedSummary: 'Le radici da rassodare.',
+      reversedSummary: 'Il patrimonio conteso.',
       reversed:
-          'Tensioni sui beni, o in famiglia, che scuotono le fondamenta. Cura ciò che dura davvero, oltre il guadagno di oggi. La ricchezza vera è anche l\'armonia di chi ti sta intorno.',
+          'Una contesa dentro la famiglia su beni che appartengono a più di una persona. Ciò che era comune diventa terreno di attrito fra chi dovrebbe condividerlo.',
       stem: 'tar_rw_denari_10_v1',
     ),
     TarotCard(
@@ -940,10 +943,10 @@ class TarotDeck {
       number: 11,
       uprightSummary: 'Lo studente diligente.',
       upright:
-          'Apprendimento, un progetto concreto, una promessa che chiede impegno. Coltiva questa idea nuova con serietà e pazienza. I sogni pratici si realizzano un passo studiato dopo l\'altro.',
+          'Apprendimento, un progetto concreto, una promessa che chiede impegno. Coltiva questa idea nuova con serietà e pazienza. Ciò che impari diventa concreto man mano che lo metti in pratica.',
       reversedSummary: 'La promessa rimandata.',
       reversed:
-          'Distrazione, o un progetto che si è fermato a metà. Rimettiti al lavoro un passo alla volta, senza voler recuperare tutto subito. Anche un piccolo gesto rimette in moto ciò che era fermo.',
+          'Distrazione, o un progetto che si è fermato a metà. Lo studio promesso non si è tradotto in pratica e l\'impegno preso aspetta ancora.',
       stem: 'tar_rw_denari_11_v1',
     ),
     TarotCard(
@@ -956,7 +959,7 @@ class TarotDeck {
           'Metodo, affidabilità, impegno paziente: avanzi con costanza verso la meta. Qui la lentezza non è un limite, è la tua forza. Chi va piano e non si ferma, arriva sempre.',
       reversedSummary: 'Il passo bloccato.',
       reversed:
-          'Uno stallo, o un eccesso di prudenza che ti tiene immobile. Muovi qualcosa, anche di piccolo, per ripartire. La perfezione dell\'attesa a volte è solo paura di sbagliare.',
+          'La strada è tracciata e la meta resta in vista, ma i passi si sono fermati: la prudenza rimanda ogni tappa e la costanza è diventata immobilità. Il cammino è quello giusto, è il tuo avanzare che si è inceppato.',
       stem: 'tar_rw_denari_12_v1',
     ),
     TarotCard(
@@ -969,7 +972,7 @@ class TarotDeck {
           'Accoglienza, praticità, un\'abbondanza generosa: nutri chi ami e i tuoi progetti con i piedi a terra. Sai unire il cuore e la concretezza ed è un dono raro. La tua casa e il tuo lavoro fioriscono nelle tue mani.',
       reversedSummary: 'La cura dispersa.',
       reversed:
-          'Ti dimentichi di te mentre ti prendi cura di tutto e di tutti. Rimetti equilibrio tra dare e ricevere. Anche il giardino più generoso ha bisogno di essere annaffiato.',
+          'Ti occupi della casa, dei conti, dei bisogni di tutti: nell\'elenco delle cose da curare il tuo nome non compare. Anche il giardino più generoso ha bisogno di essere annaffiato.',
       stem: 'tar_rw_denari_13_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -1048,7 +1051,7 @@ class TarotDeck {
           'Un conflitto, l\'orgoglio, un successo che costa più di quanto valga. Chiediti con sincerità se merita ciò che perdi per ottenerlo. Non tutte le battaglie vinte sono guadagni.',
       reversedSummary: 'La pace da ricucire.',
       reversed:
-          'Nasce la voglia di riconciliazione, di deporre le armi. Il perdono libera più della ragione, anche quando avresti ragione. Fare il primo passo verso la pace non è perdere, è scegliere meglio.',
+          'Nasce la voglia di riconciliazione, di deporre le armi. Il perdono libera più della ragione, anche quando avresti ragione. Il primo passo verso la pace adesso è alla tua portata.',
       stem: 'tar_rw_spade_05_v1',
     ),
     TarotCard(
@@ -1110,10 +1113,10 @@ class TarotDeck {
       number: 10,
       uprightSummary: 'La fine e la resa.',
       upright:
-          'Un ciclo doloroso si chiude, hai toccato il fondo. Ma proprio da qui si può solo risalire, più in basso non si va. Ogni notte più nera annuncia l\'alba.',
+          'Un ciclo doloroso si chiude, hai toccato il fondo. Più in basso di così non si va. Arrendersi qui non è debolezza, è riconoscere che quella battaglia è finita davvero.',
       reversedSummary: 'La risalita.',
       reversed:
-          'Una ripresa, un sollievo, il peggio ormai alle spalle. L\'alba torna, rialzati con dolcezza e senza fretta. Hai superato la parte più dura, ora si ricomincia.',
+          'Ti rialzi da terra dopo una chiusura completa: di prima non resta niente da salvare e si riparte da zero. Il movimento è lento ma è tuo, ogni gesto rimette in piedi qualcosa.',
       stem: 'tar_rw_spade_10_v1',
     ),
     TarotCard(
@@ -1123,7 +1126,7 @@ class TarotDeck {
       number: 11,
       uprightSummary: 'La mente curiosa.',
       upright:
-          'Vigilanza, idee acute, una verità da cercare con occhi attenti. Osserva e informati, ma scegli con cura le parole. La curiosità è preziosa, la lingua affilata va usata con misura.',
+          'Vigilanza, idee acute, una verità da cercare con occhi attenti. Osserva e informati, ma scegli con cura le parole. La curiosità ti spinge a cercare, la lingua affilata a dire subito ciò che trovi.',
       reversedSummary: 'La parola pungente.',
       reversed:
           'Pettegolezzo, o pensieri sparsi che feriscono senza costruire. Modera la lingua e verifica prima di parlare. Le parole dette a vanvera tornano sempre indietro.',

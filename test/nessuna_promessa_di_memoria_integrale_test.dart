@@ -96,8 +96,19 @@ void main() {
   test('CG.09: e nemmeno una dichiarazione della sfocatura', () {
     // **Il fondatore non la vuole**, ed e' il rovescio della stessa medaglia:
     // ne' si promette memoria integrale, ne' si spiega che la memoria sfuma.
+    // **LE FRASI DEI CORPORA CHE NON PARLANO DELLA MEMORIA DELL'APP**,
+    // dichiarate una per una con la ragione (ordine FJ, il lato
+    // dell'Architetto): escludere il file vorrebbe dire smettere di guardare
+    // le sue 936 voci per salvarne una.
+    const fraseDeiCorpora = <String, String>{
+      'Il dolore comincia a sfumare e il perdono che concedi o che ricevi '
+              'chiude la tua ferita senza cancellarne la memoria.':
+          'e\' il dolore di un lutto che sfuma, e la memoria e\' quella '
+              'della ferita (lato, Tre di Spade capovolta)',
+    };
     final dichiarazioni = <String>[];
     for (final s in _stringheMostrate()) {
+      if (fraseDeiCorpora.containsKey(s.testo)) continue;
       final t = s.testo.toLowerCase();
       if ((t.contains('sfoc') || t.contains('sfum')) &&
           (t.contains('memoria') || t.contains('ricord'))) {

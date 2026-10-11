@@ -146,6 +146,10 @@ void main() {
         '"difeso" concorda con "un segno" (PIETRA Berkano dritta 56)',
     'Ciò che è tuo nel profondo non chiede di essere difeso':
         '"difeso" concorda con "ciò che è tuo" (PIETRA Othala dritta 56)',
+    // **IL CORPUS DEL LATO**, ordine FJ, la prima ondata dell'Architetto.
+    'purché la direzione resti incollata agli occhi tuoi':
+        '"resti incollata" ha per soggetto "la direzione", non chi legge '
+            '(lato, Cavaliere di Bastoni dritta, variante 2)',
   };
 
   /// **LE VOCI DEL CORPUS DELLE RUNE TRATTENUTE**, che dicono davvero il
