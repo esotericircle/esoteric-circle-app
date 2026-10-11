@@ -358,7 +358,7 @@ capovolta.
 ### capovolta
 
 - 1: Due uffici tuoi stanno nella stessa persona, chi accusa e chi ascolta. Il primo prende la parola per primo, così il bilancio che senti necessario resta rimandato oppure esce già in forma di condanna.
-- 2: L'ordine delle operazioni ti si è rovesciato: la durezza verso di te parla prima dell'ascolto. Quella rinascita lavora nell'altro ordine, il perdono per primo e il peso dopo.
+- 2: L'ordine delle operazioni ti si è invertito: la durezza verso di te parla prima dell'ascolto. Quella rinascita lavora nell'altro ordine, il perdono per primo e il peso dopo.
 - 3: La comprensione da te verso te arriva per ultima, quando invece è il primo appoggio di una rinascita: ascolto e perdono sono la sostanza di cui è fatta e la durezza le resta estranea.
 
 ## Il Mondo

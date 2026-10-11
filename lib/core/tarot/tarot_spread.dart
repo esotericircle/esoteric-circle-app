@@ -15,8 +15,12 @@ import 'tarot_card.dart';
 /// Le sette etichette della Croce Celtica vengono da Arthur Edward Waite, The
 /// Pictorial Key to the Tarot, 1911, che per le prime sei usa le formule
 /// "this covers him", "this crosses him", "this crowns him", "this is beneath
-/// him", "this is behind him", "this is before him". La quinta e la sesta
-/// carta di Waite, il dietro e il davanti, sono il passato e il futuro.
+/// him", "this is behind him", "this is before him". La sesta carta di
+/// Waite, il davanti, e' il futuro; la quinta, il dietro, ha la sua posizione
+/// dall'ordine FK voce 8. La formula "this crowns him" non e' verificata dal
+/// reperto docs/corpus/tarocchi_posizione/verifica_waite_1911.md, che per la
+/// terza carta riporta l'attacco "It represents" (ordine FK voce 15): resta
+/// da vedere.
 enum SpreadPosition {
   passato('Passato'),
   presente('Presente'),
@@ -37,6 +41,13 @@ enum SpreadPosition {
   attraversa('Ciò che attraversa'),
   corona('Ciò che corona'),
   sotto('Il fondamento'),
+
+  /// La quinta carta della Croce Celtica, ordine FK voce 8: "This is behind
+  /// him. It gives the influence that is just passed, or is now passing
+  /// away." (Waite 1911, Parte III, sezione 7, dalla trascrizione di
+  /// sacred-texts). Due stati, l'appena trascorso e cio' che sta svanendo
+  /// adesso, distinti dal fondamento, che e' il passato fatto proprio.
+  dietro('Ciò che è dietro'),
 
   /// "Te stesso" dice a chi legge un genere: passa dalla marca, come ogni
   /// testo rivolto alla persona (ordine FI voce 05).

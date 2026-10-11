@@ -45,9 +45,10 @@ VERSI = ('dritta', 'capovolta')
 VARIANTI = ('1', '2', '3')
 GRUPPI = ('amore', 'lavoro', 'vita')
 
-# Le quattordici posizioni nell'ordine di `SpreadPosition` (diciassette fino
+# Le quindici posizioni nell'ordine di `SpreadPosition` (diciassette fino
 # all'ordine FJ, aggiunta 2, che ha tolto il ferro di cavallo e le sue tre
-# posizioni orfane: consiglio, ostacolo, ambiente): il nome nel Dart,
+# posizioni orfane: consiglio, ostacolo, ambiente; piu' `dietro`, la quinta
+# carta della Croce Celtica, dall'ordine FK voce 8): il nome nel Dart,
 # il nome del file e come la posizione si legge, per l'Architetto.
 POSIZIONI = (
     ('passato', 'passato', 'Il passato della stesa a tre carte.'),
@@ -66,6 +67,12 @@ POSIZIONI = (
     ('attraversa', 'attraversa', 'Cio\' che attraversa, di traverso.'),
     ('corona', 'corona', 'Cio\' che corona, nella Croce Celtica.'),
     ('sotto', 'sotto', 'Il fondamento della Croce Celtica.'),
+    ('dietro', 'dietro',
+     'Cio\' che e\' dietro, la quinta carta della Croce Celtica (ordine FK '
+     'voce 8). Waite 1911, Parte III, sezione 7: "This is behind him. It '
+     'gives the influence that is just passed, or is now passing away." Due '
+     'stati: cio\' che e\' appena trascorso e cio\' che sta svanendo adesso. '
+     'Non e\' il fondamento, il passato fatto proprio, che e\' la quarta.'),
     ('seStesso', 'se_stesso', 'Te stesso, nella Croce Celtica.'),
     ('laCasa', 'la_casa', 'La tua casa, nella Croce Celtica.'),
     ('speranzeOTimori', 'speranze_o_timori',

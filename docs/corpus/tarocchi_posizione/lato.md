@@ -30,8 +30,9 @@ riconosciute da un lettore che legge il testo senza il nome della carta, contro
 il 75,9 del corpus da cui parte, con novantatre testi su quattrocentosessantotto
 riscritti dal cardine differenziale, cioe' dal tratto che la fonte da' alla carta
 e non alla carta con cui i lettori la scambiavano. Il metodo, i numeri e le
-cinque carte che restano irriconoscibili per un difetto della fonte dei
-significati stanno in `docs/corpus/tarocchi_posizione/collisioni_della_fonte.md`, che vive in
+carte che restano irriconoscibili per un difetto della fonte dei
+significati (cinque alla prova del lato; dodici misurate poi su consultante ed
+esito, ordine FK voce 22) stanno in `docs/corpus/tarocchi_posizione/collisioni_della_fonte.md`, che vive in
 questo ramo accanto a questo file.
 
 **Riallineamento alla fonte dell'11 ottobre 2026, sera.** Ventidue voci della fonte
@@ -868,7 +869,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: L'agio che ti sei conquistato col tuo lavoro chiede adesso di essere mostrato e lo mostri spendendo oltre la misura che lo aveva costruito. La mano è aperta troppo, non chiusa.
+- 1: L'agio conquistato col tuo lavoro chiede adesso di essere mostrato e lo mostri spendendo oltre la misura che lo aveva costruito. La mano è aperta troppo, non chiusa.
 - 2: Una libertà che non devi a nessuno si assottiglia dal lato delle spese: quello che possiedi lo paghi perché si veda, mentre il piacere quieto di goderlo senza testimoni si consuma.
 - 3: Il benessere costruito a mano tua regge e scricchiola insieme: eccedi nello spendere e nel far sapere, così l'indipendenza che ti dava respiro costa più di quanto renda.
 

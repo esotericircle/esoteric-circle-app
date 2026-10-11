@@ -11,7 +11,8 @@
 // Il cardinale finale e' quello della voce FI.39, riportato alle quattordici
 // posizioni dall'ordine FJ, aggiunta 2 (il ferro di cavallo tolto con le sue
 // tre posizioni orfane): quattordici posizioni per centocinquantasei
-// carte-verso per tre varianti, 6.552 scheletri (erano 7.956); piu' i 468
+// carte-verso per tre varianti, 6.552 scheletri (erano 7.956); e dall'ordine
+// FK voce 8 quindici, con `dietro`, 7.020 scheletri; piu' i 468
 // registri della voce FI.40.
 
 import 'dart:io';
@@ -35,14 +36,15 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.passato: 1,
   SpreadPosition.presente: 1,
   SpreadPosition.futuro: 1,
-  SpreadPosition.cartaSola: 0,
-  SpreadPosition.consultante: 0,
+  SpreadPosition.cartaSola: 3,
+  SpreadPosition.consultante: 3,
   SpreadPosition.lato: 3,
-  SpreadPosition.esito: 0,
+  SpreadPosition.esito: 3,
   SpreadPosition.copre: 0,
   SpreadPosition.attraversa: 0,
   SpreadPosition.corona: 0,
   SpreadPosition.sotto: 0,
+  SpreadPosition.dietro: 0,
   SpreadPosition.seStesso: 0,
   SpreadPosition.laCasa: 0,
   SpreadPosition.speranzeOTimori: 0,
@@ -115,10 +117,10 @@ void main() {
     cardinaleMinimo(testi, dichiarati,
         cosa: 'scheletri del corpus delle posizioni',
         perche: 'le varianti dichiarate per centocinquantasei carte-verso; '
-            'a corpus intero sono 6.552');
+            'a corpus intero sono 7.020');
     expect(colpe.take(10).toList(), isEmpty,
         reason: '${colpe.length} scostamenti dalla dichiarazione');
-    expect(SpreadPosition.values, hasLength(14));
+    expect(SpreadPosition.values, hasLength(15));
   });
 
   test('FI.39: nessun testo uguale a un altro', () {
@@ -153,7 +155,7 @@ void main() {
         reason: 'terne che cominciano con la stessa parola: $colpe');
   });
 
-  test('FI.39: il Dart e\' quello della fonte, e la fonte ha le 14 posizioni',
+  test('FI.39: il Dart e\' quello della fonte, e la fonte ha le 15 posizioni',
       () {
     final colpe = <String>[];
     var righe = 0;
@@ -185,9 +187,9 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(righe, 6552,
+    cardinaleMinimo(righe, 7020,
         cosa: 'righe della fonte, piene o da riempire',
-        perche: 'quattordici posizioni per centocinquantasei carte-verso per '
+        perche: 'quindici posizioni per centocinquantasei carte-verso per '
             'tre varianti (aggiunta A4)');
     expect(colpe.take(10).toList(), isEmpty,
         reason: '${colpe.length} scostamenti fra fonte e Dart');
@@ -213,9 +215,10 @@ void main() {
           multiLine: true);
       if (!provenienza.hasMatch(testa)) senza.add(fileDi(p));
     }
-    cardinaleMinimo(guardate, 4,
+    cardinaleMinimo(guardate, 7,
         cosa: 'posizioni con testi',
-        perche: 'passato, presente, futuro e lato');
+        perche: 'passato, presente, futuro, lato, consultante, esito e carta '
+            'sola');
     expect(senza, isEmpty, reason: 'senza la provenienza: $senza');
   });
 

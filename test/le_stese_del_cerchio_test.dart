@@ -34,7 +34,8 @@ void main() {
         SpreadPosition.attraversa,
         SpreadPosition.corona,
         SpreadPosition.sotto,
-        SpreadPosition.passato,
+        // Il dietro ha la sua posizione dall'ordine FK voce 8.
+        SpreadPosition.dietro,
         SpreadPosition.futuro,
         SpreadPosition.seStesso,
         SpreadPosition.laCasa,
@@ -114,8 +115,9 @@ void main() {
 
   // Diciassette fino all'ordine FJ, aggiunta 2: consiglio, ostacolo e
   // ambiente erano del solo ferro di cavallo.
-  test('quattordici posizioni con le etichette dell\'ordine', () {
-    expect(SpreadPosition.values.length, 14);
+  // Quindici dall'ordine FK voce 8, con `dietro`.
+  test('quindici posizioni con le etichette dell\'ordine', () {
+    expect(SpreadPosition.values.length, 15);
     const etichette = {
       SpreadPosition.cartaSola: 'La carta',
       SpreadPosition.consultante: 'Il consultante',
@@ -125,6 +127,7 @@ void main() {
       SpreadPosition.attraversa: 'Ciò che attraversa',
       SpreadPosition.corona: 'Ciò che corona',
       SpreadPosition.sotto: 'Il fondamento',
+      SpreadPosition.dietro: 'Ciò che è dietro',
       SpreadPosition.laCasa: 'La tua casa',
       SpreadPosition.speranzeOTimori: 'Speranze o timori',
     };

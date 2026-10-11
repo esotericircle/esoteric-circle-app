@@ -345,7 +345,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Il nodo consegnato è un richiamo che continui a non raccogliere, oppure una severità rivolta a te che non costruisce niente. Si scioglie dove ti ascolti invece di accusarti.
-- 2: Si va verso un bilancio rimandato: sai che va fatto e lo sposti ancora un poco. Il risveglio non nasce dalla condanna di quello che sei stato, nasce dal perdono che ti concedi.
+- 2: Si va verso un bilancio rimandato: sai che va fatto e lo sposti ancora un poco. Il risveglio non nasce dalla condanna di quello che eri, nasce dal perdono che ti concedi.
 - 3: Quello che blocca qui è il giudice troppo duro che porti dentro. La mano sulla rinascita ce l'ha l'ascolto e non la pena: giudicati come chi comprende prima di decidere, non come chi punisce.
 
 ## Il Mondo
@@ -620,7 +620,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La china porta al rimpianto: lo sguardo resta su quello che si è versato e non si rimette in piedi. Qualcosa è rimasto intatto dietro le tue spalle, solo che non lo stai guardando.
 - 2: Qui si va verso una perdita già avvenuta e verso il tempo che chiede di contarla. Nessuna indecisione da sciogliere: c'è un vuoto vero, insieme a qualcosa che è ancora tuo.
-- 3: Il punto di arrivo ha il sapore di quello che manca. Il dolore è reale e non è tutto l'inventario: voltarsi cambia il conto, perché non tutto quello che avevi si è rovesciato.
+- 3: Il punto di arrivo ha il sapore di quello che manca. Il dolore è reale e non è tutto l'inventario: voltarsi cambia il conto, perché non tutto quello che avevi si è versato.
 
 ### capovolta
 

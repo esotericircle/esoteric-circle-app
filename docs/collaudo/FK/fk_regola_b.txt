@@ -1,0 +1,41 @@
+LA REGOLA B DELL'ORDINE FK, 11 ottobre 2026: le guardie delle zone viste rosse PRIMA di toccarle
+
+== il_corpus_delle_posizioni: prima di rigenerare il Dart (24cf424, nessun innesto: lo scarto e' vero)
+   00:00 +3 -1: FI.39: il Dart e' quello della fonte, e la fonte ha le 14 posizioni [E]
+     490 scostamenti fra fonte e Dart
+== la_fonte_dei_significati: la frase del dare e ricevere nella Regina di Denari (lib/core/tarot/tarot_card.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il_genere_non_si_indovina: un participio maschile nella Regina di Bastoni (lib/core/tarot/tarot_card.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== language_rule: il trattino lungo nella Temperanza (lib/core/tarot/tarot_card.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== tarot_interpretazione: una voce di una frase sola nel Sole (lib/core/tarot/tarot_card.dart)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+== le_stese_del_cerchio: la Croce Celtica senza il passato al quinto posto (lib/core/tarot/tarot_spread_type.dart)
+   Traceback (most recent call last):
+     File "C:\Users\user\AppData\Local\Temp\claude\regola_b.py", line 10, in <module>
+       assert t.count(prima) == 1, 'pezzo non unico: %d' % t.count(prima)
+              ^^^^^^^^^^^^^^^^^^^
+   AssertionError: pezzo non unico: 0
+== ordine_fj_guard: il marcatore delle chiuse alzato (docs/ordini/ORDINE_FJ_MANIFESTO.md)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+
+(il primo innesto su tarot_interpretazione era sbagliato, mio: tolta una frase, la voce del Sole ne aveva ancora due e superava 120 caratteri; il pezzo della Croce Celtica non combaciava per l'indentazione)
+== tarot_interpretazione, secondo innesto: il Sole dritto ridotto a una frase corta (lib/core/tarot/tarot_card.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le_stese_del_cerchio: la Croce Celtica col presente al quinto posto (lib/core/tarot/tarot_spread_type.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

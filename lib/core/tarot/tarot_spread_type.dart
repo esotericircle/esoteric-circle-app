@@ -92,14 +92,19 @@ enum TarotSpreadType {
     nome: 'Stesa della Croce Celtica',
     breve: 'Dieci Carte',
     descrizione: 'La Croce Celtica',
-    // Nell'ordine di Waite: la quinta e la sesta carta, il dietro e il
-    // davanti, sono il passato e il futuro.
+    // Nell'ordine di Waite. La sesta carta, il davanti, e' il futuro: "This
+    // is before him. It shews the influence that is coming into action and
+    // will operate in the near future." La quinta, il dietro, ha la sua
+    // posizione dall'ordine FK voce 8: "This is behind him. It gives the
+    // influence that is just passed, or is now passing away." Due stati, che
+    // il passato della stesa a tre carte non regge; e il confine con la
+    // quarta, il fondamento, e' il piu' costoso della stesa.
     posizioni: [
       SpreadPosition.copre,
       SpreadPosition.attraversa,
       SpreadPosition.corona,
       SpreadPosition.sotto,
-      SpreadPosition.passato,
+      SpreadPosition.dietro,
       SpreadPosition.futuro,
       SpreadPosition.seStesso,
       SpreadPosition.laCasa,
@@ -120,8 +125,10 @@ enum TarotSpreadType {
       PostoSulTavolo(3.4, -0.8),
       PostoSulTavolo(3.4, -2.4),
     ],
+    // Il luogo esatto, ordine FK voce 16: Parte III, sezione 7, non un
+    // capitolo (docs/corpus/tarocchi_posizione/verifica_waite_1911.md).
     fonte: 'Arthur Edward Waite, The Pictorial Key to the Tarot, 1911, '
-        'capitolo "An Ancient Celtic Method of Divination".',
+        'Parte III, sezione 7, "An Ancient Celtic Method of Divination".',
     costruita: false,
   );
 
