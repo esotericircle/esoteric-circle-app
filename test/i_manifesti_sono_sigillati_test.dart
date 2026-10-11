@@ -363,6 +363,9 @@ void main() {
     // ottobre 2026: FF.01-FF.09 dell'ordine, FF.10-FF.20 per le undici
     // dell'aggiunta 1 (FF.A1-FF.A11).
     'FF': 20,
+    // Ordine FI, 11 ottobre 2026: le cinquanta voci del testo, 14 chiuse, 9
+    // aperte in attesa di verifica e 27 da fare.
+    'FI': 50,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

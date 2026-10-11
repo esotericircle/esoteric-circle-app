@@ -2,7 +2,12 @@
 
 Testo dell'ordine: `docs/ordini/ORDINE_FI_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FI.md`. Da dove si riparte: `docs/ordini/RIPRESA.md`.
 
-Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le voci aperte dicono perche' lo sono.
+Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le voci aperte e quelle da fare dicono perche' lo sono. La segnalazione del fondatore su taglio e mescolamento dell'11 ottobre non e' una voce dell'ordine: sta nel rapporto, con la sua prova.
+
+VOCI_TOTALI: 50
+VOCI_CHIUSE: 16
+VOCI_APERTE: 12
+VOCI_DA_FARE: 22
 
 ## VOCE FI.01
 
@@ -64,9 +69,33 @@ DOMANDA: "lo DICHIARA a chi legge, invece di spacciare un ripiego per la chiave 
 PROVA: test/la_stesa_interpreta_davvero_test.dart
 MISURA: righe che dichiarano la lettura di casa da 0 a 1, solo quando il modello non risponde e la chiave non e' la Predittiva
 
+## VOCE FI.09
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.10
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.11
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.12
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
 ## VOCE FI.13
 
 **APERTA IN ATTESA DI VERIFICA.** La misura e' fatta (54.871.350 byte, 54,9 MB in base 1000, 52,3 MiB in base 1024, archivio da 260.267.304 byte a circa 315 MB) e la domanda e' girata al fondatore: i due mazzi nell'app o sul bucket con CDN.
+
+## VOCE FI.14
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.15
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
 
 ## VOCE FI.16
 
@@ -75,6 +104,46 @@ MISURA: righe che dichiarano la lettura di casa da 0 a 1, solo quando il modello
 DOMANDA: "Misura la fascia dei due cartigli su TUTTE le definitive dei due mazzi"
 PROVA: docs/collaudo/FI/cartigli.txt
 MISURA: carte misurate da 4 (le quattro dell'Architetto) a 156; carte con testo nei cartigli: 0; un testo inciso a mano su una copia ne fa scostare da 263 a 1630 pixel
+
+## VOCE FI.17
+
+**DA FARE.** Aspetta i testi dell'Architetto (aggiunta A1). Pronto cio' che non ha bisogno dei testi: la fonte di ogni posizione ha le tre varianti `- 1:`, `- 2:`, `- 3:` (docs/corpus/tarocchi_posizione/), il tool le legge e il Dart le porta, la rotazione le sceglie (FI.18). Oggi le tre posizioni della stesa a tre carte hanno la variante 1, le varianti 2 e 3 e le altre quattordici posizioni aspettano.
+
+## VOCE FI.18
+
+**APERTA IN ATTESA DI VERIFICA.** La rotazione c'e' ed e' agganciata: `LeUsciteDelleCarte` conta quante volte una carta, in quel verso e in quella posizione, e' gia' uscita a questa persona, la schermata la conta una volta sola quando il responso si apre e la conserva con la stesa, e la lettura di casa sceglie la variante con quel numero. A video non si puo' vedere finche' una posizione ha una variante sola: si guarda alla prima ondata dell'Architetto.
+
+## VOCE FI.19
+
+**DA FARE.** Il ritorno della carta si dice: il dato c'e' gia' (le uscite della FI.18, chiave `tarot.uscite_delle_carte`), manca la riga che la lettura mostra, "questa carta ti era gia' uscita, allora era capovolta", che vuole anche il verso dell'uscita di prima e la sua prova a video.
+
+## VOCE FI.20
+
+**DA FARE.** Aspetta i testi dell'Architetto (aggiunta A1). Pronto il resto: la fonte dei registri con le 78 carte, i due versi e i tre gruppi (docs/corpus/tarocchi_posizione/registri.md), il tool che li legge tutti o nessuno, e il montaggio: il registro del gruppo dell'argomento segue lo scheletro nella lettura di casa e arriva al modello come riga "In amore e sentimenti parla di" sotto il significato di ogni carta.
+
+## VOCE FI.21
+
+**DA FARE.** E' una regola della scrittura degli scheletri, quindi dell'Architetto (aggiunta A1): scritta in testa al file della fonte del lato (docs/corpus/tarocchi_posizione/lato.md).
+
+## VOCE FI.22
+
+**DA FARE.** E' una regola della scrittura degli scheletri, quindi dell'Architetto (aggiunta A1): scritta in testa al file della fonte del consultante (docs/corpus/tarocchi_posizione/consultante.md).
+
+## VOCE FI.23
+
+**DA FARE.** La generazione e' annullata dall'aggiunta A1: nessun testo generato col modello, quindi niente da spostare in docs/corpus/scartati_FI/ (aggiunta A2). Il tool e' esteso alle diciassette posizioni, alle tre varianti e ai tre registri coi controlli della voce (genere, lunghezza, promesse, certezze, doppioni, Jaccard sopra 0,6, prime parole della terna). Il conto: 468 scheletri su 7.956 e 0 registri su 468.
+
+## VOCE FI.24
+
+**CHIUSA.** Il corpus si tocca alla fonte, divisa in file leggibili.
+
+DOMANDA: "Il markdown in docs/corpus/ resta la fonte e il Dart si rigenera, mai il contrario. La fonte si divide in file leggibili invece di diventare un unico markdown da mezzo megabyte."
+PROVA: docs/corpus/tarocchi_posizione/passato.md
+MISURA: file della fonte da 1 a 18 (diciassette posizioni e i registri); il piu' grande da 90.642 byte a 34.874; testi rigenerati uguali a quelli di prima 468 su 468; la guardia il_corpus_delle_posizioni cade se il Dart non e' la fonte (docs/collaudo/FI/fi39_fi40_regola_a.txt)
+
+## VOCE FI.25
+
+**DA FARE.** La rilettura resta dell'Architetto; la parte che mi assegnava la generazione e il conto delle rigenerazioni e' annullata dall'aggiunta A1. A ogni ondata il tool controlla e, se un testo non passa, si ferma e lo nomina: non lo correggo a mano.
 
 ## VOCE FI.26
 
@@ -100,6 +169,18 @@ DOMANDA: "Taglio, mescolamento e scuotimento continuano a funzionare DENTRO la s
 PROVA: test/la_carta_estratta_non_cambia_test.dart
 MISURA: righe del motore del mescolamento cambiate: 0 su 0; prove della stesa in corso verdi da 911 a 911
 
+## VOCE FI.29
+
+**DA FARE.** Parte 7, la card: dopo i mazzi e il tavolo delle stese nuove.
+
+## VOCE FI.30
+
+**DA FARE.** Parte 7, la card: dopo i mazzi e il tavolo delle stese nuove.
+
+## VOCE FI.31
+
+**DA FARE.** Parte 7, la card: dopo i mazzi e il tavolo delle stese nuove.
+
 ## VOCE FI.32
 
 **CHIUSA.** La matrice dei tarocchi nel catalogo dei piani.
@@ -107,6 +188,42 @@ MISURA: righe del motore del mescolamento cambiate: 0 su 0; prove della stesa in
 DOMANDA: "tabella ok"
 PROVA: test/le_chiavi_e_la_matrice_dei_tarocchi_test.dart
 MISURA: righe della matrice da 41 a 51; righe toccate fra quelle esistenti (carte al giorno e stesa da dieci): 0
+
+## VOCE FI.33
+
+**DA FARE.** La carta sola pesa una carta, detto prima di scegliere: vive a video con la stesa a una carta, dopo il suo corpus.
+
+## VOCE FI.34
+
+**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (nessun prezzo in Eos; la stesa a tre carte, il budget, il Confine e il blocco di cortesia, il determinismo intatti); si chiude a ordine finito.
+
+## VOCE FI.35
+
+**CHIUSA.** Scritto nel rapporto: la matrice supera i briefing sulle chiavi.
+
+DOMANDA: "Questa matrice supera i quattro briefing in un punto, e va scritto nel rapporto"
+PROVA: docs/ordini/RAPPORTO_ORDINE_FI.md
+MISURA: punti in cui la matrice supera i briefing scritti nel rapporto: da 0 a 1 su 1
+
+## VOCE FI.36
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.37
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.38
+
+**DA FARE.** Parte 4, i mazzi: aspetta la decisione del fondatore sulla FI.13 (nell'app o sul bucket con CDN).
+
+## VOCE FI.39
+
+**APERTA IN ATTESA DI VERIFICA.** La guardia c'e' (test/il_corpus_delle_posizioni_test.dart), vista rossa con sette innesti (docs/collaudo/FI/fi39_fi40_regola_a.txt). Il suo cardinale sale con lo stato dichiarato: 468 oggi, 7.956 quando l'ultima ondata dell'Architetto e' entrata; allora si chiude.
+
+## VOCE FI.40
+
+**APERTA IN ATTESA DI VERIFICA.** La guardia c'e' (nello stesso file della FI.39), rossa con un registro solo innestato nel Dart. Oggi pretende la forma della fonte (468 righe) e i registri vuoti; si chiude quando `registri.md` arriva e i registri sono 468.
 
 ## VOCE FI.41
 
@@ -116,6 +233,42 @@ DOMANDA: "Monta l'app dall'avvio vero, fa una stesa su una domanda, esce dalla s
 PROVA: test/la_stesa_si_conserva_test.dart
 MISURA: innesti che la fanno cadere da 0 a 2 su 2 (ricerca spenta, conservazione spenta)
 
+## VOCE FI.42
+
+**CHIUSA.** La guardia della rotazione, con la schermata dall'avvio vero.
+
+DOMANDA: "Pretende che la stessa carta nella stessa posizione mostri tre testi diversi alla prima, alla seconda e alla terza uscita, e che alla quarta ricominci dalla prima."
+PROVA: test/la_rotazione_delle_varianti_test.dart
+MISURA: innesti che la fanno cadere da 4 su 5 a 5 su 5 (al primo giro la stesa conservata contata di nuovo restava verde: la prova ora riapre il responso dopo il rientro; docs/collaudo/FI/fi42_regola_a.txt)
+
+## VOCE FI.43
+
+**DA FARE.** Prova di vista su ogni guardia nuova: fatta per le guardie nuove di quest'ordine (la stesa conservata, il mazzo nel riquadro, il manifesto, il corpus delle posizioni coi registri e la rotazione, vedi il rapporto); resta per quella dei cartigli della parte 4.
+
+## VOCE FI.44
+
+**DA FARE.** I token di una stesa a tre e a dieci carte, quando la lettura dal modello sapra' leggere dieci carte.
+
 ## VOCE FI.45
 
 **APERTA IN ATTESA DI VERIFICA.** Fatte le anteprime della schermata dei selettori (docs/preview/prima_dopo/fi_selettori_tipo_prima.png e le altre tre); quelle della croce, del ferro di cavallo, della Croce Celtica e della card aspettano che quelle stese abbiano il loro tavolo e il loro corpus.
+
+## VOCE FI.46
+
+**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (nessun prezzo in Eos; la stesa a tre carte, il budget, il Confine e il blocco di cortesia, il determinismo intatti); si chiude a ordine finito.
+
+## VOCE FI.47
+
+**APERTA IN ATTESA DI VERIFICA.** L'Arcano dell'Alba non e' toccato; la riga che lo distingue dalla carta sola si scrive con la stesa a una carta.
+
+## VOCE FI.48
+
+**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (nessun prezzo in Eos; la stesa a tre carte, il budget, il Confine e il blocco di cortesia, il determinismo intatti); si chiude a ordine finito.
+
+## VOCE FI.49
+
+**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (nessun prezzo in Eos; la stesa a tre carte, il budget, il Confine e il blocco di cortesia, il determinismo intatti); si chiude a ordine finito.
+
+## VOCE FI.50
+
+**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (nessun prezzo in Eos; la stesa a tre carte, il budget, il Confine e il blocco di cortesia, il determinismo intatti); si chiude a ordine finito.
