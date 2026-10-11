@@ -3,49 +3,6 @@
 Reperto dell'11 ottobre 2026. Materia: `lib/core/tarot/tarot_card.dart`, campi
 `uprightSummary`, `upright`, `reversedSummary`, `reversed`.
 
-## 0. AGGIORNAMENTO DELL'11 OTTOBRE 2026, SERA: sette delle dodici sono gia' corrette
-
-Questo reperto e' stato scritto confrontando i testi di posizione con una copia
-della fonte dei significati presa **prima** delle correzioni che Code ha poi
-spinto sul ramo. Al momento in cui questa sezione viene scritta, il confronto fra
-quella copia e `lib/core/tarot/tarot_card.dart` sul ramo canonico da'
-**ventidue carte-verso con la voce cambiata**, e sette di esse sono carte di
-questo reperto.
-
-**Le sette della lista che hanno gia' una voce nuova**: Cavaliere di Denari
-capovolta, Dieci di Coppe capovolta, Fante di Bastoni capovolta, Fante di Denari
-capovolta, Gli Amanti capovolta, Re di Coppe capovolta, Tre di Bastoni capovolta.
-Su queste il reperto ha gia' prodotto il suo effetto e non chiede altro.
-
-**Le cinque che restano senza cardine nella fonte**: Cinque di Bastoni capovolta,
-Due di Coppe capovolta, Il Mago capovolta, La Torre capovolta, Regina di Bastoni
-capovolta. Sono queste le voci su cui il reperto chiede ancora di intervenire.
-
-**Le altre quindici carte-verso con la voce cambiata**, che non stavano in questa
-lista: Cinque di Spade capovolta, Dieci di Denari capovolta, Dieci di Spade nei
-due versi, Due di Denari capovolta, Fante di Coppe capovolta, Fante di Denari
-dritta, Fante di Spade dritta, La Giustizia capovolta, Nove di Bastoni capovolta,
-Nove di Denari capovolta, Quattro di Bastoni capovolta, Quattro di Coppe dritta,
-Quattro di Denari dritta, Regina di Denari capovolta.
-
-**LA CONSEGUENZA SUI TESTI DI POSIZIONE, dichiarata perche' va sanata.** Le tre
-posizioni compilate finora, `lato.md`, `consultante.md` ed `esito.md`, sono state
-scritte sulla fonte precedente. Di conseguenza **sessantasei testi per posizione,
-centonovantotto in tutto, dicono cose che la voce nuova non dice piu'**. Non e'
-una sfumatura: il Tre di Bastoni capovolta diceva «l'attesa che pesa, arrivano
-ritardi» e dice ora «il ritorno diverso dall'atteso, le navi rientrano con un
-carico diverso», quindi i testi costruiti sul ritardo sono diventati falsi rispetto
-alla fonte. L'Architetto rifa' quei sessantasei gruppi sulle tre posizioni e li
-rispinge. I numeri di riconoscibilita' riportati nelle intestazioni delle tre
-posizioni restano quelli misurati sulla stesura precedente, e verranno rimisurati
-dopo il riallineamento.
-
-**La lezione di metodo, perche' si ripetera'.** La fonte dei significati e' viva e
-Code la corregge. Chi scrive testi di posizione deve rileggere la fonte dal ramo
-prima di cominciare, e non da una copia di lavoro: una copia vecchia produce testi
-corretti rispetto a niente. Il confronto si fa a macchina, voce per voce, e costa
-pochi secondi.
-
 ## 1. CHE COSA DICE QUESTO REPERTO, in una riga
 
 Alcune carte del mazzo **non sono distinguibili l'una dall'altra nella fonte dei
@@ -205,18 +162,148 @@ lavoro ha il tetto piu' basso e perche'.
 
 ## 7. DOVE STANNO I DATI
 
-**Nel ramo**, accanto a questo file:
+Nello spazio di lavoro dell'Architetto:
 
-- `docs/corpus/tarocchi_posizione/mappa_delle_gemelle.md`, la mappa completa delle
-  gemelle, carta per carta e verso per verso, con le due voci dello scambio: chi
-  perde i lettori verso chi, e chi li ruba a chi. **E' il documento che si riusa
-  su tutte le posizioni che restano**, perche' le gemelle dipendono dalla fonte e
-  non dalla posizione.
-
-**Nello spazio di lavoro dell'Architetto**, e non nel ramo:
-
-- `gemelle.md`, la copia di lavoro della mappa
+- `gemelle.md`, la mappa completa delle gemelle con le due voci dello scambio
 - `mappa_gemelle.py`, che la costruisce dalle tre prove
 - `bersagli_posizioni.py`, che separa il difetto di fonte da quello di posizione
 - `cieca_appaiata_1/`, `cieca_appaiata_2/`, `cieca_appaiata/`, gli archivi delle tre
   prove, ciascuno con i compiti, le risposte dei lettori e la soluzione
+
+## 8. DUE CANDIDATI NUOVI, segnalati dagli scrittori l'11 ottobre 2026
+
+Questi due non vengono da una prova cieca: vengono da uno scrittore che, scrivendo la
+posizione CARTA SOLA, non ha trovato nella fonte il tratto che separa due carte. Non
+hanno quindi lo stesso peso delle dodici del capitolo 3, che poggiano su sei giudizi
+ciascuna, ma vanno registrati, perche' il modo in cui sono stati trovati e' lo stesso
+che per le dodici: **due voci della fonte che non si distinguono.**
+
+### 8.1 Nove di Bastoni capovolta contro Sette di Bastoni capovolta
+
+Le due voci portano **la stessa difensiva**, e il solo tratto esclusivo del Nove e' il
+**bersaglio sbagliato**, cioe' che chi tieni lontano non e' un avversario. Il problema e'
+come la fonte lo dice: **lo affida a una negazione**, «chi tieni lontano non e' un
+avversario».
+
+Perche' conta: la misura dell'11 ottobre ha trovato che **negare la gemella nel testo non
+funziona**, perche' nominarla la mette in testa al lettore (sezione 21.5 del metro). Una
+fonte che da' il tratto distintivo in forma negativa obbliga lo scrittore a tradurlo in
+positivo da solo, e non tutti ci riescono. **La voce del Nove di Bastoni capovolta
+guadagnerebbe a dire in positivo che cosa quella guardia protegge e da che cosa.**
+
+Lo scambio reciproco fra queste due carte e' registrato nella mappa delle gemelle in
+entrambi i versi e su tre posizioni, quindi il candidato e' coerente col dato.
+
+### 8.2 Asso di Coppe capovolta contro Due di Coppe capovolta
+
+Le due voci si separano **solo per il numero delle persone in scena**: l'Asso ha una
+sorgente sola, il Due ha due persone. **Ma la voce dell'Asso capovolta non lo dice**: lo
+scrittore lo ha dovuto dedurre dalla sorgente unica della voce dritta.
+
+Perche' conta: un tratto che va dedotto da un'altra voce non e' un cardine, e due
+scrittori diversi lo dedurranno in due modi. **La voce dell'Asso di Coppe capovolta
+guadagnerebbe a nominare la sorgente unica anche nel verso rovesciato**, come fa la
+dritta.
+
+### 8.3 COME TRATTARE QUESTI CANDIDATI
+
+Non entrano nella lista delle cinque carte su cui il reperto chiede di intervenire,
+perche' non hanno sei giudizi contrari. **Si verificano alla prima prova cieca della
+posizione CARTA SOLA**: se le due coppie compaiono fra i gruppi sbagliati da entrambe le
+posizioni appaiate, passano nella lista del capitolo 3 e la richiesta diventa formale.
+
+Il motivo per cui si registrano subito: **la segnalazione di uno scrittore che non trova
+il cardine e' arrivata, per tutte e dodici le carte del capitolo 3, prima della prova che
+poi lo ha confermato.** E' un segnale precoce e costa zero registrarlo.
+
+### 8.4 Quattro di Denari, i due versi piu' il Re di Denari capovolta: tre voci, una cosa
+
+Segnalato da uno scrittore della posizione CARTA SOLA e **verificato dall'Architetto
+leggendo le tre voci**. E' il caso piu' chiaro della serie, e vale piu' dei due
+precedenti perche' il difetto si vede a occhio nella fonte, senza bisogno di una prova.
+
+Le tre voci, come stanno sul ramo:
+
+> **Quattro di Denari dritta**, «La mano che stringe»: Sicurezza, risparmio, controllo su
+> cio' che possiedi: proteggi cio' che hai. **Attento pero' a non chiuderti troppo, la
+> mano stretta non riceve.**
+>
+> **Quattro di Denari capovolta**, «La presa da allentare»: Un attaccamento eccessivo, o
+> la paura di perdere che ti irrigidisce. Apri la mano, il denaro e le energie servono per
+> fluire, non per essere trattenuti. Cio' che stringi troppo, ti stringe a sua volta.
+>
+> **Re di Denari capovolta**, «Il possesso che irrigidisce»: Un attaccamento, o una
+> rigidita' legata a cio' che hai. La vera ricchezza e' anche saperla lasciare circolare.
+> Cio' che possiedi non deve possederti.
+
+**Due difetti distinti, e il primo e' il piu' grave di tutto questo reperto.**
+
+**La dritta porta dentro di se' il monito della sua capovolta.** «La mano stretta non
+riceve» e' esattamente quello che la capovolta dice per intero. Una voce dritta che
+contiene il rovescio di se stessa **non ha un verso**: lo scrittore che la legge non sa
+se deve scrivere la custodia come virtu' oppure l'eccesso come difetto, e due scrittori
+decideranno in due modi. La dritta dovrebbe dire la custodia e basta, lasciando l'eccesso
+alla capovolta, che e' il suo mestiere.
+
+**Le tre voci dicono la stessa cosa.** Attaccamento, rigidita', stringere troppo quello
+che si ha. Il Quattro di Denari capovolta e il Re di Denari capovolta sono
+indistinguibili sul contenuto, e la differenza di rango, il quattro contro il re, non e'
+nominata in nessuna delle due.
+
+**Il dato che rende questo caso istruttivo, e conferma la sezione 21.5.1 del metro.** La
+somiglianza lessicale fra le tre voci e' **bassissima**: 0,10 fra i due versi del Quattro
+e **0,06** fra Quattro capovolta e Re capovolta. Un controllo a macchina sulle parole non
+avrebbe trovato niente. La collisione e' **concettuale** e si vede solo leggendo, oppure
+nella prova cieca. E' lo stesso meccanismo del Sei di Bastoni capovolta contro il Nove di
+Denari dritta, scambio solido su due posizioni fra due voci che non hanno una parola in
+comune.
+
+**Che cosa guadagnerebbero le tre voci.** Alla dritta del Quattro va togliato il monito e
+lasciata la custodia come cosa buona: il conservare come mestiere, il contare, il mettere
+da parte. Alla capovolta del Quattro va dato il tratto del rango basso, cioe' la paura di
+restare senza su una quantita' contata e piccola. Al Re capovolta va dato il tratto del
+rango alto, cioe' il governo di beni larghi che si irrigidisce e smette di far circolare.
+
+## 9. UNA DELLE DODICI SI PUO' CHIUDERE, e due conflitti fra fonte e metro
+
+Segnalazioni degli scrittori della posizione CARTA SOLA, 11 ottobre 2026.
+
+### 9.1 Fante di Bastoni capovolta: la voce nuova da' il cardine, il difetto si chiude
+
+Era fra le dodici del capitolo 3, scambiata con l'Asso di Bastoni capovolta e il Sette
+di Bastoni capovolta. **La voce riscritta sul ramo da' adesso un tratto esclusivo vero**:
+la **sostituzione successiva**, cioe' che ogni idea nuova scalza la precedente.
+
+Separa da entrambe le gemelle in modo pulito: nel Cavaliere capovolta la dispersione e'
+**simultanea**, nell'Asso capovolta il fuoco e' **soffocato** e nessuna partenza avviene.
+Qui le partenze ci sono e sono molte, e ciascuna muore perche' la seguente ne occupa
+l'ora.
+
+**Delle dodici del capitolo 3 restano quindi quattro senza cardine**, non cinque:
+Cinque di Bastoni capovolta, Due di Coppe capovolta, Il Mago capovolta, La Torre
+capovolta, Regina di Bastoni capovolta, meno quelle che le voci nuove hanno sanato. Il
+conto esatto si rifa' alla prossima prova, perche' una segnalazione di scrittore apre un
+caso e non lo chiude: lo chiude la misura.
+
+### 9.2 Tre di Coppe: la fonte inchioda un ambito che il metro vieta di nominare
+
+La voce dei due versi **inchioda l'ambito all'amicizia**, e la sezione 10 del metro
+**vieta** le parole «amici» e «cerchio di amici». Lo scrittore ha scritto il tratto piu'
+generale concesso, «chi ti vuole bene», «la compagnia», «la cerchia», e dichiara che il
+testo resta piu' forte in una domanda d'affetti che di lavoro.
+
+**E' un conflitto fra due autorita' del progetto, non un difetto di stesura**, e va
+deciso da chi tiene la fonte: oppure la voce si riscrive su un ambito piu' largo, oppure
+il divieto del metro si allenta per questa carta. Finche' resta, la carta sara' piu'
+debole nelle domande di lavoro e di cammino.
+
+### 9.3 La Temperanza: la fonte usa una parola vietata come esito dichiarato
+
+La voce dei due versi usa **«guarisce»**, che e' nella lista delle parole vietate del
+progetto, e la usa due volte: come esito dichiarato e come rimedio. Lo scrittore l'ha
+resa con «torna d'un pezzo» e «si rimette», che tengono la sostanza.
+
+**Lo stesso caso del Tre di Coppe**: la fonte chiede una cosa che il metro vieta di
+dire, e la decisione e' di chi tiene la fonte. Qui la perifrasi funziona, quindi il costo
+e' basso, ma va registrato perche' **la fonte dei significati e il metro dei testi non
+sono allineati su almeno due carte**, e nessuno dei due documenti lo dichiara.
