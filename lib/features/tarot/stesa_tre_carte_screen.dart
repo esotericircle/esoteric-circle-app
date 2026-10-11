@@ -38,7 +38,9 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
+import '../../core/tarot/i_mazzi_scaricati.dart';
 import 'carta_ingrandita.dart';
+import 'il_mazzo_si_scarica.dart';
 import 'filo_fra_le_carte.dart';
 import 'stesa_handoff.dart';
 import '../sigilli/regia_del_cammino.dart';
@@ -357,6 +359,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       context,
       letta: lette[slot],
       palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
+      mazzo: _setup.deck,
     );
   }
 
@@ -609,6 +612,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _reduceMotion = MediaQuery.of(context).disableAnimations;
     if (_avviata) return;
     _avviata = true;
+    // I mazzi gia' scaricati si leggono dal telefono, senza rete (ordine FJ
+    // voce 12): poi la faccia della carta sa subito se disegnarli.
+    unawaited(IMazziScaricati.diCasa.leggiIInstallati().then((_) {
+      if (mounted) setState(() {});
+    }));
     _shake = AscoltatoreScuotimento(onScuotimento: _mischia)..start();
     // Il giroscopio e il galleggiamento solo se il moto e' concesso: con
     // Riduci Movimento le carte stanno ferme e composte.
@@ -1169,127 +1177,130 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // La stesa e' di Medora: blu e oro suoi, sempre.
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
+    return IlMazzoDellaStesa(
+      mazzo: _setup.deck,
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
+          // Il titolo legge il nome della stesa attiva: e' un dato della sua
+          // definizione, non una stringa scritta qui. Quando arriveranno le
+          // stese da sette e dieci carte il titolo cambiera' da solo.
+          // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+          // parole, la misura scende solo quanto serve, e non si tronca mai.
+          // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+          // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+          // **SU UNA RIGA. Ordine EQ voce 11.** Sull'iPhone 17 Pro "Stesa di
+          // Tarocchi" andava su due righe nella testata: a una riga la
+          // misura scende quanto serve, entro il minimo del titolo.
+          title: TitoloCheNonSiRompe(
+              chiaveDelTesto: const Key('stesa_titolo'),
+              testo: _setup.tipo.nome,
+              righe: 1,
+              stile: TypographyTokens.titoloSezione()),
+          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+          // ogni schermata della pratica. Un saldo che appare e scompare non
+          // si impara.
+          // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+          // scansione: il mazzo Rider-Waite-Smith e la stesa a tre carte non erano dichiarati.
+          actions: [
+            FoglioDelleFonti.bottone(context,
+                palette: palette,
+                testo: TestiDelleFonti.tarocchi,
+                chiave: 'tarocchi_fonti'),
+            const AngoloDellaBarra(),
+          ],
         ),
-        // Il titolo legge il nome della stesa attiva: e' un dato della sua
-        // definizione, non una stringa scritta qui. Quando arriveranno le
-        // stese da sette e dieci carte il titolo cambiera' da solo.
-        // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
-        // parole, la misura scende solo quanto serve, e non si tronca mai.
-        // Col borsellino nella riga delle azioni lo spazio del titolo si e'
-        // ristretto, e un `Text` nudo qui torna a mettere i puntini.
-        // **SU UNA RIGA. Ordine EQ voce 11.** Sull'iPhone 17 Pro "Stesa di
-        // Tarocchi" andava su due righe nella testata: a una riga la
-        // misura scende quanto serve, entro il minimo del titolo.
-        title: TitoloCheNonSiRompe(
-            chiaveDelTesto: const Key('stesa_titolo'),
-            testo: _setup.tipo.nome,
-            righe: 1,
-            stile: TypographyTokens.titoloSezione()),
-        // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-        // ogni schermata della pratica. Un saldo che appare e scompare non
-        // si impara.
-        // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
-        // scansione: il mazzo Rider-Waite-Smith e la stesa a tre carte non erano dichiarati.
-        actions: [
-          FoglioDelleFonti.bottone(context,
-              palette: palette,
-              testo: TestiDelleFonti.tarocchi,
-              chiave: 'tarocchi_fonti'),
-          const AngoloDellaBarra(),
-        ],
-      ),
-      body: CosmosBackground(
-        seed: 19,
-        showZodiac: false,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              _content(palette),
-              // Il bianco con cui l'intro passa la mano: sta sopra la scena e
-              // dissolve, cosi' il taglio fra video e app non si vede.
-              AnimatedBuilder(
-                animation: _handoff,
-                builder: (context, _) => HandoffVeil(
-                  key: const Key('stesa_handoff'),
-                  opacity: 1 - _handoff.value,
-                ),
-              ),
-              // La carta che vola dal ventaglio al suo slot, con la scia.
-              if (_inVolo != null)
+        body: CosmosBackground(
+          seed: 19,
+          showZodiac: false,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                _content(palette),
+                // Il bianco con cui l'intro passa la mano: sta sopra la scena e
+                // dissolve, cosi' il taglio fra video e app non si vede.
                 AnimatedBuilder(
-                  animation: _volo,
-                  builder: (context, _) => _CartaInVolo(
-                    key: const Key('stesa_volo'),
-                    progress: _volo.value,
-                    destinazione: _drawn,
-                    palette: palette,
-                    seed: _inVolo!,
+                  animation: _handoff,
+                  builder: (context, _) => HandoffVeil(
+                    key: const Key('stesa_handoff'),
+                    opacity: 1 - _handoff.value,
                   ),
                 ),
-              // MEDORA CI PENSA, ordine P voce 06. Sta sopra la scena e sotto
-              // il velo dell'intro: e' l'ultima cosa che si vede prima del
-              // responso.
-              if (_attesa.inScena)
-                Positioned.fill(
-                  child: AnimatedOpacity(
-                    opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
-                    duration: AttesaDiMedora.dissolvenza,
-                    child: AttesaDiMedora(
-                      // Ordine BN voce 07: il cielo vero, se c'e'.
-                      fattoDelCielo: _fattoDelCielo,
+                // La carta che vola dal ventaglio al suo slot, con la scia.
+                if (_inVolo != null)
+                  AnimatedBuilder(
+                    animation: _volo,
+                    builder: (context, _) => _CartaInVolo(
+                      key: const Key('stesa_volo'),
+                      progress: _volo.value,
+                      destinazione: _drawn,
                       palette: palette,
-                      riduciMovimento: _reduceMotion,
-                      rotazione: _giroDellAttesa,
+                      seed: _inVolo!,
                     ),
                   ),
-                ),
-              if (_renderCard)
-                Positioned(
-                  left: -3000,
-                  top: 0,
-                  child: RepaintBoundary(
-                    key: _cardKey,
-                    // **LA CARD SEGUE LA LENTE, NON LA DOMANDA. Ordine CQ
-                    // voce 6.10.**
-                    //
-                    // La lente e' quella che la domanda ha scelto, cosi' la
-                    // card parla dello stesso tema del responso letto. **La
-                    // domanda scritta invece NON entra**, e non e' una
-                    // dimenticanza: questa immagine esce dal telefono e la
-                    // guardano altri, e la card mostra il primo paragrafo
-                    // del consiglio, che con la domanda dentro sarebbe la
-                    // domanda stessa. Chi condivide una lettura non sta
-                    // condividendo cosa ha chiesto.
-                    //
-                    // **LA LETTURA DEL MODELLO ENTRA SOLO SENZA DOMANDA
-                    // SCRITTA. Ordine EQ voce 04.** Risponde alla domanda, e
-                    // per la stessa ragione di qui sopra la card non la
-                    // porta; senza domanda scritta e' la stessa che si legge
-                    // in cima al responso, e la card non la contraddice.
-                    child: StesaShareCard(
-                      spread: _spread,
-                      palette: palette,
-                      topic: _reading.topic,
-                      lettura:
-                          DomandaDellaPersona.pulita(_setup.domandaScritta) ==
-                                  null
-                              ? _dalModello
-                              : null,
+                // MEDORA CI PENSA, ordine P voce 06. Sta sopra la scena e sotto
+                // il velo dell'intro: e' l'ultima cosa che si vede prima del
+                // responso.
+                if (_attesa.inScena)
+                  Positioned.fill(
+                    child: AnimatedOpacity(
+                      opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
+                      duration: AttesaDiMedora.dissolvenza,
+                      child: AttesaDiMedora(
+                        // Ordine BN voce 07: il cielo vero, se c'e'.
+                        fattoDelCielo: _fattoDelCielo,
+                        palette: palette,
+                        riduciMovimento: _reduceMotion,
+                        rotazione: _giroDellAttesa,
+                      ),
                     ),
                   ),
-                ),
-            ],
+                if (_renderCard)
+                  Positioned(
+                    left: -3000,
+                    top: 0,
+                    child: RepaintBoundary(
+                      key: _cardKey,
+                      // **LA CARD SEGUE LA LENTE, NON LA DOMANDA. Ordine CQ
+                      // voce 6.10.**
+                      //
+                      // La lente e' quella che la domanda ha scelto, cosi' la
+                      // card parla dello stesso tema del responso letto. **La
+                      // domanda scritta invece NON entra**, e non e' una
+                      // dimenticanza: questa immagine esce dal telefono e la
+                      // guardano altri, e la card mostra il primo paragrafo
+                      // del consiglio, che con la domanda dentro sarebbe la
+                      // domanda stessa. Chi condivide una lettura non sta
+                      // condividendo cosa ha chiesto.
+                      //
+                      // **LA LETTURA DEL MODELLO ENTRA SOLO SENZA DOMANDA
+                      // SCRITTA. Ordine EQ voce 04.** Risponde alla domanda, e
+                      // per la stessa ragione di qui sopra la card non la
+                      // porta; senza domanda scritta e' la stessa che si legge
+                      // in cima al responso, e la card non la contraddice.
+                      child: StesaShareCard(
+                        spread: _spread,
+                        palette: palette,
+                        topic: _reading.topic,
+                        lettura:
+                            DomandaDellaPersona.pulita(_setup.domandaScritta) ==
+                                    null
+                                ? _dalModello
+                                : null,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -2501,17 +2512,23 @@ class _FlipCardState extends State<_FlipCard>
 /// seconda copia del disegno sarebbe due carte che possono divergere.
 class FacciaDellaCarta extends StatelessWidget {
   const FacciaDellaCarta(
-      {super.key, required this.drawn, required this.palette});
+      {super.key, required this.drawn, required this.palette, this.mazzo});
 
   final DrawnCard drawn;
   final MaestroPalette palette;
 
+  /// Il mazzo con cui disegnarla; senza, quello della stesa (ordine FJ).
+  final TarotDeckStyle? mazzo;
+
   @override
   Widget build(BuildContext context) {
+    final m = mazzo ?? IlMazzoDellaStesa.di(context);
     return TarotCardArt(
       card: drawn.card,
       palette: palette,
       reversed: drawn.reversed,
+      mazzo: m,
+      arte: IMazziScaricati.diCasa.arteDi(m, drawn.card),
     );
   }
 }

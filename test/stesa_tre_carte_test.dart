@@ -293,9 +293,15 @@ void main() {
       for (final k in ReadingKey.values) {
         expect(k.available, isTrue, reason: k.name);
       }
-      expect(TarotDeckStyle.riderWaite.available, isTrue);
-      expect(TarotDeckStyle.marsiglia.available, isFalse);
-      expect(TarotDeckStyle.thoth.available, isFalse);
+      // LAPIDE: Marsiglia e Thoth "isFalse". Dall'ordine FJ voce 12 si
+      // scaricano quando li scegli: tutti e tre si possono scegliere, e solo
+      // il Rider-Waite sta nel binario.
+      for (final d in TarotDeckStyle.values) {
+        expect(d.available, isTrue, reason: d.name);
+      }
+      expect(TarotDeckStyle.riderWaite.nelBinario, isTrue);
+      expect(TarotDeckStyle.marsiglia.nelBinario, isFalse);
+      expect(TarotDeckStyle.thoth.nelBinario, isFalse);
       // Jodorowsky e' citato come ispirazione, mai come marchio.
       final nota = ReadingKey.riflessione.note!;
       expect(nota.toLowerCase(), contains('ispirata'));
@@ -414,7 +420,12 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Marsiglia'), findsOneWidget);
       expect(find.text('Thoth'), findsOneWidget);
-      expect(find.text('Coming soon'), findsNWidgets(2));
+      // LAPIDE: i due mazzi "Coming soon". Dall'ordine FJ voce 12 si
+      // scaricano, e al Viandante il lucchetto dice da quale piano si aprono
+      // (la matrice dell'ordine FI voce 32).
+      expect(find.text('Coming soon'), findsNothing);
+      expect(find.text('Dall’Iniziato'), findsOneWidget);
+      expect(find.text('Dall’Adepto'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   });

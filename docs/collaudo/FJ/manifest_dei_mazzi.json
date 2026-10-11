@@ -1,0 +1,2236 @@
+{
+ "formato": 1,
+ "base": "https://storage.googleapis.com/esoteric-circle-assets-cdn/tarocchi/mazzi/",
+ "mazzi": [
+  {
+   "id": "marsiglia",
+   "nome": "Marsiglia",
+   "versione": 1,
+   "piano": "iniziato",
+   "byte": 26863488,
+   "file": [
+    {
+     "carta": "tar_rw_00_il-matto_v1",
+     "origine": "tar_mar_00_il-matto_v4",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/00.webp",
+      "byte": 304644,
+      "sha256": "70d10688bcc18554b245609ef30b2b5632ca5e55c7be686a735561662252f559"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/00.webp",
+      "byte": 45668,
+      "sha256": "4370123dd3d3d9aed53b80d00f95dc3276185ad6b6099c6e7ae6d6f776fa023b"
+     }
+    },
+    {
+     "carta": "tar_rw_01_il-mago_v1",
+     "origine": "tar_mar_01_il-bagatto_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/01.webp",
+      "byte": 309266,
+      "sha256": "8cec905e819874b6caca794c249365e93fb4fab01cdd9ff68ed905c53ff4eeaa"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/01.webp",
+      "byte": 46492,
+      "sha256": "7b93a0d3e8bc04fed021ed00b65052ebaf8f17e5b0ffeb43a1772cd14a582320"
+     }
+    },
+    {
+     "carta": "tar_rw_02_la-papessa_v1",
+     "origine": "tar_mar_02_la-papessa_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/02.webp",
+      "byte": 326928,
+      "sha256": "45af3d1bb4d8bfb7692ddec3ff3df36662293f3a522043fe5dacabbd65e8173a"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/02.webp",
+      "byte": 49528,
+      "sha256": "744278c3dccf6394e8dcd1f645336d4dadbc194564d91be3c8bcb8cb6d84edab"
+     }
+    },
+    {
+     "carta": "tar_rw_03_l-imperatrice_v1",
+     "origine": "tar_mar_03_l-imperatrice_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/03.webp",
+      "byte": 335992,
+      "sha256": "2c091500ce5bbe9334cf544f4cd262fad428b218d129b2b9d46f7f6468b629bb"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/03.webp",
+      "byte": 49782,
+      "sha256": "e8591aa22278d8b087c3732a15b877765462c467f6792565229f67432c93b3fd"
+     }
+    },
+    {
+     "carta": "tar_rw_04_l-imperatore_v1",
+     "origine": "tar_mar_04_l-imperatore_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/04.webp",
+      "byte": 314906,
+      "sha256": "a35e492e3dd8d8cf1678ccbc080a3a74effe6b82041de6ea9dae03ec79918731"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/04.webp",
+      "byte": 47716,
+      "sha256": "2eea5cc2bd044da3dba048c49dcf9476d7a2cb223bbbd208eab92adc45c61602"
+     }
+    },
+    {
+     "carta": "tar_rw_05_l-ierofante_v1",
+     "origine": "tar_mar_05_il-papa_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/05.webp",
+      "byte": 326024,
+      "sha256": "65ba6335b798666070e5581ca55b407ea259d5cc8f588a9c43d8c40fe1a4db02"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/05.webp",
+      "byte": 49794,
+      "sha256": "521413390491b8e93d6f31003014302c7f1773d576905880edaab5151951c108"
+     }
+    },
+    {
+     "carta": "tar_rw_06_gli-amanti_v1",
+     "origine": "tar_mar_06_gli-amanti_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/06.webp",
+      "byte": 318032,
+      "sha256": "609b56ab31782c1cd3847f5b614ebc69cfff40a54adc4610916c9e1841d32268"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/06.webp",
+      "byte": 50640,
+      "sha256": "ee352c1ad26d5ed14078294bccc02f883c2a813834aae219707828e2f25e62a9"
+     }
+    },
+    {
+     "carta": "tar_rw_07_il-carro_v1",
+     "origine": "tar_mar_07_il-carro_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/07.webp",
+      "byte": 317008,
+      "sha256": "21745cef1068b7ad4dbc50bf513bbae9f7c1b72d52b7eaf3fbfbea6237baf94c"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/07.webp",
+      "byte": 45554,
+      "sha256": "607c56cc27c8f4e920e74a466edcbb012757b01085add751ca0278634ae86971"
+     }
+    },
+    {
+     "carta": "tar_rw_11_la-giustizia_v1",
+     "origine": "tar_mar_08_la-giustizia_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/08.webp",
+      "byte": 312542,
+      "sha256": "f89de7f12b786090faaf62f3fb34dd5d9c448072d8f1ff05f8ce47c85a234dcb"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/08.webp",
+      "byte": 48810,
+      "sha256": "d2859cac8bfa1ea76ba02efa9a775ce7a95dd9205b9335967aebdc135c10a687"
+     }
+    },
+    {
+     "carta": "tar_rw_09_l-eremita_v1",
+     "origine": "tar_mar_09_l-eremita_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/09.webp",
+      "byte": 320204,
+      "sha256": "a257812aad5451dc4acf4cfedb4b5ed3b1ad8135d831fda302713571ef875f5f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/09.webp",
+      "byte": 44084,
+      "sha256": "8f8c081e55563fc374cabdc2caf285db5fec716d49d9fb09a5c2d66669bb1bee"
+     }
+    },
+    {
+     "carta": "tar_rw_10_la-ruota-della-fortuna_v1",
+     "origine": "tar_mar_10_la-ruota-della-fortuna_v3",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/10.webp",
+      "byte": 298970,
+      "sha256": "103f207e236f1b5691c81ad5efb070eacd22d90a0bf4858c031ebfffaa29dddb"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/10.webp",
+      "byte": 42776,
+      "sha256": "7923db6cdab9bb68772fafd9853eaca238f7df332e9697f854cd4f7743395355"
+     }
+    },
+    {
+     "carta": "tar_rw_08_la-forza_v1",
+     "origine": "tar_mar_11_la-forza_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/11.webp",
+      "byte": 327016,
+      "sha256": "9b206b4e1873a76877adbc6246379f80d0dd20cf5c9ff659a933c1bee4329f9d"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/11.webp",
+      "byte": 49472,
+      "sha256": "a3c40747099cc34b9726077b4f0e1cb77b3642b23324f0364524e101dad8f03f"
+     }
+    },
+    {
+     "carta": "tar_rw_12_l-appeso_v1",
+     "origine": "tar_mar_12_l-appeso_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/12.webp",
+      "byte": 308862,
+      "sha256": "851b46e76c08922b5878794ffd026aae74b6fbac979859d51b296a31b3815c50"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/12.webp",
+      "byte": 44268,
+      "sha256": "22be5845b7537473d89e31aef8b4bf7af5550988821672c9a8134f1ab100cec8"
+     }
+    },
+    {
+     "carta": "tar_rw_13_la-morte_v1",
+     "origine": "tar_mar_13_l-arcano-senza-nome_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/13.webp",
+      "byte": 315140,
+      "sha256": "adfb08d937400235d486577013f0ac8ddee7794cfad1b2317d30fe0df5cb06be"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/13.webp",
+      "byte": 45080,
+      "sha256": "c4375ebe9ac56737c966eee63cc9af51493fbcbb735bfeed441626e3cf87c673"
+     }
+    },
+    {
+     "carta": "tar_rw_14_la-temperanza_v1",
+     "origine": "tar_mar_14_la-temperanza_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/14.webp",
+      "byte": 345718,
+      "sha256": "745433e8ad6949bd4649c006f670a5b804e9ff5b2f181325d49f6a383d74d218"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/14.webp",
+      "byte": 50890,
+      "sha256": "1c0f8db3af816a75cae8e4c50a95212b96f59612b6caee13f2c479146835988d"
+     }
+    },
+    {
+     "carta": "tar_rw_15_il-diavolo_v1",
+     "origine": "tar_mar_15_il-diavolo_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/15.webp",
+      "byte": 285772,
+      "sha256": "5d56ff30439a5b302ec1666cbfb7844fd11773cf7490656fc5ca68a8c89a1453"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/15.webp",
+      "byte": 42412,
+      "sha256": "b397d4387d2b9b5f0d33bb6daa88381e0d86a80df1e09f15172ce397de3e1be2"
+     }
+    },
+    {
+     "carta": "tar_rw_16_la-torre_v1",
+     "origine": "tar_mar_16_la-casa-di-dio_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/16.webp",
+      "byte": 311038,
+      "sha256": "205d72fc826b49137b71342bbc0cc96318873acf3c41cf39c5ba2fd635c49b10"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/16.webp",
+      "byte": 47730,
+      "sha256": "03b1981224e47675203d5517eb0dc1019e12af94de3872b1fee061b15fa541a2"
+     }
+    },
+    {
+     "carta": "tar_rw_17_le-stelle_v1",
+     "origine": "tar_mar_17_la-stella_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/17.webp",
+      "byte": 250184,
+      "sha256": "8220445ad37a5544532cbbbdeed065b2a8916527e49f203bb9c4b42072d8f76d"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/17.webp",
+      "byte": 40274,
+      "sha256": "02a98db76b4984a11fce409f48551636a8c788c8232d849b137d2796640ede46"
+     }
+    },
+    {
+     "carta": "tar_rw_18_la-luna_v1",
+     "origine": "tar_mar_18_la-luna_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/18.webp",
+      "byte": 327400,
+      "sha256": "3c79ddddfbfba4a53172f844bf640718aa6c6141129ac469885b113558f49c37"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/18.webp",
+      "byte": 47690,
+      "sha256": "3259cf66b10e6b953cf0515b8e73de95d796944e495dc61973fdb4d8cb69c89e"
+     }
+    },
+    {
+     "carta": "tar_rw_19_il-sole_v1",
+     "origine": "tar_mar_19_il-sole_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/19.webp",
+      "byte": 316614,
+      "sha256": "9dd3964c315247a968a1657e04f5c8a89d31ca72ac6f88c1bf421a8b1ded884f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/19.webp",
+      "byte": 49188,
+      "sha256": "d72807dd9600f6de904a1b9258893b956b3819f58737a33b6927017249ea6bc8"
+     }
+    },
+    {
+     "carta": "tar_rw_20_il-giudizio_v1",
+     "origine": "tar_mar_20_il-giudizio_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/20.webp",
+      "byte": 314180,
+      "sha256": "6b62df22bbd199c90e8ed55e1bd277c5965d39a9346ce7734c3003075661553b"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/20.webp",
+      "byte": 48806,
+      "sha256": "123f77639a1e818a167d3656c20fcc57b5b0d9960934d906581677a6db03c5b7"
+     }
+    },
+    {
+     "carta": "tar_rw_21_il-mondo_v1",
+     "origine": "tar_mar_21_il-mondo_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/21.webp",
+      "byte": 298102,
+      "sha256": "0880d8ad750be462e8dccd82a0027ddb7acf90340d168d7f1a35069da0eed246"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/21.webp",
+      "byte": 45222,
+      "sha256": "1920853e4538c0db2a4f3638b481b9940c7a06402803a12e1c9f0fa3f98a3ad8"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_01_v1",
+     "origine": "tar_mar_22_asso-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/22.webp",
+      "byte": 297308,
+      "sha256": "c6d09d1ef7c98dd20578dc81761a4da4f5f924207a8854171a06c7e81b965af7"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/22.webp",
+      "byte": 40444,
+      "sha256": "10b4999df1ecd13d7e9430781494dc7858974aed9bcdcdfec563f88c5efc7659"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_02_v1",
+     "origine": "tar_mar_23_due-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/23.webp",
+      "byte": 268506,
+      "sha256": "fdbde53540fbb68fd6a2a3a357f989a519e1a1cb889efb76e6bbd2191ad6f537"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/23.webp",
+      "byte": 39048,
+      "sha256": "f8287a5865ad77f6f8585e13b9ef997592c50f12554505614398ce693b1f65d1"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_03_v1",
+     "origine": "tar_mar_24_tre-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/24.webp",
+      "byte": 266492,
+      "sha256": "4495a96ecb4a2932b1b201393e2489b58e7d964dbc66e8cdd894ffc5175d5aa8"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/24.webp",
+      "byte": 39266,
+      "sha256": "99d3893ce1ae61708f76d8b34033a14dec00ede8c86fb556ee7b0d304ccbf2f7"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_04_v1",
+     "origine": "tar_mar_25_quattro-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/25.webp",
+      "byte": 283286,
+      "sha256": "cb2fa9131bdff139eb4880d3d7779ec7594df2e748ba745ecc0268328ae392b8"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/25.webp",
+      "byte": 40626,
+      "sha256": "ad0598e14b6e4f685ba4b90d49d2794b6bacff587f59b9d0640659bd3d5c012b"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_05_v1",
+     "origine": "tar_mar_26_cinque-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/26.webp",
+      "byte": 294318,
+      "sha256": "8d76df1d3b88edd6ee581bd467148e8ddc827f049464e949a74fab476206c220"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/26.webp",
+      "byte": 43240,
+      "sha256": "63226040e19ab19d6fd17a4085bded2f509b4c5d7eabee5fbcd107386f37d902"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_06_v1",
+     "origine": "tar_mar_27_sei-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/27.webp",
+      "byte": 275356,
+      "sha256": "2363e5109c60f36ef91c745daf4f5c333fea639513e097ce9f4333430b38b223"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/27.webp",
+      "byte": 41044,
+      "sha256": "5118ea817bdf84495cd6bcb2587814c0a963b9c3888a9aeb993ff932de53520f"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_07_v1",
+     "origine": "tar_mar_28_sette-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/28.webp",
+      "byte": 286860,
+      "sha256": "9a1daf7231ad56b4d5e8d05a10317ac9c3dbd639e713d2309b5e3cd811e51ae4"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/28.webp",
+      "byte": 41636,
+      "sha256": "14739270179dfaa28c82a2a3ba571d3c7c40e0410ca19fda50e756fbf40d22af"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_08_v1",
+     "origine": "tar_mar_29_otto-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/29.webp",
+      "byte": 294468,
+      "sha256": "da07eaf057b6801174ac90c17e64451462231cf3c9e150f6a78e5c702fa56178"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/29.webp",
+      "byte": 42344,
+      "sha256": "c0fd1426e4f013978702a10541303f826d1d900ccc8cb14387c00bd6a1223fb7"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_09_v1",
+     "origine": "tar_mar_30_nove-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/30.webp",
+      "byte": 299328,
+      "sha256": "dab75a1d1462553cda5ed0ad1f0cf95a08e97849008e9f697c33fc250eb4d2fd"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/30.webp",
+      "byte": 43488,
+      "sha256": "ef7d1fd07e0fac250a91abc024817dcc763284c4a7446bac6c809f8b0bb066e6"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_10_v1",
+     "origine": "tar_mar_31_dieci-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/31.webp",
+      "byte": 284562,
+      "sha256": "5bfaf18bc2e822aab2caed0052c37ba7761f43ad52f8a98db063124ae6fcd9cc"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/31.webp",
+      "byte": 41926,
+      "sha256": "7adc7d05fad0f2c5cf9e3f1d9034bae4d2b609595f985be5b30abe23bace02e3"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_11_v1",
+     "origine": "tar_mar_32_fante-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/32.webp",
+      "byte": 323034,
+      "sha256": "c94dd4a27af5c6fa94a25cd1e8fa2d1a3ab1a524cdfcf4a1d262a0cc932dc759"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/32.webp",
+      "byte": 44930,
+      "sha256": "11a6bea24fc7556c72a392f763a835ad4b29497f80de15d6c9fc523d837733b6"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_12_v1",
+     "origine": "tar_mar_33_cavaliere-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/33.webp",
+      "byte": 345474,
+      "sha256": "c7adb8fcba561b8382b66a756ae222c8c8c6049eb010ded51e5fe1cd0787417f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/33.webp",
+      "byte": 43702,
+      "sha256": "2eafd7e97958afe2eba7f352ec9b4ff23ce1ff8ff21ebfdd06331023c0e35963"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_13_v1",
+     "origine": "tar_mar_34_regina-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/34.webp",
+      "byte": 329640,
+      "sha256": "527c0b34fa4cc77d74cb1f5e9ebee36620de85430a611d6d500002579eb33f89"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/34.webp",
+      "byte": 47730,
+      "sha256": "2c8c5cca23d0960e0799fc4bee37564835187a298577fe3f43579afca700a0b4"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_14_v1",
+     "origine": "tar_mar_35_re-di-coppe_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/35.webp",
+      "byte": 346154,
+      "sha256": "a9c2ccf9927df52037f77f21a38969172042829e3a4e4c6e5dbc254dcf99ac98"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/35.webp",
+      "byte": 49486,
+      "sha256": "6709b8ea911f8950a777cc3a01287f3f465fb34bb39a3f143982be21b5b82eb0"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_01_v1",
+     "origine": "tar_mar_36_asso-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/36.webp",
+      "byte": 369564,
+      "sha256": "fe7a52d17c7361fd90ce87a56fb151108be64f29a8daf582b8838551dd82ea97"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/36.webp",
+      "byte": 56956,
+      "sha256": "ecaf6d011eed274fc0eef4b6d1ca6081cc8d95f38279a2d9f951c0f0c583788e"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_02_v1",
+     "origine": "tar_mar_37_due-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/37.webp",
+      "byte": 322292,
+      "sha256": "f45717064c25056b4124b2f70102c3b98673614fb90164ce18df1d8ff31c90bd"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/37.webp",
+      "byte": 50194,
+      "sha256": "280aa71055d80696e9f77625fdc6d911399b5d7e9f8cd948fa800756004f7375"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_03_v1",
+     "origine": "tar_mar_38_tre-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/38.webp",
+      "byte": 308656,
+      "sha256": "0d5a59c219bac1e875d0eae698d5b956dfb7c803f1e7234823a9b1cf45e6d5a3"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/38.webp",
+      "byte": 47874,
+      "sha256": "ba35244030d3cb6d55540e769f6baeb4425cc70f26a1edcce64f3072d95489dc"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_04_v1",
+     "origine": "tar_mar_39_quattro-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/39.webp",
+      "byte": 296792,
+      "sha256": "e5c56f9e9eb0fde035c3203270fa88a681455205faf286dd585e58b047e6fa34"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/39.webp",
+      "byte": 44492,
+      "sha256": "047eca5dacf2bbb38008c3f726bcdaac0d3e3f61220ec1d8795481e2812bfb4d"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_05_v1",
+     "origine": "tar_mar_40_cinque-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/40.webp",
+      "byte": 348298,
+      "sha256": "31d0c5e15972c7888d8e7c1a17bcf78edef652b42d567c6c74bb461dc6d8dbd8"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/40.webp",
+      "byte": 53648,
+      "sha256": "ee4e7c5466dd73a5d2c629de5c7bbf042e179900266e5facb6afa56d6e6d68df"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_06_v1",
+     "origine": "tar_mar_41_sei-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/41.webp",
+      "byte": 373506,
+      "sha256": "b8eb5357d91eb6926c5371173cbff33092efdf55d5fd231854132b93eab0d16a"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/41.webp",
+      "byte": 56164,
+      "sha256": "4610da11cd43f3c9d219d5df89a107c7593e7e7da30d977fbc8008f8f729e15a"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_07_v1",
+     "origine": "tar_mar_42_sette-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/42.webp",
+      "byte": 326102,
+      "sha256": "89f7f6f51713d094434ca5fb224581841a33f2c3358d5e8480d389c6f5994d1f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/42.webp",
+      "byte": 50490,
+      "sha256": "1f942516028ab9343beb12f9f6b64cb7567c24bfc4b67a0373304e803e2218de"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_08_v1",
+     "origine": "tar_mar_43_otto-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/43.webp",
+      "byte": 369084,
+      "sha256": "677e8f7e0cdcd2d0643bb67eed0f05a32612cf973e1c91590df00d0d34e0cfd4"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/43.webp",
+      "byte": 57224,
+      "sha256": "96eadea9cfe144a0a62b3b752f25fe3687ff5d6d6971c291831a8606e62095e2"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_09_v1",
+     "origine": "tar_mar_44_nove-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/44.webp",
+      "byte": 352528,
+      "sha256": "be6d92ee949917594a043d414e73267c9b9488ae36b83a8f7d21359e4431de87"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/44.webp",
+      "byte": 53924,
+      "sha256": "c2990bacab68cf12e3d6ba9f2bbaa5d8ac7b4883f4f385172e0aee993ddfad7c"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_10_v1",
+     "origine": "tar_mar_45_dieci-di-denari_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/45.webp",
+      "byte": 366866,
+      "sha256": "96f8d262db0ceaf6b7bcdb0f3f58d631e84d00929f7f6a709371d61e87c7135f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/45.webp",
+      "byte": 54296,
+      "sha256": "ce6034c2d757dff97ece035005791347d9f66c662d4efa44508a4ed2791f9386"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_11_v1",
+     "origine": "tar_mar_46_fante-di-denari_v3",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/46.webp",
+      "byte": 314232,
+      "sha256": "f4adcbbccdc00926107ec59ca40bfce5c695de1e970f1f3d5d5a7539c39238c6"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/46.webp",
+      "byte": 49288,
+      "sha256": "45b92e587b3b4165404bb3561e5dc52e83d1aa26986f62a8850ee9a2a1a04b28"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_12_v1",
+     "origine": "tar_mar_47_cavaliere-di-denari_v3",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/47.webp",
+      "byte": 347078,
+      "sha256": "f3a687783bae9f6b1aaaece350c8a9dec6669dd203c92d1bd156cf618ca9f92f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/47.webp",
+      "byte": 50862,
+      "sha256": "ddcfd376b71a7eb35501cb14bc0121b0dbfee5047a2625a312c36943a532817a"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_13_v1",
+     "origine": "tar_mar_48_regina-di-denari_v3",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/48.webp",
+      "byte": 338654,
+      "sha256": "0df2a0bcba92fd1d2ddeaecdaee256251c827dae51c933270a0e73ffe6b9c4a2"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/48.webp",
+      "byte": 50402,
+      "sha256": "ce90dd0d0e7f9ec2b56233c37191beabd626e10cd193ab65eda2dcd55dff01d7"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_14_v1",
+     "origine": "tar_mar_49_re-di-denari_v3",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/49.webp",
+      "byte": 361768,
+      "sha256": "ab0a8ddbf8a1a8476b511106f62d309b7410980ab78b6f145f66b2b4fc997a77"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/49.webp",
+      "byte": 54138,
+      "sha256": "db7b0f2276d6272e67d7be34acab7989c7560acb0f20f30bd6ce51cab1d82059"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_01_v1",
+     "origine": "tar_mar_50_asso-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/50.webp",
+      "byte": 245890,
+      "sha256": "b96c8b0b7cb92c6f49a022df4e38dad8e57e7dc044da31dbbb49f6e08879c631"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/50.webp",
+      "byte": 39192,
+      "sha256": "e803e4aa221a642dd896b003ccf58679826c954561d59373c96c73faf5ae1a4b"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_02_v1",
+     "origine": "tar_mar_51_due-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/51.webp",
+      "byte": 225054,
+      "sha256": "d20470061c7f4243407808691cb2c19991de07f910f12aa3cb4bd24a5df85941"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/51.webp",
+      "byte": 35698,
+      "sha256": "bbecc83c0e345685ed59202d88b8017c7f9bf2b192a33dde414fc3577a484f0e"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_03_v1",
+     "origine": "tar_mar_52_tre-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/52.webp",
+      "byte": 237808,
+      "sha256": "ce2a92eed005e8de68be808c6c73821db43e9ab12b2c34ef123bcf99f34e7dab"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/52.webp",
+      "byte": 37422,
+      "sha256": "be540e5f2f265ac9276d748d6d4fd34a8a56eaf2103ff9bf95d2c1a9c298fa03"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_04_v1",
+     "origine": "tar_mar_53_quattro-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/53.webp",
+      "byte": 228824,
+      "sha256": "b7b8468a8890e8d6b666fc6cfe96eb1935006acd3836e751b1f5e767568d2083"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/53.webp",
+      "byte": 36288,
+      "sha256": "94bbb27eb8b3aafa18c0b5b608b81dea0b791ed8d605444f77da439f413ce1fa"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_05_v1",
+     "origine": "tar_mar_54_cinque-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/54.webp",
+      "byte": 235614,
+      "sha256": "1f6d58db07856b3885e2eeb6e4cecdbfec1c259fef5b031a802f02ea83201b9b"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/54.webp",
+      "byte": 37142,
+      "sha256": "81804fa707d8b3a50db9491b579ec36321d73fc1e3977e8c3ef7fd4e2e1d10cb"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_06_v1",
+     "origine": "tar_mar_55_sei-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/55.webp",
+      "byte": 246924,
+      "sha256": "02eb29eb521a85a3c08f384278bf58b5866de6209aa85f5be31a0870e2597dbf"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/55.webp",
+      "byte": 38866,
+      "sha256": "e979e284282f6a9514875cfaa3e23cda82c5a7928af6974dfcfd3c0fb3d56ab9"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_07_v1",
+     "origine": "tar_mar_56_sette-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/56.webp",
+      "byte": 251414,
+      "sha256": "591fdc1cfc2c8a6014dde5465200af06d2032e60cbdc2fd9649471600b1c57fc"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/56.webp",
+      "byte": 39478,
+      "sha256": "a11745d98546e69c499cc2e9febc3c98269c2f3f4714ed49c548105a4623e332"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_08_v1",
+     "origine": "tar_mar_57_otto-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/57.webp",
+      "byte": 255880,
+      "sha256": "1f860797d121d789bf823119beb17792312d6588823fc79ce24d2dc931c74f95"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/57.webp",
+      "byte": 40554,
+      "sha256": "d18fa424c27f490756d9638b1738bf2bd62e73780d7950bc11c0124761624d43"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_09_v1",
+     "origine": "tar_mar_58_nove-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/58.webp",
+      "byte": 257668,
+      "sha256": "6d56e02cc7aeeef53d18a4a7f11979979130b43f0f641318ec16dce5ce783f1f"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/58.webp",
+      "byte": 41030,
+      "sha256": "69b5617223ad5ec10cede22ff16cc661c6b84f14f2951bdd30a76414d170a4ca"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_10_v1",
+     "origine": "tar_mar_59_dieci-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/59.webp",
+      "byte": 259680,
+      "sha256": "038429d0f4521d07c613822c91e5ce2b91b0164fb39d417e247895c528d728c6"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/59.webp",
+      "byte": 40934,
+      "sha256": "7c1720b56c2b7d77f1187075efdc535e47d9399b63feecdc7f1b6b316752ceb5"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_11_v1",
+     "origine": "tar_mar_60_fante-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/60.webp",
+      "byte": 271730,
+      "sha256": "794470a411f3449c716ea12c25226c9a381c5a295eb9a3b5bda5111495947bb5"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/60.webp",
+      "byte": 42364,
+      "sha256": "be88bbebeb12fbcffa63d9a19a1f14652dfa3ffb139f6c8aa7415f565db4209b"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_12_v1",
+     "origine": "tar_mar_61_cavaliere-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/61.webp",
+      "byte": 283266,
+      "sha256": "cc00c295dc7faeb4715b2be5923665995c15f93aaeb1d03b9f65d9eca71ac72b"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/61.webp",
+      "byte": 43008,
+      "sha256": "d8ecaaec6bbe7e6a65f6d3e94a473a105441a079850a6de52e88bf1396a5c870"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_13_v1",
+     "origine": "tar_mar_62_regina-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/62.webp",
+      "byte": 313172,
+      "sha256": "cffb1ba548abf4f584173a0a2d1db1aeca22d1599a5eaff6e95c09456da4f70c"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/62.webp",
+      "byte": 46884,
+      "sha256": "609341f645375cd407cf09d2fe692a9330863ad16c93b99fd1facc07e46bd267"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_14_v1",
+     "origine": "tar_mar_63_re-di-spade_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/63.webp",
+      "byte": 309330,
+      "sha256": "7f816311a2f22475b84a65bd536d656e97b38a6c64dc7b4618e85b1a092fc009"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/63.webp",
+      "byte": 46278,
+      "sha256": "6d05cc893e36511f3dbea12870b03ebd406aa17c4b4d068f452f1edaca37f6c1"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_01_v1",
+     "origine": "tar_mar_64_asso-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/64.webp",
+      "byte": 227654,
+      "sha256": "e4ce210f5a2cea079a480bf6f022b27e2fd967bb104a9c7bb52183785996a3ce"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/64.webp",
+      "byte": 34730,
+      "sha256": "5e7f8222dbe2c443ff1b3727b9c8d3598305660dc1d59f1c329bba371a4e4475"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_02_v1",
+     "origine": "tar_mar_65_due-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/65.webp",
+      "byte": 244466,
+      "sha256": "ce4db4357f223e8d26e5a7cfc0f82e89f23148efaff1bb9e28566b798eb37a0b"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/65.webp",
+      "byte": 37756,
+      "sha256": "558e1d960810b1ec58ca5758d0ede70f3a5548e013305553d267659fead0c11d"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_03_v1",
+     "origine": "tar_mar_66_tre-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/66.webp",
+      "byte": 232512,
+      "sha256": "83bab219caec56a5225163a5c55b5df7be8f8ad5441354bfe1147f6dfee93fef"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/66.webp",
+      "byte": 34950,
+      "sha256": "33c2128db0264f2e4c6d6419bfb62300227ebed837374dd79ebc3114dbaaa467"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_04_v1",
+     "origine": "tar_mar_67_quattro-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/67.webp",
+      "byte": 240038,
+      "sha256": "c1156c673d4c80c013e947d60b0c6cdaaa8ef56872cdd5cc116d24be8439d47c"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/67.webp",
+      "byte": 36266,
+      "sha256": "7b65c3c8fa705592a099e6aacfdb5357056d912fba7d82e93ff1645a4ad4ea75"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_05_v1",
+     "origine": "tar_mar_68_cinque-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/68.webp",
+      "byte": 240952,
+      "sha256": "c6545b0f4759e2f57e916dc4aa95943d385f9e1415b7cffb0d2fea94fe79d268"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/68.webp",
+      "byte": 36550,
+      "sha256": "c7beb8ef2aaceca5b3c4ff86952064d5a3d2dcdfc53e81a4519dffb6029a468f"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_06_v1",
+     "origine": "tar_mar_69_sei-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/69.webp",
+      "byte": 233560,
+      "sha256": "c658b04c522edcdbdc5bf66b6fd72cb2d509c6cff7b98b98b82c37c0475f0595"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/69.webp",
+      "byte": 35624,
+      "sha256": "cb299ab2689967cc97be962fc11db9b2e79f574d3e440a662ce40678ce7f81b4"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_07_v1",
+     "origine": "tar_mar_70_sette-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/70.webp",
+      "byte": 238812,
+      "sha256": "b667afd054f1c024882cd40875ff18436c0517f46fb66c4497c890132d8bbf4a"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/70.webp",
+      "byte": 36558,
+      "sha256": "ff160adbb314e5583d69c4abb891bf79d3ba4633a332352892bb941efde2e2e1"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_08_v1",
+     "origine": "tar_mar_71_otto-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/71.webp",
+      "byte": 244554,
+      "sha256": "c570ec402c25da6fc782286633759f89b9bfcdc5a3bb54936f213b14a1a2132d"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/71.webp",
+      "byte": 37330,
+      "sha256": "e86cf6a99bafd0eb18965b66d6f0c15e48c28f8951474e1ba2c2b0581705bbd9"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_09_v1",
+     "origine": "tar_mar_72_nove-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/72.webp",
+      "byte": 250780,
+      "sha256": "610e45d36534aa39eb395ba6152df8553316be403d5e80fe8f9cd74bda10f43b"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/72.webp",
+      "byte": 37822,
+      "sha256": "95c3b4837b5fa17b65ffed847dc96482fb57f35dac846fe505402999c8fe1b7b"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_10_v1",
+     "origine": "tar_mar_73_dieci-di-bastoni_v1",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/73.webp",
+      "byte": 236660,
+      "sha256": "e05221e862845357da11b7c6f339703fa57bcfd268f5dc41ae2eb29759fa1ba6"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/73.webp",
+      "byte": 36468,
+      "sha256": "d0bcb041fcdc9ec27dc729dc1881658126a8c911316649a2d644cb2642e9af14"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_11_v1",
+     "origine": "tar_mar_74_fante-di-bastoni_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/74.webp",
+      "byte": 297842,
+      "sha256": "4e14361bd8cb23dd6358f4438f01547bf0c8dd2cf3febf8b781e19deac23c5db"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/74.webp",
+      "byte": 45072,
+      "sha256": "d1070875548d2a831253a71aa5370d9e32d281fa23295d8cdbb39bc4fb59fcb6"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_12_v1",
+     "origine": "tar_mar_75_cavaliere-di-bastoni_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/75.webp",
+      "byte": 276678,
+      "sha256": "952d322a2d03e770d7251ff6291e2ffa9610ff1f3f8468e775ce0909307e0014"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/75.webp",
+      "byte": 42240,
+      "sha256": "829980d0f3f4acad3f46d62587d35a840a1990573863843d834811fc97769224"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_13_v1",
+     "origine": "tar_mar_76_regina-di-bastoni_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/76.webp",
+      "byte": 311296,
+      "sha256": "af3d33284de4f10e657f0da717a5aa4979e4ab8a4d4e87e4c39252c822c2a79d"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/76.webp",
+      "byte": 45894,
+      "sha256": "d4dd567da0cd446d068a14601c122c239ef8457663692ded4e19519b38844289"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_14_v1",
+     "origine": "tar_mar_77_re-di-bastoni_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/piene/77.webp",
+      "byte": 319760,
+      "sha256": "0863c16fe91b0dca1ffd5511a81cfd6160f6a986f5d672e281312b537673ddf8"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/miniature/77.webp",
+      "byte": 45722,
+      "sha256": "0d5171cc95cb2beb2822c6c6810068bd194f69300f12e62c6f09b569cdcf0c14"
+     }
+    },
+    {
+     "carta": "dorso",
+     "origine": "tar_mar_dorso_v2",
+     "piena": {
+      "percorso": "marsiglia/v1/dorso.webp",
+      "byte": 266844,
+      "sha256": "51c888b744846173eff4605d70c12b14c6a4862c26972f439ce072ad16d6111c"
+     },
+     "miniatura": {
+      "percorso": "marsiglia/v1/dorso_miniatura.webp",
+      "byte": 35220,
+      "sha256": "8862c45ee0ae988bfbb6a813acfbca7dcf02d8782421a661b3c37480c0c5045b"
+     }
+    }
+   ]
+  },
+  {
+   "id": "thoth",
+   "nome": "Thoth",
+   "versione": 1,
+   "piano": "adepto",
+   "byte": 27702826,
+   "file": [
+    {
+     "carta": "tar_rw_00_il-matto_v1",
+     "origine": "tar_tho_00_il-matto_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/00.webp",
+      "byte": 323166,
+      "sha256": "56bc79fd774f94bcf6824fffd0b8f64ede1b9fc78901b88d71365a56f88e5198"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/00.webp",
+      "byte": 41750,
+      "sha256": "6b4fd008557d65962f62f1b07525366f3553576e400c63c0fa744f37d96687b5"
+     }
+    },
+    {
+     "carta": "tar_rw_01_il-mago_v1",
+     "origine": "tar_tho_01_il-mago_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/01.webp",
+      "byte": 341774,
+      "sha256": "9209d5850cca2603a35fa05f4b0238d7ad372c86d3dddf9b63a42e518a3a912c"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/01.webp",
+      "byte": 43388,
+      "sha256": "8a00463e6b24fca1a5f01e6c8d613ecfcbbb50b4f602168458065ee9bda929e6"
+     }
+    },
+    {
+     "carta": "tar_rw_02_la-papessa_v1",
+     "origine": "tar_tho_02_la-sacerdotessa_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/02.webp",
+      "byte": 340242,
+      "sha256": "20ace9441cc6714887e51acfba0de9ac6faea42d1de162bd9ca68be7889c945e"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/02.webp",
+      "byte": 42856,
+      "sha256": "96f8d3c42fdc132a6d24e887da4f1f88230eefe3064eb9eba65b93414890d1b4"
+     }
+    },
+    {
+     "carta": "tar_rw_03_l-imperatrice_v1",
+     "origine": "tar_tho_03_l-imperatrice_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/03.webp",
+      "byte": 320388,
+      "sha256": "7c93aa4b357d8a0593cf77a31bea348efc603504e4b6e60b3cd5fed7bea29fe1"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/03.webp",
+      "byte": 42230,
+      "sha256": "9150e4138936a250e7a96c9b9070686899901c9fa6e862e008c5cd36140512e4"
+     }
+    },
+    {
+     "carta": "tar_rw_04_l-imperatore_v1",
+     "origine": "tar_tho_04_l-imperatore_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/04.webp",
+      "byte": 312618,
+      "sha256": "d7c4e07bdaad272ac4db89f156ae90b6c900df95325d15537fdf8ad847ca6fcc"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/04.webp",
+      "byte": 40624,
+      "sha256": "4585d6ba40f1a48b6d4ecd72c46daed0c6d2e3bcfc7874aee3b7f78dcac62f5a"
+     }
+    },
+    {
+     "carta": "tar_rw_05_l-ierofante_v1",
+     "origine": "tar_tho_05_il-ierofante_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/05.webp",
+      "byte": 306100,
+      "sha256": "08e1560acccfea222a382035618a48c775a956d711484735581a24f080a0f859"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/05.webp",
+      "byte": 40950,
+      "sha256": "3f32a2bd313397f1cd8bea3a9e54334e2cb3b3f3e476bb444b14bce3dd6d0d75"
+     }
+    },
+    {
+     "carta": "tar_rw_06_gli-amanti_v1",
+     "origine": "tar_tho_06_gli-amanti_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/06.webp",
+      "byte": 313328,
+      "sha256": "dcd701d52e45c897d1a3451bbeafd934fc3c8100845fb5339e013a122790f1ba"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/06.webp",
+      "byte": 40822,
+      "sha256": "1270389801726cdef157683229c27373c9ca6bdd1c5c5181b8bcf4f2b3b4d06a"
+     }
+    },
+    {
+     "carta": "tar_rw_07_il-carro_v1",
+     "origine": "tar_tho_07_il-carro_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/07.webp",
+      "byte": 330958,
+      "sha256": "d727ffc5f691651d63930de3a0d27c7850c48aff9164eb0497a1780afa9ffb35"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/07.webp",
+      "byte": 43154,
+      "sha256": "a01398a9659162c8ab2af93360929cc95479cdf5606da64f1617b5367361a1ab"
+     }
+    },
+    {
+     "carta": "tar_rw_11_la-giustizia_v1",
+     "origine": "tar_tho_08_l-aggiustamento_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/08.webp",
+      "byte": 292502,
+      "sha256": "5aacd5c43dc5b9c63b0669439a0d2e01a746277d8e02d27a7a6600bca7bbc282"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/08.webp",
+      "byte": 38056,
+      "sha256": "0f67c969c02856dafee7bb32c4780289761c80624f172bbd441dffdc718f4458"
+     }
+    },
+    {
+     "carta": "tar_rw_09_l-eremita_v1",
+     "origine": "tar_tho_09_l-eremita_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/09.webp",
+      "byte": 356110,
+      "sha256": "aecaf780a64b666d13c3b6ac94e737a388be8c691a133f9ab41ee50df456e700"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/09.webp",
+      "byte": 43652,
+      "sha256": "a1cdbdb2c2c757c568d3cf37ea1b3c8ba91bbdd2606923f8d1a234b9b9774d96"
+     }
+    },
+    {
+     "carta": "tar_rw_10_la-ruota-della-fortuna_v1",
+     "origine": "tar_tho_10_la-fortuna_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/10.webp",
+      "byte": 329176,
+      "sha256": "97211343cd1fab39d35e7c7e3c8b8c7ca9c864c71e21513c4a6dfc4c15563809"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/10.webp",
+      "byte": 43486,
+      "sha256": "d7414f42ab7e32bfeb6ee5d11bd959e98731031eee7d50a60d70c80ab5302d41"
+     }
+    },
+    {
+     "carta": "tar_rw_08_la-forza_v1",
+     "origine": "tar_tho_11_la-lussuria_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/11.webp",
+      "byte": 312716,
+      "sha256": "85c4b870031cf6701ece15f17467870a94f78575a6fd2021163cc54a9023e2b5"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/11.webp",
+      "byte": 39798,
+      "sha256": "25267c574a612a6716f8fca6edaddc26171baccb2640758cffaf09bdbcd33ada"
+     }
+    },
+    {
+     "carta": "tar_rw_12_l-appeso_v1",
+     "origine": "tar_tho_12_l-appeso_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/12.webp",
+      "byte": 309646,
+      "sha256": "280aff0467e587598255dd05784f7e3c5aa49dad4082f7464bdf43cf0dd20fc0"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/12.webp",
+      "byte": 41934,
+      "sha256": "c6ca57d3be014e0814d5455c485c350946272a0fd200638806b77eb21200ad90"
+     }
+    },
+    {
+     "carta": "tar_rw_13_la-morte_v1",
+     "origine": "tar_tho_13_la-morte_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/13.webp",
+      "byte": 325730,
+      "sha256": "b76d70283f8b3f767d7eab2a9d2b27e3eecb271debfa33bf456aa3948aaeb2b4"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/13.webp",
+      "byte": 41066,
+      "sha256": "7a5fe5a301bdb3a6be883d45198507b30602907f08e0412ecfd3a06dbd7f0eeb"
+     }
+    },
+    {
+     "carta": "tar_rw_14_la-temperanza_v1",
+     "origine": "tar_tho_14_l-arte_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/14.webp",
+      "byte": 338712,
+      "sha256": "da96eb3740b6ffb14bb389b36f906f864b6b46b91235e93f9e3b350c9881e67a"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/14.webp",
+      "byte": 43392,
+      "sha256": "f06ff88ba98b0eb38f28c103de2ff9a22474ea723fd263fa2d5cbc9691e63ab0"
+     }
+    },
+    {
+     "carta": "tar_rw_15_il-diavolo_v1",
+     "origine": "tar_tho_15_il-diavolo_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/15.webp",
+      "byte": 343546,
+      "sha256": "b075a5fcbd1761b3c6e794def3b0d09f1db9959010efb24240c1b0682dc6cfe8"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/15.webp",
+      "byte": 44950,
+      "sha256": "f813717c3221d6355d034910c7a9b8fd7f18e5ffa94aae3f2c075ecaaa460a3d"
+     }
+    },
+    {
+     "carta": "tar_rw_16_la-torre_v1",
+     "origine": "tar_tho_16_la-torre_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/16.webp",
+      "byte": 345850,
+      "sha256": "f85561390191d60b8c8b62e8c5aae6c2e7a8e16e5416ea8bf8095553fe49a422"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/16.webp",
+      "byte": 46586,
+      "sha256": "8f13dfee875da5a52564d284fead6ee24ca1179bd7293a00930d46257dd7ff21"
+     }
+    },
+    {
+     "carta": "tar_rw_17_le-stelle_v1",
+     "origine": "tar_tho_17_la-stella_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/17.webp",
+      "byte": 352598,
+      "sha256": "fcca1d5deb686b837e2ea20ac64c5cb83f04951c433c1754f11f09669f104fec"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/17.webp",
+      "byte": 43318,
+      "sha256": "891d131a95c901a883cedc87db32c17a59ff67d15345e14b748a07ee5323661b"
+     }
+    },
+    {
+     "carta": "tar_rw_18_la-luna_v1",
+     "origine": "tar_tho_18_la-luna_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/18.webp",
+      "byte": 312484,
+      "sha256": "2e3287b0426df193abaa89b672c98eda3642e6395c5e39dcbfbf7c612e7da706"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/18.webp",
+      "byte": 40044,
+      "sha256": "6c3ffafd6b69da2bdbfb1c32f8e45addb7cf5f7403850fffff4be05d225f4528"
+     }
+    },
+    {
+     "carta": "tar_rw_19_il-sole_v1",
+     "origine": "tar_tho_19_il-sole_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/19.webp",
+      "byte": 354372,
+      "sha256": "c4247271a12735ebb5a4f58b1b0a185ca45cdbed12e6bd6b22718d2e085ad9c5"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/19.webp",
+      "byte": 45522,
+      "sha256": "18fbfd5e3f2384f05e9d2e2d566a8c89c0600f649176822d7b6fcf90d620fcc0"
+     }
+    },
+    {
+     "carta": "tar_rw_20_il-giudizio_v1",
+     "origine": "tar_tho_20_l-eone_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/20.webp",
+      "byte": 336460,
+      "sha256": "25056bf294c1e1464ad34f1f2bf7b28cddfe5f5a40c9e5c98ffa4e3c49f7b698"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/20.webp",
+      "byte": 43500,
+      "sha256": "e422813b94829583586c13434cc07827f4a9fb8f2975bc1f3dab7364f57df6b1"
+     }
+    },
+    {
+     "carta": "tar_rw_21_il-mondo_v1",
+     "origine": "tar_tho_21_l-universo_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/21.webp",
+      "byte": 316334,
+      "sha256": "f0c9b2075c4d2b87f0bba705d0b1c7280b530ad9a6efefe2c3052a3af87ab476"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/21.webp",
+      "byte": 42636,
+      "sha256": "4a7a452e71617bf563e1113fa4c59b7137846e7b7aa472fe4ae7a1055e6daa99"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_01_v1",
+     "origine": "tar_tho_22_asso-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/22.webp",
+      "byte": 333860,
+      "sha256": "01afd8a4045b14aa6bc218b7bee6dc8c524f919e8ce3c19eededac44a70b6989"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/22.webp",
+      "byte": 43722,
+      "sha256": "d7d5f647e7bc2e9867f8afaa55a17c9c226a8f559ef2d60e8fcc27906386f386"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_02_v1",
+     "origine": "tar_tho_23_due-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/23.webp",
+      "byte": 310340,
+      "sha256": "945fb4e220b56535f0c5a8dc78072d23ba1b36eb1aafc86f552a43cc4502782a"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/23.webp",
+      "byte": 39034,
+      "sha256": "60d17f0d33e46e367f8a7c9b4536e1a77927e7bab009fba75ea48e6b9d448c8c"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_03_v1",
+     "origine": "tar_tho_24_tre-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/24.webp",
+      "byte": 322772,
+      "sha256": "bcaa251326046b89cb999d5850d6b714406fa47d776f665ac2551197d74b5682"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/24.webp",
+      "byte": 40560,
+      "sha256": "166b1e9e9c962abb42d97374318283bedb8e1d39c75a246a9d61f962257f65b6"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_04_v1",
+     "origine": "tar_tho_25_quattro-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/25.webp",
+      "byte": 330942,
+      "sha256": "851fa66a9eff982f884d3466acedefa7c3781360861e95230e9dffb50fb2e058"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/25.webp",
+      "byte": 42710,
+      "sha256": "5605d8cf896f3ccc303938d1b786c79d00d2d189dd21ea8a776da345f57741db"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_05_v1",
+     "origine": "tar_tho_26_cinque-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/26.webp",
+      "byte": 299354,
+      "sha256": "7a80d5f3e9005a6ba6733ae8ff4bb07d1066c55b0f3d4a90bf412442e8d6c4e4"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/26.webp",
+      "byte": 35934,
+      "sha256": "9fbfad025d55475ff9b47f6802f6d881cc9963116f1b480e7bbaeb4b599bbb2a"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_06_v1",
+     "origine": "tar_tho_27_sei-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/27.webp",
+      "byte": 314904,
+      "sha256": "83a460f1308c2dcf97446ca00b832e2532ef9d3c3623159ee9a5cc70efe60ecd"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/27.webp",
+      "byte": 41212,
+      "sha256": "1faf3d119f305c32cbfb5d51479e4bfb961a826a180b00da09a2aa84d7df01f3"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_07_v1",
+     "origine": "tar_tho_28_sette-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/28.webp",
+      "byte": 325462,
+      "sha256": "d0aaf648390d3cd54fdabb7507ae82ba9f18ffb1bb2e3c0f20d96cccd0b7c1c9"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/28.webp",
+      "byte": 41212,
+      "sha256": "d7dee7d4df18d41d6bee140658ab09c65c5a21a79fe750c2053ebfbabef8c5e2"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_08_v1",
+     "origine": "tar_tho_29_otto-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/29.webp",
+      "byte": 298470,
+      "sha256": "2d475a6f283ab0f096520ec83fd12ae70c1bc97f67bd77ae3337616324a74582"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/29.webp",
+      "byte": 36382,
+      "sha256": "c1aca67be172080b2ed83647c66d27d855ddfc09f0aba80a04f30e550fa6bb2f"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_09_v1",
+     "origine": "tar_tho_30_nove-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/30.webp",
+      "byte": 353996,
+      "sha256": "a952a4bed68452181f02d65b40eaffdfcd5bfb926a2c3ed0d83b2efa9496f677"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/30.webp",
+      "byte": 43962,
+      "sha256": "9a48bdd91ae80269db0cd02bd42229eaf28add5f560de705b3e1177fd4599091"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_10_v1",
+     "origine": "tar_tho_31_dieci-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/31.webp",
+      "byte": 348674,
+      "sha256": "9faed955bc7a22c8ccda80100cd06b0d5d8ac03dc84e29e783f1a8c40df65f3a"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/31.webp",
+      "byte": 44238,
+      "sha256": "09291240bf3f1a19170dad55cd323f9c7b971b3c09033eeac1261d900ec3116d"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_11_v1",
+     "origine": "tar_tho_32_principessa-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/32.webp",
+      "byte": 312034,
+      "sha256": "a6a281fb37519d9e370b3a95a8c6f3f50c59d0c005d7cfd1719ec9a240304a44"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/32.webp",
+      "byte": 37714,
+      "sha256": "25bacf2572fed75ee48cbf35ba5dbb5f17cce8e9f70262040d4362ca34cd1478"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_12_v1",
+     "origine": "tar_tho_33_principe-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/33.webp",
+      "byte": 303662,
+      "sha256": "d10a781a8963adc482e8b082ba7a69326b056581e570e54b93e3a3c36f5f4d5c"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/33.webp",
+      "byte": 36170,
+      "sha256": "120020f5116b7f8ed00acbafaf5cba25249c0141c5941fc3a7539d717496cf40"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_13_v1",
+     "origine": "tar_tho_34_regina-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/34.webp",
+      "byte": 281514,
+      "sha256": "162d8ed31036437d0d9efe1b07af344dfaf132cc65de53b8ee4a42a8554716f6"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/34.webp",
+      "byte": 34212,
+      "sha256": "0ed4eeb383fee401514512503607bd1d855ec687af842e30126d499f3721969c"
+     }
+    },
+    {
+     "carta": "tar_rw_coppe_14_v1",
+     "origine": "tar_tho_35_cavaliere-di-coppe_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/35.webp",
+      "byte": 315976,
+      "sha256": "5f2974d44e2d43ae788f4848c585a0f9ef1aaf18827456851cec8ee701018c47"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/35.webp",
+      "byte": 39976,
+      "sha256": "9ebe1012e7a0ab15417053a0d0fafe8d87c2109a3640589529399f7321d03af3"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_01_v1",
+     "origine": "tar_tho_36_asso-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/36.webp",
+      "byte": 297448,
+      "sha256": "7557b24efb41e14cb0aa84149ffbfc940bbb4d7cf9140d38cc23890d1b341625"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/36.webp",
+      "byte": 41266,
+      "sha256": "5f5954982104258d04450f69329643289662c675df13ae4c4f9074f1626c6de3"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_02_v1",
+     "origine": "tar_tho_37_due-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/37.webp",
+      "byte": 326124,
+      "sha256": "32de4dc71ec8f15d6be5836b107f619778856ebe9c17d8e7bae111a41da34aef"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/37.webp",
+      "byte": 44874,
+      "sha256": "dddb30f570bceb6bcb8bf54e80945a902de453748d3d96b87708f65445285ad9"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_03_v1",
+     "origine": "tar_tho_38_tre-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/38.webp",
+      "byte": 295382,
+      "sha256": "c420629a29609f403b1eca284c2e31fe13d8a4f86fb65a3fcf693455b7ca9aa8"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/38.webp",
+      "byte": 35056,
+      "sha256": "c05ce0c61d5f6923b5de442395073914d1e8ac4857e3d957dfce32f7ac03f592"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_04_v1",
+     "origine": "tar_tho_39_quattro-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/39.webp",
+      "byte": 309200,
+      "sha256": "02e71494748846dc8a18df6205c095b563809abf83733ace1b5c2d81454c0eef"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/39.webp",
+      "byte": 44150,
+      "sha256": "1790e5f4400a8d0c0540ae81c990f07ae57dc4176a26add6cfc803cab71dc36a"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_05_v1",
+     "origine": "tar_tho_40_cinque-di-dischi_v3",
+     "piena": {
+      "percorso": "thoth/v1/piene/40.webp",
+      "byte": 263038,
+      "sha256": "125ef44da71b59a9940c25e9851608867e6ec3303007709990b52c93fbdbcaa8"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/40.webp",
+      "byte": 36312,
+      "sha256": "9b90faebe6ca8b1b4d11e1cebbb6cbb8722a37c28c31f4979fa47efdf3e9fea4"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_06_v1",
+     "origine": "tar_tho_41_sei-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/41.webp",
+      "byte": 305490,
+      "sha256": "0098769516b40783730e82d5a0e6fa09cbd26947df275423a418b8329e724add"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/41.webp",
+      "byte": 38660,
+      "sha256": "cf8f2795f1f125c383ba6f9d5e7a5cef3aeb6a75d206c44788a2b1be45b20297"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_07_v1",
+     "origine": "tar_tho_42_sette-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/42.webp",
+      "byte": 294754,
+      "sha256": "574e432d2a15c84b22f99a9d6d5a4540f2c73b2c0daad1bb296fcefd198647fc"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/42.webp",
+      "byte": 35752,
+      "sha256": "35254483f24e145a544cc2009caa7cfceb40f44fb3d2a6e59680893b8605fe65"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_08_v1",
+     "origine": "tar_tho_43_otto-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/43.webp",
+      "byte": 324368,
+      "sha256": "1af7c55384d55bc8d775857e2c00137b7d8bd2118f4fdfbea5e8e8b669cdc090"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/43.webp",
+      "byte": 41746,
+      "sha256": "8ece7ebd5c2b1c08ef36c2b1bc7dcdb8e3c80bd037f7ff6b3d07e87284ad08dc"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_09_v1",
+     "origine": "tar_tho_44_nove-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/44.webp",
+      "byte": 334558,
+      "sha256": "ac5b1d983ccbe3e1ec68edcc6a557c081d97522bf6590a0fe0543069fc4ab790"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/44.webp",
+      "byte": 45352,
+      "sha256": "ebe30822bf9e519382e941bc3e9b5771b4fa638f8b4dd8749cd52d5dc8e5de77"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_10_v1",
+     "origine": "tar_tho_45_dieci-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/45.webp",
+      "byte": 330910,
+      "sha256": "4d2e86d0b0a15b1294e3345128307a955ac23654d486a22d490eb65dfb95e0ee"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/45.webp",
+      "byte": 44396,
+      "sha256": "f243e9cecaeb8ef88fe25f45f59fa0e5c6853003cb3e999d2766e94ef416471e"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_11_v1",
+     "origine": "tar_tho_46_principessa-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/46.webp",
+      "byte": 279804,
+      "sha256": "337c6abcded24a96e3832e8df9165a40e394c501b19b837ca416fb2332b521b8"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/46.webp",
+      "byte": 35624,
+      "sha256": "588551362b1e741dedc5cae492ecda9d067e2570e0ca99a485700bae91eda301"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_12_v1",
+     "origine": "tar_tho_47_principe-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/47.webp",
+      "byte": 312980,
+      "sha256": "5c6dbf0548e22cc6c2474150fc13ba450421de357fef93e34e7cdd3a6d722ed5"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/47.webp",
+      "byte": 40036,
+      "sha256": "509f427e06a58854b1d439458d00d854e425712d1badae05645b0649328b6f5c"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_13_v1",
+     "origine": "tar_tho_48_regina-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/48.webp",
+      "byte": 320756,
+      "sha256": "90b5b7703d9509aec6677602a5b0396ff3963dd40af6b2b6af7e5600692ecc11"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/48.webp",
+      "byte": 39890,
+      "sha256": "8d1d66f19c3a469cfb5584733956ae1c9c64739969cba586b2e2e726b2a10814"
+     }
+    },
+    {
+     "carta": "tar_rw_denari_14_v1",
+     "origine": "tar_tho_49_cavaliere-di-dischi_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/49.webp",
+      "byte": 322036,
+      "sha256": "0ca62c9dbed6af3c67ef9e0494d984f29df70aaf82076f5b80aabb4267d662bd"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/49.webp",
+      "byte": 40058,
+      "sha256": "a2365b6e4cd0ed19b1a13bde65da74044265beaf24fe98f1d5e05a6f668a4d81"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_01_v1",
+     "origine": "tar_tho_50_asso-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/50.webp",
+      "byte": 326976,
+      "sha256": "9affc66fc3522201a4708fadc70d14e94658176cccae869f7f3411fc06820273"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/50.webp",
+      "byte": 43990,
+      "sha256": "c0addf91b9e9559963c38ef443d13eaf7fbea594050cc48281a4e5c5f9efdba0"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_02_v1",
+     "origine": "tar_tho_51_due-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/51.webp",
+      "byte": 246984,
+      "sha256": "01432b1680dd3026a9541eaa23f14c6ad810162a092a5fa7aed66b1e2302fff2"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/51.webp",
+      "byte": 32480,
+      "sha256": "bda92f5bc3a7a9726c980a0f3374b7f9e16be6f6fb1dfb5d0c4761831645aa7a"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_03_v1",
+     "origine": "tar_tho_52_tre-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/52.webp",
+      "byte": 246402,
+      "sha256": "c5a825bdde4e11e2da58de11f94e83ccb64086508c5d764b65ca3fc63f0bff37"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/52.webp",
+      "byte": 33072,
+      "sha256": "075b1c0e046e7774a6c6102a4860ff6364a7d8d3951ea7870ba8fb33f65dc3e8"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_04_v1",
+     "origine": "tar_tho_53_quattro-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/53.webp",
+      "byte": 259370,
+      "sha256": "3c14370b57e7f4b42095e9bdf4c069b90fc9ed7d36a162bd7562d2ccf3bee0da"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/53.webp",
+      "byte": 33232,
+      "sha256": "db65f72cf7882db7e265087d54b7c07830d5f95147170ec1b96f7fc2e1f2137d"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_05_v1",
+     "origine": "tar_tho_54_cinque-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/54.webp",
+      "byte": 248204,
+      "sha256": "1873c5bbbb00b46ef04596f94839fee5124ed581d7aba6942a1693aa7cc2f50f"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/54.webp",
+      "byte": 31434,
+      "sha256": "ec99cef95c50bb5a2e390b7a764d0137a0d4df7092c63bc2482864d313dbed9c"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_06_v1",
+     "origine": "tar_tho_55_sei-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/55.webp",
+      "byte": 287388,
+      "sha256": "af2ca7de67d01d9ec9db2e0a868e579bf62c54e5c489b36134905d781d3c0f64"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/55.webp",
+      "byte": 35830,
+      "sha256": "d5aaca9760e9f7789aa34d906e5c915ac879a7a4a79ebbbfbe51775d8c53ac46"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_07_v1",
+     "origine": "tar_tho_56_sette-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/56.webp",
+      "byte": 303090,
+      "sha256": "5c8a1242493c219e5774a1f32a0e7f26766afa0971b3a9940454439c63ac8bc5"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/56.webp",
+      "byte": 35262,
+      "sha256": "ff2cd82dd2a9af1a27058bfd93ff10d390dd57bf9254f78378dedb8762cf1e06"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_08_v1",
+     "origine": "tar_tho_57_otto-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/57.webp",
+      "byte": 304192,
+      "sha256": "1900a5ce4e2cc21fc7443b5a587398200daeddb8197f413d0fc7692e7a64e07d"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/57.webp",
+      "byte": 39292,
+      "sha256": "c71e976abed9de37a390103a072b1b1bc19cc794cdd04ec80f178f92d0f87b27"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_09_v1",
+     "origine": "tar_tho_58_nove-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/58.webp",
+      "byte": 217396,
+      "sha256": "40cebfd548884b20a04c84da117387911716eb22241d7f99484c6b778d9f970e"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/58.webp",
+      "byte": 29050,
+      "sha256": "190dd747483e07860aa625f4a6139f9b08640547da253b1d9b9eb4571f085948"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_10_v1",
+     "origine": "tar_tho_59_dieci-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/59.webp",
+      "byte": 294848,
+      "sha256": "d2ba7dc9574dccf7e9a1c673d6558fafba46a34a46c2c984e4a88928e3e3e3c4"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/59.webp",
+      "byte": 35718,
+      "sha256": "8dda3d7469d80b8063bf44028c64e617cba8a4d0fc4595adf799d90646013291"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_11_v1",
+     "origine": "tar_tho_60_principessa-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/60.webp",
+      "byte": 297690,
+      "sha256": "33cd2ed1cb88485c87680ac135e96d8153f0363bf3a85997cb2af83e4bcc9ccb"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/60.webp",
+      "byte": 37108,
+      "sha256": "52589768d869b03a14f76bb2d227c6ce432ef426396cd07045dfd9cdb6bac118"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_12_v1",
+     "origine": "tar_tho_61_principe-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/61.webp",
+      "byte": 311102,
+      "sha256": "9f72410760b9464108a9b0f64b2013c69343abd93d18b9eb109a34ab0d51be04"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/61.webp",
+      "byte": 38464,
+      "sha256": "e25a6512c2e4d29f23e78214aa3096dc8d15d7d4e4f9cc269a4540092ba1bc5d"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_13_v1",
+     "origine": "tar_tho_62_regina-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/62.webp",
+      "byte": 305594,
+      "sha256": "15faa06e5d534222dda364f08252b628928a74eed1d4b9694354007213261609"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/62.webp",
+      "byte": 38524,
+      "sha256": "d113a1224bc426ec64e0f0b42a0a0af20088c3a5c9540944d078f0056b06b34a"
+     }
+    },
+    {
+     "carta": "tar_rw_spade_14_v1",
+     "origine": "tar_tho_63_cavaliere-di-spade_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/63.webp",
+      "byte": 298702,
+      "sha256": "9b41300bcdd562bbb67181acf36327bd5c6ae746cb9c4a6bf9f4a09d8c88ef11"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/63.webp",
+      "byte": 37130,
+      "sha256": "2df690ca40b51fd1661a46d5dde0086f91a8b31d3c91e866228254e5d635af52"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_01_v1",
+     "origine": "tar_tho_64_asso-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/64.webp",
+      "byte": 354124,
+      "sha256": "32fe14ef7cb180dc27c2188a8f27b7cbe7fb99ca69818588fa42ec205c5c97f2"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/64.webp",
+      "byte": 45988,
+      "sha256": "b8eeab7006ab600690608a5d43d65479bcb53c8182575d892e1fed6f501299c9"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_02_v1",
+     "origine": "tar_tho_65_due-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/65.webp",
+      "byte": 273934,
+      "sha256": "4b067618e7a7172b94cabf3a984942f45439a4dbbbbc6fbdc4a0b957ce65a5c0"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/65.webp",
+      "byte": 35566,
+      "sha256": "33b672f9bd9cb6817b61d40ebbf7f11b9ae7bc8965e563a5a46a8f4eb1a9b7ae"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_03_v1",
+     "origine": "tar_tho_66_tre-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/66.webp",
+      "byte": 280898,
+      "sha256": "5c6575bd5c121b3e2302819882338623a3989ef4703e0fc132d25674211bef3d"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/66.webp",
+      "byte": 35324,
+      "sha256": "244e00ed5824746ca605238594edcfca56e40e522f30e653f3a54229a0fc6e78"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_04_v1",
+     "origine": "tar_tho_67_quattro-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/67.webp",
+      "byte": 300670,
+      "sha256": "c8d15282eab7f64cabb99c145f8ee9fb3725d29a9930f1323c0e140faf12212d"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/67.webp",
+      "byte": 39172,
+      "sha256": "4adfabcb105eaf4666978c46e4962fae811ebe480d2557135ae1d45fcc37a145"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_05_v1",
+     "origine": "tar_tho_68_cinque-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/68.webp",
+      "byte": 292922,
+      "sha256": "c3eaadc9d41a3a212275a39c5bffdc5c886daf4347486382c3adbcd8bd62ac9c"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/68.webp",
+      "byte": 38024,
+      "sha256": "a7efa9ca1b49c23480b81ee748b3dffe0b34aff5d66a12a3cddeaa9785208c54"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_06_v1",
+     "origine": "tar_tho_69_sei-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/69.webp",
+      "byte": 285024,
+      "sha256": "17933bea91d5ed0b7ea5cd8f4427eee0b7ec4c52fef5972aa21fe61cbf475341"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/69.webp",
+      "byte": 35760,
+      "sha256": "0e73465b4188f66e08c1d51b61652da0ec4570754770ac5810b06b2c7192541c"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_07_v1",
+     "origine": "tar_tho_70_sette-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/70.webp",
+      "byte": 256650,
+      "sha256": "ebb86a4210efcb3691b605733a21edfe6d6a697a0cc9109228dbefee3eba244d"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/70.webp",
+      "byte": 33606,
+      "sha256": "0b88ea61b3fc7a6d352611a0931dc7e779e9894773106a996b21a7e58fc16bf0"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_08_v1",
+     "origine": "tar_tho_71_otto-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/71.webp",
+      "byte": 326470,
+      "sha256": "bfbe9e17c4890b124c531933199f86a4f5b6d09ebd6bfa0770f18e225629a4fe"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/71.webp",
+      "byte": 40398,
+      "sha256": "8d48bd5663c825d1e4f7d5d68a29d3d3ee6e825c09fdcc0e0eb49bd58de12990"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_09_v1",
+     "origine": "tar_tho_72_nove-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/72.webp",
+      "byte": 297520,
+      "sha256": "6ff9009df836b18139358b25a15a61cdc5a7c187b9e664c65fddd5a0ad2fb912"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/72.webp",
+      "byte": 35720,
+      "sha256": "4ed177b764eeb1a892c0ed2241c087abaa58c26189e799e790845ba3298e7b51"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_10_v1",
+     "origine": "tar_tho_73_dieci-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/73.webp",
+      "byte": 260084,
+      "sha256": "242dc77e31727775e095180deb6d49ecc24633e86e971dd262dcb7e2716181aa"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/73.webp",
+      "byte": 33142,
+      "sha256": "71fd685c04507df866056218bc24fcb8e03a44a715298b2b2998e71b4af89880"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_11_v1",
+     "origine": "tar_tho_74_principessa-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/74.webp",
+      "byte": 304396,
+      "sha256": "b39e54884d9aeded76b39148825491a0ed4447f00a36774b90fa3d4a9c32ff6d"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/74.webp",
+      "byte": 38582,
+      "sha256": "cc68d1d03dc3aae7b4fc36966d63107a46c033ff0632573c73f6e3988bd3886a"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_12_v1",
+     "origine": "tar_tho_75_principe-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/75.webp",
+      "byte": 327990,
+      "sha256": "c5ebd9f3cab5840a71234c5ee53653c62938f1090bc3dc962d5b23cca5c979d2"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/75.webp",
+      "byte": 41250,
+      "sha256": "9e669c4a0636fa749107709210a96a4f43eda91602311e850c670429b72be5d3"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_13_v1",
+     "origine": "tar_tho_76_regina-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/76.webp",
+      "byte": 302004,
+      "sha256": "9e58e8c61e644008ad3ef91b1c75df5c20876d44fa155b401820334d14b850b1"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/76.webp",
+      "byte": 38236,
+      "sha256": "4bd20f4e9aa7557040e384b6e17820e229a9f021ac1018f288c08f67ac483bd2"
+     }
+    },
+    {
+     "carta": "tar_rw_bastoni_14_v1",
+     "origine": "tar_tho_77_cavaliere-di-bastoni_v1",
+     "piena": {
+      "percorso": "thoth/v1/piene/77.webp",
+      "byte": 317750,
+      "sha256": "eba027112682ec794c2518a5a33724d1256e3fb40960645c96904cf7ff6d2684"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/miniature/77.webp",
+      "byte": 40312,
+      "sha256": "770bc90d3d7ceb4e74fbe60976372afb028bb650e54d51d5f6dd77e6e32ce0fa"
+     }
+    },
+    {
+     "carta": "dorso",
+     "origine": "tar_tho_dorso_v1",
+     "piena": {
+      "percorso": "thoth/v1/dorso.webp",
+      "byte": 444488,
+      "sha256": "ea55e3d19d831d465c5ca32a961dcc4c5baf7b18c8d6e8811734bc664110fdfe"
+     },
+     "miniatura": {
+      "percorso": "thoth/v1/dorso_miniatura.webp",
+      "byte": 60756,
+      "sha256": "18457eaf1fc9bb412a408aee8e8b8d6df8186574733c58dbdfa086ebfb7deec5"
+     }
+    }
+   ]
+  }
+ ]
+}

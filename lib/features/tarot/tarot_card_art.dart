@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../core/tarot/i_mazzi_dei_tarocchi.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -100,10 +101,20 @@ List<String> splitNomeCartiglio(String nome, {int sogliaCaratteri = 13}) {
 // **QUARANTA E' LA PARTENZA, NON LA MISURA FINALE.** Ordine CE voce 11:
 // il cartiglio di una carta si riempie, e chi lo riempie e' il calcolo qui
 // sotto, non un ruolo della scala.
-TextStyle cartiglioBaseStyle(MaestroPalette palette) =>
+TextStyle cartiglioBaseStyle(MaestroPalette palette, {Color? colore}) =>
     TypographyTokens.display(size: 40).copyWith(
-      color: palette.goldSoft,
-      shadows: [Shadow(color: palette.deepest, blurRadius: 2)],
+      color: colore ?? palette.goldSoft,
+      // Inciso: sull'oro del Maestro l'ombra e' scura, sul rame e
+      // sull'ottone dei mazzi scaricati (ordine FJ) e' una luce.
+      shadows: [
+        if (colore == null)
+          Shadow(color: palette.deepest, blurRadius: 2)
+        else
+          // Il bordo chiaro sotto la lettera, come una lettera battuta nel
+          // metallo che prende la luce dal basso.
+          const Shadow(
+              color: Color(0x99FFE8D0), offset: Offset(0, 1), blurRadius: 1),
+      ],
     );
 
 /// Il testo di un cartiglio, alla massima misura che riempie l'area utile.
@@ -115,15 +126,19 @@ class CartiglioTesto extends StatelessWidget {
     super.key,
     required this.righe,
     required this.palette,
+    this.colore,
   });
 
   final List<String> righe;
   final MaestroPalette palette;
 
+  /// Il colore del mazzo, se non e' l'oro del Maestro (ordine FJ).
+  final Color? colore;
+
   @override
   Widget build(BuildContext context) {
     final maiuscole = [for (final r in righe) r.toUpperCase()];
-    final base = cartiglioBaseStyle(palette);
+    final base = cartiglioBaseStyle(palette, colore: colore);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -161,26 +176,38 @@ class CartiglioTesto extends StatelessWidget {
 /// Il nome nel cartiglio inferiore: una riga se corto, due righe se lungo, alla
 /// misura piu' grande che entra nel blu.
 class CartiglioNome extends StatelessWidget {
-  const CartiglioNome({super.key, required this.nome, required this.palette});
+  const CartiglioNome(
+      {super.key, required this.nome, required this.palette, this.colore});
 
   final String nome;
   final MaestroPalette palette;
+  final Color? colore;
 
   @override
-  Widget build(BuildContext context) =>
-      CartiglioTesto(righe: splitNomeCartiglio(nome), palette: palette);
+  Widget build(BuildContext context) => CartiglioTesto(
+      righe: splitNomeCartiglio(nome), palette: palette, colore: colore);
 }
 
 /// Il contenuto del cartiglio superiore: il numerale della carta.
 class CartiglioNumero extends StatelessWidget {
-  const CartiglioNumero({super.key, required this.card, required this.palette});
+  const CartiglioNumero({
+    super.key,
+    required this.card,
+    required this.palette,
+    this.numerale,
+    this.colore,
+  });
 
   final TarotCard card;
   final MaestroPalette palette;
 
+  /// Il numerale del mazzo, quando non e' quello del Rider-Waite.
+  final String? numerale;
+  final Color? colore;
+
   @override
-  Widget build(BuildContext context) =>
-      CartiglioTesto(righe: [card.numeral], palette: palette);
+  Widget build(BuildContext context) => CartiglioTesto(
+      righe: [numerale ?? card.numeral], palette: palette, colore: colore);
 }
 
 /// Una carta del mazzo con i cartigli riempiti a runtime: il numerale in alto e
@@ -196,6 +223,8 @@ class TarotCardArt extends StatelessWidget {
     this.reversed = false,
     this.showCartigli = true,
     this.borderRadius = 6,
+    this.mazzo = TarotDeckStyle.predefinito,
+    this.arte,
   });
 
   final TarotCard card;
@@ -207,13 +236,29 @@ class TarotCardArt extends StatelessWidget {
 
   final double borderRadius;
 
+  /// Il mazzo scelto (ordine FJ). Conta solo con la sua [arte]: senza, la
+  /// carta e' quella del Rider-Waite, con le sue targhe e i suoi nomi.
+  final TarotDeckStyle mazzo;
+
+  /// L'arte del mazzo scaricato, dal telefono (`IMazziScaricati.arteDi`).
+  final ImageProvider? arte;
+
   @override
   Widget build(BuildContext context) {
-    final art = Image.asset(
-      card.fullPath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => _PaintedCard(card: card, palette: palette),
-    );
+    final arteDelMazzo = arte;
+    final m = arteDelMazzo == null ? TarotDeckStyle.predefinito : mazzo;
+    final errore = _PaintedCard(card: card, palette: palette);
+    final art = arteDelMazzo == null
+        ? Image.asset(
+            card.fullPath,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => errore,
+          )
+        : Image(
+            image: arteDelMazzo,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => errore,
+          );
 
     final carta = LayoutBuilder(
       builder: (context, constraints) {
@@ -230,12 +275,25 @@ class TarotCardArt extends StatelessWidget {
             art,
             if (showCartigli) ...[
               Positioned.fromRect(
-                rect: px(TarotFrame.cartiglioNumero),
-                child: CartiglioNumero(card: card, palette: palette),
+                rect: px(m == TarotDeckStyle.predefinito
+                    ? TarotFrame.cartiglioNumero
+                    : TarotFrame.areaUtile(m.placcaNumero)),
+                child: CartiglioNumero(
+                  card: card,
+                  palette: palette,
+                  numerale: m.numeraleDi(card),
+                  colore: m.coloreDelTesto,
+                ),
               ),
               Positioned.fromRect(
-                rect: px(TarotFrame.cartiglioNome),
-                child: CartiglioNome(nome: card.name, palette: palette),
+                rect: px(m == TarotDeckStyle.predefinito
+                    ? TarotFrame.cartiglioNome
+                    : TarotFrame.areaUtile(m.placcaNome)),
+                child: CartiglioNome(
+                  nome: m.nomeDi(card),
+                  palette: palette,
+                  colore: m.coloreDelTesto,
+                ),
               ),
             ],
           ],

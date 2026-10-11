@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/tarot/i_mazzi_dei_tarocchi.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -31,6 +32,7 @@ Future<void> mostraLaCartaIngrandita(
   required PosizioneLetta letta,
   required MaestroPalette palette,
   Widget? inFondo,
+  TarotDeckStyle mazzo = TarotDeckStyle.predefinito,
 }) {
   final riduciMovimento = MediaQuery.of(context).disableAnimations;
   return dialogoGeneraleDelCerchio<void>(
@@ -56,6 +58,7 @@ Future<void> mostraLaCartaIngrandita(
       entrata: entrata,
       riduciMovimento: riduciMovimento,
       inFondo: inFondo,
+      mazzo: mazzo,
       // **IL FONDO DICHIARATO, ordine AL voce 04.** Questa porta non e' un
       // foglio di Material e non ha nessuna superficie da vestire: il fondo
       // e' il velo, e la carta ci galleggia sopra. Dirlo qui invece di
@@ -77,7 +80,11 @@ class CartaIngrandita extends StatelessWidget {
     required this.riduciMovimento,
     this.backgroundColor = Colors.transparent,
     this.inFondo,
+    this.mazzo = TarotDeckStyle.predefinito,
   });
+
+  /// Il mazzo della stesa da cui la carta si e' aperta (ordine FJ).
+  final TarotDeckStyle mazzo;
 
   /// **CIO' CHE STA SOTTO IL TESTO DELLA CARTA. Ordine EA voce 16.** Il
   /// Passport ci mette la porta delle fonti della Carta di nascita, che non
@@ -176,6 +183,7 @@ class CartaIngrandita extends StatelessWidget {
               key: const Key('carta_ingrandita_figura'),
               drawn: letta.drawn,
               palette: palette,
+              mazzo: mazzo,
             ),
           ],
         ),

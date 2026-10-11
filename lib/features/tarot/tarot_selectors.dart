@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/tarot/la_chiave_di_lettura.dart';
+import '../../core/tarot/i_mazzi_dei_tarocchi.dart';
 import '../../core/tarot/tarot_spread_type.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -10,32 +11,10 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../horoscope/answer_depth.dart';
+import 'il_mazzo_si_scarica.dart';
 
 export '../../core/tarot/la_chiave_di_lettura.dart';
-
-/// Il mazzo con cui si legge.
-enum TarotDeckStyle {
-  riderWaite('Rider-Waite', available: true),
-  marsiglia('Marsiglia', available: false, riga: RigaDelPiano.mazzoDiMarsiglia),
-  thoth('Thoth', available: false, riga: RigaDelPiano.mazzoThoth);
-
-  const TarotDeckStyle(this.label, {required this.available, this.riga});
-
-  final String label;
-
-  /// Se il mazzo e' gia' nell'app. Marsiglia e Thoth arrivano con la parte 4
-  /// dell'ordine FI.
-  final bool available;
-
-  /// La riga della matrice dei piani che lo apre (ordine FI voce 32).
-  final RigaDelPiano? riga;
-
-  /// Se questo piano puo' scegliere questo mazzo.
-  bool apribileDa(Tier tier) {
-    final r = riga;
-    return available && (r == null || PlanCatalog.apre(r, tier));
-  }
-}
+export '../../core/tarot/i_mazzi_dei_tarocchi.dart';
 
 /// Lo stato dei selettori prima della stesa.
 class TarotSetup {
@@ -367,10 +346,16 @@ class TarotSetupPanel extends StatelessWidget {
                       palette: palette,
                       etichetta: (d) => d.label,
                       bloccata: (d) => !d.apribileDa(piano),
-                      perche: (d) => d.available
-                          ? PlanCatalog.dalPiano(d.apribileDa) ?? 'Coming soon'
-                          : 'Coming soon',
-                      onSelect: (d) => onChanged(setup.copyWith(deck: d)),
+                      perche: (d) =>
+                          PlanCatalog.dalPiano(d.apribileDa) ?? 'Coming soon',
+                      // Marsiglia e Thoth si scaricano quando li scegli
+                      // (ordine FJ voce 12): se il download non riesce la
+                      // scelta resta sul Rider-Waite.
+                      onSelect: (d) async {
+                        if (await scegliIlMazzo(context, d, palette)) {
+                          onChanged(setup.copyWith(deck: d));
+                        }
+                      },
                       onLocked: (d) => onLocked(d.label),
                     ),
                   ),

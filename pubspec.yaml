@@ -76,6 +76,11 @@ dependencies:
   # gia' nell'albero come dipendenza di firebase_ai, alla stessa versione.
   http: ^1.6.0
 
+  # L'impronta SHA-256 di ogni file dei mazzi scaricati dal bucket (ordine FJ
+  # voce 12, `i_mazzi_scaricati.dart`): un file che non torna si riscarica.
+  # Era gia' nell'albero, fra le dipendenze delle prove, alla stessa versione.
+  crypto: ^3.0.7
+
   # App Check: protegge le chiamate all'AI Logic dagli abusi.
   firebase_app_check: 0.4.5
 
@@ -221,7 +226,6 @@ dev_dependencies:
   # via che il pacchetto usa per provare se stesso.
   video_player_platform_interface: ^6.9.0
 
-  crypto: any
   share_plus_platform_interface: any
 flutter:
   uses-material-design: true
