@@ -42,6 +42,18 @@ sta nella specifica della posizione. Dodici carte restano sotto per un difetto
 della fonte dei significati e non del testo: sono elencate in
 `docs/corpus/tarocchi_posizione/collisioni_della_fonte.md`.
 
+**Riallineamento alla fonte dell'11 ottobre 2026, sera.** Ventidue voci della fonte
+dei significati sono state riscritte su questo ramo, e sette di esse erano carte che
+il reperto `collisioni_della_fonte.md` segnalava come prive di cardine. I testi di
+questa posizione erano stati scritti sulla fonte precedente, quindi **sessantasei
+testi dicevano cose che la voce nuova non dice piu'**: il Tre di Bastoni capovolta,
+per esempio, diceva «l'attesa che pesa, arrivano ritardi» e la fonte dice ora «il
+ritorno diverso dall'atteso». Quei ventidue gruppi sono stati **riscritti**, non
+ritoccati, perche' un ritocco lascia sotto il significato vecchio. Il valore di
+riconoscibilita' qui sopra e' quello misurato sulla stesura precedente e andra'
+rimisurato: il riallineamento tocca il quattordici per cento dei gruppi, e in sette
+di essi la voce nuova da' un cardine che prima non esisteva.
+
 ## Il Matto
 
 ### dritta
@@ -136,9 +148,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Dentro di te c'è un disaccordo fra cose a cui tieni allo stesso modo. Ti resta da chiarire quale viene prima, perché il sì che dici all'altro esce a metà finché quella risposta la nascondi a te.
-- 2: Nella scena comanda un valore contro un altro valore, non una persona contro di te. Finché quella contesa interna ha la mano, l'accordo che prendi con l'altro poggia su una parte sola di te.
-- 3: Il peso si sposta su un accordo preso con l'altro mentre dentro di te la contesa è intatta. La china porta a un patto che dai per intero e che i tuoi valori sostengono solo in parte.
+- 1: La strada sbocca in un accordo firmato da una parte sola di te: quella che credi ha parlato, quella che desideri è rimasta fuori. Il sì che arriva all'altra persona porta metà del tuo peso.
+- 2: Qui comanda una contesa pari fra cose tue, non fra te e chi hai di fronte: finché il termine zittito resta fuori dal conto, nessuna decisione presa in due poggia su tutto quello che sei.
+- 3: Il passaggio davanti a cui stai non è fra te e un'altra persona: è fra quello che credi e quello che vuoi, uno detto e uno tenuto muto. Il patto esterno aspetta che tu li metta pari.
 
 ## Il Carro
 
@@ -164,9 +176,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Quello che ti arriva da sbrogliare è un conto in sospeso: una responsabilità rimandata pesa più del fatto stesso. Finché la tieni in ombra nulla si pareggia e il carico cresce dove non lo guardi.
-- 2: Si va verso uno sbilancio che hai lasciato aperto tu: una verità che eviti, un dovere non saldato. Guardalo in faccia con calma, il pareggio torna nel momento in cui [sei onesto con te stesso|sei onesta con te stessa|smetti di mentirti].
-- 3: A tenere tutto fermo è un piatto più carico dell'altro: hai rimandato una resa dei conti con te. L'inclinazione resta finché non metti sul tavolo quello che già sai.
+- 1: Il nodo che ti arriva in mano è il nome sul conto: un effetto prodotto da una tua scelta sta registrato alla sorte mentre il pareggio resta fuori portata finché l'intestazione non cambia.
+- 2: A pesare non è quello che ti è capitato ma quello che hai deciso: il piatto basso lo tiene una conseguenza tua e attribuirla ad altri non la solleva di un dito.
+- 3: La soglia è il punto in cui smetti di intestare ad altri un effetto che hai prodotto: da una parte rimane il conto aperto al tuo nome, dall'altra comincia il pareggio.
 
 ## L'Eremita
 
@@ -388,9 +400,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Sei sulla soglia fra aspettare ancora un poco e correggere la rotta. Quello che hai messo in moto è lontano da te e il suo ritorno slitta: l'orizzonte da cui lo guardavi arrivare è ancora vuoto.
-- 2: Il peso si sposta dall'attesa fiduciosa all'attesa che stanca: guardi lontano un ritorno che hai avviato tu e non lo vedi ancora. Qui niente si accavalla e niente ti fa inciampare, manca solo la cosa che torna.
-- 3: Ti resta in mano il nodo di capire se questo ritardo sia un tempo diverso oppure il segno che la rotta va corretta. Quello che hai lanciato è ancora fuori e lontano: nessuno ti ha detto no.
+- 1: La strada sbocca in un rientro che non somiglia all'ordine partito: quello che hai mandato lontano torna con un carico diverso. Il punto in cui si apre chiede di rileggere le attese su ciò che è stato scaricato.
+- 2: Il nodo consegnato non è quanto aspettare, è che cosa fare della merce rientrata: la risposta a quello che avevi messo in moto esiste e ha una forma che la tua lista non prevedeva.
+- 3: Dentro questo approdo il ritorno è pieno e spostato: niente resta in sospeso e niente si impiglia per strada, quello che rientra riempie il porto con un contenuto che non avevi ordinato.
 
 ## Quattro di Bastoni
 
@@ -402,9 +414,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Quello che si sta preparando è una celebrazione che poggia su radici non ancora prese: in superficie tutto sta su, sotto il terreno cede. Prima del brindisi vanno curate le fondamenta, altrimenti la festa regge meno della struttura.
-- 2: La piega è quella di un tetto montato su pali incerti. Non un giro di persone da sfoltire né un risultato in ritardo: una base che chiede cura adesso, perché la gioia piena poggi su qualcosa di fermo.
-- 3: Sotto, dove non si vede, manca l'armonia da ricomporre e le radici da far attecchire. La strada porta lì, al lavoro di sostegno che viene prima di qualunque cosa da festeggiare.
+- 1: La soglia davanti a cui la cosa si trova è quella di una casa compiuta in cui non si è ancora entrati: il traguardo c'è per intero e manca il giorno che lo celebra.
+- 2: Comanda la scena un traguardo che nessuno ha ancora salutato: non una base che cede sotto il peso né un carico rientrato diverso dall'atteso, ma una festa rimandata su una cosa riuscita.
+- 3: Nel materiale già accumulato stanno un risultato completo e un ingresso mancante: non c'è un'opera da finire, c'è un passaggio che non è stato attraversato e una gioia rimasta a metà.
 
 ## Cinque di Bastoni
 
@@ -472,9 +484,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: A reggere il gioco non c'è più un nemico, c'è una fasciatura vecchia: il colpo l'hai preso tempo addietro e la guardia non l'hai più smessa. Chi ti bussa a mani vuote riceve la risposta che tenevi per chi colpiva.
-- 2: La china sposta il bersaglio: non più chi ti assediava, ma chi ti si avvicina in pace. I pali li hai piantati tutti attorno e adesso tengono fuori anche le mani tese. Uno lo puoi togliere senza perdere il recinto.
-- 3: Il nodo che ti viene consegnato è questo: da chi stai difendendo una casa che nessuno sta più attaccando. La diffidenza si è messa comoda e non sa distinguere un assalto da una visita.
+- 1: A comandare la scena non è un avversario, è una cicatrice: il colpo è vecchio e la guardia non si è più abbassata. Chi bussa a mani libere riceve quello che tenevi da parte per chi sfondava.
+- 2: Il nodo che ti resta in mano è questo: da chi stai difendendo un recinto che nessuno assedia. Le ferite di prima tengono le chiavi del cancello e non sanno leggere chi si presenta.
+- 3: Nel presidio che continua c'è già il seme di una solitudine: non te la portano i nemici, la pianti tu palo dopo palo mentre tieni fuori anche chi veniva a mani vuote.
 
 ## Dieci di Bastoni
 
@@ -500,9 +512,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Quello che si accumula sono cose aperte a metà: accendi oggi e spegni ieri, poi ricominci altrove e nessuna di quelle vede il frutto. Ti resta addosso il calore e niente che duri.
-- 2: L'entusiasmo lo spendi tutto in partenza e in cambio hai mezze opere: la parte lenta di una cosa la lasci appena la seguente chiama più forte. Ti ritrovi con molto acceso e poco compiuto.
-- 3: Lo sbocco di questo ardore è un ardore nuovo: quello di ora si raffredda da solo e nessuno te lo soffoca, poi ne accendi un altro. Il frutto lo rimandi una partenza dopo l'altra.
+- 1: Il materiale che si sta mettendo insieme è una fila di faccende aperte a metà: ciascuna cede l'ora che le toccava a quella dopo, così di maturo nel mucchio non ne resta.
+- 2: Paghi ogni inizio con l'inizio che gli va davanti: la strada chiede poco alla partenza e molto alla durata, restituendo slanci freschi al posto di opere finite.
+- 3: La figura che si va componendo è un ricambio continuo: l'ardore di adesso lascia il campo al successivo e la faccenda di prima rimane alla crescita che aveva, col frutto rimandato.
 
 ## Cavaliere di Bastoni
 
@@ -592,9 +604,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### dritta
 
-- 1: Un'offerta ignorata è il seme già nel terreno: la mano che ti porge qualcosa è già tesa e tu guardi altrove per noia, non per mancanza di occasioni.
-- 2: La domanda aperta è dove alzi lo sguardo: non c'è troppa scelta davanti a te, c'è una cosa buona accanto a te che non stai vedendo. Il torpore, non la scarsità, tiene chiusa questa storia.
-- 3: Qualcosa di buono sta fermo a un braccio di distanza mentre tu fissi il vuoto. La china porta a un rifiuto distratto e il rimedio è una testa che si gira.
+- 1: La china di questa storia porta a un rifiuto da pieno: una cosa buona resta tesa accanto e nessuno la raccoglie, perché la sazietà conta più di quello che viene offerto.
+- 2: Ha la mano la sazietà, non il timore e non l'eccesso di scelte: quando la cosa si compone, comanda la scena il gusto che non si accende, con un'offerta lasciata tesa a un palmo da chi potrebbe prenderla.
+- 3: Questa strada finisce dove qualcuno dice basta così: le coppe già piene fanno da misura, l'offerta accanto resta intera e il no arriva prima di ogni assaggio.
 
 ### capovolta
 
@@ -682,9 +694,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: La figura che si sta componendo è una casa dove si parla del meno: pasti puntuali, frasi corte, affetto che nessuno nega e nessuno dice. Non manca nessuno a tavola, manca la parola.
-- 2: Questa strada sbocca in un silenzio che diventa abitudine fra le persone con cui dividi la casa. Non è una lite in corso e non è un posto vuoto: è un'aria raffreddata che torna tiepida solo se vi dite le cose.
-- 3: Il conto a fine giro è questo: ti risparmi una discussione dentro casa e paghi con la distanza di chi ti vuole bene. Quello che la strada chiede sono parole dette piano e tempo. Quello che rende è l'aria di prima.
+- 1: Il profilo che l'insieme sta prendendo è una casa a scomparti: stesse chiavi, pranzi separati, ciascuno col suo calendario. Nessun posto resta vuoto a tavola, il passo comune sì.
+- 2: Si arriva davanti a un passaggio: o le volontà di casa tornano a incrociarsi su qualcosa, oppure ognuno finisce di sistemarsi per conto proprio dentro le stesse mura.
+- 3: Questa strada chiede a ciascuno di cedere un pezzo del proprio piano e restituisce la tavola calda di prima. Senza quel prezzo resta una convivenza educata dove ognuno fa i conti per sé.
 
 ## Fante di Coppe
 
@@ -696,9 +708,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Si decide fra murare quello che senti e consegnarlo a qualcuno: il messaggio è scritto e resta in tasca. Non stai annegando negli umori di altri, stai nascondendo i tuoi perché te li hanno fatti sembrare un difetto.
-- 2: Comanda il pudore, non l'empatia: senti tutto per intero e lo copri come si copre un rossore. Il primo da avere caro è il tuo sentire, non chi ti sta davanti.
-- 3: Questa chiusura ha un prezzo doppio: nessuno ti ferisce più e nessuno ti raggiunge più. Non hai smarrito i tuoi confini dentro un altro, hai murato una delicatezza giovane che non è una colpa da pagare.
+- 1: Nel terreno c'è un'offerta non fatta: quello che senti è pronto e resta fermo fra le tue mani. Non è l'emozione di un altro a riempirti, è la tua che non esce dal riparo in cui l'hai messa.
+- 2: La cosa si ferma davanti a una soglia: murare quello che provi, oppure porgerlo. Da una parte un sentire giovane al sicuro e zitto, dall'altra la mano che si apre col rischio che porta con sé.
+- 3: Il conto del riparo è doppio: nessuno ti tocca più dove fa male e nessuno arriva più dove abiti davvero. Quello che la strada chiede è la stessa delicatezza di prima, tenuta fuori invece che sotto chiave.
 
 ## Cavaliere di Coppe
 
@@ -738,9 +750,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Il coperchio che tieni sul tuo sentire comanda più della forza del sentimento: la faccia sopra non si scompone mentre il fondo si agita. Di questo non si accorge nessuno, tu compreso.
-- 2: Un comando a scatti sopra il tuo sentire è il profilo che si va componendo: la compostezza regge a lungo e poi lascia tutto in una volta. La piena che esce nasce dal fondo e non dall'umore di un altro.
-- 3: Si risolve in un silenzio ben educato: governi gli stati d'animo con tanta cura che nessuno ne riceve più notizia. Non è l'umore di altri a riempirti, è il tuo che non trova la porta.
+- 1: Nel terreno c'è già questo: una guida che prende ordini dal proprio umore. Gli altri si regolano su come ti trovano e la quiete che vengono a chiedere non la trovano al suo posto.
+- 2: Il saldo del tratto che hai davanti è questo: ottieni il passo che chiedi usando il tuo stato d'animo come leva mentre perdi la fiducia di chi veniva da te per stare tranquillo.
+- 3: La forza che prende il comando dell'insieme è lo sbalzo d'umore, non la maturità che pure possiedi: quello che dovevi dare agli altri lo stai spendendo per muoverli.
 
 ## Asso di Denari
 
@@ -766,9 +778,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: La figura che si va componendo è un ritmo che si rompe: niente ti curva le spalle, ti sfugge invece il tempo fra una cosa e l'altra. Scegliere che cosa viene prima è l'unico modo di non far cadere tutto.
-- 2: Troppe cose in moto nello stesso momento stanno uscendo dalla tua mano. Non è il peso a essere eccessivo: è il numero, perché poche tenute bene valgono più di tante lasciate andare.
-- 3: Qui la presa si allenta: il gioco è ancora in aria ma le mani non bastano. Metti un ordine prima che l'ordine lo decida la caduta.
+- 1: Quello che la situazione ha già dentro è un giro fuori tempo: gli impegni si sono accumulati uno sull'altro, il passaggio fra loro si è allungato, una delle cose ha smesso di tornare nella mano.
+- 2: Sei alla soglia in cui il giro si spezza: qualche pezzo lo tieni ancora, non tutti, perché ogni cosa aggiunta ha rubato un istante al passaggio e il primo è già uscito dalle tue mani.
+- 3: Il nodo che l'insieme consegna è quale cosa tenere in aria e quale posare, perché il tempo per tutte non c'è più: poche portate bene reggono, molte lasciate al caso cadono insieme.
 
 ## Tre di Denari
 
@@ -788,9 +800,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### dritta
 
-- 1: La strada sbocca nel mettere al sicuro: quello che hai messo da parte resta chiuso bene, le spese si stringono, il controllo sui tuoi beni è saldo. Qui la piega è quella della conservazione, non della condivisione.
-- 2: Una mano chiusa è la figura. Stabilità vera, muri solidi, niente che esce senza il tuo permesso. Il punto in cui arriva porta sicurezza, con l'avvertenza che una mano stretta non riceve.
-- 3: Qui si approda alla difesa di quello che è tuo. Non la prosperità che si distribuisce agli altri: a governare è chi tiene il proprio stretto al petto e per questo dorme senza sobbalzi.
+- 1: La china porta alla conservazione: quello che hai resta contato e chiuso, le uscite si stringono, il controllo su quello che possiedi sta fermo nelle tue mani. Qui si conserva, non si distribuisce.
+- 2: Si sta accumulando una riserva al riparo, fatta di spese ridotte e di beni contati che non escono senza il tuo permesso. La stessa mano che la chiude non resta libera di prendere.
+- 3: Quello che questa strada rende è integrità: il bene resta intero, non cresce e non si sparge. Il prezzo pagato è tutto quello che una mano occupata a tenere non arriva a toccare.
 
 ### capovolta
 
@@ -864,9 +876,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Quello che hai costruito da te ti chiede molto e ti restituisce meno gusto di prima: la comodità regge, il piacere di abitarla si assottiglia, perché hai preso a misurare il tuo valore su quanto possiedi.
-- 2: Il profilo che l'insieme sta prendendo è quello di un giardino curato in cui entri soltanto tu: ordine, agio, ogni cosa al suo posto. Sotto, un dubbio sordo su quanto resti di te senza tutto questo.
-- 3: La china di tutto questo porta a un'insicurezza in mezzo all'abbondanza: più aggiungi, meno ti basta. Il troppo che ti concedi mangia proprio la serenità per cui hai lavorato tanto.
+- 1: Il prezzo di questa strada lo paga l'indipendenza: ogni spesa fatta perché si veda toglie un pezzo alla libertà che il tuo lavoro aveva comprato. L'agio resta, il margine che lo tiene in piedi si accorcia.
+- 2: Si inclina tutto dalla parte del mostrare: quello che il tuo lavoro ti ha dato continua a esserci mentre le uscite lo erodono, perché far sapere ti costa più del possedere.
+- 3: La figura che si compone è quella di un benessere tuo tenuto su per gli occhi altrui: nessuna mano chiusa dal timore, nessuna cura spesa sui bisogni di altre persone, soltanto un'abbondanza propria mangiata dallo sfoggio.
 
 ## Dieci di Denari
 
@@ -878,23 +890,23 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: La forza che prende il sopravvento è una tensione dentro casa: discussioni su quello che si possiede, parenti che tirano da parti diverse, fondamenta che tremano dall'interno proprio dove sembravano salde.
-- 2: Il taglio di questo tratto è una crepa nelle radici. Non la mancanza di mezzi, non una base ancora da costruire: quello che hai messo in piedi scricchiola per i conti e i rancori di chi ti sta intorno.
-- 3: Qui si arriva a una ricchezza che non tiene insieme le persone. Il punto in cui sbocca chiede di curare quello che dura davvero, oltre il guadagno di oggi, perché l'armonia di chi ti è vicino pesa quanto i beni.
+- 1: A comandare la scena diventa il diritto di più persone sulla stessa cosa: sull'insieme non decide nessuno per conto suo, decidono i tuoi insieme, ciascuno con la sua pretesa sul bene che vi tiene legati.
+- 2: Il profilo che si compone è quello di un patrimonio spartito male fra chi lo possiede in comune. Niente scarsità di mezzi e nessuna presa serrata di una mano sola: tante mani sullo stesso bene, ciascuna con un conto suo.
+- 3: Quello che questo tratto consegna da decidere è chi risponde di che cosa dentro le proprietà dei tuoi. Ciò che era di tutti si misura adesso in parti, mentre il legame di sangue regge il peso della trattativa.
 
 ## Fante di Denari
 
 ### dritta
 
-- 1: La via porta a un apprendistato: non un'occasione da cogliere ma una materia da imparare da principio, con la serietà di chi sa di non sapere ancora. Passi piccoli, studiati, uno dietro l'altro.
-- 2: Qualcosa di concreto comincia e ti chiede di studiarlo prima di governarlo. Quello che la strada chiede è un impegno lungo, dove il merito non è l'intuizione iniziale ma la pazienza di esercitarsi.
-- 3: Hai in mano una cosa nuova e la stai guardando per capirla, non per spenderla. Il punto d'arrivo ha la forma di una promessa pratica che cresce solo con l'applicazione quotidiana.
+- 1: La strada sbocca in un apprendistato: non un'occasione da raccogliere ma una materia da imparare dal principio, dove ogni ora di prova lascia dietro un risultato che si può toccare.
+- 2: Prende forma un sapere che diventa cosa concreta un pezzo alla volta, non un talento già pronto da rifinire: dietro chi impara facendo resta del lavoro compiuto.
+- 3: Il nodo consegnato nelle tue mani è quanto esercizio dare a una promessa ancora ignorante, perché quello che impari si fa materia soltanto nella parte in cui lo metti in pratica.
 
 ### capovolta
 
-- 1: Si va accumulando un buon inizio lasciato a mezzo, non il logorio dell'abitudine: la tua attenzione è scivolata su un'altra cosa nuova e l'opera appena avviata sta ferma, intera, sotto la polvere.
-- 2: Due nomi stanno addosso alla stessa faccenda, un principio sospeso oppure una rinuncia, mentre il secondo si avvicina. A fermarti non è la noia di chi ha già imparato tutto, è una curiosità che ti ha spostato su un altro banco.
-- 3: Il peso si sposta sul non finito: avevi cominciato e il seguito slitta. La voglia di imparare è intera e la costanza non ha ancora preso forma, così il lavoro resta fermo a un terzo.
+- 1: Si sta accumulando una promessa non onorata: la voglia di imparare è intera, la pratica non è cominciata e l'impegno preso con qualcuno invecchia dentro un cassetto.
+- 2: Il saldo di questo tratto è lo studio speso e non incassato: hai messo attenzione sull'inizio e l'hai ritirata prima della prova, così il mestiere resta una cosa che sai raccontare e non fare.
+- 3: La soglia davanti a te separa il sapere detto dal saper fare. Il lavoro è fermo al suo primo tratto, intatto e non logorato dall'abitudine: manca la mano messa sulla cosa.
 
 ## Cavaliere di Denari
 
@@ -906,9 +918,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Si accumula un lavoro pronto in ogni dettaglio e mai iniziato: il campo già arato, gli attrezzi lucidi, il cavallo da tiro immobile nei solchi. Quello che la prudenza mette da parte è tempo, non errori evitati.
-- 2: Il conto di questa minuzia è semplice: nessuna sbavatura e nessun metro guadagnato. Il riposo non c'entra e nemmeno un frutto che tarda, hai il lavoro in mano e le giornate spese a ricontrollarlo. Smuovere una cosa minima rende più dell'ordine perfetto.
-- 3: Da una parte l'ordine perfetto prima di cominciare, dall'altra il primo pezzo fatto storto: lì si gioca tutto. Finché aspetti il primo, il mestiere ti resta addosso immobile e quella non è pazienza, è paura di sbagliare con un nome rispettabile.
+- 1: Il saldo di questo percorso è distanza non coperta: la meta resta dov'era, il tracciato resta quello buono. Tanta cautela mette in conto soltanto tappe spostate.
+- 2: La forma che l'insieme sta prendendo è quella di un viaggio corretto e immobile. Niente da correggere nel tracciato, tutto fermo nell'andatura, con la costanza che si è indurita in sosta.
+- 3: A comandare la scena è una cautela che ha preso il posto del metodo: la meta resta visibile, le tappe restano da fare, ogni mattina il procedere si rimanda a condizioni migliori.
 
 ## Regina di Denari
 
@@ -920,9 +932,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Il carico scivola tutto da una parte e quella parte sei tu: la dispensa, i compleanni che ricordi, le camicie di tutti. Non assorbi l'umore di nessuno, provvedi in concreto e nessuno sta provvedendo a te.
-- 2: Si va componendo una casa che gira bene con chi la tiene in piedi allo stremo. Nessuno ti ricambia male e non è un dare ripagato poco, è che nell'elenco di chi ha bisogno di qualcosa non ti scrivi.
-- 3: Resta aperta una domanda scomoda: chi annaffia il giardino che annaffia tutti. Non è nostalgia e non è un torto subito, è il tuo nome che manca dalla lista quando distribuisci le cure.
+- 1: La forma che il tutto sta prendendo è una casa che gira bene, dispensa piena e conti in pari, con te come l'unica cosa di cui nessuno si occupa fra quelle mura.
+- 2: Resta in mano una domanda scomoda: chi provvede a chi provvede. Non è un torto subito e non è un dare mal ripagato, è il tuo nome che non scrivi quando fai la lista delle cose da curare.
+- 3: Il prezzo di questa strada lo paghi in cose piccole: il pasto saltato, la visita spostata, il riposo rimandato. La resa è una casa in ordine dove tutti stanno bene tranne chi la regge.
 
 ## Re di Denari
 
@@ -1004,9 +1016,9 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### capovolta
 
-- 1: Il passaggio davanti a cui ti trovi è deporre le armi: la voglia di chiudere uno scontro conta più del torto da dimostrare. Oltre quella soglia sta la pace di chi fa il primo passo pur avendo ragione.
-- 2: A comandare la scena è un perdono che libera: non un'unione nuova, ma la fine di una guerra. Qui porgere la mano a chi hai avuto contro non è cedere, è scegliere meglio.
-- 3: Quello che si scioglie è la ragione tenuta stretta come un'arma. Il peso si sposta sulla riconciliazione se posi quello che avevi alzato: le lame raccolte si possono anche restituire.
+- 1: La strada sbocca in una mano tesa proprio a chi avevi contro: lo scontro resta chiuso a tuo favore, il torto resta dell'altra parte, la restituzione delle armi prende il posto della rivalsa.
+- 2: A conti fatti il saldo è questo: lasci cadere una rivendicazione che avevi buona per intero e ti resta una pace che la soddisfazione non ti dava. Il primo passo è alla tua portata adesso.
+- 3: Ad avere la mano sull'insieme è il perdono di chi poteva rivendicare e non lo fa: non un patto fra chi si ama, ma una lite chiusa a tuo favore che smetti di far pagare all'altra parte.
 
 ## Sei di Spade
 
@@ -1068,23 +1080,23 @@ della fonte dei significati e non del testo: sono elencate in
 
 ### dritta
 
-- 1: Il saldo è un fondo già toccato: il colpo è caduto, la resistenza è finita, sotto quel punto non resta altro livello. Niente che si trasformi in qualcosa d'altro, niente paura della testa, una resa a cosa fatta.
-- 2: Un ciclo doloroso si chiude per esaurimento al suo basso estremo: è là che la cosa va. Non un pensiero notturno che ti ingrandisce le ombre, un fatto avvenuto, con la discesa che da lì non continua.
-- 3: Tutto si ferma nel punto più basso ed è lì che questa strada sbocca. La resa non è scelta: viene quando non resta niente da difendere. Per questo la notte più nera sta dove l'alba comincia a contare.
+- 1: Il materiale che si è accumulato è quello di una contesa arrivata all'ultimo colpo: braccia stanche, difese spese e già pronta la resa che riconosce il campo perduto invece di rimandarla ancora.
+- 2: La soglia davanti a cui la cosa si trova è quella in cui si smette di combattere: da una parte una contesa tenuta in piedi oltre il suo tempo, dall'altra le armi posate e il campo lasciato come sta.
+- 3: Quello che questa strada chiede è l'ultimo colpo subito e quello che restituisce è la chiusura di una contesa: a conti fatti resta un campo fermo, con niente più da difendere e nessuno che attacchi.
 
 ### capovolta
 
-- 1: La soglia è quella del risollevarsi dal punto più basso, quello toccato per davvero: le lame restano dove sono cadute e tu ti rimetti su. Non una paura che si sgonfia, non un soccorso da fuori: il peggio è già passato.
-- 2: Si riprende dopo il colpo subito. Niente che ti abbia solo spaventato di notte e niente aiuto che rientra da fuori: sei ancora qui dopo il fondo. Rialzarsi adesso chiede dolcezza più che fretta.
-- 3: Quello che doveva cadere è caduto ed è da quel punto che la cosa risale. Il sollievo non viene da un pensiero ridimensionato: viene dall'aver attraversato la parte più dura con il corpo, fino a ritrovarti oltre.
+- 1: Il baricentro si sposta sul rialzarsi da terra dopo una chiusura totale: niente del prima resta in gioco e la spinta che riporta su qualcosa esce dalla tua forza, non da una mano esterna.
+- 2: Quello che la situazione ha già dentro è un terreno sgombrato fino al nudo e sei tu a rialzarti da lì, senza nessuna mano prestata da fuori e senza un pezzo del prima da salvare.
+- 3: A conti fatti il saldo è questo: la perdita è totale e la ripresa è intera, perché non resta un pezzo del prima da rimettere a posto. Ogni gesto che fai rialza qualcosa che prima non stava su.
 
 ## Fante di Spade
 
 ### dritta
 
-- 1: Qui si accumula materiale di sguardo e di informazione: domande, occhi aperti, cose raccolte da chi sta imparando a maneggiare la lama e non ha ancora il diritto di decidere.
-- 2: La strada porta a una verità cercata, non ancora detta: vigilanza, curiosità acuta, il naso al vento. Sbocca nella scoperta se tieni le parole dietro ai denti finché non hai capito.
-- 3: Quello che si apre è un apprendistato della mente: stare in guardia, verificare, affilare lo sguardo prima della lingua. Qui ha la mano chi chiede, non chi proclama.
+- 1: Questa via sbocca in una ricerca raccontata mentre dura: quello che si trova passa di mano appena trovato, con gli occhi ancora sul dettaglio e nessun giudizio messo insieme.
+- 2: Il nodo che resta in mano a chi chiede è quanto tempo lasciare fra lo scoprire e il dire, perché qui la scoperta e il racconto arrivano insieme e nessuno ha ancora deciso niente.
+- 3: La forma che l'insieme sta assumendo è quella di una ricognizione giovane: domande, orecchie tese, dettagli raccolti e passati subito ad altri, con la verità intera ancora da comporre.
 
 ### capovolta
 

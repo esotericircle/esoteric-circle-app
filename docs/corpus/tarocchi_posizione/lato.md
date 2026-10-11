@@ -31,7 +31,20 @@ il 75,9 del corpus da cui parte, con novantatre testi su quattrocentosessantotto
 riscritti dal cardine differenziale, cioe' dal tratto che la fonte da' alla carta
 e non alla carta con cui i lettori la scambiavano. Il metodo, i numeri e le
 cinque carte che restano irriconoscibili per un difetto della fonte dei
-significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
+significati stanno in `docs/corpus/tarocchi_posizione/collisioni_della_fonte.md`, che vive in
+questo ramo accanto a questo file.
+
+**Riallineamento alla fonte dell'11 ottobre 2026, sera.** Ventidue voci della fonte
+dei significati sono state riscritte su questo ramo, e sette di esse erano carte che
+il reperto `collisioni_della_fonte.md` segnalava come prive di cardine. I testi di
+questa posizione erano stati scritti sulla fonte precedente, quindi **sessantasei
+testi dicevano cose che la voce nuova non dice piu'**: il Tre di Bastoni capovolta,
+per esempio, diceva «l'attesa che pesa, arrivano ritardi» e la fonte dice ora «il
+ritorno diverso dall'atteso». Quei ventidue gruppi sono stati **riscritti**, non
+ritoccati, perche' un ritocco lascia sotto il significato vecchio. Il valore di
+riconoscibilita' qui sopra e' quello misurato sulla stesura precedente e andra'
+rimisurato: il riallineamento tocca il quattordici per cento dei gruppi, e in sette
+di essi la voce nuova da' un cardine che prima non esisteva.
 
 ## Il Matto
 
@@ -127,9 +140,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Il disaccordo con chi ami ripete una divisione che hai dentro: due valori reclamano entrambi di essere i tuoi e a uno dei due stai dando una risposta che non è sincera. Per questo la scelta resta sospesa.
-- 2: Due cose che per te contano davvero si contendono il campo: finché non dichiari quale delle due regge, nessun accordo con la persona che ami tiene, perché manca prima quello con te.
-- 3: Sotto il dubbio su quel legame sta una bugia piccola che racconti a te. Finché la tieni, il rinvio tiene: due valori restano in lotta e nessuna decisione presa in due sta in piedi.
+- 1: Sulla tua strada si fronteggiano cose che ti appartengono entrambe, quella in cui credi e quella che vuoi. Una delle due la tieni a bocca chiusa, perciò l'altra non riesce a convincerti.
+- 2: Il bivio che hai davanti ha entrambi i lati dentro di te, con lo stesso diritto di parlare, ciò che credi da una parte e ciò che desideri dall'altra. Il disaccordo nel legame è l'eco di questo.
+- 3: Si contendono il campo lealtà tutte tue e nessuna viene da fuori: una ha parlato per intero, l'altra è stata zittita. Finché sta così, ogni accordo preso in due regge a metà.
 
 ## Il Carro
 
@@ -155,9 +168,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Una cosa che ti spetta è rimasta da fare e ogni volta l'hai spostata alla prossima occasione. Il conto non si chiude da solo: resta aperto a tuo nome e pesa senza farsi vedere.
-- 2: La responsabilità che tocca a te, rimandata una volta di più, è il peso che non riesci a posare. Finché non la riconosci come tua, l'assetto non torna.
-- 3: Un conto a tuo nome resta da saldare e lo sposti avanti da tempo. La bilancia tiene un piatto più basso e si rimette in pari solo quando ti dici com'è andata davvero.
+- 1: L'effetto che hai davanti è nato da una tua scelta e lo metti in carico alla sorte oppure a un altro nome. La firma però è la tua e la bilancia non si rimette in pari finché quel nome non torna al suo posto.
+- 2: Quello che ti è tornato indietro porta dentro una tua decisione che hai messo sul nome di qualcun altro. Il conto resta registrato dove l'hai aperto e lì rimane in sospeso.
+- 3: Sta sulla tua strada una conseguenza che non riconosci per tua: nessuno te l'ha caricata addosso, l'hai prodotta scegliendo e il peso resta nel piatto in cui l'hai messo tu.
 
 ## L'Eremita
 
@@ -379,9 +392,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Non è solo il tempo a slittare: quello che aspettavi non torna nella forma che gli avevi dato in testa. Restano aperte due strade, pazientare ancora un poco o correggere la rotta con lucidità.
-- 2: La rotta che avevi scelto si misura adesso, mentre quello che hai mandato avanti tarda e rientra in una forma che non avevi previsto. Il tempo che prende è suo, non è un rifiuto.
-- 3: Aspetti un ritorno che non arriva nei termini immaginati. Su questo l'attesa pesa: o le concedi ancora un poco di tempo o cambi la direzione che avevi dato, scegliendo con lucidità e non per scoraggiamento.
+- 1: Quello che avevi mandato lontano è rientrato e porta merce diversa da quella ordinata. Non c'è un ritardo da aspettare: c'è una resa, da pesare per quello che è e non per quello che avevi scritto sulla lista.
+- 2: Rientra ciò che hai spedito oltre l'orizzonte, con un carico che non somiglia all'ordine partito. Il conto delle attese si rifà adesso sulla merce scaricata, mentre quella immaginata resta una tua idea.
+- 3: Le casse che tornano dal fronte lontano le apri e dentro trovi altro. La risposta è piena, soltanto che risponde a una domanda un poco diversa da quella che avevi mandato.
 
 ## Quattro di Bastoni
 
@@ -393,9 +406,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: La tua armonia si è allentata e sotto la superficie le radici non hanno ancora preso del tutto. La festa è pronta, la base no.
-- 2: Prima che il brindisi parta, il terreno sotto le travi va guardato: qualcosa nelle radici tiene ma non ti sostiene del tutto.
-- 3: Senti stonature nell'accordo attorno a te e il traguardo che volevi celebrare resta in sospeso finché la base non regge.
+- 1: Hai di fianco un traguardo intero che non trova il suo momento: la casa è in piedi e nessuno ha ancora fatto ingresso, così la festa resta rimandata a una data che non si fissa.
+- 2: Una celebrazione a metà accompagna una cosa riuscita per intero: l'opera sta su, il risultato è quello che volevi e il giorno che lo segna non è ancora stato scelto.
+- 3: Fuori dalla porta resta il momento della festa mentre dentro il traguardo è completo: il lavoro non ha un pezzo in meno e quello che manca è soltanto l'ingresso da fare.
 
 ## Cinque di Bastoni
 
@@ -463,9 +476,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Nessuno sta sferrando un colpo, eppure la guardia non scende. Chi fa un passo verso di te la incontra alzata, perché la stanchezza ha reso sospetto ogni avvicinamento.
-- 2: Una mano tesa senza secondi fini incontra la stessa barriera che incontrerebbe un assalto: la fatica ti ha chiuso a riccio e le punte stanno fuori verso tutto quello che arriva.
-- 3: La diffidenza ha smesso di distinguere. Chi si avvicina per starti vicino resta fuori dallo scudo come il resto. Quello da cui ti stai riparando non è un attacco.
+- 1: Le cicatrici di scontri già chiusi stanno montando la guardia al tuo posto. Chi fa un passo per avvicinarsi la trova alzata e riceve la risposta che avevi preparato per chi colpiva.
+- 2: Chi arriva a mani vuote incontra la stessa barriera di un assalto: i colpi vecchi hanno insegnato al tuo corpo a non distinguere chi bussa da chi sfonda. Nel campo davanti non c'è avversario.
+- 3: I pali piantati attorno a te li ha messi una ferita e non una minaccia presente: tengono fuori l'assalto che non c'è più e insieme chi passerebbe a salutarti.
 
 ## Dieci di Bastoni
 
@@ -491,9 +504,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Una cosa ti prende, la cominci e si esaurisce da sé prima del frutto, poi ne arriva un'altra che rifà lo stesso giro accanto a te.
-- 2: L'entusiasmo si spegne prima che il lavoro chiesto sia arrivato a maturare: parte, scalda per un poco, cade; la partenza dopo riparte da zero.
-- 3: Hai acceso più di una cosa e si sono spente una a una, ciascuna a metà strada: l'energia ti torna addosso, la durata no; ciò che hai aperto resta dove l'hai lasciato.
+- 1: Una cosa nuova ti prende e quella di ieri resta indietro: non si spegne da sé, la scalza quella che arriva dopo prima che abbia avuto il tempo di crescere.
+- 2: Il fuoco non ti manca mai, gli manca il turno: appena una faccenda chiede la parte lenta, un'altra più fresca ti si mette davanti e tu la segui, lasciando la prima a metà strada.
+- 3: Accanto a te passa una fila di cose cominciate, ciascuna interrotta dall'arrivo della seguente. L'ardore è giovane e intatto a ogni giro, la durata no, perciò il frutto non si vede.
 
 ## Cavaliere di Bastoni
 
@@ -583,9 +596,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### dritta
 
-- 1: C'è una mano che ti porge qualcosa e il tuo sguardo sta altrove. Non manca l'occasione, manca la voglia: la noia ha preso il posto del desiderio e tiene gli occhi dove non succede niente.
-- 2: Il dono teso proprio accanto a te resta fuori dal tuo sguardo. Non per fretta né per un calcolo sbagliato: per apatia, perché in questo momento nulla ti smuove.
-- 3: Qualcuno ti ha offerto qualcosa e tu hai lasciato gli occhi altrove. La coppa sta a un palmo dalla tua mano e il torpore basta a tenerla invisibile. Quello che non desideri non lo vedi.
+- 1: Una mano ti porge qualcosa accanto a te e il no esce prima dell'esame: non ti manca l'occasione né lo sguardo, ti manca l'appetito, perché quello che già tieni ti sembra abbastanza.
+- 2: Hai le mani piene e questo basta a farti rifiutare l'offerta tesa di fianco. Non la stai valutando male: la stai lasciando lì perché il gusto per una cosa in più si è spento.
+- 3: La sazietà che ti accompagna respinge quello che arriva senza passarlo al setaccio. Non è paura di sentire né troppa scelta davanti: è un basta così detto prima di guardare la coppa che ti tendono.
 
 ### capovolta
 
@@ -673,9 +686,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Una distanza si è aperta dentro la casa e la sentono tutti quelli che ci vivono. Dietro non c'è un torto grosso ma una fila di parole che nessuno dice: il freddo si scioglie dove tornano a dirsi.
-- 2: L'armonia di casa con un punto saltato: il cerchio degli affetti si è raffreddato senza rompersi e la crepa resta aperta quanto dura il silenzio fra chi lo abita.
-- 3: Parlando si ricuce quello che il tacere ha allargato. Fra te e le persone con cui dividi la casa è passata una tensione minuta, abbastanza perché nelle stanze si parli meno di prima.
+- 1: Sotto il tuo tetto ognuno tira dalla sua parte: orari sfalsati, decisioni prese per conto proprio, una tavola che si apparecchia a turni. Nessuno è andato via e il calore del gruppo cala comunque.
+- 2: La casa intorno alla tua domanda tiene insieme persone che vogliono cose diverse. Il tetto resta uno per tutti e il passo no: ciascuno porta la sua parte altrove e la serenità comune si assottiglia.
+- 3: Molti affetti stretti in un solo spazio con le volontà divise. Chi condivide con te le stanze non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l'aria di famiglia.
 
 ## Fante di Coppe
 
@@ -687,9 +700,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Senti con una pelle sottile e ti chiudi per non prendere altri colpi: la delicatezza resta fragile là sotto, tenuta nascosta come una cosa da non far vedere.
-- 2: Un cuore ritirato dietro una porta che hai tirato tu. Il sentire là dentro è rimasto giovane e scoperto, lo tieni al coperto come se fosse una cosa da farsi perdonare.
-- 3: Quello che senti ti arriva addosso senza filtro, così lo metti via e lo tieni fuori vista. Dietro il riparo la fragilità resta quella di prima e vibra uguale, adesso al chiuso.
+- 1: La coppa che porti la tieni appoggiata al petto invece di porgerla: hai una pelle sottile e un'offerta respinta basta a far ritirare la mano. Il sentire resta intero e sta al chiuso.
+- 2: Un sentire giovane si è messo al riparo dopo un colpo preso: quello che provi ti attraversa per intero e la risposta è un passo indietro, la mano che si chiude attorno a quello che volevi offrire.
+- 3: Accanto alla tua domanda c'è una delicatezza che si è murata da sé: non indurita, soltanto nascosta. Gli occhi ti si riempiono per una frase di poco e tu metti via tutto prima che qualcuno lo veda.
 
 ## Cavaliere di Coppe
 
@@ -729,9 +742,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Governare ciò che senti ti costa una fatica nuova: la stessa stretta tiene l'onda sotto il coperchio oppure la lascia andare fuori misura. Non è il sentire a essersi guastato, è il comando su di esso.
-- 2: L'onda tua sfugge al comando in due modi opposti: premuta giù finché non si sente oppure lasciata correre oltre misura. In mezzo resta da dire il nome di ciò che provi.
-- 3: Quello che vacilla non è il cuore, è la presa su di esso: il tuo sentire esce a scatti e poi si rovescia intero, perché dirlo apertamente ti sembra più rischioso che tenerlo dentro.
+- 1: La stanza prende la temperatura del tuo umore e chi ti sta attorno la misura prima di parlarti. Da te si viene a cercare calma, però al timone oggi non c'è la tua misura, c'è lo sbalzo del momento.
+- 2: Il tuo stato d'animo è diventato una leva: lo lasci vedere per ottenere il passo che vuoi dall'altra parte e la tenerezza la concedi oppure la ritiri secondo quello che ti serve.
+- 3: Chi dovrebbe dare quiete attorno a sé la sta chiedendo: non assorbi l'umore di nessuno, lo detti tu, mentre la maturità che possiedi resta a bordo senza la mano sulla barra.
 
 ## Asso di Denari
 
@@ -757,9 +770,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Le cose che tieni in aria sono più di quante le mani ne passino da una all'altra: il tempo del giro si è perso, non la forza del braccio.
-- 2: Il numero ha superato la mano: un impegno, preso per sé, starebbe in piedi e insieme agli altri chiede un ritmo che la rotazione non tiene più.
-- 3: Hai aggiunto un pezzo al giro e l'alternanza che li teneva su ha perso il passo, perché il conto delle cose, non il carico sulle spalle, ha passato la misura delle tue mani.
+- 1: Attorno a te troppe cose stanno in moto nello stesso istante e l'alternanza che le teneva su ha perso il tempo. Una ha già cominciato a scendere mentre le altre sono ancora in aria.
+- 2: Il numero degli impegni ha superato la velocità delle tue mani: nessuno di loro è gravoso, non torna più puntuale il passaggio fra l'uno e l'altro, un pezzo del giro è già a terra.
+- 3: Sotto i piedi il terreno si muove e tu fai girare tutto come prima, con la leggerezza che si è irrigidita. L'intervallo fra una presa e la successiva si è allungato e qualcosa sfugge già.
 
 ## Tre di Denari
 
@@ -779,9 +792,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### dritta
 
-- 1: La mano chiusa intorno a ciò che hai ti tiene al sicuro e il controllo su quel poco o molto che possiedi ti dà una base ferma.
-- 2: Una presa salda su beni ed energie ti garantisce stabilità e la prudenza con cui conservi ti vale come una muraglia.
-- 3: Tieni stretto ciò che è tuo e lo difendi da chi lo vorrebbe. Il risparmio di oggi ti costruisce un riparo che regge il vento.
+- 1: Hai accanto una custodia che funziona, con quello che possiedi contato e fermo dove lo hai messo. La stessa stretta che lo trattiene ti occupa le mani anche quando qualcosa vorrebbe entrare.
+- 2: Una prudenza da economo ti cammina a fianco, fatta di spese contenute e di conti che tornano. Ciò che tieni serrato addosso sta al sicuro e intanto nulla di nuovo trova una mano libera.
+- 3: Sul tuo cammino agisce il possesso tenuto intero. Non lo metti a frutto, non lo dividi, lo conservi com'è. Questa è protezione vera e il suo prezzo è una mano occupata a stringere.
 
 ### capovolta
 
@@ -855,9 +868,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Quello che hai attorno l'hai messo su con le tue mani e adesso ti chiedi quanto valga chi lo abita. Il conto delle cose risponde al posto tuo, mentre gli eccessi che ti concedi limano la quiete.
-- 2: Un'insicurezza dentro una casa che si regge da sé: ti misuri sul prezzo di quello che possiedi e quello che ti concedi in più assottiglia la serenità da dentro.
-- 3: Dentro un'autonomia che tiene, si muove il dubbio di valere quanto le cose raccolte e ciò che ti concedi senza misura tocca la quiete prima del portafoglio.
+- 1: L'agio che ti sei conquistato col tuo lavoro chiede adesso di essere mostrato e lo mostri spendendo oltre la misura che lo aveva costruito. La mano è aperta troppo, non chiusa.
+- 2: Una libertà che non devi a nessuno si assottiglia dal lato delle spese: quello che possiedi lo paghi perché si veda, mentre il piacere quieto di goderlo senza testimoni si consuma.
+- 3: Il benessere costruito a mano tua regge e scricchiola insieme: eccedi nello spendere e nel far sapere, così l'indipendenza che ti dava respiro costa più di quanto renda.
 
 ## Dieci di Denari
 
@@ -869,23 +882,23 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Una contesa sui beni passa fra i tuoi e tocca la parte del patrimonio che stava in piedi da prima di te, non il conto di questa stagione.
-- 2: Dentro la famiglia si discute di ciò che appartiene a più di uno e la discussione scende fino alle fondamenta della casa, dove le cose e i legami si tengono insieme.
-- 3: Il patrimonio comune come terreno di discussione fra parenti: la tensione corre sulle cose di casa e arriva all'armonia di chi quelle cose le divide con te.
+- 1: Sulla stessa cosa di casa poggiano le mani di più parenti e ognuno conta la propria parte in modo diverso. I beni non mancano, manca l'accordo su chi risponde di che cosa.
+- 2: Un bene tenuto in comune dai tuoi si è messo in mezzo fra loro: quello che una generazione aveva unito viene adesso rivendicato a pezzi da chi siede alla tua tavola.
+- 3: Fra i tuoi corre un attrito su proprietà che nessuno possiede per intero. Abbondanza ce n'è, è l'intestazione a essere plurale e ogni decisione passa per il consenso di chi ti è parente.
 
 ## Fante di Denari
 
 ### dritta
 
-- 1: Quello che hai davanti ti mette in posizione di allievo: va imparato prima di essere condotto e il mestiere lo prendi con l'esercizio, una prova dopo l'altra.
-- 2: Un'applicazione da scolaro accanto a te: ripeti le mosse finché tengono, prendi appunti su ciò che non sapevi fare; lo studio porta avanti la cosa.
-- 3: Hai preso quella promessa concreta come si prende una materia da studiare: ci metti ore, la provi, impari a farla mentre la fai; il passo avanza quanto l'esercizio.
+- 1: Ti sta accanto una materia che non padroneggi e che diventa solida soltanto dove la provi: quello che impari prende corpo nelle mani mentre lo esegui, non un momento prima.
+- 2: Un allievo lavora dentro la tua faccenda: ripete il gesto finché regge e ogni prova riuscita lascia dietro una cosa concreta che prima non esisteva.
+- 3: La promessa che hai in mano è ancora tutta da imparare e le ore che le dai si vedono una per una, perché ciò che apprendi passa nelle cose solo dove lo metti alla prova.
 
 ### capovolta
 
-- 1: Un progetto cominciato da poco è rimasto a metà e la testa è andata altrove. Il tempo perso non si recupera in blocco: quella pretesa è esattamente ciò che lo tiene fermo un altro giorno.
-- 2: La promessa dell'inizio senza il seguito: l'impegno preso con quel lavoro si è sfilato per distrazione, non per una caduta. Torna un passo per volta, non con lo scatto che vorresti.
-- 3: Si è fermato a metà quello che avevi avviato, perché l'attenzione si è spostata altrove. Quando ripartirà sarà a passi piccoli: tutto l'arretrato insieme non si riprende.
+- 1: Hai dato la parola su una cosa da imparare e la parola non è ancora scesa nelle dita: lo studio resta sulla carta, mentre l'impegno preso con qualcuno aspetta il giorno in cui lo metti in pratica.
+- 2: Un apprendistato appena aperto sta fermo alla lezione: hai capito come si fa e non lo hai ancora fatto, perché l'attenzione si è spostata su una curiosità nuova prima della prova.
+- 3: Lo slancio di imparare qualcosa di concreto ti ha preso e la distrazione lo ha interrotto sul tratto più facile. Di quella cosa sai il discorso, le mani non l'hanno ancora toccata.
 
 ## Cavaliere di Denari
 
@@ -897,9 +910,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: L'andatura che avevi preso si è piantata a metà strada e una prudenza che pretende il momento perfetto la tiene ferma lì. Quel passo torna a muoversi al primo spostamento, anche piccolissimo.
-- 2: C'è una fermata che non è riposo: il momento giusto non arriva mai abbastanza giusto e intanto la strada resta dove l'avevi lasciata. Una cosa qualunque messa in movimento le ridà presa.
-- 3: Cercare le condizioni perfette ha fermato un passo che stava già avanzando. Resta a mezz'aria e ciò che lo rimette in moto è un movimento qualsiasi, non un piano migliore.
+- 1: La via che percorri è tracciata fino alla meta e resta quella giusta: quello che si è piantato è l'andatura, perché la prudenza sposta ogni tappa un giorno più avanti.
+- 2: Accanto a te lavora una cautela che era virtù. Teneva il passo uguale per mesi e adesso lo tiene fermo, con i solchi aperti davanti e la distanza da coprire uguale a quella di ieri.
+- 3: Il traguardo lo vedi ancora da dove stai. Della strada non si è perso niente e si è inceppato soltanto il procedere, tappa rimandata dopo tappa rimandata.
 
 ## Regina di Denari
 
@@ -911,9 +924,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Tieni in ordine la casa, il lavoro e le persone che ti stanno attorno, una cosa dopo l'altra; nell'elenco di chi va nutrito il tuo nome non compare.
-- 2: Una cura pratica che arriva a tutto: i pasti, i conti, le stanze, chi ti chiama. Ti occupi del giardino intero e la pianta che sei tu resta fuori dal giro dell'annaffiatoio.
-- 3: Mentre mandi avanti le cose di tutti, con le mani dentro i dettagli concreti, hai smesso di contarti tra quelle di cui occuparti: ti dimentichi di te nel gesto stesso con cui curi.
+- 1: Accanto a te lavora una cura tutta pratica: la casa in ordine, i conti pagati in tempo, i bisogni di ciascuno sbrigati prima che li chiedano. In quell'elenco il tuo nome non è scritto.
+- 2: Le mani le tieni dentro le cose concrete, dispensa, scadenze, turni, stanze. Quello che serve a te non entra nel giro: lo sposti a domani ogni volta che qualcun altro ha bisogno di qualcosa adesso.
+- 3: Una generosità materiale ti circonda la strada: paghi, cucini, ricordi le date degli altri, tieni il conto di tutto. Il tuo appuntamento rimandato è l'unico che nessuno segna.
 
 ## Re di Denari
 
@@ -995,9 +1008,9 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### capovolta
 
-- 1: Abbassi la spada prima dell'altro in uno scontro dove la ragione sta dalla tua parte e quella ragione la lasci cadere invece di portarla fino in fondo.
-- 2: La ragione ce l'hai e la deponi comunque: la voglia di riconciliare arriva con le armi ancora in mano e il perdono prende il posto che spettava alla rivendicazione.
-- 3: Una resa offerta da chi non era in torto: il primo gesto verso la pace parte da te e ciò che potevi far valere contro l'altro resta senza essere usato.
+- 1: Lo scontro è chiuso e la ragione la tieni ancora in pugno. Il primo passo parte da te, che il torto non l'avevi: deporre le armi ti riesce adesso e quelle raccolte si possono restituire a chi avevi contro.
+- 2: Hai la lite già vinta e la rivendicazione pronta che adesso ti riesce di non usare. Il perdono verso chi ti stava di fronte è a portata di mano e libera più di quanto libererebbe l'avere ragione.
+- 3: Chi aveva torto resta davanti a te in attesa del colpo che non arriva: il campo è tuo, la rivalsa la lasci cadere e la pace si può siglare adesso, dalla parte che ha vinto.
 
 ## Sei di Spade
 
@@ -1059,23 +1072,23 @@ significati stanno in `claude/Prova_Appaiata_Corpus_Tarocchi_2026-10-11.md`.
 
 ### dritta
 
-- 1: Un ciclo doloroso tira la tenda e tu senti il pavimento sotto la schiena. La discesa ha trovato il suo limite, più in basso il terreno non cede.
-- 2: Tocchi il fondo con tutto il tuo peso e la resa arriva senza trattative. Non c'è margine da difendere, c'è una chiusura compiuta.
-- 3: Arrivi in fondo alla discesa e non rimane altro da perdere, perché la caduta ha incontrato il suo pavimento. La resa che ti attraversa è reale, non è debolezza.
+- 1: Una battaglia combattuta fino all'ultimo colpo ti sta accanto già conclusa e la forza che arriva non è quella di resistere ancora: è quella di posare le armi su un campo che ha smesso di chiedere.
+- 2: Hai combattuto fin dove si poteva e la contesa si è chiusa da sé. Quello che ti si avvicina non è un colpo nuovo, è il silenzio che resta sul campo quando nessuno ha più motivo di alzare una lama.
+- 3: Il peso di tutto il corpo a terra e nessun margine da difendere: la resa che ti si affianca non è un cedimento, è il riconoscimento che quella contesa è finita per davvero.
 
 ### capovolta
 
-- 1: La parte più dura l'hai già attraversata e adesso ti rialzi dal punto in cui eri a terra: quello che è finito non riparte, ricomincia qualcos'altro, con tutta la lentezza che chiede.
-- 2: Il ricominciare da capo dopo una chiusura completa: ti rimetti su piano, senza strappi, verso un inizio che non è la ripresa di quello che avevi.
-- 3: Da terra ti tiri su senza strappi e la parte più dura ti resta dietro: davanti c'è un da capo, coi tempi lunghi di chi riparte da zero.
+- 1: Accanto a te la cosa è finita per intero e non lascia niente da recuperare: resta il terreno nudo e il tuo peso che si solleva da lì, lento, un appoggio dopo l'altro.
+- 2: Una fine già compiuta ti lascia le mani vuote e senza peso: non c'è nessun carico da posare né nessun soccorso che rientra da fuori, c'è la tua schiena che si rialza da terra.
+- 3: Da terra ti tiri su con le tue braccia e il movimento è lento perché è tuo: nessuno ti solleva da fuori e ogni spinta che dai riporta in piedi un pezzo alla volta.
 
 ## Fante di Spade
 
 ### dritta
 
-- 1: Stai in sentinella su una cosa che vuoi sapere e ancora non sai: fai domande, raccogli voci, metti insieme i pezzi prima di avere qualcosa da pronunciare.
-- 2: Una curiosità in cerca di prove: controlli, verifichi, torni a guardare; la verità resta da trovare invece di essere già formata dentro di te.
-- 3: Hai cominciato a informarti su qualcosa e non stacchi gli occhi: le tue domande vengono prima delle affermazioni e le parole pronte le pesi a una a una.
+- 1: Una curiosità in sentinella ti mette accanto chi va a guardare e torna di corsa a raccontare: quello che scopre lo riferisce appena lo ha in mano, prima di averlo verificato.
+- 2: Hai accanto l'abitudine di domandare e di dire subito quello che ottieni: le notizie ti passano per le mani calde, senza il tempo che sta fra lo scoprire una cosa e il pronunciarla.
+- 3: Chi osserva e chi parla, qui, sono la stessa persona e si muovono allo stesso istante: gli occhi raccolgono un dettaglio e la lingua lo consegna già, mentre la verità intera resta da mettere insieme.
 
 ### capovolta
 
