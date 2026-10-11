@@ -374,7 +374,7 @@ class TarotReading {
         perche: aTre
             ? 'È la carta del momento che vivi: un Arcano Maggiore nel '
                 'Presente parla più forte di ogni altra cosa.'
-            : 'È la carta che regge la stesa, ed è un Arcano Maggiore: '
+            : 'È la carta che regge la stesa: un Arcano Maggiore che '
                 'parla più forte di ogni altra cosa.',
       );
     }

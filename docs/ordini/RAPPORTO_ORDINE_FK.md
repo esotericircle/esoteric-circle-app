@@ -1,6 +1,6 @@
 # RAPPORTO DELL'ORDINE FK, IL DART NON RIGENERATO, LA FONTE DI WAITE, LA FONTE DEI SIGNIFICATI
 
-11 ottobre 2026, sera. Testo: `docs/ordini/ORDINE_FK_TESTO.md`. Manifesto: `docs/ordini/ORDINE_FK_MANIFESTO.md`, 36 voci: 33 chiuse, 3 aperte in attesa di verifica, 0 da fare. Partito da `24cf424`, spinto su `claude/esoteric-circle-master-order-e798aj`.
+11 ottobre 2026, sera, e la notte fino al 12. Testo: `docs/ordini/ORDINE_FK_TESTO.md`, con le due aggiunte e la richiesta del fondatore sull'Alba. Manifesto: `docs/ordini/ORDINE_FK_MANIFESTO.md`, 51 voci (le 36 dell'ordine, FK.37-FK.42 della prima aggiunta, FK.43 l'Alba, FK.44-FK.51 della seconda aggiunta): 48 chiuse, 3 aperte in attesa di verifica, 0 da fare. Partito da `24cf424`, spinto su `claude/esoteric-circle-master-order-e798aj`.
 
 ## LE VOCI CHIUSE E LA LORO PROVA
 
@@ -39,6 +39,21 @@
 | FK.33 nessuna build | `docs/ordini/RAPPORTO_ORDINE_FK.md` |
 | FK.34 le premesse di FJ attribuite | `docs/ordini/RAPPORTO_ORDINE_FJ.md` |
 | FK.36 il rapporto e il manifesto | `docs/ordini/RAPPORTO_ORDINE_FK.md` |
+| FK.37 (A1) la regola del titolo in un punto solo | `test/ogni_responso_parte_dal_titolo_test.dart` |
+| FK.38 (A2) il formato dei tarocchi, tre paragrafi e da dove viene | `docs/collaudo/FK/il_titolo_dal_modello.txt` |
+| FK.39 (A3) le bolle per carta col loro titolo | `test/il_formato_del_responso_dei_tarocchi_test.dart` |
+| FK.40 (A4) la carta aperta col significato generico | `test/la_carta_si_apre_al_tocco_test.dart` |
+| FK.41 (A5) il pannello delle fonti col mazzo e la stesa | `lib/core/tarot/le_fonti_dei_tarocchi.dart` |
+| FK.42 (A6) la regola e il formato in docs | `docs/responsi/il_titolo_e_il_formato.md` |
+| FK.43 l'Alba col nome e il verso in arancio | `test/la_carta_dell_alba_in_arancio_test.dart` |
+| FK.44 (A7) il ramo a 394e9c5 | `docs/corpus/tarocchi_posizione/copre.md` |
+| FK.45 (A8) la stesa di N carte | `test/la_stesa_di_n_carte_test.dart` |
+| FK.46 (A9) la lettura del modello per N posizioni | `docs/collaudo/FK/le_stese_dal_modello.txt` |
+| FK.47 (A10) la schermata stende il tavolo | `docs/preview/FK/fk_a12_croce_il_tavolo.png` |
+| FK.48 (A11) il Dart con la Croce, la dichiarazione alzata | `docs/collaudo/FK/le_sei_frasi_della_croce.txt` |
+| FK.49 (A12) aperte la carta sola e la croce | `test/la_stesa_di_n_carte_test.dart` |
+| FK.50 (A13) la build non costruita, possibile | `docs/ordini/RAPPORTO_ORDINE_FK.md` |
+| FK.51 (A14) il commento delle stese a quattro | `test/il_commento_delle_stese_dice_il_numero_test.dart` |
 
 Aperte in attesa di verifica: FK.17 e FK.18, le due collisioni di senso, che verifica un lettore alla prossima prova appaiata; FK.35, il report di fatturazione che non ho aperto.
 
@@ -84,6 +99,62 @@ Chiuse da quest'ordine: FJ.08, FJ.26, FJ.27, FJ.28, FJ.29, FJ.36 (vincoli, l'ord
 - FK.08: un file proprio per `dietro` costa 468 testi; 936 era il costo dei due insieme.
 - FK.24: a 24cf424 i file nella cartella del corpus erano **diciotto**, non diciassette: quattordici posizioni, registri.md e **tre** reperti (c'e' anche verifica_waite_1911.md). Oggi, con dietro.md, diciannove.
 - FK.35: il documento dei costi dice che servirebbe il ruolo di visualizzatore; l'account di Code e' gia' amministratore della fatturazione. Il limite vero e' un altro: l'esportazione dei costi in BigQuery non e' attiva.
+
+## LA PRIMA AGGIUNTA, IL TITOLO E IL FORMATO DEL RESPONSO (FK.37-FK.42)
+
+**FK.37, il punto solo.** La regola sta in `lib/core/responsi/il_titolo_del_responso.dart` (le parole del fondatore del 3 settembre, dell'11 settembre e dell'11 ottobre, e le porte), il titolo si disegna con `TitoloDelResponso` (`lib/design_system/components/titolo_del_responso.dart`). Prima: otto arti su dodici avevano un titolo, ognuna col suo `Text` in tre stili, quattro nessuno. Dopo: dodici su dodici dal punto comune, direttamente o da una porta (la scheda del giorno dell'Oroscopo, la carta del dono del Soffio). La guardia `ogni_responso_parte_dal_titolo` enumera `ArtiConResponso.tutte` e cade col nome dell'arte che non ci passa. I quattro titoli che mancavano: l'archetipo (il nome dell'archetipo, che e' la risposta del Test; l'essenza resta il responso, come vuole l'ordine BV voce 06), l'animale guida (la prima proposizione del segno di oggi), la gettata delle rune (la riga della runa centrale nel suo verso, la stessa con cui apre la Runa del Tramonto), l'Arcano dell'Alba (la frase di Medora, che non si ripete piu' in fondo). **Premessa sbagliata a meta'**: nei tarocchi un titolo c'era, `VoceDellaStesa.titolo`, ma era la sintesi della carta del Presente e non la risposta; adesso e' `TarotReading.titolo`, quello del modello o uno dei 32 titoli della lettura di casa, ognuno legato alla frase della risposta che sta alla stessa posizione.
+
+**FK.38, il formato.** La forma presa dall'Oroscopo vero: il titolo, tre paragrafi (la risposta, cosa puoi fare nel `RiquadroInEvidenza`, come le carte si legano), in fondo l'etichetta "Da dove viene" e un paragrafo piccolo in corsivo con le carte uscite, il mazzo, la stesa e la tradizione di Waite (`ResponsoInTreParagrafi`). La lettura del modello ha la stessa forma della lettura di casa (prima il consiglio era l'ultimo paragrafo). La domanda di chiusura resta un paragrafo suo nei dati (ordine P voce 09) e a video chiude il terzo. **L'Oroscopo evidenzia il terzo paragrafo della Lunga, non il secondo**: la regola del 1 ottobre resta, quella dell'11 ottobre vale dove i paragrafi sono tre. Due giri veri del modello: al primo un titolo su quattro aveva i due punti ("Vendita casa: lascio andare o resto"), allora la guardia scarta il titolo con i due punti, troppo lungo o che nomina una carta, e l'istruzione lo dice meglio; al secondo quattro titoli su quattro sono risposte. Anteprime in `docs/preview/FK/`.
+
+**FK.39, FK.40, FK.41.** Le bolle restano come il fondatore le ha approvate, ognuna con la posizione e il nome della carta. La carta toccata in alto porta la voce della fonte dei significati nel suo verso: il widget e' `lib/features/tarot/carta_ingrandita.dart` riga 30, chiamato da `lib/features/tarot/stesa_tre_carte_screen.dart` riga 366. **Il pannello Fonti e metodo nei tarocchi c'era gia'** (premessa sbagliata: la ricerca cercava "taroc" e la cartella si chiama `tarot`), ma diceva "tre carte" e "Rider-Waite" a chiunque: adesso porta il mazzo scelto e la sua storia, la stesa scelta con la fonte delle sue posizioni e, per la Croce Celtica, la citazione corretta (Parte III, sezione 7) col grado basso della fonte.
+
+**FK.42.** `docs/responsi/il_titolo_e_il_formato.md` porta le parole del fondatore per intero, la regola, il formato e dove vivono nel codice; la guardia pretende che le frasi siano uguali a quelle del codice. Il riversamento dei due file del Project nel documento madre resta dell'Architetto.
+
+## LA RICHIESTA SULL'ALBA (FK.43)
+
+Il fondatore, in chat: il nome della carta e il suo verso in arancione. Fatto con un token di casa, `ColorTokens.arancioDellaCarta` (l'arancio della scala dei giorni, gia' misurato sui fondi scuri), sul pezzo della frase che e' esattamente `ResponsoDellAlba.cartaColVerso`: 528 letture su 528, meta' dritte e meta' rovesciate. Nella stessa schermata la carta e' scesa di un gradino, da `cerimoniale` a `titoloScheda`, perche' il titolo che e' la risposta stia sopra anche nella misura. La parola del giorno resta piu' grande del titolo: e' una parola sola col suo ruolo, approvato da un ordine di prima, e la lascio al giudizio del fondatore.
+
+## LA SECONDA AGGIUNTA, LA STESA DI N CARTE (FK.44-FK.51)
+
+**FK.45, la stesa.** `TarotSpread` era gia' una sequenza di coppie: ogni `DrawnCard` porta la sua posizione, quindi i due `lato` della croce non si perdevano nel dato. Si perdevano dappertutto a valle: nella pesca, nella stesa in corso che cercava il posto per posizione, nella schermata. Adesso le stese si pescano con le posizioni della loro definizione, la stesa in corso conta i posti (`assegnaAlPosto`), e al posto di presente e futuro la lettura usa `cuore` (il presente, la carta sola, il consultante, cio' che copre) e `approdo` (il futuro o l'esito). Le tre scorciatoie restano.
+
+**FK.46, la lettura del modello.** Un campo per posto (`lato_1`, `lato_2` dove la posizione torna), la richiesta che dice per ogni carta il suo campo e cosa vuol dire la sua posizione, l'istruzione che non nomina piu' tre posizioni. Non toccati: la regola della profondita' (`modelForDepth`), il CONSIGLIO di una frase, il confine dell'ordine S voce 17, i registri come taglio. La lettura di casa delle stese nuove usa solo le forme che valgono per qualunque numero di carte (`VoceDellaStesa.valeOvunque`): niente "le tre carte", niente legame fra passato e presente. Quattro letture vere del modello sulle stese nuove, quattro su quattro dal modello, e nella croce i due lati in due testi diversi.
+
+**FK.47, il tavolo.** `lib/features/tarot/il_tavolo_della_stesa.dart` dispone le carte alle coordinate di `PostoSulTavolo`, carta di traverso compresa. Guardando le anteprime ho trovato due difetti miei, corretti nello stesso lavoro: la croce non stava in una schermata (il consultante sotto la piega), e stringendo le carte le etichette andavano a capo lettera per lettera. Adesso il tavolo sta in poco meno di tre quarti dello schermo e le scritte stanno su una riga, allargandosi oltre la carta quando serve; anche "Carta Chiave", che col tavolo si era rimpicciolita sotto la soglia della guardia sui pixel (68 contro 80): adesso 131. **La rinomina di `stesa_tre_carte_screen.dart` la rimando**, e lo dico perche' il nome mente: il file lo importano cinquantasette file fra `lib`, `test` e `tool`, e una rinomina in un ordine che deve arrivare alla build e' un rischio senza valore per chi usa l'app. Il commento della classe dice gia' che stende ogni stesa.
+
+**FK.48, il Dart.** Il tool si fermava su sei frasi di 394e9c5 col verso nominato (le coppe versate del Cinque di Coppe, la Ruota che gira, l'Appeso a testa in giu': la figura, non il verso), corrette con una parola. Poi i controlli di casa prima della suite: due participi col genere e una virgola davanti a "e'" verbo; e la causa di quella virgola, 117 accenti con l'apostrofo in `corona.md`, contro la regola "accenti veri" in testa allo stesso file, resi veri. Le quattro testate non avevano la provenienza che la regola FJ.4 pretende: scritta coi numeri del messaggio di 394e9c5. Tutto in `docs/collaudo/FK/le_sei_frasi_della_croce.txt`.
+
+**FK.49, FK.51.** Aperte la carta sola e la croce, chiusa la Croce Celtica, con quattro posizioni senza un testo. Il commento in testa alle stese diceva cinque: dice quattro, la lapide del ferro di cavallo resta, e una guardia nuova lo confronta con l'enum (rossa sul commento vecchio, verde dopo).
+
+## LE PREMESSE DELLE AGGIUNTE CHE NON TORNANO
+
+- Prima aggiunta, FK.A1: nei tarocchi un titolo c'era, ma era la sintesi della carta del Presente.
+- Prima aggiunta, FK.A5: il pannello Fonti e metodo c'era gia', nella barra della stesa, dall'ordine CS voce S2.
+- Prima aggiunta, FK.A2: l'Oroscopo mette nel riquadro il terzo paragrafo della Lunga, non il secondo.
+- Seconda aggiunta, P1: 24cf424 era gia' nel ramo; mancava solo 394e9c5.
+- Seconda aggiunta, P4 (e P8 nella versione corretta, che lo riconosce): le stese sono quattro.
+- Seconda aggiunta, P7: le posizioni a zero sono quattro, con `dietro`; le varianti di cartaSola, consultante ed esito erano gia' dichiarate a 3 dall'ordine FK, solo le quattro della Croce andavano alzate.
+- Seconda aggiunta, P2 nella sostanza: la classe era gia' una sequenza di coppie; la stesa a tre carte la imponevano la pesca, la stesa in corso e la schermata.
+
+## I DIFETTI TROVATI LEGGENDO, COL LORO PADRE
+
+- Il filo del consulto passa la lettura di una persona alla successiva entro un'ora: al primo giro del banco la quarta lettura ripeteva una frase della prima (`docs/collaudo/FK/il_titolo_dal_modello_giro_1.txt`). **Padre: ordine FE voce 08.** Per una persona vera che fa quattro domande in un'ora e' lo stesso comportamento; lo segnalo e non l'ho cambiato.
+- Due frasi del modello fuori dalle regole che il modello riceve: "le carte indicano che lui non tornera' da te", detto come un fatto, e verbi al futuro ("arriveranno", "Sarai in grado", "ti dara' forza" in un titolo). La regola c'e' nell'istruzione, nessuna guardia misura il futuro. **Padre: ordine EQ voce 04.**
+- "ti mostra pienamente coinvolto", un participio maschile con la forma neutra, passato dalla guardia del genere che non conosce "coinvolto". **Padre: ordine EQ voce 04**, il dizionario di `formeContrarieAllaForma`.
+- Nove frasi e 117 accenti della fonte di 394e9c5 (FK.48). **Padre: 394e9c5.**
+- La chiave `arcano_alba_titolo` l'avevo riusata per il titolo nuovo, mentre era gia' del titolo in alto: trovata guardando, rinominata. **Padre: questo lavoro, FK.43 prima stesura.**
+
+## LE GUARDIE DELLE AGGIUNTE
+
+Regola B prima di toccare, su venticinque zone (`docs/collaudo/FK/fk_regola_b.txt`): ventiquattro rosse, tre delle quali al secondo innesto perche' il primo cadeva su cio' che la prova non guarda (il messaggio dell'animale, l'Arcano dell'Alba, la stesa in corso); la bolla della Sinastria e' restata verde, perche' il suo titolo non lo guardava nessuna prova: da adesso lo sorveglia `ogni_responso_parte_dal_titolo`. Regola A sulle cinque guardie nuove (`docs/collaudo/FK/fk_aggiunta_regola_a.txt`): diciassette innesti, tutti rossi. Registro: da 744 a 749.
+
+## LA BUILD (FK.50)
+
+Le voci sono chiuse e la build e' possibile. Non l'ho costruita: la ordina il fondatore. Quello che gli fara' guardare, e il giudizio e' suo:
+- la stesa a una Carta dall'avvio vero, dalla tendina della stesa;
+- la stesa a Croce coi quattro posti e le due carte del lato che danno due testi diversi;
+- il titolo e i tre paragrafi di ogni lettura, il pannello delle fonti, la carta aperta col significato generico, l'Alba in arancio;
+- il download vero di un mazzo dal bucket e i nomi lunghi del Marsiglia nella targa stretta, la voce FJ.12 ancora aperta (`docs/preview/prima_dopo/fj_i_tre_mazzi_dopo.png`).
 
 ## LA SUITE
 

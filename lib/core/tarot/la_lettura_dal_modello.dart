@@ -319,7 +319,7 @@ abstract final class LaLetturaDellaStesa {
     SpreadPosition.futuro: 'dove va la situazione',
     SpreadPosition.cartaSola: 'è la sola carta della stesa: risponde da sola '
         'alla domanda',
-    SpreadPosition.consultante: 'chi domanda, e come sta davanti alla sua '
+    SpreadPosition.consultante: 'chi domanda e come sta davanti alla sua '
         'questione',
     SpreadPosition.lato: 'una forza che agisce di lato sulla questione, a '
         'favore o contro',

@@ -6144,7 +6144,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'corona|Il Papa|dritta': [
     'Il tetto di questa carta è un insegnamento che la tua domanda riceve per intero da chi l\'ha attraversata prima: oltre la dottrina trasmessa questa spinta non sale: di suo non fabbrica nulla di nuovo.',
-    'Al suo pieno rendimento questa linea antica dà alla tua questione un maestro in carne e ossa: un sapere provato da altri, consegnato come si consegna un mestiere, con la mano sopra la tua.',
+    'Al suo pieno rendimento questa linea antica dà alla tua questione una guida in carne e ossa: un sapere provato da altri, consegnato come si consegna un mestiere, con la mano sopra la tua.',
     'Fra l\'opinione che la tua questione si è fatta da sé e una dottrina che dura da secoli corre tutta la distanza che questa carta può coprire: il margine qui è l\'autorità di chi insegna.',
   ],
   'corona|Il Papa|capovolta': [

@@ -372,7 +372,7 @@ void main() {
     'FJ': 43,
     // Ordine FK, 11 ottobre 2026: le trentasei voci, contate coi titoli
     // "## VOCE FK." del manifesto.
-    'FK': 43,
+    'FK': 51,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

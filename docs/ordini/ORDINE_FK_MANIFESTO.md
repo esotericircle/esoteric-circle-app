@@ -2,10 +2,10 @@
 
 Testo dell'ordine: `docs/ordini/ORDINE_FK_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FK.md`.
 
-Una voce per ciascuna delle 36 voci dell'ordine e delle 6 dell'aggiunta (testo in coda a ORDINE_FK_TESTO.md), piu' la richiesta del fondatore in chat sull'Alba dell'11 ottobre 2026. Le voci da FK.01 a FK.36 sono quelle dell'ordine; quelle dell'aggiunta, da FK.A1 a FK.A6, sono qui FK.37-FK.42, e la richiesta sull'Alba e' FK.43: il sigillo dei manifesti legge solo nomi con un numero, come nell'ordine FJ. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le decisioni della Parte 2 sono di Code, per la frase del fondatore "In ordine di importanza: 1 Code, 2 agenti e subagenti, 3 tu", con la ragione nel rapporto.
+Una voce per ciascuna delle 36 voci dell'ordine e delle 6 dell'aggiunta (testo in coda a ORDINE_FK_TESTO.md), piu' la richiesta del fondatore in chat sull'Alba dell'11 ottobre 2026. Le voci da FK.01 a FK.36 sono quelle dell'ordine; quelle dell'aggiunta, da FK.A1 a FK.A6, sono qui FK.37-FK.42, e la richiesta sull'Alba e' FK.43; le otto della seconda aggiunta, da FK.A7 a FK.A14, sono FK.44-FK.51: il sigillo dei manifesti legge solo nomi con un numero, come nell'ordine FJ. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le decisioni della Parte 2 sono di Code, per la frase del fondatore "In ordine di importanza: 1 Code, 2 agenti e subagenti, 3 tu", con la ragione nel rapporto.
 
-VOCI_TOTALI: 43
-VOCI_CHIUSE: 40
+VOCI_TOTALI: 51
+VOCI_CHIUSE: 48
 VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 
@@ -283,7 +283,7 @@ MISURA: premesse col loro padre 5 su 5
 
 DOMANDA: "Il rapporto va in docs/ordini/RAPPORTO_ORDINE_FK.md, e in cima porta l'elenco delle voci chiuse con accanto la prova di ciascuna"
 PROVA: docs/ordini/RAPPORTO_ORDINE_FK.md
-MISURA: voci nel manifesto 43 su 43 (le 36 dell'ordine, le 6 dell'aggiunta e la richiesta del fondatore sull'Alba); rapporto registrato con tool/i_rapporti_consegnati.py alla consegna
+MISURA: voci nel manifesto 51 su 51 (le 36 dell'ordine, le 6 della prima aggiunta, la richiesta del fondatore sull'Alba e le 8 della seconda aggiunta); rapporto registrato con tool/i_rapporti_consegnati.py alla consegna
 
 ## VOCE FK.37
 
@@ -339,3 +339,67 @@ MISURA: documenti nel ramo con le parole del fondatore sul titolo da 0 a 1; fras
 DOMANDA: "Nell'alba, il titolo comprende sempre il nome della carta estratta, vorrei che il nome della carta si evidenziato in altro colore, magari arancione, e  anche il testo "rovesciata"  o "dritta" in arancione. Così, a colpo d'occhio, l'utente vede il nome della carta e il suo verso."
 PROVA: test/la_carta_dell_alba_in_arancio_test.dart
 MISURA: letture dell'Alba col nome e il verso in arancio da 0 a 528 su 528 (264 dritte, 264 rovesciate); pezzi colorati per frase 1, ed e' esattamente ResponsoDellAlba.cartaColVerso; colore ColorTokens.arancioDellaCarta, l'arancio della scala dei giorni; anteprima docs/preview/FK/fk_a1_alba_il_titolo.png
+
+## VOCE FK.44
+
+**CHIUSA.** (FK.A7 della seconda aggiunta) Il ramo portato a 394e9c5.
+
+DOMANDA: "Prima di ogni cosa, portare il ramo claude/esoteric-circle-master-order-e798aj al commit 394e9c5, che contiene le quattro posizioni nuove del corpus"
+PROVA: docs/corpus/tarocchi_posizione/copre.md
+MISURA: commit del remoto mancanti da 1 a 0 (la premessa P1 ne diceva due: 24cf424 c'era gia'); file della fonte con 468 testi da 4 a 8
+
+## VOCE FK.45
+
+**CHIUSA.** (FK.A8) La stesa di N carte, coppie di posizione e carta nell'ordine di lettura.
+
+DOMANDA: "Generalizzare la classe TarotSpread, in lib/core/tarot/tarot_spread.dart, da tre carte fisse a un numero qualsiasi di posizioni."
+PROVA: test/la_stesa_di_n_carte_test.dart
+MISURA: stese che si pescano con le loro posizioni da 1 a 4 su 4; i due lati della croce da 1 posto a 2 (anche nella stesa in corso, che conta i posti); scorciatoie passato, presente e futuro tenute 3 su 3
+
+## VOCE FK.46
+
+**CHIUSA.** (FK.A9) La lettura del modello per le posizioni della stesa in corso.
+
+DOMANDA: "Generalizzare lib/core/tarot/la_lettura_dal_modello.dart, che conosce tre posizioni su quattordici."
+PROVA: docs/collaudo/FK/le_stese_dal_modello.txt
+MISURA: posizioni che la lettura del modello conosce da 3 a 15; cicli sulle tre carte fisse da 2 a 0; posizioni nominate nel testo dell'istruzione da 3 a 0 (le dice la richiesta, con cosa vuol dire ciascuna); letture vere del modello sulle stese nuove 4 su 4, coi due lati della croce in due testi diversi 2 croci su 2; posizioni senza fonte 4 (dietro, seStesso, laCasa, speranzeOTimori, non 3) e tutte nella sola Croce Celtica
+
+## VOCE FK.47
+
+**CHIUSA.** (FK.A10) La schermata stende il tavolo che la stesa dichiara.
+
+DOMANDA: "Va disposta la carta alla coordinata che la stesa dichiara, compreso diTraverso per la seconda carta della Croce Celtica."
+PROVA: docs/preview/FK/fk_a12_croce_il_tavolo.png
+MISURA: file sotto lib/features che leggono PostoSulTavolo da 0 a 2 (il_tavolo_della_stesa.dart e la schermata); carte fuori dallo schermo a 360 punti 0 su 4 stese, e 0 celle sovrapposte fuori dalla carta di traverso; la croce intera in una schermata a 360 per 797 (prima il consultante stava sotto la piega); la rinomina del file della schermata rimandata e dichiarata nel rapporto
+
+## VOCE FK.48
+
+**CHIUSA.** (FK.A11) Il Dart rigenerato con le quattro posizioni nuove, la dichiarazione alzata.
+
+DOMANDA: "Rigenerare il Dart del corpus dalle quattro posizioni nuove e alzare variantiDichiarate di conseguenza."
+PROVA: docs/collaudo/FK/le_sei_frasi_della_croce.txt
+MISURA: testi nel Dart da 2.340 a 4.212 su 7.020; posizioni dichiarate a 3 varianti da 4 a 8; frasi della fonte di 394e9c5 corrette con una parola 9 (sei col verso nominato, due col genere, una virgola davanti al verbo) e 117 accenti con l'apostrofo resi veri in corona.md; registriDelleCarte vuota perche' registri.md e' a 0 su 468
+
+## VOCE FK.49
+
+**CHIUSA.** (FK.A12) Aperte la carta sola e la croce, chiusa la Croce Celtica.
+
+DOMANDA: "Alzare costruita: true su unaCarta e su croceQuattro, e lasciare dieciCarte a false."
+PROVA: test/la_stesa_di_n_carte_test.dart
+MISURA: stese aperte da 1 a 3 su 4; Croce Celtica chiusa; letture di casa delle due stese nuove 192, fuori forma 0, croci coi due lati dallo stesso testo 0; anteprime a 360 per 797 da 0 a 6 (docs/preview/FK/fk_a12_*.png)
+
+## VOCE FK.50
+
+**CHIUSA.** (FK.A13) La build non e' stata costruita: e' possibile, e la ordina il fondatore.
+
+DOMANDA: "La build non si costruisce di iniziativa. Finito il lavoro, si riferisce cosa e' pronto e si attende l'ordine del fondatore."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FK.md
+MISURA: build costruite 0; voci che la build mostra, elencate nel rapporto per il giudizio del fondatore 3 (la carta sola, la croce coi due lati, i mazzi e la voce FJ.12)
+
+## VOCE FK.51
+
+**CHIUSA.** (FK.A14) Il commento delle stese dice quattro, con la sua guardia.
+
+DOMANDA: "Il commento va riportato al numero vero, senza toccare l'enum e senza cancellare la lapide del ferro di cavallo"
+PROVA: test/il_commento_delle_stese_dice_il_numero_test.dart
+MISURA: stese dichiarate nel commento da 5 a 4, contro 4 voci dell'enum; lapide del ferro di cavallo 1 prima e dopo; la guardia vista rossa sul commento vecchio prima della correzione
