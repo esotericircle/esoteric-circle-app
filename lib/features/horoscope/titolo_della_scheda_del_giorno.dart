@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/typography/il_titolo_col_trattino.dart';
 
 /// **IL TITOLO DELLA SCHEDA DEL GIORNO, A CAPO FRA LE PAROLE O COL TRATTINO.**
@@ -55,23 +56,14 @@ class TitoloDellaSchedaDelGiorno extends StatelessWidget {
   static bool siLeggeMale(List<String> righe) =>
       righe.length > 2 || righe.any((r) => r.endsWith('-'));
 
+  /// **DISEGNATO DAL TITOLO COMUNE**, ordine FK aggiunta voce A1: la regola
+  /// del capo fra le parole e' passata in `TitoloDelResponso`, e questa
+  /// scheda e' una delle porte di `IlTitoloDelResponso.porte`.
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, vincoli) {
-      final righe = IlTitoloColTrattino.righe(
-        testo,
+  Widget build(BuildContext context) => TitoloDelResponso(
+        testo: testo,
         stile: stile,
-        larghezza: vincoli.maxWidth - margine,
-        scala: MediaQuery.textScalerOf(context),
-        maxRighe: 3,
+        aCapoFraLeParole: true,
+        margine: margine,
       );
-      return Text(
-        righe.join('\n'),
-        softWrap: false,
-        overflow: TextOverflow.visible,
-        style: stile,
-        semanticsLabel: testo,
-      );
-    });
-  }
 }

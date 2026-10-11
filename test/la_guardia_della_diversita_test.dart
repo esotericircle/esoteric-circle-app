@@ -53,7 +53,8 @@ void main() {
       final lettura = TarotReading.of(stesa, TarotTopic.denaro,
           domandaScritta: 'denaro e fortuna');
       testi.add([
-        VoceDellaStesa.titolo(stesa),
+        // Il titolo a video, ordine FK aggiunta voci A1 e A2.
+        lettura.titolo,
         lettura.consiglio,
         for (final p in lettura.posizioni)
           '${p.drawn.position.label}. ${p.drawn.displayName}. '
@@ -94,8 +95,7 @@ void main() {
       simboli.add({
         for (final r in esito.rune) '${r.posizione.glossa}:${r.rune.name}',
       });
-      final responso =
-          RunePresagio.componiIlResponso(esito, domanda: domanda);
+      final responso = RunePresagio.componiIlResponso(esito, domanda: domanda);
       testi.add([
         responso.risposta,
         if (responso.cosaPuoiFare.trim().isNotEmpty) responso.cosaPuoiFare,

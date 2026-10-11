@@ -18,6 +18,7 @@ import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
+import '../../../../design_system/components/titolo_del_responso.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -445,6 +446,15 @@ class _Messaggio extends StatelessWidget {
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
                   ),
+                  const SizedBox(height: SpacingTokens.xs),
+                  // **IL TITOLO DEL MESSAGGIO, dal punto comune.** Ordine FK
+                  // aggiunta voce A1: il responso parte dal segno di oggi
+                  // detto in testa.
+                  TitoloDelResponso(
+                      testo: messaggio.titolo,
+                      chiaveDelTesto: const Key('animal_message_title'),
+                      stile: TypographyTokens.titoloScheda()
+                          .copyWith(color: palette.goldSoft, height: 1.2)),
                   const SizedBox(height: SpacingTokens.xs),
                   // **IL MESSAGGIO E' UN RESPONSO, ordine BV voce 06**, e
                   // segue la misura del consiglio di Medora: misura di

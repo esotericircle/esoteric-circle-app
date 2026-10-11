@@ -40,6 +40,7 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
+import '../../../../design_system/components/titolo_del_responso.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -1662,10 +1663,12 @@ class _RisultatoState extends State<_Risultato>
               const SizedBox(height: SpacingTokens.md),
               // IL TITOLO evocativo del tratto dominante, poi il nome del tratto.
               Center(
-                child: Text(dom.titoloEvocativo,
-                    key: const Key('face_title'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.cerimoniale()
+                // Dal punto comune, ordine FK aggiunta voce A1.
+                child: TitoloDelResponso(
+                    testo: dom.titoloEvocativo,
+                    chiaveDelTesto: const Key('face_title'),
+                    allineamento: TextAlign.center,
+                    stile: TypographyTokens.cerimoniale()
                         .copyWith(color: palette.goldSoft)),
               ),
               Center(

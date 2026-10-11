@@ -747,6 +747,22 @@ void main() {
     expect(File('$previewDir/$name').existsSync(), isTrue);
   }
 
+  /// **L'INQUADRATURA DELL'AGGIUNTA FK**, 11 ottobre 2026: il titolo e il
+  /// formato del responso si giudicano guardando, alla misura vera di 360 per
+  /// 797 punti e rapporto 3. Lo schermo torna a quella misura, la chiave si
+  /// porta in alto nel quadro e si scatta in `FK/`.
+  Future<void> fkInQuadro(
+      WidgetTester tester, GlobalKey rootKey, Key chiave, String nome) async {
+    await montaLoSchermo(tester, const Size(360, 797));
+    final dove = find.byKey(chiave).first;
+    await tester.ensureVisible(dove);
+    await tester.pump(const Duration(milliseconds: 400));
+    unawaited(Scrollable.ensureVisible(tester.element(dove), alignment: 0.12));
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pump(const Duration(milliseconds: 400));
+    await capture(tester, rootKey, nome);
+  }
+
   // --- Il Santuario, con al centro ciascun Maestro (aura e cosmo virati) ---
   for (final maestro in Maestro.fixedOrder) {
     testWidgets('Cattura il Santuario, ${maestro.id}', (tester) async {
@@ -1063,6 +1079,9 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'test-archetipo.png');
+    await fkInQuadro(tester, rootKey, const Key('archetype_name'),
+        'FK/fk_a1_archetipo_il_titolo.png');
+    await montaLoSchermo(tester, const Size(360, 3600));
 
     // La statua nell'Ombra: al tocco sulla statua in cima si volta.
     await tester.tap(find.byKey(const Key('archetype_statue_realista')).first);
@@ -1491,6 +1510,8 @@ void main() {
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'arcano-alba-responso.png');
+    await fkInQuadro(tester, rootKey, const Key('arcano_alba_titolo_risposta'),
+        'FK/fk_a1_alba_il_titolo.png');
   });
 
   testWidgets("Cattura la chat di Aura col loto e l'invito", (tester) async {
@@ -2559,6 +2580,8 @@ void main() {
     expect(find.byKey(const Key('animal_result')), findsOneWidget);
     expect(find.byKey(const Key('animal_transparency')), findsOneWidget);
     await capture(tester, rootKey, 'guide-animale.png');
+    await fkInQuadro(tester, rootKey, const Key('animal_message_title'),
+        'FK/fk_a1_animale_il_titolo.png');
   });
 
   testWidgets('Cattura la lettura di identita\' dell\'Animale Guida',
@@ -3012,6 +3035,8 @@ void main() {
     await precacheRune(tester);
     await lancia(tester, 'odino');
     await capture(tester, rootKey, 'rune-odino.png');
+    await fkInQuadro(tester, rootKey, const Key('rune_presage_titolo'),
+        'FK/fk_a1_rune_il_titolo.png');
   });
 
   testWidgets('Cattura la Croce delle Cinque', (tester) async {
@@ -3923,6 +3948,20 @@ void main() {
     await step(tester);
     await tester.pump(const Duration(seconds: 2));
     await capture(tester, rootKey, 'stesa-tre-carte.png');
+    // **L'AGGIUNTA FK**: il titolo, i tre paragrafi col riquadro, il "da dove
+    // viene", le bolle per carta e il pannello delle fonti.
+    await fkInQuadro(tester, rootKey, const Key('stesa_synthesis'),
+        'FK/fk_a1_stesa_il_titolo.png');
+    await fkInQuadro(tester, rootKey, const Key('stesa_consiglio'),
+        'FK/fk_a2_stesa_i_tre_paragrafi.png');
+    await fkInQuadro(tester, rootKey, const Key('responso_da_dove_viene'),
+        'FK/fk_a2_stesa_da_dove_viene.png');
+    await fkInQuadro(tester, rootKey, const Key('stesa_letta_presente'),
+        'FK/fk_a3_stesa_le_bolle.png');
+    await tester.tap(find.byKey(const Key('tarocchi_fonti_bottone')).first,
+        warnIfMissed: false);
+    await step(tester);
+    await capture(tester, rootKey, 'FK/fk_a5_stesa_le_fonti.png');
   });
 
   // --- La scena della Stesa a riposo, prima della scelta ---

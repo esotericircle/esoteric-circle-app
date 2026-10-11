@@ -79,7 +79,8 @@ void main() {
   /// perche' e' la bolla che ha aperto l'ordine e non ci si nasconde dietro
   /// alla media di tutta la schermata.
   String testoAVideo(TarotReading lettura) => [
-        VoceDellaStesa.titolo(lettura.spread),
+        // Il titolo a video, ordine FK aggiunta voci A1 e A2.
+        lettura.titolo,
         lettura.consiglio,
         for (final p in lettura.posizioni)
           '${p.drawn.position.label}. ${p.drawn.displayName}. '
@@ -171,10 +172,23 @@ void main() {
     }
 
     final sue = [
-      stesaDi([('Dieci di Denari', true), ('Re di Bastoni', false), ('Il Mondo', false)]),
-      stesaDi([('La Temperanza', false), ('Il Mondo', false), ('L\'Appeso', false)]),
-      stesaDi([('Il Mago', false), ('La Giustizia', true), ('Il Mondo', false)]),
-      stesaDi([('Sette di Denari', false), ('Otto di Spade', false), ('Due di Spade', false)]),
+      stesaDi([
+        ('Dieci di Denari', true),
+        ('Re di Bastoni', false),
+        ('Il Mondo', false)
+      ]),
+      stesaDi([
+        ('La Temperanza', false),
+        ('Il Mondo', false),
+        ('L\'Appeso', false)
+      ]),
+      stesaDi(
+          [('Il Mago', false), ('La Giustizia', true), ('Il Mondo', false)]),
+      stesaDi([
+        ('Sette di Denari', false),
+        ('Otto di Spade', false),
+        ('Due di Spade', false)
+      ]),
     ];
     final testi = [
       for (final s in sue)

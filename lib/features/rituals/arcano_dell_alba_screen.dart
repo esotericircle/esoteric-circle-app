@@ -18,6 +18,7 @@ import '../../core/rituals/scelta_degli_avvisi.dart';
 import '../../core/sigilli/ora_rituale.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -698,6 +699,37 @@ class _RiquadroDelGesto extends StatelessWidget {
   }
 }
 
+/// **LA CHIUSURA SENZA LA FRASE CHE E' SALITA A TITOLO.** Ordine FK aggiunta
+/// voce A1: la frase di Medora apre il responso, e in fondo resta il filo con
+/// ieri. Senza filo la chiusura e' vuota: la frase di Medora e' gia' il
+/// titolo, e due volte la stessa frase nella stessa schermata non si scrive.
+class TreMovimentiDellAlba {
+  const TreMovimentiDellAlba._();
+
+  /// La frase della carta con il nome e il verso in arancio: il resto
+  /// eredita lo stile del `Text.rich`.
+  static TextSpan conLaCartaInArancio(ResponsoDellAlba r) {
+    final frase = r.primo;
+    final carta = ResponsoDellAlba.cartaColVerso(r.lettura.stato);
+    final da = frase.indexOf(carta);
+    if (da < 0) return TextSpan(text: frase);
+    return TextSpan(children: [
+      TextSpan(text: frase.substring(0, da)),
+      TextSpan(
+          text: carta,
+          style: const TextStyle(color: ColorTokens.arancioDellaCarta)),
+      TextSpan(text: frase.substring(da + carta.length)),
+    ]);
+  }
+
+  static String chiusuraSenzaIlTitolo(ResponsoDellAlba r) {
+    final medora = r.lettura.medora.trim();
+    final terzo = r.terzo.trim();
+    if (terzo.startsWith(medora)) return terzo.substring(medora.length).trim();
+    return terzo;
+  }
+}
+
 class _TreMovimenti extends StatelessWidget {
   const _TreMovimenti(
       {required this.responso,
@@ -730,11 +762,31 @@ class _TreMovimenti extends StatelessWidget {
             superficie:
                 AbitoDelResponso.di(DailyElement.dawn).superficiePeggiore,
           ),
+          // **IL TITOLO E' LA FRASE DI MEDORA.** Ordine FK aggiunta voce A1:
+          // il fondatore, *"ogni risposta doveva partire da un titolo"*. Il
+          // responso dell'Alba apriva con la carta, che e' il simbolo e non
+          // apre mai; la frase che dice il senso della mattina stava in fondo.
+          // Adesso apre, dal punto comune, e in fondo resta solo il filo con
+          // ieri quando c'e'.
+          TitoloDelResponso(
+            testo: responso.lettura.medora,
+            chiaveDelTesto: const Key('arcano_alba_titolo_risposta'),
+            stile: TypographyTokens.cerimoniale()
+                .copyWith(color: palette.goldSoft, height: 1.25),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
           // Il primo movimento: la carta, il verso, l'attribuzione.
-          Text(
-            responso.primo,
+          // **IL NOME DELLA CARTA E IL SUO VERSO IN ARANCIO.** Il
+          // fondatore, 11 ottobre 2026: *"a colpo d'occhio, l'utente vede il
+          // nome della carta e il suo verso"*. La frase resta una, e il pezzo
+          // colorato e' esattamente `ResponsoDellAlba.cartaColVerso`.
+          Text.rich(
+            TreMovimentiDellAlba.conLaCartaInArancio(responso),
             key: const Key('arcano_alba_carta'),
-            style: TypographyTokens.cerimoniale()
+            // **UN GRADINO SOTTO IL TITOLO**, ordine FK aggiunta voce A1: la
+            // carta era la riga piu' grande del responso, e il titolo che e'
+            // la risposta deve stare sopra anche nella misura.
+            style: TypographyTokens.titoloScheda()
                 .copyWith(color: palette.goldSoft, height: 1.25),
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -776,7 +828,7 @@ class _TreMovimenti extends StatelessWidget {
           // Il terzo: Medora chiude, e solo qui c'e' il filo con ieri.
           ParagrafiDiLettura(
             key: const Key('arcano_alba_medora'),
-            testo: responso.terzo,
+            testo: TreMovimentiDellAlba.chiusuraSenzaIlTitolo(responso),
             stile: TypographyTokens.lettura().copyWith(
                 color: ColorTokens.textPrimary.withValues(alpha: 0.86),
                 fontStyle: FontStyle.italic),

@@ -9,6 +9,7 @@ import '../../core/rituals/dawn_gift.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -149,10 +150,11 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // e in fondo. **I punti dal terzo al quinto c'erano gia' ed erano
             // scritti bene: quelli che mancavano sono i primi due.**
             if (gift.rito != null) ...[
-              Text(
-                gift.rito!.risposta.titolo,
-                key: const Key('alba_titolo_risposta'),
-                style: TypographyTokens.titoloSezione()
+              // **IL TITOLO DAL PUNTO COMUNE**, ordine FK aggiunta voce A1.
+              TitoloDelResponso(
+                testo: gift.rito!.risposta.titolo,
+                chiaveDelTesto: const Key('alba_titolo_risposta'),
+                stile: TypographyTokens.titoloSezione()
                     .copyWith(color: abito.inchiostro, height: 1.25),
               ),
               const SizedBox(height: SpacingTokens.xs),

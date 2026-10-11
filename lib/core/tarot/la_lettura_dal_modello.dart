@@ -37,7 +37,16 @@ class LetturaDelModello {
     required this.futuro,
     required this.legame,
     required this.consiglio,
+    this.titolo = '',
   });
+
+  /// **IL TITOLO, ordine FK aggiunta voce A1.** Il fondatore, 3 settembre
+  /// 2026: *"le risposte devono partire con un titolo diretto che riassume
+  /// tutto"*. Il modello lo scrive per ultimo, dopo la lettura che riassume.
+  /// Vuoto quando non arriva o non regge: allora il titolo e' quello della
+  /// lettura di casa (`TarotReading.titolo`): la schermata non resta mai
+  /// senza.
+  final String titolo;
 
   /// Le prime due frasi: rispondono alla domanda.
   final String risposta;
@@ -72,6 +81,7 @@ class LetturaDelModello {
         futuro: LaRispostaRipulita.applica(futuro),
         legame: LaRispostaRipulita.applica(legame),
         consiglio: LaRispostaRipulita.applica(consiglio),
+        titolo: LaRispostaRipulita.applica(titolo),
       );
 
   Map<String, String> toJson() => {
@@ -81,9 +91,12 @@ class LetturaDelModello {
         'futuro': futuro,
         'legame': legame,
         'consiglio': consiglio,
+        if (titolo.isNotEmpty) 'titolo': titolo,
       };
 
-  /// Null se manca un pezzo: una lettura a meta' non si mostra.
+  /// Null se manca un pezzo: una lettura a meta' non si mostra. **Il titolo
+  /// non e' fra i pezzi che la fanno cadere**: senza, la lettura resta e il
+  /// titolo lo da' la lettura di casa.
   static LetturaDelModello? daJson(Map<String, Object?>? j) {
     if (j == null) return null;
     String? pezzo(String k) {
@@ -114,6 +127,7 @@ class LetturaDelModello {
       futuro: fu,
       legame: le,
       consiglio: co,
+      titolo: pezzo('titolo') ?? '',
     );
   }
 }
@@ -246,6 +260,9 @@ abstract final class LaLetturaDellaStesa {
   static const int tettoDelLegame = 360;
   static const int tettoDelConsiglio = 260;
 
+  /// Il tetto del titolo: da tre a otto parole, scritte grandi in cima.
+  static const int tettoDelTitolo = 70;
+
   /// I campi che il modello deve restituire, tutti obbligatori.
   static final Map<String, Schema> campi = {
     'risposta': Schema.string(),
@@ -254,6 +271,9 @@ abstract final class LaLetturaDellaStesa {
     'futuro': Schema.string(),
     'legame': Schema.string(),
     'consiglio': Schema.string(),
+    // **PER ULTIMO, non per caso**: il titolo riassume la lettura e il
+    // modello scrive i campi nell'ordine dello schema.
+    'titolo': Schema.string(),
   };
 
   /// L'istruzione, con la voce di Medora e le regole della lettura.
@@ -271,6 +291,7 @@ COME SI LEGGE:
 - PASSATO, PRESENTE, FUTURO: per ciascuna carta due o tre frasi. Nomina la carta col suo nome. Parti dal suo significato tradizionale, che ti do: leggila nella sua posizione (che cosa ha portato fin qui, che cosa è in gioco adesso, dove va la situazione) e sempre rispetto alla domanda della persona. In ogni carta nomina con parole tue la cosa di cui parla la domanda (l'offerta, il rapporto, i soldi per la casa, l'amore, il momento che vive) e di' che cosa la carta indica su quella cosa: un testo che andrebbe bene per qualunque domanda non va bene. Il testo di ogni carta risponde anch'esso alla domanda, dal suo punto: che cosa ha portato fin qui, che cosa è in gioco adesso o dove va, proprio per quello che la persona ha chiesto.
 - LEGAME: una o due frasi su come le tre carte si legano fra loro: una causa, un passaggio, un contrasto.
 - CONSIGLIO: una frase sola, un passo concreto che la persona può fare, con un momento o un modo definiti.
+- TITOLO: da tre a otto parole, scritto dopo tutto il resto. È la risposta alla domanda detta a colpo d'occhio, come il titolo che si legge prima di ogni altra cosa: chi legge solo il titolo deve già sapere che cosa dicono le carte sulla sua domanda. Parla della persona o della sua situazione, mai in prima persona. Non nomina le carte, non finisce col punto, non ha i due punti e non è una domanda.
 - Niente frasi che andrebbero bene per qualunque stesa. Nessuna previsione data per certa, nessuna promessa su salute, denaro, leggi, gravidanza o morte. Niente cifre: i numeri si scrivono in lettere.
 - Nelle frasi rivolte alla persona non scrivere mai queste parole: $paroleDelConfine. Se la domanda tocca uno di questi temi, parla di come la persona può affrontare la situazione, non dell'esito. La carta La Morte si scrive sempre così, con la maiuscola.
 - Niente verbi al futuro, né per la persona (troverai, affronterai, tenderai, saprai, potrai) né per le cose (sarà, porterà, arriverà, accadrà). Niente «sicuramente», «senza dubbio», «è certo che», «è in arrivo»: per ciò che viene scrivi al presente, «tendi a», «puoi», «potresti», «rischi di», «la situazione tende a».
@@ -280,7 +301,7 @@ ${forma.agree(masculine: '', feminine: '', neutral: senzaGenere)}
 ${ConfineDelResponso.perIlModello}
 
 ${IlBloccoDiCortesia.perForma(forma)}${chiave.voce == null ? '' : '\n${chiave.voce}'}
-Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente", "futuro", "legame" e "consiglio".''';
+Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente", "futuro", "legame", "consiglio" e "titolo".''';
 
   /// **LE PAROLE DEL CONFINE, DETTE AL MODELLO.** Ordine EQ voce 04: la
   /// guardia a valle (`ConfineDelResponso`) scarta la frase rivolta alla
@@ -586,6 +607,8 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
       futuro: futuro,
       legame: legame,
       consiglio: consiglio,
+      // Il titolo col genere non si cura: si toglie: parla quello di casa.
+      titolo: formeContrarieAllaForma(l.titolo, forma).isEmpty ? l.titolo : '',
     );
   }
 
@@ -624,6 +647,22 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     if (l.risposta.length > tettoDellaRisposta) return 'risposta troppo lunga';
     if (l.legame.length > tettoDelLegame) return 'legame troppo lungo';
     if (l.consiglio.length > tettoDelConsiglio) return 'consiglio troppo lungo';
+    // **IL TITOLO SI GUARDA, quando c'e'.** Collaudo dell'ordine FK
+    // aggiunta voce A1 (docs/collaudo/FK/il_titolo_dal_modello_giro_1.txt):
+    // una lettura su quattro titolava "Vendita casa: lascio andare o resto",
+    // coi due punti che l'istruzione vietava e in prima persona. Un titolo
+    // vuoto non fa cadere la lettura (parla quello di casa); uno sbagliato
+    // si fa riscrivere, perche' il titolo di casa non conosce la risposta
+    // del modello e potrebbe contraddirla.
+    if (l.titolo.length > tettoDelTitolo) return 'titolo troppo lungo';
+    if (RegExp(r'[:?]').hasMatch(l.titolo)) {
+      return 'il titolo ha i due punti o il punto di domanda';
+    }
+    for (final d in spread.cards) {
+      if (l.titolo.isNotEmpty && nominaLaCarta(l.titolo, d.card.name)) {
+        return 'il titolo nomina ${d.card.name}';
+      }
+    }
     for (final d in [spread.passato, spread.presente, spread.futuro]) {
       final t = l.della(d.position);
       if (t.length > tettoDellaCarta) {

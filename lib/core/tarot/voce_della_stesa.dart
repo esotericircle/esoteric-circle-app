@@ -256,6 +256,63 @@ abstract final class VoceDellaStesa {
     ],
   };
 
+  /// **IL TITOLO DELLA LETTURA DI CASA, uno per ogni cosa che dice il
+  /// presente.** Ordine FK aggiunta voci A1 e A2, 11 ottobre 2026.
+  ///
+  /// Il fondatore, 3 settembre 2026: *"un titolo che a colpo d'occhio e' gia'
+  /// una risposta diretta e poi sotto la risposta vera"*. La risposta della
+  /// lettura di casa la dice [cosaDiceIlPresente]: il titolo e' quella stessa
+  /// frase detta in poche parole, **alla stessa posizione dell'elenco**, cosi'
+  /// titolo e risposta non possono dire due cose diverse. Non nomina la
+  /// carta, perche' il simbolo non apre mai (Linee Guida, sezione 2).
+  ///
+  /// **LAPIDE: "il titolo e' la sintesi della carta del Presente"**, ordine
+  /// DF voce 04.5. Quella era il significato di una carta, non la risposta
+  /// alla domanda: due persone con domande diverse e lo stesso Presente
+  /// leggevano lo stesso titolo.
+  static const Map<NaturaDellaCarta, List<String>> titoliDelPresente = {
+    NaturaDellaCarta.compimento: [
+      'Un giro si chiude',
+      'La cosa è arrivata a maturazione',
+      'Il movimento va nel verso giusto',
+      'Il lavoro è fatto',
+      'Sta già accadendo',
+      'Un passaggio vero',
+      'Il traguardo è già qui',
+      'Il pieno c\'è: decidi cosa farne',
+    ],
+    NaturaDellaCarta.favore: [
+      'Il vantaggio è alla tua portata',
+      'Il terreno è buono',
+      'Un passo che riesce',
+      'Questione di settimane, non di anni',
+      'Le cose stanno dove devono',
+      'Hai più di quanto pensi',
+      'Il tuo mestiere ti premia',
+      'La porta è socchiusa',
+    ],
+    NaturaDellaCarta.prova: [
+      'Non è tolto: è rimandato',
+      'Non è un no: è un non adesso',
+      'La strada c\'è, ma è un\'altra',
+      'Il tempo giusto non è ancora il tuo',
+      'Una prova che chiede una cosa sola',
+      'Il nodo si scioglie dal capo giusto',
+      'C\'è un prezzo noto da pagare',
+      'Resta, ma passa da una porta stretta',
+    ],
+    NaturaDellaCarta.attrito: [
+      'Un attrito piccolo frena tutto',
+      'Un dettaglio da sistemare',
+      'È più piccolo di come lo vivi',
+      'Manca un pezzo in un punto solo',
+      'Un fastidio vero ma piccolo',
+      'Energia nel punto sbagliato',
+      'Ti manca un\'informazione',
+      'Rimandare ormai costa di più',
+    ],
+  };
+
   // --- L'AZIONE, secondo paragrafo ---
 
   /// **IL GESTO, otto per natura: cosa fare, e basta.**
@@ -668,22 +725,11 @@ abstract final class VoceDellaStesa {
         'principale spesso non lo era.',
   ];
 
-  /// **IL TITOLO CHE RIASSUME LA RISPOSTA.** Ordine DF voci 04.5 e 04.9.
-  ///
-  /// *"Si risponde con titolo accattivante che riassume la risposta"*, e il
-  /// fondatore ha misurato che compariva **in una lettura su quattro**. O c'e'
-  /// sempre o non c'e' mai.
-  ///
-  /// **E senza il punto fermo dentro**, che era l'altra meta' del difetto: la
-  /// sintesi del corpus finisce con un punto, e un titolo con un punto in mezzo
-  /// si legge come due titoli.
-  static String titolo(TarotSpread spread) {
-    var t = spread.presente.summary.trim();
-    while (t.endsWith('.')) {
-      t = t.substring(0, t.length - 1);
-    }
-    return t;
-  }
+  // **IL TITOLO DELLA SINTESI DELLA CARTA NON C'E' PIU'.** Ordine FK
+  // aggiunta voci A1 e A2. Qui viveva `titolo(spread)`, la sintesi della
+  // carta del Presente senza il punto (ordine DF voci 04.5 e 04.9): era il
+  // significato di una carta e non la risposta alla domanda. Il titolo adesso
+  // e' `TarotReading.titolo`, quello del modello o [titoliDelPresente].
 
   /// **IL NUMERO SCRITTO IN LETTERE.** Ordine DF voce 04.7: *"il numero degli
   /// Arcani Maggiori e' in cifra dentro un testo letterario"*.
@@ -729,6 +775,18 @@ abstract final class VoceDellaStesa {
   /// riprendere la sua parola (*"ha una radice. E la radice e'..."*) e due
   /// pezzi diversi non devono dire la stessa immagine. Il fatto del cielo e'
   /// un pezzo anche lui, e sta per primo.
+  /// **IL TITOLO DELLA LETTURA DI CASA**: quello di [titoliDelPresente] che
+  /// sta alla posizione della risposta scelta.
+  static String titoloDellaLettura(
+    TarotSpread spread,
+    TarotTopic topic, {
+    String? domandaScritta,
+    String? fattoDelCielo,
+  }) =>
+      _componi(spread, topic,
+              domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo)
+          .titolo;
+
   static List<String> pezzi(
     TarotSpread spread,
     TarotTopic topic, {
@@ -739,7 +797,7 @@ abstract final class VoceDellaStesa {
               domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo)
           .pezzi;
 
-  static ({List<String> paragrafi, List<String> pezzi}) _componi(
+  static ({List<String> paragrafi, List<String> pezzi, String titolo}) _componi(
     TarotSpread spread,
     TarotTopic topic, {
     String? domandaScritta,
@@ -782,8 +840,11 @@ abstract final class VoceDellaStesa {
     // cento, che era sopra la soglia, a un numero sotto.
     final apreLaCarta = filo.scegli(const [true, false]);
     final aperturaDellaCarta = maiuscola(riempi(scegli(apertureDellaRisposta)));
-    final cosaDice =
-        LaMarcaDelGenere.risolvi(scegli(cosaDiceIlPresente[naturaPresente]!));
+    final formeDelPresente = cosaDiceIlPresente[naturaPresente]!;
+    final formaDetta = scegli(formeDelPresente);
+    final cosaDice = LaMarcaDelGenere.risolvi(formaDetta);
+    final titolo = titoliDelPresente[naturaPresente]![
+        formeDelPresente.indexOf(formaDetta)];
     final risposta = apreLaCarta
         ? '$riconoscimento$aperturaDellaCarta $cosaDice'
         : '$riconoscimento$cosaDice $aperturaDellaCarta';
@@ -829,6 +890,6 @@ abstract final class VoceDellaStesa {
         chiusura,
       ].where((p) => p.trim().isNotEmpty).join(' '),
     ].where((p) => p.trim().isNotEmpty).toList();
-    return (paragrafi: paragrafi, pezzi: pezzi);
+    return (paragrafi: paragrafi, pezzi: pezzi, titolo: titolo);
   }
 }

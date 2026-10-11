@@ -13,6 +13,7 @@ import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
+import 'package:esoteric_circle/design_system/components/il_responso_in_tre_paragrafi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -383,18 +384,23 @@ void main() {
     await monta(tester);
     final bolla = find.byKey(const Key('stesa_consiglio'));
     expect(bolla, findsOneWidget);
-    final paragrafi =
-        find.descendant(of: bolla, matching: find.byType(ParagrafiDiLettura));
+    // **LAPIDE: "un ParagrafiDiLettura solo dentro il consiglio".** Ordine
+    // FK aggiunta voce A2: i paragrafi sono tre, il secondo nel riquadro, e li
+    // dispone `ResponsoInTreParagrafi`. La legge resta: paragrafi separati,
+    // alla misura di lettura, non tutti d'oro.
+    final paragrafi = find.descendant(
+        of: bolla, matching: find.byType(ResponsoInTreParagrafi));
     expect(paragrafi, findsOneWidget,
         reason: 'il consiglio e\' tornato un blocco solo: i paragrafi si '
             'fondono e il testo diventa un muro');
-    final w = tester.widget<ParagrafiDiLettura>(paragrafi);
+    final w = tester.widget<ResponsoInTreParagrafi>(paragrafi);
+    expect(w.paragrafi, hasLength(3));
     expect(w.stile.fontSize, TypographyTokens.lettura().fontSize,
         reason: 'il consiglio non e\' alla misura di lettura');
     expect(w.stile.color, isNot(MaestroPalette.medora.goldSoft),
         reason: 'il consiglio e\' ancora tutto oro: un accento su ogni riga '
             'non accenta niente');
-    final quanti = w.testo.split(RegExp(r'\n\s*\n')).length;
+    final quanti = w.paragrafi.length;
     // ignore: avoid_print
     print('ORDINE BU VOCE 1: il consiglio ha $quanti paragrafi, misura '
         '${w.stile.fontSize}, colore ${w.stile.color}');

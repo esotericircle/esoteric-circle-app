@@ -15,6 +15,7 @@ import '../sigilli/regia_del_cammino.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:provider/provider.dart';
@@ -1280,13 +1281,14 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.md),
-              child: Text(
-                _e.inOmbra && _e.rune.shadow.isNotEmpty
+              // Dal punto comune, ordine FK aggiunta voce A1.
+              child: TitoloDelResponso(
+                testo: _e.inOmbra && _e.rune.shadow.isNotEmpty
                     ? _e.rune.shadow
                     : _e.rune.upright,
-                key: const Key('sunset_risposta'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.cerimoniale()
+                chiaveDelTesto: const Key('sunset_risposta'),
+                allineamento: TextAlign.center,
+                stile: TypographyTokens.cerimoniale()
                     .copyWith(color: _palette.goldSoft, height: 1.25),
               ),
             ),

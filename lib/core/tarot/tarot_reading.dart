@@ -66,6 +66,7 @@ class TarotReading {
     required this.chiave,
     required this.consiglio,
     required this.domanda,
+    required this.titolo,
   });
 
   final TarotSpread spread;
@@ -95,6 +96,23 @@ class TarotReading {
   /// STRATO 2, IL PRIMO CHE SI LEGGE: il consiglio di Medora, con la domanda
   /// dentro come ultimo paragrafo.
   final String consiglio;
+
+  /// **IL TITOLO, CHE E' GIA' LA RISPOSTA.** Ordine FK aggiunta voci A1 e A2.
+  /// Quello del modello quando c'e' e regge (non nomina le carte), altrimenti
+  /// quello della lettura di casa: mai vuoto, mai col punto in fondo.
+  final String titolo;
+
+  /// **I TRE PARAGRAFI DEL RESPONSO**, ordine FK aggiunta voce A2. Il
+  /// fondatore, 11 ottobre 2026: *"3 paragrafi, il secondo e' evidenziato in
+  /// riquadro"*. La risposta, cosa puoi fare, poi come le carte si legano.
+  /// **La domanda di chiusura nei dati resta un paragrafo suo** (ordine P
+  /// voce 09, dopo uno stacco: torna nel dono del mattino e la si conta); a
+  /// video chiude il terzo paragrafo, perche' i paragrafi sono tre.
+  List<String> get paragrafi {
+    final pezzi = consiglio.split('\n\n');
+    if (pezzi.length <= 3) return pezzi;
+    return [pezzi[0], pezzi[1], pezzi.sublist(2).join(' ')];
+  }
 
   /// La domanda di chiusura, tenuta anche come dato suo.
   ///
@@ -166,7 +184,47 @@ class TarotReading {
           ? consiglioDi(spread, lente, domanda, fattoDelCielo, sua)
           : consiglioDelModello(dalModello, domanda, fattoDelCielo, sua),
       domanda: domanda,
+      titolo: titoloDi(spread, lente, dalModello,
+          domandaScritta: sua, fattoDelCielo: fattoDelCielo),
     );
+  }
+
+  /// Il titolo della lettura: quello del modello se c'e' e non nomina una
+  /// carta (il simbolo non apre mai), altrimenti quello di casa.
+  static String titoloDi(
+      TarotSpread spread, TarotTopic topic, LetturaDelModello? dalModello,
+      {String? domandaScritta, String? fattoDelCielo}) {
+    var t = dalModello?.titolo.trim() ?? '';
+    if (spread.cards.any((d) => LaLetturaDellaStesa.nominaLaCarta(
+        t,
+        d.card.name
+            .replaceFirst(RegExp(r"^(Il |Lo |La |Le |Gli |I |L')"), '')))) {
+      t = '';
+    }
+    if (t.isEmpty) {
+      t = VoceDellaStesa.titoloDellaLettura(spread, topic,
+          domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
+    }
+    while (t.endsWith('.')) {
+      t = t.substring(0, t.length - 1).trimRight();
+    }
+    return t;
+  }
+
+  /// **DA DOVE VIENE, in forma breve e verso la fine.** Ordine FK aggiunta
+  /// voce A2; il fondatore, 3 settembre 2026: *"giustamente, e' giusto
+  /// informarlo come e' stata estratta questa parola [...] ma questo in forma
+  /// breve e verso la fine"*. Le carte uscite col loro verso e la loro
+  /// posizione, il mazzo, la stesa e da dove vengono i significati.
+  static String daDoveViene(TarotSpread spread,
+      {required String mazzo, required String stesa}) {
+    final carte = [
+      for (final d in spread.cards)
+        '${d.displayName} (${d.position.label.toLowerCase()})',
+    ].join(', ');
+    return 'Le carte uscite: $carte. Mazzo $mazzo, $stesa: ogni '
+        'carta si legge col suo significato nella tradizione di Waite e '
+        'nella posizione in cui è uscita.';
   }
 
   /// **IL CONSIGLIO QUANDO LA LETTURA LA SCRIVE IL MODELLO.** Ordine EQ voce
@@ -183,13 +241,20 @@ class TarotReading {
       [String? fattoDelCielo, String? apertura]) {
     final cielo = fattoDelCielo?.trim() ?? '';
     final laRipete = apertura != null && apertura.trim().isNotEmpty;
+    // **TRE PARAGRAFI, il secondo e' il consiglio.** Ordine FK aggiunta
+    // voce A2. LAPIDE: "la risposta, il legame col cielo, il consiglio, la
+    // domanda", quattro paragrafi in un ordine diverso da quello della
+    // lettura di casa. Adesso le due letture hanno la stessa forma: la
+    // risposta, cosa puoi fare (nel riquadro), come le carte si legano; la
+    // domanda di chiusura resta un paragrafo suo nei dati e a video chiude il
+    // terzo (`TarotReading.paragrafi`).
     return [
       l.risposta,
+      l.consiglio,
       [
         l.legame,
         if (cielo.isNotEmpty) VoceDellaStesa.rigaDelCielo(cielo),
       ].join(' '),
-      l.consiglio,
       if (!laRipete) domanda,
     ].join('\n\n');
   }

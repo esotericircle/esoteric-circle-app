@@ -23,6 +23,8 @@ import '../../../../core/rituals/rune_voce.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
+import '../../../../design_system/components/titolo_del_responso.dart';
+import '../../../../core/rituals/il_titolo_della_gettata.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -1080,6 +1082,18 @@ class _Responso extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // **IL TITOLO DEL PRESAGIO, dal punto comune.** Ordine FK
+                  // aggiunta voce A1: la riga della runa che sta al centro
+                  // della gettata, nel suo verso, che e' la stessa riga con
+                  // cui la Runa del Tramonto apre il suo responso.
+                  if (IlTitoloDellaGettata.di(esito).isNotEmpty) ...[
+                    TitoloDelResponso(
+                        testo: IlTitoloDellaGettata.di(esito),
+                        chiaveDelTesto: const Key('rune_presage_titolo'),
+                        stile: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft, height: 1.2)),
+                    const SizedBox(height: SpacingTokens.xs),
+                  ],
                   Row(
                     children: [
                       Icon(Icons.auto_awesome,

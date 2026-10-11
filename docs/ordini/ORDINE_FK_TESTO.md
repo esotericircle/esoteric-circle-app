@@ -688,3 +688,206 @@ oppure ed. Commenti e rapporti in italiano.
 
 SE UNA PREMESSA DI QUEST'ORDINE È SBAGLIATA, dillo e non eseguirla. L'ordine
 FJ ne portava cinque, elencate in FK.34, e le hai trovate tu. Vale di nuovo.
+
+---
+
+# FK AGGIUNTA, IL FORMATO DEL RESPONSO E IL TITOLO
+# Architetto, 11 ottobre 2026. Ramo claude/esoteric-circle-master-order-e798aj.
+
+Aggiunta all'ordine FK, che il fondatore ha già lanciato. Si esegue dopo le
+parti di FK oppure in mezzo, l'ordine è tuo.
+
+Le voci FK.A1 a FK.A4 sono rilievi del fondatore e vengono prima. La FK.A5 e la
+FK.A6 sono dell'Architetto e stanno in fondo, come vuole la regola della coda.
+
+Nessuna proposta dell'Architetto in questa aggiunta. Dove serve una decisione,
+la voce porta il dato e la scelta è tua.
+
+
+### FK.A1 LA REGOLA DEL TITOLO, e il posto dove deve vivere
+
+FONTE: frasi del fondatore in chat l'11 ottobre 2026, più le sue parole
+integrali del 3 e dell'11 settembre 2026, che stanno in due documenti del
+Project e che NON sono nel ramo, quindi le trascrivo qui per intero perché
+questa è la prima volta che ti arrivano complete.
+
+3 settembre 2026, parole sue:
+
+  "le risposte devono partire con un titolo diretto che riassume tutto, un
+  titolo che a colpo d'occhio è già una risposta diretta e poi sotto la
+  risposta vera. è importante il concetto base: l'utente cerca prima di tutto
+  risposte o una guida e se deve fare un rito deve sapere a che scopo, cosa
+  ottiene... poi, giustamente, è giusto informarlo come è stata estratta questa
+  parola e, informarlo dei transiti, pianeti, ecc perché deve sapere la fonte
+  perché nulla viene inventato. ma questo in forma breve e verso la fine.
+  quindi ogni risposta deve avere una gerarchia a partire dal titolo."
+
+11 settembre 2026, parole sue:
+
+  "titolo accattivante che riassume la risposta, poi la risposta descrittiva
+  diretta e immediata, chiara e non criptica, divisa in paragrafi."
+
+11 ottobre 2026, parole sue:
+
+  "non si parla di righe ma di paragrafi... ti avevo anche indicato che ogni
+  risposta doveva partire da un titolo."
+
+LO STATO VERO, contato sul ramo al commit 24cf424 e non dedotto. La regola è
+applicata una funzione per volta: `viaggio_dello_sciamano_screen.dart` riga
+2346, `card_del_respiro.dart` riga 105, `schermata_del_gemello.dart` riga 433,
+`perche_proprio_lui.dart` riga 83, più gli ordini CQ e CX che la citano.
+
+NEI TAROCCHI NON C'È. `lib/core/tarot/la_lettura_dal_modello.dart`, che è il
+prompt della lettura, non contiene la parola "titolo" nemmeno una volta,
+cercata senza distinzione di maiuscole. E `lib/core/tarot/voce_della_stesa.dart`
+riga 641 cita la frase del fondatore sulla gerarchia **per giustificare le otto
+chiusure**, cioè usa la regola del titolo per decidere come finisce il testo
+invece di come comincia.
+
+IL PUNTO CHE DECIDE SE QUESTA VOCE REGGE NEL TEMPO: la regola è stata applicata
+sei volte in sei posti diversi, ed è la famiglia delle due porte del Protocollo
+Operativo, che in questo progetto conta ventuno occorrenze. La regola va nel
+dato, in un punto solo che tutte le arti leggono, non in una settima funzione.
+Dove quel punto sta e come si chiama lo decidi tu: il vincolo è che una prova
+enumeri le arti che producono un responso e cada col nome dell'arte se una non
+passa da lì.
+
+### FK.A2 IL FORMATO DEL RESPONSO, sul modello dell'oroscopo
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026, parole sue:
+
+  "Prendi spunto dalle risposte dell'oroscopo come formattazione: 3 paragrafi,
+  il secondo è evidenziato in riquadro e solo alla fine un piccolo paragrafo in
+  corsivo 'da dove viene'."
+
+La forma, dalle sue parole:
+- un titolo, che è già la risposta a colpo d'occhio (FK.A1);
+- tre paragrafi, non tre righe;
+- il secondo paragrafo evidenziato in un riquadro;
+- alla fine un paragrafo piccolo, in corsivo, col da dove viene.
+
+NON descrivo io la resa dell'oroscopo: la leggi tu dall'implementazione vera,
+in `lib/features/horoscope/`, dove esistono già
+`titolo_della_scheda_del_giorno.dart` e `riquadro_del_numero.dart`. Prendi la
+forma da lì invece che dalla mia descrizione, perché una descrizione di seconda
+mano è il modo in cui questo progetto ha già sbagliato cinque premesse
+nell'ordine FJ.
+
+Il paragrafo finale in corsivo è la parte 3 dell'anatomia dell'ordine S voce
+S.16, il "da dove viene", e le parole del fondatore del 3 settembre dicono come
+va dosato: "in forma breve e verso la fine".
+
+### FK.A3 LE BOLLE PER CARTA RESTANO, col loro titolo
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026, parole sue:
+
+  "Nei tarocchi c'è anche la bolla per ogni carta e va bene, ognuno col titolo."
+
+Non si tocca la struttura delle bolle. La voce esiste perché nessuno le
+riorganizzi mentre applica la FK.A2: il fondatore le ha approvate così.
+
+Il titolo di ogni bolla ricade sotto la regola della FK.A1.
+
+### FK.A4 IL DIFETTO DELLA SOVRIMPRESSIONE SULLE CARTE IN ALTO
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026, parole sue:
+
+  "se fai click sulle carte in alto si apre in sovrimpressione e ripete il
+  testo scritto, mentre invece dovrebbe riportare il significato generico
+  della Carta."
+
+Il comportamento di oggi: il tocco su una carta della stesa apre una
+sovrimpressione che ripete il testo della lettura già scritto sotto.
+
+Il comportamento voluto: la sovrimpressione riporta il SIGNIFICATO GENERICO
+della carta, cioè la sua voce della fonte dei significati, non la lettura di
+quella stesa.
+
+La fonte dei significati è `lib/core/tarot/tarot_card.dart`, coi campi
+`uprightSummary`, `upright`, `reversedSummary` e `reversed`, ed è la stessa che
+l'ordine FJ ha corretto in ventidue carte-verso.
+
+ATTENZIONE, il legame con FK.02 dell'ordine principale: quella voce rigenera il
+Dart dei testi nella posizione. Se la sovrimpressione comincia a mostrare la
+voce generica, mostra anche le ventidue voci riscritte, quindi va guardata dopo
+la rigenerazione e non prima.
+
+Non ho localizzato io il widget della sovrimpressione: cercalo tu e dichiara il
+file e la riga nel rapporto, invece di fidarti di un percorso che non ti ho
+dato.
+
+### FK.A5 IL PANNELLO FONTI E METODO MANCA NEI TAROCCHI
+
+FONTE: rilievo dell'Architetto, misurato sul ramo al commit 24cf424. Sta in
+fondo perché i rilievi del fondatore vengono prima.
+
+`FoglioDelleFonti` è usato in DIECI file: il cielo reale, la panoramica del
+cielo, il confronto del cielo, la scheda dell'amico, il rito del tramonto,
+l'estrazione rune, l'animale guida, la costellazione del viso, il test
+archetipo.
+
+Nei file dei tarocchi: ZERO. Verificato cercando `FoglioDelleFonti` e "Fonti e
+metodo" in ogni file il cui percorso contiene "taroc".
+
+In più `lib/core/tarot/tarot_spread_type.dart` righe 123-124 porta un campo
+`fonte` con la citazione di Waite, e quella stringa non arriva mai a video:
+cercando ogni lettura di `.fonte` in `lib/`, la trovano le rune, il viaggio, la
+meditazione, gli angeli e gli enigmi del Cerchio, mai i tarocchi.
+
+Quindi la parte 4 dell'anatomia dell'ordine S, la tradizione che "scende nel
+pannello delle fonti e del metodo", nei tarocchi non ha dove andare. Il
+Protocollo Operativo lo aveva già scritto: "il pannello Fonti e metodo esiste
+su una sola arte, l'Estrazione Rune, ed è la forma giusta. Serve su tutte."
+
+QUANDO QUEL PANNELLO SI COSTRUISCE, il testo che mostra è quello corretto dalla
+Parte 3 dell'ordine FK: la glossa della quinta carta nomina due stati, la
+citazione dice "Parte III sezione 7" e non "capitolo", e la fonte è di grado
+basso, una trascrizione sola senza facsimile. Non mostrare la citazione vecchia.
+
+### FK.A6 I DUE FILE VERBATIM VANNO RIVERSATI NEL DOCUMENTO MADRE
+
+FONTE: i due file stessi, che lo dichiarano in testa, più il fatto misurato che
+non è stato fatto.
+
+`claude/Richieste_Verbatim_Aggiunte_2026-09-03_Esoteric_Circle.md` e
+`claude/Richieste_Verbatim_Aggiunte_2026-09-11_Esoteric_Circle.md` portano
+scritto in testa, parole loro, che sono temporanei, che vanno riversati nel
+documento madre `claude/Richieste_Verbatim_del_Fondatore_Esoteric_Circle.md`
+sotto la loro sezione di data, e che poi vanno cancellati. Non è mai stato
+fatto.
+
+Quei due file stanno nel Project e NON nel ramo, quindi tu non li hai mai
+letti: hai letto solo le citazioni che qualcuno ti ha incollato dentro un
+ordine, una funzione per volta, ed è esattamente la ragione per cui la regola
+del titolo è applicata sei volte e nei tarocchi manca.
+
+QUESTA VOCE NON È TUA. Il riversamento nel documento madre lo fa l'Architetto
+nel Project, perché il Project è suo e di Mauro, e il repo è tuo: è la regola
+del Protocollo Operativo, "le specifiche che Code deve eseguire vanno nel repo,
+non nel Project". Dichiaro qui che la faccio io, così la voce non resta orfana.
+
+Cio' che spetta a te, se decidi che serve: che la regola del titolo e il
+formato del responso finiscano in `docs/` nel ramo, dove tu li leggi, invece di
+vivere in un documento che non raggiungi. Dove e con che nome lo decidi tu.
+
+
+## LE REGOLE FISSE
+
+Valgono quelle scritte in fondo al pezzo 3 dell'ordine FK, per intero: un ramo
+solo, il Protocollo della chiusura con DOMANDA, PROVA e MISURA, le tre regole
+delle guardie, il Protocollo Verità e Memoria con STATO_VIVO aggiornato alla
+fine, il rapporto che non si corregge nel corpo, i modelli nella regione dei
+dati, nessun segreto nel codice, niente trattino lungo e mai la virgola prima
+di "e" oppure "ed".
+
+Più due che questa aggiunta tocca da vicino.
+
+NESSUNA BUILD. Il fondatore ha deciso l'11 ottobre 2026: "la Build quando ci
+saranno tutti i corpus di ogni posizione". Il formato del responso e il titolo
+si giudicano guardando, quindi questa aggiunta produce le anteprime alla
+larghezza vera, 360 per 797 punti logici con rapporto di pixel 3, e il giudizio
+a video resta del fondatore quando la build arriverà.
+
+SE UNA PREMESSA DI QUESTA AGGIUNTA È SBAGLIATA, dillo e non eseguirla.
+L'ordine FJ ne portava cinque sbagliate, tutte dell'Architetto, e in questa
+stessa serata due miei reperti sono caduti alla verifica. Vale di nuovo.

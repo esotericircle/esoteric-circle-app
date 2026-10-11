@@ -12,6 +12,7 @@ import '../sigilli/regia_del_cammino.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../design_system/components/frase_con_la_parola.dart';
 import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/abito_del_responso.dart';
 
 import '../../core/astro/moon_phase.dart';
@@ -821,9 +822,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                 color: _palette.goldSoft.withValues(alpha: 0.85),
                 letterSpacing: 1.2)),
         const SizedBox(height: SpacingTokens.xxs),
-        Text(DreamRiteCorpus.rispostaDellaNotte(_luna.sign),
-            key: const Key('dream_word'),
-            style: TypographyTokens.cerimoniale()
+        // Dal punto comune, ordine FK aggiunta voce A1.
+        TitoloDelResponso(
+            testo: DreamRiteCorpus.rispostaDellaNotte(_luna.sign),
+            chiaveDelTesto: const Key('dream_word'),
+            stile: TypographyTokens.cerimoniale()
                 .copyWith(color: _palette.goldSoft, height: 1.25)),
         const SizedBox(height: SpacingTokens.sm),
         // **IL SALUTO E' IL RESPONSO DELLA NOTTE, ordine BV voce 06**, e

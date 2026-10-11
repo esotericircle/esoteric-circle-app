@@ -104,6 +104,14 @@ class ColorTokens {
     Color(0xFFFF5233), // 5, rosso fuoco
   ];
 
+  /// **L'ARANCIO DELLA CARTA ESTRATTA**, ordine FK, richiesta del fondatore
+  /// dell'11 ottobre 2026: *"vorrei che il nome della carta sia evidenziato
+  /// in altro colore, magari arancione, e anche il testo "rovesciata" o
+  /// "dritta" in arancione. Cosi', a colpo d'occhio, l'utente vede il nome
+  /// della carta e il suo verso."* E' l'arancio della scala dei giorni, gia'
+  /// misurato sui fondi scuri dell'app.
+  static const Color arancioDellaCarta = Color(0xFFF5A132);
+
   /// Il gradino del livello [livello], da 1 a 5.
   static Color delLivello(int livello) =>
       scalaDelLivello[livello.clamp(1, 5) - 1];

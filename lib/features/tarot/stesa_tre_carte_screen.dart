@@ -27,7 +27,6 @@ import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../core/tarot/la_stesa_conservata.dart';
 import '../../core/tarot/le_uscite_delle_carte.dart';
-import '../../core/tarot/voce_della_stesa.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -35,6 +34,9 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../sigilli/celebrazione.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
+import '../../design_system/components/titolo_del_responso.dart';
+import '../../core/tarot/le_fonti_dei_tarocchi.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
@@ -348,16 +350,26 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   /// APRE LA CARTA [slot] a tutta scena, ordine BN voce 04.
   ///
-  /// Il testo mostrato e' `PosizioneLetta.testo`, cioe' lo stesso oggetto che
-  /// riempie la bolla piu' in basso: la descrizione si legge da dove gia'
-  /// vive, e non se ne scrive una seconda copia.
+  /// **IL SIGNIFICATO GENERICO DELLA CARTA, ordine FK aggiunta voce A4.** Il
+  /// fondatore: "se fai click sulle carte in alto si apre in sovrimpressione e
+  /// ripete il testo scritto, mentre invece dovrebbe riportare il significato
+  /// generico della Carta". **LAPIDE: "il testo mostrato e' PosizioneLetta.testo,
+  /// lo stesso della bolla"**: la carta aperta ripeteva la lettura che sta gia'
+  /// sotto. Adesso porta la voce della fonte dei significati nel suo verso
+  /// (`DrawnCard.meaning`, da `tarot_card.dart`), come la carta di nascita del
+  /// Passaporto.
   Future<void> _apriLaCarta(int slot) async {
     final lette = _reading.posizioni;
     if (slot < 0 || slot >= lette.length) return;
     _sensi.momento(context, MomentoSensoriale.flip);
+    final letta = lette[slot];
     await mostraLaCartaIngrandita(
       context,
-      letta: lette[slot],
+      letta: PosizioneLetta(
+        drawn: letta.drawn,
+        apertura: letta.apertura,
+        testo: letta.drawn.meaning,
+      ),
       palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
       mazzo: _setup.deck,
     );
@@ -1214,7 +1226,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           actions: [
             FoglioDelleFonti.bottone(context,
                 palette: palette,
-                testo: TestiDelleFonti.tarocchi,
+                // **IL MAZZO E LA STESA DI QUESTA LETTURA**, ordine FK
+                // aggiunta voce A5: era `TestiDelleFonti.tarocchi`, lo stesso
+                // testo per ogni stesa e ogni mazzo.
+                testo: LeFontiDeiTarocchi.testo(_setup.deck, _setup.tipo),
                 chiave: 'tarocchi_fonti'),
             const AngoloDellaBarra(),
           ],
@@ -1788,11 +1803,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // una frase e le frasi finiscono col punto. Un titolo con un punto
           // dentro si legge come due titoli.
           //
-          // `VoceDellaStesa.titolo` toglie il punto e non torna mai vuoto.
-          Text(VoceDellaStesa.titolo(_spread),
+          // **E ADESSO E' LA RISPOSTA, non il significato di una carta.**
+          // Ordine FK aggiunta voci A1 e A2. LAPIDE: "`VoceDellaStesa.titolo`,
+          // la sintesi della carta del Presente senza il punto". Il fondatore:
+          // *"un titolo che a colpo d'occhio e' gia' una risposta diretta"*.
+          // Il titolo e' `TarotReading.titolo`: quello del modello o quello
+          // della lettura di casa, disegnato dal punto comune.
+          TitoloDelResponso(
               key: const Key('stesa_synthesis'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.titoloSezione()
+              testo: _reading.titolo,
+              allineamento: TextAlign.center,
+              stile: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft, height: 1.25)),
           const SizedBox(height: SpacingTokens.xs),
           // **A CHE COSA STA RISPONDENDO QUESTA LETTURA.**
@@ -1906,6 +1927,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             testo: _reading.consiglio,
             palette: palette,
             inEvidenza: true,
+            // **TRE PARAGRAFI, IL SECONDO NEL RIQUADRO, POI DA DOVE VIENE.**
+            // Ordine FK aggiunta voce A2.
+            paragrafi: _reading.paragrafi,
+            daDoveViene: TarotReading.daDoveViene(_spread,
+                mazzo: _setup.deck.label, stesa: _setup.tipo.nome),
           ),
           const SizedBox(height: SpacingTokens.lg),
           // Le tre posizioni col testo ricco letto nell'argomento. La lente sta
@@ -2543,11 +2569,20 @@ class _Strato extends StatelessWidget {
     required this.testo,
     required this.palette,
     this.inEvidenza = false,
+    this.paragrafi,
+    this.daDoveViene,
   });
 
   final String titolo;
   final String testo;
   final MaestroPalette palette;
+
+  /// I tre paragrafi del responso, quando lo strato li porta separati: il
+  /// secondo va nel riquadro (`ResponsoInTreParagrafi`).
+  final List<String>? paragrafi;
+
+  /// Il paragrafo piccolo in corsivo, in fondo.
+  final String? daDoveViene;
 
   /// Il consiglio si stacca dagli altri strati, e' quello che si porta a casa.
   ///
@@ -2606,12 +2641,22 @@ class _Strato extends StatelessWidget {
           // i PARAGRAFI restano separati invece di fondersi, e li tiene
           // separati chi sa gia' farlo. Il titolo resta oro: quello e' un
           // titolo.
-          ParagrafiDiLettura(
-            testo: testo,
-            stile: TypographyTokens.lettura().copyWith(
-              color: ColorTokens.textPrimary,
+          if (paragrafi != null)
+            ResponsoInTreParagrafi(
+              paragrafi: paragrafi!,
+              daDoveViene: daDoveViene,
+              palette: palette,
+              stile: TypographyTokens.lettura().copyWith(
+                color: ColorTokens.textPrimary,
+              ),
+            )
+          else
+            ParagrafiDiLettura(
+              testo: testo,
+              stile: TypographyTokens.lettura().copyWith(
+                color: ColorTokens.textPrimary,
+              ),
             ),
-          ),
         ],
       ),
     );

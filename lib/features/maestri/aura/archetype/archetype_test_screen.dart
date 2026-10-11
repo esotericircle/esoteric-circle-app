@@ -19,6 +19,7 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
+import '../../../../design_system/components/titolo_del_responso.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -797,10 +798,15 @@ class _RisultatoState extends State<_Risultato>
               const SizedBox(height: SpacingTokens.md),
 
               // IL NOME con l'articolo, poi l'essenza, poi il co-dominante.
+              // **IL TITOLO DAL PUNTO COMUNE**, ordine FK aggiunta voce A1: il
+              // responso del Test risponde a "chi sono", e la risposta e'
+              // l'archetipo. L'essenza sotto resta il responso (ordine BV voce
+              // 06).
               Center(
-                child: Text(dom.conArticolo.toUpperCase(),
-                    key: const Key('archetype_name'),
-                    style: TypographyTokens.cerimoniale()
+                child: TitoloDelResponso(
+                    testo: dom.conArticolo.toUpperCase(),
+                    chiaveDelTesto: const Key('archetype_name'),
+                    stile: TypographyTokens.cerimoniale()
                         .copyWith(color: palette.goldSoft)),
               ),
               Center(

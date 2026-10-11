@@ -212,15 +212,22 @@ void main() {
     expect(r.consiglio, contains(l.consiglio));
     expect(r.posizioni.map((p) => p.testo).toList(),
         [l.passato, l.presente, l.futuro]);
-    // Chi ha scritto la sua domanda non la ritrova in coda.
-    expect(r.consiglio.split('\n\n').last, l.consiglio);
+    // **LAPIDE: "il consiglio del modello e' l'ultimo paragrafo".** Ordine
+    // FK aggiunta voce A2: tre paragrafi, il secondo e' il consiglio (nel
+    // riquadro) e il terzo e' il legame. Chi ha scritto la sua domanda non la
+    // ritrova in coda.
+    expect(r.paragrafi[1], l.consiglio);
+    expect(r.paragrafi.last, l.legame);
   });
 
   test('la domanda di chiusura resta a chi non ha scritto la sua', () {
     final stesa = TarotSpread.draw(seed: 4);
     final r = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
         dalModello: buona(stesa));
-    expect(r.consiglio.split('\n\n').last, r.domanda);
+    // In fondo al terzo paragrafo, non in un quarto (ordine FK aggiunta
+    // voce A2, *"3 paragrafi"*).
+    expect(r.paragrafi, hasLength(3));
+    expect(r.paragrafi.last, endsWith(r.domanda));
   });
 
   test('il cielo di oggi resta accanto alle carte', () {

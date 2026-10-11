@@ -18,6 +18,7 @@ import '../../../../core/magic/libro_dei_sigilli.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
+import '../../../../design_system/components/titolo_del_responso.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -799,9 +800,11 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
                   // **IL TITOLO E IL RESPONSO SULL'INTENZIONE VERA**, voce
                   // DO.10: dal modello se reggono alle guardie, di casa
                   // altrimenti.
-                  Text(testi.titolo,
-                      key: const Key('sigillo_titolo'),
-                      style: TypographyTokens.titoloSezione()
+                  // Dal punto comune, ordine FK aggiunta voce A1.
+                  TitoloDelResponso(
+                      testo: testi.titolo,
+                      chiaveDelTesto: const Key('sigillo_titolo'),
+                      stile: TypographyTokens.titoloSezione()
                           .copyWith(color: palette.goldSoft)),
                   const SizedBox(height: SpacingTokens.xs),
                   ParagrafiDiLettura(

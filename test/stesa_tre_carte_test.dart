@@ -588,11 +588,22 @@ void main() {
       // legge come due titoli. La grandezza misurata resta la stessa, cioe
       // che il titolo venga dalla carta del Presente: cambia che adesso
       // passa da VoceDellaStesa.titolo, che il punto lo toglie.
+      //
+      // **LAPIDE: "che il titolo venga dalla carta del Presente".** Ordine FK
+      // aggiunta voci A1 e A2: il titolo e' la risposta (`TarotReading.titolo`),
+      // disegnato dal punto comune. La legge del punto resta.
       expect(find.byKey(const Key('stesa_synthesis')), findsOneWidget);
-      expect(tester.widget<Text>(find.byKey(const Key('stesa_synthesis'))).data,
-          VoceDellaStesa.titolo(spread));
-      expect(reading.sintesi.startsWith(VoceDellaStesa.titolo(spread)), isTrue,
-          reason: 'il titolo non viene piu dalla sintesi del Presente');
+      final titolo = tester
+          .widget<Text>(find.descendant(
+              of: find.byKey(const Key('stesa_synthesis')),
+              matching: find.byType(Text)))
+          .data!;
+      expect(
+          VoceDellaStesa
+              .titoliDelPresente[NaturaDellaCarta.di(reading.spread.presente)],
+          contains(titolo),
+          reason: 'il titolo non e\' quello della risposta del Presente');
+      expect(titolo.endsWith('.'), isFalse);
       // 2. Le tre posizioni col testo ricco.
       for (final p in SpreadPosition.treCarte) {
         expect(find.byKey(Key('stesa_letta_${p.name}')), findsOneWidget);

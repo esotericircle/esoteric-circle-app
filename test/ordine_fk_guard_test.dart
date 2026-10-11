@@ -2,7 +2,7 @@
 // FONTE DEI SIGNIFICATI. 11 ottobre 2026.
 //
 // Il manifesto docs/ordini/ORDINE_FK_MANIFESTO.md porta tutte e trentasei le
-// voci, ognuna con uno stato solo (CHIUSA, APERTA IN ATTESA DI VERIFICA o DA
+// voci, e dall'aggiunta le sette voci FK.A1-FK.A7, numerate FK.37-FK.43 (quarantatre in tutto), ognuna con uno stato solo (CHIUSA, APERTA IN ATTESA DI VERIFICA o DA
 // FARE), e i marcatori tornano coi conti. Le voci chiuse portano DOMANDA,
 // PROVA e MISURA, e le prove nominate esistono.
 
@@ -13,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FK_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 36; i++) 'FK.${i.toString().padLeft(2, '0')}',
+    for (var i = 1; i <= 43; i++) 'FK.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {
@@ -24,7 +24,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le trentasei voci', () {
+  test('il manifesto esiste e porta tutte le quarantatre voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync().replaceAll('\r\n', '\n');
     final mancanti = [
@@ -33,7 +33,7 @@ void main() {
             .hasMatch(testo))
           v,
     ];
-    expect(voci, hasLength(36));
+    expect(voci, hasLength(43));
     expect(mancanti, isEmpty, reason: 'voci non nominate: $mancanti');
   });
 
@@ -74,6 +74,6 @@ void main() {
     expect([contateChiuse, contateAperte, contateDaFare],
         [chiuse, aperte, daFare]);
     expect(chiuse + aperte + daFare, totali);
-    expect(totali, 36);
+    expect(totali, 43);
   });
 }

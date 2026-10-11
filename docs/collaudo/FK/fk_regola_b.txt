@@ -39,3 +39,102 @@ LA REGOLA B DELL'ORDINE FK, 11 ottobre 2026: le guardie delle zone viste rosse P
    innesto entrato (grep): si
    esito: ROSSA
    ripristinato al byte: si
+
+== AGGIUNTA, FK.A4: la_carta_si_apre_al_tocco prima di toccare la carta aperta (la carta aperta col significato generico)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== AGGIUNTA FK, Regola B prima di toccare le zone delle voci A1, A2 e A5 (11 ottobre 2026)
+== la lettura del modello: la risposta non apre piu' l'istruzione (lib/core/tarot/la_lettura_dal_modello.dart, test/la_stesa_interpreta_davvero_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la lettura: il consiglio del modello senza la risposta in cima (lib/core/tarot/tarot_reading.dart, test/la_stesa_interpreta_davvero_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la voce della stesa: l'azione prima della risposta (lib/core/tarot/voce_della_stesa.dart, test/il_consiglio_dei_tarocchi_e_la_sua_anatomia_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la schermata della stesa: il titolo del consiglio senza Medora (lib/features/tarot/stesa_tre_carte_screen.dart, test/la_chiave_e_il_consiglio_si_vedono_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la schermata della stesa: il titolo in cima col nome sbagliato (lib/features/tarot/stesa_tre_carte_screen.dart, test/il_ventaglio_vive_subito_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il titolo della scheda del giorno: non va mai sopra (lib/features/horoscope/titolo_della_scheda_del_giorno.dart, test/il_titolo_sta_sopra_quando_si_spezzerebbe_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la carta del dono: il titolo-risposta col nome sbagliato (lib/features/rituals/ritual_gift_card.dart, test/i_cinque_doni_rispettano_la_legge_dei_testi_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la runa del tramonto: la risposta col nome sbagliato (lib/features/rituals/sunset_rune_screen.dart, test/l_invito_sta_subito_sotto_la_pietra_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il rito del sogno: la parola della notte col nome sbagliato (lib/features/rituals/dream_rite_screen.dart, test/dream_rite_screen_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il test archetipo: il nome col nome sbagliato (lib/features/maestri/aura/archetype/archetype_test_screen.dart, test/archetype_screen_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== l'animale guida: il messaggio col nome sbagliato (lib/features/maestri/caligo/animal/guide_animal_screen.dart, test/il_responso_si_legge_ovunque_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il messaggio dell'animale: la cornice tolta (lib/core/rituals/guide_animal_day.dart, test/guide_animal_test.dart)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+== l'Arcano dell'Alba: la carta col nome sbagliato (lib/features/rituals/arcano_dell_alba_screen.dart, test/il_dono_risponde_prima_di_chiedere_test.dart)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+== la gettata delle rune: il risultato col nome sbagliato (lib/features/maestri/caligo/rune/rune_draw_screen.dart, test/dopo_il_responso_niente_scelte_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il messaggio dell'animale: secondo innesto, il segno del totem tolto (lib/core/rituals/guide_animal_day.dart, test/guide_animal_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== l'Arcano dell'Alba: secondo innesto, la chiusura di Medora col nome sbagliato (lib/features/rituals/arcano_dell_alba_screen.dart, test/l_arcano_dell_alba_si_gira_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la sinastria: il titolo della bolla tolto (lib/features/synastry/sinastria_vip_screen.dart, test/synastry_test.dart)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+== la mappa del viso: il titolo evocativo vuoto (lib/features/maestri/aura/face/face_constellation_screen.dart, test/face_screen_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il sigillo: il titolo sulla intenzione vuoto (lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart, test/sigillo_schermata_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+
+(nota: synastry_test e' verde col titolo della bolla tolto. Nessuna prova guardava quel titolo prima dell'aggiunta FK; da adesso lo sorveglia ogni_responso_parte_dal_titolo, che pretende il titolo comune in sinastria_vip_screen.dart. I due primi innesti su animale e alba erano verdi perche' quelle prove non leggono la cornice del messaggio ne' la chiave della carta: rifatti su cio' che leggono, rossi.)
+
+== AGGIUNTA FK: ordine_fk_guard prima di portarla a 42 voci (il marcatore delle chiuse alzato)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== AGGIUNTA FK: i_manifesti_sono_sigillati prima di portare FK a 42 (il sigillo a 35)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== AGGIUNTA FK, richiesta del fondatore sull'Alba: color_tokens prima di aggiungere l'arancio della carta (il gradino 3 della scala spento)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

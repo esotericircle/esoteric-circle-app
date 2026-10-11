@@ -30,6 +30,7 @@ import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/vip_frame.dart';
+import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -925,9 +926,11 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               // **IL TITOLO DELLA BOLLA, che prima non esisteva.** Ordine CA
               // voce 04: la bolla apriva sempre con "Il fatto e' questo".
               if (report.titoloDellaBolla.isNotEmpty) ...[
-                Text(report.titoloDellaBolla,
-                    key: const Key('sinastria_titolo_bolla'),
-                    style: TypographyTokens.titoloScheda()
+                // Dal punto comune, ordine FK aggiunta voce A1.
+                TitoloDelResponso(
+                    testo: report.titoloDellaBolla,
+                    chiaveDelTesto: const Key('sinastria_titolo_bolla'),
+                    stile: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
               ],

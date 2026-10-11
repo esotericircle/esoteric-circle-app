@@ -51,7 +51,8 @@ void main() {
     for (final t in TarotTopic.values) {
       for (var seme = 0; seme < quanti; seme++) {
         final stesa = TarotSpread.draw(seed: seme);
-        fuori.add((t, stesa, TarotReading.of(stesa, t, domandaScritta: domanda)));
+        fuori.add(
+            (t, stesa, TarotReading.of(stesa, t, domandaScritta: domanda)));
       }
     }
     return fuori;
@@ -64,8 +65,8 @@ void main() {
     for (final (t, stesa, lettura) in leLetture()) {
       quante++;
       final primo = lettura.consiglio.split('\n\n').first;
-      final nominata = stesa.cards.any((c) =>
-          primo.contains(c.displayName) || primo.contains(c.card.name));
+      final nominata = stesa.cards.any(
+          (c) => primo.contains(c.displayName) || primo.contains(c.card.name));
       if (!nominata) {
         senza.add('${t.name} seme $quante: il primo paragrafo non nomina '
             'nessuna delle tre carte');
@@ -117,7 +118,8 @@ void main() {
             '${colpe.take(6).join("\n")}');
   });
 
-  test('DF.04.3: IL CONSIGLIO NON CITA I SIGNIFICATI, che stanno gia sotto le '
+  test(
+      'DF.04.3: IL CONSIGLIO NON CITA I SIGNIFICATI, che stanno gia sotto le '
       'carte', () {
     // **Il difetto misurato dal fondatore:** i significati erano scritti **due
     // volte nella stessa schermata**, nell elenco Passato Presente Futuro e di
@@ -158,9 +160,12 @@ void main() {
     // *"Il titolo grande col significato della carta presente compare in una
     // lettura su quattro, e nelle altre tre no. O c e sempre o non c e mai, e
     // senza il punto fermo dentro il titolo."*
+    // **LAPIDE: "VoceDellaStesa.titolo(stesa)", la sintesi della carta del
+    // Presente.** Ordine FK aggiunta voci A1 e A2: il titolo e' la risposta,
+    // `TarotReading.titolo`. La legge della voce DF.04.5 resta la stessa.
     final guasti = <String>[];
-    for (final (t, stesa, _) in leLetture(quanti: 24)) {
-      final titolo = VoceDellaStesa.titolo(stesa);
+    for (final (t, _, lettura) in leLetture(quanti: 24)) {
+      final titolo = lettura.titolo;
       if (titolo.trim().isEmpty) {
         guasti.add('${t.name}: titolo vuoto');
       }
@@ -205,10 +210,30 @@ void main() {
     // puoi fare**. Si misura sui paragrafi: il primo nomina le carte e dice
     // cosa vedono, il secondo porta un imperativo.
     const imperativi = [
-      'Fai ', 'Scegli ', 'Chiedi ', 'Metti ', 'Cerca ', 'Rendi ', 'Fissa ',
-      'Dichiara ', 'Usa ', 'Dai ', 'Mostra ', 'Togli ', 'Segna ', 'Scrivi ',
-      'Smetti ', 'Rimanda ', 'Prova ', 'Parla ', 'Prenditi ', 'Cambia ',
-      'Elimina ', 'Controlla ', 'Rinuncia ', 'Rifai ',
+      'Fai ',
+      'Scegli ',
+      'Chiedi ',
+      'Metti ',
+      'Cerca ',
+      'Rendi ',
+      'Fissa ',
+      'Dichiara ',
+      'Usa ',
+      'Dai ',
+      'Mostra ',
+      'Togli ',
+      'Segna ',
+      'Scrivi ',
+      'Smetti ',
+      'Rimanda ',
+      'Prova ',
+      'Parla ',
+      'Prenditi ',
+      'Cambia ',
+      'Elimina ',
+      'Controlla ',
+      'Rinuncia ',
+      'Rifai ',
     ];
     final guasti = <String>[];
     var quante = 0;
@@ -329,9 +354,7 @@ void main() {
     for (final c in TarotDeck.cards) {
       for (final rovesciata in [false, true]) {
         final n = NaturaDellaCarta.di(DrawnCard(
-            card: c,
-            position: SpreadPosition.presente,
-            reversed: rovesciata));
+            card: c, position: SpreadPosition.presente, reversed: rovesciata));
         conto[n] = (conto[n] ?? 0) + 1;
       }
     }

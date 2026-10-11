@@ -20,9 +20,12 @@ import 'package:provider/provider.dart';
 /// ingrandirsi facendomi anche leggere i dettagli di quella carta che poi si
 /// tratta della stessa descrizione che si trova sotto".
 ///
-/// **La misura che conta e' che il testo sia LO STESSO**, carattere per
-/// carattere, di quello della bolla: se fosse una seconda copia, al primo che
-/// ne cambia una la carta direbbe una cosa e la bolla un'altra.
+/// **LAPIDE: "la misura che conta e' che il testo sia LO STESSO di quello
+/// della bolla".** Ordine FK, aggiunta voce A4, parole del fondatore: "se fai
+/// click sulle carte in alto si apre in sovrimpressione e ripete il testo
+/// scritto, mentre invece dovrebbe riportare il significato generico della
+/// Carta". Adesso la carta aperta porta la voce della fonte dei significati
+/// nel verso in cui la carta e' uscita, e non ripete la lettura della bolla.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -127,7 +130,7 @@ void main() {
     return normalizza(pezzi.join(' '));
   }
 
-  testWidgets('il testo della carta aperta e\' quello della bolla, uguale',
+  testWidgets('la carta aperta porta il significato generico, non la lettura',
       (tester) async {
     await monta(tester);
 
@@ -165,10 +168,16 @@ void main() {
       final aperta = find.byKey(const Key('carta_ingrandita_testo'));
       expect(aperta, findsOneWidget,
           reason: 'la carta ${posizione.name} non si e\' aperta');
-      expect(testiDellaBolla, contains(testoDi(tester, aperta)),
-          reason: 'il testo della carta aperta non e\' nessuno di quelli della '
-              'sua bolla: sono due copie, e al primo che ne cambia una '
-              'diranno cose diverse');
+      final drawn = tester
+          .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen))
+          .stesaCorrente
+          .cards
+          .firstWhere((d) => d.position == posizione);
+      expect(testoDi(tester, aperta), normalizza(drawn.meaning),
+          reason: 'la carta ${posizione.name} aperta non porta il significato '
+              'generico del suo verso');
+      expect(testiDellaBolla, isNot(contains(testoDi(tester, aperta))),
+          reason: 'la carta aperta ripete un testo della bolla');
 
       // Si chiude, e la scena torna quella di prima.
       Navigator.of(tester.element(find.byType(MaestroScope))).pop();

@@ -27,7 +27,15 @@ class MessaggioDelGiorno {
     required this.testo,
     required this.transito,
     required this.datiNatali,
+    this.titolo = '',
   });
+
+  /// **IL TITOLO DEL MESSAGGIO**, ordine FK aggiunta voce A1: la prima
+  /// proposizione del segno di oggi, con la maiuscola e senza la
+  /// punteggiatura finale (*"guarda piu' in alto, il quadro intero ti
+  /// aspetta"* da' *"Guarda piu' in alto"*). Il titolo e' il messaggio
+  /// stesso, detto in testa: non c'e' una parola nuova da inventare.
+  final String titolo;
 
   /// Il messaggio dell'animale per il tema del giorno.
   final String testo;
@@ -86,7 +94,17 @@ class GuideAnimalDay {
         : 'Sole in ${soleNatale.italianName}';
 
     return MessaggioDelGiorno(
-        testo: testo, transito: transito, datiNatali: datiNatali);
+        testo: testo,
+        transito: transito,
+        datiNatali: datiNatali,
+        titolo: titoloDi(r.messaggi[indice]));
+  }
+
+  /// La prima proposizione di [segno], con la maiuscola e senza il punto.
+  static String titoloDi(String segno) {
+    final testa = segno.trim().split(RegExp(r'[,.;:!?]')).first.trim();
+    if (testa.isEmpty) return '';
+    return testa[0].toUpperCase() + testa.substring(1);
   }
 
   /// L'aspetto per segno: dalla distanza circolare fra i due segni sullo zodiaco.

@@ -1,0 +1,42 @@
+LA REGOLA A SULLE GUARDIE NUOVE DELL'AGGIUNTA FK, 11 ottobre 2026
+Ogni innesto entra (grep), la prova si legge, il file torna al byte.
+== un'arte senza il titolo comune: la Mappa del Viso torna a un Text (lib/features/maestri/aura/face/face_constellation_screen.dart; test/ogni_responso_parte_dal_titolo_test.dart: A1: ogni arte con un responso disegna il titolo dal punto comune)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== una porta che non usa il titolo comune: la carta del dono (lib/features/rituals/ritual_gift_card.dart; test/ogni_responso_parte_dal_titolo_test.dart: A1: ogni porta disegna davvero il titolo comune)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== una parola del fondatore cambiata nel documento (docs/responsi/il_titolo_e_il_formato.md; test/ogni_responso_parte_dal_titolo_test.dart: A6: il documento porta le parole del fondatore, uguali)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il riquadro sul primo paragrafo invece che sul secondo (lib/design_system/components/il_responso_in_tre_paragrafi.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A1 e A2: il titolo, tre paragrafi, il riquadro, da dove viene)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il titolo di casa torna la sintesi della carta (lib/core/tarot/voce_della_stesa.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A1: la lettura di casa ha sempre il titolo della sua risposta)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il modello non riceve il titolo (lib/core/tarot/la_lettura_dal_modello.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A1: il modello riceve la richiesta del titolo, per ultimo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il consiglio del modello torna ultimo (lib/core/tarot/tarot_reading.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A2: la lettura del modello ha la stessa forma)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il pannello delle fonti senza la fonte della stesa (lib/core/tarot/le_fonti_dei_tarocchi.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A5: ogni mazzo e ogni stesa portano la loro fonte)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la bolla per carta senza il nome della carta (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_formato_del_responso_dei_tarocchi_test.dart: A3: le bolle per carta restano, ognuna col suo titolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== l'Alba in arancio: il pezzo colorato non trovato mai (lib/features/rituals/arcano_dell_alba_screen.dart; test/la_carta_dell_alba_in_arancio_test.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
