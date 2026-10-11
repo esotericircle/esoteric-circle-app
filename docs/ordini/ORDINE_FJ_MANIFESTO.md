@@ -5,9 +5,9 @@ Testo dell'ordine: `docs/ordini/ORDINE_FJ_TESTO.md`. Rapporto: `docs/ordini/RAPP
 Le voci da FJ.01 a FJ.29 sono quelle dell'ordine; le otto dell'aggiunta, da FJ.A1 a FJ.A8, sono qui FJ.30-FJ.37; le sei dell'aggiunta 2, da FJ.B1 a FJ.B6, sono FJ.38-FJ.43. Il sigillo dei manifesti legge solo nomi con un numero. Dove un'aggiunta corregge l'ordine, vince l'aggiunta. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA.
 
 VOCI_TOTALI: 43
-VOCI_CHIUSE: 29
+VOCI_CHIUSE: 32
 VOCI_APERTE: 11
-VOCI_DA_FARE: 3
+VOCI_DA_FARE: 0
 
 ## VOCE FJ.01
 
@@ -27,7 +27,11 @@ MISURA: uscita del tool 0; scheletri da 468 a 936; posizioni con tre varianti da
 
 ## VOCE FJ.03
 
-**DA FARE.** La suite intera col lato dentro. Il giro sul commit d1b3035b ha dato +7085 -2, due falsi positivi delle guardie di casa su due testi del lato ("la direzione resti incollata", il dolore che sfuma "senza cancellarne la memoria"), dichiarati frase per frase con la ragione; si scrive l'esito del giro finale al commit della consegna.
+**CHIUSA.** La suite intera col lato dentro.
+
+DOMANDA: "Poi la suite intera, non solo le guardie del corpus: la posizione LATO entra in `lib/core/tarot/le_carte_nella_posizione_dati.dart` e quel file e' letto anche dalla rotazione e dalla lettura di casa."
+PROVA: docs/collaudo/FJ/la_suite_finale.txt
+MISURA: rossi da 2 (giro 1, due falsi positivi sui testi del lato) e 10 (giro 2, guardie di casa sul codice nuovo) a 1 (giro 3, la registrazione del rapporto, fatta alla consegna); prove passate 7.098
 
 ## VOCE FJ.04
 
@@ -262,7 +266,11 @@ MISURA: voci ritirate 1 (FJ.21), collisioni ricostruite 0
 
 ## VOCE FJ.37
 
-**DA FARE.** (FJ.A8) Il rapporto, coi punti da 1 a 17.
+**CHIUSA.** (FJ.A8) Il rapporto, coi punti da 1 a 17.
+
+DOMANDA: "Oltre alle tredici voci del rapporto dell'ordine FJ"
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: punti del rapporto scritti da 0 a 17 su 17, registrato con tool/i_rapporti_consegnati.py
 
 ## VOCE FJ.38
 
@@ -306,4 +314,8 @@ MISURA: posizioni 14 (una piena, tre con la variante 1, dieci vuote), scheletri 
 
 ## VOCE FJ.43
 
-**DA FARE.** (FJ.B6) Il rapporto dell'aggiunta 2, dentro quello dell'ordine.
+**CHIUSA.** (FJ.B6) Il rapporto dell'aggiunta 2, dentro quello dell'ordine.
+
+DOMANDA: "Se `consiglio`, `ambiente` e `ostacolo` comparivano davvero solo nel ferro di cavallo, e dove le hai trovate."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: punti del rapporto dell'aggiunta 2 scritti da 0 a 4 su 4
