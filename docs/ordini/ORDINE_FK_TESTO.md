@@ -891,3 +891,206 @@ a video resta del fondatore quando la build arriverà.
 SE UNA PREMESSA DI QUESTA AGGIUNTA È SBAGLIATA, dillo e non eseguirla.
 L'ordine FJ ne portava cinque sbagliate, tutte dell'Architetto, e in questa
 stessa serata due miei reperti sono caduti alla verifica. Vale di nuovo.
+
+---
+
+Richiesta del fondatore in chat, 11 ottobre 2026, durante l'aggiunta (nel manifesto FK.43):
+
+"Nell'alba, il titolo comprende sempre il nome della carta estratta, vorrei che il nome della carta si evidenziato in altro colore, magari arancione, e  anche il testo "rovesciata"  o "dritta" in arancione. Così, a colpo d'occhio, l'utente vede il nome della carta e il suo verso."
+
+---
+
+# FK AGGIUNTA 2, LA STESA DIVENTA DI N CARTE
+# Architetto, 11 ottobre 2026. Ramo claude/esoteric-circle-master-order-e798aj.
+
+Aggiunta all'ordine FK, già lanciato. Una parte sola, sette voci. Serve a far
+vedere a video il corpus che esiste, e a farlo una volta per tutte e cinque le
+stese invece che una per volta.
+
+PREMESSE DA ABBATTERE, verifica prima di toccare una riga e se una è falsa
+fermati e riportala:
+
+P1. Il remoto è a 394e9c5, verificato con git ls-remote l'11 ottobre 2026 alle
+    23.47. Porta due commit che non hai: 24cf424 e 394e9c5.
+P2. `lib/core/tarot/tarot_spread.dart` riga 99: la classe `TarotSpread` ha
+    `passato` come `cards[0]`, `presente` come `cards[1]`, `futuro` come
+    `cards[2]`. È una stesa a tre carte per costruzione.
+P3. `lib/core/tarot/la_lettura_dal_modello.dart` riga 55: la funzione
+    `della(SpreadPosition)` conosce tre posizioni su quattordici. Le righe 333 e
+    627 ciclano su `[spread.passato, spread.presente, spread.futuro]`.
+P4. `lib/core/tarot/tarot_spread_type.dart`: delle cinque stese una sola ha
+    `costruita: true`, quella a tre carte. Le altre quattro sono false.
+P5. La schermata è `lib/features/tarot/stesa_tre_carte_screen.dart`.
+P6. Il dato `PostoSulTavolo`, che per ogni stesa dichiara dove sta ogni carta,
+    NON è letto da nessun file sotto `lib/features/`: cercato in tutto il
+    sorgente, lo scrivono le definizioni delle stese e nessuno lo legge.
+P7. Nella fonte otto posizioni sono complete a 468 testi (lato, consultante,
+    esito, carta_sola, copre, attraversa, corona, sotto), tre hanno la sola
+    variante 1 (passato, presente, futuro), tre sono a zero (se_stesso,
+    la_casa, speranze_o_timori), registri.md è a 0 su 468.
+
+Ogni voce dichiara la sua fonte. Nessuna proposta dell'Architetto: il fondatore
+ha stabilito l'11 ottobre 2026 che l'Architetto non decide, e dove serve una
+scelta la voce porta il dato e lascia la scelta a te.
+
+
+### FK.A7 IL PULL
+
+FONTE: il ramo, git ls-remote dell'11 ottobre 2026.
+
+Porta la cartella a 394e9c5. Il commit 394e9c5 riempie `copre.md`,
+`attraversa.md`, `corona.md` e `sotto.md` con 468 testi ciascuna, e il suo
+messaggio porta i numeri delle prove cieche, la prova di controllo e i difetti
+dichiarati. Leggilo: contiene cose che ti servono, fra cui dodici voci della
+fonte che usano una parola che il metro vieta.
+
+### FK.A8 LA STESA DIVENTA DI N CARTE
+
+FONTE: la premessa P2, misurata sul ramo.
+
+Oggi `TarotSpread` è una stesa a tre carte: tre accessori fissi su `cards`.
+Finché resta così, nessuna delle altre quattro stese può essere letta, perché
+ogni cosa a valle chiede `passato`, `presente` e `futuro`.
+
+Quello che serve: una stesa che porti **le sue posizioni** e **le sue carte
+appaiate alle posizioni**, tante quante la sua definizione dichiara. La
+definizione esiste già e si chiama `TarotSpreadType.posizioni`: è l'elenco
+ordinato, e nella Croce Celtica porta `esito` in decima e nella croce a quattro
+porta `lato` due volte.
+
+ATTENZIONE AL CASO CHE ROMPE LA VIA FACILE: nella croce a quattro la stessa
+posizione compare DUE VOLTE (`lato`, `lato`). Quindi una mappa da posizione a
+carta non basta: perde una delle due. Serve una sequenza di coppie, posizione e
+carta, nell'ordine di lettura.
+
+I tre accessori `passato`, `presente`, `futuro` restano, perché tredici file li
+usano: li tieni come scorciatoie della stesa a tre carte, non come la forma
+della classe.
+
+Come si chiamano le cose nuove e come si organizzano lo decidi tu.
+
+### FK.A9 LA RICHIESTA AL MODELLO DIVENTA DI N POSIZIONI
+
+FONTE: la premessa P3, misurata sul ramo.
+
+Tre punti da aprire:
+
+- riga 55, `della(SpreadPosition)`: conosce tre posizioni su quattordici. Deve
+  conoscerle tutte. **I testi ci sono già**, nel Dart rigenerato da FK.A11, per
+  otto posizioni su quattordici.
+- righe 333 e 627: ciclano su tre carte fisse. Devono ciclare sulle posizioni
+  della stesa in corso, nel suo ordine.
+- la riga 271 del prompt dice `PASSATO, PRESENTE, FUTURO: per ciascuna carta due
+  o tre frasi`. Nomina tre posizioni nel testo che il modello legge. Va detta in
+  modo che valga per le posizioni della stesa in corso, qualunque siano.
+
+QUELLO CHE NON SI TOCCA, ed è il presidio di qualità del progetto: la regola
+della profondità sta in un punto solo, `FirebaseMaestroAiProvider.modelForDepth`;
+il blocco CONSIGLIO resta una frase sola con un passo concreto; il confine
+dell'ordine S voce 17 resta intero; i registri non si mostrano alla persona ed
+entrano come taglio, voce FJ.23.
+
+Dove una stesa ha una posizione la cui fonte è vuota, la lettura non la può
+comporre. Le tre vuote sono `se_stesso`, `la_casa`, `speranze_o_timori`, e
+stanno tutte e tre nella sola Croce Celtica, che FK.A12 tiene chiusa. Verifica
+che sia davvero così e dichiaralo.
+
+### FK.A10 LA SCHERMATA STENDE QUELLO CHE LA STESA DICHIARA
+
+FONTE: le premesse P5 e P6, misurate sul ramo.
+
+La schermata si chiama `stesa_tre_carte_screen.dart` e il dato che dice dove sta
+ogni carta sul tavolo, `PostoSulTavolo`, non è letto da nessuno.
+
+Quindi il posto delle carte a video oggi è scritto nella schermata e non nel
+dato, mentre il dato esiste, è dichiarato per tutte e cinque le stese ed è
+inerte. È la famiglia che il Protocollo Operativo chiama la regola messa in una
+porta quando le porte sono due, con ventuno occorrenze contate in questo
+progetto: **la regola va nel dato**, e qui il dato c'è già e aspetta un lettore.
+
+La schermata deve stendere le carte leggendo `tavolo` dalla definizione della
+stesa. Una prova che enumera le cinque stese e cade se una carta finisce fuori
+dallo schermo alla larghezza vera, 360 punti logici, vale più di cinque
+verifiche a occhio.
+
+Il nome del file dichiara il falso appena la schermata stende anche altro. La
+rinomina la decidi tu, e se la rimandi dillo nel rapporto invece di lasciare il
+nome a mentire.
+
+### FK.A11 RIGENERA IL DART E ALZA LA DICHIARAZIONE
+
+FONTE: docs/STATO_VIVO.md, sezione del corpus posizionale, e la voce FI.39.
+
+È FK.02 e FK.03 dell'ordine principale, allargata: adesso le posizioni piene
+sono otto e non quattro.
+
+Lancia `python3 tool/genera_carte_nella_posizione.py`. Poi alza
+`variantiDichiarate` in `test/il_corpus_delle_posizioni_test.dart` per
+cartaSola, consultante, esito, copre, attraversa, corona e sotto.
+
+Se il tool si ferma, il difetto è nella fonte e lo dichiari con la riga esatta.
+
+Flutter non è installato nell'ambiente dell'Architetto: l'esito delle guardie
+non è stato letto e non si dichiara di che colore sia.
+
+### FK.A12 APRI DUE STESE, LA TERZA RESTA CHIUSA
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026, "Voglio la soluzione più
+veloce per lanciare ultimo ordine a code e finalmente vedere il risultato con
+una nuova Build", più la premessa P4.
+
+Quando FK.A8, FK.A9 e FK.A10 sono chiuse, metti `costruita: true` su due stese:
+
+- `unaCarta`, che usa `cartaSola`: 468 testi, e in prova cieca appaiata con
+  dodici lettori ha fatto **85,9 per cento**, il numero più alto misurato sul
+  progetto con questo disegno.
+- `croceQuattro`, che usa `consultante`, `lato`, `lato`, `esito`: tutte le fonti
+  complete a 468. Il `lato` sta a 95,3 per cento, il `consultante` a 79,0,
+  l'`esito` a 76,4. È la stesa in cui la stessa posizione compare due volte,
+  quindi è anche la prova vera di FK.A8: **le due carte del lato devono dare due
+  testi diversi**.
+
+LA CROCE CELTICA RESTA CHIUSA, e non è prudenza. Delle sue dieci posizioni tre
+non hanno un solo testo (`seStesso`, `laCasa`, `speranzeOTimori`) e due di
+quelle scritte stanno al sessanta per cento in prova cieca. Non toccare il suo
+flag e non toccare quello della stesa a sette carte.
+
+### FK.A13 LA BUILD
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026.
+
+Il fondatore aveva posto la condizione "la Build quando ci saranno tutti i
+corpus di ogni posizione" e stasera ha chiesto la build adesso. Vale la seconda.
+
+Non la ordinare e non chiedere se farla: la ordina lui. Dichiara nel rapporto
+che le voci sono chiuse e che la build è possibile.
+
+Quello che quella build gli farà guardare, e il giudizio è suo:
+- la stesa a una Carta dall'avvio vero;
+- la stesa a Croce con le sue quattro posizioni, e le due carte del lato che
+  devono dare due testi diversi;
+- il download vero di un mazzo dal bucket e i nomi lunghi del Marsiglia nella
+  targa stretta, che è la voce FJ.12 ancora aperta
+  (`docs/preview/prima_dopo/fj_i_tre_mazzi_dopo.png`).
+
+
+## LE REGOLE FISSE
+
+Valgono per intero quelle in fondo al pezzo 3 dell'ordine FK: un ramo solo; il
+Protocollo della chiusura, con DOMANDA, PROVA e MISURA sotto ogni voce chiusa e
+`APERTA IN ATTESA DI VERIFICA` per ciò che nessuno ha guardato; le tre regole
+delle guardie, con la prova del rosso innestata a mano e **verificata col grep
+prima di leggere l'esito**, perché un'iniezione fallita produce un verde che
+sembra un rosso mancato; il Protocollo Verità e Memoria, con `docs/STATO_VIVO.md`
+letto per primo e aggiornato alla fine nella sezione giusta senza condensare; il
+rapporto che non si corregge nel corpo; i modelli nella regione dei dati;
+nessun segreto nel codice; niente trattino lungo e mai la virgola prima di «e»
+oppure «ed».
+
+Le anteprime alla larghezza vera, 360 per 797 punti logici con rapporto di pixel
+3, perché tutto quello che apri si giudica guardando.
+
+SE UNA PREMESSA È SBAGLIATA, dillo e non eseguirla. L'ordine FJ ne portava
+cinque sbagliate, tutte dell'Architetto; la prima stesura di questa aggiunta
+diceva che bastava alzare un flag e la premessa era falsa, l'ho trovata io
+aprendo il motore della lettura invece del solo file delle stese. Vale di nuovo.

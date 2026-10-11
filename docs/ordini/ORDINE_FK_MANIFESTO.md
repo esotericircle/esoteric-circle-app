@@ -2,7 +2,7 @@
 
 Testo dell'ordine: `docs/ordini/ORDINE_FK_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FK.md`.
 
-Una voce per ciascuna delle 36 voci dell'ordine e delle 6 dell'aggiunta (testo in coda a ORDINE_FK_TESTO.md), piu' la richiesta del fondatore in chat sull'Alba dell'11 ottobre 2026. Le voci da FK.01 a FK.36 sono quelle dell'ordine; quelle dell'aggiunta, da FK.A1 a FK.A6, sono qui FK.37-FK.42, e la richiesta sull'Alba, FK.A7, e' FK.43: il sigillo dei manifesti legge solo nomi con un numero, come nell'ordine FJ. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le decisioni della Parte 2 sono di Code, per la frase del fondatore "In ordine di importanza: 1 Code, 2 agenti e subagenti, 3 tu", con la ragione nel rapporto.
+Una voce per ciascuna delle 36 voci dell'ordine e delle 6 dell'aggiunta (testo in coda a ORDINE_FK_TESTO.md), piu' la richiesta del fondatore in chat sull'Alba dell'11 ottobre 2026. Le voci da FK.01 a FK.36 sono quelle dell'ordine; quelle dell'aggiunta, da FK.A1 a FK.A6, sono qui FK.37-FK.42, e la richiesta sull'Alba e' FK.43: il sigillo dei manifesti legge solo nomi con un numero, come nell'ordine FJ. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA. Le decisioni della Parte 2 sono di Code, per la frase del fondatore "In ordine di importanza: 1 Code, 2 agenti e subagenti, 3 tu", con la ragione nel rapporto.
 
 VOCI_TOTALI: 43
 VOCI_CHIUSE: 40
@@ -334,7 +334,7 @@ PROVA: docs/responsi/il_titolo_e_il_formato.md
 MISURA: documenti nel ramo con le parole del fondatore sul titolo da 0 a 1; frasi del fondatore uguali fra documento e codice 3 su 3, sorvegliate dalla guardia
 ## VOCE FK.43
 
-**CHIUSA.** (FK.A7) Nell'Arcano dell'Alba il nome della carta estratta e il suo verso in arancione.
+**CHIUSA.** (richiesta del fondatore sull'Alba) Nell'Arcano dell'Alba il nome della carta estratta e il suo verso in arancione.
 
 DOMANDA: "Nell'alba, il titolo comprende sempre il nome della carta estratta, vorrei che il nome della carta si evidenziato in altro colore, magari arancione, e  anche il testo "rovesciata"  o "dritta" in arancione. Così, a colpo d'occhio, l'utente vede il nome della carta e il suo verso."
 PROVA: test/la_carta_dell_alba_in_arancio_test.dart
