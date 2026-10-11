@@ -1,0 +1,38 @@
+LE SEI FRASI DEL COMMIT 394e9c5 CORRETTE A MANO, ordine FK aggiunta 2 voce A11, 11 ottobre 2026
+
+python tool/genera_carte_nella_posizione.py si fermava: "FONTE NON VALIDA, nessun file scritto. 6 difetti nella fonte", tutti "il verso nominato".
+Padre di tutte e sei: commit 394e9c5 (corpus tarocchi: quattro posizioni della Croce Celtica). Le sei frasi descrivono la figura della carta (le coppe versate del Cinque di Coppe, la Ruota che gira, l'Appeso a testa in giu'), non il verso: il tool non puo' distinguerle e la parola si cambia con una sola, tenendo l'immagine. I testi restano dell'Architetto.
+
+copre.md riga 589, Cinque di Coppe, dritta, variante 1.
+   Prima: "...le coppe rovesciate trovano parola..."
+   Dopo:  "...le coppe versate trovano parola..."
+
+copre.md riga 591, Cinque di Coppe, dritta, variante 3.
+   Prima: "...quello che si è rovesciato per terra..."
+   Dopo:  "...quello che si è versato per terra..."
+
+sotto.md riga 171, La Ruota della Fortuna, dritta, variante 3.
+   Prima: "...un cerchio che si è già capovolto da sé..."
+   Dopo:  "...un cerchio che si è già voltato da sé..."
+
+sotto.md riga 198, L'Appeso, dritta, variante 2.
+   Prima: "...Lo sguardo rovesciato, con la testa in basso..."
+   Dopo:  "...Lo sguardo invertito, con la testa in basso..."
+
+sotto.md riga 204, L'Appeso, capovolta, variante 2.
+   Prima: "...il corpo capovolto e sotto la cosa..."
+   Dopo:  "...il corpo appeso e sotto la cosa..."
+
+sotto.md riga 591, Cinque di Coppe, dritta, variante 3.
+   Prima: "...un deposito che nessuno ha rovesciato..."
+   Dopo:  "...un deposito che nessuno ha versato..."
+
+E dopo, i controlli di casa prima della suite sul Dart rigenerato:
+tre allarmi, padre 394e9c5 per tutti e tre.
+corona.md: "...lascia intero, nella tua questione, e' il sapere coperto..." diventa "...lascia intero nella tua questione e' il sapere coperto..."
+attraversa.md: "...nomina per intero quello che sei diventato, mentre..." diventa "...nomina per intero quello che ora sei, mentre..."
+attraversa.md: "...continua a essere speso per farsi vedere..." diventa "...continua a spendersi per farsi vedere..."
+(la virgola stava davanti a "e'" verbo, non alla congiunzione: tolte le due virgole dell'inciso; "sei diventato" dava il genere a chi legge; "essere speso" ha per soggetto il guadagno ma la guardia non lo distingue, e la forma riflessiva dice lo stesso.)
+Le quattro testate di copre, attraversa, corona e sotto non portavano il paragrafo della provenienza (regola FJ.4): scritto da Code coi numeri del messaggio del commit 394e9c5.
+Poi la guardia della virgola trovava tredici volte ", e'" in corona.md: era il verbo scritto con l'apostrofo. corona.md scriveva gli accenti con l'apostrofo in 117 punti (e', piu', perche', puo', cosi', ne', se', gia'...), contro la regola dei testi in testa allo stesso file, "accenti veri", e contro gli altri quattordici file della fonte. Convertiti in accenti veri solo nelle righe dei testi (po' resta), con tool fuori dal repo letto forma per forma; la virgola davanti al verbo e' sparita da se'. Padre: 394e9c5.
+Dopo: python tool/genera_carte_nella_posizione.py, scheletri 4212 su 7020, posizioni con le tre varianti 8, in attesa 4 (dietro, seStesso, laCasa, speranzeOTimori); il_corpus_delle_posizioni, il_genere_non_si_indovina, language_rule e nessuna_promessa_di_memoria_integrale verdi, 29 prove.

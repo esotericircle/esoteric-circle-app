@@ -138,3 +138,8 @@ ripristinato al byte: si
 innesto entrato (grep): si
 esito: ROSSA
 ripristinato al byte: si
+
+== AGGIUNTA 2 FK, Regola B: il_corpus_delle_posizioni prima di rigenerare il Dart con le quattro posizioni della Croce (copre dichiarata a 3 sul Dart vecchio)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

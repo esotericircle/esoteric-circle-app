@@ -8,6 +8,16 @@ aggiunta A1 e A4). Una riga vuota e' un testo che non c'e' ancora. Una
 variante e' piena in tutte le 156 carte-verso o vuota in tutte: a meta', il
 tool si ferma e nomina le righe che mancano.
 
+**Le tre varianti vengono dal corpus dell'11 ottobre 2026**, scritte
+dall'Architetto con dodici scrittori e consegnate col commit 394e9c5, pulite
+sulle dieci regole del metro. La posizione sta al **59,4 per cento** in prova
+cieca appaiata con dodici lettori e 936 testi nello stesso giro; contro la
+carta sola, stesso giro, 59,4 contro 85,9, e dodici lettori su dodici
+preferiscono la carta sola. I lettori nominano la causa: i testi che descrivono
+un principio invece della figura della carta. Provenienza scritta da Code con
+l'ordine FK, aggiunta 2 voce A11, dal messaggio del commit 394e9c5, perche' la
+regola FJ.4 vuole che ogni posizione con testi dica da dove vengono.
+
 **Regole dei testi** (voce FI.23, le stesse del corpus del 27 settembre):
 una o due frasi fra 110 e 280 caratteri, rivolte alla persona col tu. Ne' il
 nome della carta ne' il suo verso. Nessuna parola che dia un genere a chi
@@ -586,9 +596,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La regola non detta che governa la tua questione adesso ammette nel conto soltanto quello che è andato perduto: le coppe rovesciate trovano parola, quelle ancora in piedi non ne trovano.
+- 1: La regola non detta che governa la tua questione adesso ammette nel conto soltanto quello che è andato perduto: le coppe versate trovano parola, quelle ancora in piedi non ne trovano.
 - 2: Suona sulla tua questione una nota bassa, di quelle che guardano indietro: il registro è del rimpianto e non del pianto acuto, cosicché tutto quello che accade passa da quel tono.
-- 3: Questa forza esige dalla tua questione che la perdita sia nominata prima di ogni altra cosa: non ammette conti consolatori, pretende il nome esatto di quello che si è rovesciato per terra.
+- 3: Questa forza esige dalla tua questione che la perdita sia nominata prima di ogni altra cosa: non ammette conti consolatori, pretende il nome esatto di quello che si è versato per terra.
 
 ### capovolta
 

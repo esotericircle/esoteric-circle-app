@@ -8,6 +8,15 @@ aggiunta A1 e A4). Una riga vuota e' un testo che non c'e' ancora. Una
 variante e' piena in tutte le 156 carte-verso o vuota in tutte: a meta', il
 tool si ferma e nomina le righe che mancano.
 
+**Le tre varianti vengono dal corpus dell'11 ottobre 2026**, scritte
+dall'Architetto con dodici scrittori e consegnate col commit 394e9c5, pulite
+sulle dieci regole del metro. La posizione **non ha un numero** in prova cieca:
+i sei scrittori riportano 78 testi su 78 con una figura concreta della carta,
+ma e' una misura degli scrittori su se stessi, non una prova appaiata.
+Provenienza scritta da Code con l'ordine FK, aggiunta 2 voce A11, dal messaggio
+del commit 394e9c5, perche' la regola FJ.4 vuole che ogni posizione con testi
+dica da dove vengono.
+
 **Regole dei testi** (voce FI.23, le stesse del corpus del 27 settembre):
 una o due frasi fra 110 e 280 caratteri, rivolte alla persona col tu. Ne' il
 nome della carta ne' il suo verso. Nessuna parola che dia un genere a chi
@@ -168,7 +177,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua domanda sta quello che molti giri hanno già depositato: il cerchio ha alzato la cosa e l'ha riabbassata senza mano che lo spingesse, cosicché quel sedimento di rotazioni la tiene su.
 - 2: L'unico elemento che nella tua questione non si rimette più in gioco è il mozzo del cerchio: attorno a quello tutto ha già girato una volta, mentre il perno fermo regge il movimento.
-- 3: Il carico della tua faccenda poggia su un cerchio che si è già capovolto da sé: nessuna mano l'ha spinto, dunque quanto sta sotto è la rotazione dei raggi che ha portato qui le cose.
+- 3: Il carico della tua faccenda poggia su un cerchio che si è già voltato da sé: nessuna mano l'ha spinto, dunque quanto sta sotto è la rotazione dei raggi che ha portato qui le cose.
 
 ### capovolta
 
@@ -195,13 +204,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Un tempo fermo già speso sta sotto la tua questione: la caviglia legata al legno ha pagato la vista che adesso ti serve; quella spesa non si riprende più.
-- 2: Lo sguardo rovesciato, con la testa in basso e l'aureola accesa, è diventato una capacità acquisita: non si riconquista a ogni giro e fa da base alla tua questione.
+- 2: Lo sguardo invertito, con la testa in basso e l'aureola accesa, è diventato una capacità acquisita: non si riconquista a ogni giro e fa da base alla tua questione.
 - 3: Si è accumulata una riserva di quiete nei giorni senza movimento: quella scorta, raccolta mentre le mani stavano dietro la schiena, è sotto la tua domanda e la porta.
 
 ### capovolta
 
 - 1: Una rinuncia già offerta a nessuno ha chiuso le altre vie: resta quella sola, con la corda ferma alla caviglia; su quella chiusura la tua questione sta in piedi adesso.
-- 2: La tua questione pesca in un terreno di attesa che ha smesso di dare frutto: quel suolo è stato scelto quando il legno ha preso su di sé il corpo capovolto e sotto la cosa ci sta comunque, ne regge il peso.
+- 2: La tua questione pesca in un terreno di attesa che ha smesso di dare frutto: quel suolo è stato scelto quando il legno ha preso su di sé il corpo appeso e sotto la cosa ci sta comunque, ne regge il peso.
 - 3: Quel che sta sotto la tua domanda è una sosta diventata stallo: il corpo a testa in giù ha dato tutto quello che aveva; quel residuo fa da appoggio a quello che hai davanti.
 
 ## La Morte
@@ -588,7 +597,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un mantello nero indossato ha tolto dal tavolo le altre maniere di guardare: la tua questione poggia su quello sguardo scelto, rivolto alle coppe per terra invece che al ponte.
 - 2: Quello che l'occhio ha appreso guardando il terreno bagnato è un sapere acquisito: contare le coppe versate non costa più nulla, dunque la tua faccenda si appoggia su questa esattezza.
-- 3: Dietro le spalle è rimasto un deposito che nessuno ha rovesciato: due coppe piene stanno ancora in piedi, dunque la tua questione attinge a quella riserva mai toccata.
+- 3: Dietro le spalle è rimasto un deposito che nessuno ha versato: due coppe piene stanno ancora in piedi, dunque la tua questione attinge a quella riserva mai toccata.
 
 ### capovolta
 

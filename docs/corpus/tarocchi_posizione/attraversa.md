@@ -8,6 +8,14 @@ aggiunta A1 e A4). Una riga vuota e' un testo che non c'e' ancora. Una
 variante e' piena in tutte le 156 carte-verso o vuota in tutte: a meta', il
 tool si ferma e nomina le righe che mancano.
 
+**Le tre varianti vengono dal corpus dell'11 ottobre 2026**, scritte
+dall'Architetto con dodici scrittori e consegnate col commit 394e9c5, pulite
+sulle dieci regole del metro. La posizione sta al **66,2 per cento** in prova
+cieca appaiata con dodici lettori e 936 testi nello stesso giro. Provenienza
+scritta da Code con l'ordine FK, aggiunta 2 voce A11, dal messaggio del commit
+394e9c5, perche' la regola FJ.4 vuole che ogni posizione con testi dica da dove
+vengono.
+
 **Regole dei testi** (voce FI.23, le stesse del corpus del 27 settembre):
 una o due frasi fra 110 e 280 caratteri, rivolte alla persona col tu. Ne' il
 nome della carta ne' il suo verso. Nessuna parola che dia un genere a chi
@@ -306,7 +314,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La chiamata mette in piena luce tutto il percorso che avevi archiviato: nomina per intero quello che sei diventato, mentre la faccenda che hai davanti teneva quelle pagine chiuse.
+- 1: La chiamata mette in piena luce tutto il percorso che avevi archiviato: nomina per intero quello che ora sei, mentre la faccenda che hai davanti teneva quelle pagine chiuse.
 - 2: Il richiamo continua a pretendere una risposta intera, oltre il punto in cui alla tua decisione bastava una risposta parziale: chiede di presentarsi col nome nuovo.
 - 3: Convoca il bilancio di una vita intera proprio dove quello che hai cominciato chiedeva una sola decisione piccola: la chiamata sale al nome che porti e vuole la persona per intero.
 
@@ -844,7 +852,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: L'uscita non si arresta dove l'indipendenza reggeva: quello che hai guadagnato continua a essere speso per farsi vedere, mentre il margine che il tuo impegno teneva da parte si assottiglia a ogni mostra.
+- 1: L'uscita non si arresta dove l'indipendenza reggeva: quello che hai guadagnato continua a spendersi per farsi vedere, mentre il margine che il tuo impegno teneva da parte si assottiglia a ogni mostra.
 - 2: Mostrare quello che possiedi va avanti oltre il punto in cui la tua libertà si sosteneva da sé; la spesa prosegue ben dopo che il bisogno è stato coperto. Il recinto regge: si fa più sottile.
 - 3: Continua a uscire più di quanto entra, perché la prova di quello che hai vale una spesa dopo l'altra, mentre la parte libera del tuo lavoro contava su un'uscita che si fermasse prima.
 
