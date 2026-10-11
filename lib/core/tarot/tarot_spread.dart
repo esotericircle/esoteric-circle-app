@@ -4,9 +4,11 @@ import '../chat/la_marca_del_genere.dart';
 import 'tarot_card.dart';
 
 /// LE POSIZIONI DELLE STESE. Ordine FI voce 04, 10 ottobre 2026: da tre a
-/// diciassette. Le prime tre sono quelle della Stesa di Medora a tre carte e
-/// non si toccano; le altre quattordici servono alla carta sola, alla croce di
-/// Dora, al ferro di cavallo e alla Croce Celtica di Waite. Quali posizioni ha
+/// diciassette; dall'ordine FJ, aggiunta 2, quattordici, perche' col ferro di
+/// cavallo sono uscite le sue tre posizioni orfane (consiglio, ambiente,
+/// ostacolo). Le prime tre sono quelle della Stesa di Medora a tre carte e
+/// non si toccano; le altre undici servono alla carta sola, alla croce di
+/// Dora e alla Croce Celtica di Waite. Quali posizioni ha
 /// una stesa, e in che ordine, lo dice la stesa stessa
 /// ([TarotSpreadType.posizioni]): questo elenco non e' una stesa.
 ///
@@ -27,13 +29,8 @@ enum SpreadPosition {
   consultante('Il consultante'),
   lato('Il lato'),
 
-  /// L'esito della croce di Dora, del ferro di cavallo e della Croce Celtica.
+  /// L'esito della croce di Dora e della Croce Celtica.
   esito("L'esito"),
-
-  /// Il ferro di cavallo.
-  consiglio('Il consiglio'),
-  ostacolo("L'ostacolo"),
-  ambiente("L'ambiente"),
 
   /// La Croce Celtica di Waite.
   copre('Ciò che copre'),

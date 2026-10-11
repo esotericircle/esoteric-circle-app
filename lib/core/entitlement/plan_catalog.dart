@@ -146,7 +146,6 @@ enum RigaDelPiano {
   /// il ritorno della carta, la rilettura e la card. Le righe sì/no si
   /// leggono con [PlanCatalog.apre].
   stesaACroce,
-  stesaDelFerroDiCavallo,
   chiaveRiflessione,
   chiaviEsotericaEArchetipica,
   mazzoDiMarsiglia,
@@ -777,8 +776,8 @@ class PlanCatalog {
     // nella tabella come nell'app: visibili, e Coming soon dove si usano.
     FeatureRow('Stesa a croce, 4 carte', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.stesaACroce),
-    FeatureRow('Ferro di cavallo, 7 carte', ['No', 'No', 'Sì', 'Sì'],
-        chiave: RigaDelPiano.stesaDelFerroDiCavallo),
+    // LAPIDE: 'Ferro di cavallo, 7 carte', dall'Adepto. Tolta con la stesa
+    // dall'ordine FJ, aggiunta 2.
     FeatureRow('Chiave Riflessione', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.chiaveRiflessione),
     FeatureRow('Chiavi Esoterica e Archetipica', ['No', 'No', 'Sì', 'Sì'],

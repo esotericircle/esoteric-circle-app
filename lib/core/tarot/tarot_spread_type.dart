@@ -77,33 +77,17 @@ enum TarotSpreadType {
         'Marsiglia; la variante dei due lati aperti è la lettura del Cerchio.',
     costruita: false,
   ),
-  setteCarte(
-    nome: 'Stesa del Ferro di Cavallo',
-    breve: 'Sette Carte',
-    descrizione: 'Il ferro di cavallo',
-    posizioni: [
-      SpreadPosition.passato,
-      SpreadPosition.presente,
-      SpreadPosition.futuro,
-      SpreadPosition.consiglio,
-      SpreadPosition.ambiente,
-      SpreadPosition.ostacolo,
-      SpreadPosition.esito,
-    ],
-    // Un arco aperto in alto: le punte alte, il centro in basso.
-    tavolo: [
-      PostoSulTavolo(-3.3, -1.5),
-      PostoSulTavolo(-2.2, -0.5),
-      PostoSulTavolo(-1.1, 0.3),
-      PostoSulTavolo(0, 0.6),
-      PostoSulTavolo(1.1, 0.3),
-      PostoSulTavolo(2.2, -0.5),
-      PostoSulTavolo(3.3, -1.5),
-    ],
-    fonte: 'Forma diffusa nella cartomanzia moderna, senza autore '
-        'documentato.',
-    costruita: false,
-  ),
+  // **LAPIDE: la Stesa del Ferro di Cavallo, sette carte** (passato,
+  // presente, futuro, consiglio, ambiente, ostacolo, esito). Tolta
+  // dall'ordine FJ, aggiunta 2, 11 ottobre 2026, per decisione del fondatore
+  // ("Il ferro di cavallo va tolto", "resta il no"). Due ragioni: quelle sette
+  // posizioni non hanno nessuna fonte (non Mathers 1888, che la forma la
+  // usa con ventisei carte e senza posizioni; non il manoscritto bolognese);
+  // e la stesa a sette documentata, il metodo rapido di Papus (The Tarot of
+  // the Bohemians, 1892, cap. XX, pp. 322-324), vuole due estrazioni da due
+  // mazzi ridotti, lavoro nuovo sul motore della stesa che non vale il
+  // tempo. Se il motore cambiasse, Papus e' pronto e vorrebbe tre posizioni
+  // nuove: inizio, culmine, declino.
   dieciCarte(
     nome: 'Stesa della Croce Celtica',
     breve: 'Dieci Carte',
@@ -190,16 +174,15 @@ enum TarotSpreadType {
   /// stesa da dieci carte solo dall'Adepto, *"la stesa a 10 solo dal tier 2
   /// 19,99"*. Una stesa non ancora disponibile non si apre per nessuno.
   ///
-  /// Ordine FI voce 32: la croce dall'Iniziato, il ferro di cavallo
-  /// dall'Adepto, la carta sola e le tre carte a tutti.
+  /// Ordine FI voce 32: la croce dall'Iniziato, la carta sola e le tre carte
+  /// a tutti (il ferro di cavallo, che apriva dall'Adepto, e' tolto
+  /// dall'ordine FJ, aggiunta 2).
   bool apribileDa(Tier tier) =>
       disponibile &&
       switch (this) {
         TarotSpreadType.unaCarta || TarotSpreadType.treCarte => true,
         TarotSpreadType.croceQuattro =>
           PlanCatalog.apre(RigaDelPiano.stesaACroce, tier),
-        TarotSpreadType.setteCarte =>
-          PlanCatalog.apre(RigaDelPiano.stesaDelFerroDiCavallo, tier),
         TarotSpreadType.dieciCarte => PlanCatalog.haLaStesaDaDieci(tier),
       };
 }

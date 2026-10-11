@@ -27,15 +27,8 @@ void main() {
         SpreadPosition.lato,
         SpreadPosition.esito,
       ],
-      TarotSpreadType.setteCarte: [
-        SpreadPosition.passato,
-        SpreadPosition.presente,
-        SpreadPosition.futuro,
-        SpreadPosition.consiglio,
-        SpreadPosition.ambiente,
-        SpreadPosition.ostacolo,
-        SpreadPosition.esito,
-      ],
+      // LAPIDE: il ferro di cavallo a sette carte, tolto dall'ordine FJ,
+      // aggiunta 2 (nessuna fonte per le sue sette posizioni).
       TarotSpreadType.dieciCarte: [
         SpreadPosition.copre,
         SpreadPosition.attraversa,
@@ -49,14 +42,13 @@ void main() {
         SpreadPosition.esito,
       ],
     };
-    expect(TarotSpreadType.values.length, 5);
+    expect(TarotSpreadType.values.length, 4);
     for (final t in TarotSpreadType.values) {
       expect(t.posizioni, atteso[t], reason: t.name);
       expect(t.tavolo.length, t.posizioni.length, reason: t.name);
       expect(t.fonte, isNotEmpty, reason: t.name);
     }
-    expect([for (final t in TarotSpreadType.values) t.carte], [1, 3, 4, 7, 10]);
-    expect(TarotSpreadType.setteCarte.descrizione, 'Il ferro di cavallo');
+    expect([for (final t in TarotSpreadType.values) t.carte], [1, 3, 4, 10]);
     expect(TarotSpreadType.croceQuattro.descrizione, 'La croce');
     expect(TarotSpreadType.unaCarta.descrizione, 'La carta sola');
     expect(TarotSpreadType.dieciCarte.descrizione, 'La Croce Celtica');
@@ -120,16 +112,15 @@ void main() {
     }
   });
 
-  test('diciassette posizioni con le etichette dell\'ordine', () {
-    expect(SpreadPosition.values.length, 17);
+  // Diciassette fino all'ordine FJ, aggiunta 2: consiglio, ostacolo e
+  // ambiente erano del solo ferro di cavallo.
+  test('quattordici posizioni con le etichette dell\'ordine', () {
+    expect(SpreadPosition.values.length, 14);
     const etichette = {
       SpreadPosition.cartaSola: 'La carta',
       SpreadPosition.consultante: 'Il consultante',
       SpreadPosition.lato: 'Il lato',
       SpreadPosition.esito: "L'esito",
-      SpreadPosition.consiglio: 'Il consiglio',
-      SpreadPosition.ostacolo: "L'ostacolo",
-      SpreadPosition.ambiente: "L'ambiente",
       SpreadPosition.copre: 'Ciò che copre',
       SpreadPosition.attraversa: 'Ciò che attraversa',
       SpreadPosition.corona: 'Ciò che corona',

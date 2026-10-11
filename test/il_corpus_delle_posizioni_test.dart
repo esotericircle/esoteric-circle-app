@@ -8,8 +8,10 @@
 // nessuna stesa si apra con una posizione senza fonte. A ogni ondata si
 // aggiorna la dichiarazione, e il cardinale sale da solo.
 //
-// Il cardinale finale e' quello della voce FI.39: diciassette posizioni per
-// centocinquantasei carte-verso per tre varianti, 7.956 scheletri; piu' i 468
+// Il cardinale finale e' quello della voce FI.39, riportato alle quattordici
+// posizioni dall'ordine FJ, aggiunta 2 (il ferro di cavallo tolto con le sue
+// tre posizioni orfane): quattordici posizioni per centocinquantasei
+// carte-verso per tre varianti, 6.552 scheletri (erano 7.956); piu' i 468
 // registri della voce FI.40.
 
 import 'dart:io';
@@ -37,9 +39,6 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.consultante: 0,
   SpreadPosition.lato: 3,
   SpreadPosition.esito: 0,
-  SpreadPosition.consiglio: 0,
-  SpreadPosition.ostacolo: 0,
-  SpreadPosition.ambiente: 0,
   SpreadPosition.copre: 0,
   SpreadPosition.attraversa: 0,
   SpreadPosition.corona: 0,
@@ -116,10 +115,10 @@ void main() {
     cardinaleMinimo(testi, dichiarati,
         cosa: 'scheletri del corpus delle posizioni',
         perche: 'le varianti dichiarate per centocinquantasei carte-verso; '
-            'a corpus intero sono 7.956');
+            'a corpus intero sono 6.552');
     expect(colpe.take(10).toList(), isEmpty,
         reason: '${colpe.length} scostamenti dalla dichiarazione');
-    expect(SpreadPosition.values, hasLength(17));
+    expect(SpreadPosition.values, hasLength(14));
   });
 
   test('FI.39: nessun testo uguale a un altro', () {
@@ -154,7 +153,7 @@ void main() {
         reason: 'terne che cominciano con la stessa parola: $colpe');
   });
 
-  test('FI.39: il Dart e\' quello della fonte, e la fonte ha le 17 posizioni',
+  test('FI.39: il Dart e\' quello della fonte, e la fonte ha le 14 posizioni',
       () {
     final colpe = <String>[];
     var righe = 0;
@@ -186,9 +185,9 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(righe, 7956,
+    cardinaleMinimo(righe, 6552,
         cosa: 'righe della fonte, piene o da riempire',
-        perche: 'diciassette posizioni per centocinquantasei carte-verso per '
+        perche: 'quattordici posizioni per centocinquantasei carte-verso per '
             'tre varianti (aggiunta A4)');
     expect(colpe.take(10).toList(), isEmpty,
         reason: '${colpe.length} scostamenti fra fonte e Dart');

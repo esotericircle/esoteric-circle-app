@@ -45,7 +45,9 @@ VERSI = ('dritta', 'capovolta')
 VARIANTI = ('1', '2', '3')
 GRUPPI = ('amore', 'lavoro', 'vita')
 
-# Le diciassette posizioni nell'ordine di `SpreadPosition`: il nome nel Dart,
+# Le quattordici posizioni nell'ordine di `SpreadPosition` (diciassette fino
+# all'ordine FJ, aggiunta 2, che ha tolto il ferro di cavallo e le sue tre
+# posizioni orfane: consiglio, ostacolo, ambiente): il nome nel Dart,
 # il nome del file e come la posizione si legge, per l'Architetto.
 POSIZIONI = (
     ('passato', 'passato', 'Il passato della stesa a tre carte.'),
@@ -59,11 +61,7 @@ POSIZIONI = (
      'Il lato della croce di Dora: che cosa la carta mette sulla strada, '
      'senza chiamarla consiglio ne\' ostacolo (voce FI.21).'),
     ('esito', 'esito',
-     'L\'esito della croce di Dora, del ferro di cavallo e della Croce '
-     'Celtica.'),
-    ('consiglio', 'consiglio', 'Il consiglio del ferro di cavallo.'),
-    ('ostacolo', 'ostacolo', 'L\'ostacolo del ferro di cavallo.'),
-    ('ambiente', 'ambiente', 'L\'ambiente del ferro di cavallo.'),
+     'L\'esito della croce di Dora e della Croce Celtica.'),
     ('copre', 'copre', 'Cio\' che copre, la prima della Croce Celtica.'),
     ('attraversa', 'attraversa', 'Cio\' che attraversa, di traverso.'),
     ('corona', 'corona', 'Cio\' che corona, nella Croce Celtica.'),

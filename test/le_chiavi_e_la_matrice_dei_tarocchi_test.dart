@@ -77,7 +77,8 @@ void main() {
   test('la matrice dei tarocchi dell\'ordine FI', () {
     const sino = {
       RigaDelPiano.stesaACroce: [false, true, true, true],
-      RigaDelPiano.stesaDelFerroDiCavallo: [false, false, true, true],
+      // LAPIDE: il ferro di cavallo dall'Adepto, tolto dall'ordine FJ,
+      // aggiunta 2.
       RigaDelPiano.stesaDaDieci: [false, false, true, true],
       RigaDelPiano.chiaveRiflessione: [false, true, true, true],
       RigaDelPiano.chiaviEsotericaEArchetipica: [false, false, true, true],
@@ -104,13 +105,18 @@ void main() {
     ]);
   });
 
-  test('i mazzi seguono la matrice e restano chiusi finche\' non ci sono', () {
-    expect(TarotDeckStyle.riderWaite.apribileDa(Tier.free), isTrue);
-    // Marsiglia e Thoth arrivano con la parte 4: chiusi per tutti, anche per
-    // chi la matrice li apre.
+  // **LAPIDE: "chiusi per tutti, anche per chi la matrice li apre".** Fino
+  // all'ordine FJ Marsiglia e Thoth non c'erano e la prova li voleva chiusi a
+  // ogni piano. Dall'ordine FJ voce 12 si scaricano dal bucket, e chi li puo'
+  // scegliere lo dice la matrice dell'ordine FI voce 32.
+  test('i mazzi seguono la matrice', () {
     for (final t in _piani) {
-      expect(TarotDeckStyle.marsiglia.apribileDa(t), isFalse);
-      expect(TarotDeckStyle.thoth.apribileDa(t), isFalse);
+      expect(TarotDeckStyle.riderWaite.apribileDa(t), isTrue);
+      expect(TarotDeckStyle.marsiglia.apribileDa(t),
+          PlanCatalog.apre(RigaDelPiano.mazzoDiMarsiglia, t));
+      expect(TarotDeckStyle.thoth.apribileDa(t),
+          PlanCatalog.apre(RigaDelPiano.mazzoThoth, t));
     }
+    expect(TarotDeckStyle.marsiglia.apribileDa(Tier.free), isFalse);
   });
 }
