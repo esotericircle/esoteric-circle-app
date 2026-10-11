@@ -88,6 +88,18 @@ const _coppieNote = [
   ['Dieci di Spade|d', 'Dieci di Spade|c'],
   ['Nove di Bastoni|d', 'Nove di Bastoni|c'],
   ['Nove di Denari|d', 'Nove di Denari|c'],
+  // **Le coppie dell'ordine FK** (voci 17, 18 e 19), aggiunte per la decisione
+  // FK.10: la guardia tiene le coppie che una persona ha trovato leggendo, e
+  // impedisce che tornino a somigliarsi nelle parole.
+  ["L'Imperatrice|d", 'Regina di Denari|d'],
+  ["L'Imperatrice|c", 'Regina di Denari|c'],
+  ['Il Sole|d', 'Regina di Bastoni|d'],
+  ['Il Sole|c', 'Regina di Bastoni|c'],
+  ['Quattro di Denari|d', 'Quattro di Denari|c'],
+  ['Quattro di Denari|c', 'Re di Denari|c'],
+  ['Nove di Bastoni|c', 'Sette di Bastoni|c'],
+  ['Asso di Coppe|c', 'Due di Coppe|c'],
+  ['Sei di Bastoni|c', 'Regina di Bastoni|c'],
 ];
 
 const double sogliaDelleCoppieNote = 5.0;
@@ -171,8 +183,8 @@ void main() {
         colpe.add('${c[0]} e ${c[1]}: ${p.toStringAsFixed(2)} $comuni');
       }
     }
-    cardinaleMinimo(_coppieNote.length, 28,
-        cosa: 'coppie nominate', perche: 'FJ.16 e FJ.18');
+    cardinaleMinimo(_coppieNote.length, 37,
+        cosa: 'coppie nominate', perche: 'FJ.16, FJ.18 e FK.17-FK.19');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 

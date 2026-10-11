@@ -193,7 +193,7 @@ class TarotDeck {
           'Abbondanza, creatività e cura fioriscono nelle tue mani e qualcosa di vivo prende forma, un progetto, un legame, un\'idea. Il tuo compito ora è nutrirlo con dolcezza, senza forzarne i tempi. La terra fertile non tira le piante per farle crescere, le lascia sbocciare.',
       reversedSummary: 'La cura dimenticata.',
       reversed:
-          'La creatività sembra bloccata, oppure [ti sei scordato di rivolgere a te stesso|ti sei scordata di rivolgere a te stessa|hai smesso di rivolgere a te] l\'attenzione che dai a tutto il resto. Prima di far fiorire fuori, torna a nutrire la tua radice. Rifiorisce dentro ciò che curi con gentilezza.',
+          'La creatività sembra bloccata: ciò che volevi far nascere non prende forma, o lo forzi prima del suo tempo. La fertilità c\'è, ma ora resta ferma invece di generare.',
       stem: 'tar_rw_03_l-imperatrice_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -337,12 +337,12 @@ class TarotDeck {
       arcana: TarotArcana.maggiore,
       seme: null,
       number: null,
-      uprightSummary: 'La misura che guarisce.',
+      uprightSummary: 'La misura che accorda.',
       upright:
-          'Armonia, pazienza e giusto dosaggio: è il tempo di unire gli opposti con calma e di ritrovare l\'equilibrio. La Temperanza mescola con arte ciò che sembrava inconciliabile. Vai piano, misura e ciò che era ferita torna intero.',
+          'Armonia, pazienza e giusto dosaggio: è il tempo di unire gli opposti con calma e di ritrovare l\'equilibrio. La Temperanza mescola con arte ciò che sembrava inconciliabile. Vai piano, misura e ciò che era diviso torna d\'accordo.',
       reversedSummary: 'La misura perduta.',
       reversed:
-          'Eccessi, fretta, o due parti di te che non si parlano più. Il rimedio è semplice ma chiede volontà: rallenta, ridosa, ritrova il ritmo che guarisce. L\'equilibrio non è un colpo di fortuna, è una pratica quotidiana.',
+          'Eccessi, fretta, o due parti di te che non si parlano più. Il rimedio è semplice ma chiede volontà: rallenta, ridosa, ritrova il ritmo giusto. L\'equilibrio non è un colpo di fortuna, è una pratica quotidiana.',
       stem: 'tar_rw_14_la-temperanza_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -408,7 +408,7 @@ class TarotDeck {
       number: null,
       uprightSummary: 'La gioia piena.',
       upright:
-          'Chiarezza, calore e successo: è un tempo luminoso in cui le cose fioriscono e il cuore ride senza doversi nascondere. Il Sole non lascia zone d\'ombra, illumina ciò che sei. Goditi questo momento e lascia che la tua luce scaldi anche chi ti sta vicino.',
+          'Chiarezza, calore e successo: è un tempo luminoso in cui le cose riescono e il cuore ride senza doversi nascondere. Il Sole non lascia zone d\'ombra, illumina ciò che sei. Goditi questo momento, la riuscita è sotto gli occhi di tutti.',
       reversedSummary: 'La gioia velata.',
       reversed:
           'L\'entusiasmo è trattenuto, la luce c\'è ma fatichi a sentirla sulla pelle. Non è che il sole se ne sia andato, è che qualcosa lo copre. Lascia cadere quella nube, spesso è un pensiero vecchio e la gioia torna a scaldarti.',
@@ -554,7 +554,7 @@ class TarotDeck {
           '[Sei stanco ma vicino|Sei stanca ma vicina|La stanchezza c\'è, ma sei vicino] al traguardo e la tenacia ora è tutto. Hai già fatto il più, non mollare proprio l\'ultimo tratto. Un\'ultima prova, poi potrai posare lo scudo.',
       reversedSummary: 'La difesa irrigidita.',
       reversed:
-          'Una diffidenza di troppo: ti difendi anche da chi vorrebbe solo avvicinarsi. Chi tieni lontano non è un avversario, sono le ferite passate a farti scambiare per un attacco chi bussa soltanto.',
+          'Una diffidenza di troppo: ti difendi anche da chi vorrebbe solo avvicinarsi. La guardia alzata per le ferite passate oggi protegge un posto che nessuno sta attaccando: tiene fuori anche chi viene in pace.',
       stem: 'tar_rw_bastoni_09_v1',
     ),
     TarotCard(
@@ -603,10 +603,10 @@ class TarotDeck {
       number: 13,
       uprightSummary: 'Il carisma caldo.',
       upright:
-          'Sicurezza, calore, magnetismo: brilli con generosità e la tua fiamma scalda chi ti sta intorno. Sii pienamente [te stesso|te stessa|chi sei], è proprio questo che attrae. La tua luce non toglie spazio a nessuno.',
+          'Sicurezza, magnetismo, generosità: brilli e la tua fiamma scalda chi ti sta intorno. Sii pienamente [te stesso|te stessa|chi sei], è proprio questo che attrae. La tua presenza non toglie spazio a nessuno.',
       reversedSummary: 'La fiamma insicura.',
       reversed:
-          'Un dubbio su di te, o una gelosia che offusca la tua luce. Torna al tuo centro, la tua fiamma non ha rivali da temere. Quando ti riconosci, l\'insicurezza si spegne da sola.',
+          'Una gelosia, o il bisogno di brillare più di chi ti sta accanto, ti fa vivere gli altri come rivali. Torna al tuo centro, la tua fiamma non ha rivali da temere. Quando ti riconosci, la gara si spegne da sola.',
       stem: 'tar_rw_bastoni_13_v1',
       reversedAgreement: ReversedAgreement.femminile,
     ),
@@ -633,7 +633,7 @@ class TarotDeck {
           'Un amore nuovo, un\'emozione pura sgorga come una fonte: apri il cuore e lascia scorrere. È un tempo di apertura sentimentale, di grazia e di dolcezza. Accogli ciò che senti senza difenderti da esso.',
       reversedSummary: 'Il cuore trattenuto.',
       reversed:
-          'Emozioni chiuse a chiave, o un amore rimandato per timore di soffrire. Concediti di sentire, l\'acqua vuole scorrere e ristagna se la trattieni. Aprirsi è un rischio, ma è anche l\'unica via alla gioia.',
+          'Una sorgente sola di affetto resta chiusa: un\'emozione nuova trattenuta, o un amore rimandato per timore di soffrire. Concediti di sentire, l\'acqua vuole scorrere e ristagna se la trattieni. Aprirsi è un rischio, ma è anche l\'unica via alla gioia.',
       stem: 'tar_rw_coppe_01_v1',
     ),
     TarotCard(
@@ -669,7 +669,7 @@ class TarotDeck {
       number: 4,
       uprightSummary: 'L\'offerta non vista.',
       upright:
-          'Sazietà, noia, un\'offerta che ti viene tesa accanto e che rifiuti senza guardarla. Hai già abbastanza, o così ti sembra: quello che arriva non riesce a interessarti.',
+          'Sazietà, noia, un\'offerta che ti viene tesa accanto e che rifiuti senza guardarla. Hai già abbastanza, o così ti sembra: quello che arriva ti lascia indifferente.',
       reversedSummary: 'Il risveglio dell\'interesse.',
       reversed:
           'Esci dal torpore e torni a sentire, una nuova apertura ti chiama. Accoglila, il cuore si sta ridestando. Dopo la noia arriva sempre una curiosità nuova, seguila.',
@@ -852,10 +852,10 @@ class TarotDeck {
       number: 4,
       uprightSummary: 'La mano che stringe.',
       upright:
-          'Sicurezza, risparmio, controllo su ciò che possiedi: proteggi ciò che hai. Attento però a non chiuderti troppo, la mano stretta non riceve.',
+          'Sicurezza, risparmio, controllo su ciò che possiedi: proteggi ciò che hai. Conservare, contare e mettere da parte è il tuo mestiere in questo momento.',
       reversedSummary: 'La presa da allentare.',
       reversed:
-          'Un attaccamento eccessivo, o la paura di perdere che ti irrigidisce. Apri la mano, il denaro e le energie servono per fluire, non per essere trattenuti. Ciò che stringi troppo, ti stringe a sua volta.',
+          'La paura di restare senza ti fa stringere anche il poco che hai. Apri la mano, il denaro e le energie servono per fluire, non per essere trattenuti. Ciò che stringi troppo, ti stringe a sua volta.',
       stem: 'tar_rw_denari_04_v1',
     ),
     TarotCard(
@@ -969,7 +969,7 @@ class TarotDeck {
       number: 13,
       uprightSummary: 'La cura concreta.',
       upright:
-          'Accoglienza, praticità, un\'abbondanza generosa: nutri chi ami e i tuoi progetti con i piedi a terra. Sai unire il cuore e la concretezza ed è un dono raro. La tua casa e il tuo lavoro fioriscono nelle tue mani.',
+          'Accoglienza, praticità, una generosità concreta: ti prendi cura di chi ami e delle cose di casa con i piedi a terra. Sai unire il cuore e la concretezza ed è un dono raro.',
       reversedSummary: 'La cura dispersa.',
       reversed:
           'Ti occupi della casa, dei conti, dei bisogni di tutti: nell\'elenco delle cose da curare il tuo nome non compare. Anche il giardino più generoso ha bisogno di essere annaffiato.',
@@ -986,7 +986,7 @@ class TarotDeck {
           'Successo concreto, stabilità, una generosità matura: guidi con abbondanza e misura. Hai costruito qualcosa di solido e sai condividerlo. La ricchezza qui è anche saggezza nel gestirla.',
       reversedSummary: 'Il possesso che irrigidisce.',
       reversed:
-          'Un attaccamento, o una rigidità legata a ciò che hai. La vera ricchezza è anche saperla lasciare circolare. Ciò che possiedi non deve possederti.',
+          'Il governo di beni ampi si irrigidisce: ciò che hai costruito resta fermo nelle tue mani invece di muoversi e di dare frutto. Ciò che possiedi non deve possederti.',
       stem: 'tar_rw_denari_14_v1',
     ),
     TarotCard(
