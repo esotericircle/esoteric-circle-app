@@ -22,14 +22,19 @@ class PostoSulTavolo {
 ///
 /// Il nome non e' una stringa scritta a mano nella schermata: e' un dato della
 /// definizione della stesa. Cosi' il titolo in alto segue da solo la stesa
-/// attiva, e quando arriveranno quelle da sette e dieci carte non ci sara' da
-/// ricordarsi di cambiare anche il titolo.
+/// attiva, e una stesa nuova non chiede di ricordarsi di cambiare anche il
+/// titolo.
 ///
-/// **CINQUE STESE** dall'ordine FI voce 01, 10 ottobre 2026 (il fondatore:
-/// "bisogna inserire la stesa a 1 carta e quelle delle tradizioni piu'
-/// popolari"). Ognuna porta le sue posizioni nell'ordine di lettura, il suo
-/// posto sul tavolo per ogni carta e la sua fonte; quante carte ha lo dicono
-/// le posizioni.
+/// **QUATTRO STESE**: la carta sola, le tre carte, la croce e la Croce
+/// Celtica. Erano cinque dall'ordine FI voce 01, 10 ottobre 2026 (il
+/// fondatore: "bisogna inserire la stesa a 1 carta e quelle delle tradizioni
+/// piu' popolari"); il ferro di cavallo, a sette carte, e' stato tolto
+/// dall'ordine FJ, aggiunta 2, e resta qui sotto come lapide. Ognuna porta le
+/// sue posizioni nell'ordine di lettura, il suo posto sul tavolo per ogni
+/// carta, che la schermata legge dall'ordine FK aggiunta 2, e la sua fonte;
+/// quante carte ha lo dicono le posizioni. Il numero scritto qui lo sorveglia
+/// `il_commento_delle_stese_dice_il_numero_test.dart` (ordine FK aggiunta 2
+/// voce A14).
 enum TarotSpreadType {
   unaCarta(
     nome: 'Stesa a una Carta',
@@ -39,7 +44,9 @@ enum TarotSpreadType {
     tavolo: [PostoSulTavolo(0, 0)],
     fonte: 'La carta del giorno della cartomanzia, forma minima della '
         'lettura.',
-    costruita: false,
+    // **APERTA, ordine FK aggiunta 2 voce A12**: la stesa di N carte la sa
+    // leggere, e la carta sola ha 468 testi all'85,9 per cento in prova cieca.
+    costruita: true,
   ),
   treCarte(
     nome: 'Stesa di Tarocchi',
@@ -75,7 +82,9 @@ enum TarotSpreadType {
     ],
     fonte: 'Il tirage en croix della tradizione francese, letto col mazzo di '
         'Marsiglia; la variante dei due lati aperti è la lettura del Cerchio.',
-    costruita: false,
+    // **APERTA, ordine FK aggiunta 2 voce A12**: consultante, i due lati ed
+    // esito hanno tutti la fonte intera, 468 testi. I due lati sono due posti.
+    costruita: true,
   ),
   // **LAPIDE: la Stesa del Ferro di Cavallo, sette carte** (passato,
   // presente, futuro, consiglio, ambiente, ostacolo, esito). Tolta

@@ -113,6 +113,7 @@ import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
+import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
@@ -754,6 +755,17 @@ void main() {
   Future<void> fkInQuadro(
       WidgetTester tester, GlobalKey rootKey, Key chiave, String nome) async {
     await montaLoSchermo(tester, const Size(360, 797));
+    // Una lista pigra non costruisce cio' che sta sotto la piega: si scorre
+    // la lista verticale della stesa finche' la chiave nasce.
+    if (find.byKey(chiave).evaluate().isEmpty) {
+      await tester.scrollUntilVisible(find.byKey(chiave), 300,
+          scrollable: find
+              .descendant(
+                  of: find.byType(StesaTreCarteScreen),
+                  matching: find.byWidgetPredicate((w) =>
+                      w is Scrollable && w.axisDirection == AxisDirection.down))
+              .first);
+    }
     final dove = find.byKey(chiave).first;
     await tester.ensureVisible(dove);
     await tester.pump(const Duration(milliseconds: 400));
@@ -3963,6 +3975,51 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'FK/fk_a5_stesa_le_fonti.png');
   });
+
+  // --- L'AGGIUNTA 2 FK: la stesa a una carta e la stesa a croce ---
+  for (final (tipo, nome) in const [
+    (TarotSpreadType.unaCarta, 'una_carta'),
+    (TarotSpreadType.croceQuattro, 'croce'),
+  ]) {
+    testWidgets("Cattura l'aggiunta 2 FK, la stesa $nome", (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey = await mount(
+          tester, await buildServices(Maestro.medora, seeded: false));
+      await montaLoSchermo(tester, const Size(360, 797));
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(MaterialPageRoute<void>(
+        builder: (_) => MaestroScope(
+          child: StesaTreCarteScreen(
+            seed: 1,
+            revealAll: true,
+            topic: TarotTopic.bivio,
+            tipo: tipo,
+          ),
+        ),
+      )));
+      await step(tester);
+      await step(tester);
+      await tester.runAsync(() async {
+        final element = tester.element(find.byType(StesaTreCarteScreen));
+        for (final drawn
+            in TarotSpread.draw(seed: 1, posizioni: tipo.posizioni).cards) {
+          await precacheImage(AssetImage(drawn.card.fullPath), element);
+        }
+        for (final c in TarotDeck.cards) {
+          await precacheImage(AssetImage(c.fullPath), element);
+        }
+      });
+      await step(tester);
+      await tester.pump(const Duration(seconds: 2));
+      await fkInQuadro(tester, rootKey, const Key('stesa_slots'),
+          'FK/fk_a12_${nome}_il_tavolo.png');
+      await fkInQuadro(tester, rootKey, const Key('stesa_consiglio'),
+          'FK/fk_a12_${nome}_il_responso.png');
+      await fkInQuadro(tester, rootKey, const Key('stesa_lente'),
+          'FK/fk_a12_${nome}_le_bolle.png');
+    });
+  }
 
   // --- La scena della Stesa a riposo, prima della scelta ---
   testWidgets('Cattura la scena della Stesa a riposo', (tester) async {

@@ -622,16 +622,32 @@ abstract final class VoceDellaStesa {
     final rovesciate = spread.cards.where((c) => c.reversed).length;
     final maggiori =
         spread.cards.where((c) => c.card.arcana == TarotArcana.maggiore).length;
-    final formaDeiVersi = senzaRipetere(
-        filo, formeDeiVersi[rovesciate.clamp(0, 2)]!, figure,
-        pezzi: pezzi);
-    final versi = LaMarcaDelGenere.risolvi(formaDeiVersi);
+    // Le forme dei versi parlano di tre carte ("una carta su tre"): su
+    // un'altra stesa valgono solo quelle buone per qualunque numero.
+    final aTre = spread.eATreCarte;
+    List<String> buone(List<String> forme) =>
+        aTre ? forme : forme.where(valeOvunque).toList(growable: false);
+    final deiVersi = buone(formeDeiVersi[rovesciate.clamp(0, 2)]!);
+    final versi = deiVersi.isEmpty
+        ? ''
+        : LaMarcaDelGenere.risolvi(
+            senzaRipetere(filo, deiVersi, figure, pezzi: pezzi));
     if (maggiori < 2) return versi;
+    final deiMaggiori = buone(formeDeiMaggiori);
+    if (deiMaggiori.isEmpty) return versi;
     final formaDeiMaggiori =
-        senzaRipetere(filo, formeDeiMaggiori, figure, pezzi: pezzi);
+        senzaRipetere(filo, deiMaggiori, figure, pezzi: pezzi);
     return '$versi '
         '${formaDeiMaggiori.replaceAll('{quanti}', inLettere(maggiori))}';
   }
+
+  /// **UNA FORMA CHE VALE PER QUALUNQUE STESA.** Ordine FK aggiunta 2 voce
+  /// A8: non nomina il numero tre ne' le posizioni del passato, del presente
+  /// e del futuro (i segnaposto fra graffe non contano, li riempie la stesa).
+  static bool valeOvunque(String forma) => !RegExp(
+          r'(?<![A-Za-zÀ-ÿ])(tre|passato|presente|futuro|spalle)(?![A-Za-zÀ-ÿ])',
+          caseSensitive: false)
+      .hasMatch(forma.replaceAll(RegExp(r'\{\w+\}'), ''));
 
   /// **SCEGLIE UNA FORMA SENZA RIPETERE UN'IMMAGINE GIA' DETTA.** Ordine DS
   /// voce 09.
@@ -809,19 +825,33 @@ abstract final class VoceDellaStesa {
     final cielo = fattoDelCielo?.trim() ?? '';
     final usate = FigureDellaStesa.di(cielo);
     final pezzi = <String>[if (cielo.isNotEmpty) cielo];
-    String scegli(List<String> forme) =>
-        senzaRipetere(filo, forme, usate, pezzi: pezzi);
-    final naturaPresente = NaturaDellaCarta.di(spread.presente);
-    final naturaFuturo = NaturaDellaCarta.di(spread.futuro);
+    // **LA STESA DI N CARTE, ordine FK aggiunta 2 voce A8.** Le forme di
+    // questa voce sono scritte per la stesa a tre carte: "le tre carte",
+    // "una carta su tre", "la carta del tuo presente". Sulla stesa a tre
+    // carte non cambia un carattere. Su un'altra stesa si scelgono solo le
+    // forme che valgono per qualunque numero di carte ([valeOvunque]); il
+    // legame fra passato e presente non si dice, e il seguito si dice solo
+    // se la stesa ha un approdo (il futuro o l'esito).
+    final aTre = spread.eATreCarte;
+    String scegli(List<String> forme) {
+      final buone =
+          aTre ? forme : forme.where(valeOvunque).toList(growable: false);
+      if (buone.isEmpty) return '';
+      return senzaRipetere(filo, buone, usate, pezzi: pezzi);
+    }
+
+    final naturaPresente = NaturaDellaCarta.di(spread.cuore);
+    final approdo = aTre ? spread.futuro : spread.approdo;
+    final naturaFuturo = approdo == null ? null : NaturaDellaCarta.di(approdo);
 
     // **LA MARCA SI RISOLVE SUL MODELLO DELLA FRASE**, ordine DL voce 02, e
     // prima dei segnaposto: un nome o una domanda con una quadra dentro non
     // deve diventare una marca.
     String riempi(String forma) => LaMarcaDelGenere.risolvi(forma)
         .replaceAll('{lente}', '${topic.lente},')
-        .replaceAll('{presente}', spread.presente.displayName)
-        .replaceAll('{passato}', spread.passato.displayName)
-        .replaceAll('{futuro}', spread.futuro.displayName);
+        .replaceAll('{presente}', spread.cuore.displayName)
+        .replaceAll('{passato}', aTre ? spread.passato.displayName : '')
+        .replaceAll('{futuro}', approdo?.displayName ?? '');
 
     // La lente apre la frase oppure sta in mezzo, e nei due casi la maiuscola
     // cambia: senza questo, meta' delle otto forme comincerebbe in minuscola.
@@ -865,8 +895,10 @@ abstract final class VoceDellaStesa {
     final azione =
         aggancioPrima ? '$aggancio $cosaFare' : '$cosaFare $aggancio';
 
-    final legame = maiuscola(riempi(scegli(formeDelLegame)));
-    final futuro = riempi(scegli(formeDelFuturo[naturaFuturo]!));
+    final legame = aTre ? maiuscola(riempi(scegli(formeDelLegame))) : '';
+    final futuro = naturaFuturo == null
+        ? ''
+        : riempi(scegli(formeDelFuturo[naturaFuturo]!));
 
     // **ANCHE L'ORDINE DEI DUE PEZZI VARIA**, e raddoppia le forme del terzo
     // paragrafo senza scrivere una riga di prosa in piu': a volte si guarda

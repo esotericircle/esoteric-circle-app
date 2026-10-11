@@ -164,12 +164,12 @@ class TarotReading {
       spread: spread,
       topic: lente,
       depth: depth,
-      sintesi: TettiDellaStesa.dentro(
-          spread.presente.summary, TettiDellaStesa.sintesi),
+      sintesi:
+          TettiDellaStesa.dentro(spread.cuore.summary, TettiDellaStesa.sintesi),
       posizioni: [
         for (var i = 0; i < spread.cards.length; i++)
           PosizioneLetta.of(spread.cards[i], topic, spread,
-              testoDelModello: dalModello?.della(spread.cards[i].position),
+              testoDelModello: dalModello?.dellaCarta(i),
               uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
       ],
       chiave: chiaveDi(spread),
@@ -356,12 +356,26 @@ class TarotReading {
   /// Se il Presente e' un Minore e fra le tre c'e' almeno un Maggiore, il cuore
   /// passa al Maggiore piu' significativo, quello col numero piu' alto.
   static CartaChiave chiaveDi(TarotSpread spread) {
-    final presente = spread.presente;
+    // **IL CUORE DELLA STESA, ordine FK aggiunta 2 voce A8**: il presente
+    // nella stesa a tre carte, e nelle altre la carta che regge la lettura
+    // (`TarotSpread.cuore`). Le ragioni della stesa a tre carte restano le
+    // sue parole; le altre stese dicono la loro.
+    final presente = spread.cuore;
+    if (spread.cards.length == 1) {
+      return CartaChiave(
+        drawn: presente,
+        perche: 'È la carta sola della stesa: tutta la lettura passa da lei.',
+      );
+    }
+    final aTre = spread.eATreCarte;
     if (presente.card.arcana == TarotArcana.maggiore) {
       return CartaChiave(
         drawn: presente,
-        perche: 'È la carta del momento che vivi: un Arcano Maggiore nel '
-            'Presente parla più forte di ogni altra cosa.',
+        perche: aTre
+            ? 'È la carta del momento che vivi: un Arcano Maggiore nel '
+                'Presente parla più forte di ogni altra cosa.'
+            : 'È la carta che regge la stesa, ed è un Arcano Maggiore: '
+                'parla più forte di ogni altra cosa.',
       );
     }
     final maggiori = spread.cards
@@ -370,7 +384,9 @@ class TarotReading {
     if (maggiori.isEmpty) {
       return CartaChiave(
         drawn: presente,
-        perche: 'È la carta del momento che vivi, il centro della stesa.',
+        perche: aTre
+            ? 'È la carta del momento che vivi, il centro della stesa.'
+            : 'È la carta che regge la stesa, il suo centro.',
       );
     }
     maggiori.sort(
@@ -378,8 +394,11 @@ class TarotReading {
     final scelta = maggiori.first;
     return CartaChiave(
       drawn: scelta,
-      perche: 'È l\'Arcano Maggiore più alto della stesa: pesa più del '
-          'Minore che occupa il Presente.',
+      perche: aTre
+          ? 'È l\'Arcano Maggiore più alto della stesa: pesa più del '
+              'Minore che occupa il Presente.'
+          : 'È l\'Arcano Maggiore più alto della stesa: pesa più del '
+              'Minore che la regge.',
     );
   }
 
@@ -442,8 +461,10 @@ class PosizioneLetta {
       // identica in tutte e tre le posizioni di tutte le letture: quindici
       // parole regalate a ogni confronto. La lente resta il taglio con cui la
       // carta si legge, ma non e' piu' lei a fare da attacco.
+      // Il posto nella stesa e non la posizione, ordine FK aggiunta 2 voce
+      // A8: i due `lato` della croce sono due posti.
       apertura: VoceDellaStesa.aperturaDellaPosizione(
-          spread, SpreadPosition.treCarte.indexOf(drawn.position)),
+          spread, spread.cards.indexOf(drawn)),
       // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
       // c'era il significato del verso, uguale nel passato, nel presente e
       // nel futuro e per qualunque domanda: l'Architetto l'ha letto nel

@@ -561,13 +561,22 @@ void main() {
     // aperta solo quella a tre carte, e le altre sono Coming soon.
     // E dall'ordine FJ, aggiunta 2, sono quattro: il ferro di cavallo e'
     // tolto.
-    test('Le quattro stese esistono, solo quella a tre carte e aperta', () {
+    // **LAPIDE: "solo quella a tre carte e' aperta".** Ordine FK, aggiunta 2
+    // voce A12: con la stesa di N carte si aprono anche la carta sola e la
+    // croce, le cui posizioni hanno tutte la fonte intera; la Croce Celtica
+    // resta Coming soon, con quattro posizioni senza un testo.
+    test('Le quattro stese esistono, tre aperte e la Croce Celtica chiusa', () {
       expect(TarotSpreadType.values.length, 4);
       expect(TarotSpreadType.treCarte.disponibile, isTrue);
       expect(TarotSpreadType.treCarte.carte, 3);
+      const aperte = {
+        TarotSpreadType.unaCarta,
+        TarotSpreadType.treCarte,
+        TarotSpreadType.croceQuattro,
+      };
       for (final t in TarotSpreadType.values) {
-        if (t == TarotSpreadType.treCarte) continue;
-        expect(t.disponibile, isFalse, reason: '${t.nome} non e Coming soon');
+        expect(t.disponibile, aperte.contains(t),
+            reason: '${t.nome}: aperta ${t.disponibile}');
       }
       // Ogni stesa porta il proprio nome, e sono tutti diversi.
       expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 4);

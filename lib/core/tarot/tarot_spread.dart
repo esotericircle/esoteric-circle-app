@@ -118,19 +118,73 @@ class TarotSpread {
   /// Quante carte si mostrano nel ventaglio coperto.
   static const int fanSize = 9;
 
+  // **LA STESA E' UNA SEQUENZA DI COPPIE, posizione e carta, nell'ordine di
+  // lettura.** Ordine FK, aggiunta 2 voce A8. Ogni `DrawnCard` porta la sua
+  // posizione, quindi una posizione che torna due volte (i due `lato` della
+  // croce a quattro) resta due coppie: una mappa da posizione a carta ne
+  // perderebbe una. Le posizioni e il loro ordine vengono dalla definizione
+  // della stesa, `TarotSpreadType.posizioni`.
+
+  /// Le posizioni di questa stesa, nell'ordine di lettura.
+  List<SpreadPosition> get posizioni => [for (final c in cards) c.position];
+
+  /// **LE TRE SCORCIATOIE DELLA STESA A TRE CARTE.** Restano perche' tredici
+  /// file le usano; non sono la forma della classe. Su un'altra stesa non
+  /// hanno senso: chi legge una stesa qualunque usa [cuore], [approdo] e
+  /// [cards].
   DrawnCard get passato => cards[0];
   DrawnCard get presente => cards[1];
   DrawnCard get futuro => cards[2];
 
+  /// Vero se e' la stesa a tre carte, passato presente futuro.
+  bool get eATreCarte =>
+      cards.length == 3 &&
+      [for (var i = 0; i < 3; i++) cards[i].position].join() ==
+          SpreadPosition.treCarte.join();
+
+  /// **LA CARTA CHE REGGE LA LETTURA**: il presente nella stesa a tre carte,
+  /// la carta sola, il consultante nella croce, cio' che copre nella Croce
+  /// Celtica. Altrimenti la prima.
+  DrawnCard get cuore {
+    for (final p in const [
+      SpreadPosition.presente,
+      SpreadPosition.cartaSola,
+      SpreadPosition.consultante,
+      SpreadPosition.copre,
+    ]) {
+      for (final c in cards) {
+        if (c.position == p) return c;
+      }
+    }
+    return cards.first;
+  }
+
+  /// **DOVE LA STESA VA A FINIRE**: l'ultima carta, se la stesa ne ha piu' di
+  /// una e l'ultima e' il futuro o l'esito; altrimenti nulla.
+  DrawnCard? get approdo {
+    if (cards.length < 2) return null;
+    final ultima = cards.last;
+    return ultima.position == SpreadPosition.futuro ||
+            ultima.position == SpreadPosition.esito
+        ? ultima
+        : null;
+  }
+
   /// La riga di sintesi memorabile, dalla sintesi breve della carta del
   /// Presente: e' il colpo d'occhio sopra le tre carte.
-  String get synthesis => presente.summary;
+  String get synthesis => cuore.summary;
 
   /// La lettura che concatena le tre posizioni in modo fluido.
-  String get reading =>
-      'Alle tue spalle ${passato.displayName}: ${passato.meaning} '
-      'Nel momento che vivi ${presente.displayName}: ${presente.meaning} '
-      'Davanti a te ${futuro.displayName}: ${futuro.meaning}';
+  String get reading => eATreCarte
+      ? 'Alle tue spalle ${passato.displayName}: ${passato.meaning} '
+          'Nel momento che vivi ${presente.displayName}: ${presente.meaning} '
+          'Davanti a te ${futuro.displayName}: ${futuro.meaning}'
+      // Le altre stese, ordine FK aggiunta 2 voce A8: ogni carta con la sua
+      // posizione, nell'ordine di lettura.
+      : [
+          for (final c in cards)
+            '${c.position.etichetta}, ${c.displayName}: ${c.meaning}',
+        ].join(' ');
 
   /// La riga di chiusura, sempre nella cornice della consapevolezza.
   static const String closing =
@@ -159,12 +213,14 @@ class TarotSpread {
   /// Il verso di ciascuna dipende dal seme e dalla posizione nel mazzo, non
   /// dal caso del momento: due tagli che riportano lo stesso ordine danno la
   /// stessa stesa, ed e' cio' che ci si aspetta da un mazzo di carte.
-  static TarotSpread dalMazzo(List<int> ordine, {int seed = 0}) {
+  static TarotSpread dalMazzo(List<int> ordine,
+      {int seed = 0,
+      List<SpreadPosition> posizioni = SpreadPosition.treCarte}) {
     return TarotSpread([
-      for (var i = 0; i < SpreadPosition.treCarte.length; i++)
+      for (var i = 0; i < posizioni.length; i++)
         DrawnCard(
           card: TarotDeck.cards[ordine[i]],
-          position: SpreadPosition.treCarte[i],
+          position: posizioni[i],
           reversed:
               Random(ordine[i] * 7919 + seed).nextDouble() < reversedChance,
         ),
@@ -193,15 +249,16 @@ class TarotSpread {
   ///
   /// Con [seed] la stesa e' riproducibile: stesso seme, stessa stesa. Senza,
   /// ogni pescaggio e' nuovo.
-  static TarotSpread draw({int? seed}) {
+  static TarotSpread draw(
+      {int? seed, List<SpreadPosition> posizioni = SpreadPosition.treCarte}) {
     final random = seed == null ? Random() : Random(seed);
     final indici = List<int>.generate(TarotDeck.cards.length, (i) => i)
       ..shuffle(random);
     return TarotSpread([
-      for (var i = 0; i < SpreadPosition.treCarte.length; i++)
+      for (var i = 0; i < posizioni.length; i++)
         DrawnCard(
           card: TarotDeck.cards[indici[i]],
-          position: SpreadPosition.treCarte[i],
+          position: posizioni[i],
           reversed: random.nextDouble() < reversedChance,
         ),
     ]);

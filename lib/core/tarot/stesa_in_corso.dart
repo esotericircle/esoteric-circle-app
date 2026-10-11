@@ -45,16 +45,25 @@ class StesaInCorso {
     required this.assegnate,
     required this.mazzoDisposto,
     required this.seme,
+    this.posizioni = SpreadPosition.treCarte,
   });
+
+  /// **LE POSIZIONI DELLA STESA**, ordine FK aggiunta 2 voce A8: quelle della
+  /// sua definizione, nell'ordine di lettura, anche quando una torna due
+  /// volte. I posti si contano per indice, mai per posizione.
+  final List<SpreadPosition> posizioni;
 
   /// Una stesa che comincia: nessuna carta assegnata, il mazzo intero da
   /// pescare.
-  factory StesaInCorso.nuova({required List<int> mazzo, int seme = 0}) =>
+  factory StesaInCorso.nuova(
+          {required List<int> mazzo,
+          int seme = 0,
+          List<SpreadPosition> posizioni = SpreadPosition.treCarte}) =>
       StesaInCorso._(
-        assegnate:
-            List<DrawnCard?>.filled(SpreadPosition.treCarte.length, null),
+        assegnate: List<DrawnCard?>.filled(posizioni.length, null),
         mazzoDisposto: List<int?>.unmodifiable(mazzo),
         seme: seme,
+        posizioni: posizioni,
       );
 
   /// UNA STESA CHE NASCE GIA' COMPIUTA dalle carte conservate (ordine FI voce
@@ -73,6 +82,7 @@ class StesaInCorso {
       mazzoDisposto: List<int?>.unmodifiable(
           [for (final i in mazzo) prese.contains(i) ? null : i]),
       seme: seme,
+      posizioni: [for (final c in carte) c.position],
     );
   }
 
@@ -102,7 +112,7 @@ class StesaInCorso {
   /// Quante posizioni sono gia' state scelte.
   int get quanteAssegnate => assegnate.where((c) => c != null).length;
 
-  bool get eCompleta => quanteAssegnate == SpreadPosition.treCarte.length;
+  bool get eCompleta => quanteAssegnate == posizioni.length;
 
   /// La stesa finita, quando tutte le posizioni sono piene.
   TarotSpread? get stesaCompiuta =>
@@ -118,8 +128,23 @@ class StesaInCorso {
   /// **non si assegna niente**: prima si ripiegava sulla prima carta del
   /// mazzo, cioe' si dava a chi aveva toccato una posizione una carta che non
   /// aveva scelto. Un gesto senza risposta e' meglio di una risposta falsa.
+  /// Assegna al primo posto libero di [posizione]: la via della stesa a tre
+  /// carte, dove ogni posizione compare una volta. Una stesa con una
+  /// posizione ripetuta usa [assegnaAlPosto].
   StesaInCorso assegna(SpreadPosition posizione, {required int dalVentaglio}) {
-    final i = SpreadPosition.treCarte.indexOf(posizione);
+    for (var i = 0; i < posizioni.length; i++) {
+      if (posizioni[i] == posizione && assegnate[i] == null) {
+        return assegnaAlPosto(i, dalVentaglio: dalVentaglio);
+      }
+    }
+    return this;
+  }
+
+  /// **ASSEGNA AL POSTO [posto]**, contato nell'ordine di lettura.
+  StesaInCorso assegnaAlPosto(int posto, {required int dalVentaglio}) {
+    if (posto < 0 || posto >= posizioni.length) return this;
+    final i = posto;
+    final posizione = posizioni[i];
     if (assegnate[i] != null) return this;
     if (dalVentaglio < 0 || dalVentaglio >= mazzoDisposto.length) return this;
     final indiceCarta = mazzoDisposto[dalVentaglio];
@@ -140,6 +165,7 @@ class StesaInCorso {
       assegnate: nuove,
       mazzoDisposto: List<int?>.unmodifiable(disposto),
       seme: seme,
+      posizioni: posizioni,
     );
   }
 
@@ -175,6 +201,7 @@ class StesaInCorso {
       assegnate: assegnate,
       mazzoDisposto: List<int?>.unmodifiable(disposto),
       seme: seme,
+      posizioni: posizioni,
     );
   }
 }

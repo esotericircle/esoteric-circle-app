@@ -40,3 +40,34 @@ Ogni innesto entra (grep), la prova si legge, il file torna al byte.
    innesto entrato (grep): si
    esito: ROSSA
    ripristinato al byte: si
+
+LA REGOLA A SULLA GUARDIA DELLA STESA DI N CARTE, aggiunta 2 FK, 12 ottobre 2026
+== i due lati diventano un campo solo (lib/core/tarot/la_lettura_dal_modello.dart; test/la_stesa_di_n_carte_test.dart: un campo per posto, e i due lati sono due campi)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la stesa in corso riempie solo il primo lato (lib/core/tarot/stesa_in_corso.dart; test/la_stesa_di_n_carte_test.dart: la stesa in corso conta i posti, non le posizioni)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il tavolo senza la carta centrata e una colonna in meno (lib/features/tarot/il_tavolo_della_stesa.dart; test/la_stesa_di_n_carte_test.dart: a 360 punti nessuna carta esce dallo schermo, in nessuna stesa)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la carta sola resta chiusa (lib/core/tarot/tarot_spread_type.dart; test/la_stesa_di_n_carte_test.dart: aperte la carta sola e la croce, chiusa la Croce Celtica)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la richiesta senza il campo di ogni carta (lib/core/tarot/la_lettura_dal_modello.dart; test/la_stesa_di_n_carte_test.dart: un campo per posto, e i due lati sono due campi)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la lettura di casa con le forme delle tre carte anche sulle altre stese (lib/core/tarot/voce_della_stesa.dart; test/la_stesa_di_n_carte_test.dart: le due stese aperte si leggono anche senza modello)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+
+== A14, la guardia del commento delle stese, scritta e fatta girare sul commento vecchio prima di correggerlo (test/il_commento_delle_stese_dice_il_numero_test.dart)
+   commento nel file (grep): **CINQUE STESE**
+   esito: ROSSA (il commento dice CINQUE stese, l'enum ne porta 4)
+   dopo la correzione del commento: VERDE

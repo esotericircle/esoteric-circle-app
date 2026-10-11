@@ -1094,3 +1094,84 @@ SE UNA PREMESSA È SBAGLIATA, dillo e non eseguirla. L'ordine FJ ne portava
 cinque sbagliate, tutte dell'Architetto; la prima stesura di questa aggiunta
 diceva che bastava alzare un flag e la premessa era falsa, l'ho trovata io
 aprendo il motore della lettura invece del solo file delle stese. Vale di nuovo.
+
+---
+
+ORDINE FK, AGGIUNTA 2 (versione corretta, sostituisce quella precedente)
+12 ottobre 2026
+
+PREMESSE ABBATTUTE, da leggere prima delle voci.
+
+P8. L'aggiunta 2 nella sua prima stesura parlava di "tutte e cinque le
+stese" e del "flag della stesa a sette carte". Contato sull'enum
+TarotSpreadType il 12 ottobre 2026: le stese sono QUATTRO, unaCarta,
+treCarte, croceQuattro, dieciCarte. La stesa a sette carte, il ferro di
+cavallo, e' una lapide commentata alle righe 80-90, tolta dall'ordine FJ
+aggiunta 2 per decisione del fondatore. Nessuna voce di questo ordine
+tocca una quinta stesa, perche' non c'e'.
+
+FK.A7. Prima di ogni cosa, portare il ramo claude/esoteric-circle-master-
+order-e798aj al commit 394e9c5, che contiene le quattro posizioni nuove
+del corpus (copre, attraversa, corona, sotto, 468 testi ciascuna).
+FONTE: lo stato del ramo.
+
+FK.A8. Generalizzare la classe TarotSpread, in lib/core/tarot/
+tarot_spread.dart, da tre carte fisse a un numero qualsiasi di posizioni.
+Oggi la riga 99 e seguenti espone passato, presente e futuro come
+cards[0], cards[1], cards[2]: una stesa a tre carte per costruzione.
+AVVERTENZA: nella croce a quattro la posizione lato compare DUE volte, a
+sinistra e a destra, quindi una mappa posizione-carta perde una delle due.
+Serve una lista ordinata di coppie posizione-carta, non una mappa.
+FONTE: lib/core/tarot/tarot_spread.dart riga 99 e seguenti;
+lib/core/tarot/tarot_spread_type.dart righe 64-69.
+
+FK.A9. Generalizzare lib/core/tarot/la_lettura_dal_modello.dart, che
+conosce tre posizioni su quattordici. Tre punti, tutti da aprire:
+  a) la funzione della(SpreadPosition posizione) alla riga 55, uno switch
+     su passato, presente, futuro, da estendere a tutte le posizioni
+     esistenti;
+  b) i cicli alle righe 333 e 627, che iterano sulla lista letterale
+     [spread.passato, spread.presente, spread.futuro], da far iterare sulle
+     posizioni della stesa attiva;
+  c) la riga 271, dentro il testo che il modello legge, che nomina le tre
+     posizioni per nome: va costruita dalla stesa attiva.
+FONTE: lib/core/tarot/la_lettura_dal_modello.dart righe 55, 271, 333, 627.
+
+FK.A10. Far leggere alla schermata il dato che esiste e nessuno usa.
+PostoSulTavolo, definito in tarot_spread_type.dart e popolato per ogni
+carta di ogni stesa, non e' letto da nessun file sotto lib/features/. La
+schermata lib/features/tarot/stesa_tre_carte_screen.dart dispone le carte
+per conto proprio. Va disposta la carta alla coordinata che la stesa
+dichiara, compreso diTraverso per la seconda carta della Croce Celtica.
+FONTE: nessuna occorrenza di PostoSulTavolo sotto lib/features/.
+
+FK.A11. Rigenerare il Dart del corpus dalle quattro posizioni nuove e
+alzare variantiDichiarate di conseguenza. registriDelleCarte in
+lib/core/tarot/le_carte_nella_posizione_dati.dart e' una mappa vuota alla
+riga 2201: resta vuota solo se il dato non c'e'.
+FONTE: lib/core/tarot/le_carte_nella_posizione_dati.dart riga 2201.
+
+FK.A12. Alzare costruita: true su unaCarta e su croceQuattro, e lasciare
+dieciCarte a false. Questa voce si esegue SOLO DOPO A8, A9 e A10: alzare
+il flag da solo non basta, perche' il motore della lettura cicla su tre
+posizioni fisse. La Croce Celtica resta chiusa perche' delle sue dieci
+posizioni tre non hanno ancora un corpus (se_stesso, la_casa,
+speranze_o_timori).
+FONTE: lib/core/tarot/tarot_spread_type.dart righe 42, 78, 125.
+
+FK.A14. Correggere il commento in testa a lib/core/tarot/
+tarot_spread_type.dart. La riga 28 dichiara "CINQUE STESE dall'ordine FI
+voce 01" e le righe 24-25 dicono "quando arriveranno quelle da sette e
+dieci carte": l'enum sotto porta quattro stese, la stesa a sette e' una
+lapide tolta dall'ordine FJ e quella a dieci c'e' gia'. Il commento va
+riportato al numero vero, senza toccare l'enum e senza cancellare la
+lapide del ferro di cavallo, che e' la memoria della decisione.
+Se esiste o si puo' scrivere a costo nullo una guardia che confronti il
+numero dichiarato nel commento col numero delle voci dell'enum, va vista
+rossa prima di scriverla, come vuole la Regola A.
+FONTE: lib/core/tarot/tarot_spread_type.dart righe 24-25 e 28, confrontate
+con le voci dell'enum alle righe 34, 44, 58, 91.
+
+FK.A13. La build non si costruisce di iniziativa. Finito il lavoro, si
+riferisce cosa e' pronto e si attende l'ordine del fondatore.
+FONTE: regola permanente, le build le ordina lui.

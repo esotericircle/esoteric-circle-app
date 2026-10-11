@@ -30,15 +30,41 @@ typedef ChiamataDellaStesa = Future<String?> Function(
 /// deve trovare: la risposta, le tre carte nella loro posizione, il legame e
 /// il consiglio.
 class LetturaDelModello {
-  const LetturaDelModello({
+  /// **LE CARTE IN ORDINE DI LETTURA, ordine FK aggiunta 2 voce A9.** Prima
+  /// i testi erano tre campi fissi, passato presente e futuro, e nessun'altra
+  /// stesa poteva essere letta. Adesso sono [carte], uno per posto, coi nomi
+  /// dei campi in [chiavi]. Per la stesa a tre carte i nomi restano quelli di
+  /// sempre, e i tre parametri nominati costruiscono la stessa lettura.
+  LetturaDelModello({
     required this.risposta,
-    required this.passato,
-    required this.presente,
-    required this.futuro,
+    String passato = '',
+    String presente = '',
+    String futuro = '',
+    List<String>? carte,
+    List<String>? chiavi,
     required this.legame,
     required this.consiglio,
     this.titolo = '',
-  });
+  })  : carte = List.unmodifiable(carte ?? [passato, presente, futuro]),
+        chiavi = List.unmodifiable(chiavi ?? chiaviATre);
+
+  /// I nomi dei campi delle carte nella stesa a tre carte.
+  static const List<String> chiaviATre = ['passato', 'presente', 'futuro'];
+
+  /// Il testo di ogni carta, nell'ordine di lettura della stesa.
+  final List<String> carte;
+
+  /// Il nome del campo di ogni carta, nello stesso ordine.
+  final List<String> chiavi;
+
+  /// Le tre scorciatoie della stesa a tre carte.
+  String get passato => dellaCarta(0);
+  String get presente => dellaCarta(1);
+  String get futuro => dellaCarta(2);
+
+  /// Il testo della carta al posto [posto], o vuoto.
+  String dellaCarta(int posto) =>
+      posto >= 0 && posto < carte.length ? carte[posto] : '';
 
   /// **IL TITOLO, ordine FK aggiunta voce A1.** Il fondatore, 3 settembre
   /// 2026: *"le risposte devono partire con un titolo diretto che riassume
@@ -50,25 +76,25 @@ class LetturaDelModello {
 
   /// Le prime due frasi: rispondono alla domanda.
   final String risposta;
-  final String passato;
-  final String presente;
-  final String futuro;
 
-  /// Come le tre carte si legano fra loro.
+  /// Come le carte si legano fra loro.
   final String legame;
 
   /// Il passo concreto.
   final String consiglio;
 
-  /// Il testo della carta in [posizione].
-  String della(SpreadPosition posizione) => switch (posizione) {
-        SpreadPosition.passato => passato,
-        SpreadPosition.presente => presente,
-        SpreadPosition.futuro => futuro,
-        // Le posizioni delle altre stese (ordine FI): la lettura dal modello
-        // e' ancora quella delle tre carte, e qui non hanno un campo.
-        _ => '',
-      };
+  /// Il testo della prima carta in [posizione]. **LAPIDE: "le posizioni
+  /// delle altre stese qui non hanno un campo"** (ordine FI): adesso ogni
+  /// posto ha il suo. Una posizione che torna due volte (i due `lato`) si
+  /// legge per posto, con [dellaCarta].
+  String della(SpreadPosition posizione) {
+    for (var i = 0; i < chiavi.length; i++) {
+      if (chiavi[i] == posizione.name || chiavi[i] == '${posizione.name}_1') {
+        return dellaCarta(i);
+      }
+    }
+    return '';
+  }
 
   /// **OGNI PEZZO PASSA DALLE REGOLE DI LINGUA DI CASA**, come le risposte
   /// dei Maestri (`LaRispostaRipulita`): il trattino lungo e la virgola
@@ -76,9 +102,8 @@ class LetturaDelModello {
   /// una virgola.
   LetturaDelModello ripulita() => LetturaDelModello(
         risposta: LaRispostaRipulita.applica(risposta),
-        passato: LaRispostaRipulita.applica(passato),
-        presente: LaRispostaRipulita.applica(presente),
-        futuro: LaRispostaRipulita.applica(futuro),
+        carte: [for (final c in carte) LaRispostaRipulita.applica(c)],
+        chiavi: chiavi,
         legame: LaRispostaRipulita.applica(legame),
         consiglio: LaRispostaRipulita.applica(consiglio),
         titolo: LaRispostaRipulita.applica(titolo),
@@ -86,9 +111,7 @@ class LetturaDelModello {
 
   Map<String, String> toJson() => {
         'risposta': risposta,
-        'passato': passato,
-        'presente': presente,
-        'futuro': futuro,
+        for (var i = 0; i < chiavi.length; i++) chiavi[i]: dellaCarta(i),
         'legame': legame,
         'consiglio': consiglio,
         if (titolo.isNotEmpty) 'titolo': titolo,
@@ -97,7 +120,8 @@ class LetturaDelModello {
   /// Null se manca un pezzo: una lettura a meta' non si mostra. **Il titolo
   /// non e' fra i pezzi che la fanno cadere**: senza, la lettura resta e il
   /// titolo lo da' la lettura di casa.
-  static LetturaDelModello? daJson(Map<String, Object?>? j) {
+  static LetturaDelModello? daJson(Map<String, Object?>? j,
+      {List<String> chiavi = chiaviATre}) {
     if (j == null) return null;
     String? pezzo(String k) {
       final v = j[k];
@@ -107,24 +131,16 @@ class LetturaDelModello {
     }
 
     final r = pezzo('risposta');
-    final pa = pezzo('passato');
-    final pr = pezzo('presente');
-    final fu = pezzo('futuro');
+    final carte = [for (final k in chiavi) pezzo(k)];
     final le = pezzo('legame');
     final co = pezzo('consiglio');
-    if (r == null ||
-        pa == null ||
-        pr == null ||
-        fu == null ||
-        le == null ||
-        co == null) {
+    if (r == null || carte.any((c) => c == null) || le == null || co == null) {
       return null;
     }
     return LetturaDelModello(
       risposta: r,
-      passato: pa,
-      presente: pr,
-      futuro: fu,
+      carte: [for (final c in carte) c!],
+      chiavi: chiavi,
       legame: le,
       consiglio: co,
       titolo: pezzo('titolo') ?? '',
@@ -263,6 +279,61 @@ abstract final class LaLetturaDellaStesa {
   /// Il tetto del titolo: da tre a otto parole, scritte grandi in cima.
   static const int tettoDelTitolo = 70;
 
+  /// **I NOMI DEI CAMPI DELLE CARTE DI [spread]**, ordine FK aggiunta 2
+  /// voce A9: per la stesa a tre carte quelli di sempre; per le altre il nome
+  /// della posizione, e un numero dove la posizione torna (`lato_1`,
+  /// `lato_2`).
+  static List<String> chiaviPer(TarotSpread spread) {
+    if (spread.eATreCarte) return LetturaDelModello.chiaviATre;
+    final quante = <SpreadPosition, int>{};
+    for (final c in spread.cards) {
+      quante[c.position] = (quante[c.position] ?? 0) + 1;
+    }
+    final viste = <SpreadPosition, int>{};
+    return [
+      for (final c in spread.cards)
+        if (quante[c.position]! > 1)
+          '${c.position.name}_${viste[c.position] = (viste[c.position] ?? 0) + 1}'
+        else
+          c.position.name,
+    ];
+  }
+
+  /// I campi che il modello deve restituire per [spread], tutti obbligatori,
+  /// nell'ordine in cui li scrive.
+  static Map<String, Schema> campiPer(TarotSpread spread) => {
+        'risposta': Schema.string(),
+        for (final k in chiaviPer(spread)) k: Schema.string(),
+        'legame': Schema.string(),
+        'consiglio': Schema.string(),
+        'titolo': Schema.string(),
+      };
+
+  /// **COSA VUOL DIRE OGNI POSIZIONE**, detto al modello nella richiesta.
+  /// Dalle glosse di Waite (The Pictorial Key to the Tarot, Parte III,
+  /// sezione 7) per le posizioni della Croce Celtica, e dalle specifiche del
+  /// corpus del Cerchio per le altre.
+  static const Map<SpreadPosition, String> cosaDiceLaPosizione = {
+    SpreadPosition.passato: 'che cosa ha portato fin qui',
+    SpreadPosition.presente: 'che cosa è in gioco adesso',
+    SpreadPosition.futuro: 'dove va la situazione',
+    SpreadPosition.cartaSola: 'è la sola carta della stesa: risponde da sola '
+        'alla domanda',
+    SpreadPosition.consultante: 'chi domanda, e come sta davanti alla sua '
+        'questione',
+    SpreadPosition.lato: 'una forza che agisce di lato sulla questione, a '
+        'favore o contro',
+    SpreadPosition.esito: 'dove la questione tende ad arrivare',
+    SpreadPosition.copre: 'la forza che agisce sulla questione adesso',
+    SpreadPosition.attraversa: 'ciò che la incrocia e le si oppone',
+    SpreadPosition.corona: 'il meglio che la questione può raggiungere',
+    SpreadPosition.sotto: 'il fondamento, ciò su cui la questione poggia',
+    SpreadPosition.dietro: 'ciò che sta passando o è appena passato',
+    SpreadPosition.seStesso: 'come chi domanda vive la sua questione',
+    SpreadPosition.laCasa: 'l\'ambiente e le persone intorno alla questione',
+    SpreadPosition.speranzeOTimori: 'ciò che chi domanda spera o teme',
+  };
+
   /// I campi che il modello deve restituire, tutti obbligatori.
   static final Map<String, Schema> campi = {
     'risposta': Schema.string(),
@@ -283,13 +354,13 @@ abstract final class LaLetturaDellaStesa {
   static String istruzione(CourtesyForm forma,
           {ReadingKey chiave = ReadingKey.predittiva}) =>
       '''
-Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa di tre carte dei Tarocchi Rider-Waite, nelle posizioni passato, presente e futuro. Leggila in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
+Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa dei Tarocchi Rider-Waite: la richiesta ti dice quante carte, in quali posizioni e che cosa vuol dire ciascuna posizione. Leggila in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
 
 COME SI LEGGE:
 - RISPOSTA: due frasi. La prima risponde alla domanda in modo diretto: se chiede se una cosa accadrà o se farla, dice che cosa indicano le carte, sì, no o a quali condizioni; se chiede che cosa fare o come farlo, dice il gesto concreto da fare, con chi o quando, mai un atteggiamento; se la domanda è un argomento generale, dice in concreto che cosa le carte mostrano della sua situazione in quell'ambito. La seconda dice perché, partendo dalla carta chiave che ti indico. Un sì o un no si dice con la sua condizione e come lettura delle carte («le carte indicano di sì, se...», «le carte non mostrano un ritorno, finché...»), mai come un fatto certo o una promessa («non tornerà», «ce la farai»). Niente premesse, niente giochi di parole.
 - Di un'altra persona non dire mai che cosa pensa, che cosa sente, che cosa nasconde o che cosa farà come se fosse un fatto: di' che cosa le carte mostrano di quella situazione (un ritorno, un segreto, un rapporto) come un segno e non come una certezza; poi che cosa può fare chi domanda. Vale anche per ogni carta: ognuna dice che cosa mostra di quella situazione.
-- PASSATO, PRESENTE, FUTURO: per ciascuna carta due o tre frasi. Nomina la carta col suo nome. Parti dal suo significato tradizionale, che ti do: leggila nella sua posizione (che cosa ha portato fin qui, che cosa è in gioco adesso, dove va la situazione) e sempre rispetto alla domanda della persona. In ogni carta nomina con parole tue la cosa di cui parla la domanda (l'offerta, il rapporto, i soldi per la casa, l'amore, il momento che vive) e di' che cosa la carta indica su quella cosa: un testo che andrebbe bene per qualunque domanda non va bene. Il testo di ogni carta risponde anch'esso alla domanda, dal suo punto: che cosa ha portato fin qui, che cosa è in gioco adesso o dove va, proprio per quello che la persona ha chiesto.
-- LEGAME: una o due frasi su come le tre carte si legano fra loro: una causa, un passaggio, un contrasto.
+- LE CARTE: per ciascuna carta della stesa due o tre frasi, nel campo che la richiesta le assegna. Nomina la carta col suo nome. Parti dal suo significato tradizionale, che ti do: leggila nella sua posizione (la richiesta dice che cosa vuol dire; nella stesa a tre carte: che cosa ha portato fin qui, che cosa è in gioco adesso, dove va la situazione) e sempre rispetto alla domanda della persona. In ogni carta nomina con parole tue la cosa di cui parla la domanda (l'offerta, il rapporto, i soldi per la casa, l'amore, il momento che vive) e di' che cosa la carta indica su quella cosa: un testo che andrebbe bene per qualunque domanda non va bene. Il testo di ogni carta risponde anch'esso alla domanda, dal punto della sua posizione, proprio per quello che la persona ha chiesto.
+- LEGAME: una o due frasi su come le carte si legano fra loro: una causa, un passaggio, un contrasto. Se la carta è una sola, il legame dice come la carta si lega alla domanda.
 - CONSIGLIO: una frase sola, un passo concreto che la persona può fare, con un momento o un modo definiti.
 - TITOLO: da tre a otto parole, scritto dopo tutto il resto. È la risposta alla domanda detta a colpo d'occhio, come il titolo che si legge prima di ogni altra cosa: chi legge solo il titolo deve già sapere che cosa dicono le carte sulla sua domanda. Parla della persona o della sua situazione, mai in prima persona. Non nomina le carte, non finisce col punto, non ha i due punti e non è una domanda.
 - Niente frasi che andrebbero bene per qualunque stesa. Nessuna previsione data per certa, nessuna promessa su salute, denaro, leggi, gravidanza o morte. Niente cifre: i numeri si scrivono in lettere.
@@ -301,7 +372,7 @@ ${forma.agree(masculine: '', feminine: '', neutral: senzaGenere)}
 ${ConfineDelResponso.perIlModello}
 
 ${IlBloccoDiCortesia.perForma(forma)}${chiave.voce == null ? '' : '\n${chiave.voce}'}
-Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente", "futuro", "legame", "consiglio" e "titolo".''';
+Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni carta col nome che la richiesta le dà, poi "legame", "consiglio" e "titolo".''';
 
   /// **LE PAROLE DEL CONFINE, DETTE AL MODELLO.** Ordine EQ voce 04: la
   /// guardia a valle (`ConfineDelResponso`) scarta la frase rivolta alla
@@ -351,11 +422,26 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
       // risposta parte da lei, e la bolla che porta "LA CHIAVE" e' la stessa.
       'Carta chiave: ${TarotReading.chiaveDi(spread).drawn.displayName}',
     ];
-    for (final d in [spread.passato, spread.presente, spread.futuro]) {
+    // **LE CARTE DELLA STESA IN CORSO, nel suo ordine**, ordine FK aggiunta
+    // 2 voce A9: ogni carta col campo in cui va scritta e, fuori dalla stesa
+    // a tre carte, con quello che la sua posizione vuol dire.
+    final chiavi = chiaviPer(spread);
+    if (!spread.eATreCarte) {
+      righe.add('Stesa: ${spread.cards.length} '
+          '${spread.cards.length == 1 ? 'carta' : 'carte'}');
+    }
+    for (var i = 0; i < spread.cards.length; i++) {
+      final d = spread.cards[i];
       righe
         ..add('')
-        ..add('${d.position.label.toUpperCase()}: ${d.displayName}')
-        ..add('Significato tradizionale: ${d.meaning}');
+        ..add('${d.position.etichetta.toUpperCase()}: ${d.displayName}');
+      if (!spread.eATreCarte) {
+        righe
+          ..add('Campo: ${chiavi[i]}')
+          ..add('La posizione vuol dire: '
+              '${cosaDiceLaPosizione[d.position] ?? d.position.etichetta}');
+      }
+      righe.add('Significato tradizionale: ${d.meaning}');
       // **IL REGISTRO ARRIVA AL MODELLO, lo scheletro no** (ordine FI,
       // aggiunta A3; decisione dell'Architetto, ordine FJ voce 23). Il
       // registro dice di che cosa parla la carta nell'ambito della domanda
@@ -461,7 +547,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
                 argomento: argomento,
                 gruppo: gruppo,
                 scartataPerche: perQuesta),
-            campi,
+            campiPer(spread),
           ),
         ).timeout(resta);
       } catch (errore) {
@@ -472,7 +558,8 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         ultimiScarti.add(ultimoScarto!);
         break;
       }
-      final grezza = LetturaDelModello.daJson(_json(testo));
+      final grezza =
+          LetturaDelModello.daJson(_json(testo), chiavi: chiaviPer(spread));
       if (grezza == null) {
         scartataPerche = 'la risposta non porta tutti i pezzi';
         ultimoScarto = scartataPerche;
@@ -568,7 +655,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
       nuovi = nuovi.map((k, v) =>
           MapEntry(k, (v as String).replaceFirst(daRiscrivere[i], righe[i])));
     }
-    return LetturaDelModello.daJson(nuovi)?.ripulita();
+    return LetturaDelModello.daJson(nuovi, chiavi: l.chiavi)?.ripulita();
   }
 
   /// **LE FRASI COL GENERE SI TOLGONO**, ordine EQ voce 04: la regola di
@@ -588,23 +675,16 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
       return t.isEmpty ? null : t;
     }
 
-    final passato = senza(l.passato);
-    final presente = senza(l.presente);
-    final futuro = senza(l.futuro);
+    final carte = [for (final c in l.carte) senza(c)];
     final legame = senza(l.legame);
     final consiglio = senza(l.consiglio);
-    if (passato == null ||
-        presente == null ||
-        futuro == null ||
-        legame == null ||
-        consiglio == null) {
+    if (carte.any((c) => c == null) || legame == null || consiglio == null) {
       return null;
     }
     return LetturaDelModello(
       risposta: l.risposta,
-      passato: passato,
-      presente: presente,
-      futuro: futuro,
+      carte: [for (final c in carte) c!],
+      chiavi: l.chiavi,
       legame: legame,
       consiglio: consiglio,
       // Il titolo col genere non si cura: si toglie: parla quello di casa.
@@ -663,8 +743,9 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         return 'il titolo nomina ${d.card.name}';
       }
     }
-    for (final d in [spread.passato, spread.presente, spread.futuro]) {
-      final t = l.della(d.position);
+    for (var i = 0; i < spread.cards.length; i++) {
+      final d = spread.cards[i];
+      final t = l.dellaCarta(i);
       if (t.length > tettoDellaCarta) {
         return '${d.position.label} troppo lungo';
       }

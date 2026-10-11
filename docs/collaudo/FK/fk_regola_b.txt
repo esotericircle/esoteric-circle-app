@@ -143,3 +143,22 @@ ripristinato al byte: si
 innesto entrato (grep): si
 esito: ROSSA
 ripristinato al byte: si
+
+== AGGIUNTA 2 FK, Regola B prima della stesa di N carte
+-- la stesa: il presente letto dalla prima carta (lib/core/tarot/tarot_spread.dart; test/stesa_tre_carte_test.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la stesa in corso: completa con due carte (lib/core/tarot/stesa_in_corso.dart; test/la_carta_estratta_non_cambia_test.dart)
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+-- le stese: la carta sola aperta (lib/core/tarot/tarot_spread_type.dart; test/stesa_tre_carte_test.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la stesa in corso, secondo innesto: ogni carta al primo posto (lib/core/tarot/stesa_in_corso.dart; test/la_carta_che_esce_e_quella_toccata_test.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+(il primo innesto sulla stesa in corso era verde: quella prova non legge la completezza; rifatto su cio' che legge)

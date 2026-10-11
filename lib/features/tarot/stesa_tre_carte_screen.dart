@@ -37,6 +37,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../core/tarot/le_fonti_dei_tarocchi.dart';
+import 'il_tavolo_della_stesa.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
@@ -85,7 +86,12 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.skipIntro = false,
     this.chiamata,
     this.chiave,
+    this.tipo,
   });
+
+  /// **LA STESA DI PARTENZA**, ordine FK aggiunta 2: nulla, la stesa a tre
+  /// carte; le prove e le anteprime aprono un'altra stesa senza la tendina.
+  final TarotSpreadType? tipo;
 
   /// La chiave di lettura di partenza. Nulla, la Predittiva; le prove e le
   /// anteprime partono da un'altra chiave senza passare dalla tendina.
@@ -199,8 +205,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _cercaLaStesaConservata() async {
     if (widget.seed != null || widget.revealAll || _drawn > 0) return;
     final firma = _firma;
-    final carte =
-        await LaStesaConservata.ritrova(firma, TarotSpreadType.treCarte);
+    final carte = await LaStesaConservata.ritrova(firma, _setup.tipo);
     if (!mounted || carte == null || _drawn > 0 || firma != _firma) return;
     final uscite = await LaStesaConservata.usciteDi(firma);
     if (!mounted || _drawn > 0 || firma != _firma) return;
@@ -229,28 +234,29 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// carte escono dal mazzo residuo ed entrano nella stesa col verso che
   /// `StesaInCorso` gli da', che e' lo stesso dell'app vera.
   StesaInCorso _stesaIniziale() {
-    var stesa = StesaInCorso.nuova(mazzo: _mazzo, seme: _seme);
+    var stesa =
+        StesaInCorso.nuova(mazzo: _mazzo, seme: _seme, posizioni: _posizioni);
     if (!widget.revealAll) return stesa;
     // Con revealAll la stesa nasce gia' compiuta e non c'e' nessuna attesa da
     // aspettare: il responso e' pronto da subito.
     _responsoPronto = true;
     // Ordine BN voce 02: si assegnano le prime posizioni dell'arco, e non tre
     // volte la posizione zero, che dalla cura non esiste piu' dopo la prima.
-    for (var i = 0; i < SpreadPosition.treCarte.length; i++) {
-      stesa = stesa.assegna(SpreadPosition.treCarte[i], dalVentaglio: i);
+    for (var i = 0; i < _posizioni.length; i++) {
+      stesa = stesa.assegnaAlPosto(i, dalVentaglio: i);
     }
     return stesa;
   }
 
   /// Le carte gia' assegnate, per le parti della schermata che le leggono.
   TarotSpread get _spread => TarotSpread([
-        for (var i = 0; i < SpreadPosition.treCarte.length; i++)
+        for (var i = 0; i < _posizioni.length; i++)
           _stesa.assegnate[i] ??
               DrawnCard(
                 card: TarotDeck.cards[_stesa.mazzoResiduo.isEmpty
                     ? 0
                     : _stesa.mazzoResiduo[i % _stesa.mazzoResiduo.length]],
-                position: SpreadPosition.treCarte[i],
+                position: _posizioni[i],
                 reversed: false,
               ),
       ]);
@@ -545,7 +551,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   int _giroDellAttesa = 0;
 
   /// Quante carte sono gia' state pescate, da 0 a 3.
-  late int _drawn = widget.revealAll ? SpreadPosition.treCarte.length : 0;
+  late int _drawn = widget.revealAll ? _posizioni.length : 0;
 
   /// Quali carte del ventaglio sono gia' state prese.
   final Set<int> _taken = {};
@@ -555,8 +561,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   /// I selettori prima della stesa. Le voci non pronte restano Coming soon.
   late TarotSetup _setup = TarotSetup(
+      tipo: widget.tipo ?? TarotSpreadType.predefinita,
       topic: widget.topic ?? TarotTopic.predefinito,
       key: widget.chiave ?? ReadingKey.predittiva);
+
+  /// **LE POSIZIONI DELLA STESA SCELTA**, ordine FK aggiunta 2 voce A10: la
+  /// schermata stende quello che la stesa dichiara, non tre carte fisse.
+  /// LAPIDE: "SpreadPosition.treCarte" in quindici punti di questo file.
+  List<SpreadPosition> get _posizioni => _setup.tipo.posizioni;
 
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
@@ -790,7 +802,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
   DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
 
-  bool get _complete => _drawn >= SpreadPosition.treCarte.length;
+  bool get _complete => _drawn >= _posizioni.length;
 
   /// La scelta: la carta si stacca dal ventaglio, vola nel suo slot con una
   /// scia di stelle, poi il flip la gira sulla faccia.
@@ -835,8 +847,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // un'altra lista: gli indici slittavano a ogni presa, mischia e taglio
       // riordinavano il residuo sotto posizioni ferme, e oltre la lunghezza
       // si ripiegava sulla prima carta del mazzo.
-      _stesa =
-          _stesa.assegna(SpreadPosition.treCarte[slot], dalVentaglio: fanIndex);
+      // Il posto e non la posizione, ordine FK aggiunta 2 voce A8: i due
+      // `lato` della croce sono due posti.
+      _stesa = _stesa.assegnaAlPosto(slot, dalVentaglio: fanIndex);
       _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
@@ -1365,14 +1378,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             animation: _filo,
             builder: (context, _) => LayoutBuilder(
               builder: (context, vincoli) {
-                final larga = vincoli.maxWidth / SpreadPosition.treCarte.length;
+                // I centri dal tavolo, come le carte (ordine FK aggiunta 2
+                // voce A10).
+                final d = TavoloDellaStesa.disponi(
+                    _setup.tipo.tavolo, vincoli.maxWidth, _altezzaDellaCella,
+                    altezzaMassima: _altezzaDelTavolo);
                 return FiloFraLeCarte(
                   centri: [
-                    for (var i = 0; i < SpreadPosition.treCarte.length; i++)
-                      Offset(larga * (i + 0.5), vincoli.maxHeight * 0.42),
+                    for (final a in d.angoli)
+                      a + Offset(d.larghezza / 2, d.altezza * 0.42),
                   ],
-                  dallaChiave: SpreadPosition.treCarte
-                      .indexOf(_reading.chiave.drawn.position),
+                  dallaChiave: _postoDellaChiave,
                   avanzamento: _reduceMotion ? 0.5 : _filo.value,
                   palette: palette,
                 );
@@ -1384,55 +1400,71 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
+  /// **IL POSTO DELLA CARTA CHIAVE**, contato nella stesa: i due `lato`
+  /// della croce hanno la stessa posizione e due carte diverse.
+  int get _postoDellaChiave => _spread.cards
+      .indexWhere((c) => c.card.name == _reading.chiave.drawn.card.name);
+
+  /// **L'ALTEZZA DI UNA CELLA DEL TAVOLO**: lo spazio delle parole sopra la
+  /// carta, la carta, la distanza e l'etichetta, misurata col motore che la
+  /// dipinge alla larghezza della carta.
+  double _altezzaDellaCella(double larghezza) {
+    final testa = _responsoInScena ? _Slot.spazioDelleParole(larghezza) : 0.0;
+    // L'etichetta e' una riga sola, alta quanto il suo ruolo.
+    final etichetta = _Slot.altezzaDellEtichetta(context);
+    return testa +
+        larghezza / kTarotAspect +
+        _Slot.distanzaDellaScritta +
+        etichetta;
+  }
+
+  /// Il tavolo intero sta in poco meno di tre quarti dello schermo: le carte si vedono
+  /// tutte insieme, anche nella croce.
+  double get _altezzaDelTavolo => MediaQuery.sizeOf(context).height * 0.72;
+
   Widget _filaDelleCarte(MaestroPalette palette) {
-    return Row(
+    // **LE CARTE SUL TAVOLO DELLA STESA, ordine FK aggiunta 2 voce A10.**
+    // LAPIDE: "una Row di tre Expanded". La disposizione e' quella che la
+    // stesa dichiara in `tavolo`.
+    return TavoloDellaStesa(
       key: const Key('stesa_slots'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (var i = 0; i < SpreadPosition.treCarte.length; i++) ...[
-          Expanded(
-            child: _Slot(
-              position: SpreadPosition.treCarte[i],
-              drawn: i < _drawn ? _spread.cards[i] : null,
-              palette: palette,
-              // **LA CARTA SI APRE AL TOCCO, ordine BN voce 04.** Prima le
-              // carte estratte erano l'unica cosa della scena a non
-              // rispondere al dito: erano l'oggetto del rito e restavano mute.
-              // Si apre solo quando c'e' qualcosa da leggere, cioe' a responso
-              // pronto: prima non esiste ancora nessuna descrizione da
-              // mostrare, e un ingrandimento vuoto sarebbe una porta su niente.
-              onApri:
-                  _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
-              // **LA CHIAVE SI VEDE ANCHE NELLA STESA, ordine BN voce 05.**
-              // Prima lo dichiarava solo la sua bolla, piu' in basso: chi
-              // guardava le tre carte non sapeva quale delle tre reggesse la
-              // lettura. Il segno e' della STESSA famiglia visiva della bolla,
-              // cioe' l'oro pieno contro l'oro tenue, e non un secondo
-              // linguaggio inventato qui.
-              eLaChiave: _responsoInScena &&
-                  i < _drawn &&
-                  _reading.chiave.drawn.position == SpreadPosition.treCarte[i],
-              conIntestazione: _responsoInScena,
-              revealSpec: _revealSlot == i ? _revealSpec : null,
-              revealProgress: _revealSlot == i ? _reveal.value : 0,
-              // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
-              //
-              // Ordine P voce 05: il galleggiamento e l'inclinazione sono
-              // effetti d'ambiente, e mentre il mazzo si taglia diventavano un
-              // movimento che contraddice il senso del gesto. Le carte gia'
-              // estratte non partecipano, ed e' il modo visivo di dire cio' che
-              // la voce 04 dice nel dato.
-              tiltX: _tiltFermo?.dx ?? _tilt.x,
-              tiltY: _tiltFermo?.dy ?? _tilt.y,
-              galleggio: _reduceMotion
-                  ? 0
-                  : TiltListener.fluttuazioneDi(i, _galleggio.value),
-            ),
-          ),
-          if (i < SpreadPosition.treCarte.length - 1)
-            const SizedBox(width: SpacingTokens.xs),
-        ],
-      ],
+      posti: _setup.tipo.tavolo,
+      altezzaDellaCella: _altezzaDellaCella,
+      altezzaMassima: _altezzaDelTavolo,
+      carta: (context, i, larghezza) => _Slot(
+        position: _posizioni[i],
+        drawn: i < _drawn ? _spread.cards[i] : null,
+        palette: palette,
+        // **LA CARTA SI APRE AL TOCCO, ordine BN voce 04.** Prima le
+        // carte estratte erano l'unica cosa della scena a non
+        // rispondere al dito: erano l'oggetto del rito e restavano mute.
+        // Si apre solo quando c'e' qualcosa da leggere, cioe' a responso
+        // pronto: prima non esiste ancora nessuna descrizione da
+        // mostrare, e un ingrandimento vuoto sarebbe una porta su niente.
+        onApri: _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
+        // **LA CHIAVE SI VEDE ANCHE NELLA STESA, ordine BN voce 05.**
+        // Prima lo dichiarava solo la sua bolla, piu' in basso: chi
+        // guardava le tre carte non sapeva quale delle tre reggesse la
+        // lettura. Il segno e' della STESSA famiglia visiva della bolla,
+        // cioe' l'oro pieno contro l'oro tenue, e non un secondo
+        // linguaggio inventato qui.
+        eLaChiave: _responsoInScena && i < _drawn && i == _postoDellaChiave,
+        conIntestazione: _responsoInScena,
+        revealSpec: _revealSlot == i ? _revealSpec : null,
+        revealProgress: _revealSlot == i ? _reveal.value : 0,
+        // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
+        //
+        // Ordine P voce 05: il galleggiamento e l'inclinazione sono
+        // effetti d'ambiente, e mentre il mazzo si taglia diventavano un
+        // movimento che contraddice il senso del gesto. Le carte gia'
+        // estratte non partecipano, ed e' il modo visivo di dire cio' che
+        // la voce 04 dice nel dato.
+        tiltX: _tiltFermo?.dx ?? _tilt.x,
+        tiltY: _tiltFermo?.dy ?? _tilt.y,
+        galleggio: _reduceMotion
+            ? 0
+            : TiltListener.fluttuazioneDi(i, _galleggio.value),
+      ),
     );
   }
 
@@ -1506,7 +1538,22 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             aperto: _setupAperto,
             onToggle: () => setState(() => _setupAperto = !_setupAperto),
             onChanged: (s) {
-              setState(() => _setup = s);
+              setState(() {
+                // **UN'ALTRA STESA, ALTRI POSTI**, ordine FK aggiunta 2:
+                // finche' nessuna carta e' presa la stesa in corso rinasce
+                // con le posizioni della nuova; dopo, la stesa resta quella.
+                if (s.tipo != _setup.tipo) {
+                  if (_drawn == 0) {
+                    _stesa = StesaInCorso.nuova(
+                        mazzo: _mazzo,
+                        seme: _seme,
+                        posizioni: s.tipo.posizioni);
+                  } else {
+                    s = s.copyWith(tipo: _setup.tipo);
+                  }
+                }
+                _setup = s;
+              });
               unawaited(_cercaLaStesaConservata());
             },
             onLocked: _showComingSoon,
@@ -1577,7 +1624,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           Text(
             _drawn == 0
                 ? 'Scegli tre carte dal ventaglio'
-                : 'Scegli ancora ${SpreadPosition.treCarte.length - _drawn}',
+                : 'Scegli ancora ${_posizioni.length - _drawn}',
             key: const Key('stesa_prompt'),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta()
@@ -1955,7 +2002,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               letta: letta,
               palette: palette,
               // LA BOLLA CHIAVE E' UNA DI QUESTE TRE, ordine P voce 07.
-              perche: letta.drawn.position == _reading.chiave.drawn.position
+              perche: letta.drawn.card.name == _reading.chiave.drawn.card.name
                   ? _reading.chiave.perche
                   : null,
             ),
@@ -2127,6 +2174,20 @@ class _Slot extends StatelessWidget {
   /// prima, quando la sua scala si ritirava attorno al centro.
   static const double distanzaDellaScritta = SpacingTokens.md;
 
+  /// Quanto l'etichetta sotto la carta puo' allargarsi oltre la carta: fino
+  /// al posto vicino, che sul tavolo sta a 1,15 larghezze.
+  static const double larghezzaDellEtichetta = 1.6;
+
+  /// L'altezza della riga dell'etichetta, misurata col motore del testo.
+  static double altezzaDellEtichetta(BuildContext context) => (TextPainter(
+        text: TextSpan(
+            text: 'A',
+            style: TypographyTokens.etichetta().copyWith(letterSpacing: 1.2)),
+        textDirection: TextDirection.ltr,
+        textScaler: MediaQuery.textScalerOf(context),
+      )..layout())
+          .height;
+
   /// **LO SPAZIO DELLE PAROLE SOPRA LA CARTA CHIAVE**, per una colonna larga
   /// [larghezza]. Le parole sono alte quindici punti; la chiave, che cresce dal
   /// bordo basso, sale di un decimo della sua altezza; sei punti d'aria.
@@ -2179,35 +2240,46 @@ class _Slot extends StatelessWidget {
                     // parole del fondatore stesso: e' spegnere il ritorno a capo
                     // e lasciare che la scritta si rimpicciolisca quel tanto che
                     // serve a starci intera.
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text('Carta Chiave',
-                          key: Key('stesa_parole_chiave_${position.name}'),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          softWrap: false,
-                          // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
-                          // CO voce 08, 3 settembre 2026. Il fondatore:
-                          // "Carta Chiave e' azzurro su blu, non si legge".
-                          //
-                          // **Misurato, e aveva ragione**: `palette.glow` di
-                          // Medora sui fondi veri di questa schermata sta fra
-                          // 3,35 e 4,96 a uno, e la soglia per una lettera di
-                          // tredici punti e' 4,5. Nessuna guardia lo aveva
-                          // preso perche' nessuna stava guardando li': quella
-                          // dei grigi spazza i due token di TESTO grigi, e
-                          // l'accento del Maestro non e' un token di testo,
-                          // e' il colore degli aloni e dei bordi, dove la
-                          // soglia e' tre a uno. **Non c'era una guardia
-                          // cieca: c'era un insieme senza guardia**, e adesso
-                          // ce l'ha, gli_accenti_non_sono_inchiostro_test.
-                          //
-                          // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
-                          // con cui la bolla di questa stessa carta scrive
-                          // "LA CHIAVE" piu' in basso: due posti che dicono
-                          // la stessa cosa adesso la dicono nello stesso modo.
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 1.1)),
+                    //
+                    // **E PUO' USCIRE DI POCO DALLA CARTA**, ordine FK aggiunta
+                    // 2 voce A10: sul tavolo le tre carte sono un po' piu'
+                    // strette della fila di prima, e la scritta si era
+                    // rimpicciolita sotto la misura che la guardia sui pixel
+                    // pretende. Come l'etichetta sotto la carta, si allarga
+                    // fino a [larghezzaDellEtichetta] volte la carta.
+                    child: OverflowBox(
+                      maxWidth: vincoli.maxWidth * larghezzaDellEtichetta,
+                      alignment: Alignment.topCenter,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text('Carta Chiave',
+                            key: Key('stesa_parole_chiave_${position.name}'),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            softWrap: false,
+                            // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
+                            // CO voce 08, 3 settembre 2026. Il fondatore:
+                            // "Carta Chiave e' azzurro su blu, non si legge".
+                            //
+                            // **Misurato, e aveva ragione**: `palette.glow` di
+                            // Medora sui fondi veri di questa schermata sta fra
+                            // 3,35 e 4,96 a uno, e la soglia per una lettera di
+                            // tredici punti e' 4,5. Nessuna guardia lo aveva
+                            // preso perche' nessuna stava guardando li': quella
+                            // dei grigi spazza i due token di TESTO grigi, e
+                            // l'accento del Maestro non e' un token di testo,
+                            // e' il colore degli aloni e dei bordi, dove la
+                            // soglia e' tre a uno. **Non c'era una guardia
+                            // cieca: c'era un insieme senza guardia**, e adesso
+                            // ce l'ha, gli_accenti_non_sono_inchiostro_test.
+                            //
+                            // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
+                            // con cui la bolla di questa stessa carta scrive
+                            // "LA CHIAVE" piu' in basso: due posti che dicono
+                            // la stessa cosa adesso la dicono nello stesso modo.
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft, letterSpacing: 1.1)),
+                      ),
                     ),
                   )
                 : null,
@@ -2316,11 +2388,31 @@ class _Slot extends StatelessWidget {
           ),
         ),
         const SizedBox(height: distanzaDellaScritta),
-        Text(position.label.toUpperCase(),
-            key: Key('stesa_etichetta_${position.name}'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.etichetta()
-                .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
+        // **SU UNA RIGA, E PUO' USCIRE DI POCO DALLA CARTA.** Ordine FK
+        // aggiunta 2 voce A10, visto nelle anteprime della croce: con le
+        // carte strette perche' il tavolo stia in una schermata, "IL LATO"
+        // andava a capo lettera per lettera. L'etichetta resta intera su una
+        // riga e si allarga fino a [larghezzaDellEtichetta] volte la carta;
+        // oltre, scende di misura quanto serve.
+        LayoutBuilder(
+          builder: (context, vincoli) => SizedBox(
+            width: vincoli.maxWidth,
+            height: altezzaDellEtichetta(context),
+            child: OverflowBox(
+              maxWidth: vincoli.maxWidth * larghezzaDellEtichetta,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(position.etichetta.toUpperCase(),
+                    key: Key('stesa_etichetta_${position.name}'),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    softWrap: false,
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
+              ),
+            ),
+          ),
+        ),
         // IL NOME, IL VERSO E LA SINTESI NON STANNO PIU' QUI.
         //
         // **Ordine P voce 10.** Erano dentro la colonna della miniatura, larga
