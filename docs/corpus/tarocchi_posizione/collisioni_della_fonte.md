@@ -3,6 +3,49 @@
 Reperto dell'11 ottobre 2026. Materia: `lib/core/tarot/tarot_card.dart`, campi
 `uprightSummary`, `upright`, `reversedSummary`, `reversed`.
 
+## 0. AGGIORNAMENTO DELL'11 OTTOBRE 2026, SERA: sette delle dodici sono gia' corrette
+
+Questo reperto e' stato scritto confrontando i testi di posizione con una copia
+della fonte dei significati presa **prima** delle correzioni che Code ha poi
+spinto sul ramo. Al momento in cui questa sezione viene scritta, il confronto fra
+quella copia e `lib/core/tarot/tarot_card.dart` sul ramo canonico da'
+**ventidue carte-verso con la voce cambiata**, e sette di esse sono carte di
+questo reperto.
+
+**Le sette della lista che hanno gia' una voce nuova**: Cavaliere di Denari
+capovolta, Dieci di Coppe capovolta, Fante di Bastoni capovolta, Fante di Denari
+capovolta, Gli Amanti capovolta, Re di Coppe capovolta, Tre di Bastoni capovolta.
+Su queste il reperto ha gia' prodotto il suo effetto e non chiede altro.
+
+**Le cinque che restano senza cardine nella fonte**: Cinque di Bastoni capovolta,
+Due di Coppe capovolta, Il Mago capovolta, La Torre capovolta, Regina di Bastoni
+capovolta. Sono queste le voci su cui il reperto chiede ancora di intervenire.
+
+**Le altre quindici carte-verso con la voce cambiata**, che non stavano in questa
+lista: Cinque di Spade capovolta, Dieci di Denari capovolta, Dieci di Spade nei
+due versi, Due di Denari capovolta, Fante di Coppe capovolta, Fante di Denari
+dritta, Fante di Spade dritta, La Giustizia capovolta, Nove di Bastoni capovolta,
+Nove di Denari capovolta, Quattro di Bastoni capovolta, Quattro di Coppe dritta,
+Quattro di Denari dritta, Regina di Denari capovolta.
+
+**LA CONSEGUENZA SUI TESTI DI POSIZIONE, dichiarata perche' va sanata.** Le tre
+posizioni compilate finora, `lato.md`, `consultante.md` ed `esito.md`, sono state
+scritte sulla fonte precedente. Di conseguenza **sessantasei testi per posizione,
+centonovantotto in tutto, dicono cose che la voce nuova non dice piu'**. Non e'
+una sfumatura: il Tre di Bastoni capovolta diceva «l'attesa che pesa, arrivano
+ritardi» e dice ora «il ritorno diverso dall'atteso, le navi rientrano con un
+carico diverso», quindi i testi costruiti sul ritardo sono diventati falsi rispetto
+alla fonte. L'Architetto rifa' quei sessantasei gruppi sulle tre posizioni e li
+rispinge. I numeri di riconoscibilita' riportati nelle intestazioni delle tre
+posizioni restano quelli misurati sulla stesura precedente, e verranno rimisurati
+dopo il riallineamento.
+
+**La lezione di metodo, perche' si ripetera'.** La fonte dei significati e' viva e
+Code la corregge. Chi scrive testi di posizione deve rileggere la fonte dal ramo
+prima di cominciare, e non da una copia di lavoro: una copia vecchia produce testi
+corretti rispetto a niente. Il confronto si fa a macchina, voce per voce, e costa
+pochi secondi.
+
 ## 1. CHE COSA DICE QUESTO REPERTO, in una riga
 
 Alcune carte del mazzo **non sono distinguibili l'una dall'altra nella fonte dei

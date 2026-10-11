@@ -15,7 +15,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Cavaliere di Bastoni capovolta x1
 - **ruba i lettori a**: Fante di Bastoni capovolta x6, Cavaliere di Bastoni capovolta x5, La Stella capovolta x3, L'Imperatrice capovolta x3
-- voce vicina nella fonte: Cavaliere di Denari capovolta (0.11)
 
 ## Asso di Bastoni, dritta
 
@@ -72,7 +71,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Quattro di Denari capovolta x5 **su 2 posizioni**, Quattro di Spade capovolta x5 **su 3 posizioni**, Asso di Bastoni capovolta x2 **su 2 posizioni**, Sette di Denari capovolta x2
 - **ruba i lettori a**: Il Mago capovolta x1
-- voce vicina nella fonte: Asso di Bastoni capovolta (0.11)
 
 ## Cavaliere di Denari, dritta
 
@@ -153,13 +151,12 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 ## Dieci di Denari, capovolta
 
 - **perde i lettori verso**: Quattro di Bastoni capovolta x3 **su 2 posizioni**, Cinque di Denari dritta x2, Cinque di Denari capovolta x1, Quattro di Denari capovolta x1
-- voce vicina nella fonte: Dieci di Denari dritta (0.15), Quattro di Bastoni capovolta (0.14), Re di Denari capovolta (0.10)
 
 ## Dieci di Denari, dritta
 
 - **perde i lettori verso**: Re di Denari dritta x1
 - **ruba i lettori a**: Il Mondo dritta x1, Regina di Denari dritta x1, Dieci di Coppe dritta x1
-- voce vicina nella fonte: Dieci di Denari capovolta (0.15), Dieci di Coppe dritta (0.12)
+- voce vicina nella fonte: Dieci di Coppe dritta (0.12)
 
 ## Dieci di Spade, capovolta
 
@@ -190,25 +187,24 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Sei di Coppe dritta x1
 - **ruba i lettori a**: Cavaliere di Coppe dritta x4, Gli Amanti dritta x3, Cinque di Spade capovolta x2
-- voce vicina nella fonte: Quattro di Bastoni capovolta (0.11)
 
 ## Due di Denari, capovolta
 
 - **perde i lettori verso**: Dieci di Bastoni capovolta x4 **su 2 posizioni**, Sette di Denari capovolta x1, Due di Bastoni capovolta x1, Tre di Bastoni capovolta x1
 - **ruba i lettori a**: Gli Amanti capovolta x2, Due di Bastoni capovolta x2, Sei di Denari capovolta x1
-- voce vicina nella fonte: Due di Denari dritta (0.11)
+- voce vicina nella fonte: Due di Denari dritta (0.14)
 
 ## Due di Denari, dritta
 
 - **perde i lettori verso**: Otto di Denari dritta x2 **su 2 posizioni**, La Temperanza dritta x1, Cavaliere di Denari dritta x1
 - **ruba i lettori a**: Due di Spade dritta x1, Due di Bastoni dritta x1
-- voce vicina nella fonte: Due di Denari capovolta (0.11)
+- voce vicina nella fonte: Due di Denari capovolta (0.14)
 
 ## Due di Spade, capovolta
 
 - **perde i lettori verso**: Sette di Spade capovolta x1, Il Giudizio dritta x1, Il Giudizio capovolta x1, L'Appeso capovolta x1
 - **ruba i lettori a**: Gli Amanti capovolta x5, Cinque di Spade capovolta x1, La Giustizia capovolta x1, Asso di Spade dritta x1
-- voce vicina nella fonte: Gli Amanti capovolta (0.13), Sette di Spade capovolta (0.11)
+- voce vicina nella fonte: Sette di Spade capovolta (0.11)
 
 ## Due di Spade, dritta
 
@@ -219,6 +215,7 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Asso di Bastoni capovolta x6 **su 3 posizioni**, Due di Bastoni capovolta x4 **su 2 posizioni**, Cavaliere di Bastoni capovolta x2 **su 2 posizioni**, Sette di Bastoni capovolta x2
 - **ruba i lettori a**: Il Mago capovolta x3
+- voce vicina nella fonte: L'Appeso dritta (0.11)
 
 ## Fante di Bastoni, dritta
 
@@ -229,7 +226,7 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Regina di Coppe capovolta x11 **su 3 posizioni**, Regina di Spade capovolta x1, Re di Coppe capovolta x1, Asso di Coppe capovolta x1
 - **ruba i lettori a**: Cavaliere di Coppe capovolta x3
-- voce vicina nella fonte: Regina di Coppe dritta (0.13)
+- voce vicina nella fonte: Regina di Coppe dritta (0.11), Otto di Denari capovolta (0.10)
 
 ## Fante di Coppe, dritta
 
@@ -239,12 +236,13 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 ## Fante di Denari, capovolta
 
 - **perde i lettori verso**: Otto di Denari capovolta x9 **su 3 posizioni**, Otto di Bastoni capovolta x2, Due di Bastoni capovolta x1, Otto di Spade capovolta x1
-- voce vicina nella fonte: Quattro di Spade capovolta (0.11), Sei di Spade dritta (0.10), La Luna dritta (0.10)
+- voce vicina nella fonte: Fante di Denari dritta (0.14), Quattro di Bastoni capovolta (0.11)
 
 ## Fante di Denari, dritta
 
 - **perde i lettori verso**: Asso di Denari dritta x5 **su 3 posizioni**, Otto di Denari dritta x2, Sette di Denari dritta x1
 - **ruba i lettori a**: Fante di Bastoni dritta x2
+- voce vicina nella fonte: Otto di Denari dritta (0.14), Fante di Denari capovolta (0.14)
 
 ## Fante di Spade, capovolta
 
@@ -258,7 +256,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 ## Gli Amanti, capovolta
 
 - **perde i lettori verso**: Due di Spade capovolta x5 **su 2 posizioni**, Due di Coppe capovolta x4 **su 3 posizioni**, Due di Spade dritta x3 **su 2 posizioni**, Due di Denari capovolta x2
-- voce vicina nella fonte: Due di Spade capovolta (0.13)
 
 ## Gli Amanti, dritta
 
@@ -343,6 +340,10 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 - **perde i lettori verso**: Quattro di Spade capovolta x3 **su 3 posizioni**, Quattro di Coppe capovolta x1, Dieci di Spade capovolta x1
 - **ruba i lettori a**: Due di Spade capovolta x1
 
+## L'Appeso, dritta
+
+- voce vicina nella fonte: Fante di Bastoni capovolta (0.11)
+
 ## L'Eremita, dritta
 
 - **ruba i lettori a**: Regina di Spade capovolta x1
@@ -380,7 +381,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Sette di Spade capovolta x3, Sette di Spade dritta x2 **su 2 posizioni**, Dieci di Bastoni capovolta x2 **su 2 posizioni**, Due di Spade capovolta x1
 - **ruba i lettori a**: Il Giudizio capovolta x3, Re di Spade capovolta x3, Sei di Denari capovolta x2
-- voce vicina nella fonte: Sette di Spade dritta (0.14)
 
 ## La Giustizia, dritta
 
@@ -389,10 +389,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 ## La Luna, capovolta
 
 - **perde i lettori verso**: Nove di Spade capovolta x3
-
-## La Luna, dritta
-
-- voce vicina nella fonte: Fante di Denari capovolta (0.10)
 
 ## La Morte, capovolta
 
@@ -426,7 +422,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Il Carro capovolta x1, Due di Bastoni capovolta x1, Sette di Bastoni capovolta x1
 - **ruba i lettori a**: Re di Coppe capovolta x2
-- voce vicina nella fonte: Nove di Denari capovolta (0.10)
 
 ## La Temperanza, dritta
 
@@ -460,7 +455,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Quattro di Denari capovolta x8 **su 3 posizioni**, Asso di Denari capovolta x1, Sette di Denari dritta x1, Quattro di Denari dritta x1
 - **ruba i lettori a**: Regina di Denari capovolta x1, Regina di Bastoni capovolta x1, Cavaliere di Denari capovolta x1
-- voce vicina nella fonte: La Temperanza capovolta (0.10)
 
 ## Nove di Denari, dritta
 
@@ -495,11 +489,12 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Otto di Coppe dritta x1, Sei di Denari capovolta x1
 - **ruba i lettori a**: Fante di Denari capovolta x9, Tre di Bastoni capovolta x1, Il Mago capovolta x1, Tre di Bastoni dritta x1
-- voce vicina nella fonte: Il Matto capovolta (0.10)
+- voce vicina nella fonte: Fante di Coppe capovolta (0.10), Il Matto capovolta (0.10)
 
 ## Otto di Denari, dritta
 
 - **ruba i lettori a**: Due di Denari dritta x2, Fante di Denari dritta x2, Sei di Bastoni capovolta x1
+- voce vicina nella fonte: Fante di Denari dritta (0.14)
 
 ## Otto di Spade, capovolta
 
@@ -517,7 +512,7 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Tre di Coppe capovolta x1, Tre di Bastoni capovolta x1
 - **ruba i lettori a**: Dieci di Denari capovolta x3, Cavaliere di Denari capovolta x1, L'Imperatore capovolta x1
-- voce vicina nella fonte: Dieci di Denari capovolta (0.14), Due di Coppe dritta (0.11)
+- voce vicina nella fonte: Fante di Denari capovolta (0.11)
 
 ## Quattro di Bastoni, dritta
 
@@ -538,19 +533,18 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Re di Denari capovolta x1, Asso di Denari capovolta x1
 - **ruba i lettori a**: Nove di Denari capovolta x8, Cavaliere di Denari capovolta x5, Re di Denari capovolta x4, Sei di Bastoni capovolta x1
-- voce vicina nella fonte: Quattro di Denari dritta (0.12)
+- voce vicina nella fonte: Quattro di Denari dritta (0.10)
 
 ## Quattro di Denari, dritta
 
 - **perde i lettori verso**: Re di Denari dritta x1
 - **ruba i lettori a**: L'Imperatore dritta x4, Re di Denari capovolta x4, Nove di Denari dritta x2, Nove di Denari capovolta x1
-- voce vicina nella fonte: Quattro di Denari capovolta (0.12)
+- voce vicina nella fonte: Quattro di Denari capovolta (0.10)
 
 ## Quattro di Spade, capovolta
 
 - **perde i lettori verso**: Otto di Bastoni capovolta x1
 - **ruba i lettori a**: Regina di Spade capovolta x5, Cavaliere di Denari capovolta x5, L'Appeso capovolta x3, Nove di Bastoni capovolta x1
-- voce vicina nella fonte: Fante di Denari capovolta (0.11)
 
 ## Quattro di Spade, dritta
 
@@ -571,17 +565,18 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Regina di Coppe capovolta x11 **su 3 posizioni**, Asso di Coppe capovolta x3 **su 2 posizioni**, La Temperanza capovolta x2 **su 2 posizioni**, Cavaliere di Coppe capovolta x1
 - **ruba i lettori a**: Fante di Coppe capovolta x1
+- voce vicina nella fonte: Re di Coppe dritta (0.11)
 
 ## Re di Coppe, dritta
 
 - **perde i lettori verso**: Regina di Coppe dritta x8 **su 3 posizioni**
 - **ruba i lettori a**: Re di Spade dritta x3
+- voce vicina nella fonte: Re di Coppe capovolta (0.11)
 
 ## Re di Denari, capovolta
 
 - **perde i lettori verso**: Quattro di Denari capovolta x4 **su 2 posizioni**, Quattro di Denari dritta x4 **su 2 posizioni**, Regina di Denari capovolta x1
 - **ruba i lettori a**: L'Imperatore capovolta x1, Nove di Denari capovolta x1, Quattro di Denari capovolta x1
-- voce vicina nella fonte: Dieci di Denari capovolta (0.10)
 
 ## Re di Denari, dritta
 
@@ -615,7 +610,7 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Fante di Coppe dritta x1, La Papessa dritta x1
 - **ruba i lettori a**: Re di Coppe dritta x8
-- voce vicina nella fonte: Fante di Coppe capovolta (0.13)
+- voce vicina nella fonte: Fante di Coppe capovolta (0.11)
 
 ## Regina di Denari, capovolta
 
@@ -676,7 +671,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 ## Sei di Spade, dritta
 
 - **ruba i lettori a**: Cinque di Spade dritta x1, Otto di Coppe capovolta x1, Tre di Spade capovolta x1, Cinque di Coppe capovolta x1
-- voce vicina nella fonte: Fante di Denari capovolta (0.10)
 
 ## Sette di Bastoni, capovolta
 
@@ -717,7 +711,6 @@ Quando uno scambio compare **su piu di una posizione** e segnato: non e un caso 
 
 - **perde i lettori verso**: Cavaliere di Spade dritta x1, Cavaliere di Spade capovolta x1, Fante di Spade capovolta x1
 - **ruba i lettori a**: La Giustizia capovolta x2, Cinque di Bastoni capovolta x1, Cinque di Spade dritta x1
-- voce vicina nella fonte: La Giustizia capovolta (0.14)
 
 ## Tre di Bastoni, capovolta
 
