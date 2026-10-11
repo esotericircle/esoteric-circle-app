@@ -367,8 +367,9 @@ void main() {
     // aperte in attesa di verifica e 27 da fare.
     'FI': 50,
     // Ordine FJ, 11 ottobre 2026: le ventinove voci dell'ordine e le otto
-    // dell'aggiunta (FJ.30-FJ.37), contate coi titoli "## VOCE FJ.".
-    'FJ': 37,
+    // dell'aggiunta (FJ.30-FJ.37), contate coi titoli "## VOCE FJ."; piu' le
+    // sei dell'aggiunta 2 sul ferro di cavallo (FJ.38-FJ.43).
+    'FJ': 43,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

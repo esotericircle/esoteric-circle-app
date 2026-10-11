@@ -1,6 +1,6 @@
 # ORDINE FJ, IL LATO, I MAZZI, LA FONTE DEI SIGNIFICATI
 
-Il testo dell'Architetto come e' arrivato l'11 ottobre 2026, in tre pezzi (il primo in due messaggi), con l'aggiunta della stessa sera. Trascritto senza toccarlo.
+Il testo dell'Architetto come e' arrivato l'11 ottobre 2026, in tre pezzi (il primo in due messaggi), con l'aggiunta della stessa sera e l'aggiunta 2 sul ferro di cavallo. Trascritto senza toccarlo.
 
 ---
 
@@ -706,3 +706,126 @@ Oltre alle tredici voci del rapporto dell'ordine FJ:
     tre miei errori in un colpo e avevi ragione su tutti e tre: continua a farlo.
 
 # fine dell'aggiunta FJ
+
+---
+
+# ORDINE FJ, AGGIUNTA 2
+# Architetto, 11 ottobre 2026. Si legge insieme all'ordine FJ e alla sua prima
+# aggiunta, che restano validi.
+
+## FJ.B1 La stesa del ferro di cavallo si toglie
+
+FONTE: frase del fondatore in chat l'11 ottobre 2026: "Restiamo definitivamente con
+stesa singola, 3 carte, 4 carte e 10 carte", poi "Il ferro di cavallo va tolto" e
+infine, dopo una seconda verifica delle fonti, "resta il no".
+
+Restano quattro stese: una carta, tre carte, la croce a quattro della cartomante del
+Cerchio, la Croce Celtica.
+
+## FJ.B2 Perche' si toglie, e la ragione e' doppia
+
+FONTE: ricerca sulle fonti condotta dall'Architetto l'11 ottobre 2026, piu' la
+verifica indipendente della cartomante del Cerchio sullo stesso testo.
+
+Questa voce esiste perche' fra sei mesi qualcuno chiedera' perche' la stesa e'
+sparita, e deve trovare la ragione per intero invece di una mezza ragione.
+
+**Prima parte: il ferro di cavallo come sta nel codice oggi non ha paternita'.**
+Le sette posizioni che `tarot_spread_type.dart` gli assegna, cioe' passato,
+presente, futuro, consiglio, ambiente, ostacolo ed esito, non vengono da nessuna
+fonte. Verificato su quattro strade:
+
+- l'articolo Llewellyn che la insegna, tratto da *Tarot for Writers* di Corrine
+  Kenner, descrive le sette posizioni e **non da' nessuna origine, nessun autore e
+  nessuna data**;
+- Mathers, *The Tarot*, 1888, usa la forma a ferro di cavallo ma con **ventisei
+  carte** e **senza significato per posizione**: si leggono a coppie, la prima con
+  la ventiseiesima;
+- il manoscritto bolognese del Settecento attesta cinque mazzetti da sette, cioe'
+  una disposizione, non sette posizioni;
+- i siti che la insegnano si contraddicono fra loro sulle posizioni, che e' la firma
+  di una disposizione moderna.
+
+**Seconda parte, e senza questa la prima e' fuorviante: una stesa a sette carte
+documentata esiste, ed e' stata valutata e scartata per il costo.** E' il metodo
+rapido di Papus, in *The Tarot of the Bohemians*, traduzione inglese di A. P.
+Morton, 1892, capitolo XX, quinta lezione, sezione "I.-Rapid Process", pagine 322-324:
+quattro arcani minori dello stesso seme disposti in croce, con le posizioni inizio,
+culmine, ostacoli e declino, piu' tre arcani maggiori a triangolo con le influenze
+del passato, del presente e del futuro.
+
+E' stato scartato **non per mancanza di fonte ma per la meccanica**: il metodo vuole
+due estrazioni separate da due mazzi ridotti, quattro minori da un solo seme scelto
+secondo l'argomento della domanda e sette maggiori estratti a parte per usarne tre.
+L'app estrae da settantotto carte in blocco per tutte le stese, e quella meccanica
+sarebbe lavoro nuovo sul motore della stesa. Il fondatore ha deciso che non vale il
+tempo.
+
+**Quindi: il ferro di cavallo esce perche' non ha fonte, e non viene sostituito dal
+metodo di Papus perche' la sua meccanica costa piu' di quanto rende.** Se un domani
+il motore della stesa dovesse comunque cambiare, la stesa di Papus e' li' pronta,
+con la fonte verificata e le posizioni nominate, e le posizioni nuove che
+richiederebbe sarebbero tre: inizio, culmine, declino.
+
+## FJ.B3 Che cosa si toglie, e sono quattro cose
+
+FONTE: `lib/core/tarot/tarot_spread_type.dart` e
+`tool/genera_carte_nella_posizione.py` sul ramo, verificati oggi.
+
+1. **La stesa**, da `tarot_spread_type.dart`: la voce "Stesa del Ferro di Cavallo"
+   con le sue sette posizioni.
+2. **Le tre posizioni che restano orfane**, cioe' quelle che nessuna delle quattro
+   stese rimaste usa: `consiglio`, `ambiente`, `ostacolo`. Si tolgono da
+   `SpreadPosition`, dalla tabella `POSIZIONI` del tool e da
+   `lib/core/tarot/le_carte_nella_posizione_dati.dart`.
+3. **I tre file della fonte**: `docs/corpus/tarocchi_posizione/consiglio.md`,
+   `ambiente.md`, `ostacolo.md`.
+4. **Ogni riferimento** nelle guardie, nel manifesto e in STATO_VIVO.
+
+**Prima di togliere le tre posizioni, verifica di persona che nessuna delle quattro
+stese rimaste le usi.** Io ho letto che `consiglio`, `ambiente` e `ostacolo`
+comparivano solo nel ferro di cavallo, ma quella lettura e' mia e va confermata sul
+codice: se una di esse compare altrove, **non si tocca** e me lo dici.
+
+## FJ.B4 Che cosa NON si tocca
+
+Le quattordici posizioni che restano non si toccano. In particolare `esito`, che il
+ferro di cavallo usava ma che serve ancora alla croce a quattro e alla Croce
+Celtica, e `passato`, `presente` e `futuro`, che hanno gia' la variante 1 scritta.
+
+Nessun testo gia' scritto va perso: il ferro di cavallo non aveva nessuna posizione
+piena oltre a quelle tre, che restano.
+
+## FJ.B5 Il conto che ne esce, da scrivere nel manifesto
+
+FONTE: conteggio dell'Architetto sulle quattro stese rimaste.
+
+Le posizioni passano da diciassette a quattordici. Stato:
+
+- `lato`: **piena**, tre varianti, sul ramo da oggi col commit 65fceaa.
+- `passato`, `presente`, `futuro`: variante 1, mancano la 2 e la 3.
+- `consultante`, `esito`, `cartaSola`, `copre`, `attraversa`, `corona`, `sotto`,
+  `seStesso`, `laCasa`, `speranzeOTimori`: vuote.
+
+Quali stese si aprono e con che cosa:
+
+| stesa | che cosa aspetta | posizioni |
+|---|---|---|
+| tre carte | niente, e' gia' aperta | 0 |
+| una carta | `cartaSola` | 1 |
+| croce a quattro | `consultante` ed `esito`, perche' il lato e' fatto | 2 |
+| Croce Celtica | `copre`, `attraversa`, `corona`, `sotto`, `seStesso`, `laCasa`, `speranzeOTimori` piu' `esito` | 8 |
+
+Le prossime due che scrivo sono `consultante` ed `esito`, perche' aprono la croce a
+quattro.
+
+## FJ.B6 Il rapporto
+
+1. Se `consiglio`, `ambiente` e `ostacolo` comparivano davvero solo nel ferro di
+   cavallo, e dove le hai trovate.
+2. L'esito della suite intera dopo la rimozione, col totale e i rossi.
+3. Il manifesto aggiornato col conto di FJ.B5.
+4. Se questa aggiunta poggia su un fatto sbagliato. Hai gia' trovato tre miei errori
+   in un colpo e avevi ragione su tutti e tre: continua a farlo.
+
+# fine dell'aggiunta 2

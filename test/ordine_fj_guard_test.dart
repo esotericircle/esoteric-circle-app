@@ -1,8 +1,9 @@
 // LA GUARDIA DELL'ORDINE FJ, IL LATO, I MAZZI, LA FONTE DEI SIGNIFICATI.
 // 11 ottobre 2026.
 //
-// Il manifesto docs/ordini/ORDINE_FJ_MANIFESTO.md porta tutte e trentasette le
-// voci, le ventinove dell'ordine e le otto dell'aggiunta (FJ.30-FJ.37), ognuna
+// Il manifesto docs/ordini/ORDINE_FJ_MANIFESTO.md porta tutte e quarantatre le
+// voci, le ventinove dell'ordine, le otto dell'aggiunta (FJ.30-FJ.37) e le sei
+// dell'aggiunta 2 (FJ.38-FJ.43), ognuna
 // con uno stato solo (CHIUSA, APERTA IN ATTESA DI VERIFICA o DA FARE), e i
 // marcatori tornano coi conti. Le voci chiuse portano DOMANDA, PROVA e MISURA,
 // e le prove nominate esistono.
@@ -14,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FJ_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 37; i++) 'FJ.${i.toString().padLeft(2, '0')}',
+    for (var i = 1; i <= 43; i++) 'FJ.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {
@@ -25,7 +26,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le trentasette voci', () {
+  test('il manifesto esiste e porta tutte le quarantatre voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync().replaceAll('\r\n', '\n');
     final mancanti = [
@@ -34,7 +35,7 @@ void main() {
             .hasMatch(testo))
           v,
     ];
-    expect(voci, hasLength(37));
+    expect(voci, hasLength(43));
     expect(mancanti, isEmpty, reason: 'voci non nominate: $mancanti');
   });
 
@@ -50,9 +51,9 @@ void main() {
         in testo.split(RegExp(r'^## VOCE ', multiLine: true)).skip(1)) {
       final nome = v.split('\n').first;
       final c = RegExp(r'^\*\*CHIUSA\.\*\*', multiLine: true).hasMatch(v);
-      final a = RegExp(r'^\*\*APERTA IN ATTESA DI VERIFICA\.\*\*',
-              multiLine: true)
-          .hasMatch(v);
+      final a =
+          RegExp(r'^\*\*APERTA IN ATTESA DI VERIFICA\.\*\*', multiLine: true)
+              .hasMatch(v);
       final d = RegExp(r'^\*\*DA FARE\.\*\*', multiLine: true).hasMatch(v);
       if ([c, a, d].where((x) => x).length != 1) {
         storte.add('$nome: stati $c/$a/$d');
@@ -62,9 +63,8 @@ void main() {
         for (final campo in ['DOMANDA:', 'PROVA:', 'MISURA:']) {
           if (!v.contains('\n$campo ')) storte.add('$nome: manca $campo');
         }
-        final prova = RegExp(r'^PROVA:\s*(\S+)', multiLine: true)
-            .firstMatch(v)
-            ?.group(1);
+        final prova =
+            RegExp(r'^PROVA:\s*(\S+)', multiLine: true).firstMatch(v)?.group(1);
         if (prova != null && !File(prova).existsSync()) {
           storte.add('$nome: la prova $prova non esiste');
         }
@@ -76,6 +76,6 @@ void main() {
     expect([contateChiuse, contateAperte, contateDaFare],
         [chiuse, aperte, daFare]);
     expect(chiuse + aperte + daFare, totali);
-    expect(totali, 37);
+    expect(totali, 43);
   });
 }
