@@ -5,8 +5,8 @@ Testo dell'ordine: `docs/ordini/ORDINE_FJ_TESTO.md`. Rapporto: `docs/ordini/RAPP
 Le voci da FJ.01 a FJ.29 sono quelle dell'ordine; le otto dell'aggiunta, da FJ.A1 a FJ.A8, sono qui FJ.30-FJ.37; le sei dell'aggiunta 2, da FJ.B1 a FJ.B6, sono FJ.38-FJ.43. Il sigillo dei manifesti legge solo nomi con un numero. Dove un'aggiunta corregge l'ordine, vince l'aggiunta. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA.
 
 VOCI_TOTALI: 43
-VOCI_CHIUSE: 32
-VOCI_APERTE: 11
+VOCI_CHIUSE: 40
+VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 
 ## VOCE FJ.01
@@ -43,7 +43,7 @@ MISURA: file della fonte riscritti da `prepara` quando esistono 0 (crea solo i m
 
 ## VOCE FJ.05
 
-**APERTA IN ATTESA DI VERIFICA.** La rotazione sulle tre varianti vere del lato e' provata nella catena dell'app (docs/collaudo/FJ/rotazione_del_lato.txt: La Torre dritta e capovolta, tre uscite e tre testi diversi, alla quarta il primo) e la stesa riaperta nello stesso giorno non conta (la prova FI.18 dall'avvio vero). **A video non si puo' vedere**: il lato sta solo nella croce a quattro, che resta chiusa (FJ.07). Si guarda quando la croce si apre, o quando passato, presente e futuro hanno le varianti 2 e 3.
+**APERTA IN ATTESA DI VERIFICA.** La rotazione sulle tre varianti vere del lato e' provata nella catena dell'app (docs/collaudo/FJ/rotazione_del_lato.txt). **Dall'ordine FK la ragione e' cambiata**: la croce a quattro ha nel Dart la fonte di tutte e tre le sue posizioni (consultante, lato, esito, docs/collaudo/FK/il_dart_e_la_fonte.txt) e le manca soltanto la schermata che la stende (`costruita` falso). A video si vede quando la croce ha il suo tavolo, o quando passato, presente e futuro hanno le varianti 2 e 3.
 
 ## VOCE FJ.06
 
@@ -74,7 +74,11 @@ Una stesa si apre quando tutte le sue posizioni hanno la fonte (`TarotSpreadType
 
 ## VOCE FJ.08
 
-**APERTA IN ATTESA DI VERIFICA.** Vincolo rispettato da tutto cio' che quest'ordine ha toccato (la stesa a tre carte intatta, le stese nuove chiuse e senza ripiego sul verso, nessuna posizione scritta da un modello); si chiude a ordine finito.
+**CHIUSA.** Vincolo rispettato fino alla consegna, chiuso dall'ordine FK voce 26.
+
+DOMANDA: "La stesa a tre carte resta aperta e intatta. Le altre stese nuove restano chiuse e non mostrano il testo del verso al posto di quello della posizione. Nessuna delle tredici posizioni ancora vuote va riempita da un modello."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: stese nuove aperte 0 su 3; testi scritti da un modello 0; la stesa a tre carte disponibile prima e dopo
 
 ## VOCE FJ.09
 
@@ -102,11 +106,15 @@ MISURA: carte del Rider-Waite nel binario 79 su 79 (78 e il dorso), in WebP a 85
 
 ## VOCE FJ.12
 
-**APERTA IN ATTESA DI VERIFICA.** Prodotto e agganciato: il manifest e i file sul bucket (`tool/pubblica_i_mazzi.py`), il servizio che scarica solo alla scelta, con l'avanzamento, l'annullamento, l'impronta controllata e riscaricata una volta, la cartella di supporto che il sistema non svuota (`lib/core/tarot/i_mazzi_scaricati.dart`), il dialogo e la riga quando non riesce (`il_mazzo_si_scarica.dart`), la carta disegnata con le targhe, i nomi e i numeri del suo mazzo (`i_mazzi_dei_tarocchi.dart`, anteprima `docs/preview/prima_dopo/fj_i_tre_mazzi_dopo.png`). La guardia `i_mazzi_si_scaricano` e' rossa con quattro innesti. **Lettura pubblica**, la ragione nel rapporto. Manca lo sguardo sul telefono: il download vero dal bucket, e i cartigli del Marsiglia, che nella targa stretta in basso portano i nomi lunghi su due righe piccole.
+**APERTA IN ATTESA DI VERIFICA.** Prodotto e agganciato (servizio, manifest e file sul bucket, dialogo, carta col suo mazzo). Manca lo sguardo sul telefono, e dall'ordine FK il fondatore ha detto quando: "la Build quando ci saranno tutti i corpus di ogni posizione" (FK.33). I due punti da guardare restano: il download vero di un mazzo e i nomi lunghi del Marsiglia su due righe nella targa stretta (docs/preview/prima_dopo/fj_i_tre_mazzi_dopo.png). Il fondatore ha deciso anche di tenere i due mazzi fuori dall'APK (FK.31) e di non mettere Cloud CDN ne' R2 per ora (FK.32).
 
 ## VOCE FJ.13
 
-**APERTA IN ATTESA DI VERIFICA.** Il campo `piano` c'e' nel manifest (Marsiglia `iniziato`, Thoth `adepto`). La voce chiede di lasciare i mazzi aperti, ma il blocco per piano esiste gia', voluto dal fondatore con la matrice dell'ordine FI voce 32: l'ho lasciato, e la domanda va al fondatore con quella del prezzo in Eos.
+**CHIUSA.** Il blocco per piano dei mazzi resta quello della matrice, per decisione del fondatore (ordine FK voce 30).
+
+DOMANDA: "1 va bene la matrice attuale con limitazioni."
+PROVA: docs/ordini/ORDINE_FK_TESTO.md
+MISURA: mazzi con il blocco della matrice FI voce 32 2 su 2 (Marsiglia dall'Iniziato, Thoth dall'Adepto), prima e dopo; prezzo in Eos per chi non ha il piano: non deciso, nessuno inventato
 
 ## VOCE FJ.14
 
@@ -114,7 +122,7 @@ MISURA: carte del Rider-Waite nel binario 79 su 79 (78 e il dorso), in WebP a 85
 
 DOMANDA: "nessun testo puo' aggirare il difetto, perche' il difetto e' nel significato. Si corregge `carte.json`."
 PROVA: docs/collaudo/FJ/correzioni_della_fonte.md
-MISURA: voci corrette in `lib/core/tarot/tarot_card.dart` (la fonte vera, aggiunta A3) da 0 a 26 su 21 carte-verso; nomi di carte toccati 0
+MISURA: voci corrette in `lib/core/tarot/tarot_card.dart` (la fonte vera, aggiunta A3) da 0 a 26 su 22 carte-verso e 20 carte (il "21" di prima era un errore di conto, ordine FK voce 25); nomi di carte toccati 0
 
 ## VOCE FJ.15
 
@@ -126,7 +134,7 @@ MISURA: modifiche con carta, verso, prima, dopo e gemelle scritte 26 su 26; fras
 
 ## VOCE FJ.16
 
-**APERTA IN ATTESA DI VERIFICA.** Le tredici collisioni corrette nella fonte (docs/collaudo/FJ/correzioni_della_fonte.md). Sulla misura che si puo' fare a macchina, le radici rare in comune, le coppie di FJ.16 sopra 5,0 passano da 7 su 23 a 0 (docs/collaudo/FJ/la_fonte_prima_e_dopo.txt); ma 9 delle 23 coppie avevano zero radici rare in comune gia' prima, perche' sono collisioni di sinonimi, e per quelle la sola verifica e' un lettore che riconosce la carta senza il nome: la prova appaiata dell'Architetto sulla prossima ondata.
+**APERTA IN ATTESA DI VERIFICA.** Le tredici collisioni di FJ.16 sono corrette nella fonte, e dall'ordine FK anche le nuove di FK.17 e FK.18 (L'Imperatrice e la Regina di Denari, il Sole e la Regina di Bastoni) e le tre voci senza cardine di FK.19 (docs/collaudo/FK/correzioni_della_fonte.md). La ragione resta la stessa: le collisioni di sinonimi le verifica solo un lettore che riconosce la carta senza il nome, cioe' la prossima prova appaiata dell'Architetto.
 
 ## VOCE FJ.17
 
@@ -202,19 +210,35 @@ MISURA: punti dove sta la decisione 1, il commento che accompagna la riga del re
 
 ## VOCE FJ.26
 
-**APERTA IN ATTESA DI VERIFICA.** Vincolo: controlla3.py non e' nel ramo e non e' usato; si chiude a ordine finito.
+**CHIUSA.** Vincolo rispettato per tutto l'ordine FJ, chiuso a ordine finito dall'ordine FK voce 26.
+
+DOMANDA: "controlla3.py e' il mio metro, non il tuo tool, e non sta nel ramo."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: violazioni del vincolo durante l'ordine FJ 0
 
 ## VOCE FJ.27
 
-**APERTA IN ATTESA DI VERIFICA.** Vincolo: nessun gruppo riscritto prima della fonte; si chiude a ordine finito.
+**CHIUSA.** Vincolo rispettato per tutto l'ordine FJ, chiuso a ordine finito dall'ordine FK voce 26.
+
+DOMANDA: "Prima si corregge la fonte, poi si riscrive."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: violazioni del vincolo durante l'ordine FJ 0
 
 ## VOCE FJ.28
 
-**APERTA IN ATTESA DI VERIFICA.** Vincolo: nessuna posizione scritta da un modello; si chiude a ordine finito.
+**CHIUSA.** Vincolo rispettato per tutto l'ordine FJ, chiuso a ordine finito dall'ordine FK voce 26.
+
+DOMANDA: "Le tredici posizioni ancora vuote e le varianti 2 e 3 di passato, presente e futuro aspettano me. Nessuna di esse va generata."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: violazioni del vincolo durante l'ordine FJ 0
 
 ## VOCE FJ.29
 
-**APERTA IN ATTESA DI VERIFICA.** Vincolo: nessuna build ordinata; si chiude a ordine finito.
+**CHIUSA.** Vincolo rispettato per tutto l'ordine FJ, chiuso a ordine finito dall'ordine FK voce 26.
+
+DOMANDA: "La build la ordina lui."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: violazioni del vincolo durante l'ordine FJ 0
 
 ## VOCE FJ.30
 
@@ -258,11 +282,19 @@ MISURA: voci ritirate 1 (FJ.21), collisioni ricostruite 0
 
 ## VOCE FJ.35
 
-**APERTA IN ATTESA DI VERIFICA.** (FJ.A6) La guardia c'e' (`test/la_fonte_dei_significati_non_si_confonde_test.dart`), non esisteva prima, e cade con tre innesti su tre. **Ma la soglia che l'aggiunta chiede non esiste**: nessuna misura lessicale cade sulle tredici collisioni e non sul resto (Jaccard: le collisioni fra 0 e 0,18, altre coppie a 0,22, mediana 0; radici rare: 9 coppie su 23 a zero, mentre in cima alle altre stanno coppie che sembrano collisioni vere). La guardia regge tre regole che si possono misurare: le coppie note sotto 5,0, nessuna frase di sei parole in comune, nessuna coppia sopra il massimo di oggi. La scelta della grandezza e' dell'Architetto: i numeri nel rapporto.
+**CHIUSA.** (FJ.A6) La grandezza della guardia sulla fonte l'ha decisa Code, ordine FK voce 10.
+
+DOMANDA: "La scelta della grandezza è dell'Architetto: i numeri nel rapporto"
+PROVA: test/la_fonte_dei_significati_non_si_confonde_test.dart
+MISURA: regole della guardia 3 (radici rare per le coppie note, frase di sei parole, tetto delle altre coppie); coppie note da 28 a 37, con le nove trovate leggendo dall'ordine FK; coppie note sopra 5,0: 0
 
 ## VOCE FJ.36
 
-**APERTA IN ATTESA DI VERIFICA.** (FJ.A7) L'ordine di esecuzione: Parte 1, FJ.10, FJ.23, Parte 3 con la guardia, poi Parte 2 e l'aggiunta 2. Si chiude a ordine finito.
+**CHIUSA.** (FJ.A7) L'ordine di esecuzione rispettato fino alla consegna, chiuso dall'ordine FK voce 26.
+
+DOMANDA: "viene prima quello che sblocca il lavoro di altri, poi quello che e' soltanto lungo."
+PROVA: docs/ordini/RAPPORTO_ORDINE_FJ.md
+MISURA: parti eseguite nell'ordine dell'aggiunta 5 su 5 (Parte 1, FJ.10, FJ.23, Parte 3 con la guardia, Parte 2)
 
 ## VOCE FJ.37
 

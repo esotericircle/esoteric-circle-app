@@ -1,6 +1,6 @@
 # La mappa delle gemelle: dove sta il confine di ogni carta
 
-Per ogni carta e verso: le carte con cui i lettori ciechi la hanno scambiata davvero, e le carte la cui voce nella fonte dei significati le somiglia. **Le gemelle non dipendono dalla posizione**: dipendono dalla fonte, che e la stessa per tutte e diciassette. Chi scrive una posizione nuova traccia il confine qui, prima di scrivere.
+Per ogni carta e verso: le carte con cui i lettori ciechi la hanno scambiata davvero, e le carte la cui voce nella fonte dei significati le somiglia. **Le gemelle non dipendono dalla posizione**: dipendono dalla fonte, che e la stessa per tutte e quindici (diciassette fino all'ordine FJ, aggiunta 2; quattordici fino all'ordine FK, che ha aggiunto `dietro`). Chi scrive una posizione nuova traccia il confine qui, prima di scrivere.
 
 Lo scambio osservato e il dato forte: viene da trentasei lettori su tre prove appaiate, cioe tre posizioni diverse. La somiglianza della fonte e il dato di copertura: prende anche le carte che nessuno ha scambiato per caso.
 

@@ -370,6 +370,9 @@ void main() {
     // dell'aggiunta (FJ.30-FJ.37), contate coi titoli "## VOCE FJ."; piu' le
     // sei dell'aggiunta 2 sul ferro di cavallo (FJ.38-FJ.43).
     'FJ': 43,
+    // Ordine FK, 11 ottobre 2026: le trentasei voci, contate coi titoli
+    // "## VOCE FK." del manifesto.
+    'FK': 36,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

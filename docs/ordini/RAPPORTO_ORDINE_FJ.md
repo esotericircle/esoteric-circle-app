@@ -94,3 +94,7 @@ Aperte in attesa di verifica, con la ragione nel manifesto: FJ.05 (la rotazione 
 **4.** Un fatto sbagliato nell'aggiunta: la tabella di FJ.B5 dice che la carta sola aspetta solo `cartaSola` e la croce a quattro `consultante` ed `esito`. Per i testi e' cosi', ma nessuna delle tre stese si apre con le sole ondate: `costruita` e' falso per tutte e tre, e una stesa si apre solo se la schermata la sa stendere.
 
 **Aggiunta del 11 ottobre 2026, ordine FJ, le voci chiuse alla consegna**: FJ.03, la suite intera, con la prova docs/collaudo/FJ/la_suite_finale.txt (+7098 -1 sul commit 6ac63e99, e il rosso era la registrazione di questo rapporto); FJ.37 e FJ.43, i due rapporti, con la prova docs/ordini/RAPPORTO_ORDINE_FJ.md.
+
+**Aggiunta del 11 ottobre 2026, ordine FK, le voci chiuse dopo la consegna (FK.26)**: FJ.08, FJ.26, FJ.27, FJ.28, FJ.29 e FJ.36, i vincoli chiusi a ordine finito, con la prova docs/ordini/RAPPORTO_ORDINE_FJ.md; FJ.13, il blocco dei mazzi per piano deciso dal fondatore, con la prova docs/ordini/ORDINE_FK_TESTO.md; FJ.35, la grandezza della guardia decisa da Code, con la prova test/la_fonte_dei_significati_non_si_confonde_test.dart. Restano aperte FJ.05, FJ.12 e FJ.16, con la ragione nel manifesto.
+
+**Aggiunta del 11 ottobre 2026, ordine FK, la correzione di un conto (FK.25)**: il punto 10 scrive "Le 21 carte-verso", ma l'elenco dello stesso punto ne nomina 22, e contate su docs/collaudo/FJ/correzioni_della_fonte.md le 26 correzioni toccano 22 carte-verso e 20 carte. Padre: ordine FJ, il mio conto alla consegna.
