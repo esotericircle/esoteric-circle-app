@@ -731,7 +731,7 @@ capovolta.
 
 - 1: Un'offerta viene portata con cerimonia da chi si avvicina, oppure la tendi tu con la stessa grazia: i modi valgono quanto il contenuto e la risposta non è stata data.
 - 2: Il corteggiamento è un mestiere di avvicinamento: qualcuno si muove verso qualcun altro senza fretta, porge quello che ha e aspetta. Il sentimento precede la ragione e lo vedi nelle maniere.
-- 3: Chi si avvicina mette la grazia davanti a tutto: il romanticismo lavora sulla cerimonia, sul tempo concesso all'altro e sulla cura con cui una cosa ti viene tesa senza essere imposta.
+- 3: Chi si avvicina mette la grazia davanti a tutto: il romanticismo lavora sulla cerimonia, sul tempo concesso all'altro e sulla cura con cui una cosa ti viene tesa senza forzare la mano.
 
 ### capovolta
 
