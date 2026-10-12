@@ -46,7 +46,7 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.sotto: 3,
   SpreadPosition.dietro: 0,
   SpreadPosition.seStesso: 0,
-  SpreadPosition.laCasa: 0,
+  SpreadPosition.laCasa: 3,
   SpreadPosition.speranzeOTimori: 0,
 };
 
