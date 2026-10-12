@@ -1,0 +1,9 @@
+Build 2306, ordine FM e le sue due aggiunte (12 ottobre 2026).
+
+Corpus posizionale dei tarocchi: i 3.276 testi mancanti (otto posizioni) scritti da Code, con il controllo della seconda persona e lo schedario per ogni posizione.
+
+Doni del giorno: il Sigillo del Sogno dirada solo con l'aria vera (non piu' con musica o rumore di fondo), il Soffio del Destino un poco piu' sensibile.
+
+Real Time Cosmo eliminato dal menu utente: le sue tre funzioni ora vivono al loro posto naturale. "Il cielo di adesso" si apre toccando la luna in home, con il pulsante "Attiva macchina del tempo" per passare al cielo di un altro momento. Il Cosmic Passport e l'onboarding mostrano il cielo della tua nascita.
+
+Il tavolo di Medora: le carte appoggiate sono piu' grandi, quasi quanto il velluto lo permette. La Croce Celtica in piedi (quando sara' sbloccata) e la croce a quattro in piedi mantengono la loro figura, su righe bilanciate di al piu' quattro carte. La distanza fra carta e didascalia e' stata ridotta, e le carte in piedi fluttuano leggermente senza mai toccare la propria scritta sotto. La Croce Celtica segue l'ordine di Waite 1911 (il dietro e il davanti nel verso giusto).
