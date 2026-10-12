@@ -34,7 +34,7 @@ import 'cardinale_minimo.dart';
 /// arriva un'ondata, il numero di quella posizione passa a 3.
 const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.passato: 3,
-  SpreadPosition.presente: 1,
+  SpreadPosition.presente: 3,
   SpreadPosition.futuro: 3,
   SpreadPosition.cartaSola: 3,
   SpreadPosition.consultante: 3,
