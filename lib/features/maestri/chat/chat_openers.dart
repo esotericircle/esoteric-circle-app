@@ -134,6 +134,17 @@ class ChatOpeners {
         'situazione?';
   }
 
+  /// Da una singola bolla della Stesa verso Medora, con l'etichetta della
+  /// posizione e la carta che vi e' uscita.
+  ///
+  /// **Le virgolette, non la preposizione articolata.** Le posizioni vanno
+  /// da "Passato" a "La tua casa" a "Ciò che attraversa": un "per il", "per
+  /// la" o "per ciò" scritto a mano romperebbe l'accordo su meta' di loro.
+  /// Le caporali, come in [consiglio], valgono per qualunque etichetta.
+  static String cartaDellaStesa(String etichettaPosizione, String cartaColVerso) =>
+      'Nella mia stesa, su «$etichettaPosizione» è uscita $cartaColVerso. '
+      'Vorrei capirne di più con te.';
+
   /// Dalla Sinastria verso Medora, col nome del VIP e la percentuale.
   static String sinastria(String nome, int punteggio) =>
       'La mia sinastria con $nome dice $punteggio per cento. Cosa ci lega '
