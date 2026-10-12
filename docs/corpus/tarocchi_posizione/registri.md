@@ -11,6 +11,9 @@ dall'Architetto, ordine FI, aggiunta A1 e A4), seguendo `schedario_registri.md`.
 gruppo e' pieno in tutte le 156 carte-verso o vuoto in tutte, e i registri
 valgono solo coi tre gruppi pieni: a meta', il tool si ferma.
 
+**I tre gruppi vengono dall'ordine FM del 12 ottobre 2026**, scritti da Code dopo
+lo schedario `schedario_registri.md`, fra 60 e 220 caratteri ciascuno.
+
 **Come si tocca.** Si riempie qui, poi si rilancia
 `python tool/genera_carte_nella_posizione.py`.
 

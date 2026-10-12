@@ -1,0 +1,10 @@
+GIRO 2
+passato: 10 su 10 PASSA
+presente: 10 su 10 PASSA
+futuro: 10 su 10 PASSA
+se_stesso: 10 su 10 PASSA
+la_casa: 10 su 10 PASSA
+speranze_o_timori: 10 su 10 PASSA
+dietro: 10 su 10 PASSA
+registri: 10 su 10 PASSA
+sbagliati: 

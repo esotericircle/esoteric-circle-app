@@ -24,3 +24,12 @@ ripristinato al byte: si
 innesto entrato (grep): si
 esito: ROSSA
 ripristinato al byte: si
+
+== ordine_fm_guard: il marcatore delle chiuse alzato
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== ordine_fm_guard: una voce rinominata
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

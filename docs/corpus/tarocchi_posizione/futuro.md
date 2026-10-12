@@ -9,6 +9,10 @@ stesso scheletro, `- 1:`, `- 2:`, `- 3:`, scritte da Code dall'ordine FM del 12 
 variante e' piena in tutte le 156 carte-verso o vuota in tutte: a meta', il
 tool si ferma e nomina le righe che mancano.
 
+**Le varianti 2 e 3 vengono dall'ordine FM del 12 ottobre 2026**, scritte da Code
+dopo lo schedario `schedario_futuro.md` e passate testo per testo dai controlli
+dello strumento con `tool/riempi_la_posizione.py`; la variante 1 resta com'era.
+
 **Regole dei testi** (voce FI.23, le stesse del corpus del 27 settembre):
 una o due frasi fra 110 e 280 caratteri, rivolte alla persona col tu. Ne' il
 nome della carta ne' il suo verso. Nessuna parola che dia un genere a chi

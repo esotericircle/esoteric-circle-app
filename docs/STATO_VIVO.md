@@ -6824,20 +6824,20 @@ Questa sezione esiste perche' **quattro commit sul corpus posizionale sono stati
 | `consultante.md` | consultante | 468 | **468** | completa, tre varianti |
 | `esito.md` | esito | 468 | **468** | completa, tre varianti |
 | `lato.md` | lato | 468 | **468** | completa, tre varianti |
-| `passato.md` | passato | 468 | 156 | parziale, solo la variante 1 |
-| `presente.md` | presente | 468 | 156 | parziale, solo la variante 1 |
-| `futuro.md` | futuro | 468 | 156 | parziale, solo la variante 1 |
+| `passato.md` | passato | 468 | **468** | completa dall'ordine FM: la variante 1 del 27 settembre, la 2 e la 3 scritte da Code dopo `schedario_passato.md` |
+| `presente.md` | presente | 468 | **468** | completa dall'ordine FM: la variante 1 del 27 settembre, la 2 e la 3 scritte da Code dopo `schedario_presente.md` |
+| `futuro.md` | futuro | 468 | **468** | completa dall'ordine FM: la variante 1 del 27 settembre, la 2 e la 3 scritte da Code dopo `schedario_futuro.md` |
 | `attraversa.md` | attraversa | 468 | **468** | completa, tre varianti, dal commit `394e9c5` (66,2 per cento in prova cieca) |
 | `copre.md` | copre | 468 | **468** | completa, tre varianti, dal commit `394e9c5` (59,4 per cento in prova cieca; 85,9 la carta sola nello stesso giro) |
 | `corona.md` | corona | 468 | **468** | completa, tre varianti, dal commit `394e9c5` (non misurata; 117 accenti con l'apostrofo resi veri dall'ordine FK) |
-| `la_casa.md` | laCasa | 468 | 0 | vuota |
-| `se_stesso.md` | seStesso | 468 | 0 | vuota |
+| `la_casa.md` | laCasa | 468 | **468** | completa dall'ordine FM, scritta da Code dopo `schedario_la_casa.md` |
+| `se_stesso.md` | seStesso | 468 | **468** | completa dall'ordine FM, scritta da Code dopo `schedario_se_stesso.md` |
 | `sotto.md` | sotto | 468 | **468** | completa, tre varianti, dal commit `394e9c5` (non misurata in prova cieca) |
-| `dietro.md` | dietro | 468 | 0 | vuota, dall'ordine FK voce 8 |
-| `speranze_o_timori.md` | speranzeOTimori | 468 | 0 | vuota |
-| `registri.md` | i tre gruppi, tutte le posizioni | 468 | 0 | vuoto |
+| `dietro.md` | dietro | 468 | **468** | completa dall'ordine FM, scritta da Code dopo `schedario_dietro.md` (era vuota dall'ordine FK voce 8) |
+| `speranze_o_timori.md` | speranzeOTimori | 468 | **468** | completa dall'ordine FM, scritta da Code dopo `schedario_speranze_o_timori.md` |
+| `registri.md` | i tre gruppi, tutte le posizioni | 468 | **468** | completo dall'ordine FM, scritto da Code dopo `schedario_registri.md` |
 
-  Nei tre file parziali la variante piena e' la 1 e le varianti 2 e 3 sono a zero in tutte e 156 le carte-verso (`grep -cP '^- 2: *\S'` e `^- 3:` danno 0): e' la regola del tool, una variante e' piena in tutte le carte-verso o vuota in tutte. **Totale della fonte: 2.340 testi su 6.552**, cioe' quattro posizioni complete (1.872) piu' tre a una variante (468). Sette posizioni su quattordici non hanno ancora un solo testo; dall'ordine FK otto su quindici, con `dietro`, e il totale e' 2.340 su 7.020. **Dalla seconda aggiunta dell'ordine FK** le posizioni complete sono otto, quelle a una variante tre, quelle vuote quattro (`dietro`, `seStesso`, `laCasa`, `speranzeOTimori`, tutte e quattro della sola Croce Celtica), e il totale e' **4.212 su 7.020**. I registri sono 0 su 468, quindi `registriDelleCarte` resta la mappa vuota.
+  Nei tre file parziali la variante piena e' la 1 e le varianti 2 e 3 sono a zero in tutte e 156 le carte-verso (`grep -cP '^- 2: *\S'` e `^- 3:` danno 0): e' la regola del tool, una variante e' piena in tutte le carte-verso o vuota in tutte. **Totale della fonte: 2.340 testi su 6.552**, cioe' quattro posizioni complete (1.872) piu' tre a una variante (468). Sette posizioni su quattordici non hanno ancora un solo testo; dall'ordine FK otto su quindici, con `dietro`, e il totale e' 2.340 su 7.020. **Dalla seconda aggiunta dell'ordine FK** le posizioni complete sono otto, quelle a una variante tre, quelle vuote quattro (`dietro`, `seStesso`, `laCasa`, `speranzeOTimori`, tutte e quattro della sola Croce Celtica), e il totale e' **4.212 su 7.020**. I registri sono 0 su 468, quindi `registriDelleCarte` resta la mappa vuota. **Dall'ordine FM** (12 ottobre 2026) le quindici posizioni sono complete, **7.020 su 7.020**, e i registri **468 su 468**: `registriDelleCarte` porta i tre gruppi.
 
 - **`dietro` ha la sua posizione dall'ordine FK voce 8; `davanti` resta il futuro.** La decisione e' di Code (ordine FK, Parte 2): la glossa vera di Waite per la quinta carta nomina due stati, *"the influence that is just passed, or is now passing away"*, che il passato della stesa a tre carte non regge, e il confine con la quarta carta, il fondamento, e' il piu' costoso della stesa; la sesta, *"the influence that is coming into action and will operate in the near future"*, e' il futuro. Costo: 468 testi, non 936. **Lo stato fino all'ordine FK, che resta come verbale:** le posizioni `dietro` e `davanti` della Croce Celtica non esistevano e non avevano file propri, erano il passato e il futuro. Verificato in tre punti: `lib/core/tarot/tarot_spread.dart` riga 19, *"La quinta e la sesta carta di Waite, il dietro e il davanti, sono il passato e il futuro"*, con le formule di Waite ("this is behind him", "this is before him") citate sopra; `lib/core/tarot/tarot_spread_type.dart` righe 95 e 96, lo stesso commento sopra l'elenco; e l'elenco stesso di `dieciCarte`, che al quinto e al sesto posto mette `SpreadPosition.passato` e `SpreadPosition.futuro`. Nessun file `dietro.md` ne' `davanti.md` esiste nella cartella, ne' deve esistere: quelle due carte della Croce Celtica leggono il corpus di `passato` e di `futuro`, che oggi porta una variante sola.
 
@@ -6904,6 +6904,14 @@ La verifica e' stata fatta **due volte**: una da un agente di ricerca e una dal 
 - **La carta chiave** e' grande come le altre (scale 1,0 e 1,0, erano 1,10 e 0,86) e ha un orlo di luce di 14 punti sui quattro lati (`LuceDellaChiave`, anelli concentrici).
 - **Guardie**: `test/il_tavolo_di_medora_test.dart` e `test/ordine_fl_guard_test.dart`, nuove, viste rosse (`docs/collaudo/FL/fl_regola_a.txt`); il registro va da 749 a 751.
 - **APERTO, proposta di Code**: rigenerare lo sfondo ad almeno 1080 per 2400 con la stessa inquadratura (oggi si ingrandisce di 1,57 volte); la Croce Celtica resta chiusa per la decisione del fondatore dell'ordine FK.
+
+## L'ORDINE FM, IL CORPUS POSIZIONALE DEI TAROCCHI PASSA A CODE (12 ottobre 2026)
+
+- **Il testo**: `docs/ordini/ORDINE_FM_TESTO.md`. Manifesto `docs/ordini/ORDINE_FM_MANIFESTO.md`, 7 voci tutte chiuse; rapporto `docs/ordini/RAPPORTO_ORDINE_FM.md`. La premessa P1 non nominava `dietro.md`: i testi mancanti erano 3.276, non 2.808.
+- **Il corpus e' completo**: 7.020 testi su 7.020 nelle quindici posizioni, tre varianti ciascuna, e 468 registri su 468; il Dart `lib/core/tarot/le_carte_nella_posizione_dati.dart` li porta tutti, e `test/il_corpus_delle_posizioni_test.dart` dichiara le quindici posizioni a 3 e `registriConsegnati = true`, col cardinale minimo a 7.020. Le righe del corpus restano nella tabella della sezione del corpus posizionale qui sopra.
+- **Il controllo del tu** (FM.04) sta in `controlla_testo` di `tool/genera_carte_nella_posizione.py`: 311 testi su 4.212 non lo passavano, riparati; oggi 0 su 7.020. Chi riempie usa `tool/riempi_la_posizione.py`, che scrive solo i testi che passano i controlli.
+- **Gli schedari** (FM.05) stanno accanto al corpus, `docs/corpus/tarocchi_posizione/schedario_*.md`, otto: per ogni posizione la richiesta, la fonte, la gemella e una riga QUI/NON per carta e verso. La soglia, decisa da Code: lettori ciechi che riconoscono la posizione contro la gemella in otto testi su dieci, due giri; misurati 79 su 80 e 80 su 80 (`docs/collaudo/FM/lettori_ciechi/`, strumento `tool/i_lettori_ciechi_del_corpus.py`). Non misurato: che la carta si riconosca dal testo senza il nome.
+- **La Croce Celtica resta chiusa, ma non piu' per i testi**: la fila in piedi del tavolo di Medora metterebbe dieci carte larghe 26 punti a 360. Si apre col tavolo a dieci carte disegnato (`lib/core/tarot/tarot_spread_type.dart`).
 
 ## Regole ferree
 

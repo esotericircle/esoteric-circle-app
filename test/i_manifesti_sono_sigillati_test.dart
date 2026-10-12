@@ -377,6 +377,9 @@ void main() {
     // richieste del fondatore in chat (FL.11-FL.15), contate coi titoli
     // "## VOCE FL." del manifesto.
     'FL': 15,
+    // Ordine FM, 12 ottobre 2026: le sette voci, contate coi titoli
+    // "## VOCE FM." del manifesto.
+    'FM': 7,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

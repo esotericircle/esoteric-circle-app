@@ -1,0 +1,632 @@
+{
+ "passato-01": {
+  "prova": "passato",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Fante di Bastoni",
+  "verso": "dritta",
+  "variante": "2"
+ },
+ "passato-02": {
+  "prova": "passato",
+  "giusta": "A",
+  "vera": "passato",
+  "carta": "Quattro di Spade",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "passato-03": {
+  "prova": "passato",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Quattro di Spade",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "passato-04": {
+  "prova": "passato",
+  "giusta": "A",
+  "vera": "passato",
+  "carta": "Il Papa",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "passato-05": {
+  "prova": "passato",
+  "giusta": "A",
+  "vera": "passato",
+  "carta": "La Torre",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "passato-06": {
+  "prova": "passato",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Re di Spade",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "passato-07": {
+  "prova": "passato",
+  "giusta": "A",
+  "vera": "passato",
+  "carta": "Dieci di Spade",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "passato-08": {
+  "prova": "passato",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Il Carro",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "passato-09": {
+  "prova": "passato",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Cavaliere di Coppe",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "passato-10": {
+  "prova": "passato",
+  "giusta": "A",
+  "vera": "passato",
+  "carta": "Asso di Spade",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "presente-11": {
+  "prova": "presente",
+  "giusta": "A",
+  "vera": "presente",
+  "carta": "Regina di Denari",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "presente-12": {
+  "prova": "presente",
+  "giusta": "B",
+  "vera": "futuro",
+  "carta": "Cavaliere di Denari",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "presente-13": {
+  "prova": "presente",
+  "giusta": "B",
+  "vera": "futuro",
+  "carta": "Sei di Denari",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "presente-14": {
+  "prova": "presente",
+  "giusta": "B",
+  "vera": "futuro",
+  "carta": "Regina di Denari",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "presente-15": {
+  "prova": "presente",
+  "giusta": "B",
+  "vera": "futuro",
+  "carta": "Dieci di Denari",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "presente-16": {
+  "prova": "presente",
+  "giusta": "A",
+  "vera": "presente",
+  "carta": "Sette di Coppe",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "presente-17": {
+  "prova": "presente",
+  "giusta": "A",
+  "vera": "presente",
+  "carta": "La Papessa",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "presente-18": {
+  "prova": "presente",
+  "giusta": "A",
+  "vera": "presente",
+  "carta": "Fante di Denari",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "presente-19": {
+  "prova": "presente",
+  "giusta": "B",
+  "vera": "futuro",
+  "carta": "Tre di Denari",
+  "verso": "dritta",
+  "variante": "2"
+ },
+ "presente-20": {
+  "prova": "presente",
+  "giusta": "A",
+  "vera": "presente",
+  "carta": "Re di Denari",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "futuro-21": {
+  "prova": "futuro",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Asso di Denari",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "futuro-22": {
+  "prova": "futuro",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Cavaliere di Coppe",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "futuro-23": {
+  "prova": "futuro",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Gli Amanti",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "futuro-24": {
+  "prova": "futuro",
+  "giusta": "A",
+  "vera": "futuro",
+  "carta": "La Giustizia",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "futuro-25": {
+  "prova": "futuro",
+  "giusta": "A",
+  "vera": "futuro",
+  "carta": "Il Mondo",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "futuro-26": {
+  "prova": "futuro",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Fante di Coppe",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "futuro-27": {
+  "prova": "futuro",
+  "giusta": "A",
+  "vera": "futuro",
+  "carta": "Cavaliere di Spade",
+  "verso": "dritta",
+  "variante": "2"
+ },
+ "futuro-28": {
+  "prova": "futuro",
+  "giusta": "A",
+  "vera": "futuro",
+  "carta": "Due di Coppe",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "futuro-29": {
+  "prova": "futuro",
+  "giusta": "A",
+  "vera": "futuro",
+  "carta": "Dieci di Spade",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "futuro-30": {
+  "prova": "futuro",
+  "giusta": "B",
+  "vera": "presente",
+  "carta": "Re di Spade",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "se_stesso-31": {
+  "prova": "se_stesso",
+  "giusta": "A",
+  "vera": "se_stesso",
+  "carta": "Asso di Coppe",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "se_stesso-32": {
+  "prova": "se_stesso",
+  "giusta": "B",
+  "vera": "consultante",
+  "carta": "Nove di Spade",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "se_stesso-33": {
+  "prova": "se_stesso",
+  "giusta": "B",
+  "vera": "consultante",
+  "carta": "Due di Spade",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "se_stesso-34": {
+  "prova": "se_stesso",
+  "giusta": "B",
+  "vera": "consultante",
+  "carta": "Sette di Spade",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "se_stesso-35": {
+  "prova": "se_stesso",
+  "giusta": "A",
+  "vera": "se_stesso",
+  "carta": "Due di Denari",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "se_stesso-36": {
+  "prova": "se_stesso",
+  "giusta": "A",
+  "vera": "se_stesso",
+  "carta": "Re di Coppe",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "se_stesso-37": {
+  "prova": "se_stesso",
+  "giusta": "A",
+  "vera": "se_stesso",
+  "carta": "La Luna",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "se_stesso-38": {
+  "prova": "se_stesso",
+  "giusta": "B",
+  "vera": "consultante",
+  "carta": "Sette di Bastoni",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "se_stesso-39": {
+  "prova": "se_stesso",
+  "giusta": "B",
+  "vera": "consultante",
+  "carta": "La Stella",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "se_stesso-40": {
+  "prova": "se_stesso",
+  "giusta": "A",
+  "vera": "se_stesso",
+  "carta": "Il Matto",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "la_casa-41": {
+  "prova": "la_casa",
+  "giusta": "B",
+  "vera": "se_stesso",
+  "carta": "Tre di Denari",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "la_casa-42": {
+  "prova": "la_casa",
+  "giusta": "A",
+  "vera": "la_casa",
+  "carta": "Nove di Bastoni",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "la_casa-43": {
+  "prova": "la_casa",
+  "giusta": "A",
+  "vera": "la_casa",
+  "carta": "L'Eremita",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "la_casa-44": {
+  "prova": "la_casa",
+  "giusta": "B",
+  "vera": "se_stesso",
+  "carta": "La Luna",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "la_casa-45": {
+  "prova": "la_casa",
+  "giusta": "B",
+  "vera": "se_stesso",
+  "carta": "Dieci di Spade",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "la_casa-46": {
+  "prova": "la_casa",
+  "giusta": "A",
+  "vera": "la_casa",
+  "carta": "Il Diavolo",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "la_casa-47": {
+  "prova": "la_casa",
+  "giusta": "B",
+  "vera": "se_stesso",
+  "carta": "L'Imperatrice",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "la_casa-48": {
+  "prova": "la_casa",
+  "giusta": "B",
+  "vera": "se_stesso",
+  "carta": "Dieci di Coppe",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "la_casa-49": {
+  "prova": "la_casa",
+  "giusta": "A",
+  "vera": "la_casa",
+  "carta": "Nove di Denari",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "la_casa-50": {
+  "prova": "la_casa",
+  "giusta": "A",
+  "vera": "la_casa",
+  "carta": "Otto di Spade",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "speranze_o_timori-51": {
+  "prova": "speranze_o_timori",
+  "giusta": "B",
+  "vera": "esito",
+  "carta": "Sei di Denari",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "speranze_o_timori-52": {
+  "prova": "speranze_o_timori",
+  "giusta": "A",
+  "vera": "speranze_o_timori",
+  "carta": "Regina di Spade",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "speranze_o_timori-53": {
+  "prova": "speranze_o_timori",
+  "giusta": "A",
+  "vera": "speranze_o_timori",
+  "carta": "Cavaliere di Denari",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "speranze_o_timori-54": {
+  "prova": "speranze_o_timori",
+  "giusta": "B",
+  "vera": "esito",
+  "carta": "Sette di Spade",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "speranze_o_timori-55": {
+  "prova": "speranze_o_timori",
+  "giusta": "B",
+  "vera": "esito",
+  "carta": "Asso di Bastoni",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "speranze_o_timori-56": {
+  "prova": "speranze_o_timori",
+  "giusta": "B",
+  "vera": "esito",
+  "carta": "Asso di Bastoni",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "speranze_o_timori-57": {
+  "prova": "speranze_o_timori",
+  "giusta": "B",
+  "vera": "esito",
+  "carta": "Sette di Spade",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "speranze_o_timori-58": {
+  "prova": "speranze_o_timori",
+  "giusta": "A",
+  "vera": "speranze_o_timori",
+  "carta": "Cinque di Coppe",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "speranze_o_timori-59": {
+  "prova": "speranze_o_timori",
+  "giusta": "A",
+  "vera": "speranze_o_timori",
+  "carta": "L'Appeso",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "speranze_o_timori-60": {
+  "prova": "speranze_o_timori",
+  "giusta": "A",
+  "vera": "speranze_o_timori",
+  "carta": "La Ruota della Fortuna",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "dietro-61": {
+  "prova": "dietro",
+  "giusta": "A",
+  "vera": "dietro",
+  "carta": "Il Papa",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "dietro-62": {
+  "prova": "dietro",
+  "giusta": "A",
+  "vera": "dietro",
+  "carta": "L'Eremita",
+  "verso": "dritta",
+  "variante": "2"
+ },
+ "dietro-63": {
+  "prova": "dietro",
+  "giusta": "B",
+  "vera": "sotto",
+  "carta": "Cinque di Coppe",
+  "verso": "capovolta",
+  "variante": "1"
+ },
+ "dietro-64": {
+  "prova": "dietro",
+  "giusta": "B",
+  "vera": "sotto",
+  "carta": "Tre di Spade",
+  "verso": "capovolta",
+  "variante": "3"
+ },
+ "dietro-65": {
+  "prova": "dietro",
+  "giusta": "B",
+  "vera": "sotto",
+  "carta": "Quattro di Coppe",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "dietro-66": {
+  "prova": "dietro",
+  "giusta": "A",
+  "vera": "dietro",
+  "carta": "Tre di Denari",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "dietro-67": {
+  "prova": "dietro",
+  "giusta": "A",
+  "vera": "dietro",
+  "carta": "Sette di Bastoni",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "dietro-68": {
+  "prova": "dietro",
+  "giusta": "B",
+  "vera": "sotto",
+  "carta": "La Papessa",
+  "verso": "dritta",
+  "variante": "3"
+ },
+ "dietro-69": {
+  "prova": "dietro",
+  "giusta": "B",
+  "vera": "sotto",
+  "carta": "Cinque di Bastoni",
+  "verso": "capovolta",
+  "variante": "2"
+ },
+ "dietro-70": {
+  "prova": "dietro",
+  "giusta": "A",
+  "vera": "dietro",
+  "carta": "Dieci di Coppe",
+  "verso": "dritta",
+  "variante": "1"
+ },
+ "registri-71": {
+  "prova": "registri",
+  "giusta": "B",
+  "vera": "lavoro",
+  "carta": "Sei di Spade",
+  "verso": "capovolta"
+ },
+ "registri-72": {
+  "prova": "registri",
+  "giusta": "C",
+  "vera": "vita",
+  "carta": "La Giustizia",
+  "verso": "dritta"
+ },
+ "registri-73": {
+  "prova": "registri",
+  "giusta": "A",
+  "vera": "amore",
+  "carta": "Re di Spade",
+  "verso": "capovolta"
+ },
+ "registri-74": {
+  "prova": "registri",
+  "giusta": "C",
+  "vera": "vita",
+  "carta": "Cinque di Bastoni",
+  "verso": "dritta"
+ },
+ "registri-75": {
+  "prova": "registri",
+  "giusta": "B",
+  "vera": "lavoro",
+  "carta": "La Ruota della Fortuna",
+  "verso": "capovolta"
+ },
+ "registri-76": {
+  "prova": "registri",
+  "giusta": "C",
+  "vera": "vita",
+  "carta": "Sette di Coppe",
+  "verso": "capovolta"
+ },
+ "registri-77": {
+  "prova": "registri",
+  "giusta": "B",
+  "vera": "lavoro",
+  "carta": "Il Diavolo",
+  "verso": "capovolta"
+ },
+ "registri-78": {
+  "prova": "registri",
+  "giusta": "B",
+  "vera": "lavoro",
+  "carta": "Gli Amanti",
+  "verso": "dritta"
+ },
+ "registri-79": {
+  "prova": "registri",
+  "giusta": "A",
+  "vera": "amore",
+  "carta": "Due di Spade",
+  "verso": "capovolta"
+ },
+ "registri-80": {
+  "prova": "registri",
+  "giusta": "B",
+  "vera": "lavoro",
+  "carta": "La Luna",
+  "verso": "dritta"
+ }
+}
