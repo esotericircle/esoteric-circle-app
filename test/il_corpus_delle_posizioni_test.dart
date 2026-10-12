@@ -33,9 +33,9 @@ import 'cardinale_minimo.dart';
 /// dell'Architetto, commit 65fceaae); le altre tredici aspettano. Quando
 /// arriva un'ondata, il numero di quella posizione passa a 3.
 const Map<SpreadPosition, int> variantiDichiarate = {
-  SpreadPosition.passato: 1,
+  SpreadPosition.passato: 3,
   SpreadPosition.presente: 1,
-  SpreadPosition.futuro: 1,
+  SpreadPosition.futuro: 3,
   SpreadPosition.cartaSola: 3,
   SpreadPosition.consultante: 3,
   SpreadPosition.lato: 3,
@@ -50,8 +50,9 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.speranzeOTimori: 0,
 };
 
-/// I registri: falso finche' l'Architetto non consegna `registri.md`.
-const bool registriConsegnati = false;
+/// I registri: veri dall'ordine FM, 12 ottobre 2026, scritti da Code coi tre
+/// gruppi pieni (prima falso, finche' l'Architetto non li consegnava).
+const bool registriConsegnati = true;
 
 const _versi = ['dritta', 'capovolta'];
 const _fonte = 'docs/corpus/tarocchi_posizione';
