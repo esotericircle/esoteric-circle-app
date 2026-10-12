@@ -601,7 +601,10 @@ class ParlaneConMaestroCompatto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Align(
-        alignment: Alignment.centerRight,
+        // **CENTRATO, non a destra. Ordine FN, 13 ottobre 2026.** Il
+        // fondatore: "tutti i pulsanti parlane con Medora devono essere
+        // centrati".
+        alignment: Alignment.center,
         child: FilledButton.icon(
           key: keyDelPulsante,
           style: FilledButton.styleFrom(

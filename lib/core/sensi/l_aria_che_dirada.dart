@@ -27,7 +27,16 @@ class LAriaCheDirada {
   static const int finestreDelFondo = 94;
 
   /// Quante volte l'aria deve superare il fondo della stanza.
-  static const double quanteVolteIlFondo = 4;
+  ///
+  /// **Da 4 a 3, ordine FN, 13 ottobre 2026.** Il fondatore: "devo soffiare
+  /// molto forte e vicino al microfono, e' quasi impossibile". Il quattro
+  /// chiedeva un fiato quattro volte piu' forte del rumore delle ultime tre
+  /// finestreDelFondo secondi: con un fondo anche solo moderato (ventilazione,
+  /// strada) un fiato normale non ci arrivava. La discriminazione vera resta
+  /// alla forma dello spettro (planarita', energiaMinima), non a questo
+  /// moltiplicatore: abbassarlo non apre la porta a voce o musica, che la
+  /// forma gia' esclude.
+  static const double quanteVolteIlFondo = 3;
 
   final FormaDelSoffio _forma = FormaDelSoffio();
   final List<int> _coda = <int>[];

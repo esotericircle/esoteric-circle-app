@@ -10,11 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/rituals/filo_del_giorno.dart';
+import '../../core/quality/quality_tier.dart';
 import '../../core/sensi/ascoltatore_scuotimento.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
+import '../horoscope/answer_depth.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/chat/la_marca_del_genere.dart';
 import '../../core/tarot/domanda_della_persona.dart';
@@ -341,6 +343,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// carte restano ferme e composte, senza errori.
   final TiltListener _tilt = TiltListener();
 
+  /// **LO SCORRIMENTO TORNA IN CIMA DOPO LA RIFLESSIONE. Ordine FN, 13
+  /// ottobre 2026.** Il fondatore: dopo il tocco sul pulsante e dopo
+  /// l'animazione di riflessione, la schermata deve risalire per mostrare
+  /// Medora, il tavolo e le carte che si alzano in verticale, invece di
+  /// restare dove l'utente l'aveva lasciata scorrendo.
+  final ScrollController _scorrimento = ScrollController();
+
   /// FA CORRERE IL FILO fra le tre carte, ordine BN voce 08.
   ///
   /// Finisce PRIMA che l'attesa cominci: sono due momenti in fila, non due
@@ -588,6 +597,20 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   /// **LE CARTE SI GIRANO UNA ALLA VOLTA, POI SI ALZANO.** Con il movimento
   /// ridotto la sequenza non si recita: le carte sono gia' in piedi.
+  /// **TORNA IN CIMA, DOVE STANNO MEDORA E IL TAVOLO.** Ordine FN, 13
+  /// ottobre 2026: appena finita la riflessione, prima che le carte
+  /// comincino a girarsi e ad alzarsi, lo scorrimento risale, cosi' chi ha
+  /// letto le carte scorrendo in basso l'animazione non se la perde.
+  void _risaliInCima() {
+    if (!_scorrimento.hasClients) return;
+    if (_reduceMotion) {
+      _scorrimento.jumpTo(0);
+    } else {
+      unawaited(_scorrimento.animateTo(0,
+          duration: const Duration(milliseconds: 400), curve: Curves.easeOut));
+    }
+  }
+
   Future<void> _laSequenzaDelTavolo() async {
     if (!mounted || _sequenzaFatta) return;
     if (_reduceMotion) {
@@ -731,7 +754,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     super.didChangeDependencies();
     _cartaNatale =
         Provider.of<BirthIdentityController?>(context)?.cartaCompleta;
-    _reduceMotion = MediaQuery.of(context).disableAnimations;
+    // **"ALLEGGERISCI GRAFICA" FERMA IL GALLEGGIO ANCHE LUI. Ordine FN, 13
+    // ottobre 2026.** Il fondatore: lo scorrimento resta a scatti "anche se
+    // seleziono riduci animazione e alleggerisci grafica". Il tier basso del
+    // `QualityTierController` non veniva mai letto qui: solo il Riduci
+    // Movimento di sistema fermava il galleggiamento e il tilt del
+    // giroscopio. Adesso i due si sommano, come gia' fa `osserva: true`
+    // altrove in questa schermata per il tier.
+    final tierBasso =
+        _forse<QualityTierController>(context, osserva: true)?.tier ==
+            QualityTier.low;
+    _reduceMotion = MediaQuery.of(context).disableAnimations || tierBasso;
     if (_avviata) return;
     _avviata = true;
     // I mazzi gia' scaricati si leggono dal telefono, senza rete (ordine FJ
@@ -892,6 +925,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _tilt.dispose();
     _reveal.dispose();
     _galleggio.dispose();
+    _scorrimento.dispose();
     _shake?.dispose();
     _handoff.dispose();
     _ingresso.dispose();
@@ -953,6 +987,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _mazzo = List<int>.of(_stesa.mazzoResiduo);
       _drawn++;
       if (_complete) _scene = StesaScene.completa;
+      // **IL PANNELLO SI CHIUDE ALLA PRIMA CARTA.** Richiesta del fondatore,
+      // ordine FN, 13 ottobre 2026: scelta la prima carta, "Scegli la tua
+      // stesa" deve chiudersi da solo per lasciare vedere il tavolo e il
+      // ventaglio intero, non restare aperto sopra di loro.
+      if (slot == 0) _setupAperto = false;
     });
     // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
     // seme parla un istante, prima di lasciarla pulita e leggibile.
@@ -1012,6 +1051,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       forma: LaMarcaDelGenere.formaCorrente,
       chiave: _setup.key,
       chiamata: widget.chiamata,
+      // **LA PROFONDITA' ARRIVA AL MODELLO, ordine FN, 13 ottobre 2026.**
+      // Prima la Lunga non cambiava niente: il parametro c'era, si salvava
+      // nei dati, e nessuna chiamata lo leggeva.
+      profonda: _setup.depth == AnswerDepth.profonda,
     );
     // Lo stesso momento sensoriale che l'ordine CO voce 07 aveva messo
     // sull'avvio: cambia il posto del pulsante, non cosa si sente premendolo.
@@ -1257,6 +1300,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (!mounted) return;
     _stoPerRiflettere = false;
     setState(() => _attesa = StatoDellAttesa.assente);
+    _risaliInCima();
     unawaited(_laSequenzaDelTavolo());
     // Scena libera: la festa che ha aspettato riparte adesso, non fra
     // novanta secondi.
@@ -1614,6 +1658,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     final quando = _istanti.di(perIlDiario);
     return ListView(
       key: const Key('stesa_list'),
+      controller: _scorrimento,
       // Sopra Medora c'era una fascia vuota che sprecava la parte migliore
       // dello schermo: il margine alto ora e' appena quello che serve a non
       // finire sotto la barra del titolo.
@@ -2062,6 +2107,26 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             paragrafi: _reading.paragrafi,
             daDoveViene: TarotReading.daDoveViene(_spread,
                 mazzo: _setup.deck.label, stesa: _setup.tipo.nome),
+            // **SOLO QUI, NON NELLE TRE BOLLE.** Il fondatore, scelta fra le
+            // due: l'approfondimento resta nel solo Consiglio di Medora.
+            approfondimento: _reading.approfondimento,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // **LA PRIMA BOLLA DI RISPOSTA AVEVA IL SUO PARLANE SOLO IN
+          // FONDO. Ordine FN, 13 ottobre 2026.** Il fondatore: il Consiglio
+          // di Medora e' la prima bolla che si legge, e il Parlane con
+          // Medora le mancava del tutto. Qui apre la chat con lo STESSO
+          // approfondimento del pulsante in fondo alla schermata, perche'
+          // entrambi parlano dell'intero responso e non di una sola carta.
+          ParlaneConMaestroCompatto(
+            keyDelPulsante: const Key('stesa_consiglio_parlane'),
+            palette: palette,
+            maestro: Maestro.medora,
+            frase: _reading.consiglio,
+            aperturaDellaChat: ChatOpeners.stesa(
+              _spread.cards.map((c) => c.displayName).toList(),
+              domanda: _setup.domandaScritta ?? _setup.topic.label,
+            ),
           ),
           const SizedBox(height: SpacingTokens.lg),
           // Le tre posizioni col testo ricco letto nell'argomento. La lente sta
@@ -2084,6 +2149,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               key: Key('stesa_letta_${letta.drawn.position.name}'),
               letta: letta,
               palette: palette,
+              domanda: _setup.domandaScritta ?? _setup.topic.label,
               // LA BOLLA CHIAVE E' UNA DI QUESTE TRE, ordine P voce 07.
               perche: letta.drawn.card.name == _reading.chiave.drawn.card.name
                   ? _reading.chiave.perche
@@ -2822,6 +2888,7 @@ class _Strato extends StatelessWidget {
     this.inEvidenza = false,
     this.paragrafi,
     this.daDoveViene,
+    this.approfondimento = const [],
   });
 
   final String titolo;
@@ -2834,6 +2901,9 @@ class _Strato extends StatelessWidget {
 
   /// Il paragrafo piccolo in corsivo, in fondo.
   final String? daDoveViene;
+
+  /// I due paragrafi dell'approfondimento della Lunga, ordine FN.
+  final List<String> approfondimento;
 
   /// Il consiglio si stacca dagli altri strati, e' quello che si porta a casa.
   ///
@@ -2897,6 +2967,7 @@ class _Strato extends StatelessWidget {
               paragrafi: paragrafi!,
               daDoveViene: daDoveViene,
               palette: palette,
+              approfondimento: approfondimento,
               stile: TypographyTokens.lettura().copyWith(
                 color: ColorTokens.textPrimary,
               ),
@@ -2931,11 +3002,16 @@ class BollaDellaPosizione extends StatelessWidget {
     super.key,
     required this.letta,
     required this.palette,
+    required this.domanda,
     this.perche,
   });
 
   final PosizioneLetta letta;
   final MaestroPalette palette;
+
+  /// La domanda scritta a mano, o l'argomento della tendina: quella che il
+  /// Parlane con Medora di questa bolla riporta in chat, ordine FN.
+  final String domanda;
 
   /// La ragione per cui questa e' la carta chiave, oppure nullo se non lo e'.
   final String? perche;
@@ -3083,7 +3159,7 @@ class BollaDellaPosizione extends StatelessWidget {
             maestro: Maestro.medora,
             frase: letta.testo,
             aperturaDellaChat: ChatOpeners.cartaDellaStesa(
-                letta.drawn.position.label, letta.drawn.displayName),
+                domanda, letta.drawn.position.label, letta.drawn.displayName),
           ),
         ],
       ),

@@ -134,16 +134,30 @@ class ChatOpeners {
         'situazione?';
   }
 
-  /// Da una singola bolla della Stesa verso Medora, con l'etichetta della
-  /// posizione e la carta che vi e' uscita.
+  /// Da una singola bolla della Stesa verso Medora, con la DOMANDA originale,
+  /// l'etichetta della posizione e la carta che vi e' uscita.
+  ///
+  /// **La domanda c'e' sempre, ordine FN, 13 ottobre 2026.** Il fondatore:
+  /// "la domanda deve essere riportata, perche' si tratta della domanda che
+  /// l'utente vuole approfondire. Anche se fa click sul pulsante della bolla
+  /// della carta singola, la domanda deve essere riportata e il Maestro dovra'
+  /// approfondire quella domanda ma interpretando quella carta". Prima questa
+  /// apertura portava solo la carta, senza dire a quale domanda rispondeva.
   ///
   /// **Le virgolette, non la preposizione articolata.** Le posizioni vanno
   /// da "Passato" a "La tua casa" a "Ciò che attraversa": un "per il", "per
   /// la" o "per ciò" scritto a mano romperebbe l'accordo su meta' di loro.
   /// Le caporali, come in [consiglio], valgono per qualunque etichetta.
-  static String cartaDellaStesa(String etichettaPosizione, String cartaColVerso) =>
-      'Nella mia stesa, su «$etichettaPosizione» è uscita $cartaColVerso. '
-      'Vorrei capirne di più con te.';
+  static String cartaDellaStesa(
+      String domanda, String etichettaPosizione, String cartaColVerso) {
+    final d = domanda.trim();
+    final senzaCoda = d.endsWith('.') || d.endsWith('?') || d.endsWith('!')
+        ? d.substring(0, d.length - 1)
+        : d;
+    return 'Ho chiesto alle carte: «$senzaCoda». Per «$etichettaPosizione» è '
+        'uscita $cartaColVerso. Aiutami ad approfondire la mia domanda a '
+        'partire da questa carta.';
+  }
 
   /// Dalla Sinastria verso Medora, col nome del VIP e la percentuale.
   static String sinastria(String nome, int punteggio) =>

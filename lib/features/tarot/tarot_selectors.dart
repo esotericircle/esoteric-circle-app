@@ -525,61 +525,77 @@ class TendinaSelettore<T> extends StatelessWidget {
       ));
     }
 
-    return PopupMenuButton<T>(
-      key: chiave,
-      tooltip: titolo,
-      position: PopupMenuPosition.under,
-      color: palette.surfaceElevated,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      padding: EdgeInsets.zero,
-      onSelected: (v) => bloccata(v) ? onLocked(v) : onSelect(v),
-      itemBuilder: (context) => items,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        decoration: BoxDecoration(
+    // **LA TASTIERA NON TORNA DA SOLA. Ordine FN, 13 ottobre 2026.** Il
+    // fondatore: scrivendo la domanda, poi aprendo una di queste tendine,
+    // la tastiera si richiude e SUBITO DOPO la scelta torna su da sola.
+    // Flutter, chiudendo la route del menu, ripristina il focus che c'era
+    // prima di aprirla: se quel focus era ancora il campo della domanda
+    // (mai smesso esplicitamente), la tastiera torna. Qui si toglie il
+    // focus PRIMA che il menu si apra, cosi' alla chiusura non c'e' niente
+    // da ripristinare: `onTapDown`, non `onTap`, perche' deve succedere
+    // prima che `PopupMenuButton` apra la sua route, non dopo averla scelta.
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: (_) => FocusScope.of(context).unfocus(),
+      child: PopupMenuButton<T>(
+        key: chiave,
+        tooltip: titolo,
+        position: PopupMenuPosition.under,
+        color: palette.surfaceElevated,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          color: palette.deepest.withValues(alpha: inRilievo ? 0.65 : 0.45),
-          // **IL COLORE DEL MAESTRO, non un colore nuovo**: il bagliore della
-          // palette, che sulle altre tendine non compare mai.
-          border: Border.all(
-              color: inRilievo
-                  ? palette.glow
-                  : palette.gold.withValues(alpha: 0.35),
-              width: inRilievo ? 1.5 : 1),
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(titolo.toUpperCase(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.etichetta().copyWith(
-                    color: inRilievo ? palette.glow : ColorTokens.textSecondary,
-                    fontWeight: inRilievo ? FontWeight.w700 : null,
-                    letterSpacing: 0.8)),
-            const SizedBox(height: 2),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(etichetta(corrente),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft)),
-                ),
-                // Il lucchetto sul chip solo se la voce MOSTRATA e' bloccata.
-                if (bloccata(corrente))
-                  Icon(Icons.lock_rounded,
-                      size: 12, color: palette.goldSoft.withValues(alpha: 0.7)),
-                Icon(Icons.arrow_drop_down_rounded,
-                    size: 18, color: palette.goldSoft),
-              ],
-            ),
-          ],
+        padding: EdgeInsets.zero,
+        onSelected: (v) => bloccata(v) ? onLocked(v) : onSelect(v),
+        itemBuilder: (context) => items,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            color: palette.deepest.withValues(alpha: inRilievo ? 0.65 : 0.45),
+            // **IL COLORE DEL MAESTRO, non un colore nuovo**: il bagliore
+            // della palette, che sulle altre tendine non compare mai.
+            border: Border.all(
+                color: inRilievo
+                    ? palette.glow
+                    : palette.gold.withValues(alpha: 0.35),
+                width: inRilievo ? 1.5 : 1),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(titolo.toUpperCase(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.etichetta().copyWith(
+                      color:
+                          inRilievo ? palette.glow : ColorTokens.textSecondary,
+                      fontWeight: inRilievo ? FontWeight.w700 : null,
+                      letterSpacing: 0.8)),
+              const SizedBox(height: 2),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(etichetta(corrente),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                  // Il lucchetto sul chip solo se la voce MOSTRATA e'
+                  // bloccata.
+                  if (bloccata(corrente))
+                    Icon(Icons.lock_rounded,
+                        size: 12,
+                        color: palette.goldSoft.withValues(alpha: 0.7)),
+                  Icon(Icons.arrow_drop_down_rounded,
+                      size: 18, color: palette.goldSoft),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

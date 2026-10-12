@@ -67,6 +67,7 @@ class TarotReading {
     required this.consiglio,
     required this.domanda,
     required this.titolo,
+    this.approfondimento = const [],
   });
 
   final TarotSpread spread;
@@ -121,6 +122,14 @@ class TarotReading {
   /// formula "Ieri Medora ti ha lasciato questa domanda", ed e' quella la
   /// ragione per cui la domanda esiste.
   final String domanda;
+
+  /// **I DUE PARAGRAFI DELL'APPROFONDIMENTO. Ordine FN, 13 ottobre 2026.**
+  /// Vuota alla profondita' Breve, o quando la lettura di casa (senza
+  /// modello) risponde: solo il modello, quando la persona ha scelto la
+  /// Lunga, scrive risposte dirette abbastanza concrete da meritare un
+  /// paragrafo in piu'. Nella schermata vanno nel riquadro arancione, solo
+  /// nel Consiglio di Medora, non nelle tre bolle di posizione.
+  final List<String> approfondimento;
 
   /// Strato 4: le azioni e il disclaimer stanno nella schermata, una sola volta.
 
@@ -186,6 +195,16 @@ class TarotReading {
       domanda: domanda,
       titolo: titoloDi(spread, lente, dalModello,
           domandaScritta: sua, fattoDelCielo: fattoDelCielo),
+      // **SOLO ALLA LUNGA, SOLO DAL MODELLO.** Ordine FN, 13 ottobre 2026:
+      // la lettura di casa (senza modello) non ha un corpus per
+      // l'approfondimento, e mostrarlo vuoto sarebbe un riquadro arancione
+      // senza niente dentro.
+      approfondimento: depth == AnswerDepth.profonda &&
+              dalModello != null &&
+              dalModello.approfondimento1.isNotEmpty &&
+              dalModello.approfondimento2.isNotEmpty
+          ? [dalModello.approfondimento1, dalModello.approfondimento2]
+          : const [],
     );
   }
 

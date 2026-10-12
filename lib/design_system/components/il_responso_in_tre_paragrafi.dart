@@ -4,6 +4,7 @@ import '../theme/maestro_palette.dart';
 import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
+import 'riquadro_arancione.dart';
 import 'riquadro_in_evidenza.dart';
 
 /// **IL RESPONSO IN TRE PARAGRAFI, col secondo nel riquadro e il "da dove
@@ -28,6 +29,7 @@ class ResponsoInTreParagrafi extends StatelessWidget {
     required this.stile,
     this.daDoveViene,
     this.palette,
+    this.approfondimento = const [],
   });
 
   final List<String> paragrafi;
@@ -36,6 +38,11 @@ class ResponsoInTreParagrafi extends StatelessWidget {
   /// Il paragrafo piccolo in fondo: da dove viene la lettura.
   final String? daDoveViene;
   final MaestroPalette? palette;
+
+  /// **I DUE PARAGRAFI DELL'APPROFONDIMENTO DELLA LUNGA, nel riquadro
+  /// arancione.** Ordine FN, 13 ottobre 2026. Vuoto alla profondita' Breve:
+  /// niente riquadro, il responso resta quello di sempre.
+  final List<String> approfondimento;
 
   /// Quale paragrafo va nel riquadro, contando da zero: il secondo dei tre.
   static bool eInEvidenza(int indice, int quanti) => quanti == 3 && indice == 1;
@@ -56,6 +63,26 @@ class ResponsoInTreParagrafi extends StatelessWidget {
             )
           else
             Text(paragrafi[i], key: Key('responso_paragrafo_$i'), style: stile),
+        ],
+        // **L'APPROFONDIMENTO DELLA LUNGA, ordine FN.** Due paragrafi, un
+        // riquadro solo: il fondatore ha detto "un riquadro arancione", non
+        // uno per paragrafo.
+        if (approfondimento.length >= 2) ...[
+          SizedBox(height: distanza),
+          RiquadroArancione(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(approfondimento[0],
+                    key: const Key('responso_approfondimento_0'),
+                    style: stile),
+                SizedBox(height: distanza),
+                Text(approfondimento[1],
+                    key: const Key('responso_approfondimento_1'),
+                    style: stile),
+              ],
+            ),
+          ),
         ],
         if (daDoveViene != null && daDoveViene!.trim().isNotEmpty) ...[
           SizedBox(height: distanza),

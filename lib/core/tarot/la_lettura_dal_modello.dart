@@ -45,6 +45,8 @@ class LetturaDelModello {
     required this.legame,
     required this.consiglio,
     this.titolo = '',
+    this.approfondimento1 = '',
+    this.approfondimento2 = '',
   })  : carte = List.unmodifiable(carte ?? [passato, presente, futuro]),
         chiavi = List.unmodifiable(chiavi ?? chiaviATre);
 
@@ -83,6 +85,15 @@ class LetturaDelModello {
   /// Il passo concreto.
   final String consiglio;
 
+  /// **L'APPROFONDIMENTO DELLA PROFONDITA' LUNGA. Ordine FN, 13 ottobre
+  /// 2026.** Il fondatore: la Lunga non cambiava niente nel responso. Due
+  /// paragrafi in piu', richiesti solo quando la persona ha scelto la
+  /// profondita' Lunga: risposte dirette, senza giri di parole, con
+  /// un'indicazione pratica di che fare. Vuoti quando la lettura e' alla
+  /// profondita' Breve: `campiPer` non li chiede nemmeno al modello.
+  final String approfondimento1;
+  final String approfondimento2;
+
   /// Il testo della prima carta in [posizione]. **LAPIDE: "le posizioni
   /// delle altre stese qui non hanno un campo"** (ordine FI): adesso ogni
   /// posto ha il suo. Una posizione che torna due volte (i due `lato`) si
@@ -107,6 +118,8 @@ class LetturaDelModello {
         legame: LaRispostaRipulita.applica(legame),
         consiglio: LaRispostaRipulita.applica(consiglio),
         titolo: LaRispostaRipulita.applica(titolo),
+        approfondimento1: LaRispostaRipulita.applica(approfondimento1),
+        approfondimento2: LaRispostaRipulita.applica(approfondimento2),
       );
 
   Map<String, String> toJson() => {
@@ -115,6 +128,8 @@ class LetturaDelModello {
         'legame': legame,
         'consiglio': consiglio,
         if (titolo.isNotEmpty) 'titolo': titolo,
+        if (approfondimento1.isNotEmpty) 'approfondimento1': approfondimento1,
+        if (approfondimento2.isNotEmpty) 'approfondimento2': approfondimento2,
       };
 
   /// Null se manca un pezzo: una lettura a meta' non si mostra. **Il titolo
@@ -144,6 +159,11 @@ class LetturaDelModello {
       legame: le,
       consiglio: co,
       titolo: pezzo('titolo') ?? '',
+      // **NON OBBLIGATORI**, a differenza degli altri pezzi: la Lunga li
+      // chiede, ma se il modello li saltasse la lettura resta comunque
+      // intera (si vede senza il riquadro arancione) invece di sparire.
+      approfondimento1: pezzo('approfondimento1') ?? '',
+      approfondimento2: pezzo('approfondimento2') ?? '',
     );
   }
 }
@@ -276,6 +296,11 @@ abstract final class LaLetturaDellaStesa {
   static const int tettoDelLegame = 360;
   static const int tettoDelConsiglio = 260;
 
+  /// **IL TETTO DEI DUE PARAGRAFI DELLA LUNGA.** Ordine FN, 13 ottobre 2026.
+  /// Piu' largo del consiglio: sono risposte dirette di approfondimento, non
+  /// una frase sola.
+  static const int tettoDellApprofondimento = 420;
+
   /// Il tetto del titolo: da tre a otto parole, scritte grandi in cima.
   static const int tettoDelTitolo = 70;
 
@@ -300,13 +325,21 @@ abstract final class LaLetturaDellaStesa {
   }
 
   /// I campi che il modello deve restituire per [spread], tutti obbligatori,
-  /// nell'ordine in cui li scrive.
-  static Map<String, Schema> campiPer(TarotSpread spread) => {
+  /// nell'ordine in cui li scrive. **[profonda] aggiunge i due paragrafi
+  /// dell'approfondimento, ordine FN 13 ottobre 2026**: solo quando la
+  /// persona ha scelto la profondita' Lunga, altrimenti non si chiedono.
+  static Map<String, Schema> campiPer(TarotSpread spread,
+          {bool profonda = false}) =>
+      {
         'risposta': Schema.string(),
         for (final k in chiaviPer(spread)) k: Schema.string(),
         'legame': Schema.string(),
         'consiglio': Schema.string(),
         'titolo': Schema.string(),
+        if (profonda) ...{
+          'approfondimento1': Schema.string(),
+          'approfondimento2': Schema.string(),
+        },
       };
 
   /// **COSA VUOL DIRE OGNI POSIZIONE**, detto al modello nella richiesta.
@@ -352,7 +385,7 @@ abstract final class LaLetturaDellaStesa {
   /// La [chiave] entra come voce prima dell'ultima riga (ordine FI voce 07);
   /// la Predittiva non aggiunge niente, e l'istruzione resta quella di sempre.
   static String istruzione(CourtesyForm forma,
-          {ReadingKey chiave = ReadingKey.predittiva}) =>
+          {ReadingKey chiave = ReadingKey.predittiva, bool profonda = false}) =>
       '''
 Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa dei Tarocchi Rider-Waite: la richiesta ti dice quante carte, in quali posizioni e che cosa vuol dire ciascuna posizione. Leggila in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
 
@@ -363,7 +396,8 @@ COME SI LEGGE:
 - LEGAME: una o due frasi su come le carte si legano fra loro: una causa, un passaggio, un contrasto. Se la carta è una sola, il legame dice come la carta si lega alla domanda.
 - CONSIGLIO: una frase sola, un passo concreto che la persona può fare, con un momento o un modo definiti.
 - TITOLO: da tre a otto parole, scritto dopo tutto il resto. È la risposta alla domanda detta a colpo d'occhio, come il titolo che si legge prima di ogni altra cosa: chi legge solo il titolo deve già sapere che cosa dicono le carte sulla sua domanda. Parla della persona o della sua situazione, mai in prima persona. Non nomina le carte, non finisce col punto, non ha i due punti e non è una domanda.
-- Niente frasi che andrebbero bene per qualunque stesa. Nessuna previsione data per certa, nessuna promessa su salute, denaro, leggi, gravidanza o morte. Niente cifre: i numeri si scrivono in lettere.
+${profonda ? '''- APPROFONDIMENTO1 e APPROFONDIMENTO2: la persona ha chiesto la lettura Lunga. Due paragrafi di risposta diretta e concreta, senza giri di parole: che cosa fare, con chi, quando, in che ordine. Non ripetono la RISPOSTA né il CONSIGLIO, li approfondiscono: il primo entra nel dettaglio pratico del passo da fare, il secondo in un ostacolo concreto da aspettarsi e come affrontarlo. Niente filosofia, niente frasi che andrebbero bene per qualunque domanda: nomi, momenti, gesti precisi.
+''' : ''}- Niente frasi che andrebbero bene per qualunque stesa. Nessuna previsione data per certa, nessuna promessa su salute, denaro, leggi, gravidanza o morte. Niente cifre: i numeri si scrivono in lettere.
 - Nelle frasi rivolte alla persona non scrivere mai queste parole: $paroleDelConfine. Se la domanda tocca uno di questi temi, parla di come la persona può affrontare la situazione, non dell'esito. La carta La Morte si scrive sempre così, con la maiuscola.
 - Niente verbi al futuro, né per la persona (troverai, affronterai, tenderai, saprai, potrai) né per le cose (sarà, porterà, arriverà, accadrà). Niente «sicuramente», «senza dubbio», «è certo che», «è in arrivo»: per ciò che viene scrivi al presente, «tendi a», «puoi», «potresti», «rischi di», «la situazione tende a».
 - Accorda articoli, verbi, aggettivi e participi al nome della carta: «Gli Amanti indicano», «la Torre ti mostra».
@@ -372,7 +406,7 @@ ${forma.agree(masculine: '', feminine: '', neutral: senzaGenere)}
 ${ConfineDelResponso.perIlModello}
 
 ${IlBloccoDiCortesia.perForma(forma)}${chiave.voce == null ? '' : '\n${chiave.voce}'}
-Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni carta col nome che la richiesta le dà, poi "legame", "consiglio" e "titolo".''';
+Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni carta col nome che la richiesta le dà, poi "legame", "consiglio" e "titolo"${profonda ? ', poi "approfondimento1" e "approfondimento2"' : ''}.''';
 
   /// **LE PAROLE DEL CONFINE, DETTE AL MODELLO.** Ordine EQ voce 04: la
   /// guardia a valle (`ConfineDelResponso`) scarta la frase rivolta alla
@@ -487,6 +521,10 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
+    // **LA PROFONDITA' LUNGA CHIEDE I DUE PARAGRAFI IN PIU'. Ordine FN, 13
+    // ottobre 2026.** Falso di default: ogni chiamata gia' scritta (prove,
+    // strumenti) resta la stessa lettura breve di sempre.
+    bool profonda = false,
   }) async {
     // **LA STESA LEGGE IL FILO E CI SCRIVE. Ordine FE voce 08.** Era una
     // delle strade che non usavano la memoria del consulto
@@ -500,7 +538,8 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
         gruppo: gruppo,
         chiave: chiave,
         chiamata: chiamata,
-        entro: entro);
+        entro: entro,
+        profonda: profonda);
     if (lettura != null) {
       IlFiloDelConsulto.annota(
           maestro: Maestro.medora,
@@ -520,6 +559,7 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
+    bool profonda = false,
   }) async {
     final tetto = entro ?? pazienza;
     final cronometro = Stopwatch()..start();
@@ -541,13 +581,15 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
         testo = await primaCheTorna(
           () => (chiamata ?? _chiamataVera)(
             IlFiloDelConsulto.conIlFilo(
-                istruzione(forma, chiave: chiave), Maestro.medora, domanda),
+                istruzione(forma, chiave: chiave, profonda: profonda),
+                Maestro.medora,
+                domanda),
             richiesta(spread,
                 domanda: domanda,
                 argomento: argomento,
                 gruppo: gruppo,
                 scartataPerche: perQuesta),
-            campiPer(spread),
+            campiPer(spread, profonda: profonda),
           ),
         ).timeout(resta);
       } catch (errore) {
@@ -727,6 +769,12 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     if (l.risposta.length > tettoDellaRisposta) return 'risposta troppo lunga';
     if (l.legame.length > tettoDelLegame) return 'legame troppo lungo';
     if (l.consiglio.length > tettoDelConsiglio) return 'consiglio troppo lungo';
+    if (l.approfondimento1.length > tettoDellApprofondimento) {
+      return 'il primo approfondimento è troppo lungo';
+    }
+    if (l.approfondimento2.length > tettoDellApprofondimento) {
+      return 'il secondo approfondimento è troppo lungo';
+    }
     // **IL TITOLO SI GUARDA, quando c'e'.** Collaudo dell'ordine FK
     // aggiunta voce A1 (docs/collaudo/FK/il_titolo_dal_modello_giro_1.txt):
     // una lettura su quattro titolava "Vendita casa: lascio andare o resto",
@@ -803,6 +851,12 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
 
   static Future<String?> _chiamataVera(
       String istruzione, String richiesta, Map<String, Schema> campi) async {
+    // **IL TETTO SALE CON L'APPROFONDIMENTO.** Ordine FN, 13 ottobre 2026: i
+    // due paragrafi in piu' della Lunga si scrivono DAVVERO solo se c'e'
+    // posto per scriverli. Si deduce dalla stessa mappa dei campi che va
+    // allo schema, non da un parametro in piu' su questa firma: e' la
+    // stessa che le prove passano con la loro `chiamata` finta.
+    final profonda = campi.containsKey('approfondimento1');
     final m =
         FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione).generativeModel(
       model: modello,
@@ -810,7 +864,7 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,
-        maxOutputTokens: 1400,
+        maxOutputTokens: profonda ? 2000 : 1400,
         thinkingConfig: LaDomandaCapita.ragionamentoPer(modello),
         responseMimeType: 'application/json',
         // **I CAMPI NEL LORO ORDINE**: senza, il modello li scrive in ordine
