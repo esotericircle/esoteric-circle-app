@@ -18,3 +18,9 @@ PRIMA DELL'INNESTO: "Cade sulla cosa che hai in mano una luce stretta: accende i
 innesto: "hai" diventa "ha" nella variante 3 del Matto dritto in copre.md; entrato (grep -c): 1
 esito dopo l'innesto: ROSSA ['copre, Il Matto, dritta, variante 3: non si rivolge alla persona col tu']
 ripristinato al byte: si
+
+== FM.02, la prova riscritta 'ogni posizione di ogni stesa ha la sua fonte' (test/la_stesa_di_n_carte_test.dart)
+-- innesto: dietro senza fonte (lib/core/tarot/le_carte_nella_posizione.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

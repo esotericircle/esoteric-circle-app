@@ -138,6 +138,12 @@ enum TarotSpreadType {
     // capitolo (docs/corpus/tarocchi_posizione/verifica_waite_1911.md).
     fonte: 'Arthur Edward Waite, The Pictorial Key to the Tarot, 1911, '
         'Parte III, sezione 7, "An Ancient Celtic Method of Divination".',
+    // **CHIUSA, MA NON PIU' PER LE FONTI.** Dall'ordine FM (12 ottobre
+    // 2026) le dieci posizioni hanno tutte la loro fonte, 468 testi
+    // ciascuna. Resta chiusa perche' la fila in piedi del tavolo di Medora
+    // (ordine FL voce 05) mette le carte affiancate: dieci a 360 punti sono
+    // larghe ventisei punti l'una, illeggibili. Si apre col tavolo a dieci
+    // carte disegnato, non prima.
     costruita: false,
   );
 

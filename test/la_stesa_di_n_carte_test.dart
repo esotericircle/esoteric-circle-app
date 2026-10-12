@@ -144,20 +144,22 @@ void main() {
   });
 
   group('A9 e A12, le fonti e le stese aperte', () {
-    test('le posizioni senza fonte stanno solo nella Croce Celtica chiusa', () {
+    // **LAPIDE: "le posizioni senza fonte stanno solo nella Croce Celtica
+    // chiusa"** (ordine FK aggiunta 2, che ne contava quattro). Dall'ordine FM
+    // le quindici posizioni hanno tutte la fonte: la prova pretende adesso
+    // che nessuna ne resti senza, e che ogni stesa abbia la fonte in ogni
+    // suo posto. La Croce Celtica resta chiusa per il tavolo, non per i testi.
+    test('ogni posizione di ogni stesa ha la sua fonte', () {
       final senza = [
         for (final p in SpreadPosition.values)
           if (!LeCarteNellaPosizione.haLaFonte(p)) p,
       ];
-      print('ORDINE FK AGGIUNTA 2: posizioni senza fonte $senza');
-      cardinaleMinimo(senza.length, 1, cosa: 'posizioni senza fonte');
+      print('ORDINE FM: posizioni senza fonte $senza');
+      cardinaleMinimo(SpreadPosition.values.length, 15, cosa: 'posizioni');
+      expect(senza, isEmpty, reason: 'posizioni senza fonte: $senza');
       for (final t in TarotSpreadType.values) {
-        final vuote = t.posizioni.where(senza.contains).toList();
-        if (vuote.isNotEmpty) {
-          expect(t, TarotSpreadType.dieciCarte,
-              reason: '${t.name} ha posizioni senza fonte: $vuote');
-          expect(t.disponibile, isFalse);
-        }
+        expect(t.posizioni.every(LeCarteNellaPosizione.haLaFonte), isTrue,
+            reason: '${t.name} ha una posizione senza fonte');
       }
     });
 
