@@ -55,7 +55,7 @@ MISURA: schedari da 0 a 8 (sette posizioni e i registri), righe carta per carta 
 
 DOMANDA: "finita ogni posizione, rilanciare python tool/genera_carte_nella_posizione.py e verificare che lib/core/tarot/le_carte_nella_posizione_dati.dart porti i testi nuovi, non la mappa vuota"
 PROVA: lib/core/tarot/le_carte_nella_posizione_dati.dart
-MISURA: scheletri nel Dart da 4.212 a 7.020 su 7.020, registri da 0 a 468 su 468; la guardia `il_corpus_delle_posizioni` conta con `cardinaleMinimo` i testi dichiarati, da 4.212 a 7.020; spinte sul ramo a ogni pezzo finito 3
+MISURA: scheletri nel Dart da 4.212 a 7.020 su 7.020, registri da 0 a 468 su 468; la guardia `il_corpus_delle_posizioni` conta con `cardinaleMinimo` i testi dichiarati, da 4.212 a 7.020; spinte sul ramo a ogni pezzo finito 4
 
 ## VOCE FM.07
 

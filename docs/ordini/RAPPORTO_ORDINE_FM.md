@@ -28,7 +28,7 @@
 3. **Gli otto schedari (FM.05)**, accanto al corpus: per ogni posizione che cosa chiede, la fonte (Waite 1911 per la Croce Celtica, Etteilla e Eden Gray per la stesa a tre carte), la gemella e il confine; poi, carta per carta, una riga QUI (ciò che la carta dice in questa posizione) e NON (ciò che direbbe nella gemella). Le righe di posizione le ho scritte io, quelle delle carte gli scrittori, **prima** dei testi.
 4. **I testi**, scritti da nove scrittori in parallelo, uno per file: 936 per passato, presente e futuro, 1.872 per le quattro posizioni della Croce Celtica, 468 registri, 311 riparazioni.
 5. **La misura**, due giri di lettori ciechi (sotto).
-6. **Il Dart** rigenerato a ogni pezzo finito in una copia pulita del ramo (nel worktree gli scrittori lavoravano ancora), con la guardia del corpus portata alla dichiarazione vera. Tre spinte sul ramo.
+6. **Il Dart** rigenerato a ogni pezzo finito in una copia pulita del ramo (nel worktree gli scrittori lavoravano ancora), con la guardia del corpus portata alla dichiarazione vera. Quattro spinte sul ramo.
 
 ## LA SOGLIA DEGLI SCHEDARI, E LA MISURA (FM.05)
 
@@ -71,7 +71,7 @@ L'unico errore, nel giro 1: un testo del presente (Asso di Denari capovolta) let
 
 ## LA SUITE
 
-SUITE_FINALE
+La suite intera sul commit `eaa72255`, nella copia `C:/Users/user/fi0` portata in LF e verificata prima di lanciarla: **+7143 -7** (`flutter test -r expanded`, 66 minuti). I sette rossi, col loro padre: **uno la registrazione** di questo rapporto (`i_rapporti_consegnati_non_si_correggono`), che e' fatta dopo questa riga; **tre della prova della rotazione** (`la_rotazione_delle_varianti`), il mondo cambiato: coi registri consegnati la lettura di casa monta lo scheletro e poi il registro (voce FI.20) e la prova si aspettava lo scheletro da solo; riscritta con la lapide e vista rossa con la rotazione spenta (padre **FM.03**); **uno la tabella generata delle lunghezze** (`le_lunghezze_dei_responsi`), rigenerata: la bolla di posizione dei tarocchi passa da 160-258 a 270-365 caratteri perche' porta il registro (padre **FM.03**) e a video la bolla si allunga; **due frasi degli scrittori**: "Custodisci", il nome vecchio del menu, in te stesso (Quattro di Denari dritta 3, padre **FM.02**, presa da `i_nomi_del_menu_e_del_diario`) e "che hai dato, o ricevuto" nel passato (Re di Spade dritta 3, padre **FM.01**, presa da `niente_vocativo_a_schermo`), riscritte. I file dei sette rossi rifatti nella copia LF dopo le correzioni, con le guardie del corpus, del genere e dei testi a video: 36 su 36 verdi. La suite intera non e' stata rigirata dopo le correzioni: lo dira' il cancello di GitHub sul commit spinto.
 
 ## LA BUILD
 
