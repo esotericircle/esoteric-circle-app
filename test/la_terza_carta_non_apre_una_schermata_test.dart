@@ -141,7 +141,11 @@ void main() {
     await pesca(tester, 39);
     await pesca(tester, 40);
 
-    final scelte = find.byKey(const Key('stesa_blocco_carte_scelte'));
+    // **LAPIDE: "il blocco delle carte scelte".** Ordine FL voci 03 e 05:
+    // alla terza carta restano le tre carte coperte sul tavolo della scena,
+    // e i loro nomi arrivano col responso. La legge resta: la pagina non si
+    // svuota.
+    final scelte = find.byKey(const Key('tavolo_carta_2'));
     final pulsante = find.byKey(const Key('stesa_inizia'));
     // ignore: avoid_print
     print('ORDINE CQ VOCE 6.09: carte a casa ${carteACasa(tester)}, il blocco '

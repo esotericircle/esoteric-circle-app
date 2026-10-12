@@ -111,6 +111,8 @@ import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_glyph.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:esoteric_circle/core/tarot/i_mazzi_dei_tarocchi.dart';
+import 'package:esoteric_circle/core/tarot/i_mazzi_scaricati.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
@@ -3976,6 +3978,137 @@ void main() {
     await capture(tester, rootKey, 'FK/fk_a5_stesa_le_fonti.png');
   });
 
+  // --- L'ORDINE FL: le carte coperte sul tavolo, prima del pulsante ---
+  for (final (tipo, nome) in const [
+    (TarotSpreadType.treCarte, 'tre_carte'),
+    (TarotSpreadType.croceQuattro, 'croce'),
+  ]) {
+    testWidgets("Cattura l'ordine FL, le carte coperte, $nome", (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey = await mount(
+          tester, await buildServices(Maestro.medora, seeded: false));
+      await montaLoSchermo(tester, const Size(360, 2400));
+      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(nav.push(MaterialPageRoute<void>(
+        builder: (_) => MaestroScope(
+          child: StesaTreCarteScreen(
+            seed: 1,
+            skipIntro: true,
+            topic: TarotTopic.bivio,
+            tipo: tipo,
+          ),
+        ),
+      )));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 400));
+      }
+      await tester.runAsync(() async {
+        final element = tester.element(find.byType(StesaTreCarteScreen));
+        await precacheImage(
+            const AssetImage('assets/img/tavolo/tavolo_medora_v2.webp'),
+            element);
+        await precacheImage(
+            const AssetImage('assets/img/tavolo/medora_busto_v1.webp'),
+            element);
+      });
+      for (final indice in [36, 38, 40, 42].take(tipo.carte)) {
+        final carta = find.byKey(Key('stesa_fan_$indice'));
+        final r = tester.getRect(carta);
+        await tester.tapAt(Offset(r.left + 6, r.center.dy));
+        for (var i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 250));
+        }
+      }
+      await montaLoSchermo(tester, const Size(360, 797));
+      await step(tester);
+      await capture(tester, rootKey, 'FL/fl_${nome}_le_carte_coperte.png');
+    });
+  }
+
+  // --- L'ORDINE FL: la sequenza dopo il pulsante, fotogramma per fotogramma ---
+  testWidgets("Cattura l'ordine FL, la sequenza dopo il pulsante",
+      (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await montaLoSchermo(tester, const Size(360, 797));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(MaterialPageRoute<void>(
+      builder: (_) => const MaestroScope(
+        child: StesaTreCarteScreen(
+          seed: 1,
+          skipIntro: true,
+          topic: TarotTopic.bivio,
+        ),
+      ),
+    )));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(StesaTreCarteScreen));
+      for (final c in TarotDeck.cards) {
+        await precacheImage(AssetImage(c.fullPath), element);
+      }
+    });
+    for (final indice in [36, 38, 40]) {
+      final carta = find.byKey(Key('stesa_fan_$indice'));
+      await tester.ensureVisible(carta);
+      await tester.pump();
+      final r = tester.getRect(carta);
+      await tester.tapAt(Offset(r.left + 6, r.center.dy));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 250));
+      }
+    }
+    final pulsante = find.byKey(const Key('stesa_inizia'));
+    await tester.ensureVisible(pulsante);
+    await tester.pump();
+    await tester.tap(pulsante, warnIfMissed: false);
+    // Prima il filo fra le carte, poi la riflessione di Medora, che resta
+    // com'era: si aspetta che compaia, la si cattura, si aspetta che finisca.
+    final attesa = find.byKey(const Key('stesa_attesa'));
+    for (var i = 0; i < 300 && attesa.evaluate().isEmpty; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await tester.pump(const Duration(milliseconds: 600));
+    await capture(tester, rootKey, 'FL/fl_sequenza_1_la_riflessione.png',
+        precarica: false);
+    for (var i = 0; i < 400 && attesa.evaluate().isNotEmpty; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    Scrollable.ensureVisible(
+        tester.element(find.byKey(const Key('stesa_slots'))));
+    await tester.pump();
+    // Il tempo scorre a passi piccoli, come sul telefono: un pump lungo
+    // farebbe fare all'animazione un passo solo.
+    Future<void> scorri(int millesimi) async {
+      for (var t = 0; t < millesimi; t += 50) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+    }
+
+    // La prima carta a meta' del giro.
+    await scorri(260);
+    await capture(tester, rootKey, 'FL/fl_sequenza_2_la_prima_si_gira.png',
+        precarica: false);
+    // Tutte girate, prima del secondo di attesa.
+    await scorri(1900);
+    // Qui le immagini si precaricano: le facce appena girate, senza,
+    // uscivano trasparenti nella cattura (non sul telefono).
+    await capture(tester, rootKey, 'FL/fl_sequenza_3_tutte_girate.png');
+    // A meta' dell'alzata.
+    await scorri(1000 + 380);
+    await capture(tester, rootKey, 'FL/fl_sequenza_4_si_alzano.png');
+    await scorri(2000);
+    Scrollable.ensureVisible(
+        tester.element(find.byKey(const Key('stesa_slots'))));
+    await tester.pump();
+    await capture(tester, rootKey, 'FL/fl_sequenza_5_in_piedi.png');
+  });
+
   // --- L'AGGIUNTA 2 FK: la stesa a una carta e la stesa a croce ---
   for (final (tipo, nome) in const [
     (TarotSpreadType.unaCarta, 'una_carta'),
@@ -4019,6 +4152,69 @@ void main() {
       await fkInQuadro(tester, rootKey, const Key('stesa_lente'),
           'FK/fk_a12_${nome}_le_bolle.png');
     });
+  }
+
+  // --- L'ORDINE FL: le tre stese nei tre mazzi, sul tavolo nuovo ---
+  //
+  // Marsiglia e Thoth si scaricano dal bucket: qui si leggono installati da
+  // una cartella di collaudo nel formato dell'app (mazzi/<id>/installato.json),
+  // riempita dal CDN pubblico. Senza la cartella le catture si saltano.
+  const cartellaDeiMazzi =
+      'C:/Users/user/AppData/Local/Temp/claude/mazzi_collaudo';
+  for (final mazzo in TarotDeckStyle.values) {
+    for (final (tipo, nome) in const [
+      (TarotSpreadType.unaCarta, 'una_carta'),
+      (TarotSpreadType.treCarte, 'tre_carte'),
+      (TarotSpreadType.croceQuattro, 'croce'),
+    ]) {
+      testWidgets("Cattura l'ordine FL, il mazzo ${mazzo.name}, la stesa $nome",
+          skip: !mazzo.nelBinario &&
+              !File('$cartellaDeiMazzi/mazzi/${mazzo.sulBucket}/installato.json')
+                  .existsSync(), (tester) async {
+        silenceSensors();
+        await loadFonts();
+        final prima = IMazziScaricati.diCasa;
+        IMazziScaricati.diCasa =
+            IMazziScaricati(cartella: () async => Directory(cartellaDeiMazzi));
+        addTearDown(() => IMazziScaricati.diCasa = prima);
+        await tester.runAsync(IMazziScaricati.diCasa.leggiIInstallati);
+        final rootKey = await mount(
+            tester, await buildServices(Maestro.medora, seeded: false));
+        await montaLoSchermo(tester, const Size(360, 797));
+        // **PRIMA DI APRIRE LA SCHERMATA.** Un'immagine dal file chiesta
+        // col tempo finto della prova non finisce mai di leggersi, e resta
+        // in cache: il precaricamento dopo la aspetterebbe per sempre (il
+        // primo giro si e' fermato cosi' su Marsiglia).
+        await tester.runAsync(() async {
+          final element = tester.element(find.byType(Navigator).first);
+          for (final drawn
+              in TarotSpread.draw(seed: 1, posizioni: tipo.posizioni).cards) {
+            await precacheImage(
+                IMazziScaricati.diCasa.arteDi(mazzo, drawn.card) ??
+                    AssetImage(drawn.card.fullPath),
+                element);
+          }
+        });
+        final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+        unawaited(nav.push(MaterialPageRoute<void>(
+          builder: (_) => MaestroScope(
+            child: StesaTreCarteScreen(
+              seed: 1,
+              revealAll: true,
+              topic: TarotTopic.bivio,
+              tipo: tipo,
+              mazzo: mazzo,
+            ),
+          ),
+        )));
+        await step(tester);
+        await step(tester);
+        await step(tester);
+        await tester.pump(const Duration(seconds: 2));
+        await fkInQuadro(tester, rootKey, const Key('stesa_slots'),
+            'FL/fl_mazzo_${mazzo.name}_$nome.png');
+      });
+    }
   }
 
   // --- La scena della Stesa a riposo, prima della scelta ---

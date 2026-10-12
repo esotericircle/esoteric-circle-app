@@ -27,7 +27,6 @@ import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../core/tarot/la_stesa_conservata.dart';
 import '../../core/tarot/le_uscite_delle_carte.dart';
-import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -37,7 +36,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../core/tarot/le_fonti_dei_tarocchi.dart';
-import 'il_tavolo_della_stesa.dart';
+import 'il_tavolo_di_medora.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
@@ -50,7 +49,6 @@ import '../sigilli/regia_del_cammino.dart';
 import 'stesa_reveal.dart';
 import 'stesa_senses.dart';
 import 'stesa_share_card.dart';
-import 'medora_stage.dart';
 import 'tarot_card_art.dart';
 import 'tarot_selectors.dart';
 import '../maestri/rotta_arte.dart';
@@ -87,7 +85,14 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.chiamata,
     this.chiave,
     this.tipo,
+    this.mazzo,
   });
+
+  /// **IL MAZZO DI PARTENZA**, ordine FL: nullo, il Rider-Waite; le
+  /// anteprime aprono Marsiglia e Thoth senza la tendina, per guardare il
+  /// tavolo nuovo con ogni mazzo. Un mazzo non scaricato si disegna col
+  /// Rider-Waite, come dalla tendina.
+  final TarotDeckStyle? mazzo;
 
   /// **LA STESA DI PARTENZA**, ordine FK aggiunta 2: nulla, la stesa a tre
   /// carte; le prove e le anteprime aprono un'altra stesa senza la tendina.
@@ -542,6 +547,98 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   late final AnimationController _filo =
       AnimationController(vsync: this, duration: FiloFraLeCarte.durata);
 
+  // **LA SEQUENZA DEL TAVOLO, ordine FL voce 05.** Il fondatore: "dopo
+  // l'animazione di riflessione, le carte si girano sul tavolo una alla volta
+  // e dopo un secondo dall'ultima girata, si mettono in verticale
+  // ingrandendosi per rendersi ben visibile all'utente". [_giro] gira la
+  // carta di turno, [_alzo] le alza tutte insieme dal piano alla fila.
+  late final AnimationController _giro = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 520));
+  late final AnimationController _alzo = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 750));
+
+  /// Quante carte si sono gia' girate sul tavolo.
+  int _carteGirate = 0;
+
+  /// Vero quando le carte sono in piedi: con [StesaTreCarteScreen.revealAll]
+  /// la stesa nasce gia' compiuta, e la sequenza anche.
+  late bool _sequenzaFatta = widget.revealAll;
+
+  /// L'attesa fra l'ultima carta girata e le carte che si alzano: un secondo,
+  /// come l'ha detto il fondatore.
+  static const Duration attesaPrimaDiAlzarsi = Duration(seconds: 1);
+
+  /// **LE ATTESE DELLA SEQUENZA SI CANCELLANO**: se la schermata si chiude a
+  /// meta' sequenza, nessun timer resta appeso dopo di lei.
+  final Set<Timer> _timerDelTavolo = {};
+
+  Future<void> _attendi(Duration quanto) {
+    final fatto = Completer<void>();
+    late final Timer t;
+    t = Timer(quanto, () {
+      _timerDelTavolo.remove(t);
+      fatto.complete();
+    });
+    _timerDelTavolo.add(t);
+    return fatto.future;
+  }
+
+  /// La pila della schermata, per sapere dove sta un posto del tavolo.
+  final GlobalKey _chiaveDellaPila = GlobalKey(debugLabel: 'stesa_pila');
+
+  /// **LE CARTE SI GIRANO UNA ALLA VOLTA, POI SI ALZANO.** Con il movimento
+  /// ridotto la sequenza non si recita: le carte sono gia' in piedi.
+  Future<void> _laSequenzaDelTavolo() async {
+    if (!mounted || _sequenzaFatta) return;
+    if (_reduceMotion) {
+      setState(() {
+        _carteGirate = _posizioni.length;
+        _sequenzaFatta = true;
+      });
+      return;
+    }
+    for (var i = 0; i < _posizioni.length; i++) {
+      if (!mounted) return;
+      _sensi.momento(context, MomentoSensoriale.flip);
+      await _giro.forward(from: 0);
+      if (!mounted) return;
+      setState(() => _carteGirate = i + 1);
+      _giro.value = 0;
+      unawaited(_fiorisci(i));
+      await _attendi(const Duration(milliseconds: 160));
+    }
+    await _attendi(attesaPrimaDiAlzarsi);
+    if (!mounted) return;
+    await _alzo.forward(from: 0);
+    if (!mounted) return;
+    setState(() => _sequenzaFatta = true);
+  }
+
+  /// Quanto e' girata la carta del posto [i] sul tavolo.
+  double _girataDi(int i) {
+    if (_sequenzaFatta || i < _carteGirate) return 1;
+    if (i == _carteGirate) return _giro.value;
+    return 0;
+  }
+
+  /// **DOVE ARRIVA LA CARTA IN VOLO**: il centro del suo posto sul tavolo,
+  /// nelle coordinate della pila. Nulla se la scena non e' ancora disegnata.
+  Offset? _arrivoSulTavolo(int posto) {
+    final scena = _chiaveDegliSlot.currentContext?.findRenderObject();
+    final pila = _chiaveDellaPila.currentContext?.findRenderObject();
+    if (scena is! RenderBox || pila is! RenderBox || !scena.hasSize) {
+      return null;
+    }
+    if (posto < 0 || posto >= _posizioni.length) return null;
+    final w = scena.size.width;
+    final sulPiano = GeometriaDelTavolo.carteSulPiano(_setup.tipo.tavolo, w);
+    final centro = sulPiano.angoli[posto] +
+        Offset(sulPiano.larghezza / 2,
+            sulPiano.larghezza / kAspettoDellaCarta / 2);
+    final nellaScena = GeometriaDelTavolo.proietta(centro, w);
+    return pila.globalToLocal(scena.localToGlobal(nellaScena));
+  }
+
   /// Vero mentre il filo e' in scena.
   bool _filoInScena = false;
 
@@ -563,7 +660,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   late TarotSetup _setup = TarotSetup(
       tipo: widget.tipo ?? TarotSpreadType.predefinita,
       topic: widget.topic ?? TarotTopic.predefinito,
-      key: widget.chiave ?? ReadingKey.predittiva);
+      key: widget.chiave ?? ReadingKey.predittiva,
+      deck: widget.mazzo ?? TarotDeckStyle.riderWaite);
 
   /// **LE POSIZIONI DELLA STESA SCELTA**, ordine FK aggiunta 2 voce A10: la
   /// schermata stende quello che la stesa dichiara, non tre carte fisse.
@@ -785,6 +883,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   @override
   void dispose() {
+    for (final t in _timerDelTavolo) {
+      t.cancel();
+    }
+    _giro.dispose();
+    _alzo.dispose();
     _filo.dispose();
     _tilt.dispose();
     _reveal.dispose();
@@ -798,9 +901,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _volo.dispose();
     super.dispose();
   }
-
-  /// L'ultima carta scoperta: e' quella su cui Medora posa lo sguardo.
-  DrawnCard? get _active => _drawn == 0 ? null : _spread.cards[_drawn - 1];
 
   bool get _complete => _drawn >= _posizioni.length;
 
@@ -856,8 +956,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     });
     // Il flip, poi la fioritura dell'elemento: la carta si scopre e il suo
     // seme parla un istante, prima di lasciarla pulita e leggibile.
+    // **LA CARTA SI POSA COPERTA SUL TAVOLO, ordine FL voce 05.** LAPIDE:
+    // "il flip, poi la fioritura dell'elemento" a ogni presa. Adesso si
+    // sente la carta che si posa, e la fioritura arriva quando la carta si
+    // gira sul tavolo, dopo il pulsante.
     _sensi.momento(context, MomentoSensoriale.flip);
-    await _fiorisci(slot);
   }
 
   /// **IL RESPONSO SI APRE QUANDO LO CHIEDI, E SOLO ALLORA SI PAGA.**
@@ -1154,6 +1257,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (!mounted) return;
     _stoPerRiflettere = false;
     setState(() => _attesa = StatoDellAttesa.assente);
+    unawaited(_laSequenzaDelTavolo());
     // Scena libera: la festa che ha aspettato riparte adesso, non fra
     // novanta secondi.
     if (mounted) {
@@ -1247,11 +1351,23 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             const AngoloDellaBarra(),
           ],
         ),
-        body: CosmosBackground(
-          seed: 19,
-          showZodiac: false,
+        // **LO SFONDO NUOVO, ordine FL voce 01.** LAPIDE: "CosmosBackground".
+        // Lo sfondo e' l'immagine del tavolo, in cima alla lista
+        // (`TavoloDiMedora`); sotto la scena la pagina prosegue coi colori
+        // del fondo di quell'immagine, misurati sul file, cosi' il drappo del
+        // tavolo sfuma senza uno stacco.
+        body: DecoratedBox(
+          key: const Key('stesa_sfondo'),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF151118), Color(0xFF080B0F)],
+            ),
+          ),
           child: SafeArea(
             child: Stack(
+              key: _chiaveDellaPila,
               children: [
                 _content(palette),
                 // Il bianco con cui l'intro passa la mano: sta sopra la scena e
@@ -1271,6 +1387,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                       key: const Key('stesa_volo'),
                       progress: _volo.value,
                       destinazione: _drawn,
+                      arrivo: _arrivoSulTavolo(_drawn),
                       palette: palette,
                       seed: _inVolo!,
                     ),
@@ -1335,136 +1452,117 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
   }
 
-  /// I tre slot Passato Presente Futuro.
-  ///
-  /// Stanno sopra il ventaglio mentre si pesca e sopra la lettura quando la
-  /// stesa e' fatta: e' lo stesso blocco, cambia solo dove si trova.
-  /// LA CHIAVE GLOBALE DEGLI SLOT, ordine BZ voce 07.
-  ///
-  /// I tre slot compaiono in TRE punti diversi della lista, secondo il momento:
-  /// sopra il ventaglio mentre si pesca, sotto Medora fra l'ultima carta e la
-  /// riflessione, sotto la sintesi a responso pronto. Senza una chiave globale
-  /// Flutter, vedendoli cambiare posto, li considera widget nuovi: butta lo
-  /// stato e le tre carte RIGIRANO SUL DORSO, perche' `_FlipCard` fa partire il
-  /// suo giro quando nasce. **Si vede nell'anteprima**
-  /// `stesa-dopo-l-ultima-carta.png`, che alla prima stesura mostrava tre dorsi
-  /// dove dovevano esserci tre figure gia' scoperte. Con la chiave globale
-  /// l'elemento trasloca invece di rinascere, e il giro resta fatto.
-  ///
-  /// Ne esiste UNO SOLO in albero per volta: i tre momenti si escludono a
-  /// vicenda (`!_complete`, `_carteDopoLUltima`, `_responsoInScena`).
-  final GlobalKey _chiaveDegliSlot = GlobalKey(debugLabel: 'stesa_slots');
-
-  Widget _slots(MaestroPalette palette) {
-    return KeyedSubtree(
-      key: _chiaveDegliSlot,
-      child: AnimatedBuilder(
-        animation: Listenable.merge([_reveal, _galleggio, _tilt]),
-        builder: (context, _) => _slotsRow(palette),
-      ),
-    );
-  }
-
-  Widget _slotsRow(MaestroPalette palette) {
-    // IL FILO STA SOPRA LE TRE CARTE, ordine BN voce 08: si disegna sulla
-    // fila intera, perche' e' la fila che deve leggersi come una cosa sola.
-    final fila = _filaDelleCarte(palette);
-    if (!_filoInScena) return fila;
-    return Stack(
-      children: [
-        fila,
-        Positioned.fill(
-          child: AnimatedBuilder(
-            animation: _filo,
-            builder: (context, _) => LayoutBuilder(
-              builder: (context, vincoli) {
-                // I centri dal tavolo, come le carte (ordine FK aggiunta 2
-                // voce A10).
-                final d = TavoloDellaStesa.disponi(
-                    _setup.tipo.tavolo, vincoli.maxWidth, _altezzaDellaCella,
-                    altezzaMassima: _altezzaDelTavolo);
-                return FiloFraLeCarte(
-                  centri: [
-                    for (final a in d.angoli)
-                      a + Offset(d.larghezza / 2, d.altezza * 0.42),
-                  ],
-                  dallaChiave: _postoDellaChiave,
-                  avanzamento: _reduceMotion ? 0.5 : _filo.value,
-                  palette: palette,
-                );
-              },
+  /// **LA SCENA**, larga quanto lo schermo anche se la lista ha i suoi
+  /// margini: lo sfondo non si ferma a sedici punti dal bordo. E' alta fino
+  /// al bordo davanti del tavolo; il drappo scende sotto il selettore e ci
+  /// sfuma dietro (ordine FL voce 02: "subito sotto il tavolo il selettore").
+  Widget _laScena(MaestroPalette palette) {
+    return LayoutBuilder(builder: (context, vincoli) {
+      final w = vincoli.maxWidth + 2 * SpacingTokens.lg;
+      final s = GeometriaDelTavolo.scala(w);
+      // A carte in piedi la scena si allunga fino sotto le loro scritte:
+      // il titolo del responso comincia dopo, non sopra le etichette.
+      final fila = GeometriaDelTavolo.fila(_posizioni.length, w);
+      final sottoLaFila = fila.zona.bottom +
+          _Slot.distanzaDellaScritta +
+          _Slot.altezzaDellEtichetta(context) +
+          SpacingTokens.md;
+      final alta = math.max(
+          (GeometriaDelTavolo.bordoDavanti - GeometriaDelTavolo.taglioInAlto) *
+              s,
+          _responsoPronto ? sottoLaFila : 0.0);
+      return SizedBox(
+        height: alta,
+        child: OverflowBox(
+          minWidth: w,
+          maxWidth: w,
+          minHeight: GeometriaDelTavolo.altezza(w),
+          maxHeight: GeometriaDelTavolo.altezza(w),
+          alignment: Alignment.topCenter,
+          child: KeyedSubtree(
+            key: _chiaveDegliSlot,
+            child: AnimatedBuilder(
+              animation: Listenable.merge(
+                  [_giro, _alzo, _reveal, _galleggio, _tilt, _filo]),
+              builder: (context, _) => TavoloDiMedora(
+                key: const Key('stesa_slots'),
+                posti: _setup.tipo.tavolo,
+                carte: [
+                  for (var i = 0; i < _posizioni.length; i++)
+                    i < _drawn ? _spread.cards[i] : null,
+                ],
+                palette: palette,
+                girata: _responsoPronto ? _girataDi : null,
+                alzata: _sequenzaFatta ? 1 : _alzo.value,
+                chiave: _responsoInScena ? _postoDellaChiave : null,
+                filaAlzata: (context, fila) => _filaAlzata(palette, fila),
+                faccia: (carta) =>
+                    FacciaDellaCarta(drawn: carta, palette: palette),
+              ),
             ),
           ),
         ),
-      ],
-    );
+      );
+    });
   }
+
+  final GlobalKey _chiaveDegliSlot = GlobalKey(debugLabel: 'stesa_slots');
 
   /// **IL POSTO DELLA CARTA CHIAVE**, contato nella stesa: i due `lato`
   /// della croce hanno la stessa posizione e due carte diverse.
   int get _postoDellaChiave => _spread.cards
       .indexWhere((c) => c.card.name == _reading.chiave.drawn.card.name);
 
-  /// **L'ALTEZZA DI UNA CELLA DEL TAVOLO**: lo spazio delle parole sopra la
-  /// carta, la carta, la distanza e l'etichetta, misurata col motore che la
-  /// dipinge alla larghezza della carta.
-  double _altezzaDellaCella(double larghezza) {
-    final testa = _responsoInScena ? _Slot.spazioDelleParole(larghezza) : 0.0;
-    // L'etichetta e' una riga sola, alta quanto il suo ruolo.
-    final etichetta = _Slot.altezzaDellEtichetta(context);
-    return testa +
-        larghezza / kTarotAspect +
-        _Slot.distanzaDellaScritta +
-        etichetta;
-  }
-
-  /// Il tavolo intero sta in poco meno di tre quarti dello schermo: le carte si vedono
-  /// tutte insieme, anche nella croce.
-  double get _altezzaDelTavolo => MediaQuery.sizeOf(context).height * 0.72;
-
-  Widget _filaDelleCarte(MaestroPalette palette) {
-    // **LE CARTE SUL TAVOLO DELLA STESA, ordine FK aggiunta 2 voce A10.**
-    // LAPIDE: "una Row di tre Expanded". La disposizione e' quella che la
-    // stesa dichiara in `tavolo`.
-    return TavoloDellaStesa(
-      key: const Key('stesa_slots'),
-      posti: _setup.tipo.tavolo,
-      altezzaDellaCella: _altezzaDellaCella,
-      altezzaMassima: _altezzaDelTavolo,
-      carta: (context, i, larghezza) => _Slot(
-        position: _posizioni[i],
-        drawn: i < _drawn ? _spread.cards[i] : null,
-        palette: palette,
-        // **LA CARTA SI APRE AL TOCCO, ordine BN voce 04.** Prima le
-        // carte estratte erano l'unica cosa della scena a non
-        // rispondere al dito: erano l'oggetto del rito e restavano mute.
-        // Si apre solo quando c'e' qualcosa da leggere, cioe' a responso
-        // pronto: prima non esiste ancora nessuna descrizione da
-        // mostrare, e un ingrandimento vuoto sarebbe una porta su niente.
-        onApri: _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
-        // **LA CHIAVE SI VEDE ANCHE NELLA STESA, ordine BN voce 05.**
-        // Prima lo dichiarava solo la sua bolla, piu' in basso: chi
-        // guardava le tre carte non sapeva quale delle tre reggesse la
-        // lettura. Il segno e' della STESSA famiglia visiva della bolla,
-        // cioe' l'oro pieno contro l'oro tenue, e non un secondo
-        // linguaggio inventato qui.
-        eLaChiave: _responsoInScena && i < _drawn && i == _postoDellaChiave,
-        conIntestazione: _responsoInScena,
-        revealSpec: _revealSlot == i ? _revealSpec : null,
-        revealProgress: _revealSlot == i ? _reveal.value : 0,
-        // DURANTE UN GESTO DEL MAZZO LE CARTE USCITE SONO IMMOBILI.
-        //
-        // Ordine P voce 05: il galleggiamento e l'inclinazione sono
-        // effetti d'ambiente, e mentre il mazzo si taglia diventavano un
-        // movimento che contraddice il senso del gesto. Le carte gia'
-        // estratte non partecipano, ed e' il modo visivo di dire cio' che
-        // la voce 04 dice nel dato.
-        tiltX: _tiltFermo?.dx ?? _tilt.x,
-        tiltY: _tiltFermo?.dy ?? _tilt.y,
-        galleggio: _reduceMotion
-            ? 0
-            : TiltListener.fluttuazioneDi(i, _galleggio.value),
-      ),
+  /// **LE CARTE IN PIEDI, AFFIANCATE E INGRANDITE**, ordine FL voce 05: la
+  /// fila davanti al tavolo, con la posizione sotto ogni carta, la carta
+  /// chiave illuminata da sotto, il tocco che apre il significato generico
+  /// (ordine FK aggiunta voce A4, ordine FL voce 06) e il filo fra le carte.
+  Widget _filaAlzata(MaestroPalette palette, FilaAlzata fila) {
+    final carte = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < _posizioni.length; i++) ...[
+          SizedBox(
+            key: ValueKey('tavolo_posto_$i'),
+            width: fila.larghezza,
+            child: _Slot(
+              position: _posizioni[i],
+              drawn: i < _drawn ? _spread.cards[i] : null,
+              palette: palette,
+              onApri:
+                  _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
+              eLaChiave:
+                  _responsoInScena && i < _drawn && i == _postoDellaChiave,
+              conIntestazione: true,
+              revealSpec: _revealSlot == i ? _revealSpec : null,
+              revealProgress: _revealSlot == i ? _reveal.value : 0,
+              tiltX: _tiltFermo?.dx ?? _tilt.x,
+              tiltY: _tiltFermo?.dy ?? _tilt.y,
+              galleggio: _reduceMotion
+                  ? 0
+                  : TiltListener.fluttuazioneDi(i, _galleggio.value),
+            ),
+          ),
+          if (i < _posizioni.length - 1) SizedBox(width: fila.distanza),
+        ],
+      ],
+    );
+    if (!_filoInScena) return carte;
+    return Stack(
+      children: [
+        carte,
+        Positioned.fill(
+          child: FiloFraLeCarte(
+            centri: [
+              for (final r in fila.carte)
+                Offset(r.center.dx - fila.zona.left, fila.testa + r.height / 2),
+            ],
+            dallaChiave: _postoDellaChiave,
+            avanzamento: _reduceMotion ? 0.5 : _filo.value,
+            palette: palette,
+          ),
+        ),
+      ],
     );
   }
 
@@ -1510,19 +1608,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // protagonista in quel momento e' il ventaglio interattivo, e il
         // ventaglio che lei tiene in mano deve restare un dettaglio del
         // ritratto, non un secondo invito in gara col primo.
-        MedoraStage(
-          palette: palette,
-          active: _active,
-          // **L'INGRANDIMENTO ASPETTA IL RESPONSO, ordine CQ voce 6.09.**
-          // Legato a `_complete` scattava alla terza carta, cioe' insieme
-          // allo svuotamento: il ritratto raddoppiava mentre tutto il resto
-          // spariva, ed era meta' della ragione per cui sembrava un'altra
-          // schermata. Adesso Medora cresce quando il responso entra in
-          // scena, che e' il momento in cui parla davvero.
-          height: _responsoInScena ? 300 : 170,
-          bustoFactor: _responsoInScena ? MedoraStage.bustoPieno : 0.34,
-          bustoLarghezza: _responsoInScena ? 1.0 : 0.72,
-        ),
+        // **LA SCENA: IL TAVOLO, MEDORA DIETRO, LE CARTE SUL PIANO.** Ordine
+        // FL voci 01, 03 e 05. LAPIDE: "MedoraStage", il ritratto con
+        // l'altezza che cresceva a responso in scena.
+        _laScena(palette),
         const SizedBox(height: SpacingTokens.sm),
         // La configurazione, richiusa nella sua riga di riepilogo.
         //
@@ -1588,38 +1677,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // **La condizione era `!_complete` e diventa `!_responsoPronto`**: il
         // blocco se ne va col responso, che e' un cambio di scena
         // dichiarato, e non con l'ultima carta, che non lo e'.
-        if (!_responsoPronto) ...[
-          _slots(palette),
-          const SizedBox(height: SpacingTokens.xs),
-          // IL TESTO DELLE CARTE GIA' USCITE, A PIENA LARGHEZZA.
-          //
-          // **Ordine P voce 10, ed e' qui che il difetto si vedeva peggio.**
-          // Con una carta sola scelta, il nome e la sintesi stavano nella
-          // colonna della miniatura, cioe' un terzo dello schermo, mentre alla
-          // loro destra due terzi restavano vuoti: "L'onda / trattenuta."
-          // occupava due righe senza nessun motivo.
-          if (_drawn > 0) ...[
-            _BloccoDelleCarte(
-              // **LA CHIAVE DICE A CHE PUNTO SIAMO, e il posto non cambia.**
-              // Ordine DD voce 08: con le tre carte posate questo blocco e'
-              // "le carte scelte", e prima era un secondo blocco montato
-              // sotto il pulsante. Adesso e' lo stesso, dove stava.
-              key: Key(_complete
-                  ? 'stesa_blocco_carte_scelte'
-                  : 'stesa_blocco_carte'),
-              carte: _spread.cards.take(_drawn).toList(),
-              palette: palette,
-            ),
-            // **DODICI DIVENTANO OTTO, DUE VOLTE. Ordine CQ voce 2.11.** Le
-            // etichette sono salite da dodici a quattordici punti e il
-            // ventaglio e' finito sei punti e mezzo sotto la piega: la guardia
-            // della coreografia lo ha visto. Gli otto punti si riprendono da
-            // due arie fra blocchi, non dal testo: e' la stessa cura
-            // dell'ordine BU voce 01, che aveva gia' fatto questo scambio.
-            const SizedBox(height: SpacingTokens.xs),
-          ],
-        ],
-        // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.
+        // **LE CARTE STANNO SUL TAVOLO, NON IN FILA SOTTO IL SELETTORE.**
+        // Ordine FL voci 02 e 03. LAPIDE: "gli slot e il testo delle carte
+        // gia' uscite, sotto il selettore" (ordini P voce 10, BZ voce 07 e
+        // DD voce 08). Le carte scelte si posano coperte sul tavolo della
+        // scena, e i loro nomi arrivano col responso: scritti qui, direbbero
+        // le carte prima che si girino.
         if (!_complete) ...[
           Text(
             _drawn == 0
@@ -1922,7 +1985,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // che saliva di quattrocentotrenta punti. Adesso il blocco di sopra
         // resta fino al responso e questo non serve piu': **un pezzo solo,
         // in un posto solo.**
-        if (_responsoInScena) _slots(palette),
+        // Le carte del responso sono in piedi sul tavolo, nella scena in cima
+        // (ordine FL voce 05): qui sotto restano il loro testo e il responso.
         if (_responsoInScena) ...[
           const SizedBox(height: SpacingTokens.sm),
           // IL BLOCCO DELLE CARTE A PIENA LARGHEZZA, ordine P voce 10.
@@ -2166,8 +2230,25 @@ class _Slot extends StatelessWidget {
 
   /// La scala della carta chiave e quella delle vicine. Ordini BV voce 04 e
   /// BZ voce 08.
-  static const double scalaDellaChiave = 1.10;
-  static const double scalaDelleAltre = 0.86;
+  // **LA CHIAVE NON E' PIU' GRANDE, ordine FL voce 04.** Il fondatore: "La
+  // Carta chiave e' illuminata da sotto, non e' piu' grande". LAPIDE:
+  // "scalaDellaChiave = 1.10, scalaDelleAltre = 0.86" (ordine BN voce 05).
+  // Le carte hanno la stessa misura; la chiave ha la sua luce
+  // ([luceDellaChiave]).
+  static const double scalaDellaChiave = 1.0;
+  static const double scalaDelleAltre = 1.0;
+
+  /// **LA LUCE CHE SALE DA SOTTO LA CARTA CHIAVE**, disegnata da
+  /// [LuceDellaChiave]: un alone che esce da dietro la carta su tutti i lati
+  /// e una pozza viva sul velluto sotto il suo bordo basso. Il primo disegno,
+  /// una sola ellisse tenue sotto la carta, il fondatore l'ha guardato e ha
+  /// detto di migliorarlo (12 ottobre 2026): non si vedeva.
+  static Widget luceDellaChiave(MaestroPalette palette) => IgnorePointer(
+        child: CustomPaint(
+          key: const Key('stesa_luce_della_chiave'),
+          painter: LuceDellaChiave(palette),
+        ),
+      );
 
   /// **LA DISTANZA FRA OGNI CARTA E LA SUA SCRITTA**, uguale per le tre.
   /// Ordine EQ voce 05: sedici punti, quanto la carta vicina lasciava gia'
@@ -2331,37 +2412,53 @@ class _Slot extends StatelessWidget {
                     // e' la stessa soglia che vale per ogni bersaglio dell'app, e
                     // scriverla qui vuol dire che nessuna futura riduzione della
                     // carta puo' portarla sotto senza che una prova lo dica.
-                    AspectRatio(
-                      // LA CHIAVE DELLA CARTA POSATA, ordine P voce 05: la prova
-                      // che verifica che una carta gia' estratta non si muova di un
-                      // punto durante il taglio ha bisogno di un punto a cui
-                      // agganciarsi, e dedurlo dal nome della carta la legherebbe
-                      // al pescaggio.
-                      key: Key('stesa_carta_${position.name}'),
-                      aspectRatio: kTarotAspect,
-                      child: drawn == null
-                          ? _EmptySlot(palette: palette)
-                          : Semantics(
-                              button: onApri != null,
-                              label: onApri != null
-                                  ? 'Apri la carta ${drawn!.card.name}'
-                                  : null,
-                              child: GestureDetector(
-                                key: Key('stesa_apri_${position.name}'),
-                                onTap: onApri,
-                                behavior: HitTestBehavior.opaque,
-                                child: ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                      minWidth: 48, minHeight: 48),
-                                  child: _FlipCard(
-                                    key: ValueKey(
-                                        '${position.name}_${drawn!.card.stem}'),
-                                    drawn: drawn!,
-                                    palette: palette,
+                    // **LA LUCE DELLA CHIAVE, ordine FL voce 04**: attorno
+                    // alla carta dipinta e non alla colonna, che e' piu'
+                    // larga di lei: la luce esce uguale dai quattro lati.
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        if (eLaChiave)
+                          Positioned(
+                            left: -LuceDellaChiave.oltre,
+                            right: -LuceDellaChiave.oltre,
+                            top: -LuceDellaChiave.oltre,
+                            bottom: -LuceDellaChiave.oltre,
+                            child: luceDellaChiave(palette),
+                          ),
+                        AspectRatio(
+                          // LA CHIAVE DELLA CARTA POSATA, ordine P voce 05: la prova
+                          // che verifica che una carta gia' estratta non si muova di un
+                          // punto durante il taglio ha bisogno di un punto a cui
+                          // agganciarsi, e dedurlo dal nome della carta la legherebbe
+                          // al pescaggio.
+                          key: Key('stesa_carta_${position.name}'),
+                          aspectRatio: kTarotAspect,
+                          child: drawn == null
+                              ? _EmptySlot(palette: palette)
+                              : Semantics(
+                                  button: onApri != null,
+                                  label: onApri != null
+                                      ? 'Apri la carta ${drawn!.card.name}'
+                                      : null,
+                                  child: GestureDetector(
+                                    key: Key('stesa_apri_${position.name}'),
+                                    onTap: onApri,
+                                    behavior: HitTestBehavior.opaque,
+                                    child: ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                          minWidth: 48, minHeight: 48),
+                                      child: _FlipCard(
+                                        key: ValueKey(
+                                            '${position.name}_${drawn!.card.stem}'),
+                                        drawn: drawn!,
+                                        palette: palette,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                        ),
+                      ],
                     ),
                     // **LA CORNICE AZZURRA NON C'E' PIU', ordine BZ voce 08.**
                     //
@@ -2392,14 +2489,19 @@ class _Slot extends StatelessWidget {
         // aggiunta 2 voce A10, visto nelle anteprime della croce: con le
         // carte strette perche' il tavolo stia in una schermata, "IL LATO"
         // andava a capo lettera per lettera. L'etichetta resta intera su una
-        // riga e si allarga fino a [larghezzaDellEtichetta] volte la carta;
-        // oltre, scende di misura quanto serve.
+        // riga e scende di misura quanto serve.
+        //
+        // **MA NON OLTRE LO SPAZIO FRA LE CARTE**, ordine FL voce 05: nella
+        // fila in piedi due carte stanno a otto punti, non a 1,15 larghezze
+        // come sul tavolo in piano, e nell'anteprima della croce "IL
+        // CONSULTANTE" copriva "IL LATO". L'etichetta si allarga al piu' della
+        // meta' dello spazio per lato.
         LayoutBuilder(
           builder: (context, vincoli) => SizedBox(
             width: vincoli.maxWidth,
             height: altezzaDellEtichetta(context),
             child: OverflowBox(
-              maxWidth: vincoli.maxWidth * larghezzaDellEtichetta,
+              maxWidth: vincoli.maxWidth + FilaAlzata.distanzaFraLeCarte,
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(position.etichetta.toUpperCase(),
@@ -2985,7 +3087,13 @@ class _CartaInVolo extends StatelessWidget {
     required this.destinazione,
     required this.palette,
     required this.seed,
+    this.arrivo,
   });
+
+  /// **IL CENTRO DEL POSTO SUL TAVOLO**, ordine FL voce 03: la carta vola
+  /// dove si posa. Nullo prima che la scena sia disegnata: allora vola verso
+  /// la colonna del suo posto, come prima.
+  final Offset? arrivo;
 
   /// Il punto del volo, da 0 a 1.
   final double progress;
@@ -3010,9 +3118,13 @@ class _CartaInVolo extends StatelessWidget {
             final colonna = (destinazione.clamp(0, 2) * 2 + 1) / 6;
             final e = Curves.easeInOutCubic.transform(progress.clamp(0.0, 1.0));
             final partenzaX = w * (0.2 + 0.6 * ((seed % 9) / 8));
-            final x = partenzaX + (w * colonna - partenzaX) * e;
-            final y = h * 0.72 + (h * 0.34 - h * 0.72) * e;
             const cardW = 66.0;
+            final arrivoX = arrivo?.dx ?? w * colonna;
+            final arrivoY = arrivo == null
+                ? h * 0.34
+                : arrivo!.dy - cardW / kTarotAspect / 2;
+            final x = partenzaX + (arrivoX - partenzaX) * e;
+            final y = h * 0.72 + (arrivoY - h * 0.72) * e;
 
             return Stack(
               children: [
@@ -3065,4 +3177,54 @@ class _CartaInVolo extends StatelessWidget {
       ),
     );
   }
+}
+
+/// **LA LUCE DELLA CARTA CHIAVE**, ordine FL voce 04: la chiave non e' piu'
+/// grande delle altre, si illumina da sotto. Il fondatore, guardato il
+/// secondo disegno (12 ottobre 2026): "dovrebbe essere meno esteso e uscire
+/// dai 4 lati della carta chiave". Quindi un orlo di luce che segue il
+/// rettangolo arrotondato della carta, uguale sui quattro lati e un poco piu'
+/// vivo in basso, che si spegne in [oltre] punti. Lo disegnano anelli
+/// concentrici sempre piu' tenui, mai un'ombra col blur: nelle anteprime il
+/// blur usciva come una barra dagli spigoli netti.
+class LuceDellaChiave extends CustomPainter {
+  LuceDellaChiave(this.palette);
+
+  final MaestroPalette palette;
+
+  /// Quanto la luce esce dalla carta, in punti, su ogni lato.
+  static const double oltre = 14;
+
+  /// Quanto la luce e' piu' viva sotto il bordo basso, da dove sale.
+  static const double spintaDalBasso = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final carta =
+        Rect.fromLTRB(oltre, oltre, size.width - oltre, size.height - oltre);
+    const anelli = 28;
+    for (var k = anelli; k >= 0; k--) {
+      final t = k / anelli;
+      final d = oltre * t;
+      // La luce piu' viva in basso: l'anello scende un poco man mano che si
+      // allarga, cosi' sotto la carta e' piu' largo che in cima.
+      final r = RRect.fromRectAndRadius(
+        Rect.fromLTRB(carta.left - d, carta.top - d * 0.85, carta.right + d,
+            carta.bottom + d + spintaDalBasso * t),
+        Radius.circular(6 + d),
+      );
+      final forza = math.pow(1 - t, 2.2).toDouble();
+      canvas.drawRRect(
+        r,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = oltre / anelli + 0.6
+          ..color = Color.lerp(palette.gold, palette.goldSoft, 1 - t)!
+              .withValues(alpha: 0.85 * forza),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(LuceDellaChiave vecchia) => vecchia.palette != palette;
 }

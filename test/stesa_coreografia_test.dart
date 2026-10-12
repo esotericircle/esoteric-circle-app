@@ -8,6 +8,7 @@ import 'package:esoteric_circle/features/tarot/medora_stage.dart';
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_fan.dart';
 import 'package:esoteric_circle/features/tarot/stesa_handoff.dart';
+import 'package:esoteric_circle/features/tarot/il_tavolo_di_medora.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -277,7 +278,8 @@ void main() {
       // dovrebbe scorrere oltre un muro di controlli.
       final schermo =
           tester.view.physicalSize.height / tester.view.devicePixelRatio;
-      final medora = tester.getRect(find.byKey(const Key('medora_stage')));
+      // Medora sta nella scena del tavolo dall'ordine FL voce 01.
+      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
       final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
       expect(medora.top, lessThan(schermo));
       expect(ventaglio.bottom, lessThan(schermo),
@@ -301,25 +303,56 @@ void main() {
           reason: 'slot e ventaglio non stanno nello stesso campo visivo');
     });
 
-    testWidgets('Mentre si pesca Medora e piu raccolta', (tester) async {
+    testWidgets('FL.01: mentre si pesca Medora sta dietro il tavolo',
+        (tester) async {
+      // **LAPIDE: "Mentre si pesca Medora e piu raccolta"** (MedoraStage, ordine BZ). Ordine FL voce 01:
+      // Medora e' tagliata alla vita e sta dietro il tavolo, sempre della
+      // stessa misura; la vita posa sul bordo lontano del velluto, e la
+      // testa resta intera sotto la barra del titolo.
       await pump(tester, reduceMotion: true);
       await tester.pump();
-      final pescando = tester.widget<MedoraStage>(find.byType(MedoraStage));
-      // Ritaglio piu' stretto e scena piu' bassa: il ventaglio che Medora
-      // tiene in mano resta un dettaglio del ritratto, non un secondo invito
-      // in gara col ventaglio interattivo.
-      expect(pescando.bustoFactor, lessThan(MedoraStage.bustoPieno));
-      expect(pescando.height, lessThan(300));
+      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
+      final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
+      final w = scena.width;
+      final vita = scena.top +
+          (GeometriaDelTavolo.bordoLontano - GeometriaDelTavolo.taglioInAlto) *
+              GeometriaDelTavolo.scala(w);
+      expect(medora.bottom, closeTo(vita, 1),
+          reason: 'la vita di Medora non sta sul bordo lontano del velluto');
+      expect(medora.width, closeTo(w * GeometriaDelTavolo.larghezzaDiMedora, 1),
+          reason: 'Medora ha cambiato misura');
+      final testa = medora.top +
+          GeometriaDelTavolo.cimaDellaTesta *
+              medora.width /
+              GeometriaDelTavolo.immagineDelBusto.width;
+      expect(testa, greaterThanOrEqualTo(scena.top),
+          reason: 'la testa di Medora e\' tagliata in cima alla scena');
     });
 
-    testWidgets('A stesa fatta Medora torna in primo piano', (tester) async {
-      // Test a se': rimontare nello stesso test riuserebbe lo State, e
-      // revealAll si legge una volta sola alla nascita.
+    testWidgets('FL.01: a stesa fatta Medora resta la stessa, dietro il tavolo',
+        (tester) async {
+      // **LAPIDE: "A stesa fatta Medora torna in primo piano"** (MedoraStage, ordine BZ). Ordine FL voce 01:
+      // Medora e' tagliata alla vita e sta dietro il tavolo, sempre della
+      // stessa misura; la vita posa sul bordo lontano del velluto, e la
+      // testa resta intera sotto la barra del titolo.
       await pump(tester, reduceMotion: true, revealAll: true);
       await tester.pump();
-      final completa = tester.widget<MedoraStage>(find.byType(MedoraStage));
-      expect(completa.bustoFactor, MedoraStage.bustoPieno);
-      expect(completa.height, 300);
+      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
+      final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
+      final w = scena.width;
+      final vita = scena.top +
+          (GeometriaDelTavolo.bordoLontano - GeometriaDelTavolo.taglioInAlto) *
+              GeometriaDelTavolo.scala(w);
+      expect(medora.bottom, closeTo(vita, 1),
+          reason: 'la vita di Medora non sta sul bordo lontano del velluto');
+      expect(medora.width, closeTo(w * GeometriaDelTavolo.larghezzaDiMedora, 1),
+          reason: 'Medora ha cambiato misura');
+      final testa = medora.top +
+          GeometriaDelTavolo.cimaDellaTesta *
+              medora.width /
+              GeometriaDelTavolo.immagineDelBusto.width;
+      expect(testa, greaterThanOrEqualTo(scena.top),
+          reason: 'la testa di Medora e\' tagliata in cima alla scena');
     });
 
     testWidgets('Il ventaglio resta a portata anche dopo il secondo pescaggio',

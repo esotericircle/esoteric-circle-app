@@ -140,10 +140,13 @@ void main() {
   testWidgets('senza premere niente, il ventaglio posa la carta',
       (tester) async {
     await monta(tester);
-    expect(find.byKey(const Key('stesa_blocco_carte')), findsNothing,
+    // **LAPIDE: "il blocco delle carte uscite sotto il selettore".** Ordine
+    // FL voci 03 e 05: la carta scelta si posa coperta sul tavolo della
+    // scena, e la legge resta: il ventaglio posa la carta senza pulsanti.
+    expect(find.byKey(const Key('tavolo_carta_0')), findsNothing,
         reason: 'a schermata appena aperta ci sono gia carte posate');
     await pesca(tester, 38);
-    expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget,
+    expect(find.byKey(const Key('tavolo_carta_0')), findsOneWidget,
         reason: 'il ventaglio non risponde a chi non ha premuto un pulsante: '
             'e il difetto che l ordine CO voce 07 aveva introdotto e che '
             'questa voce chiude');

@@ -245,6 +245,8 @@ flutter:
     # entrerebbero nel pacchetto, e la rivelazione resterebbe muta anche il
     # giorno in cui i file ci sono. Dichiarata anche da vuota, come sopra.
     - assets/audio/animali/
+    # Ordine FL voce 08: lo sfondo del tavolo e Medora tagliata alla vita.
+    - assets/img/tavolo/
     # **IL TAMBURO DELLA DISCESA, ordine DJ voce 10**: tamburo_discesa.mp3,
     # in ciclo per tutta la discesa del Viaggio. Dichiarata anche da vuota,
     # come le due sopra: finche' il file manca la discesa resta muta.

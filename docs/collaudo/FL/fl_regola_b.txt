@@ -1,0 +1,13 @@
+== ORDINE FL, Regola B prima di toccare la scena della stesa (12 ottobre 2026)
+-- la chiave grande come le altre (stesa_tre_carte_screen.dart; la_chiave_e_il_consiglio_si_vedono_test: sui pixel)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- le carte col nome sbagliato (stesa_tre_carte_screen.dart; medora_non_resta_sola_test)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la fila tolta prima del responso (stesa_tre_carte_screen.dart; la_terza_carta_non_apre_una_schermata_test)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

@@ -435,9 +435,9 @@ void main() {
         (tester) async {
       await pumpScreen(tester);
       expect(tester.takeException(), isNull);
-      // Medora in scena.
-      expect(find.byKey(const Key('medora_stage')), findsOneWidget);
-      expect(find.byType(MedoraStage), findsOneWidget);
+      // Medora in scena, dietro il tavolo (ordine FL voce 01; LAPIDE:
+      // "medora_stage", il ritratto MedoraStage).
+      expect(find.byKey(const Key('tavolo_medora')), findsOneWidget);
       // Sotto ogni carta: la posizione, poi il nome grande in chiaro.
       final spread = TarotSpread.draw(seed: 2);
       for (final drawn in spread.cards) {

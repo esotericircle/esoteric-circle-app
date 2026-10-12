@@ -295,7 +295,10 @@ void main() {
       // immobile per tutta l'animazione.
       await pesca(tester, 38);
 
-      final carta = find.byKey(const Key('stesa_carta_passato'));
+      // **LAPIDE: "la carta nello slot del Passato".** Ordine FL voce 03:
+      // la carta scelta sta coperta sul tavolo, ed e' li' che non deve
+      // muoversi mentre si taglia.
+      final carta = find.byKey(const Key('tavolo_carta_0'));
       expect(carta, findsOneWidget,
           reason: 'la carta del Passato non e\' a schermo');
       final partenza = tester.getRect(carta);

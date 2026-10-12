@@ -373,6 +373,10 @@ void main() {
     // Ordine FK, 11 ottobre 2026: le trentasei voci, contate coi titoli
     // "## VOCE FK." del manifesto.
     'FK': 51,
+    // Ordine FL, 12 ottobre 2026: le dieci voci dell'ordine e le cinque
+    // richieste del fondatore in chat (FL.11-FL.15), contate coi titoli
+    // "## VOCE FL." del manifesto.
+    'FL': 15,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

@@ -559,7 +559,12 @@ void main() {
             'sopra, ed e\' cio\' che il fondatore non vuole');
   });
 
-  testWidgets('BV.04: la carta chiave e\' piu\' grande, e la cornice si stacca',
+  // **LAPIDE: "la carta chiave e' piu' grande, almeno del venti per cento"**
+  // (ordini BV voce 04 e BZ voce 08). Ordine FL voce 04, il fondatore: "La
+  // Carta chiave e' illuminata da sotto, non e' piu' grande". Adesso la
+  // chiave ha la STESSA misura delle altre, e si distingue per la luce che
+  // le sale da sotto. Le parole "Carta Chiave" restano sopra di lei.
+  testWidgets('FL.04: la carta chiave e\' grande come le altre, e ha la luce',
       (tester) async {
     // **LA FORMA E' UNA SCELTA, e questa prova la misura invece di crederci.**
     // Il fondatore ha detto che la linea azzurra a filo si vede poco e non
@@ -589,22 +594,18 @@ void main() {
         if (p != chiave) dipinta[p]!.height,
     ];
     final piuAlta = altre.reduce((x, y) => x > y ? x : y);
-    final scarto = (altaChiave - piuAlta) / piuAlta;
+    final scarto = (altaChiave - piuAlta).abs() / piuAlta;
     // ignore: avoid_print
     print('ORDINE BV VOCE 4: la carta chiave e\' alta '
         '${altaChiave.toStringAsFixed(1)} punti contro '
         '${altre.map((v) => v.toStringAsFixed(1)).join(" e ")}, cioe\' il '
         '${(scarto * 100).toStringAsFixed(1)} per cento in piu\'');
-    // **LA SOGLIA SALE CON L'ORDINE BZ VOCE 8.** Con la sola chiave cresciuta
-    // lo scarto era il dieci per cento; adesso le vicine scendono a
-    // ottantasei centesimi e lo scarto dipinto passa il venti. Non si abbassa
-    // mai una soglia: questa si ALZA, perche' la grandezza misurata e'
-    // cambiata sotto.
-    expect(scarto, greaterThanOrEqualTo(0.20),
-        reason: 'la carta chiave supera le altre di appena il '
-            '${(scarto * 100).toStringAsFixed(1)} per cento: a colpo d\'occhio '
-            'non si distingue, ed e\' cio\' che il fondatore ha detto della '
-            'linea a filo');
+    expect(scarto, lessThan(0.01),
+        reason: 'la carta chiave e\' ancora piu\' grande delle altre del '
+            '${(scarto * 100).toStringAsFixed(1)} per cento: il fondatore ha '
+            'detto che non lo e\' piu\'');
+    expect(find.byKey(const Key('stesa_luce_della_chiave')), findsOneWidget,
+        reason: 'la carta chiave non ha la luce che le sale da sotto');
 
     // **LE PAROLE STANNO SOPRA LA CARTA CHIAVE, ordine BZ voce 08**, e sopra
     // vuol dire piu' in alto del suo bordo: se finissero accanto, o sotto,

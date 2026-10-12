@@ -1,0 +1,72 @@
+LA REGOLA A SULLA GUARDIA DELL'ORDINE FL, 12 ottobre 2026
+Ogni innesto entra (grep), la prova si legge, il file torna al byte.
+== il piano su un angolo sbagliato del velluto (lib/features/tarot/il_tavolo_di_medora.dart; test/il_tavolo_di_medora_test.dart: il piano piatto va sui quattro angoli del velluto)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+== la testa di Medora lontana dalla barra (taglio vecchio) (lib/features/tarot/il_tavolo_di_medora.dart; test/il_tavolo_di_medora_test.dart: la vita di Medora sul bordo lontano, la testa intera nella scena)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le carte larghe oltre il campo del velluto (lib/features/tarot/il_tavolo_di_medora.dart; test/il_tavolo_di_medora_test.dart: le carte di ogni stesa stanno dentro il campo del velluto)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le carte gia' scoperte sul tavolo prima del pulsante (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_tavolo_di_medora_test.dart: FL.05: le carte scelte stanno coperte sul tavolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le carte che si girano tutte insieme (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_tavolo_di_medora_test.dart: FL.05: le carte scelte stanno coperte sul tavolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le carte che si alzano senza il secondo di attesa (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_tavolo_di_medora_test.dart: FL.05: le carte scelte stanno coperte sul tavolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la chiave di nuovo piu' grande (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_tavolo_di_medora_test.dart: FL.04: in piedi le carte hanno la stessa misura)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la chiave senza la luce (lib/features/tarot/stesa_tre_carte_screen.dart; test/il_tavolo_di_medora_test.dart: FL.04: in piedi le carte hanno la stessa misura)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la cartella del tavolo tolta dal pubspec (pubspec.yaml; test/il_tavolo_di_medora_test.dart: FL.08: il pubspec dichiara la cartella del tavolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+DOPO IL PRIMO GIRO: il primo innesto era VERDE perche' la prova confrontava il codice con se stesso.
+Cambiata la grandezza misurata, non la soglia: gli angoli del campo contro il bordo ricamato misurato a mano sull'immagine.
+== il piano su un angolo sbagliato del velluto (lib/features/tarot/il_tavolo_di_medora.dart; test/il_tavolo_di_medora_test.dart: gli angoli del campo stanno dentro il bordo ricamato del velluto)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+
+AGGIUNTE DEL 12 OTTOBRE 2026, dopo le richieste del fondatore sul bagliore e sui mazzi:
+== le etichette della croce larghe come sul tavolo in piano (lib/features/tarot/stesa_tre_carte_screen.dart; FL.05: in piedi le etichette delle quattro carte della croce non si toccano)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la luce larga come prima, quaranta punti per lato (lib/features/tarot/stesa_tre_carte_screen.dart; FL.04: in piedi le carte hanno la stessa misura, e la chiave ha la sua luce)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il tavolo che disegna sempre il Rider-Waite (lib/features/tarot/stesa_tre_carte_screen.dart; FL.05: le carte scelte stanno coperte sul tavolo)
+   innesto entrato (grep): si
+   esito: VERDE
+   ripristinato al byte: si
+   (l'innesto qui sopra non era un difetto: null ?? f vale f, la faccia del mazzo restava; errore dell'innesto, non della guardia. Rifatto:)
+== il tavolo che disegna sempre il Rider-Waite, innesto vero (lib/features/tarot/stesa_tre_carte_screen.dart; FL.05: le carte scelte stanno coperte sul tavolo)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+
+== ordine_fl_guard: il marcatore delle chiuse alzato (docs/ordini/ORDINE_FL_MANIFESTO.md)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== ordine_fl_guard: una voce rinominata (docs/ordini/ORDINE_FL_MANIFESTO.md)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
