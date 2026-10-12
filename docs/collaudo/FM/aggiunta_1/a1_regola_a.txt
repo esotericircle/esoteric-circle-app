@@ -91,3 +91,23 @@ ripristinato al byte: si
 innesto entrato (grep): si
 esito: ROSSA
 ripristinato al byte: si
+
+== DOPO LA SUITE DELL'AGGIUNTA 2, quattro rossi corretti
+-- la Croce Celtica torna al vecchio ordine dietro/davanti
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la distanza carta-scritta torna a sedici
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (il secondo e' verde di proposito: la prova non verifica piu' un valore
+   fisso, sedici punti, scelto a mano, ma il solo invariante tecnico che
+   conta ora che la distanza e' una scelta estetica del fondatore, "la
+   scritta non tocca la carta" (>=0). Tornare a sedici rispetta ancora
+   quell'invariante, quindi resta verde: e' la grandezza misurata che e'
+   cambiata, come vuole la Regola A, non un difetto della prova.)
+-- la distanza negativa, la scritta sotto la carta: un vero difetto
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

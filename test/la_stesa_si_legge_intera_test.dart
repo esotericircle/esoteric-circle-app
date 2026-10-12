@@ -129,9 +129,15 @@ void main() {
           '${distanze.map((k, v) => MapEntry(k, v.toStringAsFixed(1)))}, '
           'cime delle scritte '
           '${cime.map((k, v) => MapEntry(k, v.toStringAsFixed(1)))}');
+      // **LAPIDE: "greaterThanOrEqualTo(8)"**. Ordine FM, aggiunta 2, 12
+      // ottobre 2026, il fondatore guardando le anteprime: "c'e' molto
+      // spazio tra carta e didascalia". `distanzaDellaScritta` scende da
+      // sedici a quattro punti (SpacingTokens.xxs, il piu' stretto dei
+      // token): qui si misura solo che la scritta non tocchi la carta (zero
+      // o piu'), non piu' una distanza minima scelta a mano.
       for (final d in distanze.values) {
-        expect(d, greaterThanOrEqualTo(8),
-            reason: 'una scritta tocca la sua carta: $distanze');
+        expect(d, greaterThanOrEqualTo(0),
+            reason: 'una scritta tocca o sale sopra la sua carta: $distanze');
       }
       final valori = distanze.values.toList();
       expect(

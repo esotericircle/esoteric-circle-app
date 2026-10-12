@@ -97,12 +97,17 @@ void main() {
     expect(p[1].diTraverso, isTrue);
     expect([p[1].x, p[1].y], [p[0].x, p[0].y]);
     expect([for (final q in p) q.diTraverso].where((d) => d).length, 1);
-    // La terza sopra, la quarta sotto, la quinta dietro (a sinistra), la
-    // sesta davanti (a destra).
+    // La terza sopra, la quarta sotto. La quinta e la sesta: **LAPIDE,
+    // "la quinta dietro (a sinistra), la sesta davanti (a destra)"**.
+    // Ordine FM, aggiunta 1: Waite 1911, Parte III, sezione 7, la quinta "on
+    // the side of the Significator from which he is looking", la sesta "on
+    // the side that the Significator is facing", con la figura "facing to
+    // the left": il dietro sta a destra, il davanti a sinistra, invertiti
+    // da come stavano prima di quest'ordine.
     expect(p[2].y, lessThan(p[0].y));
     expect(p[3].y, greaterThan(p[0].y));
-    expect(p[4].x, lessThan(p[0].x));
-    expect(p[5].x, greaterThan(p[0].x));
+    expect(p[4].x, greaterThan(p[0].x));
+    expect(p[5].x, lessThan(p[0].x));
     // Il bastone: le ultime quattro in colonna a destra della croce, dal
     // basso in alto.
     final bastone = p.sublist(6);
