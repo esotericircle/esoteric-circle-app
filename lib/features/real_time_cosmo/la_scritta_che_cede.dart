@@ -43,9 +43,16 @@ double altezzaCheCede({
     // Sopra o sotto l'ostacolo, dalla parte dove c'e' piu' posto.
     final suPosto = coperto.top - margineAlto;
     final giuPosto = altezza - margineBasso - coperto.bottom;
+    // **IL PIE' DI PAGINA PUO' CRESCERE PIU' DELLO SCHERMO** (ordine FM,
+    // aggiunta 1): su una scena bassa `altezza - margineBasso - h` puo'
+    // scendere sotto `margineAlto`, e `clamp` lancerebbe. Il limite alto
+    // dell'intervallo non scende mai sotto quello basso.
+    final limiteBasso = margineAlto > altezza - margineBasso - h
+        ? margineAlto
+        : altezza - margineBasso - h;
     t = suPosto > giuPosto
-        ? (coperto.top - h - 6).clamp(margineAlto, altezza - margineBasso - h)
-        : (coperto.bottom + 6).clamp(margineAlto, altezza - margineBasso - h);
+        ? (coperto.top - h - 6).clamp(margineAlto, limiteBasso)
+        : (coperto.bottom + 6).clamp(margineAlto, limiteBasso);
   }
   return t;
 }

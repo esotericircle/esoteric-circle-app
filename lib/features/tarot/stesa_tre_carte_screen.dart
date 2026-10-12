@@ -1462,10 +1462,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       final s = GeometriaDelTavolo.scala(w);
       // A carte in piedi la scena si allunga fino sotto le loro scritte:
       // il titolo del responso comincia dopo, non sopra le etichette.
-      final fila = GeometriaDelTavolo.fila(_posizioni.length, w);
+      final fila = GeometriaDelTavolo.fila(_setup.tipo.tavolo, w);
       final sottoLaFila = fila.zona.bottom +
           _Slot.distanzaDellaScritta +
-          _Slot.altezzaDellEtichetta(context) +
+          _Slot.altezzaDellEtichetta(context) * (fila.righe > 1 ? 4 : 1) +
           SpacingTokens.md;
       final alta = math.max(
           (GeometriaDelTavolo.bordoDavanti - GeometriaDelTavolo.taglioInAlto) *
@@ -1518,33 +1518,29 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// chiave illuminata da sotto, il tocco che apre il significato generico
   /// (ordine FK aggiunta voce A4, ordine FL voce 06) e il filo fra le carte.
   Widget _filaAlzata(MaestroPalette palette, FilaAlzata fila) {
-    final carte = Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    // **OGNI CARTA AL SUO POSTO IN PIEDI**, ordine FM aggiunta 1: la fila
+    // decide la forma (una riga, piu' righe bilanciate per la Croce
+    // Celtica, la croce per la croce a quattro), e qui ogni posto sta alle coordinate
+    // della sua carta, con la testa sopra e la scritta sotto.
+    final Widget carte = Stack(
+      clipBehavior: Clip.none,
       children: [
-        for (var i = 0; i < _posizioni.length; i++) ...[
-          SizedBox(
-            key: ValueKey('tavolo_posto_$i'),
-            width: fila.larghezza,
-            child: _Slot(
-              position: _posizioni[i],
-              drawn: i < _drawn ? _spread.cards[i] : null,
-              palette: palette,
-              onApri:
-                  _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
-              eLaChiave:
-                  _responsoInScena && i < _drawn && i == _postoDellaChiave,
-              conIntestazione: true,
-              revealSpec: _revealSlot == i ? _revealSpec : null,
-              revealProgress: _revealSlot == i ? _reveal.value : 0,
-              tiltX: _tiltFermo?.dx ?? _tilt.x,
-              tiltY: _tiltFermo?.dy ?? _tilt.y,
-              galleggio: _reduceMotion
-                  ? 0
-                  : TiltListener.fluttuazioneDi(i, _galleggio.value),
-            ),
+        // L'altezza della pila: le carte, la testa sopra e la scritta sotto
+        // l'ultima riga.
+        SizedBox(
+          width: fila.zona.width,
+          height: fila.zona.height +
+              fila.testa +
+              (fila.righe > 1
+                  ? FilaAlzata.sottoLaCartaInDueRighe
+                  : FilaAlzata.sottoLaCartaInUnaRiga),
+        ),
+        for (var i = 0; i < _posizioni.length && i < fila.carte.length; i++)
+          Positioned(
+            left: fila.carte[i].left - fila.zona.left,
+            top: fila.carte[i].top - fila.zona.top,
+            child: _postoInPiedi(palette, fila, i),
           ),
-          if (i < _posizioni.length - 1) SizedBox(width: fila.distanza),
-        ],
       ],
     );
     if (!_filoInScena) return carte;
@@ -1555,7 +1551,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           child: FiloFraLeCarte(
             centri: [
               for (final r in fila.carte)
-                Offset(r.center.dx - fila.zona.left, fila.testa + r.height / 2),
+                Offset(r.center.dx - fila.zona.left,
+                    r.center.dy - fila.zona.top + fila.testa),
             ],
             dallaChiave: _postoDellaChiave,
             avanzamento: _reduceMotion ? 0.5 : _filo.value,
@@ -1565,6 +1562,28 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       ],
     );
   }
+
+  Widget _postoInPiedi(MaestroPalette palette, FilaAlzata fila, int i) =>
+      SizedBox(
+        key: ValueKey('tavolo_posto_$i'),
+        width: fila.larghezza,
+        child: _Slot(
+          position: _posizioni[i],
+          drawn: i < _drawn ? _spread.cards[i] : null,
+          palette: palette,
+          onApri: _responsoInScena && i < _drawn ? () => _apriLaCarta(i) : null,
+          eLaChiave: _responsoInScena && i < _drawn && i == _postoDellaChiave,
+          conIntestazione: true,
+          revealSpec: _revealSlot == i ? _revealSpec : null,
+          revealProgress: _revealSlot == i ? _reveal.value : 0,
+          tiltX: _tiltFermo?.dx ?? _tilt.x,
+          tiltY: _tiltFermo?.dy ?? _tilt.y,
+          galleggio: _reduceMotion
+              ? 0
+              : TiltListener.fluttuazioneDi(i, _galleggio.value),
+          etichettaSuDueRighe: fila.righe > 1,
+        ),
+      );
 
   Widget _content(MaestroPalette palette) {
     // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
@@ -2196,6 +2215,7 @@ class _Slot extends StatelessWidget {
     this.tiltX = 0,
     this.tiltY = 0,
     this.galleggio = 0,
+    this.etichettaSuDueRighe = false,
   });
 
   final SpreadPosition position;
@@ -2228,6 +2248,11 @@ class _Slot extends StatelessWidget {
   final double tiltY;
   final double galleggio;
 
+  /// La scritta della posizione su piu' righe, per le carte strette della
+  /// Croce Celtica in piedi: su una riga sola "CIO' CHE ATTRAVERSA"
+  /// scenderebbe a una misura che non si legge.
+  final bool etichettaSuDueRighe;
+
   /// La scala della carta chiave e quella delle vicine. Ordini BV voce 04 e
   /// BZ voce 08.
   // **LA CHIAVE NON E' PIU' GRANDE, ordine FL voce 04.** Il fondatore: "La
@@ -2251,9 +2276,12 @@ class _Slot extends StatelessWidget {
       );
 
   /// **LA DISTANZA FRA OGNI CARTA E LA SUA SCRITTA**, uguale per le tre.
-  /// Ordine EQ voce 05: sedici punti, quanto la carta vicina lasciava gia'
-  /// prima, quando la sua scala si ritirava attorno al centro.
-  static const double distanzaDellaScritta = SpacingTokens.md;
+  /// Era sedici punti dall'ordine EQ voce 05 (quanto la carta vicina
+  /// lasciava gia' prima); il fondatore, 12 ottobre 2026, guardando le
+  /// anteprime: *"c'e' molto spazio tra carta e didascalia"*. Quattro punti,
+  /// il piu' stretto dei token: la scritta resta leggibile ma incollata
+  /// alla carta.
+  static const double distanzaDellaScritta = SpacingTokens.xxs;
 
   /// Quanto l'etichetta sotto la carta puo' allargarsi oltre la carta: fino
   /// al posto vicino, che sul tavolo sta a 1,15 larghezze.
@@ -2496,24 +2524,53 @@ class _Slot extends StatelessWidget {
         // come sul tavolo in piano, e nell'anteprima della croce "IL
         // CONSULTANTE" copriva "IL LATO". L'etichetta si allarga al piu' della
         // meta' dello spazio per lato.
+        //
+        // **SU DUE RIGHE NIENTE ALLARGAMENTO, ordine FM aggiunta 1.**
+        // L'allargamento di prima riempiva anche lo spazio del distacco fra
+        // le carte: due etichette vicine, come "CIO' CHE COPRE" e "CIO' CHE
+        // ATTRAVERSA", toccavano senza un pixel di margine e si leggevano
+        // come una sola scritta ("CIO' CHECIO' CHE..."). Qui il testo va
+        // gia' a capo da solo: resta dentro la sua carta, e il distacco
+        // vero fra le carte diventa il distacco fra le scritte.
         LayoutBuilder(
-          builder: (context, vincoli) => SizedBox(
-            width: vincoli.maxWidth,
-            height: altezzaDellEtichetta(context),
-            child: OverflowBox(
-              maxWidth: vincoli.maxWidth + FilaAlzata.distanzaFraLeCarte,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(position.etichetta.toUpperCase(),
-                    key: Key('stesa_etichetta_${position.name}'),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    softWrap: false,
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
+          builder: (context, vincoli) {
+            final largaDellEtichetta = etichettaSuDueRighe
+                ? vincoli.maxWidth
+                : vincoli.maxWidth + FilaAlzata.distanzaFraLeCarte;
+            return SizedBox(
+              width: vincoli.maxWidth,
+              height:
+                  altezzaDellEtichetta(context) * (etichettaSuDueRighe ? 4 : 1),
+              child: OverflowBox(
+                maxWidth: largaDellEtichetta,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: etichettaSuDueRighe
+                      ? SizedBox(
+                          width: largaDellEtichetta,
+                          child: Text(position.etichetta.toUpperCase(),
+                              key: Key('stesa_etichetta_${position.name}'),
+                              textAlign: TextAlign.center,
+                              // Quattro righe, non due: "IL FONDAMENTO" e
+                              // "CIO' CHE COPRE" su meno righe perdevano
+                              // l'ultima parola, tagliata invece che scalata.
+                              maxLines: 4,
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color: palette.goldSoft,
+                                  letterSpacing: 0.6,
+                                  height: 1.1)),
+                        )
+                      : Text(position.etichetta.toUpperCase(),
+                          key: Key('stesa_etichetta_${position.name}'),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          softWrap: false,
+                          style: TypographyTokens.etichetta().copyWith(
+                              color: palette.goldSoft, letterSpacing: 1.2)),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         // IL NOME, IL VERSO E LA SINTESI NON STANNO PIU' QUI.
         //

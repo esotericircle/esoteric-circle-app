@@ -162,20 +162,30 @@ class GeometriaDelTavolo {
   /// alzano davanti al tavolo, un po' sopra il centro del velluto.
   static const double centroDellaFila = 1010;
 
-  /// La fila di [quante] carte in piedi, su una scena larga [w].
-  static FilaAlzata fila(int quante, double w) => FilaAlzata.per(
-      quante, w, nellaScena(const Offset(0, centroDellaFila), w).dy);
+  /// Le carte in piedi della stesa coi [posti] dati, su una scena larga [w].
+  static FilaAlzata fila(List<PostoSulTavolo> posti, double w) =>
+      FilaAlzata.per(
+          posti, w, nellaScena(const Offset(0, centroDellaFila), w).dy);
 
   /// La disposizione delle carte sul piano piatto, ai posti della stesa, e
   /// lo scarto verticale che la centra sul piano.
   static ({double larghezza, List<Offset> angoli}) carteSulPiano(
       List<PostoSulTavolo> posti, double w) {
     final p = piano(w);
-    // Il margine del campo: le carte non toccano il bordo ricamato.
-    final utile = Size(p.width * 0.86, p.height * 0.86);
+    // **IL MARGINE DEL CAMPO, STRETTO.** Il fondatore, 12 ottobre 2026:
+    // "anche quando le carte sono posizionate appoggiate sul tavolo, cerca
+    // di ingrandirle in modo da occupare quasi tutta la superficie del
+    // tavolo". Il tetto a 0,34 volte il piano teneva la carta sola a un
+    // terzo del tavolo anche con tutto il campo libero: tolto, il tetto e'
+    // il piano stesso (vedi larghezzaMassima sotto). Il vero limite, per le
+    // stese su piu' righe logiche, resta l'altezza del campo: a 0,97 il
+    // margine rimasto fra la carta piu' vicina al bordo e il bordo ricamato
+    // e' di oltre quattro punti, cercato a mano fra 0,86 (il margine di
+    // prima) e 0,99 (docs/collaudo/FM/aggiunta_1/a1_margine_del_tavolo.txt).
+    final utile = Size(p.width * 0.97, p.height * 0.97);
     final d = TavoloDellaStesa.disponi(
         posti, utile.width, (l) => l / kAspettoDellaCarta,
-        larghezzaMassima: p.width * 0.34, altezzaMassima: utile.height);
+        larghezzaMassima: p.width, altezzaMassima: utile.height);
     final dx = (p.width - utile.width) / 2;
     final dy = (p.height - d.misura.height) / 2;
     return (
@@ -241,7 +251,7 @@ class TavoloDiMedora extends StatelessWidget {
       final piano = GeometriaDelTavolo.piano(w);
       final h = GeometriaDelTavolo.omografia(w);
       final sulPiano = GeometriaDelTavolo.carteSulPiano(posti, w);
-      final fila = GeometriaDelTavolo.fila(carte.length, w);
+      final fila = GeometriaDelTavolo.fila(posti, w);
       return SizedBox(
         width: w,
         height: alta,
@@ -398,12 +408,47 @@ class FilaAlzata {
     required this.zona,
     required this.distanza,
     required this.testa,
+    this.perRiga = 0,
+    this.righeDichiarate = 0,
   });
 
   final double larghezza;
   final List<Rect> carte;
   final Rect zona;
   final double distanza;
+
+  /// Quante carte in una riga: zero vuol dire tutte in una.
+  final int perRiga;
+
+  /// **QUANTE RIGHE, dichiarate.** Con righe di misura diversa (la Croce
+  /// Celtica fa 4+3+3, non 5+5) il numero non si ricava piu' da [perRiga];
+  /// lo dice [per].
+  final int righeDichiarate;
+
+  int get righe => righeDichiarate > 0
+      ? righeDichiarate
+      : (perRiga <= 0 ? 1 : (carte.length + perRiga - 1) ~/ perRiga);
+
+  /// **LE CARTE PER RIGA, al piu' quattro.** Il fondatore, 12 ottobre 2026:
+  /// prima "in 2 righe da 5 carte", poi di nuovo guardando le anteprime,
+  /// *"in verticale punta alla visibilita' di carte e didascalia o testo.
+  /// Puoi disporle in verticale anche in 2 file da 3 carte e una da 4
+  /// carte"*: dieci carte su cinque per riga restavano strette e le
+  /// didascalie lunghe si leggevano a fatica. Le righe sono bilanciate, non
+  /// tutte della stessa misura: per dieci carte, 4+3+3.
+  static const int carteInUnaRiga = 4;
+
+  /// Lo spazio sotto ogni carta in piedi per la sua scritta, quando la
+  /// scritta va su quattro righe (le stese con piu' righe di carte): la
+  /// distanza carta-scritta (quattro punti) piu' quattro righe
+  /// d'etichetta a diciannove punti l'una, con un margine. Ricalcolato il
+  /// 12 ottobre 2026 quando la distanza e' scesa da sedici a quattro punti
+  /// e le righe della scritta da due a quattro.
+  static const double sottoLaCartaInDueRighe = 84;
+
+  /// Lo stesso spazio quando la scritta sta su una riga sola: la distanza
+  /// piu' una riga d'etichetta, con un margine.
+  static const double sottoLaCartaInUnaRiga = 28;
 
   /// Lo spazio sopra le carte per la scritta della carta chiave.
   final double testa;
@@ -418,25 +463,124 @@ class FilaAlzata {
   /// Lo spazio fra due carte in piedi, in punti.
   static const double distanzaFraLeCarte = 8;
 
-  static FilaAlzata per(int quante, double w, double centro) {
+  /// **LE CARTE IN PIEDI, nella forma della stesa.** Il fondatore, 12
+  /// ottobre 2026: *"Nella croce a 4, le carte si sollevano mantenendo la
+  /// disposizione a croce"*; poi, guardando le anteprime della Croce
+  /// Celtica: *"in verticale punta alla visibilita' di carte e didascalia o
+  /// testo. Puoi disporle in verticale anche in 2 file da 3 carte e una da 4
+  /// carte"*. La croce a quattro resta croce, col suo centro vuoto; oltre
+  /// [carteInUnaRiga] carte, righe bilanciate (dieci carte, 4+3+3); le
+  /// altre una riga sola.
+  static FilaAlzata per(List<PostoSulTavolo> posti, double w, double centro) {
     const margine = 16.0;
     const distanza = distanzaFraLeCarte;
-    final n = math.max(1, quante);
+    final n = math.max(1, posti.length);
+    if (eUnaCroce(posti)) return _aCroce(posti, w, centro);
+    if (n <= carteInUnaRiga) return _unaRiga(n, w, centro);
+    // **RIGHE BILANCIATE, non tutte della stessa misura.** Il numero di
+    // righe e' il minimo che tiene ogni riga entro carteInUnaRiga; le carte
+    // in piu' del multiplo esatto vanno nelle prime righe (dieci carte, al
+    // piu' quattro per riga: tre righe, 4+3+3, non 4+4+2).
+    final righe = (n + carteInUnaRiga - 1) ~/ carteInUnaRiga;
+    final base = n ~/ righe;
+    final resto = n % righe;
+    final dimensioniRighe = [
+      for (var r = 0; r < righe; r++) base + (r < resto ? 1 : 0),
+    ];
+    final perRiga = dimensioniRighe.reduce(math.max);
+    final larga = math.min(
+        (w - 2 * margine - (perRiga - 1) * distanza) / perRiga, w * 0.42);
+    final alta = larga / kAspettoDellaCarta;
+    final testa = testaPer(larga);
+    // Da una riga alla successiva: la carta, la sua scritta sotto e la
+    // testa della riga dopo, dove sta "Carta Chiave".
+    final passo = alta + sottoLaCartaInDueRighe + testa;
+    final altaTutta = alta + (righe - 1) * passo;
+    final cima = centro - altaTutta / 2;
+    final carte = <Rect>[];
+    for (var r = 0; r < righe; r++) {
+      final contaRiga = dimensioniRighe[r];
+      final totaleRiga = contaRiga * larga + (contaRiga - 1) * distanza;
+      final sinistraRiga = (w - totaleRiga) / 2;
+      for (var c = 0; c < contaRiga; c++) {
+        carte.add(Rect.fromLTWH(sinistraRiga + c * (larga + distanza),
+            cima + r * passo, larga, alta));
+      }
+    }
+    final largaDellaZona =
+        dimensioniRighe.first * larga + (dimensioniRighe.first - 1) * distanza;
+    return FilaAlzata(
+      larghezza: larga,
+      distanza: distanza,
+      testa: testa,
+      perRiga: perRiga,
+      righeDichiarate: righe,
+      carte: carte,
+      zona: Rect.fromLTWH(
+          (w - largaDellaZona) / 2, cima, largaDellaZona, altaTutta),
+    );
+  }
+
+  /// Una riga sola, centrata: fino a [carteInUnaRiga] carte.
+  static FilaAlzata _unaRiga(int n, double w, double centro) {
+    const margine = 16.0;
+    const distanza = distanzaFraLeCarte;
     final larga =
         math.min((w - 2 * margine - (n - 1) * distanza) / n, w * 0.42);
     final alta = larga / kAspettoDellaCarta;
+    final testa = testaPer(larga);
     final totale = n * larga + (n - 1) * distanza;
     final sinistra = (w - totale) / 2;
     final cima = centro - alta / 2;
     return FilaAlzata(
       larghezza: larga,
       distanza: distanza,
-      testa: testaPer(larga),
+      testa: testa,
       carte: [
         for (var i = 0; i < n; i++)
           Rect.fromLTWH(sinistra + i * (larga + distanza), cima, larga, alta),
       ],
       zona: Rect.fromLTWH(sinistra, cima, totale, alta),
+    );
+  }
+
+  /// Quattro posti a croce: due sull'asse verticale, uno a sinistra e uno a
+  /// destra dell'asse.
+  static bool eUnaCroce(List<PostoSulTavolo> posti) =>
+      posti.length == 4 &&
+      posti.where((p) => p.x == 0 && p.y != 0).length == 2 &&
+      posti.where((p) => p.x < 0 && p.y == 0).length == 1 &&
+      posti.where((p) => p.x > 0 && p.y == 0).length == 1;
+
+  /// **LA CROCE IN PIEDI.** Tre colonne, le carte piu' grandi che ci
+  /// stanno: in alto e in basso sulla colonna di mezzo, a sinistra e a
+  /// destra a meta' altezza fra le due. Fra la carta in alto e quella in
+  /// basso la scritta della prima e la testa della seconda.
+  static FilaAlzata _aCroce(
+      List<PostoSulTavolo> posti, double w, double centro) {
+    const margine = 16.0;
+    const distanza = distanzaFraLeCarte;
+    final larga = (w - 2 * margine - 2 * distanza) / 3;
+    final alta = larga / kAspettoDellaCarta;
+    final testa = testaPer(larga);
+    final passo = alta + sottoLaCartaInUnaRiga + testa;
+    final altaTutta = alta + passo;
+    final totale = 3 * larga + 2 * distanza;
+    final sinistra = (w - totale) / 2;
+    final cima = centro - altaTutta / 2;
+    Rect posto(PostoSulTavolo p) {
+      final colonna = p.x < 0 ? 0 : (p.x > 0 ? 2 : 1);
+      final y = p.x != 0 ? cima + passo / 2 : (p.y < 0 ? cima : cima + passo);
+      return Rect.fromLTWH(
+          sinistra + colonna * (larga + distanza), y, larga, alta);
+    }
+
+    return FilaAlzata(
+      larghezza: larga,
+      distanza: distanza,
+      testa: testa,
+      carte: [for (final p in posti) posto(p)],
+      zona: Rect.fromLTWH(sinistra, cima, totale, altaTutta),
     );
   }
 }

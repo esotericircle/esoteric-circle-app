@@ -305,17 +305,176 @@ void main() {
                     .startsWith('stesa_etichetta_'))
             .evaluate())
           tester.getRect(find.byWidget(e.widget)),
-      ]..sort((a, b) => a.left.compareTo(b.left));
-      expect(r, hasLength(4), reason: 'le etichette della croce non sono 4');
-      final spazi = [
-        for (var i = 1; i < r.length; i++) r[i].left - r[i - 1].right
       ];
-      print('ORDINE FL VOCE 05: fra le etichette della croce $spazi punti');
-      for (final s in spazi) {
-        expect(s, greaterThanOrEqualTo(0),
-            reason: 'due etichette della croce si toccano: $spazi');
+      expect(r, hasLength(4), reason: 'le etichette della croce non sono 4');
+      // **LAPIDE: la distanza in orizzontale fra etichette in fila.** Dalla
+      // aggiunta 1 dell'ordine FM la croce in piedi resta croce, e due
+      // scritte stanno nella stessa colonna una sopra l'altra: si toccano se
+      // i loro rettangoli si sovrappongono.
+      final toccate = <String>[];
+      for (var i = 0; i < r.length; i++) {
+        for (var j = i + 1; j < r.length; j++) {
+          if (r[i].overlaps(r[j])) toccate.add('${r[i]} e ${r[j]}');
+        }
       }
+      print('ORDINE FL VOCE 05: etichette della croce che si toccano '
+          '${toccate.length}');
+      expect(toccate, isEmpty,
+          reason: 'due etichette della croce si toccano: $toccate');
     });
+
+    // **LE CARTE IN PIEDI NELLA FORMA DELLA STESA**, aggiunta 1 dell'ordine
+    // FM. Il fondatore, 12 ottobre 2026: "Nella croce a 4, le carte si
+    // sollevano mantenendo la disposizione a croce", la Croce Celtica "in 2
+    // righe da 5 carte", e "In entrambi i casi le carte in verticale devono
+    // vedersi bene".
+    List<Rect> inPiedi(WidgetTester tester, int n) => [
+          for (var i = 0; i < n; i++)
+            tester.getRect(find.byKey(ValueKey('tavolo_posto_$i'))),
+        ];
+
+    testWidgets(
+        'FM aggiunta 1: la croce a quattro in piedi resta croce, e le carte si '
+        'vedono bene', (tester) async {
+      await monta(tester, revealAll: true, tipo: TarotSpreadType.croceQuattro);
+      // Nell'ordine della stesa: consultante in basso, i due lati, l'esito in
+      // alto.
+      final c = inPiedi(tester, 4);
+      final (consultante, sinistro, destro, esito) = (c[0], c[1], c[2], c[3]);
+      print('FM AGGIUNTA 1: croce in piedi, larghezza ${esito.width} punti; '
+          'esito a ${esito.top}, lati a ${sinistro.top}, consultante a '
+          '${consultante.top}');
+      expect(esito.center.dx, closeTo(consultante.center.dx, 1),
+          reason: 'l\'esito e il consultante non stanno sullo stesso asse');
+      expect(esito.top, lessThan(consultante.top),
+          reason: 'l\'esito non sta sopra il consultante');
+      expect(sinistro.center.dx, lessThan(esito.left),
+          reason: 'il lato sinistro non sta a sinistra dell\'asse');
+      expect(destro.center.dx, greaterThan(esito.right),
+          reason: 'il lato destro non sta a destra dell\'asse');
+      expect(sinistro.top, greaterThan(esito.top));
+      expect(sinistro.top, lessThan(consultante.top),
+          reason: 'i lati non stanno a meta\' fra l\'esito e il consultante');
+      expect(esito.width, greaterThanOrEqualTo(90),
+          reason: 'le carte della croce in piedi sono strette: '
+              '${esito.width} punti');
+    });
+
+    testWidgets(
+        'FM aggiunta 1: la Croce Celtica in piedi sta in righe bilanciate, al '
+        'piu\' quattro per riga', (tester) async {
+      await monta(tester, revealAll: true, tipo: TarotSpreadType.dieciCarte);
+      final c = inPiedi(tester, 10);
+      final righe = <double>[];
+      final contoPerRiga = <int>[];
+      for (final r in c) {
+        final i = righe.indexWhere((y) => (y - r.top).abs() < 1);
+        if (i < 0) {
+          righe.add(r.top);
+          contoPerRiga.add(1);
+        } else {
+          contoPerRiga[i]++;
+        }
+      }
+      print('FM AGGIUNTA 1: Croce Celtica in piedi, carte per riga '
+          '$contoPerRiga, larghezza ${c.first.width} punti');
+      // Il fondatore, 12 ottobre 2026: "Puoi disporle in verticale anche in
+      // 2 file da 3 carte e una da 4 carte": tre righe, non due, nessuna di
+      // cinque.
+      expect(righe, hasLength(3),
+          reason: 'la Croce Celtica in piedi non sta in tre righe: $righe');
+      for (final n in contoPerRiga) {
+        expect(n, lessThanOrEqualTo(4),
+            reason: 'una riga della Croce Celtica ha piu\' di quattro carte: '
+                '$contoPerRiga');
+      }
+      expect(contoPerRiga.reduce((a, b) => a + b), 10);
+      expect(c.first.width, greaterThanOrEqualTo(70),
+          reason: 'le carte della Croce Celtica in piedi sono strette: '
+              '${c.first.width} punti');
+    });
+
+    // **LE CARTE SUL TAVOLO, PIU' GRANDI**, aggiunta 1 dell'ordine FM. Il
+    // fondatore, 12 ottobre 2026: "anche quando le carte sono posizionate
+    // appoggiate sul tavolo, cerca di ingrandirle in modo da occupare quasi
+    // tutta la superficie del tavolo". Prima un tetto a 0,34 volte il piano
+    // teneva la carta sola a un terzo del tavolo anche con tutto il campo
+    // libero.
+    Future<Rect> cartaSulTavolo(
+        WidgetTester tester, TarotSpreadType tipo, int quante) async {
+      await monta(tester, tipo: tipo);
+      for (var k = 0; k < quante; k++) {
+        final carta = find.byKey(Key('stesa_fan_${38 + k}'));
+        final r = tester.getRect(carta);
+        await tester.tapAt(Offset(r.left + 6, r.center.dy));
+        for (var i = 0; i < 8; i++) {
+          await tester.pump(const Duration(milliseconds: 250));
+        }
+      }
+      return tester.getRect(find.byKey(const Key('tavolo_carta_0')));
+    }
+
+    testWidgets(
+        'FM aggiunta 1: la carta sola sul tavolo occupa quasi tutta la '
+        'superficie del piano', (tester) async {
+      final r = await cartaSulTavolo(tester, TarotSpreadType.unaCarta, 1);
+      print('FM AGGIUNTA 1: la carta sola sul tavolo e\' larga ${r.width} '
+          'punti');
+      // Il vecchio tetto, 0,34 del piano a schermo 360, dava circa 97 punti:
+      // la carta sola cresce ben oltre.
+      expect(r.width, greaterThan(150),
+          reason: 'la carta sola sul tavolo resta piccola: ${r.width} punti '
+              '(il vecchio tetto dava circa 97)');
+    });
+
+    testWidgets(
+        'FM aggiunta 1: la croce a quattro sul tavolo cresce quanto il campo '
+        'reale lo permette', (tester) async {
+      final r = await cartaSulTavolo(tester, TarotSpreadType.croceQuattro, 4);
+      print('FM AGGIUNTA 1: la croce a quattro sul tavolo e\' larga '
+          '${r.width} punti');
+      // La croce occupa quattro righe logiche (y da -1,6 a 1,6): il limite
+      // vero e' l'altezza del campo reale del velluto, non un tetto di
+      // larghezza. Il margine del campo e' stato stretto da 0,86 a 0,97
+      // volte il piano (docs/collaudo/FM/aggiunta_1/a1_margine_del_tavolo.txt),
+      // che porta la croce da 52,6 a oltre 58 punti.
+      expect(r.width, greaterThan(58),
+          reason: 'le carte della croce sul tavolo restano piccole: '
+              '${r.width} punti');
+    });
+  });
+
+  test(
+      'FM aggiunta 1: la Croce Celtica sul tavolo e\' quella di Waite, carta '
+      'per carta', () {
+    // Waite 1911, Parte III, sezione 7 (letto sulla trascrizione di
+    // docs/corpus/tarocchi_posizione/verifica_waite_1911.md): la prima copre,
+    // la seconda "across the FIRST", la terza "above", la quarta "below", la
+    // quinta "on the side of the Significator from which he is looking", la
+    // sesta "on the side that the Significator is facing", con la figura
+    // "facing to the left"; le ultime quattro "one above the other in a line,
+    // on the right hand side of the cross", dalla settima in basso.
+    final t = TarotSpreadType.dieciCarte.tavolo;
+    expect(t, hasLength(10));
+    expect((t[0].x, t[0].y), (0.0, 0.0), reason: 'la prima non sta al centro');
+    expect((t[1].x, t[1].y, t[1].diTraverso), (0.0, 0.0, true),
+        reason: 'la seconda non attraversa la prima');
+    expect(t[2].x == 0 && t[2].y < 0, isTrue, reason: 'la terza non e\' sopra');
+    expect(t[3].x == 0 && t[3].y > 0, isTrue,
+        reason: 'la quarta non e\' sotto');
+    expect(t[4].x > 0 && t[4].y == 0, isTrue,
+        reason: 'la quinta, cio\' che e\' dietro, non sta a destra');
+    expect(t[5].x < 0 && t[5].y == 0, isTrue,
+        reason: 'la sesta, cio\' che e\' davanti, non sta a sinistra');
+    final croce = t.take(6).map((p) => p.x).reduce((a, b) => a > b ? a : b);
+    for (var i = 6; i < 10; i++) {
+      expect(t[i].x, greaterThan(croce),
+          reason: 'la carta ${i + 1} non sta nella linea a destra della croce');
+      if (i > 6) {
+        expect(t[i].y, lessThan(t[i - 1].y),
+            reason: 'la carta ${i + 1} non sta sopra la $i');
+      }
+    }
   });
 
   test('FL.08: il pubspec dichiara la cartella del tavolo, e i file ci sono',

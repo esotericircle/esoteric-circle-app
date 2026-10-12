@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
+import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
 import 'package:flutter/material.dart';
@@ -115,8 +116,14 @@ void main() {
     await tester.tap(find.byKey(const Key('passport_birth_sky')));
     await step(tester);
     await step(tester);
-    expect(find.byType(SkyOverviewScreen), findsOneWidget);
-    expect(find.byKey(const Key('sky_location_prompt')), findsNothing);
+    // **LAPIDE: "find.byType(SkyOverviewScreen)"**, il cielo sopra di te di
+    // prima. Dal 12 ottobre 2026 (ordine FM, aggiunta 1) il Cosmic Passport
+    // apre il cielo reale della nascita.
+    final cielo =
+        tester.widget<CieloRealeScreen>(find.byType(CieloRealeScreen));
+    expect(cielo.modo, ModoDelCielo.nascita,
+        reason: 'il portale del Cosmic Passport non apre il cielo della '
+            'nascita');
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
   });
 }

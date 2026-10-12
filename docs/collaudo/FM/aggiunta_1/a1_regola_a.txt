@@ -44,3 +44,50 @@ ripristinato al byte: si
 innesto entrato (grep): si
 esito: ROSSA
 ripristinato al byte: si
+
+== DOPO LA SUITE INTERA, un difetto vero trovato in FH.10 e corretto (12 ottobre 2026)
+-- clamp con i limiti invertiti in altezzaCheCede, quando il pie' di pagina del cielo di adesso supera lo schermo (lib/features/real_time_cosmo/la_scritta_che_cede.dart; test/la_scritta_cede_senza_lanciare_test.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+(padre: FM.10, il pulsante "Attiva macchina del tempo" allunga il pie' di pagina, che su scene basse spingeva il limite sotto sopra quello alto; la stessa correzione rifatta in _posizioneDellaGuida, lib/features/real_time_cosmo/cielo_reale_screen.dart)
+== FM aggiunta 1, Regola A sulla forma in piedi
+-- la croce a quattro diventa una fila sola
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la Croce Celtica in una riga sola
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il dietro a sinistra come prima
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== FM aggiunta 1, seconda richiesta: righe bilanciate e carte sul tavolo piu' grandi
+-- la Croce Celtica torna a cinque per riga
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il tetto di larghezza torna a 0,34
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il margine del campo torna a 0,86
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il galleggio cresce troppo (ampiezza 4)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== DOPO LE RICHIESTE SU CROCE/TAVOLO/DISTANZA/GALLEGGIO (aggiunta 2), Regola A
+-- ordine_fm_guard: il marcatore delle chiuse alzato (18 voci ora)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- ordine_fm_guard: una voce rinominata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

@@ -216,10 +216,16 @@ class TiltListener extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **QUANTO SALE E SCENDE**, in punti: la carta non deve mai toccare la
+  /// sua scritta sotto, richiesta del fondatore del 12 ottobre 2026. La
+  /// guardia `il_galleggio_non_tocca_la_scritta_test.dart` la confronta con
+  /// `distanzaDellaScritta`.
+  static const double ampiezzaDelGalleggio = 2.2;
+
   /// Il galleggiamento lento, che c'e' anche senza sensore quando il moto e'
   /// concesso: le carte respirano appena.
   static double fluttuazioneDi(int indice, double t) =>
-      math.sin(t * 2 * math.pi + indice * 1.1) * 2.2;
+      math.sin(t * 2 * math.pi + indice * 1.1) * ampiezzaDelGalleggio;
 
   @override
   void dispose() {

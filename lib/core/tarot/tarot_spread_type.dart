@@ -127,8 +127,15 @@ enum TarotSpreadType {
       PostoSulTavolo(0, 0, diTraverso: true),
       PostoSulTavolo(0, -1.65),
       PostoSulTavolo(0, 1.65),
-      PostoSulTavolo(-1.6, 0),
+      // **IL DIETRO A DESTRA, IL DAVANTI A SINISTRA**, come in Waite 1911,
+      // Parte III, sezione 7: la quinta "on the side of the Significator
+      // from which he is looking", la sesta "on the side that the
+      // Significator is facing", e la figura dice "The Significator is here
+      // facing to the left". Il fondatore ha chiesto di controllarlo il 12
+      // ottobre 2026: fino ad allora il dietro stava a sinistra e il davanti
+      // a destra, invertiti. (Ordine FM, aggiunta 1.)
       PostoSulTavolo(1.6, 0),
+      PostoSulTavolo(-1.6, 0),
       PostoSulTavolo(3.4, 2.4),
       PostoSulTavolo(3.4, 0.8),
       PostoSulTavolo(3.4, -0.8),

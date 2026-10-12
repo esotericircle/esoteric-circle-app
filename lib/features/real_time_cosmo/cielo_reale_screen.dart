@@ -1547,7 +1547,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final pie = _chiaveDelPieDiPagina.currentContext?.size?.height ?? 0;
     final basso =
         math.max(kMargineBasso + bordi.bottom, 16 + bordi.bottom + pie + 8);
-    final top = (cy + dy * s - h / 2).clamp(alto, _misura.height - basso - h);
+    // **IL PIE' DI PAGINA PUO' CRESCERE PIU' DELLO SCHERMO**, da quando il
+    // cielo di adesso porta il pulsante "Attiva macchina del tempo" (ordine
+    // FM, aggiunta 1): su una scena bassa il margine di sotto supera quello
+    // di sopra, e `clamp` con il limite basso maggiore del limite alto
+    // lancia. Il limite alto dell'intervallo non scende mai sotto `alto`.
+    final limiteBasso = math.max(alto, _misura.height - basso - h);
+    final top = (cy + dy * s - h / 2).clamp(alto, limiteBasso);
     // La scritta cede il posto ai nomi dei pianeti e al disco della Luna
     // (ordine FH voce 14.1): la regola sta in la_scritta_che_cede.dart.
     // La Luna ha la stessa precedenza dei nomi: e' il soggetto del cielo di
