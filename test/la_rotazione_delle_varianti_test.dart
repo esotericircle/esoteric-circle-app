@@ -39,6 +39,16 @@ void main() {
   });
   tearDown(() => LeCarteNellaPosizione.fonteDiProva = null);
 
+  // **LAPIDE: i testi attesi erano il solo scheletro.** Dall'ordine FM i
+  // registri sono consegnati, e la lettura di casa monta lo scheletro e poi il
+  // registro del gruppo dell'argomento (voce FI.20): il testo atteso e' la
+  // variante col registro dietro, che non ruota.
+  String conRegistro(DrawnCard d, String scheletro) {
+    final r =
+        LeCarteNellaPosizione.registroDi(d, TarotTopic.momentoCheVivo.group);
+    return r == null ? scheletro : '$scheletro $r';
+  }
+
   Future<String> esce(DrawnCard d) async {
     final uscite = await LeUsciteDelleCarte.conta([d]);
     return PosizioneLetta.of(
@@ -51,16 +61,20 @@ void main() {
     final testi = [
       for (var i = 0; i < 4; i++) await esce(nel(SpreadPosition.presente)),
     ];
-    expect(testi, [varianti[0], varianti[1], varianti[2], varianti[0]]);
+    final d = nel(SpreadPosition.presente);
+    expect(testi, [
+      for (final i in [0, 1, 2, 0]) conRegistro(d, varianti[i]),
+    ]);
   });
 
   test('FI.18: il verso conta per conto suo', () async {
     await esce(nel(SpreadPosition.presente));
     await esce(nel(SpreadPosition.presente));
-    expect(await esce(nel(SpreadPosition.presente, capovolta: true)),
-        'Giu. ${varianti[0]}',
+    final giu = nel(SpreadPosition.presente, capovolta: true);
+    expect(await esce(giu), conRegistro(giu, 'Giu. ${varianti[0]}'),
         reason: 'la prima uscita capovolta comincia dalla prima variante');
-    expect(await esce(nel(SpreadPosition.presente)), varianti[2]);
+    expect(await esce(nel(SpreadPosition.presente)),
+        conRegistro(nel(SpreadPosition.presente), varianti[2]));
   });
 
   // **LA PRIMA ONDATA VERA, ordine FJ voce 5.** Il lato ha le tre varianti
@@ -80,7 +94,9 @@ void main() {
           '${[
         for (var i = 0; i < 4; i++) '  uscita ${i + 1}: ${testi[i]}'
       ].join('\n')}');
-      expect(testi, [vere[0], vere[1], vere[2], vere[0]]);
+      expect(testi, [
+        for (final i in [0, 1, 2, 0]) conRegistro(d, vere[i])
+      ]);
       expect(testi.take(3).toSet(), hasLength(3));
     }
   });

@@ -33,3 +33,8 @@ ripristinato al byte: si
    innesto entrato (grep): si
    esito: ROSSA
    ripristinato al byte: si
+
+== la_rotazione_delle_varianti riscritta col registro: la rotazione spenta (lib/core/tarot/le_carte_nella_posizione.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

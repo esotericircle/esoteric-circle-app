@@ -1118,7 +1118,7 @@ scrive l'Architetto.
 
 - 1: Hai agito con grande lucidità e onestà, prendendo decisioni basate su un giudizio equilibrato e giusto. La tua etica ti ha guidato in ogni scelta e hai sempre cercato la verità.
 - 2: Dal trono, con la spada alta e lo sguardo fermo, allora hai deciso con equità: la ragione al servizio del cuore ha guidato una scelta che ancora regge.
-- 3: Quel giudizio giusto che hai dato, o ricevuto, da un'autorità onesta in quel periodo ha messo ordine: la tua situazione poggia su quella decisione lucida.
+- 3: Quel giudizio giusto, che fosse tuo o di un'autorità onesta, in quel periodo ha messo ordine: la tua situazione poggia su quella decisione lucida.
 
 ### capovolta
 

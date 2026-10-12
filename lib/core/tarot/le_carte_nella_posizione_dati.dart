@@ -781,7 +781,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'passato|Re di Spade|dritta': [
     'Hai agito con grande lucidità e onestà, prendendo decisioni basate su un giudizio equilibrato e giusto. La tua etica ti ha guidato in ogni scelta e hai sempre cercato la verità.',
     'Dal trono, con la spada alta e lo sguardo fermo, allora hai deciso con equità: la ragione al servizio del cuore ha guidato una scelta che ancora regge.',
-    'Quel giudizio giusto che hai dato, o ricevuto, da un\'autorità onesta in quel periodo ha messo ordine: la tua situazione poggia su quella decisione lucida.',
+    'Quel giudizio giusto, che fosse tuo o di un\'autorità onesta, in quel periodo ha messo ordine: la tua situazione poggia su quella decisione lucida.',
   ],
   'passato|Re di Spade|capovolta': [
     'Hai agito con eccessiva freddezza, dimenticando le esigenze altrui e privilegiando una logica rigida che ha allontanato le persone. Questa severità ha generato distanza nei tuoi rapporti.',
@@ -9901,7 +9901,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'seStesso|Quattro di Denari|dritta': [
     'Stringi ciò che hai: davanti alla faccenda tieni una moneta al petto, una sul capo, due sotto i piedi, conti e metti da parte con cura gelosa.',
     'Il tuo modo di stare qui è conservativo: proteggi le tue risorse, non spendi energie inutili, preferisci la sicurezza al rischio di ogni novità.',
-    'Custodisci invece di muovere: fai inventario, chiudi il forziere, tieni la città alle spalle e guardi prima di tutto a non perdere quello che è tuo.',
+    'Proteggi invece di muovere: fai inventario, chiudi il forziere, tieni la città alle spalle e guardi prima di tutto a non perdere quello che è tuo.',
   ],
   'seStesso|Quattro di Denari|capovolta': [
     'Stringi per paura anche il poco: in questa faccenda la mano sul forziere si chiude più forte, come se dare qualcosa ti lasciasse senza niente.',

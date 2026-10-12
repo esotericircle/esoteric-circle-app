@@ -776,7 +776,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Stringi ciò che hai: davanti alla faccenda tieni una moneta al petto, una sul capo, due sotto i piedi, conti e metti da parte con cura gelosa.
 - 2: Il tuo modo di stare qui è conservativo: proteggi le tue risorse, non spendi energie inutili, preferisci la sicurezza al rischio di ogni novità.
-- 3: Custodisci invece di muovere: fai inventario, chiudi il forziere, tieni la città alle spalle e guardi prima di tutto a non perdere quello che è tuo.
+- 3: Proteggi invece di muovere: fai inventario, chiudi il forziere, tieni la città alle spalle e guardi prima di tutto a non perdere quello che è tuo.
 
 ### capovolta
 
