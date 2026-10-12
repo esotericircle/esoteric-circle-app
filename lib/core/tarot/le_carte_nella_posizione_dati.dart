@@ -6173,7 +6173,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Se nulla andasse sprecato, le forze che fanno sbandare il tuo caso tirerebbero tutte dallo stesso lato e lo sbando resterebbe un segno da leggere invece di un danno da contare.',
   ],
   'corona|La Giustizia|dritta': [
-    'Fra come la tua questione sta e quanto potrebbe valere c\'e\' la distanza di un conto fatto fino in fondo: ogni effetto riportato alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori dal peso.',
+    'Fra come la tua questione sta e quanto potrebbe valere c\'è la distanza di un conto fatto fino in fondo: ogni effetto riportato alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori dal peso.',
     'La misura piena di questa forza mette sulla bilancia della tua domanda tutto quello che le appartiene; quello che non arriva a darti è l\'assoluzione, perché una bilancia pesa e non perdona.',
     'Il genere di bene che questa forza porta alla tua questione è esattezza e non clemenza: un peso che torna giusto, non un peso più leggero; un conto corretto, non un conto cancellato.',
   ],
@@ -6240,7 +6240,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'corona|La Temperanza|capovolta': [
     'Questa forza, nella tua questione, sa indicare con precisione quale dose sta fuori misura e di quanto; quello che non arriva a darti è la mescola rifatta, perché separare le due parti non significa comporle.',
     'Il punto più alto di questa forza, per la tua domanda, è l\'eccesso guardato come eccesso e misurato: oltre quella misura non va, perché nominare uno squilibrio non è lo stesso che ridosarlo.',
-    'Fra il ritmo rotto che la tua questione tiene adesso e la proporzione che potrebbe valerle c\'e\' lo spazio di due parti che tornano a parlarsi come due, ciascuna con il proprio nome, senza fondersi per fretta.',
+    'Fra il ritmo rotto che la tua questione tiene adesso e la proporzione che potrebbe valerle c\'è lo spazio di due parti che tornano a parlarsi come due, ciascuna con il proprio nome, senza fondersi per fretta.',
   ],
   'corona|Il Diavolo|dritta': [
     'Di questo massimo fanno parte il nome esatto dell\'attaccamento che lavora nella tua questione, il tornaconto che lo tiene in piedi e la mano che ha stretto il patto senza accorgersene.',
@@ -6299,7 +6299,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'corona|Il Giudizio|capovolta': [
     'Il bene che questa forza può portare alla tua questione è di specie mite: non più severità contro di te, piuttosto il giusto peso; la durezza con cui ti tratti si riconosce come un modo di non rispondere al richiamo.',
-    'Tra il rinvio in cui la tua domanda resta e quanto potrebbe valerle c\'e\' la differenza fra un conto immaginato in grande e un conto aperto sul tavolo: la prima misura possibile è quella vera, non la più grossa.',
+    'Tra il rinvio in cui la tua domanda resta e quanto potrebbe valerle c\'è la differenza fra un conto immaginato in grande e un conto aperto sul tavolo: la prima misura possibile è quella vera, non la più grossa.',
     'Composto di una cosa sola, questo massimo porta alla tua faccenda un\'ammissione detta senza processo e il bilancio ridotto alla sua grandezza reale: nessun risarcimento, nessuna assoluzione in anticipo.',
   ],
   'corona|Il Mondo|dritta': [
@@ -6415,7 +6415,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'corona|Fante di Bastoni|dritta': [
     'Fra l\'idea appena affacciata nella tua questione e quanto potrebbe valere resta aperto tutto lo spazio della prova: un annuncio giovane, portato in giro e sperimentato, senza un impegno preso che lo chiuda.',
     'La corsa di questa forza porta alla tua domanda la notizia fresca e la voglia di provarla addosso; quello che non arriva a darti è il mestiere, perché un annuncio riconosce la strada e non la percorre.',
-    'Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l\'eta\' dell\'idea, non la sua riuscita; la prima curiosità, non l\'apprendistato che verrebbe dopo.',
+    'Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l\'età dell\'idea, non la sua riuscita; la prima curiosità, non l\'apprendistato che verrebbe dopo.',
   ],
   'corona|Fante di Bastoni|capovolta': [
     'Senza sprechi, la tua questione avrebbe la serie delle accensioni messa in fila e leggibile: non un inizio solo, molti, ciascuno con il punto esatto in cui l\'interesse passa altrove.',
@@ -6480,7 +6480,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'corona|Tre di Coppe|capovolta': [
     'Questa forza, nella tua questione, sa distinguere nel cerchio allargato chi nutre da chi occupa un posto; quello che non arriva a darti è il legame nuovo, perché una selezione taglia e non presenta nessuno.',
     'L\'altezza massima di questa forza, per la tua domanda, è un elenco onesto delle presenze: pochi nomi veri separati dai molti di facciata. Oltre quella lista non sale, perché contare non è rifondare una compagnia.',
-    'Fra il cerchio gonfio che la tua questione porta adesso e quanto potrebbe valerle c\'e\' la differenza di una sottrazione: meno presenze nella stanza, la stessa quantità di affetto concentrata su chi la ricambia.',
+    'Fra il cerchio gonfio che la tua questione porta adesso e quanto potrebbe valerle c\'è la differenza di una sottrazione: meno presenze nella stanza, la stessa quantità di affetto concentrata su chi la ricambia.',
   ],
   'corona|Quattro di Coppe|dritta': [
     'Di questo massimo fa parte una cosa precisa: la sazietà della tua questione chiamata per quello che è, con la coppa tesa di lato contata fra i dati invece che fra i fastidi.',
@@ -6539,7 +6539,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'corona|Nove di Coppe|capovolta': [
     'Il bene che questa forza può portare alla tua questione è di specie amara: non una gioia più grande, piuttosto la taratura esatta di un piacere consumato fino in fondo che lascia la fame al suo posto.',
-    'Tra la facciata che la tua domanda tiene adesso e quanto potrebbe valerle c\'e\' un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.',
+    'Tra la facciata che la tua domanda tiene adesso e quanto potrebbe valerle c\'è un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.',
     'Fatto di un solo ingrediente, questo massimo dà alla tua questione il nome giusto del piacere che non colma; nessun risarcimento lo accompagna, nessuna gioia sostitutiva messa accanto per consolare.',
   ],
   'corona|Dieci di Coppe|dritta': [
@@ -6653,7 +6653,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Se nulla si sprecasse, i due piatti dello scambio che riguarda il tuo caso porterebbero lo stesso peso e chi dà non resterebbe svuotato dal proprio dono.',
   ],
   'corona|Sette di Denari|dritta': [
-    'Fra il campo che la tua questione tiene adesso e quanto potrebbe valerle c\'e\' soltanto del tempo: una maturazione che lavora da sola, mentre le mani restano ferme a guardare quanto manca.',
+    'Fra il campo che la tua questione tiene adesso e quanto potrebbe valerle c\'è soltanto del tempo: una maturazione che lavora da sola, mentre le mani restano ferme a guardare quanto manca.',
     'La sosta che questa forza porta alla tua domanda ha un pregio preciso: fa vedere quanto vale il campo prima che sia pronto; quello che non arriva a darti è la raccolta, perché una stima conta e non stacca.',
     'Il genere di bene in gioco nella tua questione è lentezza e non abbondanza: conta la qualità dell\'attesa, non la grandezza del cesto; il frutto giusto al tempo giusto, non il frutto più grosso.',
   ],
@@ -6720,7 +6720,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'corona|Regina di Denari|capovolta': [
     'Questa forza, nella tua questione, sa fare l\'elenco completo di quello che viene curato ogni giorno; quello che non arriva a darti è il tempo in più, perché aggiungere una riga all\'elenco non allunga la giornata.',
     'L\'altezza massima di questa forza, per la tua domanda, è il tuo nome scritto nel registro delle cose da curare, una riga come le altre. Oltre quella riga non va, perché un registro annota e non provvede.',
-    'Fra la cura che la tua questione distribuisce adesso e quanto potrebbe valerle c\'e\' una riga sola: la stessa praticità rivolta anche a chi la esercita, con la stessa misura e senza sconto.',
+    'Fra la cura che la tua questione distribuisce adesso e quanto potrebbe valerle c\'è una riga sola: la stessa praticità rivolta anche a chi la esercita, con la stessa misura e senza sconto.',
   ],
   'corona|Re di Denari|dritta': [
     'Di questo massimo fanno parte l\'abbondanza concreta, il mestiere di farla rendere e una generosità misurata, che sulla tua questione pesa quanto l\'abbondanza stessa.',
@@ -6779,7 +6779,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'corona|Cinque di Spade|capovolta': [
     'Il bene che questa forza può portare alla tua questione è di specie disarmata: non una ragione più solida, piuttosto una ragione lasciata cadere da chi potrebbe ancora spenderla tutta.',
-    'Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c\'e\' un gesto piccolo e di parte: le armi messe a terra da uno solo dei due, senza accordo e senza garanzia di risposta.',
+    'Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c\'è un gesto piccolo e di parte: le armi messe a terra da uno solo dei due, senza accordo e senza garanzia di risposta.',
     'Fatto di un gesto unilaterale, questo massimo porta alla tua questione le armi deposte prima della resa dell\'altro: nessuna riconciliazione garantita, nessun torto cancellato nel frattempo.',
   ],
   'corona|Sei di Spade|dritta': [

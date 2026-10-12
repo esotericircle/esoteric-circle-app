@@ -38,3 +38,5 @@ Poi la guardia della virgola trovava tredici volte ", e'" in corona.md: era il v
 Dopo: python tool/genera_carte_nella_posizione.py, scheletri 4212 su 7020, posizioni con le tre varianti 8, in attesa 4 (dietro, seStesso, laCasa, speranzeOTimori); il_corpus_delle_posizioni, il_genere_non_si_indovina, language_rule e nessuna_promessa_di_memoria_integrale verdi, 29 prove.
 
 E nella suite (12 ottobre, notte): corona.md, Il Papa, "da' alla tua questione un maestro in carne e ossa" diventa "una guida in carne e ossa": la guardia il_listino_non_promette_il_maestro_reale ferma ogni stringa che offra un maestro vero, che nell'app e' il servizio a pagamento. Padre: 394e9c5.
+
+E dalla suite (12 ottobre, notte, +7126 -5 sul commit 2b48e96a): la guardia testo_a_video ha trovato altri 9 accenti con l'apostrofo in corona.md ("c'e'", "dell'eta'"): lo strumento li saltava perche' preceduti da un apostrofo. Corretto lo strumento, resi veri anche quelli. Padre: 394e9c5 per il testo, questo lavoro per lo strumento.

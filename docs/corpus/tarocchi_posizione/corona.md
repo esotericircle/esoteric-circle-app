@@ -145,7 +145,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Fra come la tua questione sta e quanto potrebbe valere c'e' la distanza di un conto fatto fino in fondo: ogni effetto riportato alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori dal peso.
+- 1: Fra come la tua questione sta e quanto potrebbe valere c'è la distanza di un conto fatto fino in fondo: ogni effetto riportato alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori dal peso.
 - 2: La misura piena di questa forza mette sulla bilancia della tua domanda tutto quello che le appartiene; quello che non arriva a darti è l'assoluzione, perché una bilancia pesa e non perdona.
 - 3: Il genere di bene che questa forza porta alla tua questione è esattezza e non clemenza: un peso che torna giusto, non un peso più leggero; un conto corretto, non un conto cancellato.
 
@@ -237,7 +237,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Questa forza, nella tua questione, sa indicare con precisione quale dose sta fuori misura e di quanto; quello che non arriva a darti è la mescola rifatta, perché separare le due parti non significa comporle.
 - 2: Il punto più alto di questa forza, per la tua domanda, è l'eccesso guardato come eccesso e misurato: oltre quella misura non va, perché nominare uno squilibrio non è lo stesso che ridosarlo.
-- 3: Fra il ritmo rotto che la tua questione tiene adesso e la proporzione che potrebbe valerle c'e' lo spazio di due parti che tornano a parlarsi come due, ciascuna con il proprio nome, senza fondersi per fretta.
+- 3: Fra il ritmo rotto che la tua questione tiene adesso e la proporzione che potrebbe valerle c'è lo spazio di due parti che tornano a parlarsi come due, ciascuna con il proprio nome, senza fondersi per fretta.
 
 ## Il Diavolo
 
@@ -320,7 +320,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il bene che questa forza può portare alla tua questione è di specie mite: non più severità contro di te, piuttosto il giusto peso; la durezza con cui ti tratti si riconosce come un modo di non rispondere al richiamo.
-- 2: Tra il rinvio in cui la tua domanda resta e quanto potrebbe valerle c'e' la differenza fra un conto immaginato in grande e un conto aperto sul tavolo: la prima misura possibile è quella vera, non la più grossa.
+- 2: Tra il rinvio in cui la tua domanda resta e quanto potrebbe valerle c'è la differenza fra un conto immaginato in grande e un conto aperto sul tavolo: la prima misura possibile è quella vera, non la più grossa.
 - 3: Composto di una cosa sola, questo massimo porta alla tua faccenda un'ammissione detta senza processo e il bilancio ridotto alla sua grandezza reale: nessun risarcimento, nessuna assoluzione in anticipo.
 
 ## Il Mondo
@@ -483,7 +483,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Fra l'idea appena affacciata nella tua questione e quanto potrebbe valere resta aperto tutto lo spazio della prova: un annuncio giovane, portato in giro e sperimentato, senza un impegno preso che lo chiuda.
 - 2: La corsa di questa forza porta alla tua domanda la notizia fresca e la voglia di provarla addosso; quello che non arriva a darti è il mestiere, perché un annuncio riconosce la strada e non la percorre.
-- 3: Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l'eta' dell'idea, non la sua riuscita; la prima curiosità, non l'apprendistato che verrebbe dopo.
+- 3: Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l'età dell'idea, non la sua riuscita; la prima curiosità, non l'apprendistato che verrebbe dopo.
 
 ### capovolta
 
@@ -573,7 +573,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Questa forza, nella tua questione, sa distinguere nel cerchio allargato chi nutre da chi occupa un posto; quello che non arriva a darti è il legame nuovo, perché una selezione taglia e non presenta nessuno.
 - 2: L'altezza massima di questa forza, per la tua domanda, è un elenco onesto delle presenze: pochi nomi veri separati dai molti di facciata. Oltre quella lista non sale, perché contare non è rifondare una compagnia.
-- 3: Fra il cerchio gonfio che la tua questione porta adesso e quanto potrebbe valerle c'e' la differenza di una sottrazione: meno presenze nella stanza, la stessa quantità di affetto concentrata su chi la ricambia.
+- 3: Fra il cerchio gonfio che la tua questione porta adesso e quanto potrebbe valerle c'è la differenza di una sottrazione: meno presenze nella stanza, la stessa quantità di affetto concentrata su chi la ricambia.
 
 ## Quattro di Coppe
 
@@ -656,7 +656,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il bene che questa forza può portare alla tua questione è di specie amara: non una gioia più grande, piuttosto la taratura esatta di un piacere consumato fino in fondo che lascia la fame al suo posto.
-- 2: Tra la facciata che la tua domanda tiene adesso e quanto potrebbe valerle c'e' un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.
+- 2: Tra la facciata che la tua domanda tiene adesso e quanto potrebbe valerle c'è un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.
 - 3: Fatto di un solo ingrediente, questo massimo dà alla tua questione il nome giusto del piacere che non colma; nessun risarcimento lo accompagna, nessuna gioia sostitutiva messa accanto per consolare.
 
 ## Dieci di Coppe
@@ -817,7 +817,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Fra il campo che la tua questione tiene adesso e quanto potrebbe valerle c'e' soltanto del tempo: una maturazione che lavora da sola, mentre le mani restano ferme a guardare quanto manca.
+- 1: Fra il campo che la tua questione tiene adesso e quanto potrebbe valerle c'è soltanto del tempo: una maturazione che lavora da sola, mentre le mani restano ferme a guardare quanto manca.
 - 2: La sosta che questa forza porta alla tua domanda ha un pregio preciso: fa vedere quanto vale il campo prima che sia pronto; quello che non arriva a darti è la raccolta, perché una stima conta e non stacca.
 - 3: Il genere di bene in gioco nella tua questione è lentezza e non abbondanza: conta la qualità dell'attesa, non la grandezza del cesto; il frutto giusto al tempo giusto, non il frutto più grosso.
 
@@ -909,7 +909,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Questa forza, nella tua questione, sa fare l'elenco completo di quello che viene curato ogni giorno; quello che non arriva a darti è il tempo in più, perché aggiungere una riga all'elenco non allunga la giornata.
 - 2: L'altezza massima di questa forza, per la tua domanda, è il tuo nome scritto nel registro delle cose da curare, una riga come le altre. Oltre quella riga non va, perché un registro annota e non provvede.
-- 3: Fra la cura che la tua questione distribuisce adesso e quanto potrebbe valerle c'e' una riga sola: la stessa praticità rivolta anche a chi la esercita, con la stessa misura e senza sconto.
+- 3: Fra la cura che la tua questione distribuisce adesso e quanto potrebbe valerle c'è una riga sola: la stessa praticità rivolta anche a chi la esercita, con la stessa misura e senza sconto.
 
 ## Re di Denari
 
@@ -992,7 +992,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il bene che questa forza può portare alla tua questione è di specie disarmata: non una ragione più solida, piuttosto una ragione lasciata cadere da chi potrebbe ancora spenderla tutta.
-- 2: Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c'e' un gesto piccolo e di parte: le armi messe a terra da uno solo dei due, senza accordo e senza garanzia di risposta.
+- 2: Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c'è un gesto piccolo e di parte: le armi messe a terra da uno solo dei due, senza accordo e senza garanzia di risposta.
 - 3: Fatto di un gesto unilaterale, questo massimo porta alla tua questione le armi deposte prima della resa dell'altro: nessuna riconciliazione garantita, nessun torto cancellato nel frattempo.
 
 ## Sei di Spade
