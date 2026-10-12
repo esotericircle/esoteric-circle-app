@@ -47,7 +47,7 @@ const Map<SpreadPosition, int> variantiDichiarate = {
   SpreadPosition.dietro: 0,
   SpreadPosition.seStesso: 3,
   SpreadPosition.laCasa: 3,
-  SpreadPosition.speranzeOTimori: 0,
+  SpreadPosition.speranzeOTimori: 3,
 };
 
 /// I registri: veri dall'ordine FM, 12 ottobre 2026, scritti da Code coi tre
