@@ -876,7 +876,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'presente|La Giustizia|capovolta': [
     'Il tuo equilibrio dipende dal riconoscimento di una verità che stai ignorando. Fino a quando non la guardi in faccia, non puoi trovare serenità.',
     'Un conto resta aperto a tuo nome e oggi lo attribuisci agli altri o al caso: la conseguenza di una tua scelta sta lì sul piatto della bilancia, ma tu guardi altrove e l\'equilibrio non torna.',
-    'In questo momento la bilancia pende e tu fai finta di non vederlo: una responsabilità che è tua aspetta di essere riconosciuta, mentre cerchi fuori di te la ragione di uno squilibrio che porti dentro.',
+    'In questo momento la bilancia pende e tu fai finta di non vederlo: una responsabilità che è tua aspetta che tu la riconosca, mentre cerchi fuori di te la ragione di uno squilibrio che porti dentro.',
   ],
   'presente|L\'Eremita|dritta': [
     'Senti il bisogno di isolarti per trovare la tua direzione. La tua ricerca interiore ti guida un passo alla volta verso una verità personale.',
@@ -11024,7 +11024,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Ciò che desideri è il tempo per cercare risposte vere, lontano dal rumore. Ciò che temi è che gli altri non capiscano il tuo bisogno di distanza.',
   ],
   'speranzeOTimori|L\'Eremita|capovolta': [
-    'Temi che il tuo ritiro diventi isolamento, che la lanterna serva solo a illuminare una stanza chiusa. Speri di ritrovare la strada verso gli altri prima di perderla.',
+    'Temi che il tuo ritiro si trasformi in isolamento, che la lanterna serva solo a illuminare una stanza chiusa. Speri di ritrovare la strada verso gli altri prima di perderla.',
     'Hai paura di nasconderti chiamandolo raccoglimento. Immagini giorni sempre più muti e ti chiedi se stai cercando qualcosa o se in realtà stai fuggendo.',
     'Nella tua attesa c\'è una solitudine che pesa invece di chiarire. Ti auguri che qualcuno bussi alla tua porta, ma temi di non sapere più come aprire.',
   ],
@@ -11034,7 +11034,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Ciò che desideri è un colpo di vento a favore, un giro inatteso. Ciò che temi è dipendere dal caso, aggrapparti a com\'era mentre tutto intorno a te si muove.',
   ],
   'speranzeOTimori|La Ruota della Fortuna|capovolta': [
-    'Temi che il ciclo resti bloccato, che il cerchio giri storto e ti lasci senza presa. Speri che la sosta sia soltanto una pausa e non un punto fermo.',
+    'Temi che il ciclo si inceppi, che il cerchio giri storto e ti lasci senza presa. Speri che la sosta sia soltanto una pausa e non un punto fermo.',
     'Hai paura di una sfortuna che si ripete, come se il giro ti riportasse sempre nello stesso punto basso. Ti auguri di poter rimettere in moto qualcosa con le tue mani.',
     'Nella tua attesa c\'è l\'immagine di un ingranaggio inceppato. Immagini di aspettare che riparta da sé, ma ti spaventa l\'idea di non poterci fare niente.',
   ],
@@ -11184,7 +11184,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Il tuo desiderio è una soglia da attraversare insieme, un ingresso accolto da sorrisi. Ciò che ti inquieta è l\'idea che nessuno si presenti alla festa.',
   ],
   'speranzeOTimori|Quattro di Bastoni|capovolta': [
-    'Temi che la festa resti rimandata, come una casa nuova in cui non riesci mai a entrare. Speri di trovare il momento per celebrare ciò che hai raggiunto.',
+    'Temi che la festa slitti ancora, come una casa nuova in cui non riesci mai a entrare. Speri di trovare il momento per celebrare ciò che hai raggiunto.',
     'Hai paura di vivere il traguardo a metà, con la ghirlanda appesa e le sedie vuote. Ti auguri di concederti finalmente la gioia che ti spetta.',
     'Immagini un brindisi sempre spostato a domani e ti chiedi perché. Desideri sentirti a casa, ma temi che qualcosa continui a tenerti sulla porta.',
   ],

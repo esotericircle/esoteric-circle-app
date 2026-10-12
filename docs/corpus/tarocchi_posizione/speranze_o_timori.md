@@ -164,7 +164,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi che il tuo ritiro diventi isolamento, che la lanterna serva solo a illuminare una stanza chiusa. Speri di ritrovare la strada verso gli altri prima di perderla.
+- 1: Temi che il tuo ritiro si trasformi in isolamento, che la lanterna serva solo a illuminare una stanza chiusa. Speri di ritrovare la strada verso gli altri prima di perderla.
 - 2: Hai paura di nasconderti chiamandolo raccoglimento. Immagini giorni sempre più muti e ti chiedi se stai cercando qualcosa o se in realtà stai fuggendo.
 - 3: Nella tua attesa c'è una solitudine che pesa invece di chiarire. Ti auguri che qualcuno bussi alla tua porta, ma temi di non sapere più come aprire.
 
@@ -178,7 +178,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi che il ciclo resti bloccato, che il cerchio giri storto e ti lasci senza presa. Speri che la sosta sia soltanto una pausa e non un punto fermo.
+- 1: Temi che il ciclo si inceppi, che il cerchio giri storto e ti lasci senza presa. Speri che la sosta sia soltanto una pausa e non un punto fermo.
 - 2: Hai paura di una sfortuna che si ripete, come se il giro ti riportasse sempre nello stesso punto basso. Ti auguri di poter rimettere in moto qualcosa con le tue mani.
 - 3: Nella tua attesa c'è l'immagine di un ingranaggio inceppato. Immagini di aspettare che riparta da sé, ma ti spaventa l'idea di non poterci fare niente.
 
@@ -388,7 +388,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi che la festa resti rimandata, come una casa nuova in cui non riesci mai a entrare. Speri di trovare il momento per celebrare ciò che hai raggiunto.
+- 1: Temi che la festa slitti ancora, come una casa nuova in cui non riesci mai a entrare. Speri di trovare il momento per celebrare ciò che hai raggiunto.
 - 2: Hai paura di vivere il traguardo a metà, con la ghirlanda appesa e le sedie vuote. Ti auguri di concederti finalmente la gioia che ti spetta.
 - 3: Immagini un brindisi sempre spostato a domani e ti chiedi perché. Desideri sentirti a casa, ma temi che qualcosa continui a tenerti sulla porta.
 

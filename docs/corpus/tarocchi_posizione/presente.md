@@ -154,7 +154,7 @@ scrive l'Architetto.
 
 - 1: Il tuo equilibrio dipende dal riconoscimento di una verità che stai ignorando. Fino a quando non la guardi in faccia, non puoi trovare serenità.
 - 2: Un conto resta aperto a tuo nome e oggi lo attribuisci agli altri o al caso: la conseguenza di una tua scelta sta lì sul piatto della bilancia, ma tu guardi altrove e l'equilibrio non torna.
-- 3: In questo momento la bilancia pende e tu fai finta di non vederlo: una responsabilità che è tua aspetta di essere riconosciuta, mentre cerchi fuori di te la ragione di uno squilibrio che porti dentro.
+- 3: In questo momento la bilancia pende e tu fai finta di non vederlo: una responsabilità che è tua aspetta che tu la riconosca, mentre cerchi fuori di te la ragione di uno squilibrio che porti dentro.
 
 ## L'Eremita
 
