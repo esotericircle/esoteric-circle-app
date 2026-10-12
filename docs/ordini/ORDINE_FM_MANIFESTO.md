@@ -2,11 +2,11 @@
 
 Testo dell'ordine: `docs/ordini/ORDINE_FM_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FM.md`.
 
-Una voce per ciascuna delle sette voci dell'ordine. La premessa P1 era sbagliata in un punto: non nominava `dietro.md`, la quinta carta della Croce Celtica, vuota a 468 righe su 468 dall'ordine FK voce 8; i testi da scrivere erano quindi 3.276 e non 2.808 e le posizioni che tenevano chiusa la stesa a dieci carte quattro e non tre. `dietro` sta nella voce FM.02. Una voce CHIUSA porta sotto di sé DOMANDA, PROVA e MISURA.
+Una voce per ciascuna delle sette voci dell'ordine, e da FM.08 a FM.14 le richieste del fondatore in chat del 12 ottobre 2026, dopo la consegna (l'aggiunta 1). La premessa P1 era sbagliata in un punto: non nominava `dietro.md`, la quinta carta della Croce Celtica, vuota a 468 righe su 468 dall'ordine FK voce 8; i testi da scrivere erano quindi 3.276 e non 2.808 e le posizioni che tenevano chiusa la stesa a dieci carte quattro e non tre. `dietro` sta nella voce FM.02. Una voce CHIUSA porta sotto di sé DOMANDA, PROVA e MISURA.
 
-VOCI_TOTALI: 7
-VOCI_CHIUSE: 7
-VOCI_APERTE: 0
+VOCI_TOTALI: 14
+VOCI_CHIUSE: 12
+VOCI_APERTE: 2
 VOCI_DA_FARE: 0
 
 ## VOCE FM.01
@@ -64,3 +64,59 @@ MISURA: scheletri nel Dart da 4.212 a 7.020 su 7.020, registri da 0 a 468 su 468
 DOMANDA: "Finito il lavoro, si riferisce cosa e' pronto e si attende il suo ordine. Nessuna build di iniziativa."
 PROVA: docs/ordini/RAPPORTO_ORDINE_FM.md
 MISURA: build costruite 0; numero della versione nel pubspec cambiato 0
+
+## VOCE FM.08
+
+**APERTA IN ATTESA DI VERIFICA.** Il Sigillo del Sogno dirada la nebbia solo con l'aria, riconosciuta come il Soffio del Destino, e sopra il fondo della stanza. Manca la prova del fiato vero sul telefono.
+
+DOMANDA: "nei doni del giorno, il microfono del sigillo della notte è troppo sensibile e "diradare la nebbia" si sblocca con solo la musica di sottofondo o un leggero rumore  di fondo"
+PROVA: test/il_sigillo_si_dirada_solo_con_l_aria_test.dart
+MISURA: finestre che diradano la nebbia, col volume di prima e adesso: musica di sottofondo da 62 a 0, voce alla radio da 62 a 0, canzone che parte dopo la quiete da 63 a 0, ventilatore da 93 a 0; fiato dopo la quiete da 47 a 43, fiato sopra il ventilatore da 47 a 43
+
+## VOCE FM.09
+
+**APERTA IN ATTESA DI VERIFICA.** Il Soffio del Destino un poco più sensibile, e lo stesso parametro nel Sigillo del Sogno. Manca la prova del fiato vero sul telefono.
+
+DOMANDA: "Il soffio del destino, invece, è troppo difficile. Aumenta la sensibilità del soffio di poco e usa lo stesso parametro per il sigillo del sogno."
+PROVA: lib/core/rituals/forma_del_soffio.dart
+MISURA: energia minima da 0,0025 a 0,0018; planarità minima da 0,15 a 0,12 (la voce misurata a 0,05); finestre di fila da 6 a 5 (da 192 a 160 millisecondi); suoni che non sono soffi aperti dalla forma 0 su 3 prima e dopo; soffi riconosciuti 3 su 3 prima e dopo
+
+## VOCE FM.10
+
+**CHIUSA.** La luna della home apre il cielo di adesso, con un pulsante sottile "Attiva macchina del tempo" che porta i selettori della data.
+
+DOMANDA: "1 "il cielo di adesso" va inserito in home sostituendo l'attuale "il cielo sopra di te adesso" (credo sia solo un cambio link collegamento), ma vorrei che all'interno della schermata del cielo in tempo reale aggiungessi un pulsante in basso sottile "attiva macchina del tempo" dove al click compaiono i selettori di data della macchina del tempo."
+PROVA: docs/collaudo/FM/aggiunta_1/a1_il_cielo_in_quattro_momenti.png
+MISURA: schermata aperta dalla luna da SkyOverviewScreen a CieloRealeScreen in modo adesso; pulsante sottile da 0 a 1, alto al più 44 punti; selettori della data prima del tocco 0, dopo il tocco 1 (giorno scelto, luogo, Viaggia nel tempo, pannello)
+
+## VOCE FM.11
+
+**CHIUSA.** Il cielo della tua nascita del cielo reale nel Cosmic Passport, e nella carta d'identità che apriva lo stesso cielo di prima.
+
+DOMANDA: "2 "il cielo della tua Nascita"  va sostituito nel Cosmic Password."
+PROVA: test/il_cielo_reale_prende_il_posto_test.dart
+MISURA: ingressi al cielo di nascita sul cielo di prima da 2 (Cosmic Passport, carta d'identità) a 0, sul cielo reale da 0 a 2
+
+## VOCE FM.12
+
+**CHIUSA.** La macchina del tempo nell'onboarding, dove si rivela il cielo di nascita, dalla nascita appena scritta.
+
+DOMANDA: "La macchina del tempo va inserita e sostituita nell'onboarding, quando viene rivelato il cielo di nascita, dopo che l'utente ha inserito i dati di nascita."
+PROVA: docs/collaudo/FM/aggiunta_1/a1_04_l_onboarding_la_macchina_dalla_nascita.png
+MISURA: fase del cielo del Risveglio da SkyOverviewScreen a CieloRealeScreen in modo macchina del tempo; giorno di partenza dal dato appena scritto (3 marzo 1985 nella prova), non dal profilo; "Leggi la tua carta" porta avanti l'onboarding 1 su 1 (onboarding_ordine_test verde)
+
+## VOCE FM.13
+
+**CHIUSA.** La voce Real Time Cosmo tolta dal menu utente, col suo menu temporaneo.
+
+DOMANDA: "Dopo puoi eliminare il menù RealTime Cosmo dal menù utente."
+PROVA: test/le_anteprime_dell_ordine_fg_test.dart
+MISURA: voci Real Time Cosmo nel menu utente da 1 a 0; file del menu temporaneo (real_time_cosmo_screen.dart) da 1 a 0
+
+## VOCE FM.14
+
+**CHIUSA.** Le anteprime della stesa a quattro carte e della Croce Celtica a dieci, coperte e scoperte.
+
+DOMANDA: "Vorrei vedere anche qualche anteprima della funzionalità tarocchi, della stesa a 4 carte e della stesa croce Celtica a 10 carte con le carte coperte e scoperte."
+PROVA: docs/preview/FL/fl_croce_e_croce_celtica.png
+MISURA: anteprime mandate 4 su 4 (croce coperta, croce scoperta, Croce Celtica coperta, Croce Celtica scoperta); larghezza di una carta della Croce Celtica in piedi 26 punti a 360, illeggibile: la Croce Celtica resta chiusa

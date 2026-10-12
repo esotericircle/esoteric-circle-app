@@ -34,7 +34,7 @@ import '../../core/onboarding/onboarding_controller.dart';
 import '../account/custodia_del_cielo.dart';
 import '../maestri/domain_screen.dart';
 import 'daily_strip.dart';
-import 'sky_overview_screen.dart';
+import '../real_time_cosmo/cielo_reale_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'le_righe_della_casa.dart';
@@ -444,7 +444,11 @@ class _SantuarioScreenState extends State<SantuarioScreen>
 
   void _openSky(BuildContext context) {
     _dismissSkyHint();
-    Navigator.of(context).push(SkyOverviewScreen.route());
+    // **IL CIELO DI ADESSO**, richiesta del fondatore del 12 ottobre 2026:
+    // la luna sopra i tre Maestri apre il cielo in tempo reale, quello vero,
+    // senza distrazioni; la macchina del tempo e' un pulsante sottile dentro.
+    // LAPIDE: "SkyOverviewScreen.route()", il cielo sopra di te di prima.
+    Navigator.of(context).push(CieloRealeScreen.route(ModoDelCielo.adesso));
   }
 
   @override

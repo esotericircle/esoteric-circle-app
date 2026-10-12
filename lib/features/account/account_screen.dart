@@ -37,7 +37,6 @@ import '../onboarding/primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../settings/privacy_e_permessi_screen.dart';
-import '../real_time_cosmo/real_time_cosmo_screen.dart';
 import '../../core/chat/user_profile.dart';
 
 /// L'area account, aperta dall'icona Utente in alto a destra nel Cerchio.
@@ -355,19 +354,12 @@ class AccountScreen extends StatelessWidget {
           onTap: (context) =>
               Navigator.of(context).push(PrivacyEDatiScreen.route()),
         ),
-        // VOCE TEMPORANEA, ordine FG parte 6: il Real Time Cosmo con le sue
-        // tre prove (il cielo di adesso, quello della nascita, il ritorno
-        // nel tempo). Si toglie quando il fondatore avra' deciso sulla
-        // sostituzione del Cielo esistente. In fondo all'elenco, per non
-        // spostare le voci che ci sono. Nessun limite di piano.
-        _AccountEntry(
-          id: 'real_time_cosmo',
-          title: 'Real Time Cosmo',
-          subtitle: 'Prova: il cielo vero, adesso e alla tua nascita',
-          icon: Icons.travel_explore_rounded,
-          onTap: (context) =>
-              Navigator.of(context).push(RealTimeCosmoScreen.route()),
-        ),
+        // **LAPIDE: la voce temporanea "Real Time Cosmo"** (ordine FG parte
+        // 6). Tolta il 12 ottobre 2026 per decisione del fondatore: le sue
+        // tre prove hanno preso il posto delle schermate di prima, il cielo
+        // di adesso dalla luna della home (con la macchina del tempo dentro),
+        // quello della nascita dal Cosmic Passport e la macchina del tempo
+        // nell'onboarding.
       ];
 
   @override

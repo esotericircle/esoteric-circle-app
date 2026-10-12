@@ -76,3 +76,21 @@ La suite intera sul commit `eaa72255`, nella copia `C:/Users/user/fi0` portata i
 ## LA BUILD
 
 Nessuna build (FM.07). La build è possibile, la ordina il fondatore. A video cambia il testo delle stese aperte: le carte della stesa a tre carte ruotano su tre varianti invece di una e i registri entrano nella lettura di casa secondo l'argomento.
+
+**Aggiunta del 12 ottobre 2026, aggiunta 1 dell'ordine FM**: le richieste del fondatore dopo la consegna, voci da FM.08 a FM.14 del manifesto. Nessuna build: la ordina il fondatore.
+
+**Aggiunta del 12 ottobre 2026, FM.08 APERTA IN ATTESA DI VERIFICA**: il Sigillo del Sogno ascolta solo l'aria (`BreathDetector(soloAria: true)`, `lib/core/sensi/l_aria_che_dirada.dart`): la forma del Soffio del Destino coi suoi numeri e il fondo della stanza imparato sulle ultime tre secondi, con l'aria almeno quattro volte piu' forte. Musica, voce, canzone che parte e ventilatore da 62, 62, 63 e 93 finestre a 0; il fiato 43 finestre. Prova: test/il_sigillo_si_dirada_solo_con_l_aria_test.dart. Manca il fiato vero sul telefono. Difetto: la soglia di volume nuda del Sigillo, PROVENIENZA IGNOTA (il diradamento col fiato esiste dall'ordine P e nessuna prova lo copriva: tutte usavano il pulsante tattile).
+
+**Aggiunta del 12 ottobre 2026, FM.09 APERTA IN ATTESA DI VERIFICA**: il Soffio del Destino un poco piu' sensibile, energia minima da 0,0025 a 0,0018, planarita' da 0,15 a 0,12, finestre da 6 a 5; le guardie del soffio restano verdi (voce, musica e tonfo fuori, tre soffi dentro). Prova: lib/core/rituals/forma_del_soffio.dart. Senza una misura del fiato vero sul Realme la taratura e' una scelta di Code: da provare sul telefono.
+
+**Aggiunta del 12 ottobre 2026, FM.10 CHIUSA**: la luna della home apre CieloRealeScreen in modo adesso; il pulsante sottile "Attiva macchina del tempo" porta il giorno scelto, il luogo, il viaggio e il pannello senza cambiare schermata (il modo sta nello stato). Prova: docs/collaudo/FM/aggiunta_1/a1_il_cielo_in_quattro_momenti.png.
+
+**Aggiunta del 12 ottobre 2026, FM.11 CHIUSA**: il cielo della tua nascita del cielo reale nel Cosmic Passport e nella carta d'identita', che apriva lo stesso cielo di prima. Prova: test/il_cielo_reale_prende_il_posto_test.dart.
+
+**Aggiunta del 12 ottobre 2026, FM.12 CHIUSA**: nell'onboarding la fase del cielo e' la macchina del tempo del cielo reale, con la nascita appena scritta passata alla schermata (il profilo li' non c'e' ancora) e "Leggi la tua carta" per proseguire. Prova: docs/collaudo/FM/aggiunta_1/a1_04_l_onboarding_la_macchina_dalla_nascita.png.
+
+**Aggiunta del 12 ottobre 2026, FM.13 CHIUSA**: tolta la voce Real Time Cosmo dal menu utente ed eliminato il menu temporaneo `real_time_cosmo_screen.dart`, con due prove riscritte con la lapide. Prova: test/le_anteprime_dell_ordine_fg_test.dart.
+
+**Aggiunta del 12 ottobre 2026, FM.14 CHIUSA**: le anteprime della stesa a croce e della Croce Celtica, coperte e scoperte; dieci carte in piedi larghe 26 punti a 360, quindi la Croce Celtica resta chiusa. Prova: docs/preview/FL/fl_croce_e_croce_celtica.png.
+
+**Aggiunta del 12 ottobre 2026, decisioni e cose aperte dell'aggiunta 1**: il fondo della stanza nel Sigillo e' una decisione di Code, perche' un ventilatore e' largo come l'aria e la sola forma non lo ferma; un ascolto iniziale di un quarto di secondo e' stato scritto e tolto, nessun suono lo rendeva necessario. `SkyOverviewScreen`, il cielo di prima, non lo apre piu' nessuna schermata ma ha quattordici prove sue: si toglie con un ordine a parte. La guardia `cielo_nascita_vero` e' cieca dal 31 luglio (cerca l'assenza di "esempio" che la scheda non dice piu' e il secondo caso ha l'asserzione commentata): Regola B fatta su `onboarding_ordine` (docs/collaudo/FM/aggiunta_1/a1_regola_b.txt).

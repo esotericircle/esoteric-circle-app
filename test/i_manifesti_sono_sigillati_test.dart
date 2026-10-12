@@ -379,7 +379,7 @@ void main() {
     'FL': 15,
     // Ordine FM, 12 ottobre 2026: le sette voci, contate coi titoli
     // "## VOCE FM." del manifesto.
-    'FM': 7,
+    'FM': 14,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

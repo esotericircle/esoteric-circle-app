@@ -148,7 +148,6 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'NotificheScreen': PresenzaDellaBarra.assente,
   // Il Real Time Cosmo, ordine FG: la voce temporanea del menu e il cielo
   // immersivo dei suoi tre modi. Si tolgono con la voce.
-  'RealTimeCosmoScreen': PresenzaDellaBarra.assente,
   'CieloRealeScreen': PresenzaDellaBarra.assente,
   'ProfileScreen': PresenzaDellaBarra.assente,
   'PricingScreen': PresenzaDellaBarra.assente,

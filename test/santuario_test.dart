@@ -2,7 +2,7 @@ import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
-import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
+import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
 import 'package:esoteric_circle/features/shell/app_shell.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
@@ -167,19 +167,16 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_sky_title')));
     await step(tester);
     await step(tester);
-    expect(find.byType(SkyOverviewScreen), findsOneWidget);
-
-    // Qui i servizi sono quelli OFFLINE, e con la sorgente di posizione spenta
-    // il cielo non propone di orientarsi sul luogo: sarebbe un invito che non
-    // puo' andare a buon fine. Il pre-avviso ha tre prove sue, con la sorgente
-    // accesa, in permesso_posizione_test, cielo_posizione_vera_test e
-    // sky_overview_test: qui pretenderlo misurava una condizione che questa
-    // prova non ha mai creato.
+    // **LAPIDE: "find.byType(SkyOverviewScreen)"**, il cielo sopra di te di
+    // prima, col suo invito al luogo (`sky_location_prompt`). Dal 12 ottobre
+    // 2026, richiesta del fondatore, la luna apre il cielo reale di adesso,
+    // senza distrazioni, con la macchina del tempo in un pulsante sottile.
+    final cielo =
+        tester.widget<CieloRealeScreen>(find.byType(CieloRealeScreen));
+    expect(cielo.modo, ModoDelCielo.adesso,
+        reason: 'la luna della home non apre il cielo di adesso');
     await tester.pump(const Duration(seconds: 3));
     await step(tester);
-    expect(find.byKey(const Key('sky_location_prompt')), findsNothing,
-        reason: 'con la sorgente di posizione spenta il cielo invita comunque '
-            'a concedere il luogo, e quell invito non puo riuscire');
 
     // Ha la sua freccia Indietro: mai un vicolo cieco.
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
@@ -189,7 +186,7 @@ void main() {
     await nav.maybePop();
     await step(tester);
     await step(tester);
-    expect(find.byType(SkyOverviewScreen), findsNothing);
+    expect(find.byType(CieloRealeScreen), findsNothing);
     expect(find.byType(SantuarioScreen), findsOneWidget);
   });
 

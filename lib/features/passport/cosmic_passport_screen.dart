@@ -48,7 +48,7 @@ import '../../core/angels/guardian_angels.dart';
 import '../../core/assets/family_image.dart';
 import '../angels/angels_screen.dart';
 import '../identity/circle_seal_screen.dart';
-import '../santuario/sky_overview_screen.dart';
+import '../real_time_cosmo/cielo_reale_screen.dart';
 import '../santuario/widgets/moon_widget.dart';
 import '../../core/maestro/maestro.dart';
 import '../onboarding/natal_chart_reveal.dart';
@@ -290,8 +290,11 @@ class _BirthSkyPortalCard extends StatelessWidget {
         // vegliava alla nascita si scopre guardando quel cielo, non
         // ereditandola dal documento pieno.
         unawaited(RegiaDelCammino.dopoUnGesto(context, 'luna_natale'));
+        // **IL CIELO DELLA TUA NASCITA** del cielo reale, richiesta del
+        // fondatore del 12 ottobre 2026. LAPIDE:
+        // "SkyOverviewScreen.birthRoute", il cielo di nascita di prima.
         Navigator.of(context).push(
-          SkyOverviewScreen.birthRoute(birthMoment: birthMoment),
+          CieloRealeScreen.route(ModoDelCielo.nascita),
         );
       },
       child: DepthCard(

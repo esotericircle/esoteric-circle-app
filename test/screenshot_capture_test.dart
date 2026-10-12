@@ -3982,6 +3982,9 @@ void main() {
   for (final (tipo, nome) in const [
     (TarotSpreadType.treCarte, 'tre_carte'),
     (TarotSpreadType.croceQuattro, 'croce'),
+    // La Croce Celtica e' chiusa nell'app: la si guarda qui per decidere
+    // il suo tavolo (il fondatore, 12 ottobre 2026).
+    (TarotSpreadType.dieciCarte, 'croce_celtica'),
   ]) {
     testWidgets("Cattura l'ordine FL, le carte coperte, $nome", (tester) async {
       silenceSensors();
@@ -4012,7 +4015,8 @@ void main() {
             const AssetImage('assets/img/tavolo/medora_busto_v1.webp'),
             element);
       });
-      for (final indice in [36, 38, 40, 42].take(tipo.carte)) {
+      for (final indice
+          in [36, 38, 40, 42, 44, 46, 37, 39, 41, 43].take(tipo.carte)) {
         final carta = find.byKey(Key('stesa_fan_$indice'));
         final r = tester.getRect(carta);
         await tester.tapAt(Offset(r.left + 6, r.center.dy));
@@ -4174,6 +4178,7 @@ void main() {
       (TarotSpreadType.unaCarta, 'una_carta'),
       (TarotSpreadType.treCarte, 'tre_carte'),
       (TarotSpreadType.croceQuattro, 'croce'),
+      (TarotSpreadType.dieciCarte, 'croce_celtica'),
     ]) {
       testWidgets("Cattura l'ordine FL, il mazzo ${mazzo.name}, la stesa $nome",
           (tester) async {

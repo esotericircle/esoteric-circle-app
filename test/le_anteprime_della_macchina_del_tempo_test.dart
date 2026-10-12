@@ -13,7 +13,6 @@ import 'dart:ui' as ui;
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/pittore_del_cielo.dart';
-import 'package:esoteric_circle/features/real_time_cosmo/real_time_cosmo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -104,13 +103,8 @@ void _taccionoLeScritteDelCielo(FotogrammaDelCielo f, String quando) {
 }
 
 void main() {
-  testWidgets('I1: il menu con la voce rinominata', (tester) async {
-    await monta(tester, const RealTimeCosmoScreen());
-    await fg.passa(tester, 10);
-    expect(find.text('La macchina del tempo'), findsOneWidget);
-    expect(find.textContaining('ritorno indietro'), findsNothing);
-    await scatta(tester, 'i01_il_menu_rinominato');
-  });
+  // **LAPIDE: "il menu con la voce rinominata"** (RealTimeCosmoScreen),
+  // tolto il 12 ottobre 2026 col menu temporaneo del Real Time Cosmo.
 
   testWidgets('I2-I3: il titolo e il pannello con la nascita scelta',
       (tester) async {

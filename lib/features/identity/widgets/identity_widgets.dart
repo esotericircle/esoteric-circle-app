@@ -11,7 +11,7 @@ import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
-import '../../santuario/sky_overview_screen.dart';
+import '../../real_time_cosmo/cielo_reale_screen.dart';
 
 /// I fatti identitari fissi (fase lunare di nascita e numero della vita), come
 /// coppia di carte. Riusati dalla carta natale e dal profilo, pronti per il
@@ -191,8 +191,9 @@ class _BirthSkyPortalState extends State<BirthSkyPortal> {
 
 /// Apre il cielo reale della nascita a tutto schermo, con il ritorno alla carta.
 void openBirthSky(BuildContext context, BirthDetails details) {
-  // La stessa schermata del cielo in tempo reale, ancorata alla nascita:
-  // corpi toccabili, scheda che racconta, parallasse dal motore unico.
+  // Il cielo della tua nascita del cielo reale, lo stesso del Cosmic
+  // Passport (richiesta del fondatore del 12 ottobre 2026), con la nascita
+  // di questa carta. LAPIDE: "SkyOverviewScreen.birthRoute".
   Navigator.of(context)
-      .push(SkyOverviewScreen.birthRoute(birthMoment: details.dateTime));
+      .push(CieloRealeScreen.route(ModoDelCielo.nascita, nascita: details));
 }

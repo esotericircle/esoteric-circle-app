@@ -21,7 +21,7 @@ import '../../core/maestro/maestro_controller.dart';
 import '../../core/onboarding/onboarding_controller.dart';
 import '../../design_system/components/immersive_scaffold.dart';
 import '../../design_system/theme/maestro_scope.dart';
-import '../santuario/sky_overview_screen.dart';
+import '../real_time_cosmo/cielo_reale_screen.dart';
 import 'custodia_del_cielo_step.dart';
 import 'maestro_reveal_screen.dart';
 import 'natal_chart_reveal.dart';
@@ -386,21 +386,19 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
         // toccabili con la scheda che racconta cosa hai toccato, parallasse
         // dal motore unico. Prima qui viveva un eroe suo, con un painter
         // gemello e la culla di luce che nessuno leggeva come culla.
-        return SkyOverviewScreen(
+        // **LA MACCHINA DEL TEMPO**, richiesta del fondatore del 12 ottobre
+        // 2026: dove si rivela il cielo di nascita c'e' adesso la macchina
+        // del tempo del cielo reale, che parte dalla nascita appena scritta
+        // (il profilo qui non c'e' ancora, quindi la nascita si passa). La
+        // freccia fa maybePop, che passa dal PopScope qui sopra e retrocede
+        // di fase. LAPIDE: "SkyOverviewScreen(birth: true)", il cielo di
+        // nascita di prima, con la bolla e il suo "Leggi la tua carta".
+        return CieloRealeScreen(
           key: const ValueKey('heaven'),
-          now: widget.details.dateTime,
-          birth: true,
-          // Il cielo non e' piu' la prima fase: da qui un indietro esiste,
-          // quindi la freccia si mostra. La sua freccia fa maybePop, che passa
-          // dal PopScope qui sopra e retrocede di fase: non serve un
-          // richiamo dedicato, il gesto e la freccia sono la stessa cosa.
-          showBack: true,
-          ctaLabel: 'Leggi la tua carta',
-          onCta: _onHeavenContinue,
-          // Data, ora e luogo sono appena stati inseriti a mano: la bolla non
-          // deve dare dell'esempio proprio a chi ha appena compilato. Il
-          // profilo qui direbbe di no, perche' viene scritto piu' avanti.
-          nascitaRegistrata: widget.details.place != null,
+          modo: ModoDelCielo.ritorno,
+          nascita: widget.details,
+          etichettaDelSeguito: 'Leggi la tua carta',
+          alSeguito: _onHeavenContinue,
         );
       case _Phase.chart:
         return NatalChartReveal(

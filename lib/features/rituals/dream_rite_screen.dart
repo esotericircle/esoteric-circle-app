@@ -202,7 +202,10 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     duration: const Duration(seconds: 12),
   )..repeat();
 
-  final BreathDetector _fiato = BreathDetector();
+  // **SOLO ARIA**, richiesta del fondatore del 12 ottobre 2026: la nebbia
+  // si diradava con la musica di sottofondo, perche' qui decideva il volume.
+  // Adesso decide la forma del Soffio del Destino, con gli stessi numeri.
+  final BreathDetector _fiato = BreathDetector(soloAria: true);
   final TiltListener _tilt = TiltListener();
   StreamSubscription<double>? _livelli;
   Timer? _battito;

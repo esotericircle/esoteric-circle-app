@@ -1,0 +1,46 @@
+== FM aggiunta 1, Regola A della guardia il_sigillo_si_dirada_solo_con_l_aria
+-- il Sigillo che ascolta il volume (lib/features/rituals/dream_rite_screen.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- l'aria decisa dal volume e non dalla forma (lib/core/sensi/l_aria_che_dirada.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+DOPO IL FONDO DELLA STANZA (la prova ha un ventilatore che la regola vecchia apriva e una canzone che parte dopo la quiete):
+-- il Sigillo che ascolta il volume
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza il fondo della stanza
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza la forma
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza l'ascolto iniziale
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (l'ascolto iniziale e' stato tolto: nessun suono lo rendeva necessario, il fondo vale gia' dalla seconda finestra)
+
+== FM aggiunta 1, Regola A della guardia il_cielo_reale_prende_il_posto
+-- la luna della home apre la nascita
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il pulsante sottile non c'e'
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il pulsante non accende la macchina
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la nascita dell'onboarding ignorata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

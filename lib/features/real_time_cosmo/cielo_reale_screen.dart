@@ -2,13 +2,17 @@
 ///
 /// **Una schermata, un motore, tre modi** (voce 3.1): il cielo di adesso, il
 /// cielo della nascita e la macchina del tempo sono questa stessa
-/// classe con un altro istante e un altro luogo. I tre si aprono separati dal
-/// menu temporaneo (`real_time_cosmo_screen.dart`, parte 6), cosi' il
-/// fondatore li giudica uno per uno.
+/// classe con un altro istante e un altro luogo. Si aprivano separati dal
+/// menu temporaneo (`real_time_cosmo_screen.dart`, parte 6), tolto il 12
+/// ottobre 2026: dal fondatore in poi il cielo di adesso si apre dalla luna
+/// della home, con la macchina del tempo dentro (il pulsante sottile in
+/// fondo), quello della nascita dal Cosmic Passport e dalla carta
+/// d'identita', e la macchina del tempo nell'onboarding, dove si rivela il
+/// cielo di nascita.
 ///
-/// **NON tocca il Cielo esistente** (voce 9.1): `SkyOverviewScreen` e le sue
-/// due rotte restano come sono e non sono collegate qui. I due cataloghi non
-/// si incrociano (vedi `catalogo_delle_stelle.dart`).
+/// **Il Cielo di prima** (`SkyOverviewScreen`) non lo apre piu' nessuna
+/// schermata dal 12 ottobre 2026; i due cataloghi non si incrociano (vedi
+/// `catalogo_delle_stelle.dart`).
 ///
 /// **Si ferma quando esce di scena** (voce 7.8), col modello di
 /// `cosmos_background.dart` (ordine AM voce 01): segue il ciclo di vita
@@ -30,6 +34,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/birth_details.dart';
 import '../../core/astro/celestial.dart';
 import '../../core/astro/data_italiana.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
@@ -113,9 +118,24 @@ class CieloRealeScreen extends StatefulWidget {
     this.orologio,
     this.posizione = const GeolocatorSkyLocation(),
     this.bussola,
+    this.nascita,
+    this.etichettaDelSeguito,
+    this.alSeguito,
   });
 
   final ModoDelCielo modo;
+
+  /// **LA NASCITA DATA DA FUORI**, per l'onboarding (richiesta del fondatore
+  /// del 12 ottobre 2026: la macchina del tempo dove viene rivelato il cielo
+  /// di nascita). Li' la persona ha appena scritto data, ora e luogo e il
+  /// profilo non c'e' ancora: senza, il cielo direbbe che la nascita manca.
+  /// Nulla, la nascita si legge dal profilo come sempre.
+  final BirthDetails? nascita;
+
+  /// Il pulsante per andare avanti, per chi apre il cielo dentro un percorso
+  /// (l'onboarding: "Leggi la tua carta"). Nullo, non c'e'.
+  final String? etichettaDelSeguito;
+  final VoidCallback? alSeguito;
 
   /// L'adesso; le prove lo fissano.
   final DateTime Function()? orologio;
@@ -124,11 +144,11 @@ class CieloRealeScreen extends StatefulWidget {
   /// Per le prove: l'orientamento del telefono gia' pronto.
   final OrientamentoDelTelefono? bussola;
 
-  static Route<void> route(ModoDelCielo modo) =>
+  static Route<void> route(ModoDelCielo modo, {BirthDetails? nascita}) =>
       PassaggioDelCerchio.rotta<void>(
         (_) => MaestroScope(
           maestro: Maestro.medora,
-          child: CieloRealeScreen(modo: modo),
+          child: CieloRealeScreen(modo: modo, nascita: nascita),
         ),
       );
 
@@ -138,6 +158,12 @@ class CieloRealeScreen extends StatefulWidget {
 
 class _CieloRealeScreenState extends State<CieloRealeScreen>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver, RouteAware {
+  /// **IL MODO STA NELLO STATO**, richiesta del fondatore del 12 ottobre
+  /// 2026: dal cielo di adesso il pulsante "Attiva macchina del tempo" porta
+  /// i selettori della data senza cambiare schermata, cosi' chi vuole solo
+  /// guardare il cielo lo guarda senza distrazioni.
+  late ModoDelCielo _modo = widget.modo;
+
   // --- Il catalogo e il cielo ---
   CatalogoDelleStelle? _catalogo;
   ScenaDelCielo? _scena;
@@ -472,6 +498,29 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   }
 
   void _leggiLaNascita() {
+    final data = widget.nascita;
+    final posto = data?.place;
+    if (data != null && posto != null) {
+      final m = data.dateTime;
+      _segno = data.segno;
+      _nascitaConOra = data.hasTime;
+      _nascitaUtc = IlFusoDellaNascita.inUtc(m, posto.timezone);
+      _momentoDiNascita = m;
+      _fusoDiNascita = posto.timezone;
+      _scartoDellaNascita = DateTime.utc(
+        m.year,
+        m.month,
+        m.day,
+        m.hour,
+        m.minute,
+      ).difference(_nascitaUtc!);
+      _luogoDiNascita = SkyPlace(
+        latitude: posto.latitude,
+        longitude: posto.longitude,
+        citta: posto.label,
+      );
+      return;
+    }
     // Un tipo nullabile che manca da' null da solo: niente try.
     final id = context.read<ProfileController?>()?.identity;
     final luogo = id?.birthPlace;
@@ -645,7 +694,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   void _preparaIlModo() {
     final catalogo = _catalogo!;
     final adesso = Celestial.julianDay(_adesso.toUtc());
-    switch (widget.modo) {
+    switch (_modo) {
       case ModoDelCielo.adesso:
         _impostaIlCielo(
           CieloInUnIstante.calcola(
@@ -794,7 +843,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
     // Il cielo di adesso si ricalcola ogni dieci secondi: in dieci secondi
     // il cielo gira di 0,04 gradi, cioe' di un quinto di punto.
-    if (widget.modo == ModoDelCielo.adesso &&
+    if (_modo == ModoDelCielo.adesso &&
         _adesso.difference(_ultimoRicalcolo).inSeconds >= 10) {
       _ultimoRicalcolo = _adesso;
       _impostaIlCielo(
@@ -807,10 +856,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       );
     }
 
-    if (widget.modo == ModoDelCielo.ritorno) _avanzaIlRitorno(ora);
+    if (_modo == ModoDelCielo.ritorno) _avanzaIlRitorno(ora);
     _fotogramma.nomiDeiCorpi = !_senzaDistrazioni &&
-        (widget.modo != ModoDelCielo.ritorno ||
-            _fase.value == FaseDelRitorno.fermo);
+        (_modo != ModoDelCielo.ritorno || _fase.value == FaseDelRitorno.fermo);
 
     // L'orientamento: il sensore se c'e' e se e' permesso, il dito sempre.
     final telefono = _telefono;
@@ -1062,8 +1110,8 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // non la ricuoce a ogni fotogramma.
     final riposo = math.max(9.0, ppg) * 10;
     final lato = riposo * _scalaDellaLuna;
-    final inCorsa = widget.modo == ModoDelCielo.ritorno &&
-        _fase.value == FaseDelRitorno.ritorno;
+    final inCorsa =
+        _modo == ModoDelCielo.ritorno && _fase.value == FaseDelRitorno.ritorno;
     final cotto = inCorsa ? riposo * kScalaDiScena : riposo;
     // Nella corsa la fase cambia quasi a ogni fotogramma: ricuocerla a ogni
     // centesimo voleva dire una cottura ogni due fotogrammi (315 in una corsa
@@ -1312,8 +1360,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// Realme il 10 ottobre 2026: all'arrivo al 2100 la S del sud toccava la
   /// frase d'arrivo, e nella corsa il nome dell'eclittica passava sulla Luna.
   bool get _ilRitornoParla =>
-      widget.modo == ModoDelCielo.ritorno &&
-      _fase.value != FaseDelRitorno.fermo;
+      _modo == ModoDelCielo.ritorno && _fase.value != FaseDelRitorno.fermo;
 
   /// Cio' che il nome dell'eclittica non copre: la Luna col suo bordo, i
   /// pianeti coi loro nomi, l'indicatore della guida.
@@ -1781,7 +1828,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// 12.4) ne' durante la corsa della Macchina del tempo.
   void _posaLeMeteore(CieloInUnIstante a, ProiezioneDelCielo proiezione,
       Offset sposta, double dt) {
-    final inCorsa = widget.modo == ModoDelCielo.ritorno &&
+    final inCorsa = _modo == ModoDelCielo.ritorno &&
         (_fase.value == FaseDelRitorno.eta ||
             _fase.value == FaseDelRitorno.ritorno);
     if (_riduciMovimento || inCorsa) {
@@ -2135,7 +2182,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   void _alTocco(TapUpDetails d) {
     // Un tocco durante la corsa la chiude e porta all'arrivo (voce E10).
-    if (widget.modo == ModoDelCielo.ritorno &&
+    if (_modo == ModoDelCielo.ritorno &&
         _piano != null &&
         (_fase.value == FaseDelRitorno.eta ||
             _fase.value == FaseDelRitorno.ritorno)) {
@@ -2205,7 +2252,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       longitudine: _luogo.longitude,
       anno: annoDecimale(_adesso),
     ).gradi;
-    if (widget.modo == ModoDelCielo.adesso) {
+    if (_modo == ModoDelCielo.adesso) {
       _impostaIlCielo(
         CieloInUnIstante.calcola(
           _catalogo!,
@@ -2236,7 +2283,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // rimettere in bolla la bussola, e senza bussola non c'e' niente da
     // rimettere. Se non c'e' niente lassu', non compare niente.
     String? testo;
-    if (widget.modo == ModoDelCielo.adesso &&
+    if (_modo == ModoDelCielo.adesso &&
         _usaIlSensore &&
         (_telefono?.pronto ?? false)) {
       final astro = _astroDaPuntare(cielo);
@@ -2288,14 +2335,78 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     FoglioDelleFonti.apri(
       context,
       palette: palette,
-      testo: widget.modo == ModoDelCielo.ritorno
+      testo: _modo == ModoDelCielo.ritorno
           ? TestiDelleFonti.macchinaDelTempo
           : TestiDelleFonti.realTimeCosmo,
       chiave: 'real_time_cosmo_fonti',
     );
   }
 
-  String get _titolo => switch (widget.modo) {
+  /// **ATTIVA MACCHINA DEL TEMPO**: sottile, in fondo al cielo di adesso.
+  /// Al tocco il cielo resta dov'e' e compaiono i comandi della macchina del
+  /// tempo: il giorno scelto, il luogo, il pulsante del viaggio.
+  Widget _pulsanteDellaMacchina() {
+    final palette = MaestroScope.of(context);
+    return Align(
+      alignment: Alignment.center,
+      child: OutlinedButton.icon(
+        key: const Key('cielo_attiva_macchina_del_tempo'),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: palette.goldSoft,
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.55)),
+          minimumSize: const Size(0, 40),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          visualDensity: VisualDensity.compact,
+          backgroundColor: ColorTokens.medoraDeepest.withValues(alpha: 0.55),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          ),
+        ),
+        onPressed: _attivaLaMacchina,
+        icon: const Icon(Icons.history_rounded, size: 18),
+        label: Text(
+          'Attiva macchina del tempo',
+          style: TypographyTokens.corpo(weight: 600)
+              .copyWith(color: palette.goldSoft),
+        ),
+      ),
+    );
+  }
+
+  void _attivaLaMacchina() {
+    setState(() {
+      _modo = ModoDelCielo.ritorno;
+      _colSensore = false;
+      _tempo.fase.value = FaseDelRitorno.fermo;
+      _sceltaDelTempo = _sceltaDiPartenza();
+    });
+  }
+
+  /// Il pulsante per andare avanti dentro un percorso, come nell'onboarding.
+  /// La chiave e' quella del cielo di prima (`sky_cta`), che il percorso e le
+  /// sue prove conoscono.
+  Widget _pulsanteDelSeguito(VoidCallback seguito) {
+    final palette = MaestroScope.of(context);
+    return FilledButton(
+      key: const Key('sky_cta'),
+      style: FilledButton.styleFrom(
+        backgroundColor: palette.gold,
+        foregroundColor: palette.deepest,
+        minimumSize: const Size.fromHeight(kVoceDellaRuota),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        ),
+      ),
+      onPressed: seguito,
+      child: Text(
+        widget.etichettaDelSeguito ?? 'Continua',
+        style: TypographyTokens.corpo(weight: 600)
+            .copyWith(color: palette.deepest),
+      ),
+    );
+  }
+
+  String get _titolo => switch (_modo) {
         ModoDelCielo.adesso => 'Il cielo di adesso',
         ModoDelCielo.nascita => 'Il cielo della tua nascita',
         ModoDelCielo.ritorno => 'La macchina del tempo',
@@ -2350,7 +2461,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                         onTocco: _apriIlMenuDeiBersagli,
                       ),
               ),
-              if (widget.modo == ModoDelCielo.ritorno) _sceneDelRitorno(),
+              if (_modo == ModoDelCielo.ritorno) _sceneDelRitorno(),
               Positioned(
                 left: 16,
                 right: 16,
@@ -2371,7 +2482,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final righe = <Widget>[];
     final s = _scelta;
     if (s != null) righe.add(_schedaDellaScelta(s));
-    if (widget.modo == ModoDelCielo.ritorno) {
+    if (_modo == ModoDelCielo.ritorno) {
       // I COMANDI DELLA MACCHINA DEL TEMPO, a cielo fermo: il giorno scelto
       // col pannello, la riga del luogo sempre visibile (voce D5) e il
       // pulsante che fa partire la corsa (frase del fondatore del 10 ottobre
@@ -2453,7 +2564,14 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         ),
       );
     }
-    if (_mancaLaNascita && widget.modo != ModoDelCielo.adesso) {
+    if (_modo == ModoDelCielo.adesso && widget.alSeguito == null) {
+      righe.add(_pulsanteDellaMacchina());
+    }
+    final seguito = widget.alSeguito;
+    if (seguito != null) {
+      righe.add(_pulsanteDelSeguito(seguito));
+    }
+    if (_mancaLaNascita && _modo != ModoDelCielo.adesso) {
       righe.add(
         _Riga(
           testo: 'Per il cielo della tua nascita servono la data e il luogo. '
@@ -2464,9 +2582,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         ),
       );
     }
-    if (!_mancaLaNascita &&
-        !_nascitaConOra &&
-        widget.modo != ModoDelCielo.adesso) {
+    if (!_mancaLaNascita && !_nascitaConOra && _modo != ModoDelCielo.adesso) {
       righe.add(
         _Riga(
           testo: 'Senza l\'ora di nascita posso portarti al giorno, non '
@@ -2477,7 +2593,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         ),
       );
     }
-    if (widget.modo == ModoDelCielo.adesso && _luogoDiRipiego) {
+    if (_modo == ModoDelCielo.adesso && _luogoDiRipiego) {
       righe.add(
         _Riga(
           testo:
@@ -2501,7 +2617,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     }
     if (_avvisoDellaBussola != null) {
       righe.add(_Riga(testo: _avvisoDellaBussola!));
-    } else if (!_usaIlSensore && widget.modo == ModoDelCielo.adesso) {
+    } else if (!_usaIlSensore && _modo == ModoDelCielo.adesso) {
       righe.add(
         const _Riga(
           testo: 'Esplori col dito. Tocca la bussola in alto per seguire il '
@@ -2601,7 +2717,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     } else {
       final c = cielo.corpo(s.corpo!);
       titolo = c.corpo == CorpoCeleste.luna
-          ? (widget.modo == ModoDelCielo.adesso
+          ? (_modo == ModoDelCielo.adesso
               ? 'La Luna di stanotte'
               : 'La Luna della tua nascita')
           : c.corpo.nome;

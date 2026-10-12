@@ -24,7 +24,6 @@ import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/pittore_del_cielo.dart';
-import 'package:esoteric_circle/features/real_time_cosmo/real_time_cosmo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -139,7 +138,11 @@ final String _menuUtente = Platform.environment['FG_PRIMA'] == '1'
     : 'fg_08_il_menu_utente_in_fondo_dopo';
 
 void main() {
-  testWidgets('FG.6: la voce nel menu utente, in fondo all\'elenco',
+  // **LAPIDE: "la voce nel menu utente, in fondo all'elenco"** (ordine FG
+  // parte 6, la voce temporanea). Il 12 ottobre 2026 il fondatore l'ha tolta:
+  // le tre prove del Real Time Cosmo hanno preso il posto delle schermate di
+  // prima. Adesso la prova pretende che la voce non ci sia piu'.
+  testWidgets('FG.6: la voce Real Time Cosmo non e\' piu\' nel menu utente',
       (tester) async {
     silenzia();
     finestra(tester);
@@ -156,20 +159,14 @@ void main() {
     await tester.drag(
         find.byKey(const Key('account_list')), const Offset(0, -3000));
     await passa(tester, 10, const Duration(milliseconds: 120));
-    if (Platform.environment['FG_PRIMA'] != '1') {
-      expect(find.byKey(const Key('account_real_time_cosmo')), findsOneWidget);
-    }
+    expect(find.byKey(const Key('account_real_time_cosmo')), findsNothing,
+        reason: 'la voce temporanea Real Time Cosmo e\' ancora nel menu');
+    expect(find.text('Real Time Cosmo'), findsNothing);
     await scatta(tester, _menuUtente);
   });
 
-  testWidgets('FG.6: il menu temporaneo con le tre scelte', (tester) async {
-    await monta(tester, const RealTimeCosmoScreen());
-    await passa(tester, 5);
-    expect(find.byKey(const Key('real_time_cosmo_adesso')), findsOneWidget);
-    expect(find.byKey(const Key('real_time_cosmo_nascita')), findsOneWidget);
-    expect(find.byKey(const Key('real_time_cosmo_ritorno')), findsOneWidget);
-    await scatta(tester, 'fg_01_il_menu_delle_tre_prove');
-  });
+  // **LAPIDE: "il menu temporaneo con le tre scelte"** (RealTimeCosmoScreen,
+  // ordine FG parte 6), tolto il 12 ottobre 2026 col suo menu.
 
   testWidgets('FG.2: il cielo di adesso, verso sud', (tester) async {
     await monta(tester, cielo(ModoDelCielo.adesso));

@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:record/record.dart';
 
 import '../core/permissions/app_permission.dart';
+import '../core/sensi/l_aria_che_dirada.dart';
 import '../core/permissions/esito_del_permesso.dart';
 
 /// Rileva il soffio dal microfono, come livello sonoro normalizzato.
@@ -14,6 +15,14 @@ import '../core/permissions/esito_del_permesso.dart';
 /// web headless), `start` restituisce false e l'esperienza prosegue con il
 /// solo gesto tattile. Nessuna eccezione risale al chiamante.
 class BreathDetector {
+  /// [soloAria]: il livello vale uno solo quando passa aria, riconosciuta
+  /// dalla forma come nel Soffio del Destino ([LAriaCheDirada]), e zero per
+  /// la voce, la musica e i rumori. Il Sigillo del Sogno lo vuole dal 12
+  /// ottobre 2026; senza, il livello e' il volume, come prima.
+  BreathDetector({this.soloAria = false});
+
+  final bool soloAria;
+  final LAriaCheDirada _aria = LAriaCheDirada();
   final AudioRecorder _recorder = AudioRecorder();
   final StreamController<double> _levels = StreamController<double>.broadcast();
   StreamSubscription<Uint8List>? _sub;
@@ -47,7 +56,7 @@ class BreathDetector {
         ),
       );
       _sub = stream.listen(
-        (bytes) => _levels.add(_rms(bytes)),
+        (bytes) => _levels.add(soloAria ? _aria.livello(bytes) : _rms(bytes)),
         onError: (_) {},
         cancelOnError: false,
       );

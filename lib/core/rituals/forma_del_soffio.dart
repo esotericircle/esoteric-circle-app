@@ -49,7 +49,12 @@ class FormaDelSoffio {
   ///
   /// Non e' una soglia di decibel travestita: e' il primo dei tre filtri, e da
   /// sola non apre niente. Serve a non far girare la trasformata sul silenzio.
-  static const double energiaMinima = 0.0025;
+  ///
+  /// **0,0018 dal 12 ottobre 2026**, era 0,0025: il fondatore, *"Il soffio
+  /// del destino, invece, e' troppo difficile. Aumenta la sensibilita' del
+  /// soffio di poco"*. Un fiato un po' piu' leggero entra nella misura; la
+  /// forma, che separa l'aria dalla voce e dalla musica, decide lo stesso.
+  static const double energiaMinima = 0.0018;
 
   /// **QUANTO PIATTO, DOPO LA PRE-ENFASI. Ordine EA voce 20.** Il rumore
   /// bianco vale circa uno, una nota pura vale quasi zero. Sopra questa soglia
@@ -81,11 +86,16 @@ class FormaDelSoffio {
   /// soffio e il primo dei suoni con una nota dentro ci sono **due ordini di
   /// grandezza**, e la soglia sta in mezzo con margine da tutte e due le
   /// parti.
-  static const double planaritaMinima = 0.15;
+  ///
+  /// **0,12 dal 12 ottobre 2026**, era 0,15, per la stessa frase del
+  /// fondatore: la voce misurata sta a 0,05, due volte e mezzo sotto.
+  static const double planaritaMinima = 0.12;
 
   /// **QUANTO A LUNGO**, in finestre consecutive. Sei finestre da trentadue
   /// millisecondi sono circa **due decimi di secondo** di aria continua.
-  static const int fotogrammiRichiesti = 6;
+  /// **Cinque dal 12 ottobre 2026**, erano sei: centosessanta millisecondi,
+  /// sempre piu' di un colpo secco (la guardia ne prova due finestre).
+  static const int fotogrammiRichiesti = 5;
 
   final List<int> _coda = <int>[];
   int _diFila = 0;

@@ -13,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FM_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 7; i++) 'FM.${i.toString().padLeft(2, '0')}',
+    for (var i = 1; i <= 14; i++) 'FM.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {
@@ -24,7 +24,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le sette voci', () {
+  test('il manifesto esiste e porta tutte le quattordici voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync().replaceAll('\r\n', '\n');
     final mancanti = [
@@ -33,7 +33,7 @@ void main() {
             .hasMatch(testo))
           v,
     ];
-    expect(voci, hasLength(7));
+    expect(voci, hasLength(14));
     expect(mancanti, isEmpty, reason: 'voci non nominate: $mancanti');
   });
 
@@ -74,6 +74,6 @@ void main() {
     expect([contateChiuse, contateAperte, contateDaFare],
         [chiuse, aperte, daFare]);
     expect(chiuse + aperte + daFare, totali);
-    expect(totali, 7);
+    expect(totali, 14);
   });
 }
