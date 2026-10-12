@@ -26,6 +26,7 @@ import json
 import os
 import re
 import sys
+import time
 
 RADICE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _spec = importlib.util.spec_from_file_location(
@@ -119,8 +120,19 @@ def scrivi_nel_file(file, nuovi):
             fine = '\r' if r.endswith('\r') else ''
             righe[i] = '- %s: %s%s' % (m.group(1),
                                        nuovi[(carta, verso, m.group(1))], fine)
-    with open(percorso(file), 'w', encoding='utf-8', newline='') as h:
+    # Prima un file accanto, poi lo scambio in un colpo: un blocco di Windows
+    # a meta' scrittura (errno 22 o 1224, quando un altro lettore ha il file
+    # aperto) non deve poter troncare la fonte.
+    provvisorio = percorso(file) + '.nuovo'
+    with open(provvisorio, 'w', encoding='utf-8', newline='') as h:
         h.write('\n'.join(righe))
+    for _ in range(20):
+        try:
+            os.replace(provvisorio, percorso(file))
+            return
+        except OSError:
+            time.sleep(0.5)
+    raise OSError('%s: non riesco a sostituire il file' % percorso(file))
 
 
 def main():
