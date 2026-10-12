@@ -97,6 +97,46 @@ CERTEZZE = (
 )
 JACCARD = 0.6
 
+# **LA SECONDA PERSONA**, ordine FM voce 04. L'intestazione di ogni file del
+# corpus pretende testi "rivolte alla persona col tu", e fino all'ordine FM
+# nessuno lo misurava: 343 testi su 4.212 non avevano un solo segno del tu.
+# Un testo passa se porta almeno un segno: un pronome del tu, un verbo breve
+# alla seconda persona, un presente frequente alla seconda persona, o una
+# desinenza che in italiano e' solo del tu (il futuro in -rai, l'imperfetto
+# in -avi ed -evi, il condizionale in -resti, l'infinito col "ti" in -arti,
+# -erti, -irti). Le parole qui sotto finiscono allo stesso modo senza essere
+# del tu, e non contano.
+LETTERE = 'a-zàèéìòù'
+TU_PAROLE = (
+    'tu ti te tuo tua tuoi tue teco vi voi vostro vostra vostri vostre '
+    'hai sei sai fai stai vai puoi vuoi devi avevi eri '
+    'senti stringi reggi corri tieni vedi guardi chiedi pensi credi '
+    'scegli lasci aspetti provi prendi metti perdi trovi '
+    'speri ascolti conosci capisci dici decidi rimani torni entri '
+    'esci apri chiudi chiami costruisci difendi nascondi offri '
+    'segui sostieni trattieni raccogli accogli spendi muovi '
+    'attendi insegui rinunci accetti eviti rimandi ripeti '
+    'dimentichi guadagni possiedi custodisci proteggi '
+    'nutri coltivi parli taci '
+    'tenti cominci finisci cedi vinci fuggi resisti sbagli impari '
+    'tendi continui ritrovi percorri impugni rialzi riconosci affronti '
+    'sciogli scopri'
+).split()
+# Fuori dall'elenco i presenti che sono anche nomi comuni (sogni, desideri,
+# ricordi, cerchi, mostri, temi, cammini, lavori, rifiuti, dai e altri):
+# darebbero il passaggio a un testo in terza persona.
+TU_DESINENZE = (r'[%s]{2,}(?:rai|avi|evi)' % LETTERE,
+                r'[%s]{2,}resti' % LETTERE,
+                r'[%s]{3,}(?:arti|erti|irti)' % LETTERE,
+                r'[%s]{3,}(?:andoti|endoti)' % LETTERE,
+                r'(?:op|pro|com|dis)porti')
+NON_DEL_TU = set((
+    'chiavi navi gravi schiavi bravi brevi lievi nevi allievi rilievi '
+    'sollievi foresti offerti coperti scoperti esperti deserti concerti '
+    'inserti inerti certi incerti aperti sofferti conserti diserti '
+    'scarti quarti'
+).split())
+
 
 class FonteIncompleta(ValueError):
     pass
@@ -199,6 +239,20 @@ def jaccard(a, b):
     return len(a & b) / float(len(a | b) or 1)
 
 
+def segni_del_tu(t):
+    """I segni della seconda persona nel testo (ordine FM voce 04)."""
+    basso = t.lower()
+    trovati = []
+    for p in re.findall(r"(?<![%s])([%s]+)(?![%s])" % (
+            LETTERE, LETTERE, LETTERE), basso):
+        if p in NON_DEL_TU:
+            continue
+        if p in TU_PAROLE or any(re.fullmatch(d, p) for d in TU_DESINENZE):
+            trovati.append(p)
+    trovati += re.findall(r"(?<![%s])t'" % LETTERE, basso)
+    return trovati
+
+
 def controlla_testo(dove, t, carta):
     """I controlli di un testo solo; la lista dei difetti trovati."""
     colpe = []
@@ -215,6 +269,8 @@ def controlla_testo(dove, t, carta):
         colpe.append('il nome della carta')
     if re.search(r'\d', t):
         colpe.append('una cifra')
+    if not segni_del_tu(t):
+        colpe.append('non si rivolge alla persona col tu')
     if '—' in t or '–' in t:
         colpe.append('il trattino lungo')
     if re.search(r'\bvoce\b', basso):

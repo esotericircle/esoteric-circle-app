@@ -58,13 +58,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Il passaggio è un primo passo compiuto prima di avere la mappa: poco peso addosso, nessuna strada vista per intero. Qui la leggerezza conta più della prudenza, perché sapere tutto prima non è la condizione per partire.
-- 2: Non la rotta studiata ma il piede che si alza senza averla studiata: a comandare la scena è una partenza leggera, fatta con fiducia più che con informazioni. Il resto si mostra cammin facendo.
-- 3: La cosa prende il taglio di un inizio che chiama senza spiegarsi: bagaglio piccolo, cuore aperto, nessuna garanzia chiesta prima di muoversi. Partire così non è imprudenza, è una forma di coraggio.
+- 1: Il passaggio è un primo passo compiuto prima di avere la mappa: poco peso addosso, nessuna strada vista per intero. Qui la tua leggerezza conta più della prudenza, perché sapere tutto prima non è la condizione per partire.
+- 2: Non la rotta studiata ma il tuo piede che si alza senza averla studiata: a comandare la scena è una partenza leggera, fatta con fiducia più che con informazioni. Il resto si mostra cammin facendo.
+- 3: La cosa prende il taglio di un inizio che ti chiama senza spiegarsi: bagaglio piccolo, cuore aperto, nessuna garanzia chiesta prima di muoversi. Partire così non è imprudenza, è una forma di coraggio.
 
 ### capovolta
 
-- 1: Tutto si inclina sull'orlo: o uno slancio che parte alla cieca, o un piede che non si stacca per timore. La domanda che decide il punto di caduta è una sola, se quella spinta nasca da coraggio o da fuga.
+- 1: Tutto si inclina sull'orlo: o uno slancio che parte alla cieca, o un piede che non si stacca per timore. La domanda che decide il punto di caduta è una sola, se la tua spinta nasca da coraggio o da fuga.
 - 2: Un salto non ancora chiarito sta sulla soglia. La strada resta aperta, ma finché ignori da dove viene l'impulso, partire somiglia troppo a scappare da qualcosa che non hai guardato.
 - 3: C'è un orlo e sopra l'orlo una fretta oppure una paura: dove la cosa sbocca dipende da quale delle due stai ascoltando. Scegli con gli occhi aperti, non con lo stomaco.
 
@@ -79,7 +79,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: La strada sbocca in un conto a due colonne: quello che hai detto che avresti fatto e quello che le tue mani hanno davvero consegnato. Il dono non ti manca e non è spento, manca il passaggio dal dire al fare.
-- 2: Il profilo che si compone è quello di un dono chiuso in un cassetto: strumenti tutti a portata, mano capace, nessuna scintilla da ritrovare. Resta fuori soltanto la cosa fatta, quella che nessuno ha ancora visto.
+- 2: Il profilo che si compone è quello di un dono chiuso in un cassetto: strumenti tutti a tua portata, mano capace, nessuna scintilla da ritrovare. Resta fuori soltanto la cosa fatta, quella che nessuno ha ancora visto.
 - 3: Sulla scena comanda la tua parola, non la tua mano: prometti in anticipo e consegni dopo, poco. Non è entusiasmo che si disperde e non è una partenza rimandata, è il gesto che non segue quello che hai detto.
 
 ## La Papessa
@@ -87,7 +87,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La strada sbocca in un sapere che non passa dalle parole: lo senti prima di poterlo spiegare. Il peso sta nel silenzio più che nella decisione presa in fretta. Certe risposte maturano soltanto nell'attesa.
-- 2: Quello che matura qui non si spiega, si riconosce. Il punto in cui tutto sbocca è una mente quieta che ha capito senza farsi dire, davanti a un mistero che si apre solo a chi smette di interrogarlo.
+- 2: Quello che matura qui non si spiega, si riconosce. Il punto in cui tutto sbocca è la tua mente quieta che ha capito senza farsi dire, davanti a un mistero che si apre solo a chi smette di interrogarlo.
 - 3: Il profilo che la cosa prende è quello del non detto: la risposta è già dentro di te, ma chiede tempo fermo invece di parole. Fai spazio a quello che intuisci e lascia che il resto venga a galla da sé.
 
 ### capovolta
@@ -101,7 +101,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Qui la china porta a una gestazione: qualcosa di vivo ha già preso forma nelle tue mani e chiede soltanto di essere nutrito. I tempi della fioritura non si comandano: chi tira la pianta per farla crescere la spezza.
-- 2: La fertilità è quello che questa storia ha dentro, non un inizio da piantare: il germoglio c'è già. Lo sbocco dipende dalla dolcezza con cui lo accudisci, più che dalla fretta con cui lo spingi.
+- 2: La fertilità è quello che questa storia ha dentro, non un inizio da piantare: il tuo germoglio c'è già. Lo sbocco dipende dalla dolcezza con cui lo accudisci, più che dalla fretta con cui lo spingi.
 - 3: Qualcosa che hai messo al mondo sta maturando e la figura che prende è quella di una crescita che non tollera strappi. Nutrire invece di forzare: è questo che la questione chiede per compiersi.
 
 ### capovolta
@@ -184,7 +184,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Lo sbocco è un passo indietro dal rumore: la risposta che cerchi fuori sta maturando dentro. La lanterna rischiara soltanto il prossimo appoggio del piede e tanto basta per muoversi.
+- 1: Lo sbocco è un passo indietro dal rumore: la risposta che cerchi fuori sta maturando dentro. La lanterna ti rischiara soltanto il prossimo appoggio del piede e tanto basta per muoversi.
 - 2: Il silenzio è il materiale che si va accumulando, non una risposta data da altri. Rallentando fai spazio e in quello spazio si chiarisce un tratto per volta, mai la strada intera.
 - 3: Questa storia culmina in una stanza vuota con una luce piccola nella tua mano: meno rumore attorno, più nitidezza. Chi smette di chiedere conferme fuori comincia a vedere.
 
@@ -200,7 +200,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La mano sull'insieme la tiene un giro che non decidi tu: il tempo cambia lato e lo fa spesso senza preavviso. Chi si muove con il movimento ci perde meno di chi tiene stretto com'era.
 - 2: Nulla di questa faccenda resta dove l'hai lasciato. La forma che prende è quella della svolta non scelta, del ciclo che si rimette a correre: il rischio vero è aggrapparsi all'assetto di prima.
-- 3: Il culmine qui ha la forma di un giro compiuto: alto che diventa basso, basso che risale. La china porta al cambio di posizione, non al merito di chi lo subisce o lo gode.
+- 3: Il culmine qui ha la forma di un giro compiuto: alto che diventa basso, basso che risale. La china ti porta al cambio di posizione, non al merito di chi lo subisce o lo gode.
 
 ### capovolta
 
@@ -213,7 +213,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Lo sbocco ha la forma di una mano ferma posata su una belva calma. Qui la resa di questa strada è un coraggio dolce: ciò che ti agita dentro si placa perché lo tratti con fermezza tenera, non perché lo combatti.
-- 2: Comanda la scena la calma che addomestica. Non la lotta che piega l'istinto, ma la pazienza che lo ammansisce. Il coraggio che vale qui è quello mite, senza un grammo di violenza.
+- 2: Comanda la scena la calma che addomestica. Non la lotta che piega l'istinto, ma la pazienza che lo ammansisce. Il coraggio che ti serve qui è quello mite, senza un grammo di violenza.
 - 3: Qui la china porta a un dominio senza strappi. La bestia che senti ruggire dentro non si vince a colpi, si avvicina con mano lenta. L'inclinazione è quella della fermezza gentile.
 
 ### capovolta
@@ -227,8 +227,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La strada finisce in una sosta che non serve a riposare: serve a guardare a testa in giù. L'angolazione che ti sfuggiva si apre nell'attesa che sembra vuota, non nella mossa che vorresti affrettare.
-- 2: Non c'è nulla da fare ma non è una resa: è il punto in cui lo sguardo si ribalta. In un tempo in apparenza sprecato sta maturando una comprensione che nessuna azione avrebbe prodotto.
-- 3: Fermarsi, qui, vale più di ogni gesto. Il punto d'arrivo ha la forma di una sospensione scelta, in cui le cose si vedono al contrario e il bisogno di agire è l'unica cosa da lasciare andare.
+- 2: Non c'è nulla da fare ma non è una resa: è il punto in cui il tuo sguardo si ribalta. In un tempo in apparenza sprecato sta maturando una comprensione che nessuna azione avrebbe prodotto.
+- 3: Fermarti, qui, vale più di ogni gesto. Il punto d'arrivo ha la forma di una sospensione scelta, in cui le cose si vedono al contrario e il bisogno di agire è l'unica cosa da lasciare andare.
 
 ### capovolta
 
@@ -254,15 +254,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: L'inclinazione è quella di una mescolanza lenta: due parti che sembravano inconciliabili si dosano fino a stare nello stesso recipiente. Niente strappi qui, solo misura, pazienza e il ritmo giusto.
-- 2: Si va verso il giusto dosaggio, non verso la spinta: quello che stride si compone a poco a poco, come due liquidi versati piano da un vaso all'altro fino a diventare una cosa sola.
-- 3: Tutto prende la forma di una ricomposizione senza forzature. Il punto d'arrivo non è una vittoria sugli opposti, è il loro accordo paziente, tenuto insieme andando piano invece di tirare le redini.
+- 1: L'inclinazione è quella di una mescolanza lenta: due parti che ti sembravano inconciliabili si dosano fino a stare nello stesso recipiente. Niente strappi qui, solo misura, pazienza e il ritmo giusto.
+- 2: Si va verso il giusto dosaggio, non verso la spinta: quello che in te stride si compone a poco a poco, come due liquidi versati piano da un vaso all'altro fino a diventare una cosa sola.
+- 3: Tutto prende la forma di una ricomposizione senza forzature. Il punto d'arrivo non è una vittoria sugli opposti, è il loro accordo paziente, che tieni insieme andando piano invece di tirare le redini.
 
 ### capovolta
 
 - 1: La strada porta a una dose sbagliata: troppo di una cosa, troppo poco dell'altra, un ritmo che hai saltato. Si rimette a posto rallentando, non con un colpo di fortuna.
 - 2: Quello che la situazione ha già dentro è l'eccesso, oppure due parti di te che hanno smesso di parlarsi. Lo sbilancio resta finché non ridosi con pazienza quello che stai versando tutto in una volta.
-- 3: Non la forza manca qui, è la misura. La fretta ha rotto l'accordo e rimetterlo in piedi è una pratica di ogni giorno, non un rimedio che scatta da solo.
+- 3: Non la forza ti manca qui, è la misura. La fretta ha rotto l'accordo e rimetterlo in piedi è una pratica di ogni giorno, non un rimedio che scatta da solo.
 
 ## Il Diavolo
 
@@ -283,8 +283,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La china porta a un cedimento secco, non a una correzione lenta: quello che stava su una base falsa ha già dentro la crepa per venire giù tutto insieme. Quello che resta in piedi dopo è l'unica cosa vera che avevi.
-- 2: Qui il passaggio è una scossa che non si negozia. L'illusione cade per prima, il vero regge: fa male sul momento, poi resta una base più onesta di quella di prima.
-- 3: Tutto spinge verso le macerie e verso la cernita che portano con sé. Non viene abbattuto quello che era solido, soltanto quello che stava sul finto: il colpo rivela più di quanto distrugga.
+- 2: Qui il passaggio è una scossa che non si negozia. L'illusione cade per prima, il vero regge: ti fa male sul momento, poi resta una base più onesta di quella di prima.
+- 3: Tutto ti spinge verso le macerie e verso la cernita che portano con sé. Non viene abbattuto quello che era solido, soltanto quello che stava sul finto: il colpo rivela più di quanto distrugga.
 
 ### capovolta
 
@@ -296,9 +296,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La strada sbocca nella quiete che segue una burrasca: una luce che non urla, una fiducia che torna piano in chi ha attraversato il brutto tempo. Qui quello che resta è sollievo, non un'emozione nuova che esplode.
-- 2: Questo tratto ha già dentro una luce bassa e ferma, quella che si accende quando il cielo si è appena ripulito. Quello che prepara è fiducia e ispirazione tranquilla, dopo la fatica, non un inizio che travolge.
-- 3: Qui si approda a una calma luminosa. Niente grida, niente slancio improvviso: solo la sensazione che la tempesta sia passata, che la strada presa regga anche se le gambe pesano.
+- 1: La strada sbocca nella quiete che segue una burrasca: una luce che non urla, una fiducia che ti torna piano dopo il brutto tempo attraversato. Qui quello che resta è sollievo, non un'emozione nuova che esplode.
+- 2: Questo tratto ha già dentro una luce bassa e ferma, quella che si accende quando il cielo si è appena ripulito. Quello che ti prepara è fiducia e ispirazione tranquilla, dopo la fatica, non un inizio che travolge.
+- 3: Qui si approda a una calma luminosa. Niente grida, niente slancio improvviso: solo la sensazione che la tempesta sia passata, che la strada presa regga anche se le tue gambe pesano.
 
 ### capovolta
 
@@ -311,12 +311,12 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La cosa sbocca in un tratto che si attraversa al buio: quello che vedi alla prima occhiata non è quello che è. Intuito e prudenza valgono più della fretta di capire: il passo sa dove mettersi anche senza luce.
-- 2: Non chiedere certezze adesso. Davanti c'è un passaggio in cui il fondo parla più forte della ragione, le paure notturne si affacciano, le forme ingannano. Si cammina fidandosi del piede, non dell'occhio.
+- 2: Non chiedere certezze adesso. Davanti a te c'è un passaggio in cui il fondo parla più forte della ragione, le paure notturne si affacciano, le forme ingannano. Si cammina fidandosi del piede, non dell'occhio.
 - 3: Un velo resta steso sulla faccenda. Quello che la strada chiede non è il chiarimento ma l'attraversamento: sogni, presagi, cose che di giorno avrebbero un altro nome. Guarda meno, senti di più.
 
 ### capovolta
 
-- 1: La soglia è il ritirarsi dell'ombra: quello che al buio occupava tutto si mostra nella sua misura vera, piccola. Guardalo con occhi nuovi, aveva più contorno che sostanza.
+- 1: La soglia è il ritirarsi dell'ombra: quello che al buio ti occupava tutto si mostra nella sua misura vera, piccola. Guardalo con occhi nuovi, aveva più contorno che sostanza.
 - 2: Stai uscendo dalla nebbia. Le paure perdono presa, la confusione si ordina, le forme che ti spaventavano tornano alle loro proporzioni. Il saldo a conti fatti è un ridimensionamento, non una rivelazione.
 - 3: Ciò che temevi resta, ma smette di essere gigante. La forza che prende la mano è la luce che misura: l'inganno delle proporzioni si scioglie e ti ritrovi davanti a un problema di taglia normale.
 
@@ -331,7 +331,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Quello che la situazione ha già dentro è una luce intera dietro una copertura: non manca nulla là fuori, manca il contatto con la pelle. Quello che vela è spesso un pensiero vecchio che ti porti appresso, non un affetto incrinato.
-- 2: La piega mostra l'entusiasmo tenuto a freno mentre il calore è ancora tutto al suo posto. Nessun cuore chiuso per timore di soffrire: una nube davanti, che si sposta appena smetti di nutrirla.
+- 2: La piega mostra l'entusiasmo tenuto a freno mentre il calore è ancora tutto al suo posto. Nessun cuore chiuso per timore di soffrire: una nube davanti a te, che si sposta appena smetti di nutrirla.
 - 3: Il chiarore c'è ed è il velo a reggere la scena. È quel velo a tenere il campo, finché lo lasci stare dove è: togli quello e il tepore torna sulla pelle, perché non si era mai spostato.
 
 ## Il Giudizio
@@ -346,7 +346,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il nodo consegnato è un richiamo che continui a non raccogliere, oppure una severità rivolta a te che non costruisce niente. Si scioglie dove ti ascolti invece di accusarti.
 - 2: Si va verso un bilancio rimandato: sai che va fatto e lo sposti ancora un poco. Il risveglio non nasce dalla condanna di quello che eri, nasce dal perdono che ti concedi.
-- 3: Quello che blocca qui è il giudice troppo duro che porti dentro. La mano sulla rinascita ce l'ha l'ascolto e non la pena: giudicati come chi comprende prima di decidere, non come chi punisce.
+- 3: Quello che ti blocca qui è il giudice troppo duro che porti dentro. La mano sulla rinascita ce l'ha l'ascolto e non la pena: guarda la tua storia come chi comprende prima di decidere, non come chi punisce.
 
 ## Il Mondo
 
@@ -366,15 +366,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La soglia qui è un principio, non un seguito: un impulso che si accende adesso, una partenza ancora intera. Chi afferra la fiamma mentre è viva parte davvero.
-- 2: Qui tutto converge su una scintilla. Non la corsa già lanciata, il primo fuoco che la rende possibile: la forza che comanda la scena favorisce l'avvio, prima che i ripensamenti lo raffreddino.
-- 3: Il punto in cui sbocca è un inizio ardente: voglia nuova, idea che brucia, mani che prudono. Nel terreno sta un seme di fuoco come questo, da cui ogni cosa grande comincia.
+- 1: La soglia qui è un principio, non un seguito: un impulso che si accende adesso, una partenza ancora intera. Se prendi la fiamma mentre è viva, parti davvero.
+- 2: Qui tutto converge su una scintilla. Non la corsa già lanciata, il primo fuoco che la rende possibile: la forza che comanda la scena favorisce il tuo avvio, prima che i ripensamenti lo raffreddino.
+- 3: Il punto in cui sbocca è un inizio ardente: voglia nuova, idea che brucia, mani che ti prudono. Nel terreno sta un seme di fuoco come questo, da cui ogni cosa grande comincia.
 
 ### capovolta
 
-- 1: Nel terreno sta un avvio che tarda: il fuoco c'è e qualcosa lo tiene coperto, spesso il timore di sbagliare il primo passo. Non manca l'energia, manca l'accensione.
-- 2: Qui si va verso lo slancio trattenuto, non verso l'ardore sprecato in mille strade. Una partenza continua a slittare: ritrovare il desiderio viene prima di riprovare a muoversi.
-- 3: Niente si accende per ora e il rinvio si ripete. Il seme di fuoco resta intero sotto la cenere: la strada sbocca nell'attesa di una voglia vera, non in una foga da frenare.
+- 1: Nel terreno sta un avvio che tarda: il fuoco c'è e qualcosa lo tiene coperto, spesso il timore di sbagliare il primo passo. Non ti manca l'energia, manca l'accensione.
+- 2: Qui si va verso lo slancio trattenuto, non verso l'ardore sprecato in mille strade. Una tua partenza continua a slittare: ritrovare il desiderio viene prima di riprovare a muoversi.
+- 3: Niente si accende per ora e il rinvio si ripete. Il tuo seme di fuoco resta intero sotto la cenere: la strada sbocca nell'attesa di una voglia vera, non in una foga da frenare.
 
 ## Due di Bastoni
 
@@ -382,12 +382,12 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada sbocca davanti a una mappa aperta: un progetto che prende forma, il confine del già noto da scavalcare, la rotta ancora da scegliere. Il nodo che ti viene consegnato è la decisione, prima di qualunque partenza.
 - 2: Lo sguardo lungo è la soglia di questo tratto. Non frutti già in viaggio, non un cantiere condiviso: il punto in cui arriva è quello in cui tieni il mondo in mano e decidi tu dove puntare.
-- 3: Qui si approda a un piano ambizioso, non ancora a un risultato. Il progetto in pugno, l'orizzonte oltre il muro di casa: la piega è quella di chi smette di stare fermo e traccia la rotta.
+- 3: Qui si approda a un piano ambizioso, non ancora a un risultato. Il progetto in pugno, l'orizzonte oltre il muro di casa tua: la piega è quella di chi smette di stare fermo e traccia la rotta.
 
 ### capovolta
 
 - 1: Il punto in cui arriva è una soglia: resti sul bordo con il passo già alzato, perché la rotta non è chiara. Non manca il fuoco, non sono troppe cose insieme: manca di sapere dove vuoi arrivare.
-- 2: La figura che si compone è quella di un piano confuso. Si arriva a una scelta di rotta rimandata per timore di osare. Il bordo del noto resta là davanti, ancora da attraversare, con la domanda su dove puntare aperta.
+- 2: La figura che si compone è quella di un piano confuso. Si arriva a una scelta di rotta rimandata per timore di osare. Il bordo del noto ti resta là davanti, ancora da attraversare, con la domanda su dove puntare aperta.
 - 3: Qui lo sbocco è l'esitazione sul confine. Prima del passo serve una risposta tua: che cosa vuoi davvero. Un passo deciso pesa più di dieci presi nel dubbio.
 
 ## Tre di Bastoni
@@ -409,21 +409,21 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una soglia addobbata sta in fondo a questa strada: quello che hai costruito regge da sé e si festeggia dove abiti, non in piazza. Nessun applauso da attendere né frutti ancora in viaggio.
-- 2: Qui ha la mano la stabilità che si celebra insieme, sotto un tetto che tiene. Il traguardo non è in viaggio: è qui, posato su radici solide, da riconoscere prima di correre al prossimo.
+- 2: Qui ha la mano la stabilità che si celebra insieme, sotto un tetto che tiene. Il tuo traguardo non è in viaggio: è qui, posato su radici solide, da riconoscere prima di correre al prossimo.
 - 3: Quanto hai messo in piedi regge ed è il momento in cui si apre la casa a chi ti vuole bene. La piega è questa: non il riconoscimento di estranei, la gioia condivisa su una base che non si muove.
 
 ### capovolta
 
-- 1: La soglia davanti a cui la cosa si trova è quella di una casa compiuta in cui non si è ancora entrati: il traguardo c'è per intero e manca il giorno che lo celebra.
-- 2: Comanda la scena un traguardo che nessuno ha ancora salutato: non una base che cede sotto il peso né un carico rientrato diverso dall'atteso, ma una festa rimandata su una cosa riuscita.
-- 3: Nel materiale già accumulato stanno un risultato completo e un ingresso mancante: non c'è un'opera da finire, c'è un passaggio che non è stato attraversato e una gioia rimasta a metà.
+- 1: La soglia davanti a cui la cosa si trova è quella di una casa compiuta in cui non hai ancora messo piede: il traguardo c'è per intero e manca il giorno che lo celebra.
+- 2: Comanda la scena un tuo traguardo che nessuno ha ancora salutato: non una base che cede sotto il peso né un carico rientrato diverso dall'atteso, ma una festa rimandata su una cosa riuscita.
+- 3: Nel materiale che hai già accumulato stanno un risultato completo e un ingresso mancante: non c'è un'opera da finire, c'è un passaggio che non è stato attraversato e una gioia rimasta a metà.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Quello che si va accumulando è una mischia aperta: molte energie che si spingono insieme, nessuna ancora in vantaggio. Uno scontro giocato bene tempra, uno giocato per ferire logora tutti.
-- 2: Si va verso il confronto acceso, non verso il colpo che chiude la partita: idee che battono contro altre idee, parole sovrapposte, legni che si incrociano senza che nessuno sia a terra.
+- 1: Quello che si va accumulando è una mischia aperta: molte energie che si spingono insieme, nessuna ancora in vantaggio. Uno scontro giocato bene ti tempra, uno giocato per ferire logora tutti.
+- 2: Si va verso il confronto acceso, non verso il colpo che chiude la partita: idee tue che battono contro altre idee, parole sovrapposte, legni che si incrociano senza che nessuno sia a terra.
 - 3: Qui tutto ribolle: attrito, gara, chiasso di parti che si misurano fra loro. Il prezzo non è ancora stato pagato da nessuno e il nodo che ti resta in mano è come scegli di stare nello scontro.
 
 ### capovolta
@@ -451,28 +451,28 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La forza in campo sta dalla tua parte e proprio per questo in molti la contendono. Il terreno alto è già tuo: tenerlo chiede fegato sotto pressione, non l'ultimo sforzo di chi è allo stremo.
-- 2: Qui si va verso una posizione difesa in vantaggio. Chi spinge da sotto è più numeroso, non più forte: reggere adesso conta più di qualunque passo in avanti.
+- 2: Qui si va verso una posizione difesa in vantaggio. Chi spinge da sotto è più numeroso, non più forte di te: reggere adesso conta più di qualunque passo in avanti.
 - 3: Il punto di arrivo somiglia a una collina presidiata: hai qualcosa che vale e ora la vogliono anche altri. Il percorso ripaga chi non lascia il campo per stanchezza di discutere.
 
 ### capovolta
 
 - 1: Il campo è occupato da troppi fronti aperti insieme: difendi ogni cosa e per questo nessuna tiene. Il nodo è la cernita fra le battaglie che contano e tutte le altre.
-- 2: Qui si va verso la sopraffazione per numero. Tenere ogni posizione non è forza, è dispersione: lasciarne cadere qualcuna di proposito rimette fiato dove serve davvero.
+- 2: Qui si va verso la sopraffazione per numero. Tenere ogni posizione non è forza, è dispersione: lasciarne cadere qualcuna di proposito ti rimette fiato dove serve davvero.
 - 3: Stai in guardia anche dove nessuno attacca ed è il peso a decidere la china. Non ogni collina merita il tuo corpo sopra: quello che molli per scelta non è una perdita.
 
 ## Otto di Bastoni
 
 ### dritta
 
-- 1: La strada sbocca in un'accelerazione: notizie che si sbloccano, risposte che rientrano in fretta, più cose che si muovono nello stesso momento. Qui la forza che detta il passo è un ritmo da cavalcare, non da frenare.
-- 2: Sta covando velocità, questo tratto. Il punto in cui arriva ha il suono di frecce in volo: messaggi, spostamenti, tempi che si stringono. La piega è quella del movimento, non dell'attesa.
-- 3: Qui si approda a un tempo rapido. Quello che era fermo prende aria, le risposte si fanno brevi, le giornate si accorciano. Il guadagno va a chi sta al passo con la corsa.
+- 1: La tua strada sbocca in un'accelerazione: notizie che si sbloccano, risposte che rientrano in fretta, più cose che si muovono nello stesso momento. Qui la forza che detta il passo è un ritmo da cavalcare, non da frenare.
+- 2: Sta covando velocità, questo tratto. Il punto in cui ti porta ha il suono di frecce in volo: messaggi, spostamenti, tempi che si stringono. La piega è quella del movimento, non dell'attesa.
+- 3: Qui si approda a un tempo rapido. Quello che era fermo prende aria, le risposte si fanno brevi, le giornate si accorciano. Il guadagno va a te se stai al passo con la corsa.
 
 ### capovolta
 
 - 1: La cosa prende la figura di un ritmo scomposto: tempi che slittano, oppure una fretta che ti fa inciampare nei tuoi stessi passi. Qui conviene rallentare quel tanto che basta per rimettere in ordine.
-- 2: Quello che questo tratto prepara è uno slittamento. Le frecce lanciate restano in aria più del previsto, oppure partono tutte insieme senza bersaglio. La velocità vale solo quando la meta è chiara.
-- 3: Qui si arriva a un movimento che si impiglia. Risposte che tardano, corse fatte a vuoto, un ordine da rifare prima di ripartire. Meglio un passo lento sulla strada giusta che dieci alla cieca.
+- 2: Quello che questo tratto prepara è uno slittamento. Le frecce che hai lanciato restano in aria più del previsto, oppure partono tutte insieme senza bersaglio. La velocità vale solo quando la meta è chiara.
+- 3: Qui si arriva a un movimento che si impiglia. Risposte che tardano, corse fatte a vuoto, un ordine da rifare prima che tu riparta. Meglio un passo lento sulla strada giusta che dieci alla cieca.
 
 ## Nove di Bastoni
 
@@ -508,13 +508,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada si apre su un inizio fatto per curiosità: qualcosa di giovane bussa alla porta e ti viene da provare, senza sapere ancora come. Porta all'esplorazione, non alla rotta tracciata.
 - 2: Cresce la voglia di mettere il naso dove non hai mai messo piede. Qui non serve essere [esperto|esperta|all'altezza]: la strada restituisce di più a chi prova per la prima volta con entusiasmo acceso.
-- 3: Tutto prepara una curiosità che chiede di essere seguita subito: un annuncio, una proposta, un'idea nuova portata da chi ha ancora tutto da imparare.
+- 3: Tutto prepara una curiosità che ti chiede di essere seguita subito: un annuncio, una proposta, un'idea nuova portata da chi ha ancora tutto da imparare.
 
 ### capovolta
 
-- 1: Il materiale che si sta mettendo insieme è una fila di faccende aperte a metà: ciascuna cede l'ora che le toccava a quella dopo, così di maturo nel mucchio non ne resta.
-- 2: Paghi ogni inizio con l'inizio che gli va davanti: la strada chiede poco alla partenza e molto alla durata, restituendo slanci freschi al posto di opere finite.
-- 3: La figura che si va componendo è un ricambio continuo: l'ardore di adesso lascia il campo al successivo e la faccenda di prima rimane alla crescita che aveva, col frutto rimandato.
+- 1: Il materiale che stai mettendo insieme è una fila di faccende aperte a metà: ciascuna cede l'ora che le toccava a quella dopo, così di maturo nel mucchio non ne resta.
+- 2: Paghi ogni inizio con l'inizio che gli va davanti: la strada ti chiede poco alla partenza e molto alla durata, restituendo slanci freschi al posto di opere finite.
+- 3: La figura che si va componendo è un ricambio continuo: il tuo ardore di adesso lascia il campo al successivo e la faccenda di prima rimane alla crescita che aveva, col frutto rimandato.
 
 ## Cavaliere di Bastoni
 
@@ -535,7 +535,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La forza che comanda qui è la tua presenza, non una strada da indicare: quando stai nella tua pelle senza scusarti, attiri. Il calore che porti scalda anche chi ti sta accanto.
-- 2: Qui conta il magnetismo più del comando. La strada rende a chi si mostra per quello che è, con una sicurezza calda che non toglie spazio a nessuno: è questa che fa girare le teste.
+- 2: Qui conta il magnetismo più del comando. La strada rende se ti mostri per quello che sei, con una sicurezza calda che non toglie spazio a nessuno: è questa che fa girare le teste.
 - 3: Tutto converge su una fiamma che sta bene dentro se stessa. Non un tempo luminoso che cade dal cielo, una luce tua: più ti riconosci, più la faccenda gira a tuo favore.
 
 ### capovolta
@@ -550,7 +550,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada sbocca in una guida riconosciuta: non la tua corsa, ma il tuo esempio che apre il passo ad altri. Qui ha il sopravvento una volontà matura che prende in mano il cammino con generosità.
 - 2: Il materiale che si accumula qui è il comando generoso. Il punto in cui arriva è quello in cui la tua fiamma scalda anche chi ti sta intorno. Il cammino si vede meglio perché ci sei tu davanti.
-- 3: Qui si approda a una guida che altri seguono per scelta. Non lo slancio di chi parte all'avventura: la piega è quella di una volontà già cresciuta, che ispira senza alzare il tono.
+- 3: Qui si approda a una guida che altri seguono per scelta. Non lo slancio di chi parte all'avventura: la piega è quella di una volontà già cresciuta, la tua, che ispira senza alzare il tono.
 
 ### capovolta
 
@@ -562,9 +562,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Dentro si riempie qualcosa fino a versarsi: un sentimento nuovo nasce prima di qualunque patto e prima che l'altra parte risponda. La strada sbocca in un'apertura, non in un accordo a due.
+- 1: Dentro di te si riempie qualcosa fino a versarsi: un sentimento nuovo nasce prima di qualunque patto e prima che l'altra parte risponda. La strada sbocca in un'apertura, non in un accordo a due.
 - 2: Qualcosa sgorga come una fonte e non chiede permesso. Quello che si sta preparando è un tempo di dolcezza in cui il cuore sta più aperto del solito: accogli quello che senti senza mettergli davanti una difesa.
-- 3: Non un incontro, non una proposta ricevuta: una sorgente. Il punto d'arrivo ha la forma di un'emozione pura che trabocca: tenerla in mano serve meno che lasciarla scorrere.
+- 3: Non un incontro, non una proposta ricevuta: una sorgente. Il punto d'arrivo ha la forma di un'emozione pura che trabocca: tenerla in mano ti serve meno che lasciarla scorrere.
 
 ### capovolta
 
@@ -577,8 +577,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Nel terreno c'è già un patto che si sigilla fra te e una persona sola: non un sentimento che sgorga dentro di te soltanto, non l'armonia di una casa intera. Un riconoscimento reciproco, dove la forza di ciascuno si moltiplica nell'altro.
-- 2: Quello che questa strada rende è lo scambio alla pari con una persona sola. Niente gruppo da festeggiare: uno specchio che risponde, un impegno reciproco che prende forma e chiede di essere coltivato con cura.
-- 3: Un incontro che si chiude in accordo sta in fondo a questa strada. Il riconoscimento qui va in entrambi i versi, dato e restituito: è questo a separarlo da qualunque slancio che parte da uno solo.
+- 2: Quello che questa strada ti rende è lo scambio alla pari con una persona sola. Niente gruppo da festeggiare: uno specchio che risponde, un impegno reciproco che prende forma e chiede di essere coltivato con cura.
+- 3: Un incontro che si chiude in accordo sta in fondo a questa tua strada. Il riconoscimento qui va in entrambi i versi, dato e restituito: è questo a separarlo da qualunque slancio che parte da uno solo.
 
 ### capovolta
 
@@ -590,7 +590,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La strada sbocca in un brindisi: bicchieri alzati da più mani insieme, una gioia che esiste perché c'è qualcuno con cui dividerla. La compagnia è il punto, non il traguardo privato.
+- 1: La strada sbocca in un brindisi: bicchieri alzati da più mani insieme, una gioia che esiste perché hai qualcuno con cui dividerla. La compagnia è il punto, non il traguardo privato.
 - 2: Si va verso un cerchio di persone che si ritrova: chi ti vuole bene attorno a un tavolo. Qui la cosa da celebrare conta meno di chi la celebra con te, [non farlo da solo|non farlo da sola|fallo in compagnia].
 - 3: Quello che si apre è una festa fra amici: risate, abbracci, un bicchiere in mano. La resa di questa strada raddoppia quello che hai se lo dividi e si dimezza se te lo tieni.
 
@@ -604,15 +604,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La china di questa storia porta a un rifiuto da pieno: una cosa buona resta tesa accanto e nessuno la raccoglie, perché la sazietà conta più di quello che viene offerto.
-- 2: Ha la mano la sazietà, non il timore e non l'eccesso di scelte: quando la cosa si compone, comanda la scena il gusto che non si accende, con un'offerta lasciata tesa a un palmo da chi potrebbe prenderla.
-- 3: Questa strada finisce dove qualcuno dice basta così: le coppe già piene fanno da misura, l'offerta accanto resta intera e il no arriva prima di ogni assaggio.
+- 1: La china di questa storia porta a un rifiuto da pieno: una cosa buona resta tesa accanto a te e non la raccogli, perché la sazietà conta più di quello che viene offerto.
+- 2: Ha la mano la sazietà, non il timore e non l'eccesso di scelte: quando la cosa si compone, comanda la scena il gusto che non si accende, con un'offerta lasciata tesa a un palmo da te che potresti prenderla.
+- 3: Questa strada finisce dove tu dici basta così: le coppe già piene fanno da misura, l'offerta accanto resta intera e il no arriva prima di ogni assaggio.
 
 ### capovolta
 
 - 1: La cosa è al punto in cui la curiosità si risveglia: non la ripresa dopo una perdita, ma la fine di un periodo spento. Qualcosa di nuovo ti chiama e tu stai tornando a sentirlo.
 - 2: Il tuo torpore si sta sciogliendo senza che sia crollato nulla: nessun lutto da elaborare, nessun bilancio severo da fare. Una curiosità piccola si riaccende ed è lei a comandare la scena.
-- 3: Dopo la noia la china porta a un'apertura: il cuore si muove di nuovo per una cosa minuscola. Accoglila prima di chiederle dove porta.
+- 3: Dopo la noia la china porta a un'apertura: il tuo cuore si muove di nuovo per una cosa minuscola. Accoglila prima di chiederle dove porta.
 
 ## Cinque di Coppe
 
@@ -624,22 +624,22 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: La strada si risolve in un dolore che allenta la presa: non una nostalgia dolce, la pace fatta a fatica con una perdita. Lo sguardo si stacca da terra e torna a contare quello che resta.
+- 1: La strada si risolve in un dolore che allenta la presa: non una nostalgia dolce, la pace fatta a fatica con una perdita. Il tuo sguardo si stacca da terra e torna a contare quello che resta.
 - 2: Qui si va verso l'accettazione, piano. Quello che era andato smette di occupare tutto il campo: il perdono, anche verso di te, pesa meno del rancore tenuto in piedi.
-- 3: Il peso si sposta su una ferita vecchia che si chiude. Nessuna chiamata a rinascere da capo, soltanto un corpo che si rialza dopo essere stato piegato: la speranza rientra a passi piccoli, senza annunci.
+- 3: Il peso si sposta su una tua ferita vecchia che si chiude. Nessuna chiamata a rinascere da capo, soltanto un corpo che si rialza dopo essere stato piegato: la speranza rientra a passi piccoli, senza annunci.
 
 ## Sei di Coppe
 
 ### dritta
 
 - 1: La strada sbocca in una tenerezza antica: un ricordo caro, un affetto di molti anni che torna a scaldare. Qui il terreno ha già in sé l'innocenza ritrovata, il bene che il passato ti ha lasciato in dono.
-- 2: Qui si passa la porta della dolcezza del ricordo. Un volto di allora, un luogo dell'infanzia, una bontà semplice che riaffiora. La piega è quella dell'affetto sincero, senza calcolo.
+- 2: Qui si passa la porta della dolcezza del ricordo. Un volto di allora, un luogo della tua infanzia, una bontà semplice che riaffiora. La piega è quella dell'affetto sincero, senza calcolo.
 - 3: Arriva un dono che viene da lontano nel tempo. Quello che hai amato nei primi anni torna a bussare con gentilezza. A dare il tono alla scena è un cuore nutrito da una memoria buona.
 
 ### capovolta
 
-- 1: La via finisce dentro un passato che trattiene: la memoria diventa casa, il presente resta fuori dalla porta. Qui la piega è quella del rimpianto, con un tempo finito tenuto in braccio troppo a lungo.
-- 2: Il tratto inclina allo sguardo indietro. Onorare quello che è stato è giusto, abitarci è un'altra cosa. Il punto in cui arriva chiede di restituire al passato il suo posto, che è dietro.
+- 1: La via finisce dentro un passato che ti trattiene: la memoria diventa casa, il presente resta fuori dalla porta. Qui la piega è quella del rimpianto, con un tempo finito tenuto in braccio troppo a lungo.
+- 2: Il tratto inclina allo sguardo indietro. Onorare quello che è stato è giusto, abitarci è un'altra cosa. Il punto in cui arriva ti chiede di restituire al passato il suo posto, che è dietro.
 - 3: Qui si arriva a una nostalgia che pesa. Quello che è stato dolce chiede di essere lasciato dov'è, perché la tua vita sta altrove, adesso, non soltanto nella memoria.
 
 ## Sette di Coppe
@@ -652,7 +652,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Da molte cose desiderate ne resta una a fuoco. Il prezzo di questo tratto è una riduzione: non una verità scoperta, non un premio già in mano, ma un desiderio riconosciuto fra tanti che si spengono.
+- 1: Da molte cose desiderate te ne resta una a fuoco. Il prezzo di questo tratto è una riduzione: non una verità scoperta, non un premio già in mano, ma un desiderio riconosciuto fra tanti che si spengono.
 - 2: Sai quale strada vuoi. Il punto d'arrivo è una scelta che lascia cadere le altre possibilità: la libertà qui non sta nell'avere tutto, sta nell'aver smesso di volerlo tutto.
 - 3: La confusione si ordina intorno a una cosa sola. Qui il molto smette e comincia un fuoco stretto, dove rinunciare al resto non è una perdita ma il modo in cui diventa tua la cosa che hai scelto.
 
@@ -661,7 +661,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La cosa prende il profilo di un congedo dato in silenzio: niente di rotto alle tue spalle, solo una pienezza che ha smesso di nutrirti. Ti volti e cammini via senza annunciarlo, dietro una ricerca che non sai ancora nominare.
-- 2: Si va via per cercare un senso più alto, con le spalle girate a qualcosa che regge ancora. Nessuna tempesta da cui scappare e nessun sogno da scegliere: un passo via, deciso dal cuore prima che dalla testa.
+- 2: Si va via per cercare un senso più alto, con le tue spalle girate a qualcosa che regge ancora. Nessuna tempesta da cui scappare e nessun sogno da scegliere: un passo via, deciso dal cuore prima che dalla testa.
 - 3: Quello che lasci non è guasto ed è proprio questo a rendere il passo limpido. La piega è quella dell'uscita a luci spente, senza spiegazioni dovute a nessuno, verso una strada che si fa nominare solo cammin facendo.
 
 ### capovolta
@@ -682,7 +682,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada si apre su una coppa colma che non sazia: hai quello che volevi e dentro resta un vuoto che il piacere copre soltanto.
 - 2: Quello che la fine della strada ti mette in mano è una soddisfazione di facciata: brindisi fatti per farsi vedere, piaceri che distraggono senza colmare. Resta in superficie finché non chiedi che cosa desideri davvero.
-- 3: Non manca qui la ragione per stare bene, manca il sentirla. La china è quella di un piacere che riempie la bocca e lascia asciutto tutto il resto.
+- 3: Non ti manca qui la ragione per stare bene, ti manca il sentirla. La china è quella di un piacere che riempie la bocca e lascia asciutto tutto il resto.
 
 ## Dieci di Coppe
 
@@ -695,15 +695,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Il profilo che l'insieme sta prendendo è una casa a scomparti: stesse chiavi, pranzi separati, ciascuno col suo calendario. Nessun posto resta vuoto a tavola, il passo comune sì.
-- 2: Si arriva davanti a un passaggio: o le volontà di casa tornano a incrociarsi su qualcosa, oppure ognuno finisce di sistemarsi per conto proprio dentro le stesse mura.
-- 3: Questa strada chiede a ciascuno di cedere un pezzo del proprio piano e restituisce la tavola calda di prima. Senza quel prezzo resta una convivenza educata dove ognuno fa i conti per sé.
+- 2: Si arriva davanti a un passaggio: o le volontà di casa tua tornano a incrociarsi su qualcosa, oppure ognuno finisce di sistemarsi per conto proprio dentro le stesse mura.
+- 3: Questa strada chiede a ciascuno, anche a te, di cedere un pezzo del proprio piano e restituisce la tavola calda di prima. Senza quel prezzo resta una convivenza educata dove ognuno fa i conti per sé.
 
 ## Fante di Coppe
 
 ### dritta
 
 - 1: Sei alla soglia di un sentimento ancora piccolo: non una piena che travolge, un filo che affiora e chiede ascolto. C'è un messaggio tenero in mezzo e vale più di quanto sembri.
-- 2: Qui ha la mano l'immaginazione prima dei fatti: un'idea gentile, una parola affettuosa che qualcuno fa avere, un'emozione alle prime prove. La fragilità non la rende falsa.
+- 2: Qui ha la mano l'immaginazione prima dei fatti: un'idea gentile, una parola affettuosa che qualcuno ti fa avere, un'emozione alle prime prove. La fragilità non la rende falsa.
 - 3: Tutto converge su qualcosa di appena nato e un poco goffo. Dare spazio a questa tenerezza conta più che giudicarla: la poesia di quello che senti è il materiale da cui si parte.
 
 ### capovolta
@@ -716,21 +716,21 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La strada sbocca in un gesto galante: un invito portato con grazia, una proposta d'affetto fatta oppure ricevuta. Qui la figura che si compone è il corteggiamento, non un patto sigillato fra chi si ama.
+- 1: La strada sbocca in un gesto galante: un invito portato con grazia, una proposta d'affetto che fai oppure ricevi. Qui la figura che si compone è il corteggiamento, non un patto sigillato fra chi si ama.
 - 2: Quello che questo tratto prepara è un'offerta del cuore. Qualcuno si fa avanti con garbo, oppure a muoversi sei tu. La piega è quella del romanticismo in cammino, con un sentimento che si porta all'altro.
 - 3: Qui si approda a un'apertura affettuosa che prende la forma di una domanda. Non un'emozione che sgorga dentro di te: una grazia che va verso qualcuno, come chi si presenta con un fiore in mano.
 
 ### capovolta
 
-- 1: Il saldo di questo tratto è fatto di promesse che non trovano gesti: parole belle dette o ricevute, poi nulla che le regga. Qui il nodo è la distanza fra quello che si dichiara e quello che si fa.
-- 2: Comanda la scena un sentimento incostante. Non un cuore ferito che si chiude, non un inganno costruito: uno slancio che si accende in fretta e non dura, da misurare su quello che resta.
+- 1: Il saldo di questo tratto è fatto di promesse che non trovano gesti: parole belle che dici o ricevi, poi nulla che le regga. Qui il nodo è la distanza fra quello che si dichiara e quello che si fa.
+- 2: Comanda la scena un sentimento incostante. Non un cuore ferito che si chiude, non un inganno costruito: uno slancio che si accende in fretta e non dura, da misurare su quello che ti resta.
 - 3: Qui si arriva alla prova dei fatti. Il punto in cui sbocca chiede di guardare i gesti, tuoi oppure dell'altro, perché un affetto vero si riconosce in quello che tiene nel tempo, non nelle parole.
 
 ## Regina di Coppe
 
 ### dritta
 
-- 1: La sensibilità qui non è fragile, è capace: regge il peso di un altro senza rompersi. Il baricentro si sposta su una comprensione che accoglie, lontana dal sapere muto e dall'emozione appena nata.
+- 1: La tua sensibilità qui non è fragile, è capace: regge il peso di un altro senza rompersi. Il baricentro si sposta su una comprensione che accoglie, lontana dal sapere muto e dall'emozione appena nata.
 - 2: Leggi la gente più in profondità di quanto dica a parole: sai anche tenerla. Quello che hai in serbo è una cura che non chiede silenzio né protezione, perché è già abbastanza forte per ospitare.
 - 3: Tenerezza e intuito non come dono fresco da proteggere ma come mestiere del cuore. Quello che il percorso rende è un'accoglienza piena, da rivolgere anche a [te stesso|te stessa|te].
 
@@ -745,7 +745,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La forza al comando è una mano ferma sopra l'acqua: non il sentire altrui raccolto dentro di te, ma il tuo governato con calma dall'esterno. È la fermezza a fare da approdo: non è freddezza, è quiete tenuta.
-- 2: Il profilo di questa storia è un timone tenuto saldo mentre l'onda sale. Qui non si entra nelle emozioni di nessuno per comprenderle: si resta il punto fermo a cui gli altri ormeggiano. La maturità consiste proprio in questo.
+- 2: Il profilo di questa storia è un timone che tieni saldo mentre l'onda sale. Qui non si entra nelle emozioni di nessuno per comprenderle: si resta il punto fermo a cui gli altri ormeggiano. La maturità consiste proprio in questo.
 - 3: Senti tutto, però niente ti sposta ed è questa padronanza che la cosa ha già dentro. Non la tenerezza che accoglie: la serenità matura di chi dirige il proprio sentire senza doverlo spegnere.
 
 ### capovolta
@@ -758,15 +758,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Si è sulla soglia di un inizio che si tocca: un terreno buono, una base da posare, qualcosa di concreto che chiede solo di essere piantato. Qui non è un'idea che accende, è materia.
-- 2: Nel terreno c'è già un seme messo nel solco giusto: un lavoro, un progetto, una radice. Si prepara il solido più che l'entusiasmo: quello che avvii adesso ha dove attaccarsi.
+- 1: Si è sulla soglia di un inizio che si tocca: un terreno buono, una base da posare, qualcosa di concreto che ti chiede solo di essere piantato. Qui non è un'idea che accende, è materia.
+- 2: Nel terreno c'è già un tuo seme messo nel solco giusto: un lavoro, un progetto, una radice. Si prepara il solido più che l'entusiasmo: quello che avvii adesso ha dove attaccarsi.
 - 3: Quello che si apre è un'occasione dalle mani piene: una cosa concreta posata davanti a te, ancora intatta. Il terreno è pronto e la domanda che resta aperta è se lo lavori.
 
 ### capovolta
 
 - 1: La strada sbocca in un'apertura che scivola via: la cosa è davanti a te e tu guardi altrove, oppure hai contato male. Quell'apertura ha poco tempo davanti, se la lasci dov'è.
-- 2: Si va verso un seme tenuto in mano invece di messo a terra: un'occasione concreta non colta, oppure un rischio pesato con la bilancia sbagliata. Non tutte le aperture tornano.
-- 3: Quello che rischia qui è il concreto: una base che poteva reggere e resta lì, intatta. Il saldo che resta a conti fatti è uno sfumare: guardarla meglio adesso costa meno che rincorrerla dopo.
+- 2: Si va verso un seme tenuto in mano invece di messo a terra: un'occasione concreta non colta, oppure un rischio pesato con la bilancia sbagliata. Non tutte le aperture ti tornano.
+- 3: Quello che rischia qui è il concreto: una base che poteva reggerti e resta lì, intatta. Il saldo che resta a conti fatti è uno sfumare: guardarla meglio adesso costa meno che rincorrerla dopo.
 
 ## Due di Denari
 
@@ -778,23 +778,23 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Quello che la situazione ha già dentro è un giro fuori tempo: gli impegni si sono accumulati uno sull'altro, il passaggio fra loro si è allungato, una delle cose ha smesso di tornare nella mano.
+- 1: Quello che la situazione ha già dentro è un giro fuori tempo: gli impegni si sono accumulati uno sull'altro, il passaggio fra loro si è allungato, una delle cose ha smesso di tornare nella tua mano.
 - 2: Sei alla soglia in cui il giro si spezza: qualche pezzo lo tieni ancora, non tutti, perché ogni cosa aggiunta ha rubato un istante al passaggio e il primo è già uscito dalle tue mani.
-- 3: Il nodo che l'insieme consegna è quale cosa tenere in aria e quale posare, perché il tempo per tutte non c'è più: poche portate bene reggono, molte lasciate al caso cadono insieme.
+- 3: Il nodo che l'insieme ti consegna è quale cosa tenere in aria e quale posare, perché il tempo per tutte non c'è più: poche portate bene reggono, molte lasciate al caso cadono insieme.
 
 ## Tre di Denari
 
 ### dritta
 
-- 1: Il taglio di questa faccenda è un'opera a più mani: ognuno porta il suo mestiere e il pezzo costruito si vede. Non frutti in viaggio da lontano, materiale già messo in piedi.
+- 1: Il taglio di questa faccenda è un'opera a più mani: ognuno porta il suo mestiere accanto al tuo e il pezzo costruito si vede. Non frutti in viaggio da lontano, materiale già messo in piedi.
 - 2: Qui si va verso il riconoscimento di quello che sai fare, dentro un lavoro condiviso. I risultati concreti sono ancora piccoli: il grosso dell'edificio viene dopo, su questa base.
 - 3: La resa qui premia il lavoro fatto insieme più di quello fatto in proprio. Ruoli chiari, competenze che si incastrano, qualcuno che nota la qualità del tuo pezzo: è qui che la strada sbocca.
 
 ### capovolta
 
-- 1: La forma che viene su è un'opera a metà con il disegno in mano a chi non la costruisce: il muratore aspetta istruzioni e chi le ha in testa non le dice. Nessuno litiga e niente è in ritardo, manca chi assegna a ciascuno il suo pezzo.
-- 2: Si finisce davanti a un arco lasciato a metà per un malinteso, non per teste calde che si scontrano e non per frutti che tardano: quello che ognuno dava per ovvio è rimasto nella testa di ognuno. Dirlo apertamente fa ripartire l'opera.
-- 3: Dentro questo lavoro comune sta crescendo un attrito che nessuno ha voluto: persone sovrapposte sullo stesso pezzo e un pezzo senza nessuno, ruoli dati per intesi. La buona volontà è intera, il parlarsi no.
+- 1: La forma che viene su è un'opera a metà con il disegno in mano a chi non la costruisce: il muratore aspetta istruzioni e chi le ha in testa non le dice. Nessuno litiga e niente è in ritardo, manca chi assegna a ciascuno, anche a te, il suo pezzo.
+- 2: Si finisce davanti a un arco lasciato a metà per un malinteso, non per teste calde che si scontrano e non per frutti che tardano: quello che ognuno dava per ovvio è rimasto nella testa di ognuno. Se lo dici apertamente l'opera riparte.
+- 3: Dentro questo lavoro comune sta crescendo un attrito che nessuno ha voluto, nemmeno tu: persone sovrapposte sullo stesso pezzo e un pezzo senza nessuno, ruoli dati per intesi. La buona volontà è intera, il parlarsi no.
 
 ## Quattro di Denari
 
@@ -802,7 +802,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La china porta alla conservazione: quello che hai resta contato e chiuso, le uscite si stringono, il controllo su quello che possiedi sta fermo nelle tue mani. Qui si conserva, non si distribuisce.
 - 2: Si sta accumulando una riserva al riparo, fatta di spese ridotte e di beni contati che non escono senza il tuo permesso. La stessa mano che la chiude non resta libera di prendere.
-- 3: Quello che questa strada rende è integrità: il bene resta intero, non cresce e non si sparge. Il prezzo pagato è tutto quello che una mano occupata a tenere non arriva a toccare.
+- 3: Quello che questa strada ti rende è integrità: il bene resta intero, non cresce e non si sparge. Il prezzo pagato è tutto quello che una mano occupata a tenere non arriva a toccare.
 
 ### capovolta
 
@@ -814,7 +814,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Il peso si sposta tutto fuori: una mancanza addosso, il freddo, una finestra accesa a due passi. Quello che tiene lontano non è la distanza, è la vergogna di bussare.
+- 1: Il peso si sposta tutto fuori: una mancanza addosso, il freddo, una finestra accesa a due passi. Quello che ti tiene lontano non è la distanza, è la vergogna di bussare.
 - 2: C'è un senso di esclusione, di essere [rimasto fuori|rimasta fuori|fuori dalla porta] mentre dentro si sta al caldo. Quello che si va componendo non è una solitudine definitiva: la luce calda è più vicina di quanto credi, chiedi.
 - 3: Qualcuno, dentro, accenderebbe anche per te. Quello che si sta accumulando è un inverno attraversato con poco, dove la domanda vera è se chiedere aiuto o se restare in piedi per dignità.
 
@@ -828,9 +828,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: L'inclinazione è quella di una bilancia in pari: quello che dai passa di mano in misura giusta e torna per la stessa strada. Nessun ricordo che scalda da lontano, un aiuto vivo che circola adesso, nei due sensi.
-- 2: La strada si risolve in uno scambio misurato, dove chi riceve non resta in debito e chi dà non si svuota. Qui l'abbondanza sta nel passaggio, non nel mucchio, con la giustizia della misura a reggere il resto.
-- 3: Quello che la strada restituisce è un andare e venire regolato con equità: una mano si apre, l'altra restituisce, il peso resta uguale sui piatti. Non affetto che riemerge dalla memoria, aiuto concreto che si muove in pari.
+- 1: L'inclinazione è quella di una bilancia in pari: quello che dai passa di mano in misura giusta e ti torna per la stessa strada. Nessun ricordo che scalda da lontano, un aiuto vivo che circola adesso, nei due sensi.
+- 2: La tua strada si risolve in uno scambio misurato, dove chi riceve non resta in debito e chi dà non si svuota. Qui l'abbondanza sta nel passaggio, non nel mucchio, con la giustizia della misura a reggere il resto.
+- 3: Quello che la strada ti restituisce è un andare e venire regolato con equità: una mano si apre, l'altra restituisce, il peso resta uguale sui piatti. Non affetto che riemerge dalla memoria, aiuto concreto che si muove in pari.
 
 ### capovolta
 
@@ -842,14 +842,14 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La cosa prepara un'attesa: il lavoro è già nel terreno e adesso l'unica cosa che manca è il tempo. Matura se non strappi i frutti prima che siano pronti.
+- 1: La cosa prepara un'attesa: il tuo lavoro è già nel terreno e adesso l'unica cosa che manca è il tempo. Matura se non strappi i frutti prima che siano pronti.
 - 2: Si va verso il fermarsi a guardare quello che cresce: hai coltivato, ora conti i frutti ancora verdi. Qui la pazienza non è passività, è la parte del lavoro che tocca al tempo.
 - 3: Quello che matura lo fa alla sua velocità, non alla tua. La resa va a chi sta fermo a valutare e manca alla mano che anticipa la stagione.
 
 ### capovolta
 
-- 1: Il nodo che questa strada consegna è il dubbio sul seme: lo sforzo sembra reso male e la domanda non è più quando, è se valeva la pena piantarlo proprio lì.
-- 2: La figura che si compone è l'impazienza di chi scava per vedere se la radice c'è. Si scopre così che a volte il frutto tarda perché il terreno era sbagliato, non perché manchi tempo.
+- 1: Il nodo che questa strada ti consegna è il dubbio sul seme: lo sforzo sembra reso male e la domanda non è più quando, è se valeva la pena piantarlo proprio lì.
+- 2: La figura che si compone è l'impazienza di chi scava per vedere se la radice c'è. Scopri così che a volte il frutto tarda perché il terreno era sbagliato, non perché manchi tempo.
 - 3: Quello che pesa qui è la fatica che sembra non rendere. Si arriva alla soglia di una revisione di dove metti l'energia, senza scoraggiarti: cambiare solco non è perdere il lavoro fatto.
 
 ## Otto di Denari
@@ -862,7 +862,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: La ripetizione vuota è la forma che il lavoro sta prendendo: le mani vanno avanti da sole mentre la cura che le guidava non c'è più. Ritrovare il senso oppure cambiare banco, le uscite sono queste.
+- 1: La ripetizione vuota è la forma che il tuo lavoro sta prendendo: le mani vanno avanti da sole mentre la cura che le guidava non c'è più. Ritrovare il senso oppure cambiare banco, le uscite sono queste.
 - 2: Quello che facevi con amore sta diventando routine e la routine, quando dura, somiglia a una gabbia. La china si decide fra rimettere anima nel gesto o lasciarlo a qualcun altro.
 - 3: Non è pigrizia la monotonia qui: è cura caduta per strada. Il mestiere regge soltanto se qualcosa dentro di te ci tiene ancora, quindi controlla se ci tiene.
 
@@ -885,26 +885,26 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La strada sbocca in una casa piena: più generazioni sotto lo stesso tetto, beni che tengono, radici che affondano. Qui si accumula quello che dura oltre te, non il successo di una persona sola.
-- 2: Ad avere la mano sull'insieme è la stabilità lunga. Non la riuscita di oggi: un patrimonio di famiglia, mura, nomi, abitudini che passano di mano. La piega è quella di qualcosa piantato per chi viene dopo.
+- 2: Ad avere la mano sull'insieme è la stabilità lunga. Non la riuscita di oggi: un patrimonio di famiglia, mura, nomi, abitudini che passano di mano. La piega è quella di qualcosa piantato da te per chi viene dopo.
 - 3: Qui si approda a fondamenta profonde. Quello che hai costruito prende il peso di una casa vera, con la tua gente dentro e il tempo che lavora dalla sua parte.
 
 ### capovolta
 
 - 1: A comandare la scena diventa il diritto di più persone sulla stessa cosa: sull'insieme non decide nessuno per conto suo, decidono i tuoi insieme, ciascuno con la sua pretesa sul bene che vi tiene legati.
-- 2: Il profilo che si compone è quello di un patrimonio spartito male fra chi lo possiede in comune. Niente scarsità di mezzi e nessuna presa serrata di una mano sola: tante mani sullo stesso bene, ciascuna con un conto suo.
+- 2: Il profilo che si compone è quello di un patrimonio spartito male fra chi lo possiede in comune. Niente scarsità di mezzi e nessuna presa serrata di una mano sola: tante mani sullo stesso bene, anche la tua, ciascuna con un conto suo.
 - 3: Quello che questo tratto consegna da decidere è chi risponde di che cosa dentro le proprietà dei tuoi. Ciò che era di tutti si misura adesso in parti, mentre il legame di sangue regge il peso della trattativa.
 
 ## Fante di Denari
 
 ### dritta
 
-- 1: La strada sbocca in un apprendistato: non un'occasione da raccogliere ma una materia da imparare dal principio, dove ogni ora di prova lascia dietro un risultato che si può toccare.
-- 2: Prende forma un sapere che diventa cosa concreta un pezzo alla volta, non un talento già pronto da rifinire: dietro chi impara facendo resta del lavoro compiuto.
+- 1: La strada sbocca in un apprendistato: non un'occasione da raccogliere ma una materia da imparare dal principio, dove ogni ora di prova lascia dietro un risultato che puoi toccare.
+- 2: Prende forma un sapere che diventa cosa concreta un pezzo alla volta, non un talento già pronto da rifinire: dietro di te, mentre impari facendo, resta del lavoro compiuto.
 - 3: Il nodo consegnato nelle tue mani è quanto esercizio dare a una promessa ancora ignorante, perché quello che impari si fa materia soltanto nella parte in cui lo metti in pratica.
 
 ### capovolta
 
-- 1: Si sta accumulando una promessa non onorata: la voglia di imparare è intera, la pratica non è cominciata e l'impegno preso con qualcuno invecchia dentro un cassetto.
+- 1: Si sta accumulando una promessa non onorata: la tua voglia di imparare è intera, la pratica non è cominciata e l'impegno preso con qualcuno invecchia dentro un cassetto.
 - 2: Il saldo di questo tratto è lo studio speso e non incassato: hai messo attenzione sull'inizio e l'hai ritirata prima della prova, così il mestiere resta una cosa che sai raccontare e non fare.
 - 3: La soglia davanti a te separa il sapere detto dal saper fare. Il lavoro è fermo al suo primo tratto, intatto e non logorato dall'abitudine: manca la mano messa sulla cosa.
 
@@ -918,15 +918,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Il saldo di questo percorso è distanza non coperta: la meta resta dov'era, il tracciato resta quello buono. Tanta cautela mette in conto soltanto tappe spostate.
-- 2: La forma che l'insieme sta prendendo è quella di un viaggio corretto e immobile. Niente da correggere nel tracciato, tutto fermo nell'andatura, con la costanza che si è indurita in sosta.
-- 3: A comandare la scena è una cautela che ha preso il posto del metodo: la meta resta visibile, le tappe restano da fare, ogni mattina il procedere si rimanda a condizioni migliori.
+- 1: Il saldo di questo percorso è distanza non coperta: la meta resta dov'era, il tracciato resta quello buono. Tanta cautela ti mette in conto soltanto tappe spostate.
+- 2: La forma che l'insieme sta prendendo è quella di un viaggio corretto e immobile. Niente da correggere nel tracciato, tutto fermo nell'andatura, con la tua costanza che si è indurita in sosta.
+- 3: A comandare la scena è una cautela che ha preso il posto del metodo: la meta resta visibile, le tappe restano da fare, ogni mattina rimandi il procedere a condizioni migliori.
 
 ## Regina di Denari
 
 ### dritta
 
-- 1: Il seme già nel terreno è una cura che si fa con le mani: una tavola apparecchiata, un conto tenuto bene, piante che qualcuno annaffia ogni giorno. Il concreto conta più del simbolo.
+- 1: Il seme già nel terreno è una cura che fai con le mani: una tavola apparecchiata, un conto tenuto bene, piante che qualcuno annaffia ogni giorno. Il concreto conta più del simbolo.
 - 2: La resa di questa strada è l'accoglienza pratica: nutrire chi ami e i tuoi progetti senza staccare i piedi da terra. Qui il cuore si misura in cose fatte, in un dare generoso e solido.
 - 3: Quello che fiorisce lo fa nelle tue mani, non per conto suo: casa, lavoro, persone tenute insieme con calore e senso pratico. Il campo è di chi provvede, non di chi promette.
 
@@ -934,7 +934,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La forma che il tutto sta prendendo è una casa che gira bene, dispensa piena e conti in pari, con te come l'unica cosa di cui nessuno si occupa fra quelle mura.
 - 2: Resta in mano una domanda scomoda: chi provvede a chi provvede. Non è un torto subito e non è un dare mal ripagato, è il tuo nome che non scrivi quando fai la lista delle cose da curare.
-- 3: Il prezzo di questa strada lo paghi in cose piccole: il pasto saltato, la visita spostata, il riposo rimandato. La resa è una casa in ordine dove tutti stanno bene tranne chi la regge.
+- 3: Il prezzo di questa strada lo paghi in cose piccole: il pasto saltato, la visita spostata, il riposo rimandato. La resa è una casa in ordine dove tutti stanno bene tranne te che la reggi.
 
 ## Re di Denari
 
@@ -954,37 +954,37 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La forma che prende l'insieme è un taglio netto: una cosa vera da una parte, il resto dall'altra. Qui la lucidità vale più della diplomazia e dire come stanno le cose apre più di quanto rompa.
-- 2: Qui si va verso un'idea che taglia. Niente mezze misure in questo punto: quello che era confuso prende un contorno preciso e chiede una parola chiara, anche scomoda.
+- 1: La forma che prende l'insieme è un taglio netto: una cosa vera da una parte, il resto dall'altra. Qui la lucidità vale più della diplomazia e dire come stanno le cose ti apre più di quanto rompa.
+- 2: Qui si va verso un'idea che taglia. Niente mezze misure in questo punto: quello che era confuso prende un contorno preciso e ti chiede una parola chiara, anche scomoda.
 - 3: Ha la mano sull'insieme la verità, non la convenienza. Una distinzione secca fra quello che è e quello che ti raccontavi: regge soltanto quello che sta in piedi alla luce.
 
 ### capovolta
 
-- 1: La china porta alla nebbia nel pensiero: non fretta, non durezza, un criterio che ha perso il filo. Decidere o parlare da qui dentro taglia dalla parte sbagliata.
-- 2: A comandare qui è la chiarezza che manca. La stessa verità che poteva liberare viene impugnata male e ferisce: rischiarare la mente viene prima di ogni mossa.
+- 1: La china ti porta alla nebbia nel pensiero: non fretta, non durezza, un criterio che ha perso il filo. Decidere o parlare da qui dentro taglia dalla parte sbagliata.
+- 2: A comandare qui è la chiarezza che manca. La stessa verità che poteva liberare viene impugnata male e ferisce: rischiarare la tua mente viene prima di ogni mossa.
 - 3: Tutto resta sfocato, anche quello che credi di aver capito. Quello che la strada chiede è affilare il pensiero prima della lingua, perché una lama storta non separa niente.
 
 ## Due di Spade
 
 ### dritta
 
-- 1: La strada sbocca in uno stallo: pesi uguali tenuti fermi a occhi chiusi, nessuna scelta fatta. Qui tiene il campo l'equilibrio precario di chi preferisce non guardare.
+- 1: La strada sbocca in uno stallo: pesi uguali che tieni fermi a occhi chiusi, nessuna scelta fatta. Qui tiene il campo l'equilibrio precario di chi preferisce non guardare.
 - 2: Questo tratto prepara la decisione evitata. Il punto in cui arriva è un pareggio a benda calata, comodo quanto fragile. Quello che rimandi non sparisce, resta là ad aspettarti.
-- 3: Qui si approda a un fermo immagine. Le lame restano incrociate, nessuna delle posizioni cede. La benda tiene fuori proprio quello che andrebbe guardato.
+- 3: Qui si approda a un fermo immagine. Le lame restano incrociate, nessuna delle posizioni cede. La benda ti tiene fuori proprio quello che andrebbe guardato.
 
 ### capovolta
 
-- 1: La cosa è sulla soglia dello stallo che si rompe: la benda scende, quello che coprivi torna davanti agli occhi. Non un inganno che viene a galla, una scelta rinviata che chiede di nuovo una risposta.
+- 1: La cosa è sulla soglia dello stallo che si rompe: la benda scende, quello che coprivi ti torna davanti agli occhi. Non un inganno che viene a galla, una scelta rinviata che chiede di nuovo una risposta.
 - 2: Questo tratto consegna uno sblocco. Il pareggio che tenevi in piedi cede. La domanda messa via torna intera, con il vantaggio che adesso puoi guardarla in faccia.
-- 3: Qui si arriva al momento in cui vedere costa meno che continuare a girarci intorno. Nessuna chiamata a rinascere: solo una decisione sospesa che si rimette davanti, con gli occhi liberi.
+- 3: Qui si arriva al momento in cui vedere ti costa meno che continuare a girarci intorno. Nessuna chiamata a rinascere: solo una decisione sospesa che si rimette davanti, con gli occhi liberi.
 
 ## Tre di Spade
 
 ### dritta
 
-- 1: Il colpo è già stato dato e si sente nel petto: non un rimpianto per quello che è andato, non una paura della notte, ma un male presente con una causa precisa. Le lacrime qui servono.
-- 2: La cosa prende il taglio di un dolore netto, di quelli che hanno un nome e un'ora. Non c'è da spiegarlo via: il male attraversato passa, quello negato resta dentro a lavorare. Lascia cadere la pioggia.
-- 3: Una delusione taglia pulito. La strada passa per un tratto di pianto necessario sotto un cielo chiuso, con la ferita nel punto esatto dove si sentono le cose: non c'è scorciatoia che passi di lato.
+- 1: Il colpo è già stato dato e lo senti nel petto: non un rimpianto per quello che è andato, non una paura della notte, ma un male presente con una causa precisa. Le lacrime qui servono.
+- 2: La cosa prende il taglio di un dolore netto, di quelli che hanno un nome e un'ora. Non c'è da spiegarlo via: il male attraversato passa, quello negato ti resta dentro a lavorare. Lascia cadere la pioggia.
+- 3: Una delusione ti taglia pulito. La strada passa per un tratto di pianto necessario sotto un cielo chiuso, con la ferita nel punto esatto dove si sentono le cose: non c'è scorciatoia che passi di lato.
 
 ### capovolta
 
@@ -996,7 +996,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Una sosta scelta dopo la fatica: è qui che la strada sbocca. Le armi posate accanto, il silenzio tenuto per intero. Nessuna decisione in sospeso e nessun blocco, soltanto il recupero di quello che la battaglia ha preso.
+- 1: Una sosta scelta dopo la fatica: è qui che la strada sbocca. Le armi posate accanto, il silenzio tenuto per intero. Nessuna decisione in sospeso e nessun blocco, soltanto il recupero di quello che la battaglia ti ha preso.
 - 2: Quello che questa strada restituisce è la quiete deliberata. Non stai aspettando che qualcosa maturi al posto tuo: ti fermi perché la fatica va smaltita, il tempo passato in silenzio torna in forza invece di andare perduto.
 - 3: Fermarsi qui è la mossa, non la rinuncia. Quel silenzio è la soglia che hai davanti: una pausa presa per scelta, con la mente messa a riposo quanto il corpo, prima che il rumore abbia di nuovo un senso.
 
@@ -1011,7 +1011,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La strada sbocca in un campo che resta vuoto dopo che hai vinto: le armi raccolte, qualcuno che si allontana umiliato, nessun applauso. Chiediti se vale quello che costa.
-- 2: Il prezzo di questa strada è alto: avere ragione a spese di un legame, tenere il punto e perdere la persona. Quello che resta a conti fatti è un guadagno che somiglia a una perdita.
+- 2: Il prezzo di questa strada è alto: avere ragione a spese di un legame, tenere il punto e perdere la persona. Quello che ti resta a conti fatti è un guadagno che somiglia a una perdita.
 - 3: Quello che si profila è l'orgoglio soddisfatto e il resto in meno: vinci, nessuno ti festeggia, il terreno attorno è più povero di prima. Non tutte le battaglie vinte sono guadagni.
 
 ### capovolta
@@ -1039,14 +1039,14 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Il taglio di questa storia è una via laterale: niente carica frontale, un passo obliquo fatto in silenzio. L'ingegno apre dove la forza sbatte, finché non ti racconti bugie su cosa stai facendo.
-- 2: Qui la mossa discreta è quella che paga. Tatto, tempi scelti, poche parole in giro: la strada premia chi gira l'ostacolo invece di spaccarlo. Il confine con l'inganno resta sottile.
+- 2: Qui la mossa discreta è quella che paga. Tatto, tempi scelti, poche parole in giro: la strada ti premia se giri l'ostacolo invece di spaccarlo. Il confine con l'inganno resta sottile.
 - 3: Quello che non annunci porta in sé la sua riuscita. Non osservare e informarti, agire di fino mentre gli altri guardano altrove: tieni il conto onesto almeno dentro di te.
 
 ### capovolta
 
 - 1: La china porta a galla un gioco coperto, tuo o di qualcun altro. Non una scelta rimandata che ritorna: una cosa nascosta che smette di stare nascosta. La trasparenza alleggerisce chi la pratica.
-- 2: Qui si scopre quello che era tenuto sotto. Mantenere una bugia costa più che posarla: il saldo che resta sono i conti rimessi in chiaro, anche se la figura ne soffre.
-- 3: Tutto spinge verso la resa di un inganno. Il peso sulla coscienza fa più rumore della scoperta stessa: togliere il coperchio adesso rende il seguito meno caro.
+- 2: Qui si scopre quello che tenevi sotto. Mantenere una bugia costa più che posarla: il saldo che resta sono i conti rimessi in chiaro, anche se la figura ne soffre.
+- 3: Tutto spinge verso la resa di un inganno. Il peso sulla tua coscienza fa più rumore della scoperta stessa: togliere il coperchio adesso rende il seguito meno caro.
 
 ## Otto di Spade
 
@@ -1059,7 +1059,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Si è al punto in cui il chiuso smette: un'uscita si apre da sé, le corde cadono perché non stringevano come credevi. Qui non si scioglie un nodo reale, si scopre che la paura contava male.
-- 2: Quello che questo tratto restituisce è una liberazione. Il punto in cui arriva ha la forma di un passo fatto fuori dal recinto, con lo stupore di chi vede che il recinto era basso.
+- 2: Quello che questo tratto ti restituisce è una liberazione. Il punto in cui arriva ha la forma di un passo fatto fuori dal recinto, con lo stupore di chi vede che il recinto era basso.
 - 3: Qui si arriva al momento in cui la trappola si rivela più piccola della sua ombra. Nessun legame da spezzare: [eri più libero|eri più libera|avevi più libertà] di quanto la paura ti raccontava.
 
 ## Nove di Spade
@@ -1068,21 +1068,21 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Questa via finisce in una stanza buia con gli occhi aperti: quello che ti tormenta lo fabbrica la tua testa, non il mondo fuori. Di notte le misure si gonfiano, al mattino cambiano.
 - 2: Pensieri cupi che tengono svegli, un peso che si siede sul letto, nessuna catena vera addosso. Il campo lo occupa un tormento notturno: non credere a tutto quello che la mente ti racconta quando non c'è luce.
-- 3: Non è il mondo che inganna, è la mente che lavora male nelle ore vuote. L'inclinazione è quella di un'ansia che cresce al buio e si ridimensiona quasi sempre al ritorno del giorno.
+- 3: Non è il mondo che ti inganna, è la mente che lavora male nelle ore vuote. L'inclinazione è quella di un'ansia che cresce al buio e si ridimensiona quasi sempre al ritorno del giorno.
 
 ### capovolta
 
 - 1: La presa si allenta nel momento in cui dici a qualcuno quello che ti tiene sveglio. Qui la notte smette e comincia un'alba: il peggio è alle spalle, il resto si dimezza quando esce dalla bocca.
-- 2: Raccontato a qualcuno, il pensiero perde metà del peso. Il saldo di questo percorso è un allentamento che non viene dalla luce da sola: viene dal momento in cui smetti di rimuginare in silenzio e lo pronunci.
+- 2: Raccontato a qualcuno, il pensiero perde metà del peso. Il saldo di questo percorso è un allentamento che non viene dalla luce da sola: viene dal momento in cui smetti di rimuginare in silenzio e lo dici.
 - 3: Hai passato il punto più nero della notte. Il carico si sposta appena lo dividi con qualcuno, perché detto a un'altra persona fa meno paura di quanto ne faccia girato in testa mille volte.
 
 ## Dieci di Spade
 
 ### dritta
 
-- 1: Il materiale che si è accumulato è quello di una contesa arrivata all'ultimo colpo: braccia stanche, difese spese e già pronta la resa che riconosce il campo perduto invece di rimandarla ancora.
-- 2: La soglia davanti a cui la cosa si trova è quella in cui si smette di combattere: da una parte una contesa tenuta in piedi oltre il suo tempo, dall'altra le armi posate e il campo lasciato come sta.
-- 3: Quello che questa strada chiede è l'ultimo colpo subito e quello che restituisce è la chiusura di una contesa: a conti fatti resta un campo fermo, con niente più da difendere e nessuno che attacchi.
+- 1: Il materiale che hai accumulato è quello di una contesa arrivata all'ultimo colpo: braccia stanche, difese spese e già pronta la resa che riconosce il campo perduto invece di rimandarla ancora.
+- 2: La soglia davanti a cui ti trovi è quella in cui si smette di combattere: da una parte una contesa tenuta in piedi oltre il suo tempo, dall'altra le armi posate e il campo lasciato come sta.
+- 3: Quello che questa strada ti chiede è l'ultimo colpo subito e quello che restituisce è la chiusura di una contesa: a conti fatti resta un campo fermo, con niente più da difendere e nessuno che attacchi.
 
 ### capovolta
 
@@ -1094,15 +1094,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Questa via sbocca in una ricerca raccontata mentre dura: quello che si trova passa di mano appena trovato, con gli occhi ancora sul dettaglio e nessun giudizio messo insieme.
-- 2: Il nodo che resta in mano a chi chiede è quanto tempo lasciare fra lo scoprire e il dire, perché qui la scoperta e il racconto arrivano insieme e nessuno ha ancora deciso niente.
-- 3: La forma che l'insieme sta assumendo è quella di una ricognizione giovane: domande, orecchie tese, dettagli raccolti e passati subito ad altri, con la verità intera ancora da comporre.
+- 1: Questa via sbocca in una ricerca raccontata mentre dura: quello che trovi passa di mano appena trovato, con gli occhi ancora sul dettaglio e nessun giudizio messo insieme.
+- 2: Il nodo che ti resta in mano è quanto tempo lasciare fra lo scoprire e il dire, perché qui la scoperta e il racconto arrivano insieme e nessuno ha ancora deciso niente.
+- 3: La forma che l'insieme sta assumendo è quella di una ricognizione giovane: domande, orecchie tese, dettagli che raccogli e passi subito ad altri, con la verità intera ancora da comporre.
 
 ### capovolta
 
-- 1: Quello che si sta accumulando sono chiacchiere che girano: cose dette senza verificarle, parole riferite alle spalle, piccoli colpi che pungono e non costruiscono niente.
+- 1: Quello che si sta accumulando intorno a te sono chiacchiere che girano: cose dette senza verificarle, parole riferite alle spalle, piccoli colpi che pungono e non costruiscono niente.
 - 2: Si va verso una lingua usata male da chi ancora non sa tenerla: pettegolezzo, curiosità che diventa spiata, pensieri sparsi lanciati come punte. Quello che dici a vanvera torna indietro.
-- 3: A spargersi qui è il non verificato. Il conto si presenta a chi lo ha sparso: il pungolo lanciato alle spalle di qualcuno ha la cattiva abitudine di rifare la strada al contrario.
+- 3: A spargersi intorno a te è il non verificato. Il conto si presenta a chi lo ha sparso: il pungolo lanciato alle spalle di qualcuno ha la cattiva abitudine di rifare la strada al contrario.
 
 ## Cavaliere di Spade
 
@@ -1138,7 +1138,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada sbocca in una decisione presa con la testa chiara: argomenti messi in fila, ragioni pesate, parole oneste. Qui l'insieme lo governa un'autorità di pensiero, la tua, non una bilancia che pesa da sola.
 - 2: Il giudizio lucido è già nel materiale di questo tratto. Il punto in cui arriva è quello in cui diventi il riferimento a cui gli altri portano le questioni difficili, perché decidi con equità e senza giri.
-- 3: Qui si approda a una mente che comanda con etica. Non la calma dei sentimenti: la lama del ragionamento, tenuta al servizio del bene, che separa il vero dal falso e dice come stanno le cose.
+- 3: Qui si approda a una mente che comanda con etica, la tua. Non la calma dei sentimenti: la lama del ragionamento, tenuta al servizio del bene, che separa il vero dal falso e dice come stanno le cose.
 
 ### capovolta
 

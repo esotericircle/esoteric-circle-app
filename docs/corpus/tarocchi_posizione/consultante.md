@@ -458,7 +458,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Tutto si muove insieme e in fretta: notizie che si accavallano, risposte che rientrano, cose ferme da tempo che partono tutte nello stesso giorno.
+- 1: Tutto si muove insieme e in fretta intorno a te: notizie che si accavallano, risposte che rientrano, cose ferme da tempo che partono tutte nello stesso giorno.
 - 2: Sei dentro un'accelerazione che non hai provocato tu. Il ritmo si è alzato da solo e quello che aspettavi si sta già muovendo verso di te.
 - 3: La tua situazione ha preso velocità. Messaggi, chiamate, segnali: niente resta in sospeso a lungo e fra una domanda e la sua risposta passa pochissimo.
 
@@ -718,7 +718,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Le parole d'affetto non trovano seguito nei gesti. La corte che ricevi, oppure quella che fai tu, resta sospesa a promesse che nessuno mantiene.
 - 2: Ti muovi dentro un sentimento dichiarato e mai dimostrato. Suona bene, intanto nulla attecchisce: di quello che era stato detto non resta un fatto.
-- 3: C'è una distanza fra ciò che viene detto e ciò che viene fatto, da una parte o dall'altra. Non è un cuore chiuso dalla ferita, è una promessa senza radici, bella da sentire.
+- 3: C'è una distanza fra ciò che viene detto e ciò che viene fatto, da parte tua o dell'altra persona. Non è un cuore chiuso dalla ferita, è una promessa senza radici, bella da sentire.
 
 ## Regina di Coppe
 

@@ -1,0 +1,20 @@
+== FM.04, il controllo della seconda persona, 12 ottobre 2026
+PRIMA DELL'INNESTO: "Nella tua domanda circola un'aria di primo mattino, leggera " -> VERDE
+innesto: "tua" diventa "sua" nella variante 1 del Matto dritto in copre.md; entrato (grep -c): 1
+esito dopo l'innesto: ROSSA ['copre, Il Matto, dritta, variante 1: non si rivolge alla persona col tu']
+ripristinato al byte: si
+== FM.04, il controllo della seconda persona, secondo innesto (il verbo)
+PRIMA DELL'INNESTO: "Cade sulla cosa che hai in mano una luce stretta: accende il" -> VERDE
+innesto: "hai" diventa "ha" nella variante 3 del Matto dritto in copre.md; entrato (grep -c): 1
+esito dopo l'innesto: ROSSA ['copre, Il Matto, dritta, variante 3: non si rivolge alla persona col tu']
+ripristinato al byte: si
+== FM.04, il controllo della seconda persona, 12 ottobre 2026
+PRIMA DELL'INNESTO: "Nella tua domanda circola un'aria di primo mattino, leggera " -> VERDE
+innesto: "tua" diventa "sua" nella variante 1 del Matto dritto in copre.md; entrato (grep -c): 1
+esito dopo l'innesto: ROSSA ['copre, Il Matto, dritta, variante 1: non si rivolge alla persona col tu']
+ripristinato al byte: si
+== FM.04, il controllo della seconda persona, secondo innesto (il verbo)
+PRIMA DELL'INNESTO: "Cade sulla cosa che hai in mano una luce stretta: accende il" -> VERDE
+innesto: "hai" diventa "ha" nella variante 3 del Matto dritto in copre.md; entrato (grep -c): 1
+esito dopo l'innesto: ROSSA ['copre, Il Matto, dritta, variante 3: non si rivolge alla persona col tu']
+ripristinato al byte: si

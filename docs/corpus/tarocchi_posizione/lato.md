@@ -409,7 +409,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Hai di fianco un traguardo intero che non trova il suo momento: la casa è in piedi e nessuno ha ancora fatto ingresso, così la festa resta rimandata a una data che non si fissa.
 - 2: Una celebrazione a metà accompagna una cosa riuscita per intero: l'opera sta su, il risultato è quello che volevi e il giorno che lo segna non è ancora stato scelto.
-- 3: Fuori dalla porta resta il momento della festa mentre dentro il traguardo è completo: il lavoro non ha un pezzo in meno e quello che manca è soltanto l'ingresso da fare.
+- 3: Fuori dalla porta ti resta il momento della festa mentre dentro il traguardo è completo: il lavoro non ha un pezzo in meno e quello che manca è soltanto l'ingresso da fare.
 
 ## Cinque di Bastoni
 
@@ -785,7 +785,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà di costruire c'è da tutte le parti, è la parola sui ruoli che non è passata.
+- 1: Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà di costruire c'è da tutte le parti, anche dalla tua: è la parola sui ruoli che non è passata.
 - 2: I ruoli che nessuno ha messo in chiaro sono la stonatura di questo lavoro a più mani. Due di voi fanno lo stesso gesto e un pezzo dell'opera non lo prende in mano nessuno.
 - 3: Vi siete messi insieme a costruire senza dividere i compiti e adesso il cantiere va a scatti. Nessuno rema contro: manca il modo di dirsi chi tiene cosa.
 
@@ -883,7 +883,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Sulla stessa cosa di casa poggiano le mani di più parenti e ognuno conta la propria parte in modo diverso. I beni non mancano, manca l'accordo su chi risponde di che cosa.
+- 1: Sulla stessa cosa di casa tua poggiano le mani di più parenti e ognuno conta la propria parte in modo diverso. I beni non mancano, manca l'accordo su chi risponde di che cosa.
 - 2: Un bene tenuto in comune dai tuoi si è messo in mezzo fra loro: quello che una generazione aveva unito viene adesso rivendicato a pezzi da chi siede alla tua tavola.
 - 3: Fra i tuoi corre un attrito su proprietà che nessuno possiede per intero. Abbondanza ce n'è, è l'intestazione a essere plurale e ogni decisione passa per il consenso di chi ti è parente.
 
@@ -1089,7 +1089,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Una curiosità in sentinella ti mette accanto chi va a guardare e torna di corsa a raccontare: quello che scopre lo riferisce appena lo ha in mano, prima di averlo verificato.
 - 2: Hai accanto l'abitudine di domandare e di dire subito quello che ottieni: le notizie ti passano per le mani calde, senza il tempo che sta fra lo scoprire una cosa e il pronunciarla.
-- 3: Chi osserva e chi parla, qui, sono la stessa persona e si muovono allo stesso istante: gli occhi raccolgono un dettaglio e la lingua lo consegna già, mentre la verità intera resta da mettere insieme.
+- 3: Chi osserva e chi parla, qui, sono la stessa persona e si muovono allo stesso istante: i tuoi occhi raccolgono un dettaglio e la lingua lo consegna già, mentre la verità intera resta da mettere insieme.
 
 ### capovolta
 
