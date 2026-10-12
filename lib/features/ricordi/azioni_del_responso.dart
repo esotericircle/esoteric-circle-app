@@ -542,3 +542,78 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     );
   }
 }
+
+/// **IL PARLANE SOTTILE, FUORI DALLA SCHERMATA FINALE.** Richiesta del
+/// fondatore, ordine FM aggiunta 3, 12 ottobre 2026.
+///
+/// Quando un'arte legge il suo responso a pezzi (una bolla per carta, una
+/// scheda per transito), il "Parlane con il Maestro" in fondo alla
+/// schermata si perde: chi legge solo la prima bolla non lo vede mai. Questo
+/// e' lo stesso gesto di [AzioniDelResponso] - stessa icona, stesso colore,
+/// la frase del pezzo che si legge ricordata per il Maestro - ma piu'
+/// piccolo e pensato per stare dentro un singolo pezzo, non in fondo a tutti.
+///
+/// **Passa da QUI e non da un `Navigator.push` scritto a mano nell'arte**,
+/// perche' la porta unica (ordine CG voci 06 e 08, ordine DX voce 03) e' cio'
+/// che tiene il censimento vero: un'apertura della chat scritta nel file
+/// dell'arte sarebbe invisibile alle due guardie che lo sorvegliano.
+class ParlaneConMaestroCompatto extends StatelessWidget {
+  const ParlaneConMaestroCompatto({
+    super.key,
+    this.keyDelPulsante,
+    required this.palette,
+    required this.maestro,
+    required this.frase,
+    required this.aperturaDellaChat,
+  });
+
+  /// La chiave del pulsante vero, per le prove: il widget esterno e' solo un
+  /// allineamento, e cercare lui non trova il `FilledButton`.
+  final Key? keyDelPulsante;
+
+  final MaestroPalette palette;
+
+  /// Il Maestro con cui si parla.
+  final Maestro maestro;
+
+  /// La frase di QUESTO pezzo del responso, non dell'intero responso: e'
+  /// quella che [IlFiloDelConsulto] ricorda, ordine FE voce 11.
+  final String frase;
+
+  /// La prima domanda con cui si apre la chat, composta da `ChatOpeners`.
+  final String aperturaDellaChat;
+
+  void _parlane(BuildContext context) {
+    IlFiloDelConsulto.ricordaLaFrase(frase);
+    final AppServices services;
+    try {
+      services = context.read<AppServices>();
+    } catch (errore) {
+      debugPrint('ParlaneConMaestroCompatto: i servizi non ci sono. $errore');
+      return;
+    }
+    Navigator.of(context).push(MaestroChatScreen.route(
+      maestro: maestro,
+      services: services,
+      initialUserMessage: aperturaDellaChat,
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) => Align(
+        alignment: Alignment.centerRight,
+        child: FilledButton.icon(
+          key: keyDelPulsante,
+          style: FilledButton.styleFrom(
+              textStyle: _AzioniDelResponsoState._misuraDelleAzioni,
+              backgroundColor:
+                  AccentoDelMaestro.portatoSu(palette.primary, palette.onPrimary),
+              foregroundColor: palette.onPrimary,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SpacingTokens.sm, vertical: SpacingTokens.xxs)),
+          onPressed: () => _parlane(context),
+          icon: const Icon(Icons.forum_outlined, size: 16),
+          label: Text('Parlane con ${maestro.nomeAVideo}'),
+        ),
+      );
+}

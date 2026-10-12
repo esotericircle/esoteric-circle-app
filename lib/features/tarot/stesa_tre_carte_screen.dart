@@ -3,7 +3,6 @@ import 'dart:math';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
-import '../maestri/chat/maestro_chat_screen.dart';
 import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
@@ -65,9 +64,6 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
 import '../../core/sensi/palette_sensoriale.dart';
-import '../../core/chat/il_filo_del_consulto.dart';
-import '../../design_system/theme/accento_del_maestro.dart';
-import '../../services/app_services.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
 const double kTarotAspect = 2 / 3;
@@ -3077,51 +3073,21 @@ class BollaDellaPosizione extends StatelessWidget {
           // **IL PARLANE CON MEDORA DI OGNI BOLLA. Richiesta del fondatore,
           // 12 ottobre 2026.** Il pulsante in fondo alla schermata, dopo le
           // tre bolle e il Consiglio, si perde: chi legge una sola carta e
-          // chiude non lo vede mai. Stesso colore e stessa icona del
-          // pulsante in fondo (`AzioniDelResponso.responso_parlane`), ma
-          // piu' sottile: meno riempimento, non a tutta larghezza, allineato
-          // a destra come un invito e non come l'azione che chiude la
-          // schermata.
-          Align(
-            alignment: Alignment.centerRight,
-            child: FilledButton.icon(
-              key: Key('bolla_parlane_${letta.drawn.position.name}'),
-              style: FilledButton.styleFrom(
-                  textStyle: TypographyTokens.titoloDiRiga(),
-                  backgroundColor: AccentoDelMaestro.portatoSu(
-                      palette.primary, palette.onPrimary),
-                  foregroundColor: palette.onPrimary,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.sm,
-                      vertical: SpacingTokens.xxs)),
-              onPressed: () => _parlaneConMedora(context),
-              icon: const Icon(Icons.forum_outlined, size: 16),
-              label: const Text('Parlane con Medora'),
-            ),
+          // chiude non lo vede mai. Passa da `ParlaneConMaestroCompatto`,
+          // la stessa porta di `AzioniDelResponso` (ordine CG voci 06 e 08,
+          // ordine DX voce 03): un `Navigator.push` scritto qui a mano
+          // sarebbe invisibile al censimento di quelle due guardie.
+          ParlaneConMaestroCompatto(
+            keyDelPulsante: Key('bolla_parlane_${letta.drawn.position.name}'),
+            palette: palette,
+            maestro: Maestro.medora,
+            frase: letta.testo,
+            aperturaDellaChat: ChatOpeners.cartaDellaStesa(
+                letta.drawn.position.label, letta.drawn.displayName),
           ),
         ],
       ),
     );
-  }
-
-  /// Apre la chat di Medora con la frase di questa carta gia' dentro, come
-  /// fa `AzioniDelResponso._parlane` per l'intero responso: qui la frase e'
-  /// quella della sola posizione, non del Consiglio.
-  void _parlaneConMedora(BuildContext context) {
-    IlFiloDelConsulto.ricordaLaFrase(letta.testo);
-    final AppServices services;
-    try {
-      services = context.read<AppServices>();
-    } catch (errore) {
-      debugPrint('Bolla: i servizi non ci sono. $errore');
-      return;
-    }
-    Navigator.of(context).push(MaestroChatScreen.route(
-      maestro: Maestro.medora,
-      services: services,
-      initialUserMessage: ChatOpeners.cartaDellaStesa(
-          letta.drawn.position.label, letta.drawn.displayName),
-    ));
   }
 }
 
