@@ -145,12 +145,23 @@ void main() {
         reason: 'La chat vuota non passa dalla porta unica del busto.');
   });
 
-  testWidgets('la Stesa mostra il busto di Medora dalla porta unica',
-      (tester) async {
+  // **LAPIDE: "la Stesa mostra il busto di Medora dalla porta unica".**
+  // Ordine FL voce 01, 12 ottobre 2026, il fondatore: "SFONDO NUOVO con
+  // sovrapposta Medora tagliata alla vita come se fosse dietro il tavolo".
+  // La Stesa diventa un'eccezione voluta, come la home: Medora e' il busto
+  // disegnato per il tavolo (medora_busto_v1.webp, con le carte sospese),
+  // non il ritaglio della porta unica. La prova cade se torna il ritaglio o
+  // se Medora sparisce dal tavolo.
+  testWidgets(
+      'la Stesa resta l\'eccezione: Medora dietro il tavolo, non il '
+      'busto della porta unica', (tester) async {
     await pompa(tester, const StesaTreCarteScreen(seed: 7));
     await tester.pump(const Duration(seconds: 3));
-    expect(find.byType(BustoDelMaestro), findsOneWidget,
-        reason: 'La Stesa non passa dalla porta unica del busto.');
+    expect(find.byKey(const Key('tavolo_medora')), findsOneWidget,
+        reason: 'Nella Stesa Medora non sta piu\' dietro il tavolo.');
+    expect(find.byType(BustoDelMaestro), findsNothing,
+        reason: 'Nella Stesa e\' tornato il busto ritagliato della porta '
+            'unica al posto di Medora dietro il tavolo.');
   });
 
   testWidgets('la home Il Cerchio resta l\'eccezione: i tre interi',

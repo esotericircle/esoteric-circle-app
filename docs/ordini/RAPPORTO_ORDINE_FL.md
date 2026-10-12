@@ -56,6 +56,7 @@ E una cosa che non ho deciso e dichiaro: `lib/features/tarot/medora_stage.dart` 
 - **Un innesto che non era un difetto**: mio, nella Regola A della FL.14 (`null ?? f` vale `f`). Rifatto con un difetto vero, rosso. Scritto nel registro della Regola A.
 - **La faccia trasparente nel terzo fotogramma della sequenza**: padre **FL.05**, la cattura che non precaricava le immagini. Era la cattura, non l'app: con le immagini precaricate la faccia c'e'.
 - **La cattura dei mazzi ferma su Marsiglia**: padre **FL.14**, la mia cattura. Un'immagine letta dal file col tempo finto della prova non finisce mai e resta nella cache. Ora si precarica prima di aprire la schermata.
+- **Tre rossi della suite intera**, detti nella sezione della suite qui sotto: padri **FL.01** (il busto della porta unica), **FL.14** (lo `skip:` nella cattura dei mazzi) e **FL.08** (la cartella del tavolo mancante in `docs/stato_asset.json`).
 - **Tre timer appesi in tre prove** alla chiusura della schermata durante la sequenza: padre **FL.05**, `Future.delayed` nella sequenza; ora i timer si cancellano alla chiusura.
 
 ## LE GUARDIE
@@ -68,7 +69,9 @@ E una cosa che non ho deciso e dichiaro: `lib/features/tarot/medora_stage.dart` 
 
 ## LA SUITE
 
-SUITE_FINALE
+La suite intera sul commit `47dc8bac` (le aggiunte FK e l'ordine FL insieme, una suite sola come concordato col fondatore), nella copia `C:/Users/user/fi0`: **+7139 -15** (`flutter test -r expanded`, 62 minuti). Dei 15 rossi, **11 erano i fine riga della copia**: `core.autocrlf` l'aveva riportata in CRLF e le prove che cercano `'
+}
+'` nei sorgenti (`chi_esce_dal_cerchio_esce_dal_conto`, `il_selettore_scorre_e_il_microfono_riparte`, `la_risposta_arriva_prima_e_aura_si_scrive_giusta` due volte, `la_televisione_non_tiene_aperta_la_frase`, `online_nella_barra_e_gli_eventi_nel_passport`, `ordine_co_guard`, `ordine_dt_guard`, `i_banchi_col_modello_hanno_un_comando` tre volte) non trovavano la fine; rifatti nella copia riportata in LF, tutti verdi. **Uno era la registrazione**: `i_rapporti_consegnati_non_si_correggono` pretende i rapporti FK e FL registrati e lo sono dopo questa riga. **Tre erano difetti veri dell'ordine FL**, corretti e visti rossi prima della correzione dove la prova e' stata riscritta: `il_busto_e_la_forma_del_maestro` pretendeva il busto della porta unica nella Stesa (padre **FL.01**: Medora e' il busto disegnato per il tavolo; la prova riscritta con la lapide fa della Stesa un'eccezione voluta come la home, rossa togliendo Medora dal tavolo); `il_cancello_esegue_tutte_le_prove` ha trovato un `skip:` nella mia cattura dei mazzi (padre **FL.14**: ora Marsiglia e Thoth si catturano solo indicando la cartella con `MAZZI_DI_COLLAUDO` e nessuna prova si salta da sola); `stato_asset_test` voleva `assets/img/tavolo/` anche in `docs/stato_asset.json` (padre **FL.08**). I file delle tre correzioni rifatti da soli: verdi. La suite intera non e' stata rigirata dopo le tre correzioni: lo dira' il cancello di GitHub sul commit spinto.
 
 ## LA BUILD
 

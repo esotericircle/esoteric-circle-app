@@ -70,3 +70,9 @@ AGGIUNTE DEL 12 OTTOBRE 2026, dopo le richieste del fondatore sul bagliore e sui
    innesto entrato (grep): si
    esito: ROSSA
    ripristinato al byte: si
+
+DOPO LA SUITE, i tre rossi veri corretti:
+== il_busto_e_la_forma_del_maestro riscritta con la lapide: Medora tolta dal tavolo (lib/features/tarot/il_tavolo_di_medora.dart)
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

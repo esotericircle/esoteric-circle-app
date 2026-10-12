@@ -4158,19 +4158,25 @@ void main() {
   //
   // Marsiglia e Thoth si scaricano dal bucket: qui si leggono installati da
   // una cartella di collaudo nel formato dell'app (mazzi/<id>/installato.json),
-  // riempita dal CDN pubblico. Senza la cartella le catture si saltano.
-  const cartellaDeiMazzi =
-      'C:/Users/user/AppData/Local/Temp/claude/mazzi_collaudo';
-  for (final mazzo in TarotDeckStyle.values) {
+  // riempita dal CDN pubblico, indicata con MAZZI_DI_COLLAUDO come
+  // AGGIORNA_ANTEPRIME. Senza, si cattura il solo Rider-Waite: nessuna prova
+  // si salta da sola (il cancello lo vieta), le due catture dei mazzi
+  // scaricati non nascono.
+  final cartellaDeiMazzi = Platform.environment['MAZZI_DI_COLLAUDO'] ?? '';
+  for (final mazzo in [
+    for (final d in TarotDeckStyle.values)
+      if (d.nelBinario ||
+          File('$cartellaDeiMazzi/mazzi/${d.sulBucket}/installato.json')
+              .existsSync())
+        d,
+  ]) {
     for (final (tipo, nome) in const [
       (TarotSpreadType.unaCarta, 'una_carta'),
       (TarotSpreadType.treCarte, 'tre_carte'),
       (TarotSpreadType.croceQuattro, 'croce'),
     ]) {
       testWidgets("Cattura l'ordine FL, il mazzo ${mazzo.name}, la stesa $nome",
-          skip: !mazzo.nelBinario &&
-              !File('$cartellaDeiMazzi/mazzi/${mazzo.sulBucket}/installato.json')
-                  .existsSync(), (tester) async {
+          (tester) async {
         silenceSensors();
         await loadFonts();
         final prima = IMazziScaricati.diCasa;
