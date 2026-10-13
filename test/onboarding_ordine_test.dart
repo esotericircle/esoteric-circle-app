@@ -205,10 +205,14 @@ void main() {
     // schema di `test/le_anteprime_dell_ordine_fg_test.dart` (`carica`):
     // un `runAsync` con un ritardo vero, alternato a un `pump`, cede
     // davvero il controllo all'event loop finche' il caricamento finisce.
+    // **IL BUDGET E' IN TEMPO REALE, e le macchine di GitHub sono piu'
+    // lente della mia.** Centoventi giri da 250 millisecondi sono fino a
+    // trenta secondi veri di attesa: generoso per un caricamento che in
+    // locale finisce in pochi secondi, necessario su un runner condiviso.
     var compare = find.byKey(const Key('macchina_viaggia_dal_cielo'))
         .evaluate()
         .isNotEmpty;
-    for (var i = 0; i < 60 && !compare; i++) {
+    for (var i = 0; i < 120 && !compare; i++) {
       await tester.runAsync(
           () => Future<void>.delayed(const Duration(milliseconds: 250)));
       await tester.pump(const Duration(milliseconds: 50));
@@ -227,7 +231,7 @@ void main() {
     // "fermo" (`_durataDellArrivo`). Un budget di 20 secondi la sfiorava
     // appena: qui ce n'e' per entrambe le cose con margine.
     var trovato = false;
-    for (var i = 0; i < 70 && !trovato; i++) {
+    for (var i = 0; i < 100 && !trovato; i++) {
       await tester.pump(const Duration(milliseconds: 500));
       trovato = find.byKey(const Key('sky_cta')).evaluate().isNotEmpty;
     }
