@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/birth_details.dart';
@@ -80,7 +81,24 @@ void main() {
       'dopo di loro',
       (tester) async {
     silence();
-    SharedPreferences.setMockInitialValues({});
+    // **SENZA UN LUOGO SALVATO, IL CIELO DI NASCITA RESTA APPESO.** Ordine
+    // FN/FO, 13 ottobre 2026: da quando "Leggi la tua carta" aspetta la
+    // corsa, questa prova deve davvero arrivare in fondo al caricamento del
+    // cielo, e quel caricamento chiede la posizione attuale
+    // (`DoveSonoAdesso.letto()`, poi `GeolocatorSkyLocation` se non trova
+    // niente) prima di preparare il modo. Nessun canale del geolocalizzatore
+    // e' finto in questa prova (solo i sensori lo sono, in `silence()`), e
+    // l'attesa di quella chiamata non finiva mai. Un luogo gia' salvato
+    // evita del tutto la domanda al dispositivo, come la trova chi ha gia'
+    // concesso la posizione una volta.
+    SharedPreferences.setMockInitialValues({
+      'luogo.attuale': jsonEncode({
+        'lat': 41.9028,
+        'lon': 12.4964,
+        'nome': 'Roma',
+        'origine': 'dispositivo',
+      }),
+    });
     tester.view.devicePixelRatio = 1.0;
     tester.view.physicalSize = const Size(430, 2400);
     addTearDown(tester.view.resetPhysicalSize);
@@ -174,6 +192,47 @@ void main() {
     expect(find.byType(NatalChartReveal), findsNothing,
         reason: 'la carta arriva prima del cielo di nascita');
 
+    // **"LEGGI LA TUA CARTA" ASPETTA LA CORSA, ordine FN, 13 ottobre 2026.**
+    // Prima il pulsante del seguito (`sky_cta`) stava li' fin da subito; il
+    // fondatore ha chiesto un solo pulsante alla volta, "viaggia nel tempo"
+    // prima e "leggi la tua carta" solo a corsa finita. Qui si avvia la
+    // corsa come farebbe la persona, e si aspetta l'arrivo.
+    // **L'ATTESA VUOLE `runAsync`, NON SOLO `pump`.** La schermata carica
+    // asset veri (catalogo delle stelle, Luna, orizzonte, Via Lattea, cinque
+    // corpi del cielo profondo) con `rootBundle.load` e la decodifica delle
+    // immagini: lavoro asincrono vero, che il solo `tester.pump()` non fa
+    // avanzare, perche' resta dentro la zona finta del test. Lo stesso
+    // schema di `test/le_anteprime_dell_ordine_fg_test.dart` (`carica`):
+    // un `runAsync` con un ritardo vero, alternato a un `pump`, cede
+    // davvero il controllo all'event loop finche' il caricamento finisce.
+    var compare = find.byKey(const Key('macchina_viaggia_dal_cielo'))
+        .evaluate()
+        .isNotEmpty;
+    for (var i = 0; i < 60 && !compare; i++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 250)));
+      await tester.pump(const Duration(milliseconds: 50));
+      compare = find.byKey(const Key('macchina_viaggia_dal_cielo'))
+          .evaluate()
+          .isNotEmpty;
+    }
+    expect(compare, isTrue,
+        reason: 'il cielo di nascita non offre piu\' "Viaggia nel tempo"');
+    await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
+    await tester.pump();
+    // **LA CORSA VERSO LA NASCITA DURA DA SOLA UNA VENTINA DI SECONDI**
+    // (misurato in `test/le_anteprime_della_macchina_del_tempo_test.dart`,
+    // I6/I11: 17,2 secondi dal tocco all'arrivo), e SOLO DOPO comincia
+    // l'attesa di 3,2 secondi della fase "arrivo" prima di tornare a
+    // "fermo" (`_durataDellArrivo`). Un budget di 20 secondi la sfiorava
+    // appena: qui ce n'e' per entrambe le cose con margine.
+    var trovato = false;
+    for (var i = 0; i < 70 && !trovato; i++) {
+      await tester.pump(const Duration(milliseconds: 500));
+      trovato = find.byKey(const Key('sky_cta')).evaluate().isNotEmpty;
+    }
+    expect(trovato, isTrue,
+        reason: 'la corsa non porta mai a "Leggi la tua carta"');
     await tester.tap(find.byKey(const Key('sky_cta')));
     await passo(tester);
     expect(find.byType(NatalChartReveal), findsOneWidget,

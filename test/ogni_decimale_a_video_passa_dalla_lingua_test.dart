@@ -62,6 +62,11 @@ void main() {
             'forma internazionale delle coordinate, e scriverle con la '
             'virgola le renderebbe piu difficili da copiare altrove. E una '
             'scelta dichiarata, non una dimenticanza',
+    'lib/features/real_time_cosmo/cielo_reale_screen.dart':
+        'sono LATITUDINE e LONGITUDINE a quattro decimali nel cielo di '
+            'adesso, ordine FN/FO, 13 ottobre 2026: la stessa riga che '
+            'prima viveva in sky_overview_screen.dart, con la stessa '
+            'ragione, tornata visibile sopra "Attiva macchina del tempo"',
   };
 
   test('OGNI DECIMALE A VIDEO PASSA DALLA LINGUA, o e\' dichiarato', () {

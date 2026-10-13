@@ -18,10 +18,16 @@ void main() {
     // le voci del sottomenu non confondono il conto.
     final madre =
         sorgente.substring(0, sorgente.indexOf('class PrivacyEDatiScreen'));
+    // **'custodia' E' USCITA DA QUESTA SEQUENZA, ordine FN/FP, 13 ottobre
+    // 2026.** Prima stava fra 'nascita' e 'verifica_email', per chi era
+    // ospite. Il fondatore ha chiesto che per l'ospite sia la PRIMA voce
+    // della schermata, non la terza: *"deve comparire come prima voce per
+    // l'utente ospite"*. Una voce che deve essere la prima nell'elenco
+    // reso non puo' stare, nel sorgente, dopo 'profilo' e 'nascita': la
+    // sua posizione si controlla a parte, sotto.
     const ordine = [
       "id: 'profilo'",
       "id: 'nascita'",
-      "id: 'custodia'",
       "id: 'verifica_email'",
       "id: 'cambia_parola'",
       "id: 'abbonamento'",
@@ -38,6 +44,14 @@ void main() {
               'del menu (o e\' sparita dalla lista madre)');
       da = dove;
     }
+    // La voce dell'ospite esiste, e nella lista resa per l'ospite e' la
+    // prima: nel sorgente il suo richiamo sta prima di 'profilo'.
+    final dovCustodia = madre.indexOf("_voceDellaCustodia(context)");
+    final dovProfilo = madre.indexOf("id: 'profilo'");
+    expect(dovCustodia, greaterThanOrEqualTo(0),
+        reason: 'la voce della custodia e\' sparita dalla lista madre');
+    expect(dovCustodia, lessThan(dovProfilo),
+        reason: 'la voce della custodia non e\' piu\' la prima per l\'ospite');
     // E le voci delicate NON stanno nella lista madre.
     for (final delicata in const ["id: 'azzera'", "id: 'oblio'"]) {
       expect(madre.contains(delicata), isFalse,
