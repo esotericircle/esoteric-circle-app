@@ -222,16 +222,28 @@ void main() {
     }
     expect(compare, isTrue,
         reason: 'il cielo di nascita non offre piu\' "Viaggia nel tempo"');
+    // **RIDUCI MOVIMENTO, invece di inseguire la durata vera della corsa.**
+    // La corsa verso la nascita dura da sola una ventina di secondi
+    // (misurato in `test/le_anteprime_della_macchina_del_tempo_test.dart`,
+    // I6/I11: 17,2 secondi dal tocco all'arrivo), un tempo simulato che tre
+    // giri del cancello di GitHub non sono bastati a coprire con margine
+    // anche raddoppiato: il runner e' piu' lento del previsto e inseguire
+    // la sua velocita' a tentativi non e' la cura giusta. Il codice stesso
+    // (`_avviaLaCorsa`, `if (_riduciMovimento) _vaiAllaNascita(...)`) sa
+    // saltare l'animazione intera quando l'accessibilita' lo chiede: e'
+    // la stessa via che userebbe una persona con quell'opzione attiva, e
+    // qui rende la prova veloce e indipendente da quanto e' lenta la
+    // macchina. Resta da aspettare solo l'arrivo vero e proprio (3,2
+    // secondi di tempo simulato, `_durataDellArrivo`), che non dipende da
+    // nessun caricamento reale.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    await tester.pump();
     await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
     await tester.pump();
-    // **LA CORSA VERSO LA NASCITA DURA DA SOLA UNA VENTINA DI SECONDI**
-    // (misurato in `test/le_anteprime_della_macchina_del_tempo_test.dart`,
-    // I6/I11: 17,2 secondi dal tocco all'arrivo), e SOLO DOPO comincia
-    // l'attesa di 3,2 secondi della fase "arrivo" prima di tornare a
-    // "fermo" (`_durataDellArrivo`). Un budget di 20 secondi la sfiorava
-    // appena: qui ce n'e' per entrambe le cose con margine.
     var trovato = false;
-    for (var i = 0; i < 100 && !trovato; i++) {
+    for (var i = 0; i < 20 && !trovato; i++) {
       await tester.pump(const Duration(milliseconds: 500));
       trovato = find.byKey(const Key('sky_cta')).evaluate().isNotEmpty;
     }
