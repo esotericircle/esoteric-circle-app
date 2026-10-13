@@ -554,11 +554,26 @@ class TendinaSelettore<T> extends StatelessWidget {
     // `unfocus()` di prima, perche' viene dopo. Lo stesso `unfocus()` va
     // ripetuto qui, in `onSelected`, che Flutter chiama DOPO quel
     // ripristino: l'ultima parola e' la nostra.
+    //
+    // **E NON ERA NEMMENO QUESTO. Ordine FS, 13 ottobre 2026.** Vista ancora
+    // dal fondatore sulla 2308, e riprodotta da una prova che fa il gesto e
+    // guarda il focus vero (`la_tastiera_non_torna_dopo_la_scelta_test.dart`,
+    // rossa in quattro casi su quattro col codice di sopra, anche chiudendo
+    // il menu senza scegliere). `FocusScope.of(context).unfocus()` toglie il
+    // focus alla SCHERMATA, non al campo: la schermata ricorda nella sua
+    // storia che l'ultimo figlio a fuoco era il campo della domanda, e
+    // quando la route del menu si chiude Flutter le restituisce il focus e
+    // lei lo ridà al campo. Chi va spento e' il campo stesso,
+    // `FocusManager.instance.primaryFocus`: il suo `unfocus()` svuota anche
+    // la storia della schermata, e alla chiusura del menu non c'e' piu'
+    // niente da restituire.
+    void spegniLaTastiera() => FocusManager.instance.primaryFocus?.unfocus();
     return PopupMenuButton<T>(
       key: chiave,
       tooltip: titolo,
       position: PopupMenuPosition.under,
-      onOpened: () => FocusScope.of(context).unfocus(),
+      onOpened: spegniLaTastiera,
+      onCanceled: spegniLaTastiera,
       color: palette.surfaceElevated,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -566,7 +581,7 @@ class TendinaSelettore<T> extends StatelessWidget {
       ),
       padding: EdgeInsets.zero,
       onSelected: (v) {
-        FocusScope.of(context).unfocus();
+        spegniLaTastiera();
         if (bloccata(v)) {
           onLocked(v);
         } else {

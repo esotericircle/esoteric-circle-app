@@ -60,8 +60,8 @@ void main() {
 
     test('l\'istruzione nomina APPROFONDIMENTO solo quando è profonda', () {
       final breve = LaLetturaDellaStesa.istruzione(CourtesyForm.neutral);
-      final lunga = LaLetturaDellaStesa.istruzione(CourtesyForm.neutral,
-          profonda: true);
+      final lunga =
+          LaLetturaDellaStesa.istruzione(CourtesyForm.neutral, profonda: true);
       expect(breve, isNot(contains('APPROFONDIMENTO')));
       expect(lunga, contains('APPROFONDIMENTO1'));
       expect(lunga, contains('approfondimento1'),
@@ -185,34 +185,28 @@ void main() {
     // chiama il bottone stesso, dentro `showButtonMenu()`, PRIMA di aprire
     // la rotta del menu (verificato sul sorgente del framework,
     // `popup_menu.dart`): nessuna arena, nessuna corsa da vincere.
-    test('ogni tendina toglie il focus prima di aprirsi', () {
-      expect(selettori, contains('onOpened: () => FocusScope.of(context).unfocus()'),
-          reason: 'la tendina non toglie piu\' il focus dal campo della '
-              'domanda prima di aprirsi: la tastiera torna su da sola '
-              'quando la route del menu si chiude');
-      expect(selettori, isNot(contains('onTapDown: (_) => FocusScope.of(context).unfocus()')),
-          reason: 'e non deve tornare al vecchio onTapDown, che non vince '
-              'sempre l\'arena dei gesti contro l\'InkWell del menu');
-    });
-
-    // **E LO TOGLIE ANCORA DOPO LA SCELTA, ordine FR voce 06.** Visto a
-    // video sul Realme: `onOpened` toglie il focus prima che il menu si
-    // apra, ma Flutter lo rimette quando quella route si chiude, e
-    // `onSelected` arriva DOPO. Senza un secondo `unfocus()` li' dentro, la
-    // tastiera torna su proprio nell'istante in cui si sceglie una voce,
-    // non quando si apre il menu: e' per questo che il fondatore la vedeva
-    // tornare "ogni volta che seleziono".
-    test('ogni tendina toglie il focus anche dopo aver scelto una voce', () {
-      expect(selettori, contains('onSelected: (v) {'),
-          reason: 'onSelected non e\' piu\' un blocco che puo\' togliere il '
-              'focus prima di chiamare onSelect o onLocked');
-      final inizio = selettori.indexOf('onSelected: (v) {');
-      final fine = selettori.indexOf('},', inizio);
-      final corpo = selettori.substring(inizio, fine);
-      expect(corpo, contains('FocusScope.of(context).unfocus();'),
-          reason: 'scelta una voce, il focus non si toglie una seconda '
-              'volta: il ripristino di Flutter alla chiusura del menu '
-              'rimette su la tastiera');
+    // **LAPIDE, ordine FS 13 ottobre 2026**: qui c'erano due prove sul
+    // sorgente che pretendevano `FocusScope.of(context).unfocus()` in
+    // `onOpened` e in `onSelected` (ordini FR voci 01 e 06). Il fondatore ha
+    // visto la tastiera tornare anche cosi', perche' quella chiamata spegne la
+    // schermata e non il campo. Il fatto si misura adesso col gesto vero in
+    // `test/la_tastiera_non_torna_dopo_la_scelta_test.dart`; qui resta solo
+    // che il sorgente non torni alle due forme che non funzionavano.
+    test('la tendina spegne il campo a fuoco, non la schermata', () {
+      // Senza i commenti: la spiegazione della correzione nomina la forma
+      // vecchia, e la prova non deve accusare chi spiega.
+      final codice = selettori
+          .split('\n')
+          .where((r) => !r.trimLeft().startsWith('//'))
+          .join('\n');
+      expect(codice, contains('FocusManager.instance.primaryFocus?.unfocus()'),
+          reason: 'la tendina non spegne piu\' il campo che ha il focus');
+      expect(codice, isNot(contains('FocusScope.of(context).unfocus()')),
+          reason: 'FocusScope.of(context).unfocus() spegne la schermata, '
+              'che alla chiusura del menu ridà il focus al campo');
+      expect(selettori,
+          isNot(contains('onTapDown: (_) => FocusScope.of(context).unfocus()')),
+          reason: 'e non deve tornare al vecchio onTapDown');
     });
   });
 
@@ -243,8 +237,7 @@ void main() {
         .readAsStringSync();
 
     test('il tier basso ferma il galleggio, non solo Riduci Movimento', () {
-      expect(
-          schermata,
+      expect(schermata,
           contains('MediaQuery.of(context).disableAnimations || tierBasso'),
           reason: '"Alleggerisci grafica" (QualityTier.low) non ferma più '
               'il galleggio e il tilt del tavolo: lo scorrimento resta a '
@@ -258,8 +251,8 @@ void main() {
   group('FN.7 e FN.8, il Parlane del Consiglio e la centratura', () {
     final schermata = File('lib/features/tarot/stesa_tre_carte_screen.dart')
         .readAsStringSync();
-    final azioni =
-        File('lib/features/ricordi/azioni_del_responso.dart').readAsStringSync();
+    final azioni = File('lib/features/ricordi/azioni_del_responso.dart')
+        .readAsStringSync();
 
     test('il Consiglio di Medora ha il suo pulsante Parlane', () {
       expect(schermata, contains("Key('stesa_consiglio_parlane')"),
