@@ -1,0 +1,22 @@
+LA CROCE CELTICA ALLA PROFONDITA' LUNGA, ordine FS
+Modello: gemini-2.5-flash, regione europe-west1, 2026-10-13T21:17:23.728049Z
+Pazienza dell'app: 10 s
+
+== seme 501, BREVE, tetto 2224 gettoni
+  chiamate al modello: 1, tempi ms [9943], totale ms 9977
+  esito: LETTURA DI CASA (fuori dal confine: previsione data per certa ("diventerai"))
+
+== seme 501, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 1, tempi ms [6561], totale ms 10003
+  esito: LETTURA DI CASA (il primo approfondimento è troppo lungo | la chiamata non è tornata: TimeoutException after 0:00:03.436575: Future not completed)
+
+== seme 502, BREVE, tetto 2224 gettoni
+  chiamate al modello: 1, tempi ms [6158], totale ms 6193
+  esito: dal modello
+
+== seme 502, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 2, tempi ms [6505, 839], totale ms 7360
+  esito: dal modello
+  approfondimento1 (332 car.): Prendi il tempo di rivedere l'offerta o la possibilità di cambiamento che si è presentata, senza lasciarla sfuggire. Analizza ogni dettaglio con la stessa precisione e dedizione che hai mostrato finora nel tuo lavoro. Non avere fretta, ma sii attenta a non procrastinare la decisione, per non perdere la spinta positiva del momento.
+  approfondimento2 (387 car.): Potresti incontrare difficoltà nel distinguere tra ciò che è veramente necessario per te e ciò che ti senti in dovere di fare per gli altri. Per affrontare questo ostacolo, stabilisci dei limiti chiari con te e con chi ti circonda. Non temere di delegare o di rifiutare impegni che non sono strettamente tuoi, per non caricarti di pesi eccessivi che potrebbero rallentare il tuo cammino.
+

@@ -1,0 +1,24 @@
+LA CROCE CELTICA ALLA PROFONDITA' LUNGA, ordine FS
+Modello: gemini-2.5-flash, regione europe-west1, 2026-10-13T21:36:21.006925Z
+Pazienza dell'app: 10 s
+
+== seme 501, BREVE, tetto 2224 gettoni
+  chiamate al modello: 6, tempi ms [13648, 866, 10841, 6767, 867, 5041], totale ms 25757
+  esito: LETTURA DI CASA (dopo la riscrittura: un genere dato a chi legge: sei pronto, nella frase «Prima di procedere con la questione di diventare padre, è importante che tu chiarisca a te cosa desideri veramente e quali passi sei pronto a compiere.» | un genere dato a chi legge: sei pronto, nella frase «Prima di procedere con la questione di diventare padre, è importante che tu chiarisca a te stesso cosa desideri veramente e quali passi sei pronto a compiere.» | dopo la riscrittura: un genere dato a chi legge: bloccato, nella frase «Il Due di Bastoni rovesciato mostra che c'è una titubanza, una direzione incerta che ti tiene bloccato.» | un genere dato a chi legge: fermo, nella frase «Il Due di Bastoni rovesciato mostra che c'è una titubanza, una direzione incerta che ti tiene fermo.» | la chiamata non è tornata: TimeoutException after 0:00:03.542861: Future not completed)
+
+== seme 501, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 2, tempi ms [7412, 870], totale ms 8314
+  esito: dal modello
+  approfondimento1 (314 car.): Per prepararti al meglio a questo crollo, identifica le convinzioni o le abitudini che senti non rispecchiare più chi sei. Parla con una persona fidata, come un amico o un mentore, per avere una prospettiva esterna. Non forzare il cambiamento, ma accogli i segnali che ti mostrano cosa deve essere lasciato andare.
+  approfondimento2 (285 car.): Potresti incontrare resistenza da parte di chi ti circonda o anche da te, legato a ciò che sta crollando. Affronta questo ostacolo comunicando con chiarezza le tue nuove priorità e i motivi delle tue scelte, senza cercare di convincere gli altri, ma restando fermo nella tua direzione.
+
+== seme 502, BREVE, tetto 2224 gettoni
+  chiamate al modello: 6, tempi ms [5212, 859, 5554, 5391, 5414, 5230], totale ms 16711
+  esito: dal modello
+
+== seme 502, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 2, tempi ms [6145, 866], totale ms 7022
+  esito: dal modello
+  approfondimento1 (214 car.): Prima di considerare nuove strade professionali, dedica del tempo a rivedere tutti i tuoi impegni attuali. Fai un elenco di ciò che ti appesantisce e di ciò che ti dà energia, poi decidi quali delegare o eliminare.
+  approfondimento2 (250 car.): Potresti incontrare resistenza nel delegare o nel dire di no a nuove richieste. Per affrontare questo, comunica le tue decisioni con la stessa chiarezza e onestà che ti caratterizzano, spiegando il tuo bisogno di concentrarti su ciò che è essenziale.
+

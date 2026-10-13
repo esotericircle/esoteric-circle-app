@@ -87,27 +87,64 @@ enum ReadingKey {
   /// Predittiva: la sua istruzione e' quella di sempre. Con la Riflessione il
   /// futuro si legge come tendenza e mai come annuncio, perche' quella scuola
   /// non predice.
+  ///
+  /// **OGNI VOCE DICE CHE COSA CAMBIA, e sta in cima. Ordine FS, 13 ottobre
+  /// 2026.** Le voci di prima descrivevano la tradizione e stavano in fondo
+  /// all'istruzione: misurate con sedici letture vere (due stese, quattro
+  /// chiavi, due giri ciascuna, `docs/collaudo/FS/le_chiavi_dal_modello.txt`)
+  /// nessuna chiave si distingueva dalle altre, e due chiavi diverse si
+  /// somigliavano quanto due giri della stessa. Adesso ogni voce dice che
+  /// cosa cambia nella RISPOSTA e in ogni carta, e che prevale su quelle due
+  /// regole; le regole di prudenza (niente futuro dato per certo, il
+  /// confine, il genere) restano sopra tutte.
   String? get voce => switch (this) {
         ReadingKey.predittiva => null,
-        ReadingKey.riflessione => 'LA CHIAVE DI LETTURA: Riflessione, nella '
-            'tradizione della Tarologia di Alejandro Jodorowsky e Marianne '
-            'Costa. Questa lettura non predice: ogni carta è uno specchio di '
-            'come la persona vive la situazione e delle scelte che ha davanti. '
-            'Anche la carta del futuro si legge come una tendenza da '
-            'riconoscere, mai come un annuncio: di\' che cosa la persona può '
-            'osservare o cambiare, non che cosa le accadrà. Non nominare '
-            'Jodorowsky.',
-        ReadingKey.esoterica => "LA CHIAVE DI LETTURA: Esoterica, nella "
+        ReadingKey.riflessione => 'LA CHIAVE DI LETTURA, che prevale sulle '
+            'regole della RISPOSTA e delle CARTE qui sotto: Riflessione, '
+            'nella tradizione della Tarologia di Alejandro Jodorowsky e '
+            'Marianne Costa. Questa lettura non predice. La RISPOSTA non dice '
+            'sì, no né se la cosa accadrà: la prima frase dice che cosa la '
+            'stesa mostra di come la persona vive la sua domanda, la seconda '
+            'quale scelta ha davanti, partendo dalla carta chiave. In ogni '
+            'carta scrivi che cosa la carta rispecchia della persona davanti '
+            'alla sua domanda, e chiudi con una domanda che la persona può '
+            'farsi. Anche la carta del futuro si legge come una tendenza da '
+            'riconoscere, mai come un annuncio. Non nominare Jodorowsky.',
+        ReadingKey.esoterica => "LA CHIAVE DI LETTURA, che prevale sulle "
+            "regole della RISPOSTA e delle CARTE qui sotto: Esoterica, nella "
             "tradizione di Arthur Edward Waite e dell'Ordine Ermetico "
-            "dell'Alba Dorata. Leggi i simboli della carta come li descrive "
-            "quella tradizione e, quando li conosci con certezza, la sua "
-            "corrispondenza con un elemento, un pianeta o un segno; non "
-            "inventare corrispondenze. Il simbolo serve a rispondere alla "
-            "domanda, non a fare lezione.",
-        ReadingKey.archetipica => 'LA CHIAVE DI LETTURA: Archetipica, nella '
-            'lettura di Sallie Nichols e di Rachel Pollack. Ogni carta è un '
-            'archetipo, una figura che vive in ognuno: la stesa racconta un '
-            'passaggio del cammino interiore della persona rispetto alla sua '
-            'domanda. Niente linguaggio clinico e niente diagnosi.',
+            "dell'Alba Dorata. In ogni carta nomina almeno un simbolo "
+            "dell'immagine di Waite (una figura, un oggetto, un colore) e che "
+            "cosa significa in quella tradizione; la corrispondenza della "
+            "carta con un elemento, un pianeta o un segno nominala solo "
+            "quando la conosci con certezza, e non inventarla. La seconda "
+            "frase della RISPOSTA parte dal simbolo della carta chiave. Il "
+            "simbolo serve a rispondere alla domanda, non a fare lezione.",
+        ReadingKey.archetipica => 'LA CHIAVE DI LETTURA, che prevale sulle '
+            'regole della RISPOSTA e delle CARTE qui sotto: Archetipica, nella '
+            'lettura di Sallie Nichols e di Rachel Pollack. In ogni carta '
+            'nomina l\'archetipo che la carta incarna (il Viandante, il '
+            'Mago, la Madre, il Guerriero, l\'Eremita e cosi\' via) e quale '
+            'passaggio del cammino interiore della persona rappresenta '
+            'rispetto alla sua domanda. La RISPOSTA dice in quale passaggio '
+            'del suo cammino si trova la persona e che cosa quel passaggio le '
+            'chiede. Niente linguaggio clinico e niente diagnosi.',
+      };
+
+  /// **IL PROMEMORIA DELLA CHIAVE, in fondo alla richiesta**, ordine FS:
+  /// una riga sola che ripete che cosa cambia, letta dove il modello sta per
+  /// scrivere. Nulla per la Predittiva.
+  String? get promemoria => switch (this) {
+        ReadingKey.predittiva => null,
+        ReadingKey.riflessione => 'Chiave di lettura: Riflessione. La '
+            'RISPOSTA non dice sì, no né se la cosa accadrà: dice come la '
+            'persona vive la sua domanda e quale scelta ha davanti. Ogni '
+            'carta chiude con una domanda che la persona può farsi.',
+        ReadingKey.esoterica => "Chiave di lettura: Esoterica. In ogni carta "
+            "nomina almeno un simbolo dell'immagine di Waite e che cosa "
+            "significa in quella tradizione.",
+        ReadingKey.archetipica => "Chiave di lettura: Archetipica. In ogni "
+            "carta nomina l'archetipo che la carta incarna e il passaggio "
+            "del cammino interiore che rappresenta per la persona.",
       };
 }
