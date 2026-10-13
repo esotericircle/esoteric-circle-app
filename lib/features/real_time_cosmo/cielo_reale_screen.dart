@@ -309,6 +309,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// (voci D2-D5).
   SceltaDelTempo? _sceltaDelTempo;
 
+  /// **PER LE PROVE**, ordine FR voce 05: la riga che mostrava questa
+  /// scelta e' nascosta nell'onboarding (`widget.nascita != null`), e la
+  /// prova che verifica da dove parte la corsa non puo' piu' leggerla a
+  /// schermo.
+  @visibleForTesting
+  SceltaDelTempo? get sceltaDelTempoPerLaProva => _sceltaDelTempo;
+
   /// La frase d'arrivo della corsa in corso (voce E11).
   String _fraseDArrivo = '';
 
@@ -386,7 +393,23 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     }
   }
 
-  bool get _usaIlSensore => _colSensore && !_riduciMovimento;
+  /// **IL SENSORE TACE DURANTE LA CORSA, ordine FR voce 04, 13 ottobre
+  /// 2026.** Il fondatore, sull'onboarding: l'animazione del ritorno deve
+  /// restare centrata sulla Luna, come nella macchina del tempo del cielo di
+  /// adesso. `_agganciaAllaLuna` (voce F1, in `_avanzaIlRitorno`) calcola
+  /// gia' ad ogni fotogramma l'azimut e l'altezza giuste per tenerla al
+  /// centro durante tutta la corsa: ma nell'onboarding (`widget.nascita !=
+  /// null`) l'ordine FN aveva lasciato il sensore acceso per tutto il modo
+  /// `ritorno`, "la persona si aspetta di esplorare il cielo muovendo il
+  /// telefono", e due righe piu' sotto nello stesso fotogramma la lettura
+  /// della bussola sovrascriveva quell'azimut e quell'altezza col gesto
+  /// vero del telefono: la Luna restava ferma nel calcolo e scivolava a
+  /// video a ogni inclinazione. L'esplorazione col sensore resta giusta a
+  /// riposo, prima e dopo la corsa; durante il volo vince l'aggancio.
+  bool get _usaIlSensore =>
+      _colSensore &&
+      !_riduciMovimento &&
+      (_modo != ModoDelCielo.ritorno || _fase.value == FaseDelRitorno.fermo);
 
   /// Vero se la schermata sta disegnando: la misura della voce 7.8.
   @visibleForTesting
@@ -2512,7 +2535,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
           valueListenable: _fase,
           builder: (context, fase, _) {
             final s = _sceltaDelTempo;
-            if (fase != FaseDelRitorno.fermo || s == null) {
+            // **E SPARISCE ALL'ARRIVO, QUANDO C'E' UN SEGUITO.** Ordine FR
+            // voce 05: "dopo l'animazione deve comparire solo il pulsante
+            // giallo per andare avanti". `fase == fermo` vale sia prima
+            // della corsa sia dopo, e senza questo controllo "Viaggia nel
+            // tempo" tornava a vedersi accanto a "Leggi la tua carta",
+            // proprio il doppio pulsante che l'ordine FN diceva di aver
+            // chiuso per l'altro riquadro. Dove non c'e' un seguito
+            // (`widget.alSeguito == null`, il cielo di adesso aperto da
+            // solo) questo riquadro resta anche dopo l'arrivo: e' l'unico
+            // modo di scegliere un altro giorno.
+            final arrivatoConSeguito =
+                widget.alSeguito != null && _fraseDArrivo.isNotEmpty;
+            if (fase != FaseDelRitorno.fermo || s == null || arrivatoConSeguito) {
               return const SizedBox.shrink();
             }
             final palette = MaestroScope.of(context);
@@ -2523,43 +2558,56 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (_piano != null) ...[
+                // **UN SOLO PULSANTE NELL'ONBOARDING, ordine FR voce 05, 13
+                // ottobre 2026.** Il fondatore, a video: nel cielo di
+                // nascita dell'onboarding si deve vedere solo "Viaggia nel
+                // tempo", non la scelta del giorno ne' quella del luogo,
+                // "sono dati che abbiamo appena inserito". Le due righe e la
+                // riga della Luna da rivedere restano per chi riapre questa
+                // schermata da altrove (`widget.nascita == null`, il cielo
+                // di adesso), dove scegliere un altro giorno o un altro
+                // luogo ha senso; nell'onboarding la data e il luogo sono
+                // quelli appena scritti un passo prima, e non c'e' niente da
+                // scegliere.
+                if (widget.nascita == null) ...[
+                  if (_piano != null) ...[
+                    _Riga(
+                      key: const Key('real_time_cosmo_rivedi'),
+                      testo: _fraseDellaLuna(),
+                    ),
+                    const SizedBox(height: 6),
+                  ],
                   _Riga(
-                    key: const Key('real_time_cosmo_rivedi'),
-                    testo: _fraseDellaLuna(),
+                    key: const Key('macchina_giorno_scelto'),
+                    testo: s.adesso
+                        ? 'Il giorno scelto: adesso.'
+                        : 'Il giorno scelto: ${dataItalianaEstesa(s.giorno)}.',
+                    azione: 'Scegli il giorno',
+                    onAzione: _apriIlPannello,
+                  ),
+                  const SizedBox(height: 6),
+                  _Riga(
+                    key: const Key('macchina_riga_del_luogo_in_cielo'),
+                    testo: _rigaDelLuogo(s),
+                    azione: altro == null
+                        ? null
+                        : (s.luogo == LuogoDelTempo.nascita
+                            ? 'Usa dove sei ora'
+                            : 'Usa il luogo di nascita'),
+                    onAzione: altro == null
+                        ? null
+                        : () => setState(
+                              () => _sceltaDelTempo = SceltaDelTempo(
+                                s.giorno,
+                                s.luogo == LuogoDelTempo.nascita
+                                    ? LuogoDelTempo.attuale
+                                    : LuogoDelTempo.nascita,
+                                adesso: s.adesso,
+                              ),
+                            ),
                   ),
                   const SizedBox(height: 6),
                 ],
-                _Riga(
-                  key: const Key('macchina_giorno_scelto'),
-                  testo: s.adesso
-                      ? 'Il giorno scelto: adesso.'
-                      : 'Il giorno scelto: ${dataItalianaEstesa(s.giorno)}.',
-                  azione: 'Scegli il giorno',
-                  onAzione: _apriIlPannello,
-                ),
-                const SizedBox(height: 6),
-                _Riga(
-                  key: const Key('macchina_riga_del_luogo_in_cielo'),
-                  testo: _rigaDelLuogo(s),
-                  azione: altro == null
-                      ? null
-                      : (s.luogo == LuogoDelTempo.nascita
-                          ? 'Usa dove sei ora'
-                          : 'Usa il luogo di nascita'),
-                  onAzione: altro == null
-                      ? null
-                      : () => setState(
-                            () => _sceltaDelTempo = SceltaDelTempo(
-                              s.giorno,
-                              s.luogo == LuogoDelTempo.nascita
-                                  ? LuogoDelTempo.attuale
-                                  : LuogoDelTempo.nascita,
-                              adesso: s.adesso,
-                            ),
-                          ),
-                ),
-                const SizedBox(height: 6),
                 FilledButton(
                   key: const Key('macchina_viaggia_dal_cielo'),
                   style: FilledButton.styleFrom(

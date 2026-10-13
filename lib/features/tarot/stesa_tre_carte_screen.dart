@@ -38,6 +38,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../core/tarot/le_fonti_dei_tarocchi.dart';
+import '../../design_system/components/cosmos_background.dart';
 import 'il_tavolo_di_medora.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
@@ -463,10 +464,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _tiltFermo = Offset(_tilt.x, _tilt.y);
   }
 
-  /// Riprende il galleggiamento quando il gesto e' finito.
+  /// Riprende l'ambiente quando il gesto e' finito. Il galleggiamento resta
+  /// spento (ordine FQ, 13 ottobre 2026): vedi la nota in `initState`.
   void _riprendiLAmbiente() {
     _tiltFermo = null;
-    if (!_reduceMotion) _galleggio.repeat();
   }
 
   /// L'ATTESA DI MEDORA, fra l'ultima carta e il primo responso. Voce 06.
@@ -773,11 +774,22 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       if (mounted) setState(() {});
     }));
     _shake = AscoltatoreScuotimento(onScuotimento: _mischia)..start();
-    // Il giroscopio e il galleggiamento solo se il moto e' concesso: con
-    // Riduci Movimento le carte stanno ferme e composte.
+    // Il giroscopio solo se il moto e' concesso: con Riduci Movimento le
+    // carte stanno ferme e composte.
+    //
+    // **IL GALLEGGIAMENTO E' TOLTO, ordine FQ, 13 ottobre 2026.** Il
+    // fondatore, sulla Croce Celtica a video: lo scorrimento della
+    // schermata va a scatti dopo la rivelazione. La causa era proprio il
+    // galleggiamento: un `AnimationController` che si ripete per sempre, e
+    // che ricostruisce l'intero `TavoloDiMedora` (tutte le carte in piedi
+    // della stesa) a ogni fotogramma tramite `Listenable.merge` in
+    // `_laScena`, indipendentemente da cosa sta facendo lo schermo. Con tre
+    // o quattro carte il costo passava inosservato; con dieci diventava
+    // uno scatto a ogni fotogramma durante lo scorrimento. Non si avvia
+    // piu': `_galleggio` resta fermo a zero, le carte posate restano
+    // composte come con Riduci Movimento.
     if (!_reduceMotion) {
       _tilt.start();
-      _galleggio.repeat();
     }
     _apriScena();
     unawaited(_cercaLaStesaConservata());
@@ -1356,7 +1368,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          // **SEMITRASPARENTE, non trasparente.** Il fondatore, 13 ottobre
+          // 2026: la barra del titolo deve avere un velo, come nel resto
+          // dell'app (vedi ad esempio `settings_screen.dart`,
+          // `domain_screen.dart`). Con `Colors.transparent` la barra si
+          // confondeva del tutto col cosmo sotto; ora porta lo stesso velo
+          // di `palette.deepest` delle altre schermate.
+          backgroundColor: palette.deepest.withValues(alpha: 0.35),
           elevation: 0,
           iconTheme: IconThemeData(color: palette.goldSoft),
           leading: IconButton(
@@ -1395,20 +1413,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             const AngoloDellaBarra(),
           ],
         ),
-        // **LO SFONDO NUOVO, ordine FL voce 01.** LAPIDE: "CosmosBackground".
-        // Lo sfondo e' l'immagine del tavolo, in cima alla lista
-        // (`TavoloDiMedora`); sotto la scena la pagina prosegue coi colori
-        // del fondo di quell'immagine, misurati sul file, cosi' il drappo del
-        // tavolo sfuma senza uno stacco.
-        body: DecoratedBox(
+        // **IL COSMO TORNA, ordine FR voce 01, 13 ottobre 2026.** LAPIDE:
+        // il gradiente piatto qui sotto era "LO SFONDO NUOVO" dell'ordine FL
+        // voce 01 (12 ottobre 2026), scelto per far sfumare senza stacco il
+        // drappo del tavolo (`TavoloDiMedora`) nel fondo della pagina. Il
+        // fondatore, a video sulla build 2307: "non c'e' sfondo cosmico in
+        // parallasse che c'e' in tutta l'app". Altre schermate con un
+        // elemento fisico in primo piano (`rune_draw_screen.dart`,
+        // `guide_animal_screen.dart`) mostrano gia' che `CosmosBackground`
+        // convive bene con un tavolo o un'immagine sopra: la scelta FL non
+        // era necessaria alla coerenza visiva, e questa voce la ribalta.
+        // `CosmosBackground` porta gia' nel suo primo strato un gradiente
+        // verticale scuro (da `palette.deepest`), quindi il tavolo continua
+        // a posarsi su un fondo scuro coerente, con le stelle in parallasse
+        // sopra invece del nero piatto.
+        body: CosmosBackground(
           key: const Key('stesa_sfondo'),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFF151118), Color(0xFF080B0F)],
-            ),
-          ),
+          seed: 5,
+          showZodiac: false,
           child: SafeArea(
             child: Stack(
               key: _chiaveDellaPila,
@@ -1695,12 +1717,28 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 // **UN'ALTRA STESA, ALTRI POSTI**, ordine FK aggiunta 2:
                 // finche' nessuna carta e' presa la stesa in corso rinasce
                 // con le posizioni della nuova; dopo, la stesa resta quella.
+                //
+                // **LA STESA TORNATA DA SOLA NON BLOCCA IL CAMBIO, ordine FR
+                // voce 02, 13 ottobre 2026.** Il fondatore, a video: scelta
+                // "la stesa a 4" vedeva carte gia' coperte sul tavolo, e da
+                // li' non riusciva piu' a tornare a singola, tre o dieci. La
+                // causa: `onChanged` richiama `_cercaLaStesaConservata` ogni
+                // volta (riga sotto), e se oggi quella stesa era gia' stata
+                // compiuta su questa domanda, torna intera da sola (ordine FI
+                // voce 27) e alza `_drawn`. Quella non e' una stesa IN CORSO,
+                // scelta e pescata ora: e' un ricordo tornato. La guardia di
+                // prima guardava solo `_drawn`, che sale in entrambi i casi;
+                // adesso guarda anche `_conservata`, che e' vera solo nel
+                // secondo.
                 if (s.tipo != _setup.tipo) {
-                  if (_drawn == 0) {
+                  if (_drawn == 0 || _conservata) {
                     _stesa = StesaInCorso.nuova(
                         mazzo: _mazzo,
                         seme: _seme,
                         posizioni: s.tipo.posizioni);
+                    _drawn = 0;
+                    _conservata = false;
+                    _scene = StesaScene.riposo;
                   } else {
                     s = s.copyWith(tipo: _setup.tipo);
                   }

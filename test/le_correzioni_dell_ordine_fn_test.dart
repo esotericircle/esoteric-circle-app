@@ -176,11 +176,43 @@ void main() {
     final selettori =
         File('lib/features/tarot/tarot_selectors.dart').readAsStringSync();
 
+    // **DA `onTapDown` A `onOpened`, ordine FR voce 01, 13 ottobre 2026.**
+    // Il fondatore ha visto la tastiera tornare su ANCORA, dopo che questa
+    // stessa voce diceva il difetto chiuso: `onTapDown` su un
+    // `GestureDetector` esterno non vince sempre l'arena dei gesti contro
+    // l'`InkWell` interno di `PopupMenuButton`, quindi il tocco poteva
+    // aprire il menu senza passare da li'. `PopupMenuButton.onOpened` lo
+    // chiama il bottone stesso, dentro `showButtonMenu()`, PRIMA di aprire
+    // la rotta del menu (verificato sul sorgente del framework,
+    // `popup_menu.dart`): nessuna arena, nessuna corsa da vincere.
     test('ogni tendina toglie il focus prima di aprirsi', () {
-      expect(selettori, contains('onTapDown: (_) => FocusScope.of(context).unfocus()'),
+      expect(selettori, contains('onOpened: () => FocusScope.of(context).unfocus()'),
           reason: 'la tendina non toglie piu\' il focus dal campo della '
               'domanda prima di aprirsi: la tastiera torna su da sola '
               'quando la route del menu si chiude');
+      expect(selettori, isNot(contains('onTapDown: (_) => FocusScope.of(context).unfocus()')),
+          reason: 'e non deve tornare al vecchio onTapDown, che non vince '
+              'sempre l\'arena dei gesti contro l\'InkWell del menu');
+    });
+
+    // **E LO TOGLIE ANCORA DOPO LA SCELTA, ordine FR voce 06.** Visto a
+    // video sul Realme: `onOpened` toglie il focus prima che il menu si
+    // apra, ma Flutter lo rimette quando quella route si chiude, e
+    // `onSelected` arriva DOPO. Senza un secondo `unfocus()` li' dentro, la
+    // tastiera torna su proprio nell'istante in cui si sceglie una voce,
+    // non quando si apre il menu: e' per questo che il fondatore la vedeva
+    // tornare "ogni volta che seleziono".
+    test('ogni tendina toglie il focus anche dopo aver scelto una voce', () {
+      expect(selettori, contains('onSelected: (v) {'),
+          reason: 'onSelected non e\' piu\' un blocco che puo\' togliere il '
+              'focus prima di chiamare onSelect o onLocked');
+      final inizio = selettori.indexOf('onSelected: (v) {');
+      final fine = selettori.indexOf('},', inizio);
+      final corpo = selettori.substring(inizio, fine);
+      expect(corpo, contains('FocusScope.of(context).unfocus();'),
+          reason: 'scelta una voce, il focus non si toglie una seconda '
+              'volta: il ripristino di Flutter alla chiusura del menu '
+              'rimette su la tastiera');
     });
   });
 

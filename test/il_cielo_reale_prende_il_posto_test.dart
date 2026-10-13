@@ -139,12 +139,23 @@ void main() {
         ));
     await fh.caricaEAlleggerisci(tester);
     await fg.passa(tester, 10);
-    final giorno = tester.widget<Text>(find.descendant(
-        of: find.byKey(const Key('macchina_giorno_scelto')),
-        matching: find.byType(Text)).first);
-    expect(giorno.data, contains('1985'),
+    // **LA RIGA E' NASCOSTA NELL'ONBOARDING, ordine FR voce 05, 13 ottobre
+    // 2026**: il fondatore ha chiesto che nel cielo di nascita si veda solo
+    // "Viaggia nel tempo", non la scelta del giorno ne' quella del luogo,
+    // "sono dati che abbiamo appena inserito". La prova non legge piu' il
+    // testo a schermo (che non c'e' piu'), legge lo stato vero dietro di
+    // esso, con lo stesso effetto di guardia: che la macchina sia partita
+    // dalla nascita appena scritta, non dal profilo.
+    expect(find.byKey(const Key('macchina_giorno_scelto')), findsNothing,
+        reason: 'nell\'onboarding non si deve vedere la scelta del giorno');
+    expect(find.byKey(const Key('macchina_riga_del_luogo_in_cielo')),
+        findsNothing,
+        reason: 'nell\'onboarding non si deve vedere la scelta del luogo');
+    final stato = tester.state(find.byType(CieloRealeScreen)) as dynamic;
+    final giorno = stato.sceltaDelTempoPerLaProva.giorno as DateTime;
+    expect(giorno.year, 1985,
         reason: 'la macchina non parte dalla nascita appena scritta, ma dal '
-            'profilo: ${giorno.data}');
+            'profilo: $giorno');
     expect(find.text('Busto Arsizio'), findsNothing,
         reason: 'la riga del luogo si legge sotto, non come titolo');
     await scatta(tester, 'a1_04_l_onboarding_la_macchina_dalla_nascita');

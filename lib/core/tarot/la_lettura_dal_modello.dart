@@ -849,6 +849,41 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     }
   }
 
+  /// **IL TETTO SALE CON LE CARTE, NON SOLO CON LA LUNGA.** Ordine FR voce
+  /// 03, 13 ottobre 2026. Il fondatore, a video sulla Croce Celtica: scelta
+  /// la profondita' Lunga, i due paragrafi dell'approfondimento non
+  /// arrivavano mai. Il tetto di 2000 gettoni (ordine FN) bastava per la
+  /// stesa a tre carte, dove l'ordine FN lo aveva provato: risposta, legame,
+  /// consiglio, titolo e tre testi di carta restano sotto i mille gettoni
+  /// visibili, e ne restava la meta' per i due paragrafi. Sulla Croce
+  /// Celtica le carte sono dieci, non tre: i loro testi da soli chiedono
+  /// quasi quattromila caratteri, e il modello finisce il tetto PRIMA di
+  /// arrivare ai due campi che la richiesta mette per ultimi
+  /// nell'ordinamento (`campiPer`), approfondimento1 e approfondimento2:
+  /// restano vuoti, non per un rifiuto, per mancanza di spazio.
+  ///
+  /// Il tetto si calcola dai tetti di carattere gia' dichiarati per ogni
+  /// campo (`tettoDellaRisposta` e gli altri), sommati su quanti campi
+  /// chiede davvero QUESTA stesa: tre carte o dieci cambiano il conto. Tre
+  /// caratteri per gettone e' prudente apposta, perche' nel tetto entra
+  /// anche il ragionamento del modello, che consuma lo stesso spazio
+  /// (vedi la nota "token_count conta il ragionamento"). Il conto non scende
+  /// mai sotto i tetti di prima: solo sale, quando le carte sono piu' di tre.
+  static int _tettoDeiGettoni(Map<String, Schema> campi,
+      {required bool profonda}) {
+    final fissi = profonda ? 2 : 0;
+    final campiDiCarte = campi.length - 4 - fissi;
+    final caratteri = tettoDellaRisposta +
+        tettoDelLegame +
+        tettoDelConsiglio +
+        tettoDelTitolo +
+        campiDiCarte * tettoDellaCarta +
+        (profonda ? 2 * tettoDellApprofondimento : 0);
+    final scalato = (caratteri / 3).ceil();
+    final minimo = profonda ? 2000 : 1400;
+    return scalato > minimo ? scalato : minimo;
+  }
+
   static Future<String?> _chiamataVera(
       String istruzione, String richiesta, Map<String, Schema> campi) async {
     // **IL TETTO SALE CON L'APPROFONDIMENTO.** Ordine FN, 13 ottobre 2026: i
@@ -864,7 +899,7 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,
-        maxOutputTokens: profonda ? 2000 : 1400,
+        maxOutputTokens: _tettoDeiGettoni(campi, profonda: profonda),
         thinkingConfig: LaDomandaCapita.ragionamentoPer(modello),
         responseMimeType: 'application/json',
         // **I CAMPI NEL LORO ORDINE**: senza, il modello li scrive in ordine
