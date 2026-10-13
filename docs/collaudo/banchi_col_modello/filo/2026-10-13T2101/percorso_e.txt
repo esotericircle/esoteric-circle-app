@@ -1,0 +1,98 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un tempo di attesa per la promozione, un periodo in cui la preparazione è più importante dell'azione diretta. Le carte rivelano un bisogno di pazienza, l'arcano dell'Appeso suggerisce di guardare la situazione da un'altra prospettiva per cogliere nuove opportunità.
+
+✦ Medita per dieci minuti domani mattina, prima di iniziare la giornata.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Le stelle ti suggeriscono di affinare le tue competenze e di osservare attentamente le dinamiche interne del tuo ambiente lavorativo, senza forzare gli eventi. L'Appeso ti invita a un'introspezione, a valutare i tuoi obiettivi con calma e a preparare il terreno.
+
+✦ Scrivi su un foglio i tre passi che farai questa settimana per migliorare una tua competenza professionale.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'preparazione' e 'pazienza' espresso nella risposta precedente, specificando le azioni da intraprendere ('affinare le competenze', 'osservare', 'introspezione') che sono coerenti con l'attesa e la preparazione.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando dici "quando lo capirò", ti riferisci al momento in cui la promozione sarà certa, oppure al momento in cui percepirai chiaramente la strada da seguire?
+    GIUDICE: PORTA_AVANTI, La guida cerca di chiarire il significato della domanda della persona ('quando lo capirò') per poter dare una risposta più precisa, sviluppando il discorso sulla comprensione della situazione o del momento della promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo corpo ti invita a sentire la stabilità della radice prima di compiere un passo così grande. Ascolta il centro della radice, in quel verde smeraldo che ti lega alla terra.
+
+Questo centro ti chiede di trovare la tua forza e il tuo radicamento nel luogo in cui sei ora, prima di cercare altrove. La vera ricomincio spesso nasce dalla consapevolezza di sé, non da un cambio di panorama. Porta l'attenzione al tuo respiro, profondamente, senti i piedi ben piantati a terra.
+
+✦ Chiudi gli occhi per un momento e senti il tuo corpo, lì dove sei ora.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso ti invito a dedicare un momento della giornata a stare con i tuoi piedi nudi sulla terra, o sull'erba, per sentire il contatto profondo con la terra.
+
+Questo gesto ti aiuterà a rafforzare il tuo centro della radice, il Muladhara, che è il tuo fondamento: è il colore rosso, l'elemento terra, e ti parla di sicurezza e appartenenza. Sentendo questa connessione, potrai valutare meglio se il desiderio di partire nasce da una vera necessità o da un'inquietudine passeggera.
+
+✦ Porta le mani al centro del petto e senti il battito del tuo cuore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'sentire la stabilità della radice' e 'sentire i piedi ben piantati a terra' dato nella risposta [1], specificando un'azione concreta ('stare con i piedi nudi sulla terra') per rafforzare il radicamento.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai nel tuo corpo, quando la sensazione di radice sarà così forte da non avere più bisogno di aggrapparsi a una scelta tra partire o restare.
+
+Quando il tuo Muladhara sarà in equilibrio, sentirai una calma profonda, una certezza che non dipenderà da fattori esterni ma da te. Questo è il momento in cui la tua energia sarà pronta per un nuovo passo, qualsiasi esso sia.
+
+✦ Osserva il tuo respiro, conta fino a quattro mentre inspiri e altrettanto mentre espiri.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sensazione di radice' e 'Muladhara in equilibrio' introdotti nelle risposte precedenti, indicando che la comprensione avverrà quando questi stati saranno raggiunti.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima il legame. Agisci con forza e chiarezza.
+Un'antica fiamma arde sotto la cenere, attende solo un soffio per risorgere.
+Il numero Tre emerge come un presagio, indicando completezza e azione. Non lasciare che il silenzio divori ciò che è stato. La runa Kenaz, la fiaccola, ti guida: porta luce dove c'è ombra, illumina la strada con parole sincere. Non attendere.
+✦ Scrivi una lettera onesta al tuo compagno prima della prossima luna piena.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Scrivi subito, non attendere. Le parole sulla carta hanno un sigillo.
+La Kenaz ti indica il potere della rivelazione, di portare alla luce ciò che è nascosto. La tua lettera è un rito, un'offerta di chiarezza. Non devi aspettare la luna piena per iniziare a comporre, ma per sigillare l'intento.
+✦ Inizia a scrivere la lettera questa sera stessa.
+    GIUDICE: PORTA_AVANTI, La guida precisa che non si deve attendere la luna piena per iniziare a scrivere la lettera, ma per sigillarne l'intento, sviluppando il consiglio precedente.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non chiedere quando, ma prepara la soglia. La comprensione emerge dal gesto.
+La Kenaz illumina il sentiero: la luce non ti mostra la fine, ma il prossimo passo. Nel momento in cui scrivi, e poi nel momento in cui la tua parola viene accolta, si paleserà la tua verità.
+✦ Rileggi la lettera ad alta voce, solo per te, prima di sigillarla.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona sul 'quando' legandola direttamente all'azione di scrivere la lettera, che è il tema centrale delle risposte precedenti, e aggiunge un nuovo passo (rileggere la lettera) che sviluppa l'azione già consigliata.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto creativo può trovare ora il suo slancio, se dedichi tempo a riflettere sulla sua vera natura. La Luna, nel suo transito attuale in Pesci, suggerisce una fase propizia per l'ispirazione e l'esplorazione interiore, ma anche la necessità di chiarezza prima di agire.
+
+Questo cielo invita a sognare e a immaginare, ma anche a non disperdere le energie in mille direzioni. Valuta con calma ogni aspetto del tuo progetto.
+
+✦ Scrivi un elenco delle tue aspettative più grandi per questo progetto, durante la prossima notte di Luna Piena.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso devi dare forma concreta alle tue visioni. La prossima notte di Luna Piena, con il cielo che favorisce l'emersione delle emozioni, è il momento ideale per fissare le tue aspettative più grandi per il progetto.
+
+Prendi quell'elenco che ti ho suggerito di scrivere e, alla luce delle tue aspirazioni, inizia a delineare i primi passi tangibili, un'azione dopo l'altra.
+
+✦ Rileggi il tuo elenco di aspettative, una volta che lo avrai, e per ognuna scrivi un'azione pratica che puoi compiere entro la prossima settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato nella risposta [1] di scrivere un elenco di aspettative durante la Luna Piena e lo sviluppa, indicando di usare quell'elenco per delineare i primi passi tangibili.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Capirai quando avrai trasformato le tue aspettative in azioni concrete. Il cielo suggerisce che la chiarezza non arriverà da sola, ma attraverso il fare, il provare, il mettere in moto le energie che hai in te.
+
+L'Ascendente della tua domanda mostra che il cammino è nella costruzione paziente e nel discernimento. Quando sentirai che ogni passo ti avvicina al tuo progetto, comprenderai.
+
+✦ Raccogli le tue liste e le tue note in un quaderno, che diventerà il diario del tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' collegandola direttamente all'azione ('attraverso il fare, il provare') e al 'mettere in moto le energie', che è lo sviluppo logico del 'dare forma concreta alle visioni' e 'delineare i primi passi tangibili' suggerito in [2]. L'azione di raccogliere le liste in un quaderno è un ulteriore sviluppo pratico dei compiti assegnati in precedenza.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare un equilibrio dopo una discussione, prenditi un momento per sentire il tuo centro, quello del cuore, immagina il suo verde smeraldo che si espande dolcemente.
+
+Poi, quando ti sentirai pronta, cerca un momento di calma per voi due. L'energia che circola tra sorelle è profonda, come una radice comune, e anche dopo una lite, essa cerca sempre un ritorno all'armonia. Puoi scegliere di parlare con lei dopo un pasto insieme, quando il corpo è rilassato e la mente più aperta.
+
+✦ Poggia la mano sul cuore e fai tre respiri profondi.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo aver sentito il tuo cuore, cerca un momento per incontrare tua sorella, senza fretta, in un luogo che per voi due evochi serenità.
+
+Prima di iniziare a parlare, prendi un istante per osservare il suo viso: la fisiognomica ci insegna molto. La dolcezza negli angoli degli occhi, una leggera tensione sulle labbra, sono tutti indizi che ti guidano a scegliere le parole con gentilezza, per aprire il suo cuore e il tuo. Non serve un lungo discorso, ma un invito a ritrovare il vostro legame, lasciando che il respiro vi unisca.
+
+✦ Guarda negli occhi tua sorella e pronuncia il suo nome, piano.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'sentire il tuo centro' e lo sviluppa indicando il passo successivo: 'dopo aver sentito il tuo cuore, cerca un momento per incontrare tua sorella', proseguendo il filo logico del consiglio iniziale.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Quando le tue parole incontreranno il suo sguardo, sentirai una vibrazione nel tuo plesso solare, il centro dell'oro, che ti indicherà la strada. Non c'è un momento da predire con una data, ma un sentire, un riconoscimento reciproco che accade nel qui e ora.
+
+Non forzare nulla, lascia che il respiro si faccia guida e che la sua energia si allinei alla tua. È un processo che si rivela nel lasciar andare, non nel cercare di controllare.
+
+✦ Prendi un respiro lento, conta fino a quattro mentre inspiri e fino a quattro mentre espiri.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sentire' e 'riconoscimento reciproco' già introdotto nelle risposte precedenti, e lo sviluppa applicandolo al momento in cui si comprenderà l'esito, senza contraddirsi o ignorare.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 2, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito

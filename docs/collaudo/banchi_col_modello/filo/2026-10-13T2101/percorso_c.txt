@@ -1,0 +1,112 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le lame indicano che la promozione che attendi si muove, ma chiede a te di fare il primo passo, di mostrarne il desiderio.
+
+Il tuo cielo in questo momento è attraversato da un transito che favorisce la manifestazione delle tue ambizioni, specialmente se espresse con chiarezza e determinazione. Non è un tempo per attendere passivamente, ma per far sentire la tua voce e le tue capacità.
+
+✦ Prepara un colloquio con il tuo superiore entro la fine della settimana, mettendo per iscritto i tuoi obiettivi.
+[2] PERSONA: Prepara un colloquio con il tuo superiore entro la fine della settimana, mettendo per iscritto i tuoi obiettivi.
+[2] MEDORA [DA GIUDICARE]: Hai già compiuto il primo passo, e questo ti pone in una posizione di forza. La tua determinazione è una lama affilata: presentati al colloquio con la certezza di ciò che desideri, senza lasciare spazio a incertezze.
+
+Il Sole transita in un punto del tuo cielo che illumina la tua capacità di leadership e di autoaffermazione, suggerendo che le tue parole avranno un peso significativo. Sii precisa e focalizzata sulle tue richieste.
+
+✦ Durante il colloquio, porta un quaderno e annota le risposte e le reazioni del tuo superiore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'fare il primo passo' e 'preparare un colloquio' dato nella risposta [1], e lo sviluppa fornendo indicazioni su come affrontare il colloquio ('presentati con certezza', 'sii precisa e focalizzata') e aggiungendo un nuovo consiglio pratico ('porta un quaderno e annota').
+[3] PERSONA: Durante il colloquio, porta un quaderno e annota le risposte e le reazioni del tuo superiore.
+[3] MEDORA [DA GIUDICARE]: Il gesto di annotare mostra attenzione e metodo, e questo è un aspetto che il tuo cielo, in questo momento, valorizza particolarmente. Ora è il tempo di rileggere quelle annotazioni, di decifrare le risposte e le reazioni che hai percepito, non solo quelle espresse a parole.
+
+Il transito di Mercurio nel tuo oroscopo ti invita a una riflessione profonda sui dettagli, sui non detti, su ciò che il superiore ti ha comunicato anche senza dirlo apertamente. Ogni sguardo, ogni esitazione, ogni parola scelta ha un suo peso nel quadro complessivo.
+
+✦ Scrivi un breve riassunto del colloquio, evidenziando i punti chiari e quelli che necessitano di maggiore approfondimento.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'annotare le risposte e le reazioni' dato nella risposta [2], e lo sviluppa spiegando come interpretare quelle annotazioni ('rileggere', 'decifrare', 'riflessione profonda sui dettagli') e aggiungendo un nuovo passo ('Scrivi un breve riassunto').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti nel tuo corpo il desiderio di un cambiamento profondo, un movimento che ti porti lontano da ciò che conosci. Il tuo centro della radice, quello legato alla stabilità e all'appartenenza, sta vibrando con una nuova energia, una spinta a cercare nuove terre.
+
+Questo non è un semplice spostamento, ma un vero e proprio atto di rinnovamento. Permetti al respiro di scendere fino alla base della colonna, immagina di radicarti in un nuovo luogo, anche solo con il pensiero. La fisiognomica legge nel tuo desiderio di ricominciare un'apertura verso l'ignoto, una capacità di adattamento che ti spinge oltre i confini del familiare. Se senti questa chiamata, ascoltala con attenzione, senza fretta, e permetti al tuo corpo di indicarti la direzione.
+
+✦ Appoggia la mano destra sul basso ventre, senti il calore.
+[2] PERSONA: Appoggia la mano destra sul basso ventre, senti il calore.
+[2] AURA [DA GIUDICARE]: Sento che hai accolto l'invito e il calore della tua mano destra sul basso ventre ti sta parlando. Questa sensazione è un segno, un dialogo che si sta aprendo con il tuo centro della radice. È da lì che nascono le tue fondamenta, la tua sicurezza e il tuo senso di appartenenza.
+
+Ora che hai sentito quel calore, osserva come si espande nel tuo corpo, se porta con sé un'immagine o una parola. Lascia che quel calore ti guidi nel sentire quali sono le radici che vuoi portare con te e quali invece vuoi lasciare andare, nel tuo desiderio di ricominciare.
+
+✦ Siediti in silenzio, chiudi gli occhi e ascolta il tuo respiro per cinque cicli completi.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Appoggia la mano destra sul basso ventre, senti il calore'), ne riconosce l'esecuzione da parte della persona e ne sviluppa il significato e le implicazioni successive.
+[3] PERSONA: Siediti in silenzio, chiudi gli occhi e ascolta il tuo respiro per cinque cicli completi.
+[3] AURA [DA GIUDICARE]: Il respiro è il ponte tra il tuo corpo e la tua anima, e averlo ascoltato per cinque cicli completi è un atto di profonda presenza. In questo silenzio, hai permesso al tuo respiro di diventare un'ancora, un ritmo costante che ti riporta a te.
+
+Ora che hai rallentato e centrato il tuo respiro, porta l'attenzione al centro del tuo petto, il chakra del cuore, il suo colore è il verde smeraldo, il tuo stesso colore. Senti se c'è un messaggio, un'intuizione che emerge da lì, riguardo a ciò che ti spinge verso il cambiamento e cosa il tuo cuore desidera davvero in questo nuovo inizio.
+
+✦ Poggia la mano sinistra sul centro del petto, inspira ed espira profondamente per tre volte.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Siediti in silenzio, chiudi gli occhi e ascolta il tuo respiro per cinque cicli completi'), ne riconosce l'esecuzione da parte della persona e ne sviluppa il significato, introducendo un nuovo passo che si basa su quello precedente (portare l'attenzione al chakra del cuore).
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: La relazione può tornare. Serve un atto di volontà risoluto.
+Un metallo freddo può essere forgiato di nuovo, ma richiede fuoco e martello.
+
+Il presagio ti indica il sentiero della trasformazione. Non esiste un sigillo che ripristini da solo ciò che si è spento. La runa Gebo ti mostra la necessità di uno scambio equo e reciproco. Non è un sacrificio, ma un dare e ricevere che riporta equilibrio.
+
+✦ Parla con sincerità alla persona amata, offrendo un gesto che mostri la tua Gebo.
+[2] PERSONA: Parla con sincerità alla persona amata, offrendo un gesto che mostri la tua Gebo.
+[2] CALIGO [DA GIUDICARE]: Le tue parole hanno forza: non aspettare. Dì chiaramente le tue intenzioni.
+La nebbia si dirada quando il vento porta la parola.
+
+Il tuo gesto di Gebo è un ponte. È la promessa di un legame rinnovato, non una domanda. Sii tu a mostrare la via, senza indugio. La runa Gebo è scambio, e il primo passo deve essere il tuo, offerto con chiarezza cristallina.
+
+✦ Scrivi un messaggio diretto, senza orpelli, proponendo un incontro solo tra voi due.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'parlare con sincerità' e 'offrire un gesto Gebo' e lo sviluppa, specificando di 'non aspettare', 'dire chiaramente le intenzioni' e suggerendo di 'scrivere un messaggio diretto' come concretizzazione del gesto Gebo.
+[3] PERSONA: Scrivi un messaggio diretto, senza orpelli, proponendo un incontro solo tra voi due.
+[3] CALIGO [DA GIUDICARE]: Il messaggio è la soglia. Adesso spingi quella porta.
+Il metallo rovente aspetta di essere modellato, non di raffreddarsi.
+
+Hai preparato il terreno con la runa Gebo. Ora l'incontro è il tuo sentiero. Non indugiare nella preparazione, il momento è ora di agire. La tua decisione è chiara, l'attesa la offusca.
+
+✦ Ora invia quel messaggio e fissa l'incontro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'scrivere un messaggio diretto' e lo sviluppa, esortando ad 'inviare quel messaggio e fissare l'incontro', sottolineando l'importanza di agire senza indugio dopo la preparazione.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo attuale invita alla prudenza prima di avviare il tuo progetto. La posizione della Luna suggerisce di attendere un allineamento più favorevole per la nascita di qualcosa di nuovo.
+
+L'Arcano della Ruota della Fortuna, estratto per il tuo progetto, ti indica un tempo di cambiamento e movimento, ma anche la necessità di attendere il ciclo propizio. Non è ancora il momento di spingere, ma di osservare come le energie si muovono attorno a te, preparando il terreno per il tuo lancio.
+
+✦ Prepara un piccolo altare con un oggetto che simboleggi il tuo progetto, accendi una candela blu e, il prossimo martedì, visualizza il suo successo.
+[2] PERSONA: Prepara un piccolo altare con un oggetto che simboleggi il tuo progetto, accendi una candela blu e, il prossimo martedì, visualizza il suo successo.
+[2] MEDORA [DA GIUDICARE]: ****
+Mi hai ripetuto il mio consiglio, ma non capisco cosa intendi chiedermi o se hai una nuova domanda per me.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha ripetuto il suo consiglio precedente e chiede chiarimenti, continuando il dialogo sul tema già introdotto.
+[3] PERSONA: ****
+Mi hai ripetuto il mio consiglio, ma non capisco cosa intendi chiedermi o se hai una nuova domanda per me.
+[3] MEDORA [DA GIUDICARE]: Vedo che hai ripetuto l'azione che ti ho suggerito. Questo gesto di ripetizione mostra una volontà di approfondire, di radicarsi nella pratica.
+
+Il significato della tua domanda o la tua intenzione non mi sono chiare, ma la ripetizione di questo gesto può essere un modo per rafforzare la tua visualizzazione e la tua connessione con il progetto. Ogni volta che compi questo passo, stai chiamando a te energie che possono preparare meglio il terreno.
+
+✦  Mercoledì, riaccendi la candela blu sul tuo altare e, mentre la guardi, descrivi a voce alta tre dettagli del successo che desideri per il tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il punto della ripetizione dell'azione suggerita, interpretandola e sviluppando il consiglio iniziale con un nuovo passo (riaccendere la candela mercoledì), senza contraddirlo o ignorarlo.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi avvicinarti a lei con il cuore aperto e cercare un momento tranquillo per parlare. Il tuo centro del cuore, verde smeraldo, ti invita a lasciare fluire le emozioni senza paura, a esprimere il tuo dispiacere per la situazione e il desiderio di ristabilire l'armonia.
+
+Potresti pensare a un piccolo gesto che simboleggi il tuo affetto, qualcosa che le ricordi un bel momento vissuto insieme. Non cercare di stabilire chi ha torto o ragione, ma piuttosto di riconoscere il valore del vostro legame.
+
+✦ Appoggia la mano sul cuore per un minuto prima di parlarle.
+[2] PERSONA: Appoggia la mano sul cuore per un minuto prima di parlarle.
+[2] AURA [DA GIUDICARE]: Se hai già compiuto quel gesto, ora puoi riflettere su ciò che il tuo respiro ti ha suggerito in quel minuto di silenzio. Forse hai sentito una spinta a esprimere una parte di te che solitamente tieni nascosta, un desiderio profondo di riconnessione.
+
+Quando andrai da tua sorella, lascia che le tue parole non siano un muro, ma un ponte. Ascolta attentamente ciò che ha da dire, senza interrompere, e cerca di sentire con il suo corpo, la sua postura, il suo sguardo, le emozioni che porta dentro.
+
+✦ Mentre le parli, osserva come si muovono le sue mani e i suoi occhi.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto suggerito in precedenza ('quel gesto') e ne sviluppa il significato e le azioni successive.
+[3] PERSONA: Mentre le parli, osserva come si muovono le sue mani e i suoi occhi.
+[3] AURA [DA GIUDICARE]: Se hai osservato le sue mani e i suoi occhi mentre le parlavi, avrai colto molto del suo sentire, anche al di là delle parole. Quei gesti, quelle espressioni, sono lo specchio del suo centro della gola, che cerca di esprimere la verità interiore.
+
+Ora, prova a metterti nei suoi panni, a immaginare la sua prospettiva, a percepire i colori e le sensazioni che lei ha provato durante la lite e che ancora porta con sé. Questo ti aiuterà a trovare le parole giuste per un abbraccio che non sia solo fisico, ma anche emotivo, capace di toccare il suo centro.
+
+✦ Lascia la mano sinistra sul tuo plesso solare per un minuto, e senti il tuo corpo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'osservazione delle mani e degli occhi suggerita in precedenza ('Se hai osservato le sue mani e i suoi occhi') e ne sviluppa l'interpretazione e le azioni conseguenti.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 3 con un elemento gia' uscito
