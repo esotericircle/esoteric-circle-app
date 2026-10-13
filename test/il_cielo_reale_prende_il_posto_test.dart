@@ -106,6 +106,18 @@ void main() {
       'nell\'onboarding la macchina del tempo parte dalla nascita appena '
       'scritta, e porta il pulsante per proseguire', (tester) async {
     var proseguito = false;
+    // **UN SOLO PULSANTE ALLA VOLTA, ordine FN, 13 ottobre 2026.** Questa
+    // prova toccava "sky_cta" subito dopo il caricamento: era giusto finche'
+    // il pulsante del seguito stava li' fin da subito. Il fondatore ha
+    // chiesto "Viaggia nel tempo" prima e "Leggi la tua carta" solo a corsa
+    // finita (vedi `_pieDiPagina`, `ValueListenableBuilder<FaseDelRitorno>`
+    // su `fase == fermo && _fraseDArrivo.isNotEmpty`): adesso la prova fa il
+    // gesto vero, con Riduci Movimento acceso per saltare l'animazione (lo
+    // stesso scorciatoio che userebbe chi tiene quell'opzione attiva, e
+    // rende la prova veloce e indipendente da quanto e' lenta la macchina).
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
     await monta(
         tester,
         CieloRealeScreen(
@@ -136,6 +148,18 @@ void main() {
     expect(find.text('Busto Arsizio'), findsNothing,
         reason: 'la riga del luogo si legge sotto, non come titolo');
     await scatta(tester, 'a1_04_l_onboarding_la_macchina_dalla_nascita');
+    expect(find.byKey(const Key('macchina_viaggia_dal_cielo')), findsOneWidget,
+        reason: 'manca "Viaggia nel tempo", il solo gesto che avvia la corsa');
+    expect(find.byKey(const Key('sky_cta')), findsNothing,
+        reason: '"Leggi la tua carta" compare prima che la corsa sia '
+            'cominciata');
+    await tester.tap(find.byKey(const Key('macchina_viaggia_dal_cielo')));
+    // Con Riduci Movimento l'arrivo e' immediato, ma la fase "arrivo" dura
+    // comunque 3,2 secondi simulati (`_durataDellArrivo`) prima di tornare
+    // a "fermo", che e' cio' che fa comparire "Leggi la tua carta".
+    await fg.passa(tester, 40);
+    expect(find.byKey(const Key('sky_cta')), findsOneWidget,
+        reason: 'a corsa finita non compare "Leggi la tua carta"');
     await tester.tap(find.byKey(const Key('sky_cta')));
     await tester.pump();
     expect(proseguito, isTrue,
