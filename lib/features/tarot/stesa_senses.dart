@@ -208,6 +208,14 @@ class TiltListener extends ChangeNotifier {
     }
   }
 
+  /// **SI FERMA A RESPONSO IN SCENA. Ordine FS, 13 ottobre 2026.** Il
+  /// fondatore, sulla 2308: sulla Croce Celtica lo scorrimento va ancora a
+  /// scatti dopo aver tolto il galleggiamento. Ogni segnale del giroscopio,
+  /// anche col telefono fermo in mano, faceva ricostruire l'intero tavolo
+  /// con tutte le carte in piedi: mentre si legge e si scorre, l'inclinazione
+  /// delle carte non serve e costa un fotogramma pieno.
+  void ferma() => _fermati();
+
   void _fermati() {
     _sub?.cancel();
     _sub = null;

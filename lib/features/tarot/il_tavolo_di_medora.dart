@@ -56,6 +56,29 @@ class GeometriaDelTavolo {
   /// e il drappo scende sotto il selettore sfumando (ordine FL voce 02).
   static const double bordoDavanti = 1205;
 
+  /// **IL TAVOLO SFUMA NEL COSMO, ordine FS, 13 ottobre 2026.** LAPIDE: "IL
+  /// SUO DRAPPO SFUMA NELLA PAGINA", una fascia scura opaca (0xFF151118) sul
+  /// dodici per cento basso della scena, fatta per un fondo piatto di quel
+  /// colore (ordine FL voce 01). Col cosmo tornato sotto la stesa (ordine FR)
+  /// quella fascia era una banda scura sopra le stelle, e il drappo restava
+  /// sotto il pannello "Scegli la tua stesa": il fondatore, sulla 2308, ha
+  /// chiesto che l'immagine sfumi verso il basso e riveli il cosmo, e che il
+  /// pannello non stia piu' sopra il tavolo. Adesso e' l'immagine stessa a
+  /// diventare trasparente fra questi due pixel, e la scena nello schermo e'
+  /// alta fino a [fineDellaSfumatura]: il pannello comincia dove il tavolo e'
+  /// gia' sparito.
+  ///
+  /// La scena cresce di soli cinquanta pixel oltre il bordo davanti (circa
+  /// ventotto punti a 390): con novanta il ventaglio, dopo la seconda carta,
+  /// scendeva a 854 punti su uno schermo di 844 e usciva di portata
+  /// (`stesa_coreografia_test.dart`, "il ventaglio resta a portata").
+  static const double inizioDellaSfumatura = bordoDavanti - 60;
+  static const double fineDellaSfumatura = bordoDavanti + 50;
+
+  /// In alto l'immagine entra nel cosmo per i primi pixel, cosi' passando
+  /// sotto la barra semitrasparente non mostra un bordo netto.
+  static const double sfumaturaInAlto = 40;
+
   /// **IL CAMPO DEL VELLUTO DENTRO IL BORDO RICAMATO**, i quattro angoli in
   /// pixel, misurati sull'immagine: in fondo a sinistra, in fondo a destra,
   /// davanti a destra, davanti a sinistra.
@@ -77,6 +100,9 @@ class GeometriaDelTavolo {
 
   /// Il punto del busto dove comincia la testa, in pixel del busto.
   static const double cimaDellaTesta = 21;
+
+  /// L'altezza del taglio, in pixel dell'immagine.
+  static const double altoDelTaglio = taglioInBasso - taglioInAlto;
 
   /// La scala: punti logici per pixel dell'immagine, a larghezza [w].
   static double scala(double w) => w / immagine.width;
@@ -265,19 +291,44 @@ class TavoloDiMedora extends StatelessWidget {
               top: 0,
               width: w,
               height: alta,
-              child: ClipRect(
-                child: OverflowBox(
-                  alignment: Alignment.topLeft,
-                  minWidth: w,
-                  maxWidth: w,
-                  minHeight: GeometriaDelTavolo.immagine.height * s,
-                  maxHeight: GeometriaDelTavolo.immagine.height * s,
-                  child: Transform.translate(
-                    offset: Offset(0, -GeometriaDelTavolo.taglioInAlto * s),
-                    child: Image.asset(GeometriaDelTavolo.sfondo,
-                        key: const Key('tavolo_sfondo'),
-                        fit: BoxFit.fill,
-                        filterQuality: FilterQuality.medium),
+              child: ShaderMask(
+                key: const Key('tavolo_sfumatura'),
+                blendMode: BlendMode.dstIn,
+                shaderCallback: (r) => const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0x00FFFFFF),
+                    Color(0xFFFFFFFF),
+                    Color(0xFFFFFFFF),
+                    Color(0x00FFFFFF),
+                  ],
+                  stops: [
+                    0,
+                    GeometriaDelTavolo.sfumaturaInAlto /
+                        GeometriaDelTavolo.altoDelTaglio,
+                    (GeometriaDelTavolo.inizioDellaSfumatura -
+                            GeometriaDelTavolo.taglioInAlto) /
+                        GeometriaDelTavolo.altoDelTaglio,
+                    (GeometriaDelTavolo.fineDellaSfumatura -
+                            GeometriaDelTavolo.taglioInAlto) /
+                        GeometriaDelTavolo.altoDelTaglio,
+                  ],
+                ).createShader(r),
+                child: ClipRect(
+                  child: OverflowBox(
+                    alignment: Alignment.topLeft,
+                    minWidth: w,
+                    maxWidth: w,
+                    minHeight: GeometriaDelTavolo.immagine.height * s,
+                    maxHeight: GeometriaDelTavolo.immagine.height * s,
+                    child: Transform.translate(
+                      offset: Offset(0, -GeometriaDelTavolo.taglioInAlto * s),
+                      child: Image.asset(GeometriaDelTavolo.sfondo,
+                          key: const Key('tavolo_sfondo'),
+                          fit: BoxFit.fill,
+                          filterQuality: FilterQuality.medium),
+                    ),
                   ),
                 ),
               ),
@@ -290,24 +341,9 @@ class TavoloDiMedora extends StatelessWidget {
                   fit: BoxFit.contain,
                   filterQuality: FilterQuality.medium),
             ),
-            // IL SUO DRAPPO SFUMA NELLA PAGINA.
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              height: alta * 0.12,
-              child: const IgnorePointer(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0x00151118), Color(0xFF151118)],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // LAPIDE: "IL SUO DRAPPO SFUMA NELLA PAGINA", la fascia scura
+            // opaca; adesso sfuma l'immagine stessa, vedi
+            // `GeometriaDelTavolo.inizioDellaSfumatura` (ordine FS).
             // LE CARTE SUL PIANO, finche' non si sono alzate del tutto.
             if (alzata < 1)
               Positioned(

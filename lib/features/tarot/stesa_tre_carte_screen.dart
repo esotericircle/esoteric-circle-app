@@ -464,10 +464,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _tiltFermo = Offset(_tilt.x, _tilt.y);
   }
 
-  /// Riprende l'ambiente quando il gesto e' finito. Il galleggiamento resta
-  /// spento (ordine FQ, 13 ottobre 2026): vedi la nota in `initState`.
+  /// Riprende l'ambiente quando il gesto e' finito.
   void _riprendiLAmbiente() {
     _tiltFermo = null;
+    if (!_reduceMotion) _galleggio.repeat();
   }
 
   /// L'ATTESA DI MEDORA, fra l'ultima carta e il primo responso. Voce 06.
@@ -692,6 +692,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// LAPIDE: "SpreadPosition.treCarte" in quindici punti di questo file.
   List<SpreadPosition> get _posizioni => _setup.tipo.posizioni;
 
+  /// **QUANTE CARTE, IN PAROLE, dalla stesa scelta. Ordine FS.** Il
+  /// fondatore, sulla Croce Celtica: sotto il pannello si leggeva "Scegli
+  /// tre carte dal ventaglio" anche con dieci. Era scritto a mano in quattro
+  /// punti (l'invito, la riga sotto il pulsante, il titolo nel Diario e il
+  /// testo della condivisione); adesso viene dal nome corto della stesa.
+  String get _quanteCarte => _setup.tipo.breve.toLowerCase();
+
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
   /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
@@ -777,20 +784,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // Il giroscopio solo se il moto e' concesso: con Riduci Movimento le
     // carte stanno ferme e composte.
     //
-    // **IL GALLEGGIAMENTO E' TOLTO, ordine FQ, 13 ottobre 2026.** Il
-    // fondatore, sulla Croce Celtica a video: lo scorrimento della
-    // schermata va a scatti dopo la rivelazione. La causa era proprio il
-    // galleggiamento: un `AnimationController` che si ripete per sempre, e
-    // che ricostruisce l'intero `TavoloDiMedora` (tutte le carte in piedi
-    // della stesa) a ogni fotogramma tramite `Listenable.merge` in
-    // `_laScena`, indipendentemente da cosa sta facendo lo schermo. Con tre
-    // o quattro carte il costo passava inosservato; con dieci diventava
-    // uno scatto a ogni fotogramma durante lo scorrimento. Non si avvia
-    // piu': `_galleggio` resta fermo a zero, le carte posate restano
-    // composte come con Riduci Movimento.
-    if (!_reduceMotion) {
+    // **IL GALLEGGIAMENTO TORNA, E NON COSTA. Ordine FS, 13 ottobre 2026.**
+    // LAPIDE: "IL GALLEGGIAMENTO E' TOLTO" (ordine FR, che lo diceva FQ).
+    // Il costo non era il galleggiamento in se': era che ogni suo
+    // fotogramma passava da `Listenable.merge` in `_laScena` e ricostruiva
+    // l'intero `TavoloDiMedora`, immagine, Medora e dieci carte. Il
+    // fondatore preferisce le carte che fluttuano, se lo scorrimento resta
+    // fluido: adesso ogni carta in piedi ha un suo animatore piccolo
+    // (`_Fluttua`) che sposta soltanto il livello gia' dipinto della carta
+    // (`RepaintBoundary`), senza ricostruire ne' ridipingere niente.
+    // Gia' a responso in scena (la stesa che si apre gia' fatta) il
+    // giroscopio non parte: vedi `TiltListener.ferma`, ordine FS.
+    if (!_reduceMotion && !_responsoPronto) {
       _tilt.start();
     }
+    if (!_reduceMotion) _galleggio.repeat();
     _apriScena();
     unawaited(_cercaLaStesaConservata());
   }
@@ -1214,13 +1222,43 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     final piuInSu = dopo < ordine.length
         ? PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, ordine[dopo])
         : null;
+    // **IL RISCATTO COMPRA LE CARTE CHE MANCANO A QUESTA STESA.** Un
+    // riscatto ridà tre carte (`QuestionAllowance.kCarteDelRiscatto`), e la
+    // Croce Celtica ne chiede dieci: col riscatto unico il pagamento andava,
+    // il cancello sbarrava di nuovo e il foglio si riapriva, 150 Eos a giro.
+    // Adesso se ne comprano quanti servono, sotto un consenso solo, e il
+    // pulsante dice quante carte e quanti Eos. Guardia:
+    // `test/il_riscatto_copre_la_croce_celtica_test.dart`.
+    final volte = borsa.riscattiPerLaStesa(piano, carte: carte);
+    final mancano = carte - restano;
+    final cosa = volte <= 1 && carte <= QuestionAllowance.kCarteDelRiscatto
+        ? 'una stesa completa'
+        : mancano >= carte
+            ? 'le $carte carte'
+            : 'le $mancano carte che mancano';
+    final messaggero = ScaffoldMessenger.maybeOf(context);
     final riscatto = corredoDelRiscatto(
       context,
       budget: 'stese',
-      cosaUna: 'una stesa completa',
-      onSuccesso: (_) {
+      cosaUna: cosa,
+      riscatti: volte,
+      onSuccesso: (pagato) {
         if (!mounted) return;
-        riprova();
+        // **SI RIPROVA SOLO SE ADESSO SI PUO'.** Richiamare la lettura alla
+        // cieca era il giro: il cancello sbarrava e riapriva il foglio. Se il
+        // riscatto si e' fermato a meta', lo si dice e il foglio resta chiuso.
+        if (borsa.puoiStendere(piano, carte: carte)) {
+          riprova();
+          return;
+        }
+        final ora = borsa.steseRimaste(piano) ?? 0;
+        messaggero?.removeCurrentSnackBar();
+        messaggero?.showSnackBar(SnackBar(
+          key: const Key('riscatto_non_basta'),
+          content: Text('Spesi $pagato Eos, ma le carte non bastano ancora: '
+              'ne hai $ora e questa stesa ne chiede $carte. Le carte '
+              'comprate restano tue per oggi, riprova fra un momento.'),
+        ));
       },
     );
     showUpgradeInvite(
@@ -1240,8 +1278,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 'e questa stesa ne chiede $carte.'
             : 'Le ${limite ?? 0} carte del giorno sono state estratte.',
         piuInSu == null
-            ? 'Puoi riscattare una stesa con gli Eos, oppure tornare domani.'
-            : 'Puoi riscattare una stesa con gli Eos, oppure salire di '
+            ? 'Puoi riscattare ${volte > 1 ? cosa : 'una stesa'} con gli '
+                'Eos, oppure tornare domani.'
+            : 'Puoi riscattare ${volte > 1 ? cosa : 'una stesa'} con gli '
+                'Eos, oppure salire di '
                 'livello nel Cerchio: dal livello successivo le carte del '
                 'giorno sono $piuInSu.',
       ].join(' '),
@@ -1308,6 +1348,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _attesa = StatoDellAttesa.inUscita;
       _responsoPronto = true;
     });
+    // **A RESPONSO IN SCENA IL GIROSCOPIO TACE, ordine FS.** Le carte si
+    // alzano e si leggono scorrendo: ogni segnale del sensore ricostruiva
+    // l'intero tavolo con le dieci carte in piedi, a scatti sotto il dito.
+    _tilt.ferma();
     await Future<void>.delayed(AttesaDiMedora.dissolvenza);
     if (!mounted) return;
     _stoPerRiflettere = false;
@@ -1376,6 +1420,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // di `palette.deepest` delle altre schermate.
           backgroundColor: palette.deepest.withValues(alpha: 0.35),
           elevation: 0,
+          // **E RESTA SEMITRASPARENTE ANCHE SCORRENDO, ordine FS.** Il
+          // fondatore sulla 2308: "la barra non e' semitrasparente". Per
+          // Material 3 una barra con qualcosa che le scorre sotto prende
+          // un'ombra e la tinta della superficie, e diventa piena: qui la
+          // tinta resta il velo di `palette.deepest`.
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent,
           iconTheme: IconThemeData(color: palette.goldSoft),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_rounded),
@@ -1431,11 +1482,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           key: const Key('stesa_sfondo'),
           seed: 5,
           showZodiac: false,
+          // **IL CONTENUTO PASSA SOTTO LA BARRA, ordine FS.** Con l'area
+          // sicura anche in alto la lista cominciava sotto la barra e non ci
+          // passava mai sotto, e il velo semitrasparente non si vedeva: si
+          // vedeva solo il cosmo fermo. Il margine alto adesso sta dentro la
+          // lista (`_content`), e scorrendo il tavolo e le carte passano
+          // sotto la barra.
           child: SafeArea(
+            top: false,
             child: Stack(
               key: _chiaveDellaPila,
               children: [
-                _content(palette),
+                // **IL MARGINE ALTO SI LEGGE DENTRO IL CORPO**, ordine FS:
+                // il contesto della schermata sta sopra lo `Scaffold` e non
+                // conosce l'altezza della barra; quello del corpo si'.
+                Builder(
+                  builder: (corpo) =>
+                      _content(palette, MediaQuery.paddingOf(corpo).top),
+                ),
                 // Il bianco con cui l'intro passa la mano: sta sopra la scena e
                 // dissolve, cosi' il taglio fra video e app non si vede.
                 AnimatedBuilder(
@@ -1533,8 +1597,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           _Slot.distanzaDellaScritta +
           _Slot.altezzaDellEtichetta(context) * (fila.righe > 1 ? 4 : 1) +
           SpacingTokens.md;
+      // **FINO A DOVE IL TAVOLO E' SPARITO, ordine FS.** Era il bordo
+      // davanti del velluto, e il drappo sotto passava dietro il pannello
+      // "Scegli la tua stesa": il fondatore lo ha visto come il pannello
+      // sopra il tavolo. Adesso il pannello comincia dove l'immagine e' gia'
+      // sfumata nel cosmo.
       final alta = math.max(
-          (GeometriaDelTavolo.bordoDavanti - GeometriaDelTavolo.taglioInAlto) *
+          (GeometriaDelTavolo.fineDellaSfumatura -
+                  GeometriaDelTavolo.taglioInAlto) *
               s,
           _responsoPronto ? sottoLaFila : 0.0);
       return SizedBox(
@@ -1547,9 +1617,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           alignment: Alignment.topCenter,
           child: KeyedSubtree(
             key: _chiaveDegliSlot,
-            child: AnimatedBuilder(
-              animation: Listenable.merge(
-                  [_giro, _alzo, _reveal, _galleggio, _tilt, _filo]),
+            // **UN LIVELLO SUO, ordine FS.** Lo scorrimento della pagina
+            // sposta il tavolo senza ridipingerlo: senza questo confine
+            // ogni fotogramma dello scorrimento ridisegnava immagine, Medora
+            // e carte insieme al resto della lista.
+            child: RepaintBoundary(
+                child: AnimatedBuilder(
+              animation:
+                  Listenable.merge([_giro, _alzo, _reveal, _tilt, _filo]),
               builder: (context, _) => TavoloDiMedora(
                 key: const Key('stesa_slots'),
                 posti: _setup.tipo.tavolo,
@@ -1565,7 +1640,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 faccia: (carta) =>
                     FacciaDellaCarta(drawn: carta, palette: palette),
               ),
-            ),
+            )),
           ),
         ),
       );
@@ -1644,14 +1719,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           revealProgress: _revealSlot == i ? _reveal.value : 0,
           tiltX: _tiltFermo?.dx ?? _tilt.x,
           tiltY: _tiltFermo?.dy ?? _tilt.y,
-          galleggio: _reduceMotion
-              ? 0
-              : TiltListener.fluttuazioneDi(i, _galleggio.value),
+          galleggio: _reduceMotion ? null : _galleggio,
+          indiceDelGalleggio: i,
           etichettaSuDueRighe: fila.righe > 1,
         ),
       );
 
-  Widget _content(MaestroPalette palette) {
+  Widget _content(MaestroPalette palette, double sottoLaBarra) {
     // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
     // porta sta in fondo a un elenco pigro, che la costruisce solo
     // quando la persona ci arriva: il responso si annota da
@@ -1659,7 +1733,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // istante della porta (una voce sola).
     final perIlDiario = ResponsoDaCustodire(
       arte: 'stesa',
-      titolo: 'La tua stesa a tre carte',
+      titolo: 'La tua stesa a $_quanteCarte',
       testo: _spread.reading,
       dati: {
         'carte': _spread.cards.map((c) => c.card.name).join(','),
@@ -1684,8 +1758,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // Sopra Medora c'era una fascia vuota che sprecava la parte migliore
       // dello schermo: il margine alto ora e' appena quello che serve a non
       // finire sotto la barra del titolo.
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xs,
-          SpacingTokens.lg, SpacingTokens.lg),
+      padding: EdgeInsets.fromLTRB(SpacingTokens.lg,
+          sottoLaBarra + SpacingTokens.xs, SpacingTokens.lg, SpacingTokens.lg),
       children: [
         if (_responsoPronto)
           IlResponsoNelDiario(
@@ -1788,7 +1862,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         if (!_complete) ...[
           Text(
             _drawn == 0
-                ? 'Scegli tre carte dal ventaglio'
+                ? 'Scegli $_quanteCarte dal ventaglio'
                 : 'Scegli ancora ${_posizioni.length - _drawn}',
             key: const Key('stesa_prompt'),
             textAlign: TextAlign.center,
@@ -1995,7 +2069,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             const SizedBox(height: SpacingTokens.xxs),
             Center(
               child: Text(
-                'Scegli tre carte dal ventaglio, poi premi qui.',
+                'Scegli $_quanteCarte dal ventaglio, poi premi qui.',
                 key: const Key('stesa_inizia_come'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo()
@@ -2280,7 +2354,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareStesaCard(
         boundaryKey: _cardKey,
-        text: 'La mia stesa a tre carte. Esoteric Circle.',
+        text: 'La mia stesa a $_quanteCarte. Esoteric Circle.',
       );
       if (andata && mounted) {
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
@@ -2306,6 +2380,40 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 }
 
 /// Il ventaglio di carte coperte, col dorso di Medora.
+/// **LA CARTA CHE FLUTTUA DA SOLA. Ordine FS, 13 ottobre 2026.** Il
+/// galleggiamento sposta il livello gia' dipinto della carta (il
+/// `RepaintBoundary` qui dentro) e nient'altro: a ogni fotogramma si
+/// ricostruisce un solo `Transform.translate`, la carta non si ridipinge e
+/// il tavolo non se ne accorge. Prima lo stesso movimento ricostruiva
+/// l'intero `TavoloDiMedora` a ogni fotogramma, e sulla Croce Celtica lo
+/// scorrimento andava a scatti.
+class _Fluttua extends StatelessWidget {
+  const _Fluttua({
+    required this.animazione,
+    required this.indice,
+    required this.child,
+  });
+
+  final Animation<double>? animazione;
+  final int indice;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final a = animazione;
+    final dipinta = RepaintBoundary(child: child);
+    if (a == null) return dipinta;
+    return AnimatedBuilder(
+      animation: a,
+      child: dipinta,
+      builder: (context, carta) => Transform.translate(
+        offset: Offset(0, TiltListener.fluttuazioneDi(indice, a.value)),
+        child: carta,
+      ),
+    );
+  }
+}
+
 class _Slot extends StatelessWidget {
   const _Slot({
     this.onApri,
@@ -2318,7 +2426,8 @@ class _Slot extends StatelessWidget {
     this.revealProgress = 0,
     this.tiltX = 0,
     this.tiltY = 0,
-    this.galleggio = 0,
+    this.galleggio,
+    this.indiceDelGalleggio = 0,
     this.etichettaSuDueRighe = false,
   });
 
@@ -2350,7 +2459,14 @@ class _Slot extends StatelessWidget {
   /// resta ferma e composta: e' il ripiego statico.
   final double tiltX;
   final double tiltY;
-  final double galleggio;
+
+  /// Il galleggiamento lento, come animazione e non come valore: la carta lo
+  /// segue da se' con [_Fluttua], senza che il tavolo si ricostruisca.
+  /// Nullo, la carta sta ferma. Ordine FS.
+  final Animation<double>? galleggio;
+
+  /// Il posto della carta nella stesa, per sfasare il suo galleggiamento.
+  final int indiceDelGalleggio;
 
   /// La scritta della posizione su piu' righe, per le carte strette della
   /// Croce Celtica in piedi: su una riga sola "CIO' CHE ATTRAVERSA"
@@ -2390,6 +2506,28 @@ class _Slot extends StatelessWidget {
   /// Quanto l'etichetta sotto la carta puo' allargarsi oltre la carta: fino
   /// al posto vicino, che sul tavolo sta a 1,15 larghezze.
   static const double larghezzaDellEtichetta = 1.6;
+
+  /// Lo stile dell'etichetta su piu' righe, per le carte strette in piedi.
+  static TextStyle get _stileDellEtichettaAlta =>
+      TypographyTokens.etichetta().copyWith(letterSpacing: 0.6, height: 1.1);
+
+  /// **LA PAROLA PIU' LUNGA, misurata col motore del testo.** Ordine FS: la
+  /// larghezza sotto la quale l'etichetta comincerebbe a spezzarla.
+  static double _parolaPiuLunga(
+      String testo, TextStyle stile, BuildContext context) {
+    var massima = 0.0;
+    for (final parola in testo.split(' ')) {
+      final p = TextPainter(
+        text: TextSpan(text: parola, style: stile),
+        textDirection: TextDirection.ltr,
+        textScaler: MediaQuery.textScalerOf(context),
+        maxLines: 1,
+      )..layout();
+      if (p.width > massima) massima = p.width;
+      p.dispose();
+    }
+    return massima.ceilToDouble() + 1;
+  }
 
   /// L'altezza della riga dell'etichetta, misurata col motore del testo.
   static double altezzaDellEtichetta(BuildContext context) => (TextPainter(
@@ -2501,8 +2639,9 @@ class _Slot extends StatelessWidget {
         // La carta posata fluttua piano e si inclina col giroscopio, come
         // sospesa davanti a chi guarda. E' un effetto di superficie: non tocca
         // il testo sotto ne' il pescaggio.
-        Transform.translate(
-          offset: Offset(0, galleggio),
+        _Fluttua(
+          animazione: galleggio,
+          indice: indiceDelGalleggio,
           child: Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()
@@ -2651,7 +2790,18 @@ class _Slot extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: etichettaSuDueRighe
                       ? SizedBox(
-                          width: largaDellEtichetta,
+                          // **MAI UNA PAROLA SPEZZATA, ordine FS.** Il
+                          // testo era chiuso nella larghezza della carta, piu'
+                          // stretta di "FONDAMENTO" o "ATTRAVERSA": Flutter
+                          // spezzava la parola a meta' ("IL FONDA / MENTO",
+                          // visto sul Realme). Adesso si impagina largo
+                          // almeno quanto la parola piu' lunga, e il
+                          // `FittedBox` qui sopra lo riduce alla carta: si va
+                          // a capo solo fra le parole.
+                          width: math.max(
+                              largaDellEtichetta,
+                              _parolaPiuLunga(position.etichetta.toUpperCase(),
+                                  _stileDellEtichettaAlta, context)),
                           child: Text(position.etichetta.toUpperCase(),
                               key: Key('stesa_etichetta_${position.name}'),
                               textAlign: TextAlign.center,
@@ -2659,10 +2809,8 @@ class _Slot extends StatelessWidget {
                               // "CIO' CHE COPRE" su meno righe perdevano
                               // l'ultima parola, tagliata invece che scalata.
                               maxLines: 4,
-                              style: TypographyTokens.etichetta().copyWith(
-                                  color: palette.goldSoft,
-                                  letterSpacing: 0.6,
-                                  height: 1.1)),
+                              style: _stileDellEtichettaAlta.copyWith(
+                                  color: palette.goldSoft)),
                         )
                       : Text(position.etichetta.toUpperCase(),
                           key: Key('stesa_etichetta_${position.name}'),

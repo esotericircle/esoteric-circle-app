@@ -1,0 +1,34 @@
+LO SCORRIMENTO DELLA CROCE CELTICA SUL REALME 767f596c, ordine FS, 14 ottobre 2026
+Metodo: dumpsys SurfaceFlinger --timestats, -clear -enable, gesto, -dump (vedi memoria fotogrammi-sul-realme-timestats).
+
+PRIMA, build 2307, app vera, un gesto di 600 ms:
+totalFrames = 4
+missedFrames = 4
+displayOnTime = 1008 ms
+totalFrames = 2
+
+DOPO, tool/la_croce_celtica_per_la_misura.dart (dieci carte gia' in piedi), due gesti di 600 ms per giro:
+== senza_1
+totalFrames = 73
+missedFrames = 9
+displayOnTime = 1729 ms
+== senza_2
+totalFrames = 69
+missedFrames = 9
+displayOnTime = 1712 ms
+== senza_3
+totalFrames = 72
+missedFrames = 10
+displayOnTime = 1697 ms
+== con_1
+totalFrames = 79
+missedFrames = 0
+displayOnTime = 1776 ms
+== con_2
+totalFrames = 76
+missedFrames = 6
+displayOnTime = 1699 ms
+== con_3
+totalFrames = 76
+missedFrames = 1
+displayOnTime = 1732 ms
