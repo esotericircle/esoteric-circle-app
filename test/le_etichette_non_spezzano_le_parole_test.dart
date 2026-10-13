@@ -65,13 +65,40 @@ void main() {
     }
 
     final spezzate = <String>[];
+    final misure = <String, double>{};
+    final troppeRighe = <String>[];
     var parole = 0;
     for (final pos in TarotSpreadType.dieciCarte.posizioni.toSet()) {
       final trovata = find.byKey(Key('stesa_etichetta_${pos.name}'));
       if (trovata.evaluate().isEmpty) continue;
-      final paragrafo = tester.renderObject<RenderParagraph>(find.descendant(
-          of: trovata.first, matching: find.byType(RichText)).first);
+      final paragrafo = tester.renderObject<RenderParagraph>(find
+          .descendant(of: trovata.first, matching: find.byType(RichText))
+          .first);
       final testo = paragrafo.text.toPlainText();
+      // **TUTTE DELLA STESSA MISURA, e al piu' due righe. Ordine FS, 14
+      // ottobre 2026**: il fondatore vedeva alcune didascalie "in maiuscolo,
+      // altre in minuscolo", cioe' rimpicciolite una per una. La misura
+      // vera a video e' quella del testo per la scala di ogni antenato.
+      // La scala vera a video: l'altezza del testo sullo schermo divisa per
+      // la sua altezza propria. La scala della trasformazione letta dal
+      // `RenderParagraph` non vedeva il `FittedBox` (misurato: 14 punti per
+      // tutte anche col riduttore di prima).
+      final aVideo = tester
+          .getRect(find
+              .descendant(of: trovata.first, matching: find.byType(RichText))
+              .first)
+          .height;
+      final dimensione = (paragrafo.text.style?.fontSize ?? 0) *
+          aVideo /
+          paragrafo.size.height;
+      misure[testo] = (dimensione * 10).roundToDouble() / 10;
+      final righe = paragrafo
+          .getBoxesForSelection(
+              TextSelection(baseOffset: 0, extentOffset: testo.length))
+          .map((b) => b.top.round())
+          .toSet()
+          .length;
+      if (righe > 2) troppeRighe.add('$testo: $righe righe');
       var inizio = 0;
       for (final parola in testo.split(' ')) {
         final fine = inizio + parola.length;
@@ -91,7 +118,13 @@ void main() {
         cosa: 'parole delle etichette guardate',
         perche: 'Senza etichette a video la prova non guarderebbe niente e '
             'sarebbe verde.');
+    // ignore: avoid_print
+    print('DIDASCALIE: $misure');
     expect(spezzate, isEmpty,
         reason: 'PAROLE SPEZZATE A META\' nelle etichette: $spezzate');
+    expect(misure.values.toSet().length, 1,
+        reason: 'LE DIDASCALIE NON HANNO TUTTE LA STESSA MISURA: $misure');
+    expect(troppeRighe, isEmpty,
+        reason: 'didascalie oltre le due righe: $troppeRighe');
   });
 }

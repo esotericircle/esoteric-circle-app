@@ -1595,7 +1595,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       final fila = GeometriaDelTavolo.fila(_setup.tipo.tavolo, w);
       final sottoLaFila = fila.zona.bottom +
           _Slot.distanzaDellaScritta +
-          _Slot.altezzaDellEtichetta(context) * (fila.righe > 1 ? 4 : 1) +
+          _Slot.altezzaDellEtichetta(context) * (fila.righe > 1 ? 2 : 1) +
           SpacingTokens.md;
       // **FINO A DOVE IL TAVOLO E' SPARITO, ordine FS.** Era il bordo
       // davanti del velluto, e il drappo sotto passava dietro il pannello
@@ -1722,8 +1722,43 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           galleggio: _reduceMotion ? null : _galleggio,
           indiceDelGalleggio: i,
           etichettaSuDueRighe: fila.righe > 1,
+          scalaDellEtichetta:
+              fila.righe > 1 ? _scalaDelleEtichette(fila.larghezza) : 1,
         ),
       );
+
+  /// **UNA MISURA SOLA PER TUTTE LE DIDASCALIE IN PIEDI**, ordine FS: la
+  /// piu' grande, fino a quella dell'etichetta, con cui ogni didascalia
+  /// della stesa sta in due righe larghe [larga] senza spezzare una parola.
+  double _scalaDelleEtichette(double larga) {
+    final etichette = {for (final p in _posizioni) p.didascalia.toUpperCase()};
+    final base = _Slot._stileDellEtichettaAlta;
+    final scala = MediaQuery.textScalerOf(context);
+    for (var s = 1.0; s > 0.5; s -= 0.02) {
+      final stile = base.copyWith(fontSize: base.fontSize! * s);
+      var regge = true;
+      for (final testo in etichette) {
+        if (_Slot._parolaPiuLunga(testo, stile, context) > larga) {
+          regge = false;
+          break;
+        }
+        final p = TextPainter(
+          text: TextSpan(text: testo, style: stile),
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center,
+          textScaler: scala,
+        )..layout(maxWidth: larga);
+        final righe = p.computeLineMetrics().length;
+        p.dispose();
+        if (righe > 2) {
+          regge = false;
+          break;
+        }
+      }
+      if (regge) return s;
+    }
+    return 0.5;
+  }
 
   Widget _content(MaestroPalette palette, double sottoLaBarra) {
     // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
@@ -2429,6 +2464,7 @@ class _Slot extends StatelessWidget {
     this.galleggio,
     this.indiceDelGalleggio = 0,
     this.etichettaSuDueRighe = false,
+    this.scalaDellEtichetta = 1,
   });
 
   final SpreadPosition position;
@@ -2472,6 +2508,10 @@ class _Slot extends StatelessWidget {
   /// Croce Celtica in piedi: su una riga sola "CIO' CHE ATTRAVERSA"
   /// scenderebbe a una misura che non si legge.
   final bool etichettaSuDueRighe;
+
+  /// La misura comune delle didascalie su piu' righe, rispetto a quella
+  /// dell'etichetta: una sola per tutte le carte della stesa. Ordine FS.
+  final double scalaDellEtichetta;
 
   /// La scala della carta chiave e quella delle vicine. Ordini BV voce 04 e
   /// BZ voce 08.
@@ -2780,45 +2820,50 @@ class _Slot extends StatelessWidget {
             final largaDellEtichetta = etichettaSuDueRighe
                 ? vincoli.maxWidth
                 : vincoli.maxWidth + FilaAlzata.distanzaFraLeCarte;
+            // **LE DIDASCALIE DELLA CROCE CELTICA, TUTTE DELLA STESSA MISURA
+            // E ATTACCATE ALLA CARTA. Ordine FS, 14 ottobre 2026.** Il
+            // fondatore, guardando la Croce Celtica in piedi: "avvicinare le
+            // didascalie alla propria carta", e alcune "in maiuscolo, altre
+            // in minuscolo, visivamente brutte". Le didascalie lunghe erano
+            // rimpicciolite una per una dal `FittedBox` (in Cinzel, che ha
+            // solo capitali, una capitale piccola si legge come una
+            // minuscola), e ognuna stava al centro di uno spazio alto quattro
+            // righe, lontana dalla carta. Adesso la misura e' una sola per
+            // tutte, la piu' grande con cui ogni didascalia sta in due righe
+            // senza spezzare una parola (`_scalaDelleEtichette`), e il testo
+            // comincia subito sotto la carta. LAPIDE: il `FittedBox` per
+            // didascalia e le quattro righe dell'ordine FM aggiunta 1.
+            if (etichettaSuDueRighe) {
+              return SizedBox(
+                width: vincoli.maxWidth,
+                height: altezzaDellEtichetta(context) * 2,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(position.didascalia.toUpperCase(),
+                      key: Key('stesa_etichetta_${position.name}'),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: _stileDellEtichettaAlta.copyWith(
+                          color: palette.goldSoft,
+                          fontSize: _stileDellEtichettaAlta.fontSize! *
+                              scalaDellEtichetta)),
+                ),
+              );
+            }
             return SizedBox(
               width: vincoli.maxWidth,
-              height:
-                  altezzaDellEtichetta(context) * (etichettaSuDueRighe ? 4 : 1),
+              height: altezzaDellEtichetta(context),
               child: OverflowBox(
                 maxWidth: largaDellEtichetta,
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: etichettaSuDueRighe
-                      ? SizedBox(
-                          // **MAI UNA PAROLA SPEZZATA, ordine FS.** Il
-                          // testo era chiuso nella larghezza della carta, piu'
-                          // stretta di "FONDAMENTO" o "ATTRAVERSA": Flutter
-                          // spezzava la parola a meta' ("IL FONDA / MENTO",
-                          // visto sul Realme). Adesso si impagina largo
-                          // almeno quanto la parola piu' lunga, e il
-                          // `FittedBox` qui sopra lo riduce alla carta: si va
-                          // a capo solo fra le parole.
-                          width: math.max(
-                              largaDellEtichetta,
-                              _parolaPiuLunga(position.etichetta.toUpperCase(),
-                                  _stileDellEtichettaAlta, context)),
-                          child: Text(position.etichetta.toUpperCase(),
-                              key: Key('stesa_etichetta_${position.name}'),
-                              textAlign: TextAlign.center,
-                              // Quattro righe, non due: "IL FONDAMENTO" e
-                              // "CIO' CHE COPRE" su meno righe perdevano
-                              // l'ultima parola, tagliata invece che scalata.
-                              maxLines: 4,
-                              style: _stileDellEtichettaAlta.copyWith(
-                                  color: palette.goldSoft)),
-                        )
-                      : Text(position.etichetta.toUpperCase(),
-                          key: Key('stesa_etichetta_${position.name}'),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          softWrap: false,
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 1.2)),
+                  child: Text(position.etichetta.toUpperCase(),
+                      key: Key('stesa_etichetta_${position.name}'),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      softWrap: false,
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.goldSoft, letterSpacing: 1.2)),
                 ),
               ),
             );

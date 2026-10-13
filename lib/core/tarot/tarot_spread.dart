@@ -63,6 +63,28 @@ enum SpreadPosition {
   /// L'etichetta da mostrare, con la marca del genere risolta.
   String get etichetta => LaMarcaDelGenere.risolvi(label);
 
+  /// **LA DIDASCALIA SOTTO LA CARTA IN PIEDI DELLA CROCE CELTICA. Ordine FS,
+  /// 14 ottobre 2026.** Il fondatore: "rifai anche i testi delle
+  /// didascalie", alcune grandi e altre rimpicciolite. Con le parole lunghe
+  /// ("attraversa", "fondamento") una misura sola per tutte scendeva a nove
+  /// punti. Le didascalie seguono la forma di Waite stesso, che dice ogni
+  /// posto rispetto alla persona ("This covers him", "This crosses him",
+  /// "This crowns him", "beneath him", "behind him", "before him", "Himself",
+  /// "his house", "hopes or fears": Waite 1911, Parte III, sezione 7). Il
+  /// nome pieno resta l'[etichetta]: nelle bolle, nelle istruzioni al
+  /// modello e in ogni altra stesa.
+  String get didascalia => switch (this) {
+        SpreadPosition.copre => 'Ti copre',
+        SpreadPosition.attraversa => 'Contro di te',
+        SpreadPosition.corona => 'Ti corona',
+        SpreadPosition.sotto => 'Sotto di te',
+        SpreadPosition.dietro => 'Dietro di te',
+        SpreadPosition.futuro => 'Davanti a te',
+        SpreadPosition.seStesso => 'Tu',
+        SpreadPosition.speranzeOTimori => 'Speri o temi',
+        _ => etichetta,
+      };
+
   /// Le tre posizioni della Stesa di Medora a tre carte, nell'ordine di
   /// lettura. Prima dell'ordine FI erano tutto l'elenco, e la stesa le
   /// leggeva come `SpreadPosition.values`.

@@ -480,7 +480,13 @@ class FilaAlzata {
   /// d'etichetta a diciannove punti l'una, con un margine. Ricalcolato il
   /// 12 ottobre 2026 quando la distanza e' scesa da sedici a quattro punti
   /// e le righe della scritta da due a quattro.
-  static const double sottoLaCartaInDueRighe = 84;
+  ///
+  /// **QUARANTOTTO, non ottantaquattro. Ordine FS, 14 ottobre 2026.** Il
+  /// fondatore: "diminuire lo spazio tra le righe" della Croce Celtica. Le
+  /// didascalie adesso stanno in due righe al piu', tutte della stessa
+  /// misura (`_scalaDelleEtichette` nella schermata): quattro punti di
+  /// distanza, due righe da diciannove, e cinque di margine.
+  static const double sottoLaCartaInDueRighe = 48;
 
   /// Lo stesso spazio quando la scritta sta su una riga sola: la distanza
   /// piu' una riga d'etichetta, con un margine.
