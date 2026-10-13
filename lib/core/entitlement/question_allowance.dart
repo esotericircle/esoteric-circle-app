@@ -628,6 +628,21 @@ class QuestionAllowance extends ChangeNotifier {
     return resta == null || resta >= carte;
   }
 
+  /// **QUANTI RISCATTI SERVONO PERCHE' QUESTA STESA SI APRA.** Un riscatto
+  /// ridà [kCarteDelRiscatto] carte, e la Croce Celtica ne chiede dieci: a
+  /// carte esaurite un riscatto solo la lasciava chiusa, e il foglio si
+  /// riapriva a ogni pagamento. Le carte che mancano, divise per tre e
+  /// arrotondate in su; zero se le carte bastano gia' o se non c'e' limite.
+  /// Il prezzo unitario e il server non cambiano: cambia quante volte si
+  /// compra, e il foglio lo dice prima del tocco.
+  int riscattiPerLaStesa(Tier tier, {required int carte}) {
+    final resta = steseRimaste(tier);
+    if (resta == null) return 0;
+    final mancano = carte - resta;
+    if (mancano <= 0) return 0;
+    return (mancano + kCarteDelRiscatto - 1) ~/ kCarteDelRiscatto;
+  }
+
   /// Registra una stesa consumata. Chi ha l'illimitato non intacca niente.
   ///
   /// Si chiama UNA volta per stesa e non una per carta, nel momento in cui la
@@ -933,6 +948,37 @@ class QuestionAllowance extends ChangeNotifier {
     notifyListeners();
     await _persist();
     return prezzo;
+  }
+
+  /// **PIU' RISCATTI SOTTO UN CONSENSO SOLO.** Serve alla stesa che chiede
+  /// piu' carte di quante un riscatto ne ridia (vedi [riscattiPerLaStesa]):
+  /// la persona conferma una volta il prezzo intero, e qui si chiama il
+  /// server [volte] volte in sequenza, come [riscatta] fa una volta, ognuna
+  /// col suo identificativo.
+  ///
+  /// Non parte niente se il consenso non copre il prezzo intero o se il
+  /// saldo non basta per tutti: mai mezza stesa pagata per scelta. Se il
+  /// server cade a meta' ci si ferma li', e l'esito dice quanti riscatti
+  /// sono andati e quanto si e' pagato davvero: chi chiama lo racconta.
+  Future<({int fatti, int pagato})> riscattaPiuVolte(String budget,
+      {required int volte, required ConsensoDellaSpesa consenso}) async {
+    final prezzo = _listinoDelRiscatto[budget];
+    if (volte <= 0 || prezzo == null || !_porta.viva) {
+      return (fatti: 0, pagato: 0);
+    }
+    final totale = prezzo * volte;
+    if (consenso.quanti < totale || _saldoEos < totale) {
+      return (fatti: 0, pagato: 0);
+    }
+    var fatti = 0;
+    var pagato = 0;
+    for (var i = 0; i < volte; i++) {
+      final questo = await riscatta(budget, consenso: consenso);
+      if (questo == null) break;
+      fatti++;
+      pagato += questo;
+    }
+    return (fatti: fatti, pagato: pagato);
   }
 
   /// Vero se l'ULTIMA sincronia ha accreditato il benvenuto: il Cerchio di

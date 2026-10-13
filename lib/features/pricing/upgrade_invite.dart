@@ -158,10 +158,17 @@ Future<bool> showUpgradeInvite(
 /// chiama [onSuccesso], con cui chi ha chiamato puo' rifare il gesto subito.
 /// Torna (null, null) se il server non ha ancora detto il prezzo: senza
 /// prezzo non si promette niente.
+///
+/// **[riscatti] RISCATTI SOTTO UN CONSENSO SOLO.** La stesa che chiede piu'
+/// carte di quante un riscatto ne ridia (la Croce Celtica, dieci carte a tre
+/// per riscatto) ne compra quanti servono: il pulsante e la conferma dicono
+/// il prezzo intero, unitario per [riscatti], e la persona conferma una
+/// volta. Con un riscatto solo il corredo e' quello di sempre.
 ({String? label, Future<void> Function()? azione}) corredoDelRiscatto(
   BuildContext context, {
   required String budget,
   required String cosaUna,
+  int riscatti = 1,
   void Function(int prezzo)? onSuccesso,
 }) {
   final QuestionAllowance borsa;
@@ -170,8 +177,10 @@ Future<bool> showUpgradeInvite(
   } catch (errore) {
     return (label: null, azione: null);
   }
-  final prezzo = borsa.prezzoDelRiscatto(budget);
-  if (prezzo == null) return (label: null, azione: null);
+  final unitario = borsa.prezzoDelRiscatto(budget);
+  if (unitario == null) return (label: null, azione: null);
+  final volte = riscatti < 1 ? 1 : riscatti;
+  final prezzo = unitario * volte;
   final saldo = borsa.saldoEos;
   // **COL SALDO CORTO IL TOCCO APRE LO STESSO LA CONFERMA**, ordine FD voce
   // 01: col pulsante spento e la riga che dice costo e saldo.
@@ -192,6 +201,35 @@ Future<bool> showUpgradeInvite(
       final consenso =
           await LaConfermaDellaSpesa.degliEos(context, costo: prezzo);
       if (consenso == null || !context.mounted) return;
+      if (volte > 1) {
+        final esito = await borsa.riscattaPiuVolte(budget,
+            volte: volte, consenso: consenso);
+        if (esito.fatti == 0) {
+          messaggero?.showSnackBar(const SnackBar(
+            key: Key('riscatto_non_riuscito'),
+            content: Text('Il riscatto non è riuscito: il Cerchio non ha '
+                'risposto. Gli Eos sono al loro posto, riprova fra un '
+                'momento.'),
+          ));
+          return;
+        }
+        final intero = esito.fatti == volte;
+        await registro?.segna(
+            quanti: -esito.pagato,
+            perche: intero
+                ? 'Hai riscattato $cosaUna'
+                : 'Hai riscattato una parte di $cosaUna');
+        messaggero?.showSnackBar(SnackBar(
+          key: Key(intero ? 'riscatto_fatto' : 'riscatto_interrotto'),
+          content: Text(intero
+              ? 'Riscatto compiuto: $cosaUna. Spesi ${esito.pagato} Eos.'
+              : 'Il riscatto si è fermato a metà: il Cerchio non ha '
+                  'risposto. Spesi ${esito.pagato} Eos, e le carte comprate '
+                  'restano tue per oggi.'),
+        ));
+        onSuccesso?.call(esito.pagato);
+        return;
+      }
       final pagato = await borsa.riscatta(budget, consenso: consenso);
       if (pagato == null) {
         messaggero?.showSnackBar(const SnackBar(
