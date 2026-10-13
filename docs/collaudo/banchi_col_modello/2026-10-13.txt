@@ -1,8 +1,8 @@
 I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18
-commit: b4d5fbb26a0f3a71d3c2ec0d04d948809ac11365
-inizio: 2026-10-13T07:42:31+00:00
-fine: 2026-10-13T07:44:29+00:00
-comando: python tool/banchi_col_modello/i_banchi_col_modello.py --rifai-i-rossi docs/collaudo/banchi_col_modello/2026-10-13-primo-giro-con-un-rosso.txt
+commit: f7adcf79a5d5490ffe74131854d79829e2873d6b
+inizio: 2026-10-13T08:03:59+00:00
+fine: 2026-10-13T08:05:08+00:00
+comando: python tool/banchi_col_modello/i_banchi_col_modello.py --costo --rifai-i-rossi docs/collaudo/banchi_col_modello/2026-10-13-primo-giro-con-un-rosso.txt
 rifatti: RISULTATO 8 dal giro 2026-10-13-primo-giro-con-un-rosso.txt; gli altri esiti sono quelli di quel giro, sullo stesso commit
 
 RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
@@ -29,5 +29,12 @@ RISULTATO 11: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: F
   misura: percorso F: dopo dieci minuti il Maestro ritrova il suo filo
 
 --- le misure stampate da il_filo_del_consulto_col_modello_test.dart
-  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 1 con un elemento gia' uscito
-  ORDINE FE VOCE 18, costo dei sei banchi: 20 chiamate, 91227 token di ingresso, 4582 di uscita col ragionamento, 0.039 dollari a listino
+  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito
+  ORDINE FE VOCE 18, costo dei sei banchi: 21 chiamate, 96893 token di ingresso, 5121 di uscita col ragionamento, 0.042 dollari a listino
+
+--- il costo, da Cloud Monitoring (token_count), finestra di 189 secondi
+  gemini-2.5-flash input: 96893 token, 0.0291 dollari
+  gemini-2.5-flash output: 5121 token, 0.0128 dollari
+  totale 0.0419 dollari, cambio BCE del 2026-10-12: 1 euro = 1.1181 dollari
+COSTO DEL GIRO: 0.04 euro
+  (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)
