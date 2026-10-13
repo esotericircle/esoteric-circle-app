@@ -163,11 +163,22 @@ void main() {
       }
     });
 
-    test('aperte la carta sola e la croce, chiusa la Croce Celtica', () {
-      expect(TarotSpreadType.unaCarta.disponibile, isTrue);
-      expect(TarotSpreadType.treCarte.disponibile, isTrue);
-      expect(TarotSpreadType.croceQuattro.disponibile, isTrue);
-      expect(TarotSpreadType.dieciCarte.disponibile, isFalse);
+    test('aperte tutte e quattro le stese, Croce Celtica compresa', () {
+      // **LA CROCE CELTICA SI APRE, ordine FQ, 13 ottobre 2026.** Qui si
+      // pretendeva chiusa per il motivo scritto accanto a `costruita` in
+      // `tarot_spread_type.dart`: la fila in piedi del tavolo di Medora
+      // metteva le sue dieci carte affiancate a 26 punti, illeggibili.
+      // **Quel motivo non vale piu' dall'ordine FM aggiunta 1 (12 ottobre
+      // 2026)**: la fila in piedi ora dispone piu' di quattro carte in
+      // righe bilanciate (dieci carte, 4+3+3), con le carte sempre almeno a
+      // 70 punti, provato in `il_tavolo_di_medora_test.dart`
+      // ("FM aggiunta 1: la Croce Celtica in piedi sta in righe bilanciate,
+      // al piu' quattro per riga"). Il fondatore ha chiesto lo sblocco: il
+      // lavoro grafico che lo motivava era gia' fatto, e la guardia qui
+      // pretendeva ancora la decisione vecchia.
+      for (final t in TarotSpreadType.values) {
+        expect(t.disponibile, isTrue, reason: '${t.name} non e\' disponibile');
+      }
     });
 
     test('le due stese aperte si leggono anche senza modello', () {

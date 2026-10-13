@@ -145,13 +145,18 @@ enum TarotSpreadType {
     // capitolo (docs/corpus/tarocchi_posizione/verifica_waite_1911.md).
     fonte: 'Arthur Edward Waite, The Pictorial Key to the Tarot, 1911, '
         'Parte III, sezione 7, "An Ancient Celtic Method of Divination".',
-    // **CHIUSA, MA NON PIU' PER LE FONTI.** Dall'ordine FM (12 ottobre
+    // **APERTA, ordine FQ, 13 ottobre 2026.** Dall'ordine FM (12 ottobre
     // 2026) le dieci posizioni hanno tutte la loro fonte, 468 testi
-    // ciascuna. Resta chiusa perche' la fila in piedi del tavolo di Medora
-    // (ordine FL voce 05) mette le carte affiancate: dieci a 360 punti sono
-    // larghe ventisei punti l'una, illeggibili. Si apre col tavolo a dieci
-    // carte disegnato, non prima.
-    costruita: false,
+    // ciascuna. Restava chiusa per il tavolo di Medora: la fila in piedi
+    // (ordine FL voce 05) metteva le carte affiancate, dieci a 360 punti
+    // larghe ventisei punti l'una, illeggibili. **Il tavolo a dieci carte
+    // e' stato disegnato dall'ordine FM aggiunta 1**, nella stessa sera:
+    // righe bilanciate (4+3+3), carte mai sotto i 70 punti
+    // (`il_tavolo_di_medora.dart`, `FilaAlzata.per`, provato in
+    // `il_tavolo_di_medora_test.dart`). Il fondatore ha chiesto lo sblocco
+    // dopo che quel lavoro era gia' fatto: resta tier Adepto
+    // (`apribileDa`), non "Coming soon".
+    costruita: true,
   );
 
   const TarotSpreadType({
