@@ -366,9 +366,15 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
     // **NIENTE PROMESSE DI UNIONE, ordine AL voce 07.** Qui si prometteva di
     // unire i due Cerchi scrivendoci: un'unione che non esiste da nessuna
     // parte del sistema. La via in avanti vera e' il "Continua come" sotto.
+    //
+    // **"OPPURE PROVARE CON UN'ALTRA VIA" NON SI DICE PIU', ordine FS.** Dal
+    // 13 ottobre 2026 questa frase si legge solo nella rete, cioe' quando
+    // l'ingresso diretto con la credenziale del rifiuto non e' riuscito, e
+    // la rete compare da sola: le altre vie sotto non ci sono piu', e
+    // promettere una strada che a video non c'e' e' una bugia.
     case EsitoDellaCustodia.giaDiUnAltroCerchio:
-      return 'Quell\'identità vive già in un altro Cerchio. Puoi entrarci '
-          'qui sotto, oppure provare con un\'altra via.';
+      return 'Quell\'identità vive già in un altro Cerchio: puoi entrarci '
+          'qui sotto.';
     case EsitoDellaCustodia.cerchioCambiato:
       return 'Qualcosa non ha funzionato e il tuo cielo non è stato '
           'collegato. Niente è andato perso: riprova più tardi.';
@@ -427,80 +433,78 @@ class ContinuaComeRiconosciuto extends StatefulWidget {
 }
 
 class _ContinuaComeRiconosciutoState extends State<ContinuaComeRiconosciuto> {
-  /// **SPENTO FINCHE' NON SI SPUNTA LA CASELLA. Ordine FN, 13 ottobre
-  /// 2026.** Stessa regola di [VieDellaCustodia]: entrare nel Cerchio
-  /// riconosciuto e' anch'esso un ingresso, e aspetta lo stesso atto.
-  bool _accettato = false;
-
+  // **LA CASELLA QUI NON C'E' PIU'. Ordine FS, 13 ottobre 2026.**
+  //
+  // Lapide: dall'ordine CF voce 15 questo componente montava il suo
+  // `ConsensiDellaRegistrazione`, e dall'ordine FN la sua casella teneva
+  // spento il pulsante. La ragione era che "chi rientra con un'email gia'
+  // registrata vede questo pulsante, che non passa dalle vie comuni". **Oggi
+  // non e' piu' vero**: questo componente si monta soltanto dopo un
+  // `giaDiUnAltroCerchio`, e quell'esito arriva solo da un tocco su
+  // `VieDellaCustodia`, che il pulsante lo accende dopo la SUA casella. Il
+  // fondatore, sulla build 2308, ha visto la seconda casella identica sotto
+  // la prima e ha chiesto: si chiede UNA volta, senza ripetere i testi
+  // legali. Il consenso dato prima del tocco su Google vale anche qui.
   @override
   Widget build(BuildContext context) {
     final nome = widget.account.nomeRiconosciuto;
     if (nome == null) return const SizedBox.shrink();
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    return NotificationListener<ConsensoCambiatoNotification>(
-      onNotification: (nota) {
-        setState(() => _accettato = nota.accettato);
-        return true;
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // **I CONSENSI CI SONO ANCHE QUI, ordine CF voce 15.**
-          //
-          // **Domanda del fondatore, verbatim**: "quando mi registro la
-          // prima volta o quando disinstallo e poi reinstallo inserendo poi
-          // la mia e-mail precedente, non dovrebbe esserci scritto che
-          // 'facendo click accetti la privacy policy'?"
-          //
-          // **Aveva ragione a meta', ed era la meta' peggiore.** La riga
-          // esiste, e' una sola in tutto il codice, e compare nella prima
-          // registrazione con email e in quella con Google o Apple, perche'
-          // tutte e tre montano `VieDellaCustodia`. **Questo ramo no**: chi
-          // rientra con un'email gia' registrata vede questo pulsante, che
-          // e' costruito qui e non passa di la'. Premerlo e' un ingresso nel
-          // Cerchio come gli altri, quindi la riga che dice cosa si accetta
-          // deve esserci.
-          const ConsensiDellaRegistrazione(),
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'I passi fatti su questo telefono si uniscono al cammino di '
-            'quel Cerchio: Eos e ricordi restano quelli del Cerchio in cui '
-            'entri.',
-            key: const Key('continua_come_riga_onesta'),
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          rigaDellIngressoNelCerchioRiconosciuto,
+          key: const Key('continua_come_riga_onesta'),
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        FilledButton(
+          key: const Key('continua_come'),
+          style: FilledButton.styleFrom(
+            backgroundColor: palette.gold,
+            foregroundColor: palette.deepest,
+            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          AnimatedOpacity(
-            opacity: _accettato ? 1 : 0.4,
-            duration: const Duration(milliseconds: 200),
-            child: IgnorePointer(
-              ignoring: !_accettato,
-              child: FilledButton(
-                key: const Key('continua_come'),
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.gold,
-                  foregroundColor: palette.deepest,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
-                ),
-                onPressed: () async {
-                  final esito =
-                      await widget.account.entraNelCerchioRiconosciuto();
-                  widget.suEsito(esito);
-                },
-                child: Text('Continua come $nome',
-                    overflow: TextOverflow.ellipsis,
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.deepest)),
-              ),
-            ),
-          ),
-        ],
-      ),
+          onPressed: () async {
+            final esito = await widget.account.entraNelCerchioRiconosciuto();
+            widget.suEsito(esito);
+          },
+          child: Text('Continua come $nome',
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.deepest)),
+        ),
+      ],
     );
   }
+}
+
+/// **LA RIGA CHE DICE COSA SUCCEDE AL CAMMINO DI QUESTO TELEFONO.** Ordine
+/// AP voce 08 per le parole, ordine FS per la casa: sta in un punto solo
+/// perche' adesso si legge in due modi, nella rete "Continua come" e, quando
+/// si entra subito, nell'avviso di [mostraLaRigaDellIngresso].
+const String rigaDellIngressoNelCerchioRiconosciuto =
+    'I passi fatti su questo telefono si uniscono al cammino di quel Cerchio: '
+    'Eos e ricordi restano quelli del Cerchio in cui entri.';
+
+/// **CHI ENTRA SUBITO LO LEGGE LO STESSO, una volta.** Ordine FS, 13 ottobre
+/// 2026.
+///
+/// Quando l'identita' scelta e' gia' di un altro Cerchio si entra senza
+/// fermarsi, e la riga che prima stava sopra "Continua come" resterebbe non
+/// detta: e' un'informazione che pesa, perche' gli Eos di questo telefono
+/// lasciano il posto a quelli del Cerchio in cui si entra. Non e' una forma
+/// nuova: e' l'avviso in basso che l'app usa gia' per il rientro, e si
+/// mostra una volta, subito dopo l'ingresso.
+void mostraLaRigaDellIngresso(BuildContext context) {
+  ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
+    key: Key('ingresso_riga_onesta'),
+    content: Text(rigaDellIngressoNelCerchioRiconosciuto),
+    duration: Duration(seconds: 6),
+  ));
 }
 
 /// L'INVITO A CHI HA RIMANDATO, col numero VERO dei momenti custoditi.
@@ -643,11 +647,25 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       return;
     }
     EsitoDellaCustodia esito;
+    var entratoSubito = false;
     try {
       esito = widget.perChiTorna
           ? await widget.account
               .entraDirettamente(via, email: email, parola: parola)
           : await widget.account.custodisci(via, email: email, parola: parola);
+      // **CHI E' GIA' DI UN CERCHIO ENTRA SUBITO. Ordine FS, 13 ottobre
+      // 2026.** Il fondatore, sulla build 2308: si chiede UNA volta; scelto
+      // l'account Google, se quell'identita' esiste gia' si entra
+      // direttamente in quel Cerchio. Prima qui si fermava tutto e compariva
+      // "Continua come", con una seconda casella identica alla prima. Adesso
+      // si prova SOLO la credenziale che Firebase ha messo nel rifiuto, senza
+      // riaprire il selettore; "Continua come" resta la rete per quando
+      // quella credenziale manca o non entra.
+      if (esito == EsitoDellaCustodia.giaDiUnAltroCerchio) {
+        entratoSubito =
+            await widget.account.entraConLaCredenzialeDelRifiuto() ==
+                EsitoDellaCustodia.riuscita;
+      }
     } catch (imprevisto) {
       // **QUALUNQUE COSA SIA, LA SCHEDA DEVE RIPARTIRE.** Non si guarda cosa
       // e' successo perche' la condotta e' la stessa in tutti i casi: si dice
@@ -658,6 +676,18 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
       if (mounted) setState(() => _inCorso = null);
     }
     if (!mounted) return;
+    if (entratoSubito) {
+      // Lo stesso giro del tocco su "Continua come" qui sotto: il foglio si
+      // chiude prima, poi il Custode riporta il cammino. In piu' la riga su
+      // Eos e ricordi, che chi entra subito non ha letto sopra il pulsante.
+      final navigatore = Navigator.of(context);
+      final radice = navigatore.context;
+      navigatore.pop(true);
+      if (!radice.mounted) return;
+      mostraLaRigaDellIngresso(radice);
+      await CustodeDelCammino.dopoIlRiconoscimento(radice);
+      return;
+    }
     if (esito == EsitoDellaCustodia.riuscita) {
       Navigator.of(context).pop(true);
       return;

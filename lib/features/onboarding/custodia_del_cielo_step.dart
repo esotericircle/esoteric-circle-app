@@ -107,10 +107,30 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
       _guaio = null;
       _riconosciuto = false;
     });
-    final esito = await context
-        .read<AccountDelCerchio>()
-        .custodisci(via, email: email, parola: parola);
+    final account = context.read<AccountDelCerchio>();
+    final esito = await account.custodisci(via, email: email, parola: parola);
     if (!mounted) return;
+    // **CHI E' GIA' DI UN CERCHIO ENTRA SUBITO. Ordine FS, 13 ottobre 2026.**
+    // Il fondatore, sulla build 2308: si chiede UNA volta; scelto l'account
+    // Google, se quell'identita' esiste gia' si entra direttamente in quel
+    // Cerchio, senza un'altra schermata praticamente identica e senza
+    // ripetere i testi legali. Prima qui la schermata restava ferma e
+    // aggiungeva "Continua come" con una seconda casella, e sotto di nuovo le
+    // vie con la terza. Si prova SOLO la credenziale che Firebase ha messo
+    // nel rifiuto, senza riaprire il selettore, e il consenso e' quello della
+    // casella spuntata per toccare Google. Poi lo stesso giro del tocco su
+    // "Continua come": il Custode riporta il cammino, e il passo finisce.
+    if (esito == EsitoDellaCustodia.giaDiUnAltroCerchio) {
+      final diretto = await account.entraConLaCredenzialeDelRifiuto();
+      if (!mounted) return;
+      if (diretto == EsitoDellaCustodia.riuscita) {
+        mostraLaRigaDellIngresso(context);
+        await CustodeDelCammino.dopoIlRiconoscimento(context);
+        if (!mounted) return;
+        widget.suFine();
+        return;
+      }
+    }
     if (esito == EsitoDellaCustodia.riuscita) {
       // **LA FESTA PRIMA DEL PASSO SUCCESSIVO, ordine BH voce 02**: il
       // premio della registrazione si vede subito, poi il Risveglio
@@ -124,7 +144,9 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
       _inCorso = null;
       _guaio = frasePerEsito(esito);
       // LA VIA IN AVANTI, ordine AL voce 07: il Risveglio riconosce e
-      // propone, con lo STESSO componente del foglio dell'account.
+      // propone, con lo STESSO componente del foglio dell'account. Dall'ordine
+      // FS e' solo la rete: ci si arriva quando l'ingresso diretto qui sopra
+      // non e' riuscito.
       _riconosciuto = esito == EsitoDellaCustodia.giaDiUnAltroCerchio;
     });
   }
@@ -236,12 +258,22 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                             },
                           ),
                         ],
-                        const SizedBox(height: SpacingTokens.xl),
-                        VieDellaCustodia(
-                          inCorso: _inCorso,
-                          suScelta: (via, {email, parola}) =>
-                              _custodisci(via, email: email, parola: parola),
-                        ),
+                        // **QUANDO E' RICONOSCIUTO, SOTTO NON SI MONTA PIU'
+                        // NIENTE.** Ordine FS, 13 ottobre 2026, come il foglio
+                        // del menu' utente dall'ordine FN: qui le vie della
+                        // custodia restavano montate senza condizione sotto
+                        // "Continua come", e il fondatore ha visto sulla 2308
+                        // la stessa casella legale e lo stesso "Continua con
+                        // Google" una seconda volta. Chi e' riconosciuto ha
+                        // gia' la sua via.
+                        if (!_riconosciuto) ...[
+                          const SizedBox(height: SpacingTokens.xl),
+                          VieDellaCustodia(
+                            inCorso: _inCorso,
+                            suScelta: (via, {email, parola}) =>
+                                _custodisci(via, email: email, parola: parola),
+                          ),
+                        ],
                         // IL VUOTO IN FONDO E' MISURATO, non uno Spacer pari: con
                         // due Spacer uguali il Piu' tardi finiva a mezzo schermo dai
                         // pulsanti, e sembrava di un'altra scena. Visto sull'anteprima.

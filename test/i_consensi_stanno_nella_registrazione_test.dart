@@ -169,11 +169,18 @@ void main() {
       //
       // **Due montaggi non sono due copie**: il widget e' uno solo, e cio'
       // che dice sta scritto in un punto solo.
+      //
+      // **E DI NUOVO UNO SOLO, ordine FS, 13 ottobre 2026.** Lapide del
+      // montaggio pari a due: il secondo stava in `ContinuaComeRiconosciuto`,
+      // che pero' si monta solo dopo un tocco su `VieDellaCustodia`, cioe'
+      // dopo la casella della prima copia. Sulla build 2308 il fondatore le
+      // ha viste tutte e due a video, una sotto l'altra, e ha chiesto: si
+      // chiede UNA volta, senza ripetere i testi legali. Il rientro dice
+      // ancora cosa si accetta: lo dice prima del tocco che lo apre.
       final quante = 'ConsensiDellaRegistrazione()'.allMatches(vie).length;
-      expect(quante, 2,
-          reason: 'i consensi sono montati $quante volte: le vie d\'ingresso '
-              'sono due, la registrazione e il rientro, e tutte e due devono '
-              'dire cosa si accetta');
+      expect(quante, 1,
+          reason: 'i consensi sono montati $quante volte: chi e\' '
+              'riconosciuto rileggerebbe la stessa casella sotto la prima');
     });
 
     test('il conteggio non guarda piu\' nessun consenso', () {

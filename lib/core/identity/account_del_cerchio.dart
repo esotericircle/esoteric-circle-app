@@ -144,6 +144,20 @@ abstract class PortaDellIdentita {
   /// dice alla persona con la riga onesta PRIMA del tocco.
   Future<EsitoDellaCustodia> entraComeRiconosciuto();
 
+  /// **ENTRA SUBITO, CON LA SOLA CREDENZIALE DEL RIFIUTO. Ordine FS, 13
+  /// ottobre 2026.**
+  ///
+  /// Il fondatore, sulla build 2308: si chiede UNA volta; scelto l'account
+  /// Google, se quell'identita' esiste gia' si entra direttamente in quel
+  /// Cerchio, senza un'altra schermata praticamente identica e senza
+  /// ripetere i testi legali.
+  ///
+  /// **Prova soltanto la credenziale che Firebase ha messo dentro il
+  /// rifiuto, e non apre niente**: nessun selettore, nessuna rete. Se quella
+  /// credenziale non c'e' o non entra torna `nonRiuscita`, e chi chiama
+  /// mostra la rete, cioe' "Continua come", che rifa' la strada intera.
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto();
+
   /// IL NOME CHE IL TELEFONO PROPONE DA SOLO, ordine AP voce 08.
   ///
   /// Nullo quando il telefono non propone niente, e il nulla NON e' un
@@ -812,19 +826,13 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
     // **La strada di prima resta**, come rete: se questa credenziale non
     // entra, si rifa' il giro. Cosi' la cura non toglie niente a chi arriva
     // da una via che non la porta.
-    final riconosciuta = _riconosciuta;
-    if (riconosciuta != null &&
-        riconosciuta.dallErrore &&
-        riconosciuta.credenziale != null) {
-      try {
-        await _auth.signInWithCredential(riconosciuta.credenziale!);
-        _riconosciuta = null;
-        await ricarica();
-        return EsitoDellaCustodia.riuscita;
-      } catch (errore) {
-        // Non entra: si rifa' la strada, che chiede una credenziale nuova.
-      }
-    }
+    //
+    // **Il tentativo sta in un metodo suo dall'ordine FS**, perche' adesso
+    // lo fanno anche i due `_custodisci` subito dopo il rifiuto, senza
+    // passare dal "Continua come". Se loro l'hanno gia' provato e non e'
+    // entrato, qui torna subito `nonRiuscita` e si va dritti alla rete.
+    final diretto = await entraConLaCredenzialeDelRifiuto();
+    if (diretto == EsitoDellaCustodia.riuscita) return diretto;
     final via = _riconosciuta?.via;
     if (via != null) {
       final esito = await entraDirettamente(via);
@@ -843,6 +851,36 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
     } catch (errore) {
       // L'esito parla alla persona: il suo telefono e' rimasto com'era e puo'
       // riprovare, ripetendo la via per una credenziale fresca.
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto() async {
+    // **SOLO LA CREDENZIALE DEL RIFIUTO, ordine FS.** Quella tentata da noi
+    // e' gia' spesa e non entrerebbe: senza `dallErrore` non si prova
+    // nemmeno, e chi chiama passa alla rete.
+    final riconosciuta = _riconosciuta;
+    final credenziale = riconosciuta?.credenziale;
+    if (riconosciuta == null ||
+        !riconosciuta.dallErrore ||
+        credenziale == null) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+    try {
+      await _auth.signInWithCredential(credenziale);
+      _riconosciuta = null;
+      await ricarica();
+      return EsitoDellaCustodia.riuscita;
+    } catch (errore) {
+      // **NON SI RIPROVA DUE VOLTE LA STESSA.** Il riconoscimento resta, col
+      // nome e la via per la rete, ma la credenziale non vale piu' come
+      // fresca: il "Continua come" che segue va dritto a rifare la strada.
+      _riconosciuta = IdentitaRiconosciuta(
+        nome: riconosciuta.nome,
+        credenziale: credenziale,
+        via: riconosciuta.via,
+      );
       return EsitoDellaCustodia.nonRiuscita;
     }
   }
@@ -899,6 +937,10 @@ class IdentitaAssente implements PortaDellIdentita {
 
   @override
   Future<EsitoDellaCustodia> entraComeRiconosciuto() async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto() async =>
       EsitoDellaCustodia.nonRiuscita;
 
   @override
@@ -1146,6 +1188,16 @@ class AccountDelCerchio extends ChangeNotifier {
   /// onesta che le ha detto cosa succede al cammino di questo telefono.
   Future<EsitoDellaCustodia> entraNelCerchioRiconosciuto() async {
     final esito = await _porta.entraComeRiconosciuto();
+    rileggi();
+    return esito;
+  }
+
+  /// **ENTRA SUBITO NEL CERCHIO RICONOSCIUTO, senza un secondo tocco.**
+  /// Ordine FS: chiamato dai due `_custodisci` appena la custodia risponde
+  /// `giaDiUnAltroCerchio`. Prova la sola credenziale del rifiuto e non apre
+  /// niente; se non entra, chi chiama mostra "Continua come" come rete.
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto() async {
+    final esito = await _porta.entraConLaCredenzialeDelRifiuto();
     rileggi();
     return esito;
   }

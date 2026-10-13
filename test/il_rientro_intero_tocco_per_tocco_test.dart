@@ -325,6 +325,13 @@ class _PortaCheEntra implements PortaDellIdentita {
   @override
   List<String> get fornitori => _dentro ? const ['google.com'] : const [];
 
+  // **ORDINE FS**: questo sostituto non porta nessuna credenziale nel
+  // rifiuto, quindi l'ingresso diretto non riesce e, se serve, si resta
+  // sulla rete "Continua come", come prima dell'ordine.
+  @override
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto() async =>
+      EsitoDellaCustodia.nonRiuscita;
+
   @override
   IdentitaRiconosciuta? get riconosciuta => null;
 

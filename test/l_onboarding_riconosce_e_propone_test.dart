@@ -86,13 +86,18 @@ void main() {
     // "Piu' tardi" resta.
     expect(find.byKey(const Key('invito_piu_tardi')), findsOneWidget);
 
-    // **LA CASELLA DI QUESTO FOGLIO E' UN'ALTRA, ordine FN.**
-    // `ContinuaComeRiconosciuto` monta il suo proprio consenso: la casella
-    // toccata sopra per Google e' sparita insieme a `VieDellaCustodia`
-    // quando il Cerchio risulta riconosciuto (non piu' due fogli assieme).
-    await tester.tap(find.byKey(const Key('consenso_casella')),
-        warnIfMissed: false);
-    await tester.pump();
+    // **QUI SI SPUNTAVA UNA SECONDA CASELLA, e non si spunta piu'. Ordine
+    // FS, 13 ottobre 2026.** Lapide: dall'ordine FN `ContinuaComeRiconosciuto`
+    // montava il suo proprio consenso, e questa prova lo spuntava prima di
+    // toccare "Continua come". Il fondatore, sulla build 2308, ha visto due
+    // volte la stessa casella legale e ha chiesto: si chiede UNA volta. Il
+    // consenso dato per toccare Google vale anche qui, quindi nella rete
+    // (questo sostituto non porta nessuna credenziale nel rifiuto, e
+    // l'ingresso diretto dell'ordine FS non riesce) la casella non c'e', e il
+    // pulsante si tocca subito.
+    expect(find.byKey(const Key('consenso_casella')), findsNothing,
+        reason: 'la rete "Continua come" chiede di nuovo il consenso: i '
+            'testi legali si ripetono');
     await tester.tap(find.byKey(const Key('continua_come')),
         warnIfMissed: false);
     for (var i = 0; i < 4; i++) {
@@ -166,6 +171,13 @@ class _PortaCheRiconosce implements PortaDellIdentita {
 
   @override
   Future<void> ricarica() async {}
+
+  // **ORDINE FS**: questo sostituto non porta nessuna credenziale nel
+  // rifiuto, quindi l'ingresso diretto non riesce e, se serve, si resta
+  // sulla rete "Continua come", come prima dell'ordine.
+  @override
+  Future<EsitoDellaCustodia> entraConLaCredenzialeDelRifiuto() async =>
+      EsitoDellaCustodia.nonRiuscita;
 
   @override
   IdentitaRiconosciuta? get riconosciuta => _riconosciuta;

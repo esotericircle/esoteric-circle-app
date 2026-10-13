@@ -37,32 +37,57 @@ void main() {
           !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
       .join('\n');
 
-  test('la riga del consenso e\' montata in tutte e due i rami', () {
+  // **LAPIDE DELLE DUE PROVE QUI SOTTO. Ordine FS, 13 ottobre 2026.**
+  //
+  // Dall'ordine CF voce 15 si pretendevano DUE montaggi della riga del
+  // consenso, uno in `VieDellaCustodia` e uno in `ContinuaComeRiconosciuto`,
+  // con la ragione che il rientro "costruisce il proprio pulsante senza
+  // passare dalle vie comuni". **Non e' piu' vero, ed e' stato misurato**:
+  // `ContinuaComeRiconosciuto` si monta solo dopo un `giaDiUnAltroCerchio`,
+  // e quell'esito arriva solo da un tocco su `VieDellaCustodia`, il cui
+  // pulsante si accende solo dopo la SUA casella. Il fondatore, sulla build
+  // 2308, ha visto la stessa casella legale due volte di seguito e ha
+  // chiesto: si chiede UNA volta, senza ripetere i testi legali.
+  //
+  // La legge resta la stessa, ogni ingresso dice cosa si accetta PRIMA del
+  // gesto: adesso si misura dove sta davvero il gesto che porta li'.
+  test('la riga del consenso e\' montata una volta, nelle vie comuni', () {
     final sorgente = senzaCommenti(vie.values.first);
     final quante = 'const ConsensiDellaRegistrazione(),'.allMatches(sorgente);
     // ignore: avoid_print
-    print('ORDINE CF VOCE 15: vie d\'ingresso ${vie.length}, montaggi della '
-        'riga del consenso ${quante.length}');
-    expect(quante.length, greaterThanOrEqualTo(2),
-        reason: 'la riga del consenso e\' montata ${quante.length} volta: le '
-            'vie d\'ingresso sono ${vie.length}, e quella del rientro '
-            'costruisce il proprio pulsante senza passare dalle vie comuni');
+    print('ORDINE FS: montaggi della riga del consenso ${quante.length}');
+    expect(quante.length, 1,
+        reason: 'la riga del consenso e\' montata ${quante.length} volte: chi '
+            'e\' riconosciuto la rileggerebbe identica sotto la prima');
   });
 
-  test('il ramo del rientro la monta PRIMA del gesto che conclude', () {
+  test('il consenso sta prima di Google, e la rete non lo ripete', () {
     final sorgente = senzaCommenti(vie.values.first);
-    final ramo =
+    final vieComuni = sorgente.substring(
+        sorgente.indexOf('class _VieDellaCustodiaState'),
+        sorgente.indexOf('class ContinuaComeRiconosciuto'));
+    final consenso = vieComuni.indexOf('ConsensiDellaRegistrazione');
+    final gesto = vieComuni.indexOf("Key('custodia_google')");
+    final rete =
         sorgente.substring(sorgente.indexOf('class ContinuaComeRiconosciuto'));
-    final consenso = ramo.indexOf('ConsensiDellaRegistrazione');
-    final gesto = ramo.indexOf("Key('continua_come')");
+    final reteFine = rete.indexOf('const String rigaDellIngresso');
+    final corpoDellaRete = rete.substring(0, reteFine < 0 ? null : reteFine);
     // ignore: avoid_print
-    print('ORDINE CF VOCE 15: nel ramo del rientro il consenso sta a '
-        '$consenso e il gesto a $gesto');
+    print('ORDINE FS: nelle vie comuni il consenso sta a $consenso e Google '
+        'a $gesto; nella rete il consenso compare '
+        '${'ConsensiDellaRegistrazione'.allMatches(corpoDellaRete).length} '
+        'volte');
     expect(consenso, greaterThan(-1),
-        reason: 'il ramo del rientro non monta la riga del consenso');
+        reason: 'le vie comuni non montano la riga del consenso');
+    expect(gesto, greaterThan(-1),
+        reason: 'le vie comuni non hanno piu\' "Continua con Google": la '
+            'prova sta guardando il pezzo sbagliato');
     expect(consenso, lessThan(gesto),
         reason: 'la riga del consenso arriva DOPO il pulsante che conclude '
             'l\'ingresso: si accetta prima di leggere');
+    expect(corpoDellaRete.contains('ConsensiDellaRegistrazione'), isFalse,
+        reason: 'la rete "Continua come" monta di nuovo la riga del '
+            'consenso: e\' il doppione visto dal fondatore sulla 2308');
   });
 
   test('ogni testo che la riga nomina esiste, e si raggiunge col tocco', () {

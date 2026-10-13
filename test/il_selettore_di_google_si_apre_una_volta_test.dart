@@ -23,10 +23,16 @@ import 'package:flutter_test/flutter_test.dart';
 /// chiedere di nuovo chi sei. La strada di prima resta come rete, e questa
 /// guardia pretende tutte e due le cose.
 ///
-/// **La conferma resta, ed e' una decisione**: entrare in quel Cerchio
-/// sostituisce Eos e ricordi di questo telefono, e il foglio lo dice prima di
-/// farlo. Togliere quella conferma per risparmiare un tocco vorrebbe dire
-/// cambiare i dati di qualcuno senza dirglielo.
+/// **LAPIDE: "LA CONFERMA RESTA" NON VALE PIU'. Ordine FS, 13 ottobre
+/// 2026.** Qui stava scritto che il tocco su "Continua come" era una
+/// decisione da tenere, perche' entrare in quel Cerchio sostituisce Eos e
+/// ricordi di questo telefono. Il fondatore, sulla build 2308, ha deciso
+/// diversamente: si chiede UNA volta; scelto l'account Google, se
+/// quell'identita' esiste gia' si entra direttamente. La riga su Eos e
+/// ricordi non sparisce: si legge una volta, nell'avviso subito dopo
+/// l'ingresso, e resta sopra "Continua come" quando serve la rete.
+/// L'ingresso diretto sta in `entraConLaCredenzialeDelRifiuto`, e la prova
+/// in fondo pretende che non apra mai il selettore.
 void main() {
   AuthCredential quellaDelRifiuto() => GoogleAuthProvider.credential(
         idToken: 'id-token-dal-rifiuto',
@@ -109,6 +115,59 @@ void main() {
     expect(porta.riconosciuta?.dallErrore, isFalse,
         reason: 'la credenziale tentata da noi e\' gia\' spesa: dichiararla '
             'buona farebbe fallire il rientro senza rete');
+  });
+
+  test(
+      'ordine FS: l\'ingresso diretto prova solo la credenziale del rifiuto, '
+      'e non apre mai il selettore', () async {
+    // Quando entra: un ingresso, nessun selettore in piu'.
+    final flusso = _FlussoCheConta(daConsegnare: quellaSpesa());
+    final auth = _AuthFinta(
+      _UtenteFinto(
+          uid: 'anonimo',
+          codiceDelCollegamento: 'credential-already-in-use',
+          credenzialeDelRifiuto: quellaDelRifiuto()),
+      credenzialeDelRifiuto: quellaDelRifiuto(),
+    );
+    final porta = PortaDellIdentitaFirebase(auth: auth, flussoGoogle: flusso);
+    await porta.eleva(ViaDellaCustodia.google);
+    final aperte = flusso.credenzialiChieste;
+    final esito = await porta.entraConLaCredenzialeDelRifiuto();
+    print('ORDINE FS: ingresso diretto ${esito.name}, selettore aperto '
+        '$aperte volta, poi ${flusso.credenzialiChieste}');
+    expect(esito, EsitoDellaCustodia.riuscita);
+    expect(flusso.credenzialiChieste, aperte,
+        reason: 'l\'ingresso diretto ha riaperto il selettore di Google');
+    expect(auth.credenzialiUsate.single.token, quellaDelRifiuto().token);
+
+    // Quando non entra: torna no, il selettore resta chiuso, e la rete
+    // "Continua come" rifa' la strada senza riprovare la stessa credenziale.
+    final flusso2 = _FlussoCheConta(daConsegnare: quellaSpesa());
+    final auth2 = _AuthFinta(
+      _UtenteFinto(
+          uid: 'anonimo',
+          codiceDelCollegamento: 'credential-already-in-use',
+          credenzialeDelRifiuto: quellaDelRifiuto()),
+      credenzialeDelRifiuto: quellaDelRifiuto(),
+      primoIngressoFallisce: true,
+    );
+    final porta2 =
+        PortaDellIdentitaFirebase(auth: auth2, flussoGoogle: flusso2);
+    await porta2.eleva(ViaDellaCustodia.google);
+    final aperte2 = flusso2.credenzialiChieste;
+    final esito2 = await porta2.entraConLaCredenzialeDelRifiuto();
+    expect(esito2, EsitoDellaCustodia.nonRiuscita);
+    expect(flusso2.credenzialiChieste, aperte2,
+        reason: 'l\'ingresso diretto fallito ha aperto il selettore: deve '
+            'deciderlo la persona, toccando la rete');
+    expect(porta2.riconosciuta, isNotNull,
+        reason: 'dopo il fallimento la rete non sa piu\' chi e\' stato '
+            'riconosciuto');
+    final rete = await porta2.entraComeRiconosciuto();
+    expect(rete, EsitoDellaCustodia.riuscita);
+    expect(auth2.credenzialiUsate.length, 2,
+        reason: 'la rete ha riprovato la credenziale gia\' fallita invece di '
+            'rifare la strada');
   });
 }
 
