@@ -564,19 +564,20 @@ void main() {
     // **LAPIDE: "solo quella a tre carte e' aperta".** Ordine FK, aggiunta 2
     // voce A12: con la stesa di N carte si aprono anche la carta sola e la
     // croce, le cui posizioni hanno tutte la fonte intera; la Croce Celtica
-    // resta Coming soon, con quattro posizioni senza un testo.
-    test('Le quattro stese esistono, tre aperte e la Croce Celtica chiusa', () {
+    // restava Coming soon, con quattro posizioni senza un testo.
+    // **LAPIDE SULLA LAPIDE: la Croce Celtica si apre, ordine FQ, 13
+    // ottobre 2026.** Dall'ordine FM (12 ottobre) tutte le sue posizioni
+    // hanno la fonte; il motivo che la teneva chiusa era grafico (la fila
+    // in piedi del tavolo di Medora), e quel motivo e' stato risolto nella
+    // stessa sera dall'ordine FM aggiunta 1 (righe bilanciate 4+3+3,
+    // provate in `il_tavolo_di_medora_test.dart`). Il fondatore ha chiesto
+    // lo sblocco: il lavoro che lo motivava era gia' fatto.
+    test('Le quattro stese esistono, tutte aperte', () {
       expect(TarotSpreadType.values.length, 4);
       expect(TarotSpreadType.treCarte.disponibile, isTrue);
       expect(TarotSpreadType.treCarte.carte, 3);
-      const aperte = {
-        TarotSpreadType.unaCarta,
-        TarotSpreadType.treCarte,
-        TarotSpreadType.croceQuattro,
-      };
       for (final t in TarotSpreadType.values) {
-        expect(t.disponibile, aperte.contains(t),
-            reason: '${t.nome}: aperta ${t.disponibile}');
+        expect(t.disponibile, isTrue, reason: '${t.nome} non e\' disponibile');
       }
       // Ogni stesa porta il proprio nome, e sono tutti diversi.
       expect(TarotSpreadType.values.map((t) => t.nome).toSet().length, 4);
