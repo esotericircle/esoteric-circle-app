@@ -734,7 +734,13 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         // LA MACCHINA DEL TEMPO non parte da sola: mostra il cielo di adesso,
         // tiene pronta la scelta (la nascita, o oggi) e la corsa parte dal
         // pulsante (frase del fondatore del 10 ottobre 2026).
-        _colSensore = false;
+        // **LA BUSSOLA RESTA ACCESA DALL'ONBOARDING. Ordine FN, 13 ottobre
+        // 2026.** Il fondatore: la schermata deve aprirsi "in modalita'
+        // bussola di default". Da "Attiva macchina del tempo" (dentro il
+        // cielo di adesso gia' fermo) ha senso restare fermi; dall'onboarding
+        // (`widget.nascita != null`) no: la persona arriva da una scena
+        // viva e si aspetta di esplorare il cielo muovendo il telefono.
+        _colSensore = widget.nascita != null;
         _impostaIlCielo(
           CieloInUnIstante.calcola(
             catalogo,
@@ -2412,10 +2418,18 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     );
   }
 
+  /// **"IL TUO CIELO DI NASCITA" DALL'ONBOARDING. Ordine FN, 13 ottobre
+  /// 2026.** Il fondatore: quando la macchina del tempo si apre dalla
+  /// rivelazione del cielo di nascita, il titolo deve dire quello, non "La
+  /// macchina del tempo". `widget.nascita` arriva SOLO da li' (vedi
+  /// risveglio_journey.dart): da "Attiva macchina del tempo" nel cielo di
+  /// adesso resta il nome del gesto, perche' li' non si sta rivelando una
+  /// nascita, si sta esplorando il tempo.
   String get _titolo => switch (_modo) {
         ModoDelCielo.adesso => 'Il cielo di adesso',
         ModoDelCielo.nascita => 'Il cielo della tua nascita',
-        ModoDelCielo.ritorno => 'La macchina del tempo',
+        ModoDelCielo.ritorno =>
+          widget.nascita != null ? 'Il tuo cielo di nascita' : 'La macchina del tempo',
       };
 
   @override
@@ -2570,12 +2584,51 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
         ),
       );
     }
+    // **CITTA' E COORDINATE, SOPRA GLI ALTRI TESTI. Ordine FN, 13 ottobre
+    // 2026.** Il fondatore: nel cielo di adesso, la posizione rilevata deve
+    // tornare visibile, col nome della citta' e le coordinate, "sopra gli
+    // altri testi e il pulsante attiva macchina del tempo" — com'era nella
+    // vecchia `SkyOverviewScreen` (chiave `sky_da_dove`, sostituita il 12
+    // ottobre 2026 da questa schermata, che quella riga non l'aveva presa).
+    if (_modo == ModoDelCielo.adesso) {
+      righe.add(
+        _Riga(
+          key: const Key('cielo_reale_citta_e_coordinate'),
+          testo: [
+            if (_luogo.citta != null) _luogo.citta!,
+            '${_luogo.latitude.toStringAsFixed(4)}, '
+                '${_luogo.longitude.toStringAsFixed(4)}',
+          ].join('  '),
+        ),
+      );
+    }
     if (_modo == ModoDelCielo.adesso && widget.alSeguito == null) {
       righe.add(_pulsanteDellaMacchina());
     }
     final seguito = widget.alSeguito;
     if (seguito != null) {
-      righe.add(_pulsanteDelSeguito(seguito));
+      if (_modo == ModoDelCielo.ritorno) {
+        // **UN PULSANTE ALLA VOLTA, MAI DUE INSIEME. Ordine FN, 13 ottobre
+        // 2026.** Il fondatore ha visto "Viaggia nel tempo" e "Leggi la tua
+        // carta" comparire insieme, prima ancora di avviare l'animazione.
+        // `FaseDelRitorno.fermo` vale sia all'inizio sia all'arrivo: quello
+        // che li distingue e' `_fraseDArrivo`, vuota finche' nessuna corsa
+        // e' mai finita (si scrive solo in `_avviaLaCorsa`, mai si
+        // svuota). "Leggi la tua carta" compare solo a corsa gia' fatta.
+        righe.add(
+          ValueListenableBuilder<FaseDelRitorno>(
+            valueListenable: _fase,
+            builder: (context, fase, _) {
+              if (fase != FaseDelRitorno.fermo || _fraseDArrivo.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return _pulsanteDelSeguito(seguito);
+            },
+          ),
+        );
+      } else {
+        righe.add(_pulsanteDelSeguito(seguito));
+      }
     }
     if (_mancaLaNascita && _modo != ModoDelCielo.adesso) {
       righe.add(

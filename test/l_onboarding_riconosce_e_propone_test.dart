@@ -48,6 +48,11 @@ void main() {
     for (var i = 0; i < 4; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
+    // **ORDINE FN, 13 OTTOBRE 2026: senza la casella spuntata il pulsante
+    // resta spento.**
+    await tester.tap(find.byKey(const Key('consenso_casella')),
+        warnIfMissed: false);
+    await tester.pump();
     await tester.tap(find.byKey(const Key('custodia_google')),
         warnIfMissed: false);
     for (var i = 0; i < 4; i++) {
@@ -81,6 +86,13 @@ void main() {
     // "Piu' tardi" resta.
     expect(find.byKey(const Key('invito_piu_tardi')), findsOneWidget);
 
+    // **LA CASELLA DI QUESTO FOGLIO E' UN'ALTRA, ordine FN.**
+    // `ContinuaComeRiconosciuto` monta il suo proprio consenso: la casella
+    // toccata sopra per Google e' sparita insieme a `VieDellaCustodia`
+    // quando il Cerchio risulta riconosciuto (non piu' due fogli assieme).
+    await tester.tap(find.byKey(const Key('consenso_casella')),
+        warnIfMissed: false);
+    await tester.pump();
     await tester.tap(find.byKey(const Key('continua_come')),
         warnIfMissed: false);
     for (var i = 0; i < 4; i++) {

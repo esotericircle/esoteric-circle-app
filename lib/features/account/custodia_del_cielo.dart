@@ -27,7 +27,7 @@ import '../../core/chat/user_profile.dart';
 /// **Apple c'e' sempre dove Google c'e', su iOS.** Le regole dell'App Store
 /// pretendono Sign in with Apple accanto a qualunque accesso social di terzi,
 /// e questa e' la riga che lo garantisce: le due vie nascono insieme.
-class VieDellaCustodia extends StatelessWidget {
+class VieDellaCustodia extends StatefulWidget {
   const VieDellaCustodia({
     super.key,
     required this.suScelta,
@@ -52,59 +52,92 @@ class VieDellaCustodia extends StatelessWidget {
   }
 
   @override
+  State<VieDellaCustodia> createState() => _VieDellaCustodiaState();
+}
+
+class _VieDellaCustodiaState extends State<VieDellaCustodia> {
+  /// **SPENTA FINCHE' NON SI SPUNTA LA CASELLA. Ordine FN, 13 ottobre
+  /// 2026.** Il fondatore: "se l'utente non flagga l'opzione il pulsante
+  /// resta semitrasparente e non cliccabile". Arriva da
+  /// [ConsensoCambiatoNotification], che risale dalla casella dentro
+  /// `ConsensiDellaRegistrazione`.
+  bool _accettato = false;
+
+  @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // **I CONSENSI STANNO QUI, sopra le vie, e in nessun altro posto.**
-        // Ordine CE voce 01. Le vie d'accesso vivono in tre schermate diverse:
-        // montare i consensi accanto a ognuna vorrebbe dire tre copie che
-        // divergono al primo che ne cambia una. Qui sono una cosa sola col
-        // gesto che le usa.
-        const ConsensiDellaRegistrazione(),
-        const SizedBox(height: SpacingTokens.md),
-        _PulsanteDellaVia(
-          chiave: const Key('custodia_google'),
-          etichetta: 'Continua con Google',
-          icona: Icons.g_mobiledata_rounded,
-          inCorso: inCorso == ViaDellaCustodia.google,
-          fermo: inCorso != null,
-          suTocco: () => suScelta(ViaDellaCustodia.google),
-        ),
-        if (suApple(context)) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          _PulsanteDellaVia(
-            chiave: const Key('custodia_apple'),
-            etichetta: 'Continua con Apple',
-            icona: Icons.apple_rounded,
-            inCorso: inCorso == ViaDellaCustodia.apple,
-            fermo: inCorso != null,
-            suTocco: () => suScelta(ViaDellaCustodia.apple),
+    final fermo = widget.inCorso != null;
+    return NotificationListener<ConsensoCambiatoNotification>(
+      onNotification: (nota) {
+        setState(() => _accettato = nota.accettato);
+        return true;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // **I CONSENSI STANNO QUI, sopra le vie, e in nessun altro posto.**
+          // Ordine CE voce 01. Le vie d'accesso vivono in tre schermate
+          // diverse: montare i consensi accanto a ognuna vorrebbe dire tre
+          // copie che divergono al primo che ne cambia una. Qui sono una
+          // cosa sola col gesto che le usa.
+          const ConsensiDellaRegistrazione(),
+          const SizedBox(height: SpacingTokens.md),
+          AnimatedOpacity(
+            key: const Key('custodia_vie_opacita'),
+            opacity: _accettato ? 1 : 0.4,
+            duration: const Duration(milliseconds: 200),
+            child: IgnorePointer(
+              ignoring: !_accettato,
+              child: Column(
+                children: [
+                  _PulsanteDellaVia(
+                    chiave: const Key('custodia_google'),
+                    etichetta: 'Continua con Google',
+                    icona: Icons.g_mobiledata_rounded,
+                    inCorso: widget.inCorso == ViaDellaCustodia.google,
+                    fermo: fermo,
+                    suTocco: () => widget.suScelta(ViaDellaCustodia.google),
+                  ),
+                  if (VieDellaCustodia.suApple(context)) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _PulsanteDellaVia(
+                      chiave: const Key('custodia_apple'),
+                      etichetta: 'Continua con Apple',
+                      icona: Icons.apple_rounded,
+                      inCorso: widget.inCorso == ViaDellaCustodia.apple,
+                      fermo: fermo,
+                      suTocco: () => widget.suScelta(ViaDellaCustodia.apple),
+                    ),
+                  ],
+                  const SizedBox(height: SpacingTokens.sm),
+                  TextButton(
+                    key: const Key('custodia_email'),
+                    onPressed: fermo
+                        ? null
+                        : () async {
+                            // **SOLO L'INDIRIZZO, e poi arriva un link.
+                            // Ordine EA voce 19.** Qui si chiedevano email e
+                            // parola: adesso la parola non si inventa, non si
+                            // ricorda e non si perde, perche' non c'e'. Il
+                            // `null` al posto della parola e' il segnale che
+                            // chi riceve legge: *manda il link*.
+                            final email = await _chiediSoloLEmail(context);
+                            if (email == null) return;
+                            widget.suScelta(ViaDellaCustodia.email,
+                                email: email);
+                          },
+                    child: Text(
+                      'Preferisco un\'email',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: palette.goldSoft),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
-        const SizedBox(height: SpacingTokens.sm),
-        TextButton(
-          key: const Key('custodia_email'),
-          onPressed: inCorso != null
-              ? null
-              : () async {
-                  // **SOLO L'INDIRIZZO, e poi arriva un link. Ordine EA voce
-                  // 19.** Qui si chiedevano email e parola: adesso la parola
-                  // non si inventa, non si ricorda e non si perde, perche'
-                  // non c'e'. Il `null` al posto della parola e' il segnale
-                  // che chi riceve legge: *manda il link*.
-                  final email = await _chiediSoloLEmail(context);
-                  if (email == null) return;
-                  suScelta(ViaDellaCustodia.email, email: email);
-                },
-          child: Text(
-            'Preferisco un\'email',
-            style:
-                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -373,7 +406,7 @@ String? frasePerEsito(EsitoDellaCustodia esito) {
 /// E' un componente unico per le due scene che lo mostrano, il foglio
 /// dell'area account e il passo del Risveglio: due copie diventerebbero due
 /// promesse diverse al primo ritocco.
-class ContinuaComeRiconosciuto extends StatelessWidget {
+class ContinuaComeRiconosciuto extends StatefulWidget {
   const ContinuaComeRiconosciuto({
     super.key,
     required this.account,
@@ -389,55 +422,83 @@ class ContinuaComeRiconosciuto extends StatelessWidget {
   final void Function(EsitoDellaCustodia esito) suEsito;
 
   @override
+  State<ContinuaComeRiconosciuto> createState() =>
+      _ContinuaComeRiconosciutoState();
+}
+
+class _ContinuaComeRiconosciutoState extends State<ContinuaComeRiconosciuto> {
+  /// **SPENTO FINCHE' NON SI SPUNTA LA CASELLA. Ordine FN, 13 ottobre
+  /// 2026.** Stessa regola di [VieDellaCustodia]: entrare nel Cerchio
+  /// riconosciuto e' anch'esso un ingresso, e aspetta lo stesso atto.
+  bool _accettato = false;
+
+  @override
   Widget build(BuildContext context) {
-    final nome = account.nomeRiconosciuto;
+    final nome = widget.account.nomeRiconosciuto;
     if (nome == null) return const SizedBox.shrink();
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // **I CONSENSI CI SONO ANCHE QUI, ordine CF voce 15.**
-        //
-        // **Domanda del fondatore, verbatim**: "quando mi registro la prima
-        // volta o quando disinstallo e poi reinstallo inserendo poi la mia
-        // e-mail precedente, non dovrebbe esserci scritto che 'facendo click
-        // accetti la privacy policy'?"
-        //
-        // **Aveva ragione a meta', ed era la meta' peggiore.** La riga esiste,
-        // e' una sola in tutto il codice, e compare nella prima registrazione
-        // con email e in quella con Google o Apple, perche' tutte e tre
-        // montano `VieDellaCustodia`. **Questo ramo no**: chi rientra con
-        // un'email gia' registrata vede questo pulsante, che e' costruito
-        // qui e non passa di la'. Premerlo e' un ingresso nel Cerchio come
-        // gli altri, quindi la riga che dice cosa si accetta deve esserci.
-        const ConsensiDellaRegistrazione(),
-        const SizedBox(height: SpacingTokens.sm),
-        Text(
-          'I passi fatti su questo telefono si uniscono al cammino di quel '
-          'Cerchio: Eos e ricordi restano quelli del Cerchio in cui entri.',
-          key: const Key('continua_come_riga_onesta'),
-          style: TypographyTokens.didascalia()
-              .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        FilledButton(
-          key: const Key('continua_come'),
-          style: FilledButton.styleFrom(
-            backgroundColor: palette.gold,
-            foregroundColor: palette.deepest,
-            padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+    return NotificationListener<ConsensoCambiatoNotification>(
+      onNotification: (nota) {
+        setState(() => _accettato = nota.accettato);
+        return true;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // **I CONSENSI CI SONO ANCHE QUI, ordine CF voce 15.**
+          //
+          // **Domanda del fondatore, verbatim**: "quando mi registro la
+          // prima volta o quando disinstallo e poi reinstallo inserendo poi
+          // la mia e-mail precedente, non dovrebbe esserci scritto che
+          // 'facendo click accetti la privacy policy'?"
+          //
+          // **Aveva ragione a meta', ed era la meta' peggiore.** La riga
+          // esiste, e' una sola in tutto il codice, e compare nella prima
+          // registrazione con email e in quella con Google o Apple, perche'
+          // tutte e tre montano `VieDellaCustodia`. **Questo ramo no**: chi
+          // rientra con un'email gia' registrata vede questo pulsante, che
+          // e' costruito qui e non passa di la'. Premerlo e' un ingresso nel
+          // Cerchio come gli altri, quindi la riga che dice cosa si accetta
+          // deve esserci.
+          const ConsensiDellaRegistrazione(),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(
+            'I passi fatti su questo telefono si uniscono al cammino di '
+            'quel Cerchio: Eos e ricordi restano quelli del Cerchio in cui '
+            'entri.',
+            key: const Key('continua_come_riga_onesta'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
-          onPressed: () async {
-            final esito = await account.entraNelCerchioRiconosciuto();
-            suEsito(esito);
-          },
-          child: Text('Continua come $nome',
-              overflow: TextOverflow.ellipsis,
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.deepest)),
-        ),
-      ],
+          const SizedBox(height: SpacingTokens.sm),
+          AnimatedOpacity(
+            opacity: _accettato ? 1 : 0.4,
+            duration: const Duration(milliseconds: 200),
+            child: IgnorePointer(
+              ignoring: !_accettato,
+              child: FilledButton(
+                key: const Key('continua_come'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
+                ),
+                onPressed: () async {
+                  final esito =
+                      await widget.account.entraNelCerchioRiconosciuto();
+                  widget.suEsito(esito);
+                },
+                child: Text('Continua come $nome',
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.deepest)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -748,29 +809,42 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
                   },
                 ),
               ],
-              const SizedBox(height: SpacingTokens.lg),
-              // **LA PORTA DI CHI TORNA SONDA, NON SEMBRA UNA REGISTRAZIONE.**
-              // Ordine BI voce 01, parole del fondatore: "deve solo
-              // controllare che effettivamente l'email dell'utente sia gia'
-              // presente nel server e comunicarlo all'utente. Se non esiste,
-              // l'utente deve proseguire per forza con l'onboarding". Prima
-              // l'email, poi il server risponde e la porta instrada: niente
-              // account creati in silenzio, niente rifiuti senza spiegazione.
-              if (widget.perChiTorna)
-                _SondaDellIngresso(
-                  account: widget.account,
-                  inCorso: _inCorso,
-                  suScelta: (via, {email, parola}) {
-                    _custodisci(via, email: email, parola: parola);
-                  },
-                  suProsegui: () => Navigator.of(context).pop(false),
-                )
-              else
-                VieDellaCustodia(
+              // **QUANDO E' RICONOSCIUTO, SOTTO NON SI MONTA PIU' NIENTE.**
+              // Ordine FN, 13 ottobre 2026. Il fondatore ha visto, a video,
+              // le stesse informazioni comunicate piu' volte: la causa era
+              // che questo foglio montava sia `ContinuaComeRiconosciuto`
+              // (sopra, col suo consenso) sia, sempre, questo blocco sotto
+              // con un secondo `VieDellaCustodia` o `_SondaDellIngresso`, col
+              // suo consenso: due fogli legali per un solo ingresso. Chi e'
+              // riconosciuto ha gia' la sua via, "Continua come [nome]":
+              // mostrargli anche le vie classiche sotto non serve a nessuno,
+              // e le duplica.
+              if (!_riconosciuto) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                // **LA PORTA DI CHI TORNA SONDA, NON SEMBRA UNA
+                // REGISTRAZIONE.** Ordine BI voce 01, parole del fondatore:
+                // "deve solo controllare che effettivamente l'email
+                // dell'utente sia gia' presente nel server e comunicarlo
+                // all'utente. Se non esiste, l'utente deve proseguire per
+                // forza con l'onboarding". Prima l'email, poi il server
+                // risponde e la porta instrada: niente account creati in
+                // silenzio, niente rifiuti senza spiegazione.
+                if (widget.perChiTorna)
+                  _SondaDellIngresso(
+                    account: widget.account,
                     inCorso: _inCorso,
                     suScelta: (via, {email, parola}) {
                       _custodisci(via, email: email, parola: parola);
-                    }),
+                    },
+                    suProsegui: () => Navigator.of(context).pop(false),
+                  )
+                else
+                  VieDellaCustodia(
+                      inCorso: _inCorso,
+                      suScelta: (via, {email, parola}) {
+                        _custodisci(via, email: email, parola: parola);
+                      }),
+              ],
               const SizedBox(height: SpacingTokens.xs),
               Align(
                 alignment: Alignment.center,

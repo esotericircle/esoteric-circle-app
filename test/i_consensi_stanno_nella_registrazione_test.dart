@@ -120,16 +120,18 @@ void main() {
   });
 
   group('CE.01, il consenso si da\' una volta, con un atto', () {
-    testWidgets('la misura non si chiede piu\', e non c\'e\' niente da toccare',
-        (tester) async {
-      // **QUI C'ERANO DUE PROVE, ordine CE voce 01**: che l'interruttore
-      // della misura nascesse spento e che nessun consenso si desse senza un
-      // tocco. **L'ordine EA voce 12 ha tolto l'interruttore**: il fondatore
-      // vuole il conteggio sempre attivo e non disturbante, e cio' che resta
-      // sono contatori per giorno senza nessun identificativo, che non sono
-      // un dato personale. Restano le altre due cose che questa schermata
-      // deve dire, ed e' quello che si prova qui: la riga della privacy
-      // policy e il fatto che nessuna casella chieda niente.
+    testWidgets(
+        'la misura non si chiede piu\', e la casella e\' tornata per '
+        'un\'altra ragione', (tester) async {
+      // **QUI C'ERA SCRITTO IL CONTRARIO, ordine FN, 13 ottobre 2026.** Prima
+      // si pretendeva che nessuna casella chiedesse niente: era la cura della
+      // misura (l'interruttore di CE.01), un consenso diverso da quello di
+      // cui parla questa casella. **Il fondatore ha chiesto una casella
+      // esplicita, non spuntata di default**, che tenga semitrasparenti e non
+      // toccabili i pulsanti d'ingresso finche' non viene spuntata: non e' la
+      // misura che torna, e' il consenso alla registrazione che adesso ha il
+      // suo atto dedicato invece di essere implicito nel premere il
+      // pulsante. L'interruttore della misura (`Switch`) resta assente.
       SharedPreferences.setMockInitialValues(const {});
       await tester.pumpWidget(const MaterialApp(
         home: Scaffold(body: ConsensiDellaRegistrazione()),
@@ -137,8 +139,13 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(Switch), findsNothing,
           reason: 'e\' tornato un interruttore nel foglio dei consensi');
-      expect(find.byType(Checkbox), findsNothing,
-          reason: 'e\' comparsa una casella da spuntare');
+      expect(find.byType(Checkbox), findsOneWidget,
+          reason: 'la casella del consenso alla registrazione non c\'e\' '
+              'piu\'');
+      final casella =
+          tester.widget<Checkbox>(find.byType(Checkbox));
+      expect(casella.value, isFalse,
+          reason: 'la casella deve nascere non spuntata');
       expect(find.textContaining('privacy policy'), findsOneWidget,
           reason: 'la riga che dice cosa si accetta e\' sparita');
     });

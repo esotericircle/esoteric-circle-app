@@ -104,6 +104,11 @@ void main() {
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
+    // **ORDINE FN, 13 OTTOBRE 2026: senza la casella spuntata il pulsante
+    // resta spento.**
+    await tester.tap(find.byKey(const Key('consenso_casella')),
+        warnIfMissed: false);
+    await tester.pump();
     await tester.tap(find.byKey(const Key('custodia_google')),
         warnIfMissed: false);
     for (var i = 0; i < 12; i++) {

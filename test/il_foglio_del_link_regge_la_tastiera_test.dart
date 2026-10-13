@@ -85,6 +85,12 @@ void main() {
     for (var i = 0; i < 5; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
+    // **ORDINE FN, 13 OTTOBRE 2026: senza la casella spuntata il pulsante
+    // resta spento.** Prima di toccare una via d'ingresso la prova deve
+    // spuntare il consenso, come farebbe davvero chi usa l'app.
+    await tester.tap(find.byKey(const Key('consenso_casella')),
+        warnIfMissed: false);
+    await tester.pump();
     await tester.tap(find.byKey(const Key('custodia_email')),
         warnIfMissed: false);
     await tester.pumpAndSettle();

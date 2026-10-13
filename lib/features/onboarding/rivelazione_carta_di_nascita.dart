@@ -388,7 +388,17 @@ class RegiaDellaRivelazione {
   }
 
   /// Quanto l'anello si spegne dietro la carta che viene avanti.
-  double velo() => senzaMoto ? 0.75 : 0.75 * avanzata();
+  ///
+  /// **SI SPEGNE DEL TUTTO QUANDO LA CARTA E' GIRATA, ordine FN, 13 ottobre
+  /// 2026.** Il fondatore ha visto un riquadro nero dietro la carta
+  /// rivelata: `avanzata()` resta a uno per tutto il tempo dopo che la
+  /// carta e' arrivata in posizione, quindi il velo restava fisso a 0,75
+  /// anche a carta scoperta e ferma, e i suoi angoli arrotondati lasciavano
+  /// intravedere il rettangolo nero sotto. Adesso il velo cala insieme alla
+  /// girata: a carta scoperta (`girata() == 1`) non resta niente da
+  /// nascondere.
+  double velo() =>
+      senzaMoto ? 0.0 : 0.75 * avanzata() * (1 - girata());
 }
 
 /// **IL CALCOLO A SCHERMO**: il numero grande e sotto le cifre della data,

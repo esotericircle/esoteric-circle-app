@@ -100,12 +100,19 @@ void main() {
 
   testWidgets('il disclaimer si dice alla registrazione, con la sua porta',
       (tester) async {
+    // **IL TESTO SI E' UNIFICATO, ordine FN, 13 ottobre 2026.** Il fondatore
+    // ha chiesto di finire con la ripetizione delle stesse informazioni:
+    // privacy, condizioni e disclaimer stavano in due paragrafi separati
+    // (chiavi `consenso_informativa` e `consenso_disclaimer`), adesso sono un
+    // paragrafo solo, piu' leggibile, sotto la chiave `consenso_informativa`.
+    // La cornice delle arti continua a dirsi per intero, solo non ha piu' un
+    // suo blocco a parte.
     await tester.pumpWidget(const MaterialApp(
         home: VestitoDelMenuUtente(
             soloIlColore: true,
             child: Scaffold(body: ConsensiDellaRegistrazione()))));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('consenso_disclaimer')), findsOneWidget,
+    expect(find.byKey(const Key('consenso_informativa')), findsOneWidget,
         reason: 'la registrazione non dice piu\' la cornice delle arti, che '
             'CLAUDE.md vuole detta una volta all\'ingresso');
     final testo = tester

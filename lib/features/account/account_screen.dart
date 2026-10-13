@@ -61,6 +61,13 @@ class AccountScreen extends StatelessWidget {
   /// l'elenco si ricostruisce quando cambia la scelta, e per farlo deve
   /// potersi ricostruire da solo.
   List<_AccountEntry> _voci(BuildContext context) => <_AccountEntry>[
+        // **PRIMA VOCE PER CHI E' ANCORA OSPITE. Ordine FN, 13 ottobre
+        // 2026.** Il fondatore: l'invito a registrarsi deve essere la
+        // prima cosa che un ospite vede in questa schermata, non la
+        // quinta. Prima stava dopo "Chi ti ha invitato"; la condizione
+        // `_eAnonimo` e il contenuto della voce restano quelli di sempre,
+        // solo la posizione cambia.
+        if (_eAnonimo(context)) _voceDellaCustodia(context),
         _AccountEntry(
           id: 'profilo',
           title: 'Profilo',
@@ -114,59 +121,6 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.person_add_alt_1_outlined,
           onTap: apriIlRiscattoDellInvito,
         ),
-        // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
-        // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
-        // chi ha gia' custodito direbbe una cosa gia' fatta.
-        // Ordine FE voce 22.3, prova a): nessun "Custodisci" in un testo
-        // mostrato. Il titolo era "Custodisci il tuo cielo".
-        if (_eAnonimo(context))
-          _AccountEntry(
-            id: 'custodia',
-            title: 'Metti al sicuro il tuo cielo',
-            // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
-            // che non richiedono l'Architetto per essere capite.
-            //
-            // **E DICE IL VERO, ordine AP voce 08.** Fino alla 2183 questa
-            // riga prometteva "non perdi nulla" mentre i traguardi accesi si
-            // perdevano davvero: Mauro lo ha misurato reinstallando l'app.
-            // Adesso il cammino e' custodito (voci 01 e 03) e la riga puo'
-            // NOMINARE cio' che torna, invece di promettere in blocco. Il
-            // cielo di nascita torna perche' torna la nascita, che e' cio' da
-            // cui si ricalcola: e' la stessa scelta della voce 01.
-            // **E DICHIARA IL PREMIO, ordine BH voce 01**: la prima
-            // registrazione porta il dono del server, e l'invito lo scrive.
-            subtitle: '${PromessaDellaRegistrazione.fraseCorta(context)}. '
-                'Cielo di nascita, traguardi accesi, ricordi e Eos tornano '
-                'su qualsiasi telefono',
-            icon: Icons.shield_moon_outlined,
-            onTap: (context) async {
-              // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era
-              // un'attesa nuda su `quantiMomenti`, che sono SEI letture di rete
-              // in fila senza tetto: su una rete lenta il foglio arrivava dopo
-              // secondi o mai, e un'eccezione moriva inghiottita dal gesto.
-              // "Al tocco non succede nulla" era esattamente questo. Il numero
-              // dei momenti qui e' un ornamento: due secondi di tetto, poi si
-              // apre comunque, e il guasto si registra invece di sparire.
-              final servizi = context.read<AppServices>();
-              var momenti = 1;
-              try {
-                momenti = await servizi.memory
-                    .quantiMomenti()
-                    .timeout(const Duration(seconds: 2));
-              } catch (errore) {
-                servizi.guasti.registra(
-                  operazione: 'conta dei momenti per la custodia',
-                  errore: errore,
-                );
-              }
-              if (!context.mounted) return;
-              // Dall'area account si chiede sempre, anche con zero momenti: qui
-              // e' la persona ad averlo cercato, e un invito che non si apre
-              // sarebbe un vicolo cieco.
-              await mostraInvitoACustodire(context,
-                  momenti: momenti > 0 ? momenti : 1);
-            },
-          ),
         // **LA VERIFICA DELL'EMAIL. Ordine AZ voce 06, situazione S18.** La
         // voce compare solo a chi e' entrato con un'email e non l'ha ancora
         // verificata: a chi e' entrato con Google o con Apple l'indirizzo lo ha
@@ -429,6 +383,62 @@ class AccountScreen extends StatelessWidget {
     );
   }
 }
+
+// CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi ha
+// rimandato. La voce compare SOLO a chi e' ancora anonimo (`_eAnonimo`),
+// perche' a chi ha gia' custodito direbbe una cosa gia' fatta.
+// Ordine FE voce 22.3, prova a): nessun "Custodisci" in un testo mostrato.
+// Il titolo era "Custodisci il tuo cielo", poi "Metti al sicuro il tuo
+// cielo". **"Registra e conserva il tuo Cerchio", ordine FN, 13 ottobre
+// 2026**: il fondatore ha chiesto il nome nuovo, e che fosse la prima voce
+// per un ospite (vedi `_voci`, che la chiama qui).
+_AccountEntry _voceDellaCustodia(BuildContext context) => _AccountEntry(
+      id: 'custodia',
+      title: 'Registra e conserva il tuo Cerchio',
+      // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
+      // che non richiedono l'Architetto per essere capite.
+      //
+      // **E DICE IL VERO, ordine AP voce 08.** Fino alla 2183 questa
+      // riga prometteva "non perdi nulla" mentre i traguardi accesi si
+      // perdevano davvero: Mauro lo ha misurato reinstallando l'app.
+      // Adesso il cammino e' custodito (voci 01 e 03) e la riga puo'
+      // NOMINARE cio' che torna, invece di promettere in blocco. Il
+      // cielo di nascita torna perche' torna la nascita, che e' cio' da
+      // cui si ricalcola: e' la stessa scelta della voce 01.
+      // **E DICHIARA IL PREMIO, ordine BH voce 01**: la prima
+      // registrazione porta il dono del server, e l'invito lo scrive.
+      subtitle: '${PromessaDellaRegistrazione.fraseCorta(context)}. '
+          'Cielo di nascita, traguardi accesi, ricordi e Eos tornano '
+          'su qualsiasi telefono',
+      icon: Icons.shield_moon_outlined,
+      onTap: (context) async {
+        // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era
+        // un'attesa nuda su `quantiMomenti`, che sono SEI letture di rete
+        // in fila senza tetto: su una rete lenta il foglio arrivava dopo
+        // secondi o mai, e un'eccezione moriva inghiottita dal gesto.
+        // "Al tocco non succede nulla" era esattamente questo. Il numero
+        // dei momenti qui e' un ornamento: due secondi di tetto, poi si
+        // apre comunque, e il guasto si registra invece di sparire.
+        final servizi = context.read<AppServices>();
+        var momenti = 1;
+        try {
+          momenti = await servizi.memory
+              .quantiMomenti()
+              .timeout(const Duration(seconds: 2));
+        } catch (errore) {
+          servizi.guasti.registra(
+            operazione: 'conta dei momenti per la custodia',
+            errore: errore,
+          );
+        }
+        if (!context.mounted) return;
+        // Dall'area account si chiede sempre, anche con zero momenti: qui
+        // e' la persona ad averlo cercato, e un invito che non si apre
+        // sarebbe un vicolo cieco.
+        await mostraInvitoACustodire(context,
+            momenti: momenti > 0 ? momenti : 1);
+      },
+    );
 
 /// L'account, se l'albero ce l'ha. Le prove che montano questa schermata da
 /// sola non lo hanno, e devono poterla montare lo stesso: senza account la

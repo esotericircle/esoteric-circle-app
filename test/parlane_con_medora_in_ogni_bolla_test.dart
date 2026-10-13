@@ -14,6 +14,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -47,6 +48,15 @@ void main() {
           ChangeNotifierProvider(create: (_) => ParallaxController()),
           ChangeNotifierProvider(create: (_) => QualityTierController()),
           ChangeNotifierProvider(create: (_) => ZodiacController()),
+          // **IL RESPONSO ENTRA NEL DIARIO DA SE', e per entrare gli serve
+          // il registro. Ordine FO, 13 ottobre 2026.** Con `revealAll: true`
+          // il responso e' pronto da subito, e `IlResponsoNelDiario` e
+          // `AzioniDelResponso` cercano `RegistroDeiRicordi` sopra di loro:
+          // senza, la prova lancia invece di misurare quello che vuole
+          // misurare.
+          ChangeNotifierProvider(
+              create: (_) => RegistroDeiRicordi(
+                  orologio: () => DateTime(2026, 10, 13))),
         ],
         child: MediaQuery(
           data: const MediaQueryData(),
@@ -88,12 +98,13 @@ void main() {
           reason: 'la bolla $p non porta la stessa icona del pulsante in '
               'fondo alla schermata');
     }
-    // Quattro: le tre bolle piu' quello in fondo alla schermata
-    // (`responso_parlane`), che resta com'era.
-    expect(find.text('Parlane con Medora'), findsNWidgets(4),
+    // **CINQUE, DALL'ORDINE FN, 13 ottobre 2026**: le tre bolle di
+    // posizione, il Consiglio di Medora (che prima non aveva il suo, voce
+    // 06 dell'ordine) e quello in fondo alla schermata (`responso_parlane`).
+    expect(find.text('Parlane con Medora'), findsNWidgets(5),
         reason: 'ci sono ${find.text('Parlane con Medora').evaluate().length} '
-            'pulsanti "Parlane con Medora" invece di 4 (tre bolle piu\' '
-            'quello in fondo)');
+            'pulsanti "Parlane con Medora" invece di 5 (tre bolle, il '
+            'Consiglio di Medora e quello in fondo)');
   });
 
   testWidgets(

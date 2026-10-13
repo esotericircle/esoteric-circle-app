@@ -61,6 +61,11 @@ void main() {
       await tester.tap(find.byKey(const Key('sonda_controlla')));
       await tester.pumpAndSettle();
     }
+    // **ORDINE FN, 13 OTTOBRE 2026: senza la casella spuntata il pulsante
+    // resta spento.** La prova misura il pulsante di Google, e prima deve
+    // spuntare il consenso come farebbe davvero chi usa l'app.
+    await tester.tap(find.byKey(const Key('consenso_casella')));
+    await tester.pump();
   }
 
   /// **SI GUARDA IL PULSANTE VERO**, cioe' il `FilledButton` che porta la

@@ -5,7 +5,6 @@ import '../../core/legal/pagina_legale.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
-import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'privacy_policy_screen.dart';
 
@@ -65,8 +64,23 @@ class ConsensiDellaRegistrazione extends StatefulWidget {
       _ConsensiDellaRegistrazioneState();
 }
 
+/// **LA CASELLA GOVERNA I PULSANTI SOTTO. Ordine FN, 13 ottobre 2026.** Il
+/// fondatore ha chiesto di tornare a una casella esplicita, non spuntata di
+/// default: finche' non e' spuntata, chi monta [ConsensiDellaRegistrazione]
+/// deve tenere il proprio pulsante semitrasparente e non toccabile. Risale
+/// l'albero con una `Notification`, non un parametro del costruttore, cosi'
+/// il punto di montaggio resta `ConsensiDellaRegistrazione()` com'era: due
+/// guardie di ordini precedenti ne contano le occorrenze esatte nel sorgente.
+class ConsensoCambiatoNotification extends Notification {
+  const ConsensoCambiatoNotification(this.accettato);
+
+  final bool accettato;
+}
+
 class _ConsensiDellaRegistrazioneState
     extends State<ConsensiDellaRegistrazione> {
+  bool _accettato = false;
+
   @override
   void initState() {
     super.initState();
@@ -90,59 +104,67 @@ class _ConsensiDellaRegistrazioneState
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    return Column(
+    return Row(
       key: const Key('consensi_della_registrazione'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // **LA RIGA CHE DICE COSA SI ACCETTA, e il pulsante e' l'atto.**
-        Text.rich(
-          TextSpan(
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary),
-            children: [
-              const TextSpan(text: 'Continuando accetti la '),
-              TextSpan(
-                text: 'privacy policy',
-                style: TextStyle(
-                    color: palette.goldSoft,
-                    decoration: TextDecoration.underline),
-                recognizer: _apri,
-              ),
-              const TextSpan(text: ' e le '),
-              TextSpan(
-                text: 'condizioni d\'uso',
-                style: TextStyle(
-                    color: palette.goldSoft,
-                    decoration: TextDecoration.underline),
-                recognizer: _apriLeCondizioni,
-              ),
-              const TextSpan(text: ' del Cerchio.'),
-            ],
-          ),
-          key: const Key('consenso_informativa'),
+        // **IL QUADRATINO, non spuntato di default.** Ordine FN, 13 ottobre
+        // 2026: prima "premere il pulsante era l'accettazione", e il
+        // fondatore ha chiesto una casella esplicita che tenga spento il
+        // pulsante finche' non e' spuntata.
+        Checkbox(
+          key: const Key('consenso_casella'),
+          value: _accettato,
+          activeColor: palette.gold,
+          onChanged: (v) {
+            setState(() => _accettato = v ?? false);
+            ConsensoCambiatoNotification(_accettato).dispatch(context);
+          },
         ),
-        const SizedBox(height: SpacingTokens.sm),
-        // **IL DISCLAIMER, UNA VOLTA SOLA, ALLA REGISTRAZIONE.** Ordine EA
-        // voce 18 e regola di CLAUDE.md: si dice all'onboarding e qui, mai su
-        // ogni carta. Il testo e' quello di `ArtCatalog.disclaimerCornice`, e
-        // il nome porta alla sua sezione nella pagina legale.
-        Text.rich(
-          TextSpan(
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary),
-            children: [
-              const TextSpan(text: '${ArtCatalog.disclaimerCornice} '),
+        // **UNA FRASE SOLA, PIU' LEGGIBILE. Ordine FN, 13 ottobre 2026.** Il
+        // fondatore: le stesse informazioni tornavano piu' volte, scritte
+        // piccole (`didascalia`). Privacy, condizioni e disclaimer stavano
+        // in due paragrafi separati; sono diventati uno, alla misura di
+        // `corpo`, che e' quella in cui si legge il resto del foglio.
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text.rich(
               TextSpan(
-                text: 'Leggi il disclaimer',
-                style: TextStyle(
-                    color: palette.goldSoft,
-                    decoration: TextDecoration.underline),
-                recognizer: _apriIlDisclaimer,
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+                children: [
+                  const TextSpan(text: 'Continuando accetti la '),
+                  TextSpan(
+                    text: 'privacy policy',
+                    style: TextStyle(
+                        color: palette.goldSoft,
+                        decoration: TextDecoration.underline),
+                    recognizer: _apri,
+                  ),
+                  const TextSpan(text: ', le '),
+                  TextSpan(
+                    text: 'condizioni d\'uso',
+                    style: TextStyle(
+                        color: palette.goldSoft,
+                        decoration: TextDecoration.underline),
+                    recognizer: _apriLeCondizioni,
+                  ),
+                  const TextSpan(text: ' e il disclaimer del Cerchio. '),
+                  const TextSpan(text: '${ArtCatalog.disclaimerCornice} '),
+                  TextSpan(
+                    text: 'Leggi il disclaimer',
+                    style: TextStyle(
+                        color: palette.goldSoft,
+                        decoration: TextDecoration.underline),
+                    recognizer: _apriIlDisclaimer,
+                  ),
+                  const TextSpan(text: '.'),
+                ],
               ),
-              const TextSpan(text: '.'),
-            ],
+              key: const Key('consenso_informativa'),
+            ),
           ),
-          key: const Key('consenso_disclaimer'),
         ),
       ],
     );
