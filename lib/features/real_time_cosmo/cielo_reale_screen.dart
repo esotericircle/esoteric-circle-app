@@ -36,6 +36,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/celestial.dart';
+import '../../core/astro/city_catalog.dart';
 import '../../core/astro/data_italiana.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
 import '../../core/astro/luogo_attuale.dart';
@@ -571,12 +572,39 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     );
   }
 
+  /// **LA CITTA' PRIMA DELLE COORDINATE. Ordine FS, 13 ottobre 2026.** Il
+  /// fondatore, sulla build 2308: nel cielo di adesso si leggeva solo
+  /// "45.6736, 8.8348". La riga mette gia' la citta' prima delle coordinate
+  /// (chiave `cielo_reale_citta_e_coordinate`), ma dal GPS il posto arriva
+  /// senza nome (`GeolocatorSkyLocation`), e dal luogo salvato col nome di
+  /// ripiego "dove sei adesso". Il nome lo da' il catalogo delle citta' gia'
+  /// nell'app (`assets/data/luoghi.csv`, tutti i comuni italiani), offline,
+  /// la citta' piu' vicina entro 30 chilometri. Non si aspetta: il cielo si
+  /// apre subito e il nome arriva appena il catalogo e' caricato.
+  Future<void> _daiIlNomeAlLuogo() async {
+    final nome = _luogo.citta;
+    if (nome != null && nome.isNotEmpty && nome != 'dove sei adesso') return;
+    final punto = _luogo;
+    try {
+      await CityCatalog.ensureLoaded();
+    } catch (_) {
+      return;
+    }
+    final vicina = CityCatalog.vicina(punto.latitude, punto.longitude);
+    if (!mounted || vicina == null || !identical(_luogo, punto)) return;
+    setState(() {
+      _luogo = punto.conCitta(vicina.name);
+      _origineDelLuogo = vicina.name;
+    });
+  }
+
   Future<void> _leggiIlLuogo() async {
     final salvato = await DoveSonoAdesso.letto();
     if (salvato != null) {
       _luogo = salvato.comePosto;
       _luogoDiRipiego = false;
       _origineDelLuogo = salvato.citta;
+      unawaited(_daiIlNomeAlLuogo());
       return;
     }
     final concesso = await widget.posizione.resolveSeConcesso();
@@ -584,6 +612,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       _luogo = concesso;
       _luogoDiRipiego = false;
       _origineDelLuogo = concesso.citta ?? 'la tua posizione';
+      unawaited(_daiIlNomeAlLuogo());
       return;
     }
     final nascita = _luogoDiNascita;
@@ -2282,6 +2311,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     _luogo = r.luogo!;
     _luogoDiRipiego = false;
     _origineDelLuogo = r.luogo!.citta ?? 'la tua posizione';
+    unawaited(_daiIlNomeAlLuogo());
     _telefono?.declinazioneGradi = declinazioneMagnetica(
       latitudine: _luogo.latitude,
       longitudine: _luogo.longitude,
@@ -2451,8 +2481,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   String get _titolo => switch (_modo) {
         ModoDelCielo.adesso => 'Il cielo di adesso',
         ModoDelCielo.nascita => 'Il cielo della tua nascita',
-        ModoDelCielo.ritorno =>
-          widget.nascita != null ? 'Il tuo cielo di nascita' : 'La macchina del tempo',
+        ModoDelCielo.ritorno => widget.nascita != null
+            ? 'Il tuo cielo di nascita'
+            : 'La macchina del tempo',
       };
 
   @override
@@ -2547,7 +2578,9 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
             // modo di scegliere un altro giorno.
             final arrivatoConSeguito =
                 widget.alSeguito != null && _fraseDArrivo.isNotEmpty;
-            if (fase != FaseDelRitorno.fermo || s == null || arrivatoConSeguito) {
+            if (fase != FaseDelRitorno.fermo ||
+                s == null ||
+                arrivatoConSeguito) {
               return const SizedBox.shrink();
             }
             final palette = MaestroScope.of(context);
@@ -2635,7 +2668,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // **CITTA' E COORDINATE, SOPRA GLI ALTRI TESTI. Ordine FN, 13 ottobre
     // 2026.** Il fondatore: nel cielo di adesso, la posizione rilevata deve
     // tornare visibile, col nome della citta' e le coordinate, "sopra gli
-    // altri testi e il pulsante attiva macchina del tempo" — com'era nella
+    // altri testi e il pulsante attiva macchina del tempo", com'era nella
     // vecchia `SkyOverviewScreen` (chiave `sky_da_dove`, sostituita il 12
     // ottobre 2026 da questa schermata, che quella riga non l'aveva presa).
     if (_modo == ModoDelCielo.adesso) {

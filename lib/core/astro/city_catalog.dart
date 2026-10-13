@@ -258,6 +258,20 @@ class CityCatalog {
     return best;
   }
 
+  /// **LA CITTA' VICINA DAVVERO, o nessuna.** Ordine FS, 13 ottobre 2026: il
+  /// cielo di adesso scrive il nome della citta' prima delle coordinate, e
+  /// le coordinate dal GPS arrivano senza nome. [nearest] restituisce sempre
+  /// qualcosa, anche in mezzo al mare: qui oltre [entroKm] il nome manca, e
+  /// per la regola di Mauro un nome che manca sparisce (vedi `SkyPlace.citta`).
+  static City? vicina(double latitude, double longitude,
+      {double entroKm = 30}) {
+    if (cities.isEmpty) return null;
+    final c = nearest(latitude, longitude);
+    return _haversine(latitude, longitude, c.latitude, c.longitude) <= entroKm
+        ? c
+        : null;
+  }
+
   static double _haversine(double lat1, double lon1, double lat2, double lon2) {
     const r = 6371.0; // km
     final dLat = _rad(lat2 - lat1);

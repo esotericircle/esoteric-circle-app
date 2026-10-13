@@ -29,8 +29,10 @@ void main() {
     test('il titolo dice "Il tuo cielo di nascita" quando la nascita c\'e\'',
         () {
       expect(
-          sorgente
-              .contains("widget.nascita != null ? 'Il tuo cielo di nascita'"),
+          // Indifferente agli spazi: `dart format` puo' andare a capo
+          // dopo la condizione (ordine FS).
+          RegExp(r"widget\.nascita != null\s*\?\s*'Il tuo cielo di nascita'")
+              .hasMatch(sorgente),
           isTrue,
           reason: 'il titolo del ritorno con nascita nota non e\' cambiato');
     });
