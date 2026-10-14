@@ -365,6 +365,9 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
               palette: palette,
               testo: TestiDelleFonti.sinastriaEvolutiva,
               chiave: 'sinastria_evolutiva_fonti'),
+          // Lo spazio del cuore della soglia unica: nessuna azione ci
+          // finisce sotto (guardia `il_cuore_e_il_tooltip_non_si_toccano`).
+          const AngoloDellaBarra(),
         ],
       ),
       body: CosmosBackground(
