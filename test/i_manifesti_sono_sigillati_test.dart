@@ -380,6 +380,11 @@ void main() {
     // Ordine FM, 12 ottobre 2026: le sette voci, contate coi titoli
     // "## VOCE FM." del manifesto.
     'FM': 18,
+    // Ordine FS, 14 ottobre 2026: le due voci dell'aggiunta del video della
+    // Stesa (FS.11 e FS.12) e i 400 Eos della Croce Celtica (FS.13), contate
+    // coi titoli "## VOCE FS." del manifesto. Le dieci voci del 13 ottobre
+    // stanno in docs/STATO_VIVO.md, senza manifesto.
+    'FS': 3,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
