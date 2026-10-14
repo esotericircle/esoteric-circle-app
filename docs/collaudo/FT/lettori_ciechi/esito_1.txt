@@ -1,0 +1,9 @@
+GIRO 1
+attrazione: 10 su 10 PASSA
+emozioni: 10 su 10 PASSA
+mente: 10 su 10 PASSA
+durata: 9 su 10 PASSA
+destino: 10 su 10 PASSA
+legami: 10 su 10 PASSA
+toni: 10 su 10 PASSA
+sbagliati: durata-38 (durata, durata famiglia teso, vera destino, detta A)
