@@ -58,3 +58,10 @@ PROVA: test/nessuna_fascia_sotto_la_barra_della_stesa_test.dart, Regola A
 in regola_a_fascia_e_pannello.py e .txt (tre innesti su tre rossi). La
 cattura del Realme dopo la correzione si aggiunge qui sotto quando la build
 e' sul telefono.
+
+4. GUARDATA SUL REALME, BUILD 2311 (14 ottobre 2026, sera).
+   Cattura a6_realme_2311_dopo.jpg (a confronto con a6_realme_2310_prima.jpg).
+   Riga per riga: la barra finisce intorno al pixel 388; dal 392 la
+   deviazione orizzontale e' gia' 20-28 (le stelle della scena), dove sulla
+   2310 c'era la fascia piatta a 48 di luminosita'. Il pannello "Scegli la
+   tua stesa" comincia sul bordo basso del tavolo, senza drappo in mezzo.

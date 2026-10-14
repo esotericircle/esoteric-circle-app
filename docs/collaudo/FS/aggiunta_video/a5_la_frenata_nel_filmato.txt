@@ -86,3 +86,20 @@ che la porta). Con Riduci Movimento la scena ferma resta la posa
 dell'invito, il gesto della fine dell'originale, non quella con la mano sul
 petto: e' una posa scontornata a parte (assets/img/tavolo/medora_invito_v1.webp),
 da rifare se il fondatore la vuole uguale.
+
+4. GUARDATA SUL REALME, BUILD 2311 (14 ottobre 2026, sera).
+   Stessa procedura del punto 1 (scrcpy, abbinamento al file v2, poi alla
+   posizione nel contenuto originale con la tabella): a5_realme_2311_posizioni.txt
+   (tempo, fotogramma del file, posizione nel contenuto, errore).
+
+   tempo reale    contenuto          velocita'
+   6,0 - 6,8 s    120 - 139          1,00
+   6,8 - 7,3 s    139 - 151,0        0,94
+   7,3 - 7,8 s    151,0 - 159,5      0,68
+   7,8 - 8,4 s    159,5 - 164,2      0,38
+   8,4 - 8,9 s    164,2 - 165,9      0,14
+   da 9,1 s       165,99, fermo con la mano sul petto
+
+   La velocita' scende con continuita' per circa due secondi, come nel
+   file. MISURA: la frenata sul telefono passa da meno di 0,5 s (2310) a
+   circa 2 s (2311).
