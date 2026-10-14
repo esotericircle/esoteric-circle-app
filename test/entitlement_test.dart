@@ -186,20 +186,22 @@ void main() {
     });
 
     test('Gli elenchi sono completi, uno lungo per Tier, senza condensare', () {
-      expect(PlanCatalog.forTier(Tier.free).highlights.length, 10);
+      // UNDICI per ogni piano in piu' dall'ordine FT voce FT.13: la Sinastria
+      // approfondita, una riga per piano coi numeri della matrice.
+      expect(PlanCatalog.forTier(Tier.free).highlights.length, 11);
       // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
       // dall'Iniziato, e il piano lo dice.
       // QUATTORDICI dalla voce ES.09: anche l'oroscopo vedico.
       // QUINDICI dalla voce ES.12: gli amici, fino a tre.
-      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 15);
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 16);
       // TREDICI dalla voce ES.04: l'oroscopo dell'anno dal compleanno.
       // QUATTORDICI dalla voce ES.12: gli amici, fino a dieci.
-      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 14);
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 15);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
       // UNDICI dall'ordine EX voce 02: i minuti del LIVE dell'Illuminato.
-      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 11);
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 12);
     });
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {

@@ -269,6 +269,8 @@ class PlanCatalog {
         'Tre domande al giorno a un Maestro, senza memoria',
         'Tre carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 3 al giorno',
+        // Ordine FT voce FT.13: le righe della Sinastria approfondita.
+        'Sinastria approfondita: una coppia nuova al giorno, Oggi fra voi e due capitoli',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
@@ -298,6 +300,7 @@ class PlanCatalog {
         '12 domande al giorno ai Maestri',
         '6 carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 5 al giorno',
+        'Sinastria approfondita: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Diario Cosmico completo, obiettivi e traguardi per Maestro',
@@ -331,6 +334,7 @@ class PlanCatalog {
         '10 carte di tarocchi al giorno, da stendere come vuoi',
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
+        'Sinastria approfondita: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -363,6 +367,7 @@ class PlanCatalog {
         '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
+        'Sinastria approfondita: 15 coppie nuove al giorno',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
         // parte dell'app la esegue, e se reale vuol dire una persona non e'
