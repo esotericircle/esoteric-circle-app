@@ -1,12 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/il_composito_e_keplero.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/il_corpus_della_sinastria_approfondita.g.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/la_lettura_approfondita.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/legame_e_eta.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/oggi_e_il_momento.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/il_composito_e_keplero.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/il_corpus_della_sinastria_evolutiva.g.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/la_lettura_evolutiva.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/legame_e_eta.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/oggi_e_il_momento.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -14,16 +14,16 @@ import 'cardinale_minimo.dart';
 /// **LA LETTURA APPROFONDITA, SUL CORPUS VERO.** Ordine FT voci FT.06,
 /// FT.07, FT.08, FT.09, FT.10 e FT.12, 14 ottobre 2026.
 void main() {
-  const corpus = corpusDellaSinastriaApprofondita;
+  const corpus = corpusDellaSinastriaEvolutiva;
   final caso = math.Random(20261014);
-  CieloApprofondito unCielo() => CieloApprofondito.perNascita(
+  CieloEvolutivo unCielo() => CieloEvolutivo.perNascita(
       momentoUtc: DateTime.utc(1940).add(
           Duration(days: caso.nextInt(365 * 70), hours: caso.nextInt(24))));
 
   test('il corpus porta tutti i 1.231 testi, senza celle vuote', () {
     final testi = corpus.values.fold<int>(0, (n, v) => n + v.length);
     cardinaleMinimo(testi, 1231,
-        cosa: 'testi del corpus della Sinastria approfondita',
+        cosa: 'testi del corpus della Sinastria evolutiva',
         perche: 'il disegno ne dichiara 1.231 (LEGGIMI.md)');
     expect(testi, 1231);
     for (final v in corpus.values) {
@@ -98,7 +98,7 @@ void main() {
       final tuo = unCielo();
       final suo = unCielo();
       final legame = Legame.values[i % 4];
-      final lettura = LetturaApprofondita.componi(
+      final lettura = LetturaEvolutiva.componi(
           tuo: tuo,
           suo: suo,
           nomeSuo: 'Giulia',
@@ -113,7 +113,7 @@ void main() {
           expect(t.contains('{'), isFalse, reason: t);
           expect(t.contains('['), isFalse, reason: t);
         }
-        if (!titoli.add(LetturaApprofondita.attacco(c.titolo))) {
+        if (!titoli.add(LetturaEvolutiva.attacco(c.titolo))) {
           attacchiRipetuti++;
         }
         if (c.aspetto != null) {
@@ -121,7 +121,7 @@ void main() {
         }
       }
       // Stessa coppia, stessa lettura.
-      final ancora = LetturaApprofondita.componi(
+      final ancora = LetturaEvolutiva.componi(
           tuo: tuo,
           suo: suo,
           nomeSuo: 'Giulia',
@@ -154,9 +154,9 @@ void main() {
       if (a != null) {
         conCella++;
         const vicini = {
-          PuntoDelCieloApprofondito.sole,
-          PuntoDelCieloApprofondito.mercurio,
-          PuntoDelCieloApprofondito.venere,
+          PuntoDelCieloEvolutivo.sole,
+          PuntoDelCieloEvolutivo.mercurio,
+          PuntoDelCieloEvolutivo.venere,
         };
         expect(
             a.tipo == AspectType.conjunction &&

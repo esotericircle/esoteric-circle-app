@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/synastry_approfondita/cielo_approfondito.dart';
+import '../../core/synastry_evolutiva/cielo_evolutivo.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -17,7 +17,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 ///
 /// **L'ORA SCONOSCIUTA SI DICHIARA, non si indovina.** Con l'interruttore
 /// spento il momento si ancora a mezzogiorno (stessa convenzione di
-/// `BirthIdentity`, vedi `CieloApprofondito.perNascita`), e la schermata
+/// `BirthIdentity`, vedi `CieloEvolutivo.perNascita`), e la schermata
 /// che mostra la lettura sa che l'ora non e' nota.
 class LaNascitaDellAltraPersona extends StatefulWidget {
   const LaNascitaDellAltraPersona(
@@ -30,10 +30,10 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
   final String? nomeIniziale;
 
   /// Apre la schermata e aspetta il nome e il cielo, o nullo se annullato.
-  static Future<({String nome, CieloApprofondito cielo})?> chiedi(
+  static Future<({String nome, CieloEvolutivo cielo})?> chiedi(
       BuildContext context, MaestroPalette palette,
       {String? nomeIniziale}) {
-    return Navigator.of(context).push<({String nome, CieloApprofondito cielo})>(
+    return Navigator.of(context).push<({String nome, CieloEvolutivo cielo})>(
       PassaggioDelCerchio.rotta(
         (_) => LaNascitaDellAltraPersona(
             palette: palette, nomeIniziale: nomeIniziale),
@@ -91,7 +91,7 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       oraNota ? _ora!.hour : 12,
       oraNota ? _ora!.minute : 0,
     );
-    final cielo = CieloApprofondito.perNascita(
+    final cielo = CieloEvolutivo.perNascita(
       momentoUtc: momento,
       oraNota: oraNota,
       nome: _nome.text.trim(),

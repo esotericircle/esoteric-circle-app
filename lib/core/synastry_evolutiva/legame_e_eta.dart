@@ -1,7 +1,7 @@
-/// **I QUATTRO LEGAMI DELLA SINASTRIA APPROFONDITA.** Ordine FT voce FT.06:
+/// **I QUATTRO LEGAMI DELLA SINASTRIA EVOLUTIVA.** Ordine FT voce FT.06:
 /// amore, amicizia, famiglia, lavoro. Il legame cambia la lettura, non il
 /// calcolo (lo stesso cielo, le stesse longitudini, le stesse undici
-/// posizioni: vedi `cielo_approfondito.dart`).
+/// posizioni: vedi `cielo_evolutivo.dart`).
 enum Legame {
   amore('Amore'),
   amicizia('Amicizia'),
@@ -19,7 +19,7 @@ enum Legame {
 /// se ENTRAMBE le persone hanno almeno sedici anni compiuti al giorno della
 /// lettura; amicizia, famiglia e lavoro non hanno limite. **Il controllo
 /// vive due volte**: qui (`lib`) e sul server
-/// (`functions/src/sinastria_approfondita.ts`, `haAlmeno16Anni`): il server
+/// (`functions/src/sinastria_evolutiva.ts`, `haAlmeno16Anni`): il server
 /// non si fida dell'app, perche' un client modificato potrebbe dire
 /// un'altra data di nascita.
 abstract final class SbarramentoDEta {

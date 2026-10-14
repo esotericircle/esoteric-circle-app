@@ -2,17 +2,17 @@ import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/natal_chart.dart';
 import '../chat/la_marca_del_genere.dart';
 import '../synastry/cielo_del_giorno_sulla_coppia.dart';
-import 'cielo_approfondito.dart';
-import 'la_lettura_approfondita.dart';
+import 'cielo_evolutivo.dart';
+import 'la_lettura_evolutiva.dart';
 import 'legame_e_eta.dart';
 
 /// I contatti di una coppia nella forma della porta sola del cielo del
 /// giorno (`MoltiplicatoreCeleste.accensione`), coi capitoli a cui
 /// appartengono.
-List<({AspettoApprofondito aspetto, Capitolo capitolo})> _contattiDeiCapitoli(
-    CieloApprofondito tuo, CieloApprofondito suo, Set<Capitolo> capitoli) {
-  final fuori = <({AspettoApprofondito aspetto, Capitolo capitolo})>[];
-  for (final a in AspettiApprofonditi.fra(tuo, suo)) {
+List<({AspettoEvolutivo aspetto, Capitolo capitolo})> _contattiDeiCapitoli(
+    CieloEvolutivo tuo, CieloEvolutivo suo, Set<Capitolo> capitoli) {
+  final fuori = <({AspettoEvolutivo aspetto, Capitolo capitolo})>[];
+  for (final a in AspettiEvolutivi.fra(tuo, suo)) {
     for (final c in capitoli) {
       if (c.tocca(a)) {
         fuori.add((aspetto: a, capitolo: c));
@@ -24,13 +24,13 @@ List<({AspettoApprofondito aspetto, Capitolo capitolo})> _contattiDeiCapitoli(
 }
 
 List<({double peso, List<double> gradi})> _perLaPorta(
-        List<({AspettoApprofondito aspetto, Capitolo capitolo})> contatti,
-        CieloApprofondito tuo,
-        CieloApprofondito suo) =>
+        List<({AspettoEvolutivo aspetto, Capitolo capitolo})> contatti,
+        CieloEvolutivo tuo,
+        CieloEvolutivo suo) =>
     [
       for (final x in contatti)
         (
-          peso: x.aspetto.forzaCon(AspettiApprofonditi.orbo[x.aspetto.tipo]!),
+          peso: x.aspetto.forzaCon(AspettiEvolutivi.orbo[x.aspetto.tipo]!),
           gradi: [
             tuo.longitudini[x.aspetto.tuo]!,
             suo.longitudini[x.aspetto.suo]!,
@@ -81,8 +81,8 @@ class OggiFraVoi {
   ];
 
   static OggiFraVoi per({
-    required CieloApprofondito tuo,
-    required CieloApprofondito suo,
+    required CieloEvolutivo tuo,
+    required CieloEvolutivo suo,
     required String nomeSuo,
     required DateTime giorno,
     required CorpusDellaSinastria corpus,
@@ -169,8 +169,8 @@ abstract final class IlMomentoGiusto {
   /// I giorni favorevoli, oppure una lista vuota se nessuno spicca (il
   /// testo di quel caso lo da' [testoSenzaGiorni]).
   static List<GiornoFavorevole> per({
-    required CieloApprofondito tuo,
-    required CieloApprofondito suo,
+    required CieloEvolutivo tuo,
+    required CieloEvolutivo suo,
     required String nomeSuo,
     required Legame legame,
     required DateTime da,
@@ -220,8 +220,7 @@ abstract final class IlMomentoGiusto {
             giorno: scelti[i].giorno,
             transito: scelti[i].t,
             testo: _pulito(
-                v[(LetturaApprofondita.semeDellaCoppia(tuo, suo) + i) %
-                    v.length],
+                v[(LetturaEvolutiva.semeDellaCoppia(tuo, suo) + i) % v.length],
                 nomeSuo),
           );
         })(),
@@ -229,8 +228,8 @@ abstract final class IlMomentoGiusto {
   }
 
   static String testoSenzaGiorni({
-    required CieloApprofondito tuo,
-    required CieloApprofondito suo,
+    required CieloEvolutivo tuo,
+    required CieloEvolutivo suo,
     required String nomeSuo,
     required Legame legame,
     required CorpusDellaSinastria corpus,
@@ -238,7 +237,7 @@ abstract final class IlMomentoGiusto {
     final v =
         corpus['keplero_oggi_momento|momento nessuno ${legame.name}|testo']!;
     return _pulito(
-        v[LetturaApprofondita.semeDellaCoppia(tuo, suo) % v.length], nomeSuo);
+        v[LetturaEvolutiva.semeDellaCoppia(tuo, suo) % v.length], nomeSuo);
   }
 
   /// Il nome del pianeta come lo scrive la lettura; serve a [_corpo] di chi

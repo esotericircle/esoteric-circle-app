@@ -82,7 +82,7 @@ class MoltiplicatoreCeleste {
   }
 
   /// **L'ACCENSIONE DEL GIORNO, la porta sola del cielo del giorno sulla
-  /// coppia.** Ordine FT voci FT.09 e FT.10: la Sinastria approfondita
+  /// coppia.** Ordine FT voci FT.09 e FT.10: la Sinastria evolutiva
   /// ("Oggi fra voi", "Il momento giusto") e la Sinastria VIP chiedono la
   /// stessa cosa, quanto i transiti di [giorno] toccano i gradi dove due
   /// cieli si toccano, e la risposta e' calcolata qui, una volta sola: prima

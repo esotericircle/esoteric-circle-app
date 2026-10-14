@@ -9,7 +9,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/art_navigation.dart';
-import '../../synastry/avvio_sinastria_approfondita.dart';
+import '../../synastry/avvio_sinastria_evolutiva.dart';
 import '../confronto_del_cielo_screen.dart';
 import '../scheda_dell_amico_screen.dart';
 import 'disegni_del_cerchio.dart';
@@ -52,11 +52,11 @@ Route<void>? rottaDellaRichiesta(ArteDellaRichiesta arte,
       artRouteFor('archetype_test', userBirth: nascita),
     ArteDellaRichiesta.glifo =>
       amico == null ? null : SchedaDellAmicoScreen.route(amico),
-    // La Sinastria approfondita (ordine FT voce FT.14): il profilo pubblico
+    // La Sinastria evolutiva (ordine FT voce FT.14): il profilo pubblico
     // dell'amico non porta la sua nascita (P9), quindi la rotta apre il
     // ponte che la chiede, non la lettura direttamente.
-    ArteDellaRichiesta.sinastriaApprofondita =>
-      AvvioSinastriaApprofondita.route(nomeSuggerito: amico?.nome),
+    ArteDellaRichiesta.sinastriaEvolutiva =>
+      AvvioSinastriaEvolutiva.route(nomeSuggerito: amico?.nome),
   };
 }
 

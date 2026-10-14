@@ -200,10 +200,10 @@ enum RigaDelPiano {
   /// in su. Il cenno e' di tutti e non sta in questa riga.
   doni,
 
-  /// LA SINASTRIA APPROFONDITA, ordine FT voce FT.13: le letture di una
+  /// LA SINASTRIA EVOLUTIVA, ordine FT voce FT.13: le letture di una
   /// coppia nuova al giorno, tutti i capitoli, gli intervalli di Keplero,
   /// Oggi fra voi e le tre esclusive dell'Adepto.
-  sinastriaApprofondita,
+  sinastriaEvolutiva,
   capitoliDellaSinastria,
   oggiFraVoi,
   intervalliDiKeplero,
@@ -269,8 +269,8 @@ class PlanCatalog {
         'Tre domande al giorno a un Maestro, senza memoria',
         'Tre carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 3 al giorno',
-        // Ordine FT voce FT.13: le righe della Sinastria approfondita.
-        'Sinastria approfondita: una coppia nuova al giorno, Oggi fra voi e due capitoli',
+        // Ordine FT voce FT.13: le righe della Sinastria evolutiva.
+        'Sinastria evolutiva: una coppia nuova al giorno, Oggi fra voi e due capitoli',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
@@ -300,7 +300,7 @@ class PlanCatalog {
         '12 domande al giorno ai Maestri',
         '6 carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 5 al giorno',
-        'Sinastria approfondita: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
+        'Sinastria evolutiva: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Diario Cosmico completo, obiettivi e traguardi per Maestro',
@@ -334,7 +334,7 @@ class PlanCatalog {
         '10 carte di tarocchi al giorno, da stendere come vuoi',
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
-        'Sinastria approfondita: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
+        'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -367,7 +367,7 @@ class PlanCatalog {
         '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
-        'Sinastria approfondita: 15 coppie nuove al giorno',
+        'Sinastria evolutiva: 15 coppie nuove al giorno',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
         // parte dell'app la esegue, e se reale vuol dire una persona non e'
@@ -620,8 +620,8 @@ class PlanCatalog {
   /// ogni tocco sono due chiamate al modello.
   static const RigaDelPiano rigaConfronti = RigaDelPiano.confronti;
   static const RigaDelPiano rigaSinastria = RigaDelPiano.sinastria;
-  static const RigaDelPiano rigaSinastriaApprofondita =
-      RigaDelPiano.sinastriaApprofondita;
+  static const RigaDelPiano rigaSinastriaEvolutiva =
+      RigaDelPiano.sinastriaEvolutiva;
 
   /// La carta singola e' una stesa da una carta: conta fra le carte
   /// estratte. Ordine EX voce 02.
@@ -857,7 +857,7 @@ class PlanCatalog {
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno'],
         chiave: RigaDelPiano.sinastria),
-    // **LA SINASTRIA APPROFONDITA, ordine FT voce FT.13.** Il fondatore,
+    // **LA SINASTRIA EVOLUTIVA, ordine FT voce FT.13.** Il fondatore,
     // alla domanda sulla tabella dei piani: "Lo decide Code". Fissati da
     // lui e non toccati: Tema Composito, ritratto della coppia e momento
     // giusto esclusivi dell'Adepto (e quindi dell'Illuminato); il
@@ -867,10 +867,10 @@ class PlanCatalog {
     // solo contro l'abuso; al Viandante un assaggio vero (una coppia al
     // giorno, due capitoli su cinque, Oggi fra voi intero) che faccia
     // venire voglia degli altri tre.
-    FeatureRow('Sinastria approfondita: coppie nuove',
+    FeatureRow('Sinastria evolutiva: coppie nuove',
         ['1 al giorno', '2 al giorno', '5 al giorno', '15 al giorno'],
-        chiave: RigaDelPiano.sinastriaApprofondita),
-    FeatureRow('Sinastria approfondita: i cinque capitoli',
+        chiave: RigaDelPiano.sinastriaEvolutiva),
+    FeatureRow('Sinastria evolutiva: i cinque capitoli',
         ['Due su cinque', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.capitoliDellaSinastria),
     FeatureRow('Oggi fra voi', ['Sì', 'Sì', 'Sì', 'Sì'],

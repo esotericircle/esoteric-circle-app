@@ -1,9 +1,9 @@
 // GENERATO da tool/il_corpus_della_sinastria.py dalla fonte in
-// docs/corpus/sinastria_approfondita/. Non si modifica a mano:
+// docs/corpus/sinastria_evolutiva/. Non si modifica a mano:
 // si corregge la fonte e si rigenera. Ordine FT voce FT.12.
 
-/// Il corpus della Sinastria approfondita: chiave "<file>|<cella>|<campo>", valore le varianti in ordine.
-const Map<String, List<String>> corpusDellaSinastriaApprofondita = {
+/// Il corpus della Sinastria evolutiva: chiave "<file>|<cella>|<campo>", valore le varianti in ordine.
+const Map<String, List<String>> corpusDellaSinastriaEvolutiva = {
   'capitolo_attrazione|amore fuso|titolo': [
     'Vi cercate prima ancora di pensarci',
     'Un solo magnete per due desideri',

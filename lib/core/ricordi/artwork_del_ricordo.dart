@@ -88,7 +88,7 @@ class ArtworkDelRicordo {
     'animale_guida': ['animale'],
     'sinastria': ['vip'],
     // Ordine FT: la coppia del segno della relazione (il Sole composito).
-    'sinastria_approfondita': ['coppia'],
+    'sinastria_evolutiva': ['coppia'],
     'archetipo': ['archetipo'],
     'oroscopo': ['segno'],
   };
@@ -145,7 +145,7 @@ class ArtworkDelRicordo {
         return _animale(dati['animale']);
       case 'sinastria':
         return _vip(dati['vip']);
-      case 'sinastria_approfondita':
+      case 'sinastria_evolutiva':
         return _coppia(dati['coppia']);
       case 'archetipo':
         return _archetipo(dati['archetipo']);
@@ -275,7 +275,7 @@ class ArtworkDelRicordo {
     return const [];
   }
 
-  /// La coppia del segno della Sinastria approfondita, ordine FT: un'immagine
+  /// La coppia del segno della Sinastria evolutiva, ordine FT: un'immagine
   /// sola per i due tagli (`assets/img/sinastria/coppia_<segno>_v1.webp`).
   static List<ImmagineDelRicordo> _coppia(String? nome) {
     if (nome == null) return const [];

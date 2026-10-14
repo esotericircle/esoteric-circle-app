@@ -1,4 +1,4 @@
-FT.02, allineamento della scena della Sinastria approfondita, 14 ottobre
+FT.02, allineamento della scena della Sinastria evolutiva, 14 ottobre
 2026. Metodo: ORB + RANSAC (cv2.estimateAffinePartial2D), stesso metodo
 della misura FS voce A2 per il tavolo della Stesa.
 

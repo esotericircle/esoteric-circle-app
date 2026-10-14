@@ -91,12 +91,12 @@ class ArtiConResponso {
       apertura: 'sinastria',
     ),
     ArteConResponso(
-      arte: 'sinastria_approfondita',
+      arte: 'sinastria_evolutiva',
       maestro: 'medora',
-      titolo: 'Sinastria approfondita',
+      titolo: 'Sinastria evolutiva',
       doveViveIlResponso:
-          'lib/features/synastry/sinastria_approfondita_screen.dart',
-      apertura: 'sinastriaApprofondita',
+          'lib/features/synastry/sinastria_evolutiva_screen.dart',
+      apertura: 'sinastriaEvolutiva',
     ),
     ArteConResponso(
       arte: 'archetipo',

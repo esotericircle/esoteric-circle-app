@@ -2,19 +2,19 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// **LA SINASTRIA APPROFONDITA CONTRO UNA FONTE TERZA.** Ordine FT voce
+/// **LA SINASTRIA EVOLUTIVA CONTRO UNA FONTE TERZA.** Ordine FT voce
 /// FT.05: "Prova del calcolo contro una fonte terza su almeno dieci coppie,
 /// con gli scarti dichiarati".
 ///
 /// Dieci coppie, venti nascite dal 1905 al 2088. Il riferimento sono le
 /// longitudini di Swiss Ephemeris (`pyswisseph`, serie Moshier), scritte da
-/// `tool/riferimenti_della_sinastria_approfondita.py` in
-/// `docs/collaudo/FT/riferimenti_della_sinastria_approfondita.csv`. Due cose
+/// `tool/riferimenti_della_sinastria_evolutiva.py` in
+/// `docs/collaudo/FT/riferimenti_della_sinastria_evolutiva.csv`. Due cose
 /// si confrontano: gli undici punti di ogni nascita, e gli aspetti di ogni
-/// coppia, rifatti con la stessa regola (`AspettiApprofonditi.fra`) una
+/// coppia, rifatti con la stessa regola (`AspettiEvolutivi.fra`) una
 /// volta dai cieli di Meeus e una volta da quelli svizzeri.
 ///
 /// **LO SCARTO DICHIARATO** sui punti e' un centesimo di grado: Meeus
@@ -26,20 +26,20 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   const scartoDichiarato = 0.01;
   final righe =
-      File('docs/collaudo/FT/riferimenti_della_sinastria_approfondita.csv')
+      File('docs/collaudo/FT/riferimenti_della_sinastria_evolutiva.csv')
           .readAsLinesSync()
           .where((r) => r.isNotEmpty && !r.startsWith('#'))
           .toList();
   final intestazione = righe.first.split(',');
   final dati = righe.skip(1).map((r) => r.split(',')).toList();
 
-  PuntoDelCieloApprofondito punto(String nome) =>
-      PuntoDelCieloApprofondito.values.firstWhere((p) => p.name == nome);
+  PuntoDelCieloEvolutivo punto(String nome) =>
+      PuntoDelCieloEvolutivo.values.firstWhere((p) => p.name == nome);
 
-  CieloApprofondito diMeeus(List<String> r) => CieloApprofondito.perNascita(
+  CieloEvolutivo diMeeus(List<String> r) => CieloEvolutivo.perNascita(
       momentoUtc: DateTime.parse('${r[2]}Z'), nome: r[1]);
 
-  CieloApprofondito svizzero(List<String> r) => CieloApprofondito(
+  CieloEvolutivo svizzero(List<String> r) => CieloEvolutivo(
         longitudini: {
           for (var i = 3; i < intestazione.length; i++)
             punto(intestazione[i]): double.parse(r[i]),
@@ -62,7 +62,7 @@ void main() {
     for (final r in dati) {
       final m = diMeeus(r);
       final s = svizzero(r);
-      for (final p in PuntoDelCieloApprofondito.values) {
+      for (final p in PuntoDelCieloEvolutivo.values) {
         final d = distanza(m.longitudini[p]!, s.longitudini[p]!);
         if (d > peggiore) {
           peggiore = d;
@@ -81,14 +81,14 @@ void main() {
     final diversi = <String>[];
     for (var c = 0; c < dati.length; c += 2) {
       final tuo = dati[c], suo = dati[c + 1];
-      String firma(AspettoApprofondito a) =>
+      String firma(AspettoEvolutivo a) =>
           '${a.tuo.name}-${a.suo.name} ${a.tipo.name}';
       final m = {
-        for (final a in AspettiApprofonditi.fra(diMeeus(tuo), diMeeus(suo)))
+        for (final a in AspettiEvolutivi.fra(diMeeus(tuo), diMeeus(suo)))
           firma(a): a
       };
       final s = {
-        for (final a in AspettiApprofonditi.fra(svizzero(tuo), svizzero(suo)))
+        for (final a in AspettiEvolutivi.fra(svizzero(tuo), svizzero(suo)))
           firma(a): a
       };
       aspetti += s.length;
@@ -100,7 +100,7 @@ void main() {
           continue;
         }
         final a = (m[k] ?? s[k])!;
-        final limite = AspettiApprofonditi.orbo[a.tipo]!;
+        final limite = AspettiEvolutivi.orbo[a.tipo]!;
         if ((a.orbo - limite).abs() < 2 * scartoDichiarato) {
           alLimite++;
         } else {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-/// **LO STUDIO DI MEDORA**, la scena della Sinastria approfondita. Ordine
+/// **LO STUDIO DI MEDORA**, la scena della Sinastria evolutiva. Ordine
 /// FT voce FT.02, 14 ottobre 2026.
 ///
 /// **Stesso lavoro della Stesa** (il fondatore, 13 ottobre 2026: "vorrei
@@ -12,7 +12,7 @@ import 'package:video_player/video_player.dart';
 /// ferma, il video `medora_astrolabio_in_polvere_v1.mp4` (720x1280) prende
 /// il suo posto quando parte, nello stesso riquadro dello sfondo.
 ///
-/// **Non c'e' un tavolo da carte qui**: la Sinastria approfondita non
+/// **Non c'e' un tavolo da carte qui**: la Sinastria evolutiva non
 /// dispone carte sul piano come il Tarocchi, quindi questa scena non ha
 /// l'omografia ne' il piano piatto di `GeometriaDelTavolo`: solo lo sfondo,
 /// la posa (o il video) di Medora, e il posto per il contenuto della
@@ -276,7 +276,7 @@ class _LettoreDellaScenaSinastriaVero implements LettoreDellaScenaSinastria {
 
 /// **LA SCENA**: lo sfondo tagliato e Medora, ferma o nel video.
 ///
-/// Non porta carte ne' un piano: la Sinastria approfondita mostra qui solo
+/// Non porta carte ne' un piano: la Sinastria evolutiva mostra qui solo
 /// la scena, e il contenuto della lettura sta sotto, nella schermata che la
 /// monta (come "Scegli la tua stesa" sta sotto il tavolo della Stesa).
 class LoStudioDiMedora extends StatelessWidget {

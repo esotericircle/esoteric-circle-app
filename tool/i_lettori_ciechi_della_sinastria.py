@@ -1,4 +1,4 @@
-"""I FASCICOLI DEI LETTORI CIECHI del corpus della Sinastria approfondita.
+"""I FASCICOLI DEI LETTORI CIECHI del corpus della Sinastria evolutiva.
 
 Ordine FT voce FT.12, 14 ottobre 2026, col metodo dell'ordine FM
 (tool/i_lettori_ciechi_del_corpus.py). I lettori ciechi sono agenti di Code,
@@ -62,7 +62,7 @@ def testi(capitolo, legami=None, toni=None):
 def prepara(giro):
     rnd = random.Random(2000 + int(giro))
     fasc = [
-        '# I LETTORI CIECHI della Sinastria approfondita, giro %s\n' % giro,
+        '# I LETTORI CIECHI della Sinastria evolutiva, giro %s\n' % giro,
         'Per ogni prova scegli la lettera giusta per ogni testo. Rispondi '
         'con un JSON {"identificativo": "lettera"}.\n',
     ]

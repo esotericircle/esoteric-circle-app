@@ -13,12 +13,12 @@ import '../../core/ricordi/artwork_del_ricordo.dart';
 import '../../core/sensi/la_suoneria.dart';
 import '../../core/quality/quality_tier.dart';
 import '../../core/settings/settings_controller.dart';
-import '../../core/synastry_approfondita/cielo_approfondito.dart';
-import '../../core/synastry_approfondita/il_composito_e_keplero.dart';
-import '../../core/synastry_approfondita/il_corpus_della_sinastria_approfondita.g.dart';
-import '../../core/synastry_approfondita/la_lettura_approfondita.dart';
-import '../../core/synastry_approfondita/legame_e_eta.dart';
-import '../../core/synastry_approfondita/oggi_e_il_momento.dart';
+import '../../core/synastry_evolutiva/cielo_evolutivo.dart';
+import '../../core/synastry_evolutiva/il_composito_e_keplero.dart';
+import '../../core/synastry_evolutiva/il_corpus_della_sinastria_evolutiva.g.dart';
+import '../../core/synastry_evolutiva/la_lettura_evolutiva.dart';
+import '../../core/synastry_evolutiva/legame_e_eta.dart';
+import '../../core/synastry_evolutiva/oggi_e_il_momento.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -36,7 +36,7 @@ import '../sigilli/regia_del_cammino.dart';
 import 'il_ritratto_della_coppia.dart';
 import 'lo_studio_di_medora.dart';
 
-/// **LA SINASTRIA APPROFONDITA.** Ordine FT, 14 ottobre 2026.
+/// **LA SINASTRIA EVOLUTIVA.** Ordine FT, 14 ottobre 2026.
 ///
 /// La scena (FT.02), il legame con lo sbarramento d'eta' (FT.04), Oggi fra
 /// voi (FT.09), i cinque capitoli nel formato di casa (FT.06), gli intervalli
@@ -45,8 +45,8 @@ import 'lo_studio_di_medora.dart';
 /// parte comincia col suo medaglione o la sua figura. **Mai un vicolo
 /// cieco**: cio' che il piano non apre resta visibile, col lucchetto e
 /// l'invito (FT.13).
-class SinastriaApprofonditaScreen extends StatefulWidget {
-  const SinastriaApprofonditaScreen({
+class SinastriaEvolutivaScreen extends StatefulWidget {
+  const SinastriaEvolutivaScreen({
     super.key,
     required this.nomeTuo,
     required this.cieloTuo,
@@ -57,9 +57,9 @@ class SinastriaApprofonditaScreen extends StatefulWidget {
   });
 
   final String nomeTuo;
-  final CieloApprofondito cieloTuo;
+  final CieloEvolutivo cieloTuo;
   final String nomeSuo;
-  final CieloApprofondito cieloSuo;
+  final CieloEvolutivo cieloSuo;
 
   /// La finta del lettore video, per le prove headless.
   final FabbricaDellaScenaSinastria? fabbricaDellaScena;
@@ -69,12 +69,12 @@ class SinastriaApprofonditaScreen extends StatefulWidget {
 
   static Route<void> route({
     required String nomeTuo,
-    required CieloApprofondito cieloTuo,
+    required CieloEvolutivo cieloTuo,
     required String nomeSuo,
-    required CieloApprofondito cieloSuo,
+    required CieloEvolutivo cieloSuo,
   }) =>
       PassaggioDelCerchio.rotta(
-        (_) => SinastriaApprofonditaScreen(
+        (_) => SinastriaEvolutivaScreen(
           nomeTuo: nomeTuo,
           cieloTuo: cieloTuo,
           nomeSuo: nomeSuo,
@@ -83,16 +83,16 @@ class SinastriaApprofonditaScreen extends StatefulWidget {
       );
 
   @override
-  State<SinastriaApprofonditaScreen> createState() =>
-      _SinastriaApprofonditaScreenState();
+  State<SinastriaEvolutivaScreen> createState() =>
+      _SinastriaEvolutivaScreenState();
 }
 
-class _SinastriaApprofonditaScreenState
-    extends State<SinastriaApprofonditaScreen> with WidgetsBindingObserver {
+class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
+    with WidgetsBindingObserver {
   bool _reduceMotion = false;
 
   /// **L'ORA NON NOTA SI DICHIARA A VIDEO**, ordine FT voce FT.03: la Luna
-  /// tace (`CieloApprofondito.oraNota`), e chi legge sa perche' nessun
+  /// tace (`CieloEvolutivo.oraNota`), e chi legge sa perche' nessun
   /// aspetto la nomina. Nullo quando tutte e due le ore sono note.
   String? get _laLunaTace {
     final tua = widget.cieloTuo.oraNota;
@@ -137,22 +137,22 @@ class _SinastriaApprofonditaScreenState
       suo: widget.cieloSuo,
       nomeSuo: widget.nomeSuo,
       giorno: _oggi,
-      corpus: corpusDellaSinastriaApprofondita);
+      corpus: corpusDellaSinastriaEvolutiva);
 
-  List<CapitoloLetto> get _capitoli => LetturaApprofondita.componi(
+  List<CapitoloLetto> get _capitoli => LetturaEvolutiva.componi(
       tuo: widget.cieloTuo,
       suo: widget.cieloSuo,
       nomeSuo: widget.nomeSuo,
       legame: _legame,
-      corpus: corpusDellaSinastriaApprofondita);
+      corpus: corpusDellaSinastriaEvolutiva);
 
   /// Il segno della relazione: quello del Sole composito.
   String get _coppia =>
       ArtworkDelRicordo.percorsoDellaCoppia(IlSegnoDelCielo.dellaLongitudine(
-          _composito.punti[PuntoDelCieloApprofondito.sole]!));
+          _composito.punti[PuntoDelCieloEvolutivo.sole]!));
 
   String get _segnoDellaCoppia => IlSegnoDelCielo.dellaLongitudine(
-          _composito.punti[PuntoDelCieloApprofondito.sole]!)
+          _composito.punti[PuntoDelCieloEvolutivo.sole]!)
       .italianName;
 
   @override
@@ -170,10 +170,10 @@ class _SinastriaApprofonditaScreenState
     _avviata = true;
     WidgetsBinding.instance.addObserver(this);
     unawaited(_apriIlFilmato());
-    // LA SINASTRIA APPROFONDITA ENTRA NEL CAMMINO, col suo gesto.
+    // LA SINASTRIA EVOLUTIVA ENTRA NEL CAMMINO, col suo gesto.
     unawaited(RegiaDelCammino.dopoUnGesto(
       context,
-      'sinastria_approfondita',
+      'sinastria_evolutiva',
       dettagli: {'con': widget.nomeSuo},
     ));
   }
@@ -231,7 +231,7 @@ class _SinastriaApprofonditaScreenState
     try {
       return osserva ? context.watch<T>() : context.read<T>();
     } catch (senzaProvider) {
-      debugPrint('Sinastria approfondita: manca $T, ripiego ($senzaProvider)');
+      debugPrint('Sinastria evolutiva: manca $T, ripiego ($senzaProvider)');
       return null;
     }
   }
@@ -260,7 +260,7 @@ class _SinastriaApprofonditaScreenState
     return showUpgradeInvite(
       context,
       title: '$cosa si apre ${dal[0].toLowerCase()}${dal.substring(1)}',
-      message: 'Nel Cerchio la Sinastria approfondita si legge per intero: '
+      message: 'Nel Cerchio la Sinastria evolutiva si legge per intero: '
           'tutti i capitoli, gli intervalli di Keplero, il cielo comune '
           'della vostra relazione, i giorni giusti e il ritratto da '
           'condividere.',
@@ -272,12 +272,12 @@ class _SinastriaApprofonditaScreenState
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      return await shareSinastriaApprofonditaCard(
+      return await shareSinastriaEvolutivaCard(
         boundaryKey: _chiaveDellaCard,
-        testo: 'La nostra sinastria approfondita, su Esoteric Circle.',
+        testo: 'La nostra sinastria evolutiva, su Esoteric Circle.',
       );
     } catch (errore) {
-      debugPrint('La card della Sinastria approfondita non parte: $errore');
+      debugPrint('La card della Sinastria evolutiva non parte: $errore');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Non riesco a preparare la card ora.')));
@@ -300,7 +300,7 @@ class _SinastriaApprofonditaScreenState
     final adepto =
         PlanCatalog.apre(RigaDelPiano.compositoRitrattoMomento, tier);
     final perIlDiario = ResponsoDaCustodire(
-      arte: 'sinastria_approfondita',
+      arte: 'sinastria_evolutiva',
       titolo: 'Con ${widget.nomeSuo}, ${_legame.nome.toLowerCase()}',
       testo: capitoli.first.titolo,
       perIlMaestro: [
@@ -333,13 +333,13 @@ class _SinastriaApprofonditaScreenState
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: TitoloCheNonSiRompe(
-            chiaveDelTesto: const Key('sinastria_approfondita_titolo'),
-            testo: 'Sinastria approfondita',
+            chiaveDelTesto: const Key('sinastria_evolutiva_titolo'),
+            testo: 'Sinastria evolutiva',
             righe: 1,
             stile: TypographyTokens.titoloSezione()),
       ),
       body: CosmosBackground(
-        key: const Key('sinastria_approfondita_sfondo'),
+        key: const Key('sinastria_evolutiva_sfondo'),
         seed: 7,
         showZodiac: false,
         child: SafeArea(
@@ -372,7 +372,7 @@ class _SinastriaApprofonditaScreenState
                         padding: EdgeInsets.only(
                             top: MediaQuery.paddingOf(corpo).top),
                         child: LoStudioDiMedora(
-                          key: const Key('sinastria_approfondita_scena'),
+                          key: const Key('sinastria_evolutiva_scena'),
                           posa: _posaDiMedora,
                           filmato: _filmatoInScena,
                         ),
@@ -455,13 +455,13 @@ class _SinastriaApprofonditaScreenState
                                   nomeSuo: widget.nomeSuo,
                                   legame: _legame,
                                   da: _oggi,
-                                  corpus: corpusDellaSinastriaApprofondita),
+                                  corpus: corpusDellaSinastriaEvolutiva),
                               senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
                                   tuo: widget.cieloTuo,
                                   suo: widget.cieloSuo,
                                   nomeSuo: widget.nomeSuo,
                                   legame: _legame,
-                                  corpus: corpusDellaSinastriaApprofondita),
+                                  corpus: corpusDellaSinastriaEvolutiva),
                               oggi: _oggi,
                             ),
                           ] else
@@ -485,11 +485,10 @@ class _SinastriaApprofonditaScreenState
                             responso: perIlDiario,
                             quando: _quando,
                             condividi: () => _condividi(tier, capitoli),
-                            aperturaDellaChat:
-                                ChatOpeners.sinastriaApprofondita(
-                                    widget.nomeSuo,
-                                    _legame.nome.toLowerCase(),
-                                    capitoli.first.titolo),
+                            aperturaDellaChat: ChatOpeners.sinastriaEvolutiva(
+                                widget.nomeSuo,
+                                _legame.nome.toLowerCase(),
+                                capitoli.first.titolo),
                           ),
                           const SizedBox(height: SpacingTokens.xl),
                         ],
@@ -532,10 +531,10 @@ class _SinastriaApprofonditaScreenState
   }
 
   String _titoloDelComposito() {
-    final v = corpusDellaSinastriaApprofondita[
-        'composito|${_composito.cella}|titolo']!;
+    final v =
+        corpusDellaSinastriaEvolutiva['composito|${_composito.cella}|titolo']!;
     return v[
-        LetturaApprofondita.semeDellaCoppia(widget.cieloTuo, widget.cieloSuo) %
+        LetturaEvolutiva.semeDellaCoppia(widget.cieloTuo, widget.cieloSuo) %
             v.length];
   }
 }
@@ -561,7 +560,7 @@ class _LaCoppia extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           child: Image.asset(coppia,
-              key: const Key('sinastria_approfondita_coppia'),
+              key: const Key('sinastria_evolutiva_coppia'),
               width: 96,
               height: 128,
               fit: BoxFit.cover),
@@ -572,7 +571,7 @@ class _LaCoppia extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Tu e $nomeSuo',
-                  key: const Key('sinastria_approfondita_nomi'),
+                  key: const Key('sinastria_evolutiva_nomi'),
                   style: TypographyTokens.titoloSezione()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.xxs),
@@ -821,7 +820,7 @@ class _Keplero extends StatelessWidget {
 
   String _chi(Corda c) {
     if (c.tuo == c.suo) {
-      return c.tuo == PuntoDelCieloApprofondito.sole
+      return c.tuo == PuntoDelCieloEvolutivo.sole
           ? 'I due Soli'
           : 'Le due Lune';
     }
@@ -845,7 +844,7 @@ class _Keplero extends StatelessWidget {
           null
         else
           (() {
-            final v = corpusDellaSinastriaApprofondita[
+            final v = corpusDellaSinastriaEvolutiva[
                 'keplero_oggi_momento|keplero ${c.cella}|testo']!;
             final n = viste.update(c.cella, (x) => x + 1, ifAbsent: () => 0);
             return v[n % v.length].replaceAll('{nome}', nomeSuo);
@@ -892,7 +891,7 @@ class _Keplero extends StatelessWidget {
         if (senza.isNotEmpty) ...[
           ParagrafiDiLettura(
               key: const Key('sinastria_keplero_nessuna'),
-              testo: corpusDellaSinastriaApprofondita[
+              testo: corpusDellaSinastriaEvolutiva[
                       'keplero_oggi_momento|keplero ${senza.first.cella}|testo']!
                   .first
                   .replaceAll('{nome}', nomeSuo),
@@ -957,7 +956,7 @@ class _IlComposito extends StatelessWidget {
   Widget build(BuildContext context) {
     final cella = composito.cella;
     String scegli(String campo) {
-      final v = corpusDellaSinastriaApprofondita['composito|$cella|$campo']!;
+      final v = corpusDellaSinastriaEvolutiva['composito|$cella|$campo']!;
       return v.first;
     }
 

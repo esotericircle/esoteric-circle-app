@@ -187,7 +187,7 @@ void main() {
 
     test('Gli elenchi sono completi, uno lungo per Tier, senza condensare', () {
       // UNDICI per ogni piano in piu' dall'ordine FT voce FT.13: la Sinastria
-      // approfondita, una riga per piano coi numeri della matrice.
+      // evolutiva, una riga per piano coi numeri della matrice.
       expect(PlanCatalog.forTier(Tier.free).highlights.length, 11);
       // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
       // dall'Iniziato, e il piano lo dice.
@@ -277,7 +277,7 @@ void main() {
       // ritorno della carta, la rilettura e la card).
       // CINQUANTA dall'ordine FJ, aggiunta 2: il ferro di cavallo e' tolto.
       // CINQUANTACINQUE dall'ordine FT voce FT.13: le cinque righe della
-      // Sinastria approfondita (coppie nuove, capitoli, Oggi fra voi,
+      // Sinastria evolutiva (coppie nuove, capitoli, Oggi fra voi,
       // Keplero, le tre esclusive dell'Adepto).
       expect(PlanCatalog.matrix.length, 55);
       final gettate =

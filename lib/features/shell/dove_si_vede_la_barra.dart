@@ -120,9 +120,9 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'AngelsScreen': PresenzaDellaBarra.assente,
   'SinastriaGalleryScreen': PresenzaDellaBarra.assente,
   'SinastriaVipScreen': PresenzaDellaBarra.assente,
-  // ORDINE FT: la Sinastria approfondita sta fuori dai cinque posti della
+  // ORDINE FT: la Sinastria evolutiva sta fuori dai cinque posti della
   // barra, come la sua gemella VIP.
-  'SinastriaApprofonditaScreen': PresenzaDellaBarra.assente,
+  'SinastriaEvolutivaScreen': PresenzaDellaBarra.assente,
   // ORDINE BO VOCE 13: la collezione delle coppie e' una schermata della
   // Sinastria, e sta dentro la sua rotta come le altre due: la barra non c'e'.
   'CollezioneScreen': PresenzaDellaBarra.assente,

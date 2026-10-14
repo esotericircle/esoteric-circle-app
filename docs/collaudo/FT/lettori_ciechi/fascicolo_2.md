@@ -1,4 +1,4 @@
-# I LETTORI CIECHI della Sinastria approfondita, giro 2
+# I LETTORI CIECHI della Sinastria evolutiva, giro 2
 
 Per ogni prova scegli la lettera giusta per ogni testo. Rispondi con un JSON {"identificativo": "lettera"}.
 

@@ -231,7 +231,7 @@ void main() {
               .soloNelPassaporto,
           isTrue);
       // La Compatibilita' Archetipica e' passata dentro la Sinastria
-      // Approfondita di Medora, come livello archetipico.
+      // Evolutiva di Medora, come livello archetipico.
       expect(
           fisiognomica.map((a) => a.id), isNot(contains('archetype_affinity')));
 
@@ -353,7 +353,7 @@ void main() {
       // Il fondatore lo rimette nel catalogo **come arte in arrivo, non
       // attiva**: e' questo che si pretende adesso. I settantadue nomi che ne
       // erano contenuto restano fuori; la Compatibilita' Angelica e' passata
-      // alla Sinastria Approfondita.
+      // alla Sinastria Evolutiva.
       final albero =
           arti('Numerologia').firstWhere((a) => a.id == 'tree_of_life');
       expect(albero.title, 'Albero della Vita');
@@ -420,7 +420,7 @@ void main() {
       expect(amici.state, ArtState.inArrivo);
       expect(amici.phase, ArtPhase.viralita);
 
-      // La Sinastria Approfondita e' la compatibilita' unificata: i tre livelli
+      // La Sinastria Evolutiva e' la compatibilita' unificata: i tre livelli
       // stanno dentro di lei, non piu' sparsi su tre Maestri.
       final profonda = comp.arts.firstWhere((a) => a.id == 'synastry_depth');
       for (final livello in const ['astrale', 'angelico', 'archetipico']) {
@@ -728,8 +728,7 @@ void main() {
         await tester.pump();
         final meta =
             tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
-        expect(
-            tester.getCenter(find.text(m.nomeAVideo)).dx, closeTo(meta, 1.0),
+        expect(tester.getCenter(find.text(m.nomeAVideo)).dx, closeTo(meta, 1.0),
             reason: 'il nome di ${m.displayName} non e\' centrato');
         expect(
           tester.getCenter(find.byKey(const Key('domain_pillars'))).dx,

@@ -1,4 +1,4 @@
-# Il corpus della Sinastria approfondita
+# Il corpus della Sinastria evolutiva
 
 Ordine FT voce FT.12, 14 ottobre 2026. Il fondatore, alla domanda "Chi scrive il corpus": "Code". Metodo dell'ordine FM: prima gli schedari (questo file), poi i testi, scritti da agenti in parallelo, uno per file, mandati a `tool/il_corpus_della_sinastria.py riempi`, che scrive nella fonte solo ciò che passa i controlli.
 

@@ -56,7 +56,7 @@ class ContiDelleArti {
   static const List<ContoDellArte> tutte = [
     ContoDellArte(arte: 'horoscope', gesto: 'oroscopo'),
     ContoDellArte(arte: 'synastry_vip', gesto: 'sinastria'),
-    ContoDellArte(arte: 'synastry_depth', gesto: 'sinastria_approfondita'),
+    ContoDellArte(arte: 'synastry_depth', gesto: 'sinastria_evolutiva'),
     ContoDellArte(arte: 'tarot_spread_three', gesto: 'stesa'),
     ContoDellArte(arte: 'archetype_test', gesto: 'archetipo'),
     ContoDellArte(arte: 'face_constellation', gesto: 'viso'),

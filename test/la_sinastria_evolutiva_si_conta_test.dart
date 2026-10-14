@@ -6,10 +6,10 @@ import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// **FT.13: I PIANI DELLA SINASTRIA APPROFONDITA E IL SUO CONTO.** Ordine
+/// **FT.13: I PIANI DELLA SINASTRIA EVOLUTIVA E IL SUO CONTO.** Ordine
 /// FT, 14 ottobre 2026.
 ///
-/// Il conto delle coppie nuove vive sul server (`sinastrieApprofondite` in
+/// Il conto delle coppie nuove vive sul server (`sinastrieEvolutive` in
 /// `functions/src/budget.ts`), scritto e non pubblicato: la pubblicazione la
 /// decide il fondatore. **Con le funzioni di oggi il telefono non deve
 /// mandare quel budget**: la coda dei gesti si fermerebbe al primo rifiuto e
@@ -36,7 +36,7 @@ class _Porta extends PortaDelCerchio {
         'domande': 80,
         'stese': 150,
         'sinastrie': 150,
-        if (conIlBudget) 'sinastrieApprofondite': 150,
+        if (conIlBudget) 'sinastrieEvolutive': 150,
       },
     });
   }
@@ -77,37 +77,36 @@ void main() {
   test('con le funzioni di oggi non si conta e non si manda niente', () async {
     final borsa = QuestionAllowance(porta: _Porta(conIlBudget: false));
     await borsa.sincronizza();
-    expect(borsa.contaLeSinastrieApprofondite, isFalse);
-    expect(borsa.limiteSinastrieApprofondite(Tier.free), isNull);
+    expect(borsa.contaLeSinastrieEvolutive, isFalse);
+    expect(borsa.limiteSinastrieEvolutive(Tier.free), isNull);
     final prima = borsa.gestiInAttesa;
     for (var i = 0; i < 5; i++) {
       expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isTrue);
-      borsa.registraSinastriaApprofondita(Tier.free);
+      borsa.registraSinastriaEvolutiva(Tier.free);
     }
     expect(borsa.gestiInAttesa, prima,
         reason: 'un budget che il server non conosce non entra nella coda');
   });
 
-  test('col server nuovo il Viandante legge una coppia nuova al giorno, '
+  test(
+      'col server nuovo il Viandante legge una coppia nuova al giorno, '
       'e la seconda si riscatta a 150 Eos', () async {
     final porta = _Porta(conIlBudget: true);
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
-    expect(borsa.contaLeSinastrieApprofondite, isTrue);
-    expect(borsa.limiteSinastrieApprofondite(Tier.free), 1);
-    expect(borsa.limiteSinastrieApprofondite(Tier.tier1), 2);
-    expect(borsa.limiteSinastrieApprofondite(Tier.tier2), 5);
-    expect(borsa.limiteSinastrieApprofondite(Tier.tier3), 15);
+    expect(borsa.contaLeSinastrieEvolutive, isTrue);
+    expect(borsa.limiteSinastrieEvolutive(Tier.free), 1);
+    expect(borsa.limiteSinastrieEvolutive(Tier.tier1), 2);
+    expect(borsa.limiteSinastrieEvolutive(Tier.tier2), 5);
+    expect(borsa.limiteSinastrieEvolutive(Tier.tier3), 15);
     expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isTrue);
-    borsa.registraSinastriaApprofondita(Tier.free);
+    borsa.registraSinastriaEvolutiva(Tier.free);
     expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isFalse);
-    expect(
-        borsa.prezzoDelRiscatto(QuestionAllowance.kSinastrieApprofondite), 150);
-    final pagato = await borsa.riscatta(
-        QuestionAllowance.kSinastrieApprofondite,
+    expect(borsa.prezzoDelRiscatto(QuestionAllowance.kSinastrieEvolutive), 150);
+    final pagato = await borsa.riscatta(QuestionAllowance.kSinastrieEvolutive,
         consenso: ConsensoDellaSpesa.perLeProve(150));
     expect(pagato, 150);
-    expect(porta.motivi.single, 'riscatto_sinastrieApprofondite');
+    expect(porta.motivi.single, 'riscatto_sinastrieEvolutive');
     expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isTrue);
   });
 
@@ -132,9 +131,9 @@ void main() {
         isFalse);
     expect(PlanCatalog.apre(RigaDelPiano.capitoliDellaSinastria, Tier.tier1),
         isTrue);
-    expect(PlanCatalog.apre(RigaDelPiano.intervalliDiKeplero, Tier.free),
-        isFalse);
-    expect(PlanCatalog.apre(RigaDelPiano.intervalliDiKeplero, Tier.tier1),
-        isTrue);
+    expect(
+        PlanCatalog.apre(RigaDelPiano.intervalliDiKeplero, Tier.free), isFalse);
+    expect(
+        PlanCatalog.apre(RigaDelPiano.intervalliDiKeplero, Tier.tier1), isTrue);
   });
 }

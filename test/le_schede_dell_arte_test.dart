@@ -646,7 +646,7 @@ void main() {
     'Per partner e amici': [
       'Sinastria VIP',
       'Magia Rossa',
-      'Sinastria Approfondita',
+      'Sinastria Evolutiva',
       'Affinità Lunare',
       'Compatibilità tra Amici',
       'Cosmic Dating',

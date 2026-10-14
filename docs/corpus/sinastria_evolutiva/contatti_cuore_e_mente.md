@@ -1,6 +1,6 @@
 # contatti_cuore_e_mente
 
-<!-- Fonte del corpus della Sinastria approfondita, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
+<!-- Fonte del corpus della Sinastria evolutiva, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
 
 ## venere-marte congiunzione
 - testo 1: Qui il gusto di una persona e la spinta dell'altra cadono nello stesso punto: ciò che a uno piace, l'altro lo vuole subito. Fra voi l'interesse non resta mai tiepido, si accende e chiede di muoversi.

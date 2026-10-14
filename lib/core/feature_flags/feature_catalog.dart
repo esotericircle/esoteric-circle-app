@@ -122,7 +122,7 @@ class FeatureCatalog {
     ),
     FeatureDefinition(
       id: 'synastry_depth',
-      title: 'Sinastria Approfondita',
+      title: 'Sinastria Evolutiva',
       teaser:
           'La lettura di coppia completa, aspetto per aspetto. Disponibile con l\'abbonamento.',
       icon: Icons.favorite,

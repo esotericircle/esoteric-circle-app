@@ -55,7 +55,7 @@ void main() {
       'vip': VipCatalog.vips.firstWhere((v) => v.thumbPath != null).name,
       'punteggio': '72',
     },
-    'sinastria_approfondita': {'coppia': 'Ariete'},
+    'sinastria_evolutiva': {'coppia': 'Ariete'},
     'archetipo': {'archetipo': Archetype.values.first.name},
     'oroscopo': {'segno': Zodiac.leo.italianName},
   };

@@ -222,16 +222,16 @@ class ListinoDegliEos {
     },
   );
 
-  /// **UNA SINASTRIA APPROFONDITA IN PIU', ordine FT voce FT.13**: 150 Eos,
+  /// **UNA SINASTRIA EVOLUTIVA IN PIU', ordine FT voce FT.13**: 150 Eos,
   /// fissati dal fondatore (Briefing Operativo V13 sezione 58.4). Il server
-  /// la conta sul budget `sinastrieApprofondite` e ne ripete il prezzo in
+  /// la conta sul budget `sinastrieEvolutive` e ne ripete il prezzo in
   /// `PREZZI_DEL_RISCATTO`; i gratis del giorno sono la riga
-  /// `Sinastria approfondita: coppie nuove` della matrice.
-  static const sinastriaApprofonditaInPiu = VoceDelListino(
+  /// `Sinastria evolutiva: coppie nuove` della matrice.
+  static const sinastriaEvolutivaInPiu = VoceDelListino(
     id: 'synastry_depth',
-    nome: 'Una sinastria approfondita in più',
+    nome: 'Una sinastria evolutiva in più',
     costo: 150,
-    budget: 'sinastrieApprofondite',
+    budget: 'sinastrieEvolutive',
     gratisAlGiorno: {
       Tier.free: 1,
       Tier.tier1: 2,
@@ -314,7 +314,7 @@ class ListinoDegliEos {
     oroscopoLungaDelGiorno,
     amicoInPiu,
     confrontoDelCieloInPiu,
-    sinastriaApprofonditaInPiu,
+    sinastriaEvolutivaInPiu,
     scintilla,
     sigilloDaDonare,
     indizio,

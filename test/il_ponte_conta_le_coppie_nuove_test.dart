@@ -4,7 +4,7 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/synastry/avvio_sinastria_approfondita.dart';
+import 'package:esoteric_circle/features/synastry/avvio_sinastria_evolutiva.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,7 +30,7 @@ class _Porta extends PortaDelCerchio {
           'domande': 80,
           'stese': 150,
           'sinastrie': 150,
-          'sinastrieApprofondite': 150,
+          'sinastrieEvolutive': 150,
         },
       });
 
@@ -68,7 +68,7 @@ void main() {
       'lettura', (tester) async {
     final borsa = QuestionAllowance(porta: _Porta());
     await tester.runAsync(borsa.sincronizza);
-    borsa.registraSinastriaApprofondita(Tier.free);
+    borsa.registraSinastriaEvolutiva(Tier.free);
     expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isFalse);
 
     await tester.pumpWidget(MultiProvider(
@@ -83,8 +83,8 @@ void main() {
         builder: (context, child) => MaestroScope(child: child!),
         home: Builder(
           builder: (context) => ElevatedButton(
-            onPressed: () => Navigator.of(context).push(
-                AvvioSinastriaApprofondita.route(nomeSuggerito: 'Giulia')),
+            onPressed: () => Navigator.of(context)
+                .push(AvvioSinastriaEvolutiva.route(nomeSuggerito: 'Giulia')),
             child: const Text('apri'),
           ),
         ),

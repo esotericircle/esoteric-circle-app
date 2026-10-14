@@ -26,8 +26,8 @@ import 'porta_finta_del_cerchio_sociale.dart';
 /// con `--dart-define=STATO=prima` sul codice di partenza (53dd7be2, la barra
 /// dei Tarocchi gia' corretta e niente dell'ordine FT) e con `STATO=dopo` sul
 /// codice dell'ordine. Questo file compila su tutti e due: le schermate nuove
-/// della Sinastria approfondita, che prima non c'erano, stanno in
-/// `le_anteprime_della_sinastria_approfondita_test.dart`.
+/// della Sinastria evolutiva, che prima non c'erano, stanno in
+/// `le_anteprime_della_sinastria_evolutiva_test.dart`.
 ///
 /// Senza STATO la prova non monta niente e non scrive niente.
 const _stato = String.fromEnvironment('STATO');

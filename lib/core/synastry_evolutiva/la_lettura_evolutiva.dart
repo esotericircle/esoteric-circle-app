@@ -1,11 +1,11 @@
 import '../astro/natal_chart.dart';
 import '../chat/la_marca_del_genere.dart';
 import '../l10n/numero_del_cerchio.dart';
-import 'cielo_approfondito.dart';
+import 'cielo_evolutivo.dart';
 import 'legame_e_eta.dart';
 
 /// Il corpus come lo legge il motore: chiave "<file>|<cella>|<campo>",
-/// valore le varianti. In produzione e' `corpusDellaSinastriaApprofondita`
+/// valore le varianti. In produzione e' `corpusDellaSinastriaEvolutiva`
 /// (generato da `tool/il_corpus_della_sinastria.py`); le prove ne passano uno
 /// loro.
 typedef CorpusDellaSinastria = Map<String, List<String>>;
@@ -14,33 +14,33 @@ typedef CorpusDellaSinastria = Map<String, List<String>>;
 /// sezione 58.4): l'attrazione, le emozioni, la mente, la durata, il
 /// destino. Ogni capitolo legge le sue tre coppie di punti, dalla
 /// tradizione della sinastria; lo schedario che le spiega sta in
-/// `docs/corpus/sinastria_approfondita/LEGGIMI.md`, e lo strumento del
+/// `docs/corpus/sinastria_evolutiva/LEGGIMI.md`, e lo strumento del
 /// corpus ha la stessa tabella (una prova pretende che coincidano).
 enum Capitolo {
   attrazione('L\'attrazione', 'capitolo_attrazione_v1', [
-    (PuntoDelCieloApprofondito.venere, PuntoDelCieloApprofondito.marte),
-    (PuntoDelCieloApprofondito.sole, PuntoDelCieloApprofondito.venere),
-    (PuntoDelCieloApprofondito.marte, PuntoDelCieloApprofondito.marte),
+    (PuntoDelCieloEvolutivo.venere, PuntoDelCieloEvolutivo.marte),
+    (PuntoDelCieloEvolutivo.sole, PuntoDelCieloEvolutivo.venere),
+    (PuntoDelCieloEvolutivo.marte, PuntoDelCieloEvolutivo.marte),
   ]),
   emozioni('Le emozioni', 'capitolo_emozioni_v1', [
-    (PuntoDelCieloApprofondito.luna, PuntoDelCieloApprofondito.luna),
-    (PuntoDelCieloApprofondito.sole, PuntoDelCieloApprofondito.luna),
-    (PuntoDelCieloApprofondito.luna, PuntoDelCieloApprofondito.venere),
+    (PuntoDelCieloEvolutivo.luna, PuntoDelCieloEvolutivo.luna),
+    (PuntoDelCieloEvolutivo.sole, PuntoDelCieloEvolutivo.luna),
+    (PuntoDelCieloEvolutivo.luna, PuntoDelCieloEvolutivo.venere),
   ]),
   mente('La mente', 'capitolo_mente_v1', [
-    (PuntoDelCieloApprofondito.mercurio, PuntoDelCieloApprofondito.mercurio),
-    (PuntoDelCieloApprofondito.sole, PuntoDelCieloApprofondito.mercurio),
-    (PuntoDelCieloApprofondito.mercurio, PuntoDelCieloApprofondito.luna),
+    (PuntoDelCieloEvolutivo.mercurio, PuntoDelCieloEvolutivo.mercurio),
+    (PuntoDelCieloEvolutivo.sole, PuntoDelCieloEvolutivo.mercurio),
+    (PuntoDelCieloEvolutivo.mercurio, PuntoDelCieloEvolutivo.luna),
   ]),
   durata('La durata', 'capitolo_durata_v1', [
-    (PuntoDelCieloApprofondito.saturno, PuntoDelCieloApprofondito.sole),
-    (PuntoDelCieloApprofondito.saturno, PuntoDelCieloApprofondito.luna),
-    (PuntoDelCieloApprofondito.saturno, PuntoDelCieloApprofondito.venere),
+    (PuntoDelCieloEvolutivo.saturno, PuntoDelCieloEvolutivo.sole),
+    (PuntoDelCieloEvolutivo.saturno, PuntoDelCieloEvolutivo.luna),
+    (PuntoDelCieloEvolutivo.saturno, PuntoDelCieloEvolutivo.venere),
   ]),
   destino('Il destino', 'capitolo_destino_v1', [
-    (PuntoDelCieloApprofondito.nodoNord, PuntoDelCieloApprofondito.sole),
-    (PuntoDelCieloApprofondito.nodoNord, PuntoDelCieloApprofondito.luna),
-    (PuntoDelCieloApprofondito.nodoNord, PuntoDelCieloApprofondito.venere),
+    (PuntoDelCieloEvolutivo.nodoNord, PuntoDelCieloEvolutivo.sole),
+    (PuntoDelCieloEvolutivo.nodoNord, PuntoDelCieloEvolutivo.luna),
+    (PuntoDelCieloEvolutivo.nodoNord, PuntoDelCieloEvolutivo.venere),
   ]);
 
   const Capitolo(this.nome, this.medaglione, this.coppie);
@@ -53,10 +53,10 @@ enum Capitolo {
   /// Le coppie di punti del capitolo: non ordinate, valgono nelle due
   /// direzioni (la tua Venere col suo Marte e il tuo Marte con la sua
   /// Venere).
-  final List<(PuntoDelCieloApprofondito, PuntoDelCieloApprofondito)> coppie;
+  final List<(PuntoDelCieloEvolutivo, PuntoDelCieloEvolutivo)> coppie;
 
   /// Vero se l'aspetto tocca una coppia di questo capitolo.
-  bool tocca(AspettoApprofondito a) => coppie.any((c) =>
+  bool tocca(AspettoEvolutivo a) => coppie.any((c) =>
       (a.tuo == c.$1 && a.suo == c.$2) || (a.tuo == c.$2 && a.suo == c.$1));
 }
 
@@ -83,8 +83,8 @@ enum Tono {
 }
 
 /// Il nome di un punto nelle celle del corpus.
-String nomeNelCorpus(PuntoDelCieloApprofondito p) =>
-    p == PuntoDelCieloApprofondito.nodoNord ? 'nodo' : p.name;
+String nomeNelCorpus(PuntoDelCieloEvolutivo p) =>
+    p == PuntoDelCieloEvolutivo.nodoNord ? 'nodo' : p.name;
 
 /// Il nome di un aspetto nelle celle del corpus.
 String aspettoNelCorpus(AspectType t) => t.italianName.toLowerCase();
@@ -106,7 +106,7 @@ class CapitoloLetto {
   final Tono tono;
 
   /// Il contatto che decide il tono; nullo nel silenzio.
-  final AspettoApprofondito? aspetto;
+  final AspettoEvolutivo? aspetto;
 
   final String titolo;
 
@@ -117,14 +117,14 @@ class CapitoloLetto {
   final String daDoveViene;
 }
 
-/// **LA LETTURA APPROFONDITA.** Ordine FT voci FT.06 e FT.12.
+/// **LA LETTURA EVOLUTIVA.** Ordine FT voci FT.06 e FT.12.
 ///
 /// **Tutto deterministico, nessun modello**: dati i due cieli e il legame,
 /// la lettura e' sempre la stessa. Le varianti del corpus si scelgono da un
 /// numero che nasce dai due cieli: la stessa coppia rilegge le stesse
 /// parole (il responso non cambia sotto gli occhi di chi lo riapre), due
 /// coppie diverse leggono parole diverse anche nella stessa cella.
-abstract final class LetturaApprofondita {
+abstract final class LetturaEvolutiva {
   /// Le fonti, una per capitolo, nel "Da dove viene".
   static const String fonteDellaSinastria =
       'La sinastria confronta i pianeti di due nascite coi cinque aspetti di '
@@ -137,13 +137,13 @@ abstract final class LetturaApprofondita {
 
   /// I capitoli della coppia [tuo] e [suo] per il [legame].
   static List<CapitoloLetto> componi({
-    required CieloApprofondito tuo,
-    required CieloApprofondito suo,
+    required CieloEvolutivo tuo,
+    required CieloEvolutivo suo,
     required String nomeSuo,
     required Legame legame,
     required CorpusDellaSinastria corpus,
   }) {
-    final aspetti = AspettiApprofonditi.fra(tuo, suo);
+    final aspetti = AspettiEvolutivi.fra(tuo, suo);
     final seme = semeDellaCoppia(tuo, suo);
     final usati = <String>{};
     return [
@@ -173,9 +173,9 @@ abstract final class LetturaApprofondita {
   /// **IL SEME DELLA COPPIA**: il grado intero del Sole dei due, sommato.
   /// Stessa coppia, stesso seme; ed e' simmetrico, quindi la lettura e' la
   /// stessa da tutti e due i telefoni.
-  static int semeDellaCoppia(CieloApprofondito tuo, CieloApprofondito suo) {
-    final a = (tuo.longitudini[PuntoDelCieloApprofondito.sole] ?? 0).floor();
-    final b = (suo.longitudini[PuntoDelCieloApprofondito.sole] ?? 0).floor();
+  static int semeDellaCoppia(CieloEvolutivo tuo, CieloEvolutivo suo) {
+    final a = (tuo.longitudini[PuntoDelCieloEvolutivo.sole] ?? 0).floor();
+    final b = (suo.longitudini[PuntoDelCieloEvolutivo.sole] ?? 0).floor();
     return a + b;
   }
 
@@ -185,7 +185,7 @@ abstract final class LetturaApprofondita {
 
   static CapitoloLetto _capitolo(
       Capitolo c,
-      List<AspettoApprofondito> tutti,
+      List<AspettoEvolutivo> tutti,
       Legame legame,
       String nomeSuo,
       CorpusDellaSinastria corpus,
@@ -193,7 +193,7 @@ abstract final class LetturaApprofondita {
       Set<String> usati) {
     // Gli aspetti sono gia' ordinati dal piu' stretto: il primo che tocca il
     // capitolo decide il tono.
-    AspettoApprofondito? deciso;
+    AspettoEvolutivo? deciso;
     for (final a in tutti) {
       if (c.tocca(a)) {
         deciso = a;
@@ -244,7 +244,7 @@ abstract final class LetturaApprofondita {
 
   /// La cella del contatto: la coppia come la scrive il corpus (nell'ordine
   /// del capitolo, non in quello di chi ha cosa) e l'aspetto.
-  static String _cellaDelContatto(Capitolo c, AspettoApprofondito a) {
+  static String _cellaDelContatto(Capitolo c, AspettoEvolutivo a) {
     final coppia = c.coppie.firstWhere((x) =>
         (a.tuo == x.$1 && a.suo == x.$2) || (a.tuo == x.$2 && a.suo == x.$1));
     return '${nomeNelCorpus(coppia.$1)}-${nomeNelCorpus(coppia.$2)} '
@@ -267,15 +267,14 @@ abstract final class LetturaApprofondita {
   }
 
   /// Lo stesso punto nelle due nascite, al plurale giusto.
-  static String _iDue(PuntoDelCieloApprofondito p) => switch (p) {
-        PuntoDelCieloApprofondito.sole => 'i due Soli',
-        PuntoDelCieloApprofondito.luna => 'le due Lune',
-        PuntoDelCieloApprofondito.venere => 'le due Veneri',
+  static String _iDue(PuntoDelCieloEvolutivo p) => switch (p) {
+        PuntoDelCieloEvolutivo.sole => 'i due Soli',
+        PuntoDelCieloEvolutivo.luna => 'le due Lune',
+        PuntoDelCieloEvolutivo.venere => 'le due Veneri',
         _ => 'i due ${p.nome}',
       };
 
-  static String _daDoveViene(
-      Capitolo c, AspettoApprofondito? a, String nomeSuo) {
+  static String _daDoveViene(Capitolo c, AspettoEvolutivo? a, String nomeSuo) {
     final fonte = c == Capitolo.destino
         ? '$fonteDellaSinastria $fonteDelNodo'
         : fonteDellaSinastria;

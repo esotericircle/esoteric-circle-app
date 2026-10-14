@@ -47,10 +47,10 @@ enum ArteDellaRichiesta {
   archetipo,
   glifo,
 
-  /// **LA SINASTRIA APPROFONDITA, ordine FT voce FT.14, 14 ottobre 2026.**
+  /// **LA SINASTRIA EVOLUTIVA, ordine FT voce FT.14, 14 ottobre 2026.**
   /// Non e' la Sinastria VIP: qui i due cieli sono quelli veri delle due
   /// persone, non quello di un VIP del catalogo.
-  sinastriaApprofondita,
+  sinastriaEvolutiva,
 }
 
 class SegnoDelCerchio {
@@ -215,14 +215,15 @@ abstract final class ISegniDelCerchio {
         // l'unica sinastria del progetto era quella. Il fondatore l'aveva
         // gia' detto: "Appena faremo la sinastria per amici o sinastria
         // approfondita, aggiorneremo il collegamento". Ora il segno parla di
-        // voi due, e apre la Sinastria approfondita con l'amico a cui e'
+        // voi due, e apre la Sinastria evolutiva con l'amico a cui e'
         // mandato (P8 dell'ordine FT). L'identificativo resta, lo conosce il
         // server (`RISPOSTE_PER_SEGNO`, `functions/src/sociale.ts`).
         testo: 'Facciamo la sinastria',
-        rigaDiChiRiceve: 'Qualcuno vuole leggere il cielo vostro, insieme al suo.',
+        rigaDiChiRiceve:
+            'Qualcuno vuole leggere il cielo vostro, insieme al suo.',
         risposte: ['Leggiamolo', 'Più tardi'],
         motivo: MotivoDelSegno.spirale,
-        apre: ArteDellaRichiesta.sinastriaApprofondita),
+        apre: ArteDellaRichiesta.sinastriaEvolutiva),
     SegnoDelCerchio(
         id: 'stessaCarta',
         categoria: CategoriaDelSegno.richieste,

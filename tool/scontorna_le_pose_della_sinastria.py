@@ -4,7 +4,7 @@
 # pose cambiano.
 #
 # Il fondatore ha consegnato le due pose della scena della Sinastria
-# approfondita (il primo e l'ultimo fotogramma del video dell'astrolabio) su
+# evolutiva (il primo e l'ultimo fotogramma del video dell'astrolabio) su
 # sfondo bianco, nel commit 9770fc1b:
 # assets/img/sinastria/medora_astrolabio_v1.webp e
 # assets/img/sinastria/medora_mani_aperte_v1.webp. La premessa P4

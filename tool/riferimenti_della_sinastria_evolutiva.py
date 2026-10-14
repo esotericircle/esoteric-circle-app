@@ -1,17 +1,17 @@
-"""I RIFERIMENTI DELLA SINASTRIA APPROFONDITA. Ordine FT voce FT.05, 14
+"""I RIFERIMENTI DELLA SINASTRIA EVOLUTIVA. Ordine FT voce FT.05, 14
 ottobre 2026: "Prova del calcolo contro una fonte terza su almeno dieci
 coppie, con gli scarti dichiarati".
 
-Scrive `docs/collaudo/FT/riferimenti_della_sinastria_approfondita.csv`: per
+Scrive `docs/collaudo/FT/riferimenti_della_sinastria_evolutiva.csv`: per
 dieci coppie (venti nascite, decenni diversi dentro l'intervallo verificato
 di IlCieloDiMeeus) le longitudini degli undici punti della Sinastria
-approfondita, dalla libreria Swiss Ephemeris (`pyswisseph`, serie Moshier,
+evolutiva, dalla libreria Swiss Ephemeris (`pyswisseph`, serie Moshier,
 senza file binari), lo stesso motore su cui poggia FreeAstroAPI in
-produzione. La prova `test/la_sinastria_approfondita_contro_il_riferimento
+produzione. La prova `test/la_sinastria_evolutiva_contro_il_riferimento
 _test.dart` rifa' gli aspetti delle dieci coppie dai due cieli, quello di
 Meeus e quello svizzero, e li confronta.
 
-Uso: python tool/riferimenti_della_sinastria_approfondita.py
+Uso: python tool/riferimenti_della_sinastria_evolutiva.py
 """
 import io
 from datetime import datetime
@@ -21,7 +21,7 @@ import swisseph as swe
 
 RADICE = Path(__file__).resolve().parent.parent
 USCITA = (RADICE / 'docs' / 'collaudo' / 'FT' /
-          'riferimenti_della_sinastria_approfondita.csv')
+          'riferimenti_della_sinastria_evolutiva.csv')
 
 # Dieci coppie, istanti in tempo universale. La prima persona di ogni coppia
 # e' la nascita gia' usata per il Nodo Nord.

@@ -100,11 +100,11 @@ class GestiDelleArti {
     SorgenteDelGesto(
         gesto: 'sinastria',
         schermata: 'lib/features/synastry/sinastria_gallery_screen.dart'),
-    // Ordine FT: la Sinastria approfondita conta il suo gesto, separato da
+    // Ordine FT: la Sinastria evolutiva conta il suo gesto, separato da
     // quello della VIP (due arti, due conti).
     SorgenteDelGesto(
-        gesto: 'sinastria_approfondita',
-        schermata: 'lib/features/synastry/sinastria_approfondita_screen.dart'),
+        gesto: 'sinastria_evolutiva',
+        schermata: 'lib/features/synastry/sinastria_evolutiva_screen.dart'),
     SorgenteDelGesto(
         gesto: 'carta_natale',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),

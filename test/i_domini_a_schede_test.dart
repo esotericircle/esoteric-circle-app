@@ -60,7 +60,7 @@ void main() {
         'Compatibilità',
         [
           'Sinastria VIP',
-          'Sinastria Approfondita',
+          'Sinastria Evolutiva',
           'Compatibilità tra Amici',
           'Cosmic Dating',
           'Sinastria NFC e QR',

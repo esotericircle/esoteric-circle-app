@@ -63,14 +63,14 @@ void main() {
     // Sinastria VIP ("Leggiamoci con un VIP", testo verificato qui dall'8
     // ottobre al 14 ottobre 2026) perche' allora l'unica sinastria del
     // progetto era quella (ordine FA voce 02). Ora che la Sinastria
-    // approfondita esiste, il segno torna a parlare di voi due, come
+    // evolutiva esiste, il segno torna a parlare di voi due, come
     // promesso dal fondatore. Il vecchio testo e la vecchia destinazione
     // restano qui per chi cerca la storia.
     expect(quindici.testo, 'Facciamo la sinastria');
     expect(quindici.rigaDiChiRiceve,
         'Qualcuno vuole leggere il cielo vostro, insieme al suo.');
     expect(quindici.risposte, ['Leggiamolo', 'Più tardi']);
-    expect(quindici.apre, ArteDellaRichiesta.sinastriaApprofondita);
+    expect(quindici.apre, ArteDellaRichiesta.sinastriaEvolutiva);
     expect(quindici.categoria, CategoriaDelSegno.richieste);
   });
 

@@ -1,6 +1,6 @@
 # keplero_oggi_momento
 
-<!-- Fonte del corpus della Sinastria approfondita, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
+<!-- Fonte del corpus della Sinastria evolutiva, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
 
 ## keplero unisono
 - testo 1: I vostri punti stanno sullo stesso grado: per Keplero è l'unisono, la stessa nota cantata da voi due. Non c'è intervallo da colmare, solo un suono che si raddoppia e prende corpo.

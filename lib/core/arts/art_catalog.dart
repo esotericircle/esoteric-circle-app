@@ -327,7 +327,7 @@ class ArtCatalog {
       // Maestri.
       ArtEntry(
         id: 'synastry_depth',
-        title: 'Sinastria Approfondita',
+        title: 'Sinastria Evolutiva',
         teaser:
             'La lettura di coppia completa sui tre livelli, astrale, angelico e archetipico.',
         icon: Icons.favorite_border_rounded,
@@ -721,7 +721,7 @@ class ArtCatalog {
         cornice: true,
       ),
       // La Compatibilita' Archetipica non vive piu' qui: il suo contenuto e' il
-      // livello archetipico dentro la Sinastria Approfondita di Medora.
+      // livello archetipico dentro la Sinastria Evolutiva di Medora.
       ArtEntry(
         id: 'graphology',
         title: 'Grafologia Esoterica',
@@ -1004,7 +1004,7 @@ class ArtCatalog {
         cornice: true,
       ),
       // La Compatibilita' Angelica non vive piu' qui: il suo contenuto e' il
-      // livello angelico dentro la Sinastria Approfondita di Medora.
+      // livello angelico dentro la Sinastria Evolutiva di Medora.
       ArtEntry(
         id: 'numerology',
         title: 'Numerologia del Destino',

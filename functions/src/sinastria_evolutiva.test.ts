@@ -7,7 +7,7 @@ import {
   DURATA_DEL_CONSENSO_MS,
   haAlmeno16Anni,
   legameApribile,
-} from "./sinastria_approfondita";
+} from "./sinastria_evolutiva";
 import {limiteDi} from "./budget";
 import {LISTINO_DEL_RISCATTO} from "./borsellino";
 
@@ -145,15 +145,15 @@ test("il consenso non porta nessun campo da profilo pubblico", () => {
 });
 
 /**
- * FT.13, IL BUDGET DELLA SINASTRIA APPROFONDITA SUL SERVER.
+ * FT.13, IL BUDGET DELLA SINASTRIA EVOLUTIVA SUL SERVER.
  */
 test("le coppie nuove al giorno: uno, due, cinque, quindici", () => {
-  assert.equal(limiteDi("sinastrieApprofondite", "free"), 1);
-  assert.equal(limiteDi("sinastrieApprofondite", "tier1"), 2);
-  assert.equal(limiteDi("sinastrieApprofondite", "tier2"), 5);
-  assert.equal(limiteDi("sinastrieApprofondite", "tier3"), 15);
+  assert.equal(limiteDi("sinastrieEvolutive", "free"), 1);
+  assert.equal(limiteDi("sinastrieEvolutive", "tier1"), 2);
+  assert.equal(limiteDi("sinastrieEvolutive", "tier2"), 5);
+  assert.equal(limiteDi("sinastrieEvolutive", "tier3"), 15);
 });
 
-test("il listino porta la sinastria approfondita in piu' a 150 Eos", () => {
-  assert.equal(LISTINO_DEL_RISCATTO["sinastrieApprofondite"], 150);
+test("il listino porta la sinastria evolutiva in piu' a 150 Eos", () => {
+  assert.equal(LISTINO_DEL_RISCATTO["sinastrieEvolutive"], 150);
 });

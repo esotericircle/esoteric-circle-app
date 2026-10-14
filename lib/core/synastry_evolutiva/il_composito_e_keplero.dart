@@ -1,6 +1,6 @@
 import '../astro/natal_chart.dart';
-import 'cielo_approfondito.dart';
-import 'la_lettura_approfondita.dart';
+import 'cielo_evolutivo.dart';
+import 'la_lettura_evolutiva.dart';
 
 /// **IL TEMA COMPOSITO.** Ordine FT voce FT.07 (Briefing Operativo V13
 /// sezione 58.4, Master V13 sezione 72.5): il cielo della relazione stessa,
@@ -21,22 +21,22 @@ import 'la_lettura_approfondita.dart';
 class IlComposito {
   const IlComposito({required this.punti, required this.aspetto});
 
-  final Map<PuntoDelCieloApprofondito, double> punti;
+  final Map<PuntoDelCieloEvolutivo, double> punti;
 
   /// L'aspetto che parla; nullo se nessuno dei dieci e' nell'orbo.
   final ({
-    PuntoDelCieloApprofondito a,
-    PuntoDelCieloApprofondito b,
+    PuntoDelCieloEvolutivo a,
+    PuntoDelCieloEvolutivo b,
     AspectType tipo,
     double orbo,
   })? aspetto;
 
-  static const List<PuntoDelCieloApprofondito> deiPunti = [
-    PuntoDelCieloApprofondito.sole,
-    PuntoDelCieloApprofondito.luna,
-    PuntoDelCieloApprofondito.mercurio,
-    PuntoDelCieloApprofondito.venere,
-    PuntoDelCieloApprofondito.marte,
+  static const List<PuntoDelCieloEvolutivo> deiPunti = [
+    PuntoDelCieloEvolutivo.sole,
+    PuntoDelCieloEvolutivo.luna,
+    PuntoDelCieloEvolutivo.mercurio,
+    PuntoDelCieloEvolutivo.venere,
+    PuntoDelCieloEvolutivo.marte,
   ];
 
   /// Il punto medio dell'arco piu' corto fra [a] e [b], in gradi [0, 360).
@@ -46,19 +46,19 @@ class IlComposito {
     return m < 0 ? m + 360 : m;
   }
 
-  static bool _obbligata(PuntoDelCieloApprofondito a,
-      PuntoDelCieloApprofondito b, AspectType tipo) {
+  static bool _obbligata(
+      PuntoDelCieloEvolutivo a, PuntoDelCieloEvolutivo b, AspectType tipo) {
     const vicini = {
-      PuntoDelCieloApprofondito.sole,
-      PuntoDelCieloApprofondito.mercurio,
-      PuntoDelCieloApprofondito.venere,
+      PuntoDelCieloEvolutivo.sole,
+      PuntoDelCieloEvolutivo.mercurio,
+      PuntoDelCieloEvolutivo.venere,
     };
     return tipo == AspectType.conjunction &&
         vicini.contains(a) &&
         vicini.contains(b);
   }
 
-  static IlComposito fra(CieloApprofondito tuo, CieloApprofondito suo) {
+  static IlComposito fra(CieloEvolutivo tuo, CieloEvolutivo suo) {
     // Un punto che tace in uno dei due cieli (la Luna con l'ora di nascita
     // non nota, FT.03) non ha un punto medio: resta fuori.
     final punti = {
@@ -67,8 +67,8 @@ class IlComposito {
           p: puntoMedio(tuo.longitudini[p]!, suo.longitudini[p]!),
     };
     ({
-      PuntoDelCieloApprofondito a,
-      PuntoDelCieloApprofondito b,
+      PuntoDelCieloEvolutivo a,
+      PuntoDelCieloEvolutivo b,
       AspectType tipo,
       double orbo,
     })? migliore;
@@ -80,7 +80,7 @@ class IlComposito {
         for (final tipo in AspectType.values) {
           final c = ChartAspect(
               aLongitude: punti[a]!, bLongitude: punti[b]!, type: tipo);
-          if (c.orbe > AspettiApprofonditi.orbo[tipo]!) continue;
+          if (c.orbe > AspettiEvolutivi.orbo[tipo]!) continue;
           if (_obbligata(a, b, tipo)) break;
           if (migliore == null || c.orbe < migliore.orbo) {
             migliore = (a: a, b: b, tipo: tipo, orbo: c.orbe);
@@ -155,8 +155,8 @@ class Corda {
     required this.consonanza,
   });
 
-  final PuntoDelCieloApprofondito tuo;
-  final PuntoDelCieloApprofondito suo;
+  final PuntoDelCieloEvolutivo tuo;
+  final PuntoDelCieloEvolutivo suo;
 
   /// La distanza fra i due punti, da 0 a 180 gradi.
   final double separazione;
@@ -178,12 +178,11 @@ abstract final class IntervalliDiKeplero {
 
   /// Le quattro corde che si mostrano: i due Soli, le due Lune, la tua
   /// Venere col suo Marte, il tuo Marte con la sua Venere.
-  static const List<(PuntoDelCieloApprofondito, PuntoDelCieloApprofondito)>
-      coppie = [
-    (PuntoDelCieloApprofondito.sole, PuntoDelCieloApprofondito.sole),
-    (PuntoDelCieloApprofondito.luna, PuntoDelCieloApprofondito.luna),
-    (PuntoDelCieloApprofondito.venere, PuntoDelCieloApprofondito.marte),
-    (PuntoDelCieloApprofondito.marte, PuntoDelCieloApprofondito.venere),
+  static const List<(PuntoDelCieloEvolutivo, PuntoDelCieloEvolutivo)> coppie = [
+    (PuntoDelCieloEvolutivo.sole, PuntoDelCieloEvolutivo.sole),
+    (PuntoDelCieloEvolutivo.luna, PuntoDelCieloEvolutivo.luna),
+    (PuntoDelCieloEvolutivo.venere, PuntoDelCieloEvolutivo.marte),
+    (PuntoDelCieloEvolutivo.marte, PuntoDelCieloEvolutivo.venere),
   ];
 
   static Consonanza? consonanzaDi(double separazione) {
@@ -193,7 +192,7 @@ abstract final class IntervalliDiKeplero {
     return null;
   }
 
-  static List<Corda> fra(CieloApprofondito tuo, CieloApprofondito suo) => [
+  static List<Corda> fra(CieloEvolutivo tuo, CieloEvolutivo suo) => [
         for (final (a, b) in coppie)
           // La corda di un punto che tace (FT.03) non si suona.
           if (tuo.longitudini[a] != null && suo.longitudini[b] != null)

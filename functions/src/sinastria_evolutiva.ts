@@ -1,12 +1,12 @@
 /**
- * LA SINASTRIA APPROFONDITA, IL CONTROLLO SUL SERVER. Ordine FT voce FT.04,
+ * LA SINASTRIA EVOLUTIVA, IL CONTROLLO SUL SERVER. Ordine FT voce FT.04,
  * 14 ottobre 2026.
  *
  * **IL SERVER NON SI FIDA DELL'APP.** Il legame amore si apre solo se
  * entrambe le persone hanno almeno sedici anni compiuti al giorno della
  * lettura (il fondatore: "l'amore dai 16 anni in su"); gli altri tre legami
  * (amicizia, famiglia, lavoro) non hanno limite. Il controllo vive due
- * volte: qui, e in `lib/core/synastry_approfondita/legame_e_eta.dart`
+ * volte: qui, e in `lib/core/synastry_evolutiva/legame_e_eta.dart`
  * (stesso algoritmo, stessa soglia). Un client modificato potrebbe mandare
  * una data di nascita falsa o saltare il controllo dell'app del tutto: la
  * decisione vera sta qui.

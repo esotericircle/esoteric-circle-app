@@ -16,7 +16,7 @@ import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
 import '../rituals/arcano_dell_alba_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
-import '../synastry/avvio_sinastria_approfondita.dart';
+import '../synastry/avvio_sinastria_evolutiva.dart';
 import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
 import '../account/dati_di_nascita_screen.dart';
@@ -146,14 +146,14 @@ Route<void>? _rottaDellArte(
       if (userSign == null) return DatiDiNascitaScreen.route();
       return PortaDellaSinastria.route(
           userSign: userSign, userBirth: userBirth, userName: userName);
-    // **LA SINASTRIA APPROFONDITA, ordine FT voce FT.14, 14 ottobre 2026.**
+    // **LA SINASTRIA EVOLUTIVA, ordine FT voce FT.14, 14 ottobre 2026.**
     // La scheda nel catalogo ('synastry_depth') esisteva gia', premium e
     // nel dominio di Medora: qui la sua rotta vera. Senza la propria
     // nascita non c'e' nessun cielo da confrontare, si va a darla, come le
     // altre arti che la chiedono.
     case 'synastry_depth':
       if (userBirth == null) return DatiDiNascitaScreen.route();
-      return AvvioSinastriaApprofondita.route();
+      return AvvioSinastriaEvolutiva.route();
     case 'tarot_spread_three':
       return StesaTreCarteScreen.route();
     case 'meditation':

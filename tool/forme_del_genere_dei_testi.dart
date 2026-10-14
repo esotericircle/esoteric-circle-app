@@ -1,6 +1,6 @@
 // IL CRITERIO DEL GENERE, DA RIGA DI COMANDO. Ordine FT voce FT.12.
 //
-// Lo strumento del corpus della Sinastria approfondita
+// Lo strumento del corpus della Sinastria evolutiva
 // (tool/il_corpus_della_sinastria.py) non riscrive il criterio del genere in
 // Python: lo chiede qui, cosi' e' lo stesso identico criterio della guardia
 // di casa `il_genere_non_si_indovina` (lib/core/chat/le_forme_del_genere.dart).

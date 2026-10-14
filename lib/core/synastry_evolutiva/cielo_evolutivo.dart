@@ -6,7 +6,7 @@ import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
 import '../synastry/cielo_della_sinastria.dart' show AspettiDiSinastria;
 
-/// I PUNTI DELLA SINASTRIA APPROFONDITA. Ordine FT voce FT.05, 14 ottobre
+/// I PUNTI DELLA SINASTRIA EVOLUTIVA. Ordine FT voce FT.05, 14 ottobre
 /// 2026.
 ///
 /// **La premessa P5 dell'ordine dice "dieci punti... compreso il Nodo
@@ -20,10 +20,10 @@ import '../synastry/cielo_della_sinastria.dart' show AspettiDiSinastria;
 ///
 /// Non e' lo stesso elenco di `PuntoDelCielo` (Sinastria VIP, sei punti,
 /// Sole/Luna/Mercurio/Venere/Marte/Ascendente): quella rimane com'e' (R9),
-/// questa e' una lista sua, piu' ampia e senza Ascendente (l'approfondita
+/// questa e' una lista sua, piu' ampia e senza Ascendente (l'evolutiva
 /// confronta due cieli di nascita, non chiede l'ora per forza: vedi
-/// [CieloApprofondito.oraNota]).
-enum PuntoDelCieloApprofondito {
+/// [CieloEvolutivo.oraNota]).
+enum PuntoDelCieloEvolutivo {
   sole('Sole', '☉', CorpoCeleste.sole, femminile: false),
   luna('Luna', '☽', CorpoCeleste.luna, femminile: true),
   mercurio('Mercurio', '☿', CorpoCeleste.mercurio, femminile: false),
@@ -37,10 +37,10 @@ enum PuntoDelCieloApprofondito {
 
   /// Non e' un [CorpoCeleste]: non ha una posizione VSOP87, solo la
   /// longitudine media (Meeus cap. 22), calcolata a parte in
-  /// [CieloApprofondito._longitudineDi].
+  /// [CieloEvolutivo._longitudineDi].
   nodoNord('Nodo Nord', '☊', null, femminile: false);
 
-  const PuntoDelCieloApprofondito(this.nome, this.glifo, this.corpo,
+  const PuntoDelCieloEvolutivo(this.nome, this.glifo, this.corpo,
       {required this.femminile});
 
   final String nome;
@@ -59,11 +59,11 @@ enum PuntoDelCieloApprofondito {
   String get alSuo => femminile ? 'alla sua' : 'al suo';
 }
 
-/// IL CIELO DI UNA PERSONA per la Sinastria approfondita: le longitudini
+/// IL CIELO DI UNA PERSONA per la Sinastria evolutiva: le longitudini
 /// degli undici punti, e niente altro. Sempre offline, sempre deterministico
 /// (R2 dell'ordine FT: nessuna chiamata a pagamento, nessuna rete).
-class CieloApprofondito {
-  const CieloApprofondito({
+class CieloEvolutivo {
+  const CieloEvolutivo({
     required this.longitudini,
     required this.segnoSolare,
     required this.oraNota,
@@ -71,7 +71,7 @@ class CieloApprofondito {
     this.nome = '',
   });
 
-  final Map<PuntoDelCieloApprofondito, double> longitudini;
+  final Map<PuntoDelCieloEvolutivo, double> longitudini;
 
   /// **IL GIORNO DI NASCITA NEL CALENDARIO DEL LUOGO**, per lo sbarramento
   /// d'eta' sul legame amore (FT.04): al confine dei sedici anni il giorno
@@ -95,7 +95,7 @@ class CieloApprofondito {
   /// Il cielo dalla sua identita' di nascita. Stessa conversione a tempo
   /// universale di `CieloDiSinastria.perIdentita`: il momento e' locale, si
   /// porta a UT con l'offset del luogo quando c'e'.
-  factory CieloApprofondito.perIdentita(BirthIdentity identita,
+  factory CieloEvolutivo.perIdentita(BirthIdentity identita,
       {String nome = ''}) {
     final luogo = identita.birthPlace;
     final momento = luogo == null
@@ -113,7 +113,7 @@ class CieloApprofondito {
             identita.birthMoment.hour,
             identita.birthMoment.minute,
           ).subtract(Duration(minutes: luogo.utcOffsetMinutes));
-    return CieloApprofondito.perNascita(
+    return CieloEvolutivo.perNascita(
       momentoUtc: momento,
       oraNota: identita.hasBirthTime,
       nome: nome,
@@ -129,7 +129,7 @@ class CieloApprofondito {
   /// Stessa scelta di `CieloDiSinastria.perNascita` (ordine BO): prende
   /// numeri, non una delle classi del luogo di nascita che convivono nel
   /// progetto.
-  factory CieloApprofondito.perNascita({
+  factory CieloEvolutivo.perNascita({
     required DateTime momentoUtc,
     Zodiac? segnoDichiarato,
     String nome = '',
@@ -138,19 +138,19 @@ class CieloApprofondito {
   }) {
     final jd = Celestial.julianDay(momentoUtc);
     final tutte = IlCieloDiMeeus.tutte(jd);
-    final punti = <PuntoDelCieloApprofondito, double>{};
-    for (final p in PuntoDelCieloApprofondito.values) {
+    final punti = <PuntoDelCieloEvolutivo, double>{};
+    for (final p in PuntoDelCieloEvolutivo.values) {
       final corpo = p.corpo;
       if (corpo != null) {
         final lon = tutte[corpo];
         if (lon != null) punti[p] = lon;
       }
     }
-    punti[PuntoDelCieloApprofondito.nodoNord] =
+    punti[PuntoDelCieloEvolutivo.nodoNord] =
         IlCieloDiMeeus.longitudineDelNodoNord(jd);
-    if (!oraNota) punti.remove(PuntoDelCieloApprofondito.luna);
-    final sole = punti[PuntoDelCieloApprofondito.sole] ?? 0;
-    return CieloApprofondito(
+    if (!oraNota) punti.remove(PuntoDelCieloEvolutivo.luna);
+    final sole = punti[PuntoDelCieloEvolutivo.sole] ?? 0;
+    return CieloEvolutivo(
       longitudini: punti,
       segnoSolare: segnoDichiarato ?? IlSegnoDelCielo.dellaLongitudine(sole),
       oraNota: oraNota,
@@ -167,7 +167,7 @@ class CieloApprofondito {
         sunSign: segnoSolare,
         hasTime: false,
         planets: [
-          for (final p in PuntoDelCieloApprofondito.values)
+          for (final p in PuntoDelCieloEvolutivo.values)
             if (longitudini[p] != null)
               PlanetPosition(
                 id: p.corpo?.id ?? 'north_node',
@@ -181,18 +181,18 @@ class CieloApprofondito {
 }
 
 /// Un aspetto fra un punto del tuo cielo e un punto del suo, nella Sinastria
-/// approfondita. Stessa forma di `AspettoDiSinastria` (Sinastria VIP), con
+/// evolutiva. Stessa forma di `AspettoDiSinastria` (Sinastria VIP), con
 /// l'elenco dei punti piu' ampio: undici invece di sei.
-class AspettoApprofondito {
-  const AspettoApprofondito({
+class AspettoEvolutivo {
+  const AspettoEvolutivo({
     required this.tuo,
     required this.suo,
     required this.tipo,
     required this.orbo,
   });
 
-  final PuntoDelCieloApprofondito tuo;
-  final PuntoDelCieloApprofondito suo;
+  final PuntoDelCieloEvolutivo tuo;
+  final PuntoDelCieloEvolutivo suo;
   final AspectType tipo;
 
   /// Di quanto l'aspetto e' lontano dall'angolo esatto, in gradi.
@@ -213,33 +213,32 @@ class AspettoApprofondito {
   }
 }
 
-/// GLI ASPETTI FRA DUE CIELI, Sinastria approfondita.
+/// GLI ASPETTI FRA DUE CIELI, Sinastria evolutiva.
 ///
 /// **Gli orbi sono quelli gia' dichiarati e approvati per la sinastria**
 /// (`AspettiDiSinastria.orbo`, ordine BO/CC): sei gradi sugli aspetti
 /// maggiori, quattro sul sestile. Qui non nasce una seconda tavola di orbi:
-/// la Sinastria approfondita e' la stessa tradizione, su piu' punti.
-class AspettiApprofonditi {
-  const AspettiApprofonditi._();
+/// la Sinastria evolutiva e' la stessa tradizione, su piu' punti.
+class AspettiEvolutivi {
+  const AspettiEvolutivi._();
 
   static Map<AspectType, double> get orbo => AspettiDiSinastria.orbo;
 
   /// Gli aspetti fra i due cieli, dal piu' stretto al piu' largo.
   /// Deterministico: stessa coppia di cieli, stesso elenco, sempre.
-  static List<AspettoApprofondito> fra(
-      CieloApprofondito tuo, CieloApprofondito suo) {
-    final trovati = <AspettoApprofondito>[];
-    for (final a in PuntoDelCieloApprofondito.values) {
+  static List<AspettoEvolutivo> fra(CieloEvolutivo tuo, CieloEvolutivo suo) {
+    final trovati = <AspettoEvolutivo>[];
+    for (final a in PuntoDelCieloEvolutivo.values) {
       final la = tuo.longitudini[a];
       if (la == null) continue;
-      for (final b in PuntoDelCieloApprofondito.values) {
+      for (final b in PuntoDelCieloEvolutivo.values) {
         final lb = suo.longitudini[b];
         if (lb == null) continue;
         for (final tipo in AspectType.values) {
           final candidato =
               ChartAspect(aLongitude: la, bLongitude: lb, type: tipo);
           if (candidato.orbe <= orbo[tipo]!) {
-            trovati.add(AspettoApprofondito(
+            trovati.add(AspettoEvolutivo(
                 tuo: a, suo: b, tipo: tipo, orbo: candidato.orbe));
             break;
           }

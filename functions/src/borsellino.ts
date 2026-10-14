@@ -166,11 +166,11 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
    */
   cieli: 30,
   /**
-   * UNA SINASTRIA APPROFONDITA IN PIU' COSTA 150 EOS: fissato dal fondatore
+   * UNA SINASTRIA EVOLUTIVA IN PIU' COSTA 150 EOS: fissato dal fondatore
    * (Briefing Operativo V13 sezione 58.4, "il confronto in piu' costa 150
    * Eos"), ordine FT voce FT.13.
    */
-  sinastrieApprofondite: 150,
+  sinastrieEvolutive: 150,
 };
 
 /**

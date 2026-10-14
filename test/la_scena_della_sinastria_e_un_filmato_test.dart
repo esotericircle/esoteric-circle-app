@@ -4,15 +4,15 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sensi/la_suoneria.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/synastry/lo_studio_di_medora.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_approfondita_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// **LA SCENA DELLA SINASTRIA APPROFONDITA E' UN FILMATO.** Ordine FT voce
+/// **LA SCENA DELLA SINASTRIA EVOLUTIVA E' UN FILMATO.** Ordine FT voce
 /// FT.02, 14 ottobre 2026. Stessa forma della guardia gemella del
 /// Tarocchi, `test/la_scena_della_stesa_e_un_filmato_test.dart` (FS voce
 /// A2): il video parte all'apertura, nello stesso riquadro dello sfondo, si
@@ -86,9 +86,9 @@ class _Finta implements LettoreDellaScenaSinastria {
   }
 }
 
-final _marco = CieloApprofondito.perNascita(
+final _marco = CieloEvolutivo.perNascita(
     momentoUtc: DateTime.utc(1990, 5, 12, 14, 30), nome: 'Marco');
-final _giulia = CieloApprofondito.perNascita(
+final _giulia = CieloEvolutivo.perNascita(
     momentoUtc: DateTime.utc(1992, 9, 3, 8, 15), nome: 'Giulia');
 
 Future<void> _monta(
@@ -122,7 +122,7 @@ Future<void> _monta(
         data: MediaQueryData(
             size: const Size(390, 844), disableAnimations: riduci),
         child: MaestroScope(
-          child: SinastriaApprofonditaScreen(
+          child: SinastriaEvolutivaScreen(
             nomeTuo: 'Marco',
             cieloTuo: _marco,
             nomeSuo: 'Giulia',
@@ -175,7 +175,7 @@ void main() {
   });
 
   testWidgets(
-      'aprendo la Sinastria approfondita il filmato parte, prende il posto '
+      'aprendo la Sinastria evolutiva il filmato parte, prende il posto '
       'di Medora ferma e resta sull\'ultimo fotogramma', (tester) async {
     final finta = _Finta();
     await _monta(tester, lettori: [finta]);
@@ -197,8 +197,7 @@ void main() {
     for (var i = 0; i < 5; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
-    expect(
-        find.byKey(const Key('finta_del_filmato_sinastria')), findsOneWidget,
+    expect(find.byKey(const Key('finta_del_filmato_sinastria')), findsOneWidget,
         reason: 'a filmato finito resta l\'ultimo fotogramma');
     expect(finta.avvii, 1, reason: 'il filmato e\' ripartito');
     expect(finta.chiusa, isFalse);
@@ -274,8 +273,7 @@ void main() {
   testWidgets('gli aspetti veri entrano nella schermata', (tester) async {
     final finta = _Finta();
     await _monta(tester, lettori: [finta]);
-    expect(find.byKey(const Key('sinastria_approfondita_nomi')),
-        findsOneWidget);
+    expect(find.byKey(const Key('sinastria_evolutiva_nomi')), findsOneWidget);
     expect(find.textContaining('Giulia'), findsWidgets);
   });
 }

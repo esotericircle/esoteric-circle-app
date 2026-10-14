@@ -1,6 +1,6 @@
 # capitolo_durata
 
-<!-- Fonte del corpus della Sinastria approfondita, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
+<!-- Fonte del corpus della Sinastria evolutiva, ordine FT voce FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe scritte a mano non passano dai controlli. -->
 
 ## amore fuso
 - titolo 1: Un amore che si prende sul serio

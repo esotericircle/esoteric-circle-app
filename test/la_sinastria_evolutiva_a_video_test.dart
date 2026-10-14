@@ -6,23 +6,23 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sensi/la_suoneria.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/la_lettura_approfondita.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/la_lettura_evolutiva.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_approfondita_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// **LA SINASTRIA APPROFONDITA A VIDEO.** Ordine FT voci FT.04, FT.06,
+/// **LA SINASTRIA EVOLUTIVA A VIDEO.** Ordine FT voci FT.04, FT.06,
 /// FT.07, FT.08, FT.09, FT.10 e FT.13: cio' che si vede e cio' che resta
 /// chiuso, piano per piano, e lo sbarramento d'eta' sul legame amore.
 final _oggi = DateTime(2026, 10, 14);
 
-CieloApprofondito _cielo(DateTime nascita, String nome) =>
-    CieloApprofondito.perNascita(
+CieloEvolutivo _cielo(DateTime nascita, String nome) =>
+    CieloEvolutivo.perNascita(
         momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day, 12),
         giornoDiNascita: nascita,
         nome: nome);
@@ -47,10 +47,10 @@ Future<void> _monta(WidgetTester tester,
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MediaQuery(
-        data: const MediaQueryData(
-            size: Size(390, 844), disableAnimations: true),
+        data:
+            const MediaQueryData(size: Size(390, 844), disableAnimations: true),
         child: MaestroScope(
-          child: SinastriaApprofonditaScreen(
+          child: SinastriaEvolutivaScreen(
             nomeTuo: 'Tu',
             cieloTuo: _cielo(DateTime(1990, 5, 12), 'Tu'),
             nomeSuo: 'Giulia',
@@ -83,8 +83,7 @@ void main() {
       'il Viandante: Oggi fra voi, due capitoli aperti, tre chiusi col '
       'lucchetto, Keplero e le esclusive chiusi', (tester) async {
     await _monta(tester, tier: Tier.free);
-    expect(find.byKey(const Key('sinastria_approfondita_coppia')),
-        findsOneWidget);
+    expect(find.byKey(const Key('sinastria_evolutiva_coppia')), findsOneWidget);
     await _scorriFino(tester, find.byKey(const Key('sinastria_oggi_fra_voi')));
     for (final c in [Capitolo.attrazione, Capitolo.emozioni]) {
       await _scorriFino(
@@ -94,7 +93,8 @@ void main() {
       await _scorriFino(
           tester, find.byKey(Key('sinastria_chiuso_capitolo_${c.name}')));
     }
-    await _scorriFino(tester, find.byKey(const Key('sinastria_chiuso_keplero')));
+    await _scorriFino(
+        tester, find.byKey(const Key('sinastria_chiuso_keplero')));
     await _scorriFino(tester, find.byKey(const Key('sinastria_chiuso_adepto')));
     // Mai un vicolo cieco: il lucchetto apre l'invito.
     await tester.tap(find.byKey(const Key('sinastria_chiuso_adepto')));
@@ -132,18 +132,16 @@ void main() {
       'lo sbarramento d\'eta\': con una persona di quindici anni il legame '
       'amore resta chiuso e la lettura parte dall\'amicizia', (tester) async {
     // Quindici anni e trecentosessantaquattro giorni al 14 ottobre 2026.
-    await _monta(tester,
-        tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 15));
+    await _monta(tester, tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 15));
     final prima = tester
         .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
         .data;
-    await _scorriFino(
-        tester, find.byKey(const Key('sinastria_legame_amore')));
+    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_amore')));
     await tester.tap(find.byKey(const Key('sinastria_legame_amore')));
     await tester.pump();
     expect(find.byKey(const Key('sinastria_amore_chiuso')), findsOneWidget);
-    expect(find.text('Il legame amore si apre dai sedici anni.'),
-        findsOneWidget);
+    expect(
+        find.text('Il legame amore si apre dai sedici anni.'), findsOneWidget);
     // La lettura non e' cambiata: si legge ancora l'amicizia.
     expect(
         tester
@@ -154,20 +152,17 @@ void main() {
 
   testWidgets('a sedici anni compiuti l\'amore si apre e cambia la lettura',
       (tester) async {
-    await _monta(tester,
-        tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 14));
+    await _monta(tester, tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 14));
     // Si apre gia' sull'amore: il primo legame, quando e' apribile.
     final amore = tester
         .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
         .data;
-    await _scorriFino(
-        tester, find.byKey(const Key('sinastria_legame_lavoro')));
+    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_lavoro')));
     await tester.tap(find.byKey(const Key('sinastria_legame_lavoro')));
     await tester.pump();
     final lavoro = tester
         .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
         .data;
-    expect(lavoro, isNot(amore),
-        reason: 'il legame cambia la lettura (FT.06)');
+    expect(lavoro, isNot(amore), reason: 'il legame cambia la lettura (FT.06)');
   });
 }

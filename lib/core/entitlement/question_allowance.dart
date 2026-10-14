@@ -279,7 +279,7 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kGettate = 'allowance.gettate';
   static const _kStese = 'allowance.stese';
   static const _kSinastrie = 'allowance.sinastrie';
-  static const _kApprofondite = 'allowance.sinastrie_approfondite';
+  static const _kEvolutive = 'allowance.sinastrie_evolutive';
   static const _kGiornoDelServer = 'allowance.giornoDelServer';
   static const _kCoda = 'allowance.coda';
   static const _kSaldo = 'allowance.saldoEos';
@@ -303,9 +303,9 @@ class QuestionAllowance extends ChangeNotifier {
   /// del listino e promettono cose diverse.
   int _sinastrie = 0;
 
-  /// LE SINASTRIE APPROFONDITE di coppie nuove consumate oggi, ordine FT
+  /// LE SINASTRIE EVOLUTIVE di coppie nuove consumate oggi, ordine FT
   /// voce FT.13. Budget suo, separato da quello della VIP.
-  int _approfondite = 0;
+  int _evolutive = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -334,7 +334,7 @@ class QuestionAllowance extends ChangeNotifier {
       _gettate = 0;
       _stese = 0;
       _sinastrie = 0;
-      _approfondite = 0;
+      _evolutive = 0;
     }
   }
 
@@ -733,8 +733,8 @@ class QuestionAllowance extends ChangeNotifier {
     _chiediAlServer('sinastrie');
   }
 
-  /// **IL BUDGET DELLA SINASTRIA APPROFONDITA, ordine FT voce FT.13.**
-  static const String kSinastrieApprofondite = 'sinastrieApprofondite';
+  /// **IL BUDGET DELLA SINASTRIA EVOLUTIVA, ordine FT voce FT.13.**
+  static const String kSinastrieEvolutive = 'sinastrieEvolutive';
 
   /// **SI CONTA SOLO QUANDO IL SERVER LO CONOSCE.** La coda dei gesti si
   /// ferma al primo che il server rifiuta: mandare un budget che le
@@ -743,42 +743,41 @@ class QuestionAllowance extends ChangeNotifier {
   /// (`functions/src/budget.ts`, scritto e non pubblicato: la
   /// pubblicazione la decide il fondatore) manda il prezzo del riscatto
   /// di questo budget nel listino; finche' non lo manda, la Sinastria
-  /// approfondita non si conta, come il riscatto da 400 Eos della Croce
+  /// evolutiva non si conta, come il riscatto da 400 Eos della Croce
   /// Celtica (ordine FS voce 13).
-  bool get contaLeSinastrieApprofondite =>
-      _listinoDelRiscatto.containsKey(kSinastrieApprofondite);
+  bool get contaLeSinastrieEvolutive =>
+      _listinoDelRiscatto.containsKey(kSinastrieEvolutive);
 
   /// Quante coppie nuove al giorno prevede il piano, oppure null se il
-  /// conto non e' ancora acceso (vedi [contaLeSinastrieApprofondite]).
-  int? limiteSinastrieApprofondite(Tier tier) => contaLeSinastrieApprofondite
-      ? PlanCatalog.limiteGiornaliero(
-          PlanCatalog.rigaSinastriaApprofondita, tier)
+  /// conto non e' ancora acceso (vedi [contaLeSinastrieEvolutive]).
+  int? limiteSinastrieEvolutive(Tier tier) => contaLeSinastrieEvolutive
+      ? PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastriaEvolutiva, tier)
       : null;
 
   /// Quante coppie nuove restano oggi, oppure null se non si contano.
-  int? sinastrieApprofonditeRimaste(Tier tier) {
-    final limite = limiteSinastrieApprofondite(tier);
+  int? sinastrieEvolutiveRimaste(Tier tier) {
+    final limite = limiteSinastrieEvolutive(tier);
     if (limite == null) return null;
     _rollover();
-    final resta = limite - _approfondite;
+    final resta = limite - _evolutive;
     return resta < 0 ? 0 : resta;
   }
 
   /// Se si puo' leggere una coppia nuova adesso.
   bool puoiLeggereUnaCoppiaNuova(Tier tier) {
-    final resta = sinastrieApprofonditeRimaste(tier);
+    final resta = sinastrieEvolutiveRimaste(tier);
     return resta == null || resta > 0;
   }
 
   /// Registra una coppia nuova letta. Come per la VIP, si chiama alla
   /// prima lettura di una coppia, mai a una riapertura.
-  void registraSinastriaApprofondita(Tier tier) {
-    if (limiteSinastrieApprofondite(tier) == null) return;
+  void registraSinastriaEvolutiva(Tier tier) {
+    if (limiteSinastrieEvolutive(tier) == null) return;
     _rollover();
-    _approfondite++;
+    _evolutive++;
     notifyListeners();
     _persist();
-    _chiediAlServer(kSinastrieApprofondite);
+    _chiediAlServer(kSinastrieEvolutive);
   }
 
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
@@ -808,7 +807,7 @@ class QuestionAllowance extends ChangeNotifier {
       _gettate = prefs.getInt(_kGettate) ?? 0;
       _stese = prefs.getInt(_kStese) ?? 0;
       _sinastrie = prefs.getInt(_kSinastrie) ?? 0;
-      _approfondite = prefs.getInt(_kApprofondite) ?? 0;
+      _evolutive = prefs.getInt(_kEvolutive) ?? 0;
       _giornoDelServer = prefs.getString(_kGiornoDelServer);
       _saldoEos = prefs.getInt(_kSaldo) ?? 0;
       _daMandare
@@ -882,7 +881,7 @@ class QuestionAllowance extends ChangeNotifier {
     _gettate = stato.spesi['gettate'] ?? 0;
     _stese = stato.spesi['stese'] ?? 0;
     _sinastrie = stato.spesi['sinastrie'] ?? 0;
-    _approfondite = stato.spesi[kSinastrieApprofondite] ?? 0;
+    _evolutive = stato.spesi[kSinastrieEvolutive] ?? 0;
     _saldoEos = stato.saldoEos;
     // **QUANTI INVITI SONO STATI ACCOLTI, ordine BX voce 02.** Il telefono non
     // lo puo' sapere: lo sa il server, quando la persona invitata riscatta il
@@ -1034,8 +1033,8 @@ class QuestionAllowance extends ChangeNotifier {
         _stese -= kCarteDellaStesaIntera;
       case 'sinastrie':
         _sinastrie--;
-      case kSinastrieApprofondite:
-        _approfondite--;
+      case kSinastrieEvolutive:
+        _evolutive--;
     }
     notifyListeners();
     await _persist();
@@ -1165,8 +1164,8 @@ class QuestionAllowance extends ChangeNotifier {
         _stese = tetto;
       case 'sinastrie':
         _sinastrie = tetto;
-      case kSinastrieApprofondite:
-        _approfondite = tetto;
+      case kSinastrieEvolutive:
+        _evolutive = tetto;
     }
     notifyListeners();
   }
@@ -1190,8 +1189,8 @@ class QuestionAllowance extends ChangeNotifier {
       'stese' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier),
       'sinastrie' =>
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, tier),
-      kSinastrieApprofondite => PlanCatalog.limiteGiornaliero(
-          PlanCatalog.rigaSinastriaApprofondita, tier),
+      kSinastrieEvolutive =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastriaEvolutiva, tier),
       _ => null,
     };
   }
@@ -1231,7 +1230,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kGettate, _gettate);
       await prefs.setInt(_kStese, _stese);
       await prefs.setInt(_kSinastrie, _sinastrie);
-      await prefs.setInt(_kApprofondite, _approfondite);
+      await prefs.setInt(_kEvolutive, _evolutive);
       await prefs.setInt(_kSaldo, _saldoEos);
       await prefs.setString(_kCoda, jsonEncode(_daMandare));
       if (_giornoDelServer != null) {

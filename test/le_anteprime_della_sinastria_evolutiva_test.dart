@@ -12,15 +12,15 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/sensi/la_suoneria.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
-import 'package:esoteric_circle/core/synastry_approfondita/la_lettura_approfondita.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/la_lettura_evolutiva.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/pricing/upgrade_invite.dart';
 import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
 import 'package:esoteric_circle/features/synastry/lo_studio_di_medora.dart';
-import 'package:esoteric_circle/features/synastry/sinastria_approfondita_screen.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +28,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// **LE ANTEPRIME DELLA SINASTRIA APPROFONDITA**, ordine FT voce FT.15: le
+/// **LE ANTEPRIME DELLA SINASTRIA EVOLUTIVA**, ordine FT voce FT.15: le
 /// schermate nuove, che prima dell'ordine non c'erano (la scheda della home
 /// portava al velo del Coming soon). Solo il "dopo", a 360 per 797 punti
 /// logici col rapporto di pixel 3, in `docs/preview/FT/`, con
@@ -69,8 +69,8 @@ class _FilmatoAssente implements LettoreDellaScenaSinastria {
   void chiudi() {}
 }
 
-CieloApprofondito _cielo(DateTime nascita, String nome) =>
-    CieloApprofondito.perNascita(
+CieloEvolutivo _cielo(DateTime nascita, String nome) =>
+    CieloEvolutivo.perNascita(
         momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day, 12),
         giornoDiNascita: nascita,
         nome: nome);
@@ -174,7 +174,7 @@ void main() {
     await passa(tester, 4);
   }
 
-  Widget lettura() => SinastriaApprofonditaScreen(
+  Widget lettura() => SinastriaEvolutivaScreen(
         nomeTuo: 'Tu',
         cieloTuo: _cielo(DateTime(1990, 5, 12), 'Tu'),
         nomeSuo: 'Giulia',
@@ -240,7 +240,7 @@ void main() {
                       'subito, o sali di piano per leggerne di più ogni '
                       'giorno.',
                   riscattoLabel:
-                      '${ListinoDegliEos.sinastriaApprofonditaInPiu.nome}, '
+                      '${ListinoDegliEos.sinastriaEvolutivaInPiu.nome}, '
                       '${ListinoDegliEos.prezzo(150)}',
                   onRiscatta: () async {},
                 ),

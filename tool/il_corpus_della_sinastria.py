@@ -1,4 +1,4 @@
-# IL CORPUS DELLA SINASTRIA APPROFONDITA. Ordine FT voce FT.12, 14 ottobre
+# IL CORPUS DELLA SINASTRIA EVOLUTIVA. Ordine FT voce FT.12, 14 ottobre
 # 2026. Metodo dell'ordine FM: prima gli schedari, poi i testi, scritti da
 # agenti in parallelo (uno per file della fonte), che li mandano a questo
 # strumento; lo strumento scrive nella fonte SOLO i testi che passano i
@@ -7,7 +7,7 @@
 # QUESTO STRUMENTO NON CHIAMA NESSUN MODELLO (regola R2 dell'ordine FT e
 # regola SPESE di CLAUDE.md): legge la fonte, controlla, scrive il Dart.
 #
-# LA FONTE sta in docs/corpus/sinastria_approfondita/, un file .md per
+# LA FONTE sta in docs/corpus/sinastria_evolutiva/, un file .md per
 # gruppo. Ogni cella e' una riga "## <cella>" seguita dalle righe
 # "- <campo> <n>: <testo>" (testo vuoto = da scrivere).
 #
@@ -49,9 +49,9 @@ import tempfile
 import time
 
 RADICE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FONTE = os.path.join(RADICE, 'docs', 'corpus', 'sinastria_approfondita')
-DART = os.path.join(RADICE, 'lib', 'core', 'synastry_approfondita',
-                    'il_corpus_della_sinastria_approfondita.g.dart')
+FONTE = os.path.join(RADICE, 'docs', 'corpus', 'sinastria_evolutiva')
+DART = os.path.join(RADICE, 'lib', 'core', 'synastry_evolutiva',
+                    'il_corpus_della_sinastria_evolutiva.g.dart')
 
 LEGAMI = ['amore', 'amicizia', 'famiglia', 'lavoro']
 TONI = ['fuso', 'armonico', 'teso', 'silenzio']
@@ -123,7 +123,7 @@ LUNGHEZZE = {
 }
 
 INTESTAZIONE = (
-    '<!-- Fonte del corpus della Sinastria approfondita, ordine FT voce '
+    '<!-- Fonte del corpus della Sinastria evolutiva, ordine FT voce '
     'FT.12. Regole e schedari in LEGGIMI.md, nella stessa cartella. Si '
     'riempie solo con tool/il_corpus_della_sinastria.py riempi: le righe '
     'scritte a mano non passano dai controlli. -->\n')
@@ -445,7 +445,7 @@ def controlla():
             testi = sum(attacchi.values())
             # Sul file intero: nessun attacco apre piu' di un quarto dei
             # testi del campo. La ripetizione dentro la stessa lettura la
-            # evita il motore (LetturaApprofondita).
+            # evita il motore (LetturaEvolutiva).
             for attacco, quanti in attacchi.items():
                 if quanti > testi // 4:
                     colpe.append(f'{nome} {campo}: "{attacco}" comincia {quanti} '
@@ -466,11 +466,11 @@ def genera():
         raise SystemExit('LA FONTE NON E\' PRONTA: nessun Dart scritto a meta\'.')
     out = io.StringIO()
     out.write('// GENERATO da tool/il_corpus_della_sinastria.py dalla fonte in\n'
-              '// docs/corpus/sinastria_approfondita/. Non si modifica a mano:\n'
+              '// docs/corpus/sinastria_evolutiva/. Non si modifica a mano:\n'
               '// si corregge la fonte e si rigenera. Ordine FT voce FT.12.\n\n'
-              '/// Il corpus della Sinastria approfondita: chiave '
+              '/// Il corpus della Sinastria evolutiva: chiave '
               '"<file>|<cella>|<campo>", valore le varianti in ordine.\n'
-              'const Map<String, List<String>> corpusDellaSinastriaApprofondita = {\n')
+              'const Map<String, List<String>> corpusDellaSinastriaEvolutiva = {\n')
     for nome, celle in struttura().items():
         d = leggi(nome)
         for cella, campi in celle:

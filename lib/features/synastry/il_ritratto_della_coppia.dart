@@ -5,8 +5,8 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../core/brand/brand.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
-import '../../core/synastry_approfondita/la_lettura_approfondita.dart';
-import '../../core/synastry_approfondita/legame_e_eta.dart';
+import '../../core/synastry_evolutiva/la_lettura_evolutiva.dart';
+import '../../core/synastry_evolutiva/legame_e_eta.dart';
 import '../../design_system/components/brand_mark.dart';
 import '../../design_system/components/card_a_misura_fissa.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -15,7 +15,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'sinastria_share_card.dart' show captureBoundaryPng;
 
-/// Il percorso di un'immagine della Sinastria approfondita.
+/// Il percorso di un'immagine della Sinastria evolutiva.
 String immagineDellaSinastria(String nome) => 'assets/img/sinastria/$nome.webp';
 
 /// La cornice comune delle due card: il formato unico (Linee Guida V13
@@ -107,7 +107,7 @@ class RitrattoDellaCoppia extends StatelessWidget {
       palette: palette,
       width: width,
       figli: [
-        Text('SINASTRIA APPROFONDITA',
+        Text('SINASTRIA EVOLUTIVA',
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
@@ -226,14 +226,14 @@ class CardDelCapitolo extends StatelessWidget {
 
 /// Fotografa la card e la manda con la porta comune della condivisione.
 /// Torna vero quando la condivisione e' avvenuta davvero.
-Future<bool> shareSinastriaApprofonditaCard({
+Future<bool> shareSinastriaEvolutivaCard({
   required GlobalKey boundaryKey,
   required String testo,
 }) async {
   final png = await captureBoundaryPng(boundaryKey);
   if (png == null) return false;
   final dir = await getTemporaryDirectory();
-  final file = File('${dir.path}/sinastria_approfondita.png');
+  final file = File('${dir.path}/sinastria_evolutiva.png');
   await file.writeAsBytes(png, flush: true);
   return PortaDellaCondivisione.daFile(file.path, testo: testo);
 }
