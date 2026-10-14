@@ -7040,6 +7040,28 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 
 **REGOLA PERMANENTE, SPESE (14 ottobre 2026), ordine del fondatore**: vietata ogni chiamata a pagamento verso Gemini, Vertex o altri servizi a consumo (giro dei banchi compreso) senza il si' esplicito di Mauro, dato in chat per quella singola occasione, con la stima del costo in euro scritta prima; vale anche per le build, che non comprendono piu' il giro dei banchi (resta uno strumento a parte, non piu' nel cancello di `tool/consegna.py`, solo informativo). Le voci sui testi generati restano `APERTA IN ATTESA DI VERIFICA` finche' la spesa non e' autorizzata, e non e' piu' richiesto l'obbligo delle due esecuzioni reali nel protocollo della chiusura. Scritta in `CLAUDE.md`, sezione delle regole non negoziabili, commit `0bd3637f`.
 
+## LA BARRA DEI TAROCCHI E L'ORDINE FT, LA SINASTRIA EVOLUTIVA FRA PERSONE REALI (14 ottobre 2026, sera)
+
+**La barra del titolo della Stesa di Tarocchi e' semitrasparente gia' all'apertura.** Il fondatore: *"la barra in alto del titolo deve essere gia' semitrasparente all'apertura e non solo allo scrolling. Cosi' l'animazione video delle carte che volano verso l'alto si vedra' piu' completa"*. Il velo era gia' costante, ma a 0,35 sopra la scena scura si leggeva quasi pieno: sceso a 0,16 (`stesa_tre_carte_screen.dart`, commit 53dd7be2, con le anteprime della stesa). **Da guardare sul telefono** alla prossima build.
+
+**L'ORDINE FT**, consegnato in tre pezzi il 14 ottobre 2026 e copiato parola per parola in `docs/ordini/ORDINE_FT_TESTO.md`. L'ordine la chiama "Sinastria approfondita"; **a lavoro in corso il fondatore l'ha rinominata**: *"Cambia nome ovunque da Sinastria Approfondita a sinastria evolutiva"* (commit 9ac1c8e6). Restano apposta l'id di catalogo `synastry_depth` e i file `assets/schede/Sinastria-Approfondita-*.webp`. Manifesto `docs/ordini/ORDINE_FT_MANIFESTO.md` (15 voci: 10 chiuse, 5 aperte in attesa di verifica), rapporto `docs/ordini/RAPPORTO_ORDINE_FT.md`, guardia `test/ordine_ft_guard_test.dart`. Nessuna build, nessuna chiamata al modello: la lettura non chiama Gemini, il cielo si calcola e i testi sono corpus.
+
+- **Il calcolo.** Undici punti per persona: i dieci di IlCieloDiMeeus piu' il Nodo Nord medio (`IlCieloDiMeeus.longitudineDelNodoNord`), cinque aspetti tolemaici con gli orbi della Sinastria VIP. Contro Swiss Ephemeris su dieci coppie: scarto massimo 0,004982 gradi, 315 aspetti, 0 diversi. Con l'ora di nascita non nota la Luna tace, e la lettura lo dice.
+- **La lettura.** Lo studio di Medora col video dell'astrolabio (ripieghi a mani aperte con Riduci Movimento, grafica alleggerita e video che non si carica). Quattro legami, con l'amore solo dai sedici anni di tutti e due. Oggi fra voi, cinque capitoli, gli Intervalli di Keplero, il Tema Composito di Hand, il Momento giusto, il ritratto della coppia e la card del capitolo. Codice in `lib/core/synastry_evolutiva/` e `lib/features/synastry/`.
+- **Il corpus.** 1.231 testi scritti da Code in `docs/corpus/sinastria_evolutiva/`, generati in `il_corpus_della_sinastria_evolutiva.g.dart` da `tool/il_corpus_della_sinastria.py`, 0 difetti al controllo; lettori ciechi 69 su 70 e 68 su 70.
+- **Le due strade della nascita dell'altra persona.** A mano, oppure la lettura a due telefoni: chi condivide da' il consenso e detta un codice di cinque minuti, letto una volta sola. Le porte del server `condividiLaNascita` e `leggiLaNascita` rifanno anche il controllo dei sedici anni.
+- **I piani.** Coppie nuove al giorno 1, 2, 5 e 15; al Viandante Oggi fra voi e due capitoli su cinque; Keplero dall'Iniziato; Composito, ritratto e momento giusto dall'Adepto; la coppia in piu' a 150 Eos. Righe in PlanCatalog e nelle quattro card dei piani. La scheda della home si apre a tutti i piani e non promette piu' i tre livelli dell'ordine ER.
+- **Le porte d'ingresso.** La scheda nel dominio di Medora, il segno 15 ("Facciamo la sinastria" apre la Sinastria evolutiva con l'amico), il passaggio in fondo al confronto del cielo.
+- **Guardie.** Sette nuove, tutte viste rosse su innesti verificati; il registro passa da 766 a 773.
+
+**APERTO IN ATTESA DI VERIFICA**:
+- **FT.02, sul telefono**: il video dell'astrolabio vero, l'ultimo fotogramma, il silenzioso.
+- **FT.03 e FT.04, il deploy delle due porte della lettura a due telefoni**: `cd functions && firebase deploy --only functions:condividiLaNascita,functions:leggiLaNascita --project esoteric-circle`.
+- **FT.13, il deploy di `statoDelCerchio` e `muoviGliEos`**: fino ad allora le coppie nuove non si contano.
+- **FT.14, sul telefono**: le porte d'ingresso e la condivisione.
+
+**Da decidere per il fondatore**: la riga "Compatibilità a tre livelli, esclusiva" dell'Illuminato, la vecchia promessa di questa stessa scheda, che oggi nessuna parte dell'app esegue.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

@@ -328,7 +328,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         // **IL VELO SEGUE LA LETTURA.** All'apertura lo stesso velo
-        // leggero dei Tarocchi dopo la revisione del 15 ottobre 2026, cosi'
+        // leggero dei Tarocchi dopo la revisione del 14 ottobre 2026, cosi'
         // la scena di Medora si vede intera; appena il testo passa sotto il
         // titolo il velo si fa denso, altrimenti titolo e lettura si
         // sovrappongono (anteprima ft_viandante_2, 14 ottobre 2026).

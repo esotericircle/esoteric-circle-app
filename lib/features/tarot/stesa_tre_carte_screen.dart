@@ -1522,7 +1522,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // confondeva del tutto col cosmo sotto; ora porta lo stesso velo
           // di `palette.deepest` delle altre schermate.
           //
-          // **IL VELO SI ALLEGGERISCE, 15 ottobre 2026.** Il fondatore: la
+          // **IL VELO SI ALLEGGERISCE, 14 ottobre 2026.** Il fondatore: la
           // barra deve essere gia' semitrasparente all'apertura (non solo
           // scorrendo), cosi' il video di Medora che fa volare le carte si
           // vede piu' completo sotto di lei. Il velo era costante (mai legato
