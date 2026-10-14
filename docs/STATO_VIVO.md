@@ -7060,6 +7060,8 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 - **FT.13, il deploy di `statoDelCerchio` e `muoviGliEos`**: fino ad allora le coppie nuove non si contano.
 - **FT.14, sul telefono**: le porte d'ingresso e la condivisione.
 
+**La suite intera e il cancello.** In locale 7.304 prove con 16 rosse (82 minuti), tutte corrette col loro padre nel rapporto. Il cancello di GitHub e' verde sul commit d779f271 (`refs/verde/d779f271...`). **REGOLA PERMANENTE del fondatore, 14 ottobre 2026: la suite intera gira su GitHub, non piu' in locale** (CLAUDE.md, regole non negoziabili).
+
 **Da decidere per il fondatore**: la riga "Compatibilità a tre livelli, esclusiva" dell'Illuminato, la vecchia promessa di questa stessa scheda, che oggi nessuna parte dell'app esegue.
 
 ## Regole ferree
