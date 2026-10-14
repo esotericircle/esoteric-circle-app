@@ -59,9 +59,12 @@ class IlComposito {
   }
 
   static IlComposito fra(CieloApprofondito tuo, CieloApprofondito suo) {
+    // Un punto che tace in uno dei due cieli (la Luna con l'ora di nascita
+    // non nota, FT.03) non ha un punto medio: resta fuori.
     final punti = {
       for (final p in deiPunti)
-        p: puntoMedio(tuo.longitudini[p]!, suo.longitudini[p]!),
+        if (tuo.longitudini[p] != null && suo.longitudini[p] != null)
+          p: puntoMedio(tuo.longitudini[p]!, suo.longitudini[p]!),
     };
     ({
       PuntoDelCieloApprofondito a,
@@ -73,6 +76,7 @@ class IlComposito {
       for (var j = i + 1; j < deiPunti.length; j++) {
         final a = deiPunti[i];
         final b = deiPunti[j];
+        if (punti[a] == null || punti[b] == null) continue;
         for (final tipo in AspectType.values) {
           final c = ChartAspect(
               aLongitude: punti[a]!, bLongitude: punti[b]!, type: tipo);
@@ -191,15 +195,17 @@ abstract final class IntervalliDiKeplero {
 
   static List<Corda> fra(CieloApprofondito tuo, CieloApprofondito suo) => [
         for (final (a, b) in coppie)
-          (() {
-            final s = ChartAspect(
-                    aLongitude: tuo.longitudini[a]!,
-                    bLongitude: suo.longitudini[b]!,
-                    type: AspectType.conjunction)
-                .separazione;
-            return Corda(
-                tuo: a, suo: b, separazione: s, consonanza: consonanzaDi(s));
-          })(),
+          // La corda di un punto che tace (FT.03) non si suona.
+          if (tuo.longitudini[a] != null && suo.longitudini[b] != null)
+            (() {
+              final s = ChartAspect(
+                      aLongitude: tuo.longitudini[a]!,
+                      bLongitude: suo.longitudini[b]!,
+                      type: AspectType.conjunction)
+                  .separazione;
+              return Corda(
+                  tuo: a, suo: b, separazione: s, consonanza: consonanzaDi(s));
+            })(),
       ];
 
   static const String daDoveViene =

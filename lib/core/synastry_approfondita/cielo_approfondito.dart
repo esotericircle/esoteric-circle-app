@@ -80,10 +80,14 @@ class CieloApprofondito {
   final DateTime giornoDiNascita;
   final Zodiac segnoSolare;
 
-  /// Qui l'ora di nascita NON condiziona nessun punto (niente Ascendente:
-  /// la Sinastria approfondita non lo calcola, FT.05 non lo chiede): resta
-  /// per dire alla lettura se l'ora e' nota, perche' il cielo composito
-  /// (FT.07) e il momento giusto (FT.10) possono volerlo dichiarare.
+  /// **L'ORA DI NASCITA NON NOTA FA TACERE LA LUNA**, ordine FT voce FT.03:
+  /// "i punti che ne dipendono tacciono invece di essere indovinati". Fra
+  /// gli undici punti l'unico che l'ora sposta oltre l'orbo e' la Luna,
+  /// circa tredici gradi al giorno, quindi fino a sei e mezzo dal
+  /// mezzogiorno convenzionale: piu' dell'orbo del sestile. Mercurio, il piu'
+  /// veloce dopo di lei, fa al massimo poco piu' di un grado in mezza
+  /// giornata. Con l'ora non nota la Luna non entra in [longitudini], e
+  /// aspetti, Composito e Keplero la saltano; la schermata lo dice.
   final bool oraNota;
 
   final String nome;
@@ -119,6 +123,9 @@ class CieloApprofondito {
   }
 
   /// Il cielo dai pezzi nudi: il momento in tempo universale, e nient'altro.
+  /// Chi passa un momento esatto ha l'ora: [oraNota] vale vero se non si
+  /// dice altro. Il modulo della nascita e la propria identita' lo dicono
+  /// sempre.
   /// Stessa scelta di `CieloDiSinastria.perNascita` (ordine BO): prende
   /// numeri, non una delle classi del luogo di nascita che convivono nel
   /// progetto.
@@ -126,7 +133,7 @@ class CieloApprofondito {
     required DateTime momentoUtc,
     Zodiac? segnoDichiarato,
     String nome = '',
-    bool oraNota = false,
+    bool oraNota = true,
     DateTime? giornoDiNascita,
   }) {
     final jd = Celestial.julianDay(momentoUtc);
@@ -141,6 +148,7 @@ class CieloApprofondito {
     }
     punti[PuntoDelCieloApprofondito.nodoNord] =
         IlCieloDiMeeus.longitudineDelNodoNord(jd);
+    if (!oraNota) punti.remove(PuntoDelCieloApprofondito.luna);
     final sole = punti[PuntoDelCieloApprofondito.sole] ?? 0;
     return CieloApprofondito(
       longitudini: punti,

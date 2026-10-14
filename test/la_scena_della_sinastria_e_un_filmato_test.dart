@@ -96,6 +96,7 @@ Future<void> _monta(
   required List<_Finta> lettori,
   bool riduci = false,
   bool suono = true,
+  bool grafica = true,
 }) async {
   tester.view.physicalSize = const Size(390, 844);
   tester.view.devicePixelRatio = 1.0;
@@ -106,7 +107,11 @@ Future<void> _monta(
     providers: [
       ChangeNotifierProvider(create: (_) => MaestroController()),
       ChangeNotifierProvider(create: (_) => ParallaxController()),
-      ChangeNotifierProvider(create: (_) => QualityTierController()),
+      ChangeNotifierProvider(create: (_) {
+        final q = QualityTierController();
+        if (!grafica) q.setTier(QualityTier.low);
+        return q;
+      }),
       ChangeNotifierProvider(create: (_) => ZodiacController()),
       ChangeNotifierProvider(
           create: (_) => SettingsController(suonoEVibrazione: suono)),
@@ -209,6 +214,17 @@ void main() {
     await _monta(tester, lettori: [finta], riduci: true);
     expect(finta.aperture, 0,
         reason: 'con Riduci Movimento il filmato si apre');
+    expect(find.byKey(const Key('finta_del_filmato_sinastria')), findsNothing);
+    expect(_posa(tester), GeometriaDelloStudio.posaDelleManiAperte);
+  });
+
+  testWidgets(
+      'con la grafica alleggerita la scena e\' ferma, con la posa a mani '
+      'aperte', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta], grafica: false);
+    expect(finta.aperture, 0,
+        reason: 'con la grafica alleggerita il filmato si apre (FT.02)');
     expect(find.byKey(const Key('finta_del_filmato_sinastria')), findsNothing);
     expect(_posa(tester), GeometriaDelloStudio.posaDelleManiAperte);
   });

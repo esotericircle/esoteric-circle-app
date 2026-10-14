@@ -11,6 +11,7 @@ import '../../core/entitlement/tier.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/ricordi/artwork_del_ricordo.dart';
 import '../../core/sensi/la_suoneria.dart';
+import '../../core/quality/quality_tier.dart';
 import '../../core/settings/settings_controller.dart';
 import '../../core/synastry_approfondita/cielo_approfondito.dart';
 import '../../core/synastry_approfondita/il_composito_e_keplero.dart';
@@ -90,6 +91,22 @@ class _SinastriaApprofonditaScreenState
     extends State<SinastriaApprofonditaScreen> with WidgetsBindingObserver {
   bool _reduceMotion = false;
 
+  /// **L'ORA NON NOTA SI DICHIARA A VIDEO**, ordine FT voce FT.03: la Luna
+  /// tace (`CieloApprofondito.oraNota`), e chi legge sa perche' nessun
+  /// aspetto la nomina. Nullo quando tutte e due le ore sono note.
+  String? get _laLunaTace {
+    final tua = widget.cieloTuo.oraNota;
+    final sua = widget.cieloSuo.oraNota;
+    if (tua && sua) return null;
+    final chi = !tua && !sua
+        ? 'Le vostre ore di nascita non sono note'
+        : !tua
+            ? 'La tua ora di nascita non è nota'
+            : "L'ora di nascita di ${widget.nomeSuo} non è nota";
+    return '$chi: la Luna, che in un giorno fa tredici gradi, tace in '
+        'questa lettura invece di essere indovinata.';
+  }
+
   /// Vero quando la lettura e' scorsa sotto la barra del titolo.
   bool _sottoIlTitolo = false;
   bool _avviata = false;
@@ -141,7 +158,14 @@ class _SinastriaApprofonditaScreenState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _reduceMotion = MediaQuery.of(context).disableAnimations;
+    // **"ALLEGGERISCI GRAFICA" FERMA LA SCENA**, ordine FT voce FT.02: con
+    // la grafica alleggerita, come con Riduci Movimento, il filmato non si
+    // apre e Medora resta ferma, a mani aperte. Stessa lettura del tier dei
+    // Tarocchi (ordine FN).
+    final tierBasso =
+        _forse<QualityTierController>(context, osserva: true)?.tier ==
+            QualityTier.low;
+    _reduceMotion = MediaQuery.of(context).disableAnimations || tierBasso;
     if (_avviata) return;
     _avviata = true;
     WidgetsBinding.instance.addObserver(this);
@@ -365,6 +389,15 @@ class _SinastriaApprofonditaScreenState
                             nomeSuo: widget.nomeSuo,
                             segno: _segnoDellaCoppia,
                           ),
+                          if (_laLunaTace != null) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            Text(_laLunaTace!,
+                                key: const Key('sinastria_ora_non_nota'),
+                                textAlign: TextAlign.center,
+                                style: TypographyTokens.didascalia().copyWith(
+                                    color: ColorTokens.textSecondary,
+                                    fontStyle: FontStyle.italic)),
+                          ],
                           const SizedBox(height: SpacingTokens.md),
                           _ILegami(
                             palette: palette,

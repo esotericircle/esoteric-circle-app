@@ -112,8 +112,8 @@ class ScenaDellaSinastriaInVideo {
   /// Il rettangolo del filmato nella scena larga [w].
   static Rect nellaScena(double w) {
     final s = GeometriaDelloStudio.scala(w);
-    return Rect.fromLTWH(0, (sopra - GeometriaDelloStudio.taglioInAlto) * s,
-        w, (sotto - sopra) * s);
+    return Rect.fromLTWH(0, (sopra - GeometriaDelloStudio.taglioInAlto) * s, w,
+        (sotto - sopra) * s);
   }
 }
 
@@ -323,8 +323,8 @@ class LoStudioDiMedora extends StatelessWidget {
                         minHeight: GeometriaDelloStudio.immagine.height * s,
                         maxHeight: GeometriaDelloStudio.immagine.height * s,
                         child: Transform.translate(
-                          offset: Offset(
-                              0, -GeometriaDelloStudio.taglioInAlto * s),
+                          offset:
+                              Offset(0, -GeometriaDelloStudio.taglioInAlto * s),
                           child: Image.asset(GeometriaDelloStudio.sfondo,
                               key: const Key('studio_sfondo'),
                               fit: BoxFit.fill,
