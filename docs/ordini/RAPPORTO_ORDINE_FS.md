@@ -51,3 +51,5 @@
 - Il conto globale dei fotogrammi mancati di SurfaceFlinger balla fra 4 e 663 in tre giri uguali, mentre il livello dell'app non ne perde (0 su 629, 634, 640): senza una misura di confronto senza video non lo leggo, e lo riporto com'e'.
 - Il video costa 5,3 MB nel pacchetto; le due pose passano da 85 e 89 KB a 100 e 103 KB (ora hanno il canale alfa). `medora_busto_v1.webp` non e' piu' usata dalla Stesa e resta nella cartella.
 - Nel banco la Stesa si apre dal bianco, e nella registrazione Medora col mazzo chiuso si vede gia' mentre il bianco si dirada (fra 1,1 e 1,4 secondi): l'inizio del video cade in parte sotto la dissolvenza d'ingresso. Nell'app vera la Stesa si apre dalla soglia dei Maestri, e va guardato li'.
+
+**Aggiunta del 14 ottobre 2026, ordine FS**: il lavoro di questo rapporto e' sul ramo canonico `claude/esoteric-circle-master-order-e798aj` al commit 1b683a3883848a7a35d13b7cf44406bc2199d325, letto con git ls-remote dopo la spinta. I commit delle voci: 8eb8cf13 (FS.13, i 400 Eos), b6fdb1d5 (FS.11), a5089716 (FS.12), 610b37d3 (i cinque rossi veri della suite intera), 1b683a38 (manifesto, rapporto, registri).
