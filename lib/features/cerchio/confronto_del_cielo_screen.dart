@@ -20,6 +20,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/app_services.dart';
+import '../synastry/avvio_sinastria_approfondita.dart';
 import '../synastry/podio_del_gemello.dart';
 import '../synastry/sinastria_share_card.dart';
 import 'widgets/disegni_del_cerchio.dart';
@@ -362,6 +363,23 @@ class _IlConfronto extends StatelessWidget {
                         color: ColorTokens.textPrimary, height: 1.45)),
               ),
             ],
+          ),
+          // **IL PASSAGGIO VERSO LA SINASTRIA APPROFONDITA.** Ordine FT
+          // voce FT.14: "dal confronto del cielo con un amico c'e' un
+          // passaggio verso la Sinastria approfondita con lui".
+          const SizedBox(height: SpacingTokens.lg),
+          Center(
+            child: OutlinedButton.icon(
+              key: const Key('confronto_verso_sinastria_approfondita'),
+              onPressed: () => Navigator.of(context).push(
+                  AvvioSinastriaApprofondita.route(nomeSuggerito: nomeSuo)),
+              icon: Icon(Icons.auto_awesome_rounded, color: palette.goldSoft),
+              label: Text('Andate più a fondo, con la Sinastria approfondita',
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.goldSoft)),
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.5))),
+            ),
           ),
         ],
       ),

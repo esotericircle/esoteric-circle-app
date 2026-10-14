@@ -182,14 +182,15 @@ class AspettoApprofondito {
   double forzaCon(double orboAmmesso) =>
       orboAmmesso <= 0 ? 0 : (1 - orbo / orboAmmesso).clamp(0.0, 1.0);
 
-  /// "la tua Venere in trigono alla sua Luna": stesso impianto del
-  /// `laFrase` della Sinastria VIP, ma qui nessuno dei due lati e' mai un
-  /// VIP con un nome pubblico: sono sempre le due persone vere, "tu" e
-  /// "lei/lui" (il nome arriva da chi monta la frase, non da qui).
-  String frase(String nomeTuo, String nomeSuo) =>
-      '${tuo.femminile ? "la" : "il"} $nomeTuo ${tuo.ilTuo.split(' ').last} '
-      'è in ${tipo.italianName.toLowerCase()} '
-      '${suo.femminile ? "alla" : "al"} $nomeSuo ${suo.nome}';
+  /// "La tua Venere è in trigono con la Luna di Giulia": stesso impianto del
+  /// `laFrase` della Sinastria VIP (ordine CC voce 06h, il nome dell'altra
+  /// persona sempre detto), con chi legge alla seconda persona.
+  String frase(String nomeSuo) {
+    final mio = '${tuo.ilTuo} ${tuo.nome}';
+    final altro = '${suo.femminile ? "la" : "il"} ${suo.nome} di $nomeSuo';
+    final testo = '$mio è in ${tipo.italianName.toLowerCase()} con $altro';
+    return testo[0].toUpperCase() + testo.substring(1);
+  }
 }
 
 /// GLI ASPETTI FRA DUE CIELI, Sinastria approfondita.

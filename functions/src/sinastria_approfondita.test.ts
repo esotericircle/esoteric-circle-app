@@ -2,6 +2,9 @@ import {test} from "node:test";
 import assert from "node:assert/strict";
 import {
   anniCompiuti,
+  consumaConsenso,
+  creaConsenso,
+  DURATA_DEL_CONSENSO_MS,
   haAlmeno16Anni,
   legameApribile,
 } from "./sinastria_approfondita";
@@ -74,4 +77,67 @@ test("il server non si fida di un client che manda solo 'true'", () => {
   const quasiSedici = new Date("2010-10-15T00:00:00.000Z");
   const maggiorenne = new Date("1990-01-01T00:00:00.000Z");
   assert.equal(legameApribile("amore", quasiSedici, maggiorenne, oggi), false);
+});
+
+/**
+ * FT.03, IL CONSENSO DELLA NASCITA (LETTURA A DUE TELEFONI), LATO SERVER.
+ */
+
+const dati = {
+  nascita: "1995-06-20T10:00:00.000Z",
+  oraNota: true,
+  nome: "Giulia",
+};
+
+test("il consenso appena creato si consuma e restituisce i dati, una volta", () => {
+  const creato = oggi;
+  const consenso = creaConsenso(dati, creato, "AB12CD");
+  assert.equal(consenso.codice, "AB12CD");
+  assert.equal(consenso.consumato, false);
+  assert.equal(
+    consenso.scadenza.getTime() - consenso.creato.getTime(),
+    DURATA_DEL_CONSENSO_MS
+  );
+  const dopoUnMinuto = new Date(creato.getTime() + 60 * 1000);
+  const {datiLetti, consensoAggiornato} = consumaConsenso(consenso, dopoUnMinuto);
+  assert.deepEqual(datiLetti, dati);
+  assert.equal(consensoAggiornato?.consumato, true);
+});
+
+test("consumato una volta, la seconda lettura non ottiene niente", () => {
+  const creato = oggi;
+  let consenso = creaConsenso(dati, creato, "AB12CD");
+  const primo = consumaConsenso(consenso, creato);
+  assert.ok(primo.datiLetti !== null);
+  consenso = primo.consensoAggiornato!;
+  const secondo = consumaConsenso(consenso, creato);
+  assert.equal(secondo.datiLetti, null);
+});
+
+test("scaduto (oltre cinque minuti), niente dati anche se mai consumato", () => {
+  const creato = oggi;
+  const consenso = creaConsenso(dati, creato, "AB12CD");
+  const seiMinutiDopo = new Date(creato.getTime() + 6 * 60 * 1000);
+  const {datiLetti} = consumaConsenso(consenso, seiMinutiDopo);
+  assert.equal(datiLetti, null);
+});
+
+test("a quattro minuti e mezzo (dentro i cinque) i dati arrivano ancora", () => {
+  const creato = oggi;
+  const consenso = creaConsenso(dati, creato, "AB12CD");
+  const dentro = new Date(creato.getTime() + 4.5 * 60 * 1000);
+  const {datiLetti} = consumaConsenso(consenso, dentro);
+  assert.deepEqual(datiLetti, dati);
+});
+
+test("un consenso inesistente (null) non da' mai dati, senza distinguere il motivo", () => {
+  const {datiLetti, consensoAggiornato} = consumaConsenso(null, oggi);
+  assert.equal(datiLetti, null);
+  assert.equal(consensoAggiornato, null);
+});
+
+test("il consenso non porta nessun campo da profilo pubblico", () => {
+  const consenso = creaConsenso(dati, oggi, "AB12CD");
+  const chiavi = Object.keys(consenso.dati).sort();
+  assert.deepEqual(chiavi, ["nascita", "nome", "oraNota"]);
 });

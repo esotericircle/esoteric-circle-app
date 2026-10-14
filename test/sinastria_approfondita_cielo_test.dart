@@ -82,6 +82,21 @@ void main() {
     expect(carta.planets.any((p) => p.id == 'north_node'), true);
   });
 
+  test('la frase dice di chi e ogni punto, col genere giusto', () {
+    const a = AspettoApprofondito(
+        tuo: PuntoDelCieloApprofondito.venere,
+        suo: PuntoDelCieloApprofondito.luna,
+        tipo: AspectType.trine,
+        orbo: 1);
+    expect(a.frase('Giulia'), 'La tua Venere è in trigono con la Luna di Giulia');
+    const b = AspettoApprofondito(
+        tuo: PuntoDelCieloApprofondito.marte,
+        suo: PuntoDelCieloApprofondito.nodoNord,
+        tipo: AspectType.square,
+        orbo: 1);
+    expect(b.frase('Marco'), 'Il tuo Marte è in quadratura con il Nodo Nord di Marco');
+  });
+
   test('il tipo di aspetto resta dei cinque tolemaici', () {
     final aspetti = AspettiApprofonditi.fra(lui, lei);
     for (final a in aspetti) {

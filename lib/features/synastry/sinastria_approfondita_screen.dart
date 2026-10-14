@@ -10,7 +10,9 @@ import '../../core/synastry_approfondita/cielo_approfondito.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'lo_studio_di_medora.dart';
 
 /// **LA SINASTRIA APPROFONDITA.** Ordine FT, 14 ottobre 2026.
@@ -46,8 +48,8 @@ class SinastriaApprofonditaScreen extends StatefulWidget {
     required String nomeSuo,
     required CieloApprofondito cieloSuo,
   }) =>
-      MaterialPageRoute(
-        builder: (_) => SinastriaApprofonditaScreen(
+      PassaggioDelCerchio.rotta(
+        (_) => SinastriaApprofonditaScreen(
           nomeTuo: nomeTuo,
           cieloTuo: cieloTuo,
           nomeSuo: nomeSuo,
@@ -130,10 +132,13 @@ class _SinastriaApprofonditaScreenState
         : GeometriaDelloStudio.posaDellAstrolabio;
   }
 
+  /// Un provider che puo' mancare (le prove montano la schermata da sola):
+  /// senza, si va avanti col ripiego, come nella Stesa.
   T? _forse<T>(BuildContext context, {bool osserva = false}) {
     try {
       return osserva ? context.watch<T>() : context.read<T>();
-    } catch (_) {
+    } catch (senzaProvider) {
+      debugPrint('Sinastria approfondita: manca $T, ripiego ($senzaProvider)');
       return null;
     }
   }
@@ -191,7 +196,7 @@ class _SinastriaApprofonditaScreenState
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(SpacingTokens.lg),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -199,7 +204,7 @@ class _SinastriaApprofonditaScreenState
                         key: const Key('sinastria_approfondita_nomi'),
                         style: TypographyTokens.titoloSezione()
                             .copyWith(color: palette.goldSoft)),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: SpacingTokens.md),
                     // **I CAPITOLI ARRIVANO CON FT.06-FT.12.** Qui, in
                     // attesa del corpus, l'elenco degli aspetti veri: non e'
                     // il responso finale, e' la prova che il calcolo (FT.05)
@@ -208,9 +213,10 @@ class _SinastriaApprofonditaScreenState
                       Padding(
                         key: Key(
                             'sinastria_aspetto_${a.tuo.name}_${a.suo.name}'),
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding:
+                            const EdgeInsets.only(bottom: SpacingTokens.xs),
                         child: Text(
-                          a.frase(widget.nomeTuo, widget.nomeSuo),
+                          a.frase(widget.nomeSuo),
                           style: TypographyTokens.corpo(),
                         ),
                       ),

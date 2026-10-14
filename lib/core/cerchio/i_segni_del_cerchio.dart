@@ -45,7 +45,12 @@ enum ArteDellaRichiesta {
   tarocchi,
   rune,
   archetipo,
-  glifo
+  glifo,
+
+  /// **LA SINASTRIA APPROFONDITA, ordine FT voce FT.14, 14 ottobre 2026.**
+  /// Non e' la Sinastria VIP: qui i due cieli sono quelli veri delle due
+  /// persone, non quello di un VIP del catalogo.
+  sinastriaApprofondita,
 }
 
 class SegnoDelCerchio {
@@ -204,20 +209,20 @@ abstract final class ISegniDelCerchio {
     SegnoDelCerchio(
         id: 'facciamoLaSinastria',
         categoria: CategoriaDelSegno.richieste,
-        // **IL SEGNO 15 DICE IL VERO, ordine FA voce 02, 4 ottobre 2026.** Era
-        // "Facciamo la sinastria": prometteva un confronto fra voi due e apriva
-        // la porta dove si sceglie un VIP, perche' nel progetto l'unica
-        // sinastria che esiste e' la Sinastria VIP. Il fondatore: "Appena
-        // faremo la sinastria per amici o sinastria approfondita, aggiorneremo
-        // il collegamento". Quel giorno il segno tornera' a parlare di voi
-        // due; l'identificativo resta, perche' lo conosce il server.
-        // **NIENTE SFIDE NELL'APP**, il fondatore l'8 ottobre 2026: "Non
-        // possiamo parlare di gioco o sfide o punteggi nella nostra app."
-        testo: 'Leggiamoci con un VIP',
-        rigaDiChiRiceve: 'Qualcuno ti invita: con quale VIP fai più scintille?',
-        risposte: ['Accetto', 'Più tardi'],
+        // **IL SEGNO 15 DICE IL VERO, ordine FT voce FT.14, 14 ottobre
+        // 2026.** Era "Leggiamoci con un VIP" (ordine FA voce 02, 4 ottobre
+        // 2026): apriva la porta dove si sceglie un VIP, perche' allora
+        // l'unica sinastria del progetto era quella. Il fondatore l'aveva
+        // gia' detto: "Appena faremo la sinastria per amici o sinastria
+        // approfondita, aggiorneremo il collegamento". Ora il segno parla di
+        // voi due, e apre la Sinastria approfondita con l'amico a cui e'
+        // mandato (P8 dell'ordine FT). L'identificativo resta, lo conosce il
+        // server (`RISPOSTE_PER_SEGNO`, `functions/src/sociale.ts`).
+        testo: 'Facciamo la sinastria',
+        rigaDiChiRiceve: 'Qualcuno vuole leggere il cielo vostro, insieme al suo.',
+        risposte: ['Leggiamolo', 'Più tardi'],
         motivo: MotivoDelSegno.spirale,
-        apre: ArteDellaRichiesta.sinastriaVip),
+        apre: ArteDellaRichiesta.sinastriaApprofondita),
     SegnoDelCerchio(
         id: 'stessaCarta',
         categoria: CategoriaDelSegno.richieste,
