@@ -212,6 +212,18 @@ class QuestionAllowance extends ChangeNotifier {
   /// `functions/src/budget.ts`, `UNITA_DEL_RISCATTO`.
   static const int kCarteDelRiscatto = 3;
 
+  /// **IL RISCATTO DELLA STESA INTERA**, decisione del fondatore del 14
+  /// ottobre 2026 ("2 400 EOS"): la Croce Celtica si riscatta in una volta
+  /// sola, e il riscatto ridà le sue dieci carte. E' il nome che il server
+  /// usa nel listino e nel motivo (`riscatto_steseDieci`, in
+  /// `RISCATTI_DELLA_STESA_INTERA` di `functions/src/borsellino.ts`); il
+  /// PREZZO non sta qui, arriva dal listino come ogni altro.
+  static const String kRiscattoDellaStesaIntera = 'steseDieci';
+
+  /// Le carte che ridà il riscatto della stesa intera: lo stesso numero di
+  /// `unita` sul server.
+  static const int kCarteDellaStesaIntera = 10;
+
   /// Il tetto di CORRETTEZZA per chi non ha limite: non e' una restrizione
   /// commerciale, e' la difesa contro un tocco ripetuto per sbaglio o per
   /// gioco. Chi arriva qui in un giorno solo non sta piu' leggendo.
@@ -643,6 +655,25 @@ class QuestionAllowance extends ChangeNotifier {
     return (mancano + kCarteDelRiscatto - 1) ~/ kCarteDelRiscatto;
   }
 
+  /// **SE QUESTA STESA SI RISCATTA INTERA, con un riscatto solo.** Vero
+  /// quando il server ha mandato nel listino il riscatto della stesa intera
+  /// ([kRiscattoDellaStesaIntera]), le sue carte bastano a quelle che
+  /// mancano, e costa meno dei riscatti da tre che servirebbero: a carte
+  /// esaurite la Croce Celtica costa 400 Eos invece di 600. Con due carte
+  /// mancanti resta un riscatto da tre, che costa meno: mai far pagare di
+  /// piu' per lo stesso gesto. Un server che il riscatto intero non lo
+  /// manda lascia la strada di prima.
+  bool laStesaSiRiscattaIntera(Tier tier, {required int carte}) {
+    final intero = _listinoDelRiscatto[kRiscattoDellaStesaIntera];
+    if (intero == null) return false;
+    final volte = riscattiPerLaStesa(tier, carte: carte);
+    if (volte == 0) return false;
+    final mancano = carte - (steseRimaste(tier) ?? 0);
+    if (mancano > kCarteDellaStesaIntera) return false;
+    final unitario = _listinoDelRiscatto['stese'];
+    return unitario == null || intero < unitario * volte;
+  }
+
   /// Registra una stesa consumata. Chi ha l'illimitato non intacca niente.
   ///
   /// Si chiama UNA volta per stesa e non una per carta, nel momento in cui la
@@ -942,6 +973,9 @@ class QuestionAllowance extends ChangeNotifier {
         // Il riscatto ridà la stesa che oggi si apre, quella a tre carte:
         // ordine EX voce 02, come `UNITA_DEL_RISCATTO` del server.
         _stese -= kCarteDelRiscatto;
+      case kRiscattoDellaStesaIntera:
+        // La stesa intera ridà le sue dieci carte, come `unita` sul server.
+        _stese -= kCarteDellaStesaIntera;
       case 'sinastrie':
         _sinastrie--;
     }

@@ -1229,17 +1229,29 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // Adesso se ne comprano quanti servono, sotto un consenso solo, e il
     // pulsante dice quante carte e quanti Eos. Guardia:
     // `test/il_riscatto_copre_la_croce_celtica_test.dart`.
-    final volte = borsa.riscattiPerLaStesa(piano, carte: carte);
+    //
+    // **LA STESA INTERA, decisione del fondatore del 14 ottobre 2026** ("2
+    // 400 EOS"): se il server manda nel listino il riscatto della stesa
+    // intera e costa meno dei riscatti da tre, la Croce Celtica si riscatta
+    // con UN riscatto che ridà le sue dieci carte, al prezzo del server. Un
+    // server che non lo manda lascia la strada dei riscatti in fila.
+    final intera = borsa.laStesaSiRiscattaIntera(piano, carte: carte);
+    final volte = intera ? 1 : borsa.riscattiPerLaStesa(piano, carte: carte);
     final mancano = carte - restano;
-    final cosa = volte <= 1 && carte <= QuestionAllowance.kCarteDelRiscatto
-        ? 'una stesa completa'
-        : mancano >= carte
-            ? 'le $carte carte'
-            : 'le $mancano carte che mancano';
+    final descrizione =
+        (widget.tipo ?? TarotSpreadType.predefinita).descrizione;
+    final cosa = intera
+        ? '${descrizione.substring(0, 1).toLowerCase()}'
+            '${descrizione.substring(1)}'
+        : volte <= 1 && carte <= QuestionAllowance.kCarteDelRiscatto
+            ? 'una stesa completa'
+            : mancano >= carte
+                ? 'le $carte carte'
+                : 'le $mancano carte che mancano';
     final messaggero = ScaffoldMessenger.maybeOf(context);
     final riscatto = corredoDelRiscatto(
       context,
-      budget: 'stese',
+      budget: intera ? QuestionAllowance.kRiscattoDellaStesaIntera : 'stese',
       cosaUna: cosa,
       riscatti: volte,
       onSuccesso: (pagato) {
@@ -1278,9 +1290,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 'e questa stesa ne chiede $carte.'
             : 'Le ${limite ?? 0} carte del giorno sono state estratte.',
         piuInSu == null
-            ? 'Puoi riscattare ${volte > 1 ? cosa : 'una stesa'} con gli '
-                'Eos, oppure tornare domani.'
-            : 'Puoi riscattare ${volte > 1 ? cosa : 'una stesa'} con gli '
+            ? 'Puoi riscattare ${intera || volte > 1 ? cosa : 'una stesa'} '
+                'con gli Eos, oppure tornare domani.'
+            : 'Puoi riscattare ${intera || volte > 1 ? cosa : 'una stesa'} '
+                'con gli '
                 'Eos, oppure salire di '
                 'livello nel Cerchio: dal livello successivo le carte del '
                 'giorno sono $piuInSu.',

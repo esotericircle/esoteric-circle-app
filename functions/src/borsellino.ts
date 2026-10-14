@@ -14,7 +14,7 @@
  * di un Sigillo si accredita due volte, e un saldo che cresce da solo e' un
  * saldo che non vale niente.
  */
-import {Budget, BUDGET, Piano} from "./budget";
+import {Budget, BUDGET, Piano, UNITA_DEL_RISCATTO} from "./budget";
 
 export type CausaleEos =
   | "premio_sigillo"
@@ -166,6 +166,67 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
    */
   cieli: 30,
 };
+
+/**
+ * **IL RISCATTO DELLA STESA INTERA, decisione del fondatore del 14 ottobre
+ * 2026.** Alla domanda "Prezzo della stesa da 10: oggi 600 Eos (4 riscatti
+ * da 150). Se la vuoi a 150 fissi serve cambiare il server." ha risposto
+ * alla lettera "2 400 EOS": la Croce Celtica, dieci carte, si riscatta con
+ * UN riscatto da 400 Eos che rida' le dieci carte.
+ *
+ * **Non e' un budget nuovo**: le carte restano quelle del budget delle
+ * stese, e un budget nuovo avrebbe portato con se' un tetto per piano che
+ * nessuno ha deciso. E' un modo diverso di comprare lo stesso budget, col
+ * suo prezzo e le sue carte. Il motivo e' `riscatto_steseDieci`; il riscatto
+ * da 150 a tre carte resta com'era per le stese piu' piccole.
+ */
+export const RISCATTI_DELLA_STESA_INTERA: Record<
+  string,
+  {budget: Budget; prezzo: number; unita: number}
+> = {
+  steseDieci: {budget: "stese", prezzo: 400, unita: 10},
+};
+
+/**
+ * IL LISTINO CHE VIAGGIA CON LO STATO: i prezzi dei budget e quelli dei
+ * riscatti della stesa intera, sotto il loro nome. Il telefono legge il
+ * prezzo di `steseDieci` di qui e non lo scrive mai a mano.
+ */
+export const LISTINO_DEL_RISCATTO: Record<string, number> = {
+  ...PREZZI_DEL_RISCATTO,
+  ...Object.fromEntries(
+    Object.entries(RISCATTI_DELLA_STESA_INTERA).map(([nome, r]) => [
+      nome,
+      r.prezzo,
+    ])
+  ),
+};
+
+/**
+ * COSA COMPRA UN MOTIVO DI RISCATTO: il budget che si riapre, il prezzo e
+ * quante unita' rida'. Oppure null se il motivo non e' un riscatto. Una
+ * porta sola per il prezzo (`importoRichiesto`) e per il contatore
+ * (`muoviGliEos`), cosi' le due cose non possono divergere.
+ */
+export function riscattoDelMotivo(
+  motivo: string
+): {budget: Budget; prezzo: number; unita: number} | null {
+  const budget = budgetDelRiscatto(motivo);
+  if (budget !== null) {
+    return {
+      budget,
+      prezzo: PREZZI_DEL_RISCATTO[budget],
+      unita: UNITA_DEL_RISCATTO[budget] ?? 1,
+    };
+  }
+  if (!motivo.startsWith("riscatto_")) return null;
+  const nome = motivo.substring("riscatto_".length);
+  // Solo le chiavi proprie: "riscatto_constructor" non e' un riscatto.
+  if (!Object.prototype.hasOwnProperty.call(RISCATTI_DELLA_STESA_INTERA, nome)) {
+    return null;
+  }
+  return {...RISCATTI_DELLA_STESA_INTERA[nome]};
+}
 
 /** Il motivo di un riscatto, dal budget: una forma sola, condivisa. */
 export function motivoDelRiscatto(budget: Budget): string {
@@ -330,8 +391,10 @@ export function importoRichiesto(
     // **IL RISCATTO HA IL PREZZO DEL LISTINO, ordine BG voce 05**: per i
     // motivi riscatto_<budget> il numero del client si ignora e vale il
     // listino di questo file. Le altre spese restano come prima.
-    const budget = budgetDelRiscatto(motivo);
-    if (budget !== null) return -PREZZI_DEL_RISCATTO[budget];
+    // Dal 14 ottobre 2026 anche il riscatto della stesa intera
+    // (`RISCATTI_DELLA_STESA_INTERA`), col suo prezzo.
+    const riscatto = riscattoDelMotivo(motivo);
+    if (riscatto !== null) return -riscatto.prezzo;
     if (typeof quanti !== "number" || !Number.isInteger(quanti)) return null;
     if (quanti <= 0 || quanti > SPESA_MASSIMA) return null;
     return -quanti;

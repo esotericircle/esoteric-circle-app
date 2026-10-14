@@ -473,8 +473,10 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     // **PRIMA DEL RISCATTO LA CONFERMA**, ordine FD voce 01: costo e saldo,
     // e niente si spende finche' non si tocca "Procedi".
-    expect(find.text('Questa richiesta costa 150 Eos. Nel tuo borsellino ce '
-        'ne sono 400.'), findsOneWidget,
+    expect(
+        find.text('Questa richiesta costa 150 Eos. Nel tuo borsellino ce '
+            'ne sono 400.'),
+        findsOneWidget,
         reason: 'il riscatto non e\' passato dalla conferma');
     await tester.tap(find.byKey(const Key('conferma_spesa_procedi')));
     await tester.pump();
@@ -506,7 +508,11 @@ void main() {
         reason: 'la stesa non guarda piu\' la riserva prima di cominciare');
     expect(s.contains('registraStesa('), isTrue,
         reason: 'la stesa non consuma piu\' niente');
-    expect(s.contains("budget: 'stese'"), isTrue,
+    // LAPIDE: `s.contains("budget: 'stese'")`, il testo letterale. Dal 14
+    // ottobre 2026 (ordine FS, la Croce Celtica a 400 Eos) il budget del
+    // riscatto e' scelto: la stesa intera oppure le stese. Si pretende che le
+    // stese restino il budget del riscatto.
+    expect(RegExp(r"budget:[^;]*'stese'").hasMatch(s), isTrue,
         reason: 'la stesa non offre piu\' il riscatto del budget giusto');
     expect(s.contains("budget: 'gettate'"), isFalse,
         reason: 'la stesa riscatta le GETTATE: e\' il budget delle rune');

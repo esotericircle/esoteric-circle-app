@@ -34,7 +34,6 @@ import {
   pianoValido,
   quantiValidi,
   restaOggi,
-  UNITA_DEL_RISCATTO,
 } from "./budget";
 import {
   CamminoCustodito,
@@ -50,9 +49,9 @@ import {
   EOS_A_CHI_ARRIVA_CON_UN_INVITO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
-  PREZZI_DEL_RISCATTO,
+  LISTINO_DEL_RISCATTO,
   TETTO_CONDIVISIONI_PREMIATE,
-  budgetDelRiscatto,
+  riscattoDelMotivo,
   causaleValida,
   importoRichiesto,
   saldoDopo,
@@ -636,8 +635,11 @@ export const statoDelCerchio = onCall(OPZIONI_DELLO_STATO, async (request) => {
     // non lo detta.
     premioDellInvitoAccolto: EOS_DELL_INVITO_ACCOLTO,
     // Ordine BG voce 05: il prezzo del riscatto di ogni budget, deciso dal
-    // server. Il client lo mostra sul pulsante e non lo detta mai.
-    listinoDelRiscatto: PREZZI_DEL_RISCATTO,
+    // server. Il client lo mostra sul pulsante e non lo detta mai. Dal 14
+    // ottobre 2026 porta anche il riscatto della stesa intera, `steseDieci`
+    // a 400 Eos: un server piu' vecchio non lo manda, e il telefono allora
+    // non lo offre.
+    listinoDelRiscatto: LISTINO_DEL_RISCATTO,
     // Il premio della registrazione e' un numero del SERVER, come ogni
     // altro prezzo: il client lo scrive negli inviti senza cablarlo.
     listinoDellaRegistrazione: {benvenuto: BENVENUTO},
@@ -926,12 +928,14 @@ export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     // transazione muore piu' sotto e il contatore non si tocca, tutto o
     // niente. Lo speso puo' scendere sotto zero, ed e' voluto: vale come
     // credito di oggi comprato in anticipo sul proprio limite.
-    const budgetRiscattato =
-      causale === "spesa" ? budgetDelRiscatto(motivo) : null;
-    if (budgetRiscattato !== null) {
-      spesiOggi[budgetRiscattato] =
-        (spesiOggi[budgetRiscattato] ?? 0) -
-        (UNITA_DEL_RISCATTO[budgetRiscattato] ?? 1);
+    //
+    // **LA STESA INTERA, 14 ottobre 2026**: `riscattoDelMotivo` dice anche
+    // il riscatto `steseDieci`, che scala dieci carte dal budget delle
+    // stese. Prezzo e unita' escono dalla stessa porta di `importoRichiesto`.
+    const riscatto = causale === "spesa" ? riscattoDelMotivo(motivo) : null;
+    if (riscatto !== null) {
+      spesiOggi[riscatto.budget] =
+        (spesiOggi[riscatto.budget] ?? 0) - riscatto.unita;
       tx.set(contatoriDoc(uid), {giorno, spesi: spesiOggi});
     }
 

@@ -14,6 +14,9 @@ import {
   VALORE_DEL_PREMIO,
   PREZZI_DEL_RISCATTO,
   budgetDelRiscatto,
+  LISTINO_DEL_RISCATTO,
+  RISCATTI_DELLA_STESA_INTERA,
+  riscattoDelMotivo,
 } from "./borsellino";
 
 /**
@@ -228,6 +231,46 @@ test("il listino del riscatto e' il server a deciderlo", () => {
   assert.equal(PREZZI_DEL_RISCATTO.stese, 150);
 });
 
+test("la Croce Celtica si riscatta intera: 400 Eos, dieci carte, un riscatto", () => {
+  // DECISIONE DEL FONDATORE, 14 ottobre 2026. Alla domanda "Prezzo della
+  // stesa da 10: oggi 600 Eos (4 riscatti da 150). Se la vuoi a 150 fissi
+  // serve cambiare il server." ha risposto alla lettera "2 400 EOS".
+  assert.deepEqual(RISCATTI_DELLA_STESA_INTERA.steseDieci, {
+    budget: "stese",
+    prezzo: 400,
+    unita: 10,
+  });
+  // Il prezzo lo decide il server: il client dichiara 1 e paga 400.
+  assert.equal(importoRichiesto("spesa", "riscatto_steseDieci", 1), -400);
+  assert.deepEqual(riscattoDelMotivo("riscatto_steseDieci"), {
+    budget: "stese",
+    prezzo: 400,
+    unita: 10,
+  });
+  // Le stese piu' piccole restano a 150 per tre carte.
+  assert.deepEqual(riscattoDelMotivo("riscatto_stese"), {
+    budget: "stese",
+    prezzo: 150,
+    unita: 3,
+  });
+  assert.deepEqual(riscattoDelMotivo("riscatto_gettate"), {
+    budget: "gettate",
+    prezzo: 60,
+    unita: 1,
+  });
+  // Il listino che viaggia con lo stato porta il riscatto intero accanto
+  // ai budget, senza toccare i loro prezzi.
+  assert.equal(LISTINO_DEL_RISCATTO.steseDieci, 400);
+  assert.equal(LISTINO_DEL_RISCATTO.stese, 150);
+  // Un nome che non c'e', o che sta solo nel prototipo, non e' un riscatto.
+  assert.equal(riscattoDelMotivo("riscatto_steseCento"), null);
+  assert.equal(riscattoDelMotivo("riscatto_constructor"), null);
+  assert.equal(riscattoDelMotivo("riscatto_toString"), null);
+  assert.equal(riscattoDelMotivo("steseDieci"), null);
+  // Dieci carte di credito riaprono la Croce Celtica a contatore pieno.
+  assert.equal(decidi("stese", "tier2", 10 - 10, 10).concesso, true);
+});
+
 // --- ORDINE BN VOCE 09: il budget delle stese complete ---
 
 test("le stese hanno il budget del listino, e non quello della carta singola", () => {
@@ -293,19 +336,24 @@ test("il riscatto scala il contatore dentro la transazione del saldo", () => {
     sorgente.indexOf("export const muoviGliEos"),
     sorgente.indexOf("SCRIVE LA MEMORIA")
   );
+  // LAPIDE, 14 ottobre 2026: qui si pretendevano `budgetDelRiscatto(motivo)`
+  // e `(UNITA_DEL_RISCATTO[budgetRiscattato] ?? 1)`. Col riscatto della
+  // stesa intera (decisione del fondatore, "2 400 EOS") budget, prezzo e
+  // unita' escono da una porta sola, `riscattoDelMotivo`, che li dice anche
+  // per `riscatto_steseDieci`; l'unita' dei budget resta UNITA_DEL_RISCATTO.
   assert.ok(
-    transazione.includes("budgetDelRiscatto(motivo)"),
-    "il riscatto non passa piu' dal budget del motivo"
+    transazione.includes("riscattoDelMotivo(motivo)"),
+    "il riscatto non passa piu' dalla porta del motivo"
   );
   assert.ok(
     // Ordine EX voce 02: il riscatto scala l'unita' del budget (tre carte
-    // per le stese, uno per gli altri).
-    transazione.includes("(UNITA_DEL_RISCATTO[budgetRiscattato] ?? 1)"),
+    // per le stese, uno per gli altri, dieci per la stesa intera).
+    transazione.includes("(spesiOggi[riscatto.budget] ?? 0) - riscatto.unita"),
     "il contatore del giorno non viene piu' scalato dal riscatto"
   );
-  // E il listino viaggia con lo stato.
+  // E il listino viaggia con lo stato, col riscatto della stesa intera.
   assert.ok(
-    sorgente.includes("listinoDelRiscatto: PREZZI_DEL_RISCATTO"),
+    sorgente.includes("listinoDelRiscatto: LISTINO_DEL_RISCATTO"),
     "statoDelCerchio non porta piu' il listino del riscatto"
   );
 });

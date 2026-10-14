@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -33,6 +35,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// **La cura** compra in una volta sola, sotto un solo consenso, tanti
 /// riscatti quanti ne servono alle carte che mancano a questa stesa, e dice il
 /// prezzo vero prima del tocco. Il prezzo unitario e il server non cambiano.
+///
+/// **LAPIDE, 14 ottobre 2026: la Croce Celtica non costa piu' 600 Eos.** Con
+/// la cura qui sopra le dieci carte costavano quattro riscatti da 150. Il
+/// fondatore, alla domanda "Prezzo della stesa da 10: oggi 600 Eos (4
+/// riscatti da 150). Se la vuoi a 150 fissi serve cambiare il server.", ha
+/// risposto alla lettera "2 400 EOS": la stesa da dieci si riscatta con UN
+/// riscatto da 400 Eos che ridà le dieci carte. E' un riscatto nuovo del
+/// server, `steseDieci` in `RISCATTI_DELLA_STESA_INTERA` di
+/// `functions/src/borsellino.ts`, col suo prezzo nel listino che il server
+/// manda: il telefono lo legge e non lo scrive. Le prove dei quattro
+/// riscatti restano, ma dicono adesso cosa succede con un server che il
+/// riscatto nuovo non lo conosce ancora: il telefono ripiega sulla strada
+/// di prima, al prezzo che quel server dichiara, e non promette i 400.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -151,9 +166,54 @@ void main() {
   // --- IL DATO: quanti riscatti, e il loro prezzo ---
 
   test(
-      'all\'Adepto a carte esaurite la Croce Celtica chiede quattro riscatti, '
-      'e quattro la aprono', () async {
+      'IL RISCATTO DELLA STESA INTERA: la Croce Celtica a carte esaurite si '
+      'apre con UN riscatto da 400 Eos che ridà dieci carte', () async {
     final porta = _PortaDelDenaro(saldoIniziale: 1000);
+    final borsa = QuestionAllowance(porta: porta);
+    await borsa.sincronizza();
+    borsa.registraStesa(Tier.tier2, carte: 10);
+    expect(borsa.puoiStendere(Tier.tier2, carte: 10), isFalse);
+    expect(borsa.prezzoDelRiscatto('steseDieci'), 400,
+        reason: 'il prezzo del riscatto intero non arriva dal listino');
+    final pagato = await borsa.riscatta('steseDieci',
+        consenso: ConsensoDellaSpesa.perLeProve(400));
+    expect(pagato, 400);
+    expect(porta.movimenti, hasLength(1));
+    expect(porta.movimenti.single['motivo'], 'riscatto_steseDieci');
+    expect(borsa.saldoEos, 600);
+    expect(borsa.steseRimaste(Tier.tier2), 10,
+        reason: 'il riscatto intero non ridà le dieci carte');
+    expect(borsa.puoiStendere(Tier.tier2, carte: 10), isTrue,
+        reason: 'pagati 400 Eos, la Croce Celtica resta chiusa');
+  });
+
+  test(
+      'il server dice 400 Eos e dieci carte per il riscatto della stesa intera',
+      () {
+    // La decisione del fondatore sta nel server, che e' il solo a decidere
+    // il prezzo: questa prova legge il listino vero, non quello finto qui
+    // sotto, e il numero delle carte deve essere lo stesso dalle due parti.
+    final borsellino = File('functions/src/borsellino.ts').readAsStringSync();
+    final intero = RegExp(r'steseDieci:\s*\{\s*budget:\s*"stese",\s*'
+            r'prezzo:\s*(\d+),\s*unita:\s*(\d+)')
+        .firstMatch(borsellino);
+    expect(intero, isNotNull,
+        reason: 'il server non conosce il riscatto della stesa intera');
+    expect(int.parse(intero!.group(1)!), 400,
+        reason: 'la stesa da dieci non costa i 400 Eos decisi dal fondatore');
+    expect(int.parse(intero.group(2)!), 10,
+        reason: 'il riscatto intero non ridà dieci carte');
+    final cerchio = File('functions/src/cerchio.ts').readAsStringSync();
+    expect(cerchio.contains('listinoDelRiscatto: LISTINO_DEL_RISCATTO'), isTrue,
+        reason: 'il listino che il server manda non porta il riscatto intero');
+  });
+
+  test(
+      'COL SERVER DI PRIMA: all\'Adepto a carte esaurite la Croce Celtica '
+      'chiede quattro riscatti, e quattro la aprono', () async {
+    // LAPIDE, 14 ottobre 2026: era la strada di tutti, e' rimasta quella di
+    // un server che il riscatto intero non lo manda nel listino.
+    final porta = _PortaDelDenaro(saldoIniziale: 1000, serverDiPrima: true);
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
     borsa.registraStesa(Tier.tier2, carte: 10);
@@ -162,7 +222,8 @@ void main() {
 
     // Il difetto, per esteso: UN riscatto ridà tre carte e la stesa da dieci
     // resta chiusa. E' il giro che la schermata faceva senza fine.
-    final una = QuestionAllowance(porta: _PortaDelDenaro(saldoIniziale: 1000));
+    final una = QuestionAllowance(
+        porta: _PortaDelDenaro(saldoIniziale: 1000, serverDiPrima: true));
     await una.sincronizza();
     una.registraStesa(Tier.tier2, carte: 10);
     await una.riscatta('stese', consenso: ConsensoDellaSpesa.perLeProve(150));
@@ -196,17 +257,42 @@ void main() {
       expect(borsa.riscattiPerLaStesa(Tier.tier2, carte: carte), volte,
           reason: 'la stesa da $carte carte non chiede $volte riscatti');
     });
+    // LAPIDE, 14 ottobre 2026: la stesa da dieci a carte esaurite non si
+    // paga piu' coi quattro riscatti da tre, ma col riscatto intero. Le
+    // stese da una, tre e quattro restano coi riscatti da tre.
+    final intere = {1: false, 3: false, 4: false, 10: true};
+    intere.forEach((carte, intera) {
+      expect(borsa.laStesaSiRiscattaIntera(Tier.tier2, carte: carte), intera,
+          reason: 'la stesa da $carte carte sbaglia il riscatto intero');
+    });
+    final intero =
+        borsa.prezzoDelRiscatto(QuestionAllowance.kRiscattoDellaStesaIntera)!;
     // ignore: avoid_print
     print('IL RISCATTO DELLA STESA, zero carte rimaste: ${[
       for (final c in attesi.keys)
-        '$c carte ${borsa.riscattiPerLaStesa(Tier.tier2, carte: c) * unitario} Eos'
+        '$c carte ${intere[c]! ? intero : borsa.riscattiPerLaStesa(Tier.tier2, carte: c) * unitario} Eos'
     ].join(', ')}');
     // Con le carte che bastano non si riscatta niente.
-    final piena = QuestionAllowance();
+    final piena = QuestionAllowance(porta: _PortaDelDenaro(saldoIniziale: 0));
+    await piena.sincronizza();
     expect(piena.riscattiPerLaStesa(Tier.tier2, carte: 10), 0);
-    // Restano otto carte: alla stesa da dieci ne mancano due, un riscatto.
+    expect(piena.laStesaSiRiscattaIntera(Tier.tier2, carte: 10), isFalse);
+    // Restano otto carte: alla stesa da dieci ne mancano due, un riscatto
+    // da 150, che costa meno dei 400 del riscatto intero.
     piena.registraStesa(Tier.tier2, carte: 2);
     expect(piena.riscattiPerLaStesa(Tier.tier2, carte: 10), 1);
+    expect(piena.laStesaSiRiscattaIntera(Tier.tier2, carte: 10), isFalse,
+        reason: 'per due carte mancanti si fanno pagare 400 Eos invece di 150');
+    // Restano tre carte: ne mancano sette, tre riscatti da 150 sono 450, e
+    // il riscatto intero a 400 costa meno.
+    piena.registraStesa(Tier.tier2, carte: 5);
+    expect(piena.laStesaSiRiscattaIntera(Tier.tier2, carte: 10), isTrue);
+    // Col server di prima il riscatto intero non c'e', e non si offre.
+    final vecchia = QuestionAllowance(
+        porta: _PortaDelDenaro(saldoIniziale: 0, serverDiPrima: true));
+    await vecchia.sincronizza();
+    vecchia.registraStesa(Tier.tier2, carte: 10);
+    expect(vecchia.laStesaSiRiscattaIntera(Tier.tier2, carte: 10), isFalse);
   });
 
   test('un consenso che non copre tutti i riscatti non ne fa nessuno',
@@ -232,10 +318,84 @@ void main() {
   // --- LA SCENA: il foglio, la conferma, e niente giro ---
 
   testWidgets(
-      'Croce Celtica a carte esaurite: il foglio dice le dieci carte e il '
-      'prezzo di quattro riscatti, un consenso solo, e la lettura si apre',
+      'Croce Celtica a carte esaurite: il foglio dice la Croce Celtica a 400 '
+      'Eos, un consenso solo, un riscatto, e la lettura si apre',
       (tester) async {
     final porta = _PortaDelDenaro(saldoIniziale: 1000);
+    final borsa = QuestionAllowance(porta: porta);
+    await borsa.sincronizza();
+    borsa.registraStesa(Tier.tier2, carte: 10);
+    expect(borsa.steseRimaste(Tier.tier2), 0);
+
+    await monta(tester,
+        tipo: TarotSpreadType.dieciCarte, piano: Tier.tier2, borsa: borsa);
+    await stendiEApri(tester, 10);
+
+    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
+        reason: 'a carte esaurite il foglio delle due strade non si apre');
+    expect(find.text('Riscatta la Croce Celtica · 400 Eos'), findsOneWidget,
+        reason: 'il pulsante del foglio non dice il riscatto della stesa '
+            'intera al prezzo del server');
+    expect(find.text('Riscatta le 10 carte · 600 Eos'), findsNothing,
+        reason: 'col riscatto intero nel listino si offrono ancora i quattro '
+            'riscatti da 150');
+
+    await tester.tap(find.byKey(const Key('invito_riscatto')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(
+        find.text('Questa richiesta costa 400 Eos. Nel tuo borsellino ce '
+            'ne sono 1000.'),
+        findsOneWidget,
+        reason: 'la conferma non dice il prezzo della Croce Celtica');
+    await tester.tap(find.byKey(const Key('conferma_spesa_procedi')));
+    await tester.pump();
+    for (var i = 0; i < 25; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+
+    expect(porta.movimenti, hasLength(1),
+        reason: 'i riscatti chiesti al server non sono uno solo');
+    expect(porta.movimenti.single['motivo'], 'riscatto_steseDieci');
+    expect(borsa.saldoEos, 600, reason: 'la spesa non e\' di 400 Eos');
+    expect(find.byKey(const Key('upgrade_invite')), findsNothing,
+        reason: 'IL GIRO: a riscatto pagato si riapre lo stesso foglio');
+    expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget,
+        reason: 'col riscatto fatto il responso non si apre');
+  });
+
+  testWidgets(
+      'se il server rifiuta il riscatto della stesa intera, lo si dice, '
+      'nessun Eos esce e il foglio non si riapre', (tester) async {
+    final porta = _PortaDelDenaro(saldoIniziale: 1000, rispondeA: 0);
+    final borsa = QuestionAllowance(porta: porta);
+    await borsa.sincronizza();
+    borsa.registraStesa(Tier.tier2, carte: 10);
+
+    await monta(tester,
+        tipo: TarotSpreadType.dieciCarte, piano: Tier.tier2, borsa: borsa);
+    await stendiEApri(tester, 10);
+    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
+    final visti = await riscattaEConferma(tester);
+
+    expect(porta.movimenti, hasLength(1),
+        reason: 'dopo il rifiuto il telefono ha chiesto altri riscatti');
+    expect(borsa.saldoEos, 1000);
+    expect(borsa.puoiStendere(Tier.tier2, carte: 10), isFalse);
+    expect(visti, contains('riscatto_non_riuscito'),
+        reason: 'il rifiuto del server non si dice');
+    expect(find.byKey(const Key('upgrade_invite')), findsNothing,
+        reason: 'IL GIRO: col riscatto rifiutato si riapre lo stesso foglio');
+    expect(find.byKey(const Key('stesa_blocco_carte')), findsNothing);
+  });
+
+  testWidgets(
+      'COL SERVER DI PRIMA: il foglio dice le dieci carte e il prezzo di '
+      'quattro riscatti, un consenso solo, e la lettura si apre',
+      (tester) async {
+    // LAPIDE, 14 ottobre 2026: era la scena di tutti, a 600 Eos; resta per
+    // il server che non manda ancora il riscatto della stesa intera.
+    final porta = _PortaDelDenaro(saldoIniziale: 1000, serverDiPrima: true);
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
     borsa.registraStesa(Tier.tier2, carte: 10);
@@ -278,10 +438,12 @@ void main() {
   });
 
   testWidgets(
-      'se un riscatto a meta\' fallisce, si ferma, lo dice e non riapre il '
-      'foglio', (tester) async {
-    // Il server risponde ai primi due riscatti e poi tace.
-    final porta = _PortaDelDenaro(saldoIniziale: 1000, rispondeA: 2);
+      'COL SERVER DI PRIMA: se un riscatto a meta\' fallisce, si ferma, lo '
+      'dice e non riapre il foglio', (tester) async {
+    // Il server risponde ai primi due riscatti e poi tace. LAPIDE, 14
+    // ottobre 2026: i riscatti in fila restano solo col server di prima.
+    final porta =
+        _PortaDelDenaro(saldoIniziale: 1000, rispondeA: 2, serverDiPrima: true);
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
     borsa.registraStesa(Tier.tier2, carte: 10);
@@ -332,21 +494,31 @@ void main() {
 /// Una porta che risponde come il server vero: listino, saldo, movimenti.
 /// Con [rispondeA] tace dopo quel numero di movimenti, come un server che
 /// cade a meta'.
+/// Con [serverDiPrima] il listino e' quello di prima del 14 ottobre 2026,
+/// senza il riscatto della stesa intera.
 class _PortaDelDenaro extends PortaDelCerchio {
-  _PortaDelDenaro({required this.saldoIniziale, this.rispondeA});
+  _PortaDelDenaro(
+      {required this.saldoIniziale,
+      this.rispondeA,
+      this.serverDiPrima = false});
 
   final int saldoIniziale;
   final int? rispondeA;
+  final bool serverDiPrima;
   int _saldo = 0;
   final List<Map<String, Object?>> movimenti = [];
 
-  static const _listino = {
+  static const _listinoDiPrima = {
     'domande': 80,
     'approfondimenti': 60,
     'confronti': 150,
     'gettate': 60,
     'stese': 150,
   };
+
+  Map<String, int> get _listino => serverDiPrima
+      ? _listinoDiPrima
+      : const {..._listinoDiPrima, 'steseDieci': 400};
 
   @override
   bool get viva => true;
