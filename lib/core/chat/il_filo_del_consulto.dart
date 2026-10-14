@@ -265,11 +265,41 @@ abstract final class IlFiloDelConsulto {
     _salva();
   }
 
+  /// **LA DOMANDA NUOVA TOCCA IL TEMA DEL CONSULTO IN CORSO?** Ordine del 14
+  /// ottobre 2026, dal telefono del fondatore: una stesa sulla domanda
+  /// "quando partorirò un bambino" aveva aperto un consulto; un'ora dopo
+  /// (il filo vive [vita], e la riapertura dell'app non lo chiude) una
+  /// stesa del tutto diversa, "fiducia e tradimento" col Cavaliere di
+  /// Bastoni, ha ricevuto quella domanda come punto fermo da non
+  /// contraddire, e Medora ha risposto parlando ancora di partorire un
+  /// bambino: la legge della coerenza ("se la persona cambia discorso,
+  /// rispondi al discorso nuovo") chiede al modello di accorgersene da
+  /// solo, e al banco non se n'e' accorto.
+  ///
+  /// **Si previene, non si corregge**, come l'elemento gia' uscito (ordine
+  /// FE, 7 ottobre): se la domanda nuova non condivide nemmeno una radice
+  /// di parola piena col tema del filo, il filo non si inietta in questa
+  /// chiamata. Non lo chiude: resta per una domanda che lo tocca davvero.
+  /// Senza parole piene da misurare (un tema o una domanda troppo corti) si
+  /// inietta come prima, perche' non c'e' niente su cui decidere.
+  static bool _toccaIlTema(String domanda, String tema) {
+    final a = LaFraseRipresa._parole(domanda);
+    final b = LaFraseRipresa._parole(tema);
+    if (a.isEmpty || b.isEmpty) return true;
+    return a.intersection(b).isNotEmpty;
+  }
+
   /// **L'ISTRUZIONE CON IL FILO**, per le chiamate che non passano dal
   /// provider dei Maestri (la stesa dei tarocchi col modello). Ordine FE
   /// voce 08: una memoria sola, e chi non la usava si collega a lei. Senza
-  /// un consulto in corso torna [istruzione] com'e'.
-  static String conIlFilo(String istruzione, Maestro maestro, String domanda) {
+  /// un consulto in corso, o quando la domanda non tocca il suo tema
+  /// ([_toccaIlTema]), torna [istruzione] com'e'.
+  static String conIlFilo(String istruzione, Maestro maestro, String domanda,
+      {String argomento = ''}) {
+    final s = scheda;
+    if (s != null && !_toccaIlTema('$domanda $argomento', s.tema)) {
+      return istruzione;
+    }
     final blocco = bloccoPer(maestro,
         fraseRipresa: LaFraseRipresa.fraTutte(domanda, frasiDelConsulto));
     return blocco.isEmpty ? istruzione : '$istruzione\n\n$blocco';

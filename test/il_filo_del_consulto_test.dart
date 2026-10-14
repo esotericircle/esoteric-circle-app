@@ -546,4 +546,51 @@ void main() {
           isNull);
     });
   });
+
+  group('conIlFilo non mescola temi estranei', () {
+    const istruzioneDiBase = 'Sei Medora, Maestra di astrologia e '
+        'cartomanzia.';
+
+    // **ORDINE DEL 14 OTTOBRE 2026, dal telefono del fondatore.** Una stesa
+    // sulla domanda "quando partorirò un bambino" apre il filo; un'ora
+    // dopo (senza chiuderlo) una stesa del tutto diversa, "fiducia e
+    // tradimento", non deve ricevere quella domanda come punto fermo.
+    test('una stesa su un tema estraneo non riceve il filo', () {
+      IlFiloDelConsulto.annota(
+          maestro: Maestro.medora,
+          domanda: 'quando partorirò un bambino',
+          risposta: 'Il Cavaliere di Bastoni parla di energia e desiderio.\n'
+              '✦ Agisci con decisione nei prossimi giorni.');
+      final conFilo = IlFiloDelConsulto.conIlFilo(
+          istruzioneDiBase, Maestro.medora, 'Fiducia e tradimento',
+          argomento: 'Fiducia e tradimento');
+      expect(conFilo, istruzioneDiBase,
+          reason: 'il filo si e\' infilato in una domanda che non lo tocca: '
+              '$conFilo');
+    });
+
+    // Lo stesso tema, parole diverse: il filo resta, perche' e' questo il
+    // caso per cui e' nato (ordine FE voce 08).
+    test('una stesa sullo stesso tema riceve il filo', () {
+      IlFiloDelConsulto.annota(
+          maestro: Maestro.medora,
+          domanda: 'il mio lavoro mi rende infelice',
+          risposta: 'Il Due di Spade parla di una scelta rimandata.\n'
+              '✦ Scrivi una lista dei pro e dei contro entro venerdì.');
+      final conFilo = IlFiloDelConsulto.conIlFilo(
+          istruzioneDiBase, Maestro.medora, 'dovrei cambiare lavoro?',
+          argomento: 'Lavoro');
+      expect(conFilo, isNot(istruzioneDiBase),
+          reason: 'il filo non e\' arrivato su una domanda che lo tocca '
+              'davvero');
+      expect(conFilo, contains('il mio lavoro mi rende infelice'));
+    });
+
+    test('senza un consulto in corso il filo non c\'e\', come prima', () {
+      final conFilo = IlFiloDelConsulto.conIlFilo(
+          istruzioneDiBase, Maestro.medora, 'Fiducia e tradimento',
+          argomento: 'Fiducia e tradimento');
+      expect(conFilo, istruzioneDiBase);
+    });
+  });
 }

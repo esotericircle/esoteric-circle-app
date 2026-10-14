@@ -610,7 +610,8 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
             IlFiloDelConsulto.conIlFilo(
                 istruzione(forma, chiave: chiave, profonda: profonda),
                 Maestro.medora,
-                domanda),
+                domanda,
+                argomento: argomento),
             richiesta(spread,
                 domanda: domanda,
                 argomento: argomento,
