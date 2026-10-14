@@ -1,0 +1,8 @@
+GIRO 2
+ruoli 1: 10 su 10 PASSA
+ruoli 2: 10 su 10 PASSA
+gemelle 59-67: 9 su 10 PASSA
+gemelle 63-68: 10 su 10 PASSA
+gemelle 38-41: 10 su 10 PASSA
+gemelle 14-18: 10 su 10 PASSA
+sbagliati: gemelle-26 (gemelle 59-67, 67 Eyael variante 3, giusta B, detta A)
