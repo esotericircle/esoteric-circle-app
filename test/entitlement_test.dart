@@ -201,7 +201,11 @@ void main() {
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
       // UNDICI dall'ordine EX voce 02: i minuti del LIVE dell'Illuminato.
-      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 12);
+      // DODICI dall'ordine FT voce FT.13: la Sinastria evolutiva.
+      // UNDICI dall'ordine FU voce FU.16, per ordine del fondatore e non per
+      // condensare: la Compatibilità a tre livelli non si conta piu' fra
+      // cio' che il piano da', perche' nessuna parte dell'app la esegue.
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 11);
     });
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {
@@ -238,6 +242,10 @@ void main() {
           illuminato.any((h) => h.contains('21 domande ai Maestri')), isTrue);
       // **E NON LA DOMANDA AL MAESTRO REALE**, uscita con l'ordine DJ voce 09.
       expect(illuminato.any((h) => h.contains('Maestro reale')), isFalse);
+      // **LAPIDE, ordine FU voce FU.16**: qui c'era la Compatibilità a tre
+      // livelli, "esclusiva". Nessuna parte dell'app la esegue, e il piano
+      // non la promette piu'.
+      expect(illuminato.any((h) => h.contains('tre livelli')), isFalse);
     });
 
     test('La mappa comparativa ha le righe attese con quattro valori', () {
@@ -279,7 +287,9 @@ void main() {
       // CINQUANTACINQUE dall'ordine FT voce FT.13: le cinque righe della
       // Sinastria evolutiva (coppie nuove, capitoli, Oggi fra voi,
       // Keplero, le tre esclusive dell'Adepto).
-      expect(PlanCatalog.matrix.length, 55);
+      // CINQUANTAQUATTRO dall'ordine FU voce FU.16: e' uscita la riga della
+      // Compatibilità a tre livelli, che nessuna parte dell'app esegue.
+      expect(PlanCatalog.matrix.length, 54);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

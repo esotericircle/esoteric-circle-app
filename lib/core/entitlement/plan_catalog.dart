@@ -373,7 +373,14 @@ class PlanCatalog {
         // parte dell'app la esegue, e se reale vuol dire una persona non e'
         // codice che manca, e' un operatore da ingaggiare. Non si offre e non
         // si conta fra cio' che il piano da'.
-        'Compatibilità a tre livelli, esclusiva',
+        // **QUI C'ERA LA COMPATIBILITA' A TRE LIVELLI**, "esclusiva"
+        // dell'Illuminato: astrale, angelico e archetipico. Uscita con
+        // l'ordine FU voce FU.16 del 15 ottobre 2026: nessuna parte dell'app
+        // la esegue (rapporto dell'ordine FT), e la Sinastria evolutiva legge
+        // due cieli veri in cinque capitoli, senza livelli. Il fondatore:
+        // "hai inserito di togliere la promessa falsa sulla compatibilità a
+        // tre livelli?". Non si offre e non si conta fra cio' che il piano
+        // da'.
         'Albero della Vita dinamico, esclusivo',
         'Memoria anima, sintesi evolutiva',
         'Diario Cosmico completo con AI e report PDF esportabili',
@@ -915,7 +922,9 @@ class PlanCatalog {
       'Sempre, anche a Cerchio chiuso',
       'Sempre, anche a Cerchio chiuso',
     ]),
-    FeatureRow('Compatibilità a tre livelli', ['No', 'No', 'No', 'Esclusiva']),
+    // **Qui c'era la riga della Compatibilità a tre livelli**, "Esclusiva"
+    // dell'Illuminato: uscita con l'ordine FU voce FU.16 del 15 ottobre
+    // 2026, vedi i vantaggi dell'Illuminato.
     FeatureRow('Albero della Vita dinamico', [
       'Contemplativo',
       'Contemplativo',

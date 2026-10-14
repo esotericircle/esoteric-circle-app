@@ -725,8 +725,11 @@ class ArtCatalog {
         phase: ArtPhase.fase2,
         cornice: true,
       ),
-      // La Compatibilita' Archetipica non vive piu' qui: il suo contenuto e' il
-      // livello archetipico dentro la Sinastria Evolutiva di Medora.
+      // La Compatibilita' Archetipica non vive piu' qui. Il "livello
+      // archetipico dentro la Sinastria Evolutiva di Medora" che questa riga
+      // prometteva non esiste: la Sinastria evolutiva dell'ordine FT legge
+      // due cieli veri in cinque capitoli, senza livelli (ordine FU voce
+      // FU.16, 15 ottobre 2026).
       ArtEntry(
         id: 'graphology',
         title: 'Grafologia Esoterica',
@@ -1008,8 +1011,11 @@ class ArtCatalog {
         phase: ArtPhase.mvp,
         cornice: true,
       ),
-      // La Compatibilita' Angelica non vive piu' qui: il suo contenuto e' il
-      // livello angelico dentro la Sinastria Evolutiva di Medora.
+      // La Compatibilita' Angelica non vive piu' qui. Il "livello angelico
+      // dentro la Sinastria Evolutiva di Medora" che questa riga prometteva
+      // non esiste: la Sinastria evolutiva dell'ordine FT legge due cieli
+      // veri in cinque capitoli, senza livelli (ordine FU voce FU.16, 15
+      // ottobre 2026).
       ArtEntry(
         id: 'numerology',
         title: 'Numerologia del Destino',
