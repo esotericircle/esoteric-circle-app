@@ -2864,7 +2864,27 @@ class _Slot extends StatelessWidget {
                                     child: ConstrainedBox(
                                       constraints: const BoxConstraints(
                                           minWidth: 48, minHeight: 48),
-                                      child: _FlipCard(
+                                      // **GIA' SCOPERTA, NESSUN GIRO DA RIVEDERE.**
+                                      // Ordine del 14 ottobre 2026, dal telefono
+                                      // vero: risalendo con lo scorrimento oltre
+                                      // la fila in piedi e tornando, il giro
+                                      // della carta (dorso -> faccia) ripartiva
+                                      // da capo. LAPIDE: `_FlipCard`, che
+                                      // animava un giro di 650 ms a ogni
+                                      // montaggio, indipendentemente da
+                                      // `girata`: nella lista non pigra una
+                                      // carta lontana dallo schermo viene
+                                      // smontata e rimontata, e `_FlipCard`
+                                      // ripartiva da zero ogni volta. Qui la
+                                      // carta arriva SEMPRE gia' scoperta: il
+                                      // giro vero e proprio lo fa
+                                      // `_CartaSulTavolo` mentre e' ancora
+                                      // sul tavolo (`girata`, guidato da
+                                      // `_giro`), e quando questa fila appare
+                                      // (`alzata >= 1`) la stesa e' gia'
+                                      // completa da un pezzo: non serve
+                                      // rivederlo.
+                                      child: FacciaDellaCarta(
                                         key: ValueKey(
                                             '${position.name}_${drawn!.card.stem}'),
                                         drawn: drawn!,
@@ -3116,74 +3136,17 @@ class _EmptySlot extends StatelessWidget {
   }
 }
 
-/// La carta che si gira: dorso, mezzo giro, faccia. La rovesciata si mostra
-/// ruotata di mezzo giro.
-class _FlipCard extends StatefulWidget {
-  const _FlipCard({super.key, required this.drawn, required this.palette});
-
-  final DrawnCard drawn;
-  final MaestroPalette palette;
-
-  @override
-  State<_FlipCard> createState() => _FlipCardState();
-}
-
-class _FlipCardState extends State<_FlipCard>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 650),
-  );
-
-  bool _started = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_started) return;
-    _started = true;
-    if (MediaQuery.of(context).disableAnimations) {
-      _controller.value = 1;
-    } else {
-      _controller.forward();
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        final t = Curves.easeInOut.transform(_controller.value);
-        final angle = (1 - t) * math.pi;
-        final showBack = angle > math.pi / 2;
-        return Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.0012)
-            ..rotateY(angle),
-          // A meta' giro il contenuto e' specchiato: va contro-ruotato il DORSO,
-          // che si vede quando l'angolo e' oltre il quarto di giro. La faccia,
-          // che si vede ad angolo zero, non va toccata, altrimenti resterebbe
-          // specchiata a riposo e i cartigli si leggerebbero al contrario.
-          child: showBack
-              ? Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()..rotateY(math.pi),
-                  child: CardBack(palette: widget.palette),
-                )
-              : FacciaDellaCarta(drawn: widget.drawn, palette: widget.palette),
-        );
-      },
-    );
-  }
-}
+/// LAPIDE: "La carta che si gira: dorso, mezzo giro, faccia", `_FlipCard` e
+/// `_FlipCardState`. Animavano un giro di 650 ms (dorso verso faccia) a ogni
+/// montaggio del widget, chiamato da `didChangeDependencies` la prima volta
+/// che lo stato esisteva: un giro vero per la prima rivelazione, quando
+/// questa classe viveva nella stesa a tre carte di una volta. Da quando la
+/// carta si gira SUL TAVOLO (`_CartaSulTavolo`, guidato da `girata`) e sale
+/// gia' scoperta, questa fila non la vede mai coperta: il giro qui era
+/// ridondante, e nella lista non pigra della schermata, risalendo con lo
+/// scorrimento, il widget veniva smontato e rimontato, e ripartiva da zero
+/// ogni volta. Rimosso il 14 ottobre 2026, segnalato dal fondatore sul
+/// telefono vero. Guardia: `la_carta_resta_scoperta_risalendo_test.dart`.
 
 /// La faccia della carta, con i cartigli riempiti a runtime.
 /// LA FACCIA DELLA CARTA, pubblica dall'ordine BN voce 04: la carta che si
