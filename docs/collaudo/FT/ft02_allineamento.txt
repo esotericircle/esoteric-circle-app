@@ -1,0 +1,42 @@
+FT.02, allineamento della scena della Sinastria approfondita, 14 ottobre
+2026. Metodo: ORB + RANSAC (cv2.estimateAffinePartial2D), stesso metodo
+della misura FS voce A2 per il tavolo della Stesa.
+
+1. IL RIQUADRO DEL FILMATO NELLO SFONDO.
+   video_ultimo_fotogramma.png (720x1280, fotogramma consegnato
+   dall'Architetto) contro assets/img/sinastria/studio_di_medora_v1.webp
+   (688x1536, letto dal commit 9770fc1b).
+   Punti buoni: 251 su 300. Scala 1,04653732 (quasi esattamente 720/688 =
+   1,04651).
+   video (0,0) -> sfondo (-0,126, 0,043)
+   video (0,1280) -> sfondo (0,176, 1223,12)
+   video (720,0) -> sfondo (687,86, -0,127)
+   Quindi il riquadro, nello sfondo: dal pixel 0 (in pratica -0,04, preso
+   come 0) al 1223,1 (preso come 1223), a tutta larghezza 688.
+   GeometriaDelloStudio.taglioInAlto = 0, taglioInBasso = 1223.
+
+2. LA POSIZIONE DI MEDORA, con entrambe le pose.
+   medora_astrolabio_v1.webp (1120x960, dal commit 9770fc1b, sfondo bianco)
+   allineata a docs/collaudo/FT/riferimenti/composizione_primo_fotogramma.png
+   (1080x1920): 296 punti buoni su 300, scala 0,830533.
+   medora_mani_aperte_v1.webp allineata a
+   composizione_ultimo_fotogramma.png: 297 punti buoni su 300, scala
+   0,830602.
+   Lo sfondo studio_di_medora_v1.webp allineato alla stessa composizione
+   (245/300 e 249/300 punti buoni, scala circa 1,570 in entrambi i casi,
+   traslazione quasi nulla): la composizione e' lo sfondo scalato di circa
+   1,570, senza ritaglio.
+   Riportando la posizione di ciascuna posa nelle coordinate dello sfondo
+   (inversa della trasformazione sfondo->composizione):
+     astrolabio:    alto-sinistra (47,06; 392,21), basso-destra (639,85; 899,71)
+     mani aperte:    alto-sinistra (47,17; 392,08), basso-destra (639,69; 899,84)
+   Le due pose convergono sullo stesso rettangolo a meno di due decimi di
+   pixel, come le due pose della Stesa (FS voce A2, "a due decimi di
+   pixel"). Rettangolo scelto (media): (47,1; 392,1)-(639,8; 899,8).
+   GeometriaDelloStudio.medoraNellImmagine = Rect.fromLTRB(47.1, 392.1,
+   639.8, 899.8).
+
+Script di misura: ad hoc, Python con cv2.ORB_create + BFMatcher +
+estimateAffinePartial2D, non salvato come strumento perche' la misura e'
+una tantum come FS voce A2 (non si misura una seconda volta finche' gli
+asset non cambiano).
