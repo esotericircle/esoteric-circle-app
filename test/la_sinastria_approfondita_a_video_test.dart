@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/settings/settings_controller.dart';
 import 'package:esoteric_circle/core/synastry_approfondita/cielo_approfondito.dart';
 import 'package:esoteric_circle/core/synastry_approfondita/la_lettura_approfondita.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_approfondita_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -110,6 +111,17 @@ void main() {
           tester, find.byKey(Key('sinastria_capitolo_${c.name}')));
     }
     await _scorriFino(tester, find.byKey(const Key('sinastria_keplero')));
+    // Nessun testo di Keplero si ripete: con questa coppia tre corde su
+    // quattro cadono fuori da ogni consonanza (anteprima ft_adepto_1).
+    final testiDiKeplero = tester
+        .widgetList<ParagrafiDiLettura>(find.descendant(
+            of: find.byKey(const Key('sinastria_keplero')),
+            matching: find.byType(ParagrafiDiLettura)))
+        .map((p) => p.testo)
+        .toList();
+    expect(testiDiKeplero, isNotEmpty);
+    expect(testiDiKeplero.toSet().length, testiDiKeplero.length,
+        reason: 'un testo di Keplero esce due volte: $testiDiKeplero');
     await _scorriFino(tester, find.byKey(const Key('sinastria_composito')));
     await _scorriFino(
         tester, find.byKey(const Key('sinastria_momento_giusto')));

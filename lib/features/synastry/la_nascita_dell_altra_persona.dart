@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/synastry_approfondita/cielo_approfondito.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -107,8 +108,13 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       appBar: AppBar(
         backgroundColor: palette.deepest,
         iconTheme: IconThemeData(color: palette.goldSoft),
-        title: Text('La nascita dell\'altra persona',
-            style: TypographyTokens.titoloSezione()
+        // Il titolo lungo si troncava a 360 punti, e con la freccia
+        // indietro ancora di piu' (anteprima ft03, 14 ottobre 2026).
+        title: TitoloCheNonSiRompe(
+            chiaveDelTesto: const Key('nascita_altra_titolo'),
+            testo: 'La sua nascita',
+            righe: 1,
+            stile: TypographyTokens.titoloSezione()
                 .copyWith(color: palette.goldSoft)),
       ),
       body: Padding(
