@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/listino_degli_eos.dart';
+import '../../core/entitlement/question_allowance.dart';
+import '../../core/entitlement/tier.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../design_system/components/la_conferma_della_spesa.dart';
+import '../pricing/upgrade_invite.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/synastry_approfondita/cielo_approfondito.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -62,12 +68,63 @@ class _AvvioSinastriaApprofonditaState
       Navigator.of(context).maybePop();
       return;
     }
+    // **LA COPPIA NUOVA SI CONTA**, ordine FT voce FT.13, e si conta qui,
+    // alla prima lettura: chi riapre dal Diario rilegge cio' che ha gia'
+    // avuto. Finche' il server non porta il budget nel listino non si conta
+    // niente (`QuestionAllowance.contaLeSinastrieApprofondite`).
+    final borsa = _forse<QuestionAllowance>();
+    final tier = _forse<EntitlementService>()?.tier ?? Tier.free;
+    if (borsa != null && !borsa.puoiLeggereUnaCoppiaNuova(tier)) {
+      await _leCoppieDiOggiSonoFinite(borsa);
+      if (!mounted) return;
+      if (!borsa.puoiLeggereUnaCoppiaNuova(tier)) {
+        Navigator.of(context).maybePop();
+        return;
+      }
+    }
+    borsa?.registraSinastriaApprofondita(tier);
     Navigator.of(context).pushReplacement(SinastriaApprofonditaScreen.route(
       nomeTuo: 'Tu',
       cieloTuo: cieloTuo,
       nomeSuo: altra.nome,
       cieloSuo: altra.cielo,
     ));
+  }
+
+  /// **MAI UN VICOLO CIECO**: le coppie nuove del giorno finite aprono
+  /// l'invito con le due strade, una lettura in piu' a Eos (prezzo dal
+  /// listino del server, detto prima del gesto) oppure salire di piano.
+  Future<void> _leCoppieDiOggiSonoFinite(QuestionAllowance borsa) async {
+    final prezzo =
+        borsa.prezzoDelRiscatto(QuestionAllowance.kSinastrieApprofondite);
+    await showUpgradeInvite(
+      context,
+      title: 'Le coppie nuove di oggi sono finite',
+      message: 'Domani se ne apre una nuova. Oppure leggi questa subito, o '
+          'sali di piano per leggerne di più ogni giorno.',
+      riscattoLabel: prezzo == null
+          ? null
+          : '${ListinoDegliEos.sinastriaApprofonditaInPiu.nome}, '
+              '${ListinoDegliEos.prezzo(prezzo)}',
+      onRiscatta: prezzo == null
+          ? null
+          : () async {
+              final consenso =
+                  await LaConfermaDellaSpesa.degliEos(context, costo: prezzo);
+              if (consenso == null || !mounted) return;
+              await borsa.riscatta(QuestionAllowance.kSinastrieApprofondite,
+                  consenso: consenso);
+            },
+    );
+  }
+
+  T? _forse<T>() {
+    try {
+      return context.read<T>();
+    } catch (senzaProvider) {
+      debugPrint('Sinastria approfondita: manca $T, ripiego ($senzaProvider)');
+      return null;
+    }
   }
 
   @override
