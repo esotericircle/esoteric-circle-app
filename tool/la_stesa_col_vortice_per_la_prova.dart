@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
+import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -39,6 +40,12 @@ void main() {
           seed: 2,
           skipIntro: true,
           topic: TarotTopic.momentoCheVivo,
+          // **LA CROCE CELTICA, dieci carte gia' uscite.** Ordine del 14
+          // ottobre 2026: e' li' che il fondatore ha visto la banda sotto
+          // la barra del titolo. `revealAll` porta la fila in piedi senza
+          // dover scegliere dieci carte a mano.
+          tipo: TarotSpreadType.dieciCarte,
+          revealAll: true,
         ),
       ),
     ),

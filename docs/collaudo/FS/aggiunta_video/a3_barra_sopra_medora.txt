@@ -1,0 +1,31 @@
+ORDINE DEL 14 OTTOBRE 2026, LA BARRA SOPRA LA TESTA DI MEDORA.
+
+Il fondatore, dal telefono: sulla Croce Celtica, appena sotto la barra del
+titolo semitrasparente, una banda piatta e scura, senza stelle, tagliava la
+scena prima della testa di Medora.
+
+Riprodotta con `test/_diagnostica_barra_azzurra.dart` (diagnostico, cancellato
+dopo l'uso): la Croce Celtica col video gia' finito, catturata con
+RenderRepaintBoundary.toImage, su una finestra 390x844 (un telefono vero, non
+una finestra alta all'infinito). Cattura: `_diagnostica_croce_celtica.png`.
+
+Misura riga per riga (luminosita' media e deviazione standard orizzontale,
+0-255): da y=38 a y=55 la deviazione resta 5,5-7,9 (una banda piatta, senza
+stelle); da y=56 in poi sale subito oltre 10 e continua a crescere (il cosmo,
+poi Medora). La barra dell'app finisce esattamente a y=56 (altezza
+dell'AppBar, 56 punti): la banda piatta sta FUORI dal riquadro del video, nel
+margine fra la barra e l'inizio della scena.
+
+Causa trovata nel codice: il video (`tavolo_filmato`) era posizionato con
+`Positioned.fromRect`, il cui `top` e' negativo (-153,6 punti alla larghezza
+di prova: il video e' piu' alto del suo riquadro visibile ed e' ritagliato
+dal `ClipRect` esterno). Lo sfondo fermo (`tavolo_sfondo`), che non mostra
+mai questa banda, usa invece `OverflowBox` piu' `Transform.translate`: non
+un posizionamento fuori dal riquadro, uno spostamento di disegno. Il video e'
+stato allineato alla stessa tecnica: stessa geometria misurata (il riquadro
+del video resta -89,6..603,7 su schermo, identico a prima), cambia solo come
+ci si arriva.
+
+Non verificato di persona sul Realme dopo il cambiamento: la cattura sopra e'
+dalla stessa macchina di prova (software), non dal telefono vero. Da guardare
+alla prossima build.

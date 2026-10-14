@@ -369,11 +369,50 @@ class TavoloDiMedora extends StatelessWidget {
                       // IL VIDEO DELLA SCENA, sopra lo sfondo e dentro la
                       // stessa sfumatura: il velluto del filmato sfuma nel
                       // cosmo come quello fermo. Ordine FS aggiunta.
+                      //
+                      // **STESSA TECNICA DELLO SFONDO, non un `Positioned`
+                      // col top negativo.** Ordine del 14 ottobre 2026, dal
+                      // telefono vero: appena sotto la barra del titolo si
+                      // vedeva una banda piatta, sospettata del contatto fra
+                      // il texture del video (reso dalla GPU vera, non dal
+                      // software di una prova) e il bordo del `ClipRect` che
+                      // lo ritaglia quando parte gia' spostato in alto di un
+                      // top negativo. Lo sfondo ha sempre usato
+                      // `OverflowBox` piu' `Transform.translate` (uno
+                      // spostamento di disegno, non un posizionamento
+                      // fuori dal riquadro) e non ha mai mostrato questo
+                      // difetto: il video segue la stessa strada. La chiave
+                      // resta sul riquadro del filmato, dentro lo
+                      // spostamento: la sua posizione misurata resta la
+                      // stessa di prima (`docs/collaudo/FS/aggiunta_video/`).
                       if (filmato != null)
-                        Positioned.fromRect(
-                          key: const Key('tavolo_filmato'),
-                          rect: ScenaDellaStesaInVideo.nellaScena(w),
-                          child: filmato!,
+                        Positioned.fill(
+                          child: OverflowBox(
+                            alignment: Alignment.topLeft,
+                            minWidth: w,
+                            maxWidth: w,
+                            minHeight: (ScenaDellaStesaInVideo.sotto -
+                                    ScenaDellaStesaInVideo.sopra) *
+                                s,
+                            maxHeight: (ScenaDellaStesaInVideo.sotto -
+                                    ScenaDellaStesaInVideo.sopra) *
+                                s,
+                            child: Transform.translate(
+                              offset: Offset(
+                                  0,
+                                  (ScenaDellaStesaInVideo.sopra -
+                                          GeometriaDelTavolo.taglioInAlto) *
+                                      s),
+                              child: SizedBox(
+                                key: const Key('tavolo_filmato'),
+                                width: w,
+                                height: (ScenaDellaStesaInVideo.sotto -
+                                        ScenaDellaStesaInVideo.sopra) *
+                                    s,
+                                child: filmato!,
+                              ),
+                            ),
+                          ),
                         ),
                     ],
                   ),
