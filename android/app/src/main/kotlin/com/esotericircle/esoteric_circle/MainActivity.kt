@@ -3,6 +3,7 @@ package com.esotericircle.esoteric_circle
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -161,6 +162,21 @@ class MainActivity : FlutterActivity() {
                     risposta.success(null)
                 }
             }
+        // LA SUONERIA E' IN SILENZIOSO? Ordine FS aggiunta, voce FS.A2, 14
+        // ottobre 2026: l'audio del video della Stesa rispetta la modalita'
+        // silenziosa del telefono. Silenzioso e vibrazione contano tutti e due
+        // come silenzio. Leggere la modalita' non chiede permessi.
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SUONERIA)
+            .setMethodCallHandler { chiamata, risposta ->
+                if (chiamata.method != "spenta") {
+                    risposta.notImplemented()
+                    return@setMethodCallHandler
+                }
+                val audio = getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+                risposta.success(
+                    audio != null && audio.ringerMode != AudioManager.RINGER_MODE_NORMAL
+                )
+            }
     }
 
     companion object {
@@ -168,6 +184,7 @@ class MainActivity : FlutterActivity() {
         var protetto = false
         const val CANALE = "esoteric_circle/sfondo"
         const val SCHERMO = "esoteric_circle/schermo"
+        const val SUONERIA = "esoteric_circle/suoneria"
         const val MOTORE = "esoteric_circle/motore"
     }
 }

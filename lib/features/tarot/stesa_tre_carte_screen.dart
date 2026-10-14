@@ -40,6 +40,9 @@ import '../../design_system/components/titolo_del_responso.dart';
 import '../../core/tarot/le_fonti_dei_tarocchi.dart';
 import '../../design_system/components/cosmos_background.dart';
 import 'il_tavolo_di_medora.dart';
+import 'la_scena_della_stesa_in_video.dart';
+import '../../core/sensi/la_suoneria.dart';
+import '../../core/settings/settings_controller.dart';
 import 'attesa_di_medora.dart';
 import 'stesa_choreography.dart';
 import 'stesa_fan.dart';
@@ -89,7 +92,13 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.chiave,
     this.tipo,
     this.mazzo,
+    this.fabbricaDellaScena,
   });
+
+  /// **CHI COSTRUISCE IL LETTORE DEL VIDEO DELLA SCENA**, ordine FS
+  /// aggiunta: nullo, quello vero; le prove ne passano uno finto, come fa il
+  /// Viaggio dello Sciamano con la discesa.
+  final FabbricaDellaScena? fabbricaDellaScena;
 
   /// **IL MAZZO DI PARTENZA**, ordine FL: nullo, il Rider-Waite; le
   /// anteprime aprono Marsiglia e Thoth senza la tendina, per guardare il
@@ -142,7 +151,7 @@ class StesaTreCarteScreen extends StatefulWidget {
 /// poter chiedere in che fase del taglio si trova la scena, e dedurlo dai pixel
 /// vorrebbe dire misurare l'effetto invece della causa.
 class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   /// L'ORDINE DEL MAZZO, che i gesti cambiano davvero.
   ///
   /// **Ordine 2171 voce 6.** Fino al 10 agosto 2026 Taglia e Mischia
@@ -799,8 +808,86 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _tilt.start();
     }
     if (!_reduceMotion) _galleggio.repeat();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_apriIlFilmato());
     _apriScena();
     unawaited(_cercaLaStesaConservata());
+  }
+
+  /// **IL VIDEO DELLA SCENA, una volta per apertura.** Ordine FS aggiunta,
+  /// voce FS.A2, 14 ottobre 2026: aprendo la Stesa, al posto della scena
+  /// ferma parte il video del vortice, nello stesso riquadro e con lo stesso
+  /// taglio, e si ferma sull'ultimo fotogramma. Si apre qui, dove la
+  /// schermata si avvia una volta sola: una stesa rifatta nella stessa visita
+  /// non lo rifa' partire. Con Riduci Movimento (o il tier basso, che qui
+  /// vale lo stesso) il video non si apre e la scena e' ferma, con la posa
+  /// dell'invito.
+  LettoreDellaScena? _lettoreDellaScena;
+
+  /// Vero quando il video l'ha fermato l'uscita dall'app, e va ripreso al
+  /// ritorno.
+  bool _filmatoSospesoDaNoi = false;
+
+  Future<void> _apriIlFilmato() async {
+    if (_reduceMotion) return;
+    final lettore = (widget.fabbricaDellaScena ?? LettoreDellaScena.vero)();
+    _lettoreDellaScena = lettore;
+    lettore.ascolta(() {
+      if (mounted) setState(() {});
+    });
+    await lettore.apri();
+    if (!mounted ||
+        !identical(_lettoreDellaScena, lettore) ||
+        !lettore.pronto) {
+      return;
+    }
+    // **L'AUDIO RISPETTA L'APP E IL TELEFONO.** L'interruttore e' quello di
+    // suono e vibrazione, lo stesso dell'intro, che e' l'altro video con
+    // l'audio: chi l'ha spento non sente niente. E il telefono in silenzioso
+    // o in vibrazione tace anche lui (`LaSuoneria`). Il volume si dice prima
+    // di partire.
+    final suono =
+        _forse<SettingsController>(context)?.suonoEVibrazione ?? false;
+    final muto = !suono || await LaSuoneria.spenta();
+    if (!mounted) return;
+    await lettore.volume(muto ? 0 : 1);
+    if (!mounted || !identical(_lettoreDellaScena, lettore)) return;
+    await lettore.avvia();
+  }
+
+  /// **USCENDO DALL'APP IL VIDEO SI FERMA**, e al ritorno riprende da dove
+  /// era, se non era gia' finito: un video che corre senza nessuno che lo
+  /// guarda arriva alla fine da solo, e chi torna trova la scena gia' ferma.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final lettore = _lettoreDellaScena;
+    if (lettore == null || !lettore.pronto || lettore.finito) return;
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
+      if (_filmatoSospesoDaNoi) return;
+      _filmatoSospesoDaNoi = true;
+      unawaited(lettore.sospendi());
+    } else if (state == AppLifecycleState.resumed && _filmatoSospesoDaNoi) {
+      _filmatoSospesoDaNoi = false;
+      unawaited(lettore.avvia());
+    }
+  }
+
+  /// Il video in scena, se e' cominciato; nullo, la scena ferma.
+  Widget? get _filmatoInScena {
+    final l = _lettoreDellaScena;
+    if (l == null || l.fallito || !l.cominciato) return null;
+    return l.disegna();
+  }
+
+  /// La posa di Medora a scena ferma: col mazzo chiuso, che e' il primo
+  /// fotogramma, finche' il video si prepara; nell'invito, che e'
+  /// l'ultimo, se il video non c'e' (Riduci Movimento) o non si carica.
+  String get _posaDiMedora {
+    final l = _lettoreDellaScena;
+    return l == null || l.fallito
+        ? GeometriaDelTavolo.posaDellInvito
+        : GeometriaDelTavolo.posaDelMazzo;
   }
 
   /// L'apertura: dal bianco dell'intro alla scena viva, poi le carte che
@@ -936,6 +1023,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _lettoreDellaScena?.chiudi();
+    _lettoreDellaScena = null;
     for (final t in _timerDelTavolo) {
       t.cancel();
     }
@@ -1652,6 +1742,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 filaAlzata: (context, fila) => _filaAlzata(palette, fila),
                 faccia: (carta) =>
                     FacciaDellaCarta(drawn: carta, palette: palette),
+                posa: _posaDiMedora,
+                filmato: _filmatoInScena,
               ),
             )),
           ),

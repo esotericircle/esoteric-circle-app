@@ -324,7 +324,9 @@ void main() {
       final testa = medora.top +
           GeometriaDelTavolo.cimaDellaTesta *
               medora.width /
-              GeometriaDelTavolo.immagineDelBusto.width;
+              // `immagineDelBusto` fino all'ordine FS aggiunta: adesso le
+              // pose del video, 1120 per 958.
+              GeometriaDelTavolo.immagineDiMedora.width;
       expect(testa, greaterThanOrEqualTo(scena.top),
           reason: 'la testa di Medora e\' tagliata in cima alla scena');
     });
@@ -350,7 +352,9 @@ void main() {
       final testa = medora.top +
           GeometriaDelTavolo.cimaDellaTesta *
               medora.width /
-              GeometriaDelTavolo.immagineDelBusto.width;
+              // `immagineDelBusto` fino all'ordine FS aggiunta: adesso le
+              // pose del video, 1120 per 958.
+              GeometriaDelTavolo.immagineDiMedora.width;
       expect(testa, greaterThanOrEqualTo(scena.top),
           reason: 'la testa di Medora e\' tagliata in cima alla scena');
     });

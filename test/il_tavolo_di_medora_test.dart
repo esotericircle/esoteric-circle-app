@@ -482,6 +482,10 @@ void main() {
     final pubspec = File('pubspec.yaml').readAsStringSync();
     expect(pubspec, contains('    - assets/img/tavolo/'));
     expect(File(GeometriaDelTavolo.sfondo).existsSync(), isTrue);
-    expect(File(GeometriaDelTavolo.busto).existsSync(), isTrue);
+    // LAPIDE: `GeometriaDelTavolo.busto`, la Medora ferma dell'ordine FL.
+    // Dall'ordine FS aggiunta (14 ottobre 2026) la scena e' il video del
+    // vortice, e Medora ferma e' una delle sue due pose.
+    expect(File(GeometriaDelTavolo.posaDelMazzo).existsSync(), isTrue);
+    expect(File(GeometriaDelTavolo.posaDellInvito).existsSync(), isTrue);
   });
 }

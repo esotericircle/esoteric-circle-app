@@ -1,0 +1,16 @@
+ORDINE FS AGGIUNTA, REGOLA B: la guardia della zona vista rossa PRIMA di toccare la scena del tavolo. 14 ottobre 2026, 01:56.
+
+Guardia: test/il_tavolo_di_medora_test.dart (la scena della Stesa: geometria, Medora, carte, pubspec).
+Innesto: lib/features/tarot/il_tavolo_di_medora.dart, bordoLontano da 887 a 940 (Medora con la vita fuori dal bordo del velluto).
+Verifica dell'innesto col grep, prima di leggere l'esito:
+  53:  static const double bordoLontano = 940;
+Esito: uscita 1, +13 -1. Il caso caduto:
+00:00 +0: FL.01 e FL.03, la geometria gli angoli del campo stanno dentro il bordo ricamato del velluto
+00:00 +1: FL.01 e FL.03, la geometria il piano piatto va sui quattro angoli del velluto
+00:00 +2: FL.01 e FL.03, la geometria la vita di Medora sul bordo lontano, la testa intera nella scena
+00:00 +2 -1: FL.01 e FL.03, la geometria la vita di Medora sul bordo lontano, la testa intera nella scena [E]
+  Expected: a value less than <12>
+    Actual: <32.04671526900994>
+     Which: is not a value less than <12>
+
+Ripristino: bordoLontano tornato a 887; git diff --stat sul file vuoto (file al byte di HEAD).

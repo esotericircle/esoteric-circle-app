@@ -6,6 +6,7 @@ import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_spread_type.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import 'il_tavolo_della_stesa.dart';
+import 'la_scena_della_stesa_in_video.dart';
 import 'stesa_fan.dart';
 import 'tarot_card_art.dart';
 
@@ -21,9 +22,10 @@ import 'tarot_card_art.dart';
 /// il tappetino blu di Medora che il fondatore ha rigenerato il 12 ottobre
 /// 2026 al posto del rosso della v1, con la stessa geometria al pixel (il
 /// bordo ricamato, il medaglione e i bordi del velluto stanno dove stavano),
-/// tagliato in alto e in basso ([GeometriaDelTavolo]); Medora e'
-/// `assets/img/tavolo/medora_busto_v1.webp`, tagliata alla vita, con la vita
-/// posata sul bordo lontano del velluto, cosi' il tavolo le passa davanti. Le
+/// tagliato in alto e in basso ([GeometriaDelTavolo]); Medora e' una delle
+/// due pose del video della scena (ordine FS aggiunta, vedi
+/// [ScenaDellaStesaInVideo]), tagliata alla vita, con la vita posata sul
+/// bordo lontano del velluto, cosi' il tavolo le passa davanti. Le
 /// carte stanno su un piano piatto, disposte ai posti che la stesa dichiara
 /// (`PostoSulTavolo`, letti da `TavoloDellaStesa.disponi`), e il piano e'
 /// proiettato sul trapezio del velluto con un'omografia: le carte sono
@@ -32,11 +34,24 @@ class GeometriaDelTavolo {
   const GeometriaDelTavolo._();
 
   static const String sfondo = 'assets/img/tavolo/tavolo_medora_v2.webp';
-  static const String busto = 'assets/img/tavolo/medora_busto_v1.webp';
 
-  /// Le misure delle due immagini, in pixel.
+  /// **LE DUE POSE DI MEDORA, ordine FS aggiunta voce FS.A1, 14 ottobre
+  /// 2026.** LAPIDE: `busto`, `medora_busto_v1.webp` (1142 per 977), la Medora
+  /// ferma dell'ordine FL. Adesso la scena e' il video del vortice, e le due
+  /// pose sono il suo primo e il suo ultimo fotogramma, consegnate dal
+  /// fondatore su bianco e scontornate con
+  /// `tool/scontorna_le_pose_di_medora.py`: col mazzo chiuso, finche' il
+  /// video non comincia; nell'invito, quando la scena e' ferma (Riduci
+  /// Movimento, o un video che non si carica). Misurate, stanno sul
+  /// fotogramma del video a due decimi di pixel
+  /// (`docs/collaudo/FS/aggiunta_video/a2_allineamento.txt`).
+  static const String posaDelMazzo = 'assets/img/tavolo/medora_mazzo_v1.webp';
+  static const String posaDellInvito =
+      'assets/img/tavolo/medora_invito_v1.webp';
+
+  /// Le misure delle immagini, in pixel: lo sfondo e le due pose.
   static const Size immagine = Size(688, 1536);
-  static const Size immagineDelBusto = Size(1142, 977);
+  static const Size immagineDiMedora = Size(1120, 958);
 
   /// **IL TAGLIO IN ALTO E IN BASSO**, in pixel dell'immagine. In alto si
   /// toglie la volta dell'arco finche' la testa di Medora sfiora la barra del
@@ -98,7 +113,8 @@ class GeometriaDelTavolo {
   /// intorno restano fra la lanterna a sinistra e la candela a destra.
   static const double larghezzaDiMedora = 0.8;
 
-  /// Il punto del busto dove comincia la testa, in pixel del busto.
+  /// Il punto della posa dove comincia la testa, in pixel della posa
+  /// (misurata: la prima riga piena e' la 21 in tutte e due).
   static const double cimaDellaTesta = 21;
 
   /// L'altezza del taglio, in pixel dell'immagine.
@@ -117,7 +133,7 @@ class GeometriaDelTavolo {
   /// Il rettangolo di Medora nella scena.
   static Rect medora(double w) {
     final larga = w * larghezzaDiMedora;
-    final alta = larga * immagineDelBusto.height / immagineDelBusto.width;
+    final alta = larga * immagineDiMedora.height / immagineDiMedora.width;
     final vita = (bordoLontano - taglioInAlto) * scala(w);
     return Rect.fromLTWH((w - larga) / 2, vita - alta, larga, alta);
   }
@@ -125,7 +141,7 @@ class GeometriaDelTavolo {
   /// Dove comincia la testa di Medora, nella scena.
   static double testaDiMedora(double w) {
     final m = medora(w);
-    return m.top + cimaDellaTesta * m.width / immagineDelBusto.width;
+    return m.top + cimaDellaTesta * m.width / immagineDiMedora.width;
   }
 
   /// Il piano piatto su cui si dispongono le carte, in punti logici.
@@ -238,9 +254,21 @@ class TavoloDiMedora extends StatelessWidget {
     this.filaAlzata,
     this.chiaveDelPiano,
     this.faccia,
+    this.posa = GeometriaDelTavolo.posaDellInvito,
+    this.filmato,
   });
 
   final List<PostoSulTavolo> posti;
+
+  /// **LA POSA DI MEDORA quando la scena e' ferma**, una delle due di
+  /// [GeometriaDelTavolo]. Ordine FS aggiunta.
+  final String posa;
+
+  /// **IL VIDEO DELLA SCENA**, quando e' cominciato: prende il posto dello
+  /// sfondo e di Medora ferma, nel riquadro di
+  /// [ScenaDellaStesaInVideo.nellaScena], e resta sull'ultimo fotogramma.
+  /// Nullo, la scena ferma. Ordine FS aggiunta, voce FS.A2.
+  final Widget? filmato;
 
   /// Le carte, una per posto; nulla dove la carta non e' ancora scelta.
   final List<DrawnCard?> carte;
@@ -294,10 +322,10 @@ class TavoloDiMedora extends StatelessWidget {
               child: ShaderMask(
                 key: const Key('tavolo_sfumatura'),
                 blendMode: BlendMode.dstIn,
-                shaderCallback: (r) => const LinearGradient(
+                shaderCallback: (r) => LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
+                  colors: const [
                     Color(0x00FFFFFF),
                     Color(0xFFFFFFFF),
                     Color(0xFFFFFFFF),
@@ -305,7 +333,9 @@ class TavoloDiMedora extends StatelessWidget {
                   ],
                   stops: [
                     0,
-                    GeometriaDelTavolo.sfumaturaInAlto /
+                    (filmato == null
+                            ? GeometriaDelTavolo.sfumaturaInAlto
+                            : ScenaDellaStesaInVideo.sfumaturaInAlto) /
                         GeometriaDelTavolo.altoDelTaglio,
                     (GeometriaDelTavolo.inizioDellaSfumatura -
                             GeometriaDelTavolo.taglioInAlto) /
@@ -316,31 +346,50 @@ class TavoloDiMedora extends StatelessWidget {
                   ],
                 ).createShader(r),
                 child: ClipRect(
-                  child: OverflowBox(
-                    alignment: Alignment.topLeft,
-                    minWidth: w,
-                    maxWidth: w,
-                    minHeight: GeometriaDelTavolo.immagine.height * s,
-                    maxHeight: GeometriaDelTavolo.immagine.height * s,
-                    child: Transform.translate(
-                      offset: Offset(0, -GeometriaDelTavolo.taglioInAlto * s),
-                      child: Image.asset(GeometriaDelTavolo.sfondo,
-                          key: const Key('tavolo_sfondo'),
-                          fit: BoxFit.fill,
-                          filterQuality: FilterQuality.medium),
-                    ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned.fill(
+                        child: OverflowBox(
+                          alignment: Alignment.topLeft,
+                          minWidth: w,
+                          maxWidth: w,
+                          minHeight: GeometriaDelTavolo.immagine.height * s,
+                          maxHeight: GeometriaDelTavolo.immagine.height * s,
+                          child: Transform.translate(
+                            offset:
+                                Offset(0, -GeometriaDelTavolo.taglioInAlto * s),
+                            child: Image.asset(GeometriaDelTavolo.sfondo,
+                                key: const Key('tavolo_sfondo'),
+                                fit: BoxFit.fill,
+                                filterQuality: FilterQuality.medium),
+                          ),
+                        ),
+                      ),
+                      // IL VIDEO DELLA SCENA, sopra lo sfondo e dentro la
+                      // stessa sfumatura: il velluto del filmato sfuma nel
+                      // cosmo come quello fermo. Ordine FS aggiunta.
+                      if (filmato != null)
+                        Positioned.fromRect(
+                          key: const Key('tavolo_filmato'),
+                          rect: ScenaDellaStesaInVideo.nellaScena(w),
+                          child: filmato!,
+                        ),
+                    ],
                   ),
                 ),
               ),
             ),
-            // MEDORA, con la vita sul bordo lontano del velluto.
-            Positioned.fromRect(
-              rect: medora,
-              child: Image.asset(GeometriaDelTavolo.busto,
-                  key: const Key('tavolo_medora'),
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.medium),
-            ),
+            // MEDORA FERMA, con la vita sul bordo lontano del velluto. Col
+            // filmato in scena Medora e' nel filmato.
+            if (filmato == null)
+              Positioned.fromRect(
+                rect: medora,
+                child: Image.asset(posa,
+                    key: const Key('tavolo_medora'),
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.medium),
+              ),
             // LAPIDE: "IL SUO DRAPPO SFUMA NELLA PAGINA", la fascia scura
             // opaca; adesso sfuma l'immagine stessa, vedi
             // `GeometriaDelTavolo.inizioDellaSfumatura` (ordine FS).
