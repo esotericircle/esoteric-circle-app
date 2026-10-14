@@ -1521,7 +1521,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // `domain_screen.dart`). Con `Colors.transparent` la barra si
           // confondeva del tutto col cosmo sotto; ora porta lo stesso velo
           // di `palette.deepest` delle altre schermate.
-          backgroundColor: palette.deepest.withValues(alpha: 0.35),
+          //
+          // **IL VELO SI ALLEGGERISCE, 15 ottobre 2026.** Il fondatore: la
+          // barra deve essere gia' semitrasparente all'apertura (non solo
+          // scorrendo), cosi' il video di Medora che fa volare le carte si
+          // vede piu' completo sotto di lei. Il velo era costante (mai legato
+          // allo scorrimento), ma a 0,35 contro la scena scura dell'apertura
+          // si leggeva quasi pieno; sceso a 0,16 la trama del video resta
+          // visibile sotto il titolo fin dal primo fotogramma, e il titolo
+          // resta leggibile.
+          backgroundColor: palette.deepest.withValues(alpha: 0.16),
           elevation: 0,
           // **E RESTA SEMITRASPARENTE ANCHE SCORRENDO, ordine FS.** Il
           // fondatore sulla 2308: "la barra non e' semitrasparente". Per
