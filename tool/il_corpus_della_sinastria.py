@@ -101,6 +101,8 @@ def struttura():
         for q in COMPOSITO[i + 1:]:
             for f in FAMIGLIE:
                 comp.append((f'{p}-{q} {f}', [('titolo', 2), ('testo', 2)]))
+    # Nessuno dei dieci aspetti nell'orbo: la relazione parla per intero.
+    comp.append(('nessuno', [('titolo', 2), ('testo', 2)]))
     s['composito'] = comp
     k = [(f'keplero {c}', [('testo', 2)]) for c in CONSONANZE]
     k += [(f'oggi {t} {c}', [('testo', 2)]) for t in TRANSITI_OGGI
@@ -208,6 +210,17 @@ PRONOMI_DI_GENERE = re.compile(
     r'figlio|figlia|fratello|sorella)(?![A-Za-zÀ-ÿ])', re.I)
 
 # "piu'", "perche'", e anche "E'" da sola; "po'" e' un troncamento vero.
+# **IL MASCHILE O IL FEMMINILE GENERICO SULLA COPPIA.** Il primo giro dei
+# nove scrittori (14 ottobre 2026) ne ha lasciati circa centotrenta che i
+# controlli di sopra non vedevano: "entrambi" e' sbagliato per due donne,
+# "entrambe" per una coppia mista. Le forme neutre ci sono: "voi due",
+# "ognuna delle due persone", "una persona e l'altra", "in amicizia".
+GENERICO_SULLA_COPPIA = re.compile(
+    r"(?<![A-Za-zÀ-ÿ])(entramb[ie]|ciascuno|ognuno|l'uno|l'una|"
+    r"nessuno dei due|nessuna delle due|tutti e due|tutte e due|"
+    r"fra amici|tra amici|da amici|voi amici|fra amiche|tra amiche|"
+    r"per primo|gli fa|gli serve|gli piace)(?![A-Za-zÀ-ÿ])", re.I)
+
 ACCENTO_FINTO = re.compile(
     r"(?:(?<![A-Za-zÀ-ÿ])(?!po')[A-Za-z]*[aeiouAEIOU])'(?=[\s.,;:!?)]|$)")
 VIRGOLA_E = re.compile(r',\s+(e|ed)\s', re.I)
@@ -254,6 +267,11 @@ def difetti_di(cella, campo, testo):
         colpe.append('parola col genere dell\'altra persona o del ruolo: "' +
                      PRONOMI_DI_GENERE.search(testo).group(0) + '" (usa {nome} '
                      'o "l\'altra persona")')
+    if GENERICO_SULLA_COPPIA.search(testo):
+        colpe.append('genere generico sulla coppia o su {nome}: "' +
+                     GENERICO_SULLA_COPPIA.search(testo).group(0) + '" (usa '
+                     '"voi due", "ognuna delle due persone", "una persona e '
+                     'l\'altra", "in amicizia")')
     if ACCENTO_FINTO.search(testo):
         colpe.append('accento scritto con l\'apostrofo: "' +
                      ACCENTO_FINTO.search(testo).group(0) + '"')
@@ -352,6 +370,19 @@ def riempi(nome, testi_json):
             if s.split()[0].lower() == testo.split()[0].lower():
                 colpe.append('comincia con la stessa parola di un\'altra variante')
                 break
+        # **LE FORMULE CHE SI RIPETONO FRA CELLE**: il primo giro del
+        # Composito aveva trenta titoli che cominciavano tutti con "La vostra
+        # relazione". Nello stesso file e nello stesso campo, le prime due
+        # parole non tornano in piu' di un quinto delle celle.
+        if not colpe and chiave[1] in ('titolo', 'apertura', 'fare'):
+            attacco = ' '.join(testo.lower().split()[:2])
+            uguali = sum(1 for (c, f, n), t in tutto.items()
+                         if f == chiave[1] and t and c != chiave[0]
+                         and ' '.join(t.lower().split()[:2]) == attacco)
+            celle = len({c for (c, f, n) in tutto if f == chiave[1]})
+            if uguali >= max(3, celle // 5):
+                colpe.append(f'attacco ripetuto: "{attacco}" comincia gia\' '
+                             f'{uguali} testi di questo campo in altre celle')
         if colpe:
             scartati.append((chiave, testo, colpe))
             continue
@@ -401,6 +432,24 @@ def controlla():
             tutti, forme_del_genere([t for _, _, t in tutti])):
         if forme:
             colpe.append(f'{nome} {chiave}: genere di chi legge {forme}')
+    # Le formule che si ripetono fra celle, sul file intero.
+    from collections import Counter
+    for nome in struttura():
+        d = leggi(nome)
+        for campo in ('titolo', 'apertura', 'fare'):
+            celle = len({c for (c, f, n) in d if f == campo})
+            if not celle:
+                continue
+            attacchi = Counter(' '.join(t.lower().split()[:2])
+                               for (c, f, n), t in d.items() if f == campo and t)
+            testi = sum(attacchi.values())
+            # Sul file intero: nessun attacco apre piu' di un quarto dei
+            # testi del campo. La ripetizione dentro la stessa lettura la
+            # evita il motore (LetturaApprofondita).
+            for attacco, quanti in attacchi.items():
+                if quanti > testi // 4:
+                    colpe.append(f'{nome} {campo}: "{attacco}" comincia {quanti} '
+                                 f'testi su {celle} celle')
     for c in colpe:
         print(c)
     print(f'DIFETTI: {len(colpe)} su {len(tutti)} testi')

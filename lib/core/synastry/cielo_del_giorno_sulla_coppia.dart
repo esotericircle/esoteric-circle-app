@@ -81,6 +81,62 @@ class MoltiplicatoreCeleste {
     return base < orboDellaLuna ? base : orboDellaLuna;
   }
 
+  /// **L'ACCENSIONE DEL GIORNO, la porta sola del cielo del giorno sulla
+  /// coppia.** Ordine FT voci FT.09 e FT.10: la Sinastria approfondita
+  /// ("Oggi fra voi", "Il momento giusto") e la Sinastria VIP chiedono la
+  /// stessa cosa, quanto i transiti di [giorno] toccano i gradi dove due
+  /// cieli si toccano, e la risposta e' calcolata qui, una volta sola: prima
+  /// di FT il calcolo stava dentro [per], legato ai tipi della VIP. Ogni
+  /// contatto porta il suo peso e i suoi gradi; [transiti] e [tipi]
+  /// restringono i corpi in transito e gli aspetti che contano (tutti, se
+  /// nulli). Restituisce la somma delle forze, il corpo che accende di piu'
+  /// e l'indice del contatto che accende.
+  ///
+  /// **L'ordine dei cicli e' quello di prima** (contatti, corpi nell'ordine
+  /// di [CorpoCeleste], gradi, aspetti, il primo aspetto nell'orbo e poi
+  /// basta): i numeri della VIP non cambiano di un decimale, e la prova del
+  /// moltiplicatore lo pretende.
+  static ({double somma, CorpoCeleste? transito, int? contatto}) accensione({
+    required List<({double peso, List<double> gradi})> contatti,
+    required DateTime giorno,
+    Set<CorpoCeleste>? transiti,
+    Set<AspectType>? tipi,
+  }) {
+    final jd = Celestial.julianDay(
+        DateTime.utc(giorno.year, giorno.month, giorno.day, 12));
+    final cielo = IlCieloDiMeeus.tutte(jd);
+    var somma = 0.0;
+    CorpoCeleste? migliore;
+    int? acceso;
+    var forzaMigliore = 0.0;
+    for (var i = 0; i < contatti.length; i++) {
+      final peso = contatti[i].peso;
+      if (peso <= 0) continue;
+      for (final voce in cielo.entries) {
+        if (transiti != null && !transiti.contains(voce.key)) continue;
+        for (final grado in contatti[i].gradi) {
+          for (final tipo in AspectType.values) {
+            final candidato = ChartAspect(
+                aLongitude: voce.value, bLongitude: grado, type: tipo);
+            final ammesso = orboPer(voce.key, tipo);
+            if (candidato.orbe > ammesso) continue;
+            if (tipi != null && !tipi.contains(tipo)) break;
+            // Quanto e' acceso: uno all'angolo esatto, zero al limite.
+            final forza = (1 - candidato.orbe / ammesso).clamp(0.0, 1.0) * peso;
+            somma += forza;
+            if (forza > forzaMigliore) {
+              forzaMigliore = forza;
+              migliore = voce.key;
+              acceso = i;
+            }
+            break;
+          }
+        }
+      }
+    }
+    return (somma: somma, transito: migliore, contatto: acceso);
+  }
+
   /// Il moltiplicatore di questa coppia in questo giorno.
   ///
   /// [aspetti] sono gli aspetti della sinastria, gia' calcolati dal responso:
@@ -102,45 +158,24 @@ class MoltiplicatoreCeleste {
         soloPianeti: true,
       );
     }
-    final jd = Celestial.julianDay(
-        DateTime.utc(giorno.year, giorno.month, giorno.day, 12));
-    final transiti = IlCieloDiMeeus.tutte(jd);
-
-    var somma = 0.0;
-    CorpoCeleste? migliore;
-    AspettoDiSinastria? acceso;
-    var forzaMigliore = 0.0;
-
-    for (final a in aspetti) {
-      // Quanto pesa questo aspetto della sinastria: uno stretto pesa piu' di
-      // uno largo, ed e' la stessa forza che il responso gia' usa.
-      final peso = a.forzaCon(AspettiDiSinastria.orbo[a.tipo]!);
-      if (peso <= 0) continue;
-      final gradi = <double>[
-        if (tuo.longitudini[a.tuo] != null) tuo.longitudini[a.tuo]!,
-        if (suo.longitudini[a.suo] != null) suo.longitudini[a.suo]!,
-      ];
-      for (final voce in transiti.entries) {
-        for (final grado in gradi) {
-          for (final tipo in AspectType.values) {
-            final candidato = ChartAspect(
-                aLongitude: voce.value, bLongitude: grado, type: tipo);
-            final ammesso = orboPer(voce.key, tipo);
-            if (candidato.orbe > ammesso) continue;
-            // Quanto e' acceso: uno all'angolo esatto, zero al limite.
-            final acceso1 = (1 - candidato.orbe / ammesso).clamp(0.0, 1.0);
-            final forza = acceso1 * peso;
-            somma += forza;
-            if (forza > forzaMigliore) {
-              forzaMigliore = forza;
-              migliore = voce.key;
-              acceso = a;
-            }
-            break;
-          }
-        }
-      }
-    }
+    // Quanto pesa ogni aspetto della sinastria: uno stretto pesa piu' di uno
+    // largo, ed e' la stessa forza che il responso gia' usa.
+    final esito = accensione(
+      contatti: [
+        for (final a in aspetti)
+          (
+            peso: a.forzaCon(AspettiDiSinastria.orbo[a.tipo]!),
+            gradi: <double>[
+              if (tuo.longitudini[a.tuo] != null) tuo.longitudini[a.tuo]!,
+              if (suo.longitudini[a.suo] != null) suo.longitudini[a.suo]!,
+            ],
+          ),
+      ],
+      giorno: giorno,
+    );
+    final somma = esito.somma;
+    final migliore = esito.transito;
+    final acceso = esito.contatto == null ? null : aspetti[esito.contatto!];
 
     // **DALLA SOMMA ALLA FINESTRA, con una curva che non puo' uscirne.**
     // `x / (x + riferimento)` vale zero a somma zero e tende a uno senza

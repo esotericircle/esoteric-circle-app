@@ -11,9 +11,9 @@ Ordine FT voce FT.12, 14 ottobre 2026. Il fondatore, alla domanda "Chi scrive il
 | capitolo_attrazione, capitolo_emozioni, capitolo_mente, capitolo_durata, capitolo_destino | 16 ciascuno (4 legami × 4 toni) | 144 ciascuno: titolo, apertura e fare, tre varianti |
 | contatti_cuore_e_mente | 45 (9 coppie di punti × 5 aspetti) | 135 |
 | contatti_durata_e_destino | 30 (6 coppie × 5 aspetti) | 90 |
-| composito | 30 (10 coppie di punti medi × 3 famiglie) | 120: titolo e testo, due varianti |
+| composito | 31 (10 coppie di punti medi × 3 famiglie, più "nessuno") | 124: titolo e testo, due varianti |
 | keplero_oggi_momento | 9 consonanze, 36 di Oggi fra voi, 24 del Momento giusto | 162 |
-| **Totale** | | **1.227** (l'ordine diceva circa 1.100 più 144: qui 1.083 per capitoli, contatti, Composito e Keplero, 144 per Oggi fra voi e il Momento giusto) |
+| **Totale** | | **1.231** (l'ordine diceva circa 1.100 più 144: qui 1.087 per capitoli, contatti, Composito e Keplero, 144 per Oggi fra voi e il Momento giusto) |
 
 ## Come si compone un capitolo a video
 
@@ -33,6 +33,8 @@ Il **tono** viene dal contatto più stretto fra le coppie del capitolo: **fuso**
 - **Mai una virgola prima di "e" o di "ed".** Se serve una pausa, punto o due punti, oppure si toglie la virgola.
 - **Mai il trattino lungo.**
 - **Il tu a chi legge, il voi alla coppia.** L'altra persona si chiama `{nome}` (il codice ci mette il nome vero) oppure "l'altra persona". **Mai "lui", "lei"**, mai marito, moglie, fidanzato, ragazza, compagno, padre, madre, figlio, sorella: non sappiamo chi è l'altra persona, né il suo genere né il ruolo in famiglia.
+- **Nessun genere generico sulla coppia**: "entrambi" è sbagliato per due donne, "entrambe" per una coppia mista; così "ciascuno", "ognuno", "l'uno e l'altra", "tutti e due", "nessuno dei due", "fra amici", "per primo". Le forme neutre: "voi due", "ognuna delle due persone", "una persona e l'altra", "in amicizia". E mai "gli" o "lo" riferiti a {nome}: si ripete {nome} o si gira la frase.
+- **Gli attacchi**: nello stesso campo di un file, le stesse prime due parole non aprono più di un quarto dei testi. Nella stessa lettura il codice evita da sé due capitoli che cominciano allo stesso modo.
 - **Nessun genere**: né di chi legge ("sei pronto" no, "sei pronta" no), né della coppia ("siete pronti" no, "vi sentite vicini" no), né di `{nome}` ("{nome} è sicuro" no). Si riscrive senza l'aggettivo che concorda: "vi sentite vicini" diventa "sentite la vicinanza". Il genere di chi legge lo controlla lo stesso criterio della guardia di casa.
 - **Nessuna certezza sul futuro**: mai "sicuramente", "per sempre", "succederà", "vi sposerete". Si parla di tendenze, di inclinazioni, di cosa conviene fare.
 - **Niente vita privata**: mai salute, malattia, morte, denaro, gravidanza, eredità, tradimento.
