@@ -1,0 +1,2 @@
+assets/img/sinastria/medora_astrolabio_v1.webp: 1120x960, trasparenti 657354 su 1075200; pixel di bordo con alone chiaro: scontorno ingenuo 4766 su 8190, questo 14 su 8334
+assets/img/sinastria/medora_mani_aperte_v1.webp: 1120x960, trasparenti 650855 su 1075200; pixel di bordo con alone chiaro: scontorno ingenuo 5936 su 10653, questo 9 su 10588

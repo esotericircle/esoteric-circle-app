@@ -1,0 +1,14 @@
+FT.05, il Nodo Nord lunare medio contro Swiss Ephemeris (pyswisseph, serie
+Moshier), dieci istanti (docs/collaudo/FT/riferimenti_del_nodo_nord.csv,
+generato da tool/riferimenti_del_nodo_nord.py), 14 ottobre 2026.
+
+Scarto peggiore misurato: 0,004884883479689961 gradi (17,6 secondi d'arco),
+al giorno giuliano 2416918.833333 (14 marzo 1905). Dichiarato in
+IlCieloDiMeeus.scartoMisuratoNodoNord = 0,0055.
+
+Esito di test/il_nodo_nord_contro_il_riferimento_test.dart:
+
+00:00 +0: loading il_nodo_nord_contro_il_riferimento_test.dart
+00:00 +0: il nodo nord sta entro lo scarto dichiarato dalla porta
+00:00 +1: lo scarto decide ancora il segno
+00:00 +2: All tests passed!

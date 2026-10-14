@@ -309,6 +309,19 @@ flutter:
     # e0c3eb2acf150410805718995cfa33ec4388229cf5e636be8fa11ddaf1940c56.
     # Le due pose ferme stanno in assets/img/tavolo/.
     - brand_assets/tavolo/
+    # LA SINASTRIA APPROFONDITA, ordine FT voce FT.01, 14 ottobre 2026: lo
+    # sfondo dello studio di Medora, le due pose ferme (astrolabio e mani
+    # aperte, scontornate da tool/scontorna_le_pose_della_sinastria.py), le
+    # dieci immagini coppia_<segno>_v1, i cinque capitolo_<nome>_v1, i cinque
+    # aspetto_<nome>_v1 e i quattro legame_<nome>_v1.
+    - assets/img/sinastria/
+    # IL VIDEO DELLA SCENA DELLA SINASTRIA, ordine FT voce FT.02: Medora che
+    # scioglie l'astrolabio in polvere d'oro. Il file consegnato dal
+    # fondatore e' medora_astrolabio_in_polvere_v1.mp4, 720 per 1280, 24
+    # fotogrammi al secondo, 8 secondi, 192 fotogrammi, impronta SHA-256
+    # c93754b860aa147254f3c07a41e2c1a6984dd291740af8c192d52c692f491499.
+    # Le due pose ferme stanno in assets/img/sinastria/.
+    - brand_assets/sinastria/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la

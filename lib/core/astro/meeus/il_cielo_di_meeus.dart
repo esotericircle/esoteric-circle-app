@@ -196,6 +196,46 @@ abstract final class IlCieloDiMeeus {
   }
 
   // ---------------------------------------------------------------------
+  // IL NODO NORD LUNARE
+  // ---------------------------------------------------------------------
+
+  /// LA LONGITUDINE DEL NODO NORD LUNARE MEDIO, in gradi [0, 360), Meeus
+  /// eq. 22.3 (Omega): e' il punto in cui l'orbita media della Luna
+  /// attraversa l'eclittica salendo verso nord, lo stesso termine gia'
+  /// calcolato qui dentro per la nutazione ([nutazioneInLongitudine],
+  /// [obliquitaVera]) e in `LaLunaIntera.nutazioneInLongitudine`, ma mai
+  /// esposto prima come posizione sua. Ordine FT voce FT.05, 14 ottobre
+  /// 2026: non nasce una seconda porta per i pianeti, resta qui accanto a
+  /// [longitudine].
+  ///
+  /// E' il nodo MEDIO, non il vero (che oscilla di qualche grado attorno al
+  /// medio coi termini periodici del cap. 22): la tradizione astrologica usa
+  /// prevalentemente il medio, e il termine Omega e' gia' quello usato per
+  /// la nutazione. Il nodo medio retrocede sempre, un giro intero in circa
+  /// 18,6 anni: a differenza degli altri corpi, qui non serve
+  /// [velocitaGiornaliera] per saperlo.
+  static double longitudineDelNodoNord(double jdUt) {
+    _pretendi('la longitudine del Nodo Nord', jdUt);
+    final t = (effemeridi(jdUt) - 2451545.0) / 36525.0;
+    final omega = 125.04452 +
+        t * (-1934.136261 + t * (0.0020708 + t / 450000.0));
+    return _norm(omega);
+  }
+
+  /// La stessa longitudine, per un istante.
+  static double longitudineDelNodoNordAllIstante(DateTime istante) =>
+      longitudineDelNodoNord(giornoGiuliano(istante));
+
+  /// LO SCARTO MASSIMO MISURATO del Nodo Nord medio contro Swiss Ephemeris
+  /// (`pyswisseph`, serie Moshier), in gradi, su dieci istanti fra il 1905 e
+  /// il 2088 (14 ottobre 2026): 0,0049 gradi, 17,6 secondi d'arco. Non e' un
+  /// errore ma la distanza fra due serie diverse per lo stesso elemento
+  /// medio (Meeus cap. 22 contro Swiss Ephemeris): vedi
+  /// `docs/collaudo/FT/ft05_nodo_nord.txt` e
+  /// `test/il_nodo_nord_contro_il_riferimento_test.dart`.
+  static const double scartoMisuratoNodoNord = 0.0055;
+
+  // ---------------------------------------------------------------------
   // NUTAZIONE, OBLIQUITA', TEMPO SIDERALE
   // ---------------------------------------------------------------------
 
