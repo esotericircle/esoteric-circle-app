@@ -55,11 +55,11 @@ class VoceDelListino {
 /// qui perche' si sappia da dove viene.
 ///
 /// **Cosa gli Eos NON comprano mai**, e non e' una dimenticanza: la memoria
-/// dei Maestri, la voce, la profondita' delle risposte, la compatibilita' a
-/// tre livelli e le altre funzioni di relazione continuativa restano
-/// dell'abbonamento. Un Eos compra un'esperienza singola e conclusa, mai un
-/// accesso che dura. La voce AN.06 usa questa distinzione per dire, davanti
-/// a ogni lucchetto, quale strada esiste davvero.
+/// dei Maestri, la voce, la profondita' delle risposte e le altre funzioni di
+/// relazione continuativa restano dell'abbonamento. Un Eos compra
+/// un'esperienza singola e conclusa, mai un accesso che dura. La voce AN.06
+/// usa questa distinzione per dire, davanti a ogni lucchetto, quale strada
+/// esiste davvero.
 class ListinoDegliEos {
   const ListinoDegliEos._();
 

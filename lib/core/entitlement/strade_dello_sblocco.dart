@@ -34,14 +34,17 @@ class StradeDelloSblocco {
   /// CIO' CHE GLI EOS NON COMPRANO MAI, enumerato.
   ///
   /// Sono le funzioni di relazione continuativa: la memoria dei Maestri, la
-  /// voce, la profondita' delle risposte, la compatibilita' a tre livelli.
+  /// voce, la profondita' delle risposte, i transiti dal vivo e il Diario
+  /// Cosmico completo.
   /// L'elenco sta qui e non dentro le schermate, cosi' una funzione nuova
   /// deve dichiararsi invece di ereditare per caso la strada sbagliata.
   static const Set<String> soloAbbonamento = {
     'maestro_memory',
     'maestro_voice',
     'answer_depth',
-    'synastry_three_levels',
+    // **Qui c'era 'synastry_three_levels'**, la compatibilita' a tre
+    // livelli: uscita con l'ordine FU voce FU.16 del 15 ottobre 2026, perche'
+    // nessuna parte dell'app la esegue e nessuna arte porta quell'id.
     'natal_transits_live',
     'mood_transits',
     'cosmic_journal_full',
