@@ -121,6 +121,7 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
   _LettoreDellaScenaVero();
 
   VideoPlayerController? _c;
+  AppLifecycleListener? _ciclo;
   VoidCallback? _quandoCambia;
   bool _pronto = false;
   bool _fallito = false;
@@ -162,6 +163,16 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
       await c.setVolume(0);
       await c.setLooping(false);
       c.addListener(_guarda);
+      // **IL LETTORE SA DA SE' QUANDO L'APP SE NE VA**, come ogni sorgente
+      // di suono di lib (guardia `nessuna_sorgente_resta_accesa_in_
+      // sottofondo`): con l'app dietro il video si ferma, anche se chi l'ha
+      // aperto non glielo dice. La ripresa al ritorno la decide la Stesa,
+      // che sa se il video era fermo per l'uscita o perche' era finito.
+      _ciclo = AppLifecycleListener(
+        onHide: () => c.pause().catchError((Object errore) {
+          debugPrint('Il filmato della scena non si ferma: $errore');
+        }),
+      );
       _pronto = true;
     } catch (errore) {
       // **PERCHE' QUESTO ERRORE SI ASSORBE**, come nel lettore della
@@ -250,6 +261,8 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
     final c = _c;
     _c = null;
     _quandoCambia = null;
+    _ciclo?.dispose();
+    _ciclo = null;
     if (c == null) return;
     c.removeListener(_guarda);
     c.pause().catchError((Object _) {});

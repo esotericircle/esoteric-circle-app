@@ -587,7 +587,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     final punto = _luogo;
     try {
       await CityCatalog.ensureLoaded();
-    } catch (_) {
+    } catch (errore) {
+      // Il catalogo non si carica: si resta sulle sole coordinate, che sono
+      // vere. Il nome e' un di piu', e il cielo e' gia' aperto.
+      debugPrint('Il nome del luogo non si trova, restano le coordinate: '
+          '$errore');
       return;
     }
     final vicina = CityCatalog.vicina(punto.latitude, punto.longitude);

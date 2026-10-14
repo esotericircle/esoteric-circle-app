@@ -269,7 +269,10 @@ void main() {
     // pretende il consenso.
     const porte = {
       'lib/core/entitlement/spesa_degli_eos.dart': 1,
-      'lib/core/entitlement/question_allowance.dart': 1,
+      // 2 dall'ordine FS (13 ottobre 2026), LAPIDE: 1. La seconda porta e'
+      // `riscattaPiuVolte`, i riscatti in fila della Croce Celtica sotto un
+      // consenso solo: anche lei lo pretende.
+      'lib/core/entitlement/question_allowance.dart': 2,
       // 5 dall'ordine FF: l'indizio in piu' e il segno di chi indovina.
       'lib/core/cerchio/il_cerchio_sociale.dart': 5,
       'lib/features/maestri/live/schermata_live.dart': 1,

@@ -107,7 +107,7 @@ enum ReadingKey {
             'stesa mostra di come la persona vive la sua domanda, la seconda '
             'quale scelta ha davanti, partendo dalla carta chiave. In ogni '
             'carta scrivi che cosa la carta rispecchia della persona davanti '
-            'alla sua domanda, e chiudi con una domanda che la persona può '
+            'alla sua domanda; chiudi con una domanda che la persona può '
             'farsi. Anche la carta del futuro si legge come una tendenza da '
             'riconoscere, mai come un annuncio. Non nominare Jodorowsky.',
         ReadingKey.esoterica => "LA CHIAVE DI LETTURA, che prevale sulle "
@@ -117,14 +117,14 @@ enum ReadingKey {
             "dell'immagine di Waite (una figura, un oggetto, un colore) e che "
             "cosa significa in quella tradizione; la corrispondenza della "
             "carta con un elemento, un pianeta o un segno nominala solo "
-            "quando la conosci con certezza, e non inventarla. La seconda "
+            "quando la conosci con certezza: non inventarla. La seconda "
             "frase della RISPOSTA parte dal simbolo della carta chiave. Il "
             "simbolo serve a rispondere alla domanda, non a fare lezione.",
         ReadingKey.archetipica => 'LA CHIAVE DI LETTURA, che prevale sulle '
             'regole della RISPOSTA e delle CARTE qui sotto: Archetipica, nella '
             'lettura di Sallie Nichols e di Rachel Pollack. In ogni carta '
             'nomina l\'archetipo che la carta incarna (il Viandante, il '
-            'Mago, la Madre, il Guerriero, l\'Eremita e cosi\' via) e quale '
+            'Mago, la Madre, il Guerriero, l\'Eremita e così via) e quale '
             'passaggio del cammino interiore della persona rappresenta '
             'rispetto alla sua domanda. La RISPOSTA dice in quale passaggio '
             'del suo cammino si trova la persona e che cosa quel passaggio le '

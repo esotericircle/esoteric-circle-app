@@ -224,7 +224,7 @@ Future<bool> showUpgradeInvite(
           content: Text(intero
               ? 'Riscatto compiuto: $cosaUna. Spesi ${esito.pagato} Eos.'
               : 'Il riscatto si è fermato a metà: il Cerchio non ha '
-                  'risposto. Spesi ${esito.pagato} Eos, e le carte comprate '
+                  'risposto. Spesi ${esito.pagato} Eos: le carte comprate '
                   'restano tue per oggi.'),
         ));
         onSuccesso?.call(esito.pagato);
