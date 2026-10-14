@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2310
+version: 0.1.0+2311
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -298,12 +298,16 @@ flutter:
     # fondatore: 0db19531145d83422858fdf342973533857a8bc3dc1f34a6d95aaf8eca12c77d.
     - brand_assets/mondo_di_sotto/
     # IL VIDEO DELLA SCENA DELLA STESA, ordine FS aggiunta voce FS.A1, 14
-    # ottobre 2026: medora_mazzo_in_vortice_v1.mp4, Medora che porta avanti
-    # il mazzo chiuso e le carte che salgono in vortice e diventano polvere
-    # di stelle. 720 per 1280, 24 fotogrammi al secondo, 8 secondi, con
-    # l'audio. Le due pose ferme (il primo e l'ultimo fotogramma) stanno in
-    # assets/img/tavolo/. Impronta SHA-256 del file consegnato dal
-    # fondatore: e8b6d318cf3604bf3d58960edd2d8ea8bc056b8c6719216ce2862875b546b30b.
+    # ottobre 2026: Medora che porta avanti il mazzo chiuso e le carte che
+    # salgono in vortice e diventano polvere di stelle. Il file consegnato
+    # dal fondatore era medora_mazzo_in_vortice_v1.mp4, 720 per 1280, 24
+    # fotogrammi al secondo, 8 secondi, con l'audio, impronta SHA-256
+    # e8b6d318cf3604bf3d58960edd2d8ea8bc056b8c6719216ce2862875b546b30b.
+    # Dopo la build 2310 la fine e' rifatta: medora_mazzo_in_vortice_v2.mp4,
+    # che si ferma con la mano sul petto rallentando in modo uniforme, 190
+    # fotogrammi, impronta SHA-256
+    # e0c3eb2acf150410805718995cfa33ec4388229cf5e636be8fa11ddaf1940c56.
+    # Le due pose ferme stanno in assets/img/tavolo/.
     - brand_assets/tavolo/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o

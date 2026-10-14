@@ -1898,8 +1898,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // Sopra Medora c'era una fascia vuota che sprecava la parte migliore
       // dello schermo: il margine alto ora e' appena quello che serve a non
       // finire sotto la barra del titolo.
-      padding: EdgeInsets.fromLTRB(SpacingTokens.lg,
-          sottoLaBarra + SpacingTokens.xs, SpacingTokens.lg, SpacingTokens.lg),
+      //
+      // **NESSUNA FASCIA FRA LA BARRA E LA SCENA.** Il fondatore, sulla 2309
+      // e sulla 2310: "sopra la testa di Medora c'e' una barra azzurra piena
+      // da eliminare". LAPIDE: `sottoLaBarra + SpacingTokens.xs`, otto punti
+      // di cosmo senza il velo della barra. La scena sale sotto il velo
+      // esattamente quanto la sua sfumatura in alto
+      // (`GeometriaDelTavolo.sfumaturaInAlto`), cosi' l'immagine e' piena dal
+      // bordo della barra in giu'.
+      padding: EdgeInsets.fromLTRB(
+          SpacingTokens.lg,
+          sottoLaBarra -
+              GeometriaDelTavolo.sfumaturaInAlto *
+                  GeometriaDelTavolo.scala(MediaQuery.sizeOf(context).width),
+          SpacingTokens.lg,
+          SpacingTokens.lg),
       children: [
         if (_responsoPronto)
           IlResponsoNelDiario(
@@ -1912,7 +1925,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // FL voci 01, 03 e 05. LAPIDE: "MedoraStage", il ritratto con
         // l'altezza che cresceva a responso in scena.
         _laScena(palette),
-        const SizedBox(height: SpacingTokens.sm),
+        // Il pannello "Scegli la tua stesa" sfiora il bordo basso del tavolo
+        // (il fondatore, 14 ottobre 2026): nessun margine fra i due.
+        if (_responsoPronto) const SizedBox(height: SpacingTokens.sm),
         // La configurazione, richiusa nella sua riga di riepilogo.
         //
         // **RESTA ANCHE LEI FINO AL RESPONSO. Ordine DD voce 08.** Sparendo

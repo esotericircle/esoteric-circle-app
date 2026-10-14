@@ -1,0 +1,60 @@
+14 OTTOBRE 2026, DOPO LA BUILD 2310: LA FASCIA AZZURRA SOTTO LA BARRA DEL TITOLO, E IL PANNELLO CHE SFIORA IL TAVOLO.
+
+DOMANDA: "Hai eliminato la barra piena sotto la barra semitrasparente del
+titolo dei tarocchi?" (la richiesta, sulla 2309: "sopra la testa di Medora
+c'e' una barra azzurra piena da eliminare. Sopra c'e' la giusta barra del
+titolo semitrasparente").
+
+1. SULLA 2310 LA FASCIA C'ERA ANCORA.
+   Cattura del Realme 767f596c con la 2310 installata, Stesa aperta, video
+   fermo (1080x2400, densita' 3, 360x800 punti). Luminosita' media riga per
+   riga: la barra del titolo, velata, sta a 27-34; dal pixel 392 al 417 una
+   fascia piatta a 48 (colore 52,59,117 a sinistra, 41,49,103 al centro),
+   piu' chiara della barra; dal 418 comincia la scena. Ventisei pixel, otto
+   punti e mezzo.
+
+   CAUSA: la lista della Stesa comincia `sottoLaBarra + SpacingTokens.xs`, e
+   xs vale 8 punti. In quegli otto punti non c'e' la barra e non c'e' ancora
+   la scena: si vede il cosmo dello sfondo senza il velo della barra, piatto
+   e piu' chiaro. PROVENIENZA: ordine FS, commit dc678e6b (il contenuto che
+   passa sotto la barra, voce 4), che ha tenuto il margine. La correzione
+   della 2310 (commit d22d4c8b, il filmato posizionato come lo sfondo fermo)
+   misurava un'altra cosa in una prova software e non l'ha toccata: e'
+   stata dichiarata fatta senza averla vista sul telefono.
+
+2. LA CURA.
+   - La scena sale sotto il velo della barra esattamente quanto la sua
+     sfumatura in alto: margine = sottoLaBarra - 6 x scala (3,1 punti a
+     360). L'immagine e' piena dal bordo basso della barra in giu'.
+   - La sfumatura in alto e' di sei pixel anche con la scena ferma (prima
+     quaranta): con quaranta la scena ferma, che si vede nei primi secondi e
+     sempre con Riduci Movimento, avrebbe lasciato il cosmo chiaro sotto la
+     barra, o la scena si sarebbe spostata di diciotto punti alla partenza
+     del filmato.
+   - La testa di Medora comincia otto pixel e mezzo sotto il taglio: resta
+     intera, circa un punto sotto la barra.
+
+3. IL PANNELLO "SCEGLI LA TUA STESA" SFIORA IL BORDO BASSO DEL TAVOLO.
+   DOMANDA: "Devi far salire la bolla 'scegli la tua stesa' fino a sfiorare
+   il bordo basso del tavolo e tutto quello che sta sotto alla bolla deve
+   risalire con essa".
+   Il bordo basso del piano, misurato sull'immagine riga per riga: i
+   simboli d'oro finiscono al pixel 1202, il bordino chiaro della cornice
+   davanti va dal 1206 al 1214, dal 1216 comincia il drappo scuro. Il bordo
+   e' il pixel 1215 (GeometriaDelTavolo.bordoBassoDelPiano).
+   Prima: la scena arrivava al 1255 sfumando dal 1145, poi un margine sm, poi
+   il pannello: sul Realme circa 43 punti di drappo sfumato fra la cornice e
+   il pannello. Adesso la scena finisce al 1215 con un taglio netto, che e'
+   il bordo dritto del tavolo a tutta larghezza, e il pannello comincia li',
+   senza margine: col pannello velato al 45 per cento, dietro non resta
+   niente del tavolo. Tutto il resto della lista sale con lui. A responso
+   pronto il margine sm prima del responso resta.
+
+MISURA: fascia sotto la barra da 8,5 punti (26 pixel sul Realme) a 0; fra
+il bordo del tavolo e il pannello da circa 43 punti a 0 (nella prova: 11,1
+punti fra barra e immagine piena sul codice di prima, 0 dopo).
+
+PROVA: test/nessuna_fascia_sotto_la_barra_della_stesa_test.dart, Regola A
+in regola_a_fascia_e_pannello.py e .txt (tre innesti su tre rossi). La
+cattura del Realme dopo la correzione si aggiunge qui sotto quando la build
+e' sul telefono.

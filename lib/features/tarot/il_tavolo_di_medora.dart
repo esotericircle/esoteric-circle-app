@@ -87,12 +87,43 @@ class GeometriaDelTavolo {
   /// ventotto punti a 390): con novanta il ventaglio, dopo la seconda carta,
   /// scendeva a 854 punti su uno schermo di 844 e usciva di portata
   /// (`stesa_coreografia_test.dart`, "il ventaglio resta a portata").
-  static const double inizioDellaSfumatura = bordoDavanti - 60;
-  static const double fineDellaSfumatura = bordoDavanti + 50;
+  ///
+  /// **IL PANNELLO SFIORA IL BORDO BASSO DEL TAVOLO, 14 ottobre 2026.** Il
+  /// fondatore, sulla 2310: *"Devi far salire la bolla 'scegli la tua stesa'
+  /// fino a sfiorare il bordo basso del tavolo e tutto quello che sta sotto
+  /// alla bolla deve risalire con essa"*. LAPIDE: la sfumatura dal pixel
+  /// 1145 (bordo davanti meno sessanta) al 1255 (piu' cinquanta), con il
+  /// pannello dopo: fra la cornice d'oro e il pannello restavano circa
+  /// quarantatre punti di drappo che sfumava. Adesso la scena finisce al
+  /// [bordoBassoDelPiano] con un taglio netto, che e' il bordo vero del
+  /// tavolo, dritto e a tutta larghezza; il pannello, velato al 45 per cento,
+  /// comincia subito sotto e non ha piu' niente del tavolo dietro di se'.
+  static const double inizioDellaSfumatura = bordoBassoDelPiano;
+  static const double fineDellaSfumatura = bordoBassoDelPiano;
+
+  /// **IL BORDO BASSO DEL PIANO**, in pixel dell'immagine: la riga dopo il
+  /// bordino chiaro della cornice davanti (righe da 1206 a 1214, misurate
+  /// riga per riga); dal 1216 comincia il drappo scuro.
+  static const double bordoBassoDelPiano = 1215;
 
   /// In alto l'immagine entra nel cosmo per i primi pixel, cosi' passando
   /// sotto la barra semitrasparente non mostra un bordo netto.
-  static const double sfumaturaInAlto = 40;
+  ///
+  /// **SEI PIXEL, COL FILMATO E SENZA, e la scena comincia sotto la barra
+  /// proprio di tanto (`StesaTreCarteScreen`).** Il fondatore, sulla 2309 e
+  /// di nuovo sulla 2310: *"sopra la testa di Medora c'e' una barra azzurra
+  /// piena da eliminare. Sopra c'e' la giusta barra del titolo
+  /// semitrasparente"*. Era il cosmo, senza il velo della barra, nel margine
+  /// di otto punti fra la barra e la scena (misurato sul Realme: dal pixel
+  /// 392 al 417, `docs/collaudo/FS/aggiunta_video/a6_la_fascia_sotto_la_
+  /// barra.txt`). LAPIDE: quaranta pixel con la scena ferma, sei col
+  /// filmato (`ScenaDellaStesaInVideo.sfumaturaInAlto`): con la scena che
+  /// sale sotto il velo per tutta la sfumatura, quaranta avrebbero spostato
+  /// la scena di diciotto punti quando il filmato parte, o lasciato il cosmo
+  /// chiaro sotto la barra finche' non parte. Sei pixel sono quelli che i
+  /// capelli di Medora nel filmato permettono (la testa comincia otto pixel e
+  /// mezzo sotto il taglio).
+  static const double sfumaturaInAlto = 6;
 
   /// **IL CAMPO DEL VELLUTO DENTRO IL BORDO RICAMATO**, i quattro angoli in
   /// pixel, misurati sull'immagine: in fondo a sinistra, in fondo a destra,
@@ -322,10 +353,10 @@ class TavoloDiMedora extends StatelessWidget {
               child: ShaderMask(
                 key: const Key('tavolo_sfumatura'),
                 blendMode: BlendMode.dstIn,
-                shaderCallback: (r) => LinearGradient(
+                shaderCallback: (r) => const LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: const [
+                  colors: [
                     Color(0x00FFFFFF),
                     Color(0xFFFFFFFF),
                     Color(0xFFFFFFFF),
@@ -333,9 +364,7 @@ class TavoloDiMedora extends StatelessWidget {
                   ],
                   stops: [
                     0,
-                    (filmato == null
-                            ? GeometriaDelTavolo.sfumaturaInAlto
-                            : ScenaDellaStesaInVideo.sfumaturaInAlto) /
+                    GeometriaDelTavolo.sfumaturaInAlto /
                         GeometriaDelTavolo.altoDelTaglio,
                     (GeometriaDelTavolo.inizioDellaSfumatura -
                             GeometriaDelTavolo.taglioInAlto) /

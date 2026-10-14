@@ -165,7 +165,7 @@ void main() {
 
     test('il filmato e le due pose esistono e sono dichiarati', () {
       expect(ScenaDellaStesaInVideo.filmato,
-          'brand_assets/tavolo/medora_mazzo_in_vortice_v1.mp4');
+          'brand_assets/tavolo/medora_mazzo_in_vortice_v2.mp4');
       expect(GeometriaDelTavolo.posaDelMazzo,
           'assets/img/tavolo/medora_mazzo_v1.webp');
       expect(GeometriaDelTavolo.posaDellInvito,

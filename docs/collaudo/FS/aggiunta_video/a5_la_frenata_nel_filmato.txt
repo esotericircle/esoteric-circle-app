@@ -1,0 +1,88 @@
+14 OTTOBRE 2026, DOPO LA BUILD 2310: LA FRENATA DI MEDORA SI SPOSTA DENTRO IL FILMATO.
+
+DOMANDA: "Ti avevo anche chiesto di rallentare l'ultimo secondo del video, in
+modo che non si fermi di botto, ma come se avesse un movimento piu' naturale
+di fermata" (il fondatore, sulla 2310; la richiesta di prima: "Medora deve
+fermarsi poco prima della fine del video, quando ha la mano sul petto e non
+quando la allontana. Cerca di rallentare l'ultimo secondo in modo che non si
+fermi di botto").
+
+1. LA 2310, MISURATA SUL REALME 767f596c.
+   Registrazione con scrcpy (16 s, 1080x2400, ~60 fps) aprendo la Stesa dalla
+   home. Ogni fotogramma registrato e' stato abbinato al fotogramma piu'
+   simile del filmato sorgente (regione della scena, allineata con
+   matchTemplate, errore di allineamento 0,019): la posizione del filmato,
+   istante per istante, sta in a5_realme_2310_posizioni.txt (tempo della
+   registrazione, fotogramma sorgente, errore). Un fotogramma ogni 1/24 di
+   secondo e' velocita' piena.
+
+   tempo reale    fotogrammi    velocita'    prevista dalla rampa della 2310
+   7,0 - 8,0 s    113 - 137     1,00         1,00
+   8,0 - 8,5 s    137 - 148     0,92         da 1,00 a 0,75
+   8,5 - 9,0 s    148 - 160     1,00         da 0,75 a 0,25
+   9,0 - 9,25 s   160 - 164     0,67         da 0,25 a 0,10
+   9,25 - 9,5 s   164 - 166     0,33         0,10
+   da 9,5 s       166, fermo
+
+   Il filmato e' partito a 2,1 s e si e' fermato a 9,5 s: 7,4 s reali per
+   6,917 s di contenuto. La frenata e' durata meno di mezzo secondo.
+
+   CAUSA: il lettore Android (ExoPlayer, dietro video_player) applica una
+   velocita' nuova solo dopo aver suonato l'audio che ha gia' preparato, e
+   il video segue l'orologio dell'audio: ogni setPlaybackSpeed arrivava circa
+   mezzo secondo tardi. La prova della 2310 (la_scena_si_ferma_col_
+   rallentamento_test) provava la formula, non il lettore: era verde ed era
+   cieca su questo. PROVENIENZA: la voce 16 dell'ordine FS (commit 6a3f890a),
+   la mia scelta di frenare a tempo d'esecuzione.
+
+2. LA CURA: LA FRENATA NEL FILE.
+   brand_assets/tavolo/medora_mazzo_in_vortice_v2.mp4, ricostruito
+   dall'originale del fondatore (commit 48978334) con
+   tool/la_frenata_nel_filmato.py, che lo rifa' identico al byte (impronta
+   e0c3eb2acf150410805718995cfa33ec4388229cf5e636be8fa11ddaf1940c56,
+   verificata rilanciandolo):
+   - fotogrammi 0-141: quelli originali, invariati;
+   - 48 fotogrammi (2,000 s) in cui il contenuto va dal 142 al 166 con la
+     velocita' che scende in linea retta da piena a zero: posizione =
+     142 + 24 x (1 - (1 - t/2)^2). Alla partenza la velocita' e' esattamente
+     quella di prima (nessuno scatto), all'arrivo e' zero (nessun urto);
+   - i fotogrammi fra due originali vengono dall'interpolazione di
+     movimento di ffmpeg (minterpolate, 240 al secondo): verificato che
+     l'interpolato di una posizione intera e' identico all'originale
+     (differenza 0,0 su 140, 141, 142, 165, 166) e che a meta' fra 165 e
+     166 sta a meta' (0,61 e 0,67);
+   - audio originale tagliato alla nuova durata, mezzo secondo di
+     dissolvenza;
+   - 190 fotogrammi, 7,917 s, H.264 high 720x1280, AAC 48 kHz, 6.185.982
+     byte.
+   La tabella delle 48 posizioni sta in a5_tabella_della_frenata.txt.
+
+   Il lettore torna quello di prima della 2310: suona il file a velocita'
+   normale e resta sull'ultimo fotogramma. Nessun setPlaybackSpeed, nessun
+   seekTo. Uguale su Android e su iOS.
+
+3. MISURE DEL FILE NUOVO.
+   Moto medio fra fotogrammi consecutivi (0-255), dal fotogramma 130 alla
+   fine: 5,83 5,40 6,49 6,28 5,52 4,91 5,83 4,85 4,88 4,41 5,61 5,43 5,29
+   5,16 3,80 3,72 3,06 3,35 2,79 3,07 3,23 3,39 3,53 2,36 2,23 3,23 2,49
+   1,59 3,18 2,60 1,86 2,35 1,52 2,36 2,15 2,17 1,75 1,98 1,46 1,70 1,06
+   1,54 1,49 0,50 0,69 0,55 0,25 0,58 0,41 0,49 0,20 0,19 0,31 0,21 0,15
+   0,16 0,15 0,05 0,01 0,01: scende con continuita' fino a zero.
+   Ultimo fotogramma contro l'originale 166: differenza media 1,59 (la
+   compressione). Il velluto del 166 contro quello del 191: 1,81 di media,
+   le carte restano dove sono.
+   a5_frenata_quattro_istanti.jpg: i fotogrammi 141 (ultimo a velocita'
+   piena), 165, 177 e 189 (fermo, la mano sul petto).
+
+MISURA: la frenata vera passa da meno di 0,5 s (2310, sul Realme) a 2,0 s
+dentro il file, con la velocita' da 1,0 a 0 in linea retta.
+
+PROVA: questo file, a5_realme_2310_posizioni.txt, la guardia
+test/la_frenata_sta_nel_filmato_test.dart (Regola A in
+regola_a_frenata_nel_filmato.py e .txt, tre innesti su tre rossi).
+
+APERTO: la frenata nuova non e' ancora guardata sul Realme (serve la build
+che la porta). Con Riduci Movimento la scena ferma resta la posa
+dell'invito, il gesto della fine dell'originale, non quella con la mano sul
+petto: e' una posa scontornata a parte (assets/img/tavolo/medora_invito_v1.webp),
+da rifare se il fondatore la vuole uguale.

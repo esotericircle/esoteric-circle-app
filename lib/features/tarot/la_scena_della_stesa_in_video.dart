@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -34,66 +32,36 @@ class ScenaDellaStesaInVideo {
   /// di participi dalla guardia `niente_vocativo_a_schermo`.
   static const String _dentro = 'brand_assets';
   static const String _dove = 'tavolo';
-  static const String _file = 'medora_mazzo_in_vortice_v1.mp4';
+  static const String _file = 'medora_mazzo_in_vortice_v2.mp4';
 
-  /// Il filmato del fondatore: 720 per 1280, 24 fotogrammi al secondo, 8,000
-  /// secondi, con l'audio. L'impronta sta in `docs/stato_asset.json`.
+  /// Il filmato del fondatore con la fine rifatta: 720 per 1280, 24
+  /// fotogrammi al secondo, con l'audio. L'impronta sta in
+  /// `docs/stato_asset.json`.
+  ///
+  /// **LA FRENATA STA NEL FILE, NON NEL LETTORE.** Il fondatore, 14 ottobre
+  /// 2026: *"Medora deve fermarsi poco prima della fine del video, quando ha
+  /// la mano sul petto e non quando la allontana. Cerca di rallentare
+  /// l'ultimo secondo in modo che non si fermi di botto"*, e sulla 2310:
+  /// *"come se avesse un movimento piu' naturale di fermata"*. LAPIDE: la
+  /// rampa di `setPlaybackSpeed` della 2310 (`fermaA`, `velocitaA`). Sul
+  /// Realme il lettore Android applica la velocita' nuova solo dopo l'audio
+  /// che ha gia' in memoria, circa mezzo secondo dopo: misurata la scena a
+  /// velocita' piena fino a 9,0 s e ferma a 9,5 s, la frenata durava meno di
+  /// mezzo secondo (`docs/collaudo/FS/aggiunta_video/a5_la_frenata_nel_
+  /// filmato.txt`). Adesso il file finisce al fotogramma 166 dell'originale,
+  /// la mano sul petto, e il suo ultimo secondo di contenuto dura due
+  /// secondi, con la velocita' che scende in modo uniforme da piena a zero;
+  /// il lettore lo suona com'e' e resta sull'ultimo fotogramma.
   static const String filmato = '$_dentro/$_dove/$_file';
 
   /// Le misure del filmato, in pixel.
   static const Size misura = Size(720, 1280);
 
-  /// Quanto dura il filmato intero, 192 fotogrammi a 24 al secondo. La
-  /// scena non arriva fin qui: si ferma prima, a [fermaA].
-  static const Duration durata = Duration(seconds: 8);
-
-  /// **DOVE SI FERMA LA SCENA, NON ALLA FINE DEL FILMATO.** Ordine del 14
-  /// ottobre 2026, dal telefono del fondatore: *"il video di animazione,
-  /// Medora deve fermarsi poco prima della fine del video, quando ha la
-  /// mano sul petto e non quando la allontana"*. Negli ultimi istanti del
-  /// filmato la mano destra, ferma fino a circa 6,5 s, si allontana dal
-  /// petto verso il gesto di invito finale (8,000 s): la scena si ferma
-  /// prima, al fotogramma 166 (6,917 s), misurato guardando il filmato
-  /// fotogramma per fotogramma (`docs/collaudo/FS/aggiunta_video/
-  /// a4_dove_si_ferma_la_scena.txt`): la polvere d'oro e' gia' sparita dal
-  /// velluto, la mano sinistra e' sul petto, la destra non si e' ancora
-  /// mossa verso il gesto finale.
-  static const Duration fermaA = Duration(milliseconds: 6917);
-
-  /// **L'ULTIMO SECONDO RALLENTA, NON SI FERMA DI SCATTO.** Lo stesso
-  /// fondatore: *"cerca di rallentare l'ultimo secondo in modo che non si
-  /// fermi di botto"*. Negli ultimi [rallentamento] prima di [fermaA] la
-  /// velocita' scende da 1,0 verso [velocitaMinima], mai a zero (il lettore
-  /// video non riparte da fermo): l'ultimo gradino e' la pausa vera, quando
-  /// la posizione raggiunge [fermaA]. Stessa idea della rampa del dito della
-  /// discesa nel Mondo di Sotto (`DiscesaInVideo`), qui continua invece che
-  /// a gradini, perche' non c'e' un dito che la guida.
-  static const Duration rallentamento = Duration(seconds: 1);
-
-  /// La velocita' minima della rampa: la stessa di [DiscesaInVideo.gradini],
-  /// un decimo, per restare visibilmente in moto fino all'ultimo fotogramma
-  /// prima della pausa vera.
-  static const double velocitaMinima = 0.1;
-
-  /// **LA VELOCITA' A [posizione].** 1,0 finche' manca piu' di
-  /// [rallentamento] a [fermaA], poi scende verso [velocitaMinima] in
-  /// proporzione a quanto manca. Non dice mai 0: la pausa vera e' un
-  /// comando a parte ([fermo]), perche' `video_player` a velocita' zero non
-  /// riparte da solo.
-  ///
-  /// Funzione pura, senza un lettore: una prova puo' misurarla fotogramma
-  /// per fotogramma senza montare nulla.
-  static double velocitaA(Duration posizione) {
-    final restante = fermaA - posizione;
-    if (restante <= Duration.zero) return velocitaMinima;
-    if (restante > rallentamento) return 1.0;
-    final frazione = restante.inMicroseconds / rallentamento.inMicroseconds;
-    return frazione.clamp(velocitaMinima, 1.0).toDouble();
-  }
-
-  /// Vero quando [posizione] ha raggiunto o superato [fermaA]: qui la scena
-  /// si ferma davvero, e ci resta.
-  static bool fermo(Duration posizione) => posizione >= fermaA;
+  /// Quanto dura: 190 fotogrammi a 24 al secondo, 7,917 secondi (i 142
+  /// fotogrammi originali fino al 141 e i 48 della frenata fino al 166).
+  static const int fotogrammi = 190;
+  static const Duration durata =
+      Duration(microseconds: fotogrammi * 1000000 ~/ 24);
 
   /// **IL RIQUADRO DEL FILMATO NELLO SFONDO**, in pixel dello sfondo: dal
   /// pixel 147 al 1370, a tutta larghezza. E' il taglio 9 a 16 su cui il
@@ -109,13 +77,6 @@ class ScenaDellaStesaInVideo {
     return Rect.fromLTWH(0, (sopra - GeometriaDelTavolo.taglioInAlto) * s, w,
         (sotto - sopra) * s);
   }
-
-  /// **LA SFUMATURA IN ALTO, col filmato: sei pixel e non quaranta.** Lo
-  /// sfondo fermo entra nel cosmo per quaranta pixel, ma li' Medora stava
-  /// fuori dalla sfumatura, disegnata sopra. Nel filmato Medora e' dentro
-  /// l'immagine, e la sua testa comincia otto pixel e mezzo sotto il taglio
-  /// (misurata sul fotogramma): con quaranta i capelli sarebbero sbiaditi.
-  static const double sfumaturaInAlto = 6;
 }
 
 /// **IL LETTORE DELLA SCENA, dietro una porta sola.**
@@ -178,11 +139,6 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
   bool _fallito = false;
   bool _cominciato = false;
   bool _finito = false;
-
-  /// L'ultima velocita' impostata durante la rampa, per non richiamare
-  /// `setPlaybackSpeed` a ogni fotogramma quando il numero non e' cambiato
-  /// di una quantita' che si vede.
-  double? _ultimaVelocita;
 
   @override
   bool get pronto => _pronto;
@@ -250,26 +206,12 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
       _cominciato = true;
       cambiato = true;
     }
-    if (!_finito && v.isInitialized) {
-      // **LA SCENA SI FERMA A `fermaA`, NON ALLA FINE DEL FILMATO.** Mai un
-      // `seekTo`: si lascia che il filmato arrivi li' da solo, rallentando
-      // nell'ultimo [ScenaDellaStesaInVideo.rallentamento]
-      // ([ScenaDellaStesaInVideo.velocitaA]) e fermandosi (`pause`) quando
-      // la posizione lo raggiunge o lo supera ([ScenaDellaStesaInVideo.
-      // fermo]), cosi' un fotogramma perso per il tempo reale non lascia il
-      // lettore in corsa per sempre.
-      if (ScenaDellaStesaInVideo.fermo(v.position)) {
-        _finito = true;
-        cambiato = true;
-        unawaited(c.pause());
-      } else {
-        final velocita = ScenaDellaStesaInVideo.velocitaA(v.position);
-        final ultima = _ultimaVelocita;
-        if (ultima == null || (velocita - ultima).abs() > 0.02) {
-          _ultimaVelocita = velocita;
-          unawaited(c.setPlaybackSpeed(velocita));
-        }
-      }
+    if (!_finito &&
+        v.isInitialized &&
+        v.duration > Duration.zero &&
+        (v.isCompleted || v.position >= v.duration)) {
+      _finito = true;
+      cambiato = true;
     }
     if (v.hasError && !_fallito) {
       _fallito = true;

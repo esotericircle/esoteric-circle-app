@@ -1,0 +1,16 @@
+== la rampa di velocita torna nel lettore
+   innesto entrato: True
+   uscita 1
+   caduto: il lettore della scena non cambia velocita' e non salta
+   ripristinato al byte: True
+== il codice dice 192 fotogrammi, il file 190
+   innesto entrato: True
+   uscita 1
+   caduto: durata e fotogrammi scritti nel file sono quelli del codice
+   ripristinato al byte: True
+== al posto del file con la frenata, l'originale senza
+   innesto entrato (impronta dell'originale): True
+   uscita 1
+   caduto: il filmato e' quello misurato, con la sua impronta
+   caduto: durata e fotogrammi scritti nel file sono quelli del codice
+   ripristinato al byte: True
