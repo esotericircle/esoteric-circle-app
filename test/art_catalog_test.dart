@@ -89,8 +89,10 @@ void main() {
       expect(find('synastry_vip').state, ArtState.attiva);
       expect(find('tarot_spread_three').state, ArtState.attiva);
       expect(find('meditation').state, ArtState.attiva);
-      // Chiusa dietro il Cerchio, non in arrivo: e' fatta, si sblocca.
-      expect(find('synastry_depth').state, ArtState.premium);
+      // LAPIDE, ordine FT voce FT.13: qui la Sinastria evolutiva era
+      // "chiusa dietro il Cerchio" (Premium). Adesso e' viva a tutti i piani,
+      // coi limiti della matrice.
+      expect(find('synastry_depth').state, ArtState.attiva);
       // In cammino, ciascuna con la sua fase.
       expect(find('natal_chart').state, ArtState.inArrivo);
       expect(find('natal_chart').phase, 'MVP');
@@ -412,7 +414,7 @@ void main() {
         'sinastria_nfc',
       ]);
       expect(comp.arts[0].state, ArtState.attiva);
-      expect(comp.arts[1].state, ArtState.premium);
+      expect(comp.arts[1].state, ArtState.attiva);
 
       final amici =
           comp.arts.firstWhere((a) => a.id == 'friends_compatibility');
@@ -420,12 +422,15 @@ void main() {
       expect(amici.state, ArtState.inArrivo);
       expect(amici.phase, ArtPhase.viralita);
 
-      // La Sinastria Evolutiva e' la compatibilita' unificata: i tre livelli
-      // stanno dentro di lei, non piu' sparsi su tre Maestri.
-      final profonda = comp.arts.firstWhere((a) => a.id == 'synastry_depth');
-      for (final livello in const ['astrale', 'angelico', 'archetipico']) {
-        expect(profonda.teaser.toLowerCase(), contains(livello));
+      // LAPIDE, ordine FT: qui si pretendevano i tre livelli, astrale,
+      // angelico e archetipico, promessi dall'ordine ER. La Sinastria
+      // evolutiva costruita dall'ordine FT legge due cieli veri in cinque
+      // capitoli: la scheda non promette livelli che non ha.
+      final evolutiva = comp.arts.firstWhere((a) => a.id == 'synastry_depth');
+      for (final livello in const ['angelico', 'archetipico']) {
+        expect(evolutiva.teaser.toLowerCase(), isNot(contains(livello)));
       }
+      expect(evolutiva.teaser.toLowerCase(), contains('cinque capitoli'));
 
       // Astrologia non tiene piu' nessuna sinastria, e l'Affinità Lunare resta
       // dove e' sempre stata, in Lunologia.

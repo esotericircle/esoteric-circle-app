@@ -322,17 +322,22 @@ class ArtCatalog {
         icon: Icons.favorite_rounded,
         state: ArtState.attiva,
       ),
-      // La compatibilita' unificata: i tre livelli, astrale, angelico e
-      // archetipico, vivono qui dentro e non piu' come tre card sparse su tre
-      // Maestri.
+      // **LA SINASTRIA EVOLUTIVA E' VIVA, ordine FT, 14 ottobre 2026.**
+      // LAPIDE: qui stava la promessa dell'ordine ER, "La lettura di coppia
+      // completa sui tre livelli, astrale, angelico e archetipico", Premium
+      // dall'Adepto. L'ordine FT ha costruito una lettura di due cieli veri
+      // in cinque capitoli, senza livello angelico ne' archetipico: la
+      // promessa vecchia sarebbe stata falsa. E si apre a tutti i piani, coi
+      // limiti della matrice (una coppia nuova al giorno al Viandante, due
+      // capitoli su cinque), come la Sinastria VIP: chiusa dietro l'Adepto, la
+      // scheda della home avrebbe tenuto fuori proprio chi deve assaggiarla.
       ArtEntry(
         id: 'synastry_depth',
         title: 'Sinastria Evolutiva',
         teaser:
-            'La lettura di coppia completa sui tre livelli, astrale, angelico e archetipico.',
+            'Due cieli veri in cinque capitoli: che cosa vi unisce e che cosa fare.',
         icon: Icons.favorite_border_rounded,
-        state: ArtState.premium,
-        requiredTier: Tier.tier2,
+        state: ArtState.attiva,
       ),
       ArtEntry(
         id: 'friends_compatibility',

@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/core/arts/gli_sfondi_delle_schede.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/santuario/le_righe_della_casa.dart';
@@ -26,10 +27,26 @@ import 'cardinale_minimo.dart';
 /// della home (`lib/features/santuario/le_righe_della_casa.dart`). Qui si
 /// misura quello che il fondatore ha chiesto, voce per voce, sulla
 /// composizione vera che la home monta: `LeRigheDellaCasaView`.
+/// **UN'ARTE PREMIUM DI PROVA.** Ordine FT voce FT.13, 14 ottobre 2026:
+/// la Sinastria evolutiva, l'unica arte Premium del catalogo, si apre a
+/// tutti i piani con i suoi limiti, e nel catalogo non resta nessuna arte
+/// Premium. La forma della scheda Premium resta nel codice e si prova qui,
+/// su un'arte dichiarata dalla prova.
+const _arteePremiumDiProva = ArtEntry(
+  id: 'arte_premium_di_prova',
+  title: 'Arte Premium di prova',
+  teaser: 'Un\'arte che si apre con l\'Adepto.',
+  icon: Icons.lock_rounded,
+  state: ArtState.premium,
+  requiredTier: Tier.tier2,
+);
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  ArtEntry arte(String id) => ArtCatalog.all.firstWhere((a) => a.id == id);
+  ArtEntry arte(String id) => id == _arteePremiumDiProva.id
+      ? _arteePremiumDiProva
+      : ArtCatalog.all.firstWhere((a) => a.id == id);
 
   /// La finestra del telefono di prova, 390 per 844 punti.
   void finestra(WidgetTester tester) {
@@ -422,10 +439,11 @@ void main() {
 
   testWidgets('EO.03: il tocco su un\'arte Premium la apre come oggi',
       (tester) async {
-    final aperte = await montaUna(tester, 'synastry_depth');
-    await tester.tap(find.byKey(const Key('scheda_tocco_synastry_depth')));
+    final aperte = await montaUna(tester, _arteePremiumDiProva.id);
+    await tester
+        .tap(find.byKey(const Key('scheda_tocco_arte_premium_di_prova')));
     await tester.pump();
-    expect(aperte, ['synastry_depth']);
+    expect(aperte, ['arte_premium_di_prova']);
     expect(find.byKey(const Key('scheda_in_uscita')), findsNothing);
     expect(stato(tester).girata, isFalse);
   });

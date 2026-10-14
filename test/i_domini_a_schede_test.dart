@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
@@ -25,6 +26,20 @@ import 'cardinale_minimo.dart';
 /// video con l'elenco del fondatore, **scritto qui alla lettera coi nomi
 /// delle arti come li ha scritti lui**: un titolo cambiato nel catalogo cade
 /// qui come un'arte fuori posto.
+/// **UN'ARTE PREMIUM DI PROVA.** Ordine FT voce FT.13, 14 ottobre 2026:
+/// la Sinastria evolutiva, l'unica arte Premium del catalogo, si apre a
+/// tutti i piani con i suoi limiti, e nel catalogo non resta nessuna arte
+/// Premium. La forma della scheda Premium resta nel codice e si prova qui,
+/// su un'arte dichiarata dalla prova.
+const _arteePremiumDiProva = ArtEntry(
+  id: 'arte_premium_di_prova',
+  title: 'Arte Premium di prova',
+  teaser: 'Un\'arte che si apre con l\'Adepto.',
+  icon: Icons.lock_rounded,
+  state: ArtState.premium,
+  requiredTier: Tier.tier2,
+);
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -350,7 +365,7 @@ void main() {
 
   // Le due regole della card di prima, che la scheda eredita.
   Future<void> montaUna(WidgetTester tester, String id,
-      {bool mostraFase = true}) async {
+      {bool mostraFase = true, ArtEntry? arte}) async {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
@@ -364,7 +379,7 @@ void main() {
                 // Una scheda nuova a ogni montaggio: la stessa riusata
                 // resterebbe girata, e il tocco sulla "i" la rigirerebbe.
                 key: ValueKey('$id/$mostraFase'),
-                art: ArtCatalog.all.firstWhere((a) => a.id == id),
+                art: arte ?? ArtCatalog.all.firstWhere((a) => a.id == id),
                 maestro: Maestro.medora,
                 formato: FormatoDellaScheda.verticale,
                 larghezza: 184,
@@ -399,10 +414,11 @@ void main() {
 
   testWidgets('La Premium dice "si apre con l\'Adepto", non "col"',
       (tester) async {
-    await montaUna(tester, 'synastry_depth');
+    await montaUna(tester, _arteePremiumDiProva.id, arte: _arteePremiumDiProva);
     expect(
         tester
-            .widget<Text>(find.byKey(const Key('scheda_fase_synastry_depth')))
+            .widget<Text>(
+                find.byKey(const Key('scheda_fase_arte_premium_di_prova')))
             .data,
         'Si apre con l\'Adepto');
   });
