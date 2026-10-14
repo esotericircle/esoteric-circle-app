@@ -1,0 +1,422 @@
+{
+ "ruoli1-01": {
+  "prova": "ruoli 1",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "08 Cahetel",
+  "variante": 1
+ },
+ "ruoli1-02": {
+  "prova": "ruoli 1",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "57 Nemamiah",
+  "variante": 3
+ },
+ "ruoli1-03": {
+  "prova": "ruoli 1",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "45 Sealiah",
+  "variante": 1
+ },
+ "ruoli1-04": {
+  "prova": "ruoli 1",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "02 Jeliel",
+  "variante": 1
+ },
+ "ruoli1-05": {
+  "prova": "ruoli 1",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "26 Haaiah",
+  "variante": 2
+ },
+ "ruoli1-06": {
+  "prova": "ruoli 1",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "03 Sitael",
+  "variante": 1
+ },
+ "ruoli1-07": {
+  "prova": "ruoli 1",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "07 Achaiah",
+  "variante": 1
+ },
+ "ruoli1-08": {
+  "prova": "ruoli 1",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "70 Jabamiah",
+  "variante": 2
+ },
+ "ruoli1-09": {
+  "prova": "ruoli 1",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "39 Rehael",
+  "variante": 1
+ },
+ "ruoli1-10": {
+  "prova": "ruoli 1",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "50 Daniel",
+  "variante": 2
+ },
+ "ruoli2-11": {
+  "prova": "ruoli 2",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "30 Omael",
+  "variante": 2
+ },
+ "ruoli2-12": {
+  "prova": "ruoli 2",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "08 Cahetel",
+  "variante": 3
+ },
+ "ruoli2-13": {
+  "prova": "ruoli 2",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "07 Achaiah",
+  "variante": 3
+ },
+ "ruoli2-14": {
+  "prova": "ruoli 2",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "53 Nanael",
+  "variante": 3
+ },
+ "ruoli2-15": {
+  "prova": "ruoli 2",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "36 Menadel",
+  "variante": 3
+ },
+ "ruoli2-16": {
+  "prova": "ruoli 2",
+  "giusta": "B",
+  "vera": "cuore",
+  "cella": "14 Mebahel",
+  "variante": 3
+ },
+ "ruoli2-17": {
+  "prova": "ruoli 2",
+  "giusta": "A",
+  "vera": "custode",
+  "cella": "64 Mehiel",
+  "variante": 1
+ },
+ "ruoli2-18": {
+  "prova": "ruoli 2",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "70 Jabamiah",
+  "variante": 2
+ },
+ "ruoli2-19": {
+  "prova": "ruoli 2",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "54 Nithael",
+  "variante": 2
+ },
+ "ruoli2-20": {
+  "prova": "ruoli 2",
+  "giusta": "C",
+  "vera": "intelletto",
+  "cella": "14 Mebahel",
+  "variante": 3
+ },
+ "gemelle-21": {
+  "prova": "gemelle 59-67",
+  "giusta": "A",
+  "vera": "59 Harahel",
+  "cella": "59 Harahel",
+  "variante": 3
+ },
+ "gemelle-22": {
+  "prova": "gemelle 59-67",
+  "giusta": "A",
+  "vera": "59 Harahel",
+  "cella": "59 Harahel",
+  "variante": 1
+ },
+ "gemelle-23": {
+  "prova": "gemelle 59-67",
+  "giusta": "A",
+  "vera": "59 Harahel",
+  "cella": "59 Harahel",
+  "variante": 1
+ },
+ "gemelle-24": {
+  "prova": "gemelle 59-67",
+  "giusta": "A",
+  "vera": "59 Harahel",
+  "cella": "59 Harahel",
+  "variante": 1
+ },
+ "gemelle-25": {
+  "prova": "gemelle 59-67",
+  "giusta": "A",
+  "vera": "59 Harahel",
+  "cella": "59 Harahel",
+  "variante": 3
+ },
+ "gemelle-26": {
+  "prova": "gemelle 59-67",
+  "giusta": "B",
+  "vera": "67 Eyael",
+  "cella": "67 Eyael",
+  "variante": 3
+ },
+ "gemelle-27": {
+  "prova": "gemelle 59-67",
+  "giusta": "B",
+  "vera": "67 Eyael",
+  "cella": "67 Eyael",
+  "variante": 2
+ },
+ "gemelle-28": {
+  "prova": "gemelle 59-67",
+  "giusta": "B",
+  "vera": "67 Eyael",
+  "cella": "67 Eyael",
+  "variante": 1
+ },
+ "gemelle-29": {
+  "prova": "gemelle 59-67",
+  "giusta": "B",
+  "vera": "67 Eyael",
+  "cella": "67 Eyael",
+  "variante": 2
+ },
+ "gemelle-30": {
+  "prova": "gemelle 59-67",
+  "giusta": "B",
+  "vera": "67 Eyael",
+  "cella": "67 Eyael",
+  "variante": 1
+ },
+ "gemelle-31": {
+  "prova": "gemelle 63-68",
+  "giusta": "B",
+  "vera": "68 Habuhiah",
+  "cella": "68 Habuhiah",
+  "variante": 1
+ },
+ "gemelle-32": {
+  "prova": "gemelle 63-68",
+  "giusta": "A",
+  "vera": "63 Anauel",
+  "cella": "63 Anauel",
+  "variante": 2
+ },
+ "gemelle-33": {
+  "prova": "gemelle 63-68",
+  "giusta": "B",
+  "vera": "68 Habuhiah",
+  "cella": "68 Habuhiah",
+  "variante": 1
+ },
+ "gemelle-34": {
+  "prova": "gemelle 63-68",
+  "giusta": "B",
+  "vera": "68 Habuhiah",
+  "cella": "68 Habuhiah",
+  "variante": 2
+ },
+ "gemelle-35": {
+  "prova": "gemelle 63-68",
+  "giusta": "B",
+  "vera": "68 Habuhiah",
+  "cella": "68 Habuhiah",
+  "variante": 3
+ },
+ "gemelle-36": {
+  "prova": "gemelle 63-68",
+  "giusta": "A",
+  "vera": "63 Anauel",
+  "cella": "63 Anauel",
+  "variante": 2
+ },
+ "gemelle-37": {
+  "prova": "gemelle 63-68",
+  "giusta": "B",
+  "vera": "68 Habuhiah",
+  "cella": "68 Habuhiah",
+  "variante": 2
+ },
+ "gemelle-38": {
+  "prova": "gemelle 63-68",
+  "giusta": "A",
+  "vera": "63 Anauel",
+  "cella": "63 Anauel",
+  "variante": 3
+ },
+ "gemelle-39": {
+  "prova": "gemelle 63-68",
+  "giusta": "A",
+  "vera": "63 Anauel",
+  "cella": "63 Anauel",
+  "variante": 3
+ },
+ "gemelle-40": {
+  "prova": "gemelle 63-68",
+  "giusta": "A",
+  "vera": "63 Anauel",
+  "cella": "63 Anauel",
+  "variante": 2
+ },
+ "gemelle-41": {
+  "prova": "gemelle 38-41",
+  "giusta": "B",
+  "vera": "41 Hahahel",
+  "cella": "41 Hahahel",
+  "variante": 3
+ },
+ "gemelle-42": {
+  "prova": "gemelle 38-41",
+  "giusta": "B",
+  "vera": "41 Hahahel",
+  "cella": "41 Hahahel",
+  "variante": 3
+ },
+ "gemelle-43": {
+  "prova": "gemelle 38-41",
+  "giusta": "B",
+  "vera": "41 Hahahel",
+  "cella": "41 Hahahel",
+  "variante": 2
+ },
+ "gemelle-44": {
+  "prova": "gemelle 38-41",
+  "giusta": "A",
+  "vera": "38 Haamiah",
+  "cella": "38 Haamiah",
+  "variante": 3
+ },
+ "gemelle-45": {
+  "prova": "gemelle 38-41",
+  "giusta": "B",
+  "vera": "41 Hahahel",
+  "cella": "41 Hahahel",
+  "variante": 1
+ },
+ "gemelle-46": {
+  "prova": "gemelle 38-41",
+  "giusta": "A",
+  "vera": "38 Haamiah",
+  "cella": "38 Haamiah",
+  "variante": 3
+ },
+ "gemelle-47": {
+  "prova": "gemelle 38-41",
+  "giusta": "A",
+  "vera": "38 Haamiah",
+  "cella": "38 Haamiah",
+  "variante": 1
+ },
+ "gemelle-48": {
+  "prova": "gemelle 38-41",
+  "giusta": "A",
+  "vera": "38 Haamiah",
+  "cella": "38 Haamiah",
+  "variante": 1
+ },
+ "gemelle-49": {
+  "prova": "gemelle 38-41",
+  "giusta": "A",
+  "vera": "38 Haamiah",
+  "cella": "38 Haamiah",
+  "variante": 2
+ },
+ "gemelle-50": {
+  "prova": "gemelle 38-41",
+  "giusta": "B",
+  "vera": "41 Hahahel",
+  "cella": "41 Hahahel",
+  "variante": 3
+ },
+ "gemelle-51": {
+  "prova": "gemelle 14-18",
+  "giusta": "A",
+  "vera": "14 Mebahel",
+  "cella": "14 Mebahel",
+  "variante": 2
+ },
+ "gemelle-52": {
+  "prova": "gemelle 14-18",
+  "giusta": "B",
+  "vera": "18 Caliel",
+  "cella": "18 Caliel",
+  "variante": 1
+ },
+ "gemelle-53": {
+  "prova": "gemelle 14-18",
+  "giusta": "A",
+  "vera": "14 Mebahel",
+  "cella": "14 Mebahel",
+  "variante": 2
+ },
+ "gemelle-54": {
+  "prova": "gemelle 14-18",
+  "giusta": "A",
+  "vera": "14 Mebahel",
+  "cella": "14 Mebahel",
+  "variante": 1
+ },
+ "gemelle-55": {
+  "prova": "gemelle 14-18",
+  "giusta": "A",
+  "vera": "14 Mebahel",
+  "cella": "14 Mebahel",
+  "variante": 3
+ },
+ "gemelle-56": {
+  "prova": "gemelle 14-18",
+  "giusta": "B",
+  "vera": "18 Caliel",
+  "cella": "18 Caliel",
+  "variante": 1
+ },
+ "gemelle-57": {
+  "prova": "gemelle 14-18",
+  "giusta": "B",
+  "vera": "18 Caliel",
+  "cella": "18 Caliel",
+  "variante": 2
+ },
+ "gemelle-58": {
+  "prova": "gemelle 14-18",
+  "giusta": "B",
+  "vera": "18 Caliel",
+  "cella": "18 Caliel",
+  "variante": 3
+ },
+ "gemelle-59": {
+  "prova": "gemelle 14-18",
+  "giusta": "B",
+  "vera": "18 Caliel",
+  "cella": "18 Caliel",
+  "variante": 2
+ },
+ "gemelle-60": {
+  "prova": "gemelle 14-18",
+  "giusta": "A",
+  "vera": "14 Mebahel",
+  "cella": "14 Mebahel",
+  "variante": 1
+ }
+}

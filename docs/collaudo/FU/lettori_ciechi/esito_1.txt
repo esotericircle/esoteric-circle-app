@@ -1,0 +1,8 @@
+GIRO 1
+ruoli 1: 10 su 10 PASSA
+ruoli 2: 10 su 10 PASSA
+gemelle 23-28: 10 su 10 PASSA
+gemelle 19-66: 10 su 10 PASSA
+gemelle 70-72: 10 su 10 PASSA
+gemelle 34-60: 10 su 10 PASSA
+sbagliati: nessuno
