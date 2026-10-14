@@ -1,0 +1,34 @@
+GLI ASSET DELL'ORDINE FU, generato da tool/gli_asset_dell_ordine_fu.py
+
+== Oracolo degli Angeli
+medaglione_cuore_v1.jpg 1024x1024: 759143 byte JPG -> 182198 byte WebP
+medaglione_custode_v1.jpg 1024x1024: 773690 byte JPG -> 184396 byte WebP
+medaglione_intelletto_v1.jpg 1024x1024: 806268 byte JPG -> 192172 byte WebP
+medora_braccia_alzate_v1.jpg 768x1376: 530601 byte JPG -> 78746 byte WebP
+medora_mani_sulle_carte_v1.jpg 768x1376: 583870 byte JPG -> 85286 byte WebP
+medora_scala_di_luce_v1.mp4: 6587484 byte -> 2867869 byte (6.6 MB -> 2.9 MB), SHA-256 836f8d690565c0d715effa16ced7fd2c0458f76adeeda15c48ba5ede180a1f0f; fotogramma a 4 s prima e dopo, scarto medio 3.40 su 255 (oracolo_angeli_fotogramma_4s_prima.png, oracolo_angeli_fotogramma_4s_dopo.png)
+oracolo_primo_fotogramma_v1.jpg 1080x1920: 425789 byte JPG -> 162874 byte WebP
+oracolo_scala_accesa_v1.jpg 768x1376: 618060 byte JPG -> 87188 byte WebP
+oracolo_scala_spenta_v1.jpg 768x1376: 561581 byte JPG -> 80152 byte WebP
+oracolo_ultimo_fotogramma_v1.jpg 1080x1920: 521045 byte JPG -> 226944 byte WebP
+
+== Oroscopo Scena
+medora_chiama_il_sole_v1.jpg 768x1376: 547325 byte JPG -> 75988 byte WebP
+medora_presenta_il_segno_v1.jpg 768x1376: 536811 byte JPG -> 75008 byte WebP
+medora_ruota_dello_zodiaco_v1.mp4: 10487384 byte -> 4004726 byte (10.5 MB -> 4.0 MB), SHA-256 12e89d997afc2e04afb744cad535dd2c9f8ec010fd1c83f2fa4273443653089b; fotogramma a 4 s prima e dopo, scarto medio 2.54 su 255 (oroscopo_scena_fotogramma_4s_prima.png, oroscopo_scena_fotogramma_4s_dopo.png)
+oroscopo_primo_fotogramma_v1.jpg 1080x1920: 519058 byte JPG -> 214216 byte WebP
+oroscopo_ruota_accesa_v1.jpg 768x1376: 690074 byte JPG -> 122910 byte WebP
+oroscopo_ruota_spenta_v1.jpg 768x1376: 717130 byte JPG -> 113302 byte WebP
+oroscopo_ultimo_fotogramma_v1.jpg 1080x1920: 520065 byte JPG -> 221562 byte WebP
+
+== Sinastria VIP Scena
+medora_padrona_di_casa_v1.jpg 768x1376: 539284 byte JPG -> 80310 byte WebP
+medora_sipario_delle_stelle_v1.mp4: 17966855 byte -> 8116974 byte (18.0 MB -> 8.1 MB), SHA-256 1cb114680e930d2323233333947acc762f6687ef4f8786ab1b90da8e97b02c2b; fotogramma a 4 s prima e dopo, scarto medio 4.07 su 255 (vip_scena_fotogramma_4s_prima.png, vip_scena_fotogramma_4s_dopo.png)
+vip_palco_aperto_v1.jpg 768x1376: 330958 byte JPG -> 116200 byte WebP
+vip_primo_fotogramma_v1.jpg 1080x1920: 542037 byte JPG -> 208510 byte WebP
+vip_sipario_chiuso_v1.jpg 768x1376: 730332 byte JPG -> 108466 byte WebP
+vip_ultimo_fotogramma_v1.jpg 1080x1920: 489651 byte JPG -> 172386 byte WebP
+
+
+LA RUOTA DELLO SFONDO DELL'ORACOLO (FU.01): cartigli contati a occhio sulla meta' destra visibile di oracolo_scala_spenta_v1.jpg, fra 32 e 34; in tutto circa 64-68, irregolari, e la parte coperta dalla scala non si conta. Non sono 72 verificabili: nessun testo la chiama ruota dei 72 nomi e il Da dove viene non la cita. La misura automatica lungo il cerchio dava 66, 80 e 91 bordi a tre raggi diversi (ogni cartiglio ha due bordi): non usata.
+LE DUE POSE DI MEDORA: non scontornate, la scena ferma di ripiego e' l'ultimo fotogramma intero (voce FU.02), non le pose staccate dallo sfondo.

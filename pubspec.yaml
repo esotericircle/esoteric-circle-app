@@ -322,6 +322,28 @@ flutter:
     # c93754b860aa147254f3c07a41e2c1a6984dd291740af8c192d52c692f491499.
     # Le due pose ferme stanno in assets/img/sinastria/.
     - brand_assets/sinastria/
+    # L'ORACOLO DEGLI ANGELI, ordine FU voce FU.01, 15 ottobre 2026: la scala
+    # accesa e spenta, le due pose di Medora, il primo e l'ultimo fotogramma
+    # del video e i tre medaglioni dei ruoli (Custode, Cuore, Intelletto),
+    # convertiti in WebP da tool/gli_asset_dell_ordine_fu.py.
+    - assets/img/oracolo_angeli/
+    # IL VIDEO DELLA SCALA DI GIACOBBE, voce FU.02: medora_scala_di_luce_v1.mp4,
+    # 720 per 1280, 8 secondi, ricompresso in H.264 a qualita' costante 26 con
+    # l'audio (voce FU.12), impronta SHA-256
+    # 836f8d690565c0d715effa16ced7fd2c0458f76adeeda15c48ba5ede180a1f0f.
+    - brand_assets/oracolo_angeli/
+    # LA SCENA DELL'OROSCOPO, voce FU.13: la ruota accesa e spenta, le due
+    # pose di Medora, il primo e l'ultimo fotogramma.
+    - assets/img/oroscopo_scena/
+    # medora_ruota_dello_zodiaco_v1.mp4, 1080 per 1920, 8 secondi, impronta
+    # SHA-256 12e89d997afc2e04afb744cad535dd2c9f8ec010fd1c83f2fa4273443653089b.
+    - brand_assets/oroscopo_scena/
+    # LA SCENA DELLA SINASTRIA VIP, voce FU.14: il sipario chiuso, il palco
+    # aperto, Medora padrona di casa, il primo e l'ultimo fotogramma.
+    - assets/img/vip_scena/
+    # medora_sipario_delle_stelle_v1.mp4, 1080 per 1920, 8 secondi, impronta
+    # SHA-256 1cb114680e930d2323233333947acc762f6687ef4f8786ab1b90da8e97b02c2b.
+    - brand_assets/vip_scena/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
