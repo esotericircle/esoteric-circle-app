@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../scene/la_scena_in_video.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -125,6 +126,21 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
         'questa lettura invece di essere indovinata.';
   }
 
+  /// **IL VIDEO SALTATO COL TOCCO**, ordine FU voce FU.15.
+  bool _filmatoSaltato = false;
+
+  /// Il video gira: un tocco in qualunque punto lo fa sfumare.
+  bool get _videoInCorso {
+    final l = _lettore;
+    return !_filmatoSaltato && l != null && l.pronto && !l.finito && !l.fallito;
+  }
+
+  void _saltaIlVideo() {
+    if (!_videoInCorso) return;
+    setState(() => _filmatoSaltato = true);
+    unawaited(_lettore?.sospendi());
+  }
+
   /// Vero quando la lettura e' scorsa sotto la barra del titolo.
   bool _sottoIlTitolo = false;
   bool _avviata = false;
@@ -220,7 +236,12 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final lettore = _lettore;
-    if (lettore == null || !lettore.pronto || lettore.finito) return;
+    if (lettore == null ||
+        !lettore.pronto ||
+        lettore.finito ||
+        _filmatoSaltato) {
+      return;
+    }
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
       if (_filmatoSospesoDaNoi) return;
@@ -240,7 +261,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
 
   String get _posaDiMedora {
     final l = _lettore;
-    return l == null || l.fallito
+    return l == null || l.fallito || _filmatoSaltato
         ? GeometriaDelloStudio.posaDelleManiAperte
         : GeometriaDelloStudio.posaDellAstrolabio;
   }
@@ -332,230 +353,238 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
         'legame': _legame.name,
       },
     );
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        // **IL VELO SEGUE LA LETTURA.** All'apertura lo stesso velo
-        // leggero dei Tarocchi dopo la revisione del 14 ottobre 2026, cosi'
-        // la scena di Medora si vede intera; appena il testo passa sotto il
-        // titolo il velo si fa denso, altrimenti titolo e lettura si
-        // sovrappongono (anteprima ft_viandante_2, 14 ottobre 2026).
-        backgroundColor:
-            palette.deepest.withValues(alpha: _sottoIlTitolo ? 0.9 : 0.16),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        surfaceTintColor: Colors.transparent,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          tooltip: 'Indietro',
-          onPressed: () => Navigator.of(context).maybePop(),
+    // IL TOCCO CHE SALTA IL VIDEO, ordine FU voce FU.15, punto unico.
+    return IlToccoCheSalta(
+      inCorso: _videoInCorso,
+      onSalta: _saltaIlVideo,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          // **IL VELO SEGUE LA LETTURA.** All'apertura lo stesso velo
+          // leggero dei Tarocchi dopo la revisione del 14 ottobre 2026, cosi'
+          // la scena di Medora si vede intera; appena il testo passa sotto il
+          // titolo il velo si fa denso, altrimenti titolo e lettura si
+          // sovrappongono (anteprima ft_viandante_2, 14 ottobre 2026).
+          backgroundColor:
+              palette.deepest.withValues(alpha: _sottoIlTitolo ? 0.9 : 0.16),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            tooltip: 'Indietro',
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
+          title: TitoloCheNonSiRompe(
+              chiaveDelTesto: const Key('sinastria_evolutiva_titolo'),
+              testo: 'Sinastria evolutiva',
+              righe: 1,
+              stile: TypographyTokens.titoloSezione()),
+          // Le fonti di tutta la lettura in un foglio solo, come nelle altre
+          // arti (guardia `ogni_arte_dichiara_la_fonte`); ogni capitolo porta
+          // anche il suo Da dove viene.
+          actions: [
+            FoglioDelleFonti.bottone(context,
+                palette: palette,
+                testo: TestiDelleFonti.sinastriaEvolutiva,
+                chiave: 'sinastria_evolutiva_fonti'),
+            // Lo spazio del cuore della soglia unica: nessuna azione ci
+            // finisce sotto (guardia `il_cuore_e_il_tooltip_non_si_toccano`).
+            const AngoloDellaBarra(),
+          ],
         ),
-        title: TitoloCheNonSiRompe(
-            chiaveDelTesto: const Key('sinastria_evolutiva_titolo'),
-            testo: 'Sinastria evolutiva',
-            righe: 1,
-            stile: TypographyTokens.titoloSezione()),
-        // Le fonti di tutta la lettura in un foglio solo, come nelle altre
-        // arti (guardia `ogni_arte_dichiara_la_fonte`); ogni capitolo porta
-        // anche il suo Da dove viene.
-        actions: [
-          FoglioDelleFonti.bottone(context,
-              palette: palette,
-              testo: TestiDelleFonti.sinastriaEvolutiva,
-              chiave: 'sinastria_evolutiva_fonti'),
-          // Lo spazio del cuore della soglia unica: nessuna azione ci
-          // finisce sotto (guardia `il_cuore_e_il_tooltip_non_si_toccano`).
-          const AngoloDellaBarra(),
-        ],
-      ),
-      body: CosmosBackground(
-        key: const Key('sinastria_evolutiva_sfondo'),
-        seed: 7,
-        showZodiac: false,
-        child: SafeArea(
-          top: false,
-          child: Stack(
-            children: [
-              NotificationListener<ScrollNotification>(
-                onNotification: (n) {
-                  if (n.depth != 0 || n.metrics.axis != Axis.vertical) {
+        body: CosmosBackground(
+          key: const Key('sinastria_evolutiva_sfondo'),
+          seed: 7,
+          showZodiac: false,
+          child: SafeArea(
+            top: false,
+            child: Stack(
+              children: [
+                NotificationListener<ScrollNotification>(
+                  onNotification: (n) {
+                    if (n.depth != 0 || n.metrics.axis != Axis.vertical) {
+                      return false;
+                    }
+                    final sotto = n.metrics.pixels > SpacingTokens.lg;
+                    if (sotto != _sottoIlTitolo) {
+                      setState(() => _sottoIlTitolo = sotto);
+                    }
                     return false;
-                  }
-                  final sotto = n.metrics.pixels > SpacingTokens.lg;
-                  if (sotto != _sottoIlTitolo) {
-                    setState(() => _sottoIlTitolo = sotto);
-                  }
-                  return false;
-                },
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    // Il responso entra nel Diario da se', in cima all'elenco
-                    // pigro (ordine FE voce 22.6).
-                    IlResponsoNelDiario(
-                      maestro: Maestro.medora,
-                      responso: perIlDiario,
-                      quando: _quando,
-                    ),
-                    Builder(
-                      builder: (corpo) => Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.paddingOf(corpo).top),
-                        child: LoStudioDiMedora(
-                          key: const Key('sinastria_evolutiva_scena'),
-                          posa: _posaDiMedora,
-                          filmato: _filmatoInScena,
+                  },
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // Il responso entra nel Diario da se', in cima all'elenco
+                      // pigro (ordine FE voce 22.6).
+                      IlResponsoNelDiario(
+                        maestro: Maestro.medora,
+                        responso: perIlDiario,
+                        quando: _quando,
+                      ),
+                      Builder(
+                        builder: (corpo) => Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.paddingOf(corpo).top),
+                          child: LoStudioDiMedora(
+                            key: const Key('sinastria_evolutiva_scena'),
+                            posa: _posaDiMedora,
+                            filmato: _filmatoInScena,
+                            filmatoSaltato: _filmatoSaltato,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(SpacingTokens.md),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _LaCoppia(
-                            palette: palette,
-                            coppia: _coppia,
-                            nomeSuo: widget.nomeSuo,
-                            segno: _segnoDellaCoppia,
-                          ),
-                          if (_laLunaTace != null) ...[
-                            const SizedBox(height: SpacingTokens.sm),
-                            Text(_laLunaTace!,
-                                key: const Key('sinastria_ora_non_nota'),
-                                textAlign: TextAlign.center,
-                                style: TypographyTokens.didascalia().copyWith(
-                                    color: ColorTokens.textSecondary,
-                                    fontStyle: FontStyle.italic)),
-                          ],
-                          const SizedBox(height: SpacingTokens.md),
-                          _ILegami(
-                            palette: palette,
-                            scelto: _legame,
-                            amoreApribile: _amoreApribile,
-                            onScegli: _scegliIlLegame,
-                          ),
-                          const SizedBox(height: SpacingTokens.lg),
-                          _OggiFraVoiCard(palette: palette, oggi: _oggiFraVoi),
-                          const SizedBox(height: SpacingTokens.lg),
-                          for (var i = 0; i < capitoli.length; i++) ...[
-                            if (tuttiICapitoli || i < 2)
-                              _IlCapitolo(
-                                  palette: palette, capitolo: capitoli[i])
+                      Padding(
+                        padding: const EdgeInsets.all(SpacingTokens.md),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _LaCoppia(
+                              palette: palette,
+                              coppia: _coppia,
+                              nomeSuo: widget.nomeSuo,
+                              segno: _segnoDellaCoppia,
+                            ),
+                            if (_laLunaTace != null) ...[
+                              const SizedBox(height: SpacingTokens.sm),
+                              Text(_laLunaTace!,
+                                  key: const Key('sinastria_ora_non_nota'),
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: ColorTokens.textSecondary,
+                                      fontStyle: FontStyle.italic)),
+                            ],
+                            const SizedBox(height: SpacingTokens.md),
+                            _ILegami(
+                              palette: palette,
+                              scelto: _legame,
+                              amoreApribile: _amoreApribile,
+                              onScegli: _scegliIlLegame,
+                            ),
+                            const SizedBox(height: SpacingTokens.lg),
+                            _OggiFraVoiCard(
+                                palette: palette, oggi: _oggiFraVoi),
+                            const SizedBox(height: SpacingTokens.lg),
+                            for (var i = 0; i < capitoli.length; i++) ...[
+                              if (tuttiICapitoli || i < 2)
+                                _IlCapitolo(
+                                    palette: palette, capitolo: capitoli[i])
+                              else
+                                _Chiuso(
+                                  chiave:
+                                      'capitolo_${capitoli[i].capitolo.name}',
+                                  palette: palette,
+                                  immagine: capitoli[i].capitolo.medaglione,
+                                  titolo: capitoli[i].capitolo.nome,
+                                  onApri: () => _invito(
+                                      'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
+                                      (t) => PlanCatalog.apre(
+                                          RigaDelPiano.capitoliDellaSinastria,
+                                          t)),
+                                ),
+                              const SizedBox(height: SpacingTokens.lg),
+                            ],
+                            if (keplero)
+                              _Keplero(
+                                  palette: palette,
+                                  corde: _corde,
+                                  nomeSuo: widget.nomeSuo)
                             else
                               _Chiuso(
-                                chiave: 'capitolo_${capitoli[i].capitolo.name}',
+                                chiave: 'keplero',
                                 palette: palette,
-                                immagine: capitoli[i].capitolo.medaglione,
-                                titolo: capitoli[i].capitolo.nome,
+                                immagine: 'aspetto_trigono_v1',
+                                titolo: 'Gli intervalli di Keplero',
                                 onApri: () => _invito(
-                                    'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
+                                    'Gli intervalli di Keplero',
                                     (t) => PlanCatalog.apre(
-                                        RigaDelPiano.capitoliDellaSinastria,
+                                        RigaDelPiano.intervalliDiKeplero, t)),
+                              ),
+                            const SizedBox(height: SpacingTokens.lg),
+                            if (adepto) ...[
+                              _IlComposito(
+                                  palette: palette, composito: _composito),
+                              const SizedBox(height: SpacingTokens.lg),
+                              _IlMomentoGiusto(
+                                palette: palette,
+                                giorni: IlMomentoGiusto.per(
+                                    tuo: widget.cieloTuo,
+                                    suo: widget.cieloSuo,
+                                    nomeSuo: widget.nomeSuo,
+                                    legame: _legame,
+                                    da: _oggi,
+                                    corpus: corpusDellaSinastriaEvolutiva),
+                                senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
+                                    tuo: widget.cieloTuo,
+                                    suo: widget.cieloSuo,
+                                    nomeSuo: widget.nomeSuo,
+                                    legame: _legame,
+                                    corpus: corpusDellaSinastriaEvolutiva),
+                                oggi: _oggi,
+                              ),
+                            ] else
+                              _Chiuso(
+                                chiave: 'adepto',
+                                palette: palette,
+                                immagine: 'legame_amore_v1',
+                                titolo: 'Il cielo comune, il momento giusto e '
+                                    'il ritratto della coppia',
+                                onApri: () => _invito(
+                                    'Il cielo comune della relazione',
+                                    (t) => PlanCatalog.apre(
+                                        RigaDelPiano.compositoRitrattoMomento,
                                         t)),
                               ),
                             const SizedBox(height: SpacingTokens.lg),
+                            AzioniDelResponso(
+                              palette: palette,
+                              maestro: Maestro.medora,
+                              dorato: true,
+                              responso: perIlDiario,
+                              quando: _quando,
+                              condividi: () => _condividi(tier, capitoli),
+                              aperturaDellaChat: ChatOpeners.sinastriaEvolutiva(
+                                  widget.nomeSuo,
+                                  _legame.nome.toLowerCase(),
+                                  capitoli.first.titolo),
+                            ),
+                            const SizedBox(height: SpacingTokens.xl),
                           ],
-                          if (keplero)
-                            _Keplero(
-                                palette: palette,
-                                corde: _corde,
-                                nomeSuo: widget.nomeSuo)
-                          else
-                            _Chiuso(
-                              chiave: 'keplero',
-                              palette: palette,
-                              immagine: 'aspetto_trigono_v1',
-                              titolo: 'Gli intervalli di Keplero',
-                              onApri: () => _invito(
-                                  'Gli intervalli di Keplero',
-                                  (t) => PlanCatalog.apre(
-                                      RigaDelPiano.intervalliDiKeplero, t)),
-                            ),
-                          const SizedBox(height: SpacingTokens.lg),
-                          if (adepto) ...[
-                            _IlComposito(
-                                palette: palette, composito: _composito),
-                            const SizedBox(height: SpacingTokens.lg),
-                            _IlMomentoGiusto(
-                              palette: palette,
-                              giorni: IlMomentoGiusto.per(
-                                  tuo: widget.cieloTuo,
-                                  suo: widget.cieloSuo,
-                                  nomeSuo: widget.nomeSuo,
-                                  legame: _legame,
-                                  da: _oggi,
-                                  corpus: corpusDellaSinastriaEvolutiva),
-                              senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
-                                  tuo: widget.cieloTuo,
-                                  suo: widget.cieloSuo,
-                                  nomeSuo: widget.nomeSuo,
-                                  legame: _legame,
-                                  corpus: corpusDellaSinastriaEvolutiva),
-                              oggi: _oggi,
-                            ),
-                          ] else
-                            _Chiuso(
-                              chiave: 'adepto',
-                              palette: palette,
-                              immagine: 'legame_amore_v1',
-                              titolo: 'Il cielo comune, il momento giusto e '
-                                  'il ritratto della coppia',
-                              onApri: () => _invito(
-                                  'Il cielo comune della relazione',
-                                  (t) => PlanCatalog.apre(
-                                      RigaDelPiano.compositoRitrattoMomento,
-                                      t)),
-                            ),
-                          const SizedBox(height: SpacingTokens.lg),
-                          AzioniDelResponso(
-                            palette: palette,
-                            maestro: Maestro.medora,
-                            dorato: true,
-                            responso: perIlDiario,
-                            quando: _quando,
-                            condividi: () => _condividi(tier, capitoli),
-                            aperturaDellaChat: ChatOpeners.sinastriaEvolutiva(
-                                widget.nomeSuo,
-                                _legame.nome.toLowerCase(),
-                                capitoli.first.titolo),
-                          ),
-                          const SizedBox(height: SpacingTokens.xl),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // La card condivisibile, disegnata fuori campo solo durante lo
-              // scatto: il ritratto per l'Adepto, il primo capitolo per gli
-              // altri piani (FT.14).
-              if (_cardInScena)
-                Positioned(
-                  left: -3000,
-                  top: 0,
-                  child: RepaintBoundary(
-                    key: _chiaveDellaCard,
-                    child: adepto
-                        ? RitrattoDellaCoppia(
-                            palette: palette,
-                            nomeSuo: widget.nomeSuo,
-                            legame: _legame,
-                            coppia: _coppia,
-                            sintesi: _titoloDelComposito(),
-                            capitoli: capitoli,
-                          )
-                        : CardDelCapitolo(
-                            palette: palette,
-                            nomeSuo: widget.nomeSuo,
-                            legame: _legame,
-                            capitolo: capitoli.first,
-                          ),
+                    ],
                   ),
                 ),
-            ],
+                // La card condivisibile, disegnata fuori campo solo durante lo
+                // scatto: il ritratto per l'Adepto, il primo capitolo per gli
+                // altri piani (FT.14).
+                if (_cardInScena)
+                  Positioned(
+                    left: -3000,
+                    top: 0,
+                    child: RepaintBoundary(
+                      key: _chiaveDellaCard,
+                      child: adepto
+                          ? RitrattoDellaCoppia(
+                              palette: palette,
+                              nomeSuo: widget.nomeSuo,
+                              legame: _legame,
+                              coppia: _coppia,
+                              sintesi: _titoloDelComposito(),
+                              capitoli: capitoli,
+                            )
+                          : CardDelCapitolo(
+                              palette: palette,
+                              nomeSuo: widget.nomeSuo,
+                              legame: _legame,
+                              capitolo: capitoli.first,
+                            ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

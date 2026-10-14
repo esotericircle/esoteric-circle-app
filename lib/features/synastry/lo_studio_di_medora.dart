@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import '../scene/la_scena_in_video.dart';
 
 /// **LO STUDIO DI MEDORA**, la scena della Sinastria evolutiva. Ordine
 /// FT voce FT.02, 14 ottobre 2026.
@@ -284,6 +285,7 @@ class LoStudioDiMedora extends StatelessWidget {
     super.key,
     this.posa = GeometriaDelloStudio.posaDelleManiAperte,
     this.filmato,
+    this.filmatoSaltato = false,
   });
 
   /// La posa di Medora quando la scena e' ferma.
@@ -292,6 +294,10 @@ class LoStudioDiMedora extends StatelessWidget {
   /// Il video della scena, quando e' cominciato: prende il posto dello
   /// sfondo e di Medora ferma. Nullo, la scena ferma.
   final Widget? filmato;
+
+  /// **IL VIDEO SALTATO COL TOCCO**, ordine FU voce FU.15: il filmato sfuma
+  /// e la posa ferma appare al suo posto, in dissolvenza incrociata.
+  final bool filmatoSaltato;
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +368,8 @@ class LoStudioDiMedora extends StatelessWidget {
                               height: (ScenaDellaSinastriaInVideo.sotto -
                                       ScenaDellaSinastriaInVideo.sopra) *
                                   s,
-                              child: filmato!,
+                              child: IlFilmatoCheSfuma(
+                                  saltato: filmatoSaltato, child: filmato!),
                             ),
                           ),
                         ),
@@ -371,13 +378,16 @@ class LoStudioDiMedora extends StatelessWidget {
                 ),
               ),
             ),
-            if (filmato == null)
+            if (filmato == null || filmatoSaltato)
               Positioned.fromRect(
                 rect: medora,
-                child: Image.asset(posa,
-                    key: const Key('studio_medora'),
-                    fit: BoxFit.contain,
-                    filterQuality: FilterQuality.medium),
+                child: LaScenaFermaCheAppare(
+                  appare: filmatoSaltato,
+                  child: Image.asset(posa,
+                      key: const Key('studio_medora'),
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.medium),
+                ),
               ),
           ],
         ),

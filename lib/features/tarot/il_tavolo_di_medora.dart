@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../scene/la_scena_in_video.dart';
 
 import 'package:flutter/material.dart';
 
@@ -287,6 +288,7 @@ class TavoloDiMedora extends StatelessWidget {
     this.faccia,
     this.posa = GeometriaDelTavolo.posaDellInvito,
     this.filmato,
+    this.filmatoSaltato = false,
   });
 
   final List<PostoSulTavolo> posti;
@@ -300,6 +302,10 @@ class TavoloDiMedora extends StatelessWidget {
   /// [ScenaDellaStesaInVideo.nellaScena], e resta sull'ultimo fotogramma.
   /// Nullo, la scena ferma. Ordine FS aggiunta, voce FS.A2.
   final Widget? filmato;
+
+  /// **IL VIDEO SALTATO COL TOCCO**, ordine FU voce FU.15: il filmato sfuma
+  /// e la posa ferma appare al suo posto, in dissolvenza incrociata.
+  final bool filmatoSaltato;
 
   /// Le carte, una per posto; nulla dove la carta non e' ancora scelta.
   final List<DrawnCard?> carte;
@@ -438,7 +444,8 @@ class TavoloDiMedora extends StatelessWidget {
                                 height: (ScenaDellaStesaInVideo.sotto -
                                         ScenaDellaStesaInVideo.sopra) *
                                     s,
-                                child: filmato!,
+                                child: IlFilmatoCheSfuma(
+                                    saltato: filmatoSaltato, child: filmato!),
                               ),
                             ),
                           ),
@@ -450,13 +457,16 @@ class TavoloDiMedora extends StatelessWidget {
             ),
             // MEDORA FERMA, con la vita sul bordo lontano del velluto. Col
             // filmato in scena Medora e' nel filmato.
-            if (filmato == null)
+            if (filmato == null || filmatoSaltato)
               Positioned.fromRect(
                 rect: medora,
-                child: Image.asset(posa,
-                    key: const Key('tavolo_medora'),
-                    fit: BoxFit.contain,
-                    filterQuality: FilterQuality.medium),
+                child: LaScenaFermaCheAppare(
+                  appare: filmatoSaltato,
+                  child: Image.asset(posa,
+                      key: const Key('tavolo_medora'),
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.medium),
+                ),
               ),
             // LAPIDE: "IL SUO DRAPPO SFUMA NELLA PAGINA", la fascia scura
             // opaca; adesso sfuma l'immagine stessa, vedi

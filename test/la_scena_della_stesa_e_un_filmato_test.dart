@@ -304,4 +304,32 @@ void main() {
     expect(finta.avvii, 2,
         reason: 'a filmato finito il ritorno lo fa ripartire');
   });
+
+  testWidgets(
+      'FU.15: un tocco mentre il video gira lo fa sfumare sulla posa finale, '
+      'e il tocco non arriva alla scena sotto', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump();
+    final velo = find.byKey(const Key('il_tocco_che_salta'));
+    expect(velo, findsOneWidget,
+        reason: 'col video in corso il tocco che salta non c\'e\'');
+    // Il velo copre tutto lo schermo: il tocco, ovunque, e' suo.
+    expect(tester.getRect(velo).size, const Size(390, 844));
+    final primaDelTocco = finta.sospensioni;
+    await tester.tapAt(const Offset(195, 500));
+    await tester.pump();
+    expect(finta.sospensioni, primaDelTocco + 1,
+        reason: 'il tocco non ha fermato il video');
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    expect(velo, findsNothing,
+        reason: 'saltato il video, il velo deve sparire: dopo il tocco la '
+            'schermata risponde come sempre');
+    expect(_posa(tester), GeometriaDelTavolo.posaDellInvito,
+        reason: 'saltato il video, la scena ferma e\' l\'ultima posa');
+    expect(finta.avvii, 1, reason: 'il video saltato e\' ripartito');
+  });
 }

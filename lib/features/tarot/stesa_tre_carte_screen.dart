@@ -1,4 +1,5 @@
 import 'dart:math';
+import '../scene/la_scena_in_video.dart';
 
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
@@ -828,6 +829,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// ritorno.
   bool _filmatoSospesoDaNoi = false;
 
+  /// **IL VIDEO SALTATO COL TOCCO**, ordine FU voce FU.15.
+  bool _filmatoSaltato = false;
+
+  /// Il video gira: un tocco in qualunque punto lo fa sfumare.
+  bool get _videoInCorso {
+    final l = _lettoreDellaScena;
+    return !_filmatoSaltato && l != null && l.pronto && !l.finito && !l.fallito;
+  }
+
+  void _saltaIlVideo() {
+    if (!_videoInCorso) return;
+    setState(() => _filmatoSaltato = true);
+    unawaited(_lettoreDellaScena?.sospendi());
+  }
+
   Future<void> _apriIlFilmato() async {
     if (_reduceMotion) return;
     final lettore = (widget.fabbricaDellaScena ?? LettoreDellaScena.vero)();
@@ -861,7 +877,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final lettore = _lettoreDellaScena;
-    if (lettore == null || !lettore.pronto || lettore.finito) return;
+    if (lettore == null ||
+        !lettore.pronto ||
+        lettore.finito ||
+        _filmatoSaltato) {
+      return;
+    }
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
       if (_filmatoSospesoDaNoi) return;
@@ -885,7 +906,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// l'ultimo, se il video non c'e' (Riduci Movimento) o non si carica.
   String get _posaDiMedora {
     final l = _lettoreDellaScena;
-    return l == null || l.fallito
+    return l == null || l.fallito || _filmatoSaltato
         ? GeometriaDelTavolo.posaDellInvito
         : GeometriaDelTavolo.posaDelMazzo;
   }
@@ -1509,184 +1530,189 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // La stesa e' di Medora: blu e oro suoi, sempre.
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
 
-    return IlMazzoDellaStesa(
-      mazzo: _setup.deck,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          // **SEMITRASPARENTE, non trasparente.** Il fondatore, 13 ottobre
-          // 2026: la barra del titolo deve avere un velo, come nel resto
-          // dell'app (vedi ad esempio `settings_screen.dart`,
-          // `domain_screen.dart`). Con `Colors.transparent` la barra si
-          // confondeva del tutto col cosmo sotto; ora porta lo stesso velo
-          // di `palette.deepest` delle altre schermate.
-          //
-          // **IL VELO SI ALLEGGERISCE, 14 ottobre 2026.** Il fondatore: la
-          // barra deve essere gia' semitrasparente all'apertura (non solo
-          // scorrendo), cosi' il video di Medora che fa volare le carte si
-          // vede piu' completo sotto di lei. Il velo era costante (mai legato
-          // allo scorrimento), ma a 0,35 contro la scena scura dell'apertura
-          // si leggeva quasi pieno; sceso a 0,16 la trama del video resta
-          // visibile sotto il titolo fin dal primo fotogramma, e il titolo
-          // resta leggibile.
-          backgroundColor: palette.deepest.withValues(alpha: 0.16),
-          elevation: 0,
-          // **E RESTA SEMITRASPARENTE ANCHE SCORRENDO, ordine FS.** Il
-          // fondatore sulla 2308: "la barra non e' semitrasparente". Per
-          // Material 3 una barra con qualcosa che le scorre sotto prende
-          // un'ombra e la tinta della superficie, e diventa piena: qui la
-          // tinta resta il velo di `palette.deepest`.
-          scrolledUnderElevation: 0,
-          surfaceTintColor: Colors.transparent,
-          iconTheme: IconThemeData(color: palette.goldSoft),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            tooltip: 'Indietro',
-            onPressed: () => Navigator.of(context).maybePop(),
+    // IL TOCCO CHE SALTA IL VIDEO, ordine FU voce FU.15, punto unico.
+    return IlToccoCheSalta(
+      inCorso: _videoInCorso,
+      onSalta: _saltaIlVideo,
+      child: IlMazzoDellaStesa(
+        mazzo: _setup.deck,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            // **SEMITRASPARENTE, non trasparente.** Il fondatore, 13 ottobre
+            // 2026: la barra del titolo deve avere un velo, come nel resto
+            // dell'app (vedi ad esempio `settings_screen.dart`,
+            // `domain_screen.dart`). Con `Colors.transparent` la barra si
+            // confondeva del tutto col cosmo sotto; ora porta lo stesso velo
+            // di `palette.deepest` delle altre schermate.
+            //
+            // **IL VELO SI ALLEGGERISCE, 14 ottobre 2026.** Il fondatore: la
+            // barra deve essere gia' semitrasparente all'apertura (non solo
+            // scorrendo), cosi' il video di Medora che fa volare le carte si
+            // vede piu' completo sotto di lei. Il velo era costante (mai legato
+            // allo scorrimento), ma a 0,35 contro la scena scura dell'apertura
+            // si leggeva quasi pieno; sceso a 0,16 la trama del video resta
+            // visibile sotto il titolo fin dal primo fotogramma, e il titolo
+            // resta leggibile.
+            backgroundColor: palette.deepest.withValues(alpha: 0.16),
+            elevation: 0,
+            // **E RESTA SEMITRASPARENTE ANCHE SCORRENDO, ordine FS.** Il
+            // fondatore sulla 2308: "la barra non e' semitrasparente". Per
+            // Material 3 una barra con qualcosa che le scorre sotto prende
+            // un'ombra e la tinta della superficie, e diventa piena: qui la
+            // tinta resta il velo di `palette.deepest`.
+            scrolledUnderElevation: 0,
+            surfaceTintColor: Colors.transparent,
+            iconTheme: IconThemeData(color: palette.goldSoft),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_rounded),
+              tooltip: 'Indietro',
+              onPressed: () => Navigator.of(context).maybePop(),
+            ),
+            // Il titolo legge il nome della stesa attiva: e' un dato della sua
+            // definizione, non una stringa scritta qui. Quando arriveranno le
+            // stese da sette e dieci carte il titolo cambiera' da solo.
+            // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
+            // parole, la misura scende solo quanto serve, e non si tronca mai.
+            // Col borsellino nella riga delle azioni lo spazio del titolo si e'
+            // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+            // **SU UNA RIGA. Ordine EQ voce 11.** Sull'iPhone 17 Pro "Stesa di
+            // Tarocchi" andava su due righe nella testata: a una riga la
+            // misura scende quanto serve, entro il minimo del titolo.
+            title: TitoloCheNonSiRompe(
+                chiaveDelTesto: const Key('stesa_titolo'),
+                testo: _setup.tipo.nome,
+                righe: 1,
+                stile: TypographyTokens.titoloSezione()),
+            // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
+            // ogni schermata della pratica. Un saldo che appare e scompare non
+            // si impara.
+            // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+            // scansione: il mazzo Rider-Waite-Smith e la stesa a tre carte non erano dichiarati.
+            actions: [
+              FoglioDelleFonti.bottone(context,
+                  palette: palette,
+                  // **IL MAZZO E LA STESA DI QUESTA LETTURA**, ordine FK
+                  // aggiunta voce A5: era `TestiDelleFonti.tarocchi`, lo stesso
+                  // testo per ogni stesa e ogni mazzo.
+                  testo: LeFontiDeiTarocchi.testo(_setup.deck, _setup.tipo),
+                  chiave: 'tarocchi_fonti'),
+              const AngoloDellaBarra(),
+            ],
           ),
-          // Il titolo legge il nome della stesa attiva: e' un dato della sua
-          // definizione, non una stringa scritta qui. Quando arriveranno le
-          // stese da sette e dieci carte il titolo cambiera' da solo.
-          // **IL TITOLO NON SI ROMPE**, ordine S voce 05: a capo fra le
-          // parole, la misura scende solo quanto serve, e non si tronca mai.
-          // Col borsellino nella riga delle azioni lo spazio del titolo si e'
-          // ristretto, e un `Text` nudo qui torna a mettere i puntini.
-          // **SU UNA RIGA. Ordine EQ voce 11.** Sull'iPhone 17 Pro "Stesa di
-          // Tarocchi" andava su due righe nella testata: a una riga la
-          // misura scende quanto serve, entro il minimo del titolo.
-          title: TitoloCheNonSiRompe(
-              chiaveDelTesto: const Key('stesa_titolo'),
-              testo: _setup.tipo.nome,
-              righe: 1,
-              stile: TypographyTokens.titoloSezione()),
-          // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
-          // ogni schermata della pratica. Un saldo che appare e scompare non
-          // si impara.
-          // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
-          // scansione: il mazzo Rider-Waite-Smith e la stesa a tre carte non erano dichiarati.
-          actions: [
-            FoglioDelleFonti.bottone(context,
-                palette: palette,
-                // **IL MAZZO E LA STESA DI QUESTA LETTURA**, ordine FK
-                // aggiunta voce A5: era `TestiDelleFonti.tarocchi`, lo stesso
-                // testo per ogni stesa e ogni mazzo.
-                testo: LeFontiDeiTarocchi.testo(_setup.deck, _setup.tipo),
-                chiave: 'tarocchi_fonti'),
-            const AngoloDellaBarra(),
-          ],
-        ),
-        // **IL COSMO TORNA, ordine FR voce 01, 13 ottobre 2026.** LAPIDE:
-        // il gradiente piatto qui sotto era "LO SFONDO NUOVO" dell'ordine FL
-        // voce 01 (12 ottobre 2026), scelto per far sfumare senza stacco il
-        // drappo del tavolo (`TavoloDiMedora`) nel fondo della pagina. Il
-        // fondatore, a video sulla build 2307: "non c'e' sfondo cosmico in
-        // parallasse che c'e' in tutta l'app". Altre schermate con un
-        // elemento fisico in primo piano (`rune_draw_screen.dart`,
-        // `guide_animal_screen.dart`) mostrano gia' che `CosmosBackground`
-        // convive bene con un tavolo o un'immagine sopra: la scelta FL non
-        // era necessaria alla coerenza visiva, e questa voce la ribalta.
-        // `CosmosBackground` porta gia' nel suo primo strato un gradiente
-        // verticale scuro (da `palette.deepest`), quindi il tavolo continua
-        // a posarsi su un fondo scuro coerente, con le stelle in parallasse
-        // sopra invece del nero piatto.
-        body: CosmosBackground(
-          key: const Key('stesa_sfondo'),
-          seed: 5,
-          showZodiac: false,
-          // **IL CONTENUTO PASSA SOTTO LA BARRA, ordine FS.** Con l'area
-          // sicura anche in alto la lista cominciava sotto la barra e non ci
-          // passava mai sotto, e il velo semitrasparente non si vedeva: si
-          // vedeva solo il cosmo fermo. Il margine alto adesso sta dentro la
-          // lista (`_content`), e scorrendo il tavolo e le carte passano
-          // sotto la barra.
-          child: SafeArea(
-            top: false,
-            child: Stack(
-              key: _chiaveDellaPila,
-              children: [
-                // **IL MARGINE ALTO SI LEGGE DENTRO IL CORPO**, ordine FS:
-                // il contesto della schermata sta sopra lo `Scaffold` e non
-                // conosce l'altezza della barra; quello del corpo si'.
-                Builder(
-                  builder: (corpo) =>
-                      _content(palette, MediaQuery.paddingOf(corpo).top),
-                ),
-                // Il bianco con cui l'intro passa la mano: sta sopra la scena e
-                // dissolve, cosi' il taglio fra video e app non si vede.
-                AnimatedBuilder(
-                  animation: _handoff,
-                  builder: (context, _) => HandoffVeil(
-                    key: const Key('stesa_handoff'),
-                    opacity: 1 - _handoff.value,
+          // **IL COSMO TORNA, ordine FR voce 01, 13 ottobre 2026.** LAPIDE:
+          // il gradiente piatto qui sotto era "LO SFONDO NUOVO" dell'ordine FL
+          // voce 01 (12 ottobre 2026), scelto per far sfumare senza stacco il
+          // drappo del tavolo (`TavoloDiMedora`) nel fondo della pagina. Il
+          // fondatore, a video sulla build 2307: "non c'e' sfondo cosmico in
+          // parallasse che c'e' in tutta l'app". Altre schermate con un
+          // elemento fisico in primo piano (`rune_draw_screen.dart`,
+          // `guide_animal_screen.dart`) mostrano gia' che `CosmosBackground`
+          // convive bene con un tavolo o un'immagine sopra: la scelta FL non
+          // era necessaria alla coerenza visiva, e questa voce la ribalta.
+          // `CosmosBackground` porta gia' nel suo primo strato un gradiente
+          // verticale scuro (da `palette.deepest`), quindi il tavolo continua
+          // a posarsi su un fondo scuro coerente, con le stelle in parallasse
+          // sopra invece del nero piatto.
+          body: CosmosBackground(
+            key: const Key('stesa_sfondo'),
+            seed: 5,
+            showZodiac: false,
+            // **IL CONTENUTO PASSA SOTTO LA BARRA, ordine FS.** Con l'area
+            // sicura anche in alto la lista cominciava sotto la barra e non ci
+            // passava mai sotto, e il velo semitrasparente non si vedeva: si
+            // vedeva solo il cosmo fermo. Il margine alto adesso sta dentro la
+            // lista (`_content`), e scorrendo il tavolo e le carte passano
+            // sotto la barra.
+            child: SafeArea(
+              top: false,
+              child: Stack(
+                key: _chiaveDellaPila,
+                children: [
+                  // **IL MARGINE ALTO SI LEGGE DENTRO IL CORPO**, ordine FS:
+                  // il contesto della schermata sta sopra lo `Scaffold` e non
+                  // conosce l'altezza della barra; quello del corpo si'.
+                  Builder(
+                    builder: (corpo) =>
+                        _content(palette, MediaQuery.paddingOf(corpo).top),
                   ),
-                ),
-                // La carta che vola dal ventaglio al suo slot, con la scia.
-                if (_inVolo != null)
+                  // Il bianco con cui l'intro passa la mano: sta sopra la scena e
+                  // dissolve, cosi' il taglio fra video e app non si vede.
                   AnimatedBuilder(
-                    animation: _volo,
-                    builder: (context, _) => _CartaInVolo(
-                      key: const Key('stesa_volo'),
-                      progress: _volo.value,
-                      destinazione: _drawn,
-                      arrivo: _arrivoSulTavolo(_drawn),
-                      palette: palette,
-                      seed: _inVolo!,
+                    animation: _handoff,
+                    builder: (context, _) => HandoffVeil(
+                      key: const Key('stesa_handoff'),
+                      opacity: 1 - _handoff.value,
                     ),
                   ),
-                // MEDORA CI PENSA, ordine P voce 06. Sta sopra la scena e sotto
-                // il velo dell'intro: e' l'ultima cosa che si vede prima del
-                // responso.
-                if (_attesa.inScena)
-                  Positioned.fill(
-                    child: AnimatedOpacity(
-                      opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
-                      duration: AttesaDiMedora.dissolvenza,
-                      child: AttesaDiMedora(
-                        // Ordine BN voce 07: il cielo vero, se c'e'.
-                        fattoDelCielo: _fattoDelCielo,
+                  // La carta che vola dal ventaglio al suo slot, con la scia.
+                  if (_inVolo != null)
+                    AnimatedBuilder(
+                      animation: _volo,
+                      builder: (context, _) => _CartaInVolo(
+                        key: const Key('stesa_volo'),
+                        progress: _volo.value,
+                        destinazione: _drawn,
+                        arrivo: _arrivoSulTavolo(_drawn),
                         palette: palette,
-                        riduciMovimento: _reduceMotion,
-                        rotazione: _giroDellAttesa,
+                        seed: _inVolo!,
                       ),
                     ),
-                  ),
-                if (_renderCard)
-                  Positioned(
-                    left: -3000,
-                    top: 0,
-                    child: RepaintBoundary(
-                      key: _cardKey,
-                      // **LA CARD SEGUE LA LENTE, NON LA DOMANDA. Ordine CQ
-                      // voce 6.10.**
-                      //
-                      // La lente e' quella che la domanda ha scelto, cosi' la
-                      // card parla dello stesso tema del responso letto. **La
-                      // domanda scritta invece NON entra**, e non e' una
-                      // dimenticanza: questa immagine esce dal telefono e la
-                      // guardano altri, e la card mostra il primo paragrafo
-                      // del consiglio, che con la domanda dentro sarebbe la
-                      // domanda stessa. Chi condivide una lettura non sta
-                      // condividendo cosa ha chiesto.
-                      //
-                      // **LA LETTURA DEL MODELLO ENTRA SOLO SENZA DOMANDA
-                      // SCRITTA. Ordine EQ voce 04.** Risponde alla domanda, e
-                      // per la stessa ragione di qui sopra la card non la
-                      // porta; senza domanda scritta e' la stessa che si legge
-                      // in cima al responso, e la card non la contraddice.
-                      child: StesaShareCard(
-                        spread: _spread,
-                        palette: palette,
-                        topic: _reading.topic,
-                        lettura:
-                            DomandaDellaPersona.pulita(_setup.domandaScritta) ==
-                                    null
-                                ? _dalModello
-                                : null,
+                  // MEDORA CI PENSA, ordine P voce 06. Sta sopra la scena e sotto
+                  // il velo dell'intro: e' l'ultima cosa che si vede prima del
+                  // responso.
+                  if (_attesa.inScena)
+                    Positioned.fill(
+                      child: AnimatedOpacity(
+                        opacity: _attesa == StatoDellAttesa.piena ? 1 : 0,
+                        duration: AttesaDiMedora.dissolvenza,
+                        child: AttesaDiMedora(
+                          // Ordine BN voce 07: il cielo vero, se c'e'.
+                          fattoDelCielo: _fattoDelCielo,
+                          palette: palette,
+                          riduciMovimento: _reduceMotion,
+                          rotazione: _giroDellAttesa,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                  if (_renderCard)
+                    Positioned(
+                      left: -3000,
+                      top: 0,
+                      child: RepaintBoundary(
+                        key: _cardKey,
+                        // **LA CARD SEGUE LA LENTE, NON LA DOMANDA. Ordine CQ
+                        // voce 6.10.**
+                        //
+                        // La lente e' quella che la domanda ha scelto, cosi' la
+                        // card parla dello stesso tema del responso letto. **La
+                        // domanda scritta invece NON entra**, e non e' una
+                        // dimenticanza: questa immagine esce dal telefono e la
+                        // guardano altri, e la card mostra il primo paragrafo
+                        // del consiglio, che con la domanda dentro sarebbe la
+                        // domanda stessa. Chi condivide una lettura non sta
+                        // condividendo cosa ha chiesto.
+                        //
+                        // **LA LETTURA DEL MODELLO ENTRA SOLO SENZA DOMANDA
+                        // SCRITTA. Ordine EQ voce 04.** Risponde alla domanda, e
+                        // per la stessa ragione di qui sopra la card non la
+                        // porta; senza domanda scritta e' la stessa che si legge
+                        // in cima al responso, e la card non la contraddice.
+                        child: StesaShareCard(
+                          spread: _spread,
+                          palette: palette,
+                          topic: _reading.topic,
+                          lettura: DomandaDellaPersona.pulita(
+                                      _setup.domandaScritta) ==
+                                  null
+                              ? _dalModello
+                              : null,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -1753,6 +1779,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                     FacciaDellaCarta(drawn: carta, palette: palette),
                 posa: _posaDiMedora,
                 filmato: _filmatoInScena,
+                filmatoSaltato: _filmatoSaltato,
               ),
             )),
           ),
