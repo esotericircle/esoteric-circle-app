@@ -118,9 +118,13 @@ ATTESA DI VERIFICA`. Prima gli stati erano due, e una voce fatta a meta'
 doveva sceglierne uno: sceglieva CHIUSA.
 
 **Dove il risultato lo scrive un modello, la prova e' la risposta vera**, non
-che la regola sia arrivata al modello. E le voci sui testi generati si
-misurano su **almeno due esecuzioni con dati diversi**: se i due testi
-coincidono, la voce non e' chiusa.
+che la regola sia arrivata al modello. **Tolto dall'ordine del 14 ottobre
+2026** l'obbligo delle due esecuzioni reali su dati diversi: chiamare il
+modello costa, e nessuna chiamata a pagamento parte senza il si' di Mauro
+(vedi Regole non negoziabili, SPESE). Una voce sui testi generati resta
+**APERTA IN ATTESA DI VERIFICA** finche' quel si' non arriva e la misura vera
+non e' stata presa: non si chiude a parole, e non si chiude a memoria di una
+vecchia esecuzione.
 
 La guardia che lo fa valere e' `ogni_voce_chiusa_porta_la_sua_prova_test.dart`,
 e **in cima a ogni rapporto sta l'elenco delle voci chiuse con accanto la
@@ -154,6 +158,9 @@ Claude costruisce l'app, Gemini la fa girare. Tutta l'AI a runtime (oracoli, sin
 
 ## Regole non negoziabili
 
+- **SPESE, regola permanente del fondatore, 14 ottobre 2026.**
+  1. Vietata qualunque chiamata a pagamento verso Gemini, Vertex o altri servizi a consumo (giro dei banchi compreso) senza il si' esplicito di Mauro, dato in chat per quella singola occasione, con la stima del costo in euro scritta prima.
+  2. Le build non comprendono mai il giro dei banchi. Le voci sui testi generati restano APERTA IN ATTESA DI VERIFICA finche' Mauro non autorizza la spesa.
 - **UN RAMO SOLO.** Il lavoro si spinge sul solo ramo `claude/esoteric-circle-master-order-e798aj`, e nessun altro ramo si crea senza un ordine che lo dica per nome. Il lavoro dell'ordine CG e' finito in parte su un ramo laterale che il fondatore non aveva chiesto, e chi avesse aperto il canonico non avrebbe trovato ne' la rinomina in card ne' la build: due rami che dicono cose diverse sullo stesso ordine sono due verita'. Rimediato con l'ordine CH del 31 agosto 2026.
 - Non usare mai il trattino lungo. Usa formulazioni alternative.
 - Rispondi e commenta sempre in italiano.

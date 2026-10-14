@@ -67,10 +67,20 @@ void main() {
         reason: 'il README non dichiara il costo di un giro in euro');
   });
 
-  test('a) la consegna non parte senza un giro dei banchi passato', () {
+  // LAPIDE: "a) la consegna non parte senza un giro dei banchi passato",
+  // `raise SystemExit('BANCHI COL MODELLO: '` dentro `tool/consegna.py`.
+  // Dall'ordine FD voce 03 i banchi erano un cancello obbligatorio a ogni
+  // consegna. **Decisione del fondatore, 14 ottobre 2026**: "In futuro,
+  // d'ora in poi, zero euro per costruire la build". Il cancello e' tolto:
+  // la consegna guarda ancora se un giro buono esiste (informativo), ma non
+  // si ferma piu' se non c'e'. Lo strumento dei banchi resta, per chi lo
+  // vuole lanciare di sua scelta.
+  test('a) la consegna guarda i banchi ma non si ferma piu senza un giro', () {
     final c = File('tool/consegna.py').readAsStringSync();
-    expect(c, contains('passati, perche = i_banchi_sono_passati()'));
-    expect(c, contains("raise SystemExit('BANCHI COL MODELLO: '"));
+    expect(c, contains('passati, perche = i_banchi_sono_passati()'),
+        reason: 'la consegna non guarda piu se un giro buono esiste');
+    expect(c, isNot(contains("raise SystemExit('BANCHI COL MODELLO: '")),
+        reason: 'la consegna torna a fermarsi se i banchi non sono passati');
   });
 
   test('b) il risultato dell\'ultimo giro esiste con un esito per caso', () {

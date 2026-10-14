@@ -560,17 +560,21 @@ def main():
     # **E LO SBARRAMENTO DEVE ESSERE PASSATO SU QUESTO ALBERO.**
     # Ordine CZ voce 14: la falla per cui un rosso ha attraversato una
     # consegna intera era che questo file non lo nominava affatto.
-    # **I BANCHI COL MODELLO, PRIMA DI CARICARE. Ordine FD voce 03.**
-    # I banchi che chiamano Gemini davvero non girano a ogni commit, perche'
-    # costano: girano a ogni consegna, e la consegna non parte se l'ultimo
-    # giro non e' passato tutto sullo stesso codice che si consegna.
+    # **I BANCHI COL MODELLO NON FERMANO PIU' LA CONSEGNA.** Decisione del
+    # fondatore, 14 ottobre 2026: *"In futuro, d'ora in poi, zero euro per
+    # costruire la build"*. Dall'ordine FD voce 03 i banchi, che chiamano
+    # Gemini davvero e costano, erano un cancello obbligatorio: la consegna
+    # non partiva se l'ultimo giro non era passato tutto sullo stesso codice.
+    # Quel cancello e' tolto: lo strumento resta
+    # (`tool/banchi_col_modello/i_banchi_col_modello.py --costo`), e si lancia
+    # quando il fondatore lo vuole, non a ogni consegna. Qui si guarda e basta
+    # se un giro buono esiste gia' per questo codice, senza mai bloccare.
     print('')
-    print('== I BANCHI COL MODELLO ==')
+    print("== I BANCHI COL MODELLO (informativo, non blocca piu') ==")
     passati, perche = i_banchi_sono_passati()
-    if not passati:
-        raise SystemExit('BANCHI COL MODELLO: ' + perche + '. Lancia: python '
-                         'tool/banchi_col_modello/i_banchi_col_modello.py --costo')
-    print('  ' + perche)
+    print('  ' + perche if passati else
+          "  nessun giro valido per questo codice, e va bene cosi': i banchi "
+          'non sono piu\' un cancello.')
 
     print('')
     print('== LO SBARRAMENTO, PRIMA DI CARICARE ==')
