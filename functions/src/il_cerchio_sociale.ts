@@ -11,6 +11,13 @@ import {
 } from "firebase-admin/firestore";
 import {getMessaging} from "firebase-admin/messaging";
 import {chiaveDelGiorno} from "./giorno";
+import {
+  ConsensoDellaNascita,
+  NascitaCondivisa,
+  creaConsenso,
+  esitoDellaLettura,
+  nascitaDaCorpo,
+} from "./sinastria_evolutiva";
 import {Piano, pianoValido} from "./budget";
 import {confineDellaPresenza} from "./presenza";
 import {
@@ -2351,6 +2358,69 @@ export const unPassoDelPellegrinaggio = onCall(OPZIONI_SOCIALI, async (request) 
     const dopo = [...giorni, oggi];
     tx.set(doc, {luna, giorni: dopo});
     return {ok: true, passi: dopo.length, gia: false};
+  });
+});
+
+/**
+ * LA LETTURA A DUE TELEFONI, ordine FT voce FT.03, 14 ottobre 2026. Chi
+ * condivide la propria nascita preme il pulsante del consenso e riceve un
+ * codice "vicino" (sei caratteri, cinque minuti, lo stesso degli inviti da
+ * inquadrare); chi gli sta accanto lo scrive nel modulo della nascita e la
+ * riceve UNA volta sola. La nascita vive solo in `consensi_nascita/{codice}`,
+ * mai nel profilo pubblico, e chi la legge cancella il documento.
+ */
+export const condividiLaNascita = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "condividiLaNascita");
+  const adesso = new Date();
+  const dati = nascitaDaCorpo(request.data, adesso);
+  if (dati === null) {
+    throw new HttpsError("invalid-argument", "La nascita non e' completa.");
+  }
+  return db().runTransaction(async (tx) => {
+    let codice = unCodice("vicino");
+    for (let i = 0; i < 5; i++) {
+      const c = await tx.get(db().collection("consensi_nascita").doc(codice));
+      if (!c.exists) break;
+      codice = unCodice("vicino");
+    }
+    const consenso = creaConsenso(dati, adesso, codice);
+    tx.set(db().collection("consensi_nascita").doc(codice), {
+      uid,
+      dati: consenso.dati,
+      creato: consenso.creato.getTime(),
+      scade: consenso.scadenza.getTime(),
+    });
+    return {codice, scade: consenso.scadenza.getTime()};
+  });
+});
+
+export const leggiLaNascita = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "leggiLaNascita");
+  const codice = codiceScritto(request.data?.codice);
+  // Codice storto, scaduto, gia' letto o mai esistito: la stessa risposta,
+  // perche' chi indovina codici non impari niente.
+  const nessuno = new HttpsError("not-found",
+    "Questo codice non vale piu': chiedine uno nuovo.");
+  if (codice === null) throw nessuno;
+  const adesso = new Date();
+  const doc = db().collection("consensi_nascita").doc(codice);
+  return db().runTransaction(async (tx) => {
+    const snap = await tx.get(doc);
+    const d = snap.data();
+    const consenso: ConsensoDellaNascita | null = !snap.exists || d === undefined ? null : {
+      codice,
+      dati: d.dati as NascitaCondivisa,
+      creato: new Date(Number(d.creato)),
+      scadenza: new Date(Number(d.scade)),
+      consumato: false,
+    };
+    const {esito} = esitoDellaLettura(consenso, request.data?.giornoMio, adesso);
+    // Letto o scaduto, il consenso non serve piu': si cancella.
+    if (snap.exists) tx.delete(doc);
+    if (esito === null) throw nessuno;
+    return {...esito.nascita, amoreApribile: esito.amoreApribile};
   });
 });
 

@@ -5,6 +5,9 @@ import {
   consumaConsenso,
   creaConsenso,
   DURATA_DEL_CONSENSO_MS,
+  esitoDellaLettura,
+  giornoDa,
+  nascitaDaCorpo,
   haAlmeno16Anni,
   legameApribile,
 } from "./sinastria_evolutiva";
@@ -87,6 +90,7 @@ test("il server non si fida di un client che manda solo 'true'", () => {
 
 const dati = {
   nascita: "1995-06-20T10:00:00.000Z",
+  giorno: "1995-06-20",
   oraNota: true,
   nome: "Giulia",
 };
@@ -141,7 +145,46 @@ test("un consenso inesistente (null) non da' mai dati, senza distinguere il moti
 test("il consenso non porta nessun campo da profilo pubblico", () => {
   const consenso = creaConsenso(dati, oggi, "AB12CD");
   const chiavi = Object.keys(consenso.dati).sort();
-  assert.deepEqual(chiavi, ["nascita", "nome", "oraNota"]);
+  assert.deepEqual(chiavi, ["giorno", "nascita", "nome", "oraNota"]);
+});
+
+test("la nascita dal telefono si controlla campo per campo", () => {
+  assert.deepEqual(nascitaDaCorpo({...dati, nome: "  Giulia "}, oggi), dati);
+  assert.equal(nascitaDaCorpo(null, oggi), null);
+  assert.equal(nascitaDaCorpo({...dati, oraNota: "si"}, oggi), null);
+  assert.equal(nascitaDaCorpo({...dati, nome: ""}, oggi), null);
+  assert.equal(nascitaDaCorpo({...dati, nome: "x".repeat(41)}, oggi), null);
+  assert.equal(nascitaDaCorpo({...dati, giorno: "1995-02-31"}, oggi), null,
+    "il 31 febbraio non esiste");
+  assert.equal(nascitaDaCorpo({...dati, giorno: "1995-06-25"}, oggi), null,
+    "il giorno del luogo sta a piu' di un giorno dall'istante");
+  assert.equal(nascitaDaCorpo({...dati, nascita: "2030-01-01T00:00:00Z",
+    giorno: "2030-01-01"}, oggi), null, "una nascita nel futuro");
+  assert.equal(giornoDa("2010-10-15")?.toISOString(), "2010-10-15T00:00:00.000Z");
+});
+
+test("FT.04 sul server alla lettura: quindici anni e 364 giorni chiudono l'amore, " +
+  "da tutti e due i lati", () => {
+  const quindicenne = {...dati, nascita: "2010-10-15T12:00:00.000Z", giorno: "2010-10-15"};
+  const sedicenne = {...dati, nascita: "2010-10-14T12:00:00.000Z", giorno: "2010-10-14"};
+  const leggi = (d: typeof dati, giornoMio: unknown) =>
+    esitoDellaLettura(creaConsenso(d, oggi, "AB12CD"), giornoMio, oggi).esito;
+  assert.equal(leggi(quindicenne, "1990-05-12")?.amoreApribile, false);
+  assert.equal(leggi(sedicenne, "1990-05-12")?.amoreApribile, true);
+  assert.equal(leggi(dati, "2010-10-15")?.amoreApribile, false);
+  assert.equal(leggi(dati, "2010-10-14")?.amoreApribile, true);
+  // Senza il giorno di chi legge il server non apre.
+  assert.equal(leggi(dati, undefined)?.amoreApribile, false);
+  assert.deepEqual(leggi(dati, "1990-05-12")?.nascita, dati);
+});
+
+test("la lettura di un codice scaduto o gia' letto non da' niente", () => {
+  const consenso = creaConsenso(dati, oggi, "AB12CD");
+  const tardi = new Date(oggi.getTime() + 6 * 60 * 1000);
+  assert.equal(esitoDellaLettura(consenso, "1990-05-12", tardi).esito, null);
+  assert.equal(esitoDellaLettura(null, "1990-05-12", oggi).esito, null);
+  const letto = {...consenso, consumato: true};
+  assert.equal(esitoDellaLettura(letto, "1990-05-12", oggi).esito, null);
 });
 
 /**

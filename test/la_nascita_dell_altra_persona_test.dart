@@ -9,10 +9,10 @@ void main() {
   testWidgets('il pulsante resta spento finche nome e data non ci sono',
       (tester) async {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    await tester.pumpWidget(MaterialApp(
-        home: LaNascitaDellAltraPersona(palette: palette)));
-    final pulsante =
-        tester.widget<FilledButton>(find.byKey(const Key('nascita_altra_conferma')));
+    await tester.pumpWidget(
+        MaterialApp(home: LaNascitaDellAltraPersona(palette: palette)));
+    final pulsante = tester
+        .widget<FilledButton>(find.byKey(const Key('nascita_altra_conferma')));
     expect(pulsante.onPressed, isNull);
 
     await tester.enterText(
@@ -20,21 +20,20 @@ void main() {
     await tester.pump();
     final ancoraSpento = tester
         .widget<FilledButton>(find.byKey(const Key('nascita_altra_conferma')));
-    expect(ancoraSpento.onPressed, isNull,
-        reason: 'manca ancora la data');
+    expect(ancoraSpento.onPressed, isNull, reason: 'manca ancora la data');
   });
 
   testWidgets(
       'con nome e "non conosco l\'ora" accesa, il cielo nasce a mezzogiorno',
       (tester) async {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    ({String nome, dynamic cielo})? risultato;
+    NascitaLetta? risultato;
     await tester.pumpWidget(MaterialApp(
       home: Builder(builder: (context) {
         return ElevatedButton(
           onPressed: () async {
-            risultato = await LaNascitaDellAltraPersona.chiedi(
-                context, palette) as ({String nome, dynamic cielo})?;
+            risultato =
+                await LaNascitaDellAltraPersona.chiedi(context, palette);
           },
           child: const Text('apri'),
         );

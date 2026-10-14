@@ -54,6 +54,7 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
     required this.cieloSuo,
     this.fabbricaDellaScena,
     this.oggi,
+    this.amoreDalServer,
   });
 
   final String nomeTuo;
@@ -67,11 +68,18 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
   /// Il giorno di Oggi fra voi e del Momento giusto; nullo, oggi.
   final DateTime? oggi;
 
+  /// **IL SECONDO CONTROLLO DELL'ETA'**, ordine FT voce FT.04: nella lettura
+  /// a due telefoni il server rifa' lo sbarramento dei sedici anni con la
+  /// nascita che ha nel consenso, e qui arriva il suo parere. Nullo con la
+  /// nascita scritta a mano (il server non l'ha vista): decide l'app.
+  final bool? amoreDalServer;
+
   static Route<void> route({
     required String nomeTuo,
     required CieloEvolutivo cieloTuo,
     required String nomeSuo,
     required CieloEvolutivo cieloSuo,
+    bool? amoreDalServer,
   }) =>
       PassaggioDelCerchio.rotta(
         (_) => SinastriaEvolutivaScreen(
@@ -79,6 +87,7 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
           cieloTuo: cieloTuo,
           nomeSuo: nomeSuo,
           cieloSuo: cieloSuo,
+          amoreDalServer: amoreDalServer,
         ),
       );
 
@@ -119,9 +128,11 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   /// Il legame: amore se lo sbarramento d'eta' lo apre, altrimenti amicizia.
   late Legame _legame = _amoreApribile ? Legame.amore : Legame.amicizia;
 
-  bool get _amoreApribile => SbarramentoDEta.legameApribile(Legame.amore,
-      widget.cieloTuo.giornoDiNascita, widget.cieloSuo.giornoDiNascita,
-      adesso: _oggi);
+  bool get _amoreApribile =>
+      widget.amoreDalServer != false &&
+      SbarramentoDEta.legameApribile(Legame.amore,
+          widget.cieloTuo.giornoDiNascita, widget.cieloSuo.giornoDiNascita,
+          adesso: _oggi);
 
   final GlobalKey _chiaveDellaCard = GlobalKey();
   bool _cardInScena = false;

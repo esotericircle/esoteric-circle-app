@@ -75,18 +75,86 @@ export function legameApribile(
  * lettura ([consumaConsenso] e' l'unico modo di leggerlo, e dopo il
  * documento non serve piu': lo cancella chi lo consuma, o un lavoro
  * programmato dopo la scadenza) e non scrive mai nulla nel profilo di chi
- * lo manda. Wiring della callable, delle regole Firestore e la
- * cancellazione programmata restano per quando il fondatore ordina il
- * deploy (R3): qui c'e' la logica pura, provata senza database.
+ * lo manda. Le due porte (`condividiLaNascita` e `leggiLaNascita`) stanno
+ * in `il_cerchio_sociale.ts`, accanto a quelle del codice d'invito, scritte
+ * e non pubblicate: la pubblicazione la decide il fondatore (R3). Qui c'e'
+ * la logica pura, provata senza database.
  */
 export const DURATA_DEL_CONSENSO_MS = 5 * 60 * 1000;
 
 export interface NascitaCondivisa {
   /** ISO 8601, UTC. */
   nascita: string;
+  /**
+   * Il giorno di nascita nel calendario del luogo, AAAA-MM-GG: al confine
+   * dei sedici anni conta questo, non il giorno in tempo universale.
+   */
+  giorno: string;
   /** Falso se l'ora non e' nota: la lettura ancora a mezzogiorno. */
   oraNota: boolean;
   nome: string;
+}
+
+const GIORNO = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+/** Il giorno AAAA-MM-GG come data a mezzanotte UTC, oppure null. */
+export function giornoDa(valore: unknown): Date | null {
+  if (typeof valore !== "string") return null;
+  const m = GIORNO.exec(valore);
+  if (m === null) return null;
+  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  // Il 31 febbraio non esiste: Date lo sposterebbe a marzo senza dirlo.
+  if (d.getUTCMonth() !== Number(m[2]) - 1 || d.getUTCDate() !== Number(m[3])) {
+    return null;
+  }
+  return d;
+}
+
+/**
+ * LA NASCITA CHE ARRIVA DAL TELEFONO, controllata campo per campo. Ogni
+ * campo storto o mancante rende null: il consenso non nasce a meta'.
+ */
+export function nascitaDaCorpo(corpo: unknown, adesso: Date): NascitaCondivisa | null {
+  if (typeof corpo !== "object" || corpo === null) return null;
+  const c = corpo as Record<string, unknown>;
+  if (typeof c.nascita !== "string" || typeof c.oraNota !== "boolean") return null;
+  const istante = new Date(c.nascita);
+  if (isNaN(istante.getTime()) || istante.getTime() > adesso.getTime()) return null;
+  if (istante.getUTCFullYear() < 1900) return null;
+  const giorno = giornoDa(c.giorno);
+  if (giorno === null || giorno.getTime() > adesso.getTime()) return null;
+  // Il giorno del luogo e quello in tempo universale stanno a un giorno al
+  // massimo: un fuso orario non sposta di piu'.
+  if (Math.abs(giorno.getTime() - istante.getTime()) > 2 * 24 * 3600 * 1000) return null;
+  const nome = typeof c.nome === "string" ? c.nome.trim() : "";
+  if (nome.length === 0 || nome.length > 40) return null;
+  return {nascita: istante.toISOString(), giorno: c.giorno as string, oraNota: c.oraNota, nome};
+}
+
+/**
+ * LA LETTURA DEL CONSENSO, e il secondo controllo dell'eta' (FT.04). Chi
+ * legge manda il proprio giorno di nascita (il server non lo conserva: il
+ * Cerchio tiene solo il segno e la maggiore eta'); la nascita condivisa la
+ * prende dal consenso, mai dal telefono che legge. Null se il codice non
+ * vale piu', senza dire perche' (vedi [consumaConsenso]).
+ */
+export function esitoDellaLettura(
+  consenso: ConsensoDellaNascita | null,
+  giornoDiChiLegge: unknown,
+  adesso: Date
+): {
+  esito: {nascita: NascitaCondivisa; amoreApribile: boolean} | null;
+  consensoAggiornato: ConsensoDellaNascita | null;
+} {
+  const {datiLetti, consensoAggiornato} = consumaConsenso(consenso, adesso);
+  if (datiLetti === null) return {esito: null, consensoAggiornato};
+  const mio = giornoDa(giornoDiChiLegge);
+  const suo = giornoDa(datiLetti.giorno);
+  // Senza un giorno valido di chi legge l'amore resta chiuso: nel dubbio il
+  // server non apre.
+  const amoreApribile = mio !== null && suo !== null &&
+    legameApribile("amore", mio, suo, adesso);
+  return {esito: {nascita: datiLetti, amoreApribile}, consensoAggiornato};
 }
 
 export interface ConsensoDellaNascita {

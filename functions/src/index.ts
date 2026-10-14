@@ -163,6 +163,9 @@ export {
   scopriUnSegno,
   laProva,
   unPassoDelPellegrinaggio,
+  // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
+  condividiLaNascita,
+  leggiLaNascita,
 } from "./il_cerchio_sociale";
 export {paginaDellInvito} from "./la_pagina_dell_invito";
 

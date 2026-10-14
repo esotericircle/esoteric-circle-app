@@ -87,6 +87,7 @@ class _AvvioSinastriaEvolutivaState extends State<AvvioSinastriaEvolutiva> {
       cieloTuo: cieloTuo,
       nomeSuo: altra.nome,
       cieloSuo: altra.cielo,
+      amoreDalServer: altra.amoreDalServer,
     ));
   }
 

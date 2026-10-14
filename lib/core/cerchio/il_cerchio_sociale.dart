@@ -668,6 +668,40 @@ class IlCerchioSociale extends ChangeNotifier {
 
   /// SCEGLI IL NOME (EY.01): il server decide, e la riga del rifiuto e'
   /// la sua.
+  /// **LA LETTURA A DUE TELEFONI DELLA SINASTRIA EVOLUTIVA**, ordine FT voce
+  /// FT.03. Chi condivide la propria nascita, col gesto del consenso,
+  /// riceve un codice di sei caratteri che vale cinque minuti e una lettura
+  /// sola (`dati['codice']`, `dati['scade']` in millisecondi). La nascita va
+  /// solo al server, nel consenso: mai nel profilo pubblico.
+  Future<EsitoDelGesto> condividiLaNascita({
+    required DateTime nascitaUtc,
+    required DateTime giorno,
+    required bool oraNota,
+    required String nome,
+  }) async =>
+      _esito(await _chiedi('condividiLaNascita', {
+        'nascita': nascitaUtc.toUtc().toIso8601String(),
+        'giorno': _giornoScritto(giorno),
+        'oraNota': oraNota,
+        'nome': nome.trim(),
+      }));
+
+  /// Chi legge manda il codice e il PROPRIO giorno di nascita: il server
+  /// rifa' lo sbarramento dei sedici anni sul legame amore con la nascita
+  /// condivisa che ha nel consenso (FT.04), e lo dice in
+  /// `dati['amoreApribile']`.
+  Future<EsitoDelGesto> leggiLaNascita(String codice,
+          {required DateTime giornoMio}) async =>
+      _esito(await _chiedi('leggiLaNascita', {
+        'codice': codice.trim(),
+        'giornoMio': _giornoScritto(giornoMio),
+      }));
+
+  static String _giornoScritto(DateTime g) =>
+      '${g.year.toString().padLeft(4, '0')}-'
+      '${g.month.toString().padLeft(2, '0')}-'
+      '${g.day.toString().padLeft(2, '0')}';
+
   Future<EsitoDelGesto> scegliIlNome(String nome) async {
     final e = await _chiedi('scegliIlNome', {'nome': nome.trim()});
     final esito = _esito(e);

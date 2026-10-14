@@ -28,7 +28,7 @@ CieloEvolutivo _cielo(DateTime nascita, String nome) =>
         nome: nome);
 
 Future<void> _monta(WidgetTester tester,
-    {required Tier tier, DateTime? nascitaSua}) async {
+    {required Tier tier, DateTime? nascitaSua, bool? amoreDalServer}) async {
   SharedPreferences.setMockInitialValues({});
   tester.view.physicalSize = const Size(390, 844);
   tester.view.devicePixelRatio = 1.0;
@@ -56,6 +56,7 @@ Future<void> _monta(WidgetTester tester,
             nomeSuo: 'Giulia',
             cieloSuo: _cielo(nascitaSua ?? DateTime(1992, 9, 3), 'Giulia'),
             oggi: _oggi,
+            amoreDalServer: amoreDalServer,
           ),
         ),
       ),
@@ -148,6 +149,17 @@ void main() {
             .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
             .data,
         prima);
+  });
+
+  testWidgets(
+      'il no del server sull\'amore vale anche fra due adulti (FT.04, '
+      'la lettura a due telefoni)', (tester) async {
+    await _monta(tester, tier: Tier.tier2, amoreDalServer: false);
+    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_amore')));
+    await tester.tap(find.byKey(const Key('sinastria_legame_amore')));
+    await tester.pump();
+    expect(find.byKey(const Key('sinastria_amore_chiuso')), findsOneWidget,
+        reason: 'il server ha detto di no e l\'app ha aperto lo stesso');
   });
 
   testWidgets('a sedici anni compiuti l\'amore si apre e cambia la lettura',

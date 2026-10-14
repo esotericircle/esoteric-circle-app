@@ -1171,6 +1171,9 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   scopriUnSegno: {quante: 60, finestraMs: 60 * 60 * 1000},
   laProva: {quante: 120, finestraMs: 60 * 60 * 1000},
   unPassoDelPellegrinaggio: {quante: 60, finestraMs: 60 * 60 * 1000},
+  // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
+  condividiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
+  leggiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
 };
 
 /**

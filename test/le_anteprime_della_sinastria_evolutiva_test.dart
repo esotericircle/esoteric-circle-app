@@ -19,6 +19,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/pricing/upgrade_invite.dart';
 import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
+import 'package:esoteric_circle/features/synastry/la_tua_nascita_per_una_lettura.dart';
 import 'package:esoteric_circle/features/synastry/lo_studio_di_medora.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
 import 'package:flutter/material.dart';
@@ -223,6 +224,13 @@ void main() {
     await monta(tester,
         LaNascitaDellAltraPersona(palette: palette, nomeIniziale: 'Giulia'));
     await scatta(tester, 'ft03_la_nascita_dell_altra_persona');
+  });
+
+  testWidgets('FT.03: la tua nascita per una lettura', (tester) async {
+    if (_stato.isEmpty) return;
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    await monta(tester, LaTuaNascitaPerUnaLettura(palette: palette));
+    await scatta(tester, 'ft03_la_tua_nascita_per_una_lettura');
   });
 
   testWidgets('FT.13: le coppie nuove di oggi sono finite', (tester) async {
