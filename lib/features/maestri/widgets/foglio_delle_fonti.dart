@@ -138,6 +138,22 @@ class TestiDelleFonti {
 
   /// La Sinastria VIP.
   /// La Sinastria evolutiva, ordine FT, 14 ottobre 2026.
+  /// L'Oracolo degli Angeli, ordine FU, 15 ottobre 2026.
+  static const String oracoloAngeli =
+      'I 72 nomi degli angeli vengono dal versetto triplice dell\'Esodo, '
+      '14, 19-21: tre versetti di 72 lettere ciascuno, letti insieme, danno '
+      'settantadue nomi di tre lettere. I cori, gli arcangeli e i salmi di '
+      'ogni angelo seguono Lenain, La Science cabalistique, 1823, verificata '
+      'sulla stampa originale.\n\n'
+      'I tuoi tre angeli si calcolano dalla nascita: il Custode dal grado del '
+      'Sole, il Cuore dal giorno dell\'anno, l\'Intelletto dall\'ora, venti '
+      'minuti per angelo. L\'angelo di quest\'ora segue la stessa regola dei '
+      'venti minuti.\n\n'
+      'I messaggi delle carte e il legame con la tua domanda li scrive '
+      'Medora: sono chiavi di lettura sue, non parole della tradizione. Il '
+      'rito con Caligo usa il salmo dell\'angelo nella numerazione '
+      'dichiarata.';
+
   static const String sinastriaEvolutiva =
       'La Sinastria evolutiva confronta due cieli di nascita veri. I punti '
       'sono undici per persona, dal Sole a Plutone col Nodo Nord medio, '

@@ -57,6 +57,9 @@ class ContiDelleArti {
     ContoDellArte(arte: 'horoscope', gesto: 'oroscopo'),
     ContoDellArte(arte: 'synastry_vip', gesto: 'sinastria'),
     ContoDellArte(arte: 'synastry_depth', gesto: 'sinastria_evolutiva'),
+    // Ordine FU: l'Oracolo degli Angeli conta il suo gesto, una
+    // consultazione affidata.
+    ContoDellArte(arte: 'angels_oracle', gesto: 'oracolo_angeli'),
     ContoDellArte(arte: 'tarot_spread_three', gesto: 'stesa'),
     ContoDellArte(arte: 'archetype_test', gesto: 'archetipo'),
     ContoDellArte(arte: 'face_constellation', gesto: 'viso'),

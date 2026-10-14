@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../sigilli/regia_del_cammino.dart';
+import 'oracolo/oracolo_degli_angeli_screen.dart';
 
 import '../../core/angels/angel_catalog.dart';
 import '../../core/angels/angel_lore.dart';
@@ -296,6 +297,22 @@ class _AngelsScreenState extends State<AngelsScreen>
                 )
               else
                 _IntellettoMancante(palette: palette),
+
+              // IL PASSAGGIO VERSO L'ORACOLO DEGLI ANGELI, ordine FU voce
+              // FU.11: gli stessi tre angeli rispondono a una domanda.
+              const SizedBox(height: SpacingTokens.lg),
+              Center(
+                child: FilledButton.icon(
+                  key: const Key('angeli_verso_l_oracolo'),
+                  onPressed: () => Navigator.of(context)
+                      .push(OracoloDegliAngeliScreen.route()),
+                  style: FilledButton.styleFrom(
+                      backgroundColor: palette.goldSoft,
+                      foregroundColor: palette.deepest),
+                  icon: const Icon(Icons.auto_stories_rounded),
+                  label: const Text('Affida una domanda ai tuoi angeli'),
+                ),
+              ),
 
               const SizedBox(height: SpacingTokens.xl),
               _ComeSonoScelti(triade: triade, palette: palette),

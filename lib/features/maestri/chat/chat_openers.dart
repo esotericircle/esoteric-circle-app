@@ -170,6 +170,13 @@ class ChatOpeners {
       'Nella sinastria evolutiva con $nome, per il legame $legame, leggo: '
       '«$titolo». Che cosa posso fare con questo?';
 
+  /// Dall'Oracolo degli Angeli verso Medora, ordine FU voce FU.06: la
+  /// carta di una bolla, col suo ruolo e la frase che la persona sta
+  /// leggendo.
+  static String oracoloAngeli(String angelo, String ruolo, String frase) =>
+      'Nell\'Oracolo degli Angeli $angelo mi porta $ruolo: «$frase». Che '
+      'cosa posso fare con questo?';
+
   /// Dal Sigillo dell\'Intenzione verso Caligo, con l\'intenzione posata.
   static String sigillo(String intenzione) =>
       'Ho sigillato questa intenzione: «$intenzione». Come la tengo viva?';

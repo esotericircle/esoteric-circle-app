@@ -94,6 +94,10 @@ abstract final class LeFunzioniDelModello {
   static const String distillatoMemoria = 'distillato_memoria';
   static const String letturaRune = 'lettura_rune';
   static const String letturaTarocchi = 'lettura_tarocchi';
+
+  /// L'Oracolo degli Angeli, ordine FU voce FU.04: una chiamata per
+  /// consultazione, col modello leggero.
+  static const String oracoloAngeli = 'oracolo_angeli';
   static const String sigillo = 'sigillo';
   static const String viaggioScena = 'viaggio_scena';
   static const String viaggioDomanda = 'viaggio_domanda';
@@ -114,6 +118,7 @@ abstract final class LeFunzioniDelModello {
     distillatoMemoria,
     letturaRune,
     letturaTarocchi,
+    oracoloAngeli,
     sigillo,
     viaggioScena,
     viaggioDomanda,

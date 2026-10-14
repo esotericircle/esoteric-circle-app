@@ -34,6 +34,8 @@ import '../rituals/runes.dart';
 import '../synastry/vip_catalog.dart';
 import '../tarot/tarot_card.dart';
 import 'ricordo_custodito.dart';
+import '../angels/angel_catalog.dart';
+import '../assets/family_image.dart';
 
 /// Un'immagine da rimettere a schermo, con tutti e due i tagli.
 class ImmagineDelRicordo {
@@ -89,6 +91,8 @@ class ArtworkDelRicordo {
     'sinastria': ['vip'],
     // Ordine FT: la coppia del segno della relazione (il Sole composito).
     'sinastria_evolutiva': ['coppia'],
+    // Ordine FU: le tre carte dei 72 dell'Oracolo degli Angeli, per numero.
+    'oracolo_angeli': ['angeli'],
     'archetipo': ['archetipo'],
     'oroscopo': ['segno'],
   };
@@ -147,6 +151,8 @@ class ArtworkDelRicordo {
         return _vip(dati['vip']);
       case 'sinastria_evolutiva':
         return _coppia(dati['coppia']);
+      case 'oracolo_angeli':
+        return _angeli(dati['angeli']);
       case 'archetipo':
         return _archetipo(dati['archetipo']);
       case 'oroscopo':
@@ -232,6 +238,23 @@ class ArtworkDelRicordo {
         ));
         break;
       }
+    }
+    return fuori;
+  }
+
+  /// Le carte dei 72 dell'Oracolo degli Angeli, ordine FU: i numeri
+  /// separati da virgole, "7,33,51", nell'ordine Custode, Cuore, Intelletto.
+  static List<ImmagineDelRicordo> _angeli(String? numeri) {
+    if (numeri == null || numeri.trim().isEmpty) return const [];
+    final fuori = <ImmagineDelRicordo>[];
+    for (final n in numeri.split(',')) {
+      final numero = int.tryParse(n.trim());
+      if (numero == null || numero < 1 || numero > 72) continue;
+      final a = AngelCatalog.byNumber(numero);
+      fuori.add(ImmagineDelRicordo(
+          nome: a.name,
+          miniatura: FamilyImage.thumb(AssetFamily.angeli, a.artStem),
+          piena: FamilyImage.full(AssetFamily.angeli, a.artStem)));
     }
     return fuori;
   }

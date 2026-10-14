@@ -98,6 +98,16 @@ class ArtiConResponso {
           'lib/features/synastry/sinastria_evolutiva_screen.dart',
       apertura: 'sinastriaEvolutiva',
     ),
+    // Ordine FU: l'Oracolo degli Angeli, il responso di Medora sulle tre
+    // carte dei tuoi angeli.
+    ArteConResponso(
+      arte: 'oracolo_angeli',
+      maestro: 'medora',
+      titolo: 'Oracolo degli Angeli',
+      doveViveIlResponso:
+          'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart',
+      apertura: 'oracoloAngeli',
+    ),
     ArteConResponso(
       arte: 'archetipo',
       maestro: 'aura',

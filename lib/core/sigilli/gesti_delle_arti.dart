@@ -105,6 +105,11 @@ class GestiDelleArti {
     SorgenteDelGesto(
         gesto: 'sinastria_evolutiva',
         schermata: 'lib/features/synastry/sinastria_evolutiva_screen.dart'),
+    // Ordine FU: l'Oracolo degli Angeli, una consultazione affidata.
+    SorgenteDelGesto(
+        gesto: 'oracolo_angeli',
+        schermata:
+            'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart'),
     SorgenteDelGesto(
         gesto: 'carta_natale',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),

@@ -287,10 +287,14 @@ class ArtCatalog {
       ArtEntry(
         id: 'angels_oracle',
         title: 'Oracolo degli Angeli',
-        teaser: 'La stesa dei settantadue nomi, per una risposta alta.',
+        // **ESCE DAL COMING SOON, ordine FU voce FU.11, 15 ottobre 2026.**
+        // LAPIDE: "La stesa dei settantadue nomi, per una risposta alta.",
+        // in arrivo in fase 2. Adesso e' l'oracolo vero: i tre angeli della
+        // persona portano tre carte dei 72 sulla domanda.
+        teaser: 'I tuoi tre angeli rispondono alla tua domanda, con tre carte '
+            'dei 72.',
         icon: Icons.auto_stories_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        state: ArtState.attiva,
       ),
       ArtEntry(
         id: 'angel_cards',

@@ -20,6 +20,7 @@ import '../synastry/avvio_sinastria_evolutiva.dart';
 import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
 import '../account/dati_di_nascita_screen.dart';
+import '../angels/oracolo/oracolo_degli_angeli_screen.dart';
 import '../../core/cerchio/l_arte_di_adesso.dart';
 import '../../core/astro/il_segno_del_cielo.dart';
 
@@ -151,6 +152,11 @@ Route<void>? _rottaDellArte(
     // nel dominio di Medora: qui la sua rotta vera. Senza la propria
     // nascita non c'e' nessun cielo da confrontare, si va a darla, come le
     // altre arti che la chiedono.
+    // L'ORACOLO DEGLI ANGELI, ordine FU voce FU.11: la sua rotta vera. Senza
+    // la nascita non ci sono i tre angeli della persona: si va a darla.
+    case 'angels_oracle':
+      if (userBirth == null) return DatiDiNascitaScreen.route();
+      return OracoloDegliAngeliScreen.route();
     case 'synastry_depth':
       if (userBirth == null) return DatiDiNascitaScreen.route();
       return AvvioSinastriaEvolutiva.route();
