@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -41,8 +43,57 @@ class ScenaDellaStesaInVideo {
   /// Le misure del filmato, in pixel.
   static const Size misura = Size(720, 1280);
 
-  /// Quanto dura.
+  /// Quanto dura il filmato intero, 192 fotogrammi a 24 al secondo. La
+  /// scena non arriva fin qui: si ferma prima, a [fermaA].
   static const Duration durata = Duration(seconds: 8);
+
+  /// **DOVE SI FERMA LA SCENA, NON ALLA FINE DEL FILMATO.** Ordine del 14
+  /// ottobre 2026, dal telefono del fondatore: *"il video di animazione,
+  /// Medora deve fermarsi poco prima della fine del video, quando ha la
+  /// mano sul petto e non quando la allontana"*. Negli ultimi istanti del
+  /// filmato la mano destra, ferma fino a circa 6,5 s, si allontana dal
+  /// petto verso il gesto di invito finale (8,000 s): la scena si ferma
+  /// prima, al fotogramma 166 (6,917 s), misurato guardando il filmato
+  /// fotogramma per fotogramma (`docs/collaudo/FS/aggiunta_video/
+  /// a4_dove_si_ferma_la_scena.txt`): la polvere d'oro e' gia' sparita dal
+  /// velluto, la mano sinistra e' sul petto, la destra non si e' ancora
+  /// mossa verso il gesto finale.
+  static const Duration fermaA = Duration(milliseconds: 6917);
+
+  /// **L'ULTIMO SECONDO RALLENTA, NON SI FERMA DI SCATTO.** Lo stesso
+  /// fondatore: *"cerca di rallentare l'ultimo secondo in modo che non si
+  /// fermi di botto"*. Negli ultimi [rallentamento] prima di [fermaA] la
+  /// velocita' scende da 1,0 verso [velocitaMinima], mai a zero (il lettore
+  /// video non riparte da fermo): l'ultimo gradino e' la pausa vera, quando
+  /// la posizione raggiunge [fermaA]. Stessa idea della rampa del dito della
+  /// discesa nel Mondo di Sotto (`DiscesaInVideo`), qui continua invece che
+  /// a gradini, perche' non c'e' un dito che la guida.
+  static const Duration rallentamento = Duration(seconds: 1);
+
+  /// La velocita' minima della rampa: la stessa di [DiscesaInVideo.gradini],
+  /// un decimo, per restare visibilmente in moto fino all'ultimo fotogramma
+  /// prima della pausa vera.
+  static const double velocitaMinima = 0.1;
+
+  /// **LA VELOCITA' A [posizione].** 1,0 finche' manca piu' di
+  /// [rallentamento] a [fermaA], poi scende verso [velocitaMinima] in
+  /// proporzione a quanto manca. Non dice mai 0: la pausa vera e' un
+  /// comando a parte ([fermo]), perche' `video_player` a velocita' zero non
+  /// riparte da solo.
+  ///
+  /// Funzione pura, senza un lettore: una prova puo' misurarla fotogramma
+  /// per fotogramma senza montare nulla.
+  static double velocitaA(Duration posizione) {
+    final restante = fermaA - posizione;
+    if (restante <= Duration.zero) return velocitaMinima;
+    if (restante > rallentamento) return 1.0;
+    final frazione = restante.inMicroseconds / rallentamento.inMicroseconds;
+    return frazione.clamp(velocitaMinima, 1.0).toDouble();
+  }
+
+  /// Vero quando [posizione] ha raggiunto o superato [fermaA]: qui la scena
+  /// si ferma davvero, e ci resta.
+  static bool fermo(Duration posizione) => posizione >= fermaA;
 
   /// **IL RIQUADRO DEL FILMATO NELLO SFONDO**, in pixel dello sfondo: dal
   /// pixel 147 al 1370, a tutta larghezza. E' il taglio 9 a 16 su cui il
@@ -128,6 +179,11 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
   bool _cominciato = false;
   bool _finito = false;
 
+  /// L'ultima velocita' impostata durante la rampa, per non richiamare
+  /// `setPlaybackSpeed` a ogni fotogramma quando il numero non e' cambiato
+  /// di una quantita' che si vede.
+  double? _ultimaVelocita;
+
   @override
   bool get pronto => _pronto;
 
@@ -194,12 +250,26 @@ class _LettoreDellaScenaVero implements LettoreDellaScena {
       _cominciato = true;
       cambiato = true;
     }
-    if (!_finito &&
-        v.isInitialized &&
-        v.duration > Duration.zero &&
-        (v.isCompleted || v.position >= v.duration)) {
-      _finito = true;
-      cambiato = true;
+    if (!_finito && v.isInitialized) {
+      // **LA SCENA SI FERMA A `fermaA`, NON ALLA FINE DEL FILMATO.** Mai un
+      // `seekTo`: si lascia che il filmato arrivi li' da solo, rallentando
+      // nell'ultimo [ScenaDellaStesaInVideo.rallentamento]
+      // ([ScenaDellaStesaInVideo.velocitaA]) e fermandosi (`pause`) quando
+      // la posizione lo raggiunge o lo supera ([ScenaDellaStesaInVideo.
+      // fermo]), cosi' un fotogramma perso per il tempo reale non lascia il
+      // lettore in corsa per sempre.
+      if (ScenaDellaStesaInVideo.fermo(v.position)) {
+        _finito = true;
+        cambiato = true;
+        unawaited(c.pause());
+      } else {
+        final velocita = ScenaDellaStesaInVideo.velocitaA(v.position);
+        final ultima = _ultimaVelocita;
+        if (ultima == null || (velocita - ultima).abs() > 0.02) {
+          _ultimaVelocita = velocita;
+          unawaited(c.setPlaybackSpeed(velocita));
+        }
+      }
     }
     if (v.hasError && !_fallito) {
       _fallito = true;
