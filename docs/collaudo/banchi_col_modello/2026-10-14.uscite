@@ -1,0 +1,1489 @@
+=== il_banco_delle_domande_libere_col_modello_test.dart
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.6 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+10 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.15 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+122 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+guasto su "Mi sento sola anche quando sono con gli altri": il modello ha letto una persona in "Mi sento sola anche quando sono con gli altri", che non ne nomina nessuna
+BANCO CON RETE: 40 giuste su 41, 97.6 per cento; deciso dal modello 40; la tabella da sola 28
+  sbagliata: Perché con mia madre finisce sempre in lite? -> blocco (modello), attesi persona
+  oggetto: Devo lasciare il lavoro in banca per aprire una bottega di ceramica -> La domanda riguardava il lavoro. / Hai portato giù la domanda sul lavoro.
+  oggetto: Mia sorella non mi parla da due anni e non so se cercarla -> La domanda riguardava tua sorella. / Hai portato giù la domanda su tua sorella.
+  oggetto: Accetto il trasferimento a Milano o resto qui? -> La domanda riguardava il trasferimento. / Hai portato giù la domanda sul trasferimento.
+  oggetto: Non so se comprare casa adesso o aspettare -> La domanda riguardava la casa. / Hai portato giù la domanda sulla casa.
+  oggetto: Meglio il master all'estero o il posto fisso che mi hanno offerto? -> (nessun oggetto, vale la categoria; il modello: { "tema": "scelta", "oggetto": "il tuo master o il tuo posto fisso" })
+  oggetto: Devo dire di sì alla proposta di Andrea? -> La domanda riguardava la proposta di Andrea. / Hai portato giù la domanda sulla proposta di Andrea.
+  oggetto: Tengo il cane di mia nonna o lo affido a qualcuno? -> La domanda riguardava il cane. / Hai portato giù la domanda sul cane.
+  oggetto: Che posto ha Giulia nella mia vita? -> La domanda riguardava Giulia. / Hai portato giù la domanda su Giulia.
+  oggetto: Mio padre e io non riusciamo più a parlarci -> La domanda riguardava tuo padre. / Hai portato giù la domanda su tuo padre.
+  oggetto: Posso fidarmi del mio nuovo socio? -> La domanda riguardava il tuo socio. / Hai portato giù la domanda sul tuo socio.
+  oggetto: Perché con mia madre finisce sempre in lite? -> La domanda riguardava tua madre. / Hai portato giù la domanda su tua madre.
+  oggetto: Cosa prova davvero Marco per me? -> La domanda riguardava Marco. / Hai portato giù la domanda su Marco.
+  oggetto: Il mio migliore amico si è allontanato e non capisco perché -> La domanda riguardava il tuo migliore amico. / Hai portato giù la domanda sul tuo migliore amico.
+  oggetto: Da mesi non riesco a finire niente di quello che comincio -> La domanda riguardava il finire le cose. / Hai portato giù la domanda sul finire le cose.
+  oggetto: Ogni volta che devo parlare in pubblico mi blocco -> La domanda riguardava il parlare in pubblico. / Hai portato giù la domanda sul parlare in pubblico.
+  oggetto: Perché continuo a rimandare la tesi? -> La domanda riguardava la tesi. / Hai portato giù la domanda sulla tesi.
+  oggetto: Non riesco a smettere di pensare a quello che è successo -> La domanda riguardava quello che è successo. / Hai portato giù la domanda su quello che è successo.
+  oggetto: Ricado sempre negli stessi errori con i soldi -> La domanda riguardava i soldi. / Hai portato giù la domanda sui soldi.
+  oggetto: Mi sento fermo, come se qualcosa mi trattenesse -> (nessun oggetto, vale la categoria; il modello: { "tema": "blocco", "oggetto": "qualcosa che ti trattiene" })
+  oggetto: Mia sorella diventerà presto mamma? -> La domanda riguardava tua sorella. / Hai portato giù la domanda su tua sorella.
+  oggetto: Quando arriverà una risposta dal colloquio? -> La domanda riguardava la risposta. / Hai portato giù la domanda sulla risposta.
+  oggetto: Mio figlio troverà lavoro entro l'estate? -> La domanda riguardava il lavoro. / Hai portato giù la domanda sul lavoro.
+  oggetto: La mia amica tornerà a scrivermi? -> La domanda riguardava la tua amica. / Hai portato giù la domanda sulla tua amica.
+  oggetto: Aspetto da un anno che si liberi quel posto -> La domanda riguardava il posto. / Hai portato giù la domanda sul posto.
+  oggetto: Venderò la casa prima dell'inverno? -> La domanda riguardava la casa. / Hai portato giù la domanda sulla casa.
+  oggetto: Sto sbagliando strada con questo lavoro? -> La domanda riguardava il lavoro. / Hai portato giù la domanda sul lavoro.
+  oggetto: Che cosa voglio fare davvero della mia vita? -> La domanda riguardava la tua vita. / Hai portato giù la domanda sulla tua vita.
+  oggetto: Non so più dove sto andando -> (nessun oggetto, vale la categoria; il modello: { "tema": "direzione", "oggetto": "il tuo andare" })
+  oggetto: Dove devo mettere le mie energie quest'anno? -> La domanda riguardava le tue energie. / Hai portato giù la domanda sulle tue energie.
+  oggetto: Ho quarant'anni e mi chiedo se sono sulla strada giusta -> La domanda riguardava la strada. / Hai portato giù la domanda sulla strada.
+  oggetto: Ho chiuso con Luca dopo sei anni, e adesso? -> (nessun oggetto, vale la categoria; il modello: { "tema": "finito", "oggetto": "il tuo rapporto con Luca" })
+  oggetto: Il negozio ha chiuso e non so cosa fare adesso -> La domanda riguardava il negozio. / Hai portato giù la domanda sul negozio.
+  oggetto: Mio nonno se n'è andato e non riesco a lasciarlo andare -> La domanda riguardava tuo nonno. / Hai portato giù la domanda su tuo nonno.
+  oggetto: È finita la mia amicizia più lunga -> La domanda riguardava la tua amicizia. / Hai portato giù la domanda sulla tua amicizia.
+  oggetto: Sono andato in pensione e le giornate sono vuote -> La domanda riguardava il pensionamento. / Hai portato giù la domanda sul pensionamento.
+  oggetto: Il progetto è saltato dopo due anni di lavoro -> La domanda riguardava il progetto. / Hai portato giù la domanda sul progetto.
+  oggetto: Mi sento sola anche quando sono con gli altri -> (nessun oggetto, vale la categoria; il modello: { "tema": "persona", "oggetto": "la tua solitudine" })
+  oggetto: Da quando mi sono trasferito mi sento solo -> La domanda riguardava il trasferimento. / Hai portato giù la domanda sul trasferimento.
+  oggetto: La solitudine mi pesa sempre di più -> La domanda riguardava la solitudine. / Hai portato giù la domanda sulla solitudine.
+  oggetto: Giulia non risponde più ai miei messaggi -> La domanda riguardava Giulia. / Hai portato giù la domanda su Giulia.
+  oggetto: Marco dice che ha bisogno di tempo -> La domanda riguardava Marco. / Hai portato giù la domanda su Marco.
+=== la_prova_a_cento_discese_col_modello_test.dart
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.6 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+10 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.15 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+122 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+
+=== ORDINE DI VOCE 16, CON RETE, tema scelta ===
+tema scelta      A 100/100 | B 100 (max 1) | C 17.3 tutte, 16.3 senza simboli comuni | D 1 | E 53/100, col modello 82/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 90/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 7 | distanze gesto 1000 risposta 22 | guasti {tempo scaduto: 3, scena scartata: 13} | fonti {titolo modello: 98, risposta modello: 90, gesto modello: 98, risposta riserva: 10, titolo riserva: 2, gesto riserva: 2} | motivi finali {risposta riserva: nonPrendePosizione: 4, risposta riserva: anticipaLaScena: 1, risposta riserva: previsioneCerta: 2, titolo riserva: titoloRipetuto: 2, risposta riserva: troppoLunga: 2, gesto riserva: chiedeDiScrivere: 1, gesto riserva: previsioneCerta: 1, risposta riserva: virgolaEe: 1} | scarti {titolo: troppoLunga: 4, azione: previsioneCerta: 6, risposta: nonPrendePosizione: 113, risposta: nonNominaLaDomanda: 27, risposta: ripeteUnoStrato: 2, risposta: anticipaLaScena: 9, risposta: gergo: 13, risposta: previsioneCerta: 15, titolo: previsioneCerta: 5, titolo: gergo: 7, azione: chiedeDiScrivere: 56, azione: consiglioDiVita: 6, titolo: titoloRipetuto: 21, risposta: troppoLunga: 28, titolo: tempoNelTitolo: 5, azione: troppoLunga: 7, azione: toccaUnTerzo: 3, azione: gergo: 1, azione: fuoco: 1, azione: virgolaEe: 1, azione: genereContrario: 2, risposta: virgolaEe: 1, azione: decisioneGrave: 1} | dal modello prima {risposta: 55, titolo: 95, gesto: 73} dopo {titolo: 98, risposta: 90, gesto: 98} | riprese alla seconda {titolo: troppoLunga: 1, azione: previsioneCerta: 3, risposta: nonPrendePosizione: 33, azione: chiedeDiScrivere: 20, titolo: titoloRipetuto: 2, risposta: nonNominaLaDomanda: 3, titolo: tempoNelTitolo: 1, azione: consiglioDiVita: 3, azione: troppoLunga: 3, risposta: previsioneCerta: 2, risposta: troppoLunga: 1, azione: gergo: 1, azione: fuoco: 1, azione: toccaUnTerzo: 1, azione: genereContrario: 2, risposta: gergo: 2} | titoli piu ripetuti "La scelta è già tua" 3, "Ciò che non vedi ancora" 2, "La scelta è chiara" 2
+    dal modello: Cerca la falla nel muro / I segni del viaggio dicono di sì, puoi guardare da tutte le parti. Il percorso è più lungo se non comprendi tutti gli aspetti della tua scelta. Puoi prenderti il tempo necessario per valutare ogni possibilità. / Domani mattina tocca con mano una delle due possibilità che hai davanti. Senti la sua fragilità.
+    dal modello: La tua è una falsa scelta / (riserva) / Stasera guarda la tua ombra proiettata su un muro. Nota cosa nasconde.
+    dal modello: Il tuo vero inizio / (riserva) / Stasera, quando fai la doccia, prendi un momento per stare sotto il getto dell'acqua con le mani aperte e senti come ti lava via ogni esitazione.
+    scartato titolo: troppoLunga: La direzione non è mai una sola
+    scartato azione: previsioneCerta: Entro sabato chiedi a qualcuno che ha già affrontato una situazione simile la sua esperienza.
+    scartato risposta: nonPrendePosizione: un gesto da fare. Il viaggio ti chiede di non cercare una direzione, ma di capire dove la scelta è già spezzata. Non è una questione di strada, ma di rottura.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti stai trattenendo. Ti nascondi dietro una maschera, per paura di mostrare chi sei veramente. Puoi liberarti di questo peso.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ti stai trattenendo sulla scelta. La tua paura di sbagliare ti impedisce di avanzare. Puoi guardare oltre ciò che conosci già.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di sì, hai già gli strumenti per scegliere. Guarda l'acqua, essa ti mostra la risorsa che non stai contando. Puoi iniziare da ciò che è già presente.
+    scartato risposta: gergo: I segni del viaggio dicono di sì, hai già gli strumenti per scegliere. La risposta è già in te, è ferma e ti aspetta. Puoi attingere a ciò che è già presente.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che la tua scelta è già definita. Non c'è ambiguità in ciò che devi fare.
+    scartato titolo: previsioneCerta: La direzione è già segnata
+    scartato titolo: gergo: La direzione è già in te
+    scartato azione: chiedeDiScrivere: Entro domani sera scrivi su un foglio le due opzioni che hai davanti e poi pensa a una terza che ti sembra impossibile.
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, immagina di percorrere le due strade e osserva dove ti porta la meno ovvia.
+    scartato titolo: titoloRipetuto: La direzione si rivela
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano che la tua scelta è già un seme pronto a germogliare. Puoi piantarlo anche se non sai cosa diventerà. Ciò che ti preoccupa si rivelerà solo dopo.
+    scartato titolo: tempoNelTitolo: La direzione ora è chiara
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio le tre opzioni che hai e per ciascuna di esse, cosa ti fa sentire a tuo agio e cosa no. Non devi scegliere, solo scrivere.
+    scartato azione: toccaUnTerzo: Domani mattina rileggi la domanda che ti sei fatto due anni fa e confrontala con quella di oggi.
+    scartato azione: gergo: Domani mattina, prima di cominciare la giornata, alza lo sguardo al cielo per cinque minuti e lascia andare il pensiero della tua scelta.
+    scartato azione: fuoco: Domani sera accendi una candela e guardati allo specchio per un minuto.
+    scartato azione: virgolaEe: Domani sera, cerca sul web o in un libro una storia di qualcuno che ha compiuto una scelta come la tua, e leggi il finale.
+    scartato azione: genereContrario: Entro domani sera scrivi a una persona che ha mostrato di esserti vicina per chiederle un parere onesto.
+    scartato risposta: virgolaEe: un gesto da fare. Il viaggio indica di raccogliere il filo che hai già in mano. Non c'è una risposta giusta in assoluto, ma c'è quella che è tua, e la riconosci dal primo gesto che compi.
+    scartato azione: decisioneGrave: Entro domani sera scrivi i nomi delle due scelte su due fogli separati e li tieni in tasca.
+--- un responso per esteso, settima discesa di tema scelta:
+Non aspettare un segno
+
+un gesto da fare. I segni del viaggio indicano di fare un passo concreto. Puoi iniziare a muoverti anche se la strada non è interamente visibile.
+
+Quello che puoi fare: domani mattina tocca la porta della stanza che usi meno in casa tua.
+
+Viene da ciò che hai visto. Sei al bivio nella notte, con la porta chiusa. Il Lupo si volta a guardarti. Tienila a mente fino alla prossima discesa.
+
+=== ORDINE DI VOCE 16, CON RETE, tema persona ===
+tema persona     A 100/100 | B 100 (max 1) | C 28.4 tutte, 21.7 senza simboli comuni | D 1 | E 68/100, col modello 84/100 | F 0 finestre ripetute, titolo dopo 27 | scena dal modello 76/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 11 | distanze gesto 1000 risposta 11 | guasti {scena scartata: 15, tempo scaduto: 11} | fonti {titolo modello: 84, risposta riserva: 60, gesto modello: 95, risposta modello: 40, titolo riserva: 16, gesto riserva: 5} | motivi finali {risposta riserva: statoDiUnTerzo: 47, risposta riserva: ripeteUnoStrato: 1, titolo riserva: statoDiUnTerzo: 11, titolo riserva: 3, risposta riserva: 3, gesto riserva: 3, risposta riserva: previsioneCerta: 3, risposta riserva: troppoLunga: 5, titolo riserva: gergo: 1, risposta riserva: gergo: 1, gesto riserva: chiedeDiScrivere: 1, titolo riserva: tempoNelTitolo: 1, gesto riserva: troppoLunga: 1} | scarti {risposta: statoDiUnTerzo: 178, titolo: statoDiUnTerzo: 98, risposta: troppoLunga: 18, azione: chiedeDiScrivere: 60, risposta: nonNominaLaDomanda: 5, risposta: ripeteUnoStrato: 4, azione: consiglioDiVita: 6, azione: virgolaEe: 3, risposta: nonPrendePosizione: 14, azione: previsioneCerta: 4, risposta: anticipaLaScena: 1, titolo: titoloRipetuto: 17, risposta: previsioneCerta: 10, titolo: tempoNelTitolo: 4, titolo: gergo: 1, risposta: gergo: 2, azione: genereContrario: 2, azione: troppoLunga: 2, azione: toccaUnTerzo: 1} | dal modello prima {titolo: 72, gesto: 85, risposta: 20} dopo {titolo: 84, gesto: 95, risposta: 40} | riprese alla seconda {titolo: statoDiUnTerzo: 15, risposta: nonNominaLaDomanda: 2, azione: virgolaEe: 2, risposta: statoDiUnTerzo: 18, azione: chiedeDiScrivere: 7, titolo: titoloRipetuto: 4, risposta: nonPrendePosizione: 8, risposta: troppoLunga: 3, azione: consiglioDiVita: 2, azione: genereContrario: 1, azione: toccaUnTerzo: 1, risposta: previsioneCerta: 1} | titoli piu ripetuti "Cerca la tua chiave" 2, "Cerca la tua luce" 2, "Decidi tu dove sei" 2
+    dal modello: Decidi tu se aspettare / (riserva) / Domani mattina togli dal telefono il numero di quella persona.
+    dal modello: Guarda oltre quello che vedi / I segni del viaggio dicono che ti trattiene ciò che puoi vedere. Puoi scegliere se fermarti a quello che ti viene mostrato. Puoi non aspettarti di trovare tutto in superficie. / Oggi pomeriggio osserva chi ti sta intorno come se non conoscessi nessuno.
+    dal modello: Semina tu dove vuoi / I segni del viaggio indicano che puoi seminare un desiderio. Puoi lasciarlo crescere. Puoi non sapere che posto ha, per il momento. / Stasera scrivi un messaggio a quella persona, senza aspettare risposta.
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi scegliere di non avere una risposta da quella persona, come non hai avuto risposte altre volte. Puoi guardare ciò che ti è rimasto in mano quando hai smesso di aspettare.
+    scartato titolo: statoDiUnTerzo: Dai un nome al tuo silenzio
+    scartato risposta: troppoLunga: Un gesto da fare. Puoi decidere di dare un nome al tuo silenzio, senza aspettare una risposta da quella persona. Puoi concentrarti su ciò che senti tu, al di là di ogni parola che non è stata detta. Puoi lasciare che il tuo bisogno si mostri intero.
+    scartato azione: chiedeDiScrivere: Entro domani sera, scrivi tre cose che desideri da questa relazione, senza pensare a ciò che l'altra persona può o non può darti.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti trattiene ciò che puoi vedere. Puoi scegliere se fermarti a quello che ti viene mostrato. Puoi non aspettarti di trovare tutto in superficie.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che puoi creare tu il tuo posto, senza chiedere. Puoi scegliere di dare un nome a ciò che senti. Puoi decidere tu la direzione da prendere.
+    scartato azione: consiglioDiVita: Domani mattina pensa a un modo per fare una cosa nuova con quella persona.
+    scartato azione: virgolaEe: Entro domani sera scrivi su un foglio tre domande che vorresti fargli, senza l'intenzione di fargliele davvero, e poi brucialo.
+    scartato risposta: nonPrendePosizione: I segni del viaggio ti dicono che puoi scegliere tu quale posto ha per te la persona di cui parli. Non puoi sapere il suo posto per te, ma puoi decidere il tuo. Non aspettare che sia lei a definire il tuo spazio.
+    scartato azione: previsioneCerta: Entro domenica sera, decidi un'azione concreta che farai tu per definire il posto di questa persona nella tua vita.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di sì, puoi piantare un seme per questa relazione. Puoi fare il primo passo, senza aspettare un segno dall'altra persona. La sua reazione non dipende da te.
+    scartato titolo: titoloRipetuto: Cerca tu il tuo posto
+    scartato risposta: previsioneCerta: un gesto da fare. Puoi fare un passo verso questa persona e vedere la sua reazione. La sua risposta ti dirà qualcosa di più sulla sua posizione.
+    scartato titolo: tempoNelTitolo: Fai la tua parte adesso
+    scartato titolo: gergo: Puoi lasciare andare l'attesa
+    scartato risposta: gergo: un gesto da fare. I segni del viaggio ti indicano di fare un passo per chiarire con la persona di cui ti chiedi. È tempo di sapere quale posto le dai tu.
+    scartato azione: genereContrario: Stasera scrivi un messaggio alla persona per dirle come ti senti riguardo a lei.
+    scartato azione: troppoLunga: Entro domani sera scrivi su un pezzo di carta il nome di questa persona. Poi scegli un posto nella tua casa che rappresenti il posto che le dai. Lascia il foglio lì.
+    scartato azione: toccaUnTerzo: Domani mattina, prepara una frase per descrivere i tuoi sentimenti senza rivelare ciò che non vuoi dire.
+--- un responso per esteso, settima discesa di tema persona:
+Cerca la tua luce
+
+I segni del viaggio ti dicono che puoi scegliere tu quale posto ha per te la persona di cui parli. Non puoi sapere il suo posto per te, ma puoi decidere il tuo. Non aspettare che sia lei a definire il tuo spazio.
+
+Comincia da qui: entro domani sera, invita la persona di cui parli a un caffè o a una passeggiata.
+
+Viene da ciò che hai visto. C'è l'ombra che non è tua, al cerchio di pietre. All'alba, il Lupo guarda in alto. Tienila a mente fino alla prossima discesa.
+
+=== ORDINE DI VOCE 16, CON RETE, tema blocco ===
+tema blocco      A 100/100 | B 100 (max 1) | C 17.0 tutte, 15.7 senza simboli comuni | D 1 | E 52/100, col modello 85/100 | F 0 finestre ripetute, titolo dopo 35 | scena dal modello 73/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 9 | distanze gesto 1000 risposta 11 | guasti {tempo scaduto: 1, scena scartata: 14} | fonti {titolo modello: 100, risposta modello: 91, gesto modello: 98, risposta riserva: 9, gesto riserva: 2} | motivi finali {risposta riserva: nonPrendePosizione: 3, gesto riserva: ripeteUnoStrato: 1, risposta riserva: previsioneCerta: 1, risposta riserva: troppoLunga: 3, risposta riserva: genereContrario: 2, gesto riserva: toccaUnTerzo: 1} | scarti {risposta: nonPrendePosizione: 100, azione: consiglioDiVita: 6, azione: chiedeDiScrivere: 49, risposta: nonNominaLaDomanda: 12, titolo: previsioneCerta: 5, risposta: anticipaLaScena: 9, risposta: ripeteUnoStrato: 1, risposta: troppoLunga: 28, risposta: genereContrario: 22, azione: ripeteUnoStrato: 1, azione: previsioneCerta: 5, risposta: gergo: 15, azione: genereContrario: 4, titolo: gergo: 4, azione: virgolaEe: 4, titolo: troppoLunga: 3, risposta: previsioneCerta: 12, titolo: tempoNelTitolo: 7, titolo: titoloRipetuto: 10, azione: eUnaDomanda: 1, azione: troppoLunga: 4, azione: toccaUnTerzo: 3, azione: fuoco: 1} | dal modello prima {titolo: 94, risposta: 60, gesto: 82} dopo {titolo: 100, risposta: 91, gesto: 98} | riprese alla seconda {risposta: genereContrario: 3, risposta: nonPrendePosizione: 32, azione: genereContrario: 4, titolo: gergo: 1, risposta: nonNominaLaDomanda: 5, risposta: anticipaLaScena: 1, azione: virgolaEe: 3, risposta: gergo: 2, azione: chiedeDiScrivere: 10, titolo: tempoNelTitolo: 2, titolo: titoloRipetuto: 3, titolo: previsioneCerta: 2, azione: troppoLunga: 1, azione: toccaUnTerzo: 1, azione: consiglioDiVita: 1} | titoli piu ripetuti "C'è altro da vedere" 2, "La maschera non è tua" 2, "C'è altro da guardare" 2
+    dal modello: La paura tiene in vita / Un gesto da fare. Il blocco che senti è un modo per tenere in vita qualcosa. Puoi andare oltre quando scopri che cosa stai proteggendo. / Entro sabato, individua un'azione che fai o una parola che dici per mantenere questo blocco.
+    dal modello: Non serve sapere tutto / Un gesto da fare. I segni del viaggio dicono che ciò che ti trattiene è una protezione. Puoi superare il blocco quando comprendi a fondo che cosa ti sta difendendo. / Stasera, prima di dormire, prova a lasciare per un'ora, una cosa che fai sempre allo stesso modo.
+    dal modello: La risorsa è già tua / (riserva) / Domani mattina, osserva con attenzione qualcosa che ti sembra piccolo e insignificante ma che continua a esistere nonostante tutto.
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che il blocco che senti è un modo per tenere in vita qualcosa. Puoi andare oltre quando scopri che cosa stai proteggendo.
+    scartato azione: consiglioDiVita: Entro sabato, pensa a tre cose che potresti perdere se superassi questo blocco.
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose che ti fanno sentire al sicuro.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio mostrano che ciò che ti trattiene è la maschera che indossi. Non puoi fare a meno di usarla per proteggere chi sei. Non puoi sapere tutto ciò che c'è dietro adesso.
+    scartato titolo: previsioneCerta: Non è il momento di togliere
+    scartato risposta: anticipaLaScena: I segni del viaggio mostrano che ciò che ti trattiene è la maschera che indossi. Non riesci a superare il blocco perché la maschera ti serve a proteggere chi sei. Puoi scoprire cosa c'è dietro solo con un passo alla volta.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che puoi superare il blocco, se prima di venerdì ti accorgi di una tua abilità che dai per scontata. Hai già le risorse per far fiorire il nuovo in questo momento.
+    scartato risposta: troppoLunga: Un gesto da fare. I segni del viaggio dicono che puoi superare il blocco, se prima di venerdì ti accorgi di una tua abilità che dai per scontata. Hai già le risorse per far fiorire il nuovo in questo momento. Puoi guardare a quello che è già tuo.
+    scartato risposta: genereContrario: I segni del viaggio dicono che c'è un modo nuovo per affrontare il blocco che senti. Puoi sciogliere la tensione che ti tiene fermo. Questo ti permette di procedere senza forzature.
+    scartato azione: ripeteUnoStrato: Domani, prova a fare una cosa che fai sempre in un certo modo, usando l'altra mano.
+    scartato azione: previsioneCerta: Domani, quando preparerai il pranzo, usa utensili diversi dal solito per ogni passaggio.
+    scartato risposta: gergo: un gesto da fare. Scegli un'altra direzione per affrontare ciò che ti blocca. Puoi permetterti di lasciare andare quello che non serve più.
+    scartato azione: genereContrario: Domani sera metti da parte una vecchia foto di un momento in cui ti sentivi bloccato. Non la buttare ma non guardarla per una settimana.
+    scartato titolo: gergo: Puoi lasciare andare
+    scartato azione: virgolaEe: Entro domani sera prendi un sasso liscio e piccolo, e buttalo nell'acqua che vedi scorrere vicino a casa tua.
+    scartato titolo: troppoLunga: La tua ombra non è più lì
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che devi agire. Puoi chiedere aiuto a una persona che ha già superato un blocco simile al tuo.
+    scartato titolo: tempoNelTitolo: Puoi attraversare adesso
+    scartato titolo: titoloRipetuto: Ti liberi da un peso
+    scartato azione: eUnaDomanda: Entro domani, osserva un blocco che hai di fronte e domandati: che cosa mi sta indicando questa situazione? Che direzione mi suggerisce?
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio il nome della persona o della situazione che senti come un peso. Poi piega il foglio e mettilo in un cassetto dove non lo vedi.
+    scartato azione: toccaUnTerzo: Entro domani sera scrivi su un foglio tre modi completamente diversi per affrontare quello che ti blocca, anche se ti sembrano impossibili.
+    scartato azione: fuoco: Entro domani sera scrivi su un pezzo di carta la cosa che ti blocca. Non la bruci. La pieghi e la metti sotto qualcosa che usi ogni giorno.
+--- un responso per esteso, settima discesa di tema blocco:
+Puoi guardare lontano
+
+I segni del viaggio indicano un gesto da fare. Rimuovi ciò che ostacola il blocco che non riesci a superare. Puoi così vedere che cosa impedisce il tuo movimento.
+
+Una cosa sola: entro domani, parla con qualcuno che non si aspetta la tua domanda su questa situazione.
+
+Sotto era così. Tu e il Lupo siete al fiume nella nebbia, con l'acqua ferma fra voi e il resto. Lui si mette in mezzo. Ci tornerai quando servirà.
+
+=== ORDINE DI VOCE 16, CON RETE, tema attesa ===
+tema attesa      A 100/100 | B 100 (max 1) | C 17.0 tutte, 17.0 senza simboli comuni | D 1 | E 30/100, col modello 64/100 | F 0 finestre ripetute, titolo dopo 30 | scena dal modello 79/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | guasti {scena scartata: 8, tempo scaduto: 3} | fonti {titolo modello: 99, risposta modello: 95, gesto modello: 99, risposta riserva: 5, titolo riserva: 1, gesto riserva: 1} | motivi finali {risposta riserva: ripeteUnoStrato: 1, risposta riserva: troppoLunga: 1, risposta riserva: nonPrendePosizione: 2, titolo riserva: 1, risposta riserva: 1, gesto riserva: 1} | scarti {risposta: gergo: 3, risposta: nonNominaLaDomanda: 40, risposta: ripeteUnoStrato: 4, titolo: troppoLunga: 3, risposta: troppoLunga: 15, azione: chiedeDiScrivere: 30, risposta: previsioneCerta: 16, risposta: nonPrendePosizione: 110, titolo: tempoNelTitolo: 11, azione: virgolaEe: 9, risposta: anticipaLaScena: 7, titolo: titoloRipetuto: 8, azione: previsioneCerta: 4, titolo: previsioneCerta: 4, azione: consiglioDiVita: 1, azione: troppoLunga: 1, risposta: statoDiUnTerzo: 2} | dal modello prima {titolo: 97, risposta: 52, gesto: 92} dopo {titolo: 99, risposta: 95, gesto: 99} | riprese alla seconda {risposta: nonPrendePosizione: 48, azione: virgolaEe: 2, risposta: previsioneCerta: 3, azione: chiedeDiScrivere: 5, titolo: titoloRipetuto: 2, risposta: nonNominaLaDomanda: 9, risposta: troppoLunga: 2, risposta: anticipaLaScena: 1} | titoli piu ripetuti "La direzione si rivela" 2, "La tua attesa è finita" 2, "La porta non è la fine" 2
+    dal modello: Cerca la tua stessa acqua / I segni del viaggio dicono che l'attesa è solo un modo per non guardare ciò che ti aspetta. Puoi trovare un nuovo inizio proprio dove ti senti bloccato. La vera novità non arriva da fuori, ma da dentro di te. / Entro sabato, trova un momento per stare vicino a una fonte d'acqua naturale e osserva il suo movimento.
+    dal modello: Ciò che cerchi è già lì / (riserva) / Entro domani, fai una piccola azione che rimandi da tempo, anche se non sai dove ti porterà.
+    dal modello: La risposta è già qui / (riserva) / Oggi pomeriggio, dedica un'ora a fare qualcosa che ti dia piacere e che non sia finalizzato a un risultato.
+    scartato risposta: gergo: un gesto da fare. I segni del viaggio indicano che il "qualcosa" che attendi è già presente, ma non lo riconosci. Puoi aprirti a una nuova possibilità quando cambi la tua prospettiva.
+    scartato risposta: nonNominaLaDomanda: un gesto da fare. I segni del viaggio indicano che ciò che attendi è già presente, ma non lo vedi. Puoi trovare una nuova strada quando guardi in modo diverso.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ciò che ti trattiene è la sensazione che debba ancora succedere qualcosa. Puoi scegliere di agire anche senza la certezza di un esito. Non aspettare che ti venga dato il permesso.
+    scartato titolo: troppoLunga: Ciò che è stato è già qui
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano che il "qualcosa" che aspetti è già in movimento dentro di te. Puoi riconoscere che ciò che non arriva da fuori è già una risorsa che hai in mano. Non c'è un tempo giusto, solo il tuo tempo.
+    scartato azione: chiedeDiScrivere: Stasera, scrivi tre cose che hai rimandato pensando di non avere tempo per farle.
+    scartato risposta: previsioneCerta: I segni del viaggio indicano che ciò che aspetti non arriverà perché hai già tutto. Puoi riconoscere la pienezza di ciò che ti circonda. La tua vera essenza non ha bisogno di essere attesa.
+    scartato risposta: nonPrendePosizione: I segni del viaggio mostrano che ciò che cerchi è già presente, solo non sotto la forma che ti aspetti. Puoi guardare oltre l'immagine che hai formato. La tua piena realizzazione è un atto di scoperta di ciò che è già qui.
+    scartato titolo: tempoNelTitolo: Il tuo tempo è adesso
+    scartato azione: virgolaEe: Stasera scrivi su un foglio il primo piccolo passo che puoi fare per ciò che stai aspettando, e mettilo in un cassetto.
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano che il tempo che attendi è già qui. Puoi gettare un seme per far arrivare ciò che aspetti. Non devi più aspettare un momento futuro.
+    scartato titolo: titoloRipetuto: La porta non è la fine
+    scartato azione: previsioneCerta: Entro domani sera scrivi un messaggio a qualcuno che conosci e che ha già ottenuto ciò che tu aspetti. Chiedi come ha fatto il primo passo.
+    scartato titolo: previsioneCerta: Non è il momento giusto
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che ti hanno sorpreso oggi. Non devono essere importanti.
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio due azioni concrete che puoi fare tu stesso per raggiungere quello che stai aspettando. Non scrivere nulla su chi aspetti o su quello che gli altri dovrebbero fare.
+    scartato risposta: statoDiUnTerzo: sì a una condizione. I segni del viaggio dicono che la tua attesa si conclude se provi a chiedere aiuto a tuo padre. Lui può indicarti la strada.
+--- un responso per esteso, settima discesa di tema attesa:
+C'è un passaggio invisibile
+
+I segni del viaggio dicono di sì, ma non è il tuo il tempo da aspettare. Ciò che aspetti si muove già in un altro ritmo. Non puoi forzare il tempo delle cose.
+
+Una cosa sola: stasera tocca la porta della tua stanza. Resta in silenzio per cinque minuti.
+
+E l'hai riportata su così. Nella nebbia appare la porta chiusa. Il Lupo, alla grotta, aspetta. Ripensaci quando la domanda torna.
+
+=== ORDINE DI VOCE 16, CON RETE, tema direzione ===
+tema direzione   A 100/100 | B 100 (max 1) | C 19.1 tutte, 13.8 senza simboli comuni | D 1 | E 84/100, col modello 97/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 76/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 6 | distanze gesto 20 risposta 11 | guasti {tempo scaduto: 8, scena scartata: 14} | fonti {titolo modello: 98, risposta modello: 88, gesto modello: 95, gesto riserva: 5, risposta riserva: 12, titolo riserva: 2} | motivi finali {gesto riserva: chiedeDiScrivere: 1, risposta riserva: nonPrendePosizione: 1, gesto riserva: consiglioDiVita: 1, titolo riserva: previsioneCerta: 1, risposta riserva: nonNominaLaDomanda: 3, titolo riserva: 1, risposta riserva: 1, gesto riserva: 1, risposta riserva: troppoLunga: 2, risposta riserva: previsioneCerta: 3, gesto riserva: virgolaEe: 1, gesto riserva: previsioneCerta: 1, risposta riserva: gergo: 1, risposta riserva: genereContrario: 1} | scarti {risposta: nonNominaLaDomanda: 29, azione: chiedeDiScrivere: 38, risposta: nonPrendePosizione: 126, risposta: previsioneCerta: 19, azione: consiglioDiVita: 5, azione: virgolaEe: 6, risposta: troppoLunga: 14, titolo: previsioneCerta: 2, risposta: anticipaLaScena: 14, risposta: gergo: 11, titolo: tempoNelTitolo: 3, titolo: troppoLunga: 1, titolo: titoloRipetuto: 30, azione: previsioneCerta: 7, azione: gergo: 1, azione: troppoLunga: 2, titolo: gergo: 3, risposta: genereContrario: 3, azione: toccaUnTerzo: 1} | dal modello prima {titolo: 95, gesto: 84, risposta: 50} dopo {titolo: 98, risposta: 88, gesto: 95} | riprese alla seconda {risposta: nonNominaLaDomanda: 6, risposta: nonPrendePosizione: 41, azione: chiedeDiScrivere: 9, titolo: troppoLunga: 1, azione: previsioneCerta: 2, risposta: anticipaLaScena: 3, risposta: gergo: 2, azione: virgolaEe: 2, titolo: titoloRipetuto: 2, titolo: tempoNelTitolo: 1, risposta: previsioneCerta: 3, azione: consiglioDiVita: 1} | titoli piu ripetuti "La direzione si mostra" 3, "La direzione si rivela" 3, "La direzione sei tu" 2
+    dal modello: La direzione si mostra / I segni del viaggio ti dicono di fare un passo, anche piccolo, verso ciò che non è familiare. Puoi scoprire una nuova direzione se ti lasci guidare dalla curiosità. / Entro domani sera, scegli una strada o un percorso che non hai mai fatto prima e percorrilo per almeno dieci minuti.
+    dal modello: Cerca nella parte non vista / I segni del viaggio indicano che ciò che ti trattiene è la sensazione di non avere risposte chiare. Puoi trovare una direzione solo quando smetti di aspettare che ti venga mostrata la strada. / (riserva)
+    dal modello: La risorsa è già tua / I segni del viaggio dicono che la direzione è già presente come una risorsa che puoi attivare. Non ti manca niente per proseguire nel tuo cammino, hai già tutto ciò che ti serve per iniziare il prossimo passo. / Domani mattina, scegli un piccolo compito che stai rimandando e portalo a termine prima di mezzogiorno.
+    scartato risposta: nonNominaLaDomanda: un gesto da fare. I segni del viaggio ti dicono di fare un passo, anche piccolo, verso ciò che non è familiare. Puoi scoprire una nuova strada se ti lasci guidare dalla curiosità.
+    scartato azione: chiedeDiScrivere: Entro domani sera, scegli una domanda che ti tieni dentro da tempo e scrivila su un foglio. Poi, senza pensarci, strappalo in piccoli pezzi.
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che la direzione che cerchi è già presente in te come una risorsa che non riconosci. Puoi cominciare a vederla se ti fidi di ciò che hai già costruito finora.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che la tua direzione è già tracciata. Segui ciò che senti tirare dentro di te, anche se non vedi bene dove ti porta.
+    scartato azione: consiglioDiVita: Oggi pomeriggio, osserva la tua ombra sul pavimento o sul muro. Immagina che si stacchi da te e la guardi da fuori per un minuto.
+    scartato azione: virgolaEe: Entro domani sera, prendi un oggetto che senti non tuo, anche piccolo, e spostalo fuori dalla tua vista.
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio ti invitano a togliere la maschera per trovare la tua direzione. Puoi rivelare a te stessa ciò che tieni nascosto per capire dove andare. La tua strada si mostra quando sei completamente onesta.
+    scartato titolo: previsioneCerta: Cosa è già costruito
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano di sì. Puoi aprire quella porta chiusa che vedi. Dentro trovi l'inizio della direzione che cerchi.
+    scartato risposta: gergo: I segni del viaggio indicano che la direzione è già dentro di te. Non cercare fuori ciò che hai già. Puoi trovare la tua strada seguendo i tuoi desideri più autentici.
+    scartato titolo: tempoNelTitolo: La direzione arriva ora
+    scartato titolo: troppoLunga: Cosa è tuo ti indica la via
+    scartato titolo: titoloRipetuto: La tua direzione è chiara
+    scartato azione: previsioneCerta: Domani mattina fai una piccola ricerca su un argomento che ti interessa, anche se non sai a cosa porterà.
+    scartato azione: gergo: Stasera, scrivi tre cose che vorresti lasciare andare e tre cose che vorresti tenere con te.
+    scartato azione: troppoLunga: Entro domani sera prendi un oggetto che ti ha accompagnata a lungo e che non usi più. Poi mettilo in un cassetto o in un armadio, in un posto dove non lo vedi ogni giorno.
+    scartato titolo: gergo: La direzione è già in te
+    scartato risposta: genereContrario: un gesto da fare. I segni del viaggio indicano di guardare le maschere che indossi. Osserva come ti senti quando le porti.
+    scartato azione: toccaUnTerzo: Stasera cerca una persona che ha affrontato una scelta importante e chiedile come ha fatto.
+--- un responso per esteso, settima discesa di tema direzione:
+La tua strada è qui
+
+I segni del viaggio indicano che la direzione si trova dove il tuo sguardo si posa. Puoi scegliere un percorso tra quelli che vedi, senza cercare oltre.
+
+Una cosa sola: entro domani sera, scegli una delle strade che hai di fronte e fai i primi dieci passi in quella direzione.
+
+La scena era questa. Ti ritrovi al bivio. All'alba. Accanto a te c'è la pietra spaccata. Il Lupo aspetta. Tienila a mente fino alla prossima discesa.
+
+=== ORDINE DI VOCE 16, CON RETE, tema finito ===
+tema finito      A 100/100 | B 100 (max 1) | C 20.5 tutte, 19.1 senza simboli comuni | D 1 | E 35/100, col modello 66/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 91/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 33 | guasti {scena scartata: 18, tempo scaduto: 7} | fonti {titolo modello: 98, risposta modello: 92, gesto modello: 99, risposta riserva: 8, titolo riserva: 2, gesto riserva: 1} | motivi finali {risposta riserva: nonNominaLaDomanda: 2, risposta riserva: gergo: 4, titolo riserva: gergo: 1, gesto riserva: chiedeDiScrivere: 1, risposta riserva: previsioneCerta: 1, risposta riserva: virgolaEe: 1, titolo riserva: titoloRipetuto: 1} | scarti {titolo: troppoLunga: 9, risposta: nonPrendePosizione: 107, azione: chiedeDiScrivere: 23, risposta: previsioneCerta: 12, risposta: nonNominaLaDomanda: 31, azione: consiglioDiVita: 4, risposta: ripeteUnoStrato: 1, azione: saluteDenaroLegge: 1, risposta: gergo: 18, risposta: troppoLunga: 16, azione: virgolaEe: 5, risposta: anticipaLaScena: 6, titolo: tempoNelTitolo: 12, azione: genereContrario: 2, titolo: gergo: 1, titolo: titoloRipetuto: 12, risposta: promessa: 1, azione: troppoLunga: 2, azione: previsioneCerta: 1, risposta: virgolaEe: 2, azione: toccaUnTerzo: 1, azione: fuoco: 1, titolo: previsioneCerta: 1, azione: gergo: 1} | dal modello prima {titolo: 92, risposta: 45, gesto: 97} dopo {titolo: 98, risposta: 92, gesto: 99} | riprese alla seconda {risposta: nonNominaLaDomanda: 12, risposta: nonPrendePosizione: 47, azione: saluteDenaroLegge: 1, risposta: anticipaLaScena: 3, titolo: titoloRipetuto: 3, risposta: previsioneCerta: 1, titolo: troppoLunga: 2, titolo: tempoNelTitolo: 3, risposta: gergo: 3, azione: chiedeDiScrivere: 1, risposta: troppoLunga: 1} | titoli piu ripetuti "Cosa ha ancora radici" 2, "C'è qualcosa che non vedi" 2, "La fine è un inizio" 2
+    dal modello: Il tuo legame non si spezza / un gesto da fare. Il tuo legame con ciò che è finito non si spezza, ma si trasforma. Puoi onorare ciò che hai avuto, senza provare a replicarlo. / Stasera, trova un oggetto che ti lega a ciò che è finito e mettilo via in un luogo speciale.
+    dal modello: C'è qualcosa che non vedi / I segni del viaggio dicono che a trattenerti è l'idea che qualcosa sia finito del tutto. Non hai ancora accettato la fine. Permettiti di sentire che non è acqua passata. / Entro domani, osserva un piccolo dettaglio che non hai mai notato in un luogo che frequenti spesso.
+    dal modello: La forza che hai dentro / (riserva) / Domani mattina, prepara una piccola colazione speciale per te.
+    scartato titolo: troppoLunga: Ciò che non finisce è la memoria
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che il tuo legame con ciò che è finito non si spezza, ma si trasforma. Puoi onorare ciò che hai avuto, senza provare a replicarlo.
+    scartato azione: chiedeDiScrivere: Entro sabato, scrivi una breve frase per ogni persona che hai incontrato in questa situazione.
+    scartato risposta: previsioneCerta: un gesto da fare. Puoi fare spazio a ciò che verrà, senza chiudere del tutto la porta su quello che è stato. Non è necessario capire subito la direzione, basta non restare immobili.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti trattengono le aspettative su come dovrebbe essere il futuro. Non riesci a vedere ciò che è già presente. Guarda quello che si manifesta senza giudizio.
+    scartato azione: consiglioDiVita: Domani mattina, cerca un piccolo sasso e portalo con te per tutta la giornata. Quando lo tieni in mano, ricorda che è lì per un motivo.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che hai già a disposizione la tua capacità di ricostruire dopo che qualcosa è finito. Non cercare fuori ciò che hai già dentro. Puoi usare la tua forza per ricominciare.
+    scartato azione: saluteDenaroLegge: Entro domenica non comprare nulla che non sia indispensabile.
+    scartato risposta: gergo: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di domani sera provi a bussare a quella porta. Qualcosa è finito, ma puoi aprirti a nuove possibilità.
+    scartato risposta: troppoLunga: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di domani sera provi ad aprire quella porta. Qualcosa è finito, ma questo non significa che non ci sia altro da scoprire. Puoi guardare oltre ciò che conosci.
+    scartato azione: virgolaEe: Domani mattina tocca la cosa che è finita, o che la rappresenta, e tienila un minuto fra le mani.
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano che devi piantare un nuovo seme. Prendi ciò che è finito e dagli una nuova forma. Puoi scegliere tu come farlo.
+    scartato titolo: tempoNelTitolo: La direzione si decide ora
+    scartato azione: genereContrario: Entro domani sera scrivi come ti senti riguardo a quello che è finito.
+    scartato titolo: gergo: Puoi lasciare andare
+    scartato titolo: titoloRipetuto: La fine è un nuovo inizio
+    scartato risposta: promessa: I segni del viaggio dicono che la fine è un nuovo inizio. Puoi vedere che il ramo secco non è morto. Porta con te quello che è finito, in un modo nuovo.
+    scartato azione: troppoLunga: Entro domani, tocca una cosa rotta che hai in casa e non hai mai buttato via. Non aggiustarla, ma sentila fra le dita e decidi dove metterla, in vista o nascosta.
+    scartato azione: previsioneCerta: Domani mattina tocca la cosa che ti ricorda di più ciò che è finito. Spostala in un punto della tua casa dove la vedrai spesso.
+    scartato risposta: virgolaEe: un gesto da fare. Il viaggio ti chiede di capire cosa significa per te che qualcosa sia finito. Hai la possibilità di guardare cosa lasci mostrato di questo, e cosa invece tieni per te.
+    scartato azione: toccaUnTerzo: Entro domani sera scrivi un messaggio a una persona che ha vissuto una situazione simile alla tua. Chiedi come ha affrontato la fase finale.
+    scartato azione: fuoco: Stasera scrivi su un pezzo di carta cosa è finito per te, poi brucialo e conservane le ceneri in una piccola scatola.
+    scartato titolo: previsioneCerta: Cosa è già passato
+    scartato azione: gergo: Domani mattina, esamina un oggetto che rappresenta ciò che è finito e decidi quale parte vuoi tenere e quale vuoi lasciare andare.
+--- un responso per esteso, settima discesa di tema finito:
+Non è ancora finita
+
+La domanda riguardava quello che è finito. La fine non cancella: mette da parte. Ed è tutto qui.
+
+Per muoverti: entro domani sera torna in quel luogo e prova a fare un passo oltre la porta chiusa.
+
+Sotto era così. Sei alla casa vuota nella notte, con la porta chiusa. Il Lupo scava. Ripensaci quando la domanda torna.
+
+=== ORDINE DI VOCE 16, CON RETE, libera 1 ===
+libera 1         A 100/100 | B 100 (max 1) | C 29.3 tutte, 27.2 senza simboli comuni | D 2 | E 64/100, col modello 87/100 | F 0 finestre ripetute, titolo dopo 31 | scena dal modello 88/100 | per blocco {titolo: 2, risposta: 1, gesto: 2, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 20 risposta 1000 | temi {attesa (modello): 97} | guasti {tempo scaduto: 11, scena scartata: 27} | oggetti {tua sorella: 97} | fonti {titolo modello: 94, risposta riserva: 58, gesto modello: 96, risposta modello: 42, gesto riserva: 4, titolo riserva: 6} | motivi finali {risposta riserva: statoDiUnTerzo: 41, risposta riserva: previsioneCerta: 5, gesto riserva: promessa: 1, risposta riserva: troppoLunga: 3, titolo riserva: statoDiUnTerzo: 1, titolo riserva: 3, risposta riserva: 3, gesto riserva: 3, titolo riserva: troppoLunga: 1, risposta riserva: promessa: 3, titolo riserva: titoloRipetuto: 1, risposta riserva: genereContrario: 3} | scarti {titolo: statoDiUnTerzo: 17, risposta: statoDiUnTerzo: 130, risposta: troppoLunga: 19, risposta: ripeteUnoStrato: 1, titolo: tempoNelTitolo: 11, risposta: genereContrario: 19, azione: promessa: 13, risposta: previsioneCerta: 18, titolo: titoloRipetuto: 22, risposta: nonNominaLaDomanda: 6, titolo: fuoco: 1, azione: previsioneCerta: 2, risposta: nonPrendePosizione: 29, azione: chiedeDiScrivere: 12, azione: statoDiUnTerzo: 2, risposta: promessa: 5, titolo: troppoLunga: 10, azione: toccaUnTerzo: 1, risposta: virgolaEe: 1, azione: consiglioDiVita: 2, risposta: gergo: 2} | dal modello prima {titolo: 85, gesto: 93, risposta: 29} dopo {titolo: 94, gesto: 96, risposta: 42} | riprese alla seconda {titolo: tempoNelTitolo: 3, azione: promessa: 3, titolo: fuoco: 1, titolo: statoDiUnTerzo: 2, risposta: nonNominaLaDomanda: 3, risposta: statoDiUnTerzo: 8, risposta: nonPrendePosizione: 3, risposta: troppoLunga: 1, titolo: titoloRipetuto: 7, risposta: promessa: 1, azione: toccaUnTerzo: 1, titolo: troppoLunga: 3} | titoli piu ripetuti "Tu non puoi decidere per lei" 2, "Puoi darle un nuovo inizio" 1, "Guarda cosa puoi fare" 1
+    dal modello: Sii presente, senza sapere / (riserva) / Entro giovedì vai a trovare tua sorella senza preavviso e resta con lei almeno un'ora, senza fare domande.
+    dal modello: La vedi con i tuoi occhi / (riserva) / Domani mattina chiedi a tua sorella che cosa ti serve sapere per aiutarla.
+    dal modello: Guarda cosa puoi fare / (riserva) / Domani mattina prepara il pranzo per tua sorella e portaglielo senza dirle nulla.
+    scartato titolo: statoDiUnTerzo: Accompagnala senza aspettare
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi accompagnare tua sorella in questo tempo sospeso. Puoi esserle vicina senza chiedere nulla, solo stando.
+    scartato risposta: troppoLunga: un gesto da fare. Tu puoi essere un sostegno per tua sorella ora. Offri il tuo aiuto pratico, non devi attendere che sia lei a domandare. Puoi proporre un'azione specifica per esserle vicina.
+    scartato risposta: ripeteUnoStrato: Chiedi a tua sorella che cosa la preoccupa dell'attesa di un figlio. Puoi aiutarla a guardare la situazione con chiarezza, senza proiettare le tue aspettative. Stai con lei, al di là di ogni ipotesi.
+    scartato titolo: tempoNelTitolo: Puoi starle vicina adesso
+    scartato risposta: genereContrario: I segni del viaggio dicono che non puoi sapere se tua sorella diventerà presto mamma. Puoi starle vicino. Le sue scelte non sono tue da prendere.
+    scartato azione: promessa: Oggi pomeriggio chiama tua sorella e chiedile come sta, senza parlare della gravidanza.
+    scartato risposta: previsioneCerta: I segni del viaggio indicano che puoi sostenere tua sorella, non che puoi sapere il suo futuro. Puoi essere presente per lei, non per quello che accadrà. Sii vicina ai suoi desideri, qualunque essi siano.
+    scartato titolo: titoloRipetuto: Dalle cura che puoi
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono di darle cura che puoi. Puoi chiederle se vuole parlare delle sue preoccupazioni. Puoi ascoltarla senza giudicarla.
+    scartato titolo: fuoco: Accendi tu la speranza
+    scartato azione: previsioneCerta: Domani mattina chiedi a tua sorella se ha già pensato a un nome per il bambino.
+    scartato risposta: nonPrendePosizione: I segni del viaggio indicano che non puoi sapere se tua sorella diventerà presto mamma. Tu puoi chiederle di che cosa ha bisogno. Tu puoi esserle vicina senza aspettarti nulla da lei.
+    scartato azione: chiedeDiScrivere: Stasera scrivi una domanda chiara da fare a tua sorella sul suo desiderio di maternità.
+    scartato azione: statoDiUnTerzo: Questa sera, chiama tua sorella per una chiacchierata e chiedile come si sente in questo periodo della sua vita.
+    scartato risposta: promessa: I segni del viaggio indicano che la questione della gravidanza di tua sorella non ha una risposta chiara ora. Puoi continuare a starle vicina, come hai fatto finora. La tua presenza è il vero dono.
+    scartato titolo: troppoLunga: Tu dai valore a quello che c'è
+    scartato azione: toccaUnTerzo: Stasera scrivi a tua sorella per chiederle come sta, senza affrontare discorsi impegnativi.
+    scartato risposta: virgolaEe: un gesto da fare. Puoi stare con tua sorella e ascoltare ciò che vive. La sua esperienza è sua, e tu puoi solo esserle vicina senza forzare il suo tempo.
+    scartato azione: consiglioDiVita: Stasera, quando chiami tua sorella, ascolta con attenzione i suoi progetti per i prossimi mesi.
+    scartato risposta: gergo: I segni del viaggio indicano che puoi lasciare andare l'attesa. Puoi concentrarti su ciò che è presente nella tua vita. Puoi esserle vicina senza prevedere il suo domani.
+--- un responso per esteso, settima discesa di libera 1:
+Ascolta cosa ti dice
+
+I segni del viaggio dicono di no. Non puoi sapere se o quando tua sorella diventerà mamma. Puoi solo esserle vicina adesso.
+
+Il gesto da compiere: domani mattina inviale un messaggio con una foto di qualcosa che l'ha fatta sorridere in passato.
+
+E l'hai riportata su così. Il Lupo si ferma alla riva all'alba. Con te c'è il nido. Ripensaci quando la domanda torna.
+
+=== ORDINE DI VOCE 16, CON RETE, libera 2 ===
+libera 2         A 100/100 | B 100 (max 1) | C 35.0 tutte, 28.7 senza simboli comuni | D 1 | E 14/100, col modello 80/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 87/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 5 | distanze gesto 1000 risposta 1000 | temi {scelta (modello): 97} | guasti {scena scartata: 17, tempo scaduto: 3} | oggetti {il tuo lavoro: 97} | fonti {titolo modello: 99, risposta modello: 93, gesto modello: 99, risposta riserva: 7, titolo riserva: 1, gesto riserva: 1} | motivi finali {risposta riserva: ripeteUnoStrato: 1, risposta riserva: nonNominaLaDomanda: 2, risposta riserva: previsioneCerta: 3, titolo riserva: titoloRipetuto: 1, risposta riserva: troppoLunga: 1, gesto riserva: previsioneCerta: 1} | scarti {risposta: nonPrendePosizione: 108, azione: senzaTempo: 1, risposta: previsioneCerta: 37, risposta: nonNominaLaDomanda: 35, risposta: ripeteUnoStrato: 2, azione: chiedeDiScrivere: 60, titolo: troppoLunga: 3, risposta: anticipaLaScena: 4, titolo: previsioneCerta: 12, titolo: tempoNelTitolo: 10, risposta: troppoLunga: 35, risposta: primaPersona: 1, azione: primaPersona: 1, titolo: titoloRipetuto: 10, azione: troppoLunga: 2, azione: previsioneCerta: 10, azione: toccaUnTerzo: 2, risposta: decisioneGrave: 3, azione: virgolaEe: 1, titolo: gergo: 1, risposta: gergo: 1, azione: consiglioDiVita: 1, azione: saluteDenaroLegge: 1, titolo: fuoco: 1} | dal modello prima {titolo: 92, risposta: 69, gesto: 80} dopo {titolo: 99, risposta: 93, gesto: 99} | riprese alla seconda {risposta: nonPrendePosizione: 22, risposta: previsioneCerta: 4, azione: chiedeDiScrivere: 17, titolo: titoloRipetuto: 4, titolo: previsioneCerta: 4, risposta: nonNominaLaDomanda: 3, risposta: anticipaLaScena: 1, azione: troppoLunga: 1, azione: previsioneCerta: 4, risposta: troppoLunga: 1, titolo: troppoLunga: 1, azione: consiglioDiVita: 1, azione: saluteDenaroLegge: 1, azione: toccaUnTerzo: 1} | titoli piu ripetuti "La scelta è già tua" 2, "La chiave è già tua" 2, "La scelta è tua e basta" 2
+    dal modello: C'è altro da considerare / I segni del viaggio dicono di sì, a condizione che tu non smetta di imparare. Puoi cercare nuove competenze che ti servono adesso. Cerca quello che ti manca per il tuo progetto. / Entro venerdì, cerca online un corso breve o un workshop che ti interessi nel campo che vorresti esplorare.
+    dal modello: Cosa nascondi a te stesso / (riserva) / Stasera, dopo cena, siediti in un luogo tranquillo e pensa a un momento in cui hai provato gioia nel tuo lavoro attuale.
+    dal modello: La tua risorsa è già qui / un gesto da fare. I segni del viaggio ti mostrano il tuo lavoro attuale come una base. Puoi riconoscere tutto ciò che hai costruito in questi anni. / Domani mattina, prima di iniziare la giornata, elenca tre cose concrete che il tuo attuale lavoro ti ha dato e che ti servono per il tuo progetto.
+    scartato risposta: nonPrendePosizione: I segni del viaggio dicono di sì, se il tuo lavoro ti sta impedendo di essere te stesso. Non forzare subito una decisione drastica. Puoi ancora trovare una soluzione che ti permetta di esprimerti senza rischiare tutto.
+    scartato azione: senzaTempo: Parla con un collega di cui ti fidi del tuo desiderio di esprimere di più le tue capacità.
+    scartato risposta: previsioneCerta: I segni del viaggio dicono di sì, se il tuo lavoro attuale non ti permette di imparare qualcosa di nuovo. Non è il momento di un salto nel buio. Puoi mettere alla prova la tua idea in piccolo, senza rinunciare subito alla tua stabilità.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono di sì, a condizione che tu non smetta di imparare. Puoi cercare nuove competenze che ti servono adesso. Cerca quello che ti manca per il tuo progetto.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono di no. Non puoi nascondere a te stesso quello che provi davvero per il tuo lavoro. Riconosci la tua vera motivazione.
+    scartato azione: chiedeDiScrivere: Domani, scrivi tre cose che ti spaventano nel lasciare il tuo lavoro.
+    scartato titolo: troppoLunga: Non è il lavoro che ti trattiene
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di no. Non è il lavoro attuale che ti impedisce di aprire qualcosa di tuo. Il tuo ostacolo è la maschera che porti per nascondere la tua vera ragione.
+    scartato titolo: previsioneCerta: La porta si aprirà
+    scartato titolo: tempoNelTitolo: La scelta è tua ora
+    scartato risposta: troppoLunga: sì a una condizione. I segni del viaggio dicono di sì, se prima di lasciare il tuo lavoro parli con tre persone che hanno fatto la stessa scelta. Chiedi loro come hanno affrontato i primi sei mesi. Poi decidi tu.
+    scartato risposta: primaPersona: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di decidere chiarisci cosa intendi per "qualcosa di mio". Non è una questione di quantità o di successo, ma di significato personale.
+    scartato azione: primaPersona: Entro domani sera, scrivi tre cose che il tuo lavoro "di mio" deve avere per farti sentire pienamente realizzato.
+    scartato titolo: titoloRipetuto: La scelta è tua e basta
+    scartato azione: troppoLunga: Entro un mese, prepara un piccolo business plan per la tua idea, anche solo di una pagina, con costi stimati e un obiettivo di guadagno minimo per i primi sei mesi.
+    scartato azione: previsioneCerta: Entro venerdì chiama tre persone che conosci e che hanno già lasciato il loro lavoro per aprire qualcosa di loro.
+    scartato azione: toccaUnTerzo: Entro venerdì contatta tre persone che hanno aperto un'attività simile alla tua per chiedere un confronto.
+    scartato risposta: decisioneGrave: I segni del viaggio indicano che devi lasciare il tuo lavoro per aprire qualcosa di tuo. Il tuo cammino è oltre la porta chiusa che ora vedi. Puoi trovare il coraggio di attraversarla.
+    scartato azione: virgolaEe: Stasera scrivi su un pezzo di carta perché vuoi lasciare il tuo lavoro, e poi buttalo via senza rileggerlo.
+    scartato titolo: gergo: Il nuovo è già in te
+    scartato risposta: gergo: sì. I segni del viaggio indicano che puoi lasciare il tuo lavoro per aprire qualcosa di tuo. Hai già gli strumenti per iniziare il tuo percorso.
+    scartato azione: consiglioDiVita: Domani mattina chiedi una settimana di ferie per riflettere.
+    scartato azione: saluteDenaroLegge: Stasera cerca un contatto per un prestito o un fondo di avviamento.
+    scartato titolo: fuoco: La tua scintilla brucia
+--- un responso per esteso, settima discesa di libera 2:
+La scelta è tua e basta
+
+I segni del viaggio dicono di sì, puoi aprire qualcosa di tuo. Il tuo impegno è già nella direzione giusta per concretizzare i tuoi intenti. Valuta adesso i passi successivi.
+
+Una cosa sola: domani mattina contatta una persona che ha già fatto un percorso simile e chiedi di incontrarla per un caffè.
+
+Viene da ciò che hai visto. Resta il cerchio tracciato a terra, al bivio. Il Lupo si ferma, all'alba. Tienila a mente fino alla prossima discesa.
+
+=== ORDINE DI VOCE 16, CON RETE, libera 3 ===
+libera 3         A 100/100 | B 100 (max 1) | C 30.2 tutte, 30.2 senza simboli comuni | D 1 | E 68/100, col modello 83/100 | F 0 finestre ripetute, titolo dopo 28 | scena dal modello 83/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 7 | distanze gesto 1000 risposta 1000 | temi {persona (modello): 97} | guasti {scena scartata: 16, tempo scaduto: 7} | oggetti {tuo padre: 97} | fonti {titolo modello: 95, risposta riserva: 66, gesto modello: 96, risposta modello: 34, titolo riserva: 5, gesto riserva: 4} | motivi finali {risposta riserva: statoDiUnTerzo: 59, risposta riserva: ripeteUnoStrato: 1, titolo riserva: gergo: 1, risposta riserva: troppoLunga: 4, risposta riserva: previsioneCerta: 1, titolo riserva: tempoNelTitolo: 1, risposta riserva: genereContrario: 1, gesto riserva: previsioneCerta: 1, gesto riserva: toccaUnTerzo: 1, titolo riserva: statoDiUnTerzo: 3, gesto riserva: consiglioDiVita: 1, gesto riserva: chiedeDiScrivere: 1} | scarti {risposta: statoDiUnTerzo: 180, azione: chiedeDiScrivere: 31, titolo: tempoNelTitolo: 6, risposta: troppoLunga: 34, risposta: nonNominaLaDomanda: 4, titolo: statoDiUnTerzo: 68, risposta: ripeteUnoStrato: 5, azione: consiglioDiVita: 21, azione: previsioneCerta: 17, titolo: gergo: 8, risposta: gergo: 5, titolo: titoloRipetuto: 8, risposta: nonPrendePosizione: 7, azione: toccaUnTerzo: 8, risposta: anticipaLaScena: 2, azione: fuoco: 1, risposta: previsioneCerta: 1, azione: troppoLunga: 7, titolo: troppoLunga: 4, risposta: genereContrario: 6, azione: eUnaDomanda: 1, azione: virgolaEe: 2, azione: statoDiUnTerzo: 1} | dal modello prima {titolo: 80, gesto: 85, risposta: 17} dopo {titolo: 95, gesto: 96, risposta: 34} | riprese alla seconda {azione: previsioneCerta: 7, risposta: statoDiUnTerzo: 16, risposta: troppoLunga: 1, titolo: statoDiUnTerzo: 14, titolo: troppoLunga: 3, risposta: nonNominaLaDomanda: 3, titolo: tempoNelTitolo: 2, azione: chiedeDiScrivere: 4, titolo: gergo: 3, azione: troppoLunga: 2, risposta: nonPrendePosizione: 1, risposta: gergo: 2, azione: consiglioDiVita: 3, titolo: titoloRipetuto: 1, azione: toccaUnTerzo: 1} | titoli piu ripetuti "Cerca la tua pace" 2, "Accetta quello che trovi" 2, "Tieni il tuo filo" 2
+    dal modello: Cerca la tua pace vera / (riserva) / Stasera prima di cena spegni il telefono per mezz'ora.
+    dal modello: Tieni una distanza di sicurezza / I segni del viaggio dicono che con tuo padre non puoi affrontare tutto. Non puoi sapere che cosa lo trattiene. Non puoi fargli cambiare idea o sentire diversamente. / Questa settimana, quando parli con tuo padre, scegli tu l'argomento di cui parlare.
+    dal modello: Cerca il tuo spazio sicuro / I segni del viaggio ti dicono che hai già in mano la capacità di creare un tuo spazio sicuro. Puoi proteggere il tuo benessere emotivo dalle interazioni difficili. Puoi decidere tu fino a che punto permettere all'altro di entrare. / Domani mattina, prima di fare qualsiasi altra cosa, metti via un oggetto che ti piace in un posto segreto che sia solo tuo.
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi trovare la tua calma adesso. Non aspettare che la situazione cambi, puoi crearla tu.
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un pezzo di carta tre cose che ti danno serenità e tienilo in tasca.
+    scartato titolo: tempoNelTitolo: Cerca la tua pace adesso
+    scartato risposta: troppoLunga: Un gesto da fare. Tu puoi trovare la tua calma adesso. Non aspettare che la situazione cambi. Tu puoi crearla.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono che hai già in mano la capacità di creare un tuo spazio sicuro. Puoi proteggere il tuo benessere emotivo dalle interazioni difficili. Puoi decidere tu fino a che punto permettere all'altro di entrare.
+    scartato titolo: statoDiUnTerzo: Crea il tuo spazio
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che hai già la capacità di creare il tuo spazio sicuro riguardo a tuo padre. Puoi scegliere come e quando interagire con lui, proteggendo il tuo benessere. Puoi definire i confini delle vostre conversazioni.
+    scartato azione: consiglioDiVita: Domani mattina, prima di parlare con tuo padre, pensa a un argomento che non vuoi affrontare e decidi di non parlarne.
+    scartato azione: previsioneCerta: Domani, quando tuo padre ti farà una domanda, rimani in silenzio per cinque secondi prima di rispondere.
+    scartato titolo: gergo: Puoi lasciare andare un peso
+    scartato risposta: gergo: I segni del viaggio indicano che puoi lasciare andare un peso. Non puoi cambiare il modo in cui tuo padre reagisce, ma puoi cambiare il modo in cui tu rispondi alle sue parole.
+    scartato titolo: titoloRipetuto: Cerca la tua pace vera
+    scartato risposta: nonPrendePosizione: I segni del viaggio indicano un gesto da fare: puoi scegliere di non entrare nella lite. Puoi allontanarti prima che la discussione prenda il sopravvento. Puoi decidere tu quando fermare lo scambio.
+    scartato azione: toccaUnTerzo: Stasera, quando pensi a tuo padre, scrivi tre argomenti che non hai mai provato ad affrontare con lui.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono che puoi scegliere un nuovo modo di parlare con tuo padre. Lascia i soliti discorsi che portano alla lite. Puoi cambiare il modo in cui ti relazioni con lui.
+    scartato azione: fuoco: Entro domani sera, mentre parli con tuo padre, metti giù il telefono o fai un'altra cosa per un minuto se la conversazione si accende.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano di tenere il filo della conversazione con tuo padre, senza fare il suo gioco. Puoi interrompere la lite quando senti che comincia, senza paura di ciò che farà.
+    scartato azione: troppoLunga: Stasera, quando tuo padre comincia a litigare, puoi dirgli che hai notato che litigate sempre per lo stesso motivo e che non vuoi più farlo. Puoi chiedere di parlare di un altro argomento.
+    scartato titolo: troppoLunga: Segui il filo di quello che provi
+    scartato risposta: genereContrario: un gesto da fare. Puoi trovare il tuo spazio quando tuo padre parla con te. Non sei obbligato a risolvere i suoi problemi.
+    scartato azione: eUnaDomanda: Stasera invia a tuo padre un messaggio con scritto "Mi piacerebbe parlare con te domani, quando sei libero?"
+    scartato azione: virgolaEe: Domani mattina traccia un confine sul pavimento di casa tua, anche piccolo, e non permettere a tuo padre di superarlo.
+    scartato azione: statoDiUnTerzo: Questa settimana, quando tuo padre ti cerca per parlare, rispondi con un messaggio in cui gli proponi un appuntamento in un luogo neutro, diverso da casa tua o sua.
+--- un responso per esteso, settima discesa di libera 3:
+Tieni il filo del discorso
+
+Hai portato giù la domanda su tuo padre. Stai aspettando da fuori una risposta che tocca a te. Tienilo presente.
+
+Il gesto da compiere: oggi pomeriggio, in ogni conversazione con tuo padre, scegli un solo tema e mantienilo per tutta la durata del dialogo.
+
+Viene da ciò che hai visto. Il Lupo e la ferita nel tronco, alla casa vuota all'alba. Lui aspetta. Tienila a mente fino alla prossima discesa.
+
+=== ORDINE DI VOCE 16, CON RETE, libera 4 ===
+libera 4         A 100/100 | B 100 (max 1) | C 17.1 tutte, 15.8 senza simboli comuni | D 1 | E 17/100, col modello 74/100 | F 0 finestre ripetute, titolo dopo 30 | scena dal modello 86/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | temi {blocco (modello): 97} | guasti {tempo scaduto: 14, scena scartata: 18} | oggetti {il finire: 97} | fonti {titolo modello: 99, risposta modello: 91, gesto modello: 96, risposta riserva: 9, gesto riserva: 4, titolo riserva: 1} | motivi finali {risposta riserva: anticipaLaScena: 1, risposta riserva: nonPrendePosizione: 3, risposta riserva: troppoLunga: 2, risposta riserva: previsioneCerta: 2, gesto riserva: chiedeDiScrivere: 2, titolo riserva: tempoNelTitolo: 1, gesto riserva: virgolaEe: 1, risposta riserva: nonNominaLaDomanda: 1, gesto riserva: previsioneCerta: 1} | scarti {risposta: nonPrendePosizione: 121, azione: virgolaEe: 14, titolo: troppoLunga: 6, risposta: anticipaLaScena: 6, risposta: ripeteUnoStrato: 2, titolo: gergo: 6, azione: consiglioDiVita: 2, risposta: gergo: 10, azione: chiedeDiScrivere: 40, risposta: nonNominaLaDomanda: 37, risposta: troppoLunga: 24, titolo: previsioneCerta: 6, titolo: tempoNelTitolo: 7, azione: troppoLunga: 6, titolo: titoloRipetuto: 10, risposta: previsioneCerta: 11, azione: previsioneCerta: 9, risposta: fuoco: 1, titolo: fuoco: 1, azione: saluteDenaroLegge: 1, azione: gergo: 1} | dal modello prima {titolo: 96, gesto: 81, risposta: 61} dopo {titolo: 99, risposta: 91, gesto: 96} | riprese alla seconda {risposta: nonPrendePosizione: 30, risposta: anticipaLaScena: 1, risposta: nonNominaLaDomanda: 7, azione: chiedeDiScrivere: 11, risposta: gergo: 2, titolo: titoloRipetuto: 1, titolo: tempoNelTitolo: 2, azione: virgolaEe: 5, risposta: previsioneCerta: 2, azione: troppoLunga: 2, titolo: previsioneCerta: 1, azione: previsioneCerta: 2, risposta: fuoco: 1, risposta: troppoLunga: 1, titolo: gergo: 1} | titoli piu ripetuti "La fine è un inizio" 3, "Smetti di cercare una fine" 1, "La risorsa è già tua" 1
+    dal modello: Non è il risultato che conta / I segni del viaggio dicono che non è il finire che ti blocca davvero. Il tuo vero timore è perdere qualcosa che hai già o lasciare un legame. Osserva dove ti senti più legata. / Entro domani sera scrivi a una persona cara per chiederle come sta, senza aspettarti nulla in cambio.
+    dal modello: C'è altro sotto la superficie / (riserva) / Domani mattina togli da un cassetto un oggetto che ti rappresenta quando sei sola.
+    dal modello: La risorsa è già tua / Un gesto da fare: guarda ciò che hai già. I segni del viaggio indicano che la risorsa per finire è proprio quella che già possiedi. Hai la capacità di portare a termine le cose che inizi. / Oggi pomeriggio individua una piccola cosa che hai iniziato e portala a termine, anche se ti sembra insignificante.
+    scartato risposta: nonPrendePosizione: un gesto da fare. Non è il finire che ti blocca davvero. Il tuo vero timore è perdere qualcosa che hai già o lasciare un legame.
+    scartato azione: virgolaEe: Entro domani sera, scegli una cosa che hai iniziato e poi lasciato, e decidi di rinunciare a finirla, verbalizzandolo ad alta voce.
+    scartato titolo: troppoLunga: Non è il finire che ti blocca
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono che ciò che ti trattiene è la sensazione di dover indossare un ruolo o una maschera. Questa sensazione ti impedisce di agire pienamente. Per questo, non riesci a dare forma concreta a quello che cominci.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ciò che ti trattiene è la sensazione di dover indossare un ruolo. Questa sensazione ti impedisce di agire pienamente. Per questo, non riesci a dare forma concreta a quello che cominci.
+    scartato titolo: gergo: La risorsa è già in te
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che hai completato con successo nella tua vita, anche piccole.
+    scartato risposta: gergo: Un gesto da fare: lascia andare l'idea di perfezione che ti blocca. I segni del viaggio ti indicano di agire, anche se non vedi il risultato finale. Non aspettare di essere pronta per "il finire".
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose che hai lasciato a metà e per ognuna scrivi il motivo per cui l'hai iniziata.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio indicano che puoi completare ciò che inizi. Le cose che non finisci non sono un errore. Sono indicazioni per ciò che ti nutre davvero.
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano di spostare l'attenzione dalla parola "fine". Non è lì che trovi il blocco. Sposta il punto di osservazione per capire davvero cosa ti ferma prima di chiudere un ciclo.
+    scartato titolo: previsioneCerta: Non tutto deve finire
+    scartato titolo: tempoNelTitolo: Il tuo finire è adesso
+    scartato azione: troppoLunga: Entro domani sera prendi uno dei lavori lasciati in sospeso e portalo a un punto conclusivo, anche minimo. Non deve essere la fine dell'intero progetto, ma la fine di un passo.
+    scartato titolo: titoloRipetuto: Ciò che non ha volto
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che per finire le cose che cominci devi guardare cosa ti blocca nella situazione. Non è il tuo tempo che manca.
+    scartato azione: previsioneCerta: Entro domani sera scrivi su un foglio le tre cose che hai iniziato e non hai finito. Per ognuna, decidi se la lascerai o la porterai a termine.
+    scartato risposta: fuoco: un gesto da fare. Il viaggio indica che puoi accendere ciò che ti motiva profondamente. Trova il punto da cui ripartire per finire ciò che hai iniziato.
+    scartato titolo: fuoco: Ciò che accendi ti guida
+    scartato azione: saluteDenaroLegge: Entro domani sera esci di casa con un abito che non indosseresti mai in pubblico. Vai al supermercato più vicino a comprare il pane.
+    scartato azione: gergo: Stasera guarda tre cose che hai iniziato e scegli quale vuoi lasciare andare.
+--- un responso per esteso, settima discesa di libera 4:
+Non è un limite
+
+I segni del viaggio indicano che devi guardare a fondo ciò che hai cominciato. Se non finisci, la risposta è nella tua prossima azione. Puoi agire per sbloccare la situazione.
+
+Una cosa sola: entro domani sera, guarda con attenzione un oggetto che hai lasciato incompleto e prova a dargli un nuovo scopo.
+
+Sotto era così. Ti ritrovi al fiume. Nella nebbia. Accanto a te c'è l'acqua ferma. Il Lupo si mette in mezzo. Ci tornerai quando servirà.
+
+=== ORDINE DI VOCE 16, CON RETE, libera 5 ===
+libera 5         A 100/100 | B 100 (max 1) | C 29.5 tutte, 29.5 senza simboli comuni | D 1 | E 69/100, col modello 90/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 89/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | temi {finito (modello): 97} | guasti {tempo scaduto: 7, scena scartata: 8} | fonti {titolo modello: 88, risposta riserva: 65, gesto modello: 99, gesto riserva: 1, titolo riserva: 12, risposta modello: 35} | motivi finali {risposta riserva: statoDiUnTerzo: 51, gesto riserva: gergo: 1, titolo riserva: statoDiUnTerzo: 10, risposta riserva: previsioneCerta: 1, risposta riserva: gergo: 10, risposta riserva: nonNominaLaDomanda: 1, risposta riserva: troppoLunga: 2, titolo riserva: titoloRipetuto: 1, titolo riserva: gergo: 1} | scarti {titolo: statoDiUnTerzo: 87, risposta: statoDiUnTerzo: 160, titolo: troppoLunga: 2, azione: chiedeDiScrivere: 45, risposta: virgolaEe: 1, azione: gergo: 2, risposta: anticipaLaScena: 4, azione: previsioneCerta: 8, risposta: previsioneCerta: 9, risposta: gergo: 22, titolo: tempoNelTitolo: 14, risposta: troppoLunga: 27, risposta: nonNominaLaDomanda: 12, titolo: gergo: 10, azione: fuoco: 1, titolo: titoloRipetuto: 13, azione: virgolaEe: 5, azione: saluteDenaroLegge: 2, azione: genereContrario: 1, azione: consiglioDiVita: 1, risposta: nonPrendePosizione: 1} | dal modello prima {titolo: 70, gesto: 89, risposta: 24} dopo {titolo: 88, gesto: 99, risposta: 35} | riprese alla seconda {titolo: statoDiUnTerzo: 18, titolo: gergo: 5, azione: chiedeDiScrivere: 4, risposta: statoDiUnTerzo: 6, titolo: titoloRipetuto: 3, risposta: nonNominaLaDomanda: 5, risposta: gergo: 5, azione: virgolaEe: 1, azione: saluteDenaroLegge: 2, risposta: troppoLunga: 1, azione: genereContrario: 1, azione: consiglioDiVita: 1, titolo: tempoNelTitolo: 2, azione: previsioneCerta: 3} | titoli piu ripetuti "Cerca la tua nuova direzione" 3, "Cerca la tua immagine" 2, "Guarda oltre la fine" 2
+    dal modello: Ascolta quello che non dici / (riserva) / Domani mattina tocca la superficie del fiume vicino a casa tua.
+    dal modello: Ti tieni stretta la maschera / (riserva) / Entro domani sera butta via una cosa che ti ha dato Luca e che non hai usato per l'ultimo anno.
+    dal modello: Tieni il tuo sguardo in avanti / (riserva) / Domani mattina riprendi in mano un tuo vecchio hobby che hai abbandonato.
+    scartato titolo: statoDiUnTerzo: Non fermarti all'apparenza
+    scartato risposta: statoDiUnTerzo: un gesto da fare. I segni del viaggio dicono che puoi accettare quello che è successo. Non è tutto così fermo come sembra adesso.
+    scartato titolo: troppoLunga: Puoi lasciare andare quello che non è
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose positive che hai ottenuto o imparato durante la relazione con Luca.
+    scartato risposta: virgolaEe: un gesto da fare. Puoi riconoscere che questo è il tuo tempo, e che la perdita è una parte della tua storia. Non è una fine, ma un cambio di fase per te.
+    scartato azione: gergo: Domani mattina riordina un cassetto o una scatola che contenga ricordi del passato, scegliendo cosa tenere e cosa lasciare andare.
+    scartato risposta: anticipaLaScena: I segni del viaggio ti indicano di riprendere il tuo filo. Puoi ricominciare a tessere la tua storia da questo momento. Non aspettare che sia Luca a fare la prima mossa.
+    scartato azione: previsioneCerta: Domani mattina scegli un oggetto che ti lega ancora a Luca e mettilo in una scatola che non aprirai per un mese.
+    scartato risposta: previsioneCerta: I segni del viaggio dicono che puoi accettare questa fine. Luca non ti ha deluso per sempre. Non puoi controllare cosa farà lui, ma puoi scegliere come proseguire.
+    scartato risposta: gergo: un gesto da fare. Puoi lasciare andare quello che è finito. Scegli dove vuoi mettere le tue nuove energie.
+    scartato titolo: tempoNelTitolo: Cosa nasce adesso da te
+    scartato risposta: troppoLunga: un gesto da fare. Puoi guardare oltre la chiusura con Luca. Puoi esplorare cosa questo momento significa per te. Puoi scegliere cosa portare nel tuo prossimo passo.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che puoi togliere la maschera. Puoi guardarti adesso senza il suo volto. Quello che non è più in piedi mostra il vuoto che puoi riempire.
+    scartato titolo: gergo: Puoi lasciare andare il passato
+    scartato azione: fuoco: Entro sabato, scrivi una lettera a Luca, ma non spedirla. Leggila e poi bruciala.
+    scartato titolo: titoloRipetuto: Puoi lasciare il tuo passato
+    scartato azione: virgolaEe: Entro domani sera scrivi su un foglio tre cose che Luca non sapeva di te, e che ora puoi mostrare.
+    scartato azione: saluteDenaroLegge: Domani mattina compra un vaso e un seme di un fiore. Piantalo.
+    scartato azione: genereContrario: Entro domani sera, trova un momento per sederti in silenzio e scrivi a mano tre cose che desideri fare per te stessa e che finora hai rimandato per troppo tempo.
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che ti fanno stare bene e che non c'entravano con Luca. Scrivile a mente e ripetile ad alta voce.
+    scartato risposta: nonPrendePosizione: un gesto da fare: Puoi andare avanti. Non portare con te ogni cosa che è stata con Luca, perché il tuo nuovo inizio ti aspetta.
+--- un responso per esteso, settima discesa di libera 5:
+Quello che hai dato non si perde
+
+La domanda riguardava quello che è finito. La fine non cancella: mette da parte. Ed è tutto qui.
+
+Comincia da qui: domani mattina togli dalla tua vista tutti i suoi regali.
+
+Sotto era così. Ti ritrovi al fiume. Sotto la pioggia. Accanto a te c'è l'acqua ferma. Il Lupo mostra i denti. Ripensaci quando la domanda torna.
+
+=== ORDINE DI VOCE 16, CON RETE ===
+tema scelta      A 100/100 | B 100 (max 1) | C 17.3 tutte, 16.3 senza simboli comuni | D 1 | E 53/100, col modello 82/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 90/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 7 | distanze gesto 1000 risposta 22 | guasti {tempo scaduto: 3, scena scartata: 13} | fonti {titolo modello: 98, risposta modello: 90, gesto modello: 98, risposta riserva: 10, titolo riserva: 2, gesto riserva: 2} | motivi finali {risposta riserva: nonPrendePosizione: 4, risposta riserva: anticipaLaScena: 1, risposta riserva: previsioneCerta: 2, titolo riserva: titoloRipetuto: 2, risposta riserva: troppoLunga: 2, gesto riserva: chiedeDiScrivere: 1, gesto riserva: previsioneCerta: 1, risposta riserva: virgolaEe: 1} | scarti {titolo: troppoLunga: 4, azione: previsioneCerta: 6, risposta: nonPrendePosizione: 113, risposta: nonNominaLaDomanda: 27, risposta: ripeteUnoStrato: 2, risposta: anticipaLaScena: 9, risposta: gergo: 13, risposta: previsioneCerta: 15, titolo: previsioneCerta: 5, titolo: gergo: 7, azione: chiedeDiScrivere: 56, azione: consiglioDiVita: 6, titolo: titoloRipetuto: 21, risposta: troppoLunga: 28, titolo: tempoNelTitolo: 5, azione: troppoLunga: 7, azione: toccaUnTerzo: 3, azione: gergo: 1, azione: fuoco: 1, azione: virgolaEe: 1, azione: genereContrario: 2, risposta: virgolaEe: 1, azione: decisioneGrave: 1} | dal modello prima {risposta: 55, titolo: 95, gesto: 73} dopo {titolo: 98, risposta: 90, gesto: 98} | riprese alla seconda {titolo: troppoLunga: 1, azione: previsioneCerta: 3, risposta: nonPrendePosizione: 33, azione: chiedeDiScrivere: 20, titolo: titoloRipetuto: 2, risposta: nonNominaLaDomanda: 3, titolo: tempoNelTitolo: 1, azione: consiglioDiVita: 3, azione: troppoLunga: 3, risposta: previsioneCerta: 2, risposta: troppoLunga: 1, azione: gergo: 1, azione: fuoco: 1, azione: toccaUnTerzo: 1, azione: genereContrario: 2, risposta: gergo: 2} | titoli piu ripetuti "La scelta è già tua" 3, "Ciò che non vedi ancora" 2, "La scelta è chiara" 2
+    dal modello: Cerca la falla nel muro / I segni del viaggio dicono di sì, puoi guardare da tutte le parti. Il percorso è più lungo se non comprendi tutti gli aspetti della tua scelta. Puoi prenderti il tempo necessario per valutare ogni possibilità. / Domani mattina tocca con mano una delle due possibilità che hai davanti. Senti la sua fragilità.
+    dal modello: La tua è una falsa scelta / (riserva) / Stasera guarda la tua ombra proiettata su un muro. Nota cosa nasconde.
+    dal modello: Il tuo vero inizio / (riserva) / Stasera, quando fai la doccia, prendi un momento per stare sotto il getto dell'acqua con le mani aperte e senti come ti lava via ogni esitazione.
+    scartato titolo: troppoLunga: La direzione non è mai una sola
+    scartato azione: previsioneCerta: Entro sabato chiedi a qualcuno che ha già affrontato una situazione simile la sua esperienza.
+    scartato risposta: nonPrendePosizione: un gesto da fare. Il viaggio ti chiede di non cercare una direzione, ma di capire dove la scelta è già spezzata. Non è una questione di strada, ma di rottura.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti stai trattenendo. Ti nascondi dietro una maschera, per paura di mostrare chi sei veramente. Puoi liberarti di questo peso.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ti stai trattenendo sulla scelta. La tua paura di sbagliare ti impedisce di avanzare. Puoi guardare oltre ciò che conosci già.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di sì, hai già gli strumenti per scegliere. Guarda l'acqua, essa ti mostra la risorsa che non stai contando. Puoi iniziare da ciò che è già presente.
+    scartato risposta: gergo: I segni del viaggio dicono di sì, hai già gli strumenti per scegliere. La risposta è già in te, è ferma e ti aspetta. Puoi attingere a ciò che è già presente.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che la tua scelta è già definita. Non c'è ambiguità in ciò che devi fare.
+    scartato titolo: previsioneCerta: La direzione è già segnata
+    scartato titolo: gergo: La direzione è già in te
+    scartato azione: chiedeDiScrivere: Entro domani sera scrivi su un foglio le due opzioni che hai davanti e poi pensa a una terza che ti sembra impossibile.
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, immagina di percorrere le due strade e osserva dove ti porta la meno ovvia.
+    scartato titolo: titoloRipetuto: La direzione si rivela
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano che la tua scelta è già un seme pronto a germogliare. Puoi piantarlo anche se non sai cosa diventerà. Ciò che ti preoccupa si rivelerà solo dopo.
+    scartato titolo: tempoNelTitolo: La direzione ora è chiara
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio le tre opzioni che hai e per ciascuna di esse, cosa ti fa sentire a tuo agio e cosa no. Non devi scegliere, solo scrivere.
+    scartato azione: toccaUnTerzo: Domani mattina rileggi la domanda che ti sei fatto due anni fa e confrontala con quella di oggi.
+    scartato azione: gergo: Domani mattina, prima di cominciare la giornata, alza lo sguardo al cielo per cinque minuti e lascia andare il pensiero della tua scelta.
+    scartato azione: fuoco: Domani sera accendi una candela e guardati allo specchio per un minuto.
+    scartato azione: virgolaEe: Domani sera, cerca sul web o in un libro una storia di qualcuno che ha compiuto una scelta come la tua, e leggi il finale.
+    scartato azione: genereContrario: Entro domani sera scrivi a una persona che ha mostrato di esserti vicina per chiederle un parere onesto.
+    scartato risposta: virgolaEe: un gesto da fare. Il viaggio indica di raccogliere il filo che hai già in mano. Non c'è una risposta giusta in assoluto, ma c'è quella che è tua, e la riconosci dal primo gesto che compi.
+    scartato azione: decisioneGrave: Entro domani sera scrivi i nomi delle due scelte su due fogli separati e li tieni in tasca.
+tema persona     A 100/100 | B 100 (max 1) | C 28.4 tutte, 21.7 senza simboli comuni | D 1 | E 68/100, col modello 84/100 | F 0 finestre ripetute, titolo dopo 27 | scena dal modello 76/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 11 | distanze gesto 1000 risposta 11 | guasti {scena scartata: 15, tempo scaduto: 11} | fonti {titolo modello: 84, risposta riserva: 60, gesto modello: 95, risposta modello: 40, titolo riserva: 16, gesto riserva: 5} | motivi finali {risposta riserva: statoDiUnTerzo: 47, risposta riserva: ripeteUnoStrato: 1, titolo riserva: statoDiUnTerzo: 11, titolo riserva: 3, risposta riserva: 3, gesto riserva: 3, risposta riserva: previsioneCerta: 3, risposta riserva: troppoLunga: 5, titolo riserva: gergo: 1, risposta riserva: gergo: 1, gesto riserva: chiedeDiScrivere: 1, titolo riserva: tempoNelTitolo: 1, gesto riserva: troppoLunga: 1} | scarti {risposta: statoDiUnTerzo: 178, titolo: statoDiUnTerzo: 98, risposta: troppoLunga: 18, azione: chiedeDiScrivere: 60, risposta: nonNominaLaDomanda: 5, risposta: ripeteUnoStrato: 4, azione: consiglioDiVita: 6, azione: virgolaEe: 3, risposta: nonPrendePosizione: 14, azione: previsioneCerta: 4, risposta: anticipaLaScena: 1, titolo: titoloRipetuto: 17, risposta: previsioneCerta: 10, titolo: tempoNelTitolo: 4, titolo: gergo: 1, risposta: gergo: 2, azione: genereContrario: 2, azione: troppoLunga: 2, azione: toccaUnTerzo: 1} | dal modello prima {titolo: 72, gesto: 85, risposta: 20} dopo {titolo: 84, gesto: 95, risposta: 40} | riprese alla seconda {titolo: statoDiUnTerzo: 15, risposta: nonNominaLaDomanda: 2, azione: virgolaEe: 2, risposta: statoDiUnTerzo: 18, azione: chiedeDiScrivere: 7, titolo: titoloRipetuto: 4, risposta: nonPrendePosizione: 8, risposta: troppoLunga: 3, azione: consiglioDiVita: 2, azione: genereContrario: 1, azione: toccaUnTerzo: 1, risposta: previsioneCerta: 1} | titoli piu ripetuti "Cerca la tua chiave" 2, "Cerca la tua luce" 2, "Decidi tu dove sei" 2
+    dal modello: Decidi tu se aspettare / (riserva) / Domani mattina togli dal telefono il numero di quella persona.
+    dal modello: Guarda oltre quello che vedi / I segni del viaggio dicono che ti trattiene ciò che puoi vedere. Puoi scegliere se fermarti a quello che ti viene mostrato. Puoi non aspettarti di trovare tutto in superficie. / Oggi pomeriggio osserva chi ti sta intorno come se non conoscessi nessuno.
+    dal modello: Semina tu dove vuoi / I segni del viaggio indicano che puoi seminare un desiderio. Puoi lasciarlo crescere. Puoi non sapere che posto ha, per il momento. / Stasera scrivi un messaggio a quella persona, senza aspettare risposta.
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi scegliere di non avere una risposta da quella persona, come non hai avuto risposte altre volte. Puoi guardare ciò che ti è rimasto in mano quando hai smesso di aspettare.
+    scartato titolo: statoDiUnTerzo: Dai un nome al tuo silenzio
+    scartato risposta: troppoLunga: Un gesto da fare. Puoi decidere di dare un nome al tuo silenzio, senza aspettare una risposta da quella persona. Puoi concentrarti su ciò che senti tu, al di là di ogni parola che non è stata detta. Puoi lasciare che il tuo bisogno si mostri intero.
+    scartato azione: chiedeDiScrivere: Entro domani sera, scrivi tre cose che desideri da questa relazione, senza pensare a ciò che l'altra persona può o non può darti.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti trattiene ciò che puoi vedere. Puoi scegliere se fermarti a quello che ti viene mostrato. Puoi non aspettarti di trovare tutto in superficie.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che puoi creare tu il tuo posto, senza chiedere. Puoi scegliere di dare un nome a ciò che senti. Puoi decidere tu la direzione da prendere.
+    scartato azione: consiglioDiVita: Domani mattina pensa a un modo per fare una cosa nuova con quella persona.
+    scartato azione: virgolaEe: Entro domani sera scrivi su un foglio tre domande che vorresti fargli, senza l'intenzione di fargliele davvero, e poi brucialo.
+    scartato risposta: nonPrendePosizione: I segni del viaggio ti dicono che puoi scegliere tu quale posto ha per te la persona di cui parli. Non puoi sapere il suo posto per te, ma puoi decidere il tuo. Non aspettare che sia lei a definire il tuo spazio.
+    scartato azione: previsioneCerta: Entro domenica sera, decidi un'azione concreta che farai tu per definire il posto di questa persona nella tua vita.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di sì, puoi piantare un seme per questa relazione. Puoi fare il primo passo, senza aspettare un segno dall'altra persona. La sua reazione non dipende da te.
+    scartato titolo: titoloRipetuto: Cerca tu il tuo posto
+    scartato risposta: previsioneCerta: un gesto da fare. Puoi fare un passo verso questa persona e vedere la sua reazione. La sua risposta ti dirà qualcosa di più sulla sua posizione.
+    scartato titolo: tempoNelTitolo: Fai la tua parte adesso
+    scartato titolo: gergo: Puoi lasciare andare l'attesa
+    scartato risposta: gergo: un gesto da fare. I segni del viaggio ti indicano di fare un passo per chiarire con la persona di cui ti chiedi. È tempo di sapere quale posto le dai tu.
+    scartato azione: genereContrario: Stasera scrivi un messaggio alla persona per dirle come ti senti riguardo a lei.
+    scartato azione: troppoLunga: Entro domani sera scrivi su un pezzo di carta il nome di questa persona. Poi scegli un posto nella tua casa che rappresenti il posto che le dai. Lascia il foglio lì.
+    scartato azione: toccaUnTerzo: Domani mattina, prepara una frase per descrivere i tuoi sentimenti senza rivelare ciò che non vuoi dire.
+tema blocco      A 100/100 | B 100 (max 1) | C 17.0 tutte, 15.7 senza simboli comuni | D 1 | E 52/100, col modello 85/100 | F 0 finestre ripetute, titolo dopo 35 | scena dal modello 73/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 9 | distanze gesto 1000 risposta 11 | guasti {tempo scaduto: 1, scena scartata: 14} | fonti {titolo modello: 100, risposta modello: 91, gesto modello: 98, risposta riserva: 9, gesto riserva: 2} | motivi finali {risposta riserva: nonPrendePosizione: 3, gesto riserva: ripeteUnoStrato: 1, risposta riserva: previsioneCerta: 1, risposta riserva: troppoLunga: 3, risposta riserva: genereContrario: 2, gesto riserva: toccaUnTerzo: 1} | scarti {risposta: nonPrendePosizione: 100, azione: consiglioDiVita: 6, azione: chiedeDiScrivere: 49, risposta: nonNominaLaDomanda: 12, titolo: previsioneCerta: 5, risposta: anticipaLaScena: 9, risposta: ripeteUnoStrato: 1, risposta: troppoLunga: 28, risposta: genereContrario: 22, azione: ripeteUnoStrato: 1, azione: previsioneCerta: 5, risposta: gergo: 15, azione: genereContrario: 4, titolo: gergo: 4, azione: virgolaEe: 4, titolo: troppoLunga: 3, risposta: previsioneCerta: 12, titolo: tempoNelTitolo: 7, titolo: titoloRipetuto: 10, azione: eUnaDomanda: 1, azione: troppoLunga: 4, azione: toccaUnTerzo: 3, azione: fuoco: 1} | dal modello prima {titolo: 94, risposta: 60, gesto: 82} dopo {titolo: 100, risposta: 91, gesto: 98} | riprese alla seconda {risposta: genereContrario: 3, risposta: nonPrendePosizione: 32, azione: genereContrario: 4, titolo: gergo: 1, risposta: nonNominaLaDomanda: 5, risposta: anticipaLaScena: 1, azione: virgolaEe: 3, risposta: gergo: 2, azione: chiedeDiScrivere: 10, titolo: tempoNelTitolo: 2, titolo: titoloRipetuto: 3, titolo: previsioneCerta: 2, azione: troppoLunga: 1, azione: toccaUnTerzo: 1, azione: consiglioDiVita: 1} | titoli piu ripetuti "C'è altro da vedere" 2, "La maschera non è tua" 2, "C'è altro da guardare" 2
+    dal modello: La paura tiene in vita / Un gesto da fare. Il blocco che senti è un modo per tenere in vita qualcosa. Puoi andare oltre quando scopri che cosa stai proteggendo. / Entro sabato, individua un'azione che fai o una parola che dici per mantenere questo blocco.
+    dal modello: Non serve sapere tutto / Un gesto da fare. I segni del viaggio dicono che ciò che ti trattiene è una protezione. Puoi superare il blocco quando comprendi a fondo che cosa ti sta difendendo. / Stasera, prima di dormire, prova a lasciare per un'ora, una cosa che fai sempre allo stesso modo.
+    dal modello: La risorsa è già tua / (riserva) / Domani mattina, osserva con attenzione qualcosa che ti sembra piccolo e insignificante ma che continua a esistere nonostante tutto.
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che il blocco che senti è un modo per tenere in vita qualcosa. Puoi andare oltre quando scopri che cosa stai proteggendo.
+    scartato azione: consiglioDiVita: Entro sabato, pensa a tre cose che potresti perdere se superassi questo blocco.
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose che ti fanno sentire al sicuro.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio mostrano che ciò che ti trattiene è la maschera che indossi. Non puoi fare a meno di usarla per proteggere chi sei. Non puoi sapere tutto ciò che c'è dietro adesso.
+    scartato titolo: previsioneCerta: Non è il momento di togliere
+    scartato risposta: anticipaLaScena: I segni del viaggio mostrano che ciò che ti trattiene è la maschera che indossi. Non riesci a superare il blocco perché la maschera ti serve a proteggere chi sei. Puoi scoprire cosa c'è dietro solo con un passo alla volta.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che puoi superare il blocco, se prima di venerdì ti accorgi di una tua abilità che dai per scontata. Hai già le risorse per far fiorire il nuovo in questo momento.
+    scartato risposta: troppoLunga: Un gesto da fare. I segni del viaggio dicono che puoi superare il blocco, se prima di venerdì ti accorgi di una tua abilità che dai per scontata. Hai già le risorse per far fiorire il nuovo in questo momento. Puoi guardare a quello che è già tuo.
+    scartato risposta: genereContrario: I segni del viaggio dicono che c'è un modo nuovo per affrontare il blocco che senti. Puoi sciogliere la tensione che ti tiene fermo. Questo ti permette di procedere senza forzature.
+    scartato azione: ripeteUnoStrato: Domani, prova a fare una cosa che fai sempre in un certo modo, usando l'altra mano.
+    scartato azione: previsioneCerta: Domani, quando preparerai il pranzo, usa utensili diversi dal solito per ogni passaggio.
+    scartato risposta: gergo: un gesto da fare. Scegli un'altra direzione per affrontare ciò che ti blocca. Puoi permetterti di lasciare andare quello che non serve più.
+    scartato azione: genereContrario: Domani sera metti da parte una vecchia foto di un momento in cui ti sentivi bloccato. Non la buttare ma non guardarla per una settimana.
+    scartato titolo: gergo: Puoi lasciare andare
+    scartato azione: virgolaEe: Entro domani sera prendi un sasso liscio e piccolo, e buttalo nell'acqua che vedi scorrere vicino a casa tua.
+    scartato titolo: troppoLunga: La tua ombra non è più lì
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che devi agire. Puoi chiedere aiuto a una persona che ha già superato un blocco simile al tuo.
+    scartato titolo: tempoNelTitolo: Puoi attraversare adesso
+    scartato titolo: titoloRipetuto: Ti liberi da un peso
+    scartato azione: eUnaDomanda: Entro domani, osserva un blocco che hai di fronte e domandati: che cosa mi sta indicando questa situazione? Che direzione mi suggerisce?
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio il nome della persona o della situazione che senti come un peso. Poi piega il foglio e mettilo in un cassetto dove non lo vedi.
+    scartato azione: toccaUnTerzo: Entro domani sera scrivi su un foglio tre modi completamente diversi per affrontare quello che ti blocca, anche se ti sembrano impossibili.
+    scartato azione: fuoco: Entro domani sera scrivi su un pezzo di carta la cosa che ti blocca. Non la bruci. La pieghi e la metti sotto qualcosa che usi ogni giorno.
+tema attesa      A 100/100 | B 100 (max 1) | C 17.0 tutte, 17.0 senza simboli comuni | D 1 | E 30/100, col modello 64/100 | F 0 finestre ripetute, titolo dopo 30 | scena dal modello 79/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | guasti {scena scartata: 8, tempo scaduto: 3} | fonti {titolo modello: 99, risposta modello: 95, gesto modello: 99, risposta riserva: 5, titolo riserva: 1, gesto riserva: 1} | motivi finali {risposta riserva: ripeteUnoStrato: 1, risposta riserva: troppoLunga: 1, risposta riserva: nonPrendePosizione: 2, titolo riserva: 1, risposta riserva: 1, gesto riserva: 1} | scarti {risposta: gergo: 3, risposta: nonNominaLaDomanda: 40, risposta: ripeteUnoStrato: 4, titolo: troppoLunga: 3, risposta: troppoLunga: 15, azione: chiedeDiScrivere: 30, risposta: previsioneCerta: 16, risposta: nonPrendePosizione: 110, titolo: tempoNelTitolo: 11, azione: virgolaEe: 9, risposta: anticipaLaScena: 7, titolo: titoloRipetuto: 8, azione: previsioneCerta: 4, titolo: previsioneCerta: 4, azione: consiglioDiVita: 1, azione: troppoLunga: 1, risposta: statoDiUnTerzo: 2} | dal modello prima {titolo: 97, risposta: 52, gesto: 92} dopo {titolo: 99, risposta: 95, gesto: 99} | riprese alla seconda {risposta: nonPrendePosizione: 48, azione: virgolaEe: 2, risposta: previsioneCerta: 3, azione: chiedeDiScrivere: 5, titolo: titoloRipetuto: 2, risposta: nonNominaLaDomanda: 9, risposta: troppoLunga: 2, risposta: anticipaLaScena: 1} | titoli piu ripetuti "La direzione si rivela" 2, "La tua attesa è finita" 2, "La porta non è la fine" 2
+    dal modello: Cerca la tua stessa acqua / I segni del viaggio dicono che l'attesa è solo un modo per non guardare ciò che ti aspetta. Puoi trovare un nuovo inizio proprio dove ti senti bloccato. La vera novità non arriva da fuori, ma da dentro di te. / Entro sabato, trova un momento per stare vicino a una fonte d'acqua naturale e osserva il suo movimento.
+    dal modello: Ciò che cerchi è già lì / (riserva) / Entro domani, fai una piccola azione che rimandi da tempo, anche se non sai dove ti porterà.
+    dal modello: La risposta è già qui / (riserva) / Oggi pomeriggio, dedica un'ora a fare qualcosa che ti dia piacere e che non sia finalizzato a un risultato.
+    scartato risposta: gergo: un gesto da fare. I segni del viaggio indicano che il "qualcosa" che attendi è già presente, ma non lo riconosci. Puoi aprirti a una nuova possibilità quando cambi la tua prospettiva.
+    scartato risposta: nonNominaLaDomanda: un gesto da fare. I segni del viaggio indicano che ciò che attendi è già presente, ma non lo vedi. Puoi trovare una nuova strada quando guardi in modo diverso.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ciò che ti trattiene è la sensazione che debba ancora succedere qualcosa. Puoi scegliere di agire anche senza la certezza di un esito. Non aspettare che ti venga dato il permesso.
+    scartato titolo: troppoLunga: Ciò che è stato è già qui
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano che il "qualcosa" che aspetti è già in movimento dentro di te. Puoi riconoscere che ciò che non arriva da fuori è già una risorsa che hai in mano. Non c'è un tempo giusto, solo il tuo tempo.
+    scartato azione: chiedeDiScrivere: Stasera, scrivi tre cose che hai rimandato pensando di non avere tempo per farle.
+    scartato risposta: previsioneCerta: I segni del viaggio indicano che ciò che aspetti non arriverà perché hai già tutto. Puoi riconoscere la pienezza di ciò che ti circonda. La tua vera essenza non ha bisogno di essere attesa.
+    scartato risposta: nonPrendePosizione: I segni del viaggio mostrano che ciò che cerchi è già presente, solo non sotto la forma che ti aspetti. Puoi guardare oltre l'immagine che hai formato. La tua piena realizzazione è un atto di scoperta di ciò che è già qui.
+    scartato titolo: tempoNelTitolo: Il tuo tempo è adesso
+    scartato azione: virgolaEe: Stasera scrivi su un foglio il primo piccolo passo che puoi fare per ciò che stai aspettando, e mettilo in un cassetto.
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano che il tempo che attendi è già qui. Puoi gettare un seme per far arrivare ciò che aspetti. Non devi più aspettare un momento futuro.
+    scartato titolo: titoloRipetuto: La porta non è la fine
+    scartato azione: previsioneCerta: Entro domani sera scrivi un messaggio a qualcuno che conosci e che ha già ottenuto ciò che tu aspetti. Chiedi come ha fatto il primo passo.
+    scartato titolo: previsioneCerta: Non è il momento giusto
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che ti hanno sorpreso oggi. Non devono essere importanti.
+    scartato azione: troppoLunga: Entro domani sera scrivi su un foglio due azioni concrete che puoi fare tu stesso per raggiungere quello che stai aspettando. Non scrivere nulla su chi aspetti o su quello che gli altri dovrebbero fare.
+    scartato risposta: statoDiUnTerzo: sì a una condizione. I segni del viaggio dicono che la tua attesa si conclude se provi a chiedere aiuto a tuo padre. Lui può indicarti la strada.
+tema direzione   A 100/100 | B 100 (max 1) | C 19.1 tutte, 13.8 senza simboli comuni | D 1 | E 84/100, col modello 97/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 76/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 6 | distanze gesto 20 risposta 11 | guasti {tempo scaduto: 8, scena scartata: 14} | fonti {titolo modello: 98, risposta modello: 88, gesto modello: 95, gesto riserva: 5, risposta riserva: 12, titolo riserva: 2} | motivi finali {gesto riserva: chiedeDiScrivere: 1, risposta riserva: nonPrendePosizione: 1, gesto riserva: consiglioDiVita: 1, titolo riserva: previsioneCerta: 1, risposta riserva: nonNominaLaDomanda: 3, titolo riserva: 1, risposta riserva: 1, gesto riserva: 1, risposta riserva: troppoLunga: 2, risposta riserva: previsioneCerta: 3, gesto riserva: virgolaEe: 1, gesto riserva: previsioneCerta: 1, risposta riserva: gergo: 1, risposta riserva: genereContrario: 1} | scarti {risposta: nonNominaLaDomanda: 29, azione: chiedeDiScrivere: 38, risposta: nonPrendePosizione: 126, risposta: previsioneCerta: 19, azione: consiglioDiVita: 5, azione: virgolaEe: 6, risposta: troppoLunga: 14, titolo: previsioneCerta: 2, risposta: anticipaLaScena: 14, risposta: gergo: 11, titolo: tempoNelTitolo: 3, titolo: troppoLunga: 1, titolo: titoloRipetuto: 30, azione: previsioneCerta: 7, azione: gergo: 1, azione: troppoLunga: 2, titolo: gergo: 3, risposta: genereContrario: 3, azione: toccaUnTerzo: 1} | dal modello prima {titolo: 95, gesto: 84, risposta: 50} dopo {titolo: 98, risposta: 88, gesto: 95} | riprese alla seconda {risposta: nonNominaLaDomanda: 6, risposta: nonPrendePosizione: 41, azione: chiedeDiScrivere: 9, titolo: troppoLunga: 1, azione: previsioneCerta: 2, risposta: anticipaLaScena: 3, risposta: gergo: 2, azione: virgolaEe: 2, titolo: titoloRipetuto: 2, titolo: tempoNelTitolo: 1, risposta: previsioneCerta: 3, azione: consiglioDiVita: 1} | titoli piu ripetuti "La direzione si mostra" 3, "La direzione si rivela" 3, "La direzione sei tu" 2
+    dal modello: La direzione si mostra / I segni del viaggio ti dicono di fare un passo, anche piccolo, verso ciò che non è familiare. Puoi scoprire una nuova direzione se ti lasci guidare dalla curiosità. / Entro domani sera, scegli una strada o un percorso che non hai mai fatto prima e percorrilo per almeno dieci minuti.
+    dal modello: Cerca nella parte non vista / I segni del viaggio indicano che ciò che ti trattiene è la sensazione di non avere risposte chiare. Puoi trovare una direzione solo quando smetti di aspettare che ti venga mostrata la strada. / (riserva)
+    dal modello: La risorsa è già tua / I segni del viaggio dicono che la direzione è già presente come una risorsa che puoi attivare. Non ti manca niente per proseguire nel tuo cammino, hai già tutto ciò che ti serve per iniziare il prossimo passo. / Domani mattina, scegli un piccolo compito che stai rimandando e portalo a termine prima di mezzogiorno.
+    scartato risposta: nonNominaLaDomanda: un gesto da fare. I segni del viaggio ti dicono di fare un passo, anche piccolo, verso ciò che non è familiare. Puoi scoprire una nuova strada se ti lasci guidare dalla curiosità.
+    scartato azione: chiedeDiScrivere: Entro domani sera, scegli una domanda che ti tieni dentro da tempo e scrivila su un foglio. Poi, senza pensarci, strappalo in piccoli pezzi.
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che la direzione che cerchi è già presente in te come una risorsa che non riconosci. Puoi cominciare a vederla se ti fidi di ciò che hai già costruito finora.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che la tua direzione è già tracciata. Segui ciò che senti tirare dentro di te, anche se non vedi bene dove ti porta.
+    scartato azione: consiglioDiVita: Oggi pomeriggio, osserva la tua ombra sul pavimento o sul muro. Immagina che si stacchi da te e la guardi da fuori per un minuto.
+    scartato azione: virgolaEe: Entro domani sera, prendi un oggetto che senti non tuo, anche piccolo, e spostalo fuori dalla tua vista.
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio ti invitano a togliere la maschera per trovare la tua direzione. Puoi rivelare a te stessa ciò che tieni nascosto per capire dove andare. La tua strada si mostra quando sei completamente onesta.
+    scartato titolo: previsioneCerta: Cosa è già costruito
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano di sì. Puoi aprire quella porta chiusa che vedi. Dentro trovi l'inizio della direzione che cerchi.
+    scartato risposta: gergo: I segni del viaggio indicano che la direzione è già dentro di te. Non cercare fuori ciò che hai già. Puoi trovare la tua strada seguendo i tuoi desideri più autentici.
+    scartato titolo: tempoNelTitolo: La direzione arriva ora
+    scartato titolo: troppoLunga: Cosa è tuo ti indica la via
+    scartato titolo: titoloRipetuto: La tua direzione è chiara
+    scartato azione: previsioneCerta: Domani mattina fai una piccola ricerca su un argomento che ti interessa, anche se non sai a cosa porterà.
+    scartato azione: gergo: Stasera, scrivi tre cose che vorresti lasciare andare e tre cose che vorresti tenere con te.
+    scartato azione: troppoLunga: Entro domani sera prendi un oggetto che ti ha accompagnata a lungo e che non usi più. Poi mettilo in un cassetto o in un armadio, in un posto dove non lo vedi ogni giorno.
+    scartato titolo: gergo: La direzione è già in te
+    scartato risposta: genereContrario: un gesto da fare. I segni del viaggio indicano di guardare le maschere che indossi. Osserva come ti senti quando le porti.
+    scartato azione: toccaUnTerzo: Stasera cerca una persona che ha affrontato una scelta importante e chiedile come ha fatto.
+tema finito      A 100/100 | B 100 (max 1) | C 20.5 tutte, 19.1 senza simboli comuni | D 1 | E 35/100, col modello 66/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 91/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 33 | guasti {scena scartata: 18, tempo scaduto: 7} | fonti {titolo modello: 98, risposta modello: 92, gesto modello: 99, risposta riserva: 8, titolo riserva: 2, gesto riserva: 1} | motivi finali {risposta riserva: nonNominaLaDomanda: 2, risposta riserva: gergo: 4, titolo riserva: gergo: 1, gesto riserva: chiedeDiScrivere: 1, risposta riserva: previsioneCerta: 1, risposta riserva: virgolaEe: 1, titolo riserva: titoloRipetuto: 1} | scarti {titolo: troppoLunga: 9, risposta: nonPrendePosizione: 107, azione: chiedeDiScrivere: 23, risposta: previsioneCerta: 12, risposta: nonNominaLaDomanda: 31, azione: consiglioDiVita: 4, risposta: ripeteUnoStrato: 1, azione: saluteDenaroLegge: 1, risposta: gergo: 18, risposta: troppoLunga: 16, azione: virgolaEe: 5, risposta: anticipaLaScena: 6, titolo: tempoNelTitolo: 12, azione: genereContrario: 2, titolo: gergo: 1, titolo: titoloRipetuto: 12, risposta: promessa: 1, azione: troppoLunga: 2, azione: previsioneCerta: 1, risposta: virgolaEe: 2, azione: toccaUnTerzo: 1, azione: fuoco: 1, titolo: previsioneCerta: 1, azione: gergo: 1} | dal modello prima {titolo: 92, risposta: 45, gesto: 97} dopo {titolo: 98, risposta: 92, gesto: 99} | riprese alla seconda {risposta: nonNominaLaDomanda: 12, risposta: nonPrendePosizione: 47, azione: saluteDenaroLegge: 1, risposta: anticipaLaScena: 3, titolo: titoloRipetuto: 3, risposta: previsioneCerta: 1, titolo: troppoLunga: 2, titolo: tempoNelTitolo: 3, risposta: gergo: 3, azione: chiedeDiScrivere: 1, risposta: troppoLunga: 1} | titoli piu ripetuti "Cosa ha ancora radici" 2, "C'è qualcosa che non vedi" 2, "La fine è un inizio" 2
+    dal modello: Il tuo legame non si spezza / un gesto da fare. Il tuo legame con ciò che è finito non si spezza, ma si trasforma. Puoi onorare ciò che hai avuto, senza provare a replicarlo. / Stasera, trova un oggetto che ti lega a ciò che è finito e mettilo via in un luogo speciale.
+    dal modello: C'è qualcosa che non vedi / I segni del viaggio dicono che a trattenerti è l'idea che qualcosa sia finito del tutto. Non hai ancora accettato la fine. Permettiti di sentire che non è acqua passata. / Entro domani, osserva un piccolo dettaglio che non hai mai notato in un luogo che frequenti spesso.
+    dal modello: La forza che hai dentro / (riserva) / Domani mattina, prepara una piccola colazione speciale per te.
+    scartato titolo: troppoLunga: Ciò che non finisce è la memoria
+    scartato risposta: nonPrendePosizione: un gesto da fare. I segni del viaggio indicano che il tuo legame con ciò che è finito non si spezza, ma si trasforma. Puoi onorare ciò che hai avuto, senza provare a replicarlo.
+    scartato azione: chiedeDiScrivere: Entro sabato, scrivi una breve frase per ogni persona che hai incontrato in questa situazione.
+    scartato risposta: previsioneCerta: un gesto da fare. Puoi fare spazio a ciò che verrà, senza chiudere del tutto la porta su quello che è stato. Non è necessario capire subito la direzione, basta non restare immobili.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che ti trattengono le aspettative su come dovrebbe essere il futuro. Non riesci a vedere ciò che è già presente. Guarda quello che si manifesta senza giudizio.
+    scartato azione: consiglioDiVita: Domani mattina, cerca un piccolo sasso e portalo con te per tutta la giornata. Quando lo tieni in mano, ricorda che è lì per un motivo.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che hai già a disposizione la tua capacità di ricostruire dopo che qualcosa è finito. Non cercare fuori ciò che hai già dentro. Puoi usare la tua forza per ricominciare.
+    scartato azione: saluteDenaroLegge: Entro domenica non comprare nulla che non sia indispensabile.
+    scartato risposta: gergo: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di domani sera provi a bussare a quella porta. Qualcosa è finito, ma puoi aprirti a nuove possibilità.
+    scartato risposta: troppoLunga: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di domani sera provi ad aprire quella porta. Qualcosa è finito, ma questo non significa che non ci sia altro da scoprire. Puoi guardare oltre ciò che conosci.
+    scartato azione: virgolaEe: Domani mattina tocca la cosa che è finita, o che la rappresenta, e tienila un minuto fra le mani.
+    scartato risposta: anticipaLaScena: I segni del viaggio indicano che devi piantare un nuovo seme. Prendi ciò che è finito e dagli una nuova forma. Puoi scegliere tu come farlo.
+    scartato titolo: tempoNelTitolo: La direzione si decide ora
+    scartato azione: genereContrario: Entro domani sera scrivi come ti senti riguardo a quello che è finito.
+    scartato titolo: gergo: Puoi lasciare andare
+    scartato titolo: titoloRipetuto: La fine è un nuovo inizio
+    scartato risposta: promessa: I segni del viaggio dicono che la fine è un nuovo inizio. Puoi vedere che il ramo secco non è morto. Porta con te quello che è finito, in un modo nuovo.
+    scartato azione: troppoLunga: Entro domani, tocca una cosa rotta che hai in casa e non hai mai buttato via. Non aggiustarla, ma sentila fra le dita e decidi dove metterla, in vista o nascosta.
+    scartato azione: previsioneCerta: Domani mattina tocca la cosa che ti ricorda di più ciò che è finito. Spostala in un punto della tua casa dove la vedrai spesso.
+    scartato risposta: virgolaEe: un gesto da fare. Il viaggio ti chiede di capire cosa significa per te che qualcosa sia finito. Hai la possibilità di guardare cosa lasci mostrato di questo, e cosa invece tieni per te.
+    scartato azione: toccaUnTerzo: Entro domani sera scrivi un messaggio a una persona che ha vissuto una situazione simile alla tua. Chiedi come ha affrontato la fase finale.
+    scartato azione: fuoco: Stasera scrivi su un pezzo di carta cosa è finito per te, poi brucialo e conservane le ceneri in una piccola scatola.
+    scartato titolo: previsioneCerta: Cosa è già passato
+    scartato azione: gergo: Domani mattina, esamina un oggetto che rappresenta ciò che è finito e decidi quale parte vuoi tenere e quale vuoi lasciare andare.
+libera 1         A 100/100 | B 100 (max 1) | C 29.3 tutte, 27.2 senza simboli comuni | D 2 | E 64/100, col modello 87/100 | F 0 finestre ripetute, titolo dopo 31 | scena dal modello 88/100 | per blocco {titolo: 2, risposta: 1, gesto: 2, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 20 risposta 1000 | temi {attesa (modello): 97} | guasti {tempo scaduto: 11, scena scartata: 27} | oggetti {tua sorella: 97} | fonti {titolo modello: 94, risposta riserva: 58, gesto modello: 96, risposta modello: 42, gesto riserva: 4, titolo riserva: 6} | motivi finali {risposta riserva: statoDiUnTerzo: 41, risposta riserva: previsioneCerta: 5, gesto riserva: promessa: 1, risposta riserva: troppoLunga: 3, titolo riserva: statoDiUnTerzo: 1, titolo riserva: 3, risposta riserva: 3, gesto riserva: 3, titolo riserva: troppoLunga: 1, risposta riserva: promessa: 3, titolo riserva: titoloRipetuto: 1, risposta riserva: genereContrario: 3} | scarti {titolo: statoDiUnTerzo: 17, risposta: statoDiUnTerzo: 130, risposta: troppoLunga: 19, risposta: ripeteUnoStrato: 1, titolo: tempoNelTitolo: 11, risposta: genereContrario: 19, azione: promessa: 13, risposta: previsioneCerta: 18, titolo: titoloRipetuto: 22, risposta: nonNominaLaDomanda: 6, titolo: fuoco: 1, azione: previsioneCerta: 2, risposta: nonPrendePosizione: 29, azione: chiedeDiScrivere: 12, azione: statoDiUnTerzo: 2, risposta: promessa: 5, titolo: troppoLunga: 10, azione: toccaUnTerzo: 1, risposta: virgolaEe: 1, azione: consiglioDiVita: 2, risposta: gergo: 2} | dal modello prima {titolo: 85, gesto: 93, risposta: 29} dopo {titolo: 94, gesto: 96, risposta: 42} | riprese alla seconda {titolo: tempoNelTitolo: 3, azione: promessa: 3, titolo: fuoco: 1, titolo: statoDiUnTerzo: 2, risposta: nonNominaLaDomanda: 3, risposta: statoDiUnTerzo: 8, risposta: nonPrendePosizione: 3, risposta: troppoLunga: 1, titolo: titoloRipetuto: 7, risposta: promessa: 1, azione: toccaUnTerzo: 1, titolo: troppoLunga: 3} | titoli piu ripetuti "Tu non puoi decidere per lei" 2, "Puoi darle un nuovo inizio" 1, "Guarda cosa puoi fare" 1
+    dal modello: Sii presente, senza sapere / (riserva) / Entro giovedì vai a trovare tua sorella senza preavviso e resta con lei almeno un'ora, senza fare domande.
+    dal modello: La vedi con i tuoi occhi / (riserva) / Domani mattina chiedi a tua sorella che cosa ti serve sapere per aiutarla.
+    dal modello: Guarda cosa puoi fare / (riserva) / Domani mattina prepara il pranzo per tua sorella e portaglielo senza dirle nulla.
+    scartato titolo: statoDiUnTerzo: Accompagnala senza aspettare
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi accompagnare tua sorella in questo tempo sospeso. Puoi esserle vicina senza chiedere nulla, solo stando.
+    scartato risposta: troppoLunga: un gesto da fare. Tu puoi essere un sostegno per tua sorella ora. Offri il tuo aiuto pratico, non devi attendere che sia lei a domandare. Puoi proporre un'azione specifica per esserle vicina.
+    scartato risposta: ripeteUnoStrato: Chiedi a tua sorella che cosa la preoccupa dell'attesa di un figlio. Puoi aiutarla a guardare la situazione con chiarezza, senza proiettare le tue aspettative. Stai con lei, al di là di ogni ipotesi.
+    scartato titolo: tempoNelTitolo: Puoi starle vicina adesso
+    scartato risposta: genereContrario: I segni del viaggio dicono che non puoi sapere se tua sorella diventerà presto mamma. Puoi starle vicino. Le sue scelte non sono tue da prendere.
+    scartato azione: promessa: Oggi pomeriggio chiama tua sorella e chiedile come sta, senza parlare della gravidanza.
+    scartato risposta: previsioneCerta: I segni del viaggio indicano che puoi sostenere tua sorella, non che puoi sapere il suo futuro. Puoi essere presente per lei, non per quello che accadrà. Sii vicina ai suoi desideri, qualunque essi siano.
+    scartato titolo: titoloRipetuto: Dalle cura che puoi
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono di darle cura che puoi. Puoi chiederle se vuole parlare delle sue preoccupazioni. Puoi ascoltarla senza giudicarla.
+    scartato titolo: fuoco: Accendi tu la speranza
+    scartato azione: previsioneCerta: Domani mattina chiedi a tua sorella se ha già pensato a un nome per il bambino.
+    scartato risposta: nonPrendePosizione: I segni del viaggio indicano che non puoi sapere se tua sorella diventerà presto mamma. Tu puoi chiederle di che cosa ha bisogno. Tu puoi esserle vicina senza aspettarti nulla da lei.
+    scartato azione: chiedeDiScrivere: Stasera scrivi una domanda chiara da fare a tua sorella sul suo desiderio di maternità.
+    scartato azione: statoDiUnTerzo: Questa sera, chiama tua sorella per una chiacchierata e chiedile come si sente in questo periodo della sua vita.
+    scartato risposta: promessa: I segni del viaggio indicano che la questione della gravidanza di tua sorella non ha una risposta chiara ora. Puoi continuare a starle vicina, come hai fatto finora. La tua presenza è il vero dono.
+    scartato titolo: troppoLunga: Tu dai valore a quello che c'è
+    scartato azione: toccaUnTerzo: Stasera scrivi a tua sorella per chiederle come sta, senza affrontare discorsi impegnativi.
+    scartato risposta: virgolaEe: un gesto da fare. Puoi stare con tua sorella e ascoltare ciò che vive. La sua esperienza è sua, e tu puoi solo esserle vicina senza forzare il suo tempo.
+    scartato azione: consiglioDiVita: Stasera, quando chiami tua sorella, ascolta con attenzione i suoi progetti per i prossimi mesi.
+    scartato risposta: gergo: I segni del viaggio indicano che puoi lasciare andare l'attesa. Puoi concentrarti su ciò che è presente nella tua vita. Puoi esserle vicina senza prevedere il suo domani.
+libera 2         A 100/100 | B 100 (max 1) | C 35.0 tutte, 28.7 senza simboli comuni | D 1 | E 14/100, col modello 80/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 87/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 5 | distanze gesto 1000 risposta 1000 | temi {scelta (modello): 97} | guasti {scena scartata: 17, tempo scaduto: 3} | oggetti {il tuo lavoro: 97} | fonti {titolo modello: 99, risposta modello: 93, gesto modello: 99, risposta riserva: 7, titolo riserva: 1, gesto riserva: 1} | motivi finali {risposta riserva: ripeteUnoStrato: 1, risposta riserva: nonNominaLaDomanda: 2, risposta riserva: previsioneCerta: 3, titolo riserva: titoloRipetuto: 1, risposta riserva: troppoLunga: 1, gesto riserva: previsioneCerta: 1} | scarti {risposta: nonPrendePosizione: 108, azione: senzaTempo: 1, risposta: previsioneCerta: 37, risposta: nonNominaLaDomanda: 35, risposta: ripeteUnoStrato: 2, azione: chiedeDiScrivere: 60, titolo: troppoLunga: 3, risposta: anticipaLaScena: 4, titolo: previsioneCerta: 12, titolo: tempoNelTitolo: 10, risposta: troppoLunga: 35, risposta: primaPersona: 1, azione: primaPersona: 1, titolo: titoloRipetuto: 10, azione: troppoLunga: 2, azione: previsioneCerta: 10, azione: toccaUnTerzo: 2, risposta: decisioneGrave: 3, azione: virgolaEe: 1, titolo: gergo: 1, risposta: gergo: 1, azione: consiglioDiVita: 1, azione: saluteDenaroLegge: 1, titolo: fuoco: 1} | dal modello prima {titolo: 92, risposta: 69, gesto: 80} dopo {titolo: 99, risposta: 93, gesto: 99} | riprese alla seconda {risposta: nonPrendePosizione: 22, risposta: previsioneCerta: 4, azione: chiedeDiScrivere: 17, titolo: titoloRipetuto: 4, titolo: previsioneCerta: 4, risposta: nonNominaLaDomanda: 3, risposta: anticipaLaScena: 1, azione: troppoLunga: 1, azione: previsioneCerta: 4, risposta: troppoLunga: 1, titolo: troppoLunga: 1, azione: consiglioDiVita: 1, azione: saluteDenaroLegge: 1, azione: toccaUnTerzo: 1} | titoli piu ripetuti "La scelta è già tua" 2, "La chiave è già tua" 2, "La scelta è tua e basta" 2
+    dal modello: C'è altro da considerare / I segni del viaggio dicono di sì, a condizione che tu non smetta di imparare. Puoi cercare nuove competenze che ti servono adesso. Cerca quello che ti manca per il tuo progetto. / Entro venerdì, cerca online un corso breve o un workshop che ti interessi nel campo che vorresti esplorare.
+    dal modello: Cosa nascondi a te stesso / (riserva) / Stasera, dopo cena, siediti in un luogo tranquillo e pensa a un momento in cui hai provato gioia nel tuo lavoro attuale.
+    dal modello: La tua risorsa è già qui / un gesto da fare. I segni del viaggio ti mostrano il tuo lavoro attuale come una base. Puoi riconoscere tutto ciò che hai costruito in questi anni. / Domani mattina, prima di iniziare la giornata, elenca tre cose concrete che il tuo attuale lavoro ti ha dato e che ti servono per il tuo progetto.
+    scartato risposta: nonPrendePosizione: I segni del viaggio dicono di sì, se il tuo lavoro ti sta impedendo di essere te stesso. Non forzare subito una decisione drastica. Puoi ancora trovare una soluzione che ti permetta di esprimerti senza rischiare tutto.
+    scartato azione: senzaTempo: Parla con un collega di cui ti fidi del tuo desiderio di esprimere di più le tue capacità.
+    scartato risposta: previsioneCerta: I segni del viaggio dicono di sì, se il tuo lavoro attuale non ti permette di imparare qualcosa di nuovo. Non è il momento di un salto nel buio. Puoi mettere alla prova la tua idea in piccolo, senza rinunciare subito alla tua stabilità.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono di sì, a condizione che tu non smetta di imparare. Puoi cercare nuove competenze che ti servono adesso. Cerca quello che ti manca per il tuo progetto.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono di no. Non puoi nascondere a te stesso quello che provi davvero per il tuo lavoro. Riconosci la tua vera motivazione.
+    scartato azione: chiedeDiScrivere: Domani, scrivi tre cose che ti spaventano nel lasciare il tuo lavoro.
+    scartato titolo: troppoLunga: Non è il lavoro che ti trattiene
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono di no. Non è il lavoro attuale che ti impedisce di aprire qualcosa di tuo. Il tuo ostacolo è la maschera che porti per nascondere la tua vera ragione.
+    scartato titolo: previsioneCerta: La porta si aprirà
+    scartato titolo: tempoNelTitolo: La scelta è tua ora
+    scartato risposta: troppoLunga: sì a una condizione. I segni del viaggio dicono di sì, se prima di lasciare il tuo lavoro parli con tre persone che hanno fatto la stessa scelta. Chiedi loro come hanno affrontato i primi sei mesi. Poi decidi tu.
+    scartato risposta: primaPersona: sì a una condizione. I segni del viaggio ti dicono di sì, se prima di decidere chiarisci cosa intendi per "qualcosa di mio". Non è una questione di quantità o di successo, ma di significato personale.
+    scartato azione: primaPersona: Entro domani sera, scrivi tre cose che il tuo lavoro "di mio" deve avere per farti sentire pienamente realizzato.
+    scartato titolo: titoloRipetuto: La scelta è tua e basta
+    scartato azione: troppoLunga: Entro un mese, prepara un piccolo business plan per la tua idea, anche solo di una pagina, con costi stimati e un obiettivo di guadagno minimo per i primi sei mesi.
+    scartato azione: previsioneCerta: Entro venerdì chiama tre persone che conosci e che hanno già lasciato il loro lavoro per aprire qualcosa di loro.
+    scartato azione: toccaUnTerzo: Entro venerdì contatta tre persone che hanno aperto un'attività simile alla tua per chiedere un confronto.
+    scartato risposta: decisioneGrave: I segni del viaggio indicano che devi lasciare il tuo lavoro per aprire qualcosa di tuo. Il tuo cammino è oltre la porta chiusa che ora vedi. Puoi trovare il coraggio di attraversarla.
+    scartato azione: virgolaEe: Stasera scrivi su un pezzo di carta perché vuoi lasciare il tuo lavoro, e poi buttalo via senza rileggerlo.
+    scartato titolo: gergo: Il nuovo è già in te
+    scartato risposta: gergo: sì. I segni del viaggio indicano che puoi lasciare il tuo lavoro per aprire qualcosa di tuo. Hai già gli strumenti per iniziare il tuo percorso.
+    scartato azione: consiglioDiVita: Domani mattina chiedi una settimana di ferie per riflettere.
+    scartato azione: saluteDenaroLegge: Stasera cerca un contatto per un prestito o un fondo di avviamento.
+    scartato titolo: fuoco: La tua scintilla brucia
+libera 3         A 100/100 | B 100 (max 1) | C 30.2 tutte, 30.2 senza simboli comuni | D 1 | E 68/100, col modello 83/100 | F 0 finestre ripetute, titolo dopo 28 | scena dal modello 83/100 | per blocco {titolo: 2, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 7 | distanze gesto 1000 risposta 1000 | temi {persona (modello): 97} | guasti {scena scartata: 16, tempo scaduto: 7} | oggetti {tuo padre: 97} | fonti {titolo modello: 95, risposta riserva: 66, gesto modello: 96, risposta modello: 34, titolo riserva: 5, gesto riserva: 4} | motivi finali {risposta riserva: statoDiUnTerzo: 59, risposta riserva: ripeteUnoStrato: 1, titolo riserva: gergo: 1, risposta riserva: troppoLunga: 4, risposta riserva: previsioneCerta: 1, titolo riserva: tempoNelTitolo: 1, risposta riserva: genereContrario: 1, gesto riserva: previsioneCerta: 1, gesto riserva: toccaUnTerzo: 1, titolo riserva: statoDiUnTerzo: 3, gesto riserva: consiglioDiVita: 1, gesto riserva: chiedeDiScrivere: 1} | scarti {risposta: statoDiUnTerzo: 180, azione: chiedeDiScrivere: 31, titolo: tempoNelTitolo: 6, risposta: troppoLunga: 34, risposta: nonNominaLaDomanda: 4, titolo: statoDiUnTerzo: 68, risposta: ripeteUnoStrato: 5, azione: consiglioDiVita: 21, azione: previsioneCerta: 17, titolo: gergo: 8, risposta: gergo: 5, titolo: titoloRipetuto: 8, risposta: nonPrendePosizione: 7, azione: toccaUnTerzo: 8, risposta: anticipaLaScena: 2, azione: fuoco: 1, risposta: previsioneCerta: 1, azione: troppoLunga: 7, titolo: troppoLunga: 4, risposta: genereContrario: 6, azione: eUnaDomanda: 1, azione: virgolaEe: 2, azione: statoDiUnTerzo: 1} | dal modello prima {titolo: 80, gesto: 85, risposta: 17} dopo {titolo: 95, gesto: 96, risposta: 34} | riprese alla seconda {azione: previsioneCerta: 7, risposta: statoDiUnTerzo: 16, risposta: troppoLunga: 1, titolo: statoDiUnTerzo: 14, titolo: troppoLunga: 3, risposta: nonNominaLaDomanda: 3, titolo: tempoNelTitolo: 2, azione: chiedeDiScrivere: 4, titolo: gergo: 3, azione: troppoLunga: 2, risposta: nonPrendePosizione: 1, risposta: gergo: 2, azione: consiglioDiVita: 3, titolo: titoloRipetuto: 1, azione: toccaUnTerzo: 1} | titoli piu ripetuti "Cerca la tua pace" 2, "Accetta quello che trovi" 2, "Tieni il tuo filo" 2
+    dal modello: Cerca la tua pace vera / (riserva) / Stasera prima di cena spegni il telefono per mezz'ora.
+    dal modello: Tieni una distanza di sicurezza / I segni del viaggio dicono che con tuo padre non puoi affrontare tutto. Non puoi sapere che cosa lo trattiene. Non puoi fargli cambiare idea o sentire diversamente. / Questa settimana, quando parli con tuo padre, scegli tu l'argomento di cui parlare.
+    dal modello: Cerca il tuo spazio sicuro / I segni del viaggio ti dicono che hai già in mano la capacità di creare un tuo spazio sicuro. Puoi proteggere il tuo benessere emotivo dalle interazioni difficili. Puoi decidere tu fino a che punto permettere all'altro di entrare. / Domani mattina, prima di fare qualsiasi altra cosa, metti via un oggetto che ti piace in un posto segreto che sia solo tuo.
+    scartato risposta: statoDiUnTerzo: un gesto da fare. Puoi trovare la tua calma adesso. Non aspettare che la situazione cambi, puoi crearla tu.
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un pezzo di carta tre cose che ti danno serenità e tienilo in tasca.
+    scartato titolo: tempoNelTitolo: Cerca la tua pace adesso
+    scartato risposta: troppoLunga: Un gesto da fare. Tu puoi trovare la tua calma adesso. Non aspettare che la situazione cambi. Tu puoi crearla.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio ti dicono che hai già in mano la capacità di creare un tuo spazio sicuro. Puoi proteggere il tuo benessere emotivo dalle interazioni difficili. Puoi decidere tu fino a che punto permettere all'altro di entrare.
+    scartato titolo: statoDiUnTerzo: Crea il tuo spazio
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che hai già la capacità di creare il tuo spazio sicuro riguardo a tuo padre. Puoi scegliere come e quando interagire con lui, proteggendo il tuo benessere. Puoi definire i confini delle vostre conversazioni.
+    scartato azione: consiglioDiVita: Domani mattina, prima di parlare con tuo padre, pensa a un argomento che non vuoi affrontare e decidi di non parlarne.
+    scartato azione: previsioneCerta: Domani, quando tuo padre ti farà una domanda, rimani in silenzio per cinque secondi prima di rispondere.
+    scartato titolo: gergo: Puoi lasciare andare un peso
+    scartato risposta: gergo: I segni del viaggio indicano che puoi lasciare andare un peso. Non puoi cambiare il modo in cui tuo padre reagisce, ma puoi cambiare il modo in cui tu rispondi alle sue parole.
+    scartato titolo: titoloRipetuto: Cerca la tua pace vera
+    scartato risposta: nonPrendePosizione: I segni del viaggio indicano un gesto da fare: puoi scegliere di non entrare nella lite. Puoi allontanarti prima che la discussione prenda il sopravvento. Puoi decidere tu quando fermare lo scambio.
+    scartato azione: toccaUnTerzo: Stasera, quando pensi a tuo padre, scrivi tre argomenti che non hai mai provato ad affrontare con lui.
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono che puoi scegliere un nuovo modo di parlare con tuo padre. Lascia i soliti discorsi che portano alla lite. Puoi cambiare il modo in cui ti relazioni con lui.
+    scartato azione: fuoco: Entro domani sera, mentre parli con tuo padre, metti giù il telefono o fai un'altra cosa per un minuto se la conversazione si accende.
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano di tenere il filo della conversazione con tuo padre, senza fare il suo gioco. Puoi interrompere la lite quando senti che comincia, senza paura di ciò che farà.
+    scartato azione: troppoLunga: Stasera, quando tuo padre comincia a litigare, puoi dirgli che hai notato che litigate sempre per lo stesso motivo e che non vuoi più farlo. Puoi chiedere di parlare di un altro argomento.
+    scartato titolo: troppoLunga: Segui il filo di quello che provi
+    scartato risposta: genereContrario: un gesto da fare. Puoi trovare il tuo spazio quando tuo padre parla con te. Non sei obbligato a risolvere i suoi problemi.
+    scartato azione: eUnaDomanda: Stasera invia a tuo padre un messaggio con scritto "Mi piacerebbe parlare con te domani, quando sei libero?"
+    scartato azione: virgolaEe: Domani mattina traccia un confine sul pavimento di casa tua, anche piccolo, e non permettere a tuo padre di superarlo.
+    scartato azione: statoDiUnTerzo: Questa settimana, quando tuo padre ti cerca per parlare, rispondi con un messaggio in cui gli proponi un appuntamento in un luogo neutro, diverso da casa tua o sua.
+libera 4         A 100/100 | B 100 (max 1) | C 17.1 tutte, 15.8 senza simboli comuni | D 1 | E 17/100, col modello 74/100 | F 0 finestre ripetute, titolo dopo 30 | scena dal modello 86/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | temi {blocco (modello): 97} | guasti {tempo scaduto: 14, scena scartata: 18} | oggetti {il finire: 97} | fonti {titolo modello: 99, risposta modello: 91, gesto modello: 96, risposta riserva: 9, gesto riserva: 4, titolo riserva: 1} | motivi finali {risposta riserva: anticipaLaScena: 1, risposta riserva: nonPrendePosizione: 3, risposta riserva: troppoLunga: 2, risposta riserva: previsioneCerta: 2, gesto riserva: chiedeDiScrivere: 2, titolo riserva: tempoNelTitolo: 1, gesto riserva: virgolaEe: 1, risposta riserva: nonNominaLaDomanda: 1, gesto riserva: previsioneCerta: 1} | scarti {risposta: nonPrendePosizione: 121, azione: virgolaEe: 14, titolo: troppoLunga: 6, risposta: anticipaLaScena: 6, risposta: ripeteUnoStrato: 2, titolo: gergo: 6, azione: consiglioDiVita: 2, risposta: gergo: 10, azione: chiedeDiScrivere: 40, risposta: nonNominaLaDomanda: 37, risposta: troppoLunga: 24, titolo: previsioneCerta: 6, titolo: tempoNelTitolo: 7, azione: troppoLunga: 6, titolo: titoloRipetuto: 10, risposta: previsioneCerta: 11, azione: previsioneCerta: 9, risposta: fuoco: 1, titolo: fuoco: 1, azione: saluteDenaroLegge: 1, azione: gergo: 1} | dal modello prima {titolo: 96, gesto: 81, risposta: 61} dopo {titolo: 99, risposta: 91, gesto: 96} | riprese alla seconda {risposta: nonPrendePosizione: 30, risposta: anticipaLaScena: 1, risposta: nonNominaLaDomanda: 7, azione: chiedeDiScrivere: 11, risposta: gergo: 2, titolo: titoloRipetuto: 1, titolo: tempoNelTitolo: 2, azione: virgolaEe: 5, risposta: previsioneCerta: 2, azione: troppoLunga: 2, titolo: previsioneCerta: 1, azione: previsioneCerta: 2, risposta: fuoco: 1, risposta: troppoLunga: 1, titolo: gergo: 1} | titoli piu ripetuti "La fine è un inizio" 3, "Smetti di cercare una fine" 1, "La risorsa è già tua" 1
+    dal modello: Non è il risultato che conta / I segni del viaggio dicono che non è il finire che ti blocca davvero. Il tuo vero timore è perdere qualcosa che hai già o lasciare un legame. Osserva dove ti senti più legata. / Entro domani sera scrivi a una persona cara per chiederle come sta, senza aspettarti nulla in cambio.
+    dal modello: C'è altro sotto la superficie / (riserva) / Domani mattina togli da un cassetto un oggetto che ti rappresenta quando sei sola.
+    dal modello: La risorsa è già tua / Un gesto da fare: guarda ciò che hai già. I segni del viaggio indicano che la risorsa per finire è proprio quella che già possiedi. Hai la capacità di portare a termine le cose che inizi. / Oggi pomeriggio individua una piccola cosa che hai iniziato e portala a termine, anche se ti sembra insignificante.
+    scartato risposta: nonPrendePosizione: un gesto da fare. Non è il finire che ti blocca davvero. Il tuo vero timore è perdere qualcosa che hai già o lasciare un legame.
+    scartato azione: virgolaEe: Entro domani sera, scegli una cosa che hai iniziato e poi lasciato, e decidi di rinunciare a finirla, verbalizzandolo ad alta voce.
+    scartato titolo: troppoLunga: Non è il finire che ti blocca
+    scartato risposta: anticipaLaScena: I segni del viaggio dicono che ciò che ti trattiene è la sensazione di dover indossare un ruolo o una maschera. Questa sensazione ti impedisce di agire pienamente. Per questo, non riesci a dare forma concreta a quello che cominci.
+    scartato risposta: ripeteUnoStrato: I segni del viaggio dicono che ciò che ti trattiene è la sensazione di dover indossare un ruolo. Questa sensazione ti impedisce di agire pienamente. Per questo, non riesci a dare forma concreta a quello che cominci.
+    scartato titolo: gergo: La risorsa è già in te
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che hai completato con successo nella tua vita, anche piccole.
+    scartato risposta: gergo: Un gesto da fare: lascia andare l'idea di perfezione che ti blocca. I segni del viaggio ti indicano di agire, anche se non vedi il risultato finale. Non aspettare di essere pronta per "il finire".
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose che hai lasciato a metà e per ognuna scrivi il motivo per cui l'hai iniziata.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio indicano che puoi completare ciò che inizi. Le cose che non finisci non sono un errore. Sono indicazioni per ciò che ti nutre davvero.
+    scartato risposta: troppoLunga: un gesto da fare. I segni del viaggio indicano di spostare l'attenzione dalla parola "fine". Non è lì che trovi il blocco. Sposta il punto di osservazione per capire davvero cosa ti ferma prima di chiudere un ciclo.
+    scartato titolo: previsioneCerta: Non tutto deve finire
+    scartato titolo: tempoNelTitolo: Il tuo finire è adesso
+    scartato azione: troppoLunga: Entro domani sera prendi uno dei lavori lasciati in sospeso e portalo a un punto conclusivo, anche minimo. Non deve essere la fine dell'intero progetto, ma la fine di un passo.
+    scartato titolo: titoloRipetuto: Ciò che non ha volto
+    scartato risposta: previsioneCerta: un gesto da fare. I segni del viaggio indicano che per finire le cose che cominci devi guardare cosa ti blocca nella situazione. Non è il tuo tempo che manca.
+    scartato azione: previsioneCerta: Entro domani sera scrivi su un foglio le tre cose che hai iniziato e non hai finito. Per ognuna, decidi se la lascerai o la porterai a termine.
+    scartato risposta: fuoco: un gesto da fare. Il viaggio indica che puoi accendere ciò che ti motiva profondamente. Trova il punto da cui ripartire per finire ciò che hai iniziato.
+    scartato titolo: fuoco: Ciò che accendi ti guida
+    scartato azione: saluteDenaroLegge: Entro domani sera esci di casa con un abito che non indosseresti mai in pubblico. Vai al supermercato più vicino a comprare il pane.
+    scartato azione: gergo: Stasera guarda tre cose che hai iniziato e scegli quale vuoi lasciare andare.
+libera 5         A 100/100 | B 100 (max 1) | C 29.5 tutte, 29.5 senza simboli comuni | D 1 | E 69/100, col modello 90/100 | F 0 finestre ripetute, titolo dopo 25 | scena dal modello 89/100 | per blocco {titolo: 3, risposta: 1, gesto: 1, da dove: 1, richiamo: 1} | richiamo in 4 | distanze gesto 1000 risposta 1000 | temi {finito (modello): 97} | guasti {tempo scaduto: 7, scena scartata: 8} | fonti {titolo modello: 88, risposta riserva: 65, gesto modello: 99, gesto riserva: 1, titolo riserva: 12, risposta modello: 35} | motivi finali {risposta riserva: statoDiUnTerzo: 51, gesto riserva: gergo: 1, titolo riserva: statoDiUnTerzo: 10, risposta riserva: previsioneCerta: 1, risposta riserva: gergo: 10, risposta riserva: nonNominaLaDomanda: 1, risposta riserva: troppoLunga: 2, titolo riserva: titoloRipetuto: 1, titolo riserva: gergo: 1} | scarti {titolo: statoDiUnTerzo: 87, risposta: statoDiUnTerzo: 160, titolo: troppoLunga: 2, azione: chiedeDiScrivere: 45, risposta: virgolaEe: 1, azione: gergo: 2, risposta: anticipaLaScena: 4, azione: previsioneCerta: 8, risposta: previsioneCerta: 9, risposta: gergo: 22, titolo: tempoNelTitolo: 14, risposta: troppoLunga: 27, risposta: nonNominaLaDomanda: 12, titolo: gergo: 10, azione: fuoco: 1, titolo: titoloRipetuto: 13, azione: virgolaEe: 5, azione: saluteDenaroLegge: 2, azione: genereContrario: 1, azione: consiglioDiVita: 1, risposta: nonPrendePosizione: 1} | dal modello prima {titolo: 70, gesto: 89, risposta: 24} dopo {titolo: 88, gesto: 99, risposta: 35} | riprese alla seconda {titolo: statoDiUnTerzo: 18, titolo: gergo: 5, azione: chiedeDiScrivere: 4, risposta: statoDiUnTerzo: 6, titolo: titoloRipetuto: 3, risposta: nonNominaLaDomanda: 5, risposta: gergo: 5, azione: virgolaEe: 1, azione: saluteDenaroLegge: 2, risposta: troppoLunga: 1, azione: genereContrario: 1, azione: consiglioDiVita: 1, titolo: tempoNelTitolo: 2, azione: previsioneCerta: 3} | titoli piu ripetuti "Cerca la tua nuova direzione" 3, "Cerca la tua immagine" 2, "Guarda oltre la fine" 2
+    dal modello: Ascolta quello che non dici / (riserva) / Domani mattina tocca la superficie del fiume vicino a casa tua.
+    dal modello: Ti tieni stretta la maschera / (riserva) / Entro domani sera butta via una cosa che ti ha dato Luca e che non hai usato per l'ultimo anno.
+    dal modello: Tieni il tuo sguardo in avanti / (riserva) / Domani mattina riprendi in mano un tuo vecchio hobby che hai abbandonato.
+    scartato titolo: statoDiUnTerzo: Non fermarti all'apparenza
+    scartato risposta: statoDiUnTerzo: un gesto da fare. I segni del viaggio dicono che puoi accettare quello che è successo. Non è tutto così fermo come sembra adesso.
+    scartato titolo: troppoLunga: Puoi lasciare andare quello che non è
+    scartato azione: chiedeDiScrivere: Stasera scrivi su un foglio tre cose positive che hai ottenuto o imparato durante la relazione con Luca.
+    scartato risposta: virgolaEe: un gesto da fare. Puoi riconoscere che questo è il tuo tempo, e che la perdita è una parte della tua storia. Non è una fine, ma un cambio di fase per te.
+    scartato azione: gergo: Domani mattina riordina un cassetto o una scatola che contenga ricordi del passato, scegliendo cosa tenere e cosa lasciare andare.
+    scartato risposta: anticipaLaScena: I segni del viaggio ti indicano di riprendere il tuo filo. Puoi ricominciare a tessere la tua storia da questo momento. Non aspettare che sia Luca a fare la prima mossa.
+    scartato azione: previsioneCerta: Domani mattina scegli un oggetto che ti lega ancora a Luca e mettilo in una scatola che non aprirai per un mese.
+    scartato risposta: previsioneCerta: I segni del viaggio dicono che puoi accettare questa fine. Luca non ti ha deluso per sempre. Non puoi controllare cosa farà lui, ma puoi scegliere come proseguire.
+    scartato risposta: gergo: un gesto da fare. Puoi lasciare andare quello che è finito. Scegli dove vuoi mettere le tue nuove energie.
+    scartato titolo: tempoNelTitolo: Cosa nasce adesso da te
+    scartato risposta: troppoLunga: un gesto da fare. Puoi guardare oltre la chiusura con Luca. Puoi esplorare cosa questo momento significa per te. Puoi scegliere cosa portare nel tuo prossimo passo.
+    scartato risposta: nonNominaLaDomanda: I segni del viaggio dicono che puoi togliere la maschera. Puoi guardarti adesso senza il suo volto. Quello che non è più in piedi mostra il vuoto che puoi riempire.
+    scartato titolo: gergo: Puoi lasciare andare il passato
+    scartato azione: fuoco: Entro sabato, scrivi una lettera a Luca, ma non spedirla. Leggila e poi bruciala.
+    scartato titolo: titoloRipetuto: Puoi lasciare il tuo passato
+    scartato azione: virgolaEe: Entro domani sera scrivi su un foglio tre cose che Luca non sapeva di te, e che ora puoi mostrare.
+    scartato azione: saluteDenaroLegge: Domani mattina compra un vaso e un seme di un fiore. Piantalo.
+    scartato azione: genereContrario: Entro domani sera, trova un momento per sederti in silenzio e scrivi a mano tre cose che desideri fare per te stessa e che finora hai rimandato per troppo tempo.
+    scartato azione: consiglioDiVita: Stasera, prima di dormire, pensa a tre cose che ti fanno stare bene e che non c'entravano con Luca. Scrivile a mente e ripetile ad alta voce.
+    scartato risposta: nonPrendePosizione: un gesto da fare: Puoi andare avanti. Non portare con te ogni cosa che è stata con Luca, perché il tuo nuovo inizio ti aspetta.
+--- un responso per esteso, settima discesa di tema scelta:
+Non aspettare un segno
+
+un gesto da fare. I segni del viaggio indicano di fare un passo concreto. Puoi iniziare a muoverti anche se la strada non è interamente visibile.
+
+Quello che puoi fare: domani mattina tocca la porta della stanza che usi meno in casa tua.
+
+Viene da ciò che hai visto. Sei al bivio nella notte, con la porta chiusa. Il Lupo si volta a guardarti. Tienila a mente fino alla prossima discesa.
+CHIAMATE AL MODELLO: 3377, token in ingresso 8751293, in uscita 403946
+  scena: 2892 chiamate, in media 2929 token in ingresso e 136.0 in uscita
+  tema: 485 chiamate, in media 585 token in ingresso e 22.4 in uscita
+  segno: nessuna chiamata
+DQ.06 titolo dal modello: prima 88.0, dopo 95.6 per cento, su 1100 discese
+DQ.06 risposta dal modello: prima 43.8, dopo 71.9 per cento, su 1100 discese
+DQ.06 gesto dal modello: prima 85.5, dopo 97.3 per cento, su 1100 discese
+DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 265, azione: chiedeDiScrivere 88, risposta: nonNominaLaDomanda 58, titolo: statoDiUnTerzo 49, risposta: statoDiUnTerzo 48, titolo: titoloRipetuto 32, azione: previsioneCerta 21, risposta: gergo 18, titolo: tempoNelTitolo 16, risposta: previsioneCerta 16, azione: virgolaEe 15, azione: consiglioDiVita 12, risposta: troppoLunga 12, titolo: troppoLunga 11, titolo: gergo 10, risposta: anticipaLaScena 10, azione: troppoLunga 9, azione: genereContrario 8, titolo: previsioneCerta 7, azione: toccaUnTerzo 6, azione: saluteDenaroLegge 4, risposta: genereContrario 3, azione: promessa 3, azione: gergo 1, azione: fuoco 1, titolo: fuoco 1, risposta: promessa 1, risposta: fuoco 1
+DQ.13 costo: 0.003234 dollari a discesa, 2892 chiamate della scena su 1100 discese
+DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 0.0 per cento
+
+=== ORDINE DJ VOCE 08, IL SEGNO COL MODELLO VERO ===
+accettati 12 su 12, gesti {siAvvicina: 5, siAllontana: 5, siVolta: 2}, 12 chiamate, in media 384 token in ingresso e 41.0 in uscita
+  Devo accettare il lavoro nuovo? -> L'Aquila si avvicina. La risposta è un incoraggiamento a procedere con questa scelta.
+  Mi conviene aspettare ancora? -> Il Cavallo si allontana. Non è il momento giusto per te per agire ora.
+  Questa persona tornerà? -> Il Cervo si avvicina. La tua vicinanza è gradita, puoi proseguire.
+  Sto sbagliando strada? -> Il Corvo si allontana. Non è questa la direzione giusta per te.
+  È il momento di partire? -> Il Falco si allontana in volo. Per ora, non è il momento giusto per te.
+  Posso fidarmi di lei? -> Il Gufo si avvicina. La fiducia è meritata.
+  Devo dire di no? -> La Lince si allontana. Non è questo il momento di dire di no.
+  Ho visto tutto quello che serve? -> Il Lupo si volta. C'è ancora qualcosa che ti sfugge.
+  Faccio bene a restare? -> L'Orso si avvicina. La tua scelta è giusta, puoi proseguire.
+  Riuscirò a finire in tempo? -> Il Serpente si avvicina. La risposta è affermativa, puoi procedere con fiducia.
+  Devo cambiare casa quest'anno? -> La Tartaruga si allontana. Non è il momento giusto per questo cambiamento.
+  Mi sto perdendo qualcosa? -> La Volpe si volta a guardare dietro di sé. C'è qualcosa che ti è sfuggito, presta attenzione.
+=== la_sonda_del_sigillo_test.dart
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.6 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+10 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.15 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+122 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+
+=== 1. "Trovo il coraggio di dire quello che sento" | Via Rossa | feminine
+TITOLO modello: Il coraggio delle tue parole
+RESPONSO modello: La tua intenzione di trovare il coraggio di dire quello che senti è custodita. Questo sigillo preserva la tua voce e le tue parole, rendendole chiare e libere.
+RIFORMULATA: Trovo il coraggio di dire quello che sento
+COMPIMENTO modello: Hai trovato il coraggio di dire quello che senti.
+SCARTI: risposta scartato per gergo: "Il sigillo custodisce la forza della tua espressione. Nelle linee del tuo segno è celato il coraggio di dire quello che senti. La tua intenzione risuona profonda."
+
+=== 2. "Voglio che Marco torni da me" | Via Rossa | masculine
+TITOLO modello: Marco torni da te
+RESPONSO CASA: Quello che desideri, "Voglio che Marco torni da me", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Io sono desiderato da Marco."}
+COMPIMENTO modello: Hai voluto che Marco tornasse da te.
+SCARTI: risposta scartato per statoDiUnTerzo: "Il sigillo che hai tracciato per che Marco torni da te custodisce il tuo desiderio di unione. Questo segno è un richiamo al suo ricordo di te." | risposta scartato per statoDiUnTerzo: "Il tuo sigillo custodisce il desiderio che Marco torni da te. Questo segno protegge la tua aspirazione più profonda."
+
+=== 3. "Apro il mio cuore a un amore che mi somiglia" | Via Rossa | unknown
+TITOLO modello: Amore che ti somiglia
+RESPONSO modello: Il sigillo che hai tracciato custodisce l'apertura del tuo cuore. Questo segno preserva l'amore che ti somiglia.
+RIFORMULATA: Apro il mio cuore a un amore simile.
+COMPIMENTO modello: Hai aperto il tuo cuore a un amore che ti somiglia.
+
+=== 4. "Voglio smettere di avere paura di parlare in pubblico" | Via Rossa | feminine
+TITOLO modello: Smettere di avere paura
+RESPONSO modello: Il tuo sigillo custodisce il desiderio di smettere di avere paura di parlare in pubblico. Questo segno protegge la tua capacità di esprimerti liberamente, senza l'ombra del timore.
+RIFORMULATA: Sono coraggiosa quando parlo in pubblico
+COMPIMENTO modello: Hai smesso di avere paura di parlare in pubblico.
+SCARTI: risposta scartato per previsioneCerta: "La tua intenzione di smettere di avere paura di parlare in pubblico è ben tracciata. Il sigillo custodisce la tua determinazione a esprimere la tua voce, liberata da ogni timore. Sarai capace di comunicare con chiarezza e sicurezza."
+
+=== 5. "Ritrovo la passione per il mio lavoro" | Via Rossa | masculine
+TITOLO modello: Passione ritrovata per il lavoro
+RESPONSO modello: Il sigillo custodisce il tuo desiderio di trovare nuovamente la passione nel tuo lavoro. È un simbolo che racchiude la tua ricerca di rinnovato interesse e dedizione verso ciò che fai.
+RIFORMULATA: Ritrovo la passione per il mio lavoro
+COMPIMENTO modello: Hai ritrovato la passione per il tuo lavoro.
+
+=== 6. "Voglio fare pace con mia sorella" | Via Rossa | unknown
+TITOLO CASA: Il cuore ha scelto il segno
+RESPONSO CASA: Hai dato un segno a "Voglio fare pace con mia sorella". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Faccio pace con mia sorella."}
+COMPIMENTO modello: Hai fatto pace con tua sorella.
+SCARTI: titolo scartato per statoDiUnTerzo: "La pace con tua sorella" | risposta scartato per statoDiUnTerzo: "Questo sigillo custodisce la tua volontà di fare pace con tua sorella. In esso dimora l'aspirazione a una serena riconciliazione." | titolo scartato per statoDiUnTerzo: "Pace con tua sorella" | risposta scartato per previsioneCerta: "Il tuo desiderio di fare pace con tua sorella è custodito in questo sigillo. Il segno racchiude la chiarezza necessaria per il tuo intento e la cura per il vostro legame. Questo segno ti accompagnerà nella ricerca della serenità."
+
+=== 7. "Desidero un figlio" | Via Rossa | feminine
+TITOLO modello: La tua aspirazione di un figlio
+RESPONSO CASA: Hai dato un segno a "Desidero un figlio". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO modello: Hai desiderato un figlio.
+SCARTI: titolo scartato per statoDiUnTerzo: "Il desiderio di un figlio" | risposta scartato per statoDiUnTerzo: "Il tuo desiderio di un figlio è custodito. Il sigillo racchiude la tua ferma volontà. Il segno protegge la tua aspirazione più profonda." | risposta scartato per statoDiUnTerzo: "Il tuo desiderio di un figlio è custodito in questo sigillo. Contiene la potenza della tua aspirazione, pura e intatta. La forma tracciata riflette la tua volontà profonda."
+
+=== 8. "Voglio vincere la causa contro il mio ex socio" | Via Rossa | masculine
+TITOLO CASA: Uno slancio che resta tuo
+RESPONSO CASA: Quello che desideri, "Voglio vincere la causa contro il mio ex socio", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO modello: Hai vinto la causa contro il tuo ex socio.
+SCARTI: titolo scartato per promessa: "Vincere la causa legale" | risposta scartato per statoDiUnTerzo: "Il sigillo che hai tracciato per vincere la causa contro il tuo ex socio custodisce la tua determinazione a prevalere. È un segno della tua forza interiore e della tua volontà incrollabile." | titolo scartato per promessa: "Vincere la causa legale" | risposta scartato per statoDiUnTerzo: "Il sigillo che hai tracciato custodisce la tua volontà di vincere la causa contro il tuo ex socio. Questo simbolo è un ricettacolo per il tuo intento incrollabile."
+
+=== 9. "Mi innamoro di nuovo della mia vita" | Via Rossa | unknown
+TITOLO CASA: Il desiderio ha preso forma
+RESPONSO CASA: Hai dato un segno a "Mi innamoro di nuovo della mia vita". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: Mi innamoro di nuovo della vita.
+COMPIMENTO CASA: Avevi scritto "Mi innamoro di nuovo della mia vita". Quello che era un segno adesso è una cosa accaduta: resta nel Libro, sigillato.
+   grezzo: {
+  "testo": "Ti sei innamorata di nuovo della tua vita."
+}
+SCARTI: titolo scartato per troppoLunga: "Il tuo nuovo amore per la vita" | risposta scartato per previsioneCerta: "Il tuo desiderio di innamorarti di nuovo della tua vita è un segno che custodisce la riscoperta della gioia e della meraviglia. Questo sigillo manterrà viva la tua intenzione, guidandoti verso la pienezza." | titolo scartato per sgrammaticato: "Il tuo innamorarti della tua vita" | risposta scartato per sgrammaticato: "Il sigillo che hai tracciato custodisce il tuo innamorarti di nuovo della tua vita. Questo segno rafforza la tua intenzione e la protegge."
+
+=== 10. "Voglio che mia madre guarisca" | Via Rossa | feminine
+TITOLO CASA: Uno slancio che resta tuo
+RESPONSO CASA: Quello che desideri, "Voglio che mia madre guarisca", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO CASA: Avevi scritto "Voglio che mia madre guarisca". Quello che era un segno adesso è una cosa accaduta: resta nel Libro, sigillato.
+   grezzo: {"testo": "Tua madre è guarita."}
+SCARTI: titolo scartato per statoDiUnTerzo: "Madre, salute ritrovata" | risposta scartato per promessa: "Il sigillo che hai tracciato per la guarigione di tua madre custodisce il tuo desiderio di vederla ristabilita. Il tuo intento è una forza che accoglie e accompagna il suo benessere." | titolo scartato per promessa: "La guarigione di tua madre" | risposta scartato per promessa: "Il sigillo che hai tracciato per la guarigione di tua madre custodisce la tua profonda speranza. La sua forma è portatrice del tuo desiderio più intimo."
+
+=== 11. "Chiedo chiarezza sulla mia strada" | Via Bianca | masculine
+TITOLO modello: La tua chiarezza stradale
+RESPONSO modello: Il sigillo che hai tracciato custodisce la chiarezza sulla tua strada. Questo segno protegge il tuo intento e lo mantiene saldo. È un faro che illumina il tuo cammino.
+RIFORMULATA: Sono chiaro sul mio cammino
+COMPIMENTO modello: Hai chiesto chiarezza sulla tua strada.
+SCARTI: risposta scartato per sgrammaticato: "La tua richiesta di chiarezza sulla tua strada è incisa in questo sigillo. Il segno custodisce la tua ricerca di luce nel tuo cammino, un faro per il tuo avanzare."
+
+=== 12. "Proteggo la quiete della mia casa" | Via Bianca | unknown
+TITOLO CASA: Ciò che proteggi ha un segno
+RESPONSO CASA: Hai dato un segno a "Proteggo la quiete della mia casa". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: La quiete della mia casa è protetta
+COMPIMENTO modello: Hai protetto la quiete della tua casa.
+
+=== 13. "Voglio capire se lasciare Roma" | Via Bianca | feminine
+TITOLO modello: Capire se lasciare Roma
+RESPONSO CASA: Quello che chiedi, "Voglio capire se lasciare Roma", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Comprendo la mia scelta su Roma."}
+COMPIMENTO modello: Hai capito se lasciare Roma.
+SCARTI: risposta scartato per statoDiUnTerzo: "Il sigillo custodisce la tua ricerca di chiarezza sul lasciare Roma. Ti aiuta a vedere con maggiore lucidità la tua situazione."
+
+=== 14. "Mi libero dall'ansia prima degli esami" | Via Bianca | masculine
+TITOLO modello: Liberazione dall'ansia esami
+RESPONSO modello: Il tuo segno custodisce la liberazione dall'ansia prima degli esami. La traccia che hai impresso protegge il tuo intento di affrontare con serenità ciò che ti attende.
+RIFORMULATA: Sono libero dall'ansia prima degli esami
+COMPIMENTO modello: Ti sei liberato dall'ansia prima degli esami.
+SCARTI: risposta scartato per gergo: "Il tuo sigillo custodisce la tua liberazione dall'ansia prima degli esami. Questo segno assicura che tu possa affrontare con serenità ogni prova."
+
+=== 15. "Metto un confine con il mio capo" | Via Bianca | unknown
+TITOLO modello: Il tuo confine con il capo
+RESPONSO CASA: Quello che chiedi, "Metto un confine con il mio capo", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Traccio un confine con il mio capo"}
+COMPIMENTO modello: Hai messo un confine con il tuo capo.
+SCARTI: risposta scartato per statoDiUnTerzo: "Il sigillo che hai tracciato è un guardiano. Custodisce il tuo desiderio di mettere un confine con il tuo capo, in una forma che sia chiara e ti protegga." | risposta scartato per statoDiUnTerzo: "Il tuo sigillo custodisce il confine che metti con il tuo capo. La chiara intenzione del tuo segno è posta a sua difesa."
+
+=== 16. "Dormo sereno ogni notte" | Via Bianca | feminine
+TITOLO modello: Sonno sereno ogni notte
+RESPONSO modello: Il sigillo che hai tracciato per dormire serena ogni notte custodisce la quiete per il tuo riposo. Sii consapevole che la via tracciata nutre il tuo proposito.
+RIFORMULATA: Dormo serena ogni notte
+COMPIMENTO modello: Hai dormito serena ogni notte.
+SCARTI: risposta scartato per sgrammaticato: "Il tuo dormire serena ogni notte è custodito. Il sigillo mantiene il tuo riposo al sicuro, preservando la tranquillità che cerchi. La tua intenzione è protetta e chiara."
+
+=== 17. "Ritrovo la calma dopo il lutto di mio padre" | Via Bianca | masculine
+TITOLO CASA: La quiete ha il suo segno
+RESPONSO CASA: Quello che chiedi, "Ritrovo la calma dopo il lutto di mio padre", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: {
+  "riformulata": "Ritrovo la mia calma."
+}
+COMPIMENTO modello: Hai ritrovato la calma dopo il lutto di tuo padre.
+ERRORE DELLA CHIAMATA: HttpException: Vertex 429: {
+  "error": {
+    "code": 429,
+    "message": "Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.",
+    "status": "RESOURCE_EXHAUSTED"
+  }
+}
+
+
+=== 18. "Voglio guarire dalla depressione" | Via Bianca | unknown
+TITOLO CASA: La chiarezza ha preso forma
+RESPONSO CASA: Hai dato un segno a "Voglio guarire dalla depressione". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO CASA: Avevi scritto "Voglio guarire dalla depressione". Quello che era un segno adesso è una cosa accaduta: resta nel Libro, sigillato.
+   grezzo: null
+SCARTI: titolo scartato per diagnosi: "Guarigione dalla depressione" | risposta scartato per diagnosi: "Il tuo desiderio di guarire dalla depressione è custodito in questo sigillo. Il segno è un abbraccio e custodisce per te il coraggio." | titolo scartato per diagnosi: "Guarire dalla depressione" | risposta scartato per diagnosi: "Il sigillo che hai tracciato per guarire dalla depressione custodisce un percorso di rinnovamento. Ti guida a trovare la luce interiore, promuovendo il tuo benessere."
+
+=== 19. "Proteggo i miei figli" | Via Bianca | feminine
+TITOLO CASA: La quiete ha il suo segno
+RESPONSO CASA: Quello che chiedi, "Proteggo i miei figli", adesso sta in un segno solo. Tornaci quando vuoi: ogni volta si accende un poco.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Sono protettrice dei miei figli"}
+COMPIMENTO modello: Hai protetto i tuoi figli.
+SCARTI: titolo scartato per statoDiUnTerzo: "Tua protezione per i figli" | risposta scartato per statoDiUnTerzo: "Il tuo sigillo custodisce la protezione che desideri per i tuoi figli. Il segno ti è d'aiuto nel difenderli." | titolo scartato per statoDiUnTerzo: "Scudo per i tuoi figli" | risposta scartato per statoDiUnTerzo: "Il tuo sigillo custodisce la cura che hai per i tuoi figli. Il segno contiene la protezione che tu desideri donare loro."
+
+=== 20. "Smetto di rimandare le decisioni" | Via Bianca | masculine
+TITOLO modello: Decisioni senza rimando
+RESPONSO CASA: Hai dato un segno a "Smetto di rimandare le decisioni". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: Prendo decisioni ora.
+COMPIMENTO modello: Hai smesso di rimandare le decisioni.
+SCARTI: risposta scartato per nomeProprio: "Il tuo sigillo custodisce la capacità di non rimandare le decisioni. Porta chiarezza e protezione nel tuo agire, rendendoti fermo e risoluto."
+
+=== 21. "Metto radici dove sono adesso" | Via Verde | unknown
+TITOLO modello: Radici salde nella tua vita
+RESPONSO modello: Mettere radici dove sei adesso, la tua volontà, è ora custodita. Il segno che hai tracciato sigilla la tua scelta, la tua fermezza.
+RIFORMULATA: (nessuna) grezza: {"riformulata": "Sono radicato dove ora mi trovo."}
+COMPIMENTO modello: Hai messo radici dove eri allora.
+
+=== 22. "Faccio crescere il mio lavoro con pazienza" | Via Verde | feminine
+TITOLO modello: Crescita del lavoro con pazienza
+RESPONSO modello: Il tuo fare crescere il tuo lavoro con pazienza è ora custodito. Il segno racchiude la tua capacità di attendere e costruire, paziente e costante.
+RIFORMULATA: Cresce il mio lavoro con pazienza
+COMPIMENTO modello: Hai fatto crescere il tuo lavoro con pazienza.
+
+=== 23. "Voglio guadagnare diecimila euro entro Natale" | Via Verde | masculine
+TITOLO CASA: Il seme ha preso forma
+RESPONSO CASA: Hai dato un segno a "Voglio guadagnare diecimila euro entro Natale". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO modello: Hai voluto guadagnare diecimila euro entro Natale.
+SCARTI: titolo scartato per promessa: "Il tuo guadagno di diecimila euro" | risposta scartato per sgrammaticato: "Il sigillo che hai tracciato custodisce il tuo guadagnare diecimila euro. Il tuo segno è la forma che contiene la tua intenzione di raggiungere questo obiettivo." | titolo scartato per tempoNelTitolo: "Diecimila euro entro Natale" | risposta scartato per statoDiUnTerzo: "Il sigillo che hai tracciato per guadagnare diecimila euro entro Natale custodisce la tua determinazione. Il segno contiene la tua volontà di raggiungere il traguardo che ti sei prefissato. Il simbolo è pronto ad accogliere i tuoi intenti."
+
+=== 24. "Trovo una casa con un giardino" | Via Verde | unknown
+TITOLO modello: La tua casa con giardino
+RESPONSO CASA: Hai dato un segno a "Trovo una casa con un giardino". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: Una casa con un giardino trovo.
+COMPIMENTO modello: Hai trovato una casa con un giardino.
+SCARTI: risposta scartato per gergo: "Il tuo sigillo custodisce la casa che desideri. La sua essenza vibra con la natura che hai immaginato. Trovi una casa con un giardino." | risposta scartato per nomeProprio: "La tua intenzione "Trovo una casa con un giardino" è stata impressa nel sigillo. Questo segno custodisce l'immagine di un luogo dove la natura è parte della tua quotidianità, un rifugio verde per te."
+
+=== 25. "Il mio orto dà frutti" | Via Verde | feminine
+TITOLO CASA: Il seme ha preso forma
+RESPONSO CASA: Hai dato un segno a "Il mio orto dà frutti". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: Il mio orto dà frutti
+COMPIMENTO modello: Il tuo orto ha dato frutti.
+
+=== 26. "Voglio un lavoro nuovo" | Via Verde | masculine
+TITOLO modello: Il nuovo lavoro
+RESPONSO modello: Il tuo desiderio di un nuovo lavoro è custodito in questo sigillo. Il segno è un tramite discreto per la tua ricerca, un custode silenzioso del tuo intento.
+RIFORMULATA: Ricevo un nuovo lavoro.
+COMPIMENTO modello: Hai voluto un lavoro nuovo.
+
+=== 27. "Mi prendo cura del mio corpo" | Via Verde | unknown
+TITOLO modello: Cura del corpo
+RESPONSO modello: La cura del tuo corpo è il tuo intento. Il segno che hai tracciato custodisce la tua dedizione. Il segno serba la volontà di nutrire e proteggere ciò che ti appartiene.
+RIFORMULATA: Prendo cura del mio corpo
+COMPIMENTO CASA: Avevi scritto "Mi prendo cura del mio corpo". Quello che era un segno adesso è una cosa accaduta: resta nel Libro, sigillato.
+   grezzo: {"testo": "Ti sei preso cura del tuo corpo."}
+
+=== 28. "La mia attività cresce" | Via Verde | feminine
+TITOLO modello: Crescita della tua attività
+RESPONSO modello: Il sigillo che hai tracciato custodisce il tuo desiderio di vedere la tua attività prosperare. La forma impressa porta la volontà di crescita che hai immesso in essa.
+RIFORMULATA: La mia attività è in crescita.
+COMPIMENTO modello: La tua attività è cresciuta.
+SCARTI: risposta scartato per gergo: "Il sigillo che hai tracciato per la crescita della tua attività custodisce la tua determinazione a vedere i tuoi sforzi fiorire. Questo segno è un richiamo alla tua forza interiore, pronta a sostenere ogni passo del tuo percorso."
+
+=== 29. "Imparo a suonare il pianoforte" | Via Verde | masculine
+TITOLO modello: Imparare a suonare il pianoforte
+RESPONSO modello: Il sigillo che hai tracciato custodisce la tua intenzione di imparare a suonare il pianoforte. Questo segno è un richiamo costante al tuo impegno, un simbolo visibile del tuo desiderio di acquisire questa abilità.
+RIFORMULATA: Imparo a suonare il pianoforte.
+COMPIMENTO modello: Hai imparato a suonare il pianoforte.
+
+=== 30. "Ritrovo la salute" | Via Verde | unknown
+TITOLO CASA: Ciò che cresce ha un segno
+RESPONSO CASA: Hai dato un segno a "Ritrovo la salute". Non si legge apposta: lavora dove la mente non sorveglia.
+RIFORMULATA: (nessuna) grezza: null
+COMPIMENTO modello: Hai ritrovato la salute.
+SCARTI: titolo scartato per promessa: "Ritrovi la salute" | risposta scartato per sgrammaticato: "Il sigillo che hai tracciato custodisce il tuo ritrovare la salute. Questo segno è un faro per il benessere che cerchi." | titolo scartato per primaPersona: "Ritrovo la salute" | risposta scartato per sgrammaticato: "Il sigillo che hai tracciato custodisce il tuo ritrovare la salute. Questo segno è un richiamo alla tua interezza."
+
+=== RIEPILOGO DO ===
+sigilli 30, chiamate 104, token in ingresso 36089, in uscita 3872
+costo di un sigillo completo: 0.00068 dollari
+titoli dal modello 19/30, responsi 13/30, compimenti 26/30, riformulazioni 17/30
+scarti per motivo: {risposta gergo: 4, risposta statoDiUnTerzo: 13, risposta previsioneCerta: 3, titolo statoDiUnTerzo: 6, titolo promessa: 5, titolo troppoLunga: 1, titolo sgrammaticato: 1, risposta sgrammaticato: 6, risposta promessa: 2, titolo diagnosi: 2, risposta diagnosi: 2, risposta nomeProprio: 2, titolo tempoNelTitolo: 1, titolo primaPersona: 1}
+genere sbagliato arrivato a schermo: 0 []
+=== il_filo_del_consulto_col_modello_test.dart
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.6 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+10 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.15 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+122 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 8, ignora 2, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 80 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito
+ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 7, ignora 1, contraddice a tradimento 0, cambia dichiarando 2, quota senza difetto 90 per cento, nominano tutti i Maestri di prima in 10 risposte su 10, corrette dalla rete della coerenza 2, elemento cambiato in 0 risposte su 0 con un elemento gia' uscito
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 9, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 2, elemento cambiato in 0 risposte su 3 con un elemento gia' uscito
+ORDINE FE VOCE 17, percorso D: giudicate 10, porta avanti 9, ignora 0, contraddice a tradimento 1, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito
+ORDINE FE VOCE 18, costo dei sei banchi: 154 chiamate, 664583 token di ingresso, 36112 di uscita col ragionamento, 0.290 dollari a listino
