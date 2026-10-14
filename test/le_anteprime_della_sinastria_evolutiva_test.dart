@@ -19,6 +19,12 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/pricing/upgrade_invite.dart';
 import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
+import 'package:esoteric_circle/features/synastry/il_ritratto_della_coppia.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/il_composito_e_keplero.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/il_corpus_della_sinastria_evolutiva.g.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/legame_e_eta.dart';
+import 'package:esoteric_circle/core/ricordi/artwork_del_ricordo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 import 'package:esoteric_circle/features/synastry/la_tua_nascita_per_una_lettura.dart';
 import 'package:esoteric_circle/features/synastry/lo_studio_di_medora.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
@@ -231,6 +237,56 @@ void main() {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     await monta(tester, LaTuaNascitaPerUnaLettura(palette: palette));
     await scatta(tester, 'ft03_la_tua_nascita_per_una_lettura');
+  });
+
+  testWidgets('FT.11 e FT.14: il ritratto della coppia e la card del capitolo',
+      (tester) async {
+    if (_stato.isEmpty) return;
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final tuo = _cielo(DateTime(1990, 5, 12), 'Tu');
+    final suo = _cielo(DateTime(1992, 9, 3), 'Giulia');
+    final capitoli = LetturaEvolutiva.componi(
+        tuo: tuo,
+        suo: suo,
+        nomeSuo: 'Giulia',
+        legame: Legame.amore,
+        corpus: corpusDellaSinastriaEvolutiva);
+    final composito = IlComposito.fra(tuo, suo);
+    final titoli =
+        corpusDellaSinastriaEvolutiva['composito|${composito.cella}|titolo']!;
+    final coppia = ArtworkDelRicordo.percorsoDellaCoppia(
+        IlSegnoDelCielo.dellaLongitudine(
+            composito.punti[PuntoDelCieloEvolutivo.sole]!));
+    for (final (nome, card) in [
+      (
+        'ft11_il_ritratto_della_coppia',
+        RitrattoDellaCoppia(
+            palette: palette,
+            nomeSuo: 'Giulia',
+            legame: Legame.amore,
+            coppia: coppia,
+            sintesi: titoli[
+                LetturaEvolutiva.semeDellaCoppia(tuo, suo) % titoli.length],
+            capitoli: capitoli,
+            width: 340),
+      ),
+      (
+        'ft14_la_card_del_capitolo',
+        CardDelCapitolo(
+            palette: palette,
+            nomeSuo: 'Giulia',
+            legame: Legame.amore,
+            capitolo: capitoli.first,
+            width: 340),
+      ),
+    ]) {
+      await monta(
+          tester,
+          Scaffold(
+              backgroundColor: palette.deepest,
+              body: Center(child: SingleChildScrollView(child: card))));
+      await scatta(tester, nome);
+    }
   });
 
   testWidgets('FT.13: le coppie nuove di oggi sono finite', (tester) async {
