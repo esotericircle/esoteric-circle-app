@@ -160,24 +160,9 @@ class CieloEvolutivo {
     );
   }
 
-  /// Il cielo come carta, per la stessa ruota che la Sinastria VIP gia' usa
-  /// (`NatalWheel`/`NatalChart`): undici punti invece di sei, nessun
-  /// Ascendente.
-  NatalChart get comeCarta => NatalChart(
-        sunSign: segnoSolare,
-        hasTime: false,
-        planets: [
-          for (final p in PuntoDelCieloEvolutivo.values)
-            if (longitudini[p] != null)
-              PlanetPosition(
-                id: p.corpo?.id ?? 'north_node',
-                name: p.nome,
-                glyph: p.glifo,
-                longitude: longitudini[p]!,
-                sign: IlSegnoDelCielo.dellaLongitudine(longitudini[p]!),
-              ),
-        ],
-      );
+  // LAPIDE, ordine FT: qui c'era `comeCarta`, una NatalChart costruita in
+  // proprio per la ruota comune. Nessuna schermata la usava, e la guardia
+  // `la_carta_natale_sopravvive` vuole che la carta passi da una porta sola.
 }
 
 /// Un aspetto fra un punto del tuo cielo e un punto del suo, nella Sinastria

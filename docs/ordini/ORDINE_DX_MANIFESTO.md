@@ -129,6 +129,7 @@ riga 252), una dal *Continua con* del Consiglio.
 | Rito del Sogno | `lib/features/rituals/dream_rite_screen.dart:1071` | `ChatOpeners.sogno` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
 | Runa del Tramonto | `lib/features/rituals/sunset_rune_screen.dart:2359` | `ChatOpeners.runaTramonto` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
 | Sinastria VIP | `lib/features/synastry/sinastria_vip_screen.dart:1102` | `ChatOpeners.sinastria` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Sinastria evolutiva (ordine FT, 14 ottobre 2026) | `lib/features/synastry/sinastria_evolutiva_screen.dart:492` | `ChatOpeners.sinastriaEvolutiva` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | stessa porta delle altre, `AzioniDelResponso` |
 | Stesa delle Tre Carte | `lib/features/tarot/stesa_tre_carte_screen.dart:1725` | `ChatOpeners.stesa` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
 | Consiglio dei Maestri, *Continua con* | `lib/features/maestri/ask/ask_maestri_screen.dart:421` (pulsante alla riga 659) | `ChatOpeners.consiglio` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
 

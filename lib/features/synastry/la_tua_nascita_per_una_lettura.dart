@@ -11,6 +11,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 
 /// **LA TUA NASCITA PER UNA LETTURA.** Ordine FT voce FT.03, 14 ottobre
 /// 2026: "Nella lettura a due telefoni la nascita passa solo col consenso
@@ -136,11 +137,12 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
         child: ListView(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           children: [
-            Text(
-              'Chi ti è accanto può leggere la vostra Sinastria evolutiva con '
-              'la tua nascita vera. Il codice la presta per una lettura sola, '
-              'per cinque minuti, e non entra nel tuo profilo del Cerchio.',
-              style: TypographyTokens.lettura()
+            ParagrafiDiLettura(
+              testo: 'Chi ti è accanto può leggere la vostra Sinastria '
+                  'evolutiva con la tua nascita vera. Il codice la presta per '
+                  'una lettura sola, per cinque minuti. Nel tuo profilo del '
+                  'Cerchio non entra.',
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),
             const SizedBox(height: SpacingTokens.xl),

@@ -30,6 +30,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../maestri/chat/chat_openers.dart';
+import '../maestri/rotta_arte.dart';
+import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../pricing/upgrade_invite.dart';
 import '../ricordi/azioni_del_responso.dart';
 import '../sigilli/regia_del_cammino.dart';
@@ -81,13 +83,20 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
     required CieloEvolutivo cieloSuo,
     bool? amoreDalServer,
   }) =>
+      // **LA SOGLIA UNICA DELLE ARTI**: la Sinastria evolutiva e' un'arte
+      // attiva dall'ordine FT, e come le altre si apre col suo cuore delle
+      // preferite (guardia `tue_arti_schermata`).
       PassaggioDelCerchio.rotta(
-        (_) => SinastriaEvolutivaScreen(
-          nomeTuo: nomeTuo,
-          cieloTuo: cieloTuo,
-          nomeSuo: nomeSuo,
-          cieloSuo: cieloSuo,
-          amoreDalServer: amoreDalServer,
+        (_) => SogliaArte(
+          id: 'synastry_depth',
+          maestro: Maestro.medora,
+          child: SinastriaEvolutivaScreen(
+            nomeTuo: nomeTuo,
+            cieloTuo: cieloTuo,
+            nomeSuo: nomeSuo,
+            cieloSuo: cieloSuo,
+            amoreDalServer: amoreDalServer,
+          ),
         ),
       );
 
@@ -348,6 +357,15 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
             testo: 'Sinastria evolutiva',
             righe: 1,
             stile: TypographyTokens.titoloSezione()),
+        // Le fonti di tutta la lettura in un foglio solo, come nelle altre
+        // arti (guardia `ogni_arte_dichiara_la_fonte`); ogni capitolo porta
+        // anche il suo Da dove viene.
+        actions: [
+          FoglioDelleFonti.bottone(context,
+              palette: palette,
+              testo: TestiDelleFonti.sinastriaEvolutiva,
+              chiave: 'sinastria_evolutiva_fonti'),
+        ],
       ),
       body: CosmosBackground(
         key: const Key('sinastria_evolutiva_sfondo'),
@@ -796,6 +814,7 @@ class _Chiuso extends StatelessWidget {
     return InkWell(
       key: Key('sinastria_chiuso_$chiave'),
       onTap: onApri,
+      enableFeedback: false,
       borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
       child: Container(
         padding: const EdgeInsets.all(SpacingTokens.md),

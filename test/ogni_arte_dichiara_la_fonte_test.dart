@@ -30,9 +30,12 @@ void main() {
   const schermate = <String, String>{
     'horoscope': 'lib/features/horoscope/oroscopo_screen.dart',
     'synastry_vip': 'lib/features/synastry/sinastria_vip_screen.dart',
+    // Ordine FT, 14 ottobre 2026: la Sinastria evolutiva, attiva a tutti i
+    // piani. Le fonti stanno nel Da dove viene di ogni capitolo, del
+    // Composito (Hand) e di Keplero (Harmonices Mundi).
+    'synastry_depth': 'lib/features/synastry/sinastria_evolutiva_screen.dart',
     'tarot_spread_three': 'lib/features/tarot/stesa_tre_carte_screen.dart',
-    'meditation':
-        'lib/features/maestri/aura/meditation/meditation_screen.dart',
+    'meditation': 'lib/features/maestri/aura/meditation/meditation_screen.dart',
     'archetype_test':
         'lib/features/maestri/aura/archetype/archetype_test_screen.dart',
     'face_constellation':
@@ -59,8 +62,7 @@ void main() {
     // **LA META\' CHE DIFENDE.** Chi porta viva un'arte nuova e non la mette
     // qui fa cadere questa prova, e nel rimediare deve dire dove sta la sua
     // schermata: a quel punto la fonte se la pone.
-    final catalogo =
-        File('lib/core/arts/art_catalog.dart').readAsStringSync();
+    final catalogo = File('lib/core/arts/art_catalog.dart').readAsStringSync();
     final righe = catalogo.split('\n');
     final attive = <String>[];
     String? ultimoId;
@@ -75,8 +77,7 @@ void main() {
     expect(attive.length, greaterThanOrEqualTo(9),
         reason: 'il catalogo non porta piu\' le arti attive attese: la lettura '
             'di questa prova non sta misurando niente');
-    final fuoriTavola =
-        attive.where((a) => !schermate.containsKey(a)).toList();
+    final fuoriTavola = attive.where((a) => !schermate.containsKey(a)).toList();
     expect(fuoriTavola, isEmpty,
         reason: 'queste arti sono attive e non stanno nella tavola delle '
             'schermate: $fuoriTavola. Aggiungile, e dichiara la loro fonte');

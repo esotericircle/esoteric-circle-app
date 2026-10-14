@@ -2,6 +2,31 @@
 
 14 ottobre 2026. Testo dell'ordine: `docs/ordini/ORDINE_FT_TESTO.md`. Manifesto: `docs/ordini/ORDINE_FT_MANIFESTO.md`, 15 voci: 10 chiuse, 5 aperte in attesa di verifica, 0 da fare. Ramo `claude/esoteric-circle-master-order-e798aj`, partenza 67960540. Nessuna build, nessuna chiamata a Gemini o a Vertex, nessun dato di produzione toccato.
 
+## LE VOCI CHIUSE E LA LORO PROVA
+
+| voce | prova |
+|---|---|
+| FT.01, gli asset dichiarati e le pose senza bianco | `docs/collaudo/FT/ft01_scontorno.txt` |
+| FT.05, undici punti e cinque aspetti contro Swiss Ephemeris | `test/la_sinastria_evolutiva_contro_il_riferimento_test.dart` |
+| FT.06, i cinque capitoli e i quattro legami | `test/la_lettura_evolutiva_test.dart` |
+| FT.07, il Tema Composito | `test/la_lettura_evolutiva_test.dart` |
+| FT.08, gli intervalli di Keplero | `test/la_lettura_evolutiva_test.dart` |
+| FT.09, Oggi fra voi sulla porta sola del cielo del giorno | `test/il_cielo_del_giorno_e_una_porta_sola_test.dart` |
+| FT.10, il Momento giusto | `test/la_lettura_evolutiva_test.dart` |
+| FT.11, il ritratto della coppia | `docs/preview/FT/ft11_il_ritratto_della_coppia_dopo.png` |
+| FT.12, il corpus scritto da Code e i lettori ciechi | `docs/collaudo/FT/lettori_ciechi/esito_2.txt` |
+| FT.15, la consegna | `docs/ordini/RAPPORTO_ORDINE_FT.md` |
+
+## LE VOCI APERTE E CHE COSA ASPETTANO
+
+| voce | che cosa e' fatto | che cosa aspetta |
+|---|---|---|
+| FT.02, lo studio di Medora e il video dell'astrolabio | provato con la guardia e nelle anteprime | il fondatore, sul telefono alla prossima build |
+| FT.03, le due persone e il consenso sulla nascita | a mano e a due telefoni, server provato (`npm test` 245 su 245) | la pubblicazione di `condividiLaNascita` e `leggiLaNascita` |
+| FT.04, l'amore dai sedici anni | nell'app e nel server, rossa e verde al confine | la stessa pubblicazione della FT.03 |
+| FT.13, i piani e gli Eos | matrice, card dei piani, ponte con l'invito | la pubblicazione di `statoDelCerchio` e `muoviGliEos` |
+| FT.14, la porta, il segno 15 e il sociale | provate le porte e il segno | il fondatore, sul telefono alla prossima build |
+
 **IL NOME.** L'ordine la chiama "Sinastria approfondita". A lavoro in corso il fondatore ha scritto: "Cambia nome ovunque da Sinastria Approfondita a sinastria evolutiva". Fatto ovunque nel commit 9ac1c8e6: testi a schermo, classi, file, la cartella del corpus e il budget del server (`sinastrieEvolutive`, non ancora pubblicato, quindi senza nessun dato da migrare). Restano apposta due cose. L'id di catalogo `synastry_depth`, che e' la chiave dei conti e nasce con l'ordine ER. I file immagine delle schede `assets/schede/Sinastria-Approfondita-*.webp`, che la persona non legge. Il testo dell'ordine, copiato parola per parola, dice ancora "approfondita".
 
 ## LE PREMESSE, COL COMANDO CHE LE HA VERIFICATE
@@ -133,4 +158,28 @@ In `docs/preview/FT/`, a 360 per 797 punti con densita' 3, guardate una per una.
 
 ## LA SUITE INTERA
 
-In coda, al termine della corsa unica di fine ordine.
+La corsa unica di fine ordine, sul commit e41f5b99, in locale nella copia LF `C:/Users/user/ecs`: 7.304 prove, 7.288 verdi e **16 rosse**, in 82 minuti (riletto dal file della corsa). Il fondatore: "80 minuti, troppo", poi "ok per GitHub ma deve diventare la regola per tutte le sessioni". Da qui la suite intera la fa il cancello `verde.yml` su GitHub (sei pezzi in parallelo, 13-15 minuti), regola scritta in CLAUDE.md. Il cancello su e41f5b99 si era fermato al primo rosso, quindi sui pezzi della suite pareva verde: i rossi veri erano quelli della copia locale.
+
+**I sedici rossi e il loro padre (Regola C), tutti corretti**:
+- **Voce FT.03, la lettura a due telefoni** (commit da84ea99):
+  - `cosmo_e_interruttori`: lo `Switch` di Material nel modulo, ora `InterruttoreDelCerchio`;
+  - `etichette_e_lettura`: un `Text` nel ruolo di lettura, ora `ParagrafiDiLettura`;
+  - `language_rule`: una virgola prima di "e";
+  - `una_prova_dichiara_il_suo_istante`: l'orologio vero in una prova;
+  - `il_cerchio_custodisce_il_cammino`: le porte del server da 35 a 37, adesso dichiarate e motivate.
+- **Voce FT.13, la scheda aperta a tutti i piani** (commit 8e682889). Un'arte attiva deve stare nelle tavole di casa:
+  - `ogni_arte_dichiara_la_fonte`, due casi: la tavola, e il foglio "Fonti e metodo" che adesso sta nella barra della lettura;
+  - `tue_arti_schermata`: la soglia unica col cuore, ora sulla rotta;
+  - `i_ricordi_sono_nella_demo`: fuori dallo scaffale, dichiarato;
+  - `le_altre_arti_del_cerchio`: la fila delle arti da scoprire.
+- **Voce FT.06**, la lettura a video (commit abc9a63b):
+  - `nessun_suono_che_non_hai_scelto`: un `InkWell` col click di sistema;
+  - `le_porte_di_approfondimento_non_mandano_da_sole`: il Parlane non censito, ora nel censimento del manifesto DX;
+  - `la_carta_natale_sopravvive`: `comeCarta`, una carta costruita in proprio e mai usata, tolta.
+- **Voce FT.15, la consegna**:
+  - `ogni_voce_chiusa_porta_la_sua_prova`: l'elenco delle voci chiuse in cima a questo rapporto mancava;
+  - `i_manifesti_sono_sigillati`: il manifesto FT nel sigillo, 15 voci;
+  - `i_rapporti_consegnati_non_si_correggono`: questo rapporto registrato alla consegna.
+- **Falso positivo di una guardia, PROVENIENZA: ordine FH** (`real_time_cosmo_nessuna_seconda_porta_sull_astronomia`). Il suo `kepler` prendeva gli Intervalli di Keplero, che sono musica fra longitudini gia' calcolate e non un motore delle orbite. Corretta con la lapide in `kepler(?!o)`: rossa su un innesto vero (`risolviKepler`), verde sul codice.
+
+Le prove della zona, rifatte dopo le correzioni in due giri: tutte verdi (86 piu' 1 nel primo giro, la sola rossa corretta e rifatta col secondo, 31 su 31). Il verdetto della suite intera e' quello del cancello di GitHub sul commit consegnato, nella riga in coda.

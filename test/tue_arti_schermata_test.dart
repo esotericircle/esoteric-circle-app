@@ -209,6 +209,9 @@ void main() {
       // catalogo lo dava in arrivo: adesso e' un'arte attiva, quindi passa
       // dalla soglia unica come le altre e ha il suo cuore.
       'lib/features/angels/angels_screen.dart': 'guardian_angel',
+      // **LA SINASTRIA EVOLUTIVA, ordine FT, 14 ottobre 2026.** Arte attiva a
+      // tutti i piani, si apre dalla soglia unica col suo cuore.
+      'lib/features/synastry/sinastria_evolutiva_screen.dart': 'synastry_depth',
     };
     rotte.forEach((percorso, id) {
       final s = File(percorso).readAsStringSync();

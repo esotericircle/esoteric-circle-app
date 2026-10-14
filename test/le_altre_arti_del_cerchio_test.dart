@@ -35,9 +35,11 @@ void main() {
     // arti preferite", senza il Viaggio, che quindi torna nella fila.
     // **E IL TEST ARCHETIPO NON C'E' PIU'**, ordine EO voce 12: vive solo
     // nel Passaporto, come l'Angelo Custode.
-    expect(fila.toSet(), {'guide_animal', 'magic_sigil'},
-        reason: 'oggi il resto del catalogo e\' Viaggio dello Sciamano e '
-            'Sigillo dell\'Intenzione');
+    // **E LA SINASTRIA EVOLUTIVA ENTRA NELLA FILA**, ordine FT, 14 ottobre
+    // 2026: e' un'arte attiva nuova e non sta fra le sei del seme.
+    expect(fila.toSet(), {'synastry_depth', 'guide_animal', 'magic_sigil'},
+        reason: 'oggi il resto del catalogo e\' Sinastria evolutiva, Viaggio '
+            'dello Sciamano e Sigillo dell\'Intenzione');
   });
 
   test('cambiate le preferite, la fila mostra il resto e mai doppioni', () {

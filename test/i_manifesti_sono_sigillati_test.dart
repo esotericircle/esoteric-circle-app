@@ -385,6 +385,7 @@ void main() {
     // coi titoli "## VOCE FS." del manifesto. Le dieci voci del 13 ottobre
     // stanno in docs/STATO_VIVO.md, senza manifesto.
     'FS': 3,
+    'FT': 15,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

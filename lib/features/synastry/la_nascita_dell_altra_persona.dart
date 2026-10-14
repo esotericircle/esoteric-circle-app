@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/synastry_evolutiva/cielo_evolutivo.dart';
+import '../../design_system/components/interruttore_del_cerchio.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -276,12 +277,11 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                     trailing: const Icon(Icons.calendar_today_rounded),
                     onTap: _scegliData,
                   ),
-                  SwitchListTile(
+                  InterruttoreDelCerchio(
                     key: const Key('nascita_altra_ora_non_nota'),
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text('Non conosco l\'ora di nascita'),
-                    value: _oraNonNota,
-                    onChanged: (v) => setState(() => _oraNonNota = v),
+                    titolo: 'Non conosco l\'ora di nascita',
+                    acceso: _oraNonNota,
+                    onCambia: (v) => setState(() => _oraNonNota = v),
                   ),
                   if (!_oraNonNota)
                     ListTile(

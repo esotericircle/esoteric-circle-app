@@ -161,6 +161,12 @@ Claude costruisce l'app, Gemini la fa girare. Tutta l'AI a runtime (oracoli, sin
 - **SPESE, regola permanente del fondatore, 14 ottobre 2026.**
   1. Vietata qualunque chiamata a pagamento verso Gemini, Vertex o altri servizi a consumo (giro dei banchi compreso) senza il si' esplicito di Mauro, dato in chat per quella singola occasione, con la stima del costo in euro scritta prima.
   2. Le build non comprendono mai il giro dei banchi. Le voci sui testi generati restano APERTA IN ATTESA DI VERIFICA finche' Mauro non autorizza la spesa.
+- **LA SUITE INTERA GIRA SU GITHUB, NON SUL COMPUTER DI MAURO.** Regola permanente del fondatore, 14 ottobre 2026: *"deve diventare la regola per tutte le sessioni"*, dopo una suite locale da ottanta minuti.
+  1. Sul computer si fanno girare solo le prove della voce e le guardie di casa della zona toccata.
+  2. La suite intera la fa il cancello `.github/workflows/verde.yml` a ogni push sul ramo: sei pezzi in parallelo, circa quindici minuti. Si spinge e si continua a lavorare.
+  3. Il verdetto si legge dal segno `refs/verde/<sha>` (`git ls-remote origin "refs/verde/<sha>"`) o dalle annotazioni pubbliche del giro (`/repos/esotericircle/esoteric-circle-app/commits/<sha>/check-runs`).
+  4. Un ordine si consegna solo col verde di GitHub sul commit consegnato. I rossi si leggono dalle annotazioni, si rifanno da soli sul computer e si confrontano con `tool/rossi_accettati.txt`.
+  5. La suite intera in locale si lancia solo se GitHub non e' raggiungibile, e lo si dice nel rapporto.
 - **UN RAMO SOLO.** Il lavoro si spinge sul solo ramo `claude/esoteric-circle-master-order-e798aj`, e nessun altro ramo si crea senza un ordine che lo dica per nome. Il lavoro dell'ordine CG e' finito in parte su un ramo laterale che il fondatore non aveva chiesto, e chi avesse aperto il canonico non avrebbe trovato ne' la rinomina in card ne' la build: due rami che dicono cose diverse sullo stesso ordine sono due verita'. Rimediato con l'ordine CH del 31 agosto 2026.
 - Non usare mai il trattino lungo. Usa formulazioni alternative.
 - Rispondi e commenta sempre in italiano.

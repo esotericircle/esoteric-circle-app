@@ -73,12 +73,9 @@ void main() {
         reason: 'il Nodo Nord deve poter entrare negli aspetti calcolati');
   });
 
-  test('la carta si presta alla ruota comune (NatalChart)', () {
-    final carta = lui.comeCarta;
-    expect(carta.planets.length, 11);
-    expect(carta.hasTime, false);
-    expect(carta.planets.any((p) => p.id == 'north_node'), true);
-  });
+  // LAPIDE, ordine FT: qui si provava `comeCarta`, la carta costruita in
+  // proprio per la ruota comune. Tolta: nessuna schermata la usava, e la
+  // guardia `la_carta_natale_sopravvive` vuole la carta da una porta sola.
 
   test('la frase dice di chi e ogni punto, col genere giusto', () {
     const a = AspettoEvolutivo(

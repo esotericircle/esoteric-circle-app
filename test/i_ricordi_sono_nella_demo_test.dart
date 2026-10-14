@@ -76,8 +76,12 @@ void main() {
     // catalogo lo dava in arrivo, quindi non compariva da nessuna parte.
     // Adesso e' attivo, si raggiunge dal dominio di Medora e resta fuori
     // dallo scaffale come le altre due.
+    // **LA SINASTRIA EVOLUTIVA SI AGGIUNGE, ordine FT, 14 ottobre 2026.**
+    // Attiva a tutti i piani, si raggiunge dal dominio di Medora, dalla
+    // home, dal segno 15 e dal confronto del cielo; lo scaffale curato del
+    // Santuario non cambia.
     expect(fuoriScaffale.toSet(),
-        {'guardian_angel', 'rune_draw', 'magic_sigil'},
+        {'guardian_angel', 'rune_draw', 'magic_sigil', 'synastry_depth'},
         reason: 'le arti vive fuori dallo scaffale sono cambiate: adesso sono '
             '$fuoriScaffale. Se e\' voluto si aggiorna questa riga con la '
             'ragione, se non lo e\' si aggiunge l\'arte allo scaffale. IL '

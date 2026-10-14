@@ -2,6 +2,8 @@ import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/core/synastry_evolutiva/cielo_evolutivo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
@@ -37,9 +39,9 @@ class _Porta extends PortaFintaDelCerchioSociale {
       if (porta == 'condividiLaNascita') {
         return EsitoSociale(dati: {
           'codice': 'K7Q2AB',
-          'scade': DateTime.now()
-              .add(const Duration(minutes: 5))
-              .millisecondsSinceEpoch,
+          // Un istante dichiarato e lontano: il codice vale ancora, e la
+          // prova non legge l'orologio vero.
+          'scade': DateTime.utc(2100).millisecondsSinceEpoch,
         });
       }
       return EsitoSociale(dati: {
@@ -69,8 +71,12 @@ Future<_Porta> _monta(WidgetTester tester, Widget home,
       ChangeNotifierProvider<IlCerchioSociale>.value(value: sociale),
       ChangeNotifierProvider(
           create: (_) => ProfileController(identity: identita)),
+      ChangeNotifierProvider(create: (_) => MaestroController()),
     ],
-    child: MaterialApp(home: home),
+    child: MaterialApp(
+      home: home,
+      builder: (context, figlio) => MaestroScope(child: figlio!),
+    ),
   ));
   await tester.pumpAndSettle();
   return porta;

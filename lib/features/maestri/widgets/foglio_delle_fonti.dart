@@ -137,6 +137,26 @@ class TestiDelleFonti {
       'curatela del Cerchio, scritte sul senso tradizionale di ogni carta.';
 
   /// La Sinastria VIP.
+  /// La Sinastria evolutiva, ordine FT, 14 ottobre 2026.
+  static const String sinastriaEvolutiva =
+      'La Sinastria evolutiva confronta due cieli di nascita veri. I punti '
+      'sono undici per persona, dal Sole a Plutone col Nodo Nord medio, '
+      'calcolati sul telefono con gli algoritmi di Jean Meeus '
+      '(Astronomical Algorithms, 1991).\n\n'
+      'Gli aspetti sono i cinque di Tolomeo nel Tetrabiblos: congiunzione, '
+      'sestile, quadratura, trigono e opposizione. I cinque capitoli leggono '
+      'le coppie di punti che la sinastria moderna considera per ogni tema: '
+      'Ronald Davison (Synastry, 1977) e Stephen Arroyo (Relationships and '
+      'Life Cycles, 1979) per l\'attrazione, le emozioni, la mente e la '
+      'durata, Martin Schulman (Karmic Relationships, 1984) per il destino '
+      'dei nodi lunari.\n\n'
+      'Il Tema Composito è quello di Robert Hand (Planets in Composite, '
+      '1975): per ogni pianeta il punto a metà strada fra le due nascite. '
+      'Gli Intervalli vengono da Giovanni Keplero (Harmonices Mundi, 1619, '
+      'libro IV), che legge gli aspetti come consonanze musicali.\n\n'
+      'Il calcolo e i nomi delle tradizioni sono quelli delle fonti; le '
+      'parole di ogni capitolo le scrive il Cerchio.';
+
   static const String sinastria =
       'Le affinità nascono dalla sinastria, cioè dal confronto fra due cieli '
       'di nascita. Ogni barra poggia su una dottrina dichiarata.\n\n'

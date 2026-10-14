@@ -242,8 +242,15 @@ void main() {
     // di un'altra persona; l'indizio in piu' e il segno di chi indovina
     // spendono Eos in transazione; il passo del Pellegrinaggio parte a ogni
     // rito compiuto, non all'apertura.
-    expect(callable.length, 35,
-        reason: 'le callable non sono piu\' trentacinque: $callable. Se ne '
+    // **TRENTASETTE, ordine FT, 14 ottobre 2026**: le due porte della
+    // lettura a due telefoni della Sinastria evolutiva, `condividiLaNascita`
+    // e `leggiLaNascita`, in `il_cerchio_sociale.ts` col loro tetto,
+    // motivate nel rapporto dell'ordine FT. Non potevano viaggiare dentro
+    // `statoDelCerchio`: la nascita di una persona passa a un'altra solo col
+    // consenso, per una lettura, e vive in una collezione sua che chi legge
+    // cancella.
+    expect(callable.length, 37,
+        reason: 'le callable non sono piu\' trentasette: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // E OGNI PORTA SOCIALE HA IL SUO TETTO, contato prima di ogni altra cosa
     // (EY.16): una porta nuova non puo' nascere senza.

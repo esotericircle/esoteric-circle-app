@@ -26,24 +26,34 @@ final _conversione = RegExp(
   caseSensitive: false,
 );
 
+// **"KEPLER(?!O)", ordine FT, 14 ottobre 2026.** LAPIDE: qui c'era `kepler`
+// nudo, che cerca l'equazione di Keplero delle orbite (un secondo motore dei
+// pianeti) ma prendeva anche gli Intervalli di Keplero della Sinastria
+// evolutiva, che sono rapporti musicali fra due longitudini gia' calcolate da
+// IlCieloDiMeeus, e perfino la riga del piano che li nomina. Adesso il nome
+// italiano dell'astronomo non conta; "kepler" seguito da altro, come
+// `keplerEquation` o `risolviKepler`, si' (vista rossa con un innesto vero).
 final _motoreDeiPianeti = RegExp(
-  r'vsop|kepler|SerieVsop|_eliocentrica|elementiOrbitali|semiasse',
+  r'vsop|kepler(?!o)|SerieVsop|_eliocentrica|elementiOrbitali|semiasse',
   caseSensitive: false,
 );
 
 String _percorso(String p) => p.replaceAll('\\', '/');
 
-List<String> difettiDellaPortaSola(Iterable<({String percorso, String testo})> file) {
+List<String> difettiDellaPortaSola(
+    Iterable<({String percorso, String testo})> file) {
   final difetti = <String>[];
   for (final f in file) {
     final p = _percorso(f.percorso);
     final righe = codiceSenzaTesto(f.testo).split('\n');
     for (var i = 0; i < righe.length; i++) {
-      if (!p.endsWith(_portaDellaConversione) && _conversione.hasMatch(righe[i])) {
+      if (!p.endsWith(_portaDellaConversione) &&
+          _conversione.hasMatch(righe[i])) {
         difetti.add('$p riga ${i + 1}: una seconda conversione da '
             'equatoriali a orizzontali');
       }
-      if (!p.contains(_portaDeiPianeti) && _motoreDeiPianeti.hasMatch(righe[i])) {
+      if (!p.contains(_portaDeiPianeti) &&
+          _motoreDeiPianeti.hasMatch(righe[i])) {
         difetti.add('$p riga ${i + 1}: un secondo motore dei pianeti '
             'accanto a IlCieloDiMeeus');
       }
