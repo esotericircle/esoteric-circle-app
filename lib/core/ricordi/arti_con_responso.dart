@@ -91,6 +91,14 @@ class ArtiConResponso {
       apertura: 'sinastria',
     ),
     ArteConResponso(
+      arte: 'sinastria_approfondita',
+      maestro: 'medora',
+      titolo: 'Sinastria approfondita',
+      doveViveIlResponso:
+          'lib/features/synastry/sinastria_approfondita_screen.dart',
+      apertura: 'sinastriaApprofondita',
+    ),
+    ArteConResponso(
       arte: 'archetipo',
       maestro: 'aura',
       titolo: 'Test Archetipo',

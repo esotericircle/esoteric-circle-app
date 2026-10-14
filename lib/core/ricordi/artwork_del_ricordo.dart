@@ -87,6 +87,8 @@ class ArtworkDelRicordo {
     'tramonto': ['runa', 'verso'],
     'animale_guida': ['animale'],
     'sinastria': ['vip'],
+    // Ordine FT: la coppia del segno della relazione (il Sole composito).
+    'sinastria_approfondita': ['coppia'],
     'archetipo': ['archetipo'],
     'oroscopo': ['segno'],
   };
@@ -143,6 +145,8 @@ class ArtworkDelRicordo {
         return _animale(dati['animale']);
       case 'sinastria':
         return _vip(dati['vip']);
+      case 'sinastria_approfondita':
+        return _coppia(dati['coppia']);
       case 'archetipo':
         return _archetipo(dati['archetipo']);
       case 'oroscopo':
@@ -270,6 +274,26 @@ class ArtworkDelRicordo {
     }
     return const [];
   }
+
+  /// La coppia del segno della Sinastria approfondita, ordine FT: un'immagine
+  /// sola per i due tagli (`assets/img/sinastria/coppia_<segno>_v1.webp`).
+  static List<ImmagineDelRicordo> _coppia(String? nome) {
+    if (nome == null) return const [];
+    for (final z in Zodiac.values) {
+      if (!_stessoNome(z.italianName, nome) && !_stessoNome(z.id, nome)) {
+        continue;
+      }
+      final file = percorsoDellaCoppia(z);
+      return [
+        ImmagineDelRicordo(nome: z.italianName, miniatura: file, piena: file)
+      ];
+    }
+    return const [];
+  }
+
+  /// Il file della coppia di un segno.
+  static String percorsoDellaCoppia(Zodiac z) =>
+      'assets/img/sinastria/coppia_${z.italianName.toLowerCase()}_v1.webp';
 
   static List<ImmagineDelRicordo> _segno(String? nome) {
     if (nome == null) return const [];

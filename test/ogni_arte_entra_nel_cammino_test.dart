@@ -94,6 +94,10 @@ void main() {
           'da chi cammina.',
       'invito_aura': 'come l\'invito a Medora.',
       'invito_caligo': 'come l\'invito a Medora.',
+      'sinastria_approfondita': 'arte nuova dell\'ordine FT, 14 ottobre '
+          '2026: il gradino che la nomini lo decide il fondatore nelle '
+          'regole dei traguardi. Il gesto si conta gia\', cosi\' il giorno '
+          'che il gradino arriva trova la storia.',
     };
     final inutili = [
       for (final s in GestiDelleArti.tutte)

@@ -67,10 +67,17 @@ class CieloApprofondito {
     required this.longitudini,
     required this.segnoSolare,
     required this.oraNota,
+    required this.giornoDiNascita,
     this.nome = '',
   });
 
   final Map<PuntoDelCieloApprofondito, double> longitudini;
+
+  /// **IL GIORNO DI NASCITA NEL CALENDARIO DEL LUOGO**, per lo sbarramento
+  /// d'eta' sul legame amore (FT.04): al confine dei sedici anni il giorno
+  /// conta, e il momento in tempo universale puo' cadere il giorno prima o
+  /// dopo quello che la persona dice.
+  final DateTime giornoDiNascita;
   final Zodiac segnoSolare;
 
   /// Qui l'ora di nascita NON condiziona nessun punto (niente Ascendente:
@@ -106,6 +113,8 @@ class CieloApprofondito {
       momentoUtc: momento,
       oraNota: identita.hasBirthTime,
       nome: nome,
+      giornoDiNascita: DateTime(identita.birthMoment.year,
+          identita.birthMoment.month, identita.birthMoment.day),
     );
   }
 
@@ -118,6 +127,7 @@ class CieloApprofondito {
     Zodiac? segnoDichiarato,
     String nome = '',
     bool oraNota = false,
+    DateTime? giornoDiNascita,
   }) {
     final jd = Celestial.julianDay(momentoUtc);
     final tutte = IlCieloDiMeeus.tutte(jd);
@@ -137,6 +147,8 @@ class CieloApprofondito {
       segnoSolare: segnoDichiarato ?? IlSegnoDelCielo.dellaLongitudine(sole),
       oraNota: oraNota,
       nome: nome,
+      giornoDiNascita: giornoDiNascita ??
+          DateTime(momentoUtc.year, momentoUtc.month, momentoUtc.day),
     );
   }
 

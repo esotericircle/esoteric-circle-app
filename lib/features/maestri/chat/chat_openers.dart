@@ -164,6 +164,13 @@ class ChatOpeners {
       'La mia sinastria con $nome dice $punteggio per cento. Cosa ci lega '
       'davvero?';
 
+  /// Dalla Sinastria approfondita verso Medora, ordine FT: col legame e il
+  /// titolo del capitolo che la persona sta leggendo.
+  static String sinastriaApprofondita(
+          String nome, String legame, String titolo) =>
+      'Nella sinastria approfondita con $nome, per il legame $legame, leggo: '
+      '«$titolo». Che cosa posso fare con questo?';
+
   /// Dal Sigillo dell\'Intenzione verso Caligo, con l\'intenzione posata.
   static String sigillo(String intenzione) =>
       'Ho sigillato questa intenzione: «$intenzione». Come la tengo viva?';

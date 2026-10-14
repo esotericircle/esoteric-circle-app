@@ -260,6 +260,6 @@ void main() {
     await _monta(tester, lettori: [finta]);
     expect(find.byKey(const Key('sinastria_approfondita_nomi')),
         findsOneWidget);
-    expect(find.textContaining('Marco'), findsWidgets);
+    expect(find.textContaining('Giulia'), findsWidgets);
   });
 }

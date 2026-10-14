@@ -8,6 +8,8 @@ import {
   haAlmeno16Anni,
   legameApribile,
 } from "./sinastria_approfondita";
+import {limiteDi} from "./budget";
+import {LISTINO_DEL_RISCATTO} from "./borsellino";
 
 /**
  * FT.04, LO SBARRAMENTO DI ETA' SUL LEGAME AMORE, LATO SERVER. Ordine FT,
@@ -140,4 +142,18 @@ test("il consenso non porta nessun campo da profilo pubblico", () => {
   const consenso = creaConsenso(dati, oggi, "AB12CD");
   const chiavi = Object.keys(consenso.dati).sort();
   assert.deepEqual(chiavi, ["nascita", "nome", "oraNota"]);
+});
+
+/**
+ * FT.13, IL BUDGET DELLA SINASTRIA APPROFONDITA SUL SERVER.
+ */
+test("le coppie nuove al giorno: uno, due, cinque, quindici", () => {
+  assert.equal(limiteDi("sinastrieApprofondite", "free"), 1);
+  assert.equal(limiteDi("sinastrieApprofondite", "tier1"), 2);
+  assert.equal(limiteDi("sinastrieApprofondite", "tier2"), 5);
+  assert.equal(limiteDi("sinastrieApprofondite", "tier3"), 15);
+});
+
+test("il listino porta la sinastria approfondita in piu' a 150 Eos", () => {
+  assert.equal(LISTINO_DEL_RISCATTO["sinastrieApprofondite"], 150);
 });

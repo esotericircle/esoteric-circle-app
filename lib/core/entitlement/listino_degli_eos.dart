@@ -222,6 +222,24 @@ class ListinoDegliEos {
     },
   );
 
+  /// **UNA SINASTRIA APPROFONDITA IN PIU', ordine FT voce FT.13**: 150 Eos,
+  /// fissati dal fondatore (Briefing Operativo V13 sezione 58.4). Il server
+  /// la conta sul budget `sinastrieApprofondite` e ne ripete il prezzo in
+  /// `PREZZI_DEL_RISCATTO`; i gratis del giorno sono la riga
+  /// `Sinastria approfondita: coppie nuove` della matrice.
+  static const sinastriaApprofonditaInPiu = VoceDelListino(
+    id: 'synastry_depth',
+    nome: 'Una sinastria approfondita in più',
+    costo: 150,
+    budget: 'sinastrieApprofondite',
+    gratisAlGiorno: {
+      Tier.free: 1,
+      Tier.tier1: 2,
+      Tier.tier2: 5,
+      Tier.tier3: 15,
+    },
+  );
+
   /// **LA SCINTILLA, ordine EY voce 12**: il secondo dei tre doni, dall'Adepto
   /// in su. Il dono non conia Eos a chi lo riceve: riceve l'oggetto. Il
   /// prezzo lo ripete `PREZZI_DEI_DONI` in `functions/src/sociale.ts`.
@@ -296,6 +314,7 @@ class ListinoDegliEos {
     oroscopoLungaDelGiorno,
     amicoInPiu,
     confrontoDelCieloInPiu,
+    sinastriaApprofonditaInPiu,
     scintilla,
     sigilloDaDonare,
     indizio,

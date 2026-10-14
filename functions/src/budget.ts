@@ -21,7 +21,8 @@ export type Budget =
   | "gettate"
   | "stese"
   | "sinastrie"
-  | "cieli";
+  | "cieli"
+  | "sinastrieApprofondite";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -35,6 +36,9 @@ export const BUDGET: Budget[] = [
   // quindici e trenta al giorno. Il confronto non chiama nessun modello, si
   // calcola sul telefono; il tetto e' del server come ogni altro.
   "cieli",
+  // LA SINASTRIA APPROFONDITA, ordine FT voce FT.13: le coppie nuove lette
+  // al giorno. Come i cieli, nessun modello: il tetto serve contro l'abuso.
+  "sinastrieApprofondite",
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
@@ -151,6 +155,12 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * del Consiglio dei Maestri sia dalla Sinastria VIP.
    */
   cieli: [1, 5, 15, 30],
+  /**
+   * LA SINASTRIA APPROFONDITA, ordine FT voce FT.13: coppie nuove al giorno,
+   * la riga `Sinastria approfondita: coppie nuove` del telefono. Scelta di
+   * Code (il fondatore: "Lo decide Code"), con la ragione nel rapporto.
+   */
+  sinastrieApprofondite: [1, 2, 5, 15],
 };
 
 /**

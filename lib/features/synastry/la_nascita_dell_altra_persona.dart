@@ -45,8 +45,7 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
       _LaNascitaDellAltraPersonaState();
 }
 
-class _LaNascitaDellAltraPersonaState
-    extends State<LaNascitaDellAltraPersona> {
+class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
   late final _nome = TextEditingController(text: widget.nomeIniziale ?? '');
   DateTime? _data;
 
@@ -55,6 +54,7 @@ class _LaNascitaDellAltraPersonaState
     _nome.dispose();
     super.dispose();
   }
+
   TimeOfDay? _ora;
   bool _oraNonNota = false;
 
@@ -94,9 +94,9 @@ class _LaNascitaDellAltraPersonaState
       momentoUtc: momento,
       oraNota: oraNota,
       nome: _nome.text.trim(),
+      giornoDiNascita: DateTime(data.year, data.month, data.day),
     );
-    Navigator.of(context)
-        .pop((nome: _nome.text.trim(), cielo: cielo));
+    Navigator.of(context).pop((nome: _nome.text.trim(), cielo: cielo));
   }
 
   @override

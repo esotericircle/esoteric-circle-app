@@ -274,7 +274,10 @@ void main() {
       // (croce, ferro di cavallo, le chiavi, i mazzi, la versione lunga, il
       // ritorno della carta, la rilettura e la card).
       // CINQUANTA dall'ordine FJ, aggiunta 2: il ferro di cavallo e' tolto.
-      expect(PlanCatalog.matrix.length, 50);
+      // CINQUANTACINQUE dall'ordine FT voce FT.13: le cinque righe della
+      // Sinastria approfondita (coppie nuove, capitoli, Oggi fra voi,
+      // Keplero, le tre esclusive dell'Adepto).
+      expect(PlanCatalog.matrix.length, 55);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

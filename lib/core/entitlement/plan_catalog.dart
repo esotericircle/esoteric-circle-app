@@ -199,6 +199,15 @@ enum RigaDelPiano {
   /// **LA SCINTILLA E IL SIGILLO DA DONARE**, ordine EY voce 12: dall'Adepto
   /// in su. Il cenno e' di tutti e non sta in questa riga.
   doni,
+
+  /// LA SINASTRIA APPROFONDITA, ordine FT voce FT.13: le letture di una
+  /// coppia nuova al giorno, tutti i capitoli, gli intervalli di Keplero,
+  /// Oggi fra voi e le tre esclusive dell'Adepto.
+  sinastriaApprofondita,
+  capitoliDellaSinastria,
+  oggiFraVoi,
+  intervalliDiKeplero,
+  compositoRitrattoMomento,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -606,6 +615,8 @@ class PlanCatalog {
   /// ogni tocco sono due chiamate al modello.
   static const RigaDelPiano rigaConfronti = RigaDelPiano.confronti;
   static const RigaDelPiano rigaSinastria = RigaDelPiano.sinastria;
+  static const RigaDelPiano rigaSinastriaApprofondita =
+      RigaDelPiano.sinastriaApprofondita;
 
   /// La carta singola e' una stesa da una carta: conta fra le carte
   /// estratte. Ordine EX voce 02.
@@ -841,6 +852,29 @@ class PlanCatalog {
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno'],
         chiave: RigaDelPiano.sinastria),
+    // **LA SINASTRIA APPROFONDITA, ordine FT voce FT.13.** Il fondatore,
+    // alla domanda sulla tabella dei piani: "Lo decide Code". Fissati da
+    // lui e non toccati: Tema Composito, ritratto della coppia e momento
+    // giusto esclusivi dell'Adepto (e quindi dell'Illuminato); il
+    // confronto in piu' costa 150 Eos. Il resto e' la scelta di Code,
+    // con la ragione nel rapporto dell'ordine: nessuna chiamata al
+    // modello, quindi il tetto del costo non pesa e i numeri servono
+    // solo contro l'abuso; al Viandante un assaggio vero (una coppia al
+    // giorno, due capitoli su cinque, Oggi fra voi intero) che faccia
+    // venire voglia degli altri tre.
+    FeatureRow('Sinastria approfondita: coppie nuove',
+        ['1 al giorno', '2 al giorno', '5 al giorno', '15 al giorno'],
+        chiave: RigaDelPiano.sinastriaApprofondita),
+    FeatureRow('Sinastria approfondita: i cinque capitoli',
+        ['Due su cinque', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.capitoliDellaSinastria),
+    FeatureRow('Oggi fra voi', ['Sì', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.oggiFraVoi),
+    FeatureRow('Intervalli di Keplero', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.intervalliDiKeplero),
+    FeatureRow('Tema Composito, ritratto della coppia e momento giusto',
+        ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.compositoRitrattoMomento),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //
