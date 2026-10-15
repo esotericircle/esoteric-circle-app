@@ -237,6 +237,16 @@ Future<void> _monta(
     ),
   ));
   await tester.pump(const Duration(milliseconds: 100));
+  // Le lune, gli emblemi e i sigilli sono asset veri (ordine FV voce FV.01):
+  // senza precaricarli il loro decodificarsi vero resta a meta' nel tempo
+  // finto delle prove, e il layout che dipende dalla loro misura non si
+  // assesta.
+  await tester.runAsync(() async {
+    for (final e in find.byType(Image).evaluate()) {
+      await precacheImage((e.widget as Image).image, e);
+    }
+  });
+  await tester.pump(const Duration(milliseconds: 100));
 }
 
 Future<void> _attendi(WidgetTester tester, int decimi) async {
@@ -475,6 +485,11 @@ void main() {
         scrollable: find.descendant(
             of: find.byKey(const Key('lunario_foglio_scroll')),
             matching: find.byType(Scrollable)));
+    // L'allineamento in cima allo scorrevole puo' spingere il centro del
+    // pulsante appena fuori dalla finestra di prova: un centraggio lo
+    // riporta dentro.
+    await Scrollable.ensureVisible(tester.element(fissa), alignment: 0.5);
+    await tester.pump();
     await tester.tap(fissa);
     await _attendi(tester, 3);
     expect(telefono.programmati, hasLength(1));
@@ -503,6 +518,8 @@ void main() {
                 of: find.byKey(const Key('lunario_pannello_scroll')),
                 matching: find.byType(Scrollable))
             .first);
+    await Scrollable.ensureVisible(tester.element(togli), alignment: 0.5);
+    await tester.pump();
     await tester.tap(togli);
     await _attendi(tester, 3);
     expect(telefono.annullati, hasLength(1));
