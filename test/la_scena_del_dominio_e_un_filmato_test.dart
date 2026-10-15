@@ -100,12 +100,22 @@ Future<void> _monta(
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MediaQuery(
-        data: MediaQueryData(disableAnimations: riduci),
-        child: MaestroScope(
-          maestro: maestro,
-          child: DomainScreen(
-              maestro: maestro, fabbricaDellaScena: () => lettore),
+      // **SI CAMBIA UN CAMPO SOLO, NON TUTTO IL MEDIAQUERY.** Un
+      // `MediaQueryData(disableAnimations: riduci)` scritto da zero
+      // dichiara anche `size: Size.zero` (il suo valore di difetto): la
+      // scena del dominio legge `MediaQuery.sizeOf` per la sua altezza, e
+      // con questo azzeramento la leggeva zero in ogni prova di questo
+      // file, trovato dalla prova sullo spostamento verso l'alto (FW).
+      // `Builder` da' un contesto che ha gia' il MediaQuery vero di
+      // `MaterialApp`, e `copyWith` ne cambia solo `disableAnimations`.
+      home: Builder(
+        builder: (context) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(disableAnimations: riduci),
+          child: MaestroScope(
+            maestro: maestro,
+            child: DomainScreen(
+                maestro: maestro, fabbricaDellaScena: () => lettore),
+          ),
         ),
       ),
     ),
@@ -197,6 +207,33 @@ void main() {
             .image,
         isA<AssetImage>().having(
             (a) => a.assetName, 'assetName', scena.ultimoFotogramma));
+  });
+
+  // **LA TESTA SALE VERSO LA BARRA, SENZA INGRANDIRE.** Ordine FW, 15
+  // ottobre 2026: il fondatore, vista l'anteprima con lo zoom, "I video non
+  // vanno ingranditi, vanno solo spostati in alto". La scena si sposta con
+  // Transform.translate, mai con Transform.scale: qui si misura che il
+  // fotogramma si sposti (un Maestro con la testa in basso, Medora) e che
+  // resti alla sua grandezza vera (nessuno zoom, la sua altezza resa non
+  // cambia).
+  testWidgets('FW.03: la scena sale verso l\'alto, mai ingrandita',
+      (tester) async {
+    final lettore = _Finta();
+    await _monta(tester, maestro: Maestro.medora, lettore: lettore);
+    final fotogramma = find.byKey(const Key('dominio_fotogramma'));
+    final rect = tester.getRect(fotogramma);
+    expect(rect.top, lessThan(0),
+        reason: 'la testa di Medora, in basso nel fermo vero, deve salire: '
+            'il fotogramma trasla sopra il bordo alto dello schermo');
+    // **NESSUNO ZOOM**: la sua altezza resa resta quella dello schermo,
+    // un Transform.scale l'avrebbe allargata oltre.
+    final schermo = tester.view.physicalSize / tester.view.devicePixelRatio;
+    expect(rect.height, schermo.height,
+        reason: 'il fotogramma e\' piu\' alto dello schermo: e\' stato '
+            'ingrandito, non solo spostato');
+    expect(rect.width, schermo.width,
+        reason: 'il fotogramma e\' piu\' largo dello schermo: e\' stato '
+            'ingrandito, non solo spostato');
   });
 
   testWidgets('FW.03: il tocco che salta non apre per sbaglio un pilastro',

@@ -76,6 +76,72 @@ class DomainScreen extends StatefulWidget {
 class _DomainScreenState extends State<DomainScreen> {
   late final RegiaDellaScena _regia;
 
+  // **LA TESTA SALE VERSO LA BARRA, ordine FW, 15 ottobre 2026.** Il
+  // fondatore: *"Tutti i video dei domini di ogni maestro devono salire
+  // verso l'alto altrimenti il video non si vede e lo scopo cade. Porta il
+  // video in alto finche' la testa dei maestri sia a 30 pixel dalla barra
+  // del titolo"*, e poi, vista un primo tentativo con uno zoom: *"Perche'
+  // hai ingrandito i video? I video non vanno ingranditi, vanno solo
+  // spostati in alto"*. Niente scala: solo uno spostamento verticale puro
+  // (`Transform.translate`), alla stessa grandezza di sempre. I tre video
+  // non hanno il viso alla stessa altezza (misurato sui fermi veri,
+  // docs/collaudo/FW/*_dominio_ultimo_dopo.png, riga per riga su un
+  // righello sovrapposto): la testa di Medora comincia al 28 per cento
+  // dell'immagine, quella di Caligo al 22, quella di Aura al 18. Spostando
+  // la scena verso l'alto di quel tanto che serve, sotto resta uno spazio
+  // vuoto (l'immagine non arriva piu' al bordo basso): coperto da un fondo
+  // pieno del colore profondo della palette, lo stesso in cui il velo gia'
+  // sfuma, cosi' il taglio non si vede.
+  static const Map<String, double> _frazioneTestaNelFotogramma = {
+    'medora': 0.28,
+    'caligo': 0.22,
+    'aura': 0.18,
+  };
+
+  /// **DI QUANTO SI SPOSTA LA SCENA VERSO L'ALTO**, in punti schermo.
+  /// Positivo quando la testa, alla sua altezza naturale, sta piu' in
+  /// basso del bersaglio (barra piu' 30 punti): si sposta su di tanto.
+  /// Se e' gia' piu' in alto del bersaglio (come capita ad Aura) non si
+  /// sposta affatto: la richiesta e' che la testa salga, non che scenda.
+  double _spostamentoVersoLAlto(BuildContext context) {
+    final frazioneTesta = _frazioneTestaNelFotogramma[widget.maestro.id] ?? 0;
+    final altezzaSchermo = MediaQuery.sizeOf(context).height;
+    final posizioneAttuale = frazioneTesta * altezzaSchermo;
+    final appBarBasso = MediaQuery.paddingOf(context).top + 88;
+    final bersaglio = appBarBasso + 30;
+    return (posizioneAttuale - bersaglio).clamp(0.0, altezzaSchermo);
+  }
+
+  // **IL MEZZOBUSTO INTERO, FINO AL TAVOLO.** Il fondatore, non ancora
+  // soddisfatto di un margine fisso: *"VOGLIO VEDERE TUTTO IL MEZZOBUSTO DI
+  // OGNI MAESTRO E SENZA ZOOM, dal tavolo parte la sfumatura verso il basso
+  // scura o velo e le icone delle arti"*. Un numero solo (37 per cento piu'
+  // 30 punti) non poteva reggere per tutti e tre: ogni scena ha il suo
+  // tavolo a un'altezza diversa (misurato sugli stessi fermi veri, lo
+  // stesso righello della testa). Il tavolo di Medora e' al 77 per cento
+  // dell'immagine, quello di Caligo al 65 (il piano del suo leggio, piu' in
+  // alto perche' lui e' inquadrato piu' vicino), quello di Aura al 74 (il
+  // bordo del suo altare di marmo).
+  static const Map<String, double> _frazioneTavoloNelFotogramma = {
+    'medora': 0.77,
+    'caligo': 0.65,
+    'aura': 0.74,
+  };
+
+  /// **DOVE FINISCE LA SCENA E COMINCIA IL CONTENUTO**, in punti schermo,
+  /// contati dal bordo basso della barra (lo stesso zero da cui parte
+  /// `spazioScena` dentro `MaestroScreen`). E' il tavolo, nella sua
+  /// posizione VERA dopo lo spostamento verso l'alto: se la scena sale di
+  /// `spostamento` punti, il tavolo sale della stessa misura, e il velo lo
+  /// segue invece di restare fermo a un numero scritto a mano.
+  double _fineDellaScena(BuildContext context, double spostamento) {
+    final frazioneTavolo = _frazioneTavoloNelFotogramma[widget.maestro.id] ?? 0.7;
+    final altezzaSchermo = MediaQuery.sizeOf(context).height;
+    final appBarBasso = MediaQuery.paddingOf(context).top + 88;
+    final posizioneDelTavolo = frazioneTavolo * altezzaSchermo - spostamento;
+    return (posizioneDelTavolo - appBarBasso).clamp(0.0, altezzaSchermo);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -108,6 +174,15 @@ class _DomainScreenState extends State<DomainScreen> {
     final palette = context.palette;
     final scena = LaScenaDelMaestro.delDominio(widget.maestro);
     final ferma = _regia.ferma;
+    final spostamento = _spostamentoVersoLAlto(context);
+    final altezzaSchermo = MediaQuery.sizeOf(context).height;
+    final fineScena = _fineDellaScena(context, spostamento);
+    // Lo stesso scarto di prima fra l'inizio della sfumatura e la sua
+    // forza piena (0,46-0,28=0,18 di schermo): si sposta tutto insieme a
+    // `fineScena`, cosi' il velo arriva a forza piena esattamente dove
+    // comincia il contenuto, qualunque cosa cambi `fineScena` domani.
+    final veloFine = (fineScena / altezzaSchermo).clamp(0.0, 1.0);
+    final veloInizio = (veloFine - 0.18).clamp(0.0, veloFine);
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -162,14 +237,23 @@ class _DomainScreenState extends State<DomainScreen> {
           key: const Key('dominio_scena'),
           clipBehavior: Clip.hardEdge,
           children: [
+            // **IL FONDO SOTTO LO SPOSTAMENTO.** Spostando la scena verso
+            // l'alto, sotto di lei non resta piu' niente (l'immagine non
+            // tocca piu' il bordo basso dello schermo): questo colore pieno
+            // sta dietro a tutto, cosi' il vuoto non si vede, nello stesso
+            // colore profondo in cui il velo piu' sotto gia' sfuma.
+            Positioned.fill(child: ColoredBox(color: palette.deepest)),
             Positioned.fill(
-              child: Image.asset(
-                ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
-                key: const Key('dominio_fotogramma'),
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (_, __, ___) =>
-                    ColoredBox(color: palette.deepest),
+              child: Transform.translate(
+                offset: Offset(0, -spostamento),
+                child: Image.asset(
+                  ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
+                  key: const Key('dominio_fotogramma'),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.medium,
+                  errorBuilder: (_, __, ___) =>
+                      ColoredBox(color: palette.deepest),
+                ),
               ),
             ),
             // IL VIDEO SI TOGLIE QUANDO FINISCE, come nel Calendario Lunare:
@@ -177,10 +261,13 @@ class _DomainScreenState extends State<DomainScreen> {
             // poi non dipinge piu'.
             if (_regia.filmatoInScena && (!ferma || _regia.saltata))
               Positioned.fill(
-                child: IlFilmatoCheSfuma(
-                  key: const Key('dominio_filmato'),
-                  saltato: _regia.saltata,
-                  child: _regia.disegna(),
+                child: Transform.translate(
+                  offset: Offset(0, -spostamento),
+                  child: IlFilmatoCheSfuma(
+                    key: const Key('dominio_filmato'),
+                    saltato: _regia.saltata,
+                    child: _regia.disegna(),
+                  ),
                 ),
               ),
             // **IL VELO IN BASSO, FW.03**: il contenuto del dominio (i
@@ -205,14 +292,13 @@ class _DomainScreenState extends State<DomainScreen> {
             // non si sarebbe mai saputo che i tre domini vivevano dello
             // stesso difetto con fortuna diversa.
             // **IL VELO FINISCE DI SALIRE DOVE COMINCIA IL TESTO**, non
-            // dopo: i vecchi fermi (0,42 e 0,62) arrivavano a piena forza
-            // dopo il 46 per cento dove comincia il contenuto
-            // (`spazioScena`); ora salgono da 0,28 a 0,46, pronti per il
-            // testo e non dopo, e la forza piena passa da 0,72 a 0,80 per un
-            // margine piu' largo sopra soglia. Misurato di nuovo dopo
-            // entrambe le correzioni (il `Positioned.fill` e i nuovi fermi)
-            // sulla stessa cattura: 5,53 (titolo) e 5,22 (riga), sopra 4,5
-            // anche nel punto piu' chiaro della scena di Aura.
+            // dopo: i fermi non sono piu' numeri scritti a mano, sono
+            // calcolati da `fineScena` (`veloInizio`, `veloFine`), lo stesso
+            // punto dato a `spazioScena` qui sotto: il velo e il contenuto
+            // restano uniti anche se `fineScena` cambia. La forza piena e'
+            // 0,80 (misurata la prima volta sulla cattura di Aura, dove le
+            // lanterne del tempio sono chiare proprio li': contrasto 5,53 e
+            // 5,22, sopra 4,5, docs/collaudo/FW/fw03_contrasto_sulla_cattura.py).
             Positioned.fill(
               child: IgnorePointer(
                 child: DecoratedBox(
@@ -220,7 +306,7 @@ class _DomainScreenState extends State<DomainScreen> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      stops: const [0.0, 0.28, 0.46],
+                      stops: [0.0, veloInizio, veloFine],
                       colors: [
                         Colors.transparent,
                         Colors.transparent,
@@ -233,18 +319,18 @@ class _DomainScreenState extends State<DomainScreen> {
             ),
             MaestroScreen(
               maestro: widget.maestro,
-              // **IL VISO NON SI COPRE, FW.03**: il viso dei tre Maestri
-              // sta entro il 40 per cento alto dell'immagine 1080x1920. Lo
-              // spazio libero era il 46 per cento dell'altezza dello
-              // schermo: su 797 punti la scheda "Consulta" (la prima azione
-              // del dominio) finiva sotto la barra in basso, sempre in
-              // vista (ordine EJ, 112 punti), e un tocco su di lei veniva
-              // assorbito dalla barra, scoperto da una prova che naviga
-              // l'app vera (test/il_maestro_non_resta_muto_test.dart), non
-              // da nessuna cattura. Il 37 per cento tiene il viso scoperto
-              // con margine e lascia la scheda sopra la barra: misurato di
-              // nuovo con la stessa prova.
-              spazioScena: MediaQuery.sizeOf(context).height * 0.37,
+              // **DOVE COMINCIA IL CONTENUTO**, calcolato da `_fineDellaScena`
+              // qui sopra: il tavolo di ogni scena, nella sua posizione vera
+              // dopo lo spostamento verso l'alto. Il Maestro intero, fino al
+              // tavolo, e' visibile sopra; attenzione se si tocca questo
+              // numero: la scheda "Consulta" (la prima azione del dominio)
+              // puo' cadere dove la barra Esplora, sempre in vista sul
+              // dominio, si sovrappone (ordine EJ, 112 punti). Non e' un
+              // difetto, e' la regola permanente della barra: scorrendo lei
+              // si ritira e la scheda torna libera, come verifica
+              // `test/il_maestro_non_resta_muto_test.dart` scorrendo prima
+              // di toccare.
+              spazioScena: fineScena,
             ),
           ],
         ),

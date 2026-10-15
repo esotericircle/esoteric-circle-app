@@ -1,0 +1,36 @@
+REGOLA A, ordine FW (la testa sale verso la barra), 15 ottobre 2026
+guardia: test/la_scena_del_dominio_e_un_filmato_test.dart,
+  "FW.03: la scena sale verso l'alto, mai ingrandita"
+
+Fonte: il fondatore, "Tutti i video dei domini di ogni maestro devono
+salire verso l'alto altrimenti il video non si vede e lo scopo cade. Porta
+il video in alto finche' la testa dei maestri sia a 30 pixel dalla barra
+del titolo"; poi, visto un primo tentativo con uno zoom, "Perche' hai
+ingrandito i video? I video non vanno ingranditi, vanno solo spostati in
+alto".
+
+PRIMO GIRO (prima di scrivere la prova): il codice stesso rivela un difetto
+nel fixture di prova usato da questo file, non nel codice vero. La prova
+misurava rect.top sempre a 0.0 indipendentemente dallo spostamento, perche'
+`_monta` costruiva `MediaQuery(data: MediaQueryData(disableAnimations:
+riduci), ...)`: un `MediaQueryData` scritto da zero dichiara anche
+`size: Size.zero`, il suo valore di difetto, azzerando `MediaQuery.sizeOf`
+che `_spostamentoVersoLAlto` legge per calcolare quanto spostare la scena.
+Corretto il fixture: `Builder` da' un contesto che ha gia' il MediaQuery
+vero di MaterialApp, `copyWith` cambia solo `disableAnimations`.
+
+INNESTO, sul codice e sul fixture corretti: domain_screen.dart riga 210,
+  offset: Offset(0, -spostamento),  ->  offset: Offset.zero, // INNESTO_FW_TESTA
+verifica dell'innesto: grep -n "INNESTO_FW_TESTA" lib/features/maestri/domain_screen.dart
+  trovato alla riga 210, confermato il difetto nel file.
+
+esito con l'innesto (uscita 1):
+  FW.03: la scena sale verso l'alto, mai ingrandita [E]
+  Expected: a value less than <0>
+    Actual: <0.0>
+  00:02 +0 -1: Some tests failed.
+
+ripristino: ricopiato domain_screen.dart dal backup; grep -c "INNESTO_FW_TESTA"
+  da' 0.
+
+esito sul codice vero (uscita 0): All tests passed! (8 su 8)

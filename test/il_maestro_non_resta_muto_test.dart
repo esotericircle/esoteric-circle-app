@@ -98,7 +98,18 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    await tester.tap(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
+    // **SI SCORRE PRIMA DI TOCCARE, COME FAREBBE UNA PERSONA.** Ordine FW,
+    // 15 ottobre 2026: la scena del dominio mostra ora il Maestro intero
+    // fino al tavolo, e la scheda "Consulta" puo' cadere dove la barra
+    // Esplora, sempre in vista li', si sovrappone: e' normale, la barra si
+    // ritira scorrendo e la persona decide quando toccare (regola
+    // permanente del fondatore). Un piccolo scorrimento verso l'alto la
+    // porta via dalla fascia della barra prima del tocco.
+    final scheda = find.byKey(Key('scheda_tocco_consulta_${maestro.name}'));
+    await tester.drag(
+        find.byType(CustomScrollView), const Offset(0, -180));
+    await step(tester);
+    await tester.tap(scheda);
     // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
     await tester.pump(const Duration(milliseconds: 500));
     await step(tester);
