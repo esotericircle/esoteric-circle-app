@@ -344,6 +344,24 @@ flutter:
     # medora_sipario_delle_stelle_v1.mp4, 1080 per 1920, 8 secondi, impronta
     # SHA-256 1cb114680e930d2323233333947acc762f6687ef4f8786ab1b90da8e97b02c2b.
     - brand_assets/vip_scena/
+    # IL CALENDARIO LUNARE PERSONALE, ordine FV voce FV.01, 15 ottobre 2026:
+    # le sei immagini della scena (l'almanacco chiuso e aperto, le due pose
+    # di Medora, il primo e l'ultimo fotogramma), gli undici emblemi, i nove
+    # sigilli, le tre luci da posare in fusione schermo, il castone e lo
+    # sfondo notturno della card, convertiti in WebP da
+    # tool/gli_asset_dell_ordine_fv.py.
+    - assets/img/calendario_lunare/
+    # LE LUNE VERE, voce FV.03: trenta fotografie di una lunazione, una per
+    # giorno lunare, scontornate sul disco, da
+    # tool/le_lune_della_nasa.py. La fonte sta in
+    # lib/core/legal/fonti_dei_dati.dart.
+    - assets/img/calendario_lunare/lune/
+    # IL VIDEO DELL'ALMANACCO DI LUCE, voce FV.02:
+    # medora_almanacco_di_luce_v1.mp4, 1080 per 1920, 8 secondi, ricompresso
+    # in H.264 a qualita' costante 26 con l'audio (metodo della voce FU.12),
+    # impronta SHA-256
+    # 585ac4b3d93495ce30ad7ac5ca69d83937b4e6388d018594d81a0bebd6493450.
+    - brand_assets/calendario_lunare/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la
