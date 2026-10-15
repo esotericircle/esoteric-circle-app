@@ -1389,8 +1389,6 @@ class _IlFoglioDelGiornoState extends State<_IlFoglioDelGiorno> {
     final attivita = widget.attivita;
     final fissato =
         attivita != null && widget.promemoria.eFissato(g.giorno, attivita);
-    final lettura =
-        TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
     final piccola = TypographyTokens.didascalia()
         .copyWith(color: ColorTokens.textSecondary);
     final bottone = OutlinedButton.styleFrom(
@@ -1463,7 +1461,7 @@ class _IlFoglioDelGiornoState extends State<_IlFoglioDelGiorno> {
                     ParagrafiDiLettura(
                         key: const Key('lunario_foglio_perche'),
                         testo: esito.perche.join('\n\n'),
-                        stile: lettura),
+                        stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
                   ],
                   if (esito.grado == GradoDelGiorno.oro &&
                       widget.promemoriaAperti) ...[
@@ -1537,13 +1535,13 @@ class _IlFoglioDelGiornoState extends State<_IlFoglioDelGiorno> {
                       ),
                     ],
                   ),
-                  ParagrafiDiLettura(testo: s.testo, stile: lettura),
+                  ParagrafiDiLettura(testo: s.testo, stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
                 ],
                 const SizedBox(height: SpacingTokens.md),
                 ParagrafiDiLettura(
                     key: const Key('lunario_foglio_cielo'),
                     testo: _cielo,
-                    stile: lettura),
+                    stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
                 const SizedBox(height: SpacingTokens.md),
                 Text('Da dove viene',
                     style: TypographyTokens.etichetta()

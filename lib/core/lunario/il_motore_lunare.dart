@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import '../astro/il_segno_del_cielo.dart';
 import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/zodiac.dart';
 import 'il_giorno_lunare.dart';
@@ -264,7 +265,7 @@ abstract final class IlMotoreLunare {
         illuminazione: (1 - math.cos(e * math.pi / 180)) / 2,
         crescente: e < 180,
         fase: faseDi(e),
-        segno: Zodiac.values[(lunaLon ~/ 30) % 12],
+        segno: IlSegnoDelCielo.dellaLongitudine(lunaLon),
         cambiDiSegno: [
           for (final x in ingressi)
             if (x.jd >= a && x.jd < b)

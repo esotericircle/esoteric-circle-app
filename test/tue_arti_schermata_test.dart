@@ -216,6 +216,10 @@ void main() {
       // Arte attiva dalla scheda degli Angeli, passa dalla soglia unica.
       'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart':
           'angels_oracle',
+      // **IL CALENDARIO LUNARE, ordine FV voce FV.13, 15 ottobre 2026.**
+      // Arte attiva
+      // dalla home e dal dominio di Medora, passa dalla soglia unica.
+      'lib/features/lunario/calendario_lunare_screen.dart': 'lunar_calendar',
     };
     rotte.forEach((percorso, id) {
       final s = File(percorso).readAsStringSync();

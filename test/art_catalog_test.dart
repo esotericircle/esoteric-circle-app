@@ -112,13 +112,19 @@ void main() {
         'lunar_affinity',
         'lunar_calendar',
       ]);
-      // Nessuna e' attiva in Demo: sono tutte in cammino, ognuna con la sua
-      // fase, e la loro rotta cade sull'anticipo invece che su una schermata.
+      // **IL CALENDARIO LUNARE ESCE DAL COMING SOON, ordine FV voce FV.13,
+      // 15 ottobre 2026.** E' l'unica delle quattro viva: le altre tre
+      // restano in cammino, ognuna con la sua fase, con la rotta
+      // sull'anticipo invece che su una schermata.
       for (final a in luna.arts) {
+        if (a.id == 'lunar_calendar') continue;
         expect(a.state, ArtState.inArrivo, reason: a.id);
         expect(a.phase, isNotNull, reason: a.id);
         expect(artRouteFor(a.id), isNull, reason: a.id);
       }
+      final lunare = luna.arts.firstWhere((a) => a.id == 'lunar_calendar');
+      expect(lunare.state, ArtState.attiva);
+      expect(lunare.phase, 'MVP');
       // **IN MVP DALL'ORDINE EN, voce 12**: la scelta del fondatore, *"Ok,
       // Respiro della Luna e Affinità Lunare"*. Le altre due restano dove
       // erano.
@@ -126,8 +132,6 @@ void main() {
       expect(
           luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase, 'MVP');
       expect(luna.arts.firstWhere((a) => a.id == 'fertility_windows').phase,
-          'Fase successiva');
-      expect(luna.arts.firstWhere((a) => a.id == 'lunar_calendar').phase,
           'Fase successiva');
     });
 
@@ -515,7 +519,6 @@ void main() {
         'astrocartography',
         'friends_compatibility',
         'fertility_windows',
-        'lunar_calendar',
         'angel_cards',
       ]) {
         expect(ArtCatalog.isVisible(find(id), demo: false), isFalse,

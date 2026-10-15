@@ -101,6 +101,9 @@ void main() {
       'oracolo_angeli': 'arte nuova dell\'ordine FU, 15 ottobre 2026: '
           'come la Sinastria evolutiva, il gradino lo decide il fondatore '
           'nelle regole dei traguardi, e il gesto si conta gia\'.',
+      'lunario': 'arte nuova dell\'ordine FV, 15 ottobre 2026: come '
+          'l\'Oracolo degli Angeli, il gradino lo decide il fondatore nelle '
+          'regole dei traguardi, e il gesto si conta gia\'.',
     };
     final inutili = [
       for (final s in GestiDelleArti.tutte)

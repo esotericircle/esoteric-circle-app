@@ -39,10 +39,19 @@ void main() {
     // 2026: e' un'arte attiva nuova e non sta fra le sei del seme.
     // **E L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.11, 15 ottobre 2026,
     // per la stessa ragione.
-    expect(fila.toSet(),
-        {'angels_oracle', 'synastry_depth', 'guide_animal', 'magic_sigil'},
+    // **E IL CALENDARIO LUNARE**, ordine FV voce FV.13, 15 ottobre 2026, per
+    // la stessa ragione: non sta fra le sei del seme.
+    expect(
+        fila.toSet(),
+        {
+          'angels_oracle',
+          'synastry_depth',
+          'guide_animal',
+          'magic_sigil',
+          'lunar_calendar',
+        },
         reason: 'oggi il resto del catalogo e\' Oracolo degli Angeli, '
-            'Sinastria evolutiva, Viaggio dello Sciamano e Sigillo '
+            'Sinastria evolutiva, Viaggio dello Sciamano, Sigillo '
             'dell\'Intenzione');
   });
 

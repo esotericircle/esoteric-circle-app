@@ -115,6 +115,11 @@ class ScaricoDeiTuoiDati {
     'loto.': 'I tuoi respiri nella Meditazione',
     'viaggio.':
         'I tuoi viaggi nel Mondo di Sotto, con le domande che hai portato giù',
+    // Ordine FV voce FV.08 e FV.09: i promemoria fissati sul Calendario
+    // Lunare e l'intenzione scritta alla Luna nuova si cancellano con
+    // tutto il resto, quindi qui c'e' anche il loro nome.
+    'lunario.': 'I tuoi promemoria del Calendario Lunare e la tua intenzione '
+        'alla Luna nuova',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ

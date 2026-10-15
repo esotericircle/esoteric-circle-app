@@ -83,13 +83,20 @@ void main() {
     // **E L'ORACOLO DEGLI ANGELI, ordine FU voce FU.11, 15 ottobre 2026.**
     // Si raggiunge dalla scheda degli Angeli nel dominio di Medora; lo
     // scaffale curato del Santuario non cambia.
-    expect(fuoriScaffale.toSet(), {
-      'guardian_angel',
-      'rune_draw',
-      'magic_sigil',
-      'synastry_depth',
-      'angels_oracle',
-    },
+    // **E IL CALENDARIO LUNARE, ordine FV voce FV.13, 15 ottobre 2026.**
+    // Si raggiunge dalla riga la_tua_intenzione della home e dal dominio di
+    // Medora, sezione Lunologia; lo scaffale curato del Santuario non
+    // cambia.
+    expect(
+        fuoriScaffale.toSet(),
+        {
+          'guardian_angel',
+          'rune_draw',
+          'magic_sigil',
+          'synastry_depth',
+          'angels_oracle',
+          'lunar_calendar',
+        },
         reason: 'le arti vive fuori dallo scaffale sono cambiate: adesso sono '
             '$fuoriScaffale. Se e\' voluto si aggiorna questa riga con la '
             'ragione, se non lo e\' si aggiunge l\'arte allo scaffale. IL '

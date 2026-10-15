@@ -46,6 +46,11 @@ void main() {
     'magic_sigil':
         'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart',
     'guardian_angel': 'lib/features/angels/angels_screen.dart',
+    // Ordine FV, 15 ottobre 2026: il Calendario Lunare. La fonte sta
+    // nel foglio TestiDelleFonti.calendarioLunare (le trenta lune vere
+    // della NASA, il metodo di Maria Thun, l'astrologia elettiva
+    // classica per le regole, gli almanacchi contadini).
+    'lunar_calendar': 'lib/features/lunario/calendario_lunare_screen.dart',
     // Ordine FU, 15 ottobre 2026: l'Oracolo degli Angeli. Le fonti stanno
     // nel foglio TestiDelleFonti.oracoloAngeli (Shem HaMephorash, Esodo
     // 14,19-21, i salmi dei 72).

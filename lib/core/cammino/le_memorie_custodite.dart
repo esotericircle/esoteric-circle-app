@@ -153,6 +153,14 @@ abstract final class LeMemorieCustodite {
     'viso.': 'le letture del viso: la privacy dice che restano sul telefono',
     'archetipo.': 'lo storico per esteso: la privacy dice che resta sul '
         'telefono; il dominante e il giorno tornano col cammino',
+    // Ordine FV voci FV.08 e FV.09, 15 ottobre 2026: i promemoria fissati
+    // sul Calendario Lunare e l'intenzione della Luna nuova. L'ordine
+    // dichiara l'intenzione privata, "non va sulla card e non va al
+    // Cerchio": resta su questo telefono, come i promemoria, che sono
+    // avvisi locali del sistema e non avrebbero senso su un altro
+    // dispositivo.
+    'lunario.': 'i promemoria del Calendario Lunare e l\'intenzione alla '
+        'Luna nuova, che l\'ordine vuole privata e mai al Cerchio',
   };
 
   /// Quante volte e' stata riscritta una famiglia dal Cerchio: le prove lo

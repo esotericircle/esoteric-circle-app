@@ -68,7 +68,7 @@ const List<FonteDeiDati> fontiDeiDati = <FonteDeiDati>[
   // testo di Medora la nomina mai (le stesse linee guida vietano, nei
   // prodotti con intelligenza artificiale, frasi come "secondo la NASA").
   FonteDeiDati(
-    cosa: 'Immagini della Luna: NASA\'s Scientific Visualization Studio',
+    cosa: 'Immagini della Luna: Scientific Visualization Studio della NASA',
     chi: 'NASA Goddard Space Flight Center, Scientific Visualization Studio',
     licenza: 'Immagini della NASA, in genere non coperte da copyright negli '
         'Stati Uniti',
