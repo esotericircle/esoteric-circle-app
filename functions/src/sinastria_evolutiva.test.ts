@@ -12,7 +12,7 @@ import {
   legameApribile,
 } from "./sinastria_evolutiva";
 import {limiteDi} from "./budget";
-import {LISTINO_DEL_RISCATTO} from "./borsellino";
+import {LISTINO_DEL_RISCATTO, PREZZI_DEL_RISCATTO} from "./borsellino";
 
 /**
  * FT.04, LO SBARRAMENTO DI ETA' SUL LEGAME AMORE, LATO SERVER. Ordine FT,
@@ -199,4 +199,53 @@ test("le coppie nuove al giorno: uno, due, cinque, quindici", () => {
 
 test("il listino porta la sinastria evolutiva in piu' a 150 Eos", () => {
   assert.equal(LISTINO_DEL_RISCATTO["sinastrieEvolutive"], 150);
+});
+
+/**
+ * FU.09, LA NASCITA PRESTATA ALL'ORACOLO DEGLI ANGELI. Lo stesso gesto della
+ * lettura a due telefoni, con lo scopo dichiarato: un consenso dato per una
+ * cosa non si legge per un'altra, e il minuto locale viaggia solo per
+ * l'Oracolo e solo con l'ora nota.
+ */
+test("FU.09 il consenso per l'Oracolo porta lo scopo e il minuto locale", () => {
+  const perOracolo = nascitaDaCorpo({...dati, scopo: "oracolo", minutoLocale: 870}, oggi);
+  assert.deepEqual(perOracolo, {...dati, scopo: "oracolo", minutoLocale: 870});
+  // Senza scopo resta la nascita di prima, campo per campo: il minuto non entra.
+  assert.deepEqual(nascitaDaCorpo({...dati, minutoLocale: 870}, oggi), dati);
+  // Senza l'ora nota il minuto non viaggia.
+  assert.deepEqual(nascitaDaCorpo({...dati, oraNota: false, scopo: "oracolo",
+    minutoLocale: 870}, oggi), {...dati, oraNota: false, scopo: "oracolo"});
+  assert.deepEqual(nascitaDaCorpo({...dati, scopo: "oracolo", minutoLocale: 1440}, oggi),
+    {...dati, scopo: "oracolo"}, "un minuto fuori dal giorno non viaggia");
+});
+
+test("FU.09 un consenso per una cosa sola: la Sinastria non legge l'Oracolo", () => {
+  const perOracolo = nascitaDaCorpo({...dati, scopo: "oracolo", minutoLocale: 870}, oggi);
+  assert.ok(perOracolo !== null);
+  const consenso = creaConsenso(perOracolo, oggi, "AB12CD");
+  const dallaSinastria = esitoDellaLettura(consenso, "1990-05-12", oggi);
+  assert.equal(dallaSinastria.esito, null);
+  assert.equal(dallaSinastria.consensoAggiornato?.consumato, false,
+    "il consenso letto dalla porta sbagliata non si consuma");
+  const dallOracolo = esitoDellaLettura(consenso, "1990-05-12", oggi, "oracolo");
+  assert.equal(dallOracolo.esito?.nascita.minutoLocale, 870);
+  // E il contrario: la nascita per la Sinastria non arriva all'Oracolo.
+  const perSinastria = creaConsenso(dati, oggi, "CD34EF");
+  assert.equal(esitoDellaLettura(perSinastria, "1990-05-12", oggi, "oracolo").esito, null);
+  assert.deepEqual(esitoDellaLettura(perSinastria, "1990-05-12", oggi).esito?.nascita, dati);
+});
+
+/**
+ * FU.10, IL BUDGET DELL'ORACOLO DEGLI ANGELI SUL SERVER.
+ */
+test("FU.10 le consultazioni dell'Oracolo al giorno: uno, tre, cinque, sei", () => {
+  assert.equal(limiteDi("oracoliAngeli", "free"), 1);
+  assert.equal(limiteDi("oracoliAngeli", "tier1"), 3);
+  assert.equal(limiteDi("oracoliAngeli", "tier2"), 5);
+  assert.equal(limiteDi("oracoliAngeli", "tier3"), 6);
+});
+
+test("FU.10 il listino porta la consultazione in piu' a 100 Eos", () => {
+  assert.equal(PREZZI_DEL_RISCATTO.oracoliAngeli, 100);
+  assert.equal(LISTINO_DEL_RISCATTO["oracoliAngeli"], 100);
 });

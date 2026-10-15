@@ -280,6 +280,7 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kStese = 'allowance.stese';
   static const _kSinastrie = 'allowance.sinastrie';
   static const _kEvolutive = 'allowance.sinastrie_evolutive';
+  static const _kOracoli = 'allowance.oracoli_angeli';
   static const _kGiornoDelServer = 'allowance.giornoDelServer';
   static const _kCoda = 'allowance.coda';
   static const _kSaldo = 'allowance.saldoEos';
@@ -306,6 +307,10 @@ class QuestionAllowance extends ChangeNotifier {
   /// LE SINASTRIE EVOLUTIVE di coppie nuove consumate oggi, ordine FT
   /// voce FT.13. Budget suo, separato da quello della VIP.
   int _evolutive = 0;
+
+  /// LE CONSULTAZIONI DELL'ORACOLO DEGLI ANGELI di oggi, ordine FU voce
+  /// FU.10. Budget suo, sullo stesso confine del giorno degli altri.
+  int _oracoli = 0;
   String _day = '';
 
   /// Il giorno d'uso, dal punto SOLO in cui e' definito.
@@ -335,6 +340,7 @@ class QuestionAllowance extends ChangeNotifier {
       _stese = 0;
       _sinastrie = 0;
       _evolutive = 0;
+      _oracoli = 0;
     }
   }
 
@@ -780,6 +786,50 @@ class QuestionAllowance extends ChangeNotifier {
     _chiediAlServer(kSinastrieEvolutive);
   }
 
+  /// **IL BUDGET DELL'ORACOLO DEGLI ANGELI, ordine FU voce FU.10.**
+  static const String kOracoliAngeli = 'oracoliAngeli';
+
+  /// **SI CONTA SOLO QUANDO IL SERVER LO CONOSCE**, come la Sinastria
+  /// evolutiva ([contaLeSinastrieEvolutive]): il server nuovo
+  /// (`functions/src/budget.ts`, scritto e non pubblicato, la pubblicazione
+  /// la decide il fondatore) manda il prezzo del riscatto di questo budget
+  /// nel listino; finche' non lo manda, le consultazioni non si contano e
+  /// la coda dei gesti non si blocca su un budget che il server non conosce.
+  bool get contaGliOracoli => _listinoDelRiscatto.containsKey(kOracoliAngeli);
+
+  /// Quante consultazioni al giorno prevede il piano, oppure null se il
+  /// conto non e' ancora acceso (vedi [contaGliOracoli]).
+  int? limiteOracoli(Tier tier) => contaGliOracoli
+      ? PlanCatalog.limiteGiornaliero(PlanCatalog.rigaOracoli, tier)
+      : null;
+
+  /// Quante consultazioni restano oggi, oppure null se non si contano.
+  int? oracoliRimasti(Tier tier) {
+    final limite = limiteOracoli(tier);
+    if (limite == null) return null;
+    _rollover();
+    final resta = limite - _oracoli;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// Se si puo' consultare gli angeli adesso. Il cancello guarda i rimasti
+  /// e non il piano, cosi' il credito comprato con gli Eos apre subito.
+  bool puoiConsultareGliAngeli(Tier tier) {
+    final resta = oracoliRimasti(tier);
+    return resta == null || resta > 0;
+  }
+
+  /// Registra una consultazione compiuta: si chiama quando le carte sono
+  /// estratte, mai per una domanda delicata (che non estrae carte).
+  void registraOracolo(Tier tier) {
+    if (limiteOracoli(tier) == null) return;
+    _rollover();
+    _oracoli++;
+    notifyListeners();
+    _persist();
+    _chiediAlServer(kOracoliAngeli);
+  }
+
   /// Registra una domanda consumata. I tier con un limite finito intaccano il
   /// contatore; quello illimitato no.
   void record(Tier tier) {
@@ -808,6 +858,7 @@ class QuestionAllowance extends ChangeNotifier {
       _stese = prefs.getInt(_kStese) ?? 0;
       _sinastrie = prefs.getInt(_kSinastrie) ?? 0;
       _evolutive = prefs.getInt(_kEvolutive) ?? 0;
+      _oracoli = prefs.getInt(_kOracoli) ?? 0;
       _giornoDelServer = prefs.getString(_kGiornoDelServer);
       _saldoEos = prefs.getInt(_kSaldo) ?? 0;
       _daMandare
@@ -882,6 +933,7 @@ class QuestionAllowance extends ChangeNotifier {
     _stese = stato.spesi['stese'] ?? 0;
     _sinastrie = stato.spesi['sinastrie'] ?? 0;
     _evolutive = stato.spesi[kSinastrieEvolutive] ?? 0;
+    _oracoli = stato.spesi[kOracoliAngeli] ?? 0;
     _saldoEos = stato.saldoEos;
     // **QUANTI INVITI SONO STATI ACCOLTI, ordine BX voce 02.** Il telefono non
     // lo puo' sapere: lo sa il server, quando la persona invitata riscatta il
@@ -1035,6 +1087,8 @@ class QuestionAllowance extends ChangeNotifier {
         _sinastrie--;
       case kSinastrieEvolutive:
         _evolutive--;
+      case kOracoliAngeli:
+        _oracoli--;
     }
     notifyListeners();
     await _persist();
@@ -1166,6 +1220,8 @@ class QuestionAllowance extends ChangeNotifier {
         _sinastrie = tetto;
       case kSinastrieEvolutive:
         _evolutive = tetto;
+      case kOracoliAngeli:
+        _oracoli = tetto;
     }
     notifyListeners();
   }
@@ -1191,6 +1247,8 @@ class QuestionAllowance extends ChangeNotifier {
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, tier),
       kSinastrieEvolutive =>
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastriaEvolutiva, tier),
+      kOracoliAngeli =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaOracoli, tier),
       _ => null,
     };
   }
@@ -1231,6 +1289,7 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kStese, _stese);
       await prefs.setInt(_kSinastrie, _sinastrie);
       await prefs.setInt(_kEvolutive, _evolutive);
+      await prefs.setInt(_kOracoli, _oracoli);
       await prefs.setInt(_kSaldo, _saldoEos);
       await prefs.setString(_kCoda, jsonEncode(_daMandare));
       if (_giornoDelServer != null) {

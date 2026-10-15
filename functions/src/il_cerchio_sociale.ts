@@ -72,6 +72,7 @@ import {
   POSTI_DEL_LEGAME,
   RIGA_DEI_QUATTORDICI,
   PREZZI_DEI_DONI,
+  cartaDegliAngeli,
   Presenza,
   SchedaCompatta,
   RISPOSTE_PER_SEGNO,
@@ -1016,8 +1017,9 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
     doni: doniSnap.docs.map((d) => {
       const s = d.data();
       const da = String(s.da ?? "");
+      // La carta degli Angeli porta il suo numero, ordine FU voce FU.09.
       return {id: d.id, dono: s.dono ?? null, da, nomeDa: nomeDi(da),
-        quando: s.quando ?? null};
+        quando: s.quando ?? null, carta: cartaDegliAngeli(s.carta)};
     }),
     amici: amici.map((u) => persona(u, "verde")).filter((x) => x !== null),
     ricevuti: ricevuti.map((u) => persona(u, "arancionePieno")).filter((x) => x !== null),
@@ -1486,6 +1488,11 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
   if (id.length < 8 || id.length > 200) {
     throw new HttpsError("invalid-argument", "Ogni dono porta il suo identificativo.");
   }
+  // LA CARTA DEGLI ANGELI porta il suo numero, ordine FU voce FU.09.
+  const carta = dono === "angelo" ? cartaDegliAngeli(request.data?.carta) : null;
+  if (dono === "angelo" && carta === null) {
+    throw new HttpsError("invalid-argument", "La carta degli Angeli porta il suo numero.");
+  }
   if (a.length === 0 || a === uid) throw new HttpsError("invalid-argument", "Persona sconosciuta.");
   const piano = await pianoDi(uid);
   if (!donoPerIlPiano(dono, piano)) {
@@ -1530,13 +1537,13 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
     tx.set(movimento, {causale: "spesa", motivo: `dono_${dono}`, importo: -prezzo,
       saldoDopo: saldo - prezzo, quando: FieldValue.serverTimestamp()});
     tx.set(utente(a).collection("doni").doc(`${uid}-${id}`),
-      {da: uid, dono, quando: Date.now()});
+      {da: uid, dono, quando: Date.now(), ...(carta === null ? {} : {carta})});
     return {ok: true, perche: null, riga: null, gia: false};
   });
   if (esito.ok && !esito.gia) {
     const io = await schedaPubblica(uid);
     const nomi: Record<string, string> = {cenno: "un cenno", scintilla: "una scintilla",
-      sigillo: "un sigillo"};
+      sigillo: "un sigillo", angelo: "una carta degli Angeli"};
     if (io !== null) await avvisa(a, `${io.nome} ti ha mandato ${nomi[dono]}`, "dono");
   }
   return esito;
@@ -2416,9 +2423,14 @@ export const leggiLaNascita = onCall(OPZIONI_SOCIALI, async (request) => {
       scadenza: new Date(Number(d.scade)),
       consumato: false,
     };
-    const {esito} = esitoDellaLettura(consenso, request.data?.giornoMio, adesso);
-    // Letto o scaduto, il consenso non serve piu': si cancella.
-    if (snap.exists) tx.delete(doc);
+    const {esito, consensoAggiornato} = esitoDellaLettura(
+      consenso, request.data?.giornoMio, adesso, request.data?.scopo);
+    // Letto o scaduto, il consenso non serve piu': si cancella. Letto da chi
+    // aveva un altro scopo (ordine FU voce FU.09), resta per il suo.
+    const intatto = consensoAggiornato !== null && esito === null &&
+      !consensoAggiornato.consumato &&
+      adesso.getTime() <= consensoAggiornato.scadenza.getTime();
+    if (snap.exists && !intatto) tx.delete(doc);
     if (esito === null) throw nessuno;
     return {...esito.nascita, amoreApribile: esito.amoreApribile};
   });

@@ -23,6 +23,8 @@ import {
   decidiLInvito,
   istantaneaVecchia,
   donoPerIlPiano,
+  cartaDegliAngeli,
+  PREZZI_DEI_DONI,
   eUnSigillo,
   leggiIlCodiceDellInvito,
   lettureAllOra,
@@ -518,4 +520,16 @@ test("FA.01 le icone sono tre famiglie, e un Arcano ricade sul segno della perso
   const pubblico = soloIlPubblico({nome: "Luce", icona: "arcano:1", segno: "pisces"});
   console.log(`FA.01 IL PROFILO PUBBLICO CON UN ARCANO: ${pubblico.icona}`);
   assert.equal(pubblico.icona, "segno:11");
+});
+
+test("FU.09 la carta degli Angeli in dono: ogni piano, trenta Eos, un numero da 1 a 72", () => {
+  assert.equal(donoPerIlPiano("angelo", "free"), true);
+  assert.equal(donoPerIlPiano("angelo", "tier3"), true);
+  assert.equal(PREZZI_DEI_DONI.angelo, 30);
+  assert.equal(cartaDegliAngeli(1), 1);
+  assert.equal(cartaDegliAngeli("72"), 72);
+  assert.equal(cartaDegliAngeli(0), null);
+  assert.equal(cartaDegliAngeli(73), null);
+  assert.equal(cartaDegliAngeli(2.5), null);
+  assert.equal(cartaDegliAngeli("Vehuiah"), null);
 });

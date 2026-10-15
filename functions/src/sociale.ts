@@ -1089,6 +1089,14 @@ export const PREZZI_DEI_DONI = {
   cenno: 0,
   scintilla: 30,
   sigillo: 80,
+  /**
+   * **LA CARTA DEGLI ANGELI IN DONO, ordine FU voce FU.09**, 15 ottobre
+   * 2026: una carta estratta nell'Oracolo degli Angeli mandata a un amico.
+   * Trenta Eos come la scintilla, perche' e' lo stesso scaffale: un oggetto
+   * singolo che resta nel profilo di chi lo riceve. Porta il numero
+   * dell'angelo (`cartaDegliAngeli`), mai la domanda ne' la nascita.
+   */
+  angelo: 30,
 } as const;
 export type Dono = keyof typeof PREZZI_DEI_DONI;
 
@@ -1098,9 +1106,13 @@ export function donoValido(valore: unknown): Dono | null {
     null;
 }
 
-/** Il cenno e' per tutti i piani, scintilla e sigillo dall'Adepto in su. */
+/**
+ * Il cenno e la carta degli Angeli sono per tutti i piani, scintilla e
+ * sigillo dall'Adepto in su. La carta si apre a ogni piano perche' anche
+ * l'assaggio del Viandante scopre una carta, quella del Custode (FU.10).
+ */
 export function donoPerIlPiano(dono: Dono, piano: Piano): boolean {
-  if (dono === "cenno") return true;
+  if (dono === "cenno" || dono === "angelo") return true;
   return piano === "tier2" || piano === "tier3";
 }
 
@@ -1116,6 +1128,15 @@ export function donoPerIlPiano(dono: Dono, piano: Piano): boolean {
  * gli acquisti non hanno una porta. Quindi oggi i regalabili valgono zero per
  * tutti, e la porta lo dice invece di inventarsi una fonte.
  */
+/**
+ * IL NUMERO DELLA CARTA DEGLI ANGELI che viaggia col dono, da 1 a 72, oppure
+ * null. Ordine FU voce FU.09: la carta e' uno dei 72 nomi, e nient'altro.
+ */
+export function cartaDegliAngeli(valore: unknown): number | null {
+  const n = Number(valore);
+  return Number.isInteger(n) && n >= 1 && n <= 72 ? n : null;
+}
+
 export const GIFT_MINIMO = 100;
 export const GIFT_MASSIMO_AL_GIORNO = 500;
 

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/angels/angel_catalog.dart';
 import '../../core/archetypes/archetype_history.dart';
+import '../../core/maestro/maestro.dart';
+import '../angels/oracolo/oracolo_degli_angeli_screen.dart'
+    show LaCartaDellAngelo;
 import '../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/cerchio/le_icone_del_cerchio.dart';
@@ -326,12 +330,29 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                     spacing: SpacingTokens.sm,
                     children: [
                       for (final d in sociale.cerchio.doni)
-                        Tooltip(
-                          message: '${Dono.da(d.dono)?.nome ?? 'Un dono'} da '
-                              '${d.nomeDa}',
-                          child: DisegnoDelDono(
-                              dono: Dono.da(d.dono) ?? Dono.cenno, lato: 44),
-                        ),
+                        if (d.carta != null && d.carta! >= 1 && d.carta! <= 72)
+                          // LA CARTA DEGLI ANGELI IN DONO, ordine FU voce
+                          // FU.09: la carta stessa, col suo nome.
+                          Tooltip(
+                            message: 'La carta di '
+                                '${AngelCatalog.byNumber(d.carta!).name} da '
+                                '${d.nomeDa}',
+                            child: SizedBox(
+                              width: 44,
+                              height: 66,
+                              child: LaCartaDellAngelo(
+                                  angelo: AngelCatalog.byNumber(d.carta!),
+                                  palette: MaestroPalette.forKey(
+                                      const ThemeKey.of(Maestro.medora))),
+                            ),
+                          )
+                        else
+                          Tooltip(
+                            message: '${Dono.da(d.dono)?.nome ?? 'Un dono'} da '
+                                '${d.nomeDa}',
+                            child: DisegnoDelDono(
+                                dono: Dono.da(d.dono) ?? Dono.cenno, lato: 44),
+                          ),
                     ],
                   ),
                 ],

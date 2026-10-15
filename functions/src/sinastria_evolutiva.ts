@@ -93,6 +93,26 @@ export interface NascitaCondivisa {
   /** Falso se l'ora non e' nota: la lettura ancora a mezzogiorno. */
   oraNota: boolean;
   nome: string;
+  /**
+   * **PER CHE COSA SI PRESTA LA NASCITA**, ordine FU voce FU.09. Assente
+   * vuol dire la Sinastria evolutiva, come prima dell'ordine FU; "oracolo"
+   * vuol dire una domanda all'Oracolo degli Angeli per chi la presta. Un
+   * consenso dato per una cosa non si legge per un'altra
+   * ([esitoDellaLettura]).
+   */
+  scopo?: "oracolo";
+  /**
+   * Il minuto del giorno di nascita nel luogo (0..1439), solo per l'Oracolo e
+   * solo con l'ora nota: l'Angelo dell'Intelletto si conta dall'ora locale
+   * (`GuardianAngels.intellectFor`), che l'istante in tempo universale da
+   * solo non dice.
+   */
+  minutoLocale?: number;
+}
+
+/** Lo scopo di un consenso: "oracolo", oppure la Sinastria evolutiva. */
+export function scopoDa(valore: unknown): "oracolo" | null {
+  return valore === "oracolo" ? "oracolo" : null;
 }
 
 const GIORNO = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -128,7 +148,14 @@ export function nascitaDaCorpo(corpo: unknown, adesso: Date): NascitaCondivisa |
   if (Math.abs(giorno.getTime() - istante.getTime()) > 2 * 24 * 3600 * 1000) return null;
   const nome = typeof c.nome === "string" ? c.nome.trim() : "";
   if (nome.length === 0 || nome.length > 40) return null;
-  return {nascita: istante.toISOString(), giorno: c.giorno as string, oraNota: c.oraNota, nome};
+  const base: NascitaCondivisa =
+    {nascita: istante.toISOString(), giorno: c.giorno as string, oraNota: c.oraNota, nome};
+  // Senza scopo resta la nascita della Sinastria evolutiva, campo per campo
+  // quella di prima (ordine FT).
+  if (scopoDa(c.scopo) === null) return base;
+  const minuto = Number(c.minutoLocale);
+  const minutoValido = c.oraNota && Number.isInteger(minuto) && minuto >= 0 && minuto < 1440;
+  return {...base, scopo: "oracolo", ...(minutoValido ? {minutoLocale: minuto} : {})};
 }
 
 /**
@@ -141,11 +168,20 @@ export function nascitaDaCorpo(corpo: unknown, adesso: Date): NascitaCondivisa |
 export function esitoDellaLettura(
   consenso: ConsensoDellaNascita | null,
   giornoDiChiLegge: unknown,
-  adesso: Date
+  adesso: Date,
+  scopoDiChiLegge: unknown = undefined
 ): {
   esito: {nascita: NascitaCondivisa; amoreApribile: boolean} | null;
   consensoAggiornato: ConsensoDellaNascita | null;
 } {
+  // **UN CONSENSO PER UNA COSA SOLA**, ordine FU voce FU.09: la nascita
+  // prestata per la Sinastria non si legge dall'Oracolo, ne' il contrario.
+  // Il consenso non si consuma: chi l'ha dato puo' ancora usarlo per cio'
+  // per cui l'ha dato.
+  if (consenso !== null &&
+    scopoDa(consenso.dati.scopo) !== scopoDa(scopoDiChiLegge)) {
+    return {esito: null, consensoAggiornato: consenso};
+  }
   const {datiLetti, consensoAggiornato} = consumaConsenso(consenso, adesso);
   if (datiLetti === null) return {esito: null, consensoAggiornato};
   const mio = giornoDa(giornoDiChiLegge);

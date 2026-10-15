@@ -20,12 +20,23 @@ Da dove vengono i numeri:
   giro delle 16:41, 0,00447 contro 0,00400);
 - IVA 22 per cento e commissione dello store 15 per cento, i valori che
   rifanno al centesimo i tre tetti dell'ordine EX; cambio BCE del 5 ottobre
-  2026, 1,1204 dollari per euro.
+  2026, 1,1204 dollari per euro;
+- dall'ordine FU voce FU.10 (15 ottobre 2026) le consultazioni dell'Oracolo
+  degli Angeli: una chiamata a Gemini 2.5 Flash-Lite per consultazione, 804
+  token in ingresso (misurati dalla prova "LA STIMA DI UNA CONSULTAZIONE" di
+  test/l_oracolo_degli_angeli_test.dart) e al piu' 300 in uscita nella
+  Breve (Iniziato) o 600 nella Lunga (Adepto e Illuminato), al listino
+  Vertex di 0,10 e 0,40 dollari per milione (docs/costi/
+  stima_costi_30_giorni.md, la riga dei prezzi). L'assaggio del Viandante
+  non chiama il modello.
 
     python tool/i_limiti_degli_annuali.py
 """
 IVA, STORE, QUOTA, CAMBIO = 0.22, 0.15, 0.30, 1.1204
 DOMANDA, FE, LIVE = 0.00428, 0.000235, 0.0213
+# Una consultazione dell'Oracolo degli Angeli, Breve e Lunga (ordine FU).
+ORACOLO_BREVE = 804 * 0.10e-6 + 300 * 0.40e-6
+ORACOLO_LUNGA = 804 * 0.10e-6 + 600 * 0.40e-6
 
 PIANI = ['Iniziato', 'Adepto', 'Illuminato']
 PREZZO_MENSILE = [9.99, 19.99, 29.99]
@@ -45,6 +56,13 @@ DOMANDE_MENSILE = [12, 17, 21]
 DOMANDE_ANNUALE = [11, 14, 18]
 MINUTI_ANNUALE = [0, 55, 95]
 
+# Le consultazioni dell'Oracolo degli Angeli al giorno, ordine FU voce
+# FU.10: Iniziato in Breve, Adepto e Illuminato in Lunga. Le stesse del
+# mensile e dell'annuale, e la prova test/i_limiti_degli_annuali_test.dart
+# pretende che siano quelle della matrice.
+ORACOLI = [3, 5, 6]
+ORACOLO = [ORACOLO_BREVE, ORACOLO_LUNGA, ORACOLO_LUNGA]
+
 
 def tetto(prezzo_al_mese):
     return prezzo_al_mese / (1 + IVA) * (1 - STORE) * CAMBIO * QUOTA
@@ -53,7 +71,8 @@ def tetto(prezzo_al_mese):
 def costo(i, domande, minuti):
     base = PEGGIORE_EX[i] + DOMANDE[i] * 30 * FE
     return (base + (domande - DOMANDE[i]) * 30 * (DOMANDA + FE)
-            + (minuti - MINUTI[i]) * LIVE)
+            + (minuti - MINUTI[i]) * LIVE
+            + ORACOLI[i] * 30 * ORACOLO[i])
 
 
 def main():
@@ -67,7 +86,8 @@ def main():
             c, t = costo(i, d, m), tetto(prezzo)
             netto = t / QUOTA
             print(f'{nome} {ciclo}: {d} domande al giorno, {m} minuti di LIVE '
-                  f'al mese; caso peggiore {c:.2f} dollari, tetto {t:.2f}, '
+                  f'al mese, {ORACOLI[i]} consultazioni dell\'Oracolo al '
+                  f'giorno; caso peggiore {c:.2f} dollari, tetto {t:.2f}, '
                   f'{c / netto * 100:.1f} per cento del netto')
             if c > t:
                 sotto = False

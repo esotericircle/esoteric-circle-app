@@ -208,6 +208,14 @@ enum RigaDelPiano {
   oggiFraVoi,
   intervalliDiKeplero,
   compositoRitrattoMomento,
+
+  /// **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026: le
+  /// consultazioni al giorno (il budget `oracoliAngeli` del server), le tre
+  /// carte intere (al Viandante l'assaggio scopre solo il Custode), e la
+  /// risposta Lunga con la domanda per un amico, dall'Adepto.
+  oracoloConsultazioni,
+  oracoloTreCarte,
+  oracoloLungaEAmico,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -271,6 +279,8 @@ class PlanCatalog {
         'Sinastria VIP fino a 3 al giorno',
         // Ordine FT voce FT.13: le righe della Sinastria evolutiva.
         'Sinastria evolutiva: una coppia nuova al giorno, Oggi fra voi e due capitoli',
+        // Ordine FU voce FU.10: l'Oracolo degli Angeli.
+        'Oracolo degli Angeli: l’angelo dell’ora, il messaggio del giorno e una consultazione al giorno col tuo Angelo Custode',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
@@ -301,6 +311,7 @@ class PlanCatalog {
         '6 carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
+        'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Diario Cosmico completo, obiettivi e traguardi per Maestro',
@@ -335,6 +346,7 @@ class PlanCatalog {
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
+        'Oracolo degli Angeli: 5 consultazioni al giorno, la risposta lunga e la lettura per un amico',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -368,6 +380,7 @@ class PlanCatalog {
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
         'Sinastria evolutiva: 15 coppie nuove al giorno',
+        'Oracolo degli Angeli: 6 consultazioni al giorno',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
         // parte dell'app la esegue, e se reale vuol dire una persona non e'
@@ -630,6 +643,10 @@ class PlanCatalog {
   static const RigaDelPiano rigaSinastriaEvolutiva =
       RigaDelPiano.sinastriaEvolutiva;
 
+  /// Le consultazioni dell'Oracolo degli Angeli al giorno, ordine FU voce
+  /// FU.10: il budget `oracoliAngeli` del server.
+  static const RigaDelPiano rigaOracoli = RigaDelPiano.oracoloConsultazioni;
+
   /// La carta singola e' una stesa da una carta: conta fra le carte
   /// estratte. Ordine EX voce 02.
   static const RigaDelPiano rigaCartaSingola = RigaDelPiano.stese;
@@ -887,6 +904,28 @@ class PlanCatalog {
     FeatureRow('Tema Composito, ritratto della coppia e momento giusto',
         ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.compositoRitrattoMomento),
+    // **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026. La
+    // proposta dell'Architetto approvata il 14 ottobre: al Viandante l'angelo
+    // dell'ora, il messaggio del giorno e un assaggio della consultazione;
+    // all'Iniziato i tre angeli con un limite al giorno; dall'Adepto la
+    // Lunga e la domanda per un amico. I numeri sono di Code, con la ragione
+    // nel rapporto e in `functions/src/budget.ts` (`oracoliAngeli`): il tetto
+    // del costo al caso peggiore, col mensile dell'Illuminato come ciclo piu'
+    // stretto, lascia al massimo 7,6 consultazioni Lunghe al giorno: con 6
+    // all'Illuminato il conto si ferma al 29,9 per cento e tiene un margine.
+    // L'assaggio del Viandante non chiama il modello: scopre la carta del
+    // Custode dal corpus, e Cuore e Intelletto restano col lucchetto.
+    FeatureRow(
+        'Angelo dell’ora e messaggio del giorno', ['Sì', 'Sì', 'Sì', 'Sì']),
+    FeatureRow('Oracolo degli Angeli: consultazioni',
+        ['1 al giorno', '3 al giorno', '5 al giorno', '6 al giorno'],
+        chiave: RigaDelPiano.oracoloConsultazioni),
+    FeatureRow('Oracolo degli Angeli: le tre carte',
+        ['Solo il Custode', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.oracoloTreCarte),
+    FeatureRow('Oracolo degli Angeli: risposta lunga e lettura per un amico',
+        ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.oracoloLungaEAmico),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //

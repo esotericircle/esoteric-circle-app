@@ -71,9 +71,13 @@ void main() {
   test('EY.12: i prezzi dei doni stanno nel listino e sono quelli del server',
       () {
     final prezzi = tabella('PREZZI_DEI_DONI');
-    expect(prezzi, {'cenno': 0, 'scintilla': 30, 'sigillo': 80});
+    // Ordine FU voce FU.09: la carta degli Angeli in dono, la voce `angelo`,
+    // trenta Eos come la scintilla (lo stesso scaffale, un oggetto singolo
+    // che resta nel profilo di chi lo riceve).
+    expect(prezzi, {'cenno': 0, 'scintilla': 30, 'sigillo': 80, 'angelo': 30});
     expect(ListinoDegliEos.scintilla.costo, prezzi['scintilla']);
     expect(ListinoDegliEos.sigilloDaDonare.costo, prezzi['sigillo']);
+    expect(ListinoDegliEos.cartaDegliAngeliDaDonare.costo, prezzi['angelo']);
     // Il posto in piu' costa quanto la voce che esiste gia'.
     expect(sociale.contains('EOS_DEL_POSTO_IN_PIU = 100'), isTrue);
     expect(ListinoDegliEos.amicoInPiu.costo, 100);
@@ -135,7 +139,8 @@ void main() {
 
   // LAPIDE, ordine FA voce 01: erano i quattro set con gli Arcani (58 icone);
   // gli Arcani sono usciti dalle icone del profilo, e i set sono tre (36).
-  test('EY.03 e FA.01: le icone sono i tre set disegnati, contati come il '
+  test(
+      'EY.03 e FA.01: le icone sono i tre set disegnati, contati come il '
       'server', () {
     final quante = tabella('QUANTE_ICONE');
     expect(
