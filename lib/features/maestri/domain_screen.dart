@@ -189,18 +189,44 @@ class _DomainScreenState extends State<DomainScreen> {
             // sfumatura verso il colore profondo della palette aiuta la
             // lettura delle prime schede senza coprire il viso del Maestro,
             // che resta nella meta' alta.
-            IgnorePointer(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [0.0, 0.42, 0.62],
-                    colors: [
-                      Colors.transparent,
-                      Colors.transparent,
-                      palette.deepest.withValues(alpha: 0.72),
-                    ],
+            // **IL VELO NON DIPINGEVA NIENTE**: senza `Positioned.fill` un
+            // figlio non posizionato di uno Stack, senza una sua misura
+            // intrinseca, collassa a dimensione zero: il velo era scritto
+            // ma non e' mai stato a schermo, su nessuno dei tre domini, da
+            // quando esiste. Scoperto cosi': guardando la cattura vera
+            // dell'anteprima (`docs/preview/FW/fw06_aura_dominio_ferma_dopo.png`,
+            // R6, mai dalla sola lettura del codice), su Aura il titolo e la
+            // riga sotto cadevano su lanterne chiare senza nessuna
+            // sfumatura a coprirle: contrasto misurato 1,35 e 1,43, molto
+            // sotto 4,5 (docs/collaudo/FW/fw03_contrasto_sulla_cattura.py).
+            // Su Medora e Caligo il difetto non si vedeva perche' la scena a
+            // quell'altezza e' gia' scura per conto suo: la stessa assenza
+            // di velo, ma senza conseguenze visibili, quindi senza misura
+            // non si sarebbe mai saputo che i tre domini vivevano dello
+            // stesso difetto con fortuna diversa.
+            // **IL VELO FINISCE DI SALIRE DOVE COMINCIA IL TESTO**, non
+            // dopo: i vecchi fermi (0,42 e 0,62) arrivavano a piena forza
+            // dopo il 46 per cento dove comincia il contenuto
+            // (`spazioScena`); ora salgono da 0,28 a 0,46, pronti per il
+            // testo e non dopo, e la forza piena passa da 0,72 a 0,80 per un
+            // margine piu' largo sopra soglia. Misurato di nuovo dopo
+            // entrambe le correzioni (il `Positioned.fill` e i nuovi fermi)
+            // sulla stessa cattura: 5,53 (titolo) e 5,22 (riga), sopra 4,5
+            // anche nel punto piu' chiaro della scena di Aura.
+            Positioned.fill(
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0.0, 0.28, 0.46],
+                      colors: [
+                        Colors.transparent,
+                        Colors.transparent,
+                        palette.deepest.withValues(alpha: 0.80),
+                      ],
+                    ),
                   ),
                 ),
               ),

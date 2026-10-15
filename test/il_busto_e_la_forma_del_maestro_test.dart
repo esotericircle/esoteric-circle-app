@@ -26,10 +26,12 @@ import 'sorgenti_di_lib.dart';
 /// IL BUSTO E' LA FORMA DEL MAESTRO IN ALTO, ordine I voce 1.
 ///
 /// Dove un Maestro compare in alto si mostra il BUSTO, il ritaglio dalla vita
-/// in su che sfuma in basso, dalla porta unica `BustoDelMaestro`. L'unica
-/// eccezione e' la home "Il Cerchio", dove i tre restano interi dietro la
-/// carta: la guardia cade se una schermata mostra la figura intera, e cade
-/// anche se la home smette di mostrarla intera.
+/// in su che sfuma in basso, dalla porta unica `BustoDelMaestro`. Le
+/// eccezioni sono la home "Il Cerchio", dove i tre restano interi dietro la
+/// carta, e dall'ordine FW (15 ottobre 2026) il dominio di ogni Maestro, dove
+/// la scena in video mostra gia' la figura intera e il busto sparisce per
+/// non raddoppiarla: la guardia cade se una schermata non elencata mostra la
+/// figura intera, e cade anche se una delle eccezioni smette di farlo.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -122,19 +124,23 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
   }
 
-  testWidgets('nei tre domini c\'e\' il busto canonico, mai la figura intera',
+  // **LAPIDE: "nei tre domini c'era il busto canonico, mai la figura
+  // intera".** Ordine FW voce FW.03, 15 ottobre 2026: il dominio mostra ora
+  // la sua scena in video, che gia' porta la figura intera del Maestro
+  // (R8: nessun ritaglio disegnato al suo posto). Tenere anche il busto
+  // sotto la scena duplicava la figura, una grande dietro e una piccola
+  // sopra: scoperto guardando l'anteprima vera (`docs/preview/FW/`) prima di
+  // chiudere la voce, mai dalla sola lettura del codice. Il dominio diventa
+  // un'eccezione voluta quanto la home.
+  testWidgets('nei tre domini c\'e\' la scena intera, mai il busto ritagliato',
       (tester) async {
     for (final m in Maestro.values) {
       await pompa(tester, DomainScreen(maestro: m));
-      final busto = find.byType(BustoDelMaestro);
-      expect(busto, findsOneWidget,
-          reason: '${m.displayName}: il dominio non passa dalla porta unica '
-              'del busto.');
-      // La grandezza e' quella canonica della Stesa, identica per i tre:
-      // stessa altezza, quindi taglio inferiore sulla stessa linea.
-      expect(tester.getSize(busto).height, BustoDelMaestro.altezzaCanonica,
-          reason: '${m.displayName}: il busto non e\' alla grandezza '
-              'canonica.');
+      expect(find.byKey(const Key('dominio_fotogramma')), findsOneWidget,
+          reason: '${m.displayName}: il dominio non mostra la sua scena.');
+      expect(find.byType(BustoDelMaestro), findsNothing,
+          reason: '${m.displayName}: nel dominio e\' tornato il busto '
+              'ritagliato sopra la scena, che duplica la figura.');
       expect(find.byType(santuario.MaestroBust), findsNothing,
           reason: '${m.displayName}: nel dominio compare la carta della '
               'figura intera, che e\' della sola home.');

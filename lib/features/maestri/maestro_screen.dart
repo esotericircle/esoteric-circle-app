@@ -109,8 +109,16 @@ class _MaestroScreenState extends State<MaestroScreen> {
                   // carta identitaria ridondante. IL BUSTO DALLA PORTA UNICA,
                   // ordine I voce 1: la figura intera in alto non esiste piu',
                   // e la grandezza e' quella canonica della Stesa.
-                  BustoDelMaestro(maestro: widget.maestro),
-                  const SizedBox(height: SpacingTokens.md),
+                  // **CON LA SCENA, NIENTE BUSTO, ordine FW voce FW.03.** La
+                  // scena in video gia' mostra il viso e il busto del
+                  // Maestro (R8, nessuna figura disegnata al suo posto): col
+                  // busto anche qui la figura compariva due volte, una
+                  // grande dietro e una piccola sopra, scoperto guardando
+                  // l'anteprima vera prima di chiudere la voce.
+                  if (widget.spazioScena <= 0) ...[
+                    BustoDelMaestro(maestro: widget.maestro),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
                   // Poi il titolo del dominio, poi l'azione principale.
                   SectionTitle(
                     title: 'Le Arti di ${widget.maestro.nomeAVideo}',

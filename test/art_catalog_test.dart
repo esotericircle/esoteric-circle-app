@@ -18,7 +18,6 @@ import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
 import 'package:esoteric_circle/features/maestri/maestro_screen.dart';
 import 'package:esoteric_circle/features/maestri/widgets/domain_pillars.dart';
-import 'package:esoteric_circle/features/maestri/widgets/busto_del_maestro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -694,9 +693,17 @@ void main() {
       expect(pilastri, findsOneWidget);
       expect(tester.getCenter(pilastri).dy,
           greaterThan(tester.getCenter(find.text('Medora')).dy));
-      // E sopra l'immagine dell'eroe.
-      expect(tester.getBottomLeft(pilastri).dy,
-          lessThan(tester.getTopLeft(find.byType(BustoDelMaestro)).dy));
+      // E sopra lo spazio che la scena riserva al viso, dove comincia il
+      // contenuto che scorre: dall'ordine FW voce FW.03, 15 ottobre 2026, la
+      // scena in video copre l'intera schermata (anche dietro la barra, R8,
+      // nessun busto duplicato: vedi
+      // test/il_busto_e_la_forma_del_maestro_test.dart), quindi non esiste
+      // piu' un BustoDelMaestro da confrontare.
+      expect(
+          tester.getBottomLeft(pilastri).dy,
+          lessThan(tester
+              .getBottomLeft(find.byKey(const Key('dominio_spazio_scena')))
+              .dy));
 
       // Centrati sulla larghezza della SCHERMATA, non sullo spazio che avanza
       // accanto alla freccia: il centro dei due testi cade sulla meta' esatta.
