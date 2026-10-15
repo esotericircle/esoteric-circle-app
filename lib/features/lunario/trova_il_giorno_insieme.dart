@@ -122,16 +122,18 @@ class _FoglioTrovaIlGiornoInsiemeState
   }
 
   /// I giorni tuoi di ogni persona che ha dato la sua nascita (io compreso,
-  /// quando la mia non e' quella d'esempio), per giorno del mese.
-  Map<int, List<String>> get _giorniTuoiComuni {
+  /// quando la mia non e' quella d'esempio), per giorno del mese: il nome,
+  /// per la frase sotto il giorno scelto, e il sigillo dipinto del tipo
+  /// (R9), per il segno piccolo sulla casella del giorno.
+  Map<int, List<(String nome, String sigillo)>> get _giorniTuoiComuni {
     final porta = widget.giorniTuoi;
     if (porta == null) return const {};
-    final risultato = <int, List<String>>{};
+    final risultato = <int, List<(String, String)>>{};
     void aggiungi(String nome, BirthIdentity nascita) {
       if (nascita.isExample) return;
       for (final s in porta(nascita, widget.anno, widget.mese)) {
         if (nascita.hasBirthTime || !s.tipo.dipendeDallOra) {
-          (risultato[s.giorno.day] ??= []).add(nome);
+          (risultato[s.giorno.day] ??= []).add((nome, s.sigillo));
         }
       }
     }
@@ -370,8 +372,11 @@ class _FoglioTrovaIlGiornoInsiemeState
                             ruota: widget.ruota,
                             oro: esiti[g.giorno.day]?.grado ==
                                 GradoDelGiorno.oro,
-                            conGiornoTuoDi:
-                                giorniTuoi[g.giorno.day] ?? const [],
+                            sigilliDiChiHaGiornoTuo: <String>{
+                              for (final coppia in giorniTuoi[g.giorno.day] ??
+                                  const <(String, String)>[])
+                                coppia.$2,
+                            }.toList(),
                             scelto: _giornoScelto?.day == g.giorno.day,
                             palette: palette,
                             onTap: () =>
@@ -388,7 +393,7 @@ class _FoglioTrovaIlGiornoInsiemeState
                           if ((giorniTuoi[_giornoScelto!.day] ?? const [])
                               .isNotEmpty)
                             'È anche il giorno tuo di '
-                                '${(giorniTuoi[_giornoScelto!.day] ?? const []).join(", ")}.',
+                                '${(giorniTuoi[_giornoScelto!.day] ?? const []).map((e) => e.$1).join(", ")}.',
                         ].join(' '),
                         key: const Key('lunario_insieme_perche'),
                         style: TypographyTokens.corpo()
@@ -492,7 +497,7 @@ class _GiornoInsieme extends StatelessWidget {
     required this.giorno,
     required this.ruota,
     required this.oro,
-    required this.conGiornoTuoDi,
+    required this.sigilliDiChiHaGiornoTuo,
     required this.scelto,
     required this.palette,
     required this.onTap,
@@ -501,7 +506,10 @@ class _GiornoInsieme extends StatelessWidget {
   final GiornoLunare giorno;
   final bool ruota;
   final bool oro;
-  final List<String> conGiornoTuoDi;
+
+  /// I sigilli dipinti (P2) dei tipi di giorno tuo che qualcuno del gruppo
+  /// ha su questo giorno, mai piu' di una stella disegnata (R9).
+  final List<String> sigilliDiChiHaGiornoTuo;
   final bool scelto;
   final MaestroPalette palette;
   final VoidCallback onTap;
@@ -527,8 +535,22 @@ class _GiornoInsieme extends StatelessWidget {
                 style: TypographyTokens.etichetta().copyWith(color: colore)),
             LaLunaNelCastone(
                 elongazione: giorno.elongazione, ruota: ruota, lato: 36),
-            if (conGiornoTuoDi.isNotEmpty)
-              Icon(Icons.star_rounded, size: 12, color: palette.goldSoft),
+            if (sigilliDiChiHaGiornoTuo.isNotEmpty)
+              SizedBox(
+                height: 12,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (final s in sigilliDiChiHaGiornoTuo.take(3))
+                      Image.asset(s,
+                          width: 12,
+                          height: 12,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) =>
+                              const SizedBox(width: 12)),
+                  ],
+                ),
+              ),
           ],
         ),
       ),
