@@ -229,7 +229,7 @@ void main() {
           carte: carte,
           corpus: corpusDellOracolo,
           variante: 0);
-      final ingresso = LaLetturaDellOracolo.istruzione.length +
+      final ingresso = LaLetturaDellOracolo.istruzione().length +
           richiesta.length +
           200; // lo schema dei campi
       final gettoniIngresso = (ingresso / 3.5).ceil();

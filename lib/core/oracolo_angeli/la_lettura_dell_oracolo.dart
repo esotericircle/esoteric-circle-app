@@ -5,6 +5,8 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../services/ai/l_etichetta_della_funzione.dart';
+import '../chat/il_blocco_di_cortesia.dart';
+import '../chat/user_profile.dart';
 import '../config/la_regione_dei_dati.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'i_ruoli_e_l_estrazione.dart';
@@ -77,9 +79,15 @@ abstract final class LaLetturaDellOracolo {
   /// **L'ISTRUZIONE FISSA**, uguale per ogni consultazione: e' la parte che
   /// il modello puo' tenere in cache. Porta la voce di Medora, la politica di
   /// pubblicazione degli angeli (R8 dell'ordine), la regola di casa sul
-  /// futuro e sulla vita privata dei terzi, e le domande delicate.
-  static const String istruzione = '''
-Sei Medora, Maestra del Cerchio: voce calda, colta, concreta. Parli a chi ti consulta dandogli del tu, in italiano, con gli accenti veri.
+  /// futuro e sulla vita privata dei terzi, e le domande delicate. In coda,
+  /// dopo la parte uguale per tutti, il blocco di cortesia con la forma
+  /// scelta dalla persona (`IlBloccoDiCortesia`, la porta unica del genere):
+  /// cosi' la parte comune resta in testa e la cache la riusa.
+  static String istruzione([CourtesyForm? forma]) =>
+      '$_istruzioneFissa${IlBloccoDiCortesia.perForma(forma)}';
+
+  static const String _istruzioneFissa = '''
+Sei Medora, Maestra del Cerchio: voce calda, colta, concreta. Dai del tu a chi ti consulta, in italiano, con gli accenti veri.
 Ricevi una domanda e tre carte dell'Oracolo degli Angeli, una per ruolo: Angelo Custode (cosa fare), Angelo del Cuore (cosa sentire), Angelo dell'Intelletto (cosa capire). Ogni carta porta il suo messaggio gia' scritto.
 Scrivi solo due cose:
 - titolo: la risposta alla domanda in una frase sola, al massimo 80 caratteri, senza punto finale.
@@ -92,7 +100,6 @@ Regole che non si rompono:
 - Niente angeli contrari, demoni, goetia, nomi alternativi degli angeli.
 - Le chiavi di lettura sono tue, mai "la tradizione dice".
 - Mai il trattino lungo. Mai la virgola prima di "e" o di "ed".
-- Non concordare aggettivi o participi col genere di chi legge: usa frasi neutre.
 Se la domanda parla di farsi del male, di una crisi o di un pericolo per qualcuno, non leggere le carte: titolo "Adesso conta avere qualcuno accanto" e nel riquadro invita a chiamare subito il 112 e a parlarne con una persona di fiducia.
 ''';
 
@@ -180,6 +187,7 @@ Se la domanda parla di farsi del male, di una crisi o di un pericolo per qualcun
     required Map<String, List<String>> corpus,
     required int variante,
     bool profonda = false,
+    CourtesyForm? forma,
     ChiamataDellOracolo? chiamata,
     Duration? entro,
   }) async {
@@ -189,7 +197,7 @@ Se la domanda parla di farsi del male, di una crisi o di un pericolo per qualcun
     String? testo;
     try {
       testo = await chiama(
-              istruzione,
+              istruzione(forma),
               richiesta(
                   domanda: domanda,
                   carte: carte,

@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/magic/il_sigillo_dal_modello.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
 import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
@@ -53,6 +54,8 @@ void main() {
     'la lettura del mese': (f) =>
         PennaVeraDelMese.istruzione(Maestro.medora, forma: f),
     'il segno dell\'animale': (f) => GestiDelSegno.istruzione(lupo, forma: f),
+    // Ordine FU voce FU.04: il titolo e il riquadro dell'Oracolo.
+    'l\'Oracolo degli Angeli': (f) => LaLetturaDellOracolo.istruzione(f),
     'la scena, il titolo, la risposta e il gesto del Viaggio': (f) =>
         LaScenaDalModello.istruzione(lupo, forma: f),
     // **I TRE TESTI DEL SIGILLO**, ordine DO voci 09 e 10.
@@ -186,6 +189,9 @@ void main() {
             'Sigillo: tutti in prosa',
     'lib/core/tarot/la_lettura_dal_modello.dart':
         'la lettura della Stesa di Tarocchi, ordine EQ voce 04: in prosa',
+    'lib/core/oracolo_angeli/la_lettura_dell_oracolo.dart':
+        'il titolo e il riquadro dell\'Oracolo degli Angeli, ordine FU voce '
+            'FU.04: in prosa',
     // **FUORI, E DICHIARATO**: il classificatore della domanda restituisce
     // un identificatore di tema e l'oggetto della domanda preso dalle sue
     // parole. Non scrive una frase per la persona.

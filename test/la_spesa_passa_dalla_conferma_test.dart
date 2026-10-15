@@ -274,7 +274,10 @@ void main() {
       // consenso solo: anche lei lo pretende.
       'lib/core/entitlement/question_allowance.dart': 2,
       // 5 dall'ordine FF: l'indizio in piu' e il segno di chi indovina.
-      'lib/core/cerchio/il_cerchio_sociale.dart': 5,
+      // 6 dall'ordine FU voce FU.09 (15 ottobre 2026): la carta degli angeli
+      // in dono, `mandaUnaCartaDegliAngeli`, che passa da `mandaUnDono` come
+      // gli altri doni e pretende anche lei il consenso della conferma.
+      'lib/core/cerchio/il_cerchio_sociale.dart': 6,
       'lib/features/maestri/live/schermata_live.dart': 1,
     };
     // I nomi delle funzioni del server che consumano, e il solo file che li

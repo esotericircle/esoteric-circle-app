@@ -1,10 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart' show TimeOfDay;
-
 import '../angels/angel_catalog.dart';
-import '../astro/birth_details.dart';
 import '../angels/guardian_angels.dart';
+import '../identity/birth_identity.dart';
 
 /// **I TRE RUOLI DELL'ORACOLO DEGLI ANGELI.** Ordine FU voce FU.03, 15
 /// ottobre 2026. Il fondatore: *"in onboarding però, assegniamo ad ogni
@@ -98,13 +96,15 @@ abstract final class GliAngeliDiUnAmico {
         minutoLocale != null && minutoLocale >= 0 && minutoLocale < 1440
             ? minutoLocale
             : null;
+    // I dettagli di nascita nascono da un posto solo, `BirthIdentity`
+    // (guardia la_catena_dei_dati_di_nascita): qui si costruisce l'identita'
+    // e si chiede a lei, mai un BirthDetails scritto a mano.
     return GuardianAngels.forBirth(
-      BirthDetails(
-        date: DateTime(giorno.year, giorno.month, giorno.day),
-        time: minuto == null
-            ? null
-            : TimeOfDay(hour: minuto ~/ 60, minute: minuto % 60),
-      ),
+      BirthIdentity(
+        birthMoment: DateTime(giorno.year, giorno.month, giorno.day,
+            (minuto ?? 0) ~/ 60, (minuto ?? 0) % 60),
+        hasBirthTime: minuto != null,
+      ).toBirthDetails(),
       sunLongitude: longitudineDelSole,
     );
   }

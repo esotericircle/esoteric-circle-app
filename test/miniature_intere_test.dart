@@ -114,7 +114,12 @@ void main() {
     // schermata sola (nastro, corsa, podio e responso). I volti che sfilano
     // stanno adesso in `schermata_del_gemello.dart`, che era gia' fra i punti
     // e passa dallo stesso componente.
-    expect(punti.length, 13,
+    // **QUATTORDICI DALL'ORDINE FU**, 15 ottobre 2026: l'Oracolo degli
+    // Angeli mostra le carte dei 72 dalla famiglia degli angeli. Le carte
+    // passano da `FamilyImage` con `BoxFit.contain`, il medaglione e' intero;
+    // la scena dell'altare riempie lo schermo col taglio dichiarato nella sua
+    // geometria (`GeometriaDellAltare.taglio`), perche' non e' una miniatura.
+    expect(punti.length, 14,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

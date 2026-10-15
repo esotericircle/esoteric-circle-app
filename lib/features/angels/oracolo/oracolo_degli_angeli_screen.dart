@@ -24,6 +24,7 @@ import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
 import '../../../core/oracolo_angeli/la_domanda_delicata.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
@@ -399,7 +400,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             cosa: 'Hai condiviso il tuo Oracolo degli Angeli');
       }
       return andata;
-    } catch (_) {
+    } catch (errore) {
+      debugPrint('Oracolo degli Angeli: la card non si prepara ($errore)');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Non riesco a preparare la card ora.')),
@@ -591,7 +593,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                   ? GeometriaDellAltare.ultimoFotogramma
                   : GeometriaDellAltare.primoFotogramma,
               key: const Key('oracolo_fotogramma'),
-              fit: BoxFit.cover,
+              fit: GeometriaDellAltare.taglio,
               filterQuality: FilterQuality.medium,
             ),
           ),
@@ -625,6 +627,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     progresso: _lettere,
                     scala: GeometriaDellAltare.scala(w),
                     colore: palette.goldSoft,
+                    scalaDelTesto: MediaQuery.textScalerOf(context),
                   ),
                 ),
               ),
@@ -766,12 +769,17 @@ class _LettereDiLuce extends CustomPainter {
     required this.progresso,
     required this.scala,
     required this.colore,
+    required this.scalaDelTesto,
   }) : super(repaint: progresso);
 
   final String testo;
   final Animation<double> progresso;
   final double scala;
   final Color colore;
+
+  /// La scala del testo del sistema: le lettere si misurano come si vedono
+  /// (guardia chi_misura_il_testo_usa_la_scala).
+  final TextScaler scalaDelTesto;
 
   /// La scala nel fotogramma: il centro sta a meta' larghezza, l'altare a
   /// 1530, la cima a 0.
@@ -806,6 +814,7 @@ class _LettereDiLuce extends CustomPainter {
           ),
         ),
         textDirection: TextDirection.ltr,
+        textScaler: scalaDelTesto,
       )..layout();
       tp.paint(canvas, Offset(x - tp.width / 2, y - tp.height / 2));
     }
@@ -1378,7 +1387,7 @@ class _IlDonoDellaCarta extends StatelessWidget {
               'uno, la carta potrà raggiungerlo.')));
       return;
     }
-    final amico = await showModalBottomSheet<PersonaDelCerchio>(
+    final amico = await foglioDelCerchio<PersonaDelCerchio>(
       context: context,
       backgroundColor: palette.deepest,
       builder: (c) => SafeArea(
@@ -1501,7 +1510,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
                     child: Image.asset(carta.ruolo.medaglione,
                         width: SpacingTokens.xxl,
                         height: SpacingTokens.xxl,
-                        fit: BoxFit.cover),
+                        fit: BoxFit.contain),
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   SizedBox(

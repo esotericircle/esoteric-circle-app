@@ -19,6 +19,12 @@ abstract final class GeometriaDellAltare {
 
   static const Size fotogramma = Size(1080, 1920);
 
+  /// **IL TAGLIO DELLA SCENA**: il fotogramma riempie lo schermo, centrato.
+  /// Non e' una miniatura di un angelo che si mutila (guardia
+  /// miniature_intere): e' la scena intera, e la geometria dell'altare qui
+  /// sotto e' misurata proprio su questo taglio, come nella Stesa.
+  static const BoxFit taglio = BoxFit.cover;
+
   static double scala(double larghezza) => larghezza / fotogramma.width;
   static double altezza(double larghezza) =>
       fotogramma.height * scala(larghezza);

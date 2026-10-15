@@ -78,6 +78,11 @@ void main() {
           // stringhe che sono percorsi, e la regola sui participi resta intera.
           final trovata = m.group(0)!;
           if (trovata.contains('.dart') || trovata.contains('lib/')) continue;
+          // **E NEMMENO IL PERCORSO DI UN ASSET**, ordine FU voce FU.13:
+          // `'assets/img/oroscopo_scena/oroscopo_primo_fotogramma_v1.webp'`
+          // contiene `a/o` fra "scena" e "oroscopo". Stessa ragione dei
+          // percorsi di codice: e' un file, non una parola a video.
+          if (trovata.contains('assets/')) continue;
           // **"AMICO/A" E' LA PAROLA DEL FONDATORE**, ordine EU voce 05: *"un
           // testo "oroscopo per" + pulsante [nome utente] predefinito +
           // pulsante [amico/a]"*. Non e' un participio rivolto a chi legge:

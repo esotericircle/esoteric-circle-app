@@ -69,6 +69,12 @@ void main() {
             'aprono IN POSTO, con lo stesso Collassabile di tutte le altre. '
             'Non e\' un rimando altrove: e\' il corpo della lettura che a '
             'una runa sola coprirebbe la risposta.',
+    'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart':
+        '"Il rito con Caligo" sotto ogni carta dell\'Oracolo degli Angeli, '
+            'ordine FU voce FU.07: chiuso finche\' la persona non lo apre, la '
+            'freccia lo apre IN POSTO col salmo, il momento e il testo di '
+            'Caligo, e diventa expand_less quando e\' aperto. Rivela testo '
+            'gia\' scritto, non chiede niente a nessuno.',
     'lib/features/ricordi/ricordi_screen.dart':
         'il gruppo del giorno nei Ricordi, ordine CG voce 02: sopra le tre '
             'voci uguali la riga si chiude col suo conto, per esempio '
