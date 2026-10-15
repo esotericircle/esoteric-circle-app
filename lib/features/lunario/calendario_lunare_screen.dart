@@ -9,11 +9,13 @@ import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/lunario/i_giorni_tuoi.dart';
 import '../../core/lunario/il_giorno_lunare.dart';
 import '../../core/lunario/il_motore_lunare.dart';
 import '../../core/lunario/il_segno_del_giorno_tuo.dart';
 import '../../core/lunario/le_attivita_del_lunario.dart';
 import '../../core/lunario/le_lune_della_nasa.dart';
+import '../../core/lunario/le_regole_del_lunario.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -101,7 +103,10 @@ class CalendarioLunareScreen extends StatefulWidget {
         (_) => const SogliaArte(
           id: 'lunar_calendar',
           maestro: Maestro.medora,
-          child: CalendarioLunareScreen(),
+          child: CalendarioLunareScreen(
+            valuta: LeRegoleDelLunario.valuta,
+            giorniTuoi: IGiorniTuoi.delMese,
+          ),
         ),
       );
 
