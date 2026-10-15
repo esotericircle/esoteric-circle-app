@@ -1,0 +1,88 @@
+ORDINE FU VOCE FU.14, IL SIPARIO DELLE STELLE: LE MISURE E LE PROVE
+15 ottobre 2026, sul commit 85114472 piu' il lavoro della voce.
+
+1. LO SCARTO FRA L'ULTIMO FOTOGRAMMA DEL VIDEO E LA SCENA FERMA
+Comando: ffmpeg -sseof -0.2 -i brand_assets/vip_scena/medora_sipario_delle_stelle_v1.mp4 -update 1 ultimo_dal_video.png
+(video: h264 1080x1920, 24 fotogrammi al secondo, 8,000 s, 192 fotogrammi), poi Python (PIL e numpy),
+differenza assoluta media sui tre canali, contro assets/img/vip_scena/vip_ultimo_fotogramma_v1.webp:
+  scarto medio video/webp 7,70 su 255, mediana 3,0, 95esimo percentile 36,0
+  scarto medio video/jpg originale 7,80; webp/jpg originale 1,44
+L'Architetto aveva misurato 7,6: la misura torna (7,70 sul webp del ramo, 7,80 sull'originale).
+
+2. LE CORNICI E IL CUORE, RIMISURATI SULL'ULTIMO FOTOGRAMMA (pixel del video 1080x1920)
+Bordo acceso (luminanza sopra 200) lungo la riga del 51 per cento e la colonna del 30 per cento:
+  cornice sinistra x 167..465 (15,5..43,1 per cento), destra x 614..912 (56,9..84,4 per cento)
+  tutte e due y 736..1232 (38,3..64,2 per cento)
+  cuore dipinto (oro, R>150 e R-B>50, fra le cornici): x 45,1..54,9 per cento, y 48,3..53,0 per cento,
+  centro (541, 961)
+Le misure dell'Architetto (16-43, 57-85, 38-64) tornano entro mezzo punto percentuale.
+
+3. IL TAGLIO DEL VIDEO SULLO SCHERMO E DOVE CADONO LE CORNICI
+Scelta: BoxFit.cover centrato, lo stesso del lettore comune (LettoreDiScena.disegna) e dell'immagine ferma.
+I telefoni sono piu' alti del 9:16: il video riempie l'altezza e perde due strisce uguali ai lati.
+  360x797: scala 0,4151, video 448,3x797,0, tagliati 44,2 punti per lato; cornice sinistra x 25,2..148,9
+           y 305,5..511,4 (123,7x205,9); destra x 210,7..334,4; cuore dipinto a (180,4, 398,9)
+  390x844: scala 0,4396, video 474,8x844,0, tagliati 42,4 per lato; sinistra x 31,0..162,0 y 323,5..541,6
+           (131,0x218,0); destra x 227,5..358,5; cuore a (195,4, 422,4)
+  430x932: scala 0,4854, video 524,2x932,0, tagliati 47,1 per lato; sinistra x 33,9..178,6 y 357,3..598,0
+           (144,7x240,8); destra x 250,9..395,6; cuore a (215,5, 466,5)
+Su finestre piu' alte di 1,4 volte il 9:16 (le prove montano la porta anche a 360x3200) il palco resta
+alto al massimo 1,4 volte il 9:16, in cima; sotto continua il nero del pavimento (IlPalcoDellaSinastriaVip.palco).
+
+4. LA GRANDEZZA DELLE CARTE, PRIMA E DOPO (punti logici, ritratto VipFramedPortrait, 2:3)
+  PRIMA (a5ebd44d, cattura docs/preview/FU/fu14_porta_vip_prima.png, 360x797):
+    144,0x216,0 a (24,0, 188,0) e 144,0x216,0 a (192,0, 188,0)
+  DOPO (cattura docs/preview/FU/fu14_porta_vip_dopo.png, 360x797):
+    152,3x228,5 a (10,9, 294,2) e 152,3x228,5 a (196,4, 294,2): +5,8 per cento di lato, +11,9 per cento d'area
+  390x844: 163,2x244,7; 430x932: 183,5x275,3 (prova la_scena_della_sinastria_vip_e_un_filmato_test.dart)
+Il limite che vince e' il cuore: ogni carta e' centrata sulla sua cornice, e le due cornici distano dal cuore
+dipinto meno di quanto distano dai bordi dello schermo. A 360 la carta VIP resta a 4,0 punti dal cuore (il limite),
+la carta tua a 5,2 (il cuore dipinto non sta nel mezzo esatto delle due cornici); dal bordo sinistro 10,9, dal destro 11,3. Titolo sotto la barra a 112 punti come prima, fondo del
+residuo a 176 (prova), cima delle carte a 294,2; pulsante a 606,7, fondo delle carte a 522,7.
+Le cornici restano sotto come alone: a 360 la cornice e' 123,7x205,9, la carta 152,3x228,5.
+
+5. REGOLA B, PRIMA DI TOCCARE lib/features/synastry/porta_della_sinastria.dart
+Innesto: il titolo 'La Tua Compatibilità con un VIP' diventa 'La Tua Compatibilità con un VIP INNESTO'
+(contato col grep: 1 occorrenza). test/la_porta_della_sinastria_test.dart: ROSSA, 1 rossa su 4
+("CA.01: entrando si vedono per prime le due carte e le tre scelte, non il catalogo"). Ripristinato,
+sha1 prima e dopo 9422fa163b8f31514812fe8a9d7f44ac88247a27.
+
+6. REGOLA A, OGNI PROVA NUOVA VISTA ROSSA
+Ogni innesto entra con assert del conteggio della riga vecchia (1) e del marcatore INNESTO_FU14 (1) prima di
+leggere l'esito; il file torna identico (sha1 prima e dopo). Prova: test/la_scena_della_sinastria_vip_e_un_filmato_test.dart,
+13 prove, verde senza innesti (13 su 13).
+Gli innesti da I1 a I17 sono girati sulla prima stesura della porta; dopo sono venuti il palco con l'allungamento
+massimo (correzione per la finestra 360x3200 delle prove della 2285) e i margini letti dal corpo della pagina
+(il titolo era salito di 56 punti, visto sull'anteprima): I15 e' stato rifatto dopo, e I18 e' nato li'.
+La prova verde finale e' sulla versione consegnata.
+
+I1 il Sipario non parte in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('7', '6'), rosse 4: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto | a suoni spenti nell'app il Sipario e' muto | aprendo la porta il Sipario parte, senza interfaccia sopra, e a video finito resta l'ultimo fotogramma con l'interfaccia | col telefono in silenzioso il Sipario e' muto, ma parte; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I2 interfaccia anche col video in corso in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: aprendo la porta il Sipario parte, senza interfaccia sopra, e a video finito resta l'ultimo fotogramma con l'interfaccia; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I3 lo sfondo fermo non e' l'ultimo fotogramma in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('8', '5'), rosse 5: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto | aprendo la porta il Sipario parte, senza interfaccia sopra, e a video finito resta l'ultimo fotogramma con l'interfaccia | scena ferma (fallisce): nessun video, l'ultimo fotogramma e l'interfaccia subito | scena ferma (grafica): nessun video, l'ultimo fotogramma e l'interfaccia subito | scena ferma (riduci): nessun video, l'ultimo fotogramma e l'interfaccia subito; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I4 il Sipario riparte nella stessa apertura in lib/features/scene/la_scena_in_video.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: una volta per apertura: le dipendenze che cambiano non lo fanno ripartire, una nuova apertura si; sha1 prima 6ca971d23c7a dopo 6ca971d23c7a
+I5 con la scena ferma l'interfaccia non compare in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('7', '6'), rosse 4: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | scena ferma (fallisce): nessun video, l'ultimo fotogramma e l'interfaccia subito; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I6 il volume ignora suono e silenzioso in lib/features/scene/la_scena_in_video.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('11', '2'), rosse 2: a suoni spenti nell'app il Sipario e' muto | col telefono in silenzioso il Sipario e' muto, ma parte; sha1 prima 6ca971d23c7a dopo 6ca971d23c7a
+I7 uscendo dall'app il Sipario non si ferma in lib/features/scene/la_scena_in_video.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: uscendo dall'app il Sipario si ferma, e al ritorno riprende se non e' finito; sha1 prima 6ca971d23c7a dopo 6ca971d23c7a
+I8 nessun velo che salta in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I9 saltato il video l'interfaccia non compare subito in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I10 il Sipario saltato non sfuma in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I11 la carta tua fuori dalla sua cornice di 10 punti in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('3', '10'), rosse 4: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto | a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I12 carte al 90 per cento della grandezza possibile in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('10', '3'), rosse 3: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I13 le carte toccano il cuore in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('3', '10'), rosse 4: FU.15: il tocco fa sfumare il Sipario, l'interfaccia compare subito, e il tocco non arriva a cio' che sta sotto | a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I14 il taglio e' contain invece di cover in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('10', '3'), rosse 3: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I15 il titolo scende sulle carte in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('11', '2'), rosse 2: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I16 il pulsante sale sulle carte in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('10', '3'), rosse 3: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I17 il primo fotogramma e' un altro file in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('12', '1'), rosse 1: il filmato e i due fotogrammi sono quelli dell'ordine; sha1 prima d9d327fd06c3 dopo d9d327fd06c3
+I15 il titolo scende sulle carte in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('10', '3'), rosse 3: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima 051bd6595997 dopo 051bd6595997
+I18 il titolo legge i margini dal contesto sbagliato in lib/features/synastry/porta_della_sinastria.dart: innesto entrato (INNESTO_FU14 contato 1), uscita 1, verdi/rossi ('10', '3'), rosse 3: a 360x797 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 390x844 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile | a 430x932 le carte stanno sulle cornici, dentro lo schermo, senza toccare titolo, cuore e pulsante, e sono le piu' grandi possibile; sha1 prima 051bd6595997 dopo 051bd6595997
+
+7. PROVE GIRATE SULLA VERSIONE CONSEGNATA (una sola corsa, 86 prove, tutte verdi)
+la_scena_della_sinastria_vip_e_un_filmato, la_porta_della_sinastria, i_difetti_visti_sul_realme_alla_2285,
+il_gemello_in_una_schermata_sola, la_carta_tu_apre_il_tuo_volto, la_galleria_vip_si_capisce, ordine_ca_guard,
+sinastria_gallery, ogni_scena_si_salta_col_tocco (scene trovate 3: porta_della_sinastria, sinastria_evolutiva_screen,
+stesa_tre_carte_screen), language_rule, testo_a_video, tipografia_nel_dato, stato_asset,
+nessun_suono_che_non_hai_scelto, barra_arte_non_si_copre, il_cuore_e_il_tooltip_non_si_toccano,
+le_anteprime_della_scena_vip. flutter analyze sui tre file toccati: nessun problema.
+Una prima corsa delle prove esistenti aveva dato 5 rosse (i_difetti_visti_sul_realme_alla_2285 e
+il_gemello_in_una_schermata_sola, finestra 360x3200: larghezza negativa delle carte). Padre: ordine FU voce FU.14,
+prima stesura del palco. Corretto con IlPalcoDellaSinastriaVip.palco e la carta minima.

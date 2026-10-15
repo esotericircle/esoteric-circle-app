@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../../core/astro/zodiac.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/synastry/vip_catalog.dart';
-import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -13,6 +13,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import '../scene/la_scena_in_video.dart';
 import 'il_foglio_del_tuo_volto.dart';
 import 'schermata_del_gemello.dart';
 import 'sinastria_gallery_screen.dart';
@@ -58,6 +59,7 @@ class PortaDellaSinastria extends StatefulWidget {
     this.userName,
     this.userBirth,
     this.servizioDelleFoto,
+    this.fabbricaDellaScena,
   });
 
   final Zodiac? userSign;
@@ -67,6 +69,10 @@ class PortaDellaSinastria extends StatefulWidget {
   /// Da dove arriva la foto della persona: nelle prove una finta, in
   /// produzione la fotocamera e la galleria del telefono.
   final UserPhotoService? servizioDelleFoto;
+
+  /// Il lettore del Sipario delle Stelle: nelle prove una finta, in
+  /// produzione il video vero ([IlPalcoDellaSinastriaVip.filmato]).
+  final FabbricaDiScena? fabbricaDellaScena;
 
   /// **LA RIGA CHE ROVESCIA LA FORMA DELLE TRE SCELTE.** Vera: tre porte in
   /// fila, tutte visibili. Falsa: una tendina sola, "Scegli il tipo di
@@ -122,6 +128,118 @@ enum ModoDellaSinastria {
   String get chiave => 'sinastria_modo_$name';
 }
 
+/// **IL SIPARIO DELLE STELLE, LA GEOMETRIA DEL PALCO.** Ordine FU voce
+/// FU.14, 15 ottobre 2026. Il fondatore: *"Si le lasciamo sotto come alone.
+/// I volti all'interno delle carte sono già piccoli e servono carte più
+/// grandi possibili"*.
+///
+/// All'apertura della porta Medora apre il sipario, si scioglie in polvere
+/// d'oro e due fasci di luce disegnano due cornici col cuore in mezzo.
+/// L'ultimo fotogramma resta come sfondo della porta, e le due carte si
+/// posano sulle due cornici, centrate su di esse.
+///
+/// **LE MISURE STANNO NEL FOTOGRAMMA, IN PIXEL DEL VIDEO** (1080 per 1920),
+/// prese con Python sul bordo acceso delle cornici di
+/// `vip_ultimo_fotogramma_v1.webp` (luminanza sopra 200 a meta' altezza e
+/// lungo la colonna del 30 per cento): sinistra da 167 a 465, destra da 614 a
+/// 912, tutte e due da 736 a 1232; il cuore dipinto ha il centro a 541, 961.
+/// Le prove in `docs/collaudo/FU/fu14_scena_vip.txt`.
+///
+/// **IL TAGLIO DEL VIDEO SULLO SCHERMO E' `BoxFit.cover` CENTRATO**, quello
+/// del lettore comune (`LettoreDiScena.disegna`) e dell'immagine ferma qui
+/// sotto: il video 9:16 riempie la schermata, e su un telefono piu' alto di
+/// 9:16 perde due strisce uguali a destra e a sinistra. [sulloSchermo]
+/// rifa' lo stesso conto, cosi' le carte cadono sulle cornici a ogni misura.
+class IlPalcoDellaSinastriaVip {
+  IlPalcoDellaSinastriaVip._();
+
+  static const String filmato =
+      'brand_assets/vip_scena/medora_sipario_delle_stelle_v1.mp4';
+  static const String ultimoFotogramma =
+      'assets/img/vip_scena/vip_ultimo_fotogramma_v1.webp';
+
+  /// Il sipario chiuso, cio' che si vede mentre il video si prepara.
+  static const String primoFotogramma =
+      'assets/img/vip_scena/vip_primo_fotogramma_v1.webp';
+
+  static const Size video = Size(1080, 1920);
+  static const Rect corniceSinistra = Rect.fromLTRB(167, 736, 465, 1232);
+  static const Rect corniceDestra = Rect.fromLTRB(614, 736, 912, 1232);
+  static const Offset cuoreDipinto = Offset(541, 961);
+
+  /// Il cuore dell'interfaccia, la stessa icona di prima, posata sul cuore
+  /// dipinto.
+  static const double cuore = 24;
+
+  /// Quanto le carte restano lontane dal cuore e dai bordi: il minimo che
+  /// si vede, perche' le carte devono essere piu' grandi possibile.
+  static const double distacco = SpacingTokens.xxs;
+
+  /// Quanto spazio il titolo e la riga del residuo chiedono sotto la barra:
+  /// la carta non sale oltre.
+  static const double spazioDelTitolo = 96;
+
+  /// **IL PALCO NON SI ALLUNGA OLTRE IL 40 PER CENTO DEL 9:16.** Sui
+  /// telefoni veri lo schermo e' alto da 1,2 a 1,3 volte il 9:16 della sua
+  /// larghezza (360 per 797 fa 1,25), e il palco e' lo schermo intero. Su
+  /// una finestra molto piu' alta (le prove montano la porta anche a 360 per
+  /// 3200) il taglio cover allargherebbe il video fino a portare le cornici
+  /// fuori dallo schermo: li' il palco resta alto al massimo 1,4 volte il
+  /// 9:16, in cima, e sotto continua il nero del pavimento.
+  static const double allungamentoMassimo = 1.4;
+
+  /// Il riquadro del palco, in cima alla schermata: dove stanno il video e
+  /// il suo ultimo fotogramma.
+  static Size palco(Size schermo) => Size(
+      schermo.width,
+      math.min(schermo.height,
+          schermo.width * video.height / video.width * allungamentoMassimo));
+
+  static double scala(Size schermo) {
+    final p = palco(schermo);
+    return math.max(p.width / video.width, p.height / video.height);
+  }
+
+  static Offset _punto(Offset p, Size schermo) {
+    final k = scala(schermo);
+    final r = palco(schermo);
+    return Offset((r.width - video.width * k) / 2 + p.dx * k,
+        (r.height - video.height * k) / 2 + p.dy * k);
+  }
+
+  /// Un rettangolo del fotogramma, nei punti dello schermo.
+  static Rect sulloSchermo(Rect nelVideo, Size schermo) => Rect.fromPoints(
+      _punto(nelVideo.topLeft, schermo), _punto(nelVideo.bottomRight, schermo));
+
+  static Offset cuoreSulloSchermo(Size schermo) =>
+      _punto(cuoreDipinto, schermo);
+
+  /// **LA LARGHEZZA DELLE CARTE, LA PIU' GRANDE CHE LO SCHERMO CONSENTE.**
+  /// Ogni carta e' centrata sulla sua cornice; cresce finche' non tocca il
+  /// bordo dello schermo, il cuore fra le due o, in alto, lo spazio del
+  /// titolo che comincia a [cimaDelTitolo]. Vince il limite piu' stretto.
+  static double larghezzaDelleCarte(Size schermo,
+      {required double cimaDelTitolo}) {
+    final s = sulloSchermo(corniceSinistra, schermo).center;
+    final d = sulloSchermo(corniceDestra, schermo).center;
+    final c = cuoreSulloSchermo(schermo);
+    final cimaLibera = cimaDelTitolo + spazioDelTitolo;
+    final limite = [
+      2 * (s.dx - distacco),
+      2 * (schermo.width - distacco - d.dx),
+      2 * (c.dx - cuore / 2 - distacco - s.dx),
+      2 * (d.dx - (c.dx + cuore / 2 + distacco)),
+      2 * (s.dy - cimaLibera) * VipFrame.aspect,
+    ].reduce(math.min);
+    // Una finestra impossibile (una barra enorme, uno schermo minuscolo)
+    // non deve dare una carta di larghezza negativa.
+    return math.max(limite, cartaMinima);
+  }
+
+  /// Sotto questa larghezza la carta non scende mai.
+  static const double cartaMinima = 64;
+}
+
 class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
   /// La prima casella: nulla vuol dire "sei tu", che e' il modo predefinito.
   Vip? _primo;
@@ -140,15 +258,24 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
   MaestroPalette get _palette =>
       MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
 
+  /// **IL SIPARIO DELLE STELLE**, ordine FU voce FU.14: la regia comune
+  /// delle scene, una per apertura della porta.
+  late final RegiaDellaScena _regia;
+
   @override
   void initState() {
     super.initState();
     _foto.addListener(_fotoCambiata);
+    _regia = RegiaDellaScena(widget.fabbricaDellaScena ??
+        () => LettoreDiScena.vero(IlPalcoDellaSinastriaVip.filmato));
+    _regia.addListener(_scenaCambiata);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // Il video parte una volta per apertura: la regia lo sa da se'.
+    unawaited(_regia.avvia(context));
     if (_fotoDalProfilo) return;
     _fotoDalProfilo = true;
     _foto.seed(IlFoglioDelTuoVolto.profiloDi(context)?.avatarPhoto);
@@ -156,12 +283,18 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
 
   @override
   void dispose() {
+    _regia.removeListener(_scenaCambiata);
+    _regia.dispose();
     _foto.removeListener(_fotoCambiata);
     _foto.dispose();
     super.dispose();
   }
 
   void _fotoCambiata() {
+    if (mounted) setState(() {});
+  }
+
+  void _scenaCambiata() {
     if (mounted) setState(() {});
   }
 
@@ -266,102 +399,249 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
   @override
   Widget build(BuildContext context) {
     final palette = _palette;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        // **NESSUNA MISURA SCRITTA A MANO**, che sarebbe debito: il titolo
-        // della barra prende il ruolo del titolo di sezione, e la misura la
-        // decide il design system.
-        title: TitoloCheNonSiRompe(
-            testo: 'Sinastria VIP', stile: TypographyTokens.titoloSezione()),
-        actions: const [AngoloDellaBarra()],
-      ),
-      body: CosmosBackground(
-        seed: 17,
-        showZodiac: false,
-        child: SafeArea(
-          child: ListView(
-            key: const Key('sinastria_porta'),
-            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
-                SpacingTokens.lg, SpacingTokens.xxxl),
-            children: [
-              Text(
-                _primo == null
-                    ? 'La Tua Compatibilità con un VIP'
-                    : 'La Compatibilità fra ${_primo!.name} e un VIP',
-                key: const Key('sinastria_titolo_confronto'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloSezione()
-                    .copyWith(color: palette.goldSoft, height: 1.2),
-              ),
-              // **IL CONTEGGIO STA ANCHE QUI, ED E' LA TERZA VOLTA CHE IL
-              // FONDATORE LO CHIEDE.** Ordine CO voce 09, 3 settembre 2026.
-              //
-              // **Perche' non c'era, dopo due ordini che dicevano di metterlo.**
-              // C'era, ed era montato: la voce BZ.09 l'aveva messo dentro la
-              // lista del VERDETTO, cioe' dopo che il consumo era gia'
-              // avvenuto, e la voce CF.11 lo ha spostato nella GALLERIA dei
-              // volti, che e' dove si sceglie e quindi dove il numero serve.
-              // Tutte e due le volte il ragionamento era giusto e tutte e due
-              // le volte il fondatore non l'ha visto, **perche' questa e' la
-              // schermata che lui chiama "la sinastria vip"**: e' la prima che
-              // si apre, ed e' quella da cui si guarda prima di decidere se
-              // entrare. La galleria e' gia' un passo dentro.
-              //
-              // **La lezione, e vale oltre questa riga:** un numero non si
-              // mette dove il ragionamento dice che serve, si mette dove
-              // l'occhio arriva. Le due cose coincidono spesso e non sempre, e
-              // quando non coincidono vince l'occhio. Adesso sta in tutti e
-              // due i posti, e non e' una duplicazione: e' la stessa riga, la
-              // stessa casa, lo stesso conto, montata due volte.
-              const SizedBox(height: SpacingTokens.sm),
-              const Center(
-                child: RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
-              ),
-              const SizedBox(height: SpacingTokens.sm),
-              _leDueCarte(palette),
-              const SizedBox(height: SpacingTokens.md),
-              _ilBottone(palette),
-              const SizedBox(height: SpacingTokens.lg),
-              if (PortaDellaSinastria.leTreScelteInFila)
-                _treScelteInFila(palette)
-              else
-                _treScelteATendina(palette),
-              if (_primo != null) ...[
-                const SizedBox(height: SpacingTokens.md),
-                Center(
-                  child: TextButton.icon(
-                    key: const Key('sinastria_torna_a_te'),
-                    onPressed: _tornaATe,
-                    style: TextButton.styleFrom(
-                        foregroundColor: palette.goldSoft,
-                        minimumSize: const Size.fromHeight(48)),
-                    icon: const Icon(Icons.person_rounded, size: 18),
-                    // Corpo e non maiuscoletto: una frase che va a capo
-                    // in maiuscoletto diventa un muro di lettere larghe.
-                    label: Text('Rimetti il tuo cielo al primo posto',
-                        style: TypographyTokens.corpo()),
-                  ),
-                ),
-              ],
-            ],
-          ),
+    // IL TOCCO CHE SALTA IL VIDEO, ordine FU voce FU.15, punto unico: avvolge
+    // tutta la schermata, e mentre il Sipario delle Stelle gira prende ogni
+    // tocco senza farlo arrivare ai pulsanti.
+    return IlToccoCheSalta(
+      inCorso: _regia.inCorso,
+      onSalta: _regia.salta,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: palette.deepest.withValues(alpha: 0.35),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: palette.goldSoft),
+          // **NESSUNA MISURA SCRITTA A MANO**, che sarebbe debito: il titolo
+          // della barra prende il ruolo del titolo di sezione, e la misura la
+          // decide il design system.
+          title: TitoloCheNonSiRompe(
+              testo: 'Sinastria VIP', stile: TypographyTokens.titoloSezione()),
+          actions: const [AngoloDellaBarra()],
+        ),
+        body: LayoutBuilder(
+          // I margini si leggono dal corpo della pagina, dove la barra li ha
+          // gia' messi: il titolo resta dove era prima dell'ordine FU.
+          builder: (corpo, vincoli) =>
+              _ilPalco(palette, vincoli.biggest, MediaQuery.paddingOf(corpo)),
         ),
       ),
     );
   }
 
-  Widget _leDueCarte(MaestroPalette palette) {
+  /// **IL PALCO**, ordine FU voce FU.14. Sotto, il fotogramma fermo del
+  /// sipario; sopra, finche' gira, il video a schermo intero; e l'interfaccia
+  /// di prima, che compare in dissolvenza quando il video finisce o si salta,
+  /// e subito quando la scena e' ferma (Riduci Movimento, grafica
+  /// alleggerita, video che non si carica).
+  ///
+  /// **LO SFONDO SCORRE INSIEME ALLE CARTE.** Il fotogramma e' fermo, ma sta
+  /// dentro lo scorrimento: sotto le carte ci sono il pulsante e le tre
+  /// scelte, che a 360 per 797 non stanno tutte nella prima schermata, e uno
+  /// sfondo inchiodato lascerebbe le cornici dove sono mentre le carte
+  /// salgono. Cosi' le carte non lasciano mai le loro cornici; sotto il
+  /// fotogramma continua il nero del suo pavimento.
+  Widget _ilPalco(MaestroPalette palette, Size schermo, EdgeInsets margini) {
+    final interfaccia = _regia.ferma;
+    // Prima che il video cominci si vede il suo primo fotogramma, il sipario
+    // chiuso, e non l'ultimo, che sveglierebbe la scena prima del tempo.
+    final fondo = interfaccia || _regia.filmatoInScena
+        ? IlPalcoDellaSinastriaVip.ultimoFotogramma
+        : IlPalcoDellaSinastriaVip.primoFotogramma;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        SingleChildScrollView(
+          key: const Key('sinastria_porta'),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: schermo.height),
+            child: Stack(
+              children: [
+                const Positioned.fill(
+                  child: ColoredBox(color: Color(0xFF000000)),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: IlPalcoDellaSinastriaVip.palco(schermo).height,
+                  child: Image.asset(
+                    fondo,
+                    key: const Key('sinastria_vip_sfondo'),
+                    fit: BoxFit.cover,
+                    gaplessPlayback: true,
+                  ),
+                ),
+                if (interfaccia)
+                  LaScenaFermaCheAppare(
+                    appare: _regia.filmatoInScena || _regia.saltata,
+                    child: _interfaccia(palette, schermo, margini),
+                  )
+                else
+                  SizedBox(width: schermo.width, height: schermo.height),
+              ],
+            ),
+          ),
+        ),
+        if (_regia.filmatoInScena)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: IlPalcoDellaSinastriaVip.palco(schermo).height,
+            child: IlFilmatoCheSfuma(
+              key: const Key('sinastria_vip_filmato'),
+              saltato: _regia.ferma,
+              child: _regia.disegna(),
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// L'interfaccia di prima, coi suoi testi e i suoi pulsanti; cambiano solo
+  /// il posto e la grandezza delle due carte (R10 dell'ordine FU).
+  Widget _interfaccia(
+      MaestroPalette palette, Size schermo, EdgeInsets margini) {
+    final cimaDelTitolo = margini.top + kToolbarHeight;
+    final larga = IlPalcoDellaSinastriaVip.larghezzaDelleCarte(schermo,
+        cimaDelTitolo: cimaDelTitolo);
+    final alta = larga / VipFrame.aspect;
+    final sinistra = IlPalcoDellaSinastriaVip.sulloSchermo(
+            IlPalcoDellaSinastriaVip.corniceSinistra, schermo)
+        .center;
+    final destra = IlPalcoDellaSinastriaVip.sulloSchermo(
+            IlPalcoDellaSinastriaVip.corniceDestra, schermo)
+        .center;
+    final cimaDelleCarte = sinistra.dy - alta / 2;
+    return SizedBox(
+      width: schermo.width,
+      child: Column(
+        key: const Key('sinastria_vip_interfaccia'),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: cimaDelleCarte,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: cimaDelTitolo,
+                  left: SpacingTokens.lg,
+                  right: SpacingTokens.lg,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        _primo == null
+                            ? 'La Tua Compatibilità con un VIP'
+                            : 'La Compatibilità fra ${_primo!.name} e un VIP',
+                        key: const Key('sinastria_titolo_confronto'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.titoloSezione()
+                            .copyWith(color: palette.goldSoft, height: 1.2),
+                      ),
+                      // **IL CONTEGGIO STA ANCHE QUI, ED E' LA TERZA VOLTA CHE IL
+                      // FONDATORE LO CHIEDE.** Ordine CO voce 09, 3 settembre 2026.
+                      //
+                      // **Perche' non c'era, dopo due ordini che dicevano di metterlo.**
+                      // C'era, ed era montato: la voce BZ.09 l'aveva messo dentro la
+                      // lista del VERDETTO, cioe' dopo che il consumo era gia'
+                      // avvenuto, e la voce CF.11 lo ha spostato nella GALLERIA dei
+                      // volti, che e' dove si sceglie e quindi dove il numero serve.
+                      // Tutte e due le volte il ragionamento era giusto e tutte e due
+                      // le volte il fondatore non l'ha visto, **perche' questa e' la
+                      // schermata che lui chiama "la sinastria vip"**: e' la prima che
+                      // si apre, ed e' quella da cui si guarda prima di decidere se
+                      // entrare. La galleria e' gia' un passo dentro.
+                      //
+                      // **La lezione, e vale oltre questa riga:** un numero non si
+                      // mette dove il ragionamento dice che serve, si mette dove
+                      // l'occhio arriva. Le due cose coincidono spesso e non sempre, e
+                      // quando non coincidono vince l'occhio. Adesso sta in tutti e
+                      // due i posti, e non e' una duplicazione: e' la stessa riga, la
+                      // stessa casa, lo stesso conto, montata due volte.
+                      const SizedBox(height: SpacingTokens.sm),
+                      const Center(
+                        child:
+                            RigaDelResiduo(budget: BudgetDelGiorno.sinastrie),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _leDueCarte(palette,
+              larga: larga,
+              centroSinistra: sinistra.dx,
+              centroDestra: destra.dx,
+              cuore: IlPalcoDellaSinastriaVip.cuoreSulloSchermo(schermo),
+              cima: cimaDelleCarte),
+          Padding(
+            padding: EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
+                SpacingTokens.xxxl + margini.bottom),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: SpacingTokens.md),
+                _ilBottone(palette),
+                const SizedBox(height: SpacingTokens.lg),
+                if (PortaDellaSinastria.leTreScelteInFila)
+                  _treScelteInFila(palette)
+                else
+                  _treScelteATendina(palette),
+                if (_primo != null) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  Center(
+                    child: TextButton.icon(
+                      key: const Key('sinastria_torna_a_te'),
+                      onPressed: _tornaATe,
+                      style: TextButton.styleFrom(
+                          foregroundColor: palette.goldSoft,
+                          minimumSize: const Size.fromHeight(48)),
+                      icon: const Icon(Icons.person_rounded, size: 18),
+                      // Corpo e non maiuscoletto: una frase che va a capo
+                      // in maiuscoletto diventa un muro di lettere larghe.
+                      label: Text('Rimetti il tuo cielo al primo posto',
+                          style: TypographyTokens.corpo()),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// **LE DUE CARTE SULLE DUE CORNICI**, ordine FU voce FU.14: ognuna
+  /// centrata sulla sua cornice di luce, larga [larga] (la piu' grande che lo
+  /// schermo consente, [IlPalcoDellaSinastriaVip.larghezzaDelleCarte]), col
+  /// cuore posato sul cuore dipinto. Prima dell'ordine le carte dividevano la
+  /// riga a meta' col cuore in mezzo.
+  Widget _leDueCarte(
+    MaestroPalette palette, {
+    required double larga,
+    required double centroSinistra,
+    required double centroDestra,
+    required Offset cuore,
+    required double cima,
+  }) {
+    final inizioSinistra = centroSinistra - larga / 2;
+    final fineSinistra = inizioSinistra + larga;
+    final inizioDestra = centroDestra - larga / 2;
+    const meta = IlPalcoDellaSinastriaVip.cuore / 2;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
+        SizedBox(width: math.max(0, inizioSinistra)),
+        SizedBox(
+          width: larga,
           child: _Casella(
             chiave: const Key('sinastria_carta_tua'),
             palette: palette,
@@ -401,14 +681,24 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
                   ),
           ),
         ),
-        Padding(
-          // Il cuore sta all'altezza del ritratto e non della colonna: lo
-          // spazio viene dal design system, non da un numero battuto qui.
-          padding: const EdgeInsets.only(top: SpacingTokens.xxxl),
-          child:
-              Icon(Icons.favorite_rounded, color: palette.goldSoft, size: 24),
+        SizedBox(
+          width: math.max(0, inizioDestra - fineSinistra),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              // Il cuore si posa sul cuore dipinto del palco.
+              padding: EdgeInsets.only(
+                  left: math.max(0, cuore.dx - meta - fineSinistra),
+                  top: math.max(0, cuore.dy - meta - cima)),
+              child: Icon(Icons.favorite_rounded,
+                  key: const Key('sinastria_vip_cuore'),
+                  color: palette.goldSoft,
+                  size: IlPalcoDellaSinastriaVip.cuore),
+            ),
+          ),
         ),
-        Expanded(
+        SizedBox(
+          width: larga,
           child: _Casella(
             chiave: const Key('sinastria_carta_da_scegliere'),
             palette: palette,
