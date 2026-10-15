@@ -617,7 +617,9 @@ class _LaDomanda extends StatefulWidget {
 }
 
 class _LaDomandaState extends State<_LaDomanda> {
-  TemaDellOracolo _tema = TemaDellOracolo.amore;
+  /// Nessun tema aperto all'inizio: il pannello resta basso e lascia il
+  /// volto di Medora alla scena. Le proposte si aprono toccando un tema.
+  TemaDellOracolo? _tema;
 
   @override
   Widget build(BuildContext context) {
@@ -677,15 +679,15 @@ class _LaDomandaState extends State<_LaDomanda> {
                       key: Key('oracolo_tema_${t.name}'),
                       label: Text(t.nome),
                       selected: t == _tema,
-                      onSelected: (_) => setState(() => _tema = t),
+                      onSelected: (si) => setState(() => _tema = si ? t : null),
                     ),
                   ),
               ],
             ),
           ),
-          for (final d in _tema.domande)
+          for (final d in _tema?.domande ?? const <String>[])
             TextButton(
-              key: Key('oracolo_proposta_${_tema.domande.indexOf(d)}'),
+              key: Key('oracolo_proposta_${_tema!.domande.indexOf(d)}'),
               style: TextButton.styleFrom(
                 foregroundColor: palette.goldSoft,
                 alignment: Alignment.centerLeft,
@@ -698,7 +700,11 @@ class _LaDomandaState extends State<_LaDomanda> {
                 widget.controllo.selection =
                     TextSelection.collapsed(offset: d.length);
               },
-              child: Text(d, maxLines: 1, overflow: TextOverflow.ellipsis),
+              // Una proposta e' una frase da leggere: va a capo, non si
+              // tronca, e non e' in maiuscoletto.
+              child: Text(d,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.goldSoft)),
             ),
         ],
       ),
