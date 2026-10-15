@@ -261,6 +261,43 @@ void main() {
     expect(callable.length, 41,
         reason: 'le callable non sono piu\' quarantuno: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
+    // **OGNI CALLABLE VIAGGIA DAVVERO, ordine FW, 15 ottobre 2026.** Il
+    // fondatore ha provato a pubblicare `compraUnMeseDelLunario` dal PC vero
+    // e il deploy ha risposto "No function matches the filter:
+    // default:compraUnMeseDelLunario": la funzione esisteva in
+    // `il_cerchio_sociale.ts`, ma `functions/src/index.ts`, il punto che
+    // Firebase guarda per decidere che cosa pubblicare, non la riesportava.
+    // La prova sopra non se n'era accorta: contava gli `onCall` dichiarati
+    // in QUALUNQUE dei quattro file, mai se `index.ts` li riesporta
+    // davvero. Padre: la voce FV.12, che ha scritto la callable senza
+    // aggiungerla al blocco `export { ... } from "./il_cerchio_sociale"`.
+    final indexTesto = File('functions/src/index.ts').readAsStringSync();
+    final riesportati = <String>{};
+    for (final m
+        in RegExp(r'export \{([\s\S]*?)\}\s*from\s*"\./\w+";')
+            .allMatches(indexTesto)) {
+      for (final riga in m.group(1)!.split('\n')) {
+        final pulito =
+            riga.replaceAll(RegExp(r'//.*'), '').replaceAll(',', '').trim();
+        if (pulito.isNotEmpty) riesportati.add(pulito);
+      }
+    }
+    // Le callable dichiarate DIRETTAMENTE in index.ts (nessuna oggi, ma la
+    // guardia non deve presumerlo) sono gia' nel punto che Firebase guarda.
+    for (final riga in indexTesto.split('\n')) {
+      final trovato =
+          RegExp(r'^export const (\w+) = onCall').firstMatch(riga.trim());
+      if (trovato != null) riesportati.add(trovato.group(1)!);
+    }
+    final nonRaggiungibili = [
+      for (final nome in callable)
+        if (!riesportati.contains(nome)) nome,
+    ];
+    expect(nonRaggiungibili, isEmpty,
+        reason: 'queste callable esistono nel loro file ma index.ts, il '
+            'punto che il deploy guarda davvero, non le riesporta: un '
+            'deploy vero risponderebbe "No function matches the filter": '
+            '${nonRaggiungibili.join(", ")}');
     // E OGNI PORTA SOCIALE HA IL SUO TETTO, contato prima di ogni altra cosa
     // (EY.16): una porta nuova non puo' nascere senza.
     final sociale =

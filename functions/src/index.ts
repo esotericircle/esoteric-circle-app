@@ -166,6 +166,15 @@ export {
   // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
   condividiLaNascita,
   leggiLaNascita,
+  // Il Calendario Lunare, ordine FV voci FV.10 e FV.12: scritte e provate
+  // nell'ordine FV ma mai riesportate da qui, il punto che il deploy guarda
+  // davvero; trovato il 15 ottobre 2026 dal primo giro di deploy vero del
+  // fondatore ("No function matches the filter: default:
+  // compraUnMeseDelLunario"), corretto nell'ordine FW.
+  compraUnMeseDelLunario,
+  compraUnaPropostaInsiemeDelLunario,
+  proponiGiornoInsieme,
+  rispondiAlGiorno,
 } from "./il_cerchio_sociale";
 export {paginaDellInvito} from "./la_pagina_dell_invito";
 

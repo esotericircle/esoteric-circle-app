@@ -1,0 +1,30 @@
+REGOLA A, ordine FW, 15 ottobre 2026
+guardia estesa: test/il_cerchio_custodisce_il_cammino_test.dart,
+"IL CAMMINO VIAGGIA DENTRO LA CHIAMATA CHE GIA' PARTE" (nuova assertion
+"nonRaggiungibili")
+
+IL DIFETTO VERO, trovato dal fondatore col deploy vero da PowerShell:
+  firebase deploy --only functions:compraUnMeseDelLunario,functions:compraUnaPropostaInsiemeDelLunario,functions:proponiGiornoInsieme,functions:rispondiAlGiorno
+esito: "Error: No function matches the filter: default:compraUnMeseDelLunario"
+
+causa: le quattro callable (ordine FV voci FV.10, FV.12) esistono in
+functions/src/il_cerchio_sociale.ts ma non erano mai state aggiunte al
+blocco `export { ... } from "./il_cerchio_sociale";` di
+functions/src/index.ts, il file che Firebase legge davvero per sapere cosa
+pubblicare. La guardia esistente (il conto delle 41 callable) non se
+n'era accorta: contava gli `onCall` dichiarati in QUALUNQUE dei quattro
+file sorgenti, mai se index.ts li riesporta.
+
+correzione: le quattro righe aggiunte al blocco di re-export in index.ts
+(commit successivo); tsc compila, 253/253 prove di functions verdi.
+
+innesto (sulla guardia estesa): tolte di nuovo le quattro righe da
+index.ts, lasciando solo "// INNESTO_FW_INDEX"
+grep righe innestate: 1
+esito con l'innesto (uscita 1):
+  IL CAMMINO VIAGGIA DENTRO LA CHIAMATA CHE GIA' PARTE [E]
+  Expected: empty
+  Actual: [compraUnMeseDelLunario, compraUnaPropostaInsiemeDelLunario,
+           proponiGiornoInsieme, rispondiAlGiorno]
+ripristino; grep righe innestate: 0
+esito sul codice vero (uscita 0): All tests passed! (8 su 8)
