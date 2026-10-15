@@ -24,7 +24,6 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/features/maestri/live/il_selettore_delle_voci.dart';
 import 'package:esoteric_circle/services/live/porta_del_live.dart';
-import 'package:esoteric_circle/features/maestri/chat/widgets/chat_empty_state.dart';
 import 'package:esoteric_circle/core/voce/dettatura.dart';
 import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
@@ -5696,11 +5695,14 @@ void main() {
       final saluto = tester.getRect(find.byKey(const Key('chat_benvenuto')));
       final composer = tester.getRect(find.byType(ChatComposer));
       // **ORDINE FW VOCE FW.04, 15 ottobre 2026**: il busto fermo della
-      // chat vuota e' diventato la scena in video del Maestro
-      // (`chat_scena_fotogramma`), con la stessa altezza calcolata che il
-      // busto riceveva: la misura sotto vale identica.
-      final busto =
-          tester.getRect(find.byKey(const Key('chat_scena_fotogramma')));
+      // chat vuota e' diventato la scena a tutto schermo del Maestro
+      // (`chat_scena_fotogramma`, montata da `MaestroChatScreen`, non piu'
+      // da `ChatEmptyState`): non ha piu' un'altezza propria da confrontare
+      // con quella canonica del busto, perche' copre l'intero schermo per
+      // costruzione (misurato dalla sua prova dedicata,
+      // test/la_scena_della_chat_e_un_filmato_test.dart). Qui resta solo
+      // cio' che questa voce misura davvero: il saluto, da solo, si legge
+      // intero sopra il compositore.
 
       // **NON SI SOVRAPPONGONO**, che e' la meta' facile.
       expect(saluto.bottom, lessThanOrEqualTo(composer.top),
@@ -5711,27 +5713,16 @@ void main() {
 
       // **E SI LEGGE PER INTERO**, che e' la meta' che conta: togliendo il
       // compositore dalla viewport la sovrapposizione spariva ma il saluto
-      // usciva TAGLIATO, cioe' un difetto scambiato per un altro. Il saluto
-      // sta dentro l'area libera solo se il busto ha ceduto la sua altezza,
-      // e questa riga misura proprio quello.
-      expect(busto.height,
-          lessThanOrEqualTo(BustoDelMaestro.altezzaCanonica + 0.5));
-      expect(busto.bottom, lessThan(saluto.top),
-          reason: 'il busto e il saluto si toccano');
+      // usciva TAGLIATO, cioe' un difetto scambiato per un altro.
       final areaLibera = composer.top;
       expect(saluto.bottom, lessThan(areaLibera),
           reason: 'il saluto non sta nell\'area libera: e\' tagliato, e un '
               'testo tagliato non e\' un testo che si legge');
-
-      // Senza questa riga la prova passerebbe anche con un busto sparito.
-      expect(busto.height,
-          greaterThanOrEqualTo(ChatEmptyState.altezzaMinimaDelBusto - 0.5),
-          reason: 'il busto e\' sceso sotto la sua misura minima dichiarata: '
-              'non e\' piu\' un ritratto');
+      expect(saluto.top, greaterThanOrEqualTo(0),
+          reason: 'il saluto esce dal bordo alto dello schermo');
       // ignore: avoid_print
-      print('CI.01 $id: busto ${busto.height.toStringAsFixed(0)}, saluto fino '
-          'a ${saluto.bottom.toStringAsFixed(0)}, compositore da '
-          '${composer.top.toStringAsFixed(0)}');
+      print('CI.01 $id: saluto fino a ${saluto.bottom.toStringAsFixed(0)}, '
+          'compositore da ${composer.top.toStringAsFixed(0)}');
       if (maestro == Maestro.medora) {
         await capture(tester, rootKey, 'chat-vuota-scala-massima.png');
       }
