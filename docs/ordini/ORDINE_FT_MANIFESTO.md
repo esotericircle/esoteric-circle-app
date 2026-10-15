@@ -28,7 +28,7 @@ MISURA: riquadro del filmato nello sfondo misurato con ORB e RANSAC, 251 punti b
 
 **APERTA IN ATTESA DI VERIFICA.** Le due strade della nascita dell'altra persona: a mano (con "Non conosco l'ora", e allora la Luna tace e la lettura lo dice), oppure la lettura a due telefoni: chi condivide preme "Condivido la mia nascita" e detta un codice di sei caratteri che vale cinque minuti e una lettura sola; chi legge lo scrive nel modulo. La nascita sta solo nel consenso sul server, mai nel profilo pubblico. Le due porte del server (`condividiLaNascita`, `leggiLaNascita`) sono scritte e provate, non pubblicate.
 
-ASPETTA: il fondatore, che pubblica le due porte: cd functions && firebase deploy --only functions:condividiLaNascita,functions:leggiLaNascita --project esoteric-circle; poi due telefoni alla prossima build. Senza la pubblicazione il modulo dice che il Cerchio non risponde e la strada a mano resta. La pubblicazione delle funzioni e' negata a Code.
+ASPETTA: `condividiLaNascita` e `leggiLaNascita` **pubblicate dal fondatore il 15 ottobre 2026** (europe-west1, Node.js 22, create con esito positivo). Resta il telefono: due dispositivi veri, alla prossima build.
 DOMANDA: "la lettura a due telefoni"
 PROVA: test/la_lettura_a_due_telefoni_test.dart
 MISURA: nessuna nascita parte prima del gesto del consenso (rossa sull'innesto che la manda all'apertura); campi mandati 4, nessuno del profilo pubblico; prove del server 245 su 245 col consenso che vale una volta e scade a cinque minuti; con l'ora non nota la Luna fuori da aspetti, Composito e Keplero (test/l_ora_non_nota_fa_tacere_la_luna_test.dart, rossa su due prove su due con l'innesto)
@@ -37,7 +37,7 @@ MISURA: nessuna nascita parte prima del gesto del consenso (rossa sull'innesto c
 
 **APERTA IN ATTESA DI VERIFICA.** Il legame amore si apre solo se tutte e due le persone hanno sedici anni compiuti al giorno della lettura, con una riga sobria "Il legame amore si apre dai sedici anni." e nessuna spiegazione sull'eta' dell'altro. Il controllo vive nell'app e sul server: nella lettura a due telefoni il server lo rifa' con la nascita che ha nel consenso, e un suo no chiude l'amore anche se l'app direbbe si'.
 
-ASPETTA: la stessa pubblicazione delle due porte della voce FT.03: il controllo del server vive in `leggiLaNascita`.
+ASPETTA: la stessa pubblicazione della voce FT.03, **avvenuta il 15 ottobre 2026**: il controllo del server vive in `leggiLaNascita`, adesso raggiungibile. Resta il telefono.
 DOMANDA: "l'amore dai 16 anni in su"
 PROVA: test/lo_sbarramento_di_eta_sul_legame_amore_test.dart
 MISURA: rossa a 15 anni e 364 giorni, verde a 16 anni e 0 giorni, sui due lati della coppia, nell'app e nelle prove del server (functions/src/sinastria_evolutiva.test.ts, rossa sull'innesto che apre sempre); il no del server vale fra due adulti (test/la_sinastria_evolutiva_a_video_test.dart, rossa sull'innesto che lo ignora)
@@ -110,7 +110,7 @@ MISURA: 1.231 testi, 0 difetti al controllo; lettori ciechi (agenti di Code, mai
 
 **APERTA IN ATTESA DI VERIFICA.** I piani: le coppie nuove al giorno 1, 2, 5 e 15; al Viandante Oggi fra voi intero e due capitoli su cinque; Keplero dall'Iniziato; Composito, ritratto e momento giusto dall'Adepto; la coppia in piu' a 150 Eos, col prezzo detto prima del gesto, e finite le coppie l'invito con le due strade, mai un vicolo cieco. Le righe stanno in PlanCatalog e nella descrizione dei quattro piani. Il budget `sinastrieEvolutive` sul server e' scritto e non pubblicato, e finche' il listino non lo porta l'app non conta.
 
-ASPETTA: il fondatore, che pubblica le funzioni del borsellino e dello stato: cd functions && firebase deploy --only functions:statoDelCerchio,functions:muoviGliEos --project esoteric-circle. Fino ad allora le coppie nuove non si contano.
+ASPETTA: `statoDelCerchio` e `muoviGliEos` **pubblicate dal fondatore il 15 ottobre 2026** (aggiornate con esito positivo). Da adesso le coppie nuove si contano davvero; resta il telefono.
 DOMANDA: alla domanda sulla tabella dei piani: "Lo decide Code"
 PROVA: test/la_sinastria_evolutiva_si_conta_test.dart
 MISURA: col listino di oggi gesti mandati 0 su 5 letture; col listino nuovo la seconda coppia del Viandante chiusa e riscattata a 150 Eos; il ponte apre l'invito a coppie finite (test/il_ponte_conta_le_coppie_nuove_test.dart); highlights dei piani da 10, 15, 14 e 11 a 11, 16, 15 e 12

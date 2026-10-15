@@ -7056,8 +7056,8 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 
 **APERTO IN ATTESA DI VERIFICA**:
 - **FT.02, sul telefono**: il video dell'astrolabio vero, l'ultimo fotogramma, il silenzioso.
-- **FT.03 e FT.04, il deploy delle due porte della lettura a due telefoni**: `cd functions && firebase deploy --only functions:condividiLaNascita,functions:leggiLaNascita --project esoteric-circle`.
-- **FT.13, il deploy di `statoDelCerchio` e `muoviGliEos`**: fino ad allora le coppie nuove non si contano.
+- **FT.03 e FT.04, le due porte della lettura a due telefoni**: `condividiLaNascita` e `leggiLaNascita` **pubblicate dal fondatore il 15 ottobre 2026** (Node.js 22, europe-west1; `condividiLaNascita` creata, `leggiLaNascita` creata, esito "Successful create operation" per tutte e due). Resta da guardare sul telefono il gesto vero a due telefoni.
+- **FT.13, `statoDelCerchio` e `muoviGliEos`**: **pubblicate dal fondatore il 15 ottobre 2026** (aggiornate, "Successful update operation"). Da quest'istante le coppie nuove si contano davvero; resta da guardarlo sul telefono.
 - **FT.14, sul telefono**: le porte d'ingresso e la condivisione.
 
 **La suite intera e il cancello.** In locale 7.304 prove con 16 rosse (82 minuti), tutte corrette col loro padre nel rapporto. Il cancello di GitHub e' verde sul commit d779f271 (`refs/verde/d779f271...`). **REGOLA PERMANENTE del fondatore, 14 ottobre 2026: la suite intera gira su GitHub, non piu' in locale** (CLAUDE.md, regole non negoziabili).
@@ -7083,7 +7083,7 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 **APERTO IN ATTESA DI VERIFICA**:
 - **FU.02, FU.11, FU.13, FU.14 e FU.15, sul telefono**: i tre video veri, le carte che si girano sull'altare, gli emblemi dell'Oroscopo, il Sipario e le carte VIP, il tocco che salta in ognuna delle cinque scene, le porte dell'Oracolo.
 - **FU.04, il si' del fondatore** alla prima esecuzione vera del modello, 0,005 euro.
-- **FU.09 e FU.10, il deploy**: `cd functions && firebase deploy --only functions:mandaUnDono,functions:condividiLaNascita,functions:leggiLaNascita,functions:statoDelCerchio,functions:muoviGliEos --project esoteric-circle`. Fino ad allora le consultazioni non si contano e il dono dice che il Cerchio non risponde.
+- **FU.09 e FU.10, `mandaUnDono`, `condividiLaNascita`, `leggiLaNascita`, `statoDelCerchio` e `muoviGliEos`**: **pubblicate dal fondatore il 15 ottobre 2026**, tutte e cinque con esito positivo in europe-west1 (Node.js 22; `condividiLaNascita` e `leggiLaNascita` create, `mandaUnDono`, `statoDelCerchio` e `muoviGliEos` aggiornate). Da quest'istante le consultazioni si contano e il dono e la domanda per un amico rispondono davvero; resta da guardarlo sul telefono alla prossima build.
 
 **Da decidere per il fondatore**: i contatti di aiuto per le domande delicate (proposti nel rapporto: Telefono Amico, 1522, Telefono Azzurro, oltre al 112); lo sfondo della Sinastria VIP che scorre con le carte; il tocco che salta per l'intro, la rivelazione del Maestro e il velo dell'onboarding, che l'ordine non nominava.
 
