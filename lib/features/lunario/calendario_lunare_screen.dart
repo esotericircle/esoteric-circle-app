@@ -330,7 +330,8 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
               'questo mese subito con gli Eos.',
       riscattoLabel: sociale == null
           ? null
-          : 'Un mese di Calendario Lunare in più · $costo Eos',
+          : 'Un mese di Calendario Lunare in più · '
+              '${ListinoDegliEos.prezzo(costo)}',
       onRiscatta: sociale == null
           ? null
           : () async {
@@ -406,7 +407,8 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
             ? 'Trova il giorno insieme si apre con un piano del Cerchio.'
             : 'Trova il giorno insieme si apre dal piano $piano in su. '
                 'Oppure sblocca una proposta sola con gli Eos.',
-        riscattoLabel: 'Una proposta insieme · $costo Eos',
+        riscattoLabel: 'Una proposta insieme · '
+            '${ListinoDegliEos.prezzo(costo)}',
         onRiscatta: () async {
           final consenso =
               await LaConfermaDellaSpesa.degliEos(context, costo: costo);

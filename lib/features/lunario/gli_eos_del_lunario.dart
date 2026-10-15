@@ -37,7 +37,8 @@ class GliEosDelLunario extends ChangeNotifier {
       _mesiExtra = p.getInt(_chiaveMesiExtra) ?? 0;
       _proposteInsieme = p.getInt(_chiaveProposteInsieme) ?? 0;
     } catch (errore) {
-      debugPrint('Calendario Lunare: gli Eos non si leggono ($errore)');
+      debugPrint('Calendario Lunare: il portafoglio del lunario non si '
+          'legge ($errore)');
     }
     _letto = true;
     notifyListeners();
@@ -74,7 +75,8 @@ class GliEosDelLunario extends ChangeNotifier {
       await p.setInt(_chiaveMesiExtra, _mesiExtra);
       await p.setInt(_chiaveProposteInsieme, _proposteInsieme);
     } catch (errore) {
-      debugPrint('Calendario Lunare: gli Eos non si scrivono ($errore)');
+      debugPrint('Calendario Lunare: il portafoglio del lunario non si '
+          'scrive ($errore)');
     }
   }
 }
