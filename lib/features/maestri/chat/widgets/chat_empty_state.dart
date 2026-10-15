@@ -4,10 +4,8 @@ import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
-import '../../widgets/busto_del_maestro.dart';
 
-/// Apertura della chat prima del primo messaggio: IL MAESTRO E IL SUO
-/// BENVENUTO, e nient'altro.
+/// Apertura della chat prima del primo messaggio: IL SOLO BENVENUTO.
 ///
 /// ORDINE 2164, VOCI 3 E 4. Qui vivevano due altre porte ai suggerimenti: il
 /// pulsante "Tocca per tutte le domande" e la riga orizzontale di tre domande
@@ -16,13 +14,22 @@ import '../../widgets/busto_del_maestro.dart';
 /// non nascoste: **resta una porta sola ai suggerimenti, l'icona a stelline**,
 /// e una prova enumerante conta quella porta e cade se qualcuno ne riapre una
 /// seconda.
+///
+/// **LA FIGURA NON STA PIU' QUI, ordine FW, 15 ottobre 2026.** Fino a
+/// quest'ordine la chat vuota portava il busto del Maestro (o la sua scena
+/// in video, FW.04) sopra il saluto, dentro un riquadro. Il fondatore, lo
+/// stesso giorno: *"E' inaccettabile il riquadro in mezzo alla schermata con
+/// il maestro. [...] Il video deve essere a tutto schermo"*. La figura e'
+/// salita a sfondo di tutta la schermata (`MaestroChatScreen._SfondoDellaChat`),
+/// non piu' un riquadro dentro il contenuto: questa classe mostra solo il
+/// saluto, ancorato in basso sopra il compositore, leggibile grazie al velo
+/// che lo sfondo porta con se'.
 class ChatEmptyState extends StatelessWidget {
   const ChatEmptyState({
     super.key,
     required this.maestro,
     required this.greeting,
     this.spazioInFondo = 0,
-    this.figura,
   });
 
   final Maestro maestro;
@@ -32,12 +39,6 @@ class ChatEmptyState extends StatelessWidget {
   /// messaggi: la misura arriva dalla schermata, che e' l'unica a conoscere
   /// l'altezza vera del suo compositore.
   final double spazioInFondo;
-
-  /// **LA FIGURA SOPRA IL SALUTO, ordine FW voce FW.04.** Di norma il busto
-  /// dalla porta unica (`BustoDelMaestro`); la chat lo sostituisce con la
-  /// scena in video del Maestro finche' non arriva il primo messaggio.
-  /// Riceve l'altezza gia' calcolata, la stessa che riceverebbe il busto.
-  final Widget Function(double altezza)? figura;
 
   @override
   Widget build(BuildContext context) {
@@ -65,61 +66,43 @@ class ChatEmptyState extends StatelessWidget {
       padding: EdgeInsets.only(bottom: spazioInFondo),
       child: LayoutBuilder(
         builder: (context, vincoli) {
-          // **A CEDERE E' IL BUSTO, NON IL TESTO.** Seconda meta' della voce
-          // CI.01: tolto il compositore dalla viewport la sovrapposizione
-          // spariva, ma alla scala massima il benvenuto usciva TAGLIATO, e
-          // l'ordine chiede che ogni testo si legga per intero.
-          //
-          // Il busto ha un'altezza canonica di 300 punti, che e' giusta
-          // quando c'e' posto. Quando non c'e', la scelta e' fra
-          // rimpicciolire una figura e nascondere una frase: si rimpicciolisce
-          // la figura, perche' la frase e' la prima cosa che il Maestro dice
-          // e la figura si vede comunque.
-          //
-          // Il saluto si MISURA con lo stesso stile e lo stesso scaler con
-          // cui verra' dipinto: chiedere l'altezza a un numero scritto a mano
-          // vorrebbe dire indovinarla, e la scala di sistema la cambia.
-          final larghezza = vincoli.maxWidth - SpacingTokens.lg * 2;
-          final pittore = TextPainter(
-            text: TextSpan(text: greeting, style: _stileDelSaluto),
-            textDirection: Directionality.of(context),
-            textAlign: TextAlign.center,
-            textScaler: MediaQuery.textScalerOf(context),
-          )..layout(maxWidth: larghezza > 0 ? larghezza : 1);
-          final libero = vincoli.maxHeight -
-              SpacingTokens.lg * 2 -
-              SpacingTokens.md -
-              pittore.height;
-          final altezzaBusto = libero.clamp(
-              altezzaMinimaDelBusto, BustoDelMaestro.altezzaCanonica);
-
+          // **LO SCORRIMENTO COPRE TUTTA L'ALTEZZA, NON SOLO IL TESTO.**
+          // Ordine FW, 15 ottobre 2026: tolta la figura, il saluto da solo e'
+          // corto, e un `SingleChildScrollView` si stringe al suo contenuto.
+          // La zona che risponde al gesto "il dito scende, la barra compare"
+          // (ordine EJ voce 09) si stringeva con lui, lasciando la meta' alta
+          // dello schermo, adesso la scena a tutto schermo, senza risposta al
+          // trascinamento: misurato da
+          // test/la_barra_e_la_pastiglia_della_chat_test.dart dopo la scena a
+          // tutto schermo, la barra non compariva piu' scorrendo. Il
+          // `ConstrainedBox` sotto forza lo scorrimento a occupare l'intera
+          // altezza disponibile, con il saluto ancorato in basso dentro di
+          // lei: stesso aspetto, zona trascinabile intera.
+          final altezza = vincoli.maxHeight.isFinite ? vincoli.maxHeight : 0.0;
           return SingleChildScrollView(
             // **SCORRE ANCHE QUANDO CI STA TUTTO. Ordine EJ voce 09**: nella
             // chat la barra del Cerchio parte ritirata e compare col dito, e
             // una pagina che non scorre non manderebbe nessun gesto.
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(SpacingTokens.lg),
-            child: Column(
-              children: [
-                // IL BUSTO DALLA PORTA UNICA, ordine I voce 1, alla grandezza
-                // canonica della Stesa: la figura intera in alto non esiste piu'.
-                // La misura 220 del 2164 apparteneva alla figura intera; il busto
-                // canonico e' piu' alto ma ritagliato, e il benvenuto resta il
-                // primo testo sotto di lui.
-                figura?.call(altezzaBusto) ??
-                    BustoDelMaestro(maestro: maestro, height: altezzaBusto),
-                const SizedBox(height: SpacingTokens.md),
-                Text(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: (altezza - SpacingTokens.lg * 2).clamp(0, altezza),
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
                   greeting,
                   key: const Key('chat_benvenuto'),
                   textAlign: TextAlign.center,
                   // AL PRIMARIO, ordine 2163 voce 9: il benvenuto era grigio
-                  // (textSecondary) sul fondale scuro, la prima cosa che si legge
-                  // ed era la meno leggibile. Il minimo dichiarato per il testo
-                  // d'apertura e' 7 di contrasto, misurato dalla prova.
+                  // (textSecondary) sul fondale scuro, la prima cosa che si
+                  // legge ed era la meno leggibile. Il minimo dichiarato per
+                  // il testo d'apertura e' 7 di contrasto, misurato dalla
+                  // prova.
                   style: _stileDelSaluto,
                 ),
-              ],
+              ),
             ),
           );
         },
@@ -139,10 +122,4 @@ class ChatEmptyState extends StatelessWidget {
   /// contrasto, misurato dalla prova.
   static TextStyle get _stileDelSaluto => TypographyTokens.body(size: 18)
       .copyWith(color: ColorTokens.textPrimary, height: 1.5);
-
-  /// **QUANTO PICCOLO PUO' DIVENTARE IL BUSTO**, dichiarato invece che
-  /// lasciato al caso. Sotto questa misura non e' piu' un ritratto, e' una
-  /// macchia: meglio far scorrere la vista, che e' quello che succede quando
-  /// nemmeno cosi' ci sta.
-  static const double altezzaMinimaDelBusto = 160;
 }

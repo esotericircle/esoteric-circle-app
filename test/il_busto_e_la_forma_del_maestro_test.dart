@@ -28,10 +28,13 @@ import 'sorgenti_di_lib.dart';
 /// Dove un Maestro compare in alto si mostra il BUSTO, il ritaglio dalla vita
 /// in su che sfuma in basso, dalla porta unica `BustoDelMaestro`. Le
 /// eccezioni sono la home "Il Cerchio", dove i tre restano interi dietro la
-/// carta, e dall'ordine FW (15 ottobre 2026) il dominio di ogni Maestro, dove
-/// la scena in video mostra gia' la figura intera e il busto sparisce per
-/// non raddoppiarla: la guardia cade se una schermata non elencata mostra la
-/// figura intera, e cade anche se una delle eccezioni smette di farlo.
+/// carta, e dall'ordine FW (15 ottobre 2026) il dominio e la chat vuota di
+/// ogni Maestro, dove la scena in video mostra gia' la figura intera a tutto
+/// schermo e il busto sparisce per non raddoppiarla (nella chat, corretto lo
+/// stesso giorno: il fondatore, vista l'anteprima, "il video deve essere a
+/// tutto schermo", non piu' un riquadro sopra il saluto): la guardia cade se
+/// una schermata non elencata mostra la figura intera, e cade anche se una
+/// delle eccezioni smette di farlo.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -147,14 +150,23 @@ void main() {
     }
   });
 
-  testWidgets('la chat vuota mostra il busto', (tester) async {
+  // **LAPIDE: "la chat vuota mostra il busto".** Ordine FW voce FW.04, 15
+  // ottobre 2026, corretta lo stesso giorno: la figura della chat vuota e'
+  // salita a sfondo di tutta la schermata (montata da `MaestroChatScreen`,
+  // non piu' da `ChatEmptyState`), perche' il fondatore ha trovato
+  // "inaccettabile il riquadro in mezzo alla schermata con il maestro".
+  // `ChatEmptyState`, isolata come qui, non mostra piu' nessuna figura: solo
+  // il saluto.
+  testWidgets('la chat vuota, isolata, non mostra nessun busto',
+      (tester) async {
     await pompa(
         tester,
         const Scaffold(
             body: ChatEmptyState(
                 maestro: Maestro.caligo, greeting: 'Benvenuto nel cerchio.')));
-    expect(find.byType(BustoDelMaestro), findsOneWidget,
-        reason: 'La chat vuota non passa dalla porta unica del busto.');
+    expect(find.byType(BustoDelMaestro), findsNothing,
+        reason: 'ChatEmptyState mostra di nuovo un busto suo: la figura '
+            'deve restare lo sfondo intero montato da MaestroChatScreen.');
   });
 
   // **LAPIDE: "la Stesa mostra il busto di Medora dalla porta unica".**

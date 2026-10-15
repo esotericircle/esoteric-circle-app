@@ -242,6 +242,25 @@ void main() {
     expect(find.byType(ChatEmptyState), findsOneWidget);
   });
 
+  // **LA SCENA E' A TUTTO SCHERMO, non un riquadro.** Ordine FW, 15 ottobre
+  // 2026, corretta lo stesso giorno sulla prima stesura: il fondatore, vista
+  // l'anteprima con la scena dentro un riquadro in mezzo al contenuto,
+  // "E' inaccettabile il riquadro in mezzo alla schermata con il maestro.
+  // Il video deve essere a tutto schermo". Misura reale, non una supposizione
+  // sul codice.
+  testWidgets('FW.04: la scena della chat copre tutto lo schermo',
+      (tester) async {
+    final lettore = _Finta();
+    await monta(tester, maestro: Maestro.caligo, lettore: lettore);
+    final schermo = tester.view.physicalSize / tester.view.devicePixelRatio;
+    final fotogramma =
+        tester.getSize(find.byKey(const Key('chat_scena_fotogramma')));
+    expect(fotogramma.width, schermo.width,
+        reason: 'la scena non e\' larga quanto lo schermo');
+    expect(fotogramma.height, greaterThanOrEqualTo(schermo.height),
+        reason: 'la scena non e\' alta quanto lo schermo: torna un riquadro');
+  });
+
   testWidgets('FW.04: un tocco fa sfumare il video della chat',
       (tester) async {
     final lettore = _Finta();

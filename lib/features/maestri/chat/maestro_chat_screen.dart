@@ -70,7 +70,6 @@ import '../live/l_entrata_nel_vivo.dart';
 import 'widgets/la_porta_del_vivo.dart';
 import '../../../core/maestro/la_scena_del_maestro.dart';
 import '../../scene/la_scena_in_video.dart';
-import '../widgets/busto_del_maestro.dart' show BustoDelMaestro;
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -707,197 +706,257 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // perche' sotto c'e' contenuto, e il compositore resta ancorato
         // SOPRA la barra come strumento, senza fascia vuota sotto di lui:
         // sotto c'e' la barra, e sotto la barra scorrono i messaggi.
-        child: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              Column(
+        child: Stack(
+          children: [
+            // **LA SCENA A TUTTO SCHERMO, ordine FW, 15 ottobre 2026,
+            // corretta lo stesso giorno.** Sta FUORI dal `SafeArea` qui
+            // sotto apposta: dentro di lui la prima stesura arrivava a 709
+            // punti su 797, non al bordo, perche' il `SafeArea` toglie
+            // l'alto al suo contenuto anche con `extendBodyBehindAppBar`.
+            // Misurato da `test/la_scena_della_chat_e_un_filmato_test.dart`,
+            // "la scena della chat copre tutto lo schermo": sui 709 punti il
+            // vuoto sopra mostrava il cosmo invece della scena, visibile
+            // solo perche' le due stelle si somigliano. Qui, fuori dal
+            // `SafeArea`, la scena arriva davvero fino al bordo, come il
+            // dominio. Sfuma quando arriva il primo messaggio, svelando il
+            // cosmo che sta sempre dietro di lei (`CosmosBackground`, il
+            // genitore di questo Stack): la "salita" della scena (vedi
+            // sotto) diventa quindi una dissolvenza dello sfondo intero, non
+            // lo scivolare di un riquadro.
+            Positioned.fill(
+              child: IgnorePointer(
+                child: AnimatedSwitcher(
+                  duration: controller.riduciMovimento
+                      ? Duration.zero
+                      : TempiDellAttesa.dissolvenza,
+                  transitionBuilder: (figlio, anim) =>
+                      FadeTransition(opacity: anim, child: figlio),
+                  child: hasMessages
+                      ? const SizedBox.shrink(key: ValueKey('chat_sfondo_cosmo'))
+                      : _SfondoDellaChatVuota(
+                          key: const ValueKey('chat_sfondo_scena'),
+                          regia: _regiaDellaChat,
+                          scena: LaScenaDelMaestro.dellaChat(widget.maestro),
+                        ),
+                ),
+              ),
+            ),
+            SafeArea(
+              bottom: false,
+              child: Stack(
                 children: [
-                  // **QUI C'ERA "I GIORNI PRIMA", E ADESSO CI SONO I DUE
-                  // CONTEGGI.** Ordine CT voci 04 e 05, 7 settembre 2026.
-                  //
-                  // Parole del fondatore: *"nella barra dove adesso c'e' 'i
-                  // giorni prima' che non capisco a cosa si riferisce, elimina
-                  // questa e in quello spazio inserisci le 2 righe di conteggio
-                  // domande e conteggio approfondimenti"*.
-                  //
-                  // La porta dei giorni prima non si perde: e' passata nel
-                  // menu' della barra, voce CT.03, dove sta accanto alla
-                  // conversazione nuova.
-                  //
-                  // **E qui i conteggi non coprono piu' niente, voce CT.05.**
-                  // In basso stavano SOPRA le parole del Maestro, e si vede in
-                  // quattro delle cinque schermate del collaudo: il testo che
-                  // scorre passava sotto quelle due righe e diventavano
-                  // illeggibili tutti e due. Qui stanno sopra la conversazione,
-                  // che comincia dove loro finiscono.
-                  // **LA PASTIGLIA "DAL VIVO" ACCANTO AI CONTATORI. Ordine EO
-                  // voce 16, 26 settembre 2026.** Il fondatore: *"il
-                  // pulsante "dal vivo" lo metti a fianco alle due righe dei
-                  // contatori"*. Stava nella testata, impilata sopra l'icona
-                  // della conversazione nuova (ordine EJ voce 10): adesso sta
-                  // a destra delle due righe, centrata sulla loro altezza, e
-                  // come loro non scorre.
-                  //
-                  // **LA FASCIA HA IL FONDO DELLA TESTATA. Ordine EQ voce 09,
-                  // 27 settembre 2026.** Il fondatore, nelle catture: i
-                  // messaggi tagliati al bordo della conversazione si
-                  // leggevano fra le due righe, perche' la fascia non aveva
-                  // fondo e la testata si'. Adesso la tinta e' la stessa, e
-                  // viene da un punto solo (`_ChatAppBar.fondo`): la fascia
-                  // si legge come la parte bassa della testata, e sotto di
-                  // lei quattro punti chiudono le code delle lettere.
-                  ColoredBox(
-                    key: const Key('chat_fondo_dei_contatori'),
-                    color: _ChatAppBar.fondo(context.palette),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                          SpacingTokens.lg, SpacingTokens.xxs),
-                      child: Row(
-                        key: const Key('chat_contatori_e_dal_vivo'),
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Strette, ordine EA voce 09.
-                                RigaDelResiduo(
-                                    key: Key('chat_residuo_domande'),
-                                    budget: BudgetDelGiorno.domande,
-                                    stretta: true),
-                                RigaDelResiduo(
-                                    key: Key('chat_residuo_approfondimenti'),
-                                    budget: BudgetDelGiorno.approfondimenti,
-                                    stretta: true),
-                              ],
+                  // **IL TOCCO CHE SALTA STA QUI, SOPRA LA SCENA E SOTTO IL
+                  // COMPOSITORE.** Spostato dalla sola fascia della conversazione
+                  // a tutto il contenuto che sta sopra il compositore, perche'
+                  // adesso la scena e' lo sfondo intero e non piu' una fascia:
+                  // il compositore (`_composerSospeso`, fuori da questo
+                  // `IlToccoCheSalta`) resta sempre toccabile, come gia' deciso
+                  // quando la scena era un riquadro (il primo tentativo con il
+                  // velo su tutto il corpo aveva reso muto il pulsante di invio).
+                  IlToccoCheSalta(
+                    inCorso: !hasMessages && _regiaDellaChat.inCorso,
+                    onSalta: _regiaDellaChat.salta,
+                    child: Column(
+                      children: [
+                    // **QUI C'ERA "I GIORNI PRIMA", E ADESSO CI SONO I DUE
+                    // CONTEGGI.** Ordine CT voci 04 e 05, 7 settembre 2026.
+                    //
+                    // Parole del fondatore: *"nella barra dove adesso c'e' 'i
+                    // giorni prima' che non capisco a cosa si riferisce, elimina
+                    // questa e in quello spazio inserisci le 2 righe di conteggio
+                    // domande e conteggio approfondimenti"*.
+                    //
+                    // La porta dei giorni prima non si perde: e' passata nel
+                    // menu' della barra, voce CT.03, dove sta accanto alla
+                    // conversazione nuova.
+                    //
+                    // **E qui i conteggi non coprono piu' niente, voce CT.05.**
+                    // In basso stavano SOPRA le parole del Maestro, e si vede in
+                    // quattro delle cinque schermate del collaudo: il testo che
+                    // scorre passava sotto quelle due righe e diventavano
+                    // illeggibili tutti e due. Qui stanno sopra la conversazione,
+                    // che comincia dove loro finiscono.
+                    // **LA PASTIGLIA "DAL VIVO" ACCANTO AI CONTATORI. Ordine EO
+                    // voce 16, 26 settembre 2026.** Il fondatore: *"il
+                    // pulsante "dal vivo" lo metti a fianco alle due righe dei
+                    // contatori"*. Stava nella testata, impilata sopra l'icona
+                    // della conversazione nuova (ordine EJ voce 10): adesso sta
+                    // a destra delle due righe, centrata sulla loro altezza, e
+                    // come loro non scorre.
+                    //
+                    // **LA FASCIA HA IL FONDO DELLA TESTATA. Ordine EQ voce 09,
+                    // 27 settembre 2026.** Il fondatore, nelle catture: i
+                    // messaggi tagliati al bordo della conversazione si
+                    // leggevano fra le due righe, perche' la fascia non aveva
+                    // fondo e la testata si'. Adesso la tinta e' la stessa, e
+                    // viene da un punto solo (`_ChatAppBar.fondo`): la fascia
+                    // si legge come la parte bassa della testata, e sotto di
+                    // lei quattro punti chiudono le code delle lettere.
+                    ColoredBox(
+                      key: const Key('chat_fondo_dei_contatori'),
+                      color: _ChatAppBar.fondo(context.palette),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                            SpacingTokens.lg, SpacingTokens.xxs),
+                        child: Row(
+                          key: const Key('chat_contatori_e_dal_vivo'),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Strette, ordine EA voce 09.
+                                  RigaDelResiduo(
+                                      key: Key('chat_residuo_domande'),
+                                      budget: BudgetDelGiorno.domande,
+                                      stretta: true),
+                                  RigaDelResiduo(
+                                      key: Key('chat_residuo_approfondimenti'),
+                                      budget: BudgetDelGiorno.approfondimenti,
+                                      stretta: true),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: SpacingTokens.sm),
-                          LaPortaDelVivo(
-                            maestro: widget.maestro,
-                            // La conferma dei minuti prima della sessione,
-                            // ordine FD voce 01.
-                            onEntra: () => entraNelVivo(context,
-                                maestro: widget.maestro, chat: controller),
-                          ),
-                        ],
+                            const SizedBox(width: SpacingTokens.sm),
+                            LaPortaDelVivo(
+                              maestro: widget.maestro,
+                              // La conferma dei minuti prima della sessione,
+                              // ordine FD voce 01.
+                              onEntra: () => entraNelVivo(context,
+                                  maestro: widget.maestro, chat: controller),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
-                  // la conversazione, cioe' nello spazio che rovesciando la lista
-                  // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
-                  // sta aspettando, a costo di inferenza zero.
-                  // LA SCENA NON SPARISCE DI COLPO.
-                  //
-                  // Prima compariva e spariva con un `if`, quindi al momento
-                  // giusto, cioe' quando la risposta arriva, faceva un salto. La
-                  // dissolvenza dura quanto dice il dato, e la stessa uscita vale
-                  // anche quando la risposta FALLISCE: la scena si chiude e sotto
-                  // c'e' il ripiego, invece del vuoto improvviso.
-                  // LA SCENA STA SOPRA LA CONVERSAZIONE, E PRENDE CIO' CHE
-                  // AVANZA.
-                  //
-                  // Prima era un fratello della lista dentro la stessa colonna,
-                  // quindi il suo spazio lo TOGLIEVA alla conversazione: con un
-                  // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
-                  // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
-                  // la conversazione si dispone per prima e prende cio' che le
-                  // serve, poi alla scena si dice quanto e' rimasto. **Con la
-                  // conversazione piena non restava ZERO e la scena spariva da
-                  // tutte le chat col passare della storia**: dal 7 agosto 2026
-                  // la scena VIVA pretende la sua altezza minima e si stende
-                  // sopra la cima della conversazione, che non si muove. La
-                  // ragione intera sta su ScenaSopraLaConversazione.
-                  // **IL FILO IN CIMA. Ordine FE voce 22**: la domanda del
-                  // consulto e i pareri dei Maestri gia' consultati, quando il
-                  // consulto passa da un Maestro all'altro.
-                  IlFiloInCima(maestro: widget.maestro),
-                  Expanded(
-                    child: ScenaSopraLaConversazione(
-                      altezzaMinimaDellaScena: controller.mostraLaScenaDiAttesa
-                          ? ScenaSopraLaConversazione.altezzaDelConsulto
-                          : 0,
-                      scena: AnimatedSwitcher(
-                        // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
-                        //
-                        // La dissolvenza e' movimento quanto un'animazione, e chi
-                        // ha chiesto di ridurlo non ha chiesto un movimento piu'
-                        // lento. E' anche la ragione per cui le due anteprime
-                        // pesavano lo stesso numero di byte: a riposo le due scene
-                        // sono identiche, e la differenza vive solo DURANTE la
-                        // comparsa.
-                        duration: controller.riduciMovimento
-                            ? Duration.zero
-                            : TempiDellAttesa.dissolvenza,
-                        // UNA DISSOLVENZA, non uno scorrimento laterale. Il corpo
-                        // si posa dove sta, non entra da un lato: entrare da un
-                        // lato lo farebbe leggere come una carta che passa, e qui
-                        // non passa niente, si guarda.
-                        transitionBuilder: (figlio, anim) =>
-                            FadeTransition(opacity: anim, child: figlio),
-                        child: controller.mostraLaScenaDiAttesa
-                            ? Padding(
-                                key: const Key('riquadro_attesa'),
-                                padding: const EdgeInsets.fromLTRB(
-                                    SpacingTokens.md,
-                                    SpacingTokens.sm,
-                                    SpacingTokens.md,
-                                    SpacingTokens.sm),
-                                child: ConsultoDelCieloView(
-                                  // La chiave porta CHI si consulta: cambiando voce
-                                  // la scena si rifa' con le battute di quel Maestro
-                                  // invece di restare su quelle di prima.
-                                  key: ValueKey(
-                                      'consulto ${controller.maestroInAscolto?.id}'),
-                                  natal: _natalCorrente(context),
-                                  maestro: controller.maestroInAscolto ??
-                                      widget.maestro,
-                                  // L'ARCHETIPO GIA' SCOPERTO, che e' il simbolo di
-                                  // Aura. Dallo storico condiviso, che l'app carica
-                                  // all'avvio: nullo vuol dire "non ancora
-                                  // scoperto", e la scena lo dice invece di
-                                  // mostrare al posto suo un simbolo che direbbe
-                                  // una cosa falsa.
-                                  archetipo: context
-                                      .watch<ArchetypeHistory>()
-                                      .ultimo
-                                      ?.dominante,
-                                  rotazione: controller.rotazioneDelConsulto,
-                                ))
-                            : _PresenzaARiposo(
-                                key: const ValueKey('nessun consulto'),
-                                maestro: controller.maestroInAscolto ??
-                                    widget.maestro,
-                              ),
-                      ),
-                      // **LA SCENA SALE E SCOMPARE, FW.04.** Un ciclo solo:
-                      // nessuna animazione cosi' esisteva prima (il busto
-                      // spariva all'istante, sostituito dalla conversazione,
-                      // verificato sul ramo prima di questa voce: P4 era
-                      // caduta su questo punto). La dissolvenza e' quella
-                      // delle altre scene (`TempiDellAttesa.dissolvenza`,
-                      // 260 ms); la scena che esce scorre verso l'alto del
-                      // 6 per cento della sua altezza mentre sfuma, la
-                      // "salita" che l'ordine chiede, scelta da Code perche'
-                      // nessun movimento di prima esiste da copiare.
-                      // **IL TOCCO CHE SALTA STA QUI, NON SU TUTTA LA
-                      // SCHERMATA.** A differenza delle altre scene, la chat
-                      // ha un compositore sempre presente sotto: avvolgendo
-                      // l'intero corpo, un tocco sul campo o sulla freccia
-                      // mentre il video gira veniva consumato dal velo e non
-                      // arrivava mai alla sua destinazione, impedendo di
-                      // scrivere finche' il video non finiva da solo o
-                      // qualcuno toccava altrove apposta. Qui il velo copre
-                      // solo la zona della scena, e il compositore resta
-                      // sempre toccabile: e' cosi' che P5 puo' succedere
-                      // davvero (la risposta arriva mentre il video gira).
-                      conversazione: IlToccoCheSalta(
-                        inCorso: !hasMessages && _regiaDellaChat.inCorso,
-                        onSalta: _regiaDellaChat.salta,
-                        child: AnimatedSwitcher(
+                    // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
+                    // la conversazione, cioe' nello spazio che rovesciando la lista
+                    // era rimasto vuoto. Non e' decorazione: sono i dati veri di chi
+                    // sta aspettando, a costo di inferenza zero.
+                    // LA SCENA NON SPARISCE DI COLPO.
+                    //
+                    // Prima compariva e spariva con un `if`, quindi al momento
+                    // giusto, cioe' quando la risposta arriva, faceva un salto. La
+                    // dissolvenza dura quanto dice il dato, e la stessa uscita vale
+                    // anche quando la risposta FALLISCE: la scena si chiude e sotto
+                    // c'e' il ripiego, invece del vuoto improvviso.
+                    // LA SCENA STA SOPRA LA CONVERSAZIONE, E PRENDE CIO' CHE
+                    // AVANZA.
+                    //
+                    // Prima era un fratello della lista dentro la stessa colonna,
+                    // quindi il suo spazio lo TOGLIEVA alla conversazione: con un
+                    // emblema grande avrebbe spinto giu' i messaggi a ogni consulto.
+                    // `ScenaSopraLaConversazione` rovescia l'ordine di misurazione:
+                    // la conversazione si dispone per prima e prende cio' che le
+                    // serve, poi alla scena si dice quanto e' rimasto. **Con la
+                    // conversazione piena non restava ZERO e la scena spariva da
+                    // tutte le chat col passare della storia**: dal 7 agosto 2026
+                    // la scena VIVA pretende la sua altezza minima e si stende
+                    // sopra la cima della conversazione, che non si muove. La
+                    // ragione intera sta su ScenaSopraLaConversazione.
+                    // **IL FILO IN CIMA. Ordine FE voce 22**: la domanda del
+                    // consulto e i pareri dei Maestri gia' consultati, quando il
+                    // consulto passa da un Maestro all'altro.
+                    IlFiloInCima(maestro: widget.maestro),
+                    Expanded(
+                      child: ScenaSopraLaConversazione(
+                        altezzaMinimaDellaScena:
+                            controller.mostraLaScenaDiAttesa
+                                ? ScenaSopraLaConversazione.altezzaDelConsulto
+                                : 0,
+                        scena: AnimatedSwitcher(
+                          // A MOTO FERMO LA SCENA NON COMPARE, C'E'.
+                          //
+                          // La dissolvenza e' movimento quanto un'animazione, e chi
+                          // ha chiesto di ridurlo non ha chiesto un movimento piu'
+                          // lento. E' anche la ragione per cui le due anteprime
+                          // pesavano lo stesso numero di byte: a riposo le due scene
+                          // sono identiche, e la differenza vive solo DURANTE la
+                          // comparsa.
+                          duration: controller.riduciMovimento
+                              ? Duration.zero
+                              : TempiDellAttesa.dissolvenza,
+                          // UNA DISSOLVENZA, non uno scorrimento laterale. Il corpo
+                          // si posa dove sta, non entra da un lato: entrare da un
+                          // lato lo farebbe leggere come una carta che passa, e qui
+                          // non passa niente, si guarda.
+                          transitionBuilder: (figlio, anim) =>
+                              FadeTransition(opacity: anim, child: figlio),
+                          child: controller.mostraLaScenaDiAttesa
+                              ? Padding(
+                                  key: const Key('riquadro_attesa'),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      SpacingTokens.md,
+                                      SpacingTokens.sm,
+                                      SpacingTokens.md,
+                                      SpacingTokens.sm),
+                                  child: ConsultoDelCieloView(
+                                    // La chiave porta CHI si consulta: cambiando voce
+                                    // la scena si rifa' con le battute di quel Maestro
+                                    // invece di restare su quelle di prima.
+                                    key: ValueKey(
+                                        'consulto ${controller.maestroInAscolto?.id}'),
+                                    natal: _natalCorrente(context),
+                                    maestro: controller.maestroInAscolto ??
+                                        widget.maestro,
+                                    // L'ARCHETIPO GIA' SCOPERTO, che e' il simbolo di
+                                    // Aura. Dallo storico condiviso, che l'app carica
+                                    // all'avvio: nullo vuol dire "non ancora
+                                    // scoperto", e la scena lo dice invece di
+                                    // mostrare al posto suo un simbolo che direbbe
+                                    // una cosa falsa.
+                                    archetipo: context
+                                        .watch<ArchetypeHistory>()
+                                        .ultimo
+                                        ?.dominante,
+                                    rotazione: controller.rotazioneDelConsulto,
+                                  ))
+                              // **NIENTE VOLTO A RIPOSO SULLA SCENA A TUTTO
+                              // SCHERMO, ordine FW, 15 ottobre 2026.**
+                              // `_PresenzaARiposo` nasce per riempire il
+                              // vuoto fra la barra e il primo messaggio
+                              // (ordine CO voce 12): prima del primo
+                              // messaggio quel vuoto non esiste piu', lo
+                              // riempie gia' lo sfondo a tutto schermo
+                              // (`_SfondoDellaChatVuota`). Senza questa
+                              // condizione, col saluto ridotto alla sola
+                              // riga di testo (niente piu' figura dentro
+                              // `ChatEmptyState`) la fascia libera sopra di
+                              // lui si allargava, e il volto a riposo
+                              // compariva semitrasparente sopra lo sfondo
+                              // gia' pieno: un volto fantasma doppio,
+                              // trovato guardando l'anteprima vera prima di
+                              // chiudere la voce (R6).
+                              : (hasMessages
+                                  ? _PresenzaARiposo(
+                                      key: const ValueKey('nessun consulto'),
+                                      maestro: controller.maestroInAscolto ??
+                                          widget.maestro,
+                                    )
+                                  : const SizedBox.shrink(
+                                      key: ValueKey('nessuna presenza'))),
+                        ),
+                        // **LA SCENA SALE E SCOMPARE, FW.04.** Un ciclo solo:
+                        // nessuna animazione cosi' esisteva prima (il busto
+                        // spariva all'istante, sostituito dalla conversazione,
+                        // verificato sul ramo prima di questa voce: P4 era
+                        // caduta su questo punto). La dissolvenza e' quella
+                        // delle altre scene (`TempiDellAttesa.dissolvenza`,
+                        // 260 ms); la scena che esce scorre verso l'alto del
+                        // 6 per cento della sua altezza mentre sfuma, la
+                        // "salita" che l'ordine chiede, scelta da Code perche'
+                        // nessun movimento di prima esiste da copiare.
+                        // **IL TOCCO CHE SALTA NON STA PIU' QUI.** Ordine FW,
+                        // 15 ottobre 2026: da quando la scena e' lo sfondo
+                        // intero della chat (non piu' un riquadro sopra questa
+                        // sola fascia), il velo che la fa sfumare avvolge tutto
+                        // il contenuto sopra il compositore (vedi
+                        // `IlToccoCheSalta` piu' in alto, attorno a questo
+                        // intero `Column`): qui resta solo l'animazione del
+                        // contenuto, lo scambio fra il saluto e i messaggi.
+                        conversazione: AnimatedSwitcher(
                           duration: controller.riduciMovimento
                               ? Duration.zero
                               : TempiDellAttesa.dissolvenza,
@@ -918,19 +977,21 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                         ),
                       ),
                     ),
-                  ),
-                  // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
-                  // SINTETIZZARE.
-                  //
-                  // Prima si raggiungeva sempre, da un'icona nell'intestazione, e
-                  // apriva un confronto fra una voce sola e nessun'altra. La
-                  // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
-                  // letture VERE: due ripieghi non sono due voci.
-                ],
+                    // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
+                    // SINTETIZZARE.
+                    //
+                    // Prima si raggiungeva sempre, da un'icona nell'intestazione, e
+                    // apriva un confronto fra una voce sola e nessun'altra. La
+                    // regola sta nel dato, `AltreVoci.siPuoSintetizzare`, e conta le
+                    // letture VERE: due ripieghi non sono due voci.
+                  ],
+                ),
               ),
               _composerSospeso(controller),
-            ],
-          ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -1079,16 +1140,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       // l'assaggio di tre domande e il pulsante che apriva il pannello.
       // Sono spariti, e con loro le due porte in piu': resta l'icona a
       // stelline accanto al campo.
+      // **LA SCENA NON STA PIU' QUI**: e' lo sfondo a tutto schermo montato
+      // dal `build` della schermata (`_SfondoDellaChatVuota`), non piu' una
+      // figura dentro questo stato vuoto.
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
         spazioInFondo: _altezzaComposer + _spazioSottoIlCampo,
-        // **LA SCENA AL POSTO DEL BUSTO FERMO, FW.04.**
-        figura: (altezza) => _LaScenaDellaChatVuota(
-          regia: _regiaDellaChat,
-          scena: LaScenaDelMaestro.dellaChat(widget.maestro),
-          height: altezza,
-        ),
       );
     }
     // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui
@@ -1988,60 +2046,75 @@ class _ConversazioneNuova {
 /// Quindi la presenza resta finche' la fascia e' larga abbastanza da ospitarla,
 /// e si toglie da sola quando la conversazione cresce. **Non pulsa e non
 /// parla**: e' una presenza a riposo, non una scena.
-/// **LA SCENA DELLA CHAT, PRIMA DEL PRIMO MESSAGGIO.** Ordine FW voce FW.04,
-/// 15 ottobre 2026. Al posto del busto fermo di prima: il video del Maestro,
-/// fermo sull'ultimo fotogramma quando non gira, con lo stesso taglio
-/// sfumato in basso del busto che sostituisce (`BustoDelMaestro.
-/// fermateDellaSfumatura`), cosi' la scena non lascia un bordo netto sul
-/// cosmo dietro di lei.
-class _LaScenaDellaChatVuota extends StatelessWidget {
-  const _LaScenaDellaChatVuota({
+/// **LA SCENA DELLA CHAT, A TUTTO SCHERMO.** Ordine FW voce FW.04, 15
+/// ottobre 2026, corretta lo stesso giorno: la prima stesura mostrava il
+/// video dentro un riquadro in mezzo al contenuto, sopra il saluto. Il
+/// fondatore, vista l'anteprima: *"E' inaccettabile il riquadro in mezzo
+/// alla schermata con il maestro. [...] Il video deve essere a tutto
+/// schermo"*. La scena e' adesso lo sfondo intero della chat vuota, dietro
+/// la barra compresa (`MaestroChatScreen` la monta in `Positioned.fill`,
+/// sotto tutto il resto): lo stesso principio del dominio (FW.03), un fondo
+/// fotografato al posto di una cornice disegnata. Il velo in basso, dove il
+/// saluto e il compositore si leggono, e' lo stesso tipo di correzione gia'
+/// fatta sul dominio: misurato sulla cattura vera, non supposto.
+class _SfondoDellaChatVuota extends StatelessWidget {
+  const _SfondoDellaChatVuota({
+    super.key,
     required this.regia,
     required this.scena,
-    required this.height,
   });
 
   final RegiaDellaScena regia;
   final LaScenaDelMaestro scena;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     final ferma = regia.ferma;
-    return SizedBox(
-      height: height,
-      width: double.infinity,
-      child: ShaderMask(
-        blendMode: BlendMode.dstIn,
-        shaderCallback: (rect) => const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.white, Colors.white, Colors.transparent],
-          stops: BustoDelMaestro.fermateDellaSfumatura,
-        ).createShader(rect),
-        child: ClipRect(
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
-                key: const Key('chat_scena_fotogramma'),
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.medium,
-                errorBuilder: (_, __, ___) =>
-                    ColoredBox(color: palette.deepest),
-              ),
-              if (regia.filmatoInScena && (!ferma || regia.saltata))
-                IlFilmatoCheSfuma(
-                  key: const Key('chat_scena_filmato'),
-                  saltato: regia.saltata,
-                  child: regia.disegna(),
-                ),
-            ],
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Image.asset(
+            ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
+            key: const Key('chat_scena_fotogramma'),
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.medium,
+            errorBuilder: (_, __, ___) => ColoredBox(color: palette.deepest),
           ),
         ),
-      ),
+        if (regia.filmatoInScena && (!ferma || regia.saltata))
+          Positioned.fill(
+            child: IlFilmatoCheSfuma(
+              key: const Key('chat_scena_filmato'),
+              saltato: regia.saltata,
+              child: regia.disegna(),
+            ),
+          ),
+        // **IL VELO IN BASSO**, dove il saluto e il compositore si leggono:
+        // gli stessi fermi e la stessa forza misurati sul dominio dopo la
+        // correzione del contrasto (FW.03), perche' sono la stessa domanda
+        // su un fondo fotografato diverso. `Positioned.fill` esplicito,
+        // scritto apposta dopo che la sua assenza aveva gia' lasciato un
+        // velo invisibile nel dominio.
+        Positioned.fill(
+          child: IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [0.0, 0.45, 0.70],
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    palette.deepest.withValues(alpha: 0.80),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
