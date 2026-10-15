@@ -190,15 +190,19 @@ void main() {
       // evolutiva, una riga per piano coi numeri della matrice.
       // UNA IN PIU' PER OGNI PIANO dall'ordine FU voce FU.10: l'Oracolo degli
       // Angeli, una riga per piano coi numeri della matrice.
-      expect(PlanCatalog.forTier(Tier.free).highlights.length, 12);
+      // TREDICI dall'ordine FV voce FV.12: il Calendario Lunare, una riga
+      // in piu' per ogni piano.
+      expect(PlanCatalog.forTier(Tier.free).highlights.length, 13);
       // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
       // dall'Iniziato, e il piano lo dice.
       // QUATTORDICI dalla voce ES.09: anche l'oroscopo vedico.
       // QUINDICI dalla voce ES.12: gli amici, fino a tre.
-      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 17);
+      // DICIOTTO dall'ordine FV voce FV.12: il Calendario Lunare.
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 18);
       // TREDICI dalla voce ES.04: l'oroscopo dell'anno dal compleanno.
       // QUATTORDICI dalla voce ES.12: gli amici, fino a dieci.
-      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 16);
+      // DICIASSETTE dall'ordine FV voce FV.12: il Calendario Lunare.
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 17);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
@@ -208,7 +212,8 @@ void main() {
       // condensare: la Compatibilità a tre livelli non si conta piu' fra
       // cio' che il piano da', perche' nessuna parte dell'app la esegue.
       // DODICI dall'ordine FU voce FU.10: l'Oracolo degli Angeli.
-      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 12);
+      // TREDICI dall'ordine FV voce FV.12: il Calendario Lunare.
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 13);
     });
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {
@@ -296,7 +301,10 @@ void main() {
       // degli Angeli (l'angelo dell'ora col messaggio del giorno, le
       // consultazioni, le tre carte, la risposta lunga con la lettura per un
       // amico).
-      expect(PlanCatalog.matrix.length, 58);
+      // SESSANTADUE dall'ordine FV voce FV.12: le quattro righe del
+      // Calendario Lunare (i mesi avanti, le categorie di "Trova il
+      // giorno", i promemoria, "Trova il giorno insieme").
+      expect(PlanCatalog.matrix.length, 62);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

@@ -249,8 +249,17 @@ void main() {
     // `statoDelCerchio`: la nascita di una persona passa a un'altra solo col
     // consenso, per una lettura, e vive in una collezione sua che chi legge
     // cancella.
-    expect(callable.length, 37,
-        reason: 'le callable non sono piu\' trentasette: $callable. Se ne '
+    // **QUARANTUNO, ordine FV, 15 ottobre 2026**: quattro porte del
+    // Calendario Lunare in `il_cerchio_sociale.ts`, scritte e provate, non
+    // pubblicate (R3): `compraUnMeseDelLunario` e
+    // `compraUnaPropostaInsiemeDelLunario` spendono Eos in transazione,
+    // `proponiGiornoInsieme` scrive la proposta di un amico in una
+    // collezione sua, `rispondiAlGiorno` la risposta di chi la riceve. Non
+    // potevano viaggiare dentro `statoDelCerchio`: ognuna scrive su un dato
+    // diverso (un acquisto, la proposta a un gruppo di amici), motivate nel
+    // rapporto dell'ordine FV.
+    expect(callable.length, 41,
+        reason: 'le callable non sono piu\' quarantuno: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // E OGNI PORTA SOCIALE HA IL SUO TETTO, contato prima di ogni altra cosa
     // (EY.16): una porta nuova non puo' nascere senza.

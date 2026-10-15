@@ -201,6 +201,33 @@ const esenzioni = <Esenzione>[
       "return risposta['perche'] == 'codice scaduto'",
       'e la CHIAVE del campo della risposta del server, non una parola '
           'mostrata'),
+  // **ORDINE FV voce FV.10**, 15 ottobre 2026: le chiavi dei dati della
+  // proposta del giorno insieme del Calendario Lunare, mai mostrate. Il
+  // testo dell'attivita' a video viene da `AttivitaDelLunario.nome`, non da
+  // questo campo.
+  Esenzione(
+      'lib/core/cerchio/il_cerchio_sociale.dart',
+      "attivita: d['attivita'] as String? ?? '',",
+      'e la chiave dell\'attivita\' nei dati della proposta, mai mostrata'),
+  Esenzione(
+      'lib/core/cerchio/il_cerchio_sociale.dart',
+      "da: d['da'] as String? ?? '',",
+      'e la chiave di chi manda la proposta, mai mostrata'),
+  Esenzione(
+      'lib/core/cerchio/il_cerchio_sociale.dart',
+      "'attivita': attivita,",
+      'e la chiave inviata al server per proporre il giorno, mai mostrata'),
+  // Le chiavi del JSON salvato sul telefono per i promemoria del lunario
+  // (FV.08), mai mostrate: il testo dell'attivita' a video viene da
+  // `AttivitaDelLunario.nome`.
+  Esenzione(
+      'lib/features/lunario/i_promemoria_del_lunario.dart',
+      "{'giorno': IPromemoriaDelLunario.data(giorno), 'attivita': attivita.name};",
+      'e le chiavi del JSON salvato sul telefono, mai mostrate'),
+  Esenzione(
+      'lib/features/lunario/i_promemoria_del_lunario.dart',
+      "final nome = j['attivita'];",
+      'e la stessa chiave, letta tornando dal JSON salvato'),
 ];
 
 /// Le stringhe di [righe] che usano l'apostrofo al posto dell'accento.

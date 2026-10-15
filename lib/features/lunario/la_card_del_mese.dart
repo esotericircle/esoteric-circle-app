@@ -132,39 +132,47 @@ class LaCardDelMese extends StatelessWidget {
             ),
             Positioned.fromRect(
               rect: px(fasciaDellaFirma),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // IL SIGILLO DI MEDORA: la sua figura dipinta col suo nome,
-                  // la Maestra che firma l'almanacco.
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(Maestro.medora.avatarAsset,
-                          height: 40 * s * 2,
-                          fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) =>
-                              SizedBox(height: 40 * s * 2)),
-                      Text('MEDORA',
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 2)),
-                    ],
-                  ),
-                  SizedBox(width: 24 * s * 2),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const BrandLogo(size: 36),
-                      Text(BrandMark.wordmark,
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 2)),
-                      Text(Brand.domain,
-                          key: const Key('card_mese_collegamento'),
-                          style: TypographyTokens.etichetta()
-                              .copyWith(color: ColorTokens.textSecondary)),
-                    ],
-                  ),
-                ],
+              // **FittedBox**: la fascia della firma e' un budget di pixel
+              // fisso che si restringe con `width`, mentre il logo e il
+              // testo hanno una misura propria. Senza di lui la riga trabocca
+              // (trovato al giro dell'utente, R10 dell'ordine FV, mai vista
+              // prima: nessuna prova montava questa card).
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // IL SIGILLO DI MEDORA: la sua figura dipinta col suo
+                    // nome, la Maestra che firma l'almanacco.
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Maestro.medora.avatarAsset,
+                            height: 40 * s * 2,
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) =>
+                                SizedBox(height: 40 * s * 2)),
+                        Text('MEDORA',
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft, letterSpacing: 2)),
+                      ],
+                    ),
+                    SizedBox(width: 24 * s * 2),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const BrandLogo(size: 36),
+                        Text(BrandMark.wordmark,
+                            style: TypographyTokens.etichetta().copyWith(
+                                color: palette.goldSoft, letterSpacing: 2)),
+                        Text(Brand.domain,
+                            key: const Key('card_mese_collegamento'),
+                            style: TypographyTokens.etichetta()
+                                .copyWith(color: ColorTokens.textSecondary)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
