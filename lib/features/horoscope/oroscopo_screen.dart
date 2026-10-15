@@ -90,6 +90,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'corsa_dello_zodiaco.dart';
 import 'la_rivelazione_del_segno.dart';
 import '../amici/l_emblema_dell_amico.dart';
+import '../scene/la_scena_in_video.dart';
+import 'la_scena_dell_oroscopo.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -193,7 +195,12 @@ class OroscopoScreen extends StatefulWidget {
       required this.userSign,
       this.now,
       this.amico,
-      this.apertaDallOroscopo = false});
+      this.apertaDallOroscopo = false,
+      this.fabbricaDellaScena});
+
+  /// **IL LETTORE DELLA SCENA**, ordine FU voce FU.13: nullo vuol dire il
+  /// video vero ([LaScenaDellOroscopo.filmato]); le prove passano una finta.
+  final FabbricaDiScena? fabbricaDellaScena;
 
   /// Il segno solare del soggetto: di chi usa l'app, o dell'amico.
   final Zodiac userSign;
@@ -1180,9 +1187,91 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         () => _luogo = LuogoDelGiorno(lat: l.lat, lon: l.lon, citta: l.citta));
   }
 
+  /// **LA SCENA DELL'APERTURA, ordine FU voce FU.13**: il video di Medora
+  /// davanti alla ruota dello zodiaco, una volta per apertura. La regia e'
+  /// quella comune delle scene ([RegiaDellaScena]).
+  late final RegiaDellaScena _regia;
+
+  /// Gli emblemi sono accesi sulla ruota: dal momento in cui la scena e'
+  /// ferma.
+  bool _emblemiAccesi = false;
+  Duration _dissolvenzaDegliEmblemi =
+      LaScenaDellOroscopo.dissolvenzaDegliEmblemi;
+
+  /// La lettura e' salita sopra la scena. Prima, nella schermata c'e' solo
+  /// la scena; la lettura si monta quando sale, e la sua cascata d'ingresso
+  /// e' quella di sempre.
+  bool _letturaSalita = false;
+
+  /// Se la lettura sale con la sua dissolvenza o e' gia' al suo posto: a
+  /// scena ferma dall'apertura (Riduci Movimento, grafica alleggerita, video
+  /// che non si carica) non c'e' niente da aspettare.
+  bool _letturaAnimata = false;
+
+  /// La sosta sugli emblemi a video finito, prima che la lettura salga.
+  Timer? _sostaSugliEmblemi;
+
+  /// **QUANDO LA SCENA SI FERMA, GLI EMBLEMI SI ACCENDONO.** Tre modi di
+  /// fermarsi, tre tempi:
+  /// - il video e' finito da solo: gli emblemi entrano in dissolvenza, la
+  ///   scena resta col segno della persona per la sosta, poi la lettura sale;
+  /// - il video e' stato saltato col tocco (FU.15): gli emblemi compaiono
+  ///   subito, con la dissolvenza del salto, e la lettura sale insieme;
+  /// - la scena e' ferma dall'apertura: gli emblemi entrano in dissolvenza e
+  ///   la lettura e' gia' al suo posto, come prima dell'ordine FU.
+  void _guardaLaScena() {
+    if (!mounted) return;
+    if (_regia.ferma && !_emblemiAccesi) {
+      _emblemiAccesi = true;
+      if (_regia.saltata) {
+        _dissolvenzaDegliEmblemi = IlFilmatoCheSfuma.dissolvenza;
+        _letturaSalita = true;
+        _letturaAnimata = true;
+      } else if (_regia.filmatoInScena) {
+        _dissolvenzaDegliEmblemi = LaScenaDellOroscopo.dissolvenzaDegliEmblemi;
+        _sostaSugliEmblemi?.cancel();
+        _sostaSugliEmblemi = Timer(
+            LaScenaDellOroscopo.dissolvenzaDegliEmblemi +
+                LaScenaDellOroscopo.sostaSugliEmblemi,
+            _alzaLaLettura);
+      } else {
+        _dissolvenzaDegliEmblemi = LaScenaDellOroscopo.dissolvenzaDegliEmblemi;
+        _letturaSalita = true;
+        _letturaAnimata = false;
+      }
+    }
+    setState(() {});
+  }
+
+  /// La lettura sale sopra la scena: alla fine della sosta, o prima se la
+  /// persona tocca la scena ferma.
+  void _alzaLaLettura() {
+    _sostaSugliEmblemi?.cancel();
+    if (!mounted || _letturaSalita) return;
+    setState(() {
+      _letturaSalita = true;
+      _letturaAnimata = true;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Una volta sola per apertura: la regia lo sa da se'.
+    unawaited(_regia.avvia(context));
+  }
+
   @override
   void initState() {
     super.initState();
+    _regia = RegiaDellaScena(widget.fabbricaDellaScena ??
+        () => LettoreDiScena.vero(LaScenaDellOroscopo.filmato))
+      ..addListener(_guardaLaScena);
+    // **IL BATTITO NASCE QUI, NON ALLA PRIMA TESTA.** Con la scena in corso
+    // la testa non e' ancora montata: il controller pigro nasceva in
+    // `dispose`, e cercava il TickerMode in un albero gia' disattivato
+    // (visto nella prova della scena, FU.13).
+    if (!_pulse.isAnimating) _pulse.repeat();
     unawaited(LaRivelazioneDelSegno.testeViste().then((v) {
       if (mounted) _testeRivelate = v;
     }));
@@ -1211,6 +1300,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   void dispose() {
     _fineDellaCorsa?.cancel();
     _cascata?.cancel();
+    _sostaSugliEmblemi?.cancel();
+    _regia
+      ..removeListener(_guardaLaScena)
+      ..dispose();
     _pulse.dispose();
     super.dispose();
   }
@@ -1378,710 +1471,800 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       }
     }
 
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            key: const Key('oroscopo_barra'),
-            // **IL VELO SOTTO LA BARRA QUANDO IL TESTO CI SCORRE SOTTO.**
-            // Visto sul Realme il 1 ottobre 2026 (ordine EU): la barra era
-            // trasparente anche con l'elenco scorso, la "i" delle fonti
-            // copriva il punto interrogativo del segno e i titoli delle
-            // schede passavano sotto le icone. A riposo resta trasparente, sul
-            // cielo; appena qualcosa le scorre sotto prende lo stesso velo
-            // della barra in alto (ordine EU voce 19, 92 per cento).
-            backgroundColor: WidgetStateColor.resolveWith((stati) =>
-                stati.contains(WidgetState.scrolledUnder)
-                    ? palette.deepest.withValues(alpha: BarraDellIdentita.velo)
-                    : Colors.transparent),
-            surfaceTintColor: Colors.transparent,
-            scrolledUnderElevation: 0,
-            elevation: 0,
-            iconTheme: IconThemeData(color: palette.goldSoft),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_rounded),
-              tooltip: 'Indietro',
-              onPressed: () => Navigator.of(context).maybePop(),
+    // **LA SCENA DELL'APERTURA, ordine FU voce FU.13.** Il segno e' quello
+    // della tradizione aperta: cambiando tradizione, gli emblemi della ruota
+    // cambiano con lei.
+    final scena = IlPalcoDellOroscopo(
+      regia: _regia,
+      palette: palette,
+      emblemaAlCentro: LaScenaDellOroscopo.emblemaAlCentro(
+          _inCima, segnoInCima, _soggetto.segno),
+      alCentroUnEmblema:
+          LaScenaDellOroscopo.alCentroUnEmblema(_inCima, segnoInCima),
+      emblemiDelleSedi: LaScenaDellOroscopo.emblemiDelleSedi(
+          _inCima, segnoInCima, _soggetto.segno),
+      emblemiAccesi: _emblemiAccesi,
+      dissolvenzaDegliEmblemi: _dissolvenzaDegliEmblemi,
+      scura: _letturaSalita,
+      letturaAnimata: _letturaAnimata,
+      onTocco: _emblemiAccesi && !_letturaSalita ? _alzaLaLettura : null,
+    );
+
+    // IL TOCCO CHE SALTA IL VIDEO, ordine FU voce FU.15, punto unico: avvolge
+    // tutta la schermata.
+    return IlToccoCheSalta(
+      inCorso: _regia.inCorso,
+      onSalta: _regia.salta,
+      child: Stack(
+        children: [
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              key: const Key('oroscopo_barra'),
+              // **IL VELO SOTTO LA BARRA QUANDO IL TESTO CI SCORRE SOTTO.**
+              // Visto sul Realme il 1 ottobre 2026 (ordine EU): la barra era
+              // trasparente anche con l'elenco scorso, la "i" delle fonti
+              // copriva il punto interrogativo del segno e i titoli delle
+              // schede passavano sotto le icone. A riposo resta trasparente, sul
+              // cielo; appena qualcosa le scorre sotto prende lo stesso velo
+              // della barra in alto (ordine EU voce 19, 92 per cento).
+              backgroundColor: WidgetStateColor.resolveWith((stati) => stati
+                      .contains(WidgetState.scrolledUnder)
+                  ? palette.deepest.withValues(alpha: BarraDellIdentita.velo)
+                  : Colors.transparent),
+              surfaceTintColor: Colors.transparent,
+              scrolledUnderElevation: 0,
+              elevation: 0,
+              iconTheme: IconThemeData(color: palette.goldSoft),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_rounded),
+                tooltip: 'Indietro',
+                onPressed: () => Navigator.of(context).maybePop(),
+              ),
+              // Di chi e' la lettura, per un amico (ordine FC voce 02).
+              // Intero e su una riga: fra la freccia e le icone c'e' poco
+              // posto, e "L'oroscopo di Lu..." non dice di chi e' (visto
+              // nell'anteprima dell'ordine FC): se non ci sta si rimpicciolisce.
+              title: _soggetto.titolo == null
+                  ? null
+                  : FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        // L'emblema dell'amico (ordine FC voce 10).
+                        LEmblemaDellAmico(amico: widget.amico!, lato: 32),
+                        const SizedBox(width: SpacingTokens.xs),
+                        Text(_soggetto.titolo!,
+                            key: const Key('oroscopo_titolo_del_soggetto'),
+                            maxLines: 1,
+                            softWrap: false,
+                            style: TypographyTokens.titoloDiSchermata()
+                                .copyWith(color: palette.goldSoft)),
+                      ]),
+                    ),
+              // **L'OROSCOPO PER UN AMICO NON STA PIU' NELLA BARRA.** Il 30
+              // settembre 2026 il fondatore l'aveva voluto in alto e stava qui;
+              // il 1 ottobre (ordine EU voce 05) lo ha trovato poco visibile, e
+              // adesso e' la riga "Oroscopo per" sopra i periodi.
+              // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
+              // schermata della pratica. Un saldo che appare e scompare non si impara.
+              // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
+              // scansione: il selettore che si chiama «tradizione» e' la scelta fra scuole astrologiche,
+              // non una dichiarazione di fonti.
+              actions: [
+                FoglioDelleFonti.bottone(context,
+                    palette: palette,
+                    testo: TestiDelleFonti.oroscopo,
+                    chiave: 'oroscopo_fonti'),
+                const AngoloDellaBarra(),
+              ],
             ),
-            // Di chi e' la lettura, per un amico (ordine FC voce 02).
-            // Intero e su una riga: fra la freccia e le icone c'e' poco
-            // posto, e "L'oroscopo di Lu..." non dice di chi e' (visto
-            // nell'anteprima dell'ordine FC): se non ci sta si rimpicciolisce.
-            title: _soggetto.titolo == null
-                ? null
-                : FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Row(mainAxisSize: MainAxisSize.min, children: [
-                      // L'emblema dell'amico (ordine FC voce 10).
-                      LEmblemaDellAmico(amico: widget.amico!, lato: 32),
-                      const SizedBox(width: SpacingTokens.xs),
-                      Text(_soggetto.titolo!,
-                          key: const Key('oroscopo_titolo_del_soggetto'),
-                          maxLines: 1,
-                          softWrap: false,
-                          style: TypographyTokens.titoloDiSchermata()
-                              .copyWith(color: palette.goldSoft)),
-                    ]),
-                  ),
-            // **L'OROSCOPO PER UN AMICO NON STA PIU' NELLA BARRA.** Il 30
-            // settembre 2026 il fondatore l'aveva voluto in alto e stava qui;
-            // il 1 ottobre (ordine EU voce 05) lo ha trovato poco visibile, e
-            // adesso e' la riga "Oroscopo per" sopra i periodi.
-            // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
-            // schermata della pratica. Un saldo che appare e scompare non si impara.
-            // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
-            // scansione: il selettore che si chiama «tradizione» e' la scelta fra scuole astrologiche,
-            // non una dichiarazione di fonti.
-            actions: [
-              FoglioDelleFonti.bottone(context,
-                  palette: palette,
-                  testo: TestiDelleFonti.oroscopo,
-                  chiave: 'oroscopo_fonti'),
-              const AngoloDellaBarra(),
-            ],
-          ),
-          body: CosmosBackground(
-            // Il cielo del soggetto (ordine FC voce 04): il 5 per sé.
-            seed: _soggetto.semeDelCielo,
-            showZodiac: false,
-            child: SafeArea(
+            body: CosmosBackground(
+              // Il cielo del soggetto (ordine FC voce 04): il 5 per sé.
+              seed: _soggetto.semeDelCielo,
+              showZodiac: false,
               child: Stack(
                 children: [
-                  EntranceCascade(
-                    listKey: const Key('oroscopo_list'),
-                    // Nessun vuoto sopra l'eroe: il segno parte in alto.
-                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                        SpacingTokens.lg, SpacingTokens.lg),
-                    hero: _inCima != AstroTradition.occidentale
-                        ? LaTestaDellaTradizione(
-                            tradizione: _inCima,
-                            segno: segnoInCima,
-                            palette: palette,
-                            rivela: _testaDaRivelare == _inCima,
-                          )
-                        : Column(
-                            children: [
-                              // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
-                              // cosa che la persona cerca, e stava sotto la figura.
-                              // Accanto, dall'ordine ES voce 10, il punto
-                              // interrogativo che apre la nota della tradizione.
-                              NomeConLaNota(
-                                  nome: _soggetto.segno.italianName,
-                                  tradizione: AstroTradition.occidentale,
-                                  palette: palette,
-                                  chiave: const Key('oroscopo_sign_name')),
-                              const SizedBox(height: SpacingTokens.xs),
-                              _Hero(
-                                sign: _soggetto.segno,
-                                palette: palette,
-                                pulse: _pulse,
-                                // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
-                                // segno che qualcosa sta accadendo, e dura quanto la
-                                // pausa dichiarata.
-                                interrogazione: _riflettendo,
-                                // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
-                                // TUTTA la riflessione (ordine BZ voce 06).
+                  // La scena a tutto schermo, sotto la barra e sotto la
+                  // lettura (FU.13).
+                  Positioned.fill(child: scena),
+                  SafeArea(
+                    child: Stack(
+                      children: [
+                        if (_letturaSalita)
+                          LaLetturaCheSale(
+                            animata: _letturaAnimata,
+                            child: EntranceCascade(
+                              listKey: const Key('oroscopo_list'),
+                              // Nessun vuoto sopra l'eroe: il segno parte in alto.
+                              padding: const EdgeInsets.fromLTRB(
+                                  SpacingTokens.lg,
+                                  0,
+                                  SpacingTokens.lg,
+                                  SpacingTokens.lg),
+                              hero: _inCima != AstroTradition.occidentale
+                                  ? LaTestaDellaTradizione(
+                                      tradizione: _inCima,
+                                      segno: segnoInCima,
+                                      palette: palette,
+                                      rivela: _testaDaRivelare == _inCima,
+                                    )
+                                  : Column(
+                                      children: [
+                                        // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
+                                        // cosa che la persona cerca, e stava sotto la figura.
+                                        // Accanto, dall'ordine ES voce 10, il punto
+                                        // interrogativo che apre la nota della tradizione.
+                                        NomeConLaNota(
+                                            nome: _soggetto.segno.italianName,
+                                            tradizione:
+                                                AstroTradition.occidentale,
+                                            palette: palette,
+                                            chiave: const Key(
+                                                'oroscopo_sign_name')),
+                                        const SizedBox(
+                                            height: SpacingTokens.xs),
+                                        _Hero(
+                                          sign: _soggetto.segno,
+                                          palette: palette,
+                                          pulse: _pulse,
+                                          // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
+                                          // segno che qualcosa sta accadendo, e dura quanto la
+                                          // pausa dichiarata.
+                                          interrogazione: _riflettendo,
+                                          // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
+                                          // TUTTA la riflessione (ordine BZ voce 06).
+                                          //
+                                          // **Prima stavano nel solo primo momento**, e al
+                                          // secondo la corona spariva: restavano una riga di testo
+                                          // e due pallini, cioe' la scena si svuotava a meta'
+                                          // proprio mentre nominava il fatto del giorno. E' la
+                                          // stessa forma di difetto della voce BZ.07, dove fra
+                                          // l'ultima carta e la riflessione restava Medora da
+                                          // sola. I corpi si compongono nel primo momento e
+                                          // restano composti nel secondo.
+                                          corona: _riflettendo,
+                                          adesso: _date,
+                                          durataDelMomento:
+                                              RiflessioneDelCielo.momento(
+                                                  piena: _pienaQuestoConsulto),
+                                        ),
+                                        // Di chi e' il segno, per un amico (ordine FC
+                                        // voce 02): la frase che la testa delle altre
+                                        // tradizioni porta gia'.
+                                        if (_soggetto.eUnAmico &&
+                                            nascitaDeiSegni != null)
+                                          Text(
+                                              _soggetto
+                                                  .detto(
+                                                      ISegniDelleTradizioni.per(
+                                                          AstroTradition
+                                                              .occidentale,
+                                                          nascitaDeiSegni))
+                                                  .frase,
+                                              key: const Key(
+                                                  'oroscopo_frase_occidentale'),
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  TypographyTokens.didascalia()
+                                                      .copyWith(
+                                                          color:
+                                                              palette.goldSoft,
+                                                          height: 1.35)),
+                                      ],
+                                    ),
+                              items: [
+                                // **UNA TRADIZIONE IN ARRIVO NON HA PERIODI.** Visto sul
+                                // Realme il 30 settembre 2026: sotto l'emblema della
+                                // tradizione egizia restavano "Oroscopo personalizzato
+                                // del giorno" e il selettore dei periodi, e toccando
+                                // "Settimana" cambiava solo quel titolo, perche' una
+                                // lettura non c'e'. Padre: ordine ES voce 11. Il titolo
+                                // e i periodi stanno solo dove c'e' una lettura.
                                 //
-                                // **Prima stavano nel solo primo momento**, e al
-                                // secondo la corona spariva: restavano una riga di testo
-                                // e due pallini, cioe' la scena si svuotava a meta'
-                                // proprio mentre nominava il fatto del giorno. E' la
-                                // stessa forma di difetto della voce BZ.07, dove fra
-                                // l'ultima carta e la riflessione restava Medora da
-                                // sola. I corpi si compongono nel primo momento e
-                                // restano composti nel secondo.
-                                corona: _riflettendo,
-                                adesso: _date,
-                                durataDelMomento: RiflessioneDelCielo.momento(
-                                    piena: _pienaQuestoConsulto),
-                              ),
-                              // Di chi e' il segno, per un amico (ordine FC
-                              // voce 02): la frase che la testa delle altre
-                              // tradizioni porta gia'.
-                              if (_soggetto.eUnAmico && nascitaDeiSegni != null)
-                                Text(
-                                    _soggetto
-                                        .detto(ISegniDelleTradizioni.per(
-                                            AstroTradition.occidentale,
-                                            nascitaDeiSegni))
-                                        .frase,
-                                    key:
-                                        const Key('oroscopo_frase_occidentale'),
-                                    textAlign: TextAlign.center,
-                                    style: TypographyTokens.didascalia()
-                                        .copyWith(
-                                            color: palette.goldSoft,
-                                            height: 1.35)),
-                            ],
-                          ),
-                    items: [
-                      // **UNA TRADIZIONE IN ARRIVO NON HA PERIODI.** Visto sul
-                      // Realme il 30 settembre 2026: sotto l'emblema della
-                      // tradizione egizia restavano "Oroscopo personalizzato
-                      // del giorno" e il selettore dei periodi, e toccando
-                      // "Settimana" cambiava solo quel titolo, perche' una
-                      // lettura non c'e'. Padre: ordine ES voce 11. Il titolo
-                      // e i periodi stanno solo dove c'e' una lettura.
-                      //
-                      // **LA TESTA DI UNA TRADIZIONE HA IL SUO RESPIRO SOTTO.**
-                      // Visto nelle anteprime il 30 settembre 2026: la frase
-                      // del segno ("Il tuo segno cinese è il Cavallo") stava
-                      // attaccata al sottotitolo, e il segnale "In arrivo"
-                      // toccava la riga delle tradizioni. Padre: ordine ES
-                      // voce 07, che ha messo il segno in cima senza uno
-                      // stacco da cio' che segue (l'emblema occidentale lo
-                      // porta nella sua figura).
-                      if (_inCima != AstroTradition.occidentale)
-                        const SizedBox(
-                            key: Key('oroscopo_respiro_sotto_la_testa'),
-                            height: SpacingTokens.md),
-                      if (_inCima.unlocked) ...[
-                        _Heading(
-                            periodo: _period,
-                            date: _date,
-                            palette: palette,
-                            anno: _period == HoroscopePeriod.anno
-                                ? _ilTuoAnno(nascitaDeiSegni)
-                                : null,
-                            senzaLeDateDellAnno: _soggetto.perTeOPerLui(
-                                'dal tuo compleanno al prossimo',
-                                (n) => 'dal compleanno di $n al prossimo')),
-                        const SizedBox(height: SpacingTokens.md),
-                        // **"OROSCOPO PER", ordine EU voce 05**: proprio
-                        // sopra il selettore dei periodi, il nome della
-                        // persona scelto e "amico/a".
-                        OroscopoPer(
-                          nomeTuo: nomeTuo,
-                          nomeAmico: _soggetto.nomeAmico,
-                          emblemaAmico: widget.amico == null
-                              ? null
-                              : LEmblemaDellAmico(
-                                  amico: widget.amico!, lato: 24),
-                          palette: palette,
-                          onTe: _tornaATe,
-                          onAmico: _scegliUnAmico,
-                        ),
-                        const SizedBox(height: SpacingTokens.sm),
-                        _PeriodTabs(
-                          current: _period,
-                          palette: palette,
-                          onSelect: _selectPeriod,
-                          tier: tier,
-                        ),
-                        const SizedBox(height: SpacingTokens.sm),
-                      ],
-                      // Accanto al periodo, la tradizione: lo stesso cielo letto con
-                      // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
-                      // Il chip scelto e' quello della tradizione in cima: chi
-                      // tocca l'Araba vede l'Araba accesa (vista sul Realme).
-                      _TraditionTabs(
-                        // La riga tiene il suo stato (dove e' scorsa) anche
-                        // quando sopra di lei il titolo e i periodi compaiono
-                        // o spariscono e il suo posto nella lista cambia.
-                        key: _chiaveDelleTradizioni,
-                        current: _inCima,
-                        palette: palette,
-                        onSelect: _selectTradition,
-                      ),
-                      _TraditionInvite(
-                        tradition: _traditionMessage,
-                        maestro: Maestro.medora,
-                        palette: palette,
-                        // Rivelazione una volta sola per tradizione.
-                        animate: _traditionMessage != null &&
-                            !_traditionRevealed.contains(_traditionMessage),
-                      ),
-                      const SizedBox(height: SpacingTokens.md),
-                      // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
-                      // non si vede: il cielo si interroga.
-                      // **UNA TRADIZIONE IN ARRIVO IN CIMA NON HA LETTURA**,
-                      // ordine ES voce 11: sotto il suo segno non si apre il
-                      // consulto occidentale, che si leggerebbe come suo. Si
-                      // dice, e si offre il gesto per tornare.
-                      // LA SETTIMANA E IL MESE, ordine ES voci 02 e 03.
-                      if (_inCima == AstroTradition.occidentale &&
-                          (_period == HoroscopePeriod.settimana ||
-                              _period == HoroscopePeriod.mese))
-                        ..._dietroIlGesto(
-                            palette,
-                            perIlDiario: _periodoPerIlDiario(
-                                LaSettimanaDelCielo.tessere(
-                                    _periodoDelCielo(carta),
-                                    mese: _period == HoroscopePeriod.mese)),
-                            [
-                              IlPeriodoView(
-                                periodo: _periodoDelCielo(carta),
-                                mese: _period == HoroscopePeriod.mese,
-                                palette: palette,
-                                livello: cielo.livello,
-                                // La profondita' su ogni scheda, come nel Giorno.
-                                profondita: _depth,
-                                premiumUnlocked: PlanCatalog.haProfondita(tier),
-                                onDepthSelected: _scegliProfondita,
-                                onDepthLocked: _showDepthLocked,
-                              ),
-                            ]),
-                      // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
-                      // (ordine ES voce 05): si porta con se' solo cio' che
-                      // si e' letto, dopo il gesto (EX.12).
-                      if (periodoAVideo &&
-                          _fase == _FaseDelConsulto.responso) ...[
-                        const SizedBox(height: SpacingTokens.md),
-                        _CondividiIlPeriodo(
-                            periodo: _period,
-                            palette: palette,
-                            sharing: _sharing,
-                            onShare: _onShare),
-                      ],
-                      // L'ANNO DAL COMPLEANNO, ordine ES voce 04.
-                      if (_inCima == AstroTradition.occidentale &&
-                          _period == HoroscopePeriod.anno)
-                        ..._lAnno(context,
-                            palette: palette,
-                            tier: tier,
-                            nascita: nascitaDeiSegni,
-                            livello: cielo.livello),
-                      if (!_inCima.unlocked)
-                        _LaLetturaEInArrivo(
-                          tradizione: _inCima,
-                          palette: palette,
-                          // All'ultima tradizione che la persona legge:
-                          // la Cinese sul piano gratuito non ha lettura, e
-                          // tornarci sarebbe tornare a un segno senza
-                          // consulto (ordine ES voce 08).
-                          onTorna: () => _selectTradition(
-                              _tradition.leggibilePer(tier)
-                                  ? _tradition
-                                  : AstroTradition.occidentale),
-                        ),
-                      // **LA SETTIMANA, IL MESE E L'ANNO DELLA VEDICA E DELLA
-                      // CINESE**, ordine EU voce 02: prima dicevano "sono in
-                      // arrivo: qui leggi il giorno". Il piano gratuito vede
-                      // il segno e l'invito; senza la data si chiede la data.
-                      if (altra &&
-                          leggeLaTradizione &&
-                          nascitaDeiSegni != null &&
-                          segnoInCima != null &&
-                          (_period == HoroscopePeriod.settimana ||
-                              _period == HoroscopePeriod.mese))
-                        if (_periodoDellaTradizione(
-                                nascitaDeiSegni, forma, animale)
-                            case final p?)
-                          ..._dietroIlGesto(
-                              palette,
-                              perIlDiario: _periodoPerIlDiario(
-                                  LaSettimanaDelCielo.tessere(p,
-                                      mese: _period == HoroscopePeriod.mese)),
-                              [
-                                IlPeriodoView(
-                                  key: Key('oroscopo_${_inCima.name}_periodo'),
-                                  periodo: p,
-                                  mese: _period == HoroscopePeriod.mese,
+                                // **LA TESTA DI UNA TRADIZIONE HA IL SUO RESPIRO SOTTO.**
+                                // Visto nelle anteprime il 30 settembre 2026: la frase
+                                // del segno ("Il tuo segno cinese è il Cavallo") stava
+                                // attaccata al sottotitolo, e il segnale "In arrivo"
+                                // toccava la riga delle tradizioni. Padre: ordine ES
+                                // voce 07, che ha messo il segno in cima senza uno
+                                // stacco da cio' che segue (l'emblema occidentale lo
+                                // porta nella sua figura).
+                                if (_inCima != AstroTradition.occidentale)
+                                  const SizedBox(
+                                      key: Key(
+                                          'oroscopo_respiro_sotto_la_testa'),
+                                      height: SpacingTokens.md),
+                                if (_inCima.unlocked) ...[
+                                  _Heading(
+                                      periodo: _period,
+                                      date: _date,
+                                      palette: palette,
+                                      anno: _period == HoroscopePeriod.anno
+                                          ? _ilTuoAnno(nascitaDeiSegni)
+                                          : null,
+                                      senzaLeDateDellAnno: _soggetto.perTeOPerLui(
+                                          'dal tuo compleanno al prossimo',
+                                          (n) =>
+                                              'dal compleanno di $n al prossimo')),
+                                  const SizedBox(height: SpacingTokens.md),
+                                  // **"OROSCOPO PER", ordine EU voce 05**: proprio
+                                  // sopra il selettore dei periodi, il nome della
+                                  // persona scelto e "amico/a".
+                                  OroscopoPer(
+                                    nomeTuo: nomeTuo,
+                                    nomeAmico: _soggetto.nomeAmico,
+                                    emblemaAmico: widget.amico == null
+                                        ? null
+                                        : LEmblemaDellAmico(
+                                            amico: widget.amico!, lato: 24),
+                                    palette: palette,
+                                    onTe: _tornaATe,
+                                    onAmico: _scegliUnAmico,
+                                  ),
+                                  const SizedBox(height: SpacingTokens.sm),
+                                  _PeriodTabs(
+                                    current: _period,
+                                    palette: palette,
+                                    onSelect: _selectPeriod,
+                                    tier: tier,
+                                  ),
+                                  const SizedBox(height: SpacingTokens.sm),
+                                ],
+                                // Accanto al periodo, la tradizione: lo stesso cielo letto con
+                                // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
+                                // Il chip scelto e' quello della tradizione in cima: chi
+                                // tocca l'Araba vede l'Araba accesa (vista sul Realme).
+                                _TraditionTabs(
+                                  // La riga tiene il suo stato (dove e' scorsa) anche
+                                  // quando sopra di lei il titolo e i periodi compaiono
+                                  // o spariscono e il suo posto nella lista cambia.
+                                  key: _chiaveDelleTradizioni,
+                                  current: _inCima,
                                   palette: palette,
-                                  livello: cielo.livello,
-                                  profondita: _depth,
-                                  premiumUnlocked:
-                                      PlanCatalog.haProfondita(tier),
-                                  onDepthSelected: _scegliProfondita,
-                                  onDepthLocked: _showDepthLocked,
+                                  onSelect: _selectTradition,
                                 ),
-                              ]),
-                      if (altra &&
-                          leggeLaTradizione &&
-                          nascitaDeiSegni != null &&
-                          segnoInCima != null &&
-                          _period == HoroscopePeriod.anno)
-                        ..._lAnnoDellaTradizione(context,
-                            palette: palette,
-                            tier: tier,
-                            nascita: nascitaDeiSegni,
-                            animale: cinese ? segnoInCima.animale : null,
-                            livello: cielo.livello),
-                      if (altra && !leggeLaTradizione)
-                        _LaLetturaEInArrivo(
-                          tradizione: _inCima,
-                          palette: palette,
-                          chiave:
-                              Key('oroscopo_${_inCima.name}_invito_al_piano'),
-                          chiaveDelGesto:
-                              Key('oroscopo_${_inCima.name}_scopri_il_piano'),
-                          testo:
-                              'Qui vedi ${_soggetto.perTeOPerLui('il tuo segno', (n) => 'il segno di $n')} ${cinese ? 'cinese' : 'vedico'}. '
-                              'La lettura del giorno, '
-                              '${cinese ? 'dall\'almanacco e dai Dieci Dei' : 'dalla Luna e dal calendario indiano'}, '
-                              'si apre ${conPiano(PlanCatalog.forTier(Tier.values[_inCima.livelloDellaLettura]).name)}.',
-                          etichetta: 'Scopri il piano',
-                          onTorna: () => _invitaAllaLettura(_inCima),
-                        ),
-                      if (altra && leggeLaTradizione && segnoInCima == null)
-                        _InvitoAllaNascita(
-                            testo: _soggetto.perTeOPerLui(
-                                'Per la lettura $aggettivo serve la tua '
-                                'data di nascita: aggiungila qui.',
-                                (n) => 'Per la lettura $aggettivo serve la '
-                                    'data di nascita di $n.'),
-                            palette: palette,
-                            soggetto: _soggetto,
-                            alRitorno: _leggiIlLuogo),
-                      // **LA VEDICA DICE CHE COSA LE MANCA**, ordine ES voce
-                      // 09: il segno lunare incerto senza l'ora; la stella
-                      // senza l'ora; il Rahu Kalam senza la citta'.
-                      if (vedica &&
-                          leggeLaTradizione &&
-                          _period == HoroscopePeriod.giorno &&
-                          segnoInCima != null &&
-                          schedeVediche == null)
-                        _InvitoAllaNascita(
-                            testo: _soggetto.perTeOPerLui(
-                                'Il giorno della tua nascita la Luna ha '
-                                'cambiato segno: con l\'ora di nascita so '
-                                'qual è il tuo: così leggo il tuo giorno.',
-                                (n) => 'Il giorno della nascita di $n la Luna '
-                                    'ha cambiato segno: con la sua ora di '
-                                    'nascita saprei qual è il suo e leggerei '
-                                    'il suo giorno.'),
-                            palette: palette,
-                            soggetto: _soggetto,
-                            alRitorno: _leggiIlLuogo),
-                      if (schedeVediche != null &&
-                          nascitaDeiSegni != null &&
-                          !nascitaDeiSegni.oraNota)
-                        _InvitoAllaNascita(
-                            testo: _soggetto.perTeOPerLui(
-                                'Con l\'ora di nascita leggo anche la tua '
-                                'stella, la Tara Bala: aggiungila qui.',
-                                (n) => 'Con l\'ora di nascita di $n leggerei '
-                                    'anche la sua stella, la Tara Bala.'),
-                            palette: palette,
-                            soggetto: _soggetto,
-                            alRitorno: _leggiIlLuogo),
-                      if (schedeVediche != null && _luogo == null)
-                        _InvitoAllaNascita(
-                            testo: 'Per il Rahu Kalam di oggi dimmi dove '
-                                'vivi adesso: scegli la tua città.',
-                            palette: palette,
-                            alRitorno: _leggiIlLuogo),
-                      if (consulto && _fase == _FaseDelConsulto.attesa)
-                        InterrogaIlCielo(
-                          palette: palette,
-                          onTap: _interrogaIlCielo,
-                          etichetta: InterrogaIlCielo.etichettaPer(_inCima),
-                        ),
-                      // L'INVITO A COMPLETARE I DATI DI NASCITA, ordine ES
-                      // voce 31. **Sotto il gesto, non sopra**: sopra spingeva
-                      // "Interroga il cielo" sotto la piega dello schermo, e il
-                      // gesto principale della schermata va visto senza
-                      // scorrere. Dopo il consulto resta qui, sopra le schede.
-                      // Per un amico, al posto dell'invito ai propri dati,
-                      // la nota che la lettura sta sul suo segno solare
-                      // (ordine FC voce 02, [IlSoggettoDellOroscopo] punto 3).
-                      if (_inCima == AstroTradition.occidentale &&
-                          _soggetto.notaDelSegnoSolare != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: SpacingTokens.sm),
-                          child: Text(_soggetto.notaDelSegnoSolare!,
-                              key: const Key('oroscopo_nota_del_segno_solare'),
-                              textAlign: TextAlign.center,
-                              style: TypographyTokens.didascalia().copyWith(
-                                  color: ColorTokens.textSecondary,
-                                  height: 1.4)),
-                        )
-                      else if (_inCima == AstroTradition.occidentale &&
-                          CorrenteDelCielo.rigaDellInvito(cielo) != null)
-                        _InvitoAllaNascita(
-                            testo: CorrenteDelCielo.rigaDellInvito(cielo)!,
-                            palette: palette),
-                      // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
-                      // dove staranno le schede, cosi' lo sguardo non si sposta
-                      // quando il responso arriva.
-                      if (consulto && _riflettendo)
-                        RigaDellaRiflessione(
-                          momento: _fase == _FaseDelConsulto.raccolta
-                              ? MomentoDellaRiflessione.raccolta
-                              : MomentoDellaRiflessione.nomina,
-                          cielo: cielo,
-                          palette: palette,
-                          almanacco: cinese
-                              ? LaLetturaCinese.fattoDelGiorno(_date)
-                              : vedica
-                                  ? LaLetturaVedica.fattoDelGiorno(
-                                      _date, _luogo)
-                                  : null,
-                        ),
-                      // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
-                      // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
-                      // ed e' per questo che il responso si vedeva intero: una
-                      // scheda che esiste mentre la scrittura non e' cominciata
-                      // mostra tutto il suo testo. Qui, finche' non e' il suo
-                      // turno, la scheda non e' in albero affatto: i caratteri del
-                      // responso presenti durante la riflessione sono ZERO, e non
-                      // per un'opacita' che li nasconde.
-                      if (consulto && _fase == _FaseDelConsulto.responso)
-                        for (var i = 0; i < cards.length; i++)
-                          if (i <= _turnoDiScrittura) ...[
-                            _HoroscopeCardView(
-                              ore: _oreDelGiorno(cards,
+                                _TraditionInvite(
+                                  tradition: _traditionMessage,
+                                  maestro: Maestro.medora,
+                                  palette: palette,
+                                  // Rivelazione una volta sola per tradizione.
+                                  animate: _traditionMessage != null &&
+                                      !_traditionRevealed
+                                          .contains(_traditionMessage),
+                                ),
+                                const SizedBox(height: SpacingTokens.md),
+                                // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
+                                // non si vede: il cielo si interroga.
+                                // **UNA TRADIZIONE IN ARRIVO IN CIMA NON HA LETTURA**,
+                                // ordine ES voce 11: sotto il suo segno non si apre il
+                                // consulto occidentale, che si leggerebbe come suo. Si
+                                // dice, e si offre il gesto per tornare.
+                                // LA SETTIMANA E IL MESE, ordine ES voci 02 e 03.
+                                if (_inCima == AstroTradition.occidentale &&
+                                    (_period == HoroscopePeriod.settimana ||
+                                        _period == HoroscopePeriod.mese))
+                                  ..._dietroIlGesto(
+                                      palette,
+                                      perIlDiario: _periodoPerIlDiario(
+                                          LaSettimanaDelCielo.tessere(
+                                              _periodoDelCielo(carta),
+                                              mese: _period ==
+                                                  HoroscopePeriod.mese)),
+                                      [
+                                        IlPeriodoView(
+                                          periodo: _periodoDelCielo(carta),
+                                          mese: _period == HoroscopePeriod.mese,
+                                          palette: palette,
+                                          livello: cielo.livello,
+                                          // La profondita' su ogni scheda, come nel Giorno.
+                                          profondita: _depth,
+                                          premiumUnlocked:
+                                              PlanCatalog.haProfondita(tier),
+                                          onDepthSelected: _scegliProfondita,
+                                          onDepthLocked: _showDepthLocked,
+                                        ),
+                                      ]),
+                                // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
+                                // (ordine ES voce 05): si porta con se' solo cio' che
+                                // si e' letto, dopo il gesto (EX.12).
+                                if (periodoAVideo &&
+                                    _fase == _FaseDelConsulto.responso) ...[
+                                  const SizedBox(height: SpacingTokens.md),
+                                  _CondividiIlPeriodo(
+                                      periodo: _period,
+                                      palette: palette,
+                                      sharing: _sharing,
+                                      onShare: _onShare),
+                                ],
+                                // L'ANNO DAL COMPLEANNO, ordine ES voce 04.
+                                if (_inCima == AstroTradition.occidentale &&
+                                    _period == HoroscopePeriod.anno)
+                                  ..._lAnno(context,
+                                      palette: palette,
+                                      tier: tier,
                                       nascita: nascitaDeiSegni,
-                                      animale: animale)
-                                  ?.$1,
-                              didascaliaDelleOre: _oreDelGiorno(cards,
-                                          nascita: nascitaDeiSegni,
-                                          animale: animale)
-                                      ?.$2 ??
-                                  '',
-                              // Il cielo occidentale non entra nella
-                              // lettura cinese: niente ruota, niente ora d'oro.
-                              passaggio: !altra && cielo.ceCieloVero
-                                  ? CorrenteDelCielo.vociPer(
-                                          cielo, cards[i].domain)
-                                      .firstOrNull
-                                  : null,
-                              carta: altra ? null : carta,
-                              adesso: _date,
-                              oraDOro: altra ? null : _oraDOro(carta),
-                              scrivendo: true,
-                              durataScrittura:
-                                  RiflessioneDelCielo.scritturaDiUnaScheda,
-                              card: cards[i],
-                              palette: palette,
-                              pulse: _pulse,
-                              depth: _depth[cards[i].domain]!,
-                              // Il "gia' scritto" abita la schermata: la scheda lo
-                              // legge quando nasce e lo dichiara quando finisce.
-                              // LETTURA VIVA, non un booleano catturato: i widget
-                              // della lista vengono costruiti una volta e rinascono
-                              // dopo, quindi un valore fissato alla costruzione
-                              // sarebbe sempre vecchio. Il gancio legge il registro
-                              // nel momento della rinascita.
-                              giaScritto: () => _testiScritti
-                                  .contains(_chiaveDelTesto(cards[i].domain)),
-                              onScritto: () => _testiScritti
-                                  .add(_chiaveDelTesto(cards[i].domain)),
-                              onDepthSelected: (depth) =>
-                                  _scegliProfondita(cards[i].domain, depth),
-                              onDepthLocked: (depth) =>
-                                  _showDepthLocked(cards[i].domain, depth),
-                              livello: cielo.livello,
-                              // La Lunga del piano, o quella di oggi
-                              // comprata con gli Eos sull'Occidentale (EU.15).
-                              premiumUnlocked: PlanCatalog.haProfondita(context
-                                      .watch<EntitlementService>()
-                                      .tier) ||
-                                  (_lungaDiOggi &&
-                                      _inCima == AstroTradition.occidentale),
+                                      livello: cielo.livello),
+                                if (!_inCima.unlocked)
+                                  _LaLetturaEInArrivo(
+                                    tradizione: _inCima,
+                                    palette: palette,
+                                    // All'ultima tradizione che la persona legge:
+                                    // la Cinese sul piano gratuito non ha lettura, e
+                                    // tornarci sarebbe tornare a un segno senza
+                                    // consulto (ordine ES voce 08).
+                                    onTorna: () => _selectTradition(
+                                        _tradition.leggibilePer(tier)
+                                            ? _tradition
+                                            : AstroTradition.occidentale),
+                                  ),
+                                // **LA SETTIMANA, IL MESE E L'ANNO DELLA VEDICA E DELLA
+                                // CINESE**, ordine EU voce 02: prima dicevano "sono in
+                                // arrivo: qui leggi il giorno". Il piano gratuito vede
+                                // il segno e l'invito; senza la data si chiede la data.
+                                if (altra &&
+                                    leggeLaTradizione &&
+                                    nascitaDeiSegni != null &&
+                                    segnoInCima != null &&
+                                    (_period == HoroscopePeriod.settimana ||
+                                        _period == HoroscopePeriod.mese))
+                                  if (_periodoDellaTradizione(
+                                          nascitaDeiSegni, forma, animale)
+                                      case final p?)
+                                    ..._dietroIlGesto(
+                                        palette,
+                                        perIlDiario: _periodoPerIlDiario(
+                                            LaSettimanaDelCielo.tessere(p,
+                                                mese: _period ==
+                                                    HoroscopePeriod.mese)),
+                                        [
+                                          IlPeriodoView(
+                                            key: Key(
+                                                'oroscopo_${_inCima.name}_periodo'),
+                                            periodo: p,
+                                            mese:
+                                                _period == HoroscopePeriod.mese,
+                                            palette: palette,
+                                            livello: cielo.livello,
+                                            profondita: _depth,
+                                            premiumUnlocked:
+                                                PlanCatalog.haProfondita(tier),
+                                            onDepthSelected: _scegliProfondita,
+                                            onDepthLocked: _showDepthLocked,
+                                          ),
+                                        ]),
+                                if (altra &&
+                                    leggeLaTradizione &&
+                                    nascitaDeiSegni != null &&
+                                    segnoInCima != null &&
+                                    _period == HoroscopePeriod.anno)
+                                  ..._lAnnoDellaTradizione(context,
+                                      palette: palette,
+                                      tier: tier,
+                                      nascita: nascitaDeiSegni,
+                                      animale:
+                                          cinese ? segnoInCima.animale : null,
+                                      livello: cielo.livello),
+                                if (altra && !leggeLaTradizione)
+                                  _LaLetturaEInArrivo(
+                                    tradizione: _inCima,
+                                    palette: palette,
+                                    chiave: Key(
+                                        'oroscopo_${_inCima.name}_invito_al_piano'),
+                                    chiaveDelGesto: Key(
+                                        'oroscopo_${_inCima.name}_scopri_il_piano'),
+                                    testo:
+                                        'Qui vedi ${_soggetto.perTeOPerLui('il tuo segno', (n) => 'il segno di $n')} ${cinese ? 'cinese' : 'vedico'}. '
+                                        'La lettura del giorno, '
+                                        '${cinese ? 'dall\'almanacco e dai Dieci Dei' : 'dalla Luna e dal calendario indiano'}, '
+                                        'si apre ${conPiano(PlanCatalog.forTier(Tier.values[_inCima.livelloDellaLettura]).name)}.',
+                                    etichetta: 'Scopri il piano',
+                                    onTorna: () => _invitaAllaLettura(_inCima),
+                                  ),
+                                if (altra &&
+                                    leggeLaTradizione &&
+                                    segnoInCima == null)
+                                  _InvitoAllaNascita(
+                                      testo: _soggetto.perTeOPerLui(
+                                          'Per la lettura $aggettivo serve la tua '
+                                          'data di nascita: aggiungila qui.',
+                                          (n) =>
+                                              'Per la lettura $aggettivo serve la '
+                                              'data di nascita di $n.'),
+                                      palette: palette,
+                                      soggetto: _soggetto,
+                                      alRitorno: _leggiIlLuogo),
+                                // **LA VEDICA DICE CHE COSA LE MANCA**, ordine ES voce
+                                // 09: il segno lunare incerto senza l'ora; la stella
+                                // senza l'ora; il Rahu Kalam senza la citta'.
+                                if (vedica &&
+                                    leggeLaTradizione &&
+                                    _period == HoroscopePeriod.giorno &&
+                                    segnoInCima != null &&
+                                    schedeVediche == null)
+                                  _InvitoAllaNascita(
+                                      testo: _soggetto.perTeOPerLui(
+                                          'Il giorno della tua nascita la Luna ha '
+                                          'cambiato segno: con l\'ora di nascita so '
+                                          'qual è il tuo: così leggo il tuo giorno.',
+                                          (n) =>
+                                              'Il giorno della nascita di $n la Luna '
+                                              'ha cambiato segno: con la sua ora di '
+                                              'nascita saprei qual è il suo e leggerei '
+                                              'il suo giorno.'),
+                                      palette: palette,
+                                      soggetto: _soggetto,
+                                      alRitorno: _leggiIlLuogo),
+                                if (schedeVediche != null &&
+                                    nascitaDeiSegni != null &&
+                                    !nascitaDeiSegni.oraNota)
+                                  _InvitoAllaNascita(
+                                      testo: _soggetto.perTeOPerLui(
+                                          'Con l\'ora di nascita leggo anche la tua '
+                                          'stella, la Tara Bala: aggiungila qui.',
+                                          (n) =>
+                                              'Con l\'ora di nascita di $n leggerei '
+                                              'anche la sua stella, la Tara Bala.'),
+                                      palette: palette,
+                                      soggetto: _soggetto,
+                                      alRitorno: _leggiIlLuogo),
+                                if (schedeVediche != null && _luogo == null)
+                                  _InvitoAllaNascita(
+                                      testo:
+                                          'Per il Rahu Kalam di oggi dimmi dove '
+                                          'vivi adesso: scegli la tua città.',
+                                      palette: palette,
+                                      alRitorno: _leggiIlLuogo),
+                                if (consulto &&
+                                    _fase == _FaseDelConsulto.attesa)
+                                  InterrogaIlCielo(
+                                    palette: palette,
+                                    onTap: _interrogaIlCielo,
+                                    etichetta:
+                                        InterrogaIlCielo.etichettaPer(_inCima),
+                                  ),
+                                // L'INVITO A COMPLETARE I DATI DI NASCITA, ordine ES
+                                // voce 31. **Sotto il gesto, non sopra**: sopra spingeva
+                                // "Interroga il cielo" sotto la piega dello schermo, e il
+                                // gesto principale della schermata va visto senza
+                                // scorrere. Dopo il consulto resta qui, sopra le schede.
+                                // Per un amico, al posto dell'invito ai propri dati,
+                                // la nota che la lettura sta sul suo segno solare
+                                // (ordine FC voce 02, [IlSoggettoDellOroscopo] punto 3).
+                                if (_inCima == AstroTradition.occidentale &&
+                                    _soggetto.notaDelSegnoSolare != null)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: SpacingTokens.sm),
+                                    child: Text(_soggetto.notaDelSegnoSolare!,
+                                        key: const Key(
+                                            'oroscopo_nota_del_segno_solare'),
+                                        textAlign: TextAlign.center,
+                                        style: TypographyTokens.didascalia()
+                                            .copyWith(
+                                                color:
+                                                    ColorTokens.textSecondary,
+                                                height: 1.4)),
+                                  )
+                                else if (_inCima ==
+                                        AstroTradition.occidentale &&
+                                    CorrenteDelCielo.rigaDellInvito(cielo) !=
+                                        null)
+                                  _InvitoAllaNascita(
+                                      testo: CorrenteDelCielo.rigaDellInvito(
+                                          cielo)!,
+                                      palette: palette),
+                                // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
+                                // dove staranno le schede, cosi' lo sguardo non si sposta
+                                // quando il responso arriva.
+                                if (consulto && _riflettendo)
+                                  RigaDellaRiflessione(
+                                    momento: _fase == _FaseDelConsulto.raccolta
+                                        ? MomentoDellaRiflessione.raccolta
+                                        : MomentoDellaRiflessione.nomina,
+                                    cielo: cielo,
+                                    palette: palette,
+                                    almanacco: cinese
+                                        ? LaLetturaCinese.fattoDelGiorno(_date)
+                                        : vedica
+                                            ? LaLetturaVedica.fattoDelGiorno(
+                                                _date, _luogo)
+                                            : null,
+                                  ),
+                                // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
+                                // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
+                                // ed e' per questo che il responso si vedeva intero: una
+                                // scheda che esiste mentre la scrittura non e' cominciata
+                                // mostra tutto il suo testo. Qui, finche' non e' il suo
+                                // turno, la scheda non e' in albero affatto: i caratteri del
+                                // responso presenti durante la riflessione sono ZERO, e non
+                                // per un'opacita' che li nasconde.
+                                if (consulto &&
+                                    _fase == _FaseDelConsulto.responso)
+                                  for (var i = 0; i < cards.length; i++)
+                                    if (i <= _turnoDiScrittura) ...[
+                                      _HoroscopeCardView(
+                                        ore: _oreDelGiorno(cards,
+                                                nascita: nascitaDeiSegni,
+                                                animale: animale)
+                                            ?.$1,
+                                        didascaliaDelleOre: _oreDelGiorno(cards,
+                                                    nascita: nascitaDeiSegni,
+                                                    animale: animale)
+                                                ?.$2 ??
+                                            '',
+                                        // Il cielo occidentale non entra nella
+                                        // lettura cinese: niente ruota, niente ora d'oro.
+                                        passaggio: !altra && cielo.ceCieloVero
+                                            ? CorrenteDelCielo.vociPer(
+                                                    cielo, cards[i].domain)
+                                                .firstOrNull
+                                            : null,
+                                        carta: altra ? null : carta,
+                                        adesso: _date,
+                                        oraDOro: altra ? null : _oraDOro(carta),
+                                        scrivendo: true,
+                                        durataScrittura: RiflessioneDelCielo
+                                            .scritturaDiUnaScheda,
+                                        card: cards[i],
+                                        palette: palette,
+                                        pulse: _pulse,
+                                        depth: _depth[cards[i].domain]!,
+                                        // Il "gia' scritto" abita la schermata: la scheda lo
+                                        // legge quando nasce e lo dichiara quando finisce.
+                                        // LETTURA VIVA, non un booleano catturato: i widget
+                                        // della lista vengono costruiti una volta e rinascono
+                                        // dopo, quindi un valore fissato alla costruzione
+                                        // sarebbe sempre vecchio. Il gancio legge il registro
+                                        // nel momento della rinascita.
+                                        giaScritto: () => _testiScritti
+                                            .contains(_chiaveDelTesto(
+                                                cards[i].domain)),
+                                        onScritto: () => _testiScritti.add(
+                                            _chiaveDelTesto(cards[i].domain)),
+                                        onDepthSelected: (depth) =>
+                                            _scegliProfondita(
+                                                cards[i].domain, depth),
+                                        onDepthLocked: (depth) =>
+                                            _showDepthLocked(
+                                                cards[i].domain, depth),
+                                        livello: cielo.livello,
+                                        // La Lunga del piano, o quella di oggi
+                                        // comprata con gli Eos sull'Occidentale (EU.15).
+                                        premiumUnlocked:
+                                            PlanCatalog.haProfondita(context
+                                                    .watch<EntitlementService>()
+                                                    .tier) ||
+                                                (_lungaDiOggi &&
+                                                    _inCima ==
+                                                        AstroTradition
+                                                            .occidentale),
+                                      ),
+                                      const SizedBox(height: SpacingTokens.md),
+                                    ],
+                                // **I TRE CIELI DI OGGI, ordine ES voce 36**: sotto le
+                                // schede, dominio per dominio, se le tre tradizioni
+                                // sono d'accordo e, se non lo sono, chi vede cosa.
+                                if (consulto &&
+                                    _fase == _FaseDelConsulto.responso &&
+                                    _treCieli.isNotEmpty) ...[
+                                  _ITreCieliView(
+                                      accordi: _treCieli,
+                                      // Il Sigillo e' di chi guarda: sotto la lettura
+                                      // di un amico non se ne parla (ordine FC voce 02).
+                                      sigillo: _soggetto.eUnAmico
+                                          ? null
+                                          : _sigilloDeiTreCieli,
+                                      palette: palette),
+                                  const SizedBox(height: SpacingTokens.md),
+                                ],
+                                // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
+                                //
+                                // Una riga generica scritta con lo stesso carattere di una
+                                // vera si legge come vera: qui si dice a parole che senza
+                                // ora e luogo di nascita quella lettura parla al segno, non
+                                // al cielo di questa persona, e si dice come rimediare.
+                                // Per un amico la nota del segno solare sta gia' sopra.
+                                if (consulto &&
+                                    !altra &&
+                                    notaDelCielo != null &&
+                                    !_soggetto.eUnAmico) ...[
+                                  _NotaDelCielo(
+                                      testo: notaDelCielo,
+                                      palette: palette,
+                                      completa: cielo.ceCieloVero,
+                                      invito: CorrenteDelCielo.invitoDelLivello(
+                                          cielo)),
+                                  const SizedBox(height: SpacingTokens.md),
+                                ],
+                                // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
+                                // consulto la schermata offriva di condividere un oroscopo
+                                // che nessuno aveva ancora chiesto, e la card che ne usciva
+                                // portava testi mai comparsi a video: e' lo stesso difetto
+                                // che il gesto Interroga il cielo esiste per togliere.
+                                if (consulto &&
+                                    _fase == _FaseDelConsulto.responso)
+                                  _ShareBlock(
+                                    palette: palette,
+                                    sharing: _sharing,
+                                    onShare: _onShare,
+                                    segno: _segnoCondiviso,
+                                    soggetto: _soggetto,
+                                    // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
+                                    // LETTO**, cioe' le schede del cielo di oggi in fila:
+                                    // custodire un testo diverso da quello a video sarebbe
+                                    // riaprire domani un responso che non e' mai comparso.
+                                    testoDelResponso: cards
+                                        .map((c) => '${c.title}\n${c.text}')
+                                        .join('\n\n'),
+                                    // **PER MEDORA ANCHE "DA DOVE VIENE"**, ordine EV
+                                    // voce 04: e' li' che l'Oroscopo nomina il transito,
+                                    // ed e' di quello che la persona le chiede.
+                                    perIlMaestro: cards
+                                        .map((c) => [
+                                              '${c.title}\n${c.text}',
+                                              if (c.rigaDelLivello != null)
+                                                'Da dove viene: ${c.rigaDelLivello}',
+                                            ].join('\n'))
+                                        .join('\n\n'),
+                                  ),
+                                // LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34: in
+                                // fondo, calcolata, dove sara' la Luna domani.
+                                if (consulto &&
+                                    _fase == _FaseDelConsulto.responso)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: SpacingTokens.md),
+                                    child: Row(
+                                      key: const Key('oroscopo_domani'),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.nightlight_round,
+                                            size: 16, color: palette.goldSoft),
+                                        const SizedBox(width: SpacingTokens.sm),
+                                        Expanded(
+                                          child: Text(
+                                            // Nella lettura cinese, l'almanacco di
+                                            // domani.
+                                            (cinese
+                                                    ? LaLetturaCinese.domani(
+                                                        _date, animale!)
+                                                    : vedica
+                                                        ? LaLetturaVedica.domani(
+                                                            _date,
+                                                            nascitaDeiSegni!,
+                                                            _luogo)
+                                                        : null) ??
+                                                IlDomani.riga(_soggetto.segno,
+                                                    carta, _date),
+                                            style: TypographyTokens.didascalia()
+                                                .copyWith(
+                                                    color: palette.goldSoft,
+                                                    height: 1.4),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
+                                //
+                                // Le linee guida dicevano da sempre "una volta sola", e per
+                                // sette volte ognuno ha pensato che il proprio fosse quella
+                                // volta. Un disclaimer ripetuto smette di essere letto e
+                                // diventa un modo di scaricare la responsabilita' invece di
+                                // dirla. Adesso sta in un posto solo, nell'area privacy.
+                              ],
                             ),
-                            const SizedBox(height: SpacingTokens.md),
-                          ],
-                      // **I TRE CIELI DI OGGI, ordine ES voce 36**: sotto le
-                      // schede, dominio per dominio, se le tre tradizioni
-                      // sono d'accordo e, se non lo sono, chi vede cosa.
-                      if (consulto &&
-                          _fase == _FaseDelConsulto.responso &&
-                          _treCieli.isNotEmpty) ...[
-                        _ITreCieliView(
-                            accordi: _treCieli,
-                            // Il Sigillo e' di chi guarda: sotto la lettura
-                            // di un amico non se ne parla (ordine FC voce 02).
-                            sigillo:
-                                _soggetto.eUnAmico ? null : _sigilloDeiTreCieli,
-                            palette: palette),
-                        const SizedBox(height: SpacingTokens.md),
-                      ],
-                      // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
-                      //
-                      // Una riga generica scritta con lo stesso carattere di una
-                      // vera si legge come vera: qui si dice a parole che senza
-                      // ora e luogo di nascita quella lettura parla al segno, non
-                      // al cielo di questa persona, e si dice come rimediare.
-                      // Per un amico la nota del segno solare sta gia' sopra.
-                      if (consulto &&
-                          !altra &&
-                          notaDelCielo != null &&
-                          !_soggetto.eUnAmico) ...[
-                        _NotaDelCielo(
-                            testo: notaDelCielo,
-                            palette: palette,
-                            completa: cielo.ceCieloVero,
-                            invito: CorrenteDelCielo.invitoDelLivello(cielo)),
-                        const SizedBox(height: SpacingTokens.md),
-                      ],
-                      // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del
-                      // consulto la schermata offriva di condividere un oroscopo
-                      // che nessuno aveva ancora chiesto, e la card che ne usciva
-                      // portava testi mai comparsi a video: e' lo stesso difetto
-                      // che il gesto Interroga il cielo esiste per togliere.
-                      if (consulto && _fase == _FaseDelConsulto.responso)
-                        _ShareBlock(
-                          palette: palette,
-                          sharing: _sharing,
-                          onShare: _onShare,
-                          segno: _segnoCondiviso,
-                          soggetto: _soggetto,
-                          // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
-                          // LETTO**, cioe' le schede del cielo di oggi in fila:
-                          // custodire un testo diverso da quello a video sarebbe
-                          // riaprire domani un responso che non e' mai comparso.
-                          testoDelResponso: cards
-                              .map((c) => '${c.title}\n${c.text}')
-                              .join('\n\n'),
-                          // **PER MEDORA ANCHE "DA DOVE VIENE"**, ordine EV
-                          // voce 04: e' li' che l'Oroscopo nomina il transito,
-                          // ed e' di quello che la persona le chiede.
-                          perIlMaestro: cards
-                              .map((c) => [
-                                    '${c.title}\n${c.text}',
-                                    if (c.rigaDelLivello != null)
-                                      'Da dove viene: ${c.rigaDelLivello}',
-                                  ].join('\n'))
-                              .join('\n\n'),
-                        ),
-                      // LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34: in
-                      // fondo, calcolata, dove sara' la Luna domani.
-                      if (consulto && _fase == _FaseDelConsulto.responso)
-                        Padding(
-                          padding: const EdgeInsets.only(top: SpacingTokens.md),
-                          child: Row(
-                            key: const Key('oroscopo_domani'),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(Icons.nightlight_round,
-                                  size: 16, color: palette.goldSoft),
-                              const SizedBox(width: SpacingTokens.sm),
-                              Expanded(
-                                child: Text(
-                                  // Nella lettura cinese, l'almanacco di
-                                  // domani.
-                                  (cinese
-                                          ? LaLetturaCinese.domani(
-                                              _date, animale!)
-                                          : vedica
-                                              ? LaLetturaVedica.domani(_date,
-                                                  nascitaDeiSegni!, _luogo)
-                                              : null) ??
-                                      IlDomani.riga(
-                                          _soggetto.segno, carta, _date),
-                                  style: TypographyTokens.didascalia().copyWith(
-                                      color: palette.goldSoft, height: 1.4),
-                                ),
-                              ),
-                            ],
                           ),
-                        ),
-                      // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
-                      //
-                      // Le linee guida dicevano da sempre "una volta sola", e per
-                      // sette volte ognuno ha pensato che il proprio fosse quella
-                      // volta. Un disclaimer ripetuto smette di essere letto e
-                      // diventa un modo di scaricare la responsabilita' invece di
-                      // dirla. Adesso sta in un posto solo, nell'area privacy.
-                    ],
-                  ),
-                  if (_renderCard)
-                    Positioned(
-                      left: -3000,
-                      top: 0,
-                      child: RepaintBoundary(
-                        key: _cardKey,
-                        child: OroscopoShareCard(
-                          sign: _soggetto.segno,
-                          // La card di un amico e' un regalo: "Il tuo
-                          // oroscopo", "Te lo manda" (ordine FC voce 02).
-                          perUnAmico: _soggetto.perUnAmico,
-                          daParteDi: _soggetto.eUnAmico
-                              ? OroscopoShareCard.soloIlNome(
-                                  profile.profile.displayName)
-                              : null,
-                          // Nel Giorno le schede del consulto; negli altri
-                          // periodi le loro tessere (ordine ES voce 05).
-                          cards: _period == HoroscopePeriod.giorno
-                              ? cards
-                              : (_schedeDelPeriodo ?? cards),
-                          titoloDelleTessere:
-                              _period == HoroscopePeriod.settimana ||
-                                      _period == HoroscopePeriod.mese
-                                  ? 'Il giorno migliore di ogni campo'
-                                  : null,
-                          palette: palette,
-                          // Il segno della lettura cinese, ordine ES voce 08.
-                          nomeDelSegno:
-                              schedeAltre != null ? segnoInCima!.nome : null,
-                          figuraDelSegno: schedeAltre != null
-                              ? LaTestaDellaTradizione.figura(
-                                  _inCima, segnoInCima)
-                              : null,
-                          // Ordine ES voci 05 e 13: l'emblema del periodo,
-                          // il nome senza cognome e i dati di nascita.
-                          periodo: _period.name,
-                          etichettaDelPeriodo: _period.etichetta,
-                          // Le ore migliori di oggi, quelle che devono ancora
-                          // finire: chi riceve la card le puo' usare.
-                          oreMigliori: _period == HoroscopePeriod.giorno &&
-                                  _leOre != null
-                              ? LeOreDelGiornoView.rigaDelleMigliori(
-                                  _leOre!.$1, HoroscopeDomain.generale,
-                                  adesso: DateTime.now())
-                              : null,
-                          nome: _soggetto.nomeAmico ??
-                              OroscopoShareCard.soloIlNome(
-                                  profile.profile.displayName),
-                          nascita: _soggetto.nascitaScritta(context),
-                        ),
-                      ),
+                        if (_renderCard)
+                          Positioned(
+                            left: -3000,
+                            top: 0,
+                            child: RepaintBoundary(
+                              key: _cardKey,
+                              child: OroscopoShareCard(
+                                sign: _soggetto.segno,
+                                // La card di un amico e' un regalo: "Il tuo
+                                // oroscopo", "Te lo manda" (ordine FC voce 02).
+                                perUnAmico: _soggetto.perUnAmico,
+                                daParteDi: _soggetto.eUnAmico
+                                    ? OroscopoShareCard.soloIlNome(
+                                        profile.profile.displayName)
+                                    : null,
+                                // Nel Giorno le schede del consulto; negli altri
+                                // periodi le loro tessere (ordine ES voce 05).
+                                cards: _period == HoroscopePeriod.giorno
+                                    ? cards
+                                    : (_schedeDelPeriodo ?? cards),
+                                titoloDelleTessere:
+                                    _period == HoroscopePeriod.settimana ||
+                                            _period == HoroscopePeriod.mese
+                                        ? 'Il giorno migliore di ogni campo'
+                                        : null,
+                                palette: palette,
+                                // Il segno della lettura cinese, ordine ES voce 08.
+                                nomeDelSegno: schedeAltre != null
+                                    ? segnoInCima!.nome
+                                    : null,
+                                figuraDelSegno: schedeAltre != null
+                                    ? LaTestaDellaTradizione.figura(
+                                        _inCima, segnoInCima)
+                                    : null,
+                                // Ordine ES voci 05 e 13: l'emblema del periodo,
+                                // il nome senza cognome e i dati di nascita.
+                                periodo: _period.name,
+                                etichettaDelPeriodo: _period.etichetta,
+                                // Le ore migliori di oggi, quelle che devono ancora
+                                // finire: chi riceve la card le puo' usare.
+                                oreMigliori: _period ==
+                                            HoroscopePeriod.giorno &&
+                                        _leOre != null
+                                    ? LeOreDelGiornoView.rigaDelleMigliori(
+                                        _leOre!.$1, HoroscopeDomain.generale,
+                                        adesso: DateTime.now())
+                                    : null,
+                                nome: _soggetto.nomeAmico ??
+                                    OroscopoShareCard.soloIlNome(
+                                        profile.profile.displayName),
+                                nascita: _soggetto.nascitaScritta(context),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),
           ),
-        ),
-        // **LA CORSA DELLO ZODIACO STA SOPRA TUTTO. Ordine CC voce 03.**
-        //
-        // Parole del fondatore: "VOGLIO che ci sia una schermata nuova sopra
-        // tutto con tutti i simboli dello zodiaco grandi che velocemente si
-        // succedono uno dopo l'altro e poi si ferma sul segno zodiacale
-        // dell'utente".
-        //
-        // **Sta FUORI dallo Scaffold, e me l'ha insegnato l'anteprima.** Prima
-        // stava dentro il corpo, e restavano scoperte la freccia Indietro e il
-        // cuore della barra: una schermata nuova che lascia visibili i comandi
-        // di quella vecchia non e' una schermata nuova. Prima ancora stava
-        // dentro la colonna dell'eroe, dove un `Positioned.fill` non ha
-        // significato e Flutter lo dice con un errore.
-        //
-        // **Restano fuori le due barre sottili dell'app**, e lo dichiaro:
-        // quelle vivono sopra il Navigator, cioe' sopra ogni rotta, e per
-        // coprirle bisognerebbe portare questa scena fuori dalla schermata che
-        // la possiede, cioe' aprire una seconda porta sullo stesso momento.
-        if (_corsaInScena)
-          CorsaDelloZodiaco(
-            key: const Key('corsa_dello_zodiaco'),
-            // Nella Vedica si ferma sul segno lunare di nascita (ES.09).
-            segno: schedeVediche != null && rashi != null
-                ? Zodiac.values[rashi]
-                : _segnoDiChiGuarda,
-            palette: palette,
-            // Nella lettura cinese corrono i dodici animali (ES.08).
-            animaleCinese: schedeCinesi != null ? animale : null,
-            // Nella Vedica il segno lunare di nascita, col suo nome (ES.09).
-            nomeFinale: schedeVediche != null && rashi != null
-                ? ISegniDelleTradizioni.rashi[rashi]
-                : null,
-            figuraFinale: schedeVediche != null
-                ? LaTestaDellaTradizione.figura(_inCima, segnoInCima)
-                : null,
-            frase: schedeCinesi != null
-                ? 'Medora sta aprendo l\'almanacco di oggi'
-                : schedeVediche != null
-                    ? 'Medora sta cercando la Luna fra le stelle'
-                    : null,
-            durata:
-                RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) * 2 +
-                    _dissolvenzaDellaCorsa,
-            riduciMovimento: MediaQuery.of(context).disableAnimations,
-          ),
-      ],
+          // **LA CORSA DELLO ZODIACO STA SOPRA TUTTO. Ordine CC voce 03.**
+          //
+          // Parole del fondatore: "VOGLIO che ci sia una schermata nuova sopra
+          // tutto con tutti i simboli dello zodiaco grandi che velocemente si
+          // succedono uno dopo l'altro e poi si ferma sul segno zodiacale
+          // dell'utente".
+          //
+          // **Sta FUORI dallo Scaffold, e me l'ha insegnato l'anteprima.** Prima
+          // stava dentro il corpo, e restavano scoperte la freccia Indietro e il
+          // cuore della barra: una schermata nuova che lascia visibili i comandi
+          // di quella vecchia non e' una schermata nuova. Prima ancora stava
+          // dentro la colonna dell'eroe, dove un `Positioned.fill` non ha
+          // significato e Flutter lo dice con un errore.
+          //
+          // **Restano fuori le due barre sottili dell'app**, e lo dichiaro:
+          // quelle vivono sopra il Navigator, cioe' sopra ogni rotta, e per
+          // coprirle bisognerebbe portare questa scena fuori dalla schermata che
+          // la possiede, cioe' aprire una seconda porta sullo stesso momento.
+          if (_corsaInScena)
+            CorsaDelloZodiaco(
+              key: const Key('corsa_dello_zodiaco'),
+              // Nella Vedica si ferma sul segno lunare di nascita (ES.09).
+              segno: schedeVediche != null && rashi != null
+                  ? Zodiac.values[rashi]
+                  : _segnoDiChiGuarda,
+              palette: palette,
+              // Nella lettura cinese corrono i dodici animali (ES.08).
+              animaleCinese: schedeCinesi != null ? animale : null,
+              // Nella Vedica il segno lunare di nascita, col suo nome (ES.09).
+              nomeFinale: schedeVediche != null && rashi != null
+                  ? ISegniDelleTradizioni.rashi[rashi]
+                  : null,
+              figuraFinale: schedeVediche != null
+                  ? LaTestaDellaTradizione.figura(_inCima, segnoInCima)
+                  : null,
+              frase: schedeCinesi != null
+                  ? 'Medora sta aprendo l\'almanacco di oggi'
+                  : schedeVediche != null
+                      ? 'Medora sta cercando la Luna fra le stelle'
+                      : null,
+              durata:
+                  RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) * 2 +
+                      _dissolvenzaDellaCorsa,
+              riduciMovimento: MediaQuery.of(context).disableAnimations,
+            ),
+        ],
+      ),
     );
   }
 

@@ -1,0 +1,51 @@
+== INNESTO: gli emblemi non si accendono mai
+   file lib/features/horoscope/la_scena_dell_oroscopo.dart: grep "if (false && emblemiAccesi)" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:06 +6 -6: Some tests failed. (uscita 1)
+   rossa: 00:01 +2 -1: aprendo l'Oroscopo il filmato parte, resta sull'ultimo fotogramma, poi gli emblemi si accendono e la lettura sale [E]
+   rossa: 00:03 +3 -2: FU.15: un tocco mentre il video gira lo fa sfumare, gli emblemi e la lettura compaiono subito, e il tocco non arriva alla scena sotto [E]
+   rossa: 00:04 +3 -3: con Riduci Movimento la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:04 +3 -4: con la grafica alleggerita la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:05 +3 -5: se il video non si carica la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:06 +6 -6: una volta per apertura: cambiare tradizione non fa ripartire il video, e le sedi seguono la tradizione aperta [E]
+   ripristino di lib/features/horoscope/la_scena_dell_oroscopo.dart: identico
+== INNESTO: la ruota occidentale gira in senso orario
+   file lib/features/horoscope/la_scena_dell_oroscopo.dart: grep "Zodiac.values[(occidentale.index + k) % 12]" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:06 +11 -1: Some tests failed. (uscita 1)
+   rossa: 00:00 +1 -1: la geometria misurata l'Occidentale gira in senso antiorario dal segno della persona, la Cinese in senso orario, e senza dodici segni le sedi sono vuote [E]
+   ripristino di lib/features/horoscope/la_scena_dell_oroscopo.dart: identico
+== INNESTO: la Maya riempie le sedi coi segni occidentali
+   file lib/features/horoscope/la_scena_dell_oroscopo.dart: grep "return List.filled(12, ZodiacArt.emblemPath(occidentale));" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:07 +10 -2: Some tests failed. (uscita 1)
+   rossa: 00:00 +1 -1: la geometria misurata l'Occidentale gira in senso antiorario dal segno della persona, la Cinese in senso orario, e senza dodici segni le sedi sono vuote [E]
+   rossa: 00:06 +10 -2: una volta per apertura: cambiare tradizione non fa ripartire il video, e le sedi seguono la tradizione aperta [E]
+   ripristino di lib/features/horoscope/la_scena_dell_oroscopo.dart: identico
+== INNESTO: il tocco non salta il video
+   file lib/features/horoscope/oroscopo_screen.dart: grep "onSalta: () {}," -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:05 +11 -1: Some tests failed. (uscita 1)
+   rossa: 00:03 +4 -1: FU.15: un tocco mentre il video gira lo fa sfumare, gli emblemi e la lettura compaiono subito, e il tocco non arriva alla scena sotto [E]
+   ripristino di lib/features/horoscope/oroscopo_screen.dart: identico
+== INNESTO: a video finito la lettura sale subito, senza sosta
+   file lib/features/horoscope/oroscopo_screen.dart: grep "_letturaSalita = true; // innesto" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:06 +10 -2: Some tests failed. (uscita 1)
+   rossa: 00:03 +2 -1: aprendo l'Oroscopo il filmato parte, resta sull'ultimo fotogramma, poi gli emblemi si accendono e la lettura sale [E]
+   rossa: 00:03 +2 -2: un tocco sulla scena ferma fa salire la lettura prima [E]
+   ripristino di lib/features/horoscope/oroscopo_screen.dart: identico
+== INNESTO: a scena ferma la lettura non sale
+   file lib/features/horoscope/oroscopo_screen.dart: grep "_letturaSalita = false; // innesto" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:06 +8 -4: Some tests failed. (uscita 1)
+   rossa: 00:04 +5 -1: con Riduci Movimento la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:05 +5 -2: con la grafica alleggerita la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:05 +5 -3: se il video non si carica la scena e' ferma, con gli emblemi e la lettura [E]
+   rossa: 00:05 +8 -4: una volta per apertura: cambiare tradizione non fa ripartire il video, e le sedi seguono la tradizione aperta [E]
+   ripristino di lib/features/horoscope/oroscopo_screen.dart: identico
+== INNESTO: la regia comune non spegne il volume
+   file lib/features/scene/la_scena_in_video.dart: grep "await lettore.volume(1);" -> trovato
+   esito test/la_scena_dell_oroscopo_e_un_filmato_test.dart: 00:06 +10 -2: Some tests failed. (uscita 1)
+   rossa: 00:05 +8 -1: a suoni spenti nell'app il filmato e' muto [E]
+   rossa: 00:05 +8 -2: col telefono in silenzioso il filmato e' muto [E]
+   ripristino di lib/features/scene/la_scena_in_video.dart: identico
+== INNESTO: l'Oroscopo non passa dal tocco che salta
+   file lib/features/horoscope/oroscopo_screen.dart: grep "return _SenzaTocco(" -> trovato
+   esito test/ogni_scena_si_salta_col_tocco_test.dart: 00:02 +0 -1: Some tests failed. (uscita 1)
+   rossa: 00:02 +0 -1: ogni scena dell'app passa dal tocco che salta [E]
+   ripristino di lib/features/horoscope/oroscopo_screen.dart: identico
