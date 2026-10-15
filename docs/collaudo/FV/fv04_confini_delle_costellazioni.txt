@@ -1,0 +1,17 @@
+# I confini IAU (Delporte 1930, B1875; Roman 1987, VizieR VI/42,
+# via astropy.coordinates.get_constellation) sull'eclittica
+# media J2000, latitudine zero, passo di scansione 0.001 gradi.
+# longitudine_J2000	da	a
+28.686	Psc	Ari
+53.413	Ari	Tau
+90.133	Tau	Gem
+117.981	Gem	Cnc
+138.034	Cnc	Leo
+173.850	Leo	Vir
+217.813	Vir	Lib
+241.052	Lib	Sco
+247.643	Sco	Oph
+266.244	Oph	Sgr
+299.662	Sgr	Cap
+327.492	Cap	Aqr
+351.651	Aqr	Psc

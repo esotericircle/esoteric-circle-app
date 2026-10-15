@@ -217,8 +217,8 @@ abstract final class IlCieloDiMeeus {
   static double longitudineDelNodoNord(double jdUt) {
     _pretendi('la longitudine del Nodo Nord', jdUt);
     final t = (effemeridi(jdUt) - 2451545.0) / 36525.0;
-    final omega = 125.04452 +
-        t * (-1934.136261 + t * (0.0020708 + t / 450000.0));
+    final omega =
+        125.04452 + t * (-1934.136261 + t * (0.0020708 + t / 450000.0));
     return _norm(omega);
   }
 
@@ -333,5 +333,53 @@ abstract final class IlCieloDiMeeus {
     final t = (effemeridi(jdUt) - 2451545.0) / 36525.0;
     final vera = ayanamsaMedia(t) + nutazioneInLongitudine(jdUt);
     return _norm(longitudine(corpo, jdUt) - vera);
+  }
+
+  // ---------------------------------------------------------------------
+  // L'EQUINOZIO J2000
+  // ---------------------------------------------------------------------
+
+  /// LA LONGITUDINE ECLITTICA DI [corpo] RIFERITA ALL'ECLITTICA E
+  /// ALL'EQUINOZIO MEDI J2000, in gradi [0, 360). Ordine FV voce FV.04, 15
+  /// ottobre 2026: serve al calendario biodinamico, che confronta la Luna coi
+  /// confini delle costellazioni vere, fissi fra le stelle e dati in J2000.
+  ///
+  /// Il metodo: alla longitudine apparente della data si toglie la
+  /// nutazione in longitudine (si torna all'equinozio medio della data),
+  /// poi la precessione riporta longitudine e latitudine dall'eclittica della
+  /// data a quella di J2000 col metodo rigoroso di Meeus, *Astronomical
+  /// Algorithms*, 2a ed., eq. 21.5 e 21.7 (angoli eta, Pi grande e p, IAU
+  /// 1976), con epoca iniziale la data e intervallo fino a J2000. L'aberrazione
+  /// annua resta dentro: per la Luna, di cui la porta da' la posizione
+  /// geometrica piu' la nutazione (Meeus cap. 47), non c'e'; per il Sole e i
+  /// pianeti vale al piu' 20 secondi d'arco.
+  static double longitudineJ2000(CorpoCeleste corpo, double jdUt) {
+    final lambda0 =
+        (longitudine(corpo, jdUt) - nutazioneInLongitudine(jdUt)) * _g;
+    final beta0 = latitudine(corpo, jdUt) * _g;
+    // T: secoli giuliani dell'epoca di partenza (la data) da J2000;
+    // t: secoli dell'intervallo da quell'epoca a J2000, cioe' -T.
+    final bigT = (effemeridi(jdUt) - 2451545.0) / 36525.0;
+    final t = -bigT;
+    const s = 1.0 / 3600.0;
+    final eta = ((47.0029 - 0.06603 * bigT + 0.000598 * bigT * bigT) * t +
+            (-0.03302 + 0.000598 * bigT) * t * t +
+            0.000060 * t * t * t) *
+        s *
+        _g;
+    final piGrande = (174.876384 +
+            (3289.4789 * bigT + 0.60622 * bigT * bigT) * s -
+            (869.8089 + 0.50491 * bigT) * t * s +
+            0.03536 * t * t * s) *
+        _g;
+    final p = ((5029.0966 + 2.22226 * bigT - 0.000042 * bigT * bigT) * t +
+            (1.11113 - 0.000042 * bigT) * t * t -
+            0.000006 * t * t * t) *
+        s *
+        _g;
+    final a = math.cos(eta) * math.cos(beta0) * math.sin(piGrande - lambda0) -
+        math.sin(eta) * math.sin(beta0);
+    final b = math.cos(beta0) * math.cos(piGrande - lambda0);
+    return _norm((p + piGrande - math.atan2(a, b)) / _g);
   }
 }
