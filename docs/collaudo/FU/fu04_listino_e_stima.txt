@@ -1,0 +1,30 @@
+ORDINE FU, voce FU.04 e regola R2: la stima del costo di una consultazione
+dell'Oracolo degli Angeli, 15 ottobre 2026. Nessuna chiamata vera e' partita.
+
+LISTINO, letto il 15 ottobre 2026 sulla pagina ufficiale
+https://cloud.google.com/vertex-ai/generative-ai/pricing (oggi reindirizzata a
+https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing,
+titolo "Prezzi di Agent Platform | Google Cloud"), riga "Gemini 2.5 Flash-Lite":
+- Input (testo, immagine, video): 0,10 USD per milione di token
+- Output di testo (risposta e ragionamento): 0,40 USD per milione di token
+
+TOKEN, dalla prova test/l_oracolo_degli_angeli_test.dart ("LA STIMA DI UNA
+CONSULTAZIONE, dai caratteri veri"), riga stampata:
+FU.04 STIMA: caratteri in ingresso 2812, token in ingresso circa 804; in uscita
+al piu' 300 (Breve) e 600 (Lunga)
+Il conto dei token e' prudente (3,5 caratteri per token; l'italiano sta intorno
+ai quattro). L'uscita e' il tetto dei gettoni (maxOutputTokens), quindi il
+massimo e non la media.
+
+COSTO DI UNA CONSULTAZIONE, al massimo:
+- Breve: 804 x 0,10 / 1.000.000 + 300 x 0,40 / 1.000.000 = 0,0000804 + 0,00012
+  = 0,0002 USD
+- Lunga: 804 x 0,10 / 1.000.000 + 600 x 0,40 / 1.000.000 = 0,0000804 + 0,00024
+  = 0,0003 USD
+Col cambio prudente di un euro per dollaro (il dollaro vale meno di un euro,
+quindi la cifra in euro e' piu' alta del vero): 0,0002 euro la Breve, 0,0003
+euro la Lunga.
+
+LA PRIMA ESECUZIONE VERA, quando il fondatore dira' si': venti consultazioni
+(dieci Brevi e dieci Lunghe su domande diverse) costano al piu'
+10 x 0,0002 + 10 x 0,0003 = 0,005 euro, mezzo centesimo.

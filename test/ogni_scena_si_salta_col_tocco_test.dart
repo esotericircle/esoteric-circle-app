@@ -38,11 +38,13 @@ void main() {
     }
     scene.sort();
     print('ORDINE FU VOCE FU.15: scene trovate ${scene.length}: $scene');
-    cardinaleMinimo(scene.length, 2,
+    cardinaleMinimo(scene.length, 5,
         cosa: 'scene che aprono un lettore',
-        perche: 'La Stesa e la Sinastria evolutiva ci sono dall\'ordine FT: '
-            'se la prova non le trova, il riconoscimento si e\' rotto e '
-            'sarebbe verde senza aver guardato niente.');
+        perche: 'La Stesa e la Sinastria evolutiva ci sono dall\'ordine FT, '
+            'l\'Oracolo degli Angeli, l\'Oroscopo e la porta della Sinastria '
+            'VIP dall\'ordine FU: se la prova non le trova tutte, il '
+            'riconoscimento si e\' rotto e sarebbe verde senza aver guardato '
+            'niente.');
     expect(fuori, isEmpty,
         reason: 'queste scene aprono un video e non passano dal tocco che lo '
             'salta, IlToccoCheSalta: $fuori');
