@@ -1,0 +1,29 @@
+REGOLA A, ordine FV voce FV.11, 15 ottobre 2026
+guardia: test/la_card_del_mese_test.dart (la guardia che il commento di
+testa di la_card_del_mese.dart prometteva e che non era mai stata scritta:
+nessuna prova aveva mai montato la card)
+
+innesto 1, il trabocco vero trovato dalle anteprime: tolto il FittedBox
+intorno alla Row della firma (il sigillo di Medora, il logo e il
+collegamento diretto)
+grep righe innestate: 1 (INNESTO_FV_CARD)
+esito con l'innesto (uscita 1):
+  la card renderizza alla larghezza vera senza eccezioni... [E]
+  Expected: null
+  Actual: FlutterError:<A RenderFlex overflowed by 11 pixels on the bottom.>
+ripristino (con l'Edit tool, non con lo script Python: due tentativi di
+scrittura Python sono caduti su un lock di Windows sul file, senza scrivere
+niente; verificato col grep prima di fidarsi); grep righe innestate: 0
+esito sul codice vero (uscita 0): All tests passed!
+
+innesto 2, la parola vietata nel codice: una costante con dentro
+'SegnoDelGiornoTuo' (non in un commento)
+grep righe innestate: 1 (INNESTO_FV_CARD_PAROLA)
+esito con l'innesto (uscita 1):
+  nessun codice della card nomina i giorni tuoi o l'intenzione [E]
+  Expected: empty
+  Actual: [SegnoDelGiornoTuo]
+ripristino; grep righe innestate: 0
+esito sul codice vero (uscita 0): All tests passed!
+
+flutter analyze lib/features/lunario/la_card_del_mese.dart: nessun problema.
