@@ -50,6 +50,12 @@ void main() {
       // LA CARTA DELLA SCELTA nel Risveglio: il Maestro non presiede una
       // schermata, e' un candidato da scegliere, intero nella sua carta.
       'lib/features/onboarding/widgets/maestro_card.dart',
+      // IL SIGILLO SULLA CARD DEL MESE, ordine FV voce FV.11, 15 ottobre
+      // 2026: "in basso il sigillo di Medora, il logo e il collegamento
+      // diretto". Non e' il busto che presiede una schermata, e' una firma
+      // piccola accanto al suo nome, nella stessa riga del logo: un
+      // elemento diverso, con la sua misura.
+      'lib/features/lunario/la_card_del_mese.dart',
       // La definizione del percorso, accanto al Maestro stesso.
       'lib/core/maestro/maestro.dart',
     };
