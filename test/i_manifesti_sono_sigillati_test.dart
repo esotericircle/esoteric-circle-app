@@ -394,6 +394,9 @@ void main() {
     // FV.15, FV.16 e FV.17: "le tre voci entrano nel manifesto di FV"),
     // contate coi titoli "## VOCE FV." del manifesto.
     'FV': 17,
+    // Ordine FW, 15 ottobre 2026: le sei voci (FW.01-FW.06), contate coi
+    // titoli "## VOCE FW." del manifesto.
+    'FW': 6,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

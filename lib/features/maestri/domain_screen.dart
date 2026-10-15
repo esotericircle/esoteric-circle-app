@@ -233,13 +233,18 @@ class _DomainScreenState extends State<DomainScreen> {
             ),
             MaestroScreen(
               maestro: widget.maestro,
-              // **IL VISO NON SI COPRE, FW.03**: misurato sui tre ultimi
-              // fotogrammi (docs/preview/FW/), il viso dei tre Maestri sta
-              // tutto entro il 40 per cento alto dell'immagine 1080x1920. Lo
-              // spazio libero e' il 46 per cento dell'altezza dello schermo,
-              // uguale per i tre: il contenuto del dominio comincia sotto le
-              // spalle, mai sopra il mento.
-              spazioScena: MediaQuery.sizeOf(context).height * 0.46,
+              // **IL VISO NON SI COPRE, FW.03**: il viso dei tre Maestri
+              // sta entro il 40 per cento alto dell'immagine 1080x1920. Lo
+              // spazio libero era il 46 per cento dell'altezza dello
+              // schermo: su 797 punti la scheda "Consulta" (la prima azione
+              // del dominio) finiva sotto la barra in basso, sempre in
+              // vista (ordine EJ, 112 punti), e un tocco su di lei veniva
+              // assorbito dalla barra, scoperto da una prova che naviga
+              // l'app vera (test/il_maestro_non_resta_muto_test.dart), non
+              // da nessuna cattura. Il 37 per cento tiene il viso scoperto
+              // con margine e lascia la scheda sopra la barra: misurato di
+              // nuovo con la stessa prova.
+              spazioScena: MediaQuery.sizeOf(context).height * 0.37,
             ),
           ],
         ),

@@ -90,9 +90,18 @@ class _MaestroScreenState extends State<MaestroScreen> {
             ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(
+              // **COL SOPRA GIA' PIENO DELLA SCENA, NIENTE VUOTO PRIMA DEL
+              // TITOLO, ordine FW.** Senza la scena il margine sopra il
+              // titolo separa la barra dal contenuto; con la scena quel
+              // margine lo fa gia' lei, ed era spazio che la scheda
+              // "Consulta" di questa voce non poteva permettersi: su uno
+              // schermo da 797 punti la scheda finiva sotto la barra in
+              // basso (ordine EJ, sempre in vista, 112 punti), trovato da
+              // una prova che naviga l'app vera e non dalla sola lettura
+              // del codice (test/il_maestro_non_resta_muto_test.dart).
+              padding: EdgeInsets.fromLTRB(
                 SpacingTokens.lg,
-                SpacingTokens.lg,
+                widget.spazioScena > 0 ? 0 : SpacingTokens.lg,
                 SpacingTokens.lg,
                 0,
               ),
