@@ -21,7 +21,6 @@ import '../../../core/maestro/maestro.dart';
 import '../../../core/oracolo_angeli/i_ruoli_e_l_estrazione.dart';
 import '../../../core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
 import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
-import '../../../core/oracolo_angeli/la_domanda_delicata.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
@@ -110,7 +109,7 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
 }
 
 /// Le fasi di una consultazione.
-enum _Fase { domanda, saleLaDomanda, siGirano, risposta, cura }
+enum _Fase { domanda, saleLaDomanda, siGirano, risposta }
 
 class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     with TickerProviderStateMixin {
@@ -219,24 +218,21 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   bool get _sceneFerma => _regia.ferma;
 
-  /// **AFFIDARE LA DOMANDA.** Una domanda delicata non estrae carte (FU.04):
-  /// Medora risponde con cura. Altrimenti si estraggono le tre carte, la
-  /// domanda sale lungo la scala, la lettura parte insieme alle lettere e i
-  /// dorsi si girano.
+  /// **AFFIDARE LA DOMANDA.** Ogni domanda estrae le tre carte, come tutte le
+  /// altre: la domanda sale lungo la scala, la lettura parte insieme alle
+  /// lettere e i dorsi si girano.
+  ///
+  /// **LAPIDE, ordine FV aggiunta voce FVA.01, 15 ottobre 2026.** Qui una
+  /// domanda delicata non estraeva carte e riceveva la risposta di cura col
+  /// numero da chiamare (ordine FU voce FU.04, `la_domanda_delicata.dart`, cancellato). Il
+  /// fondatore: "Le domande sensibili si respingono elegantemente o, meglio,
+  /// si rispondono elegantemente con sensibilità Senza prendersi
+  /// responsabilità". La regola sta nell'istruzione al modello, la stessa
+  /// delle chat dei Maestri.
   Future<void> _affida() async {
     final domanda = _domanda.text.trim();
     if (domanda.isEmpty || _fase == _Fase.saleLaDomanda) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    if (LaDomandaDelicata.e(domanda)) {
-      setState(() {
-        _affidata = domanda;
-        _fase = _Fase.cura;
-        _carte = const [];
-        _risposta = null;
-      });
-      _scorriAllaRisposta();
-      return;
-    }
     final tier = _tier;
     // **LE CONSULTAZIONI DEL GIORNO** (FU.10): finite, l'invito con le due
     // strade, una consultazione in piu' a Eos o salire di piano. Finche' il
@@ -523,8 +519,6 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                   corpus: _corpus,
                 ),
                 SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
-                if (_fase == _Fase.cura)
-                  _LaCura(palette: palette, onDiNuovo: _nuovaDomanda),
                 if (_fase == _Fase.risposta && _risposta != null) ...[
                   _IlResponso(
                     palette: palette,
@@ -1017,56 +1011,6 @@ class _LAngeloDellOra extends StatelessWidget {
   }
 }
 
-/// **LA RISPOSTA DI CURA** per le domande delicate (FU.04): nessuna carta.
-class _LaCura extends StatelessWidget {
-  const _LaCura({required this.palette, required this.onDiNuovo});
-
-  final MaestroPalette palette;
-  final VoidCallback onDiNuovo;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      key: const Key('oracolo_cura'),
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TitoloDelResponso(
-          chiaveDelTesto: const Key('oracolo_titolo_cura'),
-          testo: LaDomandaDelicata.titolo,
-          allineamento: TextAlign.center,
-          aCapoFraLeParole: true,
-          stile: TypographyTokens.titoloSezione()
-              .copyWith(color: palette.goldSoft, height: 1.25),
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        ParagrafiDiLettura(
-            testo: LaDomandaDelicata.paragrafi.join('\n\n'),
-            stile: TypographyTokens.lettura()
-                .copyWith(color: ColorTokens.textPrimary)),
-        const SizedBox(height: SpacingTokens.lg),
-        Center(
-          child: OutlinedButton(
-            key: const Key('oracolo_cura_torna'),
-            onPressed: onDiNuovo,
-            style: OutlinedButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                side: BorderSide(color: palette.goldSoft)),
-            child: const Text('Torna alla domanda'),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/// **IL RESPONSO** (FU.06): il titolo che e' gia' la risposta, i tre
-/// paragrafi col secondo nel riquadro, la Lunga nel suo riquadro, il Da dove
-/// viene; poi le tre carte, ognuna col suo Parlane, il suo rito e il dono.
-///
-/// **L'ASSAGGIO DEL VIANDANTE** (FU.10): il titolo del tema, il paragrafo
-/// del Custode, e Cuore e Intelletto col lucchetto e l'invito.
-/// **LA DOMANDA PER UN AMICO** (FU.09): le carte le portano i suoi tre
-/// angeli, e le righe lo dicono col suo nome.
 class _IlResponso extends StatelessWidget {
   const _IlResponso({
     required this.palette,

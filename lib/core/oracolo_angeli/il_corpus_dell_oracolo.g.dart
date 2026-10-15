@@ -14,11 +14,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'custode|02|messaggio': [
     'Dopo un disaccordo il legame non si spezza in un colpo: si allenta se nessuno torna. Ieliel chiede di essere chi ritorna, senza pretendere di aver avuto ragione. Scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione.',
-    'Tornare verso chi ti ha contraddetto è la fedeltà che questo angelo insegna, non la pace finta. Il litigio di ieri non chiude il legame: lo mette alla prova. Chiama quella persona entro la settimana e proponi un caffè, lasciando fuori il punto della lite.',
+    'Tornare verso chi ti ha contraddetto è la fedeltà che questo angelo insegna, non la pace finta. Il litigio di ieri non chiude il legame: lo mette alla prova. Scrivi a quella persona entro la settimana e proponi un caffè, lasciando fuori il punto della lite.',
     'Nella mia lettura il legame che tiene si vede proprio dopo lo scontro, quando torni senza che nessuno te lo chieda. Non stringerlo per possederlo: riallaccialo. Stasera ripensa alla discussione recente e di\' ad alta voce la frase con cui domani fai il primo passo di ritorno.',
   ],
   'custode|03|messaggio': [
-    'Le opere che contano si misurano in anni, non in settimane. Sitael chiede di mantenere la parola anche quando il lavoro è lento e nessuno guarda. Rileggi una promessa fatta tempo fa e aggiungi oggi un mattone: un\'ora dedicata, una pagina, una telefonata che la tiene viva.',
+    'Le opere che contano si misurano in anni, non in settimane. Sitael chiede di mantenere la parola anche quando il lavoro è lento e nessuno guarda. Rileggi una promessa fatta tempo fa e aggiungi oggi un mattone: un\'ora dedicata, una pagina, un messaggio che la tiene viva.',
     'Una promessa non si mantiene in un giorno: si costruisce piano, come un muro a secco. Questo angelo porta la pazienza delle cose che durano anni. Scegli un impegno preso con qualcuno e segna sul calendario i prossimi passi, uno per settimana, poi compi subito il primo.',
     'Ciò che hai detto di fare per qualcuno è un cantiere aperto, non una frase chiusa. Nella mia lettura la parola mantenuta è un\'opera lenta che regge negli anni. Apri un quaderno, intitola una pagina a quell\'impegno e annota oggi il lavoro fatto e quello che resta.',
   ],
@@ -179,7 +179,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'custode|35|messaggio': [
     'C\'è una persona che hai ferito e la distanza dura da troppo. Chavakhiah insegna a fare il primo passo, scegliendo il legame invece della ragione. Scrivi oggi un messaggio breve a quella persona: riconosci la tua parte e non aggiungere spiegazioni.',
-    'Riconciliarsi non significa ammettere di avere torto su tutto. Nella mia lettura questo angelo chiede di preferire il legame alla soddisfazione di avere ragione. Prendi il telefono questa settimana e chiama la persona con cui c\'è una frattura aperta da anni, anche per un saluto.',
+    'Riconciliarsi non significa ammettere di avere torto su tutto. Nella mia lettura questo angelo chiede di preferire il legame alla soddisfazione di avere ragione. Questa settimana scrivi alla persona con cui c\'è una frattura aperta da anni, anche solo per un saluto.',
     'Una porta chiusa in casa da tempo non si riapre senza una mano. La riconciliazione di questo angelo comincia da chi ha ferito: questa volta da te. Scegli oggi la frase con cui chiedi scusa per quel vecchio torto, scrivila su un foglio e tienila pronta per il primo incontro.',
   ],
   'custode|36|messaggio': [
@@ -200,7 +200,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'custode|39|messaggio': [
     'Con chi ti ha cresciuto tieni forse ancora un conto aperto, voce per voce, da anni. Rehael chiede il rispetto dato prima che sia meritato, non come premio. Oggi, quando parli con quella persona, ascoltala fino alla fine senza citare nessun episodio del passato.',
     'Il registro degli anni è utile per capire, pesa quando diventa il modo in cui guardi chi ti sta vicino. Nella mia lettura questo angelo chiude il registro, non lo strappa. Scrivi una cosa che rispetti in chi viene dopo di te e diglielo con parole tue entro domenica.',
-    'Dai rispetto in anticipo, come si dà fiducia a uno sconosciuto. Il conto aperto con chi ti è vicino non si salda pareggiando, si chiude scegliendo di non riaprirlo. Questa settimana chiama una persona di famiglia e salutala come la saluteresti la prima volta.',
+    'Dai rispetto in anticipo, come si dà fiducia a uno sconosciuto. Il conto aperto con chi ti è vicino non si salda pareggiando, si chiude scegliendo di non riaprirlo. Questa settimana cerca una persona di famiglia e salutala come la saluteresti la prima volta.',
   ],
   'custode|40|messaggio': [
     'Consolare non vuol dire convincere qualcuno che la tristezza è già finita. Ieiazel chiede di restare accanto senza fretta di aggiustare niente. Manda oggi un messaggio a una persona che vive un momento scuro: scrivi soltanto che ci sei, senza consigli e senza spiegazioni.',
@@ -225,7 +225,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'custode|44|messaggio': [
     'Mantenere la parola quando è comodo non dice niente di te. Ielahiah guarda il momento in cui costa: la pressione, la scusa pronta, la via più facile. Oggi, davanti alla richiesta di cambiare un impegno preso, rispondi con una frase breve: ho dato la mia parola.',
     'Sotto pressione la rettitudine non alza la voce, resta dove ha detto che sarebbe stata. Nella mia lettura questo angelo è la fermezza che non diventa durezza. Scrivi su un foglio l\'impegno che oggi ti costa di più mantenere e accanto il prezzo che accetti di pagare: poi rispettalo fino a sera.',
-    'Quando tenere fede a un impegno ti costa qualcosa, lì si vede chi sei. Ielahiah non chiede ostinazione, chiede di non cedere prima di aver misurato le tue forze. Chiama oggi la persona a cui hai dato la tua parola e conferma che la mantieni, anche se ora ti pesa.',
+    'Quando tenere fede a un impegno ti costa qualcosa, lì si vede chi sei. Ielahiah non chiede ostinazione, chiede di non cedere prima di aver misurato le tue forze. Cerca oggi la persona a cui hai dato la tua parola e conferma che la mantieni, anche se ora ti pesa.',
   ],
   'custode|45|messaggio': [
     'Qualcosa che avevi avviato si è fermato e da allora lo guardi da lontano. Sealiah porta la volontà che rimette in moto senza pretendere che tutto riparta subito. Riapri oggi quel progetto e fai il gesto minimo: rileggi l\'ultima pagina, rispondi all\'ultimo messaggio rimasto lì.',
@@ -244,7 +244,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'custode|48|messaggio': [
     'La fedeltà non è un giuramento pronunciato una volta: è un gesto che si rinnova ogni giorno. Mihael parla delle fasi in cui il legame non restituisce niente. Oggi fai per la persona che ami una piccola cosa quotidiana, senza aspettarti che venga notata.',
-    'Nei periodi piatti di un legame è facile assentarsi senza dirlo. Nella mia lettura questo angelo chiede presenza, non intensità. Questa settimana scegli un momento fisso, un caffè o una telefonata serale: tienilo ogni giorno con chi condivide la tua vita.',
+    'Nei periodi piatti di un legame è facile assentarsi senza dirlo. Nella mia lettura questo angelo chiede presenza, non intensità. Questa settimana scegli un momento fisso, un caffè o una passeggiata serale: tienilo ogni giorno con chi condivide la tua vita.',
     'Restare presente quando il legame tace è la forma più concreta della fedeltà. Mihael la vede come pratica, non come promessa. Stasera chiedi alla persona che ti sta accanto com\'è andata la sua giornata e ascolta la risposta fino in fondo, senza telefono in mano.',
   ],
   'custode|49|messaggio': [

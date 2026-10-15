@@ -238,6 +238,13 @@ POLITICA = re.compile(
     r"malefic\w*|maledi\w*|sortileg\w*|incantesim\w*|stregon\w*|"
     r"malocch\w*|sigill\w*|talisman\w*|amulet\w*|pentacol\w*|evoca\w*|"
     r"scongiur\w*|"
+    # nessun invito a chiamare qualcuno e nessun numero da chiamare, ordine
+    # FV aggiunta voce FVA.01: il fondatore, "Il consiglio di chiamare
+    # qualcuno sarebbe già una presa di posizione". L'invocazione dell'angelo
+    # nei riti ("Chiama Ieliel per nome") non e' presa: dopo "chiama" viene il
+    # nome, non una persona.
+    r"telefonat\w*|telefona|chiama (?:la|quella|una|un|oggi|qualcuno)|"
+    r"chiamal[aoie]|112|emergenz\w*|soccors\w*|"
     # la vita privata di terzi
     r"tradiment\w*|tradir\w*|tradisc\w*|amante|"
     # la tradizione citata dove non e' documentata

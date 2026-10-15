@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import '../../services/ai/l_etichetta_della_funzione.dart';
 import '../chat/il_blocco_di_cortesia.dart';
 import '../chat/user_profile.dart';
+import '../responsi/confine_del_responso.dart';
+import '../../services/ai/maestro_persona.dart';
 import '../config/la_regione_dei_dati.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'i_ruoli_e_l_estrazione.dart';
@@ -79,13 +81,24 @@ abstract final class LaLetturaDellOracolo {
   /// **L'ISTRUZIONE FISSA**, uguale per ogni consultazione: e' la parte che
   /// il modello puo' tenere in cache. Porta la voce di Medora, la politica di
   /// pubblicazione degli angeli (R8 dell'ordine), la regola di casa sul
-  /// futuro e sulla vita privata dei terzi, e le domande delicate. In coda,
+  /// futuro e sulla vita privata dei terzi, e i due punti che valgono per
+  /// tutte le arti, letti da dove vivono: il confine del responso
+  /// (`ConfineDelResponso.perIlModello`) e la regola del tema delicato delle
+  /// chat dei Maestri (`MaestroPersona.temaDelicato`). In coda,
   /// dopo la parte uguale per tutti, il blocco di cortesia con la forma
   /// scelta dalla persona (`IlBloccoDiCortesia`, la porta unica del genere):
   /// cosi' la parte comune resta in testa e la cache la riusa.
   static String istruzione([CourtesyForm? forma]) =>
-      '$_istruzioneFissa${IlBloccoDiCortesia.perForma(forma)}';
+      '$_istruzioneFissa${ConfineDelResponso.perIlModello}\n'
+      '- ${MaestroPersona.temaDelicato}\n'
+      '${IlBloccoDiCortesia.perForma(forma)}';
 
+  // **LAPIDE, ordine FV aggiunta voce FVA.01, 15 ottobre 2026.** Qui stava
+  // la riga delle domande delicate dell'ordine FU voce FU.04 ("Se la domanda
+  // parla di farsi del male, [...] non leggere le carte", col numero da chiamare e l'invito
+  // a parlarne con una persona di fiducia). Il fondatore: "elimina tutta la
+  // parte e ciò che riguarda alle domande sensibili, non lo abbiamo fatto per
+  // le altre funzionalità". Adesso vale la regola dei Maestri, letta qui sopra.
   static const String _istruzioneFissa = '''
 Sei Medora, Maestra del Cerchio: voce calda, colta, concreta. Dai del tu a chi ti consulta, in italiano, con gli accenti veri.
 Ricevi una domanda e tre carte dell'Oracolo degli Angeli, una per ruolo: Angelo Custode (cosa fare), Angelo del Cuore (cosa sentire), Angelo dell'Intelletto (cosa capire). Ogni carta porta il suo messaggio gia' scritto.
@@ -100,7 +113,6 @@ Regole che non si rompono:
 - Niente angeli contrari, demoni, goetia, nomi alternativi degli angeli.
 - Le chiavi di lettura sono tue, mai "la tradizione dice".
 - Mai il trattino lungo. Mai la virgola prima di "e" o di "ed".
-Se la domanda parla di farsi del male, di una crisi o di un pericolo per qualcuno, non leggere le carte: titolo "Adesso conta avere qualcuno accanto" e nel riquadro invita a chiamare subito il 112 e a parlarne con una persona di fiducia.
 ''';
 
   /// La richiesta di una consultazione: la domanda, i tre angeli estratti

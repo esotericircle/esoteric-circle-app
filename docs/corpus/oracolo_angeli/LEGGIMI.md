@@ -27,7 +27,7 @@ Perché tre varianti per i messaggi: la stessa carta può uscire due volte di fi
 
 La persona affida una domanda; l'Angelo Custode porta la carta di cosa fare, l'Angelo del Cuore quella di cosa sentire, l'Angelo dell'Intelletto quella di cosa capire. Ogni carta è uno dei 72. Il messaggio è dunque **l'angelo estratto letto dalla posizione in cui è caduto**.
 
-- **custode, che cosa fare.** Il testo porta il nucleo dell'angelo in un'azione e **finisce con un gesto concreto e piccolo**, fattibile oggi o in settimana: scrivi, chiama, togli, rimetti in ordine, dì una frase. Il verbo all'imperativo c'è sempre.
+- **custode, che cosa fare.** Il testo porta il nucleo dell'angelo in un'azione e **finisce con un gesto concreto e piccolo**, fattibile oggi o in settimana: scrivi, togli, rimetti in ordine, dì una frase. **Mai l'invito a chiamare o telefonare a qualcuno**, ordine FV aggiunta voce FVA.01 del 15 ottobre 2026: il fondatore, "Il consiglio di chiamare qualcuno sarebbe già una presa di posizione"; il controllo lo ferma. Il verbo all'imperativo c'è sempre.
 - **cuore, che cosa sentire.** Il testo dice che cosa accogliere, che cosa lasciar salire, dove pesa e dove scalda il nucleo dell'angelo. **Nessun gesto da eseguire**: un permesso a sentire, un'emozione nominata con precisione.
 - **intelletto, che cosa capire.** Il testo dice che cosa vedere chiaro: **una distinzione netta** che l'angelo insegna (questo, non quello), il meccanismo dietro la situazione. Nessun gesto, nessuna emozione al centro.
 

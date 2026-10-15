@@ -113,7 +113,7 @@ class MaestroPersona {
       // copia poche righe sopra, e la prova l'ha presa al primo giro.
       ..writeln(ConfineDelResponso.perIlModello)
       ..writeln(
-          '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')
+          '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. $temaDelicato')
       // **IL MAESTRO GIUSTO SI CHIAMA PER NOME. Ordine EN voce 04.** Questa
       // riga diceva "indica con garbo il Maestro giusto del cerchio" senza che
       // nessuna riga dell'istruzione nominasse gli altri due: il modello
@@ -174,6 +174,15 @@ class MaestroPersona {
       IlBloccoDiCortesia.per(profile);
 
   /// L'intestazione del blocco, per chi deve riconoscerlo dentro un prompt.
+  /// **LA REGOLA DEL TEMA DELICATO**, la stessa per le chat dei Maestri e
+  /// per l'Oracolo degli Angeli, che la legge da qui (ordine FV aggiunta voce
+  /// FVA.01, 15 ottobre 2026). Il fondatore: *"Le domande sensibili si
+  /// respingono elegantemente o, meglio, si rispondono elegantemente con
+  /// sensibilità Senza prendersi responsabilità. Il consiglio di chiamare
+  /// qualcuno sarebbe già una presa di posizione"*.
+  static const String temaDelicato = 'Se un tema è delicato, ricorda con '
+      'misura che è un invito alla riflessione.';
+
   static const String intestazioneDellaCortesia =
       IlBloccoDiCortesia.intestazione;
 

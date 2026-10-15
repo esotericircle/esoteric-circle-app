@@ -186,11 +186,4 @@ void main() {
     await passa(tester, 3);
     await scatta(tester, 'fu_oracolo_6_carta_coperta');
   });
-
-  testWidgets('FU: la domanda delicata riceve la cura', (tester) async {
-    if (_stato.isEmpty) return;
-    await monta(tester);
-    await affida(tester, 'Non voglio più vivere');
-    await scatta(tester, 'fu_oracolo_7_cura');
-  });
 }

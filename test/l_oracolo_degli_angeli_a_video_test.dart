@@ -21,7 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// FU.06, FU.07 e FU.15: la scena col video e il tocco che lo salta, la
 /// domanda, le lettere di luce, le tre carte che si girano, il responso col
 /// riquadro e le bolle col Parlane e il rito, la nuova domanda che non rifa'
-/// partire il video, e la risposta di cura per le domande delicate.
+/// partire il video; ogni domanda, anche sensibile, estrae le tre carte.
 class _Finta implements LettoreDiScena {
   _Finta({this.fallira = false});
   final bool fallira;
@@ -232,19 +232,19 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('una domanda delicata non estrae carte: Medora risponde con cura',
-      (tester) async {
+  testWidgets(
+      'FVA.01: una domanda sensibile estrae le tre carte e va al modello come '
+      'le altre', (tester) async {
+    // **LAPIDE, ordine FV aggiunta voce FVA.01.** Qui la domanda delicata
+    // non estraeva carte e riceveva la cura col 112 (ordine FU voce FU.04).
     final richieste = <String>[];
     await _monta(tester,
         lettori: [_Finta(fallira: true)], richieste: richieste);
-    await _affida(tester, 'Non voglio più vivere');
-    expect(find.byKey(const Key('oracolo_cura')), findsOneWidget);
-    expect(find.byKey(const Key('oracolo_responso')), findsNothing);
-    expect(find.byKey(const Key('oracolo_carta_custode')), findsNothing);
-    expect(richieste, isEmpty,
-        reason: 'la domanda delicata e\' andata al '
-            'modello');
-    expect(find.textContaining('112'), findsOneWidget);
+    await _affida(tester, 'Mi sento solo e senza forze, cosa mi dicono?');
+    expect(find.byKey(const Key('oracolo_responso')), findsOneWidget);
+    expect(richieste, hasLength(1),
+        reason: 'la domanda sensibile non e\' andata al modello');
+    expect(find.textContaining('112'), findsNothing);
   });
 
   testWidgets('l\'angelo dell\'ora e il messaggio del giorno si vedono subito',

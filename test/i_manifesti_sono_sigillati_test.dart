@@ -389,6 +389,11 @@ void main() {
     // Ordine FU, 15 ottobre 2026: le diciassette voci, contate coi titoli
     // "## VOCE FU." del manifesto.
     'FU': 17,
+    // Ordine FV, 15 ottobre 2026: le quattordici voci dell'ordine piu' le
+    // tre dell'aggiunta (FVA.01, FVA.02 e FVA.03, entrate nel manifesto come
+    // FV.15, FV.16 e FV.17: "le tre voci entrano nel manifesto di FV"),
+    // contate coi titoli "## VOCE FV." del manifesto.
+    'FV': 17,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

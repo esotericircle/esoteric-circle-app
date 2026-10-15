@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:esoteric_circle/core/angels/angel_catalog.dart';
@@ -10,6 +11,8 @@ import 'package:esoteric_circle/core/oracolo_angeli/il_corpus_dell_oracolo.g.dar
 import 'package:esoteric_circle/core/oracolo_angeli/l_ora_degli_angeli.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
+import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// **L'ORACOLO DEGLI ANGELI, IL NUCLEO.** Ordine FU voci FU.03, FU.04,
@@ -156,16 +159,53 @@ void main() {
               return null;
             });
         expect(vista, contains(d));
-        for (final regola in const [
+        for (final regola in [
           'Niente salute',
           'Nessuna promessa di esito',
           'Nessun futuro detto come certezza',
           'vita privata',
-          '112',
+          // Ordine FV aggiunta voce FVA.01: la regola del tema delicato dei
+          // Maestri e il confine del responso, letti dai loro punti.
+          MaestroPersona.temaDelicato,
+          ConfineDelResponso.perIlModello,
         ]) {
           expect(vista, contains(regola), reason: '"$d" senza "$regola"');
         }
+        expect(vista, isNot(contains('112')),
+            reason: 'l\'istruzione porta ancora un numero da chiamare');
       }
+    });
+
+    test(
+        'FVA.01: nessun numero e nessun invito a chiamare qualcuno nei testi '
+        'dell\'Oracolo, nel corpus e nell\'istruzione', () {
+      // Il fondatore, 15 ottobre 2026: "Il consiglio di chiamare qualcuno
+      // sarebbe già una presa di posizione". L'invocazione dell'angelo nei
+      // riti ("Chiama Ieliel per nome") non e' una persona da chiamare.
+      final vietato = RegExp(
+          r'telefonat|\btelefona\b|chiama (la|quella|una|un|oggi|qualcuno)\b|'
+          r'chiamal[aoie]\b|\b112\b|emergenz|soccors',
+          caseSensitive: false);
+      final testi = <String>[
+        LaLetturaDellOracolo.istruzione(),
+        for (final v in corpusDellOracolo.values) ...v,
+        for (final f in [
+          ...Directory('lib/core/oracolo_angeli').listSync(),
+          ...Directory('lib/features/angels/oracolo').listSync(),
+        ])
+          if (f is File &&
+              f.path.endsWith('.dart') &&
+              !f.path.endsWith('.g.dart'))
+            f.readAsStringSync(),
+      ];
+      final trovati = [
+        for (final t in testi)
+          for (final m in vietato.allMatches(t)) m.group(0)!,
+      ];
+      expect(testi.length, greaterThan(792),
+          reason: 'la prova non ha letto il corpus intero');
+      expect(trovati, isEmpty,
+          reason: 'inviti a chiamare o numeri nei testi: $trovati');
     });
 
     test('senza modello, o con una risposta che non regge, parla il corpus',
