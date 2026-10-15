@@ -150,3 +150,12 @@ MISURA: stringhe di lib lette 61.458, promesse trovate da 2 a 0; vantaggi dell'I
 DOMANDA: "L'ordine si consegna solo col verde di GitHub sul commit consegnato. Nessun rosso si consegna."
 PROVA: docs/ordini/RAPPORTO_ORDINE_FU.md
 MISURA: anteprime guardate 21 (6 prima e 7 dopo delle scene dell'Oroscopo e della Sinastria VIP, 8 dell'Oracolo), difetti trovati guardandole 3 (proposte troncate, pannello sul volto di Medora, titolo VIP salito di 56 punti); il verde di GitHub sul commit consegnato e' scritto nel rapporto
+
+## GUARDIE RIMOSSE DOPO LA CONSEGNA
+
+La voce FU.04 qui sopra nomina, dentro la sua MISURA, la prova
+`test/l_oracolo_risponde_con_cura_test.dart`: quella frase resta scritta
+cosi' com'era il 15 ottobre 2026, perche' il manifesto non si condensa ne'
+si riscrive. La guardia che nominava non c'e' piu'.
+
+GUARDIA RIMOSSA: l_oracolo_risponde_con_cura_test - ordine FV aggiunta voce FVA.01, 15 ottobre 2026: il fondatore ha tolto tutta la parte delle domande delicate dell'Oracolo ("elimina tutta la parte e ciò che riguarda alle domande sensibili, non lo abbiamo fatto per le altre funzionalità"); l'Oracolo segue adesso la stessa regola delle chat dei Maestri (MaestroPersona.temaDelicato) col confine del responso, e ogni domanda estrae le tre carte come le altre. La misura sul riconoscimento delle domande sensibili vive adesso dentro test/l_oracolo_degli_angeli_test.dart, voce "nessun numero e nessun invito a chiamare qualcuno".
