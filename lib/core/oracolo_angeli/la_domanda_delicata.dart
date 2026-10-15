@@ -33,12 +33,10 @@ abstract final class LaDomandaDelicata {
     'tagliarmi',
     'autolesion',
     'non voglio più vivere',
-    'non voglio piu vivere',
     'voglio morire',
     'vorrei morire',
     'morire stanotte',
     'non ce la faccio più a vivere',
-    'non ce la faccio piu a vivere',
     'farla pagare',
     'fargli del male',
     'farle del male',
@@ -54,11 +52,22 @@ abstract final class LaDomandaDelicata {
     'overdose',
   ];
 
-  /// Vero se la domanda va accolta con cura invece che con l'oracolo.
+  /// Vero se la domanda va accolta con cura invece che con l'oracolo. Chi
+  /// scrive in fretta spesso lascia l'accento ("non voglio piu' vivere"):
+  /// domanda e segnali si confrontano senza accenti ne' apostrofi.
   static bool e(String domanda) {
-    final d = domanda.toLowerCase().replaceAll('’', '\'');
-    return segnali.any(d.contains);
+    final d = _piana(domanda);
+    return segnali.any((s) => d.contains(_piana(s)));
   }
+
+  static String _piana(String t) => t
+      .toLowerCase()
+      .replaceAll(RegExp('[àá]'), 'a')
+      .replaceAll(RegExp('[èé]'), 'e')
+      .replaceAll(RegExp('[ìí]'), 'i')
+      .replaceAll(RegExp('[òó]'), 'o')
+      .replaceAll(RegExp('[ùú]'), 'u')
+      .replaceAll(RegExp("['’]"), '');
 
   /// **LA RISPOSTA DI CURA**, nella voce di Medora: poche righe, nessuna
   /// carta, l'aiuto vero detto per primo.

@@ -80,8 +80,16 @@ void main() {
     // Attiva a tutti i piani, si raggiunge dal dominio di Medora, dalla
     // home, dal segno 15 e dal confronto del cielo; lo scaffale curato del
     // Santuario non cambia.
-    expect(fuoriScaffale.toSet(),
-        {'guardian_angel', 'rune_draw', 'magic_sigil', 'synastry_depth'},
+    // **E L'ORACOLO DEGLI ANGELI, ordine FU voce FU.11, 15 ottobre 2026.**
+    // Si raggiunge dalla scheda degli Angeli nel dominio di Medora; lo
+    // scaffale curato del Santuario non cambia.
+    expect(fuoriScaffale.toSet(), {
+      'guardian_angel',
+      'rune_draw',
+      'magic_sigil',
+      'synastry_depth',
+      'angels_oracle',
+    },
         reason: 'le arti vive fuori dallo scaffale sono cambiate: adesso sono '
             '$fuoriScaffale. Se e\' voluto si aggiorna questa riga con la '
             'ragione, se non lo e\' si aggiunge l\'arte allo scaffale. IL '

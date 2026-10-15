@@ -767,10 +767,13 @@ class _LAngeloDellOra extends StatelessWidget {
           ),
           if (delGiorno != null) ...[
             const SizedBox(height: SpacingTokens.md),
-            Text('Il messaggio di oggi, dal tuo ${delGiorno.ruolo.nome}',
+            Text('Il messaggio di oggi',
                 key: const Key('oracolo_messaggio_del_giorno'),
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft)),
+            Text('dal tuo ${delGiorno.ruolo.nome}',
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.xxs),
             ParagrafiDiLettura(
                 testo: delGiorno.testo,

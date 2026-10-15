@@ -98,6 +98,9 @@ void main() {
           '2026: il gradino che la nomini lo decide il fondatore nelle '
           'regole dei traguardi. Il gesto si conta gia\', cosi\' il giorno '
           'che il gradino arriva trova la storia.',
+      'oracolo_angeli': 'arte nuova dell\'ordine FU, 15 ottobre 2026: '
+          'come la Sinastria evolutiva, il gradino lo decide il fondatore '
+          'nelle regole dei traguardi, e il gesto si conta gia\'.',
     };
     final inutili = [
       for (final s in GestiDelleArti.tutte)

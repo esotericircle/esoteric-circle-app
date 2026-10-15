@@ -1,0 +1,244 @@
+// ignore_for_file: avoid_print
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:esoteric_circle/core/angels/angel_catalog.dart';
+import 'package:esoteric_circle/core/angels/guardian_angels.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/i_ruoli_e_l_estrazione.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/l_ora_degli_angeli.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/la_lettura_dell_oracolo.dart';
+import 'package:esoteric_circle/core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// **L'ORACOLO DEGLI ANGELI, IL NUCLEO.** Ordine FU voci FU.03, FU.04,
+/// FU.07 e FU.08: l'estrazione, l'ora degli angeli, la lettura col modello
+/// (sempre con la chiamata finta: R2, nessuna chiamata vera durante
+/// l'ordine) e il ripiego del corpus.
+AngelTriad _triade({bool conOra = true}) =>
+    GuardianAngels.forBirth(BirthIdentity(
+            birthMoment: DateTime(1990, 5, 12, 14, 30), hasBirthTime: conOra)
+        .toBirthDetails());
+
+void main() {
+  group('l\'estrazione', () {
+    test('tre angeli diversi su duecento consultazioni, uno per ruolo', () {
+      for (var seme = 0; seme < 200; seme++) {
+        final carte = EstrazioneDellOracolo.estrai(_triade(), Random(seme));
+        expect(carte.map((c) => c.ruolo), RuoloDellAngelo.values);
+        expect(carte.map((c) => c.angelo.number).toSet(), hasLength(3),
+            reason: 'seme $seme: due carte uguali');
+      }
+    });
+
+    test('ogni carta e\' portata dall\'angelo della persona del suo ruolo', () {
+      final t = _triade();
+      final carte = EstrazioneDellOracolo.estrai(t, Random(1));
+      expect(carte[0].portatore, t.guardian);
+      expect(carte[1].portatore, t.heart);
+      expect(carte[2].portatore, t.intellect);
+    });
+
+    test('senza l\'ora di nascita la terza carta resta coperta', () {
+      final carte =
+          EstrazioneDellOracolo.estrai(_triade(conOra: false), Random(1));
+      expect(carte[2].coperta, isTrue);
+      expect(carte[0].coperta, isFalse);
+    });
+  });
+
+  group('l\'ora degli angeli', () {
+    test('la stessa regola dell\'Intelletto, su tutti i minuti del giorno', () {
+      for (var m = 0; m < 24 * 60; m++) {
+        final dellOra =
+            LOraDegliAngeli.dellOra(DateTime(2026, 10, 15, m ~/ 60, m % 60));
+        final intelletto = GuardianAngels.intellectFor(m ~/ 60, m % 60)!;
+        expect(dellOra.number, intelletto.number, reason: 'minuto $m');
+      }
+    });
+
+    test('il momento del rito sono i venti minuti dell\'angelo', () {
+      expect(LOraDegliAngeli.momentoDelRito(AngelCatalog.byNumber(1)),
+          'dalle 00:00 alle 00:20');
+      expect(LOraDegliAngeli.momentoDelRito(AngelCatalog.byNumber(2)),
+          'dalle 00:20 alle 00:40');
+      expect(LOraDegliAngeli.momentoDelRito(AngelCatalog.byNumber(72)),
+          'dalle 23:40 alle 00:00');
+    });
+
+    test('il prossimo cambio e\' l\'inizio dei venti minuti seguenti', () {
+      expect(LOraDegliAngeli.prossimoCambio(DateTime(2026, 10, 15, 10, 7)),
+          DateTime(2026, 10, 15, 10, 20));
+      expect(LOraDegliAngeli.prossimoCambio(DateTime(2026, 10, 15, 23, 59)),
+          DateTime(2026, 10, 16));
+    });
+
+    test('il messaggio del giorno cambia col giorno e viene dal corpus', () {
+      final testi = <String>{};
+      for (var g = 1; g <= 9; g++) {
+        final m = LOraDegliAngeli.messaggioDelGiorno(
+            triade: _triade(),
+            giorno: DateTime(2026, 10, g),
+            corpus: corpusDellOracolo);
+        expect(m, isNotNull);
+        expect(corpusDellOracolo[LOraDegliAngeli.chiave(m!.ruolo, m.angelo)],
+            contains(m.testo));
+        testi.add(m.testo);
+      }
+      expect(testi.length, greaterThanOrEqualTo(7),
+          reason: 'in nove giorni il messaggio si ripete troppo');
+    });
+  });
+
+  group('la lettura col modello', () {
+    final carte = EstrazioneDellOracolo.estrai(_triade(), Random(3));
+
+    test('una chiamata sola: la domanda e i tre angeli, la regola dentro', () {
+      final richieste = <String>[];
+      final istruzioni = <String>[];
+      Future<String?> finta(String i, String r, Map campi) async {
+        istruzioni.add(i);
+        richieste.add(r);
+        return jsonEncode({
+          'titolo': 'Il cuore ti chiede di fermarti',
+          'riquadro': 'Senti la pausa che ti serve, poi scegli con calma.',
+        });
+      }
+
+      return LaLetturaDellOracolo.leggi(
+          domanda: 'Devo cambiare lavoro?',
+          carte: carte,
+          corpus: corpusDellOracolo,
+          variante: 0,
+          chiamata: (i, r, c) => finta(i, r, c)).then((risposta) {
+        expect(richieste, hasLength(1));
+        expect(richieste.single, contains('Devo cambiare lavoro?'));
+        for (final c in carte) {
+          expect(richieste.single, contains(c.angelo.name));
+        }
+        expect(risposta.dalModello, isTrue);
+        expect(risposta.titolo, 'Il cuore ti chiede di fermarti');
+        expect(risposta.paragrafi, hasLength(3));
+        expect(risposta.paragrafi[1],
+            'Senti la pausa che ti serve, poi scegli con calma.');
+        // Il primo e il terzo vengono dal corpus, gratis.
+        expect(
+            corpusDellOracolo[
+                LOraDegliAngeli.chiave(carte[0].ruolo, carte[0].angelo)],
+            contains(risposta.paragrafi[0]));
+      });
+    });
+
+    test('dieci domande difficili arrivano con l\'istruzione che le regge',
+        () async {
+      const difficili = [
+        'Guarirò dalla malattia?',
+        'Diventerò ricco quest\'anno?',
+        'Il mio ex mi ama ancora?',
+        'Mia sorella mi sta tradendo?',
+        'Devo lasciare tutto e partire domani?',
+        'Vincerò la causa in tribunale?',
+        'Rimarrò incinta presto?',
+        'Mio padre morirà presto?',
+        'Devo investire tutti i miei risparmi?',
+        'Lascio il lavoro senza un piano?',
+      ];
+      for (final d in difficili) {
+        String? vista;
+        await LaLetturaDellOracolo.leggi(
+            domanda: d,
+            carte: carte,
+            corpus: corpusDellOracolo,
+            variante: 0,
+            chiamata: (i, r, c) async {
+              vista = '$i\n$r';
+              return null;
+            });
+        expect(vista, contains(d));
+        for (final regola in const [
+          'Niente salute',
+          'Nessuna promessa di esito',
+          'Nessun futuro detto come certezza',
+          'vita privata',
+          '112',
+        ]) {
+          expect(vista, contains(regola), reason: '"$d" senza "$regola"');
+        }
+      }
+    });
+
+    test('senza modello, o con una risposta che non regge, parla il corpus',
+        () async {
+      Future<RispostaDellOracolo> con(Future<String?> Function() f) =>
+          LaLetturaDellOracolo.leggi(
+              domanda: 'Come ritrovo la calma in questi giorni?',
+              carte: carte,
+              corpus: corpusDellOracolo,
+              variante: 1,
+              entro: const Duration(milliseconds: 50),
+              chiamata: (i, r, c) => f());
+      final lenta = await con(() async {
+        await Future<void>.delayed(const Duration(seconds: 1));
+        return '{}';
+      });
+      final rotta = await con(() async => throw Exception('rete giu\''));
+      final vietata = await con(() async => jsonEncode(
+          {'titolo': 'La guarigione arriva', 'riquadro': 'Sicuramente sì.'}));
+      final trattino = await con(() async => jsonEncode(
+          {'titolo': 'Una scelta — chiara', 'riquadro': 'Va bene.'}));
+      for (final r in [lenta, rotta, vietata, trattino]) {
+        expect(r.dalModello, isFalse);
+        expect(r.titolo, TemaDellOracolo.serenita.titoloDiRipiego);
+        expect(r.paragrafi, hasLength(3));
+      }
+    });
+
+    test('la Lunga chiede due campi in piu\' e alza il tetto dei token', () {
+      expect(LaLetturaDellOracolo.campi(profonda: false).keys,
+          ['titolo', 'riquadro']);
+      expect(LaLetturaDellOracolo.campi(profonda: true).keys,
+          ['titolo', 'riquadro', 'approfondimento1', 'approfondimento2']);
+      expect(LaLetturaDellOracolo.tettoDeiGettoni(profonda: false), 300);
+      expect(LaLetturaDellOracolo.tettoDeiGettoni(profonda: true), 600);
+    });
+
+    test('la carta coperta non va al modello e dice perche\'', () async {
+      final coperte =
+          EstrazioneDellOracolo.estrai(_triade(conOra: false), Random(3));
+      String? richiesta;
+      final r = await LaLetturaDellOracolo.leggi(
+          domanda: 'Sono sulla strada giusta?',
+          carte: coperte,
+          corpus: corpusDellOracolo,
+          variante: 0,
+          chiamata: (i, rr, c) async {
+            richiesta = rr;
+            return null;
+          });
+      expect(richiesta, isNot(contains(coperte[2].angelo.name)));
+      expect(r.paragrafi[2], LaLetturaDellOracolo.testoDellaCartaCoperta);
+    });
+
+    test('LA STIMA DI UNA CONSULTAZIONE, dai caratteri veri', () {
+      // Gemini conta in token; l'italiano sta intorno ai quattro caratteri
+      // per token (conto prudente: tre e mezzo). Si misurano i caratteri
+      // dell'istruzione e di una richiesta tipo, col corpus vero.
+      final richiesta = LaLetturaDellOracolo.richiesta(
+          domanda: 'Che cosa mi chiede questo amore adesso?',
+          carte: carte,
+          corpus: corpusDellOracolo,
+          variante: 0);
+      final ingresso = LaLetturaDellOracolo.istruzione.length +
+          richiesta.length +
+          200; // lo schema dei campi
+      final gettoniIngresso = (ingresso / 3.5).ceil();
+      print('FU.04 STIMA: caratteri in ingresso $ingresso, token in ingresso '
+          'circa $gettoniIngresso; in uscita al piu\' '
+          '${LaLetturaDellOracolo.tettoDeiGettoni(profonda: false)} (Breve) '
+          'e ${LaLetturaDellOracolo.tettoDeiGettoni(profonda: true)} '
+          '(Lunga)');
+      expect(gettoniIngresso, lessThan(1500));
+    });
+  });
+}

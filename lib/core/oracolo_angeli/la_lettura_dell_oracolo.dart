@@ -238,8 +238,8 @@ Se la domanda parla di farsi del male, di una crisi o di un pericolo per qualcun
     bool regge(String t, int tetto) =>
         t.isNotEmpty &&
         t.length <= tetto &&
-        !t.contains('—') &&
-        !t.contains('–') &&
+        !t.contains(String.fromCharCode(0x2014)) &&
+        !t.contains(String.fromCharCode(0x2013)) &&
         !_vietate.hasMatch(t);
     if (!regge(titolo, tettoDelTitolo) ||
         !regge(riquadro, tettoDelRiquadro) ||

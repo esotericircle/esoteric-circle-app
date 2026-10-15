@@ -46,6 +46,11 @@ void main() {
     'magic_sigil':
         'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart',
     'guardian_angel': 'lib/features/angels/angels_screen.dart',
+    // Ordine FU, 15 ottobre 2026: l'Oracolo degli Angeli. Le fonti stanno
+    // nel foglio TestiDelleFonti.oracoloAngeli (Shem HaMephorash, Esodo
+    // 14,19-21, i salmi dei 72).
+    'angels_oracle':
+        'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart',
   };
 
   /// I modi in cui una schermata puo' dichiarare le sue fonti. Sono piu' di

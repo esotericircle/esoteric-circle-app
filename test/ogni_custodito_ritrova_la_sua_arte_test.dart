@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/angels/angel_catalog.dart';
 import 'package:esoteric_circle/core/archetypes/archetype.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/ricordi/arti_con_responso.dart';
@@ -56,6 +57,10 @@ void main() {
       'punteggio': '72',
     },
     'sinastria_evolutiva': {'coppia': 'Ariete'},
+    // Ordine FU: l'Oracolo degli Angeli custodisce i numeri dei tre angeli.
+    'oracolo_angeli': {
+      'angeli': AngelCatalog.all.take(3).map((a) => a.number).join(','),
+    },
     'archetipo': {'archetipo': Archetype.values.first.name},
     'oroscopo': {'segno': Zodiac.leo.italianName},
   };

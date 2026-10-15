@@ -37,9 +37,13 @@ void main() {
     // nel Passaporto, come l'Angelo Custode.
     // **E LA SINASTRIA EVOLUTIVA ENTRA NELLA FILA**, ordine FT, 14 ottobre
     // 2026: e' un'arte attiva nuova e non sta fra le sei del seme.
-    expect(fila.toSet(), {'synastry_depth', 'guide_animal', 'magic_sigil'},
-        reason: 'oggi il resto del catalogo e\' Sinastria evolutiva, Viaggio '
-            'dello Sciamano e Sigillo dell\'Intenzione');
+    // **E L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.11, 15 ottobre 2026,
+    // per la stessa ragione.
+    expect(fila.toSet(),
+        {'angels_oracle', 'synastry_depth', 'guide_animal', 'magic_sigil'},
+        reason: 'oggi il resto del catalogo e\' Oracolo degli Angeli, '
+            'Sinastria evolutiva, Viaggio dello Sciamano e Sigillo '
+            'dell\'Intenzione');
   });
 
   test('cambiate le preferite, la fila mostra il resto e mai doppioni', () {

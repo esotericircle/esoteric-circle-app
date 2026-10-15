@@ -212,6 +212,10 @@ void main() {
       // **LA SINASTRIA EVOLUTIVA, ordine FT, 14 ottobre 2026.** Arte attiva a
       // tutti i piani, si apre dalla soglia unica col suo cuore.
       'lib/features/synastry/sinastria_evolutiva_screen.dart': 'synastry_depth',
+      // **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.11, 15 ottobre 2026.**
+      // Arte attiva dalla scheda degli Angeli, passa dalla soglia unica.
+      'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart':
+          'angels_oracle',
     };
     rotte.forEach((percorso, id) {
       final s = File(percorso).readAsStringSync();
