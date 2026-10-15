@@ -262,6 +262,97 @@ class DonoRicevuto {
       );
 }
 
+/// Chi ha risposto a una proposta del giorno insieme (FV.10): il suo nome e
+/// la sua risposta, oppure nulla se non ha risposto ancora.
+@immutable
+class RispostaAlGiorno {
+  const RispostaAlGiorno(
+      {required this.nome, required this.risposta, this.altroGiorno});
+
+  final String nome;
+
+  /// 'si', 'no' oppure 'altroGiorno'.
+  final String risposta;
+  final DateTime? altroGiorno;
+
+  factory RispostaAlGiorno.da(Map<String, Object?> d) => RispostaAlGiorno(
+        nome: d['nome'] as String? ?? 'Una persona del Cerchio',
+        risposta: d['risposta'] as String? ?? '',
+        altroGiorno: DateTime.tryParse('${d['altroGiorno']}'),
+      );
+}
+
+/// **UNA PROPOSTA DI "TROVA IL GIORNO INSIEME"** (FV.10), mandata o
+/// ricevuta: l'attivita', il giorno proposto, chi l'ha mandata e con chi, le
+/// risposte di chi l'ha ricevuta.
+@immutable
+class PropostaDelGiorno {
+  const PropostaDelGiorno({
+    required this.id,
+    required this.attivita,
+    required this.giorno,
+    required this.ricevuta,
+    required this.da,
+    required this.nomeDa,
+    required this.con,
+    this.rispostaMia,
+    this.altroGiornoMio,
+    this.risposte = const [],
+  });
+
+  final String id;
+
+  /// Il nome di `AttivitaDelLunario`, per esempio 'viaggi' o 'nozze'.
+  final String attivita;
+  final DateTime giorno;
+
+  /// Vero per chi l'ha ricevuta, falso per chi l'ha mandata.
+  final bool ricevuta;
+  final String da;
+  final String nomeDa;
+
+  /// Gli altri nella proposta: per chi manda, tutti gli amici scelti; per
+  /// chi riceve, solo chi l'ha mandata.
+  final List<({String uid, String? nome})> con;
+
+  /// La mia risposta, quando l'ho ricevuta e ho risposto.
+  final String? rispostaMia;
+  final DateTime? altroGiornoMio;
+
+  /// Le risposte di chi l'ha ricevuta, quando l'ho mandata io.
+  final List<RispostaAlGiorno> risposte;
+
+  factory PropostaDelGiorno.da(Map<String, Object?> d) {
+    final con = d['con'];
+    final risposte = d['risposte'];
+    return PropostaDelGiorno(
+      id: d['id'] as String? ?? '',
+      attivita: d['attivita'] as String? ?? '',
+      giorno: DateTime.tryParse('${d['giorno']}') ?? DateTime(1970),
+      ricevuta: d['verso'] == 'ricevuta',
+      da: d['da'] as String? ?? '',
+      nomeDa: d['nomeDa'] as String? ?? 'Una persona del Cerchio',
+      con: con is List
+          ? [
+              for (final x in con)
+                if (x is Map)
+                  (uid: x['uid'] as String? ?? '', nome: x['nome'] as String?),
+            ]
+          : const [],
+      rispostaMia: d['risposta'] as String?,
+      altroGiornoMio: DateTime.tryParse('${d['altroGiorno']}'),
+      risposte: risposte is Map
+          ? [
+              for (final e in risposte.entries)
+                if (e.value is Map)
+                  RispostaAlGiorno.da(
+                      Map<String, Object?>.from(e.value as Map)),
+            ]
+          : const [],
+    );
+  }
+}
+
 /// Il mio Cerchio: amici, inviti, bloccati, segni e doni recenti.
 @immutable
 class IlMioCerchio {
@@ -275,6 +366,7 @@ class IlMioCerchio {
     this.segniAlGiorno = 5,
     this.segni = const [],
     this.doni = const [],
+    this.proposteDiGiorno = const [],
   });
 
   final List<PersonaDelCerchio> amici;
@@ -286,6 +378,9 @@ class IlMioCerchio {
   final int segniAlGiorno;
   final List<SegnoScambiato> segni;
   final List<DonoRicevuto> doni;
+
+  /// **"TROVA IL GIORNO INSIEME"** (FV.10): le proposte mandate o ricevute.
+  final List<PropostaDelGiorno> proposteDiGiorno;
 
   static List<T> _lista<T>(Object? v, T Function(Map<String, Object?>) fai) =>
       v is List
@@ -305,6 +400,7 @@ class IlMioCerchio {
         segniAlGiorno: (d['segniAlGiorno'] as num?)?.toInt() ?? 5,
         segni: _lista(d['segni'], SegnoScambiato.da),
         doni: _lista(d['doni'], DonoRicevuto.da),
+        proposteDiGiorno: _lista(d['proposteDiGiorno'], PropostaDelGiorno.da),
       );
 
   /// Il semaforo di una persona, come lo vedo io.
@@ -684,12 +780,17 @@ class IlCerchioSociale extends ChangeNotifier {
   /// giorno di nascita nel luogo ([minutoLocale], solo con l'ora nota),
   /// perche' l'Angelo dell'Intelletto si conta dall'ora locale. Senza, il
   /// corpo e' quello della Sinastria evolutiva, campo per campo.
+  /// **PER "TROVA IL GIORNO INSIEME"**, ordine FV voce FV.10: con
+  /// [perLoLunario] il consenso dichiara lo scopo 'lunario' e porta anche il
+  /// minuto del giorno di nascita nel luogo, come per l'Oracolo: FV.07 (la
+  /// fase di nascita) lo vuole esatto quando l'ora e' nota.
   Future<EsitoDelGesto> condividiLaNascita({
     required DateTime nascitaUtc,
     required DateTime giorno,
     required bool oraNota,
     required String nome,
     bool perLOracolo = false,
+    bool perLoLunario = false,
     int? minutoLocale,
   }) async =>
       _esito(await _chiedi('condividiLaNascita', {
@@ -698,7 +799,8 @@ class IlCerchioSociale extends ChangeNotifier {
         'oraNota': oraNota,
         'nome': nome.trim(),
         if (perLOracolo) 'scopo': scopoDellOracolo,
-        if (perLOracolo && oraNota && minutoLocale != null)
+        if (perLoLunario) 'scopo': scopoDelLunario,
+        if ((perLOracolo || perLoLunario) && oraNota && minutoLocale != null)
           'minutoLocale': minutoLocale,
       }));
 
@@ -706,19 +808,29 @@ class IlCerchioSociale extends ChangeNotifier {
   /// la stessa parola di `scopoDa` in `functions/src/sinastria_evolutiva.ts`.
   static const String scopoDellOracolo = 'oracolo';
 
+  /// Lo scopo del consenso che presta la nascita a "Trova il giorno
+  /// insieme" del Calendario Lunare, ordine FV voce FV.10: la stessa parola
+  /// di `scopoDa` in `functions/src/sinastria_evolutiva.ts`.
+  static const String scopoDelLunario = 'lunario';
+
   /// Chi legge manda il codice e il PROPRIO giorno di nascita: il server
   /// rifa' lo sbarramento dei sedici anni sul legame amore con la nascita
   /// condivisa che ha nel consenso (FT.04), e lo dice in
   /// `dati['amoreApribile']`.
   ///
   /// Con [perLOracolo] si leggono solo i consensi dati per l'Oracolo degli
-  /// Angeli (ordine FU voce FU.09): un consenso per una cosa sola.
+  /// Angeli (ordine FU voce FU.09), con [perLoLunario] solo quelli dati per
+  /// "Trova il giorno insieme" (ordine FV voce FV.10): un consenso per una
+  /// cosa sola.
   Future<EsitoDelGesto> leggiLaNascita(String codice,
-          {required DateTime giornoMio, bool perLOracolo = false}) async =>
+          {required DateTime giornoMio,
+          bool perLOracolo = false,
+          bool perLoLunario = false}) async =>
       _esito(await _chiedi('leggiLaNascita', {
         'codice': codice.trim(),
         'giornoMio': _giornoScritto(giornoMio),
         if (perLOracolo) 'scopo': scopoDellOracolo,
+        if (perLoLunario) 'scopo': scopoDelLunario,
       }));
 
   static String _giornoScritto(DateTime g) =>
@@ -963,6 +1075,61 @@ class IlCerchioSociale extends ChangeNotifier {
     final e = await _chiedi('compraUnPostoNelCerchio',
         {'idMovimento': PortaDelCerchio.nuovoIdentificativo('posto')});
     final esito = _esito(e);
+    if (esito.ok) await caricaIlCerchio();
+    return esito;
+  }
+
+  // ---- IL CALENDARIO LUNARE, ordine FV voci FV.10 e FV.12 ----
+
+  /// **UN MESE DI CALENDARIO LUNARE IN PIU'** (FV.12): un acquisto singolo,
+  /// come [compraUnPosto]. Costa gli Eos di
+  /// `ListinoDegliEos.meseExtraDelLunario` e pretende il consenso della
+  /// conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> compraUnMeseDelLunario(
+      {required ConsensoDellaSpesa consenso}) async {
+    return _esito(await _chiedi('compraUnMeseDelLunario', {
+      'idMovimento': PortaDelCerchio.nuovoIdentificativo('lunario_mese'),
+    }));
+  }
+
+  /// **UNA PROPOSTA INSIEME IN PIU'** (FV.12): chi non ha "Trova il giorno
+  /// insieme" nel piano la apre per una proposta sola. Costa gli Eos di
+  /// `ListinoDegliEos.propostaInsiemeDelLunario` e pretende il consenso
+  /// della conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> compraUnaPropostaInsieme(
+      {required ConsensoDellaSpesa consenso}) async {
+    return _esito(await _chiedi('compraUnaPropostaInsiemeDelLunario', {
+      'idMovimento': PortaDelCerchio.nuovoIdentificativo('lunario_insieme'),
+    }));
+  }
+
+  /// **TROVA IL GIORNO INSIEME** (FV.10): manda la proposta di un'attivita'
+  /// e di un giorno a uno o piu' amici veri del Cerchio. [attivita] e' il
+  /// nome di `AttivitaDelLunario` (per esempio 'viaggi'); [giorno] e' il
+  /// giorno proposto, a mezzanotte locale.
+  Future<EsitoDelGesto> proponiGiornoInsieme({
+    required List<String> amici,
+    required String attivita,
+    required DateTime giorno,
+  }) async {
+    final esito = _esito(await _chiedi('proponiGiornoInsieme', {
+      'amici': amici,
+      'attivita': attivita,
+      'giorno': _giornoScritto(giorno),
+    }));
+    if (esito.ok) await caricaIlCerchio();
+    return esito;
+  }
+
+  /// **RISPONDI AL GIORNO** (FV.10): sì, no, oppure un altro giorno d'oro
+  /// ([altroGiorno], richiesto solo con [risposta] 'altroGiorno').
+  Future<EsitoDelGesto> rispondiAlGiorno(String id,
+      {required String risposta, DateTime? altroGiorno}) async {
+    final esito = _esito(await _chiedi('rispondiAlGiorno', {
+      'id': id,
+      'risposta': risposta,
+      if (altroGiorno != null) 'altroGiorno': _giornoScritto(altroGiorno),
+    }));
     if (esito.ok) await caricaIlCerchio();
     return esito;
   }

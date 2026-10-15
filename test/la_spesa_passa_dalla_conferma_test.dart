@@ -277,7 +277,10 @@ void main() {
       // 6 dall'ordine FU voce FU.09 (15 ottobre 2026): la carta degli angeli
       // in dono, `mandaUnaCartaDegliAngeli`, che passa da `mandaUnDono` come
       // gli altri doni e pretende anche lei il consenso della conferma.
-      'lib/core/cerchio/il_cerchio_sociale.dart': 6,
+      // 8 dall'ordine FV voce FV.12 (15 ottobre 2026): il Calendario Lunare,
+      // `compraUnMeseDelLunario` e `compraUnaPropostaInsieme`, due acquisti
+      // singoli come `compraUnPosto` e non un budget del giorno.
+      'lib/core/cerchio/il_cerchio_sociale.dart': 8,
       'lib/features/maestri/live/schermata_live.dart': 1,
     };
     // I nomi delle funzioni del server che consumano, e il solo file che li

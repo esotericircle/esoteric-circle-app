@@ -94,25 +94,31 @@ export interface NascitaCondivisa {
   oraNota: boolean;
   nome: string;
   /**
-   * **PER CHE COSA SI PRESTA LA NASCITA**, ordine FU voce FU.09. Assente
-   * vuol dire la Sinastria evolutiva, come prima dell'ordine FU; "oracolo"
-   * vuol dire una domanda all'Oracolo degli Angeli per chi la presta. Un
-   * consenso dato per una cosa non si legge per un'altra
-   * ([esitoDellaLettura]).
+   * **PER CHE COSA SI PRESTA LA NASCITA**, ordine FU voce FU.09 e ordine FV
+   * voce FV.10. Assente vuol dire la Sinastria evolutiva, come prima
+   * dell'ordine FU; "oracolo" vuol dire una domanda all'Oracolo degli
+   * Angeli per chi la presta; "lunario" vuol dire "Trova il giorno
+   * insieme" nel Calendario Lunare, per leggere i giorni tuoi dell'amico
+   * (FV.07) sul mese condiviso. Un consenso dato per una cosa non si legge
+   * per un'altra ([esitoDellaLettura]).
    */
-  scopo?: "oracolo";
+  scopo?: "oracolo" | "lunario";
   /**
-   * Il minuto del giorno di nascita nel luogo (0..1439), solo per l'Oracolo e
-   * solo con l'ora nota: l'Angelo dell'Intelletto si conta dall'ora locale
-   * (`GuardianAngels.intellectFor`), che l'istante in tempo universale da
-   * solo non dice.
+   * Il minuto del giorno di nascita nel luogo (0..1439), con l'ora nota:
+   * per l'Oracolo serve all'Angelo dell'Intelletto
+   * (`GuardianAngels.intellectFor`), per il Lunario alla fase esatta della
+   * nascita (FV.07, "la fase di nascita"). L'istante in tempo universale da
+   * solo non basta a nessuno dei due.
    */
   minutoLocale?: number;
 }
 
-/** Lo scopo di un consenso: "oracolo", oppure la Sinastria evolutiva. */
-export function scopoDa(valore: unknown): "oracolo" | null {
-  return valore === "oracolo" ? "oracolo" : null;
+/**
+ * Lo scopo di un consenso: "oracolo", "lunario", oppure la Sinastria
+ * evolutiva (nullo).
+ */
+export function scopoDa(valore: unknown): "oracolo" | "lunario" | null {
+  return valore === "oracolo" || valore === "lunario" ? valore : null;
 }
 
 const GIORNO = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -152,10 +158,11 @@ export function nascitaDaCorpo(corpo: unknown, adesso: Date): NascitaCondivisa |
     {nascita: istante.toISOString(), giorno: c.giorno as string, oraNota: c.oraNota, nome};
   // Senza scopo resta la nascita della Sinastria evolutiva, campo per campo
   // quella di prima (ordine FT).
-  if (scopoDa(c.scopo) === null) return base;
+  const scopo = scopoDa(c.scopo);
+  if (scopo === null) return base;
   const minuto = Number(c.minutoLocale);
   const minutoValido = c.oraNota && Number.isInteger(minuto) && minuto >= 0 && minuto < 1440;
-  return {...base, scopo: "oracolo", ...(minutoValido ? {minutoLocale: minuto} : {})};
+  return {...base, scopo, ...(minutoValido ? {minutoLocale: minuto} : {})};
 }
 
 /**

@@ -216,6 +216,29 @@ enum RigaDelPiano {
   oracoloConsultazioni,
   oracoloTreCarte,
   oracoloLungaEAmico,
+
+  /// **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: quanti
+  /// mesi avanti si scorrono. Zero per il Viandante (solo il mese in
+  /// corso), uno per l'Iniziato (anche il mese dopo), dodici per l'Adepto e
+  /// l'Illuminato. La cella non porta il numero in una forma che
+  /// [limiteGiornaliero] saprebbe leggere ("Il mese in corso" non ha
+  /// cifre): la legge [PlanCatalog.mesiAvantiDelLunario], dedicata come
+  /// [minutiDelLiveAlMese].
+  lunarioMesi,
+
+  /// Se il piano apre tutte le undici categorie di "Trova il giorno"
+  /// (FV.06): il Viandante ne ha una sola, le altre restano Premium
+  /// bloccate col lucchetto (vedi
+  /// `IlPianoDelLunario.categoriaAperta`, che per il Viandante lascia
+  /// comunque aperta la prima categoria: mai un vicolo cieco).
+  lunarioTutteLeCategorie,
+
+  /// Se il piano apre i promemoria del Calendario Lunare (FV.08):
+  /// dall'Iniziato in su.
+  lunarioPromemoria,
+
+  /// Se il piano apre "Trova il giorno insieme" (FV.10): dall'Adepto in su.
+  lunarioInsieme,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -281,6 +304,8 @@ class PlanCatalog {
         'Sinastria evolutiva: una coppia nuova al giorno, Oggi fra voi e due capitoli',
         // Ordine FU voce FU.10: l'Oracolo degli Angeli.
         'Oracolo degli Angeli: l’angelo dell’ora, il messaggio del giorno e una consultazione al giorno col tuo Angelo Custode',
+        // Ordine FV voce FV.12: il Calendario Lunare.
+        'Calendario Lunare: il mese in corso e una categoria di "Trova il giorno"',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
@@ -312,6 +337,8 @@ class PlanCatalog {
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
         'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli',
+        // Ordine FV voce FV.12: il Calendario Lunare.
+        'Calendario Lunare: tutte le categorie, i promemoria e il mese dopo',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Diario Cosmico completo, obiettivi e traguardi per Maestro',
@@ -347,6 +374,8 @@ class PlanCatalog {
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
         'Oracolo degli Angeli: 5 consultazioni al giorno, la risposta lunga e la lettura per un amico',
+        // Ordine FV voce FV.12: il Calendario Lunare.
+        'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -381,6 +410,9 @@ class PlanCatalog {
         '25 sinastrie VIP al giorno',
         'Sinastria evolutiva: 15 coppie nuove al giorno',
         'Oracolo degli Angeli: 6 consultazioni al giorno',
+        // Ordine FV voce FV.12: il Calendario Lunare, un mese in piu'
+        // acceso dagli Eos bonus mensili al massimo di questo piano.
+        'Calendario Lunare: dodici mesi avanti, "Trova il giorno insieme" e un mese in più con gli Eos',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
         // parte dell'app la esegue, e se reale vuol dire una persona non e'
@@ -516,6 +548,22 @@ class PlanCatalog {
   /// "al mese": [limiteGiornaliero] non va chiesto per questa riga.
   static int minutiDelLiveAlMese(Tier tier) {
     final riga = matrix.where((r) => r.chiave == RigaDelPiano.minutiLive);
+    if (riga.isEmpty) return 0;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final numero =
+        RegExp(r'(\d+)').firstMatch(riga.first.values[ordine.indexOf(tier)]);
+    return numero == null ? 0 : int.parse(numero.group(1)!);
+  }
+
+  /// **QUANTI MESI AVANTI APRE IL CALENDARIO LUNARE, ordine FV voce
+  /// FV.12.** Letto dalla matrice ([RigaDelPiano.lunarioMesi]), come
+  /// [minutiDelLiveAlMese]: dedicata perche' la cella del Viandante si
+  /// legge a parole ("Il mese in corso") e non porta una cifra da cui
+  /// [limiteGiornaliero] potrebbe leggere un tetto sbagliato (una cella
+  /// senza numero vale "senza limite" per quella funzione generica, che e'
+  /// l'opposto di zero).
+  static int mesiAvantiDelLunario(Tier tier) {
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.lunarioMesi);
     if (riga.isEmpty) return 0;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final numero =
@@ -926,6 +974,27 @@ class PlanCatalog {
     FeatureRow('Oracolo degli Angeli: risposta lunga e lettura per un amico',
         ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oracoloLungaEAmico),
+    // **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: la
+    // proposta dell'Architetto approvata dal fondatore ("Siz approvo
+    // tutto"). Viandante: il mese in corso, una categoria di "Trova il
+    // giorno", niente promemoria, niente "Trova il giorno insieme".
+    // Iniziato: tutte le categorie, i promemoria, il mese dopo. Adepto e
+    // Illuminato: dodici mesi avanti e "Trova il giorno insieme". I numeri
+    // sono di Code (il rapporto dell'ordine ne dice la ragione): la
+    // funzione non chiama mai Gemini né Vertex (R2), quindi non c'e' un
+    // tetto di costo da rispettare, e i limiti servono solo a dare un
+    // vantaggio vero a chi sale di piano.
+    FeatureRow('Calendario Lunare: mesi avanti',
+        ['Il mese in corso', '1 mese dopo', '12 mesi avanti', '12 mesi avanti'],
+        chiave: RigaDelPiano.lunarioMesi),
+    FeatureRow('Calendario Lunare: categorie di "Trova il giorno"',
+        ['1 categoria', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.lunarioTutteLeCategorie),
+    FeatureRow('Calendario Lunare: promemoria', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.lunarioPromemoria),
+    FeatureRow(
+        'Calendario Lunare: Trova il giorno insieme', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.lunarioInsieme),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //

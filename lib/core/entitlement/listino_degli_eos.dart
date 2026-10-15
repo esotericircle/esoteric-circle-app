@@ -342,6 +342,54 @@ class ListinoDegliEos {
     },
   );
 
+  /// **UN MESE DI CALENDARIO LUNARE IN PIU', ordine FV voce FV.12.** Come
+  /// `amicoInPiu`: un acquisto singolo (`IlCerchioSociale.
+  /// compraUnMeseDelLunario`), non un budget del giorno, perche' non e' un
+  /// gesto che si ripete ogni giorno.
+  ///
+  /// **IL PREZZO, scelto e motivato da Code.** Il Calendario Lunare non
+  /// chiama mai Gemini né Vertex (R2 dell'ordine FV): un mese in piu' non
+  /// pesa sul tetto del costo di `tool/i_limiti_degli_annuali.py` (che
+  /// infatti non lo nomina), e il numero serve solo contro l'abuso, non
+  /// contro una spesa. Sessanta Eos sta sotto i cento di un posto in piu'
+  /// fra gli amici (`amicoInPiu`, che resta nel Cerchio per sempre) e sopra
+  /// un confronto del cielo in piu' (`confrontoDelCieloInPiu`, 30 Eos, un
+  /// solo giorno): un mese di calendario e' piu' di un giorno e meno di un
+  /// posto permanente.
+  static const meseExtraDelLunario = VoceDelListino(
+    id: 'lunario_mese_extra',
+    nome: 'Un mese di Calendario Lunare in più',
+    costo: 60,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
+  /// **UNA PROPOSTA INSIEME A EOS, ordine FV voce FV.12.** Chi non ha
+  /// "Trova il giorno insieme" nel piano (Viandante e Iniziato) la apre per
+  /// una proposta sola, con `IlCerchioSociale.compraUnaPropostaInsieme`.
+  ///
+  /// **IL PREZZO.** Zero costo del modello, come sopra. Cinquanta Eos: piu'
+  /// del confronto del cielo in piu' (30, un gesto fra due persone) perche'
+  /// qui la proposta coordina piu' amici insieme, e meno del posto in piu'
+  /// fra gli amici (100, che resta per sempre).
+  static const propostaInsiemeDelLunario = VoceDelListino(
+    id: 'lunario_proposta_insieme',
+    nome: 'Una proposta insieme in più',
+    costo: 50,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
   static const List<VoceDelListino> tutte = [
     stesaTreCarte,
     cartaExtra,
@@ -359,6 +407,8 @@ class ListinoDegliEos {
     sigilloDaDonare,
     indizio,
     segnoDiChiTiHaIndovinato,
+    meseExtraDelLunario,
+    propostaInsiemeDelLunario,
   ];
 
   /// La voce di un'arte, oppure nulla se quell'arte non si compra a Eos.

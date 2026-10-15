@@ -39,11 +39,20 @@ import 'la_tua_nascita_per_una_lettura.dart';
 /// un amico la sua nascita passa solo col suo consenso esplicito; il codice
 /// si legge solo se e' stato dato per l'Oracolo, e porta il minuto locale
 /// della nascita ([minutoLocale]) per l'Angelo dell'Intelletto.
+///
+/// **LO STESSO GESTO PER "TROVA IL GIORNO INSIEME"**, ordine FV voce FV.10:
+/// con `perLoLunario` vale la stessa regola, e il codice si legge solo se
+/// e' stato dato per il Lunario. [NascitaLetta] porta anche [nascitaUtc] e
+/// [giornoDiNascita], grezzi: il Calendario Lunare costruisce la sua
+/// `BirthIdentity` da li', perche' `CieloEvolutivo` (pensato per la
+/// Sinastria) non la contiene.
 typedef NascitaLetta = ({
   String nome,
   CieloEvolutivo cielo,
   bool? amoreDalServer,
   int? minutoLocale,
+  DateTime nascitaUtc,
+  DateTime giornoDiNascita,
 });
 
 class LaNascitaDellAltraPersona extends StatefulWidget {
@@ -51,13 +60,18 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
       {super.key,
       required this.palette,
       this.nomeIniziale,
-      this.perLOracolo = false});
+      this.perLOracolo = false,
+      this.perLoLunario = false});
 
   final MaestroPalette palette;
 
   /// Vero per la domanda all'Oracolo degli Angeli per un amico: solo il
   /// codice, mai la nascita scritta a mano (ordine FU voce FU.09).
   final bool perLOracolo;
+
+  /// Vero per "Trova il giorno insieme" del Calendario Lunare: solo il
+  /// codice, mai la nascita scritta a mano (ordine FV voce FV.10).
+  final bool perLoLunario;
 
   /// Il nome gia' noto (l'amico del segno 15 o del confronto del cielo):
   /// riempie solo il campo del nome, mai la nascita.
@@ -66,13 +80,16 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
   /// Apre la schermata e aspetta il nome e il cielo, o nullo se annullato.
   static Future<NascitaLetta?> chiedi(
       BuildContext context, MaestroPalette palette,
-      {String? nomeIniziale, bool perLOracolo = false}) {
+      {String? nomeIniziale,
+      bool perLOracolo = false,
+      bool perLoLunario = false}) {
     return Navigator.of(context).push<NascitaLetta>(
       PassaggioDelCerchio.rotta(
         (_) => LaNascitaDellAltraPersona(
             palette: palette,
             nomeIniziale: nomeIniziale,
-            perLOracolo: perLOracolo),
+            perLOracolo: perLOracolo,
+            perLoLunario: perLoLunario),
       ),
     );
   }
@@ -122,7 +139,8 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
     final esito = await sociale.leggiLaNascita(codice,
         giornoMio: DateTime(
             mia.birthMoment.year, mia.birthMoment.month, mia.birthMoment.day),
-        perLOracolo: widget.perLOracolo);
+        perLOracolo: widget.perLOracolo,
+        perLoLunario: widget.perLoLunario);
     if (!mounted) return;
     final d = esito.dati;
     final nascita = DateTime.tryParse('${d['nascita']}');
@@ -150,6 +168,8 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       amoreDalServer: d['amoreApribile'] == true,
       minutoLocale:
           minuto is num && d['oraNota'] == true ? minuto.toInt() : null,
+      nascitaUtc: nascita.toUtc(),
+      giornoDiNascita: DateTime(giorno.year, giorno.month, giorno.day),
     ));
   }
 
@@ -199,6 +219,8 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       cielo: cielo,
       amoreDalServer: null,
       minutoLocale: null,
+      nascitaUtc: momento,
+      giornoDiNascita: DateTime(data.year, data.month, data.day),
     ));
   }
 
@@ -278,13 +300,15 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                           padding: EdgeInsets.zero),
                       onPressed: () => Navigator.of(context).push(
                           LaTuaNascitaPerUnaLettura.route(palette,
-                              perLOracolo: widget.perLOracolo)),
+                              perLOracolo: widget.perLOracolo,
+                              perLoLunario: widget.perLoLunario)),
                       child: const Text('Fai leggere la tua nascita'),
                     ),
                   ),
-                  // Per l'Oracolo la nascita passa solo col consenso: la
-                  // strada a mano qui non c'e' (ordine FU voce FU.09).
-                  if (!widget.perLOracolo) ...[
+                  // Per l'Oracolo e per il Lunario la nascita passa solo col
+                  // consenso: la strada a mano qui non c'e' (ordine FU voce
+                  // FU.09, ordine FV voce FV.10).
+                  if (!widget.perLOracolo && !widget.perLoLunario) ...[
                     const Divider(height: SpacingTokens.xl),
                     Text('Oppure scrivila tu',
                         style: TypographyTokens.titoloScheda()
@@ -326,7 +350,7 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                 ],
               ),
             ),
-            if (!widget.perLOracolo)
+            if (!widget.perLOracolo && !widget.perLoLunario)
               Padding(
                 padding: const EdgeInsets.fromLTRB(
                     SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),

@@ -236,6 +236,35 @@ test("FU.09 un consenso per una cosa sola: la Sinastria non legge l'Oracolo", ()
 });
 
 /**
+ * FV.10, LA NASCITA PRESTATA A "TROVA IL GIORNO INSIEME" DEL CALENDARIO
+ * LUNARE. Lo stesso gesto della lettura a due telefoni e della nascita
+ * prestata all'Oracolo (FU.09), con lo scopo "lunario": il minuto locale
+ * viaggia anche qui, perche' FV.07 (la fase di nascita) lo vuole esatto.
+ */
+test("FV.10 il consenso per il Lunario porta lo scopo e il minuto locale", () => {
+  const perLunario = nascitaDaCorpo({...dati, scopo: "lunario", minutoLocale: 870}, oggi);
+  assert.deepEqual(perLunario, {...dati, scopo: "lunario", minutoLocale: 870});
+  assert.deepEqual(nascitaDaCorpo({...dati, oraNota: false, scopo: "lunario",
+    minutoLocale: 870}, oggi), {...dati, oraNota: false, scopo: "lunario"});
+});
+
+test("FV.10 un consenso per una cosa sola: né la Sinastria né l'Oracolo leggono il Lunario", () => {
+  const perLunario = nascitaDaCorpo({...dati, scopo: "lunario", minutoLocale: 870}, oggi);
+  assert.ok(perLunario !== null);
+  const consenso = creaConsenso(perLunario, oggi, "GH56IJ");
+  assert.equal(esitoDellaLettura(consenso, "1990-05-12", oggi).esito, null,
+    "la Sinastria non legge un consenso dato per il Lunario");
+  assert.equal(esitoDellaLettura(consenso, "1990-05-12", oggi, "oracolo").esito, null,
+    "l'Oracolo non legge un consenso dato per il Lunario");
+  const dalLunario = esitoDellaLettura(consenso, "1990-05-12", oggi, "lunario");
+  assert.equal(dalLunario.esito?.nascita.minutoLocale, 870);
+  // E il contrario: un consenso per l'Oracolo non si legge dal Lunario.
+  const perOracolo = creaConsenso(
+    nascitaDaCorpo({...dati, scopo: "oracolo", minutoLocale: 500}, oggi)!, oggi, "KL78MN");
+  assert.equal(esitoDellaLettura(perOracolo, "1990-05-12", oggi, "lunario").esito, null);
+});
+
+/**
  * FU.10, IL BUDGET DELL'ORACOLO DEGLI ANGELI SUL SERVER.
  */
 test("FU.10 le consultazioni dell'Oracolo al giorno: uno, tre, cinque, sei", () => {
