@@ -1,0 +1,141 @@
+ORDINE FU VOCE FU.13, LA SCENA DELL'OROSCOPO: IL SOLE SCEGLIE IL SEGNO
+15 ottobre 2026. Misure di docs/collaudo/FU/fu13_misure.py (OpenCV 5.0.0,
+ffmpeg), contrasto sulla cattura di docs/collaudo/FU/fu13_contrasto_sulla_cattura.py,
+innesti di docs/collaudo/FU/fu13_innesti.py (uscita in fu13_innesti.txt).
+
+DOMANDA: "All'apertura dell'Oroscopo parte medora_ruota_dello_zodiaco_v1.mp4,
+una volta per apertura; si ferma sull'ultimo fotogramma, che coincide con
+oroscopo_ultimo_fotogramma_v1: misura lo scarto come in FS voce A2."
+
+== 1. LO SCARTO FRA L'ULTIMO FOTOGRAMMA DEL VIDEO E LA SCENA FERMA
+video brand_assets/oroscopo_scena/medora_ruota_dello_zodiaco_v1.mp4 (ricompresso,
+FU.12): durata 8,000 s, ultimo fotogramma 1080x1920 (ffmpeg -sseof -0.2).
+Scarto medio per canale su 255, immagine intera: 10,33 (l'Architetto: 11,9).
+Con la trasformazione affine trovata dall'ECC: 10,53, correlazione 0,9761,
+traslazione (-0,58, +0,28) pixel, scala 1,0000: NESSUNO SPOSTAMENTO
+GEOMETRICO. Lo scarto e' di luce e di compressione (il bagliore del globo e
+la grana del cielo), non di posizione: gli emblemi misurati sulla scena ferma
+cadono nello stesso punto sul video finito a meno di un pixel.
+
+== 2. LE COORDINATE DEL GLOBO E DELLE DODICI SEDI (pixel del fotogramma 1080x1920)
+Metodo: undici dischi chiari dalla trasformata di Hough, raffinati come
+componente connessa chiara e poco satura (luminosita' > 165, saturazione <
+60) col cerchio minimo che la racchiude; la sede del Sole (d'oro) con Hough
+in una finestra attorno al punto alto; il centro della ruota col cerchio ai
+minimi quadrati degli undici centri; il bordo del globo lungo 144 direzioni
+dove la luminosita' cade piu' ripida, cerchio ai minimi quadrati con lo
+scarto dei punti oltre due deviazioni standard. Cattura di controllo coi
+cerchi trovati: docs/collaudo/FU/fu13_sedi_misurate.jpg.
+Centro della ruota (540,4, 654,6), raggio delle sedi 403,3.
+GLOBO: centro (540,1, 655,4), raggio 171,3 (143 punti di bordo su 144,
+residuo 0,4 pixel). Concentrico con la ruota entro 0,9 pixel.
+Sedi, in senso orario dall'alto (angolo, distanza dal centro della ruota):
+  0 SOLE  (539,5, 246,5) raggio 46,1   359,9 gradi  408,1
+  1       (744,2, 304,9) raggio 43,6    30,2 gradi  404,8
+  2       (890,7, 455,1) raggio 42,3    60,3 gradi  403,2
+  3       (942,6, 656,8) raggio 41,1    90,3 gradi  402,2
+  4       (887,5, 857,5) raggio 40,4   120,3 gradi  402,0
+  5       (739,8, 1004,3) raggio 40,3  150,3 gradi  402,5
+  6       (540,8, 1061,4) raggio 40,5  179,9 gradi  406,8
+  7       (340,1, 1004,0) raggio 40,4  209,8 gradi  402,7
+  8       (192,8, 859,3) raggio 40,2   239,5 gradi  403,3
+  9       (139,1, 658,4) raggio 42,1   269,5 gradi  401,3
+  10      (189,6, 455,5) raggio 43,3   299,6 gradi  403,3
+  11      (337,0, 305,7) raggio 44,2   329,8 gradi  403,9
+Ogni sede sta a 30 gradi dalla vicina con meno di mezzo grado di scarto.
+Le costanti stanno in lib/features/horoscope/la_scena_dell_oroscopo.dart
+(LaScenaDellOroscopo.centroDelGlobo, raggioDelGlobo, sedi, raggioDelleSedi
+40,2 = il disco chiaro piu' piccolo), col commento che dice il metodo.
+Sullo schermo la scena e' tagliata come il video (BoxFit.cover): gli
+emblemi stanno dentro lo stesso FittedBox del fotogramma, in pixel del
+fotogramma, e restano sulle sedi a ogni misura di telefono. A 360x797 punti
+la scala e' 0,4151 e il fotogramma esce di 44,15 punti per lato: le sedi 3 e
+9 (est e ovest) sono tagliate al bordo di circa 4 punti, come nel video.
+
+== 3. IL CONTRASTO DEL TESTO SOPRA IL GLOBO
+DOMANDA: "la scena resta ferma e scura dietro il testo. Il testo resta
+leggibile: misura il contrasto sulle righe sopra il globo."
+Il velo dietro la lettura: medoraDeepest 0xFF060B1A a 0,80
+(LaScenaDellOroscopo.veloDietroLaLettura). Caso peggiore, il pixel piu'
+chiaro del globo dopo il velo (miscela in sRGB come la compone Flutter),
+contrasto WCAG coi colori del testo:
+  velo 0,70: textPrimary 6,70, goldLight 5,30, textSecondary 5,01, textMuted 4,93
+  velo 0,75: textPrimary 8,11, goldLight 6,42, textSecondary 6,06, textMuted 5,97
+  velo 0,80: textPrimary 9,80, goldLight 7,76, textSecondary 7,32, textMuted 7,21  <- scelto
+  velo 0,85: textPrimary 11,75, goldLight 9,29, textSecondary 8,77, textMuted 8,64
+Scelto 0,80: il piu' leggero col quale ogni colore del testo supera 7
+(livello AAA) anche sul punto piu' chiaro del globo; il globo sotto il bianco
+puro velato a 0,80 vale luminanza 0,045, quindi la misura copre anche gli
+emblemi e la loro luce.
+Sulla cattura vera (docs/preview/FU/fu13_3_testo_sul_globo_dopo.png, la
+lettura scorsa finche' le righe passano sul globo): 3 righe di testo sopra
+il disco del globo, contrasto 7,36 (y 215..224 punti), 8,21 (277..297),
+8,11 (307..316); peggiore 7,36.
+
+== 4. LE PROVE, REGOLA A (innesti veri, spia verificata col grep prima dell'esito)
+test/la_scena_dell_oroscopo_e_un_filmato_test.dart, 12 prove. Otto innesti,
+tutti rossi, ogni file ripristinato e riletto identico byte per byte; il
+dettaglio in docs/collaudo/FU/fu13_innesti.txt:
+  1 gli emblemi non si accendono mai: 6 rosse
+  2 la ruota occidentale gira in senso orario: 1 rossa
+  3 la Maya riempie le sedi coi segni occidentali: 2 rosse
+  4 il tocco non salta il video: 1 rossa
+  5 a video finito la lettura sale subito, senza sosta: 2 rosse
+  6 a scena ferma la lettura non sale: 4 rosse
+  7 la regia comune non spegne il volume: 2 rosse (suoni spenti, silenzioso)
+  8 l'Oroscopo non passa dal tocco che salta: test/ogni_scena_si_salta_col_tocco_test.dart rossa
+Poi verde: 12 su 12.
+
+== 5. REGOLA B, LA ZONA VISTA ROSSA PRIMA DI TOCCARLA
+Prima di toccare lib/features/horoscope/oroscopo_screen.dart: innesto
+Key('oroscopo_sign_name') -> Key('oroscopo_sign_name_innesto'), verificato
+col grep (riga 1474), test/oroscopo_widget_test.dart rossa (+15 -1, "Found
+0 widgets with key [<'oroscopo_sign_name'>]"); ripristinato, git diff vuoto.
+
+== 6. LE PROVE DELLA ZONA, DOPO IL LAVORO
+43 file (le prove che montano OroscopoScreen e test/*oroscopo*): 214 prove,
+tutte verdi (i due file di cattura screenshot_capture e prima_dopo_capture
+esclusi: scrivono catture). Guardie: la prova nuova,
+ogni_scena_si_salta_col_tocco (scene trovate 3: l'Oroscopo, la Sinastria
+evolutiva, la Stesa), language_rule, testo_a_video, tipografia_nel_dato,
+stato_asset, etichette_e_lettura, nessun_suono_che_non_hai_scelto: 46 prove
+verdi. flutter analyze sui quattro file toccati: nessun problema.
+
+== 7. LE ANTEPRIME (360x797 punti, densita' 3, docs/preview/FU/)
+dopo: fu13_1_apertura_emblemi, fu13_2_lettura_salita, fu13_3_testo_sul_globo,
+fu13_4_cinese, fu13_5_maya. prima (commit a5ebd44d, stessa apertura e stessi
+gesti): fu13_1_apertura_emblemi, fu13_3_testo_sul_globo, fu13_4_cinese,
+fu13_5_maya. Nel prima, all'apertura c'e' l'eroe che entra sul cosmo; il
+video vero non si cattura nelle prove: il lettore finto disegna al suo posto
+l'ultimo fotogramma fermo.
+Viste coll'occhio: nessun testo tagliato ne' sovrapposto dalla voce. Visto
+anche, gia' nel prima: il nome maya "7 Akʼbʼal" in testa mostra due
+quadrati al posto dell'apostrofo modificatore U+02BC nel Cinzel caricato
+dalle prove (la frase sotto, in EB Garamond, lo mostra). Non e' di questa
+voce: c'e' identico sul commit a5ebd44d. Il padre non l'ho risalito nel log:
+PROVENIENZA IGNOTA (il segno in testa e' dell'ordine ES, la grafia con
+U+02BC e' dichiarata in ISegniDelleTradizioni.giorniMaya). Da verificare
+sul telefono, dove il carattere di sistema puo' supplire.
+
+== 8. LE SCELTE
+- Il verso della ruota: Occidentale e Vedica in senso antiorario dal segno
+  della persona (il verso dei segni nella ruota di una carta del cielo), la
+  Cinese in senso orario (i rami terrestri sulla bussola, Topo a nord).
+- La sede del Sole porta l'emblema della persona a piena luce, le altre
+  undici a 0,55.
+- Il segno non certo (la Vedica senza ora nel giorno in cui la Luna cambia
+  segno, la Cinese fuori dal calendario) o senza data: sedi accese e vuote,
+  al centro l'emblema della tradizione, come nella testa.
+- I tre tempi: video finito, gli emblemi in 0,9 s, la sosta 1,6 s, poi la
+  lettura sale in 0,7 s (un tocco sulla scena ferma la fa salire subito);
+  video saltato col tocco, emblemi e lettura subito, con la dissolvenza del
+  salto (0,45 s); scena ferma dall'apertura (Riduci Movimento, grafica
+  alleggerita, video che non si carica), gli emblemi in 0,9 s e la lettura
+  gia' al suo posto, come prima dell'ordine.
+- Mentre il video si prepara si vede il suo primo fotogramma
+  (oroscopo_primo_fotogramma_v1): nessun salto alla partenza.
+- La lettura si monta quando sale: la sua cascata d'ingresso e' quella di
+  sempre. Testi, periodi, tradizioni e calcoli non cambiano (R10).
+
+STATO: APERTA IN ATTESA DI VERIFICA. Il video vero, l'audio e il tocco che
+salta si vedono solo sul telefono, in una build che ordina il fondatore.
