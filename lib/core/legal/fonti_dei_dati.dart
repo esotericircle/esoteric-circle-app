@@ -59,4 +59,19 @@ const List<FonteDeiDati> fontiDeiDati = <FonteDeiDati>[
     licenza: 'Dato pubblico dell\'ESA',
     dove: 'cosmos.esa.int/web/hipparcos',
   ),
+  // Ordine FV voce FV.03, 15 ottobre 2026: le fotografie vere della Luna
+  // del Calendario Lunare. Le linee guida della NASA sull'uso delle
+  // immagini (nasa.gov/nasa-brand-center/images-and-media, lette il 15
+  // ottobre 2026) chiedono la citazione della fonte, vietano il logo della
+  // NASA e vietano ogni frase che lasci intendere un'approvazione o una
+  // sponsorizzazione: questa riga e' la sola citazione, nessun logo, nessun
+  // testo di Medora la nomina mai (le stesse linee guida vietano, nei
+  // prodotti con intelligenza artificiale, frasi come "secondo la NASA").
+  FonteDeiDati(
+    cosa: 'Immagini della Luna: NASA\'s Scientific Visualization Studio',
+    chi: 'NASA Goddard Space Flight Center, Scientific Visualization Studio',
+    licenza: 'Immagini della NASA, in genere non coperte da copyright negli '
+        'Stati Uniti',
+    dove: 'svs.gsfc.nasa.gov/5587',
+  ),
 ];
