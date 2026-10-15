@@ -110,6 +110,11 @@ class GestiDelleArti {
         gesto: 'oracolo_angeli',
         schermata:
             'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart'),
+    // Ordine FV: il Calendario Lunare, un'attivita' scelta in "Trova il
+    // giorno".
+    SorgenteDelGesto(
+        gesto: 'lunario',
+        schermata: 'lib/features/lunario/calendario_lunare_screen.dart'),
     SorgenteDelGesto(
         gesto: 'carta_natale',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),

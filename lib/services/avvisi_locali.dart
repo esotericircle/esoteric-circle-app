@@ -117,6 +117,14 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso nel giorno che hai scelto, quando un tuo sigillo arriva '
           'alla sua data.'
     ),
+    // **IL CALENDARIO LUNARE, ordine FV voci FV.08 e FV.09**: il promemoria
+    // la sera prima del giorno d'oro che hai fissato, e l'intenzione alla
+    // Luna piena. Li programma `IPromemoriaDelLunario`.
+    'lunario': (
+      'Calendario Lunare',
+      'Un avviso la sera prima del giorno che hai fissato e uno alla Luna '
+          'piena, se le hai affidato un\'intenzione.'
+    ),
   };
 
   /// CHI APRE LA SCENA PROMESSA. L'app lo imposta all'avvio: riceve il

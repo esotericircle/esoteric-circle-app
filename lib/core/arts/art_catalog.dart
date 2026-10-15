@@ -418,11 +418,17 @@ class ArtCatalog {
       ArtEntry(
         id: 'lunar_calendar',
         title: 'Calendario Lunare Personale',
-        teaser:
-            'La vista mensile a calendario, coi rituali e le indicazioni per ogni fase.',
+        // **ESCE DAL COMING SOON, ordine FV voce FV.13, 15 ottobre 2026.**
+        // Il fondatore: "In aggiunta. Iniziamo con il calendario lunare".
+        // LAPIDE: "La vista mensile a calendario, coi rituali e le
+        // indicazioni per ogni fase.", in arrivo in fase successiva. Adesso
+        // e' l'almanacco vero di Medora: le lune vere del mese, i giorni
+        // giusti per cio' che vuoi fare, i giorni tuoi e il promemoria.
+        teaser: 'Il mese di trenta lune vere: scegli cosa vuoi fare e i giorni '
+            'giusti si accendono d\'oro, col loro perché.',
         icon: Icons.calendar_month_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.faseSuccessiva,
+        state: ArtState.attiva,
+        phase: ArtPhase.mvp,
       ),
     ]),
     ArtSection(title: 'Destino', arts: [

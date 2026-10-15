@@ -71,6 +71,10 @@ class CioCheETuo {
     // riceve se gli scrivi. Sono i tuoi oroscopi e le tue carte del giorno,
     // quindi se ne vanno con te. L'ha trovata la prova `niente_resta_di_te`.
     'chat.responsi_di_oggi',
+    // I promemoria del Calendario Lunare e le intenzioni alla Luna nuova:
+    // dicono che cosa farai e che cosa hai affidato alla Luna. Ordine FV voci
+    // FV.08 e FV.09.
+    'lunario.',
     // Se hai concesso la posizione al cielo di sopra.
     'cielo_posizione',
     // Il filo del giorno: la domanda di Medora e la parola del giorno.

@@ -21,6 +21,7 @@ import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../angels/oracolo/oracolo_degli_angeli_screen.dart';
+import '../lunario/calendario_lunare_screen.dart';
 import '../../core/cerchio/l_arte_di_adesso.dart';
 import '../../core/astro/il_segno_del_cielo.dart';
 
@@ -157,6 +158,11 @@ Route<void>? _rottaDellArte(
     case 'angels_oracle':
       if (userBirth == null) return DatiDiNascitaScreen.route();
       return OracoloDegliAngeliScreen.route();
+    // IL CALENDARIO LUNARE, ordine FV voce FV.13: la sua rotta vera. Si apre
+    // anche senza nascita: le lune e Trova il giorno non la chiedono, e i
+    // giorni tuoi invitano a darla dentro la schermata.
+    case 'lunar_calendar':
+      return CalendarioLunareScreen.route();
     case 'synastry_depth':
       if (userBirth == null) return DatiDiNascitaScreen.route();
       return AvvioSinastriaEvolutiva.route();
