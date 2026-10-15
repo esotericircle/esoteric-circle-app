@@ -7078,6 +7078,7 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 - **I video ricompressi** in H.264 a qualita' costante 26 alla misura d'origine: da 35,0 a 15,0 MB per i tre.
 - **La promessa falsa tolta** (FU.16): "Compatibilità a tre livelli" via dalla card dell'Illuminato e dalla tabella dei piani, con la lapide e la guardia `la_compatibilita_a_tre_livelli_non_si_promette`.
 - **Guardie.** Dieci nuove, tutte viste rosse; il registro passa da 774 a 784.
+- **Il cancello di GitHub** e' verde sul commit 08b5cca2 (`refs/verde/08b5cca2...`). Sul primo commit consegnato, 6c2553cd, lo sbarramento aveva trovato undici rossi nuovi dell'ordine (prompt non dichiarato, foglio fuori dal velo, scala del testo, miniature, freccia, catch muto, nascita costruita a mano, porta di spesa, percorso di asset): corretti col loro padre, scritti in coda al rapporto.
 
 **APERTO IN ATTESA DI VERIFICA**:
 - **FU.02, FU.11, FU.13, FU.14 e FU.15, sul telefono**: i tre video veri, le carte che si girano sull'altare, gli emblemi dell'Oroscopo, il Sipario e le carte VIP, il tocco che salta in ognuna delle cinque scene, le porte dell'Oracolo.
