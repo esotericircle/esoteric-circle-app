@@ -386,6 +386,9 @@ void main() {
     // stanno in docs/STATO_VIVO.md, senza manifesto.
     'FS': 3,
     'FT': 15,
+    // Ordine FU, 15 ottobre 2026: le diciassette voci, contate coi titoli
+    // "## VOCE FU." del manifesto.
+    'FU': 17,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
