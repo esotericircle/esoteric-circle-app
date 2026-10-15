@@ -5,6 +5,8 @@ import '../core/identity/profile_controller.dart';
 import '../core/rituals/avvisi_del_rito.dart';
 import '../core/magic/la_chiamata_del_sigillo.dart';
 import '../core/rituals/daily_elements.dart';
+import '../features/lunario/calendario_lunare_screen.dart';
+import '../features/lunario/i_promemoria_del_lunario.dart';
 import '../features/maestri/caligo/sigillo/libro_dei_sigilli_screen.dart';
 import '../features/horoscope/oroscopo_screen.dart';
 import '../features/maestri/caligo/rune/rune_draw_screen.dart';
@@ -44,6 +46,10 @@ class AperturaDelleChiamate {
       // 08: e' li' che la domanda della voce DO.05 aspetta.
       case LaChiamataDelSigillo.carico:
         return LibroDeiSigilliScreen.route();
+      // **IL PROMEMORIA E L'INTENZIONE DEL CALENDARIO LUNARE**, ordine FV
+      // voci FV.08 e FV.09: riportano al Calendario.
+      case IPromemoriaDelLunario.carico:
+        return CalendarioLunareScreen.route();
       case AvvisiDelRito.caricoTramonto:
         final nascita = context.read<ProfileController>().identity.birthDate;
         return SunsetRuneScreen.route(dataNascita: nascita);

@@ -224,6 +224,13 @@ class ArtiConResponso {
       perche: 'è lo scarico dei tuoi dati, che manda dei file e non un '
           'responso.',
     ),
+    // Ordine FV voce FV.11: la card del mese del Calendario Lunare.
+    CondivideSenzaResponso(
+      dove: 'lib/features/lunario/calendario_lunare_screen.dart',
+      perche: 'condivide la card del mese, le lune vere e i giorni d\'oro di '
+          'un\'attività: è un calendario calcolato e non una lettura, che si '
+          'ricalcola uguale in qualunque momento.',
+    ),
   ];
 
   /// **LE ARTI VIVE CHE UN RESPONSO NON LO PRODUCONO.**
@@ -232,6 +239,11 @@ class ArtiConResponso {
         'passato: non c\'è nessun testo da custodire né da portare in chat. '
         'Un pulsante che promettesse di parlarne aprirebbe una conversazione '
         'su niente.',
+    // Ordine FV: il Calendario Lunare.
+    'lunar_calendar': 'il Calendario Lunare non produce un responso: è un '
+        'almanacco calcolato sul telefono, che ogni giorno dice la stessa '
+        'cosa a chiunque lo apra nello stesso luogo. Non c\'è un testo nato '
+        'da una domanda da custodire o da portare in chat.',
   };
 
   /// **I RESPONSI CHE PER ORDINE NON OFFRONO AZIONI**, col loro perche'.

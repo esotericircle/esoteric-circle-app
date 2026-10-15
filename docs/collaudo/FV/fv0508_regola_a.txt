@@ -1,0 +1,13 @@
+REGOLA A/B, ordine FV, 15 ottobre 2026
+guardia: test/il_calendario_lunare_a_video_test.dart
+file: lib/features/lunario/calendario_lunare_screen.dart
+innesto: il pulsante del promemoria mostrato solo sui giorni da evitare: il giorno 20, che e' oro, non lo mostra piu'
+grep righe innestate dopo l'innesto: 1
+esito con l'innesto (uscita 1):
+  00:09 +10 -1: FV.08: il promemoria si fissa con un tocco, suona alle 20 del giorno prima, si vede sul mese e si toglie [E]
+  00:10 +10 -2: FV.08: senza permesso il promemoria resta segnato sul mese e l'app lo dice [E]
+  00:11 +11 -2: Some tests failed.
+ripristino; file identico: True
+esito sul codice vero (uscita 0):
+  00:10 +13: All tests passed!
+

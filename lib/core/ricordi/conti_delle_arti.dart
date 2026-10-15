@@ -60,6 +60,9 @@ class ContiDelleArti {
     // Ordine FU: l'Oracolo degli Angeli conta il suo gesto, una
     // consultazione affidata.
     ContoDellArte(arte: 'angels_oracle', gesto: 'oracolo_angeli'),
+    // Ordine FV: il Calendario Lunare conta il suo gesto, un'attivita'
+    // scelta in "Trova il giorno".
+    ContoDellArte(arte: 'lunar_calendar', gesto: 'lunario'),
     ContoDellArte(arte: 'tarot_spread_three', gesto: 'stesa'),
     ContoDellArte(arte: 'archetype_test', gesto: 'archetipo'),
     ContoDellArte(arte: 'face_constellation', gesto: 'viso'),

@@ -154,6 +154,27 @@ class TestiDelleFonti {
       'rito con Caligo usa il salmo dell\'angelo nella numerazione '
       'dichiarata.';
 
+  /// Il Calendario Lunare Personale, ordine FV, 15 ottobre 2026. La fonte
+  /// delle fotografie della Luna sta in `lib/core/legal/fonti_dei_dati.dart`:
+  /// qui, nella voce di Medora, non si nomina (linee guida della fonte).
+  static const String calendarioLunare =
+      'Ogni giorno del mese mostra la Luna vera di quel giorno: una '
+      'fotografia scientifica scelta per la fase, ruotata per chi vive '
+      'nell\'emisfero sud. La fase, il segno della Luna, le ore in cui cambia '
+      'segno e le ore fuori corso si calcolano sul telefono dalle posizioni '
+      'astronomiche, senza rete.\n\n'
+      'La Luna fuori corso segue la definizione classica dell\'astrologia: '
+      'dall\'ultimo aspetto maggiore della Luna a un pianeta fino al suo '
+      'ingresso nel segno successivo. Il tipo di giorno dell\'orto e delle '
+      'piante (radice, foglia, fiore, frutto) viene dal metodo di Maria '
+      'Thun, che segue la Luna davanti alle costellazioni vere.\n\n'
+      'Le regole delle attività vengono dagli almanacchi e dai lunari '
+      'contadini italiani, da Maria Thun per l\'orto e le piante e '
+      'dall\'astrologia elettiva classica per amore, inizi e viaggi: ogni '
+      'regola porta la sua fonte. Il modo in cui più regole fanno un giorno '
+      'd\'oro è la chiave di Medora. La Luna indica il momento, non promette '
+      'il risultato.';
+
   static const String sinastriaEvolutiva =
       'La Sinastria evolutiva confronta due cieli di nascita veri. I punti '
       'sono undici per persona, dal Sole a Plutone col Nodo Nord medio, '
