@@ -1,0 +1,354 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0+1 available)
+  camera_platform_interface 2.13.1 (2.15.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.2 available)
+  flutter_local_notifications_linux 8.0.1 (8.0.2 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_apple 2.3.14 (2.3.15 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.18 available)
+  google_sign_in_ios 5.9.0 (6.3.7 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+12 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.5.0 available)
+  test_api 0.7.11 (0.7.15 available)
+  timezone 0.11.1 (0.11.2 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+125 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/tool/banchi_col_modello/il_banco_dell_oracolo_degli_angeli_test.dart
+00:00 +0: FVA.02: venti consultazioni vere, dieci Brevi e dieci Lunghe
+
+=== 1. BREVE | feminine | dal modello: false
+DOMANDA: Devo accettare questo nuovo lavoro?
+TITOLO: Il passo giusto è quello che puoi fare oggi
+RIQUADRO: Prima di prendere posizione senti spesso un'urgenza che spinge: schierarti, rispondere, firmare. Mikael porta un'altra emozione accanto a quella, una calma ordinata come una stanza rimessa a posto. Non è freddezza: è il piacere di guardare le cose come stanno prima di muoverti. Puoi concedertelo.
+GREZZO: {
+  "titolo": "Ascolta la calma prima di decidere",
+  "riquadro": "Mikael ti invita a sentire una calma che ordina le cose, prima di ogni urgenza. Reiiel ti fa capire che sciogliere un legame, guardando il nodo senza rancore, ti lascia una scelta. Ieiazel suggerisce di restare accanto a te stessa con pazienza, senza fretta di aggiustare niente. Prima di rispondere, concediti il tempo di osservare la situazione con chiarezza. Poi, connettiti con la tua serenità interiore per fare un passo consapevole."
+}
+
+=== 2. BREVE | masculine | dal modello: true
+DOMANDA: La persona che mi piace sente lo stesso per me?
+TITOLO: La pazienza ti apre a una chiusura serena
+RIQUADRO: Senti la sicurezza quieta di Seheiah, che ti permette di scegliere un passo sostenibile. Mumiah ti ricorda che chiudere bene un capitolo ti permette di iniziarne uno nuovo senza fili sciolti. Umabel ti invita a distinguere chiaramente i tuoi sentimenti da quelli altrui. Prova a scrivere due righe su cosa senti veramente, separandolo da ciò che percepisci.
+GREZZO: {
+  "titolo": "La pazienza ti apre a una chiusura serena",
+  "riquadro": "Senti la sicurezza quieta di Seheiah, che ti permette di scegliere un passo sostenibile. Mumiah ti ricorda che chiudere bene un capitolo ti permette di iniziarne uno nuovo senza fili sciolti. Umabel ti invita a distinguere chiaramente i tuoi sentimenti da quelli altrui. Prova a scrivere due righe su cosa senti veramente, separandolo da ciò che percepisci."
+}
+
+=== 3. BREVE | unknown | dal modello: false
+DOMANDA: È il momento giusto per trasferirmi in un'altra città?
+TITOLO: La scelta si chiarisce mentre cammini
+RIQUADRO: Dopo uno scoppio d'ira resta spesso una vergogna amara. Lehahiah la accoglie con dolcezza: è il segno che la calma ti sta a cuore. Sotto la vergogna c'è il desiderio di una forza diversa, che tiene senza alzare la voce.
+GREZZO: {
+  "titolo": "Valuta le tue motivazioni profonde prima di decidere",
+  "riquadro": "Lehahiah ti invita a sentire che, superata l'eventuale amarezza, desideri una forza più pacata. Mahasiah ti fa capire che rimettersi in cammino, o scegliere un nuovo inizio, non richiede di rinnegare il passato, ma di dare priorità alla crescita. Ieialel ti chiede di agire con metodo: annota la domanda e analizza le cause e le conseguenze, senza lasciarti distrarre. Prenditi del tempo per questa riflessione interiore."
+}
+
+=== 4. BREVE | feminine | dal modello: true
+DOMANDA: Riuscirò a riconciliarmi con mia sorella?
+TITOLO: Il perdono apre la strada al nuovo rapporto
+RIQUADRO: Senti la leggerezza che Mumiah porta nel chiudere un capitolo, come una porta che si accosta dolcemente. Melahel ti ricorda che le crepe si formano nel tempo, ma l'errore non definisce la persona. Vasariah ti invita a una giustizia temperata dalla clemenza: scrivi l'errore e accanto tre qualità di tua sorella, poi parlale solo dell'accaduto, non di lei. Questo ti aiuterà a riparare.
+GREZZO: {
+  "titolo": "Il perdono apre la strada al nuovo rapporto",
+  "riquadro": "Senti la leggerezza che Mumiah porta nel chiudere un capitolo, come una porta che si accosta dolcemente. Melahel ti ricorda che le crepe si formano nel tempo, ma l'errore non definisce la persona. Vasariah ti invita a una giustizia temperata dalla clemenza: scrivi l'errore e accanto tre qualità di tua sorella, poi parlale solo dell'accaduto, non di lei. Questo ti aiuterà a riparare."
+}
+
+=== 5. BREVE | masculine | dal modello: true
+DOMANDA: Devo fidarmi di questa nuova amicizia?
+TITOLO: Fiducia nuova con occhio critico e cuore aperto
+RIQUADRO: Senti che ogni ricominciare porta un misto di vergogna e speranza, ma queste emozioni possono convivere in te. L'amicizia che nasce ti invita a un'analisi partecipata, dove capire veramente significa sporcarsi le mani. Perciò, cambia un piccolo dettaglio nel tuo ambiente per accogliere questa nuova fase con trasformazione gentile, osservando come ti senti nel nuovo assetto.
+GREZZO: {
+  "titolo": "Fiducia nuova con occhio critico e cuore aperto",
+  "riquadro": "Senti che ogni ricominciare porta un misto di vergogna e speranza, ma queste emozioni possono convivere in te. L'amicizia che nasce ti invita a un'analisi partecipata, dove capire veramente significa sporcarsi le mani. Perciò, cambia un piccolo dettaglio nel tuo ambiente per accogliere questa nuova fase con trasformazione gentile, osservando come ti senti nel nuovo assetto."
+}
+
+=== 6. BREVE | unknown | dal modello: true
+DOMANDA: Il mio progetto porterà i frutti che spero?
+TITOLO: Il progetto si sviluppa con attenzione ai dettagli
+RIQUADRO: Sentiti nella quiete di Vehuel, quando un'idea trova il suo spazio senza dover prevalere. Leuviah ti invita a ricostruire la storia del tuo progetto, mettendo in fila i fatti per capirne la direzione. Agisci con la saggezza di Lauviah: ascolta l'intuizione notturna, ma verifica con la luce del confronto e l'aiuto di chi ne sa, per dare forma concreta ai tuoi desideri.
+GREZZO: {
+  "titolo": "Il progetto si sviluppa con attenzione ai dettagli",
+  "riquadro": "Sentiti nella quiete di Vehuel, quando un'idea trova il suo spazio senza dover prevalere. Leuviah ti invita a ricostruire la storia del tuo progetto, mettendo in fila i fatti per capirne la direzione. Agisci con la saggezza di Lauviah: ascolta l'intuizione notturna, ma verifica con la luce del confronto e l'aiuto di chi ne sa, per dare forma concreta ai tuoi desideri."
+}
+
+=== 7. BREVE | feminine | dal modello: false
+DOMANDA: Sto andando nella direzione giusta nella vita?
+TITOLO: Gli angeli rispondono con tre gesti per te
+RIQUADRO: Sentirti fuori posto lascia un senso di esilio che conosci bene. Haheuiah lo accoglie e lo trasforma in comprensione: proprio perché conosci quella condizione, sai stare accanto a chi la vive. Dentro l'esilio interiore c'è una compassione che scalda.
+GREZZO: {
+  "titolo": "Un passo alla volta, con saggezza e gentilezza",
+  "riquadro": "Senti la compassione che nasce dal tuo vissuto, Haheuiah ti ricorda che ti rende capace di accogliere chi è esule dentro di sé. Poyel, con la sua saggezza, ti mostra come una richiesta chiara e modesta possa aprire porte che la timidezza non osa nemmeno sfiorare. Ieliel ti invita a essere tu quella persona che, con un gesto semplice, riapre un filo interrotto, senza il peso di aver ragione. Fai un piccolo passo oggi verso chi ami."
+}
+
+=== 8. BREVE | masculine | dal modello: true
+DOMANDA: Devo lasciare andare questa relazione?
+TITOLO: Ascolta la tua voce interiore per scegliere
+RIQUADRO: Senti nel tuo cuore il desiderio di condividere bellezza, Nithael ti invita ad accogliere questa generosità. Hariel ti ricorda che l'ordine esteriore nasce da idee chiare; prima di agire, metti ordine nei tuoi pensieri. Nanael suggerisce di dedicare tempo a te stesso, lontano dalle distrazioni, per ascoltare la tua verità più profonda. Rifletti su cosa ti nutre veramente e fai una scelta consapevole.
+GREZZO: {
+  "titolo": "Ascolta la tua voce interiore per scegliere",
+  "riquadro": "Senti nel tuo cuore il desiderio di condividere bellezza, Nithael ti invita ad accogliere questa generosità. Hariel ti ricorda che l'ordine esteriore nasce da idee chiare; prima di agire, metti ordine nei tuoi pensieri. Nanael suggerisce di dedicare tempo a te stesso, lontano dalle distrazioni, per ascoltare la tua verità più profonda. Rifletti su cosa ti nutre veramente e fai una scelta consapevole."
+}
+
+=== 9. BREVE | unknown | dal modello: false
+DOMANDA: Troverò presto l'amore?
+TITOLO: Il tuo cuore sa già da dove ricominciare
+RIQUADRO: La forza che difende può irrigidirsi, trasformando ogni divergenza in una disputa da tenere a ogni costo. Haiaiel ti invita a sentire la solitudine di quella rigidità. Sotto c'è un sollievo possibile: scoprire che certe posizioni non ti servono più. Lasciarle è anche questo coraggio.
+GREZZO: {
+  "titolo": "L'amore si nutre di memoria e apertura",
+  "riquadro": "Senti la solitudine che deriva dall'essere troppo rigido, anche nei confronti di te stesso. La forza che ti difende, se diventa irrigidimento, ti allontana da chi sei veramente. Ricordare ciò che hai costruito nel tempo, come suggerisce Iezalel, ti aiuta a onorare il passato e a nutrire il presente. Caliel ti ricorda che è importante pronunciarsi sui fatti, ma anche saper tacere quando non è necessario giudicare. Osserva dove sei troppo rigido e lascia andare le posizioni che non ti servono più. Questo è il coraggio che ti apre a nuove possibilità."
+}
+
+=== 10. BREVE | feminine | dal modello: true
+DOMANDA: Questo cambiamento che sto vivendo mi rafforzerà?
+TITOLO: Il tuo valore si rivela nella generosità e nel rispetto
+RIQUADRO: Senti la tenerezza che nasce dal rispetto, anche accanto al rancore, accogliendo la crescita ricevuta. Il tuo valore si rivela non nella visibilità, ma nella solidità del lavoro che fai passare attraverso l'attenzione. Dona senza contare, con gesti concreti e generosi, e sentirai una leggerezza che ti rafforza profondamente.
+GREZZO: {
+  "titolo": "Il tuo valore si rivela nella generosità e nel rispetto",
+  "riquadro": "Senti la tenerezza che nasce dal rispetto, anche accanto al rancore, accogliendo la crescita ricevuta. Il tuo valore si rivela non nella visibilità, ma nella solidità del lavoro che fai passare attraverso l'attenzione. Dona senza contare, con gesti concreti e generosi, e sentirai una leggerezza che ti rafforza profondamente."
+}
+
+=== 11. LUNGA | masculine | dal modello: true
+DOMANDA: Sto pensando di lasciare il mio lavoro per aprire un'attività mia, cosa devo capire di questa scelta?
+TITOLO: Valuta con saggezza la tua nuova direzione
+RIQUADRO: Senti la forza del legame che ti spinge verso questo cambiamento, ma non confonderla con il bisogno di possedere. Cerca la fermezza che sta a fianco, non la pietà che guarda dall'alto. Misura le tue azioni con attenzione, perché la fiducia si costruisce nell'affidabilità.
+APPROFONDIMENTO 1: L'Angelo Custode ti invita a una valutazione attenta, separando il gesto dalla persona per giudicare con maggiore obiettività.  Questo approccio ti renderà più affidabile nel prendere decisioni importanti.
+APPROFONDIMENTO 2: Ascolta la tenerezza che ti lega a questo progetto, ma non confonderla con la dipendenza. La fermezza, suggerita dall'Angelo dell'Intelletto, ti permette di riconoscere la tua esperienza interiore per distinguere il sostegno dalla pietà. Ora, fai un passo concreto: analizza i pro e i contro dell'attività, mettendo per iscritto ogni aspetto.
+GREZZO: {
+  "titolo": "Valuta con saggezza la tua nuova direzione",
+  "riquadro": "Senti la forza del legame che ti spinge verso questo cambiamento, ma non confonderla con il bisogno di possedere. Cerca la fermezza che sta a fianco, non la pietà che guarda dall'alto. Misura le tue azioni con attenzione, perché la fiducia si costruisce nell'affidabilità.",
+  "approfondimento1": "L'Angelo Custode ti invita a una valutazione attenta, separando il gesto dalla persona per giudicare con maggiore obiettività.  Questo approccio ti renderà più affidabile nel prendere decisioni importanti.",
+  "approfondimento2": "Ascolta la tenerezza che ti lega a questo progetto, ma non confonderla con la dipendenza. La fermezza, suggerita dall'Angelo dell'Intelletto, ti permette di riconoscere la tua esperienza interiore per distinguere il sostegno dalla pietà. Ora, fai un passo concreto: analizza i pro e i contro dell'attività, mettendo per iscritto ogni aspetto."
+}
+
+=== 12. LUNGA | unknown | dal modello: true
+DOMANDA: La mia relazione con mio padre è complicata da anni, come posso affrontarla adesso?
+TITOLO: Ristabilire l'armonia con saggezza e pazienza
+RIQUADRO: Accogli la serenità che Seheiah ti offre, anche se la fretta ti assale. Lascia che la tua intelligenza comprenda la differenza tra un accordo autentico e un compromesso superficiale, come insegna Mikael. Osserva con attenzione i tuoi schemi mentali e cerca fonti che ti aiutino a smontarli, seguendo la guida di Hahasiah.
+APPROFONDIMENTO 1: La prudenza suggerita da Seheiah non è timore, ma la capacità di riconoscere il valore del tempo nel costruire relazioni solide. Mikael ti invita a capire cosa stai realmente dando e ricevendo, andando oltre le apparenze.
+APPROFONDIMENTO 2: Ti è chiesto di agire con discernimento, verificando ogni affermazione che accetti senza esame, come indica Hahasiah. Dedica tempo a studiare le dinamiche che ti hanno portato qui, mettendo in discussione ciò che dai per scontato. Poi, con mente chiara, cerca un dialogo basato sulla reciprocità e sulla trasparenza.
+GREZZO: {
+  "titolo": "Ristabilire l'armonia con saggezza e pazienza",
+  "riquadro": "Accogli la serenità che Seheiah ti offre, anche se la fretta ti assale. Lascia che la tua intelligenza comprenda la differenza tra un accordo autentico e un compromesso superficiale, come insegna Mikael. Osserva con attenzione i tuoi schemi mentali e cerca fonti che ti aiutino a smontarli, seguendo la guida di Hahasiah.",
+  "approfondimento1": "La prudenza suggerita da Seheiah non è timore, ma la capacità di riconoscere il valore del tempo nel costruire relazioni solide. Mikael ti invita a capire cosa stai realmente dando e ricevendo, andando oltre le apparenze.",
+  "approfondimento2": "Ti è chiesto di agire con discernimento, verificando ogni affermazione che accetti senza esame, come indica Hahasiah. Dedica tempo a studiare le dinamiche che ti hanno portato qui, mettendo in discussione ciò che dai per scontato. Poi, con mente chiara, cerca un dialogo basato sulla reciprocità e sulla trasparenza."
+}
+
+=== 13. LUNGA | feminine | dal modello: true
+DOMANDA: Ho paura di impegnarmi in una relazione seria, da dove viene questa paura e cosa posso fare?
+TITOLO: La paura nasce dal non sapere cosa aspettarsi
+RIQUADRO: Senti la grigia rassegnazione che ti accompagna, ma sappi che è una speranza paziente quella che ti aiuterà a ripartire. La paura di impegnarti nasce dal non aver ancora capito che il coraggio della mente fredda, che valuta e pondera, è quello che ti serve davvero. Invece di rimuginare, scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione.
+APPROFONDIMENTO 1: La tua paura di impegnarti in una relazione seria sembra radicata nella sensazione che le cose non cambino, un sentimento di rassegnazione che Sealiah ti invita a guardare. Questa attesa paziente è ciò che ti permetterà di ripartire, anche quando il ritmo sembra lento.
+APPROFONDIMENTO 2: Haiaiel ti insegna che il coraggio della mente fredda, che valuta le conseguenze e prende decisioni ponderate, è più duraturo dell'impulso. Un no detto dopo averlo pesato non necessita di essere urlato o difeso. Per agire, scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione.
+GREZZO: {
+  "titolo": "La paura nasce dal non sapere cosa aspettarsi",
+  "riquadro": "Senti la grigia rassegnazione che ti accompagna, ma sappi che è una speranza paziente quella che ti aiuterà a ripartire. La paura di impegnarti nasce dal non aver ancora capito che il coraggio della mente fredda, che valuta e pondera, è quello che ti serve davvero. Invece di rimuginare, scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione.",
+  "approfondimento1": "La tua paura di impegnarti in una relazione seria sembra radicata nella sensazione che le cose non cambino, un sentimento di rassegnazione che Sealiah ti invita a guardare. Questa attesa paziente è ciò che ti permetterà di ripartire, anche quando il ritmo sembra lento.",
+  "approfondimento2": "Haiaiel ti insegna che il coraggio della mente fredda, che valuta le conseguenze e prende decisioni ponderate, è più duraturo dell'impulso. Un no detto dopo averlo pesato non necessita di essere urlato o difeso. Per agire, scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione."
+}
+
+=== 14. LUNGA | masculine | dal modello: false
+DOMANDA: Sto valutando di tornare a studiare dopo tanti anni, è la strada giusta per me?
+TITOLO: Il passo giusto è quello che puoi fare oggi
+RIQUADRO: Conosci quel piccolo disagio quando la tua condotta e le tue parole non coincidono, anche in una cosa da poco. Hahahel non lo tratta come colpa: è la coscienza che bussa con garbo. Puoi accoglierlo senza processarti. Quel disagio dice quanto ti importa che la tua fede e i tuoi giorni parlino la stessa lingua.
+GREZZO: {
+  "titolo": "La scelta di studiare è un invito a chiudere i conti",
+  "riquadro": "Dentro di te senti che è ora di allineare parole e azioni, un desiderio di autenticità che ti guida. Questo è il momento di capire che chiudere un capitolo in modo netto ti permette di aprirne uno nuovo senza bagagli inutili. La perseveranza che ti viene chiesta è quella di prenderti cura di un piccolo seme, un gesto concreto che accompagna la tua attesa.",
+  "approfondimento1": "L'Angelo del Cuore ti ricorda che quel leggero disagio che provi quando le tue azioni non rispecchiano ciò che senti è un segnale prezioso. Non è un giudizio, ma una bussata gentile della tua coscienza che ti invita a vivere in modo più coerente. È la tua stessa integrità che ti spinge a cercare un percorso dove la tua fede e la tua vita quotidiana siano in armonia.",
+  "approfondimento2": "Mumiah, l'Angelo dell'Intelletto, ti invita a distinguere tra un'interruzione e una chiusura. Un'interruzione lascia aperte questioni irrisolte, ma una vera chiusura permette di annodare i fili e di voltare pagina con serenità. Omael, l'Angelo Custode, ti suggerisce di agire con costanza: pianta un seme in un vaso e prenditene cura ogni giorno, un piccolo gesto che simboleggia la cura e la pazienza necessarie per veder fiorire i tuoi progetti."
+}
+
+=== 15. LUNGA | unknown | dal modello: false
+DOMANDA: Un'amicizia importante si è allontanata, posso recuperarla o devo lasciarla andare?
+TITOLO: Le persone giuste si riconoscono dai gesti
+RIQUADRO: Nella tua domanda si sente la frustrazione di chi sta sulla soglia con la chiave in mano. Non è debolezza: è la volontà che preme contro un permesso mai arrivato. Dentro quella stessa frustrazione abita già il sollievo del primo passo. Lo puoi sentire in anticipo, come un sapore che conosci.
+GREZZO: {
+  "titolo": "Osserva la tua comunicazione per guarire",
+  "riquadro": "Senti la frustrazione di chi sta sulla soglia, ma sappi che dentro abita già il sollievo. La parola detta per sfogarsi rompe una seconda volta, mentre dire il vero ripara. Dai forma all'idea che porti dentro, Mehiel la vuole viva. Registra un messaggio vocale per una persona che stimi e mandaglielo.",
+  "approfondimento1": "La tua domanda porta con sé il peso di una soglia da varcare. Il sollievo che senti in anticipo è il segnale che la via d'uscita è già in te, non fuori. Concentrati su come esprimi la verità, distinguendo tra il dire il vero per riparare e il dire per ferire.",
+  "approfondimento2": "Mehiel ti invita a dare forma alle tue idee senza aspettare la perfezione. Registra un messaggio vocale di due minuti in cui spieghi un'idea a una persona che stimi e invialo. Questo gesto concreto ti aiuterà a esporre il tuo pensiero con chiarezza."
+}
+
+=== 16. LUNGA | feminine | dal modello: true
+DOMANDA: Sto cercando di capire se restare nella città dove vivo o tornare dalla mia famiglia, cosa mi serve vedere?
+TITOLO: Osserva le tue responsabilità prima di decidere
+RIQUADRO: Senti la dignità silenziosa della tua cura per gli altri, senza che questo diventi un peso per te. La tua giustizia interiore, prima di valicare la porta, deve riguardare te stessa. Ricorda che un errore non definisce chi sei, ma le tue azioni sì.
+APPROFONDIMENTO 1: Mebahel ti invita a una giustizia che inizia da te. Rivedi gli impegni presi, sia scritti che a voce, e concentra l'attenzione sui punti che ti riguardano. Avere chiarezza su ciò che ti spetta e ciò che devi fare è il primo passo.
+APPROFONDIMENTO 2: Manakel ti ricorda la fatica sottile del prenderti cura senza appesantire. Osserva questa tua qualità e riconoscila con gentilezza. Per sciogliere il nodo, scrivi una lista dei tuoi doveri attuali e di quelli che senti di dover assumere, distinguendo con chiarezza ciò che è necessario.
+GREZZO: {
+  "titolo": "Osserva le tue responsabilità prima di decidere",
+  "riquadro": "Senti la dignità silenziosa della tua cura per gli altri, senza che questo diventi un peso per te. La tua giustizia interiore, prima di valicare la porta, deve riguardare te stessa. Ricorda che un errore non definisce chi sei, ma le tue azioni sì.",
+  "approfondimento1": "Mebahel ti invita a una giustizia che inizia da te. Rivedi gli impegni presi, sia scritti che a voce, e concentra l'attenzione sui punti che ti riguardano. Avere chiarezza su ciò che ti spetta e ciò che devi fare è il primo passo.",
+  "approfondimento2": "Manakel ti ricorda la fatica sottile del prenderti cura senza appesantire. Osserva questa tua qualità e riconoscila con gentilezza. Per sciogliere il nodo, scrivi una lista dei tuoi doveri attuali e di quelli che senti di dover assumere, distinguendo con chiarezza ciò che è necessario."
+}
+
+=== 17. LUNGA | masculine | dal modello: true
+DOMANDA: Vorrei capire come affrontare un periodo di grande cambiamento sul lavoro.
+TITOLO: Gestisci il cambiamento lavorativo con verità e pazienza
+RIQUADRO: L'Angelo del Cuore ti invita a sentire una dolcezza particolare nel tuo procedere, accogliendo la pazienza necessaria ad apprendere senza fretta. L'Angelo dell'Intelletto ti ricorda che chiudere con saggezza i cicli passati permette di iniziare un nuovo capitolo con chiarezza. L'Angelo Custode ti esorta a comunicare con verità, ma con delicatezza.
+APPROFONDIMENTO 1: Accogli la pazienza come un dono che ti permette di attraversare questo momento con serenità, senza la fretta di dover già vedere la fine. Lascia che ogni giorno porti il suo contributo, senza misurare il tempo che passa.
+APPROFONDIMENTO 2: Osserva come chiudere un ciclo lavorativo, o una fase di esso, con la dovuta attenzione e senza lasciare questioni in sospeso, sia fondamentale per iniziare il nuovo con slancio. Scrivi oggi quella frase difficile che devi dire, scegliendo parole che non feriscano, e pronunciala con fermezza ma con gentilezza.
+GREZZO: {
+  "titolo": "Gestisci il cambiamento lavorativo con verità e pazienza",
+  "riquadro": "L'Angelo del Cuore ti invita a sentire una dolcezza particolare nel tuo procedere, accogliendo la pazienza necessaria ad apprendere senza fretta. L'Angelo dell'Intelletto ti ricorda che chiudere con saggezza i cicli passati permette di iniziare un nuovo capitolo con chiarezza. L'Angelo Custode ti esorta a comunicare con verità, ma con delicatezza.",
+  "approfondimento1": "Accogli la pazienza come un dono che ti permette di attraversare questo momento con serenità, senza la fretta di dover già vedere la fine. Lascia che ogni giorno porti il suo contributo, senza misurare il tempo che passa.",
+  "approfondimento2": "Osserva come chiudere un ciclo lavorativo, o una fase di esso, con la dovuta attenzione e senza lasciare questioni in sospeso, sia fondamentale per iniziare il nuovo con slancio. Scrivi oggi quella frase difficile che devi dire, scegliendo parole che non feriscano, e pronunciala con fermezza ma con gentilezza."
+}
+
+=== 18. LUNGA | unknown | dal modello: true
+DOMANDA: Sento che sto per prendere una decisione importante sulla mia casa, cosa devo considerare?
+TITOLO: La tua casa merita coerenza e chiarezza
+RIQUADRO: Hakamiah ti invita a sentire la fedeltà che nasce dal tuo cuore, distinguendola dalla tentazione di chiamare prudenza un tuo ritiro. Mikael ti spinge a capire che un accordo vero non divide la perdita, ma nasce dalla chiara visione di ciò che si dona. Mebahiah ti ricorda che quello che trasmetti passa per le tue azioni, non per le parole.
+APPROFONDIMENTO 1: Mebahiah ti chiede di allineare pensieri e condotta. Osserva se le tue azioni riflettono le tue intenzioni, specialmente riguardo a ciò che comunichi agli altri. Questa coerenza è fondamentale per ogni decisione che prendi, soprattutto quelle che riguardano il tuo spazio vitale.
+APPROFONDIMENTO 2: Hakamiah sottolinea la nobiltà della fedeltà che senti, invitandoti a non confonderla con un comodo ritiro. Mikael ti suggerisce di cercare un accordo basato sulla chiarezza di ciò che ciascuno offre, piuttosto che su un compromesso che divide le perdite. Per tre giorni, scrivi su un foglio una regola che chiedi agli altri di rispettare e osserva se la rispetti anche tu.
+GREZZO: {
+  "titolo": "La tua casa merita coerenza e chiarezza",
+  "riquadro": "Hakamiah ti invita a sentire la fedeltà che nasce dal tuo cuore, distinguendola dalla tentazione di chiamare prudenza un tuo ritiro. Mikael ti spinge a capire che un accordo vero non divide la perdita, ma nasce dalla chiara visione di ciò che si dona. Mebahiah ti ricorda che quello che trasmetti passa per le tue azioni, non per le parole.",
+  "approfondimento1": "Mebahiah ti chiede di allineare pensieri e condotta. Osserva se le tue azioni riflettono le tue intenzioni, specialmente riguardo a ciò che comunichi agli altri. Questa coerenza è fondamentale per ogni decisione che prendi, soprattutto quelle che riguardano il tuo spazio vitale.",
+  "approfondimento2": "Hakamiah sottolinea la nobiltà della fedeltà che senti, invitandoti a non confonderla con un comodo ritiro. Mikael ti suggerisce di cercare un accordo basato sulla chiarezza di ciò che ciascuno offre, piuttosto che su un compromesso che divide le perdite. Per tre giorni, scrivi su un foglio una regola che chiedi agli altri di rispettare e osserva se la rispetti anche tu."
+}
+
+=== 19. LUNGA | feminine | dal modello: true
+DOMANDA: Vorrei capire meglio cosa mi blocca nel realizzare i miei progetti creativi.
+TITOLO: Lascia andare il passato per liberare la tua creatività
+RIQUADRO: Senti la frustrazione che nasce dal problema persistente, Ieialel ti ricorda che questa tenacia è un segno del tuo desiderio di non mollare. Accetta questa forza interiore, che ti spinge a cercare la soluzione. Mumiah ti invita a chiudere ciò che è scaduto, liberando energia per il nuovo. Hahasiah suggerisce di osservare il meccanismo dietro al blocco, prima di agire.
+APPROFONDIMENTO 1: La tua energia creativa è bloccata da legami che non ti appartengono più. Mumiah ti mostra situazioni che hai protratto per abitudine, mascherate da fedeltà, ma che in realtà sono solo zavorre. Riconoscere questi legami è il primo passo per liberarti.
+APPROFONDIMENTO 2: Ieialel ti invita a sentire la frustrazione come un segnale di vitalità, non come un limite. La tua mente non si arrende, ma esplora. Per capire veramente il blocco, Hahasiah suggerisce di osservare il percorso causa-effetto, anziché fermarti all'apparenza. Scegli un'abitudine o un impegno che senti sia giunto al termine e chiudilo oggi stesso con un gesto deciso.
+GREZZO: {
+  "titolo": "Lascia andare il passato per liberare la tua creatività",
+  "riquadro": "Senti la frustrazione che nasce dal problema persistente, Ieialel ti ricorda che questa tenacia è un segno del tuo desiderio di non mollare. Accetta questa forza interiore, che ti spinge a cercare la soluzione. Mumiah ti invita a chiudere ciò che è scaduto, liberando energia per il nuovo. Hahasiah suggerisce di osservare il meccanismo dietro al blocco, prima di agire.",
+  "approfondimento1": "La tua energia creativa è bloccata da legami che non ti appartengono più. Mumiah ti mostra situazioni che hai protratto per abitudine, mascherate da fedeltà, ma che in realtà sono solo zavorre. Riconoscere questi legami è il primo passo per liberarti.",
+  "approfondimento2": "Ieialel ti invita a sentire la frustrazione come un segnale di vitalità, non come un limite. La tua mente non si arrende, ma esplora. Per capire veramente il blocco, Hahasiah suggerisce di osservare il percorso causa-effetto, anziché fermarti all'apparenza. Scegli un'abitudine o un impegno che senti sia giunto al termine e chiudilo oggi stesso con un gesto deciso."
+}
+
+=== 20. LUNGA | masculine | dal modello: true
+DOMANDA: Sto cercando chiarezza su come ricostruire la fiducia in me stessa dopo una delusione.
+TITOLO: La fiducia si riaccende con onestà e accettazione
+RIQUADRO: Accogli l'ansia come un bisogno di controllo che si allenta, lasciando spazio all'intuizione. Ricorda a te stesso il tuo posto nella tua storia comune, senza comandare. L'onestà scomoda ti chiede di guardare ciò che non conviene, ma è il primo passo per ricostruire.
+APPROFONDIMENTO 1: Nithhaiah ti invita ad accettare l'ansia e la resa morbida come passaggi necessari. È nel lasciarsi attraversare dal mistero che le intuizioni possono germogliare, liberando la mente dal bisogno di controllo.
+APPROFONDIMENTO 2: Rochel ti suggerisce di scrivere i fatti in ordine cronologico per comprendere meglio la situazione, prima di formulare un giudizio. Iezalel ti ricorda che puoi essere un punto di riferimento senza imporre la tua volontà, valorizzando il ruolo di ciascuno nella tua storia.
+GREZZO: {
+  "titolo": "La fiducia si riaccende con onestà e accettazione",
+  "riquadro": "Accogli l'ansia come un bisogno di controllo che si allenta, lasciando spazio all'intuizione. Ricorda a te stesso il tuo posto nella tua storia comune, senza comandare. L'onestà scomoda ti chiede di guardare ciò che non conviene, ma è il primo passo per ricostruire.",
+  "approfondimento1": "Nithhaiah ti invita ad accettare l'ansia e la resa morbida come passaggi necessari. È nel lasciarsi attraversare dal mistero che le intuizioni possono germogliare, liberando la mente dal bisogno di controllo.",
+  "approfondimento2": "Rochel ti suggerisce di scrivere i fatti in ordine cronologico per comprendere meglio la situazione, prima di formulare un giudizio. Iezalel ti ricorda che puoi essere un punto di riferimento senza imporre la tua volontà, valorizzando il ruolo di ciascuno nella tua storia."
+}
+
+=== RIEPILOGO FVA.02 ===
+consultazioni 20, dal modello 14/20
+token in ingresso 18137, in uscita 4010
+costo totale: 0.003418 dollari
+00:26 +1: All tests passed!
