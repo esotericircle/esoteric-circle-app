@@ -22,6 +22,7 @@ class ChatEmptyState extends StatelessWidget {
     required this.maestro,
     required this.greeting,
     this.spazioInFondo = 0,
+    this.figura,
   });
 
   final Maestro maestro;
@@ -31,6 +32,12 @@ class ChatEmptyState extends StatelessWidget {
   /// messaggi: la misura arriva dalla schermata, che e' l'unica a conoscere
   /// l'altezza vera del suo compositore.
   final double spazioInFondo;
+
+  /// **LA FIGURA SOPRA IL SALUTO, ordine FW voce FW.04.** Di norma il busto
+  /// dalla porta unica (`BustoDelMaestro`); la chat lo sostituisce con la
+  /// scena in video del Maestro finche' non arriva il primo messaggio.
+  /// Riceve l'altezza gia' calcolata, la stessa che riceverebbe il busto.
+  final Widget Function(double altezza)? figura;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +106,8 @@ class ChatEmptyState extends StatelessWidget {
                 // La misura 220 del 2164 apparteneva alla figura intera; il busto
                 // canonico e' piu' alto ma ritagliato, e il benvenuto resta il
                 // primo testo sotto di lui.
-                BustoDelMaestro(maestro: maestro, height: altezzaBusto),
+                figura?.call(altezzaBusto) ??
+                    BustoDelMaestro(maestro: maestro, height: altezzaBusto),
                 const SizedBox(height: SpacingTokens.md),
                 Text(
                   greeting,

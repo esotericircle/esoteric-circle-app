@@ -362,6 +362,17 @@ flutter:
     # impronta SHA-256
     # 585ac4b3d93495ce30ad7ac5ca69d83937b4e6388d018594d81a0bebd6493450.
     - brand_assets/calendario_lunare/
+    # I VIDEO DI SCENA DEI TRE MAESTRI, ordine FW voce FW.01, 15 ottobre
+    # 2026: il primo e l'ultimo fotogramma del dominio e della chat di
+    # Medora, Caligo e Aura (12 file), convertiti in WebP da
+    # tool/gli_asset_dell_ordine_fw.py. Lo scambio di Caligo (FW.05): il
+    # fotogramma di caligo_dominio viene dalla cartella "Caligo Chat Scena"
+    # e quello di caligo_chat dalla cartella "Caligo Dominio Scena".
+    - assets/img/maestri_scena/
+    # I sei video, H.264 a qualita' costante 26 con l'audio (metodo della
+    # voce FU.12), da 54,9 a 23,7 MB in tutto. Le impronte SHA-256 stanno in
+    # docs/collaudo/FW/fw01_asset.txt.
+    - brand_assets/maestri_scena/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la

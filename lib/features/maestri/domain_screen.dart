@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '../../core/maestro/la_scena_del_maestro.dart';
 import '../../core/maestro/maestro.dart';
-import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../scene/la_scena_in_video.dart';
 import '../shell/vie_del_cerchio.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
@@ -17,10 +20,32 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 /// funzioni del dominio nei loro stati. Ha la sua freccia Indietro che torna al
 /// Santuario, nessuna bottom bar, cosi' resta superficie immersiva. Dalla chat,
 /// Indietro torna qui; da qui, Indietro torna al Santuario.
-class DomainScreen extends StatelessWidget {
-  const DomainScreen({super.key, required this.maestro});
+///
+/// **LA SCENA IN VIDEO, ordine FW voce FW.03, 15 ottobre 2026.** Il
+/// fondatore: *"per coerenza"*, sul video di scena per la home del dominio di
+/// ogni Maestro, come gia' per la Stesa, la Sinastria e l'Oracolo. All'
+/// apertura parte il video del Maestro (`LaScenaDelMaestro.delDominio`);
+/// fermo o finito, il suo ultimo fotogramma resta come fondo, al posto di
+/// `CosmosBackground`. Un tocco lo salta (`IlToccoCheSalta`, lo stesso punto
+/// delle altre scene).
+///
+/// **UNA REGIA PER SCHERMATA, COME LE ALTRE SCENE.** Questa classe e'
+/// diventata `StatefulWidget` perche' la regia (`RegiaDellaScena`) vive
+/// quanto la schermata: nasce in `initState`, si chiude in `dispose`. Spinto
+/// come route ogni volta che si entra nel dominio, un ritorno con
+/// `Navigator.pop` (da un'arte o dalla chat) **non** crea una nuova istanza:
+/// e' la stessa schermata gia' nello stack, la regia resta quella di prima e
+/// il video non riparte. Solo una nuova apertura del dominio (per esempio
+/// tornando al Santuario e rientrando) lo fa ripartire: e' il comportamento
+/// naturale di push e pop, voluto uguale per i tre Maestri perche' nessuno
+/// dei tre ha un motivo per comportarsi diversamente (scelta di Code, FW.03).
+class DomainScreen extends StatefulWidget {
+  const DomainScreen({super.key, required this.maestro, this.fabbricaDellaScena});
 
   final Maestro maestro;
+
+  /// La finta del lettore video, per le prove headless.
+  final FabbricaDiScena? fabbricaDellaScena;
 
   static Route<void> route({
     required Maestro maestro,
@@ -45,8 +70,44 @@ class DomainScreen extends StatelessWidget {
   }
 
   @override
+  State<DomainScreen> createState() => _DomainScreenState();
+}
+
+class _DomainScreenState extends State<DomainScreen> {
+  late final RegiaDellaScena _regia;
+
+  @override
+  void initState() {
+    super.initState();
+    final scena = LaScenaDelMaestro.delDominio(widget.maestro);
+    _regia = RegiaDellaScena(
+        widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(scena.video))
+      ..addListener(_quandoLaScenaCambia);
+  }
+
+  void _quandoLaScenaCambia() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    unawaited(_regia.avvia(context));
+  }
+
+  @override
+  void dispose() {
+    _regia
+      ..removeListener(_quandoLaScenaCambia)
+      ..dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final scena = LaScenaDelMaestro.delDominio(widget.maestro);
+    final ferma = _regia.ferma;
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -83,23 +144,79 @@ class DomainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(maestro.nomeAVideo,
+            Text(widget.maestro.nomeAVideo,
                 textAlign: TextAlign.center,
                 style: TypographyTokens.titoloDiSchermata()),
             const SizedBox(height: 2),
-            DomainPillars(maestro: maestro),
+            DomainPillars(maestro: widget.maestro),
           ],
         ),
         // IL BORSELLINO, ordine S voce 06, oggi PILLOLA dell'ordine AI: al
         // capo destro, fra le azioni come in ogni altra testata.
         actions: const [AngoloDellaBarra()],
       ),
-      // Cosmo senza costellazioni anche qui: superficie calma, nessun
-      // rettangolo a portale dietro l'header.
-      body: CosmosBackground(
-        seed: 12,
-        showZodiac: false,
-        child: MaestroScreen(maestro: maestro),
+      body: IlToccoCheSalta(
+        inCorso: _regia.inCorso,
+        onSalta: _regia.salta,
+        child: Stack(
+          key: const Key('dominio_scena'),
+          clipBehavior: Clip.hardEdge,
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
+                key: const Key('dominio_fotogramma'),
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.medium,
+                errorBuilder: (_, __, ___) =>
+                    ColoredBox(color: palette.deepest),
+              ),
+            ),
+            // IL VIDEO SI TOGLIE QUANDO FINISCE, come nel Calendario Lunare:
+            // l'ultimo fotogramma dipinto sta gia' sotto. Saltato, sfuma e
+            // poi non dipinge piu'.
+            if (_regia.filmatoInScena && (!ferma || _regia.saltata))
+              Positioned.fill(
+                child: IlFilmatoCheSfuma(
+                  key: const Key('dominio_filmato'),
+                  saltato: _regia.saltata,
+                  child: _regia.disegna(),
+                ),
+              ),
+            // **IL VELO IN BASSO, FW.03**: il contenuto del dominio (i
+            // pilastri sono gia' nella barra, leggibili per conto loro)
+            // scorre sopra la scena a partire da meta' schermo: una
+            // sfumatura verso il colore profondo della palette aiuta la
+            // lettura delle prime schede senza coprire il viso del Maestro,
+            // che resta nella meta' alta.
+            IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.0, 0.42, 0.62],
+                    colors: [
+                      Colors.transparent,
+                      Colors.transparent,
+                      palette.deepest.withValues(alpha: 0.72),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            MaestroScreen(
+              maestro: widget.maestro,
+              // **IL VISO NON SI COPRE, FW.03**: misurato sui tre ultimi
+              // fotogrammi (docs/preview/FW/), il viso dei tre Maestri sta
+              // tutto entro il 40 per cento alto dell'immagine 1080x1920. Lo
+              // spazio libero e' il 46 per cento dell'altezza dello schermo,
+              // uguale per i tre: il contenuto del dominio comincia sotto le
+              // spalle, mai sopra il mento.
+              spazioScena: MediaQuery.sizeOf(context).height * 0.46,
+            ),
+          ],
+        ),
       ),
     );
   }

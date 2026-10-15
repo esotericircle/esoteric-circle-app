@@ -51,6 +51,7 @@ class MaestroScreen extends StatefulWidget {
     super.key,
     required this.maestro,
     this.demo = AppFlags.isDemo,
+    this.spazioScena = 0,
   });
 
   final Maestro maestro;
@@ -58,6 +59,13 @@ class MaestroScreen extends StatefulWidget {
   /// La vista: quella Demo per gli investitori mostra tutto il piano, quella
   /// della persona si ferma alla soglia delle fasi. Iniettabile per i test.
   final bool demo;
+
+  /// **LO SPAZIO LIBERO IN CIMA, ordine FW voce FW.03.** Il dominio mostra
+  /// ora la scena in video del Maestro dietro questa colonna: il contenuto
+  /// comincia dopo questo spazio, cosi' il viso del Maestro nell'ultimo
+  /// fotogramma non si copre. Zero conserva il comportamento di prima, per
+  /// chi monta questa schermata senza una scena dietro.
+  final double spazioScena;
 
   @override
   State<MaestroScreen> createState() => _MaestroScreenState();
@@ -74,6 +82,12 @@ class _MaestroScreenState extends State<MaestroScreen> {
       bottom: false,
       child: CustomScrollView(
         slivers: [
+          if (widget.spazioScena > 0)
+            SliverToBoxAdapter(
+              child: SizedBox(
+                  key: const Key('dominio_spazio_scena'),
+                  height: widget.spazioScena),
+            ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(

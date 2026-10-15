@@ -5695,7 +5695,12 @@ void main() {
 
       final saluto = tester.getRect(find.byKey(const Key('chat_benvenuto')));
       final composer = tester.getRect(find.byType(ChatComposer));
-      final busto = tester.getRect(find.byType(BustoDelMaestro).first);
+      // **ORDINE FW VOCE FW.04, 15 ottobre 2026**: il busto fermo della
+      // chat vuota e' diventato la scena in video del Maestro
+      // (`chat_scena_fotogramma`), con la stessa altezza calcolata che il
+      // busto riceveva: la misura sotto vale identica.
+      final busto =
+          tester.getRect(find.byKey(const Key('chat_scena_fotogramma')));
 
       // **NON SI SOVRAPPONGONO**, che e' la meta' facile.
       expect(saluto.bottom, lessThanOrEqualTo(composer.top),

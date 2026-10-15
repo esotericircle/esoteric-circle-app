@@ -68,6 +68,9 @@ import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
 import '../live/l_entrata_nel_vivo.dart';
 import 'widgets/la_porta_del_vivo.dart';
+import '../../../core/maestro/la_scena_del_maestro.dart';
+import '../../scene/la_scena_in_video.dart';
+import '../widgets/busto_del_maestro.dart' show BustoDelMaestro;
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -76,9 +79,14 @@ class MaestroChatScreen extends StatefulWidget {
     this.initialTheme,
     this.initialUserMessage,
     this.dettatura,
+    this.fabbricaDellaScena,
   });
 
   final Maestro maestro;
+
+  /// La finta del lettore video della scena d'apertura, per le prove
+  /// headless (FW.04).
+  final FabbricaDiScena? fabbricaDellaScena;
 
   /// **LA DETTATURA, e si passa da fuori per una ragione sola: le
   /// anteprime.** Ordine CI voce 05. Nell'app resta nulla e la schermata
@@ -286,10 +294,34 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     });
   }
 
+  /// **LA SCENA D'APERTURA, ordine FW voce FW.04.** Una regia per
+  /// schermata, come il dominio (FW.03): nasce in `initState`, si chiude in
+  /// `dispose`. Parte solo se la chat si apre senza storia: una
+  /// conversazione gia' in corso non mostrava il busto nemmeno prima, e non
+  /// ha motivo di avviare un video che nessuno vedrebbe (scelta di Code,
+  /// FW.04).
+  late final RegiaDellaScena _regiaDellaChat;
+
   @override
   void initState() {
     super.initState();
     _loadWelcomeRotation();
+    final scena = LaScenaDelMaestro.dellaChat(widget.maestro);
+    _regiaDellaChat = RegiaDellaScena(
+        widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(scena.video))
+      ..addListener(_quandoLaScenaDellaChatCambia);
+  }
+
+  void _quandoLaScenaDellaChatCambia() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.read<MaestroChatController>().messages.isEmpty) {
+      unawaited(_regiaDellaChat.avvia(context));
+    }
   }
 
   Future<void> _loadWelcomeRotation() async {
@@ -309,6 +341,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   void dispose() {
     _attesaDellaMisura?.cancel();
     _scroll.dispose();
+    _regiaDellaChat
+      ..removeListener(_quandoLaScenaDellaChatCambia)
+      ..dispose();
     super.dispose();
   }
 
@@ -595,6 +630,17 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       } else {
         _scrollToEnd();
       }
+      // **LA RISPOSTA NON ASPETTA LA FINE DEL VIDEO, FW.04.** Se la scena
+      // sta ancora girando quando arriva il primo messaggio, la fa sfumare
+      // subito sull'ultimo fotogramma invece di lasciarla finire: dopo,
+      // l'AnimatedSwitcher la fa salire e scomparire. Un post-frame perche'
+      // `salta()` notifica un ascoltatore che chiama `setState`, e siamo
+      // dentro `build`.
+      if (controller.messages.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _regiaDellaChat.salta();
+        });
+      }
     }
 
     final hasMessages = controller.messages.isNotEmpty;
@@ -827,7 +873,50 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                                     widget.maestro,
                               ),
                       ),
-                      conversazione: _buildBody(controller),
+                      // **LA SCENA SALE E SCOMPARE, FW.04.** Un ciclo solo:
+                      // nessuna animazione cosi' esisteva prima (il busto
+                      // spariva all'istante, sostituito dalla conversazione,
+                      // verificato sul ramo prima di questa voce: P4 era
+                      // caduta su questo punto). La dissolvenza e' quella
+                      // delle altre scene (`TempiDellAttesa.dissolvenza`,
+                      // 260 ms); la scena che esce scorre verso l'alto del
+                      // 6 per cento della sua altezza mentre sfuma, la
+                      // "salita" che l'ordine chiede, scelta da Code perche'
+                      // nessun movimento di prima esiste da copiare.
+                      // **IL TOCCO CHE SALTA STA QUI, NON SU TUTTA LA
+                      // SCHERMATA.** A differenza delle altre scene, la chat
+                      // ha un compositore sempre presente sotto: avvolgendo
+                      // l'intero corpo, un tocco sul campo o sulla freccia
+                      // mentre il video gira veniva consumato dal velo e non
+                      // arrivava mai alla sua destinazione, impedendo di
+                      // scrivere finche' il video non finiva da solo o
+                      // qualcuno toccava altrove apposta. Qui il velo copre
+                      // solo la zona della scena, e il compositore resta
+                      // sempre toccabile: e' cosi' che P5 puo' succedere
+                      // davvero (la risposta arriva mentre il video gira).
+                      conversazione: IlToccoCheSalta(
+                        inCorso: !hasMessages && _regiaDellaChat.inCorso,
+                        onSalta: _regiaDellaChat.salta,
+                        child: AnimatedSwitcher(
+                          duration: controller.riduciMovimento
+                              ? Duration.zero
+                              : TempiDellAttesa.dissolvenza,
+                          transitionBuilder: (figlio, anim) => FadeTransition(
+                            opacity: anim,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0, -0.06),
+                                end: Offset.zero,
+                              ).animate(anim),
+                              child: figlio,
+                            ),
+                          ),
+                          child: KeyedSubtree(
+                            key: ValueKey(hasMessages),
+                            child: _buildBody(controller),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   // LA SINTESI SI RAGGIUNGE SOLO QUANDO C'E' QUALCOSA DA
@@ -994,6 +1083,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
         spazioInFondo: _altezzaComposer + _spazioSottoIlCampo,
+        // **LA SCENA AL POSTO DEL BUSTO FERMO, FW.04.**
+        figura: (altezza) => _LaScenaDellaChatVuota(
+          regia: _regiaDellaChat,
+          scena: LaScenaDelMaestro.dellaChat(widget.maestro),
+          height: altezza,
+        ),
       );
     }
     // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui
@@ -1893,6 +1988,64 @@ class _ConversazioneNuova {
 /// Quindi la presenza resta finche' la fascia e' larga abbastanza da ospitarla,
 /// e si toglie da sola quando la conversazione cresce. **Non pulsa e non
 /// parla**: e' una presenza a riposo, non una scena.
+/// **LA SCENA DELLA CHAT, PRIMA DEL PRIMO MESSAGGIO.** Ordine FW voce FW.04,
+/// 15 ottobre 2026. Al posto del busto fermo di prima: il video del Maestro,
+/// fermo sull'ultimo fotogramma quando non gira, con lo stesso taglio
+/// sfumato in basso del busto che sostituisce (`BustoDelMaestro.
+/// fermateDellaSfumatura`), cosi' la scena non lascia un bordo netto sul
+/// cosmo dietro di lei.
+class _LaScenaDellaChatVuota extends StatelessWidget {
+  const _LaScenaDellaChatVuota({
+    required this.regia,
+    required this.scena,
+    required this.height,
+  });
+
+  final RegiaDellaScena regia;
+  final LaScenaDelMaestro scena;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final ferma = regia.ferma;
+    return SizedBox(
+      height: height,
+      width: double.infinity,
+      child: ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (rect) => const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.white, Colors.white, Colors.transparent],
+          stops: BustoDelMaestro.fermateDellaSfumatura,
+        ).createShader(rect),
+        child: ClipRect(
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(
+                ferma ? scena.ultimoFotogramma : scena.primoFotogramma,
+                key: const Key('chat_scena_fotogramma'),
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.medium,
+                errorBuilder: (_, __, ___) =>
+                    ColoredBox(color: palette.deepest),
+              ),
+              if (regia.filmatoInScena && (!ferma || regia.saltata))
+                IlFilmatoCheSfuma(
+                  key: const Key('chat_scena_filmato'),
+                  saltato: regia.saltata,
+                  child: regia.disegna(),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _PresenzaARiposo extends StatelessWidget {
   const _PresenzaARiposo({super.key, required this.maestro});
 

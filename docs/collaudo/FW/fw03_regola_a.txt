@@ -1,0 +1,19 @@
+REGOLA A, ordine FW voce FW.03, 15 ottobre 2026
+guardia: test/la_scena_del_dominio_e_un_filmato_test.dart
+
+innesto: lib/features/maestri/domain_screen.dart riga 160,
+  onSalta: _regia.salta,  ->  onSalta: () {}, // INNESTO_FW03
+verifica dell'innesto: grep -n "INNESTO_FW03" lib/features/maestri/domain_screen.dart
+  trovato alla riga 160, confermato il difetto nel file.
+
+esito con l'innesto (uscita 1):
+  FW.03: un tocco in qualunque punto fa sfumare il video [E]
+  Expected: <1>
+    Actual: <0>
+  il tocco non ha fatto sospendere il lettore
+  00:04 +6 -1: Some tests failed.
+
+ripristino: ricopiato domain_screen.dart dal backup; grep "onSalta" conferma
+  "onSalta: _regia.salta," senza traccia di INNESTO_FW03.
+
+esito sul codice vero (uscita 0): All tests passed! (7 su 7)
