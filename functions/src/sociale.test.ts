@@ -57,6 +57,12 @@ import {
   frammentoDi,
   lettureDegliAmici,
   lettureDellaRicostruzione,
+  ATTIVITA_DEL_LUNARIO,
+  RISPOSTE_AL_GIORNO,
+  EOS_DEL_MESE_LUNARIO,
+  EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
+  attivitaDelLunarioValida,
+  rispostaAlGiornoValida,
 } from "./sociale";
 import {INDIRIZZI_DEGLI_STORE, RIGA_DEL_CODICE, laPagina} from "./la_pagina_dell_invito";
 
@@ -439,7 +445,10 @@ test("EY.16 il tetto della porta conta, chiude e dice quanto manca", () => {
   const altre = Object.entries(TETTI_DELLE_PORTE).filter(([n]) => n !== "laTendinaDelCerchio");
   for (const [nome, tetto] of altre) {
     assert.ok(tetto.quante / tetto.finestraMs >= t.quante / t.finestraMs || nome === "scegliIlNome" ||
-      nome === "regalaGliEos" || nome === "compraUnPostoNelCerchio",
+      nome === "regalaGliEos" || nome === "compraUnPostoNelCerchio" ||
+      // Ordine FV voce FV.12: lo stesso tetto di `compraUnPostoNelCerchio",
+      // un acquisto singolo e non un gesto che si ripete ogni giorno.
+      nome === "compraUnMeseDelLunario" || nome === "compraUnaPropostaInsiemeDelLunario",
     `${nome} e' piu' stretta della tendina`);
   }
 });
@@ -458,7 +467,10 @@ test("EY.16 GUARDIA: ogni porta del motore sociale ha il suo tetto", () => {
   console.log(`EY.16 PORTE SOCIALI: ${nomi.length}, senza tetto ${senza.length}`);
   // 22 dall'ordine FF: le sei porte degli Enigmi del Cerchio. 24 dall'ordine
   // FT: le due porte della lettura a due telefoni della Sinastria evolutiva.
-  assert.equal(nomi.length, 24);
+  // 28 dall'ordine FV: le quattro porte del Calendario Lunare, voci FV.10 e
+  // FV.12 (proponiGiornoInsieme, rispondiAlGiorno, compraUnMeseDelLunario,
+  // compraUnaPropostaInsiemeDelLunario).
+  assert.equal(nomi.length, 28);
   assert.deepEqual(senza, []);
   assert.deepEqual(nomi.sort(), Object.keys(TETTI_DELLE_PORTE).sort());
   // E App Check resta spento, come dichiara la premessa P9.
@@ -498,8 +510,9 @@ test("EZ.07 la pagina del link senza store non rimanda a uno store, col dato pie
 
 test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che riceve l'eta'", () => {
   const porte = Object.keys(TETTI_DELLE_PORTE);
-  // 24 dall'ordine FT, con le due porte della lettura a due telefoni.
-  assert.equal(porte.length, 24);
+  // 24 dall'ordine FT, con le due porte della lettura a due telefoni. 28
+  // dall'ordine FV, con le quattro porte del Calendario Lunare.
+  assert.equal(porte.length, 28);
   const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
     sogliaDellEtaPassata(p, undefined));
   console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);
@@ -532,4 +545,20 @@ test("FU.09 la carta degli Angeli in dono: ogni piano, trenta Eos, un numero da 
   assert.equal(cartaDegliAngeli(73), null);
   assert.equal(cartaDegliAngeli(2.5), null);
   assert.equal(cartaDegliAngeli("Vehuiah"), null);
+});
+
+test("FV.10 e FV.12 il Calendario Lunare: ventisette attivita', tre risposte, due prezzi", () => {
+  console.log(`FV.10 ATTIVITA' DEL LUNARIO: ${ATTIVITA_DEL_LUNARIO.length}`);
+  assert.equal(ATTIVITA_DEL_LUNARIO.length, 27);
+  assert.equal(attivitaDelLunarioValida("viaggi"), "viaggi");
+  assert.equal(attivitaDelLunarioValida("traslochi"), "traslochi");
+  assert.equal(attivitaDelLunarioValida("cena"), null,
+    "cena non e' una AttivitaDelLunario: il rapporto dell'ordine ne dice la ragione");
+  assert.equal(attivitaDelLunarioValida("qualcosaDaInventare"), null);
+  assert.deepEqual([...RISPOSTE_AL_GIORNO].sort(), ["altroGiorno", "no", "si"]);
+  assert.equal(rispostaAlGiornoValida("si"), "si");
+  assert.equal(rispostaAlGiornoValida("forse"), null);
+  // Il listino del telefono (listino_degli_eos.dart) promette questi numeri.
+  assert.equal(EOS_DEL_MESE_LUNARIO, 60);
+  assert.equal(EOS_DELLA_PROPOSTA_INSIEME_LUNARIO, 50);
 });

@@ -28,19 +28,33 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 /// **LO STESSO GESTO PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
 /// [perLOracolo] la riga del consenso dice che la nascita serve ai tuoi tre
 /// angeli per la domanda di un amico, e il consenso vale solo per quello.
+///
+/// **LO STESSO GESTO PER "TROVA IL GIORNO INSIEME"**, ordine FV voce FV.10:
+/// con [perLoLunario] la riga dice che la nascita serve al Calendario
+/// Lunare di chi te la chiede, per trovare insieme un giorno buono anche
+/// per i tuoi giorni tuoi (FV.07); il consenso vale solo per quello.
 class LaTuaNascitaPerUnaLettura extends StatefulWidget {
   const LaTuaNascitaPerUnaLettura(
-      {super.key, required this.palette, this.perLOracolo = false});
+      {super.key,
+      required this.palette,
+      this.perLOracolo = false,
+      this.perLoLunario = false});
 
   final MaestroPalette palette;
 
   /// Vero quando la nascita si presta all'Oracolo degli Angeli.
   final bool perLOracolo;
 
+  /// Vero quando la nascita si presta a "Trova il giorno insieme" del
+  /// Calendario Lunare (FV.10).
+  final bool perLoLunario;
+
   static Route<void> route(MaestroPalette palette,
-          {bool perLOracolo = false}) =>
+          {bool perLOracolo = false, bool perLoLunario = false}) =>
       PassaggioDelCerchio.rotta((_) => LaTuaNascitaPerUnaLettura(
-          palette: palette, perLOracolo: perLOracolo));
+          palette: palette,
+          perLOracolo: perLOracolo,
+          perLoLunario: perLoLunario));
 
   /// La riga del consenso per l'Oracolo: si legge prima del gesto.
   static const String rigaDellOracolo =
@@ -48,6 +62,14 @@ class LaTuaNascitaPerUnaLettura extends StatefulWidget {
       'per te: rispondono i tuoi tre angeli, che vengono dalla tua nascita '
       'vera. Il codice la presta per una lettura sola, per cinque minuti. Nel '
       'tuo profilo del Cerchio non entra.';
+
+  /// La riga del consenso per "Trova il giorno insieme": si legge prima del
+  /// gesto.
+  static const String rigaDelLunario =
+      'Chi ti è accanto può cercare con te un giorno buono nel Calendario '
+      'Lunare: con la tua nascita vera il mese si accende anche sui tuoi '
+      'giorni tuoi. Il codice la presta per una lettura sola, per cinque '
+      'minuti. Nel tuo profilo del Cerchio non entra.';
 
   /// Quanto vale il codice: lo stesso del server
   /// (`DURATA_DEL_CONSENSO_MS` in `functions/src/sinastria_evolutiva.ts`).
@@ -107,6 +129,7 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
       oraNota: identita.hasBirthTime,
       nome: nome.isEmpty ? 'Chi ti è accanto' : nome,
       perLOracolo: widget.perLOracolo,
+      perLoLunario: widget.perLoLunario,
       minutoLocale: m.hour * 60 + m.minute,
     );
     if (!mounted) return;
@@ -160,10 +183,12 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
               key: const Key('la_tua_nascita_perche'),
               testo: widget.perLOracolo
                   ? LaTuaNascitaPerUnaLettura.rigaDellOracolo
-                  : 'Chi ti è accanto può leggere la vostra Sinastria '
-                      'evolutiva con la tua nascita vera. Il codice la presta '
-                      'per una lettura sola, per cinque minuti. Nel tuo '
-                      'profilo del Cerchio non entra.',
+                  : widget.perLoLunario
+                      ? LaTuaNascitaPerUnaLettura.rigaDelLunario
+                      : 'Chi ti è accanto può leggere la vostra Sinastria '
+                          'evolutiva con la tua nascita vera. Il codice la '
+                          'presta per una lettura sola, per cinque minuti. '
+                          'Nel tuo profilo del Cerchio non entra.',
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),

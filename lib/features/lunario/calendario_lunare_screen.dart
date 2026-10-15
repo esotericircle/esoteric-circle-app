@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/luogo_attuale.dart';
+import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/listino_degli_eos.dart';
+import '../../core/entitlement/plan_catalog.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
@@ -18,6 +21,7 @@ import '../../core/lunario/le_lune_della_nasa.dart';
 import '../../core/lunario/le_regole_del_lunario.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
+import '../../design_system/components/la_conferma_della_spesa.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -31,14 +35,17 @@ import '../../services/avvisi_locali.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
+import '../pricing/upgrade_invite.dart';
 import '../scene/la_scena_in_video.dart';
 import '../sigilli/regia_del_cammino.dart';
+import 'gli_eos_del_lunario.dart';
 import 'i_promemoria_del_lunario.dart';
 import 'il_piano_del_lunario.dart';
 import 'la_card_del_mese.dart';
 import 'la_geometria_del_velo.dart';
 import 'la_luce_in_fusione.dart';
 import 'la_luna_nel_castone.dart';
+import 'trova_il_giorno_insieme.dart';
 
 /// **IL CALENDARIO LUNARE PERSONALE: L'ALMANACCO DI MEDORA.** Ordine FV,
 /// voci FV.02, FV.05, FV.06 (a video), FV.07 (a video), FV.08, FV.09, FV.11
@@ -146,6 +153,9 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
   late final IPromemoriaDelLunario _promemoria =
       IPromemoriaDelLunario(avvisi: widget.avvisi ?? avvisiDelCerchio);
 
+  /// **GLI ACQUISTI A EOS** (FV.12): un mese extra, una proposta insieme.
+  late final GliEosDelLunario _eos = GliEosDelLunario();
+
   late DateTime _oggi;
   late int _anno;
   late int _mese;
@@ -178,6 +188,8 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
       ..addListener(_quandoLaScenaCambia);
     _promemoria.addListener(_ridisegna);
     unawaited(_promemoria.leggi());
+    _eos.addListener(_ridisegna);
+    unawaited(_eos.leggi());
     _latitudine = widget.latitudine;
     if (_latitudine == null) unawaited(_leggiIlLuogo());
   }
@@ -221,6 +233,9 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
       ..removeListener(_quandoLaScenaCambia)
       ..dispose();
     _promemoria
+      ..removeListener(_ridisegna)
+      ..dispose();
+    _eos
       ..removeListener(_ridisegna)
       ..dispose();
     _cascata.dispose();
@@ -274,13 +289,19 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
   }
 
   /// **SCORRERE I MESI** (FV.05), dal mese in corso fino a quelli che il
-  /// piano apre (FV.12).
+  /// piano apre, piu' i mesi extra comprati a Eos (FV.12). Oltre quel
+  /// limite, l'invito con le due strade: mai un vicolo cieco.
   void _cambiaMese(int passo) {
     final nuovo = DateTime(_anno, _mese + passo);
     final primo = DateTime(_oggi.year, _oggi.month);
-    final ultimo =
-        DateTime(_oggi.year, _oggi.month + IlPianoDelLunario.mesiAvanti(_tier));
-    if (nuovo.isBefore(primo) || nuovo.isAfter(ultimo)) return;
+    final massimo =
+        IlPianoDelLunario.mesiAvantiCon(tier: _tier, mesiExtra: _eos.mesiExtra);
+    final ultimo = DateTime(_oggi.year, _oggi.month + massimo);
+    if (nuovo.isBefore(primo)) return;
+    if (nuovo.isAfter(ultimo)) {
+      unawaited(_invitoDelMeseBloccato());
+      return;
+    }
     setState(() {
       _anno = nuovo.year;
       _mese = nuovo.month;
@@ -289,7 +310,50 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
     if (_attivita != null) _accendiGliAloni();
   }
 
+  /// **MAI UN VICOLO CIECO** (FV.12): il mese oltre il piano apre l'invito
+  /// con le due strade, un mese in piu' a Eos (prezzo dal listino, detto
+  /// prima del gesto) oppure salire di piano.
+  Future<void> _invitoDelMeseBloccato() async {
+    final sociale = _forse<IlCerchioSociale>();
+    final costo = ListinoDegliEos.meseExtraDelLunario.costo;
+    final dal = PlanCatalog.dalPiano((t) =>
+        IlPianoDelLunario.mesiAvanti(t) > IlPianoDelLunario.mesiAvanti(_tier));
+    final piano = dal?.replaceFirst('Dall’', '');
+    await showUpgradeInvite(
+      context,
+      title: piano == null
+          ? 'Il tuo piano arriva fino a qui'
+          : 'Più mesi avanti sono dell’$piano',
+      message: piano == null
+          ? 'Più mesi avanti si aprono con un piano del Cerchio.'
+          : 'Più mesi avanti si aprono dal piano $piano in su. Oppure apri '
+              'questo mese subito con gli Eos.',
+      riscattoLabel: sociale == null
+          ? null
+          : 'Un mese di Calendario Lunare in più · $costo Eos',
+      onRiscatta: sociale == null
+          ? null
+          : () async {
+              final consenso =
+                  await LaConfermaDellaSpesa.degliEos(context, costo: costo);
+              if (consenso == null || !mounted) return;
+              final esito =
+                  await sociale.compraUnMeseDelLunario(consenso: consenso);
+              if (esito.ok) {
+                await _eos.aggiungiUnMeseExtra();
+              } else if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(esito.rigaPerLaPersona)));
+              }
+            },
+    );
+  }
+
   void _scegliCategoria(CategoriaDelLunario c) {
+    if (!IlPianoDelLunario.categoriaAperta(c, _tier)) {
+      unawaited(_invitoDellaCategoria(c));
+      return;
+    }
     setState(() {
       if (_categoria == c) {
         _categoria = null;
@@ -300,6 +364,85 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
       }
     });
     if (_attivita != null) _accendiGliAloni();
+  }
+
+  /// **MAI UN VICOLO CIECO** (FV.12): la categoria chiusa dice da quale
+  /// piano si apre.
+  Future<void> _invitoDellaCategoria(CategoriaDelLunario c) async {
+    final dal =
+        PlanCatalog.dalPiano((t) => IlPianoDelLunario.categoriaAperta(c, t));
+    final piano = dal?.replaceFirst('Dall’', '');
+    await showUpgradeInvite(
+      context,
+      title: piano == null ? c.nome : '${c.nome} è dell’$piano',
+      message: piano == null
+          ? '${c.nome} si apre con un piano del Cerchio.'
+          : '${c.nome} si apre dal piano $piano in su.',
+    );
+  }
+
+  /// **TROVA IL GIORNO INSIEME** (FV.10), col lucchetto e l'invito quando il
+  /// piano non lo apre (FV.12): oppure una proposta sola a Eos.
+  Future<void> _apriTrovaInsieme() async {
+    final sociale = _forse<IlCerchioSociale>();
+    if (sociale == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(EsitoDelGesto.silenzio.rigaPerLaPersona)));
+      return;
+    }
+    final aperto =
+        IlPianoDelLunario.trovaInsiemeAperto(_tier) || _eos.proposteInsieme > 0;
+    if (!aperto) {
+      final costo = ListinoDegliEos.propostaInsiemeDelLunario.costo;
+      final dal =
+          PlanCatalog.dalPiano((t) => IlPianoDelLunario.trovaInsiemeAperto(t));
+      final piano = dal?.replaceFirst('Dall’', '');
+      await showUpgradeInvite(
+        context,
+        title: piano == null
+            ? 'Trova il giorno insieme'
+            : 'Trova il giorno insieme è dell’$piano',
+        message: piano == null
+            ? 'Trova il giorno insieme si apre con un piano del Cerchio.'
+            : 'Trova il giorno insieme si apre dal piano $piano in su. '
+                'Oppure sblocca una proposta sola con gli Eos.',
+        riscattoLabel: 'Una proposta insieme · $costo Eos',
+        onRiscatta: () async {
+          final consenso =
+              await LaConfermaDellaSpesa.degliEos(context, costo: costo);
+          if (consenso == null || !mounted) return;
+          final esito =
+              await sociale.compraUnaPropostaInsieme(consenso: consenso);
+          if (esito.ok) {
+            await _eos.aggiungiUnaPropostaInsieme();
+            if (mounted) unawaited(_apriIlFoglioInsieme(sociale));
+          } else if (mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(esito.rigaPerLaPersona)));
+          }
+        },
+      );
+      return;
+    }
+    await _apriIlFoglioInsieme(sociale);
+  }
+
+  Future<void> _apriIlFoglioInsieme(IlCerchioSociale sociale) async {
+    final dalPiano = IlPianoDelLunario.trovaInsiemeAperto(_tier);
+    await apriTrovaIlGiornoInsieme(
+      context,
+      palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
+      sociale: sociale,
+      identitaMia: _identita,
+      anno: _anno,
+      mese: _mese,
+      giorni: _giorni,
+      ruota: _ruota,
+      valuta: _valuta,
+      giorniTuoi: widget.giorniTuoi,
+      onPropostaMandata:
+          dalPiano ? null : () => _eos.consumaUnaPropostaInsieme(),
+    );
   }
 
   void _scegliAttivita(AttivitaDelLunario a) {
@@ -511,6 +654,9 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
               onCategoria: _scegliCategoria,
               onAttivita: _scegliAttivita,
               onCondividi: _condividi,
+              onTrovaInsieme: _apriTrovaInsieme,
+              trovaInsiemeAperto: IlPianoDelLunario.trovaInsiemeAperto(_tier) ||
+                  _eos.proposteInsieme > 0,
             ),
           ),
         ],
@@ -1023,6 +1169,8 @@ class _IlPannello extends StatelessWidget {
     required this.onCategoria,
     required this.onAttivita,
     required this.onCondividi,
+    required this.onTrovaInsieme,
+    required this.trovaInsiemeAperto,
   });
 
   final MaestroPalette palette;
@@ -1038,6 +1186,13 @@ class _IlPannello extends StatelessWidget {
   final void Function(CategoriaDelLunario) onCategoria;
   final void Function(AttivitaDelLunario) onAttivita;
   final Future<bool> Function() onCondividi;
+
+  /// **TROVA IL GIORNO INSIEME** (FV.10).
+  final Future<void> Function() onTrovaInsieme;
+
+  /// Se il piano (o un credito a Eos) apre "Trova il giorno insieme"
+  /// (FV.12): col lucchetto quando non lo apre, mai un vicolo cieco.
+  final bool trovaInsiemeAperto;
 
   String get _riga {
     final a = attivita;
@@ -1085,6 +1240,7 @@ class _IlPannello extends StatelessWidget {
                     categoria: c,
                     scelta: categoria == c,
                     spenta: categoria != null && categoria != c,
+                    aperta: IlPianoDelLunario.categoriaAperta(c, tier),
                     onTap: () => onCategoria(c),
                   ),
               ],
@@ -1183,13 +1339,30 @@ class _IlPannello extends StatelessWidget {
             ),
           const SizedBox(height: SpacingTokens.xs),
           Center(
-            child: OutlinedButton(
-              key: const Key('lunario_condividi'),
-              onPressed: onCondividi,
-              style: OutlinedButton.styleFrom(
-                  foregroundColor: palette.goldSoft,
-                  side: BorderSide(color: palette.goldSoft)),
-              child: const Text('Condividi il mese'),
+            child: Wrap(
+              spacing: SpacingTokens.xs,
+              alignment: WrapAlignment.center,
+              children: [
+                OutlinedButton.icon(
+                  key: const Key('lunario_trova_insieme'),
+                  onPressed: onTrovaInsieme,
+                  style: OutlinedButton.styleFrom(
+                      foregroundColor: palette.goldSoft,
+                      side: BorderSide(color: palette.goldSoft)),
+                  icon: Icon(trovaInsiemeAperto
+                      ? Icons.people_alt_rounded
+                      : Icons.lock_rounded),
+                  label: const Text('Trova il giorno insieme'),
+                ),
+                OutlinedButton(
+                  key: const Key('lunario_condividi'),
+                  onPressed: onCondividi,
+                  style: OutlinedButton.styleFrom(
+                      foregroundColor: palette.goldSoft,
+                      side: BorderSide(color: palette.goldSoft)),
+                  child: const Text('Condividi il mese'),
+                ),
+              ],
             ),
           ),
         ],
@@ -1200,17 +1373,23 @@ class _IlPannello extends StatelessWidget {
 
 /// Un emblema dipinto della fila: la categoria scelta si fa piu' grande,
 /// le altre si spengono in opacita'. Nessuna cornice disegnata.
+///
+/// **IL LUCCHETTO** (FV.12): la categoria che il piano non apre resta
+/// visibile, spenta come le altre non scelte, con un piccolo lucchetto
+/// sopra l'emblema dipinto, mai nascosta e mai un vicolo cieco.
 class _LEmblema extends StatelessWidget {
   const _LEmblema({
     required this.categoria,
     required this.scelta,
     required this.spenta,
+    required this.aperta,
     required this.onTap,
   });
 
   final CategoriaDelLunario categoria;
   final bool scelta;
   final bool spenta;
+  final bool aperta;
   final VoidCallback onTap;
 
   @override
@@ -1219,7 +1398,7 @@ class _LEmblema extends StatelessWidget {
     return Semantics(
       button: true,
       selected: scelta,
-      label: categoria.nome,
+      label: aperta ? categoria.nome : '${categoria.nome}, piano superiore',
       child: GestureDetector(
         key: Key('lunario_emblema_${categoria.name}'),
         behavior: HitTestBehavior.opaque,
@@ -1231,10 +1410,21 @@ class _LEmblema extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               width: lato,
               height: lato,
-              child: Image.asset(categoria.emblema,
-                  opacity: AlwaysStoppedAnimation(spenta ? 0.45 : 1),
-                  fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => SizedBox(width: lato)),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(categoria.emblema,
+                      opacity:
+                          AlwaysStoppedAnimation(spenta || !aperta ? 0.45 : 1),
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => SizedBox(width: lato)),
+                  if (!aperta)
+                    Icon(Icons.lock_rounded,
+                        key: Key('lunario_lucchetto_${categoria.name}'),
+                        size: lato * 0.4,
+                        color: Colors.white.withValues(alpha: 0.9)),
+                ],
+              ),
             ),
           ),
         ),

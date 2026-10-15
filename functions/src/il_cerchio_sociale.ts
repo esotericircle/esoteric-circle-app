@@ -16,6 +16,7 @@ import {
   NascitaCondivisa,
   creaConsenso,
   esitoDellaLettura,
+  giornoDa,
   nascitaDaCorpo,
 } from "./sinastria_evolutiva";
 import {Piano, pianoValido} from "./budget";
@@ -67,11 +68,15 @@ import {
   DURATE_DEL_CODICE,
   FRAMMENTI_DELLA_PRESENZA,
   EOS_DEL_POSTO_IN_PIU,
+  EOS_DEL_MESE_LUNARIO,
+  EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
   Istantanea,
   OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS,
   POSTI_DEL_LEGAME,
   RIGA_DEI_QUATTORDICI,
   PREZZI_DEI_DONI,
+  attivitaDelLunarioValida,
+  rispostaAlGiornoValida,
   cartaDegliAngeli,
   Presenza,
   SchedaCompatta,
@@ -240,6 +245,10 @@ interface Identita {
   maestro: string | null;
   gradino: number;
   postiComprati: number;
+  /** I mesi in più del Calendario Lunare comprati a Eos (ordine FV voce FV.12). */
+  mesiLunarioComprati: number;
+  /** Le proposte insieme in più comprate a Eos (ordine FV voce FV.12). */
+  proposteInsiemeComprate: number;
 }
 
 function identitaDa(dati: Record<string, unknown> | undefined): Identita {
@@ -260,6 +269,10 @@ function identitaDa(dati: Record<string, unknown> | undefined): Identita {
     maestro: maestroValido(d.maestro),
     gradino: gradinoValido(d.gradino) ?? 0,
     postiComprati: typeof d.postiComprati === "number" ? d.postiComprati : 0,
+    mesiLunarioComprati:
+      typeof d.mesiLunarioComprati === "number" ? d.mesiLunarioComprati : 0,
+    proposteInsiemeComprate:
+      typeof d.proposteInsiemeComprate === "number" ? d.proposteInsiemeComprate : 0,
   };
 }
 
@@ -997,9 +1010,14 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
     chiaveDelGiorno());
   // I segni e i doni recenti viaggiano con il Cerchio: il telefono legge
   // tutto da questa porta, senza una seconda strada sullo stesso dato.
-  const [segniSnap, doniSnap] = await Promise.all([
+  const [segniSnap, doniSnap, giorniInsiemeSnap] = await Promise.all([
     utente(uid).collection("segni").orderBy("quando", "desc").limit(40).get(),
     utente(uid).collection("doni").orderBy("quando", "desc").limit(40).get(),
+    // **TROVA IL GIORNO INSIEME, ordine FV voce FV.10.** Le proposte che la
+    // persona ha mandato o ricevuto, come i segni e i doni qui sopra: una
+    // sola porta per tutto il Cerchio, mai una seconda strada sullo stesso
+    // dato. SCRITTA E NON PUBBLICATA (R3 dell'ordine).
+    utente(uid).collection("giorni_insieme").orderBy("quando", "desc").limit(40).get(),
   ]);
   const nomeDi = (u: string) => perUid.get(u)?.nome ?? null;
   const iconaDi = (u: string) => perUid.get(u)?.icona ?? null;
@@ -1020,6 +1038,19 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
       // La carta degli Angeli porta il suo numero, ordine FU voce FU.09.
       return {id: d.id, dono: s.dono ?? null, da, nomeDa: nomeDi(da),
         quando: s.quando ?? null, carta: cartaDegliAngeli(s.carta)};
+    }),
+    proposteDiGiorno: giorniInsiemeSnap.docs.map((d) => {
+      const s = d.data();
+      const da = String(s.da ?? "");
+      const con = elenco(s.con);
+      const risposte = (s.risposte ?? {}) as Record<string, unknown>;
+      return {id: d.id, attivita: s.attivita ?? null, giorno: s.giorno ?? null,
+        quando: s.quando ?? null, verso: s.verso ?? null,
+        da, nomeDa: nomeDi(da),
+        con: con.map((u) => ({uid: u, nome: nomeDi(u)})),
+        risposta: s.risposta ?? null, altroGiorno: s.altroGiorno ?? null,
+        risposte: Object.fromEntries(Object.entries(risposte).map(([u, r]) =>
+          [u, {nome: nomeDi(u), ...(r as Record<string, unknown>)}]))};
     }),
     amici: amici.map((u) => persona(u, "verde")).filter((x) => x !== null),
     ricevuti: ricevuti.map((u) => persona(u, "arancionePieno")).filter((x) => x !== null),
@@ -1065,6 +1096,161 @@ export const compraUnPostoNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =
     tx.set(statoDi(uid, "identita"), {postiComprati: io.postiComprati + 1},
       {merge: true});
     return {ok: true, saldo: saldo - EOS_DEL_POSTO_IN_PIU, gia: false};
+  });
+});
+
+/**
+ * **UN MESE DI CALENDARIO LUNARE IN PIU', ordine FV voce FV.12**, 15 ottobre
+ * 2026: costa gli Eos di `EOS_DEL_MESE_LUNARIO` (la voce `meseExtraDelLunario`
+ * del listino). Stessa forma di `compraUnPostoNelCerchio`: l'identificativo
+ * del movimento rende innocuo il doppio tocco, nessun secondo prezzo.
+ *
+ * **SCRITTA E NON PUBBLICATA (R3 dell'ordine).**
+ */
+export const compraUnMeseDelLunario = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "compraUnMeseDelLunario");
+  const id = String(request.data?.idMovimento ?? "").trim();
+  if (id.length < 8 || id.length > 200) {
+    throw new HttpsError("invalid-argument", "Ogni movimento porta il suo identificativo.");
+  }
+  return db().runTransaction(async (tx) => {
+    const movimento = utente(uid).collection("movimenti").doc(id);
+    const gia = await tx.get(movimento);
+    const borsa = await tx.get(statoDi(uid, "borsellino"));
+    const io = identitaDa((await tx.get(statoDi(uid, "identita"))).data());
+    const saldo = (borsa.data()?.saldo as number) ?? 0;
+    if (gia.exists) return {ok: true, saldo, gia: true};
+    if (saldo < EOS_DEL_MESE_LUNARIO) {
+      return {ok: false, saldo, manca: EOS_DEL_MESE_LUNARIO - saldo};
+    }
+    tx.set(movimento, {causale: "spesa", motivo: "lunario_mese_extra",
+      importo: -EOS_DEL_MESE_LUNARIO, saldoDopo: saldo - EOS_DEL_MESE_LUNARIO,
+      quando: FieldValue.serverTimestamp()});
+    tx.set(statoDi(uid, "borsellino"), {saldo: saldo - EOS_DEL_MESE_LUNARIO,
+      aggiornato: FieldValue.serverTimestamp()}, {merge: true});
+    tx.set(statoDi(uid, "identita"),
+      {mesiLunarioComprati: io.mesiLunarioComprati + 1}, {merge: true});
+    return {ok: true, saldo: saldo - EOS_DEL_MESE_LUNARIO, gia: false};
+  });
+});
+
+/**
+ * **UNA PROPOSTA INSIEME A EOS, ordine FV voce FV.12**, 15 ottobre 2026: chi
+ * non ha "Trova il giorno insieme" nel piano (Viandante e Iniziato) la apre
+ * per una proposta sola, con gli Eos di `EOS_DELLA_PROPOSTA_INSIEME_LUNARIO`
+ * (la voce `propostaInsiemeDelLunario` del listino).
+ *
+ * **SCRITTA E NON PUBBLICATA (R3 dell'ordine).**
+ */
+export const compraUnaPropostaInsiemeDelLunario = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "compraUnaPropostaInsiemeDelLunario");
+  const id = String(request.data?.idMovimento ?? "").trim();
+  if (id.length < 8 || id.length > 200) {
+    throw new HttpsError("invalid-argument", "Ogni movimento porta il suo identificativo.");
+  }
+  return db().runTransaction(async (tx) => {
+    const movimento = utente(uid).collection("movimenti").doc(id);
+    const gia = await tx.get(movimento);
+    const borsa = await tx.get(statoDi(uid, "borsellino"));
+    const io = identitaDa((await tx.get(statoDi(uid, "identita"))).data());
+    const saldo = (borsa.data()?.saldo as number) ?? 0;
+    if (gia.exists) return {ok: true, saldo, gia: true};
+    if (saldo < EOS_DELLA_PROPOSTA_INSIEME_LUNARIO) {
+      return {ok: false, saldo, manca: EOS_DELLA_PROPOSTA_INSIEME_LUNARIO - saldo};
+    }
+    tx.set(movimento, {causale: "spesa", motivo: "lunario_proposta_insieme",
+      importo: -EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
+      saldoDopo: saldo - EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
+      quando: FieldValue.serverTimestamp()});
+    tx.set(statoDi(uid, "borsellino"), {saldo: saldo - EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
+      aggiornato: FieldValue.serverTimestamp()}, {merge: true});
+    tx.set(statoDi(uid, "identita"),
+      {proposteInsiemeComprate: io.proposteInsiemeComprate + 1}, {merge: true});
+    return {ok: true, saldo: saldo - EOS_DELLA_PROPOSTA_INSIEME_LUNARIO, gia: false};
+  });
+});
+
+/**
+ * **TROVA IL GIORNO INSIEME, ordine FV voce FV.10**, 15 ottobre 2026: la
+ * persona propone un'attivita' e un giorno a uno o piu' amici veri del
+ * Cerchio. Non e' un segno (niente glifo, niente scambio del giorno: e' uno
+ * strumento di logistica, non un gesto di relazione) e non pretende che
+ * tutti rispondano insieme: ognuno riceve la sua copia nella sua
+ * `giorni_insieme` e risponde per conto suo (`rispondiAlGiorno`).
+ *
+ * **SCRITTA E NON PUBBLICATA (R3 dell'ordine).**
+ */
+export const proponiGiornoInsieme = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "proponiGiornoInsieme");
+  const amiciChiesti = Array.isArray(request.data?.amici) ?
+    request.data.amici.filter((a: unknown): a is string => typeof a === "string") :
+    [];
+  const attivita = attivitaDelLunarioValida(request.data?.attivita);
+  const giorno = giornoDa(request.data?.giorno);
+  if (amiciChiesti.length === 0 || amiciChiesti.length > 10 ||
+    attivita === null || giorno === null) {
+    throw new HttpsError("invalid-argument", "La proposta non è completa.");
+  }
+  return db().runTransaction(async (tx) => {
+    const legami = await Promise.all(
+      amiciChiesti.map((a: string) => tx.get(legameDi(uid, a))));
+    const amici = amiciChiesti.filter(
+      (_: string, i: number) => legameDa(legami[i].data())?.stato === "amici");
+    if (amici.length === 0) {
+      return {ok: false, perche: "nonAmici",
+        riga: "Le proposte si mandano agli amici del Cerchio."};
+    }
+    const id = utente(uid).collection("giorni_insieme").doc().id;
+    const quando = Date.now();
+    const base = {attivita, giorno: request.data.giorno, quando, da: uid};
+    tx.set(utente(uid).collection("giorni_insieme").doc(id),
+      {...base, con: amici, verso: "mandata", risposte: {}});
+    for (const a of amici) {
+      tx.set(utente(a).collection("giorni_insieme").doc(id),
+        {...base, con: [uid], verso: "ricevuta"});
+    }
+    return {ok: true, perche: null, riga: null, id, amici};
+  });
+});
+
+/**
+ * **RISPONDI AL GIORNO, ordine FV voce FV.10**: sì, no, oppure un altro
+ * giorno d'oro. La risposta si scrive sulla copia di chi risponde e su
+ * quella di chi ha proposto, nella mappa `risposte`.
+ *
+ * **SCRITTA E NON PUBBLICATA (R3 dell'ordine).**
+ */
+export const rispondiAlGiorno = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "rispondiAlGiorno");
+  const id = String(request.data?.id ?? "").trim();
+  const risposta = rispostaAlGiornoValida(request.data?.risposta);
+  if (id.length === 0 || risposta === null) {
+    throw new HttpsError("invalid-argument", "La risposta non è valida.");
+  }
+  const altroGiorno = risposta === "altroGiorno" ?
+    giornoDa(request.data?.altroGiorno) : null;
+  if (risposta === "altroGiorno" && altroGiorno === null) {
+    throw new HttpsError("invalid-argument", "Manca l'altro giorno proposto.");
+  }
+  return db().runTransaction(async (tx) => {
+    const mia = utente(uid).collection("giorni_insieme").doc(id);
+    const snap = await tx.get(mia);
+    if (!snap.exists) {
+      throw new HttpsError("not-found", "Questa proposta non c'è più.");
+    }
+    const d = snap.data() ?? {};
+    const da = String(d.da ?? "");
+    const campo = {risposta, altroGiorno: altroGiorno?.toISOString() ?? null};
+    tx.set(mia, campo, {merge: true});
+    if (da.length > 0 && da !== uid) {
+      tx.set(utente(da).collection("giorni_insieme").doc(id),
+        {[`risposte.${uid}`]: campo}, {merge: true});
+    }
+    return {ok: true, perche: null, riga: null};
   });
 });
 

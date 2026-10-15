@@ -246,6 +246,56 @@ export const POSTI_DEL_LEGAME: Record<Piano, number> = {
 /** Il prezzo del posto in piu': la voce `amicoInPiu` del listino, 100 Eos. */
 export const EOS_DEL_POSTO_IN_PIU = 100;
 
+/**
+ * **IL CALENDARIO LUNARE A EOS, ordine FV voce FV.12**, 15 ottobre 2026: le
+ * voci `meseExtraDelLunario` e `propostaInsiemeDelLunario` del listino del
+ * telefono (`listino_degli_eos.dart`); una prova pretende che siano questi.
+ * Il Calendario Lunare non chiama mai Gemini né Vertex (R2 dell'ordine), e
+ * questi due acquisti sono un posto comprato, non un budget che consuma il
+ * modello: nessuna delle due righe entra nel tetto del costo di
+ * `tool/i_limiti_degli_annuali.py`, che per questo non le nomina.
+ */
+export const EOS_DEL_MESE_LUNARIO = 60;
+export const EOS_DELLA_PROPOSTA_INSIEME_LUNARIO = 50;
+
+/**
+ * **LE ATTIVITA' DI "TROVA IL GIORNO INSIEME", ordine FV voce FV.10.** Le
+ * stesse ventisette di `AttivitaDelLunario` (`le_attivita_del_lunario.dart`,
+ * ordine FV voce FV.06): "viaggio" e "trasloco" dell'ordine ci stanno gia'
+ * dentro (`viaggi`, `traslochi`), e "cena" non e' entrata (il rapporto
+ * dell'ordine ne dice la ragione: nessun emblema dipinto esiste per una
+ * categoria nuova, R9, e il motore delle regole lunari e' scritto in
+ * parallelo sullo stesso catalogo). Un elenco fisso, come `SEGNI` per i
+ * segni passati fra amici: il server non inventa un'attivita' che il
+ * telefono non conosce.
+ */
+export const ATTIVITA_DEL_LUNARIO = [
+  "tagliPerCrescere", "tagliPerRinforzare", "unghie",
+  "semina", "trapianto", "potatura", "raccolto",
+  "rinvasi", "talee", "fiori", "pianteDaAppartamento",
+  "pulizie", "bucato", "traslochi", "lavori",
+  "conserve", "pane",
+  "travasi", "imbottigliamento",
+  "depilazione", "trattamenti",
+  "pesca", "inizi", "viaggi",
+  "primoAppuntamento", "dichiarazione", "nozze",
+] as const;
+
+export function attivitaDelLunarioValida(valore: unknown): string | null {
+  return (ATTIVITA_DEL_LUNARIO as readonly string[]).includes(String(valore)) ?
+    String(valore) :
+    null;
+}
+
+/** Le tre risposte a una proposta di "Trova il giorno insieme" (FV.10). */
+export const RISPOSTE_AL_GIORNO = ["si", "no", "altroGiorno"] as const;
+
+export function rispostaAlGiornoValida(valore: unknown): string | null {
+  return (RISPOSTE_AL_GIORNO as readonly string[]).includes(String(valore)) ?
+    String(valore) :
+    null;
+}
+
 /** Al massimo venti inviti mandati al giorno per identita'. */
 export const INVITI_AL_GIORNO = 20;
 
@@ -1195,6 +1245,11 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
   condividiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
   leggiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
+  // Il Calendario Lunare, ordine FV voci FV.10 e FV.12.
+  proponiGiornoInsieme: {quante: 30, finestraMs: 60 * 60 * 1000},
+  rispondiAlGiorno: {quante: 120, finestraMs: 60 * 60 * 1000},
+  compraUnMeseDelLunario: {quante: 20, finestraMs: 60 * 60 * 1000},
+  compraUnaPropostaInsiemeDelLunario: {quante: 20, finestraMs: 60 * 60 * 1000},
 };
 
 /**
