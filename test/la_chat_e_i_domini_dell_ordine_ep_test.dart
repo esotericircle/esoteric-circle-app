@@ -82,6 +82,20 @@ void main() {
     await passo(tester);
   }
 
+  // **UNO SLIVER LONTANO NON E' COSTRUITO, ordine FW voce FW.03.** Il
+  // `CustomScrollView` del dominio non crea l'elemento di uno
+  // `SliverToBoxAdapter` oltre il viewport piu' la sua cache: con lo spazio
+  // della scena ancorato al tavolo (74-77 per cento di aura e medora, molto
+  // di piu' del 65 di caligo) "dominio_righe" cade troppo lontano dalla
+  // cima e il suo finder non trova nessun widget, non solo nessuno visibile.
+  // Si scorre a piccoli passi, come farebbe una persona, finche' non appare.
+  Future<void> scorriFinoATrovare(WidgetTester tester, Finder bersaglio) async {
+    for (var i = 0; i < 30 && bersaglio.evaluate().isEmpty; i++) {
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -150));
+      await tester.pump();
+    }
+  }
+
   Future<void> apriLaChat(WidgetTester tester, Maestro maestro,
       {double larghezza = 390,
       double scala = 1,
@@ -129,8 +143,9 @@ void main() {
               .data,
           'Consulta ${m.nomeAVideo}');
       // In cima: sopra le righe del dominio.
-      expect(tester.getRect(scheda).top,
-          lessThan(tester.getRect(find.byKey(const Key('dominio_righe'))).top));
+      final righeDelDominio = find.byKey(const Key('dominio_righe'));
+      await scorriFinoATrovare(tester, righeDelDominio);
+      expect(tester.getRect(scheda).top, lessThan(tester.getRect(righeDelDominio).top));
       await tester.ensureVisible(scheda);
       await tester.pump();
       await tester.tap(scheda);
