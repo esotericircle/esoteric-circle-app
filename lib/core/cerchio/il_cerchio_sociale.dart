@@ -245,15 +245,20 @@ class SegnoScambiato {
 @immutable
 class DonoRicevuto {
   const DonoRicevuto(
-      {required this.id, required this.dono, required this.nomeDa});
+      {required this.id, required this.dono, required this.nomeDa, this.carta});
   final String id;
   final String dono;
   final String nomeDa;
+
+  /// Il numero dell'angelo, da 1 a 72, quando il dono e' una carta degli
+  /// Angeli (ordine FU voce FU.09); nullo per gli altri doni.
+  final int? carta;
 
   factory DonoRicevuto.da(Map<String, Object?> d) => DonoRicevuto(
         id: d['id'] as String? ?? '',
         dono: d['dono'] as String? ?? 'cenno',
         nomeDa: d['nomeDa'] as String? ?? 'Una persona del Cerchio',
+        carta: (d['carta'] as num?)?.toInt(),
       );
 }
 
@@ -673,28 +678,47 @@ class IlCerchioSociale extends ChangeNotifier {
   /// riceve un codice di sei caratteri che vale cinque minuti e una lettura
   /// sola (`dati['codice']`, `dati['scade']` in millisecondi). La nascita va
   /// solo al server, nel consenso: mai nel profilo pubblico.
+  ///
+  /// **PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
+  /// [perLOracolo] il consenso dichiara lo scopo e porta anche il minuto del
+  /// giorno di nascita nel luogo ([minutoLocale], solo con l'ora nota),
+  /// perche' l'Angelo dell'Intelletto si conta dall'ora locale. Senza, il
+  /// corpo e' quello della Sinastria evolutiva, campo per campo.
   Future<EsitoDelGesto> condividiLaNascita({
     required DateTime nascitaUtc,
     required DateTime giorno,
     required bool oraNota,
     required String nome,
+    bool perLOracolo = false,
+    int? minutoLocale,
   }) async =>
       _esito(await _chiedi('condividiLaNascita', {
         'nascita': nascitaUtc.toUtc().toIso8601String(),
         'giorno': _giornoScritto(giorno),
         'oraNota': oraNota,
         'nome': nome.trim(),
+        if (perLOracolo) 'scopo': scopoDellOracolo,
+        if (perLOracolo && oraNota && minutoLocale != null)
+          'minutoLocale': minutoLocale,
       }));
+
+  /// Lo scopo del consenso che presta la nascita all'Oracolo degli Angeli:
+  /// la stessa parola di `scopoDa` in `functions/src/sinastria_evolutiva.ts`.
+  static const String scopoDellOracolo = 'oracolo';
 
   /// Chi legge manda il codice e il PROPRIO giorno di nascita: il server
   /// rifa' lo sbarramento dei sedici anni sul legame amore con la nascita
   /// condivisa che ha nel consenso (FT.04), e lo dice in
   /// `dati['amoreApribile']`.
+  ///
+  /// Con [perLOracolo] si leggono solo i consensi dati per l'Oracolo degli
+  /// Angeli (ordine FU voce FU.09): un consenso per una cosa sola.
   Future<EsitoDelGesto> leggiLaNascita(String codice,
-          {required DateTime giornoMio}) async =>
+          {required DateTime giornoMio, bool perLOracolo = false}) async =>
       _esito(await _chiedi('leggiLaNascita', {
         'codice': codice.trim(),
         'giornoMio': _giornoScritto(giornoMio),
+        if (perLOracolo) 'scopo': scopoDellOracolo,
       }));
 
   static String _giornoScritto(DateTime g) =>
@@ -980,6 +1004,24 @@ class IlCerchioSociale extends ChangeNotifier {
       'idMovimento': PortaDelCerchio.nuovoIdentificativo('dono'),
     }));
   }
+
+  /// **LA CARTA DEGLI ANGELI IN DONO, ordine FU voce FU.09.** La strada e'
+  /// quella dei doni (`mandaUnDono` sul server, dono `angelo`), col numero
+  /// della carta e nient'altro: mai la domanda, mai la nascita. Costa gli Eos
+  /// della voce `cartaDegliAngeliDaDonare` del listino e pretende il
+  /// consenso della conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> mandaUnaCartaDegliAngeli(String a, int numero,
+      {required ConsensoDellaSpesa consenso}) async {
+    return _esito(await _chiedi('mandaUnDono', {
+      'a': a,
+      'dono': donoDellaCartaDegliAngeli,
+      'carta': numero,
+      'idMovimento': PortaDelCerchio.nuovoIdentificativo('dono'),
+    }));
+  }
+
+  /// Il dono della carta, la stessa parola di `PREZZI_DEI_DONI` sul server.
+  static const String donoDellaCartaDegliAngeli = 'angelo';
 
   /// Pretende il consenso della conferma, ordine FD voce 01.
   Future<EsitoDelGesto> regalaGliEos(String a, int quanti,

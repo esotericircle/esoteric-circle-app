@@ -22,7 +22,8 @@ export type Budget =
   | "stese"
   | "sinastrie"
   | "cieli"
-  | "sinastrieEvolutive";
+  | "sinastrieEvolutive"
+  | "oracoliAngeli";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -39,6 +40,11 @@ export const BUDGET: Budget[] = [
   // LA SINASTRIA EVOLUTIVA, ordine FT voce FT.13: le coppie nuove lette
   // al giorno. Come i cieli, nessun modello: il tetto serve contro l'abuso.
   "sinastrieEvolutive",
+  // L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10: le consultazioni al
+  // giorno. Ogni consultazione dall'Iniziato in su chiama Gemini 2.5
+  // Flash-Lite una volta; quella del Viandante e' un assaggio del solo
+  // corpus, senza modello.
+  "oracoliAngeli",
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
@@ -161,6 +167,20 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * Code (il fondatore: "Lo decide Code"), con la ragione nel rapporto.
    */
   sinastrieEvolutive: [1, 2, 5, 15],
+  /**
+   * L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10, 15 ottobre 2026: le
+   * consultazioni al giorno, la riga `Oracolo degli Angeli: consultazioni`
+   * del telefono. Scelta di Code (il fondatore: "I numeri dei limiti e degli
+   * Eos li decide Code dentro la matrice dei limiti in vigore e la regola
+   * del tetto del costo"), con la ragione nel rapporto:
+   * - Viandante 1: l'assaggio del giorno, del solo corpus, senza modello;
+   * - Iniziato 3, Adepto 5, Illuminato 6: il tetto del costo (30 per cento
+   *   del netto al caso peggiore, `tool/i_limiti_degli_annuali.py`) col
+   *   ciclo piu' stretto, il mensile dell'Illuminato, lascia al massimo 7,6
+   *   consultazioni Lunghe al giorno (0,00032 dollari l'una); con 7 il conto
+   *   arriva al 29,97 per cento, con 6 si ferma al 29,9 e tiene un margine.
+   */
+  oracoliAngeli: [1, 3, 5, 6],
 };
 
 /**

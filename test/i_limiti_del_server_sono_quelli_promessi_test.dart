@@ -31,6 +31,10 @@ void main() {
     // lo promette e' `Sinastria VIP`, non `Confronti nel Cerchio`. Le due
     // righe promettono cose diverse e vivono su due contatori diversi.
     'sinastrie': PlanCatalog.rigaSinastria,
+    // ORDINE FU VOCE FU.10: le consultazioni dell'Oracolo degli Angeli hanno
+    // un budget loro, `oracoliAngeli`, e la riga che lo promette e'
+    // `Oracolo degli Angeli: consultazioni`.
+    'oracoliAngeli': PlanCatalog.rigaOracoli,
   };
   const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
 

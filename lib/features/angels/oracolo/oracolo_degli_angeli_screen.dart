@@ -7,8 +7,14 @@ import 'package:provider/provider.dart';
 import '../../../core/angels/angel_catalog.dart';
 import '../../../core/angels/guardian_angels.dart';
 import '../../../core/assets/family_image.dart';
+import '../../../core/cerchio/il_cerchio_sociale.dart';
+import '../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../core/entitlement/entitlement_service.dart';
+import '../../../core/entitlement/listino_degli_eos.dart';
+import '../../../core/entitlement/plan_catalog.dart';
+import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
+import '../../../core/synastry_evolutiva/cielo_evolutivo.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../core/maestro/maestro.dart';
@@ -18,7 +24,9 @@ import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
 import '../../../core/oracolo_angeli/la_domanda_delicata.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/il_responso_in_tre_paragrafi.dart';
+import '../../../design_system/components/la_conferma_della_spesa.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../design_system/components/titolo_del_responso.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -31,11 +39,15 @@ import '../../account/dati_di_nascita_screen.dart';
 import '../../maestri/chat/chat_openers.dart';
 import '../../maestri/rotta_arte.dart';
 import '../../maestri/widgets/foglio_delle_fonti.dart';
+import '../../pricing/upgrade_invite.dart';
 import '../../ricordi/azioni_del_responso.dart';
 import '../../scene/la_scena_in_video.dart';
 import '../../sigilli/regia_del_cammino.dart';
+import '../../synastry/la_nascita_dell_altra_persona.dart';
+import '../../synastry/la_tua_nascita_per_una_lettura.dart';
 import '../../tarot/tarot_card_art.dart';
 import 'la_geometria_dell_altare.dart';
+import 'oracolo_share_card.dart';
 
 /// **L'ORACOLO DEGLI ANGELI.** Ordine FU, voci FU.02, FU.03, FU.04, FU.06,
 /// FU.07, FU.08 e FU.11, 15 ottobre 2026.
@@ -120,6 +132,22 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   Timer? _orologio;
   bool _avviata = false;
   bool _sottoIlTitolo = false;
+
+  /// **LA DOMANDA PER UN AMICO** (FU.09): il suo nome e i suoi tre angeli,
+  /// dalla nascita prestata col suo consenso. Vale per una lettura sola: la
+  /// nuova domanda torna a chi consulta.
+  ({String nome, AngelTriad triade})? _perUnAmico;
+
+  /// L'amico della consultazione a video, se la consultazione era per lui.
+  String? _nomeDellAmicoLetto;
+
+  /// L'ASSAGGIO DEL VIANDANTE (FU.10): la consultazione a video scopre solo
+  /// la carta del Custode.
+  bool _assaggio = false;
+
+  /// La card da condividere, dipinta fuori schermo solo mentre si condivide.
+  final _cardKey = GlobalKey();
+  bool _renderCard = false;
 
   Map<String, List<String>> get _corpus => widget.corpus ?? corpusDellOracolo;
 
@@ -208,25 +236,48 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       _scorriAllaRisposta();
       return;
     }
-    final carte = EstrazioneDellOracolo.estrai(_triade, _caso);
+    final tier = _tier;
+    // **LE CONSULTAZIONI DEL GIORNO** (FU.10): finite, l'invito con le due
+    // strade, una consultazione in piu' a Eos o salire di piano. Finche' il
+    // server non porta il budget nel listino non si conta niente
+    // (`QuestionAllowance.contaGliOracoli`).
+    final borsa = _forse<QuestionAllowance>();
+    if (borsa != null && !borsa.puoiConsultareGliAngeli(tier)) {
+      await _leConsultazioniDiOggiSonoFinite();
+      if (!mounted || !borsa.puoiConsultareGliAngeli(tier)) return;
+    }
+    final amico = _perUnAmico;
+    final carte = EstrazioneDellOracolo.estrai(amico?.triade ?? _triade, _caso);
     final variante = _consultazioni;
-    final tier = _forse<EntitlementService>()?.tier ?? Tier.free;
+    // **L'ASSAGGIO DEL VIANDANTE** (FU.10): la carta del Custode dal corpus,
+    // senza modello; Cuore e Intelletto restano col lucchetto e l'invito.
+    final assaggio = !PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, tier);
+    borsa?.registraOracolo(tier);
     setState(() {
       _affidata = domanda;
       _carte = carte;
       _risposta = null;
       _fase = _Fase.saleLaDomanda;
       _consultazioni++;
+      _assaggio = assaggio;
+      _nomeDellAmicoLetto = amico?.nome;
     });
     _giro.value = 0;
-    final lettura = LaLetturaDellOracolo.leggi(
-      domanda: domanda,
-      carte: carte,
-      corpus: _corpus,
-      variante: variante,
-      profonda: tier.index >= Tier.tier2.index,
-      chiamata: widget.chiamata,
-    );
+    final lettura = assaggio
+        ? Future.value(LaLetturaDellOracolo.delCorpus(
+            domanda: domanda,
+            carte: carte,
+            corpus: _corpus,
+            variante: variante))
+        : LaLetturaDellOracolo.leggi(
+            domanda: domanda,
+            carte: carte,
+            corpus: _corpus,
+            variante: variante,
+            // LA LUNGA E' DELL'ADEPTO (FU.06 e FU.10), letta dalla matrice.
+            profonda: PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, tier),
+            chiamata: widget.chiamata,
+          );
     await _lettere.forward(from: 0);
     if (!mounted) return;
     setState(() => _fase = _Fase.siGirano);
@@ -252,9 +303,112 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       _fase = _Fase.domanda;
       _risposta = null;
       _carte = const [];
+      // La nascita dell'amico valeva per una lettura sola (FU.09).
+      _perUnAmico = null;
+      _nomeDellAmicoLetto = null;
+      _assaggio = false;
     });
     _scorrimento.animateTo(0,
         duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+  }
+
+  Tier get _tier => _forse<EntitlementService>()?.tier ?? Tier.free;
+
+  /// **MAI UN VICOLO CIECO** (FU.10): le consultazioni del giorno finite
+  /// aprono l'invito con le due strade, una consultazione in piu' a Eos
+  /// (prezzo dal listino del server, detto prima del gesto) oppure salire
+  /// di piano.
+  Future<void> _leConsultazioniDiOggiSonoFinite() async {
+    final riscatto = corredoDelRiscatto(context,
+        budget: QuestionAllowance.kOracoliAngeli,
+        cosaUna: 'una consultazione degli Angeli');
+    await showUpgradeInvite(
+      context,
+      title: 'Le consultazioni di oggi sono finite',
+      message: 'Domani gli angeli tornano ad ascoltarti. Oppure affida '
+          'questa domanda subito, o sali di piano per consultarli più volte '
+          'ogni giorno.',
+      riscattoLabel: riscatto.label,
+      onRiscatta: riscatto.azione,
+    );
+  }
+
+  /// **IL LUCCHETTO E L'INVITO** (FU.10): ogni voce che il piano chiude lo
+  /// dice, con la strada per aprirla. Mai un vicolo cieco.
+  Future<void> _invitoAlPiano(RigaDelPiano riga, String cosa) async {
+    final dal = PlanCatalog.dalPiano((t) => PlanCatalog.apre(riga, t));
+    final piano = dal?.replaceFirst('Dall’', '');
+    await showUpgradeInvite(
+      context,
+      title: piano == null ? cosa : '$cosa è dell’$piano',
+      message: piano == null
+          ? '$cosa si apre con un piano del Cerchio.'
+          : '$cosa si apre dal piano $piano in su, ogni giorno.',
+    );
+  }
+
+  /// **LA DOMANDA PER UN AMICO** (FU.09): rispondono i suoi tre angeli. La
+  /// sua nascita passa solo col suo consenso, una volta per lettura, con lo
+  /// stesso gesto della lettura a due telefoni (ordine FT): il codice che
+  /// detta dal suo telefono, dato per l'Oracolo. Dall'Adepto (FU.10).
+  Future<void> _chiediPerUnAmico() async {
+    if (!PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, _tier)) {
+      await _invitoAlPiano(
+          RigaDelPiano.oracoloLungaEAmico, 'La domanda per un amico');
+      return;
+    }
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final letta = await LaNascitaDellAltraPersona.chiedi(context, palette,
+        perLOracolo: true);
+    if (letta == null || !mounted) return;
+    final sole = letta.cielo.longitudini[PuntoDelCieloEvolutivo.sole];
+    if (sole == null) return;
+    setState(() => _perUnAmico = (
+          nome: letta.nome,
+          triade: GliAngeliDiUnAmico.daNascitaPrestata(
+            giorno: letta.cielo.giornoDiNascita,
+            longitudineDelSole: sole,
+            minutoLocale: letta.minutoLocale,
+          ),
+        ));
+  }
+
+  /// **PRESTARE LA PROPRIA NASCITA** a un amico che consulta per te: lo
+  /// stesso gesto del consenso della lettura a due telefoni, dato per
+  /// l'Oracolo. Aperto a ogni piano: prestare non costa niente.
+  void _prestaLaNascita() {
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    Navigator.of(context)
+        .push(LaTuaNascitaPerUnaLettura.route(palette, perLOracolo: true));
+  }
+
+  /// **LA CARD DA CONDIVIDERE** (FU.09): le tre carte e il titolo, mai la
+  /// domanda, mai la nascita. Torna l'esito vero, e il premio dichiarato si
+  /// paga solo a condivisione avvenuta.
+  Future<bool> _onShare() async {
+    setState(() => _renderCard = true);
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final andata = await shareOracoloCard(
+        boundaryKey: _cardKey,
+        text: 'I miei angeli hanno risposto. Esoteric Circle.',
+      );
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo Oracolo degli Angeli');
+      }
+      return andata;
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Non riesco a preparare la card ora.')),
+        );
+      }
+      return false;
+    } finally {
+      if (mounted) setState(() => _renderCard = false);
+    }
   }
 
   void _scorriAllaRisposta() {
@@ -300,64 +454,120 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             const AngoloDellaBarra(),
           ],
         ),
-        body: NotificationListener<ScrollNotification>(
-          onNotification: (n) {
-            if (n.depth != 0) return false;
-            final sotto = n.metrics.pixels > SpacingTokens.lg;
-            if (sotto != _sottoIlTitolo) setState(() => _sottoIlTitolo = sotto);
-            return false;
-          },
-          child: ListView(
-            controller: _scorrimento,
-            padding: EdgeInsets.zero,
-            children: [
-              LayoutBuilder(
-                builder: (context, vincoli) =>
-                    _laScena(vincoli.maxWidth, palette),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(SpacingTokens.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _LAngeloDellOra(
-                      palette: palette,
-                      adesso: _ora(),
-                      triade: _triade,
-                      corpus: _corpus,
-                    ),
-                    SizedBox(
-                        key: _inizioDellaRisposta, height: SpacingTokens.lg),
-                    if (_fase == _Fase.cura)
-                      _LaCura(palette: palette, onDiNuovo: _nuovaDomanda),
-                    if (_fase == _Fase.risposta && _risposta != null) ...[
-                      _IlResponso(
-                        palette: palette,
-                        risposta: _risposta!,
-                        carte: _carte,
-                        corpus: _corpus,
-                        variante: _consultazioni - 1,
-                        quando: _quando,
-                      ),
-                      const SizedBox(height: SpacingTokens.lg),
-                      Center(
-                        child: OutlinedButton(
-                          key: const Key('oracolo_nuova_domanda'),
-                          onPressed: _nuovaDomanda,
-                          style: OutlinedButton.styleFrom(
-                              foregroundColor: palette.goldSoft,
-                              side: BorderSide(color: palette.goldSoft)),
-                          child: const Text('Affida una nuova domanda'),
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: SpacingTokens.xxl),
-                  ],
+        body: Stack(
+          children: [
+            Positioned.fill(child: _ilCorpo(palette)),
+            // **LA CARD DA CONDIVIDERE**, fuori schermo e solo mentre si
+            // condivide (FU.09): le tre carte e il titolo, mai la domanda,
+            // mai i tre angeli della persona, che direbbero la nascita.
+            if (_renderCard && _risposta != null)
+              Positioned(
+                left: -3000,
+                top: 0,
+                child: RepaintBoundary(
+                  key: _cardKey,
+                  child: OracoloShareCard(
+                    carte: _carte,
+                    titolo: OracoloShareCard.titoloPerLaCard(
+                        _risposta!.titolo, _affidata),
+                    palette: palette,
+                    scoperte:
+                        _assaggio ? const {RuoloDellAngelo.custode} : null,
+                  ),
                 ),
               ),
-            ],
-          ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _ilCorpo(MaestroPalette palette) {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (n) {
+        if (n.depth != 0) return false;
+        final sotto = n.metrics.pixels > SpacingTokens.lg;
+        if (sotto != _sottoIlTitolo) setState(() => _sottoIlTitolo = sotto);
+        return false;
+      },
+      child: ListView(
+        controller: _scorrimento,
+        padding: EdgeInsets.zero,
+        children: [
+          LayoutBuilder(
+            builder: (context, vincoli) => _laScena(vincoli.maxWidth, palette),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(SpacingTokens.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_fase == _Fase.domanda && _sceneFerma) ...[
+                  _PerUnAmico(
+                    palette: palette,
+                    amico: _perUnAmico?.nome,
+                    aperta: PlanCatalog.apre(
+                        RigaDelPiano.oracoloLungaEAmico, _tier),
+                    onChiedi: _chiediPerUnAmico,
+                    onTornaATe: () => setState(() => _perUnAmico = null),
+                    onPresta: _prestaLaNascita,
+                  ),
+                  const SizedBox(height: SpacingTokens.md),
+                ],
+                _LAngeloDellOra(
+                  palette: palette,
+                  adesso: _ora(),
+                  triade: _triade,
+                  corpus: _corpus,
+                ),
+                SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
+                if (_fase == _Fase.cura)
+                  _LaCura(palette: palette, onDiNuovo: _nuovaDomanda),
+                if (_fase == _Fase.risposta && _risposta != null) ...[
+                  _IlResponso(
+                    palette: palette,
+                    risposta: _risposta!,
+                    carte: _carte,
+                    corpus: _corpus,
+                    variante: _consultazioni - 1,
+                    quando: _quando,
+                    assaggio: _assaggio,
+                    amico: _nomeDellAmicoLetto,
+                    onCondividi: _onShare,
+                    onInvito: _invitoAlPiano,
+                  ),
+                  // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
+                  // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
+                  if (!_assaggio &&
+                      !PlanCatalog.apre(
+                          RigaDelPiano.oracoloLungaEAmico, _tier)) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _IlLucchetto(
+                      chiave: 'oracolo_lucchetto_lunga',
+                      palette: palette,
+                      testo: 'La risposta lunga: Medora va più a fondo '
+                          'nel legame fra la tua domanda e le tre carte',
+                      onTap: () => _invitoAlPiano(
+                          RigaDelPiano.oracoloLungaEAmico, 'La risposta lunga'),
+                    ),
+                  ],
+                  const SizedBox(height: SpacingTokens.lg),
+                  Center(
+                    child: OutlinedButton(
+                      key: const Key('oracolo_nuova_domanda'),
+                      onPressed: _nuovaDomanda,
+                      style: OutlinedButton.styleFrom(
+                          foregroundColor: palette.goldSoft,
+                          side: BorderSide(color: palette.goldSoft)),
+                      child: const Text('Affida una nuova domanda'),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: SpacingTokens.xxl),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -400,6 +610,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                 larghezza: w,
                 appare: !_regia.filmatoInScena || _regia.saltata,
                 carta: _carte.length == 3 ? _carte[i] : null,
+                // L'assaggio del Viandante gira solo il Custode (FU.10).
+                chiusa: _assaggio && i > 0,
                 giro: _giro,
                 palette: palette,
               ),
@@ -447,7 +659,11 @@ class _CartaSullAltare extends StatelessWidget {
     required this.carta,
     required this.giro,
     required this.palette,
+    this.chiusa = false,
   });
+
+  /// Chiusa dal piano: resta dorso, come la carta coperta (FU.10).
+  final bool chiusa;
 
   final int indice;
   final double larghezza;
@@ -469,7 +685,7 @@ class _CartaSullAltare extends StatelessWidget {
             final c = carta;
             // Le tre carte si girano una dopo l'altra, ognuna in un terzo
             // del tempo; la carta coperta (Intelletto senza ora) non si gira.
-            final t = c == null || c.coperta
+            final t = c == null || c.coperta || chiusa
                 ? 0.0
                 : ((giro.value * 3) - indice).clamp(0.0, 1.0);
             final faccia = t > 0.5;
@@ -830,7 +1046,12 @@ class _LaCura extends StatelessWidget {
 
 /// **IL RESPONSO** (FU.06): il titolo che e' gia' la risposta, i tre
 /// paragrafi col secondo nel riquadro, la Lunga nel suo riquadro, il Da dove
-/// viene; poi le tre carte, ognuna col suo Parlane e il suo rito.
+/// viene; poi le tre carte, ognuna col suo Parlane, il suo rito e il dono.
+///
+/// **L'ASSAGGIO DEL VIANDANTE** (FU.10): il titolo del tema, il paragrafo
+/// del Custode, e Cuore e Intelletto col lucchetto e l'invito.
+/// **LA DOMANDA PER UN AMICO** (FU.09): le carte le portano i suoi tre
+/// angeli, e le righe lo dicono col suo nome.
 class _IlResponso extends StatelessWidget {
   const _IlResponso({
     required this.palette,
@@ -839,6 +1060,10 @@ class _IlResponso extends StatelessWidget {
     required this.corpus,
     required this.variante,
     required this.quando,
+    required this.onCondividi,
+    required this.onInvito,
+    this.assaggio = false,
+    this.amico,
   });
 
   final MaestroPalette palette;
@@ -847,6 +1072,10 @@ class _IlResponso extends StatelessWidget {
   final Map<String, List<String>> corpus;
   final int variante;
   final DateTime quando;
+  final bool assaggio;
+  final String? amico;
+  final Future<bool> Function() onCondividi;
+  final Future<void> Function(RigaDelPiano riga, String cosa) onInvito;
 
   /// **DA DOVE VIENE**, una riga che dice anche chi scrive il legame.
   static const String daDoveViene =
@@ -855,27 +1084,52 @@ class _IlResponso extends StatelessWidget {
       'tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
       'della tua nascita. Il legame con la tua domanda lo scrive Medora.';
 
+  /// Il Da dove viene della domanda per un amico: i tre angeli sono i suoi.
+  static String daDoveVienePer(String amico) =>
+      'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; i '
+      'loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I '
+      'tre angeli di $amico vengono dal grado del Sole, dal giorno e '
+      'dall\'ora della sua nascita, prestata per questa lettura. Il legame '
+      'con la domanda lo scrive Medora.';
+
+  /// La riga dell'assaggio: dice che cosa si apre, e da dove.
+  static const String rigaDellAssaggio =
+      'Oggi ti risponde il tuo Angelo Custode. Con l\'Iniziato rispondono '
+      'tutti e tre i tuoi angeli: Medora scrive il legame fra la tua '
+      'domanda e le tre carte.';
+
   @override
   Widget build(BuildContext context) {
+    final scoperte = [
+      for (var i = 0; i < carte.length; i++)
+        if (!carte[i].coperta && !(assaggio && i > 0)) carte[i],
+    ];
     final perIlDiario = ResponsoDaCustodire(
       arte: 'oracolo_angeli',
       titolo: risposta.titolo,
-      testo: risposta.paragrafi.join('\n\n'),
+      testo:
+          assaggio ? risposta.paragrafi.first : risposta.paragrafi.join('\n\n'),
       perIlMaestro: [
-        for (final c in carte)
-          if (!c.coperta) '${c.ruolo.nome}: ${c.angelo.name}',
+        for (final c in scoperte) '${c.ruolo.nome}: ${c.angelo.name}',
       ].join('\n'),
       dati: {
-        'angeli': [
-          for (final c in carte)
-            if (!c.coperta) c.angelo.number.toString()
-        ].join(','),
+        'angeli':
+            [for (final c in scoperte) c.angelo.number.toString()].join(','),
       },
     );
+    final dove = amico == null ? daDoveViene : daDoveVienePer(amico!);
     return Column(
       key: const Key('oracolo_responso'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (amico != null) ...[
+          Text('Rispondono gli angeli di $amico',
+              key: const Key('oracolo_responso_per_l_amico'),
+              textAlign: TextAlign.center,
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+          const SizedBox(height: SpacingTokens.xs),
+        ],
         TitoloDelResponso(
           chiaveDelTesto: const Key('oracolo_titolo_del_responso'),
           testo: risposta.titolo,
@@ -885,33 +1139,64 @@ class _IlResponso extends StatelessWidget {
               .copyWith(color: palette.goldSoft, height: 1.25),
         ),
         const SizedBox(height: SpacingTokens.sm),
-        ResponsoInTreParagrafi(
-          paragrafi: risposta.paragrafi,
-          stile: TypographyTokens.lettura()
-              .copyWith(color: ColorTokens.textPrimary),
-          palette: palette,
-          approfondimento: risposta.approfondimento,
-          daDoveViene: daDoveViene,
-        ),
-        if (!risposta.dalModello) ...[
+        if (assaggio) ...[
+          ParagrafiDiLettura(
+              key: const Key('oracolo_paragrafo_dell_assaggio'),
+              testo: risposta.paragrafi.first,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Medora oggi risponde coi soli messaggi delle carte: il legame '
-            'con la tua domanda arriva quando la rete torna.',
-            key: const Key('oracolo_solo_corpus'),
-            style: TypographyTokens.didascalia().copyWith(
-                color: ColorTokens.textSecondary, fontStyle: FontStyle.italic),
+          Text(rigaDellAssaggio,
+              key: const Key('oracolo_riga_dell_assaggio'),
+              style: TypographyTokens.didascalia().copyWith(
+                  color: ColorTokens.textSecondary,
+                  fontStyle: FontStyle.italic)),
+          const SizedBox(height: SpacingTokens.sm),
+          Text(dove,
+              style: TypographyTokens.didascalia().copyWith(
+                  color: ColorTokens.textSecondary,
+                  fontStyle: FontStyle.italic)),
+        ] else ...[
+          ResponsoInTreParagrafi(
+            paragrafi: risposta.paragrafi,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary),
+            palette: palette,
+            approfondimento: risposta.approfondimento,
+            daDoveViene: dove,
           ),
+          if (!risposta.dalModello) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Medora oggi risponde coi soli messaggi delle carte: il legame '
+              'con la tua domanda arriva quando la rete torna.',
+              key: const Key('oracolo_solo_corpus'),
+              style: TypographyTokens.didascalia().copyWith(
+                  color: ColorTokens.textSecondary,
+                  fontStyle: FontStyle.italic),
+            ),
+          ],
         ],
         const SizedBox(height: SpacingTokens.lg),
         for (var i = 0; i < carte.length; i++) ...[
-          _LaBollaDellaCarta(
-            palette: palette,
-            carta: carte[i],
-            paragrafo: risposta.paragrafi[i],
-            rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
-            variante: variante,
-          ),
+          if (assaggio && i > 0)
+            _IlLucchetto(
+              chiave: 'oracolo_lucchetto_${carte[i].ruolo.name}',
+              palette: palette,
+              testo: 'La carta del tuo ${carte[i].ruolo.nome}: '
+                  '${carte[i].ruolo.posizione.toLowerCase()}',
+              onTap: () => onInvito(
+                  RigaDelPiano.oracoloTreCarte, 'La carta dei tre angeli'),
+            )
+          else
+            _LaBollaDellaCarta(
+              palette: palette,
+              carta: carte[i],
+              paragrafo: risposta.paragrafi[i],
+              rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
+              variante: variante,
+              amico: amico,
+            ),
           const SizedBox(height: SpacingTokens.md),
         ],
         AzioniDelResponso(
@@ -920,6 +1205,7 @@ class _IlResponso extends StatelessWidget {
           dorato: true,
           responso: perIlDiario,
           quando: quando,
+          condividi: onCondividi,
           aperturaDellaChat: ChatOpeners.oracoloAngeli(carte.first.angelo.name,
               carte.first.ruolo.posizione.toLowerCase(), risposta.titolo),
         ),
@@ -928,9 +1214,231 @@ class _IlResponso extends StatelessWidget {
   }
 }
 
+/// **IL LUCCHETTO E L'INVITO** (FU.10): la voce che il piano chiude resta
+/// visibile, col lucchetto, e il tocco dice da quale piano si apre.
+class _IlLucchetto extends StatelessWidget {
+  const _IlLucchetto({
+    required this.chiave,
+    required this.palette,
+    required this.testo,
+    required this.onTap,
+  });
+
+  final String chiave;
+  final MaestroPalette palette;
+  final String testo;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: palette.primary.withValues(alpha: 0.18),
+      borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+      child: InkWell(
+        key: Key(chiave),
+        // Nessun click di sistema: il suono del Cerchio e' una scelta.
+        enableFeedback: false,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          child: Row(
+            children: [
+              Icon(Icons.lock_rounded, color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Text(testo,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary)),
+              ),
+              Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// **LA DOMANDA PER UN AMICO E LA NASCITA PRESTATA** (FU.09), sotto la
+/// scena mentre si affida la domanda. Chi chiede per un amico gli fa
+/// dettare il codice dal suo telefono; chi presta la propria nascita da' il
+/// consenso, per una lettura sola.
+class _PerUnAmico extends StatelessWidget {
+  const _PerUnAmico({
+    required this.palette,
+    required this.amico,
+    required this.aperta,
+    required this.onChiedi,
+    required this.onTornaATe,
+    required this.onPresta,
+  });
+
+  final MaestroPalette palette;
+
+  /// Il nome dell'amico per cui si sta chiedendo, o nullo.
+  final String? amico;
+
+  /// Se il piano apre la domanda per un amico (dall'Adepto).
+  final bool aperta;
+  final VoidCallback onChiedi;
+  final VoidCallback onTornaATe;
+  final VoidCallback onPresta;
+
+  @override
+  Widget build(BuildContext context) {
+    final stile = TextButton.styleFrom(foregroundColor: palette.goldSoft);
+    if (amico != null) {
+      return Row(
+        key: const Key('oracolo_per_l_amico'),
+        children: [
+          Icon(Icons.people_alt_rounded, color: palette.goldSoft),
+          const SizedBox(width: SpacingTokens.xs),
+          Expanded(
+            child: Text('Rispondono gli angeli di $amico',
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ),
+          TextButton(
+            key: const Key('oracolo_torna_a_te'),
+            style: stile,
+            onPressed: onTornaATe,
+            child: const Text('Torna a te'),
+          ),
+        ],
+      );
+    }
+    return Wrap(
+      spacing: SpacingTokens.sm,
+      children: [
+        TextButton.icon(
+          key: const Key('oracolo_chiedi_per_un_amico'),
+          style: stile,
+          onPressed: onChiedi,
+          icon: Icon(aperta ? Icons.people_alt_rounded : Icons.lock_rounded),
+          label: const Text('Chiedi per un amico'),
+        ),
+        TextButton.icon(
+          key: const Key('oracolo_presta_la_nascita'),
+          style: stile,
+          onPressed: onPresta,
+          icon: const Icon(Icons.key_rounded),
+          label: const Text('Presta la tua nascita'),
+        ),
+      ],
+    );
+  }
+}
+
+/// **LA CARTA IN DONO A UN AMICO DEL CERCHIO** (FU.09): il prezzo si legge
+/// sul pulsante, prima del gesto, dal listino; poi la scelta dell'amico, la
+/// conferma unica della spesa (ordine FD voce 01) e la strada dei doni del
+/// Cerchio (`IlCerchioSociale.mandaUnaCartaDegliAngeli`). Viaggia il numero
+/// della carta e nient'altro.
+class _IlDonoDellaCarta extends StatelessWidget {
+  const _IlDonoDellaCarta({required this.palette, required this.angelo});
+
+  final MaestroPalette palette;
+  final Angel angelo;
+
+  static VoceDelListino get voce => ListinoDegliEos.cartaDegliAngeliDaDonare;
+
+  /// L'etichetta col prezzo, detta prima del gesto.
+  static String get etichetta =>
+      'Mandala in dono, ${ListinoDegliEos.prezzo(voce.costo)}';
+
+  Future<void> _dona(BuildContext context) async {
+    IlCerchioSociale? sociale;
+    try {
+      sociale = context.read<IlCerchioSociale>();
+    } catch (senzaCerchio) {
+      sociale = null;
+    }
+    final messaggero = ScaffoldMessenger.of(context);
+    // Il borsellino serve alla conferma della spesa: senza, il dono non parte
+    // e la riga lo dice, mai un errore muto.
+    try {
+      context.read<QuestionAllowance>();
+    } catch (senzaBorsellino) {
+      messaggero.showSnackBar(
+          SnackBar(content: Text(EsitoDelGesto.silenzio.rigaPerLaPersona)));
+      return;
+    }
+    final amici = sociale?.cerchio.amici ?? const <PersonaDelCerchio>[];
+    if (sociale == null || amici.isEmpty) {
+      messaggero.showSnackBar(const SnackBar(
+          key: Key('oracolo_dono_senza_amici'),
+          content: Text('Il dono va a un amico del Cerchio: quando ne avrai '
+              'uno, la carta potrà raggiungerlo.')));
+      return;
+    }
+    final amico = await showModalBottomSheet<PersonaDelCerchio>(
+      context: context,
+      backgroundColor: palette.deepest,
+      builder: (c) => SafeArea(
+        child: ListView(
+          key: const Key('oracolo_dono_gli_amici'),
+          shrinkWrap: true,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: Text('A chi mandi ${angelo.name}?',
+                  style: TypographyTokens.titoloScheda()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+            for (final a in amici)
+              ListTile(
+                key: Key('oracolo_dono_a_${a.uid}'),
+                title: Text(a.nome,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary)),
+                onTap: () => Navigator.of(c).pop(a),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (amico == null || !context.mounted) return;
+    final consenso =
+        await LaConfermaDellaSpesa.degliEos(context, costo: voce.costo);
+    if (consenso == null || !context.mounted) return;
+    final esito = await sociale
+        .mandaUnaCartaDegliAngeli(amico.uid, angelo.number, consenso: consenso);
+    if (!context.mounted) return;
+    final manca = esito.dati['manca'];
+    if (!esito.ok && manca is num) {
+      messaggero.showSnackBar(SnackBar(
+          content: Text('Mancano ${ListinoDegliEos.prezzo(manca.toInt())} '
+              'per mandare ${angelo.name}.')));
+      await PortafoglioDelCerchio.apri(context);
+      return;
+    }
+    messaggero.showSnackBar(SnackBar(
+        key: const Key('oracolo_dono_esito'),
+        content: Text(esito.ok
+            ? 'La carta di ${angelo.name} è arrivata a ${amico.nome}.'
+            : esito.rigaPerLaPersona)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: TextButton.icon(
+        key: Key('oracolo_dono_${angelo.number}'),
+        style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
+        onPressed: () => _dona(context),
+        icon: const Icon(Icons.card_giftcard_rounded),
+        label: Text(etichetta),
+      ),
+    );
+  }
+}
+
 /// **LA BOLLA DI UNA CARTA**: il medaglione del ruolo col nome dell'angelo
 /// della persona che la porta, la carta, il Parlane con Medora (come nella
-/// Stesa) e, chiuso finche' non lo apri, il rito con Caligo (FU.07).
+/// Stesa), il dono a un amico (FU.09) e, chiuso finche' non lo apri, il rito
+/// con Caligo (FU.07).
 class _LaBollaDellaCarta extends StatelessWidget {
   const _LaBollaDellaCarta({
     required this.palette,
@@ -938,6 +1446,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
     required this.paragrafo,
     required this.rito,
     required this.variante,
+    this.amico,
   });
 
   final MaestroPalette palette;
@@ -945,6 +1454,23 @@ class _LaBollaDellaCarta extends StatelessWidget {
   final String paragrafo;
   final List<String>? rito;
   final int variante;
+
+  /// L'amico per cui si e' chiesto: le carte le portano i suoi angeli.
+  final String? amico;
+
+  String get _chiLaPorta {
+    if (amico != null) {
+      return carta.portatore == null
+          ? 'La porta il ${carta.ruolo.nome} di $amico, che si rivela con '
+              'la sua ora di nascita'
+          : 'La porta il ${carta.ruolo.nome} di $amico, '
+              '${carta.portatore!.name}';
+    }
+    return carta.portatore == null
+        ? 'La porta il tuo ${carta.ruolo.nome}, che si rivela con l\'ora di '
+            'nascita'
+        : 'La porta il tuo ${carta.ruolo.nome}, ${carta.portatore!.name}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -996,12 +1522,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
                         style: TypographyTokens.titoloScheda()
                             .copyWith(color: ColorTokens.textPrimary)),
                     const SizedBox(height: SpacingTokens.xxs),
-                    Text(
-                        carta.portatore == null
-                            ? 'La porta il tuo ${carta.ruolo.nome}, che si '
-                                'rivela con l\'ora di nascita'
-                            : 'La porta il tuo ${carta.ruolo.nome}, '
-                                '${carta.portatore!.name}',
+                    Text(_chiLaPorta,
                         style: TypographyTokens.didascalia()
                             .copyWith(color: ColorTokens.textSecondary)),
                   ],
@@ -1009,7 +1530,15 @@ class _LaBollaDellaCarta extends StatelessWidget {
               ),
             ],
           ),
-          if (carta.coperta) ...[
+          if (carta.coperta && amico != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+                'La sua ora di nascita non è arrivata col codice: la terza '
+                'carta resta coperta.',
+                key: const Key('oracolo_coperta_per_l_amico'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
+          ] else if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),
             Center(
               child: OutlinedButton(
@@ -1032,6 +1561,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
               aperturaDellaChat: ChatOpeners.oracoloAngeli(carta.angelo.name,
                   carta.ruolo.posizione.toLowerCase(), paragrafo),
             ),
+            _IlDonoDellaCarta(palette: palette, angelo: carta.angelo),
             const SizedBox(height: SpacingTokens.xs),
             _IlRitoConCaligo(
               angelo: carta.angelo,

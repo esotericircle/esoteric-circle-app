@@ -24,13 +24,30 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 /// vale cinque minuti e una lettura sola. Senza la nascita data, senza rete
 /// o con la porta non ancora pubblicata, la schermata lo dice: chi legge
 /// puo' sempre inserire la nascita a mano.
+///
+/// **LO STESSO GESTO PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
+/// [perLOracolo] la riga del consenso dice che la nascita serve ai tuoi tre
+/// angeli per la domanda di un amico, e il consenso vale solo per quello.
 class LaTuaNascitaPerUnaLettura extends StatefulWidget {
-  const LaTuaNascitaPerUnaLettura({super.key, required this.palette});
+  const LaTuaNascitaPerUnaLettura(
+      {super.key, required this.palette, this.perLOracolo = false});
 
   final MaestroPalette palette;
 
-  static Route<void> route(MaestroPalette palette) => PassaggioDelCerchio.rotta(
-      (_) => LaTuaNascitaPerUnaLettura(palette: palette));
+  /// Vero quando la nascita si presta all'Oracolo degli Angeli.
+  final bool perLOracolo;
+
+  static Route<void> route(MaestroPalette palette,
+          {bool perLOracolo = false}) =>
+      PassaggioDelCerchio.rotta((_) => LaTuaNascitaPerUnaLettura(
+          palette: palette, perLOracolo: perLOracolo));
+
+  /// La riga del consenso per l'Oracolo: si legge prima del gesto.
+  static const String rigaDellOracolo =
+      'Chi ti è accanto può chiedere all\'Oracolo degli Angeli una risposta '
+      'per te: rispondono i tuoi tre angeli, che vengono dalla tua nascita '
+      'vera. Il codice la presta per una lettura sola, per cinque minuti. Nel '
+      'tuo profilo del Cerchio non entra.';
 
   /// Quanto vale il codice: lo stesso del server
   /// (`DURATA_DEL_CONSENSO_MS` in `functions/src/sinastria_evolutiva.ts`).
@@ -89,6 +106,8 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
       giorno: DateTime(m.year, m.month, m.day),
       oraNota: identita.hasBirthTime,
       nome: nome.isEmpty ? 'Chi ti è accanto' : nome,
+      perLOracolo: widget.perLOracolo,
+      minutoLocale: m.hour * 60 + m.minute,
     );
     if (!mounted) return;
     final codice = esito.dati['codice'];
@@ -138,10 +157,13 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
           padding: const EdgeInsets.all(SpacingTokens.lg),
           children: [
             ParagrafiDiLettura(
-              testo: 'Chi ti è accanto può leggere la vostra Sinastria '
-                  'evolutiva con la tua nascita vera. Il codice la presta per '
-                  'una lettura sola, per cinque minuti. Nel tuo profilo del '
-                  'Cerchio non entra.',
+              key: const Key('la_tua_nascita_perche'),
+              testo: widget.perLOracolo
+                  ? LaTuaNascitaPerUnaLettura.rigaDellOracolo
+                  : 'Chi ti è accanto può leggere la vostra Sinastria '
+                      'evolutiva con la tua nascita vera. Il codice la presta '
+                      'per una lettura sola, per cinque minuti. Nel tuo '
+                      'profilo del Cerchio non entra.',
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),

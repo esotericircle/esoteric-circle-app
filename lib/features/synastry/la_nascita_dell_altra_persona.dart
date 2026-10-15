@@ -33,17 +33,31 @@ import 'la_tua_nascita_per_una_lettura.dart';
 /// (`amoreDalServer`, il secondo controllo dell'eta' di FT.04). Senza rete o
 /// con la porta non ancora pubblicata la riga lo dice, e la strada a mano
 /// resta sotto: mai un vicolo cieco.
+///
+/// **LO STESSO GESTO PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
+/// `perLOracolo` resta la sola strada del codice, perche' per la domanda di
+/// un amico la sua nascita passa solo col suo consenso esplicito; il codice
+/// si legge solo se e' stato dato per l'Oracolo, e porta il minuto locale
+/// della nascita ([minutoLocale]) per l'Angelo dell'Intelletto.
 typedef NascitaLetta = ({
   String nome,
   CieloEvolutivo cielo,
   bool? amoreDalServer,
+  int? minutoLocale,
 });
 
 class LaNascitaDellAltraPersona extends StatefulWidget {
   const LaNascitaDellAltraPersona(
-      {super.key, required this.palette, this.nomeIniziale});
+      {super.key,
+      required this.palette,
+      this.nomeIniziale,
+      this.perLOracolo = false});
 
   final MaestroPalette palette;
+
+  /// Vero per la domanda all'Oracolo degli Angeli per un amico: solo il
+  /// codice, mai la nascita scritta a mano (ordine FU voce FU.09).
+  final bool perLOracolo;
 
   /// Il nome gia' noto (l'amico del segno 15 o del confronto del cielo):
   /// riempie solo il campo del nome, mai la nascita.
@@ -52,11 +66,13 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
   /// Apre la schermata e aspetta il nome e il cielo, o nullo se annullato.
   static Future<NascitaLetta?> chiedi(
       BuildContext context, MaestroPalette palette,
-      {String? nomeIniziale}) {
+      {String? nomeIniziale, bool perLOracolo = false}) {
     return Navigator.of(context).push<NascitaLetta>(
       PassaggioDelCerchio.rotta(
         (_) => LaNascitaDellAltraPersona(
-            palette: palette, nomeIniziale: nomeIniziale),
+            palette: palette,
+            nomeIniziale: nomeIniziale,
+            perLOracolo: perLOracolo),
       ),
     );
   }
@@ -105,7 +121,8 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
     });
     final esito = await sociale.leggiLaNascita(codice,
         giornoMio: DateTime(
-            mia.birthMoment.year, mia.birthMoment.month, mia.birthMoment.day));
+            mia.birthMoment.year, mia.birthMoment.month, mia.birthMoment.day),
+        perLOracolo: widget.perLOracolo);
     if (!mounted) return;
     final d = esito.dati;
     final nascita = DateTime.tryParse('${d['nascita']}');
@@ -126,10 +143,13 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       nome: nome,
       giornoDiNascita: DateTime(giorno.year, giorno.month, giorno.day),
     );
+    final minuto = d['minutoLocale'];
     Navigator.of(context).pop((
       nome: nome,
       cielo: cielo,
       amoreDalServer: d['amoreApribile'] == true,
+      minutoLocale:
+          minuto is num && d['oraNota'] == true ? minuto.toInt() : null,
     ));
   }
 
@@ -174,8 +194,12 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
       nome: _nome.text.trim(),
       giornoDiNascita: DateTime(data.year, data.month, data.day),
     );
-    Navigator.of(context)
-        .pop((nome: _nome.text.trim(), cielo: cielo, amoreDalServer: null));
+    Navigator.of(context).pop((
+      nome: _nome.text.trim(),
+      cielo: cielo,
+      amoreDalServer: null,
+      minutoLocale: null,
+    ));
   }
 
   @override
@@ -252,64 +276,71 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                       style: TextButton.styleFrom(
                           foregroundColor: palette.goldSoft,
                           padding: EdgeInsets.zero),
-                      onPressed: () => Navigator.of(context)
-                          .push(LaTuaNascitaPerUnaLettura.route(palette)),
+                      onPressed: () => Navigator.of(context).push(
+                          LaTuaNascitaPerUnaLettura.route(palette,
+                              perLOracolo: widget.perLOracolo)),
                       child: const Text('Fai leggere la tua nascita'),
                     ),
                   ),
-                  const Divider(height: SpacingTokens.xl),
-                  Text('Oppure scrivila tu',
-                      style: TypographyTokens.titoloScheda()
-                          .copyWith(color: palette.goldSoft)),
-                  TextField(
-                    key: const Key('nascita_altra_nome'),
-                    controller: _nome,
-                    decoration: const InputDecoration(labelText: 'Il suo nome'),
-                    onChanged: (_) => setState(() {}),
-                  ),
-                  const SizedBox(height: SpacingTokens.lg),
-                  ListTile(
-                    key: const Key('nascita_altra_data'),
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(_data == null
-                        ? 'Scegli la data di nascita'
-                        : '${_data!.day}/${_data!.month}/${_data!.year}'),
-                    trailing: const Icon(Icons.calendar_today_rounded),
-                    onTap: _scegliData,
-                  ),
-                  InterruttoreDelCerchio(
-                    key: const Key('nascita_altra_ora_non_nota'),
-                    titolo: 'Non conosco l\'ora di nascita',
-                    acceso: _oraNonNota,
-                    onCambia: (v) => setState(() => _oraNonNota = v),
-                  ),
-                  if (!_oraNonNota)
-                    ListTile(
-                      key: const Key('nascita_altra_ora'),
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(_ora == null
-                          ? 'Scegli l\'ora (se la conosci)'
-                          : _ora!.format(context)),
-                      trailing: const Icon(Icons.access_time_rounded),
-                      onTap: _scegliOra,
+                  // Per l'Oracolo la nascita passa solo col consenso: la
+                  // strada a mano qui non c'e' (ordine FU voce FU.09).
+                  if (!widget.perLOracolo) ...[
+                    const Divider(height: SpacingTokens.xl),
+                    Text('Oppure scrivila tu',
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft)),
+                    TextField(
+                      key: const Key('nascita_altra_nome'),
+                      controller: _nome,
+                      decoration:
+                          const InputDecoration(labelText: 'Il suo nome'),
+                      onChanged: (_) => setState(() {}),
                     ),
+                    const SizedBox(height: SpacingTokens.lg),
+                    ListTile(
+                      key: const Key('nascita_altra_data'),
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(_data == null
+                          ? 'Scegli la data di nascita'
+                          : '${_data!.day}/${_data!.month}/${_data!.year}'),
+                      trailing: const Icon(Icons.calendar_today_rounded),
+                      onTap: _scegliData,
+                    ),
+                    InterruttoreDelCerchio(
+                      key: const Key('nascita_altra_ora_non_nota'),
+                      titolo: 'Non conosco l\'ora di nascita',
+                      acceso: _oraNonNota,
+                      onCambia: (v) => setState(() => _oraNonNota = v),
+                    ),
+                    if (!_oraNonNota)
+                      ListTile(
+                        key: const Key('nascita_altra_ora'),
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(_ora == null
+                            ? 'Scegli l\'ora (se la conosci)'
+                            : _ora!.format(context)),
+                        trailing: const Icon(Icons.access_time_rounded),
+                        onTap: _scegliOra,
+                      ),
+                  ],
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: FilledButton(
-                  key: const Key('nascita_altra_conferma'),
-                  onPressed: _pronto ? _conferma : null,
-                  style:
-                      FilledButton.styleFrom(backgroundColor: palette.goldSoft),
-                  child: const Text('Continua'),
+            if (!widget.perLOracolo)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: FilledButton(
+                    key: const Key('nascita_altra_conferma'),
+                    onPressed: _pronto ? _conferma : null,
+                    style: FilledButton.styleFrom(
+                        backgroundColor: palette.goldSoft),
+                    child: const Text('Continua'),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

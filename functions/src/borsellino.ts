@@ -171,6 +171,14 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
    * Eos"), ordine FT voce FT.13.
    */
   sinastrieEvolutive: 150,
+  /**
+   * UNA CONSULTAZIONE DELL'ORACOLO DEGLI ANGELI IN PIU' COSTA 100 EOS,
+   * ordine FU voce FU.10: fra la domanda in piu' a un Maestro (80) e la
+   * stesa a tre carte (120), perche' e' un'esperienza conclusa con tre
+   * carte e il rito, ma con una chiamata sola al modello leggero. La voce
+   * del telefono e' `consultazioneDegliAngeliInPiu`.
+   */
+  oracoliAngeli: 100,
 };
 
 /**

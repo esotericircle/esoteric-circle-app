@@ -240,6 +240,44 @@ class ListinoDegliEos {
     },
   );
 
+  /// **UNA CONSULTAZIONE DELL'ORACOLO DEGLI ANGELI IN PIU', ordine FU voce
+  /// FU.10**: 100 Eos, quando le consultazioni del giorno del piano sono
+  /// finite. Il server la conta sul budget `oracoliAngeli` e ne ripete il
+  /// prezzo in `PREZZI_DEL_RISCATTO`; i gratis del giorno sono la riga
+  /// `Oracolo degli Angeli: consultazioni` della matrice. Il prezzo sta fra
+  /// la domanda in piu' a un Maestro (80) e la stesa a tre carte (120): tre
+  /// carte e il rito, con una chiamata sola al modello leggero.
+  static const consultazioneDegliAngeliInPiu = VoceDelListino(
+    id: 'angels_oracle',
+    nome: 'Una consultazione degli Angeli in più',
+    costo: 100,
+    budget: 'oracoliAngeli',
+    gratisAlGiorno: {
+      Tier.free: 1,
+      Tier.tier1: 3,
+      Tier.tier2: 5,
+      Tier.tier3: 6,
+    },
+  );
+
+  /// **LA CARTA DEGLI ANGELI DA DONARE, ordine FU voce FU.09**: una carta
+  /// estratta nell'Oracolo mandata a un amico del Cerchio. Trenta Eos come
+  /// la scintilla, lo stesso scaffale: un oggetto singolo che resta nel
+  /// profilo di chi lo riceve. Il prezzo lo ripete `PREZZI_DEI_DONI` in
+  /// `functions/src/sociale.ts`, alla voce `angelo`.
+  static const cartaDegliAngeliDaDonare = VoceDelListino(
+    id: 'dono_carta_degli_angeli',
+    nome: 'Una carta degli Angeli da donare',
+    costo: 30,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
   /// **LA SCINTILLA, ordine EY voce 12**: il secondo dei tre doni, dall'Adepto
   /// in su. Il dono non conia Eos a chi lo riceve: riceve l'oggetto. Il
   /// prezzo lo ripete `PREZZI_DEI_DONI` in `functions/src/sociale.ts`.
@@ -315,6 +353,8 @@ class ListinoDegliEos {
     amicoInPiu,
     confrontoDelCieloInPiu,
     sinastriaEvolutivaInPiu,
+    consultazioneDegliAngeliInPiu,
+    cartaDegliAngeliDaDonare,
     scintilla,
     sigilloDaDonare,
     indizio,

@@ -1,6 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart' show TimeOfDay;
+
 import '../angels/angel_catalog.dart';
+import '../astro/birth_details.dart';
 import '../angels/guardian_angels.dart';
 
 /// **I TRE RUOLI DELL'ORACOLO DEGLI ANGELI.** Ordine FU voce FU.03, 15
@@ -76,6 +79,35 @@ class CartaDellOracolo {
 
   /// La carta si scopre solo se si conosce chi la porta.
   bool get coperta => portatore == null;
+}
+
+/// **I TRE ANGELI DI UN AMICO**, ordine FU voce FU.09: per la domanda per un
+/// amico rispondono i suoi tre angeli, dalla nascita che ha prestato col suo
+/// consenso (il codice della lettura a due telefoni, ordine FT). La stessa
+/// regola dei tre angeli di chi consulta (`GuardianAngels.forBirth`): il
+/// Custode dal grado del Sole all'istante di nascita, il Cuore dal giorno
+/// del calendario del luogo, l'Intelletto dal minuto del giorno nel luogo,
+/// e senza l'ora l'Intelletto e' nullo.
+abstract final class GliAngeliDiUnAmico {
+  static AngelTriad daNascitaPrestata({
+    required DateTime giorno,
+    required double longitudineDelSole,
+    int? minutoLocale,
+  }) {
+    final minuto =
+        minutoLocale != null && minutoLocale >= 0 && minutoLocale < 1440
+            ? minutoLocale
+            : null;
+    return GuardianAngels.forBirth(
+      BirthDetails(
+        date: DateTime(giorno.year, giorno.month, giorno.day),
+        time: minuto == null
+            ? null
+            : TimeOfDay(hour: minuto ~/ 60, minute: minuto % 60),
+      ),
+      sunLongitude: longitudineDelSole,
+    );
+  }
 }
 
 /// **L'ESTRAZIONE**, sul telefono: tre angeli diversi a caso fra i 72, uno
