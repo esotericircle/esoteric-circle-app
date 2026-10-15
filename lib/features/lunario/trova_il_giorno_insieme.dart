@@ -10,6 +10,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../cerchio/scegli_dalla_rubrica_screen.dart';
 import '../synastry/la_nascita_dell_altra_persona.dart';
 import 'la_luna_nel_castone.dart';
 
@@ -269,21 +270,36 @@ class _FoglioTrovaIlGiornoInsiemeState
                             .copyWith(color: ColorTokens.textSecondary)),
                   )
                 else
-                  Wrap(
-                    spacing: SpacingTokens.xs,
-                    runSpacing: SpacingTokens.xs,
-                    children: [
-                      for (final a in _amici)
-                        _ChipAmico(
-                          persona: a,
-                          scelto: _amiciScelti.contains(a.uid),
-                          conNascita: _nasciteAmici.containsKey(a.uid),
-                          palette: palette,
-                          onTap: () => _scegliAmico(a.uid),
-                          onPresta: () => _prestaLaNascitaDi(a.uid),
-                        ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: SpacingTokens.xxs),
+                    child: Wrap(
+                      spacing: SpacingTokens.xs,
+                      runSpacing: SpacingTokens.xs,
+                      children: [
+                        for (final a in _amici)
+                          _ChipAmico(
+                            persona: a,
+                            scelto: _amiciScelti.contains(a.uid),
+                            conNascita: _nasciteAmici.containsKey(a.uid),
+                            palette: palette,
+                            onTap: () => _scegliAmico(a.uid),
+                            onPresta: () => _prestaLaNascitaDi(a.uid),
+                          ),
+                      ],
+                    ),
                   ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    key: const Key('lunario_insieme_invita'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: palette.goldSoft,
+                        padding: EdgeInsets.zero),
+                    onPressed: () => Navigator.of(context)
+                        .push(ScegliDallaRubricaScreen.route()),
+                    child: const Text('Invita chi non è nel Cerchio'),
+                  ),
+                ),
                 const SizedBox(height: SpacingTokens.md),
                 Text('Che cosa volete fare',
                     style: TypographyTokens.etichetta()
