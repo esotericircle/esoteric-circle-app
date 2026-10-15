@@ -7062,7 +7062,29 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 
 **La suite intera e il cancello.** In locale 7.304 prove con 16 rosse (82 minuti), tutte corrette col loro padre nel rapporto. Il cancello di GitHub e' verde sul commit d779f271 (`refs/verde/d779f271...`). **REGOLA PERMANENTE del fondatore, 14 ottobre 2026: la suite intera gira su GitHub, non piu' in locale** (CLAUDE.md, regole non negoziabili).
 
-**Da decidere per il fondatore**: la riga "Compatibilità a tre livelli, esclusiva" dell'Illuminato, la vecchia promessa di questa stessa scheda, che oggi nessuna parte dell'app esegue.
+**Da decidere per il fondatore**: la riga "Compatibilità a tre livelli, esclusiva" dell'Illuminato, la vecchia promessa di questa stessa scheda, che oggi nessuna parte dell'app esegue. **Decisa e tolta dall'ordine FU voce FU.16**, 15 ottobre 2026 (sezione qui sotto).
+
+## L'ORDINE FU, L'ORACOLO DEGLI ANGELI E LE SCENE DELL'OROSCOPO E DELLA SINASTRIA VIP (15 ottobre 2026)
+
+**L'ORDINE FU**, copiato parola per parola in `docs/ordini/ORDINE_FU_TESTO.md`. Manifesto `docs/ordini/ORDINE_FU_MANIFESTO.md` (17 voci: 9 chiuse, 8 aperte in attesa di verifica), rapporto `docs/ordini/RAPPORTO_ORDINE_FU.md`, guardia `test/ordine_fu_guard_test.dart`. Nessuna build, nessuna chiamata vera al modello, nessun deploy. Lavoro diviso fra Code e quattro agenti in worktree, uniti nel ramo.
+
+- **L'Oracolo degli Angeli, arte attiva** (id `angels_oracle`, era la card Coming soon del catalogo). Schermata `lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart`, nucleo in `lib/core/oracolo_angeli/`. Il video della Scala di Giacobbe parte all'apertura e resta sull'ultimo fotogramma coi tre dorsi sull'altare (`la_geometria_dell_altare.dart`, scarto 8,42 su 255); la domanda libera o una delle 21 proposte in sette temi sale in lettere di luce; tre angeli diversi estratti fra i 72, portati dal Custode (cosa fare), dal Cuore (cosa sentire) e dall'Intelletto (cosa capire), la terza coperta senza l'ora di nascita. Il responso: titolo, tre paragrafi col riquadro, Da dove viene, bolle col Parlane, il rito con Caligo sotto ogni carta, il dono. L'angelo dell'ora e il messaggio del giorno senza modello (`l_ora_degli_angeli.dart`). Si apre dalla home, dal dominio di Medora e dalla schermata dei tre angeli.
+- **La lettura col modello**, `la_lettura_dell_oracolo.dart`: una chiamata a Gemini 2.5 Flash-Lite in europe-west1 (etichetta `oracolo_angeli`), che scrive solo il titolo e il riquadro; tetto 300 token in uscita (Breve) e 600 (Lunga); il resto e' corpus. Senza rete o con una risposta che non regge parla il corpus, e lo dice. Le domande delicate non estraggono carte: Medora risponde con cura e indica il 112. **Stima**: circa 804 token in ingresso, al piu' 0,0002 euro la Breve e 0,0003 la Lunga (listino Vertex del 15 ottobre 2026, `docs/collaudo/FU/fu04_listino_e_stima.txt`). **Mai chiamato davvero**: la prima esecuzione, venti consultazioni per 0,005 euro, aspetta il si' del fondatore.
+- **Il corpus**: 792 testi scritti da Code nella voce di Medora (648 messaggi, 144 riti di Caligo) in `docs/corpus/oracolo_angeli/`, generati in `il_corpus_dell_oracolo.g.dart` da `tool/il_corpus_dell_oracolo.py`, 0 difetti; lettori ciechi 60 su 60 e 59 su 60.
+- **Il sociale (FU.09)**: la card con le tre carte e il titolo, mai la domanda ne' i tre angeli della persona (`oracolo_share_card.dart`); la carta in dono a 30 Eos sulla porta `mandaUnDono`; la domanda per un amico dall'Adepto col gesto della lettura a due telefoni, col consenso che dichiara lo scopo `oracolo` e porta il minuto locale.
+- **I piani (FU.10)**: consultazioni al giorno 1, 3, 5 e 6 (Viandante con l'assaggio dal solo corpus e due lucchetti, Iniziato Breve, Adepto e Illuminato con la Lunga e la domanda per un amico); la consultazione in piu' a 100 Eos (budget `oracoliAngeli`); numeri scelti col tetto del costo, mensile dell'Illuminato al 29,9 per cento del netto.
+- **Le scene**: l'Oroscopo con la ruota dello zodiaco e gli emblemi della tradizione aperta nel globo e nelle dodici sedi (`lib/features/horoscope/la_scena_dell_oroscopo.dart`); la porta della Sinastria VIP col Sipario delle Stelle, l'ultimo fotogramma come sfondo e le carte sulle cornici, da 144x216 a 152,3x228,5 punti (`porta_della_sinastria.dart`).
+- **Il tocco che salta il video**, punto unico `IlToccoCheSalta` in `lib/features/scene/la_scena_in_video.dart`, con la regia comune delle scene: Stesa, Sinastria evolutiva, Oracolo, Oroscopo e Sinastria VIP. La guardia `ogni_scena_si_salta_col_tocco` ne pretende cinque.
+- **I video ricompressi** in H.264 a qualita' costante 26 alla misura d'origine: da 35,0 a 15,0 MB per i tre.
+- **La promessa falsa tolta** (FU.16): "Compatibilità a tre livelli" via dalla card dell'Illuminato e dalla tabella dei piani, con la lapide e la guardia `la_compatibilita_a_tre_livelli_non_si_promette`.
+- **Guardie.** Dieci nuove, tutte viste rosse; il registro passa da 774 a 784.
+
+**APERTO IN ATTESA DI VERIFICA**:
+- **FU.02, FU.11, FU.13, FU.14 e FU.15, sul telefono**: i tre video veri, le carte che si girano sull'altare, gli emblemi dell'Oroscopo, il Sipario e le carte VIP, il tocco che salta in ognuna delle cinque scene, le porte dell'Oracolo.
+- **FU.04, il si' del fondatore** alla prima esecuzione vera del modello, 0,005 euro.
+- **FU.09 e FU.10, il deploy**: `cd functions && firebase deploy --only functions:mandaUnDono,functions:condividiLaNascita,functions:leggiLaNascita,functions:statoDelCerchio,functions:muoviGliEos --project esoteric-circle`. Fino ad allora le consultazioni non si contano e il dono dice che il Cerchio non risponde.
+
+**Da decidere per il fondatore**: i contatti di aiuto per le domande delicate (proposti nel rapporto: Telefono Amico, 1522, Telefono Azzurro, oltre al 112); lo sfondo della Sinastria VIP che scorre con le carte; il tocco che salta per l'intro, la rivelazione del Maestro e il velo dell'onboarding, che l'ordine non nominava.
 
 ## Regole ferree
 

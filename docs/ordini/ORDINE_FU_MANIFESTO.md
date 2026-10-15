@@ -75,21 +75,21 @@ MISURA: angelo dell'ora uguale all'Angelo dell'Intelletto su 1.440 minuti su 1.4
 
 ## VOCE FU.09
 
-**APERTA IN ATTESA DI VERIFICA.** Da completare col lavoro dell'agente delle voci FU.09 e FU.10.
+**APERTA IN ATTESA DI VERIFICA.** La card nel formato unico (`lib/features/angels/oracolo/oracolo_share_card.dart`), mandata dal Condividi del responso con la porta della Stesa: le tre carte con posizione e nome, il titolo, il marchio; mai la domanda, mai i nomi dei tre angeli della persona, che direbbero la nascita (il Cuore viene dal giorno dell'anno); se il titolo ripete la domanda, al suo posto va il titolo del tema. La carta in dono a un amico del Cerchio sulla strada dei doni che c'era (`mandaUnDono`, dono `angelo`, carta da 1 a 72), col pulsante "Mandala in dono, 30 Eos" prima del gesto e la conferma unica della spesa. La domanda per un amico, dall'Adepto, col gesto della lettura a due telefoni dell'ordine FT: la nascita passa solo col codice, una volta per lettura, col consenso che dichiara lo scopo `oracolo` e porta il minuto locale; "Presta la tua nascita" a ogni piano. Il lavoro sul server e' scritto e provato, non pubblicato.
 
-ASPETTA: il lavoro dell'agente delle voci FU.09 e FU.10, ancora in corso alla stesura di questa riga.
-DOMANDA: "Come renderla social e virale? Perché la persona dovrebbe coinvolgere i propri amici?"
-PROVA: docs/ordini/ORDINE_FU_TESTO.md
-MISURA: da scrivere
+ASPETTA: il fondatore, che pubblica le porte toccate: cd functions && firebase deploy --only functions:mandaUnDono,functions:condividiLaNascita,functions:leggiLaNascita --project esoteric-circle; poi due telefoni alla prossima build per il dono, la domanda per un amico e la card. Senza la pubblicazione il dono dice che il Cerchio non risponde, e col server di oggi un codice dato per la Sinastria evolutiva si leggerebbe anche dall'Oracolo, perche' il controllo dello scopo vive nel server nuovo. La pubblicazione delle funzioni e' negata a Code.
+DOMANDA: "La card condivisibile nel formato unico (Linee Guida sezione 3): le tre carte e il titolo. Mai la domanda stampata, mai dati di nascita."
+PROVA: test/l_oracolo_degli_angeli_sociale_e_piani_test.dart
+MISURA: arti che condividono senza immagine da 1 (oracolo_angeli) a 0 su 13 (test/custodisci_e_parlane_test.dart, DW.08); testi sulla card 16, occorrenze della domanda 0, dei tre angeli della persona 0, di date o ore 0; pulsanti del dono col prezzo da 0 a 3, doni partiti prima della conferma 0; campi del consenso per l'Oracolo 6 (i 4 dell'ordine FT piu' scopo e minuto locale), campi a mano nel modulo per l'Oracolo 0; prove del server 250 su 250
 
 ## VOCE FU.10
 
-**APERTA IN ATTESA DI VERIFICA.** Da completare col lavoro dell'agente delle voci FU.09 e FU.10.
+**APERTA IN ATTESA DI VERIFICA.** Consultazioni al giorno 1, 3, 5 e 6 per Viandante, Iniziato, Adepto e Illuminato. Al Viandante l'angelo dell'ora, il messaggio del giorno e un assaggio dal solo corpus, senza modello: si scopre il Custode, Cuore e Intelletto col lucchetto e l'invito all'Iniziato. L'Iniziato ha le tre carte con la risposta Breve, col lucchetto sulla Lunga e sulla domanda per un amico; dall'Adepto la Lunga e la domanda per un amico. La consultazione in piu' a 100 Eos (budget `oracoliAngeli`), la carta in dono a 30 Eos; finite le consultazioni, l'invito con le due strade. La Lunga si legge dalla matrice (`RigaDelPiano.oracoloLungaEAmico`); quattro righe nuove nella matrice e una nella descrizione di ogni piano. Il budget del server e' scritto e non pubblicato, e finche' il listino non lo porta l'app non conta.
 
-ASPETTA: il lavoro dell'agente delle voci FU.09 e FU.10, ancora in corso alla stesura di questa riga.
-DOMANDA: "I numeri dei limiti e degli Eos li decide Code"
-PROVA: docs/ordini/ORDINE_FU_TESTO.md
-MISURA: da scrivere
+ASPETTA: il fondatore, che pubblica le funzioni del borsellino e dello stato: cd functions && firebase deploy --only functions:statoDelCerchio,functions:muoviGliEos --project esoteric-circle. Fino ad allora le consultazioni non si contano e restano illimitate come oggi; poi la prossima build per guardare i lucchetti e l'invito.
+DOMANDA: "I numeri dei limiti e degli Eos li decide Code dentro la matrice dei limiti in vigore e la regola del tetto del costo"
+PROVA: test/l_oracolo_degli_angeli_sociale_e_piani_test.dart
+MISURA: limiti nella matrice, nel listino e nel server [1, 3, 5, 6], prima nessun limite; chiamate al modello nell'assaggio del Viandante 0; lucchetti del Viandante 2, dell'Iniziato 1 piu' quello della domanda per un amico, dell'Adepto 0; chiamate oltre il limite senza riscatto 0, riscatto a 100 Eos che riapre il contatore; caso peggiore del mensile dell'Illuminato dal 29,7 al 29,9 per cento del netto, sotto il tetto del 30 (docs/costi/i_limiti_degli_annuali.txt); righe della matrice da 54 a 58, righe dei piani da 11 a 12 (test/entitlement_test.dart)
 
 ## VOCE FU.11
 
