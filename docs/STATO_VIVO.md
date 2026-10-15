@@ -7106,7 +7106,7 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 
 **APERTO IN ATTESA DI VERIFICA**:
 - **FV.02, sul telefono**: il video dell'Almanacco di Luce che apre la scena vera.
-- **FV.10 e FV.12, `proponiGiornoInsieme`, `rispondiAlGiorno`, `compraUnMeseDelLunario` e `compraUnaPropostaInsiemeDelLunario`**: scritte e provate, non pubblicate. Senza di loro "Trova il giorno insieme" non manda la proposta davvero e gli acquisti a Eos non si contano.
+- **FV.10 e FV.12, `proponiGiornoInsieme`, `rispondiAlGiorno`, `compraUnMeseDelLunario` e `compraUnaPropostaInsiemeDelLunario`**: **pubblicate dal fondatore il 15 ottobre 2026**, tutte e quattro con esito positivo in europe-west1 (Node.js 22, Successful create operation). Il primo giro era caduto ("No function matches the filter: default:compraUnMeseDelLunario"): le quattro callable esistevano in `il_cerchio_sociale.ts` ma non erano mai state riesportate da `functions/src/index.ts`, il file che il deploy guarda davvero; corretto nell'ordine FW, con la guardia del cammino estesa per non farlo ripetere. Da quest'istante "Trova il giorno insieme" manda la proposta davvero e gli acquisti a Eos si contano; resta da guardarlo sul telefono alla prossima build.
 
 **Da decidere per il fondatore**: le quattro pubblicazioni sul server sopra (comando nel rapporto); la decisione sulla voce FU.04 (il formato del modello dell'Oracolo non regge nel 30% delle risposte vere); "cena" come attivita' nuova di "Trova il giorno insieme", rimandata per non toccare un contratto condiviso a meta' lavoro.
 
