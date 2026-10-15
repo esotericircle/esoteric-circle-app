@@ -2,7 +2,8 @@
 // LA GUARDIA DELL'ORDINE FV, il Calendario Lunare Personale: l'Almanacco di
 // Medora. 15 ottobre 2026.
 //
-// Il manifesto docs/ordini/ORDINE_FV_MANIFESTO.md porta le quattordici voci,
+// Il manifesto docs/ordini/ORDINE_FV_MANIFESTO.md porta le diciassette voci
+// (le quattordici dell'ordine piu' le tre dell'aggiunta, FV.15-FV.17),
 // ognuna con uno stato solo, e i marcatori tornano coi conti. Le voci con la
 // prova portano DOMANDA, PROVA e MISURA, e le prove nominate esistono; le
 // voci aperte dicono che cosa aspettano. Il testo dell'ordine sta accanto,
@@ -17,7 +18,7 @@ import 'le_voci_aperte_dicono_cosa_aspettano.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FV_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 14; i++) 'FV.${i.toString().padLeft(2, '0')}',
+    for (var i = 1; i <= 17; i++) 'FV.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {
