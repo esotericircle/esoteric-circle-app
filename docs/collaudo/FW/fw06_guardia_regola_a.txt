@@ -1,0 +1,27 @@
+REGOLA A, ordine FW voce FW.06, 15 ottobre 2026
+guardia: test/ordine_fw_guard_test.dart
+
+innesto: docs/ordini/ORDINE_FW_MANIFESTO.md, prima riga DOMANDA della voce
+  FW.01, "DOMANDA:" -> "DOMANDA_INNESTO_FW:"
+verifica dell'innesto: grep -n "DOMANDA_INNESTO_FW" docs/ordini/ORDINE_FW_MANIFESTO.md
+  trovato alla riga 14, confermato il difetto nel file.
+
+esito con l'innesto (uscita 1):
+  ogni voce ha uno stato solo, e i conti tornano [E]
+  Expected: empty
+    Actual: [FW.01: manca DOMANDA:]
+  00:00 +2 -1: Some tests failed.
+
+ripristino: ricopiato il manifesto dal backup; grep -c "DOMANDA_INNESTO_FW"
+  da' 0.
+
+Nello stesso giro, col manifesto vero, la guardia ha trovato DUE difetti
+reali, non dell'innesto: la voce FW.05 portava PROVA con due percorsi
+separati da virgola (il regex legge solo il primo token, quindi la virgola
+finiva dentro il nome del file e il file "non esisteva"), e la voce FW.06
+nominava RAPPORTO_ORDINE_FW.md prima che il rapporto fosse scritto. Il primo
+corretto togliendo il secondo percorso dalla riga PROVA (restava comunque
+citato nel corpo della voce); il secondo si e' chiuso da solo scrivendo il
+rapporto.
+
+esito sul codice vero, rapporto scritto (uscita 0): All tests passed! (3 su 3)
