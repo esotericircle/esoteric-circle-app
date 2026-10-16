@@ -192,17 +192,23 @@ void main() {
       // Angeli, una riga per piano coi numeri della matrice.
       // TREDICI dall'ordine FV voce FV.12: il Calendario Lunare, una riga
       // in piu' per ogni piano.
-      expect(PlanCatalog.forTier(Tier.free).highlights.length, 13);
+      // QUATTORDICI dall'ordine FX voce FX.10: il Respiro della Luna, una
+      // riga in piu' per ogni piano.
+      expect(PlanCatalog.forTier(Tier.free).highlights.length, 14);
       // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
       // dall'Iniziato, e il piano lo dice.
       // QUATTORDICI dalla voce ES.09: anche l'oroscopo vedico.
       // QUINDICI dalla voce ES.12: gli amici, fino a tre.
       // DICIOTTO dall'ordine FV voce FV.12: il Calendario Lunare.
-      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 18);
+      // DICIANNOVE dall'ordine FX voce FX.10: il Respiro della Luna, la
+      // collana completa e gli avvisi.
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 19);
       // TREDICI dalla voce ES.04: l'oroscopo dell'anno dal compleanno.
       // QUATTORDICI dalla voce ES.12: gli amici, fino a dieci.
       // DICIASSETTE dall'ordine FV voce FV.12: il Calendario Lunare.
-      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 17);
+      // DICIOTTO dall'ordine FX voce FX.10: il Respiro della Luna,
+      // Respiriamo insieme con la collana a due e la bussola.
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 18);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
@@ -304,7 +310,10 @@ void main() {
       // SESSANTADUE dall'ordine FV voce FV.12: le quattro righe del
       // Calendario Lunare (i mesi avanti, le categorie di "Trova il
       // giorno", i promemoria, "Trova il giorno insieme").
-      expect(PlanCatalog.matrix.length, 62);
+      // SESSANTASEI dall'ordine FX voce FX.10: le quattro righe del
+      // Respiro della Luna (la collana completa e lo scrigno, gli avvisi,
+      // il tempo sotto il dito su tutto il mese, Respiriamo insieme).
+      expect(PlanCatalog.matrix.length, 66);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

@@ -41,6 +41,8 @@ void main() {
     // per la stessa ragione.
     // **E IL CALENDARIO LUNARE**, ordine FV voce FV.13, 15 ottobre 2026, per
     // la stessa ragione: non sta fra le sei del seme.
+    // **E IL RESPIRO DELLA LUNA**, ordine FX voce FX.11, 16 ottobre 2026, per
+    // la stessa ragione: non sta fra le sei del seme.
     expect(
         fila.toSet(),
         {
@@ -49,10 +51,11 @@ void main() {
           'guide_animal',
           'magic_sigil',
           'lunar_calendar',
+          'lunology',
         },
         reason: 'oggi il resto del catalogo e\' Oracolo degli Angeli, '
             'Sinastria evolutiva, Viaggio dello Sciamano, Sigillo '
-            'dell\'Intenzione');
+            'dell\'Intenzione, Calendario Lunare, Respiro della Luna');
   });
 
   test('cambiate le preferite, la fila mostra il resto e mai doppioni', () {

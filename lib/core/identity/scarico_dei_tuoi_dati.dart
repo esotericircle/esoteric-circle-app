@@ -120,6 +120,11 @@ class ScaricoDeiTuoiDati {
     // tutto il resto, quindi qui c'e' anche il loro nome.
     'lunario.': 'I tuoi promemoria del Calendario Lunare e la tua intenzione '
         'alla Luna nuova',
+    // Ordine FX voce FX.11: i giorni respirati, la collana delle lune, gli
+    // avvisi e le perle ricucite del Respiro della Luna si cancellano con
+    // tutto il resto, quindi qui c'e' anche il loro nome.
+    'respiro.': 'I tuoi giorni respirati, la tua collana delle lune e i '
+        'tuoi avvisi del Respiro della Luna',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ

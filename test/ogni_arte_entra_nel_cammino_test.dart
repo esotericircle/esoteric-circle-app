@@ -104,6 +104,9 @@ void main() {
       'lunario': 'arte nuova dell\'ordine FV, 15 ottobre 2026: come '
           'l\'Oracolo degli Angeli, il gradino lo decide il fondatore nelle '
           'regole dei traguardi, e il gesto si conta gia\'.',
+      'respiro': 'arte nuova dell\'ordine FX, 16 ottobre 2026: come il '
+          'Calendario Lunare, il gradino lo decide il fondatore nelle '
+          'regole dei traguardi, e il gesto si conta gia\'.',
     };
     final inutili = [
       for (final s in GestiDelleArti.tutte)

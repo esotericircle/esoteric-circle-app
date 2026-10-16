@@ -19,8 +19,8 @@
 /// **La soglia, dichiarata.** Sotto [kSogliaDellaBussola] gradi di
 /// separazione angolare VERA (non solo di azimut: anche l'altezza entra,
 /// con la stessa formula sferica di `Celestial.equatorialToHorizontal`) il
-/// telefono "punta la Luna": una vibrazione breve (come altrove in app,
-/// `HapticFeedback`, vedi `lib/core/sensi/palette_sensoriale.dart`) e la
+/// telefono "punta la Luna": una vibrazione breve (lo schema conferma della
+/// palette sensoriale, `lib/core/sensi/palette_sensoriale.dart`) e la
 /// fotografia vera della Luna di oggi (`LeLuneDellaNasa`) prende il posto
 /// dell'ago al centro del quadrante. Dodici gradi stanno nella forchetta
 /// 10-15 che la voce propone: il magnetometro grezzo di un telefono (senza
@@ -50,7 +50,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:provider/provider.dart';
 
 import '../../core/astro/celestial.dart';
@@ -58,6 +57,7 @@ import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import '../../core/lunario/il_sorgere_della_luna.dart';
 import '../../core/lunario/la_posizione_orizzontale_della_luna.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 import '../../core/lunario/le_lune_della_nasa.dart';
 import '../../core/motion/l_orientamento_del_telefono.dart';
 import '../../core/motion/parallax_controller.dart';
@@ -145,7 +145,7 @@ class LaBussolaDellaLuna extends StatefulWidget {
   final DateTime Function()? adesso;
 
   /// La vibrazione quando il telefono centra la Luna, iniettabile per le
-  /// prove: senza, `HapticFeedback.lightImpact`.
+  /// prove: senza, lo schema `conferma` della palette sensoriale.
   final VoidCallback? vibra;
 
   @override
@@ -264,7 +264,9 @@ class _LaBussolaDellaLunaState extends State<LaBussolaDellaLuna> {
           nuovo.azimutGradi, nuovo.altezzaGradi, az, alt);
       centrataAdesso = separazione <= kSogliaDellaBussola;
       if (centrataAdesso && !_centrata) {
-        (widget.vibra ?? HapticFeedback.lightImpact).call();
+        (widget.vibra ??
+                () => PaletteSensoriale.eseguiSchema(SchemaAptico.conferma))
+            .call();
       }
     }
     setState(() {

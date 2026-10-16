@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 import '../../core/lunario/il_listino_del_respiro.dart';
 import '../../core/lunario/il_respiro_della_luna.dart';
 import '../../core/lunario/la_collana_delle_lune.dart';
 import 'gli_eos_del_respiro.dart';
 import '../../core/maestro/maestro.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -151,12 +154,32 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
       await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
+          backgroundColor: widget.palette.deepest,
           title: const Text('Ricuci questa perla'),
-          content: const Text(
-              'Per $costo Eos potrai riaccendere questo giorno con la Luna '
-              'vera di allora: arriva con il prossimo aggiornamento.'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconaDegliEos(misura: 20, colore: widget.palette.goldSoft),
+                  const SizedBox(width: SpacingTokens.xs),
+                  Text('$costo Eos',
+                      style: TypographyTokens.titoloScheda()
+                          .copyWith(color: widget.palette.goldSoft)),
+                ],
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              const Text(
+                  'Potrai riaccendere questo giorno con la Luna vera di '
+                  'allora: arriva con il prossimo aggiornamento.'),
+            ],
+          ),
           actions: [
             TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: widget.palette.goldSoft),
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Va bene'),
             ),
@@ -168,12 +191,15 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
     final conferma = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: widget.palette.deepest,
         title: const Text('Ricuci questa perla'),
         content: const Text(
             'Usi una ricucitura già comprata per riaccendere questo giorno '
             'con la Luna vera di allora.'),
         actions: [
           TextButton(
+            style:
+                TextButton.styleFrom(foregroundColor: widget.palette.goldSoft),
             onPressed: () => Navigator.of(context).pop(false),
             child: const Text('Non ora'),
           ),
@@ -199,8 +225,12 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
       final dir = await getTemporaryDirectory();
       final file = File('${dir.path}/collana_delle_lune.png');
       await file.writeAsBytes(png, flush: true);
-      await PortaDellaCondivisione.daFile(file.path,
+      final andata = await PortaDellaCondivisione.daFile(file.path,
           testo: '$nome, $accese perle accese sul Respiro della Luna');
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso la tua Collana delle Lune');
+      }
     } finally {
       if (mounted) setState(() => _rendiLaCard = false);
     }
@@ -225,8 +255,9 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
         // (come fa `calendario_lunare_screen.dart`), e "Condividi" e'
         // testo, non un'icona.
         iconTheme: IconThemeData(color: palette.goldSoft),
-        title: Text('La Collana delle Lune',
-            style: TypographyTokens.titoloDiSchermata()),
+        title: TitoloCheNonSiRompe(
+            testo: 'La Collana delle Lune',
+            stile: TypographyTokens.titoloDiSchermata()),
         actions: [
           FoglioDelleFonti.bottone(context,
               palette: palette,
@@ -240,7 +271,7 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
                     width: 16,
                     height: 16,
                     child: CircularProgressIndicator(strokeWidth: 2))
-                : Text('Condividi',
+                : Text(PremioDellaCondivisione.etichetta(context),
                     style: TypographyTokens.label(size: 13)
                         .copyWith(color: palette.goldSoft)),
           ),
@@ -442,7 +473,7 @@ class _LoScrignoDelleCollane extends StatelessWidget {
                             errorBuilder: (_, __, ___) =>
                                 const SizedBox.shrink()),
                         Text(c.nome,
-                            style: TypographyTokens.label(size: 10)
+                            style: TypographyTokens.label(size: 12)
                                 .copyWith(color: Colors.white70)),
                       ],
                     ),

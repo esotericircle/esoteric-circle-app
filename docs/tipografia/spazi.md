@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 175 -->
-<!-- FILE_CON_VUOTI: 76 -->
+<!-- VUOTI_CENSITI: 179 -->
+<!-- FILE_CON_VUOTI: 78 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **175** |
-| File che ne contengono | **76** |
+| Vuoti verticali dichiarati | **179** |
+| File che ne contengono | **78** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -22,9 +22,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 88 |
+| 2 | 89 |
 | 3 | 8 |
-| 4 | 34 |
+| 4 | 36 |
 | 5 | 2 |
 | 6 | 19 |
 | 7 | 3 |
@@ -32,7 +32,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 9 | 2 |
 | 10 | 3 |
 | 12 | 2 |
-| 16 | 1 |
+| 16 | 2 |
 | 24 | 1 |
 | 40 | 1 |
 | 44 | 1 |
@@ -68,6 +68,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
+| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 3 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |
@@ -113,6 +114,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/maestro_screen.dart` | 1 | 0 |
 | `lib/features/onboarding/natal_chart_reveal.dart` | 1 | 0 |
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
+| `lib/features/respiro_della_luna/la_bussola_della_luna.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
 | `lib/features/rituals/ritual_gift_card.dart` | 1 | 0 |
 | `lib/features/rituals/soffio_share_card.dart` | 1 | 0 |

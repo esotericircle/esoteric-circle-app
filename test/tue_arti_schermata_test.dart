@@ -220,6 +220,11 @@ void main() {
       // Arte attiva
       // dalla home e dal dominio di Medora, passa dalla soglia unica.
       'lib/features/lunario/calendario_lunare_screen.dart': 'lunar_calendar',
+      // **IL RESPIRO DELLA LUNA, ordine FX voce FX.11, 16 ottobre 2026.**
+      // Arte attiva dal catalogo e dal Calendario Lunare, passa dalla
+      // soglia unica col suo cuore.
+      'lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart':
+          'lunology',
     };
     rotte.forEach((percorso, id) {
       final s = File(percorso).readAsStringSync();

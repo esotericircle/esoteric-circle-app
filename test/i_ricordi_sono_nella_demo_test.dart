@@ -87,6 +87,9 @@ void main() {
     // Si raggiunge dalla riga la_tua_intenzione della home e dal dominio di
     // Medora, sezione Lunologia; lo scaffale curato del Santuario non
     // cambia.
+    // **E IL RESPIRO DELLA LUNA, ordine FX voce FX.11, 16 ottobre 2026.**
+    // Si raggiunge dal catalogo e dal Calendario Lunare; lo scaffale curato
+    // del Santuario non cambia.
     expect(
         fuoriScaffale.toSet(),
         {
@@ -96,6 +99,7 @@ void main() {
           'synastry_depth',
           'angels_oracle',
           'lunar_calendar',
+          'lunology',
         },
         reason: 'le arti vive fuori dallo scaffale sono cambiate: adesso sono '
             '$fuoriScaffale. Se e\' voluto si aggiorna questa riga con la '

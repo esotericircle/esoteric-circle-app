@@ -1,0 +1,692 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  app_links 7.2.1 (7.2.2 available)
+  app_links_linux 1.0.3 (1.0.4 available)
+  app_links_web 1.0.4 (1.0.5 available)
+  archive 4.3.0 (4.5.2 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.5+1 available)
+  camera_avfoundation 0.9.23+2 (0.11.0+1 available)
+  camera_platform_interface 2.13.1 (2.15.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+4 (0.4.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.2 available)
+  flutter_local_notifications_linux 8.0.1 (8.0.2 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  flutter_webrtc 1.6.2+hotfix.3 (1.6.2+hotfix.4 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 14.0.3 (14.1.1 available)
+  geolocator_android 5.0.3 (5.1.1+1 available)
+  geolocator_apple 2.3.14 (2.3.15 available)
+  geolocator_platform_interface 4.2.8 (4.4.0 available)
+  google_mlkit_barcode_scanning 0.14.2 (0.16.1 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.18 available)
+  google_sign_in_ios 5.9.0 (6.3.7 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image 4.10.1 (4.12.0 available)
+  image_picker 1.2.3 (1.2.4 available)
+  image_picker_android 0.8.13+19 (0.8.13+25 available)
+  image_picker_ios 0.8.13+6 (0.8.13+12 available)
+  image_picker_platform_interface 2.11.1 (2.11.2 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.1.0 available)
+  jni_flutter 1.0.1 (1.0.4+1 available)
+  lints 4.0.0 (6.1.0 available)
+  livekit_client 2.13.0 (2.13.1 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.2.1 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.4.1 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  qr 3.0.2 (4.0.0 available)
+  record 5.2.1 (7.1.2 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.3 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sdp_transform 0.3.2 (0.4.0 available)
+  sensors_plus 6.1.2 (7.1.1 available)
+  share_plus 13.2.0 (13.3.1 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.5.0 available)
+  test_api 0.7.11 (0.7.15 available)
+  timezone 0.11.1 (0.11.2 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.1 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.1 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+125 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
+00:00 +0: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +0: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/i_manifesti_sono_sigillati_test.dart: ogni manifesto porta i sei marcatori, e dicono il vero
+ORDINE CQ VOCE 4.01: manifesti sigillati guardati 6
+  CG: CHIUSE 16
+  CM: CHIUSE 11
+  CN: FERMATE_SU_DECISIONE_DEL_FONDATORE 1, CHIUSE 15
+  CO: FERMATE_SU_DECISIONE_DEL_FONDATORE 5, CHIUSE 15
+  CP: FERMATE_SU_DECISIONE_DEL_FONDATORE 1, CHIUSE 9
+  CQ: FERMATE_SU_DECISIONE_DEL_FONDATORE 1, CHIUSE 60
+00:00 +1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/i_manifesti_sono_sigillati_test.dart: REGOLA F: nessun ordine sigillato lascia una voce aperta
+ORDINE CQ VOCE 4.04: ordini con voci ancora aperte nessuno
+00:00 +2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/i_manifesti_sono_sigillati_test.dart: DS.01: OGNI MANIFESTO E COPERTO DAL SIGILLO, e il sigillo dice il vero
+ORDINE DS VOCE 01: manifesti 141, nel sigillo 141, scoperti 0, CQ con 61 voci vere, falsi riportati DD e DN
+00:00 +3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/i_manifesti_sono_sigillati_test.dart: DS.01: OGNI MANIFESTO HA LA SUA GUARDIA
+ORDINE DS VOCE 01: manifesti con la guardia 141 su 141
+00:00 +4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+00:00 +6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: nessun manifesto nomina una guardia che non esiste piu
+ORDINE EH VOCE 03: manifesti con chiusure 136, guardie nominate 632
+00:01 +7: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: ogni voce CHIUSA porta DOMANDA, PROVA e MISURA, e la prova esiste
+ORDINE EH VOCE 02: manifesti sotto la regola 36, voci chiuse guardate 405
+00:01 +8: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_voce_chiusa_porta_la_sua_prova_test.dart: il rapporto porta in cima le voci chiuse con la prova di ciascuna
+ORDINE EH VOCE 04: rapporti guardati 36, voci chiuse cercate in cima 405, di cui chiuse dopo la consegna e trovate nelle aggiunte in coda 31
+00:01 +9: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: le categorie sommano al totale, e il totale sono le righe vere
+00:01 +10: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: nessuna guardia della porta comune resta fuori dal registro
+00:02 +11: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: nessuna riga del registro mente sul cardinale della sua guardia
+00:02 +12: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: nessuna riga del registro mente sul cardinale della sua guardia
+00:02 +12: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ordine_fx_guard_test.dart: ogni voce ha uno stato solo, e i conti tornano
+ORDINE FX: chiuse 5, aperte 8, da fare 0
+00:02 +13: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: nessuna riga del registro mente sul cardinale della sua guardia
+00:02 +13: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ordine_fx_guard_test.dart: le voci aperte dicono che cosa aspettano
+ORDINE FX: voci 13, chiuse 5, aperte 8, aperte che dicono cosa aspettano 8
+00:02 +14: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_registro_delle_guardie_quadra_test.dart: nessuna riga del registro mente sul cardinale della sua guardia
+00:06 +15: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_dichiara_la_fonte_test.dart: le arti attive del catalogo sono tutte nella tavola
+00:06 +16: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_dichiara_la_fonte_test.dart: ogni arte attiva ha una via per le sue fonti
+00:06 +17: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_dichiara_la_fonte_test.dart: i testi delle quattro fonti nuove nominano opera e autore
+00:06 +18: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_dichiara_la_fonte_test.dart: nessun testo delle fonti si scusa
+00:07 +19: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:09 +19: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_scrive_il_suo_conto_test.dart: ogni arte VIVA del catalogo dichiara il gesto che ne tiene il conto
+ORDINE CG VOCE 10: arti vive nel catalogo 14, censite con un conto 14, dichiarate senza conto 0
+00:09 +20: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:09 +21: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:09 +22: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:09 +23: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:10 +24: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Mostra le arti scelte, ciascuna apribile
+00:11 +25: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La matita apre l'elenco completo a spunte
+00:12 +25: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/le_altre_arti_del_cerchio_test.dart: col seme dell'ordine EO la fila e' Viaggio e Sigillo
+ORDINE AK VOCE 02: fila col seme: [angels_oracle, synastry_depth, lunology, lunar_calendar, guide_animal, magic_sigil]
+00:12 +26: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La matita apre l'elenco completo a spunte
+00:12 +27: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La matita apre l'elenco completo a spunte
+00:12 +28: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La matita apre l'elenco completo a spunte
+00:12 +29: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Dalla matita si aggiunge e si toglie davvero
+00:14 +30: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La pressione lunga toglie l'arte dallo scaffale
+00:15 +31: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La pressione lunga toglie l'arte dallo scaffale
+00:15 +31: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/i_ricordi_sono_nella_demo_test.dart: CG.13: i tre elenchi, contati e la divergenza dichiarata
+ORDINE CG VOCE 13: arti vive nel catalogo 14, funzioni sullo scaffale del Santuario 7, funzioni nel manifest 7. Vive e non sullo scaffale: [angels_oracle, synastry_depth, lunology, lunar_calendar, guardian_angel, rune_draw, magic_sigil]
+00:15 +32: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: La pressione lunga toglie l'arte dallo scaffale
+00:15 +33: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Il cuore dentro l'arte mette e toglie
+00:15 +34: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tue_arti_schermata_test.dart: Ogni arte viva ha il cuore, perche' passa dalla soglia unica
+ORDINE DC VOCE 17: arti con la soglia 14, selezionabili 12, con la soglia ma fuori dallo scaffale [archetype_test, guardian_angel]
+00:16 +35: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_entra_nel_cammino_test.dart: il registro dei gesti copre tutti i gesti dei 165 traguardi
+ORDINE BS VOCE 01: gesti censiti senza un traguardo che li nomini, dichiarati [condivisione_frutto, condivisione_petalo, condivisione_stella, invito_aura, invito_caligo, invito_medora, luna_natale, lunario, luogo_di_nascita, nascita_completa, nome_proprio, numero_della_vita, ora_di_nascita, oracolo_angeli, passaporto, presenza, respiro, sigillo_del_cerchio, sinastria_evolutiva]
+00:16 +36: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_entra_nel_cammino_test.dart: ogni arte che ha una schermata manda il suo gesto alla regia
+00:17 +37: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_entra_nel_cammino_test.dart: i gesti senza schermata sono dichiarati, non dimenticati
+ARTI SENZA SCHERMATA, da riportare nel rapporto: sigillo_del_cerchio, luna_natale, nome_proprio
+00:17 +38: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_arte_entra_nel_cammino_test.dart: la regia alimenta davvero la fotografia del cammino
+ORDINE U VOCE 01: ripetizioni dichiarate 0
+00:17 +39: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: La rotta della carta natale monta uno scaffale immersivo
+00:17 +40: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Il pulsante in fondo riporta al Passport
+00:17 +41: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:19 +41: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_rotta_passa_dal_nero_test.dart: nessuna schermata costruisce una rotta per conto suo
+ORDINE CC VOCE 04: file dart in lib 935, rotte fuori dalla legge 0
+00:19 +42: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:19 +42: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_rotta_passa_dal_nero_test.dart: i due veli dichiarati sono davvero veli, e non schermate
+ORDINE CC VOCE 04: veli dichiarati 2, e tutti e due sono ancora trasparenti
+00:19 +43: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:19 +43: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_rotta_passa_dal_nero_test.dart: quante rotte passano dalla legge unica
+ORDINE CC VOCE 04: rotte sotto la legge unica 81
+00:19 +44: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:19 +45: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:19 +46: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/passport_carta_natale_test.dart: Nessuna rotta di lib monta un widget nudo senza scaffale
+00:25 +47: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I quattro schemi, e nessuno di piu' Sono esattamente quattro
+00:25 +48: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I quattro schemi, e nessuno di piu' La rivelazione e' due colpi, gli altri uno
+00:26 +49: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I quattro schemi, e nessuno di piu' Il rifiuto e' il tocco due volte, senza schema suo
+00:26 +49: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: il tema spegne il ritorno di sistema su tutte le famiglie di comandi
+ORDINE CQ VOCE 1.08: il ritorno di sistema per famiglia {FilledButton: false, ElevatedButton: false, TextButton: false, OutlinedButton: false, IconButton: false, SegmentedButton: false, MenuButton: false, ListTile: false}
+00:26 +50: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I quattro schemi, e nessuno di piu' Il rifiuto e' il tocco due volte, senza schema suo
+00:26 +51: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: ogni InkWell scritto a mano porta il suo interruttore
+00:26 +52: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: ogni InkWell scritto a mano porta il suo interruttore
+ORDINE CQ VOCE 1.08: InkWell trovati 52, senza interruttore 0
+00:26 +53: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: L'interruttore unico governa tutto Spento, non vibra niente
+00:26 +54: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+00:26 +55: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+00:27 +56: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+00:27 +57: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+00:27 +58: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+00:27 +59: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: nessuna schermata chiama la piattaforma per suonare o vibrare
+ORDINE CQ VOCE 1.08: sorgenti guardate fuori dai sensi 920, porte di lato 0
+00:27 +60: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I suoni del catalogo, e nessuno fuori Il catalogo e un DATO, e nessuno suona fuori da esso
+00:27 +60: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_suono_che_non_hai_scelto_test.dart: i suoni del Cerchio sono quelli del catalogo, e i file esistono
+ORDINE CQ VOCE 1.08: file negli asset 14 [carta.mp3, custodisci.mp3, eos.mp3, festa.mp3, firma.mp3, pietra.mp3, principio.mp3, respiro_dentro.mp3, respiro_fuori.mp3, responso_oroscopo.mp3, rifiuto.mp3, rito_compiuto.mp3, rivelazione.mp3, soglia.mp3]
+00:27 +61: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I suoni del catalogo, e nessuno fuori Il catalogo e un DATO, e nessuno suona fuori da esso
+00:27 +62: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/palette_sensoriale_test.dart: I suoni del catalogo, e nessuno fuori La firma suona una volta sola per sessione
+00:29 +63: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Il cosmo riempie l'altezza anche col contenuto corto
+00:31 +64: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: L'interruttore del Cerchio non ha i colori di Material
+00:32 +65: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Chi usa Switch direttamente e' enumerato
+00:32 +66: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Chi usa Switch direttamente e' enumerato
+00:32 +67: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Chi usa Switch direttamente e' enumerato
+00:32 +68: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Chi usa Switch direttamente e' enumerato
+00:32 +69: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/cosmo_e_interruttori_test.dart: Chi usa Switch direttamente e' enumerato
+00:32 +70: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/gli_eos_hanno_un_nome_test.dart: l'icona si disegna, e a sedici punti lascia un segno leggibile
+00:34 +71: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: il cammino va e torna senza perdere niente
+ORDINE AP VOCE 01: partito con 2 gesti e 1 sigilli, tornato con 2 e 1
+00:34 +72: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: l'identita' di nascita torna a essere quella dell'app
+ORDINE AP VOCE 01: nascita 1990-04-12 07:30:00.000 tornata come 1990-04-12 07:30:00.000, ora nota true
+00:34 +73: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: senza ora di nascita non se ne inventa una
+00:34 +74: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: l'identita' d'esempio non si custodisce mai
+00:34 +75: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: una risposta rotta non porta niente dentro
+00:34 +76: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: un cammino vuoto si riconosce, e non si manda
+00:34 +77: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: IL CAMMINO VIAGGIA DENTRO LA CHIAMATA CHE GIA' PARTE
+ORDINE AP VOCE 01: le callable sono 47: [esisteIlCerchio, statoDelCerchio, consumaDelGiorno, riscattaLInvito, muoviGliEos, scriviLaMemoria, attivaIlPianoInDemo, chiEOnline, azzeraIDatiDelCerchio, cancellaLaConversazione, cancellaIlCerchio, natalChart, secondoFattore, ilMioProfiloNelCerchio, scegliIlNome, aggiornaIlProfiloNelCerchio, ilCodiceDellInvito, leggiIlCodice, chiediIlLegame, rispondiAlLegame, bloccaUnaPersona, ilMioCerchio, compraUnPostoNelCerchio, compraUnMeseDelLunario, compraUnaPropostaInsiemeDelLunario, proponiGiornoInsieme, rispondiAlGiorno, respiroInsiemeEntra, respiroInsiemeConteggio, invitaCollanaADue, rispondiCollanaADue, segnalaRespiroDelGiornoPerLaCollanaADue, leCollaneADue, laTendinaDelCerchio, mandaUnSegno, rispondiAlSegno, mandaUnDono, regalaGliEos, scriviIlTokenDelCerchio, ilMioRitratto, gliEnigmi, unIndovinello, scopriUnSegno, laProva, unPassoDelPellegrinaggio, condividiLaNascita, leggiLaNascita]
+ORDINE EY VOCE 16: porte sociali senza tetto 0
+00:34 +78: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_cerchio_custodisce_il_cammino_test.dart: la forma dice la sua versione, per chi la leggera' domani
+00:37 +79: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: i testi guardati sono quelli veri, e sono abbastanza lunghi
+00:37 +80: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: tarocchi, il foglio comincia sotto le barre
+DY.03 tarocchi: 668 caratteri, foglio da 62.0, barre fino a 62.0
+00:39 +81: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:39 +81: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: sinastria, il foglio comincia sotto le barre
+DY.03 sinastria: 736 caratteri, foglio da 62.0, barre fino a 62.0
+00:39 +82: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:39 +82: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: sigillo, il foglio comincia sotto le barre
+DY.03 sigillo: 759 caratteri, foglio da 62.0, barre fino a 62.0
+00:39 +83: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:40 +83: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: oroscopo, il foglio comincia sotto le barre
+DY.03 oroscopo: 715 caratteri, foglio da 62.0, barre fino a 62.0
+00:40 +84: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:40 +84: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: meditazione, il foglio comincia sotto le barre
+DY.03 meditazione: 1101 caratteri, foglio da 62.0, barre fino a 62.0
+00:40 +85: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:40 +85: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: cartaDiNascita, il foglio comincia sotto le barre
+DY.03 cartaDiNascita: 642 caratteri, foglio da 62.0, barre fino a 62.0
+00:40 +86: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:40 +86: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: soffio, il foglio comincia sotto le barre
+DY.03 soffio: 825 caratteri, foglio da 62.0, barre fino a 62.0
+00:40 +87: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+00:40 +87: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: il piu lungo per quattro, il foglio comincia sotto le barre
+DY.03 il piu lungo per quattro: 4410 caratteri, foglio da 62.0, barre fino a 62.0
+00:40 +88: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: il dito che scende chiude il foglio che scorre
+OGNI FOGLIO SI CHIUDE: il foglio che scorre col dito che scende dalla cima si chiude
+00:40 +89: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: ogni pannello informativo apre un foglio della porta comune
+00:40 +89: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: la nota della tradizione ha "Fatto" in vista, e la chiude
+OGNI FOGLIO SI CHIUDE: "Fatto" della nota cinese da 580 a 628 su 640
+00:40 +90: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: ogni pannello informativo apre un foglio della porta comune
+00:40 +90: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/ogni_foglio_si_chiude_test.dart: i fogli che si leggono soltanto portano "Fatto"
+OGNI FOGLIO SI CHIUDE: fogli che si leggono senza "Fatto" 0 su 9
+00:40 +91: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: DY.03: ogni pannello informativo apre un foglio della porta comune
+DY.03: file con un pannello proprio 11, chiamate del pannello comune 13
+00:41 +92: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart: la porta dei fogli resta l'unica
+00:42 +93: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_censimento_dei_grigi_test.dart: il censimento enumera i punti veri, e dichiara i peggiori venti
+ORDINE AU VOCE 08: 1333 punti del codice dipingono testo, e fanno 10391 misure sui fondi che quei testi toccano davvero
+ORDINE AU VOCE 08: i peggiori venti, col rapporto e la soglia che devono rispettare
+  7.42 contro 7.0 : lib\features\onboarding\resonance_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\libro_dei_sigilli_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\design_system\components\borsellino.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\design_system\components\feature_sheet.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\caligo\sigillo\sigillo_intenzione_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\account\notifiche_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\account\notifiche_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\account\notifiche_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\ask\ask_maestri_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\sigilli\card_del_traguardo.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\angels\angels_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\santuario\sky_overview_screen.dart, corpo: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\calendario\calendario_degli_eventi_screen.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\rituals\dream_rite_screen.dart, lettura: ColorTokens.textMuted su vetro sopra Aura
+  7.42 contro 7.0 : lib\features\maestri\chat\widgets\chat_bubble.dart, didascalia: ColorTokens.textMuted su vetro sopra Aura
+ORDINE AU VOCE 08: sotto la loro soglia sono 0 su 10391
+00:43 +94: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_censimento_dei_grigi_test.dart: nessun testo sta sotto la sua soglia
+00:43 +95: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_censimento_dei_grigi_test.dart: il primario non porta mai testo, e la misura dice perche
+ORDINE CI VOCE 08: coppie di primari esaminate 28, sotto la soglia dei titoli grandi 26
+00:43 +96: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_censimento_dei_grigi_test.dart: nessun comando di testo prende il colore dal tema senza dirlo
+00:47 +97: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio e ogni dialogo dichiarano il loro fondo
+ORDINE AL VOCE 04: porte enumerate 88
+00:48 +98: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: il foglio del traguardo si apre con la card viva e zero eccezioni
+00:49 +99: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: il foglio del traguardo si apre con la card viva e zero eccezioni
+00:50 +100: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: il foglio del traguardo si apre con la card viva e zero eccezioni
+Push: il recapito non si legge. [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+Push: il rinnovo del recapito non si ascolta. [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+00:53 +101: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/le_cose_che_dichiarano_il_falso_test.dart: Il disclaimer sta in UN posto solo Nessun'altra schermata mostra un disclaimer
+00:54 +102: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+00:54 +103: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+00:54 +104: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+00:54 +105: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+00:54 +106: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+00:55 +107: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/nessun_foglio_e_bianco_test.dart: ogni foglio sul Navigator radice trova uno scope
+Push: il recapito non si legge. [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+Push: il rinnovo del recapito non si ascolta. [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+00:56 +108: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_minimi_test.dart: Nessuna misura tipografica sotto il minimo del suo token
+00:57 +109: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Le misure tipografiche scritte a mano non aumentano
+00:58 +110: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il contrasto Le coppie sotto il contrasto non aumentano
+00:58 +111: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il contrasto La formula dello strumento e quella dell'app dicono lo stesso numero
+00:58 +112: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il debito non si sparge su piu' file
+00:58 +113: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Sotto il pavimento non torna nessuno
+00:59 +114: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il testo che si legge non torna piccolo
+00:59 +115: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: I vuoti verticali non crescono
+00:59 +116: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il documento non si contraddice
+00:59 +117: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Il pavimento dello strumento e' quello dei token
+00:59 +118: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: Nessun ruolo scende al pavimento, e l'etichetta vale quattordici
+00:59 +119: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/tipografia_nel_dato_test.dart: La lettura respira piu' del corpo
+01:00 +120: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: La persona dei Maestri rispetta la regola della virgola
+01:00 +121: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: I suggerimenti rispettano la regola della virgola
+01:00 +122: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: I testi del cielo rispettano la regola della virgola
+01:00 +123: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: La cartolina rispetta la regola della virgola
+01:00 +124: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: I fatti identitari del passaporto rispettano la regola della virgola
+01:00 +125: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Chiedi ai Maestri rispetta la regola della virgola
+01:00 +126: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Il controllo segnala la virgola piu "e" anche a meta frase
+01:00 +127: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Anche nel file in deroga il trattino lungo resta vietato
+01:00 +128: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +129: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +130: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +131: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +132: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +133: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +134: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +135: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +135: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/entitlement_test.dart: Piani EV.01: i nove prezzi finiscono in ,99 e gli sconti tornano
+ORDINE EV VOCE 01: prezzi che non finiscono in ,99 0 su 9 []; sconti o prezzi al mese diversi dal conto 0 []
+01:01 +136: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +137: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +138: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +139: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:01 +140: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/language_rule_test.dart: Nessuna stringa del codice viola la regola della virgola
+01:02 +141: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: lo scarico raccoglie i dati e lascia fuori le impostazioni
+ORDINE BC VOCE 02: l archivio porta 5 voci, raggruppate in 5 argomenti
+01:02 +142: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: il file JSON si rilegge, e dice cosa e
+ORDINE BC VOCE 02: il JSON pesa 482 caratteri e si rilegge
+01:02 +143: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: e il riepilogo si legge in italiano, e dice cosa NON c e
+ORDINE BC VOCE 02: il riepilogo comincia con "I TUOI DATI NEL CERCHIO
+
+Preparato il 16/10/2026.
+
+Questo archivio contiene tutto ciò che Esoteric Circle tiene di te su questo telefono: 5 voci in tutto, raccolte qui sotto per argomento. Il file che lo accompagna porta gli stessi dati in forma leggibile da un programma.
+
+IL TUO PROFILO (1 voci)
+  profile.nome: Sofia
+
+IL TUO ACCOUNT (1 voci)
+  account.custodito: true
+
+IL TUO CAMMINO (1 voci)
+  cammino.gesti: {"alba":3}
+
+I TUOI SIGILLI (1 voci)
+  sigilli.accesi: aur_1,aur_2
+
+I TUOI EOS (1 voci)
+  borsellino.movimenti: [{"quanti":10}]
+
+COSA NON C'È QUI DENTRO
+
+La memoria che i Maestri tengono delle vostre conversazioni vive sul server e non su questo telefono, quindi non compare in questo archivio. Puoi farla cancellare dalla voce "Cancella i tuoi dati" del menu Account.
+
+Non ci sono le tue password: il Cerchio non le vede mai, le custodisce chi ti fa entrare, Google o Apple o la tua email.
+"
+01:02 +144: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: e non si scarica meno di quello che si cancella
+ORDINE BC VOCE 02: prefissi che si cancellano 47, gruppi dello scarico 47, scoperti 0
+01:02 +145: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: la voce cancella i dati tiene la custodia
+RITRATTI DEL VISO, cartella non disponibile: MissingPluginException(No implementation found for method getApplicationDocumentsDirectory on channel plugins.flutter.io/path_provider)
+ORDINE BC VOCE 02: dopo aver azzerato i dati restano [account.custodito, settings.reduceAnimations]
+01:02 +146: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: le quattro voci ci sono tutte, e la cancellazione e in fondo
+ORDINE BC VOCE 02: le quattro voci compaiono in questo ordine: [esci@14659, scarica@62089, azzera@62341, oblio@62849]
+01:02 +147: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BC.02: e la porta VERA chiama davvero il server
+ORDINE BE VOCE 07: la porta vera chiama cancellaIlCerchio e azzeraIDatiDelCerchio, e i trenta giorni non esistono piu
+01:02 +148: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/scaricare_i_tuoi_dati_test.dart: BE.07: nessun ripensamento resta scritto, ne qui ne sul server
+ORDINE BE VOCE 07: nessuna sponda dichiara piu un ripensamento
+01:04 +149: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/le_memorie_tornano_col_tuo_account_test.dart: ogni memoria della persona ha una strada decisa
+ORDINE EV, MEMORIE: prefissi della persona 47, tornano con le memorie 10, con una porta loro 9, del telefono 30, senza strada 0 []
+01:04 +150: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/le_memorie_tornano_col_tuo_account_test.dart: le chiavi partono, e su un telefono vuoto tornano
+ORDINE EV, MEMORIE: famiglie partite {tramonto, sigilli, loto}, chiavi {sunset_rune.settimana, sigilli.libro, loto.sessioni}
+ORDINE EV, MEMORIE: famiglie tornate {tramonto, sigilli, loto}; sere del Tramonto 5
+01:05 +151: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I tempi del Respiro della Luna, accordati alla fase alla crescente l'inspiro dura piu' dell'espiro
+01:05 +152: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I tempi del Respiro della Luna, accordati alla fase alla calante l'espiro dura piu' dell'inspiro
+01:05 +153: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I tempi del Respiro della Luna, accordati alla fase alle due sizigie i due tempi pesano uguale
+01:05 +154: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I tempi del Respiro della Luna, accordati alla fase il rito intero resta vicino a un minuto, a cicli interi
+01:05 +155: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I giorni respirati, persistiti e idempotenti un giorno respirato si ricorda, e rifarlo non duplica niente
+01:05 +156: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: I giorni respirati, persistiti e idempotenti il flag sopravvive a una nuova lettura, come lo troverebbe FX.05
+01:05 +157: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: La schermata vera risponde al dito: tenuto giu' accende la Luna, lasciato la vela
+La scena: manca QualityTierController, ripiego (Error: Could not find the correct Provider<QualityTierController> above this IlRespiroDellaLunaScreen Widget
+
+This happens because you used a `BuildContext` that does not include the provider
+of your choice. There are a few common scenarios:
+
+- You added a new provider in your `main.dart` and performed a hot-reload.
+  To fix, perform a hot-restart.
+
+- The provider you are trying to read is in a different route.
+
+  Providers are "scoped". So if you insert of provider inside a route, then
+  other routes will not be able to access that provider.
+
+- You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+
+  Make sure that IlRespiroDellaLunaScreen is under your MultiProvider/Provider<QualityTierController>.
+  This usually happens when you are creating a provider and trying to read it immediately.
+
+  For example, instead of:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // Will throw a ProviderNotFoundError, because `context` is associated
+      // to the widget that is the parent of `Provider<Example>`
+      child: Text(context.watch<Example>().toString()),
+    );
+  }
+  ```
+
+  consider using `builder` like so:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<Example>().toString());
+      }
+    );
+  }
+  ```
+
+If none of these solutions work, consider asking for help on StackOverflow:
+https://stackoverflow.com/questions/tagged/flutter
+)
+La scena: manca SettingsController, ripiego (Error: Could not find the correct Provider<SettingsController> above this IlRespiroDellaLunaScreen Widget
+
+This happens because you used a `BuildContext` that does not include the provider
+of your choice. There are a few common scenarios:
+
+- You added a new provider in your `main.dart` and performed a hot-reload.
+  To fix, perform a hot-restart.
+
+- The provider you are trying to read is in a different route.
+
+  Providers are "scoped". So if you insert of provider inside a route, then
+  other routes will not be able to access that provider.
+
+- You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+
+  Make sure that IlRespiroDellaLunaScreen is under your MultiProvider/Provider<SettingsController>.
+  This usually happens when you are creating a provider and trying to read it immediately.
+
+  For example, instead of:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // Will throw a ProviderNotFoundError, because `context` is associated
+      // to the widget that is the parent of `Provider<Example>`
+      child: Text(context.watch<Example>().toString()),
+    );
+  }
+  ```
+
+  consider using `builder` like so:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<Example>().toString());
+      }
+    );
+  }
+  ```
+
+If none of these solutions work, consider asking for help on StackOverflow:
+https://stackoverflow.com/questions/tagged/flutter
+)
+01:07 +158: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_respiro_della_luna_test.dart: La schermata vera risponde al dito: tenuto giu' accende la Luna, lasciato la vela
+La scena brand_assets/respiro_della_luna/medora_il_respiro_della_luna_v1.mp4 non si prepara, resta ferma: UnimplementedError: init() has not been implemented.
+01:07 +159: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_bussola_della_luna_test.dart: senza una lettura del sensore, compare il ripiego tattile con direzione e altezza in parole
+01:08 +160: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: Il ciclo vero, dalla Luna nuova alla prossima il numero di perle e' la differenza in giorni fra due Lune nuove
+01:08 +161: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: Il ciclo vero, dalla Luna nuova alla prossima i giorni respirati sono accesi, i passati non respirati spenti
+01:08 +162: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La ricucitura ricuce un giorno spento recente, rispettando i due limiti
+01:09 +163: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La ricucitura non ricuce oltre il tetto per ciclo
+01:09 +164: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La ricucitura non ricuce oltre la finestra dei giorni indietro
+01:09 +165: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La consegna, alla Luna nuova non parte se nessun giorno del ciclo chiuso e' stato respirato
+01:09 +166: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La consegna, alla Luna nuova segnaConsegnata archivia la collana e non la rifa' partire
+01:09 +167: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +168: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +169: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +170: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +171: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +172: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +173: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +174: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +175: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:09 +176: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_collana_delle_lune_test.dart: La schermata vera mostra la collana e lascia ricucire una perla spenta
+01:11 +177: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: senza cambi di segno, la riga dice che oggi non cambia
+01:12 +178: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: un cambio nel futuro: la riga annuncia il segno che arriva
+01:12 +179: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: un cambio nel passato: la riga dice che e' gia' entrata
+01:12 +180: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: fuori corso adesso: la riga dice fino a quando
+01:12 +181: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: fuori corso piu' tardi: la riga anticipa l'orario
+01:12 +182: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: nessun fuori corso oggi: la riga non compare
+01:12 +183: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: il giorno lunare porta solo il numero, nessun significato inventato
+01:12 +184: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: le righe da mostrare seguono l'ordine della voce
+01:12 +185: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_parola_di_medora_del_respiro_test.dart: ogni segno dei dodici ha la sua chiave senza salute, soldi o esiti
+01:13 +186: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: la soglia della Superluna è la stessa nei due file che la citano
+01:13 +187: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: senza luogo, sorgere, tramonto, culminazione e altezza restano nulli
+01:13 +188: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: con un luogo, sorgere, tramonto, culminazione e altezza sono calcolati
+01:13 +189: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: la percentuale di luce sta sempre fra 0 e 1
+01:14 +190: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: la prossima Luna piena e la prossima nuova cadono davvero avanti nel tempo
+01:14 +191: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/la_luna_di_quest_ora_test.dart: la distanza della Luna sta nell'intervallo fisico vero
+01:15 +192: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il fotogramma e l'indirizzo il primo gennaio 2026 a mezzanotte e il fotogramma 1
+01:15 +193: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il fotogramma e l'indirizzo un istante del 2026 torna il fotogramma della sua ora esatta
+01:15 +194: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il fotogramma e l'indirizzo fuori dal 2026 non c'e' nessun indirizzo verificato
+01:15 +195: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: la NASA risponde torna la NetworkImage sull'indirizzo del fotogramma
+01:15 +196: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il ripiego, senza rete un errore del client ricade sulla luna locale piu' vicina
+01:15 +197: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il ripiego, senza rete una risposta non 200 ricade sul ripiego
+01:15 +198: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il ripiego, senza rete un istante fuori dalla serie 2026 non chiama nemmeno il client
+01:15 +199: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il ripiego, senza rete nell'emisfero sud la rotazione si applica anche al ripiego
+01:15 +200: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/il_dial_a_moon_test.dart: il ripiego, senza rete nell'emisfero sud la rotazione si applica anche con la NASA
+01:16 +201: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Ogni Maestro ha le sue sottocategorie, nell'ordine
+01:16 +202: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Nessuna arte compare due volte, in nessun dominio
+01:16 +203: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Lo stato dichiarato e' quello atteso, voce per voce
+01:16 +204: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti La Lunologia e' la quarta sottocategoria di Medora, con quattro arti
+01:16 +205: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Il Destino di Medora ha tre arti, col Destino Narrativo
+01:16 +206: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Aura ha le sue tre sottocategorie piene
+01:16 +207: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Le arti di Aura e di Caligo portano la cornice onesta
+01:16 +208: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Caligo ha le sue tre sottocategorie piene
+01:16 +209: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Le arti vive senza esperienza aprono la soglia, non il vuoto
+01:16 +210: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti La Compatibilità di Medora raccoglie le tre sinastrie
+01:16 +211: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Le astrologie non occidentali non hanno una card propria
+01:16 +212: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Ogni fase usata nel catalogo e' una di quelle dichiarate
+01:16 +213: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Alla persona si mostra fino alla Fase 2, in Demo tutto
+01:16 +214: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Il nome del livello si accorda alla preposizione
+01:16 +215: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Il nome a video della stesa e' Stesa di Tarocchi
+01:16 +216: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Ogni arte attiva ha una rotta vera, nessuna attiva a vuoto
+01:16 +217: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Ogni arte in arrivo dichiara la fase, ogni Premium il livello
+01:16 +218: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti La Numerologia del Destino e' di Caligo, sotto Numerologia
+01:16 +219: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Catalogo delle arti Lo scaffale del Santuario e il dominio usano la stessa mappa
+01:16 +220: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+01:17 +221: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Il dominio del Maestro I pilastri stanno sotto il nome, in cima alla schermata
+La scena: manca SettingsController, ripiego (Error: Could not find the correct Provider<SettingsController> above this DomainScreen Widget
+
+This happens because you used a `BuildContext` that does not include the provider
+of your choice. There are a few common scenarios:
+
+- You added a new provider in your `main.dart` and performed a hot-reload.
+  To fix, perform a hot-restart.
+
+- The provider you are trying to read is in a different route.
+
+  Providers are "scoped". So if you insert of provider inside a route, then
+  other routes will not be able to access that provider.
+
+- You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+
+  Make sure that DomainScreen is under your MultiProvider/Provider<SettingsController>.
+  This usually happens when you are creating a provider and trying to read it immediately.
+
+  For example, instead of:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // Will throw a ProviderNotFoundError, because `context` is associated
+      // to the widget that is the parent of `Provider<Example>`
+      child: Text(context.watch<Example>().toString()),
+    );
+  }
+  ```
+
+  consider using `builder` like so:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<Example>().toString());
+      }
+    );
+  }
+  ```
+
+If none of these solutions work, consider asking for help on StackOverflow:
+https://stackoverflow.com/questions/tagged/flutter
+)
+La scena brand_assets/maestri_scena/medora_dominio_v1.mp4 non si prepara, resta ferma: UnimplementedError: init() has not been implemented.
+01:19 +222: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Il dominio del Maestro La barra centrata vale per tutti e tre i domini
+La scena: manca SettingsController, ripiego (Error: Could not find the correct Provider<SettingsController> above this DomainScreen Widget
+
+This happens because you used a `BuildContext` that does not include the provider
+of your choice. There are a few common scenarios:
+
+- You added a new provider in your `main.dart` and performed a hot-reload.
+  To fix, perform a hot-restart.
+
+- The provider you are trying to read is in a different route.
+
+  Providers are "scoped". So if you insert of provider inside a route, then
+  other routes will not be able to access that provider.
+
+- You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+
+  Make sure that DomainScreen is under your MultiProvider/Provider<SettingsController>.
+  This usually happens when you are creating a provider and trying to read it immediately.
+
+  For example, instead of:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // Will throw a ProviderNotFoundError, because `context` is associated
+      // to the widget that is the parent of `Provider<Example>`
+      child: Text(context.watch<Example>().toString()),
+    );
+  }
+  ```
+
+  consider using `builder` like so:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<Example>().toString());
+      }
+    );
+  }
+  ```
+
+If none of these solutions work, consider asking for help on StackOverflow:
+https://stackoverflow.com/questions/tagged/flutter
+)
+La scena brand_assets/maestri_scena/medora_dominio_v1.mp4 non si prepara, resta ferma: UnimplementedError: init() has not been implemented.
+01:20 +223: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/aspetta-testo-riallineamento-5a7bfd/test/art_catalog_test.dart: Il dominio del Maestro Consulta e' una voce sola, e non c'e' piu' Parla con
+01:21 +224: All tests passed!

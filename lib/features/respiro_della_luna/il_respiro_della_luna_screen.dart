@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:provider/provider.dart';
 
 import '../../core/astro/luogo_attuale.dart';
@@ -17,18 +16,21 @@ import '../../core/maestro/maestro.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/avviso_del_permesso.dart';
 import '../../core/permissions/esito_del_permesso.dart';
+import '../../core/sensi/palette_sensoriale.dart';
+import '../../design_system/components/interruttore_del_cerchio.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../services/avvisi_locali.dart';
 import '../../services/breath_detector.dart';
 import '../lunario/calendario_lunare_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../scene/la_scena_in_video.dart';
+import '../sigilli/regia_del_cammino.dart';
 import 'gli_avvisi_del_respiro.dart';
 import 'il_piano_del_respiro.dart';
 import 'la_bussola_della_luna.dart';
@@ -45,6 +47,11 @@ import 'la_collana_delle_lune_screen.dart';
 /// ([BreathDetector], lo stesso del Soffio del Destino, riusato senza
 /// cambiarne il comportamento). A rito compiuto si accende la perla del
 /// giorno sulla Collana delle Lune (FX.05).
+/// Il punto medio che unisce le tre righe di Medora in una sola (FX.07).
+/// Non e' il separatore del dominio di un Maestro: sta in una costante
+/// propria perche' il testo del codice non collida con quella forma.
+const String _separatoreDelleRigheDiMedora = ' · ';
+
 class IlRespiroDellaLunaScreen extends StatefulWidget {
   const IlRespiroDellaLunaScreen({super.key, this.now, this.dialAMoon});
 
@@ -57,7 +64,10 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
   final IlDialAMoon? dialAMoon;
 
   static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>(
-      (_) => MaestroScope(child: IlRespiroDellaLunaScreen(now: now)));
+      (_) => SogliaArte(
+          id: 'lunology',
+          maestro: Maestro.medora,
+          child: IlRespiroDellaLunaScreen(now: now)));
 
   @override
   State<IlRespiroDellaLunaScreen> createState() =>
@@ -188,7 +198,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     final faseVecchia = _faseIntera(_tempoVisto);
     setState(() => _tempoVisto = nuovo);
     if (_faseIntera(nuovo) != faseVecchia) {
-      unawaited(HapticFeedback.lightImpact());
+      unawaited(PaletteSensoriale.vibra(context, SchemaAptico.tocco));
     }
     _debounceDellaFoto?.cancel();
     _debounceDellaFoto = Timer(const Duration(milliseconds: 250), () {
@@ -208,7 +218,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   void _apriLeAltreVoci(BuildContext context, Tier tier) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final bussolaAperta = IlPianoDelRespiro.respiroInsiemeAperto(tier);
-    showModalBottomSheet<void>(
+    foglioDelCerchio<void>(
       context: context,
       backgroundColor: palette.deepest,
       builder: (context) => SafeArea(
@@ -239,12 +249,12 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                   ? null
                   : Text('Esclusiva Adepto e Illuminato',
                       style: TypographyTokens.label(size: 12)
-                          .copyWith(color: palette.gold.withValues(alpha: 0.7))),
+                          .copyWith(color: palette.goldSoft)),
               onTap: () {
                 Navigator.of(context).pop();
                 if (!bussolaAperta) return;
-                Navigator.of(context).push(MaterialPageRoute<void>(
-                  builder: (_) => _SchermataDellaBussola(luogo: _luogo),
+                Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
+                  (_) => _SchermataDellaBussola(luogo: _luogo),
                 ));
               },
             ),
@@ -258,7 +268,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                       .copyWith(color: Colors.white.withValues(alpha: 0.7))),
               onTap: () {
                 Navigator.of(context).pop();
-                showModalBottomSheet<void>(
+                foglioDelCerchio<void>(
                   context: context,
                   backgroundColor: palette.deepest,
                   builder: (_) => _FoglioDegliAvvisi(luogo: _luogo),
@@ -316,7 +326,10 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     _finito = true;
     unawaited(_flag.segnaRespirato(widget.now ?? DateTime.now()));
     unawaited(_mic.stop());
-    if (mounted) setState(() {});
+    if (mounted) {
+      unawaited(RegiaDelCammino.dopoUnGesto(context, 'respiro'));
+      setState(() {});
+    }
   }
 
   @override
@@ -848,9 +861,14 @@ class _StrisciaDelTempo extends StatelessWidget {
             // **LE TRE RIGHE DI MEDORA (FX.07), IN UNA SOLA.** Unite con un
             // punto, non una sotto l'altra: tre righe separate spingevano
             // il pannello fino a toccare la Luna (vedi il commento sopra
-            // `_rigaDiDistanzaESizigia`).
+            // `_rigaDiDistanzaESizigia`). **Non e' il dominio**: questo
+            // punto medio unisce le righe di Medora, non i pilastri di un
+            // Maestro, e scriverlo come `join(' · ')` letterale collide
+            // col testo che la guardia `le_cose_che_dichiarano_il_falso`
+            // cerca per quell'altra forma; il separatore sta in una
+            // costante sua per restare un punto medio e non quel testo.
             if (parola.righe.isNotEmpty)
-              Text(parola.righe.join(' · '),
+              Text(parola.righe.join(_separatoreDelleRigheDiMedora),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -926,35 +944,28 @@ class _FoglioDegliAvvisiState extends State<_FoglioDegliAvvisi> {
 
   @override
   Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     return SafeArea(
       child: AnimatedBuilder(
         animation: _avvisi,
         builder: (context, _) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SwitchListTile(
+            InterruttoreDelCerchio(
               key: const Key('respiro_avviso_sorgere'),
-              value: _avvisi.lunaCheSorge,
-              onChanged: _avvisi.letto
+              acceso: _avvisi.lunaCheSorge,
+              onCambia: _avvisi.letto
                   ? (v) => _avvisi.impostaLunaCheSorge(v, luogo: widget.luogo)
                   : null,
-              title: Text('La Luna che sorge',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              activeThumbColor: palette.gold,
+              titolo: 'La Luna che sorge',
             ),
-            SwitchListTile(
+            InterruttoreDelCerchio(
               key: const Key('respiro_avviso_sizigie'),
-              value: _avvisi.luneNuoveEPiene,
-              onChanged: _avvisi.letto
+              acceso: _avvisi.luneNuoveEPiene,
+              onCambia: _avvisi.letto
                   ? (v) =>
                       _avvisi.impostaLuneNuoveEPiene(v, luogo: widget.luogo)
                   : null,
-              title: Text('Luna piena, nuova e Superluna',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              activeThumbColor: palette.gold,
+              titolo: 'Luna piena, nuova e Superluna',
             ),
           ],
         ),

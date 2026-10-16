@@ -53,6 +53,9 @@ void main() {
     // segno di chi ti ha indovinato (20 Eos), prezzi dal listino.
     'lib/features/cerchio/enigmi/gli_enigmi_screen.dart',
     'lib/features/cerchio/enigmi/l_indovinello_screen.dart',
+    // **LA COLLANA DELLE LUNE, ordine FX voce FX.05**: il prezzo della
+    // ricucitura, dal listino del Respiro.
+    'lib/features/respiro_della_luna/la_collana_delle_lune_screen.dart',
   ];
 
   String sorgente(String p) => File(p).readAsStringSync();

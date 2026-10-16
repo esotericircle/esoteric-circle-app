@@ -161,6 +161,14 @@ abstract final class LeMemorieCustodite {
     // dispositivo.
     'lunario.': 'i promemoria del Calendario Lunare e l\'intenzione alla '
         'Luna nuova, che l\'ordine vuole privata e mai al Cerchio',
+    // Ordine FX, 16 ottobre 2026: i giorni respirati, la collana delle
+    // lune, gli avvisi del Respiro e le perle ricucite. La ricucitura
+    // resta locale (FX.05, R3): nessuna porta server vende ancora gli
+    // Eos che la pagano, quindi non c\'e\' ancora un server da cui
+    // tornare.
+    'respiro.': 'i giorni respirati, la collana delle lune, gli avvisi e le '
+        'perle ricucite del Respiro della Luna: la ricucitura resta locale '
+        'finche\' non esiste una porta server che la venda',
   };
 
   /// Quante volte e' stata riscritta una famiglia dal Cerchio: le prove lo

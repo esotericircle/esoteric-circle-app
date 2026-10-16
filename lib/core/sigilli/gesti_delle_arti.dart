@@ -115,6 +115,12 @@ class GestiDelleArti {
     SorgenteDelGesto(
         gesto: 'lunario',
         schermata: 'lib/features/lunario/calendario_lunare_screen.dart'),
+    // Ordine FX: il Respiro della Luna, il rito compiuto col dito o col
+    // microfono.
+    SorgenteDelGesto(
+        gesto: 'respiro',
+        schermata:
+            'lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart'),
     SorgenteDelGesto(
         gesto: 'carta_natale',
         schermata: 'lib/features/passport/cosmic_passport_screen.dart'),

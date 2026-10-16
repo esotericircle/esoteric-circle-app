@@ -56,6 +56,9 @@ void main() {
     // 14,19-21, i salmi dei 72).
     'angels_oracle':
         'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart',
+    // Ordine FX, 16 ottobre 2026: il Respiro della Luna. La fonte sta nel
+    // foglio TestiDelleFonti.respiroDellaLuna.
+    'lunology': 'lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart',
   };
 
   /// I modi in cui una schermata puo' dichiarare le sue fonti. Sono piu' di

@@ -63,6 +63,9 @@ class ContiDelleArti {
     // Ordine FV: il Calendario Lunare conta il suo gesto, un'attivita'
     // scelta in "Trova il giorno".
     ContoDellArte(arte: 'lunar_calendar', gesto: 'lunario'),
+    // Ordine FX: il Respiro della Luna conta il suo gesto, il rito
+    // compiuto col dito o col microfono.
+    ContoDellArte(arte: 'lunology', gesto: 'respiro'),
     ContoDellArte(arte: 'tarot_spread_three', gesto: 'stesa'),
     ContoDellArte(arte: 'archetype_test', gesto: 'archetipo'),
     ContoDellArte(arte: 'face_constellation', gesto: 'viso'),

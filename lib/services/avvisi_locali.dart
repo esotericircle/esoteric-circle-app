@@ -130,7 +130,7 @@ class AvvisiLocali extends ServizioAvvisi {
     // programma `GliAvvisiDelRespiro`.
     'respiro_della_luna': (
       'Il Respiro della Luna',
-      'Un avviso quando la Luna sorge da te, e uno alla Luna piena e alla '
+      'Un avviso quando la Luna sorge da te e uno alla Luna piena e alla '
           'Luna nuova.'
     ),
   };

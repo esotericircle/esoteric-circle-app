@@ -258,8 +258,16 @@ void main() {
     // potevano viaggiare dentro `statoDelCerchio`: ognuna scrive su un dato
     // diverso (un acquisto, la proposta a un gruppo di amici), motivate nel
     // rapporto dell'ordine FV.
-    expect(callable.length, 41,
-        reason: 'le callable non sono piu\' quarantuno: $callable. Se ne '
+    // **ORDINE FX, 16 ottobre 2026: SEI CALLABLE NUOVE PER RESPIRIAMO
+    // INSIEME E LA COLLANA A DUE.** `respiroInsiemeEntra` e
+    // `respiroInsiemeConteggio` contano chi respira insieme alla Luna piena;
+    // `invitaCollanaADue`, `rispondiCollanaADue` e
+    // `segnalaRespiroDelGiornoPerLaCollanaADue` gestiscono la collana a due
+    // persone; `leCollaneADue` le elenca. Nessuna spende ancora Eos per
+    // davvero (R3): quella voce resta aperta in attesa della pubblicazione,
+    // motivate nel rapporto dell'ordine FX.
+    expect(callable.length, 47,
+        reason: 'le callable non sono piu\' quarantasette: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // **OGNI CALLABLE VIAGGIA DAVVERO, ordine FW, 15 ottobre 2026.** Il
     // fondatore ha provato a pubblicare `compraUnMeseDelLunario` dal PC vero

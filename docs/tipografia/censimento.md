@@ -1,7 +1,7 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 72 -->
-<!-- FILE_CENSITI: 32 -->
+<!-- TOTALE_CENSITO: 88 -->
+<!-- FILE_CENSITI: 35 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
@@ -20,8 +20,8 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **72** |
-| File che ne contengono | **32** |
+| Misure esplicite sotto `lib/` | **88** |
+| File che ne contengono | **35** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
 
@@ -39,12 +39,14 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 
 | File | Misure | Sotto 12 | Lettura sotto 16 |
 | --- | ---: | ---: | ---: |
+| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 12 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 9 | 0 | 0 |
 | `lib/features/account/dati_di_nascita_screen.dart` | 5 | 0 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 5 | 0 | 0 |
 | `lib/design_system/components/guida_del_respiro.dart` | 4 | 0 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 4 | 0 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 4 | 0 | 0 |
+| `lib/features/respiro_della_luna/la_collana_delle_lune_screen.dart` | 3 | 0 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 2 | 0 | 0 |
 | `lib/core/permissions/app_permission.dart` | 2 | 0 | 0 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 2 | 0 | 0 |
@@ -61,6 +63,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/santuario/widgets/tue_arti_view.dart` | 2 | 0 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 0 | 0 |
 | `lib/features/identity/widgets/birth_companions.dart` | 1 | 0 | 0 |
+| `lib/features/lunario/calendario_lunare_screen.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/bosco_del_cerchio.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 1 | 0 | 0 |
