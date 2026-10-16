@@ -207,7 +207,7 @@ void main() {
       // QUATTORDICI dalla voce ES.12: gli amici, fino a dieci.
       // DICIASSETTE dall'ordine FV voce FV.12: il Calendario Lunare.
       // DICIOTTO dall'ordine FX voce FX.10: il Respiro della Luna,
-      // Respiriamo insieme con la collana a due e la bussola.
+      // Respiriamo insieme con la collana a due.
       expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 18);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'

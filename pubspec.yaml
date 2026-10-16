@@ -388,9 +388,6 @@ flutter:
     # I comandi dipinti del Respiro (aggiunta FXA.02): pulsante largo,
     # premuto, tondo, pannello, ago e filo, RGBA senza perdita.
     - assets/img/respiro_della_luna/comandi/
-    # Gli elementi della Bussola (quadrante, ago a falce, scia di luna),
-    # RGBA con l'alfa scritto senza perdita.
-    - assets/img/respiro_della_luna/bussola/
     # La Luna di quest'ora (aggiunta FXA.09): il righello delle fasi, il
     # cursore a falce, i tre medaglioni (sorge, culmina, tramonta), i
     # sigilli di Superluna e Microluna; le icone dipinte (frecce, penna,

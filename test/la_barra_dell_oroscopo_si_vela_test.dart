@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Si misura l'opacita' del fondo della barra: a riposo (sul cielo, come il
 /// fondatore l'ha voluta) e dopo aver scorso l'elenco di 600 punti. A riposo
-/// trasparente; scorso, almeno il 90 per cento (il velo della barra in alto
-/// dell'ordine EU voce 19 e' al 92).
+/// trasparente; scorso, velata almeno alla meta'.
+///
+/// **E MAI PIENA. Ordine FY voce 20, 16 ottobre 2026.** Questa prova
+/// pretendeva il 90 per cento, il velo della barra in alto dell'ordine EU voce
+/// 19, e il fondatore sulla build 2312 ha visto la barra "comparire solida di
+/// botto": *"Tutte le barre del titolo di ogni funzionalita' devono restare
+/// sempre semitrasparenti, tutte e per sempre"*. Il tetto adesso e' il velo
+/// comune delle barre del titolo, `AppTheme.veloDellaBarra`.
 void main() {
   testWidgets('a riposo trasparente, scorsa velata', (tester) async {
     SharedPreferences.setMockInitialValues({});
@@ -71,8 +78,11 @@ void main() {
         '${(aRiposo * 100).toStringAsFixed(0)} per cento, scorsa '
         '${(scorsa * 100).toStringAsFixed(0)} per cento');
     expect(aRiposo, lessThan(0.05), reason: 'a riposo la barra copre il cielo');
-    expect(scorsa, greaterThanOrEqualTo(0.9),
+    expect(scorsa, greaterThanOrEqualTo(0.5),
         reason: 'scorso l\'elenco, la barra lascia vedere il testo che le '
-            'passa sotto');
+            'passa sotto mescolato alle icone');
+    expect(scorsa, lessThanOrEqualTo(AppTheme.veloDellaBarra),
+        reason: 'scorso l\'elenco, la barra diventa piena: il fondatore la '
+            'vuole sempre semitrasparente (ordine FY voce 20)');
   });
 }

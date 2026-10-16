@@ -37,7 +37,7 @@ import '../pricing/pricing_screen.dart';
 import 'horoscope_visuals.dart';
 import 'la_testa_della_tradizione.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
-import '../shell/barra_dell_identita.dart';
+import '../../design_system/theme/app_theme.dart';
 import '../../core/horoscope/il_domani.dart';
 import '../../core/horoscope/l_ora_d_oro.dart';
 import 'la_ruota_del_passaggio.dart';
@@ -1507,12 +1507,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               // trasparente anche con l'elenco scorso, la "i" delle fonti
               // copriva il punto interrogativo del segno e i titoli delle
               // schede passavano sotto le icone. A riposo resta trasparente, sul
-              // cielo; appena qualcosa le scorre sotto prende lo stesso velo
-              // della barra in alto (ordine EU voce 19, 92 per cento).
+              // cielo; appena qualcosa le scorre sotto prende un velo.
+              //
+              // **SEMITRASPARENTE, MAI PIENO. Ordine FY voce 20, 16 ottobre
+              // 2026.** L'ordine EU voce 19 le aveva dato il velo della barra
+              // in alto, al 92 per cento, e scorrendo la barra "compariva
+              // solida di botto" (il fondatore). Adesso il velo e' quello
+              // comune delle barre del titolo, e ci arriva sfumando.
               backgroundColor: WidgetStateColor.resolveWith((stati) => stati
                       .contains(WidgetState.scrolledUnder)
-                  ? palette.deepest.withValues(alpha: BarraDellIdentita.velo)
+                  ? palette.deepest.withValues(alpha: AppTheme.veloDellaBarra)
                   : Colors.transparent),
+              animateColor: true,
               surfaceTintColor: Colors.transparent,
               scrolledUnderElevation: 0,
               elevation: 0,

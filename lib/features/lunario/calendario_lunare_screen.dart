@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -551,13 +552,28 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
             // sui due calendari: "Separati e collegati". Testo, non
             // un'icona: la guardia della grafica dipinta (R9) non ammette
             // icone di Material fuori dall'elenco dichiarato qui dentro.
-            TextButton(
-              key: const Key('lunario_vai_al_respiro'),
-              onPressed: () => Navigator.of(context)
-                  .push(IlRespiroDellaLunaScreen.route()),
-              child: Text('Il Respiro',
-                  style: TypographyTokens.label(size: 13)
-                      .copyWith(color: palette.goldSoft)),
+            // **UN'ICONA DIPINTA, NON UN TESTO** (ordine FY voce FY.01): la
+            // scritta "Il Respiro" nella barra toglieva spazio al titolo, che
+            // sul Realme andava a capo dentro la parola ("Calenda rio",
+            // `docs/collaudo/FY/catture_fondatore/fy_fondatore_09.jpg`).
+            Semantics(
+              button: true,
+              label: 'Il Respiro della Luna',
+              child: GestureDetector(
+                key: const Key('lunario_vai_al_respiro'),
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.of(context)
+                    .push(IlRespiroDellaLunaScreen.route()),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
+                  child: Image.asset(
+                      'assets/img/respiro_della_luna/icone/icona_respiro_v1.webp',
+                      height: 26,
+                      errorBuilder: (_, __, ___) =>
+                          const SizedBox(width: 26, height: 26)),
+                ),
+              ),
             ),
             FoglioDelleFonti.bottone(context,
                 palette: palette,
@@ -588,11 +604,21 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
     // centrata sul velo, e scende un poco sotto il suo orlo.
     final larghezza =
         (schermo.width - 2 * SpacingTokens.sm).clamp(velo.width, schermo.width);
+    // **LA CIMA DELLA GRIGLIA, MAI UN CLAMP COI LIMITI ROVESCIATI.** Ordine
+    // FY voce FY.01: sul Realme della build 2312 la barra dell'identita'
+    // aggiunge la sua altezza al margine alto, la barra del titolo finisce
+    // piu' in basso dell'orlo del velo, e `clamp(cima, velo.top)` con il
+    // primo limite piu' grande del secondo lanciava "Invalid argument(s):
+    // 134.66666666666666": il quadro grigio a tutto schermo (padre FV.02).
+    // La cima e' la piu' bassa fra l'orlo del velo e il fondo della barra.
+    final cimaDellaGriglia =
+        math.max(velo.top - SpacingTokens.sm, cima + SpacingTokens.xxs);
     final griglia = Rect.fromLTRB(
       (velo.center.dx - larghezza / 2).clamp(0, schermo.width - larghezza),
-      (velo.top - SpacingTokens.sm).clamp(cima + SpacingTokens.xxs, velo.top),
+      cimaDellaGriglia,
       (velo.center.dx + larghezza / 2).clamp(larghezza, schermo.width),
-      velo.bottom + SpacingTokens.lg,
+      math.max(velo.bottom + SpacingTokens.lg,
+          cimaDellaGriglia + velo.height + SpacingTokens.sm),
     );
     return Stack(
       key: const Key('lunario_scena'),
@@ -1671,7 +1697,8 @@ class _IlFoglioDelGiornoState extends State<_IlFoglioDelGiorno> {
                     ParagrafiDiLettura(
                         key: const Key('lunario_foglio_perche'),
                         testo: esito.perche.join('\n\n'),
-                        stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
+                        stile: TypographyTokens.lettura()
+                            .copyWith(color: ColorTokens.textPrimary)),
                   ],
                   if (esito.grado == GradoDelGiorno.oro &&
                       widget.promemoriaAperti) ...[
@@ -1745,13 +1772,17 @@ class _IlFoglioDelGiornoState extends State<_IlFoglioDelGiorno> {
                       ),
                     ],
                   ),
-                  ParagrafiDiLettura(testo: s.testo, stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
+                  ParagrafiDiLettura(
+                      testo: s.testo,
+                      stile: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textPrimary)),
                 ],
                 const SizedBox(height: SpacingTokens.md),
                 ParagrafiDiLettura(
                     key: const Key('lunario_foglio_cielo'),
                     testo: _cielo,
-                    stile: TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary)),
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary)),
                 const SizedBox(height: SpacingTokens.md),
                 Text('Da dove viene',
                     style: TypographyTokens.etichetta()

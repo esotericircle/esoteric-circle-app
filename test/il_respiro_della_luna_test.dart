@@ -16,8 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// subito, cosi' la prova resta offline e deterministica e cade subito sul
 /// ripiego locale (`LeLuneDellaNasa`), come fa `test/il_dial_a_moon_test.dart`
 /// per la stessa classe.
-IlDialAMoon _dialAMoonOffline() => IlDialAMoon(
-    client: MockClient((request) async => http.Response('', 503)));
+IlDialAMoon _dialAMoonOffline() =>
+    IlDialAMoon(client: MockClient((request) async => http.Response('', 503)));
 
 /// **IL RESPIRO DELLA LUNA.** Ordine FX voce FX.04, 16 ottobre 2026.
 ///
@@ -66,8 +66,7 @@ void main() {
         final t = TempiDelRespiroDellaLuna.perFase(fase);
         expect(t.reggono, isTrue, reason: '$fase');
         expect(t.cicliPerUnMinuto, greaterThan(0), reason: '$fase');
-        final scarto =
-            (t.interoRito.inSeconds - 60).abs();
+        final scarto = (t.interoRito.inSeconds - 60).abs();
         expect(scarto, lessThanOrEqualTo(t.ciclo.inSeconds),
             reason: 'il rito di $fase dura ${t.interoRito.inSeconds}s, '
                 'troppo lontano da un minuto');
@@ -159,8 +158,7 @@ void main() {
       final veloAllInizio = opacitaDellaLuna();
 
       // IL GESTO: si tiene premuto sulla Luna per inspirare.
-      final dito =
-          await tester.startGesture(tester.getCenter(find.byKey(
+      final dito = await tester.startGesture(tester.getCenter(find.byKey(
         const Key('respiro_luna_vera'),
       )));
       await tester.pump(const Duration(milliseconds: 100));
@@ -180,7 +178,10 @@ void main() {
           reason: 'la Luna non si e\' velata lasciando il dito');
 
       if (tempi.cicliPerUnMinuto > 1) {
-        expect(find.textContaining('Giro 2 di'), findsOneWidget,
+        // Il giro si legge sulla scena, sotto la Luna (ordine FY voce FY.06).
+        expect(
+            tester.widget<Text>(find.byKey(const Key('respiro_giro'))).data,
+            startsWith('Giro 2 di'),
             reason: 'un giro intero (inspiro piu\' espiro) non ha fatto '
                 'avanzare il conteggio');
       }

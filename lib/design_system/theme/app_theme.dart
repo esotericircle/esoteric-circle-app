@@ -13,6 +13,21 @@ import 'maestro_palette.dart';
 class AppTheme {
   AppTheme._();
 
+  /// **IL VELO PIU' FITTO CHE UNA BARRA DEL TITOLO PUO' PRENDERE.** Ordine FY
+  /// voce 20, 16 ottobre 2026. Il fondatore, sulla build 2312: *"Quando
+  /// scorro in alto, la barra del titolo compare solida di botto e non piu'
+  /// trasparente"*, e poi *"Tutte le barre del titolo di ogni funzionalita'
+  /// devono restare sempre semitrasparenti, tutte e per sempre"*.
+  ///
+  /// Nessuna barra del titolo supera questo velo, in nessuno stato: a riposo,
+  /// scorsa, con qualcosa che le passa sotto. Il titolo resta leggibile
+  /// perche' al sessanta per cento il colore piu' chiaro dell'app che le
+  /// scorre sotto si spegne abbastanza da lasciare all'oro e al testo
+  /// primario almeno 3 di contrasto, il minimo dei titoli grandi; e cio' che
+  /// scorre sotto si vede ancora, come il fondatore vuole. Lo misura
+  /// `le_barre_del_titolo_restano_semitrasparenti_test`.
+  static const double veloDellaBarra = 0.6;
+
   static ThemeData dark() {
     const base = MaestroPalette.neutral;
     final scheme = ColorScheme.fromSeed(
@@ -42,9 +57,18 @@ class AppTheme {
       scaffoldBackgroundColor: base.deepest,
       textTheme: TypographyTokens.buildTextTheme(),
       splashFactory: InkSparkle.splashFactory,
+      // **LA BARRA NON CAMBIA QUANDO LE SI SCORRE SOTTO.** Ordine FY voce 20.
+      // In Material 3 una barra con qualcosa che le scorre sotto sale a
+      // un'elevazione di 3 (`scrolledUnderElevation` di fabbrica), ci mette
+      // l'ombra e la tinta della superficie, e senza un fondo dichiarato
+      // prende `surfaceContainer`, che e' pieno. Qui si spegne tutto per ogni
+      // barra dell'app, in un punto solo: chi scrive una barra nuova senza
+      // pensarci la trova gia' semitrasparente in ogni stato.
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         foregroundColor: ColorTokens.textPrimary,
       ),

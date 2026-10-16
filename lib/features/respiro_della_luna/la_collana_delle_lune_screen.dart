@@ -13,6 +13,7 @@ import '../../core/entitlement/question_allowance.dart';
 import '../../core/lunario/il_respiro_della_luna.dart';
 import '../../core/lunario/la_collana_delle_lune.dart';
 import '../../core/maestro/maestro.dart';
+import '../../design_system/theme/app_theme.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/components/la_conferma_della_spesa.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -315,28 +316,37 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
       numeroDiPerle: perle.length,
       sopra: (context, scala) => Stack(
         children: [
-          // **IL NOME E IL CONTO, DOVE IL VELLUTO LI LASCIA LEGGERE**: nel
-          // velluto liscio dentro la collana, fra x 430 e 1010 e da y 1000
-          // della pittura.
+          // **POCHE PAROLE GRANDI** (ordine FY voce FY.08). Il fondatore:
+          // "il testo è illeggibile". Nel velluto liscio dentro la collana,
+          // fra x 430 e 1010 della pittura, restano solo il nome del ciclo e
+          // le perle accese, in grande; la guida sta sotto lo scrigno.
           Positioned(
             left: 430 * scala,
             width: 580 * scala,
-            top: 950 * scala,
+            top: 1000 * scala,
             child: Column(
               children: [
                 FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(nome,
+                  // Solo il mese, in grande (FY.08): "Collana di ottobre" nel
+                  // velluto finiva a 8 punti; "Collana" e' gia' nel titolo.
+                  child: Text(IlMeseInItaliano.mesi[ciclo.inizio.month - 1],
                       key: const Key('collana_nome_ciclo'),
                       style: TypographyTokens.titoloSezione()
                           .copyWith(color: palette.goldSoft)),
                 ),
+                SizedBox(height: 40 * scala),
                 FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(
-                      '${accesi.length} perle accese di ${perle.length}',
+                  child: Text('${accesi.length} di ${perle.length}',
                       key: const Key('collana_conteggio'),
-                      style: TypographyTokens.didascalia()
+                      style: TypographyTokens.cerimonialeGrande()
+                          .copyWith(color: coloreSulVelluto)),
+                ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text('perle accese',
+                      style: TypographyTokens.titoloScheda()
                           .copyWith(color: coloreSulVelluto)),
                 ),
               ],
@@ -425,7 +435,10 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
       backgroundColor: palette.deepest,
       appBar: AppBar(
         toolbarHeight: altezzaDellaBarraDelRespiro(context),
-        backgroundColor: palette.deepest,
+        // SEMITRASPARENTE IN OGNI STATO (ordine FY voce FY.20): il velo
+        // comune delle barre del titolo, mai il pieno.
+        backgroundColor:
+            palette.deepest.withValues(alpha: AppTheme.veloDellaBarra),
         elevation: 0,
         // **SOLO I COMANDI COMUNI DELLA BARRA** (FXA.02): la freccia
         // automatica, le fonti e l'angolo della barra, come in tutta l'app.
@@ -451,72 +464,46 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
                 child: AspectRatio(
                   aspectRatio: LePerleDellaCollana.larghezza /
                       LePerleDellaCollana.altezza,
-                  child: LayoutBuilder(builder: (context, v) {
-                    final scala = v.maxWidth / LePerleDellaCollana.larghezza;
-                    return Stack(
-                      children: [
-                        Positioned.fill(
-                          child: RepaintBoundary(key: _cardKey, child: collana),
-                        ),
-                        // **LA GUIDA, MAI DA INDOVINARE.** Il fondatore, 16
-                        // ottobre 2026: "l'utente deve sapere dov'e', cosa
-                        // deve fare, per ottenere cosa, obiettivo ed
-                        // eventualmente guida. Non puo' indovinare". Sta
-                        // scritta nel velluto al centro della collana, sotto
-                        // il nome del ciclo, cosi' lo scrigno resta a tutto
-                        // schermo; fuori dalla card che si condivide.
-                        // Dentro il velluto e sopra la medaglia: da y 1150
-                        // a y 1830 della pittura, e il testo si rimpicciolisce
-                        // invece di scendere sulle perle.
-                        Positioned(
-                          left: 390 * scala,
-                          width: 660 * scala,
-                          top: 1150 * scala,
-                          height: 680 * scala,
-                          child: IgnorePointer(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              alignment: Alignment.topCenter,
-                              child: SizedBox(
-                                width: 660 * scala,
-                                child: Column(
-                                  key: const Key('collana_guida'),
-                                  children: [
-                                    Text(
-                                        completa
-                                            ? 'La collana è completa: tutte le '
-                                                'perle di questa lunazione sono '
-                                                'accese.'
-                                            : oggiAcceso
-                                                ? 'La perla di oggi è accesa. '
-                                                    'Torna domani a respirare per '
-                                                    'accendere la prossima.'
-                                                : 'La perla di oggi è ancora '
-                                                    'spenta: un minuto di respiro '
-                                                    'con la Luna la accende.',
-                                        key: const Key('collana_perla_di_oggi'),
-                                        textAlign: TextAlign.center,
-                                        style: TypographyTokens.etichetta()
-                                            .copyWith(color: palette.goldSoft)),
-                                    SizedBox(height: 30 * scala),
-                                    Text(
-                                        '${completa ? '' : 'Ogni giorno respirato accende una perla. '}'
-                                        'Alla Luna nuova del ${ciclo.fine.day} '
-                                        '${IlMeseInItaliano.mesi[ciclo.fine.month - 1].toLowerCase()} '
-                                        'Medora ti consegna la collana.',
-                                        key: const Key('collana_obiettivo'),
-                                        textAlign: TextAlign.center,
-                                        style: TypographyTokens.didascalia()
-                                            .copyWith(color: coloreSulVelluto)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
+                  child: RepaintBoundary(key: _cardKey, child: collana),
+                ),
+              ),
+            ),
+            // **LA GUIDA, MAI DA INDOVINARE, ADESSO SOTTO LO SCRIGNO** (FY.08).
+            // Il fondatore, 16 ottobre 2026: "l'utente deve sapere dov'e',
+            // cosa deve fare, per ottenere cosa, obiettivo ed eventualmente
+            // guida. Non puo' indovinare". Nel velluto era scritta troppo
+            // piccola per leggersi: qui ha la sua misura di lettura.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  SpacingTokens.md, SpacingTokens.xs, SpacingTokens.md, 0),
+              child: _LaStrisciaDellaGuida(
+                child: Column(
+                  key: const Key('collana_guida'),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                        completa
+                            ? 'La collana è completa: tutte le perle di questa '
+                                'lunazione sono accese.'
+                            : oggiAcceso
+                                ? 'La perla di oggi è accesa. Torna domani a '
+                                    'respirare per accendere la prossima.'
+                                : 'La perla di oggi è ancora spenta: un minuto '
+                                    'di respiro con la Luna la accende.',
+                        key: const Key('collana_perla_di_oggi'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: palette.goldSoft)),
+                    const SizedBox(height: SpacingTokens.xxs),
+                    Text(
+                        'Alla Luna nuova del ${ciclo.fine.day} '
+                        '${IlMeseInItaliano.mesi[ciclo.fine.month - 1].toLowerCase()} '
+                        'Medora ti consegna la collana.',
+                        key: const Key('collana_obiettivo'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: coloreSulVelluto)),
+                  ],
                 ),
               ),
             ),
@@ -715,6 +702,43 @@ class _ScenaDellaConsegnaState extends State<_ScenaDellaConsegna> {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// La striscia dipinta su cui sta la guida della Collana (FY.08): il pezzo del
+/// pulsante largo, allungato in nove parti, con il testo al centro.
+class _LaStrisciaDellaGuida extends StatelessWidget {
+  const _LaStrisciaDellaGuida({required this.child});
+
+  final Widget child;
+
+  static const double _altezzaMinima = 56;
+
+  @override
+  Widget build(BuildContext context) {
+    const scala = PulsanteDipinto.altezzaDellImmagine / _altezzaMinima;
+    final angolo = PulsanteDipinto.taglio.left / scala;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: _altezzaMinima),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          const Positioned.fill(
+            child: ImmagineANoveParti(
+              asset: PulsanteDipinto.immagine,
+              misura: Size(1133, PulsanteDipinto.altezzaDellImmagine),
+              taglio: PulsanteDipinto.taglio,
+              scala: scala,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: angolo * 0.6, vertical: SpacingTokens.xs),
+            child: child,
+          ),
+        ],
       ),
     );
   }

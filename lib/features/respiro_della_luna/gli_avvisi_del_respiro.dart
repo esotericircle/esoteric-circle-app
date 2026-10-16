@@ -19,7 +19,7 @@
 /// `lib/core/lunario/il_sorgere_della_luna.dart` (ordine FX voce 2): la
 /// soglia di Meeus 15.1 con la parallasse vera della Luna, verificata al
 /// minuto contro effemeridi pubblicate, non la soglia generica del Real
-/// Time Cosmo. E' la stessa porta che chiama `la_bussola_della_luna` per la
+/// Time Cosmo. E' la stessa porta che chiamava la bussola (tolta dall'ordine FY) per la
 /// riga "quando sorge" (FX.06): un solo calcolo, due usi.
 ///
 /// **La Superluna non ha una schedulazione a parte.** E' un caso speciale

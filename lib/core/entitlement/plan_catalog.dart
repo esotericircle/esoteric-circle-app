@@ -254,8 +254,9 @@ enum RigaDelPiano {
   respiroTempoSottoIlDitoMese,
 
   /// **RESPIRIAMO INSIEME, ordine FX voce FX.09**: il conteggio collettivo
-  /// alla Luna piena, la collana a due e la bussola verso la Luna, esclusiva
-  /// dell'Adepto e dell'Illuminato.
+  /// alla Luna piena e la collana a due, esclusiva dell'Adepto e
+  /// dell'Illuminato. La bussola verso la Luna non c'e' piu': il fondatore,
+  /// ordine FY voce FY.02, "la bussola elimanala, non serve a nulla".
   respiroInsieme,
 }
 
@@ -399,7 +400,7 @@ class PlanCatalog {
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
         // Ordine FX voce FX.10: il Respiro della Luna, esclusiva da qui.
-        'Respiro della Luna: Respiriamo insieme, con la collana a due e la bussola verso la Luna',
+        'Respiro della Luna: Respiriamo insieme, con la collana a due',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -1027,7 +1028,8 @@ class PlanCatalog {
     // nutrimento dell'animale guida), e il tempo sotto il dito solo sulle 24
     // ore di oggi. Dall'Iniziato la collana completa, lo scrigno e gli
     // avvisi, e il tempo sotto il dito su tutto il mese. Dall'Adepto
-    // Respiriamo insieme, con la collana a due e la bussola.
+    // Respiriamo insieme, con la collana a due (la bussola, tolta dall'ordine
+    // FY voce FY.02).
     FeatureRow('Respiro della Luna: collana completa e scrigno',
         ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroCollanaCompleta),

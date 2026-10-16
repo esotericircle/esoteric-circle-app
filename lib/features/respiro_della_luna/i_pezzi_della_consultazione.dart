@@ -38,7 +38,6 @@ abstract final class IPezziDipinti {
   static const String segnaposto = '$_icone/segnaposto_luna_v1.webp';
   static const String iconaLuna = '$_icone/icona_luna_v1.webp';
   static const String iconaCalendario = '$_icone/icona_calendario_v1.webp';
-  static const String iconaBussola = '$_icone/icona_bussola_v1.webp';
   static const String iconaRespiro = '$_icone/icona_respiro_v1.webp';
 
   /// Il sigillo della Luna fuori corso, quello del Calendario Lunare.
@@ -308,7 +307,10 @@ class IlRighelloDelTempo extends StatelessWidget {
             giorno.difference(tempoVisto).inMinutes /
                 (24 * 60) *
                 puntiPerGiorno;
-        if (x < -120 || x > larghezza + 120) continue;
+        // LA DATA INTERA O NIENTE (ordine FY voce FY.22): l'Architetto, sulla
+        // cattura del fondatore, "venerdi'" tagliato al bordo sinistro. Si
+        // mostra solo la data che sta tutta dentro lo schermo, nei suoi 160 punti.
+        if (x - 80 < 0 || x + 80 > larghezza) continue;
         etichette.add(Positioned(
           left: x - 80,
           width: 160,
@@ -385,6 +387,7 @@ class RigaDelDato extends StatelessWidget {
   const RigaDelDato({
     super.key,
     this.pezzo,
+    this.ritratto,
     this.pezzoDopo,
     required this.etichetta,
     required this.valore,
@@ -392,6 +395,9 @@ class RigaDelDato extends StatelessWidget {
   });
 
   final String? pezzo;
+
+  /// Al posto del pezzo dipinto, un'immagine viva (la Luna fissa in cima).
+  final Widget? ritratto;
 
   /// Un sigillo dopo il valore (Superluna, Microluna).
   final String? pezzoDopo;
@@ -411,7 +417,11 @@ class RigaDelDato extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: SpacingTokens.xxs),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: altezzaMinima),
+        // AL CENTRO DELLA STRISCIA (ordine FY voce FY.10): senza allineamento
+        // lo Stack metteva il contenuto in alto, e le righe senza medaglione,
+        // piu basse di 48 punti, stavano 6 punti sopra il centro.
         child: Stack(
+          alignment: AlignmentDirectional.centerStart,
           children: [
             const Positioned.fill(
               child: ImmagineANoveParti(
@@ -427,7 +437,10 @@ class RigaDelDato extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (pezzo != null) ...[
+                  if (ritratto != null) ...[
+                    SizedBox(width: 30, height: 30, child: ritratto),
+                    const SizedBox(width: SpacingTokens.sm),
+                  ] else if (pezzo != null) ...[
                     _immagine(pezzo!, width: 30, height: 30),
                     const SizedBox(width: SpacingTokens.sm),
                   ],
@@ -607,25 +620,21 @@ class RigaDelCalendario extends StatelessWidget {
 /// se l'opzione menù calendario non diventasse un doppione, visto che
 /// abbiamo già la funzionalità dedicata". La porta al Calendario Lunare e'
 /// una riga dipinta in fondo ai dati ([RigaDelCalendario]).
-enum VoceDellaLuna { luna, bussola, respiro }
+enum VoceDellaLuna { luna, respiro }
 
-/// **6. LA BARRA IN BASSO**, dipinta, con tre voci: Luna, Bussola,
-/// Respiro. La voce dove si sta e' sul pezzo premuto, che ha
+/// **6. LA BARRA IN BASSO**, dipinta, con due voci: Luna e Respiro. La
+/// Bussola e' uscita (ordine FY voce FY.02, il fondatore: "la bussola
+/// elimanala, non serve a nulla"). La voce dove si sta e' sul pezzo premuto, che ha
 /// l'interno argento e il testo scuro.
 class LaBarraDellaLuna extends StatelessWidget {
   const LaBarraDellaLuna({
     super.key,
     required this.voce,
     required this.onVoce,
-    this.bussolaChiusa = false,
   });
 
   final VoceDellaLuna voce;
   final ValueChanged<VoceDellaLuna> onVoce;
-
-  /// La Bussola e' esclusiva di Adepto e Illuminato (FX.10): chi non ce
-  /// l'ha la vede col lucchetto scritto, mai nascosta.
-  final bool bussolaChiusa;
 
   static const double altezza = 72;
 
@@ -647,7 +656,6 @@ class LaBarraDellaLuna extends StatelessWidget {
 
   static const Map<VoceDellaLuna, (String, String)> _voci = {
     VoceDellaLuna.luna: ('Luna', IPezziDipinti.iconaLuna),
-    VoceDellaLuna.bussola: ('Bussola', IPezziDipinti.iconaBussola),
     VoceDellaLuna.respiro: ('Respiro', IPezziDipinti.iconaRespiro),
   };
 
@@ -684,11 +692,10 @@ class LaBarraDellaLuna extends StatelessWidget {
   Widget _laVoce(VoceDellaLuna v) {
     final (testo, icona) = _voci[v]!;
     final qui = v == voce;
-    final chiusa = v == VoceDellaLuna.bussola && bussolaChiusa;
     return Semantics(
       button: true,
       selected: qui,
-      label: chiusa ? '$testo, esclusiva Adepto e Illuminato' : testo,
+      label: testo,
       child: GestureDetector(
         key: Key('luna_voce_${v.name}'),
         behavior: HitTestBehavior.opaque,
@@ -711,10 +718,7 @@ class LaBarraDellaLuna extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Opacity(
-                  opacity: chiusa ? 0.55 : 1,
-                  child: _immagine(icona, height: 20),
-                ),
+                _immagine(icona, height: 20),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(testo,

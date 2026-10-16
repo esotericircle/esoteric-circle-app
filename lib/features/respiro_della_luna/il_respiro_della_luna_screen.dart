@@ -20,6 +20,7 @@ import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/avviso_del_permesso.dart';
 import '../../core/permissions/esito_del_permesso.dart';
 import '../../core/sensi/palette_sensoriale.dart';
+import '../../design_system/theme/app_theme.dart';
 import '../../design_system/components/interruttore_del_cerchio.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -40,7 +41,6 @@ import 'i_comandi_dipinti.dart';
 import 'i_pezzi_della_consultazione.dart';
 import 'il_piano_del_respiro.dart';
 import 'il_senso_del_respiro.dart';
-import 'la_bussola_della_luna.dart';
 import 'la_collana_delle_lune_screen.dart';
 import 'la_geometria_della_luna_dipinta.dart';
 
@@ -66,7 +66,8 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
       this.now,
       this.dialAMoon,
       this.posizione,
-      this.fabbricaDellaScena});
+      this.fabbricaDellaScena,
+      this.rilevatore});
 
   /// L'istante da cui si calcola la fase: sostituibile nelle prove.
   final DateTime? now;
@@ -83,6 +84,10 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
   /// Chi fa il video di scena: iniettabile per le prove di FXA.08, che
   /// guardano cosa si vede mentre il video gira. Senza, il video vero.
   final FabbricaDiScena? fabbricaDellaScena;
+
+  /// Chi sente il soffio nel microfono: iniettabile per le prove di FY.06,
+  /// che soffiano con un rilevatore finto. Senza, il microfono vero.
+  final BreathDetector? rilevatore;
 
   static Route<void> route({DateTime? now}) =>
       PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -119,7 +124,15 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   static const Duration _graziaDelMicrofono = Duration(milliseconds: 700);
 
   late final IlRespiroDellaLuna _flag = IlRespiroDellaLuna();
-  final BreathDetector _mic = BreathDetector();
+
+  /// **IL SOFFIO, NON IL VOLUME** (ordine FY voce FY.06). Il fondatore: "Il
+  /// respiro non funziona ne con microfono né con gesto". Il rilevatore
+  /// misurava il volume grezzo, e un respiro alla distanza di un telefono
+  /// non arriva alla soglia di 0,12: il microfono non sentiva niente. Adesso
+  /// conta la forma dell'aria (`soloAria`, la stessa misura del Soffio del
+  /// Destino e del rito del sogno), che vale uno quando passa il fiato.
+  late final BreathDetector _mic =
+      widget.rilevatore ?? BreathDetector(soloAria: true);
   late final RegiaDellaScena _regia = RegiaDellaScena(
       widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(_video));
   late final TempiDelRespiroDellaLuna _tempi =
@@ -164,6 +177,11 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   bool _hoVistoPieno = false;
   int _cicliCompiuti = 0;
   bool _finito = false;
+
+  /// Lo scorrimento della schermata intera (FY.04) e se la Luna e' fissa in
+  /// cima perche' la scena e' uscita in alto.
+  final ScrollController _scorrimento = ScrollController();
+  bool _lunaFissa = false;
 
   /// **LA PRIMA APERTURA** (FXA.07): finche' non si e' letta, Medora dice
   /// in due righe che cosa si ottiene. Nullo finche' la preferenza non
@@ -369,8 +387,11 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   /// e' il ripiego dell'altro.
   void _aggiornaFase() {
     final dentro = _tenutoGiu || _respiroSentito;
-    if (dentro == _inFaseDiInspiro || _finito) return;
-    _inFaseDiInspiro = dentro;
+    if (!mounted || dentro == _inFaseDiInspiro || _finito) return;
+    // Si ridisegna: il gesto del momento scritto sulla scena ("Inspira",
+    // "Espira") deve cambiare col dito (FY.06; prima restava fermo, preso
+    // dalla prova del rito col dito).
+    setState(() => _inFaseDiInspiro = dentro);
     _luce.animateTo(dentro ? 1.0 : 0.0,
         duration: dentro ? _tempi.inspiro : _tempi.espiro,
         curve: Curves.easeInOut);
@@ -399,6 +420,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     unawaited(_mic.dispose());
     _luce.dispose();
     _comparsa.dispose();
+    _scorrimento.dispose();
     _regia.removeListener(_quandoLaScenaCambia);
     _regia.dispose();
     super.dispose();
@@ -450,24 +472,14 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   double _tratto(double da, double a) =>
       Interval(da, a, curve: Curves.easeOut).transform(_comparsa.value);
 
-  void _scegliLaVoce(BuildContext context, VoceDellaLuna v, Tier tier) {
-    switch (v) {
-      case VoceDellaLuna.luna:
-      case VoceDellaLuna.respiro:
-        setState(() => _voce = v);
-      case VoceDellaLuna.bussola:
-        if (IlPianoDelRespiro.respiroInsiemeAperto(tier)) {
-          Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
-            (_) => _SchermataDellaBussola(luogo: _luogo),
-          ));
-        } else {
-          // Mai un vicolo cieco: la voce si vede col lucchetto, e il tocco
-          // dice di chi e' e dove si apre.
-          unawaited(_invitaAlPiano(
-              context,
-              'La Bussola della Luna, che ti indica la Luna vera dove sei, '
-              'è esclusiva dei piani Adepto e Illuminato.'));
-        }
+  void _scegliLaVoce(BuildContext context, VoceDellaLuna v) {
+    setState(() => _voce = v);
+    // **MEDORA TORNA COL RESPIRO** (ordine FY voce FY.05). Il fondatore:
+    // "Medora torna quando utente fa click su "respiro"". La scena si
+    // riporta in cima, intera, e il rito si fa davanti a lei.
+    if (v == VoceDellaLuna.respiro && _scorrimento.hasClients) {
+      unawaited(_scorrimento.animateTo(0,
+          duration: const Duration(milliseconds: 450), curve: Curves.easeOut));
     }
   }
 
@@ -541,13 +553,17 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     final datiVisti = _tratto(0.25, 0.6);
     final medoraVista = _tratto(0.5, 0.8);
     final respiroVisto = _tratto(0.7, 1);
+    final nelRito = _voce == VoceDellaLuna.respiro;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: palette.deepest,
       appBar: AppBar(
         toolbarHeight: altezzaDellaBarraDelRespiro(context),
-        backgroundColor: palette.deepest,
+        // SEMITRASPARENTE IN OGNI STATO (ordine FY voce FY.20): il velo
+        // comune delle barre del titolo, mai il pieno.
+        backgroundColor:
+            palette.deepest.withValues(alpha: AppTheme.veloDellaBarra),
         elevation: 0,
         // **NESSUNA ICONA DI MATERIAL QUI DENTRO.** Ordine FV, guardia
         // la_grafica_del_lunario_e_dipinta_test: dentro lib/features/lunario
@@ -557,8 +573,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
         iconTheme: IconThemeData(color: palette.goldSoft),
         // **IL TITOLO NON SI TRONCA.** `TitoloCheNonSiRompe` va a capo
         // invece di tagliare; nella barra stanno solo le icone comuni (le
-        // fonti e il cuore che aggiunge `SogliaArte`): "Altro" non c'e' piu',
-        // le sue voci sono la barra in basso (FXA.09).
+        // fonti e il cuore che aggiunge `SogliaArte`).
         title: TitoloCheNonSiRompe(
             testo: 'Il Respiro della Luna',
             stile: TypographyTokens.titoloDiSchermata()),
@@ -591,190 +606,254 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
         onSalta: _regia.salta,
         child: LayoutBuilder(builder: (context, box) {
           final w = box.maxWidth;
-          final h = box.maxHeight;
           final sopra = MediaQuery.paddingOf(context).top;
           final sotto = MediaQuery.paddingOf(context).bottom;
           // **LA SCENA, A TUTTA LARGHEZZA, SOTTO LA CITTA'.** Il fotogramma
           // e' 1080 per 1920: largo quanto lo schermo, la sua altezza segue.
+          // Le misure qui sono nel sistema della scena, che adesso scorre:
+          // la cima e' `sopra`, sotto la barra del titolo e la citta'.
           final scena = Rect.fromLTWH(0, sopra, w, w * 1920 / 1080);
           final disco = GeometriaDellaLunaDipinta.discoSulloSchermo(scena.size)
               .shift(scena.topLeft);
           final lato = disco.width / GeometriaDellaLunaDipinta.discoNellaFoto;
           final foto =
               Rect.fromCenter(center: disco.center, width: lato, height: lato);
-          // **IL VISO NON SI COPRE.** Sotto le spalle di Medora (riga 1080
-          // del fotogramma) cominciano il righello e i dati; mai sopra il
-          // mento (riga 1000), anche su uno schermo basso.
           final barra = LaBarraDellaLuna.altezza + sotto + SpacingTokens.sm;
-          final taglio = math.max(
-              scena.top + 1000 * w / 1080,
-              math.min(scena.top + 1080 * w / 1080,
-                  h - barra - IlRighelloDelTempo.altezza - 140));
-          final inizioDeiDati = _voce == VoceDellaLuna.luna
-              ? taglio + IlRighelloDelTempo.altezza
-              : taglio;
-          return Stack(
+          // **SCORRE TUTTO, LA LUNA RESTA** (ordine FY voce FY.04). Il
+          // fondatore: "Non vogliono riquadro a scorrimento, semplicemente
+          // scorre tutto compreso Medora, ma la luna resta sempre presente".
+          // Nella voce Luna la scena arriva alle spalle di Medora (riga 1080
+          // del fotogramma) e sotto vengono il righello e i dati; nella voce
+          // Respiro la scena e' intera, Medora tutta, e il rito si fa davanti
+          // a lei (FY.05).
+          final fineDellaScena =
+              nelRito ? scena.bottom : scena.top + 1080 * w / 1080;
+          // Quando il disco della Luna esce in alto, la Luna si fissa in
+          // cima, piu' piccola, col nome della fase e la percentuale.
+          final sogliaDellaLunaFissa = disco.bottom - sopra - 24;
+
+          final laScena = SizedBox(
             key: const Key('respiro_scena'),
-            children: [
-              // LA SCENA. A scena ferma il fondo e' il cielo senza Luna: la
-              // Luna e' quella vera, nel disco dove la pittura aveva la sua.
-              Positioned.fromRect(
-                rect: scena,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.asset(_cieloSenzaLuna,
-                        key: const Key('respiro_cielo_senza_luna'),
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) =>
-                            ColoredBox(color: palette.deepest)),
-                    if (!ferma)
-                      Image.asset(_primoFotogramma,
+            height: fineDellaScena,
+            width: w,
+            child: Stack(
+              clipBehavior: Clip.hardEdge,
+              children: [
+                // LA SCENA. A scena ferma il fondo e' il cielo senza Luna: la
+                // Luna e' quella vera, nel disco dove la pittura aveva la sua.
+                Positioned.fromRect(
+                  rect: scena,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(_cieloSenzaLuna,
+                          key: const Key('respiro_cielo_senza_luna'),
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) =>
-                              const SizedBox.shrink()),
-                    if (_regia.filmatoInScena && (!ferma || _regia.saltata))
-                      IlFilmatoCheSfuma(
-                        key: const Key('respiro_filmato'),
-                        saltato: _regia.saltata,
-                        child: _regia.disegna(),
+                              ColoredBox(color: palette.deepest)),
+                      if (!ferma)
+                        Image.asset(_primoFotogramma,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                const SizedBox.shrink()),
+                      if (_regia.filmatoInScena && (!ferma || _regia.saltata))
+                        IlFilmatoCheSfuma(
+                          key: const Key('respiro_filmato'),
+                          saltato: _regia.saltata,
+                          child: _regia.disegna(),
+                        ),
+                    ],
+                  ),
+                ),
+                // **3. LA LUNA VERA, NEL DISCO DIPINTO.** Una sola Luna: la
+                // foto di quest'ora prende il posto di quella della pittura,
+                // della stessa misura, senza il fondo nero della foto (FY.03).
+                // Nella voce Respiro si accende con l'inspiro e si vela con
+                // l'espiro, e il dito respira toccandola.
+                if (ferma)
+                  Positioned.fromRect(
+                    rect: foto,
+                    child: Opacity(
+                      opacity: luna,
+                      child: Listener(
+                        key: const Key('respiro_la_luna_si_tocca'),
+                        behavior: HitTestBehavior.opaque,
+                        onPointerDown: (_) {
+                          if (nelRito) _tocca(true);
+                        },
+                        onPointerUp: (_) => _tocca(false),
+                        onPointerCancel: (_) => _tocca(false),
+                        child: AnimatedBuilder(
+                          animation: _luce,
+                          builder: (context, _) {
+                            final quanto = nelRito ? _luce.value : 1.0;
+                            return Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.center,
+                              children: [
+                                if (nelRito)
+                                  _AnelloDiLuce(
+                                      quanto: quanto,
+                                      immagine: _perlaAccesa,
+                                      raggio: lato * 0.6),
+                                Opacity(
+                                  // Mai del tutto nera: velata, non spenta.
+                                  // Al 55 per cento a riposo (FY.06): al 32 la falce senza
+                                  // fondo nero quasi spariva, e chi leggeva "Tieni premuto
+                                  // sulla Luna" non vedeva dove premere.
+                                  opacity: 0.55 + 0.45 * quanto,
+                                  child: _laFotoDellaLuna(lato,
+                                      chiave: const Key('respiro_luna_vera')),
+                                ),
+                                if (!nelRito)
+                                  Padding(
+                                    padding: EdgeInsets.all(lato * 0.2),
+                                    child: IlTestoSullaLuna(
+                                      istante: _tempoVisto,
+                                      percentuale:
+                                          consultazione.dati.percentualeDiLuce,
+                                    ),
+                                  ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                // **2. LA FASE**, sopra la Luna, nel cielo.
+                if (ferma)
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: scena.top + 2,
+                    child: Opacity(
+                      opacity: luna,
+                      child: RigaDellaFase(
+                        nome: consultazione.fase.nome,
+                        palette: palette,
+                        onPrecedente: () => _vaiAllaFase(context,
+                            consultazione.inizioDellaFasePrecedente, tier),
+                        onSuccessiva: () => _vaiAllaFase(context,
+                            consultazione.inizioDellaFaseSuccessiva, tier),
+                      ),
+                    ),
+                  ),
+                // "Adesso" riporta al tempo vero: solo quando il tempo
+                // guardato non e' adesso.
+                if (ferma && scostata && !nelRito)
+                  Positioned(
+                    right: SpacingTokens.sm,
+                    top: disco.bottom - 40,
+                    child: PulsanteDipinto(
+                      key: const Key('respiro_torna_adesso'),
+                      testo: 'Adesso',
+                      altezza: 40,
+                      onTap: _tornaAdesso,
+                    ),
+                  ),
+                // **IL RITO SI VEDE MENTRE SI FA** (FY.06): sotto la Luna,
+                // sul mare, il giro e il gesto del momento. Prima il
+                // conteggio stava nel pannello sotto la scena, che sul Realme
+                // restava fuori dallo schermo: chi teneva premuto non vedeva
+                // niente avanzare e il respiro sembrava non funzionare.
+                if (ferma && nelRito)
+                  Positioned(
+                    left: SpacingTokens.md,
+                    right: SpacingTokens.md,
+                    top: foto.bottom + SpacingTokens.xxs,
+                    child: Opacity(
+                      opacity: respiroVisto,
+                      child: _IlGiroSullaScena(
+                        palette: palette,
+                        finito: _finito,
+                        inspira: _inFaseDiInspiro,
+                        cicli: _cicliCompiuti,
+                        cicliTotali: _tempi.cicliPerUnMinuto,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+
+          return Stack(
+            children: [
+              NotificationListener<ScrollNotification>(
+                onNotification: (n) {
+                  final fissa = n.metrics.pixels > sogliaDellaLunaFissa;
+                  if (fissa != _lunaFissa) setState(() => _lunaFissa = fissa);
+                  return false;
+                },
+                child: CustomScrollView(
+                  key: const Key('respiro_tutto_scorre'),
+                  controller: _scorrimento,
+                  physics: ferma
+                      ? const ClampingScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
+                  slivers: [
+                    SliverToBoxAdapter(child: laScena),
+                    if (ferma && !nelRito)
+                      SliverToBoxAdapter(
+                        child: Opacity(
+                          opacity: datiVisti,
+                          child: IlRighelloDelTempo(
+                            tempoVisto: _tempoVisto,
+                            onTrascina: (dx) => _trascinaIlRighello(dx, tier),
+                          ),
+                        ),
+                      ),
+                    if (ferma)
+                      SliverPadding(
+                        padding: EdgeInsets.fromLTRB(SpacingTokens.md,
+                            SpacingTokens.sm, SpacingTokens.md, barra),
+                        sliver: SliverToBoxAdapter(
+                          child: KeyedSubtree(
+                            key: const Key('respiro_i_dati_scorrono'),
+                            child: nelRito
+                                ? _ilRito(
+                                    context, palette, parola, respiroVisto)
+                                : _laConsultazione(
+                                    context,
+                                    palette,
+                                    consultazione,
+                                    parola,
+                                    datiVisti,
+                                    medoraVista,
+                                    tier),
+                          ),
+                        ),
                       ),
                   ],
                 ),
               ),
-              // **3. LA LUNA VERA, NEL DISCO DIPINTO.** Una sola Luna: la foto
-              // di quest'ora prende il posto di quella della pittura, della
-              // stessa misura; il ritaglio tondo toglie gli angoli neri della
-              // foto. Nella voce Respiro si accende con l'inspiro e si vela
-              // con l'espiro, e il dito respira toccandola.
-              if (ferma)
-                Positioned.fromRect(
-                  rect: foto,
-                  child: Opacity(
-                    opacity: luna,
-                    child: Listener(
-                      behavior: HitTestBehavior.opaque,
-                      onPointerDown: (_) {
-                        if (_voce == VoceDellaLuna.respiro) _tocca(true);
-                      },
-                      onPointerUp: (_) => _tocca(false),
-                      onPointerCancel: (_) => _tocca(false),
-                      child: AnimatedBuilder(
-                        animation: _luce,
-                        builder: (context, _) {
-                          final quanto = _voce == VoceDellaLuna.respiro
-                              ? _luce.value
-                              : 1.0;
-                          return Stack(
-                            clipBehavior: Clip.none,
-                            alignment: Alignment.center,
-                            children: [
-                              if (_voce == VoceDellaLuna.respiro)
-                                _AnelloDiLuce(
-                                    quanto: quanto,
-                                    immagine: _perlaAccesa,
-                                    raggio: lato * 0.6),
-                              Opacity(
-                                // Mai del tutto nera: velata, non spenta.
-                                opacity: 0.32 + 0.68 * quanto,
-                                child: _fotoVista == null
-                                    ? const SizedBox.expand()
-                                    : ClipOval(
-                                        clipper: const _RitaglioDellaFoto(),
-                                        child: Transform.rotate(
-                                          angle:
-                                              _fotoVista!.ruota ? math.pi : 0,
-                                          child: Image(
-                                            image: _fotoVista!.immagine,
-                                            key: const Key('respiro_luna_vera'),
-                                            width: lato,
-                                            height: lato,
-                                            fit: BoxFit.contain,
-                                            errorBuilder: (_, __, ___) =>
-                                                const SizedBox.shrink(),
-                                          ),
-                                        ),
-                                      ),
-                              ),
-                              if (_voce == VoceDellaLuna.luna)
-                                Padding(
-                                  padding: EdgeInsets.all(lato * 0.2),
-                                  child: IlTestoSullaLuna(
-                                    istante: _tempoVisto,
-                                    percentuale:
-                                        consultazione.dati.percentualeDiLuce,
-                                  ),
-                                ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              // **2. LA FASE**, sopra la Luna, nel cielo.
+              // **LA LUNA FISSA IN CIMA** (FY.04): quando la scena e' uscita
+              // in alto, la Luna resta, piu' piccola, col nome della fase e
+              // la percentuale.
               if (ferma)
                 Positioned(
-                  left: 0,
-                  right: 0,
-                  top: scena.top + 2,
-                  child: Opacity(
-                    opacity: luna,
-                    child: RigaDellaFase(
-                      nome: consultazione.fase.nome,
-                      palette: palette,
-                      onPrecedente: () => _vaiAllaFase(context,
-                          consultazione.inizioDellaFasePrecedente, tier),
-                      onSuccessiva: () => _vaiAllaFase(context,
-                          consultazione.inizioDellaFaseSuccessiva, tier),
-                    ),
-                  ),
-                ),
-              // "Adesso" riporta al tempo vero: solo quando il tempo guardato
-              // non e' adesso.
-              if (ferma && scostata && _voce == VoceDellaLuna.luna)
-                Positioned(
+                  left: SpacingTokens.sm,
                   right: SpacingTokens.sm,
-                  top: disco.bottom - 40,
-                  child: PulsanteDipinto(
-                    key: const Key('respiro_torna_adesso'),
-                    testo: 'Adesso',
-                    altezza: 40,
-                    onTap: _tornaAdesso,
-                  ),
-                ),
-              // **4. IL RIGHELLO**, sotto le spalle di Medora.
-              if (ferma && _voce == VoceDellaLuna.luna)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: taglio,
-                  child: Opacity(
-                    opacity: datiVisti,
-                    child: IlRighelloDelTempo(
-                      tempoVisto: _tempoVisto,
-                      onTrascina: (dx) => _trascinaIlRighello(dx, tier),
-                    ),
-                  ),
-                ),
-              // **5. I DATI, O IL RITO.** Scorrono sotto la scena, che resta
-              // ferma in alto: oltre il taglio non salgono.
-              if (ferma)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: inizioDeiDati,
-                  bottom: barra,
-                  child: ClipRect(
-                    child: SingleChildScrollView(
-                      key: const Key('respiro_i_dati_scorrono'),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: SpacingTokens.md,
-                          vertical: SpacingTokens.sm),
-                      child: _voce == VoceDellaLuna.luna
-                          ? _laConsultazione(context, palette, consultazione,
-                              parola, datiVisti, medoraVista, tier)
-                          : _ilRito(context, palette, parola, respiroVisto),
+                  top: sopra + SpacingTokens.xxs,
+                  child: IgnorePointer(
+                    ignoring: !_lunaFissa,
+                    child: AnimatedOpacity(
+                      opacity: _lunaFissa ? 1 : 0,
+                      duration: const Duration(milliseconds: 250),
+                      child: GestureDetector(
+                        key: const Key('respiro_luna_fissa'),
+                        onTap: () => _scorrimento.animateTo(0,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeOut),
+                        child: RigaDelDato(
+                          palette: palette,
+                          ritratto: _laFotoDellaLuna(30),
+                          etichetta: consultazione.fase.nome,
+                          valore:
+                              '${(consultazione.dati.percentualeDiLuce * 100).round()}% '
+                              'di luce, ${IlTempoDetto.ora(_tempoVisto)}',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -790,9 +869,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                       ignoring: respiroVisto < 0.5,
                       child: LaBarraDellaLuna(
                         voce: _voce,
-                        bussolaChiusa:
-                            !IlPianoDelRespiro.respiroInsiemeAperto(tier),
-                        onVoce: (v) => _scegliLaVoce(context, v, tier),
+                        onVoce: (v) => _scegliLaVoce(context, v),
                       ),
                     ),
                   ),
@@ -802,6 +879,15 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
         }),
       ),
     );
+  }
+
+  /// La foto della Luna di quest'ora, senza il fondo nero (FY.03): vedi
+  /// [LaLunaSenzaFondoNero].
+  Widget _laFotoDellaLuna(double lato, {Key? chiave}) {
+    final foto = _fotoVista;
+    if (foto == null) return SizedBox(width: lato, height: lato);
+    return LaLunaSenzaFondoNero(
+        immagine: foto.immagine, lato: lato, ruota: foto.ruota, chiave: chiave);
   }
 
   /// La voce Luna: i dati, la riga di Medora sotto di loro, gli avvisi.
@@ -1076,7 +1162,8 @@ class _PannelloDelGesto extends StatelessWidget {
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.xxs),
               Text(
-                  'Oppure respira, il microfono ti ascolta. Giro '
+                  'Oppure soffia piano verso il telefono: la Luna si accende '
+                  'col soffio e si vela quando smetti. Giro '
                   '${cicli + 1} di $cicliTotali',
                   key: const Key('respiro_conteggio'),
                   textAlign: TextAlign.center,
@@ -1139,45 +1226,6 @@ class _PannelloCompiuto extends StatelessWidget {
   }
 }
 
-/// La Bussola della Luna, in una sua schermata: il widget di FX.06 vuole
-/// solo il luogo, il resto (sensori, ripiego) lo fa da solo.
-class _SchermataDellaBussola extends StatelessWidget {
-  const _SchermataDellaBussola({required this.luogo});
-
-  final LuogoAttuale? luogo;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    return Scaffold(
-      backgroundColor: palette.deepest,
-      appBar: AppBar(
-        toolbarHeight: altezzaDellaBarraDelRespiro(context),
-        backgroundColor: palette.deepest,
-        elevation: 0,
-        iconTheme: IconThemeData(color: palette.goldSoft),
-        title: TitoloCheNonSiRompe(
-            testo: 'Dov\'è la Luna adesso',
-            stile: TypographyTokens.titoloDiSchermata()),
-      ),
-      body: luogo == null
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(SpacingTokens.lg),
-                child: Text(
-                    'Serve sapere dove sei per indicare la Luna: dallo il '
-                    'permesso di posizione o scegli una città dal tuo '
-                    'profilo.',
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 14)
-                        .copyWith(color: Colors.white.withValues(alpha: 0.8))),
-              ),
-            )
-          : Center(child: LaBussolaDellaLuna(luogo: luogo!)),
-    );
-  }
-}
-
 /// Il foglio degli avvisi (FX.08): due interruttori, sul modello dei
 /// promemoria del Calendario Lunare.
 class _FoglioDegliAvvisi extends StatefulWidget {
@@ -1209,6 +1257,18 @@ class _FoglioDegliAvvisiState extends State<_FoglioDegliAvvisi> {
         builder: (context, _) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // **GLI AVVISI DETTI CHIARI** (ordine FY voce FY.09). Il
+            // fondatore: "gli avvisi della luna non si capisce a cosa
+            // servono". Un titolo che dice che cosa sono, e sotto ogni
+            // interruttore che cosa arriva e quando.
+            Text(
+                'Gli avvisi della Luna arrivano sul telefono anche quando '
+                'l\'app è chiusa.',
+                key: const Key('respiro_avvisi_spiegati'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: coloreSulVelluto)),
+            const SizedBox(height: SpacingTokens.sm),
             InterruttoreDelCerchio(
               key: const Key('respiro_avviso_sorgere'),
               acceso: _avvisi.lunaCheSorge,
@@ -1216,6 +1276,9 @@ class _FoglioDegliAvvisiState extends State<_FoglioDegliAvvisi> {
                   ? (v) => _avvisi.impostaLunaCheSorge(v, luogo: widget.luogo)
                   : null,
               titolo: 'La Luna che sorge',
+              sottotitolo: widget.luogo == null
+                  ? 'Ti avviso quando la Luna sorge dove sei'
+                  : 'Ti avviso quando la Luna sorge a ${widget.luogo!.citta}',
             ),
             InterruttoreDelCerchio(
               key: const Key('respiro_avviso_sizigie'),
@@ -1225,6 +1288,8 @@ class _FoglioDegliAvvisiState extends State<_FoglioDegliAvvisi> {
                       _avvisi.impostaLuneNuoveEPiene(v, luogo: widget.luogo)
                   : null,
               titolo: 'Luna piena, nuova e Superluna',
+              sottotitolo: 'Ti avviso all\'ora esatta della Luna piena e della '
+                  'Luna nuova. Ti avviso quando arriva una Superluna.',
             ),
           ],
         ),
@@ -1398,6 +1463,115 @@ class _LaRigaDelSenso extends StatelessWidget {
             style: TypographyTokens.etichetta()
                 .copyWith(color: coloreSulVelluto.withValues(alpha: 0.7))),
       ],
+    );
+  }
+}
+
+/// **IL GIRO, SCRITTO SULLA SCENA** (ordine FY voce FY.06): sotto la Luna,
+/// in grande, il gesto del momento e il giro. Chi tiene premuto vede subito
+/// che il rito avanza, senza scorrere fino al pannello.
+class _IlGiroSullaScena extends StatelessWidget {
+  const _IlGiroSullaScena({
+    required this.palette,
+    required this.finito,
+    required this.inspira,
+    required this.cicli,
+    required this.cicliTotali,
+  });
+
+  final MaestroPalette palette;
+  final bool finito;
+  final bool inspira;
+  final int cicli;
+  final int cicliTotali;
+
+  @override
+  Widget build(BuildContext context) {
+    final gesto = finito
+        ? 'Respiro compiuto'
+        : inspira
+            ? 'Inspira'
+            : cicli == 0
+                ? 'Tieni premuto sulla Luna'
+                : 'Espira';
+    final sotto = finito
+        ? 'La perla di oggi è accesa nella tua Collana'
+        : 'Giro ${cicli + 1} di $cicliTotali';
+    return IgnorePointer(
+      child: Column(
+        key: const Key('respiro_giro_sulla_scena'),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(gesto,
+                key: const Key('respiro_gesto_del_momento'),
+                style: TypographyTokens.titoloSezione().copyWith(
+                    color: palette.goldSoft, shadows: ombraSullaScena)),
+          ),
+          Text(sotto,
+              key: const Key('respiro_giro'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: Colors.white, shadows: ombraSullaScena)),
+        ],
+      ),
+    );
+  }
+}
+
+/// **LA FOTO DELLA LUNA, SENZA IL FONDO NERO** (ordine FY voce FY.03). Il
+/// fondatore: "La luna presenta una cornice contorno nero". La foto della
+/// NASA e' un JPEG col cielo nero e la parte in ombra nera: il ritaglio
+/// tondo di FXA.09 toglieva gli angoli ma lasciava l'anello nero fra il
+/// disco e il ritaglio, e la parte in ombra come un disco nero sul cielo
+/// dipinto. Adesso la luce della foto diventa la sua opacita' (il nero e'
+/// trasparente, il grigio della superficie resta pieno): sul cielo resta
+/// solo cio' che la Luna illumina davvero, come nel cielo vero.
+class LaLunaSenzaFondoNero extends StatelessWidget {
+  const LaLunaSenzaFondoNero({
+    super.key,
+    required this.immagine,
+    required this.lato,
+    this.ruota = false,
+    this.chiave,
+  });
+
+  final ImageProvider immagine;
+  final double lato;
+  final bool ruota;
+
+  /// La chiave dell'immagine, quella che le prove cercano.
+  final Key? chiave;
+
+  /// La matrice che porta la luce in opacita': i tre colori restano, l'alfa
+  /// e' quattro volte la luminanza (Rec. 709), cosi' un grigio medio della
+  /// superficie e' gia' pieno e solo il nero del fondo e dell'ombra sparisce.
+  static const List<double> laLuceDiventaOpacita = [
+    1, 0, 0, 0, 0, //
+    0, 1, 0, 0, 0, //
+    0, 0, 1, 0, 0, //
+    4 * 0.2126, 4 * 0.7152, 4 * 0.0722, 0, 0,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      clipper: const _RitaglioDellaFoto(),
+      child: Transform.rotate(
+        angle: ruota ? math.pi : 0,
+        child: ColorFiltered(
+          colorFilter: const ColorFilter.matrix(laLuceDiventaOpacita),
+          child: Image(
+            image: immagine,
+            key: chiave,
+            width: lato,
+            height: lato,
+            fit: BoxFit.contain,
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          ),
+        ),
+      ),
     );
   }
 }
