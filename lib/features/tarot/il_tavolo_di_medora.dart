@@ -289,6 +289,7 @@ class TavoloDiMedora extends StatelessWidget {
     this.posa = GeometriaDelTavolo.posaDellInvito,
     this.filmato,
     this.filmatoSaltato = false,
+    this.scenaFerma = true,
   });
 
   final List<PostoSulTavolo> posti;
@@ -306,6 +307,12 @@ class TavoloDiMedora extends StatelessWidget {
   /// **IL VIDEO SALTATO COL TOCCO**, ordine FU voce FU.15: il filmato sfuma
   /// e la posa ferma appare al suo posto, in dissolvenza incrociata.
   final bool filmatoSaltato;
+
+  /// **LA SCENA E' FERMA**, ordine FX voce FXA.08: falso mentre il video si
+  /// prepara o gira. Allora le carte, sul piano, in volo o in piedi, non si
+  /// vedono: sopra il video si vede solo il video, e le carte compaiono in
+  /// dissolvenza quando la scena si ferma ([IlRestoDopoLaScena]).
+  final bool scenaFerma;
 
   /// Le carte, una per posto; nulla dove la carta non e' ancora scelta.
   final List<DrawnCard?> carte;
@@ -478,30 +485,33 @@ class TavoloDiMedora extends StatelessWidget {
                 top: 0,
                 width: piano.width,
                 height: piano.height,
-                child: Transform(
-                  key: chiaveDelPiano,
-                  transform: h,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      for (var i = 0; i < carte.length; i++)
-                        if (carte[i] != null && alzata == 0)
-                          Positioned(
-                            key: ValueKey('tavolo_carta_$i'),
-                            left: sulPiano.angoli[i].dx,
-                            top: sulPiano.angoli[i].dy,
-                            width: sulPiano.larghezza,
-                            height: sulPiano.larghezza / kAspettoDellaCarta,
-                            child: _CartaSulTavolo(
-                              carta: carte[i]!,
-                              girata: girata?.call(i) ?? 0,
-                              luce: chiave == i,
-                              diTraverso: posti[i].diTraverso,
-                              palette: palette,
-                              faccia: faccia,
+                child: IlRestoDopoLaScena(
+                  scenaFerma: scenaFerma,
+                  child: Transform(
+                    key: chiaveDelPiano,
+                    transform: h,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        for (var i = 0; i < carte.length; i++)
+                          if (carte[i] != null && alzata == 0)
+                            Positioned(
+                              key: ValueKey('tavolo_carta_$i'),
+                              left: sulPiano.angoli[i].dx,
+                              top: sulPiano.angoli[i].dy,
+                              width: sulPiano.larghezza,
+                              height: sulPiano.larghezza / kAspettoDellaCarta,
+                              child: _CartaSulTavolo(
+                                carta: carte[i]!,
+                                girata: girata?.call(i) ?? 0,
+                                luce: chiave == i,
+                                diTraverso: posti[i].diTraverso,
+                                palette: palette,
+                                faccia: faccia,
+                              ),
                             ),
-                          ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -515,24 +525,27 @@ class TavoloDiMedora extends StatelessWidget {
                     top: 0,
                     width: fila.larghezza,
                     height: fila.larghezza / kAspettoDellaCarta,
-                    child: Transform(
-                      transform: _fraIDue(
-                        h.clone()
-                          ..translateByDouble(sulPiano.angoli[i].dx,
-                              sulPiano.angoli[i].dy, 0, 1)
-                          ..scaleByDouble(sulPiano.larghezza / fila.larghezza,
-                              sulPiano.larghezza / fila.larghezza, 1, 1),
-                        Matrix4.translationValues(
-                            fila.carte[i].left, fila.carte[i].top, 0),
-                        Curves.easeInOutCubic.transform(alzata),
-                      ),
-                      child: _CartaSulTavolo(
-                        carta: carte[i]!,
-                        girata: 1,
-                        luce: chiave == i,
-                        diTraverso: false,
-                        palette: palette,
-                        faccia: faccia,
+                    child: IlRestoDopoLaScena(
+                      scenaFerma: scenaFerma,
+                      child: Transform(
+                        transform: _fraIDue(
+                          h.clone()
+                            ..translateByDouble(sulPiano.angoli[i].dx,
+                                sulPiano.angoli[i].dy, 0, 1)
+                            ..scaleByDouble(sulPiano.larghezza / fila.larghezza,
+                                sulPiano.larghezza / fila.larghezza, 1, 1),
+                          Matrix4.translationValues(
+                              fila.carte[i].left, fila.carte[i].top, 0),
+                          Curves.easeInOutCubic.transform(alzata),
+                        ),
+                        child: _CartaSulTavolo(
+                          carta: carte[i]!,
+                          girata: 1,
+                          luce: chiave == i,
+                          diTraverso: false,
+                          palette: palette,
+                          faccia: faccia,
+                        ),
                       ),
                     ),
                   ),
@@ -543,7 +556,8 @@ class TavoloDiMedora extends StatelessWidget {
                 left: fila.zona.left,
                 top: fila.zona.top - fila.testa,
                 width: fila.zona.width,
-                child: filaAlzata!(context, fila),
+                child: IlRestoDopoLaScena(
+                    scenaFerma: scenaFerma, child: filaAlzata!(context, fila)),
               ),
           ],
         ),

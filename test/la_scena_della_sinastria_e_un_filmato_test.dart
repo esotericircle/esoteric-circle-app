@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **LA SCENA DELLA SINASTRIA EVOLUTIVA E' UN FILMATO.** Ordine FT voce
 /// FT.02, 14 ottobre 2026. Stessa forma della guardia gemella del
 /// Tarocchi, `test/la_scena_della_stesa_e_un_filmato_test.dart` (FS voce
@@ -303,5 +305,18 @@ void main() {
     expect(_posa(tester), GeometriaDelloStudio.posaDelleManiAperte,
         reason: 'saltato il video, la scena ferma e\' l\'ultima posa');
     expect(finta.avvii, 1, reason: 'il video saltato e\' ripartito');
+  });
+
+  testWidgets(
+      'FXA.08: a video in corso sopra lo studio si vede solo il video, e il '
+      'resto compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: 'la Sinastria evolutiva',
+        filmato: find.byKey(const Key('finta_del_filmato_sinastria')),
+        finisci: finta.finisci);
   });
 }

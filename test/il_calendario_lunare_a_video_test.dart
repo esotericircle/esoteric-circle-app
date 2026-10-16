@@ -19,6 +19,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **IL CALENDARIO LUNARE A VIDEO.** Ordine FV voci FV.02, FV.05, FV.06,
 /// FV.07, FV.08 e FV.09: la scena col video e il tocco che lo salta, il mese
 /// di sette colonne dal lunedi' in italiano con oggi riconoscibile e la
@@ -30,7 +32,7 @@ class _Finta implements LettoreDiScena {
   final bool fallira;
   VoidCallback? _ascolta;
   bool _pronto = false, _fallito = false, _cominciato = false;
-  final bool _finito = false;
+  bool _finito = false;
   int aperture = 0, avvii = 0, sospensioni = 0;
 
   @override
@@ -64,6 +66,11 @@ class _Finta implements LettoreDiScena {
 
   void comincia() {
     _cominciato = true;
+    _ascolta?.call();
+  }
+
+  void finisci() {
+    _finito = true;
     _ascolta?.call();
   }
 }
@@ -581,5 +588,18 @@ void main() {
         reason: 'l\'intenzione non va sulla schermata di blocco');
     final p = await SharedPreferences.getInstance();
     expect(p.getString('lunario.intenzioni'), contains('Ritrovare la calma'));
+  });
+
+  testWidgets(
+      'FXA.08: a video in corso sopra il velo si vede solo il video, e il '
+      'mese compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: 'il Calendario Lunare',
+        filmato: find.byKey(const Key('finta_del_filmato_lunario')),
+        finisci: finta.finisci);
   });
 }

@@ -495,72 +495,80 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
           LayoutBuilder(
             builder: (context, vincoli) => _laScena(vincoli.maxWidth, palette),
           ),
-          Padding(
-            padding: const EdgeInsets.all(SpacingTokens.md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (_fase == _Fase.domanda && _sceneFerma) ...[
-                  _PerUnAmico(
-                    palette: palette,
-                    amico: _perUnAmico?.nome,
-                    aperta: PlanCatalog.apre(
-                        RigaDelPiano.oracoloLungaEAmico, _tier),
-                    onChiedi: _chiediPerUnAmico,
-                    onTornaATe: () => setState(() => _perUnAmico = null),
-                    onPresta: _prestaLaNascita,
-                  ),
-                  const SizedBox(height: SpacingTokens.md),
-                ],
-                _LAngeloDellOra(
-                  palette: palette,
-                  adesso: _ora(),
-                  triade: _triade,
-                  corpus: _corpus,
-                ),
-                SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
-                if (_fase == _Fase.risposta && _risposta != null) ...[
-                  _IlResponso(
-                    palette: palette,
-                    risposta: _risposta!,
-                    carte: _carte,
-                    corpus: _corpus,
-                    variante: _consultazioni - 1,
-                    quando: _quando,
-                    assaggio: _assaggio,
-                    amico: _nomeDellAmicoLetto,
-                    onCondividi: _onShare,
-                    onInvito: _invitoAlPiano,
-                  ),
-                  // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
-                  // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
-                  if (!_assaggio &&
-                      !PlanCatalog.apre(
-                          RigaDelPiano.oracoloLungaEAmico, _tier)) ...[
-                    const SizedBox(height: SpacingTokens.sm),
-                    _IlLucchetto(
-                      chiave: 'oracolo_lucchetto_lunga',
+          // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08:
+          // l'angelo dell'ora stava sotto la scena anche a video in corso.
+          // Adesso tutto cio' che sta sotto la scena aspetta la scena ferma
+          // e compare in dissolvenza.
+          IlRestoDopoLaScena(
+            scenaFerma: _sceneFerma,
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingTokens.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (_fase == _Fase.domanda && _sceneFerma) ...[
+                    _PerUnAmico(
                       palette: palette,
-                      testo: 'La risposta lunga: Medora va più a fondo '
-                          'nel legame fra la tua domanda e le tre carte',
-                      onTap: () => _invitoAlPiano(
-                          RigaDelPiano.oracoloLungaEAmico, 'La risposta lunga'),
+                      amico: _perUnAmico?.nome,
+                      aperta: PlanCatalog.apre(
+                          RigaDelPiano.oracoloLungaEAmico, _tier),
+                      onChiedi: _chiediPerUnAmico,
+                      onTornaATe: () => setState(() => _perUnAmico = null),
+                      onPresta: _prestaLaNascita,
+                    ),
+                    const SizedBox(height: SpacingTokens.md),
+                  ],
+                  _LAngeloDellOra(
+                    palette: palette,
+                    adesso: _ora(),
+                    triade: _triade,
+                    corpus: _corpus,
+                  ),
+                  SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
+                  if (_fase == _Fase.risposta && _risposta != null) ...[
+                    _IlResponso(
+                      palette: palette,
+                      risposta: _risposta!,
+                      carte: _carte,
+                      corpus: _corpus,
+                      variante: _consultazioni - 1,
+                      quando: _quando,
+                      assaggio: _assaggio,
+                      amico: _nomeDellAmicoLetto,
+                      onCondividi: _onShare,
+                      onInvito: _invitoAlPiano,
+                    ),
+                    // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
+                    // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
+                    if (!_assaggio &&
+                        !PlanCatalog.apre(
+                            RigaDelPiano.oracoloLungaEAmico, _tier)) ...[
+                      const SizedBox(height: SpacingTokens.sm),
+                      _IlLucchetto(
+                        chiave: 'oracolo_lucchetto_lunga',
+                        palette: palette,
+                        testo: 'La risposta lunga: Medora va più a fondo '
+                            'nel legame fra la tua domanda e le tre carte',
+                        onTap: () => _invitoAlPiano(
+                            RigaDelPiano.oracoloLungaEAmico,
+                            'La risposta lunga'),
+                      ),
+                    ],
+                    const SizedBox(height: SpacingTokens.lg),
+                    Center(
+                      child: OutlinedButton(
+                        key: const Key('oracolo_nuova_domanda'),
+                        onPressed: _nuovaDomanda,
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: palette.goldSoft,
+                            side: BorderSide(color: palette.goldSoft)),
+                        child: const Text('Affida una nuova domanda'),
+                      ),
                     ),
                   ],
-                  const SizedBox(height: SpacingTokens.lg),
-                  Center(
-                    child: OutlinedButton(
-                      key: const Key('oracolo_nuova_domanda'),
-                      onPressed: _nuovaDomanda,
-                      style: OutlinedButton.styleFrom(
-                          foregroundColor: palette.goldSoft,
-                          side: BorderSide(color: palette.goldSoft)),
-                      child: const Text('Affida una nuova domanda'),
-                    ),
-                  ),
+                  const SizedBox(height: SpacingTokens.xxl),
                 ],
-                const SizedBox(height: SpacingTokens.xxl),
-              ],
+              ),
             ),
           ),
         ],

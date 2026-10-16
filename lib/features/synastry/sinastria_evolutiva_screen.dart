@@ -253,6 +253,14 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     }
   }
 
+  /// **LA SCENA E' FERMA**, ordine FX voce FXA.08: il video non c'e', non
+  /// si e' caricato, e' finito o e' stato saltato. Finche' e' falso, sopra
+  /// lo studio si vede solo il video ([IlRestoDopoLaScena]).
+  bool get _scenaFerma {
+    final l = _lettore;
+    return l == null || l.fallito || l.finito || _filmatoSaltato;
+  }
+
   Widget? get _filmatoInScena {
     final l = _lettore;
     if (l == null || l.fallito || !l.cominciato) return null;
@@ -436,122 +444,131 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(SpacingTokens.md),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            _LaCoppia(
-                              palette: palette,
-                              coppia: _coppia,
-                              nomeSuo: widget.nomeSuo,
-                              segno: _segnoDellaCoppia,
-                            ),
-                            if (_laLunaTace != null) ...[
-                              const SizedBox(height: SpacingTokens.sm),
-                              Text(_laLunaTace!,
-                                  key: const Key('sinastria_ora_non_nota'),
-                                  textAlign: TextAlign.center,
-                                  style: TypographyTokens.didascalia().copyWith(
-                                      color: ColorTokens.textSecondary,
-                                      fontStyle: FontStyle.italic)),
-                            ],
-                            const SizedBox(height: SpacingTokens.md),
-                            _ILegami(
-                              palette: palette,
-                              scelto: _legame,
-                              amoreApribile: _amoreApribile,
-                              onScegli: _scegliIlLegame,
-                            ),
-                            const SizedBox(height: SpacingTokens.lg),
-                            _OggiFraVoiCard(
-                                palette: palette, oggi: _oggiFraVoi),
-                            const SizedBox(height: SpacingTokens.lg),
-                            for (var i = 0; i < capitoli.length; i++) ...[
-                              if (tuttiICapitoli || i < 2)
-                                _IlCapitolo(
-                                    palette: palette, capitolo: capitoli[i])
+                      // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce
+                      // FXA.08: la coppia, i legami e i capitoli aspettano la
+                      // scena ferma e compaiono in dissolvenza.
+                      IlRestoDopoLaScena(
+                        scenaFerma: _scenaFerma,
+                        child: Padding(
+                          padding: const EdgeInsets.all(SpacingTokens.md),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _LaCoppia(
+                                palette: palette,
+                                coppia: _coppia,
+                                nomeSuo: widget.nomeSuo,
+                                segno: _segnoDellaCoppia,
+                              ),
+                              if (_laLunaTace != null) ...[
+                                const SizedBox(height: SpacingTokens.sm),
+                                Text(_laLunaTace!,
+                                    key: const Key('sinastria_ora_non_nota'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(
+                                            color: ColorTokens.textSecondary,
+                                            fontStyle: FontStyle.italic)),
+                              ],
+                              const SizedBox(height: SpacingTokens.md),
+                              _ILegami(
+                                palette: palette,
+                                scelto: _legame,
+                                amoreApribile: _amoreApribile,
+                                onScegli: _scegliIlLegame,
+                              ),
+                              const SizedBox(height: SpacingTokens.lg),
+                              _OggiFraVoiCard(
+                                  palette: palette, oggi: _oggiFraVoi),
+                              const SizedBox(height: SpacingTokens.lg),
+                              for (var i = 0; i < capitoli.length; i++) ...[
+                                if (tuttiICapitoli || i < 2)
+                                  _IlCapitolo(
+                                      palette: palette, capitolo: capitoli[i])
+                                else
+                                  _Chiuso(
+                                    chiave:
+                                        'capitolo_${capitoli[i].capitolo.name}',
+                                    palette: palette,
+                                    immagine: capitoli[i].capitolo.medaglione,
+                                    titolo: capitoli[i].capitolo.nome,
+                                    onApri: () => _invito(
+                                        'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
+                                        (t) => PlanCatalog.apre(
+                                            RigaDelPiano.capitoliDellaSinastria,
+                                            t)),
+                                  ),
+                                const SizedBox(height: SpacingTokens.lg),
+                              ],
+                              if (keplero)
+                                _Keplero(
+                                    palette: palette,
+                                    corde: _corde,
+                                    nomeSuo: widget.nomeSuo)
                               else
                                 _Chiuso(
-                                  chiave:
-                                      'capitolo_${capitoli[i].capitolo.name}',
+                                  chiave: 'keplero',
                                   palette: palette,
-                                  immagine: capitoli[i].capitolo.medaglione,
-                                  titolo: capitoli[i].capitolo.nome,
+                                  immagine: 'aspetto_trigono_v1',
+                                  titolo: 'Gli intervalli di Keplero',
                                   onApri: () => _invito(
-                                      'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
+                                      'Gli intervalli di Keplero',
                                       (t) => PlanCatalog.apre(
-                                          RigaDelPiano.capitoliDellaSinastria,
+                                          RigaDelPiano.intervalliDiKeplero, t)),
+                                ),
+                              const SizedBox(height: SpacingTokens.lg),
+                              if (adepto) ...[
+                                _IlComposito(
+                                    palette: palette, composito: _composito),
+                                const SizedBox(height: SpacingTokens.lg),
+                                _IlMomentoGiusto(
+                                  palette: palette,
+                                  giorni: IlMomentoGiusto.per(
+                                      tuo: widget.cieloTuo,
+                                      suo: widget.cieloSuo,
+                                      nomeSuo: widget.nomeSuo,
+                                      legame: _legame,
+                                      da: _oggi,
+                                      corpus: corpusDellaSinastriaEvolutiva),
+                                  senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
+                                      tuo: widget.cieloTuo,
+                                      suo: widget.cieloSuo,
+                                      nomeSuo: widget.nomeSuo,
+                                      legame: _legame,
+                                      corpus: corpusDellaSinastriaEvolutiva),
+                                  oggi: _oggi,
+                                ),
+                              ] else
+                                _Chiuso(
+                                  chiave: 'adepto',
+                                  palette: palette,
+                                  immagine: 'legame_amore_v1',
+                                  titolo:
+                                      'Il cielo comune, il momento giusto e '
+                                      'il ritratto della coppia',
+                                  onApri: () => _invito(
+                                      'Il cielo comune della relazione',
+                                      (t) => PlanCatalog.apre(
+                                          RigaDelPiano.compositoRitrattoMomento,
                                           t)),
                                 ),
                               const SizedBox(height: SpacingTokens.lg),
+                              AzioniDelResponso(
+                                palette: palette,
+                                maestro: Maestro.medora,
+                                dorato: true,
+                                responso: perIlDiario,
+                                quando: _quando,
+                                condividi: () => _condividi(tier, capitoli),
+                                aperturaDellaChat:
+                                    ChatOpeners.sinastriaEvolutiva(
+                                        widget.nomeSuo,
+                                        _legame.nome.toLowerCase(),
+                                        capitoli.first.titolo),
+                              ),
+                              const SizedBox(height: SpacingTokens.xl),
                             ],
-                            if (keplero)
-                              _Keplero(
-                                  palette: palette,
-                                  corde: _corde,
-                                  nomeSuo: widget.nomeSuo)
-                            else
-                              _Chiuso(
-                                chiave: 'keplero',
-                                palette: palette,
-                                immagine: 'aspetto_trigono_v1',
-                                titolo: 'Gli intervalli di Keplero',
-                                onApri: () => _invito(
-                                    'Gli intervalli di Keplero',
-                                    (t) => PlanCatalog.apre(
-                                        RigaDelPiano.intervalliDiKeplero, t)),
-                              ),
-                            const SizedBox(height: SpacingTokens.lg),
-                            if (adepto) ...[
-                              _IlComposito(
-                                  palette: palette, composito: _composito),
-                              const SizedBox(height: SpacingTokens.lg),
-                              _IlMomentoGiusto(
-                                palette: palette,
-                                giorni: IlMomentoGiusto.per(
-                                    tuo: widget.cieloTuo,
-                                    suo: widget.cieloSuo,
-                                    nomeSuo: widget.nomeSuo,
-                                    legame: _legame,
-                                    da: _oggi,
-                                    corpus: corpusDellaSinastriaEvolutiva),
-                                senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
-                                    tuo: widget.cieloTuo,
-                                    suo: widget.cieloSuo,
-                                    nomeSuo: widget.nomeSuo,
-                                    legame: _legame,
-                                    corpus: corpusDellaSinastriaEvolutiva),
-                                oggi: _oggi,
-                              ),
-                            ] else
-                              _Chiuso(
-                                chiave: 'adepto',
-                                palette: palette,
-                                immagine: 'legame_amore_v1',
-                                titolo: 'Il cielo comune, il momento giusto e '
-                                    'il ritratto della coppia',
-                                onApri: () => _invito(
-                                    'Il cielo comune della relazione',
-                                    (t) => PlanCatalog.apre(
-                                        RigaDelPiano.compositoRitrattoMomento,
-                                        t)),
-                              ),
-                            const SizedBox(height: SpacingTokens.lg),
-                            AzioniDelResponso(
-                              palette: palette,
-                              maestro: Maestro.medora,
-                              dorato: true,
-                              responso: perIlDiario,
-                              quando: _quando,
-                              condividi: () => _condividi(tier, capitoli),
-                              aperturaDellaChat: ChatOpeners.sinastriaEvolutiva(
-                                  widget.nomeSuo,
-                                  _legame.nome.toLowerCase(),
-                                  capitoli.first.titolo),
-                            ),
-                            const SizedBox(height: SpacingTokens.xl),
-                          ],
+                          ),
                         ),
                       ),
                     ],

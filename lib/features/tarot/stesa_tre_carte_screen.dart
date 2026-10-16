@@ -838,6 +838,15 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     return !_filmatoSaltato && l != null && l.pronto && !l.finito && !l.fallito;
   }
 
+  /// **LA SCENA E' FERMA**, ordine FX voce FXA.08: il video non c'e' (Riduci
+  /// Movimento, grafica alleggerita), non si e' caricato, e' finito o e'
+  /// stato saltato. Finche' e' falso, cioe' mentre il video si prepara o
+  /// gira, sopra la scena si vede solo il video ([IlRestoDopoLaScena]).
+  bool get _scenaFerma {
+    final l = _lettoreDellaScena;
+    return l == null || l.fallito || l.finito || _filmatoSaltato;
+  }
+
   void _saltaIlVideo() {
     if (!_videoInCorso) return;
     setState(() => _filmatoSaltato = true);
@@ -1780,6 +1789,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 posa: _posaDiMedora,
                 filmato: _filmatoInScena,
                 filmatoSaltato: _filmatoSaltato,
+                scenaFerma: _scenaFerma,
               ),
             )),
           ),
@@ -1928,6 +1938,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       },
     );
     final quando = _istanti.di(perIlDiario);
+    // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08: il pannello
+    // della stesa, il ventaglio, i comandi e i suggerimenti stavano sotto la
+    // scena e coprivano la meta' bassa del filmato mentre girava. Adesso
+    // aspettano la scena ferma e compaiono in dissolvenza.
+    final scena = _laScena(palette);
     return ListView(
       key: const Key('stesa_list'),
       controller: _scorrimento,
@@ -1949,7 +1964,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                   GeometriaDelTavolo.scala(MediaQuery.sizeOf(context).width),
           SpacingTokens.lg,
           SpacingTokens.lg),
-      children: [
+      children: IlRestoDopoLaScena.attorno(scenaFerma: _scenaFerma, scena: {
+        scena
+      }, [
         if (_responsoPronto)
           IlResponsoNelDiario(
               maestro: Maestro.medora, responso: perIlDiario, quando: quando),
@@ -1960,7 +1977,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // **LA SCENA: IL TAVOLO, MEDORA DIETRO, LE CARTE SUL PIANO.** Ordine
         // FL voci 01, 03 e 05. LAPIDE: "MedoraStage", il ritratto con
         // l'altezza che cresceva a responso in scena.
-        _laScena(palette),
+        scena,
         // Il pannello "Scegli la tua stesa" sfiora il bordo basso del tavolo
         // (il fondatore, 14 ottobre 2026): nessun margine fra i due.
         if (_responsoPronto) const SizedBox(height: SpacingTokens.sm),
@@ -2500,7 +2517,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // volta. Un disclaimer ripetuto smette di essere letto e
         // diventa un modo di scaricare la responsabilita' invece di
         // dirla. Adesso sta in un posto solo, nell'area privacy.
-      ],
+      ]),
     );
   }
 

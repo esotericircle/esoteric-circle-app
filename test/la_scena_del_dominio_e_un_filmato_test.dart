@@ -18,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **LA SCENA DEL DOMINIO E' UN FILMATO.** Ordine FW voce FW.03, 15 ottobre
 /// 2026: il video del Maestro parte all'apertura del dominio, una volta per
 /// apertura, si ferma sull'ultimo fotogramma, un tocco in qualunque punto lo
@@ -185,11 +187,9 @@ void main() {
     await _monta(tester, maestro: Maestro.caligo, lettore: lettore);
     final scena = LaScenaDelMaestro.delDominio(Maestro.caligo);
     expect(
-        tester
-            .widget<Image>(find.byKey(const Key('dominio_fotogramma')))
-            .image,
-        isA<AssetImage>().having(
-            (a) => a.assetName, 'assetName', scena.ultimoFotogramma));
+        tester.widget<Image>(find.byKey(const Key('dominio_fotogramma'))).image,
+        isA<AssetImage>()
+            .having((a) => a.assetName, 'assetName', scena.ultimoFotogramma));
   });
 
   testWidgets('FW.03: con Riduci Movimento la scena resta ferma da subito',
@@ -202,11 +202,9 @@ void main() {
     expect(find.byKey(const Key('finta_del_filmato_dominio')), findsNothing);
     final scena = LaScenaDelMaestro.delDominio(Maestro.aura);
     expect(
-        tester
-            .widget<Image>(find.byKey(const Key('dominio_fotogramma')))
-            .image,
-        isA<AssetImage>().having(
-            (a) => a.assetName, 'assetName', scena.ultimoFotogramma));
+        tester.widget<Image>(find.byKey(const Key('dominio_fotogramma'))).image,
+        isA<AssetImage>()
+            .having((a) => a.assetName, 'assetName', scena.ultimoFotogramma));
   });
 
   // **LA TESTA SALE VERSO LA BARRA, SENZA INGRANDIRE.** Ordine FW, 15
@@ -252,4 +250,20 @@ void main() {
     expect(find.byType(DomainScreen), findsOneWidget,
         reason: 'il tocco che salta ha navigato altrove');
   });
+
+  for (final m in Maestro.values) {
+    testWidgets(
+        'FXA.08 ${m.id}: a video in corso sopra il dominio si vede solo il '
+        'video, e il resto compare in dissolvenza quando finisce',
+        (tester) async {
+      final lettore = _Finta();
+      await _monta(tester, maestro: m, lettore: lettore);
+      lettore.comincia();
+      await tester.pump(const Duration(milliseconds: 600));
+      await soloIlFilmatoFinche(tester,
+          scena: 'il dominio di ${m.id}',
+          filmato: find.byKey(const Key('finta_del_filmato_dominio')),
+          finisci: lettore.finisci);
+    });
+  }
 }

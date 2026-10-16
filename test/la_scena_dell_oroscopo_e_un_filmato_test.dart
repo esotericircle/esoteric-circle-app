@@ -21,6 +21,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **LA SCENA DELL'OROSCOPO E' UN FILMATO.** Ordine FU voce FU.13, 15
 /// ottobre 2026. Il fondatore, 14 ottobre 2026: *"alla fine lei resta con
 /// davanti il segno dell'utente, magari facendo vedere anche tutti gli
@@ -445,5 +447,21 @@ void main() {
         reason: 'le sedi vuote restano accese');
     expect(finta.aperture, 1);
     await _scorri(tester, const Duration(seconds: 2));
+  });
+
+  testWidgets(
+      'FXA.08: a video in corso sopra la ruota si vede solo il video, e il '
+      'resto compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: "l'Oroscopo",
+        filmato: _filmato,
+        finisci: finta.finisci,
+        poi: LaScenaDellOroscopo.dissolvenzaDegliEmblemi +
+            LaScenaDellOroscopo.sostaSugliEmblemi +
+            LaScenaDellOroscopo.salitaDellaLettura);
   });
 }

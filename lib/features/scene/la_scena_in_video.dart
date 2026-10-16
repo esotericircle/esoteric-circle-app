@@ -188,12 +188,22 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   bool _saltata = false;
   bool _sospesaDaNoi = false;
   bool _chiusa = false;
+  bool _scaduta = false;
+
+  /// **IL VIDEO HA UN TEMPO PER PREPARARSI**, ordine FX voce FXA.08. Da
+  /// quando il resto della schermata aspetta la scena ferma
+  /// ([IlRestoDopoLaScena]), un lettore che non risponde mai (una
+  /// piattaforma che non decodifica e non dice di no) terrebbe la schermata
+  /// vuota per sempre. Passato questo tempo senza che il video sia pronto,
+  /// la scena e' ferma come se non si fosse caricato, e un video pronto
+  /// dopo non parte piu'.
+  static const Duration attesaMassima = Duration(seconds: 4);
 
   /// La scena e' ferma sul suo ultimo fotogramma: Riduci Movimento, grafica
   /// alleggerita, video che non si carica, oppure video finito o saltato.
   bool get ferma {
     final l = _lettore;
-    return _ferma || l == null || l.fallito || l.finito || _saltata;
+    return _ferma || _scaduta || l == null || l.fallito || l.finito || _saltata;
   }
 
   /// Il video gira (o sta per girare): e' il momento in cui un tocco lo
@@ -202,6 +212,7 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
     final l = _lettore;
     return !_ferma &&
         !_saltata &&
+        !_scaduta &&
         l != null &&
         !l.fallito &&
         !l.finito &&
@@ -213,7 +224,7 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   /// salto.
   bool get filmatoInScena {
     final l = _lettore;
-    return !_ferma && l != null && !l.fallito && l.cominciato;
+    return !_ferma && !_scaduta && l != null && !l.fallito && l.cominciato;
   }
 
   /// Il video e' stato saltato col tocco: la schermata lo fa sfumare.
@@ -242,8 +253,13 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
     lettore.ascolta(() {
       if (!_chiusa) notifyListeners();
     });
-    await lettore.apri();
-    if (_chiusa || !lettore.pronto) return;
+    await lettore.apri().timeout(attesaMassima, onTimeout: () {
+      if (lettore.pronto || lettore.fallito) return;
+      debugPrint('La scena non si prepara entro $attesaMassima, resta ferma');
+      _scaduta = true;
+      if (!_chiusa) notifyListeners();
+    });
+    if (_chiusa || _scaduta || !lettore.pronto) return;
     final muto = !suono || await LaSuoneria.spenta();
     if (_chiusa) return;
     await lettore.volume(muto ? 0 : 1);
@@ -264,7 +280,7 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final l = _lettore;
-    if (l == null || !l.pronto || l.finito || _saltata) return;
+    if (l == null || !l.pronto || l.finito || _saltata || _scaduta) return;
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
       if (_sospesaDaNoi) return;
@@ -360,6 +376,68 @@ class IlFilmatoCheSfuma extends StatelessWidget {
       duration: dissolvenza,
       curve: Curves.easeOut,
       child: IgnorePointer(ignoring: saltato, child: child),
+    );
+  }
+}
+
+/// **IL RESTO ASPETTA LA SCENA, IL PUNTO UNICO.** Ordine FX voce FXA.08, 16
+/// ottobre 2026. Il fondatore: *"assicurati che tutto venga sovrapposto dopo
+/// aver visto il video di scena e non che il Video si veda coperto da
+/// riquadri e testi"*.
+///
+/// Avvolge ogni cosa della schermata che non e' il video, la barra in alto
+/// o lo sfondo: pannelli, testi, pulsanti, carte, numeri, la riga del
+/// Maestro. **Finche' la scena non e' ferma** ([scenaFerma] falso: il video
+/// si prepara o gira) il resto non si vede, non si tocca e non si legge;
+/// **quando il video finisce o il tocco lo salta** compare in dissolvenza
+/// sopra l'ultimo fotogramma, con la stessa durata del salto
+/// ([IlFilmatoCheSfuma.dissolvenza]). Con Riduci Movimento o la grafica
+/// alleggerita la scena e' ferma dalla prima immagine, e il resto e' pieno
+/// subito, senza dissolvenza.
+///
+/// **SI MONTA SEMPRE, ANCHE A SCENA FERMA.** Cambia solo l'opacita': un
+/// avvolgimento che comparisse e sparisse ricostruirebbe cio' che avvolge,
+/// e un campo da scrivere perderebbe il suo testo.
+///
+/// La guardia di ogni scena chiama `test/sopra_il_filmato.dart` a video in
+/// corso, e cade col nome di cio' che si vede sopra il video.
+class IlRestoDopoLaScena extends StatelessWidget {
+  const IlRestoDopoLaScena({
+    super.key,
+    required this.scenaFerma,
+    required this.child,
+  });
+
+  /// La scena e' ferma sul suo ultimo fotogramma, o non ha video: il resto
+  /// si vede. Per chi usa [RegiaDellaScena] e' [RegiaDellaScena.ferma].
+  final bool scenaFerma;
+  final Widget child;
+
+  /// Avvolge ogni figlio di [figli] tranne quelli in [scena], che restano
+  /// come sono: per le schermate che mettono la scena dentro un elenco,
+  /// insieme a cio' che le sta sotto.
+  static List<Widget> attorno(
+    List<Widget> figli, {
+    required bool scenaFerma,
+    required Set<Widget> scena,
+  }) =>
+      [
+        for (final f in figli)
+          scena.any((s) => identical(s, f))
+              ? f
+              : IlRestoDopoLaScena(scenaFerma: scenaFerma, child: f),
+      ];
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: scenaFerma ? 1 : 0,
+      duration: IlFilmatoCheSfuma.dissolvenza,
+      curve: Curves.easeOut,
+      child: IgnorePointer(
+        ignoring: !scenaFerma,
+        child: ExcludeSemantics(excluding: !scenaFerma, child: child),
+      ),
     );
   }
 }

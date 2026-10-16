@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -34,6 +36,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sopra_il_filmato.dart';
+
 import 'il_diario_finto.dart';
 
 /// **LA SCENA DELLA CHAT E' UN FILMATO.** Ordine FW voce FW.04, 15 ottobre
@@ -46,7 +50,7 @@ class _Finta implements LettoreDiScena {
   VoidCallback? _ascolta;
   bool _pronto = false, _cominciato = false;
   final bool _fallito = false;
-  final bool _finito = false;
+  bool _finito = false;
   int aperture = 0, sospensioni = 0;
 
   @override
@@ -73,13 +77,18 @@ class _Finta implements LettoreDiScena {
   @override
   Future<void> sospendi() async => sospensioni++;
   @override
-  Widget disegna() =>
-      const ColoredBox(key: Key('finta_del_filmato_chat'), color: Color(0xFF102030));
+  Widget disegna() => const ColoredBox(
+      key: Key('finta_del_filmato_chat'), color: Color(0xFF102030));
   @override
   void chiudi() {}
 
   void comincia() {
     _cominciato = true;
+    _ascolta?.call();
+  }
+
+  void finisci() {
+    _finito = true;
     _ascolta?.call();
   }
 }
@@ -180,8 +189,8 @@ void main() {
     tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
     final memory = InMemoryMaestroMemoryRepository();
-    await memory.saveProfile(
-        UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
+    await memory
+        .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
     final ai = _Ai();
     final services = AppServices(
       ai: ai,
@@ -261,8 +270,7 @@ void main() {
         reason: 'la scena non e\' alta quanto lo schermo: torna un riquadro');
   });
 
-  testWidgets('FW.04: un tocco fa sfumare il video della chat',
-      (tester) async {
+  testWidgets('FW.04: un tocco fa sfumare il video della chat', (tester) async {
     final lettore = _Finta();
     await monta(tester, maestro: Maestro.aura, lettore: lettore);
     lettore.comincia();
@@ -284,15 +292,15 @@ void main() {
         tester
             .widget<Image>(find.byKey(const Key('chat_scena_fotogramma')))
             .image,
-        isA<AssetImage>().having(
-            (a) => a.assetName, 'assetName', scena.primoFotogramma));
+        isA<AssetImage>()
+            .having((a) => a.assetName, 'assetName', scena.primoFotogramma));
   });
 
   testWidgets('FW.04: con Riduci Movimento il video non si apre nemmeno',
       (tester) async {
     final lettore = _Finta();
-    await monta(
-        tester, maestro: Maestro.medora, lettore: lettore, riduci: true);
+    await monta(tester,
+        maestro: Maestro.medora, lettore: lettore, riduci: true);
     expect(lettore.aperture, 0);
   });
 
@@ -305,9 +313,16 @@ void main() {
     await tester.pump();
     expect(find.byType(ChatEmptyState), findsOneWidget);
 
-    await tester.enterText(find.byKey(const Key('chat_campo')), 'Che dici?');
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('chat_invio')));
+    // **IL MESSAGGIO ARRIVA DA FUORI, NON DAL CAMPO. Ordine FX voce
+    // FXA.08.** LAPIDE: qui si scriveva nel campo e si toccava l'invio a
+    // video in corso. Dalla FXA.08 il compositore aspetta la scena ferma
+    // (sopra il video si vede solo il video), e a video in corso un messaggio
+    // arriva solo da chi apre la chat con una domanda gia' pronta: lo stesso
+    // `send` del controller che il campo chiama.
+    final controller = Provider.of<MaestroChatController>(
+        tester.element(find.byType(MaestroChatScreen)),
+        listen: false);
+    unawaited(controller.send('Che dici?'));
     await tester.pump();
     // **LA RISPOSTA NON ASPETTA LA FINE DEL VIDEO**: il video sta ancora
     // "girando" (non saltato, non fallito) quando il messaggio parte, e la
@@ -324,4 +339,20 @@ void main() {
         reason: 'la scena della chat vuota e\' ancora in scena dopo la '
             'risposta');
   });
+
+  for (final m in Maestro.values) {
+    testWidgets(
+        'FXA.08 ${m.id}: a video in corso sopra la chat si vede solo il '
+        'video, e il resto compare in dissolvenza quando finisce',
+        (tester) async {
+      final lettore = _Finta();
+      await monta(tester, maestro: m, lettore: lettore);
+      lettore.comincia();
+      await tester.pump(const Duration(milliseconds: 600));
+      await soloIlFilmatoFinche(tester,
+          scena: 'la chat di ${m.id}',
+          filmato: find.byKey(const Key('finta_del_filmato_chat')),
+          finisci: lettore.finisci);
+    });
+  }
 }

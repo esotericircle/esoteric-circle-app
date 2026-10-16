@@ -40,7 +40,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 /// naturale di push e pop, voluto uguale per i tre Maestri perche' nessuno
 /// dei tre ha un motivo per comportarsi diversamente (scelta di Code, FW.03).
 class DomainScreen extends StatefulWidget {
-  const DomainScreen({super.key, required this.maestro, this.fabbricaDellaScena});
+  const DomainScreen(
+      {super.key, required this.maestro, this.fabbricaDellaScena});
 
   final Maestro maestro;
 
@@ -135,7 +136,8 @@ class _DomainScreenState extends State<DomainScreen> {
   /// `spostamento` punti, il tavolo sale della stessa misura, e il velo lo
   /// segue invece di restare fermo a un numero scritto a mano.
   double _fineDellaScena(BuildContext context, double spostamento) {
-    final frazioneTavolo = _frazioneTavoloNelFotogramma[widget.maestro.id] ?? 0.7;
+    final frazioneTavolo =
+        _frazioneTavoloNelFotogramma[widget.maestro.id] ?? 0.7;
     final altezzaSchermo = MediaQuery.sizeOf(context).height;
     final appBarBasso = MediaQuery.paddingOf(context).top + 88;
     final posizioneDelTavolo = frazioneTavolo * altezzaSchermo - spostamento;
@@ -299,38 +301,50 @@ class _DomainScreenState extends State<DomainScreen> {
             // 0,80 (misurata la prima volta sulla cattura di Aura, dove le
             // lanterne del tempio sono chiare proprio li': contrasto 5,53 e
             // 5,22, sopra 4,5, docs/collaudo/FW/fw03_contrasto_sulla_cattura.py).
+            //
+            // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08: il
+            // velo e il contenuto del dominio (le arti, le schede) stavano
+            // sopra la meta' bassa del video mentre girava. Adesso aspettano
+            // la scena ferma e compaiono in dissolvenza; il velo serve alla
+            // lettura del contenuto, e arriva con lui.
             Positioned.fill(
-              child: IgnorePointer(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.0, veloInizio, veloFine],
-                      colors: [
-                        Colors.transparent,
-                        Colors.transparent,
-                        palette.deepest.withValues(alpha: 0.80),
-                      ],
+              child: IlRestoDopoLaScena(
+                scenaFerma: ferma,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.0, veloInizio, veloFine],
+                        colors: [
+                          Colors.transparent,
+                          Colors.transparent,
+                          palette.deepest.withValues(alpha: 0.80),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            MaestroScreen(
-              maestro: widget.maestro,
-              // **DOVE COMINCIA IL CONTENUTO**, calcolato da `_fineDellaScena`
-              // qui sopra: il tavolo di ogni scena, nella sua posizione vera
-              // dopo lo spostamento verso l'alto. Il Maestro intero, fino al
-              // tavolo, e' visibile sopra; attenzione se si tocca questo
-              // numero: la scheda "Consulta" (la prima azione del dominio)
-              // puo' cadere dove la barra Esplora, sempre in vista sul
-              // dominio, si sovrappone (ordine EJ, 112 punti). Non e' un
-              // difetto, e' la regola permanente della barra: scorrendo lei
-              // si ritira e la scheda torna libera, come verifica
-              // `test/il_maestro_non_resta_muto_test.dart` scorrendo prima
-              // di toccare.
-              spazioScena: fineScena,
+            IlRestoDopoLaScena(
+              scenaFerma: ferma,
+              child: MaestroScreen(
+                maestro: widget.maestro,
+                // **DOVE COMINCIA IL CONTENUTO**, calcolato da `_fineDellaScena`
+                // qui sopra: il tavolo di ogni scena, nella sua posizione vera
+                // dopo lo spostamento verso l'alto. Il Maestro intero, fino al
+                // tavolo, e' visibile sopra; attenzione se si tocca questo
+                // numero: la scheda "Consulta" (la prima azione del dominio)
+                // puo' cadere dove la barra Esplora, sempre in vista sul
+                // dominio, si sovrappone (ordine EJ, 112 punti). Non e' un
+                // difetto, e' la regola permanente della barra: scorrendo lei
+                // si ritira e la scheda torna libera, come verifica
+                // `test/il_maestro_non_resta_muto_test.dart` scorrendo prima
+                // di toccare.
+                spazioScena: fineScena,
+              ),
             ),
           ],
         ),

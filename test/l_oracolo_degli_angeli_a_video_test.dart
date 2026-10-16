@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -17,17 +18,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **L'ORACOLO DEGLI ANGELI A VIDEO.** Ordine FU voci FU.02, FU.03, FU.04,
 /// FU.06, FU.07 e FU.15: la scena col video e il tocco che lo salta, la
 /// domanda, le lettere di luce, le tre carte che si girano, il responso col
 /// riquadro e le bolle col Parlane e il rito, la nuova domanda che non rifa'
 /// partire il video; ogni domanda, anche sensibile, estrae le tre carte.
 class _Finta implements LettoreDiScena {
-  _Finta({this.fallira = false});
+  _Finta({this.fallira = false, this.muta = false});
   final bool fallira;
+
+  /// Un lettore che non risponde mai: `apri` non finisce (FXA.08).
+  final bool muta;
   VoidCallback? _ascolta;
   bool _pronto = false, _fallito = false, _cominciato = false;
-  final bool _finito = false;
+  bool _finito = false;
   int aperture = 0, avvii = 0, sospensioni = 0;
   final volumi = <double>[];
 
@@ -44,6 +50,7 @@ class _Finta implements LettoreDiScena {
   @override
   Future<void> apri() async {
     aperture++;
+    if (muta) return Completer<void>().future;
     fallira ? _fallito = true : _pronto = true;
     _ascolta?.call();
   }
@@ -62,6 +69,11 @@ class _Finta implements LettoreDiScena {
 
   void comincia() {
     _cominciato = true;
+    _ascolta?.call();
+  }
+
+  void finisci() {
+    _finito = true;
     _ascolta?.call();
   }
 }
@@ -257,5 +269,37 @@ void main() {
     expect(find.text('dalle 10:00 alle 10:20'), findsOneWidget);
     expect(
         find.byKey(const Key('oracolo_messaggio_del_giorno')), findsOneWidget);
+  });
+
+  testWidgets(
+      'FXA.08: a video in corso sopra l\'altare si vede solo il video, e il '
+      'resto compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: 'l\'Oracolo degli Angeli',
+        filmato: find.byKey(const Key('finta_del_filmato_oracolo')),
+        finisci: finta.finisci);
+  });
+
+  testWidgets(
+      'FXA.08: un video che non risponde mai non tiene la schermata vuota: '
+      "passata l'attesa massima la scena e' ferma e il resto compare",
+      (tester) async {
+    await _monta(tester, lettori: [_Finta(muta: true)]);
+    final resto = find.byType(IlRestoDopoLaScena);
+    expect(tester.widget<IlRestoDopoLaScena>(resto.first).scenaFerma, isFalse,
+        reason: 'mentre il video si prepara il resto aspetta');
+    for (var t = Duration.zero;
+        t < RegiaDellaScena.attesaMassima;
+        t += const Duration(milliseconds: 200)) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+    await tester.pump(IlFilmatoCheSfuma.dissolvenza);
+    expect(tester.widget<IlRestoDopoLaScena>(resto.first).scenaFerma, isTrue,
+        reason: 'il video non ha mai risposto e la schermata resta vuota');
+    expect(find.byKey(const Key('oracolo_domanda')), findsOneWidget);
   });
 }

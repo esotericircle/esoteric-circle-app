@@ -13,6 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'sopra_il_filmato.dart';
 
 /// **LA SCENA DELLA STESA E' UN FILMATO.** Ordine FS aggiunta, voce FS.A2,
 /// 14 ottobre 2026.
@@ -303,6 +304,19 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     expect(finta.avvii, 2,
         reason: 'a filmato finito il ritorno lo fa ripartire');
+  });
+
+  testWidgets(
+      'FXA.08: a video in corso sopra la scena si vede solo il video, e il '
+      'resto compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await _monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: 'la Stesa',
+        filmato: find.byKey(const Key('finta_del_filmato')),
+        finisci: finta.finisci);
   });
 
   testWidgets(

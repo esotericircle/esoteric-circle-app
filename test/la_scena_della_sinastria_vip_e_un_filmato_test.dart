@@ -21,6 +21,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **LA SCENA DELLA SINASTRIA VIP E' UN FILMATO, IL SIPARIO DELLE STELLE.**
 /// Ordine FU voce FU.14, 15 ottobre 2026. Il fondatore: *"Si le lasciamo
 /// sotto come alone. I volti all'interno delle carte sono già piccoli e
@@ -540,4 +542,15 @@ void main() {
       expect(colpe, isEmpty, reason: colpe.join('; '));
     });
   }
+
+  testWidgets(
+      'FXA.08: a video in corso sopra il Sipario si vede solo il video, e il '
+      'resto compare in dissolvenza quando finisce', (tester) async {
+    final finta = _Finta();
+    await monta(tester, lettori: [finta]);
+    finta.comincia();
+    await tester.pump(const Duration(milliseconds: 600));
+    await soloIlFilmatoFinche(tester,
+        scena: 'la Sinastria VIP', filmato: filmato, finisci: finta.finisci);
+  });
 }
