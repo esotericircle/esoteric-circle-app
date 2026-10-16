@@ -36,6 +36,7 @@ import '../account/dati_di_nascita_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../pricing/upgrade_invite.dart';
+import '../respiro_della_luna/il_respiro_della_luna_screen.dart';
 import '../scene/la_scena_in_video.dart';
 import '../sigilli/regia_del_cammino.dart';
 import 'gli_eos_del_lunario.dart';
@@ -546,6 +547,18 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
               righe: 1,
               stile: TypographyTokens.titoloSezione()),
           actions: [
+            // **LA PORTA AL RESPIRO, ordine FX voce FX.11.** Il fondatore,
+            // sui due calendari: "Separati e collegati". Testo, non
+            // un'icona: la guardia della grafica dipinta (R9) non ammette
+            // icone di Material fuori dall'elenco dichiarato qui dentro.
+            TextButton(
+              key: const Key('lunario_vai_al_respiro'),
+              onPressed: () => Navigator.of(context)
+                  .push(IlRespiroDellaLunaScreen.route()),
+              child: Text('Il Respiro',
+                  style: TypographyTokens.label(size: 13)
+                      .copyWith(color: palette.goldSoft)),
+            ),
             FoglioDelleFonti.bottone(context,
                 palette: palette,
                 testo: TestiDelleFonti.calendarioLunare,

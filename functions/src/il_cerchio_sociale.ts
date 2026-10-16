@@ -249,6 +249,12 @@ interface Identita {
   mesiLunarioComprati: number;
   /** Le proposte insieme in più comprate a Eos (ordine FV voce FV.12). */
   proposteInsiemeComprate: number;
+  /**
+   * La collana a due attiva adesso, o nulla: una alla volta, come il
+   * fondatore descrive il gesto, "nasce una collana comune" (ordine FX voce
+   * FX.09). L'identificativo di `collane_a_due/{id}`.
+   */
+  collanaADueAttiva: string | null;
 }
 
 function identitaDa(dati: Record<string, unknown> | undefined): Identita {
@@ -273,6 +279,8 @@ function identitaDa(dati: Record<string, unknown> | undefined): Identita {
       typeof d.mesiLunarioComprati === "number" ? d.mesiLunarioComprati : 0,
     proposteInsiemeComprate:
       typeof d.proposteInsiemeComprate === "number" ? d.proposteInsiemeComprate : 0,
+    collanaADueAttiva:
+      typeof d.collanaADueAttiva === "string" ? d.collanaADueAttiva : null,
   };
 }
 
@@ -1252,6 +1260,257 @@ export const rispondiAlGiorno = onCall(OPZIONI_SOCIALI, async (request) => {
     }
     return {ok: true, perche: null, riga: null};
   });
+});
+
+// ---------------------------------------------------------------------------
+// IL RESPIRO DELLA LUNA, ordine FX voce FX.09, 16 ottobre 2026
+// ---------------------------------------------------------------------------
+//
+// **SCRITTA E NON PUBBLICATA (R3 dell'ordine).** Il respiro collettivo e la
+// collana a due. Il telefono apre la finestra dell'ora intorno alla Luna
+// piena (`IlMotoreLunare.lunePieneFra`) e il ciclo della collana a due,
+// dalla sua Luna piena governante in forma 'AAAA-MM-GG': il server non
+// calcola le fasi della Luna, le riceve dal telefono, la stessa scelta di
+// `gliEnigmi` e `unPassoDelPellegrinaggio` con la Luna del Pellegrinaggio.
+//
+// DOVE STANNO I DATI
+// - `respiro_insieme/{uid}`: un documento per persona, con `scade` (epoca in
+//   millisecondi) e nessun altro dato personale: chi e' dentro si legge dal
+//   solo fatto che il documento non e' scaduto, lo stesso principio della
+//   tendina (EY.08), mai un dato in più di quanto il Cerchio mostri altrove.
+// - `collane_a_due/{coppia__ciclo}`: la collana fra due amici per un ciclo,
+//   con lo stato, chi ha invitato e la mappa dei giorni in cui ENTRAMBI
+//   hanno segnalato il respiro fatto.
+// - `users/{uid}/stato/identita`: il campo `collanaADueAttiva`, il puntatore
+//   alla sola collana attiva di una persona.
+
+/** Un minuto di respiro, con un margine che assorbe il ritardo di rete. */
+export const DURATA_DEL_RESPIRO_INSIEME_MS = 75 * 1000;
+
+/**
+ * 'AAAA-MM-GG' valido e una data che esiste davvero: usato per `ciclo` e per
+ * `giorno`. **Non basta `Date.parse`**: su '2026-02-30' non torna NaN, torna
+ * il 2 marzo (il motore arrotonda il giorno fuori mese invece di rifiutarlo),
+ * e la prova rossa di questa voce l'ha preso. Qui si ricompone la data e si
+ * verifica che anno, mese e giorno tornino uguali: solo allora la data era
+ * vera.
+ */
+export function dataCivileValida(valore: unknown): string | null {
+  if (typeof valore !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(valore)) return null;
+  const [anno, mese, giorno] = valore.split("-").map(Number);
+  const d = new Date(Date.UTC(anno, mese - 1, giorno));
+  if (d.getUTCFullYear() !== anno || d.getUTCMonth() !== mese - 1 ||
+    d.getUTCDate() !== giorno) {
+    return null;
+  }
+  return valore;
+}
+
+const collanaADueDoc = (id: string) => db().collection("collane_a_due").doc(id);
+
+/** L'identificativo della collana: la stessa coppia, sempre nello stesso ordine. */
+export function idDellaCollanaADue(a: string, b: string, ciclo: string): string {
+  return `${coppia(a, b)}__${ciclo}`;
+}
+
+export interface CollanaADueDati {
+  persone: string[];
+  ciclo: string;
+  stato: "invitata" | "attiva" | "rifiutata";
+  da: string;
+  giorni: Record<string, Record<string, boolean>>;
+}
+
+export function collanaADueDa(d: Record<string, unknown> | undefined): CollanaADueDati | null {
+  if (!d || !Array.isArray(d.persone) || typeof d.ciclo !== "string" ||
+    typeof d.stato !== "string") {
+    return null;
+  }
+  return {
+    persone: d.persone.filter((p): p is string => typeof p === "string"),
+    ciclo: d.ciclo,
+    stato: d.stato as CollanaADueDati["stato"],
+    da: String(d.da ?? ""),
+    giorni: (d.giorni ?? {}) as Record<string, Record<string, boolean>>,
+  };
+}
+
+/**
+ * **IL RESPIRO COLLETTIVO, SI ENTRA.** La persona dichiara di aver appena
+ * iniziato il minuto del respiro guidato: scrive un documento con un TTL
+ * breve ([DURATA_DEL_RESPIRO_INSIEME_MS]), che scade da solo senza bisogno
+ * di una pulizia a parte.
+ */
+export const respiroInsiemeEntra = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "respiroInsiemeEntra");
+  await db().collection("respiro_insieme").doc(uid).set({
+    scade: Date.now() + DURATA_DEL_RESPIRO_INSIEME_MS,
+    quando: FieldValue.serverTimestamp(),
+  });
+  return {ok: true, perche: null, riga: null};
+});
+
+/**
+ * **IL CONTEGGIO DEL RESPIRO COLLETTIVO.** Quante persone in tutto il
+ * Cerchio stanno respirando in questo momento, e quali amici veri fra loro.
+ * **Nessun dato in più di quello che il Cerchio mostra altrove** (lo stesso
+ * principio della tendina, EY.08): il documento di [respiroInsiemeEntra]
+ * non porta nome ne' icona, e qui si torna solo lo uid di chi e' dentro fra
+ * gli amici, mai i nomi: il telefono li legge dal suo `IlMioCerchio.amici`,
+ * che li ha gia'.
+ */
+export const respiroInsiemeConteggio = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "respiroInsiemeConteggio");
+  const adesso = Date.now();
+  const [legamiSnap, conteggio] = await Promise.all([
+    statoDi(uid, "legami").get(),
+    db().collection("respiro_insieme").where("scade", ">", adesso).count().get(),
+  ]);
+  const amici = elenco(legamiSnap.data()?.amici);
+  let amiciDentro: string[] = [];
+  if (amici.length > 0) {
+    const refs = amici.map((a) => db().collection("respiro_insieme").doc(a));
+    const trovati = await db().getAll(...refs);
+    amiciDentro = trovati
+      .filter((d) => d.exists &&
+        (((d.data()?.scade as number | undefined) ?? 0) > adesso))
+      .map((d) => d.id);
+  }
+  return {ok: true, perche: null, riga: null,
+    quante: conteggio.data().count, amiciDentro};
+});
+
+/**
+ * **INVITA ALLA COLLANA A DUE.** Solo fra amici veri del Cerchio, come
+ * [proponiGiornoInsieme]. [ciclo] e' la Luna piena che governa il ciclo in
+ * corso, in forma 'AAAA-MM-GG'.
+ */
+export const invitaCollanaADue = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "invitaCollanaADue");
+  const amico = String(request.data?.amico ?? "").trim();
+  const ciclo = dataCivileValida(request.data?.ciclo);
+  if (amico.length === 0 || amico === uid || ciclo === null) {
+    throw new HttpsError("invalid-argument", "L'invito non è completo.");
+  }
+  const legame = legameDa((await legameDi(uid, amico).get()).data());
+  if (legame?.stato !== "amici") {
+    return {ok: false, perche: "nonAmici",
+      riga: "La collana a due si invita a un amico del Cerchio."};
+  }
+  const id = idDellaCollanaADue(uid, amico, ciclo);
+  const persone = [uid, amico].sort();
+  const esito = await db().runTransaction(async (tx) => {
+    const snap = await tx.get(collanaADueDoc(id));
+    const gia = collanaADueDa(snap.data());
+    if (gia?.stato === "attiva") return {gia: true};
+    tx.set(collanaADueDoc(id),
+      {persone, ciclo, stato: "invitata", da: uid, quando: Date.now()},
+      {merge: true});
+    return {gia: false};
+  });
+  if (!esito.gia) {
+    const io = await schedaPubblica(uid);
+    if (io !== null) {
+      await avvisa(amico,
+        `${io.nome} ti invita alla collana a due del Respiro della Luna`,
+        "collana_a_due");
+    }
+  }
+  return {ok: true, perche: null, riga: null, id};
+});
+
+/**
+ * **RISPONDI ALLA COLLANA A DUE.** Solo chi l'ha ricevuta risponde, mai chi
+ * l'ha mandata. Accettando, la collana nasce attiva e diventa quella attiva
+ * di entrambi (`collanaADueAttiva`): una alla volta, come il fondatore
+ * descrive il gesto, "nasce una collana comune".
+ */
+export const rispondiCollanaADue = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "rispondiCollanaADue");
+  const id = String(request.data?.id ?? "").trim();
+  const risposta = request.data?.risposta;
+  if (id.length === 0 || (risposta !== "accetta" && risposta !== "rifiuta")) {
+    throw new HttpsError("invalid-argument", "La risposta non è valida.");
+  }
+  return db().runTransaction(async (tx) => {
+    const snap = await tx.get(collanaADueDoc(id));
+    const d = collanaADueDa(snap.data());
+    if (d === null) {
+      throw new HttpsError("not-found", "Questa collana non c'è più.");
+    }
+    if (!d.persone.includes(uid) || d.da === uid) {
+      throw new HttpsError("permission-denied", "Non è il tuo invito da accettare.");
+    }
+    if (risposta === "rifiuta") {
+      tx.set(collanaADueDoc(id), {stato: "rifiutata"}, {merge: true});
+      return {ok: true, perche: null, riga: null};
+    }
+    tx.set(collanaADueDoc(id), {stato: "attiva"}, {merge: true});
+    for (const p of d.persone) {
+      tx.set(statoDi(p, "identita"), {collanaADueAttiva: id}, {merge: true});
+    }
+    return {ok: true, perche: null, riga: null};
+  });
+});
+
+/**
+ * **SEGNALA IL RESPIRO DEL GIORNO PER LA COLLANA A DUE.** Il telefono la
+ * chiama quando il respiro guidato finisce, SOLO se la persona e' in una
+ * collana a due attiva: accende la sua metà della perla del giorno. La
+ * perla si accende per davvero solo quando il giorno porta ENTRAMBI i
+ * segnali (lo decide chi legge `giorni`, non questa porta).
+ */
+export const segnalaRespiroDelGiornoPerLaCollanaADue = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "segnalaRespiroDelGiornoPerLaCollanaADue");
+  const giorno = dataCivileValida(request.data?.giorno);
+  if (giorno === null) {
+    throw new HttpsError("invalid-argument", "Manca il giorno del respiro.");
+  }
+  const io = await leggiIdentita(uid);
+  const id = io.collanaADueAttiva;
+  if (id === null) {
+    return {ok: false, perche: "nessunaCollana",
+      riga: "Non hai una collana a due attiva."};
+  }
+  return db().runTransaction(async (tx) => {
+    const snap = await tx.get(collanaADueDoc(id));
+    const d = collanaADueDa(snap.data());
+    if (d === null || d.stato !== "attiva" || !d.persone.includes(uid)) {
+      return {ok: false, perche: "nessunaCollana",
+        riga: "Non hai una collana a due attiva."};
+    }
+    tx.set(collanaADueDoc(id), {[`giorni.${giorno}.${uid}`]: true}, {merge: true});
+    return {ok: true, perche: null, riga: null};
+  });
+});
+
+/**
+ * **LE MIE COLLANE A DUE.** La lettura per la card (che un altro file
+ * disegna): ogni collana di cui faccio parte, con lo stato, l'altro uid (il
+ * nome lo risolve il telefono dal suo elenco amici) e i giorni in cui la
+ * perla e' davvero accesa, cioe' ENTRAMBI i segnali.
+ */
+export const leCollaneADue = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "leCollaneADue");
+  const trovate = await db().collection("collane_a_due")
+    .where("persone", "array-contains", uid).get();
+  const collane = trovate.docs.map((doc) => {
+    const d = collanaADueDa(doc.data());
+    if (d === null) return null;
+    const altro = d.persone.find((p) => p !== uid) ?? "";
+    const giorniAccesi = Object.entries(d.giorni)
+      .filter(([, chi]) => d.persone.every((p) => chi?.[p] === true))
+      .map(([giorno]) => giorno);
+    return {id: doc.id, ciclo: d.ciclo, con: altro, stato: d.stato,
+      daMe: d.da === uid, giorniAccesi};
+  }).filter((c): c is NonNullable<typeof c> => c !== null);
+  return {ok: true, perche: null, riga: null, collane};
 });
 
 // ---------------------------------------------------------------------------

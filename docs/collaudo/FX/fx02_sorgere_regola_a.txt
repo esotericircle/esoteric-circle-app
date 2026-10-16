@@ -1,0 +1,93 @@
+ORDINE FX VOCE 2, 16 ottobre 2026. IL SORGERE, IL TRAMONTO E LA
+CULMINAZIONE DELLA LUNA. Regola A delle guardie: una guardia nasce rossa, e
+il rosso si vede col grep.
+
+COSA SI MISURA
+`prossimoSorgere`, `prossimoTramonto`, `prossimaCulminazione`, in
+`lib/core/lunario/il_sorgere_della_luna.dart`: i tre istanti cercati con
+`primoIstanteSopraInFinestra` (variante di `primoIstanteSopra` con finestra
+di ricerca allargata a ventisette ore, aggiunta a
+`lib/core/astro/il_primo_istante_sopra.dart`), sulla soglia di Meeus cap.
+15 eq. 15.1 per il sorgere e il tramonto, sull'angolo orario per la
+culminazione.
+
+La prova e' `test/il_sorgere_della_luna_test.dart`.
+
+LA SCOPERTA FATTA SCRIVENDO LA PROVA
+Il primo collaudo scartava di sei-otto minuti sul sorgere e sul tramonto (la
+culminazione era gia' giusta al minuto): la soglia di Meeus 15.1 e' definita
+sull'altezza GEOCENTRICA della Luna, ma il primo codice la confrontava con
+`posizioneOrizzontaleDellaLuna`, che dall'ordine FX voce 3 e' gia' corretta
+per la parallasse (topocentrica). Confrontare una soglia che contiene gia'
+la parallasse con un'altezza che la parallasse l'ha gia' tolta la conta due
+volte. Corretto aggiungendo una funzione privata `_altezzaGeocentrica` che
+non applica la correzione, e lo scarto e' sceso a un minuto su tutte e tre
+le citta' e su tutti e tre gli istanti. La Regola A, piu' sotto, si applica
+alla funzione COSI' COM'E' CONSEGNATA, con la soglia giusta dentro.
+
+IL CICLO, ESEGUITO DAVVERO IN QUEST'ORDINE
+
+1. INNESTO DEL DIFETTO (a mano, in
+   lib/core/lunario/il_sorgere_della_luna.dart, funzione
+   _sogliaDellOrizzonte): venti primi aggiunti alla soglia di Meeus 15.1.
+
+     - final h0Primi = 0.7275 * (parallasseGradi * 60) - 34;
+     + final h0Primi = 0.7275 * (parallasseGradi * 60) - 34 + 20; // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+2. VERIFICA COL GREP che il difetto sia davvero nel file:
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/lunario/il_sorgere_della_luna.dart
+     78:  final h0Primi = 0.7275 * (parallasseGradi * 60) - 34 + 20; // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+   Trovato: il difetto e' entrato nel file.
+
+3. ESITO ROSSO, `flutter test test/il_sorgere_della_luna_test.dart`:
+
+     ORDINE FX: Piacenza, sorgere calcolato 2026-10-16 11:50:00.000Z, pubblicato 2026-10-16 11:46:00.000Z, scarto 4.0 minuti; tramonto calcolato 2026-10-16 19:46:00.000Z, pubblicato 2026-10-16 19:48:00.000Z, scarto 2.0 minuti; culminazione calcolata 2026-10-16 15:47:00.000Z, pubblicata 2026-10-16 15:46:00.000Z, scarto 1.0 minuti
+     00:00 +0 -1: sorgere, tramonto e culminazione contro USNO e timeanddate.com [E]
+       Expected: a value less than <2.0>
+         Actual: <4.0>
+       Piacenza: sorgere
+
+   La culminazione resta giusta (non usa la soglia dell'orizzonte: e' il
+   difetto giusto per il bersaglio giusto), il sorgere e il tramonto no: la
+   guardia prende il difetto che deve prendere.
+
+4. CORREZIONE: tolto il "+ 20", ripristinato
+   `final h0Primi = 0.7275 * (parallasseGradi * 60) - 34;`.
+
+5. VERIFICA COL GREP che il difetto non ci sia piu':
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/lunario/il_sorgere_della_luna.dart
+     (nessuna riga, grep esce con codice 1)
+
+6. ESITO VERDE, `flutter test test/il_sorgere_della_luna_test.dart`:
+
+     ORDINE FX: Piacenza, sorgere calcolato 2026-10-16 11:47:00.000Z, pubblicato 2026-10-16 11:46:00.000Z, scarto 1.0 minuti; tramonto calcolato 2026-10-16 19:49:00.000Z, pubblicato 2026-10-16 19:48:00.000Z, scarto 1.0 minuti; culminazione calcolata 2026-10-16 15:47:00.000Z, pubblicata 2026-10-16 15:46:00.000Z, scarto 1.0 minuti
+     ORDINE FX: New York, sorgere calcolato 2026-10-16 17:13:00.000Z, pubblicato 2026-10-16 17:12:00.000Z, scarto 1.0 minuti; tramonto calcolato 2026-10-17 01:57:00.000Z, pubblicato 2026-10-17 01:56:00.000Z, scarto 1.0 minuti; culminazione calcolata 2026-10-16 21:34:00.000Z, pubblicata 2026-10-16 21:33:00.000Z, scarto 1.0 minuti
+     ORDINE FX: Sydney, sorgere calcolato 2026-10-15 22:23:00.000Z, pubblicato 2026-10-15 22:22:00.000Z, scarto 1.0 minuti; tramonto calcolato 2026-10-16 13:39:00.000Z, pubblicato 2026-10-16 13:38:00.000Z, scarto 1.0 minuti; culminazione calcolata 2026-10-16 06:01:00.000Z, pubblicata 2026-10-16 06:00:00.000Z, scarto 1.0 minuti
+     ORDINE FX: scarto massimo sulle tre citta' 1 minuti
+     00:00 +1: All tests passed!
+
+LO SCARTO MASSIMO MISURATO, CON LA FONTE
+Fonte: due, indipendenti dal calcolo, concordi al minuto.
+- US Naval Observatory, API ufficiale
+  https://aa.usno.navy.mil/api/rstt/oneday (sorgere, culminazione detta
+  "Upper Transit", tramonto).
+- timeanddate.com, la tabella mensile di
+  https://www.timeanddate.com/moon/@lat,lon (sorgere, tramonto con l'azimut,
+  culminazione detta "Meridian Passing" con l'altezza).
+
+Per il 16 ottobre 2026 (15 ottobre per il sorgere di Sydney, che cade prima
+della mezzanotte UTC):
+- Piacenza (45,0526 N, 9,6930 E): sorgere 1,0 minuti, tramonto 1,0 minuti,
+  culminazione 1,0 minuti.
+- New York (40,7128 N, 74,0060 O): sorgere 1,0 minuti, tramonto 1,0 minuti,
+  culminazione 1,0 minuti.
+- Sydney (33,8688 S, 151,2093 E): sorgere 1,0 minuti, tramonto 1,0 minuti,
+  culminazione 1,0 minuti.
+
+Scarto massimo sulle tre citta' e sui tre istanti: UN MINUTO, lo stesso
+ordine di grandezza dell'arrotondamento delle fonti pubblicate (che stampano
+l'ora al minuto) e del passo di affinamento della ricerca
+(`primoIstanteSopraInFinestra` affina al minuto).

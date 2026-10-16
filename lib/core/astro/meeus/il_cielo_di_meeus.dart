@@ -134,6 +134,14 @@ abstract final class IlCieloDiMeeus {
     return LaLunaIntera.latitudine(jdUt);
   }
 
+  /// LA DISTANZA TERRA-LUNA, in chilometri, centro a centro (Meeus cap. 47,
+  /// eq. 47.10, tabella 47.A intera). Ordine FX voce 1: vedi
+  /// [LaLunaIntera.distanzaInKm] per la fonte dei coefficienti e la verifica.
+  static double distanzaInKm(double jdUt) {
+    _pretendi('la distanza della Luna', jdUt);
+    return LaLunaIntera.distanzaInKm(jdUt);
+  }
+
   /// Latitudine eclittica geocentrica di [corpo], in gradi, al giorno
   /// giuliano [jdUt] in tempo universale. Per il Sole e' zero (la beta del
   /// Sole resta sotto il secondo d'arco), per la Luna e' Meeus 47.B, per i

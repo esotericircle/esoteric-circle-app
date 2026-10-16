@@ -353,6 +353,89 @@ class PropostaDelGiorno {
   }
 }
 
+/// **IL RESPIRO COLLETTIVO, ordine FX voce FX.09.** Quante persone in tutto
+/// il Cerchio stanno respirando in questo momento, e quali amici veri fra
+/// loro: [amiciDentro] porta solo i loro uid (mai un dato in più di quello
+/// che il Cerchio mostra altrove), e chi lo mostra risolve i nomi dal suo
+/// `IlMioCerchio.amici`, che li ha gia'.
+///
+/// // TODO integrazione: la UI la costruisce un altro file, nella schermata
+/// del Respiro della Luna. Legge [IlCerchioSociale.respiroInsiemeConteggio].
+@immutable
+class RespiroInsiemeStato {
+  const RespiroInsiemeStato({this.quante = 0, this.amiciDentro = const []});
+
+  /// Quante persone, in tutto il Cerchio, stanno respirando adesso.
+  final int quante;
+
+  /// Gli uid degli amici veri fra loro.
+  final List<String> amiciDentro;
+
+  factory RespiroInsiemeStato.da(Map<String, Object?> d) =>
+      RespiroInsiemeStato(
+        quante: (d['quante'] as num?)?.toInt() ?? 0,
+        amiciDentro: d['amiciDentro'] is List
+            ? [
+                for (final x in d['amiciDentro'] as List)
+                  if (x is String) x,
+              ]
+            : const [],
+      );
+}
+
+/// **UNA COLLANA A DUE, ordine FX voce FX.09.** Nasce da un invito fra due
+/// amici veri del Cerchio per il ciclo in corso (la Luna piena che lo
+/// governa, [ciclo], in forma 'AAAA-MM-GG'); la sua perla del giorno si
+/// accende solo nei giorni di [giorniAccesi], cioe' quando ENTRAMBE le
+/// persone hanno segnalato il respiro fatto.
+///
+/// // TODO integrazione: la card con i due nomi la disegna un altro file
+/// (la UI del Respiro della Luna). [conUid] e' il solo dato che porta
+/// sull'altra persona: chi mostra la card risolve il nome dal suo
+/// `IlMioCerchio.amici`. Legge [IlCerchioSociale.leCollaneADue].
+@immutable
+class CollanaADue {
+  const CollanaADue({
+    required this.id,
+    required this.ciclo,
+    required this.conUid,
+    required this.stato,
+    required this.iniziataDaMe,
+    this.giorniAccesi = const [],
+  });
+
+  final String id;
+
+  /// La Luna piena che governa il ciclo, in forma 'AAAA-MM-GG'.
+  final String ciclo;
+
+  /// L'uid dell'altra persona nella collana.
+  final String conUid;
+
+  /// 'invitata', 'attiva' oppure 'rifiutata'.
+  final String stato;
+
+  /// Vero se sono io ad aver mandato l'invito.
+  final bool iniziataDaMe;
+
+  /// I giorni (in forma 'AAAA-MM-GG') in cui la perla e' davvero accesa.
+  final List<String> giorniAccesi;
+
+  factory CollanaADue.da(Map<String, Object?> d) => CollanaADue(
+        id: d['id'] as String? ?? '',
+        ciclo: d['ciclo'] as String? ?? '',
+        conUid: d['con'] as String? ?? '',
+        stato: d['stato'] as String? ?? 'invitata',
+        iniziataDaMe: d['daMe'] == true,
+        giorniAccesi: d['giorniAccesi'] is List
+            ? [
+                for (final x in d['giorniAccesi'] as List)
+                  if (x is String) x,
+              ]
+            : const [],
+      );
+}
+
 /// Il mio Cerchio: amici, inviti, bloccati, segni e doni recenti.
 @immutable
 class IlMioCerchio {
@@ -1132,6 +1215,70 @@ class IlCerchioSociale extends ChangeNotifier {
     }));
     if (esito.ok) await caricaIlCerchio();
     return esito;
+  }
+
+  // ---- IL RESPIRO DELLA LUNA, ordine FX voce FX.09 ----
+
+  /// **RESPIRIAMO INSIEME, SI ENTRA.** La persona dichiara di aver appena
+  /// iniziato il minuto del respiro collettivo: il server scrive un
+  /// documento con un TTL breve (poco più di un minuto), e scade da solo.
+  Future<EsitoDelGesto> respiroInsiemeEntra() async =>
+      _esito(await _chiedi('respiroInsiemeEntra'));
+
+  /// **IL CONTEGGIO DEL RESPIRO COLLETTIVO**: quante persone stanno
+  /// respirando adesso in tutto il Cerchio, e quali amici veri fra loro
+  /// ([RespiroInsiemeStato.amiciDentro]). Nullo se il Cerchio non risponde.
+  Future<RespiroInsiemeStato?> respiroInsiemeConteggio() async {
+    final e = await _chiedi('respiroInsiemeConteggio');
+    if (e == null || e.rifiutato) return null;
+    return RespiroInsiemeStato.da(e.dati);
+  }
+
+  /// **INVITA UN AMICO ALLA COLLANA A DUE.** [amico] deve essere un amico
+  /// vero del Cerchio; [ciclo] e' la Luna piena che governa il ciclo in
+  /// corso, in forma 'AAAA-MM-GG' (la stessa forma di [_giornoScritto]).
+  Future<EsitoDelGesto> invitaCollanaADue({
+    required String amico,
+    required DateTime ciclo,
+  }) async =>
+      _esito(await _chiedi('invitaCollanaADue', {
+        'amico': amico,
+        'ciclo': _giornoScritto(ciclo),
+      }));
+
+  /// **RISPONDI ALL'INVITO DELLA COLLANA A DUE**: [risposta] e' 'accetta'
+  /// oppure 'rifiuta'. Accettando, la collana nasce attiva e diventa quella
+  /// attiva di entrambi: una alla volta.
+  Future<EsitoDelGesto> rispondiCollanaADue(String id,
+      {required String risposta}) async {
+    final esito = _esito(
+        await _chiedi('rispondiCollanaADue', {'id': id, 'risposta': risposta}));
+    if (esito.ok) await caricaIlCerchio();
+    return esito;
+  }
+
+  /// **SEGNALA IL RESPIRO DEL GIORNO PER LA COLLANA A DUE.** Il telefono la
+  /// chiama quando il respiro guidato finisce, SOLO SE la persona e' in una
+  /// collana a due attiva ([leCollaneADue]): accende la sua metà della
+  /// perla di [giorno]. La perla si accende per davvero solo quando anche
+  /// l'altra persona segnala lo stesso giorno.
+  Future<EsitoDelGesto> segnalaRespiroDelGiornoPerLaCollanaADue(
+          {required DateTime giorno}) async =>
+      _esito(await _chiedi('segnalaRespiroDelGiornoPerLaCollanaADue',
+          {'giorno': _giornoScritto(giorno)}));
+
+  /// **LE MIE COLLANE A DUE**: ogni collana di cui faccio parte, con lo
+  /// stato, l'altra persona e i giorni in cui la perla e' davvero accesa.
+  Future<List<CollanaADue>> leCollaneADue() async {
+    final e = await _chiedi('leCollaneADue');
+    if (e == null || e.rifiutato) return const [];
+    final grezzo = e.dati['collane'];
+    return grezzo is List
+        ? [
+            for (final x in grezzo)
+              if (x is Map) CollanaADue.da(Map<String, Object?>.from(x)),
+          ]
+        : const [];
   }
 
   // ---- I GESTI, EY.10, EY.11, EY.12 ----

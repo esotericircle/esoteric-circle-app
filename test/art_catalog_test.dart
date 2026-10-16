@@ -112,11 +112,12 @@ void main() {
         'lunar_calendar',
       ]);
       // **IL CALENDARIO LUNARE ESCE DAL COMING SOON, ordine FV voce FV.13,
-      // 15 ottobre 2026.** E' l'unica delle quattro viva: le altre tre
-      // restano in cammino, ognuna con la sua fase, con la rotta
-      // sull'anticipo invece che su una schermata.
+      // 15 ottobre 2026; IL RESPIRO DELLA LUNA, ordine FX voce FX.11, 16
+      // ottobre 2026.** Sono le due vive: le altre due (Finestre Fertili,
+      // Affinità Lunare) restano in cammino, ognuna con la sua fase, con la
+      // rotta sull'anticipo invece che su una schermata.
       for (final a in luna.arts) {
-        if (a.id == 'lunar_calendar') continue;
+        if (a.id == 'lunar_calendar' || a.id == 'lunology') continue;
         expect(a.state, ArtState.inArrivo, reason: a.id);
         expect(a.phase, isNotNull, reason: a.id);
         expect(artRouteFor(a.id), isNull, reason: a.id);
@@ -124,10 +125,13 @@ void main() {
       final lunare = luna.arts.firstWhere((a) => a.id == 'lunar_calendar');
       expect(lunare.state, ArtState.attiva);
       expect(lunare.phase, 'MVP');
-      // **IN MVP DALL'ORDINE EN, voce 12**: la scelta del fondatore, *"Ok,
-      // Respiro della Luna e Affinità Lunare"*. Le altre due restano dove
-      // erano.
-      expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'MVP');
+      // **IL RESPIRO ESCE DAL COMING SOON, ordine FX voce FX.11.** Il
+      // fondatore, sui due calendari: "Separati e collegati". La sua rotta
+      // vera, non piu' l'anticipo.
+      final respiro = luna.arts.firstWhere((a) => a.id == 'lunology');
+      expect(respiro.state, ArtState.attiva);
+      expect(respiro.phase, 'MVP');
+      expect(artRouteFor('lunology'), isNotNull);
       expect(
           luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase, 'MVP');
       expect(luna.arts.firstWhere((a) => a.id == 'fertility_windows').phase,

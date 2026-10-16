@@ -354,4 +354,21 @@ class TestiDelleFonti {
       'Luna: la sua fase e il segno che attraversa, che sono fatti dello '
       'stesso cielo e si leggono dalla sola data. La lettura che ne segue è '
       'del Cerchio.';
+
+  /// Il Respiro della Luna e la Collana delle Lune. Ordine FX voci FX.04 e
+  /// FX.05, 16 ottobre 2026.
+  static const String respiroDellaLuna =
+      'Il minuto di respiro che vedi qui non viene da nessuna fonte '
+      'documentata: è una chiave di Medora, non una tradizione. La '
+      'proporzione fra inspiro ed espiro cambia con la fase della Luna, più '
+      'lungo l\'inspiro alla crescente, più lungo l\'espiro alla calante, '
+      'uguali alla Luna nuova e alla Luna piena: è una scelta del Cerchio '
+      'sulla pratica del respiro, non un insegnamento antico.\n\n'
+      'Il soffio si riconosce dal microfono quando c\'è; il tocco è sempre '
+      'pronto a fare la stessa cosa, tenere premuto per inspirare e '
+      'lasciare per espirare.\n\n'
+      'La collana segue la lunazione vera: ogni perla porta la Luna del '
+      'giorno in cui hai respirato, calcolata sul telefono dalle stesse '
+      'posizioni astronomiche del Calendario Lunare, senza rete. Un giorno '
+      'saltato resta una perla spenta, senza nessun conto da pagare.';
 }

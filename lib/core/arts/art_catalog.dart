@@ -388,13 +388,20 @@ class ArtCatalog {
     // Fertili e il Calendario Lunare Personale restano nella fase
     // successiva.
     ArtSection(title: 'Lunologia', arts: [
+      // **ESCE DAL COMING SOON, ordine FX voce FX.11, 16 ottobre 2026.** Il
+      // teaser di prima descriveva ancora la sezione 38 del Briefing V13
+      // (giorni lunari, calendario biodinamico, consigli per categoria):
+      // quel contenuto vive ormai nel Calendario Lunare ("Trova il
+      // giorno", ordine FV), e il fondatore, sui due calendari: "Separati
+      // e collegati". Qui il teaser dice il vero di cio' che il Respiro fa
+      // oggi: l'appuntamento quotidiano con la Luna vera di quest'ora.
       ArtEntry(
         id: 'lunology',
         title: 'Il Respiro della Luna',
         teaser:
-            'Il cruscotto lunare del presente: fase con la percentuale reale, Luna nel segno, i trenta giorni lunari, il calendario biodinamico, la Luna fuori corso e i consigli per categoria.',
+            'L\'appuntamento di ogni giorno con la Luna vera di quest\'ora: un minuto di respiro accordato alla fase, una perla al giorno nella tua collana delle lune.',
         icon: Icons.nightlight_round,
-        state: ArtState.inArrivo,
+        state: ArtState.attiva,
         phase: ArtPhase.mvp,
       ),
       ArtEntry(

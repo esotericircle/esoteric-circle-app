@@ -85,6 +85,80 @@ abstract final class LaLunaIntera {
     [2, 0, -1, -2, 0],
   ];
 
+  /// Tabella 47.A, la colonna della DISTANZA: il coefficiente del coseno
+  /// della stessa tabella, in millesimi di km (Meeus eq. 47.10, Σr). Stesso
+  /// ordine di righe di [_tabellaLongitudine] (stessi D, M, M', F riga per
+  /// riga, qui non ripetuti): la riga i di questa tabella e' la riga i di
+  /// quella. Ordine FX voce 1, 16 ottobre 2026.
+  ///
+  /// **Fonte**: copiati a programma (non a mano) dal codice sorgente della
+  /// libreria Python "astronomia" 3.0.5 (file astronomia/lunar.py, tabella
+  /// `_tblLR`, colonna `r`) e incrociati con la libreria PyMeeus (file
+  /// pymeeus/Moon.py, `PERIODIC_TERMS_LR_TABLE`, sesta colonna): coincidono
+  /// tutti, cifra per cifra, sui sessanta termini.
+  static const List<int> _tabellaDistanza = [
+    -20905355,
+    -3699111,
+    -2955968,
+    -569925,
+    48888,
+    -3149,
+    246158,
+    -152138,
+    -170733,
+    -204586,
+    -129620,
+    108743,
+    104755,
+    10321,
+    0,
+    79661,
+    -34782,
+    -23210,
+    -21636,
+    24208,
+    30824,
+    -8379,
+    -16675,
+    -12831,
+    -10445,
+    -11650,
+    14403,
+    -7003,
+    0,
+    10056,
+    6322,
+    -9884,
+    5751,
+    0,
+    -4950,
+    4130,
+    0,
+    -3958,
+    0,
+    3258,
+    2616,
+    -1897,
+    -2117,
+    2354,
+    0,
+    0,
+    -1423,
+    -1117,
+    -1571,
+    -1739,
+    0,
+    -4421,
+    0,
+    0,
+    0,
+    0,
+    1165,
+    0,
+    0,
+    8752,
+  ];
+
   /// Tabella 22.A: D, M, M', F, Omega, coefficiente costante e coefficiente
   /// in T del seno, in decimillesimi di secondo d'arco (il secondo, in T,
   /// gia' moltiplicato per dieci: -1742 vale -174,2 T).
@@ -335,6 +409,79 @@ abstract final class LaLunaIntera {
 
     final lambdaMedia = l1 + sigmaL / 1000000.0;
     return _normalizza(lambdaMedia + nutazioneInLongitudine(jde));
+  }
+
+  /// LA DISTANZA TERRA-LUNA, in chilometri, centro a centro, per il giorno
+  /// giuliano [jdUt] in tempo universale (Meeus cap. 47, eq. 47.10: Δ =
+  /// 385000,56 + Σr/1000, con Σr dalla tabella 47.A intera, [_tabellaDistanza],
+  /// con la stessa correzione di eccentricita' E della longitudine). Ordine
+  /// FX voce 1, 16 ottobre 2026: prima la tabella 47.A aveva solo la colonna
+  /// della longitudine, nessuna distanza in questo motore.
+  ///
+  /// **Verifica**: contro l'esempio 47.a di Meeus (12 aprile 1992, 0h TD,
+  /// 368409,7 km) e contro quattordici perigei e tredici apogei pubblicati
+  /// del 2026 (moonblink.info, tempo universale): lo scarto massimo e'
+  /// dichiarato in `docs/collaudo/FX/fx01_distanza_regola_a.txt` e misurato
+  /// da `test/la_distanza_della_luna_test.dart`.
+  static double distanzaInKm(double jdUt) {
+    final anno = 2000.0 + (jdUt - 2451545.0) / 365.25;
+    final jde = jdUt + deltaT(anno) / 86400.0;
+    return _distanzaDaJde(jde);
+  }
+
+  /// La stessa distanza, ma per un giorno giuliano gia' in tempo dinamico
+  /// (serve all'esempio 47.a di Meeus, dato in TD).
+  static double distanzaInKmTd(double jde) => _distanzaDaJde(jde);
+
+  static double _distanzaDaJde(double jde) {
+    final t = (jde - 2451545.0) / 36525.0;
+    final t2 = t * t;
+    final t3 = t2 * t;
+    final t4 = t3 * t;
+    // Stessi argomenti fondamentali di 47.2, 47.3, 47.4, 47.5 (D, M, M', F):
+    // la distanza non usa L' (la longitudine media), solo gli argomenti degli
+    // angoli della tabella 47.A.
+    final d = 297.8501921 +
+        445267.1114034 * t -
+        0.0018819 * t2 +
+        t3 / 545868.0 -
+        t4 / 113065000.0;
+    final m =
+        357.5291092 + 35999.0502909 * t - 0.0001536 * t2 + t3 / 24490000.0;
+    final m1 = 134.9633964 +
+        477198.8675055 * t +
+        0.0087414 * t2 +
+        t3 / 69699.0 -
+        t4 / 14712000.0;
+    final f = 93.2720950 +
+        483202.0175233 * t -
+        0.0036539 * t2 -
+        t3 / 3526000.0 +
+        t4 / 863310000.0;
+    // Eccentricita' dell'orbita terrestre, formula 47.6: la stessa correzione
+    // di [_longitudineDaJde], perche' la tabella 47.A e' una sola e il
+    // coefficiente M si corregge uguale sulle due colonne (Meeus p. 338).
+    final e = 1.0 - 0.002516 * t - 0.0000074 * t2;
+
+    final dr = _normalizza(d) * _gradi;
+    final mr = _normalizza(m) * _gradi;
+    final m1r = _normalizza(m1) * _gradi;
+    final fr = _normalizza(f) * _gradi;
+
+    var sigmaR = 0.0; // millesimi di km
+    for (var i = 0; i < _tabellaLongitudine.length; i++) {
+      final r = _tabellaLongitudine[i];
+      final argomento = r[0] * dr + r[1] * mr + r[2] * m1r + r[3] * fr;
+      var coefficiente = _tabellaDistanza[i].toDouble();
+      final am = r[1].abs();
+      if (am == 1) {
+        coefficiente *= e;
+      } else if (am == 2) {
+        coefficiente *= e * e;
+      }
+      sigmaR += coefficiente * math.cos(argomento);
+    }
+    return 385000.56 + sigmaR / 1000.0;
   }
 
   /// Latitudine eclittica geocentrica della Luna, in gradi, per il giorno

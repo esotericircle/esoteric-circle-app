@@ -373,6 +373,20 @@ flutter:
     # voce FU.12), da 54,9 a 23,7 MB in tutto. Le impronte SHA-256 stanno in
     # docs/collaudo/FW/fw01_asset.txt.
     - brand_assets/maestri_scena/
+    # LA SCENA DEL RESPIRO DELLA LUNA, ordine FX, 16 ottobre 2026: i cinque
+    # fotogrammi fermi (il respiro, il cielo senza luna, la consegna della
+    # collana), convertiti in WebP da tool/gli_asset_dell_ordine_fx.py.
+    - assets/img/respiro_della_luna/
+    # Gli elementi della Collana (perla, fermaglio, catenella, medaglia,
+    # scrigno), RGBA con l'alfa scritto senza perdita.
+    - assets/img/respiro_della_luna/collana/
+    # Gli elementi della Bussola (quadrante, ago a falce, scia di luna),
+    # RGBA con l'alfa scritto senza perdita.
+    - assets/img/respiro_della_luna/bussola/
+    # I due video, H.264 a qualita' costante 26 con l'audio (metodo della
+    # voce FU.12), da 16,9 a 5,6 MB in tutto. Le impronte SHA-256 stanno in
+    # docs/collaudo/FX/fx01_asset.txt.
+    - brand_assets/respiro_della_luna/
     - assets/brand/
     # Le sei famiglie esoteriche in WebP a due misure: piena (a fuoco o
     # ingrandita) e miniatura (viste con piu' carte). Bundlate in-app per la

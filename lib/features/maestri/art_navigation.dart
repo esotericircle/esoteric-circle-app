@@ -22,6 +22,7 @@ import '../tarot/stesa_tre_carte_screen.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../angels/oracolo/oracolo_degli_angeli_screen.dart';
 import '../lunario/calendario_lunare_screen.dart';
+import '../respiro_della_luna/il_respiro_della_luna_screen.dart';
 import '../../core/cerchio/l_arte_di_adesso.dart';
 import '../../core/astro/il_segno_del_cielo.dart';
 
@@ -163,6 +164,11 @@ Route<void>? _rottaDellArte(
     // giorni tuoi invitano a darla dentro la schermata.
     case 'lunar_calendar':
       return CalendarioLunareScreen.route();
+    // **IL RESPIRO DELLA LUNA, ordine FX voce FX.11, 16 ottobre 2026.** La
+    // sua rotta vera: esce dal Coming soon. Si apre anche senza nascita,
+    // come il Calendario Lunare: la Luna di quest'ora non la chiede.
+    case 'lunology':
+      return IlRespiroDellaLunaScreen.route();
     case 'synastry_depth':
       if (userBirth == null) return DatiDiNascitaScreen.route();
       return AvvioSinastriaEvolutiva.route();

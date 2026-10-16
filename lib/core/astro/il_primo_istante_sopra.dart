@@ -29,3 +29,32 @@ DateTime? primoIstanteSopra(bool Function(DateTime) sopra, DateTime da) {
   }
   return null;
 }
+
+/// Come [primoIstanteSopra], ma la finestra di ricerca e' [finestra] invece
+/// delle ventiquattro ore fisse. Ordine FX voce 2, 16 ottobre 2026: serve a
+/// chi insegue un evento che si sposta di giorno in giorno, come il sorgere
+/// della Luna. Il giorno lunare dura circa 24h50m (la Luna gira intorno alla
+/// Terra nello stesso verso in cui la Terra gira su se stessa, quindi ogni
+/// giro dell'orizzonte la raggiunge un po' piu' tardi): una finestra di sole
+/// ventiquattro ore puo' perdere l'evento che cade proprio nell'ultima mezz'ora
+/// prima del suo giro. Stessa regola del Cielo esistente per il resto: dieci
+/// minuti per non mancare l'attraversamento, poi il minuto per affinarlo.
+DateTime? primoIstanteSopraInFinestra(
+    bool Function(DateTime) sopra, DateTime da, Duration finestra) {
+  if (sopra(da)) return da;
+  var precedente = da;
+  final minuti = finestra.inMinutes;
+  for (var m = 10; m <= minuti; m += 10) {
+    final t = da.add(Duration(minutes: m));
+    if (!sopra(t)) {
+      precedente = t;
+      continue;
+    }
+    for (var k = 1; k <= 10; k++) {
+      final f = precedente.add(Duration(minutes: k));
+      if (sopra(f)) return f;
+    }
+    return t;
+  }
+  return null;
+}

@@ -175,6 +175,15 @@ export {
   compraUnaPropostaInsiemeDelLunario,
   proponiGiornoInsieme,
   rispondiAlGiorno,
+  // Il Respiro della Luna, ordine FX voce FX.09: riesportate da qui fin
+  // dalla prima stesura, con la stessa trappola dell'ordine FW gia' in
+  // testa (il deploy guarda solo cio' che `index.ts` riesporta davvero).
+  respiroInsiemeEntra,
+  respiroInsiemeConteggio,
+  invitaCollanaADue,
+  rispondiCollanaADue,
+  segnalaRespiroDelGiornoPerLaCollanaADue,
+  leCollaneADue,
 } from "./il_cerchio_sociale";
 export {paginaDellInvito} from "./la_pagina_dell_invito";
 

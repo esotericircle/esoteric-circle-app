@@ -125,6 +125,14 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso la sera prima del giorno che hai fissato e uno alla Luna '
           'piena, se le hai affidato un\'intenzione.'
     ),
+    // **IL RESPIRO DELLA LUNA, ordine FX voce FX.08.** La Luna che sorge
+    // nel tuo luogo, la Luna piena, la Luna nuova e la Superluna: li
+    // programma `GliAvvisiDelRespiro`.
+    'respiro_della_luna': (
+      'Il Respiro della Luna',
+      'Un avviso quando la Luna sorge da te, e uno alla Luna piena e alla '
+          'Luna nuova.'
+    ),
   };
 
   /// CHI APRE LA SCENA PROMESSA. L'app lo imposta all'avvio: riceve il

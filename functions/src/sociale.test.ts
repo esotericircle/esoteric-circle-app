@@ -469,8 +469,11 @@ test("EY.16 GUARDIA: ogni porta del motore sociale ha il suo tetto", () => {
   // FT: le due porte della lettura a due telefoni della Sinastria evolutiva.
   // 28 dall'ordine FV: le quattro porte del Calendario Lunare, voci FV.10 e
   // FV.12 (proponiGiornoInsieme, rispondiAlGiorno, compraUnMeseDelLunario,
-  // compraUnaPropostaInsiemeDelLunario).
-  assert.equal(nomi.length, 28);
+  // compraUnaPropostaInsiemeDelLunario). 34 dall'ordine FX voce FX.09: le sei
+  // porte del Respiro della Luna (respiroInsiemeEntra,
+  // respiroInsiemeConteggio, invitaCollanaADue, rispondiCollanaADue,
+  // segnalaRespiroDelGiornoPerLaCollanaADue, leCollaneADue).
+  assert.equal(nomi.length, 34);
   assert.deepEqual(senza, []);
   assert.deepEqual(nomi.sort(), Object.keys(TETTI_DELLE_PORTE).sort());
   // E App Check resta spento, come dichiara la premessa P9.
@@ -511,8 +514,9 @@ test("EZ.07 la pagina del link senza store non rimanda a uno store, col dato pie
 test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che riceve l'eta'", () => {
   const porte = Object.keys(TETTI_DELLE_PORTE);
   // 24 dall'ordine FT, con le due porte della lettura a due telefoni. 28
-  // dall'ordine FV, con le quattro porte del Calendario Lunare.
-  assert.equal(porte.length, 28);
+  // dall'ordine FV, con le quattro porte del Calendario Lunare. 34
+  // dall'ordine FX, con le sei porte del Respiro della Luna.
+  assert.equal(porte.length, 34);
   const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
     sogliaDellEtaPassata(p, undefined));
   console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);

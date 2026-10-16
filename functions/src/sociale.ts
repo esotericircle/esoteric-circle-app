@@ -1250,6 +1250,13 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   rispondiAlGiorno: {quante: 120, finestraMs: 60 * 60 * 1000},
   compraUnMeseDelLunario: {quante: 20, finestraMs: 60 * 60 * 1000},
   compraUnaPropostaInsiemeDelLunario: {quante: 20, finestraMs: 60 * 60 * 1000},
+  // Il Respiro della Luna, ordine FX voce FX.09.
+  respiroInsiemeEntra: {quante: 30, finestraMs: 60 * 60 * 1000},
+  respiroInsiemeConteggio: {quante: 120, finestraMs: 60 * 60 * 1000},
+  invitaCollanaADue: {quante: 30, finestraMs: 60 * 60 * 1000},
+  rispondiCollanaADue: {quante: 60, finestraMs: 60 * 60 * 1000},
+  segnalaRespiroDelGiornoPerLaCollanaADue: {quante: 30, finestraMs: 60 * 60 * 1000},
+  leCollaneADue: {quante: 60, finestraMs: 60 * 60 * 1000},
 };
 
 /**

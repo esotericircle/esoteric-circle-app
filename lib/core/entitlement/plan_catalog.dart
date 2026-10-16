@@ -239,6 +239,24 @@ enum RigaDelPiano {
 
   /// Se il piano apre "Trova il giorno insieme" (FV.10): dall'Adepto in su.
   lunarioInsieme,
+
+  /// **IL RESPIRO DELLA LUNA, ordine FX voce FX.10**, 16 ottobre 2026: la
+  /// collana completa (la consegna alla Luna nuova e lo scrigno delle
+  /// collane) e gli avvisi, dall'Iniziato in su; il Viandante ha la Luna di
+  /// quest'ora, il respiro di oggi, la parola di Medora e la perla del
+  /// giorno, ma non la collana che li lega nel tempo.
+  respiroCollanaCompleta,
+  respiroAvvisi,
+
+  /// Se il tempo sotto il dito (il trascinamento che scorre la Luna nel
+  /// tempo) scorre su tutto il mese (dall'Iniziato) o solo sulle 24 ore di
+  /// oggi (il Viandante).
+  respiroTempoSottoIlDitoMese,
+
+  /// **RESPIRIAMO INSIEME, ordine FX voce FX.09**: il conteggio collettivo
+  /// alla Luna piena, la collana a due e la bussola verso la Luna, esclusiva
+  /// dell'Adepto e dell'Illuminato.
+  respiroInsieme,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -306,6 +324,8 @@ class PlanCatalog {
         'Oracolo degli Angeli: l’angelo dell’ora, il messaggio del giorno e una consultazione al giorno col tuo Angelo Custode',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: il mese in corso e una categoria di "Trova il giorno"',
+        // Ordine FX voce FX.10: il Respiro della Luna.
+        'Respiro della Luna: la Luna di quest\'ora, il respiro di oggi e la perla del giorno',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
@@ -339,6 +359,8 @@ class PlanCatalog {
         'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: tutte le categorie, i promemoria e il mese dopo',
+        // Ordine FX voce FX.10: il Respiro della Luna.
+        'Respiro della Luna: la collana completa, lo scrigno e gli avvisi',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Diario Cosmico completo, obiettivi e traguardi per Maestro',
@@ -376,6 +398,8 @@ class PlanCatalog {
         'Oracolo degli Angeli: 5 consultazioni al giorno, la risposta lunga e la lettura per un amico',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
+        // Ordine FX voce FX.10: il Respiro della Luna, esclusiva da qui.
+        'Respiro della Luna: Respiriamo insieme, con la collana a due e la bussola verso la Luna',
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -995,6 +1019,27 @@ class PlanCatalog {
     FeatureRow(
         'Calendario Lunare: Trova il giorno insieme', ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.lunarioInsieme),
+    // **IL RESPIRO DELLA LUNA, ordine FX voce FX.10**, 16 ottobre 2026: "1
+    // ok" del fondatore sulla proposta, "lo decide Code" sui prezzi in Eos
+    // (nel listino, non in questa matrice). Il Viandante ha la Luna di
+    // quest'ora, il respiro di oggi, la parola di Medora e la perla del
+    // giorno (non righe della matrice: sono sempre apribili, come il
+    // nutrimento dell'animale guida), e il tempo sotto il dito solo sulle 24
+    // ore di oggi. Dall'Iniziato la collana completa, lo scrigno e gli
+    // avvisi, e il tempo sotto il dito su tutto il mese. Dall'Adepto
+    // Respiriamo insieme, con la collana a due e la bussola.
+    FeatureRow('Respiro della Luna: collana completa e scrigno',
+        ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.respiroCollanaCompleta),
+    FeatureRow('Respiro della Luna: avvisi', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.respiroAvvisi),
+    FeatureRow(
+        'Respiro della Luna: tempo sotto il dito su tutto il mese',
+        ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.respiroTempoSottoIlDitoMese),
+    FeatureRow('Respiro della Luna: Respiriamo insieme',
+        ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.respiroInsieme),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //

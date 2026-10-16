@@ -161,6 +161,10 @@ class CioCheETuo {
     // L'identita' del dispositivo, che regge i Doni deterministici: e' un
     // numero che ti identifica, quindi e' tuo.
     'device.id',
+    // **GLI AVVISI DEL RESPIRO DELLA LUNA, ordine FX voce FX.08**: se hai
+    // acceso l'avviso della Luna che sorge e quello delle Lune piene e
+    // nuove. Due interruttori che hai scelto tu, quindi se ne vanno con te.
+    'respiro.',
   ];
 
   /// **CIO' CHE NON E' DI NESSUNO, e resta.** Ogni voce porta la ragione
