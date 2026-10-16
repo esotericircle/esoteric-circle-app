@@ -12,7 +12,7 @@ VOCI_DA_FARE: 0
 **CHIUSA.** Il Calendario Lunare sceglie un giorno nel mese; il Respiro della Luna e' l'appuntamento con la Luna di adesso, ogni giorno, in un minuto: un minuto di respiro accordato alla fase, una perla al giorno nella collana, la consegna di Medora alla Luna nuova. Il calendario biodinamico e i consigli per categoria della sezione 38 del Briefing V13 restano nel Calendario Lunare ("Trova il giorno"): qui non si ripetono. Dal Respiro una porta "Trova il giorno nel mese" apre il Calendario; dal Calendario una porta "Il Respiro" apre il Respiro di oggi (FX.11).
 
 DOMANDA: "Avevamo lasciato il respiro della Luna indietro giusto? Per una retention giornaliera?"; la proposta dell'Architetto, approvata con "Approvato"
-PROVA: `lib/core/arts/art_catalog.dart` (il teaser riscritto), `docs/ordini/RAPPORTO_ORDINE_FX.md`
+PROVA: `lib/core/arts/art_catalog.dart`
 MISURA: le tre righe della differenza sono quelle sopra, le stesse del nuovo teaser di `art_catalog.dart`; nessun contenuto della sezione 38 duplicato nel Respiro (verificato a mano confrontando le due voci del catalogo, `lunology` e `lunar_calendar`)
 
 ## VOCE FX.01
@@ -20,7 +20,7 @@ MISURA: le tre righe della differenza sono quelle sopra, le stesse del nuovo tea
 **CHIUSA.** I file di P1 nel ramo, fuori da `Lavoro\`: i due video ricompressi (H.264 qualita' costante 26, preset lento, AAC 96 kbit/s, lo stesso metodo FU.12) in `brand_assets/respiro_della_luna/`; le immagini in `assets/img/respiro_della_luna/`, `collana/` e `bussola/` convertite in webp mantenendo la trasparenza; dichiarati in `pubspec.yaml` e `docs/stato_asset.json`. La cattura di Dora in `docs/collaudo/FX/catture_fondatore/`. La scia di luna ha trasparenza vera (canale alfa non costante, verificato pixel per pixel). Nessun asset rigenerato o ritoccato.
 
 DOMANDA: "Si salva" sul video della scena; "Va bene questo per ora" sul video della consegna
-PROVA: `docs/collaudo/FX/fx01_asset.txt`, `tool/gli_asset_dell_ordine_fx.py`
+PROVA: `docs/collaudo/FX/fx01_asset.txt`
 MISURA: dodici immagini da 2.883.869 a 940.142 byte in tutto; `medora_il_respiro_della_luna_v1.mp4` da 7.146.087 a 2.120.306 byte, scarto sull'ultimo fotogramma 6,70 su 255; `medora_la_consegna_della_collana_v1.mp4` da 5.197.255 a 2.159.176 byte, scarto 6,57 su 255; totale da 16.946.578 a 5.560.344 byte; `scia_di_luna_v1.webp`, 1523x798, alfa da 0 a 255 su 834.721 e 380.630 pixel, non costante; `docs/stato_asset.json` coerente con `pubspec.yaml`, 61 voci su 61, verificato con un parser indipendente
 
 ## VOCE FX.02
@@ -108,13 +108,13 @@ MISURA: la matrice coperta dalle stesse 11 prove di FX.09 (il Viandante non ha n
 **CHIUSA.** Il Respiro della Luna esce dal Coming soon (`art_catalog.dart`, `ArtState.attiva`), col teaser riscritto (FX.00) e la sua rotta vera in `art_navigation.dart` (`case 'lunology'`). La porta sta nel dominio di Medora, sezione Lunologia. Dal Respiro, il foglio "Altro" porta "Trova il giorno nel mese" al Calendario; dal Calendario, un pulsante "Il Respiro" nella barra apre il Respiro di oggi: due arti separate e collegate.
 
 DOMANDA: "Separati e collegati" sui due calendari
-PROVA: `test/art_catalog_test.dart`, `lib/features/maestri/art_navigation.dart`, `lib/features/lunario/calendario_lunare_screen.dart`
-MISURA: la prova che ogni arte dichiarata attiva nel catalogo ha una rotta vera resta verde con `lunology` aggiunta (nessuna riga rossa nuova); le due porte reciproche verificate a mano nel codice (`respiro_vai_al_calendario`, `lunario_vai_al_respiro`), con le chiavi dichiarate per una prova di navigazione futura.
+PROVA: `test/art_catalog_test.dart`
+MISURA: 23 prove verdi in `test/art_catalog_test.dart`, incluso il test che ogni arte dichiarata attiva nel catalogo ha una rotta vera, verde anche con `lunology` aggiunta (nessuna riga rossa nuova); le due porte reciproche verificate a mano nel codice (`respiro_vai_al_calendario` in `lib/features/lunario/calendario_lunare_screen.dart`, `case 'lunology'` in `lib/features/maestri/art_navigation.dart`), con le chiavi dichiarate per una prova di navigazione futura.
 
 ## VOCE FX.12
 
 **CHIUSA.** Manifesto, guardia del manifesto (voce implicita, verificata dalla quadratura dei marcatori), rapporto, STATO_VIVO e registro delle guardie aggiornati. La guardia della grafica dipinta (R9) estesa a `lib/features/respiro_della_luna/`, vista rossa su un innesto verificato col grep (`docs/collaudo/FX/fx12_grafica_del_respiro_regola_a.txt`), che ha anche trovato e corretto un falso positivo in un commento di `la_bussola_della_luna.dart`. Due anteprime vere generate e guardate (`docs/preview/FX/`), non solo rigenerate: hanno preso due difetti veri (il titolo tagliato, la scena nera) prima di questa consegna. In locale sono girate solo le prove della voce e le guardie della zona toccata; la suite intera la fa il cancello di GitHub.
 
 DOMANDA: le regole fisse R3, R6, R9, R12 dell'ordine
-PROVA: `docs/ordini/ORDINE_FX_MANIFESTO.md` (questo file), `docs/guardie.md`, `docs/ordini/RAPPORTO_ORDINE_FX.md`, `docs/STATO_VIVO.md`, `test/la_grafica_del_respiro_e_dipinta_test.dart`
-MISURA: registro delle guardie passato da 796 a 797 (vedi `docs/guardie.md`); nessun rosso consegnato, il verde di GitHub sul commit di consegna e' nel rapporto.
+PROVA: `docs/ordini/RAPPORTO_ORDINE_FX.md`
+MISURA: registro delle guardie passato da 796 a 797 (vedi `docs/guardie.md`); il verde di GitHub sul commit di consegna e' scritto in coda al rapporto.

@@ -1,0 +1,68 @@
+IL ROSSO VERO DEL CANCELLO SUL COMMIT 08f4b578, ORDINE FX VOCE FX.12
+======================================================================
+
+Fonte: run GitHub Actions #1379, workflow "Verde di base (analyze e sbarramento)",
+https://github.com/esotericircle/esoteric-circle-app/actions/runs/38832734256
+Stato: Failure, durata 16m 14s. Job caduto: "analyze e sbarramento" (exit code 1).
+
+--- IL ROSSO, PRIMA DELLA CORREZIONE -----------------------------------------
+
+$ flutter test test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
+
+00:00 +0: ogni voce CHIUSA porta DOMANDA, PROVA e MISURA, e la prova esiste [E]
+  Expected: empty
+    Actual: [
+              'FX.00: la prova "lib/core/arts/art_catalog.dart (il teaser riscritto), docs/ordini/RAPPORTO_ORDINE_FX.md" non esiste',
+              'FX.01: la prova "docs/collaudo/FX/fx01_asset.txt, tool/gli_asset_dell_ordine_fx.py" non esiste',
+              'FX.11: la prova "test/art_catalog_test.dart, lib/features/maestri/art_navigation.dart, lib/features/lunario/calendario_lunare_screen.dart" non esiste',
+              'FX.11: la MISURA non porta nessun numero, e un aggettivo non si puo' contestare',
+              'FX.12: la prova "docs/ordini/ORDINE_FX_MANIFESTO.md (questo file), docs/guardie.md, docs/ordini/RAPPORTO_ORDINE_FX.md, docs/STATO_VIVO.md, test/la_grafica_del_respiro_e_dipinta_test.dart" non esiste'
+            ]
+
+00:02 +1 -2: il rapporto porta in cima le voci chiuse con la prova di ciascuna [E]
+  Expected: empty
+    Actual: [
+              'il rapporto dell'ordine FX nomina FX.00 ma non le mette accanto la sua prova, `lib/core/arts/art_catalog.dart` (il teaser riscritto), `docs/ordini/RAPPORTO_ORDINE_FX.md`',
+              'il rapporto dell'ordine FX nomina FX.01 ma non le mette accanto la sua prova, `docs/collaudo/FX/fx01_asset.txt`, `tool/gli_asset_dell_ordine_fx.py`',
+              'il rapporto dell'ordine FX nomina FX.11 ma non le mette accanto la sua prova, `test/art_catalog_test.dart`, `lib/features/maestri/art_navigation.dart`, `lib/features/lunario/calendario_lunare_screen.dart`',
+              'il rapporto dell'ordine FX nomina FX.12 ma non le mette accanto la sua prova, `docs/ordini/ORDINE_FX_MANIFESTO.md` (questo file), `docs/guardie.md`, `docs/ordini/RAPPORTO_ORDINE_FX.md`, `docs/STATO_VIVO.md`, `test/la_grafica_del_respiro_e_dipinta_test.dart`'
+            ]
+
+Some tests failed.
+
+--- LA CAUSA ------------------------------------------------------------------
+
+Le righe PROVA di FX.00, FX.01, FX.11 e FX.12 nel manifesto portavano piu'
+percorsi uniti da virgola (con note tra parentesi) invece di un percorso solo
+come vuole la regola ("PROVA: un percorso di un file che esiste davvero nel
+repo"). La guardia legge la riga intera come un unico percorso: la stringa
+coi piu' file e le parentesi non esiste come file, e lo stesso testo intero
+non compare mai verbatim nella tabella del rapporto, che invece porta gia'
+un solo percorso per voce. FX.11 aveva in piu' una MISURA senza nessun
+numero ("nessuna riga rossa nuova" e' un aggettivo, non una misura).
+
+--- LA CORREZIONE -------------------------------------------------------------
+
+docs/ordini/ORDINE_FX_MANIFESTO.md:
+  FX.00 PROVA: lib/core/arts/art_catalog.dart
+  FX.01 PROVA: docs/collaudo/FX/fx01_asset.txt
+  FX.11 PROVA: test/art_catalog_test.dart
+  FX.11 MISURA: aggiunto il numero vero, 23 prove verdi in test/art_catalog_test.dart
+  FX.12 PROVA: docs/ordini/RAPPORTO_ORDINE_FX.md
+
+--- IL VERDE, DOPO LA CORREZIONE ----------------------------------------------
+
+$ flutter test test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
+
+00:00 +1: ogni voce CHIUSA porta DOMANDA, PROVA e MISURA, e la prova esiste
+ORDINE EH VOCE 02: manifesti sotto la regola 36, voci chiuse guardate 405
+00:01 +2: il rapporto porta in cima le voci chiuse con la prova di ciascuna
+ORDINE EH VOCE 04: rapporti guardati 36, voci chiuse cercate in cima 405,
+di cui chiuse dopo la consegna e trovate nelle aggiunte in coda 31
+00:01 +3: All tests passed!
+
+$ flutter test test/art_catalog_test.dart
+00:04 +23: All tests passed!
+
+$ flutter test test/i_manifesti_sono_sigillati_test.dart test/il_registro_delle_guardie_quadra_test.dart test/ordine_fx_guard_test.dart
+00:15 +12: All tests passed!
