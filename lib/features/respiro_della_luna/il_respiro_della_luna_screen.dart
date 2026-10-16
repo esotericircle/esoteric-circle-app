@@ -156,19 +156,26 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
       // stato di `AnimationController` (`completed`/`dismissed`) segue la
       // stessa logica ma sui soli estremi esatti: il valore e' la
       // grandezza che il rito guarda davvero, ed e' quella che si misura.
-      final v = _luce.value;
-      if (v >= 1.0) {
-        _hoVistoPieno = true;
-      } else if (v <= 0.0 && _hoVistoPieno) {
-        _hoVistoPieno = false;
-        _cicliCompiuti++;
-        if (_cicliCompiuti >= _tempi.cicliPerUnMinuto) {
-          _completa();
-        } else if (mounted) {
-          setState(() {});
-        }
-      }
+      // **IL GIRO SI CONTA QUANDO SI LASCIA** (ordine FY, il fondatore
+      // sulla build 2313: "IL RESPIRO NON FUNZIONA, IN NESSUN MODO"). Prima
+      // un giro contava solo se la Luna arrivava piena (5 secondi tenuti) e
+      // poi tornava del tutto velata: chi lasciava prima non vedeva niente
+      // avanzare. Adesso conta [_contaIlGiro], al momento del rilascio.
+      if (_luce.value >= 1.0) _hoVistoPieno = true;
     });
+
+  /// Un inspiro che ha acceso la Luna almeno a meta' e' un giro, contato
+  /// appena il dito si alza o il soffio si ferma.
+  void _contaIlGiro() {
+    if (_finito || (_luce.value < 0.5 && !_hoVistoPieno)) return;
+    _hoVistoPieno = false;
+    _cicliCompiuti++;
+    if (_cicliCompiuti >= _tempi.cicliPerUnMinuto) {
+      _completa();
+    } else if (mounted) {
+      setState(() {});
+    }
+  }
 
   EsitoDelPermesso? _esitoMic;
   bool _tenutoGiu = false;
@@ -392,6 +399,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     // "Espira") deve cambiare col dito (FY.06; prima restava fermo, preso
     // dalla prova del rito col dito).
     setState(() => _inFaseDiInspiro = dentro);
+    if (!dentro) _contaIlGiro();
     _luce.animateTo(dentro ? 1.0 : 0.0,
         duration: dentro ? _tempi.inspiro : _tempi.espiro,
         curve: Curves.easeInOut);
@@ -622,12 +630,13 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
           // **SCORRE TUTTO, LA LUNA RESTA** (ordine FY voce FY.04). Il
           // fondatore: "Non vogliono riquadro a scorrimento, semplicemente
           // scorre tutto compreso Medora, ma la luna resta sempre presente".
-          // Nella voce Luna la scena arriva alle spalle di Medora (riga 1080
-          // del fotogramma) e sotto vengono il righello e i dati; nella voce
-          // Respiro la scena e' intera, Medora tutta, e il rito si fa davanti
-          // a lei (FY.05).
-          final fineDellaScena =
-              nelRito ? scena.bottom : scena.top + 1080 * w / 1080;
+          // **LA SCENA SEMPRE INTERA.** Il fondatore, sulla build 2313: "come
+          // cazzo si fa a presentare la testa tagliata dal corpo". La scena
+          // nella voce Luna si fermava alle spalle di Medora (riga 1080) col
+          // fondo scuro sotto: una testa staccata. Adesso e' intera in tutte
+          // e due le voci, Medora tutta, e il righello e i dati vengono sotto,
+          // scorrendo; la Luna resta fissa in cima.
+          final fineDellaScena = scena.bottom;
           // Quando il disco della Luna esce in alto, la Luna si fissa in
           // cima, piu' piccola, col nome della fase e la percentuale.
           final sogliaDellaLunaFissa = disco.bottom - sopra - 24;
@@ -1492,7 +1501,7 @@ class _IlGiroSullaScena extends StatelessWidget {
         : inspira
             ? 'Inspira'
             : cicli == 0
-                ? 'Tieni premuto sulla Luna'
+                ? 'Tieni premuto sulla Luna, poi lascia'
                 : 'Espira';
     final sotto = finito
         ? 'La perla di oggi è accesa nella tua Collana'

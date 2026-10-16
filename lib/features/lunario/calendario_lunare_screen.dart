@@ -595,8 +595,21 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
   /// mese la fila degli emblemi e le attivita'.
   Widget _laScena(Size schermo, MaestroPalette palette) {
     final ferma = _regia.ferma;
-    final velo = GeometriaDelVelo.veloSulloSchermo(schermo);
     final cima = MediaQuery.paddingOf(context).top + kToolbarHeight;
+    // **LA TESTA DI MEDORA SOTTO LA BARRA DEL TITOLO.** Il fondatore, sulla
+    // build 2313: "abbassa il video fino a quando la testa di Medora e' sotto
+    // la barra in alto del titolo". La testa (i capelli) comincia alla riga
+    // 100 del fotogramma 1080 per 1920 (misurata dove il viso compare, riga
+    // 150, meno i capelli); la scena intera scende di quanto serve perche'
+    // stia sotto il fondo della barra, e il velo del mese scende con lei.
+    final sGeo = math.max(schermo.width / GeometriaDelVelo.fotogramma.width,
+        schermo.height / GeometriaDelVelo.fotogramma.height);
+    final dyGeo =
+        (schermo.height - GeometriaDelVelo.fotogramma.height * sGeo) / 2;
+    final abbassa =
+        math.max(0.0, cima + SpacingTokens.xs - (100 * sGeo + dyGeo));
+    final velo =
+        GeometriaDelVelo.veloSulloSchermo(schermo).shift(Offset(0, abbassa));
     final fondo = MediaQuery.paddingOf(context).bottom;
     // LA GRIGLIA PIU' LARGA DEL VELO, che resta sotto come alone: sette
     // colonne nel velo vero sarebbero di 36 punti a 360 di larghezza, poche
@@ -625,14 +638,17 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
       clipBehavior: Clip.hardEdge,
       children: [
         Positioned.fill(
-          child: Image.asset(
-            ferma
-                ? GeometriaDelVelo.ultimoFotogramma
-                : GeometriaDelVelo.primoFotogramma,
-            key: const Key('lunario_fotogramma'),
-            fit: BoxFit.cover,
-            filterQuality: FilterQuality.medium,
-            errorBuilder: (_, __, ___) => ColoredBox(color: palette.deepest),
+          child: Transform.translate(
+            offset: Offset(0, abbassa),
+            child: Image.asset(
+              ferma
+                  ? GeometriaDelVelo.ultimoFotogramma
+                  : GeometriaDelVelo.primoFotogramma,
+              key: const Key('lunario_fotogramma'),
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.medium,
+              errorBuilder: (_, __, ___) => ColoredBox(color: palette.deepest),
+            ),
           ),
         ),
         // IL VIDEO SI TOGLIE QUANDO FINISCE: l'ultimo fotogramma dipinto sta
@@ -641,10 +657,13 @@ class _CalendarioLunareScreenState extends State<CalendarioLunareScreen>
         // superficie del video non e'. Saltato, sfuma e poi non dipinge piu'.
         if (_regia.filmatoInScena && (!ferma || _regia.saltata))
           Positioned.fill(
-            child: IlFilmatoCheSfuma(
-              key: const Key('lunario_filmato'),
-              saltato: _regia.saltata,
-              child: _regia.disegna(),
+            child: Transform.translate(
+              offset: Offset(0, abbassa),
+              child: IlFilmatoCheSfuma(
+                key: const Key('lunario_filmato'),
+                saltato: _regia.saltata,
+                child: _regia.disegna(),
+              ),
             ),
           ),
         if (ferma) ...[

@@ -45,5 +45,4 @@ const List<PosizioneDellaPerla> _compimento = [
   PosizioneDellaPerla(752, 1754, 48),
 ];
 
-const PosizioneDellaPerla _medaglia =
-    PosizioneDellaPerla(720, 1292, 165);
+const PosizioneDellaPerla _medaglia = PosizioneDellaPerla(720, 1292, 165);

@@ -197,7 +197,15 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   /// vuota per sempre. Passato questo tempo senza che il video sia pronto,
   /// la scena e' ferma come se non si fosse caricato, e un video pronto
   /// dopo non parte piu'.
-  static const Duration attesaMassima = Duration(seconds: 4);
+  ///
+  /// **DODICI SECONDI, NON QUATTRO** (ordine FY, il fondatore sulla build
+  /// 2313: "Il video all'apertura dell'oroscopo, parte solo la seconda
+  /// volta"). Sul Realme la prima apertura di un video, a freddo, chiede
+  /// piu' di quattro secondi: la scena si arrendeva ("La scena non si
+  /// prepara entro 0:00:04", letto dai registri del telefono) e il video non
+  /// partiva; la seconda volta era gia' in memoria e partiva. Padre FXA.08.
+  /// E se il video e' pronto dopo l'attesa, parte lo stesso.
+  static const Duration attesaMassima = Duration(seconds: 12);
 
   /// La scena e' ferma sul suo ultimo fotogramma: Riduci Movimento, grafica
   /// alleggerita, video che non si carica, oppure video finito o saltato.
@@ -253,12 +261,25 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
     lettore.ascolta(() {
       if (!_chiusa) notifyListeners();
     });
-    await lettore.apri().timeout(attesaMassima, onTimeout: () {
+    final apertura = lettore.apri();
+    await apertura.timeout(attesaMassima, onTimeout: () {
       if (lettore.pronto || lettore.fallito) return;
-      debugPrint('La scena non si prepara entro $attesaMassima, resta ferma');
+      debugPrint('La scena non si prepara entro $attesaMassima, intanto ferma');
       _scaduta = true;
       if (!_chiusa) notifyListeners();
     });
+    // IL VIDEO PRONTO TARDI PARTE LO STESSO: si aspetta la fine vera
+    // dell'apertura, e se arriva pronto si torna a mostrarlo.
+    if (_scaduta && !_chiusa) {
+      try {
+        await apertura;
+      } catch (errore) {
+        debugPrint('La scena non si apre: $errore');
+      }
+      if (_chiusa || _saltata || !lettore.pronto) return;
+      _scaduta = false;
+      notifyListeners();
+    }
     if (_chiusa || _scaduta || !lettore.pronto) return;
     final muto = !suono || await LaSuoneria.spenta();
     if (_chiusa) return;

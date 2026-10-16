@@ -93,7 +93,7 @@ void main() {
   testWidgets('col dito: tieni premuto e lascia, fino alla perla accesa',
       (tester) async {
     await apriIlRito(tester);
-    expect(gestoSullaScena(tester), 'Tieni premuto sulla Luna');
+    expect(gestoSullaScena(tester), 'Tieni premuto sulla Luna, poi lascia');
     for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
       final dito = await tester.startGesture(
           tester.getCenter(find.byKey(const Key('respiro_la_luna_si_tocca'))));

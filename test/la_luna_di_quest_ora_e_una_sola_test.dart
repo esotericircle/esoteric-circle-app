@@ -261,14 +261,22 @@ void main() {
       testWidgets('nessun testo coi puntini, largo $larghezza, testo a $scala',
           (tester) async {
         await _apri(tester, Size(larghezza, 900), scala: scala);
-        final tagliati = <String>[];
-        var guardati = 0;
-        for (final e in find.byType(RichText).evaluate()) {
-          final p = e.renderObject as RenderParagraph?;
-          if (p == null || !p.hasSize) continue;
-          guardati++;
-          if (p.didExceedMaxLines) tagliati.add(p.text.toPlainText());
+        final tagliati = <String>{};
+        final visti = <RenderParagraph>{};
+        // La scena e' intera e i dati stanno sotto: si scorre come una
+        // persona e si guarda ogni paragrafo che passa.
+        for (var passo = 0; passo < 6; passo++) {
+          for (final e in find.byType(RichText).evaluate()) {
+            final p = e.renderObject as RenderParagraph?;
+            if (p == null || !p.hasSize) continue;
+            visti.add(p);
+            if (p.didExceedMaxLines) tagliati.add(p.text.toPlainText());
+          }
+          await tester.drag(find.byKey(const Key('respiro_tutto_scorre')),
+              const Offset(0, -350));
+          await tester.pump(const Duration(milliseconds: 300));
         }
+        final guardati = visti.length;
         // Il cardinale minimo: le righe dei dati, la fase, la citta', la
         // Luna, il righello e la barra fanno ben piu' di venti paragrafi.
         expect(guardati, greaterThan(20),
