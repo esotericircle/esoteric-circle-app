@@ -63,8 +63,8 @@ void main() {
         child: MaterialApp(home: MaestroScope(child: s)),
       );
 
-  Future<String> monta(WidgetTester tester, SkyLocation posizione,
-      _DialCheRegistra dial) async {
+  Future<String> monta(
+      WidgetTester tester, SkyLocation posizione, _DialCheRegistra dial) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -75,7 +75,11 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pump(const Duration(milliseconds: 100));
+    // La scena e' intera e la riga del luogo sta sopra i dati, sotto la
+    // scena: si scorre fino a lei come una persona (ordine FY).
     final riga = find.byKey(const Key('respiro_riga_del_luogo'));
+    await tester.scrollUntilVisible(riga, 200,
+        scrollable: find.byType(Scrollable).first);
     expect(riga, findsOneWidget,
         reason: 'la schermata deve dire dove sono calcolati i dati');
     return tester.widget<Text>(riga).data!;
@@ -83,7 +87,8 @@ void main() {
 
   const negata = _PosizioneFinta(RispostaPosizione(EsitoPosizione.negata));
 
-  testWidgets('col GPS concesso i dati partono da li\', e la posizione si '
+  testWidgets(
+      'col GPS concesso i dati partono da li\', e la posizione si '
       'salva', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final dial = _DialCheRegistra();
@@ -106,8 +111,12 @@ void main() {
   testWidgets('senza permesso: prima l\'ultima posizione del telefono',
       (tester) async {
     SharedPreferences.setMockInitialValues({
-      'luogo.dispositivo': jsonEncode(
-          {'lat': 41.9028, 'lon': 12.4964, 'nome': 'Roma', 'origine': 'dispositivo'}),
+      'luogo.dispositivo': jsonEncode({
+        'lat': 41.9028,
+        'lon': 12.4964,
+        'nome': 'Roma',
+        'origine': 'dispositivo'
+      }),
       'luogo.attuale': jsonEncode(
           {'lat': 45.4642, 'lon': 9.19, 'nome': 'Milano', 'origine': 'scelto'}),
     });
@@ -117,7 +126,8 @@ void main() {
     expect(dial.latitudini.every((l) => l == 41.9028), isTrue);
   });
 
-  testWidgets('senza permesso e senza posizioni del telefono: la città '
+  testWidgets(
+      'senza permesso e senza posizioni del telefono: la città '
       'scelta a mano', (tester) async {
     SharedPreferences.setMockInitialValues({
       'luogo.attuale': jsonEncode(
@@ -129,7 +139,8 @@ void main() {
     expect(dial.latitudini.every((l) => l == 45.4642), isTrue);
   });
 
-  testWidgets('senza nessun luogo: nessun calcolo, mai la latitudine 0, e '
+  testWidgets(
+      'senza nessun luogo: nessun calcolo, mai la latitudine 0, e '
       'l\'invito a dare la posizione', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final dial = _DialCheRegistra();
@@ -140,7 +151,8 @@ void main() {
             '${dial.latitudini}');
     expect(
         find.byWidgetPredicate((w) =>
-            w is AvvisoDelPermesso && w.chiave == 'respiro_della_luna_posizione'),
+            w is AvvisoDelPermesso &&
+            w.chiave == 'respiro_della_luna_posizione'),
         findsOneWidget,
         reason: 'senza luogo serve l\'invito a dare la posizione');
   });

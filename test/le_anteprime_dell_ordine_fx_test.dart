@@ -331,11 +331,14 @@ void main() {
           'fuori_corso': 'luna_dato_fuori_corso',
         }[m.key];
         if (riga != null) {
-          await tester.ensureVisible(find.byKey(Key(riga)));
+          await tester.scrollUntilVisible(find.byKey(Key(riga)), 200,
+              scrollable: find.byType(Scrollable).first);
+          await tester.drag(
+              find.byType(Scrollable).first, const Offset(0, -150));
           await tester.pump(const Duration(milliseconds: 400));
         }
-        await _scatta(tester, radice,
-            'fxa09_luna_${m.key}_${misura.width.toInt()}');
+        await _scatta(
+            tester, radice, 'fxa09_luna_${m.key}_${misura.width.toInt()}');
       });
     }
   }
