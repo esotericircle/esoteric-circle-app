@@ -30,10 +30,9 @@ void main() {
         r'LettoreDellaScena\w*\.vero\)|RegiaDellaScena\(|LettoreDiScena\.vero\(');
     final primoWidget =
         RegExp(r'class (\w+) extends (?:StatefulWidget|StatelessWidget)');
-    const inLavorazione = {
-      'lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart',
-      'lib/features/respiro_della_luna/la_collana_delle_lune_screen.dart',
-    };
+    // Respiro e Collana hanno la loro prova dal 16 ottobre 2026, in
+    // la_luna_di_quest_ora_e_una_sola_test.dart: l'elenco e' vuoto.
+    const inLavorazione = <String>{};
 
     final prove = <String, String>{
       for (final f in Directory('test').listSync(recursive: true))

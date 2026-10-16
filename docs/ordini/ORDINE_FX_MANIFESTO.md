@@ -3,8 +3,8 @@
 Testo dell'ordine, parola per parola: `docs/ordini/ORDINE_FX_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FX.md`. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA; una voce aperta dice che cosa aspetta e porta le sue prove. Nessuna build nel testo dell'ordine (R3; il fondatore ha poi chiesto in chat la build alla fine dell'aggiunta FXA), nessuna chiamata a pagamento: le voci che si vedono solo sul telefono, o che aspettano una pubblicazione sul server, restano aperte.
 
 VOCI_TOTALI: 22
-VOCI_CHIUSE: 11
-VOCI_APERTE: 11
+VOCI_CHIUSE: 12
+VOCI_APERTE: 10
 VOCI_DA_FARE: 0
 
 ## VOCE FX.00
@@ -179,12 +179,26 @@ MISURA: righe che dicono a cosa serve il Respiro, da 0 a 62 (2 della prima apert
 
 ## VOCE FX.20
 
-**APERTA IN ATTESA DI VERIFICA.** (Ordine FX aggiunta, voce FXA.08.) Prima la scena, poi tutto il resto. **Fatto per le due scene del Respiro.** La scena del Respiro: mentre il video gira sopra si vede solo il video (la barra in alto coi suoi comandi comuni e il tocco che salta); quando finisce o il tocco lo salta, il resto compare in dissolvenza nell'ordine chiesto, la Luna vera, i dati, la riga di Medora, il respiro e la barra in basso (`_comparsa`, un tratto per ciascuno); con Riduci Movimento o la grafica alleggerita, senza video, tutto compare subito. Prima la schermata non ascoltava la regia della scena: si ridisegnava solo quando cambiava altro. La consegna della collana: **difetto vero**, il pannello "La tua collana è completa" e il pulsante "Comincia una nuova collana" stavano sopra il video dal primo fotogramma, e la scena non ascoltava la regia (padre FX.05, vestito dipinto FXA.02); ora il pannello compare in dissolvenza solo a scena ferma. Le due schermate accettano una fabbrica della scena per le prove (`fabbricaDellaScena`), come il Calendario Lunare. Catture a meta' video e dopo: `docs/preview/FX/fxa08_respiro_a_meta_video.png`, `fxa08_respiro_dopo_il_video.png`.
+**CHIUSA.** (Ordine FX aggiunta, voce FXA.08.) Prima la scena, poi tutto il resto, in tutte le dieci scene in video dell'app. **Il punto comune** in `lib/features/scene/la_scena_in_video.dart`: `IlRestoDopoLaScena` tiene nascosto il resto (opacita' zero, tocco spento, semantica esclusa) finche' la scena non e' ferma e lo fa comparire in dissolvenza, sempre montato perche' lo stato dei campi non si perda; con Riduci Movimento o la grafica alleggerita e' pieno subito. La regia ha un'attesa massima di 4 secondi: un video che non si prepara entro quel tempo lascia la scena ferma, altrimenti un lettore che non risponde lascerebbe la schermata vuota per sempre (scelta di Code, dichiarata). La scena del Respiro e la consegna della collana fanno lo stesso con la loro comparsa (la consegna non ascoltava nemmeno la regia: difetto vero, padre FX.05). **Conflitti con decisioni gia' scritte, risolti con la FXA.08**: nella chat il compositore era "sempre toccabile" (FW.04) e ora, a video in corso, e' nascosto e il primo tocco salta il video; la fascia dei contatori e di LIVE (EQ voce 09) non e' la barra in alto e aspetta anche lei; il velo sfumato dei domini (FW.03) arriva col contenuto. La tabella delle scene, prima e dopo:
 
-ASPETTA: le altre scene in video degli ordini FS, FT, FU, FV e FW (la Stesa, la Sinastria evolutiva, l'Oracolo degli Angeli, l'Oroscopo, la Sinastria VIP, il Calendario Lunare, i domini e le chat dei tre Maestri), verificate una per una da un agente in parallelo, dal punto comune `lib/features/scene/la_scena_in_video.dart`, con una prova per scena vista rossa e la tabella prima e dopo nel rapporto: il fondatore ha chiesto la build prima che quel lavoro finisse, ed entra nel giro successivo. Poi il fondatore, sul telefono: aprire il Respiro e vedere il video senza niente sopra.
+| Scena | Cosa copriva il video mentre girava, prima | Padre | Adesso |
+|---|---|---|---|
+| La Stesa | 27 cose: il pannello "Scegli la tua stesa" col riepilogo, "Scegli tre carte dal ventaglio", le 15 carte del ventaglio, Taglia, Mischia, Suono, "Scuoti il telefono per mischiare" | FS aggiunta, voce FS.A2 (il drappo sotto il selettore era dell'ordine FL voce 02) | tutto dopo la scena, dentro `IlRestoDopoLaScena.attorno`; le carte sul tavolo aspettano `scenaFerma` |
+| La Sinastria evolutiva | 3 cose: il medaglione della coppia, i due nomi, "Il segno della vostra relazione è ..." | FT voce FT.02 | il blocco sotto lo studio in `IlRestoDopoLaScena` |
+| L'Oracolo degli Angeli | 7 cose: il riquadro dell'angelo dell'ora intero | FU voce FU.08 | il blocco sotto la scena in `IlRestoDopoLaScena` |
+| L'Oroscopo | niente (la lettura sale dopo la scena, FU.13) | nessun difetto | solo la prova |
+| La Sinastria VIP | niente (l'interfaccia compare a scena ferma, FU.14) | nessun difetto | solo la prova |
+| Il Calendario Lunare | niente (mese e pannello a scena ferma, FV.02) | nessun difetto | solo la prova |
+| I domini dei tre Maestri | da 4 a 6 cose per Maestro: "LE ARTI DI ...", il sottotitolo, la scheda "Consulta ...", e il velo sfumato sulla meta' bassa del video | FW voce FW.03 | velo e contenuto in `IlRestoDopoLaScena` |
+| Le chat dei tre Maestri | i contatori, la pastiglia LIVE, il filo, il saluto, e il compositore (stelline, campo, microfono, invio) | FW voce FW.04 | colonna e compositore in `IlRestoDopoLaScena`; il primo tocco salta il video |
+| Il Respiro della Luna | la Luna vera, il pannello coi dati e il gesto, "Altro" | FX voci FX.02-FX.04 | tutto dopo la scena, in dissolvenza nell'ordine Luna, dati, riga di Medora, respiro |
+| La consegna della collana | il pannello "La tua collana è completa" e il pulsante | FX voce FX.05, vestito FXA.02 | pannello e pulsante solo a scena ferma |
+
+Il lavoro sulle otto scene degli ordini FS-FW l'ha fatto un agente in parallelo (commit d4937f3d, portato nel ramo come 1487d580); Respiro e Collana, e la prova comune estesa a loro, qui. Catture del Respiro a meta' video e dopo: `docs/preview/FX/fxa08_respiro_a_meta_video.png`, `fxa08_respiro_dopo_il_video.png`.
+
 DOMANDA: "assicurati che tutto venga sovrapposto dopo aver visto il video di scena e non che il Video si veda coperto da riquadri e testi"
-PROVA: `test/la_luna_di_quest_ora_e_una_sola_test.dart`
-MISURA: testi leggibili sopra il video del Respiro mentre gira, 0 (la prova li conta tutti nel corpo della scena; con l'innesto della riga della fase visibile sale a 1, "Primo quarto"); pannelli e pulsanti sopra il video della consegna mentre gira, da 2 a 0; scene verificate, 2 su 10 (le altre 8 nel giro successivo).
+PROVA: `test/ogni_scena_ha_la_prova_del_solo_video_test.dart`
+MISURA: scene con qualcosa sopra il video mentre gira, da 7 su 10 (Stesa 27 cose, Sinastria evolutiva 3, Oracolo 7, domini da 4 a 6 per Maestro, chat fino a 5, Respiro, consegna 2) a 0 su 10; scene con la prova del solo video (`soloIlFilmatoFinche`), da 0 a 10 su 10; ogni prova vista rossa con l'innesto verificato e il ripristino identico.
 
 ## VOCE FX.21
 

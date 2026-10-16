@@ -17,6 +17,8 @@ import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sopra_il_filmato.dart';
+
 /// **LA LUNA DI QUEST'ORA E' UNA SOLA, NEL SUO DISCO.** Ordine FX aggiunta
 /// FXA.09, 16 ottobre 2026. Il fondatore, sull'anteprima della build 2312:
 /// "sul viso c'è un cerchio semitrasparente non ben definito". La foto vera
@@ -56,6 +58,13 @@ class _VideoCheGira implements LettoreDiScena {
   VoidCallback? _ascolta;
   bool _pronto = false;
   bool _cominciato = false;
+  bool _finito = false;
+
+  /// Il video arriva all'ultimo fotogramma.
+  void finisci() {
+    _finito = true;
+    _ascolta?.call();
+  }
 
   @override
   bool get pronto => _pronto;
@@ -64,7 +73,7 @@ class _VideoCheGira implements LettoreDiScena {
   @override
   bool get cominciato => _cominciato;
   @override
-  bool get finito => false;
+  bool get finito => _finito;
   @override
   void ascolta(VoidCallback? q) => _ascolta = q;
   @override
@@ -134,7 +143,8 @@ void main() {
 
     testWidgets('$nome: la Luna vera sta nel disco dipinto', (tester) async {
       await _apri(tester, misura);
-      final cielo = tester.getRect(find.byKey(const Key('respiro_cielo_senza_luna')));
+      final cielo =
+          tester.getRect(find.byKey(const Key('respiro_cielo_senza_luna')));
       final disco = GeometriaDellaLunaDipinta.discoSulloSchermo(cielo.size)
           .shift(cielo.topLeft);
       final foto = tester.getRect(find.byKey(const Key('respiro_luna_vera')));
@@ -144,8 +154,7 @@ void main() {
       // Il disco della foto (il 93 per cento del suo lato) e' il disco
       // dipinto, entro un punto.
       expect(
-          (foto.width * GeometriaDellaLunaDipinta.discoNellaFoto -
-                  disco.width)
+          (foto.width * GeometriaDellaLunaDipinta.discoNellaFoto - disco.width)
               .abs(),
           lessThan(1.0),
           reason: 'la Luna vera non ha la misura del disco dipinto');
@@ -174,8 +183,8 @@ void main() {
     late _VideoCheGira video;
     await _apri(tester, const Size(360, 797),
         scena: () => video = _VideoCheGira());
-    expect(find.byKey(const Key('finta_del_filmato_del_respiro')),
-        findsOneWidget);
+    expect(
+        find.byKey(const Key('finta_del_filmato_del_respiro')), findsOneWidget);
     // **NIENTE SOPRA IL VIDEO.** Ogni testo montato nel corpo della scena
     // (fuori dalla barra in alto) dev'essere invisibile o assente.
     final corpo = find.byType(IlToccoCheSalta);
@@ -227,9 +236,16 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
     await tester.pump(const Duration(seconds: 1));
-    expect(find.byKey(const Key('finta_del_filmato_del_respiro')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('finta_del_filmato_del_respiro')), findsOneWidget,
         reason: 'la scena della consegna non parte');
+    // La prova comune delle scene (FXA.08, `sopra_il_filmato.dart`): sopra
+    // il video della consegna niente, finche' gira.
+    expect(
+        cioCheSiVedeSopraIlFilmato(tester,
+            filmato: find.byKey(const Key('finta_del_filmato_del_respiro'))),
+        isEmpty,
+        reason: 'sopra il video della consegna si vede qualcosa mentre gira');
     expect(find.byKey(const Key('consegna_continua')), findsNothing,
         reason: 'il pulsante della consegna copre il video mentre gira');
     expect(find.textContaining('La tua collana è completa'), findsNothing,
@@ -261,4 +277,42 @@ void main() {
       });
     }
   }
+
+  // **LA PROVA COMUNE DELLE SCENE** (FXA.08, `soloIlFilmatoFinche`), per
+  // le due scene del Respiro: a video in corso sopra non si vede niente, a
+  // video finito il resto compare.
+  testWidgets('il Respiro: solo il filmato mentre gira', (tester) async {
+    late _VideoCheGira video;
+    await _apri(tester, const Size(360, 797),
+        scena: () => video = _VideoCheGira());
+    expect(find.byType(IlRespiroDellaLunaScreen), findsOneWidget);
+    await soloIlFilmatoFinche(tester,
+        scena: 'il Respiro della Luna',
+        filmato: find.byKey(const Key('finta_del_filmato_del_respiro')),
+        finisci: () => video.finisci(),
+        poi: const Duration(milliseconds: 1500));
+  });
+
+  testWidgets('la consegna della collana: solo il filmato mentre gira',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({
+      'respiro.giorniRespirati':
+          jsonEncode([IlRespiroDellaLuna.data(DateTime(2026, 10, 1))]),
+    });
+    tester.view.physicalSize = const Size(360, 797);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    late _VideoCheGira video;
+    await tester.pumpWidget(_host(LaCollanaDelleLuneScreen(
+        now: DateTime(2026, 10, 16, 9),
+        fabbricaDellaScena: () => video = _VideoCheGira())));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(seconds: 1));
+    await soloIlFilmatoFinche(tester,
+        scena: 'la consegna della collana',
+        filmato: find.byKey(const Key('finta_del_filmato_del_respiro')),
+        finisci: () => video.finisci(),
+        poi: const Duration(milliseconds: 800));
+  });
 }
