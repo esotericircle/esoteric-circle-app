@@ -81,6 +81,18 @@ void main() {
     // Ordine EU voce 12: scrive tre PDF dell'anno in docs, non immagini.
     'il_pdf_dell_anno_si_legge_test.dart':
         'scrive PDF dell\'anno, non catture di schermo: non ha pixel',
+    // Ordine FY, 16 ottobre 2026: le prove dell'Oracolo montano a rapporto
+    // uno per contare la luce ai lati della carta di taglio (FY.17) e a
+    // rapporto tre solo per la cattura, col rapporto passato come argomento.
+    'l_oracolo_si_sceglie_e_si_avvia_test.dart':
+        'misura la luminanza a rapporto uno e cattura a rapporto tre: il '
+            'rapporto e\' un argomento del montaggio, non un numero scritto',
+    // Ordine FY, 16 ottobre 2026: il giro delle Sinastrie e' un giro di
+    // collaudo a diciassette catture, a rapporto due per tenere leggeri i
+    // file del collaudo; non sono anteprime del corredo.
+    'il_giro_delle_sinastrie_test.dart':
+        'giro di collaudo FY.21 a diciassette catture, a rapporto due per '
+            'tenere leggeri i file in docs/collaudo/FY/sinastrie',
   };
 
   test('Nessuna cattura ha un rapporto di pixel implicito', () {

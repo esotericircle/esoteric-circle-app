@@ -73,8 +73,8 @@ void main() {
         ]),
       });
       final radice = GlobalKey();
-      tester.view.physicalSize = Size(larghezza, 800);
-      tester.view.devicePixelRatio = 1.0;
+      tester.view.physicalSize = Size(larghezza * 3, 800 * 3);
+      tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.reset);
       await tester.pumpWidget(RepaintBoundary(
         key: radice,
@@ -101,7 +101,8 @@ void main() {
       // L'OVALE TUTTO NELLA PARTE VISIBILE. Si mostra una finestra sulla
       // pittura (righe 400-2172): l'ovale d'argento (righe 501-2071,
       // colonne 111-1325) deve starci tutto dentro, col suo margine.
-      final finestra = tester.getRect(find.byKey(const Key('collana_finestra')));
+      final finestra =
+          tester.getRect(find.byKey(const Key('collana_finestra')));
       final s = pittura.width / 1438;
       final ovale = Rect.fromLTRB(pittura.left + 111 * s, pittura.top + 501 * s,
           pittura.left + 1325 * s, pittura.top + 2071 * s);

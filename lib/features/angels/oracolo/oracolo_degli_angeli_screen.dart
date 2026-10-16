@@ -1039,9 +1039,12 @@ class _LaDomandaState extends State<_LaDomanda> {
           ),
           if (tema != null) ...[
             const SizedBox(height: SpacingTokens.xs),
+            // Una frase, non un'etichetta: nello stile della lettura breve,
+            // perche' il maiuscoletto spaziato di un'etichetta su due righe
+            // si legge come un muro di lettere (etichette_e_lettura).
             Text('${tema.nome}: dieci domande di Medora, scorri per leggerle',
                 key: const Key('oracolo_tema_aperto'),
-                style: TypographyTokens.etichetta()
+                style: TypographyTokens.didascalia()
                     .copyWith(color: palette.goldSoft)),
             ConstrainedBox(
               constraints: const BoxConstraints(
@@ -1318,8 +1321,6 @@ class _IlResponso extends StatelessWidget {
       },
     );
     final riquadro = ilRiquadro(risposta, assaggio: assaggio);
-    final lettura =
-        TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
     final approfondimento =
         assaggio ? const <String>[] : risposta.approfondimento;
     return Column(
@@ -1344,13 +1345,17 @@ class _IlResponso extends StatelessWidget {
               ParagrafiDiLettura(
                   key: const Key('oracolo_testo_del_riquadro'),
                   testo: riquadro,
-                  stile: lettura),
+                  stile: TypographyTokens.lettura()
+                      .copyWith(color: ColorTokens.textPrimary)),
               // I due paragrafi della Lunga stanno nello stesso riquadro:
               // una coppia sola, non un secondo blocco (FY.19).
               for (var i = 0; i < approfondimento.length; i++) ...[
                 const SizedBox(height: SpacingTokens.sm),
-                Text(approfondimento[i],
-                    key: Key('responso_approfondimento_$i'), style: lettura),
+                ParagrafiDiLettura(
+                    key: Key('responso_approfondimento_$i'),
+                    testo: approfondimento[i],
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary)),
               ],
             ],
           ),
