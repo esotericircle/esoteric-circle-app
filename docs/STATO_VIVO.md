@@ -7158,15 +7158,15 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 
 ## L'ORDINE FY, LE CORREZIONI DEL FONDATORE SULLA BUILD 2312 (16 ottobre 2026, sera)
 
-- **Il manifesto** `docs/ordini/ORDINE_FY_MANIFESTO.md`, 23 voci: 19 chiuse, 4 aperte in attesa di verifica (FY.06 il microfono vero, FY.08 la pittura dello scrigno allargata, FY.11 la Sinastria evolutiva sul telefono, FY.23 la consegna). Rapporto `docs/ordini/RAPPORTO_ORDINE_FY.md`, testo `docs/ordini/ORDINE_FY_TESTO.md`, catture del fondatore in `docs/collaudo/FY/catture_fondatore/`.
+- **Il manifesto** `docs/ordini/ORDINE_FY_MANIFESTO.md`, 23 voci: 20 chiuse, 3 aperte in attesa di verifica (FY.06 il microfono vero, FY.11 la Sinastria evolutiva sul telefono, FY.23 la consegna). Il ventaglio di scelta delle carte e' ammesso nella Stesa e nell'Oracolo, confermato dal fondatore ("Ok per il ventaglio"). Rapporto `docs/ordini/RAPPORTO_ORDINE_FY.md`, testo `docs/ordini/ORDINE_FY_TESTO.md`, catture del fondatore in `docs/collaudo/FY/catture_fondatore/`.
 - **Il Calendario Lunare grigio (FY.01)**: un `clamp` coi limiti rovesciati alla riga 593 di `calendario_lunare_screen.dart`, quando la barra dell'identita' spinge la barra del titolo sotto l'orlo del velo (padre FV.02); letto dai registri del Realme. Guardia nuova che apre l'app vera coi margini del telefono ed entra in ogni arte.
 - **Il Respiro della Luna**: via la Bussola (barra con Luna e Respiro); la Luna senza fondo nero (`LaLunaSenzaFondoNero`, la luce diventa opacita'); scorre tutta la schermata e la Luna resta fissa in cima; Respiro riporta la scena intera; il microfono sulla forma dell'aria (`soloAria`), il giro scritto sulla scena; avvisi spiegati; righe dei dati centrate; date del righello intere.
-- **La Collana**: nel velluto il mese e le perle accese in grande, la guida su una striscia dipinta sotto. Lo scrigno resta tagliato ai lati perche' l'ovale esce dalla pittura: serve la pittura allargata, richiesta nel rapporto.
+- **La Collana**: le pitture v2 del fondatore con l'ovale intero e la Luna al centro come medaglia (`le_perle_della_collana_v2.json`, `tool/gli_asset_della_collana_v2.py`), le v1 tolte dal ramo; a schermo la finestra della pittura dalla riga 400 alla 2172, l'ovale intero col suo margine e piu' grande; nel velluto il mese sopra la Luna e le perle accese sotto, la guida su una striscia dipinta sotto lo scrigno.
 - **Le Sinastrie**: la Sinastria evolutiva si apre sullo studio di Medora con la scelta della persona sulla scena (era un ponte nero, FT.14); il lettore ha le sue attese; il cuore della VIP a meta' fra le carte nella porta e nel responso.
 - **L'Oracolo degli Angeli**: dieci domande per argomento; via la lettura per un amico e la nascita prestata; le carte si scelgono dal ventaglio coi dorsi; il pulsante "Avvia la lettura"; l'altare vuoto sotto le carte girate; ogni carta descritta con la fonte (Lenain 1823); una coppia sola di risposta.
 - **Le barre del titolo**: semitrasparenti in ogni stato, velo comune `AppTheme.veloDellaBarra` 0,6, il passaggio di Material 3 spento nel tema; regola permanente in CLAUDE.md con la guardia `le_barre_del_titolo_restano_semitrasparenti`. La striscia dell'identita' resta al 92: decide il fondatore.
 - **Le simulazioni (FY.21)**: 42 catture in `docs/collaudo/FY/giro_della_luna/`, `oracolo/`, `sinastrie/`.
-- Guardie da 804 a 821.
+- Guardie da 804 a 822.
 
 ## Regole ferree
 

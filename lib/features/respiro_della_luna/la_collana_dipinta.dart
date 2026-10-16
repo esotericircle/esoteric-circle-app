@@ -5,7 +5,7 @@
 /// e poi sulle trentadue perle della pittura: *"Lasciamola cosi'"*.
 ///
 /// **IL CODICE NON COMPONE FIGURE.** La collana e' la pittura dello scrigno
-/// con la collana tutta spenta (`collana_nello_scrigno_spenta_v1`), intera,
+/// con la collana tutta spenta (`collana_nello_scrigno_spenta_v2`), intera,
 /// adattata allo spazio senza ritagli. Ogni perla accesa e' un RITAGLIO TONDO
 /// della pittura gemella tutta accesa, preparato una volta fuori dall'app da
 /// `tool/gli_asset_dell_aggiunta_fxa.py` (opaco fino al raggio della perla,
@@ -13,7 +13,7 @@
 /// misurato. Nessuna forma, alone o cerchio disegnato: Flutter posa
 /// immagini, ne sceglie le parti e ne fa sfumare l'opacita'.
 ///
-/// **LE POSIZIONI** stanno nel file `le_perle_della_collana_v1.json`
+/// **LE POSIZIONI** stanno nel file `le_perle_della_collana_v2.json`
 /// accanto alle pitture, e qui nella sua copia Dart generata
 /// (`le_perle_della_collana.g.dart`): una lettura asincrona del file
 /// lascerebbe il primo fotogramma senza perle. Una prova pretende che i due
@@ -41,11 +41,11 @@ class PosizioneDellaPerla {
 
 /// Le posizioni e gli asset della collana dipinta.
 abstract final class LePerleDellaCollana {
-  static const String file = '${_collana}le_perle_della_collana_v1.json';
+  static const String file = '${_collana}le_perle_della_collana_v2.json';
   static const String pitturaSpenta =
-      '${_collana}collana_nello_scrigno_spenta_v1.webp';
+      '${_collana}collana_nello_scrigno_spenta_v2.webp';
   static const String pitturaAccesa =
-      '${_collana}collana_nello_scrigno_accesa_v1.webp';
+      '${_collana}collana_nello_scrigno_accesa_v2.webp';
 
   static const double larghezza = _larghezzaDellaPittura;
   static const double altezza = _altezzaDellaPittura;
@@ -56,11 +56,11 @@ abstract final class LePerleDellaCollana {
   static const PosizioneDellaPerla medaglia = _medaglia;
 
   static String ritaglioDelGiorno(int giorno) =>
-      '${_collana}perle_accese/perla_giorno_${giorno.toString().padLeft(2, '0')}_v1.webp';
+      '${_collana}perle_accese/perla_giorno_${giorno.toString().padLeft(2, '0')}_v2.webp';
   static String ritaglioDelCompimento(int i) =>
-      '${_collana}perle_accese/perla_compimento_${i}_v1.webp';
+      '${_collana}perle_accese/perla_compimento_${i}_v2.webp';
   static const String ritaglioDellaMedaglia =
-      '${_collana}perle_accese/medaglia_v1.webp';
+      '${_collana}perle_accese/medaglia_v2.webp';
 }
 
 /// **LA COLLANA**, la pittura con le perle accese. [accesi] sono i giorni del

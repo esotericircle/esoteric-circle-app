@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// accese, nelle posizioni misurate del file accanto alle pitture.
 void main() {
   final json = jsonDecode(File(
-          'assets/img/respiro_della_luna/collana/le_perle_della_collana_v1.json')
+          'assets/img/respiro_della_luna/collana/le_perle_della_collana_v2.json')
       .readAsStringSync()) as Map<String, dynamic>;
 
   test('le posizioni del codice sono quelle del file accanto alle pitture', () {

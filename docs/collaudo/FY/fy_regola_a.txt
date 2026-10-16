@@ -68,3 +68,11 @@ grep prima di leggere l'esito, ogni file ripristinato con lo sha1 identico.
    prima stesura e' caduta sul tocco del pulsante della Collana, coperto
    dalla barra in basso appena entrato nella vista: una persona scorre un
    poco di piu', la prova lo fa.
+
+9. test/la_collana_si_vede_intera_test.dart (FY.08, pitture v2)
+   Innesto: la finestra sulla pittura stretta sull'ovale (_cimaDellaFinestra
+   600 invece di 400), grep 1. Esito: ROSSO, "l'ovale e' tagliato in alto"
+   a ogni larghezza. Ripristino: sha1 90b2c3dee153 prima e dopo.
+   La misura della pittura (niente argento sulle colonne di bordo) e' vera
+   sulla v2 (0 righe) e falsa sulla v1 (40-45 righe), misurata dallo
+   strumento tool/gli_asset_della_collana_v2.py.

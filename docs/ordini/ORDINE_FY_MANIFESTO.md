@@ -3,8 +3,8 @@
 Testo dell'ordine, parola per parola: `docs/ordini/ORDINE_FY_TESTO.md`. Rapporto: `docs/ordini/RAPPORTO_ORDINE_FY.md`. Una voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA; una voce aperta dice che cosa aspetta e porta le sue prove. Il testo dice "Nessuna build" (R3); il fondatore, in chat il 16 ottobre 2026, "Quando hai finito ogni voce, Senza eccezione, consegna build". Lavoro diviso fra Code (parte A, FY.21 e FY.22 per la Luna, la consegna) e tre agenti in worktree, uniti nel ramo: le barre del titolo (FY.20, commit 3e209661), l'Oracolo degli Angeli (parte C, commit 0f8ef9f1), le Sinastrie (parte B, commit 14e660c6).
 
 VOCI_TOTALI: 23
-VOCI_CHIUSE: 19
-VOCI_APERTE: 4
+VOCI_CHIUSE: 20
+VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 
 ## VOCE FY.01
@@ -66,12 +66,11 @@ MISURA: aperture del Calendario dalla riga, senza eccezioni: da 0 a 1 nel giro d
 
 ## VOCE FY.08
 
-**APERTA IN ATTESA DI VERIFICA.** La Collana intera e leggibile. **Il testo, fatto**: nel velluto restano solo il mese e le perle accese, in grande ("Ottobre", "0 di 30", "perle accese"); la guida passa su una striscia dipinta sotto lo scrigno, a misura di lettura. Padre FXA.01. **Lo scrigno intero, premessa caduta**: l'ovale d'argento esce dai bordi della pittura stessa (`collana_nello_scrigno_spenta_v1`, 1438 per 2576: argento sulle colonne di bordo per 40 righe a sinistra e 43-45 a destra, nel punto piu' largo dell'ovale). Nessuna impaginazione lo mostra intero senza una pittura nuova, piu' larga, con margine intorno all'ovale; le immagini le genera il fondatore, la richiesta e' nel rapporto.
+**CHIUSA.** La Collana intera e leggibile. **Il testo**: nel velluto restano solo il mese e le perle accese, in grande, intorno alla Luna ("Ottobre" sopra, "5 di 30, perle accese" sotto, nel velluto libero fra le perle, da x 466 a 960 della pittura); la guida passa su una striscia dipinta sotto lo scrigno. Padre FXA.01. **Lo scrigno intero**: la prima pittura usciva dai bordi con l'ovale d'argento (premessa caduta, scritta nel rapporto); il fondatore ha mandato le pitture v2, `collana_nello_scrigno_spenta_v2` e `collana_nello_scrigno_accesa_v2` (1438 per 2576, identiche fuori dalle perle: scarto medio 3,87), con l'ovale intero e il margine, e le posizioni in `le_perle_della_collana_v2.json` (30 giorni, 2 perle del compimento in fondo al centro, la medaglia che ora e' la Luna al centro, x 720, y 1292, maschera 165). Portate nel ramo da `tool/gli_asset_della_collana_v2.py` (WebP, 33 ritagli riletti identici, la copia Dart delle posizioni rigenerata), le v1 tolte dal ramo (36 file; restano solo come storico nella cartella del fondatore). A schermo si mostra la finestra della pittura dalla riga 400 alla 2172: l'ovale (righe 501-2071, colonne 111-1325) col suo margine di circa cento pixel tutto intorno, cosi' lo scrigno cresce invece di rimpicciolirsi per il velluto vuoto sopra e sotto. Catture a quattro larghezze in `docs/collaudo/FY/collana_v2/`.
 
-ASPETTA: il fondatore: le due pitture dello scrigno (spenta e accesa) allargate, con margine intorno all'ovale; poi le perle si rimisurano sul file nuovo.
-DOMANDA: "La collana della luna è tagliata ai lati e il testo è illeggibile"
-PROVA: `test/la_collana_si_legge_test.dart`
-MISURA: misura a schermo del testo piu' piccolo della Collana, da 8,2 punti (il nome del ciclo a 320) a sopra i 12 punti a 320, 360, 390 e 430
+DOMANDA: "La collana della luna è tagliata ai lati e il testo è illeggibile"; "La collana va mostrata intera con il suo margine, senza tagli ai lati, e va provata con una cattura"
+PROVA: `test/la_collana_si_vede_intera_test.dart`
+MISURA: righe d'argento sulle colonne di bordo della pittura, da 40-45 (v1) a 0 (v2); ovale tagliato a schermo, da 2 lati a 0 a 320, 360, 390 e 430 punti; larghezza dell'ovale a schermo a 360 punti, da circa 185 a 304 punti; testo piu' piccolo della Collana da 8,2 punti a sopra i 12
 
 ## VOCE FY.09
 
@@ -190,7 +189,7 @@ MISURA: date tagliate ai lati lungo un giorno intero, da presenti a ogni ora a 0
 
 **APERTA IN ATTESA DI VERIFICA.** La consegna. Le nove catture del fondatore in `docs/collaudo/FY/catture_fondatore/`; manifesto, guardia del manifesto (`test/ordine_fy_guard_test.dart`), rapporto, STATO_VIVO e registro delle guardie aggiornati; in locale solo le prove delle voci e le guardie delle zone toccate, la suite intera sul cancello di GitHub. Il fondatore ha chiesto in chat la build alla fine di tutte le voci, al posto del "Nessuna build" del testo (R3).
 
-ASPETTA: il fondatore, sul telefono, con la build consegnata: le voci che si vedono solo li' (FY.06, FY.08, FY.11).
+ASPETTA: il fondatore, sul telefono, con la build consegnata: le voci che si vedono solo li' (FY.06, FY.11).
 DOMANDA: "Quando hai finito ogni voce, Senza eccezione, consegna build"
 PROVA: `docs/ordini/RAPPORTO_ORDINE_FY.md`
-MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 23 su 23; voci chiuse 19, aperte in attesa di verifica 4
+MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 23 su 23; voci chiuse 20, aperte in attesa di verifica 3

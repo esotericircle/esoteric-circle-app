@@ -148,6 +148,12 @@ class _LaCollanaInCorso extends StatefulWidget {
 }
 
 class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
+  /// La finestra sulla pittura v2, in righe del file: l'ovale (righe
+  /// 501-2071) con circa cento pixel di margine sopra e sotto, come ai lati
+  /// (FY.08).
+  static const double _cimaDellaFinestra = 400;
+  static const double _bassoDellaFinestra = 2172;
+
   final GlobalKey _cardKey = GlobalKey();
   bool _rendiLaCard = false;
 
@@ -316,40 +322,51 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
       numeroDiPerle: perle.length,
       sopra: (context, scala) => Stack(
         children: [
-          // **POCHE PAROLE GRANDI** (ordine FY voce FY.08). Il fondatore:
-          // "il testo è illeggibile". Nel velluto liscio dentro la collana,
-          // fra x 430 e 1010 della pittura, restano solo il nome del ciclo e
-          // le perle accese, in grande; la guida sta sotto lo scrigno.
+          // **POCHE PAROLE GRANDI, INTORNO ALLA LUNA** (ordine FY voce
+          // FY.08). Il fondatore: "il testo è illeggibile"; poi le pitture
+          // v2, con la Luna al centro del velluto (x 720, y 1292, raggio 165).
+          // Il velluto libero fra le perle va da x 466 a 960 della pittura:
+          // sopra la Luna, fra le perle in alto e il suo bordo (y 950-1117),
+          // il mese; sotto, fra la Luna e le perle del fondo (y 1467-1604),
+          // le perle accese. La guida sta sotto lo scrigno.
           Positioned(
-            left: 430 * scala,
-            width: 580 * scala,
-            top: 1000 * scala,
-            child: Column(
-              children: [
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  // Solo il mese, in grande (FY.08): "Collana di ottobre" nel
-                  // velluto finiva a 8 punti; "Collana" e' gia' nel titolo.
-                  child: Text(IlMeseInItaliano.mesi[ciclo.inizio.month - 1],
-                      key: const Key('collana_nome_ciclo'),
-                      style: TypographyTokens.titoloSezione()
-                          .copyWith(color: palette.goldSoft)),
+            left: 466 * scala,
+            width: 494 * scala,
+            top: 960 * scala,
+            height: 150 * scala,
+            child: Center(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                // Solo il mese, in grande: "Collana di ottobre" nel velluto
+                // finiva a 8 punti; "Collana" e' gia' nel titolo.
+                child: Text(IlMeseInItaliano.mesi[ciclo.inizio.month - 1],
+                    key: const Key('collana_nome_ciclo'),
+                    style: TypographyTokens.titoloSezione()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 466 * scala,
+            width: 494 * scala,
+            top: 1470 * scala,
+            height: 130 * scala,
+            child: Center(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('${accesi.length} di ${perle.length}',
+                        key: const Key('collana_conteggio'),
+                        style: TypographyTokens.cerimonialeGrande()
+                            .copyWith(color: coloreSulVelluto)),
+                    Text('perle accese',
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: coloreSulVelluto)),
+                  ],
                 ),
-                SizedBox(height: 40 * scala),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text('${accesi.length} di ${perle.length}',
-                      key: const Key('collana_conteggio'),
-                      style: TypographyTokens.cerimonialeGrande()
-                          .copyWith(color: coloreSulVelluto)),
-                ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text('perle accese',
-                      style: TypographyTokens.titoloScheda()
-                          .copyWith(color: coloreSulVelluto)),
-                ),
-              ],
+              ),
             ),
           ),
           // **IL TOCCO SCEGLIE LA PERLA PIU' VICINA AL DITO.** Le perle a
@@ -461,10 +478,37 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
           children: [
             Expanded(
               child: Center(
+                // **LO SCRIGNO INTERO, COL SUO MARGINE, IN GRANDE** (ordine
+                // FY voce FY.08). Nella pittura v2 l'ovale d'argento va dalla
+                // riga 501 alla 2071 e dalla colonna 111 alla 1325: ai lati ha
+                // il suo margine di velluto scuro, sopra e sotto molto di
+                // piu'. Si mostra la pittura dalla riga 400 alla 2172, cioe'
+                // lo stesso margine di circa cento pixel tutto intorno, e lo
+                // scrigno a schermo cresce invece di rimpicciolirsi per
+                // l'altezza della pittura intera. La card che si condivide e'
+                // la pittura intera.
                 child: AspectRatio(
                   aspectRatio: LePerleDellaCollana.larghezza /
-                      LePerleDellaCollana.altezza,
-                  child: RepaintBoundary(key: _cardKey, child: collana),
+                      (_bassoDellaFinestra - _cimaDellaFinestra),
+                  child: LayoutBuilder(builder: (context, v) {
+                    final scala = v.maxWidth / LePerleDellaCollana.larghezza;
+                    return ClipRect(
+                      key: const Key('collana_finestra'),
+                      child: OverflowBox(
+                        alignment: Alignment.topCenter,
+                        maxHeight: LePerleDellaCollana.altezza * scala,
+                        child: Transform.translate(
+                          offset: Offset(0, -_cimaDellaFinestra * scala),
+                          child: SizedBox(
+                            width: v.maxWidth,
+                            height: LePerleDellaCollana.altezza * scala,
+                            child:
+                                RepaintBoundary(key: _cardKey, child: collana),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                 ),
               ),
             ),
