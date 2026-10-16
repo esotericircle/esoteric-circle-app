@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/luogo_attuale.dart';
+import '../../core/astro/sky_location.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/lunario/il_dial_a_moon.dart';
@@ -32,6 +33,7 @@ import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../scene/la_scena_in_video.dart';
 import '../sigilli/regia_del_cammino.dart';
 import 'gli_avvisi_del_respiro.dart';
+import 'i_comandi_dipinti.dart';
 import 'il_piano_del_respiro.dart';
 import 'la_bussola_della_luna.dart';
 import 'la_collana_delle_lune_screen.dart';
@@ -53,7 +55,8 @@ import 'la_collana_delle_lune_screen.dart';
 const String _separatoreDelleRigheDiMedora = ' · ';
 
 class IlRespiroDellaLunaScreen extends StatefulWidget {
-  const IlRespiroDellaLunaScreen({super.key, this.now, this.dialAMoon});
+  const IlRespiroDellaLunaScreen(
+      {super.key, this.now, this.dialAMoon, this.posizione});
 
   /// L'istante da cui si calcola la fase: sostituibile nelle prove.
   final DateTime? now;
@@ -63,8 +66,12 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
   /// `IlDialAMoon.diCasa`, quello dell'app.
   final IlDialAMoon? dialAMoon;
 
-  static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>(
-      (_) => SogliaArte(
+  /// Chi legge la posizione vera del telefono (FXA.06): iniettabile per le
+  /// prove. Senza, il GPS del telefono (`GeolocatorSkyLocation`).
+  final SkyLocation? posizione;
+
+  static Route<void> route({DateTime? now}) =>
+      PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
           id: 'lunology',
           maestro: Maestro.medora,
           child: IlRespiroDellaLunaScreen(now: now)));
@@ -155,6 +162,11 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   // respirare, e i due non si confondono.
   late DateTime _tempoVisto = widget.now ?? DateTime.now();
   LuogoAttuale? _luogo;
+
+  /// La riga che dice dove sono calcolati i dati (FXA.06), o perche' manca
+  /// il luogo. Nulla finche' la posizione non ha risposto.
+  String? _rigaDelLuogo;
+  EsitoPosizione? _esitoPosizione;
   FotoDellaLuna? _fotoVista;
   Timer? _debounceDellaFoto;
 
@@ -170,22 +182,110 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     super.initState();
     unawaited(_flag.leggi());
     unawaited(_avviaMic());
+    // La foto si chiede DOPO il luogo, mai prima: col luogo ancora vuoto
+    // partiva per latitudine 0 (FXA.06).
     unawaited(_caricaLuogo());
-    unawaited(_aggiornaFoto());
   }
 
+  /// **IL LUOGO VERO, DAL GPS.** Ordine FX aggiunta FXA.06, il fondatore:
+  /// "non servivano tutti i dati, ma i piu' importanti in tempo reale basati
+  /// sul luogo Reale (GPS)". A ogni apertura si chiede la posizione del
+  /// telefono e la si salva come ultima del dispositivo. I RIPIEGHI, in
+  /// quest'ordine e ciascuno detto con una riga: l'ultima posizione del
+  /// telefono, la citta' scelta a mano nel profilo, l'invito a dare la
+  /// posizione o a scegliere la citta'. Mai la latitudine 0, mai un calcolo
+  /// con la posizione vuota.
   Future<void> _caricaLuogo() async {
-    final luogo = await DoveSonoAdesso.letto();
-    if (!mounted || luogo == null) return;
-    setState(() => _luogo = luogo);
+    // **LA LUNA C'E' DAL PRIMO ISTANTE.** Il GPS del telefono puo' metterci
+    // secondi: intanto vale il miglior ripiego gia' salvato (o la sola fase
+    // vera, se non ce n'e' nessuno), e la riga dice che si sta cercando la
+    // posizione. Quando il GPS risponde, i dati si ricalcolano li'.
+    await _applicaIlRipiego(cercando: true);
+    final posizione = widget.posizione ?? const GeolocatorSkyLocation();
+    final risposta = await posizione.chiedi();
+    if (!mounted) return;
+    if (!risposta.concessa) {
+      _esitoPosizione = risposta.esito;
+      await _applicaIlRipiego(cercando: false);
+      return;
+    }
+    final p = risposta.luogo!;
+    final nome =
+        p.citta ?? await posizione.nomeDelLuogo(p.latitude, p.longitude);
+    final luogo = LuogoAttuale.dalDispositivo(
+        SkyPlace(latitude: p.latitude, longitude: p.longitude, citta: nome));
+    await DoveSonoAdesso.scriviDelDispositivo(luogo);
+    if (!mounted) return;
+    setState(() {
+      _luogo = luogo;
+      _esitoPosizione = risposta.esito;
+      _rigaDelLuogo = nome == null
+          ? 'Calcolata dove sei adesso, dalla posizione del telefono'
+          : 'Calcolata a $nome, dalla posizione del telefono';
+    });
+    await _aggiornaFoto();
+  }
+
+  /// I ripieghi, in quest'ordine: l'ultima posizione del telefono, la citta'
+  /// scelta a mano, nessun luogo. [cercando] vale mentre il GPS non ha
+  /// ancora risposto, e la riga lo dice.
+  Future<void> _applicaIlRipiego({required bool cercando}) async {
+    final ultimo = await DoveSonoAdesso.ultimoDelDispositivo();
+    final scelto = ultimo == null ? await DoveSonoAdesso.letto() : null;
+    final luogo = ultimo ?? scelto;
+    final String riga;
+    if (ultimo != null) {
+      riga = cercando
+          ? 'Cerco la posizione del telefono; intanto calcolata a '
+              '${ultimo.citta}, l\'ultima posizione nota'
+          : 'Calcolata a ${ultimo.citta}, l\'ultima posizione del telefono';
+    } else if (scelto != null) {
+      riga = cercando
+          ? 'Cerco la posizione del telefono; intanto calcolata a '
+              '${scelto.citta}, la città che hai scelto'
+          : 'Calcolata a ${scelto.citta}, la città che hai scelto';
+    } else {
+      riga = cercando
+          ? 'Cerco la posizione del telefono per calcolare sorgere e tramonto'
+          : 'Senza un luogo non si calcolano sorgere e tramonto: dai la '
+              'posizione o scegli la tua città nel profilo.';
+    }
+    if (!mounted) return;
+    setState(() {
+      _luogo = luogo;
+      _rigaDelLuogo = riga;
+    });
+    await _aggiornaFoto();
   }
 
   Future<void> _aggiornaFoto() async {
+    final luogo = _luogo;
+    if (luogo == null) {
+      // Senza luogo niente NASA e niente emisfero: la fase vera, una Luna
+      // locale non ruotata, e la riga del luogo dice cosa manca.
+      if (!mounted) return;
+      setState(() => _fotoVista = IlDialAMoon.senzaLuogo(_tempoVisto));
+      return;
+    }
     final dialAMoon = widget.dialAMoon ?? IlDialAMoon.diCasa;
-    final foto =
-        await dialAMoon.perIstante(_tempoVisto, latitudine: _luogo?.lat ?? 0);
+    final foto = await dialAMoon.perIstante(_tempoVisto, latitudine: luogo.lat);
     if (!mounted) return;
     setState(() => _fotoVista = foto);
+  }
+
+  EsitoDelPermesso get _esitoDelPermessoDiPosizione {
+    switch (_esitoPosizione) {
+      case EsitoPosizione.negataPerSempre:
+      case EsitoPosizione.servizioSpento:
+        return EsitoDelPermesso.negatoPerSempre;
+      case EsitoPosizione.nonDisponibile:
+        return EsitoDelPermesso.nonDisponibile;
+      case EsitoPosizione.concessa:
+        return EsitoDelPermesso.concesso;
+      case EsitoPosizione.negata:
+      case null:
+        return EsitoDelPermesso.negato;
+    }
   }
 
   /// **IL TEMPO SCORRE, SENZA CHIAMARE LA NASA A OGNI PIXEL.** Il
@@ -216,66 +316,76 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   /// vede comunque, col lucchetto e l'invito, come vuole la regola di casa
   /// sui tre stati di ogni funzione.
   void _apriLeAltreVoci(BuildContext context, Tier tier) {
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final bussolaAperta = IlPianoDelRespiro.respiroInsiemeAperto(tier);
+    Widget sottotitolo(String s) => Padding(
+          padding: const EdgeInsets.only(
+              top: 2,
+              bottom: SpacingTokens.sm,
+              left: SpacingTokens.sm,
+              right: SpacingTokens.sm),
+          child: Text(s,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.label(size: 12)
+                  .copyWith(color: coloreSulVelluto)),
+        );
     foglioDelCerchio<void>(
       context: context,
-      backgroundColor: palette.deepest,
+      backgroundColor: Colors.transparent,
       builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // **LA PORTA AL CALENDARIO, ordine FX voce FX.11.** Il
-            // fondatore, sui due calendari: "Separati e collegati".
-            ListTile(
-              key: const Key('respiro_vai_al_calendario'),
-              title: Text('Trova il giorno nel mese',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              subtitle: Text('Il Calendario Lunare',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(color: Colors.white.withValues(alpha: 0.7))),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(CalendarioLunareScreen.route());
-              },
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          child: PannelloDipinto(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // **LA PORTA AL CALENDARIO, ordine FX voce FX.11.** Il
+                // fondatore, sui due calendari: "Separati e collegati".
+                PulsanteDipinto(
+                  key: const Key('respiro_vai_al_calendario'),
+                  testo: 'Trova il giorno nel mese',
+                  larghezzaPiena: true,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(CalendarioLunareScreen.route());
+                  },
+                ),
+                sottotitolo('Il Calendario Lunare'),
+                PulsanteDipinto(
+                  key: const Key('respiro_apri_bussola'),
+                  testo: 'Dov\'è la Luna adesso',
+                  larghezzaPiena: true,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    if (!bussolaAperta) return;
+                    Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
+                      (_) => _SchermataDellaBussola(luogo: _luogo),
+                    ));
+                  },
+                ),
+                sottotitolo(bussolaAperta
+                    ? 'La bussola verso la Luna vera'
+                    : 'Esclusiva Adepto e Illuminato'),
+                PulsanteDipinto(
+                  key: const Key('respiro_apri_avvisi'),
+                  testo: 'Avvisi',
+                  larghezzaPiena: true,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    foglioDelCerchio<void>(
+                      context: context,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => Padding(
+                        padding: const EdgeInsets.all(SpacingTokens.md),
+                        child: PannelloDipinto(
+                            child: _FoglioDegliAvvisi(luogo: _luogo)),
+                      ),
+                    );
+                  },
+                ),
+                sottotitolo('La Luna che sorge, la piena, la nuova'),
+              ],
             ),
-            ListTile(
-              key: const Key('respiro_apri_bussola'),
-              title: Text('Dov\'è la Luna adesso',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              subtitle: bussolaAperta
-                  ? null
-                  : Text('Esclusiva Adepto e Illuminato',
-                      style: TypographyTokens.label(size: 12)
-                          .copyWith(color: palette.goldSoft)),
-              onTap: () {
-                Navigator.of(context).pop();
-                if (!bussolaAperta) return;
-                Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
-                  (_) => _SchermataDellaBussola(luogo: _luogo),
-                ));
-              },
-            ),
-            ListTile(
-              key: const Key('respiro_apri_avvisi'),
-              title: Text('Avvisi',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
-              subtitle: Text('La Luna che sorge, la piena, la nuova',
-                  style: TypographyTokens.label(size: 12)
-                      .copyWith(color: Colors.white.withValues(alpha: 0.7))),
-              onTap: () {
-                Navigator.of(context).pop();
-                foglioDelCerchio<void>(
-                  context: context,
-                  backgroundColor: palette.deepest,
-                  builder: (_) => _FoglioDegliAvvisi(luogo: _luogo),
-                );
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -345,7 +455,12 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   Tier get _tier {
     try {
       return context.read<EntitlementService>().tier;
-    } catch (_) {
+    } catch (errore) {
+      // Senza il servizio dei piani nell'albero (le prove che montano la
+      // schermata da sola) vale il piano gratuito: e' il ripiego che non
+      // apre niente in piu' di cio' che spetta a tutti.
+      debugPrint(
+          'Respiro della Luna: piano non letto, vale il gratuito ($errore)');
       return Tier.free;
     }
   }
@@ -363,6 +478,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
       extendBodyBehindAppBar: true,
       backgroundColor: palette.deepest,
       appBar: AppBar(
+        toolbarHeight: altezzaDellaBarraDelRespiro(context),
         backgroundColor: palette.deepest.withValues(alpha: 0.35),
         elevation: 0,
         // **NESSUNA ICONA DI MATERIAL QUI DENTRO.** Ordine FV, guardia
@@ -393,12 +509,14 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
           // ed e' esattamente il difetto che la cattura vera ha mostrato.
           // Il Calendario Lunare (FX.11) entra nello stesso foglio delle
           // altre voci invece di avere una porta sua.
-          TextButton(
-            key: const Key('respiro_altre_voci'),
-            onPressed: () => _apriLeAltreVoci(context, tier),
-            child: Text('Altro',
-                style: TypographyTokens.label(size: 13)
-                    .copyWith(color: palette.goldSoft)),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 9),
+            child: PulsanteDipinto(
+              key: const Key('respiro_altre_voci'),
+              testo: 'Altro',
+              altezza: 38,
+              onTap: () => _apriLeAltreVoci(context, tier),
+            ),
           ),
           const AngoloDellaBarra(),
         ],
@@ -452,8 +570,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          _AnelloDiLuce(
-                              quanto: quanto, immagine: _perlaAccesa),
+                          _AnelloDiLuce(quanto: quanto, immagine: _perlaAccesa),
                           Opacity(
                             // Mai del tutto nera: velata, non spenta.
                             opacity: 0.32 + 0.68 * quanto,
@@ -500,34 +617,103 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
             SafeArea(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingTokens.lg),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _StrisciaDelTempo(
-                        palette: palette,
-                        dati: dati,
-                        parola: parola,
-                        adesso: adesso,
-                        tempoVisto: _tempoVisto,
-                        suTuttoIlMese:
-                            IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(
-                                tier),
-                        onTrascina: _vaiATempo,
-                        onTornaAdesso: _tornaAdesso,
-                      ),
-                      const SizedBox(height: SpacingTokens.sm),
-                      _finito
-                          ? _PannelloCompiuto(palette: palette)
-                          : _PannelloDelGesto(
-                              palette: palette,
-                              esitoMic: _esitoMic,
-                              cicli: _cicliCompiuti,
-                              cicliTotali: _tempi.cicliPerUnMinuto,
-                              onRichiediMic: _avviaMic,
+                // **LA PARTE BASSA NON SALE MAI SULLA LUNA.** Il pannello,
+                // la riga del luogo e gli avvisi possono crescere: oltre il
+                // 45 per cento dello schermo scorrono, invece di coprire il
+                // centro della Luna dove il dito respira (il difetto preso in
+                // FX.03, tornato con la riga del luogo di FXA.06).
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.sizeOf(context).height * 0.45),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingTokens.lg),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // **UN PANNELLO DIPINTO SOLO (FXA.02).** La striscia
+                          // del tempo e l'invito al gesto stanno nello stesso
+                          // pannello: due pannelli con le loro cornici alte
+                          // spingerebbero il testo fino alla Luna, il difetto
+                          // gia' preso in FX.03.
+                          PannelloDipinto(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (_rigaDelLuogo != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    child: Text(_rigaDelLuogo!,
+                                        key:
+                                            const Key('respiro_riga_del_luogo'),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TypographyTokens.label(size: 12)
+                                            .copyWith(color: coloreSulVelluto)),
+                                  ),
+                                _StrisciaDelTempo(
+                                  palette: palette,
+                                  dati: dati,
+                                  parola: parola,
+                                  adesso: adesso,
+                                  tempoVisto: _tempoVisto,
+                                  suTuttoIlMese: IlPianoDelRespiro
+                                      .tempoSottoIlDitoSuTuttoIlMese(tier),
+                                  onTrascina: _vaiATempo,
+                                  onTornaAdesso: _tornaAdesso,
+                                ),
+                                const SizedBox(height: SpacingTokens.sm),
+                                _finito
+                                    ? _PannelloCompiuto(palette: palette)
+                                    : _PannelloDelGesto(
+                                        palette: palette,
+                                        cicli: _cicliCompiuti,
+                                        cicliTotali: _tempi.cicliPerUnMinuto,
+                                      ),
+                              ],
                             ),
-                    ],
+                          ),
+                          if (_finito) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            PulsanteDipinto(
+                              key: const Key('respiro_vai_alla_collana'),
+                              testo: 'Vedi la tua Collana delle Lune',
+                              larghezzaPiena: true,
+                              onTap: () => Navigator.of(context)
+                                  .push(LaCollanaDelleLuneScreen.route()),
+                            ),
+                          ],
+                          if (_esitoPosizione != null && _luogo == null) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            AvvisoDelPermesso(
+                              chiave: 'respiro_della_luna_posizione',
+                              permesso: AppPermission.location,
+                              esito: _esitoDelPermessoDiPosizione,
+                              palette: palette,
+                              onRichiedi: _caricaLuogo,
+                              onApriImpostazioni: () async {
+                                await (widget.posizione ??
+                                        const GeolocatorSkyLocation())
+                                    .apriImpostazioni();
+                              },
+                            ),
+                          ],
+                          if (!_finito &&
+                              _esitoMic != null &&
+                              _esitoMic != EsitoDelPermesso.concesso) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            AvvisoDelPermesso(
+                              chiave: 'respiro_della_luna',
+                              permesso: AppPermission.microphone,
+                              esito: _esitoMic!,
+                              palette: palette,
+                              onRichiedi: _avviaMic,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -583,33 +769,22 @@ class _AnelloDiLuce extends StatelessWidget {
 class _PannelloDelGesto extends StatelessWidget {
   const _PannelloDelGesto({
     required this.palette,
-    required this.esitoMic,
     required this.cicli,
     required this.cicliTotali,
-    required this.onRichiediMic,
   });
 
   final MaestroPalette palette;
-  final EsitoDelPermesso? esitoMic;
   final int cicli;
   final int cicliTotali;
-  final Future<void> Function() onRichiediMic;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
+        SizedBox(
           key: const Key('respiro_invito'),
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.lg, vertical: SpacingTokens.md),
-          decoration: BoxDecoration(
-            color: palette.deepest.withValues(alpha: 0.78),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -618,25 +793,26 @@ class _PannelloDelGesto extends StatelessWidget {
                   style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: 4),
-              Text('Oppure respira, il microfono ti ascolta. Giro '
+              Text(
+                  'Oppure respira, il microfono ti ascolta. Giro '
                   '${cicli + 1} di $cicliTotali',
                   key: const Key('respiro_conteggio'),
                   textAlign: TextAlign.center,
-                  style: TypographyTokens.label(size: 12).copyWith(
-                      color: Colors.white.withValues(alpha: 0.72))),
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: Colors.white.withValues(alpha: 0.72))),
+              // **L'OBIETTIVO, SCRITTO.** Il fondatore: "l'utente deve
+              // sapere [...] per ottenere cosa [...] Non puo' indovinare".
+              const SizedBox(height: 4),
+              Text(
+                  'Un minuto di respiro accende la perla di oggi nella tua '
+                  'Collana. Trascina sui numeri per vedere un\'altra ora.',
+                  key: const Key('respiro_obiettivo'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.label(size: 12)
+                      .copyWith(color: coloreSulVelluto)),
             ],
           ),
         ),
-        if (esitoMic != null && esitoMic != EsitoDelPermesso.concesso) ...[
-          const SizedBox(height: SpacingTokens.md),
-          AvvisoDelPermesso(
-            chiave: 'respiro_della_luna',
-            permesso: AppPermission.microphone,
-            esito: esitoMic!,
-            palette: palette,
-            onRichiedi: onRichiediMic,
-          ),
-        ],
       ],
     );
   }
@@ -653,15 +829,9 @@ class _PannelloCompiuto extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
+        SizedBox(
           key: const Key('respiro_compiuto'),
           width: double.infinity,
-          padding: const EdgeInsets.all(SpacingTokens.md),
-          decoration: BoxDecoration(
-            color: palette.deepest.withValues(alpha: 0.78),
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-          ),
           child: Column(
             children: [
               Text('Il tuo respiro di oggi è compiuto.',
@@ -675,13 +845,6 @@ class _PannelloCompiuto extends StatelessWidget {
                       .copyWith(color: Colors.white.withValues(alpha: 0.8))),
             ],
           ),
-        ),
-        const SizedBox(height: SpacingTokens.md),
-        FilledButton(
-          key: const Key('respiro_vai_alla_collana'),
-          onPressed: () => Navigator.of(context)
-              .push(LaCollanaDelleLuneScreen.route()),
-          child: const Text('Vedi la tua Collana delle Lune'),
         ),
       ],
     );
@@ -726,8 +889,7 @@ class _StrisciaDelTempo extends StatelessWidget {
       suTuttoIlMese ? const Duration(days: 30) : const Duration(hours: 12);
 
   void _onPanUpdate(DragUpdateDetails d) {
-    final millisecondiPerPunto =
-        _corsaMassima.inMilliseconds / _corsaInPunti;
+    final millisecondiPerPunto = _corsaMassima.inMilliseconds / _corsaInPunti;
     final nuovo = tempoVisto.add(
         Duration(milliseconds: (d.delta.dx * millisecondiPerPunto).round()));
     final minimo = adesso.subtract(_corsaMassima);
@@ -809,15 +971,8 @@ class _StrisciaDelTempo extends StatelessWidget {
       key: const Key('respiro_striscia_del_tempo'),
       behavior: HitTestBehavior.opaque,
       onHorizontalDragUpdate: _onPanUpdate,
-      child: Container(
-        width: 300,
-        padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-        decoration: BoxDecoration(
-          color: palette.deepest.withValues(alpha: 0.72),
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
-        ),
+      child: SizedBox(
+        width: double.infinity,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -848,13 +1003,13 @@ class _StrisciaDelTempo extends StatelessWidget {
             Text(_rigaDiPosizione,
                 key: const Key('respiro_riga_di_posizione'),
                 textAlign: TextAlign.center,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.label(size: 13)
                     .copyWith(color: palette.goldSoft)),
             Text(_rigaDiDistanzaESizigia,
                 textAlign: TextAlign.center,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TypographyTokens.label(size: 12)
                     .copyWith(color: Colors.white.withValues(alpha: 0.78))),
@@ -870,7 +1025,7 @@ class _StrisciaDelTempo extends StatelessWidget {
             if (parola.righe.isNotEmpty)
               Text(parola.righe.join(_separatoreDelleRigheDiMedora),
                   textAlign: TextAlign.center,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: TypographyTokens.label(size: 12).copyWith(
                       color: Colors.white.withValues(alpha: 0.68),
@@ -895,11 +1050,13 @@ class _SchermataDellaBussola extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(
+        toolbarHeight: altezzaDellaBarraDelRespiro(context),
         backgroundColor: palette.deepest,
         elevation: 0,
         iconTheme: IconThemeData(color: palette.goldSoft),
-        title: Text('Dov\'è la Luna adesso',
-            style: TypographyTokens.titoloDiSchermata()),
+        title: TitoloCheNonSiRompe(
+            testo: 'Dov\'è la Luna adesso',
+            stile: TypographyTokens.titoloDiSchermata()),
       ),
       body: luogo == null
           ? Center(
@@ -910,8 +1067,8 @@ class _SchermataDellaBussola extends StatelessWidget {
                     'permesso di posizione o scegli una città dal tuo '
                     'profilo.',
                     textAlign: TextAlign.center,
-                    style: TypographyTokens.label(size: 14).copyWith(
-                        color: Colors.white.withValues(alpha: 0.8))),
+                    style: TypographyTokens.label(size: 14)
+                        .copyWith(color: Colors.white.withValues(alpha: 0.8))),
               ),
             )
           : Center(child: LaBussolaDellaLuna(luogo: luogo!)),

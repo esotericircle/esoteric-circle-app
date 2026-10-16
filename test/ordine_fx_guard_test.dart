@@ -1,8 +1,9 @@
 // ignore_for_file: avoid_print
 // LA GUARDIA DELL'ORDINE FX, il Respiro della Luna. 16 ottobre 2026.
 //
-// Il manifesto docs/ordini/ORDINE_FX_MANIFESTO.md porta le tredici voci
-// (FX.00-FX.12), ognuna con uno stato solo, e i marcatori tornano coi conti.
+// Il manifesto docs/ordini/ORDINE_FX_MANIFESTO.md porta le diciannove voci
+// (FX.00-FX.12, piu' FX.13-FX.18 dell'aggiunta FXA), ognuna con uno stato
+// solo, e i marcatori tornano coi conti.
 // Le voci con la prova portano DOMANDA, PROVA e MISURA, e le prove nominate
 // esistono; le voci aperte dicono che cosa aspettano. Il testo dell'ordine
 // sta accanto, parola per parola, in docs/ordini/ORDINE_FX_TESTO.md.
@@ -16,7 +17,7 @@ import 'le_voci_aperte_dicono_cosa_aspettano.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FX_MANIFESTO.md');
   final voci = [
-    for (var i = 0; i <= 12; i++) 'FX.${i.toString().padLeft(2, '0')}',
+    for (var i = 0; i <= 18; i++) 'FX.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {

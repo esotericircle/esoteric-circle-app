@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 179 -->
+<!-- VUOTI_CENSITI: 183 -->
 <!-- FILE_CON_VUOTI: 78 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **179** |
+| Vuoti verticali dichiarati | **183** |
 | File che ne contengono | **78** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,14 +22,14 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 89 |
+| 2 | 90 |
 | 3 | 8 |
-| 4 | 36 |
+| 4 | 38 |
 | 5 | 2 |
 | 6 | 19 |
 | 7 | 3 |
 | 8 | 7 |
-| 9 | 2 |
+| 9 | 3 |
 | 10 | 3 |
 | 12 | 2 |
 | 16 | 2 |
@@ -51,6 +51,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/horoscope/il_periodo_view.dart` | 7 | 0 |
 | `lib/features/passport/cosmic_passport_screen.dart` | 7 | 0 |
 | `lib/features/real_time_cosmo/cielo_reale_screen.dart` | 7 | 0 |
+| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 7 | 0 |
 | `lib/features/santuario/daily_strip.dart` | 6 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 6 | 1 |
 | `lib/features/tarot/tarot_selectors.dart` | 6 | 0 |
@@ -68,7 +69,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
-| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 3 | 0 |
 | `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |

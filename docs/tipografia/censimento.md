@@ -1,6 +1,6 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 88 -->
+<!-- TOTALE_CENSITO: 87 -->
 <!-- FILE_CENSITI: 35 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
@@ -20,7 +20,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **88** |
+| Misure esplicite sotto `lib/` | **87** |
 | File che ne contengono | **35** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
@@ -39,7 +39,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 
 | File | Misure | Sotto 12 | Lettura sotto 16 |
 | --- | ---: | ---: | ---: |
-| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 12 | 0 | 0 |
+| `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 11 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 9 | 0 | 0 |
 | `lib/features/account/dati_di_nascita_screen.dart` | 5 | 0 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 5 | 0 | 0 |

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
+import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -233,6 +234,39 @@ void main() {
           .singleWhere((c) => c.$1 == 'segnalaRespiroDelGiornoPerLaCollanaADue')
           .$2;
       expect(chiesta['giorno'], '2026-11-20');
+    });
+
+    test(
+        'FXA.03 ricuciUnaPerlaDelRespiro manda giorno, inizio del ciclo e un '
+        'identificativo del movimento, mai il prezzo', () async {
+      final porta = _PortaDelRespiro();
+      final sociale = IlCerchioSociale(porta: porta);
+      final consenso = ConsensoDellaSpesa.perLeProve(
+          ListinoDegliEos.perlaRicucita.costo);
+      await sociale.ricuciUnaPerlaDelRespiro(
+          consenso: consenso,
+          giorno: DateTime(2026, 10, 12),
+          inizioCiclo: DateTime(2026, 10, 10));
+      await sociale.ricuciUnaPerlaDelRespiro(
+          consenso: consenso,
+          giorno: DateTime(2026, 10, 12),
+          inizioCiclo: DateTime(2026, 10, 10));
+      final chieste = [
+        for (final c in porta.chieste)
+          if (c.$1 == 'ricuciUnaPerlaDelRespiro') c.$2,
+      ];
+      print('FXA.03 MISURA la ricucitura dal telefono: chiamate '
+          '${chieste.length}, campi ${chieste.first.keys.toList()}');
+      expect(chieste, hasLength(2));
+      expect(chieste.first['giorno'], '2026-10-12');
+      expect(chieste.first['inizioCiclo'], '2026-10-10');
+      expect(chieste.first.keys.toSet(),
+          {'idMovimento', 'giorno', 'inizioCiclo'},
+          reason: 'il prezzo lo decide il server, dal telefono non viaggia');
+      expect('${chieste.first['idMovimento']}', startsWith('respiro_ricucitura'));
+      expect(chieste.first['idMovimento'], isNot(chieste.last['idMovimento']),
+          reason: 'ogni gesto porta il suo movimento: il giorno ripetuto lo '
+              'rende innocuo il server, non un identificativo riusato');
     });
 
     test('leCollaneADue legge l\'elenco, con l\'altra persona e i giorni accesi',

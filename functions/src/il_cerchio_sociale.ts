@@ -70,6 +70,7 @@ import {
   EOS_DEL_POSTO_IN_PIU,
   EOS_DEL_MESE_LUNARIO,
   EOS_DELLA_PROPOSTA_INSIEME_LUNARIO,
+  EOS_DELLA_PERLA_RICUCITA,
   Istantanea,
   OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS,
   POSTI_DEL_LEGAME,
@@ -1283,6 +1284,12 @@ export const rispondiAlGiorno = onCall(OPZIONI_SOCIALI, async (request) => {
 //   hanno segnalato il respiro fatto.
 // - `users/{uid}/stato/identita`: il campo `collanaADueAttiva`, il puntatore
 //   alla sola collana attiva di una persona.
+// - `users/{uid}/stato/respiro_ricuciture`: le perle ricucite pagando Eos
+//   (ordine FX aggiunta FXA.03), nel campo `giorni`, una mappa
+//   'AAAA-MM-GG' -> {ciclo, idMovimento, quando}. Sta sotto `users/{uid}`
+//   perche' riguarda solo chi chiama e se ne va con l'account; le regole di
+//   Firestore la lasciano leggere al proprietario e non scrivere a nessuno,
+//   come tutto il ramo: scrive solo `ricuciUnaPerlaDelRespiro`.
 
 /** Un minuto di respiro, con un margine che assorbe il ritardo di rete. */
 export const DURATA_DEL_RESPIRO_INSIEME_MS = 75 * 1000;
@@ -1486,6 +1493,166 @@ export const segnalaRespiroDelGiornoPerLaCollanaADue = onCall(OPZIONI_SOCIALI, a
     }
     tx.set(collanaADueDoc(id), {[`giorni.${giorno}.${uid}`]: true}, {merge: true});
     return {ok: true, perche: null, riga: null};
+  });
+});
+
+// ---------------------------------------------------------------------------
+// LA RICUCITURA VERA DI UNA PERLA, ordine FX aggiunta FXA.03, 16 ottobre 2026
+// ---------------------------------------------------------------------------
+
+/**
+ * Le regole della ricucitura, le stesse del telefono
+ * (`IlListinoDelRespiro` in `lib/core/lunario/il_listino_del_respiro.dart`):
+ * al massimo tre perle per ciclo, al massimo sette giorni indietro. Il prezzo
+ * e' `EOS_DELLA_PERLA_RICUCITA` in `sociale.ts`.
+ */
+export const RICUCITURE_MASSIME_PER_CICLO = 3;
+export const GIORNI_INDIETRO_DELLA_RICUCITURA = 7;
+
+/**
+ * Una lunazione dura al massimo trenta giorni civili: il giorno ricucito sta
+ * al piu' ventinove giorni dopo l'inizio del ciclo dichiarato. Senza questo
+ * confine il telefono potrebbe dichiarare un inizio di ciclo lontano e
+ * sfuggire al tetto per ciclo.
+ */
+export const GIORNI_MASSIMI_DENTRO_IL_CICLO = 29;
+
+/** Quanto a lungo il documento tiene una ricucitura, poi la dimentica. */
+export const GIORNI_DI_MEMORIA_DELLE_RICUCITURE = 60;
+
+/** I giorni civili fra due date 'AAAA-MM-GG' gia' valide: b meno a. */
+export function giorniFraDateCivili(a: string, b: string): number {
+  const ms = (s: string) => {
+    const [anno, mese, giorno] = s.split("-").map(Number);
+    return Date.UTC(anno, mese - 1, giorno);
+  };
+  return Math.round((ms(b) - ms(a)) / (24 * 60 * 60 * 1000));
+}
+
+export type RifiutoDellaRicucitura =
+  "futuro" | "troppoIndietro" | "primaDelCiclo" | "cicloTroppoLontano" | "tettoDelCiclo";
+
+export type DecisioneDellaRicucitura =
+  {esito: "nuova"} | {esito: "gia"} | {esito: "rifiutata"; perche: RifiutoDellaRicucitura};
+
+/** La riga che il telefono mostra per ogni rifiuto. */
+export const RIGHE_DELLA_RICUCITURA: Record<RifiutoDellaRicucitura, string> = {
+  futuro: "Questo giorno non è ancora arrivato.",
+  troppoIndietro: "Si ricuce solo una perla degli ultimi sette giorni.",
+  primaDelCiclo: "Questa perla appartiene a una collana già chiusa.",
+  cicloTroppoLontano: "Questa perla appartiene a una collana già chiusa.",
+  tettoDelCiclo: "In questa collana hai già ricucito tre perle.",
+};
+
+/**
+ * **LA DECISIONE DELLA RICUCITURA, pura e provata** in
+ * `il_respiro_della_luna.test.ts`. [giorno], [inizioCiclo] e [oggi] sono date
+ * civili gia' valide ('AAAA-MM-GG'); [oggi] e' quello del server nel fuso
+ * del Cerchio (`chiaveDelGiorno`, Europe/Rome), mai l'orologio del telefono.
+ * [ricucite] e' la mappa `giorni` del documento.
+ *
+ * Il giorno gia' ricucito torna "gia" PRIMA di ogni altro controllo: il
+ * doppio tocco, o il ritorno dopo la mezzanotte, non deve mai diventare un
+ * rifiuto ne' una seconda spesa.
+ */
+export function decidiLaRicucitura(args: {
+  giorno: string;
+  inizioCiclo: string;
+  oggi: string;
+  ricucite: Record<string, unknown>;
+}): DecisioneDellaRicucitura {
+  const {giorno, inizioCiclo, oggi, ricucite} = args;
+  if (Object.prototype.hasOwnProperty.call(ricucite, giorno)) return {esito: "gia"};
+  if (giorniFraDateCivili(oggi, giorno) > 0) {
+    return {esito: "rifiutata", perche: "futuro"};
+  }
+  if (giorniFraDateCivili(giorno, oggi) > GIORNI_INDIETRO_DELLA_RICUCITURA) {
+    return {esito: "rifiutata", perche: "troppoIndietro"};
+  }
+  const dentro = giorniFraDateCivili(inizioCiclo, giorno);
+  if (dentro < 0) return {esito: "rifiutata", perche: "primaDelCiclo"};
+  if (dentro > GIORNI_MASSIMI_DENTRO_IL_CICLO) {
+    return {esito: "rifiutata", perche: "cicloTroppoLontano"};
+  }
+  // Il tetto si conta sui GIORNI ricuciti che cadono nella finestra del
+  // ciclo dichiarato, non sull'etichetta del ciclo scritta accanto: cosi'
+  // un inizio di ciclo spostato di un giorno non apre un secondo tetto.
+  const nelCiclo = Object.keys(ricucite).filter((g) => {
+    if (dataCivileValida(g) === null) return false;
+    const d = giorniFraDateCivili(inizioCiclo, g);
+    return d >= 0 && d <= GIORNI_MASSIMI_DENTRO_IL_CICLO;
+  }).length;
+  if (nelCiclo >= RICUCITURE_MASSIME_PER_CICLO) {
+    return {esito: "rifiutata", perche: "tettoDelCiclo"};
+  }
+  return {esito: "nuova"};
+}
+
+/**
+ * **RICUCI UNA PERLA DEL RESPIRO DELLA LUNA, ordine FX aggiunta FXA.03.**
+ * Stessa forma di `compraUnMeseDelLunario`: l'identificativo del movimento
+ * rende innocuo il doppio tocco, il prezzo lo decide il server
+ * (`EOS_DELLA_PERLA_RICUCITA`), la spesa e la ricucitura stanno nella
+ * stessa transazione. In piu' il giorno stesso e' una seconda chiave di
+ * idempotenza: un giorno gia' ricucito torna ok senza una seconda spesa.
+ *
+ * Riceve `idMovimento`, `giorno` (la perla, 'AAAA-MM-GG') e `inizioCiclo`
+ * (la Luna nuova che apre il ciclo, 'AAAA-MM-GG'): il server non calcola le
+ * fasi della Luna, le riceve dal telefono, come le altre porte del Respiro.
+ * Scrive in `users/{uid}/stato/respiro_ricuciture`, campo `giorni`.
+ *
+ * **SCRITTA E NON PUBBLICATA (R3 dell'ordine).**
+ */
+export const ricuciUnaPerlaDelRespiro = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "ricuciUnaPerlaDelRespiro");
+  const id = String(request.data?.idMovimento ?? "").trim();
+  if (id.length < 8 || id.length > 200) {
+    throw new HttpsError("invalid-argument", "Ogni movimento porta il suo identificativo.");
+  }
+  const giorno = dataCivileValida(request.data?.giorno);
+  const inizioCiclo = dataCivileValida(request.data?.inizioCiclo);
+  if (giorno === null || inizioCiclo === null) {
+    throw new HttpsError("invalid-argument", "Manca il giorno della perla o il suo ciclo.");
+  }
+  const oggi = chiaveDelGiorno();
+  const documento = statoDi(uid, "respiro_ricuciture");
+  return db().runTransaction(async (tx) => {
+    const movimento = utente(uid).collection("movimenti").doc(id);
+    const gia = await tx.get(movimento);
+    const borsa = await tx.get(statoDi(uid, "borsellino"));
+    const snap = await tx.get(documento);
+    const saldo = (borsa.data()?.saldo as number) ?? 0;
+    if (gia.exists) return {ok: true, saldo, gia: true, giorno};
+    const grezze = snap.data()?.giorni;
+    const ricucite: Record<string, unknown> =
+      grezze !== null && typeof grezze === "object" ? {...grezze} : {};
+    const decisione = decidiLaRicucitura({giorno, inizioCiclo, oggi, ricucite});
+    if (decisione.esito === "gia") return {ok: true, saldo, gia: true, giorno};
+    if (decisione.esito === "rifiutata") {
+      return {ok: false, saldo, perche: decisione.perche,
+        riga: RIGHE_DELLA_RICUCITURA[decisione.perche]};
+    }
+    if (saldo < EOS_DELLA_PERLA_RICUCITA) {
+      return {ok: false, saldo, manca: EOS_DELLA_PERLA_RICUCITA - saldo};
+    }
+    // Il documento non cresce per sempre: si tengono solo le ricuciture
+    // degli ultimi GIORNI_DI_MEMORIA_DELLE_RICUCITURE giorni.
+    const tenute: Record<string, unknown> = {};
+    for (const [g, v] of Object.entries(ricucite)) {
+      if (dataCivileValida(g) !== null &&
+        giorniFraDateCivili(g, oggi) <= GIORNI_DI_MEMORIA_DELLE_RICUCITURE) {
+        tenute[g] = v;
+      }
+    }
+    tenute[giorno] = {ciclo: inizioCiclo, idMovimento: id, quando: Date.now()};
+    tx.set(movimento, {causale: "spesa", motivo: "respiro_perla_ricucita",
+      importo: -EOS_DELLA_PERLA_RICUCITA, saldoDopo: saldo - EOS_DELLA_PERLA_RICUCITA,
+      giorno, quando: FieldValue.serverTimestamp()});
+    tx.set(statoDi(uid, "borsellino"), {saldo: saldo - EOS_DELLA_PERLA_RICUCITA,
+      aggiornato: FieldValue.serverTimestamp()}, {merge: true});
+    tx.set(documento, {giorni: tenute, aggiornato: FieldValue.serverTimestamp()});
+    return {ok: true, saldo: saldo - EOS_DELLA_PERLA_RICUCITA, gia: false, giorno};
   });
 });
 

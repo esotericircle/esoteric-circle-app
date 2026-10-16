@@ -371,8 +371,7 @@ class RespiroInsiemeStato {
   /// Gli uid degli amici veri fra loro.
   final List<String> amiciDentro;
 
-  factory RespiroInsiemeStato.da(Map<String, Object?> d) =>
-      RespiroInsiemeStato(
+  factory RespiroInsiemeStato.da(Map<String, Object?> d) => RespiroInsiemeStato(
         quante: (d['quante'] as num?)?.toInt() ?? 0,
         amiciDentro: d['amiciDentro'] is List
             ? [
@@ -1266,6 +1265,31 @@ class IlCerchioSociale extends ChangeNotifier {
           {required DateTime giorno}) async =>
       _esito(await _chiedi('segnalaRespiroDelGiornoPerLaCollanaADue',
           {'giorno': _giornoScritto(giorno)}));
+
+  /// **RICUCI UNA PERLA DEL RESPIRO DELLA LUNA**, ordine FX aggiunta FXA.03:
+  /// la ricucitura vera, sul server, con gli Eos scalati in transazione.
+  /// Costa gli Eos di `ListinoDegliEos.perlaRicucita` (il prezzo lo decide il
+  /// server, qui non viaggia) e pretende il consenso della conferma, ordine
+  /// FD voce 01. [giorno] e' la perla spenta da ricucire, [inizioCiclo] la
+  /// Luna nuova che apre il suo ciclo (`LaCollanaDelleLune.cicloDi`): il
+  /// server non calcola le fasi della Luna, le riceve da qui.
+  ///
+  /// Il server rifiuta, con `ok` falso e la riga da mostrare in `riga`, un
+  /// giorno nel futuro, piu' di sette giorni indietro, prima del ciclo, o
+  /// oltre la terza ricucitura del ciclo; senza Eos bastanti torna `manca`
+  /// nei dati. Lo stesso giorno gia' ricucito torna ok senza seconda spesa
+  /// (`gia` vero nei dati).
+  Future<EsitoDelGesto> ricuciUnaPerlaDelRespiro({
+    required ConsensoDellaSpesa consenso,
+    required DateTime giorno,
+    required DateTime inizioCiclo,
+  }) async =>
+      _esito(await _chiedi('ricuciUnaPerlaDelRespiro', {
+        'idMovimento':
+            PortaDelCerchio.nuovoIdentificativo('respiro_ricucitura'),
+        'giorno': _giornoScritto(giorno),
+        'inizioCiclo': _giornoScritto(inizioCiclo),
+      }));
 
   /// **LE MIE COLLANE A DUE**: ogni collana di cui faccio parte, con lo
   /// stato, l'altra persona e i giorni in cui la perla e' davvero accesa.

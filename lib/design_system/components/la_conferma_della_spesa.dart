@@ -17,6 +17,15 @@ import '../transizioni/velo_del_cerchio.dart';
 /// nessuna porta di spesa si puo' chiamare.
 ///
 /// I testi sono quelli dell'ordine FD, alla lettera.
+/// **IL VESTITO DELLA CONFERMA.** Ordine FX aggiunta FXA.03: il Respiro
+/// della Luna veste la stessa conferma coi suoi pezzi dipinti. I testi, il
+/// saldo e il consenso restano quelli di questa classe: chi veste disegna
+/// soltanto, e restituisce `true` col pulsante di conferma (attivo solo se
+/// [attiva]) o `false` con "Non ora". Le chiavi `conferma_spesa_non_ora` e
+/// `conferma_spesa_procedi` restano obbligatorie anche nel vestito.
+typedef VestitoDellaConferma = Widget Function(BuildContext context,
+    String titolo, String corpo, String conferma, bool attiva);
+
 class LaConfermaDellaSpesa {
   LaConfermaDellaSpesa._();
 
@@ -50,6 +59,7 @@ class LaConfermaDellaSpesa {
   static Future<ConsensoDellaSpesa?> degliEos(
     BuildContext context, {
     required int costo,
+    VestitoDellaConferma? vestito,
   }) {
     final saldo = context.read<QuestionAllowance>().saldoEos;
     final basta = saldo >= costo;
@@ -62,6 +72,7 @@ class LaConfermaDellaSpesa {
           : corpoDegliEosCheNonBastano(costo, saldo),
       conferma: confermaDegliEos,
       attiva: basta,
+      vestito: vestito,
     );
   }
 
@@ -89,41 +100,45 @@ class LaConfermaDellaSpesa {
     required String corpo,
     required String conferma,
     required bool attiva,
+    VestitoDellaConferma? vestito,
   }) async {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     final si = await dialogoDelCerchio<bool>(
       context: context,
-      builder: (c) => AlertDialog(
-        key: const Key('conferma_spesa'),
-        backgroundColor: MaestroPalette.neutral.surfaceElevated,
-        title: Text(titolo,
-            key: const Key('conferma_spesa_titolo'),
-            style: TypographyTokens.titoloScheda()
-                .copyWith(color: palette.goldSoft)),
-        content: Text(corpo,
-            key: const Key('conferma_spesa_corpo'),
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textPrimary)),
-        actions: [
-          TextButton(
-            key: const Key('conferma_spesa_non_ora'),
-            style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
-            onPressed: () => Navigator.of(c).pop(false),
-            child: const Text(nonOra),
-          ),
-          FilledButton(
-            key: const Key('conferma_spesa_procedi'),
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.gold,
-              foregroundColor: palette.onPrimary,
+      builder: (c) => vestito != null
+          ? vestito(c, titolo, corpo, conferma, attiva)
+          : AlertDialog(
+              key: const Key('conferma_spesa'),
+              backgroundColor: MaestroPalette.neutral.surfaceElevated,
+              title: Text(titolo,
+                  key: const Key('conferma_spesa_titolo'),
+                  style: TypographyTokens.titoloScheda()
+                      .copyWith(color: palette.goldSoft)),
+              content: Text(corpo,
+                  key: const Key('conferma_spesa_corpo'),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary)),
+              actions: [
+                TextButton(
+                  key: const Key('conferma_spesa_non_ora'),
+                  style:
+                      TextButton.styleFrom(foregroundColor: palette.goldSoft),
+                  onPressed: () => Navigator.of(c).pop(false),
+                  child: const Text(nonOra),
+                ),
+                FilledButton(
+                  key: const Key('conferma_spesa_procedi'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.gold,
+                    foregroundColor: palette.onPrimary,
+                  ),
+                  // **COL SALDO CHE NON BASTA IL PULSANTE E' SPENTO**, e la conferma
+                  // non puo' restituire un consenso.
+                  onPressed: attiva ? () => Navigator.of(c).pop(true) : null,
+                  child: Text(conferma),
+                ),
+              ],
             ),
-            // **COL SALDO CHE NON BASTA IL PULSANTE E' SPENTO**, e la conferma
-            // non puo' restituire un consenso.
-            onPressed: attiva ? () => Navigator.of(c).pop(true) : null,
-            child: Text(conferma),
-          ),
-        ],
-      ),
     );
     if (si != true) return null;
     return ConsensoDellaSpesa.dato(quanti);

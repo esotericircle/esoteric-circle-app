@@ -153,6 +153,37 @@ class DoveSonoAdesso {
     }
   }
 
+  /// **L'ULTIMA POSIZIONE DEL TELEFONO, IN UN POSTO SUO.** Ordine FX aggiunta
+  /// FXA.06: il Respiro chiede il GPS a ogni apertura e salva qui cio' che
+  /// trova. Sta separata da [letto], la citta' scelta a mano nel profilo,
+  /// perche' i ripieghi del Respiro sono in quest'ordine: la posizione di
+  /// adesso, poi l'ultima del telefono, poi la citta' scelta. Scriverla nello
+  /// stesso posto cancellerebbe la scelta della persona.
+  static const String _chiaveDelDispositivo = 'luogo.dispositivo';
+
+  static Future<LuogoAttuale?> ultimoDelDispositivo() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final grezzo = prefs.getString(_chiaveDelDispositivo);
+      if (grezzo == null) return null;
+      return LuogoAttuale.fromJson(jsonDecode(grezzo) as Map<String, dynamic>);
+    } catch (errore) {
+      // Si ignora, e il perche' e' dichiarato: senza preferenze si passa al
+      // ripiego successivo, la citta' scelta a mano.
+      return null;
+    }
+  }
+
+  static Future<void> scriviDelDispositivo(LuogoAttuale luogo) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_chiaveDelDispositivo, jsonEncode(luogo.toJson()));
+    } catch (errore) {
+      // Il disco che non scrive non ferma il Respiro: la posizione di adesso e'
+      // gia' in mano, manca solo il ripiego per la prossima volta.
+    }
+  }
+
   /// Dimentica il luogo. Serve a chi cambia citta' e vuole ripartire.
   static Future<void> dimentica() async {
     try {

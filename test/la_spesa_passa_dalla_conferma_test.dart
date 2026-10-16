@@ -280,7 +280,10 @@ void main() {
       // 8 dall'ordine FV voce FV.12 (15 ottobre 2026): il Calendario Lunare,
       // `compraUnMeseDelLunario` e `compraUnaPropostaInsieme`, due acquisti
       // singoli come `compraUnPosto` e non un budget del giorno.
-      'lib/core/cerchio/il_cerchio_sociale.dart': 8,
+      // 9 dall'ordine FX aggiunta FXA.03 (16 ottobre 2026): la ricucitura
+      // vera di una perla, `ricuciUnaPerlaDelRespiro`, che spende Eos sul
+      // server e pretende anche lei il consenso della conferma.
+      'lib/core/cerchio/il_cerchio_sociale.dart': 9,
       'lib/features/maestri/live/schermata_live.dart': 1,
     };
     // I nomi delle funzioni del server che consumano, e il solo file che li

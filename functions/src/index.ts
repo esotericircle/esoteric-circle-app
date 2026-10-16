@@ -184,6 +184,10 @@ export {
   rispondiCollanaADue,
   segnalaRespiroDelGiornoPerLaCollanaADue,
   leCollaneADue,
+  // La ricucitura vera di una perla della collana delle lune, ordine FX
+  // aggiunta FXA.03: riesportata da qui fin dalla prima stesura (trappola
+  // dell'ordine FW).
+  ricuciUnaPerlaDelRespiro,
 } from "./il_cerchio_sociale";
 export {paginaDellInvito} from "./la_pagina_dell_invito";
 

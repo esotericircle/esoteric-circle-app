@@ -266,8 +266,18 @@ void main() {
     // persone; `leCollaneADue` le elenca. Nessuna spende ancora Eos per
     // davvero (R3): quella voce resta aperta in attesa della pubblicazione,
     // motivate nel rapporto dell'ordine FX.
-    expect(callable.length, 47,
-        reason: 'le callable non sono piu\' quarantasette: $callable. Se ne '
+    // **QUARANTOTTO, ordine FX aggiunta FXA.03, 16 ottobre 2026**: e'
+    // entrata `ricuciUnaPerlaDelRespiro`, in `il_cerchio_sociale.ts` col suo
+    // tetto, scritta e provata, non pubblicata. Ricucire una perla della
+    // collana delle lune era solo locale, senza spesa vera; l'ordine vuole
+    // la perla ricucita sul telefono e sul server con gli Eos scalati
+    // davvero. Non poteva viaggiare dentro `compraUnMeseDelLunario` ne'
+    // dentro `segnalaRespiroDelGiornoPerLaCollanaADue`: spende Eos in
+    // transazione E scrive un giorno della collana personale, con le sue
+    // difese (niente futuro, sette giorni indietro, tre per ciclo, lo stesso
+    // giorno mai pagato due volte) in `users/{uid}/stato/respiro_ricuciture`.
+    expect(callable.length, 48,
+        reason: 'le callable non sono piu\' quarantotto: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // **OGNI CALLABLE VIAGGIA DAVVERO, ordine FW, 15 ottobre 2026.** Il
     // fondatore ha provato a pubblicare `compraUnMeseDelLunario` dal PC vero

@@ -123,9 +123,8 @@ class IlDialAMoon {
     final indirizzo = indirizzoPer(utc);
     if (indirizzo != null) {
       try {
-        final risposta = await _rete
-            .get(indirizzo)
-            .timeout(const Duration(seconds: 4));
+        final risposta =
+            await _rete.get(indirizzo).timeout(const Duration(seconds: 4));
         if (risposta.statusCode == 200) {
           return FotoDellaLuna(
             immagine: NetworkImage(indirizzo.toString()),
@@ -133,9 +132,12 @@ class IlDialAMoon {
             daNasa: true,
           );
         }
-      } catch (_) {
-        // Nessuna rete, timeout o errore del fornitore: si ricade sotto,
-        // senza che chi chiama debba saperlo o debba gestire un'eccezione.
+      } catch (errore) {
+        // Nessuna rete, timeout o errore del fornitore: si ricade sotto, sulla
+        // Luna locale, senza che chi chiama debba gestire un'eccezione. Si
+        // ignora perche' il ripiego e' sempre una Luna vera, mai un vuoto.
+        debugPrint(
+            'Dial-A-Moon: la NASA non risponde, ripiego locale ($errore)');
       }
     }
     final elongazione = IlMotoreLunare.elongazione(utc);
@@ -144,6 +146,21 @@ class IlDialAMoon {
     return FotoDellaLuna(
       immagine: AssetImage(percorso),
       ruota: ruota,
+      daNasa: false,
+    );
+  }
+
+  /// **LA LUNA QUANDO IL LUOGO NON SI CONOSCE.** Ordine FX aggiunta FXA.06:
+  /// "mai la latitudine 0, mai un calcolo con la posizione vuota". Senza
+  /// luogo non si chiede la NASA e non si decide l'emisfero: la fase vera
+  /// dell'istante, che non dipende dal luogo, sceglie una delle trenta lune
+  /// locali, non ruotata, e la schermata dice che manca il luogo.
+  static FotoDellaLuna senzaLuogo(DateTime istante) {
+    final elongazione = IlMotoreLunare.elongazione(istante.toUtc());
+    return FotoDellaLuna(
+      immagine: AssetImage(
+          LeLuneDellaNasa.immaginePer(elongazione) ?? LeLuneDellaNasa.castone),
+      ruota: false,
       daNasa: false,
     );
   }

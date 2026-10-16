@@ -448,7 +448,10 @@ test("EY.16 il tetto della porta conta, chiude e dice quanto manca", () => {
       nome === "regalaGliEos" || nome === "compraUnPostoNelCerchio" ||
       // Ordine FV voce FV.12: lo stesso tetto di `compraUnPostoNelCerchio",
       // un acquisto singolo e non un gesto che si ripete ogni giorno.
-      nome === "compraUnMeseDelLunario" || nome === "compraUnaPropostaInsiemeDelLunario",
+      nome === "compraUnMeseDelLunario" || nome === "compraUnaPropostaInsiemeDelLunario" ||
+      // Ordine FX aggiunta FXA.03: la ricucitura di una perla e' anch'essa
+      // un acquisto singolo, con lo stesso tetto.
+      nome === "ricuciUnaPerlaDelRespiro",
     `${nome} e' piu' stretta della tendina`);
   }
 });
@@ -472,8 +475,10 @@ test("EY.16 GUARDIA: ogni porta del motore sociale ha il suo tetto", () => {
   // compraUnaPropostaInsiemeDelLunario). 34 dall'ordine FX voce FX.09: le sei
   // porte del Respiro della Luna (respiroInsiemeEntra,
   // respiroInsiemeConteggio, invitaCollanaADue, rispondiCollanaADue,
-  // segnalaRespiroDelGiornoPerLaCollanaADue, leCollaneADue).
-  assert.equal(nomi.length, 34);
+  // segnalaRespiroDelGiornoPerLaCollanaADue, leCollaneADue). 35 dall'ordine
+  // FX aggiunta FXA.03: ricuciUnaPerlaDelRespiro, la ricucitura vera di una
+  // perla della collana delle lune, che spende Eos in transazione.
+  assert.equal(nomi.length, 35);
   assert.deepEqual(senza, []);
   assert.deepEqual(nomi.sort(), Object.keys(TETTI_DELLE_PORTE).sort());
   // E App Check resta spento, come dichiara la premessa P9.
@@ -515,8 +520,9 @@ test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che
   const porte = Object.keys(TETTI_DELLE_PORTE);
   // 24 dall'ordine FT, con le due porte della lettura a due telefoni. 28
   // dall'ordine FV, con le quattro porte del Calendario Lunare. 34
-  // dall'ordine FX, con le sei porte del Respiro della Luna.
-  assert.equal(porte.length, 34);
+  // dall'ordine FX, con le sei porte del Respiro della Luna. 35 dall'ordine
+  // FX aggiunta FXA.03, con la ricucitura vera di una perla.
+  assert.equal(porte.length, 35);
   const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
     sogliaDellEtaPassata(p, undefined));
   console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);

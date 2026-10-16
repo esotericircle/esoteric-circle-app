@@ -1,0 +1,176 @@
+{
+ "misura_immagine": [
+  1438,
+  2576
+ ],
+ "raggio_perla": 40,
+ "raggio_maschera": 48,
+ "giorni": [
+  {
+   "giorno": 1,
+   "x": 570,
+   "y": 663
+  },
+  {
+   "giorno": 2,
+   "x": 466,
+   "y": 713
+  },
+  {
+   "giorno": 3,
+   "x": 380,
+   "y": 787
+  },
+  {
+   "giorno": 4,
+   "x": 313,
+   "y": 876
+  },
+  {
+   "giorno": 5,
+   "x": 262,
+   "y": 976
+  },
+  {
+   "giorno": 6,
+   "x": 224,
+   "y": 1079
+  },
+  {
+   "giorno": 7,
+   "x": 198,
+   "y": 1189
+  },
+  {
+   "giorno": 8,
+   "x": 185,
+   "y": 1302
+  },
+  {
+   "giorno": 9,
+   "x": 182,
+   "y": 1419
+  },
+  {
+   "giorno": 10,
+   "x": 193,
+   "y": 1540
+  },
+  {
+   "giorno": 11,
+   "x": 217,
+   "y": 1657
+  },
+  {
+   "giorno": 12,
+   "x": 260,
+   "y": 1774
+  },
+  {
+   "giorno": 13,
+   "x": 320,
+   "y": 1884
+  },
+  {
+   "giorno": 14,
+   "x": 406,
+   "y": 1985
+  },
+  {
+   "giorno": 15,
+   "x": 512,
+   "y": 2065
+  },
+  {
+   "giorno": 16,
+   "x": 925,
+   "y": 2067
+  },
+  {
+   "giorno": 17,
+   "x": 1032,
+   "y": 1986
+  },
+  {
+   "giorno": 18,
+   "x": 1117,
+   "y": 1884
+  },
+  {
+   "giorno": 19,
+   "x": 1178,
+   "y": 1774
+  },
+  {
+   "giorno": 20,
+   "x": 1221,
+   "y": 1658
+  },
+  {
+   "giorno": 21,
+   "x": 1245,
+   "y": 1540
+  },
+  {
+   "giorno": 22,
+   "x": 1256,
+   "y": 1419
+  },
+  {
+   "giorno": 23,
+   "x": 1253,
+   "y": 1302
+  },
+  {
+   "giorno": 24,
+   "x": 1240,
+   "y": 1189
+  },
+  {
+   "giorno": 25,
+   "x": 1213,
+   "y": 1079
+  },
+  {
+   "giorno": 26,
+   "x": 1175,
+   "y": 975
+  },
+  {
+   "giorno": 27,
+   "x": 1125,
+   "y": 876
+  },
+  {
+   "giorno": 28,
+   "x": 1057,
+   "y": 786
+  },
+  {
+   "giorno": 29,
+   "x": 971,
+   "y": 712
+  },
+  {
+   "giorno": 30,
+   "x": 866,
+   "y": 663
+  }
+ ],
+ "perle_del_compimento": [
+  {
+   "x": 635,
+   "y": 2120
+  },
+  {
+   "x": 803,
+   "y": 2121
+  }
+ ],
+ "medaglia": {
+  "x": 718,
+  "y": 2263,
+  "raggio_maschera": 80
+ },
+ "regola": "giorni dal fermaglio scendendo a sinistra (1-15), poi dal basso risalendo a destra (16-30); le due perle accanto alla medaglia e la medaglia si accendono solo a collana completa"
+}

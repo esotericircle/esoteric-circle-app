@@ -127,6 +127,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'OracoloDegliAngeliScreen': PresenzaDellaBarra.assente,
   // Ordine FV voce FV.13: il Calendario Lunare, un'arte come le altre.
   'CalendarioLunareScreen': PresenzaDellaBarra.assente,
+  // Ordine FX: il Respiro della Luna e la sua Collana, arti immersive come
+  // il Calendario Lunare, senza barra.
+  'IlRespiroDellaLunaScreen': PresenzaDellaBarra.assente,
+  'LaCollanaDelleLuneScreen': PresenzaDellaBarra.assente,
   // ORDINE BO VOCE 13: la collezione delle coppie e' una schermata della
   // Sinastria, e sta dentro la sua rotta come le altre due: la barra non c'e'.
   'CollezioneScreen': PresenzaDellaBarra.assente,

@@ -1,0 +1,11 @@
+Build 2312, ordine FX: il Respiro della Luna, con l'aggiunta della collana e dei comandi dipinti (16 ottobre 2026).
+
+Il Respiro della Luna è attivo nel dominio di Medora, sezione Lunologia, e dal Calendario Lunare col pulsante "Il Respiro": la Luna vera di quest'ora (la foto della NASA), un minuto di respiro col dito o col microfono accordato alla fase, i numeri della Luna calcolati dove sei.
+
+Il luogo è quello vero del telefono: all'apertura il Respiro chiede la posizione e scrive in cima al pannello in quale città sono calcolati i dati. Senza permesso usa l'ultima posizione del telefono, poi la città scelta nel profilo, e lo dice.
+
+La Collana delle Lune è lo scrigno dipinto: ogni giorno respirato accende la sua perla, presa dalla pittura accesa. Al centro della collana trovi lo stato della perla di oggi e la data della Luna nuova in cui Medora te la consegna.
+
+Pulsanti, pannelli e finestre del Respiro sono i pezzi dipinti in velluto e argento.
+
+La ricucitura di una perla spenta arriva fino alla conferma dei 25 Eos: per spenderli davvero serve pubblicare la funzione ricuciUnaPerlaDelRespiro sul server (il comando è nel rapporto dell'ordine FX).

@@ -397,12 +397,11 @@ void main() {
     // Ordine FW, 15 ottobre 2026: le sei voci (FW.01-FW.06), contate coi
     // titoli "## VOCE FW." del manifesto.
     'FW': 6,
-    // Ordine FX, 16 ottobre 2026: tredici voci (FX.00-FX.12), contate coi
-    // titoli "## VOCE FX." del manifesto; FX.02, FX.03 e FX.04 condividono
-    // un titolo solo ("## VOCE FX.02, FX.03 E FX.04"), perche' vivono sulla
-    // stessa schermata, come l'esempio XA del sigillo dimostra gia' essere
-    // un formato valido.
-    'FX': 13,
+    // Ordine FX, 16 ottobre 2026: diciannove voci, contate coi titoli
+    // "## VOCE FX." del manifesto: FX.00-FX.12 dell'ordine, piu' FX.13-FX.18
+    // dell'aggiunta FXA (la collana e i comandi dipinti, la ricucitura vera,
+    // il titolo, la consegna, il luogo vero dal GPS), un titolo per voce.
+    'FX': 19,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

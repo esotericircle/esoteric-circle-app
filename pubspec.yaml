@@ -377,9 +377,17 @@ flutter:
     # fotogrammi fermi (il respiro, il cielo senza luna, la consegna della
     # collana), convertiti in WebP da tool/gli_asset_dell_ordine_fx.py.
     - assets/img/respiro_della_luna/
-    # Gli elementi della Collana (perla, fermaglio, catenella, medaglia,
-    # scrigno), RGBA con l'alfa scritto senza perdita.
+    # La Collana dipinta (aggiunta FXA.01): le due pitture dello scrigno,
+    # spenta e accesa, il file delle posizioni delle perle e la perla
+    # accesa dell'anello di luce del Respiro.
     - assets/img/respiro_della_luna/collana/
+    # I ritagli tondi delle perle accese, presi dalla pittura accesa da
+    # tool/gli_asset_dell_aggiunta_fxa.py (30 giorni, 2 del compimento, la
+    # medaglia), RGBA senza perdita.
+    - assets/img/respiro_della_luna/collana/perle_accese/
+    # I comandi dipinti del Respiro (aggiunta FXA.02): pulsante largo,
+    # premuto, tondo, pannello, ago e filo, RGBA senza perdita.
+    - assets/img/respiro_della_luna/comandi/
     # Gli elementi della Bussola (quadrante, ago a falce, scia di luna),
     # RGBA con l'alfa scritto senza perdita.
     - assets/img/respiro_della_luna/bussola/

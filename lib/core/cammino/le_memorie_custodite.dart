@@ -168,7 +168,7 @@ abstract final class LeMemorieCustodite {
     // tornare.
     'respiro.': 'i giorni respirati, la collana delle lune, gli avvisi e le '
         'perle ricucite del Respiro della Luna: la ricucitura resta locale '
-        'finche\' non esiste una porta server che la venda',
+        'finché non esiste una porta server che la venda',
   };
 
   /// Quante volte e' stata riscritta una famiglia dal Cerchio: le prove lo

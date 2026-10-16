@@ -259,6 +259,15 @@ export const EOS_DEL_MESE_LUNARIO = 60;
 export const EOS_DELLA_PROPOSTA_INSIEME_LUNARIO = 50;
 
 /**
+ * **LA PERLA RICUCITA DEL RESPIRO DELLA LUNA, ordine FX aggiunta FXA.03**, 16
+ * ottobre 2026: la voce `perlaRicucita` del listino del telefono
+ * (`listino_degli_eos.dart`, id `respiro_perla_ricucita`, 25 Eos); una prova
+ * pretende che sia questo. Il prezzo lo decide il server: il telefono manda
+ * solo il giorno da ricucire, mai l'importo.
+ */
+export const EOS_DELLA_PERLA_RICUCITA = 25;
+
+/**
  * **LE ATTIVITA' DI "TROVA IL GIORNO INSIEME", ordine FV voce FV.10.** Le
  * stesse ventisette di `AttivitaDelLunario` (`le_attivita_del_lunario.dart`,
  * ordine FV voce FV.06): "viaggio" e "trasloco" dell'ordine ci stanno gia'
@@ -1257,6 +1266,10 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   rispondiCollanaADue: {quante: 60, finestraMs: 60 * 60 * 1000},
   segnalaRespiroDelGiornoPerLaCollanaADue: {quante: 30, finestraMs: 60 * 60 * 1000},
   leCollaneADue: {quante: 60, finestraMs: 60 * 60 * 1000},
+  // La ricucitura vera di una perla, ordine FX aggiunta FXA.03: lo stesso
+  // tetto degli acquisti singoli (`compraUnMeseDelLunario`), e comunque al
+  // massimo tre ricuciture per ciclo le decide la porta.
+  ricuciUnaPerlaDelRespiro: {quante: 20, finestraMs: 60 * 60 * 1000},
 };
 
 /**

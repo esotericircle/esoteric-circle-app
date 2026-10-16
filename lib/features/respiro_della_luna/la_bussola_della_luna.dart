@@ -227,7 +227,8 @@ class _LaBussolaDellaLunaState extends State<LaBussolaDellaLuna> {
       // (`docs/collaudo/FX/fx02_sorgere_regola_a.txt`); `quandoSorgeIlBersaglio`
       // usa invece la soglia fissa delle stelle del Real Time Cosmo, pensata
       // per un corpo qualunque, non per la parallasse vicina della Luna.
-      final quando = prossimoSorgere(adesso, widget.luogo.lat, widget.luogo.lon);
+      final quando =
+          prossimoSorgere(adesso, widget.luogo.lat, widget.luogo.lon);
       sorgere = quando == null
           ? 'Oggi la Luna non sorge.'
           : 'Sorge alle ${_ora(quando.toLocal())}.';
@@ -250,8 +251,7 @@ class _LaBussolaDellaLunaState extends State<LaBussolaDellaLuna> {
       // Due secondi di grazia, in battiti del timer del sensore: vedi il
       // commento sopra [_battitiSenzaSensore] sul perche' non e' l'orologio
       // vero a contarli.
-      if (!_ripiego &&
-          _battitiSenzaSensore * kDtDellaBussola > 2.0) {
+      if (!_ripiego && _battitiSenzaSensore * kDtDellaBussola > 2.0) {
         setState(() => _ripiego = true);
       }
       return;
@@ -355,8 +355,8 @@ class _LaBussolaDellaLunaState extends State<LaBussolaDellaLuna> {
             child: FractionallySizedBox(
               heightFactor: lunghezzaScia,
               alignment: Alignment.bottomCenter,
-              child:
-                  Image.asset('${_radice}scia_di_luna_v1.webp', fit: BoxFit.contain),
+              child: Image.asset('${_radice}scia_di_luna_v1.webp',
+                  fit: BoxFit.contain),
             ),
           ),
           Transform.rotate(
@@ -365,8 +365,8 @@ class _LaBussolaDellaLunaState extends State<LaBussolaDellaLuna> {
             child: FractionallySizedBox(
               widthFactor: 0.5,
               heightFactor: 0.5,
-              child:
-                  Image.asset('${_radice}ago_falce_v1.webp', fit: BoxFit.contain),
+              child: Image.asset('${_radice}ago_falce_v1.webp',
+                  fit: BoxFit.contain),
             ),
           ),
         ],
