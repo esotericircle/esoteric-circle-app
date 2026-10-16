@@ -318,6 +318,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   bool _scenaDellaChatFerma(MaestroChatController controller) =>
       controller.messages.isNotEmpty || _regiaDellaChat.ferma;
 
+  /// Nessun video in scena: la chat ha gia' dei messaggi, o il video non si
+  /// e' caricato. Allora il resto compare senza dissolvenza (FXA.08).
+  bool get _senzaVideoDellaChat =>
+      !_regiaDellaChat.filmatoInScena && !_regiaDellaChat.saltata;
+
   void _quandoLaScenaDellaChatCambia() {
     if (mounted) setState(() {});
   }
@@ -771,6 +776,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     // dissolvenza sopra l'ultimo fotogramma.
                     child: IlRestoDopoLaScena(
                       scenaFerma: _scenaDellaChatFerma(controller),
+                      subito: _senzaVideoDellaChat,
                       child: Column(
                         children: [
                           // **QUI C'ERA "I GIORNI PRIMA", E ADESSO CI SONO I DUE
@@ -820,26 +826,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                                 key: const Key('chat_contatori_e_dal_vivo'),
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Expanded(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Strette, ordine EA voce 09.
-                                        RigaDelResiduo(
-                                            key: Key('chat_residuo_domande'),
-                                            budget: BudgetDelGiorno.domande,
-                                            stretta: true),
-                                        RigaDelResiduo(
-                                            key: Key(
-                                                'chat_residuo_approfondimenti'),
-                                            budget:
-                                                BudgetDelGiorno.approfondimenti,
-                                            stretta: true),
-                                      ],
-                                    ),
-                                  ),
+                                  const Expanded(child: _IResiduiDellaChat()),
                                   const SizedBox(width: SpacingTokens.sm),
                                   LaPortaDelVivo(
                                     maestro: widget.maestro,
@@ -1064,6 +1051,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               offset: Offset(0, quanto),
               child: IlRestoDopoLaScena(
                   scenaFerma: _scenaDellaChatFerma(controller),
+                  subito: _senzaVideoDellaChat,
                   child: dentro!)),
           child: figlio,
         ),
@@ -2462,4 +2450,31 @@ class _SopraLaCasella extends CustomClipper<Rect> {
 /// conferma dei minuti della voce FD.01.
 abstract final class IlNomeDelLive {
   static String di(Maestro maestro) => 'LIVE con ${maestro.nomeAVideo}';
+}
+
+/// **I DUE RESIDUI DELLA CHAT**, le domande e gli approfondimenti del giorno,
+/// strette (ordine EA voce 09). In un widget suo perche' la dichiarazione del
+/// budget resti su una riga: annidata dentro la colonna sopra il compositore
+/// (FXA.08) la formattazione la spezzava, e la guardia
+/// `ogni_budget_dichiara_il_suo_residuo` non la riconosceva piu'.
+class _IResiduiDellaChat extends StatelessWidget {
+  const _IResiduiDellaChat();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RigaDelResiduo(
+            key: Key('chat_residuo_domande'),
+            budget: BudgetDelGiorno.domande,
+            stretta: true),
+        RigaDelResiduo(
+            key: Key('chat_residuo_approfondimenti'),
+            budget: BudgetDelGiorno.approfondimenti,
+            stretta: true),
+      ],
+    );
+  }
 }

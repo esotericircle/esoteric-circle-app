@@ -406,7 +406,16 @@ class IlRestoDopoLaScena extends StatelessWidget {
     super.key,
     required this.scenaFerma,
     required this.child,
+    this.subito = false,
   });
+
+  /// **SENZA VIDEO, SUBITO.** Vero quando nessun video e' stato in scena
+  /// (non si e' caricato, o la scena non e' partita): "senza video, tutto
+  /// compare subito sulla scena ferma" (FXA.08). Senza, un video che non si
+  /// carica faceva comunque attendere la dissolvenza, e la chat di Medora
+  /// mostrava la sua fascia sotto il campo ancora a meta' (preso dal
+  /// cancello, la_riga_del_campo_e_pulita_test, sul commit 8a354397).
+  final bool subito;
 
   /// La scena e' ferma sul suo ultimo fotogramma, o non ha video: il resto
   /// si vede. Per chi usa [RegiaDellaScena] e' [RegiaDellaScena.ferma].
@@ -432,7 +441,7 @@ class IlRestoDopoLaScena extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: scenaFerma ? 1 : 0,
-      duration: IlFilmatoCheSfuma.dissolvenza,
+      duration: subito ? Duration.zero : IlFilmatoCheSfuma.dissolvenza,
       curve: Curves.easeOut,
       child: IgnorePointer(
         ignoring: !scenaFerma,

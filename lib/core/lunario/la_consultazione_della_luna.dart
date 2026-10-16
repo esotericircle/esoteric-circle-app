@@ -17,6 +17,7 @@
 library;
 
 import '../astro/luogo_attuale.dart';
+import '../l10n/numero_del_cerchio.dart';
 import '../astro/zodiac.dart';
 import 'il_giorno_lunare.dart';
 import 'il_motore_lunare.dart';
@@ -253,14 +254,9 @@ abstract final class IlTempoDetto {
     return giorni > 0 ? '$giorni g $ore h $resto min' : '$ore h $resto min';
   }
 
-  /// "375.560 km": la distanza intera coi punti delle migliaia.
-  static String chilometri(double km) {
-    final s = km.round().toString();
-    final b = StringBuffer();
-    for (var i = 0; i < s.length; i++) {
-      if (i > 0 && (s.length - i) % 3 == 0) b.write('.');
-      b.write(s[i]);
-    }
-    return '$b km';
-  }
+  /// "375.560 km": la distanza intera, col separatore delle migliaia della
+  /// lingua dell'app (`NumeroDelCerchio`, mai scritto a mano: in inglese e'
+  /// la virgola).
+  static String chilometri(double km) =>
+      '${NumeroDelCerchio.interi(km.round())} km';
 }

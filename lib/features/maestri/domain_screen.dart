@@ -319,6 +319,7 @@ class _DomainScreenState extends State<DomainScreen> {
             Positioned.fill(
               child: IlRestoDopoLaScena(
                 scenaFerma: ferma,
+                subito: !_regia.filmatoInScena && !_regia.saltata,
                 child: IgnorePointer(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
@@ -339,6 +340,7 @@ class _DomainScreenState extends State<DomainScreen> {
             ),
             IlRestoDopoLaScena(
               scenaFerma: ferma,
+              subito: !_regia.filmatoInScena && !_regia.saltata,
               child: MaestroScreen(
                 maestro: widget.maestro,
                 // **DOVE COMINCIA IL CONTENUTO**, calcolato da `_fineDellaScena`

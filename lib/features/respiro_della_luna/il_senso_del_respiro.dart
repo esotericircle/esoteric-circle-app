@@ -141,7 +141,7 @@ abstract final class IlSensoDelRespiro {
 
   /// La seconda delle due righe della prima apertura.
   static const String secondaRiga =
-      'La collana ricorda ogni giorno in cui hai respirato con lei, e alla '
+      'La collana ricorda ogni giorno in cui hai respirato con lei; alla '
       'Luna nuova te la consegno intera, come il ricordo del ciclo che si '
       'chiude.';
 
@@ -217,7 +217,7 @@ abstract final class IlSensoDelRespiro {
     // 1, nuova
     RigaDelSenso(
         'È il primo giorno e la Luna è silente, non si vede: Plinio racconta '
-        'che certe semine si facevano proprio così. Oggi fai spazio, e lascia '
+        'che certe semine si facevano proprio così. Oggi fai spazio e lascia '
         'che il seme resti al buio.',
         _plinioXVIII314),
     // 2, nuova
@@ -229,7 +229,7 @@ abstract final class IlSensoDelRespiro {
     // 3, crescente
     RigaDelSenso(
         'Il primo filo di luce torna a vedersi. Accogli una cosa piccola, una '
-        'sola, e portala con te nel respiro.',
+        'sola e portala con te nel respiro.',
         chiaveDiMedora),
     // 4, crescente
     RigaDelSenso(
@@ -246,11 +246,11 @@ abstract final class IlSensoDelRespiro {
     // 6, crescente
     RigaDelSenso(
         'La falce si allarga sera dopo sera. Chiediti cosa vuoi veder '
-        'crescere, e respira verso quella cosa.',
+        'crescere e respira verso quella cosa.',
         chiaveDiMedora),
     // 7, crescente
     RigaDelSenso(
-        'Una settimana dalla Luna nuova, e la luce è quasi a metà. Accogli '
+        'Una settimana dalla Luna nuova e la luce è quasi a metà. Accogli '
         'quello che è arrivato in questi giorni, anche se è ancora acerbo.',
         chiaveDiMedora),
     // 8, crescente
@@ -262,7 +262,7 @@ abstract final class IlSensoDelRespiro {
     // 9, crescente
     RigaDelSenso(
         'Metà disco in luce e metà al buio: oggi la Luna tiene insieme le due '
-        'cose. Fai crescere ciò che hai scelto, e lascia il resto in attesa.',
+        'cose. Fai crescere ciò che hai scelto e lascia il resto in attesa.',
         chiaveDiMedora),
     // 10, crescente
     RigaDelSenso(
@@ -295,13 +295,13 @@ abstract final class IlSensoDelRespiro {
     // 15, piena
     RigaDelSenso(
         'È la Luna piena, che Rudhyar chiama compimento e illuminazione: ciò '
-        'che era seme adesso si vede. Riconosci quello che è maturo, e '
+        'che era seme adesso si vede. Riconosci quello che è maturo e '
         'respiralo.',
         _rudhyar),
     // 16, piena
     RigaDelSenso(
         'Tutta la luce è fuori, niente resta in ombra. Oggi guarda una cosa di '
-        'te con chiarezza, e dalle il suo nome.',
+        'te con chiarezza e dalle il suo nome.',
         chiaveDiMedora),
     // 17, piena
     RigaDelSenso(
@@ -318,7 +318,7 @@ abstract final class IlSensoDelRespiro {
     // 19, calante
     RigaDelSenso(
         'La luce comincia a ritirarsi dal bordo. Respira più a lungo '
-        'sull\'espiro, e lascia che qualcosa se ne vada insieme al fiato.',
+        'sull\'espiro e lascia che qualcosa se ne vada insieme al fiato.',
         chiaveDiMedora),
     // 20, calante
     RigaDelSenso(
@@ -335,7 +335,7 @@ abstract final class IlSensoDelRespiro {
     // 22, calante
     RigaDelSenso(
         'La Luna cala e sorge più tardi ogni notte. Lascia che anche i '
-        'pensieri arrivino più lenti, e non trattenerli.',
+        'pensieri arrivino più lenti e non trattenerli.',
         chiaveDiMedora),
     // 23, calante
     RigaDelSenso(
@@ -363,7 +363,7 @@ abstract final class IlSensoDelRespiro {
     // 27, calante
     RigaDelSenso(
         'Comincia la fase che Rudhyar chiama balsamica, il tempo del rilascio '
-        'e del seme per il ciclo che viene. Lascia andare, e tieni solo ciò '
+        'e del seme per il ciclo che viene. Lascia andare e tieni solo ciò '
         'che vuoi seminare.',
         _rudhyar),
     // 28, calante
@@ -416,7 +416,7 @@ abstract final class IlSensoDelRespiro {
         chiaveDiMedora),
     // 6
     RigaDelSenso(
-        'La falce cresce, e la collana con lei. La Luna di domani sarà un poco '
+        'La falce cresce e la collana con lei. La Luna di domani sarà un poco '
         'più larga.',
         chiaveDiMedora),
     // 7
@@ -431,7 +431,7 @@ abstract final class IlSensoDelRespiro {
         chiaveDiMedora),
     // 9
     RigaDelSenso(
-        'Metà luce e metà ombra, e una perla in più. Hai respirato con tutte e '
+        'Metà luce e metà ombra e una perla in più. Hai respirato con tutte e '
         'due.',
         chiaveDiMedora),
     // 10
@@ -439,7 +439,7 @@ abstract final class IlSensoDelRespiro {
         'Hai dato una forma al tuo respiro: la perla di oggi la custodisce.',
         chiaveDiMedora),
     // 11
-    RigaDelSenso('La luce ha superato il buio, e la tua collana se lo ricorda.',
+    RigaDelSenso('La luce ha superato il buio e la tua collana se lo ricorda.',
         chiaveDiMedora),
     // 12
     RigaDelSenso(
@@ -489,7 +489,7 @@ abstract final class IlSensoDelRespiro {
         'Il ramo secco è caduto, la perla di oggi resta.', chiaveDiMedora),
     // 22
     RigaDelSenso(
-        'La Luna sorge più tardi, e il tuo respiro l\'ha aspettata. Una perla '
+        'La Luna sorge più tardi e il tuo respiro l\'ha aspettata. Una perla '
         'in più.',
         chiaveDiMedora),
     // 23
@@ -499,7 +499,7 @@ abstract final class IlSensoDelRespiro {
         chiaveDiMedora),
     // 24
     RigaDelSenso(
-        'Hai potato, e quello che resta ha più spazio. La perla lo segna.',
+        'Hai potato e quello che resta ha più spazio. La perla lo segna.',
         chiaveDiMedora),
     // 25
     RigaDelSenso('Un impegno in meno, una perla in più.', chiaveDiMedora),
@@ -525,7 +525,7 @@ abstract final class IlSensoDelRespiro {
         chiaveDiMedora),
     // 30
     RigaDelSenso(
-        'L\'ultima perla del ciclo è accesa: la lunazione si chiude, e la '
+        'L\'ultima perla del ciclo è accesa: la lunazione si chiude e la '
         'collana con lei.',
         chiaveDiMedora),
   ];

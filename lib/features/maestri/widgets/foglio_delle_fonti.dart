@@ -364,7 +364,7 @@ class TestiDelleFonti {
   /// di Medora prima e dopo il respiro.
   static const String respiroDellaLuna = '${IlSensoDelRespiro.primaRiga}\n\n'
       '${IlSensoDelRespiro.secondaRiga}\n\n'
-      'Prima del respiro Medora ti dice il senso della fase di oggi, e dopo '
+      'Prima del respiro Medora ti dice il senso della fase di oggi; dopo '
       'lo chiude con una riga accanto alla perla: le righe cambiano coi '
       'giorni del ciclo. Quando la lettura di una fase viene da una fonte, la '
       'fonte è scritta accanto: Plinio il Vecchio, Naturalis Historia, per il '
