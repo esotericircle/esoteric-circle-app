@@ -45,6 +45,11 @@ class CollezioneScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        // **NESSUNA TINTA SCORRENDO**, ordine FY voce FY.20: con
+        // l'elevazione di Material 3 di quando il contenuto passa sotto, la
+        // barra si tingeva di botto.
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         iconTheme: IconThemeData(color: palette.goldSoft),
         title: TitoloCheNonSiRompe(
             testo: 'La tua collezione',

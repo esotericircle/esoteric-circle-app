@@ -1,5 +1,6 @@
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
+import 'dart:math' as math;
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
 
@@ -592,6 +593,11 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        // **NESSUNA TINTA SCORRENDO**, ordine FY voce FY.20: con
+        // l'elevazione di Material 3 di quando il contenuto passa sotto, la
+        // barra si tingeva di botto.
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         iconTheme: IconThemeData(color: palette.goldSoft),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
@@ -787,73 +793,86 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
         // quella che conta sta prima o dopo.
 
         // I due poli nella cornice VIP col cuore.
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              // **LA PRIMA CASELLA, ordine BO voce 13.** Sei tu in modo
-              // predefinito, e un VIP ti puo' sostituire: da qui nascono tre
-              // esperienze con una modifica sola.
-              child: widget.primoVip == null
-                  ? _Pole(
-                      key: const Key('sinastria_pole_user'),
-                      palette: palette,
-                      sign: _userSign,
-                      hint: _photo.hasPhoto
-                          ? 'Modifica la tua foto'
-                          : 'Aggiungi la tua foto',
-                      onTap: _openPhotoSheet,
-                      portrait: VipFramedPortrait(
+        LayoutBuilder(builder: (context, vincoli) {
+          // **IL CUORE A META' FRA LE DUE CARTE**, ordine FY voce FY.12: il
+          // cuore stava a 90 punti dalla cima, scritto a mano, cioe' sopra il
+          // centro delle carte (15 punti a 390 di larghezza, nella cattura
+          // `docs/collaudo/FY/sinastrie/v06_il_responso.png` di prima). Le due
+          // carte sono larghe uguali, il ritratto e' 2:3: il centro si conta.
+          const latoDelCuore = 26.0;
+          final carta = (vincoli.maxWidth - latoDelCuore) / 2;
+          final centro = carta / VipFrame.aspect / 2;
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                // **LA PRIMA CASELLA, ordine BO voce 13.** Sei tu in modo
+                // predefinito, e un VIP ti puo' sostituire: da qui nascono tre
+                // esperienze con una modifica sola.
+                child: widget.primoVip == null
+                    ? _Pole(
+                        key: const Key('sinastria_pole_user'),
                         palette: palette,
-                        name: widget.userName,
-                        date: _userDate,
-                        sign: _userSign.symbol,
-                        photo: _photo.bytes,
-                      ),
-                    )
-                  : _Pole(
-                      key: const Key('sinastria_pole_primo_vip'),
-                      palette: palette,
-                      sign: widget.primoVip!.sign,
-                      hint: 'Apri o cambia ${widget.primoVip!.name}',
-                      onTap: () =>
-                          _cosaFareCon(widget.primoVip!, eIlPrimo: true),
-                      portrait: VipFramedPortrait(
+                        sign: _userSign,
+                        hint: _photo.hasPhoto
+                            ? 'Modifica la tua foto'
+                            : 'Aggiungi la tua foto',
+                        onTap: _openPhotoSheet,
+                        portrait: VipFramedPortrait(
+                          palette: palette,
+                          name: widget.userName,
+                          date: _userDate,
+                          sign: _userSign.symbol,
+                          photo: _photo.bytes,
+                        ),
+                      )
+                    : _Pole(
+                        key: const Key('sinastria_pole_primo_vip'),
                         palette: palette,
-                        name: widget.primoVip!.name,
-                        date: widget.primoVip!.note,
-                        sign: widget.primoVip!.sign.symbol,
-                        vipAsset: widget.primoVip!.fullPath,
+                        sign: widget.primoVip!.sign,
+                        hint: 'Apri o cambia ${widget.primoVip!.name}',
+                        onTap: () =>
+                            _cosaFareCon(widget.primoVip!, eIlPrimo: true),
+                        portrait: VipFramedPortrait(
+                          palette: palette,
+                          name: widget.primoVip!.name,
+                          date: widget.primoVip!.note,
+                          sign: widget.primoVip!.sign.symbol,
+                          vipAsset: widget.primoVip!.fullPath,
+                        ),
                       ),
-                    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 90),
-              child: Icon(Icons.favorite_rounded,
-                  color: palette.goldSoft, size: 26),
-            ),
-            Expanded(
-              child: _Pole(
-                key: const Key('sinastria_pole_vip'),
-                palette: palette,
-                sign: _vip.sign,
-                // **LA CARTA SI APRE AL TOCCO, ordine BO voce 08.** Era
-                // l'unica cosa della scena a non rispondere al dito, ed e' il
-                // difetto 2 del fondatore.
-                hint: 'Apri o cambia ${_vip.name}',
-                onTap: () => _cosaFareCon(_vip, eIlPrimo: false),
-                // Il ritratto VIP con la sua cornice originale, senza aggiunte.
-                portrait: VipFramedPortrait(
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: math.max(0, centro - latoDelCuore / 2)),
+                child: Icon(Icons.favorite_rounded,
+                    key: const Key('sinastria_responso_cuore'),
+                    color: palette.goldSoft,
+                    size: latoDelCuore),
+              ),
+              Expanded(
+                child: _Pole(
+                  key: const Key('sinastria_pole_vip'),
                   palette: palette,
-                  name: _vip.name,
-                  date: _vip.note,
-                  sign: _vip.sign.symbol,
-                  vipAsset: _vip.fullPath,
+                  sign: _vip.sign,
+                  // **LA CARTA SI APRE AL TOCCO, ordine BO voce 08.** Era
+                  // l'unica cosa della scena a non rispondere al dito, ed e' il
+                  // difetto 2 del fondatore.
+                  hint: 'Apri o cambia ${_vip.name}',
+                  onTap: () => _cosaFareCon(_vip, eIlPrimo: false),
+                  // Il ritratto VIP con la sua cornice originale, senza aggiunte.
+                  portrait: VipFramedPortrait(
+                    palette: palette,
+                    name: _vip.name,
+                    date: _vip.note,
+                    sign: _vip.sign.symbol,
+                    vipAsset: _vip.fullPath,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
         const SizedBox(height: SpacingTokens.lg),
         // **LA FRASE SOPRA IL CERCHIO. Ordine CA voce 04.** Parole del
         // fondatore: "il testo nel cerchio e' quasi sempre lo stesso e deve

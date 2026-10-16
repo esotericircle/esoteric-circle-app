@@ -152,7 +152,15 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(
-        backgroundColor: palette.deepest,
+        // **SEMITRASPARENTE IN OGNI STATO**, ordine FY voce FY.20: il
+        // fondatore vuole le barre del titolo "sempre semitrasparenti, tutte
+        // e per sempre"; qui era il fondo profondo pieno (ordine FT voce
+        // FT.03). Lo stesso velo della Sinastria evolutiva
+        // (`SinastriaEvolutivaScreen.veloDellaBarra`).
+        backgroundColor: palette.deepest.withValues(alpha: 0.45),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         iconTheme: IconThemeData(color: palette.goldSoft),
         title: TitoloCheNonSiRompe(
             chiaveDelTesto: const Key('la_tua_nascita_titolo'),

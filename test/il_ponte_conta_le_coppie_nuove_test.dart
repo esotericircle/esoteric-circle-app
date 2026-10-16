@@ -70,6 +70,10 @@ void main() {
     await tester.runAsync(borsa.sincronizza);
     borsa.registraSinastriaEvolutiva(Tier.free);
     expect(borsa.puoiLeggereUnaCoppiaNuova(Tier.free), isFalse);
+    // Un telefono, come le altre prove della Sinastria (FY.11).
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
 
     await tester.pumpWidget(MultiProvider(
       providers: [
@@ -91,6 +95,19 @@ void main() {
       ),
     ));
     await tester.tap(find.text('apri'));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+
+    // **LA NASCITA SI CHIEDE DALLA SCENA, NON PIU' DAL NERO DEL PONTE.**
+    // Ordine FY voce FY.11, 16 ottobre 2026: il ponte apriva la nascita
+    // dell'altra persona da solo, su uno schermo nero; adesso apre la scena,
+    // e la nascita si chiede dalla scelta sotto lo studio. Il conto delle
+    // coppie nuove e' lo stesso, ed e' cio' che questa prova misura.
+    final scelta = find.byKey(const Key('sinastria_scegli_la_persona'));
+    await tester.ensureVisible(scelta);
+    await tester.pump();
+    await tester.tap(scelta);
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('nascita_altra_ora_non_nota')));

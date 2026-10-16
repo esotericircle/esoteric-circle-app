@@ -229,7 +229,8 @@ class IlPalcoDellaSinastriaVip {
       2 * (schermo.width - distacco - d.dx),
       2 * (c.dx - cuore / 2 - distacco - s.dx),
       2 * (d.dx - (c.dx + cuore / 2 + distacco)),
-      2 * (s.dy - cimaLibera) * VipFrame.aspect,
+      // Le carte hanno il centro all'altezza del cuore (FY.12).
+      2 * (c.dy - cimaLibera) * VipFrame.aspect,
     ].reduce(math.min);
     // Una finestra impossibile (una barra enorme, uno schermo minuscolo)
     // non deve dare una carta di larghezza negativa.
@@ -412,6 +413,8 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
           backgroundColor: palette.deepest.withValues(alpha: 0.35),
           elevation: 0,
           scrolledUnderElevation: 0,
+          // Nessuna tinta di superficie, in nessuno stato (FY.20).
+          surfaceTintColor: Colors.transparent,
           centerTitle: true,
           iconTheme: IconThemeData(color: palette.goldSoft),
           // **NESSUNA MISURA SCRITTA A MANO**, che sarebbe debito: il titolo
@@ -515,7 +518,16 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
     final destra = IlPalcoDellaSinastriaVip.sulloSchermo(
             IlPalcoDellaSinastriaVip.corniceDestra, schermo)
         .center;
-    final cimaDelleCarte = sinistra.dy - alta / 2;
+    // **IL CUORE A META' FRA LE DUE CARTE**, ordine FY voce FY.12, 16
+    // ottobre 2026. Il fondatore: *"Sinastria VIP devi centrare il cuore tra
+    // le due carte"*. Le cornici dipinte hanno il centro a 984 pixel del
+    // video e il cuore dipinto a 961: con le carte centrate sulle cornici
+    // (FU.14) il cuore stava da 7,7 a 11,3 punti sopra il loro centro. Adesso
+    // le carte hanno il centro all'altezza del cuore dipinto, e restano
+    // centrate sulle cornici in orizzontale: la cornice, piu' piccola della
+    // carta, resta sotto come alone (`fy12_misure.txt`).
+    final cuore = IlPalcoDellaSinastriaVip.cuoreSulloSchermo(schermo);
+    final cimaDelleCarte = cuore.dy - alta / 2;
     return SizedBox(
       width: schermo.width,
       child: Column(
@@ -579,7 +591,6 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
               larga: larga,
               centroSinistra: sinistra.dx,
               centroDestra: destra.dx,
-              cuore: IlPalcoDellaSinastriaVip.cuoreSulloSchermo(schermo),
               cima: cimaDelleCarte),
           Padding(
             padding: EdgeInsets.fromLTRB(SpacingTokens.lg, 0, SpacingTokens.lg,
@@ -629,7 +640,6 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
     required double larga,
     required double centroSinistra,
     required double centroDestra,
-    required Offset cuore,
     required double cima,
   }) {
     final inizioSinistra = centroSinistra - larga / 2;
@@ -686,10 +696,12 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
           child: Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              // Il cuore si posa sul cuore dipinto del palco.
+              // **IL CUORE A META' FRA LE DUE CARTE** (FY.12): a meta' dello
+              // spazio fra le due, e all'altezza del loro centro, che e'
+              // quella del cuore dipinto del palco.
               padding: EdgeInsets.only(
-                  left: math.max(0, cuore.dx - meta - fineSinistra),
-                  top: math.max(0, cuore.dy - meta - cima)),
+                  left: math.max(0, (inizioDestra - fineSinistra) / 2 - meta),
+                  top: math.max(0, larga / VipFrame.aspect / 2 - meta)),
               child: Icon(Icons.favorite_rounded,
                   key: const Key('sinastria_vip_cuore'),
                   color: palette.goldSoft,

@@ -477,11 +477,23 @@ void main() {
           'residuo ${residuo.bottom}, pulsante ${bottone.top}');
 
       final colpe = <String>[];
-      // Centrate sulle cornici.
+      // Centrate sulle cornici in orizzontale; in verticale all'altezza del
+      // cuore dipinto.
+      //
+      // **LAPIDE, ORDINE FY VOCE FY.12**, 16 ottobre 2026. Qui si pretendeva
+      // il centro della carta sul centro della cornice anche in verticale, e
+      // insieme il cuore sul cuore dipinto: le due cose insieme mettevano il
+      // cuore da 7,7 a 11,3 punti sopra il centro delle carte, e il
+      // fondatore ha detto *"Sinastria VIP devi centrare il cuore tra le due
+      // carte"*. La regola nuova: le carte hanno il centro all'altezza del
+      // cuore dipinto, e la misura del cuore fra le carte sta in
+      // `il_cuore_sta_fra_le_due_carte_test.dart`.
       for (final (nome, c, f) in [('tua', tua, cs), ('VIP', vip, cd)]) {
-        if ((c.center - f.center).distance > 0.5) {
+        if ((c.center.dx - f.center.dx).abs() > 0.5 ||
+            (c.center.dy - cuoreDipinto.dy).abs() > 0.5) {
           colpe.add('la carta $nome ha il centro a ${c.center}, la cornice a '
-              '${f.center}');
+              "${f.center}, il cuore dipinto all'altezza "
+              '${cuoreDipinto.dy}');
         }
         // Le cornici restano sotto come alone: la carta le copre.
         if (c.width < f.width || c.height < f.height) {
@@ -511,7 +523,10 @@ void main() {
         colpe.add('il titolo e\' a ${titolo.top}, prima era a '
             '${2 * kToolbarHeight}');
       }
-      if ((cuore.center - cuoreDipinto).distance > 0.5) {
+      // Il cuore sta a meta' fra le carte (FY.12): dal cuore dipinto lo
+      // separa il pixel e mezzo del video fra la meta' delle cornici (539,5)
+      // e il cuore dipinto (541), cioe' meno di un punto.
+      if ((cuore.center - cuoreDipinto).distance > 1.0) {
         colpe.add('il cuore e\' a ${cuore.center}, quello dipinto a '
             '$cuoreDipinto');
       }

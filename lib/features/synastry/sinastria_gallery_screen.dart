@@ -285,6 +285,8 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         backgroundColor: palette.deepest.withValues(alpha: 0.35),
         elevation: 0,
         scrolledUnderElevation: 0,
+        // Nessuna tinta di superficie, in nessuno stato (FY.20).
+        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         iconTheme: IconThemeData(color: palette.goldSoft),
         // **NIENTE FittedBox, ordine S voce 05.** Rimpiccioliva il titolo
