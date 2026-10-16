@@ -199,8 +199,9 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
         // Il saldo che il server ha scalato arriva subito nel borsellino a
         // schermo, senza aspettare la prossima lettura dello stato.
         final saldo = esito.dati['saldo'];
-        if (saldo is int)
+        if (saldo is int) {
           await _forse<QuestionAllowance>()?.applicaSaldo(saldo);
+        }
         await widget.collana.ricuciUnaPerlaLocalmente(giorno, now: widget.now);
       } else {
         await _avviso('Ricuci questa perla', esito.rigaPerLaPersona);

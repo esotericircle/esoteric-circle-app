@@ -30,6 +30,15 @@ ORDINE FX AGGIUNTA FXA, LE GUARDIE NUOVE VISTE ROSSE (REGOLA A), 16 ottobre 2026
    testo a 1,3; la Collana a 320, 360, 390 e 430 col testo a 1,3. Corretto
    con altezzaDellaBarraDelRespiro (la barra cresce con l'ingrandimento del
    testo, fino a 1,4 volte): 16 su 16 verdi.
+   ROSSO UNA SECONDA VOLTA, SUL DIFETTO VERO VISTO SUL TELEFONO: sul
+   Realme, build 2312, il titolo del Respiro andava a capo in tre righe e
+   "Luna" spariva. La prova montava il Respiro senza SogliaArte, quindi
+   senza il cuore nella barra. Riscritta sulla rotta vera (SogliaArte con
+   lo scaffale delle arti preferite) e col titolo che non deve superare le
+   sue righe (didExceedMaxLines): sul codice di allora cinque combinazioni
+   del Respiro su otto cadevano con "titolo tagliato:Il Respiro della
+   Luna" (320 e 360 col testo a 1,0 e a 1,3, 390 a 1,3). Corretto portando
+   "Altro" fuori dalla barra, nel cielo in alto a destra: 16 su 16 verdi.
 
 4. Un difetto vero preso dalla prova della schermata, non da un innesto:
    test/la_collana_delle_lune_test.dart toccava la perla del 13 ottobre e la

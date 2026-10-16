@@ -503,21 +503,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
               palette: palette,
               testo: TestiDelleFonti.respiroDellaLuna,
               chiave: 'respiro_della_luna_fonti'),
-          // **UNA SOLA PORTA PER TUTTE LE ALTRE VOCI, ordine FX.** Prima
-          // c'erano due pulsanti di testo ("Trova il giorno" e "Altro")
-          // piu' l'icona delle fonti: insieme al titolo non ci stavano,
-          // ed e' esattamente il difetto che la cattura vera ha mostrato.
-          // Il Calendario Lunare (FX.11) entra nello stesso foglio delle
-          // altre voci invece di avere una porta sua.
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 9),
-            child: PulsanteDipinto(
-              key: const Key('respiro_altre_voci'),
-              testo: 'Altro',
-              altezza: 38,
-              onTap: () => _apriLeAltreVoci(context, tier),
-            ),
-          ),
+          // La porta delle altre voci non sta piu' qui: vedi la scena.
           const AngoloDellaBarra(),
         ],
       ),
@@ -599,6 +585,30 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                       ),
                     );
                   },
+                ),
+              ),
+            ),
+            // **UNA SOLA PORTA PER TUTTE LE ALTRE VOCI, ordine FX, ora nel
+            // cielo in alto a destra.** Prima c'erano due pulsanti di testo
+            // ("Trova il giorno" e "Altro") piu' l'icona delle fonti, poi il
+            // solo "Altro" nella barra. Ma la rotta vera monta il Respiro
+            // dentro `SogliaArte`, che aggiunge il cuore: con la freccia, le
+            // fonti, "Altro" e il cuore al titolo restavano cosi' pochi punti
+            // che sul Realme, build 2312, si leggeva "Il / Respiro / della" e
+            // "Luna" spariva. Nella barra restano solo le icone. Il nome resta
+            // corto perche' nell'angolo stia fuori dalla Luna dipinta della
+            // scena; cosa apre lo dice il foglio, voce per voce.
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingTokens.sm),
+                  child: PulsanteDipinto(
+                    key: const Key('respiro_altre_voci'),
+                    testo: 'Altro',
+                    altezza: 38,
+                    onTap: () => _apriLeAltreVoci(context, tier),
+                  ),
                 ),
               ),
             ),
