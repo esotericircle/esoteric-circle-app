@@ -285,10 +285,10 @@ void main() {
           (w.decoration as BoxDecoration).gradient is LinearGradient);
       expect(velo, findsWidgets, reason: 'il velo del dominio manca');
       final riquadro = tester.getRect(velo.first);
-      final stops = ((tester.widget<DecoratedBox>(velo.first).decoration
-                  as BoxDecoration)
-              .gradient! as LinearGradient)
-          .stops!;
+      final stops =
+          ((tester.widget<DecoratedBox>(velo.first).decoration as BoxDecoration)
+                  .gradient! as LinearGradient)
+              .stops!;
       final inizio = riquadro.top + stops[1] * riquadro.height;
       final pieno = riquadro.top + stops[2] * riquadro.height;
       final titolo = find.byWidgetPredicate((w) =>
