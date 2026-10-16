@@ -65,9 +65,6 @@ void main() {
   /// eccezione che non trova piu' una barra piena fa cadere la prova, perche'
   /// un'eccezione scaduta e' un buco lasciato aperto per il prossimo.
   const eccezioni = <String, String>{
-    'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart':
-        'velo al 90 per cento quando la lettura passa sotto il titolo, '
-            'ordine FU; la corregge la voce FY.20 sulle schermate degli Angeli',
     'lib/features/synastry/sinastria_evolutiva_screen.dart':
         'velo al 90 per cento quando la lettura passa sotto il titolo, '
             'ordine FT voce FT.15; la corregge la voce FY.20 sulle Sinastrie',

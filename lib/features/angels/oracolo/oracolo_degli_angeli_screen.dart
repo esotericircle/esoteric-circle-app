@@ -23,6 +23,7 @@ import '../../../core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
 import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import '../../../design_system/theme/app_theme.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
@@ -113,7 +114,7 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
   /// appena la lettura le scorreva sotto: adesso il velo e' uno solo, in ogni
   /// stato, e il titolo resta leggibile per l'ombra del suo testo, mai per il
   /// pieno.
-  static const double veloDellaBarra = 0.6;
+  static const double veloDellaBarra = AppTheme.veloDellaBarra;
 
   /// **CHI E' L'ANGELO E CHE COSA PORTA** (FY.18), le righe della bolla di
   /// una carta, lette dalle prove senza montare la schermata.
@@ -486,8 +487,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
           // anche scorrendo. Il colore e' esplicito, cosi' lo stato "sotto
           // la barra" di Material 3 non lo cambia, e nessuna elevazione ne'
           // tinta di superficie lo riempie.
-          backgroundColor: palette.deepest
-              .withValues(alpha: OracoloDegliAngeliScreen.veloDellaBarra),
+          backgroundColor:
+              palette.deepest.withValues(alpha: AppTheme.veloDellaBarra),
           elevation: 0,
           scrolledUnderElevation: 0,
           surfaceTintColor: Colors.transparent,
