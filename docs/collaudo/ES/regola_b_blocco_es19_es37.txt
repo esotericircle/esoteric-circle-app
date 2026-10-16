@@ -1,0 +1,59 @@
+REGOLA B del blocco ES.19-ES.37, 30 settembre 2026. Le guardie delle zone toccate, viste rosse sul codice di prima (commit 78d1388c, nella copia C:/Users/user/ecs).
+
+Confessione di ordine: il lavoro nel worktree e' stato scritto mentre la suite della voce ES.15 occupava la copia; questi giri sono stati fatti dopo, sul codice di prima, appena la copia si e' liberata. La Regola B chiede di farlo prima di mettere mano alla zona.
+
+ES.32, il menu delle notifiche
+  guardia: test/il_menu_delle_notifiche_si_tocca_test.dart
+  innesto in lib/features/account/notifiche_screen.dart: entrato
+  esito: 00:06 +3 -2: Some tests failed.
+  rossi: ["00:02 +0 -1: BC.05: c'e una riga per ogni Dono, ognuna con la sua ora [E]", '00:06 +3 -2: BC.05: e spegnere quello acceso lo spegne [E]']
+  ROSSA: si
+  copia pulita dopo il ripristino: si
+
+ES.20, la chat del LIVE salva cio' che si dice
+  guardia: test/il_live_dice_le_stesse_parole_test.dart
+  innesto in lib/features/maestri/chat/maestro_chat_controller.dart: entrato
+  esito: 00:00 +3 -1: Some tests failed.
+  rossi: ['00:00 +3 -1: ET.02: nel LIVE la chat salva le frasi che il Maestro dice [E]']
+  ROSSA: si
+  copia pulita dopo il ripristino: si
+
+ES.24, le guardie della lettura delle rune
+  guardia: test/le_rune_interpretano_davvero_test.dart
+  innesto in lib/core/rituals/la_lettura_delle_rune.dart: entrato
+  esito: 00:00 +3 -1: Some tests failed.
+  rossi: ['00:00 +2 -1: ER.01: le guardie della lettura [E]']
+  ROSSA: si
+  copia pulita dopo il ripristino: si
+
+ES.19, la posizione della prima frase
+  guardia: test/la_posizione_e_una_lettura_test.dart
+  innesto in lib/core/chat/la_posizione_della_lettura.dart: entrato
+  esito: 00:00 +7: All tests passed!
+  rossi: []
+  ROSSA: NO
+  copia pulita dopo il ripristino: si
+
+ES.19, le certezze del Maestro
+  guardia: test/le_certezze_e_l_italiano_del_maestro_test.dart
+  innesto in lib/core/chat/le_certezze_del_maestro.dart: entrato
+  esito: 00:00 +3 -3: Some tests failed.
+  rossi: ['00:00 +0 -1: ET.01: le certezze del secondo giro si riconoscono [E]', '00:00 +0 -2: ET.01: la posizione ridetta come fatto si toglie [E]', '00:00 +0 -3: ET.01: dal quarto giro, le frasi certe che restano si tolgono e la posizione non lascia frasi spezzate [E]']
+  ROSSA: si
+  copia pulita dopo il ripristino: si
+
+ES.25, la prima frase del Viaggio
+  guardia: test/il_responso_risponde_test.dart
+  innesto in lib/core/viaggio/le_guardie_del_responso.dart: entrato
+  esito: 00:03 +27 -1: Some tests failed.
+  rossi: ['00:00 +0 -1: LE GUARDIE DEL TITOLO, DELLA RISPOSTA E DEL GESTO ogni motivo dello scarto ha una riga che lo fa scattare [E]']
+  ROSSA: si
+  copia pulita dopo il ripristino: si
+
+ES.35-ES.37, la schermata dell'Oroscopo e le tradizioni
+  guardia: test/la_lettura_vedica_a_video_test.dart
+  innesto in lib/features/horoscope/oroscopo_screen.dart: entrato
+  esito: 00:04 +1 -1: Some tests failed.
+  rossi: ["00:03 +1 -1: il piano gratuito vede il segno vedico e l'invito [E]"]
+  ROSSA: si
+  copia pulita dopo il ripristino: si

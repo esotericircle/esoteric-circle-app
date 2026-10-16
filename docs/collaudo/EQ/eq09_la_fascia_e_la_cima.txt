@@ -1,0 +1,20 @@
+# EQ.09, la prova della fascia e della cima visibile (27 settembre 2026)
+
+Test: test/i_messaggi_stanno_fra_i_contatori_e_la_casella_test.dart, con i controlli nuovi di EQ.09 (la cima dove la conversazione puo' dipingere, la fascia con la tinta della testata).
+
+## Prima della cura: rossa, per la ragione giusta
+
+EQ.08 MISURA a 360.0 punti: lista da 126.0 a 800.0, visibile fino a 604.0, contatori fino a 126.0, casella da 726.0; sotto il bordo della casella 0.0 punti di conversazione
+Expected: a value greater than or equal to <125.5>
+  Actual: <-548.0>
+la conversazione puo' dipingere dietro i contatori per 674.0 punti: il ritaglio non la ferma in cima
+00:07 +0 -1: EQ.08 ed EQ.09: la conversazione finisce sopra la casella e sotto i contatori, a 360.0 punti [E]
+EQ.08 MISURA a 402.0 punti: lista da 126.0 a 800.0, visibile fino a 628.0, contatori fino a 126.0, casella da 726.0; sotto il bordo della casella 0.0 punti di conversazione
+Expected: a value greater than or equal to <125.5>
+  Actual: <-548.0>
+la conversazione puo' dipingere dietro i contatori per 674.0 punti: il ritaglio non la ferma in cima
+00:11 +0 -2: EQ.08 ed EQ.09: la conversazione finisce sopra la casella e sotto i contatori, a 402.0 punti [E]
+
+## Dopo la cura: verde
+
+EQ.09 MISURA a 360 e a 402 punti: la conversazione si vede da 130,0, i contatori finiscono a 126,0; la fascia va da 0 alla larghezza dello schermo con la tinta della testata (deepest al 35 per cento).

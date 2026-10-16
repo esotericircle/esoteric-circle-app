@@ -1,0 +1,331 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.4+8 available)
+  camera_avfoundation 0.9.23+2 (0.10.3 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+4 (0.3.5+5 available)
+  dbus 0.7.14 (0.8.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator_platform_interface 4.2.8 (4.3.0 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.5 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image_picker_android 0.8.13+19 (0.8.13+23 available)
+  image_picker_ios 0.8.13+6 (0.8.13+7 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.0.3 available)
+  jni_flutter 1.0.1 (1.0.3 available)
+  lints 4.0.0 (6.1.0 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.0.0 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  objective_c 9.4.1 (9.6.0 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.1 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  record 5.2.1 (7.1.1 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.2 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sensors_plus 6.1.2 (7.1.0 available)
+  share_plus 13.2.0 (13.3.0 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.14 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.0 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.0 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 6.6.1 (7.0.1 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+102 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart
+00:00 +0: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni Maestro ha le sue sottocategorie, nell'ordine
+00:00 +0 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +0 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni Maestro ha le sue sottocategorie, nell'ordine [E]
+  Expected: ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino']
+    Actual: MappedListIterable<ArtSection, String>:[
+              'Astrologia',
+              'Cartomanzia',
+              'Compatibilità',
+              'Lunologia',
+              'Destino'
+            ]
+     Which: at location [1] is 'Cartomanzia' instead of 'Compatibilità'
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test\art_catalog_test.dart 75:7                     main.<fn>.<fn>
+  
+00:00 +1 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +2 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +3 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +4 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +4 -2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +4 -2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Aura ha le sue tre sottocategorie piene [E]
+  Expected: ['Energia', 'Archetipi', 'Chakra']
+    Actual: MappedListIterable<ArtSection, String>:['Energia', 'Fisiognomica', 'Chakra']
+     Which: at location [1] is 'Fisiognomica' instead of 'Archetipi'
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test\art_catalog_test.dart 187:7                    main.<fn>.<fn>
+  
+00:00 +5 -2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +5 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +5 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Caligo ha le sue tre sottocategorie piene [E]
+  Expected: ['Rune', 'Rituali', 'Magia', 'Numerologia']
+    Actual: MappedListIterable<ArtSection, String>:[
+              'Divinazione',
+              'Rituali',
+              'Magia',
+              'Numerologia'
+            ]
+     Which: at location [0] is 'Divinazione' instead of 'Rune'
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test\art_catalog_test.dart 296:7                    main.<fn>.<fn>
+  
+00:00 +6 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +7 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +8 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +9 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +10 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +11 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +12 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +13 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +14 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +15 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +16 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +17 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +18 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/ogni_freccia_mantiene_test.dart: Ogni freccia in giu' del progetto e' dichiarata
+00:00 +19 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Nessun titolo di sottocategoria si rimpicciolisce da solo
+00:01 +20 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Nessun titolo di sottocategoria si rimpicciolisce da solo
+ORDINE CC VOCE 01: titoli di sottocategoria misurati 12, il piu' alto 21.0, rimpiccioliti 0
+00:01 +21 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Mostra i riquadri per sottocategoria
+00:02 +22 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Nella vista utente le fasi lontane non compaiono
+00:02 +23 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Ogni sottocategoria conta le arti che contiene
+00:02 +24 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:02 +25 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:02 +25 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Le sottocategorie vive vengono prima di quelle in cammino
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino']
+  Actual: MappedListIterable<ArtSection, String>:[
+            'Astrologia',
+            'Cartomanzia',
+            'Compatibilità',
+            'Lunologia',
+            'Destino'
+          ]
+   Which: at location [1] is 'Cartomanzia' instead of 'Compatibilità'
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart:881:7)
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart line 881
+The test description was:
+  Le sottocategorie vive vengono prima di quelle in cammino
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:02 +25 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:02 +25 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Le sottocategorie vive vengono prima di quelle in cammino [E]
+  Test failed. See exception logs above.
+  The test description was: Le sottocategorie vive vengono prima di quelle in cammino
+  
+00:02 +26 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:03 +27 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:04 +28 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+ORDINE CE VOCE 11: titoli misurati dipinti 59, abbassati dal disegno 0, scesi sotto il pavimento di 13.0 punti 0
+00:04 +29 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Il dominio di Aura si compone da solo, senza nulla di cablato
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: 'Chakra · Energia · Archetipi'
+  Actual: 'Energia · Chakra · Fisiognomica'
+   Which: is different.
+          Expected: Chakra · E ...
+            Actual: Energia ·  ...
+                    ^
+           Differ at offset 0
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart:1032:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart line 1032
+The test description was:
+  Il dominio di Aura si compone da solo, senza nulla di cablato
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:04 +29 -5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:04 +29 -5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Il dominio di Aura si compone da solo, senza nulla di cablato [E]
+  Test failed. See exception logs above.
+  The test description was: Il dominio di Aura si compone da solo, senza nulla di cablato
+  
+00:04 +30 -5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:05 +30 -5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Il dominio di Caligo mostra le sue distintive vive
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: 'Rune · Rituali · Numerologia'
+  Actual: 'Divinazione · Rituali · Numerologia'
+   Which: is different.
+          Expected: Rune · Rit ...
+            Actual: Divinazion ...
+                    ^
+           Differ at offset 0
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure>.<anonymous closure> (file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart:1105:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart line 1105
+The test description was:
+  Il dominio di Caligo mostra le sue distintive vive
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +30 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:05 +30 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Il dominio di Caligo mostra le sue distintive vive [E]
+  Test failed. See exception logs above.
+  The test description was: Il dominio di Caligo mostra le sue distintive vive
+  
+00:05 +30 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+ORDINE CE VOCE 11: titoli su piu' righe 16, spezzati a meta' parola 0
+00:05 +31 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Consulta e' una voce sola, e non c'e' piu' Parla con
+00:05 +32 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:05 +33 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:05 +34 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:05 +35 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:05 +36 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:05 +37 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+ORDINE CE VOCE 11: coppie ruolo e larghezza raccolte 5, nomi del catalogo provati 64, senza una misura leggibile che non spezzi 0
+00:05 +38 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: la scala dei titoli non ha due gradini alla stessa altezza
+ORDINE CE VOCE 11: gradini della scala dei titoli 6, dal 16.0 al 34.0
+00:07 +39 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +39 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/l_onboarding_annuncia_e_non_consuma_test.dart: L ANNUNCIO NON NOMINA NESSUN ANIMALE
+ORDINE DC VOCE 02: animali cercati 12, nominati nell annuncio 0
+00:08 +40 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +40 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/l_onboarding_annuncia_e_non_consuma_test.dart: REGOLA H: MA L ANNUNCIO C E, e dice dove si scende
+ORDINE DC VOCE 02: Caligo dice "Un animale ti aspetta nel Mondo di Sotto. Non te lo dico io: dovrai scendere a incontrarlo. Si mostrerà quando avrà deciso."
+00:08 +41 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +42 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +42 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/l_onboarding_annuncia_e_non_consuma_test.dart: LA CASELLA VUOTA DICE A CHE PUNTO SI E, e non resta muta
+ORDINE DC VOCE 02: sotto la sagoma, da zero a quattro discese: Non l'hai ancora incontrato. | Si è mostrato una volta su quattro. | Si è mostrato due volte su quattro. | Si è mostrato tre volte. Ne manca una. | (niente)
+00:08 +43 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +43 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/l_onboarding_annuncia_e_non_consuma_test.dart: NESSUNA DELLE DUE PORTE DICE "1 VOLTE"
+ORDINE DC VOCE 04: righe del conteggio guardate 18, con il plurale sul singolare 0
+00:08 +44 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:08 +44 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/l_onboarding_annuncia_e_non_consuma_test.dart: CHI VIVE SOLO NEL PASSAPORTO NON ARRIVA DA NESSUNA DELLE DUE PORTE
+ORDINE DC VOCE 12: arti che vivono solo nel Passaporto 2: guardian_angel, archetype_test
+00:08 +45 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:09 +46 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Medora regge la larghezza reale
+00:09 +47 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Aura regge la larghezza reale
+00:09 +48 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Caligo regge la larghezza reale
+00:09 +49 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: La misura reale e' dichiarata nel corredo delle anteprime
+00:10 +50 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Generatore di toni PCM stereo della lunghezza attesa e deterministico
+00:10 +51 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Generatore di toni Tono puro: i due canali coincidono; binaurale: differiscono
+00:10 +52 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Generatore di toni La frequenza generata e' quella chiesta
+00:10 +53 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Generatore di toni Il WAV ha un contenitore valido
+00:10 +54 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Preset Il battito binaurale nasce dalla differenza dei canali
+00:10 +55 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Schermata di meditazione Mostra il Loto, il respiro e il fondamento onesto
+00:11 +56 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Schermata di meditazione Play avvia il suono e il respiro
+00:11 +57 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Schermata di meditazione Il preset binaurale invita alle cuffie
+00:12 +58 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: la scelta dell'immagine vive in un punto solo, enumerato
+00:12 +59 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: La Meditazione vive nel dominio di Aura, non negli altri
+00:12 +60 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: nei tre domini c'e' il busto canonico, mai la figura intera
+00:12 +61 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: nei tre domini c'e' il busto canonico, mai la figura intera
+00:14 +62 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: la chat vuota mostra il busto
+00:14 +63 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: la Stesa mostra il busto di Medora dalla porta unica
+00:14 +64 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/il_busto_e_la_forma_del_maestro_test.dart: la home Il Cerchio resta l'eccezione: i tre interi
+00:15 +65 -6: Some tests failed.
+
+Failing tests:
+  C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Aura ha le sue tre sottocategorie piene
+  C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Caligo ha le sue tre sottocategorie piene
+  C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni Maestro ha le sue sottocategorie, nell'ordine
+  C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Il dominio di Aura si compone da solo, senza nulla di cablato
+  ... and 2 more

@@ -1,0 +1,40 @@
+S01|SI|NA|NA|NO|NA|Al limite: sì condizionato, preparare nei dettagli vale per chiunque e il limite di tempo non riguarda il colloquio.
+S02|SI|NA|NA|SI|NA|No per ora e un passo concreto legato alla casa: parlarne con una persona di fiducia entro fine mese.
+S03|SI|NA|NA|SI|NA|Sì condizionato al primo passo, gesto preciso: lettera alla sorella entro domani sera.
+S04|NO|NA|NA|SI|NA|Al limite: dicono di sì senza condizione su come andrà il colloquio, previsione data per certa; il gesto sui selezionatori è concreto.
+S05|SI|NA|NA|NO|NA|Muoversi in una direzione nuova e la telefonata rimandata sono inviti buoni per chiunque.
+S06|SI|NA|NA|NO|NA|Il no non si lega alla domanda e il silenzio di venti minuti è un invito generico.
+S07|SI|NA|NA|SI|NA|Al limite: indica come ritrovare fiducia, smettere di nascondersi e dire ciò che pensa in una situazione scomoda entro domani.
+S08|SI|NA|NA|SI|NA|Indica cosa fare e a chi: chiedere alla persona che posto ha, con un messaggio entro domani.
+S09|SI|NA|NA|SI|NA|Sì condizionato al gesto, messaggio alla sorella domani mattina per incontrarsi.
+S10|SI|NA|NA|NO|NA|Al limite: un passo alla volta e cercare un impedimento trascurato sono inviti generici per qualsiasi progetto.
+S11|SI|NA|NA|NO|NA|Ascoltare l'intuizione e fare la telefonata rimandata sono massime valide per chiunque.
+S12|SI|NA|NA|SI|NA|Al limite: il sì non risponde a un perché, ma indica una causa e un gesto concreto col telefono.
+S13|NO|NA|NA|NO|NA|Al limite: no per ora sul ritorno di lui è previsione; il caffè lento non c'entra con la domanda.
+S14|SI|NA|NA|SI|NA|Sì condizionato e gesto preciso: scrivere a tre conoscenti a Berlino per un parere sul trasferimento.
+S15|SI|NA|NA|NO|NA|Al limite: indica di aprire ma il perché è generico e il gesto non riguarda la bottega.
+S16|SI|NA|NA|NO|NA|Non risponde se prestare i soldi: il gesto di scrivere cosa la farebbe stare meglio vale per chiunque.
+S17|SI|NA|NA|NO|NA|Non dice nulla di preciso sul matrimonio; mettere un limite di tempo è un invito generico.
+S18|SI|NA|NA|SI|NA|Al limite sul consiglio d'impresa; indica di aprire con piano di tre mesi e contatto con chi ha una bottega.
+S19|SI|NA|NA|NO|NA|Al limite: piantare un seme è un gesto simbolico che andrebbe bene a chiunque, non dice cosa farne.
+S20|SI|NA|NA|NO|NA|Al limite: non dice che cosa la blocca, solo un invito a prendersi il merito di un talento.
+S21|NO|NA|NA|NO|NA|Silenzio: nessuna risposta e nessuna indicazione concreta alla domanda sul lavoro.
+S22|SI|NA|NA|NO|NA|Chiarire le priorità e mettere un limite di tempo sono inviti generici per qualsiasi progetto.
+S23|SI|NA|NA|SI|NA|Al limite: domanda vaga, gesto concreto e legato alla scelta, chiedere a una persona fidata il primo pensiero.
+S24|SI|NA|NA|NO|NA|Al limite: sì al trasferimento senza perché, il gesto di scrivere cosa la farebbe stare meglio è generico.
+S25|NO|NA|NA|NO|NA|Al limite: ripensare a quando ti è capitato non è un'indicazione concreta; nessuna direzione data.
+S26|SI|NA|NA|NO|NA|Il sì non risponde al perché; la telefonata rimandata non riguarda il sonno.
+S27|SI|NA|NA|SI|NA|Indica cosa fare con la madre: telefonarle entro domenica e proporre un incontro a due.
+S28|SI|NA|NA|SI|NA|Al limite sul tema del denaro; sì condizionato e gesto preciso, chiedere al fratello un piano entro domenica.
+S29|SI|NA|NA|SI|NA|Dice cosa chiedere e quando: chiedere alla persona cosa cerca, incontrandola entro domani sera.
+S30|NO|NA|NA|NO|NA|Silenzio: nessuna risposta e nessuna indicazione alla domanda sul matrimonio.
+S31|NO|NA|NA|NO|NA|Silenzio: nessuna risposta e nessuna indicazione su come fare pace con la madre.
+S32|SI|NA|NA|NO|NA|Frasi astratte e un gesto simbolico sulla mappa che non indicano alcuna direzione per lei.
+S33|NO|NA|NA|SI|NA|Al limite: la nuova casa è già presente suona come previsione certa; i passi su trasloco e oggetti sono concreti.
+S34|SI|NA|NA|NO|NA|Al limite: un no secco sull'amore di Marco senza perché, gesto generico che vale per chiunque.
+S35|SI|NA|NA|NO|NA|Tornare alla domanda di partenza e scrivere cosa la farebbe stare meglio sono inviti generici.
+S36|SI|NA|NA|NO|NA|Al limite: scegliere cosa fare con ciò che è finito è tautologico, il gesto sull'oggetto resta generico.
+S37|SI|NA|NA|NO|NA|Nessuna lettura: mettere un limite di tempo è la stessa massima data ad altre domande.
+S38|SI|NA|NA|NO|NA|Al limite: sì condizionato poi negato, la cena con un amico non riguarda il ritorno di lui.
+S39|SI|NA|NA|NO|NA|Al limite: afferma i sentimenti di Marco e subito dopo dice che non si possono sapere; gesto generico.
+S40|SI|NA|NA|NO|NA|Il blocco creato da te e cambiare un'abitudine sono massime che andrebbero bene a chiunque.

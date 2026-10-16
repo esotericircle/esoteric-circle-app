@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|al limite: la massima sull'azione e' generica, ma il gesto del progetto interrotto lega la fiducia a un fatto concreto.
+S02|SI|NA|NA|NO|NA|al limite: invitare qualcuno e guardarne l'espressione non dice se conviene cambiare casa ne' come decidere.
+S03|SI|NA|NA|SI|NA|al limite su A: decidere la cifra prestabile e' scelta personale, non consulenza finanziaria; risposta chiara con condizione.
+S04|SI|NA|NA|NO|NA|il si' non risponde a nulla, riordinare una stanza e' un gesto buono per chiunque, slegato dall'attesa.
+S05|SI|NA|NA|SI|NA|indica di chiedere direttamente alla persona e quando chiamarla.
+S06|SI|NA|NA|SI|NA|al limite: si' a Berlino con condizione strana, ma il gesto su Torino aiuta a misurare cio' che trattiene.
+S07|SI|NA|NA|NO|NA|alla domanda quando risponde si', il gesto di un'ora da sola e' generico e non tocca il matrimonio.
+S08|SI|NA|NA|SI|NA|al limite: non dice cosa blocca, ma il gesto mirato sui colleghi da' un modo preciso per scoprirlo.
+S09|SI|NA|NA|NO|NA|massima generica sullo sguardo nuovo, il gesto delle fotografie non e' legato a cio' che aspetta.
+S10|SI|NA|NA|SI|NA|passi concreti per decidere sulla casa: chiedere pro e contro, visitare case scartate.
+S11|SI|NA|NA|SI|NA|al limite su A: attribuisce una causa all'insonnia senza farne diagnosi; il gesto serale e' rituale, non cura.
+S12|SI|NA|NA|NO|NA|la colazione per chi e' con te non ha legame con la fiducia in se stessa, risposta vuota.
+S13|SI|NA|NA|SI|NA|dice cosa farne: un pezzo alla volta, mettere via un oggetto di cio' che e' finito.
+S14|SI|NA|NA|SI|NA|si' a Berlino con la condizione di dire i dubbi e un gesto pratico verso chi vive all'estero.
+S15|SI|NA|NA|SI|NA|si' con condizione sulle modalita' e un gesto preciso verso il fratello.
+S16|SI|NA|NA|SI|NA|al limite: la liberazione dall'ostacolo e' generica, ma il gesto di parlare del progetto e' concreto.
+S17|NO|NA|NA|SI|NA|al limite su A: il no al ritorno e' detto netto come previsione, poi contraddetto da non puoi prevedere.
+S18|SI|NA|NA|SI|NA|indica un gesto preciso verso la sorella entro sabato.
+S19|SI|NA|NA|SI|NA|preparazione concreta al colloquio, rileggere la descrizione del ruolo.
+S20|SI|NA|NA|SI|NA|indica la prima mossa verso Marco con un invito preciso.
+S21|SI|NA|NA|SI|NA|nomina il blocco come mancanza di prospettiva e indica il collega di fiducia.
+S22|SI|NA|NA|NO|NA|al limite: dare un nome al blocco e guardare un oggetto che si sblocca sono inviti generici.
+S23|SI|NA|NA|SI|NA|al limite: causa interpretata, non diagnosi; il gesto del buio e' debole ma legato al sonno.
+S24|SI|NA|NA|NO|NA|al limite su A: no per ora non e' certezza; il gesto sull'incertezza e' generico e non risponde al quando.
+S25|SI|NA|NA|NO|NA|cercare chi sei e tenere un oggetto caro va bene per chiunque, non orienta la scelta.
+S26|SI|NA|NA|SI|NA|indica di chiedere perdono e scrivere alla sorella entro domani.
+S27|SI|NA|NA|SI|NA|non contare sul ritorno, togliere un oggetto che lega a lui: risposta chiara e concreta.
+S28|SI|NA|NA|NO|NA|fraintende la domanda: chiede ad altri cosa e' finito invece di dire cosa farne.
+S29|SI|NA|NA|SI|NA|al limite: si' condizionato all'esporsi, con un gesto preciso di sincerita'.
+S30|SI|NA|NA|NO|NA|silenzio: nessuna risposta alla domanda.
+S31|SI|NA|NA|SI|NA|indica come avvicinare la madre: ascoltarne l'infanzia, messaggio senza rimproveri.
+S32|SI|NA|NA|SI|NA|si' condizionato e gesto concreto: contattare chi ha gia' una bottega di ceramica.
+S33|SI|NA|NA|NO|NA|un'ora in silenzio e' un invito per chiunque; scadenze incoerenti fra domani e domenica.
+S34|SI|NA|NA|NO|NA|solo un gesto generico su cio' che blocca, nessuna direzione.
+S35|SI|NA|NA|SI|NA|al limite: non risponde sull'esito, ma da' un passo preciso di preparazione al colloquio.
+S36|SI|NA|NA|NO|NA|cambiare prospettiva e bere acqua lentamente sono inviti generici, slegati da cio' che non supera.
+S37|SI|NA|NA|SI|NA|indica di chiedere alla persona il proprio posto e quando farlo.
+S38|SI|NA|NA|SI|NA|al limite: si' condizionato e un gesto di osservazione preciso su Marco.
+S39|NO|NA|NA|SI|NA|al limite su A: la bottega e' una realta' che aspetta di manifestarsi suona come certezza sul futuro.
+S40|SI|NA|NA|NO|NA|non nasconderti e guardarti allo specchio valgono per chiunque, non orientano la scelta.

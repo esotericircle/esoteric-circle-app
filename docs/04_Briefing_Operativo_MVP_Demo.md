@@ -68,7 +68,7 @@ Carta natale interattiva con transiti. La ruota natale 2.5D con i pianeti che si
 
 Test Archetipo junghiano. Gancio virale nobilitato da Jung: l utente scopre il suo archetipo e lo condivide. Acquisizione organica e percezione premium.
 
-Costellazione del Viso (videocamera). Analisi del volto via videocamera con i punti del viso che si illuminano e formano una costellazione personale, poi l interpretazione. Basata sulla personologia di Edward Vincent Jones (68 tratti), approccio ibrido tratti stabili piu transiti. Effetto wow immediato, ideale da mostrare a Google. Sostituisce il Mood Tracker, che resta nell MVP.
+Costellazione del Viso (dal 25 settembre 2026 il nome a video e' «Mappa del Viso», senza articolo: decisione del fondatore, ordine EN voce 11) (videocamera). Analisi del volto via videocamera con i punti del viso che si illuminano e formano una costellazione personale, poi l interpretazione. Basata sulla personologia di Edward Vincent Jones (68 tratti), approccio ibrido tratti stabili piu transiti. Effetto wow immediato, ideale da mostrare a Google. Sostituisce il Mood Tracker, che resta nell MVP.
 
 Meditazione o breathwork con la voce. Esperienza immersiva e calma che mostra la voce Gemini-TTS e un lato premium e contemplativo.
 

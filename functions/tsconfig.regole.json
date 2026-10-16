@@ -1,0 +1,30 @@
+{
+  // LE PROVE DELLE REGOLE DI FIRESTORE SI COMPILANO A PARTE, e non col resto.
+  //
+  // `src/regole.emulatore.ts` importa `@firebase/rules-unit-testing` e il client
+  // `firebase`, che sono strumenti di PROVA e non fanno parte delle funzioni: il
+  // server che costruisce le funzioni non deve installarli, e infatti non li ha
+  // piu' fra le sue dipendenze. Se questo file restasse dentro la compilazione
+  // normale, `npm run build` cadrebbe su un tipo mancante ovunque quelle due
+  // librerie non siano installate, cioe' proprio dove la compilazione conta: nel
+  // predeploy.
+  //
+  // Le due librerie vivono nel `package.json` della radice del repository, che il
+  // deploy non carica mai, e da li' Node e TypeScript le trovano risalendo.
+  //
+  // Si compila con `npm run test:regole`, che usa questo file.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Il client `firebase` e' pubblicato come ES module con export condizionali:
+    // senza queste due righe la sola compilazione del test non risolve
+    // "firebase/firestore", che dal codice delle funzioni non serve a nessuno.
+    "module": "node16",
+    "moduleResolution": "node16"
+  },
+  "include": ["src/regole.emulatore.ts"],
+  // **L'ESCLUSIONE DEL FILE BASE SI ANNULLA QUI**, altrimenti si erediterebbe
+  // insieme al resto e questa compilazione non avrebbe nessun file da compilare:
+  // `tsconfig.json` esclude proprio `regole.emulatore.ts`, ed e' l'unico che
+  // questa deve compilare.
+  "exclude": []
+}

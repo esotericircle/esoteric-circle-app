@@ -1,0 +1,54 @@
+S01|SI|SI|NA|SI|SI|Usa la ceramica, azione concreta stasera, Uruz coerente; seguito aggiunge numero 7 e rituale di fondazione.
+S02|SI|NA|NA|SI|SI|Riposo, niente discorsi difficili, diario stasera: concreto al limite; il seguito aggiunge Luna in Cancro e Saturno retrogrado.
+S03|SI|NA|SI|SI|SI|Luna in Cancro e opposizione Sole Saturno corrette; azione per la madre; seguito aggiunge un aspetto nuovo.
+S04|SI|NA|SI|SI|SI|Luna in Cancro, ultimo quarto e Saturno retrogrado in Ariete giusti; il viaggio di Natale con la sorella e inventato, al limite.
+S05|SI|NA|SI|SI|NO|Retrogradi giusti. Il seguito e generico: Luna in Bilancia e paura della madre senza approfondire i retrogradi.
+S06|SI|NO|NA|SI|SI|Non nomina Marco ne usa nulla della memoria, al limite; sì con gesti precisi, seguito aggiunge Luna in Bilancia.
+S07|SI|NO|NA|SI|SI|Non usa fine mese ne il sonno scarso; consiglio e azione concreti al limite; Venere retrograda aggiunta nel seguito.
+S08|SI|NA|NA|SI|SI|No per ora con avviso sul denaro; motivazione vaga ma risponde; seguito aggiunge Isa e attesa, al limite.
+S09|SI|NO|NA|SI|SI|Non usa Marco ne la memoria; risposta sì con gesto; seguito aggiunge Luna in Bilancia e permesso di esplorare.
+S10|SI|NA|SI|SI|SI|Luna in Cancro, Sole in Bilancia, Luna con Saturno e Nettuno, Mercurio Venere in Scorpione tutti giusti; seguito al limite generico.
+S11|SI|NA|NA|NO|SI|Non dice da dove cominciare a rimettere ordine, solo respiro e plesso solare. Seguito spiega la vergogna, al limite.
+S12|SI|NA|NA|SI|NO|No per ora e lista di spese concreta, al limite. Il seguito e generico: sigillo, presagio, Cercatore senza sostanza.
+S13|SI|SI|NA|SI|SI|Usa ceramica e timore della madre; Gebo e condividere la creazione sono concreti; seguito aggiunge perche.
+S14|SI|NO|NA|SI|SI|Non usa Marco ne la memoria; Luna in Cancro di sabato e azione precisa; seguito aggiunge Luna natale in Bilancia.
+S15|SI|NA|SI|SI|SI|Giove in Vergine corretto; il seguito lega il fatto alla bottega di ceramica con indicazioni concrete.
+S16|SI|NA|NA|SI|SI|No per ora con Nauthiz e avviso sul denaro; dono invece di prestito al limite; seguito aggiunge il debito, in parte ripetitivo.
+S17|SI|NO|NA|SI|SI|Non usa colloquio a fine mese ne il sonno; presentazione e curriculum concreti; seguito aggiunge Ascendente Scorpione e numero 7.
+S18|SI|NA|SI|SI|SI|Giove in Vergine corretto; lista di cinque azioni; seguito collega Luna in Bilancia, finanze e ceramica.
+S19|SI|SI|NA|SI|SI|Usa Berlino, bottega e meditazione; scrittura di attese e paure concreta; seguito aggiunge Ascendente e numero 7.
+S20|SI|NA|SI|SI|NO|Giove in Vergine corretto. Il seguito ripete precisione e miglioramento con altre parole, senza nulla di nuovo.
+S21|SI|NO|NA|SI|SI|Non usa fine mese ne il sonno; consigli pratici e curriculum al limite; seguito con Luna in Cancro e Mercurio Venere.
+S22|SI|NA|NA|SI|NO|Scrivere tre spese necessarie e concreto al limite. Il seguito ripete stabilita e radice, aggiunge solo Luna in Cancro.
+S23|SI|NA|NA|SI|SI|Respiro prima di ogni spesa e moneta sul tavolo: concreto; il seguito aggiunge centro della radice e colore rosso.
+S24|SI|NA|SI|SI|SI|Luna in Cancro e quadratura con Saturno retrogrado in Ariete corretti; lettera alla madre; seguito aggiunge Saturno.
+S25|SI|SI|NA|SI|SI|Usa ceramica e bottega; angolo per la propria arte da oggi; seguito aggiunge perche con Sole in Cancro e ultimo quarto.
+S26|NO|NA|NA|NO|SI|Non ho gli strumenti suona da programma, nessuna indicazione concreta nel testo; non risponde da dove cominciare. Seguito concreto, al limite.
+S27|SI|NA|NA|NO|SI|Massima su accogliere il dolore con diario generico, nessun aiuto per la settimana. Seguito aggiunge Luna in Cancro e Scorpione, al limite.
+S28|SI|SI|NA|SI|SI|Nomina Marco; sì con gesto prima di rispondere; seguito aggiunge Luna in Bilancia e il senso dell'incontro.
+S29|SI|NA|SI|SI|SI|Cinque retrogradi corretti; il seguito spiega ogni pianeta nel suo segno, tutti giusti.
+S30|SI|NA|NA|SI|SI|No con Thurisaz e avviso sul denaro; scrivere all'amico e concreto, al limite; seguito aggiunge confini e Sole in Cancro.
+S31|SI|NA|SI|SI|SI|Luna in Cancro ultimo quarto e trigono con Venere in Scorpione corretti; seguito aggiunge Ascendente Scorpione, al limite generico.
+S32|SI|NO|NA|SI|SI|Non usa Marco ne la memoria; sì con radicamento al limite; seguito aggiunge Sole e Luna in Cancro.
+S33|SI|NA|NA|NO|SI|Parte da luce verde e accettazione, nessun primo passo per rimettere ordine alle spese; seguito aggiunge Bilancia e numero 7, al limite.
+S34|SI|NA|NA|NO|SI|Accetta il dolore e scrivi: massima generica per la settimana. Il seguito aggiunge Luna in Cancro e il nido, al limite.
+S35|NO|NA|NA|SI|SI|Nessuna azione concreta: osserva il sentiero della Gebo. No per ora al limite; il seguito aggiunge piano di restituzione, al limite.
+S36|SI|NA|SI|SI|SI|Giove in Vergine corretto; il seguito lega Cancro, Ascendente Scorpione e ceramica ad azioni con metodo.
+S37|SI|NA|SI|SI|SI|Luna in Cancro, ultimo quarto, quadratura con Saturno retrogrado e Mercurio Venere in Scorpione giusti.
+S38|SI|NA|SI|SI|SI|Cinque retrogradi giusti; il seguito li dice nei segni corretti, approfondimento modesto, al limite.
+S39|SI|NA|NA|SI|NO|Ritirarsi e un'ora di silenzio e concreto al limite. Il seguito e generico e Non e un abbandono suona stonato.
+S40|SI|NO|NA|SI|SI|Non usa fine mese ne il sonno; preparare dettagli e rileggere ad alta voce concreto; seguito aggiunge domande impreviste.
+S41|NO|NA|NA|NO|NO|Chakra della Radice detto centro del potere personale, errore esoterico al limite. Tre cose di gioia non rispondono alla domanda sulle spese.
+S42|SI|SI|NA|SI|SI|Usa ceramica; Jera corretta; informarsi sui corsi e concreto; seguito aggiunge piccoli passi verso il sogno.
+S43|SI|NA|SI|SI|SI|Retrogradi corretti e Venere retrograda in Scorpione giusta; la migliore amica e un dettaglio inventato, al limite.
+S44|SI|NA|NA|SI|SI|Riposo fino a giovedì e quaderno oggi sono concreti; il seguito aggiunge Luna in Cancro e ultimo quarto.
+S45|SI|NA|SI|SI|NO|Giove in Vergine corretto. Il seguito resta generico su pazienza e precisione, quasi ripetendo la risposta.
+S46|NO|NO|NA|SI|NO|Urano retrogrado nel tema natale, fatto non verificabile e confuso; non usa ceramica ne bottega; seguito confuso, al limite.
+S47|NO|SI|NA|SI|NO|Sowilo promette chiarezza e successo come certezza, al limite; usa la ceramica e l'argilla; seguito contiene la stessa promessa.
+S48|SI|NA|NA|SI|SI|Foto di Ombra stasera e silenzio sono concreti; il seguito aggiunge Ascendente, ultimo quarto e numero 7.
+S49|SI|NA|NO|SI|SI|Dice quattro retrogradi e omette Plutone in Acquario, che e retrogrado. Seguito con Venere, Marco e sorella, al limite.
+S50|SI|NA|SI|SI|SI|Giove in Vergine corretto; il seguito aggiunge Cancro, Ascendente Scorpione, abitudini e progetto di ceramica.
+S51|SI|NA|NA|SI|SI|No per ora con avviso sul denaro; motivazione vaga al limite; il seguito aggiunge numero 7 e inquietudine sul valore.
+S52|SI|NA|SI|SI|SI|Cinque retrogradi nei segni giusti; il seguito usa Venere retrograda e Marco in modo pertinente.
+S53|SI|NO|NA|SI|SI|Non usa fine mese ne il sonno; visualizzazione e ricordo di capacità concreti; seguito aggiunge numero 7 e Venere retrograda.
+S54|SI|SI|NA|SI|NO|Nomina Marco; sì con respiro, al limite sul merito; seguito dice la tua Luna in Cancro, errore, e confonde colloquio e incontro.

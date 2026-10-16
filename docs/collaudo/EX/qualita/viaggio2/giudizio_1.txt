@@ -1,0 +1,40 @@
+S01|NO|NA|NA|SI|NA|Al limite: dice di sì all'esito del colloquio senza condizioni, previsione data per certa; il gesto sui selezionatori è concreto e pertinente.
+S02|SI|NA|NA|NO|NA|Al limite: afferma che Marco prova sentimenti e poi che non si può sapere; il gesto di scrivere cosa ti farebbe stare meglio vale per chiunque.
+S03|NO|NA|NA|NO|NA|Silenzio: nessuna risposta né indicazione concreta alla domanda sul lavoro.
+S04|SI|NA|NA|NO|NA|Testo astratto sul confine già tracciato e gesto della mappa che non dice quale direzione prendere; supera male la prova dello scambio.
+S05|SI|NA|NA|NO|NA|Rimanda tutto al gesto della telefonata rimandata, generico e non legato alla fiducia in sé.
+S06|SI|NA|NA|SI|NA|Risponde sì con piano dei primi tre mesi e contatto con chi ha una bottega simile, concreto e pertinente.
+S07|SI|NA|NA|NO|NA|Al limite: frase sibillina su ciò che non c'è e gesto dell'oggetto sul tavolo, validi per chiunque.
+S08|SI|NA|NA|NO|NA|Parla di frattura in astratto e chiude col gesto generico di scrivere cosa ti farebbe stare meglio.
+S09|SI|NA|NA|NO|NA|Blocco creato da te e rompere un'abitudine qualunque: massima generica che vale per chiunque.
+S10|SI|NA|NA|SI|NA|Al limite per A sul denaro, ma è scelta familiare: parlare col fratello entro domenica e chiedere un piano è concreto.
+S11|SI|NA|NA|NO|NA|Un sì che non risponde al perché dell'insonnia; il gesto della telefonata rimandata è generico.
+S12|SI|NA|NA|SI|NA|Indica di scrivere domani a tre conoscenti a Berlino per sapere cosa comporta il trasferimento, pertinente e concreto.
+S13|NO|NA|NA|NO|NA|Silenzio: nessuna risposta né indicazione alla domanda sul matrimonio.
+S14|SI|NA|NA|NO|NA|Un sì senza contenuto e il gesto generico di scrivere cosa ti farebbe stare meglio, niente sul prestito.
+S15|SI|NA|NA|SI|NA|Preparare due risposte per ogni domanda prevista è concreto per il colloquio, senza previsione certa.
+S16|SI|NA|NA|NO|NA|Lasciare che la situazione si chiarisca da sola e osservare un albero: invito generico a lasciar fare al tempo.
+S17|SI|NA|NA|SI|NA|Al limite: il sì non risponde al perché, ma indica il peso della disponibilità e il telefono spento prima di cena.
+S18|SI|NA|NA|SI|NA|Indica di scrivere alla persona entro domani sera e chiedere un incontro per capire il suo posto.
+S19|SI|NA|NA|NO|NA|Il blocco non è tuo e osservare come reagisci: indicazione vaga che vale per chiunque.
+S20|SI|NA|NA|SI|NA|Telefonare alla madre entro domenica e proporre un incontro a due: concreto e pertinente.
+S21|SI|NA|NA|SI|NA|Al limite: non dice se Marco la ama, ma indica di proporgli entro sabato un'attività nuova insieme.
+S22|SI|NA|NA|SI|NA|Smettere di nascondersi e dire ciò che pensi in una situazione di disagio entro domani: pertinente alla fiducia.
+S23|SI|NA|NA|SI|NA|Al limite per il sì condizionato e i giorni incoerenti; il messaggio alla sorella per un caffè è concreto.
+S24|SI|NA|NA|NO|NA|Al limite: considerare le priorità e chiedere un parere a chi ti fidi vale per qualunque scelta.
+S25|SI|NA|NA|NO|NA|Nessun contenuto sulla madre; il gesto di scrivere cosa ti farebbe stare meglio è generico.
+S26|NO|NA|NA|NO|NA|Silenzio: nessuna risposta né indicazione alla domanda sul progetto.
+S27|SI|NA|NA|NO|NA|Al limite: definire la priorità e cercare su una mappa un luogo di pace non dice se cambiare casa.
+S28|SI|NA|NA|SI|NA|Al limite per il sì condizionato; incontro in luogo neutro e lettera di riconoscimento alla sorella sono concreti.
+S29|SI|NA|NA|NO|NA|Scegli cosa fare con ciò che è finito: indicazione generica che restituisce la domanda.
+S30|SI|NA|NA|NO|NA|Un peso non tuo e venti minuti di silenzio: massima generica valida per chiunque.
+S31|SI|NA|NA|SI|NA|Parlare con chi condivide la scelta e scrivere entro giovedì a chi è a Berlino: pertinente.
+S32|SI|NA|NA|NO|NA|Al limite: sì condizionato vago e individuare un piccolo impedimento, nulla di specifico sul progetto.
+S33|SI|NA|NA|NO|NA|Al limite per A: sì poi non puoi sapere, contraddittorio; la cena con un'amica non riguarda il suo ritorno.
+S34|SI|NA|NA|NO|NA|Una direzione esiste e fai un piccolo passo qualunque: invito generico senza direzione indicata.
+S35|SI|NA|NA|NO|NA|Non risponde al quando; chiedere ad altri della propria relazione è indicazione laterale e presuppone un'unione.
+S36|NO|NA|NA|SI|NA|Al limite: dice di no al suo ritorno come esito, previsione; il gesto delle notifiche è concreto e pertinente.
+S37|SI|NA|NA|NO|NA|Non dice cosa blocca nel lavoro, rimanda solo a un gesto sul talento da mostrare.
+S38|SI|NA|NA|SI|NA|Sì condizionato al luogo e visita di due spazi entro giovedì: concreto e pertinente.
+S39|SI|NA|NA|SI|NA|Chiedere direttamente alla persona cosa cerca e fissare un incontro entro domani sera: pertinente.
+S40|SI|NA|NA|SI|NA|Al limite per la nuova casa già presente; chiedere a chi ha traslocato e non decidere subito è pertinente.

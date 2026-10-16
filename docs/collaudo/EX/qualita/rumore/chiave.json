@@ -1,0 +1,242 @@
+{
+ "S01": {
+  "giro": "prima2",
+  "caso": "R6"
+ },
+ "S02": {
+  "giro": "prima",
+  "caso": "R5"
+ },
+ "S03": {
+  "giro": "prima2",
+  "caso": "L4"
+ },
+ "S04": {
+  "giro": "prima2",
+  "caso": "C5"
+ },
+ "S05": {
+  "giro": "prima",
+  "caso": "R1"
+ },
+ "S06": {
+  "giro": "prima",
+  "caso": "C2"
+ },
+ "S07": {
+  "giro": "prima2",
+  "caso": "C8"
+ },
+ "S08": {
+  "giro": "prima",
+  "caso": "R6"
+ },
+ "S09": {
+  "giro": "prima",
+  "caso": "C3"
+ },
+ "S10": {
+  "giro": "prima",
+  "caso": "L5"
+ },
+ "S11": {
+  "giro": "prima2",
+  "caso": "M1"
+ },
+ "S12": {
+  "giro": "prima2",
+  "caso": "L3"
+ },
+ "S13": {
+  "giro": "prima",
+  "caso": "L1"
+ },
+ "S14": {
+  "giro": "prima2",
+  "caso": "M3"
+ },
+ "S15": {
+  "giro": "prima",
+  "caso": "M5"
+ },
+ "S16": {
+  "giro": "prima2",
+  "caso": "M7"
+ },
+ "S17": {
+  "giro": "prima",
+  "caso": "C7"
+ },
+ "S18": {
+  "giro": "prima2",
+  "caso": "L1"
+ },
+ "S19": {
+  "giro": "prima2",
+  "caso": "M6"
+ },
+ "S20": {
+  "giro": "prima2",
+  "caso": "R7"
+ },
+ "S21": {
+  "giro": "prima",
+  "caso": "L2"
+ },
+ "S22": {
+  "giro": "prima2",
+  "caso": "M4"
+ },
+ "S23": {
+  "giro": "prima2",
+  "caso": "R8"
+ },
+ "S24": {
+  "giro": "prima",
+  "caso": "R4"
+ },
+ "S25": {
+  "giro": "prima",
+  "caso": "C8"
+ },
+ "S26": {
+  "giro": "prima",
+  "caso": "R7"
+ },
+ "S27": {
+  "giro": "prima",
+  "caso": "R3"
+ },
+ "S28": {
+  "giro": "prima2",
+  "caso": "R1"
+ },
+ "S29": {
+  "giro": "prima",
+  "caso": "C4"
+ },
+ "S30": {
+  "giro": "prima",
+  "caso": "M4"
+ },
+ "S31": {
+  "giro": "prima",
+  "caso": "M3"
+ },
+ "S32": {
+  "giro": "prima2",
+  "caso": "C7"
+ },
+ "S33": {
+  "giro": "prima",
+  "caso": "C5"
+ },
+ "S34": {
+  "giro": "prima",
+  "caso": "L6"
+ },
+ "S35": {
+  "giro": "prima",
+  "caso": "L3"
+ },
+ "S36": {
+  "giro": "prima",
+  "caso": "C1"
+ },
+ "S37": {
+  "giro": "prima2",
+  "caso": "L5"
+ },
+ "S38": {
+  "giro": "prima2",
+  "caso": "L2"
+ },
+ "S39": {
+  "giro": "prima2",
+  "caso": "R3"
+ },
+ "S40": {
+  "giro": "prima2",
+  "caso": "C2"
+ },
+ "S41": {
+  "giro": "prima",
+  "caso": "M7"
+ },
+ "S42": {
+  "giro": "prima",
+  "caso": "L4"
+ },
+ "S43": {
+  "giro": "prima",
+  "caso": "M2"
+ },
+ "S44": {
+  "giro": "prima2",
+  "caso": "M8"
+ },
+ "S45": {
+  "giro": "prima",
+  "caso": "C6"
+ },
+ "S46": {
+  "giro": "prima2",
+  "caso": "R2"
+ },
+ "S47": {
+  "giro": "prima2",
+  "caso": "C1"
+ },
+ "S48": {
+  "giro": "prima2",
+  "caso": "R4"
+ },
+ "S49": {
+  "giro": "prima2",
+  "caso": "C4"
+ },
+ "S50": {
+  "giro": "prima",
+  "caso": "R8"
+ },
+ "S51": {
+  "giro": "prima2",
+  "caso": "L6"
+ },
+ "S52": {
+  "giro": "prima2",
+  "caso": "C6"
+ },
+ "S53": {
+  "giro": "prima2",
+  "caso": "C3"
+ },
+ "S54": {
+  "giro": "prima",
+  "caso": "M6"
+ },
+ "S55": {
+  "giro": "prima",
+  "caso": "R2"
+ },
+ "S56": {
+  "giro": "prima",
+  "caso": "M1"
+ },
+ "S57": {
+  "giro": "prima2",
+  "caso": "M5"
+ },
+ "S58": {
+  "giro": "prima",
+  "caso": "M8"
+ },
+ "S59": {
+  "giro": "prima2",
+  "caso": "R5"
+ },
+ "S60": {
+  "giro": "prima2",
+  "caso": "M2"
+ }
+}

@@ -1,0 +1,108 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il no, per ora: le stelle indicano che il momento per la promozione non è ancora giunto. Le energie celesti suggeriscono di focalizzarti sulla stabilità e sul consolidamento delle tue attuali competenze.
+
+✦ In mattinata, rifletti su un'abilità che desideri migliorare nel tuo lavoro.
+[2] PERSONA: In mattinata, rifletti su un'abilità che desideri migliorare nel tuo lavoro.
+[2] MEDORA [DA GIUDICARE]: È un buon inizio aver riflettuto su quell'abilità, perché ora è il momento di scegliere un passo concreto per affinarla. Il transito di Venere in Toro, che favorisce la concretezza e la costruzione, ti suggerisce di non rimandare.
+
+✦ Nel pomeriggio, scrivi una mail al tuo superiore per chiedere un colloquio formativo su quel tema.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('aver riflettuto su quell'abilità') e la sviluppa indicando il passo successivo ('scegliere un passo concreto per affinarla', 'scrivi una mail al tuo superiore').
+[3] PERSONA: Nel pomeriggio, scrivi una mail al tuo superiore per chiedere un colloquio formativo su quel tema.
+[3] MEDORA [DA GIUDICARE]: Ottimo, hai fatto un passo importante scrivendo al tuo superiore: ora il cielo ti invita alla pazienza, ma non all'attesa inerte. Marte in Gemelli suggerisce di prepararti al colloquio con attenzione e chiarezza.
+
+✦ Nelle prossime ore, prepara una lista di domande specifiche da porre al tuo superiore durante il colloquio.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione precedente ('hai fatto un passo importante scrivendo al tuo superiore') e fornisce il consiglio successivo per prepararsi al colloquio menzionato prima ('prepara una lista di domande specifiche').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti il tuo corpo e ciò che ti dice in questo momento, prima di decidere un grande cambiamento come un trasferimento. Ogni passo inizia da dentro.
+
+Il tuo centro della radice, che è il tuo legame con la terra e la sicurezza, ti invita a sentire la stabilità che già possiedi. Non si tratta di fuggire o di cercare altrove ciò che manca, ma di radicarti dove sei ora, per poi muovere i passi con consapevolezza. Un trasferimento, se nasce da un profondo desiderio e non da una spinta esterna, può portare nuove energie.
+
+✦ Poggia i piedi a terra, senti il contatto con il suolo per un momento.
+[2] PERSONA: Poggia i piedi a terra, senti il contatto con il suolo per un momento.
+[2] AURA [DA GIUDICARE]: È un buon inizio, sentire il contatto con il suolo ti aiuta a connetterti al tuo centro della radice. Ora, mentre i tuoi piedi poggiano saldi, porta la tua attenzione al respiro che entra ed esce dal tuo corpo, lento e profondo.
+
+Questo respiro consapevole ti aiuta a sentire il tuo corpo, a percepire la sua energia. Ascolta se c'è un punto in te che si sente più vibrante, o più contratto, un punto che ti sta parlando. È lì che potresti trovare la tua risposta, nel sentire il tuo corpo adesso, non in un domani incerto.
+
+✦ Mentre respiri, metti una mano sull'ombelico e senti il calore che si propaga.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita e compiuta ('sentire il contatto con il suolo') e la collega al concetto di 'centro della radice' e 'stabilità' già introdotti nella risposta precedente, sviluppando l'esercizio con l'aggiunta del respiro consapevole.
+[3] PERSONA: Mentre respiri, metti una mano sull'ombelico e senti il calore che si propaga.
+[3] AURA [DA GIUDICARE]: Molto bene. Sentire il calore che si propaga dall'ombelico è un modo per attivare il tuo centro del plesso solare, il centro della volontà e del potere personale. È da qui che nascono le decisioni che ti appartengono davvero.
+
+Questo calore è la tua energia vitale che si espande. In questo momento, prima di ogni decisione esterna, senti questa forza che ti abita. Ti parla di cosa vuoi veramente, al di là di ogni aspettativa o paura. Ascolta questa vibrazione, è la tua guida più autentica.
+
+✦ Chiudi gli occhi per un istante, e con la mano ancora sull'ombelico, immagina una luce verde smeraldo che si irradia da quel punto.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione della persona ('Sentire il calore che si propaga dall'ombelico') che segue l'istruzione precedente, e la collega al 'centro del plesso solare' e alla 'volontà e potere personale', continuando il percorso di esplorazione interna del corpo per trovare risposte, come suggerito fin dall'inizio.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci adesso. Non lasciare che il gelo si diffonda.
+Un velo di nebbia si posa, rendendo indistinti i contorni.
+
+La tua relazione non è perduta, ma richiede un'azione chiara. La runa Isa, il ghiaccio, ti invita a una pausa riflessiva prima di ogni movimento, per non scivolare. Poi, la runa Nauthiz, il bisogno, indica che è il momento di affrontare le difficoltà, non di evitarle. Non cercare di forzare, ma di comprendere le necessità più profonde.
+
+✦ Scrivi un messaggio onesto al tuo partner chiedendo un incontro sereno per parlare, entro tre giorni, ricordando il sigillo di Isa.
+[2] PERSONA: Scrivi un messaggio onesto al tuo partner chiedendo un incontro sereno per parlare, entro tre giorni, ricordando il sigillo di Isa.
+[2] CALIGO [DA GIUDICARE]: Il messaggio è stato inviato: ora attendi. È il tempo di Isa, il ghiaccio, che chiede pazienza e chiarezza.
+Una luce fredda si riflette sulle superfici, rivelando ogni dettaglio.
+
+Se la risposta tarda, non insistere. La runa Isa indica una fase di stasi necessaria, un momento per rafforzare la tua determinazione e la tua chiarezza interiore. Questo silenzio è parte del percorso, non una fine. Prepara il tuo cuore e la tua mente a ogni possibile risposta, con il sigillo di Isa a guidarti nella calma.
+
+✦ Prepara alcune domande chiave che vorresti porre al tuo partner, scrivendole su un foglio, per il prossimo incontro, custodendo il sigillo di Isa.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza (l'invio del messaggio) e sviluppa il consiglio su come gestire l'attesa e la possibile non risposta, richiamando il significato della runa Isa già introdotta.
+[3] PERSONA: Prepara alcune domande chiave che vorresti porre al tuo partner, scrivendole su un foglio, per il prossimo incontro, custodendo il sigillo di Isa.
+[3] CALIGO (corretta dalla rete) [DA GIUDICARE]: Hai preparato il terreno. Ora coltiva la verità. La runa Isa ti guida in questo compito.
+Un filo d'oro si tende, connettendo ciò che è stato scritto a ciò che sarà detto.
+
+Le domande che hai annotato sono sigilli per svelare la verità. Sii preciso, cerca la chiarezza. Ogni parola è una chiave che può aprire o chiudere un sentiero. Non aver paura del silenzio che segue una domanda, è lì che spesso risiedono le risposte più profonde. Isa ti suggerisce di osservare attentamente le reazioni del tuo partner, anche nel non detto.
+
+✦ Rileggi le tue domande ad alta voce, ascoltando il suono di ogni parola, per un'ora, prima del vostro incontro, invocando la forza di Isa.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente (preparare le domande) e sviluppa il consiglio su come affrontare l'incontro, sottolineando l'importanza della chiarezza e dell'osservazione, sempre richiamando la runa Isa.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo suggerisce di aspettare un breve ciclo lunare prima di avviare il tuo progetto. Questo tempo ti permetterà di affinare i dettagli e raccogliere le energie necessarie.
+
+Ora, la Luna si sta avvicinando alla fase di Primo Quarto, un momento di azione e crescita, ma anche di potenziale resistenza. Attendere che la Luna si trovi nel segno del tuo ascendente, o in un segno affine, favorirà un inizio più armonioso e meno soggetto a intoppi inattesi. Non affrettare i tempi, lascia che le energie celesti si allineino per te.
+
+✦ Raccogli tutti gli strumenti e le idee sul tuo tavolo prima che il tuo ascendente sia raggiunto dalla Luna.
+[2] PERSONA: Raccogli tutti gli strumenti e le idee sul tuo tavolo prima che il tuo ascendente sia raggiunto dalla Luna.
+[2] MEDORA [DA GIUDICARE]: Accogliere gli strumenti e le idee sul tavolo ora è un gesto che apre il tuo spazio creativo all'ispirazione. Il tuo ascendente, custode della tua proiezione nel mondo, attende il passaggio della Luna per infondere chiarezza e forza al tuo progetto.
+
+Questo transito lunare porterà una maggiore consapevolezza delle tue risorse interiori ed esteriori, rendendo più visibili i passi da compiere. Prepara il terreno, perché quando la Luna toccherà il tuo ascendente, sarai pronta a trasformare le idee in azioni concrete e visibili.
+
+✦ Scrivi su un foglio le tre idee principali del tuo progetto, ponendolo sulla scrivania dove lavori, mentre la Luna è ancora calante.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('raccogli gli strumenti e le idee') e la sviluppa, spiegando il significato di tale azione e il ruolo dell'ascendente e del transito lunare, per poi dare un'istruzione successiva e correlata.
+[3] PERSONA: Scrivi su un foglio le tre idee principali del tuo progetto, ponendolo sulla scrivania dove lavori, mentre la Luna è ancora calante.
+[3] MEDORA [DA GIUDICARE]: Ora che hai materializzato le tue idee principali sulla carta, è il momento di visualizzare il loro sviluppo. Ogni progetto nasce da un'intenzione, e le tue tre idee sono la stella polare che guiderà il tuo cammino.
+
+Con la Luna ancora calante, hai l'opportunità di riflettere e purificare ciò che hai scritto, eliminando il superfluo e rafforzando l'essenza. Il tuo cielo in questo momento favorisce la chiarezza mentale e la capacità di discernimento. Lascia che la tua visione si affini e si strutturi, pronta per la fase crescente che porterà energia e realizzazione.
+
+✦ Aggiungi al foglio, sotto ogni idea, tre parole chiave che ne definiscano l'essenza, da leggere ogni mattina fino alla Luna nuova.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione appena suggerita ('materializzato le tue idee principali sulla carta') e ne spiega il significato e l'utilità in relazione alla fase lunare ('Luna ancora calante'), per poi dare un'ulteriore istruzione che sviluppa il compito precedente.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare un equilibrio, prova a respirare profondamente per qualche istante, per riprendere contatto con il tuo centro. Quando ti senti più calma, cerca un momento di silenzio per te, magari al mattino presto, e visualizza un ponte di luce verde smeraldo che ti connette a tua sorella, sentendo il respiro che si fa leggero.
+
+Il tuo Chakra del cuore, Anahata, in verde smeraldo, ti invita a lasciare andare il risentimento e a cercare un punto di incontro. Ricorda che la fisiognomica ci insegna che il nostro viso, e in particolare la zona tra gli occhi, riflette la nostra capacità di empatia e comprensione. Un respiro calmo in quel punto ti aiuterà a trovare le parole giuste.
+
+✦ Poggia la mano sul cuore e senti il tuo respiro per sette volte.
+[2] PERSONA: Poggia la mano sul cuore e senti il tuo respiro per sette volte.
+[2] AURA [DA GIUDICARE]: Ora che hai ritrovato quel centro nel respiro, prendi un momento per scrivere una lettera a tua sorella, senza l'intenzione di spedirla subito, ma solo per mettere su carta tutto ciò che senti.
+
+Lascia fluire le parole che provengono dal tuo plesso solare, Manipura, il centro del tuo potere personale, di colore giallo oro. Non cercare di controllare quello che scrivi, permetti alle emozioni di depositarsi sulla pagina. Questo gesto ti aiuterà a vedere la situazione da una prospettiva più chiara, riconoscendo anche la tua parte e la parte di tua sorella.
+
+✦ Porta una mano sull'ombelico e senti il calore.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Ora che hai ritrovato quel centro nel respiro') e introduce il passo successivo nel processo di riconciliazione.
+[3] PERSONA: Porta una mano sull'ombelico e senti il calore.
+[3] AURA [DA GIUDICARE]: Adesso che senti il calore nel centro del tuo essere, la radice della tua forza, scegli un momento per richiamare alla mente un ricordo felice condiviso con tua sorella.
+
+Lascia che quell'immagine si manifesti chiara davanti ai tuoi occhi interiori, ripercorrendo i dettagli, i sorrisi, le parole. Il tuo Chakra della radice, Muladhara, in rosso, è il fondamento della tua stabilità e dei tuoi legami familiari. Ricorda che ogni legame, anche se messo alla prova, ha radici profonde che possono sempre essere nutrite.
+
+✦ Prima di addormentarti, visualizza tua sorella sorridente.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Adesso che senti il calore nel centro del tuo essere') e introduce il passo successivo, collegandolo al Chakra della radice.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 5

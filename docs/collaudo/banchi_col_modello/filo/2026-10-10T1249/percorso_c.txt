@@ -1,0 +1,93 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: c'è un momento favorevole per farti notare. Le stelle indicano un'occasione inattesa, non un percorso diretto: la tua capacità di cogliere l'attimo sarà determinante.
+
+✦ Osserva un movimento inatteso del cielo mercoledì, e parlane con un collega fidato.
+[2] PERSONA: Osserva un movimento inatteso del cielo mercoledì, e parlane con un collega fidato.
+[2] MEDORA [DA GIUDICARE]: Ho bisogno di sapere come è andato quel colloquio con il collega fidato. Mi racconti che cosa è successo?
+    GIUDICE: IGNORA, La guida chiede un resoconto di un'azione (il colloquio con il collega) che lei stessa aveva indicato di fare 'mercoledì' nella risposta precedente, ma la persona ha appena ripetuto l'istruzione, non ha fornito un aggiornamento. La guida ignora il fatto che la persona non ha ancora avuto modo di eseguire l'istruzione.
+[3] PERSONA: Mi racconti che cosa è successo?
+[3] MEDORA (corretta dalla rete) [DA GIUDICARE]: Non ho memoria di un colloquio precedente. Se puoi dirmi di quale momento parli e con chi, potrò consultare il tuo cielo per darti una lettura.
+    GIUDICE: CONTRADDICE, La guida afferma 'Non ho memoria di un colloquio precedente' e chiede 'di quale momento parli e con chi', contraddicendo la sua stessa richiesta precedente ('Ho bisogno di sapere come è andato quel colloquio con il collega fidato') che implicava la memoria di tale indicazione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Se senti un richiamo forte al cambiamento, ascoltalo come un'eco che parte dal tuo centro della radice, quello legato alla stabilità e all'appartenenza. Valuta la direzione di questo desiderio, come si manifesta nel tuo corpo, magari una sensazione di irrequietezza o un'energia che spinge al movimento.
+
+✦ Siedi in silenzio per cinque minuti e appoggia le mani sulla pancia, sentendo il tuo respiro.
+[2] PERSONA: Siedi in silenzio per cinque minuti e appoggia le mani sulla pancia, sentendo il tuo respiro.
+[2] AURA [DA GIUDICARE]: Il gesto che hai compiuto è un radicamento, un riportare l'attenzione al tuo centro vitale. Ora che hai sentito il tuo respiro, puoi portare questa stessa consapevolezza alla tua pelle: chiediti se questo desiderio di cambiamento ti fa sentire più espansa o più contratta, e osserva la risposta che emerge senza giudizio.
+
+✦ Porta l'attenzione al tuo cuore per un istante, lasciando che il respiro lo attraversi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto specifico che aveva indicato nella risposta precedente e lo sviluppa, spiegandone il significato ('radicamento') e proponendo un nuovo passo ('portare questa stessa consapevolezza alla tua pelle') che si basa sull'azione appena compiuta dalla persona.
+[3] PERSONA: Porta l'attenzione al tuo cuore per un istante, lasciando che il respiro lo attraversi.
+[3] AURA [DA GIUDICARE]: Sentire il respiro attraversare il tuo cuore ti ha messo in contatto con il centro del cuore, il fulcro delle tue emozioni e dei tuoi affetti. Ora, mentre tieni l'attenzione lì, senti come questo desiderio di trasferirti risuona con la tua capacità di dare e ricevere amore, non solo in senso romantico, ma in ogni relazione.
+
+✦ Appoggia entrambe le mani sul petto e ascolta il battito, anche solo un istante.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione specifica che aveva indicato nella risposta precedente ('Sentire il respiro attraversare il tuo cuore') e la sviluppa, spiegandone il significato ('messo in contatto con il centro del cuore') e proponendo un nuovo passo ('senti come questo desiderio di trasferirti risuona con la tua capacità di dare e ricevere amore') che si basa sull'azione appena compiuta dalla persona.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Riafferra il legame, non abbandonarlo. Agisci ora, il tempo scivola via.
+Un fumo denso avvolge le braci, ma il calore resta.
+
+Il numero Nove indica un compimento, la fine di un ciclo che può aprirne uno nuovo. Non è un abbandono, ma una soglia da attraversare con chiarezza di intenti. Medita sul sigillo di Wunjo, il presagio di gioia e armonia, e su come riaccendere la luce. Il sentiero è nella volontà, non nel caso.
+
+✦ Scrivi su un foglio rosso tre qualità che ami nella persona amata e conservalo sotto un cuscino per una notte.
+[2] PERSONA: Scrivi su un foglio rosso tre qualità che ami nella persona amata e conservalo sotto un cuscino per una notte.
+[2] CALIGO [DA GIUDICARE]: Ho bisogno di sapere qual è la tua domanda. Quello che hai scritto è il gesto che ti avevo indicato prima.
+    GIUDICE: IGNORA, La guida riconosce che la persona ha ripetuto l'istruzione data ('Quello che hai scritto è il gesto che ti avevo indicato prima'), ma invece di sviluppare o chiarire il punto, chiede 'Ho bisogno di sapere qual è la tua domanda', ignorando il contesto della ripetizione dell'istruzione.
+[3] PERSONA: Quello che hai scritto è il gesto che ti avevo indicato prima.
+[3] CALIGO [DA GIUDICARE]: Il gesto è compiuto: ora osserva. La runa Sowilo, sigillo di chiarezza, illumina i pensieri.
+Il ferro rovente foggia il destino.
+
+Dopo il gesto, l'attesa attiva: ciò che è stato seminato germoglierà. Non cercare esiti immediati, ma presta attenzione ai segni. Il significato di ciò che hai scritto sotto il cuscino si rivelerà nei prossimi giorni, attraverso piccoli cambiamenti o intuizioni. Il numero Tre ti invita alla pazienza.
+
+✦ Ripensa a un momento felice vissuto con la persona amata e scrivilo su un piccolo biglietto da tenere nel portafoglio per sette giorni.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto menzionato dalla persona ('Il gesto è compiuto') e lo sviluppa, spiegando cosa fare dopo il compimento del gesto ('ora osserva', 'attesa attiva', 'presta attenzione ai segni', 'il significato... si rivelerà').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: No, non è ancora il momento di avviare il tuo progetto creativo.
+
+La congiunzione di Mercurio e Venere in Toro indica un bisogno di stabilire prima le fondamenta materiali e pratiche. Questo transito suggerisce che la riflessione e la pianificazione dettagliata sono più importanti ora dell'azione impulsiva. Lascia che le idee maturino e che i dettagli si solidifichino, specialmente quelli economici.
+
+✦ Nel tardo pomeriggio, scrivi in un quaderno tutti i passaggi pratici necessari per il tuo progetto.
+[2] PERSONA: Nel tardo pomeriggio, scrivi in un quaderno tutti i passaggi pratici necessari per il tuo progetto.
+[2] MEDORA [DA GIUDICARE]: Hai già compiuto un passo importante nel delineare le fondamenta del tuo progetto, ed è in questi dettagli che risiede la tua forza ora.
+
+Non è ancora tempo di avviare, ma di affinare ciò che hai già raccolto: rileggi quanto hai annotato nel quaderno. Il tuo cielo indica che la stesura è stata un gesto significativo, ora è il momento di esaminare la fattibilità di ogni singolo passaggio. Domani, con la Luna in Gemelli, avrai una chiarezza mentale maggiore per vagliare ogni dettaglio pratico.
+
+✦ Prendi il quaderno e rileggi attentamente ogni punto che hai scritto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di scrivere i passaggi pratici dato in [1] e lo sviluppa, suggerendo di rileggere e affinare quanto scritto, mantenendo il consiglio principale di non avviare ancora il progetto.
+[3] PERSONA: Prendi il quaderno e rileggi attentamente ogni punto che hai scritto.
+[3] MEDORA [DA GIUDICARE]: Comprendo che tu abbia bisogno di un nuovo suggerimento dopo aver riletto i tuoi appunti.
+
+Adesso, con una visione più chiara dei passaggi che hai annotato, è tempo di concentrarti sulla loro sequenza e sulle risorse necessarie. Non è ancora il momento di agire, ma di organizzare con precisione: la preparazione è la tua migliore alleata.
+
+✦ Dedica del tempo a ordinare i punti che hai scritto in una sequenza logica, annotando accanto a ciascuno le risorse che ti serviranno.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di rileggere gli appunti dato in [2] e lo sviluppa, suggerendo di organizzare i punti in sequenza logica e annotare le risorse necessarie, mantenendo il consiglio principale di non agire ancora.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'armonia con tua sorella, cerca un momento di calma in cui tu sia centrata e con il respiro quieto. Trova uno spazio in cui possiate parlarvi senza interruzioni e senza la fretta di dover risolvere tutto subito.
+
+Il tuo cuore, il tuo centro Anahata, risuona con il colore verde smeraldo, è il ponte che unisce il corpo e lo spirito, e da lì nasce la compassione e l'accettazione. Quando ti sentirai pronta a parlarle, appoggia una mano su questo centro, sotto lo sterno, e senti il calore che si espande. Lascia che la tua voce emerga da lì, con gentilezza e senza voler avere ragione. Ascolta anche lei con il cuore aperto, senza giudizio. È un invito a far fluire l'energia del perdono, prima dentro di te e poi verso di lei, come un respiro che si fa dono.
+
+✦ Appoggia una mano sul tuo cuore e respira lentamente per tre volte, prima di cercarla.
+[2] PERSONA: Appoggia una mano sul tuo cuore e respira lentamente per tre volte, prima di cercarla.
+[2] AURA [DA GIUDICARE]: Ora che hai compiuto quel gesto, senti come il tuo respiro ha creato uno spazio di calma interiore. Quando ti avvicinerai a tua sorella, porta con te questa sensazione: non è solo un respiro, è un ponte.
+
+Il tuo centro della gola, Vishuddha, di colore azzurro, è il luogo dell'espressione della verità e dell'ascolto. Dopo aver sentito il tuo cuore, senti anche la gola: è lì che le parole prendono forma. Parla con onestà di ciò che provi, senza accuse, esprimendo il tuo desiderio di riconnessione. Non aspettarti una risposta immediata, ma lascia che le tue parole seminino comprensione.
+
+✦ Fai un profondo respiro e, mentre espiri, senti la tua gola rilassarsi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto del respiro e della mano sul cuore, spiegandone l'effetto e come portarlo avanti, e poi introduce un nuovo elemento (il centro della gola) che sviluppa il tema della comunicazione già accennato nella prima risposta.
+[3] PERSONA: Fai un profondo respiro e, mentre espiri, senti la tua gola rilassarsi.
+[3] AURA [DA GIUDICARE]: Hai sentito la tua gola rilasciarsi, e con essa si è sciolta anche una parte della tensione. Questo è un buon segno, significa che l'energia è tornata a fluire, e con essa la possibilità di esprimerti con maggiore chiarezza e autenticità.
+
+Ora che hai preparato il tuo cuore e la tua voce, il passo successivo è l'ascolto. Quando parlerai con tua sorella, porta la tua attenzione al suo respiro, al ritmo delle sue parole. Non cercare di controbattere o di spiegare subito il tuo punto di vista. Lascia che lei si esprima pienamente. Questo atto di ascolto profondo, che parte dal tuo centro Anahata e attraversa la tua gola, le mostrerà il tuo rispetto e la tua apertura.
+
+✦ Chiudi gli occhi per un istante e visualizza un fiume che scorre pacifico, ascoltandone il suono nella tua mente.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione della persona (rilassamento della gola) e ne sviluppa il significato, collegandola alla chiarezza espressiva. Poi introduce il tema dell'ascolto, che è un'evoluzione naturale del processo di comunicazione e riconnessione già avviato, e lo collega ai centri Anahata e Vishuddha menzionati in precedenza.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 7, ignora 2, contraddice a tradimento 1, cambia dichiarando 0, quota senza difetto 70 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 1 con un elemento gia' uscito

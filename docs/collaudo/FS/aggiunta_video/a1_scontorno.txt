@@ -1,0 +1,11 @@
+ORDINE FS AGGIUNTA, FS.A1: le due pose di Medora scontornate dallo sfondo bianco. 14 ottobre 2026.
+Strumento: python tool/scontorna_le_pose_di_medora.py (legge le pose dal commit 48978334 del fondatore).
+Misura degli aloni: pixel del giro di bordo che, composti su un fondo scuro (16,18,40), sono piu' chiari di oltre dieci livelli del pixel piu' chiaro della figura piena entro cinque pixel.
+Cattura: a1_pose_scontornate.jpg (a sinistra lo scontorno ingenuo, a destra il file consegnato, ingranditi due volte).
+
+assets/img/tavolo/medora_mazzo_v1.webp: 1120x958, trasparenti 688501 su 1072960; pixel di bordo con alone chiaro: scontorno ingenuo 4963 su 7223, questo 14 su 7312
+assets/img/tavolo/medora_invito_v1.webp: 1120x958, trasparenti 664616 su 1072960; pixel di bordo con alone chiaro: scontorno ingenuo 5557 su 8787, questo 21 su 8909
+
+Riletti dai file consegnati in assets/img/tavolo/ (WebP con perdita, alfa senza perdita):
+  assets/img/tavolo/medora_mazzo_v1.webp: 1120x958 RGBA, alfa da 0 a 255, alone chiaro 15 su 7312 pixel di bordo
+  assets/img/tavolo/medora_invito_v1.webp: 1120x958 RGBA, alfa da 0 a 255, alone chiaro 21 su 8909 pixel di bordo

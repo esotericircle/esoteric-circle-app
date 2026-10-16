@@ -1,0 +1,106 @@
+== P1
+medaglione_cuore_v1.jpg
+medaglione_custode_v1.jpg
+medaglione_intelletto_v1.jpg
+medora_braccia_alzate_v1.jpg
+medora_mani_sulle_carte_v1.jpg
+medora_scala_di_luce_v1.mp4
+oracolo_primo_fotogramma_v1.jpg
+oracolo_scala_accesa_v1.jpg
+oracolo_scala_spenta_v1.jpg
+oracolo_ultimo_fotogramma_v1.jpg
+1024,1024 0.040000  medaglione_cuore_v1.jpg
+1024,1024 0.040000  medaglione_custode_v1.jpg
+1024,1024 0.040000  medaglione_intelletto_v1.jpg
+768,1376 0.040000  medora_braccia_alzate_v1.jpg
+768,1376 0.040000  medora_mani_sulle_carte_v1.jpg
+720,1280 8.000000  medora_scala_di_luce_v1.mp4
+1080,1920 0.040000  oracolo_primo_fotogramma_v1.jpg
+768,1376 0.040000  oracolo_scala_accesa_v1.jpg
+768,1376 0.040000  oracolo_scala_spenta_v1.jpg
+1080,1920 0.040000  oracolo_ultimo_fotogramma_v1.jpg
+== P2
+72
+assets/img/angeli/ang_dorso_medora_v1.webp
+== P3
+12:    required this.guardian,
+13:    required this.heart,
+14:    this.intellect,
+21:  final Angel guardian;
+24:  final Angel heart;
+29:  final Angel? intellect;
+36:  bool get hasIntellect => intellect != null;
+39:  List<Angel> get known => [guardian, heart, if (intellect != null) intellect!];
+== P4
+7:## POLITICA DI PUBBLICAZIONE, da leggere prima di usare questo file
+lenain esiste
+== P5
+24:/// La firma di una chiamata al modello: l'istruzione e la richiesta, la
+26:typedef ChiamataDellaStesa = Future<String?> Function(
+181:/// **La via scelta.** Una chiamata sola a Flash, il modello che il fondatore
+199:  /// cinque: la prima chiamata parte al tocco e quasi sempre arriva dentro di
+== P6
+7:import '../../core/angels/guardian_angels.dart';
+54:            id: 'guardian_angel',
+232:                        '${triade.guardian.seedName}.',
+233:                    'Angelo del Cuore: ${triade.heart.seedName}.',
+== P7
+fcae7e1d:lib/core/arts/art_catalog.dart:289:        title: 'Oracolo degli Angeli',
+assets/img/oracolo/cielo_notturno_v1.webp
+assets/img/oracolo/filo_luce_v1.webp
+assets/img/oracolo/luna_texture_v1.webp
+== P8
+file FU: 0
+== P9
+161:- **SPESE, regola permanente del fondatore, 14 ottobre 2026.**
+== P10
+768,1376 0.040000,547325  medora_chiama_il_sole_v1.jpg
+768,1376 0.040000,536811  medora_presenta_il_segno_v1.jpg
+1080,1920 8.000000,10487384  medora_ruota_dello_zodiaco_v1.mp4
+1080,1920 0.040000,519058  oroscopo_primo_fotogramma_v1.jpg
+768,1376 0.040000,690074  oroscopo_ruota_accesa_v1.jpg
+768,1376 0.040000,717130  oroscopo_ruota_spenta_v1.jpg
+1080,1920 0.040000,520065  oroscopo_ultimo_fotogramma_v1.jpg
+== P11
+assets/img/zodiac/emblema_tradizione_araba.webp
+assets/img/zodiac/emblema_tradizione_celtica.webp
+assets/img/zodiac/emblema_tradizione_egizia.webp
+emblemi: 30
+== P12
+768,1376 0.040000,539284  medora_padrona_di_casa_v1.jpg
+1080,1920 8.000000,17966855  medora_sipario_delle_stelle_v1.mp4
+768,1376 0.040000,330958  vip_palco_aperto_v1.jpg
+1080,1920 0.040000,542037  vip_primo_fotogramma_v1.jpg
+768,1376 0.040000,730332  vip_sipario_chiuso_v1.jpg
+1080,1920 0.040000,489651  vip_ultimo_fotogramma_v1.jpg
+== P13
+296:                    ? 'La Tua Compatibilità con un VIP'
+== P14
+fcae7e1d:lib/core/maestro/rivelazione_in_video.dart
+fcae7e1d:lib/features/intro/sequenza_intro.dart
+fcae7e1d:lib/features/maestri/caligo/viaggio/la_discesa_in_video.dart
+fcae7e1d:lib/features/onboarding/widgets/velo_di_rivelazione.dart
+fcae7e1d:lib/features/synastry/lo_studio_di_medora.dart
+fcae7e1d:lib/features/synastry/sinastria_evolutiva_screen.dart
+fcae7e1d:lib/features/tarot/la_scena_della_stesa_in_video.dart
+fcae7e1d:lib/features/tarot/stesa_tre_carte_screen.dart
+== P15
+376:        'Compatibilità a tre livelli, esclusiva',
+918:    FeatureRow('Compatibilità a tre livelli', ['No', 'No', 'No', 'Esclusiva']),
+
+== ESITO, sul commit di partenza fcae7e1d (le cartelle in D: lette il 15 ottobre 2026)
+P1 VERA: dieci file, misure e durata come dichiarate (video 720x1280, 8 s).
+P2 VERA: 72 carte ang_NN_<nome>_v1.webp e ang_dorso_medora_v1.webp.
+P3 VERA: minutesPerAngel = 20 alla riga 55; intellect nullo senza ora (Angel? intellect).
+P4 VERA: la POLITICA DI PUBBLICAZIONE alla riga 7 di docs/corpus/angeli.md; docs/angeli_verifica_lenain.md esiste.
+P5 VERA: typedef ChiamataDellaStesa alla riga 26, le prove passano la chiamata finta.
+P6 VERA: angels_screen.dart mostra Custode, Cuore e Intelletto della triade.
+P7 CADUTA IN PARTE: una funzione chiamata "Oracolo degli Angeli" esisteva gia', come card Coming soon del catalogo (art_catalog.dart riga 289, state: ArtState.inArrivo). E' quella che l'ordine fa uscire dal Coming soon (FU.11). La cartella assets/img/oracolo/ (5 file) non e' nominata da nessun file di lib: non si e' toccata, l'Oracolo vive in assets/img/oracolo_angeli/.
+P8 VERA: nessun file ORDINE_FU_* in docs/ordini/.
+P9 VERA: CLAUDE.md riga 161.
+P10 VERA: sette file, video 1080x1920, 8 s, 10.487.384 byte.
+P11 VERA: la rivelazione mostra l'emblema passato come figura; gli emblemi stanno in assets/img/zodiac/ (12 occidentali, 12 cinesi, 2 vedici propri, 4 emblemi di tradizione).
+P12 VERA: sei file, video 1080x1920, 8 s, 17.966.855 byte.
+P13 VERA: il titolo alla riga 296 di porta_della_sinastria.dart.
+P14 CADUTA IN PARTE: oltre alla Stesa e alla Sinastria evolutiva il ramo apre altri video (l'intro, la rivelazione del Maestro, il velo dell'onboarding, la discesa del Viaggio dello Sciamano, che e' governata dal dito e non parte da sola). Il tocco che salta (FU.15) copre le cinque scene che l'ordine nomina; gli altri video l'ordine non li nomina e non si sono toccati (R10). Proposta nel rapporto.
+P15 VERA: plan_catalog.dart righe 376 e 918.

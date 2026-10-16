@@ -1,0 +1,199 @@
+V001
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se hai già preparato il terreno per la tua bottega di ceramica. È una strada che ti porta lontano da dove sei adesso. Prepara il terreno con cura, come faresti con un giardino prezioso.
+GESTO (mostrato subito sotto la risposta): Entro giovedì prendi contatto con tre fornitori di argilla e smalti per chiedere i loro listini prezzi e le condizioni di consegna.
+
+V002
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi cercare le connessioni autentiche. Non tutte le presenze riempiono il vuoto. Le persone giuste ti danno un senso di appartenenza.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, chiama un'amica o un parente con cui non parli da tempo e proponi una videochiamata.
+
+V003
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+GESTO (mostrato subito sotto la risposta): Questa settimana, decidi chi dei due incontri per primo e fissa l'appuntamento.
+
+V004
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Per il tuo cane, i segni del viaggio ti mostrano un gesto da fare. Prendi in considerazione ogni possibilità per il suo benessere. Trova il modo per agire con concretezza.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, dedica un'ora alla ricerca di testimonianze di persone che hanno gestito problemi simili per i loro animali.
+
+V005
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu sia pronta a mostrare a Marco chi sei davvero.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V006
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi creare un nuovo spazio per te. Questo spazio è tuo e non dipende da altre persone. È un luogo di accoglienza che puoi costruire.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, trova un oggetto piccolo che ti dia un senso di conforto e mettilo sul tuo comodino.
+
+V007
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, scrivi un messaggio a Marco e chiedigli di vedervi per un caffè, senza specificare il motivo.
+
+V008
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: Il viaggio indica che puoi superare il concorso, a patto di mostrare la tua reale determinazione. Hai dentro di te quello che serve per arrivare all'obiettivo. Non lasciare che le incertezze ti blocchino.
+GESTO (mostrato subito sotto la risposta): Domani mattina rileggi le tue note di studio e cerca un argomento che ti appassiona, anche se non è il più importante.
+
+V009
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: Accetta l'offerta di lavoro a Milano se hai già un posto dove stare per almeno i primi tre mesi. I segni del viaggio indicano che le basi sono più importanti del guadagno in questo momento. Trova stabilità prima di tutto.
+GESTO (mostrato subito sotto la risposta): Parla entro domani con l'agenzia immobiliare di Milano per capire le opzioni di affitto temporaneo.
+
+V010
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi cercare la compagnia delle tue amiche. Il viaggio indica che un legame forte ti aspetta. Puoi trovare calore e conforto in chi ti è vicino.
+GESTO (mostrato subito sotto la risposta): Entro domani sera scrivi un messaggio a un'amica che non senti da tempo per proporle di vedervi.
+
+V011
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Prendi una decisione chiara sulla tua relazione. Puoi scegliere di non aspettare più un'accettazione che non arriva. Hai il diritto di vivere la tua vita con chi hai accanto.
+GESTO (mostrato subito sotto la risposta): Parla con tua madre entro questo weekend. Dille con chiarezza come intendi vivere la tua relazione, senza chiedere il suo permesso.
+
+V012
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Chiedi al veterinario di spiegarti ogni opzione possibile per il tuo cane. Puoi fare domande su ogni alternativa e su cosa comporta. Ti è data la possibilità di capire a fondo.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio parlane con qualcuno di cui ti fidi, esponendo tutte le opzioni che hai raccolto.
+
+V013
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se prepari il tuo piano B. Il concorso è un passaggio, non l'unica strada che puoi percorrere.
+GESTO (mostrato subito sotto la risposta): Entro domenica pensa a un'altra opzione realistica per il tuo futuro professionale.
+
+V014
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+GESTO (mostrato subito sotto la risposta): Parla domani mattina con qualcuno che si è trasferito all'estero per lavoro: chiedigli che cosa ha scoperto di sé in questa esperienza.
+
+V015
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu conosca ogni passo. La tua bottega è una realtà che puoi costruire, ma richiede preparazione. Hai già fatto il lavoro di immaginazione.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V016
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se ti prepari in modo nuovo. Il concorso di ottobre richiede che tu abbia una strategia chiara. Non lasciare nulla al caso.
+GESTO (mostrato subito sotto la risposta): Scrivi tre cose che sai già su questa domanda.
+
+V017
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Puoi scegliere come vuoi vivere la situazione con tua madre. Non puoi cambiare il suo pensiero o le sue reazioni. Puoi proteggere la tua relazione.
+GESTO (mostrato subito sotto la risposta): Parla con la tua compagna stasera e chiedile che cosa ha in mente.
+
+V018
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì: puoi dire a Marco che ti piace. Non è necessario prevedere ogni conseguenza. La chiarezza che cerchi può arrivare proprio da questo gesto.
+GESTO (mostrato subito sotto la risposta): Entro domani sera scrivi un messaggio a Marco per chiedergli di vedervi.
+
+V019
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi trovare un modo per connetterti con gli altri. È un bisogno profondo che merita la tua attenzione. Puoi scegliere tu come farlo, ma devi fare il primo passo.
+GESTO (mostrato subito sotto la risposta): Domani sera, alle 20, chiama una persona a cui vuoi bene e chiedile semplicemente come sta.
+
+V020
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi creare un nuovo spazio per i tuoi rituali. Non aspettare che la solitudine ti raggiunga. Prepara il terreno per la tua serata con cura.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, prepara una bevanda calda e siediti in un punto diverso della tua casa.
+
+V021
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: Chiediti quale delle due potresti ancora correggere.
+GESTO (mostrato subito sotto la risposta): Metti un limite di tempo, poi rispettalo.
+
+V022
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, puoi riprendere il contatto con la tua rete di affetti. Puoi raggiungerle se le cerchi. Puoi chiedere di trascorrere del tempo con loro.
+GESTO (mostrato subito sotto la risposta): Domani sera chiama una persona cara e chiedile come sta.
+
+V023
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio dicono di sì, se trovi un modo per portare con te ciò che ti alimenta. Berlino è una città che ti offre molte opportunità per il lavoro che desideri. Non dimenticare però le tue radici e quello che ti nutre davvero.
+GESTO (mostrato subito sotto la risposta): Parla con un amico che vive all'estero entro questo fine settimana. Chiedigli quali oggetti o abitudini gli ricordano casa.
+
+V024
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu sia pronta a mostrare la tua vera identità. La tua bottega è il luogo dove la tua passione può fiorire. Non nascondere quello che senti dentro di te.
+GESTO (mostrato subito sotto la risposta): Domani mattina, entra in banca con un accessorio che ti rappresenta fuori dal lavoro, come se fosse già la tua bottega.
+
+V025
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Prenditi cura del tuo cane oggi più che mai. I segni del viaggio indicano che la tua presenza è fondamentale. La decisione è tua, ma il tuo affetto è una direzione chiara.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, dedica mezz'ora solo a lui, accarezzalo e parla con voce calma.
+
+V026
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Fissa un limite chiaro per tua madre. Puoi scegliere tu quale sia questo limite da non superare. La sua accettazione non è tua responsabilità.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, decidi un luogo o un momento in cui tua madre non potrà parlare della tua compagna e comunicalo.
+
+V027
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di no, non devi accettare l'offerta di lavoro a Milano. Non è questa la soluzione che ti serve adesso. Hai altre possibilità da esplorare.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, chiama una persona a te cara che vive a Milano e chiedi un consiglio pratico sulla città.
+
+V028
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu non consideri Berlino come l'unica opzione possibile. La decisione che prendi adesso non ti lega per sempre. Puoi scegliere di fare una prova senza che sia definitiva.
+GESTO (mostrato subito sotto la risposta): Entro martedì fai una ricerca specifica sui costi della vita e degli affitti a Berlino, senza prenotare nulla.
+
+V029
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: Il viaggio indica sì alla tua bottega di ceramica, a condizione che tu trovi il modo di proteggere questo sogno. Non è una scelta da prendere alla leggera, ma neppure da rimandare per paura. Hai le risorse per iniziare a muovere i primi passi.
+GESTO (mostrato subito sotto la risposta): Entro domenica contatta tre persone che hanno già fatto un cambiamento simile al tuo e chiedi loro un caffè per farti raccontare la loro esperienza.
+
+V030
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: La tua domanda ha bisogno di un gesto. Puoi scegliere di non aspettare che tua madre accetti la tua compagna. Non hai il potere di cambiare il suo punto di vista.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V031
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega ciò che vuoi sapere. Non puoi sapere cosa pensa, puoi solo osservare cosa fa. Se ti interessa il suo punto di vista, è a lei che devi rivolgere le tue domande.
+GESTO (mostrato subito sotto la risposta): Domani mattina, appena arrivi in ufficio, saluta la tua collega e chiedile come ha passato il fine settimana.
+
+V032
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio indicano che puoi trasferirti a Berlino per lavoro, a condizione di trovare ciò che ti sostiene in quel luogo.
+GESTO (mostrato subito sotto la risposta): Entro sabato, cerca una persona, un luogo o un’attività a Berlino che non abbia a che fare con il lavoro e che ti dia un senso di appartenenza.
+
+V033
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì. Puoi mostrare a Marco chi sei veramente. Questo può aprire nuove possibilità.
+GESTO (mostrato subito sotto la risposta): Domani sera scrivi un messaggio a Marco e chiedigli di vedervi per un caffè, senza un motivo preciso.
+
+V034
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, prendi il telefono e apri la conversazione con tuo fratello.
+
+V035
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu abbia già un piano concreto per la tua bottega di ceramica. È una scelta importante che richiede preparazione e visione chiara. Hai già le risorse per farla crescere.
+GESTO (mostrato subito sotto la risposta): Domani mattina contatta l'artigiano che conosci per chiedergli un consiglio sul locale adatto.
+
+V036
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega di prendere un caffè con te. Non puoi sapere cosa pensa qualcuno senza parlargli. Hai l'occasione per scoprire il suo punto di vista.
+GESTO (mostrato subito sotto la risposta): Domani mattina, prima di iniziare il lavoro, chiedi alla tua collega se ha voglia di prendere un caffè con te, anche in pausa pranzo.
+
+V037
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: Puoi chiamare tuo fratello. I segni del viaggio indicano che non puoi sapere cosa prova, ma puoi aprirgli uno spazio. Non puoi chiedere il motivo del suo silenzio al primo contatto.
+GESTO (mostrato subito sotto la risposta): Domani, prima di cena, inviagli un messaggio molto breve in cui dici che hai pensato a lui e che gli mandi un saluto, senza aggiungere altro.
+
+V038
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: Il viaggio mostra che puoi trasferirti a Berlino per lavoro. Ti aspetta una parte di te che non hai ancora esplorato. La condizione è che tu lasci andare ciò che hai conosciuto di te finora.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V039
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono sì, a condizione che tu abbia un piano preciso per la tua bottega. Non lasciare che i sogni restino solo sogni. La tua creatività ha bisogno di radici solide per crescere.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, contatta tre persone che hanno già aperto un'attività simile alla tua e chiedi un appuntamento per ascoltare la loro esperienza.
+
+V040
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Puoi decidere di non dare importanza a quello che la tua collega pensa di te. Puoi focalizzarti su ciò che tu pensi di lei. Puoi anche pensare che il suo pensiero non è rilevante per le tue azioni.
+GESTO (mostrato subito sotto la risposta): Domani mattina, osserva la tua collega per cinque minuti e nota tre cose che apprezzi nel suo modo di lavorare.

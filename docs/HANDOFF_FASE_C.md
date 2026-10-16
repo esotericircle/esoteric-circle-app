@@ -72,7 +72,7 @@ Attive nella Demo:
 - Intro cinematografica, Onboarding Il Risveglio con carta natale, rivelazione del Maestro col soffio (con fallback gesto).
 - Quattro elementi quotidiani: Rito dell'Alba (a rotazione), Soffio del Destino (Aura), Oracolo del Giorno giroscopico (Medora), La Runa del Tramonto (Caligo).
 - Medora: stesa a tre carte col ventaglio, Sinastria Celeb, carta natale interattiva, Angelo Custode.
-- Aura: Costellazione del Viso (videocamera), Test Archetipo, meditazione con voce.
+- Aura: Costellazione del Viso (dal 25 settembre 2026 il nome a video e' «Mappa del Viso», senza articolo: decisione del fondatore, ordine EN voce 11) (videocamera), Test Archetipo, meditazione con voce.
 - Caligo: estrazione Rune, Albero della Vita contemplativo, Animale Guida.
 - Chiedi ai Maestri con categorie, chat con voce e memoria pre-popolata demo.
 - Home Il Santuario, colori, parallasse, effetti.

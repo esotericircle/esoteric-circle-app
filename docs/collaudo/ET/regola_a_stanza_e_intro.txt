@@ -1,0 +1,23 @@
+== Regola A, ET.04: la stanza si stacca e non si libera, come prima
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 27ecde0fd6a5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -1: Some tests failed.
+   Expected: contains '.dispose()'
+   Actual: 'Future<void> _lasciaLaStanza() async {\n'
+   ripristinato: sha1 27ecde0fd6a5, uguale
+== Regola A, ET.04: all'uscita la stanza si stacca da sola, come prima
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 27ecde0fd6a5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -1: Some tests failed.
+   Expected: contains '_lasciaLaStanza()'
+   Actual: 'void dispose() {\n'
+   ripristinato: sha1 27ecde0fd6a5, uguale
+== Regola B dopo, ET.10: l'intro punta a un file che non c'e'
+   file lib/features/intro/sequenza_intro.dart, sha1 prima 5bb793b7ca7a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:06 +14 -1: Some tests failed.
+   Expected: 'brand_assets/intro/Intro-Test-4.mp4'
+   Actual: 'brand_assets/intro/Intro-Test-9.mp4'
+   Expected: ... ntro-Test-4.mp4
+   Actual: ... ntro-Test-9.mp4
+   ripristinato: sha1 5bb793b7ca7a, uguale

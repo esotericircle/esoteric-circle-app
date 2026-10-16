@@ -1,0 +1,84 @@
+// ignore_for_file: avoid_print
+import 'dart:async';
+
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/la_richiesta_del_turno.dart';
+import 'package:esoteric_circle/services/ai/le_funzioni_del_cielo.dart';
+import 'package:esoteric_circle/services/ai/maestro_persona.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+
+/// **IL PRIMO TURNO A FREDDO, A PEZZI. Ordine FE voce 05.** Sul Galaxy A16
+/// 5G il primo turno di Medora ha tenuto fermo il filo 102 ms, gli altri
+/// due 5 e 11: qui i pezzi del primo turno, uno per uno, in un'app appena
+/// aperta. Ogni misura si stampa con "ORDINE FE VOCE 05 A PEZZI".
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  Future<(T, int)> fermoDurante<T>(FutureOr<T> Function() lavoro) async {
+    var ultimo = DateTime.now();
+    var peggiore = 0;
+    final orologio = Timer.periodic(const Duration(milliseconds: 10), (_) {
+      final ora = DateTime.now();
+      final buco = ora.difference(ultimo).inMilliseconds - 10;
+      if (buco > peggiore) peggiore = buco;
+      ultimo = ora;
+    });
+    try {
+      await Future<void>.delayed(const Duration(milliseconds: 30));
+      final esito = await lavoro();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      return (esito, peggiore);
+    } finally {
+      orologio.cancel();
+    }
+  }
+
+  testWidgets('i pezzi del primo turno', (tester) async {
+    await Firebase.initializeApp();
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+    }
+    const natal =
+        NatalContext(sunSign: 'Gemelli', lifeNumberTitle: 'il Costruttore');
+    const domanda = 'Cosa mi dice il cielo per questo mese?';
+    void scrivi(String cosa, int ms) =>
+        print('ORDINE FE VOCE 05 A PEZZI: $cosa, filo fermo $ms ms');
+
+    final (_, a) = await fermoDurante(() =>
+        LeFunzioniDelCielo.cieloDeiGiorniNominatiFuoriDalFilo(domanda,
+            carta: natal.carta));
+    scrivi('il cielo dei giorni nominati', a);
+    final (_, b) = await fermoDurante(() => MaestroPersona.preparaIlCielo(natal));
+    scrivi('la preparazione del cielo', b);
+    final (_, c) = await fermoDurante(() => MaestroPersona.systemInstruction(
+        maestro: Maestro.medora,
+        profile: UserProfile.empty,
+        memory: MaestroMemory.empty,
+        natal: natal));
+    scrivi('l\'istruzione', c);
+    final (_, d) = await fermoDurante(
+        () => LeFunzioniDelCielo.perIlMaestro(carta: natal.carta));
+    scrivi('le funzioni del cielo per il modello', d);
+    final (_, e) = await fermoDurante(() => FirebaseMaestroAiProvider());
+    scrivi('la nascita del provider', e);
+    final provider = FirebaseMaestroAiProvider();
+    final (_, f) = await fermoDurante(
+        () => const LaRichiestaDelTurno(nelLive: true).per(() =>
+            provider.reply(
+              maestro: Maestro.medora,
+              profile: UserProfile.empty,
+              memory: MaestroMemory.empty,
+              history: const [],
+              userMessage: domanda,
+              natal: natal,
+            )));
+    scrivi('il turno intero di Medora dopo i pezzi', f);
+  });
+}

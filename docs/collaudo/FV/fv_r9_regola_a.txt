@@ -1,0 +1,40 @@
+REGOLA A, ordine FV, regola fissa R9 (la grafica e' dipinta, non disegnata), 15 ottobre 2026
+guardia: test/la_grafica_del_lunario_e_dipinta_test.dart
+
+PRIMA DI SCRIVERE LA GUARDIA: il giro dell'utente (R10) ha trovato un vero
+difetto nel codice gia' scritto dall'agente delle voci FV.10 e FV.12.
+`trova_il_giorno_insieme.dart`, `_GiornoInsieme`, mostrava `Icons.star_rounded`
+(un'icona di Material) sulla casella del giorno per dire che qualcuno del
+gruppo aveva li' un giorno tuo, invece del sigillo dipinto del tipo
+(`SegnoDelGiornoTuo.sigillo`, lo stesso della griglia del mese). Corretto
+prima di scrivere la guardia: `_giorniTuoiComuni` porta ora anche il sigillo
+di ciascun segno, e la casella mostra fino a tre sigilli veri, deduplicati,
+con `Image.asset` nello stesso stile della griglia del mese.
+
+innesto: rimessa la stella di Material al posto dei sigilli
+grep righe innestate dopo l'innesto: 1 (INNESTO_FV_R9)
+esito con l'innesto (uscita 1):
+  nessun CustomPainter, nessun cerchio o alone finto, solo icone di interfaccia dichiarate [E]
+  Expected: empty
+  Actual: ['lib/features/lunario/trova_il_giorno_insieme.dart: Icons.star_rounded']
+ripristino (manuale, non con git checkout: vedi nota sotto); grep righe innestate: 0
+esito sul codice vero (uscita 0):
+  nessun CustomPainter, nessun cerchio o alone finto, solo icone di interfaccia dichiarate
+  All tests passed!
+
+NOTA SUL RIPRISTINO. Il primo tentativo di ripristino con
+`git checkout -- lib/features/lunario/trova_il_giorno_insieme.dart` e' caduto
+("unable to unlink old... Invalid argument", un lock di Windows sul file
+mappato) ma SENZA ripristinare: il file e' rimasto con l'innesto dentro, non
+perso. Il ripristino vero e' stato fatto togliendo a mano le due righe
+innestate. In quel giro, uno script Python che aveva scritto il file in
+modalita' testo su Windows aveva convertito l'intero file da LF a CRLF (la
+stessa trappola del registro memoria "Python su Windows scrive CRLF"): il
+diff mostrava tutto il file cambiato. Corretto riscrivendo il file con gli a
+capo LF, col contenuto vero intatto; `git diff --stat` e` tornato a un
+cambiamento piccolo e vero (33 inserzioni, 11 rimozioni) invece di un file
+intero.
+
+esiti di conferma dopo il ripristino: flutter analyze (nessun problema),
+test/la_grafica_del_lunario_e_dipinta_test.dart (verde),
+test/il_lunario_sociale_e_piani_test.dart (10 su 10 verdi).

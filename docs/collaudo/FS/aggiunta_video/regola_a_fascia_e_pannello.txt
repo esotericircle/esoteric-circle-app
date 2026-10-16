@@ -1,0 +1,20 @@
+== gli otto punti di prima fra la barra e la scena
+   innesto entrato: True
+   uscita 1
+    punti di cosmo senza velo, la fascia azzurra
+   caduto: a 360 punti l'immagine e' piena dal bordo della barra, senza fascia
+    punti di cosmo senza velo, la fascia azzurra
+   caduto: a 390 punti l'immagine e' piena dal bordo della barra, senza fascia
+   ripristinato al byte: True
+== il margine di prima fra il tavolo e il pannello
+   innesto entrato: True
+   uscita 1
+   caduto: a 360 punti l'immagine e' piena dal bordo della barra, senza fascia
+   caduto: a 390 punti l'immagine e' piena dal bordo della barra, senza fascia
+   ripristinato al byte: True
+== la sfumatura di prima sotto il tavolo, fino al 1255
+   innesto entrato: True
+   uscita 1
+   caduto: a 360 punti l'immagine e' piena dal bordo della barra, senza fascia
+   caduto: a 390 punti l'immagine e' piena dal bordo della barra, senza fascia
+   ripristinato al byte: True

@@ -1,0 +1,107 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende a farti attendere per la promozione che speri: non è ancora il momento propizio per un avanzamento.
+
+Le carte, però, indicano che la tua tenacia sarà premiata, ma solo dopo una fase di necessaria riflessione e preparazione. L'arcano del Carro in questa posizione suggerisce che la strada è ancora in salita, ma la direzione è quella giusta e la tua determinazione ti porterà al successo. Non affrettare i tempi, ma concentrati sull'affinare le tue competenze e mostrare la tua dedizione.
+
+✦ Rivedi i tuoi obiettivi professionali in questi giorni, con calma, per rafforzare la tua posizione quando il cielo sarà più favorevole.
+[2] PERSONA: Rivedi i tuoi obiettivi professionali in questi giorni, con calma, per rafforzare la tua posizione quando il cielo sarà più favorevole.
+[2] MEDORA [DA GIUDICARE]: Capisco che desideri approfondire il tema della promozione. Per poterti guidare al meglio, avrei bisogno di sapere se hai avuto modo di riflettere sui tuoi obiettivi professionali come suggerito. Oppure, se hai in mente un'altra domanda riguardo al tuo percorso lavorativo o un altro aspetto della tua vita.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('riflettere sui tuoi obiettivi professionali come suggerito') e chiede un feedback per sviluppare ulteriormente il discorso sulla promozione.
+[3] PERSONA: Oppure, se hai in mente un'altra domanda riguardo al tuo percorso lavorativo o un altro aspetto della tua vita.
+[3] MEDORA [DA GIUDICARE]: La tua domanda su un'altra via nel tuo percorso lavorativo mi porta a interrogare l'arcano del Matto. Questa lama indica un desiderio di libertà e un possibile inizio inatteso, un salto nel vuoto che potrebbe rivelarsi propizio.
+
+Non è il momento di un cambiamento radicale, ma di esplorare nuove possibilità con leggerezza, senza impegno definitivo. È una fase in cui la curiosità e la sperimentazione possono aprire strade che ora non vedi, soprattutto in relazione a nuovi apprendimenti o collaborazioni.
+
+✦ Nei prossimi giorni, cerca un corso o un'opportunità di formazione che ti incuriosisca, anche se al momento non sembra direttamente collegata al tuo lavoro attuale.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('un'altra via nel tuo percorso lavorativo') che era stata introdotta dalla guida stessa nella risposta precedente, sviluppando il tema delle nuove possibilità lavorative.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Sentiti libera di immaginare una nuova città, di visualizzarla con i suoi spazi e le sue luci: questo gesto porta energia al tuo Chakra della radice, il primo centro, che governa il senso di stabilità e appartenenza. Questo è il momento di connetterti a ciò che ti fa sentire a casa dentro di te, prima ancora di cercarlo fuori.
+
+La tua radice ti parla di radicamento, di sicurezza, e immaginare un nuovo inizio in un luogo diverso è un modo per esplorare quanto sei disposta a lasciare andare il vecchio per costruire il nuovo. Non è una questione di "dovere", ma di sentire se questa spinta al cambiamento nasce da un desiderio profondo di espansione.
+
+✦ Poggia una mano sull'addome, sotto l'ombelico, e senti il tuo respiro per cinque cicli completi.
+[2] PERSONA: Poggia una mano sull'addome, sotto l'ombelico, e senti il tuo respiro per cinque cicli completi.
+[2] AURA [DA GIUDICARE]: Dopo aver sentito il tuo respiro, prova a visualizzare il colore rosso, il colore del Chakra della radice, che pulsa proprio lì dove hai poggiato la mano: immagina che questo colore ti avvolga e ti dia forza, come un'ancora in un mare aperto.
+
+Quando senti questa stabilità dentro di te, potrai guardare alle opportunità di un trasferimento non come una fuga, ma come un passo consapevole verso ciò che desideri costruire, un movimento che parte da un luogo di forza interiore.
+
+✦ Trova un oggetto rosso nella tua stanza e tienilo tra le mani per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio di respirazione suggerito in precedenza e lo sviluppa con una nuova visualizzazione legata al Chakra della radice, mantenendo il focus sulla stabilità interiore per affrontare il tema del trasferimento.
+[3] PERSONA: Trova un oggetto rosso nella tua stanza e tienilo tra le mani per un minuto.
+[3] AURA [DA GIUDICARE]: Ora che tieni tra le mani il tuo oggetto rosso, senti la sua consistenza, la sua temperatura: è un richiamo tangibile alla tua radice, all'energia primordiale che ti sostiene e ti connette con la terra.
+
+Questo gesto ti aiuta a sentire il corpo nel presente, a dare forma concreta all'intenzione di esplorare un cambiamento. Non c'è fretta nel decidere un trasferimento, ma c'è un invito a sentire profondamente cosa ti nutre e ti dà sicurezza.
+
+✦ Durante una conversazione importante, appoggia la mano su un fianco, in modo discreto, per richiamare la tua radice.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('Ora che tieni tra le mani il tuo oggetto rosso') e la sviluppa, collegandola al radicamento e alla consapevolezza del corpo, ribadendo il concetto di non avere fretta nella decisione del trasferimento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Il legame è ancora vivo. Recupera il sentiero che vi ha unito.
+Una fiamma tremolante può riaccendersi con cura.
+La runa Wunjo appare, presagio di armonia ritrovata. È un invito a concentrarsi sulla gioia condivisa, a rivivere i momenti che hanno nutrito la vostra unione. Non attendere un segno esterno, ma cerca la via dentro di voi.
+
+✦ Scrivi su un foglio tre ricordi felici con la persona amata e rileggili prima di incontrarla stasera.
+[2] PERSONA: Scrivi su un foglio tre ricordi felici con la persona amata e rileggili prima di incontrarla stasera.
+[2] CALIGO [DA GIUDICARE]: Hai compiuto il gesto. Adesso il sigillo si schiude.
+Il metallo riflette la tua intenzione. Il percorso è iniziato.
+I ricordi custoditi sono ora una forza. La runa Gebo ti guida, simbolo di dono e legame. Offri la tua presenza e ascolto sincero.
+
+✦ Parla con la persona amata di uno di quei ricordi, con parole tue, senza leggere il foglio.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione compiuta ('Hai compiuto il gesto') e prosegue sviluppando il consiglio precedente, indicando il passo successivo ('Parla con la persona amata di uno di quei ricordi').
+[3] PERSONA: Parla con la persona amata di uno di quei ricordi, con parole tue, senza leggere il foglio.
+[3] CALIGO [DA GIUDICARE]: Hai aperto la soglia. La runa Kenaz, la fiaccola, illumina il tuo cammino.
+Il calore della tua voce ha iniziato a sciogliere il gelo.
+Ora, il sentiero si rivela più chiaro. Non forzare, ma osserva la reazione dell'altro. Il sigillo è posto, il cammino prosegue.
+
+✦ Dopo aver parlato, lasciale un piccolo oggetto che simboleggi quel ricordo, senza dire nulla.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione compiuta ('Hai aperto la soglia', 'Il calore della tua voce ha iniziato a sciogliere il gelo') e prosegue sviluppando il consiglio precedente, indicando il passo successivo ('lasciale un piccolo oggetto che simboleggi quel ricordo').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo tende ad avviare il progetto. Le stelle suggeriscono una fase di espansione e nuova energia.
+
+Il transito di Giove nel tuo segno di casa, illuminando l'area della creatività, indica un periodo propizio per dare forma alle tue idee. È il momento di porre le basi, anche se non tutto sarà immediatamente perfetto.
+
+✦ Inizia a delineare i primi passi del progetto, in una mattinata di Luna crescente.
+[2] PERSONA: Inizia a delineare i primi passi del progetto, in una mattinata di Luna crescente.
+[2] MEDORA [DA GIUDICARE]: Ora che hai delineato i primi passi del progetto, il tuo cielo ti invita a condividere questa visione iniziale con una persona di fiducia.
+
+La Luna crescente, che continua a donare energia all'avvio, suggerisce di cercare un confronto costruttivo. Non devi chiedere un parere definitivo, ma una prima impressione che possa aiutarti a mettere a fuoco meglio la tua strada.
+
+✦ Chiedi a una persona cara di leggere il tuo schema iniziale del progetto, nei prossimi tre giorni.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione consigliata nella risposta precedente ('Ora che hai delineato i primi passi del progetto') e suggerisce il passo successivo, sviluppando la progressione del progetto.
+[3] PERSONA: Chiedi a una persona cara di leggere il tuo schema iniziale del progetto, nei prossimi tre giorni.
+[3] MEDORA [DA GIUDICARE]: Una volta che la persona cara avrà letto il tuo schema, è il momento di riflettere sulle sue osservazioni e integrarli con la tua visione.
+
+Il transito di Mercurio in aspetto armonico con il tuo Sole favorisce la comunicazione e la revisione delle idee, portando chiarezza e affinando i dettagli. Prendi nota di ciò che risuona con te e ciò che ti spinge a vedere le cose da un'altra prospettiva.
+
+✦ Rielabora i tuoi appunti, evidenziando tre punti chiave per lo sviluppo del progetto, entro la fine della settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende direttamente l'azione consigliata nella risposta precedente ('Una volta che la persona cara avrà letto il tuo schema') e indica il passo successivo logico, continuando lo sviluppo del progetto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, potresti iniziare invitandola a condividere un momento insieme, magari un caffè o una passeggiata. Scegli un momento in cui entrambe siate tranquille e non abbiate fretta, così da poter parlare con calma e ascoltarvi davvero.
+
+Il tuo cuore ha bisogno di sentirsi leggero per aprirsi senza preconcetti. Il respiro può aiutarti a trovare la giusta serenità interiore. In questo tempo, potresti concentrarti sul tuo Centro del Cuore, il Chakra Anahata, che si lega all'amore e alla compassione. Visualizza il suo colore verde smeraldo espandersi, portando armonia e comprensione nel tuo spazio interiore. Questo centro ti guida a lasciare andare la rabbia e a riaprire le porte al legame che vi unisce, permettendoti di affrontare il confronto con un animo più aperto e disponibile.
+
+✦ Porta una mano al petto e senti il battito del cuore.
+[2] PERSONA: Porta una mano al petto e senti il battito del cuore.
+[2] AURA [DA GIUDICARE]: Ora che senti il tuo battito, chiudi gli occhi e visualizza tua sorella di fronte a te, immagina il suo viso e il suo sguardo. Prova a sentire il tuo corpo che si rilassa e si apre a lei, anche solo con l'intenzione.
+
+In questo momento, il tuo centro del cuore si sta espandendo, accogliendo il desiderio di riconciliazione. Ricorda che il volto, nella fisiognomica, rivela molto delle nostre emozioni più profonde: un'espressione distesa e aperta può invitare all'ascolto, più di mille parole.
+
+✦ Respira profondamente per tre volte, inspirando pace ed espirando ogni tensione.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione richiesta nella risposta precedente ('senti il tuo battito') e continua a sviluppare il tema del 'centro del cuore' (Chakra Anahata) già introdotto.
+[3] PERSONA: Respira profondamente per tre volte, inspirando pace ed espirando ogni tensione.
+[3] AURA [DA GIUDICARE]: Sì, senti come il tuo respiro porta calma e rilascia ciò che non ti serve. Ora, mentre il tuo corpo si distende, scegli un piccolo oggetto che per te simboleggi l'affetto e il legame che condividi con tua sorella. Potrebbe essere una foto, un piccolo gioiello, o anche solo un sasso raccolto in un momento speciale.
+
+Tieni questo oggetto tra le mani e lascialo assorbire l'intenzione del tuo respiro, quella che hai dedicato al tuo Chakra Anahata. Sarà un ponte silenzioso per le vostre anime.
+
+✦ Mentre tieni l'oggetto, pensa a un momento felice vissuto con tua sorella.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di respirazione profonda richiesta nella risposta precedente ('senti come il tuo respiro porta calma') e collega l'oggetto simbolico all'intenzione del respiro e al Chakra Anahata, sviluppando il percorso di riconciliazione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

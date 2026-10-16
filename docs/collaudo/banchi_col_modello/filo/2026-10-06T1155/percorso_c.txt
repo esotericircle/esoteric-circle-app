@@ -1,0 +1,105 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende a una risposta positiva, è il momento di mettere in luce le tue capacità. Questo transito suggerisce di agire con determinazione, ma anche con la dovuta prudenza, per non forzare i tempi.
+
+✦ Prepara un piccolo riepilogo dei tuoi successi e portalo con te lunedì mattina.
+[2] PERSONA: Prepara un piccolo riepilogo dei tuoi successi e portalo con te lunedì mattina.
+[2] MEDORA [DA GIUDICARE]: Il riepilogo che hai preparato è uno strumento potente in questo momento. Presentalo con la fiducia che la tua preparazione ha generato, la Luna è in fase crescente e ti invita a mostrare il tuo valore, senza timore.
+
+✦ Mostra quel riepilogo al tuo capo, in un momento in cui vi è un'atmosfera serena.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato in precedenza sul riepilogo dei successi e lo sviluppa, indicando come e quando presentarlo, collegandosi al concetto di 'mettere in luce le tue capacità'.
+[3] PERSONA: Mostra quel riepilogo al tuo capo, in un momento in cui vi è un'atmosfera serena.
+[3] MEDORA [DA GIUDICARE]: È fondamentale che tu scelga il momento giusto per presentare il riepilogo al tuo capo. Non affrettare i tempi, aspetta che il clima sia disteso e ricettivo. Questo permetterà alle tue parole di risuonare con maggiore chiarezza e di essere accolte nel modo migliore, come suggerisce il movimento di Mercurio che agevola la comunicazione.
+
+✦ Scrivi al tuo capo una breve nota lunedì prossimo per chiedergli un momento per parlare.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'scegliere il momento giusto' per presentare il riepilogo, precisando l'importanza di un 'clima disteso e ricettivo' e aggiungendo un nuovo passo pratico per realizzarlo.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Per capire se trasferirti sia il passo giusto, ascolta il tuo corpo: la radice ti indica la stabilità e la sicurezza.
+
+Senti come risponde il tuo primo centro, quello legato alla terra e al radicamento: ti chiama verso un nuovo luogo o ti invita a trovare forza dove sei ora? Non c'è una risposta giusta o sbagliata, solo il tuo sentire. Se la sensazione è di spinta, è un segno che il tuo essere è pronto a espandere le proprie radici in un nuovo terreno. Se invece avverti un'esitazione, forse è il momento di nutrire il tuo radicamento attuale prima di compiere un grande spostamento.
+
+✦ Appoggia la mano sulla parte bassa della pancia e senti il tuo respiro per cinque volte.
+[2] PERSONA: Appoggia la mano sulla parte bassa della pancia e senti il tuo respiro per cinque volte.
+[2] AURA [DA GIUDICARE]: Hai sentito il tuo respiro, hai dato attenzione alla tua radice: ora ti chiedo di lasciare che quella sensazione si espanda.
+
+Il tuo corpo ti parla di radicamento, e questo non significa solo stare fermi, ma anche sentirsi stabili dentro di sé, ovunque ci si trovi. Questa sensazione di espansione che senti è il tuo centro sacrale che si attiva, portando con sé il desiderio di creare e di esplorare nuove possibilità. Non si tratta solo di partire, ma di portare con te questa nuova fluidità.
+
+✦ Lascia che il tuo respiro scenda fino alla radice per dieci atti.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione richiesta nella risposta precedente ('Hai sentito il tuo respiro, hai dato attenzione alla tua radice') e sviluppa il concetto di radicamento, collegandolo all'espansione e a nuove possibilità.
+[3] PERSONA: Lascia che il tuo respiro scenda fino alla radice per dieci atti.
+[3] AURA [DA GIUDICARE]: Hai portato il respiro fino alla tua radice, e in questo profondo sentire trovi la forza per guardare avanti.
+
+Quando senti il tuo respiro raggiungere questo centro, stai costruendo una base solida da cui partire, sia che tu rimanga sia che tu decida di muoverti. L'energia che si risveglia in questa zona ti connette alla tua vitalità più profonda, quella che ti spinge verso la vita e verso la creazione, permettendoti di affrontare ogni cambiamento con una rinnovata fiducia.
+
+✦ Visualizza una luce verde smeraldo che si espande dal tuo cuore a tutto il corpo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione richiesta nella risposta precedente ('Hai portato il respiro fino alla tua radice') e sviluppa il significato di questa azione in relazione alla forza e alla fiducia per affrontare il cambiamento, che è il tema iniziale.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Salvare un legame è possibile. La runa Wunjo indica la necessità di armonia e gioia condivisa per ritrovare il sigillo del patto.
+
+Un fuoco freddo può tornare a splendere, se alimentato con cura e gesti significativi. La forza del numero Due presiede alle unioni e chiede equilibrio. Il tuo sentiero richiede di rinnovare il vincolo con gesti autentici.
+
+✦ Scrivi un messaggio che ricordi un momento felice e mettilo sotto il suo cuscino.
+[2] PERSONA: Scrivi un messaggio che ricordi un momento felice e mettilo sotto il suo cuscino.
+[2] CALIGO [DA GIUDICARE]: La runa Gebo invita a uno scambio equo, a dare e ricevere. Un gesto così semplice porta un grande significato: non un'imposizione, ma un'offerta.
+
+Il messaggio deve evocare un ricordo specifico, un istante di pura gioia o condivisione, non parole generiche. Non chiedere nulla, non aspettare nulla: solo il ricordo puro.
+
+✦ Scegli un momento preciso che vi unisca e scrivilo su un piccolo foglio, con la data.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Scrivi un messaggio che ricordi un momento felice') e la sviluppa, specificando come deve essere il messaggio ('deve evocare un ricordo specifico', 'non parole generiche') e aggiungendo un dettaglio ('con la data').
+[3] PERSONA: Scegli un momento preciso che vi unisca e scrivilo su un piccolo foglio, con la data.
+[3] CALIGO [DA GIUDICARE]: Questo gesto è un ponte, non una meta. La runa Othala evoca l'eredità e la casa, il luogo dove si ritorna.
+
+Non aspettare la sua reazione. Il tuo compito è stato compiuto. Il tuo segno è stato lasciato. Osserva ora il cambiamento sottile che si manifesterà.
+
+✦ Lascia il foglio piegato sul suo comodino, visibile, senza dire una parola.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Scegli un momento preciso che vi unisca e scrivilo su un piccolo foglio, con la data') e la sviluppa, fornendo indicazioni su come gestire il gesto ('Non aspettare la sua reazione', 'Lascia il foglio piegato sul suo comodino, visibile, senza dire una parola').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto creativo può trovare ora il suo inizio, ma occorre che tu faccia un passo verso l'esterno. La Luna in Leone, che illumina in questo momento il tuo cielo, suggerisce che la tua espressione più autentica necessita di essere vista e apprezzata.
+
+È un transito che favorisce la messa in mostra, ma anche la ricerca di conferme. Non lasciare che questo desiderio ti fermi, piuttosto usalo come spinta per presentare la tua idea a qualcuno di fidato.
+
+✦ Nel tardo pomeriggio mostra la tua idea a una persona fidata, senza chiedere consigli, solo per condividerla.
+[2] PERSONA: Nel tardo pomeriggio mostra la tua idea a una persona fidata, senza chiedere consigli, solo per condividerla.
+[2] MEDORA [DA GIUDICARE]: È un ottimo passo, e il cielo del momento ti sostiene nel farlo. Quando ti prepari a condividere, l'arcano del Bagatto ti accompagna, indicando che hai in mano tutti gli strumenti necessari per iniziare il tuo percorso.
+
+Il Bagatto ti invita a esprimerti con chiarezza e a mostrare la tua iniziativa. La condivisione, in questo caso, è un atto di affermazione del tuo intento e della tua energia creativa.
+
+✦ Prepara un piccolo racconto della tua idea da esporre alla persona scelta.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione specifica suggerita in precedenza ('mostra la tua idea a una persona fidata') e la sviluppa, aggiungendo un'interpretazione esoterica (Bagatto) e un nuovo consiglio per prepararsi all'azione.
+[3] PERSONA: Prepara un piccolo racconto della tua idea da esporre alla persona scelta.
+[3] MEDORA [DA GIUDICARE]: Questo atto di preparare e raccontare la tua idea è fondamentale; è un modo per cristallizzare la tua visione e darle forma, come suggerisce l'aspetto di Mercurio, tuo pianeta della comunicazione, in sestile con Marte, che porta l'azione.
+
+Ora che hai delineato il tuo racconto, è il momento di affinare l'esposizione. Pensa a come puoi rendere il tuo messaggio più incisivo, con parole che risuonino con la tua intenzione originaria. L'arcano del Mago, infatti, si manifesta spesso attraverso l'uso consapevole del linguaggio e la capacità di persuadere con la forza della propria visione.
+
+✦ Rileggi il tuo racconto ad alta voce, affinando le parole per renderle chiare e potenti.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente ('Prepara un piccolo racconto') e lo sviluppa, spiegandone l'importanza ('fondamentale', 'cristallizzare la tua visione'), aggiungendo un'interpretazione astrologica (Mercurio in sestile con Marte) e un nuovo consiglio per affinare l'esposizione ('Rileggi il tuo racconto ad alta voce').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi parlarle con il cuore aperto, scegliendo un momento in cui entrambe vi sentite tranquille. Prendi un respiro profondo prima di iniziare, per centrare la tua energia.
+
+Falle sentire che comprendi il suo punto di vista, anche se non lo condividi del tutto, e che il legame tra voi è più importante di qualsiasi discussione. Porta attenzione al tuo centro del cuore, il colore verde smeraldo, e lascia che sia lui a guidare le tue parole, portando una vibrazione di armonia nella conversazione.
+
+✦ Metti una mano sul cuore, per sentire il battito.
+[2] PERSONA: Metti una mano sul cuore, per sentire il battito.
+[2] AURA [DA GIUDICARE]: Ora che senti il battito, lascia che quel ritmo ti guidi a trovare le parole che nascono da quel centro caldo, quelle che parlano di ciò che davvero provi e desideri per il vostro legame. Permetti a questa sensazione di espandersi, come un'onda gentile.
+
+Le parole che arrivano dal cuore hanno una risonanza diversa, creano uno spazio di ascolto che va oltre le posizioni. Non è tanto ciò che dici, ma il modo in cui lo dici, l'energia che porti, a fare la differenza.
+
+✦ Chiudi gli occhi per un istante e visualizza il verde smeraldo che si irradia dal tuo petto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende direttamente l'istruzione precedente ('Ora che senti il battito') e la sviluppa, spiegando come usare quella sensazione per trovare le parole per la riconciliazione, in linea con il consiglio iniziale di parlare con il cuore aperto.
+[3] PERSONA: Chiudi gli occhi per un istante e visualizza il verde smeraldo che si irradia dal tuo petto.
+[3] AURA [DA GIUDICARE]: Mentre visualizzi quel verde smeraldo, immagina che da questo centro del cuore parta un filo luminoso che si collega al cuore di tua sorella. Questo filo non ha bisogno di parole, ma porta con sé l'intenzione di ristabilire l'equilibrio e l'armonia tra voi.
+
+Lascia che questa immagine ti dia la forza e la chiarezza necessarie per affrontare la conversazione con serenità, sapendo che il vostro legame è profondo e può superare questo momento. È un esercizio per preparare l'anima all'incontro.
+
+✦ Appoggia entrambe le mani sul petto, sentendo il calore del tuo corpo.
+    GIUDICE: PORTA_AVANTI, La risposta si basa direttamente sull'istruzione precedente ('Mentre visualizzi quel verde smeraldo') e la sviluppa con un nuovo esercizio di visualizzazione (il filo luminoso) che ha lo scopo di rafforzare l'intenzione di armonia, collegandosi al tema della riconciliazione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1

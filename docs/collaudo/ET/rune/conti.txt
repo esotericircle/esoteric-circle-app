@@ -1,0 +1,55 @@
+ORDINE ET VOCE 07: LE RUNE, I CONTI. 28 settembre 2026.
+
+Il banco: tool/collaudo_rune_er.dart (le dieci domande della ER.01, due
+gettate ciascuna con tutte e tre le gettate, piu' quattro gettate senza
+domanda; cento gettate delle tre Norne con la stessa domanda per le letture
+uguali e le cadute). Modello gemini-2.5-flash, europe-west1.
+PARTENZA = il codice dell'ordine ER (commit ec88e0d9), fatto girare da una
+copia staccata senza ramo, perche' l'istruzione delle rune eredita le regole
+comuni che la voce ET.01 ha cambiato. DOPO = prima stesura della cura; DOPO3
+= terza stesura, quella che resta nel codice.
+
+LA LETTURA ALLA CIECA (agenti che non conoscono la chiave; fascicoli, chiavi
+e giudizi in docs/collaudo/ET/ciechi/, cieco_rune_giro1 e cieco_rune_giro3):
+
+giro1 (partenza e dopo, mescolati):
+  partenza_esecuzione1: dirette 11 su 20; pietre tutte lette 16 su 24; errori 5; scartate 1
+  partenza_esecuzione2: dirette 14 su 20; pietre tutte lette 13 su 24; errori 4; scartate 3
+  dopo_esecuzione1:     dirette 16 su 20; pietre tutte lette 18 su 24; errori 4; scartate 0
+  dopo_esecuzione2:     dirette 13 su 20; pietre tutte lette 17 su 24; errori 5; scartate 1
+giro3 (partenza e dopo3, mescolati, un altro giudice):
+  partenza_esecuzione1: dirette 12 su 20; pietre tutte lette 18 su 24; errori 7; scartate 1
+  partenza_esecuzione2: dirette 14 su 20; pietre tutte lette 15 su 24; errori 5; scartate 3
+  dopo3_esecuzione1:    dirette 12 su 20; pietre tutte lette 20 su 24; errori 4; scartate 1
+  dopo3_esecuzione2:    dirette 14 su 20; pietre tutte lette 21 su 24; errori 5; scartate 0
+La stessa partenza, giudicata due volte, e' cambiata di una o due voci
+(dirette 11 e 12, pietre 16 e 18): e' la misura della variazione del giudice.
+
+LE CENTO GETTATE (stessa domanda, "In amore, dove sto andando?"):
+  partenza: letture uguali 0; cadute sulla lettura di casa 10 (supera il
+            confine del responso 8, un pezzo manca 2)
+  dopo:     letture uguali 0; cadute 2 (confine 1, un pezzo manca 1)
+  dopo3:    letture uguali 0; cadute 3 (confine 3)
+Le cadute rimaste sono letture del modello che superano il confine del
+responso (le parole della salute, della morte, del denaro promesso): la
+lettura di casa parla al loro posto per sicurezza, non perche' il modello
+taccia. Una lettura scartata soltanto per la forma adesso si mostra
+all'ultima chiamata (LaLetturaDelleRune.siMostraComunque).
+
+IL COSTO E L'ATTESA AL BANCO (24 letture):
+  partenza:   29-31 chiamate; circa 180 mila gettoni in ingresso e 17 mila in
+              uscita; tempo del modello per lettura, mediana 4,2 s
+  dopo3:      56 chiamate; 382 mila gettoni in ingresso e 30 mila in uscita;
+              tempo del modello per lettura, mediana 8,7-9,3 s; letture
+              mostrate dopo la terza chiamata con un difetto di forma 8 e 12
+  Una gettata, in media, al listino di gemini-2.5-flash (0,30 dollari per
+  milione di gettoni in ingresso, 2,50 in uscita): partenza circa 0,0041
+  dollari, dopo3 circa 0,0079 dollari.
+L'attesa sul telefono dal lancio al testo, su dieci gettate, si misura
+sul Realme con la build di prova finale dell'ordine.
+
+LETTURA: le guardie sulle pietre (la posizione e la cosa chiesta nominate)
+portano le pietre lette da 15-18 a 20-21 su 24; le guardie della prima frase
+(la formula, "inBreve") non muovono le dirette (12 e 14, come la partenza) e
+raddoppiano chiamate e attesa. Nessuna delle tre misure arriva al risultato
+dell'ordine (20 su 20, 24 su 24, zero errori).

@@ -1,0 +1,24 @@
+LA CROCE CELTICA ALLA PROFONDITA' LUNGA, ordine FS
+Modello: gemini-2.5-flash, regione europe-west1, 2026-10-13T21:29:40.661466Z
+Pazienza dell'app: 10 s
+
+== seme 501, BREVE, tetto 2224 gettoni
+  chiamate al modello: 4, tempi ms [13848, 991, 14497, 5679], totale ms 20598
+  esito: dal modello
+
+== seme 501, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 6, tempi ms [7231, 6299, 6821, 6092, 6295, 958], totale ms 21328
+  esito: dal modello
+  approfondimento1 (190 car.): Esamina quali strutture o aspettative sulla paternità non ti servono più e preparati a vederle trasformarsi. Il cambiamento non sarà graduale, ma ti porterà a una realtà più vera e duratura.
+  approfondimento2 (200 car.): Anticipa la fase di destabilizzazione che La Torre preannuncia, usala per fare chiarezza su ciò che vuoi davvero. Dopo il crollo, potrai costruire su basi più solide e allineate ai tuoi veri desideri.
+
+== seme 502, BREVE, tetto 2224 gettoni
+  chiamate al modello: 4, tempi ms [5834, 819, 5522, 5983], totale ms 12652
+  esito: dal modello
+
+== seme 502, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 7, tempi ms [6181, 887, 7211, 6424, 1148, 5802, 6977], totale ms 21645
+  esito: dal modello
+  approfondimento1 (0 car.): 
+  approfondimento2 (0 car.): 
+

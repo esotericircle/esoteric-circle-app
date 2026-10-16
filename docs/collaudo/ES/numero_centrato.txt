@@ -1,0 +1,51 @@
+ORDINE ES VOCE 14: IL NUMERO FORTUNATO CENTRATO NEL SUO RIQUADRO. 28 settembre 2026.
+
+IL PADRE (Regola C): ordine DD voce 09, commit b6188d20, del 10 settembre.
+Per pareggiare le due bolle della Fortuna (Numero e Colore del giorno) la
+riga le stira alla stessa altezza; dentro la bolla del numero la colonna
+restava allineata all'inizio e alta quanto il suo contenuto, quindi
+l'etichetta e la cifra restavano attaccate a sinistra.
+
+LA CURA: il riquadro del numero e' un widget suo, RiquadroDelNumero
+(lib/features/horoscope/riquadro_del_numero.dart): l'etichetta in cima, la
+cifra nello spazio che resta, in fondo una copia invisibile dell'etichetta
+alta uguale, tutto centrato sull'asse di traverso. Sopra e sotto la cifra
+c'e' lo stesso spazio: la cifra sta al centro. Lo stesso riquadro servira'
+alla Cinese e alla Vedica (voci ES.08 ed ES.09).
+
+LA MISURA SULLA SCHERMATA VERA (OroscopoScreen, Leone, 10 luglio 2026, il
+numero del giorno e' 48; finestra 390x844; distanza fra il centro della
+cifra e il centro del riquadro):
+
+                   prima                       dopo
+  scala 1,0        23,7 orizzontale, 0,5 vert. 0,0 e 0,0 (riquadro 97,4x84,0)
+  scala 1,3        30,5 orizzontale, 0,5 vert. 0,0 e 0,0 (riquadro 117,3x103,0)
+
+LA GUARDIA NUOVA, test/il_numero_sta_al_centro_del_riquadro_test.dart: il
+riquadro accanto a un vicino alto 84 punti, come nella scheda, con 7 e con
+42, alle scale 1,0 e 1,3: scarto 0,0 in tutti e quattro i casi. Vista rossa
+con due innesti verificati col grep: la colonna allineata all'inizio (scarto
+orizzontale da 23,8 a 38,9 punti) e il contrappeso tolto (scarto verticale
+10 e 13 punti).
+
+La guardia dell'ordine DD voce 09 (numero_e_colore_hanno_la_stessa_altezza)
+vista rossa prima di toccare la zona (Regola B: la riga che non stira le
+bolle, 61,0 contro 84,0); adesso cerca il riquadro per chiave, perche' il
+testo "NUMERO" c'e' due volte (l'etichetta e il contrappeso invisibile):
+84,0 e 84,0.
+
+DA FARE: le catture dal Realme, prima e dopo, con una cifra e con due, alle
+scale 1 e 1,3.
+
+DUE COSE VISTE STRADA FACENDO:
+- nella card da condividere (lib/features/horoscope/oroscopo_share_card.dart,
+  _InfoBubble) il numero e' centrato in orizzontale ma resta in alto quando
+  la bolla si stira: si sistema con la voce ES.13, che rifa' la card;
+- alla scala 1,3 nella schermata dell'Oroscopo una colonna trabocca di 5
+  punti in basso durante una fase del consulto, col codice di prima e con
+  quello di adesso: l'elemento e' gia' smontato quando Flutter lo segnala e
+  non dice quale sia. Scritto qui il 28 settembre come PROVENIENZA IGNOTA:
+  era sbagliato. Il 29 settembre la suite intera l'ha mostrato fra i rossi
+  accettati (tool/rossi_accettati.txt, "SCALA 1,3: Cattura l'Oroscopo"): e'
+  la pastiglia della tradizione, oroscopo_screen.dart, 5 punti in basso,
+  gia' nota e dichiarata. Non e' un difetto nuovo e non e' di questa voce.

@@ -1,0 +1,162 @@
+{
+ "S01": {
+  "giro": "viaggio_modello",
+  "caso": "V04"
+ },
+ "S02": {
+  "giro": "viaggio_modello",
+  "caso": "V07"
+ },
+ "S03": {
+  "giro": "viaggio_due",
+  "caso": "V10"
+ },
+ "S04": {
+  "giro": "viaggio_modello",
+  "caso": "V19"
+ },
+ "S05": {
+  "giro": "viaggio_due",
+  "caso": "V08"
+ },
+ "S06": {
+  "giro": "viaggio_modello",
+  "caso": "V05"
+ },
+ "S07": {
+  "giro": "viaggio_due",
+  "caso": "V18"
+ },
+ "S08": {
+  "giro": "viaggio_due",
+  "caso": "V15"
+ },
+ "S09": {
+  "giro": "viaggio_modello",
+  "caso": "V17"
+ },
+ "S10": {
+  "giro": "viaggio_modello",
+  "caso": "V09"
+ },
+ "S11": {
+  "giro": "viaggio_due",
+  "caso": "V06"
+ },
+ "S12": {
+  "giro": "viaggio_modello",
+  "caso": "V02"
+ },
+ "S13": {
+  "giro": "viaggio_modello",
+  "caso": "V01"
+ },
+ "S14": {
+  "giro": "viaggio_due",
+  "caso": "V09"
+ },
+ "S15": {
+  "giro": "viaggio_due",
+  "caso": "V04"
+ },
+ "S16": {
+  "giro": "viaggio_due",
+  "caso": "V20"
+ },
+ "S17": {
+  "giro": "viaggio_modello",
+  "caso": "V06"
+ },
+ "S18": {
+  "giro": "viaggio_due",
+  "caso": "V16"
+ },
+ "S19": {
+  "giro": "viaggio_due",
+  "caso": "V17"
+ },
+ "S20": {
+  "giro": "viaggio_modello",
+  "caso": "V13"
+ },
+ "S21": {
+  "giro": "viaggio_due",
+  "caso": "V07"
+ },
+ "S22": {
+  "giro": "viaggio_modello",
+  "caso": "V08"
+ },
+ "S23": {
+  "giro": "viaggio_due",
+  "caso": "V03"
+ },
+ "S24": {
+  "giro": "viaggio_modello",
+  "caso": "V15"
+ },
+ "S25": {
+  "giro": "viaggio_due",
+  "caso": "V13"
+ },
+ "S26": {
+  "giro": "viaggio_due",
+  "caso": "V14"
+ },
+ "S27": {
+  "giro": "viaggio_due",
+  "caso": "V12"
+ },
+ "S28": {
+  "giro": "viaggio_modello",
+  "caso": "V03"
+ },
+ "S29": {
+  "giro": "viaggio_modello",
+  "caso": "V20"
+ },
+ "S30": {
+  "giro": "viaggio_modello",
+  "caso": "V18"
+ },
+ "S31": {
+  "giro": "viaggio_due",
+  "caso": "V02"
+ },
+ "S32": {
+  "giro": "viaggio_modello",
+  "caso": "V14"
+ },
+ "S33": {
+  "giro": "viaggio_modello",
+  "caso": "V11"
+ },
+ "S34": {
+  "giro": "viaggio_due",
+  "caso": "V19"
+ },
+ "S35": {
+  "giro": "viaggio_due",
+  "caso": "V01"
+ },
+ "S36": {
+  "giro": "viaggio_due",
+  "caso": "V11"
+ },
+ "S37": {
+  "giro": "viaggio_modello",
+  "caso": "V10"
+ },
+ "S38": {
+  "giro": "viaggio_due",
+  "caso": "V05"
+ },
+ "S39": {
+  "giro": "viaggio_modello",
+  "caso": "V16"
+ },
+ "S40": {
+  "giro": "viaggio_modello",
+  "caso": "V12"
+ }
+}

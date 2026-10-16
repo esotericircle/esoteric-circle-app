@@ -1,0 +1,95 @@
+ORDINE EL, LA LUCE DELLA SCENA NEL TEMPO, dalla raffica di screencap del Realme 767f596c.
+Tempo dal tocco sul dono; luminosita' media 0-255 della fascia del cielo (12-45 per cento
+dell'altezza) e del mare (55-90 per cento).
+
+EVENTI (istante del telefono):
+     0.00 s  tocco sul dono
+     3.99 s  gesto del sole, inizio
+     5.92 s  gesto del sole, fine
+    11.10 s  fine della raffica
+
+FOTOGRAMMI: 83 in 9.97 secondi
+
+  -1.54 s  cielo   63.1  mare   38.8  0000.png
+  -1.40 s  cielo   63.1  mare   38.8  0001.png
+  -1.29 s  cielo   63.1  mare   38.8  0002.png
+  -1.16 s  cielo   63.1  mare   38.8  0003.png
+  -1.04 s  cielo   63.1  mare   38.8  0004.png
+  -0.94 s  cielo   63.1  mare   38.8  0005.png
+  -0.78 s  cielo   63.1  mare   38.8  0006.png
+  -0.67 s  cielo   63.1  mare   38.8  0007.png
+  -0.55 s  cielo   63.1  mare   38.8  0008.png
+  -0.44 s  cielo   63.1  mare   38.8  0009.png
+  -0.33 s  cielo   63.1  mare   38.8  0010.png
+  -0.20 s  cielo   63.1  mare   38.8  0011.png
+  -0.09 s  cielo   63.1  mare   38.8  0012.png
+   0.06 s  cielo   63.1  mare   38.8  0013.png
+   0.12 s  cielo   63.1  mare   38.8  0014.png
+   0.31 s  cielo   63.8  mare   38.8  0015.png
+   0.37 s  cielo   63.8  mare   38.8  0016.png
+   0.54 s  cielo   48.8  mare   20.0  0017.png
+   0.61 s  cielo   48.8  mare   20.0  0018.png
+   0.76 s  cielo   48.8  mare   20.0  0019.png
+   0.81 s  cielo   48.8  mare   20.0  0020.png
+   0.95 s  cielo   48.8  mare   20.0  0021.png
+   1.02 s  cielo   48.8  mare   20.0  0022.png
+   1.16 s  cielo   48.8  mare   20.0  0023.png
+   1.21 s  cielo   48.8  mare   20.0  0024.png
+   1.37 s  cielo   48.8  mare   20.0  0025.png
+   1.41 s  cielo   48.8  mare   20.0  0026.png
+   1.56 s  cielo   48.8  mare   20.0  0027.png
+   1.61 s  cielo   48.8  mare   20.0  0028.png
+   1.75 s  cielo   48.8  mare   20.0  0029.png
+   1.80 s  cielo   48.8  mare   20.0  0030.png
+   1.94 s  cielo   48.8  mare   20.0  0031.png
+   1.99 s  cielo   48.8  mare   20.0  0032.png
+   2.13 s  cielo   48.8  mare   20.0  0033.png
+   2.18 s  cielo   48.8  mare   20.0  0034.png
+   2.32 s  cielo   48.8  mare   20.0  0035.png
+   2.39 s  cielo   48.8  mare   20.0  0036.png
+   2.51 s  cielo   48.8  mare   20.0  0037.png
+   2.58 s  cielo   48.8  mare   20.0  0038.png
+   2.70 s  cielo   48.8  mare   20.0  0039.png
+   2.78 s  cielo   48.8  mare   20.0  0040.png
+   2.91 s  cielo   48.8  mare   20.0  0041.png
+   2.98 s  cielo   48.8  mare   20.0  0042.png
+   3.09 s  cielo   48.8  mare   20.0  0043.png
+   3.17 s  cielo   48.8  mare   20.0  0044.png
+   3.29 s  cielo   48.8  mare   20.0  0045.png
+   3.38 s  cielo   48.8  mare   20.0  0046.png
+   3.50 s  cielo   48.8  mare   20.0  0047.png
+   3.59 s  cielo   48.8  mare   20.0  0048.png
+   3.69 s  cielo   48.8  mare   20.0  0049.png
+   3.78 s  cielo   48.8  mare   20.0  0050.png
+   3.90 s  cielo   48.8  mare   20.0  0051.png
+   3.98 s  cielo   48.8  mare   20.0  0052.png
+   4.10 s  cielo   48.8  mare   20.0  0053.png
+   4.18 s  cielo   48.8  mare   20.0  0054.png
+   4.31 s  cielo   65.7  mare   25.1  0055.png
+   4.42 s  cielo   77.8  mare   29.0  0056.png
+   4.59 s  cielo  103.9  mare   37.9  0057.png
+   4.93 s  cielo  147.2  mare   54.7  0058.png
+   5.17 s  cielo  184.9  mare   72.0  0059.png
+   5.38 s  cielo  199.6  mare   80.8  0060.png
+   5.43 s  cielo  199.6  mare   80.8  0061.png
+   5.65 s  cielo  199.6  mare   80.8  0062.png
+   5.71 s  cielo  215.3  mare   80.8  0063.png
+   5.88 s  cielo  215.3  mare   80.8  0064.png
+   5.93 s  cielo  215.3  mare   80.8  0065.png
+   6.09 s  cielo  215.3  mare   80.8  0066.png
+   6.14 s  cielo   63.3  mare   61.1  0067.png
+   6.29 s  cielo   63.3  mare   61.1  0068.png
+   6.36 s  cielo   63.3  mare   61.1  0069.png
+   6.48 s  cielo   63.3  mare   61.1  0070.png
+   6.70 s  cielo   63.3  mare   61.1  0071.png
+   6.91 s  cielo   63.3  mare   61.1  0072.png
+   7.10 s  cielo   63.3  mare   61.1  0073.png
+   7.32 s  cielo   63.3  mare   61.1  0074.png
+   7.56 s  cielo   63.3  mare   61.1  0075.png
+   7.75 s  cielo   63.3  mare   61.1  0076.png
+   7.90 s  cielo   63.3  mare   61.1  0077.png
+   7.99 s  cielo   63.3  mare   61.1  0078.png
+   8.10 s  cielo   63.3  mare   61.1  0079.png
+   8.22 s  cielo   63.3  mare   61.1  0080.png
+   8.31 s  cielo   63.3  mare   61.1  0081.png
+   8.44 s  cielo   63.3  mare   61.1  0082.png

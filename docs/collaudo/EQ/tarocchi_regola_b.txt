@@ -1,0 +1,35 @@
+== EQ.05 Regola B: lo spazio delle parole torna di venti punti (la_chiave_e_il_consiglio_si_vedono, BV.04)
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima 0b9097a29a5e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: a value less than or equal to <463.82130791159693>
+   Actual: <469.5085687930785>
+   ripristinato: sha1 0b9097a29a5e, uguale
+== EQ.12 Regola B: il titolo del consiglio piu' grande del riquadro (la_chiave_e_il_consiglio_si_vedono)
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima 0b9097a29a5e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 0b9097a29a5e, uguale
+== EQ.06 Regola B: la colonna delle posizioni della card troppo larga (stesa_tre_carte, card senza overflow)
+   file lib/features/tarot/stesa_share_card.dart, sha1 prima efccb2e7bb01, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: null
+   Actual: 'Multiple exceptions (3) were detected during the running of the current test, and at
+   ripristinato: sha1 efccb2e7bb01, uguale
+== EQ.11 Regola B: il titolo non scende piu' di misura (il_titolo_non_si_rompe)
+   file lib/design_system/components/titolo_che_non_si_rompe.dart, sha1 prima 9583bcdc3274, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +5: All tests passed!
+   ripristinato: sha1 9583bcdc3274, uguale
+== EQ.11 Regola B, secondo innesto: la misura del titolo non scende mai (il_titolo_non_si_rompe)
+   file lib/design_system/components/titolo_che_non_si_rompe.dart, sha1 prima 9583bcdc3274, innesto verificato col grep: NO
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +3 -2: Some tests failed.
+   Expected: a value less than <14.0>
+   Actual: <18.0>
+   Expected: a value less than <18.0>
+   Actual: <18.0>
+   ripristinato: sha1 9583bcdc3274, uguale

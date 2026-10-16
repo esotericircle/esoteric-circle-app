@@ -1,0 +1,40 @@
+GLI ASSET DELL'ORDINE FX, il Respiro della Luna, generato da tool/gli_asset_dell_ordine_fx.py
+
+== I cinque fotogrammi fermi di scena (assets/img/respiro_della_luna/)
+respiro_primo_fotogramma_v1.jpg 1080x1920 RGB: 458689 byte -> 154150 byte WebP (scena)
+respiro_ultimo_fotogramma_v1.jpg 1080x1920 RGB: 504093 byte -> 179474 byte WebP (scena)
+respiro_cielo_senza_luna_v1.jpg 1080x1920 RGB: 444801 byte -> 151972 byte WebP (scena)
+consegna_primo_fotogramma_v1.jpg 1080x1920 RGB: 444801 byte -> 151972 byte WebP (scena)
+consegna_ultimo_fotogramma_v1.jpg 1080x1920 RGB: 442236 byte -> 152492 byte WebP (scena)
+
+== La Collana (assets/img/respiro_della_luna/collana/)
+catenella_v1.png 324x36 RGBA, alfa identico: 31517 byte -> 11340 byte WebP (collana)
+fermaglio_falce_v1.png 177x284 RGBA, alfa identico: 48639 byte -> 11704 byte WebP (collana)
+medaglia_luna_piena_v1.png 172x234 RGBA, alfa identico: 62199 byte -> 13850 byte WebP (collana)
+perla_accesa_v1.png 314x337 RGBA, alfa identico: 151536 byte -> 25568 byte WebP (collana)
+perla_finestra_v1.png 258x325 RGBA, alfa identico: 104894 byte -> 18302 byte WebP (collana)
+perla_spenta_v1.png 259x325 RGBA, alfa identico: 88748 byte -> 16730 byte WebP (collana)
+scrigno_collana_v1.png 916x739 RGBA, alfa identico: 787876 byte -> 121856 byte WebP (collana)
+
+== La Bussola (assets/img/respiro_della_luna/bussola/)
+ago_falce_v1.png 125x739 RGBA, alfa identico: 82366 byte -> 22286 byte WebP (bussola)
+quadrante_bussola_v1.png 722x718 RGBA, alfa identico: 697298 byte -> 116278 byte WebP (bussola)
+scia_di_luna_v1.png 1523x798 RGBA, alfa identico: 253543 byte -> 132888 byte WebP (bussola)
+
+== I due video (brand_assets/respiro_della_luna/)
+medora_il_respiro_della_luna_v1.mp4: 7146087 byte -> 2120306 byte (7.15 MB -> 2.12 MB), SHA-256 743e9b90ad8293f06c77a761429967ddb8ecef0c041f6e74b9ba5a0ed075d73c
+  stream|width=1080|height=1920|r_frame_rate=24/1|duration=8.000000
+  ultimo fotogramma ricompresso contro respiro_ultimo_fotogramma_v1.jpg: scarto medio 6.70 su 255 (cattura: docs/collaudo/FX/medora_il_respiro_della_luna_v1_ultimo_dopo.png)
+
+medora_la_consegna_della_collana_v1.mp4: 5197255 byte -> 2159176 byte (5.20 MB -> 2.16 MB), SHA-256 98baba37513fdf1da5b23c108c25f4f807599fcd82e38fd5595f72d205e10d5b
+  stream|width=1080|height=1920|r_frame_rate=24/1|duration=8.000000
+  ultimo fotogramma ricompresso contro consegna_ultimo_fotogramma_v1.jpg: scarto medio 6.57 su 255 (cattura: docs/collaudo/FX/medora_la_consegna_della_collana_v1_ultimo_dopo.png)
+
+== IL PESO TOTALE
+prima: 16946578 byte (16.95 MB); dopo: 5560344 byte (5.56 MB)
+
+== Il canale alfa di scia_di_luna_v1.png (Bussola)
+scia_di_luna_v1.png 1523x798 RGBA: canale alfa da 0 a 255; pixel con alfa 0 834721, con alfa fra 1 e 254 380630, con alfa 255 3; il canale VARIA
+
+== La cattura del fondatore (fuori dagli asset dell'app)
+cattura_dora_app_luna_v1.jpg copiata in docs/collaudo/FX/catture_fondatore/ (224437 byte), non e' un asset dell'app

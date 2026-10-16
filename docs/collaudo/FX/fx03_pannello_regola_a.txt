@@ -1,0 +1,41 @@
+ORDINE FX, VOCE FX.03, DIFETTO VERO TROVATO DA test/il_respiro_della_luna_test.dart
+16 ottobre 2026
+
+LA PROVA, GIA' ESISTENTE E VERDE PRIMA DELLA MIA INTEGRAZIONE (scritta
+dall'agente della voce FX.04): "risponde al dito: tenuto giu' accende la
+Luna, lasciato la vela" (test/il_respiro_della_luna_test.dart). Non e' una
+guardia su un insieme: e' una prova vera che naviga la schermata e verifica
+che il tocco sostenuto sulla Luna la accenda (l'opacita' sale sopra il
+valore di riposo). Nessun innesto a mano necessario: la mia stessa
+integrazione (il pannello "sotto la Luna" della voce FX.03) e' stata vista
+rossa su questa prova prima di essere corretta.
+
+PRIMO ROSSO, falsa pista. Ho sospettato una sovrapposizione fra la striscia
+nuova (flottante a meta' schermo) e la Luna, e ho unito i due pannelli in
+un'unica colonna ancorata al fondo: ancora rosso, stessa riga,
+"Expected: a value greater than <0.32>, Actual: <0.32>".
+
+DIAGNOSI VERA, trovata con `tester.tap` (che su un mancato centro stampa
+l'intero percorso del hit test): il punto (195.0, 407.4), il centro vero
+della Luna, non colpiva piu' la Luna ma il testo "A 404 mila km dalla
+Terra." della striscia nuova. La colonna ancorata al fondo (striscia piu'
+pannello del gesto) era cosi' alta, con sei righe di testo (posizione,
+distanza, sizigia, tre righe di Medora), da risalire oltre il bordo basso
+della Luna (che sta fra 277 e 537 punti su uno schermo da 844): non una
+sovrapposizione fra due pannelli flottanti, ma un pannello solo, piu' alto
+dello spazio vero che gli resta sotto la Luna.
+
+CORRETTO: la striscia condensata da sei righe a tre (posizione e fase
+accorpate col conto alla rovescia; distanza e prossima sizigia nella stessa
+riga; le tre righe di Medora unite in una con un punto), con `maxLines` e
+`TextOverflow.ellipsis` su ciascuna perche' un giorno lunare col testo piu'
+lungo non possa rifare la stessa salita.
+
+VERIFICATO IL GIRO INTERO: rimossa la striscia per isolare il difetto
+(verde), rimesso un Text segnaposto di una riga sola (verde), rimessa la
+striscia vera condensata (verde). Il ciclo rosso/verde e' completo:
+`flutter test test/il_respiro_della_luna_test.dart`, tutte le prove verdi,
+nessun debug temporaneo rimasto nel codice consegnato.
+
+PADRE DEL DIFETTO: questa stessa voce (FX.03), la mia integrazione del
+pannello "sotto la Luna", non un'altra voce dell'ordine.

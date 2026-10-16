@@ -1,0 +1,31 @@
+Chiedo 60 risposte, 20 domande per tre Maestri...
+Faccio giudicare 60 risposte...
+
+MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+           medora     aura   caligo     totale   giusti
+medora         20        0        0       20   100.0%
+aura            0       20        0       20   100.0%
+caligo          1        4       15       20    75.0%
+
+Attribuzione corretta: 55 su 60, cioe' 91.7 per cento.
+Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Verdetti illeggibili: 0.
+
+LE FRASI SU CUI IL GIUDICE SI E' PERSO
+--- caligo: 5 risposte attribuite ad altri
+  [creduto medora] domanda: non so se restare
+     prima frase: Non restare.
+  [creduto aura] domanda: cosa mi manca
+     prima frase: Ti manca il sigillo di un'intenzione chiara.
+  [creduto aura] domanda: vorrei ricominciare ma non so da dove
+     prima frase: Non guardare indietro.
+  [creduto aura] domanda: mi manca il coraggio
+     prima frase: Il coraggio si trova nell'azione.
+  [creduto aura] domanda: come faccio a fidarmi di nuovo
+     prima frase: Riconquista la soglia che ti è stata tolta.
+
+RITMO DELLE VOCI, sulle risposte di questo giro
+medora   frasi contate 92, frase mediana 16.0 parole, domande 0, parole che ammorbidiscono 1
+aura     frasi contate 97, frase mediana 20.0 parole, domande 0, parole che ammorbidiscono 14
+caligo   frasi contate 122, frase mediana 11.0 parole, domande 0, parole che ammorbidiscono 2
+DA CORREGGERE: caligo scambiato per aura nel 20 per cento dei casi.

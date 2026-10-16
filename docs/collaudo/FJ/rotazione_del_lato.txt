@@ -1,0 +1,15 @@
+LA ROTAZIONE DEL LATO SUI TESTI VERI, ordine FJ voce 5, 11 ottobre 2026
+Comando: flutter test -r expanded --plain-name "FJ.5" test/la_rotazione_delle_varianti_test.dart (catena dell'app: LeUsciteDelleCarte.conta, poi PosizioneLetta.of, cioe' la lettura di casa; nessuna fonte di prova).
+La stesa riaperta nello stesso giorno che non conta: test 'FI.18: la schermata conta le uscite una volta sola', app dall'avvio vero, conto uguale dopo il rientro e la riapertura del responso.
+
+ROTAZIONE DEL LATO, La Torre dritta:
+  uscita 1: Il colpo dall'alto non discute: abbatte in un istante ciò che stava su basi finte. Dopo, in piedi ti resta soltanto il materiale sano.
+  uscita 2: Cade adesso la costruzione che reggeva su un'apparenza. Il frastuono è grande; fra le macerie trovi intatto soltanto ciò che ti appartiene.
+  uscita 3: Una scossa improvvisa smonta l'impalcatura e lascia nudo il nucleo. Non intacca il solido ma elimina il finto, mostrandoti su cosa poggia la tua domanda.
+  uscita 4: Il colpo dall'alto non discute: abbatte in un istante ciò che stava su basi finte. Dopo, in piedi ti resta soltanto il materiale sano.
+ROTAZIONE DEL LATO, La Torre capovolta:
+  uscita 1: Rimandi una caduta che si annuncia, oppure la stai attraversando con le ossa ancora dolenti. In ogni caso il falso regge in apparenza e ti costa fatica tenerlo su.
+  uscita 2: La scossa resta sospesa. Qualcosa nel tuo quadro vacilla da sotto e tiene ancora, puntellato da sforzi che fai senza nominarli.
+  uscita 3: Trattenere il crollo assorbe energia. Tu lo senti nel fiato corto, nella stanchezza di reggere una cosa che da sé starebbe già a terra.
+  uscita 4: Rimandi una caduta che si annuncia, oppure la stai attraversando con le ossa ancora dolenti. In ogni caso il falso regge in apparenza e ti costa fatica tenerlo su.
+00:00 +1: All tests passed!

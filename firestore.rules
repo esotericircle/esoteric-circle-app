@@ -1,0 +1,46 @@
+rules_version = '2';
+
+// LE REGOLE DEL CERCHIO, riscritte dall'ordine N dell'11 agosto 2026.
+//
+// **Cosa e' cambiato e perche'.** Fino a oggi qui c'era scritto
+// `allow write: if proprietario(uid)`, cioe' il telefono poteva scrivere da
+// solo qualunque cosa sotto il proprio ramo: contatori del giorno e, il
+// giorno che fosse nato, saldo Eos. Un limite che il client puo' riscrivere
+// non e' un limite, e un saldo che il client puo' riscrivere non e' un saldo.
+// Adesso il client LEGGE il proprio ramo e non ne scrive nemmeno un campo:
+// scrive solo il server, dalle callable in `functions/src/cerchio.ts`, che
+// passano dall'Admin SDK e non sono soggette a queste regole.
+//
+// **Il tetto di dimensione non serve piu' qui** e non e' stato dimenticato:
+// serviva a difendere una scrittura del client che adesso non esiste. Il
+// tetto vive dentro `scriviLaMemoria`, che e' l'unica porta rimasta.
+//
+// **Perche' la lettura resta diretta.** E' la lettura che deve essere veloce
+// e funzionare offline con la cache di Firestore; e il rischio di una lettura
+// e' che qualcuno veda i dati di un altro, che queste regole impediscono
+// legando tutto all'uid del token.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function proprietario(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read: if proprietario(uid);
+      allow write: if false;
+
+      // Tutto cio' che sta sotto: memoria per Maestro, messaggi, stato del
+      // giorno, borsellino, movimenti, consumi. Stessa regola, nessuna
+      // eccezione: le eccezioni sono il modo in cui un ramo chiuso si riapre.
+      match /{documento=**} {
+        allow read: if proprietario(uid);
+        allow write: if false;
+      }
+    }
+
+    // Fuori da users non c'e' niente che il client debba toccare.
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}

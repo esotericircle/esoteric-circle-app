@@ -1,0 +1,18 @@
+Pagine tentate il 2026-10-06 e NON lette (nessun numero ricavato da qui):
+https://browser.geekbench.com/android-benchmarks  -> curl: pagina Cloudflare "Just a moment..." (sfida anti-bot); WebFetch: HTTP 403
+https://browser.geekbench.com/android_devices/samsung-galaxy-a16-exynos -> WebFetch HTTP 403
+https://browser.geekbench.com/v6/cpu/8351333 (Samsung A35 5G) -> WebFetch HTTP 403
+https://nanoreview.net/en/soc/samsung-exynos-1330 -> HTTP 403
+https://nanoreview.net/en/soc/samsung-exynos-1380 -> HTTP 403
+https://nanoreview.net/en/soc/mediatek-dimensity-7300 -> HTTP 403
+https://nanoreview.net/en/phone/xiaomi-redmi-note-14-pro-5g -> HTTP 403
+https://nanoreview.net/en/phone/samsung-galaxy-a16-5g -> HTTP 403
+https://nanoreview.net/en/phone/samsung-galaxy-a35-5g -> HTTP 403
+https://www.notebookcheck.net/MediaTek-Dimensity-7300-Ultra-Processor-Benchmarks-and-Specs.920578.0.html -> HTTP 403
+https://www.cpu-monkey.com/en/benchmark-samsung_exynos_1330-geekbench_6_single_core -> HTTP 403
+https://www.phonearena.com/reviews/samsung-galaxy-a16-5g-vs-galaxy-a15-5g_id6729 -> HTTP 403
+https://www.phonearena.com/reviews/xiaomi-redmi-note-14-pro-5g-review_id7008 -> HTTP 403
+https://www.91mobiles.com/processor/mediatek-dimensity-7300-ultra-pdp -> HTTP 403
+La sfida Cloudflare di Geekbench Browser non e' stata aggirata (verifica anti-bot).
+I numeri 965 (A16), 1003 (A35) e 1021-1031 (Redmi) del commit 0ddac0c2 compaiono solo nei riassunti del motore di ricerca
+(965 attribuito a PhoneArena, 1021 senza fonte precisa), non in una pagina letta.

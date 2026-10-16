@@ -1,0 +1,22 @@
+ORDINE FS AGGIUNTA, FS.A2 SUL REALME 767f596c. 14 ottobre 2026, dalle 02:31.
+
+Che cosa gira: tool/la_stesa_col_vortice_per_la_prova.dart, la sola schermata della Stesa appena aperta (seme 2, Il momento che vivo, tre carte), costruita in release con la firma vera (flutter build apk --release -t tool/la_stesa_col_vortice_per_la_prova.dart) e installata sopra l'app di collaudo con adb install -r. Non e' una build da consegnare.
+
+1. IL VIDEO PARTE E SI FERMA SULL'ULTIMO FOTOGRAMMA.
+Registrazione con scrcpy, 15,46 s, 703 fotogrammi: a2_realme_registrazione.mp4 (ridotta a 540 di larghezza); un fotogramma al secondo in a2_realme_un_fotogramma_al_secondo.jpg.
+Si vede, in ordine: Medora col mazzo chiuso, il vortice delle carte, la polvere d'oro, Medora nell'invito; poi la scena resta ferma fino alla fine della registrazione.
+Cambio medio fra fotogrammi consecutivi nella zona della scena (righe 150-1300, scala 0-255): gli ultimi dieci fotogrammi 0,00-0,01 (fermo). Salti sopra 6 solo fra 0,23 e 0,33 s e fra 1,09 e 1,33 s, che sono l'apertura dell'app dalla schermata delle app e la dissolvenza dal bianco (guardati uno per uno: nessun salto fra la posa ferma del mazzo e il video), e fra 5,4 e 7,6 s, che e' la polvere d'oro del video stesso.
+
+2. L'AUDIO DEL VIDEO SUONA.
+dumpsys media.audio_flinger a 4 s dall'apertura, suoneria NORMAL (dumpsys audio: mode NORMAL): la traccia della sessione dell'app (pid 29416, sessione 45985) e' attiva, 48000 Hz, due canali, uso media, tipo di contenuto 3 (film, quello che ExoPlayer da' ai video), volume sinistro e destro 0 dB:
+           2859    yes  29416   45985    3908 A  0x000 00000001 00000003  48000  3   1  3   -10     0     0     0  00011580  15376   15376 A         0        0  468.24 t
+La modalita' silenziosa NON e' stata provata sul telefono: cambiare la suoneria del telefono di collaudo e' un'impostazione di sistema, e non la tocco io. La strada Dart e' provata dalla guardia (col telefono in silenzioso il filmato e' muto); il canale Android (MainActivity, AudioManager.getRingerMode) aspetta la prova del fondatore: telefono in silenzioso o in vibrazione, aprire la Stesa, il video deve essere muto.
+
+3. USCITA DALL'APP E RITORNO A VIDEO FINITO.
+Cattura prima del tasto Home e dopo il ritorno (4 s fuori): a2_realme_uscita_e_ritorno.jpg. Scarto medio nella scena 0,063 su 255; luce media 39,36 prima e 39,34 dopo: l'ultimo fotogramma resta, nessun nero.
+
+4. I FOTOGRAMMI MENTRE IL VIDEO GIRA (dumpsys SurfaceFlinger --timestats, 11 s dall'apertura, tre giri).
+giro 1: livello dell'app (SurfaceView BLAST): totalFrames = 629 droppedFrames = 0 jankyFrames = 0 ; totali di SurfaceFlinger: totalFrames = 669 missedFrames = 627 
+giro 2: livello dell'app (SurfaceView BLAST): totalFrames = 634 droppedFrames = 0 jankyFrames = 0 ; totali di SurfaceFlinger: totalFrames = 672 missedFrames = 4 
+giro 3: livello dell'app (SurfaceView BLAST): totalFrames = 640 droppedFrames = 0 jankyFrames = 1 ; totali di SurfaceFlinger: totalFrames = 679 missedFrames = 663 
+Il livello dell'app non perde fotogrammi (0 persi, 0-1 a scatti su 629-640). Il conto globale dei fotogrammi mancati di SurfaceFlinger balla fra 4 e 663 a parita' di prova, e non si puo' leggere senza una misura di confronto senza video, che non ho: lo riporto com'e'.

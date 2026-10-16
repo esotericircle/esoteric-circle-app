@@ -1,0 +1,253 @@
+# Fonti dei tooltip delle sette tradizioni
+
+Ogni affermazione dei testi in `tooltip_tradizioni.md` è numerata. Accanto sta la fonte precisa con una parafrasi breve di ciò che la sostiene. Le pagine web sono state lette il 29 settembre 2026. Le voci della Britannica sono state scaricate e lette per intero, non attraverso i riassunti automatici del sito.
+
+Legenda della solidità:
+- **forte**: fonte accademica o enciclopedica letta direttamente, che dice la cosa in modo esplicito;
+- **media**: fonte secondaria affidabile (Wikipedia con rimando a letteratura accademica) oppure deduzione aritmetica da un dato forte;
+- **debole**: fonte divulgativa o di praticanti, oppure fonte primaria non letta alla pagina.
+
+---
+
+## 1. Occidentale
+
+**O1.** L'astrologia occidentale divide l'eclittica in dodici segni di 30 gradi.
+Fonte: D. E. Pingree, R. A. Gilbert, «Astrology», sezione «Astrology in the Hellenistic period (3rd century BCE to 3rd century CE)», *Encyclopaedia Britannica*, https://www.britannica.com/topic/astrology/Astrology-in-the-Hellenistic-period-3rd-century-bce-to-3rd-century-ce
+Parafrasi: gli astrologi ellenistici pensarono l'eclittica, il cerchio apparente del Sole, divisa in 12 parti uguali di 30 gradi ciascuna, seguendo i Babilonesi. **Forte.**
+
+**O2.** L'eclittica è il cammino apparente del Sole.
+Fonte: stessa voce di O1. Parafrasi: l'eclittica è definita come l'orbita apparente del Sole. **Forte.**
+
+**O3.** Lo zodiaco tropicale fa cominciare l'Ariete all'equinozio di primavera.
+Fonte: Tolomeo, *Tetrabiblos*, I.10, trad. F. E. Robbins, Loeb Classical Library, 1940, testo in pubblico dominio su LacusCurtius: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ptolemy/Tetrabiblos/1A*.html
+Parafrasi: il cerchio non ha un inizio naturale, perciò si assume come punto di partenza il segno che comincia con l'equinozio di primavera, l'Ariete. **Forte.**
+
+**O4.** I Babilonesi divisero lo zodiaco in dodici segni uguali verso il 500 a.C.
+Fonte: Redazione Britannica, «Zodiac», *Encyclopaedia Britannica*, https://www.britannica.com/topic/zodiac
+Parafrasi: i Babilonesi divisero lo zodiaco in 12 segni, ognuno di un dodicesimo del cerchio, cioè 30 gradi, attorno al 500 a.C. **Forte.**
+
+**O5.** Nell'Egitto ellenistico nacque l'oroscopo di nascita.
+Fonte: D. E. Pingree, R. A. Gilbert, «Astrology», voce principale, https://www.britannica.com/topic/astrology
+Parafrasi: nell'età ellenistica, in Babilonia e in Egitto, gli astrologi cominciarono a tracciare oroscopi basati sullo zodiaco e sulle posizioni celesti al momento della nascita. La sezione ellenistica aggiunge che la genetliaca, l'arte del tema natale, si sviluppò nell'Egitto ellenistico. **Forte.**
+
+**O6.** Tolomeo scrisse il *Tetrabiblos* nel II secolo d.C.
+Fonte: F. E. Robbins, introduzione a Tolomeo, *Tetrabiblos*, Loeb Classical Library, 1940, LacusCurtius: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ptolemy/Tetrabiblos/Introduction*.html
+Parafrasi: le osservazioni registrate nell'Almagesto vanno dal 127 al 151; la vita di Tolomeo cade all'incirca fra il 100 e il 178, cioè nei primi tre quarti del II secolo. Conferma: «Tetrabiblos», Wikipedia, https://en.wikipedia.org/wiki/Tetrabiblos (scritto ad Alessandria nel II secolo d.C.). **Forte.**
+Nota: la scheda Britannica «Tetrabiblos» è un riassunto generato automaticamente dal sito, perciò non è usata come fonte.
+
+**O7.** Nel *Tetrabiblos* Tolomeo fa partire i segni dagli equinozi e dai solstizi.
+Fonte: Tolomeo, *Tetrabiblos*, I.22 «Of Places and Degrees», trad. Robbins 1940, LacusCurtius: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ptolemy/Tetrabiblos/1B*.html
+Parafrasi: è ragionevole contare l'inizio dei segni dagli equinozi e dai solstizi, perché nature e poteri dei segni derivano da quei punti. **Forte.**
+
+**O8.** Il segno è quello in cui si trovava il Sole alla nascita.
+Fonte: Redazione Britannica, «Zodiac», https://www.britannica.com/topic/zodiac
+Parafrasi: è diffusa la convinzione che la personalità dipenda dal segno in cui si trovava il Sole alla nascita. **Forte** (descrive la pratica; il calcolo dell'app è una scelta di prodotto coerente con essa).
+
+---
+
+## 2. Cinese
+
+**C1.** Lo zodiaco cinese assegna ogni anno a uno di dodici animali, in un ciclo di dodici anni.
+Fonte: F. Comstock, «Chinese zodiac», *Encyclopaedia Britannica*, https://www.britannica.com/topic/Chinese-zodiac
+Parafrasi: sistema di classificazione annuale che assegna un animale a ogni anno in un ciclo di 12; finito il ciclo, l'ordine ricomincia. **Forte.**
+
+**C2.** L'ordine è Topo, Bue, Tigre, Coniglio, Drago, Serpente, Cavallo, Capra, Scimmia, Gallo, Cane, Maiale.
+Fonte: stessa voce di C1. Parafrasi: l'elenco in inglese è rat, ox, tiger, rabbit, dragon, snake, horse, sheep, monkey, rooster, dog, pig. **Forte.**
+Nota: l'ottavo animale è «sheep» nella Britannica. In italiano l'uso comune è Capra; la parola cinese copre capra e pecora. Se l'app scrive Pecora va bene lo stesso.
+
+**C3.** Il ciclo nasce dai dodici rami terrestri, con cui si contavano anni e ore; gli animali vennero legati più tardi.
+Fonte: stessa voce di C1. Parafrasi: i 12 rami terrestri sono un sistema cinese per ordinare anni e ore in gruppi di 12, a cui gli animali furono aggiunti in seguito. **Forte.**
+
+**C4.** Sotto la dinastia Han il sistema era già consolidato.
+Fonte: stessa voce di C1. Parafrasi: le fonti ne pongono l'origine fra gli Stati Combattenti, i Qin o gli Han; in ogni caso era ben stabilito nella seconda metà della dinastia Han (206 a.C. fino al 220 d.C.). **Forte.**
+
+**C5.** Si conta l'anno di nascita secondo il calendario lunisolare cinese.
+Fonte: Chao Lin, «Chinese calendar», *Encyclopaedia Britannica*, https://www.britannica.com/science/Chinese-calendar
+Parafrasi: il calendario cinese è lunisolare, con mesi di 29 o 30 giorni e mesi intercalari; ai suoi anni si legano i nomi dei dodici animali. **Forte.**
+
+**C6.** L'anno comincia col Capodanno lunare, fra il 21 gennaio e il 20 febbraio.
+Fonti: F. Comstock, «Chinese zodiac», Britannica: l'animale cambia a ogni Capodanno cinese, che cade fra il 21 gennaio e il 20 febbraio del calendario gregoriano. Royal Museums Greenwich, «Lunar new year dates and animals of the zodiac», https://www.rmg.co.uk/stories/time/lunar-new-year-dates-animals-zodiac : la festa comincia il primo giorno del primo mese lunare; il primo giorno del mese è la luna nuova. **Forte.**
+
+**C7.** Chi nasce prima del Capodanno ha l'animale dell'anno precedente.
+Fonte: conseguenza diretta di C6. **Media** (deduzione, ma immediata).
+Nota per l'app: alcuni astrologi cinesi fanno cominciare l'anno dell'animale dal Lichun, l'inizio della primavera, verso il 4 febbraio. L'ho trovato solo in fonti divulgative (China Highlights), quindi non è nel tooltip. Il testo è vero solo se l'app usa davvero il Capodanno lunare.
+
+---
+
+## 3. Vedica
+
+**V1.** La Jyotisha è l'astrologia tradizionale dell'India.
+Fonte: D. E. Pingree, R. A. Gilbert, «Astrology», sezione «Astrology after the Hellenistic period», *Encyclopaedia Britannica*, https://www.britannica.com/topic/astrology/Astrology-after-the-Hellenistic-period
+Parafrasi: la voce chiama jyotisha l'astrologia indiana e ne descrive le tecniche. **Forte.**
+
+**V2.** Usa lo zodiaco siderale, ancorato alle stelle fisse e non all'equinozio.
+Fonte: «Hindu astrology», Wikipedia, https://en.wikipedia.org/wiki/Hindu_astrology
+Parafrasi: la pratica si basa soprattutto sullo zodiaco siderale; rispetto al tropicale si applica una correzione, l'ayanamsa, per la precessione dell'equinozio; le stelle fanno da sfondo fisso. **Media.** Conferma indiretta forte: D. Koch, A. Treindl, *Swiss Ephemeris*, documentazione, § 2.7, https://www.astro.com/swisseph/swisseph.htm (gli astrologi indù usano per lo più l'ayanamsa di Lahiri, cioè uno zodiaco siderale).
+
+**V3.** I segni si chiamano rashi.
+Fonte: Pingree, Gilbert, sezione citata in V1. Parafrasi: i 12 rashi sono i segni zodiacali tradotti in sanscrito dal sistema mesopotamico usato in Occidente. **Forte.**
+
+**V4.** Nel II e III secolo d.C. l'astrologia greca arrivò in India con traduzioni in sanscrito.
+Fonte: Pingree, Gilbert, sezione citata in V1. Parafrasi: l'astrologia greca fu trasmessa all'India nel II e III secolo d.C. con varie traduzioni in sanscrito; la più nota è quella di Yavaneshvara, messa in versi da Sphujidhvaja nello *Yavanajataka*. **Forte.**
+
+**V5.** I dodici segni si unirono ai nakshatra, le dimore lunari già presenti nei testi vedici.
+Fonte: Pingree, Gilbert, sezione citata in V1. Parafrasi: gli astrologi indiani aggiunsero come elementi importanti i nakshatra, o dimore lunari, già presenti nel materiale astrologico vedico. Conferma: O. Gingerich, «Astronomical map», Britannica: un elenco completo dei nakshatra si trova già nell'Atharvaveda. **Forte.**
+
+**V6.** Nel 1955 il Comitato indiano per la riforma del calendario scelse l'ayanamsa di Lahiri, ancorato alla stella Spica.
+Fonte: D. Koch, A. Treindl, *Swiss Ephemeris*, documentazione, § 2.7 «The Spica/Citra tradition and the Lahiri ayanamsha», Astrodienst, https://www.astro.com/swisseph/swisseph.htm
+Parafrasi: l'ayanamsa di Lahiri fu introdotto dall'Indian Calendar Reform Committee in occasione della riforma del 1955, quando l'ayanamsa basato sulla stella Spica, in sanscrito Citra, fu dichiarato standard indiano; prende il nome da N. C. Lahiri (1906-1980), membro del comitato. **Forte.**
+Fonte primaria non letta: *Report of the Calendar Reform Committee*, Government of India, CSIR, 1955 (presidente M. Saha).
+
+**V7.** Il segno si ottiene togliendo l'ayanamsa alla posizione della Luna.
+Fonte: «Hindu astrology», Wikipedia (V2) e Swiss Ephemeris § 2.7: la longitudine siderale è la tropicale meno l'ayanamsa. **Forte.**
+
+**V8.** L'ayanamsa oggi vale circa 24 gradi.
+Fonte: Swiss Ephemeris § 2.7: valore di riferimento 23°15'00" al 21 marzo 1956. Con la precessione di circa 50,3 secondi d'arco l'anno, in 70 anni si aggiunge circa 1 grado: 24°14' nel 2026. Conferma: «Ayanāṃśa», Wikipedia, https://en.wikipedia.org/wiki/Ayan%C4%81%E1%B9%83%C5%9Ba (circa 24,2 gradi nel 2026). **Forte** (valore di partenza) più **media** (aritmetica).
+
+**V9.** Il segno che l'app mostra è il Chandra rashi, il segno lunare.
+Fonte: è una scelta dell'app, dichiarata nell'ordine. Chandra è il nome sanscrito della Luna: «Hindu astrology», Wikipedia, elenco dei navagraha. **Forte** per il nome; il fatto riguarda l'app.
+
+**V10.** La Luna cambia segno ogni due giorni e un quarto circa.
+Fonte: NASA, *Moon Fact Sheet*, https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html : periodo di rivoluzione 27,3217 giorni. Diviso per 12 segni fa 2,28 giorni per segno. **Forte** (dato) più aritmetica.
+
+---
+
+## 4. Maya
+
+**M1.** Lo Tzolk'in è il calendario rituale maya di 260 giorni.
+Fonte: Redazione Britannica, «Maya calendar», *Encyclopaedia Britannica*, https://www.britannica.com/topic/Maya-calendar
+Parafrasi: il calendario si basava su un ciclo rituale di 260 giorni con nome, chiamato variamente Tzolkin, calendario divinatorio o rituale. **Forte.**
+
+**M2.** Unisce 13 numeri a 20 nomi di giorno.
+Fonte: stessa voce di M1. Parafrasi: dentro lo Tzolkin ci sono due cicli più piccoli, giorni numerati da 1 a 13 e una serie ordinata di 20 nomi. **Forte.**
+
+**M3.** «4 Ajaw» è un esempio di data dello Tzolk'in.
+Fonte: «Mesoamerican Long Count calendar», Wikipedia, https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar : la data d'inizio dell'era è 4 Ajaw 8 Kumk'u; con la correlazione GMT il 21 dicembre 2012 è 4 Ajaw. Verificato anche con un calcolo mio (vedi M11). **Forte.**
+
+**M4.** Ogni giorno aveva un suo carattere, usato nella divinazione.
+Fonte: stessa voce di M1. Parafrasi: si pensava che ogni giorno con nome avesse caratteristiche legate al destino, ma gran parte dei dettagli è perduta; i calendari della Mesoamerica si allineavano per l'uso divinatorio. **Forte.**
+
+**M5.** La più antica data maya finora nota, «7 Cervo», è dipinta a San Bartolo in Guatemala, verso il 300 a.C.
+Fonti: D. Stuart, H. Hurst, B. Beltrán, W. Saturno, «An early Maya calendar record from San Bartolo, Guatemala», *Science Advances* 8(15), 2022, eabl9290, https://www.science.org/doi/10.1126/sciadv.abl9290 ; comunicato dell'Università del Texas, https://news.utexas.edu/2022/12/07/oldest-evidence-of-maya-calendar-discovered-in-guatemala/
+Parafrasi: due frammenti di pittura murale ricomposti danno la notazione «7 Cervo», databile al 300 a.C. circa, la più antica testimonianza del calendario maya finora nota. **Forte.** L'articolo è stato letto attraverso il comunicato e l'abstract riportato dai motori di ricerca; il PDF non è stato aperto.
+
+**M6.** Alcune comunità maya del Guatemala usano ancora questo calendario.
+Fonte: comunicato dell'Università del Texas (M5), parole di David Stuart: una parte del calendario è ancora in uso fra comunità indigene maya del Guatemala. Conferma: «Tzolkʼin», Wikipedia, https://en.wikipedia.org/wiki/Tzolk%CA%BCin , che rimanda allo studio di Barbara Tedlock su Momostenango (B. Tedlock, *Time and the Highland Maya*, 1982, non letto). **Forte.**
+
+**M7.** La correlazione GMT (584283) è la più accettata dagli studiosi.
+Fonte: D. J. Kennett et al., «Correlating the Ancient Maya and Modern European Calendars with High-Precision AMS 14C Dating», *Scientific Reports* 3, 1597, 2013, https://pmc.ncbi.nlm.nih.gov/articles/PMC3623374/
+Parafrasi: la correlazione più accettata è quella proposta da Goodman nel 1905, detta Goodman-Martínez-Thompson; nell'esempio dell'architrave 3 del Tempio I di Tikal si aggiunge al Lungo Computo un coefficiente di 584283 giorni; le nuove datazioni al radiocarbonio sostengono fortemente la GMT. **Forte.**
+Nota: esiste una variante a 584285 e una proposta a 584286 (S. Martin, J. Skidmore, *PARI Journal* 13, 2012). Il tooltip non ne parla.
+
+**M8.** La data di nascita diventa un giorno dello Tzolk'in con la GMT.
+Fonte: metodo standard: numero del giorno giuliano meno 584283 dà i giorni dall'inizio dell'era, che cade in 4 Ajaw. Riferimenti: Kennett 2013 (M7) e Wikipedia (M3). **Forte.**
+
+**M9.** Il Dreamspell è stato creato da José Argüelles nel 1987.
+Fonte: «Dreamspell», Wikipedia, https://en.wikipedia.org/wiki/Dreamspell : il calendario Dreamspell fu avviato nel 1987 e pubblicato come gioco da tavolo nel 1990, da José e Lloydine Argüelles. **Media.**
+
+**M10.** Il Dreamspell è un'opera moderna.
+Fonte: «Tzolkʼin», Wikipedia, sezione «The tzolkʼin and the New Age movement»: il Dreamspell è un'invenzione moderna; lo stesso Argüelles lo riconosce come creazione nuova e sincretica. **Media** (il passo non ha nota a piè di pagina).
+
+**M11.** Il Dreamspell ha un suo conteggio, che non coincide con quello maya.
+Fonti: M. Heley, «The Launching of Timeship Earth and the End of the Dreamspell», *Reality Sandwich*, 2013, https://realitysandwich.com/launching_timeship_earth/ : il 26 luglio 2013 è «Yellow Galactic Seed» nel Dreamspell, cioè Kin 164, tono 8, sigillo Seme, corrispondente al nome K'an. Calcolo mio con la GMT: il 26 luglio 2013 è 13 Kab'an nello Tzolk'in. Le due date sono diverse. «Dreamspell», Wikipedia: il Dreamspell salta il 29 febbraio (giorno «0.0 Hunab Ku»), quindi si allontana dal conteggio continuo. **Media**: il fatto è verificabile col calcolo, ma le fonti sul Dreamspell sono divulgative.
+Calcolo (Python, giorno giuliano con `date.toordinal() + 1721425`): 21/12/2012 dà 4 Ajaw, controllo corretto; 26/07/2013 dà 13 Kab'an; 29/09/2026 dà 3 Ok, coerente con il riquadro di Wikipedia che il 28/09/2026 mostra 2 Muluk.
+
+---
+
+## 5. Celtica
+
+**K1.** Il calendario degli alberi divide l'anno in tredici mesi di 28 giorni.
+Fonte: M. Jones, «Celtic Tree Calendar», *Jones' Celtic Encyclopedia*, https://www.maryjones.us/jce/celtictreecalendar.html
+Parafrasi: il calendario degli alberi ha tredici mesi con nomi di alberi, basati sull'alfabeto ogamico; Graves tiene mesi di 28 giorni fissi. Riporta le date: Beth (betulla) dal 24 dicembre al 20 gennaio, fino a Ruis (sambuco) dal 25 novembre al 22 dicembre; il 23 dicembre non ha albero. **Media** (fonte divulgativa ma fedele a Graves; la fonte primaria è *The White Goddess*, cap. X, non letta alla pagina).
+
+**K2.** Ogni mese porta il nome di un albero legato a una lettera dell'alfabeto ogamico irlandese: Betulla, Sorbo, Quercia.
+Fonte: M. Jones (K1): Beth betulla, Luis sorbo, Duir quercia. «Ogham», Wikipedia, https://en.wikipedia.org/wiki/Ogham : Graves studiò le tradizioni sugli alberi legate ai nomi delle lettere ogamiche e propose che il loro ordine formasse un antico calendario stagionale. **Media.**
+
+**K3.** Non è un calendario dei Celti antichi.
+Fonti: P. Berresford Ellis, «The Fabrication of "Celtic" Astrology», *The Astrological Journal* 39(4), 1997, http://cura.free.fr/xv/13ellis2.html : lo «zodiaco degli alberi» è il risultato diretto dell'invenzione di un calendario degli alberi da parte di Graves. «The White Goddess», Wikipedia, https://en.wikipedia.org/wiki/The_White_Goddess : il calendario degli alberi di Graves non ha relazione con alcun calendario celtico storico (nota che rimanda proprio a Ellis 1997). M. Jones (K1): nessuna prova che i Celti abbiano mai dato ai mesi nomi di alberi. **Forte** nel senso che tutti gli specialisti letti concordano; Ellis è un celtista divulgatore, non un accademico di ruolo.
+Fonte accademica citata da Wikipedia ma non letta: R. Hutton, *The Triumph of the Moon*, Oxford University Press, 1999, pp. 188-189.
+
+**K4.** Lo ha costruito Robert Graves nel libro *The White Goddess*, del 1948.
+Fonte: «Robert Graves», *Encyclopaedia Britannica*, https://www.britannica.com/topic/Robert-Graves : lo studio mitologico *The White Goddess* è del 1948. Ellis (K3) attribuisce il calendario a Graves. **Forte.**
+Nota: Ellis scrive per errore 1946. La prima edizione Faber and Faber è del 1948.
+
+**K5.** Il calendario celtico meglio documentato è quello di Coligny, inciso in Gallia nel II secolo d.C.
+Fonte: «Coligny calendar», Wikipedia, https://en.wikipedia.org/wiki/Coligny_calendar : tavola di bronzo con un calendario, fatta nella Gallia romana nel II secolo d.C., trovata nel 1897 a Coligny presso Lione, scritta in lingua gallica. **Media.**
+Letteratura accademica non letta: G. Olmsted, *The Gaulish Calendar*, 1992.
+
+**K6.** È lunisolare.
+Fonte: «Coligny calendar», Wikipedia: ciclo di cinque anni di un calendario lunisolare con 12 mesi lunari e un mese intercalare. M. Jones (K1): dodici mesi più un intercalare, per accordare Sole e Luna. **Media.**
+
+**K7.** I suoi mesi non portano nomi di alberi.
+Fonte: M. Jones (K1): i nomi dei mesi di Coligny non derivano da alberi; si traducono con espressioni come «fine dell'estate» o «mese del cavallo». **Media.**
+
+**K8.** La Betulla va dal 24 dicembre al 20 gennaio.
+Fonte: M. Jones (K1), date del calendario di Graves. **Media.**
+Nota per l'app: in Italia circola molto un altro «oroscopo celtico» a 21 o 22 alberi con date diverse, creato nel 1971 dalla giornalista Paula Delsol per *Marie Claire* (fonte: «Keltisches Baumhoroskop», Wikipedia tedesca, letta solo nel riassunto del motore di ricerca: **debole**). Il tooltip vale solo se l'app usa i tredici mesi di Graves. Il 23 dicembre, senza albero in Graves, va gestito.
+
+---
+
+## 6. Egizia
+
+**E1.** I decani sono 36 gruppi di stelle dell'antico Egitto.
+Fonte: O. Gingerich, «Astronomical map», sezione «The constellations and other sky divisions», *Encyclopaedia Britannica*, https://www.britannica.com/science/astronomical-map/The-constellations-and-other-sky-divisions
+Parafrasi: i decani sono 36 configurazioni di stelle che girano attorno al cielo un po' a sud dell'eclittica. **Forte.**
+
+**E2.** Il loro sorgere scandiva le ore della notte.
+Fonti: Gingerich (E1): i decani sembrano la base della divisione del giorno in 24 ore. «Decan», Wikipedia, https://en.wikipedia.org/wiki/Decan : il sorgere di ogni decano segnava l'inizio di una nuova «ora» della notte, uso attestato almeno dalla IX o X dinastia (rimanda a Neugebauer). **Forte** per l'uso orario; **media** per il dettaglio del sorgere.
+
+**E3.** Ogni dieci giorni circa un nuovo decano tornava visibile prima dell'alba.
+Fonte: «Decan», Wikipedia: ogni dieci giorni un nuovo gruppo di stelle ricompare a est all'alba, poco prima del Sole, dopo essere stato nascosto dalla sua luce; da qui il nome greco. **Media.**
+Letteratura accademica citata ma non letta alla pagina: O. Neugebauer, R. A. Parker, *Egyptian Astronomical Texts*, vol. 1, Brown University Press, 1960; O. Neugebauer, *The Exact Sciences in Antiquity*, 2ª ed., 1957.
+
+**E4.** Compaiono dipinti dentro i coperchi dei sarcofagi, circa quattromila anni fa.
+Fonti: Gingerich (E1): compaiono in disegni e testi dentro i coperchi delle bare della X dinastia, verso il 2100 a.C. *Ancient Egyptian Astronomy Database*, McMaster University, pagina «Diagonal Star Tables», https://aea.physics.mcmaster.ca/index.php/en/database/diagonal-star-tables : tutte le tavole stellari diagonali tranne una stanno dentro bare rettangolari dell'inizio del Medio Regno, verso il 2000 a.C.; la classificazione segue S. Symons (2007, 2014). **Forte.**
+
+**E5.** Più tardi ornano le volte delle tombe reali di Tebe.
+Fonte: Gingerich (E1): sono raffigurati sui soffitti delle tombe di Seti I e di alcuni Ramesse a Tebe. **Forte.**
+
+**E6.** Gli astrologi ellenistici assegnarono a ogni decano 10 gradi dello zodiaco: tre per segno.
+Fonte: Pingree, Gilbert, «Astrology», sezione ellenistica (O1): gli astrologi ellenistici suddivisero ogni segno in varie parti, fra cui i decani di 10 gradi ciascuno, ognuno dominato da un pianeta. **Forte.** Tre per segno è aritmetica: 30 diviso 10.
+
+**E7.** Il tuo decano è il tratto di 10 gradi in cui cade il Sole alla nascita. È la regola ellenistica, non l'orologio stellare dei faraoni.
+Fonte: la scelta del Sole è dell'app, dichiarata nell'ordine. Che la regola dei 10 gradi sia ellenistica e diversa dall'uso orario egizio discende da E2 ed E6. **Forte.**
+Nota per l'app: i decani ellenistici stanno dentro i segni. Se l'app usa lo zodiaco tropicale, come Tolomeo, il decano del Sole è un terzo del segno occidentale. Il tooltip non dice quale zodiaco: va bene in entrambi i casi.
+
+---
+
+## 7. Araba
+
+**A1.** Le manazil al-qamar sono 28 dimore lunari: stelle e gruppi di stelle lungo lo zodiaco.
+Fonte: P. Kunitzsch, «Lunar Mansions in Islam», in H. Selin (a cura di), *Encyclopaedia of the History of Science, Technology, and Medicine in Non-Western Cultures*, Springer, 2016, pp. 2577-2578, https://link.springer.com/rwe/10.1007/978-94-007-7747-7_9024
+Parafrasi: il sistema delle 28 dimore lunari (manāzil al-qamar) è fatto di stelle, gruppi di stelle o punti del cielo, più o meno lungo l'eclittica, vicino ai quali si vedeva la Luna nel suo giro mensile. **Forte.**
+
+**A2.** La Luna fa il giro del cielo in poco più di 27 giorni.
+Fonte: NASA, *Moon Fact Sheet* (V10): periodo di rivoluzione 27,3217 giorni. **Forte.**
+
+**A3.** Attraversa così circa una dimora al giorno.
+Fonti: D. Varisco, presentazione del seminario «The Lunar Zodiac in Arab Tradition», Freie Universität Berlin, https://www.geschkult.fu-berlin.de/en/termine/Lecture-cum-Seminar-_The-Lunar-Zodiac-in-Arab-Tradition_-_Dan-Varisco_.html : 28 asterismi vicino all'eclittica in cui la Luna sosta ogni notte del mese siderale. O. Gingerich, «Astronomical map», Britannica (E1): le dimore lunari sono 28 divisioni del cielo scelte come «stazioni della Luna» in notti successive. **Forte.**
+
+**A4.** Gli antichi Arabi seguivano stelle chiamate anwa' per orientarsi nel deserto e prevedere le piogge.
+Fonte: Kunitzsch (A1): gli antichi Arabi, prima di conoscere l'astronomia di origine greca, avevano una loro astronomia popolare e usavano stelle e asterismi, gli anwā', per orientarsi nei viaggi notturni nel deserto, fissare le stagioni e prevedere il tempo, soprattutto la pioggia. **Forte.**
+Nota: Kunitzsch dice «prima di conoscere l'astronomia di origine greca». Per questo il tooltip scrive «gli antichi Arabi» e non «prima dell'Islam», che sarebbe una data diversa da quella della fonte.
+
+**A5.** In un'epoca incerta ricevettero dall'India il sistema delle 28 dimore.
+Fonte: Kunitzsch (A1): in un tempo sconosciuto, per vie sconosciute, ricevettero dall'India il sistema delle 28 dimore lunari. **Forte.**
+
+**A6.** Ogni dimora prese il nome di una loro stella.
+Fonte: Kunitzsch (A1): ogni dimora fu identificata con una delle loro stelle o asterismi anwā'. **Forte.**
+
+**A7.** Il cerchio si divide in 28 dimore uguali di circa 13 gradi, dall'inizio dell'Ariete, come nel Picatrix medievale.
+Fonti: *Picatrix*, libro I, cap. 4, trad. inglese dal latino di R. Thomas, pubblicata da C. Warnock, https://www.renaissanceastrology.com/mansionslistpicatrix.html : la prima dimora comincia dall'inizio dell'Ariete e arriva a 12°51'26"; la seconda va da 12°51'26" a 21°42'12"... **Debole-media**: il testo è una traduzione autentica del Picatrix, ma è pubblicato da un praticante. Aritmetica: 360 diviso 28 fa 12,86 gradi. Edizione accademica non letta: D. Attrell, D. Porreca, *Picatrix: A Medieval Treatise on Astral Magic*, Penn State University Press, 2019.
+Nota per l'app: il Picatrix fa partire le dimore dal punto dell'equinozio, cioè in zodiaco tropicale. Il testo è vero solo se l'app fa lo stesso. Se l'app usa l'inizio siderale, bisogna togliere «dall'inizio dell'Ariete, come nel Picatrix medievale».
+
+**A8.** Serve l'ora di nascita: in un giorno la Luna cambia dimora.
+Fonte: aritmetica da A2 e A7: 360 gradi in 27,32 giorni fanno 13,2 gradi al giorno, più di una dimora di 12,86 gradi. **Forte.**
+
+---
+
+## Note trasversali
+
+- **Nessuna promessa di letture.** I sette testi descrivono solo il segno e il calcolo. Non annunciano oroscopi, per nessuna tradizione: l'etichetta «In arrivo» resta compito dell'interfaccia.
+- **Omonimi da evitare.** In Italia «oroscopo arabo» indica spesso il sistema delle armi di Paula Delsol (anni Settanta), non le manazil. Anche questo è verificato solo in modo **debole** (elenco dei libri di Delsol, «Horoscopes arabes», da cataloghi di biblioteche e librerie). Il tooltip non lo cita.
+- **Lettura delle fonti.** Le pagine Britannica danno 403 al lettore automatico ma si scaricano col browser; sono state lette nel testo integrale, scartando i riassunti generati dal sito.

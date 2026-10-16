@@ -1,0 +1,32 @@
+# EQ.04, la taratura dei giudici su casi noti (27 settembre 2026)
+
+Giudici a temperatura zero, maggioranza su tre, Gemini 2.5 Flash in europe-west1. Il giudice della risposta riceve solo le prime due frasi; quello della carta riceve anche il significato generale della carta. Nella prima stesura, senza queste due cose, il giudice approvava il testo di casa (identico per ogni posizione e domanda) due volte su tre: fermato dopo due letture.
+
+TARATURA diretta: atteso true, giudice true: Le carte non indicano un ritorno a breve: il Cinque di Coppe nel presente dice che il legame è ancora una ferita aperta. Un riavvicinamento resta possibile solo se prima chiudi ciò che è rimasto in sospeso fra voi.
+TARATURA diretta: atteso true, giudice true: Sì, le carte spingono ad accettare, a patto che tu chieda prima condizioni chiare. Il Tre di Denari nel futuro indica un lavoro in cui il tuo mestiere viene riconosciuto.
+TARATURA diretta: atteso true, giudice true: Stai attraversando una chiusura che ti chiede di lasciar andare un vecchio modo di fare. La Morte nel presente dice che il cambiamento è già cominciato, anche se non l'hai ancora scelto tu.
+TARATURA diretta: atteso false, giudice false: Le carte parlano con la voce del tempo: ciò che è stato illumina ciò che sarà. Ascolta il loro sussurro e lascia che il cuore trovi la sua strada.
+TARATURA diretta: atteso false, giudice false: Hai chiesto se accettare l'offerta di lavoro a Milano. Il Tre di Denari è una carta di lavoro e di costruzione, legata alla collaborazione.
+TARATURA diretta: atteso false, giudice false: Ogni momento porta con sé un insegnamento. Le carte ti invitano ad ascoltare ciò che senti.
+TARATURA carta Cinque di Coppe: atteso true, giudice true: Il Cinque di Coppe nel presente dice che oggi guardi soprattutto a ciò che hai perso con lui: finché resti su quel rimpianto non vedi che cosa resta ancora fra voi, né se vale la pena ricostruirlo.
+TARATURA carta Cinque di Coppe: atteso false, giudice false: Una perdita, un rimpianto, lo sguardo fisso su ciò che è andato. Ma due coppe restano ancora in piedi dietro di te: voltati e vedile. Il dolore è reale e non è tutto ciò che ti resta.
+TARATURA carta Cinque di Coppe: atteso false, giudice false: Il Cinque di Coppe parla di una perdita e di un rimpianto, ma ricorda che qualcosa resta ancora in piedi.
+TARATURA carta Tre di Denari: atteso true, giudice true: Il Tre di Denari nel futuro indica che a Milano il tuo lavoro verrebbe visto e apprezzato da chi lavora con te: l'offerta può diventare il posto dove il tuo mestiere cresce, se ci arrivi con richieste chiare.
+TARATURA carta Tre di Denari: atteso false, giudice false: Collaborazione, competenza, primi risultati concreti: costruisci insieme agli altri. Il tuo lavoro è visto e apprezzato e questo è solo l'inizio. Da soli si va veloci, insieme si va lontano.
+TARATURA casa, diretta false: Il momento che vivo, lettura generale | La Morte è la carta che regge la tua lettura. Nel momento che vivi, è questo il punto da cui guardare.
+TARATURA casa, carta Tre di Denari rovesciato Passato: false
+TARATURA casa, carta La Morte Presente: false
+TARATURA casa, carta Cavaliere di Denari rovesciato Futuro: false
+TARATURA casa, diretta false: Il mio ex tornerà da me? | Le tre carte rispondono a «Il mio ex tornerà da me? ».
+TARATURA casa, carta Sei di Denari Passato: false
+TARATURA casa, carta Asso di Spade Presente: false
+TARATURA casa, carta La Stella Futuro: false
+TARATURA casa, diretta false: Devo accettare l'offerta di lavoro che mi hanno fatto a Milano? | Hai chiesto: «Devo accettare l'offerta di lavoro che mi hanno fatto a Milano? » È una carta importante messa di traverso: quello che promette resta, ma passa da una porta più stretta.
+TARATURA casa, carta Il Sole Passato: false
+TARATURA casa, carta La Giustizia rovesciata Presente: false
+TARATURA casa, carta Nove di Denari rovesciato Futuro: false
+TARATURA casa, diretta false: Riuscirò a mettere da parte i soldi per comprare casa? | Le tre carte rispondono a «Riuscirò a mettere da parte i soldi per comprare casa? ».
+TARATURA casa, carta Sei di Bastoni rovesciato Passato: false
+TARATURA casa, carta Regina di Denari Presente: false
+TARATURA casa, carta Cavaliere di Spade rovesciato Futuro: false
+TARATURA casi sbagliati 0 su 11

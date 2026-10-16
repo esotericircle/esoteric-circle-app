@@ -1,0 +1,23 @@
+== Regola A, ET.02: nel LIVE il controller salva la risposta intera, come prima
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 740d071de248, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Le carte dicono di sì: ti pensa, anche se tace. Il Fante di Coppe parla di un sentimento timido. Stasera scrivigli due righe semplici.'
+   Actual: 'Le carte dicono di sì: ti pensa, anche se tace. Il Fante di Coppe parla di un sentimento timido. La Luna in Ariete spinge a muoversi. Il tuo cielo chiede pazienza. Non forzare i tempi. Stasera scrivigli due righ
+   Expected: ... o timido. Stasera sc ...
+   Actual: ... o timido. La Luna in ...
+   ripristinato: sha1 740d071de248, uguale
+== Regola A, ET.06: quattro frasi mai, come prima
+   file lib/features/maestri/live/le_tre_frasi_del_live.dart, sha1 prima 5122c062039b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: ['Uno uno.', 'Due due.', 'Tre tre.', 'Il gesto di stasera.']
+   Actual: ['Uno uno.', 'Due due.', 'Il gesto di stasera.']
+   ripristinato: sha1 5122c062039b, uguale
+== Regola A, ET.06: nessuna domanda ha piu' parti
+   file lib/features/maestri/live/le_tre_frasi_del_live.dart, sha1 prima 5122c062039b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 5122c062039b, uguale

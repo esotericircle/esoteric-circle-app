@@ -1,0 +1,2 @@
+REGOLA B, ordine EU voce 01, 1 ottobre 2026: le guardie della regola dei paragrafi viste rosse prima di toccarla.
+INNESTO B1 i blocchi senza la regola delle tre righe minime: grep del difetto nel file SI; prova test/il_responso_si_legge_ovunque_test.dart test/oroscopo_tipografia_test.dart ROSSA; file rimesso sha1 8bb2abfdc463 -> 8bb2abfdc463 IDENTICO

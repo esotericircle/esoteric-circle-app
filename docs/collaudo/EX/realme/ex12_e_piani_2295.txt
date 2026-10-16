@@ -1,0 +1,21 @@
+IL COLLAUDO SUL REALME DELLA BUILD 2295. 3 ottobre 2026, dalle 23:29 alle 23:46.
+
+Telefono: Realme 767f596c. Build: 2295 (versionCode 2295), installata con adb install -r dallo stesso archivio consegnato su App Tester (release 12d92pon7vjao, dal commit aafdd96b col cancello verde). Uso normale dell'app, nessuna scrittura a mano su dati del server: il profilo di collaudo, Gemelli, segno vedico Kumbha (Acquario), segno cinese il Cavallo; l'amico salvato sul telefono, Lucia (Capricorno). Catture con screencap, ridotte a 540x1200.
+
+EX.12, IL GESTO IN SETTIMANA, MESE E ANNO
+DOMANDA: "Nell'oroscopo il pulsante "interroga il cielo, la luna, l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale, mensile e annuale"
+Per ogni periodo, la cattura 1 e' prima del tocco (il pulsante, nessuna lettura), la 2 dopo il tocco e la riflessione (la lettura a video).
+- Occidentale, "Interroga il cielo": ex12_occidentale_settimana_1_prima.jpg e _2_dopo.jpg; ex12_occidentale_mese_1_prima.jpg e _2_dopo.jpg; ex12_occidentale_anno_1_prima.jpg e _2_dopo.jpg.
+- Vedica, "Interroga la Luna": ex12_vedica_settimana_1_prima.jpg e _2_dopo.jpg; ex12_vedica_mese_1_prima.jpg e _2_dopo.jpg; ex12_vedica_anno_1_prima.jpg e _2_dopo.jpg.
+- Cinese, "Apri l'almanacco": ex12_cinese_settimana_1_prima.jpg e _2_dopo.jpg; ex12_cinese_mese_1_prima.jpg e _2_dopo.jpg; ex12_cinese_anno_1_prima.jpg e _2_dopo.jpg.
+- L'amico (Lucia, solo il giorno), "Interroga il cielo": ex12_amico_1_prima.jpg (nessuna scheda) e ex12_amico_2_dopo.jpg (la prima scheda, "Muri sottili").
+MISURA: periodi col pulsante, prima 1 su 4 in ogni tradizione (le catture del fondatore in docs/collaudo/EX/catture_fondatore/: il Mese e la Settimana senza pulsante, il Giorno col pulsante), dopo 4 su 4 nell'Occidentale, nella Vedica e nella Cinese (il Giorno c'era gia'; Settimana, Mese e Anno guardati qui, 9 su 9); letture a video senza il tocco, dopo 0 su 9; l'oroscopo dell'amico, prima le schede subito, dopo 0 schede prima del tocco e le schede dopo.
+
+L'EX AGGIUNTA 6, LE CARD DEI PIANI (Il tuo account, Abbonamento, "I piani del Cerchio")
+- ag6_piani_01_viandante.jpg e ag6_piani_02_viandante_domande.jpg: "Tre domande al giorno a un Maestro, senza memoria".
+- ag6_piani_03_iniziato_12_domande.jpg: "12 domande al giorno ai Maestri".
+- ag6_piani_04_adepto_80_minuti_18_domande.jpg: "Voce AI dei tre Maestri nel LIVE, 80 minuti al mese", "18 domande al giorno ai Maestri".
+- ag6_piani_05_illuminato_22_domande_150_minuti.jpg: "22 domande ai Maestri al giorno", "Voce AI dei tre Maestri nel LIVE, 150 minuti al mese".
+- La tabella "Confronto completo": ag6_piani_06_tabella_viandante_3_domande_no_live.jpg ("Domande a un Maestro" 3 al giorno, "Minuti di LIVE" No), ag6_piani_07_tabella_adepto_18_domande_80_minuti.jpg (18 al giorno, 80 al mese), ag6_piani_08_tabella_illuminato_22_domande_150_minuti.jpg (22 al giorno, 150 al mese). La colonna dell'Iniziato (12 al giorno, No) si vede tagliata accanto a quella del Viandante.
+MISURA: numeri delle card e della tabella diversi dalla matrice, dopo 0.
+Il server dice ancora 60 e 120 minuti finche' il fondatore non ripubblica apriUnaSessioneLive (docs/collaudo/EX/minuti_e_descrizioni.txt, punto 3).

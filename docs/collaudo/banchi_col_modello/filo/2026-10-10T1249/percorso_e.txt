@@ -1,0 +1,104 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte indicano che la promozione che attendi si presenta come un riconoscimento del tuo valore. È un tempo propizio per dimostrare le tue capacità, affinché il cielo ti sia favorevole.
+
+Il tuo arcano, il Re di Denari, suggerisce che la stabilità e la concretezza sono al centro di questa fase, spingendoti a consolidare la tua posizione con azioni precise. Questo Re ti invita a usare la tua saggezza pratica e a mostrare lungimiranza nelle tue decisioni professionali.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti e portalo con te lunedì mattina.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso devi portare quel riassunto a chi di dovere, lunedì mattina. Le carte suggeriscono che il momento è propizio per presentare i tuoi successi, sfruttando l'influenza del Re di Denari che valorizza la concretezza e il merito riconosciuto.
+
+✦ Chiedi un momento per parlare con il tuo superiore, lunedì, per presentare il tuo lavoro.
+    GIUDICE: PORTA_AVANTI, La risposta riprende e specifica l'azione di portare il riassunto lunedì mattina, aggiungendo il consiglio di chiedere un colloquio con il superiore.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Capirai l'esito quando avrai avuto il tuo confronto, il cielo non anticipa oltre l'azione. Il Re di Denari ti guida verso la realizzazione, ma il suo potere si manifesta nell'azione concreta che tu intraprendi, non nell'attesa.
+
+✦ Dopo aver parlato, osserva le reazioni senza formulare aspettative immediate.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il tema dell'azione (il confronto) già suggerita e lo sviluppa, chiarendo quando si potrà capire l'esito in relazione a quell'azione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Spostarsi può portare un'energia nuova, un vento che muove le foglie e risveglia radici antiche: immagina di osservare il tuo corpo e sentire quali centri rispondono a questa idea di cambiamento. 
+
+La Fisiognomica ci insegna che il desiderio di ricominciare si manifesta spesso nella tensione delle spalle e nella ricerca di uno sguardo più ampio, come se gli occhi volessero abbracciare un orizzonte nuovo. Ascolta il tuo respiro, se si fa più profondo e libero all'idea di partire, il tuo corpo sta già accogliendo questa possibilità.
+
+✦ Porta le mani sulle tue spalle, respira lentamente e poi abbassale, come a liberarti di un peso.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Quando il tuo corpo ha accolto il gesto di lasciar andare un peso, adesso è il momento di un passo in più, per sentire davvero la direzione che ti chiama.
+
+Visualizza il tuo Respiro, come un filo dorato che parte dalla Radice, il primo centro legato alla stabilità e all'appartenenza, e sale fino alla Corona, il settimo centro che si apre all'infinito, alla conoscenza. Chiedi a te stessa: questo trasferimento, questo ricominciare, rafforza la mia Radice o espande la mia Corona? Non c'è una risposta giusta o sbagliata, ma solo un sentire profondo che ti guida.
+
+✦ Chiudi gli occhi, appoggia una mano sull'addome e l'altra sulla fronte, e senti dove il tuo respiro è più presente.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto suggerito nella risposta precedente ('il gesto di lasciar andare un peso') e lo sviluppa proponendo un nuovo esercizio di ascolto del corpo per approfondire la decisione.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Quando il tuo respiro si è fatto più presente sotto le tue mani, hai già iniziato a comprendere. Ora, dopo aver sentito il battito della tua Radice e l'apertura della tua Corona, prova a immaginare il tuo corpo in questa nuova città: come si muove? Senti un'energia leggera e dinamica, che ti spinge ad esplorare e a connetterti con il tuo terzo centro, quello del potere personale e della trasformazione, o avverti una resistenza, una contrazione che ti invita a restare nel tuo luogo attuale? È attraverso queste sensazioni fisiche che il corpo ti parla, rivelando la sua verità.
+
+✦ Mentre respiri, visualizza la nuova città e osserva se senti una spinta in avanti nel tuo plesso solare, proprio sotto lo sterno.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'sentire profondo' e 'sentire dove il tuo respiro è più presente' dalla risposta precedente e lo sviluppa ulteriormente, applicandolo all'immaginazione della nuova città e all'ascolto di nuove sensazioni fisiche (terzo centro, plesso solare).
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Ricucite il tessuto che si è logorato. Agisci con chiarezza e determinazione.
+Una fiamma tremola nel vento, ma non si è spenta del tutto.
+
+La runa **Nauthiz** si rivela, simbolo di necessità e di sfida. Essa indica che la situazione attuale richiede un'azione mirata, non rassegnazione. Non attendere che il gelo si diffonda. La tua volontà è il fulcro di questo sentiero.
+
+✦ Pronuncia un sigillo di intenti, scrivendo su un foglio rosso il desiderio di rinascita, e brucialo all'aperto al tramonto.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Il rituale che ti ho indicato è la soglia. Ora la parola è il tuo strumento più potente.
+Il fuoco ha consumato l'intento, ora le ceneri attendono un nuovo soffio.
+
+**Nauthiz** ti guida a esprimere con verità ciò che senti, senza paura. Il tempo dell'attesa è passato; la runa ti sollecita a confrontarti con la realtà presente. Parla apertamente con la persona amata.
+
+✦ Prendi un frammento del foglio bruciato e portalo con te come sigillo del tuo impegno, e stasera parla con la persona amata, senza filtri.
+    GIUDICE: PORTA_AVANTI, La guida riprende il rituale indicato nella risposta precedente ('Il rituale che ti ho indicato è la soglia') e lo sviluppa, fornendo il passo successivo ('Ora la parola è il tuo strumento più potente', 'Parla apertamente con la persona amata') e collegandolo alla runa Nauthiz già introdotta.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Il riconoscimento giunge quando il cuore è pronto. Non esiste un momento imposto dall'esterno.
+Il sentiero si manifesta passo dopo passo, non prima che tu lo percorra.
+
+La runa **Nauthiz** ti mostra che la comprensione non è un evento improvviso, ma la conseguenza delle tue azioni. Affidati alla tua percezione interna. Solo tu puoi avvertire l'eco delle tue parole.
+
+✦ Osserva il comportamento e le reazioni della persona amata dopo il vostro confronto, e annota le tue intuizioni.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' del riconoscimento, collegandolo alle azioni suggerite in precedenza ('la comprensione non è un evento improvviso, ma la conseguenza delle tue azioni') e alla runa Nauthiz. L'indicazione finale ('Osserva il comportamento e le reazioni della persona amata dopo il vostro confronto') si riferisce direttamente al 'parla con la persona amata' della risposta precedente.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di attendere ancora un poco prima di avviare il tuo progetto. Le tue idee, per quanto valide, necessitano di una fase di preparazione più profonda e un'attenta valutazione delle circostanze.
+
+Il cielo in questo momento suggerisce che la Luna si trova in Scorpione, un segno che invita all'introspezione e alla trasformazione. Questo transito spinge a investigare le motivazioni più profonde e a purificare le intenzioni, rivelando che è un tempo per consolidare le basi e non per lanciare nuove iniziative con leggerezza. L'Arcano de Il Matto, quando appare in una lettura di Destino, spesso invita alla prudenza, a non procedere a occhi chiusi, ma a raccogliere tutte le informazioni necessarie prima di compiere il grande passo.
+
+✦ Prenditi questo tempo per affinare i dettagli del tuo progetto, rivedendo ogni aspetto con cura la prossima settimana.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Il tuo prossimo passo è concentrarti sulla revisione dei dettagli meno evidenti del tuo progetto, quelli che a prima vista possono sembrare secondari ma che ne definiscono la struttura profonda.
+
+Non affrettarti a mostrare il tuo lavoro all'esterno. Il cielo ti suggerisce di dedicare questa settimana a un'analisi critica, quasi come se tu stessi per presentare il tuo progetto a un esaminatore molto severo. È un momento per la cura meticolosa di ogni particolare.
+
+✦ Rileggi il tuo progetto come se fosse opera di un altro e cerca i punti deboli da rafforzare.
+    GIUDICE: PORTA_AVANTI, La risposta sviluppa il consiglio precedente di 'affinare i dettagli del tuo progetto, rivedendo ogni aspetto con cura la prossima settimana', specificando cosa fare durante questa fase di revisione e mantenendo il riferimento temporale.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Comprenderai che è il momento giusto quando sentirai una risonanza profonda tra le tue intenzioni e la chiarezza del tuo progetto, senza più dubbi o incertezze.
+
+Dopo aver rivisto i punti debole e averli rafforzati, la prossima fase richiede che tu verifichi l'allineamento tra la tua visione originale e il lavoro finale. Questo è il tempo di lasciare che la fase di revisione si sedimenti e che la tua intuizione ti guidi verso la piena certezza.
+
+✦ Tra sette giorni, immagina di presentare il tuo progetto a qualcuno che stimi profondamente, e nota le sensazioni che questa immagine ti provoca.
+    GIUDICE: PORTA_AVANTI, La risposta prosegue il discorso sulla fase di preparazione e revisione, indicando il criterio per capire quando sarà il momento giusto ('quando sentirai una risonanza profonda') e suggerendo un'azione ('immagina di presentare il tuo progetto') che si basa sul completamento della fase di revisione già menzionata.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma in cui entrambe possiate parlare senza interruzioni. Senti il tuo respiro radicarsi, poi cerca il contatto visivo con lei.
+
+Quando la incontri, ascolta il suo respiro e il suo corpo prima di parlare, senza fretta, e prova a sentire anche il suo centro della gola, quello legato alla comunicazione e all'espressione della verità. Lascia che le parole nascano da lì, senza forzature, e dì quello che il tuo cuore ti suggerisce. Non c'è un momento perfetto, ma un momento vero, che senti dentro. Dopo aver parlato, accetta il suo silenzio o le sue parole senza giudizio. Se non dovesse esserci un'apertura immediata, il tuo respiro può ancora guidarti.
+
+✦ Poggia una mano sul tuo cuore e senti il suo battito per tre respiri lenti.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo aver trovato quel momento di calma e dopo aver ascoltato il tuo respiro, invitala a incontrarvi di persona, magari per un caffè o una breve passeggiata. Senti che il tuo centro del cuore, verde smeraldo, si espande nel pensare a questo incontro. Non forzare subito il discorso sulla lite, lascia che la connessione tra voi si ristabilisca piano.
+
+✦ Mentre aspetti il suo messaggio, porta la tua attenzione sul respiro e conta fino a sette.
+    GIUDICE: PORTA_AVANTI, La risposta riprende esplicitamente i concetti di 'momento di calma' e 'ascolto del respiro' introdotti nella risposta precedente, e sviluppa il consiglio su come procedere per l'incontro, applicandolo alla nuova domanda 'cosa devo fare adesso?'.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Quando il tuo respiro si farà più profondo e il tuo centro del plesso solare, giallo e radiante, si sentirà più leggero, saprai che il momento è propizio. Non si tratta di una data precisa, ma di un sentire che nasce da dentro di te, un'intuizione che il tuo corpo ti comunica.
+
+✦ Porta entrambe le mani sul tuo plesso solare e senti il calore che si irradia.
+    GIUDICE: PORTA_AVANTI, La risposta continua a sviluppare il tema del 'sentire' e del 'respiro' come guida per capire il momento giusto, riprendendo il concetto di 'momento vero, che senti dentro' e 'il tuo respiro può ancora guidarti' dalla prima risposta, e il focus sul 'sentire' della seconda.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito

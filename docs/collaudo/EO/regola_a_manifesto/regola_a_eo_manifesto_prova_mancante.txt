@@ -1,0 +1,6 @@
+innesto in docs/ordini/ORDINE_EO_MANIFESTO.md: il vecchio compare 0 volte, il nuovo 1 volte ('PROVA: docs/collaudo/EO/realme/eo10_eo13_dominio_medora.png' -> 'PROVA: docs/collaudo/EO/non_esiste.png')
+  00:00 +1 -1: ogni voce CHIUSA porta DOMANDA, PROVA e MISURA, e la prova esiste [E]
+    Expected: empty
+      Actual: ['EO.01: la prova "docs/collaudo/EO/non_esiste.png" non esiste']
+  00:00 +2 -1: Some tests failed.
+ripristino docs/ordini/ORDINE_EO_MANIFESTO.md: sha1 2d4227d0862c -> 2d4227d0862c, IDENTICO

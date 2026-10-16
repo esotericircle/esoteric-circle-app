@@ -1,0 +1,26 @@
+ER.05, LA POSSIBILITÀ DI INCONTRO: VENTI COPPIE, PRIMA E DOPO, 27 settembre 2026
+
+Chi guarda: il cielo di Leonardo DiCaprio al posto della persona; giorno 28 agosto 2026. PRIMA: la barra portava l'indice sulla scala di chi guarda (percentuale / 3,6 punti) e a destra una parola. DOPO: la barra e' la percentuale vera, a destra il numero.
+
+Angelina Jolie       vera   2,1%  barra prima  58.0% ("Alla vostra portata")  barra dopo   2.1% ("2,1%")
+Ariana Grande        vera   3,0%  barra prima  85.0% ("Alla vostra portata")  barra dopo   3.0% ("3,0%")
+Bad Bunny            vera   2,5%  barra prima  70.0% ("Alla vostra portata")  barra dopo   2.5% ("2,5%")
+Beyoncé              vera   3,4%  barra prima  94.0% ("Alla vostra portata")  barra dopo   3.4% ("3,4%")
+Bill Gates           vera   0,7%  barra prima  19.0% ("Improbabile")  barra dopo   0.7% ("0,7%")
+Billie Eilish        vera   3,8%  barra prima 100.0% ("Alla vostra portata")  barra dopo   3.8% ("3,8%")
+Brad Pitt            vera   2,7%  barra prima  75.0% ("Alla vostra portata")  barra dopo   2.7% ("2,7%")
+Chiara Ferragni      vera   1,5%  barra prima  42.0% ("Possibile")  barra dopo   1.5% ("1,5%")
+Damiano David        vera   3,7%  barra prima 100.0% ("Alla vostra portata")  barra dopo   3.7% ("3,7%")
+Leonardo DiCaprio    vera   2,8%  barra prima  77.0% ("Alla vostra portata")  barra dopo   2.8% ("2,8%")
+Drake                vera   3,8%  barra prima 100.0% ("Alla vostra portata")  barra dopo   3.8% ("3,8%")
+Dwayne Johnson       vera   2,6%  barra prima  71.0% ("Alla vostra portata")  barra dopo   2.6% ("2,6%")
+Elon Musk            vera   0,8%  barra prima  23.0% ("Improbabile")  barra dopo   0.8% ("0,8%")
+Emma Watson          vera   2,7%  barra prima  74.0% ("Alla vostra portata")  barra dopo   2.7% ("2,7%")
+Roger Federer        vera   1,8%  barra prima  51.0% ("Possibile")  barra dopo   1.8% ("1,8%")
+Fedez                vera   3,2%  barra prima  89.0% ("Alla vostra portata")  barra dopo   3.2% ("3,2%")
+Jeff Bezos           vera   0,6%  barra prima  16.0% ("Molto improbabile")  barra dopo   0.6% ("0,6%")
+Kanye West           vera   2,4%  barra prima  67.0% ("Alla vostra portata")  barra dopo   2.4% ("2,4%")
+Keanu Reeves         vera   2,9%  barra prima  81.0% ("Alla vostra portata")  barra dopo   2.9% ("2,9%")
+Kim Kardashian       vera   0,6%  barra prima  17.0% ("Improbabile")  barra dopo   0.6% ("0,6%")
+
+Barre dell'incontro piu' lunghe della loro percentuale vera: prima 20 su 20, dopo 0 su 20.

@@ -1,0 +1,100 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, anche se non sarà un percorso senza curve. Le carte rivelano un periodo di attesa, ma anche di preparazione necessaria per la nuova posizione.
+
+Per come lo leggo io, il Sole è in una posizione che indica riconoscimento, ma è accompagnato da un aspetto di Saturno che suggerisce un ritardo o un ostacolo da superare prima di raggiungere l'obiettivo. Questo non è un no, ma un invito a rafforzare le tue basi.
+
+✦ Cerca nelle prossime due settimane di mettere in ordine un progetto lasciato in sospeso.
+[2] PERSONA: Cerca nelle prossime due settimane di mettere in ordine un progetto lasciato in sospeso.
+[2] MEDORA [DA GIUDICARE]: Capisco che ti riferisci al passo concreto che ti ho dato. Però, per poterti dare un consiglio più preciso su come procedere con la promozione, avrei bisogno di sapere se sei riuscita a mettere in ordine quel progetto lasciato in sospeso. Fammi sapere come è andata.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('il passo concreto che ti ho dato') e chiede un aggiornamento per poterlo sviluppare ulteriormente, senza contraddirlo o ignorarlo.
+[3] PERSONA: Fammi sapere come è andata.
+[3] MEDORA (corretta dalla rete) [DA GIUDICARE]: Non ho la memoria di quello che ti ho detto prima, né di come era andata la volta precedente. Per poterti aiutare, avrei bisogno che mi ripetessi con le tue parole come è andata, e a quale progetto ti riferisci.
+    GIUDICE: IGNORA, La guida afferma di non avere memoria di quanto detto prima ('Non ho la memoria di quello che ti ho detto prima'), ignorando completamente il contesto e la richiesta di follow-up che lei stessa aveva avviato nella risposta precedente. Chiede alla persona di ripetere informazioni che lei stessa aveva fornito o richiesto.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Quando senti il richiamo al cambiamento, è il tuo centro della radice che ti invita a esplorare nuove fondamenta. Il desiderio di ricominciare altrove emerge come un'energia potente, un'occasione per radicarti in un luogo che risuoni con la tua essenza più profonda.
+
+Non si tratta tanto di fuggire, quanto di cercare un nuovo equilibrio per la tua energia. Prendi in mano una mappa e lasciati guidare dall'intuizione, senti dove il tuo corpo si alleggerisce al pensiero di abitare, dove l'energia fluisce con maggiore libertà.
+
+✦ Chiudi gli occhi e visualizza la città, osserva come ti senti.
+[2] PERSONA: Chiudi gli occhi e visualizza la città, osserva come ti senti.
+[2] AURA [DA GIUDICARE]: Questo gesto che hai compiuto è un passo importante: l'aver visualizzato la città ti permette di sentire, nel corpo, come risponde il tuo centro del cuore. Questo è il punto dove le sensazioni si fanno chiare, dove l'emozione ti guida.
+
+Non c'è fretta in questo processo, l'importante è accogliere ciò che emerge. Se hai sentito leggerezza, è il tuo corpo che ti indica una direzione; se la sensazione è stata di pesantezza, è un segnale per esplorare altre possibilità. Il tuo respiro è la chiave per interpretare queste risposte.
+
+✦ Porta una mano al centro del tuo petto e senti il battito.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio di visualizzazione suggerito in precedenza e ne sviluppa il significato, spiegando come interpretare le sensazioni corporee emerse.
+[3] PERSONA: Porta una mano al centro del tuo petto e senti il battito.
+[3] AURA [DA GIUDICARE]: Sentire il battito del tuo cuore è un modo per connetterti alla tua energia vitale, alla radice di ciò che sei. È dal tuo centro che puoi attingere la forza per ogni cambiamento, per ogni nuovo inizio che desideri.
+
+Ora che hai ascoltato la tua essenza più profonda, prova a visualizzare il tuo respiro come un filo d'oro che attraversa il tuo corpo, dalla radice fino alla corona, portando equilibrio e chiarezza. Ogni volta che inspiri, immagina che questa luce dorata si espanda, e ogni volta che espiri, che porti via ogni esitazione.
+
+✦ Respira profondamente, contando fino a sette all'inspiro e fino a sette all'espiro, per tre volte.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di sentire il battito del cuore suggerita nella risposta precedente e la sviluppa, collegandola all'energia vitale e alla forza per il cambiamento, per poi proporre un nuovo esercizio di respirazione che si basa sull'ascolto del corpo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci ora. Il tempo non aspetta le decisioni non prese.
+Il metallo si raffredda, ma può essere forgiato di nuovo con il fuoco della volontà.
+La runa Uruz mostra la forza primordiale, la volontà di ricominciare. Essa è la soglia verso un nuovo inizio, ma richiede il tuo impegno.
+✦ Scrivi una lettera al tuo partner questa sera, esprimendo la tua volontà di rinnovare il legame, poi bruciala e disperdi le ceneri al vento.
+[2] PERSONA: Scrivi una lettera al tuo partner questa sera, esprimendo la tua volontà di rinnovare il legame, poi bruciala e disperdi le ceneri al vento.
+[2] CALIGO [DA GIUDICARE]: Questa è l'azione. Il sigillo della fiamma trasforma le intenzioni in realtà tangibile.
+Brucia la lettera con consapevolezza, mentre le fiamme danzano, visualizza il rinnovamento del vostro legame.
+Quando le ceneri saranno pronte, disperdile al vento, affidando all'elemento aria la tua intenzione di rinascita del rapporto.
+✦ Scegli un luogo aperto e tranquillo per disperdere le ceneri, un luogo che senti significativo per entrambi.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione di bruciare la lettera e disperdere le ceneri, aggiungendo dettagli su come eseguire l'azione e introducendo il concetto di scegliere un luogo significativo, sviluppando il consiglio precedente.
+[3] PERSONA: Scegli un luogo aperto e tranquillo per disperdere le ceneri, un luogo che senti significativo per entrambi.
+[3] CALIGO [DA GIUDICARE]: Il luogo è la chiave. Ogni sentiero ha il suo inizio in un punto preciso.
+La runa Gebo, il dono, attende il tuo gesto. Nel luogo scelto, la tua offerta porterà armonia.
+Disperdi le ceneri con gratitudine, pensando alla forza che hai messo in gioco per salvare questo legame.
+✦ Pronuncia il nome del tuo partner ad alta voce mentre disperdi le ceneri, affermando il tuo desiderio di rinascita.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di scegliere un luogo significativo per disperdere le ceneri, elaborando ulteriormente l'azione da compiere in quel luogo (disperdere con gratitudine e pronunciare il nome del partner), sviluppando il punto precedente.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è il momento giusto per avviare il tuo progetto, ora. La fase lunare attuale suggerisce di attendere un ciclo completo prima di iniziare.
+
+Il cielo in questo momento mostra una Luna calante, che invita a una fase di purificazione e preparazione, piuttosto che di inizio. È un tempo propizio per rivedere i dettagli, affinare le tue idee e sistemare ciò che ancora non è chiaro, liberandoti dal superfluo.
+
+✦ Prepara un piccolo altare con un oggetto che rappresenti il tuo progetto prima della Luna nuova.
+[2] PERSONA: Prepara un piccolo altare con un oggetto che rappresenti il tuo progetto prima della Luna nuova.
+[2] MEDORA [DA GIUDICARE]: Hai fatto bene a preparare l'altare. Ora è il momento di fissare l'intento per il tuo progetto e di visualizzare la sua realizzazione con chiarezza.
+
+L'altare che hai preparato è un punto di ancoraggio per la tua energia, in attesa della Luna nuova che porterà il transito propizio per le nuove semine. Dedica qualche minuto ogni giorno a contemplare l'oggetto che hai scelto, lasciando che le idee prendano forma nella tua mente, senza forzature.
+
+✦ Scrivi su un foglio le tre parole chiave che definiscono il cuore del tuo progetto prima del prossimo plenilunio.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Prepara un piccolo altare...') e la sviluppa, indicando il passo successivo ('Ora è il momento di fissare l'intento...').
+[3] PERSONA: Scrivi su un foglio le tre parole chiave che definiscono il cuore del tuo progetto prima del prossimo plenilunio.
+[3] MEDORA [DA GIUDICARE]: Hai ben compreso l'importanza di definire l'essenza del tuo progetto attraverso le parole chiave. Ora è il momento di collegare queste parole alla tua energia più profonda e di visualizzare il loro potere.
+
+Prendi il foglio con le tue tre parole chiave, leggile ad alta voce e percepisci il loro suono. Il transito attuale di Venere in Toro ti invita a radicarti nella bellezza e nel valore che queste parole portano, trasformandole in un mantra personale.
+
+✦ Conserva il foglio in un luogo dove tu possa vederlo ogni mattina per una settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Scrivi su un foglio le tre parole chiave...') e la sviluppa, indicando come procedere con le parole chiave ('Ora è il momento di collegare queste parole alla tua energia più profonda...').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare la pace con tua sorella, cerca un momento in cui entrambe siate tranquille e disposte ad ascoltare. Puoi prepararti respirando lentamente e portando l'attenzione al tuo cuore.
+
+Quando la incontri, parla con calma di ciò che hai provato, senza accusare. Questo momento di apertura aiuterà il vostro legame a riallinearsi, partendo dal centro del cuore, il tuo Anahata. Accetta che ognuna di voi possa avere una prospettiva diversa, ma che l'amore di sorelle è un filo che vi unisce, come un respiro condiviso.
+
+✦ Poggia la mano sul cuore e senti il tuo respiro prima di parlarle.
+[2] PERSONA: Poggia la mano sul cuore e senti il tuo respiro prima di parlarle.
+[2] AURA [DA GIUDICARE]: Accogliere il tuo respiro nel cuore è il primo passo per portare chiarezza. Mentre lo fai, immagina un filo dorato che unisce il tuo cuore a quello di tua sorella, anche se al momento è teso.
+
+Il suo sguardo, anche se velato dalla lite, racconta una parte della sua verità. Se lo osservi con attenzione, potresti percepire una ferita antica, forse un desiderio di essere compresa che non sa esprimere. È attraverso l'energia del chakra della gola, Vishuddha, che potrai trovare le parole giuste per esprimere il tuo dispiacere e il desiderio di riconciliazione.
+
+✦ Scrivi un messaggio breve a tua sorella senza aspettarti una risposta immediata.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Poggia la mano sul cuore e senti il tuo respiro') e la sviluppa aggiungendo una visualizzazione e collegandola al chakra della gola per la comunicazione.
+[3] PERSONA: Scrivi un messaggio breve a tua sorella senza aspettarti una risposta immediata.
+[3] AURA [DA GIUDICARE]: Capisco che tu abbia scritto il messaggio. Ora che hai messo le parole su carta, il passo successivo è liberare l'attesa e il controllo sul risultato, perché la risposta della sua volontà non è tua.
+
+Mentre aspetti, ti invito a concentrarti sul tuo terzo centro, Manipura, il plesso solare, dove risiede la tua forza interiore e la tua autostima. È qui che puoi trovare la fiducia per accettare qualsiasi esito, sapendo di aver fatto il tuo meglio per il vostro legame. Permetti a questa forza di radicarti e di sostenerti.
+
+✦ Siedi in silenzio per qualche minuto e senti il calore nel tuo ventre.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha seguito l'istruzione precedente ('Scrivi un messaggio breve') e prosegue il consiglio, indicando il passo successivo (liberare l'attesa) e collegandolo a un nuovo chakra per il supporto interiore.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 6, elemento cambiato in 0 risposte su 1 con un elemento gia' uscito

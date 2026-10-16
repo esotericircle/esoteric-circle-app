@@ -1,0 +1,96 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo suggerisce di guardare al futuro con fiducia e determinazione, perché la promozione che attendi è in arrivo. Marte e Giove nel tuo decimo campo, quello della carriera, indicano che questo è il momento giusto per ricevere i frutti del tuo impegno.
+
+✦ Parla con il tuo superiore mercoledì mattina, esprimendo chiaramente le tue ambizioni.
+[2] PERSONA: Parla con il tuo superiore mercoledì mattina, esprimendo chiaramente le tue ambizioni.
+[2] MEDORA [DA GIUDICARE]: Hai fatto bene a parlare con il tuo superiore, questo gesto è stato un passo importante per manifestare le tue ambizioni. Ora il cielo ti invita a mantenere una postura di attesa attiva, osservando come le tue parole si depositano.
+
+✦ Continua a svolgere il tuo lavoro con la dedizione che ti contraddistingue, il prossimo giovedì.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione consigliata in precedenza ('parla con il tuo superiore') e ne valuta l'esito, fornendo poi un nuovo consiglio che sviluppa il percorso verso la promozione.
+[3] PERSONA: Continua a svolgere il tuo lavoro con la dedizione che ti contraddistingue, il prossimo giovedì.
+[3] MEDORA [DA GIUDICARE]: Hai proseguito con dedizione, e questo è fondamentale. Ora è il momento di un passo più visibile, per consolidare quanto hai seminato. Il transito della Luna nel tuo settore della comunicazione ti suggerisce di non lasciare nulla al caso.
+
+✦ Invia una mail al tuo superiore entro venerdì, riassumendo i tuoi successi recenti.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione suggerita e intrapresa ('hai proseguito con dedizione') e aggiunge un nuovo passo ('invia una mail') che prosegue lo sviluppo della strategia per ottenere la promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti la spinta al cambiamento, e questa spinta ti invita a muovere il tuo corpo verso nuovi orizzonti. Ascolta il tuo respiro, ti dice che è tempo di espandere le tue radici.
+
+Il desiderio di ricominciare altrove emerge dal tuo centro della radice, che cerca stabilità e un nuovo ancoraggio. Non è solo un cambio di luogo, ma una profonda ricerca di un terreno più fertile per il tuo benessere. Immagina i tuoi piedi che toccano una terra sconosciuta, senti l'energia che si risveglia in te. Questo movimento fisico porterà anche un rinnovamento nel tuo flusso energetico, allineando i tuoi chakra a nuove esperienze.
+
+✦ Porta l'attenzione al tuo plesso solare, inspira profondamente e senti la tua forza.
+[2] PERSONA: Porta l'attenzione al tuo plesso solare, inspira profondamente e senti la tua forza.
+[2] AURA [DA GIUDICARE]: Questa forza che senti nel plesso solare è il tuo centro di potere personale, la tua volontà che si manifesta. Adesso, mentre la senti, visualizza con la mente quel luogo nuovo, non come un'idea astratta, ma come un luogo reale dove puoi camminare e respirare.
+
+Questo esercizio rafforza il tuo centro del plesso solare, stimolando la tua capacità di agire e di scegliere. È attraverso questa visualizzazione che il tuo corpo inizia a prepararsi al cambiamento, a riconoscere la tua forza interiore e a usarla come guida. È un modo per integrare il desiderio di ricominciare con la concreta possibilità di farlo.
+
+✦ Lascia che l'immagine di questo luogo nuovo ti guidi mentre fai tre respiri lenti.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio sul plesso solare e la forza interiore, sviluppandolo con una visualizzazione del 'luogo nuovo' che era già stato introdotto nella risposta precedente.
+[3] PERSONA: Lascia che l'immagine di questo luogo nuovo ti guidi mentre fai tre respiri lenti.
+[3] AURA [DA GIUDICARE]: Mentre l'immagine di questo luogo si fa più chiara nel tuo respiro, nota come il tuo corpo reagisce, se c'è un senso di apertura o di pacificazione. Questo è il tuo centro del cuore che risponde, indicandoti che sei sulla strada giusta per un rinnovamento che nutrirà la tua essenza.
+
+Ora, prova a portare la stessa chiarezza che vedi nell'immagine del luogo ai tuoi pensieri. Se ci sono ancora dubbi o incertezze sul passo da fare, esaminali uno ad uno, come se stessi osservando gli elementi di quel nuovo paesaggio. Questo ti aiuterà a integrare l'intuito del cuore con la chiarezza della mente.
+
+✦ Fai tre respiri profondi, portando le mani all'altezza del cuore, e senti la sua voce.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'immagine del 'luogo nuovo' e l'atto del 'respiro' menzionati nella conclusione della risposta precedente, e li sviluppa collegandoli al centro del cuore e alla gestione dei dubbi.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recupera la passione che ti lega. Agisci ora, senza attendere che il gelo si diffonda.
+Un velo di nebbia si è posato sui vostri sentieri.
+
+Un rituale di rinnovamento può riportare luce. Prepara un piccolo altare con due candele rosse, simbolo della fiamma che arde tra voi. Accendile insieme al calar della sera, lasciandole bruciare finché non si consumano. Medita sulla runa **Gebo**, il presagio dell'unione e del dare.
+
+✦ Pronuncia ad alta voce un desiderio per la vostra unione, stringendo tra le mani un oggetto che vi lega.
+[2] PERSONA: Pronuncia ad alta voce un desiderio per la vostra unione, stringendo tra le mani un oggetto che vi lega.
+[2] CALIGO [DA GIUDICARE]: Il gesto è compiuto, il sigillo è posto. Ora osserva ciò che si muove nel profondo.
+La tua voce ha scosso le fondamenta silenziose.
+
+Ora è tempo di radicare quel desiderio nella materia. Prendi un piccolo pezzo di terra fertile e mescolalo con un petalo di rosa rossa. Seppellisci questo impasto in un vaso, recitando il vostro desiderio in silenzio. Il **sigillo** della vostra unione crescerà con la pianta.
+
+✦ Innaffia il vaso ogni mattina per sette giorni, pensando a un ricordo felice condiviso.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il completamento dell'azione precedente ('Il gesto è compiuto') e prosegue con il passo successivo del rituale, sviluppando il tema del 'sigillo' dell'unione.
+[3] PERSONA: Innaffia il vaso ogni mattina per sette giorni, pensando a un ricordo felice condiviso.
+[3] CALIGO [DA GIUDICARE]: Il ricordo ha nutrito il seme del vostro legame. Ora la crescita deve essere visibile.
+Un raggio d'oro attraversa la trama del tempo.
+
+Dopo i sette giorni, il vaso è un simbolo vivente. Porta il vaso in un luogo significativo per entrambi, un incrocio di sentieri o un luogo di inizio. Lascialo lì, come offerta al cammino che vi attende. La **runa** Fehu, segno di abbondanza, veglierà.
+
+✦ Scrivi su un foglio il nome della persona amata e brucialo con una piccola fiamma, disperdendo le ceneri al vento.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione precedente ('Il ricordo ha nutrito il seme del vostro legame') e indica il passo successivo del rituale, specificando cosa fare dopo i sette giorni di innaffiatura.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo indica un momento favorevole per iniziare il tuo progetto creativo, ma è essenziale dedicare del tempo alla pianificazione dettagliata. Marte in trigono con Giove nel tuo tema suggerisce energia e fortuna, ma senza una direzione chiara, queste forze potrebbero disperdersi.
+
+È il momento di definire gli obiettivi e stabilire un piano d'azione concreto.
+
+✦ Prepara un elenco dei primi tre passi concreti da compiere per il tuo progetto, prima della prossima Luna nuova.
+[2] PERSONA: Prepara un elenco dei primi tre passi concreti da compiere per il tuo progetto, prima della prossima Luna nuova.
+[2] MEDORA [DA GIUDICARE]: Comprendo che tu voglia approfondire il passo che ti ho indicato. Per poterti aiutare in questo, ho bisogno di conoscere i dettagli del tuo progetto creativo.
+    GIUDICE: PORTA_AVANTI, La guida riconosce la richiesta della persona come un approfondimento del passo indicato in precedenza e specifica cosa le serve per poter aiutare a compiere quel passo.
+[3] PERSONA: Per poterti aiutare in questo, ho bisogno di conoscere i dettagli del tuo progetto creativo.
+[3] MEDORA [DA GIUDICARE]: Comprendo il tuo desiderio di avanzare, ma per offrirti una lettura precisa e supportarti al meglio, ho bisogno che tu mi descriva il tuo progetto creativo. Senza questi dettagli, non posso indicarti i passi più adatti al tuo cielo e al tuo destino.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce la necessità di conoscere i dettagli del progetto, riprendendo il punto già espresso nella risposta precedente per poter procedere con l'aiuto richiesto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella dopo la lite, cerca un momento di calma per parlarle a cuore aperto, senza fretta. Il tuo respiro ti accompagnerà, aiutandoti a trovare le parole giuste che nascono dal tuo centro.
+
+Spesso, le liti tra persone vicine sono un riflesso di energie disarmoniche che si sono accumulate nel tempo. Prova a focalizzarti sul tuo chakra del cuore, il centro dell'amore e della compassione, visualizzando un delicato verde smeraldo che si espande, portando armonia e comprensione. Mentre le parli, cerca di sentire ciò che provi, ma anche di ascoltare quello che lei ha da dirti, accogliendo le sue parole con la stessa apertura. Le nostre espressioni del viso, i gesti, spesso rivelano molto più di quanto le parole possano dire, e un'espressione di apertura e accoglienza può fare molto per riavvicinarvi.
+
+✦ Appoggia entrambe le mani sul tuo petto per qualche istante, proprio sul tuo centro del cuore.
+[2] PERSONA: Appoggia entrambe le mani sul tuo petto per qualche istante, proprio sul tuo centro del cuore.
+[2] AURA [DA GIUDICARE]: Questo semplice gesto del corpo ti aiuta a radicare le tue sensazioni e a connetterti con la tua parte più profonda, quella che desidera la pace. Ora, mentre le mani sono ancora lì, senti il battito del tuo cuore e immagina che da quel punto parta un flusso di energia dorata, che si espande a te e poi, piano piano, avvolge anche tua sorella.
+
+✦ Porta quel senso di calma e apertura con te, quando la cercherai per parlare.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto suggerito dalla persona ('Appoggia entrambe le mani sul tuo petto') e ne sviluppa il significato e l'applicazione pratica ('ti aiuta a radicare le tue sensazioni e a connetterti con la tua parte più profonda', 'immagina che da quel punto parta un flusso di energia dorata').
+[3] PERSONA: Porta quel senso di calma e apertura con te, quando la cercherai per parlare.
+[3] AURA [DA GIUDICARE]: Bene, ora che hai con te quel senso di calma e apertura, il passo successivo è tradurlo in azione. Quando incontrerai tua sorella, cerca il suo sguardo con dolcezza e, prima di pronunciare qualsiasi parola, permetti che la tua energia di calma raggiunga la sua. Non avere fretta di parlare, lascia che sia il tuo modo di esserci a creare il primo ponte.
+
+✦ Nel momento in cui la vedi, fai un respiro profondo e conta fino a tre prima di dire qualsiasi cosa.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il concetto finale della risposta precedente ('Porta quel senso di calma e apertura con te') e lo sviluppa, indicando come tradurlo in azione nel momento dell'incontro con la sorella ('cerca il suo sguardo con dolcezza', 'permetti che la tua energia di calma raggiunga la sua').
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 6

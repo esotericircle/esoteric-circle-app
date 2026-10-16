@@ -1,0 +1,65 @@
+ORDINE EX AGGIUNTA 5, LE ULTIME VOCI. 3 ottobre 2026.
+
+Il fondatore ha risposto alle quattro domande dell'Aggiunta 4 con le scelte consigliate, e ha aggiunto una correzione: "Si scrivila. Aggiungi anche una correzion: Nell'oroscopo il pulsante "interroga il cielo, la luna, l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale, mensile e annuale".
+
+COME SI E' MISURATO
+- La chat: tool/il_banco_della_qualita.dart, 30 casi col codice vero e Gemini in europe-west1 (24 di chat, 6 del LIVE). I conti: python tool/i_conti_della_qualita.py <giro>. I giri di quest'aggiunta hanno il prefisso ag5_ (docs/collaudo/EX/qualita/).
+- Il codice di prima, nello stesso giorno: una copia del commit c0ceacf8 (la consegna della build 2294) in C:/Users/user/ecs_prima, con lo stesso banco. I giri ag5_*_prima* e ag5_prima_intero vengono da li'.
+- Il merito: due giudici alla cieca per ogni confronto, il secondo legge all'indietro, la regola in docs/collaudo/EX/qualita/regola_della_lettura.md. Il rumore fra due giri dello stesso codice e' di circa 2 o 3 punti per misura.
+- Le guardie nuove nascono rosse: docs/collaudo/EX/regola_a_ex.txt, A26-A30 e B26-B29.
+
+EX.07, LE PAROLE RISERVATE CON LA CORREZIONE CORTA
+DOMANDA: "Restano riservate, correzione corta (Consigliata)"
+CHE COSA E' CAMBIATO
+- La rete del lessico e' la stessa (LaVoceNonSiConfonde: "sentire" detto da Medora, "ascendente" detto da Aura e Calìgo e le altre parole di firma). Nella chat la voce sorvegliata conta la confusione ma non rifa' piu' la risposta: la guarda il controller dopo le reti che correggono (LaRichiestaDelTurno.ilLessicoLoCorreggeIlTurno).
+- Il controller chiede la correzione corta che nomina le parole da cambiare (LaVoceNonSiConfonde.correzione). Se un'altra rete (la posizione, le certezze, la risposta da programma, quella d'attesa, quella ripetuta) corregge gia' la stessa risposta, la parola va nella stessa correzione: una chiamata sola.
+- Due difetti della prima stesura, trovati al banco e curati dentro la voce (padre: la prima stesura di quest'aggiunta):
+  1. la correzione toglieva la parola dalla risposta e la rimetteva nel seguito che riscriveva (sonda ag5_sonda3, Calìgo e "ascendente"). Ora, se il seguito di prima e' pulito, la correzione riscrive solo la risposta e il seguito resta quello; la correzione dice anche "Non usarla in nessun punto, nemmeno in ciò che scrivi dopo la risposta." (A29).
+  2. sugli stessi nove casi a rischio (M2, M5, M6, C2, C4, C8, R2, R6, R8), tre giri ciascuno, nello stesso giorno, il codice di prima consegnava 0 risposte su 27 con una parola altrui, la correzione corta da sola 2 (ag5_sonda_prima1-3 contro ag5_sonda4-6). Per la regola NESSUNA RISPOSTA PEGGIORA, se la parola resta dopo la correzione corta si chiede la risposta intera come prima (A30). Col codice finale: 0 su 27 contro 0 su 27, 36 chiamate contro 36, 311.693 token in ingresso contro 327.993 (ag5_sonda7-9).
+- Il banco conta adesso le due strade: lessicoCorto (correzioni corte del lessico), lessicoInsieme (parole corrette dentro la correzione di un'altra rete), lessicoIntero (risposte intere dopo una correzione corta che non bastava).
+
+LE MISURE
+- Chiamate per risposta della chat, col codice finale: 1,38, 1,29 e 1,25 (ag5_finale1-3, media 1,31). Il codice di prima nello stesso giorno: 1,38 (ag5_prima_intero). Prima, nell'Aggiunta 4: 1,33 e 1,38 (ex07j e il giro accanto). L'obiettivo 1,3 o meno in tutti i giri NON e' raggiunto.
+- Perche': una correzione del lessico resta una chiamata (circa 6.700 token in ingresso invece dei circa 9.100 della risposta intera), e le chiamate in piu' vengono soprattutto dalla rete delle certezze, da 2 a 5 risposte per giro (3, 5 e 2 nei tre giri finali), che quest'aggiunta non tocca. Le chiamate del lessico nei tre giri sono 4, 4 e 2 (correzioni corte e risposte intere dopo una corta che non bastava): senza di loro i tre giri farebbero 1,21, 1,12 e 1,17 (29, 27 e 28 chiamate su 24, contate dai file dei giri).
+- Risposte con una parola riservata al primo colpo: ag5_finale1-3, 3, 3 e 2 su 30. Rifatte da capo senza correzione corta: 0 (prima: 5 su 24 in ex07j). Corrette corte: 2, 4 e 2 (una dentro la correzione delle certezze); rifatte intere dopo una corta che non bastava: 2, 0 e 1.
+- Risposte consegnate con una parola riservata (risposta e seguito): codice finale 0 su 27 sui nove casi a rischio, e 1, 0 e 0 su 30 nei tre giri interi (ag5_finale1 M5, Aura e "ascendente"); il codice di prima nello stesso giorno 2 su 30 (ag5_prima_intero: M5 "ascendente", R8 "sentire"); nei giri interi ag5_lessico1-3, prima della cura, 0, 1 e 2; codice di prima nell'Aggiunta 4, 2, 0 e 1 (ex07h, ex07i, ex07j).
+
+LA LETTURA ALLA CIECA
+1. Prima e dopo nello stesso giorno, i giri interi (fascicolo ag5_intero: ag5_prima_intero contro ag5_finale1, 60 schede):
+   giudice 1: prima A 28/30, B 9/11, C 8/10, D 25/30, E 17/24; dopo A 29/30, B 9/11, C 9/10, D 28/30, E 21/24.
+   giudice 2 (all'indietro): prima A 28/30, B 10/11, C 8/10, D 26/30, E 19/24; dopo A 30/30, B 10/11, C 9/10, D 28/30, E 23/24.
+   Il codice finale e' pari o meglio su ogni misura con tutti e due i giudici.
+2. Sulla strada cambiata, i nove casi a rischio (fascicolo ag5_lessico_mirato: ag5_sonda_prima1-3 contro ag5_sonda7-9, 54 schede): merito 24 e 23 contro 24 e 22, seguito 24 e 21 contro 20 e 19, cielo 8 e 8 su 9 contro 9 e 9, regole 23 e 26 contro 26 e 27, memoria 2 e 5 su 9 contro 6 e 8. Le schede che perdono regole e memoria (M2a, M5a-c, M6a-b, R2a, R6b) non sono passate dalla rete del lessico: per loro la richiesta al modello e' la stessa di prima byte per byte (nessun file che la compone e' cambiato; plan_catalog.dart non entra nell'istruzione), e la differenza e' il campionamento del modello. Contate solo le schede passate dalla rete del lessico, nei tre fascicoli mirati: regole 100 per cento prima e dopo, cielo 22 su 24 prima e 6 su 6 dopo, merito 30 su 34 prima e 8 su 10 dopo, seguito 23 su 28 prima e 9 su 10 dopo.
+3. Il cielo, che nel primo confronto (fascicolo ag5_lessico: ex07j del 2 ottobre contro ag5_lessico1 del 3) scendeva da 10 a 7 su 10 con tutti e due i giudici: rifatto nello stesso giorno sui dieci casi del cielo (fascicolo ag5_cielo, due giri per codice) e poi sui tre casi caduti (fascicolo ag5_cielo3, quattro giri per codice). Le schede cadute col codice nuovo (C2, L2, R5) non hanno avuto nessuna parola riservata: la stessa strada del codice di prima, campionamento del modello. Nota di onesta': nel fascicolo ag5_cielo il secondo giudice ha letto in avanti e non all'indietro (lo ha dichiarato); nei fascicoli ag5_cielo3, ag5_lessico_mirato e ag5_intero il secondo giudice ha letto davvero all'indietro, scheda per scheda.
+
+L'ATTRIBUZIONE ALLA CIECA DEI MAESTRI
+57, 58 e 56 su 60 in tre giri (docs/collaudo/EX/attribuzione_dopo_aggiunta5.txt). L'istruzione e la prova sono identiche al commit c0ceacf8: l'EX.07 cambia solo la correzione di una risposta gia' scritta, che questa prova non attraversa. Il 58 su 60 e' raggiunto in 1 giro su 3.
+
+STATO: APERTA. Le parole riservate restano riservate e si correggono corte, nessuna risposta peggiora; ma le chiamate per risposta non stanno sotto l'1,3 in tutti i giri, e l'attribuzione arriva a 58 in un giro solo.
+
+EX.05, LA CACHE SPENTA
+DOMANDA: "Resta spenta per ora (Consigliata)"
+PROVA: docs/collaudo/EX/la_cache_garantita.txt
+MISURA: punti in cui la cache e' spenta, 3 su 3, verificati sul codice: LaCacheDelContesto.accesaNellApp = false (lib/services/ai/la_cache_del_contesto.dart), la funzione laCacheDelContesto non esportata in functions/src/index.ts, nessuna regola di Firestore che apra configurazione/cache. La soglia: si accende a 23 richieste all'ora, si spegne sotto 18. Il risparmio: 50 per cento a 50 richieste all'ora, 80 a 200. Il motivo: i template di Firebase non portano ne' la conversazione ne' le funzioni; alla cieca il cielo 7 su 10 contro 10 su 10.
+STATO: CHIUSA.
+
+EX.10, IL VIAGGIO
+DOMANDA: "Sì, si chiude così (Consigliata)"
+PROVA: docs/collaudo/EX/la_scena_con_meno_scarti.txt
+MISURA: chiamate di scena per discesa, prima 2,70, dopo 1,90 e 1,80; righe delle guardie toccate 0; merito alla cieca 13 e 13 prima, 13 e 12 dopo; la scena costa 0,00310 dollari a discesa a freddo.
+STATO: CHIUSA.
+
+EX.12, IL GESTO IN SETTIMANA, MESE E ANNO
+DOMANDA: "Nell'oroscopo il pulsante "interroga il cielo, la luna, l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale, mensile e annuale"
+Le catture del fondatore: docs/collaudo/EX/catture_fondatore/ (il Mese e la Settimana senza pulsante, il Giorno col pulsante).
+CHE COSA E' CAMBIATO
+- lib/features/horoscope/oroscopo_screen.dart: la lettura della Settimana, del Mese e dell'Anno, nell'Occidentale e nelle tradizioni, sta dietro il gesto (_dietroIlGesto); prima del tocco il pulsante, durante la riflessione i suoi due momenti, dopo la lettura. Il pulsante e' lo stesso del Giorno (InterrogaIlCielo), con la stessa scritta per tradizione (InterrogaIlCielo.etichettaPer: "Interroga il cielo", "Interroga la Luna", "Apri l'almanacco"), la stessa vibrazione, la stessa corsa dello zodiaco, la stessa riflessione e lo stesso suono alla comparsa. Ogni periodo di ogni tradizione ha il suo consulto. La card da condividere della Settimana e del Mese compare dopo la lettura.
+- lib/features/amici/l_oroscopo_dell_amico_screen.dart: le schede dell'amico si aprono col gesto, con la corsa dello zodiaco sul segno dell'amico. L'amico ha solo il giorno: Settimana, Mese e Anno non esistono per gli amici.
+- Gli inviti a completare i dati di nascita e il piano chiuso restano fuori dal gesto: li' non c'e' niente da interrogare.
+LA MISURA AL BANCO (test/il_gesto_in_tutti_i_periodi_test.dart, nata rossa, A26)
+- Periodi col gesto, per tradizione: prima 1 su 4 (solo il Giorno), dopo 4 su 4 nell'Occidentale, nella Vedica e nella Cinese (12 su 12).
+- Letture a video senza il tocco: dopo 0 su 12.
+- L'amico: prima le schede subito, dopo 0 schede prima del tocco e 4 dopo.
+A VIDEO SUL REALME, build 2295, 3 ottobre 2026: Settimana, Mese e Anno nell'Occidentale, nella Vedica e nella Cinese, prima del tocco il pulsante e nessuna lettura, dopo il tocco la lettura (9 su 9); l'oroscopo dell'amico col pulsante e poi le schede. Catture e registro: docs/collaudo/EX/realme/ex12_e_piani_2295.txt.
+PROVA: docs/collaudo/EX/realme/ex12_e_piani_2295.txt
+STATO: CHIUSA.

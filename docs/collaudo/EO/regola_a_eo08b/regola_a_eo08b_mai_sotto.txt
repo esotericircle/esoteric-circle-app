@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('                    consultaSotto: _consultaSotto,\n' -> '                    consultaSotto: false,\n')
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with text "Consulta Medora" descending from
+  00:06 +1 -1: EO.08: dove lo spazio c'e', "Consulta" sta sotto "Entra", col nome del Maestro, e apre la chat [E]
+  00:10 +4 -1: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 c7daf1aaa5b3 -> c7daf1aaa5b3, IDENTICO

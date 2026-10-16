@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  IL BACKUP E' SPENTO DEL TUTTO. Ordine BE voce 07.
+
+  La regola precedente escludeva il solo file delle preferenze di Flutter
+  (per la fotografia del volto), ma NON escludeva le preferenze di Firebase
+  Auth: alla reinstallazione Android ripristinava i gettoni di accesso,
+  l'app tornava a parlare al server con la stessa identita' di prima, e chi
+  aveva cancellato i dati se li ritrovava. Il fondatore lo ha visto sulla
+  2199: 270 Eos su un'app "mai registrata".
+
+  Con android:allowBackup="false" nel manifest non si ripristina niente:
+  ne' il volto, ne' l'identita', ne' il cammino. Chi cambia telefono rientra
+  col proprio account, che e' la via giusta.
+-->
+<full-backup-content>
+    <exclude domain="sharedpref" path="."/>
+    <exclude domain="database" path="."/>
+    <exclude domain="file" path="."/>
+</full-backup-content>

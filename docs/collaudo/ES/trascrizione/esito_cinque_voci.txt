@@ -1,0 +1,645 @@
+ORDINE ES VOCE 22, IL BANCO DELLA TRASCRIZIONE DOPO IL LIVE SUL REALME. 30 settembre 2026.
+
+tool/banco_trascrizione_es22.dart, le venti domande del collaudo per due giri, tre istruzioni sullo stesso modello del telefono:
+  prima   = l'istruzione di prima dell'ordine ES;
+  stesura = la prima stesura di questa voce (commit e73f61df): dice di che cosa parla di solito la persona e porta due esempi;
+  oggi    = quella di adesso: la frase di senso compiuto, senza esempi e senza argomenti, e il pezzo non capito lasciato fuori.
+Cinque voci: pulita (com'esce dalla voce di Windows), stanza (piu' bassa, con eco e fruscio, tool/le_domande_dette.py),
+mic (le stesse domande tagliate dalla registrazione della stanza fatta col microfono del PC durante il LIVE sul Realme
+della mattina; nella sesta si sente anche la voce di Medora, che parlava ancora), buco (un secondo di voce tolto dopo il
+primo terzo di secondo) e coda (la sola seconda meta' della domanda), tool/le_domande_sentite_male.py.
+"NON DETTE" conta le parole scritte che la domanda non aveva.
+
+I TOTALI
+TOTALE pulita prima: uguali parola per parola 29 su 40, parole sbagliate 84 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+TOTALE pulita stesura: uguali parola per parola 38 su 40, parole sbagliate 10 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+TOTALE pulita oggi: uguali parola per parola 36 su 40, parole sbagliate 42 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+TOTALE stanza prima: uguali parola per parola 28 su 40, parole sbagliate 68 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 0 su 40
+TOTALE stanza stesura: uguali parola per parola 38 su 40, parole sbagliate 2 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 0 su 40
+TOTALE stanza oggi: uguali parola per parola 34 su 40, parole sbagliate 14 su 292, parole scritte e non dette 4, domande con almeno due parole non dette 0 su 40
+TOTALE mic prima: uguali parola per parola 32 su 40, parole sbagliate 38 su 292, parole scritte e non dette 38, domande con almeno due parole non dette 4 su 40
+TOTALE mic stesura: uguali parola per parola 32 su 40, parole sbagliate 28 su 292, parole scritte e non dette 26, domande con almeno due parole non dette 4 su 40
+TOTALE mic oggi: uguali parola per parola 32 su 40, parole sbagliate 40 su 292, parole scritte e non dette 40, domande con almeno due parole non dette 4 su 40
+TOTALE buco prima: uguali parola per parola 0 su 40, parole sbagliate 184 su 292, parole scritte e non dette 10, domande con almeno due parole non dette 2 su 40
+TOTALE buco stesura: uguali parola per parola 2 su 40, parole sbagliate 135 su 292, parole scritte e non dette 14, domande con almeno due parole non dette 5 su 40
+TOTALE buco oggi: uguali parola per parola 0 su 40, parole sbagliate 172 su 292, parole scritte e non dette 10, domande con almeno due parole non dette 2 su 40
+TOTALE coda prima: uguali parola per parola 0 su 40, parole sbagliate 266 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+TOTALE coda stesura: uguali parola per parola 0 su 40, parole sbagliate 232 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+TOTALE coda oggi: uguali parola per parola 0 su 40, parole sbagliate 233 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 1 su 40
+
+LE RIGHE
+pulita prima giro 1 1: uguale  «Lui mi ama davvero.»
+pulita prima giro 1 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo?»
+pulita prima giro 1 3: uguale  «Il mio ex tornerà da me?»
+pulita prima giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita prima giro 1 5: uguale  «Il mio compagno mi tradisce.»
+pulita prima giro 1 6: SBAGLIATE 11  «»
+pulita prima giro 1 7: SBAGLIATE 5  «»
+pulita prima giro 1 8: SBAGLIATE 5  «»
+pulita prima giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita prima giro 1 10: SBAGLIATE 8  «»
+pulita prima giro 1 11: uguale  «È giusto che lo sposi.»
+pulita prima giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita prima giro 1 13: SBAGLIATE 10  «»
+pulita prima giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+pulita prima giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita prima giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita prima giro 1 17: SBAGLIATE 8  «»
+pulita prima giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita prima giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+pulita prima giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+pulita prima giro 2 1: uguale  «Lui mi ama davvero.»
+pulita prima giro 2 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo?»
+pulita prima giro 2 3: uguale  «Il mio ex tornerà da me?»
+pulita prima giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita prima giro 2 5: uguale  «Il mio compagno mi tradisce.»
+pulita prima giro 2 6: SBAGLIATE 11  «»
+pulita prima giro 2 7: SBAGLIATE 5  «»
+pulita prima giro 2 8: SBAGLIATE 5  «»
+pulita prima giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita prima giro 2 10: SBAGLIATE 8  «»
+pulita prima giro 2 11: uguale  «È giusto che lo sposi.»
+pulita prima giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita prima giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+pulita prima giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+pulita prima giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita prima giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita prima giro 2 17: SBAGLIATE 8  «»
+pulita prima giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita prima giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+pulita prima giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE pulita prima: uguali parola per parola 29 su 40, parole sbagliate 84 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+pulita stesura giro 1 1: uguale  «Lui mi ama davvero.»
+pulita stesura giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita stesura giro 1 3: uguale  «Il mio ex tornerà da me?»
+pulita stesura giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita stesura giro 1 5: uguale  «Il mio compagno mi tradisce»
+pulita stesura giro 1 6: uguale  «Perché non ho più desiderio con la persona che ho accanto?»
+pulita stesura giro 1 7: SBAGLIATE 5  «»
+pulita stesura giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+pulita stesura giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita stesura giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita stesura giro 1 11: uguale  «È giusto che lo sposi?»
+pulita stesura giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita stesura giro 1 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita stesura giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+pulita stesura giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita stesura giro 1 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+pulita stesura giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita stesura giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita stesura giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+pulita stesura giro 1 20: uguale  «Questa settimana mi conviene giocare?»
+pulita stesura giro 2 1: uguale  «Lui mi ama davvero.»
+pulita stesura giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita stesura giro 2 3: uguale  «Il mio ex tornerà da me?»
+pulita stesura giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita stesura giro 2 5: uguale  «Il mio compagno mi tradisce»
+pulita stesura giro 2 6: uguale  «Perché non ho più desiderio con la persona che ho accanto?»
+pulita stesura giro 2 7: SBAGLIATE 5  «»
+pulita stesura giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+pulita stesura giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita stesura giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita stesura giro 2 11: uguale  «È giusto che lo sposi?»
+pulita stesura giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita stesura giro 2 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita stesura giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+pulita stesura giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita stesura giro 2 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+pulita stesura giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita stesura giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita stesura giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+pulita stesura giro 2 20: uguale  «Questa settimana mi conviene giocare?»
+TOTALE pulita stesura: uguali parola per parola 38 su 40, parole sbagliate 10 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+pulita oggi giro 1 1: uguale  «Lui mi ama davvero»
+pulita oggi giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita oggi giro 1 3: uguale  «Il mio ex tornerà da me?»
+pulita oggi giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita oggi giro 1 5: uguale  «Il mio compagno mi tradisce.»
+pulita oggi giro 1 6: SBAGLIATE 11  «»
+pulita oggi giro 1 7: uguale  «Troverò l'amore quest'anno»
+pulita oggi giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+pulita oggi giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita oggi giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita oggi giro 1 11: uguale  «È giusto che lo sposi»
+pulita oggi giro 1 12: SBAGLIATE 10  «»
+pulita oggi giro 1 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita oggi giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+pulita oggi giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita oggi giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita oggi giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita oggi giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita oggi giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+pulita oggi giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+pulita oggi giro 2 1: uguale  «Lui mi ama davvero»
+pulita oggi giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita oggi giro 2 3: uguale  «Il mio ex tornerà da me?»
+pulita oggi giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita oggi giro 2 5: uguale  «Il mio compagno mi tradisce.»
+pulita oggi giro 2 6: SBAGLIATE 11  «»
+pulita oggi giro 2 7: uguale  «Troverò l'amore quest'anno»
+pulita oggi giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+pulita oggi giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita oggi giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita oggi giro 2 11: uguale  «È giusto che lo sposi»
+pulita oggi giro 2 12: SBAGLIATE 10  «»
+pulita oggi giro 2 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita oggi giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+pulita oggi giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita oggi giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita oggi giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita oggi giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita oggi giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+pulita oggi giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE pulita oggi: uguali parola per parola 36 su 40, parole sbagliate 42 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+stanza prima giro 1 1: SBAGLIATE 4  «»
+stanza prima giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza prima giro 1 3: uguale  «Il mio ex tornerà da me?»
+stanza prima giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui.»
+stanza prima giro 1 5: uguale  «Il mio compagno mi tradisce.»
+stanza prima giro 1 6: SBAGLIATE 11  «»
+stanza prima giro 1 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza prima giro 1 8: SBAGLIATE 5  «»
+stanza prima giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza prima giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza prima giro 1 11: SBAGLIATE 5  «»
+stanza prima giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza prima giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza prima giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+stanza prima giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza prima giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza prima giro 1 17: SBAGLIATE 8  «»
+stanza prima giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza prima giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+stanza prima giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+stanza prima giro 2 1: SBAGLIATE 4  «»
+stanza prima giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza prima giro 2 3: uguale  «Il mio ex tornerà da me?»
+stanza prima giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui.»
+stanza prima giro 2 5: uguale  «Il mio compagno mi tradisce.»
+stanza prima giro 2 6: SBAGLIATE 11  «»
+stanza prima giro 2 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza prima giro 2 8: SBAGLIATE 5  «»
+stanza prima giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza prima giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza prima giro 2 11: SBAGLIATE 5  «»
+stanza prima giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza prima giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza prima giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+stanza prima giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza prima giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza prima giro 2 17: SBAGLIATE 8  «»
+stanza prima giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza prima giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+stanza prima giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE stanza prima: uguali parola per parola 28 su 40, parole sbagliate 68 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 0 su 40
+stanza stesura giro 1 1: uguale  «Lui mi ama davvero»
+stanza stesura giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza stesura giro 1 3: uguale  «Il mio ex tornerà da me?»
+stanza stesura giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+stanza stesura giro 1 5: uguale  «Il mio compagno mi tradisce»
+stanza stesura giro 1 6: uguale  «Perché non ho più desiderio con la persona che ho accanto.»
+stanza stesura giro 1 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza stesura giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+stanza stesura giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza stesura giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza stesura giro 1 11: uguale  «È giusto che lo sposi?»
+stanza stesura giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza stesura giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza stesura giro 1 14: uguale  «Riuscirò ad avere un figlio»
+stanza stesura giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza stesura giro 1 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+stanza stesura giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+stanza stesura giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza stesura giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+stanza stesura giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+stanza stesura giro 2 1: uguale  «Lui mi ama davvero»
+stanza stesura giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza stesura giro 2 3: uguale  «Il mio ex tornerà da me?»
+stanza stesura giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+stanza stesura giro 2 5: uguale  «Il mio compagno mi tradisce»
+stanza stesura giro 2 6: uguale  «Perché non ho più desiderio con la persona che ho accanto.»
+stanza stesura giro 2 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza stesura giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+stanza stesura giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza stesura giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza stesura giro 2 11: uguale  «È giusto che lo sposi?»
+stanza stesura giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza stesura giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza stesura giro 2 14: uguale  «Riuscirò ad avere un figlio»
+stanza stesura giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza stesura giro 2 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+stanza stesura giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+stanza stesura giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza stesura giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+stanza stesura giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE stanza stesura: uguali parola per parola 38 su 40, parole sbagliate 2 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 0 su 40
+stanza oggi giro 1 1: SBAGLIATE 1, NON DETTE 1  «Noi mi ama davvero»
+stanza oggi giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza oggi giro 1 3: uguale  «Il mio ex tornerà da me?»
+stanza oggi giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui»
+stanza oggi giro 1 5: uguale  «Il mio compagno mi tradisce.»
+stanza oggi giro 1 6: uguale  «perché non ho più desiderio con la persona che ho accanto»
+stanza oggi giro 1 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza oggi giro 1 8: SBAGLIATE 5  «»
+stanza oggi giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza oggi giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza oggi giro 1 11: uguale  «È giusto che lo sposi.»
+stanza oggi giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza oggi giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza oggi giro 1 14: uguale  «Riuscirò ad avere un figlio»
+stanza oggi giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza oggi giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza oggi giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata»
+stanza oggi giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando»
+stanza oggi giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+stanza oggi giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+stanza oggi giro 2 1: SBAGLIATE 1, NON DETTE 1  «Noi mi ama davvero»
+stanza oggi giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza oggi giro 2 3: uguale  «Il mio ex tornerà da me?»
+stanza oggi giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui»
+stanza oggi giro 2 5: uguale  «Il mio compagno mi tradisce.»
+stanza oggi giro 2 6: uguale  «perché non ho più desiderio con la persona che ho accanto»
+stanza oggi giro 2 7: SBAGLIATE 1, NON DETTE 1  «Trovo l'amore quest'anno»
+stanza oggi giro 2 8: SBAGLIATE 5  «»
+stanza oggi giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza oggi giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza oggi giro 2 11: uguale  «È giusto che lo sposi.»
+stanza oggi giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza oggi giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza oggi giro 2 14: uguale  «Riuscirò ad avere un figlio»
+stanza oggi giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza oggi giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza oggi giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata»
+stanza oggi giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando»
+stanza oggi giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+stanza oggi giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE stanza oggi: uguali parola per parola 34 su 40, parole sbagliate 14 su 292, parole scritte e non dette 4, domande con almeno due parole non dette 0 su 40
+mic prima giro 1 1: uguale  «Lui mi ama davvero.»
+mic prima giro 1 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo.»
+mic prima giro 1 3: uguale  «Il mio ex tornerà da me.»
+mic prima giro 1 4: SBAGLIATE 1, NON DETTE 1  «Devo scrivere io o aspettare che si faccia vivo lui?»
+mic prima giro 1 5: uguale  «Il mio compagno mi tradisce.»
+mic prima giro 1 6: SBAGLIATE 15, NON DETTE 15  «Ma il tuo stato d'animo è agitato, perché non ho più silenzio con la persona che ho accanto. Prepara una tisana calda questa sera.»
+mic prima giro 1 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno?»
+mic prima giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+mic prima giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic prima giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic prima giro 1 11: uguale  «È giusto che lo sposi.»
+mic prima giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic prima giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+mic prima giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+mic prima giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic prima giro 1 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic prima giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic prima giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic prima giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+mic prima giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+mic prima giro 2 1: uguale  «Lui mi ama davvero.»
+mic prima giro 2 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo.»
+mic prima giro 2 3: uguale  «Il mio ex tornerà da me.»
+mic prima giro 2 4: SBAGLIATE 1, NON DETTE 1  «Devo scrivere io o aspettare che si faccia vivo lui?»
+mic prima giro 2 5: uguale  «Il mio compagno mi tradisce.»
+mic prima giro 2 6: SBAGLIATE 15, NON DETTE 15  «Ma il tuo stato d'animo è agitato, perché non ho più silenzio con la persona che ho accanto. Prepara una tisana calda questa sera.»
+mic prima giro 2 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno?»
+mic prima giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+mic prima giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic prima giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic prima giro 2 11: uguale  «È giusto che lo sposi.»
+mic prima giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic prima giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+mic prima giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+mic prima giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic prima giro 2 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic prima giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic prima giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic prima giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+mic prima giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE mic prima: uguali parola per parola 32 su 40, parole sbagliate 38 su 292, parole scritte e non dette 38, domande con almeno due parole non dette 4 su 40
+mic stesura giro 1 1: uguale  «Lui mi ama davvero?»
+mic stesura giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+mic stesura giro 1 3: uguale  «Il mio ex tornerà da me?»
+mic stesura giro 1 4: SBAGLIATE 1  «Devo scrivergli o aspettare che si faccia vivo lui?»
+mic stesura giro 1 5: uguale  «Il mio compagno mi tradisce.»
+mic stesura giro 1 6: SBAGLIATE 10, NON DETTE 10  «Ma il tuo stato d'animo è agitato perché non ho più il silenzio con la persona che ho accanto.»
+mic stesura giro 1 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno?»
+mic stesura giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+mic stesura giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic stesura giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic stesura giro 1 11: uguale  «È giusto che lo sposi.»
+mic stesura giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic stesura giro 1 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+mic stesura giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+mic stesura giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic stesura giro 1 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic stesura giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic stesura giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic stesura giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+mic stesura giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+mic stesura giro 2 1: uguale  «Lui mi ama davvero?»
+mic stesura giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+mic stesura giro 2 3: uguale  «Il mio ex tornerà da me?»
+mic stesura giro 2 4: SBAGLIATE 1  «Devo scrivergli o aspettare che si faccia vivo lui?»
+mic stesura giro 2 5: uguale  «Il mio compagno mi tradisce.»
+mic stesura giro 2 6: SBAGLIATE 10, NON DETTE 10  «Ma il tuo stato d'animo è agitato perché non ho più il silenzio con la persona che ho accanto.»
+mic stesura giro 2 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno?»
+mic stesura giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+mic stesura giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic stesura giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic stesura giro 2 11: uguale  «È giusto che lo sposi.»
+mic stesura giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic stesura giro 2 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+mic stesura giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+mic stesura giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic stesura giro 2 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic stesura giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic stesura giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic stesura giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+mic stesura giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE mic stesura: uguali parola per parola 32 su 40, parole sbagliate 28 su 292, parole scritte e non dette 26, domande con almeno due parole non dette 4 su 40
+mic oggi giro 1 1: uguale  «Lui mi ama davvero.»
+mic oggi giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo»
+mic oggi giro 1 3: uguale  «Il mio ex tornerà da me.»
+mic oggi giro 1 4: SBAGLIATE 1, NON DETTE 1  «Devo scrivere io o aspettare che si faccia vivo lui»
+mic oggi giro 1 5: uguale  «Il mio compagno mi tradisce»
+mic oggi giro 1 6: SBAGLIATE 16, NON DETTE 16  «Ma il tuo stato d'animo è agitato perché non ho più il silenzio con la persona che ho accanto. Prepara una tisana calda questa sera.»
+mic oggi giro 1 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno.»
+mic oggi giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+mic oggi giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic oggi giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic oggi giro 1 11: uguale  «È giusto che lo sposi.»
+mic oggi giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic oggi giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+mic oggi giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+mic oggi giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic oggi giro 1 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic oggi giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic oggi giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic oggi giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+mic oggi giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+mic oggi giro 2 1: uguale  «Lui mi ama davvero.»
+mic oggi giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo»
+mic oggi giro 2 3: uguale  «Il mio ex tornerà da me.»
+mic oggi giro 2 4: SBAGLIATE 1, NON DETTE 1  «Devo scrivere io o aspettare che si faccia vivo lui»
+mic oggi giro 2 5: uguale  «Il mio compagno mi tradisce»
+mic oggi giro 2 6: SBAGLIATE 16, NON DETTE 16  «Ma il tuo stato d'animo è agitato perché non ho più il silenzio con la persona che ho accanto. Prepara una tisana calda questa sera.»
+mic oggi giro 2 7: SBAGLIATE 1, NON DETTE 1  «Troverò l'amore in quest'anno.»
+mic oggi giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+mic oggi giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+mic oggi giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+mic oggi giro 2 11: uguale  «È giusto che lo sposi.»
+mic oggi giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+mic oggi giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+mic oggi giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+mic oggi giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+mic oggi giro 2 16: SBAGLIATE 2, NON DETTE 2  «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+mic oggi giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+mic oggi giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+mic oggi giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+mic oggi giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE mic oggi: uguali parola per parola 32 su 40, parole sbagliate 40 su 292, parole scritte e non dette 40, domande con almeno due parole non dette 4 su 40
+buco prima giro 1 1: SBAGLIATE 4  «»
+buco prima giro 1 2: SBAGLIATE 8  «Ma mi»
+buco prima giro 1 3: SBAGLIATE 6  «»
+buco prima giro 1 4: SBAGLIATE 3  «devo aspettare che si faccia vivo lui.»
+buco prima giro 1 5: SBAGLIATE 5  «»
+buco prima giro 1 6: SBAGLIATE 5, NON DETTE 1  «io con la persona che ho accanto.»
+buco prima giro 1 7: SBAGLIATE 5  «»
+buco prima giro 1 8: SBAGLIATE 4  «Quando»
+buco prima giro 1 9: SBAGLIATE 3, NON DETTE 1  «Sono io persone, chi devo scegliere?»
+buco prima giro 1 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco prima giro 1 11: SBAGLIATE 5  «»
+buco prima giro 1 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco prima giro 1 13: SBAGLIATE 10  «»
+buco prima giro 1 14: SBAGLIATE 5  «»
+buco prima giro 1 15: SBAGLIATE 4  «dopo un tradimento»
+buco prima giro 1 16: SBAGLIATE 2  «Mi guarda sempre ma non mi dice niente.»
+buco prima giro 1 17: SBAGLIATE 5, NON DETTE 1  «che mi ha lasciata»
+buco prima giro 1 18: SBAGLIATE 5  «o mi sto accontentando»
+buco prima giro 1 19: SBAGLIATE 4  «Quando»
+buco prima giro 1 20: SBAGLIATE 4, NON DETTE 2  «viene a giocare»
+buco prima giro 2 1: SBAGLIATE 4  «»
+buco prima giro 2 2: SBAGLIATE 8  «Ma mi»
+buco prima giro 2 3: SBAGLIATE 6  «»
+buco prima giro 2 4: SBAGLIATE 3  «devo aspettare che si faccia vivo lui.»
+buco prima giro 2 5: SBAGLIATE 5  «»
+buco prima giro 2 6: SBAGLIATE 5, NON DETTE 1  «io con la persona che ho accanto.»
+buco prima giro 2 7: SBAGLIATE 5  «»
+buco prima giro 2 8: SBAGLIATE 4  «Quando»
+buco prima giro 2 9: SBAGLIATE 3, NON DETTE 1  «Sono io persone, chi devo scegliere?»
+buco prima giro 2 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco prima giro 2 11: SBAGLIATE 5  «»
+buco prima giro 2 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco prima giro 2 13: SBAGLIATE 10  «»
+buco prima giro 2 14: SBAGLIATE 5  «»
+buco prima giro 2 15: SBAGLIATE 4  «dopo un tradimento»
+buco prima giro 2 16: SBAGLIATE 2  «Mi guarda sempre ma non mi dice niente.»
+buco prima giro 2 17: SBAGLIATE 5, NON DETTE 1  «che mi ha lasciata»
+buco prima giro 2 18: SBAGLIATE 5  «o mi sto accontentando»
+buco prima giro 2 19: SBAGLIATE 4  «Quando»
+buco prima giro 2 20: SBAGLIATE 4, NON DETTE 2  «viene a giocare»
+TOTALE buco prima: uguali parola per parola 0 su 40, parole sbagliate 184 su 292, parole scritte e non dette 10, domande con almeno due parole non dette 2 su 40
+buco stesura giro 1 1: SBAGLIATE 3  «Lui»
+buco stesura giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+buco stesura giro 1 3: SBAGLIATE 4  «Il mio»
+buco stesura giro 1 4: SBAGLIATE 3  «Devo aspettare che si faccia vivo lui?»
+buco stesura giro 1 5: SBAGLIATE 3  «Il mio»
+buco stesura giro 1 6: SBAGLIATE 4, NON DETTE 1  «perché io con la persona che ho accanto»
+buco stesura giro 1 7: SBAGLIATE 4  «troverò»
+buco stesura giro 1 8: SBAGLIATE 1, NON DETTE 1  «Quando troverò la persona giusta?»
+buco stesura giro 1 9: SBAGLIATE 2  «Sono due persone, chi devo scegliere?»
+buco stesura giro 1 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco stesura giro 1 11: SBAGLIATE 5  «»
+buco stesura giro 1 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco stesura giro 1 13: SBAGLIATE 4, NON DETTE 2  «Mi ama la persona che amo? Come faccio?»
+buco stesura giro 1 14: SBAGLIATE 5  «»
+buco stesura giro 1 15: SBAGLIATE 3  «posso dopo un tradimento»
+buco stesura giro 1 16: SBAGLIATE 2  «Mi guarda sempre, ma non mi dice niente»
+buco stesura giro 1 17: SBAGLIATE 3  «come chi mi ha lasciata»
+buco stesura giro 1 18: SBAGLIATE 8  «Sono»
+buco stesura giro 1 19: SBAGLIATE 5  «»
+buco stesura giro 1 20: SBAGLIATE 3, NON DETTE 2  «Questa mi viene a giocare.»
+buco stesura giro 2 1: SBAGLIATE 3  «Lui»
+buco stesura giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+buco stesura giro 2 3: SBAGLIATE 4  «Il mio»
+buco stesura giro 2 4: SBAGLIATE 3  «Devo aspettare che si faccia vivo lui?»
+buco stesura giro 2 5: SBAGLIATE 3  «Il mio»
+buco stesura giro 2 6: SBAGLIATE 4, NON DETTE 1  «perché io con la persona che ho accanto»
+buco stesura giro 2 7: SBAGLIATE 5, NON DETTE 2  «Trovo lavoro»
+buco stesura giro 2 8: SBAGLIATE 1, NON DETTE 1  «Quando troverò la persona giusta?»
+buco stesura giro 2 9: SBAGLIATE 2  «Sono due persone, chi devo scegliere?»
+buco stesura giro 2 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco stesura giro 2 11: SBAGLIATE 5  «»
+buco stesura giro 2 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco stesura giro 2 13: SBAGLIATE 4, NON DETTE 2  «Mi ama la persona che amo? Come faccio?»
+buco stesura giro 2 14: SBAGLIATE 5  «»
+buco stesura giro 2 15: SBAGLIATE 3  «posso dopo un tradimento»
+buco stesura giro 2 16: SBAGLIATE 2  «Mi guarda sempre, ma non mi dice niente»
+buco stesura giro 2 17: SBAGLIATE 3  «come chi mi ha lasciata»
+buco stesura giro 2 18: SBAGLIATE 8  «Sono»
+buco stesura giro 2 19: SBAGLIATE 5  «»
+buco stesura giro 2 20: SBAGLIATE 3, NON DETTE 2  «Questa mi viene a giocare.»
+TOTALE buco stesura: uguali parola per parola 2 su 40, parole sbagliate 135 su 292, parole scritte e non dette 14, domande con almeno due parole non dette 5 su 40
+buco oggi giro 1 1: SBAGLIATE 4  «»
+buco oggi giro 1 2: SBAGLIATE 3  «Ma dopo tutto quello che è successo»
+buco oggi giro 1 3: SBAGLIATE 6  «»
+buco oggi giro 1 4: SBAGLIATE 3  «devo aspettare che si faccia vivo lui»
+buco oggi giro 1 5: SBAGLIATE 5  «»
+buco oggi giro 1 6: SBAGLIATE 4, NON DETTE 1  «perché io con la persona che ho accanto»
+buco oggi giro 1 7: SBAGLIATE 5  «»
+buco oggi giro 1 8: SBAGLIATE 3  «persona giusta»
+buco oggi giro 1 9: SBAGLIATE 3, NON DETTE 1  «Sono io persone, chi devo scegliere?»
+buco oggi giro 1 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco oggi giro 1 11: SBAGLIATE 3  «è giusto»
+buco oggi giro 1 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco oggi giro 1 13: SBAGLIATE 10  «»
+buco oggi giro 1 14: SBAGLIATE 5  «»
+buco oggi giro 1 15: SBAGLIATE 4  «dopo un tradimento»
+buco oggi giro 1 16: SBAGLIATE 2  «Mi guarda sempre ma non mi dice niente.»
+buco oggi giro 1 17: SBAGLIATE 5, NON DETTE 1  «che mi ha lasciata.»
+buco oggi giro 1 18: SBAGLIATE 5  «o mi sto accontentando»
+buco oggi giro 1 19: SBAGLIATE 5  «»
+buco oggi giro 1 20: SBAGLIATE 3, NON DETTE 2  «Questa viene a giocare.»
+buco oggi giro 2 1: SBAGLIATE 4  «»
+buco oggi giro 2 2: SBAGLIATE 8  «Ma mi»
+buco oggi giro 2 3: SBAGLIATE 6  «»
+buco oggi giro 2 4: SBAGLIATE 3  «devo aspettare che si faccia vivo lui»
+buco oggi giro 2 5: SBAGLIATE 5  «»
+buco oggi giro 2 6: SBAGLIATE 4, NON DETTE 1  «perché io con la persona che ho accanto»
+buco oggi giro 2 7: SBAGLIATE 5  «»
+buco oggi giro 2 8: SBAGLIATE 3  «persona giusta»
+buco oggi giro 2 9: SBAGLIATE 3, NON DETTE 1  «Sono io persone, chi devo scegliere?»
+buco oggi giro 2 10: SBAGLIATE 3  «persone che mi fanno soffrire.»
+buco oggi giro 2 11: SBAGLIATE 3  «è giusto»
+buco oggi giro 2 12: SBAGLIATE 2  «Mi sento in coppia. Che cosa mi manca?»
+buco oggi giro 2 13: SBAGLIATE 10  «»
+buco oggi giro 2 14: SBAGLIATE 5  «»
+buco oggi giro 2 15: SBAGLIATE 4  «dopo un tradimento»
+buco oggi giro 2 16: SBAGLIATE 2  «Mi guarda sempre ma non mi dice niente.»
+buco oggi giro 2 17: SBAGLIATE 5, NON DETTE 1  «che mi ha lasciata.»
+buco oggi giro 2 18: SBAGLIATE 5  «o mi sto accontentando»
+buco oggi giro 2 19: SBAGLIATE 5  «»
+buco oggi giro 2 20: SBAGLIATE 4, NON DETTE 2  «viene a giocare»
+TOTALE buco oggi: uguali parola per parola 0 su 40, parole sbagliate 172 su 292, parole scritte e non dette 10, domande con almeno due parole non dette 2 su 40
+coda prima giro 1 1: SBAGLIATE 4  «»
+coda prima giro 1 2: SBAGLIATE 10  «»
+coda prima giro 1 3: SBAGLIATE 6  «»
+coda prima giro 1 4: SBAGLIATE 10  «»
+coda prima giro 1 5: SBAGLIATE 5  «»
+coda prima giro 1 6: SBAGLIATE 11  «»
+coda prima giro 1 7: SBAGLIATE 5  «»
+coda prima giro 1 8: SBAGLIATE 5  «»
+coda prima giro 1 9: SBAGLIATE 8  «»
+coda prima giro 1 10: SBAGLIATE 8  «»
+coda prima giro 1 11: SBAGLIATE 5  «»
+coda prima giro 1 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda prima giro 1 13: SBAGLIATE 8  «come faccio»
+coda prima giro 1 14: SBAGLIATE 5  «»
+coda prima giro 1 15: SBAGLIATE 5  «un tradimento.»
+coda prima giro 1 16: SBAGLIATE 4  «sempre ma non mi dice niente.»
+coda prima giro 1 17: SBAGLIATE 8  «»
+coda prima giro 1 18: SBAGLIATE 9  «»
+coda prima giro 1 19: SBAGLIATE 5  «»
+coda prima giro 1 20: SBAGLIATE 5  «»
+coda prima giro 2 1: SBAGLIATE 4  «»
+coda prima giro 2 2: SBAGLIATE 10  «»
+coda prima giro 2 3: SBAGLIATE 6  «»
+coda prima giro 2 4: SBAGLIATE 10  «»
+coda prima giro 2 5: SBAGLIATE 5  «»
+coda prima giro 2 6: SBAGLIATE 11  «»
+coda prima giro 2 7: SBAGLIATE 5  «»
+coda prima giro 2 8: SBAGLIATE 5  «»
+coda prima giro 2 9: SBAGLIATE 8  «»
+coda prima giro 2 10: SBAGLIATE 8  «»
+coda prima giro 2 11: SBAGLIATE 5  «»
+coda prima giro 2 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda prima giro 2 13: SBAGLIATE 10  «»
+coda prima giro 2 14: SBAGLIATE 5  «»
+coda prima giro 2 15: SBAGLIATE 5  «un tradimento.»
+coda prima giro 2 16: SBAGLIATE 4  «sempre ma non mi dice niente.»
+coda prima giro 2 17: SBAGLIATE 8  «»
+coda prima giro 2 18: SBAGLIATE 9  «»
+coda prima giro 2 19: SBAGLIATE 5  «»
+coda prima giro 2 20: SBAGLIATE 5  «»
+TOTALE coda prima: uguali parola per parola 0 su 40, parole sbagliate 266 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+coda stesura giro 1 1: SBAGLIATE 4  «»
+coda stesura giro 1 2: SBAGLIATE 6  «quello che è successo»
+coda stesura giro 1 3: SBAGLIATE 6  «»
+coda stesura giro 1 4: SBAGLIATE 5  «che si faccia vivo lui»
+coda stesura giro 1 5: SBAGLIATE 5  «»
+coda stesura giro 1 6: SBAGLIATE 11  «»
+coda stesura giro 1 7: SBAGLIATE 5  «»
+coda stesura giro 1 8: SBAGLIATE 5  «»
+coda stesura giro 1 9: SBAGLIATE 5  «Chi devo scegliere?»
+coda stesura giro 1 10: SBAGLIATE 8  «»
+coda stesura giro 1 11: SBAGLIATE 5  «»
+coda stesura giro 1 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda stesura giro 1 13: SBAGLIATE 10  «»
+coda stesura giro 1 14: SBAGLIATE 5  «»
+coda stesura giro 1 15: SBAGLIATE 5  «un tradimento»
+coda stesura giro 1 16: SBAGLIATE 4  «sempre ma non mi dice niente»
+coda stesura giro 1 17: SBAGLIATE 5  «Mi ha lasciata»
+coda stesura giro 1 18: SBAGLIATE 6  «Mi sto accontentando»
+coda stesura giro 1 19: SBAGLIATE 5  «»
+coda stesura giro 1 20: SBAGLIATE 5  «»
+coda stesura giro 2 1: SBAGLIATE 4  «»
+coda stesura giro 2 2: SBAGLIATE 6  «quello che è successo»
+coda stesura giro 2 3: SBAGLIATE 6  «»
+coda stesura giro 2 4: SBAGLIATE 5  «che si faccia vivo lui»
+coda stesura giro 2 5: SBAGLIATE 5  «»
+coda stesura giro 2 6: SBAGLIATE 11  «»
+coda stesura giro 2 7: SBAGLIATE 5  «»
+coda stesura giro 2 8: SBAGLIATE 5  «»
+coda stesura giro 2 9: SBAGLIATE 5  «Chi devo scegliere?»
+coda stesura giro 2 10: SBAGLIATE 8  «»
+coda stesura giro 2 11: SBAGLIATE 5  «»
+coda stesura giro 2 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda stesura giro 2 13: SBAGLIATE 10  «»
+coda stesura giro 2 14: SBAGLIATE 5  «»
+coda stesura giro 2 15: SBAGLIATE 5  «un tradimento»
+coda stesura giro 2 16: SBAGLIATE 4  «sempre ma non mi dice niente»
+coda stesura giro 2 17: SBAGLIATE 5  «Mi ha lasciata»
+coda stesura giro 2 18: SBAGLIATE 6  «Mi sto accontentando»
+coda stesura giro 2 19: SBAGLIATE 5  «»
+coda stesura giro 2 20: SBAGLIATE 5  «»
+TOTALE coda stesura: uguali parola per parola 0 su 40, parole sbagliate 232 su 292, parole scritte e non dette 0, domande con almeno due parole non dette 0 su 40
+coda oggi giro 1 1: SBAGLIATE 4  «»
+coda oggi giro 1 2: SBAGLIATE 6  «quello che è successo»
+coda oggi giro 1 3: SBAGLIATE 6  «»
+coda oggi giro 1 4: SBAGLIATE 5  «che si faccia vivo lui»
+coda oggi giro 1 5: SBAGLIATE 5  «»
+coda oggi giro 1 6: SBAGLIATE 11  «»
+coda oggi giro 1 7: SBAGLIATE 5  «»
+coda oggi giro 1 8: SBAGLIATE 5  «»
+coda oggi giro 1 9: SBAGLIATE 5  «Chi devo scegliere?»
+coda oggi giro 1 10: SBAGLIATE 8  «»
+coda oggi giro 1 11: SBAGLIATE 5  «»
+coda oggi giro 1 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda oggi giro 1 13: SBAGLIATE 10  «»
+coda oggi giro 1 14: SBAGLIATE 5  «»
+coda oggi giro 1 15: SBAGLIATE 5  «un tradimento»
+coda oggi giro 1 16: SBAGLIATE 5  «ma non mi dice niente»
+coda oggi giro 1 17: SBAGLIATE 5  «mi ha lasciata»
+coda oggi giro 1 18: SBAGLIATE 6  «Mi sto accontentando»
+coda oggi giro 1 19: SBAGLIATE 5  «»
+coda oggi giro 1 20: SBAGLIATE 5  «»
+coda oggi giro 2 1: SBAGLIATE 4  «»
+coda oggi giro 2 2: SBAGLIATE 6  «quello che è successo»
+coda oggi giro 2 3: SBAGLIATE 6  «»
+coda oggi giro 2 4: SBAGLIATE 5  «che si faccia vivo lui»
+coda oggi giro 2 5: SBAGLIATE 5  «»
+coda oggi giro 2 6: SBAGLIATE 11  «»
+coda oggi giro 2 7: SBAGLIATE 5  «»
+coda oggi giro 2 8: SBAGLIATE 5  «»
+coda oggi giro 2 9: SBAGLIATE 5  «Chi devo scegliere?»
+coda oggi giro 2 10: SBAGLIATE 8  «»
+coda oggi giro 2 11: SBAGLIATE 5  «»
+coda oggi giro 2 12: SBAGLIATE 6  «Che cosa mi manca?»
+coda oggi giro 2 13: SBAGLIATE 10  «»
+coda oggi giro 2 14: SBAGLIATE 5  «»
+coda oggi giro 2 15: SBAGLIATE 5  «un tradimento»
+coda oggi giro 2 16: SBAGLIATE 5  «ma non mi dice niente»
+coda oggi giro 2 17: SBAGLIATE 5  «mi ha lasciata»
+coda oggi giro 2 18: SBAGLIATE 6  «Mi sto accontentando»
+coda oggi giro 2 19: SBAGLIATE 5  «»
+coda oggi giro 2 20: SBAGLIATE 4, NON DETTE 2  «Vieni a giocare»
+TOTALE coda oggi: uguali parola per parola 0 su 40, parole sbagliate 233 su 292, parole scritte e non dette 2, domande con almeno due parole non dette 1 su 40

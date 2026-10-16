@@ -1,0 +1,32 @@
+ORDINE ES VOCE 29: numeri e colori senza la regola dietro, 0 su 30 (senza carta natale)
+
+nato 3/1/1960, 29/9: numero 7 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 3/1/1960, 7/10: numero 4 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 3/1/1960, 19/10: numero 7 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 5/2/1965, 29/9: numero 1 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 5/2/1965, 7/10: numero 7 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 5/2/1965, 19/10: numero 1 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 7/3/1970, 29/9: numero 4 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 7/3/1970, 7/10: numero 1 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 7/3/1970, 19/10: numero 4 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 9/4/1975, 29/9: numero 7 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 9/4/1975, 7/10: numero 4 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 9/4/1975, 19/10: numero 7 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 11/5/1980, 29/9: numero 1 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 11/5/1980, 7/10: numero 7 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 11/5/1980, 19/10: numero 1 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 13/6/1985, 29/9: numero 4 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 13/6/1985, 7/10: numero 1 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 13/6/1985, 19/10: numero 4 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 15/7/1990, 29/9: numero 7 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 15/7/1990, 7/10: numero 4 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 15/7/1990, 19/10: numero 7 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 17/8/1995, 29/9: numero 1 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 17/8/1995, 7/10: numero 7 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 17/8/1995, 19/10: numero 1 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 19/9/2000, 29/9: numero 4 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 19/9/2000, 7/10: numero 1 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 19/9/2000, 19/10: numero 4 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo
+nato 21/10/2005, 29/9: numero 7 (giorno personale), Luna in Toro, signore Venere, colore verde
+nato 21/10/2005, 7/10: numero 4 (giorno personale), Luna in Vergine, signore Mercurio, colore grigio azzurro
+nato 21/10/2005, 19/10: numero 7 (giorno personale), Luna in Acquario, signore Saturno, colore nero piombo

@@ -1,0 +1,6 @@
+innesto in lib/core/arts/l_ordine_dei_domini.dart: il vecchio compare 0 volte, il nuovo 1 volte ("          'pendulum',\n          'dream_reading',\n" -> "          'dream_reading',\n          'pendulum',\n")
+  Expected: [
+    Actual: [
+  00:03 +2 -1: EO.10 e EO.13: il dominio di Caligo a video, contro l'elenco del fondatore [E]
+  00:04 +6 -1: Some tests failed.
+ripristino lib/core/arts/l_ordine_dei_domini.dart: sha1 b68c9de225ad -> b68c9de225ad, IDENTICO

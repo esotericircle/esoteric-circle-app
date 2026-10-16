@@ -1,0 +1,104 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un momento favorevole per la promozione che attendi al lavoro. Le stelle suggeriscono che l'allineamento dei pianeti, in particolare un trigono tra Marte e Giove nel tuo settore professionale, spinge verso un riconoscimento delle tue capacità.
+
+✦ Esponi le tue idee più innovative al prossimo incontro di team.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Ti consiglio di preparare una presentazione dettagliata delle tue proposte, focalizzandoti sui benefici a lungo termine per l'azienda. Il Sole nel segno del Leone, in aspetto armonioso con il tuo medio cielo, invita all'affermazione e alla visibilità in ambito lavorativo, quindi questo è il tempo di mostrarti.
+
+✦ Metti in agenda una riunione con il tuo superiore diretto entro mercoledì per condividere i tuoi progressi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della promozione e del 'mostrarsi' (affermazione e visibilità) già introdotto nella risposta [1] ('Esponi le tue idee più innovative') e lo sviluppa con consigli pratici e specifici per la settimana, come preparare una presentazione e fissare una riunione.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se l'esito della riunione non dovesse essere quello sperato, non lasciarti scoraggiare: il tuo cielo indica che la perseveranza è la chiave. Ti suggerisco di chiedere un feedback specifico e dettagliato sulle aree di miglioramento, in modo da poter affinare la tua strategia per il prossimo ciclo.
+
+✦ Riprendi la conversazione con il tuo superiore entro la prossima settimana, richiedendo una nuova occasione per presentare un piano aggiornato.
+    GIUDICE: PORTA_AVANTI, La guida riprende il discorso della promozione e della riunione con il superiore introdotto nella risposta [2] e lo sviluppa, fornendo consigli su come agire nel caso in cui l'esito non sia quello sperato, mantenendo la coerenza con l'obiettivo finale della promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Dentro di te c'è già il sapere di ciò che ti chiama e di ciò che ti trattiene, accogli il tuo sentire profondo come un respiro che si espande.
+
+Il tuo centro del plesso solare, il terzo chakra di colore giallo, ti invita a toccare la tua forza interiore e la tua volontà. Prima di un grande passo come un trasferimento, ti invito a sentire l'energia che muove i tuoi passi, se nasce da un desiderio di apertura o da una spinta a fuggire.
+
+✦ Poggia la mano sull'addome e fai tre respiri profondi, sentendo la tua forza.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, prenditi un momento ogni giorno per visualizzare la città in cui ti trovi ora e poi l'altra città, quella a cui pensi.
+
+Ascolta le sensazioni che emergono nel tuo corpo, nel tuo respiro, ogni volta che ti connetti a queste immagini. Non ci sono giudizi, solo il tuo sentire che ti guida. Quando senti la radice che si lega al luogo, o la corona che si apre a nuove possibilità.
+
+✦ Chiudi gli occhi e immagina entrambe le città, una dopo l'altra.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'ascolto interiore e del 'sentire' già introdotto nella risposta precedente, fornendo un esercizio pratico (visualizzazione delle città) che sviluppa il concetto di 'sentire l'energia che muove i tuoi passi' e 'accogliere il tuo sentire profondo'.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non andranno come speri, quel gesto di visualizzazione che hai fatto non sarà stato vano: ti avrà mostrato le differenze e i punti di contatto tra il tuo spazio attuale e quello desiderato.
+
+La tua energia, che si manifesta attraverso il tuo respiro, è sempre con te, in ogni luogo. Non è un luogo a definire la tua pace, ma la tua capacità di centrare te stessa. Se l'esito non è quello atteso, potrai tornare a quel tuo centro, il tuo cuore che batte, il tuo respiro che fluisce, e da lì ripartire.
+
+✦ Accompagna il tuo respiro con la mano sul cuore, sentendo la vita che pulsa in te.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'esercizio di visualizzazione suggerito nella risposta precedente ('quel gesto di visualizzazione che hai fatto') e lo sviluppa, spiegando il suo valore anche in caso di esito inatteso e ricollegandosi al concetto di 'centrare te stessa' e al 'respiro' già menzionati.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Non aspettare. Il silenzio erode, agisci ora.
+Una nebbia fredda avvolge la connessione, ma non ha spezzato il filo.
+
+La runa Nauthiz ti mostra il bisogno, la costrizione che spinge a superare l'inerzia. Questa soglia richiede uno sforzo, una scelta consapevole. Il sentiero è stretto, ma il presagio non è di rottura, bensì di richiamo. La tua forza è nel comprendere la mancanza e nel tessere un nuovo sigillo. Non è un tempo per l'attesa, ma per il rito della ricongiunzione.
+
+✦ Scrivi un messaggio onesto e semplice, senza recriminazioni, chiedendo un incontro per parlare.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: Parla. Questa settimana, il segno ti spinge alla parola chiarificatrice.
+Il fuoco della comunicazione deve riscaldare l'aria, dissipando l'ombra.
+
+La runa Nauthiz, ancora presente, non è solo un presagio di necessità, ma anche un invito ad agire con disciplina e consapevolezza. Il tuo primo passo era scrivere. Ora è il momento di un confronto diretto, in cui ogni parola ha il peso di un mattone per ricostruire il ponte. Non temere la verità, è il tuo strumento più potente.
+
+✦ Se hai già inviato il messaggio, proponi un momento specifico per l'incontro, senza lasciare spazio all'incertezza.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente ('Il tuo primo passo era scrivere') e lo sviluppa, indicando il passo successivo ('Ora è il momento di un confronto diretto') e specificando l'azione per la settimana corrente, in linea con il 'non aspettare' iniziale.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Accetta l'esito. Ogni esito porta a un nuovo inizio.
+Anche un metallo fuso può essere forgiato in una forma diversa, più forte.
+
+La runa Nauthiz ti ha mostrato il bisogno. Se l'incontro non porta al risultato sperato, il presagio non si conclude. Ti indica la necessità di riconoscere ciò che non può essere cambiato e di riorientare la tua energia. Il sentiero si biforca, e la tua forza è nel scegliere con chiarezza la direzione successiva, non nel forzare una via che si chiude. Questo è un rito di resilienza.
+
+✦ Se l'incontro non ha generato la risposta che desideravi, prendi un giorno per te, in solitudine, per riflettere sul passo successivo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della runa Nauthiz ('La runa Nauthiz ti ha mostrato il bisogno') e sviluppa il discorso sulle possibili conseguenze dell'azione intrapresa, fornendo un consiglio su come affrontare un esito non sperato, senza contraddire o ignorare i consigli precedenti, ma preparandosi a un possibile scenario futuro.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto, perché il cielo indica una fase di preparazione ancora in corso. Le tue idee hanno bisogno di maturare, proprio come un frutto sul ramo.
+
+Il transito di Mercurio retrogrado in Toro suggerisce di rivedere e perfezionare i dettagli, di valutare le risorse e di solidificare le basi. È un tempo propizio per la pianificazione, non per l'azione. L'arcano della Forza, sebbene rappresenti energia e coraggio, ti invita a incanalare questa energia nella pazienza e nella maestria, piuttosto che in un lancio prematuro.
+
+✦ Raccogli le tue ispirazioni e scrivile su un quaderno prima che la Luna entri nel prossimo segno.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Per poterti dare un consiglio preciso per questa settimana, ho bisogno di sapere in che segno si trova la Luna in questo momento.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della Luna, già introdotto nella risposta precedente come fattore temporale per un'azione specifica ('prima che la Luna entri nel prossimo segno'), e lo usa per dare un consiglio pratico per la settimana, sviluppando il punto.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Quando le cose non vanno come speri, è tempo di fermarsi e rileggere il tuo cielo. La tua carta del giorno, l'Eremita, ti invita a una riflessione profonda, a cercare la saggezza dentro di te per comprendere la direzione da prendere.
+
+Ogni progetto, ogni iniziativa, ha i suoi tempi e le sue sfide. Il tuo cielo ti suggerisce che anche un ritardo può portare a una maggiore chiarezza. Accetta che alcune cose sfuggano al tuo controllo e usa questo momento per affinare la tua visione e la tua strategia, preparandoti a ripartire con maggiore consapevolezza.
+
+✦ Prendi del tempo per te stessa stasera, in silenzio, e immagina i prossimi passi del tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'fase di preparazione' e 'maturazione' già espresso nella prima risposta, e lo sviluppa applicandolo alla situazione in cui 'le cose non vanno come speri', suggerendo che anche un ritardo può portare a maggiore chiarezza e affinamento della visione, in linea con il consiglio iniziale di pianificazione e non azione.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi cominciare ascoltando il tuo corpo, il suo respiro, in questo momento.
+
+Siediti e lascia che la tua mente si svuoti, poi cerca l'energia del Cuore, il centro verde smeraldo al centro del petto, la radice della compassione. Senti il suo calore e la sua espansione mentre pensi a tua sorella, poi trova le parole per dirle che la pace è un dono che vuoi offrirle, anche se non sai come sciogliere la tensione.
+
+✦ Poggia una mano sul cuore e respira per tre volte, sentendo il battito.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: In pratica, questa settimana, prenditi un momento per sentire il tuo respiro prima di ogni azione, specialmente quando pensi a lei.
+
+Il centro del Cuore ti invita a trovare un piccolo gesto, qualcosa che solo tu e lei potreste capire, un ricordo comune, un oggetto che vi lega, per riavvicinarvi senza parole. Lascia che quel gesto parli per te, senza aspettative, ma con l'intenzione di risanare.
+
+✦ Chiudi gli occhi e visualizza un ponte che vi unisce, poi respiraci sopra per trenta secondi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del respiro e del centro del Cuore già introdotti, e sviluppa l'idea di 'trovare le parole' suggerendo un 'piccolo gesto' pratico per la settimana, rispondendo alla domanda della persona.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri dopo il tuo gesto, torna al tuo respiro. Il ponte che hai visualizzato resta lì, anche se adesso sembra fragile.
+
+Nelle tue mani, il verde smeraldo del Cuore ti ricorda che l'amore e la comprensione sono un flusso continuo, non un traguardo. Non forzare il passo, ma sii presente a ciò che accade in te. Quando sentirai la calma, potrai cercare di nuovo un punto di contatto, un ricordo che vi ha unite, una parola che vi appartiene. La sua volontà è sua, la tua serenità è tua. Per questa parte, che tocca le scelte e le volontà degli altri, Medora ti potrebbe dare un aiuto ulteriore.
+
+✦ Porta entrambe le mani al centro del petto, inspira profondamente e senti la connessione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del respiro e del 'ponte' introdotto nella risposta precedente, e sviluppa il tema della 'pace' e del 'risanare' affrontando l'eventualità che le cose non vadano come sperato, mantenendo la coerenza con i consigli precedenti.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito

@@ -1,0 +1,31 @@
+I MAZZI SUL BUCKET, ordine FJ voci 9 e 12, 11 ottobre 2026
+Pubblicati con: python tool/pubblica_i_mazzi.py --pubblica (316 file e il manifest, uscita 0).
+Verifica da fuori, senza credenziali, come fa l'app: si legge il manifest pubblico e si scaricano alcuni file controllandone l'impronta.
+
+manifest: https://storage.googleapis.com/esoteric-circle-assets-cdn/tarocchi/mazzi/manifest.json
+  stato HTTP 200 ; Cache-Control: public, max-age=300 ; byte 72132
+  formato 1 ; base https://storage.googleapis.com/esoteric-circle-assets-cdn/tarocchi/mazzi/
+  Marsiglia: versione 1, piano iniziato, 79 voci (78 carte e il dorso), 26863488 byte
+    tar_rw_00_il-matto_v1                  piena     marsiglia/v1/piene/00.webp -> tar_mar_00_il-matto_v4, 304644 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_00_il-matto_v1                  miniatura marsiglia/v1/miniature/00.webp -> tar_mar_00_il-matto_v4, 45668 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_11_la-giustizia_v1              piena     marsiglia/v1/piene/08.webp -> tar_mar_08_la-giustizia_v1, 312542 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_11_la-giustizia_v1              miniatura marsiglia/v1/miniature/08.webp -> tar_mar_08_la-giustizia_v1, 48810 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_08_la-forza_v1                  piena     marsiglia/v1/piene/11.webp -> tar_mar_11_la-forza_v1, 327016 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_08_la-forza_v1                  miniatura marsiglia/v1/miniature/11.webp -> tar_mar_11_la-forza_v1, 49472 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_denari_14_v1                    piena     marsiglia/v1/piene/49.webp -> tar_mar_49_re-di-denari_v3, 361768 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_denari_14_v1                    miniatura marsiglia/v1/miniature/49.webp -> tar_mar_49_re-di-denari_v3, 54138 byte, impronta giusta, cache public, max-age=31536000, immutable
+    dorso                                  piena     marsiglia/v1/dorso.webp -> tar_mar_dorso_v2, 266844 byte, impronta giusta, cache public, max-age=31536000, immutable
+    dorso                                  miniatura marsiglia/v1/dorso_miniatura.webp -> tar_mar_dorso_v2, 35220 byte, impronta giusta, cache public, max-age=31536000, immutable
+  Thoth: versione 1, piano adepto, 79 voci (78 carte e il dorso), 27702826 byte
+    tar_rw_00_il-matto_v1                  piena     thoth/v1/piene/00.webp -> tar_tho_00_il-matto_v1, 323166 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_00_il-matto_v1                  miniatura thoth/v1/miniature/00.webp -> tar_tho_00_il-matto_v1, 41750 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_11_la-giustizia_v1              piena     thoth/v1/piene/08.webp -> tar_tho_08_l-aggiustamento_v1, 292502 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_11_la-giustizia_v1              miniatura thoth/v1/miniature/08.webp -> tar_tho_08_l-aggiustamento_v1, 38056 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_08_la-forza_v1                  piena     thoth/v1/piene/11.webp -> tar_tho_11_la-lussuria_v1, 312716 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_08_la-forza_v1                  miniatura thoth/v1/miniature/11.webp -> tar_tho_11_la-lussuria_v1, 39798 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_denari_14_v1                    piena     thoth/v1/piene/49.webp -> tar_tho_49_cavaliere-di-dischi_v1, 322036 byte, impronta giusta, cache public, max-age=31536000, immutable
+    tar_rw_denari_14_v1                    miniatura thoth/v1/miniature/49.webp -> tar_tho_49_cavaliere-di-dischi_v1, 40058 byte, impronta giusta, cache public, max-age=31536000, immutable
+    dorso                                  piena     thoth/v1/dorso.webp -> tar_tho_dorso_v1, 444488 byte, impronta giusta, cache public, max-age=31536000, immutable
+    dorso                                  miniatura thoth/v1/dorso_miniatura.webp -> tar_tho_dorso_v1, 60756 byte, impronta giusta, cache public, max-age=31536000, immutable
+
+file scaricati e controllati: 20, impronte giuste: 20

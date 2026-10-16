@@ -1,0 +1,9 @@
+GIRO 2
+attrazione: 10 su 10 PASSA
+emozioni: 10 su 10 PASSA
+mente: 10 su 10 PASSA
+durata: 10 su 10 PASSA
+destino: 9 su 10 PASSA
+legami: 9 su 10 PASSA
+toni: 10 su 10 PASSA
+sbagliati: destino-48 (destino, destino famiglia teso, vera destino, detta B); legami-60 (legami, emozioni amicizia silenzio, vera amicizia, detta A)

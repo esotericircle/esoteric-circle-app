@@ -1,0 +1,57 @@
+ORDINE ER, LE ROSSE DELLA SUITE FINALE CHE NON ERANO QUELLE ACCETTATE
+28 settembre 2026. Suite intera sul codice dopo la build 2286 (commit e80e33ea):
++6130 ~11 -21 alla fine del giro, di cui otto rosse accettate (le_soglie_della_scansione_sono_provvisorie,
+rossa per ordine CR.13; le sei guardie "ogni voce dichiara uno stato terminale" degli ordini
+ACCELERA, EI, EJ, EK, EM, EN, che restano aperti; niente_lavoro_non_spinto, finche' non si spinge).
+Le altre tredici, ognuna col suo padre e con la cura. Tutte vengono da voci di quest'ordine:
+sono la Regola B che non avevo fatto su quelle zone, e l'hanno fatta le guardie da sole.
+
+1-3. consulta_maestro_test.dart, tre righe (una porta sola alla configurazione; il confine
+     dopo l'ultimo metodo pubblico; sei punti di ripulitura)
+     padre: ER.01, commit 760adc94. Il presagio delle rune costruiva la sua GenerationConfig
+     a mano, puliva il testo in tre punti invece che in uno, e aveva tolto _parsePresagio,
+     che era il confine della prova.
+     cura: lo schema passa da configurazionePer (nuovo parametro responseSchema); una sola
+     funzione pezzo per le tre parti; il confine della prova e' _jsonDelPresagio, con la lapide.
+
+4.   il_registro_delle_guardie_quadra_test.dart
+     padre: ER.08, commit 5a70fc73. nessun_doppione_in_vista e' diventata
+     i_doppioni_della_home_sono_voluti e il registro elencava ancora la vecchia.
+     cura: docs/guardie.md aggiornato (la riga vecchia esce, quella nuova entra).
+
+5.   i_manifesti_sono_sigillati_test.dart
+     padre: il manifesto dell'ordine ER, commit 798055fd: non era nel sigillo.
+     cura: 'ER': 20 in vociMisurate, contate coi titoli "## VOCE ER." del manifesto.
+
+6.   la_runa_cade_e_non_e_gia_li_test.dart, merkstave porta accanto cosa vuol dire
+     padre: ER.01, commit 760adc94. L'istruzione delle rune diceva "in merkstave" senza
+     la traduzione sulla stessa riga.
+     cura: "in merkstave (rovesciata)".
+
+7.   la_scena_del_live_non_salta_test.dart, la domanda resta a video
+     padre: ER.13, commit 798055fd. La prova cercava la domanda messa a video in un
+     colpo; dalla ER.13 si scrive a macchina.
+     cura: la prova cerca la strada nuova, con la lapide; che la domanda resti intera
+     mentre arriva la risposta lo prova il_live_dice_tre_frasi_e_le_scrive_a_macchina_test.
+
+8-10. la_seconda_chiamata_test.dart, tre righe
+     padre: ER.15, commit 9724921e. L'azione di prova era "Stasera scrivi su un foglio
+     cosa ti serve per la bottega.": dalla ER.15 il foglio non passa mai, e il modello si
+     richiamava anche dove la prova vuole zero scarti.
+     cura: l'azione di prova e' un gesto nella situazione chiesta, con la lapide.
+
+11.  le_lunghezze_dei_responsi_test.dart, la tabella dice il vero
+     padre: ER.14, commit 84c97a81. Le schede dell'Oroscopo sono cambiate: la piu' lunga
+     da 253, 248, 247, 259 caratteri a 206, 194, 209, 221 (amore, carriera, fortuna,
+     generale).
+     cura: docs/responsi/lunghezze.md rigenerata con AGGIORNA_LUNGHEZZE=1.
+
+12.  miniature_intere_test.dart, i punti che mostrano queste immagini sono enumerati
+     padre: ER.06, commit 5bae25bc. La rivelazione del Gemello e' stata tolta (il Gemello
+     in una schermata sola): i punti da 14 a 13.
+     cura: il numero segue il dato, con la ragione scritta nella prova.
+
+13.  ogni_voce_chiusa_porta_la_sua_prova_test.dart, nessun manifesto nomina una guardia
+     che non esiste piu'
+     padre: ER.08, commit 5a70fc73. Il manifesto EP nominava nessun_doppione_in_vista_test.
+     cura: riga GUARDIA RIMOSSA nel manifesto EP, che dice dove e' finita la misura.

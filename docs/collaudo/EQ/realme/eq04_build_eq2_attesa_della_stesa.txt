@@ -1,0 +1,1 @@
+09-27 14:32:06.676 18753 18753 I flutter : STESA TEMPI: testo a 7458 ms dal tocco, lettura del modello, riscritta, chiamate 2, riserve 0, riscritture 1

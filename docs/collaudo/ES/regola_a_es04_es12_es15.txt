@@ -1,0 +1,81 @@
+REGOLA A, le guardie nuove delle voci ES.04, ES.12 e ES.15. Ordine ES, 29 settembre 2026.
+Ogni innesto e' entrato nel file (controllato col testo, prima di leggere l'esito), la prova e' girata, il file e' tornato identico al byte (sha1 uguale prima e dopo).
+
+ES.15: senza server la barra mostra un numero (lo zero)
+  file: lib/features/shell/barra_dell_identita.dart
+  innesto verificato nel file: si'
+  esito: 00:05 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 39469c08cb25)
+
+ES.15: la tessera dei Prossimi Eventi Cosmici tolta dal Passport
+  file: lib/features/passport/cosmic_passport_screen.dart
+  innesto verificato nel file: si'
+  esito: 00:04 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 cd0da6cbecd3)
+
+ES.15: la presenza fuori dal ramo di chi chiama
+  file: functions/src/cerchio.ts
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 b3bbf0de8e08)
+
+ES.15: il telefono chiede ogni tre minuti, il server ne aspetta due
+  file: lib/services/server/chi_e_online.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 66507e8ea833)
+
+ES.15: il server torna zero online
+  file: functions/src/presenza.ts
+  innesto verificato nel file: si'
+  esito: npm test: fail 1
+  ROSSO: si
+  ripristino byte per byte: si (sha1 239591844f79)
+
+ES.12: la Vedica senza ora legge anche col segno incerto
+  file: lib/core/horoscope/la_lettura_vedica.dart
+  innesto verificato nel file: si'
+  esito: 00:02 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 da3e199a967d)
+
+ES.12: un posto in piu' regalato a ogni piano
+  file: lib/core/amici/amici_offline.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 0e1415e403c0)
+
+ES.12: il Viandante puo' aggiungere amici
+  file: lib/core/amici/amici_offline.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +1: All tests passed!
+  ROSSO: NO
+  ripristino byte per byte: si (sha1 0e1415e403c0)
+
+ES.04: la variante dell'anno fissa (sempre la prima)
+  file: lib/core/horoscope/l_annuale.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 a53ea12155c8)
+
+SECONDA TORNATA. L'innesto "il Viandante puo' aggiungere amici" qui sopra non e' diventato rosso, e aveva ragione la prova: la riga tolta era ridondante, perche' i posti del Viandante sono gia' zero dalla sua cella "No". La riga e' stata tolta dal codice, e la grandezza misurata e' cambiata nel difetto vero: un Viandante che ha comprato un posto non deve poter aggiungere amici. Poi l'emblema dell'anno nel PDF, aggiunto dopo la prima tornata.
+
+ES.12 (seconda tornata): il posto comprato si somma anche al No del Viandante
+  file: lib/core/amici/amici_offline.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 87fd335057cc)
+
+ES.04 (seconda tornata): il PDF dell'anno senza l'emblema
+  file: lib/features/horoscope/il_pdf_dell_anno.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si (sha1 99f1e964b576)

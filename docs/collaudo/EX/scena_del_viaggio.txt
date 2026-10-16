@@ -1,0 +1,30 @@
+ORDINE EX VOCE 10, LA SCENA DEL VIAGGIO SENZA MODELLO. 2 ottobre 2026. APERTA.
+
+DOMANDA: "Voglio corpus grandi, non voglio ripetizioni per almeno 60gg e voglio tenere alta l'esperienza utente e non voglio critiche per le risposte, mi raccomando."
+MISURA chiesta: chiamate per discesa, prima 3,8, dopo 1; scene scartate; confronto alla cieca.
+
+IL BANCO: tool/la_scena_senza_modello_a_confronto.dart, col codice vero del Viaggio (LaDomandaCapita, LaScenaDalModello.chiediTutto, IlResponsoDelViaggio.componi) e Gemini 2.5 Flash in europe-west1. Venti domande: quattordici scritte a mano, sei dalla tavola dei temi. La domanda capita resta sul modello in tutti i giri (una chiamata, non contata qui). Con la domanda scritta a mano, se il modello ha parlato e i testi non hanno retto, il Mondo di Sotto tace (ordine DR voce 07): nel giro e' la riga "(Silenzio ...)".
+
+I GIRI (docs/collaudo/EX/qualita/viaggio_*.jsonl)
+| Giro | Richieste per la scena | Chiamate di scena per discesa | Scene dal modello | Silenzi |
+|---|---|---|---|---|
+| modello (l'app di oggi, 3 tentativi) | fino a 3 | 2,60 (52 su 20) | 19 su 20 | 1 |
+| due (2 tentativi) | fino a 2 | 2,00 (40 su 20) | 18 su 20 | 2 |
+| uno (1 tentativo) | 1 | 1,05 (21 su 20, una ripetuta dal banco per un errore di rete) | 18 su 20 | 2 |
+| casa (nessun modello per la scena) | 0 | 0 | 0 su 20 | 0 |
+
+IL CONFRONTO ALLA CIECA (tool/il_fascicolo_della_qualita.py, regola in docs/collaudo/EX/qualita/regola_della_lettura.md; due giudici, il secondo legge all'indietro; 40 schede per fascicolo)
+| Fascicolo | Giudice | A regole | D merito |
+|---|---|---|---|
+| viaggio: modello contro casa | 1 | 17 contro 20 | 12 contro 1 |
+| viaggio: modello contro casa | 2 | 16 contro 20 | 12 contro 0 |
+| viaggio1: modello contro uno | 1 | 17 contro 16 | 11 contro 3 |
+| viaggio1: modello contro uno | 2 | 18 contro 18 | 10 contro 6 |
+| viaggio2: modello contro due | 1 | 18 contro 17 | 10 contro 7 |
+| viaggio2: modello contro due | 2 | 18 contro 16 | 9 contro 6 |
+
+Il rumore del merito fra due giri dello stesso codice e' di circa 2 su 30 (docs/collaudo/EX/qualita/rumore/). Tutte e tre le vie piu' economiche perdono nel merito oltre il rumore, con tutti e due i giudici: la voce di casa non sa che cosa e' stato chiesto (risponde al tema, non alla domanda), e le richieste ripetute sono proprio quelle che correggono una risposta scartata dalle guardie.
+
+DECISIONE: per la regola NESSUNA RISPOSTA PEGGIORA il codice della scena resta quello di oggi (3 tentativi). La voce resta APERTA: la via per scendere sotto le 2,6 chiamate senza perdere merito non c'e' ancora. Una strada da misurare in un ordine dopo: guardie che correggono in casa la riga scartata invece di richiederla (come la prima frase dell'ordine ET voce 08), o un corpus di scene dell'Architetto per tema e domanda, alla maniera delle rune (EX.03).
+
+Il "prima 3,8" dell'ordine conta anche la domanda capita (1) e le altre chiamate della discesa; qui si misura la sola scena, che e' la parte che la voce voleva togliere.

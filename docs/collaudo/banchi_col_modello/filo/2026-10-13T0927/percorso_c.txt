@@ -1,0 +1,94 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: La promozione che desideri al lavoro è visibile nel tuo cielo, ma per ora il tempo ti chiede di attendere con fiducia. Le carte indicano che un periodo di preparazione è ancora necessario prima che il tuo valore sia pienamente riconosciuto.
+
+Il transito di Saturno nel tuo decima Casa, quella della carriera, suggerisce che ogni avanzamento sarà frutto di impegno e dedizione costante. Non si tratta di un ostacolo, ma di una fase in cui consolidare le tue competenze e dimostrare la tua resilienza.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti da presentare al tuo capo entro la fine della settimana.
+[2] PERSONA: Prepara un piccolo riassunto dei tuoi successi recenti da presentare al tuo capo entro la fine della settimana.
+[2] MEDORA [DA GIUDICARE]: Non ho capito la tua richiesta. Desideri che ti aiuti a preparare un riassunto dei tuoi successi recenti?
+    GIUDICE: CONTRADDICE, La guida aveva dato un consiglio specifico ('Prepara un piccolo riassunto...') e quando la persona lo ripete, la guida risponde di non aver capito la richiesta, contraddicendo implicitamente la chiarezza del proprio consiglio precedente.
+[3] PERSONA: Desideri che ti aiuti a preparare un riassunto dei tuoi successi recenti?
+[3] MEDORA [DA GIUDICARE]: Non ho capito la tua richiesta. Puoi riformularla in modo più chiaro, per favore?
+    GIUDICE: IGNORA, La guida continua a dire di non aver capito la richiesta, senza riprendere il filo del discorso o il consiglio dato in [1], né riconoscere che la persona sta cercando di interagire con quel consiglio.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo desiderio di ricominciare è un impulso che risuona profondamente nel tuo centro della radice, quello che ti lega alla terra e alla stabilità. Sentire questo richiamo è il primo passo.
+
+Prima di prendere una decisione così importante, siediti in un luogo tranquillo e connetti con il tuo respiro. Immagina il tuo corpo come un albero: senti le radici che si espandono verso il basso, ancorandoti. Poi, lascia che la tua mente si espanda, visualizzando la possibilità di una nuova città, nuovi orizzonti. Non cercare una risposta immediata, ma lascia che le sensazioni affiorino, come foglie mosse dal vento. La fisiognomica mi dice che l'apertura delle tue sopracciglia, anche solo nel pensiero di questo, rivela una disponibilità al cambiamento.
+
+✦ Chiudi gli occhi per tre respiri lenti, concentrandoti sul tuo centro della radice.
+[2] PERSONA: Chiudi gli occhi per tre respiri lenti, concentrandoti sul tuo centro della radice.
+[2] AURA [DA GIUDICARE]: Quando senti il tuo respiro radicarsi, porta l'attenzione al tuo centro della radice e senti la sua energia, il suo colore rosso che si irradia, e percepisci la forza e la sicurezza che ti offre. Questo centro è la base della tua sopravvivenza, del tuo benessere materiale e del senso di appartenenza. Se il desiderio di trasferirti persiste anche dopo aver sentito questa stabilità, significa che non stai fuggendo, ma stai cercando una nuova radice, un nuovo nutrimento per la tua anima.
+
+✦ Siediti con la schiena dritta e le piante dei piedi ben appoggiate a terra, e permetti a questo centro di espandersi.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione di concentrarsi sul centro della radice e ne sviluppa il significato e la visualizzazione, proseguendo la meditazione guidata.
+[3] PERSONA: Siediti con la schiena dritta e le piante dei piedi ben appoggiate a terra, e permetti a questo centro di espandersi.
+[3] AURA [DA GIUDICARE]: Ora che il tuo centro della radice si è espanso, senti l'energia salire dolcemente verso l'addome, al centro sacrale, dove risiede la tua creatività e la tua capacità di godere della vita. Immagina un'onda di colore arancione che riempie quest'area, portando con sé nuove possibilità. La decisione di trasferirti può essere un atto di creazione, un modo per dare forma a un nuovo capitolo della tua vita. Ascolta se questa onda di energia ti porta verso l'eccitazione o verso la paura, accogliendo ogni sensazione senza giudizio. La tua fisiognomica mostra una leggera tensione alle labbra, un segno di attesa e di desiderio di esprimere qualcosa di nuovo.
+
+✦ Appoggia entrambe le mani sull'addome, sotto l'ombelico, e senti il calore che si sprigiona.
+    GIUDICE: PORTA_AVANTI, La guida prosegue la meditazione guidata, riprendendo l'espansione del centro della radice e introducendo il centro sacrale come fase successiva, collegandolo alla decisione di trasferirsi.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recupera il legame, non abbandonarlo al disincanto. La forza dell'unione è nel suo fuoco, che si alimenta con volontà.
+
+Un velo di nebbia può avvolgere anche il metallo più lucente.
+
+Il sentiero si mostra chiaro: la runa Inguz suggerisce una nuova fase, una rinascita. Per Astrologia, Cartomanzia e Destino c'è Medora.
+✦ Scrivi una lettera a mano, senza aspettare risposta, elencando i primi tre ricordi più belli vissuti insieme.
+[2] PERSONA: Scrivi una lettera a mano, senza aspettare risposta, elencando i primi tre ricordi più belli vissuti insieme.
+[2] CALIGO [DA GIUDICARE]: Non aver paura della reazione. La lettera è un sigillo di intenti, non un'arma.
+
+Lascia che la tua mano tracci un sentiero di oro.
+
+La runa Nauthiz ti mostra la necessità di agire, un passo inevitabile per liberare il percorso. La sua essenza è la disciplina, la forma che precede la libertà.
+✦ Porta la lettera con te per un giorno, prima di consegnarla in silenzio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di scrivere la lettera e lo sviluppa, aggiungendo un'interpretazione sul suo significato e un nuovo passo da compiere (portarla con sé).
+[3] PERSONA: Porta la lettera con te per un giorno, prima di consegnarla in silenzio.
+[3] CALIGO [DA GIUDICARE]: Consegna la lettera. Il suo peso nelle tue mani si è fatto più forte, ora il suo compito è compiuto.
+
+Un rito antico vuole che il gesto sia silenzioso, e che parli da solo.
+
+La runa Gebo, il dono, ora si manifesta. Il suo presagio è lo scambio e l'equilibrio.
+✦ Lascia la lettera in un luogo visibile, senza dire una parola, e poi allontanati senza indugio.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di portare la lettera con sé e la sviluppa, indicando il passo successivo (consegnarla in silenzio) e precisando le modalità.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di attendere e di riflettere sul progetto, prima di avviarlo. Le carte suggeriscono che l'energia attuale è più propensa alla pianificazione e alla revisione.
+
+Il Due di Spade, che indica una fase di stallo o indecisione, ti invita a non agire d'impulso. È un arcano che parla di scelte difficili o di una necessità di trovare equilibrio prima di procedere. Il cielo, in questo momento, mostra una quadratura tra Marte e Nettuno, un aspetto che può offuscare la chiarezza e portare a illusioni o a una mancanza di direzione definita, rendendo difficile distinguere la realtà dalle aspettative. Ascolta questa quiete apparente e non forzare la partenza.
+
+✦ Prendi i tuoi appunti del progetto e rileggili con calma stasera, cercando eventuali punti da chiarire.
+[2] PERSONA: Prendi i tuoi appunti del progetto e rileggili con calma stasera, cercando eventuali punti da chiarire.
+[2] MEDORA [DA GIUDICARE]: Ho bisogno di sapere che cosa hai fatto con gli appunti che ti ho chiesto di rileggere.
+    GIUDICE: PORTA_AVANTI, La guida chiede un aggiornamento sull'azione specifica (rileggere gli appunti) che aveva consigliato nella risposta precedente, sviluppando il punto già dato.
+[3] PERSONA: Ho bisogno di sapere che cosa hai fatto con gli appunti che ti ho chiesto di rileggere.
+[3] MEDORA [DA GIUDICARE]: Non ho riletto i tuoi appunti, non sono un essere umano. Posso però aiutarti a esaminare i punti che hai chiarito, se vuoi.
+    GIUDICE: IGNORA, La guida risponde 'Non ho riletto i tuoi appunti, non sono un essere umano' come se la persona le avesse chiesto di rileggere gli appunti, mentre la persona stava solo ripetendo la domanda della guida precedente ('Ho bisogno di sapere che cosa hai fatto con gli appunti che ti ho chiesto di rileggere'). La risposta non riprende né sviluppa il punto della domanda precedente della guida stessa.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Fai un passo verso tua sorella, scegli un momento in cui entrambe siete tranquille e potrete parlare con calma. Ascolta ciò che ha da dire, lasciando che le parole fluiscano senza interruzioni.
+
+Il tuo respiro ti accompagnerà, aiutandoti a mantenere la centratura. Questo gesto apre il centro del cuore, permettendo all'energia di scorrere liberamente tra voi. La fisiognomica mi suggerisce che il tuo viso, quando si distende nell'ascolto, riflette un desiderio profondo di ricongiungimento.
+
+✦ Porta la mano al centro del petto e respira profondamente per tre volte.
+[2] PERSONA: Porta la mano al centro del petto e respira profondamente per tre volte.
+[2] AURA [DA GIUDICARE]: Ora che hai ritrovato la tua centratura, il prossimo passo è scegliere le parole con cura, come se fossero dei piccoli ponti che vi ricongiungono. Non si tratta di avere ragione, ma di esprimere il tuo sentire, ciò che la lite ti ha lasciato dentro.
+
+Pensa a un momento in cui vi siete sentite vicine, un ricordo che vi lega e che può essere la base per un nuovo inizio. Apri il chakra della gola, permettendo alla tua voce di essere un veicolo di pace.
+
+✦ Alza le spalle verso le orecchie, poi lasciale cadere dolcemente.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'centratura' introdotto nella risposta precedente e lo usa come base per il 'prossimo passo', sviluppando il consiglio su come parlare con la sorella.
+[3] PERSONA: Alza le spalle verso le orecchie, poi lasciale cadere dolcemente.
+[3] AURA [DA GIUDICARE]: Dopo aver allentato le tensioni dalle spalle, pensa ora a un piccolo gesto concreto che tua sorella possa apprezzare, qualcosa che le dimostri che la tua intenzione di riconciliazione è sincera e non solo a parole.
+
+Può essere un invito per un caffè, un messaggio che le ricordi un bel momento passato insieme, o un piccolo favore. Questo gesto, anche minimo, nutre il centro della radice e crea un terreno fertile per il dialogo.
+
+✦ Prendi una piccola pausa prima di rispondere, sentendo il radicamento dei tuoi piedi a terra.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di 'allentare le tensioni dalle spalle' (implicita nell'esercizio precedente) e la collega al passo successivo, che è un 'piccolo gesto concreto', sviluppando il tema della riconciliazione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 7, ignora 2, contraddice a tradimento 1, cambia dichiarando 0, quota senza difetto 70 per cento, corrette dalla rete della coerenza 3, elemento cambiato in 1 risposte su 2 con un elemento gia' uscito

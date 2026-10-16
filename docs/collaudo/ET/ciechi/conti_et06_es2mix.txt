@@ -1,0 +1,45 @@
+es1 aura: nel merito 9 su 24; domande con piu parti toccate tutte 9 su 10; risposte con una certezza 3 (frasi 3)
+es1 caligo: nel merito 15 su 24; domande con piu parti toccate tutte 10 su 12; risposte con una certezza 5 (frasi 6)
+es1 medora: nel merito 19 su 24; domande con piu parti toccate tutte 9 su 11; risposte con una certezza 6 (frasi 9)
+es1 tutti: nel merito 43 su 72; domande con piu parti toccate tutte 28 su 33; risposte con una certezza 14 (frasi 18)
+es2 aura: nel merito 9 su 24; domande con piu parti toccate tutte 7 su 10; risposte con una certezza 2 (frasi 2)
+es2 caligo: nel merito 17 su 24; domande con piu parti toccate tutte 9 su 11; risposte con una certezza 6 (frasi 6)
+es2 medora: nel merito 19 su 24; domande con piu parti toccate tutte 11 su 12; risposte con una certezza 6 (frasi 7)
+es2 tutti: nel merito 45 su 72; domande con piu parti toccate tutte 27 su 33; risposte con una certezza 14 (frasi 15)
+
+CERTEZZE es1
+    L007 medora: Nelle carte leggo che l'amore e la possibilità di una compagna sono vicini
+    L007 medora: per il successo nel lavoro la via è già tracciata
+    L022 medora: in Australia ti sentirai solo solo all'inizio
+    L022 medora: il tuo Sole in Leone ti darà la forza di socializzare e creare nuovi legami
+    L027 medora: il suo pianto è una reazione emotiva che ha bisogno di tempo per essere elaborata
+    L028 caligo: Le rune dicono che la sua reazione è parte del distacco.
+    L030 medora: una compagna arriverà
+    L030 medora: l'Australia ti attende
+    L033 medora: il tuo cielo indica che la decisione maturerà da sola con il passare dei giorni
+    L058 aura: Le sue preoccupazioni nascono dal desiderio di proteggerti
+    L094 aura: il pianto di tua madre è una risposta emotiva, non un segno che la tua partenza sia sbagliata, ma che tocca in lei un punto profondo di legame e protezione
+    L107 caligo: Il suo pianto è un sigillo di paura, non un presagio che ti ferma.
+    L111 medora: Le carte e il tuo cielo leggono nel pianto di tua madre un profondo legame e la paura di un distacco, più che un rifiuto della tua scelta.
+    L128 caligo: Nelle rune leggo che il sentiero si apre per il viaggio e per il lavoro.
+    L132 aura: la sua reazione è un'espressione del suo amore per te, un timore profondo per ciò che non conosce e non controlla
+    L133 caligo: Le pietre rispondono che non sarai solo.
+    L133 caligo: La tua partenza aprirà nuove soglie, non sentirai la mancanza.
+    L137 caligo: La solitudine è un presagio che non ti segue in questo viaggio.
+
+CERTEZZE es2
+    L004 caligo: La runa Fehu, l'abbondanza, ti guiderà nelle tue scelte.
+    L011 caligo: La decisione è già presa, il tuo destino ti chiama.
+    L051 medora: Non è una paura che impedirà il tuo cammino.
+    L053 medora: è da lì che si aprirà la via per il viaggio e per la tua realizzazione
+    L069 caligo: Le rune indicano che la compagna arriverà
+    L075 aura: il pianto di tua madre è una manifestazione del suo amore e della sua preoccupazione per te
+    L076 caligo: Il presagio è di nuove connessioni.
+    L078 medora: Le carte e il tuo cielo indicano che una compagna arriverà, il viaggio in Australia è nel tuo futuro e il successo nel lavoro è a portata di mano.
+    L082 caligo: Le pietre rispondono che non sarai solo.
+    L085 medora: Osserva il cielo del mattino, ti rivelerà un indizio prezioso per i tuoi prossimi passi.
+    L088 medora: Le carte e il tuo cielo leggono nel pianto di tua madre un profondo affetto e la paura di un cambiamento, ma non la rinuncia.
+    L088 medora: Il suo silenzio ora è un momento per elaborare, non un rifiuto definitivo.
+    L106 aura: l'emozione di tua madre è una reazione all'ignoto e al cambiamento, non un giudizio sulla tua scelta
+    L113 medora: sua madre ha bisogno di tempo per elaborare la tua scelta: il pianto è una reazione emotiva, non un blocco definitivo
+    L117 caligo: Le rune dicono che la sua reazione è un riflesso della sua paura.

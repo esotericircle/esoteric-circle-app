@@ -1,0 +1,341 @@
+{
+ "da": "docs/collaudo/ET/ciechi, fascicolo es6mix",
+ "voci": [
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima che tu abbia chiarito a te stessa cosa significhi per te \"giusta\".",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che la tua fortuna cambierà entro l'estate, quando il Sole in Leone porterà nuova luce e opportunità, ma solo dopo che avrai seminato con cura i tuoi desideri.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: entro tre mesi.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: non prima che tu abbia ascoltato e onorato il tuo centro del cuore, lasciando fluire l'energia senza timore di accogliere il nuovo.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima che tu abbia agito.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima che tu abbia agito.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: non prima che tu abbia ascoltato e onorato il tuo bisogno di radicamento e di sicurezza.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che la tua fortuna inizierà a cambiare tra circa tre mesi, con la fine della retrogradazione di Saturno nel tuo tema natale, che adesso ti chiede di rivedere le basi delle tue aspirazioni.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che la fortuna cambierà non appena avrai compreso il vero valore delle lezioni che stai imparando in questo periodo.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: entro le prossime sei settimane, se ti prepari ad accogliere il cambiamento con apertura.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: non prima dell'autunno e dopo che avrai permesso alla tua voce interiore di esprimersi pienamente.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che la tua fortuna cambierà non appena avrai compreso che non è un evento esterno, ma una condizione interiore che puoi coltivare: il tuo numero della vita, il Cercatore, ti spinge a trovare la tua via.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima del prossimo autunno e dopo che avrai compreso meglio cosa il tuo cuore di Leone desidera davvero.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima di tre lune piene, dopo che avrai sciolto il tuo nodo più antico.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: entro sei mesi, quando un ciclo di radicamento e di ricostruzione sarà giunto a un punto di svolta, portando con sé nuove opportunità.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: la incontrerai dopo aver dedicato un tempo profondo a sentire le tue radici e a nutrire il tuo centro sacro.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima della prossima luna piena, quando il velo tra i mondi si assottiglia.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima del solstizio d'inverno, quando il Sole in Capricorno inizierà il suo cammino di ascesa.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che la tua fortuna inizierà a cambiare concretamente quando Saturno riprenderà il suo moto diretto, fra qualche mese.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: non prima di tre lune e dopo che avrai permesso al tuo respiro di liberare le tensioni nel tuo plesso solare.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima della prossima estate, dopo un periodo di revisione dei tuoi desideri più intimi.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: non appena avrai radicato la tua energia nel presente, permettendo al tuo centro della radice di fiorire nella consapevolezza di chi sei.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice: non prima dell'autunno e dopo che avrai fatto chiarezza sulle tue priorità più profonde.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: non prima dell'autunno e dopo che avrai fatto spazio nel tuo cuore e nelle tue giornate per accogliere un nuovo respiro.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: dopo l'estate, quando avrai riconosciuto il tuo valore.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice: la tua fortuna cambierà entro il prossimo anno, quando il ciclo di Giove in Leone si completerà, portando nuove opportunità nel tuo cammino, ma solo se accetterai di chiudere un capitolo importante.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: dopo il plenilunio di questo mese, quando la Luna in Toro avrà esaurito la sua fase calante.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: non prima di tre mesi, dopo che avrai riportato la tua attenzione al tuo centro della radice.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima dell'autunno.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: la incontrerai dopo aver chiarito la tua strada.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: non prima dell'autunno e dopo che avrai permesso alla tua energia creativa di esprimersi pienamente.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice che un cambiamento sta per arrivare entro la prossima primavera, ma solo dopo che avrai fatto spazio a nuove possibilità, lasciando andare vecchi schemi che non ti servono più.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima dell'autunno e dopo che avrai compreso meglio le tue reali aspettative in amore.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Il tuo cielo dice che un cambiamento significativo nella tua fortuna si manifesta con il prossimo ciclo di Saturno, tra circa sette anni, portando stabilità e realizzazione duratura.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima dell'autunno e dopo che avrai fatto chiarezza sui tuoi desideri più autentici.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: dopo il plenilunio, che è fra sei giorni, quando la Luna in Toro avrà illuminato ogni sentiero.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima che tu abbia risolto un nodo karmico legato al tuo passato, entro i prossimi sei mesi.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: dopo l'autunno, quando le foglie avranno coperto la terra.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono che l'incontro con la persona giusta avverrà quando avrai consolidato la tua visione di te stessa, probabilmente entro i prossimi sei mesi.",
+   "risponde": true
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "La tua energia dice: entro l'autunno e dopo che avrai permesso alla tua radice di riposare e rigenerarsi.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "medora",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Le carte rispondono: non prima che tu abbia risolto un nodo interiore che ti lega al passato.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima che tu abbia rilasciato ciò che ti lega al passato.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando cambierà la mia fortuna?",
+   "prima_frase": "Le pietre rispondono: non prima che tu abbia ascoltato la voce del tuo cuore.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: non prima dell'autunno e dopo che avrai riordinato i tuoi spazi.",
+   "risponde": true
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: non prima che tu abbia sentito a fondo ciò che il tuo Chakra del cuore desidera realmente per te, al di là di ogni aspettativa.",
+   "risponde": false
+  },
+  {
+   "fase": "es5",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: la persona giusta si manifesterà quando sentirai di essere nel tuo pieno respiro, equilibrando la tua radice con la tua corona e la tua energia sarà pronta a fiorire.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "aura",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "I tuoi centri rispondono: dopo che avrai permesso alla tua energia di fluire liberamente e senza paura.",
+   "risponde": false
+  },
+  {
+   "fase": "es6",
+   "maestro": "caligo",
+   "domanda": "Quando incontrerò la persona giusta?",
+   "prima_frase": "Il segno che cade dice: dopo che avrai riconosciuto il tuo valore.",
+   "risponde": false
+  }
+ ]
+}

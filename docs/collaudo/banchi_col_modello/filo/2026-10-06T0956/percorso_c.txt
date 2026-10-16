@@ -1,0 +1,94 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: la tua ambizione è ben supportata da un transito favorevole che alimenta la tua determinazione. Marte in trigono al tuo Sole suggerisce che questo è il momento di agire con fiducia.
+
+✦ Prepara un riassunto dei tuoi successi e presentalo al tuo superiore entro la fine della settimana.
+[2] PERSONA: Prepara un riassunto dei tuoi successi e presentalo al tuo superiore entro la fine della settimana.
+[2] MEDORA [DA GIUDICARE]: [[CHIEDO]]
+Hai già preparato il riassunto dei tuoi successi e lo hai presentato al tuo superiore? Oppure hai bisogno di indicazioni su come procedere con questa azione?
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('il riassunto dei tuoi successi', 'questa azione') e chiede un aggiornamento o se sono necessarie ulteriori indicazioni per procedere.
+[3] PERSONA: Oppure hai bisogno di indicazioni su come procedere con questa azione?
+[3] MEDORA [DA GIUDICARE]: Per procedere con questo passo, concentra la tua energia su una presentazione chiara e concisa: evidenzia i risultati concreti ottenuti e il loro impatto positivo. L'Arcano del Carro ti invita a mostrare la tua direzione e la tua capacità di guidare i progetti.
+
+✦ Scegli i tre successi più significativi e scrivi una frase per ciascuno, che ne illustri il valore.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla domanda della persona, che a sua volta riprendeva una parte della domanda precedente della guida, fornendo indicazioni specifiche su come procedere con l'azione già consigliata.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di un nuovo inizio è forte dentro di te, e il corpo lo sente. Ascolta il centro della radice, il primo, che parla di stabilità e di un senso di appartenenza.
+
+Un cambiamento così grande, come quello di trasferirti, tocca profondamente questo centro. Porta la tua attenzione lì, senti la sua energia, e chiediti se il desiderio di partire nasce da un bisogno reale di nuova terra sotto i piedi, o da una spinta a fuggire da ciò che ti lega al luogo in cui sei ora. La risposta non è nel fare, ma nel sentire il tuo corpo.
+
+✦ Porta le mani sui fianchi, senti il tuo radicamento a terra per qualche respiro.
+[2] PERSONA: Porta le mani sui fianchi, senti il tuo radicamento a terra per qualche respiro.
+[2] AURA [DA GIUDICARE]: Sentire il radicamento ti porta al tuo punto fermo, al tuo qui e ora. È da questo spazio che puoi iniziare a capire se il tuo respiro desidera una nuova aria, un nuovo orizzonte, o se è solo un'inquietudine temporanea.
+
+Questo contatto con la radice ti suggerisce di non affrettare decisioni così importanti, ma di permettere al tuo corpo di darti una risposta chiara. A volte, il desiderio di ricominciare altrove è un richiamo del tuo corpo a trovare un radicamento più profondo, ovunque tu sia.
+
+✦ Fai tre respiri profondi, espirando lentamente per sentire il peso del tuo corpo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'radicamento' e 'centro della radice' introdotto nella risposta precedente, sviluppando il significato e lo scopo di questa pratica per la decisione della persona.
+[3] PERSONA: Fai tre respiri profondi, espirando lentamente per sentire il peso del tuo corpo.
+[3] AURA [DA GIUDICARE]: Sentire il peso del tuo corpo, il tuo radicamento, è la base per ogni scelta. Questo gesto ti riporta alla consapevolezza di te, e ti permette di distinguere tra un impulso e un vero bisogno profondo.
+
+Il desiderio di cambiare città, di ricominciare altrove, può nascere da un centro in disarmonia, che cerca equilibrio attraverso un cambiamento esterno. Forse è il tuo Chakra della gola, il quinto centro, quello della comunicazione e dell'espressione, a voler esprimere un bisogno non ancora ascoltato. Prova a dare voce a questo desiderio, a parlarne con qualcuno di cui ti fidi, ad alta voce.
+
+✦ Metti una mano sulla gola e senti le vibrazioni mentre pronunci il tuo desiderio di ricominciare.
+    GIUDICE: PORTA_AVANTI, La guida inizia riprendendo il concetto di 'sentire il peso del tuo corpo' e 'radicamento' dalle risposte precedenti, ma poi introduce un nuovo elemento (Chakra della gola) come possibile causa del desiderio di cambiamento, collegandolo al tema generale della decisione.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci subito. Non ritardare il confronto onesto.
+Una fiamma tremolante può ancora divampare, se alimentata con coraggio.
+Trova un momento di silenzio questa sera e chiedi un incontro per il cuore: **Dagaz** ti sostiene nel rinnovamento.
+[2] PERSONA: Trova un momento di silenzio questa sera e chiedi un incontro per il cuore: **Dagaz** ti sostiene nel rinnovamento.
+[2] CALIGO [DA GIUDICARE]: Quel silenzio è un sigillo. Non è attesa, ma preparazione.
+L'incontro deve nascere da quel luogo interiore di chiarezza.
+Non cercare parole complesse, ma la nuda verità del tuo sentire.
+✦ Scrivi su un foglio bianco le tue intenzioni più profonde prima di cercarla, il presagio di Dagaz sia la tua guida.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'silenzio' introdotto nella risposta precedente e ne specifica la natura ('non è attesa, ma preparazione'), sviluppando il consiglio con un'azione concreta ('Scrivi su un foglio bianco le tue intenzioni').
+[3] PERSONA: Scrivi su un foglio bianco le tue intenzioni più profonde prima di cercarla, il presagio di Dagaz sia la tua guida.
+[3] CALIGO [DA GIUDICARE]: Quel gesto è un rituale potente. La scrittura è un'ancora per la volontà.
+Quando le intenzioni sono chiare, il sentiero si rivela.
+Ora, guarda quel foglio. Ti è chiara la soglia che vuoi attraversare?
+✦ Pronuncia a voce alta la prima intenzione che hai scritto, come fosse un giuramento verso te stessa.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il 'gesto' della scrittura su foglio bianco suggerito nella risposta precedente, ne rafforza il significato ('rituale potente', 'ancora per la volontà') e aggiunge un ulteriore passo ('Pronuncia a voce alta la prima intenzione').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento giusto per avviare il tuo progetto, ti chiedo di attendere ancora. Il cielo mostra una congiunzione tra Mercurio retrogrado e il Sole nel tuo decimo campo, quello della realizzazione, che indica la necessità di una revisione profonda prima di un lancio.
+
+✦ Prendi un quaderno e riscrivi a mano, per le prossime tre sere, le motivazioni del tuo progetto.
+[2] PERSONA: Prendi un quaderno e riscrivi a mano, per le prossime tre sere, le motivazioni del tuo progetto.
+[2] MEDORA [DA GIUDICARE]: Hai fatto bene a dedicare tempo alla riscrittura delle motivazioni. Questo esercizio, guidato dalla necessità di un'introspezione suggerita dal tuo cielo, è servito a chiarire la tua visione.
+
+Ora, affinché il tuo progetto possa manifestarsi con la forza che merita, ti suggerisco di dedicare un'intera mattinata, quando la Luna in Toro favorirà la concretezza, alla riorganizzazione delle tue idee.
+
+✦ Prepara un indice dettagliato del tuo progetto, ordinando ogni elemento con precisione, prima del plenilunio.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio di riscrittura delle motivazioni dato nella risposta precedente, ne valuta l'esito e propone un nuovo passo (preparare un indice) che sviluppa il tema della revisione e organizzazione del progetto.
+[3] PERSONA: Prepara un indice dettagliato del tuo progetto, ordinando ogni elemento con precisione, prima del plenilunio.
+[3] MEDORA [DA GIUDICARE]: Hai compiuto un passo importante nell'organizzazione del tuo progetto, e l'indice dettagliato che hai preparato è la prova della tua dedizione. Questo lavoro di struttura è fondamentale per dare forma all'energia creativa che ti anima.
+
+Ora, affinché questa struttura si radichi e possa sostenere il tuo intento, è il momento di un gesto che allinei la tua intenzione con l'azione. Non ti chiedo di modificare l'indice, ma di onorarlo.
+
+✦ Scegli un elemento del tuo indice, quello che senti più significativo per te in questo momento, e scrivilo in un luogo visibile della tua casa prima del sorgere del Sole.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il completamento dell'esercizio di preparazione dell'indice suggerito nella risposta precedente, ne valuta l'importanza e propone un'azione successiva che si basa su quell'indice (scegliere un elemento e scriverlo).
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace, il primo passo è lasciare che il tuo respiro si quieti, poi accogli le emozioni che senti nel centro del tuo cuore, che è verde smeraldo. Prendi un momento per sentire la radice di ciò che ti ha mossa, e che l'ha mossa, prima di cercare le parole.
+
+Poi, parla a tua sorella con onestà e chiarezza, esprimendo il tuo desiderio di ricostruire il ponte tra voi. Il chakra della gola, di un azzurro brillante, ti aiuterà a trovare le parole giuste, quelle che partono dal tuo sentire più profondo e non dalla rabbia. Accosta la tua mano al centro del tuo petto, senti il battito, il tuo cuore che si apre.
+
+✦ Ascolta con attenzione il tuo respiro per tre volte consecutive, prima di pronunciare la sua voce.
+[2] PERSONA: Ascolta con attenzione il tuo respiro per tre volte consecutive, prima di pronunciare la sua voce.
+[2] AURA [DA GIUDICARE]: Quando hai ascoltato il tuo respiro, hai trovato un momento di calma, un punto fermo dentro di te. Questo è il momento di sentire che cosa desideri dire davvero a tua sorella, non solo con le parole ma con l'intenzione che le accompagna. Il tuo respiro ora porta con sé la tua intenzione più pura, come un'onda leggera che si muove dal tuo centro al mondo esterno.
+
+✦ Porta le mani al viso, una su ogni guancia, e percepisci il calore che si sprigiona.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data ('Quando hai ascoltato il tuo respiro') e ne sviluppa il significato e l'effetto, collegandola all'intenzione di parlare con la sorella.
+[3] PERSONA: Porta le mani al viso, una su ogni guancia, e percepisci il calore che si sprigiona.
+[3] AURA [DA GIUDICARE]: Quando le tue mani toccano il viso, senti il calore, l'energia che fluisce da te, una parte di te che si manifesta. Questo calore è la tua forza vitale, la stessa che puoi infondere nelle tue parole. Ora, con questa consapevolezza, pensa a un piccolo gesto di vicinanza che puoi offrire a tua sorella, qualcosa che non richieda grandi spiegazioni ma che parli al vostro legame, come un ricordo condiviso o un piccolo gesto di cura che le porti alla mente il vostro amore.
+
+✦ Chiudi gli occhi per un momento e visualizza il volto di tua sorella con un sorriso sereno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data ('Quando le tue mani toccano il viso, senti il calore') e ne spiega il significato energetico, collegandolo poi al passo successivo di pensare a un gesto di vicinanza.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 7

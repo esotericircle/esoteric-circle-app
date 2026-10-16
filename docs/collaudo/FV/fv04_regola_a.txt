@@ -1,0 +1,10 @@
+REGOLA A, ordine FV voce FV.04, 15 ottobre 2026
+guardia: test/il_motore_lunare_contro_le_effemeridi_test.dart
+innesto: Urano aggiunto ai corpi del fuori corso (la tradizione classica si ferma a Saturno)
+grep righe innestate dopo l'innesto: 1
+esito con l'innesto (uscita 1):
+  00:01 +1 -1: la Luna fuori corso contro Swiss Ephemeris, tutto il 2026 [E]
+  00:10 +11 -1: Some tests failed.
+ripristino; grep righe innestate: 0; file identico: True
+esito sul codice vero (uscita 0):
+  00:10 +12: All tests passed!

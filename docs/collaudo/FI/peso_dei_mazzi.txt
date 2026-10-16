@@ -1,0 +1,13 @@
+IL PESO DEI DUE MAZZI NUOVI, ordine FI voce 13, 11 ottobre 2026
+
+Metodo: uno script Python che somma os.path.getsize dei webp definitivi (Marsiglia: le 80 voci di assets/Mazzo Marsiglia/ELENCO_DEFINITIVO.md con un webp, cioe' 78 carte, cornice e dorso; la cornice verde esiste solo in png. Thoth: l'ultima versione di ogni file, v1 per tutte tranne il Cinque di Dischi alla v3, 78 carte, cornice e dorso) e delle miniature generate in una cartella temporanea coi parametri di tool/converti_webp.py per il Rider-Waite (lato lungo 500 px, qualita' 82, metodo 6). La cartella assets di oggi misurata con du -sb; l'archivio con ls -l sull'APK della 2305.
+
+Marsiglia, 80 file: piene 23.486.770 byte, miniature 3.524.306 byte.
+Thoth, 80 file: piene 24.695.910 byte, miniature 3.164.364 byte.
+TOTALE: 54.871.350 byte = 54,9 MB in base 1000 = 52,3 MiB in base 1024.
+
+Per confronto: il Rider-Waite oggi 26.292.806 byte di immagini piu' 4.535.868 di miniature.
+La cartella assets oggi: 151.736.466 byte; con i due mazzi circa 206,6 MB (+36 per cento).
+L'archivio consegnato (2305): 260.267.304 byte; con i due mazzi circa 315 MB (+21 per cento): i webp non si comprimono ancora nell'archivio.
+
+Decisione girata al fondatore (FI.13): i due mazzi dentro l'app, come il Rider-Waite, oppure sul bucket con CDN e scaricati alla prima scelta del mazzo.

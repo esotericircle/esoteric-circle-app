@@ -1,0 +1,35 @@
+P3, 8 ottobre 2026: la forma maschile di ogni testo marcato dei due corpora passata da formeDelGenere (il dizionario della guardia il_genere_non_si_indovina). La vede 7, non la vede 27.
+Ritratto 21 | NON LA VEDE | Sono quello che tiene i contatti del gruppo.
+Ritratto 29 | NON LA VEDE | Sono quello che fa ridere quando la situazione è tesa.
+Ritratto 30 | NON LA VEDE | Quando litigo divento silenzioso invece che rumoroso.
+Ritratto 37 | NON LA VEDE | Non mi piace essere toccato da chi non conosco bene.
+Ritratto 66 | NON LA VEDE | Mi spaventa più restare fermo che sbagliare strada.
+Ritratto 72 | NON LA VEDE | Mi mette a disagio non essere notato.
+Ritratto 75 | LA VEDE [restare solo] | Mi spaventa l'idea di restare solo.
+Ritratto 100 | NON LA VEDE | Rispondo con una battuta anche quando dovrei stare serio.
+Ritratto 103 | NON LA VEDE | Vado subito al punto e sembro brusco.
+Ritratto 108 | NON LA VEDE | Non racconto mai i fatti miei per primo.
+Ritratto 116 | NON LA VEDE | Mi hanno detto almeno una volta che sembro più serio di quanto sono.
+Ritratto 119 | NON LA VEDE | Sono cambiato molto negli ultimi tre anni.
+Prova 1 D8d | NON LA VEDE | La riapro io per primo
+Prova 1 D12a | NON LA VEDE | Non lo chiedo e faccio da solo
+Prova 2 D2a | NON LA VEDE | Niente, mi trovo bene da solo
+Prova 2 D7 | NON LA VEDE | Cosa ti fa sentire amato.
+Prova 3 D6 | LA VEDE [sei stanco] | Quando sei stanco.
+Prova 3 D10d | NON LA VEDE | Parto subito, anche impreparato
+Prova 3 fascia 0-25 | NON LA VEDE | Non spendi forza dove non serve. Sembri cedevole e invece sei quello resta in piedi quando gli altri si sono consumati.
+Prova 4 D4b | NON LA VEDE | Butto quando sono costretto
+Prova 4 D6d | NON LA VEDE | Ne vado fiero e lo dico
+Prova 4 fascia 0-25 | NON LA VEDE | Tieni tutto e niente va perduto. Sei quello conserva anche quando gli altri hanno già buttato.
+Prova 4 fascia 26-50 | LA VEDE [sei sicuro] | Raccogli quando sei sicuro. Arrivi dopo, ma non sbagli raccolto.
+Prova 5 D2b | NON LA VEDE | Solo se costretto
+Prova 5 D3 | NON LA VEDE | Imparare una cosa da zero, da adulto.
+Prova 5 fascia 76-100 | NON LA VEDE | Vai per primo e gli altri ti seguono. Qualche volta arrivi dove non c'era niente da trovare e qualche volta trovi tutto.
+Prova 6 D1 | LA VEDE [te stesso] | Quanto somigli a te stesso di cinque anni fa.
+Prova 6 D1a | NON LA VEDE | Sono identico
+Prova 6 D2d | NON LA VEDE | Quasi tutto e ne sono contento
+Prova 6 D4 | NON LA VEDE | Una cosa di cui andavi fiero e adesso non più.
+Prova 6 D4d | NON LA VEDE | Diverse ed è il segno che sono cresciuto
+Prova 6 D9 | LA VEDE [te stesso] | Cosa diresti a te stesso di dieci anni fa.
+Prova 6 D11 | LA VEDE [te stesso] | Quanto conosci te stesso.
+Prova 6 fascia 0-25 | LA VEDE [Sei rimasto] | Sei rimasto quello e non è poco: in un mondo che cambia tutto, sapere dove sei tu è un valore.

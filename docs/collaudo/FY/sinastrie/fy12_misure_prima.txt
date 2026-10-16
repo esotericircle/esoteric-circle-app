@@ -1,0 +1,25 @@
+FY.12, il cuore fra le due carte: scarti in punti
+320x640: cuore Offset(160.3, 320.3), meta' fra le carte (159.83, 328.00), scarto orizzontale 0.50, verticale -7.67, fra i centri delle carte 0.00 punti
+330x660: cuore Offset(165.3, 330.3), meta' fra le carte (164.83, 338.25), scarto orizzontale 0.52, verticale -7.91, fra i centri delle carte 0.00 punti
+340x680: cuore Offset(170.4, 340.4), meta' fra le carte (169.82, 348.50), scarto orizzontale 0.53, verticale -8.15, fra i centri delle carte 0.00 punti
+350x700: cuore Offset(175.4, 350.4), meta' fra le carte (174.82, 358.75), scarto orizzontale 0.55, verticale -8.39, fra i centri delle carte 0.00 punti
+360x720: cuore Offset(180.4, 360.4), meta' fra le carte (179.81, 369.00), scarto orizzontale 0.56, verticale -8.63, fra i centri delle carte 0.00 punti
+370x740: cuore Offset(185.4, 370.4), meta' fra le carte (184.81, 379.25), scarto orizzontale 0.58, verticale -8.86, fra i centri delle carte 0.00 punti
+380x760: cuore Offset(190.4, 380.4), meta' fra le carte (189.80, 389.50), scarto orizzontale 0.59, verticale -9.10, fra i centri delle carte 0.00 punti
+390x780: cuore Offset(195.4, 390.4), meta' fra le carte (194.80, 399.75), scarto orizzontale 0.61, verticale -9.34, fra i centri delle carte 0.00 punti
+400x800: cuore Offset(200.4, 400.4), meta' fra le carte (199.79, 410.00), scarto orizzontale 0.63, verticale -9.58, fra i centri delle carte 0.00 punti
+410x820: cuore Offset(205.4, 410.4), meta' fra le carte (204.79, 420.25), scarto orizzontale 0.64, verticale -9.82, fra i centri delle carte 0.00 punti
+420x840: cuore Offset(210.4, 420.4), meta' fra le carte (209.78, 430.50), scarto orizzontale 0.66, verticale -10.06, fra i centri delle carte 0.00 punti
+430x860: cuore Offset(215.4, 430.4), meta' fra le carte (214.78, 440.75), scarto orizzontale 0.67, verticale -10.30, fra i centri delle carte 0.00 punti
+320x704: cuore Offset(160.4, 352.4), meta' fra le carte (159.82, 360.80), scarto orizzontale 0.55, verticale -8.43, fra i centri delle carte 0.00 punti
+330x726: cuore Offset(165.4, 363.4), meta' fra le carte (164.81, 372.08), scarto orizzontale 0.57, verticale -8.70, fra i centri delle carte 0.00 punti
+340x748: cuore Offset(170.4, 374.4), meta' fra le carte (169.81, 383.35), scarto orizzontale 0.58, verticale -8.96, fra i centri delle carte 0.00 punti
+350x770: cuore Offset(175.4, 385.4), meta' fra le carte (174.80, 394.63), scarto orizzontale 0.60, verticale -9.22, fra i centri delle carte 0.00 punti
+360x792: cuore Offset(180.4, 396.4), meta' fra le carte (179.79, 405.90), scarto orizzontale 0.62, verticale -9.49, fra i centri delle carte 0.00 punti
+370x814: cuore Offset(185.4, 407.4), meta' fra le carte (184.79, 417.17), scarto orizzontale 0.64, verticale -9.75, fra i centri delle carte 0.00 punti
+380x836: cuore Offset(190.4, 418.4), meta' fra le carte (189.78, 428.45), scarto orizzontale 0.65, verticale -10.01, fra i centri delle carte 0.00 punti
+390x858: cuore Offset(195.4, 429.4), meta' fra le carte (194.78, 439.73), scarto orizzontale 0.67, verticale -10.28, fra i centri delle carte 0.00 punti
+400x880: cuore Offset(200.5, 440.5), meta' fra le carte (199.77, 451.00), scarto orizzontale 0.69, verticale -10.54, fra i centri delle carte 0.00 punti
+410x902: cuore Offset(205.5, 451.5), meta' fra le carte (204.77, 462.27), scarto orizzontale 0.70, verticale -10.81, fra i centri delle carte 0.00 punti
+420x924: cuore Offset(210.5, 462.5), meta' fra le carte (209.76, 473.55), scarto orizzontale 0.72, verticale -11.07, fra i centri delle carte 0.00 punti
+430x946: cuore Offset(215.5, 473.5), meta' fra le carte (214.75, 484.82), scarto orizzontale 0.74, verticale -11.33, fra i centri delle carte 0.00 punti

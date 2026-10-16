@@ -1,0 +1,47 @@
+ORDINE EU VOCE 12, IL PDF DELL'ANNO: DA DOVE VENIVA LA RIPETIZIONE. 1 ottobre 2026.
+
+DOMANDA del fondatore: "Oroscopo annuale va bene, ma il PDF alla fine mostra una ripetizione "del tuo lavoro"."
+
+1. LA CATTURA DEL FONDATORE (docs/collaudo/EU/catture_fondatore/eu_fondatore_03.jpg) e' Adobe Acrobat in
+   Modalita' Liquida: la goccia blu accesa nella barra, la testata "La fortuna nel tuo anno" con l'icona
+   della struttura, il collegamento "Linee guida per GenAI". La Modalita' Liquida non mostra il PDF com'e':
+   lo ricompone per lo schermo del telefono e ne indovina titoli e sezioni, che chiude e apre con la freccia.
+
+2. IL TESTO DEL PDF NON SI RIPETEVA. I tre PDF di prova costruiti con la porta dell'app (IlPdfDellAnno.documento,
+   la stessa che chiama il tasto "Il PDF del tuo anno") e letti con tool/il_testo_dei_pdf.py: ogni titolo
+   compare una volta, nessun segnalibro, nessun segno d'indice nelle pagine. Il testo estratto sta in
+   anno_esempio_N.txt, l'elenco dei titoli in titoli.txt.
+
+3. MA IL FOGLIO AVEVA DUE DIFETTI, e la guardia il_pdf_dell_anno_si_legge li conta su dodici nascite:
+   - l'anno stava su DUE pagine A4 in 12 PDF su 12;
+   - in 9 PDF su 12 la scheda della Fortuna era spezzata fra le due pagine: la pagina 1 finiva con
+     l'etichetta "FORTUNA" (o col titolo "La fortuna nel tuo anno") senza testo sotto.
+   Padre: ordine ES voce 04 (commit 50747b54), che ha scritto il PDF con MultiPage su A4 e le righe della
+   scheda figlie dirette della pagina.
+
+4. LA PROVA SUL REALME, con lo stesso Acrobat del fondatore (com.adobe.reader, Modalita' Liquida):
+   - il PDF di prima (pdf/prima/anno_esempio_1.pdf): dopo la scheda della Fortuna ricompaiono
+     "Il tono del tuo anno", "L'amore nel tuo anno" e "Il lavoro nel tuo anno" con la freccia dell'indice,
+     senza testo, e sotto la firma. E' la cattura del fondatore rifatta: realme/eu12_prima_acrobat_fortuna.png
+     e realme/eu12_prima_acrobat_fine.png.
+   - tre varianti per trovare la causa, ognuna aperta in Modalita' Liquida:
+       schede intere su due pagine A4 (nessuna scheda spezzata): la ripetizione RESTA;
+       due pagine coi segnalibri di ogni scheda: la ripetizione RESTA;
+       due pagine senza la firma in fondo: la ripetizione RESTA, e sparisce il "Da dove viene" della Fortuna;
+       una pagina sola (senza copertina, per farcela stare): la ripetizione NON C'E'.
+   La causa e' quindi il PDF su due pagine: la Modalita' Liquida, ricomponendo la seconda pagina, ci rimette
+   in fondo i titoli delle sezioni della prima, senza testo. "Del tuo lavoro" e' il titolo "Il lavoro nel tuo
+   anno", l'ultimo dei tre, con la freccia accanto.
+
+5. LA CORREZIONE: il PDF e' un foglio solo, largo quanto un A4 e alto quanto serve (IlFoglioDellAnno.foglio,
+   595 per 975 punti nei tre esempi), con ogni scheda in un blocco: etichetta, titolo, testo, "Da dove viene".
+   Sul Realme in Modalita' Liquida: le quattro schede una volta sola, ognuna col suo testo e il suo
+   "Da dove viene", poi la firma e "Documento completato" (realme/eu12_dopo_acrobat_liquida_1..5.png); nella
+   vista normale il foglio intero con la copertina (realme/eu12_dopo_acrobat_pagina.png).
+   Le frecce accanto a "DA DOVE VIENE" in Modalita' Liquida sono i comandi di Acrobat per chiudere una
+   sezione, non stanno nel PDF: nella vista normale non ci sono.
+
+MISURA: pagine per PDF da 2 a 1 (12 su 12); schede spezzate da 9 a 0; titoli senza testo da 9 a 0;
+titoli ripetuti 0 prima e dopo nel file, 3 prima e 0 dopo nella Modalita' Liquida di Acrobat sul Realme.
+SCELTA (risposta consigliata, senza chiedere): un foglio lungo invece di due A4. Chi stampa lo adatta al
+foglio; sul telefono, dove il PDF si legge e si condivide, si scorre come lo schermo dell'app.

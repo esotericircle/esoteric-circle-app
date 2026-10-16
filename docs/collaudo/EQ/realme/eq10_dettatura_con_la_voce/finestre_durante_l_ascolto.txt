@@ -1,0 +1,17 @@
+  Window #0 Window{9960ecd u0 OnScreenFingerprintPressedIcon}:
+  Window #1 Window{b719a0 u0 OnScreenFingerprintIcon}:
+  Window #2 Window{29aa79d u0 ScreenDecorOverlayBottom}:
+  Window #3 Window{b755075 u0 ScreenDecorOverlay}:
+  Window #4 Window{51caf61 u0 NavigationBar0}:
+  Window #5 Window{dabb8e7 u0 NotificationShade}:
+  Window #6 Window{50720e2 u0 StatusBar}:
+  Window #7 Window{c52c05a u0 OplusOSEdgeFloatBar}:
+  Window #8 Window{302b20c u0 HOplusFullScreenDisplay}:
+  Window #9 Window{acd7529 u0 VOplusFullScreenDisplay}:
+  Window #10 Window{7330267 u0 ShellDropTarget}:
+  Window #11 Window{951f0ee u0 InputMethod}:
+  Window #12 Window{1fd6e5d u0 com.esotericircle.esoteric_circle/com.esotericircle.esoteric_circle.MainActivity}:
+  Window #13 Window{3bb7834 u0 com.cleanmaster.mguard/com.keniu.security.main.MainActivity}:
+  Window #14 Window{1ff8a56 u0 GoogleDiscoverWindow}:
+  Window #15 Window{53e6542 u0 com.android.launcher/com.android.launcher.Launcher}:
+  Window #16 Window{754a979 u0 com.android.systemui.ImageWallpaper}:

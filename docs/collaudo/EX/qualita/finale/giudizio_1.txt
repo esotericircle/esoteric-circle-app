@@ -1,0 +1,60 @@
+S01|SI|NA|NA|SI|NO|Dice chi è e le sue arti; il seguito cambia argomento e passa alla preparazione del colloquio.
+S02|SI|SI|NA|NO|SI|Nomina la sorella ma il consiglio è solo respiro generico più un rimando a Medora; seguito al limite, aggiunge il perdono verso sé.
+S03|SI|NA|SI|SI|SI|Saturno in Toro retrogrado è giusto; il seguito aggiunge il senso del Toro e della retrogradazione.
+S04|SI|SI|NA|SI|NO|Memoria al limite: usa ceramica e colloquio, non la meditazione; il seguito ripete la risposta con altre parole.
+S05|SI|NA|SI|SI|SI|Luna gibbosa calante in Gemelli giusta; seguito al limite, aggiunge ascendente e un gesto serale.
+S06|SI|NA|NA|NO|NA|Agisci subito e scrivi le scelte vanno bene per chiunque: massima generica.
+S07|SI|NA|SI|SI|SI|Venere a 8 Scorpione e i suoi aspetti sono giusti; il seguito aggiunge congiunzione e quadrature.
+S08|SI|SI|NA|SI|NA|Al limite: indica di chiamare la sorella in un momento calmo dopo il respiro.
+S09|SI|NO|NA|NO|SI|Memoria al limite: non nomina Berlino né il lavoro; non dice se conviene, solo non affrettare e pro e contro.
+S10|SI|NA|SI|SI|SI|Luna in Acquario e quadrature del Sole giuste, dice di rimandare; la riga con ✦ è fuori tema ma il testo indica.
+S11|NO|SI|NA|SI|SI|Al limite: troverai la tua nuova stabilità detto come certezza; il seguito nomina Berlino e aggiunge un perché.
+S12|SI|SI|NA|NO|SI|Il consiglio è osservare il peso e respirare, valido per chiunque; seguito al limite, nomina la sorella.
+S13|SI|NA|SI|SI|SI|Venere a 8 Scorpione giusta; il seguito aggiunge la Venere natale.
+S14|SI|SI|NA|SI|SI|Memoria al limite: non nomina Marco ma tratta l'incontro come legame; dice di andare e perché.
+S15|SI|NA|NO|NO|SI|Alla domanda sul cielo di domani la risposta non dice nessun fatto del cielo; il seguito al limite porta Venere retrograda.
+S16|SI|SI|NA|SI|SI|Al limite: prova delle risposte ad alta voce con un'amica, sa del colloquio; seguito aggiunge la meditazione.
+S17|SI|NA|NA|NO|NO|Respiro e radice, nessun passo per rimettere ordine nelle spese; il seguito resta generico.
+S18|SI|NA|SI|SI|NO|Saturno in Toro retrogrado giusto; seguito al limite, generico e tratta il transito del 2000 come presente.
+S19|NO|SI|NA|SI|NA|Al limite: Hagalaz presentata come sigillo della forza, ma è la runa della grandine.
+S20|SI|SI|NA|SI|NA|Indica di scrivere alla sorella chiedendo come sta, senza pretendere risposta.
+S21|SI|NA|NA|SI|NA|Al limite: dice di non accettare per ora, con una ragione sottile.
+S22|SI|SI|NA|SI|NO|Nomina Berlino, lavoro e colloquio; il seguito ripete che scrivere aiuta la chiarezza.
+S23|NO|NA|NA|SI|SI|Bilancia detta segno opposto al Cancro: fatto astrologico falso; il consiglio è concreto.
+S24|SI|NO|NA|SI|NA|Non usa che dorme male prima delle scadenze; al limite il gesto risponde al come.
+S25|SI|NA|NA|SI|SI|Sceglie la casa in centro con un perché; seguito al limite, aggiunge Wunjo.
+S26|SI|SI|NA|NO|NO|Gesto di cura e respiro validi per chiunque; il seguito ripete respiro e radice.
+S27|SI|NA|NA|SI|NA|Sì ma non subito, parlare col capo dei dettagli e lista dei pro e contro.
+S28|SI|NA|SI|SI|SI|Luna in Cancro in quadratura col Sole e Ultimo quarto giusti; il seguito aggiunge la fase.
+S29|SI|NA|NA|SI|SI|Dice di no con un perché e rimanda il denaro a un consulente; seguito al limite.
+S30|SI|SI|NA|SI|NO|Nomina la bottega; il seguito dà la Luna natale in Cancro, mentre è in Bilancia, ed è generico.
+S31|SI|NA|SI|SI|SI|I quattro retrogradi sono giusti; il seguito spiega ciascuno.
+S32|SI|NA|NA|SI|SI|Sì con cautela e parlare col capo; seguito al limite, aggiunge un perché.
+S33|SI|NA|SI|SI|NO|Retrogradi giusti; al limite il seguito ripete la revisione interiore in modo generico.
+S34|SI|NA|NA|NO|NO|Solo respiro, nessun passo sulle spese; il seguito resta generico.
+S35|SI|NA|NA|SI|SI|Dice chi è e le sue arti; seguito al limite, offre una pratica concreta.
+S36|SI|NA|SI|SI|SI|Luna in Gemelli gibbosa calante giusta; il seguito ne dà il senso.
+S37|SI|NA|SI|SI|NA|Al limite: dà segno e fase giusti e un senso abbastanza generico.
+S38|SI|SI|NA|SI|SI|Lista dei traguardi da rileggere; il seguito aggiunge madre e meditazione.
+S39|SI|SI|NA|SI|NA|Ansuz come runa della parola è giusta; indica cosa portare e cosa fare.
+S40|SI|NA|NA|NO|NA|Scegli in fretta va bene per chiunque: massima generica.
+S41|SI|NA|SI|SI|NO|Luna in Bilancia crescente giusta; seguito al limite, scivola sul colloquio di oggi.
+S42|SI|NA|NA|SI|SI|Al limite la voce di Aura è poco presente; consiglio concreto di scrittura serale.
+S43|SI|NA|SI|SI|SI|Sole opposto a Saturno, Luna, Mercurio e Venere giusti; seguito aggiunge fatti nuovi.
+S44|SI|NA|NA|SI|SI|Al limite: dice di no con perché confuso sulla madre; seguito al limite su Thurisaz.
+S45|SI|SI|NA|SI|SI|Modellare la terra mostra che sa della ceramica; seguito al limite su Fehu.
+S46|SI|NA|NO|NO|NA|Non dice né segno né fase della Luna; risposta generica e riga con ✦ assurda.
+S47|SI|NA|SI|SI|NO|Luna in Bilancia crescente giusta; seguito al limite, cambia argomento su Berlino e Marco.
+S48|SI|SI|NA|SI|NO|Chiamare il veterinario per Ombra; il seguito cambia argomento sulla madre.
+S49|SI|NA|NA|SI|SI|Sceglie la casa grande con un perché; seguito al limite, aggiunge Wunjo.
+S50|NO|NA|NA|NO|SI|Al limite: settimana dolorosa detta come certezza; il gesto delle tre cose vale per chiunque.
+S51|SI|NA|SI|SI|SI|Luna in Gemelli gibbosa calante giusta; il seguito ne dà il senso.
+S52|NO|NA|NO|NO|NO|Giove detto in Cancro, è in Vergine; il seguito dice Vergine e contraddice la risposta.
+S53|SI|SI|NA|SI|NO|Veterinario oggi per Ombra; al limite il seguito ripete senza aggiungere.
+S54|SI|NA|SI|SI|SI|Quadrature del Sole giuste e indica di rimandare; seguito al limite.
+S55|SI|NA|SI|SI|SI|Giove in Vergine e trigoni con Marte e Mercurio giusti.
+S56|SI|SI|NA|SI|SI|Dice di andare da Marco; il seguito aggiunge il centro del cuore.
+S57|SI|SI|NA|NO|SI|Memoria al limite; momento tranquillo e respiro valgono per chiunque.
+S58|SI|NA|NA|SI|SI|Sì con confini, email al capo; il seguito aggiunge la trattativa.
+S59|SI|NA|NA|SI|SI|Scrivere tre preoccupazioni e mano sul cuore; seguito aggiunge un passo.
+S60|SI|NO|NA|SI|NA|Non usa che dorme male prima delle scadenze; al limite il gesto sul sesto centro risponde.

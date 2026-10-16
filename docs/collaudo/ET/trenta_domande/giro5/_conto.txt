@@ -1,0 +1,14 @@
+Modelli: chat gemini-2.5-flash, LIVE gemini-2.5-flash; europe-west1.
+
+ET.01 giro5 chat esecuzione 1 medora: risposte 30, ripieghi 0, chiamate al modello 45, gettoni in ingresso 378877, in uscita 5824
+ET.01 giro5 chat esecuzione 1 aura: risposte 30, ripieghi 0, chiamate al modello 56, gettoni in ingresso 463019, in uscita 8808
+ET.01 giro5 chat esecuzione 1 caligo: risposte 30, ripieghi 0, chiamate al modello 43, gettoni in ingresso 340432, in uscita 3772
+ET.01 giro5 chat esecuzione 2 medora: risposte 30, ripieghi 0, chiamate al modello 40, gettoni in ingresso 328109, in uscita 4012
+ET.01 giro5 chat esecuzione 2 aura: risposte 30, ripieghi 0, chiamate al modello 50, gettoni in ingresso 432062, in uscita 7856
+ET.01 giro5 chat esecuzione 2 caligo: risposte 30, ripieghi 0, chiamate al modello 46, gettoni in ingresso 367038, in uscita 4583
+ET.01 giro5 live esecuzione 1 medora: risposte 30, ripieghi 0, chiamate al modello 36, gettoni in ingresso 280343, in uscita 2793
+ET.01 giro5 live esecuzione 1 aura: risposte 30, ripieghi 0, chiamate al modello 51, gettoni in ingresso 393804, in uscita 4351
+ET.01 giro5 live esecuzione 1 caligo: risposte 30, ripieghi 0, chiamate al modello 40, gettoni in ingresso 314963, in uscita 2563
+ET.01 giro5 live esecuzione 2 medora: risposte 30, ripieghi 0, chiamate al modello 42, gettoni in ingresso 333075, in uscita 3278
+ET.01 giro5 live esecuzione 2 aura: risposte 30, ripieghi 0, chiamate al modello 39, gettoni in ingresso 298321, in uscita 3131
+ET.01 giro5 live esecuzione 2 caligo: risposte 30, ripieghi 0, chiamate al modello 43, gettoni in ingresso 332686, in uscita 2481

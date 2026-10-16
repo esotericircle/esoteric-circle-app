@@ -1,0 +1,34 @@
+ORDINE EX VOCE 08, IL CIELO DI OGGI GIA' NELLA RICHIESTA. 2 ottobre 2026.
+
+DOMANDA: "...Ma la cache e gli scheletri che dovevano abbattere del 70% i costi AI funzionano?"
+MISURA chiesta: chiamate per una domanda sul cielo di oggi, prima 2,9; fatti negati o sbagliati sulle date dell'EV.03, prima 0, dopo 0.
+
+IL CODICE
+- lib/services/ai/le_funzioni_del_cielo.dart: il cielo di oggi (effemeridi dell'app: pianeti, retrogradi, Luna e fase, aspetti, transiti sulla carta natale) si calcola una volta al giorno per persona (_cieloDiOggi, in memoria per giorno e carta) e sta gia' nella descrizione della funzione: "Il cielo di OGGI ce l'hai già, calcolato qui sotto: per una domanda sul cielo di oggi non chiamarla, rispondi con quei fatti." La funzione resta per ogni altro giorno: "Chiamala ogni volta che la persona chiede del cielo di un giorno diverso da oggi".
+- Dopo il primo giro "dopo" (sotto): "Non copiare quel blocco: scegli solo i fatti che la domanda chiede e dilli con parole tue (degli aspetti, i due o tre con l'orbo più stretto)."
+
+1. IL BANCO DEL CIELO DELL'EV.03 (tool/medora_e_il_cielo.dart, venti domande, Medora, Gemini 2.5 Flash in europe-west1; dispari con la nascita, pari senza)
+- prima: docs/collaudo/EX/cielo_prima.txt, sulla copia del codice prima della voce (C:/Users/user/ecs_cielo, commit e2b53c35).
+- dopo: docs/collaudo/EX/cielo_dopo.txt; dopo2 (con la riga "non copiare"): docs/collaudo/EX/cielo_dopo2.txt.
+
+| | prima | dopo | dopo2 |
+|---|---|---|---|
+| Domande su oggi (1-7) che chiamano la funzione | 4 su 7 | 0 su 7 | 0 su 7 |
+| Domande su altre date (8-20) che la chiamano | 13 su 13 | 13 su 13 | 13 su 13 |
+| Chiamate al modello per una domanda su oggi (1 + le funzioni) | 1,57 | 1,00 | 1,00 |
+| Fatti SBAGLIATI (lettura a mano contro le effemeridi) | 2 (5: la Luna "in Bilancia" che fa gli aspetti della Luna in Gemelli; 16: Marte in Leone a dicembre, quando e' in Vergine) | 0 | 0 |
+| Fatti NEGATI | 0 | 0 | 0 |
+| Risposte col blocco grezzo incollato o troncate | 0 | 1 (5: "Che aspetti ci sono oggi fra i pianeti?", blocco copiato e MAX_TOKENS) | 0 |
+Le letture: docs/collaudo/EX/cielo_fatti_letti.txt (prima e dopo) e docs/collaudo/EX/cielo_fatti_letti_dopo2.txt.
+
+DIFETTO TROVATO E CURATO DENTRO LA VOCE: il blocco del cielo copiato alla domanda 5 del primo "dopo". Padre: ordine EX voce 08 (il blocco messo nella descrizione senza dire di non copiarlo). Curato con la riga "Non copiare quel blocco"; al dopo2 la stessa domanda finisce con STOP e dice gli aspetti in prosa.
+
+2. IL BANCO DELLA QUALITA' (tool/il_banco_della_qualita.dart, la chat intera col controller, le reti e le funzioni; python tool/i_conti_della_qualita.py)
+| Giro | Chiamate, domanda sul cielo di oggi (C1-C4) | Altre date (C5-C8) |
+|---|---|---|
+| prima | 2,60 | 6,00 |
+| prima2 | 2,60 | 5,00 |
+| fine2 (tutte le voci EX) | 1,20 | 3,25 |
+Il "prima 2,9" dell'ordine viene dal banco del costo dell'EW; qui, sugli stessi casi prima e dopo, da 2,6 a 1,2. Le chiamate che restano su oggi sono quelle delle reti (posizione, certezza) e della correzione corta (EX.07).
+
+3. IL CONFRONTO ALLA CIECA, misura C (cielo): nel giro finale contro prima2, vedi docs/collaudo/EX/qualita/finale/.

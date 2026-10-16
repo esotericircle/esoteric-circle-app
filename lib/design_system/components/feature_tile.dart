@@ -75,22 +75,21 @@ class FeatureTile extends StatelessWidget {
               const SizedBox(height: SpacingTokens.md),
               Text(
                 feature.title,
-                style: TypographyTokens.display(size: 17),
+                style: TypographyTokens.titoloScheda(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: SpacingTokens.xxs),
               Text(
                 feature.teaser,
-                style: TypographyTokens.body(size: 13)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textSecondary),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
-          if (!isActive)
-            Positioned.fill(child: _FrostedVeil(status: status)),
+          if (!isActive) Positioned.fill(child: _FrostedVeil(status: status)),
           if (!isActive)
             Positioned(
               top: 0,

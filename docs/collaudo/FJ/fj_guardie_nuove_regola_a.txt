@@ -1,0 +1,28 @@
+== fonte 1: la frase del dare e ricevere torna nella Regina di Denari (lib/core/tarot/tarot_card.dart, prova "1. le coppie")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== fonte 2: sei parole di fila del Nove di Bastoni nel Due di Bastoni (lib/core/tarot/tarot_card.dart, prova "2. nessuna frase")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== fonte 3: il capovolto dell'Imperatrice copia il dritto (lib/core/tarot/tarot_card.dart, prova "3. nessuna altra")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== mazzi 1: l'impronta non si controlla piu' (lib/core/tarot/i_mazzi_scaricati.dart, prova "non torna nemmeno")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== mazzi 2: leggere gli installati chiede il manifest alla rete (lib/core/tarot/i_mazzi_scaricati.dart, prova "non chiedono niente")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== mazzi 3: la cartella di lavoro resta dopo un guasto (lib/core/tarot/i_mazzi_scaricati.dart, prova "non torna nemmeno")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== mazzi 4: annullare non ferma niente (lib/core/tarot/i_mazzi_scaricati.dart, prova "chi annulla")
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

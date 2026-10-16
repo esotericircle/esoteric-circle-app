@@ -1,0 +1,14 @@
+LE PROVE DI VISTA DOPO LA C5, ordine FH, 10 ottobre 2026, giro parziale: C16
+
+C16 l'indicatore non misura il pie' di pagina
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_della_macchina_del_tempo_test.dart | non copre la testata
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_della_macchina_del_tempo_test.dart: l'indi
+    00:00 +0: l'indicatore non copre la testata, in ogni direzione
+    Expected: empty
+    Actual: [
+  ripristinato al byte: si
+
+TUTTE ROSSE COI DIFETTI ENTRATI E I FILE RIPRISTINATI: SI

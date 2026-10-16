@@ -1,0 +1,1 @@
+ORDINE FE VOCE 18, costo dei sei banchi: 261 chiamate, 723656 token di ingresso, 40110 di uscita col ragionamento, 0.317 dollari a listino

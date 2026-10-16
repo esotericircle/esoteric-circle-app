@@ -1,0 +1,29 @@
+ORDINE ES VOCE 15, Regola B sulla barra in alto, 29 settembre 2026.
+
+Le guardie della zona viste rosse sul codice di prima della voce (commit 89b4b775, nella copia
+C:/Users/user/ecs), con l'innesto controllato nel file prima di leggere l'esito e il file rimesso
+com'era (git checkout del solo file, stato della copia pulito dopo).
+
+Confessione di ordine: la voce e' stata scritta nel worktree prima di questi due giri. Le guardie
+sono state viste rosse sul codice di prima, nella copia, mentre il lavoro nuovo aspettava la
+suite; la Regola B chiede di farlo prima di mettere mano alla zona, e qui e' stato fatto dopo.
+
+1. test/il_centro_della_barra_dice_eventi_cosmici_test.dart
+   innesto: la scritta 'Eventi Cosmici' al centro della barra diventa 'Eventi'
+   (lib/features/shell/barra_dell_identita.dart, riga 353, controllata col grep)
+   esito: 00:10 +3 -2: Some tests failed.
+     a barra chiusa il centro dice Eventi Cosmici [E]   Expected 'Eventi Cosmici', Actual 'Eventi'
+     anche da aperta dice la stessa cosa [E]           Expected ['Eventi Cosmici'], Actual ['Eventi']
+   ROSSA.
+
+2. test/la_barra_sottile_e_la_casa_unica_test.dart (nel registro "vista rossa: mai")
+   innesto: la chiave 'barra_eventi_cosmici' diventa 'barra_eventi_cosmici_innesto'
+   (una occorrenza, controllata col grep)
+   esito: 00:13 +6 -1: Some tests failed.
+     il centro e' la porta degli Eventi Cosmici [E]
+   ROSSA.
+
+Dopo i due giri le tre prove della regola vecchia sono state riscritte con la lapide (il centro
+dice Online, la porta al Calendario e' in cima al Passport), e la regola nuova la prova
+test/online_nella_barra_e_gli_eventi_nel_passport_test.dart, vista rossa con cinque innesti
+(docs/collaudo/ES/regola_a_es04_es12_es15.txt).

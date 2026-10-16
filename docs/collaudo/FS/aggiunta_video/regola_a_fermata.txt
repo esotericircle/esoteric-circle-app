@@ -1,0 +1,15 @@
+== la scena si ferma alla fine vera del filmato, non prima
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: fermaA sta prima della fine, non alla fine
+   ripristinato al byte: True
+== la velocita non scende mai sotto 1,0
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: la velocita scende con continuita verso il minimo, mai a zero
+   ripristinato al byte: True
+== la rampa puo arrivare a velocita zero
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: la velocita scende con continuita verso il minimo, mai a zero
+   ripristinato al byte: True

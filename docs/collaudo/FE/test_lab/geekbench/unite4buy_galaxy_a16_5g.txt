@@ -1,0 +1,6 @@
+URL: https://unite4buy.com/Samsung-Galaxy-A16-5G-geekbench/
+Letta il: 2026-10-06 (WebFetch, estratto restituito dallo strumento, non la pagina grezza)
+Processore dichiarato: Samsung Exynos 1330, 2 x Cortex-A78 2.4Ghz + 6 x Cortex-A55 2Ghz
+Geekbench single-core: 762
+Geekbench multi-core: 2331
+Data dei risultati: non indicata (versione di Geekbench non confermata dall'estratto)

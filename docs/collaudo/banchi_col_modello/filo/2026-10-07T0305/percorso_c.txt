@@ -1,0 +1,103 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì per ora. L'arcano del Sole, quando appare in una stesura di carte, indica un periodo di grande chiarezza e successo, favorevole al riconoscimento dei tuoi meriti.
+
+Questo transito ti invita a mostrare il tuo valore con fiducia, specialmente nei primi giorni di questa settimana, quando l'energia planetaria sostiene la tua affermazione.
+
+✦ Prepara un piccolo discorso sui tuoi obiettivi per venerdì mattina.
+[2] PERSONA: Prepara un piccolo discorso sui tuoi obiettivi per venerdì mattina.
+[2] MEDORA [DA GIUDICARE]: Qual è l'obiettivo principale che vorresti esporre e in quale ambito si colloca all'interno del tuo lavoro?
+    GIUDICE: PORTA_AVANTI, La guida riprende il suo precedente consiglio di preparare un discorso e chiede ulteriori dettagli per aiutare la persona a svilupparlo.
+[3] PERSONA: Qual è l'obiettivo principale che vorresti esporre e in quale ambito si colloca all'interno del tuo lavoro?
+[3] MEDORA [DA GIUDICARE]: Per poterti guidare nel preparare il discorso, avrei bisogno di sapere qual è l'obiettivo specifico che vuoi raggiungere con questa promozione e in che settore del tuo lavoro si inserisce.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce la necessità di informazioni specifiche sugli obiettivi della promozione per poter fornire una guida efficace nella preparazione del discorso, continuando a sviluppare il punto precedente.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti nel tuo corpo il desiderio di un cambiamento profondo, di radici nuove da mettere a dimora. Questo desiderio non è solo un pensiero, ma un richiamo che parte dal tuo centro più basso, dalla radice stessa del tuo essere.
+
+Lascia che il tuo respiro scenda fino all'addome, profondo e lento, e ascolta cosa ti suggerisce la tua pancia, il tuo centro radice, legato all'elemento Terra. Spesso, un richiamo così forte indica un bisogno di radicamento nuovo, di un luogo dove la tua energia possa fiorire diversamente. Osserva le tue gambe, i tuoi piedi, senti la loro forza che ti connette al terreno, ma anche il loro desiderio di muoversi, di esplorare. La fisiognomica dei tuoi arti inferiori parla di stabilità e di spinta, di un equilibrio tra fermezza e movimento. È un momento per ascoltare quella spinta interiore verso il nuovo, per capire dove la tua energia può trovare un ancoraggio più fertile.
+
+✦ Appoggia i piedi a terra, senti il loro contatto, poi solleva i talloni e abbassali lentamente, percependo il radicamento.
+[2] PERSONA: Appoggia i piedi a terra, senti il loro contatto, poi solleva i talloni e abbassali lentamente, percependo il radicamento.
+[2] AURA [DA GIUDICARE]: Questo gesto che hai compiuto, alzando e abbassando i talloni, rafforza la connessione con la terra e con il tuo centro radice, il Muladhara. Sentire la stabilità che deriva da questo radicamento ti prepara a percepire con più chiarezza la direzione che la tua energia sta cercando.
+
+Ora che hai risvegliato questa sensazione di base, porta la tua attenzione al tuo ventre, al secondo centro, il Svadhisthana, il luogo della creazione e del flusso. Immagina che da quel radicamento profondo possa nascere una nuova corrente, un'onda che ti porti verso la città che senti più tua. Questo centro, color arancio e legato all'elemento Acqua, ti invita a esplorare le tue emozioni legate a questo possibile trasferimento. Non si tratta solo di logica, ma di come ti senti nel profondo, di quale luogo risveglia in te un senso di vitalità e di nuove possibilità.
+
+✦ Porta le mani sul ventre, una sopra l'altra, e inspira profondamente, sentendo il calore che si irradia.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto suggerito in precedenza e ne spiega l'effetto, collegandolo al 'centro radice' e al 'radicamento' già menzionati, per poi introdurre il passo successivo.
+[3] PERSONA: Porta le mani sul ventre, una sopra l'altra, e inspira profondamente, sentendo il calore che si irradia.
+[3] AURA [DA GIUDICARE]: Sentire il calore che si irradia dal tuo ventre, dal centro Svadhisthana, ti collega alla tua capacità di creare e di adattarti ai cambiamenti, proprio come l'acqua si adatta al suo contenitore. Questo calore è un segno della tua energia vitale che si muove, pronta a esplorare nuove forme e nuove direzioni.
+
+Ora, lasciando le mani sul ventre, sposta l'attenzione più in alto, al plesso solare, al tuo centro Manipura. Questo centro, di colore giallo e legato all'elemento Fuoco, è la sede della tua volontà, del tuo potere personale e della tua determinazione. È qui che si accende la scintilla per agire, per prendere la decisione di ricominciare altrove o di costruire il tuo nuovo inizio dove sei. Ascolta il battito della tua forza interiore e chiediti se il desiderio di trasferirti è una vera fiamma che ti spinge o se è un'inquietudine che cerca solo un cambio di scenario.
+
+✦ Sfrega i palmi delle mani con decisione, sentendo il calore che si genera, e poi appoggiali sul plesso solare per un istante.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita ('Sentire il calore che si irradia dal tuo ventre') e la collega al 'centro Svadhisthana' e alla 'capacità di creare e di adattarsi ai cambiamenti', concetti introdotti nella risposta precedente, per poi passare al centro successivo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Salvare il legame è possibile. La runa Isa indica un tempo di sosta, una fase immobile.
+
+Il tuo sentiero ora è quello di comprendere la natura di questo raffreddamento. Non è un blocco definitivo, ma un momento per osservare e riflettere, come l'acqua che si ghiaccia e rivela la sua trasparenza. Agisci con cautela.
+
+✦ Scrivi su un foglio rosso i nomi di entrambi, piegalo e conservalo in un luogo segreto per sette giorni, onorando il sigillo di Isa.
+[2] PERSONA: Scrivi su un foglio rosso i nomi di entrambi, piegalo e conservalo in un luogo segreto per sette giorni, onorando il sigillo di Isa.
+[2] CALIGO [DA GIUDICARE]: Il sigillo di Isa è stato onorato. Ora è tempo di agire con la consapevolezza acquisita.
+
+La pausa ti ha offerto chiarezza. Il prossimo passo è un dialogo onesto e profondo, che apra la soglia alla parola. Affronta la verità senza timore.
+
+✦ Dopo i sette giorni, brucia il foglio alla luce di una candela rossa, poi spargi le ceneri al vento, chiamando il nome di Eihwaz.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione precedente ('Il sigillo di Isa è stato onorato') e sviluppa il consiglio, indicando il passo successivo ('Ora è tempo di agire', 'La pausa ti ha offerto chiarezza').
+[3] PERSONA: Dopo i sette giorni, brucia il foglio alla luce di una candela rossa, poi spargi le ceneri al vento, chiamando il nome di Eihwaz.
+[3] CALIGO [DA GIUDICARE]: L'energia di Eihwaz è stata liberata, un ponte è stato creato.
+
+Le ceneri sparse al vento portano via ciò che è vecchio, aprendo un nuovo sentiero. Non aspettare che l'altro faccia il primo passo. Offri una proposta chiara, che riconnetta il legame su nuove basi.
+
+✦ Prepara un piccolo dono che simboleggi la vostra unione, e porgilo alla persona amata guardandola negli occhi, in segno di rinnovamento.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il completamento dell'azione precedente ('L'energia di Eihwaz è stata liberata, un ponte è stato creato') e prosegue con il consiglio, indicando il passo successivo ('Non aspettare che l'altro faccia il primo passo. Offri una proposta chiara').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto, aspetta ancora qualche giorno per definire meglio i dettagli.
+
+Il tuo cielo mostra una Luna in quadratura con Venere, un aspetto che può portare incertezze e ripensamenti nelle questioni che riguardano la bellezza e la creazione. Questo transito suggerisce che le tue energie creative, pur presenti, non sono pienamente allineate con le tue intenzioni, e potresti trovarti a rivedere decisioni prese troppo in fretta. Prenditi questo tempo per affinare l'idea, per darle una forma più precisa e per eliminare ogni dubbio.
+
+✦ Rivedi il tuo progetto domani mattina con un quaderno e una penna.
+[2] PERSONA: Rivedi il tuo progetto domani mattina con un quaderno e una penna.
+[2] MEDORA [DA GIUDICARE]: Il gesto che hai compiuto è un buon inizio, perché ti ha permesso di mettere ordine nei pensieri e di vedere con chiarezza i passaggi da seguire.
+
+Ora che hai tracciato la strada, il cielo ti suggerisce di condividere la tua visione con chi può offrirti un parere costruttivo. La Luna, infatti, si sta avvicinando a un aspetto armonioso con Mercurio, che favorisce la comunicazione e lo scambio di idee. Un confronto sincero ti aiuterà a perfezionare il tuo progetto e a valutarne la solidità.
+
+✦ Parla del tuo progetto con una persona di fiducia entro la fine della settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione consigliata in precedenza ('Rivedi il tuo progetto domani mattina con un quaderno e una penna'), ne valuta l'esito ('Il gesto che hai compiuto è un buon inizio') e suggerisce il passo successivo per lo sviluppo del progetto.
+[3] PERSONA: Parla del tuo progetto con una persona di fiducia entro la fine della settimana.
+[3] MEDORA [DA GIUDICARE]: Il gesto di condividere il tuo progetto con una persona di fiducia è stato importante, perché ha aperto nuove prospettive e ti ha permesso di ascoltare un parere esterno.
+
+Adesso il cielo ti invita a riflettere su quanto emerso da questa conversazione. Con Marte che entra in trigono con il tuo Sole, è il momento di agire con determinazione, ma la tua azione deve essere ben ponderata. Ascolta la tua voce interiore e filtra i consigli ricevuti attraverso la tua intuizione, per capire cosa risuona davvero con la tua visione originale.
+
+✦ Scrivi un elenco di tre punti chiave che vuoi mantenere nel tuo progetto, e tre su cui sei disposta a cambiare, nel tuo quaderno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione consigliata in precedenza ('Parla del tuo progetto con una persona di fiducia entro la fine della settimana'), ne valuta l'esito ('Il gesto di condividere il tuo progetto con una persona di fiducia è stato importante') e suggerisce il passo successivo per l'elaborazione del progetto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena sentirai la leggerezza giusta nel tuo cuore.
+
+Quando scegli di parlarle, metti una mano sull'addome, all'altezza del tuo centro del Plesso Solare, che irradia il colore giallo. Questo gesto ti aiuterà a trovare le parole con maggiore chiarezza e a esprimere il tuo sentire senza paura, mantenendo un equilibrio tra ciò che vuoi dire e ciò che vuoi ascoltare. È un centro che ci aiuta a comprendere il nostro valore e la nostra posizione nel mondo, anche nelle relazioni più intime.
+
+✦ Porta entrambe le mani al petto, intrecciando le dita, e senti il battito del tuo cuore per qualche istante.
+[2] PERSONA: Porta entrambe le mani al petto, intrecciando le dita, e senti il battito del tuo cuore per qualche istante.
+[2] AURA [DA GIUDICARE]: Ora che hai sentito il battito del tuo cuore, lascia che questa sensazione ti guidi a scegliere le parole con delicatezza, riconoscendo il tuo desiderio di riconnessione.
+
+Le mani intrecciate al petto ti ricordano il legame profondo che c'è tra voi, oltre la lite. Ascolta quel sentire, ti mostrerà come avvicinarti a tua sorella non per chiedere scusa o per pretendere, ma per ripristinare quel filo invisibile. Non si tratta di cancellare ciò che è accaduto, ma di trovare un nuovo equilibrio, partendo dalla radice del vostro rapporto.
+
+✦ Inspirando lentamente, immagina una luce verde smeraldo riempire il tuo petto.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione suggerita nella risposta precedente ('Ora che hai sentito il battito del tuo cuore') e ne sviluppa il significato e l'applicazione per il dialogo con la sorella.
+[3] PERSONA: Inspirando lentamente, immagina una luce verde smeraldo riempire il tuo petto.
+[3] AURA [DA GIUDICARE]: Lascia che quella luce verde smeraldo, il colore del tuo centro del Cuore, si espanda in te, portando un senso di apertura e accoglienza. Questo ti aiuterà ad affrontare il dialogo con tua sorella non con l'intento di avere ragione, ma con la volontà di ristabilire la connessione, come un ponte che si ricostruisce.
+
+Sentirai che è il momento giusto per parlare quando questa luce si farà più ampia e ti darà un senso di pace interiore. Non forzare, ma permetti a questa sensazione di guidarti dolcemente verso di lei.
+
+✦ Alza le spalle verso le orecchie per un istante, poi lasciale ricadere pesanti.
+    GIUDICE: PORTA_AVANTI, La guida riprende direttamente l'istruzione data alla persona ('Lascia che quella luce verde smeraldo...') e ne spiega il significato e l'effetto desiderato per il processo di riconciliazione, collegandola al centro del Cuore e al momento giusto per parlare.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 2

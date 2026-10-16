@@ -1,0 +1,30 @@
+IL CONFRONTO DEL CIELO PRIMA E DOPO IL MOTORE, ordine FD voce 02.3
+
+Venti coppie di segni, ciascuna nel suo giorno (test/il_confronto_sulle_venti_coppie_test.dart).
+Prima: la Luna da Effemeridi (commit 6e3a5f1a). Dopo: la Luna da IlCieloDiMeeus.
+Colonne: coppia, giorno, Luna prima e dopo in gradi e la differenza in secondi d'arco,
+affinita prima/dopo/differenza, cielo di oggi prima/dopo/differenza, segno della Luna prima/dopo.
+
+aries        cancer       2021-01-01  Luna 129.3943 -> 129.2986 ( -344.5")  affinita  45 ->  45 (+0)  cielo  68 ->  68 (+0)  segno leo -> leo
+virgo        aquarius     2024-06-12  Luna 153.0696 -> 153.1880 ( +426.2")  affinita  48 ->  48 (+0)  cielo  53 ->  53 (+0)  segno virgo -> virgo
+aquarius     virgo        2027-11-23  Luna 183.0810 -> 182.9657 ( -415.1")  affinita  58 ->  58 (+0)  cielo  77 ->  77 (+0)  segno libra -> libra
+cancer       aries        2021-04-06  Luna 312.6076 -> 312.5745 ( -119.2")  affinita  32 ->  32 (+0)  cielo  35 ->  35 (+0)  segno aquarius -> aquarius
+sagittarius  scorpio      2024-09-17  Luna 346.2967 -> 346.4723 ( +632.2")  affinita  44 ->  44 (+0)  cielo  36 ->  36 (+0)  segno pisces -> pisces
+taurus       gemini       2027-02-28  Luna 252.7232 -> 252.7742 ( +183.6")  affinita  30 ->  30 (+0)  cielo   1 ->   1 (+0)  segno sagittarius -> sagittarius
+libra        capricorn    2021-07-11  Luna 126.2343 -> 126.1271 ( -385.9")  affinita  30 ->  30 (+0)  cielo  30 ->  30 (+0)  segno leo -> leo
+pisces       leo          2024-12-22  Luna 176.4049 -> 176.4736 ( +247.3")  affinita  38 ->  38 (+0)  cielo  28 ->  28 (+0)  segno virgo -> virgo
+leo          pisces       2027-05-05  Luna  32.4007 ->  32.3618 ( -140.0")  affinita  65 ->  65 (+0)  cielo  94 ->  94 (+0)  segno taurus -> taurus
+capricorn    libra        2021-10-16  Luna 335.3188 -> 335.2753 ( -156.6")  affinita  36 ->  36 (+0)  cielo  45 ->  45 (+0)  segno pisces -> pisces
+gemini       taurus       2024-03-27  Luna 211.4813 -> 211.4834 (   +7.6")  affinita  32 ->  32 (+0)  cielo   6 ->   6 (+0)  segno scorpio -> scorpio
+scorpio      sagittarius  2027-08-10  Luna 242.7923 -> 242.8102 (  +64.4")  affinita  69 ->  69 (+0)  cielo 100 -> 100 (+0)  segno sagittarius -> sagittarius
+aries        cancer       2021-01-21  Luna  38.3202 ->  38.4139 ( +337.3")  affinita  57 ->  57 (+0)  cielo  96 ->  96 (+0)  segno taurus -> taurus
+virgo        aquarius     2024-06-04  Luna  47.9088 ->  47.8594 ( -177.8")  affinita  28 ->  28 (+0)  cielo   1 ->   1 (+0)  segno taurus -> taurus
+aquarius     virgo        2027-11-15  Luna  70.1012 ->  70.2811 ( +647.6")  affinita  28 ->  28 (+0)  cielo   1 ->   1 (+0)  segno gemini -> gemini
+cancer       aries        2021-04-26  Luna 207.1957 -> 207.2797 ( +302.4")  affinita  21 ->  21 (+0)  cielo   8 ->   8 (+0)  segno libra -> libra
+sagittarius  scorpio      2024-09-09  Luna 237.2890 -> 237.2453 ( -157.3")  affinita  69 ->  69 (+0)  cielo 100 -> 100 (+0)  segno scorpio -> scorpio
+taurus       gemini       2027-02-20  Luna 145.1715 -> 145.0839 ( -315.4")  affinita  51 ->  51 (+0)  cielo  54 ->  54 (+0)  segno leo -> leo
+libra        capricorn    2021-07-03  Luna  29.7081 ->  29.7705 ( +224.6")  affinita  21 ->  21 (+0)  cielo   7 ->   7 (+0)  segno aries -> aries
+pisces       leo          2024-12-14  Luna  71.4083 ->  71.2776 ( -470.5")  affinita  67 ->  67 (+0)  cielo  99 ->  99 (+0)  segno gemini -> gemini
+
+Differenza massima della Luna: 647.6 secondi d'arco.
+Coppie con l'affinita diversa: 0 su 20; col cielo di oggi diverso: 0 su 20; col segno della Luna diverso: 0 su 20.

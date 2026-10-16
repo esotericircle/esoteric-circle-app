@@ -1,0 +1,132 @@
+cieco_2026-10-06T0149_f.txt | consulto 1 | risposta 2 | IGNORA | Consiglia di non fare passi affrettati con Luna e Matto senza riprendere il riassunto dei successi, il Carro o la promozione della risposta 1.
+cieco_2026-10-06T0149_f.txt | consulto 1 | risposta 3 | IGNORA | Fa cominciare dall'ascendente e dall'Eremita con un quaderno di idee, come se il riassunto da presentare e la cautela gia' date non esistessero.
+cieco_2026-10-06T0149_f.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Sviluppa il "prima di decidere ascolta il tuo centro" della risposta 1 nel non fare passi affrettati con la radice.
+cieco_2026-10-06T0149_f.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riprende il respiro e le mani sul ventre per connettersi al centro, come nelle risposte 1 e 2.
+cieco_2026-10-06T0149_f.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Riprende Ansuz e la parola onesta e applica il dialogo con il partner a cosa evitare.
+cieco_2026-10-06T0149_f.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Il gesto "prima di incontrarlo" presuppone e prepara l'incontro proposto, senza smentire l'invito ad agire.
+cieco_2026-10-06T0149_f.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende Mercurio retrogrado e la revisione del piano chiesto nella risposta 1.
+cieco_2026-10-06T0149_f.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Definire gli obiettivi resta nella fase di pianificazione e richiama le "fondamenta solide" della risposta 1, senza dire di partire ora.
+cieco_2026-10-06T0149_f.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Sviluppa il "senza attaccare" e l'ascolto pieno della risposta 1 in cio' che va evitato.
+cieco_2026-10-06T0149_f.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Applica l'invito a scegliere un momento senza fretta e senza interruzioni a un luogo neutro per incontrarsi.
+cieco_2026-10-06T0149_e.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Riprende esplicitamente la conversazione informale della risposta 1 e la prepara.
+cieco_2026-10-06T0149_e.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Lega il capire al giorno in cui esporrai le ambizioni e fa rileggere cio' che hai preparato.
+cieco_2026-10-06T0149_e.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Continua ad ascoltare il richiamo e il centro della radice della risposta 1, visualizzando la nuova citta'.
+cieco_2026-10-06T0149_e.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Il segno e' la risonanza nella radice mentre si visualizza la nuova vita, come gia' proposto.
+cieco_2026-10-06T0149_e.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Dopo il messaggio chiesto nella risposta 1 dice di attendere la risposta, e lo spiega con la pausa di Isa: e' il passo successivo, non il contrario.
+cieco_2026-10-06T0149_e.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Prosegue l'immagine del ghiaccio di Isa e del disgelo per dire quando si capira'.
+cieco_2026-10-06T0149_e.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende la fase di preparazione della risposta 1 e la applica alla definizione del progetto.
+cieco_2026-10-06T0149_e.txt | consulto 4 | risposta 3 | CONTRADDICE | La risposta 1 diceva "puoi avviare il progetto in questo momento", qui il momento giusto per l'avvio e' rimandato a quando avrai superato l'esitazione, senza dichiarare il cambio.
+cieco_2026-10-06T0149_e.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Riparte dall'oggetto del ricordo messo in vista nella risposta 1 e ne fa l'occasione per parlare.
+cieco_2026-10-06T0149_e.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende il centro del cuore, il respiro e la fisiognomica del suo viso gia' nominati.
+cieco_2026-10-06T0149_d.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Dichiara che il consiglio di preparare il discorso resta valido e lo precisa.
+cieco_2026-10-06T0149_d.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Torna al centro della radice saldo e ai piedi a terra della risposta 1 per la promozione.
+cieco_2026-10-06T0149_d.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Richiama esplicitamente la radice suggerita prima e l'ascolto prima di decidere.
+cieco_2026-10-06T0149_d.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Conferma il "parti, il tempo di agire e' ora" della risposta 1.
+cieco_2026-10-06T0149_d.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Continua il rito della candela riprendendo la cenere raccolta.
+cieco_2026-10-06T0149_d.txt | consulto 6 | risposta 3 | PORTA_AVANTI | Il gesto onesto da fare senza rimandare riprende il piccolo segno d'amore e il parlare con sincerita' prima che le distanze crescano.
+cieco_2026-10-06T0149_d.txt | consulto 7 | risposta 3 | PORTA_AVANTI | Parte da "ora che hai iniziato a delinearne le basi" e porta avanti lo scritto della risposta 1.
+cieco_2026-10-06T0149_d.txt | consulto 8 | risposta 3 | PORTA_AVANTI | Riprende il filo e da' concretezza all'impulso iniziale gia' detto nella risposta 1.
+cieco_2026-10-06T0149_d.txt | consulto 9 | risposta 3 | PORTA_AVANTI | Richiama esplicitamente respiro e centro del cuore e aggiunge una lettera come passo ulteriore.
+cieco_2026-10-06T0149_d.txt | consulto 10 | risposta 3 | CONTRADDICE | La risposta 1 chiedeva di scriverle un messaggio stasera, qui "parla con lei di persona, non attraverso schermi" capovolge il mezzo senza dirlo.
+cieco_2026-10-06T0149_c.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Sviluppa il riassunto dei successi da presentare con la Luna crescente.
+cieco_2026-10-06T0149_c.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Precisa come scegliere i tre punti chiave e mantiene il tempo della Luna crescente.
+cieco_2026-10-06T0149_c.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Riprende la mano sull'ombelico e il plesso solare e li applica al desiderio di ricominciare.
+cieco_2026-10-06T0149_c.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Prosegue dai tre respiri e dal Manipura verso il possibile cambiamento.
+cieco_2026-10-06T0149_c.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Dopo la richiesta dell'ora insieme guida l'ascolto e prepara lo spazio.
+cieco_2026-10-06T0149_c.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Precisa come deve essere lo spazio preparato e il primo momento insieme.
+cieco_2026-10-06T0149_c.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende la visualizzazione e l'equilibrio e li affina con la revisione delle idee.
+cieco_2026-10-06T0149_c.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Parte dalle tre parole scelte e propone di condividerle, il che non e' la partenza frettolosa sconsigliata.
+cieco_2026-10-06T0149_c.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Riprende la mano sul petto prima del contatto e la sviluppa con il volto della sorella.
+cieco_2026-10-06T0149_c.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Prosegue il respiro a occhi chiusi e lo applica alla conversazione con la sorella.
+cieco_2026-10-06T0149_b.txt | consulto 1 | risposta 2 | CONTRADDICE | Medora diceva di non affrettare i tempi e di presentare quando il Sole entrera' in Sagittario, Caligo dice di farlo prima della fine del mese e di non aspettare oltre, presentandolo come una conferma.
+cieco_2026-10-06T0149_b.txt | consulto 1 | risposta 3 | IGNORA | Solo un gesto di respiro, senza riprendere il riepilogo dei successi ne' i tempi gia' dati.
+cieco_2026-10-06T0149_b.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Riprende la mappa di Medora e il non cambiare subito, con un rito di radicamento.
+cieco_2026-10-06T0149_b.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riprende sia la mappa di Medora sia il rito di Caligo e li lega al respiro.
+cieco_2026-10-06T0149_b.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Riprende il messaggio prima della Luna in Leone e lo sviluppa con Gebo.
+cieco_2026-10-06T0149_b.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Riprende il messaggio di Medora e la storia dell'inizio di Caligo.
+cieco_2026-10-06T0149_b.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende il consiglio di Medora e diverge dichiarandolo ("Io leggo diversamente").
+cieco_2026-10-06T0149_b.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Riprende i pianeti di Medora e il numero di Caligo senza smentire l'attesa.
+cieco_2026-10-06T0149_b.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Concorda col messaggio di stasera suggerito da Medora e aggiunge il giorno dispari.
+cieco_2026-10-06T0149_b.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende il messaggio di Medora e l'incontro di Caligo come ponte energetico.
+cieco_2026-10-06T0149_a.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Applica a questa settimana il progetto da raffinare prima del moto diretto di Mercurio.
+cieco_2026-10-06T0149_a.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Riprende il progetto presentato al superiore e la sua reazione.
+cieco_2026-10-06T0149_a.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Sviluppa l'immaginare la nuova citta' della risposta 1 in un esercizio quotidiano.
+cieco_2026-10-06T0149_a.txt | consulto 2 | risposta 3 | IGNORA | Discorso generico sul plesso solare e sul non fallimento, senza riprendere trasferimento, radice o visualizzazione gia' dati.
+cieco_2026-10-06T0149_a.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Il lasciare andare cio' che non e' piu' sacro riprende il "non afferrare cio' che si dissolve, nutri cio' che resiste".
+cieco_2026-10-06T0149_a.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Osservare la reazione segue la verita' da rivelare chiesta nella risposta 2.
+cieco_2026-10-06T0149_a.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Prosegue il delineare il progetto della risposta 1 con la raccolta delle idee.
+cieco_2026-10-06T0149_a.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Riprende il mercoledi' e il progetto e affronta gli ostacoli.
+cieco_2026-10-06T0149_a.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Riprende l'Anahata e il verde smeraldo per la pratica della settimana.
+cieco_2026-10-06T0149_a.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Il "non forzare gli eventi" riprende il "senza forzare" della risposta 2 e lo applica al caso avverso.
+cieco_2026-10-06T0143_f.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Sviluppa l'attesa e la preparazione della risposta 1 in cio' che va evitato.
+cieco_2026-10-06T0143_f.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Riparte dalla riflessione fatta e dal preparare il terreno per il momento giusto.
+cieco_2026-10-06T0143_f.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Riprende il "prima di decidere" e la radice e li applica a cosa evitare.
+cieco_2026-10-06T0143_f.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riparte esplicitamente dalla visualizzazione delle due citta' proposta nella risposta 2.
+cieco_2026-10-06T0143_f.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Sviluppa il "devi agire" contro la passivita' e conferma il confronto.
+cieco_2026-10-06T0143_f.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Prendere l'iniziativa e pronunciare per primo prosegue l'incontro gia' chiesto.
+cieco_2026-10-06T0143_f.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende il momento propizio e lo precisa nel non cadere nel perfezionismo.
+cieco_2026-10-06T0143_f.txt | consulto 4 | risposta 3 | CONTRADDICE | La risposta 2 diceva di evitare il perfezionismo e di preferire l'azione anche imperfetta all'attesa, qui l'Eremita invita a non avere fretta e a cercare la qualita', senza dichiarare il cambio.
+cieco_2026-10-06T0143_f.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Sviluppa il "ponte, non muro" in cio' che va evitato.
+cieco_2026-10-06T0143_f.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende il momento di silenzio per raccogliere le sensazioni prima di parlare della risposta 1.
+cieco_2026-10-06T0143_e.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Prosegue il lavoro sui progetti entro la Luna Nuova della risposta 1.
+cieco_2026-10-06T0143_e.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Mantiene il "non affrettare, non forzare" e precisa il segno del tempo propizio.
+cieco_2026-10-06T0143_e.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Riprende la radice e il ricominciare dentro di se', senza fretta.
+cieco_2026-10-06T0143_e.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Lega il capire alla stabilita' della radice gia' indicata.
+cieco_2026-10-06T0143_e.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Riprende Gebo e l'incontro e chiede di preparare le parole.
+cieco_2026-10-06T0143_e.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Conferma l'agire contro l'attesa, in linea con l'affrontare il silenzio della risposta 1.
+cieco_2026-10-06T0143_e.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Parte dal primo passo gia' definito e propone di condividerlo.
+cieco_2026-10-06T0143_e.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Lega il capire alla condivisione con la persona cara proposta nella risposta 2.
+cieco_2026-10-06T0143_e.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Riparte dall'oggetto offerto e dice le parole da dirle.
+cieco_2026-10-06T0143_e.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende la ricerca di un momento tranquillo e il respiro della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Riprende il filo della promozione e il "mostrare le tue capacita'" della risposta 1 in un riassunto da presentare.
+cieco_2026-10-06T0143_d.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riprende il centro della gola e il comunicare ai superiori della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Riprende la visualizzazione della nuova citta' gia' proposta e la sviluppa.
+cieco_2026-10-06T0143_d.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Conferma il partire e richiama il fuoco lontano e la numerologia della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riconosce il messaggio gia' mandato e dice di attendere la risposta, passo coerente.
+cieco_2026-10-06T0143_d.txt | consulto 6 | risposta 3 | PORTA_AVANTI | Riprende il "comprendere cosa si e' spento" e il non forzare della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 7 | risposta 3 | PORTA_AVANTI | Riparte dai primi passi gia' delineati e li porta a un piano.
+cieco_2026-10-06T0143_d.txt | consulto 8 | risposta 3 | IGNORA | Propone una visualizzazione del progetto compiuto senza riprendere il momento di silenzio e il centro del cuore della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 9 | risposta 3 | PORTA_AVANTI | Riprende il centro del cuore, l'ascolto e il non forzare della risposta 1.
+cieco_2026-10-06T0143_d.txt | consulto 10 | risposta 3 | PORTA_AVANTI | Dichiara che il consiglio del dialogo diretto resta invariato e richiama Gebo.
+cieco_2026-10-06T0143_c.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Sviluppa la presentazione del progetto di martedi'.
+cieco_2026-10-06T0143_c.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Precisa la sintesi di martedi' con i suoi tre punti.
+cieco_2026-10-06T0143_c.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Riprende la mano sul ventre e la lega al trasferimento.
+cieco_2026-10-06T0143_c.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riprende le mani sul cuore e la domanda sul trasferimento.
+cieco_2026-10-06T0143_c.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Sviluppa il foglio rosso con la data.
+cieco_2026-10-06T0143_c.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Prosegue il numero tracciato sul foglio.
+cieco_2026-10-06T0143_c.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Precisa come dare forma ai primi tre passi.
+cieco_2026-10-06T0143_c.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Riparte dal primo elemento e dai gesti minimi.
+cieco_2026-10-06T0143_c.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Sviluppa l'ascolto del cuore chiesto nella risposta 1.
+cieco_2026-10-06T0143_c.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Prosegue il respiro che rilascia il peso e lo rivolge alla sorella.
+cieco_2026-10-06T0143_b.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Pur spingendo ad agire, ripete il dossier al prossimo plenilunio di Medora, quindi mantiene il suo tempo.
+cieco_2026-10-06T0143_b.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Riprende il dossier e il plenilunio e li lega al proprio sentire.
+cieco_2026-10-06T0143_b.txt | consulto 2 | risposta 2 | CONTRADDICE | Medora diceva che e' un tempo poco propizio per scelte radicali e di non agire d'impulso, Caligo dice "non esitare" se i motivi per partire sono di piu', senza dichiarare la divergenza.
+cieco_2026-10-06T0143_b.txt | consulto 2 | risposta 3 | PORTA_AVANTI | Riprende i motivi scritti di Medora e il numero di Caligo e invita ad ascoltare prima di scegliere.
+cieco_2026-10-06T0143_b.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Riprende la fotografia di Medora e la sviluppa nel ricordo condiviso.
+cieco_2026-10-06T0143_b.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Riprende la fotografia di Medora, dicendosi d'accordo, e il foglio di Caligo.
+cieco_2026-10-06T0143_b.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Riprende l'alba di Medora e diverge dichiarandolo ("io ti dico che il momento propizio lo crei").
+cieco_2026-10-06T0143_b.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Riprende l'alba di Medora e l'altare di Caligo.
+cieco_2026-10-06T0143_b.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Riprende il messaggio di Medora e lo sviluppa nell'appuntamento.
+cieco_2026-10-06T0143_b.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende il messaggio di Medora e l'incontro proposto da Caligo.
+cieco_2026-10-06T0143_a.txt | consulto 1 | risposta 2 | PORTA_AVANTI | Riprende il parlare coi colleghi fidati e il non affrettare della risposta 1.
+cieco_2026-10-06T0143_a.txt | consulto 1 | risposta 3 | PORTA_AVANTI | Riprende quanto appreso osservando e il non forzare gli eventi.
+cieco_2026-10-06T0143_a.txt | consulto 2 | risposta 2 | PORTA_AVANTI | Sviluppa il "che cosa cerco in questo nuovo inizio" nell'immaginare la nuova citta'.
+cieco_2026-10-06T0143_a.txt | consulto 2 | risposta 3 | IGNORA | Discorso generico sul plesso solare e sul non fallimento, senza riprendere la radice o la visualizzazione gia' date.
+cieco_2026-10-06T0143_a.txt | consulto 3 | risposta 2 | PORTA_AVANTI | Il mostrarsi a cuore aperto riprende il mostrarsi nella propria luce piu' vera della risposta 1.
+cieco_2026-10-06T0143_a.txt | consulto 3 | risposta 3 | PORTA_AVANTI | Il non lasciare al tempo i nodi riprende il "non aspettare, agisci ora".
+cieco_2026-10-06T0143_a.txt | consulto 4 | risposta 2 | PORTA_AVANTI | Prosegue la delineazione del progetto in uno schema dei passi.
+cieco_2026-10-06T0143_a.txt | consulto 4 | risposta 3 | PORTA_AVANTI | Riprende i piani e la struttura e li riorganizza davanti agli ostacoli.
+cieco_2026-10-06T0143_a.txt | consulto 5 | risposta 2 | PORTA_AVANTI | Applica il gesto di apertura e la calma della risposta 1 a un piccolo gesto gentile questa settimana.
+cieco_2026-10-06T0143_a.txt | consulto 5 | risposta 3 | PORTA_AVANTI | Riprende il respiro, la gola e la radice gia' nominati e il non forzare.
+cieco_2026-10-06T0149_f.txt | totali: porta avanti 8, ignora 2, contraddice 0.
+cieco_2026-10-06T0149_e.txt | totali: porta avanti 9, ignora 0, contraddice 1.
+cieco_2026-10-06T0149_d.txt | totali: porta avanti 9, ignora 0, contraddice 1.
+cieco_2026-10-06T0149_c.txt | totali: porta avanti 10, ignora 0, contraddice 0.
+cieco_2026-10-06T0149_b.txt | totali: porta avanti 8, ignora 1, contraddice 1.
+cieco_2026-10-06T0149_a.txt | totali: porta avanti 9, ignora 1, contraddice 0.
+cieco_2026-10-06T0143_f.txt | totali: porta avanti 9, ignora 0, contraddice 1.
+cieco_2026-10-06T0143_e.txt | totali: porta avanti 10, ignora 0, contraddice 0.
+cieco_2026-10-06T0143_d.txt | totali: porta avanti 9, ignora 1, contraddice 0.
+cieco_2026-10-06T0143_c.txt | totali: porta avanti 10, ignora 0, contraddice 0.
+cieco_2026-10-06T0143_b.txt | totali: porta avanti 9, ignora 0, contraddice 1.
+cieco_2026-10-06T0143_a.txt | totali: porta avanti 9, ignora 1, contraddice 0.

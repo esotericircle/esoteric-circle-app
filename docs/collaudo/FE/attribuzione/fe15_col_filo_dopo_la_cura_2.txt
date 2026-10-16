@@ -1,0 +1,42 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Modo: col filo di un altro Maestro (ordine FE voce 15).
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         20        0        0       20   100.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          0        0       20       20   100.0%
+Shell: 
+Shell: Attribuzione corretta: 60 su 60, cioe' 100.0 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 109, frase mediana 17.0 parole, domande 0, parole che ammorbidiscono 1
+Shell: aura     frasi contate 126, frase mediana 20.0 parole, domande 0, parole che ammorbidiscono 10
+Shell: caligo   frasi contate 146, frase mediana 10.0 parole, domande 0, parole che ammorbidiscono 0
+00:34 +1: All tests passed!
+uscita 0

@@ -1,0 +1,21 @@
+IL CONTEGGIO ANONIMO: COSA PROMETTE E COSA SPEDISCE
+Ordine EI voce 07, che riapre la voce EE.12.
+
+SCARTO DICHIARATO: l'ordine la chiama EE.12, il codice che ha tolto l'interruttore dichiara ORDINE EA VOCE 12.
+
+--- CIO' CHE IL CONTEGGIO SA SPEDIRE, dal codice:
+
+    apertura
+    ritornoDaAvviso
+    ritoCominciato
+    ritoCompiuto
+    responsoCondiviso
+
+    In tutto: 5 eventi, numeri per giorno, nessun identificativo.
+
+--- CIO' CHE LA SCHERMATA PROMETTE ALLA PERSONA:
+
+    Contiamo cinque gesti in numeri per giorno: le aperture dell'app, i riti cominciati, i riti finiti, i ritorni da una notifica e i responsi condivisi. Sono contatori anonimi, senza nome e senza nessun identificativo del telefono o tuo: servono a capire cosa funziona.
+
+--- E NON C'E' NESSUN SELETTORE:
+    la frase "Conta i gesti, non me" e il suo interruttore non vivono in nessun file di lib fuori dai due commenti che ne dichiarano la rimozione.

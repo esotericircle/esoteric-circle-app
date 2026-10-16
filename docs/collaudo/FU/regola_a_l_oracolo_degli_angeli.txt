@@ -1,0 +1,15 @@
+REGOLA A, ordine FU, 15 ottobre 2026
+guardia: test/l_oracolo_degli_angeli_test.dart
+innesto: l'estrazione mette lo stesso angelo su due carte
+file innestato: lib/core/oracolo_angeli/i_ruoli_e_l_estrazione.dart
+riga di prima: final estratti = numeri.toList();
+riga innestata: final estratti = [numeri.first, ...numeri.take(2)];
+grep dopo l'innesto, righe innestate: 1
+ESITO CON L'INNESTO (codice di uscita 1):
+  00:00 +0 -1: l'estrazione tre angeli diversi su duecento consultazioni, uno per ruolo [E]
+    Expected: an object with length of <3>
+      Actual: Set:[40, 42]
+  00:00 +12 -1: Some tests failed.
+ripristino; grep, righe innestate: 0, righe originali: 1
+ESITO SUL CODICE VERO (codice di uscita 0):
+  00:00 +13: All tests passed!

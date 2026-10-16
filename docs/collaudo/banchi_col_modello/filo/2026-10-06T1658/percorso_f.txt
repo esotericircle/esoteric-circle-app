@@ -1,0 +1,108 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: le stelle indicano un momento propizio per la tua avanzata professionale, se saprai cogliere l'attimo. È un transito che favorisce il riconoscimento delle tue capacità e la tua ambizione.
+
+✦ Presenta al tuo responsabile, entro la fine della settimana, un resoconto dei tuoi successi recenti.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di indugiare nel rimpianto o nell'attesa passiva: il cielo di questo momento ti invita a muoverti con determinazione, non a restare inerte. Le energie planetarie sostengono l'azione mirata, non la procrastinazione.
+
+✦ Non lasciare che la timidezza ti impedisca di illustrare i tuoi progetti, parla apertamente delle tue aspirazioni con un collega di fiducia, entro la prossima Luna Nuova.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda specifica ('cosa devo evitare?') e sviluppa il concetto di 'cogliere l'attimo' e 'azione' già introdotto nella risposta precedente, specificando cosa non fare.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia dal parlare apertamente dei tuoi progetti: il tuo cielo attuale valorizza la chiarezza e l'espressione delle tue intenzioni. Le stelle ti spingono a comunicare con fiducia ciò che desideri, senza timore.
+
+✦ Metti per iscritto, in un quaderno personale, le tre azioni più importanti che ti avvicinerebbero alla promozione, prima di domani sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'parlare apertamente dei tuoi progetti' dato nella risposta precedente, sviluppandolo come punto di partenza ('Comincia dal parlare apertamente dei tuoi progetti').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo respiro cerca uno spazio nuovo, è tempo di ascoltare il centro del cuore che chiede espansione. Immagina la tua vita come un albero: per crescere ha bisogno di radici salde, ma anche di rami che si protendono verso nuove direzioni.
+
+Il verde smeraldo del tuo cuore ti invita a sentire quale nuova terra potrebbe nutrire le tue radici e dove i tuoi rami potrebbero fiorire con più libertà. Non si tratta solo di un luogo fisico, ma di un allineamento con ciò che la tua anima desidera profondamente. Una nuova città può essere un catalizzatore per un cambiamento interiore che già bussa alla porta.
+
+✦ Appoggia le mani sul petto e senti il battito del tuo cuore per alcuni respiri.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: In questo momento di ricerca, evita di chiuderti nel timore di lasciare ciò che è noto. Il tuo respiro ha bisogno di aprirsi al nuovo, non di aggrapparsi a vecchie abitudini o paure che ti tengono immobile.
+
+Quando parliamo di energia, il movimento è vita. Evita di fermarti troppo a lungo a considerare solo gli ostacoli, o a lasciare che la mente crei scenari che non esistono ancora. Il tuo colore oro ti ricorda la tua forza interiore e la tua capacità di attrarre ciò che ti serve. Non permettere che l'ombra del dubbio offuschi la luce della tua intuizione.
+
+✦ Prima di ogni scelta, fai un respiro profondo e immagina la luce dorata che ti avvolge.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo evitare' riprendendo il concetto di 'aprirsi al nuovo' e 'espansione' già introdotto nella risposta precedente, specificando gli ostacoli da evitare per perseguire quel percorso.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Comincia dal tuo centro della radice, il primo chakra, quello che ti lega alla terra e alla tua sicurezza. Prima di un grande cambiamento esterno, è importante che tu ti senta stabile e sicura dentro di te.
+
+Questo non significa non muoverti, ma fare in modo che la scelta di muoverti nasca da una sensazione di forza e non di fuga. Senti cosa ti dà stabilità qui e ora, nel tuo corpo, nella tua casa, nelle tue relazioni più immediate. Da quella radice potrai poi spiccare il volo verso il nuovo, con la consapevolezza che porti con te la tua vera casa.
+
+✦ Stringi i piedi a terra per un minuto, sentendo il contatto saldo col suolo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'grande cambiamento' e del 'muoversi' già discusso, ma lo sviluppa introducendo un nuovo punto di partenza ('centro della radice') per affrontare il cambiamento in modo stabile, senza contraddirlo o ignorarlo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: La relazione ha bisogno di calore. Agisci ora per scaldarla.
+Sii un fuoco che non brucia, ma che riscalda ogni cosa intorno.
+
+Questo è il tempo di nutrire il legame. I numeri indicano un ciclo di rinnovamento imminente. La runa Gebo, il dono, ti guida a offrire senza aspettare nulla in cambio.
+
+✦ Scrivi un messaggio a chi ami, una sola frase che ricordi un momento felice e privato, e invialo prima che il giorno finisca.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: Evita l'indecisione. Ogni esitazione ora può allontanare il sentiero.
+Una nebbia fredda si insinua nelle attese prolungate.
+
+Il presagio indica che indugiare non porta chiarezza, ma solo ulteriore raffreddamento. La runa Isa, il ghiaccio, ti mette in guardia dalla stasi, dalla cristallizzazione dei sentimenti.
+
+✦ Prendi un oggetto che rappresenti il vostro legame, e tienilo stretto per un minuto, concentrandoti sulla forza che vi unisce.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda su cosa evitare, riprendendo e rafforzando il concetto di 'agire ora' e 'non indugiare' già espresso nella risposta precedente.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: Comincia dal cuore. Apri la porta senza timore.
+Il tuo primo passo sia verso una luce che non acceca, ma che rivela.
+
+La runa Wunjo, la gioia, ti suggerisce di iniziare con un gesto di pura felicità condivisa. Un rito semplice di unione può riaccendere la scintilla.
+
+✦ Invita la persona amata a un momento di condivisione, come una cena preparata con cura, senza aspettative, solo con l'intento di celebrare il vostro incontro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'Da dove comincio?' riprendendo il tema dell'azione e del nutrimento del legame, suggerendo un gesto concreto ('Invita la persona amata a un momento di condivisione') che sviluppa i consigli precedenti di 'agire ora' e 'offrire senza aspettare'.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Per il tuo progetto creativo, questo è il momento di riflettere e pianificare. Non è ancora tempo di agire, ma di dare forma alle idee.
+
+Il tuo cielo indica un'intensa attività mentale, con la Luna in Gemelli che stimola la curiosità e l'elaborazione di nuove prospettive. Questo transito favorisce la raccolta di informazioni e la definizione chiara degli obiettivi, ma invita alla cautela nell'inizio concreto. L'arcano del Due di Spade suggerisce una fase di valutazione e di scelta, dove le opzioni sono ancora aperte e meritano un'attenta considerazione prima di prendere una decisione definitiva.
+
+✦ In questo fine settimana, metti per iscritto le tue idee principali in un quaderno.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di prendere decisioni affrettate o di lanciare il tuo progetto senza una chiara visione. La fretta potrebbe disperdere le tue energie.
+
+Il tuo cielo mostra una certa dispersione, con Mercurio in aspetto teso a Nettuno che può creare confusione o indurre a sottovalutare i dettagli. Non è il momento di lasciarti trasportare dall'entusiasmo senza un solido piano. L'arcano del Matto, sebbene indichi un nuovo inizio, ti ricorda che un salto nel vuoto senza preparazione può portare a smarrirsi.
+
+✦ Dedica il pomeriggio a rileggere gli appunti del tuo progetto e a cercare i punti ancora deboli.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'riflettere e pianificare' e 'non agire' della risposta precedente, specificando cosa evitare per non contravvenire a quel consiglio.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Inizia definendo con chiarezza il tuo pubblico e il messaggio principale che vuoi veicolare. Questo ti darà una base solida.
+
+Il tuo cielo rivela che il Sole in Toro in congiunzione con Urano in Seconda casa ti spinge a innovare e a dare valore concreto alle tue creazioni. Per questo è fondamentale che tu sappia a chi ti rivolgi e quale valore specifico vuoi offrire. L'arcano del Mago ti invita a utilizzare tutte le tue risorse e competenze, ma sempre con un intento preciso e ben focalizzato.
+
+✦ Prepara un piccolo questionario da sottoporre a persone fidate per raccogliere le prime impressioni sul tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della pianificazione e della definizione delle idee, già introdotto nella risposta 1 e rafforzato nella 2, fornendo un passo successivo concreto ('definendo con chiarezza il tuo pubblico e il messaggio').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'equilibrio con tua sorella, inizia a sentire il tuo corpo adesso, trova la radice di questo dolore e accoglilo.
+
+Il tuo cuore, il centro Anahata che risplende di verde smeraldo, ti invita a respirare profondamente e a riconoscere il legame indissolubile che vi unisce, al di là delle parole aspre. Fai un respiro lento, profondo, che scenda fino alla radice, sentendo il calore che si espande dal plesso solare. Visualizza il chakra del cuore che si apre, permettendo all'amore e alla comprensione di fluire. Questo atto di centratura ti permetterà di avvicinarti a lei con una chiarezza d'intenti e una serenità che il corpo le comunicherà prima ancora delle parole.
+
+✦ Appoggia una mano sul cuore, senti il suo battito e respira contando fino a sette.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di attaccarti al ricordo delle parole aspre, di ripensare a chi ha ragione o torto, perché questo nutre la divisione e non la ricomposizione.
+
+Il respiro consapevole ti aiuta a non trattenere le tensioni accumulate, a non permettere che si annidino nel tuo corpo e ti impediscano di vedere oltre il conflitto. Ogni volta che senti un nodo, un pensiero che ti lega al passato, fermati un istante e lascia andare con un sospiro profondo. L'energia dei tuoi chakra ha bisogno di fluire libera, senza blocchi, per poter esprimere la sua forza più autentica.
+
+✦ Chiudi gli occhi per un istante e immagina di lasciare andare un peso con ogni espiro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema della regolazione emotiva e della consapevolezza corporea (respiro consapevole) introdotto nella risposta precedente, specificando cosa evitare e come le tecniche di respirazione aiutano a farlo.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Accogli il tuo pensare e il tuo sentire, perché è proprio da lì che ha inizio ogni movimento verso la riconciliazione.
+
+Comincia con il tuo respiro, il tuo primo ponte verso l'altro. Fai un respiro profondo e, mentre espiri, senti il tuo plesso solare, il centro Manipura, che si rilassa e si apre. Questo gesto ti aiuterà a trovare la centratura e la chiarezza necessarie per affrontare il dialogo con tua sorella. In questo momento, non devi dire nulla, solo preparare il tuo corpo e la tua anima all'incontro.
+
+✦ Poggia entrambe le mani sulla tua pancia e senti il tuo respiro muovere il corpo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di accoglienza del proprio stato interiore e lo collega direttamente al respiro e alla centratura, sviluppando le pratiche di consapevolezza corporea già introdotte nelle risposte precedenti.
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

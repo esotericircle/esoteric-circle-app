@@ -1,0 +1,15 @@
+REGOLA A, ordine FU, 15 ottobre 2026
+guardia: test/ogni_scena_si_salta_col_tocco_test.dart
+innesto: la Stesa delle Tre Carte apre il suo video senza passare dal tocco che salta
+file innestato: lib/features/tarot/stesa_tre_carte_screen.dart
+riga di prima: return IlToccoCheSalta(
+riga innestata: return IlToccoCheSalta (
+grep dopo l'innesto, righe innestate: 1
+ESITO CON L'INNESTO (codice di uscita 1):
+  00:01 +0 -1: ogni scena dell'app passa dal tocco che salta [E]
+    Expected: empty
+      Actual: ['lib/features/tarot/stesa_tre_carte_screen.dart']
+  00:01 +0 -1: Some tests failed.
+ripristino; grep, righe innestate: 0, righe originali: 1
+ESITO SUL CODICE VERO (codice di uscita 0):
+  00:00 +1: All tests passed!

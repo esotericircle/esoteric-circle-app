@@ -1,0 +1,25 @@
+LE COPPIE DELLA PARTE 4 PRIMA E DOPO, ordine FK voci 10, 17, 18 e 19, 11 ottobre 2026
+Metodo: le radici rare in comune (presenti in non piu' di sei delle 156 voci), pesate con ln(156 / voci che le portano), come la guardia la_fonte_dei_significati_non_si_confonde; 'frase' e' la sequenza piu' lunga di parole in comune nel testo pieno. Prima: tarot_card.dart a 24cf424; dopo: con le 14 correzioni di docs/collaudo/FK/correzioni_della_fonte.md.
+
+PRIMA (24cf424)
+  L'Imperatrice drit / Regina di Denari drit       21.13 ['abbon', 'fiori', 'mani', 'nutri', 'proge', 'terra'] frase 4
+  L'Imperatrice capo / Regina di Denari capo        0.00 []                                       frase 1
+  Il Sole drit / Regina di Bastoni drit            12.38 ['calor', 'piena', 'scald']              frase 3
+  Il Sole capo / Regina di Bastoni capo             0.00 []                                       frase 1
+  Quattro di Denari drit / Quattro di Denari capo   4.36 ['strin']                                frase 2
+  Quattro di Denari capo / Re di Denari capo        7.33 ['attac', 'irrig']                       frase 2
+  Nove di Bastoni capo / Sette di Bastoni capo      3.44 ['difen']                                frase 1
+  Asso di Coppe capo / Due di Coppe capo            0.00 []                                       frase 1
+  Sei di Bastoni capo / Regina di Bastoni capo      3.95 ['dubbi']                                frase 5
+DOPO
+  L'Imperatrice drit / Regina di Denari drit        3.66 ['terra']                                frase 1
+  L'Imperatrice capo / Regina di Denari capo        0.00 []                                       frase 1
+  Il Sole drit / Regina di Bastoni drit             4.36 ['piena']                                frase 1
+  Il Sole capo / Regina di Bastoni capo             0.00 []                                       frase 1
+  Quattro di Denari drit / Quattro di Denari capo   4.36 ['strin']                                frase 2
+  Quattro di Denari capo / Re di Denari capo        0.00 []                                       frase 2
+  Nove di Bastoni capo / Sette di Bastoni capo      3.44 ['difen']                                frase 1
+  Asso di Coppe capo / Due di Coppe capo            0.00 []                                       frase 1
+  Sei di Bastoni capo / Regina di Bastoni capo      0.00 []                                       frase 2
+
+Il Quattro di Coppe dritto e capovolto, coppia di FJ.18: dopo le correzioni di FK la radice 'inter' e' scesa sotto le sei voci e la coppia e' salita a 7,61 senza che nessuno la toccasse; la guardia l'ha presa ed e' stata corretta (vedi il file delle correzioni). E' la fragilita' della misura di FK.10.

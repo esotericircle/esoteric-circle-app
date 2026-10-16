@@ -1,0 +1,97 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende alla promozione, ma è un momento che chiede azione. L'arcano della Forza rovesciato indica che devi recuperare energia e fiducia nelle tue capacità, prima di affrontare le sfide che ti aspettano.
+
+✦ Chiedi al tuo capo di potergli parlare con calma, in settimana.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso, dopo aver chiesto al tuo capo di parlare, devi prepararti a sostenere le tue ragioni con chiarezza e determinazione. Il transito di Marte in Leone ti dà la spinta necessaria per esprimere il tuo valore.
+
+✦ Raccogli i tuoi successi lavorativi di questo mese in un breve appunto prima del colloquio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'chiedere al capo di parlare' dato nella risposta precedente e lo sviluppa, indicando cosa fare 'adesso, dopo aver chiesto al tuo capo di parlare'.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Non devi aspettare di capire tutto subito, ma dare valore a ogni passo che compi. Il cielo ti invita a un colloquio con il tuo capo: solo dopo quello saprai quali vie si aprono per il tuo cammino.
+
+✦ Prepara alcune domande specifiche sul tuo ruolo e le opportunità future da porre al tuo capo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del colloquio con il capo, già introdotto e sviluppato nelle risposte precedenti, e lo collega alla domanda della persona su 'quando lo capirò', indicando che la comprensione avverrà 'solo dopo quello'.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Se senti il richiamo di un nuovo inizio, la tua energia ti sta indicando una strada di movimento. Ascolta il centro della radice, il suo colore rosso e la sua stabilità.
+
+Prepara un piccolo oggetto che porti con te da sempre, qualcosa che ti ancori, e mettilo in un posto speciale dove possa ricordarti le tue origini, la forza che ti ha portato fin qui. Non è un abbandono, ma un passo avanti che attinge alla tua solidità interiore.
+
+✦ Porta una mano sulla parte bassa della schiena, dove senti la radice del tuo corpo, e inspira profondamente.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, il tuo corpo ti invita a visualizzare il luogo dove vorresti andare, a sentirne l'energia. Prendi del tempo in silenzio e prova a percepirne le sfumature.
+
+✦ Cerca una foto o un'immagine di quella città e osserva i colori che ti parlano di più.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo fare adesso?' sviluppando il concetto di 'movimento' e 'nuovo inizio' introdotto nella risposta precedente, suggerendo un'azione concreta (visualizzare il luogo) che prosegue il percorso.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai quando il tuo respiro si farà più profondo e calmo al pensiero di quel luogo. Non è una questione di tempo, ma di vibrazione, un'eco che risuona dentro di te, nel tuo cuore.
+
+✦ Chiudi gli occhi per un istante e lascia che l'immagine di quella città si formi nella tua mente, senza forzare.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riferendosi al processo di visualizzazione e percezione dell'energia del luogo introdotto nella risposta precedente, specificando come riconoscere il momento giusto attraverso sensazioni fisiche e vibrazioni.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Riaccendi il fuoco. La volontà ha un potere maggiore della stasi.
+Una bruma si è posata, nascondendo il sentiero, ma la luce è vicina. Il sigillo di **Uruz** indica forza e rinascita, un cambiamento che parte dall'interno.
+Questo è il tempo di agire con decisione e onestà, non di attendere che il gelo si sciolga da sé. Cerca la ragione del distacco.
+
+✦ Scrivi un messaggio onesto e diretto, proponendo un incontro per parlare, senza chiedere nulla in cambio.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Parla con chiarezza. La runa **Ansuz** è il presagio della comunicazione autentica.
+La tua voce ha il potere di rompere il silenzio, di ristabilire la connessione. Il rituale del fuoco sacro ti ricorda che le parole sono fiamme, possono bruciare o illuminare. Usa la tua.
+Non temere la verità, la sua potenza è ciò che può salvare.
+
+✦ Parla con la persona che ami, con voce calma e parole scelte, chiedendole di esprimere il suo sentire.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di agire e comunicare dato nella risposta precedente, specificando come e con quale intento farlo ('Parla con chiarezza', 'chiedendole di esprimere il suo sentire') rispetto al 'scrivi un messaggio onesto e diretto, proponendo un incontro per parlare'.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non aspettare. La comprensione emerge dal confronto, non dal tempo che passa.
+Il momento è ora, nella sincerità dello scambio. Il tuo cammino ti chiede di affrontare questa soglia, non di rimandarla. Il sigillo di **Jera** ti ricorda che ogni raccolto ha bisogno di un inizio.
+Non c'è un momento futuro migliore per la verità di quello presente.
+
+✦ Chiedile di sedervi insieme in un luogo tranquillo, senza interruzioni, e ponile le tue domande con cuore aperto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' riprendendo e rafforzando il concetto di agire subito e non aspettare, già espresso nelle risposte precedenti ('Questo è il tempo di agire', 'Non aspettare').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Per avviare il tuo progetto creativo, osserva il cielo di questi giorni: la Luna è in fase crescente, un transito che favorisce l'inizio e la semina. La tua idea può trovare un terreno fertile per germogliare e mostrare i primi segni di vita.
+
+Questa fase lunare è propizia per mettere le basi, per delineare i contorni e per dare forma concreta alle prime ispirazioni. Non aspettare che ogni dettaglio sia perfetto; l'energia attuale sostiene l'impulso iniziale.
+
+✦ Definisci il primo piccolo passo da compiere entro domani e mettilo per iscritto.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso che hai definito il primo passo, dedica la mattinata di domani a chiarire l'intenzione profonda che anima il tuo progetto. Rifletti sul tuo cielo interiore per comprendere quale aspetto di te desideri esprimere maggiormente.
+
+Questo non è il tempo per un'analisi critica, ma per connetterti con la fonte della tua ispirazione. L'allineamento tra i tuoi desideri e il tuo operato è fondamentale per un buon inizio.
+
+✦ Scrivi su un foglio tre parole chiave che rappresentano l'anima del tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il punto precedente ('Adesso che hai definito il primo passo') e lo sviluppa aggiungendo un nuovo compito (chiarire l'intenzione profonda) che è propedeutico all'avvio del progetto.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Non c'è un momento preciso in cui comprenderai appieno ogni aspetto, ma il transito attuale favorisce le intuizioni chiare nel tardo pomeriggio, quando la luce si attenua. È allora che la tua mente può percepire con maggiore nitidezza il cuore del tuo progetto.
+
+Affidati a quel momento di quiete per lasciar emergere le risposte che cerchi, senza forzature. Il tuo cielo interiore ti guiderà.
+
+✦ Lascia sul tavolo di lavoro le parole chiave che hai scritto e guardale per un minuto prima di cena.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' si capirà, collegandola al transito attuale e suggerendo un momento specifico della giornata ('tardo pomeriggio') per le intuizioni, e poi aggiunge un'azione ('guarda le parole chiave') che si basa sul compito dato nella risposta precedente.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena ti senti pronta, per condividere quello che provi. È nel respiro profondo che le parole trovano la strada più gentile.
+
+Ascolta il tuo corpo prima di parlarle: senti dove si posa la tensione, come il respiro si muove. Quando le parli, non cercare di convincerla, ma esprimi il tuo sentire, senza giudizio. La fisiognomica ci insegna che il nostro viso riflette le emozioni più profonde, e un'espressione autentica apre un dialogo più sincero.
+
+✦ Appoggia le mani sul petto, senti il tuo cuore e respira lentamente per un minuto.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo aver sentito il tuo cuore, scegli il momento più opportuno per un confronto sincero, magari quando siete entrambe tranquille e lontano da distrazioni. Concentrati sul tuo centro del cuore, il chakra Anahata, che irradia amore e compassione, e lascialo guidare le tue parole. La tua energia, quando è pura e intenzionale, apre spazi anche dove sembra esserci chiusura.
+
+✦ Ripeti mentalmente un mantra di calma mentre ti prepari all'incontro, come "Sono pace, sono amore".
+    GIUDICE: PORTA_AVANTI, La risposta riprende il consiglio di 'sentire il cuore' e di 'trovare un momento di calma', sviluppando ulteriormente l'idea del 'momento opportuno' e aggiungendo dettagli su come prepararsi interiormente.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Non c'è un momento preciso che ti dirà "adesso", il capire si rivela nel sentire profondo, non in una data. Ascolta il tuo respiro, ti indicherà quando sarai pronta ad affrontare il dialogo con tua sorella. Non forzare i tempi, lascia che l'energia del momento ti guidi. Il tuo corpo è uno specchio delle tue emozioni: quando ti senti serena e aperta, quello è il tuo "quando".
+
+✦ Appoggia la mano sul plesso solare, senti il calore e respira in quel punto tre volte.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'sentirsi pronta' e di 'ascoltare il corpo/respiro' già introdotti, specificando che il 'capire' e il 'quando' non sono un momento preciso ma un sentire interiore, e aggiungendo un nuovo esercizio di respirazione.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 2

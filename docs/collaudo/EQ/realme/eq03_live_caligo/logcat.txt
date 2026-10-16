@@ -1,0 +1,215 @@
+--------- beginning of main
+09-27 10:47:28.304 20519 20519 I flutter : LIVE: primo suono al volto dopo 782 ms, audio di 4992 ms, scritto in 1116 ms
+09-27 10:47:33.875 20519 20519 I flutter : LIVE: il volto ha finito dopo 6687 ms, lo ha detto lui
+09-27 10:47:35.208 20519 20519 I flutter : LIVE VIDEO: ricevuto 256x256 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+09-27 10:47:35.257 20519 20519 I flutter : ORECCHIO db -70 fondo -70 sottofondo null voce 0.44 parla false parlato false silenzio 320 mano false frase 1 continuo false pezzi -100:0 -81:20 -72:22 -70:44
+09-27 10:47:35.564 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 640 mano false frase 1 continuo false pezzi -75:33 -81:27 -84:23 -80:15
+09-27 10:47:35.886 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 960 mano false frase 1 continuo false pezzi -80:26 -81:18 -81:22 -81:20
+09-27 10:47:36.200 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 1280 mano false frase 1 continuo false pezzi -81:23 -82:30 -83:26 -85:26
+09-27 10:47:36.524 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 1600 mano false frase 1 continuo false pezzi -82:20 -82:22 -84:33 -86:21
+09-27 10:47:36.846 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 1920 mano false frase 1 continuo false pezzi -86:28 -86:19 -87:21 -87:22
+09-27 10:47:37.165 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 2240 mano false frase 1 continuo false pezzi -88:24 -85:24 -85:21 -89:18
+09-27 10:47:37.484 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 2560 mano false frase 1 continuo false pezzi -88:18 -87:29 -86:16 -88:26
+09-27 10:47:37.800 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 2880 mano false frase 1 continuo false pezzi -87:19 -86:25 -86:18 -89:23
+09-27 10:47:38.123 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 3200 mano false frase 1 continuo false pezzi -84:29 -86:29 -85:13 -85:18
+09-27 10:47:38.440 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 3520 mano false frase 1 continuo false pezzi -87:21 -89:15 -82:23 -85:16
+09-27 10:47:38.765 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 3840 mano false frase 1 continuo false pezzi -84:32 -85:23 -86:35 -87:23
+09-27 10:47:39.079 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 4160 mano false frase 1 continuo false pezzi -86:15 -88:19 -89:25 -86:17
+09-27 10:47:39.406 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 4480 mano false frase 1 continuo false pezzi -86:20 -86:28 -84:15 -87:19
+09-27 10:47:39.723 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.27 parla false parlato false silenzio 4800 mano false frase 1 continuo false pezzi -88:25 -90:18 -86:16 -86:27
+09-27 10:47:40.043 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 5120 mano false frase 1 continuo false pezzi -88:17 -86:39 -86:24 -86:15
+09-27 10:47:40.363 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 5440 mano false frase 1 continuo false pezzi -87:23 -88:19 -87:24 -86:17
+09-27 10:47:40.687 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 5760 mano false frase 1 continuo false pezzi -85:22 -87:27 -88:16 -85:26
+09-27 10:47:41.005 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 6080 mano false frase 1 continuo false pezzi -86:21 -84:37 -89:19 -87:15
+09-27 10:47:41.320 20519 20519 I flutter : ORECCHIO db -26 fondo -70 sottofondo null voce 0.95 parla true parlato false silenzio 0 mano false frase 1 continuo false pezzi -86:16 -85:24 -84:24 -26:95
+09-27 10:47:41.645 20519 20519 I flutter : ORECCHIO db -44 fondo -70 sottofondo null voce 0.89 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -32:86 -23:88 -26:94 -44:89
+09-27 10:47:41.964 20519 20519 I flutter : ORECCHIO db -24 fondo -70 sottofondo null voce 0.97 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -62:46 -72:33 -76:32 -24:97
+09-27 10:47:42.280 20519 20519 I flutter : ORECCHIO db -30 fondo -70 sottofondo null voce 0.29 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -22:92 -20:63 -21:32 -30:29
+09-27 10:47:42.601 20519 20519 I flutter : ORECCHIO db -25 fondo -70 sottofondo null voce 0.91 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -22:96 -18:80 -28:80 -25:91
+09-27 10:47:42.924 20519 20519 I flutter : ORECCHIO db -26 fondo -70 sottofondo null voce 0.33 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -20:89 -24:72 -24:51 -26:33
+09-27 10:47:43.241 20519 20519 I flutter : ORECCHIO db -66 fondo -70 sottofondo null voce 0.42 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -22:40 -33:79 -45:76 -66:42
+09-27 10:47:43.564 20519 20519 I flutter : ORECCHIO db -78 fondo -70 sottofondo null voce 0.36 parla false parlato true silenzio 320 mano false frase 1 continuo false pezzi -73:21 -75:31 -79:17 -78:36
+09-27 10:47:43.885 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 640 mano false frase 1 continuo false pezzi -77:27 -79:28 -79:23 -80:26
+09-27 10:47:44.201 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.27 parla false parlato true silenzio 960 mano false frase 1 continuo false pezzi -80:23 -82:17 -80:30 -81:27
+09-27 10:47:44.524 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.20 parla false parlato true silenzio 1280 mano false frase 1 continuo false pezzi -79:32 -83:24 -80:19 -80:20
+09-27 10:47:44.843 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.32 parla false parlato true silenzio 1600 mano false frase 1 continuo false pezzi -81:25 -81:29 -81:35 -82:32
+09-27 10:47:45.165 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.32 parla false parlato true silenzio 1920 mano false frase 1 continuo false pezzi -81:28 -84:17 -82:31 -81:32
+09-27 10:47:45.183 20519 20519 I flutter : LIVE: trascrizione anticipata in 1217 ms, pausa 1: «»
+09-27 10:47:45.484 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 240 mano false frase 2 continuo false pezzi -83:23 -81:25 -81:20 -82:30
+09-27 10:47:45.805 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 560 mano false frase 2 continuo false pezzi -80:25 -81:20 -81:13 -81:20
+09-27 10:47:46.119 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 880 mano false frase 2 continuo false pezzi -83:22 -82:25 -82:30 -83:19
+09-27 10:47:46.446 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.31 parla false parlato false silenzio 1200 mano false frase 2 continuo false pezzi -81:28 -81:16 -82:24 -82:31
+09-27 10:47:46.760 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.35 parla false parlato false silenzio 1520 mano false frase 2 continuo false pezzi -82:18 -81:9 -83:23 -84:35
+09-27 10:47:46.986 20519 20519 I flutter : LIVE: frase di 4720 ms in 1 pezzi, trascritta in 1744 ms dalla chiusura, in pausa, poi di nuovo: «Ok, gli ho scritto adesso.» (parte)
+09-27 10:47:48.365 20519 20519 I flutter : CHAT TEMPI: in attesa salvata a 354 ms, risposta del modello a 1233 ms, consegnata e salvata a 1233 ms, 116 caratteri
+09-27 10:47:48.366 20519 20519 I flutter : LIVE: la chat ha risposto in 1235 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 10:47:51.452 20519 20519 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1999 ms, trascritta 3745 ms, primo testo 4820 ms, risposta 5124 ms, primo audio al volto 5833 ms, il volto parla 8210 ms
+09-27 10:47:52.210 20519 20519 I flutter : LIVE VIDEO: ricevuto 512x512 a 26.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+09-27 10:47:52.982 20519 20519 I flutter : LIVE: primo suono al volto dopo 708 ms, audio di 9223 ms, scritto in 4615 ms
+09-27 10:47:59.226 20519 20519 I flutter : LIVE: il volto ha finito dopo 10859 ms, lo ha detto lui
+09-27 10:48:00.534 20519 20519 I flutter : ORECCHIO db -69 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 320 mano false frase 4 continuo false pezzi -84:27 -83:19 -100:0 -68:25 -64:26 -69:19
+09-27 10:48:00.858 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 640 mano false frase 4 continuo false pezzi -76:23 -85:22 -81:45 -79:16
+09-27 10:48:01.170 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 960 mano false frase 4 continuo false pezzi -80:24 -82:21 -84:27 -82:30
+09-27 10:48:01.489 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 1280 mano false frase 4 continuo false pezzi -82:20 -82:33 -83:18 -82:26
+09-27 10:48:01.816 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 1600 mano false frase 4 continuo false pezzi -84:20 -84:18 -86:19 -86:18
+09-27 10:48:02.132 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 1920 mano false frase 4 continuo false pezzi -86:25 -85:12 -84:31 -86:26
+09-27 10:48:02.457 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 2240 mano false frase 4 continuo false pezzi -84:29 -89:17 -89:16 -88:24
+09-27 10:48:02.777 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 2560 mano false frase 4 continuo false pezzi -93:20 -89:17 -87:27 -89:18
+09-27 10:48:03.097 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 2880 mano false frase 4 continuo false pezzi -89:21 -87:28 -89:13 -88:16
+09-27 10:48:03.415 20519 20519 I flutter : ORECCHIO db -91 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 3200 mano false frase 4 continuo false pezzi -87:15 -91:19 -87:18 -91:24
+09-27 10:48:03.736 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.25 parla false parlato false silenzio 3520 mano false frase 4 continuo false pezzi -90:17 -86:36 -90:26 -89:25
+09-27 10:48:04.054 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 3840 mano false frase 4 continuo false pezzi -88:28 -91:29 -88:19 -89:15
+09-27 10:48:04.373 20519 20519 I flutter : ORECCHIO db -91 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 4160 mano false frase 4 continuo false pezzi -87:21 -89:24 -91:39 -91:23
+09-27 10:48:04.697 20519 20519 I flutter : ORECCHIO db -90 fondo -70 sottofondo null voce 0.13 parla false parlato false silenzio 4480 mano false frase 4 continuo false pezzi -89:17 -89:26 -87:26 -90:13
+09-27 10:48:05.024 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 4800 mano false frase 4 continuo false pezzi -89:16 -88:17 -88:27 -89:16
+09-27 10:48:05.331 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.14 parla false parlato false silenzio 5120 mano false frase 4 continuo false pezzi -89:20 -89:14 -86:34 -87:14
+09-27 10:48:05.657 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.14 parla false parlato false silenzio 5440 mano false frase 4 continuo false pezzi -85:28 -87:27 -89:18 -88:14
+09-27 10:48:05.977 20519 20519 I flutter : ORECCHIO db -90 fondo -70 sottofondo null voce 0.37 parla false parlato false silenzio 5760 mano false frase 4 continuo false pezzi -88:31 -90:29 -90:22 -90:37
+09-27 10:48:06.296 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 6080 mano false frase 4 continuo false pezzi -90:32 -92:18 -91:29 -88:19
+09-27 10:48:06.614 20519 20519 I flutter : ORECCHIO db -28 fondo -70 sottofondo null voce 0.90 parla true parlato false silenzio 0 mano false frase 4 continuo false pezzi -86:29 -85:34 -89:17 -28:90
+09-27 10:48:06.942 20519 20519 I flutter : ORECCHIO db -31 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -33:39 -26:84 -25:92 -31:96
+09-27 10:48:07.250 20519 20519 I flutter : ORECCHIO db -24 fondo -70 sottofondo null voce 0.92 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -49:65 -68:32 -76:30 -24:92
+09-27 10:48:07.571 20519 20519 I flutter : ORECCHIO db -27 fondo -70 sottofondo null voce 0.45 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -15:86 -13:84 -20:34 -27:45
+09-27 10:48:07.895 20519 20519 I flutter : ORECCHIO db -41 fondo -70 sottofondo null voce 0.60 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -26:96 -16:69 -22:87 -41:60
+09-27 10:48:08.231 20519 20519 I flutter : ORECCHIO db -20 fondo -70 sottofondo null voce 0.60 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -18:97 -26:99 -19:91 -20:60
+09-27 10:48:08.537 20519 20519 I flutter : ORECCHIO db -27 fondo -70 sottofondo null voce 0.92 parla true parlato true silenzio 0 mano false frase 4 continuo false pezzi -24:90 -19:61 -24:40 -27:92
+09-27 10:48:08.851 20519 20519 I flutter : ORECCHIO db -24 fondo -70 sottofondo null voce 0.77 parla true parlato true silenzio 0 mano false frase 4 continuo true pezzi -32:65 -21:89 -24:49 -24:77
+09-27 10:48:09.176 20519 20519 I flutter : ORECCHIO db -20 fondo -70 sottofondo null voce 0.27 parla true parlato true silenzio 0 mano false frase 4 continuo true pezzi -36:41 -21:36 -29:58 -20:27
+09-27 10:48:09.489 20519 20519 I flutter : ORECCHIO db -71 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 80 mano false frase 4 continuo true pezzi -23:74 -36:93 -50:26 -71:31
+09-27 10:48:09.814 20519 20519 I flutter : ORECCHIO db -78 fondo -70 sottofondo null voce 0.20 parla false parlato true silenzio 400 mano false frase 4 continuo true pezzi -77:25 -79:23 -80:29 -78:20
+09-27 10:48:10.137 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.34 parla false parlato true silenzio 720 mano false frase 4 continuo true pezzi -78:27 -79:25 -78:34 -79:34
+09-27 10:48:10.455 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 1040 mano false frase 4 continuo true pezzi -78:25 -80:19 -80:24 -79:26
+09-27 10:48:10.776 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 1360 mano false frase 4 continuo false pezzi -78:35 -82:18 -82:29 -82:26
+09-27 10:48:11.090 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 1680 mano false frase 4 continuo false pezzi -82:30 -81:13 -82:19 -82:31
+09-27 10:48:11.420 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.22 parla false parlato true silenzio 2000 mano false frase 4 continuo false pezzi -82:28 -79:35 -82:28 -83:22
+09-27 10:48:11.601 20519 20519 I flutter : LIVE: controllo 1 della frase 4 in 1786 ms: «Ok, le ho scritte e adesso cosa faccio?», aspetta, sottofondo null
+09-27 10:48:11.731 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.34 parla false parlato false silenzio 320 mano false frase 5 continuo false pezzi -84:26 -84:17 -84:29 -82:34
+09-27 10:48:11.779 20519 20519 I flutter : LIVE: trascrizione anticipata in 1641 ms, pausa 1: «»
+09-27 10:48:12.070 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 640 mano false frase 5 continuo false pezzi -83:16 -81:17 -84:11 -82:19
+09-27 10:48:12.376 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 960 mano false frase 5 continuo false pezzi -82:20 -84:26 -83:24 -81:26
+09-27 10:48:12.693 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 1280 mano false frase 5 continuo false pezzi -81:18 -82:20 -83:20 -83:24
+09-27 10:48:13.017 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 1600 mano false frase 5 continuo false pezzi -80:18 -83:21 -83:17 -84:24
+09-27 10:48:13.220 20519 20519 I flutter : LIVE: frase di 5600 ms in 1 pezzi, trascritta in 1798 ms dalla chiusura, in pausa, poi di nuovo, dal controllo: «Ok, le ho scritte e adesso cosa faccio?» (parte)
+09-27 10:48:13.377 20519 20519 I flutter : LIVE: la chat ha risposto in 4 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 10:48:16.251 20519 20519 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 2000 ms, trascritta 3800 ms, risposta 3956 ms, primo audio al volto 4685 ms, il volto parla 6831 ms
+09-27 10:48:28.656 20519 20519 I flutter : LIVE: primo suono al volto dopo 727 ms, audio di 30375 ms, scritto in 15278 ms
+09-27 10:48:45.387 20519 20519 I flutter : LIVE: il volto ha finito dopo 32009 ms, lo ha detto lui
+09-27 10:48:46.697 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 320 mano false frase 7 continuo false pezzi -81:22 -82:15 -100:0 -83:20 -85:24 -84:18
+09-27 10:48:47.018 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.27 parla false parlato false silenzio 640 mano false frase 7 continuo false pezzi -83:7 -84:31 -84:27 -83:27
+09-27 10:48:47.332 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 960 mano false frase 7 continuo false pezzi -80:23 -84:28 -81:18 -82:18
+09-27 10:48:47.659 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 1280 mano false frase 7 continuo false pezzi -83:19 -84:23 -85:22 -85:30
+09-27 10:48:47.972 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.37 parla false parlato false silenzio 1600 mano false frase 7 continuo false pezzi -83:31 -81:33 -82:28 -85:37
+09-27 10:48:48.291 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 1920 mano false frase 7 continuo false pezzi -83:27 -82:35 -84:16 -85:23
+09-27 10:48:48.617 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.28 parla false parlato false silenzio 2240 mano false frase 7 continuo false pezzi -84:25 -82:38 -85:23 -84:28
+09-27 10:48:48.937 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.32 parla false parlato false silenzio 2560 mano false frase 7 continuo false pezzi -85:14 -83:35 -84:24 -82:32
+09-27 10:48:49.252 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.28 parla false parlato false silenzio 2880 mano false frase 7 continuo false pezzi -82:34 -83:33 -83:24 -83:28
+09-27 10:48:49.573 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 3200 mano false frase 7 continuo false pezzi -83:18 -84:23 -87:15 -84:17
+09-27 10:48:49.899 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.18 parla false parlato false silenzio 3520 mano false frase 7 continuo false pezzi -85:29 -83:22 -84:19 -86:18
+09-27 10:48:50.230 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.33 parla false parlato false silenzio 3840 mano false frase 7 continuo false pezzi -85:20 -86:18 -82:39 -83:33
+09-27 10:48:50.538 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 4160 mano false frase 7 continuo false pezzi -81:26 -84:22 -85:31 -86:30
+09-27 10:48:50.858 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 4480 mano false frase 7 continuo false pezzi -86:28 -87:34 -88:24 -85:21
+09-27 10:48:51.173 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 4800 mano false frase 7 continuo false pezzi -87:25 -83:19 -87:10 -84:22
+09-27 10:48:51.500 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.33 parla false parlato false silenzio 5120 mano false frase 7 continuo false pezzi -86:49 -85:17 -84:26 -86:33
+09-27 10:48:51.819 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.40 parla false parlato false silenzio 5440 mano false frase 7 continuo false pezzi -89:18 -85:16 -83:31 -84:40
+09-27 10:48:52.134 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 5760 mano false frase 7 continuo false pezzi -87:12 -84:29 -84:19 -89:17
+09-27 10:48:52.451 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 6080 mano false frase 7 continuo false pezzi -87:19 -88:21 -84:25 -85:23
+09-27 10:48:52.773 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 6400 mano false frase 7 continuo false pezzi -83:26 -83:18 -83:20 -83:22
+09-27 10:48:53.099 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 6720 mano false frase 7 continuo false pezzi -85:20 -82:35 -83:27 -86:23
+09-27 10:48:53.413 20519 20519 I flutter : ORECCHIO db -82 fondo -70 sottofondo null voce 0.29 parla false parlato false silenzio 7040 mano false frase 7 continuo false pezzi -85:29 -86:20 -86:17 -82:29
+09-27 10:48:53.739 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.14 parla false parlato false silenzio 7360 mano false frase 7 continuo false pezzi -84:32 -85:29 -86:26 -86:14
+09-27 10:48:54.059 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 7680 mano false frase 7 continuo false pezzi -83:39 -83:25 -86:17 -85:20
+09-27 10:48:54.380 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 8000 mano false frase 7 continuo false pezzi -86:20 -87:17 -85:19 -86:21
+09-27 10:48:54.697 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 8320 mano false frase 7 continuo false pezzi -88:17 -85:26 -81:44 -84:20
+09-27 10:48:55.014 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 8640 mano false frase 7 continuo false pezzi -85:35 -84:15 -84:23 -84:22
+09-27 10:48:55.334 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 8960 mano false frase 7 continuo false pezzi -85:24 -84:29 -84:24 -83:30
+09-27 10:48:55.660 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.25 parla false parlato false silenzio 9280 mano false frase 7 continuo false pezzi -87:16 -85:24 -81:39 -84:25
+09-27 10:48:55.977 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 9600 mano false frase 7 continuo false pezzi -85:21 -84:22 -81:30 -85:20
+09-27 10:48:56.293 20519 20519 I flutter : ORECCHIO db -56 fondo -70 sottofondo null voce 0.71 parla true parlato false silenzio 0 mano false frase 7 continuo false pezzi -85:26 -85:29 -85:23 -56:71
+09-27 10:48:56.617 20519 20519 I flutter : ORECCHIO db -24 fondo -70 sottofondo null voce 0.55 parla true parlato true silenzio 0 mano false frase 7 continuo false pezzi -22:78 -19:77 -16:97 -24:55
+09-27 10:48:56.940 20519 20519 I flutter : ORECCHIO db -21 fondo -70 sottofondo null voce 0.40 parla true parlato true silenzio 0 mano false frase 7 continuo false pezzi -17:95 -23:91 -15:98 -21:40
+09-27 10:48:57.253 20519 20519 I flutter : ORECCHIO db -26 fondo -70 sottofondo null voce 0.87 parla true parlato true silenzio 0 mano false frase 7 continuo false pezzi -24:99 -25:36 -20:46 -26:87
+09-27 10:48:57.576 20519 20519 I flutter : ORECCHIO db -77 fondo -70 sottofondo null voce 0.18 parla false parlato true silenzio 160 mano false frase 7 continuo false pezzi -46:61 -61:53 -73:22 -77:18
+09-27 10:48:57.899 20519 20519 I flutter : ORECCHIO db -21 fondo -70 sottofondo null voce 0.84 parla true parlato true silenzio 0 mano false frase 7 continuo false pezzi -31:81 -18:92 -21:90 -21:84
+09-27 10:48:58.232 20519 20519 I flutter : ORECCHIO db -26 fondo -70 sottofondo null voce 0.80 parla true parlato true silenzio 0 mano false frase 7 continuo false pezzi -23:92 -19:96 -20:98 -26:80
+09-27 10:48:58.550 20519 20519 I flutter : ORECCHIO db -20 fondo -70 sottofondo null voce 0.93 parla true parlato true silenzio 0 mano false frase 7 continuo true pezzi -21:95 -25:83 -15:99 -20:93
+09-27 10:48:58.856 20519 20519 I flutter : ORECCHIO db -27 fondo -70 sottofondo null voce 0.86 parla true parlato true silenzio 0 mano false frase 7 continuo true pezzi -21:56 -30:57 -41:31 -27:86
+09-27 10:48:59.176 20519 20519 I flutter : ORECCHIO db -76 fondo -70 sottofondo null voce 0.40 parla false parlato true silenzio 160 mano false frase 7 continuo true pezzi -30:94 -49:76 -70:44 -76:40
+09-27 10:48:59.502 20519 20519 I flutter : ORECCHIO db -77 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 480 mano false frase 7 continuo true pezzi -76:24 -77:23 -78:21 -77:26
+09-27 10:48:59.816 20519 20519 I flutter : ORECCHIO db -77 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 800 mano false frase 7 continuo true pezzi -78:19 -78:11 -79:25 -77:31
+09-27 10:49:00.132 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.17 parla false parlato true silenzio 1120 mano false frase 7 continuo false pezzi -78:19 -79:30 -79:23 -81:17
+09-27 10:49:00.460 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.35 parla false parlato true silenzio 1440 mano false frase 7 continuo false pezzi -81:29 -81:15 -80:17 -79:35
+09-27 10:49:00.779 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.22 parla false parlato true silenzio 1760 mano false frase 7 continuo false pezzi -80:31 -79:24 -79:24 -80:22
+09-27 10:49:00.868 20519 20519 I flutter : LIVE: controllo 1 della frase 7 in 1364 ms: «Da dove comincio? Dal lavoro o dal viaggio?», aspetta, sottofondo null
+09-27 10:49:00.963 20519 20519 I flutter : LIVE: trascrizione anticipata in 1229 ms, pausa 1: «Da dove comincio? Dal lavoro o dal viaggio?»
+09-27 10:49:00.970 20519 20519 I flutter : LIVE: domanda finita, chiusa dopo 1920 ms di silenzio
+09-27 10:49:00.971 20519 20519 I flutter : LIVE: frase di 5440 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Da dove comincio? Dal lavoro o dal viaggio?» (parte)
+09-27 10:49:02.593 20519 20519 I flutter : CHAT TEMPI: in attesa salvata a 328 ms, risposta del modello a 1440 ms, consegnata e salvata a 1441 ms, 365 caratteri
+09-27 10:49:02.594 20519 20519 I flutter : LIVE: la chat ha risposto in 1442 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 10:49:05.053 20519 20519 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1956 ms, trascritta 1957 ms, primo testo 2899 ms, risposta 3580 ms, primo audio al volto 4277 ms, il volto parla 6039 ms
+09-27 10:49:15.017 20519 20519 I flutter : LIVE: primo suono al volto dopo 696 ms, audio di 29535 ms, scritto in 12421 ms
+09-27 10:49:33.748 20519 20519 I flutter : LIVE: il volto ha finito dopo 31152 ms, lo ha detto lui
+09-27 10:49:35.049 20519 20519 I flutter : ORECCHIO db -63 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 320 mano false frase 10 continuo false pezzi -81:18 -81:17 -100:0 -84:17 -67:26 -63:22
+09-27 10:49:35.370 20519 20519 I flutter : ORECCHIO db -72 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 640 mano false frase 10 continuo false pezzi -67:22 -71:31 -66:35 -72:16
+09-27 10:49:35.700 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.30 parla false parlato false silenzio 960 mano false frase 10 continuo false pezzi -76:20 -76:22 -80:16 -84:30
+09-27 10:49:36.009 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 1280 mano false frase 10 continuo false pezzi -81:22 -83:26 -85:18 -84:24
+09-27 10:49:36.333 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 1600 mano false frase 10 continuo false pezzi -83:14 -83:23 -82:16 -83:26
+09-27 10:49:36.654 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.27 parla false parlato false silenzio 1920 mano false frase 10 continuo false pezzi -88:36 -86:33 -85:27 -84:27
+09-27 10:49:36.977 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.38 parla false parlato false silenzio 2240 mano false frase 10 continuo false pezzi -86:30 -86:26 -86:16 -86:38
+09-27 10:49:37.288 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.25 parla false parlato false silenzio 2560 mano false frase 10 continuo false pezzi -88:42 -88:40 -88:14 -86:25
+09-27 10:49:37.614 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 2880 mano false frase 10 continuo false pezzi -88:22 -87:18 -90:22 -85:23
+09-27 10:49:37.930 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.25 parla false parlato false silenzio 3200 mano false frase 10 continuo false pezzi -86:18 -85:24 -87:24 -86:25
+09-27 10:49:38.264 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 3520 mano false frase 10 continuo false pezzi -88:20 -86:14 -86:21 -87:26
+09-27 10:49:38.579 20519 20519 I flutter : ORECCHIO db -90 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 3840 mano false frase 10 continuo false pezzi -86:20 -88:20 -88:27 -90:16
+09-27 10:49:38.891 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 4160 mano false frase 10 continuo false pezzi -88:12 -87:30 -85:13 -87:21
+09-27 10:49:39.208 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 4480 mano false frase 10 continuo false pezzi -85:22 -89:20 -85:17 -87:19
+09-27 10:49:39.541 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 4800 mano false frase 10 continuo false pezzi -88:21 -85:39 -86:23 -87:19
+09-27 10:49:39.857 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.14 parla false parlato false silenzio 5120 mano false frase 10 continuo false pezzi -85:18 -85:16 -84:18 -87:14
+09-27 10:49:40.176 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 5440 mano false frase 10 continuo false pezzi -86:24 -87:21 -85:33 -87:22
+09-27 10:49:40.499 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.14 parla false parlato false silenzio 5760 mano false frase 10 continuo false pezzi -89:15 -86:21 -87:28 -85:14
+09-27 10:49:40.815 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 6080 mano false frase 10 continuo false pezzi -87:21 -89:25 -84:24 -88:21
+09-27 10:49:41.132 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.24 parla false parlato false silenzio 6400 mano false frase 10 continuo false pezzi -86:12 -88:23 -85:14 -84:24
+09-27 10:49:41.456 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.23 parla false parlato false silenzio 6720 mano false frase 10 continuo false pezzi -83:21 -86:14 -87:32 -86:23
+09-27 10:49:41.770 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.28 parla false parlato false silenzio 7040 mano false frase 10 continuo false pezzi -87:18 -88:17 -89:22 -87:28
+09-27 10:49:42.090 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 7360 mano false frase 10 continuo false pezzi -89:26 -88:15 -86:26 -88:17
+09-27 10:49:42.415 20519 20519 I flutter : ORECCHIO db -89 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 7680 mano false frase 10 continuo false pezzi -88:33 -85:14 -87:22 -89:16
+09-27 10:49:42.734 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 8000 mano false frase 10 continuo false pezzi -87:15 -86:25 -88:19 -87:15
+09-27 10:49:43.058 20519 20519 I flutter : ORECCHIO db -88 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 8320 mano false frase 10 continuo false pezzi -88:18 -85:19 -88:25 -88:16
+09-27 10:49:43.369 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.33 parla false parlato false silenzio 8640 mano false frase 10 continuo false pezzi -85:23 -87:9 -86:24 -83:33
+09-27 10:49:43.691 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 8960 mano false frase 10 continuo false pezzi -82:30 -85:20 -85:23 -86:19
+09-27 10:49:44.015 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 9280 mano false frase 10 continuo false pezzi -88:19 -83:34 -88:21 -87:17
+09-27 10:49:44.338 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 9600 mano false frase 10 continuo false pezzi -89:18 -84:17 -84:16 -87:15
+09-27 10:49:44.654 20519 20519 I flutter : ORECCHIO db -83 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 9920 mano false frase 10 continuo false pezzi -86:18 -82:32 -82:16 -83:22
+09-27 10:49:44.975 20519 20519 I flutter : ORECCHIO db -18 fondo -70 sottofondo null voce 0.91 parla true parlato false silenzio 0 mano false frase 10 continuo false pezzi -85:29 -89:13 -15:89 -18:91
+09-27 10:49:45.290 20519 20519 I flutter : ORECCHIO db -23 fondo -70 sottofondo null voce 0.93 parla true parlato true silenzio 0 mano false frase 10 continuo false pezzi -21:97 -17:96 -15:71 -23:93
+09-27 10:49:45.610 20519 20519 I flutter : ORECCHIO db -22 fondo -70 sottofondo null voce 0.85 parla true parlato true silenzio 0 mano false frase 10 continuo false pezzi -32:91 -20:98 -18:99 -22:85
+09-27 10:49:45.931 20519 20519 I flutter : ORECCHIO db -19 fondo -70 sottofondo null voce 0.81 parla true parlato true silenzio 0 mano false frase 10 continuo false pezzi -18:99 -25:39 -29:90 -19:81
+09-27 10:49:46.253 20519 20519 I flutter : ORECCHIO db -19 fondo -70 sottofondo null voce 0.99 parla true parlato true silenzio 0 mano false frase 10 continuo false pezzi -20:81 -22:94 -19:98 -19:99
+09-27 10:49:46.576 20519 20519 I flutter : ORECCHIO db -23 fondo -70 sottofondo null voce 0.94 parla true parlato true silenzio 0 mano false frase 10 continuo false pezzi -21:48 -27:90 -20:98 -23:94
+09-27 10:49:46.896 20519 20519 I flutter : ORECCHIO db -20 fondo -70 sottofondo null voce 0.94 parla true parlato true silenzio 0 mano false frase 10 continuo true pezzi -26:92 -20:29 -21:93 -20:94
+09-27 10:49:47.210 20519 20519 I flutter : ORECCHIO db -69 fondo -70 sottofondo null voce 0.40 parla false parlato true silenzio 80 mano false frase 10 continuo true pezzi -20:98 -28:79 -55:62 -69:40
+09-27 10:49:47.536 20519 20519 I flutter : ORECCHIO db -78 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 400 mano false frase 10 continuo true pezzi -75:37 -78:16 -77:26 -78:26
+09-27 10:49:47.857 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.34 parla false parlato true silenzio 720 mano false frase 10 continuo true pezzi -78:25 -79:26 -80:23 -79:34
+09-27 10:49:48.181 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.30 parla false parlato true silenzio 1040 mano false frase 10 continuo true pezzi -80:23 -80:18 -78:22 -79:30
+09-27 10:49:48.493 20519 20519 I flutter : ORECCHIO db -79 fondo -70 sottofondo null voce 0.25 parla false parlato true silenzio 1360 mano false frase 10 continuo false pezzi -81:26 -79:21 -82:28 -79:25
+09-27 10:49:48.816 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 1680 mano false frase 10 continuo false pezzi -78:25 -82:21 -81:29 -80:31
+09-27 10:49:48.995 20519 20519 I flutter : LIVE: trascrizione anticipata in 1136 ms, pausa 1: «Ho paura che in Australia mi senta solo.»
+09-27 10:49:49.137 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.24 parla false parlato true silenzio 2000 mano false frase 10 continuo false pezzi -81:28 -82:26 -82:17 -80:24
+09-27 10:49:49.139 20519 20519 I flutter : LIVE: frase di 5040 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Ho paura che in Australia mi senta solo.» (parte)
+09-27 10:49:50.516 20519 20519 I flutter : CHAT TEMPI: in attesa salvata a 283 ms, risposta del modello a 1206 ms, consegnata e salvata a 1206 ms, 362 caratteri
+09-27 10:49:50.516 20519 20519 I flutter : LIVE: la chat ha risposto in 1208 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 10:49:53.452 20519 20519 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 2008 ms, trascritta 2008 ms, primo testo 2791 ms, risposta 3385 ms, primo audio al volto 4099 ms, il volto parla 6322 ms
+09-27 10:50:03.609 20519 20519 I flutter : LIVE: primo suono al volto dopo 712 ms, audio di 28455 ms, scritto in 13092 ms
+09-27 10:50:20.597 20519 20519 I flutter : LIVE: il volto ha finito dopo 30079 ms, lo ha detto lui
+09-27 10:50:21.939 20519 20519 I flutter : ORECCHIO db -70 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 320 mano false frase 13 continuo false pezzi -100:0 -82:24 -76:21 -70:22
+09-27 10:50:22.258 20519 20519 I flutter : ORECCHIO db -80 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 640 mano false frase 13 continuo false pezzi -75:15 -77:26 -83:16 -80:26
+09-27 10:50:22.575 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.17 parla false parlato false silenzio 960 mano false frase 13 continuo false pezzi -80:28 -79:20 -81:21 -84:17
+09-27 10:50:22.892 20519 20519 I flutter : ORECCHIO db -85 fondo -70 sottofondo null voce 0.15 parla false parlato false silenzio 1280 mano false frase 13 continuo false pezzi -81:21 -85:26 -81:20 -85:15
+09-27 10:50:23.219 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 1600 mano false frase 13 continuo false pezzi -84:18 -87:18 -85:11 -87:20
+09-27 10:50:23.537 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.35 parla false parlato false silenzio 1920 mano false frase 13 continuo false pezzi -87:20 -86:16 -85:22 -84:35
+09-27 10:50:23.857 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 2240 mano false frase 13 continuo false pezzi -84:26 -86:19 -87:21 -87:21
+09-27 10:50:24.181 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.21 parla false parlato false silenzio 2560 mano false frase 13 continuo false pezzi -87:19 -82:23 -82:16 -84:21
+09-27 10:50:24.497 20519 20519 I flutter : ORECCHIO db -84 fondo -70 sottofondo null voce 0.20 parla false parlato false silenzio 2880 mano false frase 13 continuo false pezzi -84:32 -85:15 -85:13 -84:20
+09-27 10:50:24.819 20519 20519 I flutter : ORECCHIO db -87 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 3200 mano false frase 13 continuo false pezzi -83:38 -83:22 -86:20 -87:16
+09-27 10:50:25.138 20519 20519 I flutter : ORECCHIO db -86 fondo -70 sottofondo null voce 0.16 parla false parlato false silenzio 3520 mano false frase 13 continuo false pezzi -85:26 -88:25 -86:40 -86:16
+09-27 10:50:25.457 20519 20519 I flutter : ORECCHIO db -90 fondo -70 sottofondo null voce 0.19 parla false parlato false silenzio 3840 mano false frase 13 continuo false pezzi -88:17 -88:15 -87:19 -90:19
+09-27 10:50:25.776 20519 20519 I flutter : ORECCHIO db -81 fondo -70 sottofondo null voce 0.22 parla false parlato false silenzio 4160 mano false frase 13 continuo false pezzi -87:14 -85:28 -80:23 -81:22

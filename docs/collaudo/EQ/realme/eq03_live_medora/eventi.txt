@@ -1,0 +1,16 @@
+saluto finito 1790499198.760
+frase 1, inizio 1790499201.686: Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avere successo col lavoro che sto facendo.
+detta in 8.1 secondi
+frase 1, fine 1790499211.553
+frase 1 trascritta 1790499214.573
+frase 1: risposta finita 1790499241.866
+frase 2, inizio 1790499246.759: Ok, le ho scritte e adesso cosa faccio?
+detta in 3.8 secondi
+frase 2, fine 1790499251.248
+frase 2 trascritta 1790499253.136
+frase 2: risposta finita 1790499289.025
+frase 3, inizio 1790499294.144: Mia madre dice che è una follia partire. Cosa le rispondo?
+detta in 5.4 secondi
+frase 3, fine 1790499300.802
+frase 3 trascritta 1790499302.716
+frase 3: risposta finita 1790499337.909

@@ -1,0 +1,21 @@
+ORDINE EW: QUANTE CHIAMATE HANNO FATTO LE PROVE COL MODELLO VERO, E QUANTO SONO COSTATE. 2 ottobre 2026.
+
+Tutte le prove dell'ordine stanno fra le 03:40 e le 04:45 UTC del 2 ottobre 2026: la sonda del banco (1 uso
+per caso), il primo giro del banco fermato a meta' dalla riserva delle rune, il banco intero (20 usi per caso),
+il secondo giro (ascolto e Profonda), le 18 chiamate delle prove delle etichette, il LIVE di 7 minuti sul Realme
+e la seconda apertura di 13 secondi. Fonte: Cloud Monitoring, sola lettura, una finestra sola di 65 minuti.
+
+Gemini, aiplatform.googleapis.com/publisher/online_serving (europe-west1, l'unica regione con traffico):
+  chiamate (model_invocation_count): 1125
+  gemini-2.5-flash      ingresso 3.687.434 token  1,1062 $   uscita 149.207 token  0,3730 $
+  gemini-2.5-flash-lite ingresso   675.348 token  0,0675 $   uscita  22.468 token  0,0090 $
+  gemini-2.5-flash-tts  ingresso     4.767 token  0,0024 $   uscita  38.337 token  0,3834 $
+  TOTALE GEMINI al massimo 1,9415 $ (Monitoring non separa i token presi dalla cache, che costano il 10 per cento:
+  il costo vero e' piu' basso; il banco, che li separa, ha misurato 0,6186 + 0,0657 + 0,0451 $ per i suoi tre giri)
+Protoface: 8 crediti la sessione LIVE di 7:03 + 1 credito la seconda apertura = 9 crediti, 0,09 $
+  (righe "Uso di Protoface nel mese" del server, docs/collaudo/EW/live_registro_del_server.txt)
+LiveKit: dentro i minuti compresi, da confermare dal pannello (docs/costi/il_minuto_del_live.md)
+
+TOTALE DELLE PROVE: al massimo 2,03 $ (1,94 di Gemini e 0,09 di Protoface), contro la stima dichiarata al
+fondatore prima di cominciare di 12-18 $. La finestra puo' contenere anche qualche chiamata di utenti veri alle
+sei del mattino: il totale e' un massimo.

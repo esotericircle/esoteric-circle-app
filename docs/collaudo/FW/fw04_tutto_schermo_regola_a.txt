@@ -1,0 +1,33 @@
+REGOLA A, ordine FW voce FW.04 (correzione del riquadro), 15 ottobre 2026
+guardia nuova: test/la_scena_della_chat_e_un_filmato_test.dart,
+  "FW.04: la scena della chat copre tutto lo schermo"
+
+Fonte: il fondatore, vista l'anteprima della prima stesura (la scena dentro
+un riquadro sopra il saluto): "E' inaccettabile il riquadro in mezzo alla
+schermata con il maestro. Trova soluzione elegante e professionale. Il video
+deve essere a tutto schermo".
+
+PRIMO GIRO, sul codice appena riscritto a tutto schermo (la scena dentro
+Positioned.fill, ma ancora dentro il SafeArea della schermata):
+  Expected: a value greater than or equal to <797.0>
+    Actual: <709.0>
+  la scena non e' alta quanto lo schermo: torna un riquadro
+  00:02 +0 -1: Some tests failed.
+Causa vera: SafeArea(bottom: false) toglie comunque l'alto al suo contenuto,
+anche con extendBodyBehindAppBar: true sullo Scaffold: la scena, montata
+dentro il SafeArea, non arrivava ai 797 punti pieni, fermandosi 88 punti
+sotto il bordo. Il vuoto sopra mostrava il cosmo (CosmosBackground) invece
+della scena: invisibile sulle tre catture perche' le stelle del cosmo e
+quelle dipinte in cima ai tre video si somigliano, ma un difetto vero lo
+stesso (lo stesso principio del velo del dominio che non dipingeva nulla:
+una misura in meno e la cattura sembra giusta lo stesso).
+
+CORREZIONE: la scena spostata fuori dal SafeArea, fratello suo nello Stack
+piu' esterno dentro CosmosBackground, cosi' arriva davvero al bordo come il
+dominio.
+
+SECONDO GIRO, sul codice corretto (uscita 0): All tests passed! (6 su 6)
+
+Le altre cinque prove del file, gia' esistenti, sono rimaste verdi durante
+tutto il giro senza bisogno di modifiche: usano chiavi (chat_scena_fotogramma,
+chat_scena_filmato) che il riquadro e la scena a tutto schermo condividono.

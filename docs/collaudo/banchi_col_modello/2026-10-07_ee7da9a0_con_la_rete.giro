@@ -1,0 +1,75 @@
+I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18
+commit: ee7da9a02feb2c548254db1c3b0aa8fbff1a0258
+inizio: 2026-10-07T14:43:52+00:00
+fine: 2026-10-07T16:43:26+00:00
+comando: python tool/banchi_col_modello/i_banchi_col_modello.py --costo
+
+RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
+  misura: il classificatore delle domande libere del Viaggio, col modello vero, sul banco delle domande di prova
+RISULTATO 2: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: le cinque misure su cento discese, col modello vero
+  misura: cento discese del Viaggio dello Sciamano col modello vero: le cinque misure della ripetizione e il costo di una discesa
+RISULTATO 3: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: G, venti cammini col modello vero
+  misura: venti cammini interi: quanto si ripetono gli strati del racconto
+RISULTATO 4: PASSATO | la_prova_a_cento_discese_col_modello_test.dart | CON RETE: il segno col modello vero, dodici domande
+  misura: il segno dell'animale scelto dal modello su dodici domande
+RISULTATO 5: PASSATO | la_sonda_del_sigillo_test.dart | Tre chiamate vere per ogni sigillo, lette tutte
+  misura: i testi del Sigillo dell'Intenzione: tre chiamate per sigillo, ogni testo letto e controllato
+RISULTATO 6: ROSSO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 A, tre domande di fila allo stesso Maestro sullo stesso tema
+  misura: percorso A del filo del consulto: zero contraddizioni e nove risposte su dieci che portano avanti il punto
+RISULTATO 7: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 B, la stessa domanda a Medora, poi a Caligo, poi ad Aura
+  misura: percorso B: il secondo e il terzo Maestro ricevono la scheda, la portano avanti e nominano chi ha parlato prima
+RISULTATO 8: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 C, la persona riprende la frase che il Maestro le ha suggerito
+  misura: percorso C: la frase suggerita ripresa vale come continuazione
+RISULTATO 9: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 D, una domanda, un tema diverso, poi il ritorno al primo tema
+  misura: percorso D: tornando al primo tema il Maestro riprende il suo parere
+RISULTATO 10: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 E, il consulto comincia scritto e continua a voce sullo stesso tema
+  misura: percorso E: dallo scritto alla voce il parere resta lo stesso
+RISULTATO 11: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: FE.16 F, il consulto si interrompe e riprende dopo dieci minuti
+  misura: percorso F: dopo dieci minuti il Maestro ritrova il suo filo
+
+--- le misure stampate da il_banco_delle_domande_libere_col_modello_test.dart
+  BANCO CON RETE: 40 giuste su 41, 97.6 per cento; deciso dal modello 39; la tabella da sola 28
+--- le misure stampate da la_prova_a_cento_discese_col_modello_test.dart
+  === ORDINE DI VOCE 16, CON RETE, tema scelta ===
+  === ORDINE DI VOCE 16, CON RETE, tema persona ===
+  === ORDINE DI VOCE 16, CON RETE, tema blocco ===
+  === ORDINE DI VOCE 16, CON RETE, tema attesa ===
+  === ORDINE DI VOCE 16, CON RETE, tema direzione ===
+  === ORDINE DI VOCE 16, CON RETE, tema finito ===
+  === ORDINE DI VOCE 16, CON RETE, libera 1 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 2 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 3 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 4 ===
+  === ORDINE DI VOCE 16, CON RETE, libera 5 ===
+  === ORDINE DI VOCE 16, CON RETE ===
+  CHIAMATE AL MODELLO: 2606, token in ingresso 6397595, in uscita 295360
+  DQ.06 titolo dal modello: prima 58.1, dopo 63.0 per cento, su 1100 discese
+  DQ.06 risposta dal modello: prima 37.4, dopo 47.5 per cento, su 1100 discese
+  DQ.06 gesto dal modello: prima 53.6, dopo 61.5 per cento, su 1100 discese
+  DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 70, azione: chiedeDiScrivere 55, risposta: nonNominaLaDomanda 21, risposta: statoDiUnTerzo 19, titolo: titoloRipetuto 18, titolo: statoDiUnTerzo 16, titolo: tempoNelTitolo 11, titolo: troppoLunga 11, risposta: troppoLunga 9, azione: previsioneCerta 9, risposta: previsioneCerta 8, azione: troppoLunga 7, azione: statoDiUnTerzo 5, risposta: gergo 5, titolo: previsioneCerta 4, azione: promessa 4, azione: consiglioDiVita 3, azione: virgolaEe 3, titolo: gergo 3, azione: saluteDenaroLegge 2, risposta: genereContrario 2, risposta: anticipaLaScena 1, azione: fuoco 1, azione: genereContrario 1, azione: pronomeSenzaAccordo 1, azione: toccaUnTerzo 1, azione: gergo 1, risposta: ripeteUnoStrato 1
+  DQ.13 costo: 0.002369 dollari a discesa, 2118 chiamate della scena su 1100 discese
+  DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 8.7 per cento
+  === ORDINE DJ VOCE 08, IL SEGNO COL MODELLO VERO ===
+  accettati 11 su 12, gesti {siAvvicina: 3, siAllontana: 3, siVolta: 5}, 12 chiamate, in media 384 token in ingresso e 39.9 in uscita
+--- le misure stampate da la_sonda_del_sigillo_test.dart
+  === RIEPILOGO DO ===
+  sigilli 30, chiamate 105, token in ingresso 36860, in uscita 4180
+  costo di un sigillo completo: 0.00072 dollari
+--- le misure stampate da il_filo_del_consulto_col_modello_test.dart
+  ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 7, ignora 2, contraddice 1, quota 70 per cento, corrette dalla rete della coerenza 3
+    meno di otto risposte su dieci portano avanti il punto: ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 7, ignora 2, contraddice 1, quota 70 per cento, corrette dalla rete della coerenza 3
+  ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, nominano tutti i Maestri di prima in 10 risposte su 10, corrette dalla rete della coerenza 4
+  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 4
+  ORDINE FE VOCE 17, percorso D: giudicate 10, porta avanti 9, ignora 0, contraddice 1, quota 90 per cento, corrette dalla rete della coerenza 7
+  ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 7
+  ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 7
+  ORDINE FE VOCE 18, costo dei sei banchi: 160 chiamate, 685265 token di ingresso, 36958 di uscita col ragionamento, 0.298 dollari a listino
+
+--- il costo, da Cloud Monitoring (token_count), finestra di 7294 secondi
+  gemini-2.5-flash input: 7482269 token, 2.2447 dollari
+  gemini-2.5-flash output: 354272 token, 0.8857 dollari
+  gemini-2.5-flash-lite input: 332191 token, 0.0332 dollari
+  gemini-2.5-flash-lite output: 12903 token, 0.0052 dollari
+  totale 3.1687 dollari, cambio BCE del 2026-10-07: 1 euro = 1.1177 dollari
+COSTO DEL GIRO: 2.84 euro
+  (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)

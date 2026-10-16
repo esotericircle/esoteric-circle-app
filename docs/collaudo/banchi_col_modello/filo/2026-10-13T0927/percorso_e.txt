@@ -1,0 +1,97 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il cielo indica che la promozione che attendi è un desiderio forte, ma non ancora una certezza. Le carte, in questo momento, mostrano una fase di preparazione e di attesa.
+
+L'arcano del Due di Denari ti invita a considerare l'equilibrio tra le tue aspettative e la realtà operativa: è il tempo di dimostrare la tua capacità di gestire più incarichi con fluidità. Il transito di Saturno nel tuo cielo professionale suggerisce che ogni avanzamento richiede una solida base di merito e dedizione.
+
+✦ Presenta al tuo superiore un resoconto dei tuoi successi della settimana che è appena trascorsa.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Il Due di Denari ti chiede di continuare a mostrare la tua flessibilità e la tua capacità di adattamento, mantenendo un equilibrio tra i tuoi compiti attuali e le ambizioni future. Il cielo suggerisce che la costanza e la dimostrazione delle tue competenze sono la chiave in questo momento.
+
+✦ Prepara un piccolo piano per gestire un nuovo progetto, anche se non ti è ancora stato assegnato, e presentalo informalmente.
+    GIUDICE: PORTA_AVANTI, La guida riprende il riferimento al 'Due di Denari' e al concetto di 'equilibrio' e 'capacità di gestire più incarichi' già introdotti nella risposta precedente, sviluppando il consiglio su come agire per la promozione.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Per poterti dare una lettura più precisa sul quando, avrei bisogno di conoscere la tua data di nascita completa.
+    GIUDICE: IGNORA, La guida non riprende né sviluppa il tema della promozione o delle azioni da intraprendere, ma introduce un nuovo requisito (data di nascita) per rispondere a una domanda sul 'quando', senza collegarsi ai consigli precedenti.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Quando senti il desiderio di un nuovo inizio, è il tuo centro della radice che ti chiama a cercare stabilità e un nuovo ancoraggio. Il tuo corpo ti suggerisce di osservare dove le tue radici possono affondare più saldamente, e a volte questo significa proprio spostarsi.
+
+Immagina di portare con te il tuo respiro, ovunque tu vada, come il tuo compagno più fedele.
+
+✦ Pensa a un luogo che ti dia un senso di pace profonda e pronuncia il suo nome.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Il tuo desiderio di un nuovo inizio è un segno forte del tuo centro della radice che cerca una nuova stabilità, e il nome del luogo che hai pronunciato è un primo seme che hai piantato. Ora, con l'immagine di quel luogo nella mente, ti invito a sentire nel tuo corpo dove risuona questa possibilità, se è un'energia che ti attrae o che ti spaventa, senza giudizio.
+
+✦ Porta una mano al centro del tuo petto e senti il ritmo del tuo respiro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del 'centro della radice' e della 'stabilità' introdotti nella risposta [1], e fa riferimento diretto all'azione suggerita in [1] ('il nome del luogo che hai pronunciato'), sviluppando il discorso con un nuovo passo pratico.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Il momento in cui sentirai chiarezza non si lega a una data futura, ma al tuo sentire presente. Se il tuo centro della radice è ancora in ricerca, significa che il tuo corpo ha bisogno di un'altra indicazione per stabilizzarsi: osserva i primi cinque volti che incontri oggi. La loro espressione ti dirà se il tuo corpo si sente in armonia con ciò che ti circonda, un passo alla volta.
+
+✦ Senti la terra sotto i tuoi piedi e lascia che ti dia stabilità.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del 'centro della radice' e della 'ricerca di stabilità' già menzionati in [1] e [2], e lo sviluppa fornendo un nuovo esercizio pratico ('osserva i primi cinque volti') per continuare la ricerca di armonia, in linea con il tema del 'sentire nel corpo' introdotto in [2].
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recupera la passione. La volontà è una fiamma che ravviva ogni legame, se alimentata con gesti concreti.
+
+La runa Kenaz, la torcia, simboleggia la luce della conoscenza e della creazione. Il suo presagio indica un momento per riscoprire il fuoco interiore, per illuminare ciò che sembra spento e forgiare un nuovo inizio. La sua essenza è calore e forza, non abbandono.
+
+✦ Scrivi su un foglio bianco le tre cose che più ami della persona, e leggile stasera ad alta voce.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Il gesto compiuto apre un sentiero. Ora offri le tue parole, senza attendere risposte immediate.
+
+Kenaz, la runa che hai davanti, ti mostra la via della condivisione. Il calore che hai ritrovato nel nominare le tue gioie deve ora irradiarsi, non rimanere un fuoco solitario. È il momento di dare, prima di chiedere.
+
+✦ Dona le tue parole scritte, in silenzio, senza spiegazioni, e lascia che parlino da sole.
+    GIUDICE: PORTA_AVANTI, La guida riprende il 'gesto concreto' suggerito nella risposta precedente (scrivere e leggere le cose amate) e lo sviluppa, indicando il passo successivo (donare le parole scritte).
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non attendere un segno esteriore. Il sigillo di Kenaz ti indica il momento della chiarezza interiore.
+
+La runa della conoscenza ti dice che la comprensione arriverà quando sarai tu a guardare, non a sperare che ti venga mostrato. Il tuo cuore, purificato dal gesto del dare, sarà la soglia per la verità.
+
+✦ Osserva il tuo cuore prima di osservare la reazione, senza fretta, e accogli ciò che trova.
+    GIUDICE: PORTA_AVANTI, La guida continua a sviluppare il tema del 'dare' e del 'fuoco interiore' introdotto nelle risposte precedenti, collegandolo alla comprensione e alla chiarezza interiore, senza contraddire o ignorare i consigli precedenti.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo suggerisce di attendere, per ora. Non è il momento più propizio per iniziare, ma lo sarà presto.
+
+In questo periodo, i transiti planetari indicano una fase di preparazione piuttosto che di azione diretta. Marte, il pianeta dell'iniziativa, si trova in una posizione che invita alla riflessione e alla pianificazione dettagliata, piuttosto che a lanciarsi in nuove avventure. L'energia è più adatta a perfezionare i tuoi piani, a rivedere le fondamenta del tuo progetto, piuttosto che a presentarlo al mondo. Ogni dettaglio, ogni idea, merita la tua massima attenzione in questa fase.
+
+✦ Raccogli le idee in un quaderno blu scuro, entro la fine della settimana.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso rileggi gli appunti che hai nel tuo quaderno blu scuro e organizza le tue idee in un sommario, definendo gli obiettivi principali del tuo progetto.
+
+Il cielo indica un tempo di consolidamento, dove la chiarezza delle intenzioni è fondamentale per il successo futuro. Il transito di Mercurio, in aspetto armonico al tuo Sole, favorisce la comunicazione e l'organizzazione, rendendo questo il momento ideale per strutturare i pensieri e dare forma tangibile ai tuoi concetti. È un lavoro preliminare che getterà basi solide.
+
+✦ Prepara un sommario dettagliato del tuo progetto entro la fine della settimana, con obiettivi chiari e misurabili.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio di 'raccogliere le idee in un quaderno blu scuro' dato nella risposta precedente e lo sviluppa, indicando il passo successivo ('rileggi gli appunti... e organizza le tue idee').
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando dici "lo capirò", ti riferisci al momento giusto per avviare il progetto, o a qualcos'altro che ti preoccupa?
+    GIUDICE: IGNORA, La guida non risponde direttamente alla domanda 'E quando lo capirò?' (riferita al momento giusto per avviare il progetto), ma pone una domanda chiarificatrice, senza riprendere o sviluppare il tema del 'momento propizio' o della 'fase di preparazione' precedentemente discussi.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella dopo la lite, cerca un momento in cui entrambe siete serene e pronte ad ascoltare. Prendi un respiro profondo e senti il centro del cuore, verde smeraldo, aprirsi per fare spazio alla comprensione.
+
+Il tuo cuore sa che la connessione con tua sorella è un filo d'oro, a volte teso ma mai spezzato del tutto. La fisiognomica mi suggerisce che un viso rilassato e uno sguardo sincero possono sciogliere le tensioni più di mille parole. Non si tratta di dimenticare la lite, ma di guardarla insieme per capire dove si è spezzato l'equilibrio.
+
+✦ Poggia la mano sul cuore per un minuto, chiudendo gli occhi.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, con la mano sul cuore e gli occhi chiusi, immagina di far arrivare a tua sorella un tuo respiro calmo e costante. Quando riapri gli occhi, scrivi un messaggio semplice, offrendo un incontro per parlare, senza condizioni.
+
+Il corpo in questo momento è un ponte: il respiro è il veicolo che porta l'intenzione. La tua energia, anche a distanza, può preparare il terreno. La sincerità nel chiedere di incontrarsi, senza forzare la sua risposta, mostrerà la tua apertura.
+
+✦ Invia un messaggio a tua sorella, proponendo di vedervi per un caffè, senza parlare della lite.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio della mano sul cuore e degli occhi chiusi dalla risposta precedente e lo sviluppa con un'azione successiva (immaginare il respiro, poi scrivere un messaggio).
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Quando tornerai a sentire la leggerezza nel tuo respiro, saprai che il tuo cuore si è aperto di nuovo all'accoglienza. Non c'è un momento preciso, ma un sentire che si fa strada, un'onda calma che lava via le preoccupazioni.
+
+Questa attesa è parte del processo, un tempo per permettere all'energia di assestarsi e ai chakra di riarmonizzarsi. Osserva le reazioni del tuo corpo, le tensioni che si allentano o si ripresentano, sono guide preziose.
+
+✦ Porta l'attenzione al centro della gola, visualizzando il colore azzurro, e respira lentamente per tre volte.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sentire' e 'respiro' già introdotti nelle risposte precedenti come indicatori di progresso e benessere interiore.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 8, ignora 2, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 80 per cento, corrette dalla rete della coerenza 4, elemento cambiato in 0 risposte su 4 con un elemento gia' uscito

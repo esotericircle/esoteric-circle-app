@@ -1,0 +1,30 @@
+dopo3_esecuzione1: dirette 12 su 20 con domanda (senza domanda 1 su 4); pietre tutte lette 20 su 24; legame 23; consiglio 21; errori di italiano 4; scartate 1
+dopo3_esecuzione2: dirette 14 su 20 con domanda (senza domanda 1 su 4); pietre tutte lette 21 su 24; legame 24; consiglio 19; errori di italiano 5; scartate 0
+partenza_esecuzione1: dirette 12 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 18 su 24; legame 23; consiglio 23; errori di italiano 7; scartate 1
+partenza_esecuzione2: dirette 14 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 15 su 24; legame 20; consiglio 20; errori di italiano 5; scartate 3
+
+ERRORI dopo3_esecuzione1
+    10: riflettere sul percorso che hai fatto e che cosa hai imparato (coordinazione sbagliata)
+    8: un oggetto che simboleggia il tuo blocco (va il congiuntivo: simboleggi)
+    13: è la necessità che tempra e dove la pazienza diventa forza (coordinazione sbagliata)
+    17: prendere ciò che ti spetta, non a strappare, con dignità
+ERRORI dopo3_esecuzione2
+    10: Per Luca, questo significa non affrettare i tempi (uso improprio di 'per' al posto di 'riguardo a')
+    7: in un foglio (va: su un foglio)
+    4: Proteggi il confine della relazione con misura, senza temerla ('temerla' senza antecedente)
+    24: Una svolta chiara si apre oggi, porta un cambiamento (coordinazione con sola virgola)
+    19: dicendole che sei presente e che la pensi
+ERRORI partenza_esecuzione1
+    20: Ciò che vi univa, ora è fermo (virgola fra soggetto e verbo)
+    16: con il sostegno di chi ti è vicino, uniti nell'intento (participio plurale senza soggetto)
+    13: ma nel suo verso d'ombra, la prova insegna che la pazienza è la chiave (anacoluto)
+    3: ti invita a ritrovare il tuo giusto
+    19: Nel suo verso, Ascolta il segno: una voce ti raggiunge.
+    19: Nel suo verso, Tempo di attesa e di chiarezza: non forzare.
+    19: Nel suo verso, Ciò che crolla libera spazio per il nuovo.
+ERRORI partenza_esecuzione2
+    18: esprimendo il desiderio di riprendere il dialogo, è il sentiero che si apre (frase spezzata)
+    13: è la grandine, la scossa che passa, dopo la tempesta, terreno pulito (frammento senza verbo)
+    10: guardalo, di conclusione di un ciclo
+    14: ritrova il ritmo comune, poi riprendete la corsa
+    4: Definisci con chiarezza al tuo partner ciò che è essenziale

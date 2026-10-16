@@ -1,0 +1,22 @@
+Chiedo 60 risposte, 20 domande per tre Maestri...
+Faccio giudicare 60 risposte...
+
+MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+           medora     aura   caligo     totale   giusti
+medora         19        1        0       20    95.0%
+aura            0       20        0       20   100.0%
+caligo          0        0       20       20   100.0%
+
+Attribuzione corretta: 59 su 60, cioe' 98.3 per cento.
+Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Verdetti illeggibili: 0.
+
+LE FRASI SU CUI IL GIUDICE SI E' PERSO
+--- medora: 1 risposte attribuite ad altri
+  [creduto aura] domanda: non riesco a lasciare andare
+     prima frase: Lasciare andare richiede tempo e accoglienza, è un processo che si sviluppa passo dopo passo, non un gesto improvviso.
+
+RITMO DELLE VOCI, sulle risposte di questo giro
+medora   frasi contate 74, frase mediana 17.0 parole, domande 0, parole che ammorbidiscono 1
+aura     frasi contate 95, frase mediana 20.0 parole, domande 0, parole che ammorbidiscono 16
+caligo   frasi contate 117, frase mediana 11.0 parole, domande 0, parole che ammorbidiscono 0

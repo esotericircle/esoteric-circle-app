@@ -1,0 +1,27 @@
+IL BADGE "PIANO ATTUALE" STA SUL PIANO CHE E' DAVVERO ATTIVO
+
+IL FATTO, 23 settembre 2026, parole del fondatore:
+  "Attivo il piano Premium e i contatori nella chat
+   effettivamente vengono aggiornati e premium, ma se torno al
+   menu abbonamenti c'e' scritto che il piano attualmente e'
+   DEMO"
+
+IL PIANO ERA ATTIVO DAVVERO, verificato in quattro punti:
+  1. log del server: "attivaIlPianoInDemo: piano scritto",
+     uid gRKTAtqFdHUK6u5yNUm6LR2EkGZ2, piano tier3
+  2. Firestore, users/<uid>/stato/abbonamento: piano "tier3"
+  3. la funzione statodelcerchio chiamata 0,4 secondi dopo
+  4. i contatori della chat diventati quelli dell'Illuminato
+
+A MENTIRE ERA SOLO LA SCHERMATA DEI PIANI.
+
+LA CAUSA: isCurrent: !isDemo && plan.tier == current
+  In Demo il badge non compariva MAI sui livelli.
+  Era giusto finche' in Demo nessun livello era davvero
+  attivo; l'ordine CQ voce 1.01 ha cambiato quel fatto e
+  questa riga e' rimasta indietro.
+  PADRE: ordine CQ voce 1.01.
+
+LA CURA: il badge segue il piano vero anche in Demo, e la
+card Demo lo porta solo finche' nessun livello e' attivo.
+Mai due badge insieme, mai zero.

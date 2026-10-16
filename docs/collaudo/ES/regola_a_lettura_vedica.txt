@@ -1,0 +1,22 @@
+ORDINE ES VOCE 09, Regola A della guardia la_lettura_vedica_test.dart, 29 settembre 2026.
+
+il nakshatra contato da 1 invece che da 0: innesto entrato True (grep del pezzo nuovo), prova "venti nascite" ROSSA, file tornato True
+    ORDINE ES VOCE 09: nascite con rashi o nakshatra diverso da Drik 20 su 20
+l'ayanamsa dimenticata: innesto entrato True (grep del pezzo nuovo), prova "venti nascite" ROSSA, file tornato True
+    ORDINE ES VOCE 09: nascite con rashi o nakshatra diverso da Drik 20 su 20
+l'alba al centro del disco: innesto entrato True (grep del pezzo nuovo), prova "alba, tramonto e Rahu Kalam" ROSSA, file tornato True
+    ORDINE ES VOCE 09: estremi del Rahu Kalam diversi da Drik 23 su 42; alba e tramonto, scarto massimo dal JPL 92.4 secondi
+la parte del Rahu del lunedi' sbagliata: innesto entrato True (grep del pezzo nuovo), prova "alba, tramonto e Rahu Kalam" ROSSA, file tornato True
+    ORDINE ES VOCE 09: estremi del Rahu Kalam diversi da Drik 12 su 42; alba e tramonto, scarto massimo dal JPL 1.9 secondi
+la sesta casa sfavorevole, come Raman: innesto entrato True (grep del pezzo nuovo), prova "Chandra Bala e Tara Bala" ROSSA, file tornato True
+la tara contata da zero: innesto entrato True (grep del pezzo nuovo), prova "Chandra Bala e Tara Bala" ROSSA, file tornato True
+la variante col solo giorno: innesto entrato True (grep del pezzo nuovo), prova "ogni scheda dice la frase" ROSSA, file tornato True
+    ORDINE ES VOCE 09: schede fuori dal loro gruppo 0 su 480; stessa frase al ritorno dello stesso caso 55 su 219; testi con un difetto di scrittura 0
+la casa della Luna contata al contrario: innesto entrato True (grep del pezzo nuovo), prova "ogni scheda dice la frase" VERDE, file tornato True
+    ORDINE ES VOCE 09: schede fuori dal loro gruppo 0 su 480; stessa frase al ritorno dello stesso caso 0 su 219; testi con un difetto di scrittura 0
+senza la citta' il Rahu non la chiede: innesto entrato True (grep del pezzo nuovo), prova "dal primo piano" ROSSA, file tornato True
+la Vedica legge le schede occidentali: innesto entrato True (grep del pezzo nuovo), prova "dal primo piano" ROSSA, file tornato True
+
+L'INNESTO RIMASTO VERDE, confessato: "la casa della Luna contata al contrario" lasciava verde la prova, perche' la prova contava la casa con la stessa funzione dell'app (l'app che si guarda allo specchio). La casa e la tara adesso si contano nella prova con la regola scritta a mano.
+la casa della Luna contata al contrario, rifatto con la regola scritta nella prova: innesto entrato True, prova "ogni scheda dice la frase" ROSSA, file tornato True
+    

@@ -1,0 +1,5 @@
+EQ.04 dopo giro 2: letture con la risposta diretta nelle prime due frasi 17 su 20; carte lette nella posizione e rispetto alla domanda 43 su 60; errori di concordanza e di grammatica 1
+Letture del modello mostrate 19 su 20, con un secondo tentativo 5, curate 0, riscritte 6; scartate: un genere dato a chi legge: travolto, nella frase «Il Sette di Bastoni rovesciato nel presente mostra che ora ti senti travolto o eccessivamente sulla difensiva rispetto ai tuoi obiettivi economici per la casa.»
+Tempo della lettura dal PC, tentativi compresi, mediana 3745 ms (da 2486 a 9394); gettoni medi in ingresso 2330, in uscita 485; costo medio di una stesa 0.00191 dollari al listino di Flash (0,30 e 2,50 dollari per milione)
+EQ.04 dopo giro 2: letture uguali su cento con la stessa domanda 0
+Chiamate per le letture 204, domande al giudice 260; modello gemini-2.5-flash, europe-west1.

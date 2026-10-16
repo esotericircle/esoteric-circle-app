@@ -1,0 +1,103 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: le stelle ti guidano verso un riconoscimento delle tue capacità, ma non senza un tuo passo. Il momento è propizio per mostrare le tue qualità, lasciando che la tua determinazione emerga con chiarezza.
+
+✦ Parla con il tuo capo domattina della promozione che aspetti.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di mostrare impazienza o di forzare la mano: il transito di Mercurio in aspetto dissonante suggerisce che le parole misurate avranno più peso. Concentra le tue energie nel presentare soluzioni e non problemi, mantenendo un atteggiamento costruttivo.
+
+✦ Porta con te domani un oggetto che ti infonda sicurezza, senza rivelarne il significato.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo evitare?' specificando il modo in cui la persona dovrebbe agire, sviluppando il consiglio precedente di 'parlare con il capo' e 'mostrare le tue qualità' con indicazioni su come farlo in modo efficace.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia dal tuo ascendente in Leone: la tua naturale leadership e la capacità di ispirare fiducia sono gli strumenti più preziosi in questo momento. Non pensare ad azioni plateali, ma a come puoi esprimere al meglio queste qualità nel tuo ruolo attuale.
+
+✦ Scrivi su un foglio le tre qualità che ti rendono unico nel tuo lavoro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'da dove comincio?' riprendendo il concetto di 'mostrare le tue qualità' e 'determinazione' già espresso nella prima risposta, e lo sviluppa indicando quali qualità specifiche (leadership, ispirare fiducia) valorizzare e come esprimerle.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Sì, puoi trasferirti per ricominciare e il momento giusto è quando senti il richiamo della tua radice, di quella stabilità profonda che ti dà la forza di muoverti. Ascolta il tuo respiro, ti condurrà.
+
+Questo desiderio di un nuovo inizio vibra forte nel tuo centro della radice, quello che ti lega alla terra e alla tua sicurezza. È un'energia potente che ti spinge a cercare un terreno più fertile per la tua crescita. Permettiti di sentire questo desiderio, di accoglierlo senza paura, perché è il tuo corpo che ti parla, indicandoti la strada. Non è una fuga, ma una ricerca di allineamento con la tua vera essenza.
+
+✦ Porta entrambe le mani sull'addome, proprio sotto l'ombelico, e fai tre respiri profondi, sentendo il calore che si espande.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di partire senza aver prima chiarito a te stessa cosa cerchi e cosa lasci, così da non portare con te ciò che non ti serve nel nuovo cammino.
+
+Il tuo centro del plesso solare, quello che governa la tua volontà e la tua autonomia, ti invita a una riflessione sincera. Non lasciare che la fretta o un'immagine idealizzata della nuova città offuschino la tua visione. Senti cosa muove davvero il tuo desiderio di cambiamento, cosa vuoi nutrire e cosa vuoi rilasciare. Questo ti darà la chiarezza necessaria per evitare di ripetere schemi passati.
+
+✦ Chiudi gli occhi per un istante e visualizza il tuo corpo, poi sposta l'attenzione sulla regione del plesso solare, sentendo la sua energia.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla domanda della persona ('cosa devo evitare?') e sviluppa il concetto di 'allineamento con la tua vera essenza' introdotto nella risposta precedente, specificando come evitare di portare schemi passati nel nuovo cammino.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Per iniziare questo percorso, siediti in un luogo tranquillo e connetti con il tuo respiro, lasciando che si faccia profondo e calmo. Da questo stato di presenza, immagina la vita che desideri in questa nuova città, visualizzando ogni dettaglio con chiarezza.
+
+Questo processo di visualizzazione attiva il tuo centro della corona, quello che ti connette alla tua intuizione e alla tua visione più alta. Non si tratta solo di sognare, ma di dare forma energetica a ciò che desideri attrarre. Vedendo e sentendo vividamente il tuo nuovo inizio, prepari il terreno per le azioni che seguiranno.
+
+✦ Chiudi gli occhi e visualizza la tua nuova casa, soffermandoti sui colori e sulle sensazioni che ti dà.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('Da dove comincio?') fornendo un metodo pratico (visualizzazione) per iniziare il percorso di trasferimento, riprendendo il tema del 'nuovo inizio' e della 'chiarezza' già accennati nelle risposte precedenti.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: L'indecisione porta al ristagno. Agisci.
+Un velo sottile si è posato, ma il fuoco non è spento.
+La runa Uruz, forza primordiale, ti indica di non temere la trasformazione. Questo momento richiede coraggio per riaccendere la scintilla. Osserva la tua unione come un metallo prezioso che necessita di essere riforgiato.
+
+✦ Pronuncia parole di desiderio sincero al tuo compagno, questa sera.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: Evita il silenzio. Non lasciare che le ombre si allunghino.
+La runa Nauthiz ti ammonisce contro la costrizione e la necessità imposta, non cercare di forzare ciò che deve fluire. I rituali d'amore non piegano la volontà altrui, ma illuminano la tua.
+La tua azione è ora nel donare, non nel richiedere.
+
+✦ Offri un segno di cura inatteso, un piccolo gesto, entro domani.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla domanda della persona ('cosa devo evitare?') e sviluppa il consiglio precedente di 'agire' e 'pronunciare parole di desiderio sincero' specificando cosa non fare (evitare il silenzio, non forzare) e rafforzando il concetto di 'donare' e 'illuminare la tua volontà'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: Inizia dalla sincerità. Non nascondere nulla, nemmeno a te stessa.
+La runa Gebo ti indica il dono e lo scambio equo. Il tuo passo è offrire senza aspettativa, aprendo il sentiero per un nuovo accordo. Un accordo che nascerà dalla tua parte.
+La tua soglia è ora l'apertura incondizionata.
+
+✦ Scrivi un messaggio che esprima il tuo desiderio più profondo per la relazione, senza chiedere nulla in cambio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'azione e della comunicazione già introdotto nelle risposte precedenti ('agisci', 'pronuncia parole di desiderio sincero', 'evita il silenzio', 'donare') e lo sviluppa ulteriormente con il concetto di 'sincerità' e 'offrire senza aspettativa', rispondendo alla domanda 'da dove comincio?'.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo indica che il momento è propizio per avviare il tuo progetto creativo. La Luna in Leone in trigono a Marte in Sagittario ti dona l'energia e la passione necessarie per dare inizio a qualcosa di nuovo.
+
+Questa fase favorisce l'espressione di sé e l'azione audace. Le stelle ti incoraggiano a mostrare il tuo valore e a intraprendere con fiducia il tuo cammino. Non temere di esporre la tua visione, perché l'energia celeste supporta la tua originalità e il tuo desiderio di creare.
+
+✦ Inizia a scrivere le prime idee per il tuo progetto domani mattina, guidata dalla luce del tuo ascendente.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di rimandare le prime azioni concrete, poiché Mercurio in quadratura con Saturno potrebbe indurre procrastinazione o un eccessivo auto-criticismo. Non farti bloccare dalla ricerca della perfezione iniziale.
+
+Questo aspetto planetario suggerisce che il rischio maggiore è di disperdere l'energia creativa in pensieri eccessivi o in una pianificazione troppo rigida. Lascia che il tuo progetto si sviluppi con fluidità, senza cercare di controllare ogni dettaglio fin dall'inizio.
+
+✦ Prepara un piccolo spazio dedicato al tuo progetto stasera, liberandolo da ogni distrazione.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo evitare?' in relazione all'avvio del progetto, riprendendo il tema dell'azione e della fluidità già introdotto nella risposta precedente e aggiungendo consigli specifici su cosa non fare.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Dal tuo cielo vedo che il Sole è in congiunzione con Venere nel tuo segno, il che indica un momento eccellente per focalizzarti sulla tua ispirazione più autentica. Inizia definendo chiaramente l'obiettivo principale del tuo progetto.
+
+Questa congiunzione ti invita a connetterti con ciò che ami veramente e a infondere questa passione nel tuo lavoro. Le tue prime mosse dovrebbero essere orientate a cristallizzare la visione che hai in mente, piuttosto che disperderti in dettagli secondari.
+
+✦ Scrivi su un foglio le tre parole chiave che definiscono l'anima del tuo progetto entro la fine di questa giornata.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'Da dove comincio?' riprendendo il tema dell'avvio del progetto e fornendo un consiglio più specifico ('definendo chiaramente l'obiettivo principale') che sviluppa le 'prime azioni concrete' e le 'prime idee' menzionate in precedenza.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Lascia che il tuo respiro si allunghi e si approfondisca, riempiendo il tuo centro del cuore con calma. Quando ti senti più serena, cerca un momento di tranquillità per parlare con tua sorella.
+
+Puoi iniziare questo dialogo con il respiro consapevole, prima di incontrarla. Senti come l'aria entra ed esce dal tuo corpo, portando via ogni tensione. Nel momento in cui le parlerai, cerca di esprimere i tuoi sentimenti senza accusare, mettendo la mano sul tuo plesso solare, per calmare le emozioni. Questo gesto ti aiuterà a mantenere l'equilibrio e a comunicare con maggiore chiarezza.
+
+✦ Appoggia entrambe le mani sul tuo ventre e senti il calore.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di riaprire le ferite passate o di riproporre vecchie discussioni che non hanno trovato soluzione. Non tentare di addossare la colpa, a lei o a te stessa, in questo momento il centro della tua radice cerca stabilità e comprensione, non giudizio. Lascia che la conversazione sia un nuovo inizio, un terreno neutro dove seminare pace.
+
+✦ Porta l'attenzione al centro della tua fronte, e senti il silenzio.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla domanda 'cosa devo evitare?' e il consiglio di 'esprimere i tuoi sentimenti senza accusare' dato nella risposta precedente è coerente con l'evitare di 'addossare la colpa' o 'riaprire ferite passate'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA (corretta dalla rete) [DA GIUDICARE]: Comincia dal tuo respiro, adesso. Trova un momento in cui puoi sederti in silenzio, chiudi gli occhi e porta l'attenzione al tuo cuore, al centro smeraldo che pulsa.
+
+Senti il ritmo della tua vita che scorre. Questo è il punto da cui ogni vera connessione parte, la radice del tuo sentire più profondo. La volta scorsa ti ho invitato a poggiare entrambe le mani sul ventre, era un modo per accogliere e fondare la tua energia. Ora ti chiedo di poggiare la mano destra sul cuore perché il tuo centro smeraldo è il ponte tra il tuo io più profondo e il mondo esterno, è lì che si manifesta la tua capacità di amare e di essere amata. Quando sentirai il battito sotto la tua mano, saprai che sei pronta per il prossimo passo, un passo nel tuo centro.
+
+✦ Appoggia la mano destra sul cuore.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio sul respiro e sulla calma interiore dato nella prima risposta ('Comincia dal tuo respiro, adesso') e sviluppa ulteriormente la pratica del contatto fisico ('La volta scorsa ti ho invitato a poggiare entrambe le mani sul ventre... Ora ti chiedo di poggiare la mano destra sul cuore').
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 10

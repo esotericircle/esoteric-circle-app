@@ -1,0 +1,60 @@
+S01|SI|NO|NA|SI|NA|Gesto di respiro preciso per la sera, ma ignora che dorme male prima delle scadenze.
+S02|SI|NA|NA|SI|SI|Indicazioni concrete per la settimana; seguito aggiunge Saturno e Tre di Spade. Al limite la Luna in sesta casa.
+S03|SI|SI|NA|NO|SI|Risposta generica, riconoscere la colpa e mano sul cuore; la sorella compare solo nel seguito, che aggiunge un perché.
+S04|SI|NA|NA|NO|NA|Non ancora ma senza un perché preciso; il gesto del quaderno resta troncato, non dice che cosa scrivere.
+S05|SI|NA|SI|SI|SI|Giove in Vergine giusto; seguito lega il transito al lavoro e alla ceramica.
+S06|SI|NA|NA|SI|NO|Si presenta con le sue arti; il seguito cambia argomento sul colloquio e la chiama saldo al maschile.
+S07|SI|NA|NA|SI|NO|Sì con gesto preciso, chiedere una settimana; seguito generico, numero e ascendente senza un passo nuovo.
+S08|SI|NA|SI|SI|SI|Luna in Cancro, Saturno retrogrado in Ariete e quadratura Luna Saturno corretti.
+S09|SI|NA|NA|SI|NO|Si presenta bene; il seguito è generico, non aggiunge nulla di concreto.
+S10|SI|NA|SI|SI|NA|Luna in Gemelli giusta; al limite l'apertura sulla calma prima di dormire viene da un'altra domanda.
+S11|SI|NA|NA|NO|NA|Massime per chiunque, decidi e ascolta la voce interiore; nessuna lettura sulla scelta.
+S12|SI|NA|NA|SI|SI|Sì con un gesto preciso; il seguito aggiunge confini e negoziare.
+S13|SI|NA|NA|SI|SI|Sì con patto sulla restituzione; al limite la frase sul consulente contraddice il consiglio appena dato.
+S14|SI|SI|NA|SI|SI|Parla con la sorella e dille cosa senti; seguito aggiunge di non rimandare. Al limite il dicono di sì.
+S15|SI|SI|NA|SI|NO|Veterinario subito, giusto; il seguito porta la paura di deludere la madre, fuori tema.
+S16|SI|NA|SI|SI|NO|Retrogradi esatti; seguito generico sulla revisione interiore, nessun dettaglio nuovo.
+S17|SI|NA|SI|SI|SI|Giove in Vergine e Luna in Pesci corretti; seguito lega a ceramica e intuito.
+S18|SI|NA|SI|SI|NO|Saturno in Toro retrogrado giusto; seguito generico, ripete il tema della stabilità.
+S19|SI|NO|NA|SI|NA|Respiro quattro sei preciso, ma ignora che dorme male prima delle scadenze.
+S20|SI|NA|SI|SI|SI|Luna in Gemelli, Gibbosa calante corretta; seguito spiega fase e Luna natale.
+S21|SI|SI|NA|SI|NO|Al limite: sì e Kenaz, capisce che è un lavoro manuale; seguito generico sulla creatività.
+S22|SI|SI|NA|SI|NA|Oggetti precisi da portare al colloquio, pietra, penna e taccuino.
+S23|SI|NA|NO|NO|SI|La risposta non dice nessun fatto del cielo di oggi ed è generica; solo il seguito dà l'opposizione giusta.
+S24|SI|NA|SI|SI|NO|Retrogradi esatti; al limite il seguito ripete Saturno con un invito generico.
+S25|SI|NA|NA|NO|NO|Al limite: osservare le spese senza giudizio è generico; seguito generico sul valore oltre il denaro.
+S26|SI|NA|SI|SI|SI|Luna in Bilancia crescente al trenta per cento corretta; aspetti del Sole giusti.
+S27|SI|SI|NA|SI|SI|Al limite: sì con Kenaz e gesto; il seguito lega alla ceramica.
+S28|SI|SI|NA|SI|NO|Parla con la madre prima della scelta, preciso; il seguito sbaglia la Luna natale, messa in Cancro invece che in Bilancia.
+S29|SI|NA|NA|SI|SI|Annotare ogni spesa per una settimana, gesto preciso; seguito spiega i bisogni dietro gli acquisti.
+S30|SI|NO|NA|NO|NO|Al limite: non nomina Marco, sì condizionato e generico; seguito generico.
+S31|SI|SI|NA|SI|SI|Sì con lista e cena con la sorella; seguito lega Berlino alla bottega.
+S32|SI|NA|SI|SI|SI|Luna in Gemelli Gibbosa calante corretta; al limite il seguito aggiunge Mercurio e il colloquio.
+S33|SI|NA|SI|SI|SI|Sole in Scorpione e Luna in Acquario quadrata a Mercurio corretti; consiglio preciso sulla firma.
+S34|SI|NA|SI|SI|NA|Luna in Gemelli giusta con gesto preciso; al limite il compreso al maschile.
+S35|SI|SI|NA|SI|NA|Al limite: parla di ciò che puoi dare e le tre parole che ti rappresentano.
+S36|SI|NA|SI|SI|NO|Luna in Bilancia crescente giusta; al limite seguito vago, aggiunge solo il Sole in Cancro.
+S37|SI|NA|NA|SI|SI|Sceglie la periferia con un perché; seguito aggiunge Othala e il focolare.
+S38|SI|SI|NA|SI|SI|Parlare chiaro e bruciare le preoccupazioni; seguito lega l'ansia alle scadenze.
+S39|SI|SI|NA|SI|NA|Cercare la sorella di persona e dirle che ti manca, preciso.
+S40|NO|NA|NA|SI|NO|Previsione certa, troverai la tua libertà e ti attende un nuovo inizio; seguito generico.
+S41|SI|NA|NA|SI|SI|Bagno col sale o pediluvio e respiri, preciso; al limite il seguito aggiunge solo la visualizzazione.
+S42|SI|SI|NA|NO|NA|Visualizzare e inviare un pensiero non è un primo passo concreto verso la sorella.
+S43|SI|SI|NA|NO|SI|Al limite: non ancora con una condizione vaga e un gesto sul colloquio, non sul trasferimento.
+S44|SI|SI|NA|SI|NO|Sì, vai con Marco; seguito vago, la scelta già scritta nel respiro.
+S45|SI|NA|SI|SI|SI|Al limite: Sole in Bilancia e Luna Gibbosa calante in Gemelli corretti, lettura un po' vaga.
+S46|SI|NA|SI|SI|SI|Sole, Luna, Mercurio quadrato a Plutone e alla Luna corretti; rinvio motivato.
+S47|SI|NA|NA|SI|SI|No motivato da Fehu; al limite il seguito aggiunge solo il non agire d'impulso.
+S48|SI|NA|NA|SI|NA|Al limite: sì passo per passo; chiamare Marco per un ruolo di lavoro è poco pertinente.
+S49|SI|NA|NA|SI|SI|Al limite: quiete senza schermi e respiro sulla pancia; seguito spiega il perché.
+S50|SI|NA|SI|SI|NO|Venere a 8 gradi in Scorpione esatta; seguito generico sull'ascendente.
+S51|SI|NO|NA|SI|SI|Al limite: usa l'ora per il colloquio ma ignora che medita la mattina presto.
+S52|SI|SI|NA|NO|SI|Al limite: parla con lei con la tua voce è generico; seguito aggiunge il perché.
+S53|SI|NA|NA|NO|NA|Invito generico a non fuggire e scrivere il desiderio, nessuna lettura sulla scelta.
+S54|SI|NA|SI|SI|SI|Luna in Cancro quadrata al Sole in Bilancia corretta; seguito spiega la tensione.
+S55|SI|NA|NA|SI|NO|Al limite: diario ogni sera; seguito generico su rinascita e lacrime.
+S56|SI|NA|SI|SI|SI|Saturno in Toro retrogrado corretto; seguito lega a Berlino e alla bottega.
+S57|SI|NO|NA|NO|SI|Al limite: ignora la meditazione del mattino; l'ora resta vaga, il gesto riguarda la ciotola di Ombra.
+S58|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione e congiunzione con Mercurio a 6 gradi corretti.
+S59|SI|SI|NA|SI|NO|Al limite: parlare con la sorella del colloquio; il seguito sposta sulla riconciliazione dopo Natale.
+S60|SI|SI|NA|SI|NO|Veterinario subito, giusto; al limite seguito generico sull'istinto.

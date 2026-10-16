@@ -1,0 +1,26 @@
+saluto finito 1790510542.124
+frase 1, inizio 1790510544.972: Aura, domani ho un colloquio di lavoro e mi tremano le mani. Come mi preparo?
+detta in 6.5 secondi
+frase 1, fine 1790510553.044
+frase 1 trascritta 1790510554.725
+frase 1: risposta finita 1790510602.551
+frase 2, inizio 1790510607.507: Aura, mia sorella non mi parla da una settimana. Che cosa faccio?
+detta in 5.8 secondi
+frase 2, fine 1790510614.455
+frase 2 trascritta 1790510616.195
+frase 2: risposta finita 1790510660.079
+frase 3, inizio 1790510665.083: Aura, quale chakra devo curare se mi sento sempre stanco la mattina?
+detta in 5.3 secondi
+frase 3, fine 1790510671.094
+frase 3 trascritta 1790510672.983
+frase 3: risposta finita 1790510714.319
+frase 4, inizio 1790510719.481: Aura, ho fatto la respirazione che mi hai detto, e adesso?
+detta in 4.9 secondi
+frase 4, fine 1790510724.998
+frase 4 trascritta 1790510726.981
+frase 4: risposta finita 1790510772.557
+frase 5, inizio 1790510777.811: Aura, ho scritto nel diario quello che mi pesa. Adesso cosa ne faccio?
+detta in 6 secondi
+frase 5, fine 1790510784.521
+frase 5 trascritta 1790510786.614
+frase 5: risposta finita 1790510835.891

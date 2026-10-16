@@ -1,0 +1,12 @@
+maestro caligo, inizio 01:49:04
+sessione chiesta a 1.6 s
+saluto finito a 12.1 s (1 voci finite)
+domanda 1 detta a 13.4 s (01:49:18): Calìgo, è il momento giusto per avviare il mio progetto creativo?
+  voce finita a 54.7 s
+domanda 2 detta a 56.6 s (01:50:01): E in pratica, cosa faccio questa settimana?
+  voce finita a 86.4 s
+domanda 3 detta a 88.3 s (01:50:33): Quale rito mi aiuta a cominciare?
+  voce finita a 111.6 s
+domanda 4 detta a 113.5 s (01:50:58): E se le cose non vanno come speri?
+  voce finita a 145.6 s
+croce toccata a 147.5 s

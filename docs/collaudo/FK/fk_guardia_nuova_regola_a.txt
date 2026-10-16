@@ -1,0 +1,9 @@
+
+== ordine_fk_guard: il marcatore delle chiuse alzato
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== ordine_fk_guard: una voce rinominata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

@@ -1,0 +1,230 @@
+# ORDINE BD, il manifesto
+
+**I MAESTRI GRANDI E I SOSPESI.** Nove voci, dalla BD.00 alla BD.08 (l'ottava arrivata dal fondatore a lavoro in corso), sul ramo
+`claude/esoteric-circle-master-order-e798aj`. Nasce dal collaudo della build
+2198 e raccoglie i lavori che i responsi degli ordini AU, BB e BC avevano
+dichiarati aperti.
+
+## Come si legge questo file
+
+Ogni voce porta uno stato fra cinque: CHIUSA, APERTA, FERMATA SU PREMESSA
+FALSA, FERMATA IN ATTESA DI DECISIONE, FERMATA SU DECISIONE DEL FONDATORE. In
+fondo ci sono i marcatori, che la guardia `test/ordine_bd_guard_test.dart`
+conta sulle righe.
+
+## Le premesse, verificate prima di lavorare
+
+**Sei premesse su sette sono esatte. Una e' falsa e si dichiara qui con la via
+scelta, invece di adattare in silenzio.**
+
+### BD.01: esatta
+
+Sulla build 2198 il busto centrale misura 247 punti su schermo alto e le tre
+carte non si toccano: fra la centrale e ciascuna laterale c'e' aria. Le parole
+del fondatore chiedono l'opposto: cosi' grandi che la centrale copra in parte
+le laterali, e la sovrapposizione E' la profondita'. Restano ferme le
+decisioni gia' prese: davanti ai testi, interi a ogni inclinazione, tocco vivo
+su tutti e tre.
+
+### BD.02: esatta
+
+3.288 passate e 38 cadute, contate dal giro intero della suite dopo l'ultima
+riga della coda di BC.01. La preesistenza e' gia' stata verificata due volte:
+ricostruendo l'albero di prima dell'ordine BC in un worktree su `e5507912`, e
+scambiando il solo file del Santuario. La bonifica era un'offerta del responso
+BC: il fondatore accetta, quindi ogni caduta diventa verde o viene dichiarata
+una per una col motivo per cui resta.
+
+### BD.03: esatta al numero
+
+Contato sul catalogo vero, `assets/data/luoghi.csv`: **8.438 luoghi italiani**
+(il terzo campo porta la provincia) e **3.108 luoghi esteri in 241 paesi** (il
+terzo campo porta il paese). L'Italia si disegna dai suoi luoghi con
+`mappa_della_nazione.dart`; ogni altro paese vede il planisfero. **E il buco
+del catalogo e' confermato: 116 paesi hanno una sola citta'**, quindi
+qualunque strada disegni gli altri paesi dai loro luoghi trovera' 116 nazioni
+con un punto solo. Il buco resta dichiarato e NON si sana in questa voce.
+
+### BD.04: esatta
+
+Dichiarata dal responso BB e ancora vera: sullo schermo 320 per 568 il blocco
+del cielo pesa piu' della meta' dell'altezza e i Maestri si vedono appena. Si
+chiude INSIEME a BD.01, perche' ingrandire i Maestri e liberare lo schermo
+piccolo sono la stessa geometria guardata da due schermi diversi.
+
+### BD.05: esatta
+
+Dichiarata dal responso AU: i gradini dell'identita' maturano tutti nello
+stesso istante alla fine dell'onboarding, la coda delle feste li mostra uno
+per volta ma la causa sta nelle condizioni dei traguardi, che l'onboarding
+soddisfa in blocco. L'effetto voluto dal fondatore resta quello di allora: una
+sola festa alla fine dell'onboarding, le altre legate a gesti veri successivi.
+
+### BD.06: esatta sulla card, e il dato sta meglio di come l'ordine temeva
+
+La scritta "obiettivo raggiunto il [data e ora]" non esiste in nessun
+riquadro, verificato su `lib/`. **Ma l'istante e' gia' salvato dall'ordine
+AP**: `DiarioDelCammino` custodisce `cammino.accesi.quando` e la legge
+`quandoSiEAcceso(id)` dichiara gia' la regola giusta, i Sigilli accesi prima
+dell'ordine AP non hanno data e non se ne inventa una. Qui si aggiunge la
+scritta alla card, non il dato.
+
+### BD.07: UNA PREMESSA E' FALSA, e la via scelta si dichiara qui
+
+Il file dell'Architetto ordina di rigenerare `horoscope_data.dart` con
+`tool/_gen_oroscopo.py` **e quello strumento non esiste**: mai committato,
+verificato con `git log --all` sull'intera storia del repo. L'intestazione di
+`horoscope_data.dart` lo nomina, ma chi lo uso' non lo consegno' mai.
+
+**La via scelta**: lo strumento si scrive adesso, con quel nome, e la prova
+della sua fedelta' e' il giro di andata e ritorno: rigenerato dal corpus
+ATTUALE deve riprodurre il `horoscope_data.dart` attuale. Solo dopo quella
+prova si sostituiscono le ancore. Se il giro non torna, la voce si ferma e lo
+si dice.
+
+Il resto del file dell'Architetto combacia col codice e col corpus: la sezione
+"Le ancore dei dodici segni" sta a riga 43 di `docs/corpus/oroscopo.md`, i
+dodici titoli di segno coincidono, e `oroscopo_share_card.dart` mostra davvero
+la sintesi nuda.
+
+## Le voci
+
+- **BD.00** Manifesto e verifica delle premesse. Stato: CHIUSA
+- **BD.01** I Maestri ancora piu' grandi, con la sovrapposizione. Stato: CHIUSA
+- **BD.02** Le 38 prove rosse, la bonifica. Stato: CHIUSA, coi rossi che restano dichiarati uno per uno
+- **BD.03** Il mondo oltre l'Italia. Stato: CHIUSA, col buco dei 116 paesi reso visibile e dichiarato
+- **BD.04** Lo schermo piccolo. Stato: CHIUSA
+- **BD.05** I gradini dell'identita' che maturano insieme. Stato: CHIUSA
+- **BD.06** La data e l'ora sulla card del traguardo. Stato: CHIUSA
+- **BD.07** Le quarantotto ancore dell'Oroscopo. Stato: CHIUSA, con le 48 virgole tolte per il precedente del fondatore
+- **BD.08** Le feste non partono, voce speciale del fondatore. Stato: CHIUSA, con la decisione "festa sempre, subito"
+
+## L'ordine di lavoro, deciso qui
+
+1. **BD.07**, per prima perche' e' autonoma dal resto: corpus, generatore da
+   scrivere con la prova di andata e ritorno, due guardie, anteprime della
+   card guardate.
+2. **BD.06**, che e' una scritta e un dato gia' esistente da mostrare.
+3. **BD.05**, che e' la regia delle feste e va misurata con un onboarding
+   simulato.
+4. **BD.01 e BD.04 insieme**, perche' sono la stessa geometria: i Maestri
+   crescono fino a sovrapporsi e lo schermo piccolo li deve vedere.
+5. **BD.03**, il mondo, che tocca la mappa e il catalogo.
+6. **BD.02 per ultima**, perche' la bonifica misura la geometria che BD.01 ha
+   appena cambiato: bonificare prima vorrebbe dire bonificare due volte.
+
+## Cosa BD.07 ha trovato e deciso, e va detto
+
+**Lo strumento mancante e' stato scritto**, `tool/_gen_oroscopo.py`, e la sua
+fedelta' e' provata dal giro di andata e ritorno: PRIMA di toccare le ancore
+ha rigenerato dal corpus di quel momento il `horoscope_data.dart` allora in
+vigore, carattere per carattere. Solo dopo quella prova le ancore nuove sono
+entrate. Il giro resta verde anche dopo l'innesto.
+
+**Le 48 virgole prima della "e", una per ancora.** Ogni ancora dell'Architetto
+portava una virgola prima della "e", e la regola della casa la vieta in ogni
+stringa di `lib`. Non e' stata chiesta una deroga, perche' il fondatore l'ha
+gia' negata una volta con la ragione scritta nella prova stessa: quella
+virgola e' sempre stilistica e mai portante, si toglie senza cambiare il
+senso, e una regola con un elenco di eccezioni diventa un elenco che nessuno
+mantiene. Le 48 virgole sono state tolte applicando quel precedente, il testo
+non e' stato toccato in nessun altro punto, e il fondatore puo' rovesciare la
+scelta con una parola.
+
+**Gli accenti sono stati resi nella forma tipografica del corpus** con una
+mappa esplicita di venticinque parole, e ogni parola non mappata avrebbe
+fermato l'innesto invece di indovinare.
+
+**E l'anteprima ha trovato un difetto suo**: sulla card del Toro il titolo
+"L'abbondanza concreta" usciva spezzato in mezzo alla parola, "L'ABBONDANZ A".
+La bolla prometteva nel commento "va a capo e si rimpicciolisce" ma il
+rimpicciolimento non esisteva. Adesso esiste, con quattro punti di respiro dal
+bordo, perche' scalare al pareggio lasciava la parola a un decimo di punto dal
+limite. La cattura della card copre ora TRE segni invece di uno, Ariete, Toro
+e Pesci, e le tre anteprime sono state guardate.
+
+## Cosa BD.03 ha scelto, e il buco che rende visibile
+
+**La strada e' la REGIONE DEL MONDO.** L'Italia resta disegnata dalle sue
+8.438 citta'; per ogni altro paese la finestra si stringe sulla regione
+attorno alle sue citta': le coste arrivano dai poligoni grossolani che il
+planisfero ha gia', dipinte tenui e ferme, e sopra brillano le citta' vere
+del catalogo con la stella del luogo scelto. Nessun asset nuovo, nessuna
+licenza, nessuna rete. Guardate a video le tre nature: la Cina (430 citta'
+sulla costa orientale, finestra di 61 gradi), la Liberia (una citta' sola,
+finestra allargata al minimo di 16 gradi con la costa dell'Africa
+occidentale attorno a Monrovia), e l'Italia immutata.
+
+**E il buco dichiarato dall'ordine adesso si vede**: chi nasce in uno dei
+116 paesi con una sola citta' vede la sua regione con un punto solo. Non e'
+un difetto del disegno, e' la fotografia del catalogo: si sana solo
+infittendo `assets/data/luoghi.csv`, che resta lavoro di un altro giorno. La
+prova `il_mondo_oltre_l_italia_test.dart` tiene il conto: se le citta' della
+Liberia salgono, il buco si sta chiudendo.
+
+## Cosa BD.02 ha bonificato, e i rossi che restano dichiarati
+
+**La causa piu' grande era una finestra che nessun telefono ha.** Le prove che
+navigano dal Santuario montavano l'app sul default 800x600, largo e corto: li'
+la striscia dei Doni copre la fascia in cui il busto sborda e il tocco sul
+Maestro centrale muore. Pinnata la finestra 390x844 dove mancava, con la nota
+estesa in `chat_header_test`. Con lei sono tornate verdi le famiglie della
+chat, della navigazione, degli accenti e dell'archetipo.
+
+**Quattro pretese superate da decisioni posteriori sono state rimirate**, ognuna
+con la storia scritta dentro: il ponte verso il Soffio (tolto da BB.07), le
+parole dell'invito dell'archetipo (cambiate da BC.03), la snackbar dei sei
+secondi (voluta da BB.08), e il pavimento del busto a 220 (declassato da
+AU.05). Le due prove dell'occlusione a zero pixel sono state rimirate alla
+legge di BC e BD, i Maestri davanti con copertura leggera. **E due difetti
+veri sono stati curati**: la punta del petalo del Loto e la corona
+dell'Albero dipingevano nell'ultimo anello di pixel della tela dell'arte
+(quattro punti d'aria in cima, condivisi da fondo e luci), e la variabile
+`perche` dell'Alba finiva nell'esame degli accenti.
+
+**I rossi che restano, dichiarati col motivo:**
+
+1. **L'attribuzione cieca** (`i_doni_e_la_chat_davanti_all_anatomia`): nasce
+   rossa perche' dice il vero, 70,0 e 78,3 per cento contro una soglia di 85.
+   Si rifa' solo con una sessione Vertex dal PC del fondatore, ed e' il rosso
+   ammesso dichiarato fin dall'ordine S.
+2. **Un traguardo acceso pesa uguale** (`un_traguardo_acceso_pesa_uguale`):
+   il rapporto e' 5,1 contro un tetto di 2 (costellazione 4.632, albero
+   3.183, loto 911). **La causa e' un nodo fra due decisioni del fondatore**:
+   AB.02 vuole pesi uguali, AG.02 ha tolto l'alone al Loto perche' tingeva i
+   petali di blu, ed e' proprio l'alone il peso che manca. Non si cura senza
+   una sua scelta: alone diverso per il Loto, dischi piu' grandi, o tetto
+   rivisto.
+3. **Le quattro guardie degli ordini AC, AX, T e U**: rosse per costruzione
+   finche' quelle voci restano aperte, ed e' il loro mestiere. Dentro AX ci
+   sono voci che il lavoro successivo ha probabilmente gia' chiuso (la misura
+   sui pixel e' di BA.02, il Passaporto che porta a sbloccare ha la sua prova
+   verde): riconciliare quei manifesti e' lavoro da custode, non una riga da
+   cambiare al volo.
+
+## Cosa BD.08 ha misurato e deciso
+
+**Le feste FUNZIONAVANO ed erano TRATTENUTE.** Misurato con una prova:
+diciassette strade dei gesti, tutte convergenti nell'unica porta della regia,
+nessuna festa persa; ma dopo la prima festa, le regole dell'ordine AU (una
+festa per apertura dell'app e tre ore fra due feste) tenevano in coda IN
+SILENZIO ogni altra. Chi prova l'app intensamente matura traguardi a minuti
+di distanza: dalla poltrona del fondatore era identico a "non funzionano".
+
+**La scelta e' stata proposta al fondatore con la misura, e ha deciso: FESTA
+SEMPRE, SUBITO.** Una maturazione fresca festeggia nell'istante del gesto;
+se una festa e' gia' a schermo la prossima entra in coda e riparte appena
+quella si chiude; la distanza scende da tre ore a novanta secondi e vale
+solo per il guardiano che riprende la coda a freddo; il limite di una festa
+per apertura non esiste piu'. Le prove di AU e AC che sorvegliavano le
+regole vecchie sono state rimirate alla legge nuova, ognuna con la
+dichiarazione del cambio scritta dentro.
+
+## I marcatori
+
+VOCI_TOTALI: 9
+VOCI_APERTE: 0
+VOCI_CHIUSE: 9
+VOCI_FERMATE_SU_PREMESSA_FALSA: 0
+VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0

@@ -1,0 +1,93 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: vi sono congiunzioni favorevoli per il riconoscimento delle tue capacità. Il transito di Giove in aspetto armonico al tuo Sole indica un periodo propizio per la crescita professionale, specialmente intorno alla prossima Luna Nuova.
+
+✦ Prepara un piccolo riepilogo dei tuoi successi recenti per quella data.
+[2] PERSONA: Prepara un piccolo riepilogo dei tuoi successi recenti per quella data.
+[2] MEDORA [DA GIUDICARE]: Bene hai colto le mie parole, è un gesto importante per orientare il tuo cammino. Per quel giorno, seleziona solo i progetti conclusi che hanno portato a un risultato tangibile e misurabile, focalizzandoti su come il tuo contributo personale abbia influito sul successo complessivo.
+
+✦ Scrivi su un foglio tre risultati concreti che dimostrano le tue competenze.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza e la sviluppa, fornendo dettagli su come preparare il riepilogo e aggiungendo un nuovo passo specifico.
+[3] PERSONA: Scrivi su un foglio tre risultati concreti che dimostrano le tue competenze.
+[3] MEDORA [DA GIUDICARE]: Hai afferrato il cuore della questione. Quei tre risultati sono il tuo biglietto da visita per il Destino. Ora, non lasciare che restino solo parole: visualizza ciascuno di questi risultati come se stessi raccontando una breve storia, evidenziando il problema che hai risolto e il beneficio che ne è derivato.
+
+✦ Immagina di presentare questi tre punti a qualcuno che non ti conosce affatto, ad alta voce.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza sui tre risultati concreti e la sviluppa, indicando come visualizzarli e presentarli.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Spostarsi può portare un cambiamento necessario quando il tuo respiro sente la necessità di un nuovo spazio, un nuovo orizzonte. Ascolta il centro della radice, quello che ti lega alla terra e alla tua sicurezza, per capire se è davvero un desiderio profondo di ricominciare o un bisogno di fuga.
+
+Quando senti un richiamo forte verso un altrove, è il tuo corpo che ti parla, forse ti chiede di espandere le tue radici in un terreno diverso. Non è una fuga, ma un movimento, una naturale evoluzione del tuo essere. Prova a sentire dove il tuo respiro è più libero, più ampio.
+
+✦ Prima di decidere, siediti per qualche istante e visualizza il luogo che ti chiama, percepisci la sua energia.
+[2] PERSONA: Prima di decidere, siediti per qualche istante e visualizza il luogo che ti chiama, percepisci la sua energia.
+[2] AURA [DA GIUDICARE]: Hai già compiuto un passo importante, hai sentito il richiamo di un luogo. Ora porta l'attenzione al tuo chakra del cuore, il centro dell'amore e della compassione: visualizza questo luogo che ti attrae e osserva come risuona con le tue emozioni più profonde.
+
+Se senti un'espansione, una sensazione di apertura e calore, è un buon segno: significa che quel luogo può nutrire la tua anima. Se invece percepisci una contrazione, un senso di chiusura o di ansia, quel luogo potrebbe non essere ancora pronto ad accoglierti o tu a riceverlo.
+
+✦ Porta una mano sul centro del cuore e senti l'eco di questo luogo dentro di te.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('visualizza il luogo che ti chiama') e la sviluppa, indicando di portare l'attenzione al chakra del cuore per percepire la risonanza emotiva.
+[3] PERSONA: Porta una mano sul centro del cuore e senti l'eco di questo luogo dentro di te.
+[3] AURA [DA GIUDICARE]: Ora che hai percepito l'eco di quel luogo, senti come risuona nel tuo centro della gola, che è il chakra della comunicazione e dell'espressione. Chiediti cosa ti vorresti dire su questo luogo, quale verità emerge dal tuo profondo riguardo a questo trasferimento.
+
+Ascolta la tua voce interiore, quella che non mente, quella che ti indica la via. Potrebbe essere un sussurro o un'affermazione chiara. Questo ti aiuterà a capire se il desiderio di ricominciare altrove è una vera espressione di te o un'idea che ancora deve trovare la sua forma.
+
+✦ Scrivi su un foglio le prime tre parole che ti vengono in mente pensando a questo luogo e al tuo trasferimento.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('senti l'eco di questo luogo dentro di te') e la sviluppa, indicando di sentire come risuona nel chakra della gola per capire la verità interiore sul trasferimento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: La relazione si può trasformare. Affronta la soglia del cambiamento senza indugio.
+Un velo sottile di brina ricopre ora ciò che un tempo ardeva.
+Il presagio della runa Uruz indica forza e perseveranza, ma anche il bisogno di rinnovamento. Non temere di forgiare un nuovo sentiero. Parla con chiarezza del tuo desiderio di rinascita del legame, guardando negli occhi la persona che ami.
+
+✦ Scrivi su un foglio bianco le parole "rinnovamento" e "verità", ponilo sotto il tuo cuscino per una settimana.
+[2] PERSONA: Scrivi su un foglio bianco le parole "rinnovamento" e "verità", ponilo sotto il tuo cuscino per una settimana.
+[2] CALIGO [DA GIUDICARE]: Il rito è avviato. Lascia che la magia si compia, nutrendo la tua intenzione.
+La potenza del sigillo si manifesta nel silenzio, nella tua attesa. Non affrettare i tempi del cuore. La runa Gebo ti accompagna, simbolo di scambio e unione, suggerendo che il dono della verità porterà armonia.
+
+✦ Al settimo giorno, brucia il foglio e spargi le ceneri al vento, affidando il tuo intento al divenire.
+    GIUDICE: PORTA_AVANTI, La guida riprende il rito che aveva suggerito e che la persona ha confermato di voler fare, sviluppandolo con ulteriori istruzioni e significati.
+[3] PERSONA: Al settimo giorno, brucia il foglio e spargi le ceneri al vento, affidando il tuo intento al divenire.
+[3] CALIGO [DA GIUDICARE]: Il rito è giunto al suo compimento. Ora è il momento di un'azione concreta.
+Le ceneri portano via il passato, lasciando spazio al nuovo. La runa Sowilo illumina il tuo percorso, indicando chiarezza e successo. La luce del metallo ti guida verso la rivelazione.
+
+✦ Ora che il rito è concluso, chiedi un incontro sereno alla persona amata, domani stesso, senza timore.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione del rito data nella risposta precedente (bruciare il foglio) e ne descrive il compimento, aggiungendo poi un'azione successiva e concreta.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto creativo; attendi la prossima Luna nuova. Il cielo mostra un transito di Mercurio retrogrado che tende a ritardare gli inizi e a favorire invece la revisione e la pianificazione.
+
+✦ Rivedi il tuo progetto con calma nella prossima settimana.
+[2] PERSONA: Rivedi il tuo progetto con calma nella prossima settimana.
+[2] MEDORA [DA GIUDICARE]: Ora che hai avuto il tempo di rivedere il tuo progetto con calma, è il momento di concentrarti sui dettagli più sottili e sulle eventuali imperfezioni. La fase crescente della Luna è propizia per affinare le tue idee e per dare forma concreta alle tue visioni.
+
+✦ Scrivi un elenco di cinque punti deboli del tuo progetto e cerca una soluzione per ciascuno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Rivedi il tuo progetto con calma') e la sviluppa, indicando il passo successivo ('concentrarti sui dettagli più sottili e sulle eventuali imperfezioni') e fornendo una nuova azione specifica.
+[3] PERSONA: Scrivi un elenco di cinque punti deboli del tuo progetto e cerca una soluzione per ciascuno.
+[3] MEDORA [DA GIUDICARE]: Hai individuato i punti deboli del tuo progetto, e questo è un segno di chiarezza. Ora, il cielo ti invita a guardare questi aspetti non come ostacoli, ma come tessere mancanti per completare il tuo disegno. Marte in quadratura alla tua Luna suggerisce di trasformare ogni incertezza in un'occasione per rafforzare la tua visione.
+
+✦ Per ogni punto debole che hai identificato, pensa a una persona o a una risorsa specifica che potrebbe aiutarti a risolverlo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione richiesta nella risposta precedente ('Scrivi un elenco di cinque punti deboli del tuo progetto e cerca una soluzione per ciascuno') e la sviluppa, fornendo una nuova prospettiva e un'ulteriore azione specifica basata sui punti deboli identificati.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi avvicinarti a lei con un gesto che apra il cuore, come un piccolo oggetto che sai le sia caro, simbolo di un ricordo condiviso. Lascia che la tua intenzione fluisca prima ancora delle parole.
+
+Trova un momento in cui entrambe siate serene, magari non appena vi vedete o in un attimo di pausa della giornata, per offrirle questo segno e poi dire con calma ciò che senti. Il tuo respiro può accompagnare le tue parole, rendendole più morbide. Ogni parola, ogni pausa, ogni sguardo porta con sé un'energia che può sciogliere le tensioni. A volte, un abbraccio silenzioso può dire più di mille parole. La fisiognomica ci insegna che il viso, anche in silenzio, rivela la nostra interiorità: lascia che il tuo volto esprima l'apertura e il desiderio di riconciliazione.
+
+✦ Porta con te un oggetto che vi lega a un bel ricordo prima di parlarle.
+[2] PERSONA: Porta con te un oggetto che vi lega a un bel ricordo prima di parlarle.
+[2] AURA [DA GIUDICARE]: Ora che hai con te quell'oggetto, quando sarà il momento di incontrarla, tieni quell'oggetto tra le mani per un istante, sentendone il calore, il peso, la forma. Questo gesto ti aiuterà a richiamare l'energia di quel ricordo, portandola nel tuo respiro e facendola vibrare nel tuo centro del cuore, verde smeraldo come la speranza che si rinnova.
+
+✦ Chiudi gli occhi per un momento, stringendo l'oggetto, prima di porgerglielo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di portare l'oggetto e lo sviluppa, aggiungendo un'azione specifica (tenerlo tra le mani e sentirlo) prima di porgerlo.
+[3] PERSONA: Chiudi gli occhi per un momento, stringendo l'oggetto, prima di porgerglielo.
+[3] AURA [DA GIUDICARE]: Dopo aver chiuso gli occhi e aver sentito la presenza di quell'oggetto tra le tue mani, è il momento di lasciarlo andare e di porgerlo a lei. Mentre glielo offri, cerca il suo sguardo e lascia che le tue parole fluiscano dal tuo centro della gola, un azzurro limpido, dicendole semplicemente che questo oggetto ti ha ricordato un momento speciale vostro, un legame che senti ancora forte. Non aspettare una risposta immediata, lascia che il suo respiro si unisca al tuo.
+
+✦ Poggia la tua mano sinistra sul tuo cuore mentre le parli.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di chiudere gli occhi con l'oggetto e prosegue la sequenza di azioni, descrivendo cosa fare dopo (porgerlo e parlare).
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

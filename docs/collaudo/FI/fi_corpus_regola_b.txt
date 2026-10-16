@@ -1,0 +1,25 @@
+== la_stesa_interpreta_davvero: una chiave del corpus sparita (lib/core/tarot/le_carte_nella_posizione_dati.dart)
+   innesto: "'futuro|Il Mondo|capovolta': [" -> "'futuro|Il Mondo|capovolta_TOLTA': ["
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== tarot_interpretazione: la lettura di casa torna al significato (lib/core/tarot/tarot_reading.dart)
+   innesto: 'LeCarteNellaPosizione.letturaDiCasa(drawn, topic.group,' -> 'drawn.meaning ?? LeCarteNellaPosizione.letturaDiCasa(drawn, topic.group,'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== la_stesa_si_conserva: la conservazione spenta (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto: 'return LaStesaConservata.conserva(firma, carte, uscite: uscite);' -> 'return Future<void>.value();'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== niente_resta_di_te: la chiave delle uscite tolta da cio che e tuo (lib/core/identity/cio_che_e_tuo.dart)
+   innesto: "'tarot.uscite_delle_carte'," -> '// innesto: la chiave delle uscite tolta'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le_memorie_tornano_col_tuo_account: la chiave delle uscite tolta (lib/core/cammino/le_memorie_custodite.dart)
+   innesto: "'tarot.stesa_conservata', 'tarot.uscite_delle_carte']" -> "'tarot.stesa_conservata']"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si

@@ -1,0 +1,21 @@
+saluto finito 1790498855.486
+frase 1, inizio 1790498858.663: Ok, gli ho scritto adesso.
+detta in 3 secondi
+frase 1, fine 1790498864.317
+frase 1 trascritta 1790498868.572
+frase 1: risposta finita 1790498880.563
+frase 2, inizio 1790498885.312: Ok, le ho scritte e adesso cosa faccio?
+detta in 3.8 secondi
+frase 2, fine 1790498891.025
+frase 2 trascritta 1790498894.861
+frase 2: risposta finita 1790498926.795
+frase 3, inizio 1790498933.532: Da dove comincio, dal lavoro o dal viaggio?
+detta in 3.9 secondi
+frase 3, fine 1790498940.124
+frase 3 trascritta 1790498941.929
+frase 3: risposta finita 1790498976.013
+frase 4, inizio 1790498983.328: Ho paura che in Australia mi senta solo.
+detta in 3.4 secondi
+frase 4, fine 1790498988.235
+frase 4 trascritta 1790498990.323
+frase 4: risposta finita 1790499021.493

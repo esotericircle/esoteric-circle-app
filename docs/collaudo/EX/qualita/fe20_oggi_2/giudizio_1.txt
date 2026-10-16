@@ -1,0 +1,60 @@
+S01|SI|SI|NA|SI|NA|Risponde col the per la sorella e il gesto, usa il litigio di Natale.
+S02|SI|NA|NA|SI|SI|Posizione netta sul prestito con gesto concreto, il seguito scende su Gebo e sul legame.
+S03|SI|SI|NA|SI|NA|Dice cosa portare, un oggetto di ferro o bronzo, sul colloquio di fine mese.
+S04|SI|NA|NA|SI|SI|Risponde col respiro e il gesto, anche se infila colloquio e veterinario fuori tema.
+S05|NO|NA|SI|SI|SI|Le prime due frasi sono una premessa generica, la Luna in Vergine calante arriva solo dopo ed e' giusta.
+S06|SI|NA|NA|SI|SI|Indica come attraversare la settimana con un gesto, il seguito approfondisce lo stesso punto.
+S07|SI|NA|SI|SI|SI|Elenca correttamente i cinque retrogradi e il seguito li approfondisce uno per uno.
+S08|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda, esatta, con gesto e seguito pertinente.
+S09|NO|SI|NA|SI|NO|Dice come certo che il legame con Ombra si mantiene e il seguito passa al colloquio.
+S10|SI|NO|NA|SI|SI|Risponde col si condizionato ma non usa mai Marco ne' i tre mesi di conoscenza.
+S11|SI|NA|NA|SI|SI|Sceglie la periferia con ragione e gesto, il seguito scende sulla stessa scelta.
+S12|SI|NA|NA|NO|NA|Massima sul decidere, non tocca l'insonnia e il gesto cita una sorella non richiesta.
+S13|SI|NA|SI|SI|SI|Luna in Vergine calante corretta, gesto pratico, seguito che approfondisce.
+S14|NO|NA|SI|NO|NA|Manca la riga col gesto e la risposta resta vaga senza un passo concreto.
+S15|SI|SI|NA|SI|SI|Usa la paura di deludere la madre con un gesto concreto, il seguito resta sul cuore.
+S16|SI|SI|NA|SI|NO|Manda subito dal veterinario, ma il seguito ripete l'urgenza senza scendere.
+S17|SI|NO|NA|SI|SI|Usa la meditazione mattutina ma costruisce tutto su un colloquio che non e' fra i fatti della memoria.
+S18|SI|NO|NA|SI|NA|Gesto di respiro pertinente ma ignora che dorme male prima delle scadenze.
+S19|SI|NA|NA|SI|SI|Indica di guardare le spese una a una e un gesto, il seguito resta sulla radice.
+S20|SI|NO|NA|SI|NA|Pratica di respiro concreta ma ignora il fatto che dorme male prima delle scadenze.
+S21|SI|NO|NA|SI|SI|Usa la ceramica ma aggiunge sorella e colloquio che non sono fra i fatti della memoria.
+S22|NO|NO|NA|SI|SI|Le prime due frasi sono premessa sul respiro e il seguito introduce un colloquio non in memoria.
+S23|SI|NA|SI|SI|SI|Retrogradi esatti, Venere e Mercurio in Scorpione giusti, seguito pertinente.
+S24|SI|NA|NA|NO|SI|Resta sul sentire la vergogna senza un passo concreto per rimettere ordine nelle spese.
+S25|SI|NA|SI|SI|SI|Posizione di Venere esatta, gesto e seguito che approfondisce.
+S26|NO|NO|NA|SI|SI|Dice che il veterinario non e' urgente, giudizio di salute, e ignora la meditazione mattutina.
+S27|SI|NA|SI|NO|NA|Luna in Leone calante giusta ma lettura generica senza nulla di personale ne' passo preciso.
+S28|NO|NA|NO|SI|SI|Dichiara Mercurio retrogrado, falso, e il gesto di tenere in mano l'Ascendente non e' concreto.
+S29|SI|NA|SI|SI|SI|Segno e fase esatti, aspetti del seguito corretti.
+S30|SI|NA|SI|SI|SI|Luna in Leone calante esatta, gesto e seguito pertinenti.
+S31|SI|SI|NA|SI|NO|Messaggio alla sorella concreto, ma il seguito resta vago e non scende.
+S32|SI|NO|NA|SI|SI|Usa il colloquio ma inventa una meditazione mattutina che non e' fra i fatti della memoria.
+S33|SI|NA|SI|SI|SI|Luna crescente in Bilancia e Giove e Urano in Bilancia esatti.
+S34|SI|NO|NA|SI|SI|Usa la paura verso la madre ma aggiunge meditazione e colloquio non presenti in memoria.
+S35|SI|NO|NA|NO|NA|Non parla mai della sorella ne' del primo passo verso di lei, solo respiro.
+S36|SI|NO|NA|SI|SI|Ignora Berlino e il lavoro in banca e cita sorella, Ombra e bottega non in memoria.
+S37|SI|NA|NA|SI|SI|Si presenta con le sue arti e quelle degli altri Maestri, il seguito precisa come aiuta.
+S38|SI|NA|SI|SI|SI|Giove in Vergine esatto, gesto e seguito coerenti.
+S39|SI|NA|NA|SI|SI|Sceglie la periferia con Fehu e gesto, il seguito scende sulla stessa runa.
+S40|SI|NO|NA|SI|SI|Usa il colloquio ma ignora il sonno e attribuisce un consiglio sulla sorella non in memoria.
+S41|NO|SI|NA|SI|SI|Suggerisce che la paura non si avvera e rimanda la chiamata, rassicurazione sulla salute.
+S42|SI|SI|NA|SI|NA|Dice cosa portare al colloquio, Ansuz e un oggetto, con gesto concreto.
+S43|SI|NA|SI|SI|SI|Giove in Vergine esatto, seguito che approfondisce.
+S44|SI|NA|SI|SI|SI|Saturno in Toro retrogrado esatto, gesto e seguito pertinenti.
+S45|SI|NA|NO|SI|SI|Il seguito dice Venere ancora retrograda, ma il 15 novembre e' diretta in Bilancia.
+S46|SI|NA|NA|SI|SI|Posizione chiara sull'attendere col gesto, seguito che scende sull'opposizione.
+S47|SI|NA|SI|SI|SI|Aspetti del 15 novembre riportati esatti, posizione e gesto concreti.
+S48|SI|NA|SI|NO|SI|Cielo esatto ma lettura non personale e gesto vago.
+S49|SI|NA|NA|NO|NA|Spinge a decidere ma ignora l'insonnia e non entra nella scelta.
+S50|SI|NA|NA|SI|SI|Respiro alla radice prima di dormire, gesto concreto, seguito sullo stesso punto.
+S51|SI|NO|NA|SI|SI|Usa Marco nel seguito ma aggiunge una meditazione mattutina non in memoria.
+S52|NO|NA|SI|NO|SI|Saturno in Toro esatto ma manca la riga col gesto e un passo concreto.
+S53|SI|NA|NA|SI|SI|Posizione chiara sul prestito con gesto, seguito su Nauthiz.
+S54|SI|NA|NA|SI|SI|Consiglia di chiedere tempo e annotare le cose irrinunciabili, aspetti coerenti.
+S55|SI|NA|NA|SI|NA|No per ora con motivo e gesto delle tre priorita'.
+S56|NO|NA|NA|SI|NA|Dice come certo che il ruolo sara' un'opportunita' di crescita importante.
+S57|SI|NO|NA|SI|SI|Usa la ceramica ma inserisce il colloquio, che non e' fra i fatti della memoria.
+S58|SI|NA|NA|SI|NO|Presentazione corretta, ma il seguito cambia argomento passando a respiro, parole e Ombra.
+S59|SI|NA|NA|SI|SI|Indica come attraversare la settimana con un gesto, seguito sullo stesso transito.
+S60|SI|NA|SI|SI|SI|Luna crescente a 3 gradi in Bilancia esatta, gesto e seguito pertinenti.

@@ -1,0 +1,2296 @@
+{
+ "nota": "Ordine FV voce FV.04. Generato da tool/lunario_fuori_corso_di_riferimento.py.",
+ "moon_tracks": {
+  "fonte": "https://www.moontracks.com/void_of_course_moon_aspects.html (e void_of_course_moon_dates.html), letta il 15 ottobre 2026, orari in UTC al minuto",
+  "intervalli": [
+   {
+    "inizio_utc": "2026-10-02T02:41:00Z",
+    "fine_utc": "2026-10-02T19:54:00Z",
+    "segno": "Gemelli",
+    "entra_in": "Cancro",
+    "aspetto": "Moon Sxt Jup"
+   },
+   {
+    "inizio_utc": "2026-10-03T15:08:00Z",
+    "fine_utc": "2026-10-04T22:54:00Z",
+    "segno": "Cancro",
+    "entra_in": "Leone",
+    "aspetto": "Moon Sqr Sat"
+   },
+   {
+    "inizio_utc": "2026-10-06T10:22:00Z",
+    "fine_utc": "2026-10-07T02:52:00Z",
+    "segno": "Leone",
+    "entra_in": "Vergine",
+    "aspetto": "Moon Cnj Jup"
+   },
+   {
+    "inizio_utc": "2026-10-07T18:56:00Z",
+    "fine_utc": "2026-10-09T08:10:00Z",
+    "segno": "Vergine",
+    "entra_in": "Bilancia",
+    "aspetto": "Moon Sxt Mer"
+   },
+   {
+    "inizio_utc": "2026-10-10T23:07:00Z",
+    "fine_utc": "2026-10-11T15:21:00Z",
+    "segno": "Bilancia",
+    "entra_in": "Scorpione",
+    "aspetto": "Moon Sxt Jup"
+   },
+   {
+    "inizio_utc": "2026-10-13T08:45:00Z",
+    "fine_utc": "2026-10-14T00:59:00Z",
+    "segno": "Scorpione",
+    "entra_in": "Sagittario",
+    "aspetto": "Moon Sqr Jup"
+   },
+   {
+    "inizio_utc": "2026-10-15T21:55:00Z",
+    "fine_utc": "2026-10-16T12:57:00Z",
+    "segno": "Sagittario",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun Sxt Moon"
+   },
+   {
+    "inizio_utc": "2026-10-18T16:12:00Z",
+    "fine_utc": "2026-10-19T01:39:00Z",
+    "segno": "Capricorno",
+    "entra_in": "Acquario",
+    "aspetto": "Sun Sqr Moon"
+   },
+   {
+    "inizio_utc": "2026-10-21T08:42:00Z",
+    "fine_utc": "2026-10-21T12:35:00Z",
+    "segno": "Acquario",
+    "entra_in": "Pesci",
+    "aspetto": "Sun Tri Moon"
+   },
+   {
+    "inizio_utc": "2026-10-23T03:31:00Z",
+    "fine_utc": "2026-10-23T19:53:00Z",
+    "segno": "Pesci",
+    "entra_in": "Ariete",
+    "aspetto": "Moon Tri Mer"
+   },
+   {
+    "inizio_utc": "2026-10-25T22:59:00Z",
+    "fine_utc": "2026-10-25T23:34:00Z",
+    "segno": "Ariete",
+    "entra_in": "Toro",
+    "aspetto": "Moon Opp Ven"
+   },
+   {
+    "inizio_utc": "2026-10-27T14:51:00Z",
+    "fine_utc": "2026-10-28T01:01:00Z",
+    "segno": "Toro",
+    "entra_in": "Gemelli",
+    "aspetto": "Moon Sqr Jup"
+   },
+   {
+    "inizio_utc": "2026-10-29T21:43:00Z",
+    "fine_utc": "2026-10-30T02:05:00Z",
+    "segno": "Gemelli",
+    "entra_in": "Cancro",
+    "aspetto": "Moon Tri Ven"
+   },
+   {
+    "inizio_utc": "2026-10-31T21:59:00Z",
+    "fine_utc": "2026-11-01T04:18:00Z",
+    "segno": "Cancro",
+    "entra_in": "Leone",
+    "aspetto": "Moon Sqr Ven"
+   },
+   {
+    "inizio_utc": "2026-11-03T00:10:00Z",
+    "fine_utc": "2026-11-03T08:27:00Z",
+    "segno": "Leone",
+    "entra_in": "Vergine",
+    "aspetto": "Moon Sxt Ven"
+   },
+   {
+    "inizio_utc": "2026-11-04T06:57:00Z",
+    "fine_utc": "2026-11-05T14:38:00Z",
+    "segno": "Vergine",
+    "entra_in": "Bilancia",
+    "aspetto": "Moon Sxt Mer"
+   },
+   {
+    "inizio_utc": "2026-11-07T13:19:00Z",
+    "fine_utc": "2026-11-07T22:40:00Z",
+    "segno": "Bilancia",
+    "entra_in": "Scorpione",
+    "aspetto": "Moon Sxt Jup"
+   },
+   {
+    "inizio_utc": "2026-11-09T23:25:00Z",
+    "fine_utc": "2026-11-10T08:35:00Z",
+    "segno": "Scorpione",
+    "entra_in": "Sagittario",
+    "aspetto": "Moon Sqr Jup"
+   },
+   {
+    "inizio_utc": "2026-11-12T11:29:00Z",
+    "fine_utc": "2026-11-12T20:27:00Z",
+    "segno": "Sagittario",
+    "entra_in": "Capricorno",
+    "aspetto": "Moon Tri Jup"
+   },
+   {
+    "inizio_utc": "2026-11-14T18:55:00Z",
+    "fine_utc": "2026-11-15T09:24:00Z",
+    "segno": "Capricorno",
+    "entra_in": "Acquario",
+    "aspetto": "Moon Sqr Ven"
+   },
+   {
+    "inizio_utc": "2026-11-17T14:25:00Z",
+    "fine_utc": "2026-11-17T21:19:00Z",
+    "segno": "Acquario",
+    "entra_in": "Pesci",
+    "aspetto": "Moon Opp Mar"
+   },
+   {
+    "inizio_utc": "2026-11-20T01:46:00Z",
+    "fine_utc": "2026-11-20T05:52:00Z",
+    "segno": "Pesci",
+    "entra_in": "Ariete",
+    "aspetto": "Sun Tri Moon"
+   },
+   {
+    "inizio_utc": "2026-11-22T07:38:00Z",
+    "fine_utc": "2026-11-22T10:09:00Z",
+    "segno": "Ariete",
+    "entra_in": "Toro",
+    "aspetto": "Moon Tri Mar"
+   },
+   {
+    "inizio_utc": "2026-11-24T10:09:00Z",
+    "fine_utc": "2026-11-24T11:09:00Z",
+    "segno": "Toro",
+    "entra_in": "Gemelli",
+    "aspetto": "Moon Sqr Mar"
+   },
+   {
+    "inizio_utc": "2026-11-26T05:23:00Z",
+    "fine_utc": "2026-11-26T10:51:00Z",
+    "segno": "Gemelli",
+    "entra_in": "Cancro",
+    "aspetto": "Moon Sxt Jup"
+   },
+   {
+    "inizio_utc": "2026-11-28T05:40:00Z",
+    "fine_utc": "2026-11-28T11:20:00Z",
+    "segno": "Cancro",
+    "entra_in": "Leone",
+    "aspetto": "Moon Sqr Ven"
+   },
+   {
+    "inizio_utc": "2026-11-30T10:10:00Z",
+    "fine_utc": "2026-11-30T14:12:00Z",
+    "segno": "Leone",
+    "entra_in": "Vergine",
+    "aspetto": "Moon Sxt Ven"
+   }
+  ]
+ },
+ "swiss_ephemeris_classica": {
+  "fonte": "pyswisseph 2.10.03, serie Moshier; corpi Sole, Mercurio, Venere, Marte, Giove, Saturno; aspetti 0 60 90 120 180",
+  "intervalli": [
+   {
+    "inizio_utc": "2025-12-31T06:58:08Z",
+    "fine_utc": "2025-12-31T13:13:05Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-01-02T07:09:28Z",
+    "fine_utc": "2026-01-02T13:09:00Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-01-04T07:44:28Z",
+    "fine_utc": "2026-01-04T13:43:26Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-01-04T13:43:26Z",
+    "fine_utc": "2026-01-06T16:56:47Z",
+    "entra_in": "Vergine",
+    "aspetto": "nessuno"
+   },
+   {
+    "inizio_utc": "2026-01-08T17:45:40Z",
+    "fine_utc": "2026-01-09T00:05:48Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Saturn 180"
+   },
+   {
+    "inizio_utc": "2026-01-10T17:54:13Z",
+    "fine_utc": "2026-01-11T10:55:19Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-01-13T17:32:45Z",
+    "fine_utc": "2026-01-13T23:33:47Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Saturn 240"
+   },
+   {
+    "inizio_utc": "2026-01-16T06:16:59Z",
+    "fine_utc": "2026-01-16T11:47:09Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Saturn 270"
+   },
+   {
+    "inizio_utc": "2026-01-18T19:52:01Z",
+    "fine_utc": "2026-01-18T22:17:58Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-01-19T02:02:37Z",
+    "fine_utc": "2026-01-21T06:49:39Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 0"
+   },
+   {
+    "inizio_utc": "2026-01-23T09:32:54Z",
+    "fine_utc": "2026-01-23T13:25:41Z",
+    "entra_in": "Ariete",
+    "aspetto": "Saturn 0"
+   },
+   {
+    "inizio_utc": "2026-01-24T21:36:21Z",
+    "fine_utc": "2026-01-25T18:05:19Z",
+    "entra_in": "Toro",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-01-27T17:57:47Z",
+    "fine_utc": "2026-01-27T20:55:00Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-01-29T19:56:37Z",
+    "fine_utc": "2026-01-29T22:31:41Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-01-31T21:51:51Z",
+    "fine_utc": "2026-02-01T00:08:57Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-02-02T13:55:17Z",
+    "fine_utc": "2026-02-03T03:21:13Z",
+    "entra_in": "Vergine",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-02-05T07:49:11Z",
+    "fine_utc": "2026-02-05T09:32:32Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Saturn 180"
+   },
+   {
+    "inizio_utc": "2026-02-07T11:59:29Z",
+    "fine_utc": "2026-02-07T19:13:07Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-02-10T07:00:58Z",
+    "fine_utc": "2026-02-10T07:21:50Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-02-12T19:28:42Z",
+    "fine_utc": "2026-02-12T19:44:22Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Saturn 270"
+   },
+   {
+    "inizio_utc": "2026-02-14T03:27:40Z",
+    "fine_utc": "2026-02-15T06:16:38Z",
+    "entra_in": "Acquario",
+    "aspetto": "Jupiter 180"
+   },
+   {
+    "inizio_utc": "2026-02-17T12:01:10Z",
+    "fine_utc": "2026-02-17T14:09:06Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-02-18T23:08:41Z",
+    "fine_utc": "2026-02-19T19:39:05Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mercury 0"
+   },
+   {
+    "inizio_utc": "2026-02-21T11:11:21Z",
+    "fine_utc": "2026-02-21T23:30:55Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-02-23T17:19:07Z",
+    "fine_utc": "2026-02-24T02:28:53Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mars 90"
+   },
+   {
+    "inizio_utc": "2026-02-25T23:00:16Z",
+    "fine_utc": "2026-02-26T05:11:06Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 120"
+   },
+   {
+    "inizio_utc": "2026-02-27T19:13:10Z",
+    "fine_utc": "2026-02-28T08:16:42Z",
+    "entra_in": "Leone",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-03-02T12:27:24Z",
+    "fine_utc": "2026-03-02T12:33:43Z",
+    "entra_in": "Vergine",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-03-04T14:41:49Z",
+    "fine_utc": "2026-03-04T18:55:47Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-03-05T23:22:18Z",
+    "fine_utc": "2026-03-07T04:01:27Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-03-08T15:41:32Z",
+    "fine_utc": "2026-03-09T15:36:30Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Sun 240"
+   },
+   {
+    "inizio_utc": "2026-03-11T09:38:30Z",
+    "fine_utc": "2026-03-12T04:07:07Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 270"
+   },
+   {
+    "inizio_utc": "2026-03-14T02:41:28Z",
+    "fine_utc": "2026-03-14T15:13:31Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 300"
+   },
+   {
+    "inizio_utc": "2026-03-15T12:42:04Z",
+    "fine_utc": "2026-03-16T23:15:37Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-03-19T01:23:29Z",
+    "fine_utc": "2026-03-19T04:02:59Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-03-20T09:23:21Z",
+    "fine_utc": "2026-03-21T06:35:07Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 0"
+   },
+   {
+    "inizio_utc": "2026-03-22T08:22:18Z",
+    "fine_utc": "2026-03-23T08:18:40Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-03-24T22:37:12Z",
+    "fine_utc": "2026-03-25T10:32:56Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 60"
+   },
+   {
+    "inizio_utc": "2026-03-27T06:53:51Z",
+    "fine_utc": "2026-03-27T14:10:11Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 90"
+   },
+   {
+    "inizio_utc": "2026-03-29T17:27:35Z",
+    "fine_utc": "2026-03-29T19:33:18Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-03-31T13:20:25Z",
+    "fine_utc": "2026-04-01T02:50:46Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-04-02T08:55:11Z",
+    "fine_utc": "2026-04-03T12:10:53Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-04-05T17:06:56Z",
+    "fine_utc": "2026-04-05T23:31:31Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-04-08T09:51:31Z",
+    "fine_utc": "2026-04-08T12:04:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-04-10T11:44:05Z",
+    "fine_utc": "2026-04-10T23:55:31Z",
+    "entra_in": "Acquario",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-04-12T19:47:26Z",
+    "fine_utc": "2026-04-13T08:55:34Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 300"
+   },
+   {
+    "inizio_utc": "2026-04-14T18:10:56Z",
+    "fine_utc": "2026-04-15T14:03:56Z",
+    "entra_in": "Ariete",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-04-17T11:51:48Z",
+    "fine_utc": "2026-04-17T15:57:47Z",
+    "entra_in": "Toro",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-04-19T06:43:52Z",
+    "fine_utc": "2026-04-19T16:17:38Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Venus 0"
+   },
+   {
+    "inizio_utc": "2026-04-20T05:17:28Z",
+    "fine_utc": "2026-04-21T17:00:15Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-04-23T18:52:20Z",
+    "fine_utc": "2026-04-23T19:40:43Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 60"
+   },
+   {
+    "inizio_utc": "2026-04-24T22:20:58Z",
+    "fine_utc": "2026-04-26T01:04:26Z",
+    "entra_in": "Vergine",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-04-27T11:11:53Z",
+    "fine_utc": "2026-04-28T09:02:44Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-04-30T08:51:39Z",
+    "fine_utc": "2026-04-30T19:01:50Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-05-02T08:47:24Z",
+    "fine_utc": "2026-05-03T06:33:29Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-05-04T21:33:28Z",
+    "fine_utc": "2026-05-05T19:06:06Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-05-07T14:18:27Z",
+    "fine_utc": "2026-05-08T07:27:25Z",
+    "entra_in": "Acquario",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-05-10T05:08:51Z",
+    "fine_utc": "2026-05-10T17:39:24Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 300"
+   },
+   {
+    "inizio_utc": "2026-05-12T10:04:15Z",
+    "fine_utc": "2026-05-13T00:03:40Z",
+    "entra_in": "Ariete",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-05-14T21:32:45Z",
+    "fine_utc": "2026-05-15T02:31:08Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 0"
+   },
+   {
+    "inizio_utc": "2026-05-17T01:02:06Z",
+    "fine_utc": "2026-05-17T02:23:01Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 0"
+   },
+   {
+    "inizio_utc": "2026-05-17T19:35:46Z",
+    "fine_utc": "2026-05-19T01:46:05Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-05-20T13:26:43Z",
+    "fine_utc": "2026-05-21T02:47:38Z",
+    "entra_in": "Leone",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-05-21T22:05:22Z",
+    "fine_utc": "2026-05-23T06:57:00Z",
+    "entra_in": "Vergine",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-05-25T00:54:10Z",
+    "fine_utc": "2026-05-25T14:34:09Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-05-27T11:32:17Z",
+    "fine_utc": "2026-05-28T00:52:32Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-05-30T00:04:38Z",
+    "fine_utc": "2026-05-30T12:44:48Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-05-31T13:21:00Z",
+    "fine_utc": "2026-06-02T01:19:15Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Saturn 240"
+   },
+   {
+    "inizio_utc": "2026-06-04T03:04:16Z",
+    "fine_utc": "2026-06-04T13:45:37Z",
+    "entra_in": "Acquario",
+    "aspetto": "Jupiter 180"
+   },
+   {
+    "inizio_utc": "2026-06-05T19:50:43Z",
+    "fine_utc": "2026-06-07T00:42:46Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 240"
+   },
+   {
+    "inizio_utc": "2026-06-09T00:38:27Z",
+    "fine_utc": "2026-06-09T08:33:20Z",
+    "entra_in": "Ariete",
+    "aspetto": "Jupiter 240"
+   },
+   {
+    "inizio_utc": "2026-06-11T08:22:13Z",
+    "fine_utc": "2026-06-11T12:28:08Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-06-13T07:30:11Z",
+    "fine_utc": "2026-06-13T13:06:02Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-06-15T02:54:11Z",
+    "fine_utc": "2026-06-15T12:14:15Z",
+    "entra_in": "Cancro",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-06-17T07:40:36Z",
+    "fine_utc": "2026-06-17T12:05:06Z",
+    "entra_in": "Leone",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-06-19T11:30:20Z",
+    "fine_utc": "2026-06-19T14:36:53Z",
+    "entra_in": "Vergine",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-06-21T17:33:08Z",
+    "fine_utc": "2026-06-21T20:54:55Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-06-24T04:11:08Z",
+    "fine_utc": "2026-06-24T06:43:17Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-06-26T17:10:03Z",
+    "fine_utc": "2026-06-26T18:40:55Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-06-28T05:04:49Z",
+    "fine_utc": "2026-06-29T07:18:35Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-07-01T11:50:46Z",
+    "fine_utc": "2026-07-01T19:32:51Z",
+    "entra_in": "Acquario",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-07-03T17:27:21Z",
+    "fine_utc": "2026-07-04T06:30:11Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-07-06T05:21:09Z",
+    "fine_utc": "2026-07-06T15:07:04Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mercury 240"
+   },
+   {
+    "inizio_utc": "2026-07-08T18:41:42Z",
+    "fine_utc": "2026-07-08T20:30:44Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-07-10T10:13:17Z",
+    "fine_utc": "2026-07-10T22:41:36Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-07-11T22:11:23Z",
+    "fine_utc": "2026-07-12T22:46:29Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-07-14T09:43:36Z",
+    "fine_utc": "2026-07-14T22:35:12Z",
+    "entra_in": "Leone",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-07-15T22:26:38Z",
+    "fine_utc": "2026-07-17T00:07:07Z",
+    "entra_in": "Vergine",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-07-18T22:13:14Z",
+    "fine_utc": "2026-07-19T04:56:33Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-07-21T11:05:35Z",
+    "fine_utc": "2026-07-21T13:34:33Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-07-22T21:48:30Z",
+    "fine_utc": "2026-07-24T01:06:59Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-07-25T14:58:12Z",
+    "fine_utc": "2026-07-26T13:44:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-07-28T06:11:08Z",
+    "fine_utc": "2026-07-29T01:46:10Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-07-30T21:26:50Z",
+    "fine_utc": "2026-07-31T12:13:52Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-08-02T12:33:11Z",
+    "fine_utc": "2026-08-02T20:36:47Z",
+    "entra_in": "Ariete",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-08-04T18:51:44Z",
+    "fine_utc": "2026-08-05T02:35:25Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 300"
+   },
+   {
+    "inizio_utc": "2026-08-06T23:25:01Z",
+    "fine_utc": "2026-08-07T06:07:46Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-08-09T05:27:04Z",
+    "fine_utc": "2026-08-09T07:45:40Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 0"
+   },
+   {
+    "inizio_utc": "2026-08-10T07:30:19Z",
+    "fine_utc": "2026-08-11T08:38:08Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-08-12T17:36:43Z",
+    "fine_utc": "2026-08-13T10:18:08Z",
+    "entra_in": "Vergine",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-08-13T12:43:59Z",
+    "fine_utc": "2026-08-15T14:19:43Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-08-17T11:30:35Z",
+    "fine_utc": "2026-08-17T21:46:03Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-08-20T02:46:23Z",
+    "fine_utc": "2026-08-20T08:30:07Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-08-22T20:30:52Z",
+    "fine_utc": "2026-08-22T20:59:06Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-08-24T06:30:03Z",
+    "fine_utc": "2026-08-25T09:01:40Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 90"
+   },
+   {
+    "inizio_utc": "2026-08-26T21:59:25Z",
+    "fine_utc": "2026-08-27T19:03:44Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-08-28T16:14:08Z",
+    "fine_utc": "2026-08-30T02:37:47Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-08-31T19:47:09Z",
+    "fine_utc": "2026-09-01T08:01:18Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-09-02T10:46:44Z",
+    "fine_utc": "2026-09-03T11:47:15Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 240"
+   },
+   {
+    "inizio_utc": "2026-09-05T08:39:54Z",
+    "fine_utc": "2026-09-05T14:30:25Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-09-07T13:39:43Z",
+    "fine_utc": "2026-09-07T16:49:27Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-09-09T18:57:54Z",
+    "fine_utc": "2026-09-09T19:35:04Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-09-11T05:52:07Z",
+    "fine_utc": "2026-09-11T23:51:43Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-09-13T14:26:29Z",
+    "fine_utc": "2026-09-14T06:43:51Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Mars 90"
+   },
+   {
+    "inizio_utc": "2026-09-16T03:29:53Z",
+    "fine_utc": "2026-09-16T16:41:15Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-09-18T20:43:50Z",
+    "fine_utc": "2026-09-19T04:54:52Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-09-21T14:31:26Z",
+    "fine_utc": "2026-09-21T17:14:24Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-09-23T08:18:20Z",
+    "fine_utc": "2026-09-24T03:23:38Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-09-26T08:31:49Z",
+    "fine_utc": "2026-09-26T10:23:06Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-09-28T09:50:22Z",
+    "fine_utc": "2026-09-28T14:40:02Z",
+    "entra_in": "Toro",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-09-29T23:36:07Z",
+    "fine_utc": "2026-09-30T17:26:02Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-10-02T02:41:50Z",
+    "fine_utc": "2026-10-02T19:54:05Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-10-03T15:08:29Z",
+    "fine_utc": "2026-10-04T22:54:11Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-10-06T10:22:07Z",
+    "fine_utc": "2026-10-07T02:52:35Z",
+    "entra_in": "Vergine",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-10-07T18:56:36Z",
+    "fine_utc": "2026-10-09T08:10:33Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-10-10T23:07:21Z",
+    "fine_utc": "2026-10-11T15:21:17Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-10-13T08:45:48Z",
+    "fine_utc": "2026-10-14T00:59:26Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-10-15T21:55:41Z",
+    "fine_utc": "2026-10-16T12:57:02Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-10-18T16:12:41Z",
+    "fine_utc": "2026-10-19T01:39:55Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-10-21T08:42:23Z",
+    "fine_utc": "2026-10-21T12:35:09Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-10-23T03:31:17Z",
+    "fine_utc": "2026-10-23T19:53:32Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-10-25T22:59:22Z",
+    "fine_utc": "2026-10-25T23:34:40Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-10-27T14:51:08Z",
+    "fine_utc": "2026-10-28T01:01:52Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-10-29T21:43:21Z",
+    "fine_utc": "2026-10-30T02:05:33Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-10-31T21:59:39Z",
+    "fine_utc": "2026-11-01T04:18:12Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-11-03T00:10:29Z",
+    "fine_utc": "2026-11-03T08:27:45Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-11-04T06:57:30Z",
+    "fine_utc": "2026-11-05T14:38:18Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-11-07T13:19:46Z",
+    "fine_utc": "2026-11-07T22:39:57Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-11-09T23:25:15Z",
+    "fine_utc": "2026-11-10T08:35:46Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-11-12T11:29:09Z",
+    "fine_utc": "2026-11-12T20:27:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-11-14T18:55:36Z",
+    "fine_utc": "2026-11-15T09:24:15Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 90"
+   },
+   {
+    "inizio_utc": "2026-11-17T14:25:49Z",
+    "fine_utc": "2026-11-17T21:19:25Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-11-20T01:46:07Z",
+    "fine_utc": "2026-11-20T05:52:11Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-11-22T07:38:35Z",
+    "fine_utc": "2026-11-22T10:09:41Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-11-24T10:09:13Z",
+    "fine_utc": "2026-11-24T11:09:39Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-11-26T05:23:35Z",
+    "fine_utc": "2026-11-26T10:51:09Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-11-28T05:40:10Z",
+    "fine_utc": "2026-11-28T11:20:35Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-11-30T10:10:23Z",
+    "fine_utc": "2026-11-30T14:12:37Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-12-02T09:10:46Z",
+    "fine_utc": "2026-12-02T20:03:53Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-12-04T22:40:27Z",
+    "fine_utc": "2026-12-05T04:35:04Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-12-07T09:07:38Z",
+    "fine_utc": "2026-12-07T15:06:34Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-12-09T21:06:09Z",
+    "fine_utc": "2026-12-10T03:08:40Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-12-10T19:12:24Z",
+    "fine_utc": "2026-12-12T16:05:38Z",
+    "entra_in": "Acquario",
+    "aspetto": "Saturn 270"
+   },
+   {
+    "inizio_utc": "2026-12-14T22:39:33Z",
+    "fine_utc": "2026-12-15T04:35:37Z",
+    "entra_in": "Pesci",
+    "aspetto": "Jupiter 180"
+   },
+   {
+    "inizio_utc": "2026-12-17T05:42:39Z",
+    "fine_utc": "2026-12-17T14:34:20Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-12-19T16:39:51Z",
+    "fine_utc": "2026-12-19T20:29:41Z",
+    "entra_in": "Toro",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-12-21T17:26:16Z",
+    "fine_utc": "2026-12-21T22:27:06Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-12-23T17:01:04Z",
+    "fine_utc": "2026-12-23T21:58:23Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-12-25T00:09:24Z",
+    "fine_utc": "2026-12-25T21:12:17Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-12-27T16:38:31Z",
+    "fine_utc": "2026-12-27T22:12:51Z",
+    "entra_in": "Vergine",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-12-29T10:17:39Z",
+    "fine_utc": "2026-12-30T02:26:40Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2027-01-01T03:27:24Z",
+    "fine_utc": "2027-01-01T10:15:53Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2027-01-03T13:33:06Z",
+    "fine_utc": "2027-01-03T20:57:00Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   }
+  ]
+ },
+ "swiss_ephemeris_moderna": {
+  "fonte": "pyswisseph 2.10.03, serie Moshier; corpi classici piu' Urano, Nettuno, Plutone",
+  "intervalli": [
+   {
+    "inizio_utc": "2025-12-31T12:24:51Z",
+    "fine_utc": "2025-12-31T13:13:05Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Neptune 60"
+   },
+   {
+    "inizio_utc": "2026-01-02T12:23:37Z",
+    "fine_utc": "2026-01-02T13:09:00Z",
+    "entra_in": "Cancro",
+    "aspetto": "Neptune 90"
+   },
+   {
+    "inizio_utc": "2026-01-04T12:59:14Z",
+    "fine_utc": "2026-01-04T13:43:26Z",
+    "entra_in": "Leone",
+    "aspetto": "Neptune 120"
+   },
+   {
+    "inizio_utc": "2026-01-06T13:04:41Z",
+    "fine_utc": "2026-01-06T16:56:47Z",
+    "entra_in": "Vergine",
+    "aspetto": "Uranus 90"
+   },
+   {
+    "inizio_utc": "2026-01-08T23:22:43Z",
+    "fine_utc": "2026-01-09T00:05:48Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Neptune 180"
+   },
+   {
+    "inizio_utc": "2026-01-10T17:54:13Z",
+    "fine_utc": "2026-01-11T10:55:19Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-01-13T22:58:55Z",
+    "fine_utc": "2026-01-13T23:33:47Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Neptune 240"
+   },
+   {
+    "inizio_utc": "2026-01-16T11:18:59Z",
+    "fine_utc": "2026-01-16T11:47:09Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Neptune 270"
+   },
+   {
+    "inizio_utc": "2026-01-18T21:56:42Z",
+    "fine_utc": "2026-01-18T22:17:58Z",
+    "entra_in": "Acquario",
+    "aspetto": "Neptune 300"
+   },
+   {
+    "inizio_utc": "2026-01-21T02:16:29Z",
+    "fine_utc": "2026-01-21T06:49:39Z",
+    "entra_in": "Pesci",
+    "aspetto": "Uranus 270"
+   },
+   {
+    "inizio_utc": "2026-01-23T13:17:15Z",
+    "fine_utc": "2026-01-23T13:25:41Z",
+    "entra_in": "Ariete",
+    "aspetto": "Neptune 0"
+   },
+   {
+    "inizio_utc": "2026-01-24T21:36:21Z",
+    "fine_utc": "2026-01-25T18:05:19Z",
+    "entra_in": "Toro",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-01-27T17:57:47Z",
+    "fine_utc": "2026-01-27T20:55:00Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-01-29T19:56:37Z",
+    "fine_utc": "2026-01-29T22:31:41Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-01-31T21:51:51Z",
+    "fine_utc": "2026-02-01T00:08:57Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-02-02T22:55:09Z",
+    "fine_utc": "2026-02-03T03:21:13Z",
+    "entra_in": "Vergine",
+    "aspetto": "Uranus 90"
+   },
+   {
+    "inizio_utc": "2026-02-05T07:49:11Z",
+    "fine_utc": "2026-02-05T09:32:32Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Saturn 180"
+   },
+   {
+    "inizio_utc": "2026-02-07T11:59:29Z",
+    "fine_utc": "2026-02-07T19:13:07Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-02-10T07:00:58Z",
+    "fine_utc": "2026-02-10T07:21:50Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-02-12T19:28:42Z",
+    "fine_utc": "2026-02-12T19:44:22Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Saturn 270"
+   },
+   {
+    "inizio_utc": "2026-02-15T01:31:24Z",
+    "fine_utc": "2026-02-15T06:16:38Z",
+    "entra_in": "Acquario",
+    "aspetto": "Uranus 240"
+   },
+   {
+    "inizio_utc": "2026-02-17T12:01:10Z",
+    "fine_utc": "2026-02-17T14:09:06Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-02-19T15:23:01Z",
+    "fine_utc": "2026-02-19T19:39:05Z",
+    "entra_in": "Ariete",
+    "aspetto": "Uranus 300"
+   },
+   {
+    "inizio_utc": "2026-02-21T11:11:21Z",
+    "fine_utc": "2026-02-21T23:30:55Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-02-23T22:28:42Z",
+    "fine_utc": "2026-02-24T02:28:53Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Uranus 0"
+   },
+   {
+    "inizio_utc": "2026-02-25T23:00:16Z",
+    "fine_utc": "2026-02-26T05:11:06Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 120"
+   },
+   {
+    "inizio_utc": "2026-02-28T04:21:21Z",
+    "fine_utc": "2026-02-28T08:16:42Z",
+    "entra_in": "Leone",
+    "aspetto": "Uranus 60"
+   },
+   {
+    "inizio_utc": "2026-03-02T12:27:24Z",
+    "fine_utc": "2026-03-02T12:33:43Z",
+    "entra_in": "Vergine",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-03-04T14:53:01Z",
+    "fine_utc": "2026-03-04T18:55:47Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Uranus 120"
+   },
+   {
+    "inizio_utc": "2026-03-05T23:22:18Z",
+    "fine_utc": "2026-03-07T04:01:27Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-03-09T11:28:13Z",
+    "fine_utc": "2026-03-09T15:36:30Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Uranus 180"
+   },
+   {
+    "inizio_utc": "2026-03-11T09:38:30Z",
+    "fine_utc": "2026-03-12T04:07:07Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 270"
+   },
+   {
+    "inizio_utc": "2026-03-14T11:33:11Z",
+    "fine_utc": "2026-03-14T15:13:31Z",
+    "entra_in": "Acquario",
+    "aspetto": "Uranus 240"
+   },
+   {
+    "inizio_utc": "2026-03-16T19:56:42Z",
+    "fine_utc": "2026-03-16T23:15:37Z",
+    "entra_in": "Pesci",
+    "aspetto": "Uranus 270"
+   },
+   {
+    "inizio_utc": "2026-03-19T01:23:29Z",
+    "fine_utc": "2026-03-19T04:02:59Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-03-20T09:23:21Z",
+    "fine_utc": "2026-03-21T06:35:07Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 0"
+   },
+   {
+    "inizio_utc": "2026-03-23T05:39:38Z",
+    "fine_utc": "2026-03-23T08:18:40Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Uranus 0"
+   },
+   {
+    "inizio_utc": "2026-03-24T22:37:12Z",
+    "fine_utc": "2026-03-25T10:32:56Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 60"
+   },
+   {
+    "inizio_utc": "2026-03-27T11:40:18Z",
+    "fine_utc": "2026-03-27T14:10:11Z",
+    "entra_in": "Leone",
+    "aspetto": "Uranus 60"
+   },
+   {
+    "inizio_utc": "2026-03-29T17:27:35Z",
+    "fine_utc": "2026-03-29T19:33:18Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-04-01T00:31:29Z",
+    "fine_utc": "2026-04-01T02:50:46Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Uranus 120"
+   },
+   {
+    "inizio_utc": "2026-04-02T08:55:11Z",
+    "fine_utc": "2026-04-03T12:10:53Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-04-05T21:28:48Z",
+    "fine_utc": "2026-04-05T23:31:31Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Uranus 180"
+   },
+   {
+    "inizio_utc": "2026-04-08T09:51:31Z",
+    "fine_utc": "2026-04-08T12:04:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-04-10T22:23:42Z",
+    "fine_utc": "2026-04-10T23:55:31Z",
+    "entra_in": "Acquario",
+    "aspetto": "Uranus 240"
+   },
+   {
+    "inizio_utc": "2026-04-13T07:42:21Z",
+    "fine_utc": "2026-04-13T08:55:34Z",
+    "entra_in": "Pesci",
+    "aspetto": "Uranus 270"
+   },
+   {
+    "inizio_utc": "2026-04-15T13:07:14Z",
+    "fine_utc": "2026-04-15T14:03:56Z",
+    "entra_in": "Ariete",
+    "aspetto": "Uranus 300"
+   },
+   {
+    "inizio_utc": "2026-04-17T11:51:48Z",
+    "fine_utc": "2026-04-17T15:57:47Z",
+    "entra_in": "Toro",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-04-19T15:44:47Z",
+    "fine_utc": "2026-04-19T16:17:38Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Uranus 0"
+   },
+   {
+    "inizio_utc": "2026-04-20T05:17:28Z",
+    "fine_utc": "2026-04-21T17:00:15Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-04-23T19:28:12Z",
+    "fine_utc": "2026-04-23T19:40:43Z",
+    "entra_in": "Leone",
+    "aspetto": "Uranus 60"
+   },
+   {
+    "inizio_utc": "2026-04-24T22:20:58Z",
+    "fine_utc": "2026-04-26T01:04:26Z",
+    "entra_in": "Vergine",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-04-27T11:11:53Z",
+    "fine_utc": "2026-04-28T09:02:44Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-04-30T08:51:39Z",
+    "fine_utc": "2026-04-30T19:01:50Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-05-02T08:47:24Z",
+    "fine_utc": "2026-05-03T06:33:29Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-05-04T21:33:28Z",
+    "fine_utc": "2026-05-05T19:06:06Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-05-07T14:18:27Z",
+    "fine_utc": "2026-05-08T07:27:25Z",
+    "entra_in": "Acquario",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-05-10T05:08:51Z",
+    "fine_utc": "2026-05-10T17:39:24Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 300"
+   },
+   {
+    "inizio_utc": "2026-05-12T10:04:15Z",
+    "fine_utc": "2026-05-13T00:03:40Z",
+    "entra_in": "Ariete",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-05-14T21:32:45Z",
+    "fine_utc": "2026-05-15T02:31:08Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 0"
+   },
+   {
+    "inizio_utc": "2026-05-17T01:02:06Z",
+    "fine_utc": "2026-05-17T02:23:01Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 0"
+   },
+   {
+    "inizio_utc": "2026-05-17T19:35:46Z",
+    "fine_utc": "2026-05-19T01:46:05Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-05-20T13:26:43Z",
+    "fine_utc": "2026-05-21T02:47:38Z",
+    "entra_in": "Leone",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-05-21T22:05:22Z",
+    "fine_utc": "2026-05-23T06:57:00Z",
+    "entra_in": "Vergine",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-05-25T00:54:10Z",
+    "fine_utc": "2026-05-25T14:34:09Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-05-27T11:32:17Z",
+    "fine_utc": "2026-05-28T00:52:32Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-05-30T00:04:38Z",
+    "fine_utc": "2026-05-30T12:44:48Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-05-31T13:21:00Z",
+    "fine_utc": "2026-06-02T01:19:15Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Saturn 240"
+   },
+   {
+    "inizio_utc": "2026-06-04T03:04:16Z",
+    "fine_utc": "2026-06-04T13:45:37Z",
+    "entra_in": "Acquario",
+    "aspetto": "Jupiter 180"
+   },
+   {
+    "inizio_utc": "2026-06-05T19:50:43Z",
+    "fine_utc": "2026-06-07T00:42:46Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 240"
+   },
+   {
+    "inizio_utc": "2026-06-09T00:38:27Z",
+    "fine_utc": "2026-06-09T08:33:20Z",
+    "entra_in": "Ariete",
+    "aspetto": "Jupiter 240"
+   },
+   {
+    "inizio_utc": "2026-06-11T08:22:13Z",
+    "fine_utc": "2026-06-11T12:28:08Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-06-13T07:30:11Z",
+    "fine_utc": "2026-06-13T13:06:02Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-06-15T02:54:11Z",
+    "fine_utc": "2026-06-15T12:14:15Z",
+    "entra_in": "Cancro",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-06-17T07:40:36Z",
+    "fine_utc": "2026-06-17T12:05:06Z",
+    "entra_in": "Leone",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-06-19T11:30:20Z",
+    "fine_utc": "2026-06-19T14:36:53Z",
+    "entra_in": "Vergine",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-06-21T17:33:08Z",
+    "fine_utc": "2026-06-21T20:54:55Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-06-24T04:11:08Z",
+    "fine_utc": "2026-06-24T06:43:17Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-06-26T17:10:03Z",
+    "fine_utc": "2026-06-26T18:40:55Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-06-28T05:04:49Z",
+    "fine_utc": "2026-06-29T07:18:35Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-07-01T11:50:46Z",
+    "fine_utc": "2026-07-01T19:32:51Z",
+    "entra_in": "Acquario",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-07-03T17:27:21Z",
+    "fine_utc": "2026-07-04T06:30:11Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-07-06T05:21:09Z",
+    "fine_utc": "2026-07-06T15:07:04Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mercury 240"
+   },
+   {
+    "inizio_utc": "2026-07-08T18:41:42Z",
+    "fine_utc": "2026-07-08T20:30:44Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-07-10T10:13:17Z",
+    "fine_utc": "2026-07-10T22:41:36Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-07-11T22:11:23Z",
+    "fine_utc": "2026-07-12T22:46:29Z",
+    "entra_in": "Cancro",
+    "aspetto": "Saturn 60"
+   },
+   {
+    "inizio_utc": "2026-07-14T09:43:36Z",
+    "fine_utc": "2026-07-14T22:35:12Z",
+    "entra_in": "Leone",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-07-15T22:26:38Z",
+    "fine_utc": "2026-07-17T00:07:07Z",
+    "entra_in": "Vergine",
+    "aspetto": "Saturn 120"
+   },
+   {
+    "inizio_utc": "2026-07-18T22:13:14Z",
+    "fine_utc": "2026-07-19T04:56:33Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-07-21T11:05:35Z",
+    "fine_utc": "2026-07-21T13:34:33Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-07-22T21:48:30Z",
+    "fine_utc": "2026-07-24T01:06:59Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-07-25T14:58:12Z",
+    "fine_utc": "2026-07-26T13:44:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-07-28T06:11:08Z",
+    "fine_utc": "2026-07-29T01:46:10Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-07-30T21:26:50Z",
+    "fine_utc": "2026-07-31T12:13:52Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-08-02T12:33:11Z",
+    "fine_utc": "2026-08-02T20:36:47Z",
+    "entra_in": "Ariete",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-08-04T18:51:44Z",
+    "fine_utc": "2026-08-05T02:35:25Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 300"
+   },
+   {
+    "inizio_utc": "2026-08-06T23:25:01Z",
+    "fine_utc": "2026-08-07T06:07:46Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-08-09T05:27:04Z",
+    "fine_utc": "2026-08-09T07:45:40Z",
+    "entra_in": "Cancro",
+    "aspetto": "Mars 0"
+   },
+   {
+    "inizio_utc": "2026-08-10T07:30:19Z",
+    "fine_utc": "2026-08-11T08:38:08Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-08-12T17:36:43Z",
+    "fine_utc": "2026-08-13T10:18:08Z",
+    "entra_in": "Vergine",
+    "aspetto": "Sun 0"
+   },
+   {
+    "inizio_utc": "2026-08-13T19:23:49Z",
+    "fine_utc": "2026-08-15T14:19:43Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Uranus 90"
+   },
+   {
+    "inizio_utc": "2026-08-17T11:30:35Z",
+    "fine_utc": "2026-08-17T21:46:03Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-08-20T02:46:23Z",
+    "fine_utc": "2026-08-20T08:30:07Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-08-22T20:30:52Z",
+    "fine_utc": "2026-08-22T20:59:06Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-08-24T06:30:03Z",
+    "fine_utc": "2026-08-25T09:01:40Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 90"
+   },
+   {
+    "inizio_utc": "2026-08-26T21:59:25Z",
+    "fine_utc": "2026-08-27T19:03:44Z",
+    "entra_in": "Pesci",
+    "aspetto": "Venus 120"
+   },
+   {
+    "inizio_utc": "2026-08-28T16:14:08Z",
+    "fine_utc": "2026-08-30T02:37:47Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-08-31T19:47:09Z",
+    "fine_utc": "2026-09-01T08:01:18Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-09-02T10:46:44Z",
+    "fine_utc": "2026-09-03T11:47:15Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mercury 240"
+   },
+   {
+    "inizio_utc": "2026-09-05T08:39:54Z",
+    "fine_utc": "2026-09-05T14:30:25Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-09-07T13:39:43Z",
+    "fine_utc": "2026-09-07T16:49:27Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-09-09T18:57:54Z",
+    "fine_utc": "2026-09-09T19:35:04Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-09-11T05:52:07Z",
+    "fine_utc": "2026-09-11T23:51:43Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mars 60"
+   },
+   {
+    "inizio_utc": "2026-09-13T14:26:29Z",
+    "fine_utc": "2026-09-14T06:43:51Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Mars 90"
+   },
+   {
+    "inizio_utc": "2026-09-16T03:29:53Z",
+    "fine_utc": "2026-09-16T16:41:15Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-09-18T20:43:50Z",
+    "fine_utc": "2026-09-19T04:54:52Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-09-21T14:31:26Z",
+    "fine_utc": "2026-09-21T17:14:24Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-09-23T08:18:20Z",
+    "fine_utc": "2026-09-24T03:23:38Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-09-26T08:31:49Z",
+    "fine_utc": "2026-09-26T10:23:06Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-09-28T09:50:22Z",
+    "fine_utc": "2026-09-28T14:40:02Z",
+    "entra_in": "Toro",
+    "aspetto": "Mercury 180"
+   },
+   {
+    "inizio_utc": "2026-09-29T23:36:07Z",
+    "fine_utc": "2026-09-30T17:26:02Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-10-02T02:41:50Z",
+    "fine_utc": "2026-10-02T19:54:05Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-10-03T15:08:29Z",
+    "fine_utc": "2026-10-04T22:54:11Z",
+    "entra_in": "Leone",
+    "aspetto": "Saturn 90"
+   },
+   {
+    "inizio_utc": "2026-10-06T10:22:07Z",
+    "fine_utc": "2026-10-07T02:52:35Z",
+    "entra_in": "Vergine",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-10-07T18:56:36Z",
+    "fine_utc": "2026-10-09T08:10:33Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-10-10T23:07:21Z",
+    "fine_utc": "2026-10-11T15:21:17Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-10-13T08:45:48Z",
+    "fine_utc": "2026-10-14T00:59:26Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-10-15T21:55:41Z",
+    "fine_utc": "2026-10-16T12:57:02Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Sun 60"
+   },
+   {
+    "inizio_utc": "2026-10-18T16:12:41Z",
+    "fine_utc": "2026-10-19T01:39:55Z",
+    "entra_in": "Acquario",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-10-21T08:42:23Z",
+    "fine_utc": "2026-10-21T12:35:09Z",
+    "entra_in": "Pesci",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-10-23T03:31:17Z",
+    "fine_utc": "2026-10-23T19:53:32Z",
+    "entra_in": "Ariete",
+    "aspetto": "Mercury 120"
+   },
+   {
+    "inizio_utc": "2026-10-25T22:59:22Z",
+    "fine_utc": "2026-10-25T23:34:40Z",
+    "entra_in": "Toro",
+    "aspetto": "Venus 180"
+   },
+   {
+    "inizio_utc": "2026-10-27T14:51:08Z",
+    "fine_utc": "2026-10-28T01:01:52Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-10-29T21:43:21Z",
+    "fine_utc": "2026-10-30T02:05:33Z",
+    "entra_in": "Cancro",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-10-31T21:59:39Z",
+    "fine_utc": "2026-11-01T04:18:12Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-11-03T00:10:29Z",
+    "fine_utc": "2026-11-03T08:27:45Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-11-04T06:57:30Z",
+    "fine_utc": "2026-11-05T14:38:18Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-11-07T13:19:46Z",
+    "fine_utc": "2026-11-07T22:39:57Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-11-09T23:25:15Z",
+    "fine_utc": "2026-11-10T08:35:46Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-11-12T11:29:09Z",
+    "fine_utc": "2026-11-12T20:27:17Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-11-14T18:55:36Z",
+    "fine_utc": "2026-11-15T09:24:15Z",
+    "entra_in": "Acquario",
+    "aspetto": "Venus 90"
+   },
+   {
+    "inizio_utc": "2026-11-17T14:25:49Z",
+    "fine_utc": "2026-11-17T21:19:25Z",
+    "entra_in": "Pesci",
+    "aspetto": "Mars 180"
+   },
+   {
+    "inizio_utc": "2026-11-20T01:46:07Z",
+    "fine_utc": "2026-11-20T05:52:11Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-11-22T07:38:35Z",
+    "fine_utc": "2026-11-22T10:09:41Z",
+    "entra_in": "Toro",
+    "aspetto": "Mars 240"
+   },
+   {
+    "inizio_utc": "2026-11-24T10:09:13Z",
+    "fine_utc": "2026-11-24T11:09:39Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Mars 270"
+   },
+   {
+    "inizio_utc": "2026-11-26T05:23:35Z",
+    "fine_utc": "2026-11-26T10:51:09Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-11-28T05:40:10Z",
+    "fine_utc": "2026-11-28T11:20:35Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 270"
+   },
+   {
+    "inizio_utc": "2026-11-30T10:10:23Z",
+    "fine_utc": "2026-11-30T14:12:37Z",
+    "entra_in": "Vergine",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2026-12-02T09:10:46Z",
+    "fine_utc": "2026-12-02T20:03:53Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Mercury 300"
+   },
+   {
+    "inizio_utc": "2026-12-04T22:40:27Z",
+    "fine_utc": "2026-12-05T04:35:04Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2026-12-07T09:07:38Z",
+    "fine_utc": "2026-12-07T15:06:34Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   },
+   {
+    "inizio_utc": "2026-12-09T21:06:09Z",
+    "fine_utc": "2026-12-10T03:08:40Z",
+    "entra_in": "Capricorno",
+    "aspetto": "Jupiter 120"
+   },
+   {
+    "inizio_utc": "2026-12-10T19:12:24Z",
+    "fine_utc": "2026-12-12T16:05:38Z",
+    "entra_in": "Acquario",
+    "aspetto": "Saturn 270"
+   },
+   {
+    "inizio_utc": "2026-12-14T22:39:33Z",
+    "fine_utc": "2026-12-15T04:35:37Z",
+    "entra_in": "Pesci",
+    "aspetto": "Jupiter 180"
+   },
+   {
+    "inizio_utc": "2026-12-17T05:42:39Z",
+    "fine_utc": "2026-12-17T14:34:20Z",
+    "entra_in": "Ariete",
+    "aspetto": "Sun 90"
+   },
+   {
+    "inizio_utc": "2026-12-19T16:39:51Z",
+    "fine_utc": "2026-12-19T20:29:41Z",
+    "entra_in": "Toro",
+    "aspetto": "Sun 120"
+   },
+   {
+    "inizio_utc": "2026-12-21T17:26:16Z",
+    "fine_utc": "2026-12-21T22:27:06Z",
+    "entra_in": "Gemelli",
+    "aspetto": "Jupiter 270"
+   },
+   {
+    "inizio_utc": "2026-12-23T17:01:04Z",
+    "fine_utc": "2026-12-23T21:58:23Z",
+    "entra_in": "Cancro",
+    "aspetto": "Jupiter 300"
+   },
+   {
+    "inizio_utc": "2026-12-25T00:09:24Z",
+    "fine_utc": "2026-12-25T21:12:17Z",
+    "entra_in": "Leone",
+    "aspetto": "Venus 240"
+   },
+   {
+    "inizio_utc": "2026-12-27T16:38:31Z",
+    "fine_utc": "2026-12-27T22:12:51Z",
+    "entra_in": "Vergine",
+    "aspetto": "Jupiter 0"
+   },
+   {
+    "inizio_utc": "2026-12-29T10:17:39Z",
+    "fine_utc": "2026-12-30T02:26:40Z",
+    "entra_in": "Bilancia",
+    "aspetto": "Venus 300"
+   },
+   {
+    "inizio_utc": "2027-01-01T03:27:24Z",
+    "fine_utc": "2027-01-01T10:15:53Z",
+    "entra_in": "Scorpione",
+    "aspetto": "Jupiter 60"
+   },
+   {
+    "inizio_utc": "2027-01-03T13:33:06Z",
+    "fine_utc": "2027-01-03T20:57:00Z",
+    "entra_in": "Sagittario",
+    "aspetto": "Jupiter 90"
+   }
+  ]
+ },
+ "swiss_ephemeris_fasi_2026": {
+  "fonte": "pyswisseph 2.10.03, serie Moshier; elongazione 0 e 180",
+  "lune_nuove_utc": [
+   "2026-01-18T19:52:01Z",
+   "2026-02-17T12:01:10Z",
+   "2026-03-19T01:23:29Z",
+   "2026-04-17T11:51:48Z",
+   "2026-05-16T20:01:03Z",
+   "2026-06-15T02:54:11Z",
+   "2026-07-14T09:43:36Z",
+   "2026-08-12T17:36:43Z",
+   "2026-09-11T03:27:01Z",
+   "2026-10-10T15:50:06Z",
+   "2026-11-09T07:02:07Z",
+   "2026-12-09T00:51:51Z"
+  ],
+  "lune_piene_utc": [
+   "2026-01-03T10:02:54Z",
+   "2026-02-01T22:09:14Z",
+   "2026-03-03T11:37:55Z",
+   "2026-04-02T02:12:00Z",
+   "2026-05-01T17:23:10Z",
+   "2026-05-31T08:45:11Z",
+   "2026-06-29T23:56:42Z",
+   "2026-07-29T14:35:45Z",
+   "2026-08-28T04:18:32Z",
+   "2026-09-26T16:49:01Z",
+   "2026-10-26T04:11:47Z",
+   "2026-11-24T14:53:36Z",
+   "2026-12-24T01:28:16Z"
+  ]
+ },
+ "swiss_ephemeris_luna_j2000": {
+  "fonte": "pyswisseph 2.10.03, serie Moshier, FLG_J2000 | FLG_NONUT: eclittica ed equinozio medi J2000",
+  "istanti": [
+   {
+    "istante_utc": "2026-01-01T00:00:00Z",
+    "longitudine_j2000": 66.351136
+   },
+   {
+    "istante_utc": "2026-01-16T08:52:48Z",
+    "longitudine_j2000": 268.169778
+   },
+   {
+    "istante_utc": "2026-01-31T17:45:36Z",
+    "longitudine_j2000": 115.803464
+   },
+   {
+    "istante_utc": "2026-02-16T02:38:23Z",
+    "longitudine_j2000": 310.400229
+   },
+   {
+    "istante_utc": "2026-03-03T11:31:11Z",
+    "longitudine_j2000": 162.46853
+   },
+   {
+    "istante_utc": "2026-03-18T20:24:00Z",
+    "longitudine_j2000": 355.185591
+   },
+   {
+    "istante_utc": "2026-04-03T05:16:48Z",
+    "longitudine_j2000": 206.078149
+   },
+   {
+    "istante_utc": "2026-04-18T14:09:35Z",
+    "longitudine_j2000": 43.362679
+   },
+   {
+    "istante_utc": "2026-05-03T23:02:23Z",
+    "longitudine_j2000": 247.830961
+   },
+   {
+    "istante_utc": "2026-05-19T07:55:12Z",
+    "longitudine_j2000": 93.474843
+   },
+   {
+    "istante_utc": "2026-06-03T16:48:00Z",
+    "longitudine_j2000": 289.182069
+   },
+   {
+    "istante_utc": "2026-06-19T01:40:47Z",
+    "longitudine_j2000": 142.145447
+   },
+   {
+    "istante_utc": "2026-07-04T10:33:35Z",
+    "longitudine_j2000": 331.729856
+   },
+   {
+    "istante_utc": "2026-07-19T19:26:24Z",
+    "longitudine_j2000": 187.495449
+   },
+   {
+    "istante_utc": "2026-08-04T04:19:12Z",
+    "longitudine_j2000": 17.079156
+   },
+   {
+    "istante_utc": "2026-08-19T13:11:59Z",
+    "longitudine_j2000": 229.915332
+   },
+   {
+    "istante_utc": "2026-09-03T22:04:47Z",
+    "longitudine_j2000": 65.674132
+   },
+   {
+    "istante_utc": "2026-09-19T06:57:36Z",
+    "longitudine_j2000": 270.635147
+   },
+   {
+    "istante_utc": "2026-10-04T15:50:24Z",
+    "longitudine_j2000": 115.498762
+   },
+   {
+    "istante_utc": "2026-10-20T00:43:11Z",
+    "longitudine_j2000": 311.184981
+   },
+   {
+    "istante_utc": "2026-11-04T09:35:59Z",
+    "longitudine_j2000": 163.675173
+   },
+   {
+    "istante_utc": "2026-11-19T18:28:48Z",
+    "longitudine_j2000": 353.393205
+   },
+   {
+    "istante_utc": "2026-12-05T03:21:36Z",
+    "longitudine_j2000": 208.983886
+   },
+   {
+    "istante_utc": "2026-12-20T12:14:23Z",
+    "longitudine_j2000": 38.852384
+   }
+  ]
+ }
+}

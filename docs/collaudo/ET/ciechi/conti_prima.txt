@@ -1,0 +1,109 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "prima"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 360, senza giudizio 0.
+
+prima aura chat esecuzione 1: prima frase che risponde 0; nel merito 9; risposte con una certezza 1; frasi di certezza 1; errori di italiano 7; presentazione in apertura 30; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 1
+prima aura chat esecuzione 2: prima frase che risponde 5; nel merito 10; risposte con una certezza 3; frasi di certezza 3; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 1
+prima aura live esecuzione 1: prima frase che risponde 1; nel merito 4; risposte con una certezza 1; frasi di certezza 1; errori di italiano 10; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 1
+prima aura live esecuzione 2: prima frase che risponde 1; nel merito 4; risposte con una certezza 0; frasi di certezza 0; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 0
+prima caligo chat esecuzione 1: prima frase che risponde 8; nel merito 17; risposte con una certezza 2; frasi di certezza 2; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+prima caligo chat esecuzione 2: prima frase che risponde 8; nel merito 12; risposte con una certezza 0; frasi di certezza 0; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+prima caligo live esecuzione 1: prima frase che risponde 5; nel merito 8; risposte con una certezza 1; frasi di certezza 1; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 1
+prima caligo live esecuzione 2: prima frase che risponde 3; nel merito 15; risposte con una certezza 0; frasi di certezza 0; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 2
+prima medora chat esecuzione 1: prima frase che risponde 7; nel merito 19; risposte con una certezza 1; frasi di certezza 1; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 2
+prima medora chat esecuzione 2: prima frase che risponde 15; nel merito 21; risposte con una certezza 4; frasi di certezza 4; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+prima medora live esecuzione 1: prima frase che risponde 14; nel merito 24; risposte con una certezza 3; frasi di certezza 3; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+prima medora live esecuzione 2: prima frase che risponde 12; nel merito 19; risposte con una certezza 2; frasi di certezza 2; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+
+TOTALE prima: prima frase che risponde 79; nel merito 162; risposte con una certezza 18; frasi di certezza 18; errori di italiano 49; presentazione in apertura 30; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 10; posizioni cambiate senza perché 1; seconde nel merito 25 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA prima aura chat esecuzione 1:
+   19. quando è forte e luminoso, attira a te l'abbondanza in ogni sua forma
+CERTEZZA prima aura chat esecuzione 2:
+   12. Quando ti sentirai piena e radiosa in te stessa, la solitudine lascerà il posto alla pienezza e la relazione potrà riflettere questa nuova energia.
+   24. Quando ti senti salda e radicata, la tua energia si allinea con l'abbondanza e attira a te le opportunità per guadagnare di più
+   29. Quando sei allineata con questa energia, attiri a te le opportunità e il riconoscimento che meriti
+CERTEZZA prima aura live esecuzione 1:
+   29. Per accoglierla al meglio
+CERTEZZA prima caligo chat esecuzione 1:
+   21. Sì, ma con disciplina e strategia.
+   22. Sì, se la tua visione è chiara e il tuo impegno costante.
+CERTEZZA prima caligo live esecuzione 1:
+   29. Lavora con dedizione e la promozione arriverà quando sarà il momento.
+CERTEZZA prima medora chat esecuzione 1:
+   8. Quando sarai pienamente allineata con te stessa, l'incontro avverrà con naturalezza, senza forzature.
+CERTEZZA prima medora chat esecuzione 2:
+   8. Incontrerai la persona giusta quando avrai chiarezza su ciò che desideri veramente in un legame
+   22. Riuscirai a comprare casa nel momento in cui avrai costruito le fondamenta economiche
+   14. Il tuo segno lunare in Toro ti dona una forte connessione con la fertilità
+   26. Il colloquio di giovedì andrà bene se saprai mostrare la tua preparazione e la tua determinazione.
+CERTEZZA prima medora live esecuzione 1:
+   7. quando sarai in armonia con te stessa, l'amore troverà la sua strada verso di te.
+   26. qualità che sapranno farti risaltare
+   8. Incontrerai la persona giusta quando sarai in armonia con te stessa e avrai costruito il tuo mondo interiore.
+CERTEZZA prima medora live esecuzione 2:
+   8. La persona giusta si rivelerà quando sarai in piena armonia con il tuo desiderio più profondo e saprai riconoscerla.
+   7. la ricerca di un legame autentico è già nel tuo destino
+ERRORE prima aura chat esecuzione 1:
+   8. il centro del cuore, il suo colore è il verde smeraldo e ti invita
+   24. dove risiede la tua forza di volontà e la tua autostima
+   3. Nessun gesto o momento del cielo fa tornare qualcuno, la sua scelta è sua.
+   1. hai una sensibilità speciale nel sentire le profondità, non fermarti alla superficie.
+   14. domande che solo il tuo corpo può rispondere
+   21. per una gestione pratica e nel frattempo, concentra la tua energia
+   7. Quando la tua radice è forte, ti senti sicuro e aperto a ricevere.
+ERRORE prima aura chat esecuzione 2:
+   1. per comprenderne il suo amore, in te
+   10. ti porta a cercare strutture e a volte, se non consapevolmente integrate, queste possono
+   11. Ti invito a sederti in un luogo tranquillo, chiudi gli occhi
+   18. Ti invito a sederti in un momento di quiete, chiudi gli occhi
+ERRORE prima aura live esecuzione 1:
+   14. (risposta vuota)
+   3. visualizzando un colore arancione caldo e sentire come la vita si muove in te
+   2. visualizzando una luce dorata che ti avvolge, è un modo per ricentrare
+   11. La domanda sulla scelta di sposare qualcuno non è solo una decisione della mente
+   11. dove risiede la tua verità e la tua espressione autentica
+   11. appena sotto il pomo d'Adamo e respira lentamente
+   22. porta il respiro fino al perineo, il punto del primo centro e visualizza
+   16. a portare il tuo respiro nel centro della gola, il tuo quinto centro e a sentire
+   1. Senti nel respiro il suo nome, al mattino, prima di alzarti dal letto e percepisci il sentire che ti porta
+   23. dove risiede la tua sicurezza e il tuo senso di abbondanza
+ERRORE prima aura live esecuzione 2:
+   10. Senti il tuo corpo e il tuo respiro, come si radica a terra e ti offre stabilità
+   5. quando la mente si agita e connetti il respiro alla terra
+   3. può legare il volere di un altro a te, la sua scelta è sua
+   23. che risuona con il tuo Chakra della radice, Muladhara e con il tuo plesso solare
+   1. a come il suo corpo comunica ciò che la sua voce non sempre dice
+ERRORE prima caligo chat esecuzione 1:
+   2. non torna mai alla sua precedente
+   21. per le tue spese e entrate
+   14. acqua fresca, rinnovando ogni giorno
+   5. La runa Hagalaz, il grandine
+ERRORE prima caligo chat esecuzione 2:
+   29. ti invita a agire
+   3. Chiedi al tuo ex di incontrarvi una sola volta
+   8. Non c'è un "quando" per l'incontro, ma un "come" ti prepari.
+ERRORE prima caligo live esecuzione 1:
+   25. un responso sul futuro certo
+ERRORE prima caligo live esecuzione 2:
+   12. un'attività che ti nutre solo
+ERRORE prima medora chat esecuzione 1:
+   25. Ogni gesto che compi per affinare le tue competenze, ti avvicina
+ERRORE prima medora chat esecuzione 2:
+   8. Prepara un piccolo altare con un oggetto che rappresenti l'amore che desideri e accendilo con una candela ogni sera.
+   2. prima che il cielo passi la Luna in Toro.
+   19.  Ogni fine ciclo è l'inizio di un nuovo ciclo.
+ERRORE prima medora live esecuzione 1:
+   25. per quella posizione, domani sera
+   24. valorizzarle economicamente, questa settimana
+   3. da questa storia, domani pomeriggio
+   21. per il prossimo mese, domani mattina
+   29. Per aumentarle le possibilità
+   13. senza discutere il tuo partner
+   17. che sarai tra un anno, dopodomani.
+ERRORE prima medora live esecuzione 2:
+   14. La lama dell'Imperatrice
+   4. Scrivigli tu per prima, il tuo Segno Solare in Leone ti spinge
+   22. Per comprare casa, la tua Luna in Toro ti dona una profonda esigenza di stabilità

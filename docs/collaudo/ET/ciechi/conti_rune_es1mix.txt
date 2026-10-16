@@ -1,0 +1,24 @@
+dopo3_esecuzione1: dirette 13 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 20 su 24; legame 23; consiglio 21; errori di italiano 3; scartate 1
+dopo3_esecuzione2: dirette 15 su 20 con domanda (senza domanda 2 su 4); pietre tutte lette 18 su 24; legame 24; consiglio 20; errori di italiano 5; scartate 0
+es1_esecuzione1: dirette 15 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 15 su 24; legame 23; consiglio 23; errori di italiano 3; scartate 0
+es1_esecuzione2: dirette 15 su 20 con domanda (senza domanda 1 su 4); pietre tutte lette 19 su 24; legame 22; consiglio 23; errori di italiano 4; scartate 1
+
+ERRORI dopo3_esecuzione1
+    8: "un oggetto che simboleggia il tuo blocco" (simboleggi)
+    10: riflettere sul percorso che hai fatto e che cosa hai imparato
+    13: è la necessità che tempra e dove la pazienza diventa forza
+ERRORI dopo3_esecuzione2
+    7: "in un foglio" (su un foglio)
+    10: "Per Luca, le tue protezioni sono attive" (uso improprio di per, ripetuto)
+    14: "ti ricorda che dare apre a ricevere, ma tieni in equilibrio" (anacoluto)
+    1: "Scrivi in un diario tre persone" (i nomi di tre persone)
+    4: Proteggi il confine della relazione con misura, senza temerla
+ERRORI es1_esecuzione1
+    9: "Per Luca, la questione non è nel dare o ricevere" (uso improprio di per)
+    6: "dovrai ritrovare il tuo giusto" (frase monca)
+    20: ciò che dai e ciò che ricevi non è alla pari
+ERRORI es1_esecuzione2
+    13: "Perthro ... accoglie ciò che ancora non sai" (accogli)
+    3: "ti invita a ritrovare il tuo giusto" (frase monca)
+    18: "chiedendole di incontrarvi" (di vedervi)
+    2: la gioia e l'armonia raggiunta

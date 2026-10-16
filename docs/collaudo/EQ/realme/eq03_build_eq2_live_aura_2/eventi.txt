@@ -1,0 +1,11 @@
+saluto finito 1790510936.107
+frase 1, inizio 1790510938.840: Aura, stasera ho litigato con il mio compagno. Come faccio a calmarmi prima di parlargli?
+detta in 7.2 secondi
+frase 1, fine 1790510947.242
+frase 1 trascritta 1790510950.192
+frase 1: risposta finita 1790510988.675
+frase 2, inizio 1790510993.670: Aura, mi hai detto di respirare, l'ho fatto. Adesso gli scrivo o aspetto domani?
+detta in 7.1 secondi
+frase 2, fine 1790511002.061
+frase 2 trascritta 1790511003.886
+frase 2: risposta finita 1790511052.933

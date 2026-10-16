@@ -1,0 +1,456 @@
+LA FONTE DEI SIGNIFICATI PRIMA E DOPO LE CORREZIONI, ordine FJ Parte 3 e aggiunta A6, 11 ottobre 2026
+
+Metodo: tool temporaneo misura_fonte.py, che legge le 156 carte-verso da lib/core/tarot/tarot_card.dart (marca del genere nella forma neutra) e misura ogni coppia: Jaccard sulle radici di cinque lettere senza parole vuote (testi pieni e sintesi), la frase comune piu' lunga in parole di fila, e le radici rare in comune (presenti in non piu' di sei voci) pesate con ln(156 / voci che le portano). Le coppie nominate sono le 23 di FJ.16 (una collisione con piu' gemelle conta una coppia per gemella) e le 5 di FJ.18.
+
+SINTESI, radici rare in comune (non piu' di sei voci):
+- coppie nominate sopra 5,0: prima 11 su 28 (7 su 23 di FJ.16, 4 su 5 di FJ.18), massimo 17,47; dopo 0 su 28, massimo 4,36.
+- coppie nominate con zero radici rare in comune gia' prima: 9 su 23 di FJ.16 (Re e Regina di Coppe, Gli Amanti e i Due, la Giustizia e il Sette di Spade, il Fante e la Regina di Coppe): collisioni di sinonimi che nessuna misura lessicale vede.
+- le altre 12.062 coppie: massimo 23,60 (L'Imperatore dritto e capovolto), poi L'Imperatrice e la Regina di Denari dritte 21,13.
+
+=================== PRIMA (tarot_card.dart a d1b3035b) ===================
+coppie in tutto: 12090; coppie nominate dall'ordine: 28
+
+LE COPPIE NOMINATE (FJ.16 e FJ.18):
+   16.1  pieni 0.000  sintesi 0.200  frase 1 "a"  Re di Coppe capo / Regina di Coppe capo
+   16.1  pieni 0.000  sintesi 0.000  frase 1 "il"  Re di Coppe capo / Regina di Coppe drit
+   16.1  pieni 0.094  sintesi 0.250  frase 1 "emozioni"  Re di Coppe capo / Asso di Coppe capo
+   16.2  pieni 0.069  sintesi 0.000  frase 2 "paura di"  Cavaliere di Denari capo / Quattro di Denari capo
+   16.2  pieni 0.034  sintesi 0.000  frase 2 "o un"  Cavaliere di Denari capo / Fante di Denari capo
+   16.2  pieni 0.094  sintesi 0.000  frase 3 "paura di sbagliare"  Cavaliere di Denari capo / Asso di Bastoni capo
+   16.3  pieni 0.000  sintesi 0.000  frase 3 "che si è"  Fante di Denari capo / Otto di Denari capo
+   16.4  pieni 0.031  sintesi 0.000  frase 1 "ritardi"  Tre di Bastoni capo / Otto di Bastoni capo
+   16.5  pieni 0.000  sintesi 0.000  frase 1 "il"  Gli Amanti capo / Due di Denari drit
+   16.5  pieni 0.000  sintesi 0.333  frase 1 "che"  Gli Amanti capo / Due di Spade drit
+   16.5  pieni 0.026  sintesi 0.000  frase 2 "che si"  Gli Amanti capo / Due di Coppe drit
+   16.5  pieni 0.025  sintesi 0.000  frase 1 "che"  Gli Amanti capo / Due di Denari capo
+   16.5  pieni 0.105  sintesi 0.000  frase 2 "che si"  Gli Amanti capo / Due di Spade capo
+   16.5  pieni 0.000  sintesi 0.000  frase 2 "che si"  Gli Amanti capo / Due di Coppe capo
+   16.6  pieni 0.100  sintesi 0.500  frase 1 "si"  Dieci di Coppe capo / Due di Coppe capo
+   16.7  pieni 0.111  sintesi 0.000  frase 1 "e"  Regina di Denari capo / Sei di Denari drit
+   16.8  pieni 0.091  sintesi 0.000  frase 3 "una ripresa un"  Dieci di Spade capo / Cinque di Denari capo
+   16.8  pieni 0.030  sintesi 0.000  frase 2 "il peggio"  Dieci di Spade capo / Nove di Spade capo
+   16.9  pieni 0.179  sintesi 0.000  frase 2 "uno slancio"  Fante di Bastoni capo / Cavaliere di Bastoni capo
+   16.1  pieni 0.080  sintesi 0.000  frase 1 "ti"  Nove di Bastoni capo / Sette di Bastoni capo
+  16.11  pieni 0.091  sintesi 0.000  frase 1 "una"  La Giustizia capo / Sette di Spade capo
+  16.12  pieni 0.125  sintesi 0.000  frase 2 "le fondamenta"  Dieci di Denari capo / Quattro di Bastoni capo
+  16.13  pieni 0.040  sintesi 0.000  frase 1 "un"  Fante di Coppe capo / Regina di Coppe capo
+   18.1  pieni 0.129  sintesi 0.000  frase 2 "ciò che"  Dieci di Denari drit / Dieci di Denari capo
+   18.2  pieni 0.028  sintesi 0.000  frase 1 "noia"  Quattro di Coppe drit / Quattro di Coppe capo
+   18.3  pieni 0.069  sintesi 0.000  frase 2 "l alba"  Dieci di Spade drit / Dieci di Spade capo
+   18.4  pieni 0.071  sintesi 0.000  frase 2 "lo scudo"  Nove di Bastoni drit / Nove di Bastoni capo
+   18.5  pieni 0.043  sintesi 0.000  frase 3 "ciò che hai"  Nove di Denari drit / Nove di Denari capo
+
+pieni, le altre 12062 coppie: massimo 0.222; la decima 0.152; la centesima 0.100; mediana 0.000
+
+sintesi, le altre 12062 coppie: massimo 0.500; la decima 0.333; la centesima 0.250; mediana 0.000
+frase comune, le altre: massimo 5 parole; la decima 4; quante da 5 in su 5, da 4 44, da 3 303
+
+LE ALTRE COPPIE PIU' SIMILI (pieni):
+  pieni 0.222 sintesi 0.333 frase 4  Asso di Coppe drit / Cavaliere di Coppe drit
+  pieni 0.188 sintesi 0.000 frase 2  L'Imperatore capo / Quattro di Denari drit
+  pieni 0.185 sintesi 0.000 frase 1  Quattro di Coppe capo / Cavaliere di Coppe drit
+  pieni 0.182 sintesi 0.000 frase 3  Il Mondo capo / Nove di Bastoni drit
+  pieni 0.172 sintesi 0.000 frase 1  Dieci di Denari drit / Re di Denari drit
+  pieni 0.167 sintesi 0.333 frase 2  Il Giudizio drit / Il Giudizio capo
+  pieni 0.161 sintesi 0.000 frase 2  Quattro di Bastoni drit / Tre di Coppe drit
+  pieni 0.160 sintesi 0.000 frase 2  La Temperanza capo / Nove di Denari capo
+  pieni 0.154 sintesi 0.000 frase 4  L'Imperatrice drit / Regina di Denari drit
+  pieni 0.152 sintesi 0.000 frase 1  Il Carro drit / Cavaliere di Bastoni capo
+  pieni 0.152 sintesi 0.000 frase 1  Cinque di Coppe capo / Cinque di Denari capo
+  pieni 0.148 sintesi 0.000 frase 3  Il Papa capo / Dieci di Bastoni capo
+  pieni 0.147 sintesi 0.000 frase 2  Asso di Spade drit / Re di Spade drit
+  pieni 0.143 sintesi 0.000 frase 2  Sei di Coppe drit / Sei di Coppe capo
+  pieni 0.143 sintesi 0.000 frase 2  Fante di Denari capo / Quattro di Spade capo
+  pieni 0.143 sintesi 0.000 frase 2  Tre di Spade drit / Tre di Spade capo
+  pieni 0.138 sintesi 0.000 frase 3  Otto di Denari drit / Otto di Denari capo
+  pieni 0.138 sintesi 0.000 frase 3  Cinque di Spade capo / Otto di Spade capo
+  pieni 0.135 sintesi 0.333 frase 2  La Stella drit / La Stella capo
+  pieni 0.133 sintesi 0.000 frase 2  La Morte capo / Tre di Spade drit
+  pieni 0.133 sintesi 0.333 frase 2  Regina di Coppe drit / Regina di Denari drit
+  pieni 0.129 sintesi 0.000 frase 2  Asso di Coppe drit / Quattro di Coppe capo
+  pieni 0.129 sintesi 0.000 frase 1  Regina di Denari drit / Re di Denari drit
+  pieni 0.125 sintesi 0.000 frase 2  Gli Amanti drit / Sei di Bastoni capo
+  pieni 0.125 sintesi 0.000 frase 1  Asso di Coppe capo / Fante di Coppe drit
+
+LE FRASI COMUNI PIU' LUNGHE FRA LE ALTRE:
+  5 "il cielo ti chiede di"  Il Matto drit / Gli Amanti drit
+  5 "è il momento di prendere"  Il Carro drit / Re di Bastoni drit
+  5 "è il momento giusto per"  Asso di Bastoni drit / Asso di Denari drit
+  5 "un dubbio su di te"  Sei di Bastoni capo / Regina di Bastoni capo
+  5 "con i piedi a terra"  Sette di Coppe drit / Regina di Denari drit
+  4 "fioriscono nelle tue mani"  L'Imperatrice drit / Regina di Denari drit
+  4 "ti chiede di scegliere"  Gli Amanti drit / Due di Bastoni drit
+  4 "è il momento di"  Il Carro drit / Asso di Spade drit
+  4 "è un tempo di"  La Giustizia drit / Asso di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Dieci di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Cavaliere di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Dieci di Denari drit
+  4 "un passo alla volta"  L'Eremita drit / Cinque di Denari capo
+  4 "un passo alla volta"  L'Eremita drit / Fante di Denari capo
+  4 "un passo alla volta"  L'Eremita drit / Sei di Spade drit
+  4 "lascia andare ciò che"  La Morte drit / Dieci di Bastoni capo
+  4 "è il tempo di"  La Temperanza drit / Due di Bastoni drit
+  4 "è il tempo di"  La Temperanza drit / Fante di Bastoni drit
+  4 "è il tempo di"  La Temperanza drit / Tre di Coppe drit
+  4 "non è che il"  Il Sole capo / Asso di Bastoni capo
+  4 "è un momento di"  Il Mondo drit / Otto di Bastoni drit
+  4 "è il tempo di"  Due di Bastoni drit / Fante di Bastoni drit
+  4 "è il tempo di"  Due di Bastoni drit / Tre di Coppe drit
+  4 "ciò che hai costruito"  Quattro di Bastoni drit / Nove di Denari drit
+  4 "mal riposta che ti"  Otto di Bastoni capo / Sei di Denari capo
+
+RADICI IN COMUNE PESATE (df massimo None):
+   16.1 rango  1607 punteggio 4.32 ['emozi', 'l']  Re di Coppe / Regina di Coppe
+   16.1 rango 11141 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango   223 punteggio 8.93 ['emozi', 'l', 'senti', 'tratt']  Re di Coppe / Asso di Coppe
+   16.2 rango   621 punteggio 6.54 ['ecces', 'paura']  Cavaliere di Denari / Quattro di Denari
+   16.2 rango   784 punteggio 6.11 ['passo', 'picco']  Cavaliere di Denari / Fante di Denari
+   16.2 rango    62 punteggio 12.66 ['blocc', 'paura', 'qualc', 'sbagl']  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango  3317 punteggio 2.85 ['lavor']  Fante di Denari / Otto di Denari
+   16.4 rango  1188 punteggio 5.23 ['l', 'ritar']  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  2732 punteggio 3.10 ['d']  Gli Amanti / Due di Denari
+   16.5 rango   849 punteggio 5.96 ['riman', 'scelt']  Gli Amanti / Due di Spade
+   16.5 rango  1705 punteggio 3.98 ['d', 'l']  Gli Amanti / Due di Coppe
+   16.5 rango  2945 punteggio 2.98 ['l', 'prima']  Gli Amanti / Due di Denari
+   16.5 rango    34 punteggio 14.42 ['meno', 'pesa', 'prima', 'riman', 'scelt']  Gli Amanti / Due di Spade
+   16.5 rango  5223 punteggio 0.88 ['l']  Gli Amanti / Due di Coppe
+   16.6 rango    11 punteggio 17.82 ['armon', 'dista', 'l', 'legam', 'parla', 'ricuc']  Dieci di Coppe / Due di Coppe
+   16.7 rango    63 punteggio 12.64 ['dare', 'equil', 'gener', 'ricev']  Regina di Denari / Sei di Denari
+   16.8 rango   804 punteggio 6.09 ['l', 'ripre', 'torna']  Dieci di Spade / Cinque di Denari
+   16.8 rango   276 punteggio 8.49 ['alba', 'l', 'peggi']  Dieci di Spade / Nove di Spade
+   16.9 rango    36 punteggio 14.34 ['diven', 'energ', 'incan', 'l', 'slanc']  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango   158 punteggio 9.67 ['difen', 'stanc', 'tropp']  Nove di Bastoni / Sette di Bastoni
+  16.11 rango   327 punteggio 8.03 ['pesa', 'torna', 'verit']  La Giustizia / Sette di Spade
+  16.12 rango    32 punteggio 14.81 ['armon', 'cura', 'davve', 'fonda', 'radic']  Dieci di Denari / Quattro di Bastoni
+  16.13 rango  3979 punteggio 2.48 ['cura']  Fante di Coppe / Regina di Coppe
+   18.1 rango     9 punteggio 18.34 ['dura', 'famig', 'l', 'oltre', 'radic', 'ricch']  Dieci di Denari / Dieci di Denari
+   18.2 rango  1557 punteggio 4.36 ['noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango   205 punteggio 9.18 ['alba', 'l', 'risal']  Dieci di Spade / Dieci di Spade
+   18.4 rango   391 punteggio 7.61 ['scudo', 'stanc']  Nove di Bastoni / Nove di Bastoni
+   18.5 rango   330 punteggio 8.02 ['indip', 'seren']  Nove di Denari / Nove di Denari
+  altre: massimo 26.87, decima 17.43, cinquantesima 12.81, centesima 10.72
+  le altre piu' alte:
+    26.87 ['abbon', 'cura', 'fiori', 'gener', 'mani', 'nutri', 'proge', 'terra']  L'Imperatrice drit / Regina di Denari drit
+    23.68 ['fonda', 'l', 'ordin', 'prote', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    22.81 ['ascol', 'bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    21.13 ['fiduc', 'ispir', 'luce', 'spera', 'stanc', 'stell']  La Stella drit / La Stella capo
+    20.73 ['buio', 'chiar', 'occhi', 'paure', 'sembr', 'velo']  La Luna drit / La Luna capo
+    19.34 ['cuore', 'dolor', 'ferit', 'guari', 'passa', 'piogg']  Tre di Spade drit / Tre di Spade capo
+    18.95 ['c', 'celeb', 'condi', 'festa', 'feste', 'tempo']  Quattro di Bastoni drit / Tre di Coppe drit
+    18.70 ['buona', 'contr', 'l', 'prote', 'stret', 'tropp']  L'Imperatore capo / Quattro di Denari drit
+    18.11 ['accen', 'fiamm', 'fuoco', 'parte', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    17.43 ['l', 'propr', 'tragu', 'tratt', 'ultim', 'vicin']  Il Mondo capo / Nove di Bastoni drit
+    17.28 ['calor', 'luce', 'piena', 'scald', 'sta']  Il Sole drit / Regina di Bastoni drit
+    17.10 ['avven', 'corag', 'l', 'occhi', 'parti', 'strad']  Il Matto capo / Cavaliere di Bastoni drit
+
+RADICI IN COMUNE PESATE (df massimo 6):
+   16.1 rango  1291 punteggio 3.44 ['emozi']  Re di Coppe / Regina di Coppe
+   16.1 rango 10586 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango  1237 punteggio 3.44 ['emozi']  Re di Coppe / Asso di Coppe
+   16.2 rango  1313 punteggio 3.44 ['ecces']  Cavaliere di Denari / Quattro di Denari
+   16.2 rango   594 punteggio 3.95 ['picco']  Cavaliere di Denari / Fante di Denari
+   16.2 rango   117 punteggio 7.39 ['blocc', 'sbagl']  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango 11408 punteggio 0.00 []  Fante di Denari / Otto di Denari
+   16.4 rango   325 punteggio 4.36 ['ritar']  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  3432 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  3456 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  3410 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.5 rango  3433 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  1449 punteggio 3.26 ['meno']  Gli Amanti / Due di Spade
+   16.5 rango  3411 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.6 rango    69 punteggio 7.90 ['dista', 'ricuc']  Dieci di Coppe / Due di Coppe
+   16.7 rango   171 punteggio 7.10 ['dare', 'ricev']  Regina di Denari / Sei di Denari
+   16.8 rango  1766 punteggio 3.26 ['ripre']  Dieci di Spade / Cinque di Denari
+   16.8 rango   109 punteggio 7.61 ['alba', 'peggi']  Dieci di Spade / Nove di Spade
+   16.9 rango   101 punteggio 7.61 ['incan', 'slanc']  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango   232 punteggio 6.70 ['difen', 'stanc']  Nove di Bastoni / Sette di Bastoni
+  16.11 rango  3924 punteggio 0.00 []  La Giustizia / Sette di Spade
+  16.12 rango   230 punteggio 6.70 ['fonda', 'radic']  Dieci di Denari / Quattro di Bastoni
+  16.13 rango 10429 punteggio 0.00 []  Fante di Coppe / Regina di Coppe
+   18.1 rango     5 punteggio 17.47 ['dura', 'famig', 'oltre', 'radic', 'ricch']  Dieci di Denari / Dieci di Denari
+   18.2 rango   355 punteggio 4.36 ['noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango    54 punteggio 8.31 ['alba', 'risal']  Dieci di Spade / Dieci di Spade
+   18.4 rango   100 punteggio 7.61 ['scudo', 'stanc']  Nove di Bastoni / Nove di Bastoni
+   18.5 rango    64 punteggio 8.02 ['indip', 'seren']  Nove di Denari / Nove di Denari
+  altre: massimo 22.80, decima 14.03, cinquantesima 8.31, centesima 7.61
+  le altre piu' alte:
+    22.80 ['fonda', 'ordin', 'prote', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    21.42 ['abbon', 'fiori', 'mani', 'nutri', 'proge', 'terra']  L'Imperatrice drit / Regina di Denari drit
+    19.70 ['bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    18.38 ['fiduc', 'ispir', 'spera', 'stanc', 'stell']  La Stella drit / La Stella capo
+    15.41 ['cerch', 'integ', 'piene', 'tragu']  Il Mondo drit / Il Mondo capo
+    15.41 ['arden', 'grand', 'inizi', 'scint']  Asso di Bastoni drit / Fante di Bastoni drit
+    15.23 ['buio', 'occhi', 'paure', 'velo']  La Luna drit / La Luna capo
+    15.01 ['accen', 'fiamm', 'fuoco', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    14.54 ['dolor', 'ferit', 'guari', 'piogg']  Tre di Spade drit / Tre di Spade capo
+    14.03 ['deve', 'fredd', 'porta', 'solit']  Cinque di Denari drit / Regina di Spade capo
+    12.66 ['illum', 'lante', 'ritir']  L'Eremita drit / L'Eremita capo
+    12.38 ['colla', 'comun', 'opera']  Tre di Denari drit / Tre di Denari capo
+
+RADICI IN COMUNE PESATE (df massimo 4):
+   16.1 rango 10517 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango 10462 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango  8950 punteggio 0.00 []  Re di Coppe / Asso di Coppe
+   16.2 rango 11030 punteggio 0.00 []  Cavaliere di Denari / Quattro di Denari
+   16.2 rango   487 punteggio 3.95 ['picco']  Cavaliere di Denari / Fante di Denari
+   16.2 rango   369 punteggio 3.95 ['sbagl']  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango 11349 punteggio 0.00 []  Fante di Denari / Otto di Denari
+   16.4 rango   176 punteggio 4.36 ['ritar']  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  2753 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  2778 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  2728 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.5 rango  2754 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  2779 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  2729 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.6 rango    47 punteggio 7.90 ['dista', 'ricuc']  Dieci di Coppe / Due di Coppe
+   16.7 rango   865 punteggio 3.66 ['ricev']  Regina di Denari / Sei di Denari
+   16.8 rango 11138 punteggio 0.00 []  Dieci di Spade / Cinque di Denari
+   16.8 rango    73 punteggio 7.61 ['alba', 'peggi']  Dieci di Spade / Nove di Spade
+   16.9 rango   197 punteggio 4.36 ['incan']  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango  7567 punteggio 0.00 []  Nove di Bastoni / Sette di Bastoni
+  16.11 rango  3302 punteggio 0.00 []  La Giustizia / Sette di Spade
+  16.12 rango  7046 punteggio 0.00 []  Dieci di Denari / Quattro di Bastoni
+  16.13 rango 10292 punteggio 0.00 []  Fante di Coppe / Regina di Coppe
+   18.1 rango    89 punteggio 7.33 ['famig', 'oltre']  Dieci di Denari / Dieci di Denari
+   18.2 rango   210 punteggio 4.36 ['noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango    30 punteggio 8.31 ['alba', 'risal']  Dieci di Spade / Dieci di Spade
+   18.4 rango   190 punteggio 4.36 ['scudo']  Nove di Bastoni / Nove di Bastoni
+   18.5 rango    41 punteggio 8.02 ['indip', 'seren']  Nove di Denari / Nove di Denari
+  altre: massimo 19.70, decima 11.68, cinquantesima 7.61, centesima 4.36
+  le altre piu' alte:
+    19.70 ['bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    15.92 ['ordin', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    12.66 ['illum', 'lante', 'ritir']  L'Eremita drit / L'Eremita capo
+    12.38 ['colla', 'comun', 'opera']  Tre di Denari drit / Tre di Denari capo
+    11.97 ['buio', 'paure', 'velo']  La Luna drit / La Luna capo
+    11.97 ['calor', 'piena', 'scald']  Il Sole drit / Regina di Bastoni drit
+    11.97 ['cerch', 'integ', 'piene']  Il Mondo drit / Il Mondo capo
+    11.97 ['arden', 'grand', 'scint']  Asso di Bastoni drit / Fante di Bastoni drit
+    11.97 ['celeb', 'festa', 'feste']  Quattro di Bastoni drit / Tre di Coppe drit
+    11.68 ['ispir', 'spera', 'stell']  La Stella drit / La Stella capo
+    11.57 ['accen', 'fuoco', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    11.28 ['creat', 'fiori', 'nutri']  L'Imperatrice drit / L'Imperatrice capo
+
+=================== DOPO (le 26 correzioni) ===================
+coppie in tutto: 12090; coppie nominate dall'ordine: 28
+
+LE COPPIE NOMINATE (FJ.16 e FJ.18):
+   16.1  pieni 0.061  sintesi 0.000  frase 1 "altri"  Re di Coppe capo / Regina di Coppe capo
+   16.1  pieni 0.057  sintesi 0.000  frase 1 "il"  Re di Coppe capo / Regina di Coppe drit
+   16.1  pieni 0.000  sintesi 0.333  frase 1 "a"  Re di Coppe capo / Asso di Coppe capo
+   16.2  pieni 0.000  sintesi 0.000  frase 1 "la"  Cavaliere di Denari capo / Quattro di Denari capo
+   16.2  pieni 0.036  sintesi 0.000  frase 3 "che si è"  Cavaliere di Denari capo / Fante di Denari capo
+   16.2  pieni 0.028  sintesi 0.000  frase 2 "e la"  Cavaliere di Denari capo / Asso di Bastoni capo
+   16.3  pieni 0.000  sintesi 0.000  frase 3 "che si è"  Fante di Denari capo / Otto di Denari capo
+   16.4  pieni 0.000  sintesi 0.000  frase 1 "che"  Tre di Bastoni capo / Otto di Bastoni capo
+   16.5  pieni 0.000  sintesi 0.000  frase 1 "un"  Gli Amanti capo / Due di Denari drit
+   16.5  pieni 0.000  sintesi 0.333  frase 2 "ciò che"  Gli Amanti capo / Due di Spade drit
+   16.5  pieni 0.053  sintesi 0.000  frase 2 "ciò che"  Gli Amanti capo / Due di Coppe drit
+   16.5  pieni 0.023  sintesi 0.000  frase 1 "e"  Gli Amanti capo / Due di Denari capo
+   16.5  pieni 0.050  sintesi 0.000  frase 2 "ciò che"  Gli Amanti capo / Due di Spade capo
+   16.5  pieni 0.025  sintesi 0.000  frase 1 "un"  Gli Amanti capo / Due di Coppe capo
+   16.6  pieni 0.067  sintesi 0.000  frase 1 "persone"  Dieci di Coppe capo / Due di Coppe capo
+   16.7  pieni 0.033  sintesi 0.000  frase 1 "non"  Regina di Denari capo / Sei di Denari drit
+   16.8  pieni 0.028  sintesi 0.000  frase 1 "una"  Dieci di Spade capo / Cinque di Denari capo
+   16.8  pieni 0.000  sintesi 0.000  frase 1 "il"  Dieci di Spade capo / Nove di Spade capo
+   16.9  pieni 0.000  sintesi 0.000  frase 1 "che"  Fante di Bastoni capo / Cavaliere di Bastoni capo
+   16.1  pieni 0.074  sintesi 0.000  frase 1 "ti"  Nove di Bastoni capo / Sette di Bastoni capo
+  16.11  pieni 0.032  sintesi 0.000  frase 1 "una"  La Giustizia capo / Sette di Spade capo
+  16.12  pieni 0.000  sintesi 0.000  frase 1 "la"  Dieci di Denari capo / Quattro di Bastoni capo
+  16.13  pieni 0.048  sintesi 0.000  frase 1 "un"  Fante di Coppe capo / Regina di Coppe capo
+   18.1  pieni 0.034  sintesi 0.000  frase 2 "ciò che"  Dieci di Denari drit / Dieci di Denari capo
+   18.2  pieni 0.069  sintesi 0.000  frase 1 "noia"  Quattro di Coppe drit / Quattro di Coppe capo
+   18.3  pieni 0.000  sintesi 0.000  frase 1 "si"  Dieci di Spade drit / Dieci di Spade capo
+   18.4  pieni 0.000  sintesi 0.000  frase 1 "è"  Nove di Bastoni drit / Nove di Bastoni capo
+   18.5  pieni 0.040  sintesi 0.000  frase 2 "ciò che"  Nove di Denari drit / Nove di Denari capo
+
+pieni, le altre 12062 coppie: massimo 0.222; la decima 0.152; la centesima 0.100; mediana 0.000
+
+sintesi, le altre 12062 coppie: massimo 0.333; la decima 0.333; la centesima 0.250; mediana 0.000
+frase comune, le altre: massimo 5 parole; la decima 4; quante da 5 in su 5, da 4 39, da 3 301
+
+LE ALTRE COPPIE PIU' SIMILI (pieni):
+  pieni 0.222 sintesi 0.333 frase 4  Asso di Coppe drit / Cavaliere di Coppe drit
+  pieni 0.185 sintesi 0.000 frase 1  Quattro di Coppe capo / Cavaliere di Coppe drit
+  pieni 0.182 sintesi 0.000 frase 3  Il Mondo capo / Nove di Bastoni drit
+  pieni 0.172 sintesi 0.000 frase 1  Dieci di Denari drit / Re di Denari drit
+  pieni 0.167 sintesi 0.333 frase 2  Il Giudizio drit / Il Giudizio capo
+  pieni 0.161 sintesi 0.000 frase 2  Quattro di Bastoni drit / Tre di Coppe drit
+  pieni 0.160 sintesi 0.000 frase 2  Fante di Denari drit / Fante di Denari capo
+  pieni 0.154 sintesi 0.000 frase 4  L'Imperatrice drit / Regina di Denari drit
+  pieni 0.152 sintesi 0.000 frase 1  Il Carro drit / Cavaliere di Bastoni capo
+  pieni 0.152 sintesi 0.000 frase 1  Cinque di Coppe capo / Cinque di Denari capo
+  pieni 0.152 sintesi 0.333 frase 2  Re di Coppe drit / Re di Coppe capo
+  pieni 0.148 sintesi 0.000 frase 3  Il Papa capo / Dieci di Bastoni capo
+  pieni 0.148 sintesi 0.000 frase 3  Cinque di Spade capo / Otto di Spade capo
+  pieni 0.147 sintesi 0.000 frase 2  Asso di Spade drit / Re di Spade drit
+  pieni 0.143 sintesi 0.000 frase 1  L'Imperatore capo / Quattro di Denari drit
+  pieni 0.143 sintesi 0.000 frase 1  La Giustizia capo / Sei di Bastoni capo
+  pieni 0.143 sintesi 0.200 frase 2  Fante di Bastoni capo / Sette di Denari drit
+  pieni 0.143 sintesi 0.000 frase 2  Sei di Coppe drit / Sei di Coppe capo
+  pieni 0.143 sintesi 0.000 frase 2  Tre di Spade drit / Tre di Spade capo
+  pieni 0.138 sintesi 0.000 frase 3  Otto di Denari drit / Otto di Denari capo
+  pieni 0.138 sintesi 0.333 frase 2  Cavaliere di Denari drit / Cavaliere di Denari capo
+  pieni 0.135 sintesi 0.333 frase 2  La Stella drit / La Stella capo
+  pieni 0.133 sintesi 0.000 frase 2  La Morte capo / Tre di Spade drit
+  pieni 0.133 sintesi 0.333 frase 2  Regina di Coppe drit / Regina di Denari drit
+  pieni 0.129 sintesi 0.000 frase 2  Asso di Coppe drit / Quattro di Coppe capo
+
+LE FRASI COMUNI PIU' LUNGHE FRA LE ALTRE:
+  5 "il cielo ti chiede di"  Il Matto drit / Gli Amanti drit
+  5 "è il momento di prendere"  Il Carro drit / Re di Bastoni drit
+  5 "è il momento giusto per"  Asso di Bastoni drit / Asso di Denari drit
+  5 "un dubbio su di te"  Sei di Bastoni capo / Regina di Bastoni capo
+  5 "con i piedi a terra"  Sette di Coppe drit / Regina di Denari drit
+  4 "fioriscono nelle tue mani"  L'Imperatrice drit / Regina di Denari drit
+  4 "ti chiede di scegliere"  Gli Amanti drit / Due di Bastoni drit
+  4 "ciò in cui credi"  Gli Amanti capo / Sette di Bastoni drit
+  4 "è il momento di"  Il Carro drit / Asso di Spade drit
+  4 "è un tempo di"  La Giustizia drit / Asso di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Dieci di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Cavaliere di Coppe drit
+  4 "è un tempo di"  La Giustizia drit / Dieci di Denari drit
+  4 "un passo alla volta"  L'Eremita drit / Cinque di Denari capo
+  4 "un passo alla volta"  L'Eremita drit / Sei di Spade drit
+  4 "lascia andare ciò che"  La Morte drit / Dieci di Bastoni capo
+  4 "è il tempo di"  La Temperanza drit / Due di Bastoni drit
+  4 "è il tempo di"  La Temperanza drit / Fante di Bastoni drit
+  4 "è il tempo di"  La Temperanza drit / Tre di Coppe drit
+  4 "non è che il"  Il Sole capo / Asso di Bastoni capo
+  4 "è un momento di"  Il Mondo drit / Otto di Bastoni drit
+  4 "è il tempo di"  Due di Bastoni drit / Fante di Bastoni drit
+  4 "è il tempo di"  Due di Bastoni drit / Tre di Coppe drit
+  4 "ciò che hai costruito"  Quattro di Bastoni drit / Nove di Denari drit
+  4 "mal riposta che ti"  Otto di Bastoni capo / Sei di Denari capo
+
+RADICI IN COMUNE PESATE (df massimo None):
+   16.1 rango   911 punteggio 5.72 ['altri', 'd']  Re di Coppe / Regina di Coppe
+   16.1 rango   238 punteggio 8.70 ['altri', 'cuore', 'usa']  Re di Coppe / Regina di Coppe
+   16.1 rango  4552 punteggio 2.01 ['cuore']  Re di Coppe / Asso di Coppe
+   16.2 rango 11407 punteggio 0.00 []  Cavaliere di Denari / Quattro di Denari
+   16.2 rango  1030 punteggio 5.49 ['ferma', 'riman']  Cavaliere di Denari / Fante di Denari
+   16.2 rango   726 punteggio 6.19 ['blocc', 'riman']  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango 11607 punteggio 0.00 []  Fante di Denari / Otto di Denari
+   16.4 rango  8901 punteggio 0.00 []  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  2952 punteggio 2.97 ['d']  Gli Amanti / Due di Denari
+   16.5 rango   906 punteggio 5.72 ['riman', 'scelt']  Gli Amanti / Due di Spade
+   16.5 rango   404 punteggio 7.40 ['d', 'due', 'l']  Gli Amanti / Due di Coppe
+   16.5 rango  2865 punteggio 3.09 ['l', 'prima']  Gli Amanti / Due di Denari
+   16.5 rango   339 punteggio 7.82 ['prima', 'riman', 'scelt']  Gli Amanti / Due di Spade
+   16.5 rango  1409 punteggio 4.43 ['due', 'l']  Gli Amanti / Due di Coppe
+   16.6 rango   535 punteggio 6.80 ['dista', 'perso']  Dieci di Coppe / Due di Coppe
+   16.7 rango  3046 punteggio 2.97 ['gener']  Regina di Denari / Sei di Denari
+   16.8 rango  3478 punteggio 2.75 ['dopo']  Dieci di Spade / Cinque di Denari
+   16.8 rango  3495 punteggio 2.75 ['dopo']  Dieci di Spade / Nove di Spade
+   16.9 rango  5552 punteggio 0.99 ['l']  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango   644 punteggio 6.41 ['difen', 'tropp']  Nove di Bastoni / Sette di Bastoni
+  16.11 rango  4391 punteggio 2.05 ['torna']  La Giustizia / Sette di Spade
+  16.12 rango  9078 punteggio 0.00 []  Dieci di Denari / Quattro di Bastoni
+  16.13 rango  3656 punteggio 2.65 ['cura']  Fante di Coppe / Regina di Coppe
+   18.1 rango  1786 punteggio 3.95 ['famig']  Dieci di Denari / Dieci di Denari
+   18.2 rango   137 punteggio 9.87 ['arriv', 'inter', 'noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango 12065 punteggio 0.00 []  Dieci di Spade / Dieci di Spade
+   18.4 rango  9518 punteggio 0.00 []  Nove di Bastoni / Nove di Bastoni
+   18.5 rango   449 punteggio 7.21 ['costr', 'indip']  Nove di Denari / Nove di Denari
+  altre: massimo 26.75, decima 17.55, cinquantesima 12.90, centesima 10.55
+  le altre piu' alte:
+    26.75 ['abbon', 'cura', 'fiori', 'gener', 'mani', 'nutri', 'proge', 'terra']  L'Imperatrice drit / Regina di Denari drit
+    24.59 ['fonda', 'l', 'ordin', 'prote', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    22.81 ['ascol', 'bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    21.60 ['fiduc', 'ispir', 'luce', 'spera', 'stanc', 'stell']  La Stella drit / La Stella capo
+    20.63 ['buio', 'chiar', 'occhi', 'paure', 'sembr', 'velo']  La Luna drit / La Luna capo
+    18.97 ['cuore', 'dolor', 'ferit', 'guari', 'passa', 'piogg']  Tre di Spade drit / Tre di Spade capo
+    18.87 ['c', 'celeb', 'condi', 'festa', 'feste', 'tempo']  Quattro di Bastoni drit / Tre di Coppe drit
+    18.11 ['accen', 'fiamm', 'fuoco', 'parte', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    17.69 ['calor', 'luce', 'piena', 'scald', 'sta']  Il Sole drit / Regina di Bastoni drit
+    17.55 ['l', 'propr', 'tragu', 'tratt', 'ultim', 'vicin']  Il Mondo capo / Nove di Bastoni drit
+    17.48 ['affet', 'altri', 'calma', 'cuore', 'guida', 'matur']  Re di Coppe drit / Re di Coppe capo
+    17.05 ['avven', 'corag', 'l', 'occhi', 'parti', 'strad']  Il Matto capo / Cavaliere di Bastoni drit
+
+RADICI IN COMUNE PESATE (df massimo 6):
+   16.1 rango 10639 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango   567 punteggio 3.95 ['usa']  Re di Coppe / Regina di Coppe
+   16.1 rango  9170 punteggio 0.00 []  Re di Coppe / Asso di Coppe
+   16.2 rango 11111 punteggio 0.00 []  Cavaliere di Denari / Quattro di Denari
+   16.2 rango 11606 punteggio 0.00 []  Cavaliere di Denari / Fante di Denari
+   16.2 rango  1160 punteggio 3.44 ['blocc']  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango 11411 punteggio 0.00 []  Fante di Denari / Otto di Denari
+   16.4 rango  7156 punteggio 0.00 []  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  3450 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  3474 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  1015 punteggio 3.44 ['due']  Gli Amanti / Due di Coppe
+   16.5 rango  3451 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  3475 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  1016 punteggio 3.44 ['due']  Gli Amanti / Due di Coppe
+   16.6 rango   535 punteggio 3.95 ['dista']  Dieci di Coppe / Due di Coppe
+   16.7 rango 11229 punteggio 0.00 []  Regina di Denari / Sei di Denari
+   16.8 rango 11210 punteggio 0.00 []  Dieci di Spade / Cinque di Denari
+   16.8 rango 12054 punteggio 0.00 []  Dieci di Spade / Nove di Spade
+   16.9 rango  8539 punteggio 0.00 []  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango  1176 punteggio 3.44 ['difen']  Nove di Bastoni / Sette di Bastoni
+  16.11 rango  3949 punteggio 0.00 []  La Giustizia / Sette di Spade
+  16.12 rango  7395 punteggio 0.00 []  Dieci di Denari / Quattro di Bastoni
+  16.13 rango 10432 punteggio 0.00 []  Fante di Coppe / Regina di Coppe
+   18.1 rango   585 punteggio 3.95 ['famig']  Dieci di Denari / Dieci di Denari
+   18.2 rango   340 punteggio 4.36 ['noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango 12062 punteggio 0.00 []  Dieci di Spade / Dieci di Spade
+   18.4 rango  8130 punteggio 0.00 []  Nove di Bastoni / Nove di Bastoni
+   18.5 rango   367 punteggio 4.36 ['indip']  Nove di Denari / Nove di Denari
+  altre: massimo 23.60, decima 14.31, cinquantesima 8.31, centesima 7.61
+  le altre piu' alte:
+    23.60 ['fonda', 'ordin', 'prote', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    21.13 ['abbon', 'fiori', 'mani', 'nutri', 'proge', 'terra']  L'Imperatrice drit / Regina di Denari drit
+    19.70 ['bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    18.85 ['fiduc', 'ispir', 'spera', 'stanc', 'stell']  La Stella drit / La Stella capo
+    15.41 ['arden', 'grand', 'inizi', 'scint']  Asso di Bastoni drit / Fante di Bastoni drit
+    15.23 ['buio', 'occhi', 'paure', 'velo']  La Luna drit / La Luna capo
+    15.23 ['cerch', 'integ', 'piene', 'tragu']  Il Mondo drit / Il Mondo capo
+    15.23 ['celeb', 'festa', 'raggi', 'tragu']  Quattro di Bastoni drit / Quattro di Bastoni capo
+    15.01 ['accen', 'fiamm', 'fuoco', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    14.31 ['dolor', 'ferit', 'guari', 'piogg']  Tre di Spade drit / Tre di Spade capo
+    13.40 ['impeg', 'prati', 'proge', 'prome']  Fante di Denari drit / Fante di Denari capo
+    12.66 ['illum', 'lante', 'ritir']  L'Eremita drit / L'Eremita capo
+
+RADICI IN COMUNE PESATE (df massimo 4):
+   16.1 rango 10507 punteggio 0.00 []  Re di Coppe / Regina di Coppe
+   16.1 rango   465 punteggio 3.95 ['usa']  Re di Coppe / Regina di Coppe
+   16.1 rango  8944 punteggio 0.00 []  Re di Coppe / Asso di Coppe
+   16.2 rango 11025 punteggio 0.00 []  Cavaliere di Denari / Quattro di Denari
+   16.2 rango 11557 punteggio 0.00 []  Cavaliere di Denari / Fante di Denari
+   16.2 rango  6457 punteggio 0.00 []  Cavaliere di Denari / Asso di Bastoni
+   16.3 rango 11350 punteggio 0.00 []  Fante di Denari / Otto di Denari
+   16.4 rango  6792 punteggio 0.00 []  Tre di Bastoni / Otto di Bastoni
+   16.5 rango  2734 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  2758 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  2707 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.5 rango  2735 punteggio 0.00 []  Gli Amanti / Due di Denari
+   16.5 rango  2759 punteggio 0.00 []  Gli Amanti / Due di Spade
+   16.5 rango  2708 punteggio 0.00 []  Gli Amanti / Due di Coppe
+   16.6 rango   432 punteggio 3.95 ['dista']  Dieci di Coppe / Due di Coppe
+   16.7 rango 11155 punteggio 0.00 []  Regina di Denari / Sei di Denari
+   16.8 rango 11133 punteggio 0.00 []  Dieci di Spade / Cinque di Denari
+   16.8 rango 12045 punteggio 0.00 []  Dieci di Spade / Nove di Spade
+   16.9 rango  8274 punteggio 0.00 []  Fante di Bastoni / Cavaliere di Bastoni
+   16.1 rango  7564 punteggio 0.00 []  Nove di Bastoni / Sette di Bastoni
+  16.11 rango  3289 punteggio 0.00 []  La Giustizia / Sette di Spade
+  16.12 rango  7045 punteggio 0.00 []  Dieci di Denari / Quattro di Bastoni
+  16.13 rango 10286 punteggio 0.00 []  Fante di Coppe / Regina di Coppe
+   18.1 rango   486 punteggio 3.95 ['famig']  Dieci di Denari / Dieci di Denari
+   18.2 rango   206 punteggio 4.36 ['noia']  Quattro di Coppe / Quattro di Coppe
+   18.3 rango 12054 punteggio 0.00 []  Dieci di Spade / Dieci di Spade
+   18.4 rango  7839 punteggio 0.00 []  Nove di Bastoni / Nove di Bastoni
+   18.5 rango   236 punteggio 4.36 ['indip']  Nove di Denari / Nove di Denari
+  altre: massimo 20.16, decima 11.97, cinquantesima 7.61, centesima 4.36
+  le altre piu' alte:
+    20.16 ['fonda', 'ordin', 'regol', 'soffo', 'strut']  L'Imperatore drit / L'Imperatore capo
+    19.70 ['bilan', 'chiam', 'conda', 'giudi', 'rinas']  Il Giudizio drit / Il Giudizio capo
+    12.66 ['illum', 'lante', 'ritir']  L'Eremita drit / L'Eremita capo
+    12.38 ['calor', 'piena', 'scald']  Il Sole drit / Regina di Bastoni drit
+    11.97 ['ispir', 'spera', 'stell']  La Stella drit / La Stella capo
+    11.97 ['buio', 'paure', 'velo']  La Luna drit / La Luna capo
+    11.97 ['cerch', 'integ', 'piene']  Il Mondo drit / Il Mondo capo
+    11.97 ['arden', 'grand', 'scint']  Asso di Bastoni drit / Fante di Bastoni drit
+    11.97 ['celeb', 'festa', 'raggi']  Quattro di Bastoni drit / Quattro di Bastoni capo
+    11.97 ['celeb', 'festa', 'feste']  Quattro di Bastoni drit / Tre di Coppe drit
+    11.57 ['accen', 'fuoco', 'scint']  Asso di Bastoni drit / Asso di Bastoni capo
+    11.28 ['creat', 'fiori', 'nutri']  L'Imperatrice drit / L'Imperatrice capo

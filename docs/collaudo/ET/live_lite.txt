@@ -1,0 +1,33 @@
+ORDINE ET VOCE 05: LA LITE RESTA. 28 settembre 2026.
+
+La riga del registro delle funzioni (Cloud Logging, progetto esoteric-circle,
+funzione apriunasessionelive, messaggio "LIVE aperto"), letta con
+gcloud logging read 'jsonPayload.message="LIVE aperto"' il 28 settembre:
+
+2026-09-28T09:47:54.337507Z LIVE aperto maestro medora qualita lite apriunasessionelive
+
+E' l'apertura della sessione della prova della voce di quest'ordine (voce
+ET.04, "prima"), sul Realme 767f596c alle 11:47:54 ora italiana: il LIVE di
+quest'ordine parte in lite. Le altre aperture della mattina, tutte in lite:
+09:30:54Z, 09:33:59Z, 09:53:10Z, 09:56:49Z, 09:59:07Z (le riaperture della
+stessa prova dopo le chiusure per silenzio).
+
+Code non legge Firestore: il campo configurazione/live.qualita = "lite" l'ha
+messo il fondatore il 28 settembre (ordine ER voce 11); qui si legge solo il
+registro, che dice quale qualita' ha aperto la sessione.
+
+LE MISURE DELL'ORDINE ER (voce ER.11, docs/collaudo/ER/realme/live_lite/),
+dieci turni per qualita':
+  "il Maestro si sente", mediana: 5146 ms in standard (build 2285), 5300 ms in lite (2286)
+  "dalla risposta al primo audio al volto", mediana: 354 ms in standard, 40 ms in lite
+
+E QUELLE DELLA SESSIONE DI OGGI IN LITE (build 2287, Medora, diciassette
+turni, dalle righe "LIVE ATTESA" del registro del telefono,
+scratchpad et04_prima2_logcat.txt, script attese_lite.py):
+  "si sente": mediana 4977 ms, valori 3504..7317
+  "il volto parla": mediana 5507 ms, valori 3894..7473
+Avvertenza: diverse delle venti domande erano gia' state dette quel giorno
+a Medora nella prima sessione, poi scartata (quattro turni): una domanda
+ripetuta nello stesso giorno puo' avere la risposta in memoria e falsare
+l'attesa in meno. Non e' una misura di confronto con l'ordine ER: e' la
+prova che la lite regge nell'uso di oggi.

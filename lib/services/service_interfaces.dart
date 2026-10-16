@@ -10,7 +10,7 @@
 /// le feature dipendono da astrazioni stabili e non da dettagli concreti.
 ///
 /// Riferimento: Handoff Fase C sezione 4 (lib/services) e regola d'oro dello
-/// stack (Claude costruisce, Gemini fa girare; strato di astrazione AIProvider).
+/// stack (l'AI a runtime e' Gemini; strato di astrazione AIProvider).
 library;
 
 /// Astrae il fornitore AI a runtime (Vertex AI / Gemini in produzione).

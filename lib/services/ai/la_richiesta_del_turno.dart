@@ -1,0 +1,93 @@
+import 'dart:async';
+
+/// **CIO' CHE UN TURNO CHIEDE E LA FIRMA DI `reply` NON PORTA.** Ordine EN
+/// voci 01 e 06, 25 settembre 2026.
+///
+/// Due cose che il provider deve sapere per comporre l'istruzione giusta, e
+/// che fino a quest'ordine non sapeva:
+///
+/// - **se il turno e' detto nel LIVE**, per chiedere la misura della voce e
+///   non quella della chat (voce EN.01, *"bisogna ridurre questa pausa"*);
+/// - **quale risposta gia' data non va ripetuta**, quando il Maestro ne ha
+///   appena riscritta una uguale (voce EN.06, Medora che restituisce la
+///   stessa risposta parola per parola);
+/// - **quale risposta non va data**, quando il Maestro ha appena parlato di
+///   se' come di un programma (voce EN.06, Calìgo che risponde *"Non ho
+///   memoria delle conversazioni precedenti"*);
+/// - **quale risposta dice solo di aspettare**, ordine EQ voce 03: Calìgo
+///   nelle catture del fondatore, *"Il tuo gesto è compiuto. Ora lascia che
+///   il tempo faccia il suo corso."*
+///
+/// **Perche' viaggia nella zona e non nella firma.** `reply` la implementano
+/// il provider vero, la voce sorvegliata e quaranta provider finti delle
+/// prove: un parametro nuovo nella firma li toccherebbe tutti, per una cosa
+/// che interessa a due. La zona di Dart attraversa ogni `await`, e quindi
+/// anche la voce sorvegliata che sta in mezzo: chi la legge sono il provider
+/// vero e la voce vera dei banchi, chi non la legge risponde come prima.
+class LaRichiestaDelTurno {
+  const LaRichiestaDelTurno({
+    this.nelLive = false,
+    this.daNonRipetere,
+    this.daProgramma,
+    this.daAttesa,
+    this.suTesto,
+    this.domanda,
+    this.daCorreggere,
+    this.conSeguito = false,
+    this.ilLessicoLoCorreggeIlTurno = false,
+  });
+
+  /// Vero quando il turno e' detto nel LIVE.
+  final bool nelLive;
+
+  /// La risposta gia' data che il Maestro ha appena ripetuto, da non
+  /// ripetere di nuovo; null quando non c'e'.
+  final String? daNonRipetere;
+
+  /// La risposta che il Maestro stava per dare parlando di se' come di un
+  /// programma, da non dare; null quando non c'e'.
+  final String? daProgramma;
+
+  /// La risposta che il Maestro stava per dare e che dice soltanto di
+  /// aspettare, da non dare; null quando non c'e'. Ordine EQ voce 03.
+  final String? daAttesa;
+
+  /// **IL TESTO MENTRE ARRIVA.** Ordine EO voce 14, 26 settembre 2026: nel
+  /// LIVE la risposta si mostra mentre il modello la scrive, e il provider
+  /// che sa chiederla a flusso passa qui il testo scritto finora. Null
+  /// quando nessuno lo aspetta: allora la risposta si chiede intera.
+  final void Function(String scrittoFinora)? suTesto;
+
+  /// **La domanda del turno**, per la forma della prima frase. Ordine ET
+  /// voce 01 (`LaPosizioneDellaLettura`).
+  final String? domanda;
+
+  /// **La correzione nominata**, quando la prima frase che e' tornata non ha
+  /// preso posizione e il turno si chiede di nuovo. Ordine ET voce 01.
+  final String? daCorreggere;
+
+  /// **IL SEGUITO NELLA STESSA RISPOSTA. Ordine EX voce 04.** Vero quando il
+  /// piano ha il "Vai più a fondo": il Maestro scrive anche il seguito,
+  /// dopo `IlSeguitoNascosto.segno`.
+  final bool conSeguito;
+
+  /// **LE PAROLE DEGLI ALTRI MAESTRI LE CORREGGE IL TURNO. Ordine EX
+  /// Aggiunta 5, voce EX.07.** Vero quando il controller della chat guarda
+  /// lui il lessico della risposta e la corregge corta, insieme alle altre
+  /// reti: allora la voce sorvegliata conta la confusione ma non rifa' la
+  /// risposta da capo.
+  final bool ilLessicoLoCorreggeIlTurno;
+
+  /// La richiesta di un turno qualunque della chat.
+  static const LaRichiestaDelTurno normale = LaRichiestaDelTurno();
+
+  static const Symbol _chiave = #laRichiestaDelTurno;
+
+  /// La richiesta del turno in corso, o [normale] fuori da un turno.
+  static LaRichiestaDelTurno get corrente =>
+      Zone.current[_chiave] as LaRichiestaDelTurno? ?? normale;
+
+  /// Esegue [chiamata] dentro questa richiesta.
+  Future<T> per<T>(Future<T> Function() chiamata) =>
+      runZoned(chiamata, zoneValues: {_chiave: this});
+}

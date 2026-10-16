@@ -1,0 +1,35 @@
+es3 aura: nel merito 13 su 24; domande con piu parti toccate tutte 9 su 12; risposte con una certezza 2 (frasi 2)
+es3 caligo: nel merito 18 su 24; domande con piu parti toccate tutte 12 su 12; risposte con una certezza 4 (frasi 6)
+es3 medora: nel merito 19 su 24; domande con piu parti toccate tutte 10 su 12; risposte con una certezza 2 (frasi 2)
+es3 tutti: nel merito 50 su 72; domande con piu parti toccate tutte 31 su 36; risposte con una certezza 8 (frasi 10)
+es4 aura: nel merito 11 su 24; domande con piu parti toccate tutte 10 su 12; risposte con una certezza 4 (frasi 6)
+es4 caligo: nel merito 16 su 24; domande con piu parti toccate tutte 10 su 12; risposte con una certezza 3 (frasi 4)
+es4 medora: nel merito 18 su 24; domande con piu parti toccate tutte 11 su 12; risposte con una certezza 3 (frasi 3)
+es4 tutti: nel merito 45 su 72; domande con piu parti toccate tutte 31 su 36; risposte con una certezza 10 (frasi 13)
+
+CERTEZZE es3
+    L027 medora: sua madre ha espresso un'emozione profonda, che non è un giudizio sulla tua scelta
+    L050 aura: la reazione di tua madre è un riflesso delle sue paure e del suo amore per te, che in questo momento si manifestano attraverso il suo centro del cuore
+    L051 caligo: Le rune indicano il successo nel lavoro e la via verso l'Australia, ma per una compagna è presto.
+    L079 caligo: Le rune dicono: è attesa e non tristezza.
+    L079 caligo: La sua reazione mostra il legame profondo, non il rifiuto.
+    L081 caligo: Le pietre rispondono di no.
+    L105 medora: quando la Luna in Pesci la renderà più incline all'ascolto
+    L130 caligo: Nelle rune leggo che la compagna arriverà, ma dopo aver consolidato il tuo sentiero.
+    L130 caligo: Il successo nel lavoro è già tracciato, richiede solo la tua ferma volontà.
+    L133 aura: il pianto di tua madre è una manifestazione del suo timore per te, un segno della sua profonda connessione
+
+CERTEZZE es4
+    L004 aura: la sua reazione è un segno del suo amore profondo per te, un legame forte che risiede nel suo cuore e che si riflette nel tuo
+    L004 aura: Non è un rifiuto, ma un sentire che si esprime.
+    L008 aura: sentirai una leggera espansione nel centro del cuore quando la tua decisione sarà allineata con il tuo respiro più autentico
+    L010 medora: la chiarezza e l'apertura illuminano il cammino, dissipando le sue preoccupazioni
+    L028 aura: una compagna arriverà quando il tuo cuore sarà radicato e l'Australia ti accoglierà dopo aver consolidato la tua forza interna
+    L028 aura: il successo nel lavoro che stai facendo, che è già in cammino
+    L056 medora: Il tuo cielo dice di no.
+    L101 aura: la sua preoccupazione nasce da un profondo affetto
+    L104 caligo: Le pietre rispondono di no.
+    L104 caligo: Il tuo numero della vita, il 4, il Costruttore, ti guiderà a edificare legami.
+    L122 caligo: il suo pianto è resistenza
+    L124 caligo: L'energia primordiale di Uruz li condurrà dove devono andare.
+    L140 medora: La reazione di tua madre è una manifestazione di affetto, non un divieto

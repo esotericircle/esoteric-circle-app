@@ -1,0 +1,165 @@
+== EQ.03 Regola A: la regola comune non parte piu' da cio' che la persona ha fatto
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima d3bb56704f15, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'QUANDO LA PERSONA TI DICE CHE COSA HA FATTO O CHE COSA'
+   Actual: 'RISPONDI SEMPRE NEL MERITO:\n'
+   ripristinato: sha1 d3bb56704f15, uguale
+== EQ.03 Regola A: il controllo finale non chiede piu' frasi che valgano per lei sola
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima d3bb56704f15, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'vale per lei sola'
+   Actual: 'PRIMA DI SCRIVERE, CONTROLLA:\n'
+   ripristinato: sha1 d3bb56704f15, uguale
+== EQ.03 Regola A: la forma del LIVE non chiede piu' che la prima frase dica che cosa fare
+   file lib/services/ai/maestro_persona.dart, sha1 prima 29d636dfe604, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'la prima dice che cosa fare in concreto'
+   Actual: 'LA RISPOSTA È DETTA A VOCE, NEL LIVE:\n'
+   ripristinato: sha1 29d636dfe604, uguale
+== EQ.03 Regola A: il LIVE non riceve piu' la sua forma
+   file lib/services/ai/maestro_persona.dart, sha1 prima 29d636dfe604, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'LA RISPOSTA È DETTA A VOCE, NEL LIVE:\n'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 29d636dfe604, uguale
+== EQ.03 Regola A: l'apertura di Aura torna ad avere un esempio da imitare
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima c7811b80d387, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['Respira tre volte prima di rispondere a tua sorella.']
+   ripristinato: sha1 c7811b80d387, uguale
+
+La guardia sul codice di PRIMA della cura (rossa per le ragioni giuste):
+00:00 +0 -1: le regole della risposta nel merito cio' che la persona ha appena fatto, nella regola comune [E]
+00:00 +0 -2: le regole della risposta nel merito il controllo prima di scrivere chiede le due cose nuove [E]
+00:00 +0 -3: le regole della risposta nel merito nel LIVE, anche in tre frasi, la prima dice che cosa fare [E]
+ORDINE EQ VOCE 03, medora: esempi fra virgolette 4, da ricopiare 1
+00:00 +0 -4: nell'apertura dei Maestri, nessun esempio da ricopiare medora [E]
+ORDINE EQ VOCE 03, aura: esempi fra virgolette 0, da ricopiare 0
+ORDINE EQ VOCE 03, caligo: esempi fra virgolette 0, da ricopiare 0
+00:00 +2 -4: Some tests failed.
+
+Seconda sonda, due pretese in piu':
+== EQ.03 Regola A, seconda sonda: l'attesa senza misura torna una risposta
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima 822e7ca84b43, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains '«aspetta» da solo non è una risposta'
+   Actual: 'RISPONDI SEMPRE NEL MERITO:\n'
+   ripristinato: sha1 822e7ca84b43, uguale
+== EQ.03 Regola A, seconda sonda: per Aura il respiro torna a prendere il posto del passo
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima b4314e34c6fb, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'Il corpo accompagna il passo, non lo sostituisce'
+   Actual: 'Le prime due frasi rispondono alla domanda: la prima dice che cosa fare, la seconda come o quando, con parole semplici. Il respiro o una sensazione del corpo vengono dopo, una sola riga. Anche quando la domanda 
+   ripristinato: sha1 b4314e34c6fb, uguale
+
+La rete a valle, LaRispostaDAttesa e il controller:
+== EQ.03 Regola A, rete a valle: il controller non chiede piu' di nuovo la risposta d'attesa
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 9d0067a703e9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'gesto è compiuto'
+   Actual: 'Il tuo gesto è compiuto. Ora lascia che il tempo faccia il suo corso.'
+   ripristinato: sha1 9d0067a703e9, uguale
+== EQ.03 Regola A, rete a valle: il gesto compiuto e il tempo che fa il suo corso non si riconoscono piu'
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima 1361c2207f41, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 1361c2207f41, uguale
+== EQ.03 Regola A, rete a valle: l'attesa misurata non passa piu'
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima 1361c2207f41, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: null
+   Actual: 'Ora aspetta'
+   ripristinato: sha1 1361c2207f41, uguale
+== EQ.03 Regola A, rete a valle: si guarda la risposta intera, riga con la stella compresa
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima 1361c2207f41, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: null
+   Actual: 'attendi la sua risposta'
+   ripristinato: sha1 1361c2207f41, uguale
+
+Regola B sulla versione di HEAD del controller, prima di toccarlo:
+== EQ.03 Regola B sulla versione di HEAD: la risposta da programma non si chiede piu' di nuovo
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 9d0067a703e9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not contains 'memoria delle conversazioni'
+   Actual: 'Non ho memoria delle conversazioni precedenti, salvo l\'ultima riga con ✦. Puoi dirmi che cosa ti ha spinto a tornare sulla questione di tua moglie?'
+   ripristinato: sha1 9d0067a703e9, uguale, compagni tornati: True
+
+La nota dedicata della risposta d'attesa:
+== EQ.03 Regola A, nota dedicata: il controller torna alla nota generica della risposta ripetuta
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 46060bbe3c00, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 46060bbe3c00, uguale
+== EQ.03 Regola A, nota dedicata: il provider vero non la passa al modello
+   file lib/services/ai/firebase_maestro_ai_provider.dart, sha1 prima 6e6b42b1af7a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'daAttesa: turno.daAttesa'
+   Actual: 'import \'dart:convert\';\n'
+   ripristinato: sha1 6e6b42b1af7a, uguale
+== EQ.03 Regola A, nota dedicata: l'istruzione non la scrive
+   file lib/services/ai/maestro_persona.dart, sha1 prima 61c179a6ac1c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'DICE SOLO DI ASPETTARE'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 61c179a6ac1c, uguale
+
+Terzo ritocco, il registro di Aura e la rete allargata. Primo giro: l'innesto sugli eventi da non forzare e' rimasto VERDE, perche' il caso di prova era preso anche dal momento di pazienza; cambiata la grandezza (i due casi separati), non la soglia:
+== EQ.03 Regola A, terzo ritocco: il registro di Aura torna a vietarle ogni momento
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima 7debf8ccebff, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'Non nomini mai il futuro né una data'
+   Actual: 'Calda e presente, senza fretta, come chi tiene una mano senza stringere. Il tuo asse è il CORPO ADESSO: rispondi con un passo nella vita di questa persona, e il corpo le dice come farlo, nel momento in cui lo fa
+   ripristinato: sha1 7debf8ccebff, uguale
+== EQ.03 Regola A, terzo ritocco: la rete non conosce piu' l'attesa che resta
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima c4e1c99e67ac, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 c4e1c99e67ac, uguale
+== EQ.03 Regola A, terzo ritocco: la rete non conosce piu' gli eventi da non forzare
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima c4e1c99e67ac, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +1: All tests passed!
+   ripristinato: sha1 c4e1c99e67ac, uguale
+
+Secondo giro, coi casi separati:
+== EQ.03 Regola A, terzo ritocco: il registro di Aura torna a vietarle ogni momento
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima c152e4540132, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'Non nomini mai il futuro né una data'
+   Actual: 'Calda e presente, senza fretta, come chi tiene una mano senza stringere. Il tuo asse è il CORPO ADESSO: rispondi con un passo nella vita di questa persona, poi il corpo le dice come farlo, nel momento in cui lo 
+   ripristinato: sha1 c152e4540132, uguale
+== EQ.03 Regola A, terzo ritocco: la rete non conosce piu' l'attesa che resta
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima c4e1c99e67ac, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 c4e1c99e67ac, uguale
+== EQ.03 Regola A, terzo ritocco: la rete non conosce piu' gli eventi da non forzare
+   file lib/core/chat/la_risposta_d_attesa.dart, sha1 prima c4e1c99e67ac, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 c4e1c99e67ac, uguale

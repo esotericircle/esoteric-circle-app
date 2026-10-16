@@ -1,0 +1,48 @@
+== un testo che manca (lib/core/tarot/le_carte_nella_posizione_dati.dart, prova "FI.39: lo stato dichiarato")
+   innesto: "'passato|Il Matto|dritta': [" -> "'passato|Il Matto|dritta_TOLTA': ["
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== due testi uguali (lib/core/tarot/le_carte_nella_posizione_dati.dart, prova "FI.39: nessun testo uguale")
+   innesto: "'passato|Il Matto|capovolta': [" -> "'passato|Il Matto|capovolta': [\n    'Hai scelto di lasciare alle spalle ciò che ti appesan"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== una terna con la stessa prima parola (lib/core/tarot/le_carte_nella_posizione_dati.dart, prova "FI.39: una terna")
+   innesto: 'const Map<String, List<String>> scheletriDelleCarte = {' -> "const Map<String, List<String>> scheletriDelleCarte = {\n  'innesto|X|dritta': ['Uno a', 'U"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il Dart diverso dalla fonte (lib/core/tarot/le_carte_nella_posizione_dati.dart, prova "FI.39: il Dart")
+   innesto: "'Hai scelto di lasciare alle spalle" -> "'Hai scelto di NON lasciare alle spalle"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== un registro solo, non tutti (lib/core/tarot/le_carte_nella_posizione_dati.dart, prova "FI.40")
+   innesto: 'const Map<String, List<String>> registriDelleCarte = {};' -> "const Map<String, List<String>> registriDelleCarte = {\n  'Il Matto|dritta': ['a', 'b', 'c'"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== le stese aperte senza la fonte (lib/core/tarot/tarot_spread_type.dart, prova "A6 e A7")
+   innesto: 'costruita && posizioni.every(LeCarteNellaPosizione.haLaFonte);' -> 'true || posizioni.every(LeCarteNellaPosizione.haLaFonte);'
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il montaggio senza il controllo del registro (lib/core/tarot/le_carte_nella_posizione.dart, prova "il montaggio")
+   innesto: "registro == null ? scheletro : '$scheletro $registro'" -> "'$scheletro $registro'"
+   innesto entrato (grep): si
+   esito: ROSSA
+   ripristinato al byte: si
+== il tool e la fonte a meta' (aggiunta A4)
+-- innesto 1: la variante 1 di Il Mago, dritta, svuotata
+   righe 1 vuote nel file (grep): 1
+FONTE NON VALIDA, nessun file scritto.
+passato.md, colonna 1: 155 testi su 156, ne mancano 1 (Il Mago, dritta)
+   uscita del tool: 1
+-- innesto 2: una sola variante 2 scritta, in Il Matto, dritta
+   righe 2 piene nel file (grep): 1
+FONTE NON VALIDA, nessun file scritto.
+passato.md, colonna 2: 1 testi su 156, ne mancano 155 (Il Matto, capovolta; Il Mago, dritta; Il Mago, capovolta, ...)
+   uscita del tool: 1
+   fonte ripristinata al byte: si
+   Dart mai toccato dai due giri rossi: si

@@ -1,0 +1,9 @@
+innesto in lib/core/maestro/maestro.dart: il vecchio compare 0 volte, il nuovo 1 volte ("    domainArts: 'Energia, Chakra, Fisiognomica',\n" -> "    domainArts: 'Chakra, Energia, Archetipi',\n")
+  00:00 +0 -1: EO.11: nessuna riga a video coi nomi vecchi delle due sezioni [E]
+    Expected: empty
+      Actual: [
+  00:00 +0 -2: EO.10 e EO.11: le sezioni di ogni Maestro, coi nomi e nell'ordine del fondatore [E]
+    Expected: true
+      Actual: <false>
+  00:00 +0 -2: Some tests failed.
+ripristino lib/core/maestro/maestro.dart: sha1 67dd06960419 -> 67dd06960419, IDENTICO

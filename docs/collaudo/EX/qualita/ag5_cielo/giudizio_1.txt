@@ -1,0 +1,40 @@
+S01|SI|NA|SI|SI|SI|Luna in Cancro giusta per domani; ultimo quarto al limite (il cielo dice calante) ma accettato; il seguito aggiunge la fase e il bilancio.
+S02|SI|NA|SI|SI|SI|Cancro e Ultimo quarto giusti; il seguito aggiunge il colloquio e il senso della fase.
+S03|SI|NA|NO|NO|NA|Non dice mai in che segno e fase e' la Luna di stasera (al limite); massima buona per chiunque, fallisce lo scambio.
+S04|SI|NA|SI|SI|SI|Luna in Cancro, Sole in Bilancia, quadratura Luna Saturno retrogrado tutti veri; seguito aggiunge aspetti reali.
+S05|SI|NA|NO|NO|NA|Nessun fatto del cielo detto (al limite, la domanda e' sulla Luna); invito generico adatto a chiunque, nessuna indicazione concreta.
+S06|SI|NA|SI|SI|SI|Luna di oggi e Cancro e ultimo quarto veri per oggi ma non per il 15 (al limite); Saturno e Mercurio quadratura Plutone giusti.
+S07|SI|NA|SI|SI|SI|Saturno in Toro giusto; il seguito usa Ascendente e bottega di ceramica.
+S08|SI|NA|SI|SI|SI|Luna in Cancro giusta; il seguito aggiunge Luna Bilancia e Ascendente Scorpione.
+S09|SI|NA|SI|SI|SI|Giove in Vergine giusto; il seguito collega banca e ceramica.
+S10|SI|NA|SI|SI|SI|Fase crescente e Luna in Bilancia giuste; il seguito aggiunge il segno lunare.
+S11|SI|NA|NO|SI|SI|Elenca i retrogradi ma omette Venere, che e' retrograda; fatto incompleto quindi sbagliato (al limite sul merito).
+S12|SI|NA|SI|SI|SI|Luna Cancro e Saturno retrogrado in Ariete veri; ultimo quarto per domani al limite (cielo dice calante).
+S13|SI|NA|SI|SI|SI|Cancro e ultimo quarto giusti; seguito generico ma aggiunge il senso della fase, al limite.
+S14|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto; il seguito personalizza con Sole Luna e Ascendente.
+S15|SI|NA|NO|SI|SI|Dice Sole in Bilancia il 15 novembre ma il Sole e' in Scorpione; il resto e' vero.
+S16|NO|NA|SI|SI|SI|Giove in Vergine giusto, ma nel seguito dice Sara un momento propizio come previsione certa (al limite).
+S17|SI|NA|SI|SI|NA|Luna in Cancro, ultimo quarto giusti, risposta calata sulla persona.
+S18|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda giusta; il seguito allarga agli affetti, al limite.
+S19|SI|NA|SI|SI|SI|Venere giusta, congiunzione con Mercurio e Luna in Cancro ultimo quarto veri.
+S20|SI|NA|SI|SI|SI|Luna in Acquario e quadratura con Mercurio veri; indicazioni concrete sul rimandare la firma.
+S21|SI|NA|SI|SI|SI|Fase crescente e Luna in Bilancia giuste; Luna calante di oggi vera per oggi; il seguito cita sorella e Marco.
+S22|SI|NA|SI|SI|SI|Nove gradi in Cancro e Ultimo quarto giusti; il seguito collega al colloquio.
+S23|SI|NA|SI|SI|SI|Crescente in Bilancia giusta; il seguito aggiunge aria ed espansione, un po' generico, al limite.
+S24|SI|NA|SI|SI|SI|Cancro e ultimo quarto giusti; il seguito aggiunge il senso nel suo segno.
+S25|SI|NA|SI|SI|SI|Retrogradi giusti, tutti e cinque; seguito con Venere e Saturno veri.
+S26|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto; spesa superflua e' un consiglio pratico non finanziario professionale (al limite).
+S27|SI|NA|SI|SI|NO|Fase e segno giusti; il seguito ripete con altre parole la Luna in Bilancia e l'armonia gia' detti.
+S28|SI|NA|SI|SI|SI|Giove a 27 gradi in Vergine esatto; il seguito usa colloquio e ceramica.
+S29|SI|NA|SI|SI|SI|Retrogradi giusti; il seguito collega Marco e la sorella.
+S30|SI|NA|SI|SI|NO|Venere giusta; il seguito ripete con altre parole revisione interiore e valori gia' detti.
+S31|SI|NA|SI|SI|SI|Sole in Scorpione e Luna in Acquario quadratura Mercurio veri; la settimana prossima e' vaga, al limite.
+S32|SI|NA|SI|SI|SI|Venere a otto gradi retrograda e Luna in Cancro giuste; seguito concreto.
+S33|SI|NA|SI|SI|SI|Luna in Cancro e Sole in Bilancia giusti; ultimo quarto per domani al limite; cita colloquio e Berlino.
+S34|SI|NA|SI|SI|SI|Giove in Vergine giusto; il seguito aggiunge Ascendente e Luna Bilancia.
+S35|SI|NA|SI|SI|SI|Luna Cancro e ultimo quarto giusti; il seguito aggiunge la fase e l'Ascendente.
+S36|SI|NA|SI|SI|NA|Luna in Cancro e ultimo quarto giusti; il messaggio da inviare e' un po' vago, al limite.
+S37|SI|NA|SI|SI|NO|Luna in Cancro giusta, ultimo quarto per domani al limite; il seguito ripete affetti e sensibilita' senza nulla di concreto.
+S38|SI|NA|SI|SI|SI|Sole Bilancia, Luna Cancro ultimo quarto, Marte Leone, Venere retrograda veri; apertura generica ma poi merito.
+S39|SI|NA|SI|SI|SI|Retrogradi giusti; il seguito con Venere Saturno Luna e colloquio.
+S40|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto; il seguito aggiunge denaro e beni, poco nuovo, al limite.

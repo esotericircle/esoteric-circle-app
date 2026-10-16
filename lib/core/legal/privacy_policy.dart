@@ -1,0 +1,220 @@
+/// LA PRIVACY POLICY DI ESOTERIC CIRCLE. Ordine BH voce 07.
+///
+/// Parole del fondatore: "completa nel modo piu' professionale e aggiornato
+/// legalmente tutta la parte di privacy policy". Il testo vive qui, in una
+/// casa sola, come dato: la schermata lo monta e le guardie lo leggono.
+/// Scritto per il GDPR (regolamento UE 2016/679) e per le regole degli
+/// store; la lingua e' quella dell'app, semplice e vera. Ogni sezione dice
+/// cio' che il codice fa davvero: quando il codice cambia, questa pagina
+/// cambia con lui, mai il contrario.
+library;
+
+/// Una sezione della policy: un titolo e il suo testo.
+class SezioneDellaPolicy {
+  const SezioneDellaPolicy({required this.titolo, required this.corpo});
+
+  final String titolo;
+  final String corpo;
+}
+
+/// La data dell'ultima revisione, mostrata in testa. **8 ottobre 2026**: gli
+/// Enigmi del Cerchio (il Ritratto, le Prove, le partite, le scommesse e le
+/// sfide, ordine FF) e la presenza che tiene anche l'istante in cui l'app
+/// passa in secondo piano (ordine FF voce 01). Prima il **5 ottobre 2026**: la
+/// sezione del Cerchio, coi testi tolti dalle schede della schermata "Chiama
+/// nel Cerchio" e la rubrica (ordine FD voce 06). Prima il **29 settembre
+/// 2026**: il testo era cambiato quel giorno, con la presenza per il numero di chi e'
+/// online (ordine ES voce 15). Prima era il 25 settembre 2026, quando
+/// "Mappa del Viso" aveva preso il posto di "Costellazione del Viso" (ordine
+/// EN voce 11) e il fondatore aveva deciso che la data passasse con la
+/// build successiva (*"La farai con la prossima build"*).
+const String dataDellaPolicy = '8 ottobre 2026';
+
+/// Il titolare del trattamento e il contatto.
+const String titolareDellaPolicy =
+    'Esoteric Circle (esotericircle.app). Per ogni domanda o richiesta sui '
+    'tuoi dati scrivi a info@esotericircle.com.';
+
+const List<SezioneDellaPolicy> sezioniDellaPolicy = [
+  SezioneDellaPolicy(
+    titolo: 'Quali dati trattiamo',
+    corpo: 'Account: la tua email, il nome che scegli e le vie di accesso '
+        '(Google, Apple oppure email con parola). Nascita: giorno, ora e '
+        'luogo, che servono a calcolare la tua carta natale; puoi usare '
+        'l\'app anche senza fornirli. Conversazioni: le domande che fai ai '
+        'Maestri e le loro risposte, con la memoria che i Maestri '
+        'distillano per ricordarti. Cammino: i gesti compiuti nell\'app, i '
+        'Sigilli accesi, gli Eos del borsellino. Preferenze: notifiche, '
+        'qualità grafica, lingua.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'I sensori restano sul tuo telefono',
+    corpo: 'La fotocamera, il microfono, il movimento e la posizione si '
+        'usano solo nel momento del rito che li chiede, sempre con la '
+        'spiegazione prima. Le immagini della Mappa del Viso e le '
+        'foto per le card si elaborano sul dispositivo e non vengono '
+        'caricate. Il microfono ascolta il soffio senza registrare audio. '
+        'La posizione serve a mostrare il cielo sopra di te; le coordinate '
+        'restano sul telefono.',
+  ),
+  // **IL CERCHIO: INVITI, CODICI E RUBRICA.** Ordine FD voce 06.7: le
+  // righe che spiegavano durate e riservatezza stavano dentro le schede
+  // della schermata "Chiama nel Cerchio"; sono state tolte da li' e stanno
+  // qui intere, parola per parola, con la rubrica della voce 06.
+  SezioneDellaPolicy(
+    titolo: 'Il Cerchio: inviti, codici e rubrica',
+    corpo: 'Il link vale trenta giorni e porta solo un codice del Cerchio: '
+        'niente del tuo nome vero, niente della tua nascita. Uno mostra il '
+        'suo codice, l’altro lo inquadra. Il codice vale cinque minuti: una '
+        'sua fotografia domani non vale niente. La rubrica del telefono si '
+        'apre solo quando tocchi "Apri la rubrica": i contatti restano sul '
+        'tuo telefono e servono solo a scegliere chi chiamare nel tuo '
+        'Cerchio. Non li mandiamo a nessun server, non li conserviamo e non '
+        'cerchiamo chi della tua rubrica è già nel Cerchio. L’invito parte '
+        'dall’app dei messaggi del tuo telefono: lo mandi tu.',
+  ),
+  // **GLI ENIGMI DEL CERCHIO.** Ordine FF, 8 ottobre 2026: gli Enigmi
+  // tengono sul server il Ritratto, le Prove, gli enigmi aperti, i presagi e
+  // le letture a due.
+  SezioneDellaPolicy(
+    titolo: 'Gli Enigmi del Cerchio',
+    corpo: 'Per gli Enigmi del Cerchio teniamo il tuo Ritratto, le venti '
+        'caratteristiche che scegli: lo vedi intero solo tu. Agli altri ne '
+        'arriva una per volta come indizio, solo se non ti sei tolto dagli '
+        'Enigmi dal tuo profilo. Teniamo anche le Prove che fai con la natura '
+        'che ne esce, i presagi, le letture a due e gli enigmi aperti. A chi '
+        'viene riconosciuto arriva il numero di chi lo ha riconosciuto e, se '
+        'lo scopre, il suo segno: mai il nome. Tutto questo resta finché vive '
+        'il tuo account e se ne va quando cancelli i tuoi dati o l’account.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Perché li trattiamo e con quale base',
+    corpo: 'Per darti il servizio che chiedi (esecuzione del contratto): '
+        'calcolo del cielo, risposte dei Maestri, borsellino, cammino '
+        'custodito. Col tuo consenso: notifiche e sensori, che puoi '
+        'revocare quando vuoi da Privacy e permessi, nel menu del tuo '
+        'account. Per legittimo interesse: sicurezza e prevenzione degli '
+        'abusi, oltre ai contatori anonimi con cui vediamo come va l\'app, '
+        'entrambi descritti più sotto.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Intelligenza artificiale',
+    corpo: 'Le risposte dei Maestri sono generate da modelli di '
+        'intelligenza artificiale (Google Gemini, su Vertex AI). Per '
+        'generarle, le tue domande e il contesto della conversazione '
+        'vengono inviati ai server di Google Cloud nella regione europea. '
+        'I contenuti astrologici di base non sono generati dall\'AI: l\'AI '
+        'interpreta e personalizza. Nessuna decisione con effetti legali '
+        'viene presa in modo automatizzato. I responsi sono un\'esperienza '
+        'di intrattenimento e crescita personale, non una cura medica né '
+        'una previsione certa del futuro.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Dove vivono i dati',
+    corpo: 'Su Google Cloud e Firebase (Google Ireland Limited come '
+        'responsabile del trattamento), nella regione europe-west1 '
+        '(Belgio, Unione Europea). Non vendiamo i tuoi dati e non li '
+        'condividiamo con terzi per pubblicità.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Quanto li conserviamo',
+    // **I NUMERI QUI SONO GLI STESSI CHE IL SERVER USA. Ordine CB voce 05.**
+    // Fino a quest'ordine questa sezione diceva "finché il tuo account vive",
+    // e da quando esistono le scadenze non sarebbe più stato vero. Una prova
+    // lega ogni numero di questa pagina al listino delle scadenze: se un tempo
+    // cambia nel codice e non qui, la prova cade prima che la pagina diventi
+    // una bugia pubblicata.
+    corpo: 'Quello che è tuo resta finché vive il tuo account: il cammino, i '
+        'Sigilli, gli Eos, la carta natale, il profilo e le coppie della '
+        'Sinastria. Quello che è un registro, invece, ha una scadenza: la '
+        'memoria attiva delle conversazioni coi Maestri 12 mesi (poi il '
+        'testo passa in archivio, come diciamo qui sotto), il registro '
+        'dei movimenti degli Eos 24 mesi, i segni tecnici dei consumi '
+        'giornalieri 30 giorni, le tue letture del viso e lo storico '
+        'dell\'Archetipo 24 mesi sul telefono. Scaduto quel tempo li '
+        'cancelliamo noi, senza che tu debba chiedere niente. Se cancelli i '
+        'tuoi dati o il tuo account, la cancellazione è immediata e totale, '
+        'sul telefono e sul server: non c\'è un periodo di attesa.\n\n'
+        'Del testo delle conversazioni teniamo per intero le più recenti; '
+        'dopo due settimane ne conserviamo anche un riassunto per Maestro e '
+        'per settimana insieme ai fatti che ne emergono. Dopo 12 mesi il '
+        'testo integrale esce dalla memoria attiva del Maestro e passa in un '
+        'archivio separato, nella stessa regione europea, da cui torna solo '
+        'quando riapri quella conversazione dal tuo Diario Cosmico. I '
+        'riassunti e i fatti restano, perché sono ciò che permette al '
+        'Maestro di riconoscerti. '
+        'Il Diario Cosmico, cioè l\'elenco di ogni consulto, responso e '
+        'lettura col suo giorno, il suo Maestro e la stella che metti tu, '
+        'resta finché vive il tuo account; dopo 12 mesi il contenuto delle '
+        'sue voci passa nello stesso archivio separato e l\'elenco resta. La '
+        'riga che scrivi su una voce segnata è tua: resta con quella voce e '
+        'non la usiamo per generare risposte. Il vecchio indice dei Ricordi '
+        'del Cerchio, che il Diario Cosmico ha sostituito, si cancella da '
+        'solo a 24 mesi. '
+        'Per mandarti le notifiche del Cerchio anche ad app chiusa teniamo il '
+        'gettone del tuo apparecchio, insieme ai Doni che hai acceso, alle '
+        'ore che hai scelto, al tuo fuso orario: senza quelle tre cose non '
+        'sapremmo a che ora raggiungerti. Il gettone sparisce quando spegni '
+        'le notifiche e quando cancelli il tuo account. '
+        'Per mostrare in alto quante persone sono nel Cerchio in quel '
+        'momento teniamo soltanto l\'istante dell\'ultima volta che la tua '
+        'app l\'ha chiesto, aperta oppure passando in secondo piano: nessuno '
+        'vede chi è online, si legge soltanto il numero. Sparisce quando cancelli i tuoi dati o il tuo '
+        'account.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Prevenzione degli abusi',
+    corpo: 'Il dono di benvenuto si riceve una volta sola per email. Per '
+        'impedire che la cancellazione e la nuova registrazione lo '
+        'moltiplichino, quando il dono viene pagato conserviamo '
+        'un\'impronta cifrata dell\'email (hash SHA-256, non l\'indirizzo '
+        'in chiaro), che resta anche dopo la cancellazione dell\'account. '
+        'Da quell\'impronta non si può risalire a chi sei: è una misura '
+        'pseudonimizzata, fondata sul legittimo interesse a prevenire le '
+        'frodi. La conserviamo 24 mesi. Se alla cancellazione ci dici '
+        'perché te ne vai, il tuo commento viene salvato in forma anonima '
+        'senza nessun legame con te. Anche quello lo conserviamo 24 mesi.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'La misura di come va l\'app',
+    // **QUESTA SEZIONE NASCE CON LA MISURA, ordine CC voce 09.** La policy e'
+    // dato dentro l'app dall'ordine BH voce 07, e una guardia ancora le sue
+    // affermazioni al codice: qui i cinque eventi sono gli stessi cinque che
+    // il client dichiara e che il server ammette, e se le tre liste divergono
+    // la prova cade.
+    corpo: 'Contiamo cinque gesti per capire cosa funziona: le aperture '
+        'dell\'app, i riti cominciati, i riti finiti, i ritorni da una '
+        'notifica e i responsi condivisi. Sono soltanto numeri aggregati per '
+        'giorno, anonimi: non salviamo chi ha fatto cosa, non salviamo niente '
+        'che tu abbia scritto e nei conti non finisce nessun identificativo '
+        'del telefono, dell\'installazione o tuo, nessun indirizzo IP e '
+        'nessun identificativo pubblicitario. L\'indirizzo IP compare, come '
+        'in ogni collegamento a internet, nei registri tecnici del fornitore '
+        'che ospita il Cerchio: si cancellano da soli dopo trenta giorni e '
+        'non li usiamo per questi conti. Li '
+        'guardiamo solo noi, non li incrociamo con altri dati e non li '
+        'cediamo a nessuno per i suoi scopi. Per questo non ti chiediamo il '
+        'permesso e non c\'è niente da spegnere: non c\'è nessun dato tuo da '
+        'proteggere, ci sono contatori. I conti restano 24 mesi.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'I tuoi diritti',
+    corpo: 'Puoi scaricare i tuoi dati in un file (voce "Scarica i tuoi '
+        'dati"), correggerli dal profilo, cancellarli o cancellare '
+        'l\'account in ogni momento, senza chiedere il permesso a nessuno. '
+        'Hai inoltre diritto di opporti al trattamento, di chiederne la '
+        'limitazione e di presentare reclamo al Garante per la protezione '
+        'dei dati personali (gpdp.it) o all\'autorità del tuo paese.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Minori',
+    corpo: 'L\'app non è destinata a chi ha meno di 16 anni. Se pensi che '
+        'un minore ci abbia dato i suoi dati, scrivici e li cancelleremo.',
+  ),
+  SezioneDellaPolicy(
+    titolo: 'Aggiornamenti di questa pagina',
+    corpo: 'Se la policy cambia, la data in testa cambia con lei; per i '
+        'cambiamenti importanti te lo diremo dentro l\'app. Questa '
+        'versione riflette ciò che l\'app fa davvero alla data indicata.',
+  ),
+];

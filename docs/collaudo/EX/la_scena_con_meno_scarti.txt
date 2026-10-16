@@ -1,0 +1,47 @@
+ORDINE EX AGGIUNTA 4, VOCE EX.10, IL VIAGGIO CON MENO SCENE SCARTATE. 2 ottobre 2026.
+
+DOMANDA: "Voglio tutto sistemato." (EX Aggiunta 4: "il Viaggio con meno scene scartate. La scena resta del modello e le guardie non si allentano.")
+MISURA chiesta: chiamate per discesa 3,8 -> 2,5 o meno (scena 1,5 volte o meno); scarti per guardia; confronto alla cieca delle scene.
+
+IL BANCO: tool/la_scena_senza_modello_a_confronto.dart, col codice vero del Viaggio e Gemini 2.5 Flash in europe-west1, venti domande (quattordici scritte a mano, sei dalla tavola dei temi); adesso registra ogni riga scartata con la guardia che l'ha scartata e i consumi di ogni chiamata. I conti: python tool/i_conti_del_viaggio.py <giro>.
+
+GLI SCARTI PER GUARDIA, PRIMA (giro modello2, il codice di partenza): 78 righe scartate in 20 discese, 2,70 chiamate di scena per discesa.
+  chiedeDiScrivere 16, previsioneCerta 13, statoDiUnTerzo 10, nonPrendePosizione 8, nonNominaLaDomanda 7, troppoLunga 7, gergo 6, tempoNelTitolo 4, genereContrario 4, promessa 2, senzaTempo 1.
+
+CHE COSA E' CAMBIATO (le guardie sono le stesse, nessuna riga di LeGuardieDelResponso toccata)
+1. L'istruzione dice per nome cio' che le guardie scartano piu' spesso: le parole vietate nell'azione ("scrivi", "scrivere", "foglio", "lista", "elenco", "annota"), nessun verbo al futuro nei tre testi e mai "non e' il momento", "adesso" fra le parole di tempo vietate nel titolo, il titolo che comincia da chi legge quando la domanda parla di un'altra persona, la condizione del si' che e' una cosa da fare e mai "se riconosci" o "se sai". Gli esempi delle azioni non portano piu' "segnati sul calendario" e "rileggi questa riga".
+2. LA FRASE SCARTATA SI TOGLIE IN CASA (LaScenaDalModello.senzaLaFraseScartata): quando la risposta cade per una frase dopo la prima, quella frase si toglie e la risposta che resta ripassa da TUTTE le guardie; se regge, il modello non si richiama. La prima frase, che e' la posizione, non si toglie mai; restano almeno due frasi.
+3. LA RISERVA DALLA STESSA CHIAMATA (LaScenaDalModello.conLaRiserva): il modello scrive anche due versioni di riserva di ogni testo (titoloDiRiserva, rispostaDiRiserva, azioneDiRiserva e le seconde); per ogni pezzo che la prima versione non regge, la lettura prova le riserve con le stesse guardie. Il tetto d'uscita sale da 640 a 1.024 token.
+4. Si richiama il modello se uno scarto ha lasciato un pezzo senza riga (prima bastava uno scarto, anche riparato).
+Prove nuove nate rosse: test/la_frase_scartata_si_toglie_in_casa_test.dart (A21); la guardia della zona, il_viaggio_prende_posizione, vista rossa prima di toccare (B19).
+
+I GIRI (python tool/i_conti_del_viaggio.py)
+| Giro | Che cosa | Chiamate di scena per discesa | Discese in 1 / 2 / 3 chiamate | Scene dal modello | Silenzi | Righe scartate |
+|---|---|---|---|---|---|---|
+| modello2 | codice di partenza | 2,70 | 0 / 6 / 14 | 19 | 1 | 78 |
+| scena1 | istruzione, primo passo | 2,40 | 4 / 4 / 12 | 16 | 4 | 57 |
+| scena2 | istruzione, secondo passo | 2,30 | 4 / 6 / 10 | 19 | 0 | 55 |
+| scena3 | piu' la frase tolta in casa | 2,40 | 2 / 8 / 10 | 18 | 1 | 48 |
+| scena4 | piu' una riserva | 1,95 | 5 / 11 / 4 | 18 | 1 | 85 |
+| scena5 | piu' due riserve (il codice di adesso) | 1,90 | 7 / 8 / 5 | 20 | 0 | 91 |
+| scena6due | due riserve, due tentativi invece di tre | 1,65 | 8 / 11 / 1 | 20 | 0 | 99 |
+| scena7 | il codice finale, coi consumi di ogni chiamata | 1,80 | 6 / 12 / 2 | 20 | 0 | 91 |
+Le righe scartate salgono dal giro scena4 perche' si contano anche quelle delle riserve.
+
+IL CONFRONTO ALLA CIECA DELLE SCENE (regola docs/collaudo/EX/qualita/regola_della_lettura.md; due giudici, il secondo legge all'indietro; 40 schede per fascicolo)
+| Fascicolo | Giudice | A regole, prima contro dopo | D merito, prima contro dopo |
+|---|---|---|---|
+| viaggio_ex10_tre: modello2 contro scena5 (tre tentativi) | 1 | 20 contro 18 | 13 contro 13 |
+| viaggio_ex10_tre | 2 | 20 contro 19 | 13 contro 12 |
+| viaggio_ex10_due: modello2 contro scena6due (due tentativi) | 1 | 20 contro 19 | 13 contro 11 |
+| viaggio_ex10_due | 2 | 20 contro 19 | 13 contro 12 |
+Le regole che cadono dopo sono, per tutti e due i giudici, "i segni dicono di no" a "Lui tornerà da me?" letto come previsione (V11) e "la bottega aspetta di manifestarsi" (V05), al limite. Con tre tentativi il merito resta nel rumore (13 e 12 contro 13 e 13); con due scende di 1 e 2. Il codice resta a TRE tentativi.
+
+LA MISURA
+- Chiamate di scena per discesa: prima 2,70, dopo 1,90 e 1,80 (scena5 e scena7, lo stesso codice), cioe' circa un terzo in meno. L'obiettivo 1,5 NON e' raggiunto.
+- Scarti per guardia al giro finale (scena7, prime versioni e riserve): statoDiUnTerzo 22, nonNominaLaDomanda 13, nonPrendePosizione 12, chiedeDiScrivere 9 (prima 16), genereContrario 8, troppoLunga 8, saluteDenaroLegge 5, previsioneCerta 4 (prima 13), gergo 2, toccaUnTerzo 2, tempoNelTitolo 2 (prima 4), consiglioDiVita 2, promessa 1, virgolaEe 1.
+- Costo della scena (scena7, consumi misurati, prezzi di europe-west1): 0,00310 dollari a discesa a freddo su 1,8 chiamate, ingresso medio 3.030 token e uscita media 327 token a chiamata. Le riserve allungano l'uscita: le chiamate scendono di un terzo, la spesa della scena resta circa quella di prima (l'EW misurava 0,00350 per l'intera discesa, domanda capita compresa).
+- Chiamate per discesa con la domanda scritta (la domanda capita e' una chiamata alla prima discesa di una domanda scritta; nelle discese del cammino non si richiama, ordine DQ voce 01): prima 3,8 (EW), dopo circa 3,0 (1 + 1,8 + 0,2). L'obiettivo 2,5 NON e' raggiunto.
+- Che cosa resta: le guardie della posizione e della domanda nominata sulla PRIMA frase (non si ripara in casa, e le riserve tendono a ripetere lo stesso difetto), e la guardia dell'altra persona sulle domande che ne parlano. Una strada da misurare dopo: chiedere al modello, per le domande su un'altra persona, solo le forme che la guardia accetta.
+
+STATO: APERTA. Le scene scartate sono meno e il merito tiene, ma le chiamate per discesa non arrivano al numero dell'ordine.

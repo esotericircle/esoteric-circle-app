@@ -1,0 +1,6 @@
+innesto in lib/features/schede/la_riga_delle_schede.dart: il vecchio compare 0 volte, il nuovo 8547 volte ('                  if (riduci) return scheda;\n' -> '')
+  Expected: no matching candidates
+    Actual: _WidgetPredicateWidgetFinder:<Found 2 widgets with widget matching predicate: [
+  00:01 +0 -1: EO.07: la scheda al centro e' piu' grande e piu' luminosa delle altre, e con la riduzione del movimento no [E]
+  00:01 +0 -1: Some tests failed.
+ripristino lib/features/schede/la_riga_delle_schede.dart: sha1 bcfb6309580b -> bcfb6309580b, IDENTICO

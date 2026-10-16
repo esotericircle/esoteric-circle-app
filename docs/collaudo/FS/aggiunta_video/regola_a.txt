@@ -1,0 +1,46 @@
+== il filmato non arriva al tavolo (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: aprendo la Stesa il filmato parte, prende il posto di Medora ferma e resta sull'ultimo fotogramma
+   caduto: aprendo la Stesa il filmato parte, prende il posto di Medora ferma e resta sull'ultimo fotogramma
+   ripristinato al byte: True
+== il silenzioso del telefono non conta (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: col telefono in silenzioso il filmato e' muto
+   caduto: col telefono in silenzioso il filmato e' muto
+   ripristinato al byte: True
+== il filmato si apre anche con Riduci Movimento (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: con Riduci Movimento la scena e' ferma, con la posa dell'invito
+   caduto: con Riduci Movimento la scena e' ferma, con la posa dell'invito
+   ripristinato al byte: True
+== uscendo dall'app il filmato non si ferma (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: uscendo dall'app il filmato si ferma, e al ritorno riprende se non e' finito
+   caduto: uscendo dall'app il filmato si ferma, e al ritorno riprende se non e' finito
+   ripristinato al byte: True
+== il filmato si riapre a ogni lettura delle dipendenze (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): False
+   ripristinato al byte: True
+== a filmato fallito resta la posa del mazzo (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: se il filmato non si carica la scena e' ferma, con l'invito
+   caduto: se il filmato non si carica la scena e' ferma, con l'invito
+   ripristinato al byte: True
+== il riquadro del filmato parte dal taglio della scena (lib/features/tarot/la_scena_della_stesa_in_video.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/la_scena_della_stesa_e_un_filmato_test.dart: il taglio del filmato (P2 dell'ordine) il riquadro copre lo sfondo dal pixel 147 al 1370, a tutta larghezza
+   caduto: il taglio del filmato (P2 dell'ordine) il riquadro copre lo sfondo dal pixel 147 al 1370, a tutta larghezza
+   ripristinato al byte: True
+
+Il quinto innesto, rifatto da solo: al primo giro la verifica contava il pezzo vecchio, che sta dentro quello nuovo, e lo dava per non entrato.
+python docs/collaudo/FS/aggiunta_video/regola_a.py "il filmato si riapre a ogni lettura delle dipendenze"
+== il filmato si riapre a ogni lettura delle dipendenze (lib/features/tarot/stesa_tre_carte_screen.dart)
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1, ... and 2 more
+   caduto: aprendo la Stesa il filmato parte, prende il posto di Medora ferma e resta sull'ultimo fotogramma
+   caduto: una volta per apertura: il lettore si costruisce una volta sola
+   caduto: se il filmato non si carica la scena e' ferma, con l'invito
+   caduto: a suoni spenti nell'app il filmato e' muto
+   caduto: col telefono in silenzioso il filmato e' muto
+   caduto: uscendo dall'app il filmato si ferma, e al ritorno riprende se non e' finito
+   ripristinato al byte: True

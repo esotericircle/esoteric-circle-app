@@ -1,0 +1,59 @@
+ORDINE EW, VOCE EW.03: L'ETICHETTA DELLA FUNZIONE SU OGNI CHIAMATA AL MODELLO. 2 ottobre 2026.
+
+== PRIMA E DOPO, NEL CODICE
+Prima (commit 55d3a267): chiamate al modello del telefono (`.generativeModel(` in lib) 13, con un'etichetta 0;
+chiamate di sintesi di Gemini nel server (functions/src/live.ts) 2, con un'etichetta 0. Totale 0 su 15.
+Dopo: 13 su 13 nel telefono, 16 etichette diverse (lib/services/ai/l_etichetta_della_funzione.dart,
+LeFunzioniDelModello); 2 su 2 nel server (voce_maestro, voce_ascolto_di_prova). Totale 15 su 15.
+Chirp 3 HD (Cloud Text-to-Speech) non accetta etichette nella richiesta: resta senza, ed e' l'unica.
+Guardia: test/ogni_chiamata_al_modello_porta_l_etichetta_test.dart, rossa su tre innesti
+(docs/collaudo/EW/regola_a_ew.txt).
+
+== COME FUNZIONA
+Ogni `generativeModel(` riceve `httpClient: ClientConEtichetta(<funzione>)`. Il client aggiunge
+`"labels": {"funzione": "<funzione>"}` al corpo JSON della richiesta, senza toccare il resto (prova
+unitaria nella guardia: generationConfig arriva intatto, un corpo non JSON passa uguale). Vertex AI
+riporta le etichette della richiesta nel report Fatturazione e nell'esportazione dei costi.
+Nessun altro comportamento cambia: stesso modello, stessa regione, stesso testo.
+
+== LE ETICHETTE
+chat_risposta, chat_seguito, chat_live, interroga_breve, interroga_profonda, interroga_sintesi,
+distillato_memoria (nessun chiamante), lettura_rune, lettura_tarocchi, sigillo, viaggio_scena,
+viaggio_domanda, viaggio_segno, titoli_conversazioni, ricordi_del_mese, ascolto_live;
+nel server voce_maestro e voce_ascolto_di_prova.
+
+== LA RICHIESTA CON L'ETICHETTA PASSA (2 ottobre 2026, gcloud, gemini-2.5-flash-lite, europe-west1)
+Passaggio di Firebase AI Logic (firebasevertexai.googleapis.com v1beta, la strada dell'app):
+  senza etichetta HTTP 200 "ok"; con l'etichetta HTTP 200 "ok".
+Vertex diretto: HTTP 200 anche con l'etichetta, in tutte le 560 chiamate del banco del costo
+(docs/costi/costo_per_funzione_chiamate.jsonl, ognuna con la sua etichetta nel corpo).
+ATTENZIONE, misurato: un'etichetta NON VALIDA ("Funzione Sbagliata": "X Y") passa con HTTP 200 sia dal
+passaggio di Firebase sia da Vertex diretto. Il codice di risposta quindi non dice se l'etichetta e'
+arrivata alla fatturazione: lo dice solo il report Fatturazione.
+
+== LE CHIAMATE DI PROVA, DIVISE PER FUNZIONE: DOVE SI VEDONO
+Monitoring (token_count, request_count) NON porta le etichette delle richieste: divide per modello,
+regione e tipo di token, non per funzione. Le etichette si vedono SOLO nel report Fatturazione della
+console (Fatturazione > Report > Filtri > Etichette > chiave "funzione") e nell'esportazione dei costi
+in BigQuery, che nel progetto non e' attiva (`bq ls` vuoto il 2 ottobre 2026). Il report si aggiorna
+con circa un giorno di ritardo.
+Per la verifica sono partite due serie riconoscibili, 8 chiamate gemini-2.5-flash ciascuna:
+  2026-10-02T04:24:34Z prova_ew_passaggio: 8 chiamate dal passaggio di Firebase, token in uscita 19305
+  2026-10-02T04:27:08Z prova_ew_diretto: 8 chiamate da Vertex diretto, token in uscita 19605
+piu' le 560 chiamate del banco del costo, etichettate per funzione (Vertex diretto, 2 ottobre dalle
+04:10 alle 04:37 UTC). Se nel report di domani compare "prova_ew_passaggio", l'etichetta arriva alla
+fatturazione anche per la strada che usa l'app; se compare solo "prova_ew_diretto", il passaggio di
+Firebase la toglie e la voce va ripresa.
+
+== COSA MANCA PERCHE' LA VOCE SIA CHIUSA
+1. Il report Fatturazione del 3 ottobre filtrato per l'etichetta "funzione": lo legge il fondatore
+   (Code non ha accesso al report, che non ha un'interfaccia di sola lettura da riga di comando).
+2. Le etichette del server (voce_maestro, voce_ascolto_di_prova) sono PUBBLICATE: negata a Code la
+   prima volta dal controllo dei permessi, la pubblicazione e' stata autorizzata dal fondatore e fatta
+   il 2 ottobre 2026 dal commit 8e798a60:
+     firebase deploy --only functions:laVoceDelMaestro,functions:ascoltaUnaVoce --project esoteric-circle
+   laVoceDelMaestro aggiornata 2026-10-02T06:22:36Z, ascoltaUnaVoce 2026-10-02T06:22:37Z, tutte e due
+   ACTIVE; una chiamata senza account a laVoceDelMaestro risponde HTTP 401 (la funzione parte).
+   La differenza dal codice pubblicato il 26 settembre (commit 5c35032e) sono le sole righe delle
+   etichette. Resta da vedere nel report la prima voce del Maestro di un LIVE vero, etichetta voce_maestro.
+3. Le etichette del telefono arrivano agli utenti con la prima build dopo questo ordine.

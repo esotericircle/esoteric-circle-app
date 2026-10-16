@@ -1,0 +1,179 @@
+ORDINE ET VOCE 04: IL LIVE NON SI CHIUDE MENTRE LA PERSONA PARLA, E UNA VOCE CHIARA SI TRASCRIVE.
+
+Come si misura: le domande le dice Elsa (la voce italiana di Windows) dalle
+casse del PC al Realme 767f596c, ognuna al suo volume; il registro del
+telefono (logcat) dice il livello sentito dall'orecchio del LIVE (righe
+ORECCHIO), la trascrizione di ogni frase e le chiusure per silenzio. Lo
+script che legge il registro e' scratchpad et/conta_trascrizione.py.
+
+=== PRIMA: build 2287 (commit ec88e0d9), Medora, 28 settembre, 11:47-12:03 ===
+
+Tre domande (7, 12, 15) non sono state sentite: le ha dette il pilota
+mentre Medora parlava ancora (una risposta di 35 secondi, domande ogni 40),
+e il LIVE ascolta solo quando il Maestro tace. Non e' un difetto dell'app:
+il pilota adesso aspetta la riga "il volto ha finito" prima di parlare.
+Le tre chiusure per silenzio della sessione vengono da li' (trenta secondi
+dopo la fine della voce, come vuole la regola).
+
+ORDINE ET VOCE 04, PRIMA: build 2287 (commit ec88e0d9), Medora nel LIVE, venti domande dette dal PC al Realme, 28 settembre 2026
+
+ 1. volume 100, voce sentita -18.0 dB, frasi 1: «Lui mi ama davvero?»
+    detta: Lui mi ama davvero?
+ 2. volume  90, voce sentita -21 dB, frasi 1: «Ma mi ama ancora dopo tutto quello che è successo?»
+    detta: Ma mi ama ancora, dopo tutto quello che ? successo?
+ 3. volume 100, voce sentita -26 dB, frasi 1: «Il mio ex tornerà da me?»
+    detta: Il mio ex torner? da me?
+ 4. volume  90, voce sentita -24.5 dB, frasi 1: «Devo scrivergli io o aspettare che si faccia vivo lui?»
+    detta: Devo scrivergli io o aspettare che si faccia vivo lui?
+ 5. volume 100, voce sentita -19 dB, frasi 1: «Il mio compagno mi tradisce»
+    detta: Il mio compagno mi tradisce?
+ 6. volume  90, voce sentita -22.0 dB, frasi 1: «perché non ho più desiderio con la persona che ho accanto.»
+    detta: Perch? non ho pi? desiderio con la persona che ho accanto?
+ 7. volume 100, voce sentita nessuna dB, frasi 0: (nessuna)
+    detta: Trover? l'amore quest'anno?
+ 8. volume  90, voce sentita -24.0 dB, frasi 1: «Quando incontrerò la persona giusta.»
+    detta: Quando incontrer? la persona giusta?
+ 9. volume 100, voce sentita -21 dB, frasi 1: «Sono innamorata di due persone, chi devo scegliere?»
+    detta: Sono innamorata di due persone: chi devo scegliere?
+10. volume  90, voce sentita -25 dB, frasi 1: «Perché attiro sempre persone che mi fanno soffrire?»
+    detta: Perch? attiro sempre persone che mi fanno soffrire?
+11. volume 100, voce sentita -23 dB, frasi 1: «È giusto che lo sposi.»
+    detta: ? giusto che lo sposi?
+12. volume  90, voce sentita nessuna dB, frasi 0: (nessuna)
+    detta: Mi sento sola anche in coppia: che cosa mi manca?
+13. volume 100, voce sentita -21.5 dB, frasi 1: «Mia madre non accetta la persona che amo, come faccio?»
+    detta: Mia madre non accetta la persona che amo: come faccio?
+14. volume  90, voce sentita -26 dB, frasi 1: «Riuscirò ad avere un figlio?»
+    detta: Riuscir? ad avere un figlio?
+15. volume 100, voce sentita nessuna dB, frasi 0: (nessuna)
+    detta: Posso fidarmi di nuovo dopo un tradimento?
+16. volume  90, voce sentita -27.5 dB, frasi 1: «Mi piace. Mi guarda sempre, ma non mi dice niente.»
+    detta: Gli piaccio? Mi guarda sempre ma non mi dice niente.
+17. volume 100, voce sentita -21 dB, frasi 1: «Come faccio a dimenticare chi mi ha lasciata?»
+    detta: Come faccio a dimenticare chi mi ha lasciata?
+18. volume  90, voce sentita -23.0 dB, frasi 1: «Sono felice nella mia relazione o mi sto accontentando?»
+    detta: Sono felice nella mia relazione o mi sto accontentando?
+19. volume 100, voce sentita -33 dB, frasi 1: «Quando cambierà la mia fortuna?»
+    detta: Quando cambier? la mia fortuna?
+20. volume  90, voce sentita -24 dB, frasi 1: «Questa settimana mi conviene giocare.»
+    detta: Questa settimana mi conviene giocare?
+
+Domande dette 20; trascritte con parole 17; tornate vuote su voce chiara (almeno -30 dB) 0; chiusure per silenzio subito dopo una domanda detta 0; chiusure per silenzio in tutta la sessione 3; turni partiti 17.
+
+LETTURA DELLA PRIMA: sulle diciassette domande sentite, fra -18 e -33 dB,
+diciassette trascritte con parole, zero vuote su voce chiara, zero chiusure
+per silenzio mentre la persona parlava. Il difetto dell'ordine ER (due
+trascrizioni vuote su voce chiara e il LIVE chiuso quattordici secondi dopo
+l'inizio della domanda, sessione delle 01:55 del 28 settembre) in questa
+sessione non si e' ripresentato. La cura resta, perche' la causa e' nel
+codice: la seconda trascrizione di una voce chiara si chiede senza la
+regola del sottofondo, e una voce chiara senza parole e' presenza
+(lib/features/maestri/live/schermata_live.dart, lib/services/voce/l_orecchio_del_live.dart).
+
+=== LA STANZA DOPO LA CHIUSURA: build di prova del 28 settembre (prova_et_2) ===
+
+Il difetto trovato strada facendo: dieci secondi dopo la chiusura del LIVE
+per silenzio, avviando la registrazione dello schermo con l'audio del
+telefono, l'app moriva con un aborto nativo di WebRTC nel thread della
+segnalazione (sessione del mattino e sessione ER delle 02:19). La stanza si
+staccava soltanto (padre EG.04, commit 1104da29); adesso si stacca e si
+libera (_lasciaLaStanza).
+Prova alle 14:18-14:20: LIVE aperto con Medora, chiuso per silenzio alle
+14:19:24; registrazione con l'audio del telefono avviata subito dopo, per
+25 secondi: righe Fatal o SIGABRT nel registro 0, l'app ancora davanti con
+la stessa attivita' (non e' ripartita).
+Registrazione: docs/collaudo/ET/realme/et04_stanza_dopo_la_chiusura.mp4
+
+=== DOPO: build di prova finale dell'ordine (prova_et_4), 28 settembre ===
+
+Due sessioni, le stesse domande dette allo stesso modo della PRIMA (Elsa
+dalle casse del PC, volumi 100 e 90 alternati); il pilota aspetta la riga
+"il volto ha finito" prima di parlare. Il contingente del giorno (cinquanta
+domande) e' finito con la seconda sessione: le tre domande che mancano alle
+venti si fanno il giorno dopo, e si aggiungono qui.
+
+--- Medora, 15:45-15:52, dieci domande ---
+
+ 1. volume 100, voce sentita -21.5 dB, frasi 1: «Lui mi ama davvero.»
+    detta: Lui mi ama davvero?
+ 2. volume  90, voce sentita -24.5 dB, frasi 1: «Ma mia, ma ancora, dopo tutto quello che è successo.»
+    detta: Ma mi ama ancora, dopo tutto quello che è successo?
+ 3. volume 100, voce sentita -21 dB, frasi 2: «» | «Il mio ex tornerà da me.»
+    detta: Il mio ex tornerà da me?
+ 4. volume  90, voce sentita -25 dB, frasi 1: «vero scrivergli io o aspettare che si faccia vivo lui.»
+    detta: Devo scrivergli io o aspettare che si faccia vivo lui?
+ 5. volume 100, voce sentita -27 dB, frasi 2: «» | «Trovo l'amore quest'anno»
+    detta: Troverò l'amore quest'anno?
+ 6. volume  90, voce sentita -23.0 dB, frasi 1: «Quando incontrerò la persona giusta?»
+    detta: Quando incontrerò la persona giusta?
+ 7. volume 100, voce sentita -22 dB, frasi 1: «Perché i soldi non mi bastano mai.»
+    detta: Perché i soldi non mi bastano mai?
+ 8. volume  90, voce sentita -24 dB, frasi 1: «Come posso guadagnare di più?»
+    detta: Come posso guadagnare di più?
+ 9. volume 100, voce sentita -19 dB, frasi 1: «Mi prenderanno al colloquio di giovedì.»
+    detta: Mi prenderanno al colloquio di giovedì?
+10. volume  90, voce sentita -28.5 dB, frasi 1: «Il colloquio di giovedì andrà bene.»
+    detta: Il colloquio di giovedì andrà bene?
+
+Domande dette 10; trascritte con parole 10; tornate vuote su voce chiara (almeno -30 dB) 0; chiusure per silenzio subito dopo una domanda detta 0; chiusure per silenzio in tutta la sessione 0; turni partiti 10.
+
+Nelle domande 3 e 5 la prima trascrizione e' tornata vuota e la seconda,
+chiesta senza la regola del sottofondo, ha dato le parole: e' la cura della
+voce, vista lavorare sul telefono.
+
+--- Caligo, 16:07-16:11, sette domande ---
+
+ 1. volume 100, voce sentita -23.5 dB, frasi 1: «Lui mi ama davvero»
+    detta: Lui mi ama davvero?
+ 2. volume  90, voce sentita -20 dB, frasi 1: «Ma mia, ma ancora, dopo tutto quello che è successo.»
+    detta: Ma mi ama ancora, dopo tutto quello che è successo?
+ 3. volume 100, voce sentita -22.5 dB, frasi 1: «Il mio ex tornerà»
+    detta: Il mio ex tornerà da me?
+ 4. volume  90, voce sentita -24.0 dB, frasi 1: «Devo scrivergli io o aspettare che si faccia vivo lui?»
+    detta: Devo scrivergli io o aspettare che si faccia vivo lui?
+ 5. volume 100, voce sentita -23 dB, frasi 2: «perché i soldi non mi bastano mai.» | «perché i soldi non mi bastano mai.»
+    detta: Perché i soldi non mi bastano mai?
+ 6. volume  90, voce sentita -24.0 dB, frasi 1: «Come posso guadagnare di più?»
+    detta: Come posso guadagnare di più?
+ 7. volume 100, voce sentita -20 dB, frasi 1: «Mi prenderanno al colloquio di giovedì.»
+    detta: Mi prenderanno al colloquio di giovedì?
+
+Domande dette 7; trascritte con parole 7; tornate vuote su voce chiara (almeno -30 dB) 0; chiusure per silenzio subito dopo una domanda detta 0; chiusure per silenzio in tutta la sessione 1; turni partiti 7.
+
+L'unica chiusura per silenzio e' quella di fine sessione, trenta secondi
+dopo l'ultima risposta (la schermata "Ci fermiamo qui":
+docs/collaudo/ET/realme/et01_live_caligo_fine.jpg).
+
+--- I CONTI DEL DOPO, 17 domande (tre ancora da fare per arrivare a venti) ---
+
+Domande dette 17, fra -19 e -28,5 dB; trascritte con parole 17; tornate
+vuote su voce chiara 0; chiusure per silenzio mentre la persona parlava 0;
+turni partiti 17. Nella PRIMA: 17 sentite su 20, 17 con parole, 0 vuote, 0
+chiusure mentre parlava (le tre non sentite le aveva dette il pilota sopra
+la voce del Maestro).
+
+**Le parole giuste, che la regola dell'ordine non chiedeva e il fondatore
+vede nella chat**: trascritte parola per parola uguali alla domanda detta
+(senza contare la punteggiatura; "Trovo" per "Troverò" conta sbagliata) 12 su 17 (Medora 7 su 10, Caligo 5 su 7).
+Gli errori: "Ma mi ama ancora" diventa "Ma mia, ma ancora" in tutte e due le
+sessioni, e nella PRIMA era giusta (la stessa frase di Elsa: e' il
+riconoscimento, non la voce); "Devo" diventa "vero"; "Troverò" diventa
+"Trovo"; "da me" cade in fondo a una domanda. Nella PRIMA le domande
+trascritte parola per parola uguali erano 16 su 17, ma erano domande in parte
+diverse: le sole quattro in comune (1-4) nella PRIMA erano giuste tutte e
+quattro, nel DOPO due su quattro in tutte e due le sessioni. Sulla stessa
+frase la differenza c'e', e la voce di Elsa e' la stessa.
+Il padre, per la Regola C: **PROVENIENZA IGNOTA**. La prima trascrizione e'
+la stessa del commit di partenza (git diff ec88e0d9 su
+lib/services/voce/l_orecchio_del_live.dart: la voce ET.04 aggiunge solo la
+seconda trascrizione, quando la prima torna vuota), e gli errori stanno
+tutti in prime trascrizioni che non sono tornate vuote. Non viene da
+quest'ordine; da dove venga, fra il modello e la stanza, non l'ho misurato. Il riconoscimento non e'
+stato toccato da quest'ordine: la voce ET.04 chiedeva che non tornasse vuoto
+e che il LIVE non si chiudesse, e le parole sbagliate le segnalo nel
+rapporto.
+
+Registrazione di un turno (Caligo, "Il mio ex tornerà": "Ti ascolto", la
+domanda scritta, "Sto pensando", la risposta scritta), senza audio perche'
+la voce del LIVE Android non la lascia registrare:
+docs/collaudo/ET/realme/et04_un_turno_caligo.mp4

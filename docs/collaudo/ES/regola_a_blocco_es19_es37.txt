@@ -1,0 +1,101 @@
+REGOLA A, le guardie nuove delle voci ES.19, ES.20, ES.21, ES.24, ES.25, ES.32, ES.35, ES.36 ed ES.37, e la guardia della posizione riparata per la Regola B. 30 settembre 2026.
+Ogni innesto e' entrato nel file (controllato col testo, prima di leggere l'esito), la prova e' girata, il file e' tornato identico al byte (sha1 uguale prima e dopo). Per le reti della ES.19 l'innesto e' il codice di prima intero (commit 78d1388c): la guardia rossa su di lui e' anche la misura del prima.
+
+ES.19: le reti di prima (commit 78d1388c) al posto delle nuove
+  file: lib/core/chat/la_posizione_della_lettura.dart, lib/core/chat/le_certezze_del_maestro.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -2: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 19: rete della prima frase su 44 casi del giro 6: dirette ancora scartate 28 su 30 [1, 2, 4, 5, 19, 20, 23, 39, 40, 51, 52, 53, 55, 57, 59, 63, 64, 66, 69, 73, 74, 77, 78, 83, 84, 90, 91, 94]; vaghe lasciate passare 0 su 14 []
+  ORDINE ES VOCE 19: rete delle certezze su 56 casi del giro 6: vere mancate 1 su 30 [43]; apparenti prese 12 su 26 [6, 7, 14, 19, 30, 38, 41, 44, 49, 51, 84, 86]; certezze sfuggite al giro 6 ancora sfuggite 0 su 3
+  ripristino byte per byte: si
+
+ES.19 (Regola B riparata): il quando sempre buono
+  file: lib/core/chat/la_posizione_della_lettura.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +6 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si
+
+ES.21: la risposta di prima ridetta non si vede
+  file: lib/core/chat/la_risposta_ripetuta.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +1 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 21: seconde che ripetono prese 0 su 26, seconde buone chiamate ripetute 0 su 214; mancate [T0048, T0108, T0128, T0169, T0210, T0278, T0286, T0299, T0317, T0346, T0101, T0127, T0215, T0237, T0295, T0322, T0328, T0216, T0247, T0355, T0093, T0124, T0168, T0171, T0207, T0316]
+  ripristino byte per byte: si
+
+ES.25: la prima frase vaga del Viaggio passa
+  file: lib/core/viaggio/le_guardie_del_responso.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 25: giro 3 (tarata) senza posizione prese 0 su 21, buone prese 0 su 51; giro 1 (non guardato) senza posizione prese 4 su 22, buone prese 0 su 50
+  ripristino byte per byte: si
+
+ES.20: l'invito anche sotto la risposta detta a voce
+  file: lib/core/maestro/consiglio_finale.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +1 -2: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si
+
+ES.20: il segno non si salva sul server
+  file: lib/services/memory/firestore_maestro_memory_repository.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +2 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 20: [chat: detta false, riaperta false, invito true, LIVE: detta true, riaperta true, invito false]
+  ripristino byte per byte: si
+
+ES.32: l'ora d'oro chiama dieci minuti prima invece di quindici
+  file: lib/core/horoscope/le_chiamate_del_cielo.dart
+  innesto verificato nel file: si'
+  esito: 00:02 +4 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 32: giorni con l'ora d'oro 35, senza 42, avvisi sbagliati o mancanti 35: [2026-10-01+1: 2026-10-02 07:26:19.687500 ora_d_oro "Alle 07:36 la Luna forma un trigono alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-02 07:21:19.687500, 2026-10-01+2: 2026-10-03 02:19:17.812500 ora_d_oro "Alle 02:29 la Luna forma un trigono al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-03 02:14:17.812500, 2026-10-01+5: 2026-10-06 13:53:59.062500 ora_d_oro "Alle 14:03 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-06 13:48:59.062500, 2026-10-04+0: 2026-10-04 03:36:38.437500 ora_d_oro "Alle 03:46 la Luna forma un sestile al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-04 03:31:38.437500, 2026-10-04+1: 2026-10-05 05:34:45.937500 ora_d_oro "Alle 05:44 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-05 05:29:45.937500, 2026-10-04+3: 2026-10-07 07:16:00.937500 ora_d_oro "Alle 07:26 la Luna forma un sestile al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-07 07:11:00.937500, 2026-10-04+4: 2026-10-08 11:50:42.187500 ora_d_oro "Alle 12:00 la Luna forma una congiunzione al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-08 11:45:42.187500, 2026-10-04+5: 2026-10-09 15:06:38.437500 ora_d_oro "Alle 15:16 la Luna forma una congiunzione alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-09 15:01:38.437500, 2026-10-07+1: 2026-10-08 10:16:57.187500 ora_d_oro "Alle 10:26 la Luna forma un sestile al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-08 10:11:57.187500, 2026-10-07+2: 2026-10-09 21:44:08.437500 ora_d_oro "Alle 21:54 la Luna forma un trigono al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-09 21:39:08.437500, 2026-10-07+6: 2026-10-13 01:03:49.687500 ora_d_oro "Alle 01:13 la Luna forma una congiunzione al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-13 00:58:49.687500, 2026-10-10+2: 2026-10-12 22:35:14.062500 ora_d_oro "Alle 22:45 la Luna forma un sestile al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-12 22:30:14.062500, 2026-10-10+3: 2026-10-13 05:49:17.812500 ora_d_oro "Alle 05:59 la Luna forma un trigono al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-13 05:44:17.812500, 2026-10-10+6: 2026-10-16 22:38:59.062500 ora_d_oro "Alle 22:48 la Luna forma un trigono alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-16 22:33:59.062500, 2026-10-13+0: 2026-10-13 10:10:23.437500 ora_d_oro "Alle 10:20 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-13 10:05:23.437500, 2026-10-13+1: 2026-10-14 21:52:34.687500 ora_d_oro "Alle 22:02 la Luna forma una congiunzione al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-14 21:47:34.687500, 2026-10-13+3: 2026-10-16 20:08:02.812500 ora_d_oro "Alle 20:18 la Luna forma un trigono al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-16 20:03:02.812500, 2026-10-13+5: 2026-10-18 10:18:21.562500 ora_d_oro "Alle 10:28 la Luna forma una congiunzione alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-18 10:13:21.562500, 2026-10-13+6: 2026-10-19 22:44:36.562500 ora_d_oro "Alle 22:54 la Luna forma un sestile al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-19 22:39:36.562500, 2026-10-16+2: 2026-10-18 14:35:14.062500 ora_d_oro "Alle 14:45 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-18 14:30:14.062500, 2026-10-16+4: 2026-10-20 09:29:08.437500 ora_d_oro "Alle 09:39 la Luna forma un sestile al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-20 09:24:08.437500, 2026-10-16+6: 2026-10-22 22:48:49.687500 ora_d_oro "Alle 22:58 la Luna forma una congiunzione al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-22 22:43:49.687500, 2026-10-19+3: 2026-10-22 12:16:29.062500 ora_d_oro "Alle 12:26 la Luna forma un trigono alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-22 12:11:29.062500, 2026-10-19+4: 2026-10-23 13:31:00.937500 ora_d_oro "Alle 13:41 la Luna forma un trigono al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-23 13:26:00.937500, 2026-10-22+2: 2026-10-24 07:16:00.937500 ora_d_oro "Alle 07:26 la Luna forma una congiunzione al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-24 07:11:00.937500, 2026-10-22+3: 2026-10-25 09:57:44.062500 ora_d_oro "Alle 10:07 la Luna forma una congiunzione al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-25 09:52:44.062500, 2026-10-22+6: 2026-10-28 18:31:29.062500 ora_d_oro "Alle 18:41 la Luna forma un trigono alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-28 18:26:29.062500, 2026-10-25+0: 2026-10-25 19:31:57.187500 ora_d_oro "Alle 19:41 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-25 19:26:57.187500, 2026-10-25+3: 2026-10-28 19:31:29.062500 ora_d_oro "Alle 19:41 la Luna forma un sestile al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-28 19:26:29.062500, 2026-10-25+4: 2026-10-29 22:08:59.062500 ora_d_oro "Alle 22:18 la Luna forma una congiunzione alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-29 22:03:59.062500, 2026-10-28+0: 2026-10-28 07:12:15.937500 ora_d_oro "Alle 07:22 la Luna forma un trigono al tuo Sole di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-28 07:07:15.937500, 2026-10-28+2: 2026-10-30 17:08:02.812500 ora_d_oro "Alle 17:18 la Luna forma un sestile alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-30 17:03:02.812500, 2026-10-28+3: 2026-10-31 07:11:19.687500 ora_d_oro "Alle 07:21 la Luna forma un sestile al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-10-31 07:06:19.687500, 2026-11-03+0: 2026-11-03 17:49:45.937500 ora_d_oro "Alle 17:59 la Luna forma un trigono al tuo Giove di nascita: la tua ora d'oro sta arrivando.", atteso 2026-11-03 17:44:45.937500, 2026-11-03+4: 2026-11-07 00:57:15.937500 ora_d_oro "Alle 01:07 la Luna forma un trigono alla tua Venere di nascita: la tua ora d'oro sta arrivando.", atteso 2026-11-07 00:52:15.937500]
+  ORDINE ES VOCE 32: Rahu Kalam, avvisi 6 in sette giorni dalle nove, sbagliati []
+  ORDINE ES VOCE 32: avvisi del Rahu Kalam prima di leggere la Vedica 0, dopo 7, spento 0
+  ripristino byte per byte: si
+
+ES.32: il Rahu Kalam a chi non ha mai letto la Vedica
+  file: lib/services/regia_delle_chiamate.dart
+  innesto verificato nel file: si'
+  esito: 00:02 +4 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 32: giorni con l'ora d'oro 35, senza 42, avvisi sbagliati o mancanti 0: []
+  ORDINE ES VOCE 32: Rahu Kalam, avvisi 6 in sette giorni dalle nove, sbagliati []
+  ORDINE ES VOCE 32: avvisi del Rahu Kalam prima di leggere la Vedica 7, dopo 7, spento 0
+  ripristino byte per byte: si
+
+ES.36: il tre diventa favorevole
+  file: lib/core/horoscope/i_tre_cieli.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si
+
+ES.35: la rivelazione torna a ogni scelta
+  file: lib/features/horoscope/la_rivelazione_del_segno.dart
+  innesto verificato nel file: si'
+  esito: 00:05 +0 -1: Some tests failed.
+  ROSSO: si
+  ripristino byte per byte: si
+
+ES.37: il Sigillo si accende con due tradizioni
+  file: lib/core/horoscope/il_sigillo_dei_tre_cieli.dart
+  innesto verificato nel file: si'
+  esito: 00:04 +0 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 36: i tre cieli a video [Sulla giornata le tre tradizioni non sono d'accordo: favorevole per l'occidentale e la vedica, in equilibrio per la cinese., Sull'amore le tre tradizioni non sono d'accordo: favorevole per l'occidentale e la vedica, in equilibrio per la cinese., Sul lavoro le tre tradizioni non sono d'accordo: favorevole per la vedica, in equilibrio per l'occidentale e la cinese., Sulla fortuna le tre tradizioni non sono d'accordo: favorevole per l'occidentale e la vedica, in salita per la cinese.]
+  ORDINE ES VOCE 35: rivelato "Il tuo segno cinese è il Cavallo" e "Il tuo segno vedico è Tula (Bilancia)"; la seconda volta di nuovo: false
+  ORDINE ES VOCE 37: "Il Sigillo dei Tre Cieli si accende leggendo oggi anche la cinese e la vedica." / "Il Sigillo dei Tre Cieli è acceso: oggi hai letto il cielo in tutte e tre le tradizioni." / "Il Sigillo dei Tre Cieli è acceso: oggi hai letto il cielo in tutte e tre le tradizioni."; sul disco acceso true, giorni 1
+  ripristino byte per byte: si
+
+ES.24: una guardia sulla prima frase torna
+  file: lib/core/rituals/la_lettura_delle_rune.dart
+  innesto verificato nel file: si'
+  esito: 00:00 +5 -1: Some tests failed.
+  ROSSO: si
+  ORDINE ES VOCE 24: la formula la prima frase di formula, inBreve non detto null
+  ripristino byte per byte: si

@@ -1,0 +1,43 @@
+IL SOFFIONE SI VEDE PER INTERO, E LA BOLLA HA IL SUO SPAZIO
+Ordine EI voci 08 e 09, che riaprono EF.01 ed EF.02.
+
+Catture sul Realme 767f596c, build 2277, 23 settembre 2026.
+Misure prese sui PIXEL della cattura, non a occhio.
+
+--- la fase del respiro, giro 1 di 7
+    schermo: 1080 per 2400
+    fondo della figura:  944  (39.3 per cento dell altezza)
+    cima della bolla:    1443  (60.1 per cento)
+    spazio fra le due:   499 pixel
+    altezza della bolla: 957 pixel, il 39.9 per cento dello schermo
+    LA FIGURA NON E COPERTA: la bolla comincia 499 pixel sotto il suo fondo.
+
+--- il momento prima, "preparati a respirare"
+    schermo: 1080 per 2400
+    fondo della figura:  877  (36.5 per cento dell altezza)
+    cima della bolla:    1443  (60.1 per cento)
+    spazio fra le due:   566 pixel
+    altezza della bolla: 957 pixel, il 39.9 per cento dello schermo
+    LA FIGURA NON E COPERTA: la bolla comincia 566 pixel sotto il suo fondo.
+
+--- LA CADENZA DEL RESPIRO, voce EI.09
+
+  La scritta a video dice: "Quattro tempi dentro, quattro fuori.
+  Sette volte." E il conteggio dice: "giro 1 di 7".
+
+  NON sono cinque e otto, ed e come il fondatore ha deciso.
+  L ordine EI chiedeva cinque tempi dentro, cinque fuori, otto volte;
+  messo davanti allo scarto il 23 settembre 2026 ha confermato la sua
+  decisione del giorno prima, "Lascio come sta, decide il rito".
+  Le due cose che contano sono provate a video: la scritta e il
+  conteggio dicono LO STESSO NUMERO, quattro e sette, preso dal rito
+  del giorno.
+
+--- IL RIPIEGO TATTILE, voce EI.10
+
+  I semi sono volati con una SPAZZATA DEL DITO sul soffione, non col
+  microfono: e il comando adb "input swipe" che si vede fra la cattura
+  03 e la 04. Il ripiego tattile funziona sul telefono vero.
+
+  IL SOFFIO VERO NEL MICROFONO RESTA PROVA DEL FONDATORE. Non si puo
+  simulare da qui, e non si da per fatto.

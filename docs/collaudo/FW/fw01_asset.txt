@@ -1,0 +1,38 @@
+GLI ASSET DELL'ORDINE FW, generato da tool/gli_asset_dell_ordine_fw.py
+
+== LA TABELLA (FW.01): cartella di origine, video, posto
+Medora Dominio Scena/medora_planetario_v1.mp4 -> medora_dominio (fermo: medora_planetario_ultimo_fotogramma_v1.jpg)
+Medora Chat Scena/medora_l_invito_v1.mp4 -> medora_chat (fermo: medora_chat_ultimo_fotogramma_v1.jpg)
+Caligo Chat Scena/caligo_il_vortice_v1.mp4 -> caligo_dominio (fermo: caligo_chat_ultimo_fotogramma_v1.jpg)
+Caligo Dominio Scena/caligo_la_runa_della_sera_v1.mp4 -> caligo_chat (fermo: caligo_dominio_ultimo_fotogramma_v1.jpg)
+Aura Dominio Scena/aura_il_centro_di_oggi_v1.mp4 -> aura_dominio (fermo: aura_dominio_ultimo_fotogramma_v1.jpg)
+Aura Chat Scena/aura_il_respiro_sul_loto_v1.mp4 -> aura_chat (fermo: aura_chat_ultimo_fotogramma_v1.jpg)
+
+medora_dominio_v1.mp4 (medora_planetario_v1.mp4): 11061609 byte -> 4559592 byte (11.1 MB -> 4.6 MB), SHA-256 31cf6e27d00522cfa1965fa70b5fa63edd85e3abe6d7e41498a3ee3bb1e7d97a
+  fotogramma a 4s, scarto medio 2.76 su 255
+  ultimo fotogramma ricompresso contro medora_planetario_ultimo_fotogramma_v1.jpg (1080x1920): scarto 10.90 su 255
+
+medora_chat_v1.mp4 (medora_l_invito_v1.mp4): 12047678 byte -> 5035281 byte (12.0 MB -> 5.0 MB), SHA-256 7c620d62104be7092117f16f139ccfd7f1b3666c9ed67ca910d4644af42a4f17
+  fotogramma a 4s, scarto medio 2.93 su 255
+  ultimo fotogramma ricompresso contro medora_chat_ultimo_fotogramma_v1.jpg (1080x1920): scarto 12.32 su 255
+
+  VERIFICA FW.05: scarto contro il fotogramma sbagliato (caligo_dominio_ultimo_fotogramma_v1.jpg) = 18.67, contro quello giusto (caligo_chat_ultimo_fotogramma_v1.jpg) = 9.78
+caligo_dominio_v1.mp4 (caligo_il_vortice_v1.mp4): 11065416 byte -> 5259098 byte (11.1 MB -> 5.3 MB), SHA-256 05b6636e90b647c8e409104f1f8af5d98fe3952229d7ae74bb86c1c72fb18660
+  fotogramma a 4s, scarto medio 1.74 su 255
+  ultimo fotogramma ricompresso contro caligo_chat_ultimo_fotogramma_v1.jpg (1080x1920): scarto 9.78 su 255
+
+  VERIFICA FW.05: scarto contro il fotogramma sbagliato (caligo_chat_ultimo_fotogramma_v1.jpg) = 18.59, contro quello giusto (caligo_dominio_ultimo_fotogramma_v1.jpg) = 12.01
+caligo_chat_v1.mp4 (caligo_la_runa_della_sera_v1.mp4): 9833113 byte -> 4232789 byte (9.8 MB -> 4.2 MB), SHA-256 5965a25bf8dddd388f2e9194025e8aa586d5c667a7845a0d2f5ca463da6b0b65
+  fotogramma a 4s, scarto medio 3.20 su 255
+  ultimo fotogramma ricompresso contro caligo_dominio_ultimo_fotogramma_v1.jpg (1080x1920): scarto 12.01 su 255
+
+aura_dominio_v1.mp4 (aura_il_centro_di_oggi_v1.mp4): 5382471 byte -> 2264335 byte (5.4 MB -> 2.3 MB), SHA-256 72c8c8bc403974785b04ed5698bcb810884b655f4f625d20363c575ff39d341b
+  fotogramma a 4s, scarto medio 2.37 su 255
+  ultimo fotogramma ricompresso contro aura_dominio_ultimo_fotogramma_v1.jpg (1080x1920): scarto 5.81 su 255
+
+aura_chat_v1.mp4 (aura_il_respiro_sul_loto_v1.mp4): 5524489 byte -> 2361370 byte (5.5 MB -> 2.4 MB), SHA-256 4600921484d6d4061b2b73eef162517668711c115b4fbd7d1adc8476677634c2
+  fotogramma a 4s, scarto medio 2.31 su 255
+  ultimo fotogramma ricompresso contro aura_chat_ultimo_fotogramma_v1.jpg (1080x1920): scarto 6.18 su 255
+
+== IL PESO TOTALE (FW.02)
+prima: 54914776 byte (54.9 MB); dopo: 23712465 byte (23.7 MB)

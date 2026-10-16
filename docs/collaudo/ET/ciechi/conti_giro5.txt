@@ -1,0 +1,40 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "giro5"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 360, senza giudizio 0.
+
+giro5 aura chat esecuzione 1: prima frase che risponde 19; nel merito 20; risposte con una certezza 2; frasi di certezza 2; errori di italiano 9; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 aura chat esecuzione 2: prima frase che risponde 15; nel merito 16; risposte con una certezza 2; frasi di certezza 3; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 2
+giro5 aura live esecuzione 1: prima frase che risponde 16; nel merito 15; risposte con una certezza 0; frasi di certezza 0; errori di italiano 9; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 2
+giro5 aura live esecuzione 2: prima frase che risponde 20; nel merito 17; risposte con una certezza 0; frasi di certezza 0; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+giro5 caligo chat esecuzione 1: prima frase che risponde 23; nel merito 24; risposte con una certezza 3; frasi di certezza 3; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 caligo chat esecuzione 2: prima frase che risponde 24; nel merito 24; risposte con una certezza 2; frasi di certezza 2; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 2; seconde nel merito 3
+giro5 caligo live esecuzione 1: prima frase che risponde 22; nel merito 25; risposte con una certezza 2; frasi di certezza 2; errori di italiano 0; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 caligo live esecuzione 2: prima frase che risponde 22; nel merito 22; risposte con una certezza 1; frasi di certezza 1; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 medora chat esecuzione 1: prima frase che risponde 26; nel merito 26; risposte con una certezza 2; frasi di certezza 2; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 medora chat esecuzione 2: prima frase che risponde 24; nel merito 26; risposte con una certezza 4; frasi di certezza 4; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 medora live esecuzione 1: prima frase che risponde 23; nel merito 24; risposte con una certezza 2; frasi di certezza 3; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+giro5 medora live esecuzione 2: prima frase che risponde 22; nel merito 23; risposte con una certezza 2; frasi di certezza 2; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+
+TOTALE giro5: prima frase che risponde 256; nel merito 262; risposte con una certezza 22; frasi di certezza 24; errori di italiano 47; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 6; posizioni cambiate senza perché 2; seconde nel merito 41 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA giro5 aura chat esecuzione 1:
+   28. questo non passa inosservato
+   8. la persona giusta si manifesterà
+CERTEZZA giro5 aura chat esecuzione 2:
+   8. la persona giusta arriverà quando sarai pienamente te stessa
+   14. La tua energia è fertile, ha solo bisogno di essere allineata e nutrita.
+   14. la capacità innata del tuo corpo di accogliere la vita
+CERTEZZA giro5 caligo chat esecuzione 1:
+   4. Non aspettare un gesto che ora non arriverà.
+   3. Il cammino è bloccato, non c'è ritorno immediato.
+   26. ti promette chiarezza e successo
+CERTEZZA giro5 caligo chat esecuzione 2:
+   28. Il tuo Sole in Leone risplende e questo non passa inosservato.
+   2. Il fuoco dell'amore è ancora acceso
+CERTEZZA giro5 caligo live esecuzione 1:
+   1. il segno di Eihwaz ti assicura stabilità
+   5. Non vi è ombra di tradimento sul vostro sentiero.
+CERTEZZA giro5 caligo live esecuzione 2:
+   5. non vi è tradimento

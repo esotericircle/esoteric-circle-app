@@ -1,0 +1,6 @@
+ORDINE FS AGGIUNTA: la prova di struttura del gating riscritta con la lapide (il budget scelto fra la stesa intera e le stese), vista rossa.
+Innesto in lib/features/tarot/stesa_tre_carte_screen.dart : il budget di ripiego da 'stese' a 'stesa'. Conteggio del pezzo da innestare: 1
+innesto entrato (conteggio letterale del pezzo nuovo): True
+esito: uscita 1 |   C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/il_gating_della_stesa_test.dart: la schermata della stesa chiede il permesso, consuma e riscatta
+   la stesa non offre piu' il riscatto del budget giusto
+ripristinato al byte: True

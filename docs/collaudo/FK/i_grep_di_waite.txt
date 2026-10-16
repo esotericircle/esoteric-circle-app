@@ -1,0 +1,12 @@
+LA FORMA MOZZA DI WAITE NEL RAMO, ordine FK voce 14, 11 ottobre 2026
+Metodo: git grep -i -c <forma> <commit> -- docs lib test tool, che conta i file con almeno una riga; poi lo stesso al commit di oggi, escluso il reperto verifica_waite_1911.md.
+
+"passing away": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md lib/core/tarot/tarot_spread_type.dart tool/genera_carte_nella_posizione.py 
+"just passed": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md lib/core/tarot/tarot_spread.dart lib/core/tarot/tarot_spread_type.dart tool/genera_carte_nella_posizione.py 
+"passed or passing": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md 
+"shews": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md 
+"his house": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md 
+"aim or ideal": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md 
+"what will come": file a 019612d 0; oggi fuori dal reperto: docs/STATO_VIVO.md 
+
+Oggi la forma compare solo in docs/STATO_VIVO.md, che la cita dentro la sezione di Waite, e nei commenti nuovi di lib/core/tarot/tarot_spread.dart e tarot_spread_type.dart, nella descrizione di dietro in tool/genera_carte_nella_posizione.py e nella testata di dietro.md, che citano la glossa VERA con la virgola e con is now (ordine FK voce 8).

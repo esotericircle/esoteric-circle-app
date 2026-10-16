@@ -1,0 +1,31 @@
+== ORDINE FM, AGGIUNTA 1 (richieste del fondatore del 12 ottobre 2026), Regola B prima di toccare
+-- santuario_test: il tocco sulla luna apre la schermata del cielo (lib/features/santuario/santuario_screen.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- le_anteprime_dell_ordine_fg: la voce Real Time Cosmo nel menu (lib/features/account/account_screen.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- cielo_nascita_vero: il cielo del Risveglio (lib/features/onboarding/risveglio_journey.dart)
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+-- il_soffio_si_riconosce_dalla_forma: la soglia della planarita (lib/core/rituals/forma_del_soffio.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- real_time_cosmo_si_ferma_fuori_scena: la schermata del cielo reale (lib/features/real_time_cosmo/cielo_reale_screen.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+   (cielo_nascita_vero e' CIECA: il primo caso cerca l'assenza di 'esempio', che la scheda non dice piu' dal 31 luglio; il secondo ha l'asserzione commentata. Non copre piu' la zona.)
+-- onboarding_ordine: dal cielo di nascita si passa alla carta (lib/features/onboarding/risveglio_journey.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- dream_rite_screen_test: il diradamento del Sigillo del Sogno (lib/features/rituals/dream_rite_screen.dart)
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (dream_rite_screen_test, la_stella_si_tocca_davvero: diradano col pulsante tattile, nessuna prova copre il fiato del Sigillo: guardia nuova nell aggiunta 1 dell ordine FM)

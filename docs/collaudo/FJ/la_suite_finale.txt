@@ -1,0 +1,10 @@
+LA SUITE INTERA DELL'ORDINE FJ, 11 ottobre 2026
+Comando: flutter test -r expanded, in una copia del worktree coi fine riga LF (C:/Users/user/fi0, git -c core.autocrlf=false).
+
+Giro 1, commit d1b3035b (Parte 1): +7085 -2 (due falsi positivi delle guardie di casa sui testi del lato, dichiarati a frase).
+Giro 2, commit eb7bb337 (Parte 3, Parte 2, aggiunta 2): +7089 -10 (dieci guardie di casa sul codice nuovo, tutte corrette).
+Giro 3, commit 6ac63e99: ultima riga del registro:
+61:57 +7098 -1: Some tests failed.
+rossi:
+i_rapporti_consegnati_non_si_correggono_test.dart: FB.03: il corpo di ogni rapporto consegnato e' quello consegnato [E]
+(il rapporto si registra alla consegna: registrato, la guardia e' verde)

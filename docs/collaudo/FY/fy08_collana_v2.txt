@@ -1,0 +1,47 @@
+Ordine FY voce FY.08, la collana v2 con l'ovale intero, scritto da tool/gli_asset_della_collana_v2.py
+
+tolti dal ramo i file v1 non piu usati: 36
+collana_nello_scrigno_spenta_v2: 1438x2576, da 602459 a 303396 byte
+collana_nello_scrigno_accesa_v2: 1438x2576, da 603464 a 309146 byte
+righe con argento chiaro sulle colonne di bordo (0, 1, 1436, 1437): [0, 0, 0, 0] (la v1 ne aveva 40, 39, 45, 43)
+ritagli delle perle accese: 33 (30 giorni, 2 del compimento, la Luna al centro), WebP senza perdita, riletti identici
+collana completa composta contro la pittura accesa: scarto medio 0.47 su 255 sull'immagine intera
+scarto fra le due pitture subito fuori dai ritagli (6 pixel): medio 39.97, massimo 58.65
+
+file v1 tolti:
+  assets/img/respiro_della_luna/collana/collana_nello_scrigno_accesa_v1.webp
+  assets/img/respiro_della_luna/collana/collana_nello_scrigno_spenta_v1.webp
+  assets/img/respiro_della_luna/collana/le_perle_della_collana_v1.json
+  assets/img/respiro_della_luna/collana/perle_accese/medaglia_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_compimento_1_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_compimento_2_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_01_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_02_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_03_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_04_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_05_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_06_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_07_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_08_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_09_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_10_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_11_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_12_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_13_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_14_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_15_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_16_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_17_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_18_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_19_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_20_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_21_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_22_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_23_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_24_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_25_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_26_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_27_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_28_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_29_v1.webp
+  assets/img/respiro_della_luna/collana/perle_accese/perla_giorno_30_v1.webp

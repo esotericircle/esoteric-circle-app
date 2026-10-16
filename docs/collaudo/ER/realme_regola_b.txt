@@ -1,0 +1,145 @@
+ORDINE ER, I DIFETTI VISTI SUL REALME ALLA BUILD 2285: LE GUARDIE
+27 settembre 2026. Regola B: le guardie delle tre zone viste rosse (o no) sulla versione di HEAD prima di toccarle. Regola A: la guardia nuova test/i_difetti_visti_sul_realme_alla_2285_test.dart vista rossa con un innesto per difetto.
+
+===================== regola_b_telefono =====================
+== Regola B, porta: la riga sotto la carta Tu cambia parole
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima d51d487de4b1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +2 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _TextWidgetFinder:<Found 0 widgets with text "Cambia la tua foto": []>
+   ripristinato: sha1 d51d487de4b1, uguale, compagni tornati: True
+== Regola B, podio: il nome sotto la carta sparisce
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 27710a13ced1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:04 +8: All tests passed!
+   ripristinato: sha1 27710a13ced1, uguale, compagni tornati: True
+== Regola B, podio: lo stesso, contro la prova della schermata sola
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 27710a13ced1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +2: All tests passed!
+   ripristinato: sha1 27710a13ced1, uguale, compagni tornati: True
+== Regola B, galleria: la ricerca per nome non trova nessuno
+   file lib/features/synastry/sinastria_gallery_screen.dart, sha1 prima 4caacaf3a4b1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +4: All tests passed!
+   ripristinato: sha1 4caacaf3a4b1, uguale, compagni tornati: True
+
+===================== regola_a_realme =====================
+== Regola A, 2285: il Gemello torna sul nero (senza il cielo)
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 5237daa0871c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _DescendantWidgetFinder:<Found 0 widgets with type "CosmosBackground" descending from
+   ripristinato: sha1 5237daa0871c, uguale
+== Regola A, 2285: il nome sul podio torna in una casella di 34 punti che va a capo dove capita
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 2c83ec6a9c0f, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -2: Some tests failed.
+   Expected: empty
+   Actual: [
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 2c83ec6a9c0f, uguale
+== Regola A, 2285: la ricerca torna a confrontare i nomi coi segni
+   file lib/features/synastry/sinastria_gallery_screen.dart, sha1 prima a1dad15c02b3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <0>
+   ripristinato: sha1 a1dad15c02b3, uguale
+== Regola A, 2285: la riga sotto la carta Tu torna a una riga coi puntini
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima 9422fa163b8f, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 9422fa163b8f, uguale
+
+Le colpe che la guardia trova col nome del podio di prima (innesto rifatto a mano, file tornato con sha1 2c83ec6a9c0f):
+  a scala 1.0: Damiano David va a capo dentro una parola: "Damian|o David"; Priyanka Chopra: "Priyank|a Chopra"; i tre nomi chiedono 38.0 punti in una casella di 34.0
+  a scala 1.3: "Damia|no David", "Priyan|ka Chopra"; 50.0 punti in una casella di 34.0
+Sono le parole viste sul Realme (docs/collaudo/ER/realme/er06_gemello_03_raffica_podio.jpg).
+
+===================== I VERDI, LETTI =====================
+- Regola B sul podio: VERDE contro tutte e due le prove del Gemello col nome
+  tolto. Nessuna guardava il nome sotto la carta: la zona era scoperta dalla
+  nascita del podio (commit d24b7308, 31 agosto 2026). La copre adesso la
+  guardia nuova.
+- Regola B sulla galleria: VERDE con la ricerca che non trova nessuno.
+  Nessuna guardia provava la ricerca per nome (PROVENIENZA IGNOTA della
+  mancanza); il difetto della 2285 lo ha causato la voce ER.19, che ha dato a
+  Beyoncé il suo accento. La copre adesso la guardia nuova, sulla galleria
+  vera.
+
+===================== LE RUNE SUL REALME: regola_ab_realme_rune =====================
+Sul Realme alla 2285 il presagio del modello cadeva sempre sulla lettura di casa. Causa, riprodotta al banco sulla stessa gettata (Algiz diritta in Urdhr, Laguz in merkstave in Verdhandi, Raidho diritta in Skuld, domanda "Devo accettare il nuovo lavoro a Torino?") con tool/sonda_schema_rune.dart: tre scarti su tre, due per "sì a una condizione" non detta. La risposta era "Accetta l'offerta di lavoro, ma poni una condizione chiara sul tuo tempo": la guardia della posizione (voce ER.01, mia) cercava le parole e non la posizione. Dopo la cura, sulla stessa gettata, cinque letture accettate su sei.
+E la lettura di casa scriveva "Ciò che fu. qualcosa di nuovo germoglia": la riga della runa entra in minuscolo nella cucitura (ordine DF voce 05), e la forma "{Glossa}. {riga}" la metteva dopo un punto.
+CONFESSIONE: rune_presage.dart l'ho toccato prima di vedere rosse le sue guardie; la Regola B e' fatta dopo, sulla versione di HEAD.
+
+== Regola B su HEAD, presagio di casa: una frase comincia minuscola (contro il presagio e la prima bolla)
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +2: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro le rune che mantengono le promesse
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +4: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro il presagio che risponde alla domanda
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +9: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola A, 2285: la riga dopo il punto torna minuscola
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 35b5fc874f7d, uguale
+== Regola A, 2285: la condizione detta col ma torna a essere scartata
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 3c0d2c83138c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'hai scelto la posizione "sì a una condizione" ma la prima frase della risposta non la dice'
+   ripristinato: sha1 3c0d2c83138c, uguale
+
+- Regola B sul presagio di casa: VERDE contro tre prove. Nessuna guardava la maiuscola in testa alle frasi (PROVENIENZA IGNOTA della mancanza). La copre adesso la guardia nuova, vista rossa.
+
+===================== I TITOLI DELL'OROSCOPO SUL REALME: regola_ab_realme_oroscopo =====================
+Sul Realme, il 28 settembre alle 00:10, la scheda della Fortuna dei Gemelli si leggeva "AMICI PORT / AFORTUNA" (docs/collaudo/ER/realme/er14_oroscopo_giorno2_05.jpg). Padre: la voce ER.14, che ha portato titoli del giorno piu' lunghi nella colonna stretta accanto alla tendina; la schermata usava un Text nudo, mentre la card da condividere lo risolveva dall'ordine BD voce 07. Rimpicciolire non basta: "riconoscimento" non entra nemmeno al pavimento di 12 punti. Cura: la regola della home della voce ER.09, a capo fra le parole e altrimenti col trattino a una sillaba (lib/features/horoscope/titolo_della_scheda_del_giorno.dart).
+CONFESSIONE: oroscopo_screen.dart l'ho toccato prima di vedere rosse le sue guardie; la Regola B e' fatta dopo, sulla versione di HEAD.
+
+== Regola B su HEAD, schermata dell'Oroscopo: il titolo della scheda sparisce (contro l'oroscopo e' un consulto)
+   file lib/features/horoscope/oroscopo_screen.dart, sha1 prima 5b318a0d61ee, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:03 +6: All tests passed!
+   ripristinato: sha1 5b318a0d61ee, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro la profondita' che si sceglie
+   file lib/features/horoscope/oroscopo_screen.dart, sha1 prima 5b318a0d61ee, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:03 +4: All tests passed!
+   ripristinato: sha1 5b318a0d61ee, uguale, compagni tornati: True
+== Regola A, 2285: il titolo della scheda torna un Text che va a capo dove capita
+   file lib/features/horoscope/titolo_della_scheda_del_giorno.dart, sha1 prima db1206f5b84d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['"Amici port|afortuna"']
+   ripristinato: sha1 db1206f5b84d, uguale
+
+- Regola B sulla schermata dell'Oroscopo: VERDE contro due prove col titolo della scheda tolto. Nessuna guardava il titolo (PROVENIENZA IGNOTA della mancanza). Lo guarda adesso la guardia nuova, sui titoli dei Gemelli del 28 settembre e su tutti i 144 titoli del giorno.
+
+===================== IL PERCHE' PROPRIO LUI: regola_a_perche =====================
+Visto sulla 2286: "Venere Quadratura Luna, Mercurio Sestile Venere e Sole Sestile Venere" dentro una frase. Padre: il Gemello del 31 agosto (commit d24b7308). Regola B: il difetto era in HEAD con tutte le prove verdi, nessuna leggeva questa frase (PROVENIENZA IGNOTA della mancanza).
+== Regola A, 2286: il perche' torna a dire gli aspetti coi titoli delle etichette
+   file lib/core/synastry/perche_proprio_lui.dart, sha1 prima 7bdcd668cf74, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 7bdcd668cf74, uguale

@@ -1,0 +1,68 @@
+ORDINE ES VOCE 26: IL RETRO DELLE SCHEDE A 402 PUNTI. 29 settembre 2026.
+
+LA DOMANDA, dalla ET.09: "Inserisci anche che i testi nel rovescio delle
+schede sono minuscoli, quasi illeggibili." Alla ET.09 le catture erano a 360
+punti, la larghezza del Realme; mancavano quelle a 402 punti, la larghezza
+dei telefoni grandi. Il fondatore ha confermato che Code cambiasse la misura
+dello schermo del Realme per la prova e poi la rimettesse com'era
+("Confermo tutto").
+
+LA MISURA DELLO SCHERMO DEL REALME (767f596c), PRIMA, DURANTE E DOPO:
+
+  prima     densita' fisica 480, nessuna densita' sovrascritta: 360 punti
+            di larghezza (sw360dp), 1080x2400 pixel
+  durante   Opzioni sviluppatore, "Larghezza minima" a 402 dp: densita'
+            sovrascritta 429, sw402dp. Il Realme (ColorOS) rifiuta da adb
+            sia "wm density" sia "settings put" (WRITE_SECURE_SETTINGS):
+            il cambio e' fatto dalla pagina delle Opzioni sviluppatore,
+            guidata con uiautomator. Nessun'altra impostazione toccata.
+  dopo      "Larghezza minima" rimessa a 360: densita' fisica 480, nessuna
+            densita' sovrascritta, sw360dp. Riletto il 29 settembre da adb
+            ("wm density": Physical density: 480, senza riga Override).
+
+LE CATTURE A 402 PUNTI, in docs/collaudo/ES/realme/, il retro girato con la
+"i" come fa la persona:
+
+  es26_retro_verticale_402.jpg     in home, formato verticale, Stesa di Tarocchi
+  es26_retro_orizzontale_402.jpg   in home, formato orizzontale, Estrazione Rune
+  es26_retro_quadrata_402.jpg      in home, formato quadrato, Sinastria VIP
+                                   (riga "Per partner e amici")
+  es26_retro_dominio_402.jpg       in un dominio, l'Oroscopo nel dominio di Medora
+
+LA MISURA IN PROVA, test/il_retro_delle_schede_si_legge_test.dart, la stessa
+prova della ET.09 fatta a due larghezze (1080 pixel, rapporto 1080/360 e
+1080/402), per ogni arte della home e per ogni formato in cui compare:
+
+  a 360 punti: arti della home 67, coppie arte e formato 74; testo del retro
+    nei domini 15,9 punti; il piu' piccolo in home: orizzontale 15,9,
+    quadrata 15,2, verticale 13,0; arti col testo rimpicciolito in home 0 su 67
+  a 402 punti: arti della home 67, coppie arte e formato 74; testo del retro
+    nei domini 15,9 punti; il piu' piccolo in home: orizzontale 15,9,
+    quadrata 15,2, verticale 13,0; arti col testo rimpicciolito in home 0 su 67
+
+A 402 punti il testo del retro in home e' alla misura dei domini, arte per
+arte e formato per formato: 0 schede rimpicciolite. I numeri sono identici a
+quelli dei 360 punti perche' le schede della home hanno la loro larghezza
+fissa (LaSchedaDellArte.larghezzaPer), che non dipende dalla larghezza dello
+schermo: a 402 punti la riga mostra piu' schede, non schede piu' grandi.
+
+LA GUARDIA VISTA ROSSA (Regole A e B), innesti verificati col grep, file
+rimesso identico (cmp) dopo ogni innesto:
+
+  1. il retro grande della home alla larghezza della scheda di casa invece
+     che a quella dei domini, cioe' il difetto di prima della ET.09
+     (la_scheda_dell_arte.dart, _dimensioneDelRetroGrande): ROSSA a 360 e a
+     402 punti, 67 arti su 67 rimpicciolite, il piu' piccolo in home
+     orizzontale 5,0, quadrata 8,4, verticale 7,7.
+  2. il minimo della colonna del retro alzato da 120 a 220: VERDE. Il testo
+     scende a 9,7 punti in home e nei domini insieme, e la guardia confronta
+     la home coi domini. Non e' il difetto che la guardia deve prendere, ed
+     e' scritto qui perche' e' una zona scoperta: un testo del retro piccolo
+     in tutte e due le viste non lo prende nessuna guardia.
+
+UNA COSA CHE LE MISURE DICONO E CHE NON E' DI QUESTA VOCE: nel formato
+verticale il testo del retro scende a 13,0 punti, in home e nei domini, contro
+15,9 degli altri formati. E' il FittedBox del retro che fa entrare i testi
+lunghi nell'altezza della scheda verticale. Uguale a 360 e a 402 punti; la
+ES.26 chiede la home uguale ai domini, e lo e'. Il giudizio a video e' del
+fondatore, sulla cattura es26_retro_verticale_402.jpg.

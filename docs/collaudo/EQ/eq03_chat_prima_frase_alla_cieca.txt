@@ -1,0 +1,168 @@
+EQ.03, LA CHAT CON LA REGOLA DELLA PRIMA FRASE CONCRETA: LETTURA ALLA CIECA (27 settembre 2026)
+
+La regola nuova (MaestroPersona.rispostaScritta, provata e tolta) portava nella chat la riga della forma del LIVE: "la prima frase dice che cosa fare in concreto, partendo da quello che ha appena scritto".
+Banco tool/collaudo_eq03.dart, FASE=chat_prima_frase, MODI=chat, due giri, Gemini vero in europe-west1 (docs/collaudo/EQ/eq03/chat_prima_frase/).
+Lettura: tre agenti con la regola scritta (eq03/regola_della_lettura.md), sulle 6 conversazioni nuove mescolate alle 6 della chat "dopo" di prima, con nomi anonimi: gli stessi lettori leggono le due.
+
+dopo: nel merito 47 su 72
+chat_prima_frase: nel merito 42 su 72
+
+  chat_prima_frase/chat_con_Flash_giro_1_aura.md: 5 su 12
+  chat_prima_frase/chat_con_Flash_giro_1_caligo.md: 10 su 12
+  chat_prima_frase/chat_con_Flash_giro_1_medora.md: 8 su 12
+  chat_prima_frase/chat_con_Flash_giro_2_aura.md: 5 su 12
+  chat_prima_frase/chat_con_Flash_giro_2_caligo.md: 6 su 12
+  chat_prima_frase/chat_con_Flash_giro_2_medora.md: 8 su 12
+  dopo/chat_con_Flash_giro_1_aura.md: 5 su 12
+  dopo/chat_con_Flash_giro_1_caligo.md: 11 su 12
+  dopo/chat_con_Flash_giro_1_medora.md: 11 su 12
+  dopo/chat_con_Flash_giro_2_aura.md: 4 su 12
+  dopo/chat_con_Flash_giro_2_caligo.md: 7 su 12
+  dopo/chat_con_Flash_giro_2_medora.md: 9 su 12
+
+ESITO: la regola non migliora il merito della chat (con gli stessi lettori). Tolta. Le letture intere: seguono.
+
+dopo/chat_con_Flash_giro_2_medora.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_2_medora.md|2|SI|al limite, corpo vago ma gesto preciso sulla compagna da cercare
+dopo/chat_con_Flash_giro_2_medora.md|3|SI|al limite, chiede a chi ha scritto e propone un caffè senza aspettative
+dopo/chat_con_Flash_giro_2_medora.md|4|NO|osservare e attendere, oggetto simbolico che non parte dai fogli scritti
+dopo/chat_con_Flash_giro_2_medora.md|5|SI|sceglie il lavoro, dice perché e chiede un piano di tre mesi
+dopo/chat_con_Flash_giro_2_medora.md|6|SI|preparare tre risultati concreti e chiedere aspettative precise, non riconoscimento generico
+dopo/chat_con_Flash_giro_2_medora.md|7|SI|tre gruppi di interesse in Australia contro la solitudine
+dopo/chat_con_Flash_giro_2_medora.md|8|SI|niente rabbia, raccontarle un progetto concreto del viaggio in dettaglio
+dopo/chat_con_Flash_giro_2_medora.md|9|SI|tiene conto del pianto e indica di rassicurarla sulle chiamate
+dopo/chat_con_Flash_giro_2_medora.md|10|NO|nessuna misura, riflettere su ciò che rende sereni vale per chiunque
+dopo/chat_con_Flash_giro_2_medora.md|11|NO|al limite, pianificare tre passi generici senza nominarne alcuno
+dopo/chat_con_Flash_giro_2_medora.md|12|SI|gesto semplice e preciso per il risveglio, messaggio a sé sul telefono
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|1|SI|dice chi è e con quali arti aiuta
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|2|NO|al limite, sceglie il lavoro ma rimanda a riflettere, ignora compagna e Australia
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|3|NO|osservare senza forzare e annotare sensazioni, vale per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|4|SI|al limite, dopo le note indica tre azioni lavorative con orario preciso
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|5|SI|sceglie il lavoro con un motivo e indica un compito oggi
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|6|SI|quando parlargli, cosa portare e tre punti chiave da scrivere
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|7|NO|esplorare la paura e riflettere su una lama, niente sulla solitudine concreta
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|8|SI|chiederle mezz'ora da sola e raccontarle il desiderio come un sogno
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|9|SI|al limite, tiene conto del pianto: non forzare altre conversazioni, lasciarle spazio
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|10|NO|nessuna misura, guardarsi dentro e scrivere priorità vale per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|11|SI|al limite, lista delle azioni divisa per settimana fino a marzo
+chat_prima_frase/chat_con_Flash_giro_2_medora.md|12|SI|gesto preciso al risveglio, tre ragioni per partire su un foglio
+dopo/chat_con_Flash_giro_1_caligo.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_1_caligo.md|2|SI|al limite, un passo per compagna, Australia e lavoro
+dopo/chat_con_Flash_giro_1_caligo.md|3|NO|osservare la reazione senza forzare, massima valida per chiunque
+dopo/chat_con_Flash_giro_1_caligo.md|4|SI|se risponde accogli, se tace tre giorni riscrivi con una domanda
+dopo/chat_con_Flash_giro_1_caligo.md|5|SI|sceglie il lavoro e dice perché, la stabilità regge il viaggio
+dopo/chat_con_Flash_giro_1_caligo.md|6|SI|chiedere un incontro, nominare risultati, esprimere desiderio di crescere
+dopo/chat_con_Flash_giro_1_caligo.md|7|SI|cercare comunità italiane in Australia e scrivere a un contatto
+dopo/chat_con_Flash_giro_1_caligo.md|8|SI|dice cosa risponderle: scelta meditata, chiedere comprensione e non permesso
+dopo/chat_con_Flash_giro_1_caligo.md|9|SI|tiene conto del pianto, mostrarle progressi concreti invece di nuove parole
+dopo/chat_con_Flash_giro_1_caligo.md|10|SI|al limite, fissare una data entro cui decidere e appenderla
+dopo/chat_con_Flash_giro_1_caligo.md|11|SI|documenti, alloggi provvisori, primi giorni, lista dettagliata
+dopo/chat_con_Flash_giro_1_caligo.md|12|SI|gesto preciso al risveglio, rileggere la lista e aggiungere un elemento
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|1|SI|dice chi è e con quali arti aiuta
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|2|SI|scrivere le tre aspirazioni e scegliere la più urgente
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|3|SI|parlare dell'aspirazione scelta con una persona fidata entro domani
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|4|SI|al limite, sceglierne una dai fogli e pronunciarla ad alta voce
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|5|NO|al limite, scelta condizionata al sentire e gesto di un'immagine, nessun passo
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|6|SI|quando parlargli, fra cinque giorni, ed elenco di tre obiettivi raggiunti
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|7|SI|cercare un gruppo di italiani in Australia e presentarsi
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|8|SI|al limite, spiegarle le ragioni con calma durante un pasto sereno
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|9|NO|rispettare i tempi e riflettere in silenzio, vale per chiunque
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|10|NO|non dà una misura del tempo, gesto su motivi e non sulla decisione
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|11|NO|al limite, presume una compagna che non ha e ignora la partenza
+chat_prima_frase/chat_con_Flash_giro_1_medora.md|12|SI|gesto preciso al risveglio, scegliere un oggetto da portare e metterlo in vista
+dopo/chat_con_Flash_giro_1_medora.md|1|SI|dice chi è e le arti: astrologia, cartomanzia, destino
+dopo/chat_con_Flash_giro_1_medora.md|2|SI|per lavoro e Australia passi precisi: parlare fra un mese, cercare un contatto là
+dopo/chat_con_Flash_giro_1_medora.md|3|NO|ignora la lettera scritta; osservare coincidenze vale per chiunque, gesto estraneo
+dopo/chat_con_Flash_giro_1_medora.md|4|SI|al limite: dà passi precisi, cercare il mito e un oggetto della costellazione
+dopo/chat_con_Flash_giro_1_medora.md|5|SI|sceglie il lavoro e dice perché: sostiene gli altri desideri
+dopo/chat_con_Flash_giro_1_medora.md|6|SI|risultati concreti, momento tranquillo, chiedere un minuto per illustrare il lavoro
+dopo/chat_con_Flash_giro_1_medora.md|7|SI|cercare online gruppi di italiani e associazioni in Australia
+dopo/chat_con_Flash_giro_1_medora.md|8|SI|non contraddirla, dire che non è fuga, condividere preparativi e non solo sogni
+dopo/chat_con_Flash_giro_1_medora.md|9|SI|legge il pianto come paura della separazione e dice come tenere aperto il dialogo
+dopo/chat_con_Flash_giro_1_medora.md|10|SI|una misura: circa un mese, con data segnata e domanda scritta
+dopo/chat_con_Flash_giro_1_medora.md|11|SI|informarsi su visto e costi, segnare le date chiave sul calendario
+dopo/chat_con_Flash_giro_1_medora.md|12|SI|gesto preciso al risveglio legato al viaggio: visualizzare visto o voli
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|1|SI|dice chi è e le arti: energia, chakra, fisiognomica
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|2|NO|visualizzazioni generiche per chiunque e rimando a Medora per l'amore
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|3|NO|osservare le sensazioni vale per chiunque, nessuna indicazione sullo scritto
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|4|NO|attesa e respiro, massime per chiunque
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|5|SI|sceglie il lavoro e dice perché: base solida per poi pianificare il viaggio
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|6|NO|al limite: momento calmo ed esprimere il proprio valore, consigli per chiunque
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|7|NO|visualizzare il chakra del cuore, nulla di concreto sulla solitudine
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|8|SI|al limite: dice cosa rispondere, affidare documenti e questioni legali a professionisti
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|9|SI|al limite: tiene conto del pianto e dice che non invalida la partenza
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|10|NO|nessun tempo, ascoltare il corpo, e rimando a Calìgo
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|11|NO|visualizzare e sentire il corpo, nessun passo concreto dopo la scelta
+chat_prima_frase/chat_con_Flash_giro_1_aura.md|12|SI|gesto preciso al risveglio: tre respiri pensando a marzo prima di alzarsi
+dopo/chat_con_Flash_giro_1_aura.md|1|SI|dice chi è e le arti: energia, chakra, fisiognomica
+dopo/chat_con_Flash_giro_1_aura.md|2|NO|visualizzazioni di chakra per chiunque e rimandi agli altri Maestri
+dopo/chat_con_Flash_giro_1_aura.md|3|NO|respirare e non attendere con ansia, vale per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|4|NO|silenzio e respiro, massime per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|5|NO|non sceglie, rimanda a ciò che sente il corpo
+dopo/chat_con_Flash_giro_1_aura.md|6|SI|fine giornata, entusiasmo, raccontare i successi e chiedere un feedback specifico
+dopo/chat_con_Flash_giro_1_aura.md|7|SI|al limite: una volta lì cercare attività con persone di interessi simili
+dopo/chat_con_Flash_giro_1_aura.md|8|SI|dice cosa rispondere: capisco le preoccupazioni ma è un passo per la mia crescita
+dopo/chat_con_Flash_giro_1_aura.md|9|NO|al limite: accogliere e respirare, nessun senso del pianto né passo
+dopo/chat_con_Flash_giro_1_aura.md|10|NO|lasciar maturare senza forzare, sentenza per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|11|NO|prepararsi con calma e visualizzare, nulla di preciso
+dopo/chat_con_Flash_giro_1_aura.md|12|SI|gesto preciso al risveglio: attenzione alla corona, lingua al palato
+dopo/chat_con_Flash_giro_2_aura.md|1|SI|dice chi è e le arti: energia, chakra, fisiognomica
+dopo/chat_con_Flash_giro_2_aura.md|2|NO|inviti generici a nutrire il cuore e visualizzare, nessun passo preciso
+dopo/chat_con_Flash_giro_2_aura.md|3|NO|ascoltare il respiro nell'attesa, vale per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|4|NO|lasciar assestare l'energia e ascoltarsi, vuota
+dopo/chat_con_Flash_giro_2_aura.md|5|SI|sceglie il lavoro e dice perché: energia più pronta adesso
+dopo/chat_con_Flash_giro_2_aura.md|6|NO|momento tranquillo e chiarezza, consiglio per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|7|NO|al limite: immaginare un luogo calmo, nulla contro la solitudine
+dopo/chat_con_Flash_giro_2_aura.md|8|NO|rispondere con calma e chiarezza è generico, gesto dello specchio estraneo
+dopo/chat_con_Flash_giro_2_aura.md|9|NO|accogliere la sensazione, nessun senso del pianto della madre né passo
+dopo/chat_con_Flash_giro_2_aura.md|10|NO|nessun tempo, non forzare, sentenza per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|11|SI|scrivere tre piccole cose da fare per organizzare il viaggio
+dopo/chat_con_Flash_giro_2_aura.md|12|SI|gesto preciso al risveglio: sentire il peso del corpo, massaggiare le tempie
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|1|SI|dice chi è Aura e con quali arti aiuta
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|2|NO|al limite, solo visualizzazioni dei chakra, nulla di concreto per i tre desideri
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|3|NO|lasciar fare al tempo, gesto sul petto valido per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|4|NO|specchio e respiro senza scopo, vale per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|5|SI|sceglie il lavoro e spiega perché
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|6|NO|prepararsi, essere chiari, scegliere il momento: massime per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|7|NO|luce verde e mani sul petto, nessuna indicazione sulla solitudine in Australia
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|8|SI|al limite, dice di spiegarle desideri e motivazioni senza convincerla
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|9|SI|al limite, spiega che il pianto è amore e preoccupazione, integrare non scegliere
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|10|NO|sentenza: nessun tempo prestabilito, la risposta arriverà
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|11|NO|visualizzazione vuota, nessun passo per la partenza a marzo
+chat_prima_frase/chat_con_Flash_giro_2_aura.md|12|SI|gesto semplice e preciso sul respiro prima di alzarsi
+dopo/chat_con_Flash_giro_2_caligo.md|1|SI|dice chi è Calìgo e con quali arti aiuta
+dopo/chat_con_Flash_giro_2_caligo.md|2|NO|comandi generici per i tre desideri, gesto di Ansuz estraneo
+dopo/chat_con_Flash_giro_2_caligo.md|3|NO|osservare ciò che si muove, frase per chiunque
+dopo/chat_con_Flash_giro_2_caligo.md|4|NO|al limite, corpo generico, gesto non parte da ciò che ha scritto
+dopo/chat_con_Flash_giro_2_caligo.md|5|SI|sceglie il lavoro, spiega perché, obiettivo settimanale scritto
+dopo/chat_con_Flash_giro_2_caligo.md|6|SI|annotare i successi per una settimana prepara la richiesta al capo
+dopo/chat_con_Flash_giro_2_caligo.md|7|NO|massime sulla paura, gesto sulle qualità non tocca la solitudine
+dopo/chat_con_Flash_giro_2_caligo.md|8|SI|spiegale la tua visione mostrandole un oggetto dell'Australia
+dopo/chat_con_Flash_giro_2_caligo.md|9|NO|presagio generico, nessun passo dopo il pianto della madre
+dopo/chat_con_Flash_giro_2_caligo.md|10|SI|al limite, decidere subito e un esercizio scritto per decidere
+dopo/chat_con_Flash_giro_2_caligo.md|11|SI|al limite, scegliere tre oggetti da portare, gesto legato alla partenza
+dopo/chat_con_Flash_giro_2_caligo.md|12|SI|gesto preciso al risveglio: rileggere i desideri, tenere l'oggetto
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|1|SI|dice chi è Calìgo e con quali arti aiuta
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|2|SI|luoghi nuovi, lista per la compagna, gesto per Australia e successo
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|3|NO|attendere la risposta, gesto del libro estraneo al messaggio scritto
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|4|NO|ignora ciò che ha scritto, parla della parola del libro
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|5|SI|sceglie il lavoro, perché, e un compito da chiudere oggi
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|6|SI|mail al capo per chiedere un incontro sui risultati
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|7|SI|al limite, affrontarla prima di partire, pensare a un amico tre giorni
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|8|SI|non convincerla, chiederle un ricordo di un suo viaggio
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|9|SI|legge il pianto, distinguere i sentieri, rito eseguibile
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|10|SI|al limite, borsa con due oggetti per scegliere quale tenere in vista
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|11|SI|concreta: cercare tre offerte di volo per l'Australia
+chat_prima_frase/chat_con_Flash_giro_1_caligo.md|12|SI|gesto preciso al mattino: altare con candela e acqua
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|1|SI|dice chi è Calìgo e con quali arti aiuta
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|2|NO|massime simboliche per i desideri, candela e meditazione per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|3|NO|agire senza dire cosa, altare estraneo al messaggio scritto
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|4|NO|concentrarsi su se stessi, niente di preciso da fare
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|5|SI|sceglie il lavoro, perché, tre obiettivi scritti
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|6|SI|chiedere apertamente, discorso in tre punti provato allo specchio
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|7|SI|al limite, biglietto con tre nomi cari contro la solitudine
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|8|NO|al limite, calma e fermezza per chiunque, gesto estraneo alla madre
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|9|SI|tiene conto del pianto, lettera alla madre con le motivazioni
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|10|NO|nessun tempo fisso, visualizzazione con moneta per chiunque
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|11|NO|al limite, preparazione vaga, diario estraneo ai passi della partenza
+chat_prima_frase/chat_con_Flash_giro_2_caligo.md|12|SI|gesto preciso al risveglio: acqua e tre obiettivi prima del viaggio

@@ -1,0 +1,162 @@
+{
+ "S01": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C5a"
+ },
+ "S02": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C1b"
+ },
+ "S03": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "L2a"
+ },
+ "S04": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C4a"
+ },
+ "S05": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "L2b"
+ },
+ "S06": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "R5b"
+ },
+ "S07": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C6a"
+ },
+ "S08": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C4b"
+ },
+ "S09": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C8a"
+ },
+ "S10": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C7b"
+ },
+ "S11": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C2b"
+ },
+ "S12": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C5a"
+ },
+ "S13": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C1a"
+ },
+ "S14": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C6a"
+ },
+ "S15": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "R5a"
+ },
+ "S16": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C8b"
+ },
+ "S17": {
+  "giro": "ag5_cielo_prima",
+  "caso": "L2b"
+ },
+ "S18": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C3b"
+ },
+ "S19": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C3b"
+ },
+ "S20": {
+  "giro": "ag5_cielo_prima",
+  "caso": "R5b"
+ },
+ "S21": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C7a"
+ },
+ "S22": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C1b"
+ },
+ "S23": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C7b"
+ },
+ "S24": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C1a"
+ },
+ "S25": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C2b"
+ },
+ "S26": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C6b"
+ },
+ "S27": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C7a"
+ },
+ "S28": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C8a"
+ },
+ "S29": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C2a"
+ },
+ "S30": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C3a"
+ },
+ "S31": {
+  "giro": "ag5_cielo_prima",
+  "caso": "R5a"
+ },
+ "S32": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C3a"
+ },
+ "S33": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C5b"
+ },
+ "S34": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C8b"
+ },
+ "S35": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C4a"
+ },
+ "S36": {
+  "giro": "ag5_cielo_prima",
+  "caso": "L2a"
+ },
+ "S37": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C5b"
+ },
+ "S38": {
+  "giro": "ag5_cielo_dopo",
+  "caso": "C4b"
+ },
+ "S39": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C2a"
+ },
+ "S40": {
+  "giro": "ag5_cielo_prima",
+  "caso": "C6b"
+ }
+}

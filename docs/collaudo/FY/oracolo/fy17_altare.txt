@@ -1,0 +1,44 @@
+ORDINE FY VOCE FY.17, L'ALTARE VUOTO SOTTO LE CARTE CHE SI GIRANO
+16 ottobre 2026
+
+Il fondatore: "Le carte si girano con sotto le carte coperte del video".
+
+Causa: a scena ferma il fondo della scena e' l'ultimo fotogramma del video
+(oracolo_ultimo_fotogramma_v1.webp), che porta dipinti i tre dorsi
+sull'altare. Le carte vere si posano esattamente sopra (GeometriaDellAltare,
+ordine FU voce FU.02): ferme li coprono, ma girandosi in prospettiva si
+stringono fino a una riga e lasciano vedere i dorsi dipinti sotto.
+Padre: ordine FU voce FU.02 (la scena ferma sull'ultimo fotogramma coi dorsi
+dipinti, senza un fondo senza carte per il giro).
+
+Rimedio: la fascia dell'altare viene dal primo fotogramma
+(oracolo_primo_fotogramma_v1.webp), dove l'altare e' sgombro. Widget
+AltareVuoto in lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart:
+fascia da 1505 a 1715 pixel del fotogramma, sfumata 16 pixel per lato.
+
+Misura della compatibilita' dei due fotogrammi (scarto medio RGB su 255, fasce
+di 20 righe, colonne intere), presa con PIL sui due WebP del ramo:
+  righe 1460-1520 (altare sopra i dorsi): da 7,6 a 9,7
+  righe 1520-1700 (i dorsi dipinti):      da 16,7 a 77,8 (sono le carte)
+  righe 1700-1920 (fronte dell'altare):   da 0,5 a 6,0
+  colonne 0-130 e 950-1080, righe 1520-1700 (ai lati dei dorsi): 2,0-2,9
+  colonne 130-950, righe 1500-1520 (bordo alto della fascia): 9,3-11,8
+Fuori dai dorsi i due fotogrammi coincidono: la fascia non lascia cuciture
+(guardato sulla composizione di prova e sulle catture fy21_08 e fy21_10).
+
+Misura sulla cattura (test/l_oracolo_si_sceglie_e_si_avvia_test.dart, gruppo
+FY.17): luminanza media delle strisce ai lati della prima carta, fra il 10 e il
+25 per cento della sua larghezza da ogni lato, righe 1560-1610, quando la carta
+e' di taglio (larghezza a schermo 12,6 punti su 77,6 piatta):
+  cattura:                         28,2
+  altare vuoto (primo fotogramma): 28,1
+  dorso dipinto (ultimo fotogramma): 107,8
+Prima del rimedio (innesto che toglie AltareVuoto, Regola A, verificato col
+grep, ripristino con la stessa sha1 930abfb3) la stessa misura sulla cattura
+da' 106,0: il dorso dipinto del video (107,8). La prova cade
+(regola_a_oracolo.txt).
+MISURA: luminanza ai lati della carta di taglio da 106,0 a 28,2 (altare vuoto
+28,1).
+
+Catture: fy17_carta_di_taglio_sull_altare_vuoto.png,
+fy21_10_carta_di_taglio_sull_altare_vuoto.png.

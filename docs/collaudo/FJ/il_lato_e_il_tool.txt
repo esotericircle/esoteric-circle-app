@@ -1,0 +1,25 @@
+IL LATO RICEVUTO E IL TOOL, ordine FJ voci 1 e 2 (aggiunta A2), 11 ottobre 2026
+Commit dell'Architetto: 65fceaae, padre 93c0a635, preso con git fetch e git merge --ff-only: un solo file, nessun conflitto col lavoro non spinto (che toccava solo la_lettura_dal_modello.dart e docs/collaudo/FJ).
+
+I quattro numeri (grep sul file):
+  righe '## ': 78
+  righe '### dritta' o '### capovolta': 156
+  righe '- 1: ', '- 2: ', '- 3: ' piene: 468
+  righe '- 1:', '- 2:', '- 3:' vuote: 0
+
+Comando: python tool/genera_carte_nella_posizione.py
+scheletri 936 su 7956; registri 0 su 468
+posizioni con le tre varianti: 1 ['lato']
+posizioni con una parte delle varianti: 3 ['passato (1)', 'presente (1)', 'futuro (1)']
+posizioni che aspettano i testi: 13 ['cartaSola', 'consultante', 'esito', 'consiglio', 'ostacolo', 'ambiente', 'copre', 'attraversa', 'corona', 'sotto', 'seStesso', 'laCasa', 'speranzeOTimori']
+uscita del tool: 0
+
+Le quattro correzioni dell'Architetto ritrovate nel file:
+  Il Mago, capovolta, variante 3: Mentre la tua parola dichiara, le dita restano ferme sugli attrezzi già pronti: il talento c'è per intero e il tratto che va dall'annuncio al gesto si è allargato.
+    contiene "voce": False; contiene "parola": True; sentenza: False
+  Re di Coppe, capovolta, variante 3: Quello che vacilla non è il cuore, è la presa su di esso: il tuo sentire esce a scatti e poi si rovescia intero, perché dirlo apertamente ti sembra più rischioso che tenerlo dentro.
+    contiene "voce": False; contiene "apertamente": True; sentenza: False
+  Tre di Denari, capovolta, variante 1: Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà di costruire c'è da tutte le parti, è la parola sui ruoli che non è passata.
+    contiene "voce": False; contiene "parola": True; sentenza: False
+  Il Giudizio, capovolta, variante 2: Rimandi le somme che pure ti sembrano urgenti, o trasformi il richiamo in un rimprovero contro di te. Il risveglio passa dall'ascolto, non dall'asprezza.
+    contiene "voce": False; contiene "rimprovero": True; sentenza: False

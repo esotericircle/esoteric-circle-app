@@ -1,0 +1,40 @@
+ORDINE FS AGGIUNTA, P2 e FS.A2: l'ultimo fotogramma del video contro il tavolo fermo. 14 ottobre 2026.
+Cattura: a2_fotogramma_sul_tavolo.jpg (da sinistra: tavolo fermo ritagliato, ultimo fotogramma, meta' e meta', differenza per tre; la riga gialla e' l'inizio della zona confrontata).
+
+python docs/collaudo/FS/aggiunta_video/allineamento.py . docs/collaudo/FS/aggiunta_video/video_ultimo_fotogramma.png docs/collaudo/FS/aggiunta_video
+zona confrontata: righe video 780..1279 (sotto la vita di Medora)
+correlazione ECC: 0.9913
+trasformazione affine trovata (sfondo ritagliato -> fotogramma):
+  [1.0000 0.0001 -0.13]
+  [-0.0000 0.9999 +0.06]
+  sfondo (150,930) -> video atteso (157.0,819.5), trovato (156.9,819.5), scarto (-0.0,+0.0) px video
+  sfondo (512,930) -> video atteso (535.8,819.5), trovato (535.8,819.5), scarto (-0.0,+0.0) px video
+  sfondo (606,1162) -> video atteso (634.2,1062.3), trovato (634.2,1062.3), scarto (+0.0,-0.0) px video
+  sfondo (60,1162) -> video atteso (62.8,1062.3), trovato (62.8,1062.3), scarto (+0.0,-0.0) px video
+  sfondo (344,1046) -> video atteso (360.0,940.9), trovato (360.0,940.9), scarto (-0.0,+0.0) px video
+scarto medio per canale (0-255) nella zona: prima 4.64, con la trasformazione 4.65
+
+Lo stesso sul primo fotogramma:
+zona confrontata: righe video 780..1279 (sotto la vita di Medora)
+correlazione ECC: 0.9928
+trasformazione affine trovata (sfondo ritagliato -> fotogramma):
+  [1.0000 0.0001 -0.05]
+  [0.0000 0.9999 +0.04]
+  sfondo (150,930) -> video atteso (157.0,819.5), trovato (157.0,819.5), scarto (-0.0,+0.0) px video
+  sfondo (512,930) -> video atteso (535.8,819.5), trovato (535.8,819.5), scarto (-0.0,+0.0) px video
+  sfondo (606,1162) -> video atteso (634.2,1062.3), trovato (634.2,1062.3), scarto (+0.0,-0.0) px video
+  sfondo (60,1162) -> video atteso (62.8,1062.3), trovato (62.8,1062.3), scarto (+0.0,-0.0) px video
+  sfondo (344,1046) -> video atteso (360.0,940.9), trovato (360.0,940.9), scarto (+0.0,-0.0) px video
+scarto medio per canale (0-255) nella zona: prima 4.33, con la trasformazione 4.33
+
+LE POSE FERME nel rettangolo di Medora del tavolo (GeometriaDelTavolo.medora), contro il fotogramma del video. Catture: a2_posa_invito_contro_ultimo_fotogramma.jpg e a2_posa_mazzo_contro_primo_fotogramma.jpg.
+medora_invito_v1 contro l'ultimo fotogramma:
+rettangolo della posa nel video: x 72.0..648.0, y 281.8..774.5
+figura: correlazione 0.8638; trasformazione posa ferma -> video: scala x 0.9949, scala y 1.0209, spostamento (+0.2, +5.5) px video
+  centro della figura: (360.0,528.1) -> (359.8,528.3), scarto (-0.2,+0.2) px video, (-0.1,+0.2) px di sfondo
+scarto medio nella figura: 18.90; sul tavolo (sotto la vita): 4.64
+medora_mazzo_v1 contro il primo fotogramma:
+rettangolo della posa nel video: x 72.0..648.0, y 281.8..774.5
+figura: correlazione 0.9724; trasformazione posa ferma -> video: scala x 0.9993, scala y 0.9984, spostamento (+0.2, +0.7) px video
+  centro della figura: (360.0,528.1) -> (359.8,528.3), scarto (-0.2,+0.2) px video, (-0.2,+0.2) px di sfondo
+scarto medio nella figura: 9.21; sul tavolo (sotto la vita): 4.32

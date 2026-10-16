@@ -1,0 +1,3 @@
+REGOLA A, ordine EU voce 19, 1 ottobre 2026: la guardia i_contatori_si_leggono_sempre vista rossa.
+INNESTO A1 il velo al 72 per cento, come prima: grep del difetto nel file SI; prova test/i_contatori_si_leggono_sempre_test.dart ROSSA; ORDINE EU VOCE 19: velo della barra 0.72, contrasto peggiore dei contatori 4.60 su 24 coppie; file rimesso sha1 9d681388fb97 -> 9d681388fb97 IDENTICO
+INNESTO A2 il velo al 50 per cento: grep del difetto nel file SI; prova test/i_contatori_si_leggono_sempre_test.dart ROSSA; ORDINE EU VOCE 19: velo della barra 0.5, contrasto peggiore dei contatori 2.13 su 24 coppie; file rimesso sha1 9d681388fb97 -> 9d681388fb97 IDENTICO

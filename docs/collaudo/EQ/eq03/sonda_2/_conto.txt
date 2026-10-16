@@ -1,0 +1,10 @@
+EQ.03 sonda_2 LIVE con Flash-Lite giro 1 medora: merito da leggere, tempo del modello mediano 971 ms
+EQ.03 sonda_2 LIVE con Flash-Lite giro 1 aura: merito da leggere, tempo del modello mediano 917 ms
+EQ.03 sonda_2 LIVE con Flash-Lite giro 1 caligo: merito da leggere, tempo del modello mediano 698 ms
+EQ.03 sonda_2 LIVE con Flash giro 1 medora: merito da leggere, tempo del modello mediano 1054 ms
+EQ.03 sonda_2 LIVE con Flash giro 1 aura: merito da leggere, tempo del modello mediano 1133 ms
+EQ.03 sonda_2 LIVE con Flash giro 1 caligo: merito da leggere, tempo del modello mediano 1097 ms
+
+TOTALE LIVE CON FLASH-LITE: merito da leggere, tempo del modello mediano 931 ms su 36 risposte
+TOTALE LIVE CON FLASH: merito da leggere, tempo del modello mediano 1096 ms su 36 risposte
+Modelli: chat gemini-2.5-flash, LIVE dell'app gemini-2.5-flash-lite; europe-west1.

@@ -1,0 +1,12 @@
+innesto in lib/core/arts/l_ordine_dei_domini.dart: il vecchio compare 0 volte, il nuovo 1 volte ('          if (!nelleSezioni.contains(a.id) &&\n              ' -> '          if (!nelleSezioni.contains(a.id) &&\n')
+  Expected: [
+    Actual: [
+  00:02 +0 -1: EO.10 e EO.13: il dominio di Medora a video, contro l'elenco del fondatore [E]
+  Expected: [
+    Actual: [
+  00:02 +0 -2: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore [E]
+  00:04 +1 -3: EO.12: il Test Archetipo vive solo nel Passaporto [E]
+    Expected: not contains 'archetype_test'
+      Actual: MappedListIterable<ArtEntry, String>:[
+  00:04 +4 -3: Some tests failed.
+ripristino lib/core/arts/l_ordine_dei_domini.dart: sha1 b68c9de225ad -> b68c9de225ad, IDENTICO
