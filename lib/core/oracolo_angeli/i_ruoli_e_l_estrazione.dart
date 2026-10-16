@@ -2,7 +2,6 @@ import 'dart:math';
 
 import '../angels/angel_catalog.dart';
 import '../angels/guardian_angels.dart';
-import '../identity/birth_identity.dart';
 
 /// **I TRE RUOLI DELL'ORACOLO DEGLI ANGELI.** Ordine FU voce FU.03, 15
 /// ottobre 2026. Il fondatore: *"in onboarding però, assegniamo ad ogni
@@ -79,37 +78,6 @@ class CartaDellOracolo {
   bool get coperta => portatore == null;
 }
 
-/// **I TRE ANGELI DI UN AMICO**, ordine FU voce FU.09: per la domanda per un
-/// amico rispondono i suoi tre angeli, dalla nascita che ha prestato col suo
-/// consenso (il codice della lettura a due telefoni, ordine FT). La stessa
-/// regola dei tre angeli di chi consulta (`GuardianAngels.forBirth`): il
-/// Custode dal grado del Sole all'istante di nascita, il Cuore dal giorno
-/// del calendario del luogo, l'Intelletto dal minuto del giorno nel luogo,
-/// e senza l'ora l'Intelletto e' nullo.
-abstract final class GliAngeliDiUnAmico {
-  static AngelTriad daNascitaPrestata({
-    required DateTime giorno,
-    required double longitudineDelSole,
-    int? minutoLocale,
-  }) {
-    final minuto =
-        minutoLocale != null && minutoLocale >= 0 && minutoLocale < 1440
-            ? minutoLocale
-            : null;
-    // I dettagli di nascita nascono da un posto solo, `BirthIdentity`
-    // (guardia la_catena_dei_dati_di_nascita): qui si costruisce l'identita'
-    // e si chiede a lei, mai un BirthDetails scritto a mano.
-    return GuardianAngels.forBirth(
-      BirthIdentity(
-        birthMoment: DateTime(giorno.year, giorno.month, giorno.day,
-            (minuto ?? 0) ~/ 60, (minuto ?? 0) % 60),
-        hasBirthTime: minuto != null,
-      ).toBirthDetails(),
-      sunLongitude: longitudineDelSole,
-    );
-  }
-}
-
 /// **L'ESTRAZIONE**, sul telefono: tre angeli diversi a caso fra i 72, uno
 /// per ruolo (FU.03). Il caso si passa da fuori, cosi' una prova lo fissa.
 abstract final class EstrazioneDellOracolo {
@@ -124,6 +92,30 @@ abstract final class EstrazioneDellOracolo {
         CartaDellOracolo(
           ruolo: RuoloDellAngelo.values[i],
           angelo: AngelCatalog.byNumber(estratti[i]),
+          portatore: RuoloDellAngelo.values[i].dellaPersona(triade),
+        ),
+    ];
+  }
+
+  /// **IL MAZZO COPERTO**, ordine FY voce FY.15: i 72 angeli in un ordine
+  /// mescolato dal caso. La persona sceglie i dorsi; il dorso toccato e' la
+  /// posizione nel mazzo, e la carta che esce e' quella che sta li'.
+  static List<int> mescola(Random caso) =>
+      [for (var n = 1; n <= 72; n++) n]..shuffle(caso);
+
+  /// **LE CARTE SCELTE DALLA PERSONA**, ordine FY voce FY.15: una per
+  /// posizione, nell'ordine dei ruoli (il primo dorso scelto e' la carta del
+  /// Custode, il secondo del Cuore, il terzo dell'Intelletto). [numeri] sono
+  /// i numeri degli angeli dei dorsi toccati, diversi fra loro.
+  static List<CartaDellOracolo> dalleScelte(
+      AngelTriad triade, List<int> numeri) {
+    assert(numeri.length == RuoloDellAngelo.values.length &&
+        numeri.toSet().length == numeri.length);
+    return [
+      for (var i = 0; i < RuoloDellAngelo.values.length; i++)
+        CartaDellOracolo(
+          ruolo: RuoloDellAngelo.values[i],
+          angelo: AngelCatalog.byNumber(numeri[i]),
           portatore: RuoloDellAngelo.values[i].dellaPersona(triade),
         ),
     ];

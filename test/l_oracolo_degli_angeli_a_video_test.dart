@@ -18,6 +18,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_giro_dell_oracolo.dart';
 import 'sopra_il_filmato.dart';
 
 /// **L'ORACOLO DEGLI ANGELI A VIDEO.** Ordine FU voci FU.02, FU.03, FU.04,
@@ -127,16 +128,10 @@ Future<void> _monta(WidgetTester tester,
   }
 }
 
-Future<void> _affida(WidgetTester tester, String domanda) async {
-  await tester.enterText(
-      find.byKey(const Key('oracolo_campo_domanda')), domanda);
-  await tester.pump();
-  await tester.tap(find.byKey(const Key('oracolo_affida')));
-  // Le lettere (2,4 s), il giro delle carte (1,5 s) e lo scorrimento.
-  for (var i = 0; i < 50; i++) {
-    await tester.pump(const Duration(milliseconds: 100));
-  }
-}
+/// Il giro intero, dalla domanda al responso (ordine FY voci FY.15 e FY.16:
+/// la persona sceglie le tre carte e avvia la lettura col pulsante).
+Future<void> _affida(WidgetTester tester, String domanda) =>
+    consultaLOracolo(tester, domanda);
 
 /// Al centro della finestra: in cima starebbe sotto la barra del titolo, che
 /// prende il tocco (extendBodyBehindAppBar).
@@ -185,10 +180,13 @@ void main() {
     await _monta(tester, lettori: [finta], richieste: richieste);
     // Video che non si carica: scena ferma coi dorsi e la domanda.
     expect(find.byKey(const Key('oracolo_dorso_1')), findsOneWidget);
-    await tester.enterText(find.byKey(const Key('oracolo_campo_domanda')),
-        'Devo cambiare lavoro?');
+    await affidaLaDomanda(tester, 'Devo cambiare lavoro?');
+    await scegliLeTreCarte(tester);
+    await Scrollable.ensureVisible(
+        tester.element(find.byKey(const Key('oracolo_avvia_la_lettura'))),
+        alignment: 0.5);
     await tester.pump();
-    await tester.tap(find.byKey(const Key('oracolo_affida')));
+    await tester.tap(find.byKey(const Key('oracolo_avvia_la_lettura')));
     await tester.pump(const Duration(milliseconds: 600));
     expect(find.byKey(const Key('oracolo_lettere_di_luce')), findsOneWidget,
         reason: 'la domanda non sale lungo la scala');

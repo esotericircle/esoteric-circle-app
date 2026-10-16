@@ -35,7 +35,13 @@ class StesaFan extends StatefulWidget {
     required this.taglioIndice,
     this.reduceMotion = false,
     this.carte = 78,
+    this.dorso,
   });
+
+  /// **IL DORSO DEL MAZZO**, ordine FY voce FY.15: l'Oracolo degli Angeli
+  /// usa lo stesso ventaglio, lo stesso gesto, col dorso dei 72 Angeli.
+  /// Nullo, il dorso dei tarocchi di Medora.
+  final String? dorso;
 
   final MaestroPalette palette;
 
@@ -319,6 +325,7 @@ class _StesaFanState extends State<StesaFan> {
               palette: widget.palette,
               taken: widget.taken.contains(indice),
               attivo: widget.scene.accettaGesti,
+              dorso: widget.dorso,
               onTap: () => widget.onPick(indice),
             ),
           ),
@@ -399,10 +406,12 @@ class _FanCard extends StatelessWidget {
     required this.taken,
     required this.attivo,
     required this.onTap,
+    this.dorso,
   });
 
   final MaestroPalette palette;
   final bool taken;
+  final String? dorso;
 
   /// Fuori dalla scena di riposo l'arco non risponde al tocco.
   final bool attivo;
@@ -418,7 +427,7 @@ class _FanCard extends StatelessWidget {
         duration: const Duration(milliseconds: 250),
         child: AspectRatio(
           aspectRatio: TarotFrame.aspect,
-          child: CardBack(palette: palette),
+          child: CardBack(palette: palette, dorso: dorso),
         ),
       ),
     );
@@ -428,9 +437,12 @@ class _FanCard extends StatelessWidget {
 /// Il dorso di Medora, identico dritto e capovolto: dal dorso non si capisce
 /// mai in che verso uscira' la carta.
 class CardBack extends StatelessWidget {
-  const CardBack({super.key, required this.palette});
+  const CardBack({super.key, required this.palette, this.dorso});
 
   final MaestroPalette palette;
+
+  /// Il dorso da posare; nullo, quello dei tarocchi (ordine FY voce FY.15).
+  final String? dorso;
 
   @override
   Widget build(BuildContext context) {
@@ -442,7 +454,7 @@ class CardBack extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Image.asset(
-          TarotDeck.dorsoFull,
+          dorso ?? TarotDeck.dorsoFull,
           fit: BoxFit.cover,
           errorBuilder: (_, __, ___) => _DorsoDipinto(palette: palette),
         ),

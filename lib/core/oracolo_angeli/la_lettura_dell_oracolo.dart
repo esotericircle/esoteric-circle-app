@@ -127,7 +127,7 @@ Regole che non si rompono:
     for (final c in carte) {
       // La carta coperta non va al modello: non c'e' un angelo da leggere.
       if (c.coperta) continue;
-      final messaggio = _messaggio(corpus, c, variante);
+      final messaggio = messaggioDellaCarta(corpus, c, variante);
       righe.add('${c.ruolo.nome.toUpperCase()} (${c.ruolo.posizione}): '
           '${c.angelo.name}. Messaggio: $messaggio');
     }
@@ -155,7 +155,10 @@ Regole che non si rompono:
       'La terza carta resta coperta: l\'Angelo dell\'Intelletto si rivela '
       'quando conosco la tua ora di nascita. Aggiungila e la carta si girerà.';
 
-  static String _messaggio(
+  /// **IL MESSAGGIO DI UNA CARTA** dal corpus di Medora, nella variante
+  /// della consultazione. Ordine FY voce FY.18: e' anche cio' che la carta
+  /// porta nella sua bolla, accanto a chi e' l'angelo.
+  static String messaggioDellaCarta(
       Map<String, List<String>> corpus, CartaDellOracolo c, int variante) {
     if (c.coperta) return testoDellaCartaCoperta;
     final v = corpus[LOraDegliAngeli.chiave(c.ruolo, c.angelo)];
@@ -176,7 +179,9 @@ Regole che non si rompono:
     final tema = TemaDellOracolo.di(domanda);
     return RispostaDellOracolo(
       titolo: tema?.titoloDiRipiego ?? TemaDellOracolo.titoloSenzaTema,
-      paragrafi: [for (final c in carte) _messaggio(corpus, c, variante)],
+      paragrafi: [
+        for (final c in carte) messaggioDellaCarta(corpus, c, variante)
+      ],
       dalModello: false,
     );
   }

@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:esoteric_circle/core/angels/guardian_angels.dart';
-import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
@@ -25,14 +24,13 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/angels/oracolo/oracolo_degli_angeli_screen.dart';
 import 'package:esoteric_circle/features/angels/oracolo/oracolo_share_card.dart';
 import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
-import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
-import 'package:esoteric_circle/features/synastry/la_tua_nascita_per_una_lettura.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_giro_dell_oracolo.dart';
 import 'porta_finta_del_cerchio_sociale.dart';
 
 /// **L'ORACOLO DEGLI ANGELI: IL SOCIALE, I PIANI E GLI EOS.** Ordine FU voci
@@ -241,15 +239,9 @@ Future<
   return (chiamate: chiamate, sociale: portaSociale, borsello: borsello);
 }
 
-Future<void> _affida(WidgetTester tester, [String domanda = _domanda]) async {
-  await tester.enterText(
-      find.byKey(const Key('oracolo_campo_domanda')), domanda);
-  await tester.pump();
-  await tester.tap(find.byKey(const Key('oracolo_affida')));
-  for (var i = 0; i < 50; i++) {
-    await tester.pump(const Duration(milliseconds: 100));
-  }
-}
+/// Il giro dell'ordine FY: domanda, tre carte scelte, pulsante.
+Future<void> _affida(WidgetTester tester, [String domanda = _domanda]) =>
+    consultaLOracolo(tester, domanda);
 
 Future<void> _alCentro(WidgetTester tester, Finder f) async {
   await tester.ensureVisible(f);
@@ -390,113 +382,13 @@ void main() {
     });
   });
 
-  group('FU.09 la domanda per un amico', () {
-    test('i tre angeli dell\'amico vengono dalla sua nascita prestata', () {
-      final giorno = DateTime(1992, 9, 3);
-      final attesa = GuardianAngels.forBirth(
-          BirthDetails(
-              date: giorno, time: const TimeOfDay(hour: 8, minute: 15)),
-          sunLongitude: 160.7);
-      final letta = GliAngeliDiUnAmico.daNascitaPrestata(
-          giorno: giorno, longitudineDelSole: 160.7, minutoLocale: 495);
-      expect(letta.guardian.number, attesa.guardian.number);
-      expect(letta.heart.number, attesa.heart.number);
-      expect(letta.intellect?.number, attesa.intellect?.number);
-      final senzaOra = GliAngeliDiUnAmico.daNascitaPrestata(
-          giorno: giorno, longitudineDelSole: 160.7);
-      expect(senzaOra.intellect, isNull,
-          reason: 'senza l\'ora l\'Intelletto resta coperto');
-    });
-
-    testWidgets(
-        'chi presta la nascita all\'Oracolo legge prima a che cosa serve, e il '
-        'consenso dichiara lo scopo', (tester) async {
-      SharedPreferences.setMockInitialValues({});
-      final porta = _PortaSociale();
-      final sociale = IlCerchioSociale(porta: porta);
-      await tester.runAsync(() => sociale.sincronizza(
-          identita: _nascita, oggi: DateTime(2026, 10, 15)));
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider<IlCerchioSociale>.value(value: sociale),
-          ChangeNotifierProvider(
-              create: (_) => ProfileController(identity: _nascita)),
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-        ],
-        child: MaterialApp(
-          builder: (context, figlio) => MaestroScope(child: figlio!),
-          home: LaTuaNascitaPerUnaLettura(palette: _palette, perLOracolo: true),
-        ),
-      ));
-      await tester.pumpAndSettle();
-      final perche =
-          _testiSotto(tester, find.byKey(const Key('la_tua_nascita_perche')))
-              .join(' ');
-      expect(perche, contains('Oracolo degli Angeli'),
-          reason: 'prima del gesto si legge a che cosa serve la nascita');
-      expect(perche, isNot(contains('Sinastria')));
-      expect(porta.chieste.where((c) => c.$1 == 'condividiLaNascita'), isEmpty);
-      await tester.tap(find.byKey(const Key('la_tua_nascita_consenso')));
-      await tester.pump();
-      await tester.pump();
-      final mandata =
-          porta.chieste.singleWhere((c) => c.$1 == 'condividiLaNascita').$2;
-      print('FU.09 MISURA consenso per l\'Oracolo: ${mandata.keys.toList()}');
-      expect(mandata['scopo'], 'oracolo');
-      expect(mandata['minutoLocale'], 14 * 60 + 30);
-      expect(mandata.keys.toSet(),
-          {'nascita', 'giorno', 'oraNota', 'nome', 'scopo', 'minutoLocale'});
-      await tester.pumpWidget(const SizedBox());
-    });
-
-    testWidgets(
-        'per l\'Oracolo la nascita passa solo col codice: niente strada a '
-        'mano, e la lettura chiede i consensi dati per l\'Oracolo',
-        (tester) async {
-      SharedPreferences.setMockInitialValues({});
-      final porta = _PortaSociale();
-      final sociale = IlCerchioSociale(porta: porta);
-      await tester.runAsync(() => sociale.sincronizza(
-          identita: _nascita, oggi: DateTime(2026, 10, 15)));
-      NascitaLetta? letta;
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider<IlCerchioSociale>.value(value: sociale),
-          ChangeNotifierProvider(
-              create: (_) => ProfileController(identity: _nascita)),
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-        ],
-        child: MaterialApp(
-          builder: (context, figlio) => MaestroScope(child: figlio!),
-          home: Builder(
-            builder: (context) => Scaffold(
-              body: ElevatedButton(
-                onPressed: () async => letta =
-                    await LaNascitaDellAltraPersona.chiedi(context, _palette,
-                        perLOracolo: true),
-                child: const Text('apri'),
-              ),
-            ),
-          ),
-        ),
-      ));
-      await tester.tap(find.text('apri'));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('nascita_altra_nome')), findsNothing,
-          reason: 'per l\'Oracolo la nascita non si scrive a mano');
-      expect(find.byKey(const Key('nascita_altra_conferma')), findsNothing);
-      await tester.enterText(
-          find.byKey(const Key('nascita_altra_codice')), 'k7q2ab');
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('nascita_altra_leggi')));
-      await tester.pumpAndSettle();
-      final chiesta =
-          porta.chieste.singleWhere((c) => c.$1 == 'leggiLaNascita').$2;
-      expect(chiesta['scopo'], 'oracolo');
-      expect(letta?.nome, 'Giulia');
-      expect(letta?.minutoLocale, 8 * 60 + 15);
-    });
-  });
+  // **LAPIDE, ordine FY voce FY.14, 16 ottobre 2026.** Qui stavano le prove
+  // della domanda per un amico e della nascita prestata all'Oracolo (ordine
+  // FU voce FU.09): i tre angeli dell'amico dalla nascita prestata, il
+  // consenso con lo scopo 'oracolo', la sola strada del codice. Il
+  // fondatore: "Elimina presta la tua nascita e chiedi per un amico". Che
+  // l'Oracolo non le offra piu' lo prova
+  // `test/l_oracolo_si_sceglie_e_si_avvia_test.dart`.
 
   group('FU.10 i piani', () {
     testWidgets(
@@ -521,20 +413,9 @@ void main() {
     });
 
     testWidgets(
-        'l\'Iniziato: tre carte e una chiamata Breve; la Lunga e la domanda '
-        'per un amico col lucchetto e l\'invito', (tester) async {
+        'l\'Iniziato: tre carte e una chiamata Breve; la Lunga col lucchetto '
+        'e l\'invito', (tester) async {
       final m = await _monta(tester, tier: Tier.tier1);
-      await tester.tap(find.byKey(const Key('oracolo_chiedi_per_un_amico')));
-      await tester.pumpAndSettle();
-      expect(find.textContaining('La domanda per un amico è dell’Adepto'),
-          findsOneWidget);
-      await tester.tapAt(const Offset(5, 5));
-      await tester.pumpAndSettle();
-      final indietro = find.text('Non ora');
-      if (indietro.evaluate().isNotEmpty) {
-        await tester.tap(indietro.first);
-        await tester.pumpAndSettle();
-      }
       await _affida(tester);
       expect(m.chiamate, hasLength(1));
       expect(m.chiamate.single.$2.contains('approfondimento1'), isFalse,
@@ -635,12 +516,9 @@ void main() {
           PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, Tier.free), isFalse);
       expect(
           PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, Tier.tier1), isTrue);
-      expect(PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, Tier.tier1),
-          isFalse);
-      expect(PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, Tier.tier2),
-          isTrue);
-      expect(PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, Tier.tier3),
-          isTrue);
+      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier1), isFalse);
+      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier2), isTrue);
+      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier3), isTrue);
     });
 
     test('la Lunga dello schermo si legge dalla matrice, non dal tier a mano',
@@ -649,7 +527,7 @@ void main() {
           File('lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart')
               .readAsStringSync();
       expect(sorgente, isNot(contains('Tier.tier2.index')));
-      expect(sorgente, contains('RigaDelPiano.oracoloLungaEAmico'));
+      expect(sorgente, contains('RigaDelPiano.oracoloLunga'));
     });
   });
 }

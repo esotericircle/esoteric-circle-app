@@ -160,7 +160,13 @@ void main() {
         perche: 'Su un insieme vuoto nessun file monterebbe il ventaglio.');
     usano.sort();
     print('ORDINE DU: chi monta il ventaglio $usano');
-    expect(usano, ['stesa_tre_carte_screen.dart']);
+    // **L'ORACOLO DEGLI ANGELI LO MONTA PER ORDINE**, ordine FY voce FY.15,
+    // 16 ottobre 2026: "La persona sceglie le sue carte dal mazzo coperto,
+    // una per posizione, col gesto delle altre stese dell'app". Il no
+    // dell'ordine DU riguardava l'Arcano dell'Alba, che resta fuori: un'altra
+    // schermata che lo monta senza un ordine fa cadere questa riga.
+    expect(usano,
+        ['oracolo_degli_angeli_screen.dart', 'stesa_tre_carte_screen.dart']);
   });
 
   test('IL TAVOLO NON E\' UNA SECONDA PORTA PER IL VENTAGLIO', () {

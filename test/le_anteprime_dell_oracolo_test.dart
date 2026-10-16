@@ -20,6 +20,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_giro_dell_oracolo.dart';
+
 /// **LE ANTEPRIME DELL'ORACOLO DEGLI ANGELI**, ordine FU voci FU.02, FU.03,
 /// FU.04, FU.06, FU.07 e FU.08: la schermata a 360 per 797 punti logici col
 /// rapporto di pixel 3, in `docs/preview/FU/`, con `--dart-define=STATO=dopo`.
@@ -137,15 +139,9 @@ void main() {
     await passa(tester);
   }
 
-  Future<void> affida(WidgetTester tester, String domanda) async {
-    await tester.enterText(
-        find.byKey(const Key('oracolo_campo_domanda')), domanda);
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('oracolo_affida')));
-    for (var i = 0; i < 50; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
-    }
-  }
+  // Il giro dell'ordine FY: domanda, tre carte scelte, pulsante.
+  Future<void> affida(WidgetTester tester, String domanda) =>
+      consultaLOracolo(tester, domanda);
 
   testWidgets('FU: l\'Oracolo, la domanda e il responso', (tester) async {
     if (_stato.isEmpty) return;

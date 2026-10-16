@@ -25,9 +25,11 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 /// o con la porta non ancora pubblicata, la schermata lo dice: chi legge
 /// puo' sempre inserire la nascita a mano.
 ///
-/// **LO STESSO GESTO PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
-/// [perLOracolo] la riga del consenso dice che la nascita serve ai tuoi tre
-/// angeli per la domanda di un amico, e il consenso vale solo per quello.
+/// **LAPIDE, ordine FY voce FY.14, 16 ottobre 2026.** Qui stava lo stesso
+/// gesto per l'Oracolo degli Angeli (ordine FU voce FU.09, `perLOracolo`):
+/// la nascita prestata per la domanda di un amico. Il fondatore: "Elimina
+/// presta la tua nascita e chiedi per un amico". La Sinastria evolutiva
+/// e il Calendario Lunare restano com'erano.
 ///
 /// **LO STESSO GESTO PER "TROVA IL GIORNO INSIEME"**, ordine FV voce FV.10:
 /// con [perLoLunario] la riga dice che la nascita serve al Calendario
@@ -35,33 +37,18 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 /// per i tuoi giorni tuoi (FV.07); il consenso vale solo per quello.
 class LaTuaNascitaPerUnaLettura extends StatefulWidget {
   const LaTuaNascitaPerUnaLettura(
-      {super.key,
-      required this.palette,
-      this.perLOracolo = false,
-      this.perLoLunario = false});
+      {super.key, required this.palette, this.perLoLunario = false});
 
   final MaestroPalette palette;
-
-  /// Vero quando la nascita si presta all'Oracolo degli Angeli.
-  final bool perLOracolo;
 
   /// Vero quando la nascita si presta a "Trova il giorno insieme" del
   /// Calendario Lunare (FV.10).
   final bool perLoLunario;
 
   static Route<void> route(MaestroPalette palette,
-          {bool perLOracolo = false, bool perLoLunario = false}) =>
+          {bool perLoLunario = false}) =>
       PassaggioDelCerchio.rotta((_) => LaTuaNascitaPerUnaLettura(
-          palette: palette,
-          perLOracolo: perLOracolo,
-          perLoLunario: perLoLunario));
-
-  /// La riga del consenso per l'Oracolo: si legge prima del gesto.
-  static const String rigaDellOracolo =
-      'Chi ti è accanto può chiedere all\'Oracolo degli Angeli una risposta '
-      'per te: rispondono i tuoi tre angeli, che vengono dalla tua nascita '
-      'vera. Il codice la presta per una lettura sola, per cinque minuti. Nel '
-      'tuo profilo del Cerchio non entra.';
+          palette: palette, perLoLunario: perLoLunario));
 
   /// La riga del consenso per "Trova il giorno insieme": si legge prima del
   /// gesto.
@@ -128,7 +115,6 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
       giorno: DateTime(m.year, m.month, m.day),
       oraNota: identita.hasBirthTime,
       nome: nome.isEmpty ? 'Chi ti è accanto' : nome,
-      perLOracolo: widget.perLOracolo,
       perLoLunario: widget.perLoLunario,
       minutoLocale: m.hour * 60 + m.minute,
     );
@@ -181,14 +167,12 @@ class _LaTuaNascitaPerUnaLetturaState extends State<LaTuaNascitaPerUnaLettura> {
           children: [
             ParagrafiDiLettura(
               key: const Key('la_tua_nascita_perche'),
-              testo: widget.perLOracolo
-                  ? LaTuaNascitaPerUnaLettura.rigaDellOracolo
-                  : widget.perLoLunario
-                      ? LaTuaNascitaPerUnaLettura.rigaDelLunario
-                      : 'Chi ti è accanto può leggere la vostra Sinastria '
-                          'evolutiva con la tua nascita vera. Il codice la '
-                          'presta per una lettura sola, per cinque minuti. '
-                          'Nel tuo profilo del Cerchio non entra.',
+              testo: widget.perLoLunario
+                  ? LaTuaNascitaPerUnaLettura.rigaDelLunario
+                  : 'Chi ti è accanto può leggere la vostra Sinastria '
+                      'evolutiva con la tua nascita vera. Il codice la '
+                      'presta per una lettura sola, per cinque minuti. '
+                      'Nel tuo profilo del Cerchio non entra.',
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),

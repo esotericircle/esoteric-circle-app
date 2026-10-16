@@ -34,11 +34,11 @@ import 'la_tua_nascita_per_una_lettura.dart';
 /// con la porta non ancora pubblicata la riga lo dice, e la strada a mano
 /// resta sotto: mai un vicolo cieco.
 ///
-/// **LO STESSO GESTO PER L'ORACOLO DEGLI ANGELI**, ordine FU voce FU.09: con
-/// `perLOracolo` resta la sola strada del codice, perche' per la domanda di
-/// un amico la sua nascita passa solo col suo consenso esplicito; il codice
-/// si legge solo se e' stato dato per l'Oracolo, e porta il minuto locale
-/// della nascita ([minutoLocale]) per l'Angelo dell'Intelletto.
+/// **LAPIDE, ordine FY voce FY.14, 16 ottobre 2026.** Qui stava lo stesso
+/// gesto per l'Oracolo degli Angeli (ordine FU voce FU.09, `perLOracolo`):
+/// la nascita prestata per la domanda di un amico. Il fondatore: "Elimina
+/// presta la tua nascita e chiedi per un amico". La Sinastria evolutiva
+/// e il Calendario Lunare restano com'erano.
 ///
 /// **LO STESSO GESTO PER "TROVA IL GIORNO INSIEME"**, ordine FV voce FV.10:
 /// con `perLoLunario` vale la stessa regola, e il codice si legge solo se
@@ -60,14 +60,9 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
       {super.key,
       required this.palette,
       this.nomeIniziale,
-      this.perLOracolo = false,
       this.perLoLunario = false});
 
   final MaestroPalette palette;
-
-  /// Vero per la domanda all'Oracolo degli Angeli per un amico: solo il
-  /// codice, mai la nascita scritta a mano (ordine FU voce FU.09).
-  final bool perLOracolo;
 
   /// Vero per "Trova il giorno insieme" del Calendario Lunare: solo il
   /// codice, mai la nascita scritta a mano (ordine FV voce FV.10).
@@ -80,15 +75,12 @@ class LaNascitaDellAltraPersona extends StatefulWidget {
   /// Apre la schermata e aspetta il nome e il cielo, o nullo se annullato.
   static Future<NascitaLetta?> chiedi(
       BuildContext context, MaestroPalette palette,
-      {String? nomeIniziale,
-      bool perLOracolo = false,
-      bool perLoLunario = false}) {
+      {String? nomeIniziale, bool perLoLunario = false}) {
     return Navigator.of(context).push<NascitaLetta>(
       PassaggioDelCerchio.rotta(
         (_) => LaNascitaDellAltraPersona(
             palette: palette,
             nomeIniziale: nomeIniziale,
-            perLOracolo: perLOracolo,
             perLoLunario: perLoLunario),
       ),
     );
@@ -139,7 +131,6 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
     final esito = await sociale.leggiLaNascita(codice,
         giornoMio: DateTime(
             mia.birthMoment.year, mia.birthMoment.month, mia.birthMoment.day),
-        perLOracolo: widget.perLOracolo,
         perLoLunario: widget.perLoLunario);
     if (!mounted) return;
     final d = esito.dati;
@@ -300,15 +291,13 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                           padding: EdgeInsets.zero),
                       onPressed: () => Navigator.of(context).push(
                           LaTuaNascitaPerUnaLettura.route(palette,
-                              perLOracolo: widget.perLOracolo,
                               perLoLunario: widget.perLoLunario)),
                       child: const Text('Fai leggere la tua nascita'),
                     ),
                   ),
-                  // Per l'Oracolo e per il Lunario la nascita passa solo col
-                  // consenso: la strada a mano qui non c'e' (ordine FU voce
-                  // FU.09, ordine FV voce FV.10).
-                  if (!widget.perLOracolo && !widget.perLoLunario) ...[
+                  // Per il Lunario la nascita passa solo col consenso: la
+                  // strada a mano qui non c'e' (ordine FV voce FV.10).
+                  if (!widget.perLoLunario) ...[
                     const Divider(height: SpacingTokens.xl),
                     Text('Oppure scrivila tu',
                         style: TypographyTokens.titoloScheda()
@@ -350,7 +339,7 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                 ],
               ),
             ),
-            if (!widget.perLOracolo && !widget.perLoLunario)
+            if (!widget.perLoLunario)
               Padding(
                 padding: const EdgeInsets.fromLTRB(
                     SpacingTokens.lg, 0, SpacingTokens.lg, SpacingTokens.lg),

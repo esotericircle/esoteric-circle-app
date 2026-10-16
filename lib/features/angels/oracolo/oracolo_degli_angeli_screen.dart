@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/angels/angel_catalog.dart';
+import '../../../core/angels/angel_lore.dart';
 import '../../../core/angels/guardian_angels.dart';
 import '../../../core/assets/family_image.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
@@ -14,7 +15,6 @@ import '../../../core/entitlement/listino_degli_eos.dart';
 import '../../../core/entitlement/plan_catalog.dart';
 import '../../../core/entitlement/question_allowance.dart';
 import '../../../core/entitlement/tier.dart';
-import '../../../core/synastry_evolutiva/cielo_evolutivo.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../core/maestro/maestro.dart';
@@ -25,8 +25,9 @@ import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/components/borsellino.dart';
-import '../../../design_system/components/il_responso_in_tre_paragrafi.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
+import '../../../design_system/components/riquadro_in_evidenza.dart';
+import '../../../design_system/components/segno_della_provenienza.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../design_system/components/titolo_del_responso.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -40,11 +41,12 @@ import '../../maestri/chat/chat_openers.dart';
 import '../../maestri/rotta_arte.dart';
 import '../../maestri/widgets/foglio_delle_fonti.dart';
 import '../../pricing/upgrade_invite.dart';
+import '../../respiro_della_luna/i_comandi_dipinti.dart';
 import '../../ricordi/azioni_del_responso.dart';
 import '../../scene/la_scena_in_video.dart';
 import '../../sigilli/regia_del_cammino.dart';
-import '../../synastry/la_nascita_dell_altra_persona.dart';
-import '../../synastry/la_tua_nascita_per_una_lettura.dart';
+import '../../tarot/stesa_choreography.dart';
+import '../../tarot/stesa_fan.dart';
 import '../../tarot/tarot_card_art.dart';
 import 'la_geometria_dell_altare.dart';
 import 'oracolo_share_card.dart';
@@ -66,6 +68,16 @@ import 'oracolo_share_card.dart';
 /// poi i tre dorsi si girano nelle tre carte vere, nella loro posizione
 /// esatta sull'altare (`GeometriaDellAltare`). Una nuova consultazione nella
 /// stessa apertura non rifa' partire il video.
+///
+/// **IL GIRO DELL'ORDINE FY**, 16 ottobre 2026. La persona scrive o sceglie
+/// la domanda (dieci proposte per argomento, FY.13) e la affida; poi sceglie
+/// le sue tre carte dal mazzo coperto dei 72, una per posizione, col
+/// ventaglio della Stesa (FY.15); scelte le tre carte, il pulsante dipinto
+/// "Avvia la lettura" fa salire la domanda e girare le carte: nulla parte da
+/// solo (FY.16). Sotto le carte che si girano l'altare e' vuoto (FY.17). Ogni
+/// carta porta chi e' l'angelo e che cosa porta, da Lenain (FY.18), e la
+/// risposta e' una coppia sola, il titolo e un riquadro (FY.19). La nascita
+/// prestata e la domanda per un amico sono uscite dall'Oracolo (FY.14).
 class OracoloDegliAngeliScreen extends StatefulWidget {
   const OracoloDegliAngeliScreen({
     super.key,
@@ -95,6 +107,20 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
   /// La nascita da usare; nulla, quella del profilo.
   final BirthIdentity? identita;
 
+  /// **LA BARRA DEL TITOLO SEMPRE SEMITRASPARENTE**, ordine FY voce FY.20.
+  /// Il fondatore: "Quando scorro in alto, la barra del titolo compare solida
+  /// di botto e non piu' trasparente". Prima la barra passava da 0,16 a 0,9
+  /// appena la lettura le scorreva sotto: adesso il velo e' uno solo, in ogni
+  /// stato, e il titolo resta leggibile per l'ombra del suo testo, mai per il
+  /// pieno.
+  static const double veloDellaBarra = 0.6;
+
+  /// **CHI E' L'ANGELO E CHE COSA PORTA** (FY.18), le righe della bolla di
+  /// una carta, lette dalle prove senza montare la schermata.
+  static String chiEDi(Angel a) => _LaBollaDellaCarta.chiE(a);
+  static ({String testo, Provenienza da, String fonte})? cosaPortaDi(Angel a) =>
+      _LaBollaDellaCarta.cosaPorta(a);
+
   static Route<void> route() => PassaggioDelCerchio.rotta(
         (_) => const SogliaArte(
           id: 'angels_oracle',
@@ -109,7 +135,10 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
 }
 
 /// Le fasi di una consultazione.
-enum _Fase { domanda, saleLaDomanda, siGirano, risposta }
+///
+/// **LA SCELTA** (FY.15): affidata la domanda, la persona sceglie le tre
+/// carte dal mazzo coperto; la lettura parte solo dal pulsante (FY.16).
+enum _Fase { domanda, scelta, saleLaDomanda, siGirano, risposta }
 
 class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     with TickerProviderStateMixin {
@@ -131,15 +160,12 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   int _consultazioni = 0;
   Timer? _orologio;
   bool _avviata = false;
-  bool _sottoIlTitolo = false;
 
-  /// **LA DOMANDA PER UN AMICO** (FU.09): il suo nome e i suoi tre angeli,
-  /// dalla nascita prestata col suo consenso. Vale per una lettura sola: la
-  /// nuova domanda torna a chi consulta.
-  ({String nome, AngelTriad triade})? _perUnAmico;
-
-  /// L'amico della consultazione a video, se la consultazione era per lui.
-  String? _nomeDellAmicoLetto;
+  /// **IL MAZZO COPERTO** della consultazione (FY.15): i 72 in ordine
+  /// mescolato, e i dorsi scelti dalla persona, uno per posizione.
+  List<int> _mazzo = const [];
+  final List<int> _scelti = [];
+  final _ilMazzo = GlobalKey();
 
   /// L'ASSAGGIO DEL VIANDANTE (FU.10): la consultazione a video scopre solo
   /// la carta del Custode.
@@ -218,9 +244,10 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   bool get _sceneFerma => _regia.ferma;
 
-  /// **AFFIDARE LA DOMANDA.** Ogni domanda estrae le tre carte, come tutte le
-  /// altre: la domanda sale lungo la scala, la lettura parte insieme alle
-  /// lettere e i dorsi si girano.
+  /// **AFFIDARE LA DOMANDA** (FY.15): la domanda resta affidata e la persona
+  /// passa a scegliere le sue tre carte dal mazzo coperto. Le consultazioni
+  /// del giorno si contano qui, prima della scelta, cosi' nessuno sceglie le
+  /// carte per poi trovare la porta chiusa (FU.10).
   ///
   /// **LAPIDE, ordine FV aggiunta voce FVA.01, 15 ottobre 2026.** Qui una
   /// domanda delicata non estraeva carte e riceveva la risposta di cura col
@@ -231,35 +258,75 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   /// delle chat dei Maestri.
   Future<void> _affida() async {
     final domanda = _domanda.text.trim();
-    if (domanda.isEmpty || _fase == _Fase.saleLaDomanda) return;
+    if (domanda.isEmpty || _fase != _Fase.domanda) return;
     FocusManager.instance.primaryFocus?.unfocus();
+    if (!await _lePorteSonoAperte()) return;
+    setState(() {
+      _affidata = domanda;
+      _mazzo = EstrazioneDellOracolo.mescola(_caso);
+      _scelti.clear();
+      _carte = const [];
+      _risposta = null;
+      _fase = _Fase.scelta;
+    });
+    _scorriAlMazzo();
+  }
+
+  /// **LE CONSULTAZIONI DEL GIORNO** (FU.10): finite, l'invito con le due
+  /// strade, una consultazione in piu' a Eos o salire di piano. Finche' il
+  /// server non porta il budget nel listino non si conta niente
+  /// (`QuestionAllowance.contaGliOracoli`).
+  Future<bool> _lePorteSonoAperte() async {
     final tier = _tier;
-    // **LE CONSULTAZIONI DEL GIORNO** (FU.10): finite, l'invito con le due
-    // strade, una consultazione in piu' a Eos o salire di piano. Finche' il
-    // server non porta il budget nel listino non si conta niente
-    // (`QuestionAllowance.contaGliOracoli`).
     final borsa = _forse<QuestionAllowance>();
-    if (borsa != null && !borsa.puoiConsultareGliAngeli(tier)) {
-      await _leConsultazioniDiOggiSonoFinite();
-      if (!mounted || !borsa.puoiConsultareGliAngeli(tier)) return;
+    if (borsa == null || borsa.puoiConsultareGliAngeli(tier)) return true;
+    await _leConsultazioniDiOggiSonoFinite();
+    return mounted && borsa.puoiConsultareGliAngeli(tier);
+  }
+
+  /// **UN DORSO SCELTO** (FY.15): il primo e' la carta del Custode, il
+  /// secondo del Cuore, il terzo dell'Intelletto. Il dorso scelto si posa
+  /// sull'altare, nella sua posizione.
+  void _scegli(int indice) {
+    if (_fase != _Fase.scelta ||
+        _scelti.length >= RuoloDellAngelo.values.length ||
+        _scelti.contains(indice)) {
+      return;
     }
-    final amico = _perUnAmico;
-    final carte = EstrazioneDellOracolo.estrai(amico?.triade ?? _triade, _caso);
+    setState(() => _scelti.add(indice));
+  }
+
+  /// **AVVIARE LA LETTURA** (FY.16), solo dal pulsante e solo con le tre
+  /// carte scelte: la domanda sale lungo la scala, la lettura parte insieme
+  /// alle lettere e i dorsi si girano.
+  Future<void> _avviaLaLettura() async {
+    if (_fase != _Fase.scelta ||
+        _scelti.length < RuoloDellAngelo.values.length) {
+      return;
+    }
+    if (!await _lePorteSonoAperte()) return;
+    final tier = _tier;
+    final domanda = _affidata;
+    final carte = EstrazioneDellOracolo.dalleScelte(
+        _triade, [for (final i in _scelti) _mazzo[i]]);
     final variante = _consultazioni;
     // **L'ASSAGGIO DEL VIANDANTE** (FU.10): la carta del Custode dal corpus,
     // senza modello; Cuore e Intelletto restano col lucchetto e l'invito.
     final assaggio = !PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, tier);
-    borsa?.registraOracolo(tier);
+    _forse<QuestionAllowance>()?.registraOracolo(tier);
     setState(() {
-      _affidata = domanda;
       _carte = carte;
       _risposta = null;
       _fase = _Fase.saleLaDomanda;
       _consultazioni++;
       _assaggio = assaggio;
-      _nomeDellAmicoLetto = amico?.nome;
     });
     _giro.value = 0;
+    // La scena torna in vista: la domanda sale lungo la scala.
+    if (_scorrimento.hasClients) {
+      unawaited(_scorrimento.animateTo(0,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeOut));
+    }
     final lettura = assaggio
         ? Future.value(LaLetturaDellOracolo.delCorpus(
             domanda: domanda,
@@ -272,7 +339,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             corpus: _corpus,
             variante: variante,
             // LA LUNGA E' DELL'ADEPTO (FU.06 e FU.10), letta dalla matrice.
-            profonda: PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, tier),
+            profonda: PlanCatalog.apre(RigaDelPiano.oracoloLunga, tier),
             chiamata: widget.chiamata,
           );
     await _lettere.forward(from: 0);
@@ -300,9 +367,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       _fase = _Fase.domanda;
       _risposta = null;
       _carte = const [];
-      // La nascita dell'amico valeva per una lettura sola (FU.09).
-      _perUnAmico = null;
-      _nomeDellAmicoLetto = null;
+      _mazzo = const [];
+      _scelti.clear();
       _assaggio = false;
     });
     _scorrimento.animateTo(0,
@@ -344,40 +410,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     );
   }
 
-  /// **LA DOMANDA PER UN AMICO** (FU.09): rispondono i suoi tre angeli. La
-  /// sua nascita passa solo col suo consenso, una volta per lettura, con lo
-  /// stesso gesto della lettura a due telefoni (ordine FT): il codice che
-  /// detta dal suo telefono, dato per l'Oracolo. Dall'Adepto (FU.10).
-  Future<void> _chiediPerUnAmico() async {
-    if (!PlanCatalog.apre(RigaDelPiano.oracoloLungaEAmico, _tier)) {
-      await _invitoAlPiano(
-          RigaDelPiano.oracoloLungaEAmico, 'La domanda per un amico');
-      return;
-    }
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final letta = await LaNascitaDellAltraPersona.chiedi(context, palette,
-        perLOracolo: true);
-    if (letta == null || !mounted) return;
-    final sole = letta.cielo.longitudini[PuntoDelCieloEvolutivo.sole];
-    if (sole == null) return;
-    setState(() => _perUnAmico = (
-          nome: letta.nome,
-          triade: GliAngeliDiUnAmico.daNascitaPrestata(
-            giorno: letta.cielo.giornoDiNascita,
-            longitudineDelSole: sole,
-            minutoLocale: letta.minutoLocale,
-          ),
-        ));
-  }
-
-  /// **PRESTARE LA PROPRIA NASCITA** a un amico che consulta per te: lo
-  /// stesso gesto del consenso della lettura a due telefoni, dato per
-  /// l'Oracolo. Aperto a ogni piano: prestare non costa niente.
-  void _prestaLaNascita() {
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    Navigator.of(context)
-        .push(LaTuaNascitaPerUnaLettura.route(palette, perLOracolo: true));
-  }
+  // **LAPIDE, ordine FY voce FY.14, 16 ottobre 2026.** Qui stavano la
+  // domanda per un amico (i suoi tre angeli dalla nascita prestata col
+  // codice) e il "Presta la tua nascita" dell'Oracolo, ordine FU voce FU.09.
+  // Il fondatore: "Elimina presta la tua nascita e chiedi per un amico". La
+  // Sinastria evolutiva e il Calendario Lunare tengono il loro gesto.
 
   /// **LA CARD DA CONDIVIDERE** (FU.09): le tre carte e il titolo, mai la
   /// domanda, mai la nascita. Torna l'esito vero, e il premio dichiarato si
@@ -409,6 +446,19 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     }
   }
 
+  /// Il mazzo coperto in vista, in fondo alla finestra: sopra resta
+  /// l'altare, dove si posano i dorsi scelti.
+  void _scorriAlMazzo() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final c = _ilMazzo.currentContext;
+      if (c == null || !mounted) return;
+      unawaited(Scrollable.ensureVisible(c,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeOut,
+          alignment: 1));
+    });
+  }
+
   void _scorriAllaRisposta() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final c = _inizioDellaRisposta.currentContext;
@@ -431,19 +481,28 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
         backgroundColor: palette.deepest,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          // Lo stesso velo della Sinastria evolutiva: leggero all'apertura,
-          // denso quando la lettura passa sotto il titolo.
-          backgroundColor:
-              palette.deepest.withValues(alpha: _sottoIlTitolo ? 0.9 : 0.16),
+          key: const Key('oracolo_barra'),
+          // **SEMPRE SEMITRASPARENTE** (FY.20): un velo solo in ogni stato,
+          // anche scorrendo. Il colore e' esplicito, cosi' lo stato "sotto
+          // la barra" di Material 3 non lo cambia, e nessuna elevazione ne'
+          // tinta di superficie lo riempie.
+          backgroundColor: palette.deepest
+              .withValues(alpha: OracoloDegliAngeliScreen.veloDellaBarra),
           elevation: 0,
           scrolledUnderElevation: 0,
           surfaceTintColor: Colors.transparent,
+          shadowColor: Colors.transparent,
           iconTheme: IconThemeData(color: palette.goldSoft),
+          // Il titolo si legge sopra il testo che scorre per l'ombra scura
+          // del suo inchiostro, non per una barra piena.
           title: TitoloCheNonSiRompe(
               chiaveDelTesto: const Key('oracolo_titolo'),
               testo: 'Oracolo degli Angeli',
               righe: 1,
-              stile: TypographyTokens.titoloSezione()),
+              stile: TypographyTokens.titoloSezione().copyWith(shadows: [
+                Shadow(color: palette.deepest, blurRadius: 4),
+                Shadow(color: palette.deepest, blurRadius: 10),
+              ])),
           actions: [
             FoglioDelleFonti.bottone(context,
                 palette: palette,
@@ -481,98 +540,83 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   }
 
   Widget _ilCorpo(MaestroPalette palette) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (n) {
-        if (n.depth != 0) return false;
-        final sotto = n.metrics.pixels > SpacingTokens.lg;
-        if (sotto != _sottoIlTitolo) setState(() => _sottoIlTitolo = sotto);
-        return false;
-      },
-      child: ListView(
-        controller: _scorrimento,
-        padding: EdgeInsets.zero,
-        children: [
-          LayoutBuilder(
-            builder: (context, vincoli) => _laScena(vincoli.maxWidth, palette),
-          ),
-          // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08:
-          // l'angelo dell'ora stava sotto la scena anche a video in corso.
-          // Adesso tutto cio' che sta sotto la scena aspetta la scena ferma
-          // e compare in dissolvenza.
-          IlRestoDopoLaScena(
-            scenaFerma: _sceneFerma,
-            child: Padding(
-              padding: const EdgeInsets.all(SpacingTokens.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (_fase == _Fase.domanda && _sceneFerma) ...[
-                    _PerUnAmico(
-                      palette: palette,
-                      amico: _perUnAmico?.nome,
-                      aperta: PlanCatalog.apre(
-                          RigaDelPiano.oracoloLungaEAmico, _tier),
-                      onChiedi: _chiediPerUnAmico,
-                      onTornaATe: () => setState(() => _perUnAmico = null),
-                      onPresta: _prestaLaNascita,
-                    ),
-                    const SizedBox(height: SpacingTokens.md),
-                  ],
-                  _LAngeloDellOra(
+    return ListView(
+      controller: _scorrimento,
+      padding: EdgeInsets.zero,
+      children: [
+        LayoutBuilder(
+          builder: (context, vincoli) => _laScena(vincoli.maxWidth, palette),
+        ),
+        // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08:
+        // l'angelo dell'ora stava sotto la scena anche a video in corso.
+        // Adesso tutto cio' che sta sotto la scena aspetta la scena ferma
+        // e compare in dissolvenza.
+        IlRestoDopoLaScena(
+          scenaFerma: _sceneFerma,
+          child: Padding(
+            padding: const EdgeInsets.all(SpacingTokens.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_fase == _Fase.scelta) ...[
+                  _IlMazzoCoperto(
+                    key: _ilMazzo,
                     palette: palette,
-                    adesso: _ora(),
-                    triade: _triade,
-                    corpus: _corpus,
+                    domanda: _affidata,
+                    scelti: _scelti,
+                    onScegli: _scegli,
+                    onAvvia: _avviaLaLettura,
                   ),
-                  SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
-                  if (_fase == _Fase.risposta && _risposta != null) ...[
-                    _IlResponso(
+                  const SizedBox(height: SpacingTokens.lg),
+                ],
+                _LAngeloDellOra(
+                  palette: palette,
+                  adesso: _ora(),
+                  triade: _triade,
+                  corpus: _corpus,
+                ),
+                SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
+                if (_fase == _Fase.risposta && _risposta != null) ...[
+                  _IlResponso(
+                    palette: palette,
+                    risposta: _risposta!,
+                    carte: _carte,
+                    corpus: _corpus,
+                    variante: _consultazioni - 1,
+                    quando: _quando,
+                    assaggio: _assaggio,
+                    onCondividi: _onShare,
+                    onInvito: _invitoAlPiano,
+                  ),
+                  // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
+                  // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
+                  if (!_assaggio &&
+                      !PlanCatalog.apre(RigaDelPiano.oracoloLunga, _tier)) ...[
+                    const SizedBox(height: SpacingTokens.sm),
+                    _IlLucchetto(
+                      chiave: 'oracolo_lucchetto_lunga',
                       palette: palette,
-                      risposta: _risposta!,
-                      carte: _carte,
-                      corpus: _corpus,
-                      variante: _consultazioni - 1,
-                      quando: _quando,
-                      assaggio: _assaggio,
-                      amico: _nomeDellAmicoLetto,
-                      onCondividi: _onShare,
-                      onInvito: _invitoAlPiano,
-                    ),
-                    // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
-                    // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
-                    if (!_assaggio &&
-                        !PlanCatalog.apre(
-                            RigaDelPiano.oracoloLungaEAmico, _tier)) ...[
-                      const SizedBox(height: SpacingTokens.sm),
-                      _IlLucchetto(
-                        chiave: 'oracolo_lucchetto_lunga',
-                        palette: palette,
-                        testo: 'La risposta lunga: Medora va più a fondo '
-                            'nel legame fra la tua domanda e le tre carte',
-                        onTap: () => _invitoAlPiano(
-                            RigaDelPiano.oracoloLungaEAmico,
-                            'La risposta lunga'),
-                      ),
-                    ],
-                    const SizedBox(height: SpacingTokens.lg),
-                    Center(
-                      child: OutlinedButton(
-                        key: const Key('oracolo_nuova_domanda'),
-                        onPressed: _nuovaDomanda,
-                        style: OutlinedButton.styleFrom(
-                            foregroundColor: palette.goldSoft,
-                            side: BorderSide(color: palette.goldSoft)),
-                        child: const Text('Affida una nuova domanda'),
-                      ),
+                      testo: 'La risposta lunga: Medora va più a fondo '
+                          'nel legame fra la tua domanda e le tre carte',
+                      onTap: () => _invitoAlPiano(
+                          RigaDelPiano.oracoloLunga, 'La risposta lunga'),
                     ),
                   ],
-                  const SizedBox(height: SpacingTokens.xxl),
+                  const SizedBox(height: SpacingTokens.lg),
+                  Center(
+                    child: PulsanteDipinto(
+                      key: const Key('oracolo_nuova_domanda'),
+                      testo: 'Affida una nuova domanda',
+                      onTap: _nuovaDomanda,
+                    ),
+                  ),
                 ],
-              ),
+                const SizedBox(height: SpacingTokens.xxl),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -607,18 +651,30 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                 child: _regia.disegna(),
               ),
             ),
+          // **SOTTO LE CARTE L'ALTARE VUOTO** (FY.17): a scena ferma la fascia
+          // dell'altare viene dal primo fotogramma, dove l'altare e' ancora
+          // sgombro. Le carte che si girano non lasciano piu' vedere i dorsi
+          // dipinti nel video.
+          if (_sceneFerma)
+            const Positioned.fill(
+              child: IgnorePointer(child: AltareVuoto()),
+            ),
           if (_sceneFerma)
             for (var i = 0; i < 3; i++)
-              _CartaSullAltare(
-                indice: i,
-                larghezza: w,
-                appare: !_regia.filmatoInScena || _regia.saltata,
-                carta: _carte.length == 3 ? _carte[i] : null,
-                // L'assaggio del Viandante gira solo il Custode (FU.10).
-                chiusa: _assaggio && i > 0,
-                giro: _giro,
-                palette: palette,
-              ),
+              // Mentre si sceglie, sull'altare stanno solo i dorsi scelti.
+              if (_fase != _Fase.scelta || i < _scelti.length)
+                _CartaSullAltare(
+                  indice: i,
+                  larghezza: w,
+                  appare: !_regia.filmatoInScena ||
+                      _regia.saltata ||
+                      _fase == _Fase.scelta,
+                  carta: _carte.length == 3 ? _carte[i] : null,
+                  // L'assaggio del Viandante gira solo il Custode (FU.10).
+                  chiusa: _assaggio && i > 0,
+                  giro: _giro,
+                  palette: palette,
+                ),
           if (_fase == _Fase.saleLaDomanda)
             Positioned.fill(
               child: IgnorePointer(
@@ -649,6 +705,60 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// **L'ALTARE VUOTO**, ordine FY voce FY.17, 16 ottobre 2026. Il fondatore:
+/// "Le carte si girano con sotto le carte coperte del video".
+///
+/// L'ultimo fotogramma porta i tre dorsi dipinti sull'altare; una carta che
+/// si gira in prospettiva si stringe e li lasciava vedere sotto. Qui la
+/// fascia dell'altare viene dal primo fotogramma, dove l'altare e' sgombro e
+/// identico (scarto medio fuori dalle carte sotto 3 livelli su 255 ai lati e
+/// sotto 12 sopra, misurato in `docs/collaudo/FY/oracolo/fy17_altare.txt`),
+/// sfumata in alto e in basso: niente cucitura, niente dorsi dipinti.
+class AltareVuoto extends StatelessWidget {
+  const AltareVuoto({super.key});
+
+  /// La fascia in pixel del fotogramma: i dorsi dipinti stanno fra 1535 e
+  /// 1685 (`GeometriaDellAltare`), la fascia li copre con margine e sfuma
+  /// in [sfumatura] pixel per lato.
+  static const double cima = 1505;
+  static const double fondo = 1715;
+  static const double sfumatura = 16;
+
+  @override
+  Widget build(BuildContext context) {
+    final h = GeometriaDellAltare.fotogramma.height;
+    return ShaderMask(
+      key: const Key('oracolo_altare_vuoto'),
+      blendMode: BlendMode.dstIn,
+      shaderCallback: (r) => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: const [
+          Color(0x00FFFFFF),
+          Color(0x00FFFFFF),
+          Color(0xFFFFFFFF),
+          Color(0xFFFFFFFF),
+          Color(0x00FFFFFF),
+          Color(0x00FFFFFF),
+        ],
+        stops: [
+          0,
+          (cima - sfumatura) / h,
+          cima / h,
+          fondo / h,
+          (fondo + sfumatura) / h,
+          1,
+        ],
+      ).createShader(r),
+      child: Image.asset(
+        GeometriaDellAltare.primoFotogramma,
+        fit: GeometriaDellAltare.taglio,
+        filterQuality: FilterQuality.medium,
       ),
     );
   }
@@ -828,6 +938,11 @@ class _LettereDiLuce extends CustomPainter {
 }
 
 /// **LA DOMANDA**, sopra la scena: scritta o scelta fra quelle proposte.
+///
+/// Ordine FY voce FY.13: dieci domande per argomento, nella voce di Medora.
+/// Gli argomenti e il pulsante che affida sono i pezzi dipinti del ramo
+/// (R8); le proposte sono righe da leggere, in un riquadro che scorre da
+/// solo, cosi' dieci domande non coprono la scena intera.
 class _LaDomanda extends StatefulWidget {
   const _LaDomanda({
     required this.palette,
@@ -838,6 +953,9 @@ class _LaDomanda extends StatefulWidget {
   final MaestroPalette palette;
   final TextEditingController controllo;
   final VoidCallback onAffida;
+
+  /// Quanto e' alto al massimo il riquadro delle proposte.
+  static const double altezzaDelleProposte = 176;
 
   @override
   State<_LaDomanda> createState() => _LaDomandaState();
@@ -851,6 +969,8 @@ class _LaDomandaState extends State<_LaDomanda> {
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
+    final vuota = widget.controllo.text.trim().isEmpty;
+    final tema = _tema;
     return Container(
       key: const Key('oracolo_domanda'),
       padding: const EdgeInsets.all(SpacingTokens.sm),
@@ -882,59 +1002,165 @@ class _LaDomandaState extends State<_LaDomanda> {
                   ),
                 ),
               ),
-              IconButton(
-                key: const Key('oracolo_affida'),
-                tooltip: 'Affida la domanda',
-                color: palette.goldSoft,
-                onPressed: widget.controllo.text.trim().isEmpty
-                    ? null
-                    : widget.onAffida,
-                icon: const Icon(Icons.auto_awesome_rounded),
+              const SizedBox(width: SpacingTokens.xxs),
+              Opacity(
+                opacity: vuota ? 0.45 : 1,
+                child: PulsanteTondoDipinto(
+                  key: const Key('oracolo_affida'),
+                  etichetta: 'Affida la domanda',
+                  lato: 44,
+                  onTap: vuota ? null : widget.onAffida,
+                  figlio:
+                      Icon(Icons.auto_awesome_rounded, color: palette.goldSoft),
+                ),
               ),
             ],
           ),
           const SizedBox(height: SpacingTokens.xxs),
           SizedBox(
-            height: SpacingTokens.xl,
+            height: 38,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
                 for (final t in TemaDellOracolo.values)
                   Padding(
                     padding: const EdgeInsets.only(right: SpacingTokens.xxs),
-                    child: ChoiceChip(
+                    child: PulsanteDipinto(
                       key: Key('oracolo_tema_${t.name}'),
-                      label: Text(t.nome),
-                      selected: t == _tema,
-                      onSelected: (si) => setState(() => _tema = si ? t : null),
+                      testo: t.nome,
+                      altezza: 38,
+                      onTap: () =>
+                          setState(() => _tema = _tema == t ? null : t),
                     ),
                   ),
               ],
             ),
           ),
-          for (final d in _tema?.domande ?? const <String>[])
-            TextButton(
-              key: Key('oracolo_proposta_${_tema!.domande.indexOf(d)}'),
-              style: TextButton.styleFrom(
-                foregroundColor: palette.goldSoft,
-                alignment: Alignment.centerLeft,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: SpacingTokens.xxs),
-                visualDensity: VisualDensity.compact,
+          if (tema != null) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text('${tema.nome}: dieci domande di Medora, scorri per leggerle',
+                key: const Key('oracolo_tema_aperto'),
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft)),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                  maxHeight: _LaDomanda.altezzaDelleProposte),
+              child: ListView(
+                key: const Key('oracolo_proposte'),
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                children: [
+                  for (var i = 0; i < tema.domande.length; i++)
+                    GestureDetector(
+                      key: Key('oracolo_proposta_$i'),
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        final d = tema.domande[i];
+                        widget.controllo.text = d;
+                        widget.controllo.selection =
+                            TextSelection.collapsed(offset: d.length);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingTokens.xxs),
+                        // Una proposta e' una frase da leggere: va a capo,
+                        // non si tronca, e non e' in maiuscoletto.
+                        child: Text(tema.domande[i],
+                            style: TypographyTokens.corpo()
+                                .copyWith(color: palette.goldSoft)),
+                      ),
+                    ),
+                ],
               ),
-              onPressed: () {
-                widget.controllo.text = d;
-                widget.controllo.selection =
-                    TextSelection.collapsed(offset: d.length);
-              },
-              // Una proposta e' una frase da leggere: va a capo, non si
-              // tronca, e non e' in maiuscoletto.
-              child: Text(d,
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: palette.goldSoft)),
             ),
+          ],
         ],
       ),
+    );
+  }
+}
+
+/// **IL MAZZO COPERTO**, ordine FY voce FY.15, 16 ottobre 2026. Il
+/// fondatore: "Non si possono scegliere le carte".
+///
+/// Lo stesso gesto della Stesa (`StesaFan`): l'arco dei dorsi si sfoglia
+/// col dito e un tocco sceglie la carta, qui coi 72 dorsi degli Angeli. La
+/// riga sopra dice quale carta si sceglie e chi la porta; scelte le tre, il
+/// pulsante dipinto avvia la lettura (FY.16): prima e' spento, e nulla parte
+/// da solo.
+class _IlMazzoCoperto extends StatelessWidget {
+  const _IlMazzoCoperto({
+    super.key,
+    required this.palette,
+    required this.domanda,
+    required this.scelti,
+    required this.onScegli,
+    required this.onAvvia,
+  });
+
+  final MaestroPalette palette;
+  final String domanda;
+  final List<int> scelti;
+  final ValueChanged<int> onScegli;
+  final VoidCallback onAvvia;
+
+  static const List<String> _ordinali = ['prima', 'seconda', 'terza'];
+
+  /// La riga che guida la scelta, detta prima del gesto.
+  static String guida(int quante) {
+    const ruoli = RuoloDellAngelo.values;
+    if (quante >= ruoli.length) {
+      return 'Le tre carte sono sull\'altare. Quando vuoi, avvia la lettura.';
+    }
+    final r = ruoli[quante];
+    return 'Scegli la ${_ordinali[quante]} carta, '
+        '${r.posizione.toLowerCase()}: la porta il tuo ${r.nome}. Sfoglia '
+        'il mazzo col dito e tocca un dorso.';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tutte = scelti.length >= RuoloDellAngelo.values.length;
+    return Column(
+      key: const Key('oracolo_mazzo_coperto'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text('La tua domanda: $domanda',
+            key: const Key('oracolo_domanda_affidata'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia().copyWith(
+                color: ColorTokens.textSecondary, fontStyle: FontStyle.italic)),
+        const SizedBox(height: SpacingTokens.xs),
+        Text(guida(scelti.length),
+            key: const Key('oracolo_guida_della_scelta'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary)),
+        const SizedBox(height: SpacingTokens.xs),
+        StesaFan(
+          palette: palette,
+          taken: scelti.toSet(),
+          onPick: onScegli,
+          // Scelte le tre, il ventaglio non prende piu' tocchi.
+          scene: tutte ? StesaScene.completa : StesaScene.riposo,
+          ingresso: 1,
+          respiro: 0,
+          taglio: 0,
+          mescolamento: 0,
+          taglioIndice: 0,
+          reduceMotion: MediaQuery.disableAnimationsOf(context),
+          carte: 72,
+          dorso: GeometriaDellAltare.dorso,
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        Center(
+          child: PulsanteDipinto(
+            key: const Key('oracolo_avvia_la_lettura'),
+            testo: 'Avvia la lettura',
+            onTap: tutte ? onAvvia : null,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -1019,6 +1245,17 @@ class _LAngeloDellOra extends StatelessWidget {
   }
 }
 
+/// **IL RESPONSO, UNA COPPIA SOLA.** Ordine FY voce FY.19, 16 ottobre 2026.
+/// Il fondatore: "La prima descrizione e' troppo lunga con risposta,
+/// riquadro e ancora risposta e riquadro. Basta una coppia".
+///
+/// Prima: il titolo, il messaggio del Custode, il riquadro, il messaggio
+/// dell'Intelletto e, nella Lunga, il secondo riquadro (ordine FU voce FU.06
+/// e ordine FN). Adesso il titolo con la risposta e un riquadro solo: il
+/// legame che Medora scrive fra la domanda e le tre carte, con dentro i due
+/// paragrafi della Lunga. Cio' che dicevano gli altri blocchi non si perde:
+/// il messaggio di ogni carta sta nella sua bolla, accanto a chi e'
+/// l'angelo (FY.18).
 class _IlResponso extends StatelessWidget {
   const _IlResponso({
     required this.palette,
@@ -1030,7 +1267,6 @@ class _IlResponso extends StatelessWidget {
     required this.onCondividi,
     required this.onInvito,
     this.assaggio = false,
-    this.amico,
   });
 
   final MaestroPalette palette;
@@ -1040,7 +1276,6 @@ class _IlResponso extends StatelessWidget {
   final int variante;
   final DateTime quando;
   final bool assaggio;
-  final String? amico;
   final Future<bool> Function() onCondividi;
   final Future<void> Function(RigaDelPiano riga, String cosa) onInvito;
 
@@ -1051,19 +1286,16 @@ class _IlResponso extends StatelessWidget {
       'tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
       'della tua nascita. Il legame con la tua domanda lo scrive Medora.';
 
-  /// Il Da dove viene della domanda per un amico: i tre angeli sono i suoi.
-  static String daDoveVienePer(String amico) =>
-      'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; i '
-      'loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I '
-      'tre angeli di $amico vengono dal grado del Sole, dal giorno e '
-      'dall\'ora della sua nascita, prestata per questa lettura. Il legame '
-      'con la domanda lo scrive Medora.';
-
   /// La riga dell'assaggio: dice che cosa si apre, e da dove.
   static const String rigaDellAssaggio =
       'Oggi ti risponde il tuo Angelo Custode. Con l\'Iniziato rispondono '
       'tutti e tre i tuoi angeli: Medora scrive il legame fra la tua '
       'domanda e le tre carte.';
+
+  /// **IL RIQUADRO**, l'unico: il legame scritto da Medora (il secondo dei
+  /// tre paragrafi della lettura); all'assaggio, il messaggio del Custode.
+  static String ilRiquadro(RispostaDellOracolo r, {required bool assaggio}) =>
+      assaggio ? r.paragrafi.first : r.paragrafi[1];
 
   @override
   Widget build(BuildContext context) {
@@ -1084,19 +1316,15 @@ class _IlResponso extends StatelessWidget {
             [for (final c in scoperte) c.angelo.number.toString()].join(','),
       },
     );
-    final dove = amico == null ? daDoveViene : daDoveVienePer(amico!);
+    final riquadro = ilRiquadro(risposta, assaggio: assaggio);
+    final lettura =
+        TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
+    final approfondimento =
+        assaggio ? const <String>[] : risposta.approfondimento;
     return Column(
       key: const Key('oracolo_responso'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (amico != null) ...[
-          Text('Rispondono gli angeli di $amico',
-              key: const Key('oracolo_responso_per_l_amico'),
-              textAlign: TextAlign.center,
-              style:
-                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
-          const SizedBox(height: SpacingTokens.xs),
-        ],
         TitoloDelResponso(
           chiaveDelTesto: const Key('oracolo_titolo_del_responso'),
           testo: risposta.titolo,
@@ -1106,43 +1334,42 @@ class _IlResponso extends StatelessWidget {
               .copyWith(color: palette.goldSoft, height: 1.25),
         ),
         const SizedBox(height: SpacingTokens.sm),
+        RiquadroInEvidenza(
+          key: const Key('oracolo_riquadro'),
+          palette: palette,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ParagrafiDiLettura(
+                  key: const Key('oracolo_testo_del_riquadro'),
+                  testo: riquadro,
+                  stile: lettura),
+              // I due paragrafi della Lunga stanno nello stesso riquadro:
+              // una coppia sola, non un secondo blocco (FY.19).
+              for (var i = 0; i < approfondimento.length; i++) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(approfondimento[i],
+                    key: Key('responso_approfondimento_$i'), style: lettura),
+              ],
+            ],
+          ),
+        ),
         if (assaggio) ...[
-          ParagrafiDiLettura(
-              key: const Key('oracolo_paragrafo_dell_assaggio'),
-              testo: risposta.paragrafi.first,
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.sm),
           Text(rigaDellAssaggio,
               key: const Key('oracolo_riga_dell_assaggio'),
               style: TypographyTokens.didascalia().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),
+        ] else if (!risposta.dalModello) ...[
           const SizedBox(height: SpacingTokens.sm),
-          Text(dove,
-              style: TypographyTokens.didascalia().copyWith(
-                  color: ColorTokens.textSecondary,
-                  fontStyle: FontStyle.italic)),
-        ] else ...[
-          ResponsoInTreParagrafi(
-            paragrafi: risposta.paragrafi,
-            stile: TypographyTokens.lettura()
-                .copyWith(color: ColorTokens.textPrimary),
-            palette: palette,
-            approfondimento: risposta.approfondimento,
-            daDoveViene: dove,
+          Text(
+            'Medora oggi risponde coi soli messaggi delle carte: il legame '
+            'con la tua domanda arriva quando la rete torna.',
+            key: const Key('oracolo_solo_corpus'),
+            style: TypographyTokens.didascalia().copyWith(
+                color: ColorTokens.textSecondary, fontStyle: FontStyle.italic),
           ),
-          if (!risposta.dalModello) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Text(
-              'Medora oggi risponde coi soli messaggi delle carte: il legame '
-              'con la tua domanda arriva quando la rete torna.',
-              key: const Key('oracolo_solo_corpus'),
-              style: TypographyTokens.didascalia().copyWith(
-                  color: ColorTokens.textSecondary,
-                  fontStyle: FontStyle.italic),
-            ),
-          ],
         ],
         const SizedBox(height: SpacingTokens.lg),
         for (var i = 0; i < carte.length; i++) ...[
@@ -1159,13 +1386,25 @@ class _IlResponso extends StatelessWidget {
             _LaBollaDellaCarta(
               palette: palette,
               carta: carte[i],
-              paragrafo: risposta.paragrafi[i],
+              messaggio: LaLetturaDellOracolo.messaggioDellaCarta(
+                  corpus, carte[i], variante),
+              riquadro: riquadro,
               rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
               variante: variante,
-              amico: amico,
             ),
           const SizedBox(height: SpacingTokens.md),
         ],
+        Text('Da dove viene',
+            style: TypographyTokens.etichetta().copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(daDoveViene,
+            key: const Key('oracolo_da_dove_viene'),
+            style: TypographyTokens.didascalia().copyWith(
+                color: ColorTokens.textSecondary,
+                height: 1.35,
+                fontStyle: FontStyle.italic)),
+        const SizedBox(height: SpacingTokens.md),
         AzioniDelResponso(
           palette: palette,
           maestro: Maestro.medora,
@@ -1223,76 +1462,6 @@ class _IlLucchetto extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// **LA DOMANDA PER UN AMICO E LA NASCITA PRESTATA** (FU.09), sotto la
-/// scena mentre si affida la domanda. Chi chiede per un amico gli fa
-/// dettare il codice dal suo telefono; chi presta la propria nascita da' il
-/// consenso, per una lettura sola.
-class _PerUnAmico extends StatelessWidget {
-  const _PerUnAmico({
-    required this.palette,
-    required this.amico,
-    required this.aperta,
-    required this.onChiedi,
-    required this.onTornaATe,
-    required this.onPresta,
-  });
-
-  final MaestroPalette palette;
-
-  /// Il nome dell'amico per cui si sta chiedendo, o nullo.
-  final String? amico;
-
-  /// Se il piano apre la domanda per un amico (dall'Adepto).
-  final bool aperta;
-  final VoidCallback onChiedi;
-  final VoidCallback onTornaATe;
-  final VoidCallback onPresta;
-
-  @override
-  Widget build(BuildContext context) {
-    final stile = TextButton.styleFrom(foregroundColor: palette.goldSoft);
-    if (amico != null) {
-      return Row(
-        key: const Key('oracolo_per_l_amico'),
-        children: [
-          Icon(Icons.people_alt_rounded, color: palette.goldSoft),
-          const SizedBox(width: SpacingTokens.xs),
-          Expanded(
-            child: Text('Rispondono gli angeli di $amico',
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textPrimary)),
-          ),
-          TextButton(
-            key: const Key('oracolo_torna_a_te'),
-            style: stile,
-            onPressed: onTornaATe,
-            child: const Text('Torna a te'),
-          ),
-        ],
-      );
-    }
-    return Wrap(
-      spacing: SpacingTokens.sm,
-      children: [
-        TextButton.icon(
-          key: const Key('oracolo_chiedi_per_un_amico'),
-          style: stile,
-          onPressed: onChiedi,
-          icon: Icon(aperta ? Icons.people_alt_rounded : Icons.lock_rounded),
-          label: const Text('Chiedi per un amico'),
-        ),
-        TextButton.icon(
-          key: const Key('oracolo_presta_la_nascita'),
-          style: stile,
-          onPressed: onPresta,
-          icon: const Icon(Icons.key_rounded),
-          label: const Text('Presta la tua nascita'),
-        ),
-      ],
     );
   }
 }
@@ -1406,37 +1575,76 @@ class _IlDonoDellaCarta extends StatelessWidget {
 /// della persona che la porta, la carta, il Parlane con Medora (come nella
 /// Stesa), il dono a un amico (FU.09) e, chiuso finche' non lo apri, il rito
 /// con Caligo (FU.07).
+///
+/// **CHI E' L'ANGELO E CHE COSA PORTA**, ordine FY voce FY.18, 16 ottobre
+/// 2026. Il fondatore: "Le singole carte non hanno descrizione". Sotto la
+/// carta, in poche righe: il numero, il coro e l'arcangelo che lo regge
+/// (`AngelCatalog`), e che cosa porta secondo la tradizione, dal Corpus
+/// degli Angeli (`AngelLore.tradition`, `docs/corpus/angeli.md`) col segno
+/// della sua fonte, Lenain 1823, come nella scheda dell'angelo. Poi il suo
+/// messaggio per questa domanda, dal corpus di Medora: e' cio' che prima
+/// stava nei paragrafi della risposta (FY.19), e non si ripete se e' gia'
+/// nel riquadro.
 class _LaBollaDellaCarta extends StatelessWidget {
   const _LaBollaDellaCarta({
     required this.palette,
     required this.carta,
-    required this.paragrafo,
+    required this.messaggio,
+    required this.riquadro,
     required this.rito,
     required this.variante,
-    this.amico,
   });
 
   final MaestroPalette palette;
   final CartaDellOracolo carta;
-  final String paragrafo;
+
+  /// Il messaggio della carta per questa consultazione, dal corpus.
+  final String messaggio;
+
+  /// Il testo del riquadro della risposta: se e' lo stesso messaggio, la
+  /// bolla non lo ripete.
+  final String riquadro;
   final List<String>? rito;
   final int variante;
 
-  /// L'amico per cui si e' chiesto: le carte le portano i suoi angeli.
-  final String? amico;
+  String get _chiLaPorta => carta.portatore == null
+      ? 'La porta il tuo ${carta.ruolo.nome}, che si rivela con l\'ora di '
+          'nascita'
+      : 'La porta il tuo ${carta.ruolo.nome}, ${carta.portatore!.name}';
 
-  String get _chiLaPorta {
-    if (amico != null) {
-      return carta.portatore == null
-          ? 'La porta il ${carta.ruolo.nome} di $amico, che si rivela con '
-              'la sua ora di nascita'
-          : 'La porta il ${carta.ruolo.nome} di $amico, '
-              '${carta.portatore!.name}';
+  /// **CHI E'**, in una riga: il numero, il nome, il coro e chi lo regge.
+  /// Il nome del coro col suo articolo ("degli Angeli", "dei Troni") e con
+  /// l'accento vero ("Virtù": nel catalogo e' scritto con l'apostrofo).
+  static String chiE(Angel a) {
+    final coro = a.choir.name.replaceAll("u'", 'ù');
+    final articolo = RegExp('^[AEIOU]').hasMatch(coro) ? 'degli' : 'dei';
+    return '${a.number}. ${a.name}, del coro $articolo $coro, retto da '
+        '${a.choir.archangel}.';
+  }
+
+  /// **CHE COSA PORTA**, con la sua fonte: il dominio secondo la tradizione
+  /// (`AngelLore.tradition`, Lenain 1823) quando il Corpus lo regge;
+  /// altrimenti la chiave di lettura di Medora (`AngelLore.reading`), col
+  /// suo segno, mai spacciata per tradizione. Il dominio del coro non si usa:
+  /// porta parole che la politica dell'Oracolo vieta.
+  static ({String testo, Provenienza da, String fonte})? cosaPorta(Angel a) {
+    final l = a.lore;
+    if (l == null) return null;
+    if (l.tradition.trim().isNotEmpty && !l.confidenzaBassa) {
+      return (
+        testo: l.tradition,
+        da: Provenienza.tradizione,
+        fonte: AngelLore.fonteDelDocumentato,
+      );
     }
-    return carta.portatore == null
-        ? 'La porta il tuo ${carta.ruolo.nome}, che si rivela con l\'ora di '
-            'nascita'
-        : 'La porta il tuo ${carta.ruolo.nome}, ${carta.portatore!.name}';
+    if (l.reading.trim().isNotEmpty) {
+      return (
+        testo: l.reading,
+        da: Provenienza.cerchio,
+        fonte: AngelLore.voceDelMaestro,
+      );
+    }
+    return null;
   }
 
   @override
@@ -1497,25 +1705,57 @@ class _LaBollaDellaCarta extends StatelessWidget {
               ),
             ],
           ),
-          if (carta.coperta && amico != null) ...[
+          if (!carta.coperta) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Column(
+              key: Key('oracolo_chi_e_${carta.ruolo.name}'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Chi è',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.xxs),
+                Text(chiE(carta.angelo),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textPrimary)),
+                if (cosaPorta(carta.angelo) case final porta?) ...[
+                  const SizedBox(height: SpacingTokens.xs),
+                  SegnoDellaProvenienza(
+                      provenienza: porta.da,
+                      palette: palette,
+                      dettaglio: porta.fonte),
+                  const SizedBox(height: SpacingTokens.xxs),
+                  Text(porta.testo,
+                      key: Key('oracolo_cosa_porta_${carta.ruolo.name}'),
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: ColorTokens.textPrimary, height: 1.45)),
+                ],
+              ],
+            ),
+          ],
+          if (messaggio != riquadro) ...[
             const SizedBox(height: SpacingTokens.sm),
             Text(
-                'La sua ora di nascita non è arrivata col codice: la terza '
-                'carta resta coperta.',
-                key: const Key('oracolo_coperta_per_l_amico'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary)),
-          ] else if (carta.coperta) ...[
+                carta.coperta
+                    ? 'Perché resta coperta'
+                    : 'Il suo messaggio per te',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.xxs),
+            ParagrafiDiLettura(
+                key: Key('oracolo_messaggio_${carta.ruolo.name}'),
+                testo: messaggio,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ],
+          if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),
             Center(
-              child: OutlinedButton(
+              child: PulsanteDipinto(
                 key: const Key('oracolo_aggiungi_l_ora'),
-                onPressed: () =>
+                testo: 'Aggiungi l\'ora di nascita',
+                onTap: () =>
                     Navigator.of(context).push(DatiDiNascitaScreen.route()),
-                style: OutlinedButton.styleFrom(
-                    foregroundColor: palette.goldSoft,
-                    side: BorderSide(color: palette.goldSoft)),
-                child: const Text('Aggiungi l\'ora di nascita'),
               ),
             ),
           ] else ...[
@@ -1524,9 +1764,9 @@ class _LaBollaDellaCarta extends StatelessWidget {
               keyDelPulsante: Key('oracolo_parlane_${carta.ruolo.name}'),
               palette: palette,
               maestro: Maestro.medora,
-              frase: paragrafo,
+              frase: messaggio,
               aperturaDellaChat: ChatOpeners.oracoloAngeli(carta.angelo.name,
-                  carta.ruolo.posizione.toLowerCase(), paragrafo),
+                  carta.ruolo.posizione.toLowerCase(), messaggio),
             ),
             _IlDonoDellaCarta(palette: palette, angelo: carta.angelo),
             const SizedBox(height: SpacingTokens.xs),

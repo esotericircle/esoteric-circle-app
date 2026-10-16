@@ -1,0 +1,89 @@
+ORDINE FY, PARTE C (ORACOLO DEGLI ANGELI): REGOLA B E REGOLA A
+16 ottobre 2026. Testa di partenza 9c5d2911.
+
+======================================================================
+REGOLA B, LA ZONA VISTA ROSSA PRIMA DI TOCCARLA
+======================================================================
+1) Schermata dell'Oracolo, sha1 672e4bf9 prima.
+   Innesto: Key('oracolo_bolla_...') -> Key('oracolo_bollo_...'), riga 1446,
+   verificato col grep. Prove: l_oracolo_degli_angeli_a_video_test.dart e
+   l_oracolo_degli_angeli_sociale_e_piani_test.dart: rosse (fra le altre
+   "il Viandante" e "l'Iniziato"). Ripristino: sha1 672e4bf9 identica.
+   (Prima, sulla testa: le cinque prove della zona 43 su 43 verdi.)
+2) Le schermate della nascita, il Cerchio sociale e il ventaglio, sha1 prima:
+   la_nascita_dell_altra_persona.dart 86d6656b, la_tua_nascita_per_una_lettura
+   fae33cd1, il_cerchio_sociale.dart 76612d89, stesa_fan.dart a046be41.
+   Innesti verificati col grep: Key('nascita_altra_confermaX'),
+   Key('la_tua_nascita_consensoX'), scopoDelLunario = 'lunarioX',
+   Key('stesa_fun_$indice'). Rossi per file: la_nascita_dell_altra_persona 2,
+   la_lettura_a_due_telefoni 1, il_lunario_sociale_e_piani 1,
+   il_ventaglio_vive_subito 4, il_mazzo_resta_nel_riquadro 2 (10 su 20).
+   Ripristino: le quattro sha1 identiche.
+3) test/ordine_du_guard_test.dart ("IL VENTAGLIO DELLA STESA RESTA DELLA
+   STESA") e' caduto da solo quando l'Oracolo ha montato il ventaglio (FY.15):
+   e' la guardia viva della zona; aggiornata col nome dell'Oracolo e la
+   ragione (conflitto col no dell'ordine DU, vedi il rapporto).
+
+======================================================================
+REGOLA A, LE PROVE NUOVE VISTE ROSSE
+======================================================================
+test/le_dieci_domande_dell_oracolo_test.dart (FY.13)
+  sha1 di le_domande_dell_oracolo.dart: 5dcadb94.
+  Innesto 1: "Quale piccolo rito mi riporta in pace?" -> "Come ritrovo la
+  calma in questi giorni?" (grep: 2 occorrenze). Rosso: "le settanta domande
+  sono diverse fra loro".
+  Innesto 2: la riga "Quale piccolo rito..." tolta (grep: 0). Rossi: "ogni
+  argomento ha dieci domande" e "le settanta domande sono diverse".
+  Ripristino: sha1 5dcadb94 identica.
+
+test/l_oracolo_si_sceglie_e_si_avvia_test.dart (FY.14-FY.20)
+  Un innesto alla volta nella schermata, sha1 prima fd48d308, verificato col
+  diff, ripristino con la stessa sha1 dopo ogni innesto:
+  0 FY.14 Text('Chiedi per un amico') nella fase della domanda
+      -> rosso "l'Oracolo non le offre piu', a nessun piano"
+  1 FY.15 la carta dal mazzo in posizione 71 - i invece di i
+      -> rosso "le carte che escono sono quelle dei dorsi toccati"
+         (e FY.18/FY.19 che leggono le stesse carte)
+  2 FY.16 la lettura parte da sola alla terza carta
+      -> rosso "nulla parte da solo" (e le prove che poi toccano il pulsante)
+  3 FY.17 AltareVuoto sostituito da un SizedBox
+      -> rosso "a meta' giro ... si vede l'altare vuoto"; misura 106,0
+         contro 28,2 col rimedio (fy17_altare.txt)
+  4 FY.18 cosaPorta torna nullo
+      -> rossi "tutti i 72 hanno chi e' e che cosa porta" e "ogni carta
+         estratta mostra chi e'"
+  5 FY.19 torna un secondo riquadro (RiquadroArancione) per la Lunga
+      -> rosso "tier2: il titolo e un riquadro solo"
+  6 FY.20 la barra a 1,0 nella risposta
+      -> rosso "in ogni stato e scorrendo, lo stesso velo, mai pieno"
+  sha1 dopo: fd48d308.
+
+test/il_giro_intero_dell_oracolo_test.dart (FY.21)
+  sha1 prima 930abfb3. Innesto 2 (la lettura parte da sola): rosso.
+  Innesto 3 (via l'altare vuoto): rosso. sha1 dopo 930abfb3.
+
+======================================================================
+LE MISURE (uscita delle prove, 16 ottobre 2026)
+======================================================================
+FY.13 domande per argomento: Amore 10, Lavoro 10, Famiglia 10, Amicizia 10,
+      Una scelta 10, Il mio cammino 10, Serenità 10 (prima 3 per argomento)
+FY.13 somiglianza massima fra due domande (parole portanti): 0,44
+FY.13 domande fuori dal loro argomento: 0
+FY.14 voci "Chiedi per un amico" e "Presta la tua nascita", ai quattro piani: 0
+FY.15 dorsi [33, 36, 39]: attesi [49, 29, 68], girati [49, 29, 68]
+FY.15 dorsi [32, 35, 38]: attesi [67, 43, 7], girati [67, 43, 7]
+FY.16 cose partite da sole in 10 s con le tre carte scelte: 0; chiamate dopo
+      il pulsante: 1
+FY.17 luminanza ai lati della carta di taglio: 28,2 (altare vuoto 28,1, dorso
+      dipinto 107,8; con l'innesto 106,0)
+FY.18 angeli del mazzo con chi e' e che cosa porta: 72 su 72 (Lenain 71,
+      lettura di Medora 1: il 68, Habuhiah, che nel Corpus non ha il dominio
+      della tradizione)
+FY.18 carte estratte con descrizione e fonte: 3 su 3
+FY.19 riquadri nel responso: 1 (Iniziato e Adepto); testi fra il titolo e le
+      carte fuori dal riquadro: 0
+FY.20 opacita' della barra: domanda 0,6; scorrendo 0,6; scelta 0,6; risposta
+      0,6; risposta scorrendo 0,6 (prima 0,16 e 0,9)
+FY.20 contrasto del titolo oro sul testo chiaro velato: 1,17 col velo 0,16,
+      4,07 col velo 0,6
+FY.21 passi del giro con la loro asserzione: 16, catture fy21_01..fy21_16

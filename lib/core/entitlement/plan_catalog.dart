@@ -212,10 +212,12 @@ enum RigaDelPiano {
   /// **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026: le
   /// consultazioni al giorno (il budget `oracoliAngeli` del server), le tre
   /// carte intere (al Viandante l'assaggio scopre solo il Custode), e la
-  /// risposta Lunga con la domanda per un amico, dall'Adepto.
+  /// risposta Lunga, dall'Adepto. La domanda per un amico e' uscita
+  /// dall'Oracolo con l'ordine FY voce FY.14 (il fondatore: "Elimina presta
+  /// la tua nascita e chiedi per un amico").
   oracoloConsultazioni,
   oracoloTreCarte,
-  oracoloLungaEAmico,
+  oracoloLunga,
 
   /// **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: quanti
   /// mesi avanti si scorrono. Zero per il Viandante (solo il mese in
@@ -396,7 +398,7 @@ class PlanCatalog {
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
-        'Oracolo degli Angeli: 5 consultazioni al giorno, la risposta lunga e la lettura per un amico',
+        'Oracolo degli Angeli: 5 consultazioni al giorno e la risposta lunga',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
         // Ordine FX voce FX.10: il Respiro della Luna, esclusiva da qui.
@@ -981,7 +983,8 @@ class PlanCatalog {
     // proposta dell'Architetto approvata il 14 ottobre: al Viandante l'angelo
     // dell'ora, il messaggio del giorno e un assaggio della consultazione;
     // all'Iniziato i tre angeli con un limite al giorno; dall'Adepto la
-    // Lunga e la domanda per un amico. I numeri sono di Code, con la ragione
+    // Lunga (la domanda per un amico e' uscita con l'ordine FY voce FY.14).
+    // I numeri sono di Code, con la ragione
     // nel rapporto e in `functions/src/budget.ts` (`oracoliAngeli`): il tetto
     // del costo al caso peggiore, col mensile dell'Illuminato come ciclo piu'
     // stretto, lascia al massimo 7,6 consultazioni Lunghe al giorno: con 6
@@ -996,9 +999,8 @@ class PlanCatalog {
     FeatureRow('Oracolo degli Angeli: le tre carte',
         ['Solo il Custode', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oracoloTreCarte),
-    FeatureRow('Oracolo degli Angeli: risposta lunga e lettura per un amico',
-        ['No', 'No', 'Sì', 'Sì'],
-        chiave: RigaDelPiano.oracoloLungaEAmico),
+    FeatureRow('Oracolo degli Angeli: risposta lunga', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.oracoloLunga),
     // **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: la
     // proposta dell'Architetto approvata dal fondatore ("Siz approvo
     // tutto"). Viandante: il mese in corso, una categoria di "Trova il
@@ -1035,12 +1037,11 @@ class PlanCatalog {
         chiave: RigaDelPiano.respiroCollanaCompleta),
     FeatureRow('Respiro della Luna: avvisi', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroAvvisi),
-    FeatureRow(
-        'Respiro della Luna: tempo sotto il dito su tutto il mese',
+    FeatureRow('Respiro della Luna: tempo sotto il dito su tutto il mese',
         ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroTempoSottoIlDitoMese),
-    FeatureRow('Respiro della Luna: Respiriamo insieme',
-        ['No', 'No', 'Sì', 'Sì'],
+    FeatureRow(
+        'Respiro della Luna: Respiriamo insieme', ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroInsieme),
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
