@@ -67,6 +67,7 @@ ASPETTA: il fondatore, alla prossima build: alzare il telefono e vedere l'ago pu
 DOMANDA: "alzi il telefono e una scia d'argento ti guida verso la Luna nel cielo vero. Se è sopra l'orizzonte: Esci, è lì"
 PROVA: `test/la_bussola_della_luna_test.dart`
 MISURA: 11 prove verdi (l'ago che ruota dello scarto giusto verso la Luna vera, il ripiego testuale senza sensore). Azimut e altezza verificati contro timeanddate.com per tre citta', scarto massimo 0,78 gradi senza la parallasse diurna, sotto 0,1 grado dopo averla applicata (la correzione vera che la bussola usa). **Un difetto vero**, trovato in integrazione e non da un innesto: la bussola usava l'altezza geocentrica nuda invece di quella topocentrica gia' corretta e verificata altrove nello stesso ordine, corretto sostituendo la composizione a mano con `posizioneOrizzontaleDellaLuna`.
+GUARDIA RIMOSSA: la_bussola_della_luna_test - ordine FY voce FY.02, 16 ottobre 2026: il fondatore, "la bussola elimanala, non serve a nulla"; la Bussola e' uscita dal Respiro della Luna col suo widget, e la misura non ha piu' niente da sorvegliare.
 
 ## VOCE FX.07
 

@@ -402,6 +402,7 @@ void main() {
     // dell'aggiunta FXA (la collana e i comandi dipinti, la ricucitura vera,
     // il titolo, la consegna, il luogo vero dal GPS), un titolo per voce.
     'FX': 22,
+    'FY': 23,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

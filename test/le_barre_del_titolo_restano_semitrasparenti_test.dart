@@ -15,7 +15,9 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/features/account/privacy_policy_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/features/angels/oracolo/oracolo_degli_angeli_screen.dart';
 import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
+import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -64,17 +66,7 @@ void main() {
   /// Sinastrie). **Quando la loro correzione entra, la riga va tolta**: una
   /// eccezione che non trova piu' una barra piena fa cadere la prova, perche'
   /// un'eccezione scaduta e' un buco lasciato aperto per il prossimo.
-  const eccezioni = <String, String>{
-    'lib/features/synastry/sinastria_evolutiva_screen.dart':
-        'velo al 90 per cento quando la lettura passa sotto il titolo, '
-            'ordine FT voce FT.15; la corregge la voce FY.20 sulle Sinastrie',
-    'lib/features/synastry/la_nascita_dell_altra_persona.dart':
-        'fondo pieno palette.deepest; la corregge la voce FY.20 sulle '
-            'Sinastrie',
-    'lib/features/synastry/la_tua_nascita_per_una_lettura.dart':
-        'fondo pieno palette.deepest; la corregge la voce FY.20 sulle '
-            'Sinastrie',
-  };
+  const eccezioni = <String, String>{};
 
   test('nessuna barra del titolo di lib e\' piena, ne\' si fa piena scorsa',
       () {
@@ -386,6 +378,10 @@ Map<String, String> _argomenti(String corpo) {
 final _costanti = <String, double>{
   'AppTheme.veloDellaBarra': AppTheme.veloDellaBarra,
   'BarraDellIdentita.velo': BarraDellIdentita.velo,
+  'SinastriaEvolutivaScreen.veloDellaBarra':
+      SinastriaEvolutivaScreen.veloDellaBarra,
+  'OracoloDegliAngeliScreen.veloDellaBarra':
+      OracoloDegliAngeliScreen.veloDellaBarra,
 };
 
 /// L'alfa piu' alto che il fondo [espressione] puo' prendere, in qualunque
