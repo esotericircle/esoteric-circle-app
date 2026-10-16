@@ -266,4 +266,41 @@ void main() {
           finisci: lettore.finisci);
     });
   }
+
+  // **IL VELO PARTE DAL TAVOLO, NON DAL BUSTO.** Il fondatore, sulla build
+  // 2312 del 16 ottobre 2026: "Il velo nero semitrasparente dal basso è
+  // troppo esteso e copre il maestro, controlla anche per Caligo". Si misura
+  // dove il velo comincia a scurire e dove arriva a forza piena, in punti
+  // schermo, contro il punto in cui il contenuto del dominio comincia
+  // davvero (il titolo "Le arti di ..."): pieno li', e mai piu' di 0,07 di
+  // schermo sopra di lui a cominciare.
+  for (final maestro in Maestro.values) {
+    testWidgets('il velo del dominio di ${maestro.id} parte dal tavolo',
+        (tester) async {
+      await _monta(tester, maestro: maestro, lettore: _Finta(fallira: true));
+      await tester.pump(const Duration(seconds: 1));
+      final velo = find.byWidgetPredicate((w) =>
+          w is DecoratedBox &&
+          w.decoration is BoxDecoration &&
+          (w.decoration as BoxDecoration).gradient is LinearGradient);
+      expect(velo, findsWidgets, reason: 'il velo del dominio manca');
+      final riquadro = tester.getRect(velo.first);
+      final stops = ((tester.widget<DecoratedBox>(velo.first).decoration
+                  as BoxDecoration)
+              .gradient! as LinearGradient)
+          .stops!;
+      final inizio = riquadro.top + stops[1] * riquadro.height;
+      final pieno = riquadro.top + stops[2] * riquadro.height;
+      final titolo = find.byWidgetPredicate((w) =>
+          w is Text && (w.data ?? '').toLowerCase().startsWith('le arti di'));
+      expect(titolo, findsOneWidget);
+      final testo = tester.getRect(titolo).top;
+      expect(pieno, inInclusiveRange(testo - 20, testo + 40),
+          reason: 'il velo arriva a forza piena a $pieno, il contenuto '
+              'comincia a $testo');
+      expect(inizio, greaterThanOrEqualTo(testo - 0.07 * riquadro.height),
+          reason: 'il velo comincia a scurire a $inizio, troppo sopra il '
+              'contenuto ($testo): copre il Maestro');
+    });
+  }
 }

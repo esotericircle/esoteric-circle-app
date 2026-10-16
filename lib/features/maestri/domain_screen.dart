@@ -179,12 +179,21 @@ class _DomainScreenState extends State<DomainScreen> {
     final spostamento = _spostamentoVersoLAlto(context);
     final altezzaSchermo = MediaQuery.sizeOf(context).height;
     final fineScena = _fineDellaScena(context, spostamento);
-    // Lo stesso scarto di prima fra l'inizio della sfumatura e la sua
-    // forza piena (0,46-0,28=0,18 di schermo): si sposta tutto insieme a
-    // `fineScena`, cosi' il velo arriva a forza piena esattamente dove
-    // comincia il contenuto, qualunque cosa cambi `fineScena` domani.
-    final veloFine = (fineScena / altezzaSchermo).clamp(0.0, 1.0);
-    final veloInizio = (veloFine - 0.18).clamp(0.0, veloFine);
+    // **IL VELO PARTE DAL TAVOLO, NON DAL BUSTO.** Il velo e' steso su tutto
+    // lo schermo, dal bordo alto; `fineScena` invece e' contata dal bordo
+    // basso della barra. Usata cosi' com'era, la forza piena cadeva circa
+    // 125 punti sopra il tavolo e la sfumatura cominciava altri 145 punti
+    // piu' su, sul busto del Maestro: il fondatore, sulla build 2312 del 16
+    // ottobre 2026, "Il velo nero semitrasparente dal basso è troppo esteso
+    // e copre il maestro" (padre FW.03, commit ca288d84). Adesso il velo
+    // arriva a forza piena dove il contenuto comincia davvero sullo schermo
+    // (il tavolo: la barra piu' `fineScena`), e sale per soli 0,06 di
+    // schermo sopra di lui, quanto basta perche' il titolo delle arti non
+    // stia su una linea dura.
+    final appBarBasso = MediaQuery.paddingOf(context).top + 88;
+    final veloFine =
+        ((appBarBasso + fineScena) / altezzaSchermo).clamp(0.0, 1.0);
+    final veloInizio = (veloFine - 0.06).clamp(0.0, veloFine);
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,

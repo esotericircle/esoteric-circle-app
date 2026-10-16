@@ -259,7 +259,12 @@ class IlRighelloDelTempo extends StatelessWidget {
   static const double puntiPerGiorno = 240;
 
   static const double altezzaDelRighello = 30;
-  static const double altezza = 100;
+
+  /// **COMPATTO, PER IL TELEFONO VERO.** Sul Realme la barra dell'app in
+  /// alto e quella di sistema in basso lasciavano ai dati circa 70 punti:
+  /// la data e il giorno stanno su una riga, e il righello scende da 100 a
+  /// 76 punti (visto sulla build 2312 del 16 ottobre 2026).
+  static const double altezza = 76;
 
   /// Le due estremita' del righello, che non si allungano.
   static const Rect _taglio = Rect.fromLTRB(40, 20, 1744, 141);
@@ -305,22 +310,24 @@ class IlRighelloDelTempo extends StatelessWidget {
                 puntiPerGiorno;
         if (x < -120 || x > larghezza + 120) continue;
         etichette.add(Positioned(
-          left: x - 60,
-          width: 120,
-          top: 22 + altezzaDelRighello + 6,
+          left: x - 80,
+          width: 160,
+          top: 22 + altezzaDelRighello + 4,
           // Col testo ingrandito la data non sta in 120 punti: si
           // rimpicciolisce invece di uscire (preso dalla prova dei puntini).
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Column(
-              children: [
-                Text('${giorno.day} ${_mesi[giorno.month - 1]} ${giorno.year}',
+            child: Text.rich(
+              TextSpan(children: [
+                TextSpan(
+                    text: '${giorno.day} ${_mesi[giorno.month - 1]} ',
                     style: TypographyTokens.etichetta().copyWith(
                         color: Colors.white, shadows: ombraSullaScena)),
-                Text(_giorni[giorno.weekday - 1],
+                TextSpan(
+                    text: _giorni[giorno.weekday - 1],
                     style: TypographyTokens.etichetta().copyWith(
                         color: coloreSulVelluto, shadows: ombraSullaScena)),
-              ],
+              ]),
             ),
           ),
         ));
@@ -620,21 +627,23 @@ class LaBarraDellaLuna extends StatelessWidget {
   /// l'ha la vede col lucchetto scritto, mai nascosta.
   final bool bussolaChiusa;
 
-  static const double altezza = 80;
+  static const double altezza = 72;
 
   /// **LA CORNICE FINE.** Alla scala della sua altezza la cornice del pezzo
   /// dipinto era spessa 23 punti sopra e sotto, e lasciava 22 punti a icona
   /// e nome: le icone salivano sul bordo (il fondatore, sull'anteprima: "Le
   /// icone di luna e respiro si sovrappongono leggermente al bordo
-  /// superiore"). La cornice si disegna come per un pezzo alto 48 punti,
-  /// spessa 16, e dentro restano 48 punti di velluto.
+  /// superiore"). La cornice si disegna come per un pezzo alto 44 punti,
+  /// spessa 15, e dentro restano 42 punti di velluto per icona e nome, che
+  /// ne occupano 37. La barra e' alta 72 punti: sul telefono vero lo spazio
+  /// sotto la scena serve ai dati.
   static const double _scalaDellaCornice =
-      PulsanteDipinto.altezzaDellImmagine / 48;
+      PulsanteDipinto.altezzaDellImmagine / 44;
 
   /// Il pezzo argento della voce scelta, con la cornice ancora piu' fine,
   /// perche' icona e nome stiano dentro il suo interno.
   static const double _scalaDelPremuto =
-      PulsanteDipinto.altezzaDellImmagine / 36;
+      PulsanteDipinto.altezzaDellImmagine / 28;
 
   static const Map<VoceDellaLuna, (String, String)> _voci = {
     VoceDellaLuna.luna: ('Luna', IPezziDipinti.iconaLuna),
@@ -704,7 +713,7 @@ class LaBarraDellaLuna extends StatelessWidget {
               children: [
                 Opacity(
                   opacity: chiusa ? 0.55 : 1,
-                  child: _immagine(icona, height: 22),
+                  child: _immagine(icona, height: 20),
                 ),
                 FittedBox(
                   fit: BoxFit.scaleDown,
