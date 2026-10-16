@@ -4,14 +4,16 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/astro/city_catalog.dart';
 import '../../core/astro/luogo_attuale.dart';
+import '../../core/astro/ricerca_del_luogo.dart';
 import '../../core/astro/sky_location.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/lunario/il_dial_a_moon.dart';
 import '../../core/lunario/il_motore_lunare.dart';
 import '../../core/lunario/il_respiro_della_luna.dart';
-import '../../core/lunario/la_luna_di_quest_ora.dart';
+import '../../core/lunario/la_consultazione_della_luna.dart';
 import '../../core/lunario/la_parola_di_medora_del_respiro.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/permissions/app_permission.dart';
@@ -28,15 +30,19 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../services/avvisi_locali.dart';
 import '../../services/breath_detector.dart';
 import '../lunario/calendario_lunare_screen.dart';
+import '../pricing/pricing_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import '../scene/la_scena_in_video.dart';
 import '../sigilli/regia_del_cammino.dart';
 import 'gli_avvisi_del_respiro.dart';
 import 'i_comandi_dipinti.dart';
+import 'i_pezzi_della_consultazione.dart';
 import 'il_piano_del_respiro.dart';
+import 'il_senso_del_respiro.dart';
 import 'la_bussola_della_luna.dart';
 import 'la_collana_delle_lune_screen.dart';
+import 'la_geometria_della_luna_dipinta.dart';
 
 /// **IL RESPIRO DELLA LUNA.** Ordine FX voce FX.04, 16 ottobre 2026.
 ///
@@ -56,7 +62,11 @@ const String _separatoreDelleRigheDiMedora = ' · ';
 
 class IlRespiroDellaLunaScreen extends StatefulWidget {
   const IlRespiroDellaLunaScreen(
-      {super.key, this.now, this.dialAMoon, this.posizione});
+      {super.key,
+      this.now,
+      this.dialAMoon,
+      this.posizione,
+      this.fabbricaDellaScena});
 
   /// L'istante da cui si calcola la fase: sostituibile nelle prove.
   final DateTime? now;
@@ -69,6 +79,10 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
   /// Chi legge la posizione vera del telefono (FXA.06): iniettabile per le
   /// prove. Senza, il GPS del telefono (`GeolocatorSkyLocation`).
   final SkyLocation? posizione;
+
+  /// Chi fa il video di scena: iniettabile per le prove di FXA.08, che
+  /// guardano cosa si vede mentre il video gira. Senza, il video vero.
+  final FabbricaDiScena? fabbricaDellaScena;
 
   static Route<void> route({DateTime? now}) =>
       PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -89,8 +103,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
       'assets/img/respiro_della_luna/respiro_cielo_senza_luna_v1.webp';
   static const String _primoFotogramma =
       'assets/img/respiro_della_luna/respiro_primo_fotogramma_v1.webp';
-  static const String _ultimoFotogramma =
-      'assets/img/respiro_della_luna/respiro_ultimo_fotogramma_v1.webp';
   static const String _perlaAccesa =
       'assets/img/respiro_della_luna/collana/perla_accesa_v1.webp';
 
@@ -108,8 +120,8 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
 
   late final IlRespiroDellaLuna _flag = IlRespiroDellaLuna();
   final BreathDetector _mic = BreathDetector();
-  late final RegiaDellaScena _regia =
-      RegiaDellaScena(() => LettoreDiScena.vero(_video));
+  late final RegiaDellaScena _regia = RegiaDellaScena(
+      widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(_video));
   late final TempiDelRespiroDellaLuna _tempi =
       TempiDelRespiroDellaLuna.diOggi(widget.now ?? DateTime.now());
 
@@ -152,6 +164,11 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   bool _hoVistoPieno = false;
   int _cicliCompiuti = 0;
   bool _finito = false;
+
+  /// **LA PRIMA APERTURA** (FXA.07): finche' non si e' letta, Medora dice
+  /// in due righe che cosa si ottiene. Nullo finche' la preferenza non
+  /// risponde, cosi' le righe non compaiono e spariscono.
+  bool? _primaApertura;
   Timer? _graziaTimer;
 
   // **IL TEMPO SOTTO IL DITO, ordine FX voce FX.03.** `_tempoVisto` e'
@@ -185,6 +202,15 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     // La foto si chiede DOPO il luogo, mai prima: col luogo ancora vuoto
     // partiva per latitudine 0 (FXA.06).
     unawaited(_caricaLuogo());
+    unawaited(IlSensoDelRespiro.primaAperturaGiaVista().then((vista) {
+      if (!mounted) return;
+      setState(() => _primaApertura = !vista);
+      if (!vista) unawaited(IlSensoDelRespiro.segnaPrimaAperturaVista());
+    }));
+    _regia.addListener(_quandoLaScenaCambia);
+    _comparsa.addListener(() {
+      if (mounted) setState(() {});
+    });
   }
 
   /// **IL LUOGO VERO, DAL GPS.** Ordine FX aggiunta FXA.06, il fondatore:
@@ -311,86 +337,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     _vaiATempo(widget.now ?? DateTime.now());
   }
 
-  /// **LE ALTRE VOCI DELL'ORDINE, MAI UN VICOLO CIECO.** La Bussola e'
-  /// esclusiva di Adepto e Illuminato (FX.10): chi non ce l'ha nel piano la
-  /// vede comunque, col lucchetto e l'invito, come vuole la regola di casa
-  /// sui tre stati di ogni funzione.
-  void _apriLeAltreVoci(BuildContext context, Tier tier) {
-    final bussolaAperta = IlPianoDelRespiro.respiroInsiemeAperto(tier);
-    Widget sottotitolo(String s) => Padding(
-          padding: const EdgeInsets.only(
-              top: 2,
-              bottom: SpacingTokens.sm,
-              left: SpacingTokens.sm,
-              right: SpacingTokens.sm),
-          child: Text(s,
-              textAlign: TextAlign.center,
-              style: TypographyTokens.label(size: 12)
-                  .copyWith(color: coloreSulVelluto)),
-        );
-    foglioDelCerchio<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(SpacingTokens.md),
-          child: PannelloDipinto(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // **LA PORTA AL CALENDARIO, ordine FX voce FX.11.** Il
-                // fondatore, sui due calendari: "Separati e collegati".
-                PulsanteDipinto(
-                  key: const Key('respiro_vai_al_calendario'),
-                  testo: 'Trova il giorno nel mese',
-                  larghezzaPiena: true,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(CalendarioLunareScreen.route());
-                  },
-                ),
-                sottotitolo('Il Calendario Lunare'),
-                PulsanteDipinto(
-                  key: const Key('respiro_apri_bussola'),
-                  testo: 'Dov\'è la Luna adesso',
-                  larghezzaPiena: true,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    if (!bussolaAperta) return;
-                    Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
-                      (_) => _SchermataDellaBussola(luogo: _luogo),
-                    ));
-                  },
-                ),
-                sottotitolo(bussolaAperta
-                    ? 'La bussola verso la Luna vera'
-                    : 'Esclusiva Adepto e Illuminato'),
-                PulsanteDipinto(
-                  key: const Key('respiro_apri_avvisi'),
-                  testo: 'Avvisi',
-                  larghezzaPiena: true,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    foglioDelCerchio<void>(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => Padding(
-                        padding: const EdgeInsets.all(SpacingTokens.md),
-                        child: PannelloDipinto(
-                            child: _FoglioDegliAvvisi(luogo: _luogo)),
-                      ),
-                    );
-                  },
-                ),
-                sottotitolo('La Luna che sorge, la piena, la nuova'),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Future<void> _avviaMic() async {
     final ok = await _mic.start();
     if (!mounted) return;
@@ -412,6 +358,10 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     unawaited(_regia.avvia(context));
+    if (_regia.ferma && !_regia.filmatoInScena) {
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _quandoLaScenaCambia());
+    }
   }
 
   /// **IL GESTO, DOPPIO E SEMPRE ATTIVO.** FX.04: tenuto giu' col dito o
@@ -448,6 +398,8 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     _debounceDellaFoto?.cancel();
     unawaited(_mic.dispose());
     _luce.dispose();
+    _comparsa.dispose();
+    _regia.removeListener(_quandoLaScenaCambia);
     _regia.dispose();
     super.dispose();
   }
@@ -465,21 +417,137 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     }
   }
 
+  /// **LA VOCE DELLA BARRA IN BASSO** (FXA.09): la Luna di quest'ora, da
+  /// consultare, o il rito del respiro. Si apre sulla Luna: il fondatore,
+  /// "principalmente la funzionalità resta di consultazione e informazione".
+  VoceDellaLuna _voce = VoceDellaLuna.luna;
+
+  /// **PRIMA LA SCENA, POI TUTTO IL RESTO** (FXA.08). Da zero a uno, parte
+  /// quando la scena e' ferma (video finito, saltato, o nessun video): la
+  /// Luna vera, i dati, la riga di Medora, il respiro compaiono in
+  /// quest'ordine, ognuno nel suo tratto.
+  late final AnimationController _comparsa = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  void _quandoLaScenaCambia() {
+    if (!mounted) return;
+    if (_regia.ferma && _comparsa.status == AnimationStatus.dismissed) {
+      // Senza video (Riduci Movimento, grafica alleggerita) tutto compare
+      // subito: non c'e' nessuna scena da aspettare.
+      if (!_regia.filmatoInScena && !_regia.saltata) {
+        _comparsa.value = 1;
+      } else {
+        unawaited(_comparsa.forward());
+      }
+    }
+    setState(() {});
+  }
+
+  /// Quanto e' comparso il pezzo che occupa il tratto [da]-[a] della
+  /// comparsa.
+  double _tratto(double da, double a) =>
+      Interval(da, a, curve: Curves.easeOut).transform(_comparsa.value);
+
+  void _scegliLaVoce(BuildContext context, VoceDellaLuna v, Tier tier) {
+    switch (v) {
+      case VoceDellaLuna.luna:
+      case VoceDellaLuna.respiro:
+        setState(() => _voce = v);
+      case VoceDellaLuna.bussola:
+        if (IlPianoDelRespiro.respiroInsiemeAperto(tier)) {
+          Navigator.of(context).push(PassaggioDelCerchio.rotta<void>(
+            (_) => _SchermataDellaBussola(luogo: _luogo),
+          ));
+        } else {
+          // Mai un vicolo cieco: la voce si vede col lucchetto, e il tocco
+          // dice di chi e' e dove si apre.
+          unawaited(_invitaAlPiano(
+              context,
+              'La Bussola della Luna, che ti indica la Luna vera dove sei, '
+              'è esclusiva dei piani Adepto e Illuminato.'));
+        }
+    }
+  }
+
+  /// Le frecce della fase (FXA.09, punto 2): portano il tempo all'inizio
+  /// della fase precedente o della successiva, dentro la corsa che il piano
+  /// concede (FX.10). Oltre la corsa, l'invito al piano invece del silenzio.
+  void _vaiAllaFase(BuildContext context, DateTime inizio, Tier tier) {
+    final adesso = widget.now ?? DateTime.now();
+    final corsa = IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(tier)
+        ? const Duration(days: 30)
+        : const Duration(hours: 12);
+    if (inizio.difference(adesso).abs() > corsa) {
+      unawaited(_invitaAlPiano(
+          context,
+          'Con il tuo piano la Luna scorre nelle 24 ore di oggi. '
+          'Dall\'Iniziato in su scorre su tutto il mese, fase per fase.'));
+      return;
+    }
+    _vaiATempo(inizio);
+  }
+
+  /// Il dito sul righello (FXA.09, punto 4): un giorno vale
+  /// [IlRighelloDelTempo.puntiPerGiorno] punti, dentro la corsa del piano.
+  void _trascinaIlRighello(double dx, Tier tier) {
+    final adesso = widget.now ?? DateTime.now();
+    final corsa = IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(tier)
+        ? const Duration(days: 30)
+        : const Duration(hours: 12);
+    // Il righello va sotto il cursore: trascinare a sinistra porta avanti.
+    final minuti = -dx / IlRighelloDelTempo.puntiPerGiorno * 24 * 60;
+    var nuovo = _tempoVisto.add(Duration(seconds: (minuti * 60).round()));
+    final minimo = adesso.subtract(corsa);
+    final massimo = adesso.add(corsa);
+    if (nuovo.isBefore(minimo)) nuovo = minimo;
+    if (nuovo.isAfter(massimo)) nuovo = massimo;
+    _vaiATempo(nuovo);
+  }
+
+  /// **LA SCELTA DI UN'ALTRA CITTA'** (FXA.09, punto 1): la penna apre la
+  /// ricerca dei luoghi gia' usata nel profilo. La citta' scelta vale da
+  /// subito e resta come citta' scelta a mano, il secondo ripiego di FXA.06.
+  Future<void> _scegliLaCitta(BuildContext context) async {
+    final scelta = await foglioDelCerchio<City>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (_) => const _SceltaDellaCitta(),
+    );
+    if (scelta == null || !mounted) return;
+    final luogo = LuogoAttuale.dallaCitta(scelta);
+    await DoveSonoAdesso.scrivi(luogo);
+    if (!mounted) return;
+    setState(() {
+      _luogo = luogo;
+      _rigaDelLuogo = 'Calcolata a ${scelta.name}, la città che hai scelto';
+    });
+    await _aggiornaFoto();
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final ferma = _regia.ferma;
     final adesso = widget.now ?? DateTime.now();
     final tier = _tier;
-    final dati = DatiDellaLunaDiQuestOra.calcola(_tempoVisto, _luogo);
+    final consultazione = LaConsultazioneDellaLuna.calcola(_tempoVisto, _luogo);
     final parola = LaParolaDiMedoraDelRespiro.diOggi(_tempoVisto);
+    final scostata =
+        _tempoVisto.difference(adesso).abs() > const Duration(minutes: 1);
+    final luna = _tratto(0, 0.35);
+    final datiVisti = _tratto(0.25, 0.6);
+    final medoraVista = _tratto(0.5, 0.8);
+    final respiroVisto = _tratto(0.7, 1);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: palette.deepest,
       appBar: AppBar(
         toolbarHeight: altezzaDellaBarraDelRespiro(context),
-        backgroundColor: palette.deepest.withValues(alpha: 0.35),
+        backgroundColor: palette.deepest,
         elevation: 0,
         // **NESSUNA ICONA DI MATERIAL QUI DENTRO.** Ordine FV, guardia
         // la_grafica_del_lunario_e_dipinta_test: dentro lib/features/lunario
@@ -487,14 +555,10 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
         // dichiarato, quindi la freccia indietro resta quella automatica
         // dell'AppBar, come fa calendario_lunare_screen.dart.
         iconTheme: IconThemeData(color: palette.goldSoft),
-        // **IL TITOLO NON SI TRONCA PIU'.** Prima la cattura vera
-        // (`docs/preview/FX/fx0234_respiro_scena_ferma.png`) mostrava "Il
-        // ..." tagliato dai puntini: tre pulsanti di testo in azioni
-        // lasciavano al titolo meno spazio di quanto gliene servisse, lo
-        // stesso difetto gia' curato altrove (`TitoloCheNonSiRompe`, usato
-        // da `calendario_lunare_screen.dart` e `breath_destiny_screen.dart`:
-        // va a capo invece di tagliare). Qui si cura anche la causa,
-        // consolidando le tre azioni in una (vedi sotto).
+        // **IL TITOLO NON SI TRONCA.** `TitoloCheNonSiRompe` va a capo
+        // invece di tagliare; nella barra stanno solo le icone comuni (le
+        // fonti e il cuore che aggiunge `SogliaArte`): "Altro" non c'e' piu',
+        // le sue voci sono la barra in basso (FXA.09).
         title: TitoloCheNonSiRompe(
             testo: 'Il Respiro della Luna',
             stile: TypographyTokens.titoloDiSchermata()),
@@ -503,236 +567,434 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
               palette: palette,
               testo: TestiDelleFonti.respiroDellaLuna,
               chiave: 'respiro_della_luna_fonti'),
-          // La porta delle altre voci non sta piu' qui: vedi la scena.
           const AngoloDellaBarra(),
         ],
+        // **1. LA CITTA'**, sotto il titolo: si vede solo a scena ferma
+        // (FXA.08), ma il suo posto c'e' sempre, cosi' la scena non salta.
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(RigaDellaCitta.altezza),
+          child: Opacity(
+            opacity: datiVisti,
+            child: IgnorePointer(
+              ignoring: !ferma,
+              child: RigaDellaCitta(
+                citta: _luogo?.citta,
+                palette: palette,
+                onCambia: () => unawaited(_scegliLaCitta(context)),
+              ),
+            ),
+          ),
+        ),
       ),
       body: IlToccoCheSalta(
         inCorso: _regia.inCorso,
         onSalta: _regia.salta,
-        child: Stack(
-          key: const Key('respiro_scena'),
-          fit: StackFit.expand,
-          children: [
-            // IL CIELO NUDO, sempre sotto: la Luna vera di oggi non e'
-            // dipinta nella scena, perche' cambia ogni giorno, e qui sta il
-            // fondo su cui si compone.
-            Positioned.fill(
-              child: Image.asset(_cieloSenzaLuna,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) =>
-                      ColoredBox(color: palette.deepest)),
-            ),
-            Positioned.fill(
-              child: Image.asset(ferma ? _ultimoFotogramma : _primoFotogramma,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const SizedBox.shrink()),
-            ),
-            if (_regia.filmatoInScena && (!ferma || _regia.saltata))
-              Positioned.fill(
-                child: IlFilmatoCheSfuma(
-                  key: const Key('respiro_filmato'),
-                  saltato: _regia.saltata,
-                  child: _regia.disegna(),
-                ),
-              ),
-            // LA LUNA VERA, che respira: si accende con l'inspiro e si
-            // vela con l'espiro, e l'anello di perle accese le gira
-            // intorno.
-            Align(
-              alignment: const Alignment(0, -0.05),
-              child: Listener(
-                behavior: HitTestBehavior.opaque,
-                onPointerDown: (_) => _tocca(true),
-                onPointerUp: (_) => _tocca(false),
-                onPointerCancel: (_) => _tocca(false),
-                child: AnimatedBuilder(
-                  animation: _luce,
-                  builder: (context, _) {
-                    final quanto = _luce.value;
-                    return SizedBox(
-                      width: 260,
-                      height: 260,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          _AnelloDiLuce(quanto: quanto, immagine: _perlaAccesa),
-                          Opacity(
-                            // Mai del tutto nera: velata, non spenta.
-                            opacity: 0.32 + 0.68 * quanto,
-                            // **LA FOTO VERA, ORA PER ORA (FX.03).** Non
-                            // piu' una delle trenta lune fisse del
-                            // Calendario Lunare: il fotogramma del
-                            // Dial-A-Moon per `_tempoVisto` (`_fotoVista`),
-                            // o il suo stesso ripiego mentre la prima
-                            // richiesta e' ancora in volo.
-                            child: _fotoVista == null
-                                ? const SizedBox(width: 150, height: 150)
-                                : Transform.rotate(
-                                    angle: _fotoVista!.ruota ? math.pi : 0,
-                                    child: Image(
-                                      image: _fotoVista!.immagine,
-                                      key: const Key('respiro_luna_vera'),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.contain,
-                                      errorBuilder: (_, __, ___) =>
-                                          const SizedBox.shrink(),
-                                    ),
-                                  ),
-                          ),
-                        ],
+        child: LayoutBuilder(builder: (context, box) {
+          final w = box.maxWidth;
+          final h = box.maxHeight;
+          final sopra = MediaQuery.paddingOf(context).top;
+          final sotto = MediaQuery.paddingOf(context).bottom;
+          // **LA SCENA, A TUTTA LARGHEZZA, SOTTO LA CITTA'.** Il fotogramma
+          // e' 1080 per 1920: largo quanto lo schermo, la sua altezza segue.
+          final scena = Rect.fromLTWH(0, sopra, w, w * 1920 / 1080);
+          final disco = GeometriaDellaLunaDipinta.discoSulloSchermo(scena.size)
+              .shift(scena.topLeft);
+          final lato = disco.width / GeometriaDellaLunaDipinta.discoNellaFoto;
+          final foto =
+              Rect.fromCenter(center: disco.center, width: lato, height: lato);
+          // **IL VISO NON SI COPRE.** Sotto le spalle di Medora (riga 1080
+          // del fotogramma) cominciano il righello e i dati; mai sopra il
+          // mento (riga 1000), anche su uno schermo basso.
+          final barra = LaBarraDellaLuna.altezza + sotto + SpacingTokens.sm;
+          final taglio = math.max(
+              scena.top + 1000 * w / 1080,
+              math.min(scena.top + 1080 * w / 1080,
+                  h - barra - IlRighelloDelTempo.altezza - 140));
+          final inizioDeiDati = _voce == VoceDellaLuna.luna
+              ? taglio + IlRighelloDelTempo.altezza
+              : taglio;
+          return Stack(
+            key: const Key('respiro_scena'),
+            children: [
+              // LA SCENA. A scena ferma il fondo e' il cielo senza Luna: la
+              // Luna e' quella vera, nel disco dove la pittura aveva la sua.
+              Positioned.fromRect(
+                rect: scena,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(_cieloSenzaLuna,
+                        key: const Key('respiro_cielo_senza_luna'),
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            ColoredBox(color: palette.deepest)),
+                    if (!ferma)
+                      Image.asset(_primoFotogramma,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) =>
+                              const SizedBox.shrink()),
+                    if (_regia.filmatoInScena && (!ferma || _regia.saltata))
+                      IlFilmatoCheSfuma(
+                        key: const Key('respiro_filmato'),
+                        saltato: _regia.saltata,
+                        child: _regia.disegna(),
                       ),
-                    );
-                  },
+                  ],
                 ),
               ),
-            ),
-            // **UNA SOLA PORTA PER TUTTE LE ALTRE VOCI, ordine FX, ora nel
-            // cielo in alto a destra.** Prima c'erano due pulsanti di testo
-            // ("Trova il giorno" e "Altro") piu' l'icona delle fonti, poi il
-            // solo "Altro" nella barra. Ma la rotta vera monta il Respiro
-            // dentro `SogliaArte`, che aggiunge il cuore: con la freccia, le
-            // fonti, "Altro" e il cuore al titolo restavano cosi' pochi punti
-            // che sul Realme, build 2312, si leggeva "Il / Respiro / della" e
-            // "Luna" spariva. Nella barra restano solo le icone. Il nome resta
-            // corto perche' nell'angolo stia fuori dalla Luna dipinta della
-            // scena; cosa apre lo dice il foglio, voce per voce.
-            SafeArea(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingTokens.sm),
-                  child: PulsanteDipinto(
-                    key: const Key('respiro_altre_voci'),
-                    testo: 'Altro',
-                    altezza: 38,
-                    onTap: () => _apriLeAltreVoci(context, tier),
-                  ),
-                ),
-              ),
-            ),
-            // **IL TEMPO SOTTO IL DITO, E I NUMERI DI QUEST'ORA (FX.03),
-            // SOPRA IL PANNELLO DEL GESTO, NELLA STESSA COLONNA ANCORATA AL
-            // FONDO.** Non due riquadri che fluttuano a frazioni indovinate
-            // dello schermo (che su uno schermo piu' basso del previsto
-            // finiscono per sovrapporsi, o si sovrappongono alla Luna: e'
-            // il difetto vero che la prova a video ha preso, il tocco
-            // sostenuto sulla Luna non la accendeva piu' perche' la
-            // striscia, galleggiante a meta' schermo, le stava sopra e
-            // assorbiva il tocco prima di lei), ma una sola colonna: i due
-            // non possono sovrapporsi fra loro per costruzione, e restano
-            // entrambi lontani dalla Luna, che vive solo nella sua Align
-            // vicino alla cima.
-            SafeArea(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                // **LA PARTE BASSA NON SALE MAI SULLA LUNA.** Il pannello,
-                // la riga del luogo e gli avvisi possono crescere: oltre il
-                // 45 per cento dello schermo scorrono, invece di coprire il
-                // centro della Luna dove il dito respira (il difetto preso in
-                // FX.03, tornato con la riga del luogo di FXA.06).
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: MediaQuery.sizeOf(context).height * 0.45),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(SpacingTokens.lg),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // **UN PANNELLO DIPINTO SOLO (FXA.02).** La striscia
-                          // del tempo e l'invito al gesto stanno nello stesso
-                          // pannello: due pannelli con le loro cornici alte
-                          // spingerebbero il testo fino alla Luna, il difetto
-                          // gia' preso in FX.03.
-                          PannelloDipinto(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (_rigaDelLuogo != null)
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 4),
-                                    child: Text(_rigaDelLuogo!,
-                                        key:
-                                            const Key('respiro_riga_del_luogo'),
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TypographyTokens.label(size: 12)
-                                            .copyWith(color: coloreSulVelluto)),
-                                  ),
-                                _StrisciaDelTempo(
-                                  palette: palette,
-                                  dati: dati,
-                                  parola: parola,
-                                  adesso: adesso,
-                                  tempoVisto: _tempoVisto,
-                                  suTuttoIlMese: IlPianoDelRespiro
-                                      .tempoSottoIlDitoSuTuttoIlMese(tier),
-                                  onTrascina: _vaiATempo,
-                                  onTornaAdesso: _tornaAdesso,
-                                ),
-                                const SizedBox(height: SpacingTokens.sm),
-                                _finito
-                                    ? _PannelloCompiuto(palette: palette)
-                                    : _PannelloDelGesto(
-                                        palette: palette,
-                                        cicli: _cicliCompiuti,
-                                        cicliTotali: _tempi.cicliPerUnMinuto,
+              // **3. LA LUNA VERA, NEL DISCO DIPINTO.** Una sola Luna: la foto
+              // di quest'ora prende il posto di quella della pittura, della
+              // stessa misura; il ritaglio tondo toglie gli angoli neri della
+              // foto. Nella voce Respiro si accende con l'inspiro e si vela
+              // con l'espiro, e il dito respira toccandola.
+              if (ferma)
+                Positioned.fromRect(
+                  rect: foto,
+                  child: Opacity(
+                    opacity: luna,
+                    child: Listener(
+                      behavior: HitTestBehavior.opaque,
+                      onPointerDown: (_) {
+                        if (_voce == VoceDellaLuna.respiro) _tocca(true);
+                      },
+                      onPointerUp: (_) => _tocca(false),
+                      onPointerCancel: (_) => _tocca(false),
+                      child: AnimatedBuilder(
+                        animation: _luce,
+                        builder: (context, _) {
+                          final quanto = _voce == VoceDellaLuna.respiro
+                              ? _luce.value
+                              : 1.0;
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.center,
+                            children: [
+                              if (_voce == VoceDellaLuna.respiro)
+                                _AnelloDiLuce(
+                                    quanto: quanto,
+                                    immagine: _perlaAccesa,
+                                    raggio: lato * 0.6),
+                              Opacity(
+                                // Mai del tutto nera: velata, non spenta.
+                                opacity: 0.32 + 0.68 * quanto,
+                                child: _fotoVista == null
+                                    ? const SizedBox.expand()
+                                    : ClipOval(
+                                        clipper: const _RitaglioDellaFoto(),
+                                        child: Transform.rotate(
+                                          angle:
+                                              _fotoVista!.ruota ? math.pi : 0,
+                                          child: Image(
+                                            image: _fotoVista!.immagine,
+                                            key: const Key('respiro_luna_vera'),
+                                            width: lato,
+                                            height: lato,
+                                            fit: BoxFit.contain,
+                                            errorBuilder: (_, __, ___) =>
+                                                const SizedBox.shrink(),
+                                          ),
+                                        ),
                                       ),
-                              ],
-                            ),
-                          ),
-                          if (_finito) ...[
-                            const SizedBox(height: SpacingTokens.sm),
-                            PulsanteDipinto(
-                              key: const Key('respiro_vai_alla_collana'),
-                              testo: 'Vedi la tua Collana delle Lune',
-                              larghezzaPiena: true,
-                              onTap: () => Navigator.of(context)
-                                  .push(LaCollanaDelleLuneScreen.route()),
-                            ),
-                          ],
-                          if (_esitoPosizione != null && _luogo == null) ...[
-                            const SizedBox(height: SpacingTokens.sm),
-                            AvvisoDelPermesso(
-                              chiave: 'respiro_della_luna_posizione',
-                              permesso: AppPermission.location,
-                              esito: _esitoDelPermessoDiPosizione,
-                              palette: palette,
-                              onRichiedi: _caricaLuogo,
-                              onApriImpostazioni: () async {
-                                await (widget.posizione ??
-                                        const GeolocatorSkyLocation())
-                                    .apriImpostazioni();
-                              },
-                            ),
-                          ],
-                          if (!_finito &&
-                              _esitoMic != null &&
-                              _esitoMic != EsitoDelPermesso.concesso) ...[
-                            const SizedBox(height: SpacingTokens.sm),
-                            AvvisoDelPermesso(
-                              chiave: 'respiro_della_luna',
-                              permesso: AppPermission.microphone,
-                              esito: _esitoMic!,
-                              palette: palette,
-                              onRichiedi: _avviaMic,
-                            ),
-                          ],
-                        ],
+                              ),
+                              if (_voce == VoceDellaLuna.luna)
+                                Padding(
+                                  padding: EdgeInsets.all(lato * 0.2),
+                                  child: IlTestoSullaLuna(
+                                    istante: _tempoVisto,
+                                    percentuale:
+                                        consultazione.dati.percentualeDiLuce,
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
+              // **2. LA FASE**, sopra la Luna, nel cielo.
+              if (ferma)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: scena.top + 2,
+                  child: Opacity(
+                    opacity: luna,
+                    child: RigaDellaFase(
+                      nome: consultazione.fase.nome,
+                      palette: palette,
+                      onPrecedente: () => _vaiAllaFase(context,
+                          consultazione.inizioDellaFasePrecedente, tier),
+                      onSuccessiva: () => _vaiAllaFase(context,
+                          consultazione.inizioDellaFaseSuccessiva, tier),
+                    ),
+                  ),
+                ),
+              // "Adesso" riporta al tempo vero: solo quando il tempo guardato
+              // non e' adesso.
+              if (ferma && scostata && _voce == VoceDellaLuna.luna)
+                Positioned(
+                  right: SpacingTokens.sm,
+                  top: disco.bottom - 40,
+                  child: PulsanteDipinto(
+                    key: const Key('respiro_torna_adesso'),
+                    testo: 'Adesso',
+                    altezza: 40,
+                    onTap: _tornaAdesso,
+                  ),
+                ),
+              // **4. IL RIGHELLO**, sotto le spalle di Medora.
+              if (ferma && _voce == VoceDellaLuna.luna)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: taglio,
+                  child: Opacity(
+                    opacity: datiVisti,
+                    child: IlRighelloDelTempo(
+                      tempoVisto: _tempoVisto,
+                      onTrascina: (dx) => _trascinaIlRighello(dx, tier),
+                    ),
+                  ),
+                ),
+              // **5. I DATI, O IL RITO.** Scorrono sotto la scena, che resta
+              // ferma in alto: oltre il taglio non salgono.
+              if (ferma)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: inizioDeiDati,
+                  bottom: barra,
+                  child: ClipRect(
+                    child: SingleChildScrollView(
+                      key: const Key('respiro_i_dati_scorrono'),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingTokens.md,
+                          vertical: SpacingTokens.sm),
+                      child: _voce == VoceDellaLuna.luna
+                          ? _laConsultazione(context, palette, consultazione,
+                              parola, datiVisti, medoraVista, tier)
+                          : _ilRito(context, palette, parola, respiroVisto),
+                    ),
+                  ),
+                ),
+              // **6. LA BARRA IN BASSO.**
+              if (ferma)
+                Positioned(
+                  left: SpacingTokens.sm,
+                  right: SpacingTokens.sm,
+                  bottom: sotto + SpacingTokens.sm,
+                  child: Opacity(
+                    opacity: respiroVisto,
+                    child: IgnorePointer(
+                      ignoring: respiroVisto < 0.5,
+                      child: LaBarraDellaLuna(
+                        voce: _voce,
+                        bussolaChiusa:
+                            !IlPianoDelRespiro.respiroInsiemeAperto(tier),
+                        onVoce: (v) => _scegliLaVoce(context, v, tier),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          );
+        }),
       ),
     );
   }
+
+  /// La voce Luna: i dati, la riga di Medora sotto di loro, gli avvisi.
+  Widget _laConsultazione(
+      BuildContext context,
+      MaestroPalette palette,
+      LaConsultazioneDellaLuna consultazione,
+      ParolaDiMedoraDelRespiro parola,
+      double datiVisti,
+      double medoraVista,
+      Tier tier) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // **ALLA PRIMA APERTURA** Medora dice in due righe che cosa si
+        // ottiene (FXA.07): si rilegge dal foglio delle fonti.
+        if (_primaApertura == true) ...[
+          Opacity(
+            opacity: medoraVista,
+            child: PannelloDipinto(
+              child: Column(
+                key: const Key('respiro_prima_apertura'),
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final riga in IlSensoDelRespiro.primaApertura)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                      child: Text(riga,
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: coloreSulVelluto,
+                              fontStyle: FontStyle.italic)),
+                    ),
+                  PulsanteDipinto(
+                    key: const Key('respiro_prima_apertura_respira'),
+                    testo: 'Respira con la Luna',
+                    onTap: () => setState(() {
+                      _voce = VoceDellaLuna.respiro;
+                      _primaApertura = false;
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+        ],
+        Opacity(
+          opacity: datiVisti,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Dove sono calcolati i dati, o perche' manca il luogo
+              // (FXA.06): sopra le righe, in piccolo.
+              if (_rigaDelLuogo != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                  child: Text(_rigaDelLuogo!,
+                      key: const Key('respiro_riga_del_luogo'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: coloreSulVelluto, shadows: ombraSullaScena)),
+                ),
+              IDatiDellaLuna(consultazione: consultazione, palette: palette),
+              // **LA PORTA AL CALENDARIO, ordine FX voce FX.11**, in fondo ai
+              // dati (correzione del fondatore alla FXA.09): "Separati e
+              // collegati".
+              RigaDelCalendario(
+                palette: palette,
+                onTap: () =>
+                    Navigator.of(context).push(CalendarioLunareScreen.route()),
+              ),
+            ],
+          ),
+        ),
+        if (_esitoPosizione != null && _luogo == null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          AvvisoDelPermesso(
+            chiave: 'respiro_della_luna_posizione',
+            permesso: AppPermission.location,
+            esito: _esitoDelPermessoDiPosizione,
+            palette: palette,
+            onRichiedi: _caricaLuogo,
+            onApriImpostazioni: () async {
+              await (widget.posizione ?? const GeolocatorSkyLocation())
+                  .apriImpostazioni();
+            },
+          ),
+        ],
+        const SizedBox(height: SpacingTokens.sm),
+        // **LA RIGA DI MEDORA, UNA SOLA, SOTTO I DATI** (FXA.09): il senso
+        // del giorno (FXA.07).
+        Opacity(
+          opacity: medoraVista,
+          child: Text(_rigaDiMedoraDelGiorno(),
+              key: const Key('luna_riga_di_medora'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia().copyWith(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                  shadows: ombraSullaScena)),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        Opacity(
+          opacity: medoraVista,
+          child: PulsanteDipinto(
+            key: const Key('respiro_apri_avvisi'),
+            testo: 'Avvisi della Luna',
+            larghezzaPiena: true,
+            onTap: () => foglioDelCerchio<void>(
+              context: context,
+              backgroundColor: Colors.transparent,
+              builder: (_) => Padding(
+                padding: const EdgeInsets.all(SpacingTokens.md),
+                child:
+                    PannelloDipinto(child: _FoglioDegliAvvisi(luogo: _luogo)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// La voce Respiro: il rito del respiro, la collana, Respiriamo insieme.
+  Widget _ilRito(BuildContext context, MaestroPalette palette,
+      ParolaDiMedoraDelRespiro parola, double respiroVisto) {
+    return Opacity(
+      opacity: respiroVisto,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          PannelloDipinto(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _finito
+                    ? _PannelloCompiuto(
+                        palette: palette,
+                        rigaDopo: IlSensoDelRespiro.rigaDopo(_giornoDelCiclo))
+                    : _PannelloDelGesto(
+                        palette: palette,
+                        cicli: _cicliCompiuti,
+                        cicliTotali: _tempi.cicliPerUnMinuto,
+                        rigaPrima: IlSensoDelRespiro.rigaPrima(_giornoDelCiclo),
+                      ),
+                if (parola.righe.isNotEmpty) ...[
+                  const SizedBox(height: SpacingTokens.sm),
+                  Text(parola.righe.join(_separatoreDelleRigheDiMedora),
+                      key: const Key('respiro_parola_di_medora'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: coloreSulVelluto,
+                          fontStyle: FontStyle.italic)),
+                ],
+              ],
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          PulsanteDipinto(
+            key: const Key('respiro_vai_alla_collana'),
+            testo: 'La tua Collana delle Lune',
+            larghezzaPiena: true,
+            onTap: () =>
+                Navigator.of(context).push(LaCollanaDelleLuneScreen.route()),
+          ),
+          if (!_finito &&
+              _esitoMic != null &&
+              _esitoMic != EsitoDelPermesso.concesso) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            AvvisoDelPermesso(
+              chiave: 'respiro_della_luna',
+              permesso: AppPermission.microphone,
+              esito: _esitoMic!,
+              palette: palette,
+              onRichiedi: _avviaMic,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  /// Il giorno del ciclo di adesso: il rito si accorda a oggi, non al
+  /// tempo guardato col righello (lo stesso patto di FX.03).
+  int get _giornoDelCiclo =>
+      IlSensoDelRespiro.giornoDelCiclo(widget.now ?? DateTime.now());
+
+  /// La riga di Medora sul senso del giorno guardato, sotto i dati
+  /// (FXA.09): la stessa riga che il rito dice prima del respiro (FXA.07).
+  String _rigaDiMedoraDelGiorno() =>
+      IlSensoDelRespiro.rigaPrima(IlSensoDelRespiro.giornoDelCiclo(_tempoVisto))
+          .testo;
 }
 
 /// L'anello di luce: perle accese disposte in cerchio intorno alla Luna, la
@@ -740,13 +1002,16 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
 /// copie di un asset dipinto, posizionate per calcolo (non disegnate), come
 /// vuole la regola ferrea del progetto.
 class _AnelloDiLuce extends StatelessWidget {
-  const _AnelloDiLuce({required this.quanto, required this.immagine});
+  const _AnelloDiLuce(
+      {required this.quanto, required this.immagine, required this.raggio});
 
   final double quanto;
   final String immagine;
 
+  /// Il raggio dell'anello: segue la misura della Luna nel disco dipinto.
+  final double raggio;
+
   static const int _numeroDiPerle = 10;
-  static const double _raggio = 118;
   static const double _latoDellaPerla = 20;
 
   @override
@@ -757,8 +1022,8 @@ class _AnelloDiLuce extends StatelessWidget {
         for (var i = 0; i < _numeroDiPerle; i++)
           Builder(builder: (context) {
             final angolo = 2 * 3.14159265 * i / _numeroDiPerle;
-            final dx = _raggio * math.cos(angolo);
-            final dy = _raggio * math.sin(angolo);
+            final dx = raggio * math.cos(angolo);
+            final dy = raggio * math.sin(angolo);
             return Transform.translate(
               offset: Offset(dx, dy),
               child: Opacity(
@@ -781,11 +1046,16 @@ class _PannelloDelGesto extends StatelessWidget {
     required this.palette,
     required this.cicli,
     required this.cicliTotali,
+    required this.rigaPrima,
   });
 
   final MaestroPalette palette;
   final int cicli;
   final int cicliTotali;
+
+  /// **PRIMA DEL RESPIRO**, la riga di Medora sul senso della fase di oggi
+  /// (FXA.07), con la sua fonte.
+  final RigaDelSenso rigaPrima;
 
   @override
   Widget build(BuildContext context) {
@@ -798,11 +1068,13 @@ class _PannelloDelGesto extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              _LaRigaDelSenso(riga: rigaPrima, chiave: 'respiro_riga_prima'),
+              const SizedBox(height: SpacingTokens.sm),
               Text('Tieni premuto per inspirare, lascia per espirare',
                   textAlign: TextAlign.center,
                   style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: 4),
+              const SizedBox(height: SpacingTokens.xxs),
               Text(
                   'Oppure respira, il microfono ti ascolta. Giro '
                   '${cicli + 1} di $cicliTotali',
@@ -812,10 +1084,10 @@ class _PannelloDelGesto extends StatelessWidget {
                       .copyWith(color: Colors.white.withValues(alpha: 0.72))),
               // **L'OBIETTIVO, SCRITTO.** Il fondatore: "l'utente deve
               // sapere [...] per ottenere cosa [...] Non puo' indovinare".
-              const SizedBox(height: 4),
+              const SizedBox(height: SpacingTokens.xxs),
               Text(
-                  'Un minuto di respiro accende la perla di oggi nella tua '
-                  'Collana. Trascina sui numeri per vedere un\'altra ora.',
+                  'Tieni premuto sulla Luna: un minuto di respiro accende '
+                  'la perla di oggi nella tua Collana.',
                   key: const Key('respiro_obiettivo'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.label(size: 12)
@@ -830,9 +1102,13 @@ class _PannelloDelGesto extends StatelessWidget {
 
 /// Il pannello a rito compiuto: la perla del giorno e' accesa.
 class _PannelloCompiuto extends StatelessWidget {
-  const _PannelloCompiuto({required this.palette});
+  const _PannelloCompiuto({required this.palette, required this.rigaDopo});
 
   final MaestroPalette palette;
+
+  /// **DOPO IL RESPIRO**, la riga di chiusura legata alla fase e al giorno
+  /// del ciclo (FXA.07), insieme alla perla che si accende.
+  final RigaDelSenso rigaDopo;
 
   @override
   Widget build(BuildContext context) {
@@ -848,201 +1124,17 @@ class _PannelloCompiuto extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: 4),
+              const SizedBox(height: SpacingTokens.xxs),
               Text('La perla di oggi si è accesa sulla tua collana.',
                   textAlign: TextAlign.center,
                   style: TypographyTokens.label(size: 13)
                       .copyWith(color: Colors.white.withValues(alpha: 0.8))),
+              const SizedBox(height: SpacingTokens.sm),
+              _LaRigaDelSenso(riga: rigaDopo, chiave: 'respiro_riga_dopo'),
             ],
           ),
         ),
       ],
-    );
-  }
-}
-
-/// **IL TEMPO SOTTO IL DITO, E I NUMERI DI QUEST'ORA.** Ordine FX voce
-/// FX.03: "Trascinando il dito in orizzontale il tempo scorre avanti e
-/// indietro: la Luna cambia fase e foto sotto il dito, i numeri si
-/// aggiornano". I numeri (percentuale di luce, sorgere o tramonto,
-/// distanza, giorni alla prossima sizigia) e le tre righe di Medora (FX.07)
-/// stanno sotto la stessa striscia: testo, nessuna icona, nessun disegno
-/// procedurale.
-class _StrisciaDelTempo extends StatelessWidget {
-  const _StrisciaDelTempo({
-    required this.palette,
-    required this.dati,
-    required this.parola,
-    required this.adesso,
-    required this.tempoVisto,
-    required this.suTuttoIlMese,
-    required this.onTrascina,
-    required this.onTornaAdesso,
-  });
-
-  final MaestroPalette palette;
-  final DatiDellaLunaDiQuestOra dati;
-  final ParolaDiMedoraDelRespiro parola;
-  final DateTime adesso;
-  final DateTime tempoVisto;
-  final bool suTuttoIlMese;
-  final ValueChanged<DateTime> onTrascina;
-  final VoidCallback onTornaAdesso;
-
-  /// Quanti punti dello schermo valgono l'intera corsa consentita: lo
-  /// stesso numero per il Viandante (24 ore) e per chi ha il mese, cosi'
-  /// chi ha di piu' non deve trascinare di piu' per lo stesso effetto
-  /// visivo, solo vedere passare un tempo diverso sotto lo stesso gesto.
-  static const double _corsaInPunti = 280;
-
-  Duration get _corsaMassima =>
-      suTuttoIlMese ? const Duration(days: 30) : const Duration(hours: 12);
-
-  void _onPanUpdate(DragUpdateDetails d) {
-    final millisecondiPerPunto = _corsaMassima.inMilliseconds / _corsaInPunti;
-    final nuovo = tempoVisto.add(
-        Duration(milliseconds: (d.delta.dx * millisecondiPerPunto).round()));
-    final minimo = adesso.subtract(_corsaMassima);
-    final massimo = adesso.add(_corsaMassima);
-    if (nuovo.isBefore(minimo)) {
-      onTrascina(minimo);
-    } else if (nuovo.isAfter(massimo)) {
-      onTrascina(massimo);
-    } else {
-      onTrascina(nuovo);
-    }
-  }
-
-  static String _oraLocale(DateTime t) {
-    final l = t.toLocal();
-    return '${l.hour.toString().padLeft(2, '0')}:'
-        '${l.minute.toString().padLeft(2, '0')}';
-  }
-
-  /// "tra 32 minuti", "tra 2h 14min", "ora": sempre nel futuro rispetto a
-  /// [tempoVisto] perche' `prossimoSorgere`/`prossimoTramonto` cercano
-  /// sempre avanti da li'.
-  String _traQuanto(DateTime target) {
-    final d = target.difference(tempoVisto);
-    if (d.inMinutes <= 0) return 'ora';
-    if (d.inHours < 1) return 'tra ${d.inMinutes} minuti';
-    final ore = d.inHours;
-    final minuti = d.inMinutes % 60;
-    return minuti == 0 ? 'tra ${ore}h' : 'tra ${ore}h ${minuti}min';
-  }
-
-  String get _rigaDiPosizione {
-    final percento = (dati.percentualeDiLuce * 100).round();
-    final fase = dati.crescente ? 'crescente' : 'calante';
-    final sopra = (dati.altezzaGradi ?? -1) > 0;
-    if (dati.altezzaGradi == null) {
-      return '$percento% di luce, $fase.';
-    }
-    if (sopra && dati.tramonto != null) {
-      return '$percento% di luce, $fase. Tramonta '
-          '${_traQuanto(dati.tramonto!)}.';
-    }
-    if (!sopra && dati.sorgere != null) {
-      return '$percento% di luce, $fase. Sorge '
-          '${_traQuanto(dati.sorgere!)}.';
-    }
-    return '$percento% di luce, $fase.';
-  }
-
-  // **UNA RIGA SOLA, non due.** Ordine FX voce FX.03: distanza e prossima
-  // sizigia condividono la stessa riga, perche' lo spazio sotto la Luna e'
-  // quello che resta sotto di lei (R6 del progetto: un numero si legge, non
-  // si fa leggere a costo di coprire il gesto che gli sta sopra). La prova
-  // a video ha preso il difetto quando le righe erano troppe: il pannello
-  // cresceva fino a toccare la Luna, e il tocco sostenuto su di lei
-  // smetteva di funzionare (`docs/collaudo/FX/fx03_pannello_regola_a.txt`).
-  String get _rigaDiDistanzaESizigia {
-    final km = dati.distanzaKm.round();
-    final migliaia = (km / 1000).toStringAsFixed(0);
-    final piena = dati.prossimaPiena.difference(tempoVisto).inDays;
-    final nuova = dati.prossimaNuova.difference(tempoVisto).inDays;
-    final prossima = piena <= 0
-        ? 'Luna nuova in $nuova giorni'
-        : nuova <= 0
-            ? 'Luna piena in $piena giorni'
-            : piena < nuova
-                ? 'Luna piena in $piena giorni'
-                : 'Luna nuova in $nuova giorni';
-    return dati.superluna
-        ? 'A $migliaia mila km (Superluna in arrivo) · $prossima'
-        : 'A $migliaia mila km · $prossima';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final scostata =
-        tempoVisto.difference(adesso).abs() > const Duration(minutes: 1);
-    return GestureDetector(
-      key: const Key('respiro_striscia_del_tempo'),
-      behavior: HitTestBehavior.opaque,
-      onHorizontalDragUpdate: _onPanUpdate,
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (scostata)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                        'Le ${_oraLocale(tempoVisto)} del '
-                        '${tempoVisto.day}/${tempoVisto.month}',
-                        style: TypographyTokens.label(size: 12).copyWith(
-                            color: Colors.white.withValues(alpha: 0.65))),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      key: const Key('respiro_torna_adesso'),
-                      onTap: onTornaAdesso,
-                      child: Text('Torna a adesso',
-                          style: TypographyTokens.label(size: 12).copyWith(
-                              color: palette.goldSoft,
-                              decoration: TextDecoration.underline)),
-                    ),
-                  ],
-                ),
-              ),
-            Text(_rigaDiPosizione,
-                key: const Key('respiro_riga_di_posizione'),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.label(size: 13)
-                    .copyWith(color: palette.goldSoft)),
-            Text(_rigaDiDistanzaESizigia,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TypographyTokens.label(size: 12)
-                    .copyWith(color: Colors.white.withValues(alpha: 0.78))),
-            // **LE TRE RIGHE DI MEDORA (FX.07), IN UNA SOLA.** Unite con un
-            // punto, non una sotto l'altra: tre righe separate spingevano
-            // il pannello fino a toccare la Luna (vedi il commento sopra
-            // `_rigaDiDistanzaESizigia`). **Non e' il dominio**: questo
-            // punto medio unisce le righe di Medora, non i pilastri di un
-            // Maestro, e scriverlo come `join(' · ')` letterale collide
-            // col testo che la guardia `le_cose_che_dichiarano_il_falso`
-            // cerca per quell'altra forma; il separatore sta in una
-            // costante sua per restare un punto medio e non quel testo.
-            if (parola.righe.isNotEmpty)
-              Text(parola.righe.join(_separatoreDelleRigheDiMedora),
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: TypographyTokens.label(size: 12).copyWith(
-                      color: Colors.white.withValues(alpha: 0.68),
-                      fontStyle: FontStyle.italic)),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -1137,6 +1229,175 @@ class _FoglioDegliAvvisiState extends State<_FoglioDegliAvvisi> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Il ritaglio tondo della foto della NASA: il disco della Luna occupa il
+/// 93 per cento del lato del fotogramma, il ritaglio al 94 toglie gli angoli
+/// neri del JPEG (vedi [GeometriaDellaLunaDipinta]).
+class _RitaglioDellaFoto extends CustomClipper<Rect> {
+  const _RitaglioDellaFoto();
+
+  @override
+  Rect getClip(Size size) => Rect.fromCenter(
+      center: size.center(Offset.zero),
+      width: size.width * GeometriaDellaLunaDipinta.ritaglioDellaFoto,
+      height: size.height * GeometriaDellaLunaDipinta.ritaglioDellaFoto);
+
+  @override
+  bool shouldReclip(_RitaglioDellaFoto oldClipper) => false;
+}
+
+/// L'invito al piano, sul pannello dipinto: dice di chi e' la funzione e
+/// porta ai piani. Mai un vicolo cieco.
+Future<void> _invitaAlPiano(BuildContext context, String testo) =>
+    finestraDipinta<void>(
+      context,
+      chiave: const Key('respiro_invito_del_piano'),
+      titolo: 'Un passo in più',
+      contenuto: Text(testo),
+      azioni: (c) => [
+        PulsanteDipinto(
+          key: const Key('respiro_vai_ai_piani'),
+          testo: 'Scopri i piani',
+          larghezzaPiena: true,
+          onTap: () {
+            Navigator.of(c).pop();
+            Navigator.of(context).push(PricingScreen.route());
+          },
+        ),
+        PulsanteDipinto(
+          key: const Key('respiro_non_ora'),
+          testo: 'Non ora',
+          altezza: 40,
+          onTap: () => Navigator.of(c).pop(),
+        ),
+      ],
+    );
+
+/// **LA SCELTA DI UN'ALTRA CITTA'**, sul pannello dipinto: la stessa
+/// ricerca del profilo (`RicercaDelLuogo` sul catalogo, `RicercaNelMondo`
+/// quando il catalogo non basta), la citta' toccata torna a chi ha aperto.
+class _SceltaDellaCitta extends StatefulWidget {
+  const _SceltaDellaCitta();
+
+  @override
+  State<_SceltaDellaCitta> createState() => _SceltaDellaCittaState();
+}
+
+class _SceltaDellaCittaState extends State<_SceltaDellaCitta> {
+  final TextEditingController _testo = TextEditingController();
+  final RicercaNelMondo _nelMondo = RicercaNelMondo();
+  List<City> _risultati = const [];
+
+  void _cerca(String q) {
+    final risposta = RicercaDelLuogo.per(q);
+    setState(() => _risultati = risposta.risultati);
+    _nelMondo.chiedi(
+      q,
+      gia: risposta.risultati,
+      quando: (trovati) {
+        if (!mounted || trovati.isEmpty) return;
+        setState(() =>
+            _risultati = RicercaNelMondo.unisci(risposta.risultati, trovati));
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _testo.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final inset = MediaQuery.viewInsetsOf(context).bottom;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+          SpacingTokens.md, SpacingTokens.md, SpacingTokens.md, inset + 8),
+      child: PannelloDipinto(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Da quale città guardi la Luna?',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: coloreSulVelluto)),
+            const SizedBox(height: SpacingTokens.sm),
+            TextField(
+              key: const Key('luna_cerca_la_citta'),
+              controller: _testo,
+              autofocus: true,
+              onChanged: _cerca,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: coloreSulVelluto),
+              cursorColor: coloreSulVelluto,
+              decoration: InputDecoration(
+                hintText: 'Scrivi il nome della città',
+                hintStyle: TypographyTokens.didascalia()
+                    .copyWith(color: coloreSulVelluto.withValues(alpha: 0.6)),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: coloreSulVelluto.withValues(alpha: 0.5))),
+                focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: coloreSulVelluto)),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 220),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  for (final c in _risultati.take(8))
+                    GestureDetector(
+                      key: Key('luna_citta_${c.name}_${c.country}'),
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => Navigator.of(context).pop(c),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: SpacingTokens.xs),
+                        child: Text(c.label,
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: coloreSulVelluto)),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Una riga del senso del Respiro con la sua fonte sotto, in piccolo: la
+/// fonte citata, o "chiave di Medora" dove nessuna tradizione la documenta.
+class _LaRigaDelSenso extends StatelessWidget {
+  const _LaRigaDelSenso({required this.riga, required this.chiave});
+
+  final RigaDelSenso riga;
+  final String chiave;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: Key(chiave),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(riga.testo,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia().copyWith(
+                color: coloreSulVelluto, fontStyle: FontStyle.italic)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(riga.eChiaveDiMedora ? 'Chiave di Medora' : riga.fonte,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.etichetta()
+                .copyWith(color: coloreSulVelluto.withValues(alpha: 0.7))),
+      ],
     );
   }
 }

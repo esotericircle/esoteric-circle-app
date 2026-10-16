@@ -166,8 +166,12 @@ abstract final class LeMemorieCustodite {
     // resta locale (FX.05, R3): nessuna porta server vende ancora gli
     // Eos che la pagano, quindi non c\'e\' ancora un server da cui
     // tornare.
-    'respiro.': 'i giorni respirati, la collana delle lune, gli avvisi e le '
-        'perle ricucite del Respiro della Luna: la ricucitura resta locale '
+    // Ordine FX voce FXA.07: anche la prima apertura gia' vista
+    // (`IlSensoDelRespiro.chiavePrimaApertura`), che tornando sul telefono
+    // nuovo rimostra soltanto due righe.
+    'respiro.': 'i giorni respirati, la collana delle lune, gli avvisi, le '
+        'perle ricucite e la prima apertura già vista del Respiro della '
+        'Luna: la ricucitura resta locale '
         'finché non esiste una porta server che la venda',
   };
 

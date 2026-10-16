@@ -391,6 +391,13 @@ flutter:
     # Gli elementi della Bussola (quadrante, ago a falce, scia di luna),
     # RGBA con l'alfa scritto senza perdita.
     - assets/img/respiro_della_luna/bussola/
+    # La Luna di quest'ora (aggiunta FXA.09): il righello delle fasi, il
+    # cursore a falce, i tre medaglioni (sorge, culmina, tramonta), i
+    # sigilli di Superluna e Microluna; le icone dipinte (frecce, penna,
+    # segnaposto, le quattro voci della barra in basso). RGBA senza
+    # perdita, da tool/gli_asset_della_luna_di_quest_ora.py.
+    - assets/img/respiro_della_luna/infografica/
+    - assets/img/respiro_della_luna/icone/
     # I due video, H.264 a qualita' costante 26 con l'audio (metodo della
     # voce FU.12), da 16,9 a 5,6 MB in tutto. Le impronte SHA-256 stanno in
     # docs/collaudo/FX/fx01_asset.txt.

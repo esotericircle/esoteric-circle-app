@@ -401,7 +401,7 @@ void main() {
     // "## VOCE FX." del manifesto: FX.00-FX.12 dell'ordine, piu' FX.13-FX.18
     // dell'aggiunta FXA (la collana e i comandi dipinti, la ricucitura vera,
     // il titolo, la consegna, il luogo vero dal GPS), un titolo per voce.
-    'FX': 19,
+    'FX': 22,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

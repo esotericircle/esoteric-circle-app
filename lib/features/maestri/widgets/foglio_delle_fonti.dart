@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../core/astro/il_segno_del_cielo.dart';
 import '../../../core/magic/la_voce_del_sigillo.dart';
 
+import '../../respiro_della_luna/il_senso_del_respiro.dart';
+
 import '../../../design_system/components/fatto_del_foglio.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -356,8 +358,19 @@ class TestiDelleFonti {
       'del Cerchio.';
 
   /// Il Respiro della Luna e la Collana delle Lune. Ordine FX voci FX.04 e
-  /// FX.05, 16 ottobre 2026.
-  static const String respiroDellaLuna =
+  /// FX.05, 16 ottobre 2026. Dalla voce FXA.07 apre con le due righe della
+  /// prima apertura (`IlSensoDelRespiro.primaApertura`), cosi' cio' che si
+  /// ottiene dal respiro si rilegge da qui, e dice da dove vengono le righe
+  /// di Medora prima e dopo il respiro.
+  static const String respiroDellaLuna = '${IlSensoDelRespiro.primaRiga}\n\n'
+      '${IlSensoDelRespiro.secondaRiga}\n\n'
+      'Prima del respiro Medora ti dice il senso della fase di oggi, e dopo '
+      'lo chiude con una riga accanto alla perla: le righe cambiano coi '
+      'giorni del ciclo. Quando la lettura di una fase viene da una fonte, la '
+      'fonte è scritta accanto: Plinio il Vecchio, Naturalis Historia, per il '
+      'lavoro dei campi secondo la Luna crescente e calante; Dane Rudhyar, '
+      'The Lunation Cycle del 1967, per le otto fasi della lunazione. '
+      'Altrimenti è una chiave di Medora.\n\n'
       'Il minuto di respiro che vedi qui non viene da nessuna fonte '
       'documentata: è una chiave di Medora, non una tradizione. La '
       'proporzione fra inspiro ed espiro cambia con la fase della Luna, più '

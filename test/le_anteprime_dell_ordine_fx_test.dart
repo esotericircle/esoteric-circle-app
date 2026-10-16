@@ -23,6 +23,7 @@ import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/i_comandi_dipinti.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/il_respiro_della_luna_screen.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/la_collana_delle_lune_screen.dart';
+import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -283,4 +284,164 @@ void main() {
     await gesto.up();
     await tester.pump();
   });
+
+  // **FXA.09, LA LUNA DI QUEST'ORA, A DUE MISURE E IN QUATTRO MOMENTI.**
+  // "le anteprime a 360 per 797 e a 430 per 932 della schermata intera
+  // adesso, a tempo spostato, con la Superluna e con la Luna fuori corso".
+  final momenti = <String, (DateTime, double)>{
+    // La sera del 16 ottobre 2026 a Piacenza: la Luna tramonta alle 21:49.
+    'adesso': (DateTime(2026, 10, 16, 21), 0),
+    // La stessa sera, il righello trascinato di mezza giornata in avanti.
+    'tempo_spostato': (DateTime(2026, 10, 16, 21), -120),
+    // Il 24 dicembre 2026 alle 11 la Luna e' a 356.655 km: Superluna.
+    'superluna': (DateTime(2026, 12, 24, 11), 0),
+    // Il 16 ottobre 2026 alle 10 la Luna e' fuori corso fino alle 14:57.
+    'fuori_corso': (DateTime(2026, 10, 16, 10), 0),
+  };
+  for (final misura in const [Size(360, 797), Size(430, 932)]) {
+    for (final m in momenti.entries) {
+      testWidgets(
+          'FXA.09: la Luna di questa ora, ${m.key}, '
+          '${misura.width.toInt()} per ${misura.height.toInt()}',
+          (tester) async {
+        SharedPreferences.setMockInitialValues(
+            {'respiro.primaAperturaVista': true});
+        final radice = GlobalKey();
+        tester.view.physicalSize = misura * 3;
+        tester.view.devicePixelRatio = 3.0;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(RepaintBoundary(
+            key: radice,
+            child: _host(IlRespiroDellaLunaScreen(
+                now: m.value.$1,
+                dialAMoon: _dialAMoonOffline(),
+                posizione: const _PiacenzaFinta()))));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump(const Duration(seconds: 2));
+        if (m.value.$2 != 0) {
+          await tester.drag(find.byKey(const Key('luna_righello_del_tempo')),
+              Offset(m.value.$2, 0));
+          await tester.pump(const Duration(milliseconds: 400));
+        }
+        // La riga che il momento vuole mostrare, portata a vista: i dati
+        // scorrono sotto la scena, e il sigillo sta piu' in basso.
+        final riga = {
+          'superluna': 'luna_dato_distanza',
+          'fuori_corso': 'luna_dato_fuori_corso',
+        }[m.key];
+        if (riga != null) {
+          await tester.ensureVisible(find.byKey(Key(riga)));
+          await tester.pump(const Duration(milliseconds: 400));
+        }
+        await _scatta(tester, radice,
+            'fxa09_luna_${m.key}_${misura.width.toInt()}');
+      });
+    }
+  }
+
+  /// Monta il Respiro a 360 per 797 alle 21 del 16 ottobre 2026.
+  Future<void> respiro(WidgetTester tester, GlobalKey radice,
+      {Map<String, Object> preferenze = const {},
+      FabbricaDiScena? scena}) async {
+    SharedPreferences.setMockInitialValues(preferenze);
+    tester.view.physicalSize = const Size(1080, 2391);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(RepaintBoundary(
+        key: radice,
+        child: _host(IlRespiroDellaLunaScreen(
+            now: DateTime(2026, 10, 16, 21),
+            dialAMoon: _dialAMoonOffline(),
+            posizione: const _PiacenzaFinta(),
+            fabbricaDellaScena: scena))));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(seconds: 2));
+  }
+
+  testWidgets('FXA.07: la prima apertura', (tester) async {
+    final radice = GlobalKey();
+    await respiro(tester, radice);
+    await _scatta(tester, radice, 'fxa07_prima_apertura');
+  });
+
+  testWidgets('FXA.07: prima del respiro', (tester) async {
+    final radice = GlobalKey();
+    await respiro(tester, radice,
+        preferenze: {'respiro.primaAperturaVista': true});
+    await tester.tap(find.byKey(const Key('luna_voce_respiro')));
+    await tester.pump(const Duration(milliseconds: 300));
+    await _scatta(tester, radice, 'fxa07_prima_del_respiro');
+  });
+
+  testWidgets('FXA.07: dopo il respiro', (tester) async {
+    final radice = GlobalKey();
+    await respiro(tester, radice,
+        preferenze: {'respiro.primaAperturaVista': true});
+    await tester.tap(find.byKey(const Key('luna_voce_respiro')));
+    await tester.pump(const Duration(milliseconds: 300));
+    final tempi = TempiDelRespiroDellaLuna.diOggi(DateTime(2026, 10, 16, 21));
+    for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
+      final dito = await tester.startGesture(
+          tester.getCenter(find.byKey(const Key('respiro_luna_vera'))));
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(tempi.inspiro + const Duration(milliseconds: 100));
+      await dito.up();
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(tempi.espiro + const Duration(milliseconds: 100));
+    }
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byKey(const Key('respiro_riga_dopo')), findsOneWidget);
+    await _scatta(tester, radice, 'fxa07_dopo_il_respiro');
+  });
+
+  testWidgets('FXA.08: il Respiro a meta video e dopo', (tester) async {
+    final radice = GlobalKey();
+    await respiro(tester, radice,
+        preferenze: {'respiro.primaAperturaVista': true},
+        scena: () => _VideoDellaScena());
+    await _scatta(tester, radice, 'fxa08_respiro_a_meta_video');
+    await tester.tapAt(const Offset(180, 400));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
+    await _scatta(tester, radice, 'fxa08_respiro_dopo_il_video');
+  });
+}
+
+/// Un video di scena che gira: al posto dei fotogrammi del video, il primo
+/// fotogramma dipinto della scena, quello che il video mostra mentre
+/// comincia.
+class _VideoDellaScena implements LettoreDiScena {
+  VoidCallback? _ascolta;
+  bool _pronto = false;
+
+  @override
+  bool get pronto => _pronto;
+  @override
+  bool get fallito => false;
+  @override
+  bool get cominciato => _pronto;
+  @override
+  bool get finito => false;
+  @override
+  void ascolta(VoidCallback? q) => _ascolta = q;
+  @override
+  Future<void> apri() async {
+    _pronto = true;
+    _ascolta?.call();
+  }
+
+  @override
+  Future<void> volume(double q) async {}
+  @override
+  Future<void> avvia() async {}
+  @override
+  Future<void> sospendi() async {}
+  @override
+  Widget disegna() => Image.asset(
+      'assets/img/respiro_della_luna/respiro_primo_fotogramma_v1.webp',
+      fit: BoxFit.cover);
+  @override
+  void chiudi() {}
 }

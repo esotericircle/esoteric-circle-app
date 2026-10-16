@@ -40,9 +40,14 @@ import 'la_collana_dipinta.dart';
 /// si e' chiuso con almeno un giorno respirato e la sua consegna non e' mai
 /// partita, la precede la scena della consegna.
 class LaCollanaDelleLuneScreen extends StatefulWidget {
-  const LaCollanaDelleLuneScreen({super.key, this.now});
+  const LaCollanaDelleLuneScreen(
+      {super.key, this.now, this.fabbricaDellaScena});
 
   final DateTime? now;
+
+  /// Chi fa il video della consegna: iniettabile per le prove di FXA.08.
+  /// Senza, il video vero.
+  final FabbricaDiScena? fabbricaDellaScena;
 
   static Route<void> route({DateTime? now}) => PassaggioDelCerchio.rotta<void>(
       (_) => MaestroScope(child: LaCollanaDelleLuneScreen(now: now)));
@@ -100,6 +105,7 @@ class _LaCollanaDelleLuneScreenState extends State<LaCollanaDelleLuneScreen> {
     }
     if (_consegnaDaMostrare) {
       return _ScenaDellaConsegna(
+        fabbrica: widget.fabbricaDellaScena,
         palette: palette,
         perle: _collana.perleDelCicloAppenaChiuso(_adesso),
         onFinita: _consegnaFatta,
@@ -592,8 +598,12 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
 /// ciclo ([LaCollanaDelleLune.consegnaInAttesa]).
 class _ScenaDellaConsegna extends StatefulWidget {
   const _ScenaDellaConsegna(
-      {required this.palette, required this.perle, required this.onFinita});
+      {required this.palette,
+      required this.perle,
+      required this.onFinita,
+      this.fabbrica});
 
+  final FabbricaDiScena? fabbrica;
   final MaestroPalette palette;
   final List<PerlaDellaCollana> perle;
   final VoidCallback onFinita;
@@ -611,7 +621,21 @@ class _ScenaDellaConsegnaState extends State<_ScenaDellaConsegna> {
       'assets/img/respiro_della_luna/consegna_ultimo_fotogramma_v1.webp';
 
   late final RegiaDellaScena _regia =
-      RegiaDellaScena(() => LettoreDiScena.vero(_video));
+      RegiaDellaScena(widget.fabbrica ?? () => LettoreDiScena.vero(_video));
+
+  /// **PRIMA LA SCENA, POI IL PANNELLO** (FXA.08): la scena ascolta la
+  /// regia, cosi' il pannello e il pulsante compaiono quando il video finisce
+  /// o il tocco lo salta, non mentre gira. Prima la schermata non ascoltava
+  /// la regia, e il pannello stava sopra il video dal primo fotogramma.
+  void _quandoLaScenaCambia() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _regia.addListener(_quandoLaScenaCambia);
+  }
 
   @override
   void didChangeDependencies() {
@@ -621,6 +645,7 @@ class _ScenaDellaConsegnaState extends State<_ScenaDellaConsegna> {
 
   @override
   void dispose() {
+    _regia.removeListener(_quandoLaScenaCambia);
     _regia.dispose();
     super.dispose();
   }
@@ -652,34 +677,42 @@ class _ScenaDellaConsegnaState extends State<_ScenaDellaConsegna> {
                   child: _regia.disegna(),
                 ),
               ),
-            SafeArea(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(SpacingTokens.lg),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      PannelloDipinto(
-                        child: Text(
-                            'La tua collana è completa: $accese perle '
-                            'accese. Una nuova collana comincia oggi.',
-                            textAlign: TextAlign.center,
-                            style: TypographyTokens.titoloScheda()
-                                .copyWith(color: palette.goldSoft)),
+            if (ferma)
+              SafeArea(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TweenAnimationBuilder<double>(
+                    key: const Key('consegna_comparsa'),
+                    tween: Tween(begin: 0, end: 1),
+                    duration: const Duration(milliseconds: 700),
+                    builder: (context, v, figlio) =>
+                        Opacity(opacity: v, child: figlio),
+                    child: Padding(
+                      padding: const EdgeInsets.all(SpacingTokens.lg),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          PannelloDipinto(
+                            child: Text(
+                                'La tua collana è completa: $accese perle '
+                                'accese. Una nuova collana comincia oggi.',
+                                textAlign: TextAlign.center,
+                                style: TypographyTokens.titoloScheda()
+                                    .copyWith(color: palette.goldSoft)),
+                          ),
+                          const SizedBox(height: SpacingTokens.md),
+                          PulsanteDipinto(
+                            key: const Key('consegna_continua'),
+                            testo: 'Comincia una nuova collana',
+                            larghezzaPiena: true,
+                            onTap: widget.onFinita,
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: SpacingTokens.md),
-                      PulsanteDipinto(
-                        key: const Key('consegna_continua'),
-                        testo: 'Comincia una nuova collana',
-                        larghezzaPiena: true,
-                        onTap: widget.onFinita,
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

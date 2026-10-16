@@ -134,15 +134,26 @@ void main() {
           now: adesso, dialAMoon: _dialAMoonOffline())));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.text('Il Respiro della Luna'), findsOneWidget);
       expect(find.byKey(const Key('respiro_luna_vera')), findsOneWidget);
 
+      // **IL RITO SI APRE DALLA SUA VOCE** (FXA.09): la schermata si apre
+      // sulla Luna da consultare, il respiro sta nella voce Respiro della
+      // barra in basso.
+      await tester.tap(find.byKey(const Key('luna_voce_respiro')));
+      await tester.pump(const Duration(milliseconds: 100));
+
+      // L'opacita' piu' vicina alla foto: quella che segue il respiro (piu'
+      // in alto c'e' la comparsa della scena, FXA.08).
       double opacitaDellaLuna() => tester
-          .widget<Opacity>(find.ancestor(
-            of: find.byKey(const Key('respiro_luna_vera')),
-            matching: find.byType(Opacity),
-          ))
+          .widget<Opacity>(find
+              .ancestor(
+                of: find.byKey(const Key('respiro_luna_vera')),
+                matching: find.byType(Opacity),
+              )
+              .first)
           .opacity;
 
       final veloAllInizio = opacitaDellaLuna();
