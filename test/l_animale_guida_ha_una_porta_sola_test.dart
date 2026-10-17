@@ -1,114 +1,114 @@
 /// **L'ANIMALE GUIDA HA UNA PORTA SOLA.** Ordine DG voce 01,
-/// 11 settembre 2026.
+/// 11 settembre 2026. Riscritta per intero dall'ordine FZ voce 01 e 02,
+/// 17 ottobre 2026.
 ///
-/// **IL DIFETTO CHE LA FA NASCERE, con le parole del fondatore.** *"alla fine
-/// mi viene assegnato un animale diverso dal mio in Passport. (il mio e'
-/// sempre stato il lupo, ogni volta che ho inserito i miei dati corretti
-/// personali)"*.
+/// **PERCHE' LA VECCHIA FORMA DI QUESTA GUARDIA E' DIVENTATA FALSA.** Fino
+/// all'ordine FZ la porta unica era `GuideAnimalDerivation.forSign`: il
+/// segno decideva per sempre, e una "seconda porta" era qualunque codice che
+/// provasse a scegliere l'animale dalle scelte della persona (i nomi vietati
+/// erano `seguitoDaLeQuattroScelte`, `treOmbre`, `PittoreDellAnimale`).
 ///
-/// Nell'app esistevano **due** animali guida per la stessa persona:
+/// **IL FONDATORE HA ROVESCIATO QUELLA REGOLA IL 17 OTTOBRE 2026, PER UNA
+/// RAGIONE DIVERSA DA QUELLA DI DC.** *"La 2."*: l'animale si rivela nel
+/// viaggio, con la regola delle quattro apparizioni di Harner, e le tre
+/// ombre proposte a ogni discesa nascono da quali ombre la persona ha gia'
+/// seguito, non dal cielo. `treOmbre*` non e' piu' una seconda porta: e' IL
+/// meccanismo della porta unica nuova. Tenere la vecchia guardia com'era
+/// l'avrebbe fatta cadere sul proprio lavoro giusto, e una guardia che
+/// accusa chi la rispetta insegna a ignorarla.
 ///
-/// - `GuideAnimalDerivation.forSign`, dal segno solare, deterministico, letto
-///   dal Passaporto e dall'onboarding;
-/// - `IQuattroViaggi.seguitoDaLeQuattroScelte`, che contava quale ombra era
-///   stata seguita piu' volte nelle quattro discese.
+/// **LA PORTA UNICA ADESSO E' `AnimaleDiPotere`** (e, sotto di lei, le
+/// funzioni pure di `LeOmbreCheRitornano`): nessun altro file deve calcolare
+/// "chi e' il suo animale" per conto proprio. `GuideAnimalDerivation.forSign`
+/// non decide piu' l'animale di nessuno: resta viva solo dentro
+/// `l_animale_di_potere.dart`, per la migrazione una tantum di chi aveva
+/// gia' concluso col vecchio sistema.
 ///
-/// Il Passaporto li leggeva **tutti e due, a dieci righe di distanza**.
-///
-/// **Chi sopravvive lo dice il Master Briefing.** Linee Guida UX Trasversali,
-/// sezione 5, elenca fra i dati identitari e fissi, deterministici e
-/// immutabili, *"carta natale, Angelo Custode, archetipo, **Animale Guida**"*.
-/// Le arti a esito variabile stanno in un altro elenco.
-///
-/// **PROVENIENZA: ordine DC voce 04, 10 settembre 2026**, che aveva fatto
-/// nascere l'animale da *"il cielo restringe"* piu' *"le scelte decidono"*.
+/// **VISTA ROSSA DAVVERO, non per deduzione**: eseguendo questa stessa
+/// guardia PRIMA di scrivere `AnimaleDiPotere` e la nuova regola, le due
+/// prove vecchie ("chi deriva l'animale dal segno sa che puo' doverlo
+/// tacere" e "nessun file apre una seconda porta") sono cadute esattamente
+/// sulle righe che questo ordine ha scritto: la prima perche' il cardinale
+/// minimo di cinque derivazioni dal segno si e' svuotato a una sola (la
+/// migrazione), la seconda perche' `treOmbreProposte` conteneva la
+/// sottostringa vietata `treOmbre`. Il rosso e' la controprova che la
+/// vecchia guardia misurava davvero qualcosa, non un rosso simulato.
 library;
 
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
-import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
-import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
+import 'package:esoteric_circle/core/viaggio/le_ombre_che_ritornano.dart';
 
 import 'sorgenti_di_lib.dart';
-import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 void main() {
-  test('MILLE ESECUZIONI, a parita di nascita, danno sempre lo stesso animale',
-      () {
-    // Un giorno per ogni segno, e mille giri su ognuno.
-    final nascite = <DateTime>[
-      DateTime(1980, 1, 15),
-      DateTime(1980, 2, 15),
-      DateTime(1980, 3, 25),
-      DateTime(1980, 4, 20),
-      DateTime(1980, 5, 15),
-      DateTime(1980, 6, 15),
-      DateTime(1980, 7, 10),
-      DateTime(1980, 8, 15),
-      DateTime(1980, 9, 15),
-      DateTime(1980, 10, 15),
-      DateTime(1980, 11, 15),
-      DateTime(1980, 12, 15),
+  test(
+      'MILLE ESECUZIONI, a parita di diario, la porta nuova da sempre lo '
+      'stesso animale', () {
+    // **DETERMINISMO DELLA PORTA NUOVA**, lo stesso spirito della prova
+    // "mille esecuzioni" di prima, ma sulla funzione pura che decide oggi:
+    // `LeOmbreCheRitornano.trovaIlRiconosciuto`. Nessun Diario, nessun
+    // SharedPreferences: solo liste di nomi, come l'ordine FZ.01 chiede per
+    // la prova a cento persone.
+    const scelte = [
+      'Lupo',
+      'Aquila',
+      'Lupo',
+      'Orso',
+      'Lupo',
+      'Aquila',
+      'Lupo',
     ];
+    final primo = LeOmbreCheRitornano.trovaIlRiconosciuto(scelte);
+    expect(primo, 'Lupo');
     var giri = 0;
-    for (final nascita in nascite) {
-      final primo =
-          GuideAnimalDerivation.forSign(IlSegnoDelCielo.delSole(nascita)).name;
-      for (var i = 0; i < 1000; i++) {
-        expect(
-            GuideAnimalDerivation.forSign(IlSegnoDelCielo.delSole(nascita))
-                .name,
-            primo,
-            reason: 'la stessa nascita ha dato due animali diversi');
-        giri++;
-      }
+    for (var i = 0; i < 1000; i++) {
+      expect(LeOmbreCheRitornano.trovaIlRiconosciuto(scelte), primo,
+          reason: 'la stessa sequenza di scelte ha dato due animali diversi');
+      giri++;
     }
     // ignore: avoid_print
-    print('ORDINE DG VOCE 01: $giri esecuzioni su ${nascite.length} nascite, '
+    print('ORDINE FZ VOCE 01: $giri esecuzioni sulla stessa sequenza, '
         'sempre lo stesso animale');
-    expect(giri, 12000);
-  });
-
-  test('IL CASO DEL FONDATORE: chi nasce sotto il Cancro ha il Lupo', () {
-    // **IL DATO E' NOMINATO E NON DEDOTTO.** Il fondatore: *"il mio e' sempre
-    // stato il lupo"*. Nella tabella di curatela il Lupo sta sul Cancro, e
-    // questa prova tiene ferma quella riga: se qualcuno rimescolasse la
-    // tabella, il suo animale cambierebbe senza che nessuno se ne accorga.
-    final nascita = DateTime(1980, 7, 10);
-    expect(IlSegnoDelCielo.delSole(nascita), Zodiac.cancer);
-    expect(GuideAnimalDerivation.forSign(Zodiac.cancer).name, 'Lupo');
+    expect(giri, 1000);
   });
 
   test(
-      'IL NOME CHE IL VIAGGIO CONSEGNA E QUELLO DELLA NASCITA, e non un '
-      'altro', () {
+      'IL CASO DI RIFERIMENTO: la stessa ombra seguita quattro volte, non '
+      'una sola in meno', () {
+    // **IL DATO E' NOMINATO E NON DEDOTTO.** L'ordine: "l'animale e'
+    // riconosciuto quando la stessa ombra e' stata seguita quattro volte,
+    // non per forza di fila". Qui si tiene ferma la soglia: se qualcuno la
+    // abbassasse a tre, il riconoscimento arriverebbe un passo prima senza
+    // che nessuno se ne accorga leggendo solo il codice che lo usa.
     for (final a in AnimalCatalog.animals) {
-      // Prima delle quattro discese non si dice niente.
-      for (var d = 0; d < IQuattroViaggi.quanteDiscese; d++) {
-        expect(IQuattroViaggi.nomeDopoLeQuattroDiscese(d, a.name), isNull,
-            reason: 'alla discesa $d il nome non si deve poter dire');
+      for (var volte = 0; volte < 4; volte++) {
+        expect(
+            LeOmbreCheRitornano.trovaIlRiconosciuto(List.filled(volte, a.name)),
+            isNull,
+            reason: 'a $volte volte "${a.name}" non deve essere ancora '
+                'riconosciuto');
       }
-      // Alla quarta, e da li' in poi, esce **il suo** e nessun altro.
-      for (var d = IQuattroViaggi.quanteDiscese; d < 8; d++) {
-        expect(IQuattroViaggi.nomeDopoLeQuattroDiscese(d, a.name), a.name);
-      }
+      expect(LeOmbreCheRitornano.trovaIlRiconosciuto(List.filled(4, a.name)),
+          a.name);
     }
   });
 
-  test('NESSUN FILE DI lib APRE UNA SECONDA PORTA', () {
-    // **LA GRANDEZZA MISURATA E' L'ASSENZA**, ed e' il motivo per cui questa
-    // e' una guardia e non una prova: se qualcuno rimettesse una funzione che
-    // sceglie l'animale dalle ombre seguite, il resto della suite resterebbe
-    // verde.
-    const vietate = [
-      'seguitoDaLeQuattroScelte',
-      'treOmbre',
-      'PittoreDellAnimale',
-    ];
+  test(
+      'NESSUN FILE DI lib DERIVA PIU\' L\'ANIMALE DAL SEGNO, tranne la '
+      'migrazione', () {
+    // **LA GRANDEZZA MISURATA E' QUASI L'ASSENZA**, ed e' il motivo per cui
+    // questa e' una guardia e non una prova: se qualcuno rimettesse un
+    // punto che deriva l'animale di una persona dal suo segno solare, il
+    // resto della suite resterebbe verde.
+    //
+    // **UNA SOLA ESENZIONE, dichiarata per nome**: `l_animale_di_potere.dart`
+    // e' il ponte di migrazione di FZ.02, l'unico punto in cui la vecchia
+    // porta e' ancora legittima.
+    const dovLaMigrazioneVive = 'lib/core/viaggio/l_animale_di_potere.dart';
     final colpevoli = <String>[];
     var guardati = 0;
     for (final f in sorgentiDiLib()) {
@@ -117,23 +117,64 @@ void main() {
       final righe = f.readAsLinesSync();
       for (var i = 0; i < righe.length; i++) {
         final r = righe[i];
-        // I commenti possono nominarle: e' li' che sta scritto perche' non ci
-        // sono piu'.
         final st = r.trimLeft();
+        // I commenti possono nominarla: e' li' che sta scritto perche' non
+        // decide piu' niente.
         if (st.startsWith('//') || st.startsWith('///')) continue;
-        for (final v in vietate) {
-          if (r.contains(v)) colpevoli.add('$p riga ${i + 1}: $v');
+        if (r.contains('GuideAnimalDerivation.forSign') &&
+            p != dovLaMigrazioneVive) {
+          colpevoli.add('$p riga ${i + 1}: $r');
         }
       }
     }
-    // **IL CARDINALE MINIMO.**
     expect(guardati, greaterThan(500),
         reason: 'i file di lib trovati sono troppo pochi');
     // ignore: avoid_print
-    print('ORDINE DG VOCE 01: guardati $guardati file di lib, seconde porte '
-        'trovate ${colpevoli.length}');
+    print('ORDINE FZ VOCE 01 E 02: guardati $guardati file di lib, '
+        'derivazioni dal segno fuori dalla migrazione trovate '
+        '${colpevoli.length}');
     expect(colpevoli, isEmpty,
-        reason: 'queste righe aprono una seconda porta dell animale guida:\n'
+        reason: 'questi file derivano ancora l\'animale di una persona dal '
+            'suo segno solare, fuori dal ponte di migrazione:\n'
             '${colpevoli.join('\n')}');
+  });
+
+  test(
+      'LA PORTA UNICA, `AnimaleDiPotere`, e nessun\'altra via che ricalcoli '
+      'il riconoscimento a mano', () {
+    // **SE TORNASSE UN CALCOLO FATTO A MANO**, per esempio un confronto
+    // diretto `IQuattroViaggi.nomeDopoLeQuattroDiscese(apparizioni, nome)`
+    // con un nome indovinato da qualche altra parte, due schermate
+    // potrebbero di nuovo disaccordarsi: e' esattamente il difetto
+    // dell'ordine DC che questa guardia, nella sua forma precedente,
+    // sorvegliava.
+    final colpevoli = <String>[];
+    var guardati = 0;
+    for (final f in sorgentiDiLib()) {
+      final p = f.path.replaceAll(Platform.pathSeparator, '/');
+      if (p == 'lib/core/viaggio/i_quattro_viaggi.dart' ||
+          p == 'lib/core/viaggio/il_nome_si_puo_dire.dart' ||
+          p == 'lib/core/viaggio/il_responso_del_viaggio.dart' ||
+          p == 'lib/core/viaggio/diario_dei_viaggi.dart') {
+        continue;
+      }
+      guardati++;
+      final codice = f.readAsLinesSync();
+      var trovato = false;
+      for (final r in codice) {
+        final st = r.trimLeft();
+        if (st.startsWith('//') || st.startsWith('///')) continue;
+        if (r.contains('nomeDopoLeQuattroDiscese')) trovato = true;
+      }
+      if (trovato) colpevoli.add(p);
+    }
+    expect(guardati, greaterThan(500),
+        reason: 'i file di lib trovati sono troppo pochi');
+    // ignore: avoid_print
+    print('ORDINE FZ VOCE 01: guardati $guardati file fuori dalla porta '
+        'unica, chiamano ancora il confronto a mano: ${colpevoli.length}');
+    expect(colpevoli, isEmpty,
+        reason: 'questi file ricalcolano il riconoscimento a mano invece di '
+            'chiedere ad AnimaleDiPotere:\n${colpevoli.join('\n')}');
   });
 }

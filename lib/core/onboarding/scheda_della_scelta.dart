@@ -1,7 +1,6 @@
 import '../angels/guardian_angels.dart';
 import '../rituals/animal_catalog.dart';
 import '../rituals/guide_animal_corpus.dart';
-import '../rituals/guide_animal_derivation.dart';
 import '../l10n/numero_del_cerchio.dart';
 
 /// LA SCHEDA DELLA SCELTA: cosa dice il riquadro sotto l'animale guida e
@@ -73,9 +72,20 @@ class GeneratoreDellaScheda {
   /// La scheda per l'animale guida.
   ///
   /// Le caratteristiche vengono dal ritratto del corpus, nell'ordine natura,
-  /// dono, lezione: si prendono le prime due che passano il filtro. La
-  /// ragione nomina il segno solare che ha eletto l'animale, e la chiave
-  /// dichiara che la derivazione e' un ponte di curatela, non tradizione.
+  /// dono, lezione: si prendono le prime due che passano il filtro.
+  ///
+  /// **LA RAGIONE NON NOMINA PIU' UN SEGNO, ordine FZ voce 01 e 02, 17
+  /// ottobre 2026.** Qui c'era *"Il tuo Sole in [segno] elegge [animale]"*,
+  /// letta da `GuideAnimalDerivation.signOf`: era vera finche' l'animale
+  /// nasceva dal segno solare. Non lo e' piu': l'animale si rivela seguendo
+  /// le ombre nel Viaggio dello Sciamano, non da nessun elemento della carta
+  /// natale, e questo generatore esiste apposta per nominare "l'elemento
+  /// della carta natale che ha eletto" (vedi la nota di classe). Per
+  /// l'animale quell'elemento non c'e' piu': [ragione] torna nulla, e la
+  /// riga sparisce com'e' previsto per i dati assenti, invece di dire una
+  /// cosa falsa. **Nota per chi tiene lo stato**: questo metodo non e'
+  /// agganciato da nessuna schermata vera oggi (`trionfi_screen.dart` chiama
+  /// solo `perAngeli`); il controllo l'ha fatto questo stesso ordine.
   static SchedaDellaScelta perAnimale(GuideAnimal animale) {
     final ritratto = GuideAnimalCorpus.di(animale.name);
     // La PRIMA FRASE di ogni campo, con la stessa regola degli angeli: il
@@ -92,12 +102,18 @@ class GeneratoreDellaScheda {
         if (c.testo != null) RigaDellaScheda(titolo: c.titolo, testo: c.testo!),
     ].take(2).toList();
 
-    final segno = GuideAnimalDerivation.signOf(animale.name);
     return SchedaDellaScelta(
       caratteristiche: caratteristiche,
-      ragione: 'Il tuo Sole in ${segno.italianName} elegge ${animale.name}.',
-      chiave: 'Chiave di lettura di Caligo: un ponte di curatela col tuo '
-          'cielo, non un responso della tradizione sciamanica.',
+      ragione: null,
+      // **LA CHIAVE, DOPO FZ: NON PIU' UN PONTE COL CIELO.** Qui c'era *"un
+      // ponte di curatela col tuo cielo, non un responso della tradizione
+      // sciamanica"*: era l'onesta' dovuta a una derivazione dal segno che
+      // la tradizione di Harner non prevede. Dall'ordine FZ la regola e'
+      // quella vera di Harner (le quattro apparizioni), e dirle "non tua
+      // tradizione" sarebbe adesso il disclaimer sbagliato.
+      chiave: 'Chiave di lettura di Caligo: la regola delle quattro '
+          'apparizioni di Michael Harner, messa in scena dal Viaggio dello '
+          'Sciamano.',
     );
   }
 

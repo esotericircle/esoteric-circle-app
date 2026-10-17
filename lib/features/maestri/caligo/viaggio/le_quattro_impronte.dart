@@ -6,7 +6,12 @@ import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 
 /// **LE QUATTRO IMPRONTE CHE FORMANO UN CAMMINO.**
-/// Ordine DE voce 09, 11 settembre 2026.
+/// Ordine DE voce 09, 11 settembre 2026. Riscritto per intero dall'ordine FZ
+/// voce 03, 17 ottobre 2026: la regola che decideva l'animale da queste
+/// impronte (sotto, "chi ha piu' impronte vince") e' stata abolita
+/// dall'ordine DG l'11 settembre 2026, lo stesso giorno in cui e' nata questa
+/// scheda, e il commento non era mai stato aggiornato: descriveva una regola
+/// morta da prima ancora di nascere nel codice.
 ///
 /// **CHE COSA C'ERA PRIMA, sotto la Regola D.** Quattro trattini d'oro larghi
 /// trentaquattro punti e alti quattro, in fila e tutti uguali, accesi quanti
@@ -15,25 +20,32 @@ import '../../../../core/viaggio/i_quattro_viaggi.dart';
 /// gia' vietato al Passaporto, e non dicevano niente di **chi** aveva lasciato
 /// quel segno.
 ///
-/// **L'ORDINE CHIEDE DUE COSE, e la seconda e' quella difficile.**
+/// **L'ORDINE DE CHIEDEVA DUE COSE.** *"Le quattro non stanno in fila per
+/// caso: compongono un percorso che alla quarta porta esattamente dove
+/// l'animale aspetta."* Quindi non una riga: **un cammino**, che sale da
+/// sinistra in basso verso destra in alto, dove al quarto passo c'e'
+/// qualcuno. E *"le impronte sono quelle del suo animale, non generiche, e si
+/// ricavano dalla stessa immagine"*: ogni impronta e' la sagoma dell'ombra
+/// che si e' seguita QUELLA volta, presa dal canale alpha di quella
+/// illustrazione.
 ///
-/// *"Le quattro non stanno in fila per caso: compongono un percorso che alla
-/// quarta porta esattamente dove l'animale aspetta."* Quindi non una riga:
-/// **un cammino**, che sale da sinistra in basso verso destra in alto, dove al
-/// quarto passo c'e' qualcuno.
+/// **QUELLO CHE L'ORDINE DE AGGIUNGEVA, E L'ORDINE FZ TOGLIE.** *"L'animale
+/// che le quattro scelte hanno scelto e' quello che ha lasciato piu'
+/// impronte"*: una maggioranza fra quattro voti, che bastava quando il
+/// Viaggio proponeva una sola ombra possibile e quindi le quattro impronte
+/// erano sempre della stessa. **Con le tre ombre di FZ.01 la regola non
+/// insegue piu' l'animale: lo deciderebbe, con un'altra formula.** Fuori la
+/// maggioranza; dentro la regola di FZ.01, le quattro apparizioni di Harner.
 ///
-/// *"Le impronte sono quelle del suo animale, non generiche, e si ricavano
-/// dalla stessa immagine."* E qui c'e' il problema vero: **prima della quarta
-/// discesa il suo animale non si sa ancora**. La cura non e' inventarne uno:
-/// **ogni impronta e' la sagoma dell'ombra che si e' seguita QUELLA volta**,
-/// presa dal canale alpha di quella illustrazione. Chi ha seguito il lupo tre
-/// volte vede tre impronte di lupo; chi ha cambiato idea vede il proprio
-/// cambio di idea disegnato.
-///
-/// **E alla quarta il cammino si chiude su se stesso**: l'animale che le
-/// quattro scelte hanno scelto e' quello che ha lasciato piu' impronte, quindi
-/// **chi guarda indietro dopo la rivelazione vede che il cammino c'era gia'
-/// dal primo giorno**, che e' esattamente la riga dell'ordine.
+/// **COSA MOSTRANO QUESTE IMPRONTE OGGI.** Non piu' gli strati di un cammino
+/// legato a una domanda: le volte, in ordine, in cui l'ombra che oggi guida
+/// (quella riconosciuta, o la piu' seguita finora,
+/// `AnimaleDiPotere.ombraCheGuida`) e' stata seguita in tutta la vita del
+/// Diario, fino a quattro (`AnimaleDiPotere.improteDelCammino`). Chi ha
+/// seguito il lupo quattro volte, anche non di fila, vede quattro impronte di
+/// lupo e il cammino arriva a lui; chi cambia idea a ogni discesa vede il suo
+/// cambio di idea disegnato, un'impronta vuota in meno a ogni passo che non
+/// rafforza la stessa ombra.
 class LeQuattroImpronte extends StatelessWidget {
   const LeQuattroImpronte({
     super.key,

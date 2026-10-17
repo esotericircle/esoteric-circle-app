@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../../../core/astro/zodiac.dart';
-import '../../../../core/astro/zodiac_controller.dart';
 import '../../../../core/rituals/animal_catalog.dart';
-import '../../../../core/rituals/guide_animal_derivation.dart';
-import '../../../../core/viaggio/il_nome_si_puo_dire.dart';
+import '../../../../core/viaggio/l_animale_di_potere.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
@@ -23,10 +19,17 @@ import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 /// di nessuno.**
 ///
 /// L'ordine dice di prendere il minimo e niente di piu', e qui il minimo e'
-/// zero: il legame fra un segno e il suo animale e' una tabella di curatela
-/// che l'app gia' porta con se', quindi il bosco del Cerchio si puo' mostrare
-/// per intero senza chiedere niente a nessuno, senza mandare niente da nessuna
-/// parte e senza che l'identita' di una persona sfiori questa schermata.
+/// zero: i dodici animali del catalogo sono un dato dell'app, non di nessuna
+/// persona, quindi il bosco del Cerchio si puo' mostrare per intero senza
+/// chiedere niente a nessuno, senza mandare niente da nessuna parte e senza
+/// che l'identita' di una persona sfiori questa schermata.
+///
+/// **DALL'ORDINE FZ VOCE 01 E 02 NON C'E' PIU' UN SEGNO PER ABITANTE.** Qui
+/// gli abitanti erano i dodici segni, ognuno col suo animale derivato dalla
+/// tabella di curatela (abolita dall'ordine FZ): si elencano invece i dodici
+/// animali del catalogo direttamente, che sono lo stesso insieme di dodici,
+/// solo senza piu' il segno scritto sopra, perche' nessun segno elegge piu'
+/// nessuno di loro.
 ///
 /// **Cosa NON c'e', ed e' una scelta**: nessun conteggio di quante persone
 /// portano un animale, che avrebbe richiesto di contare le persone; nessun
@@ -36,8 +39,8 @@ import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 class BoscoDelCerchio extends StatelessWidget {
   const BoscoDelCerchio({super.key, this.mio});
 
-  /// L'animale di chi guarda, per riconoscerlo fra gli altri. Nullo se il
-  /// segno non si sa ancora.
+  /// L'animale di chi guarda, per riconoscerlo fra gli altri. Nullo se non
+  /// e' ancora stato riconosciuto.
   final String? mio;
 
   static Route<void> route({String? mio}) =>
@@ -46,28 +49,14 @@ class BoscoDelCerchio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.of(context);
-    final segno = () {
-      try {
-        return context.watch<ZodiacController>().sunSign;
-      } catch (senzaSegno) {
-        return null;
-      }
-    }();
     // **IL BOSCO NON ADDITA IL TUO PRIMA CHE TU L'ABBIA INCONTRATO.**
     // Ordine DG voce 02, 12 settembre 2026.
     //
     // Chi arriva qui dalla lettura dell'animale porta il nome con se', e la
     // lettura si apre solo a riconoscimento fatto. Chi ci arrivasse per
-    // un'altra strada avrebbe il segno e basta: **derivare il nome dal segno
-    // e accendere una tessera vorrebbe dire dire a chi guarda qual e' il suo
-    // animale**, che e' esattamente cio' che le quattro discese devono
-    // consegnare. Restano dodici abitanti, e nessuno acceso.
-    final dalSegno =
-        segno == null ? null : GuideAnimalDerivation.forSign(segno).name;
-    final mioAnimale = mio ??
-        (dalSegno != null && IlNomeSiPuoDire.dalCioCheSiSaGia(dalSegno)
-            ? dalSegno
-            : null);
+    // un'altra strada, senza [mio], legge la cache di sessione del Diario
+    // (ordine FZ voce 01): nessuna derivazione dal segno, mai piu'.
+    final mioAnimale = mio ?? AnimaleDiPotere.dalCioCheSiSaGia()?.name;
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(
@@ -83,19 +72,16 @@ class BoscoDelCerchio extends StatelessWidget {
         children: [
           ParagrafiDiLettura(
             testo: 'Dodici animali accompagnano chi cammina nel Cerchio, uno '
-                'per ogni segno. Questo è il bosco: guardando gli altri '
+                'per ciascuno. Questo è il bosco: guardando gli altri '
                 'riconosci anche il tuo.',
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          for (final segnoDelBosco in Zodiac.values)
+          for (final animale in AnimalCatalog.animals)
             _AbitanteDelBosco(
-              segno: segnoDelBosco,
-              animale: GuideAnimalDerivation.forSign(segnoDelBosco),
-              eIlMio: mioAnimale != null &&
-                  GuideAnimalDerivation.forSign(segnoDelBosco).name ==
-                      mioAnimale,
+              animale: animale,
+              eIlMio: mioAnimale != null && animale.name == mioAnimale,
               palette: palette,
             ),
         ],
@@ -113,13 +99,11 @@ class BoscoDelCerchio extends StatelessWidget {
 
 class _AbitanteDelBosco extends StatelessWidget {
   const _AbitanteDelBosco({
-    required this.segno,
     required this.animale,
     required this.eIlMio,
     required this.palette,
   });
 
-  final Zodiac segno;
   final GuideAnimal animale;
   final bool eIlMio;
   final MaestroPalette palette;
@@ -142,16 +126,12 @@ class _AbitanteDelBosco extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // **IL SIMBOLO VUOLE IL SUO CARATTERE.** Il font del display non
-            // ha i glifi dello zodiaco: a schermo uscivano dodici rettangoli
-            // vuoti, e nessuna prova li vede. L'ha visti l'anteprima. Il
-            // carattere dei simboli e' quello dichiarato nel pubspec e usato
-            // dalla carta natale.
-            Text(segno.symbol,
-                style: TextStyle(
-                    fontFamily: 'NotoSansSymbols',
-                    fontSize: 22,
-                    color: palette.goldSoft)),
+            // **NESSUN SEGNO PIU' QUI**, ordine FZ voce 01 e 02: qui c'era
+            // il glifo dello zodiaco che elencava l'abitante per segno. Un
+            // dato dell'animale, non del cielo: la stessa icona di riserva
+            // che il Passaporto e la tessera dei compagni usano quando il
+            // totem non c'e' ancora.
+            Icon(Icons.pets, size: 22, color: palette.goldSoft),
             const SizedBox(width: SpacingTokens.md),
             Expanded(
               child: Column(

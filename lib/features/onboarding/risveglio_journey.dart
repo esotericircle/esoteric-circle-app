@@ -13,7 +13,7 @@ import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/angels/guardian_angels.dart';
 import '../../core/astro/resonance.dart';
-import '../../core/rituals/guide_animal_derivation.dart';
+import '../../core/viaggio/l_animale_di_potere.dart';
 import '../../core/astro/zodiac_controller.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../core/maestro/maestro.dart';
@@ -300,11 +300,17 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
         contenuto = const ImmersiveScaffold(seed: 14, child: SizedBox.expand());
       } else {
         // c/d/e/f: entra il trionfo, coi pezzi che si aggiungono.
+        //
+        // **UN CORPO QUALUNQUE, ordine FZ voce 01 e 02.** Qui c'era
+        // `GuideAnimalDerivation.forSign`: all'onboarding non si e' ancora
+        // sceso una volta, quindi non c'e' nessuna ombra che guida da
+        // mostrare, e il Trionfo non rivela mai il nome (lo sorveglia la
+        // guardia che lo esenta dalla domanda "si puo' dire il nome").
         contenuto = ImmersiveScaffold(
           seed: 14,
           child: TrionfoAnimale(
             key: const ValueKey('animale'),
-            animale: GuideAnimalDerivation.forSign(widget.details.segno),
+            animale: AnimaleDiPotere.animalePlaceholder,
             palette: context.palette,
             reduceMotion: MediaQuery.of(context).disableAnimations,
             onContinue: _onAnimaleContinue,
@@ -406,9 +412,11 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           onContinue: _onChartContinue,
         );
       case _Phase.animale:
+        // **UN CORPO QUALUNQUE**, vedi la nota piu' sopra: ordine FZ voce 01
+        // e 02, il Trionfo non rivela mai il nome.
         return TrionfoAnimale(
           key: const ValueKey('animale'),
-          animale: GuideAnimalDerivation.forSign(widget.details.segno),
+          animale: AnimaleDiPotere.animalePlaceholder,
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAnimaleContinue,

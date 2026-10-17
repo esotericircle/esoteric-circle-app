@@ -1,46 +1,52 @@
-
 /// **I QUATTRO VIAGGI E IL RICONOSCIMENTO.** Ordine DC voce 04,
-/// 10 settembre 2026.
+/// 10 settembre 2026. Riscritto per intero dall'ordine FZ voce 01,
+/// 17 ottobre 2026: la storia qui sotto e' quella vera oggi, non un riassunto
+/// delle tappe superate.
 ///
-/// **LA FONTE, ed e' il motivo per cui i viaggi sono quattro.** Michael
+/// **LA FONTE, ed e' il motivo per cui ci vogliono quattro volte.** Michael
 /// Harner, *The Way of the Shaman*, 1980, e' esplicito: la chiave per
 /// riconoscere il proprio animale di potere e' che **si mostri almeno quattro
-/// volte**, da angolazioni diverse, in aspetti diversi, o come animali diversi
-/// della stessa specie.
+/// volte**, non per forza di fila, da angolazioni diverse, in aspetti
+/// diversi, o come animali diversi della stessa specie.
 ///
-/// **Quindi il primo viaggio non consegna un animale.** Ne mostra uno,
-/// parzialmente. E' la differenza fra un risultato e un rapporto, che e' cio'
-/// che l'ordine DC vuole riparare: *"oggi l'Animale e' un risultato, e nella
-/// tradizione e' un rapporto"*.
+/// **TRE TAPPE, E LA TERZA NON E' UN COMPROMESSO CON LE PRIME DUE: E' LA
+/// LETTURA GIUSTA DELLA STESSA FONTE.**
 ///
-/// **L'ANIMALE NON SI ESTRAE QUI. QUI SI RIVELA.** Ordine DG,
-/// 11 settembre 2026.
+/// **Tappa 1, ordine DC.** L'animale nasceva da due meta': *"il cielo
+/// restringe"* tre candidati dalla data di nascita, *"le scelte decidono"*
+/// con l'ombra seguita a ogni discesa. Il risultato era **una seconda
+/// porta**: il Passaporto mostrava il Lupo, il Viaggio consegnava l'Aquila,
+/// due animali guida per la stessa persona.
 ///
-/// **Cosa c'era prima, e perche' era sbagliato.** L'ordine DC voce 04 aveva
-/// fatto nascere l'animale da due meta': *"il cielo restringe"* con tre
-/// candidati dalla data di nascita, *"le scelte decidono"* con l'ombra seguita
-/// a ogni discesa. L'intenzione era buona e il risultato era **una seconda
-/// porta**: il Passaporto mostrava il Lupo, il Viaggio consegnava l'Aquila, e
-/// tutte e due dicevano di essere l'animale guida della stessa persona.
+/// **Tappa 2, ordine DG, 11 settembre 2026.** Si chiude la seconda porta:
+/// resta solo `GuideAnimalDerivation.forSign`, il segno decide per sempre, e
+/// il Viaggio non fa che mostrare **sempre lo stesso animale**, a pezzi
+/// crescenti. Qui la lettura di Harner si piega: "si mostra quattro volte"
+/// diventa "lo stesso animale, che non puo' essere altro che uno, si rivela
+/// in quattro gradi". Funziona, ma non e' piu' una scelta della persona: e'
+/// un destino scritto alla nascita che il Viaggio si limita a scoprire a
+/// rate.
 ///
-/// **Chi sopravvive lo dice il Master Briefing e non questo file.** Linee
-/// Guida UX Trasversali, sezione 5, elenca fra i dati **identitari e fissi**,
-/// deterministici e immutabili, *"carta natale, Angelo Custode, archetipo,
-/// **Animale Guida**"*. Le arti a esito variabile stanno in un altro elenco, e
-/// sono tarocchi, rune, I-Ching, pendolo, fondi di caffe'.
+/// **Tappa 3, ordine FZ, 17 ottobre 2026: LA SCELTA TORNA, E STAVOLTA NON
+/// APRE UNA SECONDA PORTA.** Il fondatore, davanti alla domanda se l'animale
+/// fosse "gia' assegnato" dal cielo, ha scelto esplicitamente la via in cui
+/// si rivela **nel viaggio**: a ogni discesa tre ombre, sagome scure senza
+/// nome, e la persona ne segue una a intuito. Quando la stessa ombra e' stata
+/// seguita **quattro volte, non per forza di fila**, quella e' il suo
+/// animale, fisso per sempre. **Non e' il ritorno alla tappa 1**: li' le tre
+/// ombre nascevano in parte dal cielo, e la porta del segno restava aperta in
+/// parallelo nel Passaporto; qui il cielo non entra per niente nella scelta
+/// delle ombre (vedi `AnimaleDiPotere.treOmbreProposte`, che guarda solo
+/// quali ombre la persona ha gia' seguito), e la porta e' una sola:
+/// `AnimaleDiPotere.riconosciutoDa`. `GuideAnimalDerivation.forSign` resta
+/// nel codice solo per la migrazione una tantum di chi aveva gia' concluso
+/// col vecchio sistema, non per decidere l'animale di nessuno.
 ///
-/// **Quindi la porta e' una sola: `GuideAnimalDerivation.forSign`.** Il
-/// Viaggio non sceglie niente: mostra **sempre lo stesso animale**, quello di
-/// quella persona, e cambia solo **quanto se ne vede**.
-///
-/// **E questo E' Harner, non un compromesso con lui.** La chiave del
+/// **E QUESTO E' HARNER ALLA LETTERA, non un compromesso.** La chiave del
 /// riconoscimento e' che l'animale **torni a mostrarsi almeno quattro volte**:
-/// e' il ritorno a riconoscerlo, non una selezione fra candidati. Quattro
-/// animali diversi in quattro discese sono quattro incontri, non un
-/// riconoscimento.
-///
-/// **Il fondatore lo aveva detto in una riga**: *"ogni viaggio e' un animale
-/// diverso e non lo stesso che si rivela sempre di piu' ad ogni viaggio"*.
+/// con tre ombre possibili, "tornare a mostrarsi" significa di nuovo quello
+/// che Harner intendeva, cioe' che la stessa presenza si ripresenti, non che
+/// si accumulino quattro incontri a caso.
 abstract final class IQuattroViaggi {
   /// **QUANTE DISCESE SERVONO PER RICONOSCERLO.** Quattro, e viene da Harner.
   static const int quanteDiscese = 4;
@@ -114,7 +120,8 @@ abstract final class IQuattroViaggi {
   /// parole arrivano a dieci perche' il Passaporto conta anche le discese
   /// dopo il riconoscimento, e un conteggio che passa il suo massimo non deve
   /// tornare alle cifre. Al femminile, perche' si contano le volte.
-  static String inLettere(int n) => const {
+  static String inLettere(int n) =>
+      const {
         1: 'una',
         2: 'due',
         3: 'tre',

@@ -35,7 +35,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  test('DR.07: il classificatore manda "quando mi sposero" sull attesa, e le '
+  test(
+      'DR.07: il classificatore manda "quando mi sposero" sull attesa, e le '
       'parole del matrimonio valgono zero', () {
     final capito = IlTemaDellaDomandaLibera.perParole('quando mi sposerò?');
     print('ORDINE DR VOCE 07: "quando mi sposerò?" -> tema ${capito?.name}');
@@ -85,7 +86,8 @@ void main() {
         });
       },
       prendiUnaChiamata: () async => true,
-      seScartata: (r) => print('  scartata ${r.pezzo}: ${r.motivo.name}: ${r.testo}'),
+      seScartata: (r) =>
+          print('  scartata ${r.pezzo}: ${r.motivo.name}: ${r.testo}'),
     );
     print('ORDINE DR VOCE 07: chiamate al modello $chiamate, risposta dal '
         'modello ${scritta.testi.risposta != null}');
@@ -94,7 +96,8 @@ void main() {
         reason: 'la terza risposta regge e deve valere, senza ripiegare');
   });
 
-  testWidgets('DR.07: QUANDO NON PASSA NIENTE L APP TACE, e la discesa non si '
+  testWidgets(
+      'DR.07: QUANDO NON PASSA NIENTE L APP TACE, e la discesa non si '
       'consuma', (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
@@ -165,21 +168,35 @@ void main() {
       await tester.pump(const Duration(milliseconds: 60));
     }
     await tester.pump(const Duration(milliseconds: 300));
-    await tester.tap(find.byKey(const Key('viaggio_ombra_Lupo')));
+    // **NESSUN NOME FISSO, ordine FZ voce 01.** Qui c'era
+    // `viaggio_ombra_Lupo`: l'animale non e' piu' derivato dal segno, e a
+    // zero discese nessuna ombra e' ancora "sua". Si segue quella che la
+    // schermata propone per prima.
+    String? nomeSeguito;
+    for (final el in tester.allElements) {
+      final k = el.widget.key;
+      if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+        nomeSeguito = k.value.substring('viaggio_ombra_'.length);
+        break;
+      }
+    }
+    expect(nomeSeguito, isNotNull,
+        reason: 'la nebbia non ha portato a nessuna ombra da seguire');
+    await tester.tap(find.byKey(Key('viaggio_ombra_$nomeSeguito')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
     // **SI SCOSTA LA CENERE**, ordine EV: il fondatore gratta il primo
     // pezzo dell'animale e poi risale nel silenzio.
-    final lente = find.byKey(const Key('viaggio_lente_Lupo'));
+    final lente = find.byKey(Key('viaggio_lente_$nomeSeguito'));
     if (lente.evaluate().isNotEmpty) {
       final centro = tester.getCenter(lente);
       for (var k = 0; k < 12; k++) {
-        await tester.dragFrom(centro + Offset(-60.0 + k * 10, -40),
-            const Offset(0, 120));
+        await tester.dragFrom(
+            centro + Offset(-60.0 + k * 10, -40), const Offset(0, 120));
         await tester.pump(const Duration(milliseconds: 60));
       }
     }
-    final grattate = diario.celleScoperteDi('Lupo').length;
+    final grattate = diario.celleScoperteDi(nomeSeguito!).length;
     // **E SI RISALE**: il responso si compone qui, ed e' qui che il silenzio
     // prende il posto della risalita.
     final risali = find.byKey(const Key('viaggio_risali'));
@@ -202,15 +219,16 @@ void main() {
     // **E NEMMENO LA CENERE SI CONSUMA**, ordine EV: il fondatore, *"se
     // scendo nuovamente l'animale risulta gia' consumato"*.
     print('ORDINE EV, VIAGGIO: celle grattate prima di risalire $grattate, '
-        'dopo il silenzio ${diario.celleScoperteDi('Lupo').length}');
+        'dopo il silenzio ${diario.celleScoperteDi(nomeSeguito).length}');
     expect(grattate, greaterThan(0),
         reason: 'la prova non ha grattato niente: non misura la cenere');
-    expect(diario.celleScoperteDi('Lupo'), isEmpty,
+    expect(diario.celleScoperteDi(nomeSeguito), isEmpty,
         reason: 'il silenzio non consuma la discesa ma lascia la cenere '
             'scostata: alla discesa dopo l\'animale e\' gia\' consumato');
   });
 
-  test('DR.07: DUE STRATI DELLO STESSO CAMMINO NON APRONO CON LE STESSE '
+  test(
+      'DR.07: DUE STRATI DELLO STESSO CAMMINO NON APRONO CON LE STESSE '
       'PAROLE, nemmeno con la voce di casa', () {
     // **Il fatto del fondatore**: il primo e il quarto strato aprivano con
     // *"Quello che ti pesa e' l'attesa"*, sei parole identiche. La ripresa
@@ -250,7 +268,8 @@ void main() {
             'parole: $aperture');
   });
 
-  test('DR.07: NESSUNA FRASE DEL CORPUS PER TEMA APRE UNO STRATO, quando la '
+  test(
+      'DR.07: NESSUNA FRASE DEL CORPUS PER TEMA APRE UNO STRATO, quando la '
       'risposta viene dal modello', () {
     // **La ripresa per tema e' la prima frase del paragrafo della risposta**,
     // e vive in `LaVoceDelMondoDiSotto.riprendeLaDomanda`: dodici righe che

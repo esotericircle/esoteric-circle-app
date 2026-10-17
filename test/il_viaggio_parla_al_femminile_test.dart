@@ -201,8 +201,24 @@ void main() {
       }
       await tester.pump(const Duration(milliseconds: 300));
       leggi();
-      final ombra = find.byKey(const Key('viaggio_ombra_Lupo'));
-      if (ombra.evaluate().isNotEmpty) await tester.tap(ombra);
+      // **NESSUN NOME FISSO, ordine FZ voce 01.** Qui c'era
+      // `viaggio_ombra_Lupo`: con l'animale non piu' derivato dal segno, le
+      // tre ombre proposte cambiano via via che la stessa viene seguita piu'
+      // volte (e nelle prime discese nessuna e' ancora "sua"). Questa prova
+      // non misura quale ombra: segue sempre la prima che trova, cosi' la
+      // stessa torna a ogni discesa e il riconoscimento arriva comunque.
+      Key? chiaveDiUnOmbra() {
+        for (final el in tester.allElements) {
+          final k = el.widget.key;
+          if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+            return k;
+          }
+        }
+        return null;
+      }
+
+      final chiaveOmbra = chiaveDiUnOmbra();
+      if (chiaveOmbra != null) await tester.tap(find.byKey(chiaveOmbra));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
       leggi();

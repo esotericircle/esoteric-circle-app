@@ -83,8 +83,7 @@ void main() {
             'immagine: e esattamente il difetto che il fondatore ha visto');
   });
 
-  testWidgets('LA SCENA OCCUPA ALMENO UN TERZO DELLA FINESTRA',
-      (tester) async {
+  testWidgets('LA SCENA OCCUPA ALMENO UN TERZO DELLA FINESTRA', (tester) async {
     telefono(tester);
     await apri(tester);
     final misura = tester.getSize(find.byKey(const Key('viaggio_bosco')));
@@ -137,8 +136,7 @@ void main() {
     expect(nomi, isEmpty, reason: 'la soglia dice gia un nome: $nomi');
   });
 
-  testWidgets('LA GIRANDOLA PORTA TUTTI I TOTEM DEL CATALOGO',
-      (tester) async {
+  testWidgets('LA GIRANDOLA PORTA TUTTI I TOTEM DEL CATALOGO', (tester) async {
     telefono(tester);
     await apri(tester);
     // **I TOTEM SI CONTANO A SCHERMO**, e non si chiedono a una funzione:
@@ -148,7 +146,8 @@ void main() {
     // catalogo.
     final totem = {
       for (final w in tester.widgetList<Image>(find.descendant(
-          of: find.byType(GirandolaDegliAnimali), matching: find.byType(Image))))
+          of: find.byType(GirandolaDegliAnimali),
+          matching: find.byType(Image))))
         if (w.image is AssetImage) (w.image as AssetImage).assetName,
     };
     expect(totem, {for (final a in AnimalCatalog.animals) a.thumbPath},
@@ -178,9 +177,18 @@ void main() {
 /// Un diario finto con un numero di discese dichiarato, che non tocca il
 /// disco: le prove non aspettano nessun archivio.
 class DiarioDelloSciamanoDiProva extends DiarioDeiViaggi {
-  DiarioDelloSciamanoDiProva(this.quante);
+  DiarioDelloSciamanoDiProva(this.quante, {this.nome = 'Lupo'});
 
   final int quante;
+
+  /// **QUALE OMBRA QUESTO FINTO SIMULA**, ordine FZ voce 01 e 02, 17 ottobre
+  /// 2026. Prima l'animale veniva sempre dal segno passato alla schermata
+  /// (`userSign`); adesso non viene piu' da nessun segno, e un finto che
+  /// deve simulare un animale specifico (per provare il genere, per
+  /// esempio) lo dichiara qui. "Lupo" resta il nome di default, lo stesso
+  /// che la vecchia tabella dava al Cancro: non cambia le prove che non
+  /// lo dichiarano.
+  final String nome;
 
   @override
   Future<void> carica() async {}
@@ -197,10 +205,18 @@ class DiarioDelloSciamanoDiProva extends DiarioDeiViaggi {
   @override
   bool get riconosciuto => quante >= 4;
 
+  /// **IL NOME RICONOSCIUTO, COERENTE CON [riconosciuto].** Ordine FZ voce
+  /// 01 e 02, 17 ottobre 2026: prima questo finto non lo sovrascriveva, e
+  /// restava nullo dalla classe base anche quando [riconosciuto] era vero.
+  /// `AnimaleDiPotere.riconosciutoDa` legge questo campo, non [riconosciuto]:
+  /// un finto incoerente fra i due avrebbe fatto apparire "non ancora
+  /// rivelato" anche alla quarta discesa finta.
   @override
-  List<String> get scelteInOrdine => const [];
+  String? get animaleRiconosciuto => riconosciuto ? nome : null;
+
+  @override
+  List<String> get scelteInOrdine => List.filled(quante.clamp(0, 4), nome);
 
   @override
   int? get giorniDallUltima => quante == 0 ? null : 1;
 }
-

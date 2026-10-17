@@ -36,13 +36,20 @@ void main() {
   Future<DiarioDelloSciamanoDiProva> apri(
     WidgetTester tester, {
     Zodiac segno = Zodiac.sagittarius,
+    // **IL NOME SIMULATO, non piu' derivato da [segno].** Ordine FZ voce
+    // 01 e 02: l'animale non nasce piu' dal segno di nascita, quindi questo
+    // aiuto lo dichiara per conto suo. "Cavallo" resta il default di questo
+    // file (era cio' che il Sagittario, il segno di default qui sopra,
+    // derivava nella vecchia tabella), e [segno] resta solo per popolare
+    // `userSign`, un campo ancora richiesto dalla schermata.
+    String nome = 'Cavallo',
     int discese = 4,
     ChiamataDelSegno? chiamata,
   }) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    final diario = DiarioDelloSciamanoDiProva(discese);
+    final diario = DiarioDelloSciamanoDiProva(discese, nome: nome);
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),
@@ -126,7 +133,7 @@ void main() {
 
     testWidgets('LE RIGHE E LE AZIONI SI ACCORDANO CON L ANIMALE FEMMINA',
         (tester) async {
-      await apri(tester, segno: Zodiac.gemini);
+      await apri(tester, segno: Zodiac.gemini, nome: 'Volpe');
       expect(find.text('La Volpe resta con te. Scendi quando hai una domanda.'),
           findsOneWidget);
       expect(

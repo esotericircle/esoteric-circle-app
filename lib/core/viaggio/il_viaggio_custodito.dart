@@ -43,6 +43,17 @@ abstract final class IlViaggioCustodito {
     'viaggio.quante',
     'viaggio.cammino',
     'viaggio.riconosciuto',
+    // **ORDINE FZ VOCE 01 E 02, 17 ottobre 2026.** Il nome dell'animale
+    // riconosciuto, e il segno che la migrazione una tantum e' gia' stata
+    // fatta: senza il primo due dispositivi dello stesso account potrebbero
+    // vedere due animali diversi dopo una fusione (`ilViaggioPiuAvanti`
+    // sceglie il bagaglio intero, e se il nome non viaggia col resto il
+    // dispositivo che vince la fusione mostrerebbe "Non ancora rivelato" a
+    // chi aveva gia' riconosciuto il suo animale su un altro telefono);
+    // senza il secondo, un telefono a meta' potrebbe rivedersi "riparte da
+    // capo" a ogni fusione che adotta una copia non ancora migrata.
+    'viaggio.animale_riconosciuto',
+    'viaggio.fz02_migrato',
   ];
 
   /// Il Viaggio come sacchetto da mandare al Cerchio, o null se non c'e'

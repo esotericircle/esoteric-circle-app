@@ -10,8 +10,7 @@ import '../../../core/cerchio/il_ritratto_del_corpus.g.dart';
 import '../../../core/cerchio/il_testo_degli_enigmi.dart';
 import '../../../core/chat/la_marca_del_genere.dart';
 import '../../../core/identity/profile_controller.dart';
-import '../../../core/rituals/guide_animal_derivation.dart';
-import '../../../core/viaggio/il_nome_si_puo_dire.dart';
+import '../../../core/viaggio/l_animale_di_potere.dart';
 import '../../../design_system/components/interruttore_del_cerchio.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
@@ -168,20 +167,17 @@ class _IlRitrattoScreenState extends State<IlRitrattoScreen> {
     }
   }
 
-  /// L'animale guida, **solo se l'hai gia' nominato** dopo le quattro
-  /// discese (`IlNomeSiPuoDire`): prima e' velato anche qui.
-  String? _ilTuoAnimale() {
-    try {
-      final sole = context.read<ProfileController>().identity.sunSign;
-      if (sole == null) return null;
-      final animale = GuideAnimalDerivation.forSign(sole);
-      return IlNomeSiPuoDire.dalCioCheSiSaGia(animale.name)
-          ? animale.name.toLowerCase()
-          : null;
-    } catch (senzaIlProfilo) {
-      return null;
-    }
-  }
+  /// L'animale guida, **solo se l'hai gia' riconosciuto** seguendo la stessa
+  /// ombra quattro volte (ordine FZ voce 01): prima e' velato anche qui.
+  ///
+  /// **NON PASSA PIU' DAL SEGNO.** Qui c'era `GuideAnimalDerivation.forSign`
+  /// piu' la domanda a `IlNomeSiPuoDire` se quel nome si poteva dire: con la
+  /// derivazione dal segno abolita, quella domanda avrebbe sempre risposto
+  /// no, perche' il nome indovinato dal segno non e' quasi mai quello vero.
+  /// `AnimaleDiPotere.dalCioCheSiSaGia` legge direttamente la cache di
+  /// sessione del Diario.
+  String? _ilTuoAnimale() =>
+      AnimaleDiPotere.dalCioCheSiSaGia()?.name.toLowerCase();
 
   @override
   Widget build(BuildContext context) {

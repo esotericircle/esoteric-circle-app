@@ -206,10 +206,20 @@ void main() {
     // **OGNI IMPRONTA STA DENTRO LA SUA SCATOLA.** Difetto visto nella
     // fotografia della soglia, 12 settembre 2026: la prima usciva di sotto e
     // l ultima di sopra, e lo Stack le tagliava a meta.
+    //
+    // **A DUE DISCESE, DUE IMPRONTE SONO LASCIATE E DUE RESTANO VUOTE.**
+    // Ordine FZ voce 03, 17 ottobre 2026: le impronte mostrano le volte in
+    // cui l'ombra che guida e' stata seguita in tutta la vita del Diario
+    // (qui il finto dichiara due discese, quindi due volte la stessa
+    // ombra), non piu' gli strati di un cammino sempre vuoto in questo
+    // finto. Le prime due impronte sono lasciate (`viaggio_impronta_$i`), le
+    // ultime due restano l'anello vuoto (`viaggio_impronta_vuota_$i`).
     final scatola =
         tester.getRect(find.byKey(const Key('viaggio_le_quattro_impronte')));
     for (var i = 0; i < 4; i++) {
-      final r = tester.getRect(find.byKey(Key('viaggio_impronta_vuota_$i')));
+      final chiave =
+          i < 2 ? 'viaggio_impronta_$i' : 'viaggio_impronta_vuota_$i';
+      final r = tester.getRect(find.byKey(Key(chiave)));
       expect(
           r.top >= scatola.top - 0.5 &&
               r.bottom <= scatola.bottom + 0.5 &&

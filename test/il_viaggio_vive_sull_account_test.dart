@@ -31,7 +31,15 @@ void main() {
     // `diario_dei_viaggi.dart` dichiara: se ne nascesse una nona e nessuno
     // la aggiungesse qui, resterebbe sul telefono in silenzio, ed e'
     // esattamente il difetto di questa voce che si ripeterebbe piu' piccolo.
-    cardinaleMinimo(IlViaggioCustodito.chiavi.length, 8,
+    //
+    // **DIECI DALL'ORDINE FZ VOCE 01 E 02, 17 ottobre 2026**: l'animale
+    // riconosciuto non e' piu' un booleano che il segno ricalcola sempre
+    // uguale, e' un nome scelto dalla persona, e un nome scelto deve
+    // viaggiare col resto o la fusione fra due telefoni (`ilViaggioPiuAvanti`)
+    // potrebbe far perdere il nome a chi l'aveva gia' visto; la migrazione
+    // una tantum ha la sua chiave perche' senza di lei una fusione potrebbe
+    // far ripartire "da capo" due volte la stessa persona.
+    cardinaleMinimo(IlViaggioCustodito.chiavi.length, 9,
         cosa: 'chiavi del Viaggio dello Sciamano',
         perche: 'Se l\'elenco si svuotasse, il Viaggio smetterebbe di '
             'viaggiare senza che nessuna prova cadesse.');
@@ -50,6 +58,13 @@ void main() {
     expect(dimenticate, isEmpty,
         reason: 'queste chiavi del Viaggio non vengono custodite e restano '
             'sul telefono: $dimenticate');
+    // **LE DUE CHIAVI DI FZ.02, per nome**: ordine FZ voce 01 e 02, 17
+    // ottobre 2026. Senza la prima, il nome dell'animale riconosciuto non
+    // viaggerebbe col resto del bagaglio in una fusione fra due telefoni;
+    // senza la seconda, un telefono a meta' potrebbe rivedersi "riparte da
+    // capo" a ogni fusione.
+    expect(IlViaggioCustodito.chiavi, contains('viaggio.animale_riconosciuto'));
+    expect(IlViaggioCustodito.chiavi, contains('viaggio.fz02_migrato'));
   });
 
   test('il Viaggio concluso si raccoglie dalle preferenze', () {

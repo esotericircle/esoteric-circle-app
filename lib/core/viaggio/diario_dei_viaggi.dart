@@ -7,6 +7,7 @@ import '../config/app_flags.dart';
 import 'i_quattro_viaggi.dart';
 import 'il_nome_si_puo_dire.dart';
 import 'la_domanda_del_viaggio.dart';
+import 'le_ombre_che_ritornano.dart';
 import 'scena_del_viaggio.dart';
 import 'vocabolario_del_viaggio.dart';
 
@@ -102,7 +103,31 @@ class DiarioDeiViaggi {
   /// **SE L'ANIMALE E' STATO RICONOSCIUTO**, ordine DQ voce 03. Un numero suo
   /// e non il conto delle discese: cambiare domanda fa ripartire le quattro
   /// apparizioni, e le discese restano.
+  ///
+  /// **DALL'ORDINE FZ VOCE 02 RESTA UN RIFLESSO, NON LA FONTE.** La fonte e'
+  /// [_chiaveDellAnimaleRiconosciuto]: un nome, non un booleano, perche' con
+  /// le tre ombre non basta piu' sapere SE si e' riconosciuto, bisogna sapere
+  /// CHI. Questa chiave si scrive ancora, sempre uguale a
+  /// `_animaleRiconosciuto != null`: la legge `functions/src/cammino.ts`,
+  /// `ilViaggioPiuAvanti`, per decidere quale copia e' piu' avanti fra due
+  /// dispositivi, e quella regola resta valida (vedi la nota dell'ordine FZ
+  /// nel manifesto): tocca il bagaglio intero, non un campo alla volta, e il
+  /// nome viaggia con lui.
   static const String _chiaveDelRiconoscimento = 'viaggio.riconosciuto';
+
+  /// **IL NOME DELL'ANIMALE RICONOSCIUTO.** Ordine FZ voce 02, 17 ottobre
+  /// 2026. Nullo finche' nessuna ombra e' stata seguita quattro volte;
+  /// scritto una volta per sempre quando ci arriva, e da quel momento non
+  /// cambia piu', nemmeno se si continua a scendere (FZ.01: "non c'e' un
+  /// massimo", ma l'animale e' quello che ha raggiunto quota quattro primo).
+  static const String _chiaveDellAnimaleRiconosciuto =
+      'viaggio.animale_riconosciuto';
+
+  /// **LA MIGRAZIONE UNA TANTUM DI FZ.02 E' GIA' STATA FATTA.** Senza questo
+  /// segno, un diario a meta' verrebbe "riparte da capo" ogni volta che apre
+  /// l'app: la cenere delle scelte verrebbe azzerata a ogni `carica()`, non
+  /// una volta sola.
+  static const String _chiaveMigrazioneFZ02 = 'viaggio.fz02_migrato';
 
   List<UnViaggio> _viaggi = const [];
   int _quante = 0;
@@ -113,30 +138,74 @@ class DiarioDeiViaggi {
   List<List<Offset>> _solchi = const [];
   String? _animaleDeiSolchi;
   IlCammino? _cammino;
-  bool _riconosciuto = false;
+  String? _animaleRiconosciuto;
+
+  /// **SE LA MIGRAZIONE UNA TANTUM DI FZ.02 E' ANCORA DA FARE.** Vero dopo
+  /// [carica] quando questo Diario porta dati scritti prima dell'ordine FZ e
+  /// nessuno ha ancora chiamato [completaMigrazioneFZ02]. Finche' resta vero,
+  /// [animaleRiconosciuto] e [riconosciuto] restano prudentemente nulli/falsi:
+  /// meglio sotto-rivelare per un istante che mostrare un animale a chi non
+  /// l'ha ancora guadagnato.
+  bool _attendeMigrazioneFZ02 = false;
+
+  /// **SE, SOTTO IL VECCHIO SISTEMA, QUESTA PERSONA AVEVA GIA' CONCLUSO.**
+  /// Letto in [carica] dalla chiave booleana di prima dell'ordine FZ; usato
+  /// solo da [completaMigrazioneFZ02] per decidere se tenere l'animale della
+  /// nascita o far ripartire il cammino dalle ombre.
+  bool _vecchioStileRiconosciutoInAttesa = false;
 
   /// **IL CAMMINO IN CORSO**, o nullo: prima della prima discesa, dopo il
   /// riconoscimento, e subito dopo che si e' cambiata la domanda. Ordine DQ
   /// voce 01.
+  ///
+  /// **RESTA QUELLO CHE ERA**, ordine FZ: governa la profondita' della
+  /// domanda (quanti strati di risposta ha gia' ricevuto chi tiene la stessa
+  /// domanda), non il riconoscimento dell'animale, che dall'ordine FZ voce 01
+  /// dipende solo da quante volte si e' seguita la stessa ombra, non da
+  /// quanti strati ha raggiunto il cammino di oggi.
   IlCammino? get cammino => _cammino;
 
   /// **SE L'ANIMALE E' STATO RICONOSCIUTO.** Ordine DQ voce 03.
-  bool get riconosciuto => _riconosciuto;
+  ///
+  /// **DALL'ORDINE FZ VOCE 01 NON E' PIU' UN BOOLEANO SUO**: e' derivato da
+  /// [animaleRiconosciuto], perche' "riconosciuto" senza sapere CHI non basta
+  /// piu' a niente, da quando le ombre che si possono seguire sono tre e non
+  /// una.
+  bool get riconosciuto => _animaleRiconosciuto != null;
+
+  /// **IL NOME DELL'ANIMALE RICONOSCIUTO**, o nullo. Ordine FZ voce 01 e 02,
+  /// 17 ottobre 2026: fisso per sempre dal momento in cui la stessa ombra e'
+  /// stata seguita quattro volte, qualunque discesa venga dopo.
+  String? get animaleRiconosciuto => _animaleRiconosciuto;
 
   /// **LE APPARIZIONI VERSO IL RICONOSCIMENTO.** Ordine DQ voce 03, 15
-  /// settembre 2026.
+  /// settembre 2026; ridefinita dall'ordine FZ voce 01, 17 ottobre 2026.
   ///
   /// **Fino all'ordine DQ erano le discese**, tutte: quattro discese, e il
-  /// nome si diceva. Adesso l'animale si mostra quattro volte **a chi tiene la
-  /// stessa domanda**, e cambiarla fa ripartire il conto dalla prima: le
-  /// apparizioni sono lo strato del cammino in corso. Dopo il riconoscimento
+  /// nome si diceva. L'ordine DQ le aveva legate allo strato del cammino in
+  /// corso, perche' con una sola ombra possibile ogni discesa del cammino
+  /// ERA un'apparizione dello stesso animale. **Con FZ.01 non e' piu' vero**:
+  /// ora si puo' scendere seguendo ombre diverse, e lo strato del cammino
+  /// (la profondita' della stessa domanda) e quante volte un'ombra e' stata
+  /// seguita sono due conti diversi. Adesso le apparizioni sono quante volte
+  /// e' stata seguita l'ombra che oggi guida (`AnimaleDiPotere.ombraCheGuida`):
+  /// quella riconosciuta, o la piu' seguita finora. Dopo il riconoscimento
   /// valgono le discese, mai sotto quattro, perche' il Passaporto conta anche
   /// quelle che vengono dopo.
-  int get apparizioni => _riconosciuto
-      ? (_quante > IQuattroViaggi.quanteDiscese
+  int get apparizioni {
+    if (_animaleRiconosciuto != null) {
+      return _quante > IQuattroViaggi.quanteDiscese
           ? _quante
-          : IQuattroViaggi.quanteDiscese)
-      : _cammino?.strato ?? 0;
+          : IQuattroViaggi.quanteDiscese;
+    }
+    final nome = LeOmbreCheRitornano.ombraCheGuida(scelteInOrdine);
+    if (nome == null) return 0;
+    var volte = 0;
+    for (final s in scelteInOrdine) {
+      if (s == nome) volte++;
+    }
+    return volte;
+  }
 
   /// **GLI STRATI DI UN CAMMINO**, dal primo: le discese che ci sono scese.
   /// Ordine DQ voce 02. Un cammino ereditato da un Diario scritto prima
@@ -147,9 +216,8 @@ class DiarioDeiViaggi {
       for (final v in _viaggi)
         if (v.cammino == c.id) v,
     ];
-    final strati = suoi.isEmpty && c.ereditato
-        ? _viaggi.take(c.strato).toList()
-        : suoi;
+    final strati =
+        suoi.isEmpty && c.ereditato ? _viaggi.take(c.strato).toList() : suoi;
     return strati.reversed.toList();
   }
 
@@ -174,7 +242,17 @@ class DiarioDeiViaggi {
     ];
   }
 
-  /// **LE IMPRONTE DEL CAMMINO IN CORSO**: l'animale seguito a ogni strato.
+  /// **GLI STRATI DEL CAMMINO IN CORSO**: l'ombra seguita a ogni strato della
+  /// stessa domanda.
+  ///
+  /// **NON E' PIU' LA FONTE DELLE QUATTRO IMPRONTE**, ordine FZ voce 03: le
+  /// impronte del cammino verso il riconoscimento (`le_quattro_impronte.dart`)
+  /// mostrano adesso le volte in cui l'ombra che guida e' stata seguita in
+  /// tutta la vita del Diario (`AnimaleDiPotere.improteDelCammino`,
+  /// `scelteInOrdine`), non solo dentro la domanda di oggi: con tre ombre
+  /// possibili uno strato di questo cammino e un'apparizione della stessa
+  /// ombra sono due conti diversi. Questo resta per chi volesse ancora sapere
+  /// cosa si e' seguito strato per strato della domanda in corso.
   List<String> get scelteDelCammino => _cammino == null
       ? const []
       : [for (final v in stratiDi(_cammino!)) v.animaleSeguito];
@@ -197,7 +275,7 @@ class DiarioDeiViaggi {
     _animaleDelVelo = null;
     _solchi = const [];
     _animaleDeiSolchi = null;
-    IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+    _sincronizzaCacheDelNome();
     await _scriviIlCammino();
     try {
       final prefs = await _prefs();
@@ -211,12 +289,29 @@ class DiarioDeiViaggi {
   Future<void> _scriviIlCammino() async {
     try {
       final prefs = await _prefs();
-      await prefs.setString(
-          _chiaveDelCammino, _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
-      await prefs.setBool(_chiaveDelRiconoscimento, _riconosciuto);
+      await prefs.setString(_chiaveDelCammino,
+          _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
+      await prefs.setBool(_chiaveDelRiconoscimento, riconosciuto);
     } catch (errore) {
       // **SI PERDE IL RICORDO, NON IL CAMMINO DI OGGI**: la domanda resta a
       // schermo finche' l'app e' aperta.
+    }
+  }
+
+  /// **SCRIVE L'ANIMALE RICONOSCIUTO**, ordine FZ voce 01, e il suo riflesso
+  /// booleano per `functions/src/cammino.ts`.
+  Future<void> _scriviIlRiconoscimento() async {
+    try {
+      final prefs = await _prefs();
+      final nome = _animaleRiconosciuto;
+      if (nome == null) {
+        await prefs.remove(_chiaveDellAnimaleRiconosciuto);
+      } else {
+        await prefs.setString(_chiaveDellAnimaleRiconosciuto, nome);
+      }
+      await prefs.setBool(_chiaveDelRiconoscimento, riconosciuto);
+    } catch (errore) {
+      // Si perde solo il ricordo: la discesa di oggi resta valida a schermo.
     }
   }
 
@@ -315,9 +410,13 @@ class DiarioDeiViaggi {
       await prefs.remove(_chiaveDelConto);
       await prefs.remove(_chiaveDelCammino);
       await prefs.remove(_chiaveDelRiconoscimento);
+      await prefs.remove(_chiaveDellAnimaleRiconosciuto);
+      await prefs.remove(_chiaveMigrazioneFZ02);
     }
     _cammino = null;
-    _riconosciuto = false;
+    _animaleRiconosciuto = null;
+    _attendeMigrazioneFZ02 = false;
+    _vecchioStileRiconosciutoInAttesa = false;
     _quante = 0;
     _viaggi = const [];
     _nutrimenti = const [];
@@ -329,14 +428,26 @@ class DiarioDeiViaggi {
     // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
     // Viaggio a zero discese lasciando il nome detto in mezza app.
     IlNomeSiPuoDire.quanteDisceseNote = 0;
+    IlNomeSiPuoDire.animaleRiconosciutoNoto = null;
     return true;
+  }
+
+  /// **LA CACHE SINCRONA PER CHI NON PUO' ASPETTARE**, ordine DG voce 02 e
+  /// ordine FZ voce 01: `IlNomeSiPuoDire` tiene l'ultimo progresso e l'ultimo
+  /// nome letti in questa sessione, per chi disegna dentro un `build`
+  /// sincrono (il simbolo dell'attesa di una chat, il bosco del Cerchio, Il
+  /// Ritratto). Un posto solo che li aggiorna insieme: separarli vorrebbe
+  /// dire rischiare che uno dei due resti indietro.
+  void _sincronizzaCacheDelNome() {
+    IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+    IlNomeSiPuoDire.animaleRiconosciutoNoto = _animaleRiconosciuto;
   }
 
   Future<void> carica() async {
     // **SENZA ARCHIVIO NON C'E' NIENTE DA LEGGERE**, e cio' che la sessione
     // ha gia' fatto resta: rileggere vorrebbe dire azzerarlo.
     if (!archivio) {
-      IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+      _sincronizzaCacheDelNome();
       return;
     }
     try {
@@ -360,28 +471,52 @@ class DiarioDeiViaggi {
       // lista**, anche se il conto fosse stato scritto male.
       final conto = prefs.getInt(_chiaveDelConto) ?? 0;
       _quante = conto > _viaggi.length ? conto : _viaggi.length;
-      // **IL CAMMINO E IL RICONOSCIMENTO**, ordine DQ voce 01. **Un Diario
-      // scritto prima dell'ordine** non ha nessuno dei due, e si ricava cosi':
-      // chi aveva gia' quattro discese ha gia' riconosciuto il suo animale, e
-      // lo tiene; chi era a meta' prosegue con la domanda della sua ultima
-      // discesa, dallo strato a cui era arrivato. Nessuno perde un passo.
-      final riconosciuto = prefs.getBool(_chiaveDelRiconoscimento);
+      // **IL CAMMINO E IL VECCHIO RICONOSCIMENTO**, ordine DQ voce 01. **Un
+      // Diario scritto prima dell'ordine** non ha nessuno dei due, e si
+      // ricava cosi': chi aveva gia' quattro discese aveva gia' riconosciuto
+      // il suo animale (dal segno, col vecchio sistema), e chi era a meta'
+      // prosegue con la domanda della sua ultima discesa, dallo strato a cui
+      // era arrivato.
+      final riconosciutoSalvato = prefs.getBool(_chiaveDelRiconoscimento);
       final cammino = prefs.getString(_chiaveDelCammino);
-      if (riconosciuto == null && cammino == null) {
-        _riconosciuto = _quante >= IQuattroViaggi.quanteDiscese;
-        _cammino = _riconosciuto || _viaggi.isEmpty
+      bool vecchioStileRiconosciuto;
+      if (riconosciutoSalvato == null && cammino == null) {
+        vecchioStileRiconosciuto = _quante >= IQuattroViaggi.quanteDiscese;
+        _cammino = vecchioStileRiconosciuto || _viaggi.isEmpty
             ? null
             : IlCammino.ereditatoDa(_viaggi.first, _quante);
       } else {
-        _riconosciuto = riconosciuto ?? false;
-        final j = cammino == null || cammino.isEmpty ? null : jsonDecode(cammino);
+        vecchioStileRiconosciuto = riconosciutoSalvato ?? false;
+        final j =
+            cammino == null || cammino.isEmpty ? null : jsonDecode(cammino);
         _cammino = j is Map<String, dynamic> ? IlCammino.fromJson(j) : null;
+      }
+      // **IL RICONOSCIMENTO NUOVO, ordine FZ voce 01 e 02.** Se il nome e'
+      // gia' stato scritto (migrazione gia' fatta, o animale riconosciuto
+      // sotto la nuova regola), e' la verita' e basta. Se la migrazione non
+      // e' ancora stata fatta, [_animaleRiconosciuto] resta nullo (prudente:
+      // nessuna schermata mostra un animale non ancora davvero riconosciuto)
+      // finche' [completaMigrazioneFZ02] non la completa: serve il segno di
+      // nascita solo per sapere quale animale tenere fisso a chi aveva gia'
+      // concluso, e questa funzione non lo conosce.
+      final nomeGiaMigrato = prefs.getString(_chiaveDellAnimaleRiconosciuto);
+      final migrazioneGiaFatta = prefs.getBool(_chiaveMigrazioneFZ02) ?? false;
+      if (nomeGiaMigrato != null && nomeGiaMigrato.isNotEmpty) {
+        _animaleRiconosciuto = nomeGiaMigrato;
+        _attendeMigrazioneFZ02 = false;
+      } else if (migrazioneGiaFatta) {
+        _animaleRiconosciuto = null;
+        _attendeMigrazioneFZ02 = false;
+      } else {
+        _animaleRiconosciuto = null;
+        _attendeMigrazioneFZ02 = true;
+        _vecchioStileRiconosciutoInAttesa = vecchioStileRiconosciuto;
       }
       // **QUI NASCE IL CONTO DELLE DISCESE, e da qui lo sa chi non puo'
       // aspettare.** Ordine DG voce 02: il simbolo dell'attesa di una chat si
       // disegna dentro un `build` sincrono, e senza questa riga mostrerebbe
       // il totem a chi non lo ha ancora incontrato.
-      IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+      _sincronizzaCacheDelNome();
       // **I NUTRIMENTI, ordine DE voce 12.** Stessa indulgenza del diario: un
       // elenco illeggibile vale un elenco vuoto, e chi torna trova comunque
       // il tamburo.
@@ -448,25 +583,46 @@ class DiarioDeiViaggi {
     _viaggi =
         List.unmodifiable([viaggio, ..._viaggi].take(quantiNeTiene).toList());
     // **LO STRATO SI SEGNA NEL CAMMINO**, ordine DQ voce 02: la discesa che
-    // porta il segno del cammino in corso lo fa salire di uno. Al quarto il
-    // cammino e' finito e l'animale riconosciuto.
+    // porta il segno del cammino in corso lo fa salire di uno, e al quarto
+    // strato quella domanda ha avuto la sua risposta piu' profonda.
+    //
+    // **DALL'ORDINE FZ VOCE 01 QUESTO NON RICONOSCE PIU' L'ANIMALE.** Qui
+    // c'era `_riconosciuto = true` al quarto strato: era giusto quando ogni
+    // discesa del cammino era per forza la stessa ombra (quella unica
+    // derivata dal segno). Con tre ombre possibili i due conti divergono, e
+    // il riconoscimento si decide sotto, contando quante volte l'ombra
+    // seguita OGGI e' tornata in tutta la storia del Diario.
     final c = _cammino;
     if (c != null && viaggio.cammino == c.id) {
       final strato = viaggio.strato ?? c.strato + 1;
       if (strato >= IQuattroViaggi.quanteDiscese) {
-        _riconosciuto = true;
         _cammino = null;
       } else {
         _cammino = c.alloStrato(strato);
       }
     }
-    IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+    // **IL RICONOSCIMENTO, ordine FZ voce 01: la stessa ombra seguita
+    // quattro volte, non per forza di fila.** Una volta riconosciuto resta
+    // fisso: non si ricalcola piu', nemmeno se dopo si continua a scendere.
+    if (_animaleRiconosciuto == null && viaggio.animaleSeguito.isNotEmpty) {
+      final volte = _viaggi
+          .where((v) => v.animaleSeguito == viaggio.animaleSeguito)
+          .length;
+      if (volte >= IQuattroViaggi.quanteDiscese) {
+        _animaleRiconosciuto = viaggio.animaleSeguito;
+      }
+    }
+    _sincronizzaCacheDelNome();
     try {
       final prefs = await _prefs();
       await prefs.setInt(_chiaveDelConto, _quante);
       await prefs.setString(_chiaveDelCammino,
           _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
-      await prefs.setBool(_chiaveDelRiconoscimento, _riconosciuto);
+      await prefs.setBool(_chiaveDelRiconoscimento, riconosciuto);
+      if (_animaleRiconosciuto != null) {
+        await prefs.setString(
+            _chiaveDellAnimaleRiconosciuto, _animaleRiconosciuto!);
+      }
       await prefs.setStringList(
           _chiave, [for (final v in _viaggi) jsonEncode(v.toJson())]);
     } catch (errore) {
@@ -475,6 +631,57 @@ class DiarioDeiViaggi {
       // persa e' il ricordo di questa discesa. Sollevare qui farebbe fallire
       // un rito compiuto, che e' un danno piu' grande.
     }
+  }
+
+  /// **LA MIGRAZIONE UNA TANTUM DI FZ.02.**
+  ///
+  /// Va chiamata dopo [carica] (lo fa `AnimaleDiPotere.migraSeServe`), e non
+  /// fa niente se non c'era niente da migrare (diario nuovo, o migrazione
+  /// gia' fatta: [_attendeMigrazioneFZ02] e' falso).
+  ///
+  /// **CHI AVEVA GIA' CONCLUSO** (vecchio bool a vero) tiene per sempre
+  /// l'animale che vedeva, [animaleDiNascita]: non c'e' niente da rifare, e
+  /// nessun avviso, perche' per quella persona non cambia niente che si
+  /// vede. **CHI ERA A META'** (qualche discesa, nessuna conclusione) riparte
+  /// da capo con la regola delle ombre: le vecchie discese restano nel
+  /// Diario come storia (la scena, la domanda, la risposta restano
+  /// leggibili), ma la loro ombra seguita si azzera, perche' **sotto il
+  /// vecchio sistema era sempre la stessa** (l'unico animale derivato dal
+  /// segno): lasciarla contare darebbe un vantaggio di partenza che l'ordine
+  /// non vuole dare a nessuno. **CHI APRE L'APP PER LA PRIMA VOLTA** non ha
+  /// niente da migrare: nessuna delle due condizioni scatta, nessun avviso.
+  ///
+  /// Torna l'avviso di una riga per chi riparte da capo, o nullo.
+  Future<String?> completaMigrazioneFZ02({
+    required String animaleDiNascita,
+  }) async {
+    if (!_attendeMigrazioneFZ02) return null;
+    _attendeMigrazioneFZ02 = false;
+    String? avviso;
+    if (_vecchioStileRiconosciutoInAttesa) {
+      _animaleRiconosciuto = animaleDiNascita;
+    } else if (_viaggi.isNotEmpty || _quante > 0 || _cammino != null) {
+      _viaggi = List.unmodifiable([
+        for (final v in _viaggi) v.senzaOmbraSeguita(),
+      ]);
+      _cammino = null;
+      avviso = 'Il riconoscimento del tuo animale guida segue ora la '
+          'regola delle ombre: il tuo cammino riparte da qui.';
+    }
+    _sincronizzaCacheDelNome();
+    try {
+      final prefs = await _prefs();
+      await prefs.setBool(_chiaveMigrazioneFZ02, true);
+      await prefs.setString(_chiaveDelCammino,
+          _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
+      await prefs.setStringList(
+          _chiave, [for (final v in _viaggi) jsonEncode(v.toJson())]);
+      await _scriviIlRiconoscimento();
+    } catch (errore) {
+      // Si perde solo il ricordo di aver migrato: al prossimo avvio si
+      // ritenta, e il ritentativo e' idempotente (vedi la nota della voce).
+    }
+    return avviso;
   }
 
   /// **IL TAMBURO: UN GESTO SOLO, E L'ANIMALE SI RIAVVICINA.**
@@ -620,7 +827,9 @@ class DiarioDeiViaggi {
     if (_viaggi.isEmpty) return '';
     // **SENZA PARTICIPIO**, ordine DI voce 05: qui c'era *"e' sceso"*, e il
     // Maestro o il modello che lo riprende direbbe a una donna che e' un uomo.
-    final pezzi = <String>['ha fatto $quanteDiscese discese nel Mondo di Sotto'];
+    final pezzi = <String>[
+      'ha fatto $quanteDiscese discese nel Mondo di Sotto'
+    ];
     final da = giorniDallUltima;
     if (da != null && da >= 7) pezzi.add('ultima volta $da giorni fa');
     final temi = <String, int>{};
@@ -632,8 +841,7 @@ class DiarioDeiViaggi {
       // e non si conta.
       final tema = TemaDellaDomanda.daId(v.temaDellaDomanda)?.inLettere ??
           v.temaDellaDomanda;
-      if (tema.isEmpty ||
-          tema == LaDomandaDelViaggio.idSoloPerIncontrarlo) {
+      if (tema.isEmpty || tema == LaDomandaDelViaggio.idSoloPerIncontrarlo) {
         continue;
       }
       temi.update(tema, (n) => n + 1, ifAbsent: () => 1);
@@ -763,6 +971,28 @@ class UnViaggio {
         if (cammino != null) 'cammino': cammino,
       };
 
+  /// **LA STESSA DISCESA, SENZA L'OMBRA SEGUITA.** Ordine FZ voce 02, per
+  /// [DiarioDeiViaggi.completaMigrazioneFZ02]: chi era a meta' col vecchio
+  /// sistema riparte da capo con le ombre, e le sue discese di prima restano
+  /// nel Diario come storia (scena, domanda, risposta), ma smettono di
+  /// contare per il nuovo riconoscimento. Il campo [cammino] si svuota con
+  /// lei: apparteneva a un cammino che la stessa migrazione chiude.
+  UnViaggio senzaOmbraSeguita() => UnViaggio(
+        quando: quando,
+        domanda: domanda,
+        temaDellaDomanda: temaDellaDomanda,
+        pezzi: pezzi,
+        animaleSeguito: '',
+        nitidezza: nitidezza,
+        titolo: titolo,
+        risposta: risposta,
+        gesto: gesto,
+        oggetto: oggetto,
+        fonti: fonti,
+        strato: null,
+        cammino: null,
+      );
+
   static UnViaggio? fromJson(Map<String, dynamic> j) {
     final quando = DateTime.tryParse(j['quando'] as String? ?? '');
     if (quando == null) return null;
@@ -857,8 +1087,8 @@ class IlCammino {
     final incontro =
         ultimo.temaDellaDomanda == LaDomandaDelViaggio.idSoloPerIncontrarlo ||
             ultimo.domanda == LaDomandaDelViaggio.soloPerIncontrarlo;
-    final scritta = LaDomandaDelViaggio.gliaScritte
-        .any((d) => d.testo == ultimo.domanda);
+    final scritta =
+        LaDomandaDelViaggio.gliaScritte.any((d) => d.testo == ultimo.domanda);
     return IlCammino(
       domanda: incontro ? '' : ultimo.domanda,
       via: incontro

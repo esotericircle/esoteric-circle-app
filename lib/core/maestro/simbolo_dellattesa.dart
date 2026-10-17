@@ -1,8 +1,7 @@
 import '../archetypes/archetype.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../astro/zodiac.dart';
-import '../rituals/guide_animal_derivation.dart';
-import '../viaggio/il_nome_si_puo_dire.dart';
+import '../viaggio/l_animale_di_potere.dart';
 import 'maestro.dart';
 import 'natal_context.dart';
 
@@ -84,18 +83,24 @@ class SimboloDellAttesa {
           asset: segno == null ? null : ZodiacArt.symbolPath(segno),
         );
       case Maestro.caligo:
-        if (segno == null) return const SimboloDellAttesa();
-        final animale = GuideAnimalDerivation.forSign(segno);
         // **IL TOTEM SOLO A NOME DETTO.** Ordine DG voce 02, 12 settembre
         // 2026: finche' l'animale non e' stato incontrato nel Mondo di Sotto
         // il suo simbolo e' **la sua ombra**, che dice che c'e' e non dice
         // quale. Caligo che aspetta mostrando il lupo a chi il lupo non l'ha
         // ancora visto e' la stessa rivelazione del Passaporto, fatta di
         // sguincio.
+        //
+        // **DALL'ORDINE FZ VOCE 01 NON SERVE PIU' IL SEGNO.** Qui c'era
+        // `GuideAnimalDerivation.forSign(segno)`, e senza un segno conosciuto
+        // Caligo non mostrava niente: adesso l'animale non nasce dal segno,
+        // e [AnimaleDiPotere.dalCioCheSiSaGia] legge la cache di sessione del
+        // Diario (`IlNomeSiPuoDire.animaleRiconosciutoNoto`), che non ha
+        // bisogno del segno per esistere.
+        final riconosciuto = AnimaleDiPotere.dalCioCheSiSaGia();
         return SimboloDellAttesa(
-          asset: IlNomeSiPuoDire.dalCioCheSiSaGia(animale.name)
-              ? 'assets/img_thumb/animali/${animale.stem}.webp'
-              : animale.ombraPath,
+          asset: riconosciuto != null
+              ? 'assets/img_thumb/animali/${riconosciuto.stem}.webp'
+              : AnimaleDiPotere.sagomaNonRivelata,
         );
       case Maestro.aura:
         if (archetipo != null) {

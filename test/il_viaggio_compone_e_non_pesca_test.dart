@@ -142,33 +142,41 @@ void main() {
           'Lupo');
     });
 
-    test('L OMBRA E UNA SOLA, ED E SEMPRE QUELLA DELLA NASCITA', () {
-      // **RISCRITTA DALL'ORDINE DG VOCE 02.** Questa prova pretendeva che le
-      // ombre fossero **tre e diverse**, cioe' difendeva il difetto: *"ogni
-      // viaggio e' un animale diverso e non lo stesso che si rivela sempre di
-      // piu' ad ogni viaggio"*.
+    test(
+        'LA TABELLA SEGNO-ANIMALE NON DECIDE PIU\' NESSUN ANIMALE, E RESTA '
+        'SOLO PER LA MIGRAZIONE', () {
+      // **RISCRITTA DALL'ORDINE FZ VOCE 01 E 02, 17 ottobre 2026.** Qui il
+      // titolo era "L'ombra e' una sola, ed e' sempre quella della
+      // nascita": era vero fino all'ordine DG, falso da FZ in avanti. Il
+      // fondatore ha scelto *"La 2."*, l'animale che si rivela nel viaggio
+      // seguendo le ombre, non il cielo: a ogni discesa tre ombre, non una,
+      // e nessuna viene dal segno.
       //
-      // Adesso si misura che ogni segno porti a **un** animale e sempre lo
-      // stesso, e che la sua ombra esista come file.
+      // **LA TABELLA NON E' SPARITA**, perche' serve ancora a una cosa sola:
+      // `AnimaleDiPotere.migraSeServe` la legge per sapere quale animale
+      // tenere fisso a chi aveva gia' concluso col vecchio sistema
+      // (`GuideAnimalDerivation`, in `l_animale_di_potere.dart`). Questa
+      // prova misura che quella tabella, usata SOLO per la migrazione,
+      // resti deterministica e biiettiva: se cambiasse sotto i piedi di chi
+      // migra, due dispositivi dello stesso account potrebbero congelare
+      // due animali diversi per la stessa persona.
       final visti = <String, String>{};
       for (final segno in Zodiac.values) {
         final suo = GuideAnimalDerivation.forSign(segno);
-        // Lo stesso segno, quattro discese, sempre lo stesso animale.
-        for (var discesa = 0; discesa < IQuattroViaggi.quanteDiscese;
-            discesa++) {
+        for (var volta = 0; volta < IQuattroViaggi.quanteDiscese; volta++) {
           expect(GuideAnimalDerivation.forSign(segno).name, suo.name,
-              reason: 'per $segno alla discesa $discesa esce un altro animale');
+              reason: 'per $segno la tabella della migrazione non e\' stabile');
         }
         expect(suo.ombraPath, contains('ani_ombra_'),
             reason: 'per $segno l ombra non punta al file della sagoma');
         visti[segno.name] = suo.name;
       }
       // ignore: avoid_print
-      print('ORDINE DG VOCE 02: dodici segni, un animale ciascuno, '
-          '${visti.values.toSet().length} animali distinti su '
-          '${AnimalCatalog.animals.length}');
+      print('ORDINE FZ VOCE 01 E 02: la tabella di migrazione resta '
+          'biiettiva, dodici segni, ${visti.values.toSet().length} '
+          'animali distinti su ${AnimalCatalog.animals.length}');
       expect(visti.length, Zodiac.values.length);
-      // **La tabella e' biiettiva**: dodici segni, dodici animali diversi.
+      // **La tabella resta biiettiva**: dodici segni, dodici animali diversi.
       expect(visti.values.toSet().length, AnimalCatalog.animals.length);
     });
 
@@ -192,8 +200,8 @@ void main() {
       final temi = LaDomandaDelViaggio.gliaScritte.map((d) => d.tema).toSet();
       expect(temi.length, 6, reason: 'due domande hanno lo stesso tema');
       for (final d in LaDomandaDelViaggio.gliaScritte) {
-        expect(d.testo.length, lessThanOrEqualTo(
-            LaDomandaDelViaggio.quantoPuoEssereLunga),
+        expect(d.testo.length,
+            lessThanOrEqualTo(LaDomandaDelViaggio.quantoPuoEssereLunga),
             reason: 'la domanda "${d.tema}" e piu lunga del limite che l app '
                 'impone a chi scrive la sua');
       }
@@ -202,8 +210,7 @@ void main() {
     test('AL PRIMO VIAGGIO LA DOMANDA E FACOLTATIVA, DAL SECONDO E LA PORTA',
         () {
       expect(LaDomandaDelViaggio.perCheNonVa('', primoViaggio: true), isNull);
-      final perche =
-          LaDomandaDelViaggio.perCheNonVa('', primoViaggio: false);
+      final perche = LaDomandaDelViaggio.perCheNonVa('', primoViaggio: false);
       expect(perche, isNotNull,
           reason: 'dal secondo viaggio si scende senza domanda: la porta non '
               'e piu una porta');
@@ -239,16 +246,11 @@ void main() {
           '${NitidezzaDellaScena.dopoGiorni(28)}');
     });
 
-    test('REGOLA H: LA SCENA VAGA NON TOGLIE NIENTE, cambia cosa si legge',
-        () {
+    test('REGOLA H: LA SCENA VAGA NON TOGLIE NIENTE, cambia cosa si legge', () {
       final piena = ScenaSenzaModello.componi(
-          domanda: 'una scelta',
-          giorno: DateTime(2026, 9, 10),
-          nitidezza: 1.0);
+          domanda: 'una scelta', giorno: DateTime(2026, 9, 10), nitidezza: 1.0);
       final vaga = ScenaSenzaModello.componi(
-          domanda: 'una scelta',
-          giorno: DateTime(2026, 9, 10),
-          nitidezza: 0.0);
+          domanda: 'una scelta', giorno: DateTime(2026, 9, 10), nitidezza: 0.0);
       expect(vaga.idDeiPezzi, piena.idDeiPezzi,
           reason: 'la scena vaga ha pezzi DIVERSI: allora non e la stessa '
               'risposta resa meno leggibile, e una risposta peggiore');
@@ -390,7 +392,12 @@ void main() {
         quando: _unGiorno,
         domanda: 'x',
         temaDellaDomanda: 't',
-        pezzi: const ['un_pezzo_che_non_esiste_piu', 'chiave', 'aspetta', 'alba'],
+        pezzi: const [
+          'un_pezzo_che_non_esiste_piu',
+          'chiave',
+          'aspetta',
+          'alba'
+        ],
         animaleSeguito: 'Lupo',
         nitidezza: 1.0,
       );

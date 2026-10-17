@@ -1,131 +1,176 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
+import 'package:esoteric_circle/core/viaggio/il_nome_si_puo_dire.dart';
+import 'package:esoteric_circle/core/viaggio/l_animale_di_potere.dart';
 
 import 'cardinale_minimo.dart';
 import 'sorgenti_di_lib.dart';
 
-/// **CHI MOSTRA L'ANIMALE SA CHE PUO' NON POTERLO MOSTRARE.**
-/// Ordine DG voce 02, 12 settembre 2026.
+/// **NESSUNA SCHERMATA MOSTRA UN ANIMALE A CHI NON L'HA RICONOSCIUTO, E DUE
+/// SCHERMATE NON NE MOSTRANO DUE DIVERSI.** Ordine DG voce 02,
+/// 12 settembre 2026. Riscritta per intero dall'ordine FZ voce 02,
+/// 17 ottobre 2026, che chiede esplicitamente questa guardia (voce FZ.02,
+/// punto 10 dell'elenco di sviluppo).
 ///
-/// **Parole del fondatore, 11 settembre 2026:** *"nel Passport mi fa gia'
-/// vedere il lupo. il mio animale"*, e prima ancora *"all'onboarding mi dice
-/// che l'animale non puo' essere svelato, ma mi fa vedere la figura
-/// chiaramente"*.
+/// **PERCHE' LA VECCHIA FORMA NON BASTA PIU'.** Fino a FZ ogni persona aveva
+/// un solo animale possibile (quello del segno): sapere "quante discese"
+/// bastava a sapere se dirlo. Con le tre ombre di FZ.01 questo non regge
+/// piu': prima di FZ.02 la domanda giusta non era piu' "si puo' dire il
+/// nome?" ma "QUESTO e' davvero il nome?", e un punto che derivasse ancora
+/// un animale dal segno e gli chiedesse soltanto "si puo' dire" avrebbe
+/// risposto sempre no, anche a riconoscimento fatto (il nome indovinato dal
+/// segno non e' quasi mai quello vero): esattamente il difetto trovato e
+/// riparato in `simbolo_dellattesa.dart`, `bosco_del_cerchio.dart`,
+/// `il_ritratto_screen.dart` e `birth_companions.dart` da questo stesso
+/// ordine.
 ///
-/// **IL DIFETTO NON ERA UNA SCHERMATA, ERA UNA REGOLA SENZA CASA.** Il
-/// Passaporto sapeva che il nome si dice dopo quattro discese e lo sapeva da
-/// solo, dentro il suo `build`. La carta natale non lo sapeva e scriveva
-/// *Lupo* a lettere intere. Il simbolo dell'attesa di Caligo non lo sapeva e
-/// mostrava il totem. Cinque copie di una regola, e una sola applicata.
-///
-/// **COSA MISURA QUESTA GUARDIA.** Scorre `lib`, trova **ogni file che deriva
-/// l'animale dal segno** con `GuideAnimalDerivation.forSign`, e pretende che
-/// ognuno **sappia della soglia**: o chiede a `IlNomeSiPuoDire`, o chiede a
-/// `IQuattroViaggi.nomeDopoLeQuattroDiscese`, che e' la stessa regola letta
-/// dal suo fornitore.
-///
-/// **PERCHE' PROPRIO `forSign` E NON IL NOME A SCHERMO.** Perche' e' **l'unica
-/// porta** da cui l'animale di questa persona puo' uscire: l'ordine DG voce 01
-/// ha chiuso la seconda, e una guardia ci gira sopra. Chi non passa di li' non
-/// ha niente da nascondere; chi ci passa ha in mano il segreto, e deve sapere
-/// quando tacerlo.
-///
-/// **LE DUE ESENZIONI, DICHIARATE PER NOME E PER RAGIONE.** Non sono una
-/// scappatoia: sono i due file dove la regola **nasce**, e pretendere che
-/// chiedano a se stessi sarebbe una circolarita', non una difesa.
-///
-/// **VISTA ROSSA** togliendo la domanda dalla tessera della carta natale: la
-/// prova ha nominato `birth_companions.dart` e ha detto quale riga deriva
-/// l'animale.
+/// **VISTA ROSSA DAVVERO**: eseguita prima di scrivere `AnimaleDiPotere`,
+/// questa stessa idea di guardia (con la vecchia API) cadeva nei punti
+/// elencati sopra, perche' quei file chiedevano "si puo' dire IL NOME DEL
+/// SEGNO" invece di "chi e' stato davvero riconosciuto".
 void main() {
-  /// I due file in cui la regola nasce, e che quindi non la chiedono a
-  /// nessuno.
-  const dovLaRegolaNasce = {
-    'lib/core/viaggio/i_quattro_viaggi.dart',
-    'lib/core/viaggio/il_nome_si_puo_dire.dart',
-  };
+  group('la cache sincrona e l\'archivio non si contraddicono mai', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+      IlNomeSiPuoDire.quanteDisceseNote = 0;
+      IlNomeSiPuoDire.animaleRiconosciutoNoto = null;
+    });
 
-  /// **DOVE L'ANIMALE E' VELATO PER COSTRUZIONE, e quindi non chiede niente
-  /// a nessuno.**
-  ///
-  /// Il Risveglio monta `TrionfoAnimale`, che e' **la scheda che promette la
-  /// rivelazione**: mostra l'ombra e la nebbia, dice che il nome arrivera'
-  /// scendendo, e **non ha nessun ramo in cui riveli**. Chiedergli se oggi si
-  /// puo' dire il nome sarebbe una domanda a cui non saprebbe cosa fare della
-  /// risposta.
-  ///
-  /// **L'esenzione e' per nome e per ragione, e la ragione e' verificabile:**
-  /// la prova qui sotto controlla che quella scheda **non scriva mai** il nome
-  /// dell'animale. Il giorno che lo scrivesse, l'esenzione cade da sola.
-  const dovESempreVelato = {
-    'lib/features/onboarding/risveglio_journey.dart',
-  };
+    test(
+        'prima del riconoscimento: la porta che aspetta e la porta che non '
+        'aspetta dicono tutte e due "non ancora"', () async {
+      final diario = DiarioDeiViaggi();
+      await diario.carica();
+      expect(AnimaleDiPotere.riconosciutoDa(diario), isNull,
+          reason: 'la porta che puo\' aspettare vede un animale prima del '
+              'riconoscimento');
+      expect(AnimaleDiPotere.dalCioCheSiSaGia(), isNull,
+          reason: 'la cache sincrona vede un animale prima che il Diario '
+              'abbia mai risposto');
+    });
 
-  /// **QUANTI POSTI DERIVANO L'ANIMALE, contati il 12 settembre 2026.**
-  ///
-  /// Sono sette: il Passaporto, la carta natale, la lettura dell'animale, il
-  /// bosco, il simbolo dell'attesa di Caligo, il Risveglio, il Viaggio, la
-  /// Home. Il minimo dichiarato e' **cinque**, con un margine di tre: se
-  /// domani ne restassero meno, questa guardia sarebbe verde per essersi
-  /// svuotata, non perche' il segreto e' custodito.
-  const quantiLoDerivano = 5;
+    test('dopo il riconoscimento: le due porte concordano sullo stesso nome',
+        () async {
+      final diario = DiarioDeiViaggi();
+      await diario.carica();
+      for (var i = 0; i < 4; i++) {
+        await diario.segna(UnViaggio(
+          quando: DateTime(2026, 10, 17 + i),
+          domanda: '',
+          temaDellaDomanda: '',
+          pezzi: const [],
+          animaleSeguito: 'Lupo',
+          nitidezza: 1,
+        ));
+      }
+      final dallArchivio = AnimaleDiPotere.riconosciutoDa(diario);
+      final dallaCache = AnimaleDiPotere.dalCioCheSiSaGia();
+      expect(dallArchivio?.name, 'Lupo');
+      expect(dallaCache?.name, 'Lupo');
+      expect(dallArchivio?.name, dallaCache?.name,
+          reason: 'la porta che aspetta e la cache sincrona, lette nello '
+              'stesso istante, dicono due animali diversi');
+    });
 
-  /// La domanda che rende legittimo avere in mano l'animale.
-  const sannoDellaSoglia = [
-    'IlNomeSiPuoDire',
-    'nomeDopoLeQuattroDiscese',
-  ];
-
-  test('chi deriva l\'animale dal segno sa che puo\' doverlo tacere', () {
-    final colpevoli = <String, String>{};
-    var quanti = 0;
-
-    for (final f in sorgentiDiLib()) {
-      final percorso = f.path.replaceAll(Platform.pathSeparator, '/');
-      final da = percorso.contains('lib/') ? percorso.indexOf('lib/') : 0;
-      final normalizzato = percorso.substring(da);
-      final codice = senzaCommenti(f.readAsStringSync());
-      if (!codice.contains('GuideAnimalDerivation.forSign')) continue;
-      quanti++;
-      if (dovLaRegolaNasce.contains(normalizzato)) continue;
-      if (dovESempreVelato.contains(normalizzato)) continue;
-      if (sannoDellaSoglia.any(codice.contains)) continue;
-      // La riga che lo deriva, per chi legge la caduta.
-      final riga = codice
-          .split('\n')
-          .firstWhere((r) => r.contains('GuideAnimalDerivation.forSign'))
-          .trim();
-      colpevoli[normalizzato] = riga;
-    }
-
-    cardinaleMinimo(
-      quanti,
-      quantiLoDerivano,
-      cosa: 'file che derivano l\'animale guida dal segno',
-      perche: 'Se nessuno lo deriva piu\', o la porta unica dell\'ordine DG '
-          'voce 01 e\' stata spostata, e questa guardia sta sorvegliando un '
-          'passaggio che non esiste piu\'.',
-    );
-
-    expect(
-      colpevoli,
-      isEmpty,
-      reason: 'QUESTI FILE HANNO IN MANO L\'ANIMALE DI QUESTA PERSONA E NON '
-          'SANNO CHE PUO\' ESSERE ANCORA SEGRETO.\n'
-          '${colpevoli.entries.map((e) => '  ${e.key}\n    ${e.value}').join('\n')}\n\n'
-          'L\'animale guida si dice dopo quattro discese nel Mondo di Sotto, '
-          'e prima di allora se ne mostra la sola ombra. Chi lo deriva da '
-          '`GuideAnimalDerivation.forSign` ha in mano il finale della storia: '
-          'deve chiedere a `IlNomeSiPuoDire` se oggi si puo\' raccontare.\n'
-          'Il fondatore lo ha visto due volte, l\'11 settembre 2026: una nel '
-          'Passaporto e una nella carta natale, a due schermate di distanza '
-          'dalla scheda che gli prometteva di non svelarlo.',
-    );
+    test(
+        'DUE LETTURE INDIPENDENTI DELLO STESSO ARCHIVIO danno sempre lo '
+        'stesso animale, come due schermate diverse', () async {
+      // **QUESTO E' IL CASO VERO DI DUE SCHERMATE**: ognuna dei dodici
+      // punti dell'app che mostrano l'animale costruisce il suo proprio
+      // `DiarioDeiViaggi()` e lo carica per conto suo (vedi
+      // `cosmic_passport_screen.dart`, `birth_companions.dart`,
+      // `bosco_del_cerchio.dart`, eccetera): se due letture indipendenti
+      // dello stesso telefono dessero due risposte diverse, due schermate
+      // mostrerebbero due animali diversi alla stessa persona.
+      final primo = DiarioDeiViaggi();
+      await primo.carica();
+      for (var i = 0; i < 4; i++) {
+        await primo.segna(UnViaggio(
+          quando: DateTime(2026, 10, 17 + i),
+          domanda: '',
+          temaDellaDomanda: '',
+          pezzi: const [],
+          animaleSeguito: 'Orso',
+          nitidezza: 1,
+        ));
+      }
+      final schermataA = DiarioDeiViaggi();
+      await schermataA.carica();
+      final schermataB = DiarioDeiViaggi();
+      await schermataB.carica();
+      final animaleA = AnimaleDiPotere.riconosciutoDa(schermataA);
+      final animaleB = AnimaleDiPotere.riconosciutoDa(schermataB);
+      expect(animaleA?.name, 'Orso');
+      expect(animaleB?.name, 'Orso');
+      expect(animaleA?.name, animaleB?.name,
+          reason: 'due schermate che leggono lo stesso telefono mostrano '
+              'due animali diversi per la stessa persona');
+    });
   });
 
-  /// **L'ESENZIONE SI PAGA.** Il trionfo dell'animale e' esente dalla domanda
-  /// **perche' non rivela mai**: qui si verifica che sia ancora vero.
+  test(
+      'NESSUN FILE DI lib CHIEDE "SI PUO\' DIRE" A UN NOME INDOVINATO DAL '
+      'SEGNO', () {
+    // **IL DIFETTO CHE QUESTA RIGA PRENDE.** Il vecchio schema era: derivare
+    // un animale dal segno, poi chiedere a `IlNomeSiPuoDire` se quel nome si
+    // puo' dire. Con la derivazione dal segno abolita, quello schema
+    // risponderebbe sempre no: la riga `GuideAnimalDerivation.forSign(...)`
+    // seguita a distanza da `IlNomeSiPuoDire` o `dalCioCheSiSaGia` nello
+    // stesso file (fuori dalla migrazione) e' il segno che qualcuno ha
+    // rimesso lo schema vecchio.
+    const dovLaMigrazioneVive = 'lib/core/viaggio/l_animale_di_potere.dart';
+    final colpevoli = <String>[];
+    for (final f in sorgentiDiLib()) {
+      final p = f.path.replaceAll(Platform.pathSeparator, '/');
+      if (p == dovLaMigrazioneVive) continue;
+      final righe = f.readAsLinesSync();
+      var derivaDalSegno = false;
+      for (final r in righe) {
+        final st = r.trimLeft();
+        if (st.startsWith('//') || st.startsWith('///')) continue;
+        if (r.contains('GuideAnimalDerivation.forSign')) derivaDalSegno = true;
+      }
+      if (derivaDalSegno) colpevoli.add(p);
+    }
+    expect(colpevoli, isEmpty,
+        reason: 'questi file derivano ancora l\'animale dal segno (lo '
+            'misura la guardia gemella, "una porta sola"), e se lo fanno '
+            'per poi chiedere "si puo\' dire" rispondono sempre no:\n'
+            '${colpevoli.join('\n')}');
+  });
+
+  test(
+      'CHI HA BISOGNO DI UN PLACEHOLDER SINCRONO PASSA DA '
+      'AnimaleDiPotere.sagomaNonRivelata, non da una sagoma sua', () {
+    // **IL CARDINALE MINIMO.** Se nessuno chiedesse piu' la sagoma neutra,
+    // vorrebbe dire che la porta unica non e' piu' quella che tutti
+    // chiamano, e questa guardia starebbe sorvegliando un passaggio vuoto.
+    var quanti = 0;
+    for (final f in sorgentiDiLib()) {
+      final codice = f.readAsStringSync();
+      if (codice.contains('AnimaleDiPotere.sagomaNonRivelata') ||
+          codice.contains('AnimaleDiPotere.animalePlaceholder') ||
+          codice.contains('AnimaleDiPotere.nonAncoraRivelato')) {
+        quanti++;
+      }
+    }
+    cardinaleMinimo(quanti, 3,
+        cosa: 'file che chiedono la sagoma neutra a AnimaleDiPotere',
+        perche: 'Se nessuno la chiede piu\', o la porta unica e\' stata '
+            'spostata, o qualcuno e\' tornato a disegnarsi una sagoma per '
+            'conto suo.');
+    // ignore: avoid_print
+    print('ORDINE FZ VOCE 02: $quanti file passano dalla sagoma neutra '
+        'comune');
+  });
+
+  /// **L'ESENZIONE SI PAGA.** Il trionfo dell'animale e' esente dalla
+  /// domanda **perche' non rivela mai**: qui si verifica che sia ancora
+  /// vero.
   ///
   /// **VISTA ROSSA** scrivendo `Text(widget.animale.name)` dentro il trionfo:
   /// la prova ha nominato il file e la riga.
@@ -134,23 +179,22 @@ void main() {
     expect(f.existsSync(), isTrue,
         reason: 'IL TRIONFO DELL\'ANIMALE E\' STATO SPOSTATO, e con lui '
             'l\'esenzione che questa guardia concede al Risveglio.');
-    final codice = senzaCommenti(f.readAsStringSync());
-    final righe = codice.split('\n');
+    final codice = f.readAsLinesSync();
     final accusate = [
-      for (var i = 0; i < righe.length; i++)
-        if (righe[i].contains('animale.name') ||
-            righe[i].contains('animal.name'))
-          '  riga ${i + 1}: ${righe[i].trim()}',
+      for (var i = 0; i < codice.length; i++)
+        if (codice[i].contains('animale.name') ||
+            codice[i].contains('animal.name'))
+          '  riga ${i + 1}: ${codice[i].trim()}',
     ];
     expect(
       accusate,
       isEmpty,
       reason: 'IL TRIONFO DELL\'ANIMALE SCRIVE IL NOME DELL\'ANIMALE.\n'
           '${accusate.join('\n')}\n\n'
-          'Quella scheda e\' esente dalla domanda di `IlNomeSiPuoDire` '
-          'proprio perche\' non rivela mai: mostra l\'ombra e promette che '
-          'il nome arrivera\' scendendo. Se adesso lo scrive, l\'esenzione '
-          'non vale piu\', e o si toglie il nome o si aggiunge la domanda.',
+          'Quella scheda e\' esente dalla porta unica proprio perche\' non '
+          'rivela mai: mostra l\'ombra e promette che il nome arrivera\' '
+          'scendendo. Se adesso lo scrive, l\'esenzione non vale piu\', e o '
+          'si toglie il nome o si aggiunge la domanda.',
     );
   });
 }

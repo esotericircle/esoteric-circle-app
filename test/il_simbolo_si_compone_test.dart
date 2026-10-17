@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/maestro/simbolo_dellattesa.dart';
-import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/il_nome_si_puo_dire.dart';
 import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -57,26 +56,25 @@ void main() {
       final medora = SimboloDellAttesa.per(Maestro.medora, natal: natalCancro);
       expect(medora.asset, 'assets/img_thumb/zodiac/zod_cancro.webp');
 
-      // Il Cancro deriva il Lupo, dalla tabella di curatela che esiste gia'.
-      //
       // **MA IL TOTEM SOLO A NOME DETTO.** Ordine DG voce 02, 12 settembre
       // 2026: finche' l'animale non e' stato incontrato nel Mondo di Sotto il
-      // suo simbolo e' **la sua ombra**. Caligo che aspetta mostrando il lupo
-      // a chi il lupo non l'ha ancora visto e' la stessa rivelazione che il
-      // fondatore ha bocciato nel Passaporto, fatta di sguincio.
-      IlNomeSiPuoDire.quanteDisceseNote = 0;
+      // suo simbolo e' **la sua ombra**. Caligo che aspetta mostrando un
+      // nome a chi quel nome non l'ha ancora visto e' la stessa rivelazione
+      // che il fondatore ha bocciato nel Passaporto, fatta di sguincio.
+      //
+      // **DALL'ORDINE FZ VOCE 01 L'ANIMALE NON SI DERIVA PIU' DAL SEGNO**:
+      // il Cancro non "da'" piu' il Lupo a nessuno, e Caligo legge invece la
+      // cache di sessione del Diario, `IlNomeSiPuoDire.animaleRiconosciutoNoto`.
+      IlNomeSiPuoDire.animaleRiconosciutoNoto = null;
+      addTearDown(() => IlNomeSiPuoDire.animaleRiconosciutoNoto = null);
       final senzaViaggio =
           SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
       expect(senzaViaggio.asset, contains('mondo_di_sotto/'),
-          reason: 'senza le quattro discese Caligo mostra il totem a colori, '
-              'cioe rivela l animale guida mentre aspetta');
-      expect(senzaViaggio.asset, contains('lupo'),
-          reason: 'l ombra non e la sua: deve essere la sagoma del suo '
-              'animale, non una sagoma generica');
+          reason: 'senza nessuna ombra riconosciuta Caligo mostra la sagoma '
+              'neutra di chi non ha ancora rivelato niente');
 
-      // **E il totem quando il nome si puo' dire.**
-      IlNomeSiPuoDire.quanteDisceseNote = IQuattroViaggi.quanteDiscese;
-      addTearDown(() => IlNomeSiPuoDire.quanteDisceseNote = 0);
+      // **E il totem quando il nome si puo' dire davvero.**
+      IlNomeSiPuoDire.animaleRiconosciutoNoto = 'Lupo';
       final caligo = SimboloDellAttesa.per(Maestro.caligo, natal: natalCancro);
       expect(caligo.asset, contains('animali/'));
       expect(caligo.asset, contains('lupo'));
@@ -101,13 +99,30 @@ void main() {
           reason: 'due Maestri guardano lo stesso simbolo: $visti');
     });
 
-    test('Senza il cielo non si inventa un simbolo', () {
-      for (final m in [Maestro.medora, Maestro.caligo]) {
-        final s = SimboloDellAttesa.per(m, natal: NatalContext.none);
-        expect(s.asset, isNull,
-            reason: '${m.displayName} mostra un simbolo a chi non ha ancora '
-                'dato il suo cielo');
-      }
+    test('Senza il cielo Medora non inventa un simbolo', () {
+      // **SOLO MEDORA, DALL'ORDINE FZ VOCE 01.** Qui si pretendeva lo stesso
+      // anche per Caligo: giusto quando il suo animale nasceva dal segno
+      // solare (nessun segno, nessun animale da derivare). Dall'ordine FZ
+      // l'animale di Caligo non nasce piu' dal cielo, nasce dalle ombre
+      // seguite nel Viaggio: senza nessun segno mostra comunque la sagoma
+      // neutra di chi non ha ancora rivelato niente, ed e' la prova subito
+      // sotto a dirlo.
+      final s = SimboloDellAttesa.per(Maestro.medora, natal: NatalContext.none);
+      expect(s.asset, isNull,
+          reason: 'Medora mostra un simbolo a chi non ha ancora dato il '
+              'suo cielo');
+    });
+
+    test(
+        'Senza il cielo Caligo mostra comunque la sagoma neutra, non il '
+        'vuoto', () {
+      IlNomeSiPuoDire.animaleRiconosciutoNoto = null;
+      addTearDown(() => IlNomeSiPuoDire.animaleRiconosciutoNoto = null);
+      final s = SimboloDellAttesa.per(Maestro.caligo, natal: NatalContext.none);
+      expect(s.asset, isNotNull,
+          reason: 'Caligo non ha piu\' bisogno del cielo per sapere se '
+              'mostrare qualcosa: l\'animale non nasce piu\' dal segno');
+      expect(s.asset, contains('mondo_di_sotto/'));
     });
 
     test('Senza archetipo: NESSUN simbolo, e l\'invito al Test', () {

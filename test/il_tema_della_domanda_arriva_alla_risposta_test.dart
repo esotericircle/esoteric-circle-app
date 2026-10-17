@@ -1,7 +1,6 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/la_voce_del_mondo_di_sotto.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -94,6 +93,11 @@ void main() {
             key: ValueKey(chiave),
             userSign: Zodiac.gemini,
             now: DateTime(2026, 9, 12, 12),
+            // **ZERO DISCESE, QUINDI NESSUNA OMBRA E' ANCORA "LA SUA".**
+            // Ordine FZ voce 01: l'animale non nasce piu' da `userSign`, e a
+            // zero discese non c'e' ancora nessuna ombra gia' seguita; le
+            // tre proposte sono le prime del catalogo, e questa prova ne
+            // segue una qualunque (vedi sotto).
             diario: DiarioDelloSciamanoDiProva(0),
           ),
         ),
@@ -121,20 +125,33 @@ void main() {
     await dito.up();
 
     // **3. LA NEBBIA SI APRE COL MOVIMENTO DELLA MANO.**
-    // L'ombra e' quella del SUO animale, derivato dal segno come fa l'app:
-    // `viaggio_ombra_vera` e' l'immagine dentro, e non va toccata.
-    final suo = GuideAnimalDerivation.forSign(Zodiac.gemini).name;
-    final ombra = find.byKey(Key('viaggio_ombra_$suo'));
-    for (var t = 0; t < 200 && ombra.evaluate().isEmpty; t++) {
+    // **NON PIU' UN'OMBRA SOLA DERIVATA DAL SEGNO, ordine FZ voce 01.**
+    // Con zero discese finte nessuna ombra e' ancora "la sua": le tre
+    // proposte sono le prime tre del catalogo, e questa prova ne segue
+    // una qualunque, perche' non e' il suo interesse quale.
+    Key? chiaveDiUnOmbra() {
+      for (final el in tester.allElements) {
+        final k = el.widget.key;
+        if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+          return k;
+        }
+      }
+      return null;
+    }
+
+    Key? trovata;
+    for (var t = 0; t < 200 && trovata == null; t++) {
       if (find.byKey(const Key('viaggio_nebbia')).evaluate().isNotEmpty) {
         await tester.drag(find.byKey(const Key('viaggio_nebbia')),
             Offset(t.isEven ? 180 : -180, 60));
       }
       await tester.pump(const Duration(milliseconds: 60));
+      trovata = chiaveDiUnOmbra();
     }
-    expect(ombra, findsOneWidget,
+    expect(trovata, isNotNull,
         reason: 'LA NEBBIA NON SI E APERTA, e questa prova non arriva alla '
             'risposta: sta misurando un altro guasto');
+    final ombra = find.byKey(trovata!);
 
     // **4. SI SEGUE L'OMBRA, E SI RISALE DALLA LENTE.**
     await tester.tap(ombra);
@@ -147,8 +164,8 @@ void main() {
     }
 
     // **5. LA RISPOSTA, COME ARRIVA A SCHERMO.**
-    expect(find.byKey(const Key('viaggio_titolo_della_risposta')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('viaggio_titolo_della_risposta')), findsOneWidget,
         reason: 'NON SI E ARRIVATI ALLA RISPOSTA');
     return [
       for (final e in find.byType(ParagrafiDiLettura).evaluate())
@@ -162,12 +179,11 @@ void main() {
   for (final domanda in LaDomandaDelViaggio.gliaScritte) {
     testWidgets('la domanda "${domanda.tema}" arriva alla risposta',
         (tester) async {
-      final testi = await laRispostaA(
-          tester, domanda.id, (t) => tocca(t, domanda));
+      final testi =
+          await laRispostaA(tester, domanda.id, (t) => tocca(t, domanda));
       final tutto = testi.join('\n');
       guardate++;
-      final ripresa =
-          riprese.any((r) => testi.any((t) => r.hasMatch(t)));
+      final ripresa = riprese.any((r) => testi.any((t) => r.hasMatch(t)));
       // ignore: avoid_print
       print('ORDINE DI VOCE 01, "${domanda.tema}": '
           '${ripresa ? "la risposta riprende la domanda" : "NESSUNA RIPRESA"}'
@@ -200,11 +216,11 @@ void main() {
   /// **VISTA ROSSA** togliendo la classificazione dal tocco di Scendi: la
   /// risposta e' tornata la frase senza domanda, *"Non hai chiesto niente. Hai
   /// visto lo stesso."*, detta a chi aveva chiesto di sua sorella.
-  testWidgets('la domanda scritta a mano arriva alla risposta, anche senza rete',
+  testWidgets(
+      'la domanda scritta a mano arriva alla risposta, anche senza rete',
       (tester) async {
     const laSua = 'Mia sorella diventerà presto mamma?';
-    final testi =
-        await laRispostaA(tester, 'scritta', (t) => scrivi(t, laSua));
+    final testi = await laRispostaA(tester, 'scritta', (t) => scrivi(t, laSua));
     final ripresa = riprese.any((r) => testi.any((t) => r.hasMatch(t)));
     // ignore: avoid_print
     print('ORDINE DI VOCE 02, "$laSua":\n  '

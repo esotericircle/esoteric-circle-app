@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/config/app_flags.dart';
 import '../../../../core/rituals/animal_catalog.dart';
-import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
+import '../../../../core/viaggio/l_animale_di_potere.dart';
 import '../../../../core/viaggio/la_domanda_capita.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
@@ -341,14 +341,41 @@ class _ViaggioDelloSciamanoScreenState
   /// filmato del fondatore, otto secondi col dito sempre premuto, e sta in
   /// `DiscesaInVideo.durata`: il tunnel di riserva la segue.
 
+  /// **L'AVVISO DI UNA RIGA PER CHI RIPARTE DA CAPO.** Ordine FZ voce 02:
+  /// chi era a meta' col vecchio sistema (il segno) riparte con la regola
+  /// delle ombre, e lo deve sapere con garbo, una volta, non a ogni apertura.
+  /// Nullo quando non c'era niente da dire (diario nuovo, o chi aveva gia'
+  /// concluso: per lui non cambia niente che si veda).
+  String? _avvisoMigrazioneFZ02;
+
   @override
   void initState() {
     super.initState();
     _preparaLaDiscesa();
     // **NON SI ASPETTA L'ARCHIVIO.** Ordine DC voce 16: se il diario non
     // risponde, si scende lo stesso e questa e' la prima discesa.
-    unawaited(_diario.carica().then((_) {
-      if (mounted) setState(() => _caricato = true);
+    //
+    // **E SI COMPLETA LA MIGRAZIONE DI FZ.02**, ordine FZ voce 02: serve il
+    // segno di nascita solo per sapere quale animale tenere fisso a chi
+    // aveva gia' concluso col vecchio sistema; chi era a meta' riparte da
+    // capo con le ombre, e l'avviso che ne nasce si mostra una volta sola,
+    // dopo il primo fotogramma, cosi' non compete con la soglia che si sta
+    // ancora componendo.
+    unawaited(
+        AnimaleDiPotere.caricaERisolvi(_diario, widget.userSign).then((esito) {
+      if (!mounted) return;
+      setState(() {
+        _caricato = true;
+        _avvisoMigrazioneFZ02 = esito.avviso;
+      });
+      if (_avvisoMigrazioneFZ02 != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(_avvisoMigrazioneFZ02!),
+              duration: const Duration(seconds: 4)));
+        });
+      }
     }));
   }
 
@@ -416,23 +443,40 @@ class _ViaggioDelloSciamanoScreenState
       _fase == FaseDelViaggio.nutrimento ||
       _fase == FaseDelViaggio.segno;
 
-  /// **L'ANIMALE DI QUESTA PERSONA, e viene dalla sua nascita.** Ordine DG
-  /// voce 01: la porta e' una sola, `GuideAnimalDerivation.forSign`, e il
-  /// Viaggio non ne apre una seconda.
-  GuideAnimal get _suoAnimale => GuideAnimalDerivation.forSign(widget.userSign);
-
-  /// **SE IL NOME SI PUO' DIRE**, cioe' se le quattro discese sono compiute.
+  /// **L'ANIMALE DI QUESTA PERSONA.** Ordine FZ voce 01 e 02, 17 ottobre
+  /// 2026: non viene piu' dalla nascita.
   ///
-  /// **Prima chiedeva quale ombra era stata seguita piu' volte.** Era la
-  /// seconda porta dell'animale guida: il Passaporto diceva Lupo e il Viaggio
-  /// consegnava Aquila. Ordine DG voce 01.
-  // **DALLA REGOLA DEL NOME, SULLE APPARIZIONI**, ordine DQ voce 03: la
-  // regola ha una casa sola, `IQuattroViaggi`, e adesso legge le quattro
-  // apparizioni del cammino invece delle discese di sempre.
-  bool get _riconosciuto =>
-      IQuattroViaggi.nomeDopoLeQuattroDiscese(
-          _diario.apparizioni, _suoAnimale.name) !=
-      null;
+  /// **Prima veniva dal segno, `GuideAnimalDerivation.forSign`.** Adesso e'
+  /// quello riconosciuto (`AnimaleDiPotere.riconosciutoDa`), e prima del
+  /// riconoscimento e' [_animaleDiLavoro]: un corpo per i gesti e le scene,
+  /// MAI un nome mostrato a schermo (quello resta dietro [_riconosciuto],
+  /// che le due righe sotto non toccano mai senza prima chiederglielo).
+  GuideAnimal get _suoAnimale =>
+      AnimaleDiPotere.riconosciutoDa(_diario) ?? _animaleDiLavoro;
+
+  /// **L'OMBRA CHE OGGI GUIDA**, risolta in un animale del catalogo: serve
+  /// solo a dare un corpo ai gesti della scena (il modo in cui si muove,
+  /// quali gesti sa fare) prima che l'animale sia riconosciuto, non a
+  /// mostrare o nominare niente. Il primo del catalogo quando non si e'
+  /// ancora mai scesi, cosi' la primissima scena ha comunque un corpo.
+  GuideAnimal get _animaleDiLavoro {
+    final nome = AnimaleDiPotere.ombraCheGuida(_diario.scelteInOrdine);
+    if (nome == null) return AnimalCatalog.animals.first;
+    for (final a in AnimalCatalog.animals) {
+      if (a.name == nome) return a;
+    }
+    return AnimalCatalog.animals.first;
+  }
+
+  /// **SE L'ANIMALE E' STATO RICONOSCIUTO.** Ordine FZ voce 01: la stessa
+  /// ombra seguita quattro volte, non per forza di fila, letta dal Diario.
+  ///
+  /// **Prima guardava le apparizioni del cammino contro il nome del segno.**
+  /// Ordine DQ voce 03, e prima ancora ordine DG voce 01: con un solo animale
+  /// possibile i due conti coincidevano sempre. Con tre ombre possibili
+  /// (FZ.01) il Diario sa da solo se ha riconosciuto, e questa schermata non
+  /// deve rifare il conto.
+  bool get _riconosciuto => _diario.riconosciuto;
 
   /// **IL CAMMINO IN CORSO**, ordine DQ voce 01: la domanda scritta alla
   /// prima discesa, che dalla seconda si legge e non si scrive.
@@ -599,7 +643,14 @@ class _ViaggioDelloSciamanoScreenState
     // **LO STRATO DI OGGI E GLI STRATI DI PRIMA**, ordine DQ voce 02: fino
     // al riconoscimento ogni discesa ha il suo strato, e il modello riceve
     // cio' che gli strati di prima hanno gia' detto.
-    final strato = _riconosciuto ? null : _diario.apparizioni + 1;
+    //
+    // **QUI C'ERA `_diario.apparizioni + 1`**, che fino all'ordine FZ
+    // coincideva sempre con lo strato del cammino (un solo animale possibile,
+    // quindi ogni discesa del cammino era anche un'apparizione). Dall'ordine
+    // FZ voce 01 i due conti divergono: lo strato e' la profondita' della
+    // STESSA domanda, le apparizioni sono quante volte l'ombra che guida e'
+    // tornata, e possono crescere a ritmi diversi se si cambia ombra.
+    final strato = _riconosciuto ? null : (c?.strato ?? 0) + 1;
     final strati = _nelCammino && c != null
         ? [
             for (final v in _diario.stratiDi(c))
@@ -941,7 +992,13 @@ class _ViaggioDelloSciamanoScreenState
       // **LO STRATO E IL CAMMINO**, ordine DQ voce 01: nel Diario la
       // domanda del cammino sta accanto alle sue discese, con lo strato.
       cammino: primaRiconosciuto ? null : c?.id,
-      strato: primaRiconosciuto ? null : apparizioniPrima + 1,
+      // **LO STRATO E' QUELLO DEL CAMMINO (la domanda), NON LE APPARIZIONI
+      // DELL'OMBRA.** Ordine FZ voce 01: fino a questo ordine coincidevano
+      // sempre; da qui in poi `segna()` li tiene separati, e salvare qui le
+      // apparizioni farebbe avanzare lo strato del cammino a un ritmo che non
+      // e' il suo (per esempio, due volte in una discesa se l'ombra che
+      // guida fosse cambiata da poco).
+      strato: primaRiconosciuto ? null : (c?.strato ?? 0) + 1,
     ));
     // **LA RIVELAZIONE E' ADESSO**, se questa discesa ha chiuso il cammino.
     _rivelatoOra = !primaRiconosciuto && _riconosciuto;
@@ -1556,9 +1613,16 @@ class _ViaggioDelloSciamanoScreenState
   /// ogni impronta e' la sagoma vera dell'ombra seguita quella volta. La
   /// frase che dice a che punto si e' resta sotto, per chi legge: la voce
   /// DC.04 la vuole, e un disegno non e' un testo.
+  ///
+  /// **DALL'ORDINE FZ VOCE 03 LE IMPRONTE NON SONO PIU' GLI STRATI DI UN
+  /// CAMMINO LEGATO A UNA DOMANDA** (`_diario.scelteDelCammino`): sono le
+  /// volte, in tutta la vita del Diario, in cui l'ombra che oggi guida e'
+  /// stata seguita (`AnimaleDiPotere.improteDelCammino`). Con tre ombre
+  /// possibili uno strato della domanda di oggi e un'apparizione della
+  /// stessa ombra sono due conti diversi.
   Widget _iQuattroSegni(MaestroPalette palette) => LeQuattroImpronte(
         key: const Key('viaggio_i_quattro_segni'),
-        seguiti: _diario.scelteDelCammino,
+        seguiti: AnimaleDiPotere.improteDelCammino(_diario.scelteInOrdine),
         riconosciuto: _riconosciuto,
       );
 
@@ -1570,7 +1634,13 @@ class _ViaggioDelloSciamanoScreenState
   /// DI voce 08 le ha messe, e dicono a che strato si e' arrivati.
   Widget _laDomandaDelCammino(MaestroPalette palette) {
     final c = _cammino!;
-    final strato = _diario.apparizioni + 1;
+    // **LO STRATO DI QUESTA DOMANDA, NON LE APPARIZIONI DELL'OMBRA.** Ordine
+    // FZ voce 01: qui c'era `_diario.apparizioni + 1`, giusto finche' i due
+    // conti coincidevano sempre (un solo animale possibile). Con tre ombre
+    // possibili "oggi scendi al terzo strato" deve restare vero anche per
+    // chi, nelle sue apparizioni, e' piu' avanti o piu' indietro perche' ha
+    // cambiato ombra.
+    final strato = c.strato + 1;
     return Column(
       key: const Key('viaggio_la_domanda_del_cammino'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2111,64 +2181,105 @@ class _ViaggioDelloSciamanoScreenState
         ),
       );
 
-  /// **L'INCONTRO: UNA SOLA OMBRA, ED E' SEMPRE LA SUA.** Ordine DG voce 02,
-  /// 11 settembre 2026.
+  /// **L'INCONTRO: TRE OMBRE, E SE NE SEGUE UNA A INTUITO.** Ordine FZ voce
+  /// 01, 17 ottobre 2026.
   ///
-  /// **Qui c'erano tre ombre fra cui sceglierne una**, e le quattro scelte
-  /// decidevano quale animale sarebbe stato assegnato. Era la seconda porta
-  /// dell'animale guida: il Passaporto diceva Lupo e il Viaggio consegnava
-  /// Aquila.
+  /// **Qui c'era una sola ombra, sempre la sua**, ordine DG voce 02: con
+  /// l'animale deciso dalla nascita, scegliere fra tre sarebbe stata una
+  /// scelta che non cambiava niente, e in Harner il riconoscimento stava nel
+  /// ritorno dell'animale, non nella selezione fra candidati.
   ///
-  /// **Una sola, e la ragione non e' la semplicita'.** Con l'animale deciso
-  /// dalla nascita, scegliere fra tre sarebbe stata **una scelta che non
-  /// cambia niente**: la persona crede di decidere e non decide, che e' peggio
-  /// del non farla decidere affatto. In Harner il riconoscimento sta nel
-  /// **ritorno** dell'animale, non nella selezione fra candidati.
+  /// **ADESSO IL RITORNO E' IL PUNTO, non il suo contrario.** Il fondatore ha
+  /// scelto esplicitamente la via in cui l'animale si rivela nel viaggio: tre
+  /// ombre, nessuna nominata, e la persona ne segue una. Non e' la stessa
+  /// scelta "che non cambia niente" di DC: li' il cielo restringeva i tre
+  /// candidati; qui il cielo non entra, e le tre ombre proposte sono quelle
+  /// che la persona ha gia' seguito di piu' (`AnimaleDiPotere.treOmbreProposte`,
+  /// FZ.01: "le ombre che ritornano"), completate dalle ombre mai viste. Il
+  /// ritorno c'e' ancora: e' la stessa ombra che si ripresenta nelle
+  /// discese dopo, non un animale assegnato da un segno.
   ///
-  /// **Cosa cambia allora fra una discesa e l'altra:** quanta luce le arriva
-  /// addosso, e quanto se ne scopre con la lente. Il file e' sempre lo stesso.
+  /// **DOPO IL RICONOSCIMENTO TORNA A ESSERE UNA SOLA**: non c'e' piu' niente
+  /// da scoprire, e chi scende per un segno o una domanda incontra
+  /// direttamente il suo animale, in piena luce.
   Widget _lIncontro(MaestroPalette palette) {
-    final suo = _suoAnimale;
-    final quale = _diario.apparizioni;
+    if (_riconosciuto) {
+      final suo = _suoAnimale;
+      return Column(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              key: Key('viaggio_ombra_${suo.name}'),
+              behavior: HitTestBehavior.opaque,
+              onTap: () => _segui(suo.name),
+              // **E RIEMPIE LO SPAZIO**: un'immagine non ancora decodificata
+              // misura zero, e un animale che non si puo' toccare non si puo'
+              // seguire. L'ha trovato la guardia della vita dopo il
+              // riconoscimento.
+              child: SizedBox.expand(
+                child: Image.asset(
+                  suo.fullPath,
+                  key: Key('viaggio_sagoma_${suo.name}'),
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(SpacingTokens.lg),
+            child: ParagrafiDiLettura(
+              key: const Key('viaggio_come_si_mostra'),
+              testo: IQuattroViaggi.comeSiMostraAlla(
+                  IQuattroViaggi.quanteDiscese - 1),
+              textAlign: TextAlign.center,
+              stile:
+                  TypographyTokens.lettura().copyWith(color: palette.goldSoft),
+            ),
+          ),
+        ],
+      );
+    }
+    // **LE TRE OMBRE FRA CUI SCEGLIERE**, FZ.01. Sempre tre: se il catalogo
+    // avesse meno di tre animali, `treOmbreProposte` tornerebbe quello che
+    // c'e', e la riga sotto regge comunque con una `Row` piu' corta.
+    final proposte = [
+      for (final nome
+          in AnimaleDiPotere.treOmbreProposte(_diario.scelteInOrdine))
+        if (_animale(nome) != null) _animale(nome)!,
+    ];
     return Column(
       children: [
         Expanded(
-          child: GestureDetector(
-            key: Key('viaggio_ombra_${suo.name}'),
-            behavior: HitTestBehavior.opaque,
-            onTap: () => _segui(suo.name),
-            // **L'OMBRA E' IL FILE DELL'ARCHITETTO**, ordine DG: la sagoma
-            // esatta della sua illustrazione, col filo di luce oro sul bordo.
-            // Se quel file mancasse, `OmbraDellAnimale` cadrebbe sul canale
-            // alpha dell'illustrazione a colori, che e' la stessa forma.
-            // **DOPO IL RICONOSCIMENTO NON E' PIU' UN'OMBRA**, ordine DI voce
-            // 11: e' lui, scoperto, e lo si segue sapendo chi e'.
-            // **E RIEMPIE LO SPAZIO**: un'immagine non ancora decodificata
-            // misura zero, e un animale che non si puo' toccare non si puo'
-            // seguire. L'ha trovato la guardia della vita dopo il
-            // riconoscimento.
-            child: _riconosciuto
-                ? SizedBox.expand(
-                    child: Image.asset(
-                      suo.fullPath,
-                      key: Key('viaggio_sagoma_${suo.name}'),
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+          child: Row(
+            key: const Key('viaggio_tre_ombre'),
+            children: [
+              for (final a in proposte)
+                Expanded(
+                  child: GestureDetector(
+                    key: Key('viaggio_ombra_${a.name}'),
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => _segui(a.name),
+                    // **L'OMBRA E' IL FILE DELL'ARCHITETTO**, ordine DG: la
+                    // sagoma esatta della sua illustrazione, col filo di
+                    // luce oro sul bordo.
+                    child: OmbraDellAnimale(
+                      key: Key('viaggio_sagoma_${a.name}'),
+                      immagine: a.ombraPath,
+                      giaSagoma: true,
+                      quantaLuce: 0.45,
                     ),
-                  )
-                : OmbraDellAnimale(
-                    key: Key('viaggio_sagoma_${suo.name}'),
-                    immagine: suo.ombraPath,
-                    giaSagoma: true,
-                    quantaLuce: 0.35 + 0.2 * quale,
                   ),
+                ),
+            ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: ParagrafiDiLettura(
             key: const Key('viaggio_come_si_mostra'),
-            testo: IQuattroViaggi.comeSiMostraAlla(quale),
+            testo: 'Tre ombre si muovono nel Mondo di Sotto. Seguine una, a '
+                'intuito.',
             textAlign: TextAlign.center,
             stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
           ),
@@ -2294,12 +2405,12 @@ class _ViaggioDelloSciamanoScreenState
     // Ordine DI voce 11: dopo, la riga *"E' il Lupo. Adesso lo conosci."* e la
     // card da condividere tornavano a ogni discesa, cioe' l'apparato della
     // rivelazione acceso a vuoto.
-    // **LA RIVELAZIONE E' LA DISCESA CHE HA CHIUSO IL CAMMINO**, ordine DQ
-    // voce 02: il quarto strato e il nome cadono insieme.
-    final nome = _rivelatoOra
-        ? IQuattroViaggi.nomeDopoLeQuattroDiscese(
-            _diario.apparizioni, _suoAnimale.name)
-        : null;
+    // **LA RIVELAZIONE E' LA DISCESA IN CUI L'OMBRA SEGUITA HA RAGGIUNTO LA
+    // QUARTA VOLTA**, ordine FZ voce 01. Qui c'era un conto sulle apparizioni
+    // del cammino contro il nome del segno (ordine DQ voce 02): con tre ombre
+    // possibili il nome giusto e' quello che il Diario ha appena fissato per
+    // sempre, letto direttamente, non ricalcolato.
+    final nome = _rivelatoOra ? _diario.animaleRiconosciuto : null;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(SpacingTokens.lg),
       child: Column(

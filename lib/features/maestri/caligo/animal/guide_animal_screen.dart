@@ -9,12 +9,13 @@ import '../../../../core/astro/zodiac.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/rituals/guide_animal_corpus.dart';
+import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/il_nome_si_puo_dire.dart';
+import '../../../../core/viaggio/l_animale_di_potere.dart';
 import '../../../../core/viaggio/l_annuncio_dell_animale.dart';
 import '../viaggio/l_ombra_dell_animale.dart';
 import '../../../../core/rituals/guide_animal_day.dart';
-import '../../../../core/rituals/guide_animal_derivation.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
@@ -122,15 +123,29 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   bool _pronto = false;
   bool _popupFatto = false;
 
-  /// **SE IL NOME SI PUO' DIRE.** Ordine DG voce 02, 12 settembre 2026.
-  /// Nasce chiuso: finche' l'archivio non ha risposto non si rivela niente.
-  bool _nomeSiPuoDire = false;
+  /// **L'ARCHIVIO DEL VIAGGIO**, per sapere chi e' stato davvero riconosciuto.
+  /// Ordine FZ voce 01 e 02, 17 ottobre 2026.
+  final DiarioDeiViaggi _diario = DiarioDeiViaggi();
+
+  /// **L'ANIMALE RICONOSCIUTO**, o nullo finche' l'archivio non ha risposto
+  /// o la persona non ha ancora seguito la stessa ombra quattro volte.
+  ///
+  /// **Qui c'era `_nomeSiPuoDire`**, un booleano che chiedeva a
+  /// `IlNomeSiPuoDire` se il nome DERIVATO DAL SEGNO si potesse dire: con la
+  /// derivazione dal segno abolita, quella domanda non avrebbe avuto piu'
+  /// senso (il nome indovinato dal segno non e' quasi mai quello vero).
+  GuideAnimal? _animaleRiconosciuto;
   Archetype? _archetipo;
 
   /// La fase vale solo nel modo viaggio. In identita' si va dritti alla lettura.
   late _Fase _fase = _Fase.viaggio;
 
-  GuideAnimal get _animal => GuideAnimalDerivation.forSign(widget.userSign);
+  /// **L'ANIMALE DI QUESTA SCHERMATA**: quello riconosciuto, o (solo per non
+  /// lasciare senza corpo le scene del modo "viaggio", che FZ non tocca e che
+  /// nessuna rotta di produzione raggiunge piu' dopo l'ordine DG) l'animale
+  /// neutro di `AnimaleDiPotere`. Non deriva mai piu' dal segno.
+  GuideAnimal get _animal =>
+      _animaleRiconosciuto ?? AnimaleDiPotere.animalePlaceholder;
 
   void _viaggioCompiuto() {
     if (mounted) setState(() => _fase = _Fase.messaggio);
@@ -150,9 +165,18 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
     super.initState();
     // **PRIMA DI TUTTO, SI PUO' DIRE?** La lettura dell'animale e' la
     // rivelazione intera, nome e totem e corpus: prima delle quattro discese
-    // non si apre.
-    IlNomeSiPuoDire.chiedendoloAllArchivio(_animal.name).then((si) {
-      if (mounted && si) setState(() => _nomeSiPuoDire = true);
+    // (ordine FZ voce 01: la stessa ombra seguita quattro volte) non si apre.
+    AnimaleDiPotere.caricaERisolvi(_diario, widget.userSign).then((esito) {
+      if (!mounted) return;
+      setState(() => _animaleRiconosciuto = esito.animale);
+      if (esito.animale == null) return;
+      // L'ANIMALE GUIDA ENTRA NEL CAMMINO, ordine P voce 35: terzo Sigillo
+      // di aggancio trasversale.
+      unawaited(RegiaDelCammino.dopoUnGesto(
+        context,
+        'animale_guida',
+        dettagli: {'animale': esito.animale!.name},
+      ));
     });
     _storico.carica().then((_) {
       if (!mounted) return;
@@ -160,15 +184,6 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         _archetipo = _storico.ultimo?.dominante;
         _pronto = true;
       });
-      // L'ANIMALE GUIDA ENTRA NEL CAMMINO, ordine P voce 35: terzo Sigillo
-      // di aggancio trasversale.
-      // **QUALE ANIMALE, ordine AR voce 11**: la scena lo ha appena
-      // derivato dal segno e non deve andarselo a cercare.
-      unawaited(RegiaDelCammino.dopoUnGesto(
-        context,
-        'animale_guida',
-        dettagli: {'animale': _animal.name},
-      ));
       // Se manca il Test Archetipo, il popup evocativo, che lascia proseguire.
       if (_archetipo == null && !_popupFatto) {
         _popupFatto = true;
@@ -216,7 +231,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
         child: SafeArea(
           child: !_pronto
               ? const SizedBox.shrink()
-              : !_nomeSiPuoDire
+              : _animaleRiconosciuto == null
                   // **ANCORA NON SI PUO' DIRE**, e non si mostra una
                   // schermata vuota: si dice perche', e si indica dove si
                   // riempie.

@@ -5,7 +5,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../core/rituals/animal_catalog.dart';
 import '../../core/viaggio/diario_dei_viaggi.dart';
-import '../../core/viaggio/i_quattro_viaggi.dart';
+import '../../core/viaggio/l_animale_di_potere.dart';
 import '../../core/viaggio/l_apparizione.dart';
 import '../maestri/caligo/viaggio/apparizione_dell_animale.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,6 @@ import '../shell/santuario_bottom_bar.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
-import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
@@ -606,19 +605,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     _giaTirata = true;
     try {
       final diario = DiarioDeiViaggi();
-      await diario.carica();
-      // **L'ANIMALE CHE APPARE E' IL SUO, e viene dalla nascita.** Ordine
-      // DG voce 01: qui si chiedeva quale ombra fosse stata seguita piu'
-      // volte, cioe' la seconda porta dell'animale guida.
       if (!mounted) return;
       final profilo = context.read<ProfileController>();
-      final suo =
-          GuideAnimalDerivation.forSign(profilo.identity.segnoDellaNascita);
-      if (IQuattroViaggi.nomeDopoLeQuattroDiscese(
-              diario.apparizioni, suo.name) ==
-          null) {
-        return;
-      }
+      // **L'ANIMALE CHE APPARE E' QUELLO RICONOSCIUTO, ordine FZ voce 01 e
+      // 02.** Qui si chiedeva il segno, poi se quel nome si poteva dire:
+      // adesso il Diario sa da solo se ha riconosciuto, e chi. La migrazione
+      // una tantum di FZ.02 (serve il segno solo per chi aveva gia' concluso
+      // col vecchio sistema) si completa qui, non solo nel Viaggio: questa
+      // apparizione e' uno dei posti che FZ.02 elenca per nome.
+      final esito = await AnimaleDiPotere.caricaERisolvi(
+          diario, profilo.identity.segnoDellaNascita);
+      if (!mounted) return;
+      final suo = esito.animale;
+      if (suo == null) return;
       final prefs = await SharedPreferences.getInstance();
       final quando = prefs.getString(LApparizione.chiaveDellUltima);
       final ultima = quando == null ? null : DateTime.tryParse(quando);

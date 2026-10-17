@@ -27,7 +27,6 @@ import '../../core/identity/birth_moon.dart';
 import '../../core/identity/numerology.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/rituals/carta_di_nascita_dei_tarocchi.dart';
-import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
@@ -37,6 +36,7 @@ import '../maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import '../maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import '../../core/viaggio/diario_dei_viaggi.dart';
 import '../../core/viaggio/i_quattro_viaggi.dart';
+import '../../core/viaggio/l_animale_di_potere.dart';
 import '../../core/viaggio/l_annuncio_dell_animale.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -578,7 +578,14 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
     super.initState();
     // **NON SI ASPETTA L'ARCHIVIO.** Voce DC.16: se il diario non risponde, la
     // casella e' vuota, che e' la verita' di chi non e' ancora sceso.
-    unawaited(_diario.carica().then((_) {
+    //
+    // **E SI COMPLETA LA MIGRAZIONE DI FZ.02** (ordine FZ voce 02): chi
+    // aveva gia' concluso col vecchio sistema tiene l'animale del suo segno,
+    // fissato per sempre; chi era a meta' riparte da capo con le ombre (il
+    // Viaggio mostra l'avviso di una riga, qui basta la verita' aggiornata).
+    unawaited(AnimaleDiPotere.caricaERisolvi(
+            _diario, widget.identity.segnoDellaNascita)
+        .then((_) {
       if (mounted) setState(() {});
     }));
   }
@@ -588,22 +595,18 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
     final identity = widget.identity;
     final palette = context.palette;
     final segno = identity.segnoDellaNascita;
-    final animal = GuideAnimalDerivation.forSign(segno);
-    // **IL NOME SI DICE DOPO QUATTRO DISCESE, e l'animale e' quello della
-    // nascita.** Ordine DG voce 01: qui si chiedeva quale ombra era stata
-    // seguita piu' volte nel Viaggio, e usciva un animale **diverso** da
-    // `animal`, che sta dieci righe piu' su e nasce dal segno. Due animali
-    // guida nella stessa schermata, a dieci righe di distanza.
-    // **LE APPARIZIONI, NON LE DISCESE**, ordine DQ voce 03.
-    final riconosciuto = IQuattroViaggi.nomeDopoLeQuattroDiscese(
-        _diario.apparizioni, animal.name);
-    if (riconosciuto == null) {
+    // **LA PORTA UNICA, ordine FZ voce 01 e 02.** Qui c'era
+    // `GuideAnimalDerivation.forSign(segno)`: l'animale nasceva dalla
+    // nascita, non dalle scelte fatte nel Viaggio. Adesso e' quello che il
+    // Diario ha davvero riconosciuto, o nullo.
+    final animal = AnimaleDiPotere.riconosciutoDa(_diario);
+    if (animal == null) {
       final discese = _diario.apparizioni;
       return _ActiveFactCard(
         cardKey: const Key('passport_guide_animal'),
         overline: 'Animale guida',
         // **NON UN NOME.** La casella e' vuota per davvero.
-        value: 'Ancora senza nome',
+        value: AnimaleDiPotere.nonAncoraRivelato,
         meaning: LAnnuncioDellAnimale.sottoLaSagoma(
             discese, IQuattroViaggi.quanteDiscese),
         isExample: identity.isExample,
@@ -619,19 +622,14 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
             border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
           ),
           clipBehavior: Clip.antiAlias,
-          // **LA SUA OMBRA, non una sagoma generica.** Ordine DG voce 03.2,
-          // 11 settembre 2026.
-          //
-          // **Qui c'era `PittoreDellAnimale`**, che disegnava un quadrupede da
-          // un seme: e' lo stesso difetto di verita' che l'ordine DE aveva
-          // tolto dall'incontro, perche' **quattro dei dodici non sono
-          // quadrupedi**. Nel Passaporto era rimasto.
-          //
-          // Adesso e' la sagoma esatta del suo animale, velata: dice che c'e'
-          // e non dice quale, ed e' la stessa che si incontrera' scendendo.
+          // **LA SAGOMA NEUTRA DI CHI NON HA ANCORA RIVELATO NIENTE.**
+          // Ordine FZ voce 02: qui c'era la sagoma esatta dell'animale del
+          // segno, velata; con la derivazione dal segno abolita non c'e' piu'
+          // nessun animale "suo" da velare prima del riconoscimento, quindi
+          // tutti vedono la stessa sagoma neutra (`AnimaleDiPotere.sagomaNonRivelata`).
           child: OmbraDellAnimale(
             key: const Key('passport_animale_in_ombra'),
-            immagine: animal.ombraPath,
+            immagine: AnimaleDiPotere.sagomaNonRivelata,
             giaSagoma: true,
             // **PIU' SI E' SCESI, PIU' LA LUCE CRESCE**, e la sagoma dice da
             // sola quanto manca.

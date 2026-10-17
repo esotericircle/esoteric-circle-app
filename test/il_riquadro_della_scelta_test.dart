@@ -101,15 +101,28 @@ void main() {
     });
 
     test(
-        'la ragione dell\'animale nomina il segno che lo elegge, e la '
-        'chiave dichiara la curatela', () {
+        'DOPO L\'ORDINE FZ LA RAGIONE DELL\'ANIMALE NON NOMINA PIU UN '
+        'SEGNO, e la chiave nomina Harner', () {
+      // **DOMANDA**: l'animale si rivela ancora dal segno solare, o la
+      // derivazione e' abolita (ordine FZ voce 02, "esce la derivazione dal
+      // segno solare: la tabella di guide_animal_derivation.dart non
+      // decide piu' niente")?
+      // **PROVA**: lib/core/onboarding/scheda_della_scelta.dart,
+      // GeneratoreDellaScheda.perAnimale.
+      // **MISURA**: prima dell'ordine FZ, `ragione` conteneva "Sole in
+      // Leone" e "Aquila"; dopo, `ragione` e' nulla (nessun elemento della
+      // carta natale elegge piu' l'animale) e `chiave` nomina il metodo
+      // vero, Harner, non piu' "curatela".
       final scheda = GeneratoreDellaScheda.perAnimale(
           GuideAnimalDerivation.forSign(Zodiac.leo));
-      expect(scheda.ragione, contains('Sole in Leone'));
-      expect(scheda.ragione, contains('Aquila'));
-      expect(scheda.chiave.toLowerCase(), contains('curatela'),
-          reason: 'Cio\' che scriviamo noi si dichiara chiave di lettura, '
-              'non tradizione.');
+      expect(scheda.ragione, isNull,
+          reason: 'nessun elemento della carta natale elegge piu\' '
+              'l\'animale: la riga della ragione deve sparire, non dire '
+              'una cosa falsa sul segno.');
+      expect(scheda.chiave.toLowerCase(), contains('harner'),
+          reason: 'la regola vera e\' quella di Harner, e la chiave deve '
+              'dirlo invece di parlare ancora di un "ponte col cielo" che '
+              'non esiste piu\'.');
     });
   });
 
@@ -203,8 +216,8 @@ void main() {
       expect(find.textContaining(animale.name), findsNothing,
           reason: 'l onboarding nomina ${animale.name}: il Viaggio dello '
               'Sciamano non ha piu niente da rivelare');
-      expect(find.byKey(const Key('onboarding_annuncio_animale')),
-          findsOneWidget,
+      expect(
+          find.byKey(const Key('onboarding_annuncio_animale')), findsOneWidget,
           reason: 'tolto il nome non e rimasto niente: chi entra non sa '
               'nemmeno che un animale esiste');
     });
