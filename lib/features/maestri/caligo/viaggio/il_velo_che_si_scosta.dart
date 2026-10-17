@@ -7,8 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../core/viaggio/il_velo_dell_animale.dart';
-import '../../../../core/viaggio/le_sagome_in_celle.dart';
+import '../../../../core/viaggio/la_carta_in_quattro_pezzi.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
@@ -23,12 +22,13 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 ///
 /// **LA SEPARAZIONE CHE RISOLVE TUTTO, con le parole dell'ordine**: la
 /// griglia resta come contabilita' e smette di essere disegno. Le celle di
-/// `IlVeloDellAnimale` misurano ancora quanta area e' scoperta, impongono il
-/// quarto di corpo per discesa e proteggono la testa, e non si vedono. **Il
-/// disegno e' continuo**: il dito dipinge una maschera alla risoluzione dello
-/// schermo col pennello morbido di `IlVeloDellAnimale.raggioDelPennello`, in
-/// punti; le celle scoperte si ricavano campionando quella maschera, e i
-/// solchi si conservano nel Diario com'erano, per ridipingerli uguali.
+/// `LaCartaInQuattroPezzi` (ordine FZ voce FZ.04, che sostituisce qui
+/// `IlVeloDellAnimale`) misurano ancora quanta area e' scoperta e impongono
+/// un pezzo per discesa, e non si vedono. **Il disegno e' continuo**: il
+/// dito dipinge una maschera alla risoluzione dello schermo col pennello
+/// morbido di `LaCartaInQuattroPezzi.raggioDelPennello`, in punti; le celle
+/// scoperte si ricavano campionando quella maschera, e i solchi si
+/// conservano nel Diario com'erano, per ridipingerli uguali.
 ///
 /// **LA MATERIA**, e non un colore piatto: la grana a piu' ottave calcolata
 /// alla risoluzione dello schermo, [GranaDellaCenere.allaScena]; sotto, le
@@ -56,8 +56,10 @@ class IlVeloCheSiScosta extends StatefulWidget {
   final String nome;
   final String immagine;
 
-  /// Quante apparizioni c'erano prima di questa: da 0 a 2 si scosta, a 3 il
-  /// velo cade da solo.
+  /// Quante apparizioni c'erano prima di questa, cioe' quale dei quattro
+  /// pezzi questa discesa puo' grattare: da 0, il piu' basso, a 3, il volto.
+  /// Ordine FZ voce FZ.04: ogni pezzo si gratta col dito, nessuno cade da
+  /// solo.
   final int quale;
 
   /// Le celle gia' scostate nelle discese di prima, dal Diario: la
@@ -111,7 +113,8 @@ class IlVeloCheSiScosta extends StatefulWidget {
 }
 
 class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
-  late final IlVeloDellAnimale _velo = IlVeloDellAnimale(widget.nome);
+  late final LaCartaInQuattroPezzi _velo =
+      LaCartaInQuattroPezzi(widget.nome, widget.quale);
   late final Set<int> _scoperte = {...widget.giaScoperte};
   final Set<int> _oggi = {};
   late final List<List<Offset>> _solchi = [
@@ -126,29 +129,18 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
   final math.Random _caso = math.Random(20260915);
   double _percorso = 0;
 
-  /// Da 1, velo intero, a 0, velo caduto. Scende solo alla quarta.
-  double _caduta = 1;
-  Duration _dallaCaduta = Duration.zero;
-
-  /// Dove stava l'illustrazione all'ultimo disegno: serve alla caduta, che
-  /// solleva la cenere senza che nessun dito le dica dove.
-  Rect? _illustrazione;
-  bool _sollevataLaCaduta = false;
-
-  bool get _cadeDaSolo =>
-      widget.quale >= IlVeloDellAnimale.discesePrimaDellaTesta;
-
-  /// **NON RESTA NIENTE DA SCOSTARE**: tutto il corpo fuori dalla testa e'
-  /// gia' in chiaro. Succede alla terza discesa del Gufo e della Volpe.
-  bool get _restaSoloIlVolto => _velo.scostabile.every(_scoperte.contains);
+  /// **IL PEZZO ATTIVO E' GIA' INTERO**: capita riprendendo una discesa a
+  /// pezzo gia' scostato del tutto (una ripresa dopo una chiusura a meta'
+  /// gesto). Ordine FZ voce FZ.04: ogni pezzo e' la stessa misura della
+  /// quota, quindi questo e' solo un fermo di sicurezza, mai la normalita'.
+  bool get _pezzoGiaFinito => _velo.scostabile.every(_scoperte.contains);
 
   bool get _quotaFinita =>
-      _oggi.length >= _velo.perDiscesa || _restaSoloIlVolto;
+      _oggi.length >= _velo.perDiscesa || _pezzoGiaFinito;
 
   @override
   void initState() {
     super.initState();
-    if (_cadeDaSolo) _accendi();
     // **LA GRANA DI RISERVA SI PREPARA UNA VOLTA SOLA**, per tutta l'app:
     // serve per i primi fotogrammi, finche' quella alla risoluzione dello
     // schermo non e' pronta.
@@ -178,30 +170,12 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
       // prima devono avere l'eta' giusta.
       _adesso += _passo;
       setState(() {
-        // **ALLA QUARTA LA CENERE SI SOLLEVA**: pochi granelli, e la coltre
-        // sparisce sotto di loro.
-        final dove = _illustrazione;
-        if (_cadeDaSolo && !_sollevataLaCaduta && dove != null) {
-          _sollevataLaCaduta = true;
-          for (final i in _velo.velato.difference(_scoperte)) {
-            if (i % 9 == 0) _sollevaDallaCella(i, dove);
-          }
-        }
-        if (_cadeDaSolo && _caduta > 0) {
-          _dallaCaduta += _passo;
-          _caduta = (1 -
-                  _dallaCaduta.inMilliseconds /
-                      IlVeloCheSiScosta.quantoDuraLaCaduta.inMilliseconds)
-              .clamp(0.0, 1.0);
-        }
         _particelle.removeWhere(
             (p) => _adesso - p.nata > IlVeloCheSiScosta.vitaDellaParticella);
         _braci.removeWhere(
             (b) => _adesso - b.nata > IlVeloCheSiScosta.vitaDellaBrace);
       });
-      if ((_caduta <= 0 || !_cadeDaSolo) &&
-          _particelle.isEmpty &&
-          _braci.isEmpty) {
+      if (_particelle.isEmpty && _braci.isEmpty) {
         t.cancel();
         _battito = null;
       }
@@ -213,7 +187,7 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
   /// quantita' di oggi non e' finita. **Finita la quantita', il dito non
   /// dipinge piu'**: il solco si ferma dove si e' fermata la contabilita'.
   void _passa(Offset dito, Rect illustrazione, {bool inizio = false}) {
-    if (_cadeDaSolo || illustrazione.isEmpty || _quotaFinita) return;
+    if (illustrazione.isEmpty || _quotaFinita) return;
     final punto = Offset(
       (dito.dx - illustrazione.left) / illustrazione.width,
       (dito.dy - illustrazione.top) / illustrazione.height,
@@ -274,14 +248,6 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
     ));
   }
 
-  void _sollevaDallaCella(int i, Rect illustrazione) {
-    final c = _velo.centro(i);
-    _sollevaDa(
-        Offset(illustrazione.left + c.dx * illustrazione.width,
-            illustrazione.top + c.dy * illustrazione.height),
-        Offset.zero);
-  }
-
   void _fine() {
     _corrente = null;
     widget.quandoCambia(Set.of(_scoperte));
@@ -290,21 +256,20 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
 
   @override
   Widget build(BuildContext context) {
-    final misura = LeSagome.misure[widget.nome] ?? const Size(1, 1);
+    // **LA CARTA E' SEMPRE 1080 PER 1920**: ordine FZ voce FZ.04, lo stesso
+    // fotogramma del video per i dodici animali, nessuna misura per nome.
+    const misura = Size(1080, 1920);
     final palette = widget.palette;
     final dpr = MediaQuery.maybeDevicePixelRatioOf(context) ?? 1;
     return LayoutBuilder(builder: (context, vincoli) {
       final scena = Size(vincoli.maxWidth, vincoli.maxHeight);
       final illustrazione =
           IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
-      _illustrazione = illustrazione;
       // **LA GRANA ALLA RISOLUZIONE DELLO SCHERMO**, una volta per misura.
       final grana = GranaDellaCenere.allaScena(illustrazione.size, dpr, () {
         if (mounted) setState(() {});
       });
-      final coperte = _cadeDaSolo && _caduta <= 0
-          ? <int>{}
-          : _velo.velato.difference(_scoperte);
+      final coperte = _velo.velato.difference(_scoperte);
       return GestureDetector(
         key: const Key('viaggio_velo_che_si_scosta'),
         behavior: HitTestBehavior.opaque,
@@ -348,7 +313,9 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
                   painter: PittoreDellaCenere(
                     velo: _velo,
                     coperte: coperte,
-                    quanta: _caduta,
+                    // **SEMPRE PIENA**: ordine FZ voce FZ.04, nessun pezzo
+                    // cade da solo, e il dito gratta anche il quarto.
+                    quanta: 1,
                     grana: grana ?? GranaDellaCenere.pronta,
                     granaAllaScena: grana != null,
                     dpr: dpr,
@@ -375,15 +342,11 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _cadeDaSolo
-                          ? 'Oggi il velo cade da solo.'
-                          : _restaSoloIlVolto
-                              ? 'Resta velato soltanto il volto.'
-                              : _quotaFinita
-                                  ? 'Per oggi hai scostato abbastanza.'
-                                  // **La frase del fondatore**, ordine DJ
-                                  // voce 04: il gesto e la materia.
-                                  : 'Scosta la cenere con il dito.',
+                      _quotaFinita
+                          ? 'Per oggi hai scostato abbastanza.'
+                          // **La frase del fondatore**, ordine DJ
+                          // voce 04: il gesto e la materia.
+                          : 'Scosta la cenere con il dito.',
                       key: const Key('viaggio_istruzione_lente'),
                       textAlign: TextAlign.center,
                       style: TypographyTokens.etichetta().copyWith(
@@ -658,7 +621,7 @@ class PittoreDelleBraci extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (braci.isEmpty) return;
-    const r = IlVeloDellAnimale.raggioDelPennello;
+    const r = LaCartaInQuattroPezzi.raggioDelPennello;
     final m = materia;
     final shader = m == null
         ? null
@@ -726,7 +689,7 @@ class PittoreDellaCenere extends CustomPainter {
     Set<int>? scoperte,
   }) : scoperte = scoperte ?? velo.velato.difference(coperte);
 
-  final IlVeloDellAnimale velo;
+  final LaCartaInQuattroPezzi velo;
 
   /// Le celle ancora coperte: la contabilita', per chi guarda.
   final Set<int> coperte;
@@ -758,7 +721,7 @@ class PittoreDellaCenere extends CustomPainter {
 
   /// **IL PEZZO DI CENERE DI UNA CELLA**: il suo rettangolo, allargato di
   /// sei decimi di punto. Il cerchio della coltre lo contiene tutto.
-  static Rect pezzo(IlVeloDellAnimale velo, int i, Size size) {
+  static Rect pezzo(LaCartaInQuattroPezzi velo, int i, Size size) {
     final cw = size.width / velo.colonne;
     final ch = size.height / velo.righe;
     return Rect.fromLTWH(
@@ -768,7 +731,7 @@ class PittoreDellaCenere extends CustomPainter {
 
   /// **LA FORMA DELLA COLTRE** per [coperte], in una cenere grande [size].
   /// Pubblica perche' una guardia verifichi che contiene ogni cella coperta.
-  static Path forma(IlVeloDellAnimale velo, Set<int> coperte, Size size) {
+  static Path forma(LaCartaInQuattroPezzi velo, Set<int> coperte, Size size) {
     final cw = size.width / velo.colonne;
     final ch = size.height / velo.righe;
     final lato = math.min(cw, ch);
@@ -814,7 +777,7 @@ class PittoreDellaCenere extends CustomPainter {
   /// **IL CUMULO SULLA TESTA**, finche' la testa e' coperta: l'ellisse del
   /// velo, con nove gobbe sul contorno e una corona di scaglie, perche' sia
   /// una nube di cenere e non un ovale disegnato col compasso.
-  static Path _ilCumulo(IlVeloDellAnimale velo, Set<int> coperte, Size size) {
+  static Path _ilCumulo(LaCartaInQuattroPezzi velo, Set<int> coperte, Size size) {
     final p = Path();
     final n = velo.cumulo;
     if (n == null || !coperte.any(velo.testa.contains)) return p;
@@ -899,7 +862,7 @@ class PittoreDellaCenere extends CustomPainter {
           forma,
           _pittura(1)
             ..maskFilter = const MaskFilter.blur(
-                BlurStyle.normal, IlVeloDellAnimale.raggioDelPennello * 0.35));
+                BlurStyle.normal, LaCartaInQuattroPezzi.raggioDelPennello * 0.35));
     });
     if (_dipinte.length > 6) _dipinte.clear();
     return _dipinte[chiave] = (coltre, cumulo);
@@ -953,7 +916,7 @@ class PittoreDellaCenere extends CustomPainter {
   /// che il dito sta disegnando adesso.
   void _scava(Canvas canvas, Size size, List<List<Offset>> quali) {
     if (quali.isEmpty) return;
-    const r = IlVeloDellAnimale.raggioDelPennello;
+    const r = LaCartaInQuattroPezzi.raggioDelPennello;
     final solco = _tracciato(quali, size);
     Paint pennello(
             double largo, Color colore, BlendMode modo, double morbido) =>

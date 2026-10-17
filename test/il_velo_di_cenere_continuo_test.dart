@@ -5,9 +5,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
-import 'package:esoteric_circle/core/viaggio/dove_sta_la_testa.dart';
-import 'package:esoteric_circle/core/viaggio/il_velo_dell_animale.dart';
-import 'package:esoteric_circle/core/viaggio/le_sagome_in_celle.dart';
+import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,13 +23,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
   const scena = Size(390, 844);
-  const r = IlVeloDellAnimale.raggioDelPennello;
+  const r = LaCartaInQuattroPezzi.raggioDelPennello;
 
-  /// Il Lupo: la sua illustrazione nella scena, e un tratto diagonale sul
-  /// corpo, lontano dalla testa.
-  final velo = IlVeloDellAnimale('Lupo');
-  final illustrazione =
-      IlVeloCheSiScosta.doveStaLIllustrazione(scena, LeSagome.misure['Lupo']!);
+  /// Il Lupo: la sua carta nella scena, e un tratto diagonale sul pezzo
+  /// attivo (il piu' basso, il pezzo 0: non c'e' piu' una testa da evitare).
+  final velo = LaCartaInQuattroPezzi('Lupo', 0);
+  final illustrazione = IlVeloCheSiScosta.doveStaLIllustrazione(
+      scena, const Size(1080, 1920));
   final size = illustrazione.size;
 
   /// Un tratto diagonale dentro il corpo: dal centro di massa delle celle
@@ -132,49 +130,6 @@ void main() {
             'come i lati di una griglia');
     expect(mediana, inInclusiveRange(r * 0.7, r * 1.1),
         reason: 'il solco non e largo quanto il pennello');
-  });
-
-  testWidgets(
-      'LA TESTA RESTA COPERTA ANCHE COL DITO SOPRA, e il solco le si ferma '
-      'contro col bordo sfumato', (tester) async {
-    final t = DoveStaLaTesta.di('Lupo')!;
-    final (a, _) = tratto();
-    // Il tratto parte dal corpo e attraversa tutta la testa.
-    final (px, w, h) = await dipingi(tester, [
-      [a, t.center, Offset(t.right + 0.02, t.top - 0.02)]
-    ]);
-    var guardati = 0;
-    final scoperti = <String>[];
-    for (var ix = 0; ix <= 20; ix++) {
-      for (var iy = 0; iy <= 20; iy++) {
-        final x = ((t.left + t.width * ix / 20) * size.width).floor().clamp(0, w - 1);
-        final y = ((t.top + t.height * iy / 20) * size.height).floor().clamp(0, h - 1);
-        guardati++;
-        final alfa = px[(y * w + x) * 4 + 3];
-        if (alfa < 250) scoperti.add('($x,$y) $alfa');
-      }
-    }
-    expect(guardati, 441);
-    expect(scoperti, isEmpty,
-        reason: 'il dito ha scoperto un pezzo di testa: ${scoperti.take(5)}');
-    // **IL BORDO SFUMATO**: lungo il tratto, fra il corpo aperto e la testa
-    // coperta, la cenere sale per piu' pixel, non in un colpo.
-    final da = Offset(a.dx * size.width, a.dy * size.height);
-    final verso =
-        Offset(t.center.dx * size.width, t.center.dy * size.height);
-    final valori = <int>[];
-    for (var k = 0; k <= 200; k++) {
-      final p = Offset.lerp(da, verso, k / 200)!;
-      valori.add(px[(p.dy.floor().clamp(0, h - 1) * w +
-                  p.dx.floor().clamp(0, w - 1)) *
-              4 +
-          3]);
-    }
-    final intermedi = valori.where((v) => v > 30 && v < 225).length;
-    print('ORDINE DQ VOCE 05, LA TESTA: 441 punti coperti; lungo il tratto '
-        '$intermedi campioni fra aperto e coperto');
-    expect(intermedi, greaterThanOrEqualTo(3),
-        reason: 'il solco si ferma contro la testa di taglio netto');
   });
 
   test(
