@@ -81,13 +81,21 @@ void main() {
       }
     });
 
-    test('Fonti e metodo cita le opere e dichiara la curatela', () {
+    test(
+        'Fonti e metodo cita le opere, e non parla piu di una derivazione '
+        'dal segno solare (ordine FZ voce 02: l\'animale non si calcola '
+        'piu dalla nascita)', () {
       const f = GuideAnimalCorpus.fontiEMetodo;
       expect(f, contains('Harner'));
       expect(f, contains('Andrews'));
       expect(f, contains('Farmer'));
       expect(f, contains('Carson'));
-      expect(f, contains('ponte di curatela'));
+      expect(f, contains('quattro volte'));
+      for (final parola in ['segno solare', 'derivazione', 'ponte di curatela']) {
+        expect(f, isNot(contains(parola)),
+            reason: '"$parola" descriverebbe un meccanismo che l\'ordine '
+                'FZ voce 02 ha tolto');
+      }
     });
   });
 

@@ -388,15 +388,24 @@ class GuideAnimalCorpus {
 
   /// Il testo del pannello "Fonti e metodo", che cita le opere e distingue
   /// tradizione e curatela.
+  ///
+  /// **RISCRITTO DALL'ORDINE FZ VOCE 02, 17 ottobre 2026.** Qui c'era *"la
+  /// nostra derivazione dal segno solare è un ponte di curatela"*: l'ordine
+  /// FZ ha tolto quella derivazione (l'animale non si calcola piu' dalla
+  /// nascita, si trova nel Viaggio dello Sciamano seguendo le ombre), e
+  /// quella riga era diventata falsa. Non toccata dall'agente che ha chiuso
+  /// FZ.01-03 perche' questo pannello e' dello stesso perimetro di FZ.07.
   static const String fontiEMetodo =
       "L'Animale Guida poggia sullo sciamanesimo e sul core shamanism di Michael "
       "Harner, insieme alla letteratura degli animali di potere: Ted Andrews "
       "(Animal Speak), Steven Farmer (Animal Spirit Guides), Jamie Sams e David "
-      "Carson (Medicine Cards). Un'onestà è dovuta: nella tradizione l'animale "
-      "di potere si trova col viaggio sciamanico, non si calcola dall'astrologia. "
-      "La nostra derivazione dal segno solare è un ponte di curatela, dichiarato: "
-      "un modo per offrirti un totem coerente col tuo cielo, non un responso della "
-      "tradizione. I significati vengono dalla simbologia di quelle opere, con la "
-      "nostra scrittura. Non è una diagnosi né una previsione: è intrattenimento "
-      "e crescita, uno specchio. Le tue scelte restano tue.";
+      "Carson (Medicine Cards). Non si calcola dalla nascita: lo trovi nel "
+      "Viaggio dello Sciamano, seguendo di volta in volta l'ombra che ti parla "
+      "di piu', e lo riconosci quando si e' mostrata almeno quattro volte, come "
+      "insegna Harner. Le tre ombre fra cui scegliere a ogni discesa sono il "
+      "modo in cui questa app mette in scena il viaggio: nella tradizione non "
+      "c'è una scelta fra ombre, c'è una visione libera. I significati vengono "
+      "dalla simbologia di quelle opere, con la nostra scrittura. Non è una "
+      "diagnosi né una previsione: è intrattenimento e crescita, uno specchio. "
+      "Le tue scelte restano tue.";
 }
