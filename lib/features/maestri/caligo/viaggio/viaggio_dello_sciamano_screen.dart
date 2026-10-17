@@ -2528,12 +2528,19 @@ class _ViaggioDelloSciamanoScreenState
         dettagli: {'cosa': 'rivelazione', 'animale': nome}));
   }
 
-  /// **LE FONTI, tutte e due nominate.** Ordine DC voce 01.
+  /// **LE FONTI, tutte e due nominate.** Ordine DC voce 01; il paragrafo
+  /// sulle tre ombre e' dell'ordine FZ voce FZ.07, 17 ottobre 2026: la
+  /// regola del riconoscimento (mostrarsi almeno quattro volte) viene da
+  /// Harner, la scelta fra tre ombre e' come l'app mette in scena il
+  /// viaggio, non la tradizione, che parla di una visione libera.
   static const String _fonti =
       'Il metodo del viaggio viene dal core shamanism di Michael Harner, The '
       'Way of the Shaman, 1980: si scende da un\'apertura nella terra, si '
       'incontra un animale. Lo si riconosce quando si è mostrato almeno '
       'quattro volte.\n\n'
+      'Le tre ombre fra cui scegliere a ogni discesa sono il modo in cui '
+      'questa app mette in scena il viaggio: nella tradizione di Harner non '
+      'c\'è una scelta fra ombre, c\'è una visione libera.\n\n'
       'La cosmologia dei tre mondi, con il Mondo di Sotto raggiunto per un '
       'tunnel, è documentata da Mircea Eliade in Le Chamanisme et les '
       'techniques archaiques de l\'extase, 1951.\n\n'
