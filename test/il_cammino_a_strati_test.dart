@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
+import 'package:esoteric_circle/core/viaggio/l_animale_di_potere.dart';
 import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
 import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
 import 'package:esoteric_circle/core/viaggio/le_parole_del_cammino.dart';
@@ -76,8 +77,9 @@ void main() {
       expect(r.cammini.single.strati, hasLength(4));
     });
 
-    test('cambiare domanda azzera le apparizioni e lascia le discese',
-        () async {
+    test(
+        'cambiare domanda azzera lo strato del cammino, non il '
+        'riconoscimento dell\'ombra', () async {
       final d = DiarioDeiViaggi();
       await d.carica();
       final c = IlCammino(
@@ -91,7 +93,17 @@ void main() {
       await d.segnaCelleScoperte('Lupo', {1, 2, 3});
       expect(d.apparizioni, 2);
       await d.cambiaLaDomanda();
-      expect(d.apparizioni, 0);
+      // **QUI C'ERA `expect(d.apparizioni, 0)`.** Ordine FZ voce 01, 17
+      // ottobre 2026: fino a quell'ordine le apparizioni erano lo strato
+      // del cammino, e cambiare domanda le azzerava insieme a lui. Con tre
+      // ombre possibili i due conti sono separati: le apparizioni sono
+      // quante volte l'ombra che guida e' stata seguita IN TUTTA LA VITA
+      // DEL DIARIO, e cambiare la domanda di oggi non toglie le ombre gia'
+      // seguite. Qui le due discese erano entrambe "Lupo": restano due.
+      expect(d.apparizioni, 2,
+          reason: 'cambiare domanda non deve far perdere le ombre gia\' '
+              'seguite: il riconoscimento e\' un\'altra cosa dallo strato '
+              'della domanda');
       expect(d.cammino, isNull);
       expect(d.viaggi, hasLength(2), reason: 'le discese fatte restano');
       expect(d.cammini.single.strati, hasLength(2),
@@ -100,7 +112,8 @@ void main() {
           reason: 'il cammino riparte dalla prima, e la cenere torna intera');
       final r = DiarioDeiViaggi();
       await r.carica();
-      expect(r.apparizioni, 0, reason: 'riaprendo il Diario il cambio resta');
+      expect(r.apparizioni, 2,
+          reason: 'riaprendo il Diario le ombre gia\' seguite restano');
     });
 
     test('un Diario di prima: a meta prosegue, a quattro resta riconosciuto',
@@ -129,14 +142,27 @@ void main() {
       });
       final b = DiarioDeiViaggi();
       await b.carica();
+      // **QUI `b.carica()` BASTAVA DA SOLA, e da FZ non basta piu'.** Ordine
+      // FZ voce 02: chi aveva gia' concluso tiene l'animale del suo segno,
+      // ma QUALE segno `carica()` non lo sa (non lo riceve): finche'
+      // nessuno chiama la migrazione con il segno, il Diario resta
+      // prudentemente "non ancora riconosciuto", mai "riconosciuto a un
+      // nome indovinato".
+      expect(b.riconosciuto, isFalse,
+          reason: 'senza la migrazione (che vuole il segno) il Diario non '
+              'deve inventarsi un nome');
+      await AnimaleDiPotere.migraSeServe(b, Zodiac.cancer);
       expect(b.riconosciuto, isTrue,
-          reason: 'chi aveva gia riconosciuto il suo animale lo tiene');
+          reason: 'chi aveva gia riconosciuto il suo animale lo tiene, '
+              'completata la migrazione');
+      expect(b.animaleRiconosciuto, 'Lupo');
       expect(b.cammino, isNull);
     });
   });
 
   group('DQ.14, il Diario di collaudo', () {
-    test('senza archivio non scrive niente sul telefono, e resta per la '
+    test(
+        'senza archivio non scrive niente sul telefono, e resta per la '
         'sessione', () async {
       final d = DiarioDeiViaggi(archivio: false);
       await d.carica();
@@ -161,8 +187,12 @@ void main() {
 
     test('la build che si consegna non accende il collaudo', () {
       expect(DiarioDeiViaggi.collaudoDelCammino, isFalse);
-      for (final f in ['codemagic.yaml', 'docs/versione_distribuita.json',
-          'tool/consegna.py', 'tool/sbarramento.sh']) {
+      for (final f in [
+        'codemagic.yaml',
+        'docs/versione_distribuita.json',
+        'tool/consegna.py',
+        'tool/sbarramento.sh'
+      ]) {
         expect(File(f).readAsStringSync().contains('COLLAUDO_DEL_CAMMINO'),
             isFalse,
             reason: '$f accende il Diario di collaudo nella build vera');
@@ -173,7 +203,8 @@ void main() {
   group('DQ.02 e DQ.04, i quattro strati al modello', () {
     final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
 
-    test('ogni strato ha la sua istruzione, e senza domanda parla dell incontro',
+    test(
+        'ogni strato ha la sua istruzione, e senza domanda parla dell incontro',
         () {
       final conDomanda = [
         for (var s = 1; s <= 4; s++)
@@ -183,8 +214,8 @@ void main() {
         expect(conDomanda[s], contains(LaScenaDalModello.stratiConDomanda[s]));
       }
       expect(conDomanda.toSet(), hasLength(4));
-      final incontro = LaScenaDalModello.istruzione(lupo,
-          strato: 2, soloIncontro: true);
+      final incontro =
+          LaScenaDalModello.istruzione(lupo, strato: 2, soloIncontro: true);
       expect(incontro, contains(LaScenaDalModello.stratiDellIncontro[1]));
       expect(incontro, isNot(contains('lasciali vuoti')),
           reason: 'chi scende senza domanda deve ricevere i suoi testi');
@@ -213,7 +244,8 @@ void main() {
       expect(r, contains('R due'));
     });
 
-    test('prima della quarta l animale non si nomina, e uno strato non si ripete',
+    test(
+        'prima della quarta l animale non si nomina, e uno strato non si ripete',
         () {
       final s = CioCheSiSa(
         domanda: 'Mia sorella non mi parla',
@@ -331,7 +363,8 @@ void main() {
                       {'tema': 'persona', 'oggetto': 'tua sorella'});
                 },
                 chiamataDellaScena: (_, richiesta, ___) async {
-                  final m = RegExp(r'Strato di oggi: (\d)').firstMatch(richiesta);
+                  final m =
+                      RegExp(r'Strato di oggi: (\d)').firstMatch(richiesta);
                   final s = int.parse(m?.group(1) ?? '1') - 1;
                   return jsonEncode({
                     'luogo': 'grotta',
@@ -372,7 +405,23 @@ void main() {
           await tester.pump(const Duration(milliseconds: 60));
         }
         await tester.pump(const Duration(milliseconds: 300));
-        await tester.tap(find.byKey(const Key('viaggio_ombra_Lupo')));
+        // **NESSUN NOME FISSO, ordine FZ voce 01.** Qui c'era
+        // `viaggio_ombra_Lupo`: con tre ombre proposte invece di una, si
+        // segue sempre la prima trovata (nelle discese di questa prova
+        // "Lupo" e' gia' stata seguita, e torna sempre in testa alle tre
+        // proposte).
+        Key? chiaveDiUnOmbra() {
+          for (final el in tester.allElements) {
+            final k = el.widget.key;
+            if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+              return k;
+            }
+          }
+          return null;
+        }
+
+        final chiaveOmbra = chiaveDiUnOmbra();
+        if (chiaveOmbra != null) await tester.tap(find.byKey(chiaveOmbra));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 300));
         final risali = find.byKey(const Key('viaggio_risali'));
@@ -391,8 +440,10 @@ void main() {
       await tester.pump();
       await scendiERisali();
       expect(chiamateDellaDomanda, 1);
-      expect(find.text(LeParoleDelCammino.etichettaDelloStrato(1,
-          conDomanda: true)), findsOneWidget);
+      expect(
+          find.text(
+              LeParoleDelCammino.etichettaDelloStrato(1, conDomanda: true)),
+          findsOneWidget);
       expect(find.text(titoli[0]), findsOneWidget);
 
       // **LA SECONDA**: la domanda si legge, al femminile, e non si scrive.
@@ -403,11 +454,12 @@ void main() {
       expect(find.text(domanda), findsOneWidget);
 
       // **IL RIQUADRO DEL CAMBIO**, con le parole dell'ordine.
-      await tester.ensureVisible(
-          find.byKey(const Key('viaggio_cambia_la_domanda')));
+      await tester
+          .ensureVisible(find.byKey(const Key('viaggio_cambia_la_domanda')));
       await tester.tap(find.byKey(const Key('viaggio_cambia_la_domanda')));
       await tester.pump(const Duration(milliseconds: 400));
-      expect(find.byKey(const Key('viaggio_avviso_del_cambio')), findsOneWidget);
+      expect(
+          find.byKey(const Key('viaggio_avviso_del_cambio')), findsOneWidget);
       for (final p in LeParoleDelCammino.avvisoDelCambio) {
         expect(find.textContaining(p.substring(0, 40)), findsOneWidget,
             reason: p);
@@ -438,8 +490,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 100));
       for (var s = 1; s <= 4; s++) {
         expect(
-            find.text(LeParoleDelCammino.etichettaDelloStrato(s,
-                conDomanda: true)),
+            find.text(
+                LeParoleDelCammino.etichettaDelloStrato(s, conDomanda: true)),
             findsOneWidget,
             reason: 'il Diario non mostra lo strato $s di fila');
       }
@@ -453,6 +505,14 @@ void main() {
       addTearDown(tester.view.reset);
       final diario = DiarioDeiViaggi(orologio: () => DateTime(2026, 9, 15, 12));
       await diario.carica();
+      // **LA MIGRAZIONE DI FZ.02 GIA' FATTA**, come accadrebbe sempre nella
+      // schermata vera (la fa l'`initState`, prima che la persona possa
+      // scendere una sola volta): senza questo passo, il `segna` qui sotto,
+      // fatto a mano prima di montare la schermata, sarebbe indistinguibile
+      // da un diario a meta' col vecchio sistema, e la migrazione (che la
+      // schermata completa al suo `initState`) azzererebbe l'ombra appena
+      // segnata.
+      await AnimaleDiPotere.migraSeServe(diario, Zodiac.cancer);
       final c = IlCammino(
           domanda: domanda,
           via: 'scritta',
@@ -478,14 +538,20 @@ void main() {
       ));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
-      await tester.ensureVisible(
-          find.byKey(const Key('viaggio_cambia_la_domanda')));
+      await tester
+          .ensureVisible(find.byKey(const Key('viaggio_cambia_la_domanda')));
       await tester.tap(find.byKey(const Key('viaggio_cambia_la_domanda')));
       await tester.pump(const Duration(milliseconds: 400));
       await tester
           .tap(find.byKey(const Key('viaggio_comincio_un_altro_viaggio')));
       await tester.pump(const Duration(milliseconds: 400));
-      expect(diario.apparizioni, 0);
+      // **QUI C'ERA `expect(diario.apparizioni, 0)`.** Ordine FZ voce 01:
+      // cominciare un altro viaggio azzera il cammino (la domanda), non le
+      // ombre gia' seguite. La discesa fatta prima aveva seguito "Lupo":
+      // resta una.
+      expect(diario.apparizioni, 1,
+          reason: 'cominciare un altro viaggio non deve far perdere '
+              'l\'ombra gia\' seguita');
       expect(diario.viaggi, hasLength(1));
       expect(find.byKey(const Key('viaggio_le_tre_vie')), findsOneWidget,
           reason: 'dopo il cambio si sceglie di nuovo con che cosa scendere');
