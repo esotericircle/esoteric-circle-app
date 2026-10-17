@@ -175,6 +175,6 @@ void main() {
     final v = nuovo(client);
     await v.scaricaAnimale('Lupo');
     expect(v.haFineUscita('lupo'), isTrue);
-    expect(v.percorsoDellaScenaVuota('lupo'), contains('00_SCENA_ULTIMO.jpg'));
+    expect(v.percorsoDellaScenaVuota('lupo'), contains('00_scena_ultimo.webp'));
   });
 }

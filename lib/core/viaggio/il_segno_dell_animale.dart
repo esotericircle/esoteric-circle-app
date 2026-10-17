@@ -113,33 +113,6 @@ abstract final class GestiDelSegno {
   /// senso compiuto: una frase breve per il gesto e una per cio' che vuol dire.
   static const int rigaAlMassimo = 180;
 
-  /// **I DISEGNI DEI GESTI**, ordine DJ voce 08: trentasei, uno per gesto e
-  /// per animale, in `assets/img/mondo_di_sotto/gesti/`. Il nome e' quello
-  /// dell'animale nelle sue illustrazioni, `lupo` da `ani_lupo_v1`, poi il
-  /// gesto: `lupo_si_avvicina_v1.webp`. **Finche' un file manca il segno
-  /// mostra l'illustrazione intera dell'animale e la riga**: la funzione non
-  /// si spegne e non mostra un riquadro vuoto.
-  ///
-  /// La cartella e' spezzata in pezzi senza barre, come quella delle ombre.
-  static String disegnoDi(GuideAnimal animale, GestoDelSegno gesto) {
-    final nome = animale.stem.substring(4, animale.stem.length - 3);
-    return '$_cartellaDeiDisegni/${nome}_${gesto.nelFile}$_versione';
-  }
-
-  /// **I TRENTASEI DISEGNI ATTESI**, col nome esatto con cui vanno
-  /// consegnati. Chi li produce legge questo elenco e non il codice.
-  static List<String> get disegniAttesi => [
-        for (final a in AnimalCatalog.animals)
-          for (final g in GestoDelSegno.values) disegnoDi(a, g),
-      ];
-
-  static const String _dentro = 'assets';
-  static const String _quali = 'img';
-  static const String _dove = 'mondo_di_sotto';
-  static const String _gesti = 'gesti';
-  static const String _cartellaDeiDisegni = '$_dentro/$_quali/$_dove/$_gesti';
-  static const String _versione = '_v1.webp';
-
   /// **L'ISTRUZIONE AL MODELLO.** Costruita dall'enumerazione, cosi' il
   /// repertorio non si ricopia a mano.
   static String istruzione(GuideAnimal animale, {CourtesyForm? forma}) {

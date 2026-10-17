@@ -105,24 +105,41 @@ class _IlCamminoDellAnimaleState extends State<IlCamminoDellAnimale> {
 
   Future<void> _apri(int indice) async {
     final percorso = widget.percorsi[widget.sequenza.pezzi[indice]];
-    if (percorso == null) return;
+    if (percorso == null) {
+      // **IL PEZZO NON C'E'**, senza rete o non ancora scaricato: si salta
+      // come se fosse finito all'istante, mai un'attesa senza fine. La
+      // posa resta lo strato di fondo, e chi aspetta [quandoFinisce] (la
+      // riga del segno, per esempio) non resta bloccato per sempre.
+      //
+      // **UN MICROTASK PRIMA DI `setState`**: al primo pezzo, questo passa
+      // da `didChangeDependencies`, cioe' mentre il widget si monta per la
+      // prima volta; `setState` durante quella costruzione lancerebbe. Un
+      // giro vuoto basta a farlo cadere dopo, come un vero cambio di stato.
+      await Future<void>.value();
+      if (!mounted) return;
+      _avanzaOFinisci(indice);
+      return;
+    }
     final lettore = widget.fabbrica(percorso);
     final strato = _Strato(lettore);
     lettore.ascolta(() {
       if (!mounted) return;
-      if (lettore.finito) _passaOFinisci(indice, strato);
+      if (lettore.finito) _avanzaOFinisci(indice);
       setState(() {});
     });
     await lettore.apri();
     if (!mounted) return;
     setState(() => _strati.add(strato));
-    if (lettore.fallito) return;
+    if (lettore.fallito) {
+      _avanzaOFinisci(indice);
+      return;
+    }
     await lettore.volume(0);
     if (!mounted) return;
     await lettore.avvia();
   }
 
-  void _passaOFinisci(int indiceFinito, _Strato strato) {
+  void _avanzaOFinisci(int indiceFinito) {
     if (indiceFinito != _indice) return;
     final prossimo = _indice + 1;
     if (prossimo < widget.sequenza.pezzi.length) {

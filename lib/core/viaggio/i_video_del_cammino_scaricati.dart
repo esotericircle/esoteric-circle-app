@@ -105,11 +105,18 @@ class IVideoDelCamminoScaricati {
 
   /// Il percorso della scena vuota per [nome] (terra o uccelli), gia' nel
   /// pacchetto: non e' un pezzo scaricato, l'ordine dice che resta dove sta.
+  /// Il manifesto porta il nome del file sorgente (`00_SCENA_ULTIMO.jpg` o
+  /// `Uccelli/00_SCENA_UCCELLI_ULTIMO.jpg`); qui si legge solo se e'
+  /// quello degli uccelli o quello di terra, perche' il pacchetto porta le
+  /// due conversioni in WebP sotto nomi suoi (ordine FZ voce FZ.04, vedi
+  /// tool/gli_asset_della_carta_fz04.py).
   String? percorsoDellaScenaVuota(String nome) {
     final scena = _installati[nome]?.scenaVuota;
-    return scena == null
-        ? null
-        : 'assets/img/viaggio_sciamano/scene_vuote/$scena';
+    if (scena == null) return null;
+    const cartella = 'assets/img/mondo_di_sotto/scene_vuote';
+    return scena.contains('UCCELLI')
+        ? '$cartella/00_scena_uccelli_ultimo.webp'
+        : '$cartella/00_scena_ultimo.webp';
   }
 
   /// Il manifest dal bucket.

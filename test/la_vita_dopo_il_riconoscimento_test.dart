@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -315,7 +313,9 @@ void main() {
           isNotNull);
       await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
       await tester.pump();
-      await tester.pump(IlSegnoCheRisponde.quantoDuraIlGesto);
+      // **NESSUN VIDEO SCARICATO NELLA PROVA**: il cammino salta i pezzi
+      // che non trova e chiama subito `quandoFinisce` (ordine FZ voce
+      // FZ.05), senza piu' un tempo fisso di gesto da aspettare.
       await tester.pump(const Duration(milliseconds: 100));
       final riga = tester
           .widget<ParagrafiDiLettura>(
@@ -496,105 +496,50 @@ void main() {
         expect(s.riga, matches(attesa),
             reason: 'la riga non dice cio che il gesto vuol dire: ${s.riga}');
       }
-      // **OGNI GESTO SI MUOVE, E IN UN MODO SUO.**
-      final alla = {
-        for (final g in GestoDelSegno.values)
-          g: IlSegnoCheRisponde.movimento(g, 1),
-      };
-      final allInizio = {
-        for (final g in GestoDelSegno.values)
-          g: IlSegnoCheRisponde.movimento(g, 0),
-      };
-      for (final g in GestoDelSegno.values) {
-        expect(alla[g], isNot(allInizio[g]), reason: '$g non si muove');
-      }
-      expect(alla.values.toSet(), hasLength(GestoDelSegno.values.length),
-          reason: 'due gesti si muovono nello stesso modo');
     });
 
-    /// **I TRENTASEI DISEGNI, ordine DJ voce 08**: i nomi li detta il codice,
-    /// il LEGGIMI della cartella li elenca tutti, e la cartella e' dichiarata
-    /// nel pacchetto anche da vuota.
-    test(
-        'I TRENTASEI DISEGNI HANNO IL NOME DELL ORDINE, e la cartella li '
-        'aspetta', () {
-      final attesi = GestiDelSegno.disegniAttesi;
-      expect(attesi.toSet(), hasLength(36));
-      final forma = RegExp(r'^assets/img/mondo_di_sotto/gesti/'
-          r'[a-z]+_si_(avvicina|volta|allontana)_v1\.webp$');
-      expect(attesi.where((d) => !forma.hasMatch(d)), isEmpty);
-      // Il nome dell'animale e' quello delle sue illustrazioni.
-      for (final a in AnimalCatalog.animals) {
-        final nome = a.fullPath.split('/').last.split('_')[1];
-        expect(GestiDelSegno.disegnoDi(a, GestoDelSegno.siVolta),
-            endsWith('/${nome}_si_volta_v1.webp'));
-      }
-      final leggimi =
-          File('assets/img/mondo_di_sotto/gesti/LEGGIMI.md').readAsStringSync();
-      for (final d in attesi) {
-        expect(leggimi, contains(d.split('/').last),
-            reason: 'il LEGGIMI non dice a chi disegna che serve $d');
-      }
-      expect(File('pubspec.yaml').readAsStringSync(),
-          contains('- assets/img/mondo_di_sotto/gesti/'));
-    });
-
-    /// **FINCHE' IL DISEGNO MANCA, L'ILLUSTRAZIONE INTERA; QUANDO C'E', IL
-    /// DISEGNO.** Mai un riquadro vuoto.
-    for (final c in [false, true]) {
-      testWidgets(
-          'IL SEGNO ${c ? 'MOSTRA IL DISEGNO DEL GESTO QUANDO C E' : 'SENZA IL DISEGNO MOSTRA L ILLUSTRAZIONE INTERA'}, '
-          'e la riga', (tester) async {
-        final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
-        final disegno = GestiDelSegno.disegnoDi(lupo, GestoDelSegno.siAvvicina);
-        IlSegnoCheRisponde.disegniNelleProve({disegno: c});
-        addTearDown(() => IlSegnoCheRisponde.disegniNelleProve({}));
-        await tester.pumpWidget(MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => MaestroController())
-          ],
-          child: MaterialApp(
-            home: MaestroScope(
-              child: Scaffold(
-                body: IlSegnoCheRisponde(
-                  animale: lupo,
-                  palette: MaestroPalette.caligo,
-                  siPuoChiedere: true,
-                  quandoTorna: '',
-                  chiedi: (_) async => const UnSegno(
-                      gesto: GestoDelSegno.siAvvicina,
-                      riga: 'Il Lupo ti si avvicina. Vuol dire sì.'),
-                  quandoTorni: () {},
-                  quandoNutri: () {},
-                ),
+    /// **IL GESTO E' IL VIDEO A PEZZI, NON PIU' UNO ZOOM O UN DISEGNO.**
+    /// Ordine FZ voce FZ.05, 17 ottobre 2026: gli zoom e i trentasei disegni
+    /// dei gesti escono, e la posa (il fotogramma della carta da grattare,
+    /// sempre nel pacchetto) resta mentre nessun segno e' ancora arrivato, e
+    /// senza video scaricato dopo che arriva: mai un riquadro vuoto.
+    testWidgets(
+        'PRIMA DEL SEGNO C E LA POSA; DOPO, SENZA VIDEO SCARICATO, LA POSA '
+        'RESTA E LA RIGA ARRIVA LO STESSO', (tester) async {
+      final lupo = AnimalCatalog.animals.firstWhere((a) => a.name == 'Lupo');
+      await tester.pumpWidget(MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => MaestroController())],
+        child: MaterialApp(
+          home: MaestroScope(
+            child: Scaffold(
+              body: IlSegnoCheRisponde(
+                animale: lupo,
+                palette: MaestroPalette.caligo,
+                siPuoChiedere: true,
+                quandoTorna: '',
+                chiedi: (_) async => const UnSegno(
+                    gesto: GestoDelSegno.siAvvicina,
+                    riga: 'Il Lupo ti si avvicina. Vuol dire sì.'),
+                quandoTorni: () {},
+                quandoNutri: () {},
               ),
             ),
           ),
-        ));
-        await tester.pump();
-        await tester.enterText(
-            find.byKey(const Key('viaggio_domanda_del_segno')), 'Vado avanti?');
-        await tester.pump();
-        await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
-        await tester.pump();
-        await tester.pump(const Duration(seconds: 2));
-        expect(find.byKey(const Key('viaggio_disegno_del_gesto')),
-            c ? findsOneWidget : findsNothing);
-        expect(find.byKey(const Key('viaggio_illustrazione_del_segno')),
-            c ? findsNothing : findsOneWidget,
-            reason: 'senza disegno il segno resta un riquadro vuoto');
-        if (c) {
-          expect(
-              (tester
-                      .widget<Image>(
-                          find.byKey(const Key('viaggio_disegno_del_gesto')))
-                      .image as AssetImage)
-                  .assetName,
-              disegno);
-        }
-        expect(
-            find.text('Il Lupo ti si avvicina. Vuol dire sì.'), findsOneWidget);
-      });
-    }
+        ),
+      ));
+      await tester.pump();
+      expect(find.byKey(const Key('viaggio_posa_del_segno')), findsOneWidget,
+          reason: 'prima di un segno deve vedersi la posa, non un vuoto');
+      await tester.enterText(
+          find.byKey(const Key('viaggio_domanda_del_segno')), 'Vado avanti?');
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('viaggio_chiedi_il_segno')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 2));
+      expect(
+          find.text('Il Lupo ti si avvicina. Vuol dire sì.'), findsOneWidget,
+          reason: 'senza un video scaricato la riga deve arrivare lo stesso, '
+              'non restare in attesa per sempre');
+    });
   });
 }

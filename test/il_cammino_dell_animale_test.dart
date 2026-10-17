@@ -135,6 +135,29 @@ void main() {
   });
 
   testWidgets(
+      'SENZA RETE, NESSUN PEZZO SCARICATO: resta la sola posa e '
+      'quandoFinisce arriva subito, senza bloccarsi in attesa di un video '
+      'che non arriva', (tester) async {
+    var finito = 0;
+    await tester.pumpWidget(MaterialApp(
+      home: SizedBox.fromSize(
+        size: scena,
+        child: IlCamminoDellAnimale(
+          sequenza: LaSequenzaDelCammino.perIlGesto(GestoDelSegno.siAvvicina,
+              haFineUscita: false),
+          percorsi: const {},
+          posa: 'lupo_posa.webp',
+          quandoFinisce: () => finito++,
+          fabbrica: (p) => _Finta(),
+        ),
+      ),
+    ));
+    await tester.pump();
+    expect(finito, 1);
+    expect(find.byKey(const Key('cammino_posa')), findsOneWidget);
+  });
+
+  testWidgets(
       'SI ALLONTANA CON FINE_USCITA: dopo il pezzo, la scena vuota dissolve '
       'sopra la posa', (tester) async {
     final finte = <String, _Finta>{};

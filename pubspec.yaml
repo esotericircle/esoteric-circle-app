@@ -429,6 +429,13 @@ flutter:
     # da vuota: finche' un disegno manca, il segno mostra l'illustrazione
     # intera. Vedi assets/img/mondo_di_sotto/gesti/LEGGIMI.md.
     - assets/img/mondo_di_sotto/gesti/
+    # **LE CARTE DA GRATTARE, ordine FZ voce FZ.04**: un fotogramma del
+    # video di ognuno dei dodici animali, leggero e nel pacchetto (i video
+    # stessi no, si scaricano a richiesta: ordine FZ voce FZ.06).
+    - assets/img/mondo_di_sotto/carte/
+    # **LE DUE SCENE VUOTE, ordine FZ voce FZ.05**: dove l'uscita del
+    # cammino dissolve per Tartaruga, Gufo, Falco, Aquila, Corvo.
+    - assets/img/mondo_di_sotto/scene_vuote/
     - assets/img/cristalli/
     - assets/img/archetipi/
     - assets/img_thumb/mazzo-tarocchi/

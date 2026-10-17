@@ -1,0 +1,16 @@
+GLI ASSET DELLA CARTA, ordine FZ voce FZ.04, generato da tool/gli_asset_della_carta_fz04.py
+
+Aquila: 544642 byte JPG -> 412260 byte WebP
+Cavallo: 588434 byte JPG -> 452104 byte WebP
+Cervo: 608058 byte JPG -> 470186 byte WebP
+Corvo: 572274 byte JPG -> 430222 byte WebP
+Falco: 550654 byte JPG -> 417788 byte WebP
+Gufo: 567831 byte JPG -> 429280 byte WebP
+Lince: 585757 byte JPG -> 450742 byte WebP
+Lupo: 879857 byte JPG -> 461910 byte WebP
+Orso: 589456 byte JPG -> 462772 byte WebP
+Serpente: 617349 byte JPG -> 489750 byte WebP
+Tartaruga: 578520 byte JPG -> 440520 byte WebP
+Volpe: 602615 byte JPG -> 475284 byte WebP
+00_SCENA_ULTIMO.jpg: 843678 byte JPG -> 419644 byte WebP
+00_SCENA_UCCELLI_ULTIMO.jpg: 736267 byte JPG -> 329520 byte WebP
