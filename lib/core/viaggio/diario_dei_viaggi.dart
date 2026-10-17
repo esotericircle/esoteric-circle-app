@@ -76,13 +76,15 @@ class DiarioDeiViaggi {
 
   /// **DOVE STA LA CENERE GIA' SCOSTATA.** Ordine DI voce 10: *"la superficie
   /// gia' scoperta nelle discese precedenti resta scoperta e si ritrova
-  /// riaprendo la funzione"*. Il nome dell'animale, due punti, e gli indici
-  /// delle celle separati da virgole.
+  /// riaprendo la funzione"*. **Dall'ordine FZ voce 04, una voce JSON per
+  /// animale**: `{"lupo": "1,2,3", "aquila": "5,9"}`, perche' piu' carte
+  /// possono essere scoperte a meta' insieme.
   static const String _chiaveDelVelo = 'viaggio.velo';
 
   /// **DOVE STANNO I SOLCHI DEL DITO**, ordine DQ voce 05: il tratto
   /// esatto, in frazioni dell'illustrazione, perche' il velo lo ridipinga
-  /// uguale. Le celle restano la contabilita', i solchi il disegno.
+  /// uguale. Le celle restano la contabilita', i solchi il disegno. Una
+  /// voce JSON per animale, come il velo (ordine FZ voce 04).
   static const String _chiaveDeiSolchi = 'viaggio.velo.solchi';
 
   /// **QUANTI VIAGGI SI CONSERVANO.**
@@ -133,10 +135,14 @@ class DiarioDeiViaggi {
   int _quante = 0;
   List<DateTime> _nutrimenti = const [];
   List<SegnoRicevuto> _segni = const [];
-  Set<int> _celleScoperte = const {};
-  String? _animaleDelVelo;
-  List<List<Offset>> _solchi = const [];
-  String? _animaleDeiSolchi;
+  /// **LA CENERE SCOSTATA, PER ANIMALE.** Dall'ordine FZ voce 04: chi segue
+  /// ombre diverse ha piu' carte scoperte a meta', ciascuna col suo conto,
+  /// e non una sola (quella dell'ultima ombra toccata, com'era quando
+  /// l'animale era uno solo per segno).
+  Map<String, Set<int>> _celleScoperte = const {};
+
+  /// **I SOLCHI DEL DITO, PER ANIMALE**, stessa ragione.
+  Map<String, List<List<Offset>>> _solchi = const {};
   IlCammino? _cammino;
   String? _animaleRiconosciuto;
 
@@ -266,24 +272,22 @@ class DiarioDeiViaggi {
 
   /// **SI CAMBIA LA DOMANDA, E IL CAMMINO RIPARTE DALLA PRIMA.** Ordine DQ
   /// voce 03. Le discese fatte restano nel Diario con la loro domanda e i
-  /// loro strati: non si cancella niente, si ricomincia soltanto il conteggio
-  /// delle quattro apparizioni. **E la cenere torna intera**: l'animale si
-  /// mostra di nuovo dalla prima volta.
+  /// loro strati: non si cancella niente, si ricomincia soltanto il cammino
+  /// di questa domanda.
+  ///
+  /// **LA CENERE NON TORNA PIU' INTERA.** Era cosi' quando l'animale era uno
+  /// solo per segno (ordine DI voce 10): cambiare domanda e ricominciare il
+  /// riconoscimento erano la stessa cosa. **Dall'ordine FZ voce 01 non lo
+  /// sono**: il riconoscimento conta le volte in cui un'ombra e' stata
+  /// seguita in tutta la vita del Diario, a prescindere dalla domanda, e la
+  /// carta di quell'ombra deve mostrare lo stesso conto. Azzerarla qui
+  /// disallineerebbe la carta scoperta a meta' dal vero progresso: due
+  /// discese su un'ombra, cambio di domanda, e la carta tornerebbe a zero
+  /// pezzi mentre il riconoscimento ricorda ancora le due discese.
   Future<void> cambiaLaDomanda() async {
     _cammino = null;
-    _celleScoperte = const {};
-    _animaleDelVelo = null;
-    _solchi = const [];
-    _animaleDeiSolchi = null;
     _sincronizzaCacheDelNome();
     await _scriviIlCammino();
-    try {
-      final prefs = await _prefs();
-      await prefs.remove(_chiaveDelVelo);
-      await prefs.remove(_chiaveDeiSolchi);
-    } catch (errore) {
-      // Si perde il ricordo della cenere scostata, non il gesto.
-    }
   }
 
   Future<void> _scriviIlCammino() async {
@@ -317,49 +321,55 @@ class DiarioDeiViaggi {
 
   /// **LE CELLE DEL VELO GIA' SCOSTATE SU [animale]**, discesa dopo discesa.
   ///
-  /// **Legate al nome, e non per scrupolo.** L'animale lo decide la nascita:
-  /// chi corregge la data di nascita dopo due discese ha un altro animale, e
-  /// la cenere scostata sul Lupo non deve comparire scostata sull'Aquila. Per
-  /// un altro nome il velo e' intero.
-  Set<int> celleScoperteDi(String animale) => animale == _animaleDelVelo
-      ? Set.unmodifiable(_celleScoperte)
-      : const <int>{};
+  /// **Legate al nome, e non per scrupolo.** La cenere scostata sul Lupo
+  /// non deve comparire scostata sull'Aquila. **Dall'ordine FZ voce 04, piu'
+  /// nomi insieme**: chi segue ombre diverse ha una carta per ognuna, scoperta
+  /// a meta' col suo conto, tutte vive insieme nel Diario.
+  Set<int> celleScoperteDi(String animale) =>
+      Set.unmodifiable(_celleScoperte[animale] ?? const <int>{});
 
   /// Conserva le celle scoperte su [animale]. Se l'archivio rifiuta, si perde
   /// il ricordo e non il gesto: la cenere scostata oggi resta scostata a
   /// schermo.
   Future<void> segnaCelleScoperte(String animale, Set<int> celle) async {
-    _animaleDelVelo = animale;
-    _celleScoperte = Set.unmodifiable(celle);
+    _celleScoperte = {..._celleScoperte, animale: Set.unmodifiable(celle)};
     try {
       final prefs = await _prefs();
-      await prefs.setString(
-          _chiaveDelVelo, '$animale:${(celle.toList()..sort()).join(',')}');
+      await prefs.setString(_chiaveDelVelo, jsonEncode({
+        for (final e in _celleScoperte.entries)
+          if (e.value.isNotEmpty) e.key: (e.value.toList()..sort()).join(','),
+      }));
     } catch (errore) {
       // Si perde solo il ricordo del gesto.
     }
   }
 
   /// **I SOLCHI GIA' APERTI SU [animale]**, ordine DQ voce 05; per un altro
-  /// nome nessuno, come le celle.
+  /// nome nessuno, come le celle, e per piu' nomi insieme (ordine FZ voce
+  /// 04).
   List<List<Offset>> solchiDi(String animale) =>
-      animale == _animaleDeiSolchi ? _solchi : const [];
+      _solchi[animale] ?? const [];
 
   /// Conserva i solchi di [animale]. Tre decimali bastano: sull'illustrazione
   /// piu' grande sono meno di mezzo punto.
   Future<void> segnaISolchi(String animale, List<List<Offset>> solchi) async {
-    _animaleDeiSolchi = animale;
-    _solchi = [for (final s in solchi) List.unmodifiable(s)];
+    _solchi = {
+      ..._solchi,
+      animale: [for (final s in solchi) List.unmodifiable(s)],
+    };
     try {
       final prefs = await _prefs();
-      final testo = [
-        for (final s in solchi)
-          [
-            for (final p in s)
-              '${p.dx.toStringAsFixed(3)},${p.dy.toStringAsFixed(3)}'
-          ].join(';'),
-      ].join('|');
-      await prefs.setString(_chiaveDeiSolchi, '$animale@$testo');
+      await prefs.setString(_chiaveDeiSolchi, jsonEncode({
+        for (final e in _solchi.entries)
+          if (e.value.isNotEmpty)
+            e.key: [
+              for (final s in e.value)
+                [
+                  for (final p in s)
+                    '${p.dx.toStringAsFixed(3)},${p.dy.toStringAsFixed(3)}'
+                ].join(';'),
+            ].join('|'),
+      }));
     } catch (errore) {
       // Si perde il disegno del solco, non il gesto: le celle restano.
     }
@@ -422,9 +432,7 @@ class DiarioDeiViaggi {
     _nutrimenti = const [];
     _segni = const [];
     _celleScoperte = const {};
-    _animaleDelVelo = null;
-    _solchi = const [];
-    _animaleDeiSolchi = null;
+    _solchi = const {};
     // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
     // Viaggio a zero discese lasciando il nome detto in mezza app.
     IlNomeSiPuoDire.quanteDisceseNote = 0;
@@ -538,30 +546,47 @@ class DiarioDeiViaggi {
       }
       segni.sort((a, b) => b.quando.compareTo(a.quando));
       _segni = List.unmodifiable(segni);
-      // **LA CENERE SCOSTATA, ordine DI voce 10.**
-      final velo = (prefs.getString(_chiaveDelVelo) ?? '').split(':');
-      _animaleDelVelo = velo.length == 2 ? velo.first : null;
-      _celleScoperte = Set.unmodifiable({
-        if (velo.length == 2)
-          for (final x in velo.last.split(','))
-            if (int.tryParse(x) != null) int.parse(x),
-      });
-      // **I SOLCHI, ordine DQ voce 05**, con la stessa indulgenza: un punto
-      // illeggibile si salta.
-      final solchi = (prefs.getString(_chiaveDeiSolchi) ?? '').split('@');
-      _animaleDeiSolchi = solchi.length == 2 ? solchi.first : null;
-      _solchi = [
-        if (solchi.length == 2 && solchi.last.isNotEmpty)
-          for (final s in solchi.last.split('|'))
-            [
-              for (final p in s.split(';'))
-                if (p.split(',').length == 2 &&
-                    double.tryParse(p.split(',')[0]) != null &&
-                    double.tryParse(p.split(',')[1]) != null)
-                  Offset(double.parse(p.split(',')[0]),
-                      double.parse(p.split(',')[1])),
-            ],
-      ];
+      // **LA CENERE SCOSTATA, ordine DI voce 10, una voce per animale
+      // dall'ordine FZ voce 04.** Un velo salvato nel vecchio formato
+      // (prima di FZ.04, un solo "animale:celle") non e' JSON: si perde
+      // solo lui, non il resto del Diario, perche' sta nel suo try proprio.
+      try {
+        final j = jsonDecode(prefs.getString(_chiaveDelVelo) ?? '{}');
+        _celleScoperte = Map.unmodifiable({
+          if (j is Map)
+            for (final e in j.entries)
+              if (e.value is String)
+                e.key as String: Set.unmodifiable({
+                  for (final x in (e.value as String).split(','))
+                    if (int.tryParse(x) != null) int.parse(x),
+                }),
+        });
+      } catch (errore) {
+        _celleScoperte = const {};
+      }
+      // **I SOLCHI, ordine DQ voce 05**, stessa indulgenza e stessa forma
+      // per animale.
+      try {
+        final j = jsonDecode(prefs.getString(_chiaveDeiSolchi) ?? '{}');
+        _solchi = Map.unmodifiable({
+          if (j is Map)
+            for (final e in j.entries)
+              if (e.value is String && (e.value as String).isNotEmpty)
+                e.key as String: [
+                  for (final s in (e.value as String).split('|'))
+                    [
+                      for (final p in s.split(';'))
+                        if (p.split(',').length == 2 &&
+                            double.tryParse(p.split(',')[0]) != null &&
+                            double.tryParse(p.split(',')[1]) != null)
+                          Offset(double.parse(p.split(',')[0]),
+                              double.parse(p.split(',')[1])),
+                    ],
+                ],
+        });
+      } catch (errore) {
+        _solchi = const {};
+      }
     } catch (errore) {
       // **SI IGNORA, E SI DICE PERCHE'.** Un archivio illeggibile o assente
       // non deve impedire di scendere: **il viaggio di oggi vale piu' del

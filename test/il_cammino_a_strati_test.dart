@@ -108,12 +108,19 @@ void main() {
       expect(d.viaggi, hasLength(2), reason: 'le discese fatte restano');
       expect(d.cammini.single.strati, hasLength(2),
           reason: 'restano con la loro domanda e i loro strati');
-      expect(d.celleScoperteDi('Lupo'), isEmpty,
-          reason: 'il cammino riparte dalla prima, e la cenere torna intera');
+      // **QUI C'ERA `expect(d.celleScoperteDi('Lupo'), isEmpty)`.** Ordine
+      // FZ voce 04, 17 ottobre 2026: quando le apparizioni (sopra) non si
+      // azzerano piu' con la domanda, la cenere non si puo' azzerare da
+      // sola, o la carta scoperta a meta' mostrerebbe meno pezzi di quante
+      // volte l'ombra e' stata davvero seguita.
+      expect(d.celleScoperteDi('Lupo'), {1, 2, 3},
+          reason: 'la cenere segue le apparizioni, non la domanda: non '
+              'deve tornare intera se le ombre gia\' seguite restano');
       final r = DiarioDeiViaggi();
       await r.carica();
       expect(r.apparizioni, 2,
           reason: 'riaprendo il Diario le ombre gia\' seguite restano');
+      expect(r.celleScoperteDi('Lupo'), {1, 2, 3});
     });
 
     test('un Diario di prima: a meta prosegue, a quattro resta riconosciuto',

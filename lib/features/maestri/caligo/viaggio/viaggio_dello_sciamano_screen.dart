@@ -11,6 +11,7 @@ import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
 import '../../../../core/viaggio/l_animale_di_potere.dart';
+import '../../../../core/viaggio/la_carta_in_quattro_pezzi.dart';
 import '../../../../core/viaggio/la_domanda_capita.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
@@ -2296,7 +2297,6 @@ class _ViaggioDelloSciamanoScreenState
   /// scosta la mano, un quarto del corpo per discesa, la testa mai prima della
   /// quarta; e cio' che si scosta si conserva nel Diario.
   Widget _laLente(MaestroPalette palette) {
-    final quale = _diario.apparizioni;
     final animale = _animale(_seguito);
     if (animale == null) {
       // **UN NOME SENZA ARTE NON BLOCCA LA DISCESA**, ordine DC voce 16: si
@@ -2305,6 +2305,16 @@ class _ViaggioDelloSciamanoScreenState
           .addPostFrameCallback((_) => unawaited(_risaliDallaLente()));
       return const SizedBox.shrink();
     }
+    // **IL PEZZO DI QUESTO ANIMALE, NON DELL'OMBRA CHE GUIDA.** Ordine FZ
+    // voce 04: `_diario.apparizioni` conta le volte dell'ombra piu' seguita
+    // in tutta la storia, che puo' non essere quella di oggi (`animale`).
+    // Ogni carta ha il suo conto: quante volte QUESTO nome e' stato scelto
+    // prima di questa discesa (`segna()` registra la scelta di oggi solo
+    // alla risalita, non prima: qui il conto e' sempre quello di ieri).
+    final quale = _diario.scelteInOrdine
+        .where((s) => s == animale.name)
+        .length
+        .clamp(0, LaCartaInQuattroPezzi.pezzi - 1);
     return IlVeloCheSiScosta(
       key: Key('viaggio_lente_${animale.name}'),
       nome: animale.name,
@@ -2445,8 +2455,20 @@ class _ViaggioDelloSciamanoScreenState
                       : OmbraDellAnimale(
                           key: const Key('viaggio_animale_del_ritorno'),
                           immagine: _animale(_seguito)!.fullPath,
+                          // **LE VOLTE DI QUESTO ANIMALE**, non dell'ombra
+                          // che guida: ordine FZ voce 04, stessa correzione
+                          // di _laLente. Qui la discesa di oggi e' gia'
+                          // registrata (segna() e' passato alla risalita),
+                          // quindi si sottrae uno per tornare a quante ne
+                          // aveva prima.
                           quantaLuce: 0.35 +
-                              0.2 * (_diario.apparizioni - 1).clamp(0, 3),
+                              0.2 *
+                                  (_diario.scelteInOrdine
+                                              .where((s) =>
+                                                  s == _animale(_seguito)!.name)
+                                              .length -
+                                          1)
+                                      .clamp(0, 3),
                         ),
                 ),
               ),

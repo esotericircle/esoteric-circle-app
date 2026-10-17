@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:flutter/material.dart';
@@ -427,26 +426,10 @@ void main() {
         reason: 'ai lati del solco non si accumula la cenere spostata');
   });
 
-  test('I SOLCHI SI CONSERVANO NEL DIARIO, e cambiare domanda li porta via',
-      () async {
-    final d = DiarioDeiViaggi();
-    await d.carica();
-    await d.segnaISolchi('Lupo', [
-      [const Offset(0.123, 0.456), const Offset(0.2, 0.5)],
-      [const Offset(0.7, 0.71)],
-    ]);
-    final r2 = DiarioDeiViaggi();
-    await r2.carica();
-    expect(r2.solchiDi('Lupo'), [
-      [const Offset(0.123, 0.456), const Offset(0.2, 0.5)],
-      [const Offset(0.7, 0.71)],
-    ]);
-    expect(r2.solchiDi('Aquila'), isEmpty);
-    await r2.cambiaLaDomanda();
-    final r3 = DiarioDeiViaggi();
-    await r3.carica();
-    expect(r3.solchiDi('Lupo'), isEmpty);
-  });
+  // **I SOLCHI SI CONSERVANO NEL DIARIO**: la stessa prova, con la regola
+  // giusta dall'ordine FZ voce 04 (cambiare domanda non li porta via), vive
+  // in test/il_gesto_che_scosta_test.dart, per non tenerla scritta due
+  // volte.
 
   testWidgets('I SOLCHI DI IERI SI RIDIPINGONO UGUALI', (tester) async {
     final (a, b) = tratto();

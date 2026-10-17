@@ -202,13 +202,20 @@ void main() {
     expect(nelTracciato, greaterThan(12 * 3 * 25));
   });
 
-  test('I SOLCHI SI CONSERVANO NEL DIARIO, e cambiare domanda li porta via',
-      () async {
+  test(
+      'I SOLCHI SI CONSERVANO NEL DIARIO PER PIU ANIMALI INSIEME, e cambiare '
+      'domanda non li porta via (ordine FZ voce 04: il riconoscimento conta '
+      'su tutta la vita del Diario, non sulla domanda di oggi)', () async {
     final d = DiarioDeiViaggi();
     await d.carica();
     await d.segnaISolchi('Lupo', [
       [const Offset(0.123, 0.456), const Offset(0.2, 0.5)],
       [const Offset(0.7, 0.71)],
+    ]);
+    // **UN SECONDO ANIMALE, SENZA TOCCARE IL PRIMO**: chi segue ombre
+    // diverse ha piu' carte scoperte a meta' insieme.
+    await d.segnaISolchi('Aquila', [
+      [const Offset(0.3, 0.3)],
     ]);
     final r2 = DiarioDeiViaggi();
     await r2.carica();
@@ -216,10 +223,16 @@ void main() {
       [const Offset(0.123, 0.456), const Offset(0.2, 0.5)],
       [const Offset(0.7, 0.71)],
     ]);
-    expect(r2.solchiDi('Aquila'), isEmpty);
+    expect(r2.solchiDi('Aquila'), [
+      [const Offset(0.3, 0.3)],
+    ]);
+    expect(r2.solchiDi('Orso'), isEmpty);
     await r2.cambiaLaDomanda();
     final r3 = DiarioDeiViaggi();
     await r3.carica();
-    expect(r3.solchiDi('Lupo'), isEmpty);
+    expect(r3.solchiDi('Lupo'), isNotEmpty,
+        reason: 'cambiare domanda non deve piu\' azzerare i solchi: il '
+            'riconoscimento conta a prescindere dalla domanda');
+    expect(r3.solchiDi('Aquila'), isNotEmpty);
   });
 }
