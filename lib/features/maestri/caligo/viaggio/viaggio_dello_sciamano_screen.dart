@@ -10,9 +10,11 @@ import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
+import '../../../../core/viaggio/i_video_del_cammino_scaricati.dart';
 import '../../../../core/viaggio/l_animale_di_potere.dart';
 import '../../../../core/viaggio/la_carta_in_quattro_pezzi.dart';
 import '../../../../core/viaggio/la_domanda_capita.dart';
+import '../../../../core/viaggio/la_sequenza_del_cammino.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../core/viaggio/scena_del_viaggio.dart';
@@ -49,6 +51,7 @@ import '../../../../core/viaggio/il_verso_dell_animale.dart';
 import '../../../../core/viaggio/la_promessa_del_viaggio.dart';
 import '../../../../core/viaggio/tetti_del_viaggio.dart';
 import 'card_della_rivelazione.dart';
+import 'condividi_la_rivelazione_in_video.dart';
 import '../../../../core/viaggio/le_sagome_in_celle.dart';
 import 'il_velo_che_si_scosta.dart';
 import 'l_ombra_dell_animale.dart';
@@ -2617,6 +2620,27 @@ class _ViaggioDelloSciamanoScreenState
               icon: const Icon(Icons.ios_share_rounded, size: 18),
               label: Text('Di\' chi sei', style: TypographyTokens.etichetta()),
             ),
+            // **ANCHE COME VIDEO**, ordine FZ voce 08: il centro del video
+            // dell'animale, col titolo e la data sopra. Solo se quel pezzo
+            // e' gia' scaricato (FZ.06): senza, resta la sola card immagine,
+            // mai un pulsante che porta a un guasto.
+            if (IVideoDelCamminoScaricati.diCasa
+                    .percorsoDiPezzo(nome.toLowerCase(), PezzoDelCammino.centro) !=
+                null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              OutlinedButton.icon(
+                key: const Key('viaggio_condividi_rivelazione_video'),
+                onPressed: () => unawaited(_condividiLaRivelazioneInVideo(nome)),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: palette.goldSoft,
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                  minimumSize: const Size.fromHeight(48),
+                ),
+                icon: const Icon(Icons.movie_creation_outlined, size: 18),
+                label: Text('Condividi come video',
+                    style: TypographyTokens.etichetta()),
+              ),
+            ],
           ],
           // **ALLA QUARTA I QUATTRO STRATI SI RILEGGONO DI FILA**, ordine DQ
           // voce 02: una pagina sola, nel Diario.
@@ -2659,6 +2683,22 @@ class _ViaggioDelloSciamanoScreenState
     // cui la porta torna un booleano invece di non tornare niente.
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'condivisione',
         dettagli: {'cosa': 'rivelazione', 'animale': nome}));
+  }
+
+  /// **SPEDISCE LA RIVELAZIONE COME VIDEO.** Ordine FZ voce FZ.08.
+  Future<void> _condividiLaRivelazioneInVideo(String nome) async {
+    final animale = _animale(nome);
+    final centro = IVideoDelCamminoScaricati.diCasa
+        .percorsoDiPezzo(nome.toLowerCase(), PezzoDelCammino.centro);
+    if (animale == null || centro == null) return;
+    final andata = await condividiLaRivelazioneInVideo(
+      animale: animale,
+      quando: _adesso,
+      percorsoDelCentro: centro,
+    );
+    if (!mounted || !andata) return;
+    unawaited(RegiaDelCammino.dopoUnGesto(context, 'condivisione',
+        dettagli: {'cosa': 'rivelazione_video', 'animale': nome}));
   }
 
   /// **LE FONTI, tutte e due nominate.** Ordine DC voce 01; il paragrafo

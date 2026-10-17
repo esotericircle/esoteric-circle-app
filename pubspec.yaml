@@ -155,6 +155,14 @@ dependencies:
   google_mlkit_face_detection: ^0.13.1
   mediapipe_face_mesh: ^2.9.0
   video_player: ^2.13.0
+  # **FFMPEG, ordine FZ voce 08, 17 ottobre 2026**: scrive il titolo e la
+  # data sopra il video della rivelazione, per condividerlo come storia.
+  # Il fondatore ha scelto questa via sapendo il costo (qualche decina di
+  # MB in piu' sul pacchetto, una dipendenza nativa in piu'): vedi il
+  # rapporto dell'ordine per la nota sulla licenza GPL del codificatore
+  # x264, che serve per scrivere di nuovo un MP4 H.264 dopo il testo.
+  # min_gpl e' la piu' piccola delle varianti che porta x264.
+  ffmpeg_kit_flutter_new_min_gpl: ^2.6.3
   # **IL CANALE DELLE PUSH. Ordine CG voce 16.**
   #
   # Parole del fondatore, 31 agosto 2026: "devi aggiungere le notifiche push
