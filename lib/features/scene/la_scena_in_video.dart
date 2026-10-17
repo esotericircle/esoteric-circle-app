@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,12 @@ import '../../core/settings/settings_controller.dart';
 abstract class LettoreDiScena {
   factory LettoreDiScena.vero(String filmato) = _LettoreDiScenaVero;
 
+  /// **COME [vero], MA DA UN FILE DEL DISCO**, non dal pacchetto: per i
+  /// pezzi del Viaggio dello Sciamano (ordine FZ voce FZ.05/FZ.06), che non
+  /// entrano nel bundle e si scaricano a richiesta.
+  factory LettoreDiScena.veroDaFile(String percorso) =>
+      _LettoreDiScenaVero(percorso, daFile: true);
+
   Future<void> apri();
   bool get pronto;
   bool get fallito;
@@ -52,9 +59,13 @@ abstract class LettoreDiScena {
 typedef FabbricaDiScena = LettoreDiScena Function();
 
 class _LettoreDiScenaVero implements LettoreDiScena {
-  _LettoreDiScenaVero(this.filmato);
+  _LettoreDiScenaVero(this.filmato, {this.daFile = false});
 
   final String filmato;
+
+  /// Vero per `LettoreDiScena.veroDaFile`: [filmato] e' un percorso sul
+  /// disco, non un asset del pacchetto.
+  final bool daFile;
   VideoPlayerController? _c;
   VoidCallback? _quandoCambia;
   bool _pronto = false;
@@ -79,8 +90,10 @@ class _LettoreDiScenaVero implements LettoreDiScena {
     // MESCOLATO AGLI ALTRI SUONI, come i lettori della Stesa e della
     // Sinastria evolutiva: senza `mixWithOthers` il video prende il fuoco
     // esclusivo e su Android ferma la musica di chi ascolta altro.
-    final c = VideoPlayerController.asset(filmato,
-        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true));
+    final opzioni = VideoPlayerOptions(mixWithOthers: true);
+    final c = daFile
+        ? VideoPlayerController.file(File(filmato), videoPlayerOptions: opzioni)
+        : VideoPlayerController.asset(filmato, videoPlayerOptions: opzioni);
     _c = c;
     try {
       await c.initialize();
