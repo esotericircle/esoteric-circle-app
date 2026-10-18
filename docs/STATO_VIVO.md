@@ -7190,9 +7190,14 @@ Questa sezione va aggiornata, non sostituita, quando il lavoro riprende.**
   animazioni sono disabilitate), FZ.07 (il pannello Fonti e metodo
   dell'Animale Guida non cita piu' il segno solare), FZ.08 (la rivelazione
   si condivide anche come video, FFmpeg scrive titolo e data sopra il pezzo
-  "centro", `lib/features/maestri/caligo/viaggio/condividi_la_rivelazione_in_video.dart`;
-  resta da collegare l'animazione INLINE della rivelazione dentro la
-  schermata della carta a gratta, non ancora fatto).
+  "centro", `lib/features/maestri/caligo/viaggio/condividi_la_rivelazione_in_video.dart`.
+  **L'altra meta' di FZ.08, completata dopo il blocco del device (vedi
+  sotto)**: `_laRisalita` monta `IlCamminoDellAnimale` con
+  `LaSequenzaDelCammino.rivelazione` al posto dell'illustrazione ferma,
+  ma solo sulla discesa che rivela (`_rivelatoOra`), mai alle discese
+  successive. Prova rossa su `find.byType(IlCamminoDellAnimale)` prima
+  della modifica (verificata col grep), verde dopo; le 106 prove della
+  zona del Viaggio restano tutte verdi).
 - **FZ.09, la regola e il suo esito parziale**: la regola "simulazione da
   persona obbligatoria e permanente" e' gia' scritta in CLAUDE.md, Regole
   non negoziabili (commit `5d6ea9d3`). Le previsioni per le persone a, b, c,

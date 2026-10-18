@@ -31,6 +31,7 @@ import '../../../sigilli/regia_del_cammino.dart';
 import '../../widgets/foglio_delle_fonti.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../ricordi/azioni_del_responso.dart';
+import 'il_cammino_dell_animale.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_discesa_in_video.dart';
 import 'il_segno_che_risponde.dart';
@@ -2451,28 +2452,37 @@ class _ViaggioDelloSciamanoScreenState
                 aspectRatio: 1.35,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-                  child: _riconosciuto
-                      ? Image.asset(_animale(_seguito)!.fullPath,
-                          key: const Key('viaggio_animale_del_ritorno'),
-                          fit: BoxFit.contain)
-                      : OmbraDellAnimale(
-                          key: const Key('viaggio_animale_del_ritorno'),
-                          immagine: _animale(_seguito)!.fullPath,
-                          // **LE VOLTE DI QUESTO ANIMALE**, non dell'ombra
-                          // che guida: ordine FZ voce 04, stessa correzione
-                          // di _laLente. Qui la discesa di oggi e' gia'
-                          // registrata (segna() e' passato alla risalita),
-                          // quindi si sottrae uno per tornare a quante ne
-                          // aveva prima.
-                          quantaLuce: 0.35 +
-                              0.2 *
-                                  (_diario.scelteInOrdine
-                                              .where((s) =>
-                                                  s == _animale(_seguito)!.name)
-                                              .length -
-                                          1)
-                                      .clamp(0, 3),
-                        ),
+                  child: _rivelatoOra
+                      // **IL CENTRO PARTE DALLA POSA, ordine FZ voce FZ.08**:
+                      // qui cadeva l'ultimo pezzo della carta, e FZ.05 vuole
+                      // che il video del cammino parta a sostituire lo zoom
+                      // sull'illustrazione ferma, non piu' alle discese
+                      // successive (_rivelatoOra e' vero una volta sola, la
+                      // discesa che rivela).
+                      ? _ilCamminoDellaRivelazione(_animale(_seguito)!)
+                      : _riconosciuto
+                          ? Image.asset(_animale(_seguito)!.fullPath,
+                              key: const Key('viaggio_animale_del_ritorno'),
+                              fit: BoxFit.contain)
+                          : OmbraDellAnimale(
+                              key: const Key('viaggio_animale_del_ritorno'),
+                              immagine: _animale(_seguito)!.fullPath,
+                              // **LE VOLTE DI QUESTO ANIMALE**, non dell'ombra
+                              // che guida: ordine FZ voce 04, stessa correzione
+                              // di _laLente. Qui la discesa di oggi e' gia'
+                              // registrata (segna() e' passato alla risalita),
+                              // quindi si sottrae uno per tornare a quante ne
+                              // aveva prima.
+                              quantaLuce: 0.35 +
+                                  0.2 *
+                                      (_diario.scelteInOrdine
+                                                  .where((s) =>
+                                                      s ==
+                                                      _animale(_seguito)!.name)
+                                                  .length -
+                                              1)
+                                          .clamp(0, 3),
+                            ),
                 ),
               ),
             ),
@@ -2624,13 +2634,14 @@ class _ViaggioDelloSciamanoScreenState
             // dell'animale, col titolo e la data sopra. Solo se quel pezzo
             // e' gia' scaricato (FZ.06): senza, resta la sola card immagine,
             // mai un pulsante che porta a un guasto.
-            if (IVideoDelCamminoScaricati.diCasa
-                    .percorsoDiPezzo(nome.toLowerCase(), PezzoDelCammino.centro) !=
+            if (IVideoDelCamminoScaricati.diCasa.percorsoDiPezzo(
+                    nome.toLowerCase(), PezzoDelCammino.centro) !=
                 null) ...[
               const SizedBox(height: SpacingTokens.sm),
               OutlinedButton.icon(
                 key: const Key('viaggio_condividi_rivelazione_video'),
-                onPressed: () => unawaited(_condividiLaRivelazioneInVideo(nome)),
+                onPressed: () =>
+                    unawaited(_condividiLaRivelazioneInVideo(nome)),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: palette.goldSoft,
                   side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
@@ -2664,6 +2675,26 @@ class _ViaggioDelloSciamanoScreenState
           if (_seguito != null) const SizedBox(height: SpacingTokens.md),
         ],
       ),
+    );
+  }
+
+  /// **IL CENTRO PARTE DALLA POSA.** Ordine FZ voce FZ.08: l'altra meta' di
+  /// FZ.08 lasciata aperta dalla voce precedente. Quando cade l'ultimo
+  /// pezzo della carta (`_rivelatoOra`), il video del cammino sostituisce
+  /// l'illustrazione ferma, con la sola sequenza `rivelazione` (FZ.05: "parte
+  /// il centro, dal fotogramma della posa, col verso; poi resta sulla
+  /// posa."). Senza rete, senza il pezzo scaricato, o con Riduci Movimento,
+  /// `IlCamminoDellAnimale` stesso ripiega sulla posa ferma: mai un
+  /// riquadro vuoto.
+  Widget _ilCamminoDellaRivelazione(GuideAnimal animale) {
+    final nomeFile = animale.name.toLowerCase();
+    final centro = IVideoDelCamminoScaricati.diCasa
+        .percorsoDiPezzo(nomeFile, PezzoDelCammino.centro);
+    return IlCamminoDellAnimale(
+      key: Key('viaggio_rivelazione_${animale.name}'),
+      sequenza: LaSequenzaDelCammino.rivelazione,
+      percorsi: {if (centro != null) PezzoDelCammino.centro: centro},
+      posa: IlSegnoCheRisponde.posaDi(animale),
     );
   }
 

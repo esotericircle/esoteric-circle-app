@@ -13,6 +13,7 @@ import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
 import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
 import 'package:esoteric_circle/core/viaggio/le_parole_del_cammino.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_cammino_dell_animale.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import 'package:esoteric_circle/services/ai/registro_dei_guasti.dart';
 import 'package:flutter/material.dart';
@@ -491,6 +492,12 @@ void main() {
       await tester.drag(find.byType(Scrollable).first, const Offset(0, -900));
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.byKey(const Key('viaggio_il_nome')), findsOneWidget);
+      // **IL CENTRO PARTE DALLA POSA, ordine FZ voce FZ.08**: la risalita
+      // che rivela monta `IlCamminoDellAnimale` al posto dell'illustrazione
+      // ferma, come FZ.05 pretende per il momento in cui cade l'ultimo
+      // pezzo della carta.
+      expect(find.byType(IlCamminoDellAnimale), findsOneWidget,
+          reason: 'la rivelazione non fa partire il cammino dalla posa');
       final rileggi = find.byKey(const Key('viaggio_rileggi_gli_strati'));
       await tester.ensureVisible(rileggi);
       await tester.tap(rileggi);
