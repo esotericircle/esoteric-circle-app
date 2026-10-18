@@ -7168,6 +7168,82 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 - **Le simulazioni (FY.21)**: 42 catture in `docs/collaudo/FY/giro_della_luna/`, `oracolo/`, `sinastrie/`.
 - Guardie da 804 a 822.
 
+## L'ORDINE FZ, L'ANIMALE DI POTERE CHE SI RIVELA NEL VIAGGIO (17 e 18 ottobre 2026) — IN CORSO, NON ANCORA CONSEGNATO
+
+**Stato alla sera del 18 ottobre 2026: le parti A, B e C (FZ.01-FZ.08) sono
+costruite e commesse sul ramo locale `lavoro-riallineamento-1014` (11 commit
+avanti rispetto a `origin/claude/esoteric-circle-master-order-e798aj`, non
+ancora spinti). La voce FZ.09 (simulazione da persona) e' iniziata ma NON
+conclusa: un difetto critico scoperto durante la simulazione ha bloccato la
+prosecuzione, e poi il telefono di collaudo e' diventato irraggiungibile per
+una causa hardware. La voce FZ.10 (consegna) non e' ancora stata scritta.
+Questa sezione va aggiornata, non sostituita, quando il lavoro riprende.**
+
+- **Le parti costruite**: FZ.01-03 (l'animale si riconosce seguendo la
+  stessa ombra quattro volte nel Mondo di Sotto, non piu' dal segno solare;
+  `lib/core/viaggio/diario_dei_viaggi.dart`), FZ.04-06 (la carta
+  dell'animale si gratta in quattro pezzi, `LaCartaInQuattroPezzi`, con
+  cache per-animale nel Diario convertita da campo singolo a
+  `Map<String, ...>` per sostenere piu' carte scoperte in parallelo),
+  FZ.05 (il video del cammino a pezzi pre-tagliati, `IlCamminoDellAnimale`,
+  con fallback sulla posa ferma quando il pezzo non e' scaricato o le
+  animazioni sono disabilitate), FZ.07 (il pannello Fonti e metodo
+  dell'Animale Guida non cita piu' il segno solare), FZ.08 (la rivelazione
+  si condivide anche come video, FFmpeg scrive titolo e data sopra il pezzo
+  "centro", `lib/features/maestri/caligo/viaggio/condividi_la_rivelazione_in_video.dart`;
+  resta da collegare l'animazione INLINE della rivelazione dentro la
+  schermata della carta a gratta, non ancora fatto).
+- **FZ.09, la regola e il suo esito parziale**: la regola "simulazione da
+  persona obbligatoria e permanente" e' gia' scritta in CLAUDE.md, Regole
+  non negoziabili (commit `5d6ea9d3`). Le previsioni per le persone a, b, c,
+  d, e, f, g sono scritte in anticipo in
+  `docs/collaudo/FZ/simulazioni/previsioni.md`, come la regola pretende.
+  Sul Realme 767f596c e' stata avviata la simulazione: l'onboarding
+  (Risveglio) e' stato percorso piu' volte, con due account di prova
+  distinti ("ProvaFZ", "ProvaFZ2"), fino alla fase "La Risonanza"
+  (`ResonanceScreen`, penultima fase del Risveglio, prima della rivelazione
+  del Maestro).
+- **DIFETTO CRITICO TROVATO, CONFERMATO, NON ANCORA CURATO. PROVENIENZA
+  IGNOTA** (Regola C: nessuna voce di FZ ha toccato `risveglio_journey.dart`
+  o `resonance_screen.dart`, il difetto preesiste e non e' stato introdotto
+  da quest'ordine). Il pulsante "Rivela il tuo Maestro" della
+  `ResonanceScreen`, e in un'occasione anche "Scopri chi risuona con te" di
+  `NatalChartReveal`, spesso non rispondono al tocco sul Realme 767f596c
+  (animazioni permanentemente disabilitate dal fondatore): **oltre 15
+  tocchi falliti consecutivi** su due account distinti, verificati uno per
+  uno a video (non solo per dimensione del file, che da' falsi positivi
+  per via dello sfondo stellato animato). Nello stesso lasso di tempo
+  `KEYCODE_BACK` e tutti gli altri pulsanti dell'onboarding hanno sempre
+  risposto al primo tocco; nessuna eccezione Dart/Flutter nei log, nessun
+  errore di layout. Sospetto non verificato col debugger: entrambe le
+  schermate colpite si raggiungono tramite lo stesso `AnimatedSwitcher
+  (duration: 450ms)` che avvolge `_buildPhase()` in
+  `risveglio_journey.dart` (riga ~354), senza gestione esplicita di
+  `MediaQuery.disableAnimations`; il widget uscente potrebbe restare
+  nell'albero e intercettare gli hit test sopra il nuovo pulsante. Diario
+  completo con ogni tentativo, in ordine, in
+  `docs/collaudo/FZ/simulazioni/note_di_percorso.md`; oltre cinquanta
+  catture numerate in `docs/collaudo/FZ/simulazioni/catture/`.
+- **Il telefono di collaudo, irraggiungibile per causa hardware**: dopo il
+  difetto trovato, e' stato tentato un riavvio del Realme (`adb reboot`,
+  40 giorni di uptime) per escludere uno stato di sistema accumulato. Il
+  device non e' piu' tornato visibile ad adb per oltre 10 minuti; verificato
+  che non si tratta di processi adb residui (nessuno trovato in conflitto
+  sulla porta), e che Windows stesso non elenca piu' alcun dispositivo
+  Android, nemmeno fra quelli scollegati di recente (`pnputil
+  /enum-devices`): e' un problema di enumerazione USB a livello hardware,
+  non risolvibile da remoto senza toccare fisicamente il cavo o il
+  telefono. Mauro non era fisicamente vicino al device quando il problema
+  e' stato segnalato.
+- **Cosa resta da fare quando il device torna raggiungibile**: completare
+  le simulazioni delle persone b, e, f, g (il Viaggio dello Sciamano vero e
+  proprio non e' ancora stato esercitato, essendo bloccato dalla fase di
+  Risonanza dell'onboarding), decidere se e come curare il difetto del
+  pulsante (richiede probabilmente ispezione con Flutter DevTools, non
+  raggiungibile dalla sola automazione adb), scrivere FZ.10: manifesto,
+  guardia del manifesto, rapporto, aggiornamento di questa sezione e di
+  `docs/guardie.md`, verde di GitHub sul commit consegnato.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
