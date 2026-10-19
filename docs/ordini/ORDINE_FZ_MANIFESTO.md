@@ -21,14 +21,15 @@ sempre fra le proposte della discesa successiva. Porta unica nuova
 (`lib/core/viaggio/le_ombre_che_ritornano.dart`). **Il numero delle ombre
 proposte a ogni discesa, tre nella prima stesura, sale a nove con FZA.01**
 (voce sotto): la regola del riconoscimento alla quarta volta e del ritorno
-delle ombre gia' seguite resta la stessa, verificata di nuovo con nove.
+delle ombre gia' seguite resta la stessa, verificata di nuovo con nove. Nel
+file di prova, il gruppo "FZ.01: il riconoscimento arriva alla quarta, mai
+prima".
 
 DOMANDA: "La 2." (l'animale che si rivela nel viaggio, con la regola delle
 quattro apparizioni di Harner); "3 si" alla domanda dell'Architetto
 "L'animale viene riconosciuto quando la persona ha seguito la stessa ombra
 quattro volte, come dice Harner?"
-PROVA: `test/le_ombre_che_ritornano_test.dart`, gruppo "FZ.01: il
-riconoscimento arriva alla quarta, mai prima"
+PROVA: `test/le_ombre_che_ritornano_test.dart`
 MISURA: su 100 persone con scelte diverse (12 sempre la stessa ombra, 88
 con due ombre alternate), il riconoscimento non arriva mai prima della
 quarta volta della stessa ombra e arriva sempre esattamente a quella
@@ -44,7 +45,8 @@ rivelato". `GuideAnimalDerivation.forSign` non decide piu' l'animale di
 nessuno: resta viva solo per la migrazione una tantum
 (`DiarioDeiViaggi.completaMigrazioneFZ02`). Esce anche la regola delle
 quattro impronte sul segno (`le_quattro_impronte.dart`): le impronte restano
-il disegno del cammino, la regola e' quella di FZ.01.
+il disegno del cammino, la regola e' quella di FZ.01. La migrazione una
+tantum ha la sua prova diretta in `test/la_migrazione_delle_ombre_test.dart`.
 
 DOMANDA: "1 si. 2 si. 3 si. 4 si." alle domande dell'Architetto: "1.
 L'animale, una volta riconosciuto alla quarta discesa, resta fisso per
@@ -52,11 +54,9 @@ sempre e vale in tutta l'app? 2. Prima che sia riconosciuto, nel
 Passaporto, nel Bosco e nella card social si vede un'ombra con scritto
 'non ancora rivelato'? 4. Chi ha gia' concluso il viaggio, te compreso,
 tiene il suo animale? E chi e' a meta' riparte."
-PROVA: `test/l_animale_guida_ha_una_porta_sola_test.dart`,
-`test/la_migrazione_delle_ombre_test.dart`
-MISURA: i punti del codice che derivavano l'animale di una persona dal
-segno solare, da undici (commit `8dfe2b55`) a zero; la guardia della porta
-unica scansiona oltre 500 file di `lib/`, zero colpevoli; alla migrazione,
+PROVA: `test/l_animale_guida_ha_una_porta_sola_test.dart`
+MISURA: i punti del codice che derivavano l'animale dal segno solare, da 11 (commit `8dfe2b55`) a 0; la guardia della porta unica
+scansiona oltre 500 file di `lib/`, zero colpevoli; alla migrazione,
 chi aveva gia' concluso (vecchia chiave a vero) tiene l'animale del suo
 segno senza avviso, chi era a meta' riparte da zero con un avviso di una
 riga, chi apre l'app per la prima volta non riceve nessun avviso
@@ -98,17 +98,17 @@ con oltre 12*3*25 punti del tracciato dentro la forma vera di ogni pezzo
 per la rivelazione; `IlCamminoDellAnimale` fa girare i pezzi uno dopo
 l'altro con dissolvenza di 0,3s alla giuntura e 0,5s sulla scena vuota alla
 fine; niente video con Riduci Movimento, la posa resta lo strato di fondo
-sempre.
+sempre. `IlCamminoDellAnimale` ha la sua prova diretta in
+`test/il_cammino_dell_animale_test.dart`.
 
 DOMANDA: "per risparmiare anche sul peso, direi un solo video: un terzo con
 l'animale che si avvicina, un terzo che si ferma e si mette in posa e un
 terzo che si gira e torna indietro"; "nel secondo terzo... fa il suo verso
 (ululato per il lupo) e poi si allontana"
-PROVA: `test/la_sequenza_del_cammino_test.dart`,
-`test/il_cammino_dell_animale_test.dart`
-MISURA: i tre pezzi del video (arrivo, centro, uscita) si incatenano per
-ciascuno dei tre gesti dal fotogramma esatto del file dei tagli di ognuno
-dei dodici animali; con Riduci Movimento acceso i video in esecuzione
+PROVA: `test/la_sequenza_del_cammino_test.dart`
+MISURA: i 3 pezzi del video (arrivo, centro, uscita) si incatenano per
+ciascuno dei 3 gesti dal fotogramma esatto del file dei tagli di ognuno
+dei 12 animali; con Riduci Movimento acceso i video in esecuzione
 scendono da 1 a 0, resta la sola posa ferma
 
 ## VOCE FZ.06
@@ -155,17 +155,17 @@ fondatore prima di uno store). Nella schermata, un secondo pulsante
 centro e' gia' scaricato. **La meta' rimasta aperta dal primo commit**, la
 risalita che rivela, e' stata chiusa subito dopo: `_laRisalita` monta
 `IlCamminoDellAnimale` con `LaSequenzaDelCammino.rivelazione` al posto
-dell'illustrazione ferma, solo sulla discesa che rivela.
+dell'illustrazione ferma, solo sulla discesa che rivela, provata in
+`test/il_cammino_a_strati_test.dart`. Il filtro del titolo ha la sua prova
+diretta in `test/il_filtro_del_titolo_in_video_test.dart`.
 
 DOMANDA: risposte dell'Architetto alle domande delle funzionalita', punto
 9, approvate dal fondatore il 17 ottobre 2026 alle 20:16 ("Procedi con
 l'ordine")
-PROVA: `test/condividi_la_rivelazione_in_video_test.dart`,
-`test/il_filtro_del_titolo_in_video_test.dart`,
-`test/il_cammino_a_strati_test.dart`
-MISURA: il comando FFmpeg generato contiene il pezzo centro, "MI HA
-TROVATO", il nome dell'animale, la data e la codifica video corretta
-(libx264, audio copiato, 5 controlli su 5); alla risalita che rivela, il
+PROVA: `test/condividi_la_rivelazione_in_video_test.dart`
+MISURA: 5 controlli su 5 sul comando FFmpeg generato (contiene il pezzo
+centro, "MI HA TROVATO", il nome dell'animale, la data e la codifica video
+corretta, libx264 con audio copiato); alla risalita che rivela, il
 widget del cammino video sostituisce l'illustrazione ferma, da assente a
 presente (vista rossa prima, verde dopo); le 106 prove della zona del
 Viaggio restano tutte verdi a quel commit
@@ -250,14 +250,14 @@ ombre al posto di tre (`LeOmbreCheRitornano.ombreProposte`,
 nove). Restano le regole di FZ.01. `viaggio_dello_sciamano_screen.dart`,
 `_lIncontro`: da una `Column` di tre sagome a una griglia tre per tre,
 tutte visibili senza scorrere a ogni larghezza fra 320 e 430 punti, ogni
-bersaglio ben oltre i 44 punti minimi.
+bersaglio ben oltre i 44 punti minimi. Il numero delle proposte ha la sua
+prova diretta nel gruppo "FZA.01" di `test/le_ombre_che_ritornano_test.dart`.
 
 DOMANDA: "ma si che base vengono scelte? Non mi piace il fatto che siano
 cmq riconoscibili e, quindi, pensavo di farli diventare 9 e l'utente puo'
 sceglierne solo 1"; "Preferisco 9 ombre, anche se riconoscibili, perche'
 con lince, volpe e lupo cmq sarebbero simili e mettono piu' curiosita'"
-PROVA: `test/le_nove_ombre_stanno_tutte_a_schermo_test.dart`,
-`test/le_ombre_che_ritornano_test.dart` (gruppo "FZA.01")
+PROVA: `test/le_nove_ombre_stanno_tutte_a_schermo_test.dart`
 MISURA: sagome a schermo, da 3 a 9, sempre `findsNWidgets(9)` a 320, 375 e
 430 punti, senza scorrere; bersaglio di ogni sagoma, da non misurato a
 sempre oltre i 44 punti minimi (larghezza e altezza); le nove proposte sono
@@ -271,14 +271,15 @@ completano il gruppo, e il posto di tutte e nove nella griglia, nascono da
 un seme FNV-1a su identita' del dispositivo (`DeviceId.corrente()`, gia'
 usato per i Doni deterministici) piu' numero della discesa. Stessa persona,
 stessa discesa: stesso gruppo, negli stessi posti. Persone diverse: gruppi
-diversi.
+diversi. Prova diretta nel gruppo "FZA.02" di
+`test/le_ombre_che_ritornano_test.dart`.
 
 DOMANDA: il rilievo dell'Architetto, 19 ottobre 2026, leggendo che le
 ombre nuove completavano il gruppo "nell'ordine del catalogo" (quindi alla
 prima discesa tutti vedevano le stesse ombre), approvato dal fondatore
 ("Vai")
-PROVA: `test/le_ombre_che_ritornano_test.dart` (gruppo "FZA.02")
-MISURA: cento persone diverse alla prima discesa, gruppi diversi visti da
+PROVA: `test/le_ombre_che_ritornano_test.dart`
+MISURA: su 100 persone diverse alla prima discesa, gruppi diversi visti da
 1 (il difetto segnalato: tutti uguali) a 100 su 100; la stessa persona che
 rientra nella stessa discesa, stesso gruppo negli stessi posti (identico);
 la stessa persona a discese diverse, gruppo diverso (il seme include il
