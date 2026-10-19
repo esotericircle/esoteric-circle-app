@@ -7616,6 +7616,24 @@ Verificato in locale: 350 prove verdi sull'intera zona Viaggio/Animale
 Guida piu' le sedici guardie toccate; `flutter analyze` pulito. In
 attesa del nuovo verde di GitHub su questo commit.
 
+**Aggiornamento del 20 ottobre 2026: il verde di GitHub e' arrivato.**
+Confermato `refs/verde/a56d9a572b5485b19f09d188bba88c6c9935ec43` sul
+commit `a56d9a57`, la cima attuale del ramo canonico: tutti gli otto
+controlli obbligatori del cancello (analyze, i sei pezzi della suite, il
+corredo a scala 1,3, il server e le chiusure, analyze e sbarramento)
+verdi. Il nono controllo, "Ronda dei motori e suite intera", non e'
+richiesto dal segno del verde (non e' nelle dipendenze del job che lo
+scrive, verificato in `.github/workflows/verde.yml`): e' rimasto in
+corso per piu' di dodici ore ed e' infine terminato `cancelled`, non
+`failure`; non toccato, nessuna chiamata a pagamento avviata o
+autorizzata. **FZ.15 (la consegna) resta APERTA IN ATTESA DI VERIFICA**:
+la parte automatica (codice, test, manifesto, rapporto, verde di GitHub)
+e' completa, ma FZ.15 dipende anche da FZ.09 e FZ.13, le simulazioni da
+persona rimaste sul device, bloccate dall'incidente sulle preferenze
+dell'account di prova (vedi sopra) e in attesa delle credenziali di
+Mauro per "ProvaFZ" o un account nuovo. Manifesto e rapporto aggiornati
+con lo sha del segno verde.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

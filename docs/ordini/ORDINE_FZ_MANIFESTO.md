@@ -357,13 +357,20 @@ entrambe ancora aperte: il testo dell'ordine lo dice esplicitamente
 ("L'ordine si consegna solo col verde di GitHub e con le simulazioni di
 FZ.09 fatte e guardate"). Fatto: manifesto, guardia del manifesto
 (`test/ordine_fz_guard_test.dart`), rapporto, STATO_VIVO e registro delle
-guardie aggiornati; codice e test pushati sul ramo canonico. Da verificare:
-il verde di GitHub sul commit consegnato (in corso), e le simulazioni
-rimaste aperte sopra.
+guardie aggiornati; codice e test pushati sul ramo canonico. **Il verde di
+GitHub e' arrivato**, sul commit `a56d9a57` (`refs/verde/a56d9a572b5485b19
+f09d188bba88c6c9935ec43`), dopo due giri del cancello: il primo caduto su
+una forma sbagliata delle righe PROVA del manifesto (corretta, commit
+`0a9bfced`), il secondo su dieci rossi (nove debito preesistente di ordini
+precedenti, uno proprio: le voci dell'aggiunta FZA rinumerate FZ.10-FZ.14,
+vedi il rapporto; corretti tutti, commit `59c96d34`). **Resta da
+verificare**: le simulazioni rimaste aperte di FZ.09 e FZ.13.
 
-ASPETTA: il verde di GitHub sul commit consegnato; Mauro, per le
-simulazioni rimaste di FZ.09 e FZ.13 (vedi le rispettive voci).
+ASPETTA: Mauro, per le simulazioni rimaste di FZ.09 e FZ.13 (vedi le
+rispettive voci): le credenziali dell'account di prova "ProvaFZ" o un
+account nuovo.
 DOMANDA: regole fisse R3, R6, R11; FZ.09
 PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
 MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse
-12, aperte in attesa di verifica 3
+12, aperte in attesa di verifica 3; verde di GitHub sul commit consegnato,
+da assente a presente (`refs/verde/a56d9a572b5485b19f09d188bba88c6c9935ec43`)
