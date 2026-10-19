@@ -489,6 +489,39 @@ rete attiva. Rete riattivata (`svc wifi enable` + `svc data enable`,
 confermato "Wi-Fi is enabled") per le prossime simulazioni. Catture
 `f_noret_1_19ott.png` fino a `f_noret_12_19ott.png`.
 
+## SIMULAZIONE PERSONA (e), parziale: "Chiedigli un segno", via di riserva senza rete
+
+Dopo il riconoscimento, la schermata principale del Viaggio cambia: non piu'
+"Scendi" verso un nuovo strato, ma una card dell'animale riconosciuto con
+tre azioni, **"Scendi con una domanda"**, **"Nutrilo"**, **"Chiedigli un
+segno"** (quest'ultima e' l'ingresso del flusso descritto dalla previsione
+e). Verificato anche un dettaglio di validazione corretto, visto nel dump
+UI prima ancora di guardare lo schermo: il pulsante "Chiedi" nella
+schermata "Chiedi un segno al Cavallo" e' `clickable="false"
+enabled="false"` finche' il campo e' vuoto, e si abilita da solo appena si
+scrive.
+
+Per restare in sicurezza dentro la regola SPESE (nessuna chiamata a
+pagamento verso Gemini senza il si' esplicito di Mauro, dato in chat con la
+stima in euro), la rete e' stata **tenuta disattivata apposta** durante
+questa prova: una eventuale chiamata al modello sarebbe fallita comunque
+per assenza di connessione, a costo zero garantito, mostrando cosi' la via
+di riserva. Scritta la domanda "Devo cambiare lavoro" (il testo via `adb
+shell input text` si interrompe se contiene spazi letterali e la tastiera
+SwiftKey intercetta il primo spazio come conferma autocompletamento:
+bypassato codificando gli spazi come `%s`), toccato "Chiedi": risposta
+**immediata**, nessuna attesa, "Il Cavallo si allontana di qualche passo.
+Vuol dire non adesso. Il momento non è questo." Confermata la previsione
+(e), punto 2 ("la riga arriva comunque, niente attesa infinita") e in
+parte il punto 4 (la riserva risponde, nel repertorio chiuso).
+
+**Non completata**: il giro delle tre volte per vedere tutti e tre i gesti
+(si', guarda meglio, no) previsto al punto 3, e la parte con una chiamata
+vera al modello (punto 4, richiede il si' esplicito di Mauro con la stima
+di spesa, mai dato in questa sessione). Rete riattivata al termine
+(`svc wifi enable` + `svc data enable`, confermato "Wi-Fi is enabled").
+Catture `e1_19ott.png` fino a `e16_19ott.png`.
+
 ## CORREZIONE UI CONFERMATA A VIDEO: le tre ombre verticali e grandi
 
 Richiesta di Mauro, osservando uno screenshot della schermata

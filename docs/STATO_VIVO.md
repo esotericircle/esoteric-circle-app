@@ -7375,11 +7375,27 @@ perdita di progresso.
     `verify41_19ott.png`, MISURA `sendPlatformMessage` 1076 campioni prima,
     93 dopo; `uiautomator dump` falliva sempre prima, riuscito al primo
     colpo dopo.
-  - **Restano da completare con la build corretta**: le simulazioni delle
-    persone b, c, d, e, f, g previste in
-    `docs/collaudo/FZ/simulazioni/previsioni.md` (la persona a e'
-    completata, vedi sopra); la voce FZ.09 resta APERTA IN ATTESA DI
-    VERIFICA finche' non sono fatte tutte.
+  - **Persona (f) completata** (Viaggio senza rete): quarta discesa e
+    rivelazione finale del Cavallo verificate con WiFi e dati disattivati
+    sul telefono di collaudo, nessun riquadro vuoto, nessun crash, nessuna
+    attesa, immagini ferme al posto dei video. Confermato anche il
+    preambolo della persona (g): senza il pezzo video scaricato compare
+    solo "Di' chi sei", mai "Condividi come video"; il foglio di
+    condivisione di sistema si apre con l'immagine pronta
+    (`card_della_rivelazione.png`) e annullarlo lascia l'app pulita.
+  - **Persona (e) parziale**: la domanda "Chiedigli un segno", fatta con
+    la rete tenuta apposta disattivata (nessuna chiamata a pagamento senza
+    il si' di Mauro, regola SPESE), ha dato una risposta immediata dalla
+    via di riserva ("Il Cavallo si allontana... non adesso"), confermando
+    che non c'e' piu' attesa infinita. Mancano ancora gli altri due gesti
+    e la chiamata vera al modello (richiede il si' di Mauro con stima di
+    spesa).
+  - **Restano da completare**: le simulazioni delle persone b, c, d (e il
+    resto di e e g) previste in
+    `docs/collaudo/FZ/simulazioni/previsioni.md` (le persone a e f sono
+    completate, vedi sopra); la voce FZ.09 resta APERTA IN ATTESA DI
+    VERIFICA finche' non sono fatte tutte. Diario completo in
+    `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.
 
 ## Regole ferree
 
