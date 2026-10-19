@@ -30,17 +30,19 @@
 /// **Tappa 3, ordine FZ, 17 ottobre 2026: LA SCELTA TORNA, E STAVOLTA NON
 /// APRE UNA SECONDA PORTA.** Il fondatore, davanti alla domanda se l'animale
 /// fosse "gia' assegnato" dal cielo, ha scelto esplicitamente la via in cui
-/// si rivela **nel viaggio**: a ogni discesa tre ombre, sagome scure senza
-/// nome, e la persona ne segue una a intuito. Quando la stessa ombra e' stata
-/// seguita **quattro volte, non per forza di fila**, quella e' il suo
-/// animale, fisso per sempre. **Non e' il ritorno alla tappa 1**: li' le tre
-/// ombre nascevano in parte dal cielo, e la porta del segno restava aperta in
-/// parallelo nel Passaporto; qui il cielo non entra per niente nella scelta
-/// delle ombre (vedi `AnimaleDiPotere.treOmbreProposte`, che guarda solo
-/// quali ombre la persona ha gia' seguito), e la porta e' una sola:
-/// `AnimaleDiPotere.riconosciutoDa`. `GuideAnimalDerivation.forSign` resta
-/// nel codice solo per la migrazione una tantum di chi aveva gia' concluso
-/// col vecchio sistema, non per decidere l'animale di nessuno.
+/// si rivela **nel viaggio**: a ogni discesa nove ombre (FZA.01, 19 ottobre
+/// 2026, erano tre), sagome scure senza nome, e la persona ne segue una a
+/// intuito. Quando la stessa ombra e' stata seguita **quattro volte, non per
+/// forza di fila**, quella e' il suo animale, fisso per sempre. **Non e' il
+/// ritorno alla tappa 1**: li' le tre ombre nascevano in parte dal cielo, e
+/// la porta del segno restava aperta in parallelo nel Passaporto; qui il
+/// cielo non entra per niente nella scelta delle ombre (vedi
+/// `AnimaleDiPotere.ombreProposte`, che guarda solo quali ombre la persona ha
+/// gia' seguito, e l'identita' del dispositivo per quelle mai viste, FZA.02),
+/// e la porta e' una sola: `AnimaleDiPotere.riconosciutoDa`.
+/// `GuideAnimalDerivation.forSign` resta nel codice solo per la migrazione
+/// una tantum di chi aveva gia' concluso col vecchio sistema, non per
+/// decidere l'animale di nessuno.
 ///
 /// **E QUESTO E' HARNER ALLA LETTERA, non un compromesso.** La chiave del
 /// riconoscimento e' che l'animale **torni a mostrarsi almeno quattro volte**:

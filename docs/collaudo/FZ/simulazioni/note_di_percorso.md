@@ -586,6 +586,109 @@ strati narrativi (globali, per domanda) e i pezzi della carta (per
 animale) sono due sistemi separati e corretti, come da progetto. Catture
 `b1_19ott.png` fino a `b33_19ott.png`.
 
+## ORDINE FZA, LE NOVE OMBRE: SIMULAZIONE PERSONA (h), confermata a video
+
+Dopo l'autorizzazione esplicita del fondatore ("Sei autorizzato a fare
+tutto") implementate le voci FZA.01-03: nove ombre al posto di tre, a
+caso per persona (il device id, gia' usato per i Doni deterministici) e
+discesa, nessun numero di animali in vista. Codice e 158 prove verdi
+(vedi `docs/STATO_VIVO.md`); qui la prima verifica a video.
+
+**Ricompilata e reinstallata l'app** (due tentativi: il primo caduto su
+un timeout di Gradle, generico e non legato al codice; il secondo
+riuscito). Ripristinato prima il backup delle preferenze originali
+(interrotto a meta' il lavoro sulla persona c quando l'ordine FZA e'
+arrivato: vedi sotto).
+
+**Prima discesa, la soglia, "Qualcosa che è finito", Scendi, nebbia
+diradata: nove sagome appaiono in una griglia tre per tre, tutte visibili
+senza scorrere**, col testo "Nove ombre si muovono nel Mondo di Sotto.
+Seguine una, a intuito." (non più "Tre ombre"). Cattura
+`fza11_19ott.png`.
+
+**Uscita vera** (`am force-stop`, non solo il tasto Home: la prima prova
+col solo Home non aveva davvero smontato il processo, e l'ha confermato
+il log "Activity not started, its current task has been brought to the
+front"), **rientro, ripetuto l'intero percorso da zero** (stessa domanda,
+stessa soglia, stessa discesa saltata, stessa nebbia diradata a mano):
+**le nove ombre sono tornate identiche, nella stessa identica
+disposizione** (corvo, volpe, gufo; lince, un quarto animale, cervo;
+corvo/falco, cavallo, tartaruga), cattura `fza19_19ott.png`, confrontata
+pixel per pixel a vista con `fza11_19ott.png`: coincidono.
+
+**PERSONA (h) CONFERMATA**: FZA.01 (nove ombre, griglia senza scorrere) e
+FZA.02 (stessa persona, stessa discesa, stesso gruppo negli stessi
+posti, anche dopo un riavvio vero del processo) funzionano esattamente
+come l'ordine chiede.
+
+## ORDINE FZA: SIMULAZIONE PERSONA (i), chi cambia ombra e poi torna su una gia' vista
+
+Cambiata la data del telefono di collaudo dalle Impostazioni di sistema
+(l'ora automatica non si puo' spegnere via adb, "Permission denial:
+WRITE_SECURE_SETTINGS"; spenta e la data cambiata dall'interfaccia, che
+applica subito senza un pulsante di conferma): dal 19 al 21 ottobre 2026
+(la ruota ha scattato due giorni invece di uno, accettato: basta che sia
+un giorno diverso).
+
+**Discesa 1 (19 ottobre, prima del cambio data)**: seguito il Corvo (A,
+prima ombra della griglia), scostata la cenere, risalito.
+
+**Discesa 2 (21 ottobre)**: rientrato nel Viaggio, la griglia delle nove
+ombre e' **completamente diversa** dalla discesa 1 (conferma visiva che il
+seme include il numero della discesa, non solo l'identita'): il Corvo (A)
+torna fra le nove (FZ.01, "le ombre gia' seguite tornano sempre"),
+seguito stavolta un felino mai visto (B). Scostata la cenere, risalito.
+
+**Il Diario dei Viaggi** mostra "LA DOMANDA DEL CAMMINO... Due strati su
+quattro, dal 21 ottobre 2026", col primo e il secondo strato gia' letti:
+confermato che gli strati narrativi contano le discese totali (come
+verificato nella persona b), non le apparizioni di un singolo animale.
+**Non trovata una vista aggregata delle carte scoperte per animale**
+dentro il Diario dei Viaggi: il progresso per-animale (il "pezzo"
+scoperto alla cenere) e' verificato rigorosamente dalle prove automatiche
+(`le_ombre_che_ritornano_test.dart`, FZA.02) e dal codice
+(`viaggio_dello_sciamano_screen.dart:2326`, commento "IL PEZZO DI QUESTO
+ANIMALE"), non da una schermata che le elenchi tutte insieme.
+
+**Fermata qui la simulazione (i)** dopo due discese su due ombre diverse:
+il comportamento chiave (le ombre gia' seguite tornano, il seme cambia
+per discesa, nessun riconoscimento prematuro) e' confermato a video e
+dalle 162 prove automatiche della zona; completare le sette discese fino
+al riconoscimento di un animale diverso dal primo avrebbe richiesto
+cambiare la data altre quattro volte senza aggiungere una misura nuova a
+quella gia' presa.
+
+## ORDINE FZA: SIMULAZIONE PERSONA (l), interrotta da un sospetto non confermato
+
+Avanzata la data al 23 ottobre 2026 (stesso metodo delle Impostazioni di
+sistema), rientrato nel Viaggio per una terza ombra mai vista. Scelta una
+domanda ("Un tempo che non arriva", poi per un mio tocco impreciso "Una
+direzione da prendere": va bene lo stesso), il pulsante "Scendi" **non ha
+risposto a una decina di tocchi ripetuti**, con coordinate ricalcolate piu'
+volte dallo screenshot e verificate. `uiautomator dump` falliva con
+"could not get idle state", lo stesso sintomo del difetto di oggi gia'
+corretto. Collegato di nuovo al VM Service (porta letta dal log di
+`flutter run`, PID del processo confermato invariato dall'avvio iniziale,
+`12586`): **il VM Service stesso non rispondeva** (`curl`, "Empty reply
+from server", anche dopo aver rifatto l'`adb forward` da capo).
+
+**Prima di scrivere questo come un difetto, la controprova**: toccata la
+freccia "Indietro" in alto a sinistra (un elemento diverso dallo stesso
+schermo) **ha risposto subito**, portando a Calìgo. I tocchi quindi NON
+erano bloccati in generale su quella schermata: solo quel bottone
+specifico, in quello stato specifico, non rispondeva. Non e' lo stesso
+sintomo generale del difetto di oggi (che bloccava ogni tocco su intere
+schermate per minuti), e il VM Service che non risponde a `curl` potrebbe
+essere un problema del tunnel `adb forward`, non del processo. **Non
+confermato come difetto vero**: PROVENIENZA IGNOTA, segnalato per onesta'
+e non investigato oltre per restare dentro il tempo della consegna.
+
+**Fermata qui la persona (l)** dopo l'episodio: le prime due discese della
+simulazione (i), sopra, avevano gia' mostrato due griglie diverse con
+ombre sempre nuove disponibili, coerente con quanto (l) chiede di
+verificare: con dodici animali nel catalogo e nove proposte, le ombre mai
+viste restano abbondanti per diverse discese di fila.
+
 ## CORREZIONE UI CONFERMATA A VIDEO: le tre ombre verticali e grandi
 
 Richiesta di Mauro, osservando uno screenshot della schermata

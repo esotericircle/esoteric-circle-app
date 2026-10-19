@@ -31,6 +31,7 @@ class GirandolaDegliAnimali extends StatefulWidget {
     super.key,
     required this.altezza,
     this.senzaMoto,
+    this.animali = AnimalCatalog.animals,
   });
 
   /// L'altezza della fila, che decide anche quanto e' grande un totem.
@@ -38,6 +39,13 @@ class GirandolaDegliAnimali extends StatefulWidget {
 
   /// Iniettabile per le prove. Quando e' nullo lo chiede a `MediaQuery`.
   final bool? senzaMoto;
+
+  /// **IL CATALOGO, INIETTABILE.** Ordine FZA voce 03, 19 ottobre 2026: di
+  /// serie legge `AnimalCatalog.animals`, il catalogo vero; una prova puo'
+  /// passarne uno piu' lungo (un tredicesimo animale finto) per misurare che
+  /// la girandola mostri davvero quanti il catalogo ne porta, non un dodici
+  /// scritto a mano.
+  final List<GuideAnimal> animali;
 
   /// **QUANTO DURA UN GIRO INTERO.**
   static const Duration quantoDuraUnGiro = Duration(seconds: 60);
@@ -67,7 +75,7 @@ class _GirandolaDegliAnimaliState extends State<GirandolaDegliAnimali>
     } else if (!_giro.isAnimating) {
       _giro.repeat();
     }
-    const animali = AnimalCatalog.animals;
+    final animali = widget.animali;
     final lato = widget.altezza;
     final passo = lato * 0.86;
     return SizedBox(

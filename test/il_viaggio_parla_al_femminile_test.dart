@@ -46,6 +46,10 @@ void main() {
     final diario = DiarioDeiViaggi(orologio: () => DateTime(2026, 9, 14, 12));
     var chiamateDellaScena = 0;
     var silenzi = 0;
+    // **FISSATO ALLA PRIMA DISCESA UTILE**, ordine FZA voce 02: il posto
+    // delle ombre e' a caso, il nome no: si segue sempre lo stesso animale
+    // cercandolo per nome, non per posizione nell'albero.
+    String? nomeDellOmbraSeguita;
     Future<void> apri(int giorno) async {
       await tester.pumpWidget(MultiProvider(
         key: UniqueKey(),
@@ -203,14 +207,28 @@ void main() {
       leggi();
       // **NESSUN NOME FISSO, ordine FZ voce 01.** Qui c'era
       // `viaggio_ombra_Lupo`: con l'animale non piu' derivato dal segno, le
-      // tre ombre proposte cambiano via via che la stessa viene seguita piu'
-      // volte (e nelle prime discese nessuna e' ancora "sua"). Questa prova
-      // non misura quale ombra: segue sempre la prima che trova, cosi' la
-      // stessa torna a ogni discesa e il riconoscimento arriva comunque.
+      // nove ombre proposte cambiano via via che la stessa viene seguita
+      // piu' volte (e nelle prime discese nessuna e' ancora "sua").
+      //
+      // **IL POSTO NON E' PIU' FISSO, ordine FZA voce 02.** Qui prendeva "la
+      // prima ombra trovata nell'albero", e bastava perche' prima il posto
+      // era deterministico (l'ordine del catalogo): la stessa ombra
+      // scoperta alla prima discesa restava sempre la prima nell'albero, e
+      // la ritrovava da sola. Con le ombre nuove e il loro posto a caso per
+      // persona e discesa, "la prima nell'albero" e' un animale diverso a
+      // ogni discesa: la prova deve seguire lo stesso NOME, non la stessa
+      // POSIZIONE. Alla prima discesa utile si fissa un nome, e da li' in
+      // poi lo si cerca per nome: le ombre gia' seguite tornano sempre
+      // (FZ.01), quindi quel nome e' sempre fra le nove proposte.
       Key? chiaveDiUnOmbra() {
+        if (nomeDellOmbraSeguita != null) {
+          final k = Key('viaggio_ombra_$nomeDellOmbraSeguita');
+          if (find.byKey(k).evaluate().isNotEmpty) return k;
+        }
         for (final el in tester.allElements) {
           final k = el.widget.key;
           if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+            nomeDellOmbraSeguita ??= k.value.substring('viaggio_ombra_'.length);
             return k;
           }
         }

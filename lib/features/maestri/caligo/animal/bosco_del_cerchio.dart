@@ -71,7 +71,7 @@ class BoscoDelCerchio extends StatelessWidget {
             SpacingTokens.lg, SpacingTokens.xxxl),
         children: [
           ParagrafiDiLettura(
-            testo: 'Dodici animali accompagnano chi cammina nel Cerchio, uno '
+            testo: 'Gli animali accompagnano chi cammina nel Cerchio, uno '
                 'per ciascuno. Questo è il bosco: guardando gli altri '
                 'riconosci anche il tuo.',
             stile: TypographyTokens.lettura()

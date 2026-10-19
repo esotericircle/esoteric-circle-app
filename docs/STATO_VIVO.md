@@ -7417,6 +7417,143 @@ perdita di progresso.
     completate, vedi sopra); la voce FZ.09 resta APERTA IN ATTESA DI
     VERIFICA finche' non sono fatte tutte. Diario completo in
     `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.
+  - **La persona (c)** (chi aveva gia' concluso col vecchio sistema) e'
+    stata avviata: con l'autorizzazione esplicita di Mauro ("Sei
+    autorizzato a fare tutto"), scritta a mano la chiave
+    `flutter.viaggio.riconosciuto=true` senza le due chiavi nuove di FZ.02
+    (`flutter.viaggio.animale_riconosciuto`, `flutter.viaggio.fz02_migrato`)
+    nel file `FlutterSharedPreferences.xml` del telefono di collaudo (il
+    backup del file originale e' conservato per il ripristino). Riavviata
+    l'app: nessun avviso bloccante all'apertura, coerente con la
+    previsione (c) punto 1. **Interrotta a meta'** dall'arrivo dell'ordine
+    FZA (vedi sotto): restano da verificare i punti 2 e 3 della previsione
+    (Passaporto, Ritratto e Bosco del Cerchio con lo stesso animale; la
+    possibilita' di continuare a scendere per consultarlo) e da ripristinare
+    il backup delle preferenze originali prima di proseguire con altre
+    simulazioni sullo stesso telefono.
+
+## L'ORDINE FZA, LE NOVE OMBRE DEL VIAGGIO (19 ottobre 2026) — IN CORSO, NON ANCORA CONSEGNATO
+
+Aggiunta all'ordine FZ, in esecuzione dentro di lui: si consegna con la sua
+consegna, voce FZ.10. Fonte: `D:\Clienti Roogly\Rituali Cartomanzia\App\
+ORDINE_FZ_Aggiunta_Esoteric_Circle.md`, testa vista dall'Architetto il 19
+ottobre 2026 alle 20:05, 707fb15.
+
+**Le fonti, parola del fondatore.** 19 ottobre 2026, 20:03, guardando la
+schermata delle tre ombre: *"ma si che base vengono scelte? Non mi piace
+il fatto che siano cmq riconoscibili e, quindi, pensavo di farli diventare
+9 e l'utente può sceglierne solo 1"*. Poi, 20:11: *"Preferisco 9 ombre,
+anche se riconoscibili, perché con lince, volpe e lupo cmq sarebbero
+simili e mettono più curiosità... Piuttosto, un domani, ne potrei
+aggiungere altri, visto che da nessuna parte viene indicato il numero
+degli animali."*
+
+- **FZA.01, nove ombre invece di tre.**
+  `lib/core/viaggio/le_ombre_che_ritornano.dart`: `treOmbreProposte`
+  diventa `ombreProposte`, con `quanteOmbreSiPropongono = 9` di default
+  (quanto il catalogo ne ha, se sono meno di nove). Restano le regole di
+  FZ.01: le ombre gia' seguite tornano sempre (le piu' seguite, a parita'
+  le piu' recenti). `viaggio_dello_sciamano_screen.dart`, `_lIncontro`:
+  da una `Column` di tre sagome verticali a una griglia tre per tre, tutte
+  visibili senza scorrere a ogni larghezza fra 320 e 430 punti, ogni
+  bersaglio ben oltre i 44 punti minimi. Il testo cambia da "Tre ombre si
+  muovono" a "Nove ombre si muovono".
+- **FZA.02, le ombre nuove a caso per ogni persona.** Le ombre mai viste
+  che completano il gruppo, e il posto di tutte e nove nella griglia, non
+  escono piu' nell'ordine del catalogo: nascono da un seme FNV-1a su
+  `identita' del dispositivo (DeviceId.corrente(), gia' usato per i Doni
+  deterministici) + numero della discesa`. Stessa persona, stessa discesa:
+  stesso gruppo, negli stessi posti (chi esce e rientra lo ritrova
+  identico). Persone diverse: gruppi diversi (misurato su cento persone
+  alla prima discesa, cento gruppi diversi su cento).
+  - **L'identita' si legge senza chiedere un ridisegno**: la prima stesura
+    chiamava `setState` appena il device id arrivava, e questo rompeva due
+    prove esistenti del Viaggio (`il_cammino_a_strati_test.dart`,
+    `il_viaggio_parla_al_femminile_test.dart`) con un errore di Provider
+    mancante durante una transizione delicata. Tolto il `setState`: il
+    campo si aggiorna, il prossimo ridisegno vero (un tocco, il respiro
+    della nebbia) lo usa gia' pronto.
+  - **Due prove esistenti cercavano "la prima ombra nell'albero"**, e
+    bastava quando il posto era deterministico (l'ordine del catalogo):
+    con FZA.02 il posto e' a caso, quindi "la prima nell'albero" e' un
+    animale diverso a ogni discesa. Corrette per cercare lo stesso NOME,
+    fissato alla prima discesa utile, non la stessa posizione.
+- **FZA.03, nessun numero di animali in vista.** Cercati e corretti due
+  testi visibili che lo dicevano: `sentiero_albero.dart` ("I dodici
+  Animali Guida" → "Gli Animali Guida del catalogo"), `bosco_del_cerchio.
+  dart` ("Dodici animali accompagnano..." → "Gli animali accompagnano...").
+  Il testo delle fonti del Viaggio e del pannello dell'Animale Guida,
+  entrambi dicevano "le tre ombre": generalizzati in "le ombre", a prova
+  di qualunque numero futuro. `GirandolaDegliAnimali` resa iniettabile
+  (`animali`, di serie `AnimalCatalog.animals`) per poterla misurare con
+  un catalogo esteso.
+- **Guardie nuove, tutte viste rosse prima della correzione** (Regola A):
+  `le_ombre_che_ritornano_test.dart` (riscritta per nove ombre e il seme
+  per persona), `le_nove_ombre_stanno_tutte_a_schermo_test.dart`,
+  `nessun_numero_di_animali_in_vista_test.dart` (con un tredicesimo
+  animale finto aggiunto al catalogo in prova: ne' `ombreProposte` ne' la
+  girandola restano bloccate a dodici). Le 155 prove della zona
+  Viaggio/Animale Guida restano tutte verdi. Registro aggiornato,
+  `docs/guardie.md`, 826 guardie.
+- **Da verificare ancora sul device vero**: il codice e le 158 prove sono
+  verdi, ma nessuna cattura a video ancora presa. Restano le simulazioni
+  FZA.04 (persone h, i, l) e il ripristino del backup delle preferenze
+  della persona (c), interrotta a meta' quando questo ordine e' arrivato.
+
+**Aggiornamento del 19 ottobre 2026, confermato a video e verso la
+consegna.** Completate sul Realme 767f596c: persona (h), nove ombre
+confermate identiche dopo un vero riavvio del processo, confronto pixel
+per pixel. Persona (i), due discese su almeno quattro necessarie: griglie
+diverse fra loro, l'ombra gia' seguita torna, gli strati narrativi contano
+le discese totali. Persona (l), interrotta da un episodio di tocco non
+risposto sul pulsante "Scendi" (`uiautomator dump` in errore), non
+confermato come difetto vero dopo una controprova (un altro elemento
+sulla stessa schermata ha risposto subito): PROVENIENZA IGNOTA, non
+investigato oltre.
+
+**Aggiunta la voce FZA.05**, fuori dal testo scritto dell'aggiunta ma
+dentro lo stesso ordine: il riquadro dell'animale nella risalita, a
+1,35 (orizzontale), tagliava le gambe del Cavallo e, sugli animali piu'
+piccoli nel fotogramma, molto di piu' del corpo. Richiesta del fondatore
+in chat, con screenshot: *"Vorrei che l'animale non fosse tagliato alle
+gambe... Assicurati che tutti gli animali si vedano interamente o
+quasi."* Corretto il rapporto a 1080/1920, il rapporto vero delle dodici
+carte. Guardia nuova `test/il_riquadro_dell_animale_segue_la_carta_
+test.dart`.
+
+**Incidente operativo durante la pulizia del device, da riferire con
+onesta'.** Nel tentativo di ripristinare il backup delle preferenze della
+persona (c) (`/sdcard/prefs_persona_c.xml`), un comando di copia mal
+costruito ha cancellato quel backup e poi troncato a zero byte il file
+`FlutterSharedPreferences.xml` live dell'account di prova "ProvaFZ":
+errore di sequenza di Code, non un difetto dell'app. Riavviata l'app per
+vedere la conseguenza: ha mostrato correttamente l'onboarding "Il
+Risveglio" con "Faccio gia' parte del Cerchio. Accedi e ritrova il tuo
+cammino", prova che la custodia sull'account dell'ordine EE (Firestore)
+e' viva. Senza le credenziali dell'account di prova, Code non ha
+proseguito oltre il foglio di accesso (toccato "Più tardi"): il device
+resta sulla schermata di apertura, pulito e stabile. Le simulazioni (c)
+punti 2-3, (d), il resto di (e) e (g), e il completamento di (i) e (l)
+restano APERTE IN ATTESA DI VERIFICA finche' Mauro non da' le credenziali
+o ne crea di nuove.
+
+**La consegna, FZ.10**: manifesto (`docs/ordini/ORDINE_FZ_MANIFESTO.md`,
+15 voci, 12 chiuse e 3 aperte in attesa di verifica: FZ.09, FZA.04,
+FZ.10 stessa, tutte e tre legate alle simulazioni rimaste sul device),
+guardia del manifesto (`test/ordine_fz_guard_test.dart`, nata rossa per
+costruzione prima che il manifesto esistesse), rapporto
+(`docs/ordini/RAPPORTO_ORDINE_FZ.md`, registrato con
+`tool/i_rapporti_consegnati.py`), registro delle guardie aggiornato a
+**827** (163, 285, 379), e questa sezione. Tolta dal ramo la guardia
+`le_tre_ombre_sono_verticali_e_grandi_test.dart`: il suo soggetto (la
+`Column` di tre sagome) non esiste piu' dopo la griglia di nove di
+FZA.01. In locale girano le prove della zona toccata (262 prove su 52
+file della zona Viaggio/Animale Guida e vicina, tutte verdi) e la guardia
+del registro (`il_registro_delle_guardie_quadra_test.dart`, corretta
+anche una riga preesistente non in regola, `il_gesto_che_scosta_test.dart`,
+padre FZ.04: la sua riscrittura per la carta in quattro pezzi aveva
+smesso di passare dalla porta comune senza che il registro lo sapesse).
+Resta da verificare il verde della suite intera su GitHub dopo il push.
 
 ## Regole ferree
 

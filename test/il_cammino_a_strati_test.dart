@@ -392,6 +392,10 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
       }
 
+      // **FISSATO ALLA PRIMA DISCESA UTILE**, ordine FZA voce 02: il posto
+      // delle ombre e' a caso, il nome no: si segue sempre lo stesso
+      // animale cercandolo per nome, non per posizione nell'albero.
+      String? nomeDellOmbraSeguita;
       Future<void> scendiERisali() async {
         await tester.ensureVisible(find.byKey(const Key('viaggio_scendi')));
         await tester.tap(find.byKey(const Key('viaggio_scendi')));
@@ -414,14 +418,24 @@ void main() {
         }
         await tester.pump(const Duration(milliseconds: 300));
         // **NESSUN NOME FISSO, ordine FZ voce 01.** Qui c'era
-        // `viaggio_ombra_Lupo`: con tre ombre proposte invece di una, si
-        // segue sempre la prima trovata (nelle discese di questa prova
-        // "Lupo" e' gia' stata seguita, e torna sempre in testa alle tre
-        // proposte).
+        // `viaggio_ombra_Lupo`: con l'animale non piu' derivato dal segno,
+        // si segue sempre la prima trovata.
+        //
+        // **IL POSTO NON E' PIU' FISSO, ordine FZA voce 02**: con le ombre
+        // nuove e il loro posto a caso per persona e discesa, "la prima
+        // nell'albero" e' un animale diverso a ogni discesa. Si fissa un
+        // nome alla prima discesa utile e lo si cerca per nome da li' in
+        // poi: le ombre gia' seguite tornano sempre (FZ.01).
         Key? chiaveDiUnOmbra() {
+          if (nomeDellOmbraSeguita != null) {
+            final k = Key('viaggio_ombra_$nomeDellOmbraSeguita');
+            if (find.byKey(k).evaluate().isNotEmpty) return k;
+          }
           for (final el in tester.allElements) {
             final k = el.widget.key;
             if (k is ValueKey<String> && k.value.startsWith('viaggio_ombra_')) {
+              nomeDellOmbraSeguita ??=
+                  k.value.substring('viaggio_ombra_'.length);
               return k;
             }
           }

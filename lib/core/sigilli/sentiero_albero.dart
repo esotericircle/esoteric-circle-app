@@ -23,7 +23,7 @@ final List<Traguardo> sentieroDellAlbero = [
         'Hai dato al Cerchio l’Animale Guida: da adesso ogni responso parte da qui.',
     posizione: 1,
     percheConta: FamigliaDelTraguardo.identita.percheContaLaFamiglia,
-    cosaApre: 'I dodici Animali Guida, con il tuo fra loro',
+    cosaApre: 'Gli Animali Guida del catalogo, con il tuo fra loro',
     eGrande: false,
     eos: 10,
     fascia: 'Primi giorni',

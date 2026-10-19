@@ -12,7 +12,12 @@ class AnimalRitratto {
     required String quando,
     required String invito,
     required List<String> messaggi,
-  }) : _natura = natura, _dono = dono, _lezione = lezione, _quando = quando, _invito = invito, _messaggi = messaggi;
+  })  : _natura = natura,
+        _dono = dono,
+        _lezione = lezione,
+        _quando = quando,
+        _invito = invito,
+        _messaggi = messaggi;
 
   /// La natura dell'animale, chi e' nel simbolo.
   final String _natura;
@@ -224,7 +229,8 @@ class GuideAnimalCorpus {
           "La sua lezione è che la dolcezza non è debolezza: si può essere gentili e fermi insieme.",
       quando:
           "Si presenta come guida quando la durezza non serve e la via si apre con la grazia.",
-      invito: "Oggi tratta [te stesso|te stessa|te] e gli altri con una gentilezza nuova.",
+      invito:
+          "Oggi tratta [te stesso|te stessa|te] e gli altri con una gentilezza nuova.",
       messaggi: [
         "la dolcezza apre porte che la forza chiude.",
         "muoviti con grazia, senza fretta.",
@@ -395,6 +401,9 @@ class GuideAnimalCorpus {
   /// nascita, si trova nel Viaggio dello Sciamano seguendo le ombre), e
   /// quella riga era diventata falsa. Non toccata dall'agente che ha chiuso
   /// FZ.01-03 perche' questo pannello e' dello stesso perimetro di FZ.07.
+  /// **Il numero tolto dall'ordine FZA voce 03, 19 ottobre 2026**: erano
+  /// "tre" ombre, sono diventate nove, e il testo generalizza invece di
+  /// inseguire il numero.
   static const String fontiEMetodo =
       "L'Animale Guida poggia sullo sciamanesimo e sul core shamanism di Michael "
       "Harner, insieme alla letteratura degli animali di potere: Ted Andrews "
@@ -402,7 +411,7 @@ class GuideAnimalCorpus {
       "Carson (Medicine Cards). Non si calcola dalla nascita: lo trovi nel "
       "Viaggio dello Sciamano, seguendo di volta in volta l'ombra che ti parla "
       "di piu', e lo riconosci quando si e' mostrata almeno quattro volte, come "
-      "insegna Harner. Le tre ombre fra cui scegliere a ogni discesa sono il "
+      "insegna Harner. Le ombre fra cui scegliere a ogni discesa sono il "
       "modo in cui questa app mette in scena il viaggio: nella tradizione non "
       "c'è una scelta fra ombre, c'è una visione libera. I significati vengono "
       "dalla simbologia di quelle opere, con la nostra scrittura. Non è una "

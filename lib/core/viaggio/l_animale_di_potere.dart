@@ -24,17 +24,18 @@ import 'le_ombre_che_ritornano.dart';
 ///
 /// **E QUI LA STORIA SI ROVESCIA, PER UNA RAGIONE DIVERSA.** Il fondatore ha
 /// scelto esplicitamente la via in cui l'animale si rivela nel viaggio, non
-/// nel cielo: a ogni discesa tre ombre, la persona ne segue una a intuito, e
-/// quando la stessa ombra e' stata seguita quattro volte (non per forza di
-/// fila) quella e' il suo animale. Non e' un ritorno all'errore di DC: li' le
-/// quattro discese sceglievano fra ombre decise in parte dal cielo ("il cielo
-/// restringe" a tre candidati) e la porta del segno restava aperta in
-/// parallelo nel Passaporto. Qui il cielo non entra per niente: le tre ombre
-/// proposte a ogni discesa nascono solo da quali ombre la persona ha gia'
-/// seguito (`LeOmbreCheRitornano.treOmbreProposte`), e la porta del segno
-/// (`GuideAnimalDerivation`) resta viva solo per la migrazione una tantum di
-/// chi aveva gia' concluso col vecchio sistema (vedi [migraSeServe]), non per
-/// decidere l'animale di nessuno.
+/// nel cielo: a ogni discesa nove ombre (FZA.01, erano tre), la persona ne
+/// segue una a intuito, e quando la stessa ombra e' stata seguita quattro
+/// volte (non per forza di fila) quella e' il suo animale. Non e' un ritorno
+/// all'errore di DC: li' le quattro discese sceglievano fra ombre decise in
+/// parte dal cielo ("il cielo restringe" a tre candidati) e la porta del
+/// segno restava aperta in parallelo nel Passaporto. Qui il cielo non entra
+/// per niente: le ombre proposte a ogni discesa nascono solo da quali ombre
+/// la persona ha gia' seguito, e dall'identita' del dispositivo per quelle
+/// mai viste (`LeOmbreCheRitornano.ombreProposte`, FZA.02), e la porta del
+/// segno (`GuideAnimalDerivation`) resta viva solo per la migrazione una
+/// tantum di chi aveva gia' concluso col vecchio sistema (vedi
+/// [migraSeServe]), non per decidere l'animale di nessuno.
 ///
 /// **COSA SOSTITUISCE.** Ogni punto che chiamava `GuideAnimalDerivation.forSign`
 /// per MOSTRARE l'animale di una persona (Passaporto, Bosco del Cerchio, carta
@@ -109,9 +110,11 @@ abstract final class AnimaleDiPotere {
   static List<String> improteDelCammino(List<String> scelteInOrdine) =>
       LeOmbreCheRitornano.improteDelCammino(scelteInOrdine);
 
-  /// Vedi [LeOmbreCheRitornano.treOmbreProposte].
-  static List<String> treOmbreProposte(List<String> scelteInOrdine) =>
-      LeOmbreCheRitornano.treOmbreProposte(scelteInOrdine: scelteInOrdine);
+  /// Vedi [LeOmbreCheRitornano.ombreProposte].
+  static List<String> ombreProposte(
+          List<String> scelteInOrdine, String identita) =>
+      LeOmbreCheRitornano.ombreProposte(
+          scelteInOrdine: scelteInOrdine, identita: identita);
 
   /// **LA MIGRAZIONE UNA TANTUM DI FZ.02.**
   ///

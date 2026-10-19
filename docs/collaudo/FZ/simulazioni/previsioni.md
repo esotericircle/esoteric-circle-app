@@ -136,3 +136,77 @@ comparire, solo "Di' chi sei"):
 4. Annullando la condivisione dal foglio di sistema (senza scegliere
    un'app), l'app deve restare come prima, senza crash e senza un secondo
    file lasciato a meta'.
+
+## PREVISIONI PER L'AGGIUNTA FZA, LE NOVE OMBRE, 19 ottobre 2026
+
+Scritte prima di toccare il Realme, come la regola pretende, per le tre
+persone in piu' che l'ordine FZA voce 04 chiede.
+
+## h) chi alla prima discesa guarda tutte le nove ombre, esce, rientra e le ritrova
+
+Previsto:
+1. Alla prima discesa, scesa la nebbia, appaiono nove sagome, non tre, in
+   una griglia che sta tutta nello schermo senza scorrere.
+2. Si guardano le nove, si segna a mente la loro disposizione (per
+   esempio: in alto a sinistra un rapace, al centro un quadrupede
+   corpulento), poi si esce dall'app con il tasto Indietro di sistema
+   fino alla Home del telefono (non si tocca nessuna ombra).
+3. Si riapre l'app, si rientra in Calìgo, nel Viaggio, si rifà la stessa
+   discesa (stessa domanda, stessa nebbia): le nove ombre devono essere
+   le stesse nove, negli stessi posti di prima. **Previsione a rischio
+   concreto**: se il seme non fosse davvero legato alla discesa (e non,
+   per esempio, all'orologio del telefono), rientrare potrebbe mostrare
+   un gruppo diverso; si verifica guardando la disposizione segnata al
+   punto 2.
+4. Toccando una qualunque delle nove, si scende come sempre: nessun
+   vicolo cieco, nessuna sagoma non toccabile.
+
+## i) chi segue un'ombra, gratta un pezzo, non gli piace l'animale e il giorno dopo ne segue un'altra, fino a riconoscere un animale diverso dal primo
+
+Previsto:
+1. Discesa 1: si segue un'ombra qualunque (A), si gratta il primo pezzo
+   della sua carta alla lente.
+2. Il giorno dopo (si sposta la data del telefono di collaudo, mai
+   toccando dati di produzione), discesa 2: fra le nove ombre proposte A
+   torna sempre (FZ.01, "le ombre che ritornano"); scientemente si segue
+   un'ombra diversa (B), per "cambiare idea" su quale animale si vuole
+   che sia il proprio.
+3. Si ripete per discesa 3 (C) e discesa 4 (tornando su B, per farla
+   arrivare a due apparizioni): **nessuna delle prime discese arriva al
+   riconoscimento**, perche' nessuna ombra ha ancora raggiunto quattro
+   volte. Il Diario dei Viaggi deve mostrare A, B, C tutte scoperte a
+   meta', ciascuna col suo numero di pezzi (FZ.04).
+4. Si continua a seguire B per altre tre discese (discese 5, 6, 7): alla
+   settima discesa B ha raggiunto quattro apparizioni totali (la 2, la 4,
+   la 6, la 7, se si e' seguita B anche nelle intermedie) e si riconosce:
+   l'animale finale e' B, non A (il primo mai seguito). **Previsione a
+   rischio concreto**: con nove ombre proposte invece di tre, la
+   probabilita' che l'ombra scelta scientemente (B, C) compaia davvero
+   fra le nove proposte e' molto piu' alta che con tre (FZ.01 garantisce
+   comunque che le gia' seguite tornino sempre, quindi B e C, una volta
+   seguite la prima volta, dovrebbero sempre ricomparire finche' non sono
+   troppo scavalcate da altre piu' seguite: con un tetto di nove e solo
+   tre o quattro ombre "in gara" il rischio e' basso, ma si verifica a
+   video che non scompaiano mai).
+
+## l) chi sceglie sempre ombre diverse per sei giorni di fila
+
+Previsto:
+1. Sei discese, un giorno diverso ciascuna (si sposta la data del
+   telefono di collaudo), seguendo sempre un'ombra MAI seguita prima,
+   quando possibile.
+2. Con dodici animali nel catalogo e nove proposte a ogni discesa, le
+   prime nove discese potrebbero sempre trovare un'ombra mai vista fra le
+   nove proposte (il catalogo ne ha abbastanza); si verifica che sia
+   davvero cosi' per le sei discese di questa persona.
+3. Dopo sei discese su sei ombre diverse, **nessun riconoscimento**:
+   nessuna ha raggiunto quattro volte (il massimo e' uno). Il Diario deve
+   mostrare sei carte scoperte a un solo pezzo ciascuna, non quattro
+   carte con piu' pezzi o meno.
+4. **Previsione a rischio concreto**: con il posto delle nove ombre a
+   caso per ogni discesa (FZA.02), questa persona potrebbe toccare per
+   errore un'ombra gia' seguita (scambiandola per una nuova, perche' il
+   suo posto e' cambiato): si verifica a video, leggendo con attenzione
+   la sagoma prima di toccare, e si segna nel rapporto se la confusione
+   e' capitata davvero, perche' sarebbe la riprova viva del "piu'
+   curiosita'" che il fondatore cercava.

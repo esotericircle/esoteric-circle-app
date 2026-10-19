@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../rituals/animal_catalog.dart';
 import 'i_quattro_viaggi.dart';
 
@@ -69,17 +71,42 @@ abstract final class LeOmbreCheRitornano {
     ].take(IQuattroViaggi.quanteDiscese).toList();
   }
 
-  /// **LE TRE OMBRE DA PROPORRE ALLA PROSSIMA DISCESA** (FZ.01).
+  /// **QUANTE OMBRE SI PROPONGONO A OGNI DISCESA.** Ordine FZA voce 01, 19
+  /// ottobre 2026.
+  ///
+  /// **Il fondatore, guardando la schermata delle tre ombre:** *"ma si che
+  /// base vengono scelte? Non mi piace il fatto che siano cmq riconoscibili
+  /// e, quindi, pensavo di farli diventare 9 e l'utente può sceglierne solo
+  /// 1"*; e poi: *"Preferisco 9 ombre, anche se riconoscibili, perché con
+  /// lince, volpe e lupo cmq sarebbero simili e mettono più curiosità."*
+  /// Erano tre, ordine FZ voce 01.
+  static const int quanteOmbreSiPropongono = 9;
+
+  /// **LE OMBRE DA PROPORRE ALLA PROSSIMA DISCESA** (FZ.01, FZA.01, FZA.02).
   ///
   /// Le ombre gia' seguite tornano sempre (le piu' seguite, a parita' le piu'
-  /// recenti); le ombre mai viste, nell'ordine del catalogo, completano il
-  /// gruppo fino a tre. Deterministico: a parita' di scelte fatte finora, le
-  /// stesse tre ombre, cosi' una prova puo' misurarle senza il caso di mezzo.
-  static List<String> treOmbreProposte({
+  /// recenti); le ombre mai viste completano il gruppo fino a
+  /// [quanteOmbreSiPropongono] (o fino a quante il catalogo ne ha, se sono di
+  /// meno: FZA.01, FZA.03).
+  ///
+  /// **A CASO PER OGNI PERSONA, ordine FZA voce 02.** L'Architetto, leggendo
+  /// questo file: le ombre nuove uscivano sempre nell'ordine del catalogo,
+  /// quindi alla prima discesa tutti vedevano lo stesso gruppo. Adesso
+  /// [identita] (il device id, o la nascita per chi ce l'ha, letti dal
+  /// chiamante) e il numero della discesa gia' fatta (la lunghezza di
+  /// [scelteInOrdine]) seminano due mescolamenti: quali ombre mai viste
+  /// completano il gruppo, e in che posto sta ognuna delle nove. **Per la
+  /// stessa persona e la stessa discesa il seme e' lo stesso**: chi esce e
+  /// rientra ritrova lo stesso gruppo, negli stessi posti; una prova puo'
+  /// misurarlo senza il caso di mezzo, passando la stessa [identita].
+  static List<String> ombreProposte({
     required List<String> scelteInOrdine,
+    required String identita,
     List<GuideAnimal> catalogo = AnimalCatalog.animals,
+    int quante = quanteOmbreSiPropongono,
   }) {
     final nomi = [for (final a in catalogo) a.name];
+    final tetto = quante > nomi.length ? nomi.length : quante;
     final conto = <String, int>{};
     final ultima = <String, int>{};
     for (var i = 0; i < scelteInOrdine.length; i++) {
@@ -94,13 +121,37 @@ abstract final class LeOmbreCheRitornano {
         if (c != 0) return c;
         return ultima[b]!.compareTo(ultima[a]!);
       });
-    final scelte = <String>[...gia.take(3)];
-    if (scelte.length < 3) {
-      for (final nome in nomi) {
-        if (scelte.length >= 3) break;
-        if (!scelte.contains(nome)) scelte.add(nome);
-      }
+    final scelte = <String>[...gia.take(tetto)];
+    if (scelte.length < tetto) {
+      final mancanti = [
+        for (final nome in nomi)
+          if (!scelte.contains(nome)) nome,
+      ];
+      final semeDelleNuove = _seme('$identita|${scelteInOrdine.length}|nuove');
+      mancanti.shuffle(Random(semeDelleNuove));
+      scelte.addAll(mancanti.take(tetto - scelte.length));
     }
+    // **ANCHE IL POSTO E' A CASO.** Senza mescolare il gruppo intero, le
+    // ombre di ritorno (aggiunte per prime, sopra) finirebbero sempre nei
+    // primi posti della schermata, e sarebbero riconoscibili dalla
+    // posizione anche prima di guardare la sagoma.
+    final semeDelPosto = _seme('$identita|${scelteInOrdine.length}|posto');
+    scelte.shuffle(Random(semeDelPosto));
     return scelte;
+  }
+
+  /// FNV-1a a 64 bit, mascherato a 31 bit positivi: `Random` di Dart vuole un
+  /// seme che valga sulla VM e sul web, dove gli interi non avvolgono a 64
+  /// bit come sulla VM nativa. Stesso algoritmo di `SunsetRune._fnv1a`, qui
+  /// in copia propria per restare una funzione pura senza importare una
+  /// scena che non le appartiene.
+  static int _seme(String s) {
+    var h = 0xcbf29ce484222325;
+    const prime = 0x100000001b3;
+    for (final c in s.codeUnits) {
+      h ^= c;
+      h *= prime;
+    }
+    return h & 0x7fffffff;
   }
 }

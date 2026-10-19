@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/astro/zodiac.dart';
 import '../../../../core/config/app_flags.dart';
+import '../../../../core/identity/device_id.dart';
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/sensi/respiro_che_dirada.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
@@ -353,10 +354,30 @@ class _ViaggioDelloSciamanoScreenState
   /// concluso: per lui non cambia niente che si veda).
   String? _avvisoMigrazioneFZ02;
 
+  /// **L'IDENTITA' CHE SEMINA LE OMBRE NUOVE**, ordine FZA voce 02, 19
+  /// ottobre 2026: il device id, letto una volta e tenuto per tutta la
+  /// schermata, cosi' le nove ombre proposte restano le stesse finche' non
+  /// si cambia discesa.
+  ///
+  /// **SI AGGIORNA SENZA CHIEDERE UN RIDISEGNO.** Qui c'era un `setState`
+  /// non appena il device id arrivava: un ridisegno in piu', fuori da
+  /// qualunque tocco o gesto della persona, capitava in qualunque momento
+  /// della vita della schermata, anche a meta' di una transizione che non
+  /// se lo aspettava. Vuota finche' non e' pronta (`ombreProposte` da'
+  /// comunque un gruppo valido: il seme cambia solo chi, fra le mai viste,
+  /// completa il gruppo e dove sta), e passano pochi istanti prima che la
+  /// persona arrivi davvero all'incontro: quando ci arriva, qualche
+  /// ridisegno vero (un tocco, il respiro della nebbia) ha gia' avuto il
+  /// tempo di ridisegnare con l'identita' pronta.
+  String _identitaDelleOmbre = '';
+
   @override
   void initState() {
     super.initState();
     _preparaLaDiscesa();
+    unawaited(DeviceId.corrente().then((id) {
+      _identitaDelleOmbre = id;
+    }));
     // **NON SI ASPETTA L'ARCHIVIO.** Ordine DC voce 16: se il diario non
     // risponde, si scende lo stesso e questa e' la prima discesa.
     //
@@ -2186,8 +2207,8 @@ class _ViaggioDelloSciamanoScreenState
         ),
       );
 
-  /// **L'INCONTRO: TRE OMBRE, E SE NE SEGUE UNA A INTUITO.** Ordine FZ voce
-  /// 01, 17 ottobre 2026.
+  /// **L'INCONTRO: NOVE OMBRE, E SE NE SEGUE UNA A INTUITO.** Ordine FZ voce
+  /// 01, 17 ottobre 2026; ordine FZA voce 01, 19 ottobre 2026 (erano tre).
   ///
   /// **Qui c'era una sola ombra, sempre la sua**, ordine DG voce 02: con
   /// l'animale deciso dalla nascita, scegliere fra tre sarebbe stata una
@@ -2195,14 +2216,18 @@ class _ViaggioDelloSciamanoScreenState
   /// ritorno dell'animale, non nella selezione fra candidati.
   ///
   /// **ADESSO IL RITORNO E' IL PUNTO, non il suo contrario.** Il fondatore ha
-  /// scelto esplicitamente la via in cui l'animale si rivela nel viaggio: tre
-  /// ombre, nessuna nominata, e la persona ne segue una. Non e' la stessa
-  /// scelta "che non cambia niente" di DC: li' il cielo restringeva i tre
-  /// candidati; qui il cielo non entra, e le tre ombre proposte sono quelle
-  /// che la persona ha gia' seguito di piu' (`AnimaleDiPotere.treOmbreProposte`,
-  /// FZ.01: "le ombre che ritornano"), completate dalle ombre mai viste. Il
-  /// ritorno c'e' ancora: e' la stessa ombra che si ripresenta nelle
-  /// discese dopo, non un animale assegnato da un segno.
+  /// scelto esplicitamente la via in cui l'animale si rivela nel viaggio:
+  /// nove ombre, nessuna nominata, e la persona ne segue una. Non e' la
+  /// stessa scelta "che non cambia niente" di DC: li' il cielo restringeva i
+  /// candidati; qui il cielo non entra, e le ombre proposte sono quelle che
+  /// la persona ha gia' seguito di piu' (`AnimaleDiPotere.ombreProposte`,
+  /// FZ.01: "le ombre che ritornano"), completate dalle ombre mai viste, a
+  /// caso per persona e per discesa (FZA.02). Il ritorno c'e' ancora: e' la
+  /// stessa ombra che si ripresenta nelle discese dopo, non un animale
+  /// assegnato da un segno. **Il fondatore, 19 ottobre 2026: "Non mi piace
+  /// il fatto che siano cmq riconoscibili... pensavo di farli diventare 9";
+  /// "con lince, volpe e lupo cmq sarebbero simili e mettono più
+  /// curiosità"**: erano tre fino all'ordine FZA.
   ///
   /// **DOPO IL RICONOSCIMENTO TORNA A ESSERE UNA SOLA**: non c'e' piu' niente
   /// da scoprire, e chi scende per un segno o una domanda incontra
@@ -2245,43 +2270,58 @@ class _ViaggioDelloSciamanoScreenState
         ],
       );
     }
-    // **LE TRE OMBRE FRA CUI SCEGLIERE**, FZ.01. Sempre tre: se il catalogo
-    // avesse meno di tre animali, `treOmbreProposte` tornerebbe quello che
-    // c'e', e la colonna sotto regge comunque con meno righe.
+    // **LE NOVE OMBRE FRA CUI SCEGLIERE**, FZA.01 (erano tre, FZ.01). Se il
+    // catalogo avesse meno di nove animali, `ombreProposte` tornerebbe
+    // quello che c'e', e la griglia sotto regge comunque con meno celle.
     final proposte = [
-      for (final nome
-          in AnimaleDiPotere.treOmbreProposte(_diario.scelteInOrdine))
+      for (final nome in AnimaleDiPotere.ombreProposte(
+          _diario.scelteInOrdine, _identitaDelleOmbre))
         if (_animale(nome) != null) _animale(nome)!,
     ];
     return Column(
       children: [
         Expanded(
-          // **UNA SOPRA L'ALTRA, NON UNA ACCANTO ALL'ALTRA.** Parola del
-          // fondatore, 19 ottobre 2026, a video sul Realme: *"Le 3 ombre
-          // devi ingrandirle e metterle in verticale, cosi' riempi anche la
-          // schermata."* Affiancate in una `Row`, ognuna aveva solo un terzo
-          // della larghezza, e la sagoma di un animale (piu' larga che alta)
-          // restava piccola con molto vuoto sopra e sotto. Impilate in una
-          // `Column`, ognuna ha l'intera larghezza dello schermo e puo'
-          // crescere con lei.
+          // **UNA GRIGLIA DI TRE PER TRE, non una colonna sola.** Ordine
+          // FZA voce 01, 19 ottobre 2026: con nove ombre al posto di tre
+          // (*"non mi piace il fatto che siano cmq riconoscibili... pensavo
+          // di farli diventare 9"*), una colonna le avrebbe fatte scorrere
+          // fuori dallo schermo. Tre righe di tre, tutte visibili insieme a
+          // ogni larghezza fra 320 e 430 punti: ogni cella resta ben oltre
+          // il bersaglio minimo di 44 punti.
           child: Column(
-            key: const Key('viaggio_tre_ombre'),
+            key: const Key('viaggio_nove_ombre'),
             children: [
-              for (final a in proposte)
+              for (var riga = 0; riga < 3; riga++)
                 Expanded(
-                  child: GestureDetector(
-                    key: Key('viaggio_ombra_${a.name}'),
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => _segui(a.name),
-                    // **L'OMBRA E' IL FILE DELL'ARCHITETTO**, ordine DG: la
-                    // sagoma esatta della sua illustrazione, col filo di
-                    // luce oro sul bordo.
-                    child: OmbraDellAnimale(
-                      key: Key('viaggio_sagoma_${a.name}'),
-                      immagine: a.ombraPath,
-                      giaSagoma: true,
-                      quantaLuce: 0.45,
-                    ),
+                  child: Row(
+                    children: [
+                      for (var colonna = 0; colonna < 3; colonna++)
+                        if (riga * 3 + colonna < proposte.length)
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(SpacingTokens.xxs),
+                              child: GestureDetector(
+                                key: Key(
+                                    'viaggio_ombra_${proposte[riga * 3 + colonna].name}'),
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () =>
+                                    _segui(proposte[riga * 3 + colonna].name),
+                                // **L'OMBRA E' IL FILE DELL'ARCHITETTO**,
+                                // ordine DG: la sagoma esatta della sua
+                                // illustrazione, col filo di luce oro sul
+                                // bordo.
+                                child: OmbraDellAnimale(
+                                  key: Key(
+                                      'viaggio_sagoma_${proposte[riga * 3 + colonna].name}'),
+                                  immagine:
+                                      proposte[riga * 3 + colonna].ombraPath,
+                                  giaSagoma: true,
+                                  quantaLuce: 0.45,
+                                ),
+                              ),
+                            ),
+                          ),
+                    ],
                   ),
                 ),
             ],
@@ -2291,8 +2331,8 @@ class _ViaggioDelloSciamanoScreenState
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: ParagrafiDiLettura(
             key: const Key('viaggio_come_si_mostra'),
-            testo: 'Tre ombre si muovono nel Mondo di Sotto. Seguine una, a '
-                'intuito.',
+            testo: 'Nove ombre si muovono nel Mondo di Sotto. Seguine una, '
+                'a intuito.',
             textAlign: TextAlign.center,
             stile: TypographyTokens.lettura().copyWith(color: palette.goldSoft),
           ),
@@ -2453,11 +2493,26 @@ class _ViaggioDelloSciamanoScreenState
           // Ordine DE voce 03: prima era la sagoma della formula, e non era
           // il ritratto di nessuno. Adesso e' l'illustrazione, velata finche'
           // non lo si e' riconosciuto e **in piena luce alla quarta**.
+          //
+          // **IL RIQUADRO SEGUE LA FORMA VERA DELLA CARTA, non una misura a
+          // caso.** Parola del fondatore, 19 ottobre 2026, a video sul
+          // Realme: *"Vorrei che l'animale non fosse tagliato alle gambe,
+          // anche perche' con gli altri animali piu' piccoli, ne verrebbe
+          // tagliato molto del corpo. Assicurati che tutti gli animali si
+          // vedano interamente o quasi."* Con 1,35 (un riquadro largo) e
+          // `BoxFit.cover` su un file verticale, il riquadro mostrava solo
+          // una fetta centrale stretta dell'immagine: il Cavallo perdeva
+          // gli zoccoli, e un animale piu' raccolto nel fotogramma ne
+          // avrebbe perso molto di piu'. Le dodici carte
+          // (`assets/img/mondo_di_sotto/carte/*_carta_da_grattare_v1.webp`)
+          // sono tutte 1080x1920, lo stesso formato verticale: il riquadro
+          // ora prende la loro vera forma, cosi' `cover` non taglia piu'
+          // niente, per nessuno dei dodici animali.
           if (_animale(_seguito) != null)
             SizedBox(
               width: double.infinity,
               child: AspectRatio(
-                aspectRatio: 1.35,
+                aspectRatio: 1080 / 1920,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
                   child: _rivelatoOra
@@ -2741,16 +2796,18 @@ class _ViaggioDelloSciamanoScreenState
   }
 
   /// **LE FONTI, tutte e due nominate.** Ordine DC voce 01; il paragrafo
-  /// sulle tre ombre e' dell'ordine FZ voce FZ.07, 17 ottobre 2026: la
-  /// regola del riconoscimento (mostrarsi almeno quattro volte) viene da
-  /// Harner, la scelta fra tre ombre e' come l'app mette in scena il
+  /// sulle ombre e' dell'ordine FZ voce FZ.07, 17 ottobre 2026, col numero
+  /// tolto dall'ordine FZA voce 03, 19 ottobre 2026 (erano "tre", sono
+  /// diventate nove: il testo generalizza invece di inseguire il numero):
+  /// la regola del riconoscimento (mostrarsi almeno quattro volte) viene da
+  /// Harner, la scelta fra piu' ombre e' come l'app mette in scena il
   /// viaggio, non la tradizione, che parla di una visione libera.
   static const String _fonti =
       'Il metodo del viaggio viene dal core shamanism di Michael Harner, The '
       'Way of the Shaman, 1980: si scende da un\'apertura nella terra, si '
       'incontra un animale. Lo si riconosce quando si è mostrato almeno '
       'quattro volte.\n\n'
-      'Le tre ombre fra cui scegliere a ogni discesa sono il modo in cui '
+      'Le ombre fra cui scegliere a ogni discesa sono il modo in cui '
       'questa app mette in scena il viaggio: nella tradizione di Harner non '
       'c\'è una scelta fra ombre, c\'è una visione libera.\n\n'
       'La cosmologia dei tre mondi, con il Mondo di Sotto raggiunto per un '
