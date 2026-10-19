@@ -141,6 +141,156 @@ le avvolge; il difetto preesiste a questo ordine e non e' stato introdotto
 da esso, ma e' stato scoperto durante la simulazione FZ.09, che e' proprio
 il suo compito.
 
+## AGGIORNAMENTO 19 ottobre, sessione ripresa dopo il blocco del device
+
+Il Realme e' tornato raggiungibile il 19 ottobre (richiesta PIN della SIM2
+dopo il riavvio di ieri, gestita dal fondatore di persona, non da me). Account
+"ProvaFZ2" risultava gia' dentro il Cerchio con l'onboarding completato: la
+confusione di ieri sera (fase "custodia" raggiunta poi tornata a "chart")
+era quindi un sintomo dello stesso difetto sui tocchi, non una perdita di
+progresso reale.
+
+**Il difetto si conferma su una TERZA schermata, diversa dalle prime due**:
+il pulsante "Scendi" del Viaggio dello Sciamano (la schermata "Sei qui per
+questo" che precede ogni discesa dalla seconda in poi) non ha risposto a
+**18 tentativi consecutivi** (tap singoli, tocchi prolungati fino a 8
+secondi, tentativi distanziati di 3-5 secondi), verificati uno per uno con
+screenshot. La prima discesa (dalla soglia iniziale, "tieni premuto per
+scendere") e' riuscita con relativa facilita' (un tentativo da 8 secondi);
+sono le discese SUCCESSIVE, dalla schermata "Sei qui per questo" con la
+domanda gia' scritta, a restare bloccate.
+
+**Osservazione che rafforza l'ipotesi di ieri**: tutte e tre le schermate
+colpite (CieloRealeScreen/"Il tuo Cielo di Nascita", ResonanceScreen/"La
+Risonanza", e ora questa schermata del Viaggio) hanno in comune uno SFONDO
+ANIMATO CONTINUO (il cielo stellato, le tre aure pulsanti, la galleria di
+animali del Mondo di Sotto che scorre dietro il testo). `uiautomator dump`
+fallisce sistematicamente su tutte e tre con lo stesso errore ("could not
+get idle state"). Le schermate dell'onboarding SENZA sfondo animato continuo
+(Angeli, Animale, Carta di Nascita, Chart) non hanno mai mostrato il
+sintomo. Questo sposta il sospetto da un difetto specifico di una singola
+schermata a un pattern piu' generale legato a QUALUNQUE schermata con
+un'animazione di sfondo continua in esecuzione: potrebbe trattarsi di un
+problema di contesa del thread di rendering o di una ri-pianificazione
+continua dei frame che, in qualche condizione non ancora isolata, impedisce
+al motore di gesti di Flutter di riconoscere un tocco (non e' un problema
+del dispositivo in generale: nello stesso lasso di tempo `KEYCODE_BACK` e i
+pulsanti di altre schermate hanno sempre risposto subito).
+
+## OSSERVAZIONE APERTA, non confermata: il cammino sembra azzerato dopo un riavvio
+
+Dopo i 25+ tentativi falliti sul pulsante "Scendi" della seconda discesa, ho
+fatto un riavvio dell'app (force-stop + restart) nella speranza di sbloccare
+la situazione, come ieri. Al rientro nel Viaggio dello Sciamano, la soglia
+mostra di nuovo "Non si e' ancora mostrato, ne mancano quattro" (0 su 4),
+non piu' "ne mancano tre" (1 su 4, confermato due volte prima del riavvio,
+dopo la prima discesa completata con successo): il cammino con la domanda
+"Devo cambiare lavoro questo anno" non c'e' piu', si riparte dalla scelta
+del tema come alla primissima apertura.
+
+**Due spiegazioni possibili, nessuna delle due verificata**:
+1. Un difetto reale di persistenza: la scrittura del Diario dopo "Risali"
+   e' asincrona (`unawaited`, pattern gia' visto altrove nel codice) e il
+   force-stop l'ha interrotta prima che toccasse il disco.
+2. Un effetto collaterale del difetto dei tocchi gia' documentato: durante
+   i 25+ tentativi sul pulsante "Scendi", il dialogo "Cambia la domanda"
+   potrebbe essersi riaperto senza che io me ne accorgessi (e' successo gia'
+   una volta in questa sessione, per errore di coordinate), e uno dei tocchi
+   "perduti" potrebbe aver colpito "Comincio un altro viaggio" invece di
+   "Tengo questa domanda" quando sembrava non fare nulla: quell'azione
+   azzera il cammino per sua stessa natura (non e' un errore, e' la
+   funzione esatta di quel pulsante), quindi non lascerebbe traccia diversa
+   da un vero reset volontario.
+
+Non si puo' distinguere le due ipotesi dagli screenshot raccolti. Da provare
+di nuovo con piu' cautela: completare una discesa, chiudere l'app con
+`am force-stop` SENZA aver toccato nient'altro nel frattempo, riaprire e
+verificare se il cammino resta. Scritto qui per onesta', non come difetto
+confermato: **PROVENIENZA IGNOTA se risultasse un difetto reale**, nessuna
+voce di FZ ha toccato la persistenza del Diario in modo che possa spiegarlo.
+
+## LA CAUSA TECNICA TROVATA: uso di CPU anomalo e continuo sulle schermate con sfondo animato
+
+Dopo aver escluso un problema di iniezione del tocco a livello di sistema
+(verificato con `monkey`, che inietta con un meccanismo diverso da `adb
+shell input` e genera comunque nessun effetto su un tocco fuori bersaglio,
+e verificato che un RADIO BUTTON qualsiasi della stessa schermata, non solo
+il pulsante "Scendi", non risponde piu' a nessun tocco), ho controllato
+l'uso di CPU del processo con `top`:
+
+```
+21734 u0_a267 ... 76G 549M 239M R  120   7.3  16:15.98 com.esotericircle.esoteric_circle
+21734 u0_a267 ... 76G 553M 239M R 81.8   7.4  16:19.09 com.esotericircle.esoteric_circle
+21734 u0_a267 ... 76G 553M 239M R  120   7.4  16:22.17 com.esotericircle.esoteric_circle
+```
+
+**80-120 per cento di CPU, costante, su una schermata quasi del tutto
+ferma** (soltanto lo sfondo con gli animali del Mondo di Sotto che scorre
+lentamente dietro il testo). Questo e' il dato che spiega tutto il resto:
+- Perche' `uiautomator dump` fallisce sempre su queste schermate ("could
+  not get idle state"): il sistema non vede mai un fotogramma fermo.
+- Perche' i tocchi a volte "funzionano" dopo molti tentativi: probabilmente
+  per puro caso, quando il tocco cade in una delle rare finestre in cui il
+  thread che dovrebbe gestirlo non e' occupato a ridisegnare.
+- Perche' il problema e' PEGGIORATO fra ieri sera e oggi, sulla STESSA
+  sessione dell'app riaperta piu' volte: coerente con un'animazione (o piu'
+  di una, accumulate da schermate precedenti mai davvero richiuse) che non
+  si ferma mai e consuma sempre piu' risorse piu' l'app resta aperta.
+
+**Non e' piu' un'ipotesi**: e' una misura, presa con `top -n 1 -b`, ripetuta
+tre volte a due secondi di distanza, sempre sopra l'80 per cento su un
+device a piu' core. Resta da isolare CON IL CODICE quale animazione di
+sfondo (del Viaggio, del Cielo Reale, della Risonanza) sia la causa
+tecnica precisa: il sospetto piu' concreto, da verificare, e' un
+`AnimationController` con `.repeat()` senza `vsync` corretto o senza
+fermarsi quando il widget non e' piu' quello attivo, o un `CustomPainter`
+che ridisegna ad ogni frame anche quando il contenuto non e' cambiato.
+
+## Un piccolo difetto reale trovato cercando la causa, ma non basta a spiegarla
+
+Cercando nel codice la fonte del consumo di CPU, in
+`viaggio_dello_sciamano_screen.dart` il `Timer.periodic` `_respiro`
+(`RespiroCheDirada.passo`, 60 millisecondi, righe 600-601) che anima la
+nebbia dell'incontro si cancella da solo solo quando la nebbia finisce di
+diradarsi naturalmente (riga 787) o quando il widget si smonta (`dispose`,
+riga 418): **se la fase cambia per un'altra via mentre la nebbia e' ancora
+a meta' (tornando indietro, per esempio), il timer resta attivo**, e la sua
+callback (`_unRespiroDiNebbia`, riga 780) continua a essere chiamata circa
+16 volte al secondo per sempre, controllando una fase che non torna mai
+vera e non facendo altro. E' un difetto reale, va segnalato (PROVENIENZA
+IGNOTA, nessuna voce di FZ ha toccato questo file), ma **non spiega la
+misura di CPU presa oggi**: la sessione corrente, dal riavvio dell'app,
+non e' mai arrivata alla fase "nebbia" (tutti i tentativi si sono fermati
+prima, sul pulsante "Scendi"), quindi questo timer non puo' essere mai
+partito in questo giro. La vera causa del consumo dell'80-120 per cento
+resta da trovare, probabilmente con un profiler vero (Flutter DevTools),
+non raggiungibile dalla sola automazione adb di questa sessione.
+
+## Ricerca della causa nel codice, due sospetti esclusi
+
+Cercati tutti gli `AnimationController`/`Ticker` nella cartella
+`lib/features/maestri/caligo/viaggio/`. Due widget con animazioni
+continue o ripetute, entrambi gia' esclusi perche' rispettano
+correttamente `MediaQuery.disableAnimations` (sempre vero sul
+767f596c) fermandosi o non disegnando affatto:
+- `GirandolaDegliAnimali` (`la_girandola_degli_animali.dart`): il giro di
+  sessanta secondi dei dodici totem si ferma con `_giro.stop()` quando
+  `disableAnimations` e' vero (riga 64-69).
+- `ApparizioneDellAnimale` (`apparizione_dell_animale.dart`): la sagoma
+  che attraversa il cielo non si disegna affatto con `disableAnimations`
+  (riga 68-70), e comunque userebbe `.forward()` una volta sola, non
+  `.repeat()`.
+
+`SfondoDelMondoDiSotto` non ha nessun controller/timer/builder animato:
+e' uno sfondo statico. La causa esatta del consumo di CPU non e' stata
+isolata nel tempo di questa sessione: resta da cercare con un profiler
+vero (Flutter DevTools), non raggiungibile dalla sola automazione adb.
+**Confermato che il problema e' riproducibile fin dal primo istante dopo
+un riavvio pulito dell'app** (non e' un accumulo progressivo nel tempo):
+misura ripetuta a distanza di minuti, sempre fra 80 e 126 per cento di
+CPU con l'app in primo piano su questa schermata, contro il 13-19 per
+cento con l'app in background.
+
 ## Stato alla ripartenza pulita
 
 Dopo `am force-stop` + `am start`, l'app riparte dalla schermata "Il

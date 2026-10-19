@@ -2247,7 +2247,7 @@ class _ViaggioDelloSciamanoScreenState
     }
     // **LE TRE OMBRE FRA CUI SCEGLIERE**, FZ.01. Sempre tre: se il catalogo
     // avesse meno di tre animali, `treOmbreProposte` tornerebbe quello che
-    // c'e', e la riga sotto regge comunque con una `Row` piu' corta.
+    // c'e', e la colonna sotto regge comunque con meno righe.
     final proposte = [
       for (final nome
           in AnimaleDiPotere.treOmbreProposte(_diario.scelteInOrdine))
@@ -2256,7 +2256,15 @@ class _ViaggioDelloSciamanoScreenState
     return Column(
       children: [
         Expanded(
-          child: Row(
+          // **UNA SOPRA L'ALTRA, NON UNA ACCANTO ALL'ALTRA.** Parola del
+          // fondatore, 19 ottobre 2026, a video sul Realme: *"Le 3 ombre
+          // devi ingrandirle e metterle in verticale, cosi' riempi anche la
+          // schermata."* Affiancate in una `Row`, ognuna aveva solo un terzo
+          // della larghezza, e la sagoma di un animale (piu' larga che alta)
+          // restava piccola con molto vuoto sopra e sotto. Impilate in una
+          // `Column`, ognuna ha l'intera larghezza dello schermo e puo'
+          // crescere con lei.
+          child: Column(
             key: const Key('viaggio_tre_ombre'),
             children: [
               for (final a in proposte)
