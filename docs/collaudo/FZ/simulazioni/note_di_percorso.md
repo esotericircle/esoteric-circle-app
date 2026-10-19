@@ -354,3 +354,104 @@ ripetere con un metodo di tocco piu' lento e verificato ad ogni fase, con
 attese piu' lunghe specialmente sulla fase `resonance`, usando preferibilmente
 `uiautomator dump` con retry quando serve e screenshot multipli ravvicinati
 per cogliere transizioni lente.
+
+## LA CAUSA VERA E LA CORREZIONE: due VideoPlayerController mai smaltiti
+
+Risalendo col Dart VM Service (protocollo diretto, HTTP JSON-RPC, porta
+letta dal log di `flutter run`, mai DevTools) si e' trovato che sul telefono
+erano vivi **due** `VideoPlayerController` con `_isDisposed=false`: uno con
+`dataSource` `brand_assets/intro/Intro-Test-5.mp4` (l'intro cinematografica),
+l'altro `brand_assets/maestri_scena/caligo_dominio_v1.mp4` (la scena del
+dominio di Calìgo). Il pacchetto `video_player` tiene un `Timer.periodic` da
+cento millisecondi finche' il controller non riceve `pause()`: lo fa da solo
+SOLO se arriva l'evento nativo "completed", che su Android non arriva
+sempre. Un profilo di CPU vero (`getCpuSamples`) confermava: la funzione in
+cima, con 1076 campioni su 18119, era `PlatformDispatcher.sendPlatformMessage`,
+chiamata dal timer di polling della posizione via `getPosition`. Quel
+battito continuo, moltiplicato su due controller mai fermati per tutta la
+vita del processo, saturava il canale dei messaggi e affamava il thread che
+doveva processare i tocchi: la causa tecnica esatta del blocco osservato su
+piu' schermate nella sessione precedente.
+
+**Corretto in due punti**:
+- `lib/features/intro/sequenza_intro.dart`: l'intro non chiamava mai
+  `dispose()` sul controller (solo `pause()` e `setVolume(0)`), e la sua
+  `State` non smonta mai da sola essendo in cima all'app. Estratto
+  `_smaltisciIlVideo()`, chiamato sia alla fine naturale dell'intro sia nel
+  `dispose()` del widget.
+- `lib/features/scene/la_scena_in_video.dart`: `_LettoreDiScenaVero._guarda()`
+  (il lettore comune di ogni scena video dell'app, Calìgo compreso)
+  calcolava `_finito` anche da `v.position >= v.duration`, un calcolo
+  nostro indipendente dall'evento nativo, ma non chiamava mai `pause()` su
+  quella via: corretto con `unawaited(c.pause())` appena `_finito` scatta.
+
+Guardie nuove, viste rosse prima della correzione (Regola A rispettata):
+`test/intro_test.dart` (nuovo caso "SMALTITO", verificava `disposto==true`
+sul fake della piattaforma) e `test/il_lettore_di_scena_ferma_il_video_finito_test.dart`
+(nuovo file, verificava `piattaforma.inPausa==true` dopo che la posizione
+raggiunge la fine senza l'evento nativo). Commit dei fix: `487194b3`.
+Commit della diagnosi: `10edf790`. Scrittura in STATO_VIVO.md: `ec95ed7c`.
+
+## VERIFICA A VIDEO SUL REALME, dopo la correzione: confermata, non solo misurata
+
+Rifatta la build (`flutter run -d 767f596c`, debug) e ripetuta la stessa
+misura: `getInstances` ora conta **zero** `VideoPlayerController` (era due),
+`SemanticsConfiguration` scende da 3564 a 556. Un nuovo profilo di CPU
+mostra che il campione in cima a `sendPlatformMessage` scende da 1076 a 93,
+e il nuovo primo posto e' `_CosmosPainter.paint` (lo sfondo animato della
+Home, un'animazione vera e voluta, non una perdita).
+
+Poi la prova pratica, quella che conta davvero per Mauro: dalla Home,
+`uiautomator dump` e' riuscito **al primo colpo** (prima falliva
+sistematicamente con "could not get idle state" proprio su queste
+schermate), e un giro di navigazione vero e completo e' filato senza un solo
+blocco:
+
+Home -> Calìgo (un tocco, risposta immediata, lo sfondo "fuoco verde"
+anomalo visto prima sparito, sostituito dal ritratto fermo corretto) ->
+sezione Magia -> **Il Viaggio dello Sciamano** (un tocco, risposta
+immediata) -> soglia ("Una scelta da fare") -> Scendi -> discesa (saltata)
+-> nebbia (dissolta coi gesti) -> **l'incontro, con le tre ombre ora
+verticali e grandi come richiesto da Mauro, conferma visiva diretta della
+correzione di oggi** (vedi sezione sotto) -> seguita la stessa ombra (il
+cavallo, in mezzo al percorso dei quattro cerchi) per **tre discese
+complete**, ciascuna con la sua fase di cenere scostata col dito, "Risali",
+e un nuovo strato narrativo rivelato (primo: "che cosa hai portato giu'
+davvero"; secondo: "che cosa ti trattiene"; terzo: "che cosa hai gia' in
+mano") -> schermata "CONGRATULAZIONI, il tuo Animale Guida" raggiunta e
+renderizzata senza difetti (il riconoscimento e' scattato alla terza
+discesa invece che alla quarta: coerente col toggle "Tetto del modello
+alzato (Demo)" visto acceso di default nella schermata del Viaggio, che
+abbassa la soglia per velocizzare i collaudi, non un difetto).
+
+In tutta la sequenza, decine di tocchi e swipe, **nessun blocco, nessun
+ritardo anomalo, nessun crash**. Catture della sequenza completa in
+`docs/collaudo/FZ/simulazioni/catture/verify3_19ott.png` fino a
+`verify41_19ott.png`. **Il difetto critico del consumo di CPU e del blocco
+dei tocchi e' confermato risolto a video, non solo a misura.**
+
+**Nota di metodo, errore mio ripetuto oggi**: ho sbagliato piu' volte le
+coordinate di tocco dimenticando di moltiplicare per 1,2 il fattore di
+scala fra lo screenshot mostrato (900x2000) e la risoluzione vera del
+device (1080x2400) — lo stesso errore gia' segnalato il giorno precedente.
+Quando un tocco su un bottone visibilmente attivo non produce alcun
+cambiamento, prima di sospettare un difetto dell'app ho imparato a
+verificare con `uiautomator dump` + `grep bounds` le coordinate vere
+dell'elemento, invece di ristimare a occhio dallo screenshot: ha funzionato
+ogni volta.
+
+## CORREZIONE UI CONFERMATA A VIDEO: le tre ombre verticali e grandi
+
+Richiesta di Mauro, osservando uno screenshot della schermata
+dell'incontro: "Le 3 ombre devi ingrandirle e metterle in verticale, così
+riempi anche la schermata." Corretto in
+`lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart`
+(metodo `_lIncontro`, `Row` -> `Column`, ciascuna ombra in un `Expanded`
+verticale invece che orizzontale), con guardia nuova
+`test/le_tre_ombre_sono_verticali_e_grandi_test.dart` vista rossa prima
+della correzione (trovava `Row` dove si aspettava `Column`). Commit
+`30436c21`. **Confermato a video in questa stessa sessione**, tre volte di
+seguito (una per ogni discesa della simulazione sopra): le tre sagome
+occupano ciascuna l'intera larghezza dello schermo, impilate una sopra
+l'altra, senza spazio vuoto laterale. Vedi `verify19_19ott.png`,
+`verify33_19ott.png`, `verify37_19ott.png`.

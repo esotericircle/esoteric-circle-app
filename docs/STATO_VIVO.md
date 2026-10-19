@@ -7295,7 +7295,15 @@ perdita di progresso.
   `Column`, ognuna con l'intera larghezza dello schermo. Prova vista
   rossa (il tipo del widget era `Row`, non `Column`) prima della modifica,
   verde dopo; le 112 prove della zona del Viaggio restano tutte verdi.
-  Commit `30436c21`, spinto sul ramo canonico.
+  Commit `30436c21`, spinto sul ramo canonico. **Confermato a video sul
+  Realme il 19 ottobre 2026**, tre volte di seguito nella stessa
+  simulazione (una per ogni discesa): DOMANDA "Le 3 ombre devi
+  ingrandirle e metterle in verticale, così riempi anche la schermata",
+  parola di Mauro; PROVA
+  `docs/collaudo/FZ/simulazioni/catture/verify19_19ott.png`,
+  `verify33_19ott.png`, `verify37_19ott.png`; MISURA le tre sagome
+  occupano ciascuna l'intera larghezza dello schermo, impilate in
+  verticale, zero vuoto laterale, in tutte e tre le catture.
 - **Le simulazioni delle persone b, e, f, g restano bloccate** dal difetto
   di CPU: ogni discesa richiede superare almeno due schermate colpite (la
   soglia "Con che cosa scendi" e l'incontro con le tre ombre), e il tocco
@@ -7345,12 +7353,33 @@ perdita di progresso.
     della zona video/scena restano tutte verdi. Due commit, `10edf790`
     (la diagnosi col VM Service) e `487194b3` (la correzione), spinti sul
     ramo canonico.
-  - **Da verificare ancora sul device vero**: la correzione e' stata
-    installata di nuovo sul Realme 767f596c (build debug) subito dopo
-    essere stata commessa; la conferma pratica (consumo di CPU sceso,
-    tocchi che rispondono di nuovo) va presa a video prima di dichiarare
-    la voce chiusa, e le simulazioni delle persone b, e, f, g vanno
-    completate con la build corretta.
+  - **CONFERMATO A VIDEO SUL REALME 767f596c, 19 ottobre 2026**, dopo la
+    reinstallazione della build debug corretta. Nuova misura col VM
+    Service: `VideoPlayerController` sceso da due a **zero** istanze,
+    `SemanticsConfiguration` da 3564 a 556, e un nuovo profilo di CPU con
+    `sendPlatformMessage` sceso da 1076 a 93 campioni (il nuovo primo
+    posto e' `_CosmosPainter.paint`, lo sfondo animato della Home, voluto).
+    Poi la prova pratica: `uiautomator dump` riuscito al primo colpo dove
+    prima falliva sistematicamente, e un giro di navigazione reale e
+    completo senza un solo blocco: Home -> Calìgo -> Il Viaggio dello
+    Sciamano -> tre discese intere (soglia, scendi, nebbia dissolta,
+    incontro con le tre ombre, seguita sempre la stessa, cenere scostata,
+    risali, nuovo strato narrativo ogni volta) -> schermata
+    "CONGRATULAZIONI, il tuo Animale Guida" raggiunta senza difetti.
+    Decine di tocchi, nessun blocco, nessun ritardo, nessun crash. Diario
+    completo con tutte le catture in
+    `docs/collaudo/FZ/simulazioni/note_di_percorso.md`, sezione "VERIFICA
+    A VIDEO SUL REALME, dopo la correzione". **Il difetto critico del
+    consumo di CPU e del blocco dei tocchi e' chiuso**: PROVA
+    `docs/collaudo/FZ/simulazioni/catture/verify3_19ott.png` fino a
+    `verify41_19ott.png`, MISURA `sendPlatformMessage` 1076 campioni prima,
+    93 dopo; `uiautomator dump` falliva sempre prima, riuscito al primo
+    colpo dopo.
+  - **Restano da completare con la build corretta**: le simulazioni delle
+    persone b, c, d, e, f, g previste in
+    `docs/collaudo/FZ/simulazioni/previsioni.md` (la persona a e'
+    completata, vedi sopra); la voce FZ.09 resta APERTA IN ATTESA DI
+    VERIFICA finche' non sono fatte tutte.
 
 ## Regole ferree
 
