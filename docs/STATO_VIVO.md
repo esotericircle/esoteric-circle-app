@@ -7390,9 +7390,30 @@ perdita di progresso.
     che non c'e' piu' attesa infinita. Mancano ancora gli altri due gesti
     e la chiamata vera al modello (richiede il si' di Mauro con stima di
     spesa).
-  - **Restano da completare**: le simulazioni delle persone b, c, d (e il
+  - **Persona (b) completata** (cambia ombra ogni discesa): seguito il
+    Corvo poi il Cavallo, mai seguito prima. Il testo narrativo ha mostrato
+    "Secondo strato" anche per il Cavallo al suo primo giro: sembrava il
+    rischio concreto scritto nella previsione, ma verificato nel codice
+    **non e' un difetto**. Gli strati narrativi sono globali per la
+    domanda, per progetto (`le_parole_del_cammino.dart`, ordine DQ, *"la
+    domanda e' una sola e accompagna tutte e quattro le discese"*); il
+    pezzo grafico della carta (quello della cenere) e' un sistema diverso
+    e corretto, conta per nome dell'animale
+    (`viaggio_dello_sciamano_screen.dart:2326`, *"IL PEZZO DI QUESTO
+    ANIMALE, NON DELL'OMBRA CHE GUIDA"*). Nessun difetto trovato.
+  - **Lezione di metodo, utile per ogni controllo futuro su
+    `video_player`**: un `_timer` non nullo nel `VideoPlayerController`
+    NON vuol dire che sia ancora attivo. `_applyPlayPause()` nel pacchetto
+    chiama sempre `_timer?.cancel()` ma non lo nullifica mai: la domanda
+    giusta da porre al VM Service e' se `_timer._callback` e' nullo, non
+    se `_timer` lo e'. Un secondo falso allarme nella stessa indagine:
+    "could not get idle state" e poi "null root node" da `uiautomator`
+    erano dovuti al telefono bloccato da solo per inattivita' durante
+    un'indagine lunga sul VM Service (che non tocca lo schermo), non a un
+    difetto dell'app; uno screenshot nero da 15KB lo ha confermato subito.
+  - **Restano da completare**: le simulazioni delle persone c, d (e il
     resto di e e g) previste in
-    `docs/collaudo/FZ/simulazioni/previsioni.md` (le persone a e f sono
+    `docs/collaudo/FZ/simulazioni/previsioni.md` (le persone a, b e f sono
     completate, vedi sopra); la voce FZ.09 resta APERTA IN ATTESA DI
     VERIFICA finche' non sono fatte tutte. Diario completo in
     `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.

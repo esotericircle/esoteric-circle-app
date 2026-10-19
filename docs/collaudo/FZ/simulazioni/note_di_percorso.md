@@ -522,6 +522,70 @@ di spesa, mai dato in questa sessione). Rete riattivata al termine
 (`svc wifi enable` + `svc data enable`, confermato "Wi-Fi is enabled").
 Catture `e1_19ott.png` fino a `e16_19ott.png`.
 
+## LEZIONE DI METODO: un `_timer` non nullo non vuol dire un timer attivo
+
+Durante la simulazione della persona (b), misurata di nuovo una CPU al
+106-120 per cento sulla schermata della soglia, e `getInstances` mostrava
+ancora `caligo_dominio_v1.mp4` con `_timer` non nullo: sembrava una
+ricomparsa del difetto appena corretto. **Non lo era.** Letto il vero
+`_Timer` (dart:isolate-patch/timer_impl.dart) dentro il controller: il
+campo `_callback` era `null`, e nel sorgente di `video_player` (righe
+778-805) `_applyPlayPause()` chiama sempre `_timer?.cancel()` ma non
+assegna mai `_timer = null` dopo: la variabile resta un oggetto `_Timer`
+non nullo anche a cancellazione avvenuta, e solo `_callback` dice se batte
+ancora. Confermato anche sull'altro valore: `isPlaying=false`,
+`isCompleted=true`. Un giro su tutti i 13 `_Timer` vivi nell'isolate ha
+trovato solo cinque davvero attivi (`_callback` non nullo), tutti a 1000 o
+2000 millisecondi, nessuno a cento: **nessun residuo del difetto di
+oggi**. **Per ogni controllo futuro su un `video_player`: la domanda giusta
+e' se `_timer._callback` e' nullo, mai se `_timer` lo e'.**
+
+Il tocco su "Scendi" che sembrava non rispondere, subito dopo, aveva
+un'altra causa banale: il telefono si era **bloccato da solo per
+inattivita'** durante la lunga indagine sul VM Service (che non tocca lo
+schermo). `uiautomator dump` falliva con "could not get idle state" e poi
+con "null root node returned", e uno screenshot da 15KB (nero) lo ha
+confermato. Risvegliato col tasto power via `adb`, l'app era esattamente
+dove l'avevo lasciata, intatta. **Non un difetto dell'app.**
+
+## SIMULAZIONE PERSONA (b): cambia ombra ogni volta, verificato nel codice
+
+Viaggio ricominciato da zero (pulsante "Ricomincia il viaggio (Demo)",
+conferma "Il viaggio riparte da zero discese"). Discesa 1: seguito il
+Corvo (A, prima proposta), domanda "Un tempo che non arriva" (poi
+cambiata per un mio tocco impreciso in "Qualcosa che è finito": va bene lo
+stesso, qualunque domanda prova il percorso). Alla lente, pelo del Corvo
+rivelato, risalita: **"Primo strato: che cosa hai portato giù davvero"**.
+
+Discesa 2: le tre ombre proposte includono di nuovo il Corvo (gia'
+seguito, ordine FZ.01: "le ombre gia' seguite tornano sempre",
+confermato) **e due nuove**; seguito stavolta il Cavallo (B, mai seguito
+prima). Alla lente, risalita: il testo narrativo diceva **"Secondo
+strato: che cosa ti trattiene"** — sul momento sembrava il difetto che la
+previsione temeva (il pezzo che segue il totale delle discese invece che
+l'animale di oggi). **Verificato con rigore prima di scriverlo come
+difetto**, e non lo è:
+- Il Diario conferma che "LA DOMANDA DEL CAMMINO" è una sola, con i suoi
+  strati in sequenza (1 e 2), **per design**: `le_parole_del_cammino.dart`
+  dichiara esplicitamente, ordine DQ voci 01-04, 15 settembre 2026, *"la
+  domanda e' una sola e accompagna tutte e quattro le discese della
+  rivelazione, e ogni discesa risale con uno strato piu' profondo della
+  stessa risposta"*. Lo strato narrativo conta le discese totali apposta,
+  non e' legato all'animale.
+- **Il pezzo grafico della carta (quello scostato con la cenere) e' un
+  sistema diverso e separato**, e il codice lo fa bene:
+  `viaggio_dello_sciamano_screen.dart:2326-2329`, commento in cima **"IL
+  PEZZO DI QUESTO ANIMALE, NON DELL'OMBRA CHE GUIDA"**, calcola
+  `_diario.scelteInOrdine.where((s) => s == animale.name).length`: il
+  conteggio e' per nome, esattamente come la previsione (b) chiedeva di
+  verificare. **Nessun difetto**: la previsione sbagliata (il rischio piu'
+  concreto scritto apposta) non si e' avverata, il codice e' corretto.
+
+**Esito della persona (b)**: confermato a video e nel codice che gli
+strati narrativi (globali, per domanda) e i pezzi della carta (per
+animale) sono due sistemi separati e corretti, come da progetto. Catture
+`b1_19ott.png` fino a `b33_19ott.png`.
+
 ## CORREZIONE UI CONFERMATA A VIDEO: le tre ombre verticali e grandi
 
 Richiesta di Mauro, osservando uno screenshot della schermata
