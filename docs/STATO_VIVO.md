@@ -7571,6 +7571,51 @@ chiusura e del manifesto, il registro delle guardie e i rapporti
 consegnati restano tutti verdi. In attesa del nuovo verde di GitHub su
 questo commit.
 
+**Aggiornamento, lo stesso 19 ottobre 2026: il cancello e' caduto una
+seconda volta, sul commit `412716da`, su dieci rossi diversi.**
+Confrontando con `707fb155`, il commit immediatamente precedente a questo
+ordine: **nove di quei dieci rossi erano gia' presenti prima che
+quest'ordine toccasse qualunque cosa**, debito di ordini precedenti mai
+arrivato al cancello finale (il cancello intero gira solo alla consegna,
+non a ogni commit intermedio); **uno solo era causato da questo ordine**,
+il manifesto `docs/ordini/ORDINE_FZ_MANIFESTO.md` assente dalla tavola
+`vociMisurate` di `test/i_manifesti_sono_sigillati_test.dart`. Nello
+stesso momento scoperto un secondo difetto proprio: il lettore condiviso
+dei manifesti (`test/lettore_dei_manifesti.dart`) conta le voci sulla
+sigla del nome del file, e "FZA.01" non contiene "FZ." seguito da una
+cifra, quindi le cinque voci dell'aggiunta restavano fuori dal conto.
+**Rinumerate le voci FZA.01-FZA.05 in FZ.10-FZ.14, con "La consegna"
+spostata a FZ.15**: la stessa convenzione gia' usata dall'ordine FX con
+la sua aggiunta FXA (`docs/ordini/ORDINE_FX_MANIFESTO.md`, voci
+FX.13-FX.20), un manifesto, una sigla sola. Manifesto, rapporto
+(ri-registrato due volte con la ragione scritta nel corpo) e guardia
+dell'ordine aggiornati.
+
+**Curato anche il debito preesistente**, col padre di ciascuno dove si
+e' trovato: il corpus dei sentieri disallineato dal testo tolto da
+FZA.03 (`sentiero_albero.dart` era stato scritto a mano invece che dalla
+sua fonte vera, `tool/corpus_traguardi_dati.py`; corretta la fonte,
+rigenerato `docs/corpus/Traguardi_165_Revisione_F.json` e i tre Dart dei
+sentieri con `tool/genera_corpus_f.py`, trovando per strada un bug di
+CRLF su Windows nello script, corretto anche quello); una guardia senza
+cardinale dichiarato su `i_video_del_cammino_si_scaricano_test.dart`
+(padre FZ.06, riscritta senza scansione aperta); `ffmpeg_kit_flutter_
+new_min_gpl` non classificato per iOS (padre FZ.08, verificato senza
+framework sensibili di Apple); una cattura finta senza rapporto di
+pixel dichiarato (padre FZ.08); due virgole prima di "e" (una
+PROVENIENZA IGNOTA in `guide_animal_corpus.dart`, una padre FZ.05 in
+`il_cammino_dell_animale.dart`); un apostrofo al posto di un accento
+(padre FZ.06, `i_video_del_cammino_scaricati.dart`); il censimento
+della tipografia disallineato (PROVENIENZA IGNOTA, debito sceso senza
+rigenerare il documento); due cartelle di `pubspec.yaml` assenti dal
+manifesto degli asset (padre FZ.04 e FZ.05, le carte da grattare e le
+scene vuote del Mondo di Sotto). Dettaglio completo nel rapporto,
+sezione "Il secondo rosso del cancello, e il debito preesistente
+trovato e curato". Commit `59c96d34`, spinto sul ramo canonico.
+Verificato in locale: 350 prove verdi sull'intera zona Viaggio/Animale
+Guida piu' le sedici guardie toccate; `flutter analyze` pulito. In
+attesa del nuovo verde di GitHub su questo commit.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
