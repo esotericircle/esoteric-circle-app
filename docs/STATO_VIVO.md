@@ -7301,10 +7301,56 @@ perdita di progresso.
   soglia "Con che cosa scendi" e l'incontro con le tre ombre), e il tocco
   sul pulsante "Scendi" non ha risposto a tocchi ripetuti neanche con
   coordinate verificate corrette, in piu' sessioni e riavvii dell'app
-  diversi. **Curare questo difetto e' ora il passo che precede
-  concretamente il completamento di FZ.09**: senza un profiler vero
-  (Flutter DevTools, Widget Inspector) non e' stato possibile isolare la
-  riga di codice esatta responsabile del consumo di CPU.
+  diversi.
+
+- **IL DIFETTO DI CPU E' RISOLTO.** Mauro: *"Il problema è da risolvere e
+  devi risolverlo tu, non mi interessa come, ma devi risolvere"*, 19
+  ottobre 2026. Collegandosi di nuovo al Dart VM Service (questa volta
+  con un vero profilo CPU, `setFlag?name=profiler&value=true` poi
+  `getCpuSamples`), la funzione in cima per tempo proprio era
+  `PlatformDispatcher.sendPlatformMessage`, chiamata da
+  `VideoPlayerController.position` dentro il timer interno del pacchetto
+  `video_player` (`_applyPlayPause`, l'istruzione che aggiorna la
+  posizione ogni cento millisecondi mentre il video "sta giocando"
+  secondo quel timer). `getAllocationProfile` e poi `getInstances` sulla
+  classe vera hanno dato i due controller con nome e cognome, mentre
+  l'app era ferma sulla pagina di Calìgo: **`brand_assets/intro/Intro-Test-5.mp4`**
+  (il video dell'intro) e **`brand_assets/maestri_scena/caligo_dominio_v1.mp4`**
+  (il video del dominio di Calìgo), entrambi con `_isDisposed=false` e un
+  `_timer` ancora vivo nonostante `isCompleted=true`.
+  - **La causa, risalita nel sorgente del pacchetto `video_player`
+    2.13.0**: il suo timer di polling della posizione si cancella da solo
+    SOLO quando qualcuno chiama `pause()` sul controller. Il pacchetto lo
+    fa in automatico quando riceve l'evento nativo "completed" dalla
+    piattaforma, ma su Android quell'evento non arriva sempre in modo
+    affidabile.
+  - **`SequenzaIntro` (`lib/features/intro/sequenza_intro.dart`)**:
+    `_finisci()` metteva il video dell'intro in pausa ma non lo smaltiva
+    (`dispose()`) mai. Il widget avvolge tutta l'app e non si smonta mai
+    da solo: il lettore restava vivo, col suo timer a girare, per tutta
+    la vita del processo. Aggiunta `_smaltisciIlVideo()`, chiamata quando
+    l'intro finisce davvero (dopo la dissolvenza) e in `dispose()`.
+  - **`_LettoreDiScenaVero` (`lib/features/scene/la_scena_in_video.dart`,
+    il lettore comune a ogni scena video dell'app, dominio di Calìgo
+    incluso)**: `_guarda()` rilevava il video finito anche guardando
+    `v.position >= v.duration` (un calcolo nostro, indipendente
+    dall'evento nativo), ma non chiamava mai `pause()` esplicitamente. Un
+    video che la nostra logica considerava finito per questa via, senza
+    l'evento nativo mai arrivato, restava con un controller mai fermato.
+    Aggiunta la chiamata a `c.pause()` quando `_finito` diventa vero.
+  - **Entrambe le correzioni viste rosse prima** (una scrivendo un test
+    dedicato, `test/il_lettore_di_scena_ferma_il_video_finito_test.dart`,
+    che ricrea lo scenario "fine per posizione, senza l'evento nativo",
+    con una piattaforma video finta propria), verdi dopo. Le 192 prove
+    della zona video/scena restano tutte verdi. Due commit, `10edf790`
+    (la diagnosi col VM Service) e `487194b3` (la correzione), spinti sul
+    ramo canonico.
+  - **Da verificare ancora sul device vero**: la correzione e' stata
+    installata di nuovo sul Realme 767f596c (build debug) subito dopo
+    essere stata commessa; la conferma pratica (consumo di CPU sceso,
+    tocchi che rispondono di nuovo) va presa a video prima di dichiarare
+    la voce chiusa, e le simulazioni delle persone b, e, f, g vanno
+    completate con la build corretta.
 
 ## Regole ferree
 
