@@ -291,6 +291,57 @@ misura ripetuta a distanza di minuti, sempre fra 80 e 126 per cento di
 CPU con l'app in primo piano su questa schermata, contro il 13-19 per
 cento con l'app in background.
 
+## Il profilo di allocazione, collegandosi al Dart VM Service
+
+Trovata la porta del VM service (`adb shell cat /proc/net/tcp`, la riga
+dell'UID dell'app in stato LISTEN su localhost), fatto `adb forward` e letto
+`getAllocationProfile` via HTTP. Numeri che saltano all'occhio sull'isolate
+principale:
+
+- **3564 `SemanticsConfiguration`** e altrettanti `_RenderObjectSemantics`,
+  **2949 `SingleChildRenderObjectElement`**: cifre enormi per una schermata
+  che mostra solo cinque righe radio e un pulsante. Una schermata cosi'
+  semplice non dovrebbe avere piu' di qualche centinaio di nodi semantici.
+- **91604 istanze di `_OneByteString`** (61 MB) e **274415 di `_List`**
+  (16 MB): un tasso di allocazione di stringhe e liste molto alto, coerente
+  con rebuild ripetuti che ricreano oggetti invece di riusarli.
+- La memoria del processo e' salita da 540 MB (al momento del restart,
+  14:39) a **926 MB** quaranta minuti dopo, con l'app rimasta quasi sempre
+  sulla stessa schermata: coerente con un accumulo progressivo, non un
+  picco isolato.
+
+**Ipotesi piu' sostenuta da questi numeri**: l'albero dei widget non si sta
+ripulendo quando si naviga via da una schermata (Home, Calìgo, le varie fasi
+del Viaggio attraversate in questa sessione), e resta tutto vivo in memoria,
+continuando a essere ricalcolato (layout, semantics, paint) a ogni frame
+anche se non visibile: questo spiegherebbe sia il consumo di CPU sia perche'
+il problema e' presente fin dal primo istante dopo un riavvio pulito
+dell'app (bastano le poche schermate attraversate per arrivare al Viaggio a
+costruire un albero gia' troppo pesante). **Non verificato con certezza**:
+serve ispezionare l'albero dei widget con Flutter DevTools vero (Widget
+Inspector, "Debug Paint", il conteggio dei widget mostrati) per confermare
+se ci sono alberi di schermate precedenti ancora montati, cosa che questa
+sola lettura del VM service non puo' dire con certezza.
+
+**Isolate doppio, scagionato**: trovati due isolate entrambi chiamati
+"main" all'avvio (uno con `livePorts:1`, l'altro con `livePorts:0`); dato
+che il progetto usa Firebase Messaging, e' quasi certamente il normale
+isolate di servizio per i messaggi in background, non un bug.
+
+## Verifica rigorosa finale: coordinate confermate corrette, difetto confermato reale
+
+Durante i tentativi di oggi ho scoperto un mio errore metodologico: in alcuni
+tocchi stimati visivamente dagli screenshot ho dimenticato di applicare il
+fattore di scala (le catture arrivano a 900x2000, lo schermo vero e'
+1080x2400, fattore 1,2), sbagliando il bersaglio. Corretto l'errore e
+rifatta la prova con rigore: domanda scritta di nuovo ("Cosa devo capire
+adesso", confermata a video, 23/140 caratteri), pulsante "Scendi" rosso e
+attivo, tocco a coordinate ricalcolate con cura (540, 1787, verificate
+contro lo screenshot con riga di controllo) e tenuta per 2,5 secondi: **nessun
+cambiamento**. Altri due tentativi, stesso risultato. **Il difetto e' quindi
+confermato reale, non un artefatto del mio metodo di stima delle
+coordinate**: le coordinate erano giuste, il tocco non ha avuto effetto.
+
 ## Stato alla ripartenza pulita
 
 Dopo `am force-stop` + `am start`, l'app riparte dalla schermata "Il

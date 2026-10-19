@@ -7249,6 +7249,63 @@ Questa sezione va aggiornata, non sostituita, quando il lavoro riprende.**
   guardia del manifesto, rapporto, aggiornamento di questa sezione e di
   `docs/guardie.md`, verde di GitHub sul commit consegnato.
 
+**Aggiornamento del 19 ottobre 2026, dopo il ritorno del device.** Il
+Realme e' tornato raggiungibile (richiesta PIN della SIM2 dopo il riavvio
+di ieri, gestita dal fondatore di persona). Confermato che l'onboarding di
+"ProvaFZ2" era davvero completato (dentro il Cerchio, non perso): la
+confusione di ieri sera era gia' il sintomo del difetto dei tocchi, non una
+perdita di progresso.
+
+- **La causa tecnica del difetto dei tocchi, isolata con misure vere**:
+  collegandosi al Dart VM Service dell'app (porta trovata leggendo
+  `/proc/net/tcp` sul device, `adb forward`, chiamate HTTP dirette al
+  protocollo, senza bisogno di Flutter DevTools grafico), e con `top -n 1
+  -b` sul processo, misurato **un uso di CPU dell'80-126 per cento,
+  costante**, sulle schermate con sfondo animato del Viaggio (la soglia
+  "Con che cosa scendi", l'incontro con le tre ombre) e dell'onboarding
+  (Cielo di Nascita, Risonanza): un carico anomalo per schermate quasi
+  ferme, che spiega sia perche' `uiautomator dump` fallisce sempre su
+  queste schermate ("could not get idle state") sia perche' i tocchi,
+  quando va bene, funzionano solo dopo molti tentativi (probabilmente per
+  puro caso, quando cadono in una rara finestra libera). Il profilo di
+  allocazione (`getAllocationProfile`) mostra numeri sospetti: 3564
+  `SemanticsConfiguration` e altrettanti `_RenderObjectSemantics` per una
+  schermata che dovrebbe averne poche centinaia, memoria del processo
+  salita da 540 MB a 926 MB in quaranta minuti restando sulla stessa
+  schermata. **Ipotesi piu' sostenuta, non confermata con certezza**:
+  l'albero dei widget non si ripulisce navigando da una schermata
+  all'altra, e resta tutto vivo, ricalcolato a ogni frame. Due widget con
+  animazioni proprie sono stati controllati e scagionati (`GirandolaDegliAnimali`,
+  `ApparizioneDellAnimale`: rispettano correttamente `disableAnimations`).
+  Un piccolo difetto reale trovato per strada, ma insufficiente a spiegare
+  la misura: il `Timer.periodic` `_respiro` di `viaggio_dello_sciamano_screen.dart`
+  (righe 600-601) non si cancella se si lascia la fase "nebbia" per
+  un'altra via che non sia il suo completamento naturale o il `dispose`
+  del widget. **Verificato con rigore che non e' un errore del metodo di
+  automazione**: corretto un mio sbaglio di scala delle coordinate (le
+  catture sono 900x2000, lo schermo vero 1080x2400, fattore 1,2) e
+  rifatta la prova con coordinate ricontrollate con cura: il pulsante
+  "Scendi", rosso e attivo, non ha risposto a tocchi ripetuti anche con
+  le coordinate sicuramente giuste. Diario completo, passo per passo, in
+  `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.
+- **Corretto a video un difetto di layout segnalato dal fondatore**: le
+  tre ombre dell'incontro, prima affiancate in una `Row` (ognuna un terzo
+  della larghezza, piccola e con molto vuoto sopra e sotto, essendo le
+  sagome degli animali piu' larghe che alte), ora impilate in una
+  `Column`, ognuna con l'intera larghezza dello schermo. Prova vista
+  rossa (il tipo del widget era `Row`, non `Column`) prima della modifica,
+  verde dopo; le 112 prove della zona del Viaggio restano tutte verdi.
+  Commit `30436c21`, spinto sul ramo canonico.
+- **Le simulazioni delle persone b, e, f, g restano bloccate** dal difetto
+  di CPU: ogni discesa richiede superare almeno due schermate colpite (la
+  soglia "Con che cosa scendi" e l'incontro con le tre ombre), e il tocco
+  sul pulsante "Scendi" non ha risposto a tocchi ripetuti neanche con
+  coordinate verificate corrette, in piu' sessioni e riavvii dell'app
+  diversi. **Curare questo difetto e' ora il passo che precede
+  concretamente il completamento di FZ.09**: senza un profiler vero
+  (Flutter DevTools, Widget Inspector) non e' stato possibile isolare la
+  riga di codice esatta responsabile del consumo di CPU.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
