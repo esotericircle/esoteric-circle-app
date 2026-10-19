@@ -440,6 +440,55 @@ verificare con `uiautomator dump` + `grep bounds` le coordinate vere
 dell'elemento, invece di ristimare a occhio dallo screenshot: ha funzionato
 ogni volta.
 
+## SIMULAZIONE PERSONA (f): Viaggio senza rete, dalla quarta discesa alla rivelazione
+
+Subito dopo aver completato la persona (a), con l'app ancora aperta sullo
+stesso Diario (tre discese fatte sul Cavallo, manca la quarta), disattivata
+la rete sul telefono di collaudo (`svc wifi disable` + `svc data disable`,
+confermato "Wi-Fi is disabled"). Il tentativo di impostare anche "Riduci
+Movimento" via `adb shell settings put global window_animation_scale 0`
+eccetera e' stato rifiutato dal sistema (`SecurityException: Permission
+denial: writing to settings requires WRITE_SECURE_SETTINGS`, e nemmeno `pm
+grant` ha funzionato su questo device): la parte "Riduci Movimento" della
+previsione f non e' stata provata, solo la parte "senza rete".
+
+Rifatta la quarta discesa per intero, senza rete:
+- la scena della soglia ("Tieni premuto per scendere") si apre ferma,
+  nessun riquadro vuoto;
+- l'incontro con le tre ombre si apre normalmente, seguita la stessa (il
+  Cavallo);
+- la cenere si scosta e rivela il pelo come nelle discese precedenti;
+- "Risali" porta al **quarto strato**, che mostra gia' l'illustrazione
+  completa del Cavallo (non piu' la sagoma scura), ferma, senza alcuna
+  attesa o riquadro vuoto;
+- scorrendo oltre, la **rivelazione finale** ("MI HA TROVATO IL CAVALLO",
+  con la card completa, "mi ha trovato il 19 ottobre 2026") si apre
+  perfettamente, senza rete.
+
+**Nessun riquadro vuoto, nessun errore a schermo, nessun crash**, in tutta
+la sequenza: la previsione (f), punto 3, e' confermata.
+
+## SIMULAZIONE PERSONA (g), parziale: senza il pezzo scaricato, solo "Di' chi sei"
+
+Sulla card della rivelazione, senza rete (quindi senza il pezzo "centro"
+scaricato), **compare solo il pulsante "Di' chi sei"**, **nessun secondo
+pulsante "Condividi come video"**: esattamente la previsione (g), nel suo
+preambolo ("nel qual caso il pulsante Condividi come video non deve nemmeno
+comparire, solo Di' chi sei").
+
+Toccato "Di' chi sei": si apre **il foglio di condivisione di sistema di
+Android** con un file pronto, `card_della_rivelazione.png`, anteprima
+corretta (il Cavallo). Nessuna attesa, nessun crash. Annullato il foglio
+col tasto indietro: **l'app resta esattamente come prima**, la card della
+rivelazione ancora a schermo, nessun residuo visibile, nessun secondo file
+lasciato a meta': la previsione (g), punto 4, e' confermata.
+
+**Non ancora provata**: la parte video di (g) (FFmpeg che scrive titolo e
+data sopra il pezzo "centro"), che richiede il pezzo scaricato e quindi
+rete attiva. Rete riattivata (`svc wifi enable` + `svc data enable`,
+confermato "Wi-Fi is enabled") per le prossime simulazioni. Catture
+`f_noret_1_19ott.png` fino a `f_noret_12_19ott.png`.
+
 ## CORREZIONE UI CONFERMATA A VIDEO: le tre ombre verticali e grandi
 
 Richiesta di Mauro, osservando uno screenshot della schermata
