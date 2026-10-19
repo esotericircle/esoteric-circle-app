@@ -403,6 +403,11 @@ void main() {
     // il titolo, la consegna, il luogo vero dal GPS), un titolo per voce.
     'FX': 22,
     'FY': 23,
+    // Ordine FZ, 17-19 ottobre 2026: quindici voci, contate coi titoli
+    // "## VOCE FZ." e "## VOCE FZA." del manifesto: FZ.01-FZ.10 dell'ordine,
+    // piu' FZA.01-FZA.05 dell'aggiunta FZA (le nove ombre del Viaggio, la
+    // simulazione, il riquadro che non taglia le gambe), un titolo per voce.
+    'FZ': 15,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

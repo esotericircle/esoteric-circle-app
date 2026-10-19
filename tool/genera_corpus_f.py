@@ -379,7 +379,7 @@ def main():
     if not soloConti:
         percorso = os.path.join(RADICE, 'docs', 'corpus',
                                 'Traguardi_165_Revisione_F.json')
-        with open(percorso, 'w', encoding='utf-8') as f:
+        with open(percorso, 'w', encoding='utf-8', newline='\n') as f:
             json.dump({'revisione': 'F', 'ordine': 'CP voce 05',
                        'sentieri': sentieri}, f, ensure_ascii=False, indent=2)
             f.write('\n')

@@ -1,7 +1,7 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 78 -->
-<!-- FILE_CENSITI: 34 -->
+<!-- TOTALE_CENSITO: 77 -->
+<!-- FILE_CENSITI: 33 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
@@ -20,8 +20,8 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **78** |
-| File che ne contengono | **34** |
+| Misure esplicite sotto `lib/` | **77** |
+| File che ne contengono | **33** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
 
@@ -64,7 +64,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 0 | 0 |
 | `lib/features/identity/widgets/birth_companions.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 1 | 0 | 0 |
-| `lib/features/maestri/caligo/animal/bosco_del_cerchio.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/chat/widgets/chat_empty_state.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 1 | 0 | 0 |

@@ -5,6 +5,14 @@ lui: `docs/ordini/ORDINE_FZ_TESTO.md`. Manifesto: `docs/ordini/ORDINE_FZ_
 MANIFESTO.md`, 15 voci: 12 chiuse, 3 aperte in attesa di verifica, 0 da
 fare. Ramo `claude/esoteric-circle-master-order-e798aj`.
 
+**Nota sulla registrazione**: due registrazioni di questo rapporto (impronte
+`6c340c4d...` e `491e9540...`) sono state tolte dal registro e rifatte prima
+che il cancello di GitHub desse il primo verde, quindi prima di una vera
+consegna vista da Mauro. La prima volta per la rinumerazione FZA.01-FZA.05 in
+FZ.10-FZ.14 (vedi sotto, "il secondo rosso del cancello"); la seconda per
+aggiungere la sezione che documenta il debito preesistente trovato e curato
+dallo stesso giro del cancello. Nessuna correzione nel corpo dopo questa.
+
 ## LE PREMESSE CADUTE
 
 - **Il rischio previsto per la persona (b)** (`docs/collaudo/FZ/simulazioni/
@@ -20,11 +28,13 @@ fare. Ramo `claude/esoteric-circle-master-order-e798aj`.
   `verify33_19ott.png`, `verify37_19ott.png`, commit `30436c21`), e'
   superata poche ore dopo dall'arrivo dell'ordine FZA: la `Column` di tre
   sagome che misurava non esiste piu', sostituita dalla griglia tre per tre
-  di FZA.01. La sua guardia (`test/le_tre_ombre_sono_verticali_e_grandi_
-  test.dart`) e' stata tolta dal ramo: misurava un soggetto che non c'e'
-  piu', e una guardia su un soggetto sparito e' una guardia che non
-  sorveglia niente, non uno storico da tenere.
-- **Il sospetto sul pulsante "Scendi" nella persona (l)** (FZA.04): dieci
+  di FZ.10 (FZA.01 nel testo originale dell'aggiunta). La sua guardia
+  (`test/le_tre_ombre_sono_verticali_e_grandi_test.dart`) e' stata tolta dal
+  ramo: misurava un soggetto che non c'e' piu', e una guardia su un
+  soggetto sparito e' una guardia che non sorveglia niente, non uno
+  storico da tenere.
+- **Il sospetto sul pulsante "Scendi" nella persona (l)** (FZ.13, FZA.04
+  nel testo originale dell'aggiunta): dieci
   tocchi senza risposta, `uiautomator dump` in errore, VM Service
   irraggiungibile. La controprova (un altro elemento sulla stessa
   schermata ha risposto subito) ha escluso che fosse lo stesso difetto
@@ -43,18 +53,18 @@ fare. Ramo `claude/esoteric-circle-master-order-e798aj`.
 | FZ.06, il peso dei video | `test/i_video_del_cammino_si_scaricano_test.dart` |
 | FZ.07, fonti e metodo detti giusti | `test/le_fonti_del_viaggio_dicono_il_vero_test.dart` |
 | FZ.08, la rivelazione si condivide come video | `test/condividi_la_rivelazione_in_video_test.dart` |
-| FZA.01, nove ombre, se ne segue una | `test/le_nove_ombre_stanno_tutte_a_schermo_test.dart` |
-| FZA.02, le ombre nuove a caso per ogni persona | `test/le_ombre_che_ritornano_test.dart` |
-| FZA.03, nessun numero di animali in vista | `test/nessun_numero_di_animali_in_vista_test.dart` |
-| FZA.05, il riquadro segue la carta, non taglia le gambe | `test/il_riquadro_dell_animale_segue_la_carta_test.dart` |
+| FZ.10, nove ombre, se ne segue una | `test/le_nove_ombre_stanno_tutte_a_schermo_test.dart` |
+| FZ.11, le ombre nuove a caso per ogni persona | `test/le_ombre_che_ritornano_test.dart` |
+| FZ.12, nessun numero di animali in vista | `test/nessun_numero_di_animali_in_vista_test.dart` |
+| FZ.14, il riquadro segue la carta, non taglia le gambe | `test/il_riquadro_dell_animale_segue_la_carta_test.dart` |
 
 ## LE VOCI APERTE E CHE COSA ASPETTANO
 
 | voce | che cosa e' fatto | che cosa aspetta |
 |---|---|---|
 | FZ.09, la simulazione da persona | a, b, f complete; e, g parziali; difetto critico di CPU trovato e risolto | Mauro: le credenziali dell'account di prova per c, d e il resto di e, g |
-| FZA.04, la simulazione delle nove ombre | h completa; i parziale (2 discese); l interrotta da un episodio non confermato | Mauro: le stesse credenziali, per completare i e ripetere l |
-| FZ.10, la consegna | manifesto, guardia, rapporto, STATO_VIVO, registro guardie, push sul ramo canonico | il verde di GitHub sul commit consegnato; le due voci sopra |
+| FZ.13, la simulazione delle nove ombre | h completa; i parziale (2 discese); l interrotta da un episodio non confermato | Mauro: le stesse credenziali, per completare i e ripetere l |
+| FZ.15, la consegna | manifesto, guardia, rapporto, STATO_VIVO, registro guardie, push sul ramo canonico | il verde di GitHub sul commit consegnato; le due voci sopra |
 
 ## VOCE PER VOCE, COL PADRE DI OGNI DIFETTO
 
@@ -83,14 +93,14 @@ qui il padre di ogni difetto (Regola C) e cio' che il manifesto non dice.
   (comando di copia mal costruito dopo aver gia' cancellato il backup),
   non un difetto del codice dell'app: l'app ha reagito correttamente
   mostrando l'onboarding e offrendo il rientro con l'account.
-- **FZA.01, FZA.02**: padre FZ.01 (il numero fisso a tre e l'ordine del
+- **FZ.10, FZ.11**: padre FZ.01 (il numero fisso a tre e l'ordine del
   catalogo, mai specificato come regola, solo come implementazione) e il
   rilievo dell'Architetto del 19 ottobre 2026, approvato dal fondatore.
-- **FZA.03**: padre nessuno specifico; richiesta diretta del fondatore in
+- **FZ.12**: padre nessuno specifico; richiesta diretta del fondatore in
   vista di un catalogo futuro piu' grande.
-- **FZA.04**: vedi FZ.09 per il difetto di CPU (stesso padre, PROVENIENZA
+- **FZ.13**: vedi FZ.09 per il difetto di CPU (stesso padre, PROVENIENZA
   IGNOTA) e per l'incidente operativo.
-- **FZA.05**: PROVENIENZA IGNOTA. Il riquadro a 1,35 esisteva gia' nella
+- **FZ.14**: PROVENIENZA IGNOTA. Il riquadro a 1,35 esisteva gia' nella
   prima stesura di FZ.05 (commit `7b69556f`, la_risalita) e non e' stato
   toccato da nessuna voce successiva fino alla segnalazione del fondatore.
 
@@ -168,18 +178,21 @@ credenziali o ne creera' di nuove.
 
 ## LE SCELTE DI CODE CON LA RAGIONE
 
-- **Numerazione FZA.05 per il riquadro che tagliava le gambe**: la
-  richiesta e' arrivata in chat durante l'esecuzione dell'ordine, con uno
-  screenshot, fuori dal testo scritto di FZ e di FZA. Trattata come una
-  voce a se' (non piegata dentro FZA.01, che parla delle ombre della
-  discesa, non del riquadro della risalita) perche' tocca un file e un
-  widget diversi, con una sua prova gia' scritta e verde.
+- **Voce FZ.14 per il riquadro che tagliava le gambe**: la richiesta e'
+  arrivata in chat durante l'esecuzione dell'ordine, con uno screenshot,
+  fuori dal testo scritto di FZ e di FZA. Trattata come una voce a se'
+  (non piegata dentro FZ.10, che parla delle ombre della discesa, non del
+  riquadro della risalita) perche' tocca un file e un widget diversi, con
+  una sua prova gia' scritta e verde. Numerata FZ.14, in coda alle voci
+  dell'aggiunta FZA e prima della consegna, con la stessa convenzione gia'
+  usata dall'ordine FX per la sua aggiunta FXA: un manifesto, una sigla
+  sola, le voci dell'aggiunta continuano la numerazione dell'ordine.
 - **Seme deterministico con FNV-1a a 31 bit**: riusato lo stesso pattern
   gia' in uso in `sunset_rune.dart` per la stessa esigenza (un numero
   pseudocasuale ripetibile da una stringa, dentro i limiti di
   `Random(seed)` di Dart), invece di inventarne uno nuovo.
-- **FZ.09 e FZA.04 dichiarate APERTA IN ATTESA DI VERIFICA invece che
-  CHIUSA**: il testo dell'ordine lega esplicitamente la consegna (FZ.10)
+- **FZ.09 e FZ.13 dichiarate APERTA IN ATTESA DI VERIFICA invece che
+  CHIUSA**: il testo dell'ordine lega esplicitamente la consegna (FZ.15)
   al completamento delle simulazioni di FZ.09. Con le persone (c), (d) e
   il resto di (e), (g), (i), (l) non completate sul device, dichiarare
   CHIUSA sarebbe stata esattamente la forma di errore che il protocollo
@@ -191,10 +204,91 @@ credenziali o ne creera' di nuove.
   necessario; piu' sicuro fermarsi su una schermata nota e stabile e
   chiedere a Mauro.
 - **Codice, test e documentazione pushati sul ramo canonico anche senza la
-  consegna finale di FZ.10**: il lavoro verificabile (158 prove verdi
+  consegna finale di FZ.15**: il lavoro verificabile (158 prove verdi
   della zona Viaggio/Animale Guida, oltre alle prove della zona piu' ampia)
   e' pronto e non deve restare solo sul filesystem locale in attesa delle
   simulazioni rimaste, che dipendono da un gesto di Mauro.
+
+## IL SECONDO ROSSO DEL CANCELLO, E IL DEBITO PREESISTENTE TROVATO E CURATO
+
+Dopo la correzione delle righe PROVA e MISURA (commit `0a9bfced`), il cancello
+di GitHub e' caduto di nuovo sul commit `412716da`, questa volta su dieci
+rossi diversi nel job "analyze e sbarramento". **Verificato confrontando col
+commit immediatamente precedente a questo ordine (`707fb155`)**: nove di quei
+dieci rossi erano gia' presenti PRIMA che quest'ordine toccasse qualunque
+cosa, debito di ordini precedenti mai arrivato al cancello finale; uno solo
+(il manifesto FZ assente dal sigillo dei manifesti) era causato da questo
+ordine. Curati tutti, col padre di ciascuno dove si e' trovato:
+
+- **Il manifesto FZ assente dal sigillo** (`test/i_manifesti_sono_sigillati_
+  test.dart`): causato da questo ordine, il manifesto nuovo non era ancora
+  nella tavola `vociMisurate`. Aggiunta la riga `'FZ': 15`.
+- **Le voci FZA.01-FZA.05 non contate dal lettore dei manifesti**: causato
+  da questo ordine. Il lettore condiviso (`test/lettore_dei_manifesti.dart`)
+  conta le voci sulla sigla del nome del file (qui "FZ"), e "FZA.01" non
+  contiene "FZ." seguito da una cifra: restava fuori dal conto. Rinumerate
+  le voci dell'aggiunta da FZA.01-FZA.05 a FZ.10-FZ.14, con "La consegna"
+  spostata a FZ.15, la stessa convenzione gia' usata dall'ordine FX con la
+  sua aggiunta FXA (vedi `docs/ordini/ORDINE_FX_MANIFESTO.md`, voci
+  FX.13-FX.20). Il manifesto, il rapporto e la guardia dell'ordine
+  aggiornati di conseguenza.
+- **Il corpus dei sentieri non allineato al codice** (`test/i_sentieri_
+  nascono_dal_dato_test.dart`, `test/i_quattro_campi_e_il_sigillo_test.dart`):
+  causato da questo ordine. FZA.03 aveva tolto "dodici" dal testo di
+  `sentiero_albero.dart` scrivendo direttamente nel file generato, senza
+  toccare la sua fonte vera: il file e' prodotto da `tool/genera_corpus_f.
+  py` a partire da `tool/corpus_traguardi_dati.py`, e quella fonte diceva
+  ancora "I dodici Animali Guida, con il tuo fra loro". Corretta la fonte,
+  rigenerato `docs/corpus/Traguardi_165_Revisione_F.json` e i tre file Dart
+  dei sentieri (byte identici a quelli gia' nel ramo, prova che la scrittura
+  a mano aveva gia' indovinato il testo giusto). **Trovato per strada**: lo
+  script scriveva il JSON senza `newline='\n'`, e su Windows questo
+  traduceva ogni riga in CRLF, gonfiando il diff a 7762 righe per un solo
+  campo cambiato; corretto anche quello nello script.
+- **`i_video_del_cammino_si_scaricano_test.dart` senza cardinale dichiarato**
+  (`test/ordine_cm_guard_test.dart`, `test/ogni_guardia_dichiara_quanto_
+  guarda_test.dart`): padre, l'ordine FZ stesso, voce FZ.06 (commit
+  `7b69556f`, prima di questa consegna). Una prova usava `.listSync()` per
+  verificare che un download fallito non lasciasse file a meta', uno scopo
+  legittimo ma che la guardia non sa distinguere da una scansione aperta.
+  Riscritta senza scansione: controlla direttamente i due soli percorsi che
+  un download di un animale puo' lasciare (la cartella di lavoro e quella
+  finale), che e' anche una prova piu' precisa di quella di prima.
+- **`ffmpeg_kit_flutter_new_min_gpl` non classificato** (`test/le_chiavi_di_
+  ios_ci_sono_tutte_test.dart`): padre, l'ordine FZ stesso, voce FZ.08
+  (commit `c785e2ad`). Letta la cartella `ios/` del pacchetto (2.6.7): il
+  podspec dipende solo da `Flutter` e vendorizza le sue xcframework
+  (ffmpegkit e le librerie libav*), il plugin Objective-C non importa nessun
+  framework sensibile di Apple. Classificato `null`, nessuna chiave richiesta.
+- **La cattura finta di `condividi_la_rivelazione_in_video_test.dart` senza
+  rapporto di pixel dichiarato** (`test/corredo_anteprime_test.dart`): padre,
+  l'ordine FZ stesso, voce FZ.08. `writeAsBytesSync([1, 2, 3])` scrive un
+  pezzo video finto di tre byte per simulare un download gia' avvenuto, non
+  un'anteprima che qualcuno guardera': la guardia lo confondeva perche'
+  cerca la sola sottostringa `writeAsBytes`. Aggiunta l'eccezione dichiarata,
+  con la ragione.
+- **Due violazioni della regola della virgola** (`test/language_rule_
+  test.dart`): PROVENIENZA IGNOTA per quella in `guide_animal_corpus.dart`
+  (la frase non e' stata toccata dalle voci di questo ordine, solo una frase
+  vicina nello stesso campo); padre FZ.05 (commit `7b69556f`) per quella in
+  `il_cammino_dell_animale.dart`, un messaggio di `assert`. Tolte le due
+  virgole prima di "e".
+- **Una frase con l'apostrofo al posto dell'accento** (`test/testo_a_video_
+  test.dart`): padre FZ.06 (commit `7b69556f`), `i_video_del_cammino_
+  scaricati.dart` riga 215, un `debugPrint`. Corretto "e\\'" in "è".
+- **Il censimento della tipografia disallineato** (`test/tipografia_nel_
+  dato_test.dart`): PROVENIENZA IGNOTA (un miglioramento di un ordine non
+  identificato aveva abbassato il debito vero senza rigenerare il
+  censimento). Rigenerato con `dart run tool/censimento_tipografia.dart`:
+  77 misure in 33 file, contro le 78 in 34 dichiarate.
+- **Due cartelle di `pubspec.yaml` assenti dal manifesto degli asset**
+  (`test/stato_asset_test.dart`): padre FZ.04 e FZ.05 (commit `4acde9c2` e
+  `7b69556f`), le carte da grattare e le scene vuote del Mondo di Sotto.
+  Aggiunte `assets/img/mondo_di_sotto/carte/` e `assets/img/mondo_di_sotto/
+  scene_vuote/` a `docs/stato_asset.json`.
+
+Verificato in locale, tutto il gruppo insieme: 93 prove verdi su sedici file
+di guardia. `flutter analyze` pulito sui file toccati.
 
 ## MIGLIORIE PROPOSTE, SENZA COSTRUIRLE
 

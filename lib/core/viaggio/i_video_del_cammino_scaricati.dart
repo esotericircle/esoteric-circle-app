@@ -212,7 +212,7 @@ class IVideoDelCamminoScaricati {
       _pulisci(lavoro);
       return EsitoDelDownload.annullato;
     } catch (e) {
-      debugPrint('Il video di $nome non si e\' scaricato: $e');
+      debugPrint('Il video di $nome non si è scaricato: $e');
       _pulisci(lavoro);
       return EsitoDelDownload.nonRiuscito;
     }

@@ -38,7 +38,7 @@ class IlCamminoDellAnimale extends StatefulWidget {
         assert(
           scenaVuota != null ||
               sequenza.esito != EsitoDelCammino.dissolveNellaScenaVuota,
-          'la sequenza vuole la scena vuota, e questa carta non la porta',
+          'la sequenza vuole la scena vuota e questa carta non la porta',
         );
 
   final LaSequenzaDelCammino sequenza;

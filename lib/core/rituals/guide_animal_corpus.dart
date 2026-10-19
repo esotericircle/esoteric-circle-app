@@ -410,7 +410,7 @@ class GuideAnimalCorpus {
       "(Animal Speak), Steven Farmer (Animal Spirit Guides), Jamie Sams e David "
       "Carson (Medicine Cards). Non si calcola dalla nascita: lo trovi nel "
       "Viaggio dello Sciamano, seguendo di volta in volta l'ombra che ti parla "
-      "di piu', e lo riconosci quando si e' mostrata almeno quattro volte, come "
+      "di piu' e lo riconosci quando si e' mostrata almeno quattro volte, come "
       "insegna Harner. Le ombre fra cui scegliere a ogni discesa sono il "
       "modo in cui questa app mette in scena il viaggio: nella tradizione non "
       "c'è una scelta fra ombre, c'è una visione libera. I significati vengono "

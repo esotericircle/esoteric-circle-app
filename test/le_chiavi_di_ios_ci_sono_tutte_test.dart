@@ -130,6 +130,14 @@ void main() {
     // framework di Apple.
     'google_mlkit_barcode_scanning': 'NSCameraUsageDescription',
     'qr_flutter': null,
+    // **IL VIDEO DELLA RIVELAZIONE, ordine FZ voce FZ.08**, 17 ottobre 2026.
+    // Letta la cartella ios/ del pacchetto (2.6.7): il podspec dichiara solo
+    // `s.dependency 'Flutter'` e vendorizza le sue xcframework (ffmpegkit e
+    // le librerie libav*, il motore di codifica), senza nessun framework di
+    // Apple. Il plugin Objective-C (FFmpegKitFlutterPlugin.m, 1242 righe)
+    // non importa AVFoundation, CoreLocation, Contacts, Photos o Speech.
+    // Nessuna API sensibile.
+    'ffmpeg_kit_flutter_new_min_gpl': null,
   };
 
   /// **LE CHIAVI CHE APPLE CHIEDE PER CIO' CHE STA NEL BINARIO**, ordine DQ

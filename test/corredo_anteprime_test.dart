@@ -93,6 +93,13 @@ void main() {
     'il_giro_delle_sinastrie_test.dart':
         'giro di collaudo FY.21 a diciassette catture, a rapporto due per '
             'tenere leggeri i file in docs/collaudo/FY/sinastrie',
+    // Ordine FZ voce FZ.08, 17 ottobre 2026: `writeAsBytesSync([1, 2, 3])`
+    // scrive un pezzo video finto di tre byte, per simulare che il download
+    // sia gia' avvenuto prima del test; non e' un'anteprima ne' una cattura,
+    // nessuno la guardera' mai.
+    'condividi_la_rivelazione_in_video_test.dart':
+        'FZ.08, scrive un pezzo video finto di tre byte per il test, non '
+            'un\'anteprima',
   };
 
   test('Nessuna cattura ha un rapporto di pixel implicito', () {

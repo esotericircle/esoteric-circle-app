@@ -90,10 +90,11 @@ void main() {
     if (cartella.existsSync()) cartella.deleteSync(recursive: true);
   });
 
-  IVideoDelCamminoScaricati nuovo(http.Client client) => IVideoDelCamminoScaricati(
-      client: client,
-      cartella: () async => cartella,
-      indirizzoDelManifesto: _manifesto);
+  IVideoDelCamminoScaricati nuovo(http.Client client) =>
+      IVideoDelCamminoScaricati(
+          client: client,
+          cartella: () async => cartella,
+          indirizzoDelManifesto: _manifesto);
 
   test('UN DOWNLOAD RIUSCITO INSTALLA I TRE PEZZI E LA POSA, e resta',
       () async {
@@ -110,7 +111,8 @@ void main() {
 
     // Un'altra istanza, senza rete: lo ritrova dal telefono.
     final v2 = IVideoDelCamminoScaricati(
-        client: MockClient((_) async => http.Response('non doveva chiamare', 500)),
+        client:
+            MockClient((_) async => http.Response('non doveva chiamare', 500)),
         cartella: () async => cartella);
     await v2.leggiIInstallati();
     expect(v2.installato('lupo'), isTrue);
@@ -134,13 +136,13 @@ void main() {
     final esito = await v.scaricaAnimale('Lupo');
     expect(esito, EsitoDelDownload.nonRiuscito);
     expect(v.installato('lupo'), isFalse);
-    final radice = Directory('${cartella.path}/viaggio_sciamano');
-    expect(
-        radice.existsSync()
-            ? radice.listSync().where((f) => f.path.contains('lupo'))
-            : const [],
-        isEmpty,
-        reason: 'un download fallito ha lasciato una cartella a meta\'');
+    // Niente scansione: i due soli percorsi che un download di 'lupo' puo'
+    // lasciare, la cartella di lavoro e quella finale, non esistono.
+    final radice = '${cartella.path}/viaggio_sciamano';
+    expect(Directory('$radice/lupo.scaricando').existsSync(), isFalse,
+        reason: 'un download fallito ha lasciato la cartella di lavoro');
+    expect(Directory('$radice/lupo').existsSync(), isFalse,
+        reason: 'un download fallito ha lasciato la cartella finale');
   });
 
   test('CHI ANNULLA NON INSTALLA NIENTE', () async {

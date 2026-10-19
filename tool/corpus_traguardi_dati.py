@@ -283,7 +283,7 @@ LOTO = [
 ALBERO = [
     # --- Primi giorni ---
     (pezzo('animale_guida'), 'Il tuo Animale Guida',
-     'I dodici Animali Guida, con il tuo fra loro'),
+     'Gli Animali Guida del catalogo, con il tuo fra loro'),
     (volte('gettata', 2), 'Due gettate',
      'I modi della gettata: una runa, tre rune, la croce'),
     (volte('tramonto', 2), 'Due tramonti',

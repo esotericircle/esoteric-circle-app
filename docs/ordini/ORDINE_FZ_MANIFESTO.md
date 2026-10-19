@@ -2,9 +2,11 @@
 
 Testo dell'ordine, parola per parola: `docs/ordini/ORDINE_FZ_TESTO.md` (porta
 anche l'aggiunta FZA, eseguita dentro l'ordine e consegnata con la sua
-consegna, voce FZ.10). Rapporto: `docs/ordini/RAPPORTO_ORDINE_FZ.md`. Una
+consegna, voce FZ.15). Rapporto: `docs/ordini/RAPPORTO_ORDINE_FZ.md`. Una
 voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA; una voce aperta dice
-che cosa aspetta e porta le sue prove.
+che cosa aspetta e porta le sue prove. **Le voci dell'aggiunta FZA (nel testo
+originale, FZA.01-FZA.05) continuano qui la numerazione di FZ**, come l'ordine
+FX fece con la sua aggiunta FXA: un manifesto, una sigla sola.
 
 VOCI_TOTALI: 15
 VOCI_CHIUSE: 12
@@ -19,11 +21,11 @@ quattro volte, non per forza di fila, con le ombre gia' seguite che tornano
 sempre fra le proposte della discesa successiva. Porta unica nuova
 `AnimaleDiPotere`, logica pura in `LeOmbreCheRitornano`
 (`lib/core/viaggio/le_ombre_che_ritornano.dart`). **Il numero delle ombre
-proposte a ogni discesa, tre nella prima stesura, sale a nove con FZA.01**
-(voce sotto): la regola del riconoscimento alla quarta volta e del ritorno
-delle ombre gia' seguite resta la stessa, verificata di nuovo con nove. Nel
-file di prova, il gruppo "FZ.01: il riconoscimento arriva alla quarta, mai
-prima".
+proposte a ogni discesa, tre nella prima stesura, sale a nove con FZ.10**
+(voce sotto, FZA.01 nel testo originale dell'aggiunta): la regola del
+riconoscimento alla quarta volta e del ritorno delle ombre gia' seguite
+resta la stessa, verificata di nuovo con nove. Nel file di prova, il gruppo
+"FZ.01: il riconoscimento arriva alla quarta, mai prima".
 
 DOMANDA: "La 2." (l'animale che si rivela nel viaggio, con la regola delle
 quattro apparizioni di Harner); "3 si" alla domanda dell'Architetto
@@ -180,7 +182,7 @@ Viaggio senza rete. Parziali: persona (e), un solo gesto su tre provato
 ("Chiedigli un segno" con rete disattivata, via di riserva confermata);
 persona (g), solo il preambolo (nessun pezzo video scaricato mostra solo
 "Di' chi sei", mai "Condividi come video"). **Non completate**: persona (c),
-fermata a meta' dall'arrivo dell'ordine FZA (punto 1 confermato, nessun
+fermata a meta' dall'arrivo dell'aggiunta FZA (punto 1 confermato, nessun
 avviso bloccante al riavvio con la chiave legacy scritta a mano; punti 2 e
 3, lo stesso animale nel Passaporto/Ritratto/Bosco e la possibilita' di
 continuare a scendere, non piu' verificabili: vedi l'incidente sotto);
@@ -226,32 +228,15 @@ a riuscito al primo colpo)
 
 ## VOCE FZ.10
 
-**APERTA IN ATTESA DI VERIFICA.** La consegna. Dipende da FZ.09 e FZA.04,
-entrambe ancora aperte: il testo dell'ordine lo dice esplicitamente
-("L'ordine si consegna solo col verde di GitHub e con le simulazioni di
-FZ.09 fatte e guardate"). Fatto: manifesto, guardia del manifesto
-(`test/ordine_fz_guard_test.dart`), rapporto, STATO_VIVO e registro delle
-guardie aggiornati; codice e test pushati sul ramo canonico. Da verificare:
-il verde di GitHub sul commit consegnato (in corso), e le simulazioni
-rimaste aperte sopra.
-
-ASPETTA: il verde di GitHub sul commit consegnato; Mauro, per le
-simulazioni rimaste di FZ.09 e FZA.04 (vedi le rispettive voci).
-DOMANDA: regole fisse R3, R6, R11; FZ.09
-PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
-MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse
-12, aperte in attesa di verifica 3
-
-## VOCE FZA.01
-
-**CHIUSA.** Nove ombre, se ne segue una. A ogni discesa compaiono nove
-ombre al posto di tre (`LeOmbreCheRitornano.ombreProposte`,
-`quanteOmbreSiPropongono = 9`, quante il catalogo ne ha se sono meno di
-nove). Restano le regole di FZ.01. `viaggio_dello_sciamano_screen.dart`,
-`_lIncontro`: da una `Column` di tre sagome a una griglia tre per tre,
-tutte visibili senza scorrere a ogni larghezza fra 320 e 430 punti, ogni
-bersaglio ben oltre i 44 punti minimi. Il numero delle proposte ha la sua
-prova diretta nel gruppo "FZA.01" di `test/le_ombre_che_ritornano_test.dart`.
+**CHIUSA.** Nove ombre, se ne segue una (FZA.01 nel testo originale
+dell'aggiunta). A ogni discesa compaiono nove ombre al posto di tre
+(`LeOmbreCheRitornano.ombreProposte`, `quanteOmbreSiPropongono = 9`, quante
+il catalogo ne ha se sono meno di nove). Restano le regole di FZ.01.
+`viaggio_dello_sciamano_screen.dart`, `_lIncontro`: da una `Column` di tre
+sagome a una griglia tre per tre, tutte visibili senza scorrere a ogni
+larghezza fra 320 e 430 punti, ogni bersaglio ben oltre i 44 punti minimi.
+Il numero delle proposte ha la sua prova diretta nel gruppo "FZA.01" di
+`test/le_ombre_che_ritornano_test.dart`.
 
 DOMANDA: "ma si che base vengono scelte? Non mi piace il fatto che siano
 cmq riconoscibili e, quindi, pensavo di farli diventare 9 e l'utente puo'
@@ -264,15 +249,15 @@ sempre oltre i 44 punti minimi (larghezza e altezza); le nove proposte sono
 sempre nove nomi diversi, anche senza nessuna discesa fatta o con il
 catalogo ridotto a sette animali (allora le proposte sono sette)
 
-## VOCE FZA.02
+## VOCE FZ.11
 
-**CHIUSA.** Le ombre nuove a caso per ogni persona. Le ombre mai viste che
-completano il gruppo, e il posto di tutte e nove nella griglia, nascono da
-un seme FNV-1a su identita' del dispositivo (`DeviceId.corrente()`, gia'
-usato per i Doni deterministici) piu' numero della discesa. Stessa persona,
-stessa discesa: stesso gruppo, negli stessi posti. Persone diverse: gruppi
-diversi. Prova diretta nel gruppo "FZA.02" di
-`test/le_ombre_che_ritornano_test.dart`.
+**CHIUSA.** Le ombre nuove a caso per ogni persona (FZA.02 nel testo
+originale dell'aggiunta). Le ombre mai viste che completano il gruppo, e il
+posto di tutte e nove nella griglia, nascono da un seme FNV-1a su identita'
+del dispositivo (`DeviceId.corrente()`, gia' usato per i Doni
+deterministici) piu' numero della discesa. Stessa persona, stessa discesa:
+stesso gruppo, negli stessi posti. Persone diverse: gruppi diversi. Prova
+diretta nel gruppo "FZA.02" di `test/le_ombre_che_ritornano_test.dart`.
 
 DOMANDA: il rilievo dell'Architetto, 19 ottobre 2026, leggendo che le
 ombre nuove completavano il gruppo "nell'ordine del catalogo" (quindi alla
@@ -287,15 +272,16 @@ numero della discesa); due persone con la stessa unica ombra gia' seguita,
 gruppi comunque diversi (padre del difetto: FZ.01, che non specificava
 l'ordine delle ombre nuove)
 
-## VOCE FZA.03
+## VOCE FZ.12
 
-**CHIUSA.** Nessun numero di animali in vista. Due testi visibili corretti:
-`sentiero_albero.dart` ("I dodici Animali Guida" -> "Gli Animali Guida del
-catalogo"), `bosco_del_cerchio.dart` ("Dodici animali accompagnano..." ->
-"Gli animali accompagnano..."); le fonti del Viaggio e il pannello
-dell'Animale Guida, "le tre ombre" -> "le ombre". `GirandolaDegliAnimali`
-resa iniettabile (`animali`, di serie `AnimalCatalog.animals`) per poterla
-misurare con un catalogo esteso.
+**CHIUSA.** Nessun numero di animali in vista (FZA.03 nel testo originale
+dell'aggiunta). Due testi visibili corretti: `sentiero_albero.dart` ("I
+dodici Animali Guida" -> "Gli Animali Guida del catalogo"),
+`bosco_del_cerchio.dart` ("Dodici animali accompagnano..." -> "Gli animali
+accompagnano..."); le fonti del Viaggio e il pannello dell'Animale Guida,
+"le tre ombre" -> "le ombre". `GirandolaDegliAnimali` resa iniettabile
+(`animali`, di serie `AnimalCatalog.animals`) per poterla misurare con un
+catalogo esteso.
 
 DOMANDA: "un domani, ne potrei aggiungere altri, visto che da nessuna
 parte viene indicato il numero degli animali"
@@ -308,26 +294,26 @@ tredicesimo animale finto aggiunto al catalogo in prova,
 12) e `GirandolaDegliAnimali` disegna 26 immagini (13 animali, dorso piu'
 illustrazione ciascuno, da `findsNWidgets(26)`)
 
-## VOCE FZA.04
+## VOCE FZ.13
 
-**APERTA IN ATTESA DI VERIFICA.** La simulazione delle nove ombre. Persona
-(h), chi guarda tutte le nove ombre alla prima discesa, esce e rientra:
-**completata**, griglia tre per tre confermata, uscita vera (`am
-force-stop`) e rientro hanno ritrovato le nove ombre identiche, nella
-stessa identica disposizione, confrontate pixel per pixel. Persona (i), chi
-segue un'ombra e il giorno dopo ne segue un'altra fino a riconoscere un
-animale diverso: **parziale**, due discese su (almeno) quattro necessarie
-alla quarta ombra diversa; confermato che le due griglie sono diverse fra
-loro, che l'ombra gia' seguita torna fra le nove, e che gli strati
-narrativi del Diario contano le discese totali. Persona (l), chi sceglie
-sempre ombre diverse per sei discese: **interrotta**, un episodio di tocco
-non risposto sul pulsante "Scendi" (`uiautomator dump` falliva con "could
-not get idle state"), verificato con la controprova (un altro elemento
-sulla stessa schermata ha risposto subito) e non confermato come difetto
-vero: PROVENIENZA IGNOTA, non investigato oltre per restare nel tempo
-della consegna. Nessuna delle tre persone ha potuto proseguire oltre
-l'incidente operativo descritto in FZ.09 (perdita delle preferenze locali
-dell'account di prova).
+**APERTA IN ATTESA DI VERIFICA.** La simulazione delle nove ombre (FZA.04
+nel testo originale dell'aggiunta). Persona (h), chi guarda tutte le nove
+ombre alla prima discesa, esce e rientra: **completata**, griglia tre per
+tre confermata, uscita vera (`am force-stop`) e rientro hanno ritrovato le
+nove ombre identiche, nella stessa identica disposizione, confrontate
+pixel per pixel. Persona (i), chi segue un'ombra e il giorno dopo ne segue
+un'altra fino a riconoscere un animale diverso: **parziale**, due discese
+su (almeno) quattro necessarie alla quarta ombra diversa; confermato che
+le due griglie sono diverse fra loro, che l'ombra gia' seguita torna fra
+le nove, e che gli strati narrativi del Diario contano le discese totali.
+Persona (l), chi sceglie sempre ombre diverse per sei discese:
+**interrotta**, un episodio di tocco non risposto sul pulsante "Scendi"
+(`uiautomator dump` falliva con "could not get idle state"), verificato
+con la controprova (un altro elemento sulla stessa schermata ha risposto
+subito) e non confermato come difetto vero: PROVENIENZA IGNOTA, non
+investigato oltre per restare nel tempo della consegna. Nessuna delle tre
+persone ha potuto proseguire oltre l'incidente operativo descritto in
+FZ.09 (perdita delle preferenze locali dell'account di prova).
 
 ASPETTA: Mauro, le credenziali dell'account di prova (vedi FZ.09) per
 completare (i) fino al riconoscimento e ripetere (l) oltre l'episodio
@@ -337,16 +323,16 @@ in piu': h) chi alla prima discesa guarda tutte le nove ombre, esce,
 rientra e ritrova le stesse; i) chi segue un'ombra... fino a riconoscere un
 animale diverso dal primo; l) chi sceglie sempre ombre diverse per sei
 giorni di fila"
-PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md` (sezioni "ORDINE
-FZA"), `docs/collaudo/FZ/simulazioni/catture/fza*_19ott.png`
+PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
 MISURA: persone completate, 1 su 3 (h); parziali con comportamento chiave
 confermato, 1 su 3 (i, 2 discese su almeno 4); interrotte da un episodio
 non confermato, 1 su 3 (l)
 
-## VOCE FZA.05
+## VOCE FZ.14
 
 **CHIUSA.** Il riquadro dell'animale segue la forma vera della carta, non
-taglia le gambe. Richiesta arrivata in chat durante l'esecuzione di
+taglia le gambe (FZA.05, voce aggiunta da Code fuori dal testo scritto
+dell'aggiunta). Richiesta arrivata in chat durante l'esecuzione di
 quest'ordine, con screenshot: il Cavallo appariva tagliato alle zampe nella
 risalita. Causa: `AspectRatio` del riquadro a 1,35 (orizzontale), mentre le
 dodici carte (`assets/img/mondo_di_sotto/carte/*_carta_da_grattare_v1.
@@ -363,3 +349,21 @@ PROVA: `test/il_riquadro_dell_animale_segue_la_carta_test.dart`
 MISURA: rapporto larghezza/altezza del riquadro della risalita, da 1,35 a
 0,5625 (1080/1920, misurato `closeTo` con tolleranza 0,01), lo stesso
 rapporto nativo delle dodici carte
+
+## VOCE FZ.15
+
+**APERTA IN ATTESA DI VERIFICA.** La consegna. Dipende da FZ.09 e FZ.13,
+entrambe ancora aperte: il testo dell'ordine lo dice esplicitamente
+("L'ordine si consegna solo col verde di GitHub e con le simulazioni di
+FZ.09 fatte e guardate"). Fatto: manifesto, guardia del manifesto
+(`test/ordine_fz_guard_test.dart`), rapporto, STATO_VIVO e registro delle
+guardie aggiornati; codice e test pushati sul ramo canonico. Da verificare:
+il verde di GitHub sul commit consegnato (in corso), e le simulazioni
+rimaste aperte sopra.
+
+ASPETTA: il verde di GitHub sul commit consegnato; Mauro, per le
+simulazioni rimaste di FZ.09 e FZ.13 (vedi le rispettive voci).
+DOMANDA: regole fisse R3, R6, R11; FZ.09
+PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
+MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse
+12, aperte in attesa di verifica 3

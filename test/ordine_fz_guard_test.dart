@@ -2,11 +2,12 @@
 // LA GUARDIA DELL'ORDINE FZ, l'animale di potere che si rivela nel viaggio.
 // 17-19 ottobre 2026.
 //
-// Il manifesto docs/ordini/ORDINE_FZ_MANIFESTO.md porta le quattordici voci
-// (FZ.01-FZ.10, FZA.01-FZA.04, l'aggiunta eseguita dentro l'ordine e
-// consegnata con la sua consegna), ognuna con uno stato solo, e i marcatori
-// tornano coi conti. Le voci con la prova portano DOMANDA, PROVA e MISURA, e
-// le prove nominate esistono; le voci aperte dicono che cosa aspettano. Il
+// Il manifesto docs/ordini/ORDINE_FZ_MANIFESTO.md porta le quindici voci
+// (FZ.01-FZ.15: le voci FZ.10-FZ.14 sono l'aggiunta FZA, eseguita dentro
+// l'ordine e consegnata con la sua consegna, FZ.15), ognuna con uno stato
+// solo, e i marcatori tornano coi conti. Le voci con la prova portano
+// DOMANDA, PROVA e MISURA, e le prove nominate esistono; le voci aperte
+// dicono che cosa aspettano. Il
 // testo dell'ordine sta accanto, parola per parola, in
 // docs/ordini/ORDINE_FZ_TESTO.md.
 
@@ -19,8 +20,7 @@ import 'le_voci_aperte_dicono_cosa_aspettano.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FZ_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 10; i++) 'FZ.${i.toString().padLeft(2, '0')}',
-    for (var i = 1; i <= 5; i++) 'FZA.${i.toString().padLeft(2, '0')}',
+    for (var i = 1; i <= 15; i++) 'FZ.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {
