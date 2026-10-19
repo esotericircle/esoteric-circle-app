@@ -7555,6 +7555,22 @@ padre FZ.04: la sua riscrittura per la carta in quattro pezzi aveva
 smesso di passare dalla porta comune senza che il registro lo sapesse).
 Resta da verificare il verde della suite intera su GitHub dopo il push.
 
+**Aggiornamento, lo stesso 19 ottobre 2026: il cancello di GitHub sul
+commit `2e1886d8` ha trovato un rosso vero.** `test/ogni_voce_chiusa_
+porta_la_sua_prova_test.dart` ha segnalato che alcune righe PROVA del
+manifesto nominavano piu' di un file o portavano un qualificatore in coda
+(es. "(gruppo \"FZA.02\")"), e il testo captato dalla riga non
+corrispondeva piu' esattamente a quanto scritto nella tabella in cima al
+rapporto; alcune righe MISURA non portavano un numero sulla prima riga
+fisica. Corretto in `docs/ordini/ORDINE_FZ_MANIFESTO.md` (ogni PROVA a un
+solo file, i file di supporto spostati nel corpo della voce; le MISURA
+con un numero in cifre sulla prima riga), nessun contenuto tolto. Nessuna
+guardia nuova, nessuna modifica al codice o ai test. Commit `0a9bfced`,
+spinto sul ramo canonico. Verificato in locale che le due guardie della
+chiusura e del manifesto, il registro delle guardie e i rapporti
+consegnati restano tutti verdi. In attesa del nuovo verde di GitHub su
+questo commit.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
