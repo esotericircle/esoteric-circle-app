@@ -121,6 +121,10 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
     for (final s in widget.giaSolchi) [...s],
   ];
   List<Offset>? _corrente;
+
+  /// L'ultimo punto del dito, dentro o fuori dal pezzo di oggi: serve per
+  /// sapere dove un tratto che arriva da sopra entra nel pezzo.
+  Offset? _ultimoDito;
   final List<_Particella> _particelle = [];
   final List<UnaBrace> _braci = [];
   Timer? _battito;
@@ -192,33 +196,57 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
       (dito.dx - illustrazione.left) / illustrazione.width,
       (dito.dy - illustrazione.top) / illustrazione.height,
     );
-    final solco = _corrente;
-    if (inizio || solco == null) {
+    final prima = inizio ? null : _ultimoDito;
+    if (prima == null) {
+      _ultimoDito = punto;
+      // **SUI PEZZI DEI GIORNI DOPO IL DITO NON SCAVA**: un gesto che
+      // comincia sopra il pezzo di oggi non apre nessun solco.
+      if (!_velo.siGratta(punto)) {
+        _corrente = null;
+        return;
+      }
       _corrente = [punto];
       _solchi.add(_corrente!);
       _conta(punto, punto, illustrazione);
       return;
     }
-    final ultimo = solco.last;
-    final inPunti = Offset((punto.dx - ultimo.dx) * illustrazione.width,
-        (punto.dy - ultimo.dy) * illustrazione.height);
+    final inPunti = Offset((punto.dx - prima.dx) * illustrazione.width,
+        (punto.dy - prima.dy) * illustrazione.height);
     // **UN PUNTO OGNI TRE PUNTI DI STRADA**: il solco resta liscio, e il
     // Diario non si riempie di punti uguali.
     if (inPunti.distance < 3) return;
-    solco.add(punto);
-    _conta(ultimo, punto, illustrazione);
-    _percorso += inPunti.distance;
+    _ultimoDito = punto;
+    // **IL TRATTO SI TAGLIA SUL BORDO DEL PEZZO DI OGGI**: la parte sopra
+    // non scava, e un tratto che entra da sopra comincia sul bordo.
+    final tratto = _velo.tagliaSulBordo(prima, punto);
+    if (tratto == null) {
+      _corrente = null;
+      return;
+    }
+    final (da, a) = tratto;
+    var solco = _corrente;
+    if (solco == null || !_velo.siGratta(prima)) {
+      solco = _corrente = [da];
+      _solchi.add(solco);
+    }
+    solco.add(a);
+    _conta(da, a, illustrazione);
+    // Uscito dal pezzo di oggi: il solco finisce sul bordo.
+    if (!_velo.siGratta(punto)) _corrente = null;
+    final strada = Offset((a.dx - da.dx) * illustrazione.width,
+        (a.dy - da.dy) * illustrazione.height);
+    _percorso += strada.distance;
     // **UNA BRACE PER OGNI TRATTO**, che si accende e si spegne.
-    _braci.add(UnaBrace(da: ultimo, a: punto, nata: _adesso));
+    _braci.add(UnaBrace(da: da, a: a, nata: _adesso));
     // **POCHI GRANELLI**: uno ogni sedici punti di strada, e mai piu' di
     // trenta in aria. Una nuvola sarebbe un effetto: qui serve una materia.
     while (_percorso > 16) {
       _percorso -= 16;
       if (_particelle.length < 30) {
         _sollevaDa(
-            Offset(illustrazione.left + punto.dx * illustrazione.width,
-                illustrazione.top + punto.dy * illustrazione.height),
-            inPunti);
+            Offset(illustrazione.left + a.dx * illustrazione.width,
+                illustrazione.top + a.dy * illustrazione.height),
+            strada);
       }
     }
     _accendi();
@@ -250,6 +278,7 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
 
   void _fine() {
     _corrente = null;
+    _ultimoDito = null;
     widget.quandoCambia(Set.of(_scoperte));
     widget.quandoSolca?.call([for (final s in _solchi) List.of(s)]);
   }
@@ -916,6 +945,23 @@ class PittoreDellaCenere extends CustomPainter {
   /// che il dito sta disegnando adesso.
   void _scava(Canvas canvas, Size size, List<List<Offset>> quali) {
     if (quali.isEmpty) return;
+    canvas.save();
+    _soloDoveSiGratta(canvas, size);
+    _scavaDentro(canvas, size, quali);
+    canvas.restore();
+  }
+
+  /// **IL PENNELLO NON SBAVA SUI PEZZI DI DOMANI.** Il pennello e' morbido e
+  /// largo diciotto punti: un tratto lecito vicino al bordo del pezzo di oggi
+  /// aprirebbe la cenere di qualche punto sopra. Il taglio lascia libero il
+  /// margine ai lati e sotto, dove il disegno di prima arrivava gia'.
+  void _soloDoveSiGratta(Canvas canvas, Size size) {
+    final m = margine(size);
+    canvas.clipRect(Rect.fromLTRB(-m, size.height * velo.cimaDelGrattabile,
+        size.width + m, size.height + m));
+  }
+
+  void _scavaDentro(Canvas canvas, Size size, List<List<Offset>> quali) {
     const r = LaCartaInQuattroPezzi.raggioDelPennello;
     final solco = _tracciato(quali, size);
     Paint pennello(
@@ -1064,7 +1110,8 @@ class PittoreDellaCenere extends CustomPainter {
 
   ui.Image _cenereScavata(Size size, List<List<Offset>> quali) {
     final (coltre, _) = _coltreECumulo(size);
-    final chiave = '${velo.nome}/${size.width.round()}x${size.height.round()}'
+    final chiave = '${velo.nome}/${velo.pezzoAttivo}'
+        '/${size.width.round()}x${size.height.round()}'
         '/$dpr/${grana?.width}x${grana?.height}/$granaAllaScena'
         '/${scoperte.length}';
     final adesso = _conta(quali);

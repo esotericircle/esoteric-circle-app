@@ -80,6 +80,33 @@ class LaCartaInQuattroPezzi {
     for (final i in _tutte) if (fasciaDi(i) == pezzoAttivo) i,
   };
 
+  /// **FIN DOVE SI GRATTA OGGI**, in frazione dall'alto: il pezzo attivo e
+  /// quelli gia' grattati sotto di lui, mai i pezzi dei giorni dopo. Sopra
+  /// questa riga la cenere resta piena anche se il dito ci passa: la
+  /// contabilita' contava gia' solo il pezzo attivo, ma il solco scavava
+  /// ovunque, e la simulazione del 20 ottobre 2026 ha visto la Lince intera,
+  /// volto compreso, alla prima discesa.
+  double get cimaDelGrattabile => (pezzi - 1 - pezzoAttivo) / pezzi;
+
+  /// Se il punto [frazione] della carta sta dove oggi si puo' grattare.
+  bool siGratta(Offset frazione) => frazione.dy >= cimaDelGrattabile;
+
+  /// **IL TRATTO DEL DITO, TAGLIATO SUL BORDO DEL PEZZO DI OGGI**: il pezzo
+  /// di [da]..[a] che sta dove si gratta, o nullo se il tratto e' tutto
+  /// sopra. Un tratto che arriva da sopra comincia sul bordo, non si perde:
+  /// un dito veloce manda pochi punti, e il primo dentro puo' gia' essere in
+  /// fondo alla carta.
+  (Offset, Offset)? tagliaSulBordo(Offset da, Offset a) {
+    final c = cimaDelGrattabile;
+    final dentroDa = da.dy >= c;
+    final dentroA = a.dy >= c;
+    if (dentroDa && dentroA) return (da, a);
+    if (!dentroDa && !dentroA) return null;
+    final t = (c - da.dy) / (a.dy - da.dy);
+    final bordo = Offset(da.dx + (a.dx - da.dx) * t, c);
+    return dentroDa ? (da, bordo) : (bordo, a);
+  }
+
   /// **QUANTO SI PUO' SCOPRIRE IN UNA DISCESA**: un pezzo intero, cioe' una
   /// fascia. A differenza della sagoma, qui la quota e' sempre esatta: non
   /// resta mai un'area scostabile piu' piccola della quota, perche' ogni
