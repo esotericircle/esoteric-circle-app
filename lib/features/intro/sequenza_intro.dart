@@ -234,7 +234,25 @@ class _SequenzaIntroState extends State<SequenzaIntro>
     _uscita = Timer(SequenzaIntro.dissolvenza, () {
       Briciole.lascia('intro_conclusa');
       if (mounted) setState(() => _momento = MomentoIntro.finita);
+      // **SMALTITO, NON SOLO FERMATO.** Trovato misurando un consumo di CPU
+      // anomalo sul Realme 767f596c (80-126 per cento, costante, su
+      // schermate quasi ferme), ordine FZ voce FZ.09, 19 ottobre 2026:
+      // `pause()` ferma la riproduzione, ma il timer interno del pacchetto
+      // `video_player` che interroga la posizione resta vivo finche'
+      // nessuno chiama `dispose()`. `SequenzaIntro` avvolge tutta l'app e
+      // non si smonta mai da sola: senza questa riga il lettore dell'intro
+      // restava vivo, col suo timer a girare, per tutta la vita del
+      // processo.
+      _smaltisciIlVideo();
     });
+  }
+
+  void _smaltisciIlVideo() {
+    final c = _video;
+    _video = null;
+    if (c == null) return;
+    c.removeListener(_guardaLaFine);
+    unawaited(c.dispose());
   }
 
   @override
@@ -246,8 +264,7 @@ class _SequenzaIntroState extends State<SequenzaIntro>
     WidgetsBinding.instance.removeObserver(this);
     _scorta?.cancel();
     _uscita?.cancel();
-    _video?.removeListener(_guardaLaFine);
-    _video?.dispose();
+    _smaltisciIlVideo();
     super.dispose();
   }
 

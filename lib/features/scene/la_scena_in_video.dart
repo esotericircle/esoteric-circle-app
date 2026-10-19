@@ -124,6 +124,18 @@ class _LettoreDiScenaVero implements LettoreDiScena {
         (v.isCompleted || v.position >= v.duration)) {
       _finito = true;
       cambiato = true;
+      // **FERMATO DAVVERO, NON SOLO LETTO COME FINITO.** Trovato misurando
+      // un consumo di CPU anomalo sul Realme 767f596c (80-126 per cento,
+      // costante, su schermate quasi ferme), ordine FZ voce FZ.09, 19
+      // ottobre 2026: il timer interno del pacchetto `video_player` che
+      // interroga la posizione ogni cento millisecondi si ferma solo
+      // quando qualcuno chiama `pause()` sul controller. Il pacchetto lo fa
+      // da solo SOLO se riceve l'evento nativo "completed" dalla
+      // piattaforma, che su Android non arriva sempre in modo affidabile:
+      // un video che _finito rileva per `position >= duration`, senza
+      // quell'evento, lasciava il controller mai messo in pausa, col suo
+      // timer a girare per tutta la vita del processo.
+      unawaited(c.pause());
     }
     if (v.hasError && !_fallito) {
       _fallito = true;

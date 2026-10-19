@@ -178,6 +178,28 @@ void main() {
       expect(find.byKey(const Key('destinazione')), findsOneWidget);
     });
 
+    testWidgets(
+        'Finita, il lettore e SMALTITO, non solo fermato: trovato misurando '
+        'un consumo di CPU anomalo sul Realme 767f596c, ordine FZ voce '
+        'FZ.09, 19 ottobre 2026', (tester) async {
+      await tester.pumpWidget(conIntro());
+      await finoAlVideo(tester);
+      await tester.tap(find.byKey(const Key('intro_salta')));
+      await tester.pump();
+      await tester.pump(SequenzaIntro.dissolvenza);
+      await tester.pump();
+      // IL VERO `dispose()` DI `VideoPlayerController` E' ASINCRONO (due
+      // `await` in catena fino alla piattaforma): un `pump` di widget test
+      // non garantisce un giro vero dell'event loop per risolverli.
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+      expect(find.byKey(const Key('destinazione')), findsOneWidget);
+      expect(piattaforma.disposto, isTrue,
+          reason: 'l intro finita lascia il lettore vivo, in pausa ma non '
+              'smaltito: il timer di posizione del pacchetto video_player '
+              'continua a interrogare la piattaforma nativa per tutta la '
+              'vita del processo, anche a video fermo da un pezzo');
+    });
+
     testWidgets('L uscita e una dissolvenza, non un taglio secco',
         (tester) async {
       await tester.pumpWidget(conIntro());
@@ -365,6 +387,13 @@ class _PiattaformaFinta extends VideoPlayerPlatform {
   bool inRiproduzione = false;
   double? volumeApplicato;
 
+  /// **VERO QUANDO IL LETTORE E' STATO SMALTITO DAVVERO.** Non basta che il
+  /// video sia in pausa: `pause()` ferma la riproduzione, ma il timer interno
+  /// del pacchetto che interroga la posizione resta vivo finche' nessuno
+  /// chiama `dispose()`. Un'intro mai smaltita lascia quel timer a girare per
+  /// tutta la vita del processo, anche a video gia' finito da un pezzo.
+  bool disposto = false;
+
   /// IL VOLUME IN VIGORE NELL'ISTANTE IN CUI IL VIDEO COMINCIA.
   ///
   /// Non "il volume e' stato deciso prima di suonare", che sembrava la stessa
@@ -380,7 +409,9 @@ class _PiattaformaFinta extends VideoPlayerPlatform {
   Future<void> init() async {}
 
   @override
-  Future<void> dispose(int playerId) async {}
+  Future<void> dispose(int playerId) async {
+    disposto = true;
+  }
 
   @override
   Future<int?> createWithOptions(VideoCreationOptions options) async {
