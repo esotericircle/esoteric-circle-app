@@ -95,7 +95,7 @@
 - messaggio 2: La discrezione non è segretezza. Il segreto nasconde per avere un vantaggio; la discrezione tiene al riparo ciò che ti è stato confidato perché non ti appartiene. Nella mia lettura di Hahaiah, il luogo interiore in cui custodisci le parole degli altri è lo stesso in cui ascolti le tue.
 - messaggio 3: Ciò che arriva di notte, dai sogni o dalle intuizioni, non chiede subito una spiegazione. Questo angelo ti fa vedere la differenza fra ascoltare e interpretare: l'interpretazione affrettata chiude il senso, l'ascolto lo lascia maturare nel tuo silenzio. Un sogno spiegato troppo presto perde ciò che voleva dire.
 - consiglio 1: Prenditi oggi un tempo di ritiro con un'uscita già fissata: quando scade, torna fuori e fai una cosa che rimandavi. Se ti accorgi di chiudere la porta anche a chi non chiede niente, non scambiarla per pace: riaprila. Il rifugio serve a ciò che porti fuori.
-- consiglio 2: Custodisci oggi ciò che qualcuno ti ha confidato: non riferirlo, nemmeno per spiegare o per chiedere un consiglio. Se ti accorgi di tacere per avere un vantaggio, quello è un segreto e non discrezione. Nello stesso spazio quieto, ascolta anche le tue parole.
+- consiglio 2: Serba oggi ciò che qualcuno ti ha confidato: non riferirlo, nemmeno per spiegare o per chiedere un consiglio. Se ti accorgi di tacere per avere un vantaggio, quello è un segreto e non discrezione. Nello stesso spazio quieto, ascolta anche le tue parole.
 - consiglio 3: Annota al risveglio ciò che ricordi dei sogni o delle intuizioni notturne, senza commentarlo. Lascia passare qualche giorno prima di cercare un significato. Non chiedere a nessuno di spiegarti subito un sogno: l'interpretazione affrettata chiude ciò che il silenzio stava ancora maturando.
 
 ## 13 Iezalel

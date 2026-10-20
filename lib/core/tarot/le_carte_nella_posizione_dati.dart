@@ -13235,7 +13235,7 @@ const Map<String, String> titoliDelleCarte = {
   'consultante|Il Matto|capovolta': 'Sull\'orlo, con una spinta senza nome',
   'consultante|Il Mago|dritta': 'Sai già fare ciò che pensi',
   'consultante|Il Mago|capovolta': 'Sai fare, ma non lo fai',
-  'consultante|La Papessa|dritta': 'Custodisci una risposta non ancora detta',
+  'consultante|La Papessa|dritta': 'Conserva una risposta non ancora detta',
   'consultante|La Papessa|capovolta': 'Un intuito zittito ma ancora intero',
   'consultante|L\'Imperatrice|dritta': 'Sei terra fertile in questo momento',
   'consultante|L\'Imperatrice|capovolta': 'Dai acqua a tutti tranne che a te',
@@ -16864,7 +16864,7 @@ const Map<String, List<String>> cosaFareDelleCarte = {
     'Ascolta oggi la versione dell\'altro prima di spiegare la tua, in quella faccenda condivisa che si è inceppata. Fai domande, ripeti con parole tue ciò che hai capito: spesso il disaccordo è un malinteso sui compiti, quindi capirlo bene vale più che avere ragione.',
   ],
   'Quattro di Denari|dritta|amore': [
-    'Custodisci oggi ciò che di buono c\'è nel tuo legame o nella tua attesa: scrivi tre cose che vuoi proteggere. Poi concediti un gesto spontaneo, un messaggio non calcolato: questa carta dà sicurezza, ma una presa troppo stretta toglie respiro anche all\'affetto.',
+    'Conserva oggi ciò che di buono c\'è nel tuo legame o nella tua attesa: scrivi tre cose che vuoi proteggere. Poi concediti un gesto spontaneo, un messaggio non calcolato: questa carta dà sicurezza, ma una presa troppo stretta toglie respiro anche all\'affetto.',
     'Evita oggi di controllare messaggi, orari o spostamenti della persona a cui tieni, anche se ti verrebbe naturale. Sostituisci il controllo con una domanda aperta su come sta: la sicurezza affettiva che cerchi cresce dalla fiducia, non dalla stretta della mano sul petto.',
     'Prenditi oggi un momento per riconoscere che cosa ti fa sentire al riparo nel rapporto o in quello che desideri: dillo in modo semplice. Dare un nome al bisogno di sicurezza lo rende meno possessivo: questa carta chiede di proteggere il legame senza chiuderlo in un pugno.',
   ],

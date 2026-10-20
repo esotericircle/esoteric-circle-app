@@ -847,7 +847,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|12|consiglio': [
     'Prenditi un rifugio con un inizio e una fine. Oggi scegli un angolo della casa e trenta minuti in cui nessuno può chiederti niente: spegni le notifiche e chiudi la porta. Allo scadere esci e fai qualcosa con gli altri: il rifugio di Hahaiah ristora quando ha una soglia.',
     'Tieni accanto al letto un quaderno e annota il sogno appena apri gli occhi, senza interpretarlo. Scrivi solo le immagini e l\'emozione, poi chiudi il quaderno. Non cercare subito il significato né chiedere spiegazioni ad altri: rileggilo fra una settimana. Hahaiah chiede accoglienza per ciò che arriva di notte.',
-    'Custodisci la confidenza ricevuta senza raccontarla a nessuno, nemmeno per alleggerirti. Se il peso cresce, scrivi su un foglio ciò che provi tu, senza nomi né dettagli dell\'altra persona, poi strappalo. Hahaiah ti lascia portare il segreto con discrezione: nel tuo rifugio interiore c\'è posto anche per questo.',
+    'Serba la confidenza ricevuta senza raccontarla a nessuno, nemmeno per alleggerirti. Se il peso cresce, scrivi su un foglio ciò che provi tu, senza nomi né dettagli dell\'altra persona, poi strappalo. Hahaiah ti lascia portare il segreto con discrezione: nel tuo rifugio interiore c\'è posto anche per questo.',
   ],
   'cuore|13|messaggio': [
     'Ricordare chi sono le persone del tuo gruppo, anche nei giorni in cui sembrano lontane, porta una tenerezza un po\' stanca. Iezalel ti lascia sentire quella fedeltà come memoria viva. Dove pesa, si fa malinconia per i tempi in cui il gruppo era più unito.',
@@ -1255,7 +1255,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Sapere che si può contare su di te porta una fierezza sobria, che non ha bisogno di dirsi. Nanael la alimenta nel tempo lungo, fatto di ore silenziose. Accoglila senza modestia finta: è il frutto di una fedeltà allo studio che nessuno nota e che tutti sentono quando serve.',
   ],
   'cuore|53|consiglio': [
-    'Custodisci un\'ora di studio silenzioso nella tua giornata, sempre alla stessa ora, con ogni schermo spento. Finita l\'ora, cerca una persona e raccontale una cosa che hai imparato. Non chiuderti nella biblioteca interiore: il silenzio ti nutre finché non diventa distanza dal mondo.',
+    'Riserva un\'ora di studio silenzioso nella tua giornata, sempre alla stessa ora, con ogni schermo spento. Finita l\'ora, cerca una persona e raccontale una cosa che hai imparato. Non chiuderti nella biblioteca interiore: il silenzio ti nutre finché non diventa distanza dal mondo.',
     'Non rinunciare alla profondità per inseguire un invito in più. Scegli tu le serate da dare allo studio e quelle da dare agli altri, poi scrivile in agenda. Se affiora il rimpianto, guardalo senza cedergli: la tua affidabilità nasce dal tempo che altri spendono altrove.',
     'Mantieni oggi un impegno di studio piccolo e preciso, anche se nessuno lo vede. Quando qualcuno ti chiede aiuto, rispondi con ciò che sai davvero, senza esibirlo e senza minimizzarlo. Accetta il grazie che ricevi: la modestia finta toglie valore a ciò che hai costruito.',
   ],
@@ -1566,7 +1566,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'intelletto|12|consiglio': [
     'Prenditi oggi un tempo di ritiro con un\'uscita già fissata: quando scade, torna fuori e fai una cosa che rimandavi. Se ti accorgi di chiudere la porta anche a chi non chiede niente, non scambiarla per pace: riaprila. Il rifugio serve a ciò che porti fuori.',
-    'Custodisci oggi ciò che qualcuno ti ha confidato: non riferirlo, nemmeno per spiegare o per chiedere un consiglio. Se ti accorgi di tacere per avere un vantaggio, quello è un segreto e non discrezione. Nello stesso spazio quieto, ascolta anche le tue parole.',
+    'Serba oggi ciò che qualcuno ti ha confidato: non riferirlo, nemmeno per spiegare o per chiedere un consiglio. Se ti accorgi di tacere per avere un vantaggio, quello è un segreto e non discrezione. Nello stesso spazio quieto, ascolta anche le tue parole.',
     'Annota al risveglio ciò che ricordi dei sogni o delle intuizioni notturne, senza commentarlo. Lascia passare qualche giorno prima di cercare un significato. Non chiedere a nessuno di spiegarti subito un sogno: l\'interpretazione affrettata chiude ciò che il silenzio stava ancora maturando.',
   ],
   'intelletto|13|messaggio': [

@@ -108,7 +108,7 @@ parti degli scrittori si rimettono qui con
 - presente: Sai più di quanto puoi spiegare
 - futuro: La risposta tende a maturare nel silenzio
 - cartaSola: Fidati di ciò che senti in silenzio
-- consultante: Custodisci una risposta non ancora detta
+- consultante: Conserva una risposta non ancora detta
 - lato: Un sapere che non passa dalle parole
 - esito: Si va verso una comprensione quieta
 - copre: Una luce bassa sulla questione

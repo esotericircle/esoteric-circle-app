@@ -1411,7 +1411,7 @@ parti degli scrittori si rimettono qui con
 
 ### dritta
 
-- amore_1: Custodisci oggi ciò che di buono c'è nel tuo legame o nella tua attesa: scrivi tre cose che vuoi proteggere. Poi concediti un gesto spontaneo, un messaggio non calcolato: questa carta dà sicurezza, ma una presa troppo stretta toglie respiro anche all'affetto.
+- amore_1: Conserva oggi ciò che di buono c'è nel tuo legame o nella tua attesa: scrivi tre cose che vuoi proteggere. Poi concediti un gesto spontaneo, un messaggio non calcolato: questa carta dà sicurezza, ma una presa troppo stretta toglie respiro anche all'affetto.
 - amore_2: Evita oggi di controllare messaggi, orari o spostamenti della persona a cui tieni, anche se ti verrebbe naturale. Sostituisci il controllo con una domanda aperta su come sta: la sicurezza affettiva che cerchi cresce dalla fiducia, non dalla stretta della mano sul petto.
 - amore_3: Prenditi oggi un momento per riconoscere che cosa ti fa sentire al riparo nel rapporto o in quello che desideri: dillo in modo semplice. Dare un nome al bisogno di sicurezza lo rende meno possessivo: questa carta chiede di proteggere il legame senza chiuderlo in un pugno.
 - lavoro_1: Fai oggi un inventario ordinato di ciò che hai già costruito nel lavoro: competenze, contatti, risultati, scritti su un foglio. Sapere che cosa possiedi ti dà la stabilità che questa carta indica, purché il foglio serva a muoverti con calma, non a chiuderti.

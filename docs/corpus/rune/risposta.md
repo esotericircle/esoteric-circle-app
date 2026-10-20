@@ -221,7 +221,7 @@
 3. Usa l'ingegno, non la forza: per {cosa} la soluzione pratica è vicina, cercala fra le cose che sai già fare bene.
 4. Il fuoco di casa scalda {cosa}: ciò che nasce vicino a chi ami ha radici più salde di quanto pensi.
 5. Impara qualcosa di nuovo: per {cosa} arriva una conoscenza da una lettura o da un incontro, mettila subito alla prova.
-6. Custodisci la fiamma: con {cosa} l'idea c'è già, adesso ha bisogno di legna e di forma, cioè di un'opera concreta da cominciare.
+6. Proteggi la fiamma: con {cosa} l'idea c'è già, adesso ha bisogno di legna e di forma, cioè di un'opera concreta da cominciare.
 7. Guarda {cosa} alla luce di ciò che sai fare con le mani: il mestiere che possiedi è la tua torcia migliore.
 8. Dai un nome a ciò che vedi: dentro {cosa} emerge qualcosa che restava al buio e nominarlo ti permette di usarlo.
 9. Crea: dentro {cosa} c'è una scintilla che chiede di uscire in un progetto, in un disegno o in una pagina scritta.
@@ -420,7 +420,7 @@
 18. Il freddo che senti verso {cosa} non è indifferenza: è il modo in cui il cuore si raccoglie prima di scegliere di nuovo.
 19. Per ora non c'è nulla da rincorrere dentro {cosa}: ciò che serve è già qui, immobile come una pietra sotto la neve.
 20. Guarda {cosa} come si guarda un lago gelato di mattina: tutto è immobile e proprio per questo si vede fino in fondo.
-21. Custodisci il silenzio: nella quiete che avvolge {cosa} prende forma una risposta che il rumore dei giorni scorsi ti nascondeva.
+21. Conserva il silenzio: nella quiete che avvolge {cosa} prende forma una risposta che il rumore dei giorni scorsi ti nascondeva.
 22.
 23. Nessuna corsa porta lontano con {cosa} in questi giorni: il passo lento sul ghiaccio è quello che arriva intero dall'altra parte.
 24.
@@ -814,7 +814,7 @@
 1. Per {cosa} il passo più importante sta avvenendo sotto terra: ciò che oggi non si vede è già radice in crescita.
 2. Come un seme nel buio della terra, {cosa} matura in silenzio e non ha bisogno di mostrarsi per diventare forte.
 3. La gettata vede {cosa} in piena gestazione: lascia che ciò che cresce dentro trovi la sua forma prima di esporlo agli sguardi altrui.
-4. Custodisci ancora un poco: dentro {cosa} c'è una forza intera messa da parte, come il grano chiuso nel granaio in attesa della semina.
+4. Conserva ancora un poco: dentro {cosa} c'è una forza intera messa da parte, come il grano chiuso nel granaio in attesa della semina.
 5. Ciò che hai coltivato con pazienza verso {cosa} sta per varcare la soglia: un ciclo si chiude e libera energia nuova.
 6. Non serve affrettare {cosa}: il frutto si stacca dal ramo quando è maturo e nessuno strattone lo rende più dolce.
 7. Un cerchio si completa dentro {cosa}: quanto hai seminato in silenzio raccoglie le sue forze per il momento di uscire.
