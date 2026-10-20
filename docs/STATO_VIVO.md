@@ -7635,7 +7635,7 @@ Mauro per "ProvaFZ" o un account nuovo. Manifesto e rapporto aggiornati
 con lo sha del segno verde.
 
 **Aggiornamento del 20 ottobre 2026, la seconda simulazione da persona:
-quattro difetti veri trovati e curati.** Decisione del fondatore: *"Tutto,
+undici difetti veri trovati e curati.** Decisione del fondatore: *"Tutto,
 come l'ordine"*, con il permesso di creare profili di prova nuovi e fino a
 dieci chiamate vere al modello per la persona (e). Profilo anonimo nuovo sul
 Realme ("ProvaFZB"), giorni simulati spostando la data del telefono di
@@ -7668,7 +7668,55 @@ guardia vista rossa e il suo commit:
   solo nella schermata del segno, dopo il riconoscimento. Ora si scarica
   quando la persona segue l'ombra, come chiede FZ.06; guardia
   `il_video_della_carta_si_scarica_mentre_si_scopre` (831); commit
-  `d3d0491e`.
+  `d3d0491e`. **I dodici video del cammino non erano mai stati pubblicati
+  sul bucket** (padre FZ.06): pubblicati col si' del fondatore, 48 file,
+  53.411.222 byte, in `esoteric-circle-assets-cdn/viaggio_sciamano/`, con
+  `tool/pubblica_i_video_del_cammino.py`; il manifesto risponde 200.
+- **La carta della FZ.04, rifatta per decisione del fondatore** (*"Rifalla
+  adesso"*): si gratta l'immagine dell'animale di lato, non il fotogramma
+  del video (*"Per la cenere da scostare, non devi usare il video, ma
+  l'immagine dell'animale di lato"*); il volto si scopre per ultimo, la carta
+  non sta piu' dietro le barre, le carte a meta' stanno nel Diario con la
+  scritta "Ombra seguita" invece del nome; il volto non si apre piu' da
+  solo con un Diario vecchio. Padre FZ.04; guardie
+  `il_volto_si_scopre_per_ultimo` (832) e
+  `le_carte_a_meta_stanno_nel_diario` (833); commit `fe18050e`, `c3b74295`,
+  `f19d3c44`. Codice in `lib/core/viaggio/la_carta_in_quattro_pezzi.dart`.
+- **Il cammino rivelava l'animale prima del riconoscimento** (padre DE.09):
+  in alto c'era la sagoma nitida dell'animale vero. Ora ogni impronta usa
+  l'ombra che la persona ha scelto (*"dovresti usare l'ombra che l'utente ha
+  scelto all'inizio del cammino"*); guardia
+  `il_cammino_non_rivela_l_animale` (834); commit `c3b74295`.
+- **"Condividi come video" non funzionava sul telefono** (padre FZ.08): la
+  libreria Android di ffmpeg non ha `drawtext`. Il titolo si disegna in un
+  PNG (`lib/core/condivisione/il_titolo_in_immagine.dart`) e si sovrappone
+  con `overlay`; commit `41585ba7`; provato sul Realme fino al foglio di
+  sistema, poi annullato. Persona (g) completata.
+- **I video scaricati si dimenticavano dopo un riavvio** (padre FZ.06);
+  guardia `i_video_gia_scaricati_si_ritrovano` (836); commit `47d80821`.
+- **La riserva del segno diceva si' o no a caso a una domanda aperta**
+  (padre DI.14): ora risponde "guarda meglio"; guardia
+  `a_una_domanda_aperta_il_segno_non_dice_si` (837); commit `036dffda`.
+- **Chi era a meta' col vecchio sistema non riceveva l'avviso** (padre
+  FZ.02): la migrazione la fa la home, che l'avviso non lo mostra; ora resta
+  in `viaggio.fz02_avviso` finche' il Viaggio non lo prende; guardia
+  `l_avviso_della_migrazione_arriva_al_viaggio` (838); commit `7ab00db3`.
+- **Per richiesta del fondatore, il pulsante "Scopri chi e'"** nella soglia
+  del Viaggio dopo la rivelazione, sotto il nome, apre un popup con le
+  qualita' dell'animale (le stesse del Passport, Animale Guida); anche
+  l'immagine si tocca. Guardia `il_tuo_animale_dalla_soglia` (835); commit
+  `33970c3d`. Corretti anche i testi che legavano l'animale al segno ("Dal
+  tuo cielo, Leone"; "Rivelalo dal mio cielo"), padre FZ.07 (`39442275`).
+**Scoperta che cambia la persona (e)**: la build di debug viene rifiutata da
+App Check (*"403 App attestation failed"*, *"Too many attempts"*), quindi
+oggi **nessuna chiamata e' arrivata a Gemini e nessuna spesa e' partita**:
+tutte le risposte del segno erano della riserva. La parte "modello vero"
+della persona (e) resta APERTA finche' non c'e' una build attestata o un
+token di debug registrato da Mauro. **Stato delle voci**: FZ.09 aperta (sei
+persone su sette complete, la (e) parziale), FZ.13 aperta (persona (i)
+completa, persona (l) tre giorni su sei), FZ.15 aperta. Rapporto
+consegnato: righe in coda "**Aggiunta del 20 ottobre 2026**", il corpo non
+e' stato toccato.
 Fuori dalle funzioni dell'ordine, segnalato come compito a parte: aprendo
 l'app senza rete la home mostra l'errore rosso di Flutter
 `'_elements.contains(element)'` (PROVENIENZA IGNOTA). **Le chiamate al
@@ -7676,7 +7724,7 @@ modello delle discese**: ogni discesa chiede la scena al modello al tocco di
 Scendi; le tre discese fatte con la rete accesa (giorni 1-3) sono tre
 chiamate che non erano nel conto, dentro il tetto di dieci concesso. Da li'
 le discese si fanno con la rete spenta al tocco di Scendi. Registro delle
-guardie a **831** (163, 286, 382).
+guardie a **838** (163, 288, 387).
 
 ## Regole ferree
 

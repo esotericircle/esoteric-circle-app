@@ -304,3 +304,51 @@ di guardia. `flutter analyze` pulito sui file toccati.
   collaudo** (invece di comandi `adb shell` scritti a mano ogni volta),
   che non permetta la sequenza che ha causato l'incidente di oggi
   (cancellare la fonte prima di averla usata).
+
+**Aggiunta del 20 ottobre 2026, ordine FZ, la seconda simulazione da persona.**
+Decisioni del fondatore: "Tutto, come l'ordine"; pubblicare i video; rifare
+la FZ.04; lasciare il server com'e'. Profilo anonimo nuovo sul Realme,
+giorni simulati spostando la data del telefono di collaudo; note in
+`docs/collaudo/FZ/simulazioni/note_di_percorso.md`, catture `v2_*`.
+Undici difetti veri trovati e curati, ognuno col suo padre e una guardia
+vista rossa (registro delle guardie da 827 a 838):
+1. la cenere veniva via tutta alla prima discesa (padre FZ.04,
+   `la_cenere_resta_sui_pezzi_di_domani`, commit `b793c4af`);
+2. dopo Risali il responso stava sotto la piega (padre FZ.14,
+   `il_responso_si_vede_appena_risali`, `1183d3b2`);
+3. le discese sparivano dal Diario: il sacchetto del Viaggio superava il
+   tetto del server e il telefono adottava la copia vecchia (padre EE.13,
+   aggravato da FZ.04, `il_viaggio_pesante_non_torna_indietro`, `1183d3b2`);
+4. i video del cammino non erano mai stati pubblicati (padre FZ.06;
+   pubblicati col si' del fondatore, `tool/pubblica_i_video_del_cammino.py`);
+5. il video si scaricava solo nel segno, mai alla carta che si scopre
+   (padre FZ.06, `il_video_della_carta_si_scarica_mentre_si_scopre`,
+   `d3d0491e`);
+6. la carta della FZ.04: la testa si vedeva al terzo pezzo, la carta stava
+   dietro le barre, le carte a meta' mancavano nel Diario; il volto si
+   apriva da solo con un Diario vecchio (padre FZ.04,
+   `il_volto_si_scopre_per_ultimo`, `le_carte_a_meta_stanno_nel_diario`,
+   `fe18050e`, `c3b74295`, `f19d3c44`); per parola del fondatore si gratta
+   l'immagine dell'animale di lato;
+7. il cammino in alto mostrava la sagoma nitida dell'animale prima del
+   riconoscimento (padre DE.09, `il_cammino_non_rivela_l_animale`,
+   `c3b74295`);
+8. "Condividi come video" non funzionava sul telefono: `drawtext` non c'e'
+   nella libreria Android (padre FZ.08, prova
+   `condividi_la_rivelazione_in_video_test.dart`, `41585ba7`); persona (g)
+   completata;
+9. dopo un riavvio i video scaricati si dimenticavano (padre FZ.06,
+   `i_video_gia_scaricati_si_ritrovano`, `47d80821`);
+10. la riserva del segno diceva si' o no a caso a una domanda aperta (padre
+    DI.14, `a_una_domanda_aperta_il_segno_non_dice_si`, `036dffda`);
+11. chi era a meta' col vecchio sistema non riceveva l'avviso (padre FZ.02,
+    `l_avviso_della_migrazione_arriva_al_viaggio`, `7ab00db3`).
+In piu', per richiesta del fondatore: il pulsante "Scopri chi e'" nella
+soglia dopo la rivelazione, con le qualita' del Passport in un popup
+(`il_tuo_animale_dalla_soglia`, `33970c3d`); e corretti i testi che
+legavano l'animale al segno ("Dal tuo cielo, Leone"; "Rivelalo dal mio
+cielo"), padre FZ.07. **Restano aperte** FZ.09 (la parte "modello vero"
+della persona (e): App Check rifiuta la build di debug, nessuna risposta del
+modello e nessuna spesa), FZ.13 (la persona (l), tre giorni su sei) e
+FZ.15. **Regola B**, confessata dove non e' stata rispettata: vedi il
+registro delle guardie.

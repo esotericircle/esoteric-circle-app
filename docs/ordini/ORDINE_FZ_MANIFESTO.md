@@ -84,6 +84,20 @@ fasce uguali su una carta intera, nessuna protetta, ogni pezzo si gratta
 col dito, anche il volto. Riusa senza modifiche il pittore della cenere, la
 grana e le braci.
 
+**Riaperta e rifatta il 20 ottobre 2026** dalla seconda simulazione da
+persona, col si' del fondatore ("Rifalla adesso"): alla prima discesa il
+dito scopriva tutta la carta (cura nel solco e nel pennello, guardia
+`la_cenere_resta_sui_pezzi_di_domani`); al terzo pezzo la testa del Cavallo
+si vedeva gia', perche' i pezzi erano quattro fasce uguali: ora il quarto
+pezzo e' il volto di ciascun animale, misurato immagine per immagine
+(guardia `il_volto_si_scopre_per_ultimo`); la carta stava dietro le barre;
+le carte a meta' nel Diario dei viaggi non c'erano (ora ci sono, senza nome
+prima della carta intera, guardia `le_carte_a_meta_stanno_nel_diario`); e,
+per parola del fondatore, si gratta l'immagine dell'animale di lato, con la
+sua proporzione vera, non il fotogramma del video. Vista a video sul Realme
+(`docs/collaudo/FZ/simulazioni/catture/v2_d8c_lente.png`,
+`v2_d8c_volto.png`).
+
 DOMANDA: "vorrei migliorare il 'gratta e scopri' con una card tutta da
 scoprire a pezzi, ma non l'animale da scoprire, ma una card intera, una
 schermata quasi intera. La card dell'animale da grattare"; "Stile A"
@@ -123,6 +137,16 @@ insieme dal manifesto, verifica ogni file con la sua impronta SHA-256,
 riscarica un file sbagliato una volta. Senza rete: la carta resta ferma
 sulla posa.
 
+**Due difetti trovati il 20 ottobre 2026 e curati**: i video non erano
+mai stati pubblicati sul bucket (il manifesto rispondeva 404; pubblicati col
+si' del fondatore con `tool/pubblica_i_video_del_cammino.py`, 48 file con
+misura e impronta verificate); il video si scaricava solo nel segno, dopo
+il riconoscimento, e non alla carta che si sta scoprendo (guardia
+`il_video_della_carta_si_scarica_mentre_si_scopre`); e dopo un riavvio
+l'app dimenticava i video gia' scaricati (guardia
+`i_video_gia_scaricati_si_ritrovano`). Sul Realme il video del Cavallo e
+del Lupo si scarica in circa dieci secondi.
+
 DOMANDA: "teme che il peso dei video sia eccessivo e vuole che vengano
 ottimizzati"; "per risparmiare anche sul peso, direi un solo video"
 PROVA: `test/i_video_del_cammino_si_scaricano_test.dart`
@@ -159,7 +183,20 @@ risalita che rivela, e' stata chiusa subito dopo: `_laRisalita` monta
 `IlCamminoDellAnimale` con `LaSequenzaDelCammino.rivelazione` al posto
 dell'illustrazione ferma, solo sulla discesa che rivela, provata in
 `test/il_cammino_a_strati_test.dart`. Il filtro del titolo ha la sua prova
-diretta in `test/il_filtro_del_titolo_in_video_test.dart`.
+diretta nella prova del filtro di testo, tolta il 20 ottobre 2026 insieme
+al filtro (vedi sotto).
+
+**Il 20 ottobre 2026 "Condividi come video" non funzionava sul telefono**:
+il filtro `drawtext` non esiste nella libreria Android della variante
+`min-gpl`, FFmpeg cadeva subito e il pulsante non faceva niente. Curato: il
+titolo si disegna in un PNG e FFmpeg lo sovrappone con `overlay`, con
+l'attesa visibile e un messaggio se non riesce. **Persona (g) completata
+sul Realme**: in circa dieci secondi il foglio di sistema con
+`rivelazione_Lupo.mp4`, annullato senza inviare; il video scaricato dal
+telefono e' 1080x1920, h264, col titolo sopra
+(`docs/collaudo/FZ/simulazioni/catture/v2_g_fotogramma_video.png`). La
+prova `condividi_la_rivelazione_in_video_test.dart` misura ora i filtri del
+comando contro quelli della libreria vera.
 
 DOMANDA: risposte dell'Architetto alle domande delle funzionalita', punto
 9, approvate dal fondatore il 17 ottobre 2026 alle 20:16 ("Procedi con
@@ -207,10 +244,19 @@ Firestore), ma il rientro richiede le credenziali dell'account di prova,
 che Code non ha: il device e' stato lasciato sulla schermata di apertura,
 pulito e stabile, senza altri tentativi.
 
-ASPETTA: Mauro, le credenziali dell'account di prova "ProvaFZ" (o un nuovo
-account di prova) per completare sul device le persone (c) punti 2-3, (d),
-il resto di (e) e (g); oppure l'autorizzazione a considerare sufficiente la
-prova automatica equivalente gia' verde per (d).
+**Aggiornamento del 20 ottobre 2026, la seconda simulazione** (profilo
+anonimo nuovo, catture `v2_*`, note in
+`docs/collaudo/FZ/simulazioni/note_di_percorso.md`): completate le persone
+(c), (d) e (g), e la (e) per la parte che non dipende dal modello; trovati e
+curati undici difetti veri, ognuno col suo padre e la sua guardia (vedi il
+rapporto, righe in coda). **Resta aperta per una ragione sola**: la parte
+"modello vero" della persona (e). Sulla build di debug App Check rifiuta la
+chiamata ("App attestation failed"), quindi i segni sono venuti tutti dalla
+riserva e nessuna risposta del modello si e' potuta guardare.
+
+ASPETTA: Mauro, una build attestata (App Distribution) o il token di debug
+registrato nella console Firebase, e il si' alla spesa (fino a dieci
+chiamate, gia' concesso) per guardare le risposte vere del segno.
 DOMANDA: "Voglio che prima della consegna... Code deve fare sempre
 obbligatoriamente e per ogni funzionalita', una simulazione realistica
 dell'ordine... si metta nei panni di un utente e simuli i suoi
@@ -219,12 +265,10 @@ Bug"
 PROVA: `docs/collaudo/FZ/simulazioni/previsioni.md`,
 `docs/collaudo/FZ/simulazioni/note_di_percorso.md`,
 `docs/collaudo/FZ/simulazioni/catture/`
-MISURA: persone simulate con esito completo, da 0 a 3 su 7 (a, b, f);
-parziali con esito utile, 2 su 7 (e, g); non avviate o interrotte, 2 su 7
-(c, d); difetto critico di CPU, da presente (bloccava i tocchi su ogni
-schermata con sfondo animato) a assente (`sendPlatformMessage` nel
-campione CPU, da 1076 a 93 campioni; `uiautomator dump` da sempre fallito
-a riuscito al primo colpo)
+MISURA: persone simulate con esito completo, da 3 a 6 su 7 (a, b, c, d, f,
+g); parziale, 1 su 7 (e: la riserva guardata, il modello bloccato da App
+Check); difetti veri trovati e curati dalla seconda simulazione, 11, con 11
+guardie nuove viste rosse (registro da 827 a 838)
 
 ## VOCE FZ.10
 
@@ -315,18 +359,22 @@ investigato oltre per restare nel tempo della consegna. Nessuna delle tre
 persone ha potuto proseguire oltre l'incidente operativo descritto in
 FZ.09 (perdita delle preferenze locali dell'account di prova).
 
-ASPETTA: Mauro, le credenziali dell'account di prova (vedi FZ.09) per
-completare (i) fino al riconoscimento e ripetere (l) oltre l'episodio
-inconcluso.
+**Aggiornamento del 20 ottobre 2026**: persona (i) **completata**: dopo la
+Lince, seguito il Cavallo fino al riconoscimento, un animale diverso dal
+primo, con la carta scoperta pezzo per pezzo e il volto per ultimo.
+Persona (l) **a meta'**: tre giorni di fila con tre ombre mai seguite, le
+ombre gia' seguite che tornano fra le nove, nessun riconoscimento; gli altri
+tre giorni non sono stati fatti.
+
+ASPETTA: Code, gli altri tre giorni della persona (l) sul Realme.
 DOMANDA: "Sul Realme, con la stessa regola di FZ.09, almeno queste persone
 in piu': h) chi alla prima discesa guarda tutte le nove ombre, esce,
 rientra e ritrova le stesse; i) chi segue un'ombra... fino a riconoscere un
 animale diverso dal primo; l) chi sceglie sempre ombre diverse per sei
 giorni di fila"
 PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
-MISURA: persone completate, 1 su 3 (h); parziali con comportamento chiave
-confermato, 1 su 3 (i, 2 discese su almeno 4); interrotte da un episodio
-non confermato, 1 su 3 (l)
+MISURA: persone completate, da 1 a 2 su 3 (h, i); a meta', 1 su 3 (l, 3
+giorni su 6)
 
 ## VOCE FZ.14
 
@@ -366,9 +414,9 @@ precedenti, uno proprio: le voci dell'aggiunta FZA rinumerate FZ.10-FZ.14,
 vedi il rapporto; corretti tutti, commit `59c96d34`). **Resta da
 verificare**: le simulazioni rimaste aperte di FZ.09 e FZ.13.
 
-ASPETTA: Mauro, per le simulazioni rimaste di FZ.09 e FZ.13 (vedi le
-rispettive voci): le credenziali dell'account di prova "ProvaFZ" o un
-account nuovo.
+ASPETTA: la parte "modello vero" della persona (e) di FZ.09 (build attestata
+o token di debug, da Mauro), i tre giorni della persona (l) di FZ.13 (da
+Code), e il verde di GitHub sull'ultimo commit di questa giornata.
 DOMANDA: regole fisse R3, R6, R11; FZ.09
 PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
 MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse
