@@ -218,7 +218,7 @@ parti degli scrittori si rimettono qui con
 
 ### dritta
 
-- passato: Un insegnamento ricevuto ti ha formato
+- passato: Un insegnamento ricevuto che ti ha dato forma
 - presente: Impari dentro una tradizione che ti guida
 - futuro: Una guida antica tende a farsi vicina
 - cartaSola: Cerca un maestro, poi cammina da te

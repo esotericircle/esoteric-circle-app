@@ -193,9 +193,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Il meglio che questa carta sa dare al rovescio è una mano che si apre: la durezza puntata contro la tua stessa tenuta può allentarsi; il governo torna dove la stretta lo perdeva.
+- 1: Il meglio che questa carta sa dare quando cede è una mano che si apre: la durezza puntata contro la tua stessa tenuta può allentarsi; il governo torna dove la stretta lo perdeva.
 - 2: Lo spazio fra una presa serrata sul proprio ardore e un palmo aperto è tutto quello che questa carta può recuperare alla tua questione; la misura è in mitezza invece che in disciplina.
-- 3: Se niente la sprecasse, questa carta al rovescio mostrerebbe la tua tenuta intatta sotto la fatica di dimostrarla; la fermezza tornerebbe mite come era prima dello sforzo.
+- 3: Se niente la sprecasse, questa pazienza in affanno mostrerebbe la tua tenuta intatta sotto la fatica di dimostrarla; la fermezza tornerebbe mite come era prima dello sforzo.
 
 ## L'Appeso
 
@@ -277,8 +277,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Fiducia al minimo e mai spenta: è questo il genere di bene che la carta al rovescio porta alla tua questione, una tenacia senza allegria che basta a reggere una notte lunga.
-- 2: Il tetto di questa carta al rovescio è una nube che si dirada, non un cielo pulito: alla tua domanda può tornare la luce di prima, velata quel tanto che la stanchezza impone.
+- 1: Fiducia al minimo e mai spenta: è questo il genere di bene che la speranza ormai stanca porta alla tua questione, una tenacia senza allegria che basta a reggere una notte lunga.
+- 2: Il tetto di questa luce in affanno è una nube che si dirada, non un cielo pulito: alla tua domanda può tornare la luce di prima, velata quel tanto che la stanchezza impone.
 - 3: Quello che questa carta sa dare quando è stanca è la prova che la sorgente regge anche senza che tu la senta: l'ispirazione della tua questione cala di intensità e non si interrompe.
 
 ## La Luna
@@ -361,9 +361,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Un disegno largo questa carta al rovescio lo tiene in piedi; il coraggio di sceglierlo non lo fornisce: alla tua questione spetta il piano intero, col timore della sua ampiezza accanto.
+- 1: Un disegno largo questa carta quando esita lo tiene in piedi; il coraggio di sceglierlo non lo fornisce: alla tua questione spetta il piano intero, col timore della sua ampiezza accanto.
 - 2: Al suo meglio questa carta salva l'ambizione che il dubbio ha messo in dispensa: la misura grande della tua domanda resta intera, nelle proporzioni in cui è stata pensata.
-- 3: Chiarezza più che audacia: il bene che questa carta al rovescio porta alla tua questione è un piano leggibile fino in fondo, con ogni ramo nominato e ogni costo scritto in chiaro.
+- 3: Chiarezza più che audacia: il bene che questa ambizione in dubbio porta alla tua questione è un piano leggibile fino in fondo, con ogni ramo nominato e ogni costo scritto in chiaro.
 
 ## Tre di Bastoni
 
@@ -529,9 +529,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Quello che questa carta sa dare al rovescio è l'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l'impazienza di chi la guida.
+- 1: Quello che questa carta sa dare quando frena è l'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l'impazienza di chi la guida.
 - 2: Fra un ordine lanciato di corsa e lo stesso ordine dato dopo aver sentito la squadra c'è lo spazio che questa forza può recuperare alla tua domanda: si misura in persone che restano.
-- 3: Se nulla lo sprecasse, questo fuoco alla rovescia scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l'autorità intatta.
+- 3: Se nulla lo sprecasse, questo fuoco ora chino scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l'autorità intatta.
 
 ## Asso di Coppe
 
@@ -613,9 +613,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Gratitudine più che nostalgia: il bene che questa carta al rovescio porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.
-- 2: Il tetto di questa carta al rovescio è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.
-- 3: Quello che questa spinta sa dare quando si rovescia è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.
+- 1: Gratitudine più che nostalgia: il bene che questa memoria che sfuma porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.
+- 2: Il tetto di questa nostalgia quando cala è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.
+- 3: Quello che questa spinta sa dare quando cede è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.
 
 ## Sette di Coppe
 
@@ -699,7 +699,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una parola affettuosa si lascia riportare ai fatti, la sua leggerezza no: alla tua questione questa forza dà la misura esatta fra quello che viene detto e quello che viene fatto.
 - 2: Al suo meglio questa carta salva il sentimento dentro una promessa vaga: l'affetto che riguarda la tua domanda resta vero anche quando i gesti che lo seguono arrivano scuciti.
-- 3: Onestà più che trasporto: il bene che questa carta al rovescio porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.
+- 3: Onestà più che trasporto: il bene che questa promessa in bilico porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.
 
 ## Regina di Coppe
 
@@ -865,8 +865,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Quello che questa carta sa dare al rovescio è una spartizione fatta in chiaro: il bene comune che riguarda la tua questione prende un nome per ogni parte; l'attrito smette di essere muto.
-- 2: Fra una contesa che nessuno nomina e un conto aperto sul tavolo di famiglia corre tutto quello che questa carta al rovescio può recuperare alla tua domanda: il margine qui è la chiarezza.
+- 1: Quello che questa carta sa dare quando vacilla è una spartizione fatta in chiaro: il bene comune che riguarda la tua questione prende un nome per ogni parte; l'attrito smette di essere muto.
+- 2: Fra una contesa che nessuno nomina e un conto aperto sul tavolo di famiglia corre tutto quello che questa casa in attrito può recuperare alla tua domanda: il margine qui è la chiarezza.
 - 3: Se niente lo sprecasse, questo attrito servirebbe a qualcosa: quello che appartiene a più di una persona avrebbe confini scritti; il legame fra i tuoi resterebbe in piedi dopo la divisione.
 
 ## Fante di Denari
@@ -949,9 +949,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Lucidità più che pace: il bene che questa carta al rovescio porta alla tua questione è uno stallo che si scioglie a occhi aperti, con le due ragioni finalmente guardate in faccia.
+- 1: Lucidità più che pace: il bene che questa tregua che cede porta alla tua questione è uno stallo che si scioglie a occhi aperti, con le due ragioni finalmente guardate in faccia.
 - 2: Il tetto qui è la riapertura: la scelta messa da parte torna disponibile per intero alla tua domanda; questa spinta la rimette sul tavolo senza compierla al posto tuo.
-- 3: Quello che questa carta sa dare quando si rovescia è la benda che scende: la tua questione vede quello che copriva; i due pesi tornano a pesare alla luce.
+- 3: Quello che questo stallo sa dare quando cede è la benda che scende: la tua questione vede quello che copriva; i due pesi tornano a pesare alla luce.
 
 ## Tre di Spade
 
@@ -1033,9 +1033,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Una libertà questa carta al rovescio la sa riconoscere, non la sa regalare: quello che la tua questione scopre è un recinto senza custode, aperto da prima che qualcuno lo notasse.
+- 1: Una libertà questa prigione che cede la sa riconoscere, non la sa regalare: quello che la tua questione scopre è un recinto senza custode, aperto da prima che qualcuno lo notasse.
 - 2: Al suo meglio questa carta prende sul serio il timore invece di deriderlo: la paura che fermava la tua domanda resta seria, ma accanto a lei l'uscita si vede a occhi asciutti.
-- 3: Sollievo più che trionfo: il bene che questa carta al rovescio porta alla tua questione è la scoperta di una libertà che c'era, con le corde che cadono da sé.
+- 3: Sollievo più che trionfo: il bene che questa benda che scivola porta alla tua questione è la scoperta di una libertà che c'era, con le corde che cadono da sé.
 
 ## Nove di Spade
 
@@ -1117,6 +1117,6 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Se niente la sprecasse, questa severità al rovescio ragionerebbe con le persone dentro il conto: la tua questione avrebbe un giudizio esatto e abitabile, con la logica che lascia posto alla pietà.
+- 1: Se niente la sprecasse, questa severità che s'incrina ragionerebbe con le persone dentro il conto: la tua questione avrebbe un giudizio esatto e abitabile, con la logica che lascia posto alla pietà.
 - 2: Questo massimo è fatto di due misure insieme: la regola che non cede di un millimetro e la compassione per chi la subisce, cucite nella stessa decisione sulla tua questione.
 - 3: Una durezza si può temperare, mentre la discussione vinta a freddo resta vinta: alla tua domanda questa carta offre un rigore che si accorge delle persone.

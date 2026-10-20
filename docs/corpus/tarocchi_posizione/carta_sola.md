@@ -1093,7 +1093,7 @@ capovolta.
 
 ### dritta
 
-- 1: Il fondo è stato toccato e sotto non c'è altro da scendere: la battaglia che ti ha occupato si è chiusa davvero e posare le armi è il riconoscimento di quel fatto.
+- 1: Il fondo è stato toccato e sotto non c'è altro da scendere: la battaglia che occupava i tuoi giorni si è chiusa davvero e posare le armi è il riconoscimento di quel fatto.
 - 2: Arrendersi è il riconoscimento di un fatto. Il ciclo doloroso che hai attraversato si è chiuso, il punto più basso è raggiunto e sotto di esso non c'è nessun altro gradino.
 - 3: Più in basso di così non si scende e quello che senti è il fondo. La battaglia è conclusa per davvero e riconoscerlo è l'unico atto che resta in piedi.
 

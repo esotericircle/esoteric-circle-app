@@ -34,7 +34,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Senza fretta di decidere, in quel periodo, hai tenuto il libro chiuso sulle ginocchia lasciando che le risposte maturassero da sole, nella fiducia di un sapere silenzioso.',
   ],
   'passato|La Papessa|capovolta': [
-    'Hai ignorato a lungo un\'intuizione profonda, preferendo affidarti alla logica o al rumore esterno. Questo atteggiamento ti ha portato a non ascoltare ciò che il tuo sentire interiore ti suggeriva, lasciando in sospeso una verità importante.',
+    'Hai ignorato a lungo un\'intuizione profonda, preferendo affidarti alla logica o al rumore esterno. Con questo atteggiamento hai finito per non ascoltare ciò che il tuo sentire interiore ti suggeriva, lasciando in sospeso una verità importante.',
     'Quando l\'intuito parlava, allora, gli hai messo sopra il rumore dei ragionamenti: una verità che sentivi prima di poterla spiegare è rimasta dietro il velo, senza ascolto.',
     'Per paura di ciò che avresti udito fermandoti, hai riempito il silenzio di distrazioni: il segreto che oggi torna a bussare è quello che allora hai lasciato senza risposta.',
   ],
@@ -54,7 +54,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Dalla disciplina che allora hai scelto nasce la stabilità di adesso: hai dato ordine al caos, poi hai tenuto ferma la cornice dentro cui la tua vita ha potuto crescere sicura.',
   ],
   'passato|L\'Imperatore|capovolta': [
-    'Hai vissuto un periodo in cui le regole imposte o autoimposte ti hanno soffocato, impedendoti di agire con libertà e di esprimere le tue capacità pienamente. Questo controllo eccessivo ha limitato le tue scelte.',
+    'Hai vissuto un periodo in cui le regole imposte o autoimposte soffocavano ogni slancio, impedendoti di agire con libertà e di esprimere le tue capacità pienamente. Questo controllo eccessivo ha limitato le tue scelte.',
     'Troppo controllo, in quella fase, oppure nessuna fondamenta: le regole ti stringevano fino a toglierti il respiro, o mancavano del tutto, così ogni cosa ha preso a vacillare.',
     'Dentro una struttura diventata gabbia hai passato un tempo che ora si chiude: l\'ordine che doveva sostenerti ha finito per immobilizzarti, lasciando un segno nelle tue scelte.',
   ],
@@ -191,7 +191,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'passato|La Luna|dritta': [
     'Hai affrontato un periodo dove l\'incertezza dominava, procedendo spesso senza una chiara visione, fidandoti unicamente del tuo istinto e di sensazioni non sempre facili da decifrare.',
     'Al chiarore incerto della notte, in quel periodo, hai camminato fra paure e apparenze ingannevoli: le cose non erano come sembravano, ma hai proceduto col solo intuito.',
-    'Quel tratto attraversato al buio, con l\'inconscio che parlava e i cani che abbaiavano ai margini, ti ha portato qui senza darti certezze: hai imparato a fidarti del passo.',
+    'Quel tratto attraversato al buio, con l\'inconscio che parlava e i cani che abbaiavano ai margini, ha condotto fin qui senza darti certezze: hai imparato a fidarti del passo.',
   ],
   'passato|La Luna|capovolta': [
     'Hai superato un periodo di incertezza, in cui le tue preoccupazioni sembravano enormi. Quello che ti spaventava ha perso forza, mostrandosi meno minaccioso di quanto appariva.',
@@ -210,7 +210,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'passato|Il Giudizio|dritta': [
     'Hai affrontato un periodo di profonda introspezione, riconoscendo la necessità di un cambiamento radicale nella tua vita. Hai lasciato andare vecchie convinzioni o situazioni che non ti rappresentavano più, seguendo una consapevolezza interiore.',
-    'Una tromba, allora, ti ha chiamato a una vita più vera: hai fatto il bilancio di ciò che eri, poi hai risposto lasciando la persona di prima per quella che stavi diventando.',
+    'Una tromba, allora, ha suonato chiamando a una vita più vera: hai fatto il bilancio di ciò che eri, poi hai risposto lasciando la persona di prima per quella che stavi diventando.',
     'Quel risveglio che hai vissuto, simile a una rinascita, ha cambiato il tuo modo di stare al mondo: la domanda che porti oggi è figlia di quella risposta data senza paura.',
   ],
   'passato|Il Giudizio|capovolta': [
@@ -230,7 +230,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'passato|Asso di Bastoni|dritta': [
     'Hai seguito una spinta interiore: un desiderio forte ha aperto un nuovo inizio e lasciato alle spalle ciò che non serviva più. Hai acceso con ardore la fiamma di un progetto o di un legame.',
-    'Da una scintilla è partito tutto: un\'ispirazione ardente ti ha attraversato, tu hai afferrato il bastone fiorito finché la fiamma era viva, senza lasciarla raffreddare nei ripensamenti.',
+    'Da una scintilla è partito tutto: un\'ispirazione ardente ti è corsa dentro, tu hai afferrato il bastone fiorito finché la fiamma era viva, senza lasciarla raffreddare nei ripensamenti.',
     'Quel fuoco acceso di slancio, allora, è l\'origine della situazione: hai detto sì a un inizio che ti chiamava, poi tutto il resto è cresciuto da quella prima fiamma.',
   ],
   'passato|Asso di Bastoni|capovolta': [
@@ -274,7 +274,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quegli attriti, allora, hanno messo alla prova le tue forze senza ferirti: competere le ha fatte crescere, perciò la tua posizione di oggi viene anche da quelle scintille.',
   ],
   'passato|Cinque di Bastoni|capovolta': [
-    'Hai affrontato conflitti che ti hanno stancato, spesso inutili, oppure hai evitato le tensioni lasciando che si accumulassero, portandoti qui con un senso di logoramento.',
+    'Hai affrontato conflitti che ti toglievano energia, spesso inutili, oppure hai evitato le tensioni lasciando che si accumulassero, portandoti qui con un senso di logoramento.',
     'Troppe battaglie inutili, in quella fase, o tensioni lasciate covare sotto la cenere: hanno consumato le tue forze a poco a poco fino a portarti qui con meno energia.',
     'Dietro di te c\'è una lunga serie di scaramucce che non valevano la fatica: allora non hai scelto quali combattere, così ogni attrito si è preso un pezzo delle tue forze.',
   ],
@@ -330,7 +330,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'passato|Fante di Bastoni|dritta': [
     'Una spinta curiosa ha acceso la tua azione, un interesse autentico per ciò che si presentava. Hai seguito con slancio quella scintilla iniziale, dando il via a tutto.',
-    'Curiosità giovane, allora, con un messaggio ardente che bussava alla porta: hai seguito quell\'idea con slancio, così è cominciata l\'esplorazione che ti ha portato qui.',
+    'Curiosità giovane, allora, con un messaggio ardente che bussava alla porta: hai seguito quell\'idea con slancio, così è cominciata l\'esplorazione che arriva fino a oggi.',
     'Quel bastone tenuto in mano come una promessa, in quel periodo, ti ha spinto a provare cose nuove: la voglia di scoprire è il seme della domanda di oggi.',
   ],
   'passato|Fante di Bastoni|capovolta': [
@@ -344,7 +344,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quella partenza di slancio, senza troppe esitazioni, ha cambiato il corso delle cose: allora hai scelto di osare invece di aspettare, mettendo per tempo il piede nella staffa.',
   ],
   'passato|Cavaliere di Bastoni|capovolta': [
-    'Un\'energia dispersiva ti ha portato a intraprendere molte iniziative senza una direzione chiara, sprecando la tua spinta iniziale. Questo approccio ha impedito di concretizzare i tuoi propositi.',
+    'Un\'energia dispersiva ti spingeva sempre a intraprendere molte iniziative senza una direzione chiara, sprecando la tua spinta iniziale. Questo approccio ha impedito di concretizzare i tuoi propositi.',
     'Foga senza rotta, allora: hai sprecato ardore in mille direzioni, come un cavallo lanciato che non sa dove fermarsi, bruciando energie che oggi ti mancano.',
     'Impazienza, in quella fase, più che coraggio: hai spronato senza una meta, così lo slancio si è disperso per strada lasciandoti il conto di quella corsa.',
   ],
@@ -371,7 +371,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'passato|Asso di Coppe|dritta': [
     'Un\'apertura sentimentale ti ha permesso di accogliere un flusso di emozioni pure, portandoti a vivere un periodo di dolcezza e grazia. Hai lasciato che il cuore traboccasse, accettando ciò che sentivi senza difenderti.',
     'Dalla coppa che traboccava, allora, è sgorgata un\'emozione pura: hai aperto il cuore a un amore nuovo, poi lo hai lasciato scorrere senza difenderti da quello che sentivi.',
-    'Quella sorgente che ti ha riempito in quel periodo, dolce come una grazia inattesa, è l\'origine di ciò che senti oggi: hai accolto ciò che arrivava.',
+    'Quella sorgente che riempiva il cuore in quel periodo, dolce come una grazia inattesa, è l\'origine di ciò che senti oggi: hai accolto ciò che arrivava.',
   ],
   'passato|Asso di Coppe|capovolta': [
     'Hai trattenuto le tue emozioni, lasciando che il timore di soffrire ti bloccasse. Questo atteggiamento ti ha impedito di aprirti pienamente alle esperienze e alle persone intorno a te.',
@@ -420,8 +420,8 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'passato|Sei di Coppe|dritta': [
     'Un ricordo affettuoso ha guidato le tue scelte: hai cercato legami e luoghi che ti riportavano a sensazioni familiari, provando a ricreare l\'innocenza di un tempo.',
-    'Nel giardino dell\'infanzia, fra fiori offerti in una coppa, è nato il tuo modo di amare: un affetto antico e sincero ti ha scaldato, lasciandoti una tenerezza che porti ancora.',
-    'Ricordi cari, allora, ti hanno nutrito: la bontà semplice di un tempo lontano, un gesto ricevuto nell\'infanzia, ha formato la parte di te che oggi si interroga.',
+    'Nel giardino dell\'infanzia, fra fiori offerti in una coppa, è nato il tuo modo di amare: un affetto antico e sincero scaldava quegli anni, lasciandoti una tenerezza che porti ancora.',
+    'Ricordi cari, allora, hanno nutrito l\'anima: la bontà semplice di un tempo lontano, un gesto ricevuto nell\'infanzia, ha formato la parte di te che oggi si interroga.',
   ],
   'passato|Sei di Coppe|capovolta': [
     'Aggrapparti ai ricordi ti ha fatto vivere una fase in cui il passato ha trattenuto la tua crescita. Hai onorato ciò che è stato, ma questo ti ha tenuto in un tempo ormai concluso.',
@@ -469,7 +469,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quella casa divisa, in quel periodo, ti ha lasciato un senso di disarmonia: gli affetti più stretti si sono allontanati, poi quella frattura è arrivata fino alla domanda di oggi.',
   ],
   'passato|Fante di Coppe|dritta': [
-    'Hai seguito un\'intuizione delicata, un messaggio del cuore che ti ha guidato fin qui. Hai dato spazio a un\'emozione nuova, forse fragile, però ricca di sensibilità.',
+    'Hai seguito un\'intuizione delicata, un messaggio del cuore che ha tracciato la strada fin qui. Hai dato spazio a un\'emozione nuova, forse fragile, però ricca di sensibilità.',
     'Un pesce affacciato alla coppa, allora, ti ha portato un messaggio inatteso: hai ascoltato un\'emozione fragile e poetica, dandole spazio invece di zittirla subito.',
     'Quella sensibilità nuova che hai lasciato affiorare in quel periodo, delicata come un sogno a occhi aperti, ha aperto un capitolo affettivo di cui oggi porti i frutti.',
   ],
@@ -504,7 +504,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quell\'equilibrio emotivo, saldo ma mai freddo, che hai mostrato in quel periodo ha protetto le persone intorno a te: è lì che nasce la fiducia che ricevi.',
   ],
   'passato|Re di Coppe|capovolta': [
-    'Hai trattenuto a lungo le tue emozioni, cercando di controllarle invece di esprimerle. Questo ti ha lasciato in uno stato di instabilità interiore che ora ti lasci alle spalle.',
+    'Hai trattenuto a lungo le tue emozioni, cercando di controllarle invece di esprimerle. Questo ha prodotto in te uno stato di instabilità interiore che ora ti lasci alle spalle.',
     'Sbalzi d\'umore, allora, al posto della guida: chi doveva dare calma, tu o qualcuno vicino a te, si lasciava condurre dagli umori, così il timone ha girato a vuoto.',
     'Quando le emozioni hanno preso il comando, in quel periodo, la maturità c\'era ma non governava: il mare agitato di allora spiega l\'instabilità che ti porti dietro.',
   ],
@@ -514,7 +514,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quell\'occasione solida che hai colto in quel periodo aveva buone radici: il terreno era fertile, tu l\'hai riconosciuto, così è cominciata la costruzione di adesso.',
   ],
   'passato|Asso di Denari|capovolta': [
-    'Hai lasciato andare un\'occasione importante, forse per non averne compreso il valore o per averla valutata con troppa leggerezza. Quella scelta ti ha portato a perdere un\'apertura significativa.',
+    'Hai lasciato andare un\'occasione importante, forse per non averne compreso il valore o per averla valutata con troppa leggerezza. Quella scelta ha finito per farti perdere un\'apertura significativa.',
     'Un\'apertura concreta, allora, ti è scivolata fra le dita: l\'hai guardata troppo in fretta o hai valutato male il rischio, così la moneta è rimasta sul tavolo.',
     'Quel seme che non hai piantato in quel periodo, per distrazione o per prudenza mal riposta, ha lasciato vuoto un pezzo di terreno che oggi ti torna in mente.',
   ],
@@ -565,7 +565,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'passato|Sei di Denari|capovolta': [
     'Hai dato molto senza ricevere altrettanto, svuotandoti di energie e risorse. Hai permesso uno squilibrio che ha influito sulle tue relazioni e sul tuo benessere.',
-    'Troppo dato a chi non ricambiava, allora: la tua generosità mal riposta ti ha svuotato, mentre la bilancia pendeva sempre dalla stessa parte.',
+    'Troppo dato a chi non ricambiava, allora: la tua generosità mal riposta svuotava le riserve, mentre la bilancia pendeva sempre dalla stessa parte.',
     'Quei debiti, materiali o affettivi, accumulati in quel periodo hanno sbilanciato i tuoi rapporti: lo scambio non era equo, così ti è rimasta addosso una stanchezza.',
   ],
   'passato|Sette di Denari|dritta': [
@@ -574,7 +574,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quell\'investimento paziente, di tempo o di cuore, che hai fatto in quel periodo è maturato lentamente: la tua situazione nasce da quella lunga coltivazione.',
   ],
   'passato|Sette di Denari|capovolta': [
-    'Hai agito con troppa fretta, desiderando risultati immediati e non hai valutato con attenzione dove impiegare le tue energie. Questo atteggiamento ti ha portato a una delusione.',
+    'Hai agito con troppa fretta, desiderando risultati immediati e non hai valutato con attenzione dove impiegare le tue energie. Questo atteggiamento è poi sfociato in una delusione.',
     'Fretta di raccogliere, allora: hai guardato la pianta aspettandoti frutti che non arrivavano, poi lo scoraggiamento ha preso il posto della cura e hai smesso di zappare.',
     'Quello sforzo che ti è sembrato mal ripagato, in quella fase, forse cadeva sul seme sbagliato più che sul tempo sbagliato: da lì viene il dubbio che porti.',
   ],
@@ -594,7 +594,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quell\'indipendenza serena conquistata in quel periodo, frutto del tuo lavoro, ti ha dato uno spazio tuo: da quella libertà viene la sicurezza con cui oggi chiedi.',
   ],
   'passato|Nove di Denari|capovolta': [
-    'Eccessi ti hanno portato a un\'insicurezza che ha minato la tua serenità. Hai faticato a trovare un equilibrio tra il tuo valore personale e ciò che possiedi, perdendo di vista la tua essenza.',
+    'Eccessi ripetuti hanno fatto nascere un\'insicurezza che ha minato la tua serenità. Hai faticato a trovare un equilibrio tra il tuo valore personale e ciò che possiedi, perdendo di vista la tua essenza.',
     'Spese oltre misura, allora, o il bisogno di mostrare ciò che possedevi: la libertà costruita col tuo lavoro ha cominciato a vacillare, consumata a poco a poco dall\'apparenza.',
     'Quel giardino che avevi conquistato, in quella fase, l\'hai trascurato per farlo vedere agli altri: l\'autonomia si è incrinata e ti ha lasciato addosso l\'inquietudine che porti ancora oggi.',
   ],
@@ -734,12 +734,12 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quell\'angoscia notturna di quel periodo, con le paure che ti svegliavano nel cuore della notte, ha lasciato una traccia: la domanda di oggi nasce anche da quelle ore.',
   ],
   'passato|Nove di Spade|capovolta': [
-    'Hai superato un periodo di forte ansia: hai iniziato a parlare delle tue paure, a condividerle. Questo ti ha aiutato a liberarti da un peso che ti opprimeva.',
+    'Hai superato un periodo di forte ansia: hai iniziato a parlare delle tue paure, a condividerle. Questo passo è servito a liberarti da un peso che ti opprimeva.',
     'All\'alba, dopo l\'incubo, la paura ha allentato la presa: hai parlato di ciò che ti angosciava, così il peso si è dimezzato.',
     'Quei pensieri che hai finalmente confidato a qualcuno in quel periodo hanno perso forza: il peggio della notte è passato, lasciandoti più leggerezza.',
   ],
   'passato|Dieci di Spade|dritta': [
-    'Hai affrontato una condizione di profonda stanchezza, sentendoti senza via d\'uscita. Questo periodo di difficoltà estrema ti ha portato a un limite, esaurendo le tue forze.',
+    'Hai affrontato una condizione di profonda stanchezza, sentendoti senza via d\'uscita. Questo periodo di difficoltà estrema ha segnato per te un limite, esaurendo le tue forze.',
     'Sotto un cielo nero con l\'alba che spuntava all\'orizzonte, allora hai toccato il fondo: un ciclo doloroso si è chiuso, la battaglia è finita con la resa.',
     'Quella resa di allora, quando hai riconosciuto che non c\'era più nulla da difendere, ha chiuso una storia dolorosa: da quel punto più basso comincia la tua situazione.',
   ],
@@ -751,7 +751,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'passato|Fante di Spade|dritta': [
     'Hai indagato con attenzione una situazione, cercando una verità nascosta. Hai usato la tua curiosità e la tua perspicacia per comprendere a fondo, ma le tue parole hanno rischiato di affrettare le cose.',
     'Con la spada alzata sulla collina ventosa, allora, hai osservato tutto con occhi attenti: hai indagato, raccolto informazioni, scoperto una verità che altri non vedevano.',
-    'Quella curiosità vigile di quel periodo ti ha portato a cercare oltre le apparenze: la lingua svelta ti spingeva a dire subito ciò che trovavi, lasciando il segno.',
+    'Quella curiosità vigile di quel periodo ti invitava a cercare oltre le apparenze: la lingua svelta ti spingeva a dire subito ciò che trovavi, lasciando il segno.',
   ],
   'passato|Fante di Spade|capovolta': [
     'Hai spesso usato parole affrettate o giudizi taglienti che hanno lasciato ferite, anche involontariamente. Questo comportamento ha creato distanza o incomprensioni nelle tue relazioni.',
@@ -779,7 +779,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Quella solitudine indossata come protezione in quel periodo ha indurito il tuo sguardo: la lama si è voltata verso chi la portava, cioè verso di te.',
   ],
   'passato|Re di Spade|dritta': [
-    'Hai agito con grande lucidità e onestà, prendendo decisioni basate su un giudizio equilibrato e giusto. La tua etica ti ha guidato in ogni scelta e hai sempre cercato la verità.',
+    'Hai agito con grande lucidità e onestà, prendendo decisioni basate su un giudizio equilibrato e giusto. La tua etica ha guidato ciascuna delle tue scelte e hai sempre cercato la verità.',
     'Dal trono, con la spada alta e lo sguardo fermo, allora hai deciso con equità: la ragione al servizio del cuore ha guidato una scelta che ancora regge.',
     'Quel giudizio giusto, che fosse tuo o di un\'autorità onesta, in quel periodo ha messo ordine: la tua situazione poggia su quella decisione lucida.',
   ],
@@ -1364,7 +1364,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Adesso ti dedichi alla pratica: lavori con concentrazione, impari dagli errori e la maestria che cresce fra le tue mani nasce proprio da questa fatica quotidiana e silenziosa.',
   ],
   'presente|Otto di Denari|capovolta': [
-    'Senti il peso di un\'attività che ti ha svuotato, un mestiere che percepisci come una gabbia. Rischi di non trovare più il senso profondo in ciò che porti avanti.',
+    'Senti il peso di un\'attività che svuota le energie, un mestiere che percepisci come una gabbia. Rischi di non trovare più il senso profondo in ciò che porti avanti.',
     'Oggi le monete escono dal tuo banco tutte uguali e senza cura: il mestiere ripetuto ha perso senso, lavori per abitudine e la passione che ti faceva incidere ogni dettaglio si è spenta.',
     'In questo periodo la routine ti chiude in una gabbia: fai le cose in fretta o senza amore mentre il lavoro che una volta ti dava orgoglio adesso ti svuota le giornate.',
   ],
@@ -2294,7 +2294,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Si prepara un tratto di pensieri cupi: ciò che la mente ti racconta alle tre di notte tende a sciogliersi alla luce del mattino, se non gli credi del tutto.',
   ],
   'futuro|Nove di Spade|capovolta': [
-    'La paura tende ad allentare la presa: ti prepari a lasciare andare i timori che ti hanno bloccato. Puoi guardare con più serenità al tuo avvenire.',
+    'La paura tende ad allentare la presa: ti prepari a lasciare andare i timori che frenavano ogni passo. Puoi guardare con più serenità al tuo avvenire.',
     'L\'incubo tende ad allentare la presa: nei prossimi tempi il peggio della notte potrebbe restare alle spalle, mentre l\'alba ti restituisce misura.',
     'Condividere ciò che ti angoscia tende a dimezzarne il peso più di ogni rimuginare: nei prossimi passi una parola detta a qualcuno può sciogliere il nodo.',
   ],
@@ -3079,7 +3079,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Detto fuori a qualcuno, il tuo pensiero perde la taglia che aveva al buio: la paura allenta la stretta e la notte ha già passato il suo punto più alto.',
   ],
   'cartaSola|Dieci di Spade|dritta': [
-    'Il fondo è stato toccato e sotto non c\'è altro da scendere: la battaglia che ti ha occupato si è chiusa davvero e posare le armi è il riconoscimento di quel fatto.',
+    'Il fondo è stato toccato e sotto non c\'è altro da scendere: la battaglia che occupava i tuoi giorni si è chiusa davvero e posare le armi è il riconoscimento di quel fatto.',
     'Arrendersi è il riconoscimento di un fatto. Il ciclo doloroso che hai attraversato si è chiuso, il punto più basso è raggiunto e sotto di esso non c\'è nessun altro gradino.',
     'Più in basso di così non si scende e quello che senti è il fondo. La battaglia è conclusa per davvero e riconoscerlo è l\'unico atto che resta in piedi.',
   ],
@@ -3315,7 +3315,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'consultante|La Luna|capovolta': [
     'La nebbia intorno a te si alza e ciò che vedi non ha la stazza che gli davi. È la stessa cosa, la guardi da vicino: aveva più contorno che corpo.',
-    'Stai uscendo da una confusione e le cose, viste adesso, non sono come sembravano a prima occhiata. Nessuna rivelazione ti ha colpito. Ti si è soltanto corretta la misura della cosa che temevi.',
+    'Stai uscendo da una confusione e le cose, viste adesso, non sono come sembravano a prima occhiata. Nessuna rivelazione improvvisa è arrivata. Ti si è soltanto corretta la misura della cosa che temevi.',
     'Hai davanti una faccenda che ti sembrava enorme e adesso ha una taglia normale. Non si è ridotta lei, è caduto l\'ingrandimento: con occhi nuovi trovi più ombra che sostanza.',
   ],
   'consultante|Il Sole|dritta': [
@@ -3664,7 +3664,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'La sicurezza che hai adesso è fatta di risparmio e di controllo: spendi poco, verifichi, non lasci uscire niente senza il tuo permesso. Dentro quel recinto nulla si disperde ed entra altrettanto poco.',
   ],
   'consultante|Quattro di Denari|capovolta': [
-    'La paura di perdere ti ha irrigidito: trattieni tutto, soldi, energie, affetti. Niente passa più, né verso di te né verso gli altri.',
+    'La paura di perdere irrigidisce ogni presa: trattieni tutto, soldi, energie, affetti. Niente passa più, né verso di te né verso gli altri.',
     'Quello che stringi ha cominciato a stringere te. L\'attaccamento è cresciuto oltre la misura della prudenza, così la tua mano resta chiusa anche quando aprirla ti conviene.',
     'Nel tuo momento comanda un timore preciso, perdere. Per questo il flusso si è fermato: tenere ti è diventato più urgente che usare quello che hai.',
   ],
@@ -7144,9 +7144,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Il punto oltre il quale questa dolcezza non sale è il consenso: alla tua questione può toccare un istinto che segue perché acconsente, non uno piegato con la stretta.',
   ],
   'corona|La Forza|capovolta': [
-    'Il meglio che questa carta sa dare al rovescio è una mano che si apre: la durezza puntata contro la tua stessa tenuta può allentarsi; il governo torna dove la stretta lo perdeva.',
+    'Il meglio che questa carta sa dare quando cede è una mano che si apre: la durezza puntata contro la tua stessa tenuta può allentarsi; il governo torna dove la stretta lo perdeva.',
     'Lo spazio fra una presa serrata sul proprio ardore e un palmo aperto è tutto quello che questa carta può recuperare alla tua questione; la misura è in mitezza invece che in disciplina.',
-    'Se niente la sprecasse, questa carta al rovescio mostrerebbe la tua tenuta intatta sotto la fatica di dimostrarla; la fermezza tornerebbe mite come era prima dello sforzo.',
+    'Se niente la sprecasse, questa pazienza in affanno mostrerebbe la tua tenuta intatta sotto la fatica di dimostrarla; la fermezza tornerebbe mite come era prima dello sforzo.',
   ],
   'corona|L\'Appeso|dritta': [
     'Il massimo qui è fatto di una sola materia: lo sguardo girato sottosopra, che della tua questione mostra la faccia tenuta nascosta finché la guardavi dall\'angolo comodo.',
@@ -7204,8 +7204,8 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Al suo meglio questa luce lascia intera la tua ispirazione dopo il maltempo: il danno resta visibile; insieme a lui resta aperta la sorgente a cui la tua questione attinge.',
   ],
   'corona|La Stella|capovolta': [
-    'Fiducia al minimo e mai spenta: è questo il genere di bene che la carta al rovescio porta alla tua questione, una tenacia senza allegria che basta a reggere una notte lunga.',
-    'Il tetto di questa carta al rovescio è una nube che si dirada, non un cielo pulito: alla tua domanda può tornare la luce di prima, velata quel tanto che la stanchezza impone.',
+    'Fiducia al minimo e mai spenta: è questo il genere di bene che la speranza ormai stanca porta alla tua questione, una tenacia senza allegria che basta a reggere una notte lunga.',
+    'Il tetto di questa luce in affanno è una nube che si dirada, non un cielo pulito: alla tua domanda può tornare la luce di prima, velata quel tanto che la stanchezza impone.',
     'Quello che questa carta sa dare quando è stanca è la prova che la sorgente regge anche senza che tu la senta: l\'ispirazione della tua questione cala di intensità e non si interrompe.',
   ],
   'corona|La Luna|dritta': [
@@ -7264,9 +7264,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Questo massimo è fatto di mappe aperte, di un\'ambizione dichiarata senza pudore e di un confine guardato da dentro casa: la tua questione ha tutto quello che serve per scegliere dove puntare.',
   ],
   'corona|Due di Bastoni|capovolta': [
-    'Un disegno largo questa carta al rovescio lo tiene in piedi; il coraggio di sceglierlo non lo fornisce: alla tua questione spetta il piano intero, col timore della sua ampiezza accanto.',
+    'Un disegno largo questa carta quando esita lo tiene in piedi; il coraggio di sceglierlo non lo fornisce: alla tua questione spetta il piano intero, col timore della sua ampiezza accanto.',
     'Al suo meglio questa carta salva l\'ambizione che il dubbio ha messo in dispensa: la misura grande della tua domanda resta intera, nelle proporzioni in cui è stata pensata.',
-    'Chiarezza più che audacia: il bene che questa carta al rovescio porta alla tua questione è un piano leggibile fino in fondo, con ogni ramo nominato e ogni costo scritto in chiaro.',
+    'Chiarezza più che audacia: il bene che questa ambizione in dubbio porta alla tua questione è un piano leggibile fino in fondo, con ogni ramo nominato e ogni costo scritto in chiaro.',
   ],
   'corona|Tre di Bastoni|dritta': [
     'Più in alto questa forza non arriva: l\'altezza in gioco è l\'ampiezza che la tua questione prende lontano da te, nei posti dove il lavoro continua senza il tuo occhio sopra.',
@@ -7384,9 +7384,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Oltre l\'esempio questa spinta non sale: alla tua questione può toccare una fiamma che indica, con mani che la seguono per convinzione invece che per obbligo.',
   ],
   'corona|Re di Bastoni|capovolta': [
-    'Quello che questa carta sa dare al rovescio è l\'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l\'impazienza di chi la guida.',
+    'Quello che questa carta sa dare quando frena è l\'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l\'impazienza di chi la guida.',
     'Fra un ordine lanciato di corsa e lo stesso ordine dato dopo aver sentito la squadra c\'è lo spazio che questa forza può recuperare alla tua domanda: si misura in persone che restano.',
-    'Se nulla lo sprecasse, questo fuoco alla rovescia scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l\'autorità intatta.',
+    'Se nulla lo sprecasse, questo fuoco ora chino scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l\'autorità intatta.',
   ],
   'corona|Asso di Coppe|dritta': [
     'Il massimo è fatto d\'acqua che sale da sé: sulla tua questione questa forza mette un sentire nuovo che eccede il recipiente, con la grazia di quello che nessuno ha dovuto chiedere.',
@@ -7444,9 +7444,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Al suo meglio questa carta salva la bontà delle origini della tua questione: quel bene resta a disposizione come un oggetto di casa, col ricordo che lo tiene lucido.',
   ],
   'corona|Sei di Coppe|capovolta': [
-    'Gratitudine più che nostalgia: il bene che questa carta al rovescio porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.',
-    'Il tetto di questa carta al rovescio è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.',
-    'Quello che questa spinta sa dare quando si rovescia è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.',
+    'Gratitudine più che nostalgia: il bene che questa memoria che sfuma porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.',
+    'Il tetto di questa nostalgia quando cala è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.',
+    'Quello che questa spinta sa dare quando cede è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.',
   ],
   'corona|Sette di Coppe|dritta': [
     'Fra le molte figure che ti si affollano davanti e le poche che contengono quello che mostrano corre il margine di questa forza: il massimo sulla tua questione è quella distanza vista.',
@@ -7506,7 +7506,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'corona|Cavaliere di Coppe|capovolta': [
     'Una parola affettuosa si lascia riportare ai fatti, la sua leggerezza no: alla tua questione questa forza dà la misura esatta fra quello che viene detto e quello che viene fatto.',
     'Al suo meglio questa carta salva il sentimento dentro una promessa vaga: l\'affetto che riguarda la tua domanda resta vero anche quando i gesti che lo seguono arrivano scuciti.',
-    'Onestà più che trasporto: il bene che questa carta al rovescio porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.',
+    'Onestà più che trasporto: il bene che questa promessa in bilico porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.',
   ],
   'corona|Regina di Coppe|dritta': [
     'Più in alto questa empatia non arriva: l\'altezza è un altro accolto per intero, letto fin dove le parole non vanno, mentre il tuo sentire resta riconoscibile come tuo.',
@@ -7624,8 +7624,8 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Il punto più alto di questa solidità è il nome della casa: alla tua questione può toccare un bene che resta in piedi oltre chi lo ha costruito, più saldo che tenero.',
   ],
   'corona|Dieci di Denari|capovolta': [
-    'Quello che questa carta sa dare al rovescio è una spartizione fatta in chiaro: il bene comune che riguarda la tua questione prende un nome per ogni parte; l\'attrito smette di essere muto.',
-    'Fra una contesa che nessuno nomina e un conto aperto sul tavolo di famiglia corre tutto quello che questa carta al rovescio può recuperare alla tua domanda: il margine qui è la chiarezza.',
+    'Quello che questa carta sa dare quando vacilla è una spartizione fatta in chiaro: il bene comune che riguarda la tua questione prende un nome per ogni parte; l\'attrito smette di essere muto.',
+    'Fra una contesa che nessuno nomina e un conto aperto sul tavolo di famiglia corre tutto quello che questa casa in attrito può recuperare alla tua domanda: il margine qui è la chiarezza.',
     'Se niente lo sprecasse, questo attrito servirebbe a qualcosa: quello che appartiene a più di una persona avrebbe confini scritti; il legame fra i tuoi resterebbe in piedi dopo la divisione.',
   ],
   'corona|Fante di Denari|dritta': [
@@ -7684,9 +7684,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Al suo meglio questa carta salva entrambe le ragioni della tua questione: nessuna delle due viene schiacciata per fare prima; il peso di ciascuna resta misurabile quando la benda si abbassa.',
   ],
   'corona|Due di Spade|capovolta': [
-    'Lucidità più che pace: il bene che questa carta al rovescio porta alla tua questione è uno stallo che si scioglie a occhi aperti, con le due ragioni finalmente guardate in faccia.',
+    'Lucidità più che pace: il bene che questa tregua che cede porta alla tua questione è uno stallo che si scioglie a occhi aperti, con le due ragioni finalmente guardate in faccia.',
     'Il tetto qui è la riapertura: la scelta messa da parte torna disponibile per intero alla tua domanda; questa spinta la rimette sul tavolo senza compierla al posto tuo.',
-    'Quello che questa carta sa dare quando si rovescia è la benda che scende: la tua questione vede quello che copriva; i due pesi tornano a pesare alla luce.',
+    'Quello che questo stallo sa dare quando cede è la benda che scende: la tua questione vede quello che copriva; i due pesi tornano a pesare alla luce.',
   ],
   'corona|Tre di Spade|dritta': [
     'Fra il dolore tenuto a bocca chiusa e il dolore nominato per quello che è corre il margine di questa forza: il massimo sulla tua questione è quel passaggio, aspro quanto serve.',
@@ -7744,9 +7744,9 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Questo massimo è fatto di misure prese: la larghezza delle corde, la distanza fra le lame, il peso vero del timore che tiene ferma la tua questione, contato una cosa per volta.',
   ],
   'corona|Otto di Spade|capovolta': [
-    'Una libertà questa carta al rovescio la sa riconoscere, non la sa regalare: quello che la tua questione scopre è un recinto senza custode, aperto da prima che qualcuno lo notasse.',
+    'Una libertà questa prigione che cede la sa riconoscere, non la sa regalare: quello che la tua questione scopre è un recinto senza custode, aperto da prima che qualcuno lo notasse.',
     'Al suo meglio questa carta prende sul serio il timore invece di deriderlo: la paura che fermava la tua domanda resta seria, ma accanto a lei l\'uscita si vede a occhi asciutti.',
-    'Sollievo più che trionfo: il bene che questa carta al rovescio porta alla tua questione è la scoperta di una libertà che c\'era, con le corde che cadono da sé.',
+    'Sollievo più che trionfo: il bene che questa benda che scivola porta alla tua questione è la scoperta di una libertà che c\'era, con le corde che cadono da sé.',
   ],
   'corona|Nove di Spade|dritta': [
     'Più in alto questa angoscia non sale: l\'altezza è riconoscere l\'autore di quei pensieri, cioè una mente che al buio lavora per conto proprio sulla tua questione.',
@@ -7804,7 +7804,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Fra un\'opinione ferma e una decisione che qualcuno è disposto a far valere corre lo spazio che questa carta può coprire per la tua questione: la misura è in responsabilità assunta.',
   ],
   'corona|Re di Spade|capovolta': [
-    'Se niente la sprecasse, questa severità al rovescio ragionerebbe con le persone dentro il conto: la tua questione avrebbe un giudizio esatto e abitabile, con la logica che lascia posto alla pietà.',
+    'Se niente la sprecasse, questa severità che s\'incrina ragionerebbe con le persone dentro il conto: la tua questione avrebbe un giudizio esatto e abitabile, con la logica che lascia posto alla pietà.',
     'Questo massimo è fatto di due misure insieme: la regola che non cede di un millimetro e la compassione per chi la subisce, cucite nella stessa decisione sulla tua questione.',
     'Una durezza si può temperare, mentre la discussione vinta a freddo resta vinta: alla tua domanda questa carta offre un rigore che si accorge delle persone.',
   ],
@@ -12514,7 +12514,7 @@ const Map<String, String> titoliDelleCarte = {
       'Hai dimenticato di nutrire la tua radice',
   'passato|L\'Imperatore|dritta': 'Fondamenta solide posate con disciplina',
   'passato|L\'Imperatore|capovolta': 'Una regola diventata gabbia',
-  'passato|Il Papa|dritta': 'Un insegnamento ricevuto ti ha formato',
+  'passato|Il Papa|dritta': 'Un insegnamento ricevuto che ti ha dato forma',
   'passato|Il Papa|capovolta': 'Hai lasciato una regola che non era tua',
   'passato|Gli Amanti|dritta': 'Una scelta fatta col cuore e coi valori',
   'passato|Gli Amanti|capovolta': 'Un dubbio a lungo rimandato',

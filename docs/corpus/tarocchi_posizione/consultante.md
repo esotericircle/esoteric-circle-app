@@ -311,7 +311,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### capovolta
 
 - 1: La nebbia intorno a te si alza e ciò che vedi non ha la stazza che gli davi. È la stessa cosa, la guardi da vicino: aveva più contorno che corpo.
-- 2: Stai uscendo da una confusione e le cose, viste adesso, non sono come sembravano a prima occhiata. Nessuna rivelazione ti ha colpito. Ti si è soltanto corretta la misura della cosa che temevi.
+- 2: Stai uscendo da una confusione e le cose, viste adesso, non sono come sembravano a prima occhiata. Nessuna rivelazione improvvisa è arrivata. Ti si è soltanto corretta la misura della cosa che temevi.
 - 3: Hai davanti una faccenda che ti sembrava enorme e adesso ha una taglia normale. Non si è ridotta lei, è caduto l'ingrandimento: con occhi nuovi trovi più ombra che sostanza.
 
 ## Il Sole
@@ -800,7 +800,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: La paura di perdere ti ha irrigidito: trattieni tutto, soldi, energie, affetti. Niente passa più, né verso di te né verso gli altri.
+- 1: La paura di perdere irrigidisce ogni presa: trattieni tutto, soldi, energie, affetti. Niente passa più, né verso di te né verso gli altri.
 - 2: Quello che stringi ha cominciato a stringere te. L'attaccamento è cresciuto oltre la misura della prudenza, così la tua mano resta chiusa anche quando aprirla ti conviene.
 - 3: Nel tuo momento comanda un timore preciso, perdere. Per questo il flusso si è fermato: tenere ti è diventato più urgente che usare quello che hai.
 

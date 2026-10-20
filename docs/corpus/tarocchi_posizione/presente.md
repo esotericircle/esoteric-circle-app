@@ -842,7 +842,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Senti il peso di un'attività che ti ha svuotato, un mestiere che percepisci come una gabbia. Rischi di non trovare più il senso profondo in ciò che porti avanti.
+- 1: Senti il peso di un'attività che svuota le energie, un mestiere che percepisci come una gabbia. Rischi di non trovare più il senso profondo in ciò che porti avanti.
 - 2: Oggi le monete escono dal tuo banco tutte uguali e senza cura: il mestiere ripetuto ha perso senso, lavori per abitudine e la passione che ti faceva incidere ogni dettaglio si è spenta.
 - 3: In questo periodo la routine ti chiude in una gabbia: fai le cose in fretta o senza amore mentre il lavoro che una volta ti dava orgoglio adesso ti svuota le giornate.
 

@@ -1052,7 +1052,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: La paura tende ad allentare la presa: ti prepari a lasciare andare i timori che ti hanno bloccato. Puoi guardare con più serenità al tuo avvenire.
+- 1: La paura tende ad allentare la presa: ti prepari a lasciare andare i timori che frenavano ogni passo. Puoi guardare con più serenità al tuo avvenire.
 - 2: L'incubo tende ad allentare la presa: nei prossimi tempi il peggio della notte potrebbe restare alle spalle, mentre l'alba ti restituisce misura.
 - 3: Condividere ciò che ti angoscia tende a dimezzarne il peso più di ogni rimuginare: nei prossimi passi una parola detta a qualcuno può sciogliere il nodo.
 
