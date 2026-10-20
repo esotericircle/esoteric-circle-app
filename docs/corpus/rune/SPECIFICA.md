@@ -262,6 +262,9 @@ che una macchina sa vedere:
   `rune.md`;
 - la voce di Calìgo resta solenne e mai minacciosa (niente maledizioni,
   sventure, morte);
+- `{cosa}` porta già il suo articolo: mai dopo "di", "a", "da", "in", "su"
+  (l'app scriverebbe "di il lavoro"; si usano "per", "con", "dentro",
+  "verso", "sopra", "fra"), mai a inizio di frase (uscirebbe minuscolo);
 - nessuna voce uguale a un'altra e **nessuna frase uguale** in tutto il
   corpus (una frase di almeno sei parole non torna in due voci).
 

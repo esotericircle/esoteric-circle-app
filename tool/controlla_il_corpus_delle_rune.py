@@ -342,6 +342,15 @@ def difetti_di_lingua(campo, gruppo, voce):
         out.append('apostrofo al posto dell\'accento')
     if 'ascolta te stess' in basso:
         out.append('"ascolta te stesso"')
+    # `{cosa}` porta il suo articolo ("il lavoro", "l’amore", "ciò che hai
+    # chiesto"): dopo di, a, da, in, su l'app scriverebbe "di il lavoro"; e a
+    # inizio di frase scriverebbe la minuscola.
+    m = re.search(r'\b(di|a|da|in|su)\s+\{cosa\}', voce, re.I)
+    if m:
+        out.append(f'"{m.group(0)}": {{cosa}} ha gia\' l\'articolo, usa per, '
+                   f'con, dentro, verso, sopra, fra')
+    if re.search(r'(^|[.?]\s+)\{cosa\}', voce):
+        out.append('{cosa} a inizio di frase: l\'app lo scrive minuscolo')
     return out
 
 
