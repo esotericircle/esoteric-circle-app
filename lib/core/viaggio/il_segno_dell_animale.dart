@@ -139,7 +139,15 @@ abstract final class GestiDelSegno {
         'il significato alla lettera. L\'animale non parla: niente prima persona, '
         'niente "ti dice". Il gesto indica una direzione, non una certezza: '
         'niente previsioni sul futuro come "tornerà" o "ce la farai". '
-        'Niente due punti. Niente consigli medici, legali o economici.');
+        'Niente due punti. Niente consigli medici, legali o economici. '
+        // **A CERTE DOMANDE UN SI' O UN NO NON SI DANNO**, simulazione da
+        // persona (e) del 20 ottobre 2026: il modello vero rispondeva col
+        // gesto del no a "Mio padre e' malato, guarira'?". Vedi
+        // [domandaCheVuoleIlVolto], che scarta la risposta che non lo fa.
+        'Se la domanda chiede quando, quale, quanto, come, dove, perché, chi o '
+        'che cosa, oppure riguarda la salute, una malattia, una guarigione, '
+        'la morte, una gravidanza o il gioco d\'azzardo, scegli sempre '
+        'siVolta: a queste domande un sì o un no non si danno.');
     // **LA FORMA E' QUELLA SCELTA DALLA PERSONA**, ordine DL voce 04: qui
     // si chiedeva il neutro a tutti, e chi aveva scelto il maschile o il
     // femminile nell'onboarding si trovava un'altra voce.
@@ -172,7 +180,13 @@ abstract final class GestiDelSegno {
             await (chiamata ?? _chiamataVera)(istruzione(animale), testo)
                 .timeout(pazienza);
         final segno = leggi(risposta, animale);
-        if (segno != null) return _nelFilo(segno, testo);
+        // **UN SI' O UN NO DOVE NON SI DANNO SI SCARTA**, e risponde la
+        // riserva, che a queste domande si volta sempre.
+        if (segno != null &&
+            (segno.gesto == GestoDelSegno.siVolta ||
+                !domandaCheVuoleIlVolto(testo))) {
+          return _nelFilo(segno, testo);
+        }
         seGuasto?.call(SegnoFuoriDalRepertorio(risposta));
       } catch (errore) {
         seGuasto?.call(errore);
@@ -292,7 +306,7 @@ abstract final class GestiDelSegno {
     // quello che chiedi ha il suo si'"*: un si' a caso a una domanda che non
     // lo chiede, e sul gioco d'azzardo. Il gesto per cio' che un si' o un no
     // non possono dire e' quello che volta lo sguardo: guarda meglio.
-    final gesto = domandaAperta(domanda)
+    final gesto = domandaCheVuoleIlVolto(domanda)
         ? GestoDelSegno.siVolta
         : GestoDelSegno.values[seme % GestoDelSegno.values.length];
     final significati = _significati[gesto]!;
@@ -310,6 +324,23 @@ abstract final class GestiDelSegno {
           r'dove|perch[eé]|chi|cosa|che\s+cosa|che)(?![a-zàèéìòù])',
           caseSensitive: false)
       .hasMatch(domanda);
+
+  /// **SE LA DOMANDA E' DELICATA**: la salute, una malattia, una guarigione,
+  /// la morte, una gravidanza, il gioco d'azzardo. Un animale che si
+  /// allontana a *"Mio padre e' malato, guarira'?"* dice no a una persona
+  /// spaventata, ed e' il fatalismo che le regole del Cerchio vietano.
+  static bool domandaDelicata(String domanda) => RegExp(
+          r'(?<![a-zàèéìòù])(malat\w*|guari\w*|salute|tumor\w*|cancro|'
+          r'chemio\w*|diagnos\w*|terapi\w*|operazione|intervento|ospedal\w*|'
+          r'mor[ti]\w*|muor\w*|vivr\w*|incint\w*|gravidanz\w*|aborto|'
+          r'lotto|lotteria|scommess\w*|gratta e vinci|superenalotto|vincer\w*)',
+          caseSensitive: false)
+      .hasMatch(domanda);
+
+  /// **LE DOMANDE A CUI SI RISPONDE SOLO "GUARDA MEGLIO"**: quelle aperte e
+  /// quelle delicate, per la riserva e per il modello.
+  static bool domandaCheVuoleIlVolto(String domanda) =>
+      domandaAperta(domanda) || domandaDelicata(domanda);
 
   /// **COSA VUOL DIRE OGNI GESTO**, per la via di riserva: tre letture per
   /// gesto, col significato dell'ordine DJ voce 08, e nessuna dice se chi
