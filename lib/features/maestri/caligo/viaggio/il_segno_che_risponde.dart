@@ -90,9 +90,23 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
     // davanti a questo animale, e il suo video (se non c'e' gia') si
     // scarica ora, senza bloccare la domanda. Un guasto resta silenzioso:
     // la posa basta.
-    if (!_video.installato(widget.animale.name.toLowerCase())) {
-      unawaited(_video.scaricaAnimale(widget.animale.name));
-    }
+    //
+    // **PRIMA SI RILEGGE IL TELEFONO**, dalla simulazione da persona del 20
+    // ottobre 2026: senza, il video gia' scaricato in un'altra apertura non
+    // risultava installato e si riscaricava (e senza rete non c'era mai).
+    unawaited(() async {
+      try {
+        await _video.leggiIInstallati();
+      } catch (errore) {
+        // Senza la cartella dei video resta la posa.
+      }
+      if (!mounted) return;
+      setState(() {});
+      if (!_video.installato(widget.animale.name.toLowerCase())) {
+        await _video.scaricaAnimale(widget.animale.name);
+        if (mounted) setState(() {});
+      }
+    }());
   }
 
   @override

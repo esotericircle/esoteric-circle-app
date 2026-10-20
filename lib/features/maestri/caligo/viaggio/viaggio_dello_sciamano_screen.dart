@@ -376,6 +376,7 @@ class _ViaggioDelloSciamanoScreenState
   void initState() {
     super.initState();
     _preparaLaDiscesa();
+    unawaited(_leggiIVideoGiaScaricati());
     unawaited(DeviceId.corrente().then((id) {
       _identitaDelleOmbre = id;
     }));
@@ -844,6 +845,22 @@ class _ViaggioDelloSciamanoScreenState
     });
   }
 
+  /// **I VIDEO GIA' SCARICATI SI RILEGGONO DAL TELEFONO**, all'apertura del
+  /// Viaggio. Simulazione da persona del 20 ottobre 2026: `leggiIInstallati`
+  /// non lo chiamava nessuno, quindi a ogni riavvio l'app dimenticava i video
+  /// sul disco, li riscaricava, e senza rete non li trovava mai (alla
+  /// rivelazione e nel segno restava la posa, e "Condividi come video" non
+  /// compariva). Padre: ordine FZ voce FZ.06.
+  Future<void> _leggiIVideoGiaScaricati() async {
+    try {
+      await IVideoDelCamminoScaricati.diCasa.leggiIInstallati();
+    } catch (errore) {
+      // Senza la cartella dei video si resta sulla posa: niente da dire.
+      return;
+    }
+    if (mounted) setState(() {});
+  }
+
   /// **IL VIDEO DELLA CARTA CHE SI STA SCOPRENDO SI SCARICA ADESSO.** Ordine
   /// FZ voce FZ.06: *"si scaricano solo quando servono, cioe' il video
   /// dell'animale della persona e quelli delle carte che sta scoprendo"*.
@@ -858,9 +875,10 @@ class _ViaggioDelloSciamanoScreenState
   /// prossima carta si riprova.
   void _scaricaIlSuoVideo(String nome) {
     final video = IVideoDelCamminoScaricati.diCasa;
-    if (video.installato(nome.toLowerCase())) return;
     unawaited(() async {
       try {
+        await video.leggiIInstallati();
+        if (video.installato(nome.toLowerCase())) return;
         await video.scaricaAnimale(nome);
       } catch (errore) {
         // Lo scaricamento dice da se' com'e' andata; qui si tace anche cio'
