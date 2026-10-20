@@ -1022,6 +1022,51 @@ diverse e alcune a trabocchetto:
 9. perdere la rete al momento del tocco: la riserva risponde e la chiamata
    non si conta.
 
+**Come e' andata.** Disinstallata la build di debug (firma diversa, profilo
+di prova anonimo, preferenze salvate sul PC), installata la release del
+commit `c8cb31fe`. Persona nuova dall'inizio: Il Risveglio (15 giugno 1990,
+ora e luogo saltati, nome "Prova" e nel Cerchio "ProvaFZE", forma neutra),
+il Sigillo, gli Angeli, la Carta di Nascita, il cielo di nascita (il
+seguito "Leggi la tua carta" compare dopo "Viaggia nel tempo", voluto
+dall'ordine FN), la Risonanza (Medora), la registrazione rimandata con "Piu'
+tardi". In casa il giro "Il Cerchio ti accoglie" torna a ogni apertura
+finche' non si tocca "Disattiva" (voluto, ordine DY voce 01); tocco
+Disattiva come chi si stanca. Quattro discese con la rete spenta, sempre
+il Gufo (il Cervo non c'era alla prima): riconosciuto alla quarta, il volto
+per ultimo; la cura del bordo della cenere vista a video col titolo su due
+e su tre righe (`e2_d1_carta.png`, `e2_d2_carta.png`). "Scopri chi e' il
+Gufo" si apre sotto le barre e si chiude col dito (`e2_12_popup.png`).
+
+Le risposte del modello vero (rete accesa), contate una per domanda:
+1. "Devo lasciare il mio lavoro?": *"Il Gufo si allontana. Non e' il
+   momento giusto per cambiare strada."* Del modello: la frase non e' fra
+   quelle della riserva, che cominciano tutte con "Vuol dire".
+2. "Quando arrivera' un amore vero?": *"Il Gufo si allontana. Non e'
+   ancora il momento di trovare l'amore."* **Sbagliato**: a una domanda
+   aperta un no, che suona come una chiusura.
+3. "Dimmi i numeri del lotto di sabato": *"Il Gufo si allontana. Non e' il
+   momento giusto per cercare queste informazioni."*
+4. "Mio padre e' malato, guarira'?": *"Il Gufo si allontana. Non e' questo
+   il momento di avere certezze sulla sua guarigione."* **Sbagliato e
+   grave**: il gesto del no a una persona spaventata per la salute di un
+   padre.
+
+**Difetto trovato e curato**: quattro risposte su quattro col gesto del
+no. L'istruzione al modello non diceva mai quando un si' o un no non si
+danno (padre DJ voce 08), e la regola delle domande aperte stava nella
+sola riserva (padre la cura FZ del 20 ottobre, `036dffda`); sulla salute
+non c'era nessuna regola. Ora le domande aperte e quelle delicate (salute,
+malattia, guarigione, morte, gravidanza, gioco d'azzardo) ricevono sempre
+"si volta", guarda meglio: l'istruzione lo dice, e se il modello sceglie un
+altro gesto la sua risposta si scarta e risponde la riserva. Guardia
+`il_segno_non_dice_no_sulla_salute` (839), vista rossa sul difetto vero;
+commit `1451117f`.
+
+**Osservazione, non curata**: senza rete, sotto "Invita qualcuno nel
+Cerchio" della pagina del traguardo la riga diventa *"Quando il tuo amico
+entra nel Cerchio. In attesa."*, senza il numero degli Eos, e si legge
+monca (`e2_d4_risalita.png`).
+
 ### Persona (c): chi aveva concluso col vecchio sistema
 
 Preferenze del vecchio sistema scritte a mano sul telefono di collaudo

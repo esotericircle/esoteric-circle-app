@@ -87,6 +87,40 @@ void main() {
     }
   });
 
+  /// **A LETTERE A CASO NON SI DICE SI'.** La stessa persona (e), chiamata
+  /// otto: a *"asdfgh"* il modello vero rispondeva *"Il Gufo si avvicina.
+  /// Questo significa che la risposta e' affermativa e puoi proseguire"*
+  /// (`e2_q8_b.png`). Chi scrive per sbaglio riceveva un si'. Una riga senza
+  /// spazi e senza punto di domanda non e' una domanda: si volta. Una parola
+  /// sola col punto di domanda resta una domanda.
+  test('A LETTERE A CASO IL SEGNO NON DICE SI\'', () async {
+    Future<String?> modelloCheDiceSi(
+            String istruzione, String richiesta) async =>
+        jsonEncode({
+          'gesto': 'siAvvicina',
+          'riga': 'Il Gufo ti si avvicina. Puoi andare avanti.',
+        });
+    for (final d in ['asdfgh', 'lavoro', 'xxxx']) {
+      final s = await GestiDelSegno.chiedi(
+        animale: gufo,
+        domanda: d,
+        giorno: DateTime(2026, 10, 20),
+        chiamata: modelloCheDiceSi,
+        prendiUnaChiamata: () async => true,
+      );
+      expect(s.gesto, GestoDelSegno.siVolta, reason: '"$d" riceve un si\'');
+    }
+    final parola = await GestiDelSegno.chiedi(
+      animale: gufo,
+      domanda: 'Partire?',
+      giorno: DateTime(2026, 10, 20),
+      chiamata: modelloCheDiceSi,
+      prendiUnaChiamata: () async => true,
+    );
+    expect(parola.gesto, GestoDelSegno.siAvvicina,
+        reason: 'una parola sola col punto di domanda e\' una domanda');
+  });
+
   test(
       'LA RISERVA NON DICE NO SULLA SALUTE, per tutti e dodici e trenta giorni',
       () {

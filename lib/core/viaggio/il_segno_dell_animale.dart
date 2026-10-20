@@ -147,7 +147,8 @@ abstract final class GestiDelSegno {
         'Se la domanda chiede quando, quale, quanto, come, dove, perché, chi o '
         'che cosa, oppure riguarda la salute, una malattia, una guarigione, '
         'la morte, una gravidanza o il gioco d\'azzardo, scegli sempre '
-        'siVolta: a queste domande un sì o un no non si danno.');
+        'siVolta: a queste domande un sì o un no non si danno. Se non è una '
+        'domanda, o non ha senso, scegli siVolta.');
     // **LA FORMA E' QUELLA SCELTA DALLA PERSONA**, ordine DL voce 04: qui
     // si chiedeva il neutro a tutti, e chi aveva scelto il maschile o il
     // femminile nell'onboarding si trovava un'altra voce.
@@ -340,7 +341,19 @@ abstract final class GestiDelSegno {
   /// **LE DOMANDE A CUI SI RISPONDE SOLO "GUARDA MEGLIO"**: quelle aperte e
   /// quelle delicate, per la riserva e per il modello.
   static bool domandaCheVuoleIlVolto(String domanda) =>
-      domandaAperta(domanda) || domandaDelicata(domanda);
+      domandaAperta(domanda) ||
+      domandaDelicata(domanda) ||
+      domandaSenzaForma(domanda);
+
+  /// **SE NON E' UNA DOMANDA**: una riga senza spazi e senza punto di
+  /// domanda, come *"asdfgh"*. Simulazione da persona (e) del 20 ottobre
+  /// 2026: il modello vero le rispondeva *"la risposta e' affermativa e puoi
+  /// proseguire"*. Una parola sola col punto di domanda, *"Partire?"*, resta
+  /// una domanda.
+  static bool domandaSenzaForma(String domanda) {
+    final t = domanda.trim();
+    return t.isNotEmpty && !t.contains(' ') && !t.contains('?');
+  }
 
   /// **COSA VUOL DIRE OGNI GESTO**, per la via di riserva: tre letture per
   /// gesto, col significato dell'ordine DJ voce 08, e nessuna dice se chi
