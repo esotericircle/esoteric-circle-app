@@ -2508,44 +2508,57 @@ class _ViaggioDelloSciamanoScreenState
           // sono tutte 1080x1920, lo stesso formato verticale: il riquadro
           // ora prende la loro vera forma, cosi' `cover` non taglia piu'
           // niente, per nessuno dei dodici animali.
+          //
+          // **MA NON PIU' ALTO DI MEZZA FINESTRA**, ordine FZ, simulazione da
+          // persona del 20 ottobre 2026: a tutta larghezza il riquadro
+          // verticale faceva piu' di cinquecento punti sul Realme, e chi
+          // risaliva vedeva solo l'ombra, col titolo e la risposta sotto la
+          // piega e nessun segno che invitasse a scorrere. Il colpo d'occhio e
+          // la sintesi in una frase si guardano insieme: il riquadro tiene il
+          // rapporto vero della carta (l'animale resta intero) e si stringe in
+          // larghezza. Lo sorveglia `il_responso_si_vede_appena_risali_test`.
           if (_animale(_seguito) != null)
-            SizedBox(
-              width: double.infinity,
-              child: AspectRatio(
-                aspectRatio: 1080 / 1920,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
-                  child: _rivelatoOra
-                      // **IL CENTRO PARTE DALLA POSA, ordine FZ voce FZ.08**:
-                      // qui cadeva l'ultimo pezzo della carta, e FZ.05 vuole
-                      // che il video del cammino parta a sostituire lo zoom
-                      // sull'illustrazione ferma, non piu' alle discese
-                      // successive (_rivelatoOra e' vero una volta sola, la
-                      // discesa che rivela).
-                      ? _ilCamminoDellaRivelazione(_animale(_seguito)!)
-                      : _riconosciuto
-                          ? Image.asset(_animale(_seguito)!.fullPath,
-                              key: const Key('viaggio_animale_del_ritorno'),
-                              fit: BoxFit.contain)
-                          : OmbraDellAnimale(
-                              key: const Key('viaggio_animale_del_ritorno'),
-                              immagine: _animale(_seguito)!.fullPath,
-                              // **LE VOLTE DI QUESTO ANIMALE**, non dell'ombra
-                              // che guida: ordine FZ voce 04, stessa correzione
-                              // di _laLente. Qui la discesa di oggi e' gia'
-                              // registrata (segna() e' passato alla risalita),
-                              // quindi si sottrae uno per tornare a quante ne
-                              // aveva prima.
-                              quantaLuce: 0.35 +
-                                  0.2 *
-                                      (_diario.scelteInOrdine
-                                                  .where((s) =>
-                                                      s ==
-                                                      _animale(_seguito)!.name)
-                                                  .length -
-                                              1)
-                                          .clamp(0, 3),
-                            ),
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.sizeOf(context).height * 0.5),
+                child: AspectRatio(
+                  aspectRatio: 1080 / 1920,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(SpacingTokens.radiusLg),
+                    child: _rivelatoOra
+                        // **IL CENTRO PARTE DALLA POSA, ordine FZ voce FZ.08**:
+                        // qui cadeva l'ultimo pezzo della carta, e FZ.05 vuole
+                        // che il video del cammino parta a sostituire lo zoom
+                        // sull'illustrazione ferma, non piu' alle discese
+                        // successive (_rivelatoOra e' vero una volta sola, la
+                        // discesa che rivela).
+                        ? _ilCamminoDellaRivelazione(_animale(_seguito)!)
+                        : _riconosciuto
+                            ? Image.asset(_animale(_seguito)!.fullPath,
+                                key: const Key('viaggio_animale_del_ritorno'),
+                                fit: BoxFit.contain)
+                            : OmbraDellAnimale(
+                                key: const Key('viaggio_animale_del_ritorno'),
+                                immagine: _animale(_seguito)!.fullPath,
+                                // **LE VOLTE DI QUESTO ANIMALE**, non dell'ombra
+                                // che guida: ordine FZ voce 04, stessa correzione
+                                // di _laLente. Qui la discesa di oggi e' gia'
+                                // registrata (segna() e' passato alla risalita),
+                                // quindi si sottrae uno per tornare a quante ne
+                                // aveva prima.
+                                quantaLuce: 0.35 +
+                                    0.2 *
+                                        (_diario.scelteInOrdine
+                                                    .where((s) =>
+                                                        s ==
+                                                        _animale(_seguito)!
+                                                            .name)
+                                                    .length -
+                                                1)
+                                            .clamp(0, 3),
+                              ),
+                  ),
                 ),
               ),
             ),

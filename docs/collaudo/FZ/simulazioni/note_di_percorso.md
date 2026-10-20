@@ -704,3 +704,136 @@ seguito (una per ogni discesa della simulazione sopra): le tre sagome
 occupano ciascuna l'intera larghezza dello schermo, impilate una sopra
 l'altra, senza spazio vuoto laterale. Vedi `verify19_19ott.png`,
 `verify33_19ott.png`, `verify37_19ott.png`.
+
+## SECONDA SIMULAZIONE, 20 OTTOBRE 2026: le persone (l), (i), (g), (e), (c), (d) per intero
+
+Decisione del fondatore del 20 ottobre 2026: *"Tutto, come l'ordine"*. Le
+persone fermate a meta' nella prima simulazione (sopra) si rifanno per
+intero, su un profilo anonimo nuovo creato sul Realme dopo l'incidente delle
+preferenze (vedi il rapporto). Build di debug installata il 20 ottobre alle
+01:28 con la cura della cenere (commit `b793c4af`). Catture `v2_*.png`.
+
+**Decisioni che prevedo prenda la persona, scritte prima di cominciare**:
+seguire ogni giorno un'ombra diversa (l); passare il dito su tutta la carta,
+non solo sul pezzo che si apre; toccare lo spazio vuoto fra le ombre;
+saltare la discesa invece di tenere premuto; risalire e aspettare che
+succeda qualcosa senza scorrere; chiudere e riaprire l'app ogni giorno;
+tornare il giorno dopo; poi seguire sempre la stessa ombra fino al
+riconoscimento (i); condividere la rivelazione come video e annullare (g);
+fare all'animale domande diverse, anche a trabocchetto (e); arrivare con un
+cammino vecchio concluso (c) o a meta' (d).
+
+### Giorno 1, 20 ottobre: la Lince, e IL DIFETTO DELLA CENERE
+
+Seguita la Lince. Passando il dito su tutta la carta, come fa una persona
+curiosa, la cenere veniva via quasi tutta e la Lince si vedeva intera, volto
+compreso, alla prima discesa (`v2_d1_09.png`). L'ordine vuole il volto
+nel quarto pezzo, scoperto per ultimo. Padre: ordine FZ voce FZ.04. Curato
+nel commit `b793c4af` (il solco del dito si taglia sul bordo del pezzo di
+oggi, il pennello non sbava sopra), guardia nuova
+`test/la_cenere_resta_sui_pezzi_di_domani_test.dart` vista rossa prima.
+
+### Giorno 2, 21 ottobre: il Cavallo, la cura vista a video
+
+Seguito il Cavallo, mai seguito prima. Dito su tutta la carta: si scopre solo
+il primo pezzo, in basso (`v2_d2_carta.png`). Cura confermata a video.
+
+### Giorno 3, 22 ottobre: un rapace, il tocco nel vuoto, e IL DIFETTO DELLA RISALITA
+
+Cambiare la data: il mio strumento toccava la riga "Data" anche quando la
+ruota era gia' aperta, e la chiudeva (`v2_data_3.png`, `v2_data_4.png`):
+corretto lo strumento, non l'app.
+
+La soglia dice *"Oggi scendi al secondo strato: che cosa ti trattiene"*:
+giusto, lo strato conta la domanda del cammino e non le ombre. Il cammino
+in alto mostra la Lince *"Si è mostrato una volta, ne mancano tre"*: con
+Lince e Cavallo seguiti una volta ciascuno guida la prima seguita
+(`LeOmbreCheRitornano.ombraCheGuida`), come scritto nel codice.
+
+Scelto **"Salta la discesa"** invece di tenere premuto: porta alla nebbia
+(`v2_d3_09.png`), giusto. Diradata la nebbia, nove ombre: **la Lince e il
+Cavallo, gia' seguiti, sono tornati fra le nove** (`v2_d3_ombre.png`).
+
+**Il tocco nello spazio vuoto fra due ombre ha scelto un'ombra**
+(`v2_d3_vuoto.png`): la cella intera della griglia e' il bersaglio, e la
+persona che tocca "fra" due sagome segue quella piu' vicina senza averlo
+voluto. Non e' un difetto dell'ordine (le nove ombre stanno in una griglia
+che riempie lo spazio), lo annoto come osservazione.
+
+Dito su tutta la carta: solo il primo pezzo, gli artigli di un rapace
+(`v2_d3_carta.png`). La cura della cenere tiene anche su un terzo animale.
+
+**DIFETTO: DOPO RISALI LA SCHERMATA SEMBRA FERMA.** Toccato Risali, la
+schermata mostra solo l'ombra sfocata dell'animale, grande quanto tutto lo
+schermo, senza una parola e senza un segno che inviti a scorrere
+(`v2_d3_risalita.png`, `v2_d3_risalita3.png`, quaranta secondi dopo
+identica). Io stesso l'ho creduta bloccata, e cosi' anche ieri col Cavallo
+(`v2_d2_risalita.png`). Scorrendo, il responso c'e' tutto
+(`v2_d3_testo1.png`). Causa: il riquadro dell'animale a tutta larghezza col
+rapporto vero della carta (1080x1920) fa piu' di cinquecento punti sul
+Realme, e il titolo finisce a 789 punti in una finestra di 719. **Padre:
+ordine FZ voce FZ.14.** Cura: il riquadro tiene il rapporto della carta (lo
+voleva il fondatore, l'animale intero) ma non supera meta' dell'altezza
+della finestra. Guardia nuova
+`test/il_responso_si_vede_appena_risali_test.dart`: alla prima stesura era
+verde sul Realme mentre il Realme vero mostrava il difetto, perche' usava
+lo schermo intero (2400) e barre di sistema da manuale; rifatta con le misure
+vere della finestra lette con `uiautomator dump` (2158 pixel, 221 sopra la
+barra del titolo), e' rossa sul codice di prima (789 contro 719) e verde
+dopo la cura. Regola B: la guardia del riquadro
+`il_riquadro_dell_animale_segue_la_carta_test.dart` vista rossa prima di
+toccarlo (innesto del vecchio 1,35, verificato col grep).
+
+**Osservazione, non difetto dell'ordine**: in fondo alla risalita non c'e'
+un'azione (solo la freccia Indietro in alto). C'era gia' prima dell'ordine
+FZ.
+
+**LE CHIAMATE AL MODELLO DELLE DISCESE.** Leggendo il codice per capire la
+risalita: ogni discesa chiede la scena al modello (`_chiediLaScena`, al
+tocco di Scendi). Le tre discese di oggi, con la rete accesa, sono tre
+chiamate a pagamento che non avevo messo nel conto. Il si' del fondatore
+copre fino a dieci chiamate per questa simulazione: da qui le discese si
+fanno **senza rete** (la scena viene dalla riserva di casa, senza spesa, ed
+e' anche la persona che perde la rete), tranne quella della rivelazione, e le
+domande all'animale (e) stanno nelle chiamate che restano.
+
+### DIFETTO GRAVE: LE DISCESE DEL 21 E DEL 22 NON ERANO NEL DIARIO
+
+Salvando le preferenze del telefono prima di installare la build con la cura
+del riquadro: `viaggio.quante` 1, nel Diario solo la Lince del 20 ottobre.
+Le discese del Cavallo (21) e del rapace (22), fatte e viste a video, non
+c'erano. Al giorno 4 la soglia diceva ancora "secondo strato" e la griglia
+delle nove ombre era identica a quella del giorno 3 (il seme dipende dal
+numero di discese, e il numero non era avanzato): `v2_d4_ombre.png`.
+
+**L'esperimento, senza spesa**: discesa del giorno 4 (23 ottobre) **senza
+rete** (Wi-Fi e dati spenti dal telefono di collaudo), seguito il Cavallo:
+`viaggio.quante` 2, Cavallo e Lince nel Diario. Riaccesa la rete, app in
+secondo piano e di nuovo in primo piano (parte la custodia), trenta secondi
+dopo: `viaggio.quante` 1, Diario, cammino, celle e solchi tornati tutti alla
+copia del 20 ottobre.
+
+**La causa, misurata**: il sacchetto del Viaggio pesava 22.218 caratteri
+(19.317 di solchi del dito); `leggiCammino` sul server scarta in silenzio un
+Viaggio sopra 20.000, la fusione vede solo la copia custodita e il telefono
+la adotta sopra la sua. Padre: ordine EE voce 13 (il tetto del diario
+dell'Alba dato al Viaggio: il Diario tiene fino a novanta discese, e da sole
+passano il tetto verso la trentesima, quindi chiunque scenda da un mese
+perderebbe ogni discesa nuova); aggravato da FZ.04 (i solchi di ogni
+animale). Cura nel telefono, perche' pubblicare le funzioni del server lo
+decide il fondatore: il sacchetto parte sempre sotto il tetto (via i solchi,
+poi le voci piu' vecchie delle liste, mai il conto, il riconoscimento, il
+nome, il cammino e le celle); lo stesso sacchetto che torna non riscrive
+niente; un Viaggio che nemmeno alleggerito puo' partire non parte e non viene
+sostituito. Guardia `test/il_viaggio_pesante_non_torna_indietro_test.dart`.
+
+**Anche senza rete, la home**: aprendo l'app senza rete la home mostra
+l'errore rosso di Flutter `'_elements.contains(element)': is not true`
+(`v2_d4_02.png`), e nel registro una caduta di Firestore "unavailable" da
+`_SantuarioScreenState._forseChiediLaCustodia`. Fuori dalle funzioni
+dell'ordine FZ: PROVENIENZA IGNOTA, da indagare (nella build di
+distribuzione l'errore rosso diventa un riquadro grigio).
+
+**Verifica a video della cura del riquadro**: al giorno 4, appena risalito,
+il Cavallo intero e il titolo del responso stanno insieme sullo schermo
+(`v2_d4_risalita.png`).
