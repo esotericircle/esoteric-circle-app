@@ -12496,3 +12496,16 @@ const Map<String, List<String>> registriDelleCarte = {
     'Il rigore senza cuore, la logica che dimentica la compassione.',
   ],
 };
+
+/// **I TITOLI DELLE CARTE NELLA LORO POSIZIONE**, ordine GA voce 07: il
+/// titolo che a colpo d'occhio e' gia' la risposta della carta in quel
+/// posto, uno per le tre varianti dello scheletro. La chiave e' quella di
+/// [scheletriDelleCarte]. Vuoto finche' la fonte non li porta.
+const Map<String, String> titoliDelleCarte = {};
+
+/// **IL "COSA FARE ADESSO" DI OGNI CARTA**, ordine GA voce 07: per carta,
+/// verso e gruppo dell'argomento (`amore`, `lavoro`, `vita`, i nomi di
+/// `TarotTopicGroup`), separati da una barra verticale, le tre varianti,
+/// che girano con le uscite come quelle dello scheletro. Vuoto finche' la
+/// fonte non li porta.
+const Map<String, List<String>> cosaFareDelleCarte = {};
