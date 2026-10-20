@@ -1,3 +1,9 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'horoscope.dart';
 import 'i_testi_eu_cinese_data.dart';
 import 'i_testi_eu_occidentale_data.dart';
@@ -153,7 +159,12 @@ abstract final class ITestiEu {
   }) {
     final storia = _storie.putIfAbsent(chiave, () => []);
     final ieri = giorniDalloZero(oggi);
-    while (storia.length < ieri) {
+    // **MENTRE LA STORIA SI PREPARA FUORI DAL FILO, QUI NON SI CALCOLA.**
+    // Ordine GA voce 14: questo ciclo, un giorno di cielo per ogni giorno dal
+    // giorno zero, teneva fermo il tocco dell'Oroscopo per secondi alla
+    // prima apertura. Se [prepara] e' al lavoro su questa chiave, l'indice di
+    // adesso e' provvisorio: chi mostra il testo aspetta [pronta].
+    while (storia.length < ieri && !_inPreparazione.containsKey(chiave)) {
       final g = DateTime(2026, 1, 1 + storia.length);
       storia.add(livelli(g));
     }
@@ -165,5 +176,114 @@ abstract final class ITestiEu {
   }
 
   /// Svuota la memoria delle storie: per le prove.
-  static void dimentica() => _storie.clear();
+  static void dimentica() {
+    _storie.clear();
+    _inPreparazione.clear();
+  }
+
+  // Le preparazioni in corso, per chiave.
+  static final Map<String, Future<void>> _inPreparazione = {};
+
+  /// **SE LA STORIA DI [chiave] E' PRONTA FINO A IERI DI [oggi]**: allora
+  /// [indiceDelGiorno] risponde subito e il suo numero e' quello vero.
+  static bool pronta(String chiave, DateTime oggi) =>
+      !_inPreparazione.containsKey(chiave) &&
+      (_storie[chiave]?.length ?? 0) >= giorniDalloZero(oggi);
+
+  /// L'attesa della preparazione di [chiave], o nulla se non ce n'e' una.
+  static Future<void>? attesaDi(String chiave) => _inPreparazione[chiave];
+
+  /// **LA STRADA VERA: IL CALCOLO IN UN ISOLATE E LA STORIA SUL DISCO.**
+  /// Accesa nell'app; **spenta sotto `flutter test`**, dove il tempo e' finto
+  /// e ne' la risposta di un isolate ne' quella delle preferenze non simulate
+  /// arrivano: li' il calcolo resta asincrono, nel filo delle prove, e il
+  /// disco non si tocca (la stessa scelta di `GranaDellaCenere.accesa`). La
+  /// guardia `l_oroscopo_si_apre_subito` la riaccende e prova lei.
+  static bool nelFiloSeparato =
+      !Platform.environment.containsKey('FLUTTER_TEST');
+
+  /// **CALCOLA [f] PER OGNI INDICE DA [dal] A [fino] FUORI DAL FILO**
+  /// dell'interfaccia (vedi [nelFiloSeparato]). Lo usa anche la lettura
+  /// vedica.
+  static Future<List<T>> calcolaFuoriDalFilo<T>(
+      int dal, int fino, T Function(int i) f) {
+    if (nelFiloSeparato) {
+      return Isolate.run(() => [for (var i = dal; i < fino; i++) f(i)]);
+    }
+    return Future(() => [for (var i = dal; i < fino; i++) f(i)]);
+  }
+
+  /// La versione della storia conservata: cambia se cambia [livelli], cosi'
+  /// una storia scritta con la regola di prima non si rilegge.
+  static const String _conservata = 'testi_eu.storia.v1|';
+
+  /// **PREPARA LA STORIA DELLE FASCE FUORI DAL FILO DELL'INTERFACCIA, e la
+  /// conserva.** Ordine GA voce 14, dal fondatore: *"l'apertura della
+  /// funzionalita' Oroscopo impiega qualche secondo ad aprirsi [...] La scheda
+  /// pulsante resta premuto qualche secondo e l'app si congela, poi si
+  /// apre"*. La causa, misurata: la prima scheda chiedeva la storia di ogni
+  /// giorno dal 1 gennaio 2026, 2.217 millisecondi sul PC per 292 giorni, e
+  /// il conto cresce di un giorno ogni giorno. Adesso la storia si rilegge
+  /// dal disco, i giorni che mancano si calcolano in un isolate e si
+  /// conservano: dopo la prima volta ne manca uno al giorno.
+  ///
+  /// La regola della scelta non cambia: [livelli] e' la stessa funzione del
+  /// livello di oggi, e i numeri sono gli stessi di [indiceDelGiorno].
+  static Future<void> prepara({
+    required String chiave,
+    required DateTime oggi,
+    required List<int> Function(DateTime giorno) livelli,
+  }) {
+    if (pronta(chiave, oggi)) return Future.value();
+    final gia = _inPreparazione[chiave];
+    if (gia != null) return gia;
+    final lavoro = _prepara(chiave, oggi, livelli);
+    _inPreparazione[chiave] = lavoro;
+    return lavoro.whenComplete(() => _inPreparazione.remove(chiave));
+  }
+
+  static Future<void> _prepara(String chiave, DateTime oggi,
+      List<int> Function(DateTime giorno) livelli) async {
+    final ieri = giorniDalloZero(oggi);
+    var storia = _storie[chiave] ?? <List<int>>[];
+    SharedPreferences? prefs;
+    try {
+      if (nelFiloSeparato) prefs = await preferenze();
+      final scritta = prefs?.getString('$_conservata$chiave');
+      if (scritta != null && scritta.isNotEmpty) {
+        final letta = [
+          for (final g in scritta.split(';'))
+            [for (final n in g.split(',')) int.parse(n)],
+        ];
+        if (letta.length > storia.length) storia = letta;
+      }
+    } catch (errore) {
+      // Senza disco si calcola tutto: la storia resta giusta, solo piu'
+      // lenta a nascere.
+    }
+    final dal = storia.length;
+    if (dal < ieri) {
+      final nuovi = await calcolaFuoriDalFilo(
+          dal, ieri, (i) => livelli(DateTime(2026, 1, 1 + i)));
+      storia = [...storia, ...nuovi];
+    }
+    final inMemoria = _storie[chiave];
+    if (inMemoria == null || inMemoria.length < storia.length) {
+      _storie[chiave] = storia;
+    }
+    // **LA SCRITTURA NON SI ASPETTA**: la storia e' gia' in memoria, e il
+    // responso non resta appeso al disco.
+    final scrivi = prefs?.setString(
+        '$_conservata$chiave', [for (final g in storia) g.join(',')].join(';'));
+    if (scrivi != null) {
+      unawaited(scrivi.then((_) {}, onError: (Object errore) {
+        // Non conservata: domani si ricalcola, nessun dato si perde.
+      }));
+    }
+  }
+
+  /// **IL DISCO HA UN SECONDO**, ordine GA voce 14: se le preferenze non
+  /// rispondono, la storia si calcola tutta invece di restare in attesa.
+  static Future<SharedPreferences> preferenze() =>
+      SharedPreferences.getInstance().timeout(const Duration(seconds: 1));
 }

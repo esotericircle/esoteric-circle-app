@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../astro/natal_chart_controller.dart';
+import '../horoscope/horoscope.dart';
+import '../horoscope/i_testi_eu.dart';
 import 'natal_identity.dart';
 
 /// IL PONTE FRA CHI CALCOLA LA CARTA E CHI LA LEGGE.
@@ -72,8 +76,25 @@ class _PonteDellaCartaState extends State<PonteDellaCarta> {
     // l'albero si costruisce fa cadere Flutter con un errore di stato
     // sporco. La prova l'ha preso al primo giro.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _colmaSeManca();
+      if (!mounted) return;
+      _colmaSeManca();
+      _preparaLOroscopo();
     });
+  }
+
+  /// **LA STORIA DELL'OROSCOPO SI PREPARA PRIMA CHE SERVA**, ordine GA voce
+  /// 14: appena il segno e la carta sono noti, fuori dal filo
+  /// dell'interfaccia, cosi' anche la prima apertura dell'Oroscopo la trova
+  /// pronta. Solo sulla strada vera ([ITestiEu.nelFiloSeparato]): nelle
+  /// prove col tempo finto un calcolo nato qui resterebbe appeso.
+  void _preparaLOroscopo() {
+    if (!ITestiEu.nelFiloSeparato) return;
+    final identita = context.read<BirthIdentityController>();
+    final segno = identita.sunSign;
+    if (segno == null) return;
+    final oggi = DateTime.now();
+    unawaited(Horoscope.preparaLaStoria(segno, identita.cartaCompleta,
+        DateTime(oggi.year, oggi.month, oggi.day)));
   }
 
   @override

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../astro/il_fuso_della_nascita.dart';
 import '../astro/meeus/l_alba_e_il_tramonto.dart';
 import '../chat/user_profile.dart';
@@ -168,21 +172,139 @@ abstract final class LaLetturaVedica {
   static final Map<String, List<(int, int)>> _giorni = {};
   static final DateTime _inizio = DateTime(2020, 1, 1);
 
+  static String _chiaveDelLuogo(LuogoDelGiorno? luogo) => luogo == null
+      ? '-'
+      : '${(luogo.lat * 100).round()},${(luogo.lon * 100).round()}';
+
+  static int _quantiFinoA(DateTime giorno) =>
+      DateTime.utc(giorno.year, giorno.month, giorno.day)
+          .difference(DateTime.utc(_inizio.year, _inizio.month, _inizio.day))
+          .inDays +
+      1;
+
   static List<(int, int)> _finoA(DateTime giorno, LuogoDelGiorno? luogo) {
-    final chiave = luogo == null
-        ? '-'
-        : '${(luogo.lat * 100).round()},${(luogo.lon * 100).round()}';
+    final chiave = _chiaveDelLuogo(luogo);
     final elenco = _giorni.putIfAbsent(chiave, () => []);
-    final quanti = DateTime.utc(giorno.year, giorno.month, giorno.day)
-            .difference(DateTime.utc(_inizio.year, _inizio.month, _inizio.day))
-            .inDays +
-        1;
-    while (elenco.length < quanti) {
+    final quanti = _quantiFinoA(giorno);
+    // **MENTRE I GIORNI SI PREPARANO FUORI DAL FILO, QUI NON SI CALCOLANO**,
+    // ordine GA voce 14: vedi [prepara].
+    while (
+        elenco.length < quanti && !_giorniInPreparazione.containsKey(chiave)) {
       final d =
           DateTime(_inizio.year, _inizio.month, _inizio.day + elenco.length);
       elenco.add(lunaAlle(istanteDelGiorno(d, luogo)));
     }
     return elenco;
+  }
+
+  static final Map<String, Future<void>> _giorniInPreparazione = {};
+
+  /// La versione del conto conservato: cambia se cambia [istanteDelGiorno].
+  static const String _conservati = 'vedica.giorni.v1|';
+
+  /// **LA CHIAVE DELLA STORIA DELLE FASCE VEDICHE** di una persona: la Luna
+  /// di nascita e il luogo.
+  static String chiaveDellaStoria(
+          int rashiNascita, int? nakNascita, LuogoDelGiorno? luogo) =>
+      'vedica|$rashiNascita|$nakNascita|${_chiaveDelLuogo(luogo)}';
+
+  /// **SE LA LETTURA VEDICA DI [adesso] E' PRONTA**: il conto dei giorni dal
+  /// 2020 e la storia delle fasce ci sono, e [schede] non calcola niente.
+  static bool pronta({
+    required DateTime adesso,
+    required NascitaDeiSegni nascita,
+    LuogoDelGiorno? luogo,
+  }) {
+    final giorno = DateTime(adesso.year, adesso.month, adesso.day);
+    final chiave = _chiaveDelLuogo(luogo);
+    if (_giorniInPreparazione.containsKey(chiave)) return false;
+    if ((_giorni[chiave]?.length ?? 0) < _quantiFinoA(giorno)) return false;
+    final natale = lunaDiNascita(nascita);
+    return natale == null ||
+        ITestiEu.pronta(chiaveDellaStoria(natale.$1, natale.$2, luogo), giorno);
+  }
+
+  /// **PREPARA LA LETTURA VEDICA FUORI DAL FILO DELL'INTERFACCIA, e la
+  /// conserva.** Ordine GA voce 14: alla prima apertura il conto dei ritorni
+  /// chiedeva la Luna siderale di ogni giorno dal 2020, all'alba del luogo, e
+  /// la storia delle fasce di ogni giorno dal 1 gennaio 2026: 1.761
+  /// millisecondi sul PC col luogo, ripetuti quando il luogo arrivava a
+  /// schermata aperta. Le regole non cambiano: stesse funzioni, stessi
+  /// numeri.
+  static Future<void> prepara({
+    required DateTime adesso,
+    required NascitaDeiSegni nascita,
+    LuogoDelGiorno? luogo,
+  }) {
+    final giorno = DateTime(adesso.year, adesso.month, adesso.day);
+    final lavori = <Future<void>>[_preparaIGiorni(giorno, luogo)];
+    final natale = lunaDiNascita(nascita);
+    if (natale != null) {
+      final (rashi, nak) = natale;
+      lavori.add(ITestiEu.prepara(
+        chiave: chiaveDellaStoria(rashi, nak, luogo),
+        oggi: giorno,
+        livelli: (g) => livelliDelGiorno(g, rashi, nak, luogo),
+      ));
+    }
+    return Future.wait(lavori);
+  }
+
+  static Future<void> _preparaIGiorni(DateTime giorno, LuogoDelGiorno? luogo) {
+    final chiave = _chiaveDelLuogo(luogo);
+    final gia = _giorniInPreparazione[chiave];
+    if (gia != null) return gia;
+    if ((_giorni[chiave]?.length ?? 0) >= _quantiFinoA(giorno)) {
+      return Future.value();
+    }
+    final lavoro = () async {
+      final quanti = _quantiFinoA(giorno);
+      var elenco = _giorni[chiave] ?? <(int, int)>[];
+      SharedPreferences? prefs;
+      try {
+        if (ITestiEu.nelFiloSeparato) prefs = await ITestiEu.preferenze();
+        final scritti = prefs?.getString('$_conservati$chiave');
+        if (scritti != null && scritti.isNotEmpty) {
+          final letti = [
+            for (final g in scritti.split(';'))
+              (int.parse(g.split(',')[0]), int.parse(g.split(',')[1])),
+          ];
+          if (letti.length > elenco.length) elenco = letti;
+        }
+      } catch (errore) {
+        // Senza disco si calcola tutto: il conto resta giusto.
+      }
+      final dal = elenco.length;
+      if (dal < quanti) {
+        final nuovi = await ITestiEu.calcolaFuoriDalFilo(
+            dal,
+            quanti,
+            (i) => lunaAlle(istanteDelGiorno(
+                DateTime(_inizio.year, _inizio.month, _inizio.day + i),
+                luogo)));
+        elenco = [...elenco, ...nuovi];
+      }
+      final inMemoria = _giorni[chiave];
+      if (inMemoria == null || inMemoria.length < elenco.length) {
+        _giorni[chiave] = elenco;
+      }
+      // La scrittura non si aspetta: il conto e' gia' in memoria.
+      final scrivi = prefs?.setString('$_conservati$chiave',
+          [for (final (r, k) in elenco) '$r,$k'].join(';'));
+      if (scrivi != null) {
+        unawaited(scrivi.then((_) {}, onError: (Object errore) {
+          // Non conservato: domani si ricalcola.
+        }));
+      }
+    }();
+    _giorniInPreparazione[chiave] = lavoro;
+    return lavoro.whenComplete(() => _giorniInPreparazione.remove(chiave));
+  }
+
+  /// Svuota la memoria del conto dei giorni: per le prove.
+  static void dimentica() {
+    _giorni.clear();
+    _giorniInPreparazione.clear();
   }
 
   /// **QUANTE VOLTE IL CASO DI OGGI E' GIA' CAPITATO**, dal 2020: la
@@ -324,10 +446,8 @@ abstract final class LaLetturaVedica {
     // livello, che le mette insieme ([livelloDelGiorno]), attraverso la sua
     // fascia. Le righe di "Da dove viene" restano quelle di oggi.
     final scarto = ITestiEu.scarto(nascita.locale);
-    final dove = luogo == null
-        ? '-'
-        : '${(luogo.lat * 100).round()},${(luogo.lon * 100).round()}';
-    final chiaveDellaStoria = 'vedica|$rashiNascita|$nakNascita|$dove';
+    final chiaveDellaStoria =
+        LaLetturaVedica.chiaveDellaStoria(rashiNascita, nakNascita, luogo);
     int indiceDi(HoroscopeDomain d, FasciaEu fascia) =>
         ITestiEu.indiceDelGiorno(
           chiave: chiaveDellaStoria,

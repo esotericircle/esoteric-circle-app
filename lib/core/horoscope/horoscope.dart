@@ -377,6 +377,17 @@ class Horoscope {
           for (final p in carta.planets) (p.longitude * 1000).round()
         ].join(',')}';
 
+  /// **PREPARA LA STORIA DELLE FASCE DI QUESTA PERSONA** fuori dal filo
+  /// dell'interfaccia, con la stessa chiave e la stessa funzione di
+  /// [cardFor]. Ordine GA voce 14: vedi [ITestiEu.prepara].
+  static Future<void> preparaLaStoria(
+          Zodiac sign, NatalChart? carta, DateTime oggi) =>
+      ITestiEu.prepara(
+        chiave: chiaveDellaStoria(sign, carta),
+        oggi: oggi,
+        livelli: (g) => livelliDelGiorno(sign, carta, g),
+      );
+
   /// **I LIVELLI DI UN GIORNO CIVILE** nei quattro domini, con la stessa
   /// funzione del livello della scheda ([IlLivelloDelCielo]) e lo stesso
   /// istante del giorno: servono a contare le fasce dei giorni passati.

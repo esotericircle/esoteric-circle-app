@@ -290,6 +290,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// combinazioni sbagliate da assumere.
   _FaseDelConsulto _fase = _FaseDelConsulto.attesa;
 
+  /// La chiave della storia delle fasce delle schede a video, ordine GA voce
+  /// 14: il responso aspetta che sia pronta.
+  String? _chiaveDellaStoria;
+
+  /// La preparazione della lettura vedica in corso o finita, ordine GA voce
+  /// 14, e la chiave del giorno, del luogo e della nascita per cui e' partita.
+  Future<void>? _attesaDellaVedica;
+  String? _chiaveDellaVedica;
+
   /// **IL SEGNO SU CUI LA CORSA SI FERMA. Ordine CC voce 03.**
   ///
   /// Non si va a cercarlo da nessuna parte: la schermata dell'Oroscopo lo ha
@@ -421,6 +430,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     setState(() => _fase = _FaseDelConsulto.nomina);
     await Future<void>.delayed(passo);
     if (!mounted || _inCima != quale) return;
+    // **IL RESPONSO ASPETTA LA SUA STORIA**, ordine GA voce 14: se alla fine
+    // della riflessione la storia delle fasce si sta ancora preparando, il
+    // testo di adesso e' provvisorio. Si aspetta lei, non si mostra un testo
+    // che cambierebbe sotto gli occhi.
+    final storia = _chiaveDellaStoria == null
+        ? null
+        : ITestiEu.attesaDi(_chiaveDellaStoria!);
+    if (storia != null) {
+      await storia;
+      if (!mounted || _inCima != quale) return;
+    }
+    final vedica = _attesaDellaVedica;
+    if (vedica != null) {
+      await vedica;
+      if (!mounted || _inCima != quale) return;
+    }
     setState(() {
       _fase = _FaseDelConsulto.responso;
       _turnoDiScrittura = 0;
@@ -1379,6 +1404,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             },
             vocativo: comeTiChiamo))
         : null;
+    // **LA LETTURA VEDICA SI PREPARA FUORI DAL FILO**, ordine GA voce 14:
+    // il conto dei giorni dal 2020 all'alba del luogo e la storia delle fasce
+    // costavano 1.761 millisecondi sul PC col luogo, ripetuti quando il luogo
+    // arrivava a schermata aperta. Si avvia prima delle schede vediche e dei
+    // Tre Cieli; il responso la aspetta.
+    final vedicaPronta = nascitaDeiSegni == null ||
+        !AstroTradition.vedica.leggibilePer(tier) ||
+        LaLetturaVedica.pronta(
+            adesso: _date, nascita: nascitaDeiSegni, luogo: _luogo);
+    if (!vedicaPronta) {
+      final chiave = '${_date.year}-${_date.month}-${_date.day}|'
+          '${_luogo?.citta}|${nascitaDeiSegni.locale}';
+      if (_chiaveDellaVedica != chiave) {
+        _chiaveDellaVedica = chiave;
+        _attesaDellaVedica = LaLetturaVedica.prepara(
+                adesso: _date, nascita: nascitaDeiSegni, luogo: _luogo)
+            .then((_) {
+          if (mounted) setState(() {});
+        });
+      }
+    }
     final schedeVediche = vedica && leggeLaTradizione && nascitaDeiSegni != null
         ? _soggetto.alNeutro(() => LaLetturaVedica.schede(
             adesso: _date,
@@ -1411,6 +1457,21 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         ? LaSettimanaDelCielo.tessere(_periodoDelCielo(carta),
             mese: _period == HoroscopePeriod.mese)
         : null;
+    // **LA STORIA DELLE FASCE SI PREPARA FUORI DAL FILO**, ordine GA voce
+    // 14: le schede qui sotto la chiedevano giorno per giorno dal 1 gennaio
+    // 2026, e il tocco della scheda restava premuto per secondi. Si avvia
+    // PRIMA delle schede, cosi' le schede non la calcolano; il responso
+    // aspetta che sia pronta ([_interrogaIlCielo]).
+    final giornoDellaStoria = DateTime(_year, 1, 1 + _dayOfYear);
+    _chiaveDellaStoria = Horoscope.chiaveDellaStoria(_soggetto.segno, carta);
+    if (!ITestiEu.pronta(_chiaveDellaStoria!, giornoDellaStoria) &&
+        ITestiEu.attesaDi(_chiaveDellaStoria!) == null) {
+      unawaited(
+          Horoscope.preparaLaStoria(_soggetto.segno, carta, giornoDellaStoria)
+              .then((_) {
+        if (mounted) setState(() {});
+      }));
+    }
     final cards = schedeAltre ??
         _soggetto.alNeutro<List<HoroscopeCard>>(() => Horoscope.forSign(
             sign: _soggetto.segno,
@@ -1444,7 +1505,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // vedono, e quelle letture non sono sue.
     final chiaveDeiTreCieli = '${_date.year}-${_date.month}-${_date.day}|'
         '${tier.name}|${_luogo?.citta}|${cielo.livello}|'
-        '${nascitaDeiSegni?.locale}|${_soggetto.chiave('')}';
+        '${nascitaDeiSegni?.locale}|${_soggetto.chiave('')}|'
+        // A storia pronta i Tre Cieli si ricompongono coi numeri veri.
+        '${vedicaPronta && ITestiEu.pronta(_chiaveDellaStoria!, giornoDellaStoria)}';
     if (_chiaveDeiTreCieli != chiaveDeiTreCieli) {
       _chiaveDeiTreCieli = chiaveDeiTreCieli;
       _treCieli = const [];
