@@ -106,7 +106,9 @@ void main() {
       RigaDelPiano.domande: 21,
       RigaDelPiano.approfondimenti: 3,
       RigaDelPiano.confronti: 3,
-      RigaDelPiano.stese: 15,
+      // Ordine GA voce 01: tre stese, erano quindici carte (ordine EX voce
+      // 02).
+      RigaDelPiano.stese: 3,
       RigaDelPiano.gettate: 3,
       RigaDelPiano.sinastria: 25,
     };

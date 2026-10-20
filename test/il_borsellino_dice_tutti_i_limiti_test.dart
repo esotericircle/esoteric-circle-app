@@ -47,7 +47,9 @@ void main() {
       'gettat',
       // **LE CARTE, NON LE STESE**, ordine EX voce 02: il budget delle stese
       // si conta a carte estratte, e la riga dice "carte".
-      'cart',
+      // **LE STESE, NON LE CARTE**, ordine GA voce 01: il budget torna a
+      // contare le stese, e la riga dice "stese" (o "stesa" a una rimasta).
+      'stes',
       'sinastri',
     ]) {
       // Senza maiuscole: dall'ordine BG voce 02 le righe del piano che non
@@ -56,6 +58,10 @@ void main() {
       expect(righe.any((r) => r.toLowerCase().contains(cosa)), isTrue,
           reason: 'nessuna riga parla di "$cosa"');
     }
+    // Ordine GA voce 01: nessuna riga conta piu' le carte, che non sono un
+    // budget del piano.
+    expect(righe.where((r) => r.toLowerCase().contains('cart')), isEmpty,
+        reason: 'il borsellino conta ancora le carte delle stese');
   });
 
   test('BB.02: la lingua e quella che il fondatore ha chiesto', () {

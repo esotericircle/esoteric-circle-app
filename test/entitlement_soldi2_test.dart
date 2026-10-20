@@ -102,8 +102,9 @@ void main() {
 
   group('V7, i limiti di sinastria e tarocchi esistono', () {
     test('La matrice li promette, quindi il codice li sa leggere', () {
-      // Tre sinastrie e tre carte al giorno per il Viandante (una carta
-      // fino all'ordine EX voce 02): sono promesse
+      // Tre sinastrie e una stesa al giorno per il Viandante (una carta
+      // fino all'ordine EX voce 02, tre carte fino all'ordine GA voce 01):
+      // sono promesse
       // scritte nella matrice, e finche' nessuno le legge sono regali.
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, Tier.free),
@@ -111,11 +112,13 @@ void main() {
       // Ordine EX voce 02: la carta singola non e' piu' una riga a se', e'
       // una carta estratta e legge la riga delle carte delle stese, che al
       // Viandante ne da' tre (la riga "Tarocchi carta singola" ne dava una).
+      // Ordine GA voce 01: la riga torna a contare le stese, e la carta
+      // singola e' una stesa da una carta: al Viandante una al giorno.
       expect(PlanCatalog.rigaCartaSingola, PlanCatalog.rigaStese);
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.free),
-          3);
+          1);
       // **NON PIU" + E + " ILLIMITATI, ordine CE voce 08.** L\'Adepto ha trenta
       // carte singole al giorno e l\'Illuminato cinquanta: numeri ampi, ma
       // numeri.
@@ -123,9 +126,9 @@ void main() {
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.tier2),
           // Ordine EX voce 02: dieci carte estratte all'Adepto, erano trenta
-          // carte singole.
-          10,
-          reason: 'il tetto delle carte singole dell\'Adepto e\' cambiato');
+          // carte singole. Ordine GA voce 01: due stese.
+          2,
+          reason: 'il tetto delle stese dell\'Adepto e\' cambiato');
     });
 
     test('Il contatore rifiuta oltre soglia e si azzera col giorno', () {
@@ -141,13 +144,17 @@ void main() {
 
       // Ordine EX voce 02: la carta singola conta fra le carte estratte, tre
       // al giorno per il Viandante (era una): tre estrazioni passano, la
-      // quarta no.
-      for (var i = 0; i < 3; i++) {
+      // quarta no. Ordine GA voce 01: conta fra le stese, una al giorno per
+      // il Viandante: la prima passa, la seconda no.
+      final quante = PlanCatalog.limiteGiornaliero(
+          PlanCatalog.rigaCartaSingola, Tier.free)!;
+      expect(quante, 1);
+      for (var i = 0; i < quante; i++) {
         expect(c.puo(RitualQuota.cartaSingola, Tier.free), isTrue);
         c.registra(RitualQuota.cartaSingola, Tier.free);
       }
       expect(c.puo(RitualQuota.cartaSingola, Tier.free), isFalse,
-          reason: 'la quarta estrazione dello stesso giorno passa lo stesso');
+          reason: 'la seconda estrazione dello stesso giorno passa lo stesso');
 
       // Il giorno rituale nuovo azzera tutto.
       giorno = DateTime(2026, 7, 31, 10);

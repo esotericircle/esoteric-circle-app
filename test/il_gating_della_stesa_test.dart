@@ -67,9 +67,14 @@ void main() {
   // singola e' una stesa da una carta e conta fra le carte estratte. La
   // pretesa equivalente e' che sia UNA riga sola, quella delle carte, e che
   // la stesa la legga dal listino.
+  //
+  // **LE STESE, NON LE CARTE, ordine GA voce 01**, 20 ottobre 2026: il
+  // fondatore, "bisogna tornare a conteggio per stesa e non per numero di
+  // carte". La riga resta una sola, e adesso conta le stese: 1, 3, 2 e 3 al
+  // giorno, i numeri che entrano nel 30 per cento (voce GA.02).
   test(
       'la stesa e la carta singola leggono la stessa riga, quella delle '
-      'carte estratte', () {
+      'stese di tarocchi', () {
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
     final singola = [
       for (final t in ordine)
@@ -79,12 +84,12 @@ void main() {
       for (final t in ordine)
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, t)
     ];
-    // Ordine EX voce 02: la riga delle carte estratte, 3, 6, 10 e 15 (le
-    // stese erano 1, 4, 7 e 20).
-    expect(complete, [3, 6, 10, 15],
-        reason: 'la riga delle carte estratte non promette piu\' quello che '
-            'il fondatore ha approvato: tre, sei, dieci e quindici carte, e '
-            'niente di illimitato');
+    // Ordine GA voce 01: le stese, 1, 3, 2 e 3 (dall'ordine EX voce 02 erano
+    // le carte estratte, 3, 6, 10 e 15; prima ancora le stese 1, 4, 7 e 20).
+    expect(complete, [1, 3, 2, 3],
+        reason: 'la riga delle stese non promette piu\' quello che il conto '
+            'del 30 per cento regge: una, tre, due e tre stese, e niente di '
+            'illimitato');
     // Ordine EX voce 02: la carta singola non ha piu' un numero suo.
     expect(PlanCatalog.rigaCartaSingola, PlanCatalog.rigaStese,
         reason: 'la carta singola ha di nuovo una riga a se\': sarebbe un '
@@ -97,8 +102,9 @@ void main() {
         PlanCatalog.matrix
             .firstWhere((r) => r.chiave == RigaDelPiano.stese)
             .label,
-        'Carte estratte nelle stese',
-        reason: 'la riga dice ancora stese mentre conta le carte');
+        // Ordine GA voce 01: era 'Carte estratte nelle stese'.
+        'Stese di tarocchi',
+        reason: 'la riga dice carte mentre conta le stese');
 
     final borsa = QuestionAllowance();
     for (var i = 0; i < 4; i++) {
@@ -109,41 +115,53 @@ void main() {
 
   // Ordine EX voce 02: il consumo non e' piu' uno per stesa ma una unita' per
   // carta, e il cancello vuole tutte le carte della stesa.
-  test('il consumo e\' a carte, e il conto cala solo quando cala', () async {
+  //
+  // **Ordine GA voce 01: il consumo torna a una stesa per stesa.** La prova
+  // misura che ogni stesa toglie esattamente uno, che il cancello si chiude
+  // sull'ultima e non prima, e che a zero non si apre piu' niente.
+  test('il consumo e\' a stese, e il conto cala solo quando cala', () async {
     final borsa = QuestionAllowance();
-    // L'Adepto ha dieci carte al giorno, ordine EX voce 02 (erano sette
-    // stese, ordine BV voce 03).
-    expect(borsa.steseRimaste(Tier.tier2), 10);
-    // Una stesa a tre carte ne consuma tre, non una.
-    borsa.registraStesa(Tier.tier2);
-    expect(borsa.steseRimaste(Tier.tier2), 7);
-    expect(borsa.puoiStendere(Tier.tier2, carte: 7), isTrue);
-    expect(borsa.puoiStendere(Tier.tier2, carte: 8), isFalse,
-        reason: 'una stesa che chiede piu\' carte di quelle rimaste passa');
-    borsa.registraStesa(Tier.tier2, carte: 5);
+    // L'Adepto ha due stese al giorno, ordine GA voce 01 (dieci carte
+    // dall'ordine EX voce 02, sette stese dall'ordine BV voce 03).
     expect(borsa.steseRimaste(Tier.tier2), 2);
-    expect(borsa.puoiStendere(Tier.tier2), isFalse,
-        reason: 'con due carte rimaste si apre una stesa a tre');
-    expect(borsa.puoiStendere(Tier.tier2, carte: 1), isTrue,
-        reason: 'con due carte rimaste non si apre nemmeno la carta singola');
-    borsa.registraStesa(Tier.tier2, carte: 2);
+    expect(borsa.puoiStendere(Tier.tier2), isTrue);
+    // Una stesa consuma una stesa, non le sue carte.
+    borsa.registraStesa(Tier.tier2);
+    expect(borsa.steseRimaste(Tier.tier2), 1,
+        reason: 'una stesa ha tolto piu\' o meno di una stesa');
+    expect(borsa.puoiStendere(Tier.tier2), isTrue,
+        reason: 'con una stesa rimasta il cancello e\' gia\' chiuso');
+    borsa.registraStesa(Tier.tier2);
     expect(borsa.steseRimaste(Tier.tier2), 0);
-    expect(borsa.puoiStendere(Tier.tier2, carte: 1), isFalse);
+    expect(borsa.puoiStendere(Tier.tier2), isFalse,
+        reason: 'a stese finite il cancello si apre lo stesso');
+    // Il conto non va sotto zero: una stesa in piu' registrata per sbaglio
+    // non mostra un residuo negativo.
+    borsa.registraStesa(Tier.tier2);
+    expect(borsa.steseRimaste(Tier.tier2), 0);
+    expect(borsa.riscattiPerLaStesa(Tier.tier2), 1,
+        reason: 'a stese finite serve un riscatto, uno solo');
   });
 
   // Ordine EX voce 02: quindici carte all'Illuminato, erano venti stese.
-  test('l\'Illuminato ha quindici carte, e niente e\' piu\' illimitato', () {
+  // Ordine GA voce 01: tre stese all'Illuminato.
+  test('l\'Illuminato ha tre stese, e niente e\' piu\' illimitato', () {
     // **L'ILLIMITATO E' SPARITO, ordine BV voce 03**, ed e' un principio del
     // fondatore prima che un numero: non fare nulla di illimitato. Prima
     // l'Illuminato non aveva ne' conto ne' cancello; adesso ha un numero al
     // giorno e lo vede scendere come tutti.
     final borsa = QuestionAllowance();
-    expect(borsa.limiteStese(Tier.tier3), 15);
-    expect(borsa.steseRimaste(Tier.tier3), 15);
+    expect(borsa.limiteStese(Tier.tier3), 3);
+    expect(borsa.steseRimaste(Tier.tier3), 3);
     borsa.registraStesa(Tier.tier3);
-    // Ordine EX voce 02: una stesa a tre carte ne toglie tre.
-    expect(borsa.steseRimaste(Tier.tier3), 12);
+    // Ordine GA voce 01: una stesa ne toglie una (dall'ordine EX una stesa a
+    // tre carte ne toglieva tre).
+    expect(borsa.steseRimaste(Tier.tier3), 2);
     expect(borsa.puoiStendere(Tier.tier3), isTrue);
+    borsa.registraStesa(Tier.tier3);
+    borsa.registraStesa(Tier.tier3);
+    expect(borsa.puoiStendere(Tier.tier3), isFalse,
+        reason: 'l\'Illuminato ha un tetto, e alla terza stesa ci arriva');
   });
 
   test('le stese e le gettate sono due budget che non si toccano', () async {
@@ -330,24 +348,30 @@ void main() {
     // Ordine EX voce 02: il conto e' di CARTE, e la riga deve dirlo. Dire
     // "Oggi hai 10 stese" a chi ha dieci carte, cioe' tre stese a tre carte,
     // e' il falso; al Viandante "3 stese" quando ne ha una.
-    expect(contoAVideo(tester), 'Oggi hai 10 carte',
+    //
+    // Ordine GA voce 01: il conto torna di STESE, e la riga dice stese. Dire
+    // "Oggi hai 2 carte" a chi ha due stese da stendere come vuole e' il
+    // falso di adesso.
+    expect(contoAVideo(tester), 'Oggi hai 2 stese',
         reason: 'il numero, o la cosa contata, non e\' quello che la matrice '
             'promette all\'Adepto');
 
     // Stessa schermata, stesso codice, piano diverso: il testo cambia da solo.
     await monta(tester,
         piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
-    // Ordine EX voce 02: quindici carte, erano venti stese.
-    expect(contoAVideo(tester), 'Oggi hai 15 carte',
+    // Ordine GA voce 01: tre stese (quindici carte dall'ordine EX voce 02,
+    // venti stese prima).
+    expect(contoAVideo(tester), 'Oggi hai 3 stese',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
     await monta(tester,
         piano: Tier.free, borsa: QuestionAllowance()..ilServerHaParlato());
-    // Ordine EX voce 02: tre carte al Viandante, era una stesa.
-    expect(contoAVideo(tester), 'Oggi hai 3 carte',
-        reason: 'il Viandante non legge piu\' le sue carte del giorno: '
-            'ordine EX voce 02');
+    // Ordine GA voce 01: una stesa al Viandante, al singolare (tre carte
+    // dall'ordine EX voce 02).
+    expect(contoAVideo(tester), 'Oggi hai 1 stesa',
+        reason: 'il Viandante non legge piu\' la sua stesa del giorno, o la '
+            'legge al plurale: ordine GA voce 01');
   });
 
   testWidgets('il conto si dichiara PRIMA, e sparisce a stesa cominciata',
@@ -366,24 +390,26 @@ void main() {
       'non consuma niente', (tester) async {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
-    // Ordine EX voce 02: dieci carte all'Adepto, erano sette stese.
-    expect(borsa.steseRimaste(Tier.tier2), 10);
+    // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
+    // voce 02, sette stese prima).
+    expect(borsa.steseRimaste(Tier.tier2), 2);
 
     // Una carta sola: la stesa e' cominciata e non e' compiuta.
     await pesca(tester, 38);
-    expect(borsa.steseRimaste(Tier.tier2), 10,
+    expect(borsa.steseRimaste(Tier.tier2), 2,
         reason: 'una stesa cominciata ha gia\' consumato: chi cambia idea '
             'alla prima carta paga per niente');
 
     // La seconda e la terza: le carte sono posate e ancora non si paga.
     // **Ordine CQ voce 1.03**: il conto e' del pulsante, non delle carte.
     // Ordine EX voce 02: si paga a carte, ma tutte insieme al pulsante.
+    // Ordine GA voce 01: si paga una stesa, al pulsante.
     await pesca(tester, 39);
-    expect(borsa.steseRimaste(Tier.tier2), 10,
+    expect(borsa.steseRimaste(Tier.tier2), 2,
         reason: 'la seconda carta posata ha consumato prima del pulsante');
     await pesca(tester, 40);
     await tester.pump(const Duration(seconds: 5));
-    expect(borsa.steseRimaste(Tier.tier2), 10,
+    expect(borsa.steseRimaste(Tier.tier2), 2,
         reason: 'tre carte posate hanno gia\' consumato la stesa: chi ci '
             'ripensa prima di leggere paga per niente, ed e\' cio\' che '
             'l\'ordine CQ voce 1.03 chiude');
@@ -391,11 +417,12 @@ void main() {
     // Il pulsante: e' questo il gesto che si paga.
     await apri(tester);
     await tester.pump(const Duration(seconds: 5));
-    // Ordine EX voce 02: la stesa a tre carte consuma tre carte, una volta
-    // sola: dieci meno tre.
-    expect(borsa.steseRimaste(Tier.tier2), 7,
-        reason: 'la lettura e\' aperta e non ha consumato le sue tre carte, '
-            'o le ha consumate piu\' di una volta');
+    // Ordine GA voce 01: la stesa a tre carte consuma UNA stesa, una volta
+    // sola: due meno uno. Se consumasse le sue tre carte il conto sarebbe a
+    // zero, se consumasse due volte anche.
+    expect(borsa.steseRimaste(Tier.tier2), 1,
+        reason: 'la lettura e\' aperta e non ha consumato la sua stesa, o '
+            'ne ha consumata piu\' di una (le tre carte, o due volte)');
   });
 
   testWidgets('a riserva finita il tocco non e\' muto, e nomina le stese',
@@ -403,8 +430,10 @@ void main() {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
     // Ordine EX voce 02: le dieci carte dell'Adepto tutte estratte (erano
-    // sette stese da una unita' ciascuna).
-    borsa.registraStesa(Tier.tier2, carte: 10);
+    // sette stese da una unita' ciascuna). Ordine GA voce 01: le due stese
+    // dell'Adepto tutte fatte.
+    borsa.registraStesa(Tier.tier2);
+    borsa.registraStesa(Tier.tier2);
     expect(borsa.steseRimaste(Tier.tier2), 0);
     await tester.pump();
 
@@ -427,8 +456,19 @@ void main() {
     expect(testo.contains('stes'), isTrue,
         reason: 'l\'invito non nomina le stese');
     // Ordine EX voce 02: a finire sono le carte, e l'invito deve dirlo.
-    expect(testo.contains('carte di oggi sono finite'), isTrue,
-        reason: 'l\'invito non dice che le carte del giorno sono finite');
+    // Ordine GA voce 01: a finire sono le stese, coi numeri della matrice:
+    // le due dell'Adepto, e le tre dell'Illuminato al livello dopo.
+    expect(testo.contains('le stese di oggi sono finite'), isTrue,
+        reason: 'l\'invito non dice che le stese del giorno sono finite');
+    expect(testo.contains('le 2 stese del giorno sono state fatte.'), isTrue,
+        reason: 'l\'invito non dice quante stese l\'Adepto ha fatto oggi');
+    expect(
+        testo.contains('dal livello successivo le stese del giorno sono 3.'),
+        isTrue,
+        reason: 'l\'invito non dice le stese del livello dopo, lette dalla '
+            'matrice');
+    expect(testo.contains('cart'), isFalse,
+        reason: 'l\'invito conta ancora le carte: il limite e\' di stese');
     expect(testo.contains('senza limit'), isFalse,
         reason: 'l\'invito promette un piano senza limiti, che non esiste');
     expect(testo.contains('gettat'), isFalse,
@@ -462,11 +502,22 @@ void main() {
     expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
         reason: 'finita la stesa del giorno il Viandante non trova nessuna '
             'strada: e\' il vicolo cieco che il gating a due strade vieta');
-    final riscatta = find.textContaining('Riscatta una stesa completa');
+    // Ordine GA voce 01: il riscatto ridà UNA stesa, e il pulsante lo dice
+    // cosi' (dall'ordine EX diceva "una stesa completa", tre carte).
+    final riscatta = find.text('Riscatta una stesa · 150 Eos');
     expect(riscatta, findsOneWidget,
         reason: 'la strada degli Eos non c\'e\', o non dice il prezzo');
     expect(find.textContaining('150 Eos'), findsOneWidget,
         reason: 'il prezzo mostrato non e\' quello del server');
+    // Il Viandante ha una stesa sola, e la frase la dice al singolare; al
+    // livello dopo le stese sono tre.
+    expect(
+        find.textContaining('La stesa del giorno è stata fatta. Puoi '
+            'riscattare una stesa con gli Eos, oppure salire di livello nel '
+            'Cerchio: dal livello successivo le stese del giorno sono 3.'),
+        findsOneWidget,
+        reason: 'l\'invito del Viandante non dice la sua stesa al singolare, '
+            'o non dice le tre stese dell\'Iniziato');
 
     await tester.tap(riscatta);
     await tester.pump();
@@ -529,6 +580,12 @@ void main() {
     expect(s.contains('_ContoDelleStese'), isFalse,
         reason: 'il contatore scritto per questa schermata sola e\' tornato: '
             'due porte sullo stesso numero');
+    // **UNA STESA VALE UNA STESA, ordine GA voce 01.** Nessun cancello e
+    // nessun consumo della schermata guarda piu' il numero delle carte:
+    // dall'ordine EX li chiamava con `carte:`.
+    expect(RegExp(r'(puoiStendere|registraStesa)\([^;]*carte:').hasMatch(s),
+        isFalse,
+        reason: 'la schermata conta di nuovo le carte della stesa');
   });
 
   test('il guscio dell\'app porta il denaro sopra la rotta dei tarocchi', () {
@@ -547,16 +604,20 @@ void main() {
   test('il server conosce il budget delle stese e il suo prezzo', () {
     final budget = File('functions/src/budget.ts').readAsStringSync();
     // Ordine EX voce 02: le carte estratte, erano 1, 4, 7 e 20 stese.
-    expect(budget.contains('stese: [3, 6, 10, 15]'), isTrue,
+    // Ordine GA voce 01: di nuovo le stese, 1, 3, 2 e 3.
+    expect(budget.contains('stese: [1, 3, 2, 3]'), isTrue,
         reason: 'il server non impone piu\' i limiti del listino');
     // Ordine EX voce 02: il riscatto ridà le carte di una stesa a tre, dalle
+    // due parti lo stesso numero. Ordine GA voce 01: ridà una stesa, dalle
     // due parti lo stesso numero.
     final unita = RegExp(r'UNITA_DEL_RISCATTO[^{]*\{\s*stese:\s*(\d+)')
         .firstMatch(budget);
     expect(unita, isNotNull,
-        reason: 'il server non dice piu\' quante carte ridà il riscatto');
-    expect(int.parse(unita!.group(1)!), QuestionAllowance.kCarteDelRiscatto,
-        reason: 'il riscatto ridà carte diverse dalle due parti');
+        reason: 'il server non dice piu\' quante stese ridà il riscatto');
+    expect(int.parse(unita!.group(1)!), QuestionAllowance.kSteseDelRiscatto,
+        reason: 'il riscatto ridà stese diverse dalle due parti');
+    expect(QuestionAllowance.kSteseDelRiscatto, 1,
+        reason: 'il riscatto non ridà piu\' una stesa');
     final borsellino = File('functions/src/borsellino.ts').readAsStringSync();
     expect(RegExp(r'stese: 150').hasMatch(borsellino), isTrue,
         reason: 'il server non conosce piu\' il prezzo della stesa: senza '

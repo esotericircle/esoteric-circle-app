@@ -1,0 +1,27 @@
+ORDINE GA VOCE 01, REGOLA A, 20 ottobre 2026.
+Innesti verificati col grep: question_allowance.dart riga 687 '_stese += 3;' (il conteggio a carte della stesa a tre) e plan_catalog.dart riga 893 coi numeri chiesti prima del conto (1, 3, 6, 10).
+Esito sul codice innestato:
+00:26 +50 -21: Some tests failed.
+entitlement_soldi2_test.dart: V7, i limiti di sinastria e tarocchi esistono La matrice li promette, quindi il codice li sa leggere [E]
+entitlement_test.dart: Piani Gli highlights portano i limiti reali di reset giornaliero [E]
+i_limiti_del_server_sono_quelli_promessi_test.dart: la tabella del server dice quello che promette la matrice [E]
+il_gating_della_stesa_test.dart: a riserva finita il tocco non e' muto, e nomina le stese [E]
+il_gating_della_stesa_test.dart: il Viandante ha la sua stesa del giorno, e poi la strada degli Eos [E]
+il_gating_della_stesa_test.dart: il consumo e' a stese, e il conto cala solo quando cala [E]
+il_gating_della_stesa_test.dart: il conto e' quello del listino, e cambia col piano [E]
+il_gating_della_stesa_test.dart: l'Illuminato ha tre stese, e niente e' piu' illimitato [E]
+il_gating_della_stesa_test.dart: la stesa e la carta singola leggono la stessa riga, quella delle stese di tarocchi [E]
+il_gating_della_stesa_test.dart: le stese e le gettate sono due budget che non si toccano [E]
+il_gating_della_stesa_test.dart: una stesa compiuta consuma una volta sola, e una abbandonata non consuma niente [E]
+il_riscatto_copre_la_croce_celtica_test.dart: COL SERVER DI PRIMA: all'Adepto a stese finite la Croce Celtica chiede UN riscatto da 150, e quello la apre [E]
+il_riscatto_copre_la_croce_celtica_test.dart: COL SERVER DI PRIMA: il foglio dice una stesa a 150 Eos, un consenso solo, un riscatto, e la lettura si apre [E]
+il_riscatto_copre_la_croce_celtica_test.dart: Croce Celtica a stese finite: il foglio dice la Croce Celtica a 400 Eos, un consenso solo, un riscatto, e la lettura si apre [E]
+il_riscatto_copre_la_croce_celtica_test.dart: IL RISCATTO DELLA STESA A DIECI CARTE: a stese finite la Croce Celtica si apre con UN riscatto da 400 Eos che ridà una stesa [E]
+il_riscatto_copre_la_croce_celtica_test.dart: ORDINE GA VOCE 01: la croce a quattro carte a stese finite si riscatta con UN riscatto da 150, non col prezzo della stesa a dieci [E]
+il_riscatto_copre_la_croce_celtica_test.dart: la stesa a tre carte resta com'era: un riscatto, una stesa, 150 Eos [E]
+il_riscatto_copre_la_croce_celtica_test.dart: le stese da una, tre, quattro e dieci carte, a stese finite [E]
+il_ventaglio_vive_subito_test.dart: scegliere non consuma, premere si [E]
+le_chiavi_e_la_matrice_dei_tarocchi_test.dart: la matrice dei tarocchi dell'ordine FI [E]
+nessuna_cella_resta_senza_tetto_test.dart: i tetti dell'Illuminato sono ampi, e sono quelli decisi [E]
+
+Ripristinato il codice (diff con la copia: identico): 12 file, +76, All tests passed.

@@ -193,12 +193,16 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
  * nessuno ha deciso. E' un modo diverso di comprare lo stesso budget, col
  * suo prezzo e le sue carte. Il motivo e' `riscatto_steseDieci`; il riscatto
  * da 150 a tre carte resta com'era per le stese piu' piccole.
+ *
+ * **Dall'ordine GA voce 01, 20 ottobre 2026, ridà UNA stesa**: il budget
+ * torna a contare le stese. Il prezzo resta quello deciso ("Il giro in piu'
+ * a Eos dopo l'ultima stesa del giorno resta com'e' oggi").
  */
 export const RISCATTI_DELLA_STESA_INTERA: Record<
   string,
   {budget: Budget; prezzo: number; unita: number}
 > = {
-  steseDieci: {budget: "stese", prezzo: 400, unita: 10},
+  steseDieci: {budget: "stese", prezzo: 400, unita: 1},
 };
 
 /**

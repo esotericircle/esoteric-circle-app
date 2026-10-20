@@ -132,10 +132,10 @@ enum RigaDelPiano {
   confronti,
   sinastria,
 
-  /// **LE CARTE ESTRATTE NELLE STESE, ordine EX voce 02.** La chiave resta
-  /// `stese`, come il budget del server, ma l'unita' e' la carta: chi
-  /// stende tre carte ne spende tre. La carta singola e' una stesa da una
-  /// carta, e conta qui.
+  /// **LE STESE DI TAROCCHI, ordine GA voce 01.** La chiave e' `stese`, come
+  /// il budget del server, e l'unita' e' tornata la stesa: una stesa da 1,
+  /// da 3, da 4 o da 10 carte vale una stesa. Dall'ordine EX voce 02 l'unita'
+  /// era la carta. La carta singola e' una stesa da una carta, e conta qui.
   stese,
 
   /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02.
@@ -319,7 +319,7 @@ class PlanCatalog {
         'I Doni del giorno: Arcano dell\'Alba, Soffio del Destino, Runa del Tramonto e Sigillo del Sogno',
         'Carta natale occidentale in lettura base',
         'Tre domande al giorno a un Maestro, senza memoria',
-        'Tre carte di tarocchi al giorno, da stendere come vuoi',
+        'Una stesa di tarocchi al giorno',
         'Sinastria VIP fino a 3 al giorno',
         // Ordine FT voce FT.13: le righe della Sinastria evolutiva.
         'Sinastria evolutiva: una coppia nuova al giorno, Oggi fra voi e due capitoli',
@@ -349,6 +349,10 @@ class PlanCatalog {
       ),
       nellAnnuale: {
         '12 domande al giorno ai Maestri': '11 domande al giorno ai Maestri',
+        // Ordine GA voce 02: sull'annuale dell'Iniziato entra una stesa sola
+        // sotto il 30 per cento (tool/i_limiti_degli_annuali.py).
+        '3 stese di tarocchi al giorno, anche la croce a quattro carte':
+            'Una stesa di tarocchi al giorno, anche la croce a quattro carte',
       },
       highlights: [
         'Tutto di Viandante, senza pubblicità',
@@ -356,7 +360,7 @@ class PlanCatalog {
         'Carta natale completa con transiti dinamici',
         'Oroscopo settimanale',
         '12 domande al giorno ai Maestri',
-        '6 carte di tarocchi al giorno, da stendere come vuoi',
+        '3 stese di tarocchi al giorno, anche la croce a quattro carte',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
         'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli',
@@ -394,7 +398,7 @@ class PlanCatalog {
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
         '17 domande al giorno ai Maestri',
-        '10 carte di tarocchi al giorno, da stendere come vuoi',
+        '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
@@ -432,7 +436,7 @@ class PlanCatalog {
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
         '21 domande ai Maestri al giorno',
-        '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
+        '3 stese di tarocchi al giorno, anche la stesa a dieci carte',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
         'Sinastria evolutiva: 15 coppie nuove al giorno',
@@ -722,8 +726,8 @@ class PlanCatalog {
   /// FU.10: il budget `oracoliAngeli` del server.
   static const RigaDelPiano rigaOracoli = RigaDelPiano.oracoloConsultazioni;
 
-  /// La carta singola e' una stesa da una carta: conta fra le carte
-  /// estratte. Ordine EX voce 02.
+  /// La carta singola e' una stesa da una carta: conta fra le stese.
+  /// Ordine EX voce 02, ordine GA voce 01.
   static const RigaDelPiano rigaCartaSingola = RigaDelPiano.stese;
 
   /// Quante STESE COMPLETE di tarocchi al giorno, che e' una riga diversa da
@@ -877,8 +881,16 @@ class PlanCatalog {
     // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
     // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
     // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
-    FeatureRow('Carte estratte nelle stese',
-        ['3 al giorno', '6 al giorno', '10 al giorno', '15 al giorno'],
+    // **LE STESE, NON LE CARTE, ordine GA voce 01**, 20 ottobre 2026: il
+    // fondatore, *"bisogna tornare a conteggio per stesa e non per numero di
+    // carte scelte ed estratte"*, coi numeri 1, 3, 6 e 10 *"(ma deve
+    // rientrare nel 30% [...] altrimenti Code le puo' modificare)"*. Il conto
+    // (voce GA.02, `tool/i_limiti_degli_annuali.py`) ne fa entrare 1, 3, 2 e
+    // 3, con la scelta del fondatore del 20 ottobre: nella croce a quattro e
+    // nella stesa a dieci le singole carte vengono dal corpus e il modello
+    // scrive il solo responso principale.
+    FeatureRow('Stese di tarocchi',
+        ['1 al giorno', '3 al giorno', '2 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.stese),
     FeatureRow('Stesa da 10 carte', ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.stesaDaDieci),

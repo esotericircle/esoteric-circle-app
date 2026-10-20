@@ -1231,11 +1231,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         mounted && (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
     final borsa = _forse<QuestionAllowance>(context);
     if (borsa != null && !_conservata) {
-      // **LE CARTE, NON LA STESA**, ordine EX voce 02: si contano tutte le
-      // carte della stesa letta.
+      // **UNA STESA VALE UNA STESA**, ordine GA voce 01: qualunque sia il
+      // numero delle sue carte (dall'ordine EX si contavano le carte).
       borsa.registraStesa(
-          _forse<EntitlementService>(context)?.tier ?? Tier.free,
-          carte: _spread.cards.length);
+          _forse<EntitlementService>(context)?.tier ?? Tier.free);
     }
     final carte = _spread.cards;
     unawaited(RegiaDelCammino.dopoUnGesto(
@@ -1332,9 +1331,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (borsa == null) return true;
     final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
     final carte = _spread.cards.length;
-    if (borsa.puoiStendere(piano, carte: carte)) return true;
+    if (borsa.puoiStendere(piano)) return true;
     final limite = borsa.limiteStese(piano);
-    final restano = borsa.steseRimaste(piano) ?? 0;
     // Il numero del livello dopo, letto dalla matrice: all'Illuminato non c'e'
     // un livello dopo, e la frase non promette niente.
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
@@ -1342,32 +1340,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     final piuInSu = dopo < ordine.length
         ? PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, ordine[dopo])
         : null;
-    // **IL RISCATTO COMPRA LE CARTE CHE MANCANO A QUESTA STESA.** Un
-    // riscatto ridà tre carte (`QuestionAllowance.kCarteDelRiscatto`), e la
-    // Croce Celtica ne chiede dieci: col riscatto unico il pagamento andava,
-    // il cancello sbarrava di nuovo e il foglio si riapriva, 150 Eos a giro.
-    // Adesso se ne comprano quanti servono, sotto un consenso solo, e il
-    // pulsante dice quante carte e quanti Eos. Guardia:
+    // **IL RISCATTO RIDA' UNA STESA**, ordine GA voce 01: qualunque sia il
+    // numero delle sue carte. Dall'ordine EX il riscatto ridava tre carte, e
+    // la Croce Celtica ne chiedeva quattro in fila. Guardia:
     // `test/il_riscatto_copre_la_croce_celtica_test.dart`.
     //
-    // **LA STESA INTERA, decisione del fondatore del 14 ottobre 2026** ("2
-    // 400 EOS"): se il server manda nel listino il riscatto della stesa
-    // intera e costa meno dei riscatti da tre, la Croce Celtica si riscatta
-    // con UN riscatto che ridà le sue dieci carte, al prezzo del server. Un
-    // server che non lo manda lascia la strada dei riscatti in fila.
+    // **LA STESA A DIECI CARTE COL SUO PREZZO, decisione del fondatore del
+    // 14 ottobre 2026** ("2 400 EOS"): l'ordine GA vuole il giro in piu'
+    // "com'e' oggi", e oggi la Croce Celtica si riscatta col suo riscatto,
+    // quello che il server manda nel listino. Le altre stese col riscatto
+    // di sempre.
     final intera = borsa.laStesaSiRiscattaIntera(piano, carte: carte);
-    final volte = intera ? 1 : borsa.riscattiPerLaStesa(piano, carte: carte);
-    final mancano = carte - restano;
+    final volte = borsa.riscattiPerLaStesa(piano);
     final descrizione =
         (widget.tipo ?? TarotSpreadType.predefinita).descrizione;
     final cosa = intera
         ? '${descrizione.substring(0, 1).toLowerCase()}'
             '${descrizione.substring(1)}'
-        : volte <= 1 && carte <= QuestionAllowance.kCarteDelRiscatto
-            ? 'una stesa completa'
-            : mancano >= carte
-                ? 'le $carte carte'
-                : 'le $mancano carte che mancano';
+        : 'una stesa';
     final messaggero = ScaffoldMessenger.maybeOf(context);
     final riscatto = corredoDelRiscatto(
       context,
@@ -1379,17 +1369,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // **SI RIPROVA SOLO SE ADESSO SI PUO'.** Richiamare la lettura alla
         // cieca era il giro: il cancello sbarrava e riapriva il foglio. Se il
         // riscatto si e' fermato a meta', lo si dice e il foglio resta chiuso.
-        if (borsa.puoiStendere(piano, carte: carte)) {
+        if (borsa.puoiStendere(piano)) {
           riprova();
           return;
         }
-        final ora = borsa.steseRimaste(piano) ?? 0;
         messaggero?.removeCurrentSnackBar();
         messaggero?.showSnackBar(SnackBar(
           key: const Key('riscatto_non_basta'),
-          content: Text('Spesi $pagato Eos, ma le carte non bastano ancora: '
-              'ne hai $ora e questa stesa ne chiede $carte. Le carte '
-              'comprate restano tue per oggi, riprova fra un momento.'),
+          content: Text('Spesi $pagato Eos, ma la stesa non si è ancora '
+              'aperta. Quella comprata resta tua per oggi, riprova fra un '
+              'momento.'),
         ));
       },
     );
@@ -1401,22 +1390,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // **I NUMERI VERI, ordine EX voce 02.** Le frasi di prima dicevano
       // "dall'Illuminato le stese sono senza limiti" (l'Illuminato ne aveva
       // venti) e prevedevano un piano a zero stese che non esiste piu'.
-      title: restano > 0
-          ? 'Le carte di oggi non bastano'
-          : 'Le carte di oggi sono finite',
+      // **LE STESE, NON LE CARTE**, ordine GA voce 01.
+      title: 'Le stese di oggi sono finite',
       message: [
-        restano > 0
-            ? 'Ti ${restano == 1 ? 'resta una carta' : 'restano $restano carte'} '
-                'e questa stesa ne chiede $carte.'
-            : 'Le ${limite ?? 0} carte del giorno sono state estratte.',
+        (limite ?? 0) == 1
+            ? 'La stesa del giorno è stata fatta.'
+            : 'Le ${limite ?? 0} stese del giorno sono state fatte.',
         piuInSu == null
-            ? 'Puoi riscattare ${intera || volte > 1 ? cosa : 'una stesa'} '
-                'con gli Eos, oppure tornare domani.'
-            : 'Puoi riscattare ${intera || volte > 1 ? cosa : 'una stesa'} '
-                'con gli '
-                'Eos, oppure salire di '
-                'livello nel Cerchio: dal livello successivo le carte del '
-                'giorno sono $piuInSu.',
+            ? 'Puoi riscattare $cosa con gli Eos, oppure tornare domani.'
+            : 'Puoi riscattare $cosa con gli Eos, oppure salire di livello '
+                'nel Cerchio: dal livello successivo le stese del giorno '
+                'sono $piuInSu.',
       ].join(' '),
       riscattoLabel: riscatto.label,
       onRiscatta: riscatto.azione,
@@ -2531,8 +2515,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       showUpgradeInvite(
         context,
         title: 'La stesa a dieci carte è dell’Adepto',
+        // Il numero delle stese dell'Adepto dalla matrice, ordine GA voce 01.
         message: 'La stesa a dieci carte si apre dal piano Adepto in su, '
-            'insieme a dieci carte al giorno.',
+            'insieme a ${PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, Tier.tier2)} '
+            'stese al giorno.',
       );
       return;
     }

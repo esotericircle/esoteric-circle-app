@@ -1,7 +1,13 @@
-Iniziato mensile: 12 domande al giorno, 0 minuti di LIVE al mese, 3 consultazioni dell'Oracolo al giorno; caso peggiore 2.01 dollari, tetto 2.34, 25.8 per cento del netto
-Iniziato annuale: 11 domande al giorno, 0 minuti di LIVE al mese, 3 consultazioni dell'Oracolo al giorno; caso peggiore 1.88 dollari, tetto 1.95, 28.9 per cento del netto
-Adepto mensile: 17 domande al giorno, 80 minuti di LIVE al mese, 5 consultazioni dell'Oracolo al giorno; caso peggiore 4.62 dollari, tetto 4.68, 29.6 per cento del netto
-Adepto annuale: 14 domande al giorno, 55 minuti di LIVE al mese, 5 consultazioni dell'Oracolo al giorno; caso peggiore 3.68 dollari, tetto 3.71, 29.8 per cento del netto
-Illuminato mensile: 21 domande al giorno, 150 minuti di LIVE al mese, 6 consultazioni dell'Oracolo al giorno; caso peggiore 7.01 dollari, tetto 7.02, 29.9 per cento del netto
-Illuminato annuale: 18 domande al giorno, 95 minuti di LIVE al mese, 6 consultazioni dell'Oracolo al giorno; caso peggiore 5.43 dollari, tetto 5.46, 29.8 per cento del netto
+Iniziato mensile, i tarocchi a stese: con le 3 stese chieste 2.20 dollari, 28.2 per cento del netto; stese che entrano sotto il tetto: 4
+Iniziato mensile: 12 domande al giorno, 0 minuti di LIVE al mese, 3 consultazioni dell'Oracolo al giorno; caso peggiore 2.20 dollari, tetto 2.34, 28.2 per cento del netto
+Iniziato annuale, i tarocchi a stese: con le 3 stese chieste 2.06 dollari, 31.7 per cento del netto; stese che entrano sotto il tetto: 1
+Iniziato annuale: 11 domande al giorno, 0 minuti di LIVE al mese, 3 consultazioni dell'Oracolo al giorno; caso peggiore 1.86 dollari, tetto 1.95, 28.7 per cento del netto
+Adepto mensile, i tarocchi a stese: con le 6 stese chieste 5.01 dollari, 32.1 per cento del netto; stese che entrano sotto il tetto: 2
+Adepto mensile: 17 domande al giorno, 80 minuti di LIVE al mese, 5 consultazioni dell'Oracolo al giorno; caso peggiore 4.61 dollari, tetto 4.68, 29.5 per cento del netto
+Adepto annuale, i tarocchi a stese: con le 6 stese chieste 4.07 dollari, 32.9 per cento del netto; stese che entrano sotto il tetto: 2
+Adepto annuale: 14 domande al giorno, 55 minuti di LIVE al mese, 5 consultazioni dell'Oracolo al giorno; caso peggiore 3.67 dollari, tetto 3.71, 29.7 per cento del netto
+Illuminato mensile, i tarocchi a stese: con le 10 stese chieste 7.69 dollari, 32.8 per cento del netto; stese che entrano sotto il tetto: 3
+Illuminato mensile: 21 domande al giorno, 150 minuti di LIVE al mese, 6 consultazioni dell'Oracolo al giorno; caso peggiore 6.99 dollari, tetto 7.02, 29.9 per cento del netto
+Illuminato annuale, i tarocchi a stese: con le 10 stese chieste 6.11 dollari, 33.5 per cento del netto; stese che entrano sotto il tetto: 3
+Illuminato annuale: 18 domande al giorno, 95 minuti di LIVE al mese, 6 consultazioni dell'Oracolo al giorno; caso peggiore 5.42 dollari, tetto 5.46, 29.7 per cento del netto
 TUTTI I CICLI SOTTO IL TETTO

@@ -127,8 +127,14 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * nome `stese`, ma l'unita' e' la carta estratta in una stesa letta dal
    * modello: tre, sei, dieci e quindici al giorno. Una stesa consuma tutte
    * le sue carte in un colpo (`decidi` con la quantita').
+   *
+   * **LE STESE, NON LE CARTE, ordine GA voce 01, 20 ottobre 2026.** Il
+   * fondatore: "bisogna tornare a conteggio per stesa e non per numero di
+   * carte". Una stesa vale una stesa qualunque sia il numero delle carte. I
+   * numeri sono quelli che entrano nel 30 per cento (voce GA.02,
+   * tool/i_limiti_degli_annuali.py): uno, tre, due e tre al giorno.
    */
-  stese: [3, 6, 10, 15],
+  stese: [1, 3, 2, 3],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *
@@ -275,18 +281,21 @@ export function decidi(
 }
 
 /**
- * **QUANTO RIDA' UN RISCATTO, per budget.** Ordine EX voce 02: un riscatto
- * ha sempre ridato un uso; per le stese l'uso e' adesso la carta, e il
- * riscatto da 150 Eos ridà la stesa che oggi si apre, quella a tre carte.
+ * **QUANTO RIDA' UN RISCATTO, per budget.** Un riscatto ridà un uso. Ordine
+ * GA voce 01, 20 ottobre 2026: le stese tornano a contarsi a stese, e il
+ * riscatto delle stese ridà una stesa (dall'ordine EX voce 02 ridava tre
+ * carte).
  */
 export const UNITA_DEL_RISCATTO: Partial<Record<Budget, number>> = {
-  stese: 3,
+  stese: 1,
 };
 
-/** Le carte di una stesa vanno da 1 a 15: piu' di cosi' non esiste. */
-export function quantiValidi(budget: Budget, valore: unknown): number {
-  const n = Math.floor(Number(valore ?? 1));
-  if (!Number.isFinite(n) || n < 1) return 1;
-  if (budget !== "stese") return 1;
-  return Math.min(n, 15);
+/**
+ * **OGNI GESTO CONSUMA UN USO.** Ordine GA voce 01: anche la stesa, che
+ * dall'ordine EX consumava tutte le sue carte in un colpo, adesso vale uno
+ * qualunque sia il numero delle carte. Il campo `quanti` di un client
+ * vecchio si ignora: chiedere dieci non consuma dieci.
+ */
+export function quantiValidi(_budget: Budget, _valore: unknown): number {
+  return 1;
 }

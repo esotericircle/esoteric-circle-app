@@ -227,9 +227,11 @@ void main() {
       expect(
           viandante.any((h) => h.contains('Sinastria VIP fino a 3 al giorno')),
           isTrue);
-      expect(
-          viandante.any((h) => h.contains('Tre carte di tarocchi al giorno')),
-          isTrue);
+      // Ordine GA voce 01: le stese, non le carte (dall'ordine EX voce 02
+      // "Tre carte di tarocchi al giorno").
+      expect(viandante.contains('Una stesa di tarocchi al giorno'), isTrue);
+      expect(viandante.any((h) => h.contains('carte di tarocchi')), isFalse,
+          reason: 'il Viandante legge ancora un limite a carte');
       expect(
           viandante
               .any((h) => h.contains('Tre domande al giorno a un Maestro')),
@@ -241,6 +243,11 @@ void main() {
       // Ordine EX Aggiunta 3: 12, 18 e 22 domande.
       expect(iniziato.any((h) => h.contains('12 domande al giorno ai Maestri')),
           isTrue);
+      // Ordine GA voce 01: tre stese all'Iniziato, col numero della matrice.
+      expect(
+          iniziato.contains(
+              '3 stese di tarocchi al giorno, anche la croce a quattro carte'),
+          isTrue);
 
       final adepto = PlanCatalog.forTier(Tier.tier2).highlights;
       // **LAPIDE, ordine FE voce 20**: 17 e 21 domande al mensile, erano 18
@@ -248,12 +255,36 @@ void main() {
       // col filo del consulto).
       expect(adepto.any((h) => h.contains('17 domande al giorno ai Maestri')),
           isTrue);
-      expect(adepto.any((h) => h.contains('10 carte di tarocchi al giorno')),
+      // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
+      // voce 02).
+      expect(
+          adepto.contains(
+              '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
           isTrue);
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
       expect(
           illuminato.any((h) => h.contains('21 domande ai Maestri')), isTrue);
+      // Ordine GA voce 01: tre stese all'Illuminato (quindici carte
+      // dall'ordine EX voce 02).
+      expect(
+          illuminato.contains(
+              '3 stese di tarocchi al giorno, anche la stesa a dieci carte'),
+          isTrue);
+      // I numeri delle frasi sono quelli della matrice, piano per piano: una
+      // frase scritta a mano non deve promettere un numero diverso dalla
+      // riga che il cancello legge.
+      const piani = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+      const parole = {1: 'Una stesa', 2: '2 stese', 3: '3 stese'};
+      for (final t in piani) {
+        final n = PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, t)!;
+        expect(
+            PlanCatalog.forTier(t).highlights.where(
+                (h) => h.startsWith('${parole[n]} di tarocchi al giorno')),
+            hasLength(1),
+            reason: 'la frase delle stese del piano ${t.name} non dice le $n '
+                'stese della matrice');
+      }
       // **E NON LA DOMANDA AL MAESTRO REALE**, uscita con l'ordine DJ voce 09.
       expect(illuminato.any((h) => h.contains('Maestro reale')), isFalse);
       // **LAPIDE, ordine FU voce FU.16**: qui c'era la Compatibilità a tre

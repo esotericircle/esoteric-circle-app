@@ -94,15 +94,19 @@ void main() {
           reason: r.name);
     });
     // Le carte al giorno non si toccano: 3, 6, 10, 15.
+    // Ordine GA voce 01: la riga torna a contare le stese, 1, 3, 2 e 3; la
+    // stesa da dieci resta dell'Adepto in su.
     expect([
       for (final t in _piani)
         PlanCatalog.limiteGiornaliero(RigaDelPiano.stese, t)
     ], [
+      1,
       3,
-      6,
-      10,
-      15
+      2,
+      3
     ]);
+    expect([for (final t in _piani) PlanCatalog.haLaStesaDaDieci(t)],
+        [false, false, true, true]);
   });
 
   // **LAPIDE: "chiusi per tutti, anche per chi la matrice li apre".** Fino

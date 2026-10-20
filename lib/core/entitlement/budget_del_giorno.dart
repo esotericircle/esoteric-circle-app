@@ -44,9 +44,10 @@ enum BudgetDelGiorno {
   /// Le gettate di rune.
   gettate(uno: 'gettata di rune', molti: 'gettate di rune', femminile: true),
 
-  /// **Le carte estratte nelle stese**, ordine EX voce 02: il budget resta
-  /// `stese`, ma conta carte, e la riga dice carte.
-  stese(uno: 'carta', molti: 'carte', femminile: true),
+  /// **Le stese di tarocchi**, ordine GA voce 01: il budget `stese` torna a
+  /// contare le stese (dall'ordine EX contava le carte), e la riga dice
+  /// stese.
+  stese(uno: 'stesa', molti: 'stese', femminile: true),
 
   /// I confronti di Sinastria con un VIP.
   sinastrie(uno: 'sinastria', molti: 'sinastrie', femminile: true);

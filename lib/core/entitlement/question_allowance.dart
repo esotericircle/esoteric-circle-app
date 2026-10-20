@@ -207,22 +207,22 @@ class QuestionAllowance extends ChangeNotifier {
   int? limiteApprofondimenti(Tier tier) =>
       PlanCatalog.limiteGiornaliero(PlanCatalog.rigaApprofondimenti, tier);
 
-  /// Quante carte ridà il riscatto di una stesa: la stesa a tre carte.
-  /// Ordine EX voce 02; il server ha lo stesso numero in
-  /// `functions/src/budget.ts`, `UNITA_DEL_RISCATTO`.
-  static const int kCarteDelRiscatto = 3;
+  /// **QUANTE STESE RIDA' IL RISCATTO: UNA.** Ordine GA voce 01: il limite
+  /// torna a contare le stese, e il giro in piu' a Eos ridà una stesa,
+  /// qualunque sia il numero delle sue carte. Era tre carte dall'ordine EX
+  /// voce 02. Il server ha lo stesso numero in `functions/src/budget.ts`,
+  /// `UNITA_DEL_RISCATTO`.
+  static const int kSteseDelRiscatto = 1;
 
-  /// **IL RISCATTO DELLA STESA INTERA**, decisione del fondatore del 14
-  /// ottobre 2026 ("2 400 EOS"): la Croce Celtica si riscatta in una volta
-  /// sola, e il riscatto ridà le sue dieci carte. E' il nome che il server
-  /// usa nel listino e nel motivo (`riscatto_steseDieci`, in
+  /// **IL RISCATTO DELLA STESA A DIECI CARTE**, decisione del fondatore del
+  /// 14 ottobre 2026 ("2 400 EOS"): la Croce Celtica si riscatta col suo
+  /// prezzo, e dall'ordine GA voce 01 ridà una stesa, come ogni riscatto
+  /// ("Il giro in piu' a Eos dopo l'ultima stesa del giorno resta com'e'
+  /// oggi": cambia l'unita', non il prezzo). E' il nome che il server usa nel
+  /// listino e nel motivo (`riscatto_steseDieci`, in
   /// `RISCATTI_DELLA_STESA_INTERA` di `functions/src/borsellino.ts`); il
   /// PREZZO non sta qui, arriva dal listino come ogni altro.
   static const String kRiscattoDellaStesaIntera = 'steseDieci';
-
-  /// Le carte che ridà il riscatto della stesa intera: lo stesso numero di
-  /// `unita` sul server.
-  static const int kCarteDellaStesaIntera = 10;
 
   /// Il tetto di CORRETTEZZA per chi non ha limite: non e' una restrizione
   /// commerciale, e' la difesa contro un tocco ripetuto per sbaglio o per
@@ -632,9 +632,12 @@ class QuestionAllowance extends ChangeNotifier {
   int? limiteStese(Tier tier) =>
       PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier);
 
-  /// **LE CARTE, NON LE STESE. Ordine EX voce 02.** Il contatore delle
-  /// stese conta le carte estratte: i nomi dei metodi restano, l'unita'
-  /// cambia. Quante carte restano oggi, oppure null se sono illimitate.
+  /// **LE STESE, NON LE CARTE. Ordine GA voce 01.** Il fondatore, 19 ottobre
+  /// 2026: *"nei tarocchi, per quanto riguarda i limiti per free e gli
+  /// abbonamenti, bisogna tornare a conteggio per stesa e non per numero di
+  /// carte scelte ed estratte"*. Una stesa da 1, da 3, da 4 o da 10 carte
+  /// vale una stesa. Dall'ordine EX voce 02 il contatore contava le carte.
+  /// Quante stese restano oggi, oppure null se sono illimitate.
   int? steseRimaste(Tier tier) {
     final limite = limiteStese(tier);
     if (limite == null) return null;
@@ -647,57 +650,44 @@ class QuestionAllowance extends ChangeNotifier {
   /// RIMASTI e non il piano: chi ha riscattato una stesa con gli Eos ha il
   /// contatore sotto zero e quindi un rimasto, anche dove il piano non ne
   /// prevede nessuna.
-  bool puoiStendere(Tier tier, {int carte = 3}) {
+  bool puoiStendere(Tier tier) {
     final resta = steseRimaste(tier);
-    return resta == null || resta >= carte;
+    return resta == null || resta >= 1;
   }
 
-  /// **QUANTI RISCATTI SERVONO PERCHE' QUESTA STESA SI APRA.** Un riscatto
-  /// ridà [kCarteDelRiscatto] carte, e la Croce Celtica ne chiede dieci: a
-  /// carte esaurite un riscatto solo la lasciava chiusa, e il foglio si
-  /// riapriva a ogni pagamento. Le carte che mancano, divise per tre e
-  /// arrotondate in su; zero se le carte bastano gia' o se non c'e' limite.
-  /// Il prezzo unitario e il server non cambiano: cambia quante volte si
-  /// compra, e il foglio lo dice prima del tocco.
-  int riscattiPerLaStesa(Tier tier, {required int carte}) {
-    final resta = steseRimaste(tier);
-    if (resta == null) return 0;
-    final mancano = carte - resta;
-    if (mancano <= 0) return 0;
-    return (mancano + kCarteDelRiscatto - 1) ~/ kCarteDelRiscatto;
-  }
+  /// **QUANTI RISCATTI SERVONO PERCHE' QUESTA STESA SI APRA**: uno se le
+  /// stese del giorno sono finite, zero se ne resta una o se non c'e'
+  /// limite. Ordine GA voce 01: un riscatto ridà una stesa, qualunque sia il
+  /// numero delle sue carte. Dall'ordine EX voce 02 servivano tanti riscatti
+  /// da tre carte quante ne mancavano.
+  int riscattiPerLaStesa(Tier tier) => puoiStendere(tier) ? 0 : 1;
 
-  /// **SE QUESTA STESA SI RISCATTA INTERA, con un riscatto solo.** Vero
-  /// quando il server ha mandato nel listino il riscatto della stesa intera
-  /// ([kRiscattoDellaStesaIntera]), le sue carte bastano a quelle che
-  /// mancano, e costa meno dei riscatti da tre che servirebbero: a carte
-  /// esaurite la Croce Celtica costa 400 Eos invece di 600. Con due carte
-  /// mancanti resta un riscatto da tre, che costa meno: mai far pagare di
-  /// piu' per lo stesso gesto. Un server che il riscatto intero non lo
-  /// manda lascia la strada di prima.
-  bool laStesaSiRiscattaIntera(Tier tier, {required int carte}) {
-    final intero = _listinoDelRiscatto[kRiscattoDellaStesaIntera];
-    if (intero == null) return false;
-    final volte = riscattiPerLaStesa(tier, carte: carte);
-    if (volte == 0) return false;
-    final mancano = carte - (steseRimaste(tier) ?? 0);
-    if (mancano > kCarteDellaStesaIntera) return false;
-    final unitario = _listinoDelRiscatto['stese'];
-    return unitario == null || intero < unitario * volte;
-  }
+  /// **SE QUESTA STESA SI RISCATTA COL PREZZO DELLA STESA A DIECI CARTE.**
+  /// Ordine GA voce 01: *"Il giro in piu' a Eos dopo l'ultima stesa del
+  /// giorno resta com'e' oggi"*. Oggi la Croce Celtica a stese finite si
+  /// riscatta col suo prezzo ([kRiscattoDellaStesaIntera], 400 Eos sul
+  /// server), e le altre stese col riscatto da 150: si tiene cosi'. Vero
+  /// quando la stesa e' a dieci carte, le stese del giorno sono finite e il
+  /// server ha mandato quel riscatto nel listino; un server che non lo manda
+  /// lascia il riscatto di sempre.
+  bool laStesaSiRiscattaIntera(Tier tier, {required int carte}) =>
+      carte >= 10 &&
+      riscattiPerLaStesa(tier) > 0 &&
+      _listinoDelRiscatto[kRiscattoDellaStesaIntera] != null;
 
   /// Registra una stesa consumata. Chi ha l'illimitato non intacca niente.
   ///
   /// Si chiama UNA volta per stesa e non una per carta, nel momento in cui la
   /// stesa e' compiuta: una stesa cominciata e abbandonata non consuma
-  /// niente.
-  void registraStesa(Tier tier, {int carte = 3}) {
+  /// niente. Ordine GA voce 01: vale una stesa, quante che siano le sue
+  /// carte.
+  void registraStesa(Tier tier) {
     if (limiteStese(tier) == null) return;
     _rollover();
-    _stese += carte;
+    _stese += 1;
     notifyListeners();
     _persist();
-    _chiediAlServer('stese', quanti: carte);
+    _chiediAlServer('stese', quanti: 1);
   }
 
   /// Quante SINASTRIE CELEB al giorno prevede il piano, oppure null se sono
@@ -1077,12 +1067,10 @@ class QuestionAllowance extends ChangeNotifier {
       case 'gettate':
         _gettate--;
       case 'stese':
-        // Il riscatto ridà la stesa che oggi si apre, quella a tre carte:
-        // ordine EX voce 02, come `UNITA_DEL_RISCATTO` del server.
-        _stese -= kCarteDelRiscatto;
       case kRiscattoDellaStesaIntera:
-        // La stesa intera ridà le sue dieci carte, come `unita` sul server.
-        _stese -= kCarteDellaStesaIntera;
+        // Ordine GA voce 01: ogni riscatto ridà una stesa, come
+        // `UNITA_DEL_RISCATTO` e `unita` sul server.
+        _stese -= kSteseDelRiscatto;
       case 'sinastrie':
         _sinastrie--;
       case kSinastrieEvolutive:

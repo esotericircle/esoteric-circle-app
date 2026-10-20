@@ -198,10 +198,11 @@ void main() {
         reason: 'tre carte posate hanno gia consumato la stesa: chi ci '
             'ripensa prima di leggere paga per niente');
     // Ordine EX voce 02: la stesa a tre carte consuma tre carte, una volta
-    // sola (era una stesa, meno uno).
-    expect(dopoIlPulsante, partenza! - 3,
-        reason: 'il pulsante non consuma le tre carte della stesa, oppure le '
-            'consuma piu di una volta: il conto e per lettura');
+    // sola (era una stesa, meno uno). Ordine GA voce 01: torna a consumare
+    // una stesa, meno uno, qualunque sia il numero delle sue carte.
+    expect(dopoIlPulsante, partenza! - 1,
+        reason: 'il pulsante non consuma la stesa, oppure ne consuma piu di '
+            'una (le sue tre carte, o due volte): il conto e per lettura');
     await calma(tester);
   });
 

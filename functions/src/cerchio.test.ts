@@ -231,27 +231,33 @@ test("il listino del riscatto e' il server a deciderlo", () => {
   assert.equal(PREZZI_DEL_RISCATTO.stese, 150);
 });
 
-test("la Croce Celtica si riscatta intera: 400 Eos, dieci carte, un riscatto", () => {
+test("la Croce Celtica si riscatta col suo prezzo: 400 Eos, una stesa, un riscatto", () => {
   // DECISIONE DEL FONDATORE, 14 ottobre 2026. Alla domanda "Prezzo della
   // stesa da 10: oggi 600 Eos (4 riscatti da 150). Se la vuoi a 150 fissi
   // serve cambiare il server." ha risposto alla lettera "2 400 EOS".
+  //
+  // ORDINE GA VOCE 01, 20 ottobre 2026: il budget torna a contare le stese,
+  // e il riscatto della stesa a dieci ridà UNA stesa (ridava dieci carte).
+  // Il prezzo resta quello: "Il giro in piu' a Eos dopo l'ultima stesa del
+  // giorno resta com'e' oggi".
   assert.deepEqual(RISCATTI_DELLA_STESA_INTERA.steseDieci, {
     budget: "stese",
     prezzo: 400,
-    unita: 10,
+    unita: 1,
   });
   // Il prezzo lo decide il server: il client dichiara 1 e paga 400.
   assert.equal(importoRichiesto("spesa", "riscatto_steseDieci", 1), -400);
   assert.deepEqual(riscattoDelMotivo("riscatto_steseDieci"), {
     budget: "stese",
     prezzo: 400,
-    unita: 10,
+    unita: 1,
   });
-  // Le stese piu' piccole restano a 150 per tre carte.
+  // Le stese piu' piccole restano a 150, e ridanno una stesa anche loro
+  // (dall'ordine EX voce 02 ridavano tre carte).
   assert.deepEqual(riscattoDelMotivo("riscatto_stese"), {
     budget: "stese",
     prezzo: 150,
-    unita: 3,
+    unita: 1,
   });
   assert.deepEqual(riscattoDelMotivo("riscatto_gettate"), {
     budget: "gettate",
@@ -267,8 +273,16 @@ test("la Croce Celtica si riscatta intera: 400 Eos, dieci carte, un riscatto", (
   assert.equal(riscattoDelMotivo("riscatto_constructor"), null);
   assert.equal(riscattoDelMotivo("riscatto_toString"), null);
   assert.equal(riscattoDelMotivo("steseDieci"), null);
-  // Dieci carte di credito riaprono la Croce Celtica a contatore pieno.
-  assert.equal(decidi("stese", "tier2", 10 - 10, 10).concesso, true);
+  // LAPIDE, ordine GA voce 01: qui "dieci carte di credito riaprono la
+  // Croce Celtica a contatore pieno", `decidi("stese", "tier2", 10 - 10,
+  // 10)`. Adesso a contatore pieno (le due stese dell'Adepto fatte) il
+  // riscatto porta lo speso da 2 a 1, e una stesa, anche la Croce Celtica,
+  // si apre; la seconda no, perche' il riscatto ne ha ridata una sola.
+  assert.equal(decidi("stese", "tier2", 2).concesso, false);
+  const dopoIlRiscatto = 2 - RISCATTI_DELLA_STESA_INTERA.steseDieci.unita;
+  assert.equal(decidi("stese", "tier2", dopoIlRiscatto).concesso, true);
+  assert.equal(decidi("stese", "tier2", dopoIlRiscatto).resta, 0);
+  assert.equal(decidi("stese", "tier2", dopoIlRiscatto + 1).concesso, false);
 });
 
 // --- ORDINE BN VOCE 09: il budget delle stese complete ---
@@ -284,10 +298,12 @@ test("le stese hanno il budget del listino, e non quello della carta singola", (
   // voce 02 mentre lavorava qui accanto, ed e' il motivo per cui adesso la
   // legge di consegna le include.
   // **LE CARTE, NON LE STESE, ordine EX voce 02**: 3, 6, 10 e 15 carte.
-  assert.equal(limiteDi("stese", "free"), 3);
-  assert.equal(limiteDi("stese", "tier1"), 6);
-  assert.equal(limiteDi("stese", "tier2"), 10);
-  assert.equal(limiteDi("stese", "tier3"), 15);
+  // **LE STESE, NON LE CARTE, ordine GA voce 01**: 1, 3, 2 e 3 stese, i
+  // numeri che entrano nel 30 per cento (voce GA.02).
+  assert.equal(limiteDi("stese", "free"), 1);
+  assert.equal(limiteDi("stese", "tier1"), 3);
+  assert.equal(limiteDi("stese", "tier2"), 2);
+  assert.equal(limiteDi("stese", "tier3"), 3);
   // E non e' il budget delle gettate: due contatori, due promesse.
   assert.notDeepEqual(
     ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("stese", p as never)),
@@ -310,9 +326,14 @@ test("il limite zero cede al credito comprato, e una volta sola", () => {
   // E la stesa comprata oltre il proprio limite si comporta allo stesso modo.
   // Le carte del Viandante sono tre: una stesa a tre carte le prende
   // tutte, la seconda no, e col riscatto (tre carte) torna possibile.
-  assert.equal(decidi("stese", "free", 0, 3).concesso, true);
-  assert.equal(decidi("stese", "free", 3, 3).concesso, false);
-  assert.equal(decidi("stese", "free", 0, 3).resta, 0);
+  // Ordine GA voce 01: il Viandante ha una stesa. La prima passa, la
+  // seconda no, e col riscatto (una stesa) torna possibile una volta.
+  assert.equal(decidi("stese", "free", 0).concesso, true);
+  assert.equal(decidi("stese", "free", 0).resta, 0);
+  assert.equal(decidi("stese", "free", 1).concesso, false);
+  const conIlRiscatto = 1 - (UNITA_DEL_RISCATTO.stese ?? 0);
+  assert.equal(decidi("stese", "free", conIlRiscatto).concesso, true);
+  assert.equal(decidi("stese", "free", conIlRiscatto + 1).concesso, false);
 });
 
 test("il riscatto ignora il numero del client e usa il listino", () => {
@@ -347,7 +368,8 @@ test("il riscatto scala il contatore dentro la transazione del saldo", () => {
   );
   assert.ok(
     // Ordine EX voce 02: il riscatto scala l'unita' del budget (tre carte
-    // per le stese, uno per gli altri, dieci per la stesa intera).
+    // per le stese, uno per gli altri, dieci per la stesa intera). Ordine GA
+    // voce 01: l'unita' e' una per tutti, ma la porta resta questa.
     transazione.includes("(spesiOggi[riscatto.budget] ?? 0) - riscatto.unita"),
     "il contatore del giorno non viene piu' scalato dal riscatto"
   );
@@ -428,16 +450,21 @@ test("la lapide ferma il secondo benvenuto e sopravvive all'oblio", () => {
   );
 });
 
-test("le carte di una stesa si contano tutte o nessuna (ordine EX voce 02)", () => {
-  // L'Iniziato ha sei carte: due stese da tre, poi niente.
-  assert.equal(decidi("stese", "tier1", 0, 3).resta, 3);
-  assert.equal(decidi("stese", "tier1", 3, 3).resta, 0);
-  // Con due carte rimaste una stesa da tre non si apre a meta'.
-  assert.equal(decidi("stese", "tier1", 4, 3).concesso, false);
-  // Le carte valide stanno fra 1 e 15, e solo le stese ne consumano piu' di una.
-  assert.equal(quantiValidi("stese", 3), 3);
-  assert.equal(quantiValidi("stese", 99), 15);
-  assert.equal(quantiValidi("stese", "x"), 1);
+test("una stesa vale una stesa, quante che siano le sue carte (ordine GA voce 01)", () => {
+  // Ordine EX voce 02: "le carte di una stesa si contano tutte o nessuna",
+  // e l'Iniziato aveva sei carte, due stese da tre. Ordine GA voce 01: il
+  // budget torna a contare le stese, e l'Iniziato ne ha tre, una alla volta.
+  assert.equal(decidi("stese", "tier1", 0).resta, 2);
+  assert.equal(decidi("stese", "tier1", 1).resta, 1);
+  assert.equal(decidi("stese", "tier1", 2).resta, 0);
+  assert.equal(decidi("stese", "tier1", 3).concesso, false);
+  // Il campo `quanti` di un client vecchio si ignora: chiedere dieci carte
+  // non consuma dieci stese, e nessun valore cambia l'unita'.
+  for (const valore of [3, 10, 15, 99, "x", undefined, null, 0, -4]) {
+    assert.equal(quantiValidi("stese", valore), 1, `quanti ${String(valore)}`);
+  }
   assert.equal(quantiValidi("domande", 3), 1);
-  assert.equal(UNITA_DEL_RISCATTO.stese, 3);
+  // E il riscatto ridà una stesa, da 150 come da 400.
+  assert.equal(UNITA_DEL_RISCATTO.stese, 1);
+  assert.equal(RISCATTI_DELLA_STESA_INTERA.steseDieci.unita, 1);
 });

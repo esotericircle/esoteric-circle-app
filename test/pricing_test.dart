@@ -68,8 +68,23 @@ void main() {
     expect(find.text('11 domande al giorno ai Maestri'), findsOneWidget);
     expect(find.text('14 domande al giorno ai Maestri'), findsOneWidget);
     // Ordine EX voce 02: le carte del giorno si dicono nelle card dei piani.
-    expect(find.text('10 carte di tarocchi al giorno, da stendere come vuoi'),
+    // Ordine GA voce 01: si dicono le stese, e nell'annuale dell'Iniziato
+    // la stesa e' una sola (voce GA.02, il conto del 30 per cento).
+    expect(
+        find.text(
+            '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
         findsOneWidget);
+    expect(find.text('Una stesa di tarocchi al giorno'), findsOneWidget);
+    expect(
+        find.text(
+            'Una stesa di tarocchi al giorno, anche la croce a quattro carte'),
+        findsOneWidget);
+    expect(
+        find.text(
+            '3 stese di tarocchi al giorno, anche la stesa a dieci carte'),
+        findsOneWidget);
+    expect(find.textContaining('carte di tarocchi al giorno'), findsNothing,
+        reason: 'una card dei piani promette ancora carte al giorno');
     // **LA DOMANDA AL MAESTRO REALE NON SI OFFRE**, ordine DJ voce 09:
     // nessuna parte dell'app la esegue.
     expect(find.textContaining('Maestro reale'), findsNothing);
