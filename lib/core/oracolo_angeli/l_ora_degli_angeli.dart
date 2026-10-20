@@ -78,6 +78,12 @@ abstract final class LOraDegliAngeli {
   static String chiave(RuoloDellAngelo ruolo, Angel angelo) =>
       '${ruolo.corpus}|${angelo.number.toString().padLeft(2, '0')}|messaggio';
 
+  /// **LA CHIAVE DEL CONSIGLIO**, ordine GA voci GA.03 e GA.05: il testo del
+  /// riquadro "Cosa fare adesso" di una carta, "custode|07|consiglio". La
+  /// variante n accompagna la variante n del messaggio.
+  static String chiaveDelConsiglio(RuoloDellAngelo ruolo, Angel angelo) =>
+      '${ruolo.corpus}|${angelo.number.toString().padLeft(2, '0')}|consiglio';
+
   /// La chiave del corpus del rito di Caligo per un angelo: "rito|07|rito".
   static String chiaveDelRito(Angel angelo) =>
       'rito|${angelo.number.toString().padLeft(2, '0')}|rito';

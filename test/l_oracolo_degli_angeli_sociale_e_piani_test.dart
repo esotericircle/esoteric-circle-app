@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-import 'dart:convert';
+
 import 'dart:io';
 import 'dart:math';
 
@@ -220,15 +220,7 @@ Future<
         identita: _nascita,
         chiamata: (i, r, c) async {
           chiamate.add((r, c.keys.toSet()));
-          return jsonEncode({
-            'titolo': 'Gli angeli ti chiedono un passo lento',
-            'riquadro': 'Senti dove il cuore si apre e lascia che sia lui a '
-                'scegliere il ritmo di oggi.',
-            if (c.containsKey('approfondimento1')) ...{
-              'approfondimento1': 'Il primo passo e\' fermarti a guardare.',
-              'approfondimento2': 'Poi scegli un gesto piccolo e fallo oggi.',
-            },
-          });
+          return jsonFintoDellOracolo(c);
         },
       ),
     ),
@@ -390,6 +382,11 @@ void main() {
   // l'Oracolo non le offra piu' lo prova
   // `test/l_oracolo_si_sceglie_e_si_avvia_test.dart`.
 
+  // **L'ORDINE GA, voce GA.05**, 20 ottobre 2026: la Lunga dell'Oracolo e'
+  // dall'Iniziato (il fondatore: "Profondità lunga solo dal tier 1 e solo per
+  // il responso principale e non per le singole carte"). Le prove di FU.10
+  // che la davano all'Adepto sono riscritte qui, con la riga vecchia accanto;
+  // il Viandante, nell'assaggio, vede il lucchetto della Lunga con l'invito.
   group('FU.10 i piani', () {
     testWidgets(
         'il Viandante: l\'assaggio scopre il Custode senza modello, Cuore e '
@@ -405,6 +402,9 @@ void main() {
           findsOneWidget);
       expect(
           find.byKey(const Key('oracolo_riga_dell_assaggio')), findsOneWidget);
+      // GA.05: la Lunga e' dall'Iniziato, e il Viandante ne vede il
+      // lucchetto con l'invito.
+      expect(find.byKey(const Key('oracolo_lucchetto_lunga')), findsOneWidget);
       await _alCentro(tester, find.byKey(const Key('oracolo_lucchetto_cuore')));
       await tester.tap(find.byKey(const Key('oracolo_lucchetto_cuore')));
       await tester.pumpAndSettle();
@@ -413,23 +413,23 @@ void main() {
     });
 
     testWidgets(
-        'l\'Iniziato: tre carte e una chiamata Breve; la Lunga col lucchetto '
-        'e l\'invito', (tester) async {
+        'l\'Iniziato: tre carte e una chiamata Lunga, senza lucchetto (GA.05; '
+        'prima: Breve, con la Lunga col lucchetto)', (tester) async {
       final m = await _monta(tester, tier: Tier.tier1);
       await _affida(tester);
       expect(m.chiamate, hasLength(1));
-      expect(m.chiamate.single.$2.contains('approfondimento1'), isFalse,
-          reason: 'la Lunga e\' dell\'Adepto');
+      expect(m.chiamate.single.$2.contains('approfondimento'), isTrue,
+          reason: 'GA.05: la Lunga e\' dall\'Iniziato');
       for (final r in ['custode', 'cuore', 'intelletto']) {
         expect(find.byKey(Key('oracolo_bolla_$r')), findsOneWidget);
       }
-      expect(find.byKey(const Key('oracolo_lucchetto_lunga')), findsOneWidget);
+      expect(find.byKey(const Key('oracolo_lucchetto_lunga')), findsNothing);
     });
 
     testWidgets('l\'Adepto: la Lunga, senza lucchetto', (tester) async {
       final m = await _monta(tester, tier: Tier.tier2);
       await _affida(tester);
-      expect(m.chiamate.single.$2.contains('approfondimento1'), isTrue);
+      expect(m.chiamate.single.$2.contains('approfondimento'), isTrue);
       expect(find.byKey(const Key('oracolo_lucchetto_lunga')), findsNothing);
     });
 
@@ -516,7 +516,9 @@ void main() {
           PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, Tier.free), isFalse);
       expect(
           PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, Tier.tier1), isTrue);
-      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier1), isFalse);
+      // GA.05: la Lunga dall'Iniziato (prima: isFalse, dall'Adepto).
+      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.free), isFalse);
+      expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier1), isTrue);
       expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier2), isTrue);
       expect(PlanCatalog.apre(RigaDelPiano.oracoloLunga, Tier.tier3), isTrue);
     });

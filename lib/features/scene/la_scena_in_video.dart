@@ -32,7 +32,13 @@ import '../../core/settings/settings_controller.dart';
 /// - **un tocco in qualunque punto, mentre il video gira, lo fa sfumare
 ///   sulla scena ferma** ([IlToccoCheSalta], voce FU.15).
 abstract class LettoreDiScena {
-  factory LettoreDiScena.vero(String filmato) = _LettoreDiScenaVero;
+  /// [finoA], quando c'e', e' l'istante del filmato in cui la scena si
+  /// ferma da sola, come se il video fosse finito: la schermata lo fa
+  /// sfumare sulla sua scena ferma. Ordine GA voce GA.08: il filmato
+  /// dell'Oracolo mostra le carte dal secondo uno in poi, e il fondatore
+  /// vuole l'apertura senza carte in vista.
+  factory LettoreDiScena.vero(String filmato, {Duration? finoA}) =
+      _LettoreDiScenaVero;
 
   /// **COME [vero], MA DA UN FILE DEL DISCO**, non dal pacchetto: per i
   /// pezzi del Viaggio dello Sciamano (ordine FZ voce FZ.05/FZ.06), che non
@@ -59,9 +65,12 @@ abstract class LettoreDiScena {
 typedef FabbricaDiScena = LettoreDiScena Function();
 
 class _LettoreDiScenaVero implements LettoreDiScena {
-  _LettoreDiScenaVero(this.filmato, {this.daFile = false});
+  _LettoreDiScenaVero(this.filmato, {this.daFile = false, this.finoA});
 
   final String filmato;
+
+  /// L'istante in cui la scena si ferma da sola (GA.08); nullo, alla fine.
+  final Duration? finoA;
 
   /// Vero per `LettoreDiScena.veroDaFile`: [filmato] e' un percorso sul
   /// disco, non un asset del pacchetto.
@@ -118,10 +127,13 @@ class _LettoreDiScenaVero implements LettoreDiScena {
       _cominciato = true;
       cambiato = true;
     }
+    final fino = finoA;
     if (!_finito &&
         v.isInitialized &&
         v.duration > Duration.zero &&
-        (v.isCompleted || v.position >= v.duration)) {
+        (v.isCompleted ||
+            v.position >= v.duration ||
+            (fino != null && v.position >= fino))) {
       _finito = true;
       cambiato = true;
       // **FERMATO DAVVERO, NON SOLO LETTO COME FINITO.** Trovato misurando

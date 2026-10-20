@@ -1,0 +1,26 @@
+ORDINE GA voci 03, 04, 05 e 08, l'Oracolo degli Angeli: REGOLA B, le guardie della zona viste rosse PRIMA di toccarla
+20 ottobre 2026, sul commit 297cd46f, prima di ogni modifica. Otto innesti messi insieme con sostituzioni con
+assert, ognuno in un file diverso o in una prova diversa, verificati col grep (righe sotto), poi una corsa delle
+nove guardie (uscita in %TEMP%\ga_regola_b.txt); tolti, git status pulito.
+
+INNESTI E GREP
+1 lib/core/responsi/la_forma_del_responso.dart: "minimo = 40" -> "minimo = 41" (grep riga 52).
+2 lib/design_system/components/il_responso_interpretato.dart: tolto il corsivo del "Da dove viene" (grep: 0 "FontStyle.italic").
+3 lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart: "la volontà che apre" -> "la salute che apre" (grep 1).
+4 lib/core/oracolo_angeli/la_lettura_dell_oracolo.dart: "Nessuna promessa di esito" -> "Promessa di esito ammessa" (grep riga 110).
+5 lib/core/entitlement/plan_catalog.dart: la riga della Lunga a ['No', 'Sì', 'Sì', 'Sì'] (grep riga 1014).
+6 lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart: i dorsi solo fuori dalla fase della domanda (grep riga 666).
+7 lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart: "IlToccoCheSalta(" -> "IlToccoCheSalta (" (grep riga 478).
+8 lib/features/angels/oracolo/la_geometria_dell_altare.dart: larghezzaInAlto 195 -> 175 (grep riga 40).
+
+ESITI (+32 -27 sulla corsa)
+- la_forma_del_responso_test: ROSSA "le parole si contano come le conta chi legge" (1) e "il responso breve [...] in corsivo" (2, Expected italic, Actual null).
+- il_corpus_dell_oracolo_test: ROSSA "il Dart generato coincide con la fonte" e "nessuna parola vietata dalla politica" (3).
+- l_oracolo_degli_angeli_test: ROSSA "dieci domande difficili arrivano con l'istruzione che le regge" (4, manca "Nessuna promessa di esito").
+- l_oracolo_degli_angeli_sociale_e_piani_test: ROSSA "l'Iniziato: tre carte e una chiamata Breve" e "il listino, la matrice e il conto del tetto" (5, Expected false, Actual true).
+- l_oracolo_degli_angeli_a_video_test: ROSSA "il video parte, un tocco lo salta e i tre dorsi compaiono" e "la consultazione" (6, oracolo_dorso_0 e oracolo_dorso_1 non trovati); le altre quattro del file rosse a cascata (l'errore di smontaggio dei controller pigri, vedi il difetto 2 del rapporto).
+- il_giro_intero_dell_oracolo_test: ROSSA (6, oracolo_dorso_0 non trovato al passo 03).
+- l_oracolo_si_sceglie_e_si_avvia_test: ROSSA FY.15 "ogni dorso scelto si posa sull'altare" (6), e a cascata le altre.
+- ogni_scena_si_salta_col_tocco_test: ROSSA (7, l'Oracolo non passa piu' da "IlToccoCheSalta(").
+- l_altare_dell_oracolo_test: ROSSA a 360, 390 e 430 punti (8, gli angoli non coincidono col fotogramma).
+Tutte e nove le guardie della zona sono vive.

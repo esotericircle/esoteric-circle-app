@@ -214,7 +214,8 @@ enum RigaDelPiano {
   /// **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026: le
   /// consultazioni al giorno (il budget `oracoliAngeli` del server), le tre
   /// carte intere (al Viandante l'assaggio scopre solo il Custode), e la
-  /// risposta Lunga, dall'Adepto. La domanda per un amico e' uscita
+  /// risposta Lunga, dall'Iniziato dall'ordine GA voce GA.05 (prima
+  /// dall'Adepto). La domanda per un amico e' uscita
   /// dall'Oracolo con l'ordine FY voce FY.14 (il fondatore: "Elimina presta
   /// la tua nascita e chiedi per un amico").
   oracoloConsultazioni,
@@ -373,7 +374,7 @@ class PlanCatalog {
         '3 stese di tarocchi al giorno, anche la croce a quattro carte',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 2 coppie nuove al giorno, i cinque capitoli e gli Intervalli di Keplero',
-        'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli',
+        'Oracolo degli Angeli: 3 consultazioni al giorno coi tuoi tre angeli e la risposta lunga col salmo propiziatorio',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: tutte le categorie, i promemoria e il mese dopo',
         // Ordine FX voce FX.10: il Respiro della Luna.
@@ -421,7 +422,7 @@ class PlanCatalog {
         'La stesa a dieci carte, 1 al giorno',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
-        'Oracolo degli Angeli: 5 consultazioni al giorno e la risposta lunga',
+        'Oracolo degli Angeli: 5 consultazioni al giorno',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
         // Ordine FX voce FX.10: il Respiro della Luna, esclusiva da qui.
@@ -1045,6 +1046,12 @@ class PlanCatalog {
     // dell'ora, il messaggio del giorno e un assaggio della consultazione;
     // all'Iniziato i tre angeli con un limite al giorno; dall'Adepto la
     // Lunga (la domanda per un amico e' uscita con l'ordine FY voce FY.14).
+    // **LA LUNGA DALL'INIZIATO, ordine GA voce GA.05**, 20 ottobre 2026. Il
+    // fondatore: "Profondità lunga solo dal tier 1 e solo per il responso
+    // principale e non per le singole carte". Il conto del tetto
+    // (`tool/i_limiti_degli_annuali.py`) contava gia' la Lunga a ogni piano
+    // (`ORACOLO = [ORACOLO_LUNGA]*3`), quindi i numeri delle consultazioni
+    // non cambiano.
     // I numeri sono di Code, con la ragione
     // nel rapporto e in `functions/src/budget.ts` (`oracoliAngeli`): il tetto
     // del costo al caso peggiore, col mensile dell'Illuminato come ciclo piu'
@@ -1060,7 +1067,7 @@ class PlanCatalog {
     FeatureRow('Oracolo degli Angeli: le tre carte',
         ['Solo il Custode', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oracoloTreCarte),
-    FeatureRow('Oracolo degli Angeli: risposta lunga', ['No', 'No', 'Sì', 'Sì'],
+    FeatureRow('Oracolo degli Angeli: risposta lunga', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oracoloLunga),
     // **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: la
     // proposta dell'Architetto approvata dal fondatore ("Siz approvo

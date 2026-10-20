@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
@@ -48,6 +47,13 @@ import 'il_giro_dell_oracolo.dart';
 /// chi e' l'angelo e che cosa porta, da Lenain; FY.19 la risposta e' una
 /// coppia sola; FY.20 la barra del titolo resta semitrasparente in ogni
 /// stato. Il modello e' finto (R2).
+///
+/// **L'ORDINE GA**, 20 ottobre 2026. GA.08: all'apertura nessun dorso
+/// sull'altare, i dorsi compaiono quando la persona li sceglie. GA.03, GA.04
+/// e GA.05: la coppia sola di FY.19 diventa la forma nuova, una coppia nella
+/// Breve (risposta e "Cosa fare adesso") e due nella Lunga (piu'
+/// l'approfondimento e "Il salmo propiziatorio"), dall'Iniziato. Il gruppo
+/// FY.19 qui sotto e' riscritto con la regola nuova, accanto alla vecchia.
 class _Ferma implements LettoreDiScena {
   VoidCallback? _ascolta;
   bool _fallito = false;
@@ -112,15 +118,7 @@ Future<List<String>> _monta(WidgetTester tester,
           identita: _nascita,
           chiamata: (i, r, c) async {
             chiamate.add(r);
-            return jsonEncode({
-              'titolo': 'Gli angeli ti chiedono un passo lento',
-              'riquadro': 'Senti dove il cuore si apre e lascia che sia lui '
-                  'a scegliere il ritmo di oggi.',
-              if (c.containsKey('approfondimento1')) ...{
-                'approfondimento1': 'Il primo passo e\' fermarti a guardare.',
-                'approfondimento2': 'Poi scegli un gesto piccolo e fallo oggi.',
-              },
-            });
+            return jsonFintoDellOracolo(c);
           },
         ),
       ),
@@ -207,9 +205,10 @@ void main() {
         'ogni dorso scelto si posa sull\'altare nella sua posizione',
         (tester) async {
       await _monta(tester);
-      // A scena ferma i tre dorsi del video sono sull'altare.
+      // GA.08: a scena ferma l'altare e' vuoto, nessun dorso prima della
+      // scelta (prima qui i tre dorsi del video erano sull'altare).
       for (var i = 0; i < 3; i++) {
-        expect(find.byKey(Key('oracolo_dorso_$i')), findsOneWidget);
+        expect(find.byKey(Key('oracolo_dorso_$i')), findsNothing);
       }
       await affidaLaDomanda(tester, 'Devo cambiare lavoro?');
       final ventaglio = tester.widget<StesaFan>(find.byType(StesaFan));
@@ -402,64 +401,53 @@ void main() {
     });
   });
 
-  group('FY.19 una sola coppia di risposta', () {
-    for (final tier in const [Tier.tier1, Tier.tier2]) {
+  group('FY.19 una sola coppia di risposta, riscritta dall\'ordine GA', () {
+    // **LA REGOLA VECCHIA, FY.19**: "il titolo e un riquadro solo", con la
+    // Lunga dentro lo stesso riquadro (riquadri nel responso: 1). **LA REGOLA
+    // NUOVA, GA.03 e GA.05**: il responso principale ha la forma nuova, una
+    // coppia nella Breve e due nella Lunga, e la Lunga e' dall'Iniziato; ogni
+    // carta ha il suo responso breve nella sua bolla. Il Viandante e'
+    // nell'assaggio: la Breve della carta del Custode, senza modello.
+    for (final (tier, riquadri, lunga) in const [
+      (Tier.free, 1, false),
+      (Tier.tier1, 2, true),
+      (Tier.tier2, 2, true),
+    ]) {
       testWidgets(
-          '${tier.name}: il titolo e un riquadro solo, e i messaggi '
-          'delle carte stanno nelle loro bolle', (tester) async {
+          '${tier.name}: il responso principale ha $riquadri riquadri '
+          '(${lunga ? 'Lunga' : 'Breve'}), e i messaggi delle carte stanno '
+          'nelle loro bolle', (tester) async {
         await _monta(tester, tier: tier);
         await consultaLOracolo(tester, 'Devo cambiare lavoro?');
-        final responso = find.byKey(const Key('oracolo_responso'));
-        final riquadri = find
-                .descendant(
-                    of: responso, matching: find.byType(RiquadroInEvidenza))
-                .evaluate()
-                .length +
-            find
-                .descendant(
-                    of: responso, matching: find.byType(RiquadroArancione))
-                .evaluate()
-                .length;
-        // Fra il titolo e la prima carta: solo il riquadro (e, senza il
-        // modello, la riga che lo dice).
-        final titolo = tester
-            .getRect(find.byKey(const Key('oracolo_titolo_del_responso')));
-        final primaCarta =
-            tester.getRect(find.byKey(const Key('oracolo_bolla_custode')));
-        final riquadro =
-            tester.getRect(find.byKey(const Key('oracolo_riquadro')));
-        final blocchiFraTitoloECarte = [
-          for (final e in find
-              .descendant(of: responso, matching: find.byType(RichText))
-              .evaluate())
-            if (tester.getRect(find.byWidget(e.widget)).top > titolo.bottom &&
-                tester.getRect(find.byWidget(e.widget)).bottom <
-                    primaCarta.top &&
-                !(tester.getRect(find.byWidget(e.widget)).top >= riquadro.top &&
-                    tester.getRect(find.byWidget(e.widget)).bottom <=
-                        riquadro.bottom))
-              (e.widget as RichText).text.toPlainText(),
-        ];
-        print('FY.19 MISURA ${tier.name}: riquadri nel responso $riquadri; '
-            'testi fra il titolo e le carte fuori dal riquadro '
-            '${blocchiFraTitoloECarte.length}');
-        expect(riquadri, 1);
-        expect(blocchiFraTitoloECarte, isEmpty);
-        if (tier == Tier.tier2) {
-          expect(
-              find.descendant(
-                  of: find.byKey(const Key('oracolo_riquadro')),
-                  matching:
-                      find.byKey(const Key('responso_approfondimento_1'))),
-              findsOneWidget,
-              reason: 'la Lunga sta nello stesso riquadro');
-        }
-        // Niente si perde: il messaggio del Custode e dell'Intelletto sta
-        // nella loro bolla.
+        final principale = find.byKey(const Key('oracolo_responso_principale'));
+        int quanti(Type t) => find
+            .descendant(of: principale, matching: find.byType(t))
+            .evaluate()
+            .length;
+        final visti = quanti(RiquadroInEvidenza) + quanti(RiquadroArancione);
+        print('FY.19 GA MISURA ${tier.name}: riquadri nel responso '
+            'principale $visti (attesi $riquadri)');
+        expect(visti, riquadri);
+        expect(quanti(RiquadroArancione), lunga ? 1 : 0,
+            reason: 'il riquadro del salmo e\' solo della Lunga');
+        expect(
+            find.descendant(
+                of: principale, matching: find.text('Il salmo propiziatorio')),
+            lunga ? findsOneWidget : findsNothing);
+        expect(
+            find.descendant(
+                of: principale,
+                matching: find
+                    .byKey(const Key('oracolo_principale_approfondimento'))),
+            lunga ? findsOneWidget : findsNothing);
+        // Niente si perde: il messaggio del Cuore e dell'Intelletto sta
+        // nella loro bolla (il Custode dell'assaggio e' il responso stesso).
         final carte = EstrazioneDellOracolo.dalleScelte(
             GuardianAngels.forBirth(_nascita.toBirthDetails()),
             _angeliSotto(dorsiDelGiro));
-        for (final c in [carte[0], carte[2]]) {
+        for (final c in [
+          if (tier != Tier.free) ...[carte[0], carte[2]]
+        ]) {
           final atteso =
               LaLetturaDellOracolo.messaggioDellaCarta(corpusDellOracolo, c, 0);
           final bolla = find.byKey(Key('oracolo_bolla_${c.ruolo.name}'));

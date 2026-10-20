@@ -23,14 +23,14 @@ import '../../../core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
 import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
+import '../../../core/responsi/la_forma_del_responso.dart';
 import '../../../design_system/theme/app_theme.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/components/borsellino.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
-import '../../../design_system/components/riquadro_in_evidenza.dart';
+import '../../../design_system/components/il_responso_interpretato.dart';
 import '../../../design_system/components/segno_della_provenienza.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
-import '../../../design_system/components/titolo_del_responso.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
@@ -79,6 +79,23 @@ import 'oracolo_share_card.dart';
 /// carta porta chi e' l'angelo e che cosa porta, da Lenain (FY.18), e la
 /// risposta e' una coppia sola, il titolo e un riquadro (FY.19). La nascita
 /// prestata e la domanda per un amico sono uscite dall'Oracolo (FY.14).
+///
+/// **L'ORDINE GA**, 20 ottobre 2026.
+/// - **GA.08, NESSUNA CARTA IN VISTA ALL'APERTURA.** Il fondatore:
+///   *"L'oracolo degli angeli non mostra all'inizio, all'apertura, nessuna
+///   Carta prima che l'utente le scelga"*. Riscrive cio' che sopra dice la
+///   voce FU.02: i tre dorsi non stanno piu' sull'altare all'apertura ma
+///   compaiono uno alla volta quando la persona li sceglie dal ventaglio; il
+///   video si ferma prima che le carte alate scendano dalla scala e sfuma
+///   sulla scena ferma, dove l'altare e' vuoto ([AltareVuoto]); la carta
+///   dipinta dell'angelo dell'ora non sta piu' sotto la scena.
+/// - **GA.03, GA.04 e GA.05, LA FORMA NUOVA DEL RESPONSO.** Il responso
+///   principale e' un `IlResponsoInterpretato` dell'Oracolo: il titolo, la
+///   risposta, il riquadro "Cosa fare adesso" e, nella Lunga (dall'Iniziato),
+///   l'approfondimento e "Il salmo propiziatorio" dell'angelo del Custode,
+///   dalla raccolta dei riti e mai dal modello; ogni carta singola e' breve,
+///   col suo messaggio e il suo consiglio; il "Da dove viene" chiude la
+///   consultazione una volta sola in fondo. Riscrive FY.19, la coppia sola.
 class OracoloDegliAngeliScreen extends StatefulWidget {
   const OracoloDegliAngeliScreen({
     super.key,
@@ -144,10 +161,14 @@ enum _Fase { domanda, scelta, saleLaDomanda, siGirano, risposta }
 class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     with TickerProviderStateMixin {
   late final RegiaDellaScena _regia;
-  late final AnimationController _lettere = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 2400));
-  late final AnimationController _giro = AnimationController(
-      vsync: this, duration: const Duration(milliseconds: 1500));
+  // **CREATI IN initState, NON PIGRI**, ordine GA voce GA.08. Erano
+  // `late final` con l'inizializzatore: nascevano al primo uso. Con l'altare
+  // vuoto all'apertura nessuno li usa prima di una consultazione, e chi
+  // chiudeva l'Oracolo senza consultare li faceva nascere dentro `dispose`,
+  // a schermata gia' smontata ("Looking up a deactivated widget's ancestor
+  // is unsafe"). Prima li toccava il dorso sull'altare, a ogni apertura.
+  late final AnimationController _lettere;
+  late final AnimationController _giro;
   final _domanda = TextEditingController();
   final _scorrimento = ScrollController();
   final _inizioDellaRisposta = GlobalKey();
@@ -183,8 +204,15 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   @override
   void initState() {
     super.initState();
+    _lettere = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2400));
+    _giro = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1500));
+    // GA.08: il filmato vero si ferma prima che le carte scendano dalla
+    // scala (`GeometriaDellAltare.finoAlleCarte`, misurato sui fotogrammi).
     _regia = RegiaDellaScena(widget.fabbricaDellaScena ??
-        () => LettoreDiScena.vero(GeometriaDellAltare.filmato))
+        () => LettoreDiScena.vero(GeometriaDellAltare.filmato,
+            finoA: GeometriaDellAltare.finoAlleCarte))
       ..addListener(_ridisegna);
     _domanda.addListener(_ridisegna);
     _programmaLOra();
@@ -339,7 +367,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             carte: carte,
             corpus: _corpus,
             variante: variante,
-            // LA LUNGA E' DELL'ADEPTO (FU.06 e FU.10), letta dalla matrice.
+            // LA LUNGA E' DELL'INIZIATO dall'ordine GA voce GA.05 (prima
+            // dell'Adepto, FU.06 e FU.10), letta dalla matrice.
             profonda: PlanCatalog.apre(RigaDelPiano.oracoloLunga, tier),
             chiamata: widget.chiamata,
           );
@@ -589,16 +618,19 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     onCondividi: _onShare,
                     onInvito: _invitoAlPiano,
                   ),
-                  // LA RISPOSTA LUNGA E' DELL'ADEPTO (FU.10): a chi non
-                  // l'ha, il lucchetto e l'invito, mai un vicolo cieco.
-                  if (!_assaggio &&
-                      !PlanCatalog.apre(RigaDelPiano.oracoloLunga, _tier)) ...[
+                  // LA RISPOSTA LUNGA (FU.10), dall'Iniziato dall'ordine GA
+                  // voce GA.05: a chi non l'ha, il lucchetto e l'invito, mai
+                  // un vicolo cieco. Dalla matrice nuova e' il solo
+                  // Viandante, che e' nell'assaggio: il lucchetto c'e'
+                  // anche li', perche' la Lunga e' cio' che il piano apre.
+                  if (!PlanCatalog.apre(RigaDelPiano.oracoloLunga, _tier)) ...[
                     const SizedBox(height: SpacingTokens.sm),
                     _IlLucchetto(
                       chiave: 'oracolo_lucchetto_lunga',
                       palette: palette,
                       testo: 'La risposta lunga: Medora va più a fondo '
-                          'nel legame fra la tua domanda e le tre carte',
+                          'nella tua domanda e ti dà il salmo propiziatorio '
+                          'del tuo angelo',
                       onTap: () => _invitoAlPiano(
                           RigaDelPiano.oracoloLunga, 'La risposta lunga'),
                     ),
@@ -622,8 +654,9 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   }
 
   /// **LA SCENA**: il fotogramma a tutta larghezza, il video sopra finche'
-  /// gira, i tre dorsi sull'altare quando la scena e' ferma, le lettere di
-  /// luce, e la domanda sopra la scena.
+  /// gira, l'altare vuoto quando la scena e' ferma, i dorsi che la persona
+  /// sceglie (GA.08: nessuno all'apertura), le lettere di luce, e la domanda
+  /// sopra la scena.
   Widget _laScena(double w, MaestroPalette palette) {
     final h = GeometriaDellAltare.altezza(w);
     final cima = MediaQuery.paddingOf(context).top + kToolbarHeight;
@@ -648,7 +681,13 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             Positioned.fill(
               child: IlFilmatoCheSfuma(
                 key: const Key('oracolo_filmato'),
-                saltato: _regia.saltata,
+                // **GA.08, LA DISSOLVENZA DEL FOTOGRAMMA.** Anche a video
+                // finito il filmato sfuma sulla scena ferma: il filmato vero
+                // si ferma prima che le carte scendano dalla scala
+                // (`GeometriaDellAltare.finoAlleCarte`), e il suo ultimo
+                // fotogramma dipinto porta i tre dorsi sull'altare. Sotto
+                // resta l'ultimo fotogramma con l'altare vuoto.
+                saltato: _regia.saltata || _sceneFerma,
                 child: _regia.disegna(),
               ),
             ),
@@ -662,8 +701,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             ),
           if (_sceneFerma)
             for (var i = 0; i < 3; i++)
-              // Mentre si sceglie, sull'altare stanno solo i dorsi scelti.
-              if (_fase != _Fase.scelta || i < _scelti.length)
+              // **GA.08**: all'apertura e a ogni domanda nuova l'altare e'
+              // vuoto; mentre si sceglie stanno solo i dorsi scelti, poi le
+              // tre carte.
+              if (_fase != _Fase.domanda &&
+                  (_fase != _Fase.scelta || i < _scelti.length))
                 _CartaSullAltare(
                   indice: i,
                   larghezza: w,
@@ -1170,6 +1212,13 @@ class _IlMazzoCoperto extends StatelessWidget {
 }
 
 /// **L'ANGELO DELL'ORA E IL MESSAGGIO DEL GIORNO** (FU.08), senza modello.
+///
+/// **LAPIDE, ordine GA voce GA.08, 20 ottobre 2026.** Qui accanto al nome
+/// stava la carta dipinta dell'angelo dell'ora (`LaCartaDellAngelo`, piccola,
+/// a sinistra): era una carta in vista all'apertura, fuori dal ventaglio. Il
+/// fondatore: "L'oracolo degli angeli non mostra all'inizio, all'apertura,
+/// nessuna Carta prima che l'utente le scelga". Restano il nome, i suoi venti
+/// minuti e il messaggio del giorno.
 class _LAngeloDellOra extends StatelessWidget {
   const _LAngeloDellOra({
     required this.palette,
@@ -1199,35 +1248,17 @@ class _LAngeloDellOra extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: SpacingTokens.xxl + SpacingTokens.sm,
-                height: (SpacingTokens.xxl + SpacingTokens.sm) * 1.5,
-                child: LaCartaDellAngelo(angelo: angelo, palette: palette),
-              ),
-              const SizedBox(width: SpacingTokens.sm),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('L\'angelo di quest\'ora',
-                        style: TypographyTokens.etichetta()
-                            .copyWith(color: palette.goldSoft)),
-                    const SizedBox(height: SpacingTokens.xxs),
-                    Text(angelo.name,
-                        key: const Key('oracolo_nome_dell_ora'),
-                        style: TypographyTokens.titoloScheda()
-                            .copyWith(color: ColorTokens.textPrimary)),
-                    Text(LOraDegliAngeli.momentoDelRito(angelo),
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: ColorTokens.textSecondary)),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          Text('L\'angelo di quest\'ora',
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft)),
+          const SizedBox(height: SpacingTokens.xxs),
+          Text(angelo.name,
+              key: const Key('oracolo_nome_dell_ora'),
+              style: TypographyTokens.titoloScheda()
+                  .copyWith(color: ColorTokens.textPrimary)),
+          Text(LOraDegliAngeli.momentoDelRito(angelo),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary)),
           if (delGiorno != null) ...[
             const SizedBox(height: SpacingTokens.md),
             Text('Il messaggio di oggi',
@@ -1249,17 +1280,28 @@ class _LAngeloDellOra extends StatelessWidget {
   }
 }
 
-/// **IL RESPONSO, UNA COPPIA SOLA.** Ordine FY voce FY.19, 16 ottobre 2026.
-/// Il fondatore: "La prima descrizione e' troppo lunga con risposta,
-/// riquadro e ancora risposta e riquadro. Basta una coppia".
+/// **IL RESPONSO NELLA FORMA NUOVA.** Ordine GA voci GA.03, GA.04 e GA.05,
+/// 20 ottobre 2026. Il fondatore, 19 ottobre 2026: *"Per le risposte brevi
+/// 2 paragrafi di cui il secondo messo in evidenza in un riquadro e questo
+/// riquadro deve intitolarsi 'cosa fare adesso' [...] Per le risposte lunghe
+/// aggiungi 2 paragrafi sempre con il primo in riquadro. Sotto sempre il
+/// paragrafo in corsivo 'da dove viene'. Restano all'inizio i titoli, anche
+/// per le singola carte"*; 20 ottobre 2026: *"Profondità lunga solo dal tier
+/// 1 e solo per il responso principale e non per le singole carte"*.
 ///
-/// Prima: il titolo, il messaggio del Custode, il riquadro, il messaggio
-/// dell'Intelletto e, nella Lunga, il secondo riquadro (ordine FU voce FU.06
-/// e ordine FN). Adesso il titolo con la risposta e un riquadro solo: il
-/// legame che Medora scrive fra la domanda e le tre carte, con dentro i due
-/// paragrafi della Lunga. Cio' che dicevano gli altri blocchi non si perde:
-/// il messaggio di ogni carta sta nella sua bolla, accanto a chi e'
-/// l'angelo (FY.18).
+/// Dall'alto: il responso principale (`IlResponsoInterpretato`, la forma in
+/// un punto solo): il titolo, la risposta, "Cosa fare adesso" e, nella
+/// Lunga, l'approfondimento e "Il salmo propiziatorio"; poi una bolla per
+/// carta, ognuna col suo responso breve; in fondo il "Da dove viene", una
+/// volta sola, per tutta la consultazione.
+///
+/// **LAPIDE, ordine FY voce FY.19, 16 ottobre 2026.** Qui il responso era
+/// "una coppia sola": il titolo e un riquadro col legame scritto da Medora,
+/// con dentro i due paragrafi della Lunga. Il fondatore aveva detto: "La
+/// prima descrizione e' troppo lunga con risposta, riquadro e ancora
+/// risposta e riquadro. Basta una coppia". La forma di GA.03 la supera: la
+/// Breve resta una coppia (risposta e riquadro), la Lunga ne aggiunge una
+/// seconda (approfondimento e salmo).
 class _IlResponso extends StatelessWidget {
   const _IlResponso({
     required this.palette,
@@ -1283,23 +1325,19 @@ class _IlResponso extends StatelessWidget {
   final Future<bool> Function() onCondividi;
   final Future<void> Function(RigaDelPiano riga, String cosa) onInvito;
 
-  /// **DA DOVE VIENE**, una riga che dice anche chi scrive il legame.
-  static const String daDoveViene =
-      'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; i '
-      'loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I '
-      'tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
-      'della tua nascita. Il legame con la tua domanda lo scrive Medora.';
-
   /// La riga dell'assaggio: dice che cosa si apre, e da dove.
   static const String rigaDellAssaggio =
       'Oggi ti risponde il tuo Angelo Custode. Con l\'Iniziato rispondono '
-      'tutti e tre i tuoi angeli: Medora scrive il legame fra la tua '
-      'domanda e le tre carte.';
+      'tutti e tre i tuoi angeli: Medora scrive la risposta alla tua domanda '
+      'sulle tre carte e ti dà il salmo propiziatorio.';
 
-  /// **IL RIQUADRO**, l'unico: il legame scritto da Medora (il secondo dei
-  /// tre paragrafi della lettura); all'assaggio, il messaggio del Custode.
-  static String ilRiquadro(RispostaDellOracolo r, {required bool assaggio}) =>
-      assaggio ? r.paragrafi.first : r.paragrafi[1];
+  /// **LA BOLLA CHE NON RIPETE** (GA.05, "senza ripetere un secondo blocco
+  /// per la stessa carta"): nell'assaggio e nel ripiego senza modello il
+  /// responso principale e' gia' la carta del Custode, e la sua bolla non ne
+  /// ripete il messaggio e il consiglio.
+  static bool ripeteIlPrincipale(
+          RispostaDellOracolo r, CartaDellOracolo carta) =>
+      !r.dalModello && carta.ruolo == RuoloDellAngelo.custode;
 
   @override
   Widget build(BuildContext context) {
@@ -1307,11 +1345,11 @@ class _IlResponso extends StatelessWidget {
       for (var i = 0; i < carte.length; i++)
         if (!carte[i].coperta && !(assaggio && i > 0)) carte[i],
     ];
+    final r = risposta.responso;
     final perIlDiario = ResponsoDaCustodire(
       arte: 'oracolo_angeli',
-      titolo: risposta.titolo,
-      testo:
-          assaggio ? risposta.paragrafi.first : risposta.paragrafi.join('\n\n'),
+      titolo: r.titolo,
+      testo: r.paragrafi.join('\n\n'),
       perIlMaestro: [
         for (final c in scoperte) '${c.ruolo.nome}: ${c.angelo.name}',
       ].join('\n'),
@@ -1320,44 +1358,34 @@ class _IlResponso extends StatelessWidget {
             [for (final c in scoperte) c.angelo.number.toString()].join(','),
       },
     );
-    final riquadro = ilRiquadro(risposta, assaggio: assaggio);
-    final approfondimento =
-        assaggio ? const <String>[] : risposta.approfondimento;
+    final stile =
+        TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
+    // Il "Da dove viene" non sta sotto i paragrafi del responso principale:
+    // chiude la consultazione, dopo le carte (GA.05).
+    final principale = ResponsoInterpretato(
+      arte: r.arte,
+      titolo: r.titolo,
+      risposta: r.risposta,
+      cosaFare: r.cosaFare,
+      approfondimento: r.approfondimento,
+      rito: r.rito,
+    );
     return Column(
       key: const Key('oracolo_responso'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        TitoloDelResponso(
-          chiaveDelTesto: const Key('oracolo_titolo_del_responso'),
-          testo: risposta.titolo,
-          allineamento: TextAlign.center,
-          aCapoFraLeParole: true,
-          stile: TypographyTokens.titoloSezione()
-              .copyWith(color: palette.goldSoft, height: 1.25),
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        RiquadroInEvidenza(
-          key: const Key('oracolo_riquadro'),
-          palette: palette,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ParagrafiDiLettura(
-                  key: const Key('oracolo_testo_del_riquadro'),
-                  testo: riquadro,
-                  stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textPrimary)),
-              // I due paragrafi della Lunga stanno nello stesso riquadro:
-              // una coppia sola, non un secondo blocco (FY.19).
-              for (var i = 0; i < approfondimento.length; i++) ...[
-                const SizedBox(height: SpacingTokens.sm),
-                ParagrafiDiLettura(
-                    key: Key('responso_approfondimento_$i'),
-                    testo: approfondimento[i],
-                    stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textPrimary)),
-              ],
-            ],
+        KeyedSubtree(
+          key: const Key('oracolo_responso_principale'),
+          child: IlResponsoInterpretato(
+            responso: principale,
+            chiave: 'oracolo_principale',
+            palette: palette,
+            allineamentoDelTitolo: TextAlign.center,
+            stileDelTitolo: TypographyTokens.titoloSezione()
+                .copyWith(color: palette.goldSoft, height: 1.25),
+            // Ogni paragrafo della forma e' UN paragrafo (GA.03): non passa
+            // da `ParagrafiDiLettura`, che lo spezzerebbe in due blocchi.
+            stile: stile,
           ),
         ),
         if (assaggio) ...[
@@ -1370,8 +1398,9 @@ class _IlResponso extends StatelessWidget {
         ] else if (!risposta.dalModello) ...[
           const SizedBox(height: SpacingTokens.sm),
           Text(
-            'Medora oggi risponde coi soli messaggi delle carte: il legame '
-            'con la tua domanda arriva quando la rete torna.',
+            'Medora oggi risponde con la carta del tuo Angelo Custode: la '
+            'risposta alla tua domanda sulle tre carte arriva quando la rete '
+            'torna.',
             key: const Key('oracolo_solo_corpus'),
             style: TypographyTokens.didascalia().copyWith(
                 color: ColorTokens.textSecondary, fontStyle: FontStyle.italic),
@@ -1394,22 +1423,17 @@ class _IlResponso extends StatelessWidget {
               carta: carte[i],
               messaggio: LaLetturaDellOracolo.messaggioDellaCarta(
                   corpus, carte[i], variante),
-              riquadro: riquadro,
+              responso: ripeteIlPrincipale(risposta, carte[i])
+                  ? null
+                  : LaLetturaDellOracolo.responsoDellaCarta(
+                      corpus, carte[i], variante),
               rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
               variante: variante,
             ),
           const SizedBox(height: SpacingTokens.md),
         ],
-        Text('Da dove viene',
-            style: TypographyTokens.etichetta().copyWith(
-                color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-        const SizedBox(height: SpacingTokens.xxs),
-        Text(daDoveViene,
-            key: const Key('oracolo_da_dove_viene'),
-            style: TypographyTokens.didascalia().copyWith(
-                color: ColorTokens.textSecondary,
-                height: 1.35,
-                fontStyle: FontStyle.italic)),
+        if (r.daDoveViene case final fonte?)
+          IlDaDoveViene(testo: fonte, chiave: 'oracolo_da_dove_viene'),
         const SizedBox(height: SpacingTokens.md),
         AzioniDelResponso(
           palette: palette,
@@ -1419,7 +1443,7 @@ class _IlResponso extends StatelessWidget {
           quando: quando,
           condividi: onCondividi,
           aperturaDellaChat: ChatOpeners.oracoloAngeli(carte.first.angelo.name,
-              carte.first.ruolo.posizione.toLowerCase(), risposta.titolo),
+              carte.first.ruolo.posizione.toLowerCase(), r.titolo),
         ),
       ],
     );
@@ -1591,12 +1615,20 @@ class _IlDonoDellaCarta extends StatelessWidget {
 /// messaggio per questa domanda, dal corpus di Medora: e' cio' che prima
 /// stava nei paragrafi della risposta (FY.19), e non si ripete se e' gia'
 /// nel riquadro.
+///
+/// **LA CARTA SINGOLA NELLA FORMA NUOVA**, ordine GA voce GA.05, 20 ottobre
+/// 2026: il messaggio diventa un `IlResponsoInterpretato` breve, il
+/// messaggio e sotto il riquadro "Cosa fare adesso" col consiglio della
+/// carta. Il titolo e' il nome dell'angelo, gia' nella testata della bolla
+/// (`mostraIlTitolo: false`); niente "Da dove viene", che chiude la
+/// consultazione una volta sola. Quando il responso principale e' gia' questa
+/// carta (assaggio e ripiego) la bolla non lo ripete ([responso] nullo).
 class _LaBollaDellaCarta extends StatelessWidget {
   const _LaBollaDellaCarta({
     required this.palette,
     required this.carta,
     required this.messaggio,
-    required this.riquadro,
+    required this.responso,
     required this.rito,
     required this.variante,
   });
@@ -1607,9 +1639,9 @@ class _LaBollaDellaCarta extends StatelessWidget {
   /// Il messaggio della carta per questa consultazione, dal corpus.
   final String messaggio;
 
-  /// Il testo del riquadro della risposta: se e' lo stesso messaggio, la
-  /// bolla non lo ripete.
-  final String riquadro;
+  /// Il responso breve della carta; nullo se il responso principale e' gia'
+  /// questa carta, o per la carta coperta.
+  final ResponsoInterpretato? responso;
   final List<String>? rito;
   final int variante;
 
@@ -1739,12 +1771,9 @@ class _LaBollaDellaCarta extends StatelessWidget {
               ],
             ),
           ],
-          if (messaggio != riquadro) ...[
+          if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text(
-                carta.coperta
-                    ? 'Perché resta coperta'
-                    : 'Il suo messaggio per te',
+            Text('Perché resta coperta',
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft)),
             const SizedBox(height: SpacingTokens.xxs),
@@ -1753,6 +1782,26 @@ class _LaBollaDellaCarta extends StatelessWidget {
                 testo: messaggio,
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
+          ] else if (responso case final r?) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text('Il suo messaggio per te',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.xxs),
+            KeyedSubtree(
+              key: Key('oracolo_messaggio_${carta.ruolo.name}'),
+              child: IlResponsoInterpretato(
+                responso: r,
+                chiave: 'oracolo_carta_singola_${carta.ruolo.name}',
+                palette: palette,
+                // Il nome dell'angelo e' gia' il titolo, nella testata.
+                mostraIlTitolo: false,
+                stileDelTitolo: TypographyTokens.titoloScheda()
+                    .copyWith(color: ColorTokens.textPrimary),
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary),
+              ),
+            ),
           ],
           if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),

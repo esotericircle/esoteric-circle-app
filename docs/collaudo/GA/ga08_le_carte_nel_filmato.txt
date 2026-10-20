@@ -1,0 +1,17 @@
+ORDINE GA VOCE GA.08, 20 ottobre 2026: le carte nel filmato dell'Oracolo degli Angeli
+
+Filmato: brand_assets/oracolo_angeli/medora_scala_di_luce_v1.mp4 (720x1280, 24 fotogrammi al secondo, 192 fotogrammi, 8 s).
+Strumento: python tool/le_carte_nel_filmato_dell_oracolo.py <filmato> (ffmpeg, nessun modello, nessuna spesa).
+Fascia misurata: l'altare, pixel 1505-1715 del fotogramma 1080x1920; scarto medio in grigio (0-255) dal primo fotogramma (altare sgombro) e dall'ultimo (i tre dorsi).
+
+LETTURA A OCCHIO DEI FOTOGRAMMI (catture in questa cartella):
+- ga08_cima_della_scala_12_25.png: fotogrammi da 12 a 25, la cima della scala. Fino al 23 solo polvere dorata; al 24 (1,00 s) compare il bordo della prima carta alata.
+- ga08_fotogrammi_0_24_40_52_64_74.png: 0 nessuna carta; 24 polvere; 40 (1,67 s) due carte alate intere in cima alla scala; 52, 64 e 74 le carte scendono.
+- ga08_fotogrammi_80_84_88_96_110_130.png: le carte scendono verso l'altare; al 130 (5,4 s) sono posate. La fascia dell'altare cambia dal fotogramma 81 (3,38 s), quando le carte alate la attraversano.
+
+PRIMA: il filmato girava intero, otto secondi, con le carte alate in vista da 1,00 s e i tre dorsi dipinti sull'altare alla fine (coperti a scena ferma da AltareVuoto, ordine FY voce FY.17); sopra l'altare, a scena ferma, i tre dorsi di Flutter (oracolo_dorso_0..2) dall'apertura.
+DOPO: il filmato vero si ferma a 400 ms (GeometriaDellAltare.finoAlleCarte) e sfuma in 450 ms sulla scena ferma (ultimo fotogramma con l'altare vuoto); col passo della posizione del lettore (circa 100 ms) la dissolvenza finisce entro 950 ms, prima del fotogramma 24. Nessun dorso sull'altare finche' la persona non sceglie.
+
+LA SCELTA, provvisoria: finche' non arrivano i due asset del fondatore (le carte che spariscono in polvere dorata), della scena si vede meno di mezzo secondo di filmato, poi la dissolvenza del fotogramma sulla scena ferma. Da guardare sul telefono: APERTA IN ATTESA DI VERIFICA.
+
+MISURA, FOTOGRAMMA PER FOTOGRAMMA: l'uscita intera dello strumento sta in ga08_le_carte_nel_filmato_misura.txt.
