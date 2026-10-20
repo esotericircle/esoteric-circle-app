@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/horoscope/la_scena_dell_oroscopo.dart';
 import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -141,8 +143,10 @@ void main() {
 
   testWidgets('un video pronto entro l\'attesa parte come sempre',
       (tester) async {
-    // La meta' buona della cura dell'ordine FY resta: il Realme a freddo
-    // chiede piu' di quattro secondi, e dentro l'attesa il video parte.
+    // La meta' buona della cura dell'ordine FY resta: dentro l'attesa il
+    // video parte. Qui il video era pronto a sei secondi, dentro i dodici
+    // dell'ordine FY; dalla decisione del fondatore del 20 ottobre 2026
+    // l'attesa e' di quattro, e il video pronto in tempo arriva a tre.
     final lettore = _LettoreLento();
     final regia = RegiaDellaScena(() => lettore);
     await tester.pumpWidget(MediaQuery(
@@ -150,7 +154,7 @@ void main() {
       child: Directionality(
           textDirection: TextDirection.ltr, child: _Schermata(regia)),
     ));
-    await tester.pump(const Duration(seconds: 6));
+    await tester.pump(const Duration(seconds: 3));
     lettore.prontoAdesso();
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
@@ -160,4 +164,96 @@ void main() {
     expect(regia.inCorso, isTrue);
     expect(find.text('il resto'), findsNothing);
   });
+
+  // **L'ATTESA TORNA A QUATTRO SECONDI, POI LA POSA DEL MAESTRO.** Decisione
+  // del fondatore del 20 ottobre 2026, alla lettera: "l'attesa delle scene
+  // torna a 4 secondi, poi la scena ferma con la posa del Maestro." Si
+  // misura su un palco vero, quello dell'Oroscopo (la scena di Medora col
+  // suo primo e il suo ultimo fotogramma): prima dei quattro secondi il
+  // primo fotogramma che aspetta il video, dopo la posa ferma, e un video
+  // pronto a sei secondi non parte.
+  testWidgets(
+      'l\'attesa e\' di quattro secondi, poi la scena ferma con la posa del '
+      'Maestro', (tester) async {
+    expect(RegiaDellaScena.attesaMassima, const Duration(seconds: 4),
+        reason: 'il fondatore: "l\'attesa delle scene torna a 4 secondi"');
+    final lettore = _LettoreLento();
+    final regia = RegiaDellaScena(() => lettore);
+    await tester.pumpWidget(MediaQuery(
+      data: const MediaQueryData(size: Size(390, 844)),
+      child: Directionality(
+          textDirection: TextDirection.ltr, child: _IlPalco(regia)),
+    ));
+    const primo = Key('oroscopo_scena_primo_fotogramma');
+    const posa = Key('oroscopo_scena_ferma');
+    await tester.pump(const Duration(milliseconds: 3900));
+    expect(find.byKey(primo), findsOneWidget,
+        reason: 'prima dei quattro secondi la scena aspetta il video');
+    expect(find.byKey(posa), findsNothing);
+    expect(regia.ferma, isFalse,
+        reason: 'la scena si e\' arresa prima dei quattro secondi');
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(regia.ferma, isTrue,
+        reason: 'passati i quattro secondi la scena non e\' ferma');
+    expect(find.byKey(posa), findsOneWidget,
+        reason: 'passati i quattro secondi non si vede la posa ferma del '
+            'Maestro');
+    expect(find.byKey(primo), findsNothing);
+    // Il video arriva pronto a sei secondi: resta fermo, la posa resta.
+    await tester.pump(const Duration(seconds: 2));
+    lettore.prontoAdesso();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(lettore.avvii, 0, reason: 'il video tardivo e\' partito');
+    expect(find.byKey(posa), findsOneWidget);
+    expect(find.byKey(const Key('oroscopo_scena_filmato')), findsNothing);
+  });
+}
+
+/// Il palco dell'Oroscopo con la sua regia, avviata come la avvia la
+/// schermata vera.
+class _IlPalco extends StatefulWidget {
+  const _IlPalco(this.regia);
+  final RegiaDellaScena regia;
+
+  @override
+  State<_IlPalco> createState() => _IlPalcoState();
+}
+
+class _IlPalcoState extends State<_IlPalco> {
+  @override
+  void initState() {
+    super.initState();
+    widget.regia.addListener(_cambia);
+  }
+
+  void _cambia() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.regia.avvia(context);
+  }
+
+  @override
+  void dispose() {
+    widget.regia.removeListener(_cambia);
+    widget.regia.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => IlPalcoDellOroscopo(
+        regia: widget.regia,
+        palette: MaestroPalette.medora,
+        emblemaAlCentro: null,
+        alCentroUnEmblema: false,
+        emblemiDelleSedi: null,
+        emblemiAccesi: false,
+        dissolvenzaDegliEmblemi: Duration.zero,
+        scura: false,
+        letturaAnimata: false,
+      );
 }

@@ -245,7 +245,17 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   /// quel punto il resto della schermata e' gia' davanti alla persona, e
   /// la prova `la_scena_tardiva_non_rinasconde_il_resto_test.dart` cade se
   /// il video tardivo glielo toglie.
-  static const Duration attesaMassima = Duration(seconds: 12);
+  ///
+  /// **DI NUOVO QUATTRO SECONDI**, decisione del fondatore del 20 ottobre
+  /// 2026, alla lettera: *"l'attesa delle scene torna a 4 secondi, poi la
+  /// scena ferma con la posa del Maestro."* Dodici secondi di schermo vuoto
+  /// a freddo sono troppi da aspettare; scaduti i quattro, la regia e'
+  /// ferma ([ferma] vero, [filmatoInScena] falso): ogni schermata mostra la
+  /// sua posa ferma del Maestro (l'ultimo fotogramma) e il resto compare
+  /// ([IlRestoDopoLaScena]). Il video che arriva pronto dopo resta fermo,
+  /// come dall'ordine GA voce 11. Padre del valore di prima: ordine FY,
+  /// commit `8ac4f41c`.
+  static const Duration attesaMassima = Duration(seconds: 4);
 
   /// La scena e' ferma sul suo ultimo fotogramma: Riduci Movimento, grafica
   /// alleggerita, video che non si carica, oppure video finito o saltato.
@@ -318,6 +328,9 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
     // pulsanti mangiando il tocco. Il caso per cui era nato, il Realme a
     // freddo che chiede piu' di quattro secondi, lo copre gia' l'attesa di
     // dodici: dentro l'attesa il video parte come sempre. Padre: ordine FY.
+    // Dalla decisione del fondatore del 20 ottobre 2026 l'attesa e' di
+    // nuovo quattro secondi: un video piu' lento resta fermo, e la persona
+    // vede la posa ferma del Maestro col resto della schermata.
     if (_chiusa || _scaduta || !lettore.pronto) return;
     final muto = !suono || await LaSuoneria.spenta();
     if (_chiusa) return;
