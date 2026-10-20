@@ -246,9 +246,20 @@ jobs:
       # sbarramento passato qui si scrive il riferimento refs/verde/<commit>,
       # che Codemagic legge con git (tool/il_cancello_ha_detto_verde.sh).
       # Solo sulle spinte al ramo: una richiesta di unione non scrive niente.
+      #
+      # **LA STORIA INTERA PRIMA DELLA SPINTA. Ordine GA, 20 ottobre 2026.**
+      # Dal giro di b770cb6e la spinta del segno cadeva con "RPC failed;
+      # HTTP 500" e "the remote end hung up unexpectedly", a sbarramento
+      # verde: l'ultimo segno scritto e' quello di 38a67c50, alle 10:37 UTC.
+      # La stessa spinta dal PC, da una copia con la storia intera, passa;
+      # quella del giro parte dalla copia a un commit solo del checkout, e
+      # dal 19 ottobre le macchine passano a Ubuntu 26. Prima di spingere si
+      # scarica la storia intera. PROVENIENZA IGNOTA sul lato di GitHub.
       - name: Il segno del verde, per chi lo legge con git
         if: success() && github.event_name == 'push'
-        run: git push origin "${GITHUB_SHA}:refs/verde/${GITHUB_SHA}"
+        run: |
+          git fetch --unshallow --quiet origin
+          git push origin "${GITHUB_SHA}:refs/verde/${GITHUB_SHA}"
 
       # **IL VERDETTO, DOVE SI LEGGE SENZA CREDENZIALI. Ordine CODEMAGIC1
       # voce 05.** I registri delle azioni non si leggono senza essere
