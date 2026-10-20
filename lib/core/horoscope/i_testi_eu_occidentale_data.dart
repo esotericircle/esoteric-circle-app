@@ -184,7 +184,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Un grazie in sospeso',
-            'La giornata è generosa con la gratitudine ed è il momento giusto per ringraziare qualcuno che ti ha aiutato senza ricevere il grazie che meritava. Le parole ti arrivano sincere, senza imbarazzo: il ricordo di quel gesto è ancora abbastanza vivo per raccontarlo con precisione.',
+            'La giornata è generosa con la gratitudine ed è il momento giusto per ringraziare qualcuno che ti ha dato una mano senza ricevere il grazie che meritava. Le parole ti arrivano sincere, senza imbarazzo: il ricordo di quel gesto è ancora abbastanza vivo per raccontarlo con precisione.',
             'Scrivi a quella persona un biglietto vero, a mano, nominando il gesto che ricordi e quello che ha cambiato per te. Imbucalo o consegnalo entro domani. Tieni poi nel cassetto della scrivania altri due biglietti e una penna che scrive bene, pronti per il prossimo ringraziamento.',
             'Ringraziare con dettagli concreti vale molto più di un grazie generico. Chi riceve scopre che un suo gesto ha lasciato traccia, chi scrive ritrova il filo di un momento in cui qualcuno c\'è stato. Non preoccuparti del tempo trascorso: un grazie arrivato in ritardo resta un grazie intero.',
           ),
@@ -209,7 +209,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Un invito al volo',
             'Oggi le cose non programmate tendono a riuscire bene: è una giornata favorevole alla spontaneità. Può arrivare un invito all\'ultimo momento, una passeggiata, un aperitivo, un concerto in piazza: accettarlo ha buone probabilità di regalarti una serata migliore di quelle pianificate con cura.',
-            'Se ti propongono di uscire stasera, accetta senza fare troppi conti e lascia a casa il pensiero delle cose da finire. Porta con te una giacca leggera e il necessario, nient\'altro. Domani scrivi a chi ti ha coinvolto che cosa ti è piaciuto e proponi tu la prossima uscita.',
+            'Se ti propongono di uscire stasera, accetta senza fare troppi conti e lascia a casa il pensiero delle cose da finire. Porta con te una giacca leggera e il necessario, nient\'altro. Domani scrivi a chi ha avuto l\'idea che cosa ti è piaciuto e proponi tu la prossima uscita.',
             'A volte le serate migliori sono quelle decise in cinque minuti. Senza aspettative ci si lascia sorprendere da una conversazione nuova, da un posto mai visto, da una risata che non avevi messo in conto. Non controllare l\'orologio per tutta la sera: toglie all\'uscita proprio la sua leggerezza.',
           ),
           VoceEu(
@@ -502,7 +502,7 @@ abstract final class ITestiEuOccidentaleData {
             'Pelle sottile',
             'Oggi hai la pazienza corta: piccole cose che di solito scivolano via graffiano, un tono brusco, una tazza rovesciata, un\'attesa al telefono. La soglia di sopportazione è più bassa e l\'irritazione cerca un bersaglio qualunque, anche dove non ha motivo di andare.',
             'Quando senti salire il fastidio, esci dalla stanza, conta fino a dieci e rientra solo dopo aver bevuto qualcosa di caldo. Rimanda a domani ogni conversazione che richiede diplomazia. Nel pomeriggio regalati mezz\'ora per qualcosa che ti calma davvero, come una doccia lunga o una passeggiata.',
-            'Il nervosismo di oggi non dice nulla di sbagliato in te: segnala soltanto che la riserva di pazienza va ricaricata. Riconoscerlo per tempo evita di scaricarlo su chi non c\'entra. Domani ripensa con calma a ciò che oggi ti ha punto: visto a distanza, di solito pesa molto meno.',
+            'Il nervosismo di oggi non dice nulla di sbagliato in te: segnala soltanto che la riserva di pazienza va ricaricata. Riconoscerlo per tempo evita di scaricarlo su chi non c\'entra. Domani ripensa con calma a ciò che oggi ti ha dato fastidio: visto a distanza, di solito pesa molto meno.',
           ),
           VoceEu(
             'Chiavi fuori posto',
@@ -613,7 +613,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Facce nuove',
             'Oggi la vita sociale ti porta occasioni concrete d\'incontro. Una cena o una festa stasera fra persone amiche può mettere al tuo tavolo qualcuno che non conosci ancora: la tua presenza ha un calore che si nota subito e rende facile avvicinarsi.',
-            'Chiedi a chi organizza quali ospiti non conosci e fatti presentare appena arrivi. Siediti accanto a una persona nuova, lontano dal gruppo di sempre. Prima di andare via chiedi con semplicità il contatto di chi ti ha colpito e domani scrivile riprendendo una frase detta a tavola.',
+            'Chiedi a chi organizza quali ospiti non conosci e fatti presentare appena arrivi. Siediti accanto a una persona nuova, lontano dal gruppo di sempre. Prima di andare via chiedi con semplicità il contatto della persona più interessante e domani scrivile riprendendo una frase detta a tavola.',
             'Le amicizie comuni sono uno dei modi più naturali per incontrare qualcuno di speciale: c\'è già una fiducia di partenza, un terreno condiviso che rende tutto più facile. Attenzione soltanto a non restare nella zona comoda dei volti noti, perché lì la serata scorre piacevole ma uguale.',
           ),
           VoceEu(
@@ -806,7 +806,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Domande dirette',
-            'Oggi in coppia la serenità c\'è, ma un dettaglio ti ha messo in allarme. Un messaggio, un ritardo, un nome che torna spesso nei racconti di chi ami: forse non è nulla, però la fantasia lavora più del necessario e conviene fermarla con una domanda chiara.',
+            'Oggi in coppia la serenità c\'è, ma un dettaglio ti ha fatto scattare un allarme. Un messaggio, un ritardo, un nome che torna spesso nei racconti di chi ami: forse non è nulla, però la fantasia lavora più del necessario e conviene fermarla con una domanda chiara.',
             'Invece di indovinare, fai oggi una domanda diretta e tranquilla, senza tono d\'accusa. Scegli un momento calmo, non mentre siete di fretta o con il telefono in mano. Qualunque sia la risposta, prenditi la sera per lasciarla sedimentare prima di commentarla.',
             'La gelosia cresce nel silenzio e si nutre di ipotesi. Una domanda fatta con calma la riporta alle dimensioni reali e mostra all\'altra persona che preferisci la fiducia al sospetto. Se domani resta un dubbio, dillo con una frase che comincia con io invece che con tu.',
           ),
@@ -888,13 +888,13 @@ abstract final class ITestiEuOccidentaleData {
             'Tavola per coppie',
             'Oggi, se non hai un legame, la giornata ti mette un po\' a disagio. Può arrivarti l\'invito a una cena dove quasi tutti si presentano in coppia e l\'idea di sederti a tavola senza compagnia ti pesa più di quanto vorresti ammettere.',
             'Vai, ma con un piano tuo: porta un dolce preparato da te o una bottiglia scelta con cura. Decidi prima di uscire a che ora salutare. A cena rivolgi una domanda vera a qualcuno che non conosci, sul suo lavoro o su un viaggio.',
-            'La sensazione di essere fuori posto viene più dal tuo sguardo che da quello degli altri. A tavola le persone cercano conversazioni vive, non coppie perfette: hai molto da portare anche senza qualcuno accanto. Domani, due righe di ringraziamento a chi ti ha invitato chiudono bene la serata.',
+            'La sensazione di essere fuori posto viene più dal tuo sguardo che da quello degli altri. A tavola le persone cercano conversazioni vive, non coppie perfette: hai molto da portare anche senza qualcuno accanto. Domani, due righe di ringraziamento a chi ha organizzato la cena chiudono bene la serata.',
           ),
           VoceEu(
             'Il vecchio copione',
             'Oggi in famiglia il clima è teso e una telefonata può prendere la solita piega. Con un genitore o un parente stretto il discorso rischia di scivolare nella discussione che conosci a memoria: le battute del vecchio copione arrivano più rapide del solito.',
             'Decidi prima della chiamata un argomento che oggi resta fuori, qualunque cosa succeda. Se il discorso ci finisce dentro, di\' con calma «ne parliamo un\'altra volta» e cambia tema. Chiudi con qualcosa da fare insieme, anche minimo: una ricetta, una visita domenica.',
-            'In quelle frasi ripetute c\'è spesso una preoccupazione che non sa dirsi in altro modo. Chi ti ha cresciuto parla la lingua che conosce: a volte una critica è il suo modo goffo di dire che ci tiene. Un appuntamento come ultima parola cambia il tono della chiamata.',
+            'In quelle frasi ripetute c\'è spesso una preoccupazione che non sa dirsi in altro modo. Chi ti ha fatto crescere parla la lingua che conosce: a volte una critica è il suo modo goffo di dire che ci tiene. Un appuntamento come ultima parola cambia il tono della chiamata.',
           ),
           VoceEu(
             'Orari che non combaciano',
@@ -912,7 +912,7 @@ abstract final class ITestiEuOccidentaleData {
             'Umori che contagiano',
             'Oggi negli affetti la giornata è pesante per un malumore che non è tuo. Una persona vicina attraversa una giornata storta e la sua tensione rischia di passarti addosso senza che te ne accorga: le tue difese sono più basse e assorbi tutto.',
             'Lascia stare i consigli e offri un aiuto pratico: preparare la cena, sbrigare una commissione, ritirare un pacco. Poi concediti un momento tuo, anche breve, per scrollarti di dosso la tensione. Domani mattina mandale un messaggio breve per sapere come comincia la giornata.',
-            'Stare accanto a qualcuno non significa portare il suo peso al posto suo. Puoi esserci lasciando a quella persona il tempo di ritrovarsi, senza dover aggiustare tutto entro sera. Due righe scritte prima di dormire su ciò che ti ha toccato aiutano a separare il suo umore dal tuo.',
+            'Stare accanto a qualcuno non significa portare il suo peso al posto suo. Puoi esserci lasciando a quella persona il tempo di ritrovarsi, senza dover aggiustare tutto entro sera. Due righe scritte prima di dormire su ciò che hai sentito aiutano a separare il suo umore dal tuo.',
           ),
           VoceEu(
             'La promessa scordata',
@@ -1113,7 +1113,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il primo giorno',
             'Se oggi inizi un nuovo lavoro o entri in un gruppo diverso, la giornata è favorevole e l\'accoglienza è dalla tua parte. Le persone hanno voglia di presentarsi e i primi scambi possono essere più spontanei di quanto temevi, già dalla prima ora.',
-            'Porta un quaderno e scrivi accanto a ogni nome che senti il ruolo della persona e un dettaglio che ti ha detto. Chiedi a chi ti affianca quali sono le tre cose da sapere nelle prime settimane. Stasera ringrazia con un messaggio chi ti ha aiutato di più.',
+            'Porta un quaderno e scrivi accanto a ogni nome che senti il ruolo della persona e un dettaglio che ti ha detto. Chiedi a chi ti affianca quali sono le tre cose da sapere nelle prime settimane. Stasera ringrazia con un messaggio chi ti ha dato più aiuto.',
             'I primi giorni in un posto nuovo lasciano un\'impronta lunga. Chi ti incontra oggi si fa un\'idea di te da piccoli gesti: la puntualità, la curiosità, il modo in cui ascolti prima di proporre. Evita di cambiare subito le abitudini del gruppo: prima osserva come si muove l\'ufficio.',
           ),
         ],
@@ -1421,7 +1421,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Un favore che torna',
             'La gratitudine porta fortuna oggi: qualcuno ti ha dato una mano nei mesi scorsi e non hai ancora ricambiato. Restituire quel gesto adesso mette in moto uno scambio che può portarti lontano, perché le porte migliori si aprono da chi hai già aiutato.',
-            'Pensa a una cosa utile per quella persona, non a un regalo qualsiasi: un contatto, un articolo, un\'ora del tuo tempo. Mandagliela prima di sera con due parole di ringraziamento. Poi scrivi una lista breve di chi ti ha aiutato nell\'ultimo periodo e tienila a portata.',
+            'Pensa a una cosa utile per quella persona, non a un regalo qualsiasi: un contatto, un articolo, un\'ora del tuo tempo. Mandagliela prima di sera con due parole di ringraziamento. Poi scrivi una lista breve di chi ti ha dato sostegno nell\'ultimo periodo e tienila a portata.',
             'Quando la gratitudine si fa concreta, i legami si stringono e chi riceve il tuo pensiero si ricorda di te alla prossima occasione utile. Non serve un gesto grande: serve un gesto mirato. Evita invece il ringraziamento generico, che si dimentica nel giro di un pomeriggio.',
           ),
           VoceEu(
@@ -1609,7 +1609,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'La domanda giusta',
             'Oggi una domanda in più ti porta fortuna: in un negozio o in un ufficio può esserci una possibilità migliore di quella esposta, un orario più comodo, una consegna a casa, un\'alternativa più semplice. Chi ti serve conosce spesso opzioni che non compaiono sul cartello.',
-            'Prima di chiudere una richiesta oggi, chiedi con tono cortese se esiste una formula più adatta alle tue esigenze. Se ottieni qualcosa, ringrazia per nome chi ti ha aiutato. Se ricevi un no, domanda quando potrebbe cambiare e annotalo per tornare al momento giusto.',
+            'Prima di chiudere una richiesta oggi, chiedi con tono cortese se esiste una formula più adatta alle tue esigenze. Se ottieni qualcosa, ringrazia per nome chi ti ha dato ascolto. Se ricevi un no, domanda quando potrebbe cambiare e annotalo per tornare al momento giusto.',
             'Chiedere con garbo non è insistere: è dare all\'altra parte l\'occasione di aiutarti. La giornata sostiene chi porta domande chiare e sa accettare anche un no senza irrigidirsi. Chi viene trattato con rispetto tende a ricordarsi di te e a cercarti quando arriva qualcosa di adatto.',
           ),
           VoceEu(
@@ -2361,7 +2361,7 @@ abstract final class ITestiEuOccidentaleData {
             'Il nodo tecnico',
             'Settimana lucida per i problemi tecnici: il nodo che ferma il progetto da giorni ha una soluzione più semplice di quanto sembri. In questi giorni ragioni con chiarezza ed è possibile che la strada giusta la individui proprio tu, prima di chiunque altro nel gruppo.',
             'Giovedì mattina, prima di aprire la posta, prenditi un\'ora per disegnare il problema su un foglio, a mano, con frecce e riquadri. Poi spiega lo schema a un collega in dieci minuti ad alta voce: spesso è lì che il punto debole salta fuori.',
-            'A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ti ha aiutato a ragionare: il merito diviso pesa di più.',
+            'A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.',
           ),
           VoceEu(
             'L\'abstract in partenza',
@@ -2603,7 +2603,7 @@ abstract final class ITestiEuOccidentaleData {
             'L\'inaugurazione di giovedì',
             'Settimana favorevole agli inviti che di solito declineresti: un\'apertura, la presentazione di un libro, la mostra di un amico di amici. Proprio lì, in questi giorni, può esserci la persona giusta da conoscere, a patto che tu decida di andarci davvero.',
             'Rispondi di sì a quell\'invito e scrivilo in agenda come un impegno vero. Prepara una frase semplice per presentarti, che dica che cosa fai e che cosa ti piacerebbe fare. Resta almeno un\'ora e parla con tre persone che non conosci.',
-            'Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce mezzo quartiere e ama presentare gli ospiti fra loro: lasciati accompagnare. All\'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha colpito.',
+            'Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce mezzo quartiere e ama presentare gli ospiti fra loro: lasciati accompagnare. All\'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha fatto più impressione.',
           ),
           VoceEu(
             'La giacca dell\'anno scorso',
@@ -2621,7 +2621,7 @@ abstract final class ITestiEuOccidentaleData {
             'Chi ha una scala',
             'Settimana fortunata nell\'aiuto fra vicini: ti serve un oggetto che useresti una volta sola, una scala alta, un trapano, un seggiolino per un ospite. Chi ti sta intorno può risolverti il problema in un attimo, basta chiederlo apertamente e con una proposta chiara.',
             'Scrivi nella chat del condominio o del quartiere una richiesta precisa: che cosa ti serve, per quanti giorni, quando lo restituisci. Offri in cambio qualcosa di tuo, un passaggio, una torta, un\'ora di aiuto. Riporta l\'oggetto pulito con un biglietto di grazie.',
-            'Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni fra vicini. Tieni nota di chi ti ha aiutato: quando qualcuno chiede, sai già a chi rivolgerti.',
+            'Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni fra vicini. Tieni nota di chi ti ha prestato qualcosa: quando qualcuno chiede, sai già a chi rivolgerti.',
           ),
           VoceEu(
             'Il passaparola',
@@ -2899,7 +2899,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Favori col contagocce',
             'In questo mese ti cercano in tanti e dire sempre sì è la mossa sbagliata: un trasloco, un passaggio, una pratica da sbrigare per altri. Le tue forze sono limitate e vanno dosate, altrimenti rischi di restare senza energia proprio quando ti serve per le cose tue.',
-            'Prepara una frase breve da usare alla prossima richiesta che non riesci a sostenere, per esempio: posso darti una mano il mese prossimo. Scegli invece uno o due favori che fai volentieri e dedica loro tutta l\'attenzione. A fine mese ringrazia chi ti ha sostenuto.',
+            'Prepara una frase breve da usare alla prossima richiesta che non riesci a sostenere, per esempio: posso darti una mano il mese prossimo. Scegli invece uno o due favori che fai volentieri e dedica loro tutta l\'attenzione. A fine mese ringrazia chi ti ha dato sostegno.',
             'Rifiutare con gentilezza protegge anche i rapporti: chi chiede aiuto preferisce un no sincero a un sì dato a metà. Le persone che contano capiscono e apprezzano la chiarezza. Il punto difficile è il senso di colpa del primo rifiuto: passato quello, ogni no successivo costa meno fatica.',
           ),
         ],
@@ -2922,7 +2922,7 @@ abstract final class ITestiEuOccidentaleData {
             'Ricette da ricopiare',
             'Negli affetti di famiglia il mese è dolce: con un genitore, un nonno o un parente anziano a cui vuoi bene si apre un tempo morbido. Le visite di cortesia possono diventare incontri veri, pieni di racconti che non hai mai sentito e di ricordi da custodire.',
             'Alla prossima visita porta un quaderno e fatti dettare una ricetta di famiglia, poi una a ogni incontro fino a tre. Mentre scrivi domanda chi la cucinava e per quali occasioni. Prima di fine mese prepara uno dei piatti e portalo a chi te l\'ha dettato.',
-            'Dietro ogni piatto ci sono una cucina, una festa, una persona che non c\'è più. Raccogliendo dosi e passaggi raccogli la storia di chi ti ha cresciuto. Non correre verso la ricetta: le digressioni sono la parte preziosa e una foto della pagina accanto al piatto le conserva.',
+            'Dietro ogni piatto ci sono una cucina, una festa, una persona che non c\'è più. Raccogliendo dosi e passaggi raccogli la storia di chi ti ha fatto crescere. Non correre verso la ricetta: le digressioni sono la parte preziosa e una foto della pagina accanto al piatto le conserva.',
           ),
           VoceEu(
             'Una lettera a mano',
@@ -2941,7 +2941,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Tre conversazioni scelte',
             'Per chi è senza legame il mese è equilibrato: le occasioni non mancano, ma disperse in troppe direzioni rischiano di non portare da nessuna parte. Funziona meglio scegliere con calma a chi dedicare attenzione, poche persone e conversazioni vere, invece di rispondere a tutti per non perdere niente.',
-            'Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha messo a disagio.',
+            'Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha creato disagio.',
             'Rispondere a tutti dà l\'impressione di avere molte strade aperte, ma consuma serate e pazienza. Con meno persone sul tavolo diventa più facile capire chi ti fa piacere rivedere e perché. Le note scritte a caldo aiutano: a fine mese rileggile e decidi chi merita una seconda uscita.',
           ),
           VoceEu(
@@ -2996,7 +2996,7 @@ abstract final class ITestiEuOccidentaleData {
             'Vecchi colleghi, nuove porte',
             'Il mese è favorevole ai contatti di lavoro: persone con cui hai collaborato anni fa tornano a farsi vive, con un messaggio leggero o un commento. In quel filo ripreso c\'è una collaborazione possibile che aspetta solo di essere nominata e proposta con chiarezza.',
             'Entro metà mese scegli tre ex colleghi che stimi e proponi a ciascuno un caffè o una chiamata breve. Chiedi su che cosa stanno lavorando prima di raccontare di te. Dopo ogni incontro manda un link utile o un contatto che possa servire all\'altra persona.',
-            'Il tuo nome circola meglio di quanto immagini: chi ti ha visto lavorare ricorda la tua affidabilità. È una reputazione costruita in silenzio che adesso può venirti incontro. Non lasciare cadere il discorso più promettente: prima di fine mese riprendilo con una proposta concreta di lavoro insieme.',
+            'Il tuo nome circola meglio di quanto immagini: chi ha visto il tuo lavoro ricorda la tua affidabilità. È una reputazione costruita in silenzio che adesso può venirti incontro. Non lasciare cadere il discorso più promettente: prima di fine mese riprendilo con una proposta concreta di lavoro insieme.',
           ),
           VoceEu(
             'La qualifica a portata',
@@ -3007,8 +3007,8 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il cliente che racconta',
             'Il mese porta lavoro attraverso il passaparola: un cliente che hai seguito con cura è soddisfatto e lo racconta in giro più di quanto pensi. Nelle prossime settimane possono arrivarti richieste nuove, più vicine al lavoro che ami fare, se curi chi è già dalla tua parte.',
-            'Manda un grazie sincero a chi ti ha affidato quel lavoro e chiedi due righe di commento da usare nella tua presentazione. Quando arrivano richieste nuove, rispondi entro un giorno con una proposta chiara e una data di inizio. Annota chi ti ha mandato chi.',
-            'Ogni cliente contento è una vetrina del tuo modo di lavorare e la fiducia che arriva per strada vale più di cento annunci. Il rischio è rispondere tardi alle richieste, quando l\'entusiasmo di chi ti ha segnalato si è già raffreddato. A fine mese ringrazia ciascuno personalmente.',
+            'Manda un grazie sincero a chi ti ha affidato quel lavoro e chiedi due righe di commento da usare nella tua presentazione. Quando arrivano richieste nuove, rispondi entro un giorno con una proposta chiara e una data di inizio. Annota da chi arriva ogni contatto.',
+            'Ogni cliente contento è una vetrina del tuo modo di lavorare e la fiducia che arriva per strada vale più di cento annunci. Il rischio è rispondere tardi alle richieste, quando l\'entusiasmo di chi ha fatto il tuo nome si è già raffreddato. A fine mese ringrazia ciascuno personalmente.',
           ),
         ],
         [
@@ -3075,7 +3075,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il filo da riprendere',
             'Il mese è fortunato negli incontri: una persona conosciuta di sfuggita, a una cena o a un incontro di lavoro, può rivelarsi preziosa proprio adesso. Il filo esiste già, si tratta di riprenderlo prima che si allenti del tutto, con un messaggio semplice e un ricordo preciso.',
-            'Cerca nella rubrica, nella borsa o nella giacca il recapito di qualcuno incontrato negli ultimi mesi che ti aveva colpito. Scrivi entro dieci giorni ricordando dove vi siete visti e di che cosa avevate parlato. Se la risposta è cordiale, proponi un caffè entro fine mese.',
+            'Cerca nella rubrica, nella borsa o nella giacca il recapito di qualcuno incontrato negli ultimi mesi che ti era rimasto in mente. Scrivi entro dieci giorni ricordando dove vi siete visti e di che cosa avevate parlato. Se la risposta è cordiale, proponi un caffè entro fine mese.',
             'Le conoscenze nate per caso hanno un vantaggio raro: arrivano da ambienti diversi dal tuo e portano notizie che nella tua cerchia non circolano. Un solo scambio può aprirti un consiglio o una strada nuova. Offri anche tu un nome utile: uno scambio alla pari tiene vivo il legame.',
           ),
           VoceEu(
@@ -3202,7 +3202,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Cerchie nuove',
             'Per chi è senza legame l\'anno è propizio: si aprono cerchie nuove, amicizie che portano altre amicizie, inviti da persone conosciute da poco. È il tempo giusto per allargare il proprio mondo, perché gli incontri importanti nascono da una rete viva più che da un colpo di fulmine.',
-            'Da adesso accetta un invito nuovo al mese e fanne tu uno, magari una cena a casa con persone che non si conoscono fra loro. Organizza la prima entro due mesi. Dopo ogni serata manda un messaggio a chi ti ha colpito e ricambia gli inviti ricevuti.',
+            'Da adesso accetta un invito nuovo al mese e fanne tu uno, magari una cena a casa con persone che non si conoscono fra loro. Organizza la prima entro due mesi. Dopo ogni serata manda un messaggio a chi ha catturato la tua attenzione e ricambia gli inviti ricevuti.',
             'Più porte apri, più è facile che una si affacci su qualcuno di speciale. I legami nati in questi mesi vanno coltivati con piccole attenzioni, un libro prestato, una serata ricambiata. Quando qualcuno ti interessa non aspettare troppo: proponi un incontro a due finché la simpatia è viva.',
           ),
         ],

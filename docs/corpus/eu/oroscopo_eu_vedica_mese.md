@@ -155,7 +155,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Amore, salita, voce 3: Tre giorni di silenzio
 
-- Risposta: In amore il mese chiede lentezza davanti a un ritorno inatteso. Una persona del tuo passato si è fatta viva con un messaggio affettuoso e ti ha smosso più del previsto: la prudenza vale più della fretta, quindi lascia che il primo impulso si posi.
+- Risposta: In amore il mese chiede lentezza davanti a un ritorno inatteso. Una persona del tuo passato si è fatta viva con un messaggio affettuoso e ti ha fatto effetto più del previsto: la prudenza vale più della fretta, quindi lascia che il primo impulso si posi.
 - Che cosa fare: Prima di rispondere aspetta almeno tre giorni e intanto scrivi su un foglio perché la storia era finita. Raccontala a una persona amica che la conosceva bene. Se decidi di rispondere, fallo con poche righe cortesi e senza promettere incontri, almeno per ora.
 - Risposta, Lunga: Un ritorno improvviso può nascere da nostalgia vera o da un momento di vuoto dell'altra persona. Distinguerli subito non è facile: il tempo lento di questo mese aiuta a capire quale dei due hai davanti. Se dopo qualche settimana l'interesse resta, basta un caffè breve, in un luogo neutro.
 
@@ -172,7 +172,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, favorevole, voce 1: Farsi avanti con garbo
 
 - Risposta: Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Chi coordina cerca qualcuno a cui affidare un progetto nuovo e il tuo nome circola già: adesso conta proporsi senza giri di parole, prima che la scelta cada su altri.
-- Che cosa fare: Prima della prossima riunione scrivi in mezza pagina perché quel progetto ti interessa e come lo imposteresti nelle prime settimane. Chiedi un colloquio e porta il foglio con te. Ottenuto il sì, fissa tre traguardi per la fine del mese e condividili con chi ti ha scelto.
+- Che cosa fare: Prima della prossima riunione scrivi in mezza pagina perché quel progetto ti interessa e come lo imposteresti nelle prime settimane. Chiedi un colloquio e porta il foglio con te. Ottenuto il sì, fissa tre traguardi per la fine del mese e condividili con chi ti ha dato fiducia.
 - Risposta, Lunga: Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico accolto adesso parte col passo giusto, senza dover rincorrere nessuno. Ogni venerdì manda due righe su che cosa è stato fatto e che cosa viene dopo.
 
 #### Carriera, favorevole, voce 2: Dieci nomi da riprendere
@@ -295,7 +295,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, equilibrio, voce 4: Le occasioni contate
 
-- Risposta: Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso a cui ti hanno invitato, un gruppo che ti cerca, una visita rimandata.
+- Risposta: Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso che ti hanno proposto, un gruppo che ti cerca, una visita rimandata.
 - Che cosa fare: Prima di cercare altro, scrivi questa sera l'elenco delle possibilità che hai già aperte: persone, gruppi, proposte, inviti. Accanto a ognuna segna che cosa manca per coglierla. Poi scegline una a settimana fino alla fine del mese e fai il passo mancante.
 - Risposta, Lunga: Custodire le occasioni comincia dalle cose piccole e quotidiane: una telefonata fatta invece che rimandata, un invito accolto invece che lasciato scadere. Ripetere questi gesti con regolarità dà un ordine che si sente anche altrove. Attenzione all'elenco troppo lungo: meglio poche possibilità vive che molte spente.
 

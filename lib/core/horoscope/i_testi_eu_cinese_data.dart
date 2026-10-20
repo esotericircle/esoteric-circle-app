@@ -178,7 +178,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Notizie da casa',
-            'Oggi i legami con chi ti ha cresciuto o con i familiari lontani trovano un canale aperto. Una chiamata semplice può dire più di tante visite rimandate: è una giornata buona per accorciare le distanze con la voce, senza aspettare un\'occasione speciale.',
+            'Oggi i legami con chi ti ha fatto crescere o con i familiari lontani trovano un canale aperto. Una chiamata semplice può dire più di tante visite rimandate: è una giornata buona per accorciare le distanze con la voce, senza aspettare un\'occasione speciale.',
             'Scegli un\'ora tranquilla del pomeriggio e telefona a un genitore o a un parente lontano. Prima di chiamare, scrivi su un foglio due cose della tua vita che vuoi raccontare. Alla fine fissate il prossimo appuntamento al telefono, stesso giorno e stessa ora.',
             'Chi sta lontano vive di dettagli: il nome di un collega, che cosa hai mangiato, che tempo fa dalle tue parti. Raccontarli accorcia la distanza più di ogni spiegazione importante. Una chiamata ricorrente, poi, diventa un piccolo rito atteso da entrambe le parti.',
           ),
@@ -612,7 +612,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Il numero sul tovagliolo',
-            'Oggi è un giorno adatto a riprendere i fili lasciati a metà: a una festa recente hai scambiato il numero con qualcuno che ti ha colpito, poi il contatto si è fermato. La memoria di quella serata è ancora fresca per tutte e due le parti.',
+            'Oggi è un giorno adatto a riprendere i fili lasciati a metà: a una festa recente hai scambiato il numero con qualcuno che ti è rimasto in mente, poi il contatto si è fermato. La memoria di quella serata è ancora fresca per tutte e due le parti.',
             'Manda un messaggio entro le sei, citando un dettaglio preciso di quella sera: una canzone, una battuta, un piatto. Chiudi con una proposta concreta per il fine settimana, non con un vago sentiamoci. Se la risposta tarda, oggi non insistere e torna alle tue cose con leggerezza.',
             'Chi aspetta il momento perfetto spesso lascia raffreddare un incontro promettente. Un riferimento comune fa da ponte fra due persone quasi estranee e toglie l\'imbarazzo del primo messaggio. Se la risposta arriva, accetta la prima data utile in un posto dove si parla senza alzare la voce.',
           ),
@@ -796,7 +796,7 @@ abstract final class ITestiEuCineseData {
             'Quattro posti a tavola',
             'Giornata adatta ad allargare il giro, con calma: la vita senza un legame ti piace, ma ultimamente le serate si sono ristrette alle solite due persone. Le facce nuove arrivano spesso dagli amici degli amici. Oggi conviene aprire la porta di casa più che cercare fuori.',
             'Organizza per domani una cena semplice a casa e chiedi a ogni invitato di portare una persona che non conosci. Prepara un piatto unico abbondante, per non passare la sera ai fornelli. Durante la serata presenta le persone fra loro con un dettaglio che le accomuna.',
-            'Gli incontri migliori nascono in contesti senza pressione, dove nessuno si presenta per essere scelto. Una tavola condivisa mette le persone a proprio agio e lascia emergere le affinità con naturalezza. Il giorno dopo un saluto a chi ti ha colpito basta, senza secondi fini dichiarati.',
+            'Gli incontri migliori nascono in contesti senza pressione, dove nessuno si presenta per essere scelto. Una tavola condivisa mette le persone a proprio agio e lascia emergere le affinità con naturalezza. Il giorno dopo un saluto a chi ha catturato la tua attenzione basta, senza secondi fini dichiarati.',
           ),
           VoceEu(
             'Gli auguri in ritardo',
@@ -870,7 +870,7 @@ abstract final class ITestiEuCineseData {
             'Un caffè di mezz\'ora',
             'Giornata da vivere con cautela nei nuovi incontri: qualcuno conosciuto di recente può proporti di vedervi e il pensiero corre subito lontano. Oggi vanno bene i passi piccoli, non le grandi aspettative. Correre avanti con la fantasia carica di significato perfino una virgola in un messaggio.',
             'Se l\'invito arriva, rispondi con una controproposta leggera: un caffè di mezz\'ora in un posto che conosci, alla luce del giorno. La cena lunga può aspettare un\'altra occasione. Prima di uscire decidi l\'ora dei saluti e rispettala, anche se il caffè va bene.',
-            'Tenere l\'incontro breve protegge la curiosità e lascia margine per conoscersi davvero, invece di riempire subito ogni vuoto. Stasera annota due cose che ti hanno colpito di quella persona. Domani, rileggendole a mente fresca, capisci meglio se vuoi rivederla o se era soltanto l\'entusiasmo del momento.',
+            'Tenere l\'incontro breve protegge la curiosità e lascia margine per conoscersi davvero, invece di riempire subito ogni vuoto. Stasera annota due cose di quella persona che ti sono rimaste impresse. Domani, rileggendole a mente fresca, capisci meglio se vuoi rivederla o se era soltanto l\'entusiasmo del momento.',
           ),
           VoceEu(
             'L\'amicizia distratta',
@@ -1083,7 +1083,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'La sala piena',
             'Turno intenso ma scorrevole: oggi l\'intesa con chi lavora accanto a te è buona. La sala può riempirsi e i tavoli liberarsi a ritmo serrato, eppure ci si capisce con uno sguardo e il servizio va avanti senza intoppi, anche nei momenti di maggiore affanno.',
-            'Prima dell\'apertura prenditi cinque minuti con i colleghi per dividere i tavoli e decidere chi copre le urgenze. Tieni in tasca un taccuino con le richieste particolari dei clienti, tavolo per tavolo. A fine servizio ringrazia ad alta voce chi ti ha coperto.',
+            'Prima dell\'apertura prenditi cinque minuti con i colleghi per dividere i tavoli e decidere chi copre le urgenze. Tieni in tasca un taccuino con le richieste particolari dei clienti, tavolo per tavolo. A fine servizio ringrazia ad alta voce chi ha coperto i tuoi tavoli.',
             'Nei giorni di gran lavoro la differenza la fa l\'accordo silenzioso fra le persone del turno. Un cliente contento del servizio può ricordarsi il tuo nome e chiedere di nuovo di te. Domani arriva qualche minuto prima: la calma con cui inizi il turno passa anche ai clienti.',
           ),
           VoceEu(
@@ -1101,7 +1101,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'La prova pratica',
             'Giornata favorevole alla prova pratica che ti aspetta: oggi mani e testa vanno d\'accordo. È il momento giusto per mostrare come lavori, non soltanto che cosa sai: la calma con cui affronti il compito può dire di te più di qualunque riga del curriculum.',
-            'Arriva dieci minuti prima e chiedi chiarimenti sul compito prima di cominciare: tempi, strumenti, risultato atteso. Durante la prova spiega a voce le tue scelte mentre lavori, con frasi brevi. Entro domani manda un ringraziamento a chi ti ha seguito, con una riflessione sul compito.',
+            'Arriva dieci minuti prima e chiedi chiarimenti sul compito prima di cominciare: tempi, strumenti, risultato atteso. Durante la prova spiega a voce le tue scelte mentre lavori, con frasi brevi. Entro domani manda un ringraziamento a chi ha seguito la tua prova, con una riflessione sul compito.',
             'Chi seleziona osserva il modo più del risultato: come affronti un intoppo, come chiedi aiuto, come gestisci il tempo. Una prova fatta con ordine parla più a lungo di un curriculum brillante. Finito il compito annota subito che cosa è andato bene e che cosa rifaresti.',
           ),
           VoceEu(
@@ -1259,7 +1259,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il no ricevuto',
             'Giornata per raccogliere ciò che un rifiuto può insegnare, senza rimuginarci sopra. È arrivata una risposta negativa per un posto in cui speravi: non è una porta chiusa per sempre. Quel colloquio contiene ancora indicazioni preziose per il prossimo, se le cerchi.',
-            'Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno messo in difficoltà.',
+            'Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno creato difficoltà.',
             'Le aziende ricordano chi sa ricevere un rifiuto con eleganza. Un riscontro sincero, quando arriva, vale come una lezione privata; intanto il contatto resta aperto per occasioni future. Conserva il foglio delle risposte migliori insieme ai materiali per il prossimo incontro di selezione.',
           ),
         ],
@@ -1379,7 +1379,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il ferramenta di quartiere',
             'Fortuna buona con i piccoli guasti: ciò che pensavi di dover sostituire per intero trova oggi una soluzione semplice. Dietro il bancone di una vecchia bottega c\'è chi conosce il ricambio esatto e sa come montarlo. Una domanda fatta lì vale più di un\'ora persa a cercare in rete.',
-            'Smonta il pezzo rotto, che sia una maniglia, una cerniera o il flessibile della doccia. Mettilo in un sacchetto e portalo oggi al ferramenta del quartiere. Chiedi il ricambio identico e fatti spiegare il montaggio; prima di uscire domanda il nome di chi ti ha servito.',
+            'Smonta il pezzo rotto, che sia una maniglia, una cerniera o il flessibile della doccia. Mettilo in un sacchetto e portalo oggi al ferramenta del quartiere. Chiedi il ricambio identico e fatti spiegare il montaggio; prima di uscire domanda il nome di chi era al banco.',
             'I negozi piccoli custodiscono un sapere che non sta nei cataloghi e lo regalano a chi entra con un problema preciso. Tornare dalla stessa persona costruisce un rapporto: al guasto successivo ti riconosce, ti consiglia meglio e magari ti tiene da parte il pezzo giusto. Questa è fortuna coltivata.',
           ),
           VoceEu(
@@ -1409,7 +1409,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Tenuto da parte',
             'La fortuna oggi passa da un bancone che conosci bene: il negoziante di fiducia è ben disposto verso di te e può tenerti da parte ciò che cerchi appena arriva. Una relazione cortese con chi lavora nel quartiere apre corsie che nessuna vetrina mostra a chi passa di fretta.',
-            'Entra nella libreria o nella bottega dove vai più spesso e lascia detto con precisione che cosa cerchi: titolo, misura o colore. Scrivi il tuo numero su un biglietto. Quando ritiri, ringrazia per nome chi ti ha servito con due parole di apprezzamento sincero.',
+            'Entra nella libreria o nella bottega dove vai più spesso e lascia detto con precisione che cosa cerchi: titolo, misura o colore. Scrivi il tuo numero su un biglietto. Quando ritiri, ringrazia per nome chi si è occupato di te con due parole di apprezzamento sincero.',
             'Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone: una sua telefonata può arrivare al momento giusto. È una fortuna costruita con la cortesia, giorno dopo giorno. Fai attenzione a non chiedere troppo in una volta: un desiderio preciso alla volta viene ricordato meglio.',
           ),
           VoceEu(
@@ -1462,8 +1462,8 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Parole per la bottega',
-            'La gratitudine detta al momento giusto porta fortuna oggi: un artigiano che ti ha servito bene aspetta da tempo un tuo riscontro. Una parola sincera rafforza un legame che può tornarti utile a lungo, perché chi lavora con le mani ricorda chi lo sostiene.',
-            'Scrivi stasera una recensione sincera e precisa per la sarta, il falegname o il restauratore che ti ha aiutato di recente. Racconta il lavoro fatto e la cura che ci ha messo. Quando passi davanti alla bottega, entra a dire che hai scritto: bastano due minuti.',
+            'La gratitudine detta al momento giusto porta fortuna oggi: un artigiano che ha lavorato bene per te aspetta da tempo un tuo riscontro. Una parola sincera rafforza un legame che può tornarti utile a lungo, perché chi lavora con le mani ricorda chi lo sostiene.',
+            'Scrivi stasera una recensione sincera e precisa per la sarta, il falegname o il restauratore che ti ha dato una mano di recente. Racconta il lavoro fatto e la cura che ci ha messo. Quando passi davanti alla bottega, entra a dire che hai scritto: bastano due minuti.',
             'Le piccole attività vivono di parola. Chi lavora con le mani raramente chiede qualcosa, ma quando il calendario è pieno trova spazio per i clienti che gli hanno portato altre persone. Attenzione al tono: una recensione concreta, con un dettaglio vero, vale più di dieci aggettivi entusiasti.',
           ),
           VoceEu(
@@ -1511,7 +1511,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Due poltrone in platea',
             'Fortuna dagli affetti: chi ti vuole bene oggi può offrirti un biglietto in più per uno spettacolo, un posto libero a una cena, un invito dell\'ultimo minuto. È una serata diversa che si apre. Le occasioni che passano per le mani degli amici chiedono risposte rapide.',
-            'Se qualcuno ti propone un posto che non può usare, rispondi sì entro un\'ora e offri di ricambiare con una cena nei prossimi giorni. Durante la serata presentati a chi siede accanto e ricorda il suo nome. Domattina scrivi a chi ti ha invitato che cosa ti è piaciuto.',
+            'Se qualcuno ti propone un posto che non può usare, rispondi sì entro un\'ora e offri di ricambiare con una cena nei prossimi giorni. Durante la serata presentati a chi siede accanto e ricorda il suo nome. Domattina scrivi a chi te l\'ha ceduto che cosa ti è piaciuto.',
             'Chi esita vede l\'invito andare ad altri. A teatro o a una cena si incontrano persone che non avresti mai cercato: una conversazione fra un atto e l\'altro può aprire strade inattese. Il grazie detto bene il giorno dopo, poi, è ciò che fa arrivare il prossimo invito.',
           ),
           VoceEu(
@@ -1620,7 +1620,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'I consigli di una volta',
-            'Giornata in equilibrio, in cui la fortuna arriva dall\'esperienza di chi ti ha preceduto: una persona anziana della tua famiglia ha tenuto casa per decenni con ingegno e pazienza. Oggi la sua memoria vale più di molti consigli letti in rete. È il giorno giusto per chiederla.',
+            'Giornata in equilibrio, in cui la fortuna arriva dall\'esperienza di chi è venuto prima di te: una persona anziana della tua famiglia ha tenuto casa per decenni con ingegno e pazienza. Oggi la sua memoria vale più di molti consigli letti in rete. È il giorno giusto per chiederla.',
             'Telefona in mattinata o passa a trovarla e chiedi come organizzava le scorte, le feste, le riparazioni di casa. Scrivi tre suoi trucchi su un foglio e provane uno già da domani. Stasera raccontalo a chi vive con te, così l\'abitudine diventa di tutti.',
             'Chi ha attraversato tempi magri sa cose che nessuna applicazione insegna: seguire le stagioni, riparare prima di sostituire, tenere una scorta in dispensa. Domandare è anche un modo di onorare chi le ha vissute. Mentre racconta, può emergere un ricordo di famiglia che non avevi mai sentito.',
           ),
@@ -1767,7 +1767,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il biglietto in più',
             'Fortuna fuori tempo oggi: qualcuno può offrirti un biglietto avanzato per un concerto di stasera, proprio quando hai già promesso la serata a un\'altra persona. L\'occasione è bella, ma cade nel giorno sbagliato. La scelta che porta più lontano è restare fedele alla parola data.',
-            'Tieni fede all\'impegno già preso. Ringrazia chi ti ha offerto il biglietto e suggerisci il nome di una persona amica che potrebbe usarlo al posto tuo, così non va sprecato. Domani scrivi a chi ti aveva invitato per chiedere com\'è andata e proponi tu la prossima uscita.',
+            'Tieni fede all\'impegno già preso. Ringrazia chi ti ha offerto il biglietto e suggerisci il nome di una persona amica che potrebbe usarlo al posto tuo, così non va sprecato. Domani scrivi a chi aveva pensato a te per chiedere com\'è andata e proponi tu la prossima uscita.',
             'Mantenere la parola data è anch\'esso un modo di avere fortuna: chi ti vede rinunciare con garbo è più propenso a cercarti di nuovo. Chi riceve il biglietto grazie a te, poi, ricorda il gesto. Così l\'invito mancato diventa l\'inizio di un\'altra serata insieme, con una data precisa.',
           ),
           VoceEu(
@@ -1822,7 +1822,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il volantino in bacheca',
             'La settimana è vivace e ti dà l\'energia per imparare qualcosa di nuovo con le mani o con la voce. Un laboratorio di ceramica, un coro di quartiere, un corso breve di cucina: proprio adesso la curiosità trova facilmente una porta aperta.',
-            'Passa entro giovedì dalla biblioteca o dal centro civico e leggi la bacheca degli annunci. Fotografa le proposte che ti incuriosiscono e chiama per un incontro di prova. Vai senza dover decidere subito, poi annota due cose che ti sono piaciute e una che ti ha frenato.',
+            'Passa entro giovedì dalla biblioteca o dal centro civico e leggi la bacheca degli annunci. Fotografa le proposte che ti incuriosiscono e chiama per un incontro di prova. Vai senza dover decidere subito, poi annota due cose che ti sono piaciute e una che non ti convince.',
             'Una passione nuova porta con sé facce nuove, orari diversi, un argomento di conversazione che non riguarda il lavoro. La curiosità coltivata così ridà colore alla settimana intera. Scegli con calma entro sabato: conta più il piacere della prima sera che l\'importanza del corso.',
           ),
           VoceEu(
@@ -1852,7 +1852,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il tavolo dei nuovi',
             'La settimana è socievole e l\'incontro con volti nuovi scorre con naturalezza. Se arriva un invito da persone che conosci poco, colleghi di un altro reparto o genitori incontrati all\'uscita di scuola, accettalo: è proprio lì che questi giorni hanno qualcosa da offrirti.',
-            'Accetta l\'invito entro un giorno e chiedi che cosa puoi portare. Prepara due domande sincere per chi siede accanto a te, su ciò che fa o sul quartiere dove vive. Il giorno dopo scrivi un ringraziamento a chi ti ha invitato, citando un momento preciso.',
+            'Accetta l\'invito entro un giorno e chiedi che cosa puoi portare. Prepara due domande sincere per chi siede accanto a te, su ciò che fa o sul quartiere dove vive. Il giorno dopo scrivi un ringraziamento a chi ti ha aperto la porta, citando un momento preciso.',
             'Le cerchie di ogni giorno tendono a chiudersi senza che ce ne accorgiamo. Un tavolo diverso porta storie diverse e, a volte, una persona che diventa presenza preziosa negli anni. Se con qualcuno nasce simpatia, proponi un caffè la settimana dopo, finché il ricordo è fresco.',
           ),
           VoceEu(
@@ -2089,7 +2089,7 @@ abstract final class ITestiEuCineseData {
             'Un invito accettato',
             'La settimana riapre la porta della compagnia. Da quando una storia si è chiusa hai preferito restare in disparte e declinare gli inviti: adesso l\'aria cambia e le serate fra persone tornano adatte a te, senza obblighi e senza aspettative da soddisfare.',
             'Accetta il primo invito che ricevi nei prossimi giorni, che sia una cena, una festa o un aperitivo. Decidi in anticipo un\'ora di rientro, così puoi andare con animo leggero. Durante la serata fai una domanda vera ad almeno una persona nuova.',
-            'Tornare fra le persone non significa cercare subito qualcuno, ma ricordare il piacere di conversare e ridere. Il resto, se arriva, trova la strada aperta proprio grazie a queste serate. Il giorno dopo scrivi due righe di ringraziamento a chi ti ha invitato: tiene viva la porta.',
+            'Tornare fra le persone non significa cercare subito qualcuno, ma ricordare il piacere di conversare e ridere. Il resto, se arriva, trova la strada aperta proprio grazie a queste serate. Il giorno dopo scrivi due righe di ringraziamento a chi ha organizzato la serata: tiene viva la porta.',
           ),
           VoceEu(
             'Il punto di partenza',
@@ -2305,9 +2305,9 @@ abstract final class ITestiEuCineseData {
         [
           VoceEu(
             'Tre pagine chiare',
-            'Settimana buona per trasformare una richiesta di lavoro in un incarico vero. Un cliente che ti ha cercato aspetta da te una proposta e ha voglia di cominciare: il terreno è pronto, manca soltanto che tu metta nero su bianco tempi, tappe e consegne.',
+            'Settimana buona per trasformare una richiesta di lavoro in un incarico vero. Un cliente che ti ha chiesto un preventivo aspetta da te una proposta e ha voglia di cominciare: il terreno è pronto, manca soltanto che tu metta nero su bianco tempi, tappe e consegne.',
             'Scrivi entro mercoledì una proposta di tre pagine al massimo: che cosa fai, in quali tappe, con quali consegne. Mandala in mattinata e offri una telefonata di dieci minuti per i dubbi. Se la risposta arriva entro venerdì, fissa subito la data di partenza.',
-            'Chi ti ha chiamato sceglie chi si presenta con ordine più di chi promette molto. Una proposta breve fa sentire che il lavoro è già in buone mani e rende facile un sì senza rinvii. Se la risposta tarda, aspetta lunedì e scrivi con una domanda sola e gentile.',
+            'Chi ti cerca sceglie chi si presenta con ordine più di chi promette molto. Una proposta breve fa sentire che il lavoro è già in buone mani e rende facile un sì senza rinvii. Se la risposta tarda, aspetta lunedì e scrivi con una domanda sola e gentile.',
           ),
           VoceEu(
             'Il colloquio col responsabile',
@@ -2371,7 +2371,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Il secondo colloquio',
-            'Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l\'azienda ti ha richiamato perché c\'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.',
+            'Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l\'azienda ha voluto rivederti perché c\'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.',
             'Rileggi entro mercoledì gli appunti del primo incontro e scrivi tre domande sul lavoro quotidiano: con chi lavoreresti ogni giorno, come si misurano i risultati, che cosa ci si aspetta nei primi tre mesi. Nelle ventiquattro ore successive manda un ringraziamento breve.',
             'In questo secondo incontro la conversazione può diventare più aperta e mostrare come lavora davvero il gruppo in cui potresti entrare. Ascolta i dettagli pratici più delle promesse. A colloquio finito scrivi per te una nota onesta: che cosa ti è piaciuto e che cosa resta da chiarire.',
           ),
@@ -2458,8 +2458,8 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Fine dello stage',
             'Settimana in equilibrio per chi chiude un tirocinio: non porta risposte definitive sul dopo, ma è adatta a fare domande chiare. Il periodo in ufficio sta finendo e conviene raccogliere quello che hai imparato e i contatti costruiti prima che i ricordi sbiadiscano.',
-            'Chiedi entro giovedì un colloquio a chi ti ha seguito. Domanda un giudizio sincero sul tuo lavoro e chiedi apertamente se esistono possibilità di restare o contatti a cui rivolgerti. Prima dell\'ultimo giorno aggiorna il curriculum con progetti e risultati.',
-            'Chi chiude bene un\'esperienza ne porta via più di un attestato. Il rapporto costruito in questi mesi può restare utile a lungo, se lo saluti con riconoscenza. Chiedi il permesso di indicare come referenza chi ti ha guidato e lascia un biglietto di ringraziamento.',
+            'Chiedi entro giovedì un colloquio a chi ti ha fatto da guida. Domanda un giudizio sincero sul tuo lavoro e chiedi apertamente se esistono possibilità di restare o contatti a cui rivolgerti. Prima dell\'ultimo giorno aggiorna il curriculum con progetti e risultati.',
+            'Chi chiude bene un\'esperienza ne porta via più di un attestato. Il rapporto costruito in questi mesi può restare utile a lungo, se lo saluti con riconoscenza. Chiedi il permesso di indicare come referenza chi ha seguito il tuo percorso e lascia un biglietto di ringraziamento.',
           ),
           VoceEu(
             'Turni da incastrare',
@@ -2525,7 +2525,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Attrito in riunione',
-            'Settimana delicata per i rapporti in ufficio: una battuta di un collega in riunione ti ha punto e da allora fra voi c\'è freddezza. Lasciar correre del tutto non funziona, ma neppure una discussione davanti a tutti: serve un chiarimento a quattr\'occhi.',
+            'Settimana delicata per i rapporti in ufficio: una battuta di un collega in riunione ti ha dato fastidio e da allora fra voi c\'è freddezza. Lasciar correre del tutto non funziona, ma neppure una discussione davanti a tutti: serve un chiarimento a quattr\'occhi.',
             'A metà settimana cerca il collega lontano dalle riunioni e chiedigli cinque minuti. Racconta in una frase come ti è arrivata la battuta e chiedi se voleva dirti davvero qualcosa. Nelle riunioni successive mantieni un tono cordiale e professionale, qualunque sia la risposta.',
             'Gli attriti fra colleghi si sciolgono meglio a voce e in privato che per messaggio. Parla dei fatti e del loro effetto su di te, lasciando da parte le intenzioni che attribuisci all\'altro. Se la scena si ripete, annota data e parole esatte prima di decidere come muoverti.',
           ),
@@ -2627,7 +2627,7 @@ abstract final class ITestiEuCineseData {
             'Un incarico breve',
             'Settimana di piccole proposte che aprono strade nuove. Una richiesta di aiuto per pochi giorni, una sostituzione, un allestimento: sembrano cose marginali e invece ti mettono accanto a persone che non avresti incontrato altrimenti. Accettarle volentieri lascia spesso un nome nuovo in rubrica.',
             'Se qualcuno ti chiede una mano per un evento, un inventario o un allestimento, rispondi entro ventiquattro ore e chiedi subito orari e compiti, messi per iscritto. Durante l\'incarico arriva un quarto d\'ora prima e fai una cosa in più di quanto richiesto.',
-            'Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo. La puntualità e il piccolo gesto in più restano nella memoria. Alla fine chiedi se puoi indicare chi ti ha coinvolto come referenza.',
+            'Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo. La puntualità e il piccolo gesto in più restano nella memoria. Alla fine chiedi se puoi indicare chi ti ha dato l\'incarico come referenza.',
           ),
           VoceEu(
             'Servizi a due passi',
@@ -2669,7 +2669,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Il grazie restituito',
-            'Settimana in cui l\'equilibrio dei rapporti conta più di qualunque occasione nuova. Qualcuno ti ha aiutato di recente e il grazie è rimasto a metà: rimetterlo in pari adesso mantiene viva una fiducia che domani ti permette di chiedere ancora.',
+            'Settimana in cui l\'equilibrio dei rapporti conta più di qualunque occasione nuova. Qualcuno ti ha fatto un favore di recente e il grazie è rimasto a metà: rimetterlo in pari adesso mantiene viva una fiducia che domani ti permette di chiedere ancora.',
             'Pensa alla persona che ti ha dato una mano e offrile entro venerdì qualcosa di preciso in cambio: un passaggio, un pranzo cucinato da te, un\'ora del tuo tempo su un suo problema. Fallo senza annunciarlo e senza aspettarti nulla: il gesto vale per sé.',
             'Un favore non ricambiato lascia un piccolo squilibrio, come un tavolo che zoppica. Attenzione però a non esagerare: un gesto troppo grande mette l\'altra persona in imbarazzo. Scegli qualcosa di proporzionato al favore ricevuto e lascia che sia l\'altra parte a ringraziare, se vuole.',
           ),
@@ -2915,7 +2915,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Un gruppo nuovo',
             'Per chi cerca qualcuno, è un mese favorevole agli incontri nuovi: chi conosci adesso ha voglia di conoscere. Le tue serate però seguono sempre lo stesso giro e le persone nuove non trovano una porta da cui entrare. Basta aprirla con un\'attività diversa dal solito.',
-            'Iscriviti entro metà mese a un\'attività serale di gruppo che ti incuriosisce davvero: un coro, un corso di cucina, un circolo di lettura. Scegli un giorno fisso e partecipa ad almeno tre incontri prima di giudicare. Poi proponi un tè a chi ti ha colpito di più.',
+            'Iscriviti entro metà mese a un\'attività serale di gruppo che ti incuriosisce davvero: un coro, un corso di cucina, un circolo di lettura. Scegli un giorno fisso e partecipa ad almeno tre incontri prima di giudicare. Poi proponi un tè a chi ti ha fatto più impressione.',
             'Gli incontri migliori nascono spesso di lato, mentre si fa qualcosa insieme e nessuno sta cercando. Un interesse condiviso offre subito un argomento, toglie l\'imbarazzo dell\'inizio e lascia emergere le affinità con calma. Evita di andarci con l\'idea fissa di trovare qualcuno: la fretta si vede.',
           ),
           VoceEu(
@@ -3304,7 +3304,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il filo dei favori',
             'Fra quello che dai e quello che ricevi, quest\'anno trova un buon equilibrio. Le occasioni nascono dallo scambio di favori con chi ti sta intorno, a patto che nessuna delle due parti dia troppo più dell\'altra: la buona sorte cresce dalla reciprocità.',
-            'Da qui alla primavera tieni un elenco discreto dei favori fatti e ricevuti, solo nomi e gesti. Quando vedi uno squilibrio ricambia con un pensiero mirato oppure chiedi con semplicità. Una volta per stagione invita a pranzo chi ti ha aiutato di più.',
+            'Da qui alla primavera tieni un elenco discreto dei favori fatti e ricevuti, solo nomi e gesti. Quando vedi uno squilibrio ricambia con un pensiero mirato oppure chiedi con semplicità. Una volta per stagione invita a pranzo chi ti ha dato più aiuto.',
             'I rapporti in armonia sono un bene prezioso. Un favore restituito al momento giusto rafforza un legame più di un regalo vistoso; uno dimenticato crea un attrito sottile che si accumula. Nel tempo disteso di un pranzo nascono spesso le proposte più utili: rispondi solo dopo averci pensato.',
           ),
         ],

@@ -62,7 +62,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 2: Cerchie nuove
 
 - Risposta: Per chi è senza legame l'anno è propizio: si aprono cerchie nuove, amicizie che portano altre amicizie, inviti da persone conosciute da poco. È il tempo giusto per allargare il proprio mondo, perché gli incontri importanti nascono da una rete viva più che da un colpo di fulmine.
-- Che cosa fare: Da adesso accetta un invito nuovo al mese e fanne tu uno, magari una cena a casa con persone che non si conoscono fra loro. Organizza la prima entro due mesi. Dopo ogni serata manda un messaggio a chi ti ha colpito e ricambia gli inviti ricevuti.
+- Che cosa fare: Da adesso accetta un invito nuovo al mese e fanne tu uno, magari una cena a casa con persone che non si conoscono fra loro. Organizza la prima entro due mesi. Dopo ogni serata manda un messaggio a chi ha catturato la tua attenzione e ricambia gli inviti ricevuti.
 - Risposta, Lunga: Più porte apri, più è facile che una si affacci su qualcuno di speciale. I legami nati in questi mesi vanno coltivati con piccole attenzioni, un libro prestato, una serata ricambiata. Quando qualcuno ti interessa non aspettare troppo: proponi un incontro a due finché la simpatia è viva.
 
 ### Amore, In equilibrio (livello 3)

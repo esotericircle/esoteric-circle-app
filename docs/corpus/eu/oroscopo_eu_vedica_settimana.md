@@ -105,7 +105,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è in equilibrio e chiede soltanto un confine più netto fra lavoro e casa. Il lavoro tende a sconfinare nelle sere e la casa a infilarsi nelle ore di lavoro: questi giorni non spingono né frenano, ma premiano chi decide quando una cosa finisce e l'altra comincia.
 - Che cosa fare: Decidi un orario preciso in cui chiudere il lavoro, per esempio le sette, valido da lunedì a venerdì. Allo scoccare dell'ora spegni il computer, metti via le carte e cambia stanza o almeno cambia luce. Se resta un compito a metà, scrivilo su un biglietto per domattina.
-- Risposta, Lunga: Un confine chiaro non toglie nulla all'impegno: lo rende più pulito. Il lavoro fatto bene dentro un orario ha un'altra qualità rispetto a quello trascinato fino a notte. A metà settimana nota che cosa ti ha tentato a sforare: se è stata una mail, sposta le notifiche al mattino.
+- Risposta, Lunga: Un confine chiaro non toglie nulla all'impegno: lo rende più pulito. Il lavoro fatto bene dentro un orario ha un'altra qualità rispetto a quello trascinato fino a notte. A metà settimana nota che cosa ti ha fatto sforare: se è stata una mail, sposta le notifiche al mattino.
 
 #### Generale, equilibrio, voce 3: Il menù sul frigo
 
@@ -197,7 +197,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: È una settimana di pazienza corta: una frase storta può pungerti più del dovuto. Il rischio vero è rispondere a caldo e dover poi rimediare con fatica a uno scambio diventato spigoloso, quando una notte di distanza sarebbe bastata a dire le stesse ragioni con più chiarezza.
 - Che cosa fare: Quando un messaggio o una battuta ti irritano, scrivi la risposta ma non inviarla: lasciala nelle bozze fino al mattino seguente. Rileggila allora e tieni soltanto le frasi che firmeresti a mente fresca. Le conversazioni tese da giorni spostale a voce, nel fine settimana.
-- Risposta, Lunga: Le parole dette nell'impeto viaggiano più veloci di quelle meditate, ma lasciano tracce più lunghe. Una notte non spegne le tue ragioni: le rende più facili da far arrivare all'altra persona. A voce, prepara due frasi su ciò che ti ha ferito e una su ciò che vorresti.
+- Risposta, Lunga: Le parole dette nell'impeto viaggiano più veloci di quelle meditate, ma lasciano tracce più lunghe. Una notte non spegne le tue ragioni: le rende più facili da far arrivare all'altra persona. A voce, prepara due frasi su ciò che ti ha fatto male e una su ciò che vorresti.
 
 #### Generale, salita, voce 4: La caldaia capricciosa
 
@@ -538,7 +538,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, favorevole, voce 2: La stima che circola
 
 - Risposta: Settimana buona per farti conoscere attraverso chi ha già lavorato con te. Un cliente contento parla volentieri di quello che fai e nei prossimi giorni quella stima può trasformarsi in un contatto nuovo. Basta chiedere nel modo giusto, con semplicità e senza imbarazzo.
-- Che cosa fare: Entro giovedì scegli il cliente più contento degli ultimi mesi e scrivi a quella persona: ringrazia per la collaborazione e chiedi se conosce qualcuno a cui il tuo lavoro può servire. Quando arriva un nome, presentati subito citando chi ti ha indicato.
+- Che cosa fare: Entro giovedì scegli il cliente più contento degli ultimi mesi e scrivi a quella persona: ringrazia per la collaborazione e chiedi se conosce qualcuno a cui il tuo lavoro può servire. Quando arriva un nome, presentati subito citando chi ha fatto il tuo nome.
 - Risposta, Lunga: Il lavoro fatto bene ha un'eco lenta che passa di bocca in bocca: in questi giorni si fa più udibile. Chi ti conosce spende volentieri il tuo nome con chi cerca una persona affidabile. Ricordati di chiudere il giro con due righe di grazie a chi ha fatto da ponte.
 
 #### Carriera, favorevole, voce 3: Il programma diviso
@@ -685,7 +685,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è equilibrata e ti chiede di leggere con calma la valutazione ricevuta sul tuo lavoro. Contiene lodi e critiche: non serve difenderti né abbatterti. Il compito è separare le osservazioni che indicano un passo possibile da quelle che pesano e basta.
 - Che cosa fare: Rileggi la valutazione e copia su un foglio solo le osservazioni concrete. Scegline una da migliorare nei prossimi giorni e scrivi accanto il primo gesto pratico per farlo. Lascia da parte il resto, almeno per ora, senza rimuginarci sopra la sera.
-- Risposta, Lunga: Una critica ha valore quando indica un passo possibile. Il mestiere si affina come un attrezzo, un colpo alla volta: correggere tutto insieme disperde le forze. Fra una decina di giorni chiedi a chi ti ha valutato un riscontro su quel solo punto: mostra che l'hai preso sul serio.
+- Risposta, Lunga: Una critica ha valore quando indica un passo possibile. Il mestiere si affina come un attrezzo, un colpo alla volta: correggere tutto insieme disperde le forze. Fra una decina di giorni chiedi a chi ha fatto la critica un riscontro su quel solo punto: mostra che l'hai preso sul serio.
 
 #### Carriera, equilibrio, voce 13: Il punto del venerdì
 
@@ -745,7 +745,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, salita, voce 8: Le consegne accavallate
 
-- Risposta: È una settimana pesante: hai accettato più lavori di quanti ne puoi seguire con cura e le consegne si accavallano. Serve prudenza. Dire un no adesso costa meno che consegnare male più avanti e perdere la fiducia di chi ti ha scelto proprio per la tua cura.
+- Risposta: È una settimana pesante: hai accettato più lavori di quanti ne puoi seguire con cura e le consegne si accavallano. Serve prudenza. Dire un no adesso costa meno che consegnare male più avanti e perdere la fiducia di chi ha puntato su di te proprio per la tua cura.
 - Che cosa fare: Elenca gli incarichi aperti con la data di ciascuno. Scegli quello meno avviato e scrivi entro mercoledì al cliente per proporre di spostarlo o di affidarlo a un collega di fiducia. Prima di accettare altro, guarda il calendario delle due settimane successive.
 - Risposta, Lunga: Prendere tutto per paura di perdere qualcosa è comprensibile ma pesante. La tradizione indiana lega l'azione giusta alla misura: un lavoro in meno, fatto bene, vale più di tre fatti di corsa. Senza tre giorni liberi per un incarico nuovo, proponi una data più lontana.
 
@@ -804,7 +804,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, favorevole, voce 3: La raccolta in campagna
 
 - Risposta: Questa settimana la fortuna passa per le mani. Qualcuno che conosci ha un pezzo di campagna o un albero da frutto che dà più di quanto riesca a raccogliere. Un paio di braccia in più valgono molto in questi giorni e per te può esserci una cassetta piena.
-- Che cosa fare: Telefona entro giovedì e offri la tua domenica mattina per la raccolta. Porta guanti, cesti e qualcosa da bere per tutti. Al ritorno trasforma una parte di ciò che porti a casa in marmellata e consegna un barattolo a chi ti ha accolto, con un biglietto.
+- Che cosa fare: Telefona entro giovedì e offri la tua domenica mattina per la raccolta. Porta guanti, cesti e qualcosa da bere per tutti. Al ritorno trasforma una parte di ciò che porti a casa in marmellata e consegna un barattolo a chi organizza la raccolta, con un biglietto.
 - Risposta, Lunga: Il frutto raccolto con fatica condivisa ha un sapore diverso da quello comprato. La lettura vedica ama questo intreccio di lavoro e di dono: ciò che si fa con le mani torna in forma di legame, di consiglio, di cibo buono. Chi aiuta torna in mente per primo l'anno dopo.
 
 #### Fortuna, favorevole, voce 4: Il banco al mercatino
@@ -846,7 +846,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, favorevole, voce 10: Il gruppo di lettura
 
 - Risposta: Questa settimana la buona sorte ha la forma di un libro letto insieme. In una libreria o in un circolo vicino a te si ritrova un gruppo di persone che leggono lo stesso titolo e fra loro può esserci qualcuno con la risposta che cerchi da mesi.
-- Che cosa fare: Fatti dire in libreria il titolo della prossima lettura e il giorno dell'incontro. Leggi le prime trenta pagine prima di andarci: bastano per entrare nella conversazione con qualcosa da dire. Alla fine fermati qualche minuto con la persona che ti ha colpito di più.
+- Che cosa fare: Fatti dire in libreria il titolo della prossima lettura e il giorno dell'incontro. Leggi le prime trenta pagine prima di andarci: bastano per entrare nella conversazione con qualcosa da dire. Alla fine fermati qualche minuto con la persona che ti ha fatto più impressione.
 - Risposta, Lunga: Un libro discusso insieme mette le persone sullo stesso piano: il mestiere e l'età contano meno delle idee. In un clima così le richieste si fanno con naturalezza e gli aiuti si offrono senza calcolo. Se nasce un tema in comune, proponi un caffè nel fine settimana.
 
 #### Fortuna, favorevole, voce 11: Libri di studio
@@ -927,7 +927,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana equilibrata, con una buona occasione all'aria aperta. Nella tua zona esistono gruppi che si ritrovano per camminare, pedalare o visitare luoghi vicini. Una sola uscita, scelta con criterio, può darti contatti utili senza riempire l'agenda. Basta cominciare da una domenica.
 - Che cosa fare: Cerca entro giovedì un gruppo che organizzi un'uscita domenica mattina, con un percorso adatto alle tue gambe. Iscriviti a quella e a nessun'altra: una prova basta per capire il clima. Durante la pausa presentati a chi guida il gruppo e chiedi come funzionano le uscite successive.
-- Risposta, Lunga: Camminare accanto a qualcuno per ore apre conversazioni che al tavolo non nascono. Il passo regolare mette tutti allo stesso livello; chi cammina con te può avere un mestiere, una casa, un consiglio da offrire. Salva il contatto di chi ti ha colpito e scrivi entro mercoledì per ringraziare.
+- Risposta, Lunga: Camminare accanto a qualcuno per ore apre conversazioni che al tavolo non nascono. Il passo regolare mette tutti allo stesso livello; chi cammina con te può avere un mestiere, una casa, un consiglio da offrire. Salva il contatto di chi ti interessa e scrivi entro mercoledì per ringraziare.
 
 #### Fortuna, equilibrio, voce 10: Il taccuino delle abitudini
 

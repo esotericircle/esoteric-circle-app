@@ -269,7 +269,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il consiglio chiesto',
             'Oggi è una giornata buona per chiedere un consiglio. Hai una scelta pratica davanti e qualcuno che conosci ha già percorso una strada simile: la sua esperienza può chiarirti le idee più di molte ricerche. Chiedere adesso è facile e la risposta può arrivare più limpida del previsto.',
-            'Scrivi a quella persona e chiedi venti minuti, al telefono o davanti a un caffè. Prepara due domande sulla sua esperienza, non sulla tua decisione: che cosa rifarebbe, che cosa eviterebbe. Dopo la conversazione scrivi subito ciò che ti ha colpito, prima che sfumi.',
+            'Scrivi a quella persona e chiedi venti minuti, al telefono o davanti a un caffè. Prepara due domande sulla sua esperienza, non sulla tua decisione: che cosa rifarebbe, che cosa eviterebbe. Dopo la conversazione scrivi subito ciò che ti è rimasto, prima che sfumi.',
             'Chiedere consiglio non significa delegare la scelta. Significa ascoltare chi ha già fatto un tratto di strada e tenere per te le parti utili, lasciando il resto senza sentirti in debito. La decisione finale resta tua: rileggi gli appunti domani e ringrazia con un messaggio breve.',
           ),
         ],
@@ -650,7 +650,7 @@ abstract final class ITestiEuVedicaData {
             'La sedia in più',
             'Giornata favorevole per accettare un invito anche se conosci poche persone. Hai ricevuto l\'invito a una cena dove l\'unico volto noto è chi la organizza e la tentazione è trovare una scusa: oggi invece la giornata premia chi si presenta e allarga la propria cerchia.',
             'Conferma la tua presenza entro mezzogiorno e chiedi che cosa puoi portare. Prepara una cosa fatta da te, anche semplice, come un dolce o del pane: è un argomento per rompere il ghiaccio. A tavola siediti accanto a qualcuno che non conosci e fai domande sulle sue passioni.',
-            'Le tavole con facce nuove sono il luogo più naturale per conoscere gente nuova. Fra persone che hanno un amico in comune la fiducia parte già avviata e le conversazioni trovano subito un terreno condiviso. Prima di andare via chiedi un contatto a chi ti ha colpito.',
+            'Le tavole con facce nuove sono il luogo più naturale per conoscere gente nuova. Fra persone che hanno un amico in comune la fiducia parte già avviata e le conversazioni trovano subito un terreno condiviso. Prima di andare via chiedi un contatto a chi ha attirato la tua attenzione.',
           ),
           VoceEu(
             'Le foto ai nonni',
@@ -807,7 +807,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Sotto lo stesso tetto',
             'Oggi in coppia non serve decidere niente: è un buon momento per mettere ordine nei desideri. Con chi ami avete sfiorato più volte l\'idea di vivere insieme senza mai parlarne davvero. La giornata è calma e permette una conversazione sincera, senza la pressione di una scelta immediata.',
-            'Stasera, a cena, fate a turno tre domande ciascuno su come immaginate le giornate in comune: orari, spazi, abitudini. Ascoltate le risposte senza commentarle subito. Domani annota in poche righe ciò che ti ha colpito e fissate insieme un secondo momento per riparlarne.',
+            'Stasera, a cena, fate a turno tre domande ciascuno su come immaginate le giornate in comune: orari, spazi, abitudini. Ascoltate le risposte senza commentarle subito. Domani annota in poche righe ciò che ti ha fatto riflettere e fissate insieme un secondo momento per riparlarne.',
             'Le scelte grandi riescono meglio quando si preparano con pazienza. Oggi si semina, con domande sincere e nessuna fretta; il tempo di costruire viene dopo. Evita di legarvi a una data per il trasloco: una scadenza fissata troppo presto trasforma il dialogo in una trattativa.',
           ),
           VoceEu(
@@ -1107,7 +1107,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Un caffè con stima',
             'Oggi un contatto rinnovato nel tuo settore può portare scambi utili per entrambe le parti. C\'è una persona che stimi e che non senti da molto: la giornata è favorevole a riaprire quel filo con naturalezza, senza secondi fini e senza richieste.',
-            'Manda un messaggio a quella persona e proponi un caffè a breve, con una ragione precisa: un suo lavoro che ti ha colpito o un tema su cui vorresti un parere sincero. Prima dell\'incontro prepara qualcosa da offrire tu, come un contatto o un articolo.',
+            'Manda un messaggio a quella persona e proponi un caffè a breve, con una ragione precisa: un suo lavoro che hai apprezzato o un tema su cui vorresti un parere sincero. Prima dell\'incontro prepara qualcosa da offrire tu, come un contatto o un articolo.',
             'I rapporti di lavoro migliori nascono dalla stima reciproca, non dalla richiesta di un favore. La lettura vedica guarda con favore ai legami coltivati con lealtà: crescono piano e durano. Chi arriva con qualcosa da dare lascia un ricordo che apre porte, anche a distanza di tempo.',
           ),
           VoceEu(
@@ -1175,7 +1175,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Dopo il colloquio',
             'Oggi l\'attesa dopo il colloquio resta, ma la giornata offre un margine per farti sentire senza insistere. Da qualche giorno tutto tace e il silenzio pesa: un segnale misurato da parte tua è possibile e anche opportuno, purché resti breve e cortese.',
-            'Scrivi oggi a chi ti ha incontrato un messaggio breve: ringrazia per il tempo, ricorda in una frase che cosa ti ha colpito del ruolo e chiedi con garbo se ci sono novità sui tempi. Intanto prepara un\'altra candidatura curata da spedire domani.',
+            'Scrivi oggi a chi ti ha fatto il colloquio un messaggio breve: ringrazia per il tempo, ricorda in una frase che cosa ti interessa del ruolo e chiedi con garbo se ci sono novità sui tempi. Intanto prepara un\'altra candidatura curata da spedire domani.',
             'Un ricontatto misurato mostra interesse e rispetto per i ritmi altrui. Non decide l\'esito, però lascia un\'impressione di serietà che resta anche quando le scelte si rimandano. Tenere più porte aperte toglie peso a ogni singola attesa e ti fa arrivare ai prossimi incontri con più calma.',
           ),
           VoceEu(
@@ -1259,7 +1259,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il lavoro concluso',
             'Giornata da dedicare alla chiusura vera di ciò che è finito, prima di correre al prossimo incarico. Un lavoro a cui hai dato molto si è appena concluso e la tentazione è voltare pagina subito, ma oggi vale la pena fermarsi un momento.',
-            'Archivia i file in una cartella ordinata con un nome chiaro e la data. Poi scrivi un ringraziamento personale a ognuna delle persone che ti hanno aiutato, citando un contributo preciso. Stasera annota in una pagina che cosa rifaresti e che cosa cambieresti.',
+            'Archivia i file in una cartella ordinata con un nome chiaro e la data. Poi scrivi un ringraziamento personale a ognuna delle persone che ti hanno dato una mano, citando un contributo preciso. Stasera annota in una pagina che cosa rifaresti e che cosa cambieresti.',
             'Chiudere bene fa parte del lavoro stesso. Un ringraziamento preciso resta nella memoria di chi lo riceve e prepara il terreno per le collaborazioni future, senza bisogno di chiederle. La pagina di bilancio, conservata nella cartella del progetto, può tornarti utile al prossimo inizio.',
           ),
         ],
@@ -1285,7 +1285,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Notizie che tardano',
             'Giornata pesante per chi aspetta: dopo un colloquio andato bene la risposta tarda e l\'attesa comincia a farsi sentire. Il silenzio di un\'azienda raramente parla di te, più spesso racconta agende piene e decisioni che passano da molte mani prima di arrivare a te.',
-            'Scrivi oggi una mail di poche righe a chi ti ha ricevuto: ringrazia per il tempo dedicato, ricorda un punto concreto emerso nel colloquio e chiedi con garbo quali sono i tempi previsti. Invia in giornata anche un\'altra candidatura, scritta per quell\'annuncio preciso.',
+            'Scrivi oggi una mail di poche righe a chi ha condotto l\'incontro: ringrazia per il tempo dedicato, ricorda un punto concreto emerso nel colloquio e chiedi con garbo quali sono i tempi previsti. Invia in giornata anche un\'altra candidatura, scritta per quell\'annuncio preciso.',
             'Questa attesa ha bisogno di misura: controllare la posta ogni dieci minuti consuma energie che servono altrove. Il momento di raccogliere non è ancora arrivato, intanto puoi tenere viva la ricerca. Due strade aperte tolgono peso alla prima e ti fanno arrivare alla risposta con più serenità.',
           ),
           VoceEu(
@@ -1445,7 +1445,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Un coperto aggiunto',
             'Oggi la fortuna siede a tavola: un invito a cena o un aperitivo fra amici ti mette accanto a una persona che fa un lavoro vicino al tuo o conosce chi può darti una mano. La serata conta più della giornata.',
-            'Accetta l\'invito di stasera anche se la giornata è stata lunga e porta qualcosa di semplice fatto da te. Quando ti presentano qualcuno, racconta in una frase che cosa stai cercando. Prima di andare via chiedi a chi ti ha colpito come sentirvi.',
+            'Accetta l\'invito di stasera anche se la giornata è stata lunga e porta qualcosa di semplice fatto da te. Quando ti presentano qualcuno, racconta in una frase che cosa stai cercando. Prima di andare via chiedi a chi ti ha fatto buona impressione come sentirvi.',
             'La tavola condivisa è antica quanto l\'ospitalità: lì le persone si aprono senza la rigidità degli uffici. Un incontro nato fra un piatto e l\'altro tiene meglio di cento messaggi. Domani ringrazia chi ha organizzato la cena, perché la gratitudine tiene aperte le porte.',
           ),
           VoceEu(
@@ -1755,7 +1755,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il posto lasciato libero',
             'Fortuna in affanno oggi, perché arriva nel momento sbagliato: qualcuno ti offre all\'ultimo un posto libero, un biglietto per una serata, un passaggio, un turno in un corso. L\'occasione è gentile, ma la tua giornata è già piena e non regge altro.',
-            'Prima di rispondere guarda l\'agenda di domani. Se il sì ti costringe a correre, rifiuta con garbo e proponi il nome di una persona vicina che quel posto lo userebbe volentieri. Domani ringrazia ancora chi ti aveva pensato, con un messaggio breve e caloroso.',
+            'Prima di rispondere guarda l\'agenda di domani. Se il sì ti costringe a correre, rifiuta con garbo e proponi il nome di una persona vicina che quel posto lo userebbe volentieri. Domani ringrazia ancora chi aveva pensato a te, con un messaggio breve e caloroso.',
             'Non ogni porta aperta è fatta per te oggi. Passare un\'occasione a chi può goderla davvero crea un legame buono; chi la riceve tende a ricordarsi di te quando l\'invito capita nel momento giusto. Indica due sere libere dei prossimi giorni, così la porta resta socchiusa.',
           ),
           VoceEu(
@@ -1879,7 +1879,7 @@ abstract final class ITestiEuVedicaData {
             'L\'ora di staccare',
             'La settimana è in equilibrio e chiede soltanto un confine più netto fra lavoro e casa. Il lavoro tende a sconfinare nelle sere e la casa a infilarsi nelle ore di lavoro: questi giorni non spingono né frenano, ma premiano chi decide quando una cosa finisce e l\'altra comincia.',
             'Decidi un orario preciso in cui chiudere il lavoro, per esempio le sette, valido da lunedì a venerdì. Allo scoccare dell\'ora spegni il computer, metti via le carte e cambia stanza o almeno cambia luce. Se resta un compito a metà, scrivilo su un biglietto per domattina.',
-            'Un confine chiaro non toglie nulla all\'impegno: lo rende più pulito. Il lavoro fatto bene dentro un orario ha un\'altra qualità rispetto a quello trascinato fino a notte. A metà settimana nota che cosa ti ha tentato a sforare: se è stata una mail, sposta le notifiche al mattino.',
+            'Un confine chiaro non toglie nulla all\'impegno: lo rende più pulito. Il lavoro fatto bene dentro un orario ha un\'altra qualità rispetto a quello trascinato fino a notte. A metà settimana nota che cosa ti ha fatto sforare: se è stata una mail, sposta le notifiche al mattino.',
           ),
           VoceEu(
             'Il menù sul frigo',
@@ -1971,7 +1971,7 @@ abstract final class ITestiEuVedicaData {
             'Le bozze del mattino',
             'È una settimana di pazienza corta: una frase storta può pungerti più del dovuto. Il rischio vero è rispondere a caldo e dover poi rimediare con fatica a uno scambio diventato spigoloso, quando una notte di distanza sarebbe bastata a dire le stesse ragioni con più chiarezza.',
             'Quando un messaggio o una battuta ti irritano, scrivi la risposta ma non inviarla: lasciala nelle bozze fino al mattino seguente. Rileggila allora e tieni soltanto le frasi che firmeresti a mente fresca. Le conversazioni tese da giorni spostale a voce, nel fine settimana.',
-            'Le parole dette nell\'impeto viaggiano più veloci di quelle meditate, ma lasciano tracce più lunghe. Una notte non spegne le tue ragioni: le rende più facili da far arrivare all\'altra persona. A voce, prepara due frasi su ciò che ti ha ferito e una su ciò che vorresti.',
+            'Le parole dette nell\'impeto viaggiano più veloci di quelle meditate, ma lasciano tracce più lunghe. Una notte non spegne le tue ragioni: le rende più facili da far arrivare all\'altra persona. A voce, prepara due frasi su ciò che ti ha fatto male e una su ciò che vorresti.',
           ),
           VoceEu(
             'La caldaia capricciosa',
@@ -2312,7 +2312,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'La stima che circola',
             'Settimana buona per farti conoscere attraverso chi ha già lavorato con te. Un cliente contento parla volentieri di quello che fai e nei prossimi giorni quella stima può trasformarsi in un contatto nuovo. Basta chiedere nel modo giusto, con semplicità e senza imbarazzo.',
-            'Entro giovedì scegli il cliente più contento degli ultimi mesi e scrivi a quella persona: ringrazia per la collaborazione e chiedi se conosce qualcuno a cui il tuo lavoro può servire. Quando arriva un nome, presentati subito citando chi ti ha indicato.',
+            'Entro giovedì scegli il cliente più contento degli ultimi mesi e scrivi a quella persona: ringrazia per la collaborazione e chiedi se conosce qualcuno a cui il tuo lavoro può servire. Quando arriva un nome, presentati subito citando chi ha fatto il tuo nome.',
             'Il lavoro fatto bene ha un\'eco lenta che passa di bocca in bocca: in questi giorni si fa più udibile. Chi ti conosce spende volentieri il tuo nome con chi cerca una persona affidabile. Ricordati di chiudere il giro con due righe di grazie a chi ha fatto da ponte.',
           ),
           VoceEu(
@@ -2459,7 +2459,7 @@ abstract final class ITestiEuVedicaData {
             'Lodi e critiche',
             'La settimana è equilibrata e ti chiede di leggere con calma la valutazione ricevuta sul tuo lavoro. Contiene lodi e critiche: non serve difenderti né abbatterti. Il compito è separare le osservazioni che indicano un passo possibile da quelle che pesano e basta.',
             'Rileggi la valutazione e copia su un foglio solo le osservazioni concrete. Scegline una da migliorare nei prossimi giorni e scrivi accanto il primo gesto pratico per farlo. Lascia da parte il resto, almeno per ora, senza rimuginarci sopra la sera.',
-            'Una critica ha valore quando indica un passo possibile. Il mestiere si affina come un attrezzo, un colpo alla volta: correggere tutto insieme disperde le forze. Fra una decina di giorni chiedi a chi ti ha valutato un riscontro su quel solo punto: mostra che l\'hai preso sul serio.',
+            'Una critica ha valore quando indica un passo possibile. Il mestiere si affina come un attrezzo, un colpo alla volta: correggere tutto insieme disperde le forze. Fra una decina di giorni chiedi a chi ha fatto la critica un riscontro su quel solo punto: mostra che l\'hai preso sul serio.',
           ),
           VoceEu(
             'Il punto del venerdì',
@@ -2519,7 +2519,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Le consegne accavallate',
-            'È una settimana pesante: hai accettato più lavori di quanti ne puoi seguire con cura e le consegne si accavallano. Serve prudenza. Dire un no adesso costa meno che consegnare male più avanti e perdere la fiducia di chi ti ha scelto proprio per la tua cura.',
+            'È una settimana pesante: hai accettato più lavori di quanti ne puoi seguire con cura e le consegne si accavallano. Serve prudenza. Dire un no adesso costa meno che consegnare male più avanti e perdere la fiducia di chi ha puntato su di te proprio per la tua cura.',
             'Elenca gli incarichi aperti con la data di ciascuno. Scegli quello meno avviato e scrivi entro mercoledì al cliente per proporre di spostarlo o di affidarlo a un collega di fiducia. Prima di accettare altro, guarda il calendario delle due settimane successive.',
             'Prendere tutto per paura di perdere qualcosa è comprensibile ma pesante. La tradizione indiana lega l\'azione giusta alla misura: un lavoro in meno, fatto bene, vale più di tre fatti di corsa. Senza tre giorni liberi per un incarico nuovo, proponi una data più lontana.',
           ),
@@ -2578,7 +2578,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'La raccolta in campagna',
             'Questa settimana la fortuna passa per le mani. Qualcuno che conosci ha un pezzo di campagna o un albero da frutto che dà più di quanto riesca a raccogliere. Un paio di braccia in più valgono molto in questi giorni e per te può esserci una cassetta piena.',
-            'Telefona entro giovedì e offri la tua domenica mattina per la raccolta. Porta guanti, cesti e qualcosa da bere per tutti. Al ritorno trasforma una parte di ciò che porti a casa in marmellata e consegna un barattolo a chi ti ha accolto, con un biglietto.',
+            'Telefona entro giovedì e offri la tua domenica mattina per la raccolta. Porta guanti, cesti e qualcosa da bere per tutti. Al ritorno trasforma una parte di ciò che porti a casa in marmellata e consegna un barattolo a chi organizza la raccolta, con un biglietto.',
             'Il frutto raccolto con fatica condivisa ha un sapore diverso da quello comprato. La lettura vedica ama questo intreccio di lavoro e di dono: ciò che si fa con le mani torna in forma di legame, di consiglio, di cibo buono. Chi aiuta torna in mente per primo l\'anno dopo.',
           ),
           VoceEu(
@@ -2620,7 +2620,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il gruppo di lettura',
             'Questa settimana la buona sorte ha la forma di un libro letto insieme. In una libreria o in un circolo vicino a te si ritrova un gruppo di persone che leggono lo stesso titolo e fra loro può esserci qualcuno con la risposta che cerchi da mesi.',
-            'Fatti dire in libreria il titolo della prossima lettura e il giorno dell\'incontro. Leggi le prime trenta pagine prima di andarci: bastano per entrare nella conversazione con qualcosa da dire. Alla fine fermati qualche minuto con la persona che ti ha colpito di più.',
+            'Fatti dire in libreria il titolo della prossima lettura e il giorno dell\'incontro. Leggi le prime trenta pagine prima di andarci: bastano per entrare nella conversazione con qualcosa da dire. Alla fine fermati qualche minuto con la persona che ti ha fatto più impressione.',
             'Un libro discusso insieme mette le persone sullo stesso piano: il mestiere e l\'età contano meno delle idee. In un clima così le richieste si fanno con naturalezza e gli aiuti si offrono senza calcolo. Se nasce un tema in comune, proponi un caffè nel fine settimana.',
           ),
           VoceEu(
@@ -2701,7 +2701,7 @@ abstract final class ITestiEuVedicaData {
             'Le camminate della domenica',
             'Settimana equilibrata, con una buona occasione all\'aria aperta. Nella tua zona esistono gruppi che si ritrovano per camminare, pedalare o visitare luoghi vicini. Una sola uscita, scelta con criterio, può darti contatti utili senza riempire l\'agenda. Basta cominciare da una domenica.',
             'Cerca entro giovedì un gruppo che organizzi un\'uscita domenica mattina, con un percorso adatto alle tue gambe. Iscriviti a quella e a nessun\'altra: una prova basta per capire il clima. Durante la pausa presentati a chi guida il gruppo e chiedi come funzionano le uscite successive.',
-            'Camminare accanto a qualcuno per ore apre conversazioni che al tavolo non nascono. Il passo regolare mette tutti allo stesso livello; chi cammina con te può avere un mestiere, una casa, un consiglio da offrire. Salva il contatto di chi ti ha colpito e scrivi entro mercoledì per ringraziare.',
+            'Camminare accanto a qualcuno per ore apre conversazioni che al tavolo non nascono. Il passo regolare mette tutti allo stesso livello; chi cammina con te può avere un mestiere, una casa, un consiglio da offrire. Salva il contatto di chi ti interessa e scrivi entro mercoledì per ringraziare.',
           ),
           VoceEu(
             'Il taccuino delle abitudini',
@@ -2972,7 +2972,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Tre giorni di silenzio',
-            'In amore il mese chiede lentezza davanti a un ritorno inatteso. Una persona del tuo passato si è fatta viva con un messaggio affettuoso e ti ha smosso più del previsto: la prudenza vale più della fretta, quindi lascia che il primo impulso si posi.',
+            'In amore il mese chiede lentezza davanti a un ritorno inatteso. Una persona del tuo passato si è fatta viva con un messaggio affettuoso e ti ha fatto effetto più del previsto: la prudenza vale più della fretta, quindi lascia che il primo impulso si posi.',
             'Prima di rispondere aspetta almeno tre giorni e intanto scrivi su un foglio perché la storia era finita. Raccontala a una persona amica che la conosceva bene. Se decidi di rispondere, fallo con poche righe cortesi e senza promettere incontri, almeno per ora.',
             'Un ritorno improvviso può nascere da nostalgia vera o da un momento di vuoto dell\'altra persona. Distinguerli subito non è facile: il tempo lento di questo mese aiuta a capire quale dei due hai davanti. Se dopo qualche settimana l\'interesse resta, basta un caffè breve, in un luogo neutro.',
           ),
@@ -2989,7 +2989,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Farsi avanti con garbo',
             'Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Chi coordina cerca qualcuno a cui affidare un progetto nuovo e il tuo nome circola già: adesso conta proporsi senza giri di parole, prima che la scelta cada su altri.',
-            'Prima della prossima riunione scrivi in mezza pagina perché quel progetto ti interessa e come lo imposteresti nelle prime settimane. Chiedi un colloquio e porta il foglio con te. Ottenuto il sì, fissa tre traguardi per la fine del mese e condividili con chi ti ha scelto.',
+            'Prima della prossima riunione scrivi in mezza pagina perché quel progetto ti interessa e come lo imposteresti nelle prime settimane. Chiedi un colloquio e porta il foglio con te. Ottenuto il sì, fissa tre traguardi per la fine del mese e condividili con chi ti ha dato fiducia.',
             'Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico accolto adesso parte col passo giusto, senza dover rincorrere nessuno. Ogni venerdì manda due righe su che cosa è stato fatto e che cosa viene dopo.',
           ),
           VoceEu(
@@ -3112,7 +3112,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Le occasioni contate',
-            'Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso a cui ti hanno invitato, un gruppo che ti cerca, una visita rimandata.',
+            'Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso che ti hanno proposto, un gruppo che ti cerca, una visita rimandata.',
             'Prima di cercare altro, scrivi questa sera l\'elenco delle possibilità che hai già aperte: persone, gruppi, proposte, inviti. Accanto a ognuna segna che cosa manca per coglierla. Poi scegline una a settimana fino alla fine del mese e fai il passo mancante.',
             'Custodire le occasioni comincia dalle cose piccole e quotidiane: una telefonata fatta invece che rimandata, un invito accolto invece che lasciato scadere. Ripetere questi gesti con regolarità dà un ordine che si sente anche altrove. Attenzione all\'elenco troppo lungo: meglio poche possibilità vive che molte spente.',
           ),

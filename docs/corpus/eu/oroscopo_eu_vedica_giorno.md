@@ -268,7 +268,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, favorevole, voce 30: Il consiglio chiesto
 
 - Risposta: Oggi è una giornata buona per chiedere un consiglio. Hai una scelta pratica davanti e qualcuno che conosci ha già percorso una strada simile: la sua esperienza può chiarirti le idee più di molte ricerche. Chiedere adesso è facile e la risposta può arrivare più limpida del previsto.
-- Che cosa fare: Scrivi a quella persona e chiedi venti minuti, al telefono o davanti a un caffè. Prepara due domande sulla sua esperienza, non sulla tua decisione: che cosa rifarebbe, che cosa eviterebbe. Dopo la conversazione scrivi subito ciò che ti ha colpito, prima che sfumi.
+- Che cosa fare: Scrivi a quella persona e chiedi venti minuti, al telefono o davanti a un caffè. Prepara due domande sulla sua esperienza, non sulla tua decisione: che cosa rifarebbe, che cosa eviterebbe. Dopo la conversazione scrivi subito ciò che ti è rimasto, prima che sfumi.
 - Risposta, Lunga: Chiedere consiglio non significa delegare la scelta. Significa ascoltare chi ha già fatto un tratto di strada e tenere per te le parti utili, lasciando il resto senza sentirti in debito. La decisione finale resta tua: rileggi gli appunti domani e ringrazia con un messaggio breve.
 
 ### Generale, In equilibrio (livello 3)
@@ -649,7 +649,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata favorevole per accettare un invito anche se conosci poche persone. Hai ricevuto l'invito a una cena dove l'unico volto noto è chi la organizza e la tentazione è trovare una scusa: oggi invece la giornata premia chi si presenta e allarga la propria cerchia.
 - Che cosa fare: Conferma la tua presenza entro mezzogiorno e chiedi che cosa puoi portare. Prepara una cosa fatta da te, anche semplice, come un dolce o del pane: è un argomento per rompere il ghiaccio. A tavola siediti accanto a qualcuno che non conosci e fai domande sulle sue passioni.
-- Risposta, Lunga: Le tavole con facce nuove sono il luogo più naturale per conoscere gente nuova. Fra persone che hanno un amico in comune la fiducia parte già avviata e le conversazioni trovano subito un terreno condiviso. Prima di andare via chiedi un contatto a chi ti ha colpito.
+- Risposta, Lunga: Le tavole con facce nuove sono il luogo più naturale per conoscere gente nuova. Fra persone che hanno un amico in comune la fiducia parte già avviata e le conversazioni trovano subito un terreno condiviso. Prima di andare via chiedi un contatto a chi ha attirato la tua attenzione.
 
 #### Amore, favorevole, voce 24: Le foto ai nonni
 
@@ -806,7 +806,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Amore, equilibrio, voce 19: Sotto lo stesso tetto
 
 - Risposta: Oggi in coppia non serve decidere niente: è un buon momento per mettere ordine nei desideri. Con chi ami avete sfiorato più volte l'idea di vivere insieme senza mai parlarne davvero. La giornata è calma e permette una conversazione sincera, senza la pressione di una scelta immediata.
-- Che cosa fare: Stasera, a cena, fate a turno tre domande ciascuno su come immaginate le giornate in comune: orari, spazi, abitudini. Ascoltate le risposte senza commentarle subito. Domani annota in poche righe ciò che ti ha colpito e fissate insieme un secondo momento per riparlarne.
+- Che cosa fare: Stasera, a cena, fate a turno tre domande ciascuno su come immaginate le giornate in comune: orari, spazi, abitudini. Ascoltate le risposte senza commentarle subito. Domani annota in poche righe ciò che ti ha fatto riflettere e fissate insieme un secondo momento per riparlarne.
 - Risposta, Lunga: Le scelte grandi riescono meglio quando si preparano con pazienza. Oggi si semina, con domande sincere e nessuna fretta; il tempo di costruire viene dopo. Evita di legarvi a una data per il trasloco: una scadenza fissata troppo presto trasforma il dialogo in una trattativa.
 
 #### Amore, equilibrio, voce 20: Una conversazione scelta
@@ -1106,7 +1106,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, favorevole, voce 29: Un caffè con stima
 
 - Risposta: Oggi un contatto rinnovato nel tuo settore può portare scambi utili per entrambe le parti. C'è una persona che stimi e che non senti da molto: la giornata è favorevole a riaprire quel filo con naturalezza, senza secondi fini e senza richieste.
-- Che cosa fare: Manda un messaggio a quella persona e proponi un caffè a breve, con una ragione precisa: un suo lavoro che ti ha colpito o un tema su cui vorresti un parere sincero. Prima dell'incontro prepara qualcosa da offrire tu, come un contatto o un articolo.
+- Che cosa fare: Manda un messaggio a quella persona e proponi un caffè a breve, con una ragione precisa: un suo lavoro che hai apprezzato o un tema su cui vorresti un parere sincero. Prima dell'incontro prepara qualcosa da offrire tu, come un contatto o un articolo.
 - Risposta, Lunga: I rapporti di lavoro migliori nascono dalla stima reciproca, non dalla richiesta di un favore. La lettura vedica guarda con favore ai legami coltivati con lealtà: crescono piano e durano. Chi arriva con qualcosa da dare lascia un ricordo che apre porte, anche a distanza di tempo.
 
 #### Carriera, favorevole, voce 30: Tre cose soltanto
@@ -1174,7 +1174,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 10: Dopo il colloquio
 
 - Risposta: Oggi l'attesa dopo il colloquio resta, ma la giornata offre un margine per farti sentire senza insistere. Da qualche giorno tutto tace e il silenzio pesa: un segnale misurato da parte tua è possibile e anche opportuno, purché resti breve e cortese.
-- Che cosa fare: Scrivi oggi a chi ti ha incontrato un messaggio breve: ringrazia per il tempo, ricorda in una frase che cosa ti ha colpito del ruolo e chiedi con garbo se ci sono novità sui tempi. Intanto prepara un'altra candidatura curata da spedire domani.
+- Che cosa fare: Scrivi oggi a chi ti ha fatto il colloquio un messaggio breve: ringrazia per il tempo, ricorda in una frase che cosa ti interessa del ruolo e chiedi con garbo se ci sono novità sui tempi. Intanto prepara un'altra candidatura curata da spedire domani.
 - Risposta, Lunga: Un ricontatto misurato mostra interesse e rispetto per i ritmi altrui. Non decide l'esito, però lascia un'impressione di serietà che resta anche quando le scelte si rimandano. Tenere più porte aperte toglie peso a ogni singola attesa e ti fa arrivare ai prossimi incontri con più calma.
 
 #### Carriera, equilibrio, voce 11: Il compito in più
@@ -1258,7 +1258,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 24: Il lavoro concluso
 
 - Risposta: Giornata da dedicare alla chiusura vera di ciò che è finito, prima di correre al prossimo incarico. Un lavoro a cui hai dato molto si è appena concluso e la tentazione è voltare pagina subito, ma oggi vale la pena fermarsi un momento.
-- Che cosa fare: Archivia i file in una cartella ordinata con un nome chiaro e la data. Poi scrivi un ringraziamento personale a ognuna delle persone che ti hanno aiutato, citando un contributo preciso. Stasera annota in una pagina che cosa rifaresti e che cosa cambieresti.
+- Che cosa fare: Archivia i file in una cartella ordinata con un nome chiaro e la data. Poi scrivi un ringraziamento personale a ognuna delle persone che ti hanno dato una mano, citando un contributo preciso. Stasera annota in una pagina che cosa rifaresti e che cosa cambieresti.
 - Risposta, Lunga: Chiudere bene fa parte del lavoro stesso. Un ringraziamento preciso resta nella memoria di chi lo riceve e prepara il terreno per le collaborazioni future, senza bisogno di chiederle. La pagina di bilancio, conservata nella cartella del progetto, può tornarti utile al prossimo inizio.
 
 ### Carriera, In salita (livello 2 e sotto)
@@ -1284,7 +1284,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, salita, voce 4: Notizie che tardano
 
 - Risposta: Giornata pesante per chi aspetta: dopo un colloquio andato bene la risposta tarda e l'attesa comincia a farsi sentire. Il silenzio di un'azienda raramente parla di te, più spesso racconta agende piene e decisioni che passano da molte mani prima di arrivare a te.
-- Che cosa fare: Scrivi oggi una mail di poche righe a chi ti ha ricevuto: ringrazia per il tempo dedicato, ricorda un punto concreto emerso nel colloquio e chiedi con garbo quali sono i tempi previsti. Invia in giornata anche un'altra candidatura, scritta per quell'annuncio preciso.
+- Che cosa fare: Scrivi oggi una mail di poche righe a chi ha condotto l'incontro: ringrazia per il tempo dedicato, ricorda un punto concreto emerso nel colloquio e chiedi con garbo quali sono i tempi previsti. Invia in giornata anche un'altra candidatura, scritta per quell'annuncio preciso.
 - Risposta, Lunga: Questa attesa ha bisogno di misura: controllare la posta ogni dieci minuti consuma energie che servono altrove. Il momento di raccogliere non è ancora arrivato, intanto puoi tenere viva la ricerca. Due strade aperte tolgono peso alla prima e ti fanno arrivare alla risposta con più serenità.
 
 #### Carriera, salita, voce 5: Il progetto della sera
@@ -1444,7 +1444,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 15: Un coperto aggiunto
 
 - Risposta: Oggi la fortuna siede a tavola: un invito a cena o un aperitivo fra amici ti mette accanto a una persona che fa un lavoro vicino al tuo o conosce chi può darti una mano. La serata conta più della giornata.
-- Che cosa fare: Accetta l'invito di stasera anche se la giornata è stata lunga e porta qualcosa di semplice fatto da te. Quando ti presentano qualcuno, racconta in una frase che cosa stai cercando. Prima di andare via chiedi a chi ti ha colpito come sentirvi.
+- Che cosa fare: Accetta l'invito di stasera anche se la giornata è stata lunga e porta qualcosa di semplice fatto da te. Quando ti presentano qualcuno, racconta in una frase che cosa stai cercando. Prima di andare via chiedi a chi ti ha fatto buona impressione come sentirvi.
 - Risposta, Lunga: La tavola condivisa è antica quanto l'ospitalità: lì le persone si aprono senza la rigidità degli uffici. Un incontro nato fra un piatto e l'altro tiene meglio di cento messaggi. Domani ringrazia chi ha organizzato la cena, perché la gratitudine tiene aperte le porte.
 
 #### Fortuna, favorevole, voce 16: Ingresso libero stasera
@@ -1754,7 +1754,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, salita, voce 12: Il posto lasciato libero
 
 - Risposta: Fortuna in affanno oggi, perché arriva nel momento sbagliato: qualcuno ti offre all'ultimo un posto libero, un biglietto per una serata, un passaggio, un turno in un corso. L'occasione è gentile, ma la tua giornata è già piena e non regge altro.
-- Che cosa fare: Prima di rispondere guarda l'agenda di domani. Se il sì ti costringe a correre, rifiuta con garbo e proponi il nome di una persona vicina che quel posto lo userebbe volentieri. Domani ringrazia ancora chi ti aveva pensato, con un messaggio breve e caloroso.
+- Che cosa fare: Prima di rispondere guarda l'agenda di domani. Se il sì ti costringe a correre, rifiuta con garbo e proponi il nome di una persona vicina che quel posto lo userebbe volentieri. Domani ringrazia ancora chi aveva pensato a te, con un messaggio breve e caloroso.
 - Risposta, Lunga: Non ogni porta aperta è fatta per te oggi. Passare un'occasione a chi può goderla davvero crea un legame buono; chi la riceve tende a ricordarsi di te quando l'invito capita nel momento giusto. Indica due sere libere dei prossimi giorni, così la porta resta socchiusa.
 
 #### Fortuna, salita, voce 13: Il portafoglio in ordine

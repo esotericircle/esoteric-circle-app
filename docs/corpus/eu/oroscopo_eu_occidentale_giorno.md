@@ -183,7 +183,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Generale, favorevole, voce 16: Un grazie in sospeso
 
-- Risposta: La giornata è generosa con la gratitudine ed è il momento giusto per ringraziare qualcuno che ti ha aiutato senza ricevere il grazie che meritava. Le parole ti arrivano sincere, senza imbarazzo: il ricordo di quel gesto è ancora abbastanza vivo per raccontarlo con precisione.
+- Risposta: La giornata è generosa con la gratitudine ed è il momento giusto per ringraziare qualcuno che ti ha dato una mano senza ricevere il grazie che meritava. Le parole ti arrivano sincere, senza imbarazzo: il ricordo di quel gesto è ancora abbastanza vivo per raccontarlo con precisione.
 - Che cosa fare: Scrivi a quella persona un biglietto vero, a mano, nominando il gesto che ricordi e quello che ha cambiato per te. Imbucalo o consegnalo entro domani. Tieni poi nel cassetto della scrivania altri due biglietti e una penna che scrive bene, pronti per il prossimo ringraziamento.
 - Risposta, Lunga: Ringraziare con dettagli concreti vale molto più di un grazie generico. Chi riceve scopre che un suo gesto ha lasciato traccia, chi scrive ritrova il filo di un momento in cui qualcuno c'è stato. Non preoccuparti del tempo trascorso: un grazie arrivato in ritardo resta un grazie intero.
 
@@ -208,7 +208,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, favorevole, voce 20: Un invito al volo
 
 - Risposta: Oggi le cose non programmate tendono a riuscire bene: è una giornata favorevole alla spontaneità. Può arrivare un invito all'ultimo momento, una passeggiata, un aperitivo, un concerto in piazza: accettarlo ha buone probabilità di regalarti una serata migliore di quelle pianificate con cura.
-- Che cosa fare: Se ti propongono di uscire stasera, accetta senza fare troppi conti e lascia a casa il pensiero delle cose da finire. Porta con te una giacca leggera e il necessario, nient'altro. Domani scrivi a chi ti ha coinvolto che cosa ti è piaciuto e proponi tu la prossima uscita.
+- Che cosa fare: Se ti propongono di uscire stasera, accetta senza fare troppi conti e lascia a casa il pensiero delle cose da finire. Porta con te una giacca leggera e il necessario, nient'altro. Domani scrivi a chi ha avuto l'idea che cosa ti è piaciuto e proponi tu la prossima uscita.
 - Risposta, Lunga: A volte le serate migliori sono quelle decise in cinque minuti. Senza aspettative ci si lascia sorprendere da una conversazione nuova, da un posto mai visto, da una risata che non avevi messo in conto. Non controllare l'orologio per tutta la sera: toglie all'uscita proprio la sua leggerezza.
 
 #### Generale, favorevole, voce 21: L'armadio respira
@@ -501,7 +501,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi hai la pazienza corta: piccole cose che di solito scivolano via graffiano, un tono brusco, una tazza rovesciata, un'attesa al telefono. La soglia di sopportazione è più bassa e l'irritazione cerca un bersaglio qualunque, anche dove non ha motivo di andare.
 - Che cosa fare: Quando senti salire il fastidio, esci dalla stanza, conta fino a dieci e rientra solo dopo aver bevuto qualcosa di caldo. Rimanda a domani ogni conversazione che richiede diplomazia. Nel pomeriggio regalati mezz'ora per qualcosa che ti calma davvero, come una doccia lunga o una passeggiata.
-- Risposta, Lunga: Il nervosismo di oggi non dice nulla di sbagliato in te: segnala soltanto che la riserva di pazienza va ricaricata. Riconoscerlo per tempo evita di scaricarlo su chi non c'entra. Domani ripensa con calma a ciò che oggi ti ha punto: visto a distanza, di solito pesa molto meno.
+- Risposta, Lunga: Il nervosismo di oggi non dice nulla di sbagliato in te: segnala soltanto che la riserva di pazienza va ricaricata. Riconoscerlo per tempo evita di scaricarlo su chi non c'entra. Domani ripensa con calma a ciò che oggi ti ha dato fastidio: visto a distanza, di solito pesa molto meno.
 
 #### Generale, salita, voce 15: Chiavi fuori posto
 
@@ -612,7 +612,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Amore, favorevole, voce 17: Facce nuove
 
 - Risposta: Oggi la vita sociale ti porta occasioni concrete d'incontro. Una cena o una festa stasera fra persone amiche può mettere al tuo tavolo qualcuno che non conosci ancora: la tua presenza ha un calore che si nota subito e rende facile avvicinarsi.
-- Che cosa fare: Chiedi a chi organizza quali ospiti non conosci e fatti presentare appena arrivi. Siediti accanto a una persona nuova, lontano dal gruppo di sempre. Prima di andare via chiedi con semplicità il contatto di chi ti ha colpito e domani scrivile riprendendo una frase detta a tavola.
+- Che cosa fare: Chiedi a chi organizza quali ospiti non conosci e fatti presentare appena arrivi. Siediti accanto a una persona nuova, lontano dal gruppo di sempre. Prima di andare via chiedi con semplicità il contatto della persona più interessante e domani scrivile riprendendo una frase detta a tavola.
 - Risposta, Lunga: Le amicizie comuni sono uno dei modi più naturali per incontrare qualcuno di speciale: c'è già una fiducia di partenza, un terreno condiviso che rende tutto più facile. Attenzione soltanto a non restare nella zona comoda dei volti noti, perché lì la serata scorre piacevole ma uguale.
 
 #### Amore, favorevole, voce 18: Lasciarsi aiutare
@@ -805,7 +805,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, equilibrio, voce 19: Domande dirette
 
-- Risposta: Oggi in coppia la serenità c'è, ma un dettaglio ti ha messo in allarme. Un messaggio, un ritardo, un nome che torna spesso nei racconti di chi ami: forse non è nulla, però la fantasia lavora più del necessario e conviene fermarla con una domanda chiara.
+- Risposta: Oggi in coppia la serenità c'è, ma un dettaglio ti ha fatto scattare un allarme. Un messaggio, un ritardo, un nome che torna spesso nei racconti di chi ami: forse non è nulla, però la fantasia lavora più del necessario e conviene fermarla con una domanda chiara.
 - Che cosa fare: Invece di indovinare, fai oggi una domanda diretta e tranquilla, senza tono d'accusa. Scegli un momento calmo, non mentre siete di fretta o con il telefono in mano. Qualunque sia la risposta, prenditi la sera per lasciarla sedimentare prima di commentarla.
 - Risposta, Lunga: La gelosia cresce nel silenzio e si nutre di ipotesi. Una domanda fatta con calma la riporta alle dimensioni reali e mostra all'altra persona che preferisci la fiducia al sospetto. Se domani resta un dubbio, dillo con una frase che comincia con io invece che con tu.
 
@@ -887,13 +887,13 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi, se non hai un legame, la giornata ti mette un po' a disagio. Può arrivarti l'invito a una cena dove quasi tutti si presentano in coppia e l'idea di sederti a tavola senza compagnia ti pesa più di quanto vorresti ammettere.
 - Che cosa fare: Vai, ma con un piano tuo: porta un dolce preparato da te o una bottiglia scelta con cura. Decidi prima di uscire a che ora salutare. A cena rivolgi una domanda vera a qualcuno che non conosci, sul suo lavoro o su un viaggio.
-- Risposta, Lunga: La sensazione di essere fuori posto viene più dal tuo sguardo che da quello degli altri. A tavola le persone cercano conversazioni vive, non coppie perfette: hai molto da portare anche senza qualcuno accanto. Domani, due righe di ringraziamento a chi ti ha invitato chiudono bene la serata.
+- Risposta, Lunga: La sensazione di essere fuori posto viene più dal tuo sguardo che da quello degli altri. A tavola le persone cercano conversazioni vive, non coppie perfette: hai molto da portare anche senza qualcuno accanto. Domani, due righe di ringraziamento a chi ha organizzato la cena chiudono bene la serata.
 
 #### Amore, salita, voce 9: Il vecchio copione
 
 - Risposta: Oggi in famiglia il clima è teso e una telefonata può prendere la solita piega. Con un genitore o un parente stretto il discorso rischia di scivolare nella discussione che conosci a memoria: le battute del vecchio copione arrivano più rapide del solito.
 - Che cosa fare: Decidi prima della chiamata un argomento che oggi resta fuori, qualunque cosa succeda. Se il discorso ci finisce dentro, di' con calma «ne parliamo un'altra volta» e cambia tema. Chiudi con qualcosa da fare insieme, anche minimo: una ricetta, una visita domenica.
-- Risposta, Lunga: In quelle frasi ripetute c'è spesso una preoccupazione che non sa dirsi in altro modo. Chi ti ha cresciuto parla la lingua che conosce: a volte una critica è il suo modo goffo di dire che ci tiene. Un appuntamento come ultima parola cambia il tono della chiamata.
+- Risposta, Lunga: In quelle frasi ripetute c'è spesso una preoccupazione che non sa dirsi in altro modo. Chi ti ha fatto crescere parla la lingua che conosce: a volte una critica è il suo modo goffo di dire che ci tiene. Un appuntamento come ultima parola cambia il tono della chiamata.
 
 #### Amore, salita, voce 10: Orari che non combaciano
 
@@ -911,7 +911,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi negli affetti la giornata è pesante per un malumore che non è tuo. Una persona vicina attraversa una giornata storta e la sua tensione rischia di passarti addosso senza che te ne accorga: le tue difese sono più basse e assorbi tutto.
 - Che cosa fare: Lascia stare i consigli e offri un aiuto pratico: preparare la cena, sbrigare una commissione, ritirare un pacco. Poi concediti un momento tuo, anche breve, per scrollarti di dosso la tensione. Domani mattina mandale un messaggio breve per sapere come comincia la giornata.
-- Risposta, Lunga: Stare accanto a qualcuno non significa portare il suo peso al posto suo. Puoi esserci lasciando a quella persona il tempo di ritrovarsi, senza dover aggiustare tutto entro sera. Due righe scritte prima di dormire su ciò che ti ha toccato aiutano a separare il suo umore dal tuo.
+- Risposta, Lunga: Stare accanto a qualcuno non significa portare il suo peso al posto suo. Puoi esserci lasciando a quella persona il tempo di ritrovarsi, senza dover aggiustare tutto entro sera. Due righe scritte prima di dormire su ciò che hai sentito aiutano a separare il suo umore dal tuo.
 
 #### Amore, salita, voce 13: La promessa scordata
 
@@ -1112,7 +1112,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, favorevole, voce 30: Il primo giorno
 
 - Risposta: Se oggi inizi un nuovo lavoro o entri in un gruppo diverso, la giornata è favorevole e l'accoglienza è dalla tua parte. Le persone hanno voglia di presentarsi e i primi scambi possono essere più spontanei di quanto temevi, già dalla prima ora.
-- Che cosa fare: Porta un quaderno e scrivi accanto a ogni nome che senti il ruolo della persona e un dettaglio che ti ha detto. Chiedi a chi ti affianca quali sono le tre cose da sapere nelle prime settimane. Stasera ringrazia con un messaggio chi ti ha aiutato di più.
+- Che cosa fare: Porta un quaderno e scrivi accanto a ogni nome che senti il ruolo della persona e un dettaglio che ti ha detto. Chiedi a chi ti affianca quali sono le tre cose da sapere nelle prime settimane. Stasera ringrazia con un messaggio chi ti ha dato più aiuto.
 - Risposta, Lunga: I primi giorni in un posto nuovo lasciano un'impronta lunga. Chi ti incontra oggi si fa un'idea di te da piccoli gesti: la puntualità, la curiosità, il modo in cui ascolti prima di proporre. Evita di cambiare subito le abitudini del gruppo: prima osserva come si muove l'ufficio.
 
 ### Carriera, In equilibrio (livello 3)
@@ -1420,7 +1420,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 11: Un favore che torna
 
 - Risposta: La gratitudine porta fortuna oggi: qualcuno ti ha dato una mano nei mesi scorsi e non hai ancora ricambiato. Restituire quel gesto adesso mette in moto uno scambio che può portarti lontano, perché le porte migliori si aprono da chi hai già aiutato.
-- Che cosa fare: Pensa a una cosa utile per quella persona, non a un regalo qualsiasi: un contatto, un articolo, un'ora del tuo tempo. Mandagliela prima di sera con due parole di ringraziamento. Poi scrivi una lista breve di chi ti ha aiutato nell'ultimo periodo e tienila a portata.
+- Che cosa fare: Pensa a una cosa utile per quella persona, non a un regalo qualsiasi: un contatto, un articolo, un'ora del tuo tempo. Mandagliela prima di sera con due parole di ringraziamento. Poi scrivi una lista breve di chi ti ha dato sostegno nell'ultimo periodo e tienila a portata.
 - Risposta, Lunga: Quando la gratitudine si fa concreta, i legami si stringono e chi riceve il tuo pensiero si ricorda di te alla prossima occasione utile. Non serve un gesto grande: serve un gesto mirato. Evita invece il ringraziamento generico, che si dimentica nel giro di un pomeriggio.
 
 #### Fortuna, favorevole, voce 12: Punti dimenticati
@@ -1608,7 +1608,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, equilibrio, voce 12: La domanda giusta
 
 - Risposta: Oggi una domanda in più ti porta fortuna: in un negozio o in un ufficio può esserci una possibilità migliore di quella esposta, un orario più comodo, una consegna a casa, un'alternativa più semplice. Chi ti serve conosce spesso opzioni che non compaiono sul cartello.
-- Che cosa fare: Prima di chiudere una richiesta oggi, chiedi con tono cortese se esiste una formula più adatta alle tue esigenze. Se ottieni qualcosa, ringrazia per nome chi ti ha aiutato. Se ricevi un no, domanda quando potrebbe cambiare e annotalo per tornare al momento giusto.
+- Che cosa fare: Prima di chiudere una richiesta oggi, chiedi con tono cortese se esiste una formula più adatta alle tue esigenze. Se ottieni qualcosa, ringrazia per nome chi ti ha dato ascolto. Se ricevi un no, domanda quando potrebbe cambiare e annotalo per tornare al momento giusto.
 - Risposta, Lunga: Chiedere con garbo non è insistere: è dare all'altra parte l'occasione di aiutarti. La giornata sostiene chi porta domande chiare e sa accettare anche un no senza irrigidirsi. Chi viene trattato con rispetto tende a ricordarsi di te e a cercarti quando arriva qualcosa di adatto.
 
 #### Fortuna, equilibrio, voce 13: Pagina giusta

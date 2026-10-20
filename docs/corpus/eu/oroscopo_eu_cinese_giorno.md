@@ -177,7 +177,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Generale, favorevole, voce 15: Notizie da casa
 
-- Risposta: Oggi i legami con chi ti ha cresciuto o con i familiari lontani trovano un canale aperto. Una chiamata semplice può dire più di tante visite rimandate: è una giornata buona per accorciare le distanze con la voce, senza aspettare un'occasione speciale.
+- Risposta: Oggi i legami con chi ti ha fatto crescere o con i familiari lontani trovano un canale aperto. Una chiamata semplice può dire più di tante visite rimandate: è una giornata buona per accorciare le distanze con la voce, senza aspettare un'occasione speciale.
 - Che cosa fare: Scegli un'ora tranquilla del pomeriggio e telefona a un genitore o a un parente lontano. Prima di chiamare, scrivi su un foglio due cose della tua vita che vuoi raccontare. Alla fine fissate il prossimo appuntamento al telefono, stesso giorno e stessa ora.
 - Risposta, Lunga: Chi sta lontano vive di dettagli: il nome di un collega, che cosa hai mangiato, che tempo fa dalle tue parti. Raccontarli accorcia la distanza più di ogni spiegazione importante. Una chiamata ricorrente, poi, diventa un piccolo rito atteso da entrambe le parti.
 
@@ -611,7 +611,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, favorevole, voce 17: Il numero sul tovagliolo
 
-- Risposta: Oggi è un giorno adatto a riprendere i fili lasciati a metà: a una festa recente hai scambiato il numero con qualcuno che ti ha colpito, poi il contatto si è fermato. La memoria di quella serata è ancora fresca per tutte e due le parti.
+- Risposta: Oggi è un giorno adatto a riprendere i fili lasciati a metà: a una festa recente hai scambiato il numero con qualcuno che ti è rimasto in mente, poi il contatto si è fermato. La memoria di quella serata è ancora fresca per tutte e due le parti.
 - Che cosa fare: Manda un messaggio entro le sei, citando un dettaglio preciso di quella sera: una canzone, una battuta, un piatto. Chiudi con una proposta concreta per il fine settimana, non con un vago sentiamoci. Se la risposta tarda, oggi non insistere e torna alle tue cose con leggerezza.
 - Risposta, Lunga: Chi aspetta il momento perfetto spesso lascia raffreddare un incontro promettente. Un riferimento comune fa da ponte fra due persone quasi estranee e toglie l'imbarazzo del primo messaggio. Se la risposta arriva, accetta la prima data utile in un posto dove si parla senza alzare la voce.
 
@@ -795,7 +795,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata adatta ad allargare il giro, con calma: la vita senza un legame ti piace, ma ultimamente le serate si sono ristrette alle solite due persone. Le facce nuove arrivano spesso dagli amici degli amici. Oggi conviene aprire la porta di casa più che cercare fuori.
 - Che cosa fare: Organizza per domani una cena semplice a casa e chiedi a ogni invitato di portare una persona che non conosci. Prepara un piatto unico abbondante, per non passare la sera ai fornelli. Durante la serata presenta le persone fra loro con un dettaglio che le accomuna.
-- Risposta, Lunga: Gli incontri migliori nascono in contesti senza pressione, dove nessuno si presenta per essere scelto. Una tavola condivisa mette le persone a proprio agio e lascia emergere le affinità con naturalezza. Il giorno dopo un saluto a chi ti ha colpito basta, senza secondi fini dichiarati.
+- Risposta, Lunga: Gli incontri migliori nascono in contesti senza pressione, dove nessuno si presenta per essere scelto. Una tavola condivisa mette le persone a proprio agio e lascia emergere le affinità con naturalezza. Il giorno dopo un saluto a chi ha catturato la tua attenzione basta, senza secondi fini dichiarati.
 
 #### Amore, equilibrio, voce 18: Gli auguri in ritardo
 
@@ -869,7 +869,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata da vivere con cautela nei nuovi incontri: qualcuno conosciuto di recente può proporti di vedervi e il pensiero corre subito lontano. Oggi vanno bene i passi piccoli, non le grandi aspettative. Correre avanti con la fantasia carica di significato perfino una virgola in un messaggio.
 - Che cosa fare: Se l'invito arriva, rispondi con una controproposta leggera: un caffè di mezz'ora in un posto che conosci, alla luce del giorno. La cena lunga può aspettare un'altra occasione. Prima di uscire decidi l'ora dei saluti e rispettala, anche se il caffè va bene.
-- Risposta, Lunga: Tenere l'incontro breve protegge la curiosità e lascia margine per conoscersi davvero, invece di riempire subito ogni vuoto. Stasera annota due cose che ti hanno colpito di quella persona. Domani, rileggendole a mente fresca, capisci meglio se vuoi rivederla o se era soltanto l'entusiasmo del momento.
+- Risposta, Lunga: Tenere l'incontro breve protegge la curiosità e lascia margine per conoscersi davvero, invece di riempire subito ogni vuoto. Stasera annota due cose di quella persona che ti sono rimaste impresse. Domani, rileggendole a mente fresca, capisci meglio se vuoi rivederla o se era soltanto l'entusiasmo del momento.
 
 #### Amore, salita, voce 6: L'amicizia distratta
 
@@ -1082,7 +1082,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, favorevole, voce 25: La sala piena
 
 - Risposta: Turno intenso ma scorrevole: oggi l'intesa con chi lavora accanto a te è buona. La sala può riempirsi e i tavoli liberarsi a ritmo serrato, eppure ci si capisce con uno sguardo e il servizio va avanti senza intoppi, anche nei momenti di maggiore affanno.
-- Che cosa fare: Prima dell'apertura prenditi cinque minuti con i colleghi per dividere i tavoli e decidere chi copre le urgenze. Tieni in tasca un taccuino con le richieste particolari dei clienti, tavolo per tavolo. A fine servizio ringrazia ad alta voce chi ti ha coperto.
+- Che cosa fare: Prima dell'apertura prenditi cinque minuti con i colleghi per dividere i tavoli e decidere chi copre le urgenze. Tieni in tasca un taccuino con le richieste particolari dei clienti, tavolo per tavolo. A fine servizio ringrazia ad alta voce chi ha coperto i tuoi tavoli.
 - Risposta, Lunga: Nei giorni di gran lavoro la differenza la fa l'accordo silenzioso fra le persone del turno. Un cliente contento del servizio può ricordarsi il tuo nome e chiedere di nuovo di te. Domani arriva qualche minuto prima: la calma con cui inizi il turno passa anche ai clienti.
 
 #### Carriera, favorevole, voce 26: Pratiche da chiudere
@@ -1100,7 +1100,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, favorevole, voce 28: La prova pratica
 
 - Risposta: Giornata favorevole alla prova pratica che ti aspetta: oggi mani e testa vanno d'accordo. È il momento giusto per mostrare come lavori, non soltanto che cosa sai: la calma con cui affronti il compito può dire di te più di qualunque riga del curriculum.
-- Che cosa fare: Arriva dieci minuti prima e chiedi chiarimenti sul compito prima di cominciare: tempi, strumenti, risultato atteso. Durante la prova spiega a voce le tue scelte mentre lavori, con frasi brevi. Entro domani manda un ringraziamento a chi ti ha seguito, con una riflessione sul compito.
+- Che cosa fare: Arriva dieci minuti prima e chiedi chiarimenti sul compito prima di cominciare: tempi, strumenti, risultato atteso. Durante la prova spiega a voce le tue scelte mentre lavori, con frasi brevi. Entro domani manda un ringraziamento a chi ha seguito la tua prova, con una riflessione sul compito.
 - Risposta, Lunga: Chi seleziona osserva il modo più del risultato: come affronti un intoppo, come chiedi aiuto, come gestisci il tempo. Una prova fatta con ordine parla più a lungo di un curriculum brillante. Finito il compito annota subito che cosa è andato bene e che cosa rifaresti.
 
 #### Carriera, favorevole, voce 29: Il patto fra soci
@@ -1258,7 +1258,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 24: Il no ricevuto
 
 - Risposta: Giornata per raccogliere ciò che un rifiuto può insegnare, senza rimuginarci sopra. È arrivata una risposta negativa per un posto in cui speravi: non è una porta chiusa per sempre. Quel colloquio contiene ancora indicazioni preziose per il prossimo, se le cerchi.
-- Che cosa fare: Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno messo in difficoltà.
+- Che cosa fare: Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno creato difficoltà.
 - Risposta, Lunga: Le aziende ricordano chi sa ricevere un rifiuto con eleganza. Un riscontro sincero, quando arriva, vale come una lezione privata; intanto il contatto resta aperto per occasioni future. Conserva il foglio delle risposte migliori insieme ai materiali per il prossimo incontro di selezione.
 
 ### Carriera, In salita (livello 2 e sotto)
@@ -1378,7 +1378,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 4: Il ferramenta di quartiere
 
 - Risposta: Fortuna buona con i piccoli guasti: ciò che pensavi di dover sostituire per intero trova oggi una soluzione semplice. Dietro il bancone di una vecchia bottega c'è chi conosce il ricambio esatto e sa come montarlo. Una domanda fatta lì vale più di un'ora persa a cercare in rete.
-- Che cosa fare: Smonta il pezzo rotto, che sia una maniglia, una cerniera o il flessibile della doccia. Mettilo in un sacchetto e portalo oggi al ferramenta del quartiere. Chiedi il ricambio identico e fatti spiegare il montaggio; prima di uscire domanda il nome di chi ti ha servito.
+- Che cosa fare: Smonta il pezzo rotto, che sia una maniglia, una cerniera o il flessibile della doccia. Mettilo in un sacchetto e portalo oggi al ferramenta del quartiere. Chiedi il ricambio identico e fatti spiegare il montaggio; prima di uscire domanda il nome di chi era al banco.
 - Risposta, Lunga: I negozi piccoli custodiscono un sapere che non sta nei cataloghi e lo regalano a chi entra con un problema preciso. Tornare dalla stessa persona costruisce un rapporto: al guasto successivo ti riconosce, ti consiglia meglio e magari ti tiene da parte il pezzo giusto. Questa è fortuna coltivata.
 
 #### Fortuna, favorevole, voce 5: Il tragitto condiviso
@@ -1408,7 +1408,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 9: Tenuto da parte
 
 - Risposta: La fortuna oggi passa da un bancone che conosci bene: il negoziante di fiducia è ben disposto verso di te e può tenerti da parte ciò che cerchi appena arriva. Una relazione cortese con chi lavora nel quartiere apre corsie che nessuna vetrina mostra a chi passa di fretta.
-- Che cosa fare: Entra nella libreria o nella bottega dove vai più spesso e lascia detto con precisione che cosa cerchi: titolo, misura o colore. Scrivi il tuo numero su un biglietto. Quando ritiri, ringrazia per nome chi ti ha servito con due parole di apprezzamento sincero.
+- Che cosa fare: Entra nella libreria o nella bottega dove vai più spesso e lascia detto con precisione che cosa cerchi: titolo, misura o colore. Scrivi il tuo numero su un biglietto. Quando ritiri, ringrazia per nome chi si è occupato di te con due parole di apprezzamento sincero.
 - Risposta, Lunga: Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone: una sua telefonata può arrivare al momento giusto. È una fortuna costruita con la cortesia, giorno dopo giorno. Fai attenzione a non chiedere troppo in una volta: un desiderio preciso alla volta viene ricordato meglio.
 
 #### Fortuna, favorevole, voce 10: La cantina riaperta
@@ -1461,8 +1461,8 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Fortuna, favorevole, voce 18: Parole per la bottega
 
-- Risposta: La gratitudine detta al momento giusto porta fortuna oggi: un artigiano che ti ha servito bene aspetta da tempo un tuo riscontro. Una parola sincera rafforza un legame che può tornarti utile a lungo, perché chi lavora con le mani ricorda chi lo sostiene.
-- Che cosa fare: Scrivi stasera una recensione sincera e precisa per la sarta, il falegname o il restauratore che ti ha aiutato di recente. Racconta il lavoro fatto e la cura che ci ha messo. Quando passi davanti alla bottega, entra a dire che hai scritto: bastano due minuti.
+- Risposta: La gratitudine detta al momento giusto porta fortuna oggi: un artigiano che ha lavorato bene per te aspetta da tempo un tuo riscontro. Una parola sincera rafforza un legame che può tornarti utile a lungo, perché chi lavora con le mani ricorda chi lo sostiene.
+- Che cosa fare: Scrivi stasera una recensione sincera e precisa per la sarta, il falegname o il restauratore che ti ha dato una mano di recente. Racconta il lavoro fatto e la cura che ci ha messo. Quando passi davanti alla bottega, entra a dire che hai scritto: bastano due minuti.
 - Risposta, Lunga: Le piccole attività vivono di parola. Chi lavora con le mani raramente chiede qualcosa, ma quando il calendario è pieno trova spazio per i clienti che gli hanno portato altre persone. Attenzione al tono: una recensione concreta, con un dettaglio vero, vale più di dieci aggettivi entusiasti.
 
 #### Fortuna, favorevole, voce 19: Il reso entro domani
@@ -1510,7 +1510,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 26: Due poltrone in platea
 
 - Risposta: Fortuna dagli affetti: chi ti vuole bene oggi può offrirti un biglietto in più per uno spettacolo, un posto libero a una cena, un invito dell'ultimo minuto. È una serata diversa che si apre. Le occasioni che passano per le mani degli amici chiedono risposte rapide.
-- Che cosa fare: Se qualcuno ti propone un posto che non può usare, rispondi sì entro un'ora e offri di ricambiare con una cena nei prossimi giorni. Durante la serata presentati a chi siede accanto e ricorda il suo nome. Domattina scrivi a chi ti ha invitato che cosa ti è piaciuto.
+- Che cosa fare: Se qualcuno ti propone un posto che non può usare, rispondi sì entro un'ora e offri di ricambiare con una cena nei prossimi giorni. Durante la serata presentati a chi siede accanto e ricorda il suo nome. Domattina scrivi a chi te l'ha ceduto che cosa ti è piaciuto.
 - Risposta, Lunga: Chi esita vede l'invito andare ad altri. A teatro o a una cena si incontrano persone che non avresti mai cercato: una conversazione fra un atto e l'altro può aprire strade inattese. Il grazie detto bene il giorno dopo, poi, è ciò che fa arrivare il prossimo invito.
 
 #### Fortuna, favorevole, voce 27: Il cassetto dei cavi
@@ -1619,7 +1619,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Fortuna, equilibrio, voce 14: I consigli di una volta
 
-- Risposta: Giornata in equilibrio, in cui la fortuna arriva dall'esperienza di chi ti ha preceduto: una persona anziana della tua famiglia ha tenuto casa per decenni con ingegno e pazienza. Oggi la sua memoria vale più di molti consigli letti in rete. È il giorno giusto per chiederla.
+- Risposta: Giornata in equilibrio, in cui la fortuna arriva dall'esperienza di chi è venuto prima di te: una persona anziana della tua famiglia ha tenuto casa per decenni con ingegno e pazienza. Oggi la sua memoria vale più di molti consigli letti in rete. È il giorno giusto per chiederla.
 - Che cosa fare: Telefona in mattinata o passa a trovarla e chiedi come organizzava le scorte, le feste, le riparazioni di casa. Scrivi tre suoi trucchi su un foglio e provane uno già da domani. Stasera raccontalo a chi vive con te, così l'abitudine diventa di tutti.
 - Risposta, Lunga: Chi ha attraversato tempi magri sa cose che nessuna applicazione insegna: seguire le stagioni, riparare prima di sostituire, tenere una scorta in dispensa. Domandare è anche un modo di onorare chi le ha vissute. Mentre racconta, può emergere un ricordo di famiglia che non avevi mai sentito.
 
@@ -1766,7 +1766,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, salita, voce 14: Il biglietto in più
 
 - Risposta: Fortuna fuori tempo oggi: qualcuno può offrirti un biglietto avanzato per un concerto di stasera, proprio quando hai già promesso la serata a un'altra persona. L'occasione è bella, ma cade nel giorno sbagliato. La scelta che porta più lontano è restare fedele alla parola data.
-- Che cosa fare: Tieni fede all'impegno già preso. Ringrazia chi ti ha offerto il biglietto e suggerisci il nome di una persona amica che potrebbe usarlo al posto tuo, così non va sprecato. Domani scrivi a chi ti aveva invitato per chiedere com'è andata e proponi tu la prossima uscita.
+- Che cosa fare: Tieni fede all'impegno già preso. Ringrazia chi ti ha offerto il biglietto e suggerisci il nome di una persona amica che potrebbe usarlo al posto tuo, così non va sprecato. Domani scrivi a chi aveva pensato a te per chiedere com'è andata e proponi tu la prossima uscita.
 - Risposta, Lunga: Mantenere la parola data è anch'esso un modo di avere fortuna: chi ti vede rinunciare con garbo è più propenso a cercarti di nuovo. Chi riceve il biglietto grazie a te, poi, ricorda il gesto. Così l'invito mancato diventa l'inizio di un'altra serata insieme, con una data precisa.
 
 #### Fortuna, salita, voce 15: La serata di presentazione

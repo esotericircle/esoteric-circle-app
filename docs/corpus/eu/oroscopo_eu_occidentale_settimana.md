@@ -587,7 +587,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana lucida per i problemi tecnici: il nodo che ferma il progetto da giorni ha una soluzione più semplice di quanto sembri. In questi giorni ragioni con chiarezza ed è possibile che la strada giusta la individui proprio tu, prima di chiunque altro nel gruppo.
 - Che cosa fare: Giovedì mattina, prima di aprire la posta, prenditi un'ora per disegnare il problema su un foglio, a mano, con frecce e riquadri. Poi spiega lo schema a un collega in dieci minuti ad alta voce: spesso è lì che il punto debole salta fuori.
-- Risposta, Lunga: A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ti ha aiutato a ragionare: il merito diviso pesa di più.
+- Risposta, Lunga: A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.
 
 #### Carriera, favorevole, voce 11: L'abstract in partenza
 
@@ -829,7 +829,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana favorevole agli inviti che di solito declineresti: un'apertura, la presentazione di un libro, la mostra di un amico di amici. Proprio lì, in questi giorni, può esserci la persona giusta da conoscere, a patto che tu decida di andarci davvero.
 - Che cosa fare: Rispondi di sì a quell'invito e scrivilo in agenda come un impegno vero. Prepara una frase semplice per presentarti, che dica che cosa fai e che cosa ti piacerebbe fare. Resta almeno un'ora e parla con tre persone che non conosci.
-- Risposta, Lunga: Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce mezzo quartiere e ama presentare gli ospiti fra loro: lasciati accompagnare. All'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha colpito.
+- Risposta, Lunga: Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce mezzo quartiere e ama presentare gli ospiti fra loro: lasciati accompagnare. All'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha fatto più impressione.
 
 #### Fortuna, favorevole, voce 8: La giacca dell'anno scorso
 
@@ -847,7 +847,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana fortunata nell'aiuto fra vicini: ti serve un oggetto che useresti una volta sola, una scala alta, un trapano, un seggiolino per un ospite. Chi ti sta intorno può risolverti il problema in un attimo, basta chiederlo apertamente e con una proposta chiara.
 - Che cosa fare: Scrivi nella chat del condominio o del quartiere una richiesta precisa: che cosa ti serve, per quanti giorni, quando lo restituisci. Offri in cambio qualcosa di tuo, un passaggio, una torta, un'ora di aiuto. Riporta l'oggetto pulito con un biglietto di grazie.
-- Risposta, Lunga: Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni fra vicini. Tieni nota di chi ti ha aiutato: quando qualcuno chiede, sai già a chi rivolgerti.
+- Risposta, Lunga: Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni fra vicini. Tieni nota di chi ti ha prestato qualcosa: quando qualcuno chiede, sai già a chi rivolgerti.
 
 #### Fortuna, favorevole, voce 11: Il passaparola
 

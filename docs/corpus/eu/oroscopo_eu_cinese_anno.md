@@ -164,7 +164,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, equilibrio, voce 2: Il filo dei favori
 
 - Risposta: Fra quello che dai e quello che ricevi, quest'anno trova un buon equilibrio. Le occasioni nascono dallo scambio di favori con chi ti sta intorno, a patto che nessuna delle due parti dia troppo più dell'altra: la buona sorte cresce dalla reciprocità.
-- Che cosa fare: Da qui alla primavera tieni un elenco discreto dei favori fatti e ricevuti, solo nomi e gesti. Quando vedi uno squilibrio ricambia con un pensiero mirato oppure chiedi con semplicità. Una volta per stagione invita a pranzo chi ti ha aiutato di più.
+- Che cosa fare: Da qui alla primavera tieni un elenco discreto dei favori fatti e ricevuti, solo nomi e gesti. Quando vedi uno squilibrio ricambia con un pensiero mirato oppure chiedi con semplicità. Una volta per stagione invita a pranzo chi ti ha dato più aiuto.
 - Risposta, Lunga: I rapporti in armonia sono un bene prezioso. Un favore restituito al momento giusto rafforza un legame più di un regalo vistoso; uno dimenticato crea un attrito sottile che si accumula. Nel tempo disteso di un pranzo nascono spesso le proposte più utili: rispondi solo dopo averci pensato.
 
 ### Fortuna, In salita (livello 2 e sotto)

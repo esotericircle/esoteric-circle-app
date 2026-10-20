@@ -82,7 +82,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, salita, voce 4: Favori col contagocce
 
 - Risposta: In questo mese ti cercano in tanti e dire sempre sì è la mossa sbagliata: un trasloco, un passaggio, una pratica da sbrigare per altri. Le tue forze sono limitate e vanno dosate, altrimenti rischi di restare senza energia proprio quando ti serve per le cose tue.
-- Che cosa fare: Prepara una frase breve da usare alla prossima richiesta che non riesci a sostenere, per esempio: posso darti una mano il mese prossimo. Scegli invece uno o due favori che fai volentieri e dedica loro tutta l'attenzione. A fine mese ringrazia chi ti ha sostenuto.
+- Che cosa fare: Prepara una frase breve da usare alla prossima richiesta che non riesci a sostenere, per esempio: posso darti una mano il mese prossimo. Scegli invece uno o due favori che fai volentieri e dedica loro tutta l'attenzione. A fine mese ringrazia chi ti ha dato sostegno.
 - Risposta, Lunga: Rifiutare con gentilezza protegge anche i rapporti: chi chiede aiuto preferisce un no sincero a un sì dato a metà. Le persone che contano capiscono e apprezzano la chiarezza. Il punto difficile è il senso di colpa del primo rifiuto: passato quello, ogni no successivo costa meno fatica.
 
 ## Amore
@@ -105,7 +105,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Negli affetti di famiglia il mese è dolce: con un genitore, un nonno o un parente anziano a cui vuoi bene si apre un tempo morbido. Le visite di cortesia possono diventare incontri veri, pieni di racconti che non hai mai sentito e di ricordi da custodire.
 - Che cosa fare: Alla prossima visita porta un quaderno e fatti dettare una ricetta di famiglia, poi una a ogni incontro fino a tre. Mentre scrivi domanda chi la cucinava e per quali occasioni. Prima di fine mese prepara uno dei piatti e portalo a chi te l'ha dettato.
-- Risposta, Lunga: Dietro ogni piatto ci sono una cucina, una festa, una persona che non c'è più. Raccogliendo dosi e passaggi raccogli la storia di chi ti ha cresciuto. Non correre verso la ricetta: le digressioni sono la parte preziosa e una foto della pagina accanto al piatto le conserva.
+- Risposta, Lunga: Dietro ogni piatto ci sono una cucina, una festa, una persona che non c'è più. Raccogliendo dosi e passaggi raccogli la storia di chi ti ha fatto crescere. Non correre verso la ricetta: le digressioni sono la parte preziosa e una foto della pagina accanto al piatto le conserva.
 
 #### Amore, favorevole, voce 4: Una lettera a mano
 
@@ -124,7 +124,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, equilibrio, voce 2: Tre conversazioni scelte
 
 - Risposta: Per chi è senza legame il mese è equilibrato: le occasioni non mancano, ma disperse in troppe direzioni rischiano di non portare da nessuna parte. Funziona meglio scegliere con calma a chi dedicare attenzione, poche persone e conversazioni vere, invece di rispondere a tutti per non perdere niente.
-- Che cosa fare: Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha messo a disagio.
+- Che cosa fare: Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha creato disagio.
 - Risposta, Lunga: Rispondere a tutti dà l'impressione di avere molte strade aperte, ma consuma serate e pazienza. Con meno persone sul tavolo diventa più facile capire chi ti fa piacere rivedere e perché. Le note scritte a caldo aiutano: a fine mese rileggile e decidi chi merita una seconda uscita.
 
 #### Amore, equilibrio, voce 3: Domeniche a rotazione
@@ -179,7 +179,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è favorevole ai contatti di lavoro: persone con cui hai collaborato anni fa tornano a farsi vive, con un messaggio leggero o un commento. In quel filo ripreso c'è una collaborazione possibile che aspetta solo di essere nominata e proposta con chiarezza.
 - Che cosa fare: Entro metà mese scegli tre ex colleghi che stimi e proponi a ciascuno un caffè o una chiamata breve. Chiedi su che cosa stanno lavorando prima di raccontare di te. Dopo ogni incontro manda un link utile o un contatto che possa servire all'altra persona.
-- Risposta, Lunga: Il tuo nome circola meglio di quanto immagini: chi ti ha visto lavorare ricorda la tua affidabilità. È una reputazione costruita in silenzio che adesso può venirti incontro. Non lasciare cadere il discorso più promettente: prima di fine mese riprendilo con una proposta concreta di lavoro insieme.
+- Risposta, Lunga: Il tuo nome circola meglio di quanto immagini: chi ha visto il tuo lavoro ricorda la tua affidabilità. È una reputazione costruita in silenzio che adesso può venirti incontro. Non lasciare cadere il discorso più promettente: prima di fine mese riprendilo con una proposta concreta di lavoro insieme.
 
 #### Carriera, favorevole, voce 3: La qualifica a portata
 
@@ -190,8 +190,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, favorevole, voce 4: Il cliente che racconta
 
 - Risposta: Il mese porta lavoro attraverso il passaparola: un cliente che hai seguito con cura è soddisfatto e lo racconta in giro più di quanto pensi. Nelle prossime settimane possono arrivarti richieste nuove, più vicine al lavoro che ami fare, se curi chi è già dalla tua parte.
-- Che cosa fare: Manda un grazie sincero a chi ti ha affidato quel lavoro e chiedi due righe di commento da usare nella tua presentazione. Quando arrivano richieste nuove, rispondi entro un giorno con una proposta chiara e una data di inizio. Annota chi ti ha mandato chi.
-- Risposta, Lunga: Ogni cliente contento è una vetrina del tuo modo di lavorare e la fiducia che arriva per strada vale più di cento annunci. Il rischio è rispondere tardi alle richieste, quando l'entusiasmo di chi ti ha segnalato si è già raffreddato. A fine mese ringrazia ciascuno personalmente.
+- Che cosa fare: Manda un grazie sincero a chi ti ha affidato quel lavoro e chiedi due righe di commento da usare nella tua presentazione. Quando arrivano richieste nuove, rispondi entro un giorno con una proposta chiara e una data di inizio. Annota da chi arriva ogni contatto.
+- Risposta, Lunga: Ogni cliente contento è una vetrina del tuo modo di lavorare e la fiducia che arriva per strada vale più di cento annunci. Il rischio è rispondere tardi alle richieste, quando l'entusiasmo di chi ha fatto il tuo nome si è già raffreddato. A fine mese ringrazia ciascuno personalmente.
 
 ### Carriera, In equilibrio (livello 3)
 
@@ -258,7 +258,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, favorevole, voce 2: Il filo da riprendere
 
 - Risposta: Il mese è fortunato negli incontri: una persona conosciuta di sfuggita, a una cena o a un incontro di lavoro, può rivelarsi preziosa proprio adesso. Il filo esiste già, si tratta di riprenderlo prima che si allenti del tutto, con un messaggio semplice e un ricordo preciso.
-- Che cosa fare: Cerca nella rubrica, nella borsa o nella giacca il recapito di qualcuno incontrato negli ultimi mesi che ti aveva colpito. Scrivi entro dieci giorni ricordando dove vi siete visti e di che cosa avevate parlato. Se la risposta è cordiale, proponi un caffè entro fine mese.
+- Che cosa fare: Cerca nella rubrica, nella borsa o nella giacca il recapito di qualcuno incontrato negli ultimi mesi che ti era rimasto in mente. Scrivi entro dieci giorni ricordando dove vi siete visti e di che cosa avevate parlato. Se la risposta è cordiale, proponi un caffè entro fine mese.
 - Risposta, Lunga: Le conoscenze nate per caso hanno un vantaggio raro: arrivano da ambienti diversi dal tuo e portano notizie che nella tua cerchia non circolano. Un solo scambio può aprirti un consiglio o una strada nuova. Offri anche tu un nome utile: uno scambio alla pari tiene vivo il legame.
 
 #### Fortuna, favorevole, voce 3: Diritti in un cassetto

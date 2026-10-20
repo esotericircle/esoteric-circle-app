@@ -196,7 +196,7 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 - Rito: Oggi è il giorno di Guru, adatto a chiedere consiglio e a guardare lontano. Prima di lavorare, scrivi una domanda sul tuo percorso. Pronuncia sottovoce undici volte «Om Gurave namah» e porta quella domanda a una persona esperta di cui ti fidi.
 
 ### Guru, Carriera, periodo
-- Rito: Il periodo si apre nel giorno di Guru, quando il lavoro invita a crescere con onestà. Metti sulla scrivania un libro che ti ha formato o un oggetto giallo. Recita nove volte «Om Gurave namah» a voce bassa e fissa un traguardo di studio per questi giorni.
+- Rito: Il periodo si apre nel giorno di Guru, quando il lavoro invita a crescere con onestà. Metti sulla scrivania un libro che ha contato nella tua formazione o un oggetto giallo. Recita nove volte «Om Gurave namah» a voce bassa e fissa un traguardo di studio per questi giorni.
 
 ### Guru, Fortuna, giorno
 - Rito: Oggi è il giorno di Guru e le occasioni si riconoscono con uno sguardo largo. Esci all'aperto e osserva per un momento il cielo più ampio che vedi. Ripeti a mente sette volte «Om Gurave namah» e accetta con fiducia un invito che ti sembra buono.

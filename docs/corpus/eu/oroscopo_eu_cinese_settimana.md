@@ -48,7 +48,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, favorevole, voce 7: Il volantino in bacheca
 
 - Risposta: La settimana è vivace e ti dà l'energia per imparare qualcosa di nuovo con le mani o con la voce. Un laboratorio di ceramica, un coro di quartiere, un corso breve di cucina: proprio adesso la curiosità trova facilmente una porta aperta.
-- Che cosa fare: Passa entro giovedì dalla biblioteca o dal centro civico e leggi la bacheca degli annunci. Fotografa le proposte che ti incuriosiscono e chiama per un incontro di prova. Vai senza dover decidere subito, poi annota due cose che ti sono piaciute e una che ti ha frenato.
+- Che cosa fare: Passa entro giovedì dalla biblioteca o dal centro civico e leggi la bacheca degli annunci. Fotografa le proposte che ti incuriosiscono e chiama per un incontro di prova. Vai senza dover decidere subito, poi annota due cose che ti sono piaciute e una che non ti convince.
 - Risposta, Lunga: Una passione nuova porta con sé facce nuove, orari diversi, un argomento di conversazione che non riguarda il lavoro. La curiosità coltivata così ridà colore alla settimana intera. Scegli con calma entro sabato: conta più il piacere della prima sera che l'importanza del corso.
 
 #### Generale, favorevole, voce 8: Braccia per sabato
@@ -78,7 +78,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, favorevole, voce 12: Il tavolo dei nuovi
 
 - Risposta: La settimana è socievole e l'incontro con volti nuovi scorre con naturalezza. Se arriva un invito da persone che conosci poco, colleghi di un altro reparto o genitori incontrati all'uscita di scuola, accettalo: è proprio lì che questi giorni hanno qualcosa da offrirti.
-- Che cosa fare: Accetta l'invito entro un giorno e chiedi che cosa puoi portare. Prepara due domande sincere per chi siede accanto a te, su ciò che fa o sul quartiere dove vive. Il giorno dopo scrivi un ringraziamento a chi ti ha invitato, citando un momento preciso.
+- Che cosa fare: Accetta l'invito entro un giorno e chiedi che cosa puoi portare. Prepara due domande sincere per chi siede accanto a te, su ciò che fa o sul quartiere dove vive. Il giorno dopo scrivi un ringraziamento a chi ti ha aperto la porta, citando un momento preciso.
 - Risposta, Lunga: Le cerchie di ogni giorno tendono a chiudersi senza che ce ne accorgiamo. Un tavolo diverso porta storie diverse e, a volte, una persona che diventa presenza preziosa negli anni. Se con qualcuno nasce simpatia, proponi un caffè la settimana dopo, finché il ricordo è fresco.
 
 #### Generale, favorevole, voce 13: Il telefono alleggerito
@@ -315,7 +315,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana riapre la porta della compagnia. Da quando una storia si è chiusa hai preferito restare in disparte e declinare gli inviti: adesso l'aria cambia e le serate fra persone tornano adatte a te, senza obblighi e senza aspettative da soddisfare.
 - Che cosa fare: Accetta il primo invito che ricevi nei prossimi giorni, che sia una cena, una festa o un aperitivo. Decidi in anticipo un'ora di rientro, così puoi andare con animo leggero. Durante la serata fai una domanda vera ad almeno una persona nuova.
-- Risposta, Lunga: Tornare fra le persone non significa cercare subito qualcuno, ma ricordare il piacere di conversare e ridere. Il resto, se arriva, trova la strada aperta proprio grazie a queste serate. Il giorno dopo scrivi due righe di ringraziamento a chi ti ha invitato: tiene viva la porta.
+- Risposta, Lunga: Tornare fra le persone non significa cercare subito qualcuno, ma ricordare il piacere di conversare e ridere. Il resto, se arriva, trova la strada aperta proprio grazie a queste serate. Il giorno dopo scrivi due righe di ringraziamento a chi ha organizzato la serata: tiene viva la porta.
 
 #### Amore, favorevole, voce 9: Il punto di partenza
 
@@ -531,9 +531,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 1: Tre pagine chiare
 
-- Risposta: Settimana buona per trasformare una richiesta di lavoro in un incarico vero. Un cliente che ti ha cercato aspetta da te una proposta e ha voglia di cominciare: il terreno è pronto, manca soltanto che tu metta nero su bianco tempi, tappe e consegne.
+- Risposta: Settimana buona per trasformare una richiesta di lavoro in un incarico vero. Un cliente che ti ha chiesto un preventivo aspetta da te una proposta e ha voglia di cominciare: il terreno è pronto, manca soltanto che tu metta nero su bianco tempi, tappe e consegne.
 - Che cosa fare: Scrivi entro mercoledì una proposta di tre pagine al massimo: che cosa fai, in quali tappe, con quali consegne. Mandala in mattinata e offri una telefonata di dieci minuti per i dubbi. Se la risposta arriva entro venerdì, fissa subito la data di partenza.
-- Risposta, Lunga: Chi ti ha chiamato sceglie chi si presenta con ordine più di chi promette molto. Una proposta breve fa sentire che il lavoro è già in buone mani e rende facile un sì senza rinvii. Se la risposta tarda, aspetta lunedì e scrivi con una domanda sola e gentile.
+- Risposta, Lunga: Chi ti cerca sceglie chi si presenta con ordine più di chi promette molto. Una proposta breve fa sentire che il lavoro è già in buone mani e rende facile un sì senza rinvii. Se la risposta tarda, aspetta lunedì e scrivi con una domanda sola e gentile.
 
 #### Carriera, favorevole, voce 2: Il colloquio col responsabile
 
@@ -597,7 +597,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 12: Il secondo colloquio
 
-- Risposta: Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l'azienda ti ha richiamato perché c'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.
+- Risposta: Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l'azienda ha voluto rivederti perché c'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.
 - Che cosa fare: Rileggi entro mercoledì gli appunti del primo incontro e scrivi tre domande sul lavoro quotidiano: con chi lavoreresti ogni giorno, come si misurano i risultati, che cosa ci si aspetta nei primi tre mesi. Nelle ventiquattro ore successive manda un ringraziamento breve.
 - Risposta, Lunga: In questo secondo incontro la conversazione può diventare più aperta e mostrare come lavora davvero il gruppo in cui potresti entrare. Ascolta i dettagli pratici più delle promesse. A colloquio finito scrivi per te una nota onesta: che cosa ti è piaciuto e che cosa resta da chiarire.
 
@@ -684,8 +684,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, equilibrio, voce 12: Fine dello stage
 
 - Risposta: Settimana in equilibrio per chi chiude un tirocinio: non porta risposte definitive sul dopo, ma è adatta a fare domande chiare. Il periodo in ufficio sta finendo e conviene raccogliere quello che hai imparato e i contatti costruiti prima che i ricordi sbiadiscano.
-- Che cosa fare: Chiedi entro giovedì un colloquio a chi ti ha seguito. Domanda un giudizio sincero sul tuo lavoro e chiedi apertamente se esistono possibilità di restare o contatti a cui rivolgerti. Prima dell'ultimo giorno aggiorna il curriculum con progetti e risultati.
-- Risposta, Lunga: Chi chiude bene un'esperienza ne porta via più di un attestato. Il rapporto costruito in questi mesi può restare utile a lungo, se lo saluti con riconoscenza. Chiedi il permesso di indicare come referenza chi ti ha guidato e lascia un biglietto di ringraziamento.
+- Che cosa fare: Chiedi entro giovedì un colloquio a chi ti ha fatto da guida. Domanda un giudizio sincero sul tuo lavoro e chiedi apertamente se esistono possibilità di restare o contatti a cui rivolgerti. Prima dell'ultimo giorno aggiorna il curriculum con progetti e risultati.
+- Risposta, Lunga: Chi chiude bene un'esperienza ne porta via più di un attestato. Il rapporto costruito in questi mesi può restare utile a lungo, se lo saluti con riconoscenza. Chiedi il permesso di indicare come referenza chi ha seguito il tuo percorso e lascia un biglietto di ringraziamento.
 
 #### Carriera, equilibrio, voce 13: Turni da incastrare
 
@@ -751,7 +751,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, salita, voce 9: Attrito in riunione
 
-- Risposta: Settimana delicata per i rapporti in ufficio: una battuta di un collega in riunione ti ha punto e da allora fra voi c'è freddezza. Lasciar correre del tutto non funziona, ma neppure una discussione davanti a tutti: serve un chiarimento a quattr'occhi.
+- Risposta: Settimana delicata per i rapporti in ufficio: una battuta di un collega in riunione ti ha dato fastidio e da allora fra voi c'è freddezza. Lasciar correre del tutto non funziona, ma neppure una discussione davanti a tutti: serve un chiarimento a quattr'occhi.
 - Che cosa fare: A metà settimana cerca il collega lontano dalle riunioni e chiedigli cinque minuti. Racconta in una frase come ti è arrivata la battuta e chiedi se voleva dirti davvero qualcosa. Nelle riunioni successive mantieni un tono cordiale e professionale, qualunque sia la risposta.
 - Risposta, Lunga: Gli attriti fra colleghi si sciolgono meglio a voce e in privato che per messaggio. Parla dei fatti e del loro effetto su di te, lasciando da parte le intenzioni che attribuisci all'altro. Se la scena si ripete, annota data e parole esatte prima di decidere come muoverti.
 
@@ -853,7 +853,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana di piccole proposte che aprono strade nuove. Una richiesta di aiuto per pochi giorni, una sostituzione, un allestimento: sembrano cose marginali e invece ti mettono accanto a persone che non avresti incontrato altrimenti. Accettarle volentieri lascia spesso un nome nuovo in rubrica.
 - Che cosa fare: Se qualcuno ti chiede una mano per un evento, un inventario o un allestimento, rispondi entro ventiquattro ore e chiedi subito orari e compiti, messi per iscritto. Durante l'incarico arriva un quarto d'ora prima e fai una cosa in più di quanto richiesto.
-- Risposta, Lunga: Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo. La puntualità e il piccolo gesto in più restano nella memoria. Alla fine chiedi se puoi indicare chi ti ha coinvolto come referenza.
+- Risposta, Lunga: Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo. La puntualità e il piccolo gesto in più restano nella memoria. Alla fine chiedi se puoi indicare chi ti ha dato l'incarico come referenza.
 
 #### Fortuna, favorevole, voce 12: Servizi a due passi
 
@@ -895,7 +895,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, equilibrio, voce 4: Il grazie restituito
 
-- Risposta: Settimana in cui l'equilibrio dei rapporti conta più di qualunque occasione nuova. Qualcuno ti ha aiutato di recente e il grazie è rimasto a metà: rimetterlo in pari adesso mantiene viva una fiducia che domani ti permette di chiedere ancora.
+- Risposta: Settimana in cui l'equilibrio dei rapporti conta più di qualunque occasione nuova. Qualcuno ti ha fatto un favore di recente e il grazie è rimasto a metà: rimetterlo in pari adesso mantiene viva una fiducia che domani ti permette di chiedere ancora.
 - Che cosa fare: Pensa alla persona che ti ha dato una mano e offrile entro venerdì qualcosa di preciso in cambio: un passaggio, un pranzo cucinato da te, un'ora del tuo tempo su un suo problema. Fallo senza annunciarlo e senza aspettarti nulla: il gesto vale per sé.
 - Risposta, Lunga: Un favore non ricambiato lascia un piccolo squilibrio, come un tavolo che zoppica. Attenzione però a non esagerare: un gesto troppo grande mette l'altra persona in imbarazzo. Scegli qualcosa di proporzionato al favore ricevuto e lascia che sia l'altra parte a ringraziare, se vuole.
 

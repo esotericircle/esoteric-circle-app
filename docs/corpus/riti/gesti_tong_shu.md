@@ -117,7 +117,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Il primo giorno del periodo porta Man, l'ufficiale del pieno che la tradizione affida ai legami familiari. Per gli affetti organizza un incontro che riunisca le persone care, anche solo un caffè a casa tua. Scegli adesso la data e manda il primo invito.
 
 ### Man, Carriera, giorno
-- Rito: Oggi governa Man, il giorno del pieno: ciò che è colmo chiede misura. Al lavoro guarda quello che hai già raccolto, una pratica finita o un risultato ottenuto: riconoscilo con una riga di bilancio. Ringrazia un collega che ti ha aiutato in questi giorni.
+- Rito: Oggi governa Man, il giorno del pieno: ciò che è colmo chiede misura. Al lavoro guarda quello che hai già raccolto, una pratica finita o un risultato ottenuto: riconoscilo con una riga di bilancio. Ringrazia un collega che ti ha dato una mano in questi giorni.
 
 ### Man, Carriera, periodo
 - Rito: Il primo giorno di questo periodo cade sotto Man, il pieno. L'almanacco antico avverte che ciò che è colmo trabocca: nel lavoro comincia il tratto senza caricarti di impegni nuovi. Fai l'elenco di ciò che già porti e scegli dove mettere la tua cura migliore.
@@ -342,4 +342,4 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Oggi è Bi, il giorno che sigilla, in cui l'almanacco sconsiglia di inseguire novità. Per le occasioni conserva ciò che hai: rileggi una proposta già accettata e porta a termine l'ultimo passaggio. Una porta chiusa bene aiuta a preparare la prossima apertura.
 
 ### Bi, Fortuna, periodo
-- Rito: Il primo giorno di questo periodo appartiene a Bi, l'ultimo dei dodici ufficiali. Dopo di lui la serie torna a Jian, che stabilisce. Per le occasioni chiudi adesso un capitolo: saluta un progetto finito, ringrazia chi ti ha accompagnato. Così prepari spazio per ciò che ricomincia.
+- Rito: Il primo giorno di questo periodo appartiene a Bi, l'ultimo dei dodici ufficiali. Dopo di lui la serie torna a Jian, che stabilisce. Per le occasioni chiudi adesso un capitolo: saluta un progetto finito, ringrazia chi ha fatto la strada con te. Così prepari spazio per ciò che ricomincia.

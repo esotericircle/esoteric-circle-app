@@ -98,7 +98,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 2: Un gruppo nuovo
 
 - Risposta: Per chi cerca qualcuno, è un mese favorevole agli incontri nuovi: chi conosci adesso ha voglia di conoscere. Le tue serate però seguono sempre lo stesso giro e le persone nuove non trovano una porta da cui entrare. Basta aprirla con un'attività diversa dal solito.
-- Che cosa fare: Iscriviti entro metà mese a un'attività serale di gruppo che ti incuriosisce davvero: un coro, un corso di cucina, un circolo di lettura. Scegli un giorno fisso e partecipa ad almeno tre incontri prima di giudicare. Poi proponi un tè a chi ti ha colpito di più.
+- Che cosa fare: Iscriviti entro metà mese a un'attività serale di gruppo che ti incuriosisce davvero: un coro, un corso di cucina, un circolo di lettura. Scegli un giorno fisso e partecipa ad almeno tre incontri prima di giudicare. Poi proponi un tè a chi ti ha fatto più impressione.
 - Risposta, Lunga: Gli incontri migliori nascono spesso di lato, mentre si fa qualcosa insieme e nessuno sta cercando. Un interesse condiviso offre subito un argomento, toglie l'imbarazzo dell'inizio e lascia emergere le affinità con calma. Evita di andarci con l'idea fissa di trovare qualcuno: la fretta si vede.
 
 #### Amore, favorevole, voce 3: Il quaderno delle ricette
