@@ -5,8 +5,9 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
+import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
+import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
-import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
@@ -75,14 +76,56 @@ void main() {
     final tutto = <String, List<String>>{};
 
     // --- RUNE: il presagio della gettata, per ognuna delle sue forme ---
+    //
+    // **SI MISURA IL PRESAGIO VERO, ordine GA, i rossi dell'unione, 20
+    // ottobre 2026.** Qui si misurava `RunePresagio.componi`, il presagio a
+    // un solo blocco che la schermata delle rune non mostra piu': dall'ordine
+    // GA (voci GA.03, GA.05 e GA.07) la gettata si legge da
+    // `IlPresagioDalCorpus.componi`, il responso principale nella forma
+    // comune (la risposta col verdetto, il "Cosa fare adesso", nella Lunga
+    // l'approfondimento e il galdr) e le schede delle pietre. La tabella
+    // misurava un testo che nessuno legge. Si misurano i paragrafi del
+    // responso principale come si leggono, uniti, in Breve e in Lunga, e le
+    // due parti della scheda di una pietra, sulle stesse gettate e sugli
+    // stessi semi; la domanda gira fra quattro, la prima vuota.
+    const domandeDellaMisura = [
+      '',
+      'Che cosa mi aspetta nel lavoro?',
+      'Come va il mio amore?',
+      'Devo cambiare casa?',
+    ];
+    final schedePietra = <String>[];
+    final consigliPietra = <String>[];
     for (final gettata in gettate) {
-      final presagi = <String>[];
+      final brevi = <String>[];
+      final lunghi = <String>[];
       for (var seme = 0; seme < semiDelleGettate; seme++) {
         final esito = RuneCast.getta(gettata, random: Random(seme));
-        presagi.add(RunePresagio.componi(esito));
+        for (final lunga in const [false, true]) {
+          final presagio = IlPresagioDalCorpus.componi(
+            corpus: corpusDelPresagio,
+            esito: esito,
+            domanda: domandeDellaMisura[seme % domandeDellaMisura.length],
+            persona: 'misura-$seme',
+            oggi: DateTime(2026, 10, 20),
+            memoria: LaMemoriaDelPresagio(),
+            lunga: lunga,
+          );
+          (lunga ? lunghi : brevi)
+              .add(presagio.principale.paragrafi.join('\n\n'));
+          if (!lunga) {
+            for (final s in presagio.schede) {
+              schedePietra.add(s.risposta);
+              consigliPietra.add(s.cosaFare);
+            }
+          }
+        }
       }
-      tutto['Rune, presagio della gettata «${gettata.id}»'] = presagi;
+      tutto['Rune, presagio della gettata «${gettata.id}»'] = brevi;
+      tutto['Rune, presagio Lungo della gettata «${gettata.id}»'] = lunghi;
     }
+    tutto['Rune, scheda di una pietra: paragrafo'] = schedePietra;
+    tutto['Rune, scheda di una pietra: cosa fare'] = consigliPietra;
 
     // --- RUNE: il responso della singola runa, nei due versi ---
     //
