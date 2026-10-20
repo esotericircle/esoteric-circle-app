@@ -65,11 +65,6 @@ void main() {
             ('Risposta', campi['Risposta'], v.risposta),
             ('Che cosa fare', campi['Che cosa fare'], v.cosaFare),
             ('Risposta, Lunga', campi['Risposta, Lunga'], v.rispostaLunga),
-            (
-              'Che cosa fare, Lunga',
-              campi['Che cosa fare, Lunga'],
-              v.cosaFareLunga
-            ),
           ]) {
             if (corpus != nelCodice) differenze.add('$dove, $nome');
           }

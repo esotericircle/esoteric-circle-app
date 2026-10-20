@@ -67,7 +67,10 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(voci, 6000, cosa: 'voci dei dodici corpora');
+    // Ordine GA voce GA.07: le voci sono 1.548 coi loro tre paragrafi
+    // (4.644 righe); la quarta riga, "Che cosa fare, Lunga", e' diventata il
+    // rito propiziatorio e non sta piu' nei dodici corpora. Prima 6.192.
+    cardinaleMinimo(voci, 4600, cosa: 'voci dei dodici corpora');
     print('ORDINE EV VOCE 07: voci dei dodici corpora $voci, fuori dal '
         'confine ${fuori.length}, in attesa dell\'Architetto '
         '${segnate.length} su ${frasiDeiCorporaInAttesa.length} dichiarate');

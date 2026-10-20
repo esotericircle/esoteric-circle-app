@@ -31,7 +31,8 @@ FASCE = [('Favorevole', 'favorevole'), ('In equilibrio', 'equilibrio'),
 # Quante voci per fascia, dalla EU Aggiunta.
 ATTESE = {'giorno': [30, 24, 15], 'settimana': [14, 14, 14],
           'mese': [4, 4, 4], 'anno': [2, 2, 2]}
-CAMPI = ['Risposta', 'Che cosa fare', 'Risposta, Lunga', 'Che cosa fare, Lunga']
+# Ordine GA voce GA.07: la riga 'Che cosa fare, Lunga' non c'e' piu'.
+CAMPI = ['Risposta', 'Che cosa fare', 'Risposta, Lunga']
 
 
 def dart(testo: str) -> str:
@@ -82,8 +83,8 @@ def voci(testo: str, periodo: str) -> list[list[list[tuple[str, ...]]]]:
                 assert int(testa.group(1)) == len(elenco) + 1, pezzi[i]
                 campi = {}
                 for riga in pezzi[i + 1].splitlines():
-                    r = re.match(r'^- (Risposta|Che cosa fare|Risposta, Lunga|'
-                                 r'Che cosa fare, Lunga): (.+)$', riga)
+                    r = re.match(r'^- (Risposta|Che cosa fare|Risposta, Lunga'
+                                 r'): (.+)$', riga)
                     if r:
                         assert r.group(1) not in campi, pezzi[i]
                         campi[r.group(1)] = r.group(2)

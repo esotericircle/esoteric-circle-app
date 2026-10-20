@@ -44,22 +44,27 @@ enum FasciaEu {
           : FasciaEu.salita;
 }
 
-/// Una voce del corpus: il titolo e i quattro paragrafi.
+/// Una voce del corpus: il titolo e i tre paragrafi.
+///
+/// **Ordine GA voci GA.03 e GA.07, 20 ottobre 2026**: ogni paragrafo ha da
+/// 40 a 50 parole; il secondo va nel riquadro "Cosa fare adesso"; il quarto
+/// paragrafo della Lunga non e' piu' "che cosa fare" ma il rito propiziatorio
+/// della tradizione, che non sta nel corpus della voce
+/// (`IRitiDellOroscopo`).
 class VoceEu {
-  const VoceEu(this.titolo, this.risposta, this.cosaFare, this.rispostaLunga,
-      this.cosaFareLunga);
+  const VoceEu(this.titolo, this.risposta, this.cosaFare, this.rispostaLunga);
 
   final String titolo;
   final String risposta;
   final String cosaFare;
   final String rispostaLunga;
-  final String cosaFareLunga;
 
-  /// I paragrafi della scheda: due in Breve, quattro in Lunga (voce EU.01).
+  /// I paragrafi della voce: due in Breve, tre in Lunga (il quarto, il rito,
+  /// lo aggiunge chi compone il responso).
   List<String> paragrafi({required bool lunga}) => [
         risposta,
         cosaFare,
-        if (lunga) ...[rispostaLunga, cosaFareLunga],
+        if (lunga) rispostaLunga,
       ];
 
   /// Il testo della scheda, coi paragrafi separati da una riga vuota: chi lo
