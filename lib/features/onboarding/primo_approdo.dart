@@ -633,7 +633,9 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
 
   Widget _fumetto(BuildContext context, MaestroPalette palette, Size schermo,
       Rect? bersaglio) {
-    final larghezza = schermo.width - SpacingTokens.lg * 2;
+    // Mai sotto zero nemmeno la larghezza (ordine GA voce 11): una finestra
+    // ancora larga zero non deve chiedere vincoli rovesciati.
+    final larghezza = math.max(0.0, schermo.width - SpacingTokens.lg * 2);
     // **LO SCHERMO UTILE NON E' LO SCHERMO INTERO.** Il fatto di un tester,
     // 5 ottobre 2026, su un Redmi Note 14 coi tre tasti di sistema: il
     // fumetto dei Maestri finiva col tasto Avanti sotto la barra dei tasti, e
@@ -757,7 +759,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
       FumettoDelPrimoApprodo fumetto, double larghezza, TextScaler scala) {
     // Il bordo d'oro della carta, un punto per lato, toglie larghezza al
     // testo: senza contarlo una riga va a capo nella carta e non nella misura.
-    final dentro = larghezza - SpacingTokens.md * 2 - 2;
+    final dentro = math.max(0.0, larghezza - SpacingTokens.md * 2 - 2);
     double riga(String testo, TextStyle stile) {
       final p = TextPainter(
         text: TextSpan(text: testo, style: stile),
@@ -831,7 +833,13 @@ class _Carta extends StatelessWidget {
     final ultimo = passo + 1 >= quanti;
     return Container(
       width: larghezza,
-      constraints: BoxConstraints(maxHeight: alMassimo),
+      // **MAI SOTTO ZERO**, ordine GA voce 11, 20 ottobre 2026. Aprendo
+      // l'app la finestra non ha ancora la sua altezza, e lo spazio fra le
+      // barre meno i due orli nasceva negativo: -32, l'errore rosso
+      // "non-normalized height constraints" letto in Crashlytics sulla 2314.
+      // Padre: ordine FD, commit `6944b91f` (A35), il massimo senza
+      // pavimento. La prova: `il_tutorial_non_va_in_negativo_test.dart`.
+      constraints: BoxConstraints(maxHeight: math.max(0.0, alMassimo)),
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         color: palette.surface,
