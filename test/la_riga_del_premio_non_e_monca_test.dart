@@ -56,6 +56,12 @@ void main() {
     ));
     await tester.pump(const Duration(milliseconds: 600));
 
+    // IL CARDINALE MINIMO (Regola A): le vie sono tre, l'invito, il social
+    // e il messaggio privato. Senza vie il ciclo qui sotto non guarderebbe
+    // niente e la prova resterebbe verde.
+    expect(ModoDellaCondivisione.values.length, greaterThanOrEqualTo(3),
+        reason: 'le vie della condivisione sono meno di tre: la prova '
+            'guarderebbe meno righe di quelle che la persona legge');
     for (final modo in ModoDellaCondivisione.values) {
       expect(borsellino.eosPerLaCondivisione(modo.motivo), isNull,
           reason: 'la prova deve guardare la riga senza il numero');

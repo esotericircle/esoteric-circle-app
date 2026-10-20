@@ -93,3 +93,15 @@ Le sette prove della voce (le cinque dell'agente di prima e le due nuove) con le
 la_celebrazione_offre_sempre_la_condivisione_test, gli_enigmi_a_video_test), ga11_finale.txt:
   00:56 +69: All tests passed!
 flutter analyze sui sei file toccati dalle due cure nuove e dal lavoro a metà: No issues found!
+
+======================================================================
+IL LAVORO A METÀ, la riga del premio (3219ca83): il cardinale minimo
+======================================================================
+la_riga_del_premio_non_e_monca_test.dart gira sulle vie della condivisione scoperte a esecuzione
+(ModoDellaCondivisione.values): senza vie sarebbe verde senza guardare niente. Aggiunto il cardinale
+minimo, tre vie, prima del ciclo.
+  Innesto (con Edit, la scrittura da Python era rifiutata dal sistema): greaterThanOrEqualTo(4),
+  verificato col grep alla riga 62. Esito (ga11_cardinale_rosso.txt): rossa,
+  "Expected: a value greater than or equal to <4>, Actual: <3>", "le vie della condivisione sono meno di tre".
+  Tolto con Edit, il file uguale alla copia di sicurezza (cmp). Esito (ga11_cardinale_verde.txt):
+  00:02 +1: All tests passed!; flutter analyze: No issues found!
