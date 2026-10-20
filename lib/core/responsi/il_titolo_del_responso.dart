@@ -61,5 +61,13 @@ class IlTitoloDelResponso {
         'lib/features/horoscope/titolo_della_scheda_del_giorno.dart',
     // Il Soffio del Destino: la carta del dono con la sua gerarchia.
     'RitualGiftCard': 'lib/features/rituals/ritual_gift_card.dart',
+    // **IL RESPONSO NELLA FORMA COMUNE, ordine GA voci GA.03 e GA.05**: il
+    // titolo, la risposta, il riquadro "Cosa fare adesso", la Lunga e il "Da
+    // dove viene", in un componente solo che disegna il titolo con
+    // [widget]. L'Oracolo degli Angeli (89ae8a24) e la gettata delle rune
+    // (a533412c) ci sono passati senza che la porta fosse dichiarata, e la
+    // guardia ogni_responso_parte_dal_titolo li dava fuori dal titolo comune.
+    'IlResponsoInterpretato':
+        'lib/design_system/components/il_responso_interpretato.dart',
   };
 }
