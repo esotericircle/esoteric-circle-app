@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -5,7 +8,6 @@ import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +19,24 @@ import 'cardinale_minimo.dart';
 import 'la_soglia_si_guarda_prima_di_leggerla_test.dart'
     show DiarioDelloSciamanoDiProva;
 
-/// **IL VOLTO SI SCOPRE PER ULTIMO, SULLA CARTA VERA.** Ordine FZ voce FZ.04:
-/// *"Ogni animale ha la sua carta: il file *_carta_da_grattare_v1.jpg ... a
-/// quasi tutto schermo"*, *"Il volto dell'animale sta nel quarto pezzo e si
-/// scopre per ultimo"*; il fondatore: *"non l'animale da scoprire, ma una
-/// card intera"*.
+/// **IL VOLTO SI SCOPRE PER ULTIMO, SULL'ANIMALE DI LATO.** Ordine FZ voce
+/// FZ.04: *"Il volto dell'animale sta nel quarto pezzo e si scopre per
+/// ultimo"*; il fondatore, 20 ottobre 2026: *"Per la cenere da scostare, non
+/// devi usare il video, ma l'immagine dell'animale di lato"*.
 ///
 /// **I fatti, dalla simulazione da persona del 20 ottobre 2026 sul Realme
 /// 767f596c**: al terzo pezzo la testa del Cavallo si vedeva gia'
-/// (`docs/collaudo/FZ/simulazioni/catture/v2_d7_carta.png`); la lente
-/// grattava l'illustrazione dell'animale su fondo blu, non la carta; il pezzo
-/// in cima stava dietro le barre. Misurate le dodici carte, in nessuna il
-/// volto sta nella fascia piu' alta. Padre: ordine FZ voce FZ.04.
+/// (`docs/collaudo/FZ/simulazioni/catture/v2_d7_carta.png`), perche' i pezzi
+/// erano quattro fasce uguali dal basso; l'immagine di lato era stirata in un
+/// rettangolo 1080x1920; il pezzo in cima stava dietro le barre; e con le
+/// celle di un Diario vecchio il volto si apriva da solo alla quarta.
+/// Padre: ordine FZ voce FZ.04.
 ///
 /// **Cosa misura**: per tutti e dodici gli animali ogni punto del volto
-/// appartiene al quarto pezzo e a nessun altro, e nessun pezzo prima del
-/// quarto lo rende grattabile; la lente mostra la carta vera; la carta parte
-/// sotto lo spazio delle barre in cima.
+/// misurato appartiene al quarto pezzo, e prima della quarta non si gratta;
+/// le misure dichiarate sono quelle vere dei file; con le celle vecchie il
+/// volto resta coperto all'arrivo; la lente mostra l'animale di lato; la
+/// carta parte sotto lo spazio delle barre in cima.
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -79,6 +82,48 @@ void main() {
   });
 
   testWidgets(
+      'CON LE CELLE DI UN DIARIO VECCHIO, ALLA QUARTA IL VOLTO E\' ANCORA '
+      'SOTTO LA CENERE ALL\'ARRIVO, per tutti e dodici', (tester) async {
+    // **IL CASO VISTO SUL REALME**, 20 ottobre 2026 (27 sulla data spostata):
+    // le celle salvate con le fasce uguali di prima coprivano anche il volto,
+    // e alla quarta discesa del Cavallo il volto si apriva da solo, con
+    // "Per oggi hai scostato abbastanza" prima di aver toccato niente.
+    const scena = Size(390, 844);
+    await tester.binding.setSurfaceSize(scena);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    for (final animale in AnimalCatalog.animals) {
+      final tutte = LaCartaInQuattroPezzi(animale.name, 0).velato;
+      await tester.pumpWidget(MaterialApp(
+        home: SizedBox(
+          width: scena.width,
+          height: scena.height,
+          child: IlVeloCheSiScosta(
+            key: ValueKey(animale.name),
+            nome: animale.name,
+            immagine: animale.fullPath,
+            quale: 3,
+            giaScoperte: tutte,
+            quandoCambia: (_) {},
+            palette: MaestroPalette.caligo,
+          ),
+        ),
+      ));
+      await tester.pump(const Duration(milliseconds: 50));
+      final pittore = tester
+          .widget<CustomPaint>(find.byKey(const Key('viaggio_cenere')))
+          .painter! as PittoreDellaCenere;
+      final volto = LaCartaInQuattroPezzi(animale.name, 3).scostabile;
+      final aperte = volto.where(pittore.scoperte.contains).length;
+      expect(aperte, 0,
+          reason: '${animale.name}: alla quarta $aperte celle del volto sono '
+              'gia\' aperte all\'arrivo, prima di grattare');
+      expect(find.text('Scosta la cenere con il dito.'), findsOneWidget,
+          reason: '${animale.name}: all\'arrivo la lente dice gia\' che per '
+              'oggi basta');
+    }
+  });
+
+  testWidgets(
       'LA CARTA PARTE SOTTO LE BARRE IN CIMA: con lo spazio della barra nel '
       'margine alto, la carta comincia sotto, intera', (tester) async {
     const scena = Size(360, 719);
@@ -96,7 +141,7 @@ void main() {
           height: scena.height,
           child: IlVeloCheSiScosta(
             nome: cavallo.name,
-            immagine: IlSegnoCheRisponde.posaDi(cavallo),
+            immagine: cavallo.fullPath,
             quale: 0,
             giaScoperte: const {},
             quandoCambia: (_) {},
@@ -111,13 +156,19 @@ void main() {
         reason: 'la carta comincia a ${carta.top.toStringAsFixed(0)} punti, '
             'dietro le barre che finiscono a $sopra: il pezzo in cima non si '
             'vede e il dito li\' tocca i pulsanti della barra');
-    expect(carta.height, greaterThan(scena.height / 2),
-        reason: 'la carta e\' alta solo ${carta.height.toStringAsFixed(0)} '
-            'punti: non e\' piu\' a quasi tutto schermo');
+    // **GRANDE QUANTO LO SPAZIO PERMETTE**: con la sua proporzione vera
+    // un'immagine quasi quadrata riempie la larghezza, una alta riempie
+    // l'altezza fra le barre e l'istruzione. Una delle due deve toccare.
+    final altoUtile = scena.height * 0.78 - sopra;
+    expect(
+        carta.width >= scena.width - 1 || carta.height >= altoUtile - 1, isTrue,
+        reason: 'la carta e\' ${carta.size}: non riempie ne\' la larghezza '
+            '(${scena.width}) ne\' l\'altezza utile '
+            '(${altoUtile.toStringAsFixed(0)})');
   });
 
   testWidgets(
-      'LA LENTE GRATTA LA CARTA VERA, non l\'illustrazione dell\'animale',
+      'LA LENTE GRATTA L\'ANIMALE DI LATO, con la sua proporzione vera',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
@@ -160,8 +211,32 @@ void main() {
     final immagine =
         tester.widget<Image>(find.byKey(const Key('viaggio_animale_vero')));
     final nome = (immagine.image as AssetImage).assetName;
-    expect(nome, contains('_carta_da_grattare_v1'),
-        reason: 'la lente gratta $nome: e\' l\'animale da scoprire, non la '
-            'carta intera che chiede l\'ordine');
+    expect(nome, contains('animali/ani_cavallo'),
+        reason: 'la lente gratta $nome, e non l\'immagine del Cavallo di lato');
+    // **SENZA STIRARLA**: il rettangolo ha la proporzione vera del file.
+    final r = tester.getRect(find.byKey(const Key('viaggio_animale_vero')));
+    const vera = 878 / 844;
+    expect(r.width / r.height, closeTo(vera, 0.01),
+        reason: 'il Cavallo di lato sta in un rettangolo di proporzione '
+            '${(r.width / r.height).toStringAsFixed(3)} invece di '
+            '${vera.toStringAsFixed(3)}: e\' stirato');
+  });
+
+  test('LE MISURE DICHIARATE SONO QUELLE VERE DEI DODICI FILE', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    var guardati = 0;
+    for (final animale in AnimalCatalog.animals) {
+      final dati = File(animale.fullPath).readAsBytesSync();
+      final codec = await ui.instantiateImageCodec(dati);
+      final frame = await codec.getNextFrame();
+      final vera = Size(
+          frame.image.width.toDouble(), frame.image.height.toDouble());
+      expect(LaCartaInQuattroPezzi.misure[animale.name], vera,
+          reason: '${animale.name}: misura dichiarata '
+              '${LaCartaInQuattroPezzi.misure[animale.name]}, il file e\' '
+              '$vera');
+      guardati++;
+    }
+    expect(guardati, 12);
   });
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/viaggio/i_quattro_viaggi.dart';
+import 'l_ombra_dell_animale.dart';
 
 /// **LE QUATTRO IMPRONTE CHE FORMANO UN CAMMINO.**
 /// Ordine DE voce 09, 11 settembre 2026. Riscritto per intero dall'ordine FZ
@@ -159,6 +160,28 @@ class LeQuattroImpronte extends StatelessWidget {
           border: Border.all(
               color: const Color(0xFFD6A868).withValues(alpha: 0.30),
               width: 1.2),
+        ),
+      );
+    }
+    // **PRIMA DEL RICONOSCIMENTO, L'OMBRA E NON LA SAGOMA.** Il fondatore, 20
+    // ottobre 2026, davanti a tre sagome dorate nitide del Cavallo alla
+    // terza discesa: *"cosi' stai rivelando all'utente in anticipo che si
+    // tratta del cavallo. Secondo me dovresti usare l'ombra che l'utente ha
+    // scelto"*. Finche' il nome non e' detto ogni impronta e' l'ombra scura e
+    // sfocata che la persona ha visto fra le nove e ha seguito, la stessa
+    // `OmbraDellAnimale` dell'incontro: dice che e' tornata la stessa
+    // presenza, non chi e'. Padre: ordine DE voce 09, che voleva le impronte
+    // "del suo animale ... dalla stessa immagine" quando il Viaggio aveva una
+    // sola ombra possibile.
+    if (!riconosciuto) {
+      return SizedBox(
+        key: Key('viaggio_impronta_ombra_$quale'),
+        width: segno,
+        height: segno,
+        child: OmbraDellAnimale(
+          immagine: animale.ombraPath,
+          giaSagoma: true,
+          quantaLuce: 0.15,
         ),
       );
     }

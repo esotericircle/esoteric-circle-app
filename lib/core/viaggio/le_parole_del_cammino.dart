@@ -104,6 +104,10 @@ abstract final class LeParoleDelCammino {
   /// vedono tutte nel Diario dei viaggi, una accanto all'altra"*.
   static const String leCarteCheScopri = 'LE CARTE CHE STAI SCOPRENDO';
 
+  /// Sotto una carta non ancora intera: il nome non si dice prima della
+  /// quarta.
+  static const String ombraSeguita = 'Ombra seguita';
+
   /// Quanti pezzi di una carta sono scoperti, in parole: *"due pezzi su
   /// quattro"*, e alla quarta *"la carta intera"*.
   static String pezziScoperti(int quanti) => quanti >= 4

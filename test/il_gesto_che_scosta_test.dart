@@ -46,7 +46,7 @@ void main() {
   /// carta, e oltre i bordi fin dove c'e' schermo.
   Future<void> passaOvunque(WidgetTester tester, GuideAnimal animale) async {
     final velo = LaCartaInQuattroPezzi(animale.name, 0);
-    final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+    final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, velo.misura);
     final sinistra = (r.left - 10).clamp(1.0, scena.width - 1);
     final destra = (r.right + 10).clamp(1.0, scena.width - 1);
     final g = await tester.startGesture(Offset(sinistra, r.top));
@@ -112,7 +112,7 @@ void main() {
     var controllati = 0;
     for (final animale in AnimalCatalog.animals) {
       final velo = LaCartaInQuattroPezzi(animale.name, 0);
-      final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+      final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, velo.misura);
       Set<int>? ultime;
       await monta(tester, animale, 0, {}, (c) => ultime = c);
       // Il tratto: dall'alto in basso, nella colonna del pezzo piu' piena.
@@ -169,7 +169,7 @@ void main() {
         Size(390, 844),
         Size(1080, 2400),
       ]) {
-        final r = IlVeloCheSiScosta.doveStaLIllustrazione(telefono, misura);
+        final r = IlVeloCheSiScosta.doveStaLIllustrazione(telefono, velo.misura);
         for (final i in velo.velato) {
           celle++;
           final pezzo = PittoreDellaCenere.pezzo(velo, i, r.size);

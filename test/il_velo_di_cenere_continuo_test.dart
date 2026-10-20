@@ -27,8 +27,8 @@ void main() {
   /// Il Lupo: la sua carta nella scena, e un tratto diagonale sul pezzo
   /// attivo (il piu' basso, il pezzo 0: non c'e' piu' una testa da evitare).
   final velo = LaCartaInQuattroPezzi('Lupo', 0);
-  final illustrazione = IlVeloCheSiScosta.doveStaLIllustrazione(
-      scena, const Size(1080, 1920));
+  final illustrazione =
+      IlVeloCheSiScosta.doveStaLIllustrazione(scena, velo.misura);
   final size = illustrazione.size;
 
   /// Un tratto diagonale dentro il corpo: dal centro di massa delle celle

@@ -53,8 +53,17 @@ void main() {
       final immagine = tester
           .widget<Image>(find.byKey(Key('diario_carta_immagine_${e.key}')));
       expect((immagine.image as AssetImage).assetName,
-          contains('${e.key.toLowerCase()}_carta_da_grattare_v1'),
-          reason: 'la carta di ${e.key} nel Diario non e\' la sua carta vera');
+          contains('ani_${e.key.toLowerCase()}_v1'),
+          reason: 'la carta di ${e.key} nel Diario non e\' il suo animale di '
+              'lato');
+      // **IL NOME NON SI DICE PRIMA DELLA QUARTA**: nessuna di queste carte
+      // e' intera, e un nome sotto la carta direbbe chi e' prima del tempo.
+      expect(
+          tester
+              .widget<Text>(find.byKey(Key('diario_carta_nome_${e.key}')))
+              .data,
+          isNot(e.key),
+          reason: 'sotto la carta a meta\' c\'e\' gia\' il nome ${e.key}');
       expect(
           tester
               .widget<Text>(find.byKey(Key('diario_carta_pezzi_${e.key}')))

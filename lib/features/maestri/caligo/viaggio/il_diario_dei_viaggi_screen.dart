@@ -16,7 +16,6 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
-import 'il_segno_che_risponde.dart';
 import 'il_tunnel_che_scende.dart';
 import 'il_velo_che_si_scosta.dart';
 
@@ -218,8 +217,10 @@ class _UnaCartaAMeta extends StatelessWidget {
     // **IL VELO DEI PEZZI GIA' FATTI**: si apre solo cio' che sta nei pezzi
     // grattati, come nella lente, e il volto resta sotto la cenere fino alla
     // quarta.
+    // Il velo del pezzo che viene dopo l'ultimo fatto: valgono le celle dei
+    // pezzi gia' grattati (`LaCartaInQuattroPezzi.valide`).
     final velo = LaCartaInQuattroPezzi(
-        animale.name, (pezziFatti - 1).clamp(0, LaCartaInQuattroPezzi.pezzi - 1));
+        animale.name, pezziFatti.clamp(0, LaCartaInQuattroPezzi.pezzi - 1));
     final scoperte = velo.valide(celle);
     final intera = pezziFatti >= LaCartaInQuattroPezzi.pezzi;
     return SizedBox(
@@ -228,17 +229,23 @@ class _UnaCartaAMeta extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
+          // **L'ANIMALE DI LATO, CON LA SUA PROPORZIONE**, come nella lente,
+          // dentro un riquadro della stessa altezza per tutti: la fila resta
+          // allineata anche se le immagini hanno misure diverse.
+          SizedBox(
+            height: larga * 1.3,
+            child: Center(
+              child: ClipRRect(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
             child: AspectRatio(
-              aspectRatio: 1080 / 1920,
+              aspectRatio: velo.misura.width / velo.misura.height,
               child: Stack(
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    IlSegnoCheRisponde.posaDi(animale),
+                    animale.fullPath,
                     key: Key('diario_carta_immagine_${animale.name}'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                   ),
                   if (!intera)
@@ -256,9 +263,16 @@ class _UnaCartaAMeta extends StatelessWidget {
               ),
             ),
           ),
+            ),
+          ),
           const SizedBox(height: SpacingTokens.xs),
+          // **IL NOME SOLO A CARTA INTERA.** Prima del riconoscimento il nome
+          // sotto la carta direbbe chi e' prima del tempo: e' la stessa
+          // anticipazione che il fondatore ha trovato nelle impronte del
+          // cammino, il 20 ottobre 2026.
           Text(
-            animale.name,
+            intera ? animale.name : LeParoleDelCammino.ombraSeguita,
+            key: Key('diario_carta_nome_${animale.name}'),
             style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
           Text(

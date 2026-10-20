@@ -8,23 +8,21 @@ import 'dart:ui';
 /// *"Stile A"*. E l'ordine: *"Il volto dell'animale sta nel quarto pezzo e si
 /// scopre per ultimo"*.
 ///
-/// **SOSTITUISCE `IlVeloDellAnimale`** (ordine DI voce 10, DQ voce 05): non
-/// piu' il velo sulla sola sagoma dell'animale, ma la cenere sopra la carta
-/// intera (`assets/img/mondo_di_sotto/carte/*_carta_da_grattare_v1.webp`), a
-/// quasi tutto schermo. **La contabilita' per pezzi resta** (un pezzo per
-/// discesa, lo stesso pennello: [raggioDelPennello], [chiarezza],
-/// [scoperteDa]), **nessun pezzo cade da solo**.
+/// **SOSTITUISCE `IlVeloDellAnimale`** (ordine DI voce 10, DQ voce 05): la
+/// cenere copre tutta l'immagine dell'animale di lato
+/// (`assets/img/animali/ani_*_v1.webp`), con la sua proporzione vera, per
+/// decisione del fondatore del 20 ottobre 2026 (*"non devi usare il video,
+/// ma l'immagine dell'animale di lato"*). **La contabilita' per pezzi resta**
+/// (un pezzo per discesa, lo stesso pennello: [raggioDelPennello],
+/// [chiarezza], [scoperteDa]), **nessun pezzo cade da solo**.
 ///
 /// **LA GEOMETRIA, RIFATTA DALLA SIMULAZIONE DA PERSONA DEL 20 OTTOBRE
 /// 2026.** Fino a quel giorno i pezzi erano quattro fasce uguali scoperte dal
-/// basso, e il volto doveva stare in quella piu' alta. **Misurato sulle dodici
-/// carte, non ci sta mai**: in cima ci sono cielo, luna e alberi, e i volti
-/// cadono fra il 29 e il 73 per cento dell'altezza (il foglio delle dodici
-/// carte con le linee dei quarti sta nel rapporto dell'ordine). Sul Realme
-/// la testa del Cavallo si vedeva al terzo pezzo. Adesso **il quarto pezzo e'
-/// il volto di ciascun animale**, il rettangolo misurato carta per carta in
-/// [volti]; il resto della carta si divide in tre fasce, dal basso: le
-/// stesse tre discese di prima, ma nessuna tocca il volto.
+/// basso, e il volto doveva stare in quella piu' alta: sul Realme la testa
+/// del Cavallo si vedeva gia' al terzo pezzo. Adesso **il quarto pezzo e' il
+/// volto di ciascun animale**, il rettangolo misurato immagine per immagine
+/// in [volti]; il resto si divide in tre fasce, dal basso: le stesse tre
+/// discese di prima, ma nessuna tocca il volto.
 ///
 /// **NESSUN CUMULO, NESSUNA TESTA**: [cumulo] e [testa] restano per la
 /// stessa porta di `PittoreDellaCenere`, che li legge per decidere se
@@ -60,33 +58,61 @@ class LaCartaInQuattroPezzi {
   static const int _cimaDiMezzo = 11;
   static const int _cimaDelBasso = 21;
 
-  /// **IL VOLTO DI OGNI ANIMALE**, in frazioni della carta (1080x1920),
-  /// misurato a occhio su ogni carta ingrandita con una griglia di cinque
-  /// centesimi, il 20 ottobre 2026: dalle orecchie (o dalla cresta) al mento
-  /// (o al becco), con un margine. Le corna del Cervo restano fuori: sono
-  /// sopra il volto, nella fascia di mezzo. Un nome che non c'e' prende il
-  /// volto medio delle dodici carte, [voltoMedio], cosi' nessun pezzo resta
-  /// mai senza volto.
+  /// **IL VOLTO DI OGNI ANIMALE**, in frazioni dell'immagine dell'animale di
+  /// lato (`assets/img/animali/ani_*_v1.webp`), misurato a occhio su ogni
+  /// immagine con una griglia di decimi e controllato disegnandoci sopra il
+  /// rettangolo, il 20 ottobre 2026: dalle orecchie (o dalla cresta) al mento
+  /// (o al becco), con un margine. Le corna del Cervo restano fuori. Un nome
+  /// che non c'e' prende [voltoMedio], cosi' nessun pezzo resta mai senza
+  /// volto.
+  ///
+  /// **Sull'immagine di lato e non sulla carta del video**: parola del
+  /// fondatore dello stesso giorno, vista la lente col fotogramma frontale,
+  /// *"Per la cenere da scostare, non devi usare il video, ma l'immagine
+  /// dell'animale di lato"*.
   static const Map<String, Rect> volti = {
-    'Aquila': Rect.fromLTRB(0.39, 0.32, 0.58, 0.44),
-    'Cavallo': Rect.fromLTRB(0.41, 0.39, 0.55, 0.53),
-    'Cervo': Rect.fromLTRB(0.39, 0.42, 0.56, 0.545),
-    'Corvo': Rect.fromLTRB(0.36, 0.42, 0.53, 0.51),
-    'Falco': Rect.fromLTRB(0.43, 0.46, 0.57, 0.545),
-    'Gufo': Rect.fromLTRB(0.34, 0.38, 0.60, 0.515),
-    'Lince': Rect.fromLTRB(0.37, 0.465, 0.62, 0.61),
-    'Lupo': Rect.fromLTRB(0.37, 0.48, 0.59, 0.595),
-    'Orso': Rect.fromLTRB(0.36, 0.455, 0.645, 0.585),
-    'Serpente': Rect.fromLTRB(0.38, 0.28, 0.54, 0.365),
-    'Tartaruga': Rect.fromLTRB(0.45, 0.675, 0.59, 0.74),
-    'Volpe': Rect.fromLTRB(0.36, 0.505, 0.58, 0.62),
+    'Aquila': Rect.fromLTRB(0.0, 0.0, 0.38, 0.22),
+    'Cavallo': Rect.fromLTRB(0.0, 0.0, 0.22, 0.36),
+    'Cervo': Rect.fromLTRB(0.55, 0.06, 0.79, 0.32),
+    'Corvo': Rect.fromLTRB(0.58, 0.0, 1.0, 0.28),
+    'Falco': Rect.fromLTRB(0.0, 0.0, 0.32, 0.22),
+    'Gufo': Rect.fromLTRB(0.27, 0.0, 0.88, 0.32),
+    'Lince': Rect.fromLTRB(0.52, 0.0, 0.94, 0.33),
+    'Lupo': Rect.fromLTRB(0.0, 0.0, 0.27, 0.33),
+    'Orso': Rect.fromLTRB(0.67, 0.0, 1.0, 0.36),
+    'Serpente': Rect.fromLTRB(0.45, 0.06, 0.72, 0.27),
+    'Tartaruga': Rect.fromLTRB(0.70, 0.0, 0.94, 0.31),
+    'Volpe': Rect.fromLTRB(0.76, 0.0, 1.0, 0.45),
   };
 
-  /// Il volto di chi non e' nelle dodici carte: il mezzo della carta.
-  static const Rect voltoMedio = Rect.fromLTRB(0.38, 0.42, 0.58, 0.55);
+  /// Il volto di chi non e' fra i dodici: la parte alta e centrale.
+  static const Rect voltoMedio = Rect.fromLTRB(0.35, 0.0, 0.65, 0.3);
 
   /// Il volto di questa carta.
   Rect get volto => volti[nome] ?? voltoMedio;
+
+  /// **LA MISURA VERA DELL'IMMAGINE DI LATO**, in pixel: la carta prende la
+  /// sua proporzione, mai una stirata. Fino al 20 ottobre 2026 la lente la
+  /// disegnava in un rettangolo 1080x1920 con `BoxFit.fill`, e un Cavallo
+  /// quasi quadrato diventava alto il doppio. La guardia
+  /// `il_volto_si_scopre_per_ultimo_test` confronta questi numeri coi file.
+  static const Map<String, Size> misure = {
+    'Aquila': Size(688, 807),
+    'Cavallo': Size(878, 844),
+    'Cervo': Size(765, 933),
+    'Corvo': Size(847, 704),
+    'Falco': Size(805, 749),
+    'Gufo': Size(537, 865),
+    'Lince': Size(689, 875),
+    'Lupo': Size(898, 760),
+    'Orso': Size(900, 736),
+    'Serpente': Size(808, 772),
+    'Tartaruga': Size(936, 688),
+    'Volpe': Size(894, 575),
+  };
+
+  /// La misura di questa carta.
+  Size get misura => misure[nome] ?? const Size(800, 800);
 
   static final List<int> _tutte = [
     for (var i = 0; i < _righe * _colonne; i++) i,
@@ -270,11 +296,23 @@ class LaCartaInQuattroPezzi {
   }
 
   /// **LE CELLE GIA' SCOPERTE CHE VALGONO SU QUESTA CARTA**: quelle dei pezzi
-  /// fino a quello attivo. Un Diario scritto con le fasce uguali di prima
-  /// puo' portare celle che adesso stanno nel volto o in un pezzo dei giorni
-  /// dopo: aperte, mostrerebbero il volto prima della quarta.
-  Set<int> valide(Set<int> scoperte) =>
-      {for (final i in scoperte) if (grattabile.contains(i)) i};
+  /// gia' fatti, prima di quello attivo. Un Diario scritto con le fasce
+  /// uguali di prima porta celle che adesso stanno nel volto o in un pezzo
+  /// dei giorni dopo: aperte, mostrerebbero il volto prima del tempo.
+  ///
+  /// **E NEMMENO QUELLE DEL PEZZO DI OGGI.** Prima stesura: valevano le
+  /// celle fino al pezzo attivo compreso, e sul Realme, alla quarta discesa
+  /// del Cavallo, il volto si e' aperto da solo all'arrivo (le celle vecchie
+  /// ci stavano sopra) con la scritta "Per oggi hai scostato abbastanza".
+  /// Il pezzo di oggi si gratta oggi: si perde soltanto cio' che una discesa
+  /// interrotta a meta' aveva gia' scostato, e lo si riscosta.
+  Set<int> valide(Set<int> scoperte) => {
+        for (final i in scoperte)
+          if (i >= 0 &&
+              i < _pezzoDiOgniCella.length &&
+              _pezzoDiOgniCella[i] < pezzoAttivo)
+            i
+      };
 
   /// La distanza di [p] dal segmento da [a] a [b].
   static double _distanza(Offset p, Offset a, Offset b) {

@@ -8,7 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 
 /// **LA GUARDIA CHE GUARDA I PIXEL.** Nata con l'ordine DE voce 03 per la
@@ -69,11 +68,10 @@ void main() {
     // **LA GRANA PRIMA DI TUTTO**: i due fotogrammi di una coppia devono
     // avere la stessa cenere, o la differenza fra loro sarebbe la grana.
     await GranaDellaCenere.prepara();
-    // **LA CARTA VERA**, quella che la lente mostra dalla simulazione da
-    // persona del 20 ottobre 2026 (ordine FZ voce FZ.04): prima qui c'era
-    // l'illustrazione dell'animale, come nella lente sbagliata.
+    // **L'ANIMALE DI LATO**, quello che la lente gratta per decisione del
+    // fondatore del 20 ottobre 2026.
     final immagine = conLAnimale
-        ? IlSegnoCheRisponde.posaDi(animale)
+        ? animale.fullPath
         : 'assets/img/animali/nessuno.webp';
     await tester.pumpWidget(MaterialApp(
       home: RepaintBoundary(
@@ -94,7 +92,7 @@ void main() {
       ),
     ));
     if (conLAnimale) {
-      await precacheImage(AssetImage(IlSegnoCheRisponde.posaDi(animale)),
+      await precacheImage(AssetImage(animale.fullPath),
           tester.element(find.byType(SizedBox).first));
     }
     await tester.pump(const Duration(milliseconds: 400));
@@ -133,12 +131,11 @@ void main() {
     }
 
     expect(AnimalCatalog.animals.length, 12);
-    const misura = Size(1080, 1920);
     final visti = <String>[];
     await tester.runAsync(() async {
       for (final animale in AnimalCatalog.animals) {
         final velo = LaCartaInQuattroPezzi(animale.name, 0);
-        final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+        final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, velo.misura);
         // **IL CARDINALE DI QUESTO ANIMALE**: senza cenere se ne vedono
         // decine di migliaia, o la prova non guarda niente. **Al quarto
         // pezzo**: dalla simulazione da persona del 20 ottobre 2026 le celle
@@ -177,14 +174,13 @@ void main() {
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
     expect(AnimalCatalog.animals.length, 12);
-    const misura = Size(1080, 1920);
     final peggiore = <String, double>{};
     await tester.runAsync(() async {
       for (final animale in AnimalCatalog.animals) {
         // Il pezzo 0 (il piu' basso), gia' scostato alla discesa di ieri.
         final velo = LaCartaInQuattroPezzi(animale.name, 0);
         final illustrazione =
-            IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+            IlVeloCheSiScosta.doveStaLIllustrazione(scena, velo.misura);
         final ieri = velo.scostabile;
         final cuori = [
           for (final i in ieri)
@@ -243,7 +239,7 @@ void main() {
           child: IlVeloCheSiScosta(
             key: ValueKey(quale),
             nome: lupo.name,
-            immagine: IlSegnoCheRisponde.posaDi(lupo),
+            immagine: lupo.fullPath,
             quale: quale,
             giaScoperte: const {},
             quandoCambia: (_) {},

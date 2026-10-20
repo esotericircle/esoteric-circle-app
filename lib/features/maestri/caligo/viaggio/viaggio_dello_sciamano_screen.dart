@@ -2396,13 +2396,14 @@ class _ViaggioDelloSciamanoScreenState
     return IlVeloCheSiScosta(
       key: Key('viaggio_lente_${animale.name}'),
       nome: animale.name,
-      // **LA CARTA, NON L'ANIMALE.** Ordine FZ voce FZ.04: *"Ogni animale ha
-      // la sua carta: il file *_carta_da_grattare_v1.jpg ... a quasi tutto
-      // schermo"*, e il fondatore: *"non l'animale da scoprire, ma una card
-      // intera"*. Qui c'era `animale.fullPath`, l'illustrazione dell'animale
-      // su fondo blu, cioe' proprio l'animale da scoprire: visto sul Realme
-      // nella simulazione da persona del 20 ottobre 2026. Padre FZ.04.
-      immagine: IlSegnoCheRisponde.posaDi(animale),
+      // **L'ANIMALE DI LATO, NON IL FOTOGRAMMA DEL VIDEO.** Il testo
+      // dell'ordine FZ.04 nomina la carta `*_carta_da_grattare_v1`, e il 20
+      // ottobre 2026 la lente e' passata per qualche ora a quella carta
+      // frontale; il fondatore, vista a video: *"Per la cenere da scostare,
+      // non devi usare il video, ma l'immagine dell'animale di lato"*. La
+      // carta resta la posa del video (FZ.05), qui si gratta l'immagine di
+      // lato, con la sua proporzione vera (`LaCartaInQuattroPezzi.misure`).
+      immagine: animale.fullPath,
       quale: quale,
       giaScoperte: _diario.celleScoperteDi(animale.name),
       quandoCambia: (celle) =>

@@ -301,9 +301,10 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
 
   @override
   Widget build(BuildContext context) {
-    // **LA CARTA E' SEMPRE 1080 PER 1920**: ordine FZ voce FZ.04, lo stesso
-    // fotogramma del video per i dodici animali, nessuna misura per nome.
-    const misura = Size(1080, 1920);
+    // **LA MISURA VERA DELL'IMMAGINE DI LATO**, per nome: qui c'era 1080 per
+    // 1920 per tutti, e l'immagine si stirava (`BoxFit.fill`). Vedi
+    // `LaCartaInQuattroPezzi.misure`.
+    final misura = _velo.misura;
     final palette = widget.palette;
     final dpr = MediaQuery.maybeDevicePixelRatioOf(context) ?? 1;
     return LayoutBuilder(builder: (context, vincoli) {
@@ -1145,8 +1146,7 @@ class PittoreDellaCenere extends CustomPainter {
     final c = Canvas(registro)
       ..scale(dpr)
       ..translate(m, m);
-    final tutta =
-        Rect.fromLTWH(-m, -m, size.width + 2 * m, size.height + 2 * m);
+    final tutta = _tela(size);
     if (seguito) {
       // **SOPRA L'IMMAGINE DI PRIMA**, e solo il pezzo nuovo.
       c.drawImageRect(
@@ -1171,11 +1171,28 @@ class PittoreDellaCenere extends CustomPainter {
     return _cotta = registro.endRecording().toImageSync(larga, alta);
   }
 
+  /// **LA TELA DELLE IMMAGINI COTTE, ALLA LORO MISURA VERA.** Le immagini
+  /// della coltre e della cenere scavata hanno un numero intero di pixel
+  /// (l'arrotondamento in su di scena piu' margini, per la densita'), e si
+  /// disegnavano in un rettangolo grande quanto la scena piu' i margini, che
+  /// e' frazionario: 709 pixel stesi su 708,2 punti. Il ricampionamento
+  /// spostava le righe fino a un pixel, e il taglio del grattabile sbavava di
+  /// una riga sul pezzo dei giorni dopo: trovato dalla guardia
+  /// `la_cenere_resta_sui_pezzi_di_domani` il 20 ottobre 2026, quando le
+  /// immagini di lato hanno portato misure di scena non intere. Qui la tela
+  /// e' grande esattamente quanto l'immagine, uno a uno.
+  Rect _tela(Size size) {
+    final m = margine(size);
+    final larga = math.max(1, ((size.width + 2 * m) * dpr).ceil());
+    final alta = math.max(1, ((size.height + 2 * m) * dpr).ceil());
+    return Rect.fromLTWH(-m, -m, larga / dpr, alta / dpr);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     if (quanta <= 0) return;
     final (_, cumulo) = _coltreECumulo(size);
-    final tutta = (Offset.zero & size).inflate(margine(size));
+    final tutta = _tela(size);
     // **COTTO TUTTO TRANNE L'ULTIMO SEGMENTO**, che si disegna qui sopra:
     // cosi' l'immagine cotta non insegue il dito di un fotogramma.
     final cotti = <List<Offset>>[];

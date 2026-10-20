@@ -212,13 +212,15 @@ void main() {
     // cui l'ombra che guida e' stata seguita in tutta la vita del Diario
     // (qui il finto dichiara due discese, quindi due volte la stessa
     // ombra), non piu' gli strati di un cammino sempre vuoto in questo
-    // finto. Le prime due impronte sono lasciate (`viaggio_impronta_$i`), le
-    // ultime due restano l'anello vuoto (`viaggio_impronta_vuota_$i`).
+    // finto. Le prime due impronte sono lasciate, le ultime due restano
+    // l'anello vuoto (`viaggio_impronta_vuota_$i`). **Lasciate come ombre**
+    // (`viaggio_impronta_ombra_$i`) dal 20 ottobre 2026: prima del
+    // riconoscimento la sagoma nitida diceva gia' chi era (il fondatore).
     final scatola =
         tester.getRect(find.byKey(const Key('viaggio_le_quattro_impronte')));
     for (var i = 0; i < 4; i++) {
       final chiave =
-          i < 2 ? 'viaggio_impronta_$i' : 'viaggio_impronta_vuota_$i';
+          i < 2 ? 'viaggio_impronta_ombra_$i' : 'viaggio_impronta_vuota_$i';
       final r = tester.getRect(find.byKey(Key(chiave)));
       expect(
           r.top >= scatola.top - 0.5 &&

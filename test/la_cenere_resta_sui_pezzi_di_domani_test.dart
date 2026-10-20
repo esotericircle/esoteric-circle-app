@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,8 +38,9 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   const scena = Size(390, 844);
-  const misura = Size(1080, 1920);
-  final illustrazione = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+  /// Dove sta l'immagine di [nome] nella scena, con la sua misura vera.
+  Rect illustrazioneDi(String nome) => IlVeloCheSiScosta.doveStaLIllustrazione(
+      scena, LaCartaInQuattroPezzi(nome, 0).misura);
 
   /// Il dito della persona curiosa, in frazioni della carta: a zig zag su
   /// tutta la carta, dall'alto in basso.
@@ -68,7 +68,7 @@ void main() {
             child: IlVeloCheSiScosta(
               key: ValueKey('$nome$quale'),
               nome: animale.name,
-              immagine: IlSegnoCheRisponde.posaDi(animale),
+              immagine: animale.fullPath,
               quale: quale,
               giaScoperte: const {},
               quandoCambia: (_) {},
@@ -79,6 +79,7 @@ void main() {
         ));
         await tester.pump(const Duration(milliseconds: 50));
         final punti = ziczac(32);
+        final illustrazione = illustrazioneDi(nome);
         Offset inScena(Offset f) => Offset(
             illustrazione.left + f.dx * illustrazione.width,
             illustrazione.top + f.dy * illustrazione.height);
@@ -126,11 +127,23 @@ void main() {
                 'pezzi dei giorni dopo o sul volto');
         // **SULLE CELLE DEL VOLTO**: il quarto pezzo e' fatto delle celle
         // che toccano il volto, ed e' su quelle che il dito non deve scavare.
-        final nelVolto = tutti
-            .where((p) =>
-                velo.pezzoDi(velo.cellaSotto(p)) ==
-                LaCartaInQuattroPezzi.pezzi - 1)
-            .length;
+        // Come sopra: sul confine esatto fra il volto e una fascia il punto
+        // e' di tutte e due, ed e' nel volto solo se nessuna cella fuori dal
+        // volto lo tocca entro un milionesimo.
+        bool soloVolto(Offset p) {
+          const e = 1e-6;
+          for (final dx in [-e, 0.0, e]) {
+            for (final dy in [-e, 0.0, e]) {
+              if (velo.pezzoDi(velo.cellaSotto(p + Offset(dx, dy))) !=
+                  LaCartaInQuattroPezzi.pezzi - 1) {
+                return false;
+              }
+            }
+          }
+          return true;
+        }
+
+        final nelVolto = tutti.where(soloVolto).length;
         expect(nelVolto, 0,
             reason: '$nome al pezzo $quale: $nelVolto punti del solco sul '
                 'volto, che si scopre per ultimo');
@@ -147,13 +160,13 @@ void main() {
       'IL PENNELLO NON APRE NIENTE FUORI DAL GRATTABILE: un pennello che passa '
       'dappertutto lascia piena la cenere su ogni cella dei giorni dopo e del '
       'volto, ai pezzi 0, 1 e 2, per tutti e dodici', (tester) async {
-    final size = illustrazione.size;
-    final w = size.width.ceil();
-    final h = size.height.ceil();
     var pixelGuardati = 0;
     var apertiDentro = 0;
     final sbagliati = <String>[];
     for (final animale in AnimalCatalog.animals) {
+      final size = illustrazioneDi(animale.name).size;
+      final w = size.width.ceil();
+      final h = size.height.ceil();
       for (final quale in [0, 1, 2]) {
         final velo = LaCartaInQuattroPezzi(animale.name, quale);
         late Uint8List px;
