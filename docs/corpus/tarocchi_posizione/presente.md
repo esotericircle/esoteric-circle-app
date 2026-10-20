@@ -44,9 +44,9 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Senti l'impulso di agire in modo sconsiderato o, al contrario, un blocco ti frena dal fare un passo importante. È il momento di capire se la tua spinta è coraggio o una fuga da qualcosa che non hai voluto vedere.
+- 1: Senti l'impulso di agire senza riflettere, oppure un blocco ti frena davanti a un passo importante: adesso conta capire se la tua spinta è coraggio o fuga da qualcosa che non hai guardato.
 - 2: Sull'orlo del dirupo il tuo piede oscilla: oggi una spinta ti porta avanti senza rotta, oppure una paura ti inchioda al bordo proprio mentre vorresti saltare: non sai quale delle due ti muove.
-- 3: Corri in queste ore dietro a un impulso di cui non conosci l'origine, o non muovi un passo dall'ultimo sasso prima del vuoto; in entrambi i casi eviti di guardare da che cosa nasce lo slancio.
+- 3: Corri dietro a un impulso di cui non conosci l'origine, o non ti muovi dall'ultimo sasso prima del vuoto: così eviti di guardare da che cosa nasce lo slancio.
 
 ## Il Mago
 
@@ -80,13 +80,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Sei al centro di un processo creativo dove la tua energia generatrice permette a qualcosa di nuovo di svilupparsi in modo naturale e abbondante.
+- 1: Sei al centro di un processo creativo: la tua energia generatrice permette a qualcosa di nuovo di svilupparsi in modo naturale e abbondante, senza che tu debba forzarlo.
 - 2: Tra le tue mani qualcosa di vivo sta crescendo, un progetto, un legame o un'idea, mentre tu lo nutri con pazienza come si cura un campo di grano, senza tirare gli steli per farli salire.
 - 3: Intorno a te in questa stagione tutto germoglia: la tua cura è il terreno grasso su cui ciò che ami prende forma coi suoi tempi lenti, mentre tu lasci che sbocci invece di affrettarlo.
 
 ### capovolta
 
-- 1: La tua energia creativa è bloccata e non stai nutrendo la tua radice. Ti senti distante da ciò che ti fa fiorire dentro.
+- 1: La tua energia creativa è bloccata e non stai nutrendo la tua radice: senti lontano tutto ciò che di solito ti fa fiorire dentro, come un giardino senz'acqua.
 - 2: Ciò che vuoi far nascere oggi non prende forma: il terreno è fertile eppure il seme resta fermo, oppure lo spingi fuori prima che sia pronto e lo vedi arrestarsi a metà della crescita.
 - 3: Adesso la tua creatività sta come un giardino d'inverno: la vita c'è sotto la terra ma non germoglia, perché la stai forzando oppure hai smesso di nutrire ciò che volevi far fiorire.
 
@@ -96,12 +96,12 @@ scrive l'Architetto.
 
 - 1: Definisci regole chiare e ti muovi con fermezza per sostenere le tue scelte. Stai consolidando e dando struttura a quanto vivi, assumendoti le tue responsabilità.
 - 2: Sul trono di pietra tieni lo scettro con mano ferma: in queste settimane stai dando ordine e regole a ciò che costruisci, sostieni la struttura e ti prendi la responsabilità di comandare.
-- 3: Oggi sei tu a porre i confini e le leggi: la tua situazione ha preso la forma di un edificio con le sue mura, dove la disciplina che eserciti fa da cornice e tiene in piedi ciò che cresce.
+- 3: Oggi sei tu a porre i confini e le leggi: la tua situazione ha la forma di un edificio con le sue mura, dove la disciplina fa da cornice a ciò che cresce.
 
 ### capovolta
 
 - 1: La mancanza di basi solide o un sistema troppo rigido ti impediscono di avanzare, creando incertezza. Cerchi stabilità, ma trovi solo vincoli che ti bloccano.
-- 2: In questo momento l'ordine ti toglie il respiro oppure manca del tutto: o tieni le redini così strette da soffocare ciò che governi, o le fondamenta sotto i tuoi piedi cedono e ogni cosa vacilla.
+- 2: In questo momento l'ordine ti toglie il respiro oppure manca del tutto: tieni le redini così strette da soffocare ciò che governi, o le fondamenta cedono e ogni cosa vacilla.
 - 3: Regole troppo rigide o nessuna regola: oggi la tua situazione oscilla fra questi due estremi, con uno scettro che comanda senza ascoltare o con un trono vuoto che non sostiene ciò che costruisci.
 
 ## Il Papa
@@ -124,7 +124,7 @@ scrive l'Architetto.
 
 - 1: Senti la necessità di fare una scelta che coinvolge i tuoi valori profondi, integrando la ragione e il sentimento per allinearti a ciò che sei.
 - 2: Sotto lo sguardo dell'angelo stai davanti a un bivio vero: la scelta che hai in mano tocca i tuoi valori e non solo il desiderio del momento, così testa e cuore devono dirsi d'accordo.
-- 3: Oggi hai due strade davanti e un amore in mezzo: ciò che scegli dice chi sei, perciò stai pesando il sentimento accanto ai principi che ti stanno a cuore, cercando un sì detto da tutto il tuo essere.
+- 3: Oggi hai due strade davanti e un amore in mezzo: ciò che scegli dice chi sei, così pesi il sentimento accanto ai principi che ti stanno a cuore.
 
 ### capovolta
 
@@ -136,7 +136,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Prendi saldamente le redini della tua vita, armonizzando spinte opposte. Hai la forza e la direzione per avanzare con decisione.
+- 1: Prendi saldamente le redini e armonizzi le spinte opposte che ti attraversano: hai la forza e la direzione per avanzare con decisione verso la meta che hai scelto.
 - 2: Sul tuo carro adesso tieni ferme le redini mentre due forze opposte, una chiara e una scura, avanzano insieme: la direzione è tua e la padronanza con cui guidi tiene unito ciò che tirerebbe da parti diverse.
 - 3: In questa fase avanzi: lo sguardo è fisso davanti, le spinte contrarie lavorano per te sotto la tua mano e la corsa che stai facendo nasce dalla volontà, non dalla fortuna del momento.
 
@@ -144,19 +144,19 @@ scrive l'Architetto.
 
 - 1: Senti una notevole dispersione delle energie, come se forze contrastanti tirassero in direzioni diverse. Hai difficoltà a mantenere una rotta definita e rischi di procedere senza una chiara meta.
 - 2: Le due sfingi davanti al tuo carro oggi tirano ciascuna per conto suo: sbandi da un lato all'altro, oppure corri a gran velocità senza sapere bene verso dove, con le redini lente fra le dita.
-- 3: In questo momento la tua corsa ha perso il centro: le energie si disperdono in versi opposti, la meta non è chiara e il movimento che fai somiglia più a uno sbandare che a un avanzare.
+- 3: In questo momento la tua corsa ha perso il centro: le energie si disperdono in versi opposti e il movimento che fai somiglia più a uno sbandare che a un avanzare.
 
 ## La Giustizia
 
 ### dritta
 
-- 1: È tempo di verità e di scelte: senti il bisogno di prendere una posizione chiara, senza scorciatoie o giustificazioni.
+- 1: È tempo di verità e di scelte: senti il bisogno di prendere una posizione chiara, senza scorciatoie né giustificazioni: vuoi guardare i fatti per quello che sono.
 - 2: Davanti a te la bilancia è alzata e la spada dritta: in questi giorni stai pesando con lucidità ciò che hai seminato, senza sconti né colpe inutili, per prendere la posizione che ti sembra giusta.
 - 3: Adesso ogni causa mostra il suo effetto sul tuo tavolo: guardi i fatti per quello che sono, ti assumi la parte che ti spetta e scegli secondo onestà, con l'equilibrio di chi misura prima di agire.
 
 ### capovolta
 
-- 1: Il tuo equilibrio dipende dal riconoscimento di una verità che stai ignorando. Fino a quando non la guardi in faccia, non puoi trovare serenità.
+- 1: Il tuo equilibrio dipende dal riconoscimento di una verità che stai ignorando: finché non la guardi in faccia, cerchi fuori la serenità che solo quel conto può renderti.
 - 2: Un conto resta aperto a tuo nome e oggi lo attribuisci agli altri o al caso: la conseguenza di una tua scelta sta lì sul piatto della bilancia, ma tu guardi altrove e l'equilibrio non torna.
 - 3: In questo momento la bilancia pende e tu fai finta di non vederlo: una responsabilità che è tua aspetta che tu la riconosca, mentre cerchi fuori di te la ragione di uno squilibrio che porti dentro.
 
@@ -164,7 +164,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Senti il bisogno di isolarti per trovare la tua direzione. La tua ricerca interiore ti guida un passo alla volta verso una verità personale.
+- 1: Senti il bisogno di ritirarti per trovare la tua direzione: la ricerca interiore che stai facendo ti guida un passo alla volta verso una verità che è soltanto tua.
 - 2: Con la lanterna alzata stai salendo un sentiero in disparte: in questi giorni ti ritiri dal rumore, rallenti e cerchi dentro ciò che fuori non trovi, vedendo un passo alla volta.
 - 3: Adesso la tua solitudine è una scelta che illumina: ti allontani dalla folla per ascoltarti, la piccola luce che porti basta a mostrarti il prossimo passo e tanto ti è sufficiente.
 
@@ -180,34 +180,34 @@ scrive l'Architetto.
 
 - 1: Il destino sta girando e ti porta verso una svolta inaspettata; è un'occasione per accogliere il nuovo senza aggrapparti a ciò che conosci. Muovi i tuoi passi con il flusso degli eventi.
 - 2: Sotto i tuoi piedi la ruota sta girando: in questo periodo qualcosa cambia giro, spesso dove non guardavi, mentre tu impari a muoverti col movimento invece di aggrapparti a com'era prima.
-- 3: Adesso ti trovi dentro una svolta: la situazione che vivi gira come un ciclo che non resta fermo, ciò che era in alto scende e ciò che era in basso sale, mentre tu cerchi di assecondare il giro.
+- 3: Adesso ti trovi dentro una svolta: la situazione che vivi gira come un ciclo che non resta fermo, ciò che era in alto scende e ciò che era in basso sale.
 
 ### capovolta
 
 - 1: Senti che un ciclo vitale è bloccato e non riesci a trovare il modo di farlo ripartire. La situazione attuale ti sembra sfuggire di mano e ti senti senza controllo.
-- 2: La ruota in questo momento sembra inceppata oppure gira storta: non hai presa su ciò che cambia, ogni tuo sforzo pare scivolare sul cerchio e il ciclo che vivi resta fermo in un punto scomodo.
-- 3: Oggi stai nella parte del giro che non ti piace: il movimento si è bloccato o va contro di te, così ti sembra che le cose girino per conto loro mentre tu raccogli le forze in attesa.
+- 2: La ruota in questo momento sembra inceppata o gira storta: non hai presa su ciò che cambia e ogni tuo sforzo pare scivolare sul cerchio senza smuoverlo.
+- 3: Oggi stai nella parte del giro che non ti piace: il movimento si è bloccato o va contro di te, mentre raccogli le forze in attesa che le cose riprendano.
 
 ## La Forza
 
 ### dritta
 
 - 1: Senti la necessità di un approccio delicato per addomesticare le situazioni difficili, usando la pazienza e la persuasione anziché lo scontro diretto per raggiungere i tuoi obiettivi.
-- 2: Con la mano posata sulla bocca del leone, in questi giorni tieni a bada ciò che ti agita senza lottare: la calma e la fermezza tenera sono il modo in cui governi l'istinto, non lo strappo né il grido.
+- 2: Con la mano posata sulla bocca del leone, in questi giorni tieni a bada ciò che ti agita senza lottare: governi l'istinto con calma e fermezza tenera, non con lo strappo.
 - 3: Adesso dentro di te c'è una belva che scalpita e tu la addomestichi con dolcezza: il coraggio che metti in campo è paziente, ti permette di stare in mezzo al difficile senza alzare le mani.
 
 ### capovolta
 
-- 1: Ti stai trattando con eccessiva durezza, criticandoti aspramente e mettendo in discussione la tua tenuta e il tuo valore.
+- 1: Ti stai trattando con troppa durezza: ti critichi aspramente e metti in discussione la tua tenuta e il tuo valore, come se la severità potesse darti più saldezza.
 - 2: In questo periodo la mano che dovrebbe accarezzare il leone stringe: dubiti della tua tenuta, oppure tratti i tuoi istinti e le tue fragilità con una severità che li rende ancora più selvatici.
-- 3: Oggi il tuo coraggio ha perso la mitezza: con te usi la frusta invece della carezza, così la belva interiore che vorresti calmare si agita di più e ti sembra di aver perso il controllo.
+- 3: Oggi il tuo coraggio ha perso la mitezza: con te usi la frusta invece della carezza, così la belva interiore si agita di più e ti sembra di non avere più controllo.
 
 ## L'Appeso
 
 ### dritta
 
 - 1: Senti il bisogno di mettere in pausa ogni azione, di attendere. Questa sosta ti porta a una comprensione profonda che ti rivela nuove visioni sulla situazione.
-- 2: Con la testa in giù e un piede legato al ramo vivo, in questi giorni hai sospeso ogni azione: la pausa che vivi ti obbliga a guardare le cose da un'angolazione che prima ti sfuggiva.
+- 2: Con la testa in giù e un piede legato al ramo, in questi giorni hai sospeso ogni azione: la pausa ti obbliga a guardare le cose da un'angolazione nuova.
 - 3: Adesso non agisci e non è pigrizia: hai lasciato andare il bisogno di fare, accetti la sospensione come un modo di vedere e intorno al tuo capo l'attesa accende una luce nuova.
 
 ### capovolta
@@ -221,12 +221,12 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Senti che è il momento di un cambiamento profondo, una trasformazione che ti invita a liberarti di ciò che non ti serve più per evolvere.
-- 2: Qualcosa nella tua vita si sta chiudendo adesso: la falce passa su ciò che ha esaurito il suo tempo, un ruolo, un legame o un'abitudine, mentre tu senti lo spazio vuoto che lascia dietro di sé.
+- 2: Qualcosa si sta chiudendo adesso: la falce passa su ciò che ha esaurito il suo tempo, un ruolo, un legame o un'abitudine, mentre tu senti il vuoto che lascia.
 - 3: In questi giorni attraversi una fine vera: il cavaliere nero avanza e ciò che conoscevi cade come foglie in autunno, perché la trasformazione che stai vivendo chiede di lasciare andare un ciclo intero.
 
 ### capovolta
 
-- 1: Il tuo aggrapparti a ciò che non c'è più ti impedisce di avanzare, prolungando una sofferenza inutile e impedendoti di procedere oltre.
+- 1: Il tuo aggrapparti a ciò che non c'è più ti impedisce di avanzare: tieni chiusa la mano su una cosa finita e la sofferenza si prolunga senza servire a niente.
 - 2: Stringi fra le dita qualcosa che sta già finendo: oggi resisti a un cambiamento arrivato da tempo e il trattenere ti fa più male del lasciare, come chi tiene chiusa una porta contro il vento.
 - 3: Adesso la fine c'è già stata, ma tu non la riconosci: ti aggrappi a un ruolo o a un legame esaurito, così la trasformazione che preme resta ferma alle tue spalle senza poter passare.
 
@@ -234,13 +234,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Stai unendo con maestria elementi che sembravano incompatibili, dosando ogni cosa con calma e misura per raggiungere un punto di equilibrio stabile.
+- 1: Stai unendo con maestria elementi che sembravano incompatibili, dosando ogni cosa con calma e misura: un passo alla volta raggiungi un punto di equilibrio stabile che regge.
 - 2: Versi l'acqua da una coppa all'altra con pazienza: in questi giorni stai mescolando due parti della tua vita che sembravano inconciliabili, dosando con calma finché trovano il loro accordo.
 - 3: Adesso il tuo passo è misurato: un piede nell'acqua e uno sulla terra, tieni insieme gli opposti senza fretta e la giusta proporzione che cerchi nasce da piccoli aggiustamenti quotidiani.
 
 ### capovolta
 
-- 1: Stai vivendo una disconnessione tra diverse parti di te, come se non riuscissero a comunicare in armonia. Senti una tendenza a non trovare un centro.
+- 1: Stai vivendo una frattura tra diverse parti di te, come se non riuscissero più a comunicare in armonia: senti che ti manca un centro e che il ritmo ti sfugge.
 - 2: Oggi le due coppe non si passano più l'acqua: c'è troppo da una parte e niente dall'altra, la fretta ti spinge agli eccessi e due parti di te non riescono più a parlarsi.
 - 3: In questo periodo il dosaggio è saltato: aggiungi, togli, corri, poi ti blocchi, così il ritmo che ti teneva in equilibrio si è spezzato e ogni gesto ti sembra fuori misura.
 
@@ -283,7 +283,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Senti che l'ispirazione e la speranza ti abbandonano, rendendo difficile credere in un miglioramento. Sei in una fase in cui la motivazione è scarsa e fatichi a trovare un senso di direzione.
-- 2: In questo momento la luce che ti guidava è velata da una nube: la fiducia è stanca, fatichi a credere che le cose possano migliorare, eppure quella luce non si è spenta, sta solo dietro il cielo grigio.
+- 2: In questo momento la luce che ti guidava è velata da una nube: fatichi a credere che le cose possano migliorare, eppure quella luce non si è spenta, sta dietro il cielo grigio.
 - 3: Oggi l'acqua delle tue brocche cade sulla pietra invece che nel fiume: l'ispirazione sembra lontana e la speranza si è assottigliata, come un cielo notturno senza astri visibili.
 
 ## La Luna
@@ -306,7 +306,7 @@ scrive l'Architetto.
 
 - 1: Questo è un momento di pieno successo, dove ogni cosa fiorisce e il tuo cuore è colmo di allegria. La tua presenza illumina l'ambiente circostante e le persone si sentono bene con te.
 - 2: Una luce piena cade adesso sulla tua situazione: le cose riescono, non restano zone d'ombra e il cuore ti ride senza bisogno di nascondersi, come un bambino a cavallo sotto un cielo aperto.
-- 3: In questi giorni tutto è chiaro e caldo: ciò che fai si vede, ciò che sei si mostra senza paura e la gioia che provi è semplice, allo scoperto, sotto gli occhi di chiunque ti stia vicino.
+- 3: In questi giorni tutto è chiaro e caldo: ciò che fai si vede, ciò che sei si mostra senza paura e la tua gioia è semplice, allo scoperto davanti a chi ti sta vicino.
 
 ### capovolta
 
@@ -318,7 +318,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Senti forte l'esigenza di dare una svolta decisiva alla tua esistenza, riconsiderando ciò che conta davvero per te. Questo è il momento di ascoltare quella parte di te che ti chiede di evolvere e di abbracciare un nuovo modo di essere.
+- 1: Senti forte l'esigenza di dare una svolta alla tua esistenza e riconsideri ciò che conta davvero. È il momento di ascoltare la parte di te che chiede di evolvere verso un modo nuovo di essere.
 - 2: Una tromba suona per te in questi giorni: ti stai svegliando a una vita più vera, fai il bilancio di ciò che hai vissuto e ti alzi per rispondere alla chiamata.
 - 3: Adesso è tempo di rendiconto: ti guardi indietro con onestà, ascolti un richiamo che ti chiede di lasciare la persona che eri e senti già in te quella che stai diventando.
 
@@ -332,7 +332,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Sperimenti un momento di pienezza, un traguardo significativo che porta armonia. La tua integrazione è massima, ogni cosa è al proprio posto.
+- 1: Sperimenti un momento di pienezza, un traguardo significativo che porta armonia in ogni parte della tua vita. Ciò che hai vissuto si integra e ogni cosa è al proprio posto.
 - 2: Un cerchio si chiude adesso: ciò che hai attraversato trova il suo compimento e ogni pezzo è al suo posto, come una danza dentro una ghirlanda d'alloro che si completa proprio intorno a te.
 - 3: In questi giorni tocchi il traguardo: il ciclo che hai percorso è intero, lo senti parte di te e puoi goderne la pienezza prima di aprire qualunque altra porta.
 
@@ -347,7 +347,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Senti un'energia prorompente che ti invita all'azione, un'ispirazione ardente che ti attraversa e ti spinge a dare il via a qualcosa di nuovo. È il momento di cogliere l'attimo e di non rimandare le tue iniziative.
-- 2: Un ramo verde germoglia adesso nella tua mano: un'ispirazione ardente ti attraversa e la voglia di cominciare è così viva che senti la fiamma prima ancora di sapere dove la porterai.
+- 2: Un ramo verde germoglia adesso nella tua mano: un'ispirazione ardente ti attraversa e la voglia di cominciare è così viva che senti la fiamma prima ancora di sapere dove portarla.
 - 3: In questi giorni una scintilla si è accesa: l'idea nuova ti scalda le mani, ti chiede di partire finché il fuoco è vivo e di non lasciarlo raffreddare nei ripensamenti.
 
 ### capovolta
@@ -408,7 +408,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Gestisci attriti che non meritano la tua energia. Scegli quali battaglie affrontare e lascia andare ciò che non contribuisce al tuo benessere.
+- 1: Gestisci attriti che non meritano la tua energia e ti stanchi in piccole battaglie. Ti serve scegliere quali affrontare e lasciar cadere ciò che non conta.
 - 2: Tensioni sottili attraversano oggi il tuo ambiente: invece di dire ciò che ti irrita lo lasci covare, oppure ti fai trascinare in piccole zuffe che consumano energia senza portare a niente.
 - 3: In questo periodo i bastoni restano alzati ma nessuno colpisce davvero: eviti i confronti necessari mentre ti spendi in attriti inutili, così la tensione gira a vuoto e ti stanca.
 
@@ -452,15 +452,15 @@ scrive l'Architetto.
 
 - 1: Stai vivendo una fase di rallentamento forzato, o la tua eccessiva velocità crea ostacoli. È il momento di fermarti per riorganizzare le tue priorità.
 - 2: Oggi i bastoni in volo si impigliano a mezz'aria: i messaggi tardano, le risposte non arrivano, oppure corri così in fretta che inciampi e devi rifare il tratto due volte.
-- 3: In questo momento il ritmo è sbagliato: o tutto ristagna in ritardi che ti innervosiscono, o ti precipiti senza sapere dove vai e la velocità ti fa perdere l'ordine delle cose.
+- 3: In questo momento il ritmo è sbagliato: o tutto ristagna in ritardi che ti innervosiscono, o ti precipiti senza sapere dove vai e perdi l'ordine delle cose.
 
 ## Nove di Bastoni
 
 ### dritta
 
 - 1: Senti il peso della stanchezza, eppure sei a un passo dalla meta. Ora è fondamentale mantenere la determinazione per completare ciò che hai iniziato.
-- 2: Con la fronte fasciata e appoggiandoti al bastone, in questi giorni tieni duro: la stanchezza ti pesa addosso, ma il traguardo è a pochi passi e la tenacia è tutto ciò che ti serve.
-- 3: Adesso la fatica è tanta e le ferite si vedono: hai già fatto il più del cammino, la guardia è alta e stringi il tuo bastone come chi non intende mollare proprio sul finale.
+- 2: Con la fronte fasciata e appoggiandoti al bastone, in questi giorni tieni duro: la stanchezza ti pesa, ma il traguardo è a pochi passi e la tenacia basta.
+- 3: Adesso la fatica è tanta e le ferite si vedono: hai già fatto il più del cammino e stringi il tuo bastone come chi non intende mollare proprio sul finale.
 
 ### capovolta
 
@@ -479,8 +479,8 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Senti il peso di responsabilità che non ti appartengono più o che non ti servono. Ora è il momento di riconoscere ciò che puoi eliminare per respirare con maggiore leggerezza.
-- 2: Oggi ti carichi di pesi che non ti appartengono: per abitudine o per senso del dovere stringi fra le braccia bastoni di altri e la fatica che senti nasce da un fardello preso senza necessità.
-- 3: In questo periodo porti più di quanto ti spetta: dici di sì a ogni richiesta, raccogli ciò che gli altri lasciano a terra e il fascio che ti piega la schiena è fatto anche di doveri presi in prestito.
+- 2: Oggi ti carichi di pesi che non ti appartengono: per abitudine o per senso del dovere stringi bastoni di altri e la fatica che senti nasce da un fardello preso senza necessità.
+- 3: In questo periodo porti più di quanto ti spetta: dici sì a ogni richiesta, raccogli ciò che gli altri lasciano a terra e il tuo fascio è fatto di doveri presi in prestito.
 
 ## Fante di Bastoni
 
@@ -500,7 +500,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Senti un forte desiderio di muoverti e una gran voglia di agire. Ti muovi con determinazione verso un nuovo inizio, senza esitazione.
+- 1: Senti un forte desiderio di muoverti e una gran voglia di agire: ti dirigi con determinazione verso un nuovo inizio, senza esitare e senza guardare troppo indietro.
 - 2: In sella a un cavallo che s'impenna, in questi giorni parti all'avventura: la passione ti spinge avanti, hai fretta di arrivare dove desideri e il fuoco che ti muove si vede da lontano.
 - 3: Adesso galoppi: l'ardore ti porta verso ciò che vuoi con un coraggio che non conosce esitazioni, mentre il paesaggio ti scorre accanto e la meta brilla all'orizzonte.
 
@@ -515,12 +515,12 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Il tuo magnetismo personale ti rende un punto di riferimento. Ti senti a tuo agio nell'esprimere chi sei veramente e questo attrae chi ti sta intorno.
-- 2: Col girasole in mano e il gatto nero ai piedi, in questi giorni la tua presenza scalda chi ti sta intorno: sicurezza e generosità ti danno un fascino che attira senza togliere spazio a nessuno.
+- 2: Col girasole in mano e il gatto nero ai piedi, in questi giorni scaldi chi ti sta intorno: sicurezza e generosità ti danno un fascino che attira senza togliere spazio a nessuno.
 - 3: Adesso irradii calore: sai chi sei, lo mostri senza paura e la tua fiamma accoglie gli altri invece di bruciarli, come un focolare acceso al centro della stanza.
 
 ### capovolta
 
-- 1: Il dubbio su di te è forte in questo momento e ti porta a non riconoscere le tue capacità, il che rischia di bloccare la tua iniziativa. Percepisci che il tuo potenziale viene messo in discussione.
+- 1: Il dubbio su di te è forte in questo momento e ti impedisce di riconoscere le tue capacità: rischi di frenare la tua iniziativa, come se il tuo valore fosse messo in discussione.
 - 2: Oggi una gelosia ti morde: vivi chi ti sta accanto come un rivale da superare e il bisogno di brillare più degli altri ti fa perdere il calore che di solito offri senza calcolo.
 - 3: In questo momento la tua fiamma si fa competitiva: ogni successo altrui ti sembra tolto a te, così ti agiti per farti notare e la gara che hai in testa ti allontana dal tuo centro.
 
@@ -528,9 +528,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: La tua leadership è ora richiesta per tracciare una direzione precisa. La tua generosità indica agli altri il cammino, sii un esempio per tutti.
+- 1: La tua guida è richiesta adesso per tracciare una direzione precisa: con generosità indichi agli altri il cammino e il tuo esempio conta più di qualunque ordine.
 - 2: Dal tuo trono decorato di salamandre, in questi giorni guidi gli altri con l'esempio: la tua volontà apre strade, chi ti segue prende fuoco dalla tua visione e tu indichi la direzione con generosità.
-- 3: Adesso sei tu a tenere in mano la rotta di un gruppo o di un progetto: il tuo fuoco è maturo, non corre ma accende, così gli altri si muovono ispirati da ciò che fai più che da ciò che dici.
+- 3: Adesso tieni in mano la rotta di un gruppo o di un progetto. Il tuo fuoco è maturo, non corre ma accende: gli altri si muovono per ciò che fai, non per ciò che dici.
 
 ### capovolta
 
@@ -562,9 +562,9 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Un malinteso sta creando distanza in una relazione. Ti è chiesto di parlare con il cuore aperto e cercare un nuovo equilibrio.
+- 1: Un malinteso sta creando distanza in una relazione a cui tieni: ti è chiesto di parlare con il cuore aperto e di cercare insieme un nuovo equilibrio.
 - 2: Fra te e una persona a cui vuoi bene oggi si è insinuata una distanza: un malinteso, una parola presa male, così le due coppe restano a mezz'aria senza toccarsi.
-- 3: In questo momento il dialogo con chi ti sta accanto si è inceppato: vi volete bene eppure non vi capite, ciascuno aspetta che l'altro faccia il primo passo e l'equilibrio fra voi si è spostato.
+- 3: In questo momento il dialogo con chi ti sta accanto si è inceppato: vi volete bene eppure non vi capite, ciascuno aspetta che l'altro faccia il primo passo.
 
 ## Tre di Coppe
 
@@ -591,7 +591,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Senti un risveglio interiore che ti spinge ad aprire il tuo cuore a nuove esperienze. Una curiosità inattesa ti invita a esplorare ciò che prima non consideravi.
-- 2: Esci dal torpore in questi giorni: le braccia si sciolgono, alzi gli occhi dalle coppe di sempre e ti accorgi della mano che ti offriva qualcosa, con una curiosità nuova che si risveglia.
+- 2: Esci dal torpore in questi giorni: le braccia si sciolgono, alzi gli occhi dalle coppe di sempre e ti accorgi della mano che ti offriva qualcosa.
 - 3: Oggi la noia ti lascia andare: torni a sentire sapore nelle cose, l'apatia che ti teneva sotto l'albero si scioglie e il cuore ricomincia a muoversi verso ciò che gli si offre.
 
 ## Cinque di Coppe
@@ -599,7 +599,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Senti il rammarico per qualcosa che ti è sfuggito e questo sentimento ti impedisce di guardare oltre. Non riesci a vedere le risorse che ancora possiedi.
-- 2: Col mantello nero sulle spalle, in questi giorni fissi le coppe versate a terra: il dolore per ciò che è andato ti prende tutto lo sguardo e non vedi le due ancora in piedi dietro di te.
+- 2: Col mantello nero sulle spalle, in questi giorni fissi le coppe versate: il dolore per ciò che è andato ti prende lo sguardo e non vedi le due ancora in piedi.
 - 3: Adesso il rimpianto occupa il centro della tua giornata: ciò che si è perso ti pesa davvero, eppure ciò che ti resta è ancora lì, alle spalle, ad aspettare che tu ti volti.
 
 ### capovolta
@@ -612,22 +612,22 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Sperimenti un forte richiamo al passato, un affetto sincero che riemerge e ti invita a rivivere o a onorare vecchi legami e ricordi preziosi. Questa tenerezza ti nutre e ti guida nelle tue interazioni attuali.
-- 2: Un ricordo d'infanzia ti torna in questi giorni come un fiore offerto in una coppa: un affetto antico, una persona del passato o un luogo caro ti scaldano con la loro tenerezza semplice.
+- 1: Senti un forte richiamo al passato: un affetto sincero riemerge e ti invita a onorare vecchi legami e ricordi preziosi, con una tenerezza che oggi ti nutre.
+- 2: Un ricordo d'infanzia ti torna in questi giorni come un fiore offerto in una coppa: un affetto antico, una persona del passato o un luogo caro ti scaldano con tenerezza semplice.
 - 3: Adesso la nostalgia è dolce: ripensi a un tempo in cui le cose erano innocenti, ritrovi qualcuno che ti conosceva da prima e lasci che quella bontà ti nutra.
 
 ### capovolta
 
-- 1: Corri il rischio di non vivere appieno questo momento, perché ti aggrappi a un tempo che non esiste più. La vita ti chiama adesso, ma la tua attenzione è rivolta al ricordo di ciò che è stato.
-- 2: Oggi vivi più nei ricordi che nelle giornate: la memoria di un tempo che non c'è più occupa il posto di ciò che hai davanti e ti aggrappi a un'infanzia o a un legame come a un rifugio.
+- 1: Ti aggrappi a un tempo che non esiste più e rischi di non vivere appieno questo momento: la vita ti chiama adesso, mentre la tua attenzione resta su ciò che è stato.
+- 2: Oggi vivi più nei ricordi che nelle giornate: la memoria di un'infanzia o di un legame finito occupa il posto di ciò che hai davanti e diventa il tuo rifugio.
 - 3: In questo momento lo sguardo è rivolto indietro: confronti tutto con com'era, rimpiangi una dolcezza perduta e le tue giornate ti sembrano sbiadite accanto al giardino dei ricordi.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Molte opzioni affascinanti ti si presentano, rischiando di perderti in fantasie che potrebbero non concretizzarsi e questo crea confusione.
-- 2: Davanti a te fluttuano coppe fra le nuvole: in questi giorni le possibilità si affollano, ognuna con un tesoro, un drago o un castello dentro, mentre la fantasia ti promette più di quanto puoi tenere.
+- 1: Molte opzioni affascinanti ti si presentano insieme e rischi di perderti in fantasie che potrebbero non concretizzarsi: questa abbondanza ti confonde più di quanto ti aiuti.
+- 2: Davanti a te fluttuano coppe fra le nuvole: in questi giorni le possibilità si affollano, ognuna con un tesoro o un castello dentro, mentre la fantasia promette più di quanto puoi tenere.
 - 3: Adesso sogni a occhi aperti: tante strade ti incantano insieme, le illusioni si mescolano ai desideri veri e non riesci ancora a distinguere quale coppa contiene ciò che promette.
 
 ### capovolta
@@ -642,11 +642,11 @@ scrive l'Architetto.
 
 - 1: Senti il bisogno di abbandonare ciò che non ti nutre. Il tuo cuore ti guida verso la ricerca di un senso più elevato, anche se la ragione non ha ancora risposte chiare.
 - 2: Volti le spalle in questi giorni a una fila di coppe ben allineate: ciò che hai costruito non ti nutre più, così parti in silenzio di notte verso le montagne, cercando un senso più alto.
-- 3: Adesso stai lasciando qualcosa che non ti basta più: un luogo, un legame o un ruolo pieni ma vuoti di senso, mentre il cuore ti porta altrove anche se la mente non ha ancora tutte le risposte.
+- 3: Adesso stai lasciando qualcosa che non ti basta più, un luogo, un legame o un ruolo vuoti di senso: il cuore ti porta altrove anche senza tutte le risposte.
 
 ### capovolta
 
-- 1: Senti un'indecisione profonda che ti blocca, non riesci a capire se ciò che hai è abbastanza o se devi lasciarlo per cercare altro. È un momento di stallo, dove la scelta di restare o partire ti pesa.
+- 1: Senti un'indecisione profonda che ti blocca: non capisci se ciò che hai è abbastanza o se devi lasciarlo per cercare altro e la scelta fra restare e partire ti pesa.
 - 2: Oggi stai sulla porta con la sacca in spalla e non decidi: restare ti pesa, partire ti spaventa, così fai un passo verso le montagne e uno indietro verso le coppe che conosci.
 - 3: In questo periodo l'indecisione fra andare e rimanere ti consuma: ti chiedi se ciò che hai sia abbastanza, torni sui tuoi passi e rimandi una partenza che il cuore forse ha già scelto.
 
@@ -669,7 +669,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Senti una profonda gratitudine per i legami che ti circondano e la loro armonia ti riempie, trovando nella pienezza condivisa la tua vera ricchezza attuale.
-- 2: Un arcobaleno di coppe si apre sopra la tua casa in questi giorni: le persone che ami ti stanno intorno, i bambini giocano, gli affetti sono in armonia e la felicità che vivi è condivisa.
+- 2: Un arcobaleno di coppe si apre sopra la tua casa in questi giorni: le persone che ami ti stanno intorno, gli affetti sono in armonia e la felicità che vivi è condivisa.
 - 3: Adesso la tua ricchezza sono i legami: in casa c'è pace, ci si tiene per mano, la gratitudine ti scalda e senti che ciò che conta è già qui, intorno a te.
 
 ### capovolta
@@ -682,7 +682,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Senti nascere in te una creatività inaspettata, un'emozione gentile che chiede espressione. Questo momento ti offre spunti preziosi grazie alla tua sensibilità.
+- 1: Senti nascere in te una creatività inattesa, un'emozione gentile che chiede di uscire allo scoperto. Questo momento ti offre spunti preziosi grazie alla tua sensibilità.
 - 2: Un pesciolino spunta in questi giorni dalla tua coppa e ti guarda: un'emozione fragile e poetica affiora, un messaggio d'affetto, un'ispirazione tenera che ti sorprende e chiede spazio.
 - 3: Adesso la tua sensibilità è a fior di pelle: senti nascere sentimenti nuovi, scrivi, sogni, ti commuovi per poco e c'è un'ingenuità dolce nel modo in cui ti apri.
 
@@ -697,7 +697,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Senti un forte desiderio di esprimere affetto e di fare una proposta. È il momento di lasciarti corteggiare e di offrire il tuo cuore con grazia.
-- 2: Al passo lento di un cavallo bianco ti viene incontro in questi giorni un invito: qualcuno ti porge una coppa con grazia, oppure sei tu a offrirla, in un gesto romantico che apre il cuore.
+- 2: Al passo lento di un cavallo bianco ti viene incontro in questi giorni un invito: qualcuno ti porge una coppa con grazia, oppure sei tu a offrirla, con un gesto romantico.
 - 3: Adesso il sentimento ti muove: segui l'impulso di corteggiare o di lasciarti corteggiare, una proposta affettuosa ti attraversa i giorni e la bellezza di questo slancio ti ammorbidisce.
 
 ### capovolta
@@ -718,14 +718,14 @@ scrive l'Architetto.
 
 - 1: Senti il peso delle emozioni e delle esigenze altrui e questo rischia di farti perdere il contatto con la tua identità. Puoi riportare l'attenzione su di te.
 - 2: Oggi ti perdi negli stati d'animo altrui: assorbi la tristezza, l'ansia, le gioie degli altri fino a non riconoscere più le tue, come chi entra in mare e non tocca più il fondo.
-- 3: In questo periodo la tua sensibilità non ha argini: ogni emozione intorno a te ti attraversa e ti trascina, così curi tutti col cuore e dimentichi di mettere un poco di cura anche nella tua coppa.
+- 3: In questo periodo la tua sensibilità non ha argini: ogni emozione intorno a te ti trascina, così curi tutti col cuore e dimentichi di versare un poco di cura nella tua coppa.
 
 ## Re di Coppe
 
 ### dritta
 
 - 1: La tua padronanza emotiva ti rende un punto di forza, capace di affrontare le sfide con calma profonda. La tua presenza offre stabilità e comprensione, sia a te che agli altri.
-- 2: Sul trono che galleggia in mezzo alle onde, in questi giorni tieni la calma: i sentimenti si muovono intorno a te, ma tu li governi con serenità matura e fai da porto a chi cerca riparo.
+- 2: Sul trono che galleggia fra le onde, in questi giorni tieni la calma: i sentimenti si muovono intorno a te, ma tu li governi con serenità e fai da porto a chi cerca riparo.
 - 3: Adesso la tua padronanza emotiva si vede: non ti lasci trascinare dalle correnti, ascolti, consigli e tieni la coppa ben dritta mentre il mare intorno continua ad agitarsi.
 
 ### capovolta
@@ -753,7 +753,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Stai mantenendo un equilibrio precario tra le diverse richieste, alternando i tuoi impegni con leggerezza. La tua flessibilità è fondamentale per gestire questo momento di costante movimento.
-- 2: Con due monete legate da un nastro infinito, in questi giorni ti destreggi fra impegni diversi: alzi l'una, abbassi l'altra, tieni il ritmo con leggerezza come un giocoliere sul molo mentre le navi ballano sulle onde.
+- 2: Con due monete legate da un nastro infinito, in questi giorni ti destreggi fra impegni diversi: alzi l'una, abbassi l'altra e tieni il ritmo con leggerezza, mentre le navi ballano sulle onde.
 - 3: Adesso la tua giornata è una danza di priorità: passi da un compito all'altro, ti adatti ai cambi senza irrigidirti e la flessibilità ti permette di tenere tutto in movimento.
 
 ### capovolta
@@ -768,7 +768,7 @@ scrive l'Architetto.
 
 - 1: Costruisci insieme agli altri e il tuo lavoro è visto e apprezzato; questo è solo l'inizio di un percorso dove la collaborazione porta risultati importanti.
 - 2: Dentro la cattedrale in costruzione, in questi giorni lavori accanto ad altri a un'opera comune: la tua competenza è vista, chi progetta e chi esegue si confrontano e i primi risultati concreti prendono forma.
-- 3: Adesso il tuo mestiere entra in squadra: metti le mani nel progetto, ascolti chi ti mostra il disegno e la collaborazione fa crescere un lavoro che senza gli altri non avresti alzato così in alto.
+- 3: Adesso il tuo mestiere entra in squadra: ascolti chi ti mostra il disegno e la collaborazione fa crescere un lavoro che senza gli altri non avresti alzato così in alto.
 
 ### capovolta
 
@@ -780,14 +780,14 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Ti concentri sulla sicurezza, stringendo ciò che hai. Questa prudenza ti protegge, ma al contempo rischia di impedire nuovi apporti o la crescita.
+- 1: Ti concentri sulla sicurezza e stringi ciò che hai, contando ogni cosa. Questa prudenza ti protegge davvero, ma intanto rischia di chiudere la porta a nuovi apporti e alla crescita.
 - 2: Stringi al petto una moneta e ne tieni altre sotto i piedi: in questi giorni proteggi ciò che possiedi, conti, risparmi, metti da parte con cura e la sicurezza materiale è la tua priorità.
 - 3: Adesso conservare è il tuo mestiere: tieni le risorse ben chiuse, controlli ogni spesa e preferisci la tranquillità di ciò che hai al rischio di qualcosa di nuovo.
 
 ### capovolta
 
 - 1: La tua rigidità impedisce il fluire delle energie e delle opportunità. Stai stringendo troppo qualcosa e questo ti sta soffocando, limitando la tua libertà di movimento.
-- 2: Oggi la paura di restare senza ti fa stringere anche il poco: le dita sono serrate sulla moneta fino a far male e ogni spesa, ogni dono, ti sembra una perdita da evitare.
+- 2: Oggi la paura di restare senza ti fa stringere anche il poco: le dita sono serrate sulla moneta e ogni spesa, ogni dono, ti sembra una perdita da evitare.
 - 3: In questo periodo trattieni tutto per timore della mancanza: denaro, tempo, energie ti restano chiusi in pugno e ciò che stringi così forte finisce per stringere anche te.
 
 ## Cinque di Denari
@@ -795,7 +795,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Percepisci una carenza o un senso di isolamento, come se ti mancasse un elemento fondamentale. Puoi cercare supporto e superare questo stato, senza esitazioni.
-- 2: Cammini nella neve davanti a una finestra illuminata: in questi giorni senti la mancanza, il freddo dell'esclusione, mentre il calore di una casa è a pochi passi e non ti decidi a bussare.
+- 2: Cammini nella neve davanti a una finestra illuminata: in questi giorni senti la mancanza e il freddo dell'esclusione, mentre il calore è a pochi passi e non ti decidi a bussare.
 - 3: Adesso attraversi un inverno: le risorse scarseggiano, ti senti fuori dal giro e la vergogna di chiedere aiuto ti tiene sulla strada, accanto a qualcuno che soffre come te.
 
 ### capovolta
@@ -809,7 +809,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Sperimenti uno scambio equo, dove l'aiuto reciproco crea armonia. Dai e ricevi in un flusso costante, mantenendo l'equilibrio essenziale per la tua serenità.
-- 2: Con la bilancia in una mano, in questi giorni dai e ricevi con giustizia: un aiuto passa dalle tue mani a quelle di chi ne ha bisogno, oppure lo ricevi tu, in uno scambio che resta in equilibrio.
+- 2: Con la bilancia in una mano, in questi giorni dai e ricevi con giustizia: un aiuto passa dalle tue mani a chi ne ha bisogno oppure arriva a te, in uno scambio pari.
 - 3: Adesso le risorse intorno a te circolano: offri ciò che puoi, accetti ciò che ti viene dato e la generosità che vivi ha la misura giusta, senza debiti né umiliazioni.
 
 ### capovolta
@@ -850,7 +850,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Ti godi pienamente ciò che hai costruito, senti di abitare un luogo di indipendenza serena. Sperimenti la piena autonomia e benessere.
+- 1: Ti godi pienamente ciò che hai costruito e abiti un luogo di indipendenza serena: nessuno deve darti il permesso, il tempo è tuo e il benessere che senti viene dalle tue mani.
 - 2: Nel tuo giardino di viti cariche, con un falco sul guanto, in questi giorni ti godi l'agio costruito con le tue mani: l'indipendenza è serena e lo spazio che abiti è tuo per merito.
 - 3: Adesso raccogli i frutti della tua autonomia: non dipendi da nessuno, ti concedi piccoli piaceri raffinati e cammini fra le cose che hai guadagnato con una calma piena di gusto.
 
@@ -899,8 +899,8 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Il passo è bloccato, l'eccessiva prudenza ti frena dal prendere iniziative. Superare l'immobilità e agire è necessario per sbloccare la situazione.
-- 2: Oggi la strada è quella giusta e la meta resta in vista, eppure i tuoi passi si sono fermati: la prudenza rimanda ogni tappa e la costanza si è trasformata in immobilità.
-- 3: In questo momento il tuo cavallo da lavoro non si muove più: aspetti condizioni perfette, controlli e ricontrolli, così il cammino che percorrevi con metodo si è inceppato a metà del campo.
+- 2: Oggi la strada è giusta e la meta resta in vista, eppure i tuoi passi si sono fermati: la prudenza rimanda ogni tappa e la costanza è diventata immobilità.
+- 3: In questo momento il tuo cavallo da lavoro non si muove: aspetti condizioni perfette, controlli e ricontrolli, così il cammino che facevi con metodo si inceppa a metà campo.
 
 ## Regina di Denari
 
@@ -912,7 +912,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Senti uno squilibrio tra quanto dai e quanto ricevi. Ti scordi di te e la tua generosità rischia di portarti via tutte le risorse.
+- 1: Senti uno squilibrio fra quanto dai e quanto ricevi: ti scordi di te, rimandi ciò che ti serve e la tua generosità rischia di portarti via tutte le energie.
 - 2: Oggi ti occupi della casa, dei conti, dei bisogni di tutti: nell'elenco delle cose da curare il tuo nome non compare e il giardino che annaffi per gli altri ti lascia a secco.
 - 3: In questo periodo la tua generosità pratica ti consuma: risolvi, procuri, sistemi per chiunque ti stia intorno e trascuri il tuo riposo come se la cura fosse un dovere che vale per tutti tranne te.
 
@@ -926,9 +926,9 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Un possesso ti sta irrigidendo, impedendoti di agire con libertà. La ricchezza che hai rischia di non circolare, ostacolando il tuo movimento.
+- 1: Un possesso ti sta irrigidendo e ti impedisce di agire con libertà: la ricchezza che hai rischia di non circolare più, frenando i tuoi movimenti e le tue scelte.
 - 2: Oggi ciò che possiedi ti si irrigidisce fra le mani: il governo dei tuoi beni è diventato controllo, le risorse restano ferme invece di dare frutto e la proprietà comincia a possedere te.
-- 3: In questo momento la prosperità che amministri si chiude su sé stessa: misuri tutto in guadagno, decidi pensando al patrimonio più che alle persone e la tua autorità si fa pesante come l'oro che custodisci.
+- 3: In questo momento la prosperità che amministri si chiude su sé stessa: misuri tutto in guadagno, decidi pensando al patrimonio più che alle persone e la tua autorità si appesantisce.
 
 ## Asso di Spade
 
@@ -940,7 +940,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Le tue idee sono confuse e rischi di comunicare in modo inefficace, ferendo chi ti ascolta o complicando la situazione. È il momento di riflettere bene prima di esprimere i tuoi pensieri o di prendere una posizione.
+- 1: Le tue idee sono confuse e rischi di comunicare male, ferendo chi ti ascolta o complicando la situazione: è il momento di riflettere prima di esprimere un pensiero o di prendere posizione.
 - 2: Oggi la lama che tieni in mano è annebbiata: pensieri confusi ti impediscono di vedere netto e quando parli il taglio cade nel punto sbagliato, ferendo invece di chiarire.
 - 3: In questo momento un'idea ti si ritorce contro: la impugni male, la dici troppo presto o con troppa durezza, così la stessa chiarezza che potrebbe liberarti diventa una ferita.
 
@@ -948,8 +948,8 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Eviti di prendere una posizione netta, mantenendo una condizione di equilibrio instabile. Evitare di affrontare la situazione per intero rischia di frenarti.
-- 2: Con la benda sugli occhi e due spade incrociate sul petto, in questi giorni tieni in sospeso una decisione: alle tue spalle il mare si muove, ma tu resti a braccia serrate pur di non guardare.
+- 1: Eviti di prendere una posizione netta e tieni in piedi un equilibrio instabile. Evitare di guardare la situazione per intero rischia di frenarti più della scelta stessa.
+- 2: In questi giorni tieni sospesa una decisione, con la benda sugli occhi e le spade incrociate sul petto: il mare dietro si muove, tu stringi le braccia pur di non guardare.
 - 3: Adesso ti ostini in un equilibrio precario: rimandi una scelta che conosci, ti chiudi in una tregua interiore e la quiete apparente che mantieni ti costa la fatica di non vedere.
 
 ### capovolta
@@ -962,35 +962,35 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Provi una sofferenza che ti trapassa, una delusione che ti ha ferito profondamente. Riconosci questo stato d'animo, accoglilo, è il primo passo per andare oltre.
+- 1: Provi una sofferenza che ti trapassa, una delusione che ha colpito a fondo. Riconosci questo stato d'animo e accoglilo: è il primo passo per andare oltre.
 - 2: Un cuore trafitto da tre spade sotto la pioggia: in questi giorni porti una delusione che ti attraversa il petto, il dolore è vivo e le lacrime cercano di uscire.
-- 3: Adesso la ferita è aperta: una parola, una separazione o un tradimento ti hanno colpito dove sei più vulnerabile e il cielo intorno a te è grigio di pioggia.
+- 3: Adesso la ferita è aperta: una parola, una separazione o un tradimento hanno colpito nel punto in cui sei più vulnerabile e il cielo intorno a te è grigio di pioggia.
 
 ### capovolta
 
 - 1: Stai vivendo un momento di perdono e ripresa, la tempesta è passata e il tuo cuore si sta alleggerendo. Ti stai concedendo il tempo di riprenderti e di respirare di nuovo.
-- 2: La pioggia sta passando in questi giorni: le spade si sfilano piano dal tuo petto, il dolore che ti trafiggeva comincia a sfumare e il cuore torna a respirare, anche se la cicatrice resta.
-- 3: Oggi la tua ferita smette di sanguinare: non dimentichi ciò che ti ha fatto male, ma lo porti con meno peso, mentre il perdono si fa strada dentro di te un poco alla volta.
+- 2: La pioggia sta passando in questi giorni: le lame si sfilano piano dal tuo petto e il dolore che trafiggeva comincia a sfumare, anche se la cicatrice resta.
+- 3: Oggi la tua ferita smette di sanguinare: non dimentichi ciò che ti ha fatto male, lo porti con meno peso mentre il perdono si fa strada un poco alla volta.
 
 ## Quattro di Spade
 
 ### dritta
 
-- 1: Sospendi ogni azione e ti ritiri in un periodo di riflessione, un momento di quiete per ascoltare la tua mente. Questa pausa non è un'interruzione, ma un modo per ricostruire la tua forza interiore.
+- 1: Sospendi ogni azione e ti ritiri in un periodo di riflessione, per ascoltare la tua mente. Questa pausa non è un'interruzione: è il modo in cui ricostruisci la tua forza.
 - 2: Nel silenzio di una cappella, con le mani giunte e una spada sotto di te, in questi giorni riposi: la mente si ferma dopo la fatica e la quiete ti restituisce forza.
 - 3: Adesso è il tempo della tregua: ti ritiri dal rumore, chiudi gli occhi sulle battaglie appena passate e lasci che il corpo e i pensieri recuperino in pace.
 
 ### capovolta
 
 - 1: È il momento di risvegliarti e riprendere le tue attività con una nuova consapevolezza. Agisci con calma, senza fretta, per consolidare i benefici della tua recente quiete.
-- 2: Ti alzi in questi giorni dal giaciglio di pietra: il riposo ha fatto il suo lavoro, riapri gli occhi sulle cose da fare e ricominci a muoverti con calma, senza strafare al primo passo.
+- 2: Ti alzi in questi giorni dal giaciglio di pietra: il riposo ha fatto il suo lavoro, riapri gli occhi sulle cose da fare e ricominci a muoverti senza strafare.
 - 3: Oggi la pausa finisce: le forze sono tornate, riprendi in mano la spada che avevi deposto e senti il desiderio di agire che la quiete aveva tenuto a dormire.
 
 ## Cinque di Spade
 
 ### dritta
 
-- 1: Stai vivendo una situazione in cui senti l'orgoglio prevalere, rischiando di perseguire un successo che potrebbe rivelarsi più dannoso che gratificante. È il momento di valutare con attenzione se ciò che desideri ottenere vale davvero ciò che potresti sacrificare.
+- 1: Stai lasciando che l'orgoglio prevalga e insegui un successo che rischia di farti più danno che bene. Valuta con attenzione se ciò che vuoi ottenere vale davvero ciò che sacrifichi.
 - 2: Raccogli adesso le spade lasciate a terra dagli altri, che si allontanano a capo chino: hai vinto una lite, ma il cielo è tagliato dal vento e il prezzo dell'orgoglio comincia a farsi sentire.
 - 3: In questi giorni un conflitto ti mette davanti a una vittoria amara: tieni il punto per non perdere la faccia, guadagni la ragione e intanto perdi qualcosa di più prezioso.
 
@@ -1011,7 +1011,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Fatichi a compiere il passo decisivo per allontanarti da ciò che ti lega. Il tuo animo è combattuto, senti la necessità di andare avanti ma il cuore non è ancora pronto.
-- 2: Oggi il distacco ti pesa più del previsto: la barca si muove, ma il cuore resta sulla riva che lasci e il bagaglio delle spade che porti con te rende ogni colpo di remo più faticoso.
+- 2: Oggi il distacco ti pesa più del previsto: la barca si muove, ma il cuore resta sulla riva che lasci e le spade che porti rendono ogni colpo di remo più faticoso.
 - 3: In questo momento parti trascinando i piedi: sai che devi andare, eppure qualcosa ti trattiene alle acque di prima e la traversata va avanti a fatica, con lo sguardo rivolto indietro.
 
 ## Sette di Spade
@@ -1020,7 +1020,7 @@ scrive l'Architetto.
 
 - 1: Ti senti in una fase dove usare l'ingegno è necessario, ma devi fare attenzione a non scivolare nell'inganno. Stai navigando con furbizia, ponderando ogni passo con cautela.
 - 2: In punta di piedi porti via le spade dall'accampamento: in questi giorni ti muovi d'astuzia, con tatto e strategia, preferendo l'ingegno allo scontro aperto mentre gli altri guardano altrove.
-- 3: Adesso ti muovi con prudenza calcolata: scegli cosa dire e cosa tacere, aggiri gli ostacoli invece di affrontarli di petto e ti chiedi fin dove la furbizia resta un'arte e dove comincia a somigliare all'inganno.
+- 3: Adesso ti muovi con prudenza calcolata: scegli cosa dire e cosa tacere, aggiri gli ostacoli invece di affrontarli e ti chiedi dove la furbizia smette di essere un'arte.
 
 ### capovolta
 
@@ -1032,14 +1032,14 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Percepisci di non avere margini di azione, ma questa sensazione deriva più dai tuoi pensieri che da reali impedimenti.
-- 2: Con gli occhi coperti e le braccia legate fra le spade piantate nel fango, in questi giorni credi di non avere vie d'uscita, ma le corde sono larghe e il cerchio intorno a te è aperto.
+- 1: Percepisci di non avere margini di azione, ma questa sensazione nasce più dai tuoi pensieri che da impedimenti reali: le corde intorno a te sono più larghe di quanto credi.
+- 2: In questi giorni credi di non avere vie d'uscita, con gli occhi coperti e le braccia legate fra le spade nel fango, eppure le corde sono larghe e il cerchio è aperto.
 - 3: Adesso la prigione è soprattutto nei tuoi pensieri: ti dici che non puoi muoverti, ti racconti limiti che nessuno ti impone e intanto la benda potresti toglierla con le tue mani.
 
 ### capovolta
 
-- 1: Stai scoprendo che le limitazioni che percepivi non sono reali come credevi e questo ti permette di agire con maggiore libertà. Questo momento ti offre l'opportunità di muoverti oltre le barriere che prima ti sembravano insormontabili.
-- 2: Oggi le corde si allentano: la benda ti scivola via, vedi che il cerchio di spade aveva un varco e fai il primo passo fuori da una trappola costruita più dalla paura che dai fatti.
+- 1: Stai scoprendo che i limiti che sentivi non erano reali come credevi e questo ti permette di agire con più libertà, oltre barriere che prima ti sembravano insormontabili.
+- 2: Oggi le corde si allentano: la benda scivola via, vedi che il cerchio aveva un varco e fai il primo passo fuori da una trappola fatta più di paura che di fatti.
 - 3: In questo momento la mente si libera: le convinzioni che ti bloccavano perdono presa, riconosci di avere più margine di quanto temevi e cominci a muoverti fuori dal fango.
 
 ## Nove di Spade
@@ -1060,13 +1060,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Stai vivendo la conclusione di un ciclo molto impegnativo, toccando il punto più basso. Questa chiusura libera lo spazio per ripartire.
+- 1: Stai vivendo la conclusione di un ciclo molto impegnativo e tocchi il punto più basso. Questa chiusura, dura da guardare, libera lo spazio da cui ripartire quando sarà il momento.
 - 2: Sotto un cielo nero che all'orizzonte comincia a schiarire, in questi giorni tocchi il fondo: un ciclo doloroso si chiude del tutto e più in basso di così non puoi scendere.
 - 3: Adesso una battaglia è finita davvero: hai dato tutto, le spade sono a terra e arrenderti a questa fine non è debolezza, è riconoscere che quel capitolo non chiede altro.
 
 ### capovolta
 
-- 1: Senti che il peggio è ormai alle spalle e stai ritrovando un sollievo che ti permette di riprendere le forze con calma.
+- 1: Senti che il peggio è ormai alle spalle e stai ritrovando un sollievo che ti permette di riprendere le forze con calma, un gesto dopo l'altro.
 - 2: Ti rialzi da terra in questi giorni: di ciò che c'era prima non resta niente da salvare, così ricominci da zero con gesti lenti, mentre ogni movimento rimette in piedi qualcosa di tuo.
 - 3: Oggi le spade si sfilano una a una dalla schiena: dopo la chiusura completa provi a muoverti, a fatica, con l'orizzonte che si rischiara e una ripresa che appartiene soltanto a te.
 
@@ -1074,7 +1074,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: La tua mente è acuta e ti porta a osservare con vigilanza ogni dettaglio. Stai cercando di capire a fondo una situazione, ma è importante che tu scelga con cura le tue espressioni per evitare incomprensioni.
+- 1: La tua mente è acuta e ti porta a osservare con vigilanza ogni dettaglio: stai cercando di capire a fondo una situazione, ma scegli con cura le parole per evitare incomprensioni.
 - 2: Sulla collina battuta dal vento, con la spada alzata, in questi giorni vigili: osservi ogni dettaglio con occhi acuti, raccogli informazioni e cerchi una verità prima che altri la nascondano.
 - 3: Adesso la curiosità ti tiene all'erta: fai domande, ascolti ciò che si dice in giro e la tua lingua affilata vorrebbe già riferire ciò che hai scoperto.
 
@@ -1108,7 +1108,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Stai vivendo le conseguenze di una durezza che hai costruito intorno a te, un isolamento che ti impedisce di agire pienamente. Ammorbidire il tuo giudizio, a cominciare da quello verso di te, è essenziale per superare questo momento.
+- 1: Vivi le conseguenze di una durezza costruita intorno a te, un isolamento che ti impedisce di agire pienamente. Ammorbidire il giudizio, a cominciare da quello verso di te, apre una via.
 - 2: Oggi la tua lama si è fatta corazza: giudichi con durezza, a cominciare da te, mentre la solitudine in cui ti chiudi ti protegge da tutti, anche da chi vorrebbe consolarti.
 - 3: In questo momento la tua franchezza ferisce: ogni parola è un taglio, tieni gli altri a distanza con l'ironia e intanto la spada che impugni si rivolge anche contro di te.
 
@@ -1117,11 +1117,11 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Metti la tua mente al servizio del bene, usando la ragione per raggiungere l'equità in ogni situazione. Sei un punto di riferimento per chi cerca chiarezza e giustizia.
-- 2: Con la spada dritta sul trono di pietra, in questi giorni decidi con equità: la ragione è al servizio del cuore e la tua parola chiara è un punto di riferimento per chi ti chiede consiglio.
+- 2: Con la spada dritta sul trono di pietra, in questi giorni decidi con equità: la ragione serve il cuore e la tua parola chiara orienta chi ti chiede consiglio.
 - 3: Adesso sei tu a stabilire ciò che è giusto: valuti i fatti con logica, ascolti tutte le parti e la tua autorità mentale si fonda sull'etica più che sul potere.
 
 ### capovolta
 
 - 1: La tua tendenza è di usare un'autorità dura che non tiene conto dei sentimenti. Questo rischia di compromettere i legami importanti e ti porta a vincere discussioni ma perdere affetto.
 - 2: Oggi la tua logica dimentica le persone: decidi freddamente, imponi regole senza ascoltare e la ragione che ti dà forza vince le discussioni mentre perde i legami.
-- 3: In questo momento la tua autorità si è fatta gelida: usi l'intelligenza come una lama per dominare, ti chiudi nel giudizio e chi ti sta intorno sente la durezza di chi comanda senza cuore.
+- 3: In questo momento la tua autorità si è fatta gelida: usi l'intelligenza come una lama per dominare e chi ti sta intorno sente la durezza di chi comanda senza cuore.

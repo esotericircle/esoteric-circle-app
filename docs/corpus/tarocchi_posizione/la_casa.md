@@ -32,9 +32,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te la gente è in partenza: chi cambia casa, chi lascia un impiego, chi mette due cose in una bisaccia e va. Quel passo leggero degli altri arriva fino alla tua porta e nessuno ti chiede di restare.
+- 1: Intorno a te la gente è in partenza: chi cambia casa, chi lascia un impiego, chi riempie una bisaccia e va. Quel passo leggero arriva alla tua porta e nessuno ti chiede di restare.
 - 2: Nella tua cerchia soffia un'aria da strada aperta: amici che ridono dei programmi, parenti che improvvisano, un ambiente che non pesa e lascia libero chi ci vive accanto, compreso te.
-- 3: Chi ti sta vicino in questo periodo vive con poco bagaglio e molta fiducia, come chi cammina guardando il cielo. La tua casa somiglia a un crocevia più che a una fortezza: si entra, si esce, si riparte.
+- 3: Chi ti sta vicino vive con poco bagaglio e molta fiducia, come chi cammina guardando il cielo. La tua casa somiglia a un crocevia più che a una fortezza: si entra, si esce, si riparte.
 
 ### capovolta
 
@@ -118,7 +118,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è un legame che conta: una coppia vicina, una persona amata nella tua cerchia, un affetto che dà colore alla casa. Quell'unione ti mette davanti a ciò in cui credi davvero.
 - 2: Nel tuo ambiente qualcuno ti tende la mano sotto un cielo aperto: un partner, un socio, un'amicizia che somiglia a un patto. Gli altri ti offrono un'alleanza e con lei una scelta di valori.
-- 3: Le persone che ami fanno parte della faccenda più di quanto credi: la loro presenza accanto a te, nuda e sincera come in un giardino, pesa sulla direzione che prenderai.
+- 3: Le persone che ami fanno parte della faccenda più di quanto credi: la loro presenza accanto a te, sincera come in un giardino, pesa sulla direzione che prendi.
 
 ### capovolta
 
@@ -200,13 +200,13 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te le decisioni sono sospese: si aspetta una risposta dall'alto, un parere, una firma altrui. L'ambiente ti tiene appeso a un ramo e ti costringe a guardare le cose dal verso opposto.
-- 2: Nella tua cerchia c'è chi ha scelto di fermarsi e la sua calma capovolge il modo in cui tutti vedono la faccenda. Le persone vicine ti mostrano un'angolazione che senza di loro non avresti cercato.
+- 1: Intorno a te le decisioni sono sospese: si aspetta un parere, una firma altrui. L'ambiente ti tiene in attesa e ti costringe a guardare le cose dal verso opposto.
+- 2: Nella tua cerchia c'è chi ha scelto di fermarsi e la sua calma ribalta il modo in cui tutti vedono la faccenda: ti mostra un'angolazione che non avresti cercato.
 - 3: Chi ti circonda in questo periodo non si muove e non ti spinge: una famiglia in attesa, un ufficio che rimanda, un tempo sospeso come una foglia ferma nell'aria. Ti lasciano guardare.
 
 ### capovolta
 
-- 1: Nel tuo ambiente qualcuno ti chiede sacrifici che non servono a nessuno: rinunce imposte, attese senza scopo, pazienze pretese per abitudine. Gli altri ti tengono appeso per comodità.
+- 1: Nel tuo ambiente qualcuno ti chiede sacrifici che non servono a nessuno: rinunce imposte, attese senza scopo, pazienze pretese per abitudine. Gli altri ti tengono in sospeso per comodità.
 - 2: Intorno a te lo stallo non insegna più niente: riunioni che non decidono, parenti che rimandano da mesi. Il ramo a cui la tua cerchia è legata ha smesso di dare frutti.
 - 3: Fra le persone che frequenti c'è chi fa la vittima e appende tutti alla propria immobilità. Il clima di casa tua confonde la rinuncia con la virtù.
 
@@ -271,7 +271,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Intorno a te torna una luce calma dopo la tempesta: persone che ispirano, un amico che versa acqua fresca sulla terra arsa. Il tuo ambiente ti rimette in mano la fiducia.
-- 2: Nella tua cerchia c'è qualcuno che rassicura senza parole, solo con la sua presenza limpida. Grazie a lui o a lei la casa respira di nuovo e ti senti tra persone che sperano con te.
+- 2: Nella tua cerchia qualcuno rassicura senza parole, solo con la sua presenza limpida: grazie a questa persona la casa respira di nuovo e intorno a te si torna a sperare.
 - 3: Chi ti sta vicino in questo periodo ha ritrovato serenità e la condivide: un gruppo che si riprende, una famiglia che torna a sognare. Il cielo sopra il tuo tetto è sgombro di nuvole.
 
 ### capovolta
@@ -410,7 +410,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te le persone riconoscono ciò che hai fatto: un applauso, una lettera di stima, un capo che ti nomina davanti a tutti. Il tuo ambiente ti mette sul cavallo bianco e ti fa sfilare.
+- 1: Intorno a te le persone riconoscono ciò che hai fatto: un applauso, una lettera di stima, un capo che ti nomina davanti a tutti. Il tuo ambiente ti fa sfilare.
 - 2: Nella tua cerchia c'è una folla che ti segue e ti sostiene: amici orgogliosi, colleghi che parlano bene di te. La corona d'alloro te la porgono gli altri.
 - 3: Chi ti circonda celebra un successo comune e ti mette in testa al corteo: una squadra che ha vinto, una famiglia fiera. Ti muovi fra persone che hanno voglia di festeggiarti.
 
@@ -440,7 +440,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te le notizie volano: messaggi, telefonate, inviti, persone che arrivano e ripartono. Il tuo ambiente in questo periodo è un cielo attraversato da otto frecce che vanno a segno.
 - 2: Nella tua cerchia si va di corsa: decisioni rapide, viaggi improvvisi, un ufficio dove le risposte arrivano in giornata. Gli altri ti trascinano nel loro ritmo veloce.
-- 3: Chi ti sta vicino si muove in fretta e porta movimento: un amico che organizza, un parente che chiama ogni giorno. Il luogo in cui vivi ha l'aria di una stazione all'ora di punta.
+- 3: Chi ti sta vicino si muove in fretta: un amico che organizza, un parente che chiama ogni giorno. Il luogo in cui vivi ha l'aria di una stazione all'ora di punta.
 
 ### capovolta
 
@@ -452,9 +452,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te l'ambiente ha già colpito più di una volta e chiede vigilanza: un ufficio che cambia regole, una famiglia dai rapporti spinosi. Dietro di te c'è una palizzata di pali piantati in fila.
+- 1: Intorno a te l'ambiente ha già colpito più di una volta e chiede vigilanza: un ufficio che cambia regole, una famiglia dai rapporti spinosi, una fila di pali alle spalle.
 - 2: Nella tua cerchia ci sono ancora prove da reggere: richieste che tornano, persone che bussano quando sei al limite. Gli altri ti tengono di guardia fino all'ultimo palo.
-- 3: Chi ti circonda ha lasciato segni e tu ne porti la fasciatura: un collega che ti ha messo in difficoltà, un parente esigente. Il luogo in cui vivi è un recinto da sorvegliare con occhio attento.
+- 3: Chi ti circonda ha lasciato segni e tu ne porti la fasciatura: un collega che ti ha creato difficoltà, un parente esigente. Vivi in un recinto da sorvegliare.
 
 ### capovolta
 
@@ -466,15 +466,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è chi ti carica di compiti: un capo che delega tutto, una famiglia che conta solo su di te. Il tuo ambiente ti mette sulle spalle un fascio di bastoni che ti curva la schiena.
+- 1: Intorno a te c'è chi ti carica di compiti: un capo che delega tutto, una famiglia che conta solo su di te. Il tuo ambiente ti curva la schiena.
 - 2: Nella tua cerchia le responsabilità sono distribuite male e il peso finisce sempre nello stesso punto. Le persone vicine guardano il villaggio lontano e lasciano a te il carico da portarci.
-- 3: Chi ti circonda ha bisogno di molte cose e te le chiede tutte: genitori anziani, figli, un ufficio a corto di personale. Il luogo in cui vivi pesa sulle tue braccia come una catasta di legna.
+- 3: Chi ti circonda ha bisogno di molte cose e te le chiede tutte: genitori anziani, figli, un ufficio a corto di personale. Il luogo in cui vivi pesa come una catasta di legna.
 
 ### capovolta
 
 - 1: Nel tuo ambiente porti pesi che sono di altri: pratiche di colleghi, faccende di parenti, problemi che qualcuno ti ha passato per abitudine. Intorno a te nessuno si offre di prenderne una parte.
 - 2: Intorno a te le persone si sono abituate a vederti con le braccia piene e non chiedono più se ce la fai. La tua cerchia ha dimenticato di chi erano davvero quei bastoni.
-- 3: Fra la gente vicina qualcuno comincia a posare i suoi fardelli e ti invita a fare lo stesso: un fratello che si offre, un collega che divide il lavoro. Ti alleggerisce un ambiente che finalmente si accorge.
+- 3: Fra la gente vicina qualcuno comincia a posare i suoi fardelli e ti invita a fare lo stesso: un fratello che si offre, un collega che divide il lavoro con te.
 
 ## Fante di Bastoni
 
@@ -508,7 +508,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è una donna sicura e generosa che scalda la casa: una madre, un'amica, una collega con il girasole in mano e un gatto nero ai piedi. La sua presenza illumina chi le sta vicino.
+- 1: Intorno a te c'è una donna sicura e generosa che scalda la casa: una madre, un'amica, una collega. La sua presenza illumina chi le sta vicino e dà coraggio anche a te.
 - 2: Nella tua cerchia c'è un carisma caldo che attira le persone: feste ben riuscite, porte aperte, inviti a cui tutti rispondono. Il tuo ambiente gravita intorno a qualcuno che sa accogliere.
 - 3: Chi ti sta vicino irradia fiducia e ti fa spazio: una persona allegra che organizza, incoraggia, presenta gli amici agli amici. Il luogo in cui vivi è un salotto pieno di sole.
 
@@ -522,7 +522,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è una guida matura che apre strade con l'esempio: un capo visionario, un padre ispirato, un mentore che dà fiducia. Il tuo ambiente segue la sua fiamma e ti porta avanti con lui.
+- 1: Intorno a te c'è una guida matura che apre strade con l'esempio: un capo visionario, un padre ispirato, un mentore che dà fiducia. Il tuo ambiente segue la sua fiamma e ti porta avanti.
 - 2: Nella tua cerchia qualcuno sa accendere gli altri: dà visione, assegna compiti, crede nelle persone. Sul trono decorato di salamandre siede chi tiene viva l'impresa comune.
 - 3: Chi ti circonda ha in mano la direzione e la esercita con generosità: un imprenditore, un capofamiglia, un organizzatore nato. Ti trovi in un posto guidato da una volontà calda.
 
@@ -564,7 +564,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te ci sono amici che alzano i calici: una festa, un raccolto da celebrare, un gruppo che balla in cerchio. Il tuo ambiente in questo periodo è un brindisi fra persone care.
+- 1: Intorno a te ci sono amici che alzano i calici: una festa, un raccolto da celebrare, un gruppo che balla in cerchio. Il tuo ambiente adesso è un brindisi fra persone care.
 - 2: Nella tua cerchia la comunità ti accoglie e ti sostiene: sorelle, amiche, colleghi che si danno una mano e ridono insieme. Non affronti la faccenda in solitudine: hai intorno chi brinda con te.
 - 3: Chi ti sta vicino ama la compagnia e la condivide: tavolate, compleanni, ritrovi. Il luogo in cui vivi è un giardino d'autunno dove tre figure intrecciano le braccia.
 
@@ -593,8 +593,8 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Intorno a te qualcuno piange una perdita: un lutto in famiglia, un progetto andato in fumo, un amore finito. Il tuo ambiente porta un mantello nero e fissa le coppe versate a terra.
-- 2: Nella tua cerchia domina il rimpianto: si parla di ciò che non c'è più, di come era prima. Le persone vicine non vedono le due coppe ancora in piedi dietro di loro e la tristezza riempie la casa.
-- 3: Chi ti sta vicino si piega su un dolore e ti chiede di stargli accanto. Il luogo in cui vivi ha un ponte che porta a una casa intatta oltre il fiume e nessuno lo attraversa.
+- 2: Nella tua cerchia domina il rimpianto: si parla di ciò che non c'è più. Le persone vicine non vedono le due coppe ancora in piedi e la tristezza riempie la casa.
+- 3: Chi ti sta vicino si piega su un dolore e ti chiede compagnia. Il luogo in cui vivi ha un ponte verso una casa intatta oltre il fiume e nessuno lo attraversa.
 
 ### capovolta
 
@@ -613,21 +613,21 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Nel tuo ambiente si vive di ricordi: la famiglia ripete gli stessi racconti, le abitudini di un tempo dettano le regole di oggi. Intorno a te il passato occupa troppo spazio.
-- 2: Intorno a te qualcuno ti tratta come eri anni fa e non vede la persona che sei oggi. La tua cerchia ti rimette in mano i fiori dell'infanzia, come se il tempo non fosse passato.
+- 2: Intorno a te qualcuno ti tratta come eri anni fa e non vede chi sei oggi: la tua cerchia ti rimette in mano i fiori dell'infanzia, come se il tempo non fosse passato.
 - 3: Fra la gente che frequenti la nostalgia è diventata una gabbia: si rimpiange, si confronta, si dice che una volta era meglio. Ti muovi in una casa arredata con mobili di un altro tempo.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Intorno a te arrivano proposte che brillano: castelli, gioielli, corone che spuntano da sette coppe fra le nuvole. Le persone che frequenti ti promettono molto e il tuo ambiente vive di sogni a occhi aperti.
+- 1: Intorno a te arrivano proposte che brillano come castelli e gioielli fra le nuvole: le persone che frequenti ti promettono molto e il tuo ambiente vive di sogni a occhi aperti.
 - 2: Nella tua cerchia si fantastica più che si fa: progetti mirabolanti, affari d'oro raccontati a cena, amici che cambiano sogno ogni mese. Gli altri ti mettono davanti una fila di miraggi.
 - 3: Chi ti circonda offre possibilità tutte insieme e nessuna verificata: un'opportunità qui, un'altra là, un'idea velata da un drappo. Il luogo in cui vivi è una vetrina di illusioni.
 
 ### capovolta
 
 - 1: Nel tuo ambiente le promesse gonfiate si sgonfiano: un affare rivela il suo trucco, un'offerta mostra il suo prezzo vero. Intorno a te la nebbia si dirada sulle coppe.
-- 2: Intorno a te chi sognava a vuoto torna coi piedi a terra e fa una scelta: un amico che sceglie un lavoro, un parente che lascia perdere i castelli. La tua cerchia mette a fuoco.
+- 2: Intorno a te chi sognava a vuoto torna coi piedi a terra: un amico sceglie un lavoro, un parente lascia perdere i castelli. La tua cerchia mette a fuoco.
 - 3: Fra la gente che frequenti le illusioni cadono e resta l'offerta vera, più piccola e più solida. Ti muovi in un posto che smette di vendere fumo.
 
 ## Otto di Coppe
@@ -650,7 +650,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è contentezza: una tavola imbandita, un ospite che sorride a braccia conserte davanti alle coppe in fila. Il tuo ambiente in questo periodo soddisfa i desideri di chi ci vive.
 - 2: Nella tua cerchia le cose vanno bene e ci si gode il benessere: cene in compagnia, piccoli lussi, desideri esauditi. Le persone vicine ti fanno spazio alla loro tavola.
-- 3: Chi ti sta vicino è generoso e vuole vederti soddisfare un desiderio: un amico che ti invita, un parente che ti regala ciò che speravi. Il luogo in cui vivi ha la credenza piena.
+- 3: Chi ti sta vicino è generoso e vuole vederti soddisfare un desiderio: un amico ti invita, un parente ti regala ciò che speravi. Il luogo in cui vivi ha la credenza piena.
 
 ### capovolta
 
@@ -704,7 +704,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è una persona empatica che sa ascoltare: una madre, un'amica, una terapeuta seduta in riva al mare con la coppa chiusa fra le mani. Accanto a lei ti senti capire nel profondo.
+- 1: Intorno a te c'è una persona empatica che sa ascoltare: una madre, un'amica, una terapeuta seduta in riva al mare con la coppa fra le mani. Accanto a lei ti senti capire.
 - 2: Nella tua cerchia si accoglie con il cuore: nessuno giudica, tutti intuiscono quando qualcosa non va. Le persone vicine leggono i tuoi stati d'animo e li proteggono.
 - 3: Chi ti sta vicino ha una sensibilità profonda e la mette al servizio degli altri: cura, conforta, intuisce. Il luogo in cui vivi è un trono sulla spiaggia battuto da onde tranquille.
 
@@ -762,7 +762,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è una squadra competente: un artigiano, un progettista e un committente che studiano insieme il disegno della cattedrale. Il tuo ambiente lavora con te e riconosce la tua mano.
 - 2: Nella tua cerchia le persone collaborano con serietà: ognuno porta il suo mestiere, nessuno ruba il lavoro altrui. Gli altri ti chiamano dentro un cantiere che sta già dando frutti.
-- 3: Chi ti sta vicino apprezza ciò che sai fare e te lo dice: un capo che ti consulta, colleghi che ti chiedono un parere. Il luogo in cui lavori è una bottega dove l'opera cresce in comune.
+- 3: Chi ti sta vicino apprezza ciò che sai fare e te lo dice: un capo che ti consulta, colleghi che ti chiedono un parere. Intorno a te l'opera cresce in comune.
 
 ### capovolta
 
@@ -776,7 +776,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te si conserva con cura: una famiglia che risparmia, un ufficio prudente, persone che tengono la moneta stretta al petto. Il tuo ambiente ti offre sicurezza e mura protette.
 - 2: Nella tua cerchia ognuno difende ciò che ha: proprietà ben segnate, confini chiari, conti tenuti in ordine. Le persone vicine ti insegnano a mettere da parte e a contare.
-- 3: Chi ti circonda tiene i piedi sulle monete e la città alle spalle: un parente che amministra, un capo che controlla le spese. Il luogo in cui vivi è stabile e chiuso come una cassaforte.
+- 3: Chi ti circonda tiene i piedi sulle monete e la città alle spalle: un parente che amministra, un capo che controlla le spese. Il luogo è stabile e chiuso come una cassaforte.
 
 ### capovolta
 
@@ -818,11 +818,11 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te le persone aspettano il raccolto con pazienza: un lavoro comune che matura piano, un orto di famiglia che cresce. Il tuo ambiente si appoggia alla zappa e guarda la pianta.
 - 2: Nella tua cerchia si valuta con calma ciò che è stato fatto: bilanci, verifiche, conversazioni sul da farsi. Gli altri ti insegnano che le cose buone vogliono tempo.
-- 3: Chi ti sta vicino ha investito con te e ora aspetta senza fretta: un socio paziente, un parente che crede nel progetto. Il luogo in cui vivi è un campo dove i frutti stanno arrivando a maturazione.
+- 3: Chi ti sta vicino ha investito con te e ora aspetta senza fretta: un socio paziente, un parente che crede nel progetto. Il tuo luogo è un campo che matura con calma.
 
 ### capovolta
 
-- 1: Nel tuo ambiente c'è chi vuole i frutti subito: un capo che pretende risultati immediati, un parente che si lamenta perché non vede niente. Intorno a te si strappano le piante per guardare le radici.
+- 1: Nel tuo ambiente c'è chi vuole i frutti subito: un capo che pretende risultati, un parente che si lamenta perché non vede niente. Intorno a te si strappano piante per guardare le radici.
 - 2: Intorno a te uno sforzo comune sembra mal ripagato: un'impresa che non rende, un orto che non dà. La tua cerchia si scoraggia e mette in dubbio il seme.
 - 3: Fra la gente che frequenti l'impazienza guasta il lavoro: si cambia strada a metà stagione, si abbandona il campo. Ti muovi in un ambiente che non sa aspettare.
 
@@ -832,7 +832,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è aria di bottega: persone che lavorano con cura, un maestro che incide le monete una alla volta. Il tuo ambiente in questo periodo premia la dedizione e il mestiere.
 - 2: Nella tua cerchia qualcuno ti insegna un'arte con pazienza: un collega esperto, un artigiano, un genitore preciso. Le persone vicine ti mostrano come si affina un gesto.
-- 3: Chi ti circonda è operoso e meticoloso: un ufficio dove si fa bene, una casa dove si ripara invece di buttare. Il luogo in cui vivi ha il ritmo di un banco di lavoro.
+- 3: Chi ti circonda è operoso e meticoloso: un ufficio dove si fa bene, una casa dove si ripara invece di buttare. Il luogo in cui vivi ha il ritmo di una bottega.
 
 ### capovolta
 
@@ -860,11 +860,11 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è una famiglia allargata con radici profonde: nonni seduti sotto l'arco, nipoti che giocano coi cani, una casa che passa di generazione in generazione. Il tuo ambiente è solido.
 - 2: Nella tua cerchia le cose durano: un'azienda di famiglia, tradizioni tramandate, legami che resistono ai decenni. Le persone vicine ti offrono la stabilità di chi ha costruito per chi viene dopo.
-- 3: Chi ti circonda appartiene a una storia lunga e ti ci fa entrare: un clan, una comunità di paese, una dinastia di mestiere. Il luogo in cui vivi ha stemmi alle pareti e porte sempre aperte ai parenti.
+- 3: Chi ti circonda appartiene a una storia lunga e ti ci fa entrare: un clan, una comunità di paese, una dinastia di mestiere, stemmi alle pareti e porte aperte ai parenti.
 
 ### capovolta
 
-- 1: Nel tuo ambiente c'è una contesa su beni comuni: una casa di famiglia da dividere, parenti che non si parlano per un terreno. Intorno a te ciò che era di tutti diventa terreno di attrito.
+- 1: Nel tuo ambiente c'è una contesa su beni comuni: una casa di famiglia da dividere, parenti che non si parlano per un terreno, ciò che era di tutti diventato motivo di attrito.
 - 2: Intorno a te la famiglia si spacca per questioni di soldi o di proprietà: telefonate gelide, pranzi disertati. La tua cerchia litiga sotto l'arco che dovrebbe unirla.
 - 3: Fra la gente vicina le tradizioni pesano come catene: aspettative di casato, ruoli imposti dai vecchi. Ti tocca abitare una dimora solida che toglie aria a chi ci nasce.
 
@@ -872,9 +872,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è chi studia e impara: un apprendista, un figlio che si prepara a un esame, un collega che segue un corso. Il tuo ambiente tiene una moneta sollevata e la osserva con attenzione.
+- 1: Intorno a te c'è chi studia e impara: un apprendista, un figlio che prepara un esame, un collega che segue un corso, gente che osserva le cose con attenzione.
 - 2: Nella tua cerchia c'è una persona giovane e seria che ti porta un'idea concreta: un progetto pratico, un'offerta di formazione, un piano dettagliato. Gli altri ti invitano a imparare con loro.
-- 3: Chi ti circonda in questo periodo è applicato e diligente: libri sul tavolo, appunti, ore di pratica. Il luogo in cui vivi somiglia a un campo arato dove si studia il terreno prima di seminare.
+- 3: Chi ti circonda in questo periodo è applicato e diligente: libri sul tavolo, appunti, ore di pratica, come in un campo arato dove si studia il terreno prima di seminare.
 
 ### capovolta
 
@@ -886,14 +886,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te ci sono persone affidabili e metodiche: un collega che non sbaglia una scadenza, un parente su cui contare sempre. Il tuo ambiente avanza piano, come un cavallo da tiro nel campo arato.
+- 1: Intorno a te ci sono persone affidabili e metodiche: un collega che non sbaglia una scadenza, un parente su cui contare sempre, un ambiente che avanza piano come un cavallo da tiro.
 - 2: Nella tua cerchia il lavoro va avanti con costanza: nessuno corre, nessuno si ferma. Le persone vicine ti danno la sicurezza di chi fa ogni giorno la sua parte.
-- 3: Chi ti circonda è prudente e paziente: un socio che verifica i conti due volte, un amico che mantiene la parola. Il luogo in cui vivi ha il passo lento e sicuro di chi ara un solco dritto.
+- 3: Chi ti circonda è prudente e paziente: un socio che verifica i conti due volte, un amico che mantiene la parola, gente col passo lento di chi ara un solco dritto.
 
 ### capovolta
 
 - 1: Nel tuo ambiente la prudenza blocca tutto: pratiche ferme, riunioni rinviate, chi rimanda ogni tappa per paura di sbagliare. Intorno a te il cavallo sta immobile in mezzo al campo.
-- 2: Intorno a te la costanza di qualcuno si è fatta immobilità: un ufficio che non cambia niente da anni, un parente che non si muove. La tua cerchia ha la meta in vista e non fa un passo.
+- 2: Intorno a te la costanza di qualcuno si è fatta immobilità: un ufficio fermo da anni, un parente che non si muove, una cerchia che vede la meta e non avanza.
 - 3: Fra le persone che frequenti la lentezza è diventata pigrizia: si aspetta che le cose si facciano da sé. Ti tocca spingere un carro comune che nessuno vuole tirare.
 
 ## Regina di Denari
@@ -902,7 +902,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è una persona pratica e accogliente che si occupa di tutti: tiene la casa, i conti, l'orto, con un coniglio che salta fra le rose. Il tuo ambiente è curato da mani concrete.
 - 2: Nella tua cerchia c'è chi unisce cuore e concretezza: prepara da mangiare quando ne hai bisogno, ti presta ciò che manca, sa risolvere. Le persone vicine ti offrono un nido ben tenuto.
-- 3: Chi ti sta vicino ha i piedi per terra e la casa in ordine: una madre di famiglia, una collega organizzata, un'amica che pensa a tutto. Il luogo in cui vivi è un giardino fertile e protetto.
+- 3: Chi ti sta vicino ha i piedi per terra e la casa in ordine: una madre di famiglia, una collega organizzata, un'amica che pensa a tutto. Il luogo in cui vivi somiglia a un giardino fertile.
 
 ### capovolta
 
@@ -920,7 +920,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Nel tuo ambiente chi governa i beni lo fa con rigidità: un capo che non investe, un padre che tiene il portafoglio chiuso. Intorno a te il patrimonio comune resta fermo nelle mani di uno.
+- 1: Nel tuo ambiente chi governa i beni lo fa con rigidità: un capo che non investe, un padre che tiene il portafoglio chiuso, un patrimonio comune fermo nelle mani di uno.
 - 2: Intorno a te il successo materiale ha indurito qualcuno: conta solo il risultato, le persone diventano cifre. La tua cerchia vive sotto un trono pesante che non sa dare frutto.
 - 3: Fra le persone che frequenti il possesso è diventato un modo di comandare: chi paga decide, chi possiede detta legge. Ti muovi in un regno ricco e immobile.
 
@@ -935,7 +935,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Nel tuo ambiente le parole tagliano male: frasi crudeli, verità dette per ferire, critiche affilate. Intorno a te la lama della chiarezza è usata come un'arma.
-- 2: Intorno a te le idee sono annebbiate: informazioni contraddittorie, decisioni confuse, nessuno che faccia chiarezza. La tua cerchia brandisce una spada nella nebbia.
+- 2: Intorno a te le idee sono annebbiate: informazioni che si contraddicono, decisioni confuse, nessuno che faccia chiarezza. La tua cerchia agita una spada nella nebbia e rischia di colpire a caso.
 - 3: Fra la gente vicina c'è chi usa l'intelligenza per avere ragione invece che per capire. Ti tocca abitare un posto dove ogni discussione diventa un duello.
 
 ## Due di Spade
@@ -944,7 +944,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Intorno a te c'è una tregua tesa: persone che evitano di guardare una questione comune, braccia incrociate sul petto, spade alzate in equilibrio. Il tuo ambiente tiene gli occhi bendati per non scegliere.
 - 2: Nella tua cerchia c'è uno stallo che nessuno vuole sciogliere: due parti che si bloccano a vicenda, un conflitto congelato. Gli altri ti chiedono di non prendere posizione.
-- 3: Chi ti circonda fa finta di niente davanti a ciò che è evidente: si cambia discorso, si rimanda la riunione. Il luogo in cui vivi è una riva notturna dove il mare resta immobile.
+- 3: Chi ti circonda fa finta di niente davanti all'evidenza: si cambia discorso, si rimanda la riunione. Il luogo in cui vivi somiglia a una riva notturna con il mare immobile.
 
 ### capovolta
 
@@ -984,7 +984,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è chi ha vinto male: raccoglie le spade degli altri e sorride mentre i vinti se ne vanno curvi verso il mare. Il tuo ambiente porta i segni di un conflitto finito con l'umiliazione.
+- 1: Intorno a te c'è chi ha vinto male: raccoglie le spade degli altri e sorride mentre i vinti se ne vanno curvi verso il mare. Il tuo ambiente porta il segno di un'umiliazione.
 - 2: Nella tua cerchia l'orgoglio ha diviso le persone: chi ha avuto ragione e chi è stato schiacciato non si parlano più. Gli altri ti guardano per capire da che parte stai.
 - 3: Chi ti circonda ha combattuto per vincere a ogni costo e ha perso amici per strada. Il luogo in cui vivi ha un cielo spezzato da nuvole taglienti sopra un campo di battaglia.
 
@@ -1026,9 +1026,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è chi ti lega senza corde vere: pareri, aspettative, regole non scritte che ti bendano gli occhi. Il tuo ambiente ti circonda di otto spade piantate nel fango, con varchi che nessuno indica.
-- 2: Nella tua cerchia qualcuno ti fa credere di non avere scelta: un capo che minaccia, un parente che colpevolizza, amici che ripetono che non si può. Gli altri ti tengono dentro una gabbia di parole.
-- 3: Chi ti circonda vive come in una prigione mentale e ti contagia con la sua paura: tutto sembra vietato, rischioso, impossibile. Il luogo in cui vivi ha un castello in lontananza e nessuno guarda la strada.
+- 1: Intorno a te c'è chi ti lega senza corde vere: pareri, aspettative, regole non scritte che ti bendano. Il tuo ambiente ti circonda di spade piantate nel fango, con varchi che nessuno indica.
+- 2: Nella tua cerchia qualcuno ti fa credere di non avere scelta: un capo che minaccia, un parente che colpevolizza, amici che ripetono che non si può. Ti tengono in una gabbia di parole.
+- 3: Chi ti circonda vive in una prigione mentale e ti contagia con la sua paura: tutto sembra vietato, rischioso, impossibile. Dove vivi c'è un castello lontano e nessuno guarda la strada.
 
 ### capovolta
 
@@ -1040,7 +1040,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è ansia diffusa: una casa che non dorme, preoccupazioni degli altri che ti tolgono il sonno, telefonate alle tre del mattino. Il tuo ambiente è una camera buia con nove spade appese al muro.
+- 1: Intorno a te c'è ansia diffusa: una casa che non dorme, le preoccupazioni degli altri che ti tolgono il sonno, telefonate alle tre del mattino, una camera buia piena di lame.
 - 2: Nella tua cerchia qualcuno rimugina e trasmette angoscia: un genitore in pena, un amico che vede tutto nero. Le persone vicine portano nel letto le loro paure e ti chiamano per condividerle.
 - 3: Chi ti circonda vive giorni tesi e notti insonni: scadenze, timori, pensieri che girano in tondo. Il luogo in cui vivi ha le mani di molti sul viso, seduti sul bordo del materasso.
 
@@ -1055,7 +1055,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Intorno a te una situazione comune ha toccato il fondo: un'azienda che chiude, un gruppo che si scioglie, un rapporto di famiglia finito del tutto. Il tuo ambiente giace a terra sotto un cielo nero.
-- 2: Nella tua cerchia qualcuno ha subito un colpo dopo l'altro e non riesce più a rialzarsi senza aiuto: dieci lame sulla schiena, il volto a terra. Le persone vicine ti chiedono di riconoscere che quella fase è chiusa.
+- 2: Nella tua cerchia qualcuno ha subito un colpo dopo l'altro e non riesce più a rialzarsi senza aiuto. Le persone vicine ti chiedono di riconoscere che quella fase è chiusa.
 - 3: Chi ti circonda ha esaurito le forze in una battaglia che è finita davvero. Il luogo in cui vivi vede l'ultima luce gialla dell'orizzonte dietro le macerie di ciò che c'era.
 
 ### capovolta
@@ -1082,7 +1082,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te arriva qualcuno di carica, con idee nette e la spada in avanti: un capo deciso, un amico che non accetta compromessi. Il tuo ambiente si muove a galoppo sotto un cielo di nubi rapide.
+- 1: Intorno a te arriva qualcuno di carica, con idee nette e la spada in avanti: un capo deciso, un amico che non accetta compromessi. Il tuo ambiente si muove al galoppo.
 - 2: Nella tua cerchia si decide in fretta e si agisce subito: riunioni brevi, scelte nette, persone che vanno dritte allo scopo. Gli altri ti trascinano nella loro determinazione.
 - 3: Chi ti circonda in questo periodo ha la mente veloce e non aspetta: propone, contesta, corre avanti. Il luogo in cui vivi è attraversato da un vento che piega gli alberi.
 
@@ -1096,7 +1096,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è una persona franca e lucida che dice il vero senza giri: una consigliera, un'amica schietta, seduta di profilo con la spada dritta e la mano tesa. Il tuo ambiente ha confini chiari.
+- 1: Intorno a te c'è una persona franca e lucida che dice il vero senza giri, una consigliera o un'amicizia schietta, con la spada dritta. Il tuo ambiente ha confini chiari.
 - 2: Nella tua cerchia si parla con sincerità anche quando è scomodo: niente lusinghe, niente sotterfugi. Le persone vicine ti offrono un giudizio limpido su cui puoi contare.
 - 3: Chi ti circonda ha attraversato prove dure e ne porta la mente affilata: sa distinguere, sa proteggere. Il luogo in cui vivi ha un cielo terso sopra le nuvole basse.
 
@@ -1110,7 +1110,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è un'autorità equa e lucida: un esperto, un giudice saggio, un capo che decide con la ragione al servizio delle persone. Il tuo ambiente si regge sul suo pensiero chiaro.
+- 1: Intorno a te c'è un'autorità equa e lucida: un esperto, un giudice saggio, un capo che decide con la ragione al servizio delle persone. Il tuo ambiente si regge su di lei.
 - 2: Nella tua cerchia le decisioni si prendono con logica ed etica: si ascoltano le parti, si pesano i fatti. Le persone vicine ti offrono un riferimento solido e onesto.
 - 3: Chi ti circonda ha in mano la spada della verità e la tiene dritta: regole chiare, parola data, rispetto delle competenze. Il luogo in cui vivi è governato da una mente limpida.
 

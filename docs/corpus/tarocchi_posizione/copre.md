@@ -58,14 +58,14 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Dentro la tua domanda passa una corrente che si ferma a metà strada: parte dalla parola detta e si esaurisce prima del gesto che la manterrebbe. Il dono resta intero per tutto il tragitto.
 - 2: La regola non scritta che la tua domanda sta seguendo premia quello che viene annunciato: il credito va alla promessa, mentre il talento aspetta il suo turno nel cassetto chiuso.
-- 3: Il criterio che assegna valore dentro la tua domanda misura l'annuncio e non la consegna: quanto si dichiara pesa molto, quanto le mani mantengono pesa poco.
+- 3: Il criterio che assegna valore dentro la tua domanda misura l'annuncio e non la consegna: quanto si dichiara pesa molto, quanto le mani mantengono pesa poco, anche quando il talento c'è.
 
 ## La Papessa
 
 ### dritta
 
 - 1: Attorno alla cosa che chiedi lavora un silenzio spesso: in quell'aria quieta quello che non è detto si sente comunque; la tua domanda respira dentro un sapere che le parole non hanno ancora raggiunto.
-- 2: Una luce bassa governa la tua domanda: mostra i contorni e lascia il resto dietro un velo. Quello che si vede basta a orientare, mentre il grosso della faccenda sta in una parte che non si illumina a parole.
+- 2: Una luce bassa governa la tua domanda: mostra i contorni e lascia il resto dietro un velo. Ti basta per orientarti, mentre il grosso della faccenda non si illumina a parole.
 - 3: Sulla tua domanda lavora una riserva: una conoscenza intera resta chiusa e non si fa frase, mentre il tempo della quiete compie il lavoro che le spiegazioni non compiono.
 
 ### capovolta
@@ -316,14 +316,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una luce di richiamo passa su tutta la tua faccenda in una volta e non lascia angoli al buio: quello che stava sotto coperta si trova in piedi e visibile, chiamato per nome insieme a tutto il resto.
+- 1: Una luce di richiamo passa su tutta la tua faccenda in una volta e non lascia angoli al buio: ciò che stava sotto coperta si alza visibile, chiamato per nome con il resto.
 - 2: Uno squillo attraversa questa tua faccenda e fa l'appello: chiama in piedi quello che la riguarda, dal primo pezzo all'ultimo; la risposta la pretende nello stesso momento in cui chiama.
 - 3: Sopra questo c'è l'aria di una resa dei conti generale: tutta la tua faccenda viene contata nella stessa ora, i pezzi vecchi insieme a quelli nuovi; il richiamo non distingue fra loro.
 
 ### capovolta
 
 - 1: La regola non detta nella tua faccenda rinvia ogni risposta al momento impeccabile che non si presenta; al posto dell'appello lavora una severità che condanna prima di ascoltare.
-- 2: Il valore dentro questa tua faccenda si calcola per difetto: ogni pezzo viene prezzato su quello che gli manca, non su quello che offre. Con questo metro il bilancio esce più basso del vero; il richiamo passa inascoltato.
+- 2: Il valore della tua faccenda si calcola per difetto: ogni pezzo pesa per ciò che gli manca. Con questo metro il bilancio esce più basso del vero e il richiamo passa inascoltato.
 - 3: Dentro questa tua faccenda il registro è quello di un'accusa senza difesa: la misura della colpa sale a ogni frase, mentre lo squillo che chiama resta fuori dal discorso.
 
 ## Il Mondo
@@ -407,8 +407,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Sulla tua domanda sta un'aria di attrito vecchio: tiepida, senza fiamma aperta, con piccoli punti che tornano ad accendersi negli stessi posti. Quello che brucia sotto scalda più di quanto illumini.
-- 2: Una luce fumosa tiene questa tua faccenda in una visibilità scarsa: il fumo degli attriti minori confonde i contorni, così quello che conta e quello che non conta hanno lo stesso profilo dentro di essa.
-- 3: La regola non scritta di questo momento vuole ogni fronte aperto insieme agli altri: dentro la tua domanda niente si lascia cadere, nemmeno quello che ha smesso di contare. La contesa si alimenta da sé.
+- 2: Una luce fumosa avvolge questa tua faccenda: il fumo degli attriti minori confonde i contorni, così quello che conta e quello che non conta hanno lo stesso profilo.
+- 3: La regola non scritta di questo momento vuole ogni fronte aperto: dentro la tua domanda niente si lascia cadere, nemmeno quello che ha smesso di contare. La contesa si alimenta da sé.
 
 ## Sei di Bastoni
 
@@ -430,7 +430,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sulla tua questione tira un'aria di contesa aperta: più mani puntano al medesimo punto nello stesso momento, mentre quel punto appartiene già a chi lo guarda dall'alto.
 - 2: Una pressione dal basso sale verso il rialzo dove la cosa sta: la spinta arriva da più lati insieme e il terreno alto risulta già occupato dalla tua parte.
-- 3: Dentro la tua domanda il valore lo sta decidendo la quota: quello che si dice da sopra conta più di quello che si grida da sotto, mentre il numero di chi reclama non sposta la quota.
+- 3: Dentro la tua domanda il valore lo decide la quota: quello che si dice da sopra conta più di quello che si grida da sotto e il numero di chi reclama non la sposta.
 
 ### capovolta
 
@@ -486,7 +486,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il valore dentro questa tua faccenda lo decide la novità: quello che si guarda per la prima volta vale molto, quello che si conosce già perde prezzo in fretta, anche quando è solido.
 - 2: Suona sulla tua domanda il registro di un annuncio portato di corsa: frasi brevi, fiato corto, entusiasmo che precede la verifica. La faccenda si racconta come chi ha appena visto una cosa nuova.
-- 3: Una corrente giovane attraversa la tua domanda: va a vedere, torna a riferire, riparte. Non segue una rotta e non le serve: il suo moto è la curiosità che apre una porta dopo l'altra.
+- 3: Una corrente giovane attraversa la tua domanda: va a vedere, torna a riferire, riparte. Non segue una rotta e non le serve: la muove la curiosità che apre una porta dopo l'altra.
 
 ### capovolta
 
@@ -554,7 +554,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La regola in vigore dentro la tua domanda vuole due parti alla pari: passa quello che si scambia e resta fermo quello che va in una direzione sola. Il patto si forma mentre i due si riconoscono.
+- 1: La regola dentro la tua domanda vuole due parti alla pari: passa ciò che si scambia, resta fermo ciò che va in una direzione sola. Il patto nasce mentre i due si riconoscono.
 - 2: Dentro la tua domanda ogni cosa si misura in due: pesa quanto viene riconosciuto da entrambi i lati, mentre quanto una parte sola dichiara resta senza misura.
 - 3: Una forza di reciprocità lavora sulla tua domanda e stringe il nodo: avvicina due calici alzati alla stessa altezza, poi sigilla lo scambio che vale da una parte e dall'altra.
 
@@ -568,9 +568,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una luce di festa cade su questa tua faccenda e mette in risalto le parti che si possono dividere: quello che si fa a più mani si vede bene, quello che si serba per sé resta in penombra.
+- 1: Una luce di festa cade sulla tua faccenda: ciò che si fa a più mani si vede bene, ciò che si serba per sé resta in penombra.
 - 2: La regola non scritta di adesso vuole che ogni cosa passi di mano: dentro la tua domanda quello che si divide raddoppia, mentre quello che resta in una mano sola non prende corpo.
-- 3: Il valore nella tua domanda non si conta per grandezza ma per quante mani lo toccano: un pezzo piccolo diviso in tre pesa più di uno grande messo da parte. Il motivo del brindisi conta meno del brindisi stesso.
+- 3: Il valore nella tua domanda si conta in mani, non in grandezza: un pezzo piccolo diviso in tre pesa più di uno grande messo da parte. Il brindisi vale più del motivo.
 
 ### capovolta
 
@@ -632,7 +632,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il criterio attivo dentro la tua domanda non conta più le possibilità, le sceglie. Una sola prende tutto il valore che c'è; le altre scendono a niente senza clamore.
 - 2: Stringe il campo su una figura sola la messa a fuoco che lavora dentro la tua domanda: cancella le altre dal bordo e fa della rinuncia il prezzo compreso nella nitidezza.
-- 3: Niente più elenchi di possibilità dentro la tua domanda: il registro si è fatto asciutto come quello di chi ha appena scelto, con una cosa sola nominata per nome e il resto in silenzio.
+- 3: Niente più elenchi di possibilità dentro la tua domanda: il registro si è fatto asciutto come quello di chi ha scelto, con una cosa sola nominata per nome e il resto in silenzio.
 
 ## Otto di Coppe
 
@@ -654,13 +654,13 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sta sopra questa tua faccenda un'aria sazia: è la temperatura di un desiderio con la sua cosa davanti. Dentro quell'aria niente spinge e niente manca; il piacere qui non ha bisogno di spiegazioni.
 - 2: Una contentezza intera siede dentro la tua domanda come a tavola apparecchiata: non costruisce e non promette, gode la cosa che ha nominato, una per sé, senza spartirla.
-- 3: La luce sulla tua faccenda cade sul pieno e non sul vuoto: illumina quello che c'è, uno alla volta, come si guardano i propri beni messi in fila. Quello che manca non entra in questo chiaro.
+- 3: La luce sulla tua faccenda cade sul pieno e non sul vuoto: illumina ciò che c'è, come si guardano i propri beni messi in fila; ciò che manca resta fuori dal chiaro.
 
 ### capovolta
 
-- 1: La regola non scritta di questo momento fa passare quello che piace subito e lascia fuori quello che nutre piano. Dentro la tua domanda la sazietà si rinnova a ogni assaggio, mentre la fame vera non viene toccata.
-- 2: Il valore nella tua faccenda si fissa sul primo istante: una cosa vale quanto piace appena la si prende; quello che renderebbe più a fondo non entra nel prezzo. Il gradimento immediato è l'unico metro.
-- 3: Suona su questa tua faccenda una nota contenta che si ripete: un brindisi rifatto senza l'occasione che lo giustifica. Il suono riempie la superficie e sotto non ha spessore, perciò va replicato per restare.
+- 1: La regola non scritta di questo momento fa passare ciò che piace subito e lascia fuori ciò che nutre piano: nella tua domanda la sazietà si rinnova, la fame vera resta intatta.
+- 2: Il valore nella tua faccenda si fissa sul primo istante: una cosa vale quanto piace appena la si prende, mentre ciò che renderebbe più a fondo non entra nel conto.
+- 3: Suona su questa tua faccenda una nota contenta che si ripete: un brindisi rifatto senza l'occasione che lo giustifica. Il suono riempie la superficie e sotto non ha spessore: va replicato per restare.
 
 ## Dieci di Coppe
 
@@ -736,15 +736,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Dentro la tua domanda il movimento è uno e va verso il basso: un bene compatto si deposita come una moneta che cade nel palmo. Non si divide in tanti rivoli, sta in un pezzo solo.
+- 1: Dentro la tua domanda il movimento è uno e va verso il basso: un bene compatto si deposita come una moneta che cade nel palmo, intero, senza dividersi in rivoli.
 - 2: Un'aria di terra pronta sta su questa tua faccenda: pesante, umida, senza frenesia. In quella temperatura una cosa materiale prende forma intera invece di restare un progetto detto.
 - 3: Questa tua faccenda pretende adesso qualcosa di solido sotto: una base che si possa toccare, non un'intenzione dichiarata. Al posto di una cosa intera non accetta la promessa di quella cosa.
 
 ### capovolta
 
 - 1: Una forza sbaglia il prezzo dentro la tua domanda: mette su una cosa concreta e a portata un cartellino più basso del suo, così la cosa resta dov'è pur essendo disponibile.
-- 2: La luce su questa tua faccenda illumina il lontano e lascia in ombra il pezzo solido a portata di mano: una cosa guardata tante volte smette di farsi vedere; il suo prezzo si confonde con lo sfondo.
-- 3: Vale qui una regola non detta: quello che è disponibile viene considerato già acquisito, perciò esce dal calcolo. Dentro la tua domanda il bene a portata figura come niente, mentre il lontano prende tutto il peso.
+- 2: La luce su questa tua faccenda illumina il lontano e lascia in ombra il pezzo solido a portata di mano: guardato troppe volte, smette di farsi vedere e si confonde con lo sfondo.
+- 3: Vale una regola non detta: ciò che è disponibile si considera già acquisito ed esce dal calcolo. Nella tua domanda il bene a portata vale niente e il lontano prende tutto il peso.
 
 ## Due di Denari
 
@@ -771,7 +771,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Questa forza pretende dalla tua questione che ogni parte abbia un nome e una mano assegnata: non ammette compiti dati per sottinteso; dove il nome manca la pretesa cade su tutti e su nessuno.
-- 2: Ciascuno segue la propria idea dell'opera, per la regola non scritta che il momento impone alla tua questione: trova strada il doppio lavoro sul medesimo punto, non ne trova la parte che nessuno ha preso.
+- 2: Ciascuno segue la propria idea dell'opera, per la regola non scritta che il momento impone alla tua questione: il doppio lavoro sullo stesso punto trova strada, la parte che nessuno ha preso no.
 - 3: Uno scollamento sta separando le mani che lavorano alla tua opera: tira ciascuna verso una lettura diversa del disegno, cosicché due tagli puntano dove non si incontrano.
 
 ## Quattro di Denari
@@ -798,7 +798,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Chiede una porta aperta e la trova aperta la forza che lavora sulla tua domanda: pretende il rientro di quello che era rimasto fuori e non ammette che la cosa resti sul gradino.
+- 1: Chiede una porta aperta e la trova aperta la forza che lavora sulla tua domanda: pretende il rientro di ciò che era fuori e non lascia la cosa sul gradino.
 - 2: Cambia la luce sulla tua domanda: non viene più da un chiarore che sta fuori portata, ma dal lato dove la cosa si trova adesso, così il freddo perde i suoi contorni.
 - 3: Passa dentro la tua domanda una corrente calda che attraversa la soglia nel verso del rientro: quello che mancava rifà la strada al contrario e il gradino smette di dividere.
 
@@ -820,15 +820,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il valore nella tua domanda si conta sul tempo che una cosa ha già dentro, non su quello che mostra fuori: un frutto verde pesa quanto le settimane che lo compongono. La fretta non entra in questo prezzo.
+- 1: Il valore nella tua domanda si conta sul tempo che una cosa ha dentro, non su quello che mostra: un frutto verde pesa quanto le sue settimane. La fretta non entra nel prezzo.
 - 2: Suona bassa la nota su questa faccenda: è il registro di chi sta appoggiato alla zappa e guarda, senza parlare al posto delle piante. Il discorso dentro la tua domanda procede a frasi lunghe.
 - 3: Un'aria immobile sta sopra la tua domanda: senza vento e senza strappi, con le mani tirate indietro da quello che è già piantato. In quella calma la sosta compie il lavoro di un attrezzo.
 
 ### capovolta
 
-- 1: Questa tua faccenda pretende adesso una resa visibile e non concede alla pianta il suo termine: chiede di vedere il frutto mentre il frutto si fa, poi mette sul ramo una scadenza che non gli appartiene.
+- 1: Questa tua faccenda pretende una resa visibile e non concede alla pianta il suo termine: vuole vedere il frutto mentre si forma, poi mette sul ramo una scadenza non sua.
 - 2: Una corrente nervosa passa dentro la tua domanda: le mani vanno e tornano sul ramo, saggiano, scostano le foglie, rimettono a posto. Il moto è continuo e non aggiunge niente alla pianta.
-- 3: Dentro questa tua faccenda una forza tira la riga in anticipo: somma quello che è entrato, misura quello che esce e dichiara chiuso un calcolo che il tempo non ha finito. Il seme viene accusato prima della stagione.
+- 3: Dentro questa tua faccenda una forza tira la riga in anticipo: somma quello che è entrato, misura quello che esce e chiude un calcolo che il tempo non ha finito.
 
 ## Otto di Denari
 
@@ -849,7 +849,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: La luce sulla tua questione è quella che cade su un raccolto già diventato proprio: mostra insieme il frutto e la mano che lo ha cresciuto, senza nessun terzo nome accanto.
-- 2: Dentro la tua domanda prende valore quello che non deve niente a nessuno: una parte guadagnata da sé conta più di una parte ricevuta in dono, mentre il permesso di terzi non serve a nulla.
+- 2: Dentro la tua domanda prende valore quello che non deve niente a nessuno: una parte guadagnata da sé conta più di una ricevuta in dono e il permesso di terzi non serve.
 - 3: Suona sulla tua questione una nota quieta, di quelle che non chiamano nessuno a guardare: il registro è del piacere privato e di un addestramento lungo che adesso obbedisce alla mano.
 
 ### capovolta
@@ -897,20 +897,20 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il tono dentro la tua domanda è quello di un cavallo che respira immobile sul sentiero giusto: nota bassa, zoccoli piantati, la meta visibile in fondo al viottolo.
-- 2: Sta sopra la tua domanda l'aria di un mattino in cui la partenza si rinvia: la strada è segnata, la bisaccia è colma e la temperatura è quella della cautela che raffredda ogni tappa.
+- 2: Sulla tua domanda pesa l'aria di un mattino in cui la partenza si rinvia: la strada è segnata, la bisaccia è piena e la cautela raffredda ogni tappa.
 - 3: La forza in azione chiede alla tua domanda che la cautela smetta di dettare l'orario: pretende un passo qualunque sul sentiero già tracciato, perché la costanza senza moto diventa pietra.
 
 ## Regina di Denari
 
 ### dritta
 
-- 1: La luce su questa tua faccenda è quella di una lampada bassa sul tavolo: mostra quello che si può usare oggi, le provviste e le mani che le dispongono; quello che non si tocca resta fuori dal chiaro.
+- 1: La luce sulla tua faccenda è quella di una lampada bassa sul tavolo: mostra ciò che si può usare oggi, le provviste e le mani che le dispongono, lasciando in ombra ciò che non si tocca.
 - 2: Il valore dentro la tua domanda si misura in nutrimento: una cosa vale quanto sfama, scalda o rimette qualcuno in piedi. Le parole che la accompagnano non entrano nel calcolo, perché la prova sta nel piatto.
-- 3: Vale su questa cosa una regola non detta: l'affetto si consegna in forma di provvista. Dentro la tua domanda passa quello che si può mettere in mano a qualcuno, mentre il buon pensiero da solo non passa.
+- 3: Su questa faccenda vale una regola non detta: l'affetto si consegna come provvista. Dentro la tua domanda passa ciò che si può mettere in mano a qualcuno, mentre il buon pensiero da solo non passa.
 
 ### capovolta
 
-- 1: Suona su questa tua faccenda il registro di un elenco letto a mano a mano: la spesa, le scadenze, i bisogni di ciascuno. L'elenco è ordinato e in una riga manca il destinatario, cioè chi lo scrive.
+- 1: Su questa tua faccenda suona il tono di un elenco letto a mano a mano: la spesa, le scadenze, i bisogni di ciascuno. È un elenco ordinato, ma manca chi lo scrive.
 - 2: Il criterio che decide qui dà prezzo a ogni bisogno con un altro nome sopra; quello intestato a te vale zero nello stesso calcolo, pur stando nella stessa lista.
 - 3: Una corrente esce da questa tua faccenda in tutte le direzioni e verso la sorgente non ne rientra nemmeno una: l'acqua irriga ogni aiuola dell'orto, tranne quella da cui il pozzo pesca.
 
@@ -990,7 +990,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una forza si prende il terreno dentro la tua domanda e lascia dietro di sé il campo spoglio: raccoglie le armi di chi si allontana; quello che guadagna le costa quanto resta sparso lì.
 - 2: Questa tua faccenda pretende che una parte di essa esca diminuita perché il resto stia in piedi: un pareggio non lo ammette. Il prezzo lo scrive sullo stesso foglio del guadagno, riga sotto riga.
-- 3: La luce sulla tua faccenda è dura e taglia in due la scena: da un lato il pezzo portato via, dall'altro quello che sta per terra. Entrambi appartengono alla stessa faccenda e si vedono nello stesso istante.
+- 3: La luce sulla tua faccenda è dura e taglia in due la scena: da un lato il pezzo portato via, dall'altro quello rimasto a terra, visibili nello stesso istante.
 
 ### capovolta
 
@@ -1052,7 +1052,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Passa dentro la tua domanda una corrente che va dal chiuso al detto: quello che girava sempre nello stesso cerchio esce in parole e perde metà del proprio volume nel passaggio.
 - 2: Dentro la tua domanda vale adesso la regola del mattino: trova strada quello che viene pronunciato davanti a qualcuno, non ne trova quello che resta a girare a testa bassa.
-- 3: Vale di più il detto che il rimuginato, nel conto che la tua domanda sta facendo adesso: la frase pronunciata fuori conta per quello che è, il giro interno perde l'autorità del buio.
+- 3: Vale di più il detto che il rimuginato, nel conto che la tua domanda fa adesso: la frase pronunciata fuori conta per quello che è, il giro interno perde l'autorità del buio.
 
 ## Dieci di Spade
 
@@ -1066,7 +1066,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Dentro la tua domanda il moto gira verso l'alto partendo da sotto: la spinta è lenta, viene dal basso e di quello di prima non resta niente da recuperare.
 - 2: Vale sulla tua domanda una regola di ricostruzione da zero: ha corso ogni gesto minimo che rimette in piedi qualcosa, mentre non ha corso il salvataggio di quanto è finito.
-- 3: Il criterio al lavoro dentro la tua domanda azzera il prima: quanto c'era non entra più nella misura e prende valore ogni cosa minuscola che si rialza. La partenza da terra pesa come un inizio intero.
+- 3: Il criterio al lavoro dentro la tua domanda azzera il prima: quanto c'era non entra più nella misura, mentre prende valore ogni minima cosa che si rialza da terra.
 
 ## Fante di Spade
 
@@ -1079,8 +1079,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Questa tua faccenda pretende che ogni cosa venga detta prima di essere verificata: il giro delle parole non le serve esatto, le serve rapido. Chi è nominato non viene convocato a confermare.
-- 2: La luce qui cade su chi è assente e lascia al riparo chi parla: dentro la tua domanda si vede bene il nominato, si vede male la bocca che lo nomina. Il taglio arriva da quella parte in ombra.
-- 3: Vale adesso una regola non detta: una cosa detta passa per una cosa saputa. Dentro questa tua faccenda la prova non viene chiesta a nessuno, perciò il riferito prende il posto del verificato.
+- 2: La luce cade su chi è assente e lascia al riparo chi parla: nella tua domanda si vede bene il nominato, male la bocca che lo nomina. Il taglio arriva da lì.
+- 3: Vale adesso una regola non detta: una cosa detta passa per una cosa saputa. Nella tua faccenda nessuno chiede la prova, perciò il riferito prende il posto del verificato.
 
 ## Cavaliere di Spade
 

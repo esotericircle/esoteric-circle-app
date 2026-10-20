@@ -61,13 +61,13 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il più alto che questa forza può dare alla tua domanda è un sapere che arriva prima delle parole e resta esatto anche senza prove: oltre quel punto non sale, perché nel momento in cui pretende di dimostrarsi smette di essere quel sapere.
-- 2: Al suo pieno rendimento la tua questione avrebbe una custode interna che riconosce il vero prima di saperlo spiegare: nessuna consultazione esterna, nessun parere raccolto in fretta, soltanto una quiete che tiene fermo quello che ha visto.
-- 3: Questa forza porta alla tua domanda una comprensione che matura nel silenzio e vale quanto una prova; quello che non arriva a darti è la parola pronta da mettere sul tavolo, perché il suo sapere resta intero solo finché non si traduce.
+- 1: Il punto più alto che questa forza può dare alla tua domanda è un sapere che arriva prima delle parole ed è esatto senza prove: oltre non sale, perché dimostrandosi smetterebbe di esserlo.
+- 2: Al suo pieno rendimento la tua questione avrebbe una custode interna che riconosce il vero prima di saperlo spiegare: nessun parere raccolto in fretta, una quiete che tiene fermo quello che ha visto.
+- 3: Questa forza porta alla tua domanda una comprensione che matura nel silenzio e vale una prova; non ti dà la parola pronta da mettere sul tavolo: quel sapere resta intero finché non si traduce.
 
 ### capovolta
 
-- 1: Il meglio che questa forza sa dare alla tua questione è il punto in cui il rumore si riconosce come rumore: non spiega nulla di nuovo, però smette di spacciarsi per ragionamento e lascia emergere il sapere che stava coperto.
+- 1: Il meglio che questa forza sa dare alla tua questione è il rumore che si riconosce come rumore: smette di spacciarsi per ragionamento e lascia emergere il sapere coperto.
 - 2: Di che cosa è fatto questo massimo, nel tuo caso: una sola ammissione, che la ragione messa davanti fa da copertura; nient'altro, nessuna rivelazione, nessun chiarimento prestato da fuori.
 - 3: Quello che al suo meglio questa forza lascia intero nella tua questione è il sapere coperto: soffocarlo non lo cancella, non lo consuma; resta intatto e disponibile nel momento in cui il frastuono cala.
 
@@ -90,7 +90,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Il punto in cui questa forza smette di salire è una forma che tiene anche quando nessuno la sorveglia: alla tua questione può dare durata, mai calore.
-- 2: Al suo pieno rendimento questa fermezza sa dare un impianto che si regge da sé, con la misura applicata per prima a chi la impone. Il meglio in gioco è un ordine senza guardiani sulla tua questione.
+- 2: Al suo pieno rendimento questa fermezza dà alla tua questione un impianto che si regge da sé, con la misura applicata prima di tutto a chi la impone: un ordine senza guardiani.
 - 3: Fra come la tua questione sta adesso e quanto potrebbe valere ferma su una regola scritta, la distanza ancora aperta è quella che separa un patto rinegoziato ogni volta da uno stabilito una volta sola.
 
 ### capovolta
@@ -151,7 +151,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento questa forza riporterebbe sotto il tuo nome l'unica parte del conto che è davvero tua: non tutte le colpe del mondo, non il caso, soltanto la riga che ti appartiene per via diretta.
+- 1: Al suo pieno rendimento questa forza riporterebbe sotto il tuo nome la sola parte del conto che è davvero tua: non tutte le colpe del mondo, soltanto la riga che ti appartiene.
 - 2: Quello che questa forza, al suo meglio, salva nella tua questione è la possibilità di un pareggio: finché il conto resta attribuito al caso nessuno lo può leggere; riconosciuto, almeno torna sul tavolo come cifra.
 - 3: Il punto oltre il quale questa forza non sale, nella tua faccenda, è il nome esatto messo sopra una conseguenza: la riconduce a chi la produce e non la alleggerisce di un grammo.
 
@@ -179,7 +179,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento un giro che si ripete sa dare una cosa sola e la dà intera: la forma esatta del cerchio che la tua questione ripercorre, misurata sul punto da cui ogni volta riparte.
+- 1: Al suo pieno rendimento un giro che si ripete sa dare una cosa sola e intera: la forma esatta del cerchio che la tua questione ripercorre, misurata sul punto da cui riparte.
 - 2: Fra il punto dove la tua questione gira adesso e quanto varrebbe lo stesso moto con una presa sopra, la distanza ancora aperta misura quello che manca: un appiglio, non più spinta.
 - 3: Se nulla lo sprecasse, questo meccanismo scomposto mostrerebbe quale dei suoi denti salta: il tuo problema apparirebbe nella sua misura, un giro guasto in un punto preciso invece di una sorte contraria.
 
@@ -209,13 +209,13 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il bene che questa forza dà alla tua questione è di specie amara: chiarezza sul conto invece di conforto. Il tetto qui è vedere che quella rinuncia non nutre nessuno, nemmeno chi la fa.
 - 2: Più su di questo non sale: l'altezza in gioco è il riconoscimento esatto di un'attesa che ha smesso di insegnare qualcosa alla tua questione.
-- 3: Al rendimento pieno questa sospensione vuota dà un conto onesto: quanto ti costa restare fermo, a fronte di quanto di quel costo arriva davvero a qualcuno.
+- 3: Al rendimento pieno questa sospensione vuota dà un conto onesto: quanto ti costa restare immobile, a fronte di quanto di quel costo arriva davvero a qualcuno.
 
 ## La Morte
 
 ### dritta
 
-- 1: Il massimo in gioco per la tua questione è fatto di due cose soltanto: un taglio netto dove il tempo di una forma è esaurito e uno spazio che resta vuoto e pulito dietro quel taglio.
+- 1: Il massimo per la tua questione è fatto di due cose: un taglio netto dove il tempo di una forma è esaurito e uno spazio vuoto e pulito dietro quel taglio.
 - 2: Al suo meglio questa forza libera il posto nel tuo caso e non lo arreda: arriva a chiudere senza residui quello che è esaurito, mentre quello che nasce dopo non è materia sua.
 - 3: Quello che resta intero, quando questa forza dà tutto, è ciò che nella tua domanda era vivo davvero: il taglio prende soltanto ciò che non ha più tempo.
 
@@ -230,7 +230,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Di che cosa è fatto il massimo che questa forza porta alla tua questione: una proporzione sola, trovata a mano, fra due materie che non sembrano stare nello stesso recipiente. Nient'altro, nessuna aggiunta.
-- 2: Il bene in gioco per la tua domanda è di specie lenta: non quantità di equilibrio, ma qualità della mescola, il tipo di calma che nasce quando due parti opposte stanno nella stessa misura senza sopraffarsi.
+- 2: Il bene in gioco per la tua domanda è di specie lenta: non quantità di equilibrio ma qualità della mescola, la calma di due parti opposte che stanno insieme senza sopraffarsi.
 - 3: Portata al suo meglio, questa forza dà alla tua questione una sola dose giusta: non la somma delle due spinte, nemmeno la vittoria di una, piuttosto un terzo stato che regge perché le contiene entrambe.
 
 ### capovolta
@@ -257,7 +257,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il massimo qui è fatto di quello che resta quando una facciata viene giù: i muri che portavano carico, il nome vero delle cose dette male, il conto di quanto il tuo lavoro poggiava sul falso.
+- 1: Il massimo qui è ciò che resta quando una facciata viene giù: i muri portanti, il nome vero delle cose dette male, il conto di quanto la tua costruzione poggiava sul falso.
 - 2: Un cedimento improvviso può togliere alla tua questione ogni appoggio finto e lasciare materia solida su cui ricominciare; fuori dalla sua portata, anche al meglio, sta un passaggio indolore.
 - 3: Al suo meglio questa scossa lascia intatto il vero: quello che viene giù è la parte della tua costruzione che reggeva per convenzione; il solido non lo tocca il colpo.
 
@@ -291,7 +291,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Questo schiarirsi, al suo meglio, restituisce alla tua questione la misura esatta di quello che al buio pareva enorme; non arriva a dare la faccenda sistemata, perché la proporzione è un dono a parte.
+- 1: Al suo meglio, questo schiarirsi restituisce alla tua questione la misura esatta di ciò che al buio pareva enorme; non la sistema, perché la proporzione è un dono a parte.
 - 2: Portato al rendimento pieno, questo dissolversi della nebbia lascia intero quello che la paura stava per far cedere nella tua questione: in alto resta quanto era soltanto ombra gonfiata.
 - 3: Il genere di bene qui è proporzione, non quiete: il tetto che questa forza tocca sulla tua domanda è la misura giusta delle cose, non il silenzio dei pensieri.
 
@@ -314,13 +314,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Quello che questa forza, al suo meglio, lascia intero nella tua questione è tutto: il richiamo convoca ogni parte della vita nello stesso momento e non scarta niente, perché un bilancio parziale non sarebbe un bilancio.
-- 2: Il meglio che questo richiamo sa dare alla tua domanda è un risveglio senza condanna: solleva quello che dorme e non emette verdetti, perché la sua forza sta nel chiamare in piedi e non nel pronunciare colpe.
+- 2: Il meglio che questo richiamo sa dare alla tua domanda è un risveglio senza condanna: solleva ciò che dorme e non emette verdetti, perché la sua forza è chiamare in piedi, non accusare.
 - 3: Se nulla la sprecasse, la tua questione avrebbe la forma di un conto generale chiuso e di una vita ripresa su misura diversa: nessun pezzo lasciato fuori, nessuna parte vecchia trascinata dentro per abitudine.
 
 ### capovolta
 
-- 1: Il bene che questa forza può portare alla tua questione è di specie mite: non più severità contro di te, piuttosto il giusto peso; la durezza con cui ti tratti si riconosce come un modo di non rispondere al richiamo.
-- 2: Tra il rinvio in cui la tua domanda resta e quanto potrebbe valerle c'è la differenza fra un conto immaginato in grande e un conto aperto sul tavolo: la prima misura possibile è quella vera, non la più grossa.
+- 1: Il bene possibile per la tua questione è mite: il giusto peso al posto della severità; la durezza con cui ti tratti si rivela un modo di non rispondere al richiamo.
+- 2: Fra il rinvio in cui resta la tua domanda e il suo meglio c'è la distanza fra un conto immaginato in grande e uno aperto sul tavolo: vale la misura vera.
 - 3: Composto di una cosa sola, questo massimo porta alla tua faccenda un'ammissione detta senza processo e il bilancio ridotto alla sua grandezza reale: nessun risarcimento, nessuna assoluzione in anticipo.
 
 ## Il Mondo
@@ -383,7 +383,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il punto più alto per la tua questione è una base provata e riconosciuta da chi sta attorno: oltre la tenuta festeggiata questa forza non sale, perché quello che accade dentro la casa non la riguarda.
+- 1: Il punto più alto per la tua questione è una base provata e riconosciuta da chi ti sta attorno: oltre la tenuta festeggiata insieme questa forza non sale.
 - 2: Al suo pieno rendimento questa forza mette alla prova le fondamenta del tuo caso e le fa vedere a tutti nello stesso giorno: una stabilità che nessuno discute più.
 - 3: Fra l'opera che sta in piedi nella tua questione e il giorno in cui chi sta attorno la saluta resta aperta una distanza: quella distanza è la misura intera di questa forza.
 
@@ -397,13 +397,13 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il punto in cui questa forza smette di salire, nella tua questione, è la mischia che misura: tutti spingono allo scoperto e da quello spintonare si capisce quanto pesa ciascuno. Più in alto di così non va.
+- 1: Il punto più alto di questa forza, nella tua questione, è la mischia che misura: tutti spingono allo scoperto e da quello spintonare si capisce quanto pesa ciascuno.
 - 2: A pieno rendimento la tua domanda avrebbe un attrito pulito: nessun nemico scelto, nessun premio da dividere, soltanto energie di pari grado che si urtano e si misurano a viso aperto.
-- 3: Questa forza porta alla tua questione il vantaggio del confronto acceso, dove le idee si provano addosso l'una all'altra; quello che non arriva a darti è un esito della contesa, perché una mischia misura e non assegna.
+- 3: Questa forza porta alla tua questione il vantaggio del confronto acceso, dove le idee si provano l'una contro l'altra; non arriva a darti chi prevale, perché una mischia misura e non assegna.
 
 ### capovolta
 
-- 1: Il meglio che questa forza sa dare alla tua questione è un conteggio: quanto costa ogni attrito tenuto in vita per abitudine, uno per uno, con la spesa accanto. La stanchezza, misurata, smette di sembrare inevitabile.
+- 1: Il meglio che questa forza sa dare alla tua questione è un conteggio: quanto costa ogni attrito tenuto in vita per abitudine. La stanchezza, misurata, smette di sembrare inevitabile.
 - 2: Fatto di sottrazioni, il massimo in gioco nella tua domanda contiene soltanto questo: gli attriti che covano portati alla luce con il loro prezzo; nessuna riconciliazione entra nel conto.
 - 3: Al suo meglio questa forza salva, nella tua questione, l'energia non ancora bruciata: una contesa senza posta in gioco, riconosciuta, si spegne da sé; quello che non viene speso resta intero.
 
@@ -445,9 +445,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Se niente la sprecasse, questa carta al rovescio rimetterebbe in fila le molte cose che la tua questione tiene in volo insieme: un ordine di partenza, invece di un grappolo che si ostacola.
+- 1: Se niente la sprecasse, questa forza rimetterebbe in fila le molte cose che la tua questione tiene in volo: un ordine di partenza, invece di un grappolo che si ostacola.
 - 2: Questo massimo è fatto di tempi ricuciti: ogni cosa che riguarda la tua domanda ritrova il proprio turno; la fretta che faceva inciampare diventa ritmo tenuto da una mano sola.
-- 3: Un ritmo lo si può rimettere in sesto, il tempo perduto no: alla tua questione questa carta al rovescio offre l'ordine di quello che resta in volo, non la restituzione di quello che è caduto.
+- 3: Un ritmo si può rimettere in sesto, il tempo perduto no: alla tua questione questa forza offre l'ordine di quello che resta in volo, non ciò che è già caduto.
 
 ## Nove di Bastoni
 
@@ -482,14 +482,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Fra l'idea appena affacciata nella tua questione e quanto potrebbe valere resta aperto tutto lo spazio della prova: un annuncio giovane, portato in giro e sperimentato, senza un impegno preso che lo chiuda.
-- 2: La corsa di questa forza porta alla tua domanda la notizia fresca e la voglia di provarla addosso; quello che non arriva a darti è il mestiere, perché un annuncio riconosce la strada e non la percorre.
+- 2: La corsa di questa forza porta alla tua domanda la notizia fresca e la voglia di provarla; non ti dà il mestiere, perché un annuncio indica la strada senza percorrerla.
 - 3: Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l'età dell'idea, non la sua riuscita; la prima curiosità, non l'apprendistato che verrebbe dopo.
 
 ### capovolta
 
 - 1: Senza sprechi, la tua questione avrebbe la serie delle accensioni messa in fila e leggibile: non un inizio solo, molti, ciascuno con il punto esatto in cui l'interesse passa altrove.
 - 2: Quello che questa forza, al suo meglio, lascia intero nella tua domanda è il ripetersi: tante partenze diverse mostrano una figura sola; quella figura è l'unica cosa che le molte scintille consegnano.
-- 3: Il tetto di questa forza, per la tua questione, è il riconoscimento del proprio ritmo: quante volte si accende e quanto dura ogni accensione. Nominare la cadenza è il suo limite, non il suo rimedio.
+- 3: Il tetto di questa forza, per la tua questione, è riconoscere il proprio ritmo: quante volte si accende, quanto dura ogni fiamma. Nominare la cadenza è il suo limite, non il rimedio.
 
 ## Cavaliere di Bastoni
 
@@ -510,7 +510,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Al suo meglio questo calore lascia intero lo spazio degli altri: la tua presenza attira senza chiedere obbedienza; quello che si salva è l'autonomia di chi si avvicina.
-- 2: Di che specie è il massimo qui: calore e non comando. Il più alto che questa fiamma sa dare alla tua questione è una presenza che scalda chi le sta accanto, mai una strada indicata a qualcuno.
+- 2: Calore e non comando è la specie di questo massimo: alla tua questione la fiamma sa dare una presenza che scalda chi le sta accanto, mai una strada imposta.
 - 3: Il punto in cui questa forza smette di crescere è l'attrazione: può rendere la tua presenza magnetica fin dentro una stanza chiusa; autorità su nessuno.
 
 ### capovolta
@@ -530,7 +530,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Quello che questa carta sa dare al rovescio è l'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l'impazienza di chi la guida.
-- 2: Fra un ordine lanciato di corsa e lo stesso ordine detto dopo aver sentito la squadra corre lo spazio che questa carta al rovescio può recuperare alla tua domanda: si misura in persone che restano.
+- 2: Fra un ordine lanciato di corsa e lo stesso ordine dato dopo aver sentito la squadra c'è lo spazio che questa forza può recuperare alla tua domanda: si misura in persone che restano.
 - 3: Se nulla lo sprecasse, questo fuoco alla rovescia scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l'autorità intatta.
 
 ## Asso di Coppe
@@ -636,7 +636,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Fra il posto che la tua questione occupa adesso e quello che un congedo pulito renderebbe libero resta un margine: la distanza di una partenza fatta senza rumore e senza accuse.
-- 2: Se nulla si sprecasse, quello che la tua questione lascia dietro resterebbe intero: nessuna porta sbattuta, nessuna spiegazione dovuta a chi rimane dentro.
+- 2: Se nulla si sprecasse, quello che la tua questione lascia dietro resterebbe intero: nessuna porta sbattuta, nessuna spiegazione dovuta a chi rimane dentro, nessun rancore portato in viaggio.
 - 3: Il massimo è fatto di due pezzi: un addio silenzioso che non rompe nulla dietro di te e una fame di senso che regge il passo lontano da quello che non nutre più.
 
 ### capovolta
@@ -650,13 +650,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Al suo meglio questa forza tiene in piedi, nella tua questione, il contentamento senza scuse: un appagamento preciso, goduto da una persona sola, che non chiede permesso a nessuno per essere pieno.
-- 2: Il meglio che questa forza sa dare alla tua domanda è una soddisfazione nominata: non benessere in generale, una cosa precisa che risulta piena e si lascia godere senza pagare un pedaggio di colpa.
+- 2: Il meglio che questa forza sa dare alla tua domanda è una soddisfazione nominata: non un benessere vago, una cosa precisa che risulta piena e si lascia godere senza pedaggio di colpa.
 - 3: Se nulla lo sprecasse, il massimo della tua questione avrebbe la forma di una sedia, una tavola apparecchiata per uno e nessuna fretta: la pienezza che non ha bisogno di testimoni per contare.
 
 ### capovolta
 
-- 1: Il bene che questa forza può portare alla tua questione è di specie amara: non una gioia più grande, piuttosto la taratura esatta di un piacere consumato fino in fondo che lascia la fame al suo posto.
-- 2: Tra la facciata che la tua domanda tiene adesso e quanto potrebbe valerle c'è un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.
+- 1: Il bene che questa forza può portare alla tua questione è di specie amara: non una gioia più grande, la misura esatta di un piacere consumato che lascia la fame al suo posto.
+- 2: Tra la facciata che la tua domanda tiene e quanto potrebbe valerle c'è un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.
 - 3: Fatto di un solo ingrediente, questo massimo dà alla tua questione il nome giusto del piacere che non colma; nessun risarcimento lo accompagna, nessuna gioia sostitutiva messa accanto per consolare.
 
 ## Dieci di Coppe
@@ -683,9 +683,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Una chiusura messa su per proteggersi può conservare al tuo sentire la parte più tenera e tenerla fuori dai colpi; quello a cui non arriva, nemmeno al suo meglio, è lo scambio con qualcuno.
+- 1: Una chiusura messa su per proteggersi può conservare al tuo sentire la parte più tenera, fuori dai colpi; quello a cui non arriva, nemmeno al suo meglio, è lo scambio con qualcuno.
 - 2: Al suo meglio questa fragilità salva la facoltà di sentire: il muro è sottile e provvisorio; quello che resta intero sotto la tua corazza è esattamente la cosa che la corazza ripara.
-- 3: Di che specie è il bene qui: custodia e non apertura. Il più alto che questa chiusura sa dare alla tua domanda è un sentire conservato per intero dentro, mai un sentire condiviso fuori.
+- 3: Di che specie è il bene qui: custodia e non apertura. Il massimo che questa chiusura sa dare alla tua domanda è un sentire conservato intero dentro, non condiviso fuori.
 
 ## Cavaliere di Coppe
 
@@ -697,7 +697,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Una parola affettuosa questa carta al rovescio la sa riportare ai fatti, la sua leggerezza no: alla tua questione tocca la misura esatta fra quello che viene detto e quello che viene fatto.
+- 1: Una parola affettuosa si lascia riportare ai fatti, la sua leggerezza no: alla tua questione questa forza dà la misura esatta fra quello che viene detto e quello che viene fatto.
 - 2: Al suo meglio questa carta salva il sentimento dentro una promessa vaga: l'affetto che riguarda la tua domanda resta vero anche quando i gesti che lo seguono arrivano scuciti.
 - 3: Onestà più che trasporto: il bene che questa carta al rovescio porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.
 
@@ -719,14 +719,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il punto più alto per la tua questione è una calma che tiene anche sotto pressione e offre riparo a chi sta vicino: oltre il riparo questa forza non va, perché i nodi di ciascuno restano di ciascuno.
+- 1: Il punto più alto per la tua questione è una calma che tiene sotto pressione e offre riparo a chi sta vicino: oltre il riparo non va, perché i nodi di ciascuno restano suoi.
 - 2: Al suo pieno rendimento questa forza governa il proprio stato d'animo senza spegnerlo: la mano resta ferma sul timone dei sentimenti che riguardano il tuo caso, con il mare sotto che si vede tutto.
 - 3: Fra l'onda che passa adesso sulla tua domanda e la quiete che la stessa maturità renderebbe corre un margine esatto: la distanza fra sentire molto e lasciarsi condurre.
 
 ### capovolta
 
 - 1: Se nulla andasse sprecato, la maturità che tocca la tua questione starebbe al comando invece dell'umore del giorno: lo stesso cuore, con la guida in mano al posto giusto.
-- 2: Il massimo in gioco è fatto di una competenza intatta e di un meccanismo smontato: l'umore che fa da leva sul tuo caso si lascia riconoscere per quello che è, leva e non sentimento.
+- 2: Il massimo in gioco è una competenza intatta e un meccanismo smontato: l'umore che fa da leva sul tuo caso si lascia riconoscere per quello che è, leva e non sentimento.
 - 3: Al suo meglio questa forza nomina chi sta davvero al comando nella tua domanda e non restituisce il governo: arriva a smascherare la leva, a riprendere il timone non arriva.
 
 ## Asso di Denari
@@ -735,13 +735,13 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il punto più alto di questa forza, nella tua questione, è un'apertura materiale intera: una sola, concreta, non ancora lavorata. Sopra quel seme non sale, perché il seme è tutto quello che sa offrire.
 - 2: Senza sprechi, la tua domanda avrebbe tra le mani un principio solido: terreno buono, una posta concreta, nessun bisogno di talento particolare per riconoscerne il valore.
-- 3: Questa forza porta alla tua questione il primo dato concreto, pesabile e in mano; quello che non arriva a darti è il mestiere per farlo crescere, perché un principio apre il campo e non lo coltiva.
+- 3: Questa forza porta alla tua questione il primo dato concreto, pesabile e in mano; non arriva a darti il mestiere per farlo crescere, perché un principio apre il campo e non lo coltiva.
 
 ### capovolta
 
 - 1: Il meglio che questa forza sa dare alla tua questione è una pesata rifatta: quello che hai davanti rimesso sulla bilancia al prezzo giusto, senza lo sconto della distrazione né il rincaro dell'allarme.
-- 2: Questo massimo, per la tua domanda, è fatto di una stima: il valore reale di una cosa materiale che sta sul tavolo adesso, con il suo prezzo accanto, senza nessun secondo tentativo compreso nel conto.
-- 3: Quello che questa forza, al suo meglio, lascia in piedi nella tua questione è la cosa stessa: un bene concreto non si consuma mentre lo guardi male; una stima sbagliata non ne cambia il peso.
+- 2: Questo massimo, per la tua domanda, è fatto di una stima: il valore reale di una cosa materiale che sta sul tavolo adesso, con il suo prezzo accanto e nessun secondo tentativo.
+- 3: Al suo meglio questa forza lascia in piedi nella tua questione la cosa stessa: un bene concreto non si consuma se lo guardi male e una stima sbagliata non ne cambia il peso.
 
 ## Due di Denari
 
@@ -782,8 +782,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Se nulla la trattenesse, questa mano si aprirebbe quanto basta: la tua questione resterebbe custodita e insieme capace di ricevere, con le dita allentate sul bordo di quello che tiene.
-- 2: Questo massimo è fatto di dita che si allentano: il timore di perdere perde il comando, la tua domanda smette di difendere e il palmo torna libero di prendere quello che gli viene porto.
-- 3: Una presa la si può allentare, il timore che l'ha chiusa resta sotto: alla tua questione questa carta al rovescio offre una mano capace di ricevere, con la paura seduta accanto.
+- 2: Questo massimo è fatto di dita che si allentano: il timore di perdere perde il comando, la tua domanda smette di difendersi e il palmo torna libero di prendere.
+- 3: Una presa la si può allentare, il timore che l'ha chiusa resta sotto: alla tua questione questa forza offre al massimo una mano capace di ricevere, con la paura seduta accanto.
 
 ## Cinque di Denari
 
@@ -796,7 +796,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Al rendimento pieno questa ripresa dà alla tua questione il rientro di chi era rimasto fuori: il meglio che sa offrire è un sostegno ritrovato, col freddo alle spalle.
-- 2: Fra il gelo in cui la tua questione è stata e il caldo di una stanza che si riapre resta un margine che questa forza misura: il massimo è quanto di quel tragitto si fa.
+- 2: Fra il gelo in cui la tua questione è stata e il caldo di una stanza che si riapre resta un tragitto: il massimo è quanto di quel tragitto si compie.
 - 3: Se nulla fosse sprecato, questo allentarsi avrebbe sulla tua domanda la forma di una porta riaperta a chi ha battuto i denti fuori: il sostegno accolto senza imbarazzo.
 
 ## Sei di Denari
@@ -818,7 +818,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Fra il campo che la tua questione tiene adesso e quanto potrebbe valerle c'è soltanto del tempo: una maturazione che lavora da sola, mentre le mani restano ferme a guardare quanto manca.
-- 2: La sosta che questa forza porta alla tua domanda ha un pregio preciso: fa vedere quanto vale il campo prima che sia pronto; quello che non arriva a darti è la raccolta, perché una stima conta e non stacca.
+- 2: Al suo meglio la sosta fa vedere alla tua domanda quanto vale il campo prima che sia pronto; quello che non arriva a darti è la raccolta, perché una stima conta e non stacca.
 - 3: Il genere di bene in gioco nella tua questione è lentezza e non abbondanza: conta la qualità dell'attesa, non la grandezza del cesto; il frutto giusto al tempo giusto, non il frutto più grosso.
 
 ### capovolta
@@ -847,7 +847,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Al suo meglio questa autonomia lascia intero il piacere privato: il frutto resta nelle mani che lo hanno fatto crescere; quello che si salva è il tuo diritto a goderne senza testimoni.
 - 2: Di che genere di bene si tratta: indipendenza e non abbondanza. Il tetto di questa forza per la tua questione è uno spazio tutto tuo in cui stare, mai una quantità da contare.
-- 3: Il punto in cui questa forza smette di salire è il bastare a sé: può dare al tuo giardino la quiete di chi non deve niente a nessuno, non la compagnia di chi lo attraversa.
+- 3: Il punto in cui questa forza smette di salire è il bastare a sé: può dare al tuo giardino la quiete di chi non deve niente, non la compagnia di chi lo attraversa.
 
 ### capovolta
 
@@ -861,7 +861,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Al suo meglio questa carta lascia in piedi la casa intera: quello che riguarda la tua questione passa di mano fra chi è venuto prima e chi viene dopo, senza che nessuno resti fuori.
 - 2: Durata più che abbondanza: il bene che questa carta porta alla tua domanda è materiale e lento, un patrimonio che regge il peso di tre generazioni sotto lo stesso tetto.
-- 3: Il punto oltre il quale questa solidità non sale è il nome della casa: alla tua questione può toccare un bene che resta in piedi oltre chi l'ha messo in piedi; il tetto è la solidità invece della tenerezza fra chi lo abita.
+- 3: Il punto più alto di questa solidità è il nome della casa: alla tua questione può toccare un bene che resta in piedi oltre chi lo ha costruito, più saldo che tenero.
 
 ### capovolta
 
@@ -895,7 +895,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il genere di massimo che tocca al tuo caso è conservazione e non movimento: la strada tracciata resta buona e intera, mentre il piede che non si stacca non diventa passo.
 - 2: Più in alto di un piano tenuto pronto questa forza non sale: la tua questione conserva ogni tappa al suo posto, con la prudenza che rimanda e non guasta nulla.
-- 3: Al suo pieno rendimento questa forza fa vedere dove si inceppa l'avanzare del tuo caso: la strada tiene e il blocco sta tutto nel piede, che rimanda ogni tappa una per una.
+- 3: Al suo meglio questa forza ti mostra dove si inceppa il tuo avanzare: la strada tiene e il blocco sta tutto nel piede, che rimanda ogni tappa una per una.
 
 ## Regina di Denari
 
@@ -907,8 +907,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Questa forza, nella tua questione, sa fare l'elenco completo di quello che viene curato ogni giorno; quello che non arriva a darti è il tempo in più, perché aggiungere una riga all'elenco non allunga la giornata.
-- 2: L'altezza massima di questa forza, per la tua domanda, è il tuo nome scritto nel registro delle cose da curare, una riga come le altre. Oltre quella riga non va, perché un registro annota e non provvede.
+- 1: Questa forza sa fare l'elenco completo di ciò che curi ogni giorno nella tua questione; non arriva a darti il tempo in più, perché una riga aggiunta non allunga la giornata.
+- 2: Il punto più alto di questa forza è il tuo nome scritto nel registro delle cose da curare, una riga come le altre: oltre non va, perché un registro annota e non provvede.
 - 3: Fra la cura che la tua questione distribuisce adesso e quanto potrebbe valerle c'è una riga sola: la stessa praticità rivolta anche a chi la esercita, con la stessa misura e senza sconto.
 
 ## Re di Denari
@@ -959,7 +959,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Fra il dolore tenuto a bocca chiusa e il dolore nominato per quello che è corre il margine di questa forza: il massimo sulla tua questione è quel passaggio, aspro quanto serve.
 - 2: Se niente andasse sprecato, questa ferita avrebbe sulla tua domanda la forma di un taglio pulito: una causa riconosciuta, un punto esatto, le lacrime lasciate scorrere fino in fondo.
-- 3: Il massimo è fatto di due cose dure: il nome del colpo, insieme al permesso di sentirlo. Sulla tua questione questa forza mette in chiaro il colpo, con la sua ora e il suo autore.
+- 3: Il massimo è fatto di due cose dure: il nome del colpo e il permesso di sentirlo. Sulla tua questione questa forza mette in chiaro chi ha colpito e quando.
 
 ### capovolta
 
@@ -977,22 +977,22 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Al suo meglio questa forza rimette in moto quello che riguarda la tua domanda e non dice su che cosa: il rientro nel movimento è suo, la scelta del lavoro da riprendere no.
+- 1: Al suo meglio questa forza rimette in moto ciò che riguarda la tua domanda senza dire su che cosa: il rientro è suo, la scelta del lavoro da riprendere no.
 - 2: Quello che resta intatto, quando questa forza rende tutto, è il vigore recuperato: il tuo caso torna al moto con le riserve piene, senza un'oncia di quiete sprecata.
-- 3: Il genere di bene al massimo è prontezza e non slancio: il passo che riprende nella tua questione è lento di proposito, perché una ripresa misurata è quanto questa forza sa dare.
+- 3: Il bene al massimo è prontezza, non slancio: il passo che riprende nella tua questione è lento di proposito, perché una ripresa misurata è quanto questa forza sa dare.
 
 ## Cinque di Spade
 
 ### dritta
 
-- 1: Al suo meglio questa forza tiene in piedi, nella tua questione, il conto esatto di una vittoria: il campo resta a chi lo prende, le armi raccolte si contano, il prezzo pagato sta scritto accanto alla posta.
+- 1: Al suo meglio questa forza tiene in piedi, nella tua questione, il conto esatto di una vittoria: il campo a chi lo prende, le armi raccolte contate, il prezzo scritto accanto alla posta.
 - 2: Il meglio che questa forza sa dare alla tua domanda è una sincerità ruvida: dice quanto vale il campo conquistato e quanto costa tenerlo, senza gonfiare la posta per giustificare la spesa.
 - 3: A pieno rendimento la tua questione avrebbe una resa dei conti pulita: la cosa ottenuta da una parte, il prezzo dall'altra, nessun orgoglio messo sul piatto per raddrizzare la somma.
 
 ### capovolta
 
 - 1: Il bene che questa forza può portare alla tua questione è di specie disarmata: non una ragione più solida, piuttosto una ragione lasciata cadere da chi potrebbe ancora spenderla tutta.
-- 2: Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c'è un gesto piccolo e di parte: le armi messe a terra da uno solo dei due, senza accordo e senza garanzia di risposta.
+- 2: Tra la ruggine che la tua domanda tiene adesso e quanto potrebbe valerle c'è un gesto piccolo: le armi messe a terra da uno solo dei due, senza accordo né garanzia di risposta.
 - 3: Fatto di un gesto unilaterale, questo massimo porta alla tua questione le armi deposte prima della resa dell'altro: nessuna riconciliazione garantita, nessun torto cancellato nel frattempo.
 
 ## Sei di Spade
@@ -1006,7 +1006,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Fra un distacco che pesa e un distacco impossibile resta un margine praticabile sulla tua questione: la partenza con il carico vecchio ancora dentro la valigia.
-- 2: Di questo massimo fanno parte il peso del congedo detto per quello che è, il movimento che avviene comunque e un cuore della tua questione che resta un poco indietro senza bloccare il resto.
+- 2: Di questo massimo fanno parte il congedo detto per quello che è, il movimento che avviene comunque e un cuore della tua questione che resta indietro senza bloccare il resto.
 - 3: Il bene possibile qui è di specie ruvida, onestà e non sollievo: la tua questione può muoversi portandosi appresso quello che non ha ancora deposto.
 
 ## Sette di Spade
@@ -1019,9 +1019,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Un gioco coperto che viene a galla può restituire al tuo nome la trasparenza e togliere il peso di una partita doppia; quello a cui non arriva, al suo meglio, è la scelta del momento.
+- 1: Un gioco coperto che viene a galla può restituire al tuo nome la trasparenza e togliere il peso di una partita doppia; al suo meglio non arriva a scegliere il momento.
 - 2: Al suo meglio questa emersione salva la coscienza: quello che si perde è il vantaggio tenuto nascosto; quello che resta intero nella tua questione è il poterla raccontare per intero.
-- 3: Di quale qualità sia il massimo, non di quanta: qui si tratta del respiro di chi non ha più niente da coprire. La tua coscienza può restare sgombra; nessun ripristino di quello che la copertura ha guastato.
+- 3: Il massimo è di qualità, non di quantità: il respiro di chi non ha più niente da coprire. La tua coscienza può restare sgombra, ma ciò che la copertura ha guastato non torna.
 
 ## Otto di Spade
 
@@ -1034,7 +1034,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Una libertà questa carta al rovescio la sa riconoscere, non la sa regalare: quello che la tua questione scopre è un recinto senza custode, aperto da prima che qualcuno lo notasse.
-- 2: Al suo meglio questa carta salva il timore invece di deriderlo: la paura che fermava la tua domanda resta una cosa seria; insieme a lei la via di uscita si vede a occhi asciutti.
+- 2: Al suo meglio questa carta prende sul serio il timore invece di deriderlo: la paura che fermava la tua domanda resta seria, ma accanto a lei l'uscita si vede a occhi asciutti.
 - 3: Sollievo più che trionfo: il bene che questa carta al rovescio porta alla tua questione è la scoperta di una libertà che c'era, con le corde che cadono da sé.
 
 ## Nove di Spade
@@ -1071,7 +1071,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Più in alto di una vigilanza pura questa forza non sale, nella tua questione: occhi aperti su tutto, niente dato per scontato, ogni notizia raccolta e riferita senza filtro.
 - 2: Senza sprechi, la tua domanda avrebbe un esploratore giovane al proprio servizio: uno che va, guarda e riporta quello che vede, con la lingua rapida e nessuna tesi da difendere.
-- 3: Questa forza porta alla tua questione lo sguardo che non si distrae e la prontezza di dire quello che trova; quello che non arriva a darti è il giudizio, perché un esploratore riferisce e non decide.
+- 3: Questa forza porta alla tua questione lo sguardo che non si distrae e la prontezza di dire quello che trova; non arriva a darti il giudizio, perché un esploratore riferisce e non decide.
 
 ### capovolta
 
@@ -1111,7 +1111,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il tetto di questa carta è un verdetto che tiene: la tua questione può avere una decisione presa con equità da chi ne risponde in pubblico; oltre la giustizia di quella decisione questa spinta non sale.
+- 1: Il tetto di questa carta è un verdetto che tiene: la tua questione può avere una decisione equa, presa da chi ne risponde in pubblico; oltre questa giustizia la spinta non sale.
 - 2: A pieno rendimento questa autorità dà alla tua domanda una regola detta chiara e applicata a sé per prima: la ragione messa al servizio del bene comune, col nome di chi firma.
 - 3: Fra un'opinione ferma e una decisione che qualcuno è disposto a far valere corre lo spazio che questa carta può coprire per la tua questione: la misura è in responsabilità assunta.
 
@@ -1119,4 +1119,4 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Se niente la sprecasse, questa severità al rovescio ragionerebbe con le persone dentro il conto: la tua questione avrebbe un giudizio esatto e abitabile, con la logica che lascia posto alla pietà.
 - 2: Questo massimo è fatto di due misure insieme: la regola che non cede di un millimetro e la compassione per chi la subisce, cucite nella stessa decisione sulla tua questione.
-- 3: Una durezza la si può temperare, la discussione vinta a freddo resta vinta: alla tua domanda questa carta al rovescio offre un rigore che si accorge delle persone; i legami tornano a contare.
+- 3: Una durezza si può temperare, mentre la discussione vinta a freddo resta vinta: alla tua domanda questa carta offre un rigore che si accorge delle persone.

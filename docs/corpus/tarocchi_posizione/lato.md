@@ -52,20 +52,20 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Ti chiama un inizio che non ti mostra il suo esito e la leggerezza con cui ne afferri il primo passo vale il coraggio che sembra mancarti.
-- 2: La fiducia che ti muove adesso non nasce da una mappa completa ma dalla voglia di partire con poco addosso e senza garanzie.
-- 3: Una partenza che nessuna garanzia sostiene ti pesa meno di quanto credi e la libertà di cominciare non si misura in bagagli.
+- 2: La fiducia che ti muove adesso non nasce da una mappa completa: nasce dalla voglia di partire con poco addosso, senza garanzie e senza aspettare di vedere la fine.
+- 3: Una partenza che nessuna garanzia sostiene ti pesa meno di quanto credi: la libertà di cominciare non si misura in bagagli, si misura nel primo passo che riesci a fare.
 
 ### capovolta
 
-- 1: Lo slancio che ti spinge non ha una direzione e il timore ti trattiene sull'orlo proprio mentre vorresti spiccare il volo.
+- 1: Lo slancio che ti spinge non ha ancora una direzione e un timore ti trattiene sull'orlo proprio mentre vorresti spiccare il volo: le due forze si annullano.
 - 2: Un impulso di cui non conosci la sorgente ti muove i piedi prima che tu abbia guardato da dove nasce: coraggio e fuga si somigliano molto, da fuori.
-- 3: Partire senza sapere perché è un modo di restare fedele all'impulso, oppure di scappare da qualcosa che non hai guardato in faccia.
+- 3: Partire senza sapere perché può essere un modo di restare fedele all'impulso, oppure di scappare da qualcosa che non hai mai guardato davvero in faccia.
 
 ## Il Mago
 
 ### dritta
 
-- 1: Gli strumenti li hai già addosso e la volontà di usarli ti appartiene, perciò un'intenzione può farsi gesto, parola detta, passo compiuto, senza aspettare condizioni perfette.
+- 1: Gli strumenti li hai già addosso e la volontà di usarli ti appartiene: per questo un'intenzione può farsi adesso gesto, parola detta, passo compiuto, senza aspettare condizioni perfette.
 - 2: Sai fare la cosa che pensi e la tua mano risponde al pensiero senza ritardo. Un progetto tenuto nella testa può scendere nelle dita e diventare oggetto, frase pronunciata, inizio.
 - 3: Quel che tieni fermo nella volontà può passare al mondo visibile adesso, perché hai la capacità e il materiale. Nulla ti trattiene tranne l'attesa di un segnale esterno.
 
@@ -85,15 +85,15 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Copri con le tue ragioni, o col frastuono, un intuito che aveva già risposto; il timore di sentire la risposta tiene la mente occupata.
-- 2: Un fiuto esatto resta sotto le spiegazioni che ti dai. Il segreto che cerchi non scappa, aspetta soltanto di venire accolto senza fretta.
-- 3: Le parole ordinate pesano sopra una certezza muta. Fermarti ad ascoltarla ti spaventa un poco, eppure è lì dentro che il sapere dorme.
+- 1: Copri con le tue ragioni, o col frastuono, un intuito che aveva già risposto: il timore di sentire quella risposta ti tiene la mente occupata tutto il giorno.
+- 2: Un fiuto esatto resta sepolto sotto le spiegazioni che ti dai. Il segreto che cerchi non scappa: aspetta soltanto di venire accolto senza fretta, appena smetti di parlare.
+- 3: Le parole ordinate che ti ripeti pesano sopra una certezza muta. Fermarti ad ascoltarla ti spaventa un poco, eppure è lì dentro che il tuo sapere dorme e aspetta.
 
 ## L'Imperatrice
 
 ### dritta
 
-- 1: La fertilità che ti attraversa nutre qualcosa di vivo senza affrettarne la crescita: un'idea, un legame, un seme interrato che matura col ritmo suo.
+- 1: La fertilità che ti attraversa nutre qualcosa di vivo senza affrettarne la crescita: un'idea, un legame, un seme interrato che matura col ritmo suo sotto le tue mani.
 - 2: Dare abbondanza ti riesce senza sforzo e la dolcezza con cui tocchi le cose le fa aprire, perché nelle tue mani la vita trova il modo di moltiplicarsi.
 - 3: Una generosità che non misura nulla scorre dalle tue dita e ciò che sfiori cresce perché lo lasci crescere con il tempo suo, senza strattoni.
 
@@ -109,11 +109,11 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La solidità che ti circonda ha fondamenta vere, non apparenze. Regge il peso delle tue decisioni e tiene insieme pezzi che da soli si sfalderebbero.
 - 2: Dentro la tua domanda agisce un principio d'ordine: dà forma, fissa confini, stabilisce chi risponde di cosa. Non ti stringe per capriccio, ti costruisce un riparo.
-- 3: Un'autorità ferma tiene il tuo quadro con regole, misure, responsabilità definite. La forza che la sostiene resiste perfino nei giorni in cui tu vacilli.
+- 3: Un'autorità ferma tiene in piedi il tuo quadro con regole, misure, responsabilità definite. La forza che la sostiene resiste perfino nei giorni in cui tu vacilli o dubiti.
 
 ### capovolta
 
-- 1: Quando la regola si stringe oltre il suo compito ti toglie respiro; se le fondamenta mancano, il tuo peso oscilla senza appoggio.
+- 1: Quando la regola si stringe oltre il suo compito ti toglie il respiro; quando invece le fondamenta mancano, il tuo peso oscilla senza un appoggio vero.
 - 2: Una rigidità che non piega più nulla, oppure un vuoto sotto i piedi. La stessa forza ti tocca serrata fino all'eccesso o del tutto assente.
 - 3: Ordine e disordine fanno un nodo solo. Una norma che fissa ogni dettaglio ti blocca il movimento; la sua assenza ti lascia sopra un terreno che cede.
 
@@ -123,7 +123,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Hai accanto un sapere più antico della tua domanda, tramandato di mano in mano prima che tu nascessi. Il maestro che te lo consegna non si mette al tuo posto.
 - 2: La fiducia in un maestro ti lega a una catena più lunga della tua vita. Non perdi la testa affidandola a chi insegna, impari a usarla.
-- 3: Un ordine che non hai inventato ti sostiene e il maestro onesto ti istruisce perché tu possa fare a meno di lui.
+- 3: Un ordine che non hai inventato ti sostiene dall'esterno e il maestro onesto che lo custodisce ti istruisce perché un giorno tu possa fare a meno di lui.
 
 ### capovolta
 
@@ -135,9 +135,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Una decisione d'amore tocca i tuoi valori di fondo e al bivio tiene la scelta in cui l'affetto e chi sei combaciano.
+- 1: Una decisione d'amore tocca i tuoi valori di fondo: al bivio regge soltanto la scelta in cui l'affetto e ciò che sei combaciano senza riserve.
 - 2: A un bivio i valori a cui tieni contano più del desiderio di un momento e l'amore tiene quando ti somiglia fino alla radice.
-- 3: Il bivio dell'amore poggia sui valori che riconosci tuoi e dal loro accordo con l'affetto dipende la scelta che fai.
+- 3: Il bivio dell'amore poggia sui valori che riconosci tuoi: dal loro accordo con l'affetto dipende la scelta che fai, più che dal desiderio del momento.
 
 ### capovolta
 
@@ -150,7 +150,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Tieni le redini di due forze che tirano in versi opposti e le fai andare insieme verso una meta. La padronanza, non la fortuna, è ciò che ti fa avanzare.
-- 2: Lo slancio ce l'hai e la direzione pure: due tensioni che si contrastano diventano un unico traino sotto la tua guida.
+- 2: Lo slancio ce l'hai e la direzione pure: sotto la tua guida due tensioni che si contrastano diventano un unico traino, perché la mano che le tiene non esita.
 - 3: Due tiri che vanno in direzioni avverse stanno nelle tue mani come un attacco solo e il governo del movimento vale come vittoria senza bisogno di fortuna.
 
 ### capovolta
@@ -163,13 +163,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Una bilancia pesa senza sconti: ciò che hai messo in moto torna a te con la misura esatta con cui lo hai mandato.
-- 2: La verità non si negozia, la responsabilità resta in mano a te. Guardare in faccia il peso delle tue azioni rimette d'accordo i due piatti.
-- 3: Pesare senza indulgenza ciò che hai fatto ti rende la misura esatta delle cose, perché causa ed effetto reggono lo stesso filo.
+- 1: Una bilancia pesa senza sconti: ciò che hai messo in moto torna a te con la misura esatta con cui lo hai mandato, né più leggero né più pesante.
+- 2: La verità non si negozia e la responsabilità resta in mano a te: guardare in faccia il peso delle tue azioni è ciò che rimette d'accordo i due piatti.
+- 3: Pesare senza indulgenza ciò che hai fatto ti restituisce la misura esatta delle cose, perché causa ed effetto reggono lo stesso filo e nessuno dei due mente.
 
 ### capovolta
 
-- 1: L'effetto che hai davanti è nato da una tua scelta e lo metti in carico alla sorte oppure a un altro nome. La firma però è la tua e la bilancia non si rimette in pari finché quel nome non torna al suo posto.
+- 1: L'effetto che hai davanti è nato da una tua scelta e lo metti in carico alla sorte o a un altro nome: la firma però è tua e la bilancia aspetta che torni al suo posto.
 - 2: Quello che ti è tornato indietro porta dentro una tua decisione che hai messo sul nome di qualcun altro. Il conto resta registrato dove l'hai aperto e lì rimane in sospeso.
 - 3: Sta sulla tua strada una conseguenza che non riconosci per tua: nessuno te l'ha caricata addosso, l'hai prodotta scegliendo e il peso resta nel piatto in cui l'hai messo tu.
 
@@ -179,12 +179,12 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il silenzio ti serve più della compagnia e la lampada che porti rischiara soltanto lo spazio accanto ai piedi tuoi, abbastanza per scegliere il prossimo appoggio.
 - 2: Rallenti e porti la domanda dentro, lontano dal rumore degli altri; una lanterna piccola in mano tua vale la luce del giorno quando ti fidi del buio intorno.
-- 3: Una ricerca solitaria ti chiama e il poco chiarore che tieni alto basta a mostrarti il gradino successivo, non l'intero disegno.
+- 3: Una ricerca solitaria ti chiama e il poco chiarore che tieni alto basta a mostrarti il gradino successivo: non l'intero disegno, ma abbastanza per muovere il piede.
 
 ### capovolta
 
 - 1: La solitudine che doveva schiarirti le idee ti pesa addosso e la lampada girata contro il muro non mostra più il volto di nessuno.
-- 2: Chiuderti a chiave ha smesso di darti chiarezza e il raccoglimento somiglia a un nascondiglio, con la lanterna spenta fra le dita tue.
+- 2: Chiuderti a chiave ha smesso di darti chiarezza: il raccoglimento somiglia ormai a un nascondiglio e la lanterna resta spenta fra le tue dita.
 - 3: C'è un buio attorno che non rischiari più e il ritiro tuo tiene lontane anche le mani tese verso di te, mentre la fiamma resta girata all'interno.
 
 ## La Ruota della Fortuna
@@ -192,7 +192,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Un giro largo tocca la tua domanda. Ciò che sta in alto scende, ciò che sta in basso risale; il momento dello scatto non lo decidi tu.
-- 2: Gira il destino e porta in cima ciò che stava sotto. La tua vicenda non ha una forma stabile ma una fase; nessuna fase dura.
+- 2: Gira il destino e porta in cima ciò che stava sotto: la tua vicenda adesso non ha una forma stabile ma una fase che, come tutte, non dura per sempre.
 - 3: C'è una rotazione in corso che non attende il tuo permesso: alza, abbassa, rimescola. La sorte che ti riguarda adesso somiglia a un ingranaggio in moto.
 
 ### capovolta
@@ -205,14 +205,14 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Una mitezza che non cede nulla addomestica in te l'istinto scalpitante e il tuo nervo più selvatico si calma perché nessuno lo aggredisce.
+- 1: Una mitezza che non cede nulla addomestica l'istinto che scalpita in te: il tuo nervo più selvatico si calma proprio perché nessuno lo aggredisce o lo sfida.
 - 2: Ti bastano una mano calma e un cuore mite per tenere l'istinto che si agita. Il vigore che non chiude il pugno è il tuo.
-- 3: Il coraggio che ti riguarda ora è dolce. Domini la belva che hai dentro accarezzandola e non colpendola, con fermezza tenera.
+- 3: Il coraggio che ti riguarda ora è dolce: domini la belva che hai dentro accarezzandola e non colpendola, con una fermezza tenera che non conosce strattoni.
 
 ### capovolta
 
-- 1: Dubiti della tua tenuta, oppure usi con te la durezza che eviteresti con un altro. Il vigore stretto a pugno ti sfugge.
-- 2: La mano che stringe per domare non doma. Quando la tua mitezza viene a mancare anche l'istinto ti sembra ingovernabile.
+- 1: Dubiti della tua tenuta, oppure usi con te la durezza che eviteresti con chiunque altro: il vigore stretto a pugno ti sfugge proprio mentre provi a trattenerlo.
+- 2: La mano che stringe per domare non doma: quando la tua mitezza viene a mancare, anche l'istinto più quieto ti sembra ingovernabile e ogni scatto ti sorprende.
 - 3: Una severità puntata contro di te ti indurisce il coraggio e il nervo che ti pare fuori controllo perde la dolcezza che lo teneva.
 
 ## L'Appeso
@@ -225,7 +225,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Un'attesa che ha smesso di insegnare ti trattiene nello stallo e la rinuncia in cui ti tieni somiglia al timore travestito da nobiltà.
+- 1: Un'attesa che ha smesso di insegnare ti trattiene nello stallo e la rinuncia in cui ti tieni somiglia al timore di scendere travestito da nobiltà.
 - 2: Da questa pausa non ti torna più nulla e il sacrificio che ti imponi non riscatta nessuno. Lo stallo si regge sul timore di scendere.
 - 3: L'attesa ha esaurito la sua lezione e ciò che chiami pazienza ti trattiene senza darti nulla in cambio. Il nodo sta nel timore di muoverti.
 
@@ -241,7 +241,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Tieni per il bordo una cosa che ha già finito di esistere e le tue dita si stringono sopra un guscio vuoto. La fine è avvenuta, il riconoscerla no.
 - 2: Il mutamento è accaduto fuori di te mentre la tua presa resiste ancora. Il peso sta nelle mani che stringono, non nella cosa che se ne sta andando.
-- 3: A mani chiuse reggi il coperchio di qualcosa che ha già smesso. Allarga le tue dita e il dolore cambia natura, da strappo diventa respiro.
+- 3: A mani chiuse reggi il coperchio di qualcosa che ha già smesso di esistere. Quando allarghi le tue dita, il dolore cambia natura: da strappo diventa respiro.
 
 ## La Temperanza
 
@@ -249,13 +249,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il dosaggio paziente unisce due cose che sembravano incompatibili. Mescoli poco per volta e misuri senza fretta, finché ciò che hai in pezzi ritrova forma.
 - 2: Un travaso lento fra due vasi tiene insieme il caldo e il freddo mentre tu non ne scegli nessuno. L'armonia nasce dalla calma con cui dosi.
-- 3: Andando piano accordi fra loro le parti di te che non si parlavano. La tua pazienza è un'arte di misura, non una rinuncia.
+- 3: Andando piano accordi fra loro le parti di te che non si parlavano più. La tua pazienza qui è un'arte di misura e di dosaggio, non una rinuncia.
 
 ### capovolta
 
-- 1: Un ingrediente copre tutti gli altri e il ritmo ti salta fra scatti e pause, mentre due parti di te hanno smesso di parlarsi.
+- 1: Un ingrediente copre tutti gli altri e il ritmo ti salta fra scatti e pause improvvise, mentre due parti di te hanno smesso di parlarsi e di accordarsi.
 - 2: Corri su una cosa sola e lasci l'altra a secco. Dentro di te due metà non si accordano, perché l'armonia nasce da una pratica di ogni giorno.
-- 3: La misura ti sfugge fra uno slancio e un rinvio, mentre due spinte interne tirano in direzioni opposte senza accordarsi.
+- 3: La misura ti sfugge fra uno slancio e un rinvio, mentre due spinte interne tirano in direzioni opposte senza accordarsi: da qui nasce la fatica che senti a fine giornata.
 
 ## Il Diavolo
 
@@ -263,35 +263,35 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Ti tiene qualcosa che ammetti a metà, una catena fatta di desiderio e di abitudine, mentre il suo potere dura fino al momento in cui la chiami per nome.
 - 2: Il legame che ti incatena nasce da un piacere vero e proprio per questo regge, finché non lo guardi in faccia e lo chiami col suo nome esatto.
-- 3: Una presa che ti piace tenere addosso ti lega più di quanto riesci ad ammettere; nell'ombra non abita colpa, soltanto materia da guardare.
+- 3: Una presa che ti piace tenere addosso ti lega più di quanto riesci ad ammettere; nell'ombra non abita colpa, soltanto materia da guardare con calma e chiamare per nome.
 
 ### capovolta
 
 - 1: Vedi il nodo che ti tratteneva e la catena perde di colpo metà del peso suo, perché senza il buio attorno non ha la forza che sembrava avere.
 - 2: Un anello si apre fra le dita tue e il desiderio che ti comandava dal buio adesso sta davanti, sciolto a metà solo perché lo hai riconosciuto.
-- 3: Qualcosa che ti legava ha smesso di essere invisibile e scioglierlo diventa un gesto lento, fatto con dolcezza, non uno strappo.
+- 3: Qualcosa che ti legava ha smesso di essere invisibile e scioglierlo diventa un gesto lento, fatto con dolcezza e pazienza, non uno strappo che lascia altri segni.
 
 ## La Torre
 
 ### dritta
 
 - 1: Il colpo dall'alto non discute: abbatte in un istante ciò che stava su basi finte. Dopo, in piedi ti resta soltanto il materiale sano.
-- 2: Cade adesso la costruzione che reggeva su un'apparenza. Il frastuono è grande; fra le macerie trovi intatto soltanto ciò che ti appartiene.
+- 2: Cade adesso la costruzione che reggeva su un'apparenza. Il frastuono è grande; fra le macerie trovi intatto soltanto ciò che ti appartiene davvero e su cui puoi contare.
 - 3: Una scossa improvvisa smonta l'impalcatura e lascia nudo il nucleo. Non intacca il solido ma elimina il finto, mostrandoti su cosa poggia la tua domanda.
 
 ### capovolta
 
 - 1: Rimandi una caduta che si annuncia, oppure la stai attraversando con le ossa ancora dolenti. In ogni caso il falso regge in apparenza e ti costa fatica tenerlo su.
-- 2: La scossa resta sospesa. Qualcosa nel tuo quadro vacilla da sotto e tiene ancora, puntellato da sforzi che fai senza nominarli.
-- 3: Trattenere il crollo assorbe energia. Tu lo senti nel fiato corto, nella stanchezza di reggere una cosa che da sé starebbe già a terra.
+- 2: La scossa resta sospesa. Qualcosa nel tuo quadro vacilla da sotto e tiene ancora, puntellato da sforzi che fai ogni giorno senza nominarli e che ti stancano.
+- 3: Trattenere il crollo assorbe energia. Tu lo senti nel fiato corto, nella stanchezza di reggere ogni giorno una cosa che da sé starebbe già a terra da tempo.
 
 ## La Stella
 
 ### dritta
 
 - 1: La speranza che credevi finita ti bagna di nuovo e l'ispirazione che ti arriva ora non fa rumore ma ti versa addosso una calma chiara.
-- 2: Una quiete luminosa ti rassicura senza gridare e l'ispirazione che ti torna addosso somiglia a un cielo lavato dalla pioggia.
-- 3: Dopo la tempesta ti resta una luce piccola e ferma. La fiducia torna senza clamore, come acqua versata nella sete.
+- 2: Una quiete luminosa ti rassicura senza gridare mai e l'ispirazione che ti torna addosso, piano, somiglia a un cielo appena lavato dalla pioggia della notte.
+- 3: Dopo la tempesta ti resta una luce piccola e ferma che non si spegne. La fiducia torna senza clamore, piano, come acqua fresca versata nella sete.
 
 ### capovolta
 
@@ -310,7 +310,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: C'è una nebbia che si apre e le dimensioni delle tue paure tornano a quelle vere: alla luce avevano più ombra che peso.
-- 2: Alla luce del giorno la sagoma che ti spaventava si ridimensiona e l'inganno notturno perde il suo potere su di te.
+- 2: Alla luce del giorno la sagoma che ti spaventava torna alla sua misura e l'inganno notturno perde, un poco alla volta, il suo potere su di te.
 - 3: La confusione si dirada e distingui di nuovo i profili. Tornare a fidarti dei tuoi occhi ti costa meno adesso che l'ombra si è ritirata.
 
 ## Il Sole
@@ -324,7 +324,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: La luce non è calata di un grado, soltanto non ti raggiunge la pelle: un velo sottile ti separa dal calore ed è fatto spesso di un pensiero vecchio.
-- 2: Il tuo entusiasmo resta trattenuto dietro una nube e il calore, pur presente, non ti tocca la pelle. Spostala e la gioia torna addosso.
+- 2: Il tuo entusiasmo resta trattenuto dietro una nube e il calore, pur presente, non ti tocca la pelle. Basta spostarla e la gioia torna a scaldarti addosso.
 - 3: Ridere ti costa fatica mentre la giornata è chiara, perché un pensiero vecchio si è messo davanti al tuo calore. Niente si è spento, qualcosa sta in ombra.
 
 ## Il Giudizio
@@ -333,13 +333,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Senti un richiamo che non viene da fuori e ti chiede se la storia che abiti è ancora tua. Non ti mette sotto accusa, ti sveglia.
 - 2: La chiamata ti raggiunge come un suono che attraversa il sonno. Tiri le somme di ciò che hai fatto e il bilancio apre una vita più vera, più tua.
-- 3: C'è un appello che ti nomina e non ti condanna: lasci indietro chi eri per fare spazio a chi stai diventando adesso.
+- 3: C'è un appello che ti nomina e non ti condanna: ti chiede di lasciare indietro chi eri per fare spazio a chi stai diventando adesso, giorno dopo giorno.
 
 ### capovolta
 
-- 1: Il bilancio che avverti necessario slitta ancora, oppure te lo fai addosso con una durezza che non apre niente.
+- 1: Il bilancio che avverti necessario slitta ancora di qualche giorno, oppure te lo fai addosso con una durezza che non apre niente e chiude ogni via.
 - 2: Rimandi le somme che pure ti sembrano urgenti, o trasformi il richiamo in un rimprovero contro di te. Il risveglio passa dall'ascolto, non dall'asprezza.
-- 3: Una durezza tutta tua copre il perdono che non ti concedi, così la rinascita resta sospesa a metà senza trovare un inizio.
+- 3: Una durezza tutta tua copre il perdono che non ti concedi, così la rinascita resta sospesa a metà strada senza trovare il punto da cui cominciare.
 
 ## Il Mondo
 
@@ -352,7 +352,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Manca poco alla chiusura e un pezzo resta fuori dal cerchio, un dettaglio piccolo che tiene aperta la pienezza mentre tutto il resto tuo è a posto.
-- 2: La pienezza ti sfiora già e un ultimo frammento ancora sciolto tiene il giro aperto, abbastanza vicino da sentirlo sotto le dita.
+- 2: La pienezza ti sfiora già e un ultimo frammento ancora sciolto tiene il giro aperto, così vicino da sentirlo sotto le dita come un filo da annodare.
 - 3: Un compimento quasi tuo resta sospeso per un dettaglio e la soglia che ti separa dall'intero è sottile, larga come un gesto rimasto da fare.
 
 ## Asso di Bastoni
@@ -360,8 +360,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una scintilla si apre nel tuo desiderio e vuole combustibile subito. È calore allo stato grezzo, senza disegno ancora; ha la fretta tipica delle cose appena nate.
-- 2: Brucia in te un avvio, un'idea che spinge per uscire e non sopporta rinvii. L'energia non ti manca, difetta soltanto di forma.
-- 3: Il fuoco iniziale ti attraversa adesso e dura quanto dura una fiammata, intenso e breve, spento se nessuno lo alimenta.
+- 2: Brucia in te un avvio, un'idea che spinge per uscire allo scoperto e non sopporta rinvii. L'energia non ti manca affatto: le difetta soltanto una forma, un primo contorno da darle.
+- 3: Il fuoco iniziale ti attraversa adesso e dura quanto dura una fiammata, intenso e breve: si spegne presto se nessuno lo alimenta con un gesto, una prova, un primo passo concreto.
 
 ### capovolta
 
@@ -381,7 +381,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il mondo che tieni in mano non ti dice ancora da che parte andare e due possibilità ugualmente aperte ti fermano sul bordo.
 - 2: Una paura di osare ti tiene sulla soglia e la direzione che credevi chiara ti si confonde mentre tieni la mappa in mano.
-- 3: Vedi largo e non ti muovi: l'orizzonte ti attrae, il primo passo ti sfugge e il disegno resta senza bordi precisi.
+- 3: Vedi largo e non ti muovi: l'orizzonte ti attrae, il primo passo ti sfugge ogni volta e il tuo disegno resta senza bordi precisi né una meta.
 
 ## Tre di Bastoni
 
@@ -393,7 +393,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Quello che avevi mandato lontano è rientrato e porta merce diversa da quella ordinata. Non c'è un ritardo da aspettare: c'è una resa, da pesare per quello che è e non per quello che avevi scritto sulla lista.
+- 1: Ciò che avevi mandato lontano è rientrato con merce diversa da quella ordinata. Non c'è un ritardo da aspettare: c'è una resa da pesare per ciò che è, non per la tua lista.
 - 2: Rientra ciò che hai spedito oltre l'orizzonte, con un carico che non somiglia all'ordine partito. Il conto delle attese si rifà adesso sulla merce scaricata, mentre quella immaginata resta una tua idea.
 - 3: Le casse che tornano dal fronte lontano le apri e dentro trovi altro. La risposta è piena, soltanto che risponde a una domanda un poco diversa da quella che avevi mandato.
 
@@ -415,41 +415,41 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Un attrito vivo accende i pensieri: ti scontri, ribolli, ti misuri con chi ti sta davanti senza che nessuno voglia ferire.
+- 1: Un attrito vivo ti accende i pensieri: ti scontri, ribolli, ti misuri con chi ti sta davanti, in una gara aperta dove nessuno vuole davvero ferire.
 - 2: Giochi di braccio con chi ha idee diverse dalle tue. Il calore dello scontro ti fa crescere se lo spendi per misurarti, non per schiacciare.
-- 3: La competizione scalda l'aria intorno a te, perché nessuna delle parti vuole cedere. Da un confronto tenuto bene esci con muscoli nuovi.
+- 3: La competizione scalda l'aria intorno a te, perché nessuna delle parti vuole cedere il passo. Da un confronto tenuto bene, senza colpi bassi, esci con muscoli nuovi.
 
 ### capovolta
 
-- 1: Spendi forze in scaramucce che non ti portano niente, oppure lasci covare sotto la cenere un attrito che non nomini.
-- 2: Una tensione girata a vuoto ti porta via fiato, o l'urto che eviti brontola dentro la pelle senza uscire allo scoperto.
-- 3: Scintille piccole ti bruciano addosso una dopo l'altra, mentre l'asprezza che non affronti resta a scaldarsi da sola, lontana dalle parole.
+- 1: Spendi forze in scaramucce che non ti portano niente, oppure lasci covare sotto la cenere un attrito che non nomini e che intanto ti stanca.
+- 2: Una tensione girata a vuoto ti porta via il fiato, oppure l'urto che eviti brontola dentro la pelle giorno dopo giorno senza mai uscire allo scoperto.
+- 3: Scintille piccole ti bruciano addosso una dopo l'altra, mentre l'asprezza vera che non affronti resta a scaldarsi per conto suo, lontana dalle parole che servirebbero.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: Gli occhi degli altri si posano su te con approvazione e il riconoscimento che ricevi poggia su lavoro vero, non su fortuna.
-- 2: Ricevi applauso davanti a testimoni e il merito tuo viene nominato in pubblico, portato bene quando lo tieni alla misura esatta.
-- 3: Un onore pubblico ti spetta per ciò che hai portato a termine e reggerlo senza gonfiarti né rimpicciolirti è la parte delicata della faccenda.
+- 1: Gli occhi degli altri si posano su di te con approvazione e il riconoscimento che ricevi poggia su un lavoro vero, non su un colpo di fortuna.
+- 2: Ricevi un applauso davanti a testimoni e il tuo merito viene nominato in pubblico: lo porti bene quando lo tieni alla sua misura esatta, né più né meno.
+- 3: Un onore pubblico ti spetta per ciò che hai portato a termine con fatica e reggerlo senza gonfiarti né rimpicciolirti è la parte delicata della faccenda.
 
 ### capovolta
 
-- 1: Il valore tuo regge anche quando nessuna mano batte le palme e il silenzio attorno dice poco della sostanza che porti addosso.
+- 1: Il tuo valore regge anche quando nessuna mano batte le palme e il silenzio che hai attorno dice poco della sostanza vera che porti addosso.
 - 2: Aspetti un riconoscimento che tarda e il dubbio su te cresce nel vuoto lasciato dagli altri, mentre la sostanza del lavoro tuo non è diminuita di un grammo.
-- 3: Nessuno nomina il risultato tuo e il valore si appoggia tutto alle spalle tue, senza mani che applaudono a confermarlo.
+- 3: Nessuno nomina il tuo risultato e il valore si appoggia tutto sulle tue spalle, senza mani che applaudono a confermarlo né parole di stima a sostenerlo.
 
 ## Sette di Bastoni
 
 ### dritta
 
 - 1: La difesa che ti tocca adesso è di chi sta più in alto e lo sa. Attorno premono richieste, obiezioni, pretese; il terreno sotto i tuoi piedi resta tuo.
-- 2: Resistere costa fatica e in questo momento ti riesce. La pressione esterna è reale, il tuo punto non arretra di un dito.
+- 2: Resistere costa fatica e in questo momento ti riesce bene. La pressione esterna è reale, eppure il tuo punto non arretra di un dito e il terreno resta tuo.
 - 3: Un assedio attorno a ciò in cui credi mette alla prova il tuo coraggio e insieme lo dimostra. Hai braccia, fiato, ragioni: il vantaggio sta dalla tua parte.
 
 ### capovolta
 
-- 1: Contro un'ombra tieni la guardia alta e ti consumi a difendere un terreno sgombro. L'assalto che aspetti è fermo.
+- 1: Contro un'ombra tieni la guardia alta e ti consumi a difendere un terreno ormai sgombro. L'assalto che aspetti è fermo da tempo e la fatica la paghi tu.
 - 2: Un allarme che non cala ti porta a tenere una collina che l'avversario ha già lasciato e di fronti aperti ne senti troppi.
 - 3: Il fronte si è svuotato e la guardia alta ti porta via le forze. La fatica di tenere ferme le colline ti sommerge.
 
@@ -458,7 +458,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una corsa già partita ti porta con sé: le cose capitano in fretta, i messaggi si accavallano e il tuo tempo di pensare si accorcia.
-- 2: Tutto accelera insieme, le notizie ti raggiungono a raffica e il ritmo ti passa sotto i piedi senza chiederti il permesso.
+- 2: Tutto accelera insieme, le notizie ti raggiungono a raffica e il ritmo ti passa sotto i piedi senza chiederti il permesso: tocca a te stare al passo.
 - 3: Le risposte che attendevi ti piovono addosso in poco tempo, una dopo l'altra. La rapidità con cui accadono ti supera di un passo.
 
 ### capovolta
@@ -506,16 +506,16 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Una cosa nuova ti prende e quella di ieri resta indietro: non si spegne da sé, la scalza quella che arriva dopo prima che abbia avuto il tempo di crescere.
-- 2: Il fuoco non ti manca mai, gli manca il turno: appena una faccenda chiede la parte lenta, un'altra più fresca ti si mette davanti e tu la segui, lasciando la prima a metà strada.
+- 2: Il fuoco non ti manca mai, gli manca il turno: appena una faccenda chiede la parte lenta, un'altra più fresca ti passa davanti e tu la segui, lasciando la prima a metà.
 - 3: Accanto a te passa una fila di cose cominciate, ciascuna interrotta dall'arrivo della seguente. L'ardore è giovane e intatto a ogni giro, la durata no, perciò il frutto non si vede.
 
 ## Cavaliere di Bastoni
 
 ### dritta
 
-- 1: Parti di slancio verso ciò che desideri e il coraggio ti scalda prima del ragionamento, con l'occhio comunque fisso alla meta lontana.
+- 1: Parti di slancio verso ciò che desideri e il coraggio ti scalda prima del ragionamento, con l'occhio comunque fisso alla meta lontana che ti chiama.
 - 2: Un fuoco ti spinge in avanti e l'avventura ti sembra più leggera del dubbio, purché la direzione resti incollata agli occhi tuoi mentre corri.
-- 3: La passione ti mette in moto e osare adesso costa meno dell'esitare, con il galoppo tuo tenuto dritto su una meta visibile.
+- 3: La passione ti mette in moto e adesso osare costa meno che esitare, con il tuo galoppo tenuto dritto su una meta che vedi bene davanti.
 
 ### capovolta
 
@@ -527,7 +527,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Altri ti vengono vicino per il calore che tieni acceso senza sforzo e in quella luce trovano posto anche loro.
+- 1: Altri ti vengono vicino per il calore che tieni acceso senza sforzo e in quella luce trovano posto anche loro, mentre tu resti al tuo posto.
 - 2: Senza limarti per piacere attiri gli altri e il tuo calore li scalda uno a uno, poi loro coprono il resto della distanza.
 - 3: Una sicurezza calma e tua attira gli altri e il tuo ardore li tiene vicini mentre non ti muovi di lì per raccoglierli.
 
@@ -541,23 +541,23 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: La tua fiamma indica una direzione agli altri senza spingerli e l'autorità che hai conquistata diventa generosa quando insegna.
+- 1: La tua fiamma indica una direzione agli altri senza spingerli: l'autorità che hai conquistato sul campo diventa generosa quando insegna a chi arriva ciò che sai.
 - 2: Un'ispirazione che hai già collaudato ti porta alla testa di qualcosa e il calore con cui accompagni gli altri decide il tuo modo di guidare.
 - 3: Guidi per esempio e non per comando: la tua fiamma scalda chi ti sta accanto e la volontà matura che porti apre un varco nel muro.
 
 ### capovolta
 
-- 1: Un'impazienza da comandante ti fa correre avanti mentre gli altri restano indietro e l'esempio che dai pesa come una pretesa.
-- 2: Spingi prima di ascoltare e la fiamma che porti brucia chi ti sta vicino senza accendere nessuno. L'autorità tua si è fatta rigida.
+- 1: Un'impazienza da comandante ti fa correre avanti mentre gli altri restano indietro e l'esempio che dai, invece di guidare, pesa su di loro come una pretesa.
+- 2: Spingi prima di ascoltare e la fiamma che porti brucia chi ti sta vicino senza accendere nessuno: la tua autorità si è fatta rigida e impaziente.
 - 3: Il comando che hai in mano scotta e l'autorità si irrigidisce, mentre la spinta che dai agli altri va avanti senza il loro ascolto.
 
 ## Asso di Coppe
 
 ### dritta
 
-- 1: Ti sale dentro un sentire pulito, senza calcolo, come una sorgente che trova la sua apertura. La dolcezza che provi non ti indebolisce.
-- 2: La tenerezza precede le ragioni e ti riempie senza chiederti il permesso. Un inizio affettivo nuovo ha questa qualità di acqua che sale.
-- 3: Un'emozione limpida ti attraversa e scorre, se la lasci andare dove vuole. La grazia di questo sentire sta nel non avere ancora nessuna forma.
+- 1: Ti sale dentro un sentire pulito, senza calcolo, come una sorgente che trova la sua apertura. La dolcezza che provi non ti indebolisce, ti apre agli altri.
+- 2: La tenerezza precede le ragioni e ti riempie senza chiederti il permesso. Un inizio affettivo nuovo ha questa qualità di acqua che sale dal fondo e cerca uscita.
+- 3: Un'emozione limpida ti attraversa e scorre, se la lasci andare dove vuole. La grazia di questo sentire sta proprio nel non avere ancora nessuna forma decisa.
 
 ### capovolta
 
@@ -590,8 +590,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Il cerchio intorno a te si è allargato oltre la misura che riesci a tenere, oppure brindi molto e ti nutri poco di quelle presenze.
-- 2: Una tavolata affollata ti disperde, mentre gli affetti che nutrono stanno in poche mani e aspettano la tua cura.
-- 3: Festeggi con tanti e ti riconosci in pochi, così il legame sincero resta coperto dal rumore di compagnie che ti scaldano appena.
+- 2: Una tavolata affollata ti disperde, mentre gli affetti che nutrono stanno in poche mani e aspettano la tua cura. Il rumore della festa copre chi conta davvero.
+- 3: Festeggi con tanti e ti riconosci in pochi, così il legame sincero resta coperto dal rumore di compagnie che ti scaldano appena e ti lasciano stanchezza.
 
 ## Quattro di Coppe
 
@@ -599,13 +599,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Una mano ti porge qualcosa accanto a te e il no esce prima dell'esame: non ti manca l'occasione né lo sguardo, ti manca l'appetito, perché quello che già tieni ti sembra abbastanza.
 - 2: Hai le mani piene e questo basta a farti rifiutare l'offerta tesa di fianco. Non la stai valutando male: la stai lasciando lì perché il gusto per una cosa in più si è spento.
-- 3: La sazietà che ti accompagna respinge quello che arriva senza passarlo al setaccio. Non è paura di sentire né troppa scelta davanti: è un basta così detto prima di guardare la coppa che ti tendono.
+- 3: La sazietà che ti accompagna respinge quello che arriva senza passarlo al setaccio: non è paura né troppa scelta, è un basta così detto prima di guardare la coppa tesa.
 
 ### capovolta
 
 - 1: Mentre il torpore cede ritorni a sentire le persone e i fatti e una curiosità nuova ti chiama da un punto che non sai nominare.
-- 2: Una curiosità piccola ti punge appena il torpore cede e il gusto di seguirla ti torna insieme a un'apertura nuova.
-- 3: Dopo la noia una curiosità nuova ti prende quasi di sorpresa e il torpore si scioglie e ricominci a interessarti.
+- 2: Una curiosità piccola ti punge appena il torpore cede: il gusto di seguirla ti torna insieme a un'apertura nuova, verso qualcosa che prima ignoravi.
+- 3: Dopo la noia una curiosità nuova ti prende quasi di sorpresa: il torpore si scioglie, le mani si muovono di nuovo e ricominci a interessarti alle cose.
 
 ## Cinque di Coppe
 
@@ -626,22 +626,22 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Ti torna addosso una tenerezza antica, un affetto sincero che il passato ti riconsegna e la dolcezza dei ricordi ti nutre come pane.
-- 2: Il passato ti manda un affetto pulito con dei ricordi cari e l'innocenza che avevi allora ti scalda ancora le mani.
+- 2: Il passato ti manda un affetto pulito insieme a ricordi cari: l'innocenza che avevi allora ti scalda ancora le mani e ti rende più facile dare.
 - 3: Una nostalgia buona ti addolcisce la giornata: qualcuno ti vuole bene da lontano nel tempo e la bontà di allora ti raggiunge intatta.
 
 ### capovolta
 
 - 1: La dolcezza di prima ti tiene per la manica e il presente aspetta il tuo turno di guardarlo, mentre i ricordi occupano la stanza.
 - 2: Un affetto di allora ti scalda ancora. Proprio per questo ti tira indietro, mentre il presente ti chiama da una stanza che non apri.
-- 3: Abiti un tempo che non c'è più e la tenerezza antica ti trattiene, mentre il presente resta fuori dalla porta ad aspettare.
+- 3: Abiti un tempo che non c'è più e la tenerezza antica ti trattiene come una mano sul polso, mentre il presente resta fuori dalla porta ad aspettare.
 
 ## Sette di Coppe
 
 ### dritta
 
 - 1: Le possibilità si affollano davanti a te e ciascuna promette più di ciò che porta. Il piacere di immaginarle ti tiene lontano dalla scelta.
-- 2: Immaginare ti costa poco e per questo le visioni si moltiplicano, mentre la verifica di ognuna sta ancora tutta da fare.
-- 3: Sognare in grande ti allarga il respiro e nello stesso tempo ti confonde, perché fra tante promesse non tutte hanno un fondo.
+- 2: Immaginare ti costa poco e per questo le visioni si moltiplicano, una più lucente dell'altra, mentre la verifica di ognuna sta ancora tutta da fare.
+- 3: Sognare in grande ti allarga il respiro e nello stesso tempo ti confonde, perché fra tante promesse non tutte hanno un fondo e tu non sai ancora quali.
 
 ### capovolta
 
@@ -655,7 +655,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Volti le spalle a ciò che non ti nutre e te ne vai in silenzio, senza sbattere porte. La direzione la conosci prima di saperla spiegare.
 - 2: Un posto che ti ha dato quanto poteva resta indietro e tu avanzi in silenzio verso un senso che ancora non ha nome. L'andarsene pulito è un atto intero.
-- 3: Né scenate né rancore: ti allontani da ciò che hai svuotato fino in fondo, perché una fame di significato ti chiama altrove.
+- 3: Né scenate né rancore: ti allontani da ciò che hai svuotato fino in fondo, perché una fame di significato ti chiama altrove, verso un luogo ancora senza nome.
 
 ### capovolta
 
@@ -668,13 +668,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Tieni fra le mani una cosa che avevi chiesto al cielo e l'hai avuta, quindi puoi goderla senza sentirti in debito con nessuno.
-- 2: C'è un augurio avverato che ti riguarda. Il benessere arrivato non ti obbliga a scusarti, la contentezza non chiede permesso.
+- 2: C'è un augurio avverato che ti riguarda da vicino: il benessere arrivato non ti obbliga a scusarti con nessuno e la contentezza non chiede permesso.
 - 3: Una soddisfazione piena siede con te a tavola. Riconosci la fortuna che ti è capitata e assaporala, lasciando la colpa fuori dalla porta.
 
 ### capovolta
 
-- 1: Un piacere dopo l'altro ti attraversa senza lasciare niente, perché la contentezza che mostri fuori non tocca il fondo dentro di te.
-- 2: Hai in mano una soddisfazione di facciata che ti distrae appena, quindi il desiderio vero resta sotto, senza trovare nome.
+- 1: Un piacere dopo l'altro ti attraversa senza lasciare niente, perché la contentezza che mostri fuori non tocca il fondo dentro di te e la fame resta.
+- 2: Hai in mano una soddisfazione di facciata che ti distrae appena, quindi il desiderio vero resta sotto, senza trovare un nome né una strada per uscire.
 - 3: Ti riempi di cose gradevoli e rimani con la stessa fame, segno che la gioia cercata abita a una profondità che il piacere di superficie non raggiunge.
 
 ## Dieci di Coppe
@@ -682,40 +682,40 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: L'affetto attorno a te forma un arco intero e la tua ricchezza vive nei legami, in una gratitudine semplice per chi siede al tavolo accanto.
-- 2: Condividi pienezza con chi ami e la gioia non resta chiusa dentro di te, respira nei volti attorno e torna indietro moltiplicata.
+- 2: Condividi pienezza con chi ami e la gioia non resta chiusa dentro di te: respira nei volti attorno, passa di mano in mano e torna indietro moltiplicata.
 - 3: Un'armonia piena ti circonda e il bene che hai costruito con altri regge il peso di tutti, come un arcobaleno teso sopra le teste di chi ami.
 
 ### capovolta
 
 - 1: Sotto il tuo tetto ognuno tira dalla sua parte: orari sfalsati, decisioni prese per conto proprio, una tavola che si apparecchia a turni. Nessuno è andato via e il calore del gruppo cala comunque.
-- 2: La casa intorno alla tua domanda tiene insieme persone che vogliono cose diverse. Il tetto resta uno per tutti e il passo no: ciascuno porta la sua parte altrove e la serenità comune si assottiglia.
+- 2: La casa intorno alla tua domanda tiene insieme persone che vogliono cose diverse. Il tetto resta uno e il passo no: ciascuno porta la sua parte altrove e la serenità comune si assottiglia.
 - 3: Molti affetti stretti in un solo spazio con le volontà divise. Chi condivide con te le stanze non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l'aria di famiglia.
 
 ## Fante di Coppe
 
 ### dritta
 
-- 1: Una tenerezza inesperta affiora nella tua domanda e porta immagini, sogni, parole trattenute. È piccola, è vera, non sa dirsi ancora.
-- 2: Nella tua domanda affiora un messaggio obliquo, un sogno, un'intuizione, un gesto gentile da parte di chi non te lo dice in faccia.
+- 1: Una tenerezza inesperta affiora nella tua domanda e porta con sé immagini, sogni, parole trattenute in gola. È piccola, è vera e non sa ancora come dirsi.
+- 2: Nella tua domanda affiora un messaggio obliquo: un sogno, un'intuizione, un gesto gentile da parte di chi prova qualcosa e non te lo dice in faccia.
 - 3: Il sentire ti precede sul pensare. Emozione nuova, fantasia, delicatezza, un materiale poetico che si rompe se lo maneggi come una pratica da sbrigare.
 
 ### capovolta
 
 - 1: La coppa che porti la tieni appoggiata al petto invece di porgerla: hai una pelle sottile e un'offerta respinta basta a far ritirare la mano. Il sentire resta intero e sta al chiuso.
-- 2: Un sentire giovane si è messo al riparo dopo un colpo preso: quello che provi ti attraversa per intero e la risposta è un passo indietro, la mano che si chiude attorno a quello che volevi offrire.
-- 3: Accanto alla tua domanda c'è una delicatezza che si è murata da sé: non indurita, soltanto nascosta. Gli occhi ti si riempiono per una frase di poco e tu metti via tutto prima che qualcuno lo veda.
+- 2: Un sentire giovane si è messo al riparo dopo un colpo: quello che provi ti attraversa per intero e rispondi con un passo indietro, chiudendo la mano su ciò che volevi offrire.
+- 3: Accanto alla tua domanda c'è una delicatezza murata da sé, nascosta più che indurita. Gli occhi ti si riempiono per una frase da poco e tu metti via tutto prima che qualcuno veda.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: Un'apertura affettuosa ti attraversa e porgi quel che senti oppure lo ricevi, mentre il garbo del gesto pesa come il suo contenuto.
+- 1: Un'apertura affettuosa ti attraversa: porgi quel che senti oppure lo ricevi da chi ti cerca, mentre il garbo del gesto pesa quanto il suo contenuto.
 - 2: Ti viene offerto qualcosa con garbo, oppure sei tu a tendere l'offerta e lo slancio del sentimento conta nel modo in cui lo porgi.
 - 3: Il sentimento ti muove prima della ragione e un invito arriva con grazia, tuo o di un altro, mentre la bellezza ti corteggia senza fretta.
 
 ### capovolta
 
-- 1: Prometti oppure ti promettono molto e i fatti restano indietro, mentre l'emozione corre avanti da sola senza mettere radici.
+- 1: Prometti oppure ti promettono molto e i fatti restano indietro, mentre l'emozione corre avanti da sola, bella e leggera, senza mettere radici in niente.
 - 2: Le parole dolci non hanno ancora un gesto che le regga e l'incanto che ti arriva oppure offri tu resta senza radici.
 - 3: Un sentimento incostante ti gira intorno con parole belle ma pochi gesti e la bellezza di adesso non dice ancora se dura.
 
@@ -724,8 +724,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una sensibilità che legge gli altri in profondità è la tua risorsa adesso. La stessa cura che offri intorno può volgersi anche verso te.
-- 2: Capisci gli altri senza che parlino e questo intuito ti dà un potere delicato: accogliere non ti svuota, se sai anche ricevere.
-- 3: La comprensione con cui accogli chi ti sta intorno non è un cedimento e regge il peso delle emozioni altrui senza spezzarsi.
+- 2: Capisci gli altri senza che parlino e questo intuito ti dà un potere delicato: accogliere non ti svuota, se sai anche ricevere a tua volta.
+- 3: La comprensione con cui accogli chi ti sta intorno non è un cedimento: è una forza calma che regge il peso delle emozioni altrui senza spezzarsi.
 
 ### capovolta
 
@@ -743,7 +743,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: La stanza prende la temperatura del tuo umore e chi ti sta attorno la misura prima di parlarti. Da te si viene a cercare calma, però al timone oggi non c'è la tua misura, c'è lo sbalzo del momento.
+- 1: La stanza prende la temperatura del tuo umore e chi ti sta attorno la misura prima di parlarti. Da te si cerca calma, ma al timone oggi c'è lo sbalzo del momento.
 - 2: Il tuo stato d'animo è diventato una leva: lo lasci vedere per ottenere il passo che vuoi dall'altra parte e la tenerezza la concedi oppure la ritiri secondo quello che ti serve.
 - 3: Chi dovrebbe dare quiete attorno a sé la sta chiedendo: non assorbi l'umore di nessuno, lo detti tu, mentre la maturità che possiedi resta a bordo senza la mano sulla barra.
 
@@ -753,11 +753,11 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il terreno che hai sotto i piedi è fertile e una sola apertura concreta ti basta, perché ciò che metti giù adesso attacca con radici buone.
 - 2: Davanti a te si apre una cosa solida e palpabile, non una speranza: il momento regge il peso di un inizio che poggia su basi vere.
-- 3: Qualcosa di tangibile ti viene offerto e il suolo lo accoglie, così puoi mettere giù adesso una base robusta che porta frutto.
+- 3: Qualcosa di tangibile ti viene offerto e il suolo è pronto ad accoglierlo, così puoi mettere giù adesso una base robusta che porta frutto nel tempo.
 
 ### capovolta
 
-- 1: Sfiori senza vederla un'apertura concreta, oppure misuri il rischio soltanto a occhio mentre il seme buono ti rimane chiuso in tasca.
+- 1: Sfiori senza vederla un'apertura concreta, oppure misuri il rischio soltanto a occhio, mentre il seme buono ti rimane chiuso in tasca e il terreno aspetta.
 - 2: Un'occasione solida passa accanto a te e i tuoi occhi stanno altrove. Il terreno sta pronto, il chicco resta asciutto dentro il sacco.
 - 3: La misura del rischio ti è sfuggita, oppure l'apertura davanti a te sfuma mentre aspetti il segno di una certezza che non viene.
 
@@ -766,8 +766,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Tieni insieme più cose e il polso tuo le fa ruotare senza che cadano, perché il ritmo conta e la leggerezza fa il resto.
-- 2: Una mano tua sale mentre l'altra scende e il peso passa da un palmo all'altro con ritmo costante, senza che nulla tocchi terra.
-- 3: Passi da un impegno all'altro con agilità e il segreto sta nelle ginocchia morbide, non nella forza delle braccia tue.
+- 2: Una mano tua sale mentre l'altra scende e il peso passa da un palmo all'altro con ritmo costante e leggero, senza che nulla tocchi terra.
+- 3: Passi da un impegno all'altro con agilità e il segreto sta nelle ginocchia morbide, non nella forza delle tue braccia: chi si irrigidisce fa cadere tutto.
 
 ### capovolta
 
@@ -785,7 +785,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà di costruire c'è da tutte le parti, anche dalla tua: è la parola sui ruoli che non è passata.
+- 1: Lavori con altri sopra la stessa opera e nessuno ha mai detto chi fa quale pezzo. La volontà c'è da tutte le parti, anche dalla tua: manca la parola sui ruoli.
 - 2: I ruoli che nessuno ha messo in chiaro sono la stonatura di questo lavoro a più mani. Due di voi fanno lo stesso gesto e un pezzo dell'opera non lo prende in mano nessuno.
 - 3: Vi siete messi insieme a costruire senza dividere i compiti e adesso il cantiere va a scatti. Nessuno rema contro: manca il modo di dirsi chi tiene cosa.
 
@@ -814,7 +814,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Un sostegno viene da fuori e il freddo cede. L'abbondanza torna senza fretta e la fiducia te la riprendi come era prima.
-- 2: Dopo la mancanza un sostegno è tornato da fuori e il freddo allenta. All'abbondanza e alla fiducia ti riapri lentamente.
+- 2: Dopo la mancanza un sostegno è tornato da fuori e il freddo allenta la presa. All'abbondanza e alla fiducia ti riapri lentamente, senza dimenticare l'inverno.
 - 3: A tornare è un sostegno che non nasce da te e il freddo scema. L'abbondanza riparte piano e alla fiducia fai di nuovo posto.
 
 ## Sei di Denari
@@ -827,7 +827,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: La bilancia pende da un piatto solo: esce da un verso e non rientra dall'altro, così la tua generosità resta senza ritorno.
+- 1: La bilancia pende da un piatto solo: quello che dai esce da un verso e non rientra dall'altro, così la tua generosità resta senza ritorno e ti svuota.
 - 2: Dai a chi non restituisce e il piatto dalla tua parte si alleggerisce fino a suonare vuoto. Misurare lo scambio in andata e in ritorno rimette le cose a pari.
 - 3: Un debito aperto, oppure una mano tesa verso chi non la stringe, tiene la tua bilancia inclinata. Il pareggio si misura anche su ciò che entra, non soltanto su ciò che esce.
 
@@ -836,7 +836,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una pianta che hai curato cresce con un tempo suo e non col tuo, perciò la stai guardando senza toccare mentre il frutto si fa pesante.
-- 2: Guardi crescere ciò che hai piantato e tieni le mani ferme, perché un raccolto strappato in anticipo non sa di niente.
+- 2: Guardi crescere ciò che hai piantato e tieni le mani ferme, perché un raccolto strappato in anticipo non sa di niente e il tempo lavora meglio di te.
 - 3: Pesi da lontano il lavoro che hai fatto e lo lasci maturare al suo ritmo, dato che una cosa solida non arriva in fretta.
 
 ### capovolta
@@ -851,7 +851,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Limi un dettaglio alla volta e le mani tue imparano da sole, perché la pratica ripetuta deposita abilità dentro i gesti senza fretta.
 - 2: Una dedizione paziente ti tiene al banco e ogni ripetizione aggiunge un grado di precisione alla mano tua, invisibile oggi e solida domani.
-- 3: Ripeti il gesto finché diventa esatto e la cura minuta di adesso si annida nelle dita tue come una memoria del corpo.
+- 3: Ripeti il gesto finché diventa esatto e la cura minuta di adesso si annida nelle tue dita come una memoria del corpo, pronta per domani.
 
 ### capovolta
 
@@ -863,9 +863,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Un benessere costruito con le tue mani tiene da solo, senza puntelli esterni. Hai un recinto fiorito e nessuno te lo ha regalato.
+- 1: Un benessere costruito con le tue mani tiene da solo, senza puntelli esterni. Hai un recinto fiorito che nessuno ti ha regalato e dentro ci stai con agio.
 - 2: Frutti maturi pendono dai rami che hai piantato tu. La tranquillità che ne viene non dipende da un permesso altrui e nessuno può ritirarla.
-- 3: Il giardino è tuo, curato per stagioni intere, adesso restituisce. Dentro questa misura ti muovi con agio, senza dover chiedere licenza.
+- 3: Il giardino è tuo, curato per stagioni intere: adesso restituisce quello che gli hai dato. Dentro questa misura ti muovi con agio, senza dover chiedere licenza a nessuno.
 
 ### capovolta
 
@@ -878,7 +878,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Costruisci qualcosa che dura oltre te e la stabilità profonda ti regge sotto i piedi, mentre quelli che vengono dopo trovano la tavola già apparecchiata.
-- 2: Le radici che hai messo giù tengono il peso di parecchie generazioni. Ciò che costruisci resta in piedi anche senza la tua mano.
+- 2: Le radici che hai messo giù reggono il peso di parecchie generazioni: ciò che costruisci resta in piedi anche senza la tua mano, come una casa che non dipende da una sola persona.
 - 3: Una ricchezza lenta ti mette al sicuro e lega la tua vita a quella dei tuoi, con radici che affondano sotto il tempo di una vita.
 
 ### capovolta
@@ -893,13 +893,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Ti sta accanto una materia che non padroneggi e che diventa solida soltanto dove la provi: quello che impari prende corpo nelle mani mentre lo esegui, non un momento prima.
 - 2: Un allievo lavora dentro la tua faccenda: ripete il gesto finché regge e ogni prova riuscita lascia dietro una cosa concreta che prima non esisteva.
-- 3: La promessa che hai in mano è ancora tutta da imparare e le ore che le dai si vedono una per una, perché ciò che apprendi passa nelle cose solo dove lo metti alla prova.
+- 3: La promessa che hai in mano è tutta da imparare: le ore che le dai si vedono una per una, perché ciò che apprendi passa nelle cose solo quando lo provi.
 
 ### capovolta
 
-- 1: Hai dato la parola su una cosa da imparare e la parola non è ancora scesa nelle dita: lo studio resta sulla carta, mentre l'impegno preso con qualcuno aspetta il giorno in cui lo metti in pratica.
+- 1: Hai dato la parola su una cosa da imparare e la parola non è ancora scesa nelle dita: lo studio resta sulla carta e l'impegno preso con qualcuno aspetta la pratica.
 - 2: Un apprendistato appena aperto sta fermo alla lezione: hai capito come si fa e non lo hai ancora fatto, perché l'attenzione si è spostata su una curiosità nuova prima della prova.
-- 3: Lo slancio di imparare qualcosa di concreto ti ha preso e la distrazione lo ha interrotto sul tratto più facile. Di quella cosa sai il discorso, le mani non l'hanno ancora toccata.
+- 3: Lo slancio di imparare qualcosa di concreto c'era e la distrazione lo ha interrotto sul tratto più facile. Di quella cosa sai il discorso, le mani non l'hanno ancora toccata.
 
 ## Cavaliere di Denari
 
@@ -912,7 +912,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: La via che percorri è tracciata fino alla meta e resta quella giusta: quello che si è piantato è l'andatura, perché la prudenza sposta ogni tappa un giorno più avanti.
-- 2: Accanto a te lavora una cautela che era virtù. Teneva il passo uguale per mesi e adesso lo tiene fermo, con i solchi aperti davanti e la distanza da coprire uguale a quella di ieri.
+- 2: Accanto a te lavora una cautela che era virtù: per mesi teneva il passo uguale, adesso lo tiene fermo, con i solchi aperti e la stessa distanza di ieri da coprire.
 - 3: Il traguardo lo vedi ancora da dove stai. Della strada non si è perso niente e si è inceppato soltanto il procedere, tappa rimandata dopo tappa rimandata.
 
 ## Regina di Denari
@@ -920,8 +920,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Sai nutrire e tenere in ordine con le stesse mani, perciò chi ti sta vicino mangia e i progetti tuoi crescono con i piedi per terra.
-- 2: Un'abbondanza senza sfarzo esce dalle tue cure quotidiane, perché unisci la tenerezza alla praticità e il risultato si vede nelle cose.
-- 3: Accogli e sfami con gesti pratici, non con promesse: la tua generosità tocca il concreto e lo fa fiorire fra le dita.
+- 2: Un'abbondanza senza sfarzo esce dalle tue cure di ogni giorno, perché unisci la tenerezza alla praticità: il risultato si vede nelle cose, in una tavola piena e in una casa che regge.
+- 3: Accogli e sfami con gesti pratici, non con promesse: la tua generosità tocca il concreto e lo fa fiorire fra le dita, che sia un pasto, una stanza in ordine o un conto sistemato.
 
 ### capovolta
 
@@ -934,8 +934,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: La solidità che hai costruito ti sostiene da sé e la generosità matura apre il granaio agli altri, misurando bene e senza vanto.
-- 2: Un'abbondanza concreta ti sta fra le mani e saperla distribuire fa parte della ricchezza stessa, come il sapere quanto trattenerne.
-- 3: Possiedi qualcosa di stabile e la mano tua resta aperta, perché la prosperità nelle dita di chi sa gestirla diventa anche saggezza.
+- 2: Un'abbondanza concreta ti sta fra le mani: saperla distribuire fa parte della ricchezza stessa, come anche sapere quanto trattenerne per le stagioni più magre.
+- 3: Possiedi qualcosa di stabile e la tua mano resta aperta, perché la prosperità, nelle dita di chi sa gestirla, diventa anche saggezza e sostegno per gli altri.
 
 ### capovolta
 
@@ -955,14 +955,14 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La nebbia sta sulle idee prima che sulla lingua: il filo che tieni in mano non separa più niente e ogni frase che esce da lì taglia senza avere visto.
 - 2: Un'unica lama, due usi: libera oppure ferisce secondo come la impugni. Adesso la impugni in una luce scarsa, con i pensieri confusi fra loro e una decisione che aspetta.
-- 3: Quello che si è annebbiato è lo strumento stesso con cui distingui, non la tua voglia di capire. Da lì nascono parole affilate usate di sbieco, perché la mano stringe il filo prima che la mente si schiarisca.
+- 3: Si è annebbiato lo strumento stesso con cui distingui, non la tua voglia di capire: nascono così parole affilate usate di sbieco, perché la mano stringe il filo prima che la mente si schiarisca.
 
 ## Due di Spade
 
 ### dritta
 
-- 1: Un equilibrio precario ti tiene immobile fra due pesi uguali: decidere ti pare impossibile e intanto la questione resta intera.
-- 2: Tieni due pesi in equilibrio a occhi chiusi e la scelta che rimandi non svanisce per questo, ti aspetta dietro la benda.
+- 1: Un equilibrio precario ti tiene immobile fra due pesi uguali: decidere ti pare impossibile, intanto la questione resta intera e aspetta che tu la guardi.
+- 2: Tieni due pesi in equilibrio a occhi chiusi, ma la scelta che rimandi non svanisce per questo: resta lì e ti aspetta dietro la benda.
 - 3: C'è uno stallo che tieni in piedi a occhi coperti e la fatica di non guardare ti pesa senza far sparire la scelta.
 
 ### capovolta
@@ -983,13 +983,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il dolore comincia a sfumare e il perdono che concedi o che ricevi chiude la tua ferita senza cancellarne la memoria.
 - 2: Un respiro più ampio ti torna nel petto mentre la ferita smette di sanguinare. Il ricordo rimane, privo della lama che aveva.
-- 3: Smettere di sanguinare non significa dimenticare e la pioggia che si allontana lascia il tuo petto libero di respirare.
+- 3: Smettere di sanguinare non vuol dire dimenticare: la pioggia che si allontana lascia il tuo petto libero di respirare, con il ricordo ancora al suo posto.
 
 ## Quattro di Spade
 
 ### dritta
 
-- 1: Dopo la fatica il silenzio vale come cura e fermarti non ti sottrae niente. La quiete ricarica la mente quanto il corpo.
+- 1: Dopo la fatica il silenzio vale come ristoro e fermarti adesso non ti sottrae niente: la quiete ricarica la mente quanto il corpo e ti restituisce forza.
 - 2: Una pausa aperta sopra di te ti mette a disposizione il silenzio e la stanchezza si scarica senza che tu faccia altro. Il recupero rende quanto l'azione.
 - 3: Smetti di combattere per un intervallo e la mente trova la quiete che il corpo reclama. Il tempo passato immobile ti restituisce la forza intera.
 
@@ -1003,21 +1003,21 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: C'è una vittoria che ti lascia il campo e ti porta via dei pezzi, perché l'orgoglio ha parlato prima di te nello scontro.
+- 1: C'è una vittoria che ti lascia il campo e ti porta via dei pezzi, perché l'orgoglio ha parlato prima di te nello scontro e ha deciso il prezzo.
 - 2: Il sapore di avere vinto si mescola a un vuoto, dato che ottieni il punto e lasci sul terreno una cosa che ti apparteneva.
-- 3: Qualcosa conquistato con le armi ti resta in mano senza gusto. Il prezzo dell'orgoglio soddisfatto si conta a cose perdute.
+- 3: Qualcosa conquistato con le armi ti resta in mano senza gusto: il prezzo dell'orgoglio soddisfatto si conta a cose perdute, a persone che non ti cercano più.
 
 ### capovolta
 
-- 1: Lo scontro è chiuso e la ragione la tieni ancora in pugno. Il primo passo parte da te, che il torto non l'avevi: deporre le armi ti riesce adesso e quelle raccolte si possono restituire a chi avevi contro.
-- 2: Hai la lite già vinta e la rivendicazione pronta che adesso ti riesce di non usare. Il perdono verso chi ti stava di fronte è a portata di mano e libera più di quanto libererebbe l'avere ragione.
+- 1: Lo scontro è chiuso e la ragione la tieni ancora in pugno. Il primo passo parte da te, che il torto non l'avevi: puoi deporre le armi e restituire quelle raccolte a chi avevi contro.
+- 2: Hai la lite già vinta e la rivendicazione pronta, che adesso riesci a non usare. Il perdono verso chi ti stava di fronte è a portata di mano e libera più dell'avere ragione.
 - 3: Chi aveva torto resta davanti a te in attesa del colpo che non arriva: il campo è tuo, la rivalsa la lasci cadere e la pace si può siglare adesso, dalla parte che ha vinto.
 
 ## Sei di Spade
 
 ### dritta
 
-- 1: C'è una barca che ti porta lontano dalle acque mosse e la riva davanti promette quiete, raggiunta remando piano senza strappi.
+- 1: C'è una barca che ti porta via dalle acque mosse e la riva davanti promette quiete, raggiunta remando piano, senza strappi e senza voltarti troppo.
 - 2: Il rumore della tempesta si allontana dietro di te e l'acqua sotto lo scafo torna liscia, mentre avanzi con un colpo di remo per volta.
 - 3: Lasci dietro le onde alte e la traversata procede lenta sotto di te, con la sponda quieta che si avvicina a ogni spinta di remo.
 
@@ -1033,7 +1033,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Una mossa obliqua attraversa il tuo campo: silenzio, tempismo, niente clamore. L'ingegno fa il grosso del lavoro e tu resti fuori dai riflettori.
 - 2: C'è astuzia al lavoro nella tua domanda e procede in punta di piedi. Ottiene senza annunciare, aggira la resistenza, lascia la tua mano invisibile.
-- 3: Prudenza e calcolo al posto dell'urto diretto. L'ingegno ti riesce; il confine fra arte e imbroglio lo conosci soltanto tu.
+- 3: Prudenza e calcolo al posto dell'urto diretto: l'ingegno ti riesce e ottiene ciò che la forza non otterrebbe. Il confine fra arte e imbroglio lo conosci soltanto tu.
 
 ### capovolta
 
@@ -1047,7 +1047,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: C'è un recinto di pensieri intorno a te e il limite che senti sta soprattutto nella tua testa, mentre le corde restano più larghe di quanto credi.
 - 2: Ti pare di non poterti muovere e il buio sugli occhi insieme alle braccia legate ti fa credere a una prigione con pareti di pensiero.
-- 3: Senti il limite addosso e lo prendi per vero, mentre il primo movimento che ti resta sta nel vedere che un'uscita esiste.
+- 3: Senti il limite addosso e lo prendi per vero, mentre il primo movimento che ti resta sta nel vedere che un'uscita esiste fra le lame.
 
 ### capovolta
 
@@ -1059,14 +1059,14 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Di notte la tua mente monta pensieri che il giorno non confermerebbe e l'insonnia dà alle paure una taglia che non hanno.
+- 1: Di notte la tua mente monta pensieri che il giorno non confermerebbe e l'insonnia dà alle paure una taglia che alla luce non hanno.
 - 2: C'è un pensiero che gira a vuoto nelle ore senza sonno e ingrandisce ogni timore fino a riempirti il petto, mentre il tuo corpo chiede riposo.
 - 3: Tornano i pensieri cupi appena si spegne la luce e la tua testa li tratta come fatti compiuti, non come ipotesi da verificare.
 
 ### capovolta
 
 - 1: Parlarne con qualcuno taglia il peso a metà e la paura che hai rigirato nel silenzio perde la sua presa quando esce dalla tua testa.
-- 2: La morsa dell'angoscia si allenta e il pensiero smette di girare sullo stesso punto, abbastanza perché tu senta la differenza.
+- 2: La morsa dell'angoscia si allenta e il pensiero smette di girare sempre sullo stesso punto, abbastanza perché tu senta la differenza nel respiro.
 - 3: Una paura detta a qualcuno pesa meno della stessa cosa rimuginata al buio. Il tuo respiro cambia appena il silenzio si rompe.
 
 ## Dieci di Spade
@@ -1074,7 +1074,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Una battaglia combattuta fino all'ultimo colpo ti sta accanto già conclusa e la forza che arriva non è quella di resistere ancora: è quella di posare le armi su un campo che ha smesso di chiedere.
-- 2: Hai combattuto fin dove si poteva e la contesa si è chiusa da sé. Quello che ti si avvicina non è un colpo nuovo, è il silenzio che resta sul campo quando nessuno ha più motivo di alzare una lama.
+- 2: Hai combattuto fin dove si poteva e la contesa si è chiusa da sé. Ti si avvicina non un colpo nuovo ma il silenzio del campo, dove nessuno ha più motivo di alzare una lama.
 - 3: Il peso di tutto il corpo a terra e nessun margine da difendere: la resa che ti si affianca non è un cedimento, è il riconoscimento che quella contesa è finita per davvero.
 
 ### capovolta
@@ -1089,20 +1089,20 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Una curiosità in sentinella ti mette accanto chi va a guardare e torna di corsa a raccontare: quello che scopre lo riferisce appena lo ha in mano, prima di averlo verificato.
 - 2: Hai accanto l'abitudine di domandare e di dire subito quello che ottieni: le notizie ti passano per le mani calde, senza il tempo che sta fra lo scoprire una cosa e il pronunciarla.
-- 3: Chi osserva e chi parla, qui, sono la stessa persona e si muovono allo stesso istante: i tuoi occhi raccolgono un dettaglio e la lingua lo consegna già, mentre la verità intera resta da mettere insieme.
+- 3: Chi osserva e chi parla, qui, sono la stessa persona: i tuoi occhi raccolgono un dettaglio e la lingua lo consegna già, mentre la verità intera resta da mettere insieme.
 
 ### capovolta
 
-- 1: C'è una lingua che corre prima della verifica, o pensieri sparpagliati che pungono senza costruire niente intorno a te.
+- 1: C'è una lingua che corre prima della verifica, o pensieri sparpagliati che pungono senza costruire niente intorno a te e poi ti tornano addosso.
 - 2: Riporti notizie non controllate, oppure spari idee acute che bucano e non tengono su nulla. Le parole buttate ti tornano indietro addosso.
-- 3: La punta della lingua esce prima del controllo, mentre i pensieri sparsi colpiscono senza tenere insieme niente. Il rimbalzo ti raggiunge.
+- 3: La punta della lingua esce prima del controllo, mentre i pensieri sparsi colpiscono senza tenere insieme niente. Il rimbalzo, prima o poi, ti raggiunge.
 
 ## Cavaliere di Spade
 
 ### dritta
 
-- 1: Già deciso, il pensiero punta diritto allo scopo. La tua rapidità passa sopra chi ti sta accanto se diventa fretta cieca.
-- 2: Decise le idee, la rapidità ti porta diritta allo scopo e chi hai accanto lo travolgi quando la fretta si fa cieca.
+- 1: Già deciso, il pensiero punta diritto allo scopo e non rallenta. La tua rapidità è un dono, ma passa sopra chi ti sta accanto se diventa fretta cieca.
+- 2: Con le idee già decise, la rapidità punta diritto allo scopo e chi hai accanto finisce sotto gli zoccoli quando la fretta si fa cieca.
 - 3: La decisione è già presa e la mira va diritta allo scopo e sotto quella spinta chi ti è vicino lo investi in pieno.
 
 ### capovolta

@@ -54,13 +54,13 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Sei al principio di qualcosa e la strada non si vede intera: davanti hai soltanto il primo passo. Nessun peso ti tira indietro, nessuna garanzia ti copre. Questa leggerezza, adesso, è la tua forma di coraggio.
 - 2: C'è uno slancio nuovo che ti attraversa e nessun bagaglio a trattenerti. Guardi un inizio senza conoscerne la fine e questo ti basta. Chi ti osserva può chiamarla incoscienza: è fiducia nel primo passo.
-- 3: La tua condizione è quella di chi non ha ancora nulla da perdere: nessun piano completo, nessun peso sulle spalle, soltanto un richiamo che senti e un piede già sul bordo. La libertà che hai è reale, somiglia a un azzardo.
+- 3: La tua condizione è quella di chi non ha ancora nulla da perdere: nessun piano completo, nessun peso sulle spalle, un piede già sul bordo. La tua libertà è reale e somiglia a un azzardo.
 
 ### capovolta
 
-- 1: Hai una spinta addosso che non sa dove andare, oppure stai sull'orlo con il volo già immaginato e il piede che non scende. In entrambi i casi l'impulso non è stato guardato in faccia: coraggio o fuga, ancora non lo sai.
-- 2: C'è energia e manca la direzione. Quello che senti somiglia al coraggio, dietro però potrebbe stare la fretta di uscire da qualcosa che non hai mai guardato. Il passo che hai in mente non è stato scelto, è stato subìto.
-- 3: Il punto in cui ti trovi è un orlo: lo slancio sta tutto qui, la rotta no. Un timore ti tiene indietro proprio mentre vorresti saltare, oppure corri senza sapere verso cosa. L'origine di questa spinta ti resta opaca.
+- 1: Hai addosso una spinta che non sa dove andare, oppure stai sull'orlo col volo già immaginato e il piede fermo. Coraggio o fuga: ancora non lo sai.
+- 2: C'è energia e manca la direzione. Somiglia al coraggio; dietro può stare la fretta di uscire da qualcosa che non hai guardato: il passo che hai in mente lo subisci, non lo scegli.
+- 3: Il punto in cui ti trovi è un orlo: lo slancio c'è, la rotta no. Un timore ti trattiene mentre vorresti saltare, oppure corri senza sapere verso cosa.
 
 ## Il Mago
 
@@ -73,7 +73,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### capovolta
 
 - 1: Prometti con la bocca quello che poi la mano non consegna. Il talento non ti manca, sta chiuso in un cassetto: le tue parole corrono avanti ai fatti di parecchi passi.
-- 2: Sai fare una cosa bene e non la stai facendo. Fra la tua intenzione e il gesto si è aperto uno scarto, così chi ti ascolta aspetta ancora di vedere la prova delle frasi che gli hai dato.
+- 2: Sai fare una cosa bene e non la stai facendo. Fra la tua intenzione e il gesto si è aperto uno scarto: chi ti ascolta aspetta ancora la prova delle tue frasi.
 - 3: Hai gli strumenti tutti sul tavolo e le mani a mezz'aria. Il dono è intero e l'impiego quasi nessuno. Una capacità compiuta resta dove l'hai posata, oppure vive solo nelle cose che annunci.
 
 ## La Papessa
@@ -94,27 +94,27 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Qualcosa di vivo ha già attecchito nelle tue mani e cresce con i propri tempi. Non stai amministrando un bene che c'era prima: lo stai generando. La dolcezza con cui lo nutri è il punto in cui ti trovi.
+- 1: Qualcosa di vivo ha già attecchito nelle tue mani e cresce con i propri tempi: non amministri un bene che c'era prima, lo stai generando e lo nutri con dolcezza.
 - 2: Sei terra fertile in questo momento. Un progetto, un legame, un'idea prendono forma da te senza che tu li tiri per farli crescere: l'abbondanza qui non viene da fuori, nasce da dentro.
 - 3: La cura che hai addosso non è ordine domestico e non è un'occasione da cogliere: è generazione. Dentro di te matura una cosa che chiede tempo e non spinta. Glielo stai dando.
 
 ### capovolta
 
 - 1: Quello che tenevi in crescita non fiorisce perché la terra da cui veniva su sei tu e l'acqua che spargi su ogni altra cosa dalla tua parte viva non passa.
-- 2: La tua capacità di far nascere sta ferma e i semi che hai messo non si aprono. La gentilezza che spendi su ogni cosa non è passata da te e senza quel passaggio niente esce fuori.
-- 3: Dentro di te una pianta non apre e l'acqua la porti a tutto tranne che alla tua radice: la parte che in te genera è a secco e quello che fai crescere aspetta lì senza sbocciare.
+- 2: La tua capacità di far nascere sta ferma e i semi che hai messo non si aprono: la gentilezza che spendi fuori non passa da te e senza quel passaggio niente esce.
+- 3: Dentro di te una pianta non apre: l'acqua la porti a tutto tranne che alla tua radice, così la parte che genera è a secco e niente sboccia.
 
 ## L'Imperatore
 
 ### dritta
 
 - 1: Stai dentro una cornice di regole che hai posto tu e invece di stringerti ti tiene su: le fondamenta di quello che costruisci reggono perché la responsabilità la porti fino in fondo.
-- 2: Il punto in cui ti trovi ha la forma di una legge tua: dai una forma e una misura a quello che edifichi, non ti limiti a custodire quello che possiedi. Chi ti sta intorno riconosce chi tiene in piedi la struttura.
+- 2: Il punto in cui ti trovi ha la forma di una regola tua: dai misura a quello che edifichi, non ti limiti a custodire ciò che possiedi. Chi ti sta intorno lo riconosce.
 - 3: Porti un'autorità che nessuno ti ha regalato: decidi i limiti, fissi i tempi, rispondi delle conseguenze. La disciplina non ti chiude, ti fa da impalcatura mentre quello che hai avviato prende forma.
 
 ### capovolta
 
-- 1: L'ordine che ti sei dato è diventato una morsa: orari, doveri, verifiche pesano addosso e il respiro è corto. Oppure di regole non ce n'è nessuna e tutto quello che poggia su quel vuoto oscilla.
+- 1: L'ordine che hai scelto è diventato una morsa: orari, doveri, verifiche pesano addosso e il respiro è corto. Oppure di regole non ce n'è nessuna e tutto oscilla.
 - 2: Tutto passa dalla tua presa e la presa è troppo rigida: persone, dettagli, tempi. La stessa disciplina che ti teneva in piedi adesso [ti tiene fermo|ti tiene ferma|ti blocca].
 - 3: Manca la base, oppure ti stringe i polsi: la cornice che dovrebbe sostenerti nel punto in cui sei non fa il suo lavoro, così ogni decisione ti pesa il doppio di quanto dovrebbe.
 
@@ -136,9 +136,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: C'è un amore vero nella tua vita e insieme un bivio che lo riguarda. La decisione che ti sta davanti non si gioca sul desiderio di adesso ma sui valori con cui ti riconosci: combacia con quello che sei oppure non tiene.
-- 2: Ti trovi davanti a una decisione sola, dentro la quale c'è qualcuno che ami. Alla prova stanno i valori con cui vivi, non il gusto di oggi: la domanda che ti tiene è se quel che desideri sta insieme a quel che sei.
-- 3: L'amore c'è ed è lui a metterti davanti a un bivio che pesa quanto te. Un desiderio tira da una parte, l'idea che hai di te resta dall'altra: finché le due non si sovrappongono, nessuna delle due ti si chiarisce.
+- 1: C'è un amore vero nella tua vita e con lui un bivio: la decisione non si gioca sul desiderio di adesso, ma sui valori in cui ti riconosci.
+- 2: Ti trovi davanti a una decisione sola, dentro la quale c'è qualcuno che ami: la domanda che ti tiene è se quel che desideri sta insieme a quel che sei.
+- 3: L'amore c'è ed è lui a metterti davanti a un bivio che pesa quanto te: un desiderio tira da una parte, l'idea che hai di te resta dall'altra.
 
 ### capovolta
 
@@ -150,7 +150,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Hai in mano le redini di due forze che tirano in versi opposti e le porti comunque dove hai deciso. Non stai progettando la rotta né resistendo a un assedio: sei già in movimento con la meta a vista.
+- 1: Hai in mano le redini di due forze che tirano in versi opposti e le porti dove hai deciso: non stai progettando la rotta, sei già in movimento con la meta a vista.
 - 2: Avanzi con le spinte contrarie aggiogate sotto di te: quella che altri chiamerebbero fortuna, nel tuo caso è padronanza. Lo sguardo resta fermo sulla meta ed è il tuo sguardo a tenere insieme il resto.
 - 3: La direzione ce l'hai e lo slancio pure, con la mano salda sul comando. Qui non c'è nulla di casuale: ciò che ti regge è la capacità di dominare insieme energie che si contraddicono.
 
@@ -172,7 +172,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Hai davanti un risultato che viene da una tua scelta e lo stai attribuendo alla sfortuna. Non porti un peso di qualcun altro: ne hai posato uno tuo che resta aperto al tuo nome.
 - 2: Il punto in cui sei è questo: una conseguenza che hai prodotto decidendo la stai intestando al caso mentre lo squilibrio che senti addosso nasce da quello spostamento, non dal fatto.
-- 3: Ti riguarda un conto che hai aperto tu con una decisione precisa, però nel racconto che ne fai l'ha aperto la sorte. Finché la firma sta su un nome che non è il tuo, lo sbilancio rimane dov'è.
+- 3: Ti riguarda un conto che hai aperto tu con una decisione precisa, ma nel racconto che ne fai l'ha aperto la sorte: finché la firma resta su un altro nome, lo sbilancio rimane.
 
 ## L'Eremita
 
@@ -220,23 +220,23 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Sei in sospensione e non ti muovi, qualcosa dentro però si è girato: la stessa situazione la vedi a testa in giù e da quell'angolo torna un senso che prima ti sfuggiva. Questa immobilità sta lavorando per te.
-- 2: L'attesa in cui stai sembra tempo perso e non lo è. Hai lasciato la presa sul fare e in quel vuoto la prospettiva si è invertita: ciò che sembrava ovvio adesso si mostra al contrario e regge meglio.
-- 3: Nessuna azione ti è possibile adesso e stranamente non ti manca nulla. Guardi il mondo da un punto che non avevi mai occupato: il tempo fermo ti sta insegnando quello che il movimento ti teneva nascosto.
+- 1: Sei in sospensione e non ti muovi, però dentro qualcosa si è girato: vedi la stessa situazione a testa in giù e da quell'angolo torna un senso che prima ti sfuggiva.
+- 2: L'attesa in cui stai sembra tempo perso e non lo è: hai lasciato la presa sul fare e in quel vuoto ciò che sembrava ovvio si mostra al contrario e regge meglio.
+- 3: Nessuna azione ti è possibile adesso e non ti manca nulla: guardi il mondo da un punto mai occupato e il tempo fermo ti insegna ciò che il movimento nascondeva.
 
 ### capovolta
 
-- 1: Stai a testa in giù da tanto che il mondo non ti sembra più nuovo. L'attesa ha smesso di insegnarti qualcosa e tiene soltanto il posto, mentre tu la chiami pazienza perché il nome vero costa più caro.
-- 2: Il sacrificio che porti nessuno te l'ha chiesto e nessuno lo incassa. Il nodo intorno alla tua caviglia l'hai stretto tu, in nome di una cosa nobile, però da quella rinuncia non torna niente a nessuno.
-- 3: Da fuori la tua immobilità sembra virtù e dentro è un'altra cosa: la fermata ti serve a non scendere, perché scendere vuol dire rimettere i piedi in terra e rispondere delle cose. Lo stallo lo tieni tu in piedi.
+- 1: Stai a testa in giù da tanto che il mondo non ti sembra più nuovo: l'attesa non insegna più e tu la chiami pazienza perché il nome vero costa caro.
+- 2: Il sacrificio che porti nessuno te l'ha chiesto e nessuno lo incassa: il nodo alla caviglia l'hai stretto tu, in nome di una cosa nobile, ma quella rinuncia non serve a nessuno.
+- 3: Da fuori la tua immobilità sembra virtù, dentro è altro: ti fermi per non scendere, perché scendere vuol dire rimettere i piedi a terra e rispondere delle cose. Lo stallo è tuo.
 
 ## La Morte
 
 ### dritta
 
-- 1: Qualcosa nella tua vita è arrivato al suo termine e si sta chiudendo mentre lo guardi. Nessuno ti sta chiedendo un bilancio: è un ciclo che ha finito il suo tempo e lo spazio nasce proprio da quella fine.
+- 1: Qualcosa nella tua vita è arrivato al termine e si chiude mentre lo guardi: non ti si chiede un bilancio, è un ciclo finito e lo spazio nasce da quella fine.
 - 2: Sei nel punto in cui una cosa finisce perché un'altra possa nascere. Non è una condanna né un appello a cui rispondere, è una trasformazione già cominciata dentro di te.
-- 3: Una porta si chiude dietro di te mentre sei ancora sulla soglia: ciò che hai lasciato indietro non torna nella forma che aveva. Qui non si tratta di meritare una rinascita, si tratta di una fine compiuta.
+- 3: Una porta si chiude dietro di te mentre sei ancora sulla soglia: ciò che hai lasciato non torna com'era. Non devi meritare una rinascita, è una fine compiuta.
 
 ### capovolta
 
@@ -282,9 +282,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Abiti una costruzione con la crepa già dentro il muro portante e passi le giornate a intonacarla. Nessuno ti sta attaccando e nessun carico di altri ti curva le spalle: tieni su la facciata di una cosa che dentro non è più vera.
-- 2: Stai rinviando la scossa che rimetterebbe tutto al vero. Il fulmine resta fuori perché lo tieni fuori con i puntelli, non perché l'impianto sia sano: ogni giorno di rinvio alza di un piano quello che poggia sul falso.
-- 3: La tua fatica è quella di chi puntella: non difendi una collina da un assalto, non porti sulle spalle il peso di un altro, tieni insieme un impianto che tu sai già finto. Il tuo sollievo sta tutto nel fatto che non è ancora caduto.
+- 1: Abiti una costruzione con la crepa già nel muro portante e passi le giornate a intonacarla: nessuno ti attacca, sei tu a tenere su la facciata di una cosa che dentro non è più vera.
+- 2: Stai rinviando la scossa che rimetterebbe tutto al vero: il fulmine resta fuori perché lo tieni fuori con i puntelli e ogni giorno di rinvio alza di un piano ciò che poggia sul falso.
+- 3: La tua fatica è quella di chi puntella: non porti il peso di un altro, tieni insieme un impianto che sai già finto e il tuo sollievo è che non sia ancora caduto.
 
 ## La Stella
 
@@ -292,7 +292,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: La tempesta è già passata e quello che senti adesso è una luce bassa che non urla: fiducia che rientra piano, ispirazione che torna, stanchezza ancora nelle ossa.
 - 2: Sei nel momento quieto che viene dopo il peggio. Niente clamore, nessun colpo di scena: soltanto una rassicurazione dolce che ti dice che la strada presa era quella giusta.
-- 3: Dentro di te la fiducia si è riaccesa a luce dolce, dopo giorni che ti hanno svuotato. La fatica resta addosso, intanto la quiete ha ripreso il suo posto.
+- 3: Dentro di te la fiducia si è riaccesa a luce dolce, dopo giorni che ti hanno tolto le forze. La fatica resta addosso, intanto la quiete ha ripreso il suo posto.
 
 ### capovolta
 
@@ -304,27 +304,27 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Quello che hai davanti non ha ancora la forma vera e tu lo sai senza poterlo dimostrare. Di notte le paure prendono un volume che di giorno non hanno. Stai attraversando un tratto in cui l'intuito vede meglio degli occhi.
+- 1: Quello che hai davanti non ha ancora la forma vera e lo sai senza poterlo dimostrare. Di notte le paure prendono un volume che di giorno non hanno: qui l'intuito vede meglio degli occhi.
 - 2: C'è un velo sulla scena: nomi, parole, apparenze non combaciano con ciò che senti sotto. L'inconscio parla e parla per immagini. Ti muovi in un buio dove ogni passo si tasta invece di vedersi.
-- 3: Nulla qui è falso del tutto e nulla è chiaro: il contorno delle cose cambia a seconda dell'ora in cui le guardi. Le tue paure notturne si mescolano ai fatti e per ora non riesci a separarle.
+- 3: Nulla qui è falso del tutto, nulla è chiaro: il contorno delle cose cambia con l'ora in cui le guardi. Le tue paure notturne si mescolano ai fatti e non riesci a separarle.
 
 ### capovolta
 
-- 1: La nebbia intorno a te si sta alzando e quello che ne vedi non ha la stazza che gli davi. La cosa è rimasta identica, sei tu che la guardi da vicino. Aveva più contorno che corpo.
+- 1: La nebbia intorno a te si alza e ciò che vedi non ha la stazza che gli davi. È la stessa cosa, la guardi da vicino: aveva più contorno che corpo.
 - 2: Stai uscendo da una confusione e le cose, viste adesso, non sono come sembravano a prima occhiata. Nessuna rivelazione ti ha colpito. Ti si è soltanto corretta la misura della cosa che temevi.
-- 3: Hai davanti una faccenda che ti sembrava enorme e che adesso sta dentro una taglia normale. Non è lei a essersi ridotta, è l'ingrandimento a cadere. Guardandola con occhi nuovi, trovi più ombra che sostanza.
+- 3: Hai davanti una faccenda che ti sembrava enorme e adesso ha una taglia normale. Non si è ridotta lei, è caduto l'ingrandimento: con occhi nuovi trovi più ombra che sostanza.
 
 ## Il Sole
 
 ### dritta
 
-- 1: Sei in piena luce e niente di te sta nell'ombra: quello che senti non ha bisogno di essere coperto davanti a nessuno. Le cose attorno a te fioriscono ed è un tempo chiaro, caldo, senza riserve.
+- 1: Sei in piena luce e niente di te sta nell'ombra: ciò che senti non ha bisogno di coperture davanti a nessuno. Le cose attorno a te fioriscono, in un tempo chiaro e caldo.
 - 2: La chiarezza è la tua condizione adesso: stai ridendo senza nasconderti e quello che hai costruito si vede. Il calore che porti addosso raggiunge anche chi ti sta vicino.
 - 3: Nulla in te chiede di restare segreto in questo momento: stai bene e si capisce a vista. Il successo che vivi ha la qualità del mezzogiorno, senza zone grigie da spiegare a qualcuno.
 
 ### capovolta
 
-- 1: La luce c'è attorno a te e sulla pelle non la senti. Non è un affetto che si è incrinato: è uno schermo tuo, spesso un pensiero vecchio, messo fra te e una gioia che resta disponibile.
+- 1: La luce c'è attorno a te e sulla pelle non la senti. Non si è incrinato un affetto: c'è uno schermo tuo, spesso un pensiero vecchio, fra te e una gioia ancora disponibile.
 - 2: Hai motivi buoni per stare bene e l'entusiasmo resta a mezz'asta. Quello che ti separa dal calore non è la paura di aprirti, è una nube tua che copre una luce ancora intera.
 - 3: Tutto è al suo posto eppure la gioia ti arriva smorzata, come filtrata da un vetro. Niente se n'è andato: qualcosa sta in mezzo ed è quel qualcosa a spegnere il calore sulle tue mani.
 
@@ -332,7 +332,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Sei nel punto in cui tutto il tuo passato si presenta insieme e chiede un bilancio. Dentro di te un richiamo chiaro ti chiama a una vita più tua, senza che nessun maestro te lo abbia indicato.
+- 1: Sei nel punto in cui tutto il tuo passato si presenta insieme e chiede un bilancio. Dentro di te un richiamo chiaro chiama a una vita più tua, senza che nessuno te l'abbia indicato.
 - 2: Un richiamo è arrivato e non porta nessuna condanna: non viene da un libro né da un maestro, sale dalle tue ossa e sta separando chi eri da chi stai diventando.
 - 3: Ti trovi sulla soglia di una rinascita, con il conto di tutta la tua storia aperto davanti. Il richiamo lo hai sentito, anche se non lo hai ancora detto a nessuno.
 
@@ -347,7 +347,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### dritta
 
 - 1: Un ciclo si chiude e [tu sei arrivato|tu sei arrivata|sei] dove dovevi. Non è un patrimonio che resta dopo di te: è un percorso che si compie dentro di te, intero, in questo momento.
-- 2: Ti trovi in un compimento pieno: tutto quello che hai attraversato è diventato parte di te e il cerchio si tiene da sé. Qui non ci sono radici da lasciare, c'è una strada percorsa fino in fondo.
+- 2: Ti trovi in un compimento pieno: ciò che hai attraversato è diventato parte di te e il cerchio si tiene da sé. Non ci sono radici da lasciare, c'è una strada percorsa fino in fondo.
 - 3: Sei nel punto esatto in cui il viaggio torna al suo inizio e trova senso. Niente da aggiungere, niente da difendere: quello che resta è un'armonia già raggiunta, tua, non da tramandare.
 
 ### capovolta
@@ -374,8 +374,8 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Hai un progetto in mano e nessuna nave ancora in mare. Sei al punto in cui si guarda oltre il confine di ciò che conosci, prima di qualsiasi partenza, con la rotta tutta da scegliere.
-- 2: Il mondo ti sta in una mano e la mappa nell'altra. Niente è stato lanciato, niente è in attesa di frutti: davanti a te c'è la scelta della direzione, con l'ambizione che non ti manca.
+- 1: Hai un progetto in mano e nessuna nave ancora in mare. Sei nel punto in cui si guarda oltre il confine di ciò che conosci, prima di partire, con la rotta da scegliere.
+- 2: Il mondo ti sta in una mano e la mappa nell'altra. Niente è stato lanciato, niente aspetta frutti: davanti a te c'è la scelta della direzione, con un'ambizione che non ti manca.
 - 3: Ti trovi sulla soglia di un disegno tuo, non condiviso con altri. Il passo che ti aspetta è scegliere dove puntare. Il confine del già noto lo vedi bene da qui.
 
 ### capovolta
@@ -388,22 +388,22 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Hai già mandato fuori qualcosa e adesso non è più nelle tue mani: viaggia lontano, in luoghi che non vedi. Il tuo posto è il punto alto da cui si guarda l'orizzonte, con il lavoro fatto alle spalle.
-- 2: Quello che aspetti non cresce nel tuo campo: è partito, sta altrove, dipende anche da mani che non sono le tue. Ti trovi sul bordo a scrutare la linea dove il mare finisce, con il progetto fuori portata.
-- 3: Il seme è fuori dal recinto. Hai aperto un fronte più largo di quello che potevi tenere sotto controllo e ora il tempo lavora in posti che non puoi visitare. La tua è la posizione di chi attende ritorni da lontano.
+- 1: Hai già mandato fuori qualcosa e adesso non è più nelle tue mani: viaggia lontano, dove non vedi. Il tuo posto è il punto alto da cui si guarda l'orizzonte, col lavoro alle spalle.
+- 2: Quello che aspetti non cresce nel tuo campo: è partito, sta altrove, dipende anche da mani altrui. Stai sul bordo a scrutare la linea dove il mare finisce, col progetto fuori portata.
+- 3: Il seme è fuori dal recinto. Hai aperto un fronte più largo di quanto potevi controllare e ora il tempo lavora in posti che non visiti. Sei nella posizione di chi attende ritorni da lontano.
 
 ### capovolta
 
-- 1: Hai una risposta in mano e non è quella che avevi chiesto: ciò che avevi mandato lontano è rientrato con un contenuto suo. Stai nel punto in cui il conto si rilegge su quello che è tornato davvero.
-- 2: Quello che hai spedito oltre il mare è di nuovo da te, con un carico che non corrisponde alla lista che avevi dato. Nessuna attesa ti resta aperta: la merce è scaricata e le tue previsioni no.
-- 3: Le tue aspettative stanno davanti a te smentite da un fatto concreto: il ritorno che hai avuto esiste e ha una forma sua. Il porto non è vuoto, è pieno di una cosa che non avevi previsto.
+- 1: Hai una risposta in mano e non è quella che avevi chiesto: ciò che avevi mandato lontano è rientrato con un contenuto suo. Ora il conto si rilegge su ciò che è tornato.
+- 2: Quello che hai spedito oltre il mare è di nuovo da te, con un carico diverso dalla tua lista. Nessuna attesa resta aperta: la merce è scaricata e le tue previsioni no.
+- 3: Le tue aspettative stanno davanti a te, smentite da un fatto concreto: il ritorno esiste e ha una forma sua. Il porto non è vuoto, è pieno di ciò che non avevi previsto.
 
 ## Quattro di Bastoni
 
 ### dritta
 
-- 1: Le fondamenta che hai posato reggono e intorno a te c'è gente con cui dividere il risultato. Niente è in viaggio e niente è da aspettare: il traguardo sta in casa tua ed è una soglia di festa.
-- 2: Ti trovi su una base solida, in un tempo di festa condivisa sotto lo stesso tetto. Non è un applauso che arriva da fuori a dirti quanto vali, è una stabilità concreta che hai costruito.
+- 1: Le fondamenta che hai posato reggono e intorno a te c'è gente con cui dividere il risultato. Niente è da aspettare: il traguardo sta già in casa tua.
+- 2: Ti trovi su una base solida, in un tempo di festa sotto lo stesso tetto. Non è un applauso da fuori a dirti quanto vali: è una stabilità che hai costruito tu.
 - 3: Quello che hai messo in piedi tiene e le radici sono a terra. La gioia qui non aspetta nessun verdetto esterno: è il riconoscimento tuo e dei tuoi per una casa che sta su.
 
 ### capovolta
@@ -423,8 +423,8 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### capovolta
 
 - 1: Ti logori in battibecchi che non hanno nemmeno una posta: ognuno punge, nessuno vince, la stessa discussione riparte domani con le stesse parole.
-- 2: Attorno a te si bisticcia su più fronti piccoli e tu stai in mezzo a tutti. Nessun avversario solo da affrontare, nessuna pace da fare con qualcuno: soltanto screzi sparsi che ti prendono le forze a sorsi.
-- 3: Metà di quei dissapori li lasci covare senza nominarli, metà li tieni aperti per abitudine. Quello che senti addosso è la stanchezza di una contesa che non decide niente, con tutti pronti a ricominciare da capo.
+- 2: Attorno a te si bisticcia su più fronti piccoli e tu stai in mezzo. Nessun avversario vero da affrontare: soltanto screzi sparsi che ti prendono le forze a sorsi.
+- 3: Metà di quei dissapori li lasci covare senza nominarli, metà li tieni aperti per abitudine. Addosso senti la stanchezza di una contesa che non decide niente e ricomincia ogni giorno.
 
 ## Sei di Bastoni
 
@@ -450,9 +450,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Hai più contese aperte nello stesso tempo e a ognuna dai una risposta intera: la tua forza finisce divisa in troppe parti e da nessuna torna piena. A sopraffarti è il numero di chi pretende qualcosa da te.
-- 2: Da una parte ci sei tu, dall'altra sono parecchi: ognuno vuole un pezzo di quello che tieni e a tutti stai dicendo no in una volta sola. Nessun punto riceve la tua forza intera.
-- 3: Le parti che ti chiedono qualcosa si sono moltiplicate e tieni il punto su ciascuna, comprese quelle vecchie che hanno smesso di volere qualunque cosa da te. Quello che ti schiaccia è la quantità, non un avversario.
+- 1: Hai più contese aperte nello stesso tempo e a ognuna dai una risposta intera: la tua forza finisce divisa in troppe parti. A sopraffarti è il numero di chi pretende qualcosa.
+- 2: Da una parte ci sei tu, dall'altra sono parecchi: ognuno vuole un pezzo di quello che tieni e a tutti dici no insieme. Nessun punto riceve la tua forza intera.
+- 3: Le parti che ti chiedono qualcosa si sono moltiplicate e tieni il punto su ciascuna, anche su quelle che non vogliono più niente da te. Ti schiaccia la quantità, non un avversario.
 
 ## Otto di Bastoni
 
@@ -472,23 +472,23 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Porti addosso il conto delle prove già passate: sei in piedi con la fatica di tutte. Il traguardo ora è a poca distanza e quello che resta da attraversare è meno di quello che hai attraversato.
-- 2: La stanchezza che senti non è pigrizia, è il peso di un percorso quasi finito. Hai ceduto terreno e lo hai ripreso più volte, adesso ti resta un tratto breve con poche riserve in mano.
-- 3: Sul tuo corpo ci sono i segni di quello che hai già reso: non è la prima volta che tieni il punto. Il posto in cui stai è l'ultimo pezzo, quello dove la tenacia conta più della forza.
+- 1: Porti addosso il conto delle prove già passate e sei in piedi con la fatica di tutte. Il traguardo è vicino: quello che resta è meno di quello che hai attraversato.
+- 2: La stanchezza che senti non è pigrizia, è il peso di un percorso quasi finito. Hai ceduto terreno e lo hai ripreso più volte: ti resta un tratto breve.
+- 3: Sul tuo corpo ci sono i segni di quello che hai già retto: non è la prima volta che tieni il punto. Sei all'ultimo pezzo, dove la tenacia conta più della forza.
 
 ### capovolta
 
 - 1: Non c'è nessun assalto in corso e tu resti in guardia: le botte che hai preso tempo addietro decidono ancora chi è pericoloso, per loro lo è chiunque si avvicini di un passo.
 - 2: Il tuo riflesso arriva prima del tuo giudizio: alzi la difesa e solo dopo guardi chi avevi davanti. Le ferite che portano la data di prima leggono ogni avvicinamento come un attacco.
-- 3: Stai dentro un recinto che hai alzato per un pericolo finito. Il corpo ricorda i colpi e tiene il presidio da sé, così chi ti bussa con le mani libere resta fuori insieme a tutto il resto.
+- 3: Stai dentro un recinto che hai alzato per un pericolo finito. Il corpo ricorda i colpi e tiene il presidio da sé, così anche chi arriva in pace resta fuori.
 
 ## Dieci di Bastoni
 
 ### dritta
 
 - 1: Porti addosso più responsabilità di quante stiano su due spalle e la schiena si è curvata per adattarsi. Nessuno ti sta attaccando: è il peso accumulato a tenerti chino, non un nemico.
-- 2: Hai detto sì così tante volte che adesso il carico ti arriva al collo. Non sei al fondo di nulla: stai in piedi e cammini, soltanto sotto una soma che ti toglie la vista della strada.
-- 3: La quantità di cose che tieni in piedi per gli altri è diventata il tuo modo di stare al mondo. Qui il problema non è una ferita, è il numero: troppe braccia tese verso di te ed è tutto sulle tue.
+- 2: Hai detto sì così tante volte che adesso il carico ti arriva al collo. Non sei a terra: cammini ancora, soltanto sotto una soma che ti toglie la vista della strada.
+- 3: Le cose che tieni in piedi per gli altri sono diventate il tuo modo di stare al mondo. Il problema non è una ferita, è il numero: troppe braccia tese verso di te.
 
 ### capovolta
 
@@ -500,9 +500,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Qualcosa di nuovo ti ha bussato alla porta e tu hai aperto. È un'idea giovane, leggera e senza impegno preso, che ti riempie di domande e ti fa venire voglia di uscire a provarla.
+- 1: Qualcosa di nuovo ti ha bussato alla porta e tu hai aperto: un'idea giovane, leggera, senza impegno preso, che ti riempie di domande e ti fa venire voglia di provarla.
 - 2: Hai addosso un entusiasmo fresco del tipo che ti fa parlare prima di sapere. Niente è ancora in corsa: c'è una scintilla curiosa, minuscola come quelle da cui nascono le avventure grandi.
-- 3: Sei in un tempo di esplorazione. Ti butti su una cosa per il gusto di provarla e fai domande a chiunque incontri. Lo slancio che hai è giovane e nessuno ti chiede ancora che frutti dia.
+- 3: Sei in un tempo di esplorazione: ti butti su una cosa per il gusto di provarla e fai domande a chiunque incontri. Il tuo slancio è giovane e nessuno ne chiede i frutti.
 
 ### capovolta
 
@@ -534,17 +534,17 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: In una stanza dove prima scaldavi tu, adesso conti le teste che si girano verso un'altra persona. Non è la luce del momento a essersi velata: sei tu che abbassi la tua per non sembrare di troppo.
+- 1: In una stanza dove prima scaldavi tu, adesso conti le teste che si girano verso un'altra persona. Non si è velata la luce del momento: abbassi la tua per non sembrare di troppo.
 - 2: Hai il calore intatto e lo tieni basso. Ti misuri con qualcuno che ti sembra più luminoso e da quel confronto esci sempre sotto, così parli meno, ti offri meno, ti spegni di un tono.
-- 3: Il dubbio su di te ha un nome e una faccia: una persona vicina che sembra avere il fuoco che era il tuo. Per non competere hai tolto legna al tuo e adesso lo trovi tiepido perfino tu.
+- 3: Il dubbio su di te ha un nome e una faccia: qualcuno vicino che sembra avere il fuoco che era tuo. Per non competere hai tolto legna al tuo e ora ti sembra tiepido.
 
 ## Re di Bastoni
 
 ### dritta
 
-- 1: Gli altri aspettano la tua mossa per muoversi, perché il tratto di strada che a loro manca tu l'hai già percorso. Quello che dici pesa per le cose che hai portato a termine, più che per il tono con cui lo dici.
+- 1: Gli altri aspettano la tua mossa per muoversi, perché hai già percorso il tratto che a loro manca. Ciò che dici pesa per le cose portate a termine, più che per il tono.
 - 2: In mano hai un bastone che ha messo foglie, segno di una guida con radici nel mestiere. Dirigi persone che fanno un lavoro che conosci da dentro, perché l'hai fatto tu prima di dirigerlo.
-- 3: Chi lavora con te ti chiede da che parte andare e la tua risposta è un passo, più che una spiegazione. Stai dove sta chi si prende la direzione di un'impresa e ne risponde davanti a tutti.
+- 3: Chi lavora con te ti chiede da che parte andare e la tua risposta è un passo, non una spiegazione. Stai dove sta chi prende la direzione di un'impresa e ne risponde davanti a tutti.
 
 ### capovolta
 
@@ -562,29 +562,29 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Senti molto e non lasci uscire niente. Il sentimento è intero dentro di te, con il coperchio tenuto fermo dalla tua mano: non è l'altro a mancare, è la tua apertura a essere chiusa a chiave.
+- 1: Senti molto e non lasci uscire niente. Il sentimento è intero dentro di te, col coperchio tenuto fermo dalla tua mano: non manca l'altro, è la tua apertura a essere chiusa a chiave.
 - 2: C'è un'acqua ferma dove dovrebbe scorrere. Hai messo via un amore per non pagarne il rischio e adesso quello che non dici ristagna in te, con il sapore di qualcosa che si guasta da sé.
-- 3: La sorgente è tappata dal timore di soffrire. Dentro hai tutto il necessario per amare e lo stai razionando goccia a goccia. Nessuno ti ha chiuso da fuori: il tappo è tuo e la mano sopra è la tua.
+- 3: La sorgente è tappata dal timore di soffrire: dentro hai tutto per amare e lo razioni goccia a goccia. Nessuno ha chiuso da fuori; il tappo è tuo, la mano sopra è la tua.
 
 ## Due di Coppe
 
 ### dritta
 
 - 1: Fra te e un'altra persona si è sigillato un patto: nessun gruppo intorno, nessuna folla, soltanto voi che vi riconoscete. Quello che hai davanti è un legame alla pari, scambiato in parti uguali.
-- 2: Ti trovi dentro un'armonia a coppia, di quelle in cui dai quanto ricevi senza contare. Non è un'emozione che nasce dentro di te e basta: è un riconoscimento reciproco ed è questo a renderla preziosa.
-- 3: Le vostre mani si sono incontrate a metà strada e il legame che ne nasce porta il sigillo dello scambio. La forza qui non è tua soltanto: è quella che cresce quando ci si sceglie a vicenda.
+- 2: Ti trovi dentro un'armonia a due, di quelle in cui dai quanto ricevi senza contare. Non è un'emozione che nasce soltanto in te: è un riconoscimento reciproco e per questo è prezioso.
+- 3: Le vostre mani si sono incontrate a metà strada e il legame che ne nasce porta il sigillo dello scambio. Questa forza non è solo tua: cresce quando ci si sceglie a vicenda.
 
 ### capovolta
 
-- 1: Fra te e una persona sola è passata una frase presa per un'altra. Nessuno ti ha ferito e non hai nulla da rimarginare: vi volete bene esattamente come prima ed è l'ascolto a essersi incrinato, non il sentimento.
-- 2: Resti a un passo da qualcuno che ti vuole bene quanto prima. Il patto fra voi due sta ancora in piedi mentre il gesto dello scambio si è fermato a metà per una cosa detta in un modo e sentita in un altro.
-- 3: Il guasto fra te e l'altra persona sta in un fraintendimento e non in quello che provate. Addosso non hai una delusione da smaltire ma una frase girata male, che vi fa parlare a turno senza incontrarvi mai nello stesso punto.
+- 1: Fra te e una persona sola è passata una frase presa per un'altra. Non c'è una ferita da rimarginare: vi volete bene come prima, si è incrinato l'ascolto, non il sentimento.
+- 2: Resti a un passo da qualcuno che ti vuole bene come prima. Il patto regge, ma lo scambio si è fermato per una frase detta in un modo e sentita in un altro.
+- 3: Il guasto fra te e l'altra persona sta in un fraintendimento, non in ciò che provate: non hai una delusione da smaltire, ma una frase girata male che vi fa parlare senza incontrarvi.
 
 ## Tre di Coppe
 
 ### dritta
 
-- 1: Sei in mezzo a persone che ti vogliono bene e la gioia che circola fra voi è il tuo punto di partenza. Non è un traguardo da celebrare, è l'affetto di un cerchio che tiene.
+- 1: Sei in mezzo a persone che ti vogliono bene e la gioia che circola fra voi è il punto di partenza: non un traguardo da celebrare ma l'affetto di un cerchio che tiene.
 - 2: Attorno a te ci sono amicizie vive, bicchieri alzati, risate condivise. Quello che senti adesso non lo senti [da solo|da sola|in solitudine]: in compagnia si moltiplica.
 - 3: La tua ricchezza adesso ha nomi e volti: le persone con cui condividi. Quello che ti scalda non è ciò che possiedi, è il legame fra te e chi ti sta accanto.
 
@@ -598,14 +598,14 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Sei nel punto in cui ti basta quello che hai e un'offerta tesa accanto non ti accende nulla. La mano che ti porge una cosa in più la vedi: la rifiuti senza soppesarla, per sazietà e per noia.
+- 1: Sei nel punto in cui ti basta quello che hai: la mano che ti porge una cosa in più la vedi e la rifiuti senza soppesarla, per sazietà e per noia.
 - 2: Hai detto no a una cosa buona senza esaminarla, perché le tue coppe ti sembrano già piene. Non ti trattiene un timore e non ti confonde l'abbondanza di strade: ti ferma la sazietà.
-- 3: La tua condizione è quella di chi ha abbastanza e per questo non assaggia: l'offerta sta a un palmo dalla tua mano e tu la lasci dove sta, perché niente di nuovo riesce a interessarti.
+- 3: La tua condizione è quella di chi ha abbastanza e non assaggia: l'offerta sta a un palmo dalla tua mano e la lasci lì, perché niente di nuovo ti interessa.
 
 ### capovolta
 
 - 1: Il torpore si sta sciogliendo e torni a sentire interesse per qualcosa. Non ti stai rialzando da una perdita e nemmeno da un bilancio severo: ti stai svegliando dalla noia.
-- 2: Qualcosa ti incuriosisce di nuovo dopo un tempo in cui niente ti diceva nulla. Il cuore si ridesta piano. Quello che si apre non è un lutto che passa, è un appetito che torna.
+- 2: Qualcosa ti incuriosisce di nuovo dopo un tempo in cui niente ti diceva nulla: quello che si apre non è un lutto che passa, è un appetito che torna.
 - 3: Sei nel momento in cui lo sguardo si alza da solo. L'indifferenza perde terreno e una curiosità nuova ti chiama. Questa volta la senti venire senza sforzo.
 
 ## Cinque di Coppe
@@ -618,9 +618,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Accanto alla cosa che hai perduto ce n'è una rimasta in piedi e la stai guardando. La perdita resta vera: quello che si è spostato nel punto in cui ti trovi è la direzione dei tuoi occhi.
+- 1: Accanto alla cosa che hai perduto ce n'è una rimasta in piedi e la stai guardando. La perdita resta vera: si è spostata soltanto la direzione dei tuoi occhi.
 - 2: Hai smesso di fissare il posto vuoto. L'accettazione ha cominciato il suo lavoro e il rimpianto non è finito, mentre il poco che ti resta intorno torna a contare.
-- 3: Il tuo viso si è voltato di qualche grado verso quello che c'è ancora. Non si sta chiudendo una ferita né passando un torpore. Una mancanza viene ammessa e smette di occuparti tutto lo sguardo.
+- 3: Il tuo viso si è voltato di qualche grado verso ciò che c'è ancora: non si chiude una ferita né passa un torpore, una mancanza viene ammessa e smette di occuparti lo sguardo.
 
 ## Sei di Coppe
 
@@ -640,15 +640,15 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Hai davanti più possibilità di quante ne puoi tenere e ognuna si presenta bene. Dentro alcune c'è sostanza, dentro altre soltanto fumo: dal posto in cui stai le due cose hanno lo stesso aspetto.
+- 1: Hai davanti più possibilità di quante ne puoi tenere e ognuna si presenta bene. Dentro alcune c'è sostanza, dentro altre fumo: dal posto in cui stai le due cose hanno lo stesso aspetto.
 - 2: Molte strade ti chiamano insieme e nessuna si è ancora fatta concreta. Vivi in un'abbondanza immaginata: i tuoi desideri si affollano davanti agli occhi, più nitidi di qualsiasi fatto verificabile.
 - 3: Il tuo momento è pieno di promesse non verificate. Le vedi tutte e le vuoi quasi tutte: nessuna ti ha chiesto ancora il prezzo di scegliere lei e di lasciare cadere le altre.
 
 ### capovolta
 
 - 1: Il campo si è svuotato e ne resta uno: fra tutti i desideri che ti affollavano, uno regge ancora dopo che gli altri si sono dissolti. Non lo hai ottenuto, lo hai riconosciuto.
-- 2: Sai quale strada vuoi e sai il prezzo: le altre le hai lasciate esattamente dove stavano. La chiarezza che hai adesso non viene da un ragionamento, viene dall'avere scelto e dall'avere perso il resto.
-- 3: Dopo l'affollamento ti resta un desiderio unico. Quello che prima era vapore ha preso un contorno e un nome: la libertà in cui stai è fatta di rinunce già accettate, non di porte ancora aperte.
+- 2: Sai quale strada vuoi e sai il prezzo: le altre le hai lasciate dove stavano. La chiarezza che hai adesso non viene da un ragionamento, viene dall'avere scelto e dall'avere perso il resto.
+- 3: Dopo l'affollamento ti resta un desiderio unico. Quello che prima era vapore ha preso un contorno e un nome: la libertà in cui stai è fatta di rinunce accettate, non di porte aperte.
 
 ## Otto di Coppe
 
@@ -656,13 +656,13 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Stai voltando le spalle a una cosa che funzionava e ha smesso di nutrirti, senza litigi e senza annunci. Il tuo cuore sa dove va, la testa ancora no ed è comunque già una partenza.
 - 2: Hai cominciato ad andartene in silenzio da qualcosa di pieno che non ti riempie più. Nessuna scelta fra mille possibilità ti trattiene: dietro di te resta roba buona e non più tua.
-- 3: Il passo che stai facendo è un'uscita di scena senza rumore, da un luogo che agli occhi di tutti era in ordine. Cerchi un senso più alto ed è per quello che lasci, non per delusione.
+- 3: Il passo che stai facendo è un'uscita di scena senza rumore da un luogo che agli occhi di tutti era in ordine: lasci per cercare un senso più alto, non per delusione.
 
 ### capovolta
 
 - 1: Un piede ce l'hai già fuori dalla porta e l'altro dentro: la partenza è cominciata e non è decisa. Non stai evitando di guardare, stai guardando senza spostare il peso del corpo.
 - 2: Resti sulla soglia della cosa che vorresti lasciare, con la valigia pronta accanto a te. La domanda non è dove andare, è se andarsene ed è a quella che non hai risposto.
-- 3: Ti fermi a metà di un addio: dentro di te una parte ha già salutato e un'altra non si alza dalla sedia. Non è paura del buio, è sospensione fra due stanze che conosci bene.
+- 3: Ti fermi a metà di un addio: dentro di te una parte ha già salutato e un'altra non si alza dalla sedia. Non è paura del buio, è sospensione fra due stanze che conosci.
 
 ## Nove di Coppe
 
@@ -688,9 +688,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Stai in mezzo a una casa che ha perso l'accordo: ogni persona cara spinge dalla sua parte, sulle spese, sui tempi, su che cosa conta davvero. Nessuno se ne va e niente si decide più insieme.
-- 2: Dentro la tua famiglia ciascuno ha preso una rotta sua e tu le reggi tutte addosso. Nessun addio, nessuna lite aperta: soltanto un noi che si è smontato, con te nel mezzo a tenere i fili.
-- 3: Hai una famiglia intera intorno e il patto che la teneva unita si è sfilacciato. Tirano da parti diverse, tu fai da cerniera fra una stanza e l'altra mentre la serenità che davi per scontata ti costa fatica.
+- 1: Stai in mezzo a una casa che ha perso l'accordo: ogni persona cara spinge dalla sua parte, sulle spese, sui tempi, su che cosa conta. Nessuno se ne va e niente si decide insieme.
+- 2: Dentro la tua famiglia ciascuno ha preso una rotta sua e tu le reggi tutte. Nessun addio, nessuna lite aperta: un noi che si è smontato, con te nel mezzo a tenere i fili.
+- 3: Hai una famiglia intera intorno e il patto che la teneva unita si è sfilacciato: tirano da parti diverse e tu fai da cerniera, mentre la serenità che davi per scontata ti costa fatica.
 
 ## Fante di Coppe
 
@@ -702,9 +702,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Hai una pelle troppo fine per il giro in cui ti trovi e stai dietro una porta che hai chiuso tu. L'emozione resta viva e piccola al coperto, mentre una parola di niente ti arriva dentro per intero.
-- 2: Il punto in cui ti trovi è un ritiro: tieni per te quello che senti, lo porti addosso senza consegnarlo a nessuno. Non assorbi gli stati d'animo di chi hai davanti, custodisci il tuo e lo tieni basso.
-- 3: Qualcosa di gentile in te ha preso un colpo e adesso sta dietro il vetro: provi ancora tutto, soltanto non lo dici. Quando qualcuno si avvicina al tuo sentire, la prima cosa che fai è coprirlo.
+- 1: Hai una pelle troppo fine per il giro in cui ti trovi e stai dietro una porta chiusa da te. Dentro l'emozione resta viva, mentre una parola da niente ti ferisce per intero.
+- 2: Il punto in cui ti trovi è un ritiro: tieni per te quello che senti e non lo consegni a nessuno. Non assorbi l'umore altrui, custodisci il tuo e lo tieni basso.
+- 3: Qualcosa di gentile in te ha preso un colpo e adesso sta dietro un vetro: provi ancora tutto, soltanto non lo dici. Se qualcuno si avvicina, lo copri subito.
 
 ## Cavaliere di Coppe
 
@@ -718,7 +718,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Le parole d'affetto non trovano seguito nei gesti. La corte che ricevi, oppure quella che fai tu, resta sospesa a promesse che nessuno mantiene.
 - 2: Ti muovi dentro un sentimento dichiarato e mai dimostrato. Suona bene, intanto nulla attecchisce: di quello che era stato detto non resta un fatto.
-- 3: C'è una distanza fra ciò che viene detto e ciò che viene fatto, da parte tua o dell'altra persona. Non è un cuore chiuso dalla ferita, è una promessa senza radici, bella da sentire.
+- 3: C'è una distanza fra ciò che viene detto e ciò che viene fatto, da parte tua o dell'altra persona: non un cuore ferito, una promessa senza radici, bella da sentire.
 
 ## Regina di Coppe
 
@@ -726,11 +726,11 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Senti quello che gli altri non dicono e riesci a tenerlo senza spaventarti. La tua sensibilità non è un germoglio fragile, è una stanza dove le persone entrano volentieri perché vi trovano posto.
 - 2: Chi ti sta intorno trova in te un'accoglienza che non chiede spiegazioni. Leggi gli stati d'animo in profondità e li sostieni: è una competenza matura, esercitata su molte persone prima di questa.
-- 3: La tua condizione è quella di chi cura. L'intuito ti dice da dove viene il dolore di chi hai davanti e la tenerezza non ti indebolisce: la governi, come si governa un'acqua dentro un vaso.
+- 3: La tua condizione è quella di chi cura: l'intuito ti dice da dove viene il dolore di chi hai davanti e la tenerezza non ti indebolisce, la governi come un'acqua dentro un vaso.
 
 ### capovolta
 
-- 1: Prendi dentro ogni stato d'animo che ti passa accanto e non trovi più il tuo. La cura esce da te in un'unica direzione e il tuo nome, nel conto di chi hai sostenuto, non compare mai.
+- 1: Prendi dentro ogni stato d'animo che ti passa accanto e non trovi più il tuo. La cura esce da te in una direzione sola e nel conto il tuo nome non compare.
 - 2: Il confine fra te e gli altri non tiene più: l'umore di chi ti sta vicino diventa il tuo in pochi minuti. Quello che senti è pieno di persone e vuoto di te.
 - 3: Ti stai sciogliendo in chi accudisci. Ascolti tutti, assorbi tutto e per [te stesso|te stessa|te] non resta né attenzione né acqua. Ami fino al punto in cui non respiri più.
 
@@ -744,9 +744,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Ti si viene a chiedere calma e intanto attorno a te tutti aspettano di capire come sei oggi prima di aprire bocca. Non assorbi l'umore degli altri: è il tuo a decidere il clima.
-- 2: Il tuo affetto sta diventando uno strumento di scambio: lo dai quando ti serve un passo dall'altra parte e lo togli quando quel passo non arriva. La maturità affettiva non ti manca, solo che a comandare la giornata è l'umore.
-- 3: Gli altri si appoggiano a te come a un punto fermo e quel punto oggi oscilla a ogni ora. Nessuno ti sta riempiendo di sé: è il tuo stato che riempie la stanza e dà il tono a chi ci sta dentro.
+- 1: Ti si chiede calma e intanto attorno a te tutti aspettano di capire come sei oggi prima di aprire bocca. Non assorbi l'umore degli altri: è il tuo a decidere il clima.
+- 2: Il tuo affetto sta diventando moneta di scambio: lo dai quando ti serve un passo dall'altra parte e lo togli quando non arriva. La maturità c'è, ma comanda l'umore.
+- 3: Gli altri si appoggiano a te come a un punto fermo e quel punto oggi oscilla a ogni ora: è il tuo stato a riempire la stanza e a dare il tono.
 
 ## Asso di Denari
 
@@ -768,13 +768,13 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Tieni insieme più cose nello stesso momento e il ritmo regge. Non è una pratica sola da affinare e non è un passo regolare: è un movimento continuo fra impegni diversi, fatto con leggerezza.
 - 2: Ti stai adattando bene a un carico che cambia forma ogni giorno. Niente di fermo nelle tue mani: tutto passa da una all'altra. La flessibilità è quello che ti tiene in piedi.
-- 3: Più impegni girano insieme e nessuno cade. Non è equilibrio interiore, è destrezza pratica: finché non ti irrigidisci, il gioco ti viene bene.
+- 3: Più impegni girano insieme e nessuno cade a terra. Non è equilibrio interiore, è destrezza pratica: finché non ti irrigidisci, il gioco ti viene bene e regge.
 
 ### capovolta
 
 - 1: Girano fra le tue mani più cose di quante il tempo ne consenta e il ritmo si è spezzato. Una sta già scendendo mentre le altre restano sospese.
-- 2: La tua situazione è quella di chi ha perso il tempo del giro: niente di quello che porti è gravoso da solo, soltanto il momento in cui una cosa va presa arriva quando un'altra è già scesa.
-- 3: Stai in un equilibrio che si è fatto rigido: il terreno sotto di te non è fermo, gli impegni si sono moltiplicati e la leggerezza con cui li alternavi non c'è più. Qualcosa è già per terra.
+- 2: La tua situazione è quella di chi ha perso il tempo del giro: niente di ciò che porti pesa da solo, ma il momento di prendere una cosa arriva quando un'altra è già scesa.
+- 3: Stai in un equilibrio che si è fatto rigido: il terreno si muove, gli impegni si sono moltiplicati e la leggerezza con cui li alternavi è sparita. Qualcosa è già a terra.
 
 ## Tre di Denari
 
@@ -787,14 +787,14 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### capovolta
 
 - 1: Nessuno sa bene chi fa cosa, nel lavoro che vi tiene insieme: non c'è una lite aperta, c'è un ingranaggio che gira a vuoto e aspettative che nessuno ha detto chiaramente.
-- 2: Sei dentro un'opera comune che non ingrana: compiti sovrapposti, sintonia poca, ogni passaggio da rifare. La competenza c'è, il coordinamento manca.
+- 2: Sei dentro un'opera comune che non ingrana: compiti sovrapposti, poca sintonia, ogni passaggio da rifare due volte. La competenza c'è, anche la tua, ma manca chi coordina le mani.
 - 3: Fra te e chi lavora con te il malinteso è di ruolo, non di volontà: ognuno dà per scontato un pezzo diverso e quello che dovrebbe salire insieme resta fermo a metà.
 
 ## Quattro di Denari
 
 ### dritta
 
-- 1: Stai nella posizione di chi custodisce: quello che è tuo lo conti, lo chiudi, lo controlli e resta intero. Nel conto rientra anche questo, che le mani serrate intorno a quel bene non sono libere di accogliere.
+- 1: Stai nella posizione di chi custodisce: quello che è tuo lo conti, lo chiudi, lo controlli e resta intero. Il prezzo è che le mani serrate su quel bene non accolgono altro.
 - 2: Il tuo punto fermo è una scorta protetta. Nessuna norma da imporre a nessuno e nessun patrimonio da amministrare, soltanto una quantità precisa tenuta addosso, da cui viene la sicurezza che senti.
 - 3: La sicurezza che hai adesso è fatta di risparmio e di controllo: spendi poco, verifichi, non lasci uscire niente senza il tuo permesso. Dentro quel recinto nulla si disperde ed entra altrettanto poco.
 
@@ -808,29 +808,29 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Ti trovi fuori, con il freddo addosso e la luce accesa dietro un vetro che non è tuo. Manca qualcosa di concreto e manca anche la compagnia: nessuno ti ha visto passare davanti alla porta.
+- 1: Ti trovi fuori, con il freddo addosso e la luce accesa dietro un vetro che non è tuo. Manca qualcosa di concreto e manca la compagnia: nessuno nota il tuo passaggio.
 - 2: C'è una mancanza che si conta: quello che hai non basta e intorno nessuno sembra accorgersene. Cammini a lato di porte chiuse, con la vergogna che ti tiene la bocca ferma.
 - 3: Il punto in cui stai è un fuori. Esclusione, poco in tasca, la sensazione di non essere nella lista di nessuno: chiedere ti costa più della fame e per questo non chiedi.
 
 ### capovolta
 
-- 1: La porta si è aperta e il freddo ti sta uscendo dalle ossa. Qualcuno ti ha fatto posto e la mancanza che contavi ogni giorno si allenta di un poco, un passo corto dopo l'altro.
-- 2: Hai di nuovo un sostegno sotto i piedi: non stai più dalla parte esterna del vetro. Il periodo duro non è finito, ha però smesso di stringere e la vergogna di chiedere ti è costata meno del previsto.
+- 1: La porta si è aperta e il freddo ti sta uscendo dalle ossa. Qualcuno ti ha fatto posto e la mancanza che contavi ogni giorno si allenta, un passo dopo l'altro.
+- 2: Hai di nuovo un sostegno sotto i piedi: non stai più dalla parte esterna del vetro. Il periodo duro ha smesso di stringere e chiedere ti è costato meno del previsto.
 - 3: Il freddo lascia la presa. Dopo un tratto passato fuori, qualcosa ti riprende dentro: un aiuto accettato, una mano riconosciuta, il primo pasto caldo di una ripresa che va a passi corti.
 
 ## Sei di Denari
 
 ### dritta
 
-- 1: Fra te e gli altri qualcosa circola in due direzioni: dai aiuto e ne ricevi senza che i piatti della bilancia si inclinino. Non è un ricordo che ti scalda, è uno scambio concreto in corso adesso.
-- 2: Ti trovi nel punto in cui quello che esce dalle tue mani e quello che vi rientra hanno lo stesso peso. La tua abbondanza si misura da quanto passa, non da quanto resta chiuso nel cassetto.
-- 3: Qualcuno riceve da te e qualcuno ti sostiene, nello stesso periodo della tua vita. Qui non si tratta di meriti da pesare: si tratta di beni e di aiuti che si muovono con giustizia.
+- 1: Fra te e gli altri qualcosa circola in due direzioni: dai aiuto e ne ricevi senza che i piatti della bilancia si inclinino. È uno scambio concreto, in corso adesso.
+- 2: Ti trovi nel punto in cui quello che esce dalle tue mani e quello che vi rientra hanno lo stesso peso. La tua abbondanza si misura da quanto passa, non da quanto tieni.
+- 3: Qualcuno riceve da te e qualcuno ti sostiene, nello stesso periodo. Non si tratta di meriti da pesare: si tratta di beni e di aiuti che si muovono con giustizia.
 
 ### capovolta
 
 - 1: Dalle tue mani esce molto più di quanto rientri e la cosa ti sta svuotando. Non hai troppi impegni insieme: hai un rapporto di dare e ricevere inclinato tutto da una parte sola.
 - 2: Nel dare hai perso la misura: quello che offri non torna e qualcuno conta su di te senza ricambiare. Il conto qui non è morale, è materiale ed è rimasto aperto da tempo.
-- 3: Quello che regali a chi non ricambia ti pesa adesso come un debito. La questione non è una verità da guardare in faccia: è un flusso che va in una direzione sola, la tua verso fuori.
+- 3: Quello che regali a chi non ricambia ti pesa come un debito. Non è una verità da guardare in faccia: è un flusso che va in una direzione sola, da te verso fuori.
 
 ## Sette di Denari
 
@@ -870,8 +870,8 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Hai una libertà che nessuno ti ha regalato e la stai consumando in spese fuori misura. Quello che possiedi lo tieni perché sia visto, non perché ti serva: il tuo stare bene dipende ormai dagli occhi di chi guarda.
-- 2: La tua autonomia poggia sul tuo lavoro e si consuma da dentro: spendi più di quanto il tuo agio sopporti, soprattutto in quello che si nota. Nessuno ti chiede di trattenere, è la misura tua che è saltata.
+- 1: Hai una libertà che nessuno ti ha regalato e la stai consumando in spese fuori misura. Quello che possiedi lo tieni perché sia visto, non perché serva: il tuo stare bene dipende dagli occhi altrui.
+- 2: La tua autonomia poggia sul tuo lavoro e si consuma da dentro: spendi più di quanto l'agio sopporti, soprattutto in ciò che si nota. Nessuno ti chiede di trattenere, è saltata la tua misura.
 - 3: Quello che hai messo insieme da te ti ha dato una vita comoda e adesso la mantieni per mostrarla: le uscite crescono con lo sfoggio e l'indipendenza che le pagava si accorcia.
 
 ## Dieci di Denari
@@ -884,9 +884,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Il tuo nome sta su beni che portano anche il nome dei tuoi e proprio lì si è aperto l'attrito: la casa, il terreno, il conto di famiglia li rivendica più di una persona insieme a te.
+- 1: Il tuo nome sta su beni che portano anche il nome dei tuoi ed è lì che si è aperto l'attrito: casa, terreno, conto di famiglia li rivendicano in tanti, insieme a te.
 - 2: Stai dentro una famiglia che discute su quello che possiede insieme. Non ti manca niente di materiale, ti manca il diritto di decidere per conto tuo su cose che appartengono anche ai tuoi.
-- 3: Quello che tiene in piedi la tua casa lo dividi per nascita con altri e adesso ciascuno fa il conto della sua parte. Ti trovi in mezzo a una spartizione fra consanguinei, col bene intero sotto gli occhi di tutti.
+- 3: Ti trovi in mezzo a una spartizione fra parenti: ciò che tiene in piedi la tua casa lo dividi per nascita con altri e adesso ognuno fa il conto della sua parte.
 
 ## Fante di Denari
 
@@ -894,12 +894,12 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: Sei al principio di qualcosa che non sai ancora fare e lo impari facendolo: ogni prova ti lascia in mano un pezzo di risultato, piccolo e concreto, che prima non avevi.
 - 2: Il tuo è il tempo dell'apprendista: la mano sicura non ce l'hai ancora e hai davanti una promessa pratica che cresce esattamente quanto l'esercizio che le dai.
-- 3: Stai imparando una cosa nuova mentre la fai e ti accorgi che ogni esercizio lascia un segno fuori di te, in una materia che prende forma e non resta una sola intenzione.
+- 3: Stai imparando una cosa nuova mentre la fai: ogni esercizio lascia un segno fuori di te, in una materia che prende forma invece di restare un'intenzione.
 
 ### capovolta
 
-- 1: Stai al punto di chi ha promesso di imparare e non ha praticato: la lezione l'hai presa, il banco è lì, la tua testa è scivolata su un'altra curiosità prima che il gesto diventasse tuo.
-- 2: Hai un impegno aperto con qualcuno su una cosa da fare bene e stai fermo al suo inizio. Non ti pesa la ripetizione di un mestiere saputo a memoria: non lo sai ancora fare e il punto in cui ti trovi è questo.
+- 1: Hai promesso di imparare e non hai ancora praticato: la lezione l'hai presa, il banco è lì, ma la tua testa è scivolata su un'altra curiosità prima che il gesto diventasse tuo.
+- 2: Stai all'inizio di un impegno aperto con qualcuno su una cosa da fare bene. Non ti pesa la ripetizione, ti manca il saper fare: non hai ancora cominciato davvero.
 - 3: Quello che hai studiato resta studio e nelle tue mani non è passato niente. Un lavoro pratico aperto da poco ti aspetta nel punto esatto dove la distrazione te lo ha fatto lasciare.
 
 ## Cavaliere di Denari
@@ -907,14 +907,14 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### dritta
 
 - 1: Cammini al tuo passo, sempre lo stesso, giorno dopo giorno. Qui non stai aspettando che qualcosa maturi: ti stai muovendo ed è la costanza, non la velocità, a fare la tua forza.
-- 2: Il tuo modo di stare in questa faccenda è il metodo: quello che dici lo fai, nei tempi che hai detto. Nessuna attesa ti blocca e il terreno lo stai attraversando a piedi, un solco alla volta.
+- 2: Sei nel mezzo di un lavoro fatto con metodo: quello che dici lo fai nei tempi promessi, nessuna attesa ti blocca e attraversi il terreno a piedi, un solco alla volta.
 - 3: Avanzi lentamente e senza salti, con l'affidabilità di chi arriva dove ha promesso. La lentezza addosso a te non è un limite: è il modo in cui copri la distanza senza perdere colpi.
 
 ### capovolta
 
-- 1: Hai il percorso chiaro davanti e la meta non si è spostata di un metro: fermo è soltanto il tuo avanzare, perché la regolarità che ti faceva arrivare si è fissata in una cautela che rinvia ogni tappa.
-- 2: Sei dentro un cammino giusto che non procede. Conosci la via e sai dove sbuca, mentre ogni tappa resta rinviata a un giorno con meno rischi, perché l'andatura regolare che era il tuo merito si è irrigidita.
-- 3: Il tuo momento è quello di chi sta in sella senza muoversi: i solchi davanti sono aperti, l'armatura addosso, la meta sotto gli occhi. Ogni mattina la prudenza decide che non è ancora giornata da partire.
+- 1: Hai il percorso chiaro davanti e la meta non si è spostata: si è fermato soltanto il tuo avanzare, perché la regolarità è diventata una cautela che rinvia ogni tappa.
+- 2: Sei dentro un cammino giusto che non procede: conosci la via e sai dove sbuca, ma ogni tappa slitta a un giorno con meno rischi e l'andatura regolare si è irrigidita.
+- 3: Il tuo momento è quello di chi sta in sella senza muoversi: la meta è sotto gli occhi, ma ogni mattina la prudenza decide che non è giornata per partire.
 
 ## Regina di Denari
 
@@ -926,9 +926,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Nella tua giornata provvedi a tutti e di te non si occupa nessuno, nemmeno tu: la spesa, le bollette, gli appuntamenti degli altri. Quello che riguarda te sta su un foglio che non apri da tempo.
-- 2: Mangi in piedi fra due cose da sbrigare, rimandi la visita che riguarda te e intanto la casa gira, i conti sono a posto, nessuno resta senza niente. Il tuo nome manca dalla lista che scrivi ogni mattina.
-- 3: Il punto in cui stai è un pozzo aperto a tutti che nessuno riempie: dai tempo, soluzioni pratiche, la spesa contata al centesimo. Non assorbi gli umori di nessuno, fai le loro faccende al posto delle tue.
+- 1: Nella tua giornata provvedi a tutti e di te non si occupa nessuno, nemmeno tu: la spesa, le bollette, gli appuntamenti degli altri. Ciò che riguarda te resta su un foglio chiuso.
+- 2: Mangi in piedi fra due cose da sbrigare, rimandi la visita che riguarda te, mentre la casa gira, i conti tornano e nessuno resta senza niente. Il tuo nome manca dalla lista.
+- 3: Sei come un pozzo aperto a tutti che nessuno riempie: dai tempo, soluzioni pratiche, la spesa contata al centesimo, fai le faccende degli altri al posto delle tue.
 
 ## Re di Denari
 
@@ -940,7 +940,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Quello che hai costruito ha cominciato a comandarti. Non è il timore di restare senza: è l'abbondanza stessa che ti ha irrigidito. Il tuo governo sulle cose si è chiuso.
+- 1: Quello che hai costruito ha cominciato a comandarti. Non è il timore di restare senza: è l'abbondanza stessa che ti irrigidisce. Il tuo governo sulle cose si è chiuso.
 - 2: Hai molto e lo tieni fermo. La misura con cui guidavi si è fatta durezza, perché quello che possiedi è diventato il modo in cui valuti te.
 - 3: Governi molto e lo fai col pugno chiuso. Non è un piccolo risparmio da difendere: è la tua stessa prosperità che ha smesso di circolare e con lei anche tu.
 
@@ -954,9 +954,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Hai in mano uno strumento affilato e la testa nella nebbia. Stai a monte di una decisione e di una frase da dire, di nessuna delle due vedi ancora il bordo: con la stretta incerta che hai, lo stesso filo ti libera oppure ti costa qualcuno.
-- 2: Non è freddezza la tua, è foschia: giudichi con la mente velata proprio nel momento in cui una scelta e una frase ti aspettano. Quello che tieni in pugno apre un nodo oppure incide qualcuno, secondo l'angolo con cui lo porti.
-- 3: Le idee ti arrivano velate e intanto le parole ti escono con la punta fuori. Il tuo attrezzo è giusto ed è la mano a stringerlo male, così quel che vorresti sciogliere lo tagli di traverso senza averlo voluto.
+- 1: Hai in mano uno strumento affilato e la testa nella nebbia: davanti a una decisione da prendere non ne vedi ancora il bordo, così lo stesso filo può liberarti oppure costarti qualcuno.
+- 2: Non è freddezza la tua, è foschia: giudichi con la mente velata proprio quando una scelta ti aspetta. Ciò che tieni in pugno apre un nodo oppure ferisce, secondo come lo porti.
+- 3: Le idee ti arrivano velate e intanto le parole ti escono con la punta fuori: il tuo attrezzo è giusto, è la mano che lo stringe male, così tagli di traverso ciò che vorresti sciogliere.
 
 ## Due di Spade
 
@@ -976,43 +976,43 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: C'è un dolore preciso al centro del petto e ha una causa che potresti nominare. Non è una malinconia diffusa: è un taglio netto, recente, con le lacrime ancora a disposizione e la pioggia che batte adesso.
-- 2: Qualcosa ti ha attraversato e il colpo è ancora caldo. Una parola, una verità, un abbandono: il punto esatto lo senti sotto le costole. Stai nel pieno della ferita, dove il dolore si misura a respiri.
+- 1: C'è un dolore preciso al centro del petto e ha una causa che sai nominare. Non è malinconia diffusa: è un taglio netto e recente, con le lacrime ancora pronte.
+- 2: Un colpo è passato attraverso il tuo petto ed è ancora caldo: una parola, una verità, un abbandono. Stai nel pieno della ferita, dove il dolore si misura a respiri.
 - 3: Hai il petto aperto da un dolore che non chiede interpretazioni. Delusione, perdita, parole che hanno trovato il bersaglio: il tempo del pianto è questo, non uno successivo e più comodo.
 
 ### capovolta
 
-- 1: Il sangue si è fermato. La ferita c'è ancora e ha smesso di aprirsi a ogni movimento: il perdono ha cominciato il suo lavoro e il tuo respiro torna più profondo di qualche settimana prima.
-- 2: La pioggia sta passando sopra la tua testa e il petto si richiude. Quello che ti aveva trafitto ha un nome che puoi pronunciare senza piegarti: resta il segno, non più il taglio.
-- 3: Non hai dimenticato niente e hai smesso di sanguinare. Il dolore si sfuma ai bordi come un livido che cambia colore: lo tocchi e cede meno di prima, senza che tu debba stringere i denti.
+- 1: Il sangue si è fermato. La ferita c'è ancora ma non si riapre a ogni movimento: il perdono ha cominciato il suo lavoro e il tuo respiro torna più profondo.
+- 2: La pioggia sta passando sopra di te e il petto si richiude. Il colpo di allora ha un nome che pronunci senza piegarti: resta il segno, non il taglio.
+- 3: Non hai dimenticato niente e hai smesso di sanguinare. Il dolore sfuma ai bordi come un livido che cambia colore: lo tocchi e cede meno di prima.
 
 ## Quattro di Spade
 
 ### dritta
 
-- 1: Sei in una pausa e questa pausa ti serve: dopo la fatica il silenzio è il tuo posto adesso. Non c'è nessuna decisione sospesa, ci sono un corpo e una mente che stanno rimettendo insieme le forze.
-- 2: Il rumore si è spento intorno a te e il tempo che passa non è tempo perso. Quello che stai facendo è riprenderti, non rimandare: la quiete qui è un lavoro che va avanti da sola.
+- 1: Sei in una pausa e questa pausa ti serve: dopo la fatica il silenzio è il tuo posto. Nessuna decisione sospesa, solo un corpo e una mente che rimettono insieme le forze.
+- 2: Il rumore si è spento intorno a te e il tempo che passa non è perso. Stai riprendendoti, non rimandando: qui la quiete è un lavoro che va avanti da sé.
 - 3: Hai smesso di combattere per un poco ed è una sosta, non una resa. La stanchezza c'è e il silenzio attorno a te sta facendo il suo mestiere mentre tu non fai nulla.
 
 ### capovolta
 
-- 1: Il riposo che ti serviva lo hai fatto e il bisogno di immobilità non c'è più. Nessun ritardo ti trattiene: la sosta ha finito il suo compito e tu sei oltre la soglia di quel silenzio.
+- 1: Il riposo che ti serviva lo hai fatto e il bisogno di immobilità è finito. Nessun ritardo ti trattiene: la sosta ha chiuso il suo compito e tu sei già oltre.
 - 2: [Ti sei ripreso|Ti sei ripresa|Hai recuperato] le forze e la quiete non ha più niente da darti. Quello che senti non è fretta, è un corpo che non ha più ragione di stare giù.
-- 3: Le forze sono tornate al loro posto mentre stavi in silenzio ed è questo il punto in cui ti trovi: non più stanchezza, non ancora corsa. La pausa è alle spalle e la stanza comincia a stare stretta.
+- 3: Le forze sono tornate mentre stavi in silenzio: non più stanchezza, non ancora corsa. La pausa è alle tue spalle e la stanza comincia a stare stretta.
 
 ## Cinque di Spade
 
 ### dritta
 
-- 1: Hai vinto e il prezzo lo stai pagando adesso. Nessuno applaude, sul campo sono rimasti rapporti rotti e l'orgoglio che ti ha portato fino in fondo non ti scalda.
+- 1: Hai vinto e il prezzo lo stai pagando adesso. Nessuno applaude, sul campo sono rimasti rapporti rotti e l'orgoglio che ti spingeva fino in fondo non ti scalda.
 - 2: Sei dalla parte di chi ha avuto ragione e la ragione ti è costata più di quanto renda. Il conflitto si è chiuso con una perdita tua, intestata al tuo nome.
 - 3: Il tuo guadagno porta un segno meno nascosto. Hai tenuto il punto fino a vincere, hai perso qualcuno per strada e il successo ti sta in mano come una cosa fredda.
 
 ### capovolta
 
-- 1: Ti trovi dalla parte che ha vinto, con la ragione intera in tasca e davanti qualcuno che avevi contro. La voglia di deporre le armi ti è arrivata prima che all'altra parte e il gesto è a portata.
-- 2: Nello scontro appena finito sei la parte che non aveva torto. Il torto riconosciuto non ti basta più: non è la stanchezza di una battaglia in corso, è il perdono che ti pesa meno della ragione.
-- 3: Dentro di te il perdono è già in piedi e aspetta solo il tuo passo. Hai il torto dell'altra parte nero su bianco, lo tieni e non lo usi, però la pace ti sembra più alla mano della soddisfazione.
+- 1: Ti trovi dalla parte che ha vinto, con la ragione intera in tasca e davanti qualcuno che avevi contro. La voglia di deporre le armi ti arriva prima che all'altra parte.
+- 2: Nello scontro appena finito sei la parte che non aveva torto, ma il torto riconosciuto non ti basta più: adesso il perdono ti pesa meno della ragione.
+- 3: Dentro di te il perdono è già in piedi e aspetta il tuo passo. Hai in mano il torto dell'altra parte, lo tieni e non lo usi: la pace ti sembra più vicina della soddisfazione.
 
 ## Sei di Spade
 
@@ -1024,9 +1024,9 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Il distacco è in corso e ti costa più del previsto. Niente è da decidere: il passo è già fatto, mentre ti accorgi solo adesso di quanto pesa la cosa che hai lasciato dall'altra parte.
+- 1: Il distacco è in corso e ti costa più del previsto. Niente da decidere: il passo è fatto, ma ti accorgi solo adesso di quanto pesa ciò che hai lasciato dall'altra parte.
 - 2: Avanzi con mezzo cuore rimasto indietro. Il corpo è già nel tragitto, l'attaccamento sta ancora dove l'hai lasciato. Abiti due luoghi insieme e tiri il secondo dietro di te.
-- 3: Stai lasciando qualcosa e la fatica non nasce da un dubbio: viene dal legame. La partenza non si discute più, il tuo passo però è carico e porta addosso il tempo che chiudi dietro di te.
+- 3: Stai lasciando qualcosa e la fatica non nasce da un dubbio ma dal legame. La partenza non si discute più, però il tuo passo è carico del tempo che chiudi alle spalle.
 
 ## Sette di Spade
 
@@ -1048,7 +1048,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 - 1: [Ti senti bloccato|Ti senti bloccata|Ti sembra di non poterti muovere], però niente ti tiene davvero: le corde sono larghe, la benda è appena appoggiata. La prigione è fatta di pensieri tuoi.
 - 2: Quello che ti ferma non è una catena né un desiderio che ti lega: è la tua testa, che ha disegnato muri dove ci sono passaggi. Non li hai ancora misurati da vicino.
-- 3: La tua situazione sembra chiusa da ogni lato e lo sembra guardandola da dentro. Nessuno ti tiene stretto, nessuna tentazione ti trattiene: ti trattiene la paura di muoverti.
+- 3: La tua situazione sembra chiusa da ogni lato e lo sembra guardandola da dentro. Nessuno ti stringe, nessuna tentazione ti trattiene: ti trattiene la paura di muoverti.
 
 ### capovolta
 
@@ -1060,49 +1060,49 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### dritta
 
-- 1: Di notte ti svegli e la testa comincia a lavorare contro di te. Non è accaduto niente di nuovo: sono i pensieri che si moltiplicano al buio, mentre nel letto aspetti il primo grigio del mattino.
-- 2: Le tue ore peggiori sono quelle piccole, fra il sonno che non viene e il mattino che tarda. L'ansia non ha bisogno di fatti per crescere, le basta il silenzio della stanza e la tua attenzione.
-- 3: Hai la mente accesa quando tutto è spento. Quello che di giorno regge, nel cuore della notte diventa enorme e la tua testa lo racconta con parole che non useresti mai alla luce del mattino.
+- 1: Di notte ti svegli e la testa comincia a lavorare contro di te. Non è accaduto niente di nuovo: sono i pensieri che si moltiplicano al buio, nell'attesa del mattino.
+- 2: Le tue ore peggiori sono quelle piccole, fra il sonno che non viene e il mattino che tarda. All'ansia non servono fatti per crescere: le basta il silenzio e la tua attenzione.
+- 3: Hai la mente accesa quando tutto è spento. Quello che di giorno regge, nel cuore della notte diventa enorme e la tua testa lo racconta con parole che il mattino non userebbe.
 
 ### capovolta
 
-- 1: Il peggio della notte è passato e la mente ha smesso di girare a vuoto. Quello che hai detto a qualcuno pesa meno di quando lo tenevi dentro: fuori dalla tua testa l'incubo ha un contorno normale.
-- 2: La paura allenta la presa e il sonno ti ha ripreso per qualche ora. Il pensiero che ti torturava, raccontato a un orecchio amico, ha perso il tono notturno e i tuoi occhi vedono la stanza come è.
+- 1: Il peggio della notte è passato e la mente ha smesso di girare. Quello che hai detto a qualcuno pesa meno di prima: fuori dalla tua testa l'incubo ha un contorno normale.
+- 2: La paura allenta la presa e il sonno torna per qualche ora. Il pensiero che ti torturava, raccontato a un orecchio amico, ha perso il tono notturno.
 - 3: Sei dalla parte giusta dell'alba. Quello che ti angosciava è stato detto e non è più soltanto tuo: resta un residuo di stanchezza, con la morsa però ormai aperta sul collo.
 
 ## Dieci di Spade
 
 ### dritta
 
-- 1: Sei a terra dopo una contesa combattuta fino in fondo e il colpo che temevi è già caduto. Non stai trattenendo qualcosa che finisce: stai riconoscendo che quella battaglia è finita e che hai smesso di difenderla.
-- 2: Hai le mani vuote e le armi abbassate nel punto più basso del giro. Quello che ti ha messo a terra ha esaurito i suoi colpi e tu stai nel momento esatto in cui la resistenza ti appare inutile.
-- 3: La tua posizione è quella di chi ha perso una contesa e lo sa già. Il corpo è a terra sul campo, le lame hanno finito di cadere e dentro di te la resa ha preso il posto dell'ultimo tentativo di tenere.
+- 1: Sei a terra dopo una contesa combattuta fino in fondo e il colpo che temevi è già caduto. Non stai trattenendo qualcosa che finisce: riconosci che quella battaglia è chiusa.
+- 2: Hai le mani vuote e le armi abbassate nel punto più basso del giro. La forza che ti teneva a terra ha esaurito i suoi colpi: resistere ancora ti appare inutile.
+- 3: La tua posizione è quella di chi ha perso una contesa e lo sa già. Le lame hanno finito di cadere e dentro di te la resa ha preso il posto dell'ultimo tentativo di tenere.
 
 ### capovolta
 
 - 1: Ti stai alzando da terra e il terreno attorno a te è vuoto: della faccenda di prima non resta un pezzo utilizzabile. Il tuo movimento è lento e non te lo sta dando nessuno.
-- 2: Il tuo punto di partenza è il fondo toccato per intero, non una paura che si ridimensiona col giorno. Hai le mani libere perché non ti è rimasto niente da tenere: da lì rimetti su un gesto per volta.
-- 3: Adesso ti trovi a rimettere in piedi qualcosa partendo dal nulla, dentro una faccenda che si è chiusa del tutto. Non ti pesa addosso nessun carico da posare: il terreno è libero e sei tu a muoverti.
+- 2: Il tuo punto di partenza è il fondo toccato per intero. Hai le mani libere perché non ti è rimasto niente da tenere: da lì rimetti su un gesto per volta.
+- 3: Adesso rimetti in piedi qualcosa partendo dal nulla, dentro una faccenda che si è chiusa del tutto. Nessun carico da posare ti pesa addosso: il terreno è libero e sei tu a muoverti.
 
 ## Fante di Spade
 
 ### dritta
 
-- 1: Sei nel mezzo di una ricerca che non hai finito e riferisci già quello che hai trovato: la lingua corre insieme agli occhi e i pezzi passano ad altri prima che tu li abbia messi in ordine.
-- 2: Interroghi chiunque capiti e ripeti la risposta appena ti arriva. Non hai in mano una verità da dire né il diritto di decidere su nessuno: hai un dettaglio appena pescato e la fretta di passarlo.
+- 1: Sei nel mezzo di una ricerca che non hai finito e riferisci già quello che hai trovato: i pezzi passano ad altri prima che tu li abbia messi in ordine.
+- 2: Interroghi chiunque capiti e ripeti la risposta appena ti arriva. Non hai in mano una verità da dire: hai un dettaglio appena pescato e la fretta di passarlo.
 - 3: La tua condizione è quella dell'apprendista con gli occhi aperti: ti informi su una cosa che non ti torna e la racconti mentre la stai ancora raccogliendo, con più scoperte che conclusioni in tasca.
 
 ### capovolta
 
-- 1: Vivi dentro un giro di chiacchiere su gente che non è nella stanza. Una mezza frase è passata di bocca in bocca fino a te, tu l'hai ripetuta senza controllarla. Da quel giro non ha guadagnato niente nessuno, nemmeno tu.
-- 2: La tua lingua corre su notizie di seconda mano. Non stai coprendo un inganno tuo e non rincorri nessuna meta: fai il giro delle orecchie con pensieri sparsi, pungenti, su persone che in quel momento non possono rispondere.
-- 3: Hai sentito metà di una cosa e la racconti come intera. Stai dove sta chi spia dalla collina senza l'esperienza per leggere quello che vede: la frase che hai in bocca punge chi la riceve, con niente da costruirci sopra.
+- 1: Vivi dentro un giro di chiacchiere su gente assente. Una mezza frase è passata di bocca in bocca fino a te e l'hai ripetuta senza controllarla: nessuno ci ha guadagnato, nemmeno tu.
+- 2: La tua lingua corre su notizie di seconda mano. Non copri un inganno tuo e non rincorri una meta: fai il giro delle orecchie con pensieri sparsi su chi non può rispondere.
+- 3: Hai sentito metà di una cosa e la racconti come intera. Spii dalla collina senza l'esperienza per leggere quello che vedi: la frase che hai in bocca punge e non costruisce niente.
 
 ## Cavaliere di Spade
 
 ### dritta
 
-- 1: Punti allo scopo senza deviazioni, con la mente già decisa. Non è una verità appena vista e non è una passione che ti scalda: è un pensiero lanciato in azione, veloce, che corre più degli altri.
+- 1: Punti allo scopo senza deviazioni, con la mente già decisa. Non è una verità appena vista né una passione che ti scalda: è un pensiero lanciato in azione, più veloce degli altri.
 - 2: Ti muovi veloce perché hai già capito dove si taglia. La rapidità adesso è un tuo dono e chi ti sta accanto fa fatica a tenere il tuo passo.
 - 3: Hai idee decise e il piede sull'acceleratore. Quello che ti spinge non è il desiderio, è la lucidità: a questa velocità, però, la lucidità passa sopra a qualcuno senza accorgersene.
 

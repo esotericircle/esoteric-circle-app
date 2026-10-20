@@ -38,9 +38,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: La tua leggerezza diventa coraggio e ti fidi che il resto si mostri cammin facendo, anche se non vedi tutta la via.
+- 1: La tua leggerezza tende a farsi coraggio: nel tratto che viene puoi fidarti che il resto della via si mostri cammin facendo, anche se adesso non la vedi tutta.
 - 2: Davanti a te si prepara una partenza: un passo leggero oltre il bordo noto, con poco nella bisaccia e la fiducia che la strada si mostri mentre la percorri.
-- 3: Nei prossimi passi tende ad aprirsi un inizio da affrontare senza pesi: potresti scoprire che non serve vedere tutto il sentiero per cominciare a camminarlo.
+- 3: Nei prossimi passi tende ad aprirsi un inizio da affrontare senza pesi addosso: potresti scoprire che non serve vedere tutto il sentiero per cominciare a camminarlo davvero.
 
 ### capovolta
 
@@ -54,7 +54,7 @@ scrive l'Architetto.
 
 - 1: La tua iniziativa e l'abilità nel mettere in pratica i tuoi propositi tendono a portare a un risultato tangibile. Ciò che desideri può prendere una forma reale.
 - 2: Ciò che oggi è ancora un'idea tende a diventare gesto: gli strumenti sul tuo tavolo si preparano a lavorare insieme, se non aspetti condizioni perfette per usarli.
-- 3: Nei prossimi tempi le tue parole possono farsi passi concreti: un progetto prende forma sotto le tue mani, una cosa detta diventa una cosa fatta.
+- 3: Nei prossimi tempi le tue parole possono farsi passi concreti: un progetto tende a prendere forma sotto le tue mani e una cosa detta può diventare una cosa fatta.
 
 ### capovolta
 
@@ -82,7 +82,7 @@ scrive l'Architetto.
 
 - 1: La tua capacità di nutrire e far fiorire ciò che ti sta a cuore porta a una crescita spontanea e armoniosa, che si manifesta in abbondanza.
 - 2: Qualcosa di vivo tende a crescere fra le tue mani, un progetto o un legame: se lo nutri con pazienza, senza tirarlo per farlo germogliare, si prepara a fiorire.
-- 3: Nei prossimi tempi la terra che hai preparato può diventare fertile: ciò che curi con dolcezza tende a dare frutti abbondanti, nella sua stagione.
+- 3: Nei prossimi tempi la terra che hai preparato può diventare fertile: ciò che curi con dolcezza tende a dare frutti abbondanti, ciascuno nella sua stagione e senza fretta.
 
 ### capovolta
 
@@ -94,7 +94,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Il mantenimento della disciplina tende a costruire qualcosa di duraturo. Un consolidamento delle tue fondamenta porta ad avere una struttura che ti protegge.
+- 1: Se mantieni la disciplina, ciò che costruisci tende a durare: le tue fondamenta si consolidano e nel tratto che viene possono darti una struttura che ti protegge.
 - 2: Ciò che costruisci tende a poggiare su fondamenta più solide: nei prossimi passi regole chiare possono diventare la cornice dentro cui la tua vita cresce sicura.
 - 3: Si prepara un tempo di ordine: se prendi le tue responsabilità con fermezza, la struttura che edifichi tende a reggere a lungo, come un muro che protegge senza chiudere.
 
@@ -110,11 +110,11 @@ scrive l'Architetto.
 
 - 1: La tua ricerca di una sapienza profonda e condivisa porta alla costruzione di un sistema di valori solido. Tendi a diventare un punto di riferimento per gli altri, grazie alla tua autorevolezza morale.
 - 2: Sulla tua strada tende a comparire un maestro, un consiglio, una sapienza antica: potresti appoggiarti a ciò che viene da lontano per imparare a guidarti da te.
-- 3: Nei prossimi tempi l'appartenenza a qualcosa di più grande può offrirti sostegno: una tradizione, una comunità, un insegnamento che ti accompagna senza sostituirti.
+- 3: Nei prossimi tempi l'appartenenza a qualcosa di più grande può offrirti sostegno: una tradizione, una comunità, un insegnamento che ti accompagna senza sostituirti e ti lascia la strada da fare.
 
 ### capovolta
 
-- 1: La necessità di trovare un tuo senso fuori dai sentieri tracciati tende a farsi più forte. Ti muovi verso una crescita personale.
+- 1: La necessità di trovare un tuo senso fuori dai sentieri tracciati tende a farsi più forte: ti muovi verso una crescita personale, lontano dalle formule ricevute.
 - 2: Una regola ricevuta tende a starti sempre più stretta: nei prossimi passi potresti cercare il tuo senso fuori dal sentiero tracciato, riconoscendolo da come ti fa respirare.
 - 3: Si apre la possibilità di lasciare un dover essere che non ti appartiene: non come ribellione, ma come crescita verso un sapere che senti davvero tuo.
 
@@ -130,14 +130,14 @@ scrive l'Architetto.
 
 - 1: Rischia di persistere in te un'incertezza che ti porta a rimandare la definizione dei tuoi impegni. Senza un confronto onesto con ciò che senti, la chiarezza tende a mancare.
 - 2: Finché uno dei due valori che ti abitano resta zitto, la scelta tende a slittare ancora: prima di accordarti con l'altro, conviene che ti accordi con te.
-- 3: Se rimandi il confronto con ciò in cui credi, il disaccordo interiore rischia di prolungarsi, lasciando sospesi gli impegni che vorresti prendere.
+- 3: Se rimandi ancora il confronto con ciò in cui credi, il disaccordo interiore rischia di prolungarsi e gli impegni che vorresti prendere tendono a restare sospesi a lungo.
 
 ## Il Carro
 
 ### dritta
 
 - 1: La tua volontà tende a portarti a una vittoria concreta. Se mantieni lo sguardo fisso sulla meta, le tue diverse forze lavorano insieme per il tuo successo.
-- 2: Le redini sono nelle tue mani: se tieni lo sguardo sulla meta, le spinte contrarie tendono a tirare nella stessa direzione portandoti avanti con slancio.
+- 2: Le redini restano nelle tue mani: se tieni lo sguardo fisso sulla meta, le spinte contrarie tendono a tirare nella stessa direzione e a portarti avanti con slancio.
 - 3: Si prepara un tratto di avanzata: la padronanza che hai su forze opposte può trasformarsi in vittoria, non per fortuna ma per la direzione che sai tenere.
 
 ### capovolta
@@ -150,37 +150,37 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Le tue azioni passate tendono a trovare il loro giusto riconoscimento. Le scelte che hai fatto portano chiarezza e armonia.
+- 1: Le tue azioni passate tendono a trovare il loro giusto riconoscimento: le scelte che hai fatto con onestà possono portare chiarezza e armonia nei passi che vengono.
 - 2: Ciò che hai seminato tende a tornare a te con esattezza: nei prossimi passi la bilancia pesa le tue scelte, senza sconti ma anche senza colpe inutili.
-- 3: Si avvicina un tempo di verità: se agisci con onestà, le conseguenze delle tue azioni tendono a riequilibrare la situazione in modo limpido.
+- 3: Si avvicina un tempo di verità: se agisci con onestà, le conseguenze delle tue azioni tendono a riequilibrare la situazione in modo limpido, senza sconti e senza colpe.
 
 ### capovolta
 
-- 1: Continuare a posticipare un impegno ti impedisce di raggiungere l'armonia. La situazione rischia di non avere soluzione se non agisci con consapevolezza.
-- 2: Finché attribuisci al caso o ad altri un conto che porta il tuo nome, l'equilibrio tende a non tornare: il piatto della bilancia resta sospeso.
+- 1: Continuare a posticipare un impegno che ti riguarda tende a tenere lontana l'armonia: la situazione rischia di restare senza soluzione finché non agisci con consapevolezza e coraggio.
+- 2: Finché attribuisci al caso o ad altri un conto che porta il tuo nome, l'equilibrio tende a non tornare: il piatto della bilancia resta sospeso e la questione si trascina.
 - 3: Nei prossimi tempi una conseguenza delle tue scelte rischia di pesare sempre di più, fino al giorno in cui la riconosci come tua per chiudere il conto.
 
 ## L'Eremita
 
 ### dritta
 
-- 1: Il silenzio ti offre la comprensione che cerchi. Trovi nel tuo spazio interiore le chiavi per affrontare la tua situazione con saggezza.
+- 1: Il silenzio tende a offrirti la comprensione che cerchi: nel tuo spazio interiore puoi trovare le chiavi per affrontare la situazione con calma e con saggezza.
 - 2: Si prepara per te un tratto di ritiro: la tua lanterna tende a illuminare un passo alla volta, abbastanza per avanzare verso una risposta che viene da dentro.
-- 3: Rallentare, nei prossimi tempi, può portarti più lontano che correre: nel silenzio che ti concedi tende a farsi strada una verità tutta tua.
+- 3: Rallentare, nei prossimi tempi, può portarti più lontano che correre: nel silenzio che ti concedi tende a farsi strada una verità tutta tua, chiara un passo alla volta.
 
 ### capovolta
 
-- 1: La tendenza a isolarsi rende difficile il riavvicinamento. Il tuo atteggiamento solitario rischia di non farti ritrovare un equilibrio con il mondo esterno.
+- 1: La tendenza a isolarti rende difficile il riavvicinamento: il tuo atteggiamento solitario rischia di non farti ritrovare un equilibrio con il mondo che sta fuori dalla tua porta.
 - 2: Se il raccoglimento continua a chiuderti, la solitudine tende a farsi muro: la lanterna che porti potrebbe servire soprattutto a ritrovare la strada verso gli altri.
-- 3: Andando avanti così, il ritiro rischia di diventare un nascondiglio: il prossimo passo utile è riaprire la porta a chi ti cerca.
+- 3: Andando avanti così, il ritiro rischia di diventare un nascondiglio: il prossimo passo utile è riaprire la porta a chi ti cerca e farlo entrare.
 
 ## La Ruota della Fortuna
 
 ### dritta
 
-- 1: Un mutamento può presentarsi e ti invita a una trasformazione. Non opporti al movimento delle cose, ma accogli la variazione con apertura e disponibilità.
+- 1: Un mutamento può presentarsi e invitarti a una trasformazione: invece di opporti al movimento delle cose, conviene che tu accolga la variazione con apertura e disponibilità.
 - 2: Una svolta tende a prepararsi, spesso quando meno te l'aspetti: se non ti aggrappi a com'era, il giro delle cose può portarti in un punto nuovo della ruota.
-- 3: Nei prossimi tempi il ciclo gira: ciò che sembrava immobile si mette in moto, così ti conviene muoverti con il cambiamento invece di resistergli.
+- 3: Nei prossimi tempi il ciclo tende a girare: ciò che sembrava immobile si mette in moto, così ti conviene muoverti con il cambiamento invece di resistergli con tutte le forze.
 
 ### capovolta
 
@@ -193,12 +193,12 @@ scrive l'Architetto.
 ### dritta
 
 - 1: La tua mitezza diventa una risorsa preziosa, consentendoti di ottenere il controllo su ciò che ti turba con una fermezza che non ha bisogno di aggredire.
-- 2: Ciò che ti agita dentro tende a calmarsi sotto una mano ferma e mite: nei prossimi tempi l'istinto può farsi alleato, addomesticato senza lotta.
+- 2: Ciò che ti agita dentro tende a calmarsi sotto una mano ferma e mite: nei prossimi tempi l'istinto può farsi alleato, addomesticato con pazienza e senza lotta.
 - 3: Si prepara un tratto in cui il coraggio dolce conta più della stretta: se tratti le tue paure con fermezza tenera, la belva che temi tende ad acquietarsi.
 
 ### capovolta
 
-- 1: L'eccessiva severità verso di te tende a farti perdere il dominio, impedendoti di agire con la necessaria delicatezza.
+- 1: L'eccessiva severità verso di te tende a farti perdere il dominio di ciò che vivi, impedendoti di agire con la delicatezza che la situazione chiede.
 - 2: Se continui a trattarti con durezza, il controllo che cerchi tende a sfuggirti ancora: la stretta che ti imponi rischia di togliere tenuta invece di darne.
 - 3: Nei prossimi passi può tornare la presa che credevi persa, a patto che tu sostituisca la mano dura con una mano gentile, prima di tutto verso di te.
 
@@ -212,7 +212,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: La tua prospettiva tende a non cambiare, mantieni un atteggiamento di rinuncia che non ti aiuta a superare la fase di stallo. Non riesci a modificare il tuo punto di vista e non trovi la forza di scendere in campo.
+- 1: La tua prospettiva tende a non cambiare: la rinuncia dura, lo stallo resta e rischi di non trovare la forza di scendere e tornare in campo.
 - 2: Se l'attesa continua senza cambiare sguardo, tende a farsi stallo: il sacrificio che ti imponi rischia di non servire a nessuno, nemmeno a te.
 - 3: Davanti a te c'è un bivio fra due gesti: capovolgere il punto di vista oppure scendere dall'albero per tornare ad agire, prima che la rinuncia diventi paura travestita.
 
@@ -220,43 +220,43 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Un processo di rinnovamento si compie per te, portando a una chiusura necessaria che apre la strada a nuovi sviluppi.
+- 1: Un processo di rinnovamento tende a compiersi per te: una chiusura necessaria si prepara e, quando arriva, apre la strada a sviluppi che oggi non vedi ancora.
 - 2: Qualcosa tende a chiudersi per lasciare posto a ciò che vuole nascere: nei prossimi tempi potresti accompagnare una fine senza temerla, come una stagione che cede all'altra.
 - 3: Si prepara una trasformazione profonda: ciò che è giunto al suo termine tende a cadere da sé, liberando terreno per una vita che ti somiglia di più.
 
 ### capovolta
 
-- 1: Continuare a resistere a ciò che deve finire rischia di farti ristagnare in un ciclo senza uscita, impedendoti di aprirti a nuove fasi.
+- 1: Continuare a resistere a ciò che deve finire rischia di farti ristagnare in un ciclo senza uscita, mentre la fase nuova che ti aspetta resta chiusa fuori dalla porta.
 - 2: Se ti aggrappi a ciò che sta finendo, il passaggio tende a farsi più doloroso del necessario: aprire la mano è il gesto che può trasformare la resistenza in transito.
-- 3: Nei prossimi tempi il cambiamento già avviato rischia di ristagnare, trattenuto dalle tue dita: la vita vuole scorrere oltre, con te dentro.
+- 3: Nei prossimi tempi il cambiamento già avviato rischia di ristagnare, trattenuto dalle tue dita: la vita tende a scorrere oltre e chiede soltanto di portarti con sé.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: La tua capacità di mediazione e la tua calma ti conducono a risanare situazioni complesse, portando integrità dove prima c'era una divisione.
+- 1: La tua capacità di mediazione e la tua calma tendono a ricomporre situazioni complesse: dove prima c'era una divisione, piano piano può tornare un intero che regge.
 - 2: Ciò che era diviso tende a tornare d'accordo, versato piano da un vaso all'altro: nei prossimi tempi la pazienza ti permette di mescolare ciò che sembrava inconciliabile.
 - 3: Si prepara un equilibrio fatto di giusto dosaggio: se vai piano misurando ogni passo, le parti in contrasto della tua vita tendono a trovare un ritmo comune.
 
 ### capovolta
 
-- 1: Questa assenza di equilibrio rischia di persistere, con atteggiamenti impulsivi o una continua disarmonia che impedisce la tua serenità.
+- 1: Questa assenza di equilibrio rischia di persistere, con atteggiamenti impulsivi o una disarmonia continua che ti toglie serenità, finché non scegli di rallentare e di ridosare ogni cosa.
 - 2: Se gli eccessi o la fretta continuano a guidarti, le parti di te che non si parlano tendono ad allontanarsi ancora di più, rendendo il passo sempre più scomposto.
-- 3: Nei prossimi tempi l'equilibrio può tornare soltanto come pratica quotidiana: rallentare per ridosare è ciò che tende a ricucire il tuo ritmo.
+- 3: Nei prossimi tempi l'equilibrio può tornare soltanto come pratica quotidiana: rallentare per ridosare, un gesto alla volta e senza fretta, è ciò che tende a ricucire il tuo ritmo.
 
 ## Il Diavolo
 
 ### dritta
 
 - 1: La tua tendenza è di cedere a ciò che ti attrae, rischiando di ritrovarti in situazioni che ti tolgono libertà. Puoi ancora scegliere di non farti dominare.
-- 2: Se non nomini ciò che ti tiene, la catena tende ad accorciarsi: un attaccamento o una tentazione rischiano di comandarti più di quanto ammetti.
-- 3: Nei prossimi passi un'ombra chiede di essere guardata: riconoscere la presa che ti lega è ciò che può impedirle di stringere ancora nel buio.
+- 2: Se non nomini ciò che ti tiene, la catena tende ad accorciarsi giorno dopo giorno: un attaccamento o una tentazione rischiano di comandarti più di quanto ammetti.
+- 3: Nei prossimi passi un'ombra chiede di essere guardata in faccia: riconoscere e chiamare per nome la presa che ti lega è ciò che può impedirle di stringere ancora nel buio.
 
 ### capovolta
 
 - 1: Riconoscere ciò che ti limitava ti porta a spezzare legami e a non accettare più situazioni che ti bloccano. Tendi a sentire meno il condizionamento e più la tua capacità di agire secondo la tua volontà.
-- 2: Il nodo che hai finalmente visto tende a sciogliersi: nei prossimi tempi la catena potrebbe allentarsi fino a scivolarti dai polsi.
-- 3: Si prepara una liberazione graduale: ciò che ti tratteneva si rivela meno potente di te, soltanto più nascosto, così con dolcezza puoi lasciarlo andare.
+- 2: Il nodo che hai finalmente visto tende a sciogliersi: nei prossimi tempi la catena potrebbe allentarsi un anello alla volta, con dolcezza, fino a scivolarti dai polsi.
+- 3: Si prepara una liberazione graduale: ciò che ti tratteneva si rivela meno potente di te, soltanto più nascosto, così con dolcezza puoi lasciarlo andare e riprendere spazio.
 
 ## La Torre
 
@@ -269,7 +269,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: La tua attuale opposizione a lasciare andare può condurre a una condizione più complessa. Se non permetti che ciò che non funziona si esaurisca, rischi un cedimento più ampio e difficile da gestire.
-- 2: Rimandare la scossa necessaria tende a renderla più ampia: ciò che lasci cadere ora può risparmiarti un crollo peggiore più avanti.
+- 2: Rimandare ancora la scossa necessaria tende a renderla più ampia: ciò che lasci cadere ora, con le tue mani, può risparmiarti anche un crollo molto peggiore più avanti.
 - 3: Se continui a puntellare ciò che vacilla, la tensione tende a crescere sotto la superficie, finché il falso che regge in apparenza non cede tutto insieme.
 
 ## La Stella
@@ -305,7 +305,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: La tua natura aperta tende a generare ulteriore successo e felicità, con un'atmosfera di limpidezza e calore che avvolge ogni tua esperienza. La tua generosità diffonde gioia a chi ti sta vicino.
-- 2: Si prepara una stagione luminosa: ciò che fai tende a riuscire alla luce del giorno, con un calore che potresti condividere senza doverti nascondere.
+- 2: Si prepara una stagione luminosa: ciò che fai tende a riuscire alla luce del giorno, con un calore che potresti condividere apertamente con chi ti sta intorno, senza doverti nascondere.
 - 3: Nei prossimi tempi la gioia può farsi piena, come un mattino senza ombre: la tua riuscita tende a diventare visibile a tutti, illuminando ciò che sei.
 
 ### capovolta
@@ -318,7 +318,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Si delinea una rinascita, un periodo in cui ciò che hai compreso si traduce in azioni concrete e significative. Avverti la necessità di esprimere la tua vera essenza, vivendo con maggiore autenticità e rispondendo a un richiamo interiore.
+- 1: Si delinea una rinascita: ciò che hai compreso tende a tradursi in azioni concrete. Avverti il bisogno di esprimere la tua vera essenza, di vivere con più autenticità rispondendo a un richiamo interiore.
 - 2: Una chiamata tende a farsi sentire, un risveglio verso una vita più tua: nei prossimi tempi potresti rispondere, lasciando la persona che eri per quella che diventi.
 - 3: Davanti a te si prepara un bilancio che non condanna ma risveglia: ciò che hai compreso tende a tradursi in una rinascita concreta, come uno squillo che apre.
 
@@ -326,14 +326,14 @@ scrive l'Architetto.
 
 - 1: Rischia di non arrivare una fase di rinascita se non impari a perdonare gli errori passati. È importante accogliere le tue vicende con equità, senza conclusioni affrettate.
 - 2: Se continui a giudicarti con durezza, la rinascita tende a restare ferma: l'ascolto e il perdono sono ciò che può aprire il passaggio.
-- 3: Nei prossimi tempi il bilancio che rimandi rischia di farsi più pesante: affrontarlo con comprensione anziché con condanna tende a liberarti.
+- 3: Nei prossimi tempi il bilancio che rimandi rischia di farsi più pesante: affrontarlo con comprensione anziché con condanna tende a liberarti da un peso antico.
 
 ## Il Mondo
 
 ### dritta
 
 - 1: La tua pienezza attuale può essere la base per un nuovo ciclo che si delinea. Ciò che hai costruito finora tende a consolidarsi, aprendo nuove direzioni.
-- 2: Un cerchio tende a compiersi in armonia: nei prossimi tempi potresti goderti il traguardo prima di varcare la soglia del cerchio seguente.
+- 2: Un cerchio tende a compiersi in armonia: nei prossimi tempi potresti goderti per intero il traguardo raggiunto, con calma, prima di varcare la soglia del cerchio seguente.
 - 3: Si prepara un compimento: ciò che hai attraversato tende a integrarsi in te, intero, aprendo il passo verso un ciclo nuovo che nasce dalla pienezza.
 
 ### capovolta
@@ -348,11 +348,11 @@ scrive l'Architetto.
 
 - 1: Un impulso creativo tende a manifestarsi con forza, portandoti a innescare un processo che può avere grandi sviluppi. Questa scintilla accende un percorso significativo, se la segui con fiducia.
 - 2: Una scintilla tende ad accendersi fra le tue mani: se la afferri finché è viva, senza lasciarla raffreddare nei ripensamenti, può dare fuoco a un inizio vero.
-- 3: Si prepara il momento di cominciare: l'ispirazione che ti attraversa potrebbe diventare la prima fiamma di un'impresa, purché tu non aspetti troppo.
+- 3: Si prepara il momento di cominciare: l'ispirazione che ti attraversa potrebbe diventare la prima fiamma di un'impresa vera, purché tu non aspetti troppo a lungo e la afferri mentre scalda.
 
 ### capovolta
 
-- 1: Senza il tuo scopo più autentico, il desiderio di agire rischia di non trovare espressione. La situazione tende a rimanere immobile.
+- 1: Senza ritrovare il tuo scopo più autentico, il desiderio di agire rischia di non trovare espressione. La situazione tende a rimanere immobile, con la fiamma ancora coperta.
 - 2: Se la paura di sbagliare continua a soffocare il tuo fuoco, la partenza tende a slittare ancora: il desiderio c'è, ma rischia di non trovare la scintilla.
 - 3: Nei prossimi tempi la fiamma può tornare da sola, a patto che tu ritrovi prima il motivo per cui volevi accenderla, invece di forzare l'avvio.
 
@@ -374,9 +374,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: I risultati del tuo impegno tendono ad arrivare. Ciò che hai seminato con cura si concretizza e ti spinge verso una fase di espansione.
+- 1: I risultati del tuo impegno si avvicinano da lontano, con i loro tempi. Ciò che hai seminato con cura tende a concretizzarsi e a spingerti verso una fase di espansione.
 - 2: Le navi che hai mandato al largo tendono a fare ritorno: nei prossimi tempi potresti vedere arrivare i frutti di ciò che hai avviato, con l'espansione che ne segue.
-- 3: Si prepara una fase di crescita: ciò che hai lanciato è in viaggio verso di te, così conviene prepararti ad accoglierlo dal molo.
+- 3: Si prepara una fase di crescita: ciò che hai lanciato lontano è in viaggio verso di te, così ti conviene prepararti ad accoglierlo dal molo, con le mani libere.
 
 ### capovolta
 
@@ -418,7 +418,7 @@ scrive l'Architetto.
 
 - 1: La tua posizione di prestigio e i riconoscimenti ottenuti tendono a consolidarsi, portandoti ulteriore stima. È un periodo in cui il tuo impegno viene pienamente riconosciuto e valorizzato.
 - 2: Un riconoscimento tende ad arrivare: il merito che hai costruito si prepara a essere visto, come quando si rientra in corteo con la corona d'alloro.
-- 3: Nei prossimi tempi gli altri potrebbero accorgersi di ciò che hai fatto: accogliere l'onore con misura, senza sminuirti, tende a renderlo duraturo.
+- 3: Nei prossimi tempi gli altri potrebbero accorgersi di ciò che hai fatto e dirlo apertamente: accogliere l'onore con misura, senza sminuirti, tende a renderlo duraturo.
 
 ### capovolta
 
@@ -430,9 +430,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Mantenere il punto è fondamentale, non mollare la presa sui tuoi ideali. Tendi a conservare il vantaggio che hai conquistato, resistendo alle sfide.
+- 1: Mantenere il punto tende a essere la chiave: se non molli la presa sui tuoi ideali, puoi conservare il vantaggio che hai conquistato, resistendo alle sfide che arrivano.
 - 2: Si prepara un momento in cui tenere il punto: anche se senti l'assedio dal basso, la tua posizione tende a reggere se non cedi proprio adesso.
-- 3: Nei prossimi tempi qualcuno potrebbe contestare ciò in cui credi: difenderlo con coraggio, dall'alto del vantaggio che hai, tende a confermarti la posizione.
+- 3: Nei prossimi tempi qualcuno potrebbe contestare ciò in cui credi: difenderlo con coraggio, dall'alto del vantaggio che hai già, tende a confermarti la posizione che occupi.
 
 ### capovolta
 
@@ -444,7 +444,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Ciò che aspetti tende a presentarsi rapidamente e possono arrivare notizie. Le situazioni progrediscono con grande velocità.
+- 1: Ciò che aspetti tende a presentarsi rapidamente e possono arrivarti notizie tutte insieme. Le situazioni ferme tendono a sbloccarsi e a progredire con grande velocità.
 - 2: Le cose tendono ad accelerare tutte insieme, come frecce che volano verso il bersaglio: nei prossimi tempi notizie e risposte possono raggiungerti in fretta.
 - 3: Si prepara un tratto di movimento rapido: cavalcare il ritmo invece di frenarlo ti permette di cogliere ciò che aspettavi mentre è ancora in volo.
 
@@ -472,14 +472,14 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Rischi di continuare a sostenere un carico eccessivo. Le cose tendono a non modificarsi se non decidi di alleggerire le tue incombenze.
+- 1: Rischi di continuare a sostenere un carico eccessivo, un impegno dopo l'altro. Le cose tendono a non modificarsi se non decidi di alleggerire le tue incombenze.
 - 2: Se continui a caricarti tutto sulle spalle, il fascio tende a curvarti ancora di più: chiederti cosa è davvero tuo da portare è il passo che alleggerisce.
 - 3: Nei prossimi tempi il peso delle responsabilità potrebbe crescere, a meno che tu scelga cosa posare lungo la strada prima di arrivare alla porta.
 
 ### capovolta
 
 - 1: Rischi di continuare a sopportare un carico inutile, impedendoti di agire con libertà. Trovare il modo di alleggerirti ti permette di ottenere un nuovo equilibrio.
-- 2: Posare un fardello che non ti appartiene tende ad aprirti respiro: nei prossimi passi potresti scoprire che alleggerirti non tradisce nessuno.
+- 2: Posare un fardello che non ti appartiene tende ad aprirti respiro: nei prossimi passi potresti scoprire che alleggerirti non tradisce nessuno e lascia ognuno al suo posto.
 - 3: Si prepara il momento di sciogliere il fascio: ciò che porti per abitudine o senso del dovere può scivolare a terra, lasciandoti le mani libere.
 
 ## Fante di Bastoni
@@ -502,12 +502,12 @@ scrive l'Architetto.
 
 - 1: La tua energia ti porta a esplorare nuove strade, con la possibilità di intraprendere un viaggio o un cambiamento significativo. Potresti vivere un periodo di grande dinamismo.
 - 2: Si prepara una partenza audace, un viaggio o un'impresa che chiede passione: lanciarti verso ciò che desideri tende a portarti lontano, se tieni d'occhio la meta.
-- 3: Nei prossimi tempi l'ardore potrebbe metterti in sella: osare invece di esitare tende ad aprirti strade che fermandoti non vedresti.
+- 3: Nei prossimi tempi l'ardore potrebbe metterti in sella: osare invece di esitare tende ad aprirti strade nuove che, aspettando sulla soglia, non vedresti nemmeno.
 
 ### capovolta
 
 - 1: Un'eccessiva impazienza rischia di farti agire senza la dovuta riflessione, portandoti a scelte affrettate. Questa tendenza può farti deviare dal tuo percorso e generare frustrazione.
-- 2: Se lo slancio continua senza rotta, l'ardore tende a bruciarti in mille direzioni: incanalarlo verso una meta sola può trasformarlo in spinta.
+- 2: Se lo slancio continua senza rotta, l'ardore tende a bruciarti in mille direzioni: incanalarlo verso una meta sola, scelta con calma, può trasformarlo in spinta vera.
 - 3: Nei prossimi passi la foga rischia di farti galoppare oltre il punto giusto: tirare un poco le redini tende a salvare l'energia che stai spendendo.
 
 ## Regina di Bastoni
@@ -543,22 +543,22 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Un'onda di grazia e dolcezza tende a pervaderti, portando con sé un'espansione emotiva. Il tuo sentire profondo si manifesta, invitandoti ad accogliere senza riserve ciò che arriva.
-- 2: Una sorgente d'affetto tende a sgorgare, come una coppa che trabocca fra le tue mani: nei prossimi tempi potresti accogliere un'emozione nuova senza difenderti.
+- 2: Una sorgente d'affetto tende a sgorgare, come una coppa che trabocca fra le tue mani: nei prossimi tempi potresti accogliere un'emozione nuova senza bisogno di difenderti.
 - 3: Si prepara un'apertura del cuore: un amore o un sentimento puro tende a scorrere verso di te, se lasci che l'acqua trovi la sua strada.
 
 ### capovolta
 
 - 1: Il tuo cuore rischia di rimanere inaccessibile, se non permetti ai tuoi sentimenti di manifestarsi. Trattenere così le emozioni può portare a un senso di isolamento e insoddisfazione.
-- 2: Se continui a tenere chiusa la sorgente per timore di soffrire, l'acqua tende a ristagnare: l'emozione nuova rischia di restare dentro la coppa.
+- 2: Se continui a tenere chiusa la sorgente per timore di soffrire, l'acqua tende a ristagnare: l'emozione nuova rischia di restare dentro la coppa senza mai arrivare a nessuno.
 - 3: Nei prossimi tempi un amore rimandato potrebbe aspettare ancora, a meno che tu ti conceda di sentire: aprirti è un rischio, ma è anche la via della gioia.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: Un'unione preziosa tende a concretizzarsi, portando con sé un'armonia a due che si rafforza. Puoi vivere un legame profondo e significativo.
+- 1: Un'unione preziosa tende a prendere forma, portando con sé un'armonia a due che si rafforza: puoi vivere un legame profondo, in cui ciascuno riconosce l'altro.
 - 2: Due coppe tendono a incontrarsi davanti a te: nei prossimi tempi un patto del cuore potrebbe sigillarsi, un'intesa a due che vale la pena coltivare con cura.
-- 3: Si prepara un riconoscimento reciproco, come uno sguardo che si specchia nell'altro: il legame che nasce tende a moltiplicare la tua forza.
+- 3: Si prepara un riconoscimento reciproco, come uno sguardo che si specchia nell'altro: il legame che nasce tende a moltiplicare la tua forza invece di dividerla.
 
 ### capovolta
 
@@ -584,7 +584,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: La tua disattenzione rischia di farti perdere un'offerta vantaggiosa che si presenta. Continui a ignorare ciò che ti viene porto, guardando altrove.
+- 1: La tua disattenzione rischia di farti perdere un'offerta buona che si avvicina: se continui a ignorare ciò che ti viene porto e a guardare altrove, tende a passare oltre.
 - 2: Una coppa offerta tende a restare sospesa accanto a te: se continui a guardare altrove per noia, potresti lasciar passare ciò che avevi a portata di mano.
 - 3: Nei prossimi tempi la sazietà rischia di renderti indifferente a una proposta nuova: alzare lo sguardo dalle tre coppe note può mostrarti la quarta.
 
@@ -626,7 +626,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Mantenere questa tendenza ti porta a inseguire sogni irrealizzabili, disperdendo energie e impedendoti di scegliere un percorso solido e definito.
+- 1: Se mantieni questa tendenza, rischi di inseguire sogni irrealizzabili: le energie si disperdono fra troppe strade e scegliere un percorso solido diventa per te più difficile.
 - 2: Le coppe dei sogni tendono a moltiplicarsi davanti a te, ognuna con una promessa diversa: se non scegli con i piedi a terra, potresti inseguire nuvole.
 - 3: Nei prossimi tempi le possibilità potrebbero affollarsi fino a confonderti: sognare in grande va bene, ma tende a servirti una scelta per dare corpo a uno dei sogni.
 
@@ -634,13 +634,13 @@ scrive l'Architetto.
 
 - 1: La tua capacità di discernere ti porta a definire con precisione i tuoi obiettivi. Questo ti permette di agire con determinazione, sapendo quale strada è giusta per te.
 - 2: Fra le tante coppe tende a emergere un desiderio vero: nei prossimi passi potresti metterlo a fuoco, rinunciando alle altre illusioni con sollievo.
-- 3: Si prepara una scelta più chiara: la nebbia delle fantasie si dirada, così puoi riconoscere quale strada vuoi davvero percorrere.
+- 3: Si prepara una scelta più chiara: la nebbia delle fantasie tende a diradarsi, così puoi riconoscere quale strada vuoi davvero percorrere e lasciare andare le altre.
 
 ## Otto di Coppe
 
 ### dritta
 
-- 1: Tendi a distaccarti da ciò che non ti soddisfa. Cerchi un percorso che ti offra un significato più autentico, seguendo un richiamo interiore.
+- 1: Tendi a distaccarti da ciò che non ti soddisfa più: un richiamo interiore potrebbe portarti verso un percorso che offra un significato più autentico, anche lasciando cose ancora in piedi.
 - 2: Si prepara una partenza silenziosa: potresti lasciare le coppe impilate sulla riva per cercare un senso più alto, seguendo ciò che il cuore sa già.
 - 3: Nei prossimi tempi un richiamo interiore tende a portarti via da ciò che non ti nutre più, verso i monti nella luce notturna, anche senza tutte le risposte.
 
@@ -648,7 +648,7 @@ scrive l'Architetto.
 
 - 1: La tua indecisione rischia di prolungarsi, mantenendoti in una posizione di incertezza senza avanzare. Continui a rimandare la decisione di allontanarti da ciò che non ti soddisfa pienamente.
 - 2: Se rimani con un piede sulla soglia, l'indecisione fra restare e andare tende a durare: ascoltarti con sincerità è ciò che può dirti se è tempo.
-- 3: Nei prossimi tempi potresti continuare a voltarti verso le coppe lasciate, senza partire né tornare davvero: non ingannarti sul perché indugi.
+- 3: Nei prossimi tempi potresti continuare a voltarti verso le coppe lasciate, senza partire né tornare davvero: l'attesa tende ad allungarsi se non ti chiedi con sincerità perché indugi.
 
 ## Nove di Coppe
 
@@ -656,7 +656,7 @@ scrive l'Architetto.
 
 - 1: Godi pienamente di ciò che hai costruito, provando profonda contentezza. La tua felicità si consolida, permettendoti di vivere con serenità per i tuoi successi.
 - 2: Un desiderio tende ad avverarsi: nei prossimi tempi potresti sederti davanti alle tue coppe allineate con il cuore contento, senza sentirti in colpa.
-- 3: Si prepara una stagione di benessere: ciò che hai desiderato può prendere forma, chiedendoti soltanto di riconoscere la tua fortuna.
+- 3: Si prepara una stagione di benessere: ciò che hai desiderato tende a prendere forma e ti chiede soltanto di riconoscere la tua fortuna e di goderla senza colpa.
 
 ### capovolta
 
@@ -682,7 +682,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Un messaggio affiora e ti porta verso una nuova sensibilità. Un'emozione può sbocciare, anche se si manifesta in modo delicato.
+- 1: Un messaggio tende ad affiorare e a portarti verso una sensibilità nuova. Nei prossimi tempi un'emozione può sbocciare, anche se si mostra in modo delicato, quasi in punta di piedi.
 - 2: Un'emozione fragile tende a nascere, come un pesce che affiora dalla coppa: nei prossimi tempi potresti ricevere un messaggio d'affetto da accogliere con delicatezza.
 - 3: Si prepara una stagione di sensibilità e fantasia: ciò che senti, anche se tenero, chiede spazio per crescere in poesia e in gesti gentili.
 
@@ -690,7 +690,7 @@ scrive l'Architetto.
 
 - 1: La tua tendenza a nascondere la tua sensibilità può portarti a isolarti, privandoti della possibilità di connessioni autentiche e significative con gli altri.
 - 2: Se continui a murare il cuore per proteggerlo, la sensibilità tende a chiudersi del tutto: nei prossimi passi conviene che tu ne abbia cura senza barricarla.
-- 3: Una ferita emotiva rischia di renderti diffidente verso ogni nuovo affetto: abbassare un poco le difese tende a restituirti la tua delicatezza.
+- 3: Una ferita emotiva rischia di renderti diffidente verso ogni nuovo affetto: abbassare un poco le difese, a piccoli passi, tende a restituirti la tua delicatezza.
 
 ## Cavaliere di Coppe
 
@@ -724,9 +724,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Mantenere il tuo equilibrio emotivo ti porta a creare armonia e fiducia. Questa serenità affettiva ti guida verso relazioni più solide e decisioni ponderate.
+- 1: Mantenere il tuo equilibrio emotivo tende a portarti armonia e fiducia. Questa serenità affettiva ti guida verso relazioni più solide e verso decisioni ponderate con calma.
 - 2: Si prepara un tempo in cui diventi porto sicuro, per te e per gli altri: la calma con cui governi i sentimenti tende a dare stabilità a ciò che ti circonda.
-- 3: Nei prossimi tempi l'equilibrio emotivo può farti guida in acque agitate: la tua saggezza affettiva tende a calmare le onde senza raffreddare il cuore.
+- 3: Nei prossimi tempi l'equilibrio emotivo può farti guida in acque agitate: la tua saggezza affettiva tende a calmare le onde intorno senza raffreddare il cuore.
 
 ### capovolta
 
@@ -739,7 +739,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Un'iniziativa prende forma e tende a consolidarsi nel tempo, portandoti risultati concreti. Per te un nuovo ciclo si apre con una base stabile e duratura.
-- 2: Si prepara un seme d'oro da piantare: un'opportunità concreta, un lavoro o un progetto, tende a mettere radici se la accogli con mani pronte.
+- 2: Si prepara un seme d'oro da piantare: un'opportunità concreta, un lavoro o un progetto, tende a mettere radici se la accogli con mani pronte e attente.
 - 3: Nei prossimi tempi il terreno intorno a te potrebbe farsi fertile: ciò che avvii con solidità tende a crescere su buone radici, giorno dopo giorno.
 
 ### capovolta
@@ -754,19 +754,19 @@ scrive l'Architetto.
 
 - 1: Continui a destreggiarti tra molteplici ambiti della tua vita, adattandoti con agilità alle circostanze. Mantenere questa flessibilità ti consente di tenere il passo senza fatica.
 - 2: Si prepara un tratto in cui tenere più cose in aria, come un giocoliere con due monete: la leggerezza con cui ti adatti tende a mantenere vivo il ritmo.
-- 3: Nei prossimi tempi impegni diversi potrebbero alternarsi come onde: la flessibilità tende a essere la tua alleata migliore, se eviti di irrigidirti.
+- 3: Nei prossimi tempi impegni diversi potrebbero alternarsi come onde: la flessibilità tende a essere la tua alleata migliore, se eviti di irrigidirti davanti ai cambi di programma.
 
 ### capovolta
 
 - 1: Senza una chiara definizione delle tue priorità, l'eccessiva quantità di cose da gestire ti porta a uno squilibrio. Le tue energie si disperdono e la capacità di azione diminuisce.
-- 2: Se continui a reggere troppe cose insieme, il gioco tende a sfuggirti di mano: scegliere le priorità adesso evita che qualcosa cada a terra.
+- 2: Se continui a reggere troppe cose insieme, il gioco tende a sfuggirti di mano: scegliere adesso le priorità evita che qualcosa di importante cada a terra.
 - 3: Nei prossimi tempi il ritmo rotto rischia di far scivolare ciò che tieni in aria: poche cose tenute bene tendono a valere più di tante lasciate cadere.
 
 ## Tre di Denari
 
 ### dritta
 
-- 1: Il tuo valore professionale si consolida grazie al lavoro di squadra e questo ti porta a raggiungere traguardi significativi e duraturi.
+- 1: Il tuo valore professionale tende a consolidarsi grazie al lavoro di squadra e questo può portarti verso traguardi concreti e duraturi, riconosciuti anche da chi lavora con te.
 - 2: Si prepara un'opera comune: la competenza che metti nel cantiere tende a essere vista dagli altri, con i primi risultati concreti che crescono insieme.
 - 3: Nei prossimi tempi la collaborazione può portarti più lontano che lavorare per conto tuo: il disegno condiviso tende a prendere forma pietra su pietra.
 
@@ -786,7 +786,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Mantenere l'atteggiamento attuale rischia di creare un blocco insormontabile. Non c'è crescita se continui a opporti al cambiamento.
+- 1: Mantenere l'atteggiamento di adesso rischia di trasformare la prudenza in un blocco: non c'è crescita se continui a opporti a ogni cambiamento e a ogni uscita.
 - 2: Se la paura di restare senza continua a farti stringere, ciò che trattieni tende a stringere te: aprire la mano può rimettere in circolo energie ferme.
 - 3: Nei prossimi passi allentare la presa potrebbe sembrarti un rischio, ma è ciò che tende a far fluire di nuovo le tue risorse.
 
@@ -796,13 +796,13 @@ scrive l'Architetto.
 
 - 1: La sensazione di non fare parte di un gruppo o di avere difficoltà può persistere se non chiedi aiuto. La soluzione per te può essere a portata di mano.
 - 2: Se continui a camminare nella neve senza bussare, il freddo tende a durare: la finestra illuminata è più vicina di quanto credi.
-- 3: Nei prossimi tempi una mancanza potrebbe farsi sentire ancora, ma chiedere aiuto senza vergogna tende a portarti dentro, al caldo.
+- 3: Nei prossimi tempi una mancanza potrebbe farsi sentire ancora, ma chiedere aiuto senza vergogna tende a portarti dentro, al caldo, prima che il freddo diventi abitudine.
 
 ### capovolta
 
 - 1: Il sostegno ritrovato tende a consolidarsi, portandoti gradualmente verso una maggiore stabilità. La ripresa si fa concreta e porta più sicurezza e benessere.
 - 2: Si prepara il ritorno al caldo: dopo il periodo duro un sostegno tende a farsi presente, così puoi riaccogliere la fiducia un passo alla volta.
-- 3: Nei prossimi tempi l'inverno potrebbe allentarsi: la porta che ti sembrava chiusa tende ad aprirsi, restituendoti calore e appoggio.
+- 3: Nei prossimi tempi l'inverno potrebbe allentarsi: la porta che ti sembrava chiusa tende ad aprirsi e ti restituisce, un passo alla volta, calore e appoggio.
 
 ## Sei di Denari
 
@@ -814,7 +814,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: La tua generosità eccessiva e non ricambiata tende a lasciarti senza forze per te. Rischia di farti sentire sempre in perdita.
+- 1: La tua generosità eccessiva e non ricambiata tende a lasciarti senza forze per te. Se il dare continua in un verso solo, rischia di farti sentire sempre in perdita.
 - 2: Se continui a dare a chi non ricambia, lo scambio tende a sbilanciarsi fino a svuotarti: nei prossimi passi conviene che tu riequilibri i piatti.
 - 3: Un debito, o una generosità mal riposta, rischia di pesare sempre di più sul tuo piatto della bilancia: verificare l'equità dello scambio tende a proteggerti.
 
@@ -824,7 +824,7 @@ scrive l'Architetto.
 
 - 1: La tua costanza tende a portare risultati stabili e duraturi. Puoi raccogliere ciò che hai seminato, godendoti i benefici di un percorso ben gestito e misurato.
 - 2: Si prepara il tempo del raccolto, ma non ancora: ciò che hai coltivato tende a maturare lentamente, così conviene che tu lo lasci crescere senza strapparlo.
-- 3: Nei prossimi tempi potresti appoggiarti alla zappa a osservare il campo: l'investimento che hai fatto tende a dare frutti nel momento giusto.
+- 3: Nei prossimi tempi potresti appoggiarti alla zappa a osservare il campo: l'investimento di fatica che hai fatto tende a dare frutti nel momento giusto, se lo lasci maturare.
 
 ### capovolta
 
@@ -850,21 +850,21 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Tendi a consolidare la tua indipendenza, assaporando i frutti del tuo impegno. Provi soddisfazione per quanto hai realizzato con le tue forze.
+- 1: Tendi a consolidare la tua indipendenza, assaporando i frutti del tuo impegno con calma. Ciò che hai realizzato con le tue forze tende a darti una soddisfazione piena e quieta.
 - 2: Si prepara un tempo di autonomia serena: il giardino che hai coltivato con le tue mani tende a fiorire, offrendoti frutti meritati da gustare con calma.
-- 3: Nei prossimi tempi l'indipendenza che hai costruito potrebbe allargarsi: abitare con piacere lo spazio che hai guadagnato tende a darti agio e misura.
+- 3: Nei prossimi tempi l'indipendenza che hai costruito potrebbe allargarsi: abitare con piacere lo spazio che hai guadagnato, senza giustificarlo a nessuno, tende a darti agio e misura.
 
 ### capovolta
 
 - 1: L'attuale squilibrio tra il tuo valore e ciò che hai tende a persistere, alimentando la tua insicurezza. Rischia di farti credere che il tuo essere sia definito da ciò che possiedi, anziché dalla tua persona.
-- 2: Se le spese oltre misura continuano, la libertà costruita col tuo lavoro tende a consumarsi: il giardino rischia di inaridirsi proprio mentre lo mostri.
-- 3: Nei prossimi tempi il bisogno di esibire ciò che possiedi potrebbe erodere la tua autonomia: curarla in silenzio tende a proteggerla.
+- 2: Se le spese oltre misura continuano, la libertà costruita col tuo lavoro tende a consumarsi: il giardino rischia di inaridirsi proprio mentre lo mostri, perché mostrare costa più che curare.
+- 3: Nei prossimi tempi il bisogno di esibire ciò che possiedi potrebbe erodere la tua autonomia, una spesa alla volta: curarla in silenzio, senza testimoni, tende a proteggerla.
 
 ## Dieci di Denari
 
 ### dritta
 
-- 1: Un periodo di stabilità per te e per chi ami tende a consolidarsi: ciò che costruisci adesso resta anche per chi viene dopo. Le tue scelte portano a un benessere che si estende oltre la tua persona.
+- 1: Una stabilità per te e per chi ami si va consolidando: ciò che costruisci adesso tende a restare anche per chi viene dopo e il benessere si allarga oltre la tua persona.
 - 2: Si prepara una stabilità profonda: ciò che costruisci tende a durare oltre te, come una casa con radici capaci di nutrire chi viene dopo.
 - 3: Nei prossimi tempi la tua famiglia, di sangue o di scelta, potrebbe trovare una base solida: i beni e i legami che curi tendono a farsi patrimonio comune.
 
@@ -886,7 +886,7 @@ scrive l'Architetto.
 
 - 1: Senza un intervento, la tua promessa rimane rimandata indefinitamente, ciò che hai iniziato non progredisce. Tutto ciò che è fermo rischia di non trovare un compimento.
 - 2: Se la distrazione continua, il progetto lasciato a metà tende a restare lì: nei prossimi passi l'impegno preso aspetta ancora il tuo primo gesto concreto.
-- 3: Lo studio promesso rischia di non tradursi in pratica ancora a lungo: riprenderlo anche con poco tende a rimetterti in cammino.
+- 3: Lo studio promesso rischia di restare lontano dalla pratica ancora a lungo: riprenderlo oggi, anche con un'ora sola, tende a rimetterti in cammino verso ciò che volevi imparare.
 
 ## Cavaliere di Denari
 
@@ -898,7 +898,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: L'attuale inerzia mantiene le cose bloccate, senza alcun progresso. La perfezione dell'attesa rischia di impedirti di muovere i passi necessari.
+- 1: L'inerzia di adesso tende a tenere le cose bloccate senza progressi: aspettare il momento perfetto rischia di impedirti i passi che servono per arrivare dove già vedi.
 - 2: Se la prudenza continua a rimandare ogni tappa, il tuo cammino tende a restare fermo: la costanza rischia di trasformarsi in immobilità.
 - 3: Nei prossimi passi la meta resta in vista, ma potresti non avvicinarti finché non sblocchi il primo passo che rimandi da tempo.
 
@@ -906,22 +906,22 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: La tua attitudine a unire il cuore e la praticità tende a portare abbondanza e stabilità. Le tue azioni concrete e la tua generosità creano un ambiente dove il tuo benessere e quello di chi ti circonda prosperano.
+- 1: La tua attitudine a unire cuore e praticità tende a portare abbondanza e stabilità: le azioni concrete e la generosità creano un ambiente dove prospera il tuo benessere insieme a quello di chi ti circonda.
 - 2: Si prepara un tempo di cura concreta: ciò che curi in casa e intorno a te tende a fiorire, nutrito da una generosità che tiene i piedi a terra.
-- 3: Nei prossimi tempi la tua capacità di unire cuore e praticità potrebbe dare frutti visibili, come un giardino ben tenuto che sfama chi ami.
+- 3: Nei prossimi tempi la tua capacità di unire cuore e praticità potrebbe dare frutti visibili, come un giardino ben tenuto che sfama chi ami e lascia qualcosa anche per te.
 
 ### capovolta
 
 - 1: Il tuo modo di prenderti cura degli altri senza pensare a te rischia di farti perdere efficacia. Potresti trovarti senza energia per sostenere sia te sia chi ti sta accanto.
 - 2: Se nell'elenco delle cose da curare il tuo nome continua a mancare, le energie tendono a esaurirsi: anche il giardino più generoso ha bisogno d'acqua.
-- 3: Nei prossimi tempi occuparti di tutti tranne che di te rischia di svuotarti: concederti la stessa cura che dai tende a restituirti energia.
+- 3: Nei prossimi tempi occuparti di tutti tranne che di te rischia di svuotarti: concederti la stessa cura che dai agli altri, anche in un gesto piccolo, tende a restituirti energia.
 
 ## Re di Denari
 
 ### dritta
 
-- 1: Tendi a consolidare ulteriormente il tuo stato di abbondanza. La tua saggezza pratica tende a darti stabilità nel tempo.
-- 2: Si prepara una prosperità solida: ciò che hai costruito tende a consolidarsi, così potresti guidare con abbondanza condividendo i frutti con misura.
+- 1: Tendi a consolidare ancora il tuo stato di abbondanza: la saggezza pratica con cui amministri ciò che hai tende a darti una stabilità che dura nel tempo.
+- 2: Si prepara una prosperità solida: ciò che hai costruito tende a consolidarsi, così potresti guidare con abbondanza, condividendo i frutti, con misura, insieme a chi ti sta vicino.
 - 3: Nei prossimi tempi la saggezza nel gestire le risorse potrebbe renderti un punto di riferimento: la stabilità che offri tende a sostenere anche gli altri.
 
 ### capovolta
@@ -936,13 +936,13 @@ scrive l'Architetto.
 
 - 1: La tua onestà nel dire le cose come stanno porta a una maggiore comprensione. Una verità ben comunicata tende a risolvere le situazioni piuttosto che a complicarle.
 - 2: Una verità netta tende a farsi strada, come una lama che taglia il nodo: nei prossimi tempi potresti dire le cose come stanno, con un'onestà che apre.
-- 3: Si prepara un momento di chiarezza: un'idea limpida tende a distinguere per te il vero dal falso, permettendoti di decidere con lucidità.
+- 3: Si prepara un momento di chiarezza: un'idea limpida tende a separare per te il vero dal falso, permettendoti di decidere con lucidità e di dire le cose come stanno.
 
 ### capovolta
 
-- 1: La tua mente tende a non trovare chiarezza e le tue parole possono causare danni se non intervieni per tempo. Senza un cambiamento, è probabile che tu continui a commettere errori di valutazione o di comunicazione.
+- 1: La tua mente tende a non trovare chiarezza e le tue parole possono fare danni se non intervieni per tempo: senza un cambiamento, gli errori di valutazione rischiano di ripetersi.
 - 2: Se la mente resta annebbiata, la lama tende a ferire invece di liberare: nei prossimi passi conviene che tu rischiari i pensieri prima di parlare.
-- 3: Parole taglienti usate male rischiano di aprire ferite che poi chiedono tempo: impugnare con cura la tua lucidità tende a evitarle.
+- 3: Parole taglienti usate male rischiano di aprire ferite che poi chiedono tempo per chiudersi: impugnare con cura la tua lucidità, aspettando che la mente si schiarisca, tende a evitarle.
 
 ## Due di Spade
 
@@ -955,8 +955,8 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Una verità nascosta tende a riemergere e la scelta che rimandi ti impone di agire. Affrontarla ora porta un senso di sollievo.
-- 2: Si prepara uno scioglimento: il blocco tende a cedere mentre la benda scivola, così puoi vedere ciò che prima coprivi.
-- 3: Nei prossimi tempi la scelta rimandata potrebbe tornare a chiederti una risposta: affrontarla pesa meno che continuare a girarle intorno.
+- 2: Si prepara uno scioglimento: il blocco tende a cedere mentre la benda scivola dagli occhi, così puoi vedere con calma ciò che prima coprivi.
+- 3: Nei prossimi tempi la scelta rimandata potrebbe tornare a chiederti una risposta: affrontarla tende a pesarti meno che continuare a girarle intorno per settimane.
 
 ## Tre di Spade
 
@@ -970,7 +970,7 @@ scrive l'Architetto.
 
 - 1: Il dolore tende a svanire e la tua capacità di perdonare ti conduce verso una pace interiore. Le ferite si rimarginano, per te si apre un percorso.
 - 2: La ferita tende a rimarginarsi: nei prossimi tempi il tuo cuore potrebbe tornare a respirare, mentre il perdono toglie una lama dopo l'altra.
-- 3: Si prepara una ripresa: la pioggia sta passando, così puoi smettere di sanguinare senza dover dimenticare ciò che ti ha ferito.
+- 3: Si prepara una ripresa: la pioggia sta passando, così puoi smettere di sanguinare senza dover dimenticare ciò che ti ha fatto male.
 
 ## Quattro di Spade
 
@@ -990,7 +990,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Tendi a trovarti in un contesto dove le tue azioni, pur portando a un risultato positivo, ti lasciano un profondo senso di insoddisfazione. C'è il rischio di vincere una battaglia e poi scoprire che il vero valore non era lì.
+- 1: Tendi a muoverti verso un risultato che ottieni ma che ti lascia un profondo senso di insoddisfazione. Rischi di vincere una battaglia e scoprire poi che il valore vero stava altrove.
 - 2: Una vittoria rischia di costarti più di quanto valga: nei prossimi tempi potresti raccogliere le spade dal campo mentre gli altri si allontanano in silenzio.
 - 3: Se l'orgoglio continua a guidare il conflitto, il successo tende a lasciarti senza alleati: chiederti se ne vale la pena può cambiare la battaglia.
 
@@ -1006,7 +1006,7 @@ scrive l'Architetto.
 
 - 1: Un cambiamento di scenario si prospetta, portandoti verso un ambiente più favorevole. Ti muovi verso una soluzione che ti permette di superare le difficoltà.
 - 2: Si prepara una traversata verso acque più calme: come una barca che lascia la riva agitata, ti muovi un remo alla volta verso una sponda serena.
-- 3: Nei prossimi tempi la transizione può portarti lontano dalla tempesta: lasciarla alle spalle è già metà del viaggio che stai compiendo.
+- 3: Nei prossimi tempi la transizione può portarti fuori dalla tempesta: lasciarla alle spalle è già metà del viaggio che stai compiendo, con calma e senza fretta.
 
 ### capovolta
 
@@ -1026,19 +1026,19 @@ scrive l'Architetto.
 
 - 1: La verità tende a venire a galla, portando alla luce un inganno che ti riguarda. Questo processo ti costringe a confrontarti con la realtà delle cose.
 - 2: Un inganno tende a venire a galla, tuo o di qualcun altro: nei prossimi passi la trasparenza può liberarti la coscienza dal peso delle spade portate via.
-- 3: Se continui a mantenere una bugia, il costo tende a crescere: tornare alla verità, adesso, pesa meno di quanto temi.
+- 3: Se continui a mantenere una bugia, il suo costo tende a crescere a ogni passo: tornare alla verità adesso pesa meno di quanto temi e alleggerisce la coscienza.
 
 ## Otto di Spade
 
 ### dritta
 
-- 1: Tendi a mantenere un autoinganno che ti impedisce di vedere le soluzioni, sostenendo così uno stato di immobilità mentale.
+- 1: Tendi a restare dentro un autoinganno che ti impedisce di vedere le soluzioni e tiene in piedi l'immobilità: il recinto resta chiuso finché lo credi chiuso.
 - 2: Se continui a credere alle corde che senti, il blocco tende a durare: nei prossimi tempi potresti accorgerti che i nodi sono larghi e la benda si toglie.
 - 3: Le spade intorno a te rischiano di sembrarti un recinto chiuso ancora a lungo: capire che un'uscita esiste è il primo passo che può aprire la strada.
 
 ### capovolta
 
-- 1: La tua capacità di superare le difficoltà ti porta a una completa liberazione da ciò che ti frenava, offrendoti un ampio margine di azione. Il percorso che intraprendi ti offre un senso di maggiore controllo sulla tua vita.
+- 1: La tua capacità di superare le difficoltà tende a portarti fuori da ciò che ti frenava, con un margine d'azione più ampio e un senso di maggiore controllo sulla tua vita.
 - 2: Le corde tendono a cadere: nei prossimi passi potresti uscire dal cerchio delle spade, scoprendo di avere avuto più libertà di quanto la paura diceva.
 - 3: Si prepara una liberazione dopo il senso di trappola: riconoscere la tua tenuta tende ad aprirti una via che prima non riuscivi a vedere.
 
@@ -1061,14 +1061,14 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Dopo un periodo di grande sofferenza che si conclude, un nuovo inizio può emergere per te. Tendi a una rinascita che porta sollievo e nuove direzioni.
-- 2: Un ciclo doloroso tende a chiudersi del tutto: hai toccato il fondo, così da qui il cammino può cominciare a risalire.
-- 3: Nei prossimi tempi arrenderti a una battaglia ormai finita potrebbe essere il gesto più saggio: riconoscere la resa tende a liberarti dalle lame.
+- 2: Un ciclo doloroso tende a chiudersi del tutto: hai toccato il fondo e più in basso non si va, così da qui il cammino può cominciare, piano, a risalire.
+- 3: Nei prossimi tempi arrenderti a una battaglia ormai finita potrebbe essere il gesto più saggio: riconoscere la resa tende a liberarti dalle lame e dal peso di difendere ciò che non regge.
 
 ### capovolta
 
-- 1: Ritrovi gradualmente la serenità, rialzandoti con dolcezza e senza fretta per ricominciare un nuovo percorso con rinnovato vigore.
-- 2: Si prepara la risalita: ti rialzi da terra lentamente, così ogni gesto tende a rimettere in piedi qualcosa, anche ripartendo da zero.
-- 3: Nei prossimi tempi di prima potrebbe restare poco da salvare, ma il movimento che ricomincia è tuo: piano, tende a ridarti una base.
+- 1: Tendi a ritrovare la serenità a poco a poco: ti rialzi con dolcezza e senza fretta, mentre un nuovo percorso si apre e ti restituisce, passo dopo passo, il vigore perduto.
+- 2: Si prepara la risalita: ti rialzi da terra lentamente e ogni gesto tende a rimettere in piedi qualcosa, anche se si riparte da zero e il terreno è ancora nudo.
+- 3: Nei prossimi tempi di quello che c'era potrebbe restare poco da salvare, ma il movimento che ricomincia è tuo: piano, senza aiuti da fuori, tende a ridarti una base su cui stare.
 
 ## Fante di Spade
 
@@ -1076,13 +1076,13 @@ scrive l'Architetto.
 
 - 1: Un'attenta osservazione ti porta a esaminare ogni aspetto di una questione. Puoi esprimere le tue idee con precisione e dosare le tue parole per ottenere la chiarezza desiderata.
 - 2: Si prepara una ricerca vigile: con la spada alzata e gli occhi attenti, potresti scoprire una verità che altri non vedono, se scegli con cura le parole.
-- 3: Nei prossimi tempi la curiosità tende a spingerti a informarti, osservare, indagare: la lingua affilata conviene tenerla a freno finché non hai capito.
+- 3: Nei prossimi tempi la curiosità tende a spingerti a informarti, osservare, indagare: la lingua affilata conviene tenerla a freno finché non hai capito come stanno le cose.
 
 ### capovolta
 
 - 1: La tendenza a parlare senza riflettere rischia di isolarti. Le tue comunicazioni possono continuare a essere fraintese, allontanando le persone o compromettendo la fiducia.
 - 2: Se le parole continuano a uscire a vanvera, tendono a tornarti indietro come lame: nei prossimi passi verificare prima di parlare può proteggerti.
-- 3: Un pettegolezzo, o pensieri sparsi, rischiano di ferire senza costruire: moderare la lingua tende a preservare la fiducia che hai intorno.
+- 3: Un pettegolezzo, o pensieri sparsi, rischiano di ferire senza costruire: nei prossimi passi moderare la lingua tende a preservare la fiducia che hai intorno.
 
 ## Cavaliere di Spade
 
@@ -1104,13 +1104,13 @@ scrive l'Architetto.
 
 - 1: Mantenere la tua lucidità sincera ti porta a esprimere il tuo pensiero con onestà. La tua capacità di distinguere ti aiuta a definire con precisione i tuoi obiettivi.
 - 2: Si prepara un tempo di confini chiari: la tua franchezza tende a proteggerti, anche quando dire il vero senza giri non è comodo.
-- 3: Nei prossimi tempi la lucidità potrebbe farsi la tua alleata più fidata: sapere distinguere tende a liberarti da ciò che ti confonde.
+- 3: Nei prossimi tempi la lucidità potrebbe farsi la tua alleata più fidata: sapere distinguere tende a liberarti da ciò che ti confonde e da chi ti usa.
 
 ### capovolta
 
 - 1: La tendenza a difenderti con freddezza e a isolarti può creare rigidità e allontanare le persone. La tua affilata lucidità rischia di volgersi contro di te se non impari a gestirla con maggiore cura.
 - 2: Se la freddezza resta la tua corazza, la solitudine tende a stringersi intorno a te: ammorbidire il giudizio, a partire da quello su di te, può aprire una breccia.
-- 3: Nei prossimi tempi la lama più affilata rischia di rivolgersi contro chi la porta: abbassarla verso di te tende a restituirti calore.
+- 3: Nei prossimi tempi la lama più affilata rischia di rivolgersi contro chi la porta: abbassarla verso di te tende a restituirti calore e un po' di compagnia.
 
 ## Re di Spade
 

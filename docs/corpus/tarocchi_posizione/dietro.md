@@ -124,7 +124,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sta perdendo fiato un disaccordo interiore fra ciò in cui credi e ciò che desideri: quella lite silenziosa che rimandava ogni scelta si allontana e il suo rumore cala.
 - 2: Hai appena lasciato andare una scelta rimasta a metà, con una parte di te che diceva sì e l'altra che taceva: quello stallo del cuore si scioglie alle tue spalle.
-- 3: Dietro di te svanisce un periodo di valori in conflitto, quando nessuna delle due metà riusciva a convincere l'altra: quella divisione perde presa giorno dopo giorno.
+- 3: Dietro di te svanisce un periodo di valori in conflitto, quando nessuna delle due metà riusciva a convincere l'altra: quella divisione perde presa su di te giorno dopo giorno.
 
 ## Il Carro
 
@@ -508,7 +508,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un periodo di calore e magnetismo si sta attenuando: il girasole che tenevi in mano si chiude come a sera e la fiamma che attirava gli altri intorno a te si fa più bassa.
+- 1: Un periodo di calore e magnetismo si sta attenuando: il girasole che tenevi in mano si chiude come a sera e la fiamma che attirava gli altri si fa più bassa.
 - 2: Hai appena vissuto una stagione in cui brillavi senza sforzo e la tua presenza scaldava chiunque: quel fulgore si allontana e il seggio coi leoni resta indietro.
 - 3: Quel tempo di sicurezza piena e generosa, col gatto nero ai piedi del trono, sta passando: senti la luce di allora ritirarsi piano come un tramonto d'estate.
 
@@ -572,7 +572,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una stagione di eccessi e compagnie di facciata si sta chiudendo: quei brindisi ripetuti troppe volte perdono sapore e il cerchio troppo largo si allontana dietro di te.
 - 2: Hai appena lasciato un tempo di feste che svuotavano invece di nutrire, quando ti disperdevi fra molte persone: quel rumore senza calore si spegne piano.
-- 3: Dietro di te si dissolve il periodo delle amicizie squilibrate e dei bicchieri alzati per cortesia: quella socialità stanca perde presa giorno dopo giorno.
+- 3: Dietro di te si dissolve il periodo delle amicizie squilibrate e dei bicchieri alzati per cortesia: quella socialità stanca perde presa giorno dopo giorno e torna il silenzio buono.
 
 ## Quattro di Coppe
 
@@ -670,7 +670,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una tensione in casa si sta smorzando: quel periodo in cui ognuno tirava dalla sua parte sotto lo stesso tetto si allontana e il suo gelo ti pesa meno.
 - 2: Hai appena lasciato alle spalle un tempo di affetti divisi, quando l'arcobaleno sopra la casa sembrava dipinto e non vero: quella distanza fra le persone care si dissolve.
-- 3: Dietro di te si scioglie la stagione delle stanze separate e dei pranzi silenziosi: quella frattura familiare perde presa giorno dopo giorno.
+- 3: Dietro di te si scioglie la stagione delle stanze separate e dei pranzi silenziosi: quella frattura familiare perde presa giorno dopo giorno, mentre a tavola si torna a parlare.
 
 ## Fante di Coppe
 
@@ -753,7 +753,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Un affanno di troppe cose insieme sta scemando: il disco che ti era sfuggito di mano è ormai rotolato lontano e quel ritmo rotto non ti insegue più.
-- 2: Hai appena lasciato alle spalle un periodo di equilibrio perso, quando ogni impegno ricadeva mentre un altro partiva: quella confusione affannata perde forza.
+- 2: Hai appena lasciato alle spalle un periodo di equilibrio perso, quando ogni impegno ricadeva mentre un altro partiva: quella confusione affannata perde forza e si allontana.
 - 3: Dietro di te si dissolve la stagione dei sì detti a tutto, del nastro che si attorcigliava fra le dita: quel caos di priorità scivola via giorno dopo giorno.
 
 ## Tre di Denari
@@ -818,7 +818,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un'attesa del raccolto si sta chiudendo: la zappa su cui ti appoggiavi a guardare il cespuglio carico di monete viene posata e quella lunga pazienza resta indietro.
 - 2: Hai appena attraversato una stagione di semina e valutazione, quando ogni giorno controllavi la crescita lenta dei frutti: quel tempo di sospensione si allontana.
-- 3: Si sta congedando il periodo dell'investimento che maturava piano, delle domande sul quando: quella pausa pensosa nel campo ti scivola alle spalle.
+- 3: Si sta congedando il periodo dell'investimento che maturava piano, delle domande sul quando e dei giri nel campo a contare i frutti: quella pausa pensosa ti scivola alle spalle.
 
 ### capovolta
 
@@ -859,7 +859,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Un tempo di casa piena e famiglia riunita si sta allontanando: il vecchio sotto l'arco coi cani ai piedi e i bambini nel cortile tornano lontani dietro di te come una domenica finita.
-- 2: Hai appena chiuso una stagione di stabilità profonda, quando le generazioni si ritrovavano sotto lo stesso stemma: quella prosperità condivisa si va ritirando.
+- 2: Hai appena chiuso una stagione di stabilità profonda, quando le generazioni si ritrovavano sotto lo stesso stemma: quella prosperità condivisa adesso si ritira e resta alle tue spalle.
 - 3: Si sta congedando il periodo delle radici solide e della casa che accoglieva tutti: quella sicurezza familiare ti scivola alle spalle come un pranzo di parenti che finisce.
 
 ### capovolta
@@ -907,7 +907,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Un periodo di cura data a tutti tranne che a te sta finendo: quella lista di bisogni in cui il tuo nome non compariva si allontana e la sua stanchezza ti lascia.
-- 2: Hai appena lasciato un tempo in cui annaffiavi ogni giardino tranne il tuo: quella dispersione di attenzioni verso fuori perde forza dietro di te.
+- 2: Hai appena lasciato un tempo in cui annaffiavi ogni giardino tranne il tuo: quella dispersione di attenzioni verso fuori perde forza dietro di te e ti restituisce un po' di respiro.
 - 3: Dietro di te si dissolve la stagione della cura senza ritorno, delle provviste date fino all'ultima: quel dimenticarti di te scivola via giorno dopo giorno.
 
 ## Re di Denari
@@ -991,8 +991,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Un rancore nato da un conflitto si sta dissolvendo: le spade abbandonate sul campo sono ormai lontane e la voglia di rivalsa perde presa dietro di te.
-- 2: Hai appena lasciato un tempo di risentimenti e orgogli feriti, quando nessuno voleva cedere per primo: quella tensione ostile si allontana piano.
-- 3: Dietro di te si quieta la stagione delle offese ricevute e restituite: quello strascico di contesa scivola via mentre la pace torna possibile.
+- 2: Hai appena lasciato un tempo di risentimenti e di orgogli feriti, quando nessuno voleva cedere per primo: quella tensione ostile si allontana piano e smette di chiederti rivincite.
+- 3: Dietro di te si quieta la stagione delle offese ricevute e restituite: quello strascico di contesa scivola via, mentre la pace con chi avevi contro torna possibile.
 
 ## Sei di Spade
 
@@ -1103,8 +1103,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Una freddezza difensiva si sta sciogliendo: quella solitudine scelta come corazza perde rigidità e il filo che avevi rivolto contro di te si allontana.
-- 2: Hai appena lasciato un tempo di durezza, quando giudicavi te e gli altri senza indulgenza: quella severità tagliente perde presa dietro di te.
-- 3: Dietro di te si dissolve la stagione della porta chiusa e delle risposte gelide: quell'armatura di ghiaccio scivola via giorno dopo giorno.
+- 2: Hai appena lasciato un tempo di durezza, quando giudicavi te e gli altri senza indulgenza: quella severità tagliente perde presa e si allontana dietro di te.
+- 3: Dietro di te si dissolve la stagione della porta chiusa e delle risposte gelide: quell'armatura di ghiaccio scivola via giorno dopo giorno e lascia entrare aria.
 
 ## Re di Spade
 

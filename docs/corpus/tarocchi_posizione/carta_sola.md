@@ -73,7 +73,7 @@ capovolta.
 
 - 1: Un inizio ti chiama con le mani vuote, senza preparativi da sbrigare prima e senza pesi addosso. Vedi soltanto il primo passo e il resto si mostra mentre cammini.
 - 2: La mano vuota basta a questa apertura e la meta resta invisibile: il coraggio ha la faccia della leggerezza e ti muove prima che tu veda dove finisce.
-- 3: Hai davanti un principio senza corredo: nessun piano stilato, nessuna garanzia in tasca, nessuna veduta fino in fondo. Ti muove la fiducia nel movimento iniziale.
+- 3: Hai davanti un principio senza corredo: nessun piano stilato, nessuna garanzia in tasca, nessuna veduta fino in fondo. A muoverti basta la fiducia nel primo movimento, quello che puoi fare adesso.
 
 ### capovolta
 
@@ -141,22 +141,22 @@ capovolta.
 
 ### dritta
 
-- 1: Chi insegna da una scuola vecchia di secoli ti istruisce con parole che altri hanno già ricevuto e l'autorità di quelle parole non viene da lui ma dalla fila di chi le ha ripetute prima di lui.
-- 2: Un sapere che molti hanno ricevuto prima di te sta in piedi senza il tuo consenso e intanto si offre al tuo esame: appartenere a qualcosa di più antico ti dà fondamento e ti lascia la testa libera.
-- 3: La tradizione lavora sulla tua capacità di imparare da qualcuno in carne: mette davanti a te chi ne sa più di te, gli concede autorità sulle parole e non sul tuo giudizio, poi ti porta al punto in cui sai stare senza di lui.
+- 1: Chi insegna da una scuola vecchia di secoli ti istruisce con parole già ricevute da altri: la loro autorità non viene da lui, viene dalla fila di chi le ha ripetute prima.
+- 2: Un sapere ricevuto da molti prima di te sta in piedi senza il tuo consenso e si offre al tuo esame: appartenere a qualcosa di antico ti dà fondamento e ti lascia la testa libera.
+- 3: La tradizione lavora sulla tua capacità di imparare: ti mette davanti chi ne sa di più, gli dà autorità sulle parole e non sul tuo giudizio, poi ti porta a stare senza di lui.
 
 ### capovolta
 
 - 1: Un precetto imparato a memoria continua a ripetersi e non spiega più quello che vivi. Non è rivolta: è una statura tua che ha superato quella di chi te lo ha insegnato.
 - 2: La dottrina ricevuta resta in piedi dove l'hai trovata mentre il tuo senso proprio si sposta altrove e si riconosce dal respiro che ti lascia, non dall'autorità di chi lo ha pronunciato.
-- 3: Il dover essere che ti è stato insegnato lavora ancora sulla tua obbedienza e non più sul tuo discernimento: quello che davvero ti appartiene si cerca anche fuori dalla scuola che te lo ha consegnato.
+- 3: Il dover essere che ti hanno insegnato lavora ancora sulla tua obbedienza, non più sul tuo discernimento: ciò che ti appartiene si cerca anche fuori dalla scuola che te l'ha consegnato.
 
 ## Gli Amanti
 
 ### dritta
 
-- 1: Un affetto ti mette davanti a una decisione che chiama in causa quello in cui credi, non il desiderio di passaggio. Sentimento e giudizio lavorano sullo stesso atto e nessuno dei due lo chiude da solo.
-- 2: Davanti ti sta una scelta che mette alla prova i tuoi valori e non soltanto quello che ti attira: il desiderio solleva la domanda, il credere porta il criterio. La decisione si prende a occhi aperti.
+- 1: Un affetto ti mette davanti a una decisione che tocca quello in cui credi, non il desiderio di passaggio: sentimento e giudizio lavorano sullo stesso atto.
+- 2: Davanti ti sta una scelta che mette alla prova i tuoi valori, non solo ciò che ti attira: il desiderio pone la domanda, il credere porta il criterio.
 - 3: Nessuna metà di te decide da sola: l'attrazione dice che cosa vuoi e i tuoi valori dicono che cosa regge. L'accordo fra le due è la cosa che questa scelta mette in gioco.
 
 ### capovolta
@@ -175,7 +175,7 @@ capovolta.
 
 ### capovolta
 
-- 1: Allentate le redini, il tiro continua a muoversi. Due spinte contrarie ti portano fuori linea, oppure la corsa prosegue senza una mira scelta.
+- 1: Allentate le redini, il tiro continua a muoversi: due spinte contrarie ti portano fuori linea, oppure la corsa prosegue senza una mira che tu abbia scelto.
 - 2: Il centro che teneva insieme le spinte si è spostato e il tiro sbanda sotto le tue mani. La guida torna da una sosta breve e rallentare non è debolezza in chi conduce.
 - 3: Corri con lo slancio pieno mentre il governo vacilla e le spinte che andavano insieme tirano ognuna per sé, col tiro che va dove nessuna mira lo manda.
 
@@ -211,9 +211,9 @@ capovolta.
 
 ### dritta
 
-- 1: Il cambiamento in corso non ha un autore. Nessun merito lo chiama e nessuna colpa lo spiega, gira per conto proprio e sposta l'altezza da cui guardi le cose. Il tempismo è quanto passa fra te e la sua curva.
+- 1: Il cambiamento in corso non ha un autore: nessun merito lo chiama e nessuna colpa lo spiega, gira per conto proprio e sposta l'altezza da cui guardi le cose.
 - 2: Una rotazione comanda il momento e viene quando non la aspetti, poi scende quando sembrava salita per sempre. Tu stai su un bordo in movimento e il tuo passo pesa soltanto nel seguirne la direzione.
-- 3: Sopra e sotto scambiano di posto senza preavviso. La spinta che ti ha portato in basso continua a girare nello stesso senso. Il perno regge tutto il movimento e la curva passa per il punto dove stai.
+- 3: Sopra e sotto si scambiano di posto senza preavviso: la spinta che oggi ti tiene in basso continua a girare nello stesso senso e la curva passa per il punto dove stai.
 
 ### capovolta
 
@@ -227,13 +227,13 @@ capovolta.
 
 - 1: Una mano senza armi si posa sul muso di un animale che potrebbe mordere e l'animale si acquieta perché nessuno lo sfida: la tua dolcezza che non cede nulla governa l'istinto meglio della stretta.
 - 2: Il ruggito che senti dentro si placa sotto una carezza ferma. La mitezza pesa più dei muscoli e il coraggio che ti riguarda è quello di chi ammansisce un animale senza ferirlo.
-- 3: Ciò che ringhia dentro di te obbedisce a una calma e non a una minaccia: la tua pazienza fa il lavoro che la violenza non farebbe, con la lentezza di chi si accosta a una bestia a mani nude.
+- 3: Ciò che ringhia dentro di te obbedisce a una calma e non a una minaccia: la tua pazienza fa il lavoro che la violenza non farebbe, come chi si accosta a mani nude.
 
 ### capovolta
 
-- 1: La mano si è chiusa a pugno su qualcosa di vivo e quel qualcosa scappa proprio perché stretto: l'istinto che vorresti domare risponde alla durezza con uno scarto e la tua tenuta ti sembra una questione di muscoli.
+- 1: La mano si è chiusa a pugno su qualcosa di vivo e quel qualcosa scappa proprio perché stretto: l'istinto che vuoi domare risponde alla durezza con uno scarto.
 - 2: Scambi il vigore con lo sforzo e la mitezza per debolezza, così la bestia che hai dentro viene trattata da nemica e ogni serrata di dita le regala una ragione per ringhiare.
-- 3: Dubiti di tenere e ti applichi una severità che non riserveresti a nessun altro. Sotto quelle dita l'animale che si placa con la carezza si agita e il dominio si allontana quanto più la mano si chiude.
+- 3: Dubiti di tenere e ti applichi una severità che non riserveresti a nessun altro: sotto quelle dita l'animale che si placa con la carezza si agita e il dominio si allontana.
 
 ## L'Appeso
 
@@ -281,7 +281,7 @@ capovolta.
 
 ### dritta
 
-- 1: Un piacere vero fa da collante al vincolo: la catena tiene perché restituisce qualcosa in cambio, puntuale, ogni volta che la stringi.
+- 1: Un piacere vero fa da collante al vincolo che ti tiene: la catena regge perché restituisce qualcosa in cambio, puntuale, ogni volta che la stringi un po' di più.
 - 2: L'attaccamento lavora in pieno giorno e con il tuo consenso: nutre un gusto preciso, chiede indietro una libertà alla volta e il patto regge fino a quando il gusto vale il prezzo.
 - 3: Scende nel buio il nome dell'abitudine che ti tiene: una fame vecchia, un gesto che conosce esattamente la tua misura, un legame che hai alimentato tu.
 
@@ -310,21 +310,21 @@ capovolta.
 ### dritta
 
 - 1: Un lume alto e lontano sta fermo sopra un cielo che ha smesso di scaricare e la quiete che viene da quell'altezza ti rassicura a bassa luce, senza chiedere niente in cambio.
-- 2: La calma scende dall'alto e si posa dove la pioggia ti aveva battuto: la fiducia si riaccende sul posto, mentre la stanchezza resta dov'era e il cielo si sgombra senza fretta.
+- 2: La calma scende dall'alto e si posa dove la pioggia batteva su di te: la fiducia si riaccende sul posto, mentre la stanchezza resta dov'era e il cielo si sgombra senza fretta.
 - 3: Dall'alto una luce ferma ti rischiara appena e tanto basta: la speranza si rimette in piedi senza clamore, nel posto esatto in cui le forze si erano fermate.
 
 ### capovolta
 
-- 1: Sperare ti è diventato faticoso come un lavoro e l'ispirazione si è fatta muta: il riferimento lontano nel buio sta dov'era, mentre la capacità di fidarti di quello che non vedi ancora è la prima a cedere.
+- 1: Sperare ti è diventato faticoso e l'ispirazione si è fatta muta: il riferimento lontano sta dov'era, ma la fiducia in ciò che non vedi ancora è la prima a cedere.
 - 2: Credere che qualcosa di meglio sia possibile ti pesa più di ogni altro pensiero: la notte è lunga, il riferimento lontano non si fa sentire e l'ispirazione resta senza parole.
-- 3: Dentro il buio la tua speranza funziona a intermittenza: il lume che serviva a orientarsi è coperto da un velo sottile e la fiducia in quello che non si vede ancora si consuma più delle forze.
+- 3: Dentro il buio la tua speranza funziona a intermittenza: il lume che ti orientava è coperto da un velo sottile e la fiducia si consuma più delle forze.
 
 ## La Luna
 
 ### dritta
 
 - 1: Al buio i contorni cambiano e la prima occhiata sbaglia: la luce bassa ingrandisce una cosa e ne cancella un'altra. L'intuito è lo strumento che lavora dove i tuoi occhi non arrivano.
-- 2: Una luce indiretta deforma le misure delle cose vicine e le forme restano doppie, con le paure notturne che si affacciano. Il tatto prende il posto della vista e il tuo passo si fida di sé.
+- 2: Una luce indiretta deforma le misure delle cose vicine, le forme si sdoppiano e le paure notturne si affacciano. Il tatto prende il posto della vista: il tuo passo si fida di sé.
 - 3: Niente di visibile regge un secondo sguardo, perché la notte sposta le proporzioni di tutto. Il sapere che ti muove non passa dagli occhi e il buio si attraversa fidando del piede.
 
 ### capovolta
@@ -357,9 +357,9 @@ capovolta.
 
 ### capovolta
 
-- 1: Due uffici tuoi stanno nella stessa persona, chi accusa e chi ascolta. Il primo prende la parola per primo, così il bilancio che senti necessario resta rimandato oppure esce già in forma di condanna.
+- 1: In te stanno due uffici, chi accusa e chi ascolta. Il primo parla per primo, così il bilancio che senti necessario resta rimandato oppure esce già in forma di condanna.
 - 2: L'ordine delle operazioni ti si è invertito: la durezza verso di te parla prima dell'ascolto. Quella rinascita lavora nell'altro ordine, il perdono per primo e il peso dopo.
-- 3: La comprensione da te verso te arriva per ultima, quando invece è il primo appoggio di una rinascita: ascolto e perdono sono la sostanza di cui è fatta e la durezza le resta estranea.
+- 3: La comprensione verso di te arriva per ultima, mentre è il primo appoggio di una rinascita: ascolto e perdono ne sono la sostanza, la durezza le resta estranea.
 
 ## Il Mondo
 
@@ -379,13 +379,13 @@ capovolta.
 
 ### dritta
 
-- 1: Un'accensione sta all'origine di tutto il resto. Calore grezzo, nessuna forma ancora, la prima cosa che esiste di un'opera tua che non ha neppure un nome.
+- 1: Un'accensione sta all'origine di tutto il resto. Calore grezzo, nessuna forma ancora: è la prima cosa che esiste di un'opera tua che non ha neppure un nome ma già ti scalda le mani.
 - 2: La fiamma è appena nata e brucia al massimo adesso. Il suo compito è accendere e non durare. Da questo primo calore vengono il tuo piano, gli strumenti e il mestiere; nell'ordine viene prima lui.
-- 3: Il fuoco cresce da sé e scalda la tua mano che gli sta vicino. Il desiderio viene prima di qualunque idea su che cosa farne. È la materia di cui è fatto un inizio, spinta pura e nessuna istruzione.
+- 3: Il fuoco cresce da sé e scalda la tua mano vicina. Il desiderio viene prima di qualunque idea su che cosa farne: è la materia di un inizio, spinta pura e nessuna istruzione.
 
 ### capovolta
 
-- 1: Il combustibile è tutto lì sotto e l'aria no. Il fuoco esiste sotto un coperchio che lo soffoca e il tuo primo innesco non trova dove attaccarsi. Quello che slitta è il momento in cui tutto parte.
+- 1: Il combustibile c'è tutto, l'aria no. Il fuoco esiste sotto un coperchio che lo soffoca e il tuo primo innesco non trova presa: slitta il momento in cui tutto parte.
 - 2: Una partenza resta in sospeso senza che manchi niente al motore. Il tuo desiderio sta sotto, coperto dal timore di sbagliare il primo colpo. Tutto il resto aspetta quel colpo.
 - 3: A essere fermo è il momento dell'innesco, una fiamma sola da far nascere, sempre quella, con il tuo stesso fiato sopra che la spegne appena cresce.
 
@@ -393,15 +393,15 @@ capovolta.
 
 ### dritta
 
-- 1: Un'ambizione larga lavora sulla tua capacità di scegliere una direzione prima di muovere qualunque cosa: il globo sta nella tua mano, il confine del conosciuto è lì davanti e la rotta è ancora tutta da dire.
+- 1: Un'ambizione larga ti chiede di scegliere una direzione prima di muovere qualunque cosa: il globo sta nella tua mano, il confine del conosciuto è lì davanti, la rotta tutta da dire.
 - 2: Il progetto esiste come disegno e non ancora come partenza. L'ambizione misura dall'alto di un muro terre che non hai visto e sceglie fra loro con la calma di chi non ha ancora salpato.
 - 3: Con il mondo piccolo fra le dita la tua volontà di andare lontano pesa le direzioni possibili e l'ampiezza del disegno conta molto più del primo movimento.
 
 ### capovolta
 
-- 1: L'ambizione è grande e la tua rotta resta senza una linea: la vista da quassù arriva lontano mentre osare costa più che immaginare, così il globo gira fra le dita senza che una terra venga indicata.
-- 2: Scegliere una direzione ti fa più paura che pensarne molte, così il disegno grande resta sulla carta: dall'alto del muro il mare è tutto uguale e la mano che tiene il mondo non si decide.
-- 3: Osare quanto l'ambizione pretende è il punto in cui la tua volontà si inceppa: il confine del conosciuto sta ancora davanti, la terra nuova non ha un nome e la rotta aspetta una linea che nessuno traccia.
+- 1: L'ambizione è grande e la tua rotta resta senza linea: da quassù la vista arriva lontano, ma osare costa più che immaginare e il globo gira fra le dita senza meta.
+- 2: Scegliere una direzione ti fa più paura che pensarne molte, così il disegno resta sulla carta: dall'alto del muro il mare sembra uguale ovunque e la tua mano non si decide.
+- 3: Osare quanto l'ambizione pretende è il punto in cui la tua volontà si inceppa: il confine sta ancora davanti, la terra nuova non ha nome, la rotta aspetta una linea.
 
 ## Tre di Bastoni
 
@@ -465,12 +465,12 @@ capovolta.
 
 - 1: Il vantaggio sta nel terreno. Altri vogliono il tuo posto e lo attaccano da sotto, in salita, mentre tu lo tieni dall'alto col fiato ancora pieno.
 - 2: Molti davanti e una sola persona in piedi al centro. Qui tieni un posto già conquistato, contro la pressione che sale da ogni parte. Il terreno regge e il respiro basta.
-- 3: Quello che difendi è già tuo e il vantaggio viene prima dell'attacco. L'altezza sta dalla tua parte mentre il numero sta da quella di fronte. La pressione che senti addosso misura quanto il tuo posto valga.
+- 3: Quello che difendi è già tuo e il vantaggio viene prima dell'attacco: l'altezza sta dalla tua parte, il numero da quella di fronte. La pressione che senti misura quanto vale il tuo posto.
 
 ### capovolta
 
 - 1: I fronti che tieni aperti sono troppi e li copre un solo turno. Ogni punto ha un presidio sottile e la forza che basterebbe per un posto solo finisce divisa fra tutti quanti.
-- 2: Una difesa larga e bassa, con collinette presidiate una per una, comprese quelle che nessuno sta salendo. Il dispendio sta nel numero dei posti tenuti e al terreno che conta per te ne resta una parte sola.
+- 2: Una difesa larga, con collinette presidiate una per una, anche quelle che nessuno sale. La forza si disperde nel numero dei posti e al terreno che conta per te ne resta poca.
 - 3: La tua stanchezza viene dal conto dei punti da reggere, tutti insieme e tutti uguali. Una scorta divisa fra molte posizioni, con lo sguardo su ogni direzione e il peso su nessuna.
 
 ## Otto di Bastoni
@@ -478,14 +478,14 @@ capovolta.
 ### dritta
 
 - 1: Molte cose attraversano l'aria nello stesso senso e nello stesso momento, senza nessuno che le spinga: la rapidità con cui si susseguono accorcia il tempo che avresti per pensarle una per una.
-- 2: L'aria è attraversata da linee parallele che corrono insieme e nessuna di loro ha bisogno di te: le notizie si sovrappongono, i fatti si accavallano e il ritmo ti passa davanti senza rallentare.
-- 3: Tutto si mette in corsa nello stesso istante e il ritmo non appartiene a nessuno: l'intervallo fra una cosa e la successiva si riduce a niente e quello che era lontano ti è già addosso.
+- 2: L'aria è attraversata da linee parallele che corrono insieme senza bisogno di te: le notizie si sovrappongono, i fatti si accavallano e il ritmo ti passa davanti senza rallentare.
+- 3: Tutto si mette in corsa nello stesso istante: l'intervallo fra una cosa e la successiva si riduce a niente e quello che era lontano ti è già addosso.
 
 ### capovolta
 
 - 1: Arriva per ultimo quello che doveva venire per primo, la tua fretta anticipa il momento giusto e le linee che correvano parallele adesso si incrociano fra loro.
-- 2: Di quello che era in volo una parte si è fermata per aria e il resto ha anticipato tutti: l'ordine fra le cose si è rotto e la rapidità su cui avevi contato inciampa nei propri piedi.
-- 3: L'allineamento fra una cosa e l'altra si è perso: i ritardi si alternano agli scatti, i tempi si allungano a misure diverse e la tua fretta scompiglia quello che il ritmo teneva in fila.
+- 2: Di quello che era in volo una parte si è fermata per aria e il resto è partito prima: l'ordine si è rotto e la rapidità su cui contavi inciampa.
+- 3: L'allineamento fra una cosa e l'altra si è perso: i ritardi si alternano agli scatti e la tua fretta scompiglia quello che il ritmo teneva in fila.
 
 ## Nove di Bastoni
 
@@ -519,7 +519,7 @@ capovolta.
 
 ### dritta
 
-- 1: Giovane e senza pretese, una curiosità ti prende per il gusto di provarla: si esplora e si tenta, mentre la sproporzione fra la sua piccolezza e quello che può diventare è tutta la sua ricchezza.
+- 1: Giovane e senza pretese, una curiosità ti prende per il gusto di provarla: esplori e tenti, mentre la distanza fra quanto è piccola e quanto può diventare è tutta la sua ricchezza.
 - 2: Un'idea appena nata ti tira fuori a provarla senza sapere dove arriva: l'età di questo entusiasmo è il suo diritto, perché a quell'età si tenta e nessuno chiede un frutto.
 - 3: La tua capacità messa in esercizio è quella di esplorare: apri, provi, domandi senza sapere dove sbuchi. Quello che impari vale pure quando non serve a nulla.
 
@@ -547,7 +547,7 @@ capovolta.
 
 ### dritta
 
-- 1: Il calore attrae e gli altri vengono verso il fuoco perché scalda. La stanza si riempie attorno al punto dove stai.
+- 1: Il calore attrae e gli altri vengono verso il fuoco perché scalda senza bruciare. La stanza si riempie attorno al punto dove stai, senza che tu debba chiamare nessuno.
 - 2: Una fiamma ferma, come quella di un focolare, resta al suo posto e tutti le stanno intorno. La tua sicurezza che la tiene accesa è la stessa cosa che la rende attraente.
 - 3: Magnetismo per materia: calore, colore, un modo di stare che si vede da lontano. Scalda la stanza intorno a te e quello che dà agli altri non lo sottrae a sé.
 
@@ -561,7 +561,7 @@ capovolta.
 
 ### dritta
 
-- 1: Una volontà che ha già bruciato a lungo apre il campo e dietro di lei camminano altri: il comando passa per l'esempio e il fuoco più vecchio mostra a chi è venuto dopo di te dove mettere i piedi.
+- 1: Una volontà che ha già bruciato a lungo apre il campo e altri le camminano dietro: il comando passa per l'esempio e il fuoco più vecchio mostra a chi ti segue dove mettere i piedi.
 - 2: Il seggio è occupato da chi ci è passato prima e la generosità di quella fiamma ti scalda senza pretendere obbedienza: le direzioni che indica, gli altri le prendono per conto proprio.
 - 3: Dietro una fiamma che tieni viva a lungo cammina gente che nessuno ha costretto: le direzioni si aprono per esempio e la generosità di chi guida conta quanto la sua volontà.
 
@@ -597,7 +597,7 @@ capovolta.
 
 - 1: Fra te e una persona che ti vuole bene si è aperta una distanza che nasce da parole lette male, con l'affetto fermo sotto e il solo accordo fra le parti spostato.
 - 2: Una coppia si allontana per un fraintendimento mentre il bene fra loro sta dov'era. Lo spazio che le frasi storte hanno aperto si richiude dall'ascolto vero, il tuo e quello dell'altra parte.
-- 3: Parole prese per un senso che non avevano hanno messo uno scarto fra te e una persona a cui tieni. Il bene regge e quello che si è spostato torna a posto dal sentirsi davvero.
+- 3: Parole prese per un senso che non avevano hanno messo uno scarto fra te e una persona a cui tieni. Il bene regge: ciò che si è spostato torna a posto ascoltandosi davvero.
 
 ## Tre di Coppe
 
@@ -633,12 +633,12 @@ capovolta.
 
 - 1: Il rimpianto ti tiene lo sguardo in una direzione sola, su quello che è andato. Alle spalle resta in piedi qualcosa che il conto non registra, fuori dal campo di chi guarda quel vuoto.
 - 2: La perdita è già avvenuta e la tua pena ha per metro il posto vuoto. Il resto della scena esiste e sta dietro, fermo, nella parte che lo sguardo fisso lascia in penombra.
-- 3: Un conto doppio sta aperto davanti a te, quello che è stato perso e quello che è rimasto. Il primo prende tutto lo sguardo mentre il secondo aspetta dietro le spalle. La pena del primo è vera quanto la presenza del secondo.
+- 3: Un conto doppio ti sta davanti, il perso e il rimasto: il primo prende tutto lo sguardo, il secondo aspetta dietro le spalle, vero quanto la pena.
 
 ### capovolta
 
-- 1: La testa gira e trova quello che era già in piedi. Niente di nuovo entra nella scena, cambia la direzione da cui la guardi. Il lutto resta vero e smette di prendere tutto il campo.
-- 2: L'accettazione ha la misura di un movimento del collo, con la parte perduta che esce dalla vista e la parte rimasta che ci entra. Il perdono vale verso chi ha mancato e anche verso il tuo rimpianto.
+- 1: La testa gira e trova ciò che era già in piedi: niente di nuovo entra in scena, cambia la direzione da cui guardi. Il lutto resta vero e smette di occupare il campo.
+- 2: L'accettazione ha la misura di un movimento del collo: la parte perduta esce dalla vista, quella rimasta ci entra. Il perdono vale verso chi ha mancato e verso il tuo rimpianto.
 - 3: Il peso passa da quello che ti manca a quello che c'è, senza che nessuno riporti indietro la cosa perduta. Il dolore attraversato lascia posto piano, alla velocità con cui la testa gira.
 
 ## Sei di Coppe
@@ -651,8 +651,8 @@ capovolta.
 
 ### capovolta
 
-- 1: Trattiene più di una catena la dolcezza degli anni della tua infanzia e nessuno la scioglie proprio perché è dolce: quello che fu offerto da mani piccole continua a bastare e il presente resta in sala d'attesa.
-- 2: Gli anni della tua infanzia continuano a essere abitati: la tenerezza di allora occupa la stanza, la memoria dei giochi vale più di quello che accade adesso e l'innocenza di prima diventa il luogo in cui si sta.
+- 1: Trattiene più di una catena la dolcezza della tua infanzia, proprio perché è dolce: ciò che fu offerto da mani piccole continua a bastare e il presente resta in sala d'attesa.
+- 2: Gli anni della tua infanzia continuano a essere abitati: la tenerezza di allora occupa la stanza e la memoria dei giochi vale più di quello che accade adesso.
 - 3: Più caldo del presente, il ricordo dell'infanzia ti offre ospitalità senza chiedere niente e la bontà di quel tempo diventa la ragione per non uscirne.
 
 ## Sette di Coppe
@@ -660,13 +660,13 @@ capovolta.
 ### dritta
 
 - 1: Molte offerte stanno allineate davanti a te insieme, una più invitante dell'altra, con il contenuto di ciascuna sconosciuto fino a quando non guardi dentro.
-- 2: Il numero delle promesse è la cosa che conta: ognuna mostra una vita diversa e nessuna ha ancora dichiarato che cosa tiene dentro. Il sogno lavora a pieno regime e i tuoi piedi restano in aria.
+- 2: Conta il numero delle promesse: ognuna mostra una vita diversa e nessuna ha ancora detto che cosa tiene dentro, mentre i tuoi piedi restano in aria.
 - 3: Davanti a te si affollano immagini che promettono ciascuna un'altra cosa: la fantasia lavora a pieno ritmo mentre la verifica non è ancora cominciata e nessuno dei recipienti è stato scoperto.
 
 ### capovolta
 
 - 1: Una sola delle molte offerte prende contorno e il resto rimane dove sta: il tuo desiderio vero si distingue fra i simili e la libertà viene dal lasciare le altre intatte.
-- 2: Sai quale desiderio è tuo fra i molti che si somigliavano: la nebbia delle promesse cala e la cosa scelta porta con sé la perdita delle altre, che è esattamente la parte che libera.
+- 2: Sai quale desiderio è tuo fra i molti che si somigliavano: la nebbia delle promesse cala e la cosa scelta porta con sé la perdita delle altre, che è la parte che libera.
 - 3: Resta una fra le molte e il vantaggio sta nella rinuncia: l'immagine a fuoco si separa dalle altre dipinte e il tuo volere torna a essere uno solo.
 
 ## Otto di Coppe
@@ -689,7 +689,7 @@ capovolta.
 
 - 1: La facoltà sotto esame è il permettersi: un desiderio tuo è stato esaudito alla lettera e la contentezza ti sta davanti già servita, mentre il pudore ti trattiene dal prenderla.
 - 2: Un desiderio ti è stato esaudito nella forma esatta in cui lo chiedevi. L'unica cosa che ti separa dal gustarlo è il pudore di ammettere che ti fa piacere.
-- 3: Quello che si vede è una fila di cose ottenute una per una come le avevi chieste. Quello che resta in penombra è il senso di colpa che ti fa abbassare gli occhi mentre le guardi.
+- 3: Si vede una fila di cose ottenute una per una come le avevi chieste; resta in penombra il senso di colpa che ti fa abbassare gli occhi mentre le guardi.
 
 ### capovolta
 
@@ -777,9 +777,9 @@ capovolta.
 
 ### capovolta
 
-- 1: Un'apertura concreta si stringe mentre la guardi da lontano, oppure il calcolo che ne hai fatto era storto in un punto. La cosa sta ferma dove l'hai lasciata intanto che il suo tempo utile si accorcia.
+- 1: Un'apertura concreta si stringe mentre la guardi da lontano, oppure il calcolo che ne hai fatto è storto. Intanto la cosa resta dove l'hai lasciata e il suo tempo si accorcia.
 - 2: Senza rumore e senza avvertirti, una porta nella siepe si chiude di un dito per volta. Nella stessa faccenda c'è anche un rischio che hai pesato male e resta da ripesare.
-- 3: Due cose stanno dentro la stessa occasione: una si chiude da sé col passare del tempo e l'altra è una stima che hai preso di traverso. La materia in gioco resta solida nei due casi.
+- 3: Due cose stanno dentro la stessa occasione: una si chiude da sé col passare del tempo, l'altra è una stima che hai preso di traverso. La materia resta solida in entrambi i casi.
 
 ## Due di Denari
 
@@ -805,7 +805,7 @@ capovolta.
 
 ### capovolta
 
-- 1: I compiti non hanno un titolare. Più mani stanno sullo stesso pezzo e nessuna su quello accanto, con la stessa buona volontà da ogni parte, anche dalla tua. Il lavoro resta fermo dove i pezzi non combaciano.
+- 1: I compiti non hanno un titolare: più mani stanno sullo stesso pezzo e nessuna su quello accanto, anche la tua, con buona volontà. Il lavoro si ferma dove i pezzi non combaciano.
 - 2: Il disegno è stato letto in modi diversi e nessuno lo ha detto chiaramente. Ognuno lavora bene sul proprio pezzo, anche tu, mentre l'insieme non ingrana. La buona fede c'è tutta, le istruzioni no.
 - 3: Quello che ti manca è la parola sui ruoli: aspettative mai dichiarate, consegne una sopra l'altra, un lavoro condiviso che gira a vuoto mentre tutti spingono.
 
@@ -819,9 +819,9 @@ capovolta.
 
 ### capovolta
 
-- 1: Il timore di restare senza chiude le dita intorno a quello che hai e quello che hai le tiene chiuse a sua volta: la stretta funziona in entrambi i sensi e costa a chi la esercita.
+- 1: Il timore di restare senza chiude le dita intorno a quello che hai e quello che hai le tiene chiuse a sua volta: la stretta lavora nei due sensi.
 - 2: L'attaccamento lavora contro la tua capacità di lasciare circolare: quanto più una cosa viene serrata tanto più tiene stretto chi la trattiene fra le mani.
-- 3: Dentro il pugno chiuso stanno poche cose e un timore grande: quello che hai non si muove perché la paura trova più sicuro il fermo, mentre le mani occupate a trattenere non possono fare altro.
+- 3: Dentro il pugno chiuso stanno poche cose: quello che hai non si muove perché la paura preferisce il fermo e le mani occupate a trattenere non fanno altro.
 
 ## Cinque di Denari
 
@@ -847,7 +847,7 @@ capovolta.
 
 ### capovolta
 
-- 1: Il dare va in un senso solo. Esce dalle tue mani verso una parte precisa che non restituisce e dalla direzione opposta non rientra niente, così la generosità si svuota alla misura di quanto passa.
+- 1: Il dare va in un senso solo: esce dalle tue mani verso una parte che non restituisce e dall'altra direzione non rientra niente, così la generosità si svuota.
 - 2: Una generosità mal riposta ti prosciuga perché la controparte riceve e tiene: l'andata è piena, il ritorno non c'è e lo squilibrio sta tutto da una parte.
 - 3: Dare molto a una parte che non ricambia svuota chi porta. Del movimento manca proprio la metà che dovrebbe rientrare verso di te ed è squilibrio, non bontà.
 
@@ -889,7 +889,7 @@ capovolta.
 
 ### capovolta
 
-- 1: Ogni spesa fatta per essere guardati compra uno sguardo e la paga con un pezzo della libertà che il tuo lavoro ha costruito.
+- 1: Ogni spesa fatta per attirare sguardi compra un'ammirazione breve e la paga con la tua libertà, quella costruita lavorando: lo spazio tuo si restringe a ogni acquisto mostrato.
 - 2: La tua mano resta aperta verso fuori e quello che esce serve a mostrare. La vetrina mangia l'orto e l'autonomia diventa più sottile a ogni uscita, senza che nessuno te la porti via.
 - 3: Quello che vacilla è lo spazio tuo, quello costruito col lavoro. Sta in piedi finché le uscite restano dentro la misura e la misura è stata lasciata agli occhi degli altri.
 
@@ -897,14 +897,14 @@ capovolta.
 
 ### dritta
 
-- 1: Le radici affondano sotto il tempo di una sola vita: quello che metti su sta in piedi anche quando la mano che lo ha fatto non c'è più e nutre chi abita lo stesso tetto dopo.
-- 2: Sotto il tuo tetto stanno insieme generazioni diverse grazie a una ricchezza lenta: i vecchi, i figli, i bambini e il cane sulla soglia, con beni che portano un nome di famiglia e non quello di una persona.
-- 3: Dopo di te qualcosa resta in piedi: il bene passa di mano dentro la stessa famiglia, il nome sopravvive a chi lo portava e la tua parte in tutto questo è quella di chi ha piantato.
+- 1: Ciò che costruisci dura oltre te: le radici scendono più in là di una vita, quello che metti su regge anche senza la tua mano e nutre chi viene dopo sotto lo stesso tetto.
+- 2: Sotto il tuo tetto stanno insieme più generazioni grazie a una ricchezza lenta: vecchi, figli, bambini e il cane sulla soglia, con beni che portano il nome della famiglia, non di una persona.
+- 3: Dopo di te qualcosa resta in piedi: il bene passa di mano dentro la famiglia, il nome sopravvive a chi lo portava e a te tocca la parte di chi pianta.
 
 ### capovolta
 
 - 1: Un bene tenuto insieme dai tuoi parenti diventa il motivo per cui si litiga fra loro: l'abbondanza non scarseggia; manca l'accordo su chi decide e su quanto spetta a ciascuno.
-- 2: La proprietà è plurale e l'attrito nasce da questo: più mani stanno sulla stessa cosa, anche la tua, ciascuna conta la propria parte in modo diverso e quello che una generazione aveva unito si spezza in rivendicazioni.
+- 2: La proprietà è di più persone e l'attrito nasce da qui: tante mani sulla stessa cosa, anche la tua, ognuna conta la sua parte e ciò che una generazione aveva unito si spezza.
 - 3: Fra chi porta il tuo stesso nome corre una contesa su cose che nessuno possiede da solo: il tetto regge, i beni restano e ognuno sotto quel tetto tira dalla sua parte.
 
 ## Fante di Denari
@@ -967,7 +967,7 @@ capovolta.
 
 ### dritta
 
-- 1: Basta un taglio solo a separare il vero dal falso e dopo di lui la linea ti resta visibile. La cosa ha un nome esatto e il nome esatto è tutta la forza in gioco.
+- 1: Basta un taglio solo per separare il vero dal falso e dopo la linea ti resta visibile: la cosa ha un nome esatto e quel nome è tutta la forza in gioco.
 - 2: La lucidità ha la forma di una prima definizione. Dove stava un mucchio indistinto ti rimane una frase che puoi ripetere parola per parola.
 - 3: Nasce il principio di un tuo pensiero, nudo e senza ornamenti, un'idea sola detta come sta, affilata quanto basta per dividere una cosa dall'altra.
 
@@ -981,13 +981,13 @@ capovolta.
 
 ### dritta
 
-- 1: Lo stallo non è fermo per caso: viene mantenuto con le tue braccia incrociate e con una stoffa sugli occhi, perché i lati della questione pesano uguale e guardarne uno darebbe ragione a lui.
+- 1: Lo stallo non è fermo per caso: lo tieni tu, braccia incrociate e stoffa sugli occhi, perché i due lati della questione pesano uguale e guardarne uno vorrebbe dire scegliere.
 - 2: Tenere l'equilibrio richiede che i tuoi occhi restino coperti: i lati della questione sono simmetrici, la scelta rimandata sta dietro la stoffa e nessuno dei pesi si abbassa.
 - 3: Sotto la stoffa che ti copre gli occhi la questione resta identica a se stessa: nessun peso cresce, nessuno cala e l'immobilità regge solo perché le lame stanno incrociate davanti al petto.
 
 ### capovolta
 
-- 1: Le braccia si aprono e la stoffa scende: quello che era stato coperto da te sta di nuovo davanti agli occhi e la questione tenuta in sospeso smette di pesare uguale da tutte le parti.
+- 1: Le braccia si aprono e la stoffa scende: ciò che avevi coperto ti torna davanti agli occhi e la questione sospesa smette di pesare uguale da tutte le parti.
 - 2: La simmetria si rompe e il blocco cede: uno dei lati comincia a valere più dell'altro, la tua vista torna sulla cosa evitata e girarci intorno costa più che guardarla.
 - 3: Cade la copertura che era stata messa a mano e la questione sospesa riemerge con la sua domanda: lo stallo si scioglie perché i tuoi occhi tornano a lavorare.
 
@@ -1009,13 +1009,13 @@ capovolta.
 
 ### dritta
 
-- 1: Il silenzio che viene dopo la fatica rende in forza quello che prende in tempo. La tua mente ne ha bisogno nella stessa misura del corpo e il recupero lavora anche se non si vede.
+- 1: Il silenzio dopo la fatica restituisce in forza quello che prende in tempo. La tua mente ne ha bisogno quanto il corpo e il recupero lavora anche se non si vede.
 - 2: Una pausa senza compiti dentro ti scarica la stanchezza mentre non fai niente: la quiete è la materia di questa forza e il tempo che toglie al movimento lo rende in energia.
 - 3: La testa trova la calma che il corpo reclama, la stanchezza esce dalle spalle e il tempo che passi senza muoverti ti torna sotto forma di forza.
 
 ### capovolta
 
-- 1: Fino in fondo è stato preso il riposo e la quiete ha chiuso il suo lavoro. La forza che ti mancava è rientrata e il movimento riparte con calma, senza strappi al primo gesto.
+- 1: Il riposo è stato preso fino in fondo e la quiete ha chiuso il suo lavoro: la forza che ti mancava è rientrata e il movimento riparte con calma, senza strappi.
 - 2: Misurata e completa, la quiete si chiude da sé. Hai riposato abbastanza, il silenzio ha reso quanto doveva e la ripresa si fa a misura e non di slancio.
 - 3: Basta così per la quiete e il seguito non le appartiene più, mentre il tuo corpo lo sa prima della testa e il moto riprende piano.
 
@@ -1052,8 +1052,8 @@ capovolta.
 ### dritta
 
 - 1: La mossa passa di lato e senza rumore, dove non c'è nessuno a guardare, prende quello che ti serve ed esce in punta di piedi, senza aprire la porta principale.
-- 2: L'ingegno fa il lavoro che la forza farebbe sbattendo, con un calcolo prima, un passo scelto bene, nessun rumore. Il conto che la mossa porta con sé è il nome che le dai quando nessuno ti ascolta.
-- 3: Un vantaggio lo prendi senza scontro, aggirando l'ostacolo, lasciando il grosso dove sta e portando via la parte che conta. L'arte sta nel silenzio, il prezzo nel sapere che cosa è stato portato via.
+- 2: L'ingegno fa il lavoro che la forza farebbe con rumore: un calcolo prima, un passo scelto bene, nessun fracasso. Il prezzo della mossa è il nome che le dai quando nessuno ti ascolta.
+- 3: Un vantaggio lo prendi senza urto, girando intorno all'ostacolo e portando via soltanto la parte che conta. L'arte sta nel silenzio, il prezzo nel sapere che cosa hai portato via.
 
 ### capovolta
 
@@ -1065,7 +1065,7 @@ capovolta.
 
 ### dritta
 
-- 1: La prigione è fatta di pensiero e ti tiene come se fosse di pietra: i nodi intorno alle braccia sono larghi, il cerchio di lame è piantato nel fango e il blocco sta nel credito che dai al racconto.
+- 1: La prigione è fatta di pensiero ma ti tiene come pietra: i nodi sono larghi, il cerchio di lame è piantato nel fango e il blocco sta nel credito che dai al racconto.
 - 2: Il limite che senti è solido quanto la convinzione che lo sostiene: la testa costruisce le pareti, le lega con corde comode e poi dichiara che non ci si può muovere.
 - 3: Nella tua mente il recinto è completo: ogni lato sta al suo posto, i nodi sono stretti con cura e la loro misura vera resta più ampia di quella che il pensiero riferisce.
 
@@ -1080,7 +1080,7 @@ capovolta.
 ### dritta
 
 - 1: Al buio la tua mente lavora da sola e gira a vuoto: a occhi aperti nel letto le paure si gonfiano fino a una misura che la luce non conferma.
-- 2: Il pensiero cupo si fabbrica nelle ore in cui tutto tace e arriva travestito da fatto: nella stanza niente si sposta mentre nella tua testa si muove ogni cosa e il buio fa da moltiplicatore.
+- 2: Il pensiero cupo si fabbrica nelle ore in cui tutto tace e arriva travestito da fatto: nella stanza niente si sposta, mentre nella tua testa il buio moltiplica ogni cosa.
 - 3: Nelle ore senza sonno la mente monta una storia e la spaccia per cronaca: la paura cresce di notte quanto scende di giorno, con il tuo corpo fermo e il pensiero in corsa.
 
 ### capovolta
@@ -1137,7 +1137,7 @@ capovolta.
 
 - 1: Il no detto in faccia fa da materia, breve e senza giri. Tiene fuori quello che non deve entrare. La franchezza ti protegge prima di informare chi la riceve.
 - 2: L'intelligenza lavora per conto proprio e non per la stanza. Giudica quello che riguarda te e lo dice una volta sola, con una frase che non ha bisogno di essere spiegata.
-- 3: Qui conta il mestiere di distinguere, che separa quello che vale da quello che somiglia a quello che vale, poi lo dice. Il costo di questa chiarezza è la scomodità e il dono che ti fa è lo stesso.
+- 3: Qui conta il mestiere di distinguere: separa quello che vale da quello che gli somiglia, poi lo dice. Questa chiarezza ti costa un po' di scomodità ed è anche il suo dono.
 
 ### capovolta
 
@@ -1149,9 +1149,9 @@ capovolta.
 
 ### dritta
 
-- 1: Un'autorità di mente decide cose che riguardano altre persone e le decide con la stessa regola per tutte: l'equità viene prima del caso, la ragione sta al servizio del bene e la parola che hai dato ti vincola.
+- 1: Un'autorità di mente decide cose che riguardano altre persone, con la stessa regola per tutte: l'equità viene prima del caso e la parola che hai dato ti vincola.
 - 2: La lucidità diventa un incarico quando qualcuno ti viene a chiedere come stanno le cose: la risposta è onesta anche dove è scomoda e il suo peso ricade su chi l'ha formulata.
-- 3: Chi siede in alto e usa la mente come lama misura il vero e il falso per conto di altri: l'etica tiene il banco, il bene decide l'uso della ragione e nessuna simpatia ti sposta il giudizio.
+- 3: Chi siede in alto e usa la mente come lama misura il vero e il falso per conto di altri: l'etica tiene il banco e nessuna simpatia ti sposta il giudizio.
 
 ### capovolta
 
