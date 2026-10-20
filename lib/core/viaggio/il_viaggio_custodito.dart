@@ -56,6 +56,10 @@ abstract final class IlViaggioCustodito {
     // capo" a ogni fusione che adotta una copia non ancora migrata.
     'viaggio.animale_riconosciuto',
     'viaggio.fz02_migrato',
+    // L'avviso della migrazione finche' il Viaggio non l'ha mostrato: chi
+    // cambia telefono a meta' lo ritrova la' (simulazione del 20 ottobre
+    // 2026).
+    'viaggio.fz02_avviso',
   ];
 
   /// **IL PESO CHE IL CERCHIO ACCETTA**, in caratteri del sacchetto scritto

@@ -389,12 +389,15 @@ class _ViaggioDelloSciamanoScreenState
     // capo con le ombre, e l'avviso che ne nasce si mostra una volta sola,
     // dopo il primo fotogramma, cosi' non compete con la soglia che si sta
     // ancora componendo.
-    unawaited(
-        AnimaleDiPotere.caricaERisolvi(_diario, widget.userSign).then((esito) {
+    unawaited(AnimaleDiPotere.caricaERisolvi(_diario, widget.userSign)
+        .then((esito) async {
+      // **L'AVVISO PUO' AVERLO LASCIATO UN'ALTRA SCHERMATA**, quasi sempre
+      // la home, che la migrazione la completa prima: si prende dal Diario.
+      final lasciato = await _diario.prendiLAvvisoDellaMigrazione();
       if (!mounted) return;
       setState(() {
         _caricato = true;
-        _avvisoMigrazioneFZ02 = esito.avviso;
+        _avvisoMigrazioneFZ02 = esito.avviso ?? lasciato;
       });
       if (_avvisoMigrazioneFZ02 != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

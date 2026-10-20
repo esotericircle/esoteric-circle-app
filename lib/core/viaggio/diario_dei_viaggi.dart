@@ -131,10 +131,20 @@ class DiarioDeiViaggi {
   /// una volta sola.
   static const String _chiaveMigrazioneFZ02 = 'viaggio.fz02_migrato';
 
+  /// **L'AVVISO DELLA MIGRAZIONE, FINCHE' IL VIAGGIO NON L'HA MOSTRATO.**
+  /// Simulazione da persona del 20 ottobre 2026 sul Realme: la migrazione la
+  /// completa la prima schermata che carica il Diario, quasi sempre la home,
+  /// che l'avviso non lo mostra; il Viaggio poi trovava la migrazione gia'
+  /// fatta e nessun avviso, e chi era a meta' vedeva sparire i suoi progressi
+  /// senza una parola. L'avviso si conserva qui e lo prende il Viaggio, una
+  /// volta sola ([prendiLAvvisoDellaMigrazione]). Padre: ordine FZ voce 02.
+  static const String _chiaveAvvisoFZ02 = 'viaggio.fz02_avviso';
+
   List<UnViaggio> _viaggi = const [];
   int _quante = 0;
   List<DateTime> _nutrimenti = const [];
   List<SegnoRicevuto> _segni = const [];
+
   /// **LA CENERE SCOSTATA, PER ANIMALE.** Dall'ordine FZ voce 04: chi segue
   /// ombre diverse ha piu' carte scoperte a meta', ciascuna col suo conto,
   /// e non una sola (quella dell'ultima ombra toccata, com'era quando
@@ -335,10 +345,13 @@ class DiarioDeiViaggi {
     _celleScoperte = {..._celleScoperte, animale: Set.unmodifiable(celle)};
     try {
       final prefs = await _prefs();
-      await prefs.setString(_chiaveDelVelo, jsonEncode({
-        for (final e in _celleScoperte.entries)
-          if (e.value.isNotEmpty) e.key: (e.value.toList()..sort()).join(','),
-      }));
+      await prefs.setString(
+          _chiaveDelVelo,
+          jsonEncode({
+            for (final e in _celleScoperte.entries)
+              if (e.value.isNotEmpty)
+                e.key: (e.value.toList()..sort()).join(','),
+          }));
     } catch (errore) {
       // Si perde solo il ricordo del gesto.
     }
@@ -347,8 +360,7 @@ class DiarioDeiViaggi {
   /// **I SOLCHI GIA' APERTI SU [animale]**, ordine DQ voce 05; per un altro
   /// nome nessuno, come le celle, e per piu' nomi insieme (ordine FZ voce
   /// 04).
-  List<List<Offset>> solchiDi(String animale) =>
-      _solchi[animale] ?? const [];
+  List<List<Offset>> solchiDi(String animale) => _solchi[animale] ?? const [];
 
   /// Conserva i solchi di [animale]. Tre decimali bastano: sull'illustrazione
   /// piu' grande sono meno di mezzo punto.
@@ -359,17 +371,19 @@ class DiarioDeiViaggi {
     };
     try {
       final prefs = await _prefs();
-      await prefs.setString(_chiaveDeiSolchi, jsonEncode({
-        for (final e in _solchi.entries)
-          if (e.value.isNotEmpty)
-            e.key: [
-              for (final s in e.value)
-                [
-                  for (final p in s)
-                    '${p.dx.toStringAsFixed(3)},${p.dy.toStringAsFixed(3)}'
-                ].join(';'),
-            ].join('|'),
-      }));
+      await prefs.setString(
+          _chiaveDeiSolchi,
+          jsonEncode({
+            for (final e in _solchi.entries)
+              if (e.value.isNotEmpty)
+                e.key: [
+                  for (final s in e.value)
+                    [
+                      for (final p in s)
+                        '${p.dx.toStringAsFixed(3)},${p.dy.toStringAsFixed(3)}'
+                    ].join(';'),
+                ].join('|'),
+          }));
     } catch (errore) {
       // Si perde il disegno del solco, non il gesto: le celle restano.
     }
@@ -422,6 +436,7 @@ class DiarioDeiViaggi {
       await prefs.remove(_chiaveDelRiconoscimento);
       await prefs.remove(_chiaveDellAnimaleRiconosciuto);
       await prefs.remove(_chiaveMigrazioneFZ02);
+      await prefs.remove(_chiaveAvvisoFZ02);
     }
     _cammino = null;
     _animaleRiconosciuto = null;
@@ -697,6 +712,7 @@ class DiarioDeiViaggi {
     try {
       final prefs = await _prefs();
       await prefs.setBool(_chiaveMigrazioneFZ02, true);
+      if (avviso != null) await prefs.setString(_chiaveAvvisoFZ02, avviso);
       await prefs.setString(_chiaveDelCammino,
           _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
       await prefs.setStringList(
@@ -707,6 +723,20 @@ class DiarioDeiViaggi {
       // ritenta, e il ritentativo e' idempotente (vedi la nota della voce).
     }
     return avviso;
+  }
+
+  /// **PRENDE L'AVVISO DELLA MIGRAZIONE, E LO CANCELLA**: il Viaggio lo
+  /// mostra una volta sola, chiunque abbia fatto la migrazione. Nullo se non
+  /// c'e' niente da dire.
+  Future<String?> prendiLAvvisoDellaMigrazione() async {
+    try {
+      final prefs = await _prefs();
+      final avviso = prefs.getString(_chiaveAvvisoFZ02);
+      if (avviso != null) await prefs.remove(_chiaveAvvisoFZ02);
+      return avviso;
+    } catch (errore) {
+      return null;
+    }
   }
 
   /// **IL TAMBURO: UN GESTO SOLO, E L'ANIMALE SI RIAVVICINA.**
