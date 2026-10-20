@@ -370,7 +370,10 @@ void main() {
       // SESSANTASEI dall'ordine FX voce FX.10: le quattro righe del
       // Respiro della Luna (la collana completa e lo scrigno, gli avvisi,
       // il tempo sotto il dito su tutto il mese, Respiriamo insieme).
-      expect(PlanCatalog.matrix.length, 66);
+      // SESSANTASETTE dall'ordine GA voce GA.05, 20 ottobre 2026: la riga
+      // della risposta lunga delle rune (`RigaDelPiano.runeLunga`), dalla
+      // Iniziato in su e solo per il responso principale.
+      expect(PlanCatalog.matrix.length, 67);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
