@@ -837,3 +837,57 @@ distribuzione l'errore rosso diventa un riquadro grigio).
 **Verifica a video della cura del riquadro**: al giorno 4, appena risalito,
 il Cavallo intero e il titolo del responso stanno insieme sullo schermo
 (`v2_d4_risalita.png`).
+
+### Giorno 5, 24 ottobre: la cura della custodia vista sul telefono
+
+Build con le tre cure installata sopra (dati conservati). Scendi senza rete
+(la scena si chiede al modello solo al tocco di Scendi, quindi nessuna
+spesa), rete riaccesa davanti alle ombre, seguito il Cavallo, risalito:
+`viaggio.quante` 2. App in secondo piano e di nuovo in primo piano con la
+rete (parte la custodia): **nessuna chiave del Viaggio cambiata**. Chiusa e
+riaperta davvero: ancora 2. Prima della cura, nello stesso gesto, il conto
+tornava a 1.
+
+**I VIDEO DEL CAMMINO NON SONO SUL BUCKET.** Seguendo il Cavallo con la rete
+la cartella dei video non si e' creata. Il manifesto
+`https://storage.googleapis.com/esoteric-circle-assets-cdn/viaggio_sciamano/manifesto_viaggio_v1.json`
+risponde 404, e il bucket non ha niente sotto `viaggio_sciamano/`. I dodici
+video ricompressi e il manifesto esistono sul computer, in
+`D:\Clienti Roogly\Rituali Cartomanzia\App\Viaggio Sciamano Animali\_pronti`
+(51 file, 155 MB), ma la pubblicazione, "un passo suo" scritto nello
+strumento `tool/gli_asset_dell_ordine_fz.py`, non e' mai stata fatta. Oggi
+nessuna persona puo' ricevere un video del cammino: ne' alla rivelazione
+(FZ.05, FZ.08) ne' nel segno (FZ.05). Padre: ordine FZ voce FZ.06, chiusa
+senza la pubblicazione. Pubblicare sul bucket di produzione e' una scrittura
+in produzione: la decide il fondatore.
+
+### Giorni 6 e 7, 25 e 26 ottobre: il Cavallo, e IL DIFETTO DELLA CARTA
+
+Senza rete. Griglia nuova ogni giorno (il conto avanza), il Cavallo c'e'
+sempre. Giorno 6: si apre il secondo pezzo (`v2_d6_carta.png`). Giorno 7: il
+terzo, e **la testa del Cavallo si vede gia'** (`v2_d7_carta.png`), mentre
+FZ.04 vuole il volto nel quarto pezzo, scoperto per ultimo. Il quarto pezzo,
+in cima, sta quasi tutto dietro la barra di stato, la striscia del Cerchio e
+la barra del titolo: la carta e' posata dall'alto della scena
+(`IlVeloCheSiScosta.doveStaLIllustrazione`).
+
+Cercando la causa, tre fatti verificati:
+1. **Si gratta l'immagine sbagliata.** FZ.04: *"Ogni animale ha la sua
+   carta: il file *_carta_da_grattare_v1.jpg ... a quasi tutto schermo"*, e
+   il fondatore: *"non l'animale da scoprire, ma una card intera"*. La lente
+   (`viaggio_dello_sciamano_screen.dart`, `IlVeloCheSiScosta(immagine:
+   animale.fullPath)`) fa grattare l'illustrazione metallica dell'animale su
+   fondo blu, cioe' proprio "l'animale da scoprire". Il commento di
+   `la_carta_in_quattro_pezzi.dart` parla della carta vera: il codice no.
+2. **Nelle dodici carte il volto non sta mai nel quarto pezzo.** Foglio delle
+   dodici carte con le linee dei quarti: in cima c'e' cielo, luna e alberi
+   per tutti; i volti cadono fra il 30 e il 55 per cento dell'altezza (secondo
+   o terzo pezzo dall'alto), la Tartaruga piu' in basso. Con quattro fasce
+   uguali scoperte dal basso il volto arriva sempre prima dell'ultima: il
+   fatto dell'ordine ("il volto sta nel quarto pezzo") non e' vero per
+   nessuna carta.
+3. **Le carte a meta' nel Diario dei viaggi non ci sono** (gia' annotato nella
+   prima simulazione): FZ.04 le vuole *"tutte nel Diario dei viaggi, una
+   accanto all'altra"*.
+Padre di tutti e tre: ordine FZ voce FZ.04, chiusa con una misura sul
+contare le celle e non sull'immagine che la persona vede.

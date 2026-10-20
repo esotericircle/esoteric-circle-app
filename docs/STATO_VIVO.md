@@ -7634,6 +7634,50 @@ dell'account di prova (vedi sopra) e in attesa delle credenziali di
 Mauro per "ProvaFZ" o un account nuovo. Manifesto e rapporto aggiornati
 con lo sha del segno verde.
 
+**Aggiornamento del 20 ottobre 2026, la seconda simulazione da persona:
+quattro difetti veri trovati e curati.** Decisione del fondatore: *"Tutto,
+come l'ordine"*, con il permesso di creare profili di prova nuovi e fino a
+dieci chiamate vere al modello per la persona (e). Profilo anonimo nuovo sul
+Realme ("ProvaFZB"), giorni simulati spostando la data del telefono di
+collaudo (20, 21, 22, 23 ottobre), note e catture `v2_*` in
+`docs/collaudo/FZ/simulazioni/`. I difetti, ciascuno col suo padre, la sua
+guardia vista rossa e il suo commit:
+- **La cenere veniva via tutta alla prima discesa** (padre FZ.04): passando
+  il dito su tutta la carta la Lince si vedeva intera. Cura nel solco e nel
+  pennello, guardia `la_cenere_resta_sui_pezzi_di_domani` (828), commit
+  `b793c4af`; verificata a video al giorno 2 sul Cavallo.
+- **Dopo Risali la schermata sembrava ferma** (padre FZ.14): il riquadro
+  verticale a tutta larghezza riempiva lo schermo e il responso finiva sotto
+  la piega. Il riquadro tiene il rapporto della carta ma non supera meta'
+  della finestra; guardia `il_responso_si_vede_appena_risali` (829), misurata
+  sulla finestra vera del Realme; commit `1183d3b2`; verificata a video al
+  giorno 4 (`v2_d4_risalita.png`).
+- **Le discese sparivano dal Diario** (padre EE.13, aggravato da FZ.04): il
+  sacchetto del Viaggio pesava 22.218 caratteri, il server lo scarta sopra
+  20.000 e il telefono adottava la copia vecchia del Cerchio. Provato a video
+  (discesa senza rete: conto 2; rete riaccesa e app in primo piano: conto 1).
+  Riguarda chiunque passi le trenta discese, non solo chi gratta molto. Cura
+  nel telefono (`lib/core/viaggio/il_viaggio_custodito.dart`): il sacchetto
+  parte sempre sotto il tetto, lo stesso sacchetto che torna non riscrive
+  niente, un Viaggio che non puo' partire non viene sostituito; guardia
+  `il_viaggio_pesante_non_torna_indietro` (830); commit `1183d3b2`. **Una
+  cura anche sul server sarebbe piu' pulita** (un tetto proprio per il
+  Viaggio in `functions/src/cammino.ts`), ma pubblicare le funzioni lo
+  decide il fondatore.
+- **Alla rivelazione il video non c'era mai** (padre FZ.06): si scaricava
+  solo nella schermata del segno, dopo il riconoscimento. Ora si scarica
+  quando la persona segue l'ombra, come chiede FZ.06; guardia
+  `il_video_della_carta_si_scarica_mentre_si_scopre` (831); commit
+  `d3d0491e`.
+Fuori dalle funzioni dell'ordine, segnalato come compito a parte: aprendo
+l'app senza rete la home mostra l'errore rosso di Flutter
+`'_elements.contains(element)'` (PROVENIENZA IGNOTA). **Le chiamate al
+modello delle discese**: ogni discesa chiede la scena al modello al tocco di
+Scendi; le tre discese fatte con la rete accesa (giorni 1-3) sono tre
+chiamate che non erano nel conto, dentro il tetto di dieci concesso. Da li'
+le discese si fanno con la rete spenta al tocco di Scendi. Registro delle
+guardie a **831** (163, 286, 382).
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
