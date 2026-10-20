@@ -2749,15 +2749,24 @@ class _ViaggioDelloSciamanoScreenState
               const SizedBox(height: SpacingTokens.sm),
               OutlinedButton.icon(
                 key: const Key('viaggio_condividi_rivelazione_video'),
-                onPressed: () =>
-                    unawaited(_condividiLaRivelazioneInVideo(nome)),
+                onPressed: _videoInPreparazione
+                    ? null
+                    : () => unawaited(_condividiLaRivelazioneInVideo(nome)),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: palette.goldSoft,
                   side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
                   minimumSize: const Size.fromHeight(48),
                 ),
-                icon: const Icon(Icons.movie_creation_outlined, size: 18),
-                label: Text('Condividi come video',
+                icon: _videoInPreparazione
+                    ? SizedBox.square(
+                        dimension: 16,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: palette.goldSoft))
+                    : const Icon(Icons.movie_creation_outlined, size: 18),
+                label: Text(
+                    _videoInPreparazione
+                        ? 'Sto preparando il video…'
+                        : 'Condividi come video',
                     style: TypographyTokens.etichetta()),
               ),
             ],
@@ -2826,17 +2835,35 @@ class _ViaggioDelloSciamanoScreenState
   }
 
   /// **SPEDISCE LA RIVELAZIONE COME VIDEO.** Ordine FZ voce FZ.08.
+  /// **IL VIDEO SI STA PREPARANDO.** Simulazione da persona del 20 ottobre
+  /// 2026: toccato "Condividi come video" non succedeva niente per minuti, e
+  /// la persona toccava di nuovo. Mentre FFmpeg lavora il pulsante lo dice e
+  /// non accetta un secondo tocco; se non riesce, un messaggio lo dice e
+  /// indica la card, che si condivide sempre.
+  bool _videoInPreparazione = false;
+
   Future<void> _condividiLaRivelazioneInVideo(String nome) async {
+    if (_videoInPreparazione) return;
     final animale = _animale(nome);
     final centro = IVideoDelCamminoScaricati.diCasa
         .percorsoDiPezzo(nome.toLowerCase(), PezzoDelCammino.centro);
     if (animale == null || centro == null) return;
+    setState(() => _videoInPreparazione = true);
     final andata = await condividiLaRivelazioneInVideo(
       animale: animale,
       quando: _adesso,
       percorsoDelCentro: centro,
     );
-    if (!mounted || !andata) return;
+    if (!mounted) return;
+    setState(() => _videoInPreparazione = false);
+    if (!andata) {
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(const SnackBar(
+        key: Key('viaggio_video_non_pronto'),
+        content: Text('Il video non si è potuto preparare. Puoi condividere '
+            'la carta con «Di\' chi sei».'),
+      ));
+      return;
+    }
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'condivisione',
         dettagli: {'cosa': 'rivelazione_video', 'animale': nome}));
   }
