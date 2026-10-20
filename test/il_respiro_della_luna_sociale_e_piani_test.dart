@@ -88,12 +88,13 @@ void main() {
 
       // Le voci chiuse dicono da quale piano si aprono (mai un vicolo cieco).
       expect(
-          PlanCatalog.dalPiano((t) =>
-              PlanCatalog.apre(RigaDelPiano.respiroCollanaCompleta, t)),
+          PlanCatalog.dalPiano(
+              (t) => PlanCatalog.apre(RigaDelPiano.respiroCollanaCompleta, t)),
           'Dall’Iniziato');
     });
 
-    test('ogni riga del Respiro della Luna compare una volta sola nella matrice',
+    test(
+        'ogni riga del Respiro della Luna compare una volta sola nella matrice',
         () {
       final chiavi = [
         RigaDelPiano.respiroCollanaCompleta,
@@ -101,8 +102,7 @@ void main() {
         RigaDelPiano.respiroTempoSottoIlDitoMese,
       ];
       for (final c in chiavi) {
-        final volte =
-            PlanCatalog.matrix.where((r) => r.chiave == c).length;
+        final volte = PlanCatalog.matrix.where((r) => r.chiave == c).length;
         expect(volte, 1, reason: '${c.name} deve comparire una volta sola');
       }
     });
@@ -115,8 +115,7 @@ void main() {
     // respiro condiviso (40) e della collana a due in piu' (50). Le tre voci
     // si spendevano su porte del server mai pubblicate, e sono uscite dal
     // listino: adesso si prova che non tornino.
-    test('il listino non vende piu\' le funzioni del Respiro senza server',
-        () {
+    test('il listino non vende piu\' le funzioni del Respiro senza server', () {
       final delRespiro = [
         for (final v in ListinoDegliEos.tutte)
           if (v.id.startsWith('respiro_')) v.id,
@@ -131,7 +130,8 @@ void main() {
   });
 
   group('FX.10 il portafoglio a Eos del Respiro della Luna', () {
-    test('legge zero finche\' nessun acquisto arriva, poi tiene il conto e lo '
+    test(
+        'legge zero finche\' nessun acquisto arriva, poi tiene il conto e lo '
         'ritrova dopo la riapertura', () async {
       SharedPreferences.setMockInitialValues({});
       final wallet = GliEosDelRespiro();
@@ -267,16 +267,18 @@ void main() {
       expect(chieste, hasLength(2));
       expect(chieste.first['giorno'], '2026-10-12');
       expect(chieste.first['inizioCiclo'], '2026-10-10');
-      expect(chieste.first.keys.toSet(),
-          {'idMovimento', 'giorno', 'inizioCiclo'},
+      expect(
+          chieste.first.keys.toSet(), {'idMovimento', 'giorno', 'inizioCiclo'},
           reason: 'il prezzo lo decide il server, dal telefono non viaggia');
-      expect('${chieste.first['idMovimento']}', startsWith('respiro_ricucitura'));
+      expect(
+          '${chieste.first['idMovimento']}', startsWith('respiro_ricucitura'));
       expect(chieste.first['idMovimento'], isNot(chieste.last['idMovimento']),
           reason: 'ogni gesto porta il suo movimento: il giorno ripetuto lo '
               'rende innocuo il server, non un identificativo riusato');
     });
 
-    test('leCollaneADue legge l\'elenco, con l\'altra persona e i giorni accesi',
+    test(
+        'leCollaneADue legge l\'elenco, con l\'altra persona e i giorni accesi',
         () async {
       final porta = _PortaDelRespiro()
         ..collaneDaRestituire = [

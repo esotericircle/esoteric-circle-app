@@ -237,12 +237,10 @@ void main() {
       final tresGiorniFa = oggi.subtract(const Duration(days: 3));
       final giorno =
           DateTime(tresGiorniFa.year, tresGiorniFa.month, tresGiorniFa.day);
-      expect(
-          find.byKey(const Key('collana_invito_ricucitura')), findsNothing,
+      expect(find.byKey(const Key('collana_invito_ricucitura')), findsNothing,
           reason: 'la schermata invita a ricucire una perla con una porta '
               'del server che non e\' pubblicata');
-      expect(
-          find.byKey(const Key('collana_tocchi_della_ricucitura')),
+      expect(find.byKey(const Key('collana_tocchi_della_ricucitura')),
           findsNothing);
       expect(
           find.byKey(Key('collana_ricuci_${IlRespiroDellaLuna.data(giorno)}')),
