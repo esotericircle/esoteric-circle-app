@@ -69,7 +69,10 @@ Future<bool> condividiLaRivelazioneInVideo({
         await titolo(
           rigaUno: CardDellaRivelazione.primaRiga,
           rigaDue: CardDellaRivelazione.ilNome(animale),
-          data: 'mi ha trovato ${CardDellaRivelazione.ilGiorno(quando)}',
+          // **SOLO LA DATA**: "mi ha trovato" sta gia' nella prima riga, e
+          // ripeterlo sotto (com'era fino al 20 ottobre 2026) si leggeva come
+          // un errore nel video vero.
+          data: CardDellaRivelazione.laData(quando),
         ),
         flush: true);
     final uscita = File('${dir.path}/rivelazione_${animale.name}.mp4');

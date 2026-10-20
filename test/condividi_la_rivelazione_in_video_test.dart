@@ -90,7 +90,7 @@ void main() {
     expect(comandoVisto, contains('libx264'));
     expect(comandoVisto, contains('-c:a copy'),
         reason: 'l\'audio di Flow non va ricodificato, solo copiato');
-    expect(chiesto, ['MI HA TROVATO', 'IL LUPO', 'mi ha trovato il 17 ottobre 2026']);
+    expect(chiesto, ['MI HA TROVATO', 'IL LUPO', '17 ottobre 2026']);
   });
 
   test('UN FFMPEG CHE FALLISCE NON LANCIA, TORNA FALSO', () async {
