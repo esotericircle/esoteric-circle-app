@@ -586,7 +586,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, favorevole, voce 10: Tre conversazioni all'evento
 
 - Risposta: Settimana buona per farti conoscere nel tuo settore. L'evento a cui partecipi in questi giorni può portarti più di quanto pensi, perché chi interviene cerca davvero scambi utili: fra le persone presenti è facile trovarne una con cui valga la pena restare in contatto.
-- Che cosa fare: Prima di andare prepara una frase di due righe su che cosa fai e per chi lavori. All'evento chiedi a tre persone di che cosa si occupano e annota sul retro del loro biglietto un dettaglio che ti hanno raccontato. Scrivi a ciascuna entro due giorni.
+- Che cosa fare: Prima di andare prepara una frase di due righe su che cosa fai e per chi lavori. All'evento chiedi a tre persone di che cosa si occupano e annota sul retro del loro biglietto un dettaglio preciso del loro racconto. Scrivi a ciascuna entro due giorni.
 - Risposta, Lunga: Le conversazioni brevi ma sincere lasciano un ricordo più duraturo dei discorsi imparati a memoria. Il messaggio che richiama un dettaglio preciso dimostra attenzione vera e distingue il tuo nome dagli altri biglietti. Alla persona più vicina al tuo lavoro proponi poi un caffè o una chiamata.
 
 #### Carriera, favorevole, voce 11: Compiti ben divisi
@@ -597,7 +597,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 12: Il secondo colloquio
 
-- Risposta: Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l'azienda ha voluto rivederti perché c'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.
+- Risposta: Settimana favorevole per il secondo colloquio già fissato in agenda. Dopo il primo incontro l'azienda ha voluto rivederti perché c'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.
 - Che cosa fare: Rileggi entro mercoledì gli appunti del primo incontro e scrivi tre domande sul lavoro quotidiano: con chi lavoreresti ogni giorno, come si misurano i risultati, che cosa ci si aspetta nei primi tre mesi. Nelle ventiquattro ore successive manda un ringraziamento breve.
 - Risposta, Lunga: In questo secondo incontro la conversazione può diventare più aperta e mostrare come lavora davvero il gruppo in cui potresti entrare. Ascolta i dettagli pratici più delle promesse. A colloquio finito scrivi per te una nota onesta: che cosa ti è piaciuto e che cosa resta da chiarire.
 
@@ -1012,7 +1012,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, salita, voce 9: Il numero di protocollo
 
 - Risposta: Settimana lenta per le pratiche che ti riguardano: un certificato, un'iscrizione, una richiesta all'ufficio procedono più piano del previsto. Servono pazienza ordinata e dati alla mano, non insistenza, perché chi arriva con i documenti in ordine ottiene risposte più precise e in meno tempo.
-- Che cosa fare: Raccogli in una cartellina tutto ciò che riguarda la pratica: numero di protocollo, date, nomi degli impiegati. Giovedì mattina telefona all'ufficio con la cartellina aperta davanti a te e un foglio per gli appunti. Dopo la chiamata annota chi ti ha risposto e la data del prossimo controllo.
+- Che cosa fare: Raccogli in una cartellina tutto ciò che riguarda la pratica: numero di protocollo, date, nomi degli impiegati. Giovedì mattina telefona all'ufficio con la cartellina aperta davanti a te e un foglio per gli appunti. Dopo la chiamata annota il nome di chi risponde e la data del prossimo controllo.
 - Risposta, Lunga: Presentarsi con i dati in mano è un modo di rispettare il lavoro degli altri e di proteggere il tuo tempo, che in una settimana così è la risorsa più preziosa. Se serve, manda una mail di riepilogo: lascia una traccia scritta senza alzare i toni né perdere la cortesia.
 
 #### Fortuna, salita, voce 10: L'accordo a voce

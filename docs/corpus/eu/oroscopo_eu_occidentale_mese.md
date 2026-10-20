@@ -124,7 +124,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, equilibrio, voce 2: Tre conversazioni scelte
 
 - Risposta: Per chi è senza legame il mese è equilibrato: le occasioni non mancano, ma disperse in troppe direzioni rischiano di non portare da nessuna parte. Funziona meglio scegliere con calma a chi dedicare attenzione, poche persone e conversazioni vere, invece di rispondere a tutti per non perdere niente.
-- Che cosa fare: Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha creato disagio.
+- Che cosa fare: Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa invece ha creato disagio.
 - Risposta, Lunga: Rispondere a tutti dà l'impressione di avere molte strade aperte, ma consuma serate e pazienza. Con meno persone sul tavolo diventa più facile capire chi ti fa piacere rivedere e perché. Le note scritte a caldo aiutano: a fine mese rileggile e decidi chi merita una seconda uscita.
 
 #### Amore, equilibrio, voce 3: Domeniche a rotazione
@@ -251,7 +251,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, favorevole, voce 1: Proposte a due isolati
 
-- Risposta: Questo mese la buona sorte ti aspetta vicino a casa: le occasioni utili stanno più vicine di quanto pensi, un corso aperto a tutti, un mercatino di scambio, un servizio del comune che nessuno ti ha mai segnalato. Guarda bene le bacheche e i gruppi della zona.
+- Risposta: Questo mese la buona sorte ti aspetta vicino a casa: le occasioni utili stanno più vicine di quanto pensi, un corso aperto a tutti, un mercatino di scambio, un servizio del comune di cui nessuno ha mai parlato. Guarda bene le bacheche e i gruppi della zona.
 - Che cosa fare: Entro metà mese passa in biblioteca o al centro civico e fotografa la bacheca degli annunci. A casa scegli due iniziative che ti servono davvero e segna in agenda le date di iscrizione. Alla prima partecipazione chiedi il recapito di chi organizza.
 - Risposta, Lunga: Chi abita la tua stessa zona spesso possiede ciò che ti manca: un attrezzo, un'ora di tempo, un'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Il gruppo di messaggi del quartiere è dove passano le proposte migliori.
 

@@ -766,7 +766,7 @@ abstract final class ITestiEuCineseData {
             'Pentola sul fuoco',
             'Giornata quieta con i più giovani di casa, senza conflitti ma con un muro sottile da scalfire: un figlio o una nipote risponde a monosillabi e passa molto tempo in camera. Oggi le parole dirette rimbalzano. Funziona meglio fare qualcosa insieme, con le mani occupate.',
             'Stasera chiedi il suo aiuto per preparare la cena, un compito pratico fianco a fianco. Mentre tagliate e mescolate, racconta qualcosa della tua giornata e lascia le domande per dopo. A tavola non commentare il telefono né i voti: chiedi di una canzone che ama.',
-            'Molti ragazzi parlano più volentieri quando gli sguardi non si incrociano di continuo. Il lavoro comune toglie solennità al dialogo e fa sentire la presenza senza interrogatori. Domani ricordati di chiedere un dettaglio di ciò che ti ha raccontato: è la prova che hai ascoltato davvero.',
+            'Molti ragazzi parlano più volentieri quando gli sguardi non si incrociano di continuo. Il lavoro comune toglie solennità al dialogo e fa sentire la presenza senza interrogatori. Domani ricordati di chiedere un dettaglio di ciò che ha condiviso con te: è la prova che hai ascoltato davvero.',
           ),
           VoceEu(
             'L\'invito dei parenti',
@@ -852,7 +852,7 @@ abstract final class ITestiEuCineseData {
             'La risposta che tarda',
             'Giornata in salita per una conoscenza nuova: i messaggi con una persona incontrata da poco possono farsi radi, con risposte brevi e attese più lunghe. Il momento chiede attesa, non insistenza. Leggere ogni silenzio come un rifiuto ti toglierebbe la calma che ti serve.',
             'Se l\'ultimo messaggio è il tuo, lascialo lì e non aggiungerne un secondo. Metti il telefono in un\'altra stanza per un\'ora e usa quel tempo per una cosa che rimandavi da giorni. Stasera scrivi piuttosto a un\'amicizia di vecchia data per fissare un caffè.',
-            'Chi ti scrive ha anche una giornata piena, fatta di impegni che non vedi. Il silenzio di qualche ora dice poco sull\'interesse e molto sui ritmi. Se domani la risposta arriva, riprendi il filo con una domanda semplice su qualcosa che ti ha raccontato, senza far pesare l\'attesa.',
+            'Chi ti scrive ha anche una giornata piena, fatta di impegni che non vedi. Il silenzio di qualche ora dice poco sull\'interesse e molto sui ritmi. Se domani la risposta arriva, riprendi il filo con una domanda semplice su un racconto che ha fatto, senza far pesare l\'attesa.',
           ),
           VoceEu(
             'Il pranzo da decidere',
@@ -975,7 +975,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Le ore registrate',
             'Giornata calma, adatta a rimettere in fila le ore dedicate ai clienti. Negli ultimi giorni sono rimaste sparse fra appunti, messaggi e memoria: oggi hai la lucidità per ricostruirle e vedere con chiarezza dove va il tuo tempo e quale incarico ne assorbe più del dovuto.',
-            'Apri un foglio di calcolo e segna per ogni cliente le ore lavorate, giorno per giorno. Dove non ricordi, ricostruisci dalle mail inviate. Evidenzia il lavoro che ti ha preso più tempo del previsto e manda a quel cliente un breve aggiornamento sulle attività svolte.',
+            'Apri un foglio di calcolo e segna per ogni cliente le ore lavorate, giorno per giorno. Dove non ricordi, ricostruisci dalle mail inviate. Evidenzia il lavoro che ha richiesto più tempo del previsto e manda a quel cliente un breve aggiornamento sulle attività svolte.',
             'Quando il conto delle ore torna, torna anche la serenità con chi ti affida il lavoro. Sapere quanto pesa ogni incarico ti rende più chiaro nelle proposte future e meno incline a concedere troppo. Nell\'aggiornamento non chiedere nulla oggi: basta che il lavoro fatto diventi visibile.',
           ),
           VoceEu(
@@ -1259,7 +1259,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il no ricevuto',
             'Giornata per raccogliere ciò che un rifiuto può insegnare, senza rimuginarci sopra. È arrivata una risposta negativa per un posto in cui speravi: non è una porta chiusa per sempre. Quel colloquio contiene ancora indicazioni preziose per il prossimo, se le cerchi.',
-            'Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno creato difficoltà.',
+            'Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che hanno creato più difficoltà.',
             'Le aziende ricordano chi sa ricevere un rifiuto con eleganza. Un riscontro sincero, quando arriva, vale come una lezione privata; intanto il contatto resta aperto per occasioni future. Conserva il foglio delle risposte migliori insieme ai materiali per il prossimo incontro di selezione.',
           ),
         ],
@@ -2360,7 +2360,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Tre conversazioni all\'evento',
             'Settimana buona per farti conoscere nel tuo settore. L\'evento a cui partecipi in questi giorni può portarti più di quanto pensi, perché chi interviene cerca davvero scambi utili: fra le persone presenti è facile trovarne una con cui valga la pena restare in contatto.',
-            'Prima di andare prepara una frase di due righe su che cosa fai e per chi lavori. All\'evento chiedi a tre persone di che cosa si occupano e annota sul retro del loro biglietto un dettaglio che ti hanno raccontato. Scrivi a ciascuna entro due giorni.',
+            'Prima di andare prepara una frase di due righe su che cosa fai e per chi lavori. All\'evento chiedi a tre persone di che cosa si occupano e annota sul retro del loro biglietto un dettaglio preciso del loro racconto. Scrivi a ciascuna entro due giorni.',
             'Le conversazioni brevi ma sincere lasciano un ricordo più duraturo dei discorsi imparati a memoria. Il messaggio che richiama un dettaglio preciso dimostra attenzione vera e distingue il tuo nome dagli altri biglietti. Alla persona più vicina al tuo lavoro proponi poi un caffè o una chiamata.',
           ),
           VoceEu(
@@ -2371,7 +2371,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Il secondo colloquio',
-            'Settimana favorevole per il secondo colloquio che ti hanno fissato. Dopo il primo incontro l\'azienda ha voluto rivederti perché c\'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.',
+            'Settimana favorevole per il secondo colloquio già fissato in agenda. Dopo il primo incontro l\'azienda ha voluto rivederti perché c\'è interesse reale per il tuo profilo: conviene presentarti con domande precise oltre che con buone risposte, perché adesso scegli anche tu.',
             'Rileggi entro mercoledì gli appunti del primo incontro e scrivi tre domande sul lavoro quotidiano: con chi lavoreresti ogni giorno, come si misurano i risultati, che cosa ci si aspetta nei primi tre mesi. Nelle ventiquattro ore successive manda un ringraziamento breve.',
             'In questo secondo incontro la conversazione può diventare più aperta e mostrare come lavora davvero il gruppo in cui potresti entrare. Ascolta i dettagli pratici più delle promesse. A colloquio finito scrivi per te una nota onesta: che cosa ti è piaciuto e che cosa resta da chiarire.',
           ),
@@ -2786,7 +2786,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il numero di protocollo',
             'Settimana lenta per le pratiche che ti riguardano: un certificato, un\'iscrizione, una richiesta all\'ufficio procedono più piano del previsto. Servono pazienza ordinata e dati alla mano, non insistenza, perché chi arriva con i documenti in ordine ottiene risposte più precise e in meno tempo.',
-            'Raccogli in una cartellina tutto ciò che riguarda la pratica: numero di protocollo, date, nomi degli impiegati. Giovedì mattina telefona all\'ufficio con la cartellina aperta davanti a te e un foglio per gli appunti. Dopo la chiamata annota chi ti ha risposto e la data del prossimo controllo.',
+            'Raccogli in una cartellina tutto ciò che riguarda la pratica: numero di protocollo, date, nomi degli impiegati. Giovedì mattina telefona all\'ufficio con la cartellina aperta davanti a te e un foglio per gli appunti. Dopo la chiamata annota il nome di chi risponde e la data del prossimo controllo.',
             'Presentarsi con i dati in mano è un modo di rispettare il lavoro degli altri e di proteggere il tuo tempo, che in una settimana così è la risorsa più preziosa. Se serve, manda una mail di riepilogo: lascia una traccia scritta senza alzare i toni né perdere la cortesia.',
           ),
           VoceEu(

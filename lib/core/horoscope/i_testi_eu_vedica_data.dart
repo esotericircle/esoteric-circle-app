@@ -308,7 +308,7 @@ abstract final class ITestiEuVedicaData {
             'Una telefonata lunga',
             'Oggi la giornata scorre tranquilla e lascia spazio a una cosa che non compare in nessuna lista: una persona cara che senti di rado aspetta, senza chiederlo, di sentire la tua voce per qualche minuto. È il momento adatto per chiamarla senza fretta.',
             'Chiama nel pomeriggio un parente che non senti da tempo, in un\'ora in cui nessuno dei due ha fretta. Fai una domanda precisa sulle sue giornate e lascia che la risposta sia lunga. Alla fine fissa già la prossima chiamata e scrivila in agenda.',
-            'Le relazioni vivono di piccoli gesti regolari più che di grandi occasioni. Una voce che arriva senza un motivo particolare vale spesso più di un regalo pensato per una ricorrenza. Annota una cosa che ti ha raccontato, così la volta successiva si riparte proprio da lì.',
+            'Le relazioni vivono di piccoli gesti regolari più che di grandi occasioni. Una voce che arriva senza un motivo particolare vale spesso più di un regalo pensato per una ricorrenza. Annota una cosa che hai sentito raccontare, così la volta successiva si riparte proprio da lì.',
           ),
           VoceEu(
             'Faccende divise',
@@ -1615,7 +1615,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Due posti liberi',
             'Giornata serena, in cui può arrivare un regalo leggero: una persona cara che non può andare a uno spettacolo potrebbe offrirti i suoi biglietti all\'ultimo momento. È un\'occasione piccola, da prendere con leggerezza e gratitudine. La fortuna di oggi è gentile e chiede soltanto di non esitare.',
-            'Se arriva la proposta, rispondi entro un\'ora per non lasciarla in sospeso. Organizza subito la serata: chi invitare con te, a che ora uscire, quale tram prendere. Dopo lo spettacolo manda una foto della sala o del programma a chi ti ha ceduto i posti.',
+            'Se arriva la proposta, rispondi entro un\'ora per non lasciarla in sospeso. Organizza subito la serata: chi invitare con te, a che ora uscire, quale tram prendere. Dopo lo spettacolo manda una foto della sala o del programma a chi ha ceduto i suoi posti.',
             'Il giorno chiede di accogliere senza esitare ciò che arriva in dono, ma anche di ricambiare con misura. Un regalo ricevuto bene rafforza il filo che unisce te a chi ha pensato a te. Fissa in agenda un modo per ricambiare, un invito a cena o un pomeriggio insieme.',
           ),
           VoceEu(
@@ -3054,7 +3054,7 @@ abstract final class ITestiEuVedicaData {
             'Il peso da ridistribuire',
             'Il mese è pesante sul lavoro: hai accettato più incarichi di quanti ne regga il tuo tempo e la qualità comincia a risentirne. Non è un fallimento: è un segnale. Conviene guardare il carico con franchezza adesso, prima che sia la fatica a decidere per te.',
             'Scegli due compiti che altri potrebbero svolgere bene quanto te e proponi di affidarli entro la metà del mese. Spiega a chi coordina che lo fai per consegnare meglio ciò che resta. Prima di dire sì a una richiesta nuova prenditi una notte per rispondere.',
-            'Anche la lampada più fedele si consuma se la fiamma è troppo alta. Ridurre il carico non è un passo indietro: permette di continuare con la cura che ti ha sempre distinto. Se una richiesta nuova non trova posto, la risposta onesta è un no gentile.',
+            'Anche la lampada più fedele si consuma se la fiamma è troppo alta. Ridurre il carico non è un passo indietro: permette di continuare con la cura che da sempre ti distingue. Se una richiesta nuova non trova posto, la risposta onesta è un no gentile.',
           ),
           VoceEu(
             'Il metodo da rivedere',
@@ -3112,7 +3112,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Le occasioni contate',
-            'Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso che ti hanno proposto, un gruppo che ti cerca, una visita rimandata.',
+            'Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso già proposto da altri, un gruppo che ti cerca, una visita rimandata.',
             'Prima di cercare altro, scrivi questa sera l\'elenco delle possibilità che hai già aperte: persone, gruppi, proposte, inviti. Accanto a ognuna segna che cosa manca per coglierla. Poi scegline una a settimana fino alla fine del mese e fai il passo mancante.',
             'Custodire le occasioni comincia dalle cose piccole e quotidiane: una telefonata fatta invece che rimandata, un invito accolto invece che lasciato scadere. Ripetere questi gesti con regolarità dà un ordine che si sente anche altrove. Attenzione all\'elenco troppo lungo: meglio poche possibilità vive che molte spente.',
           ),

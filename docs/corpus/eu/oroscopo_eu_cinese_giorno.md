@@ -765,7 +765,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata quieta con i più giovani di casa, senza conflitti ma con un muro sottile da scalfire: un figlio o una nipote risponde a monosillabi e passa molto tempo in camera. Oggi le parole dirette rimbalzano. Funziona meglio fare qualcosa insieme, con le mani occupate.
 - Che cosa fare: Stasera chiedi il suo aiuto per preparare la cena, un compito pratico fianco a fianco. Mentre tagliate e mescolate, racconta qualcosa della tua giornata e lascia le domande per dopo. A tavola non commentare il telefono né i voti: chiedi di una canzone che ama.
-- Risposta, Lunga: Molti ragazzi parlano più volentieri quando gli sguardi non si incrociano di continuo. Il lavoro comune toglie solennità al dialogo e fa sentire la presenza senza interrogatori. Domani ricordati di chiedere un dettaglio di ciò che ti ha raccontato: è la prova che hai ascoltato davvero.
+- Risposta, Lunga: Molti ragazzi parlano più volentieri quando gli sguardi non si incrociano di continuo. Il lavoro comune toglie solennità al dialogo e fa sentire la presenza senza interrogatori. Domani ricordati di chiedere un dettaglio di ciò che ha condiviso con te: è la prova che hai ascoltato davvero.
 
 #### Amore, equilibrio, voce 13: L'invito dei parenti
 
@@ -851,7 +851,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata in salita per una conoscenza nuova: i messaggi con una persona incontrata da poco possono farsi radi, con risposte brevi e attese più lunghe. Il momento chiede attesa, non insistenza. Leggere ogni silenzio come un rifiuto ti toglierebbe la calma che ti serve.
 - Che cosa fare: Se l'ultimo messaggio è il tuo, lascialo lì e non aggiungerne un secondo. Metti il telefono in un'altra stanza per un'ora e usa quel tempo per una cosa che rimandavi da giorni. Stasera scrivi piuttosto a un'amicizia di vecchia data per fissare un caffè.
-- Risposta, Lunga: Chi ti scrive ha anche una giornata piena, fatta di impegni che non vedi. Il silenzio di qualche ora dice poco sull'interesse e molto sui ritmi. Se domani la risposta arriva, riprendi il filo con una domanda semplice su qualcosa che ti ha raccontato, senza far pesare l'attesa.
+- Risposta, Lunga: Chi ti scrive ha anche una giornata piena, fatta di impegni che non vedi. Il silenzio di qualche ora dice poco sull'interesse e molto sui ritmi. Se domani la risposta arriva, riprendi il filo con una domanda semplice su un racconto che ha fatto, senza far pesare l'attesa.
 
 #### Amore, salita, voce 3: Il pranzo da decidere
 
@@ -974,7 +974,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, favorevole, voce 7: Le ore registrate
 
 - Risposta: Giornata calma, adatta a rimettere in fila le ore dedicate ai clienti. Negli ultimi giorni sono rimaste sparse fra appunti, messaggi e memoria: oggi hai la lucidità per ricostruirle e vedere con chiarezza dove va il tuo tempo e quale incarico ne assorbe più del dovuto.
-- Che cosa fare: Apri un foglio di calcolo e segna per ogni cliente le ore lavorate, giorno per giorno. Dove non ricordi, ricostruisci dalle mail inviate. Evidenzia il lavoro che ti ha preso più tempo del previsto e manda a quel cliente un breve aggiornamento sulle attività svolte.
+- Che cosa fare: Apri un foglio di calcolo e segna per ogni cliente le ore lavorate, giorno per giorno. Dove non ricordi, ricostruisci dalle mail inviate. Evidenzia il lavoro che ha richiesto più tempo del previsto e manda a quel cliente un breve aggiornamento sulle attività svolte.
 - Risposta, Lunga: Quando il conto delle ore torna, torna anche la serenità con chi ti affida il lavoro. Sapere quanto pesa ogni incarico ti rende più chiaro nelle proposte future e meno incline a concedere troppo. Nell'aggiornamento non chiedere nulla oggi: basta che il lavoro fatto diventi visibile.
 
 #### Carriera, favorevole, voce 8: Tè con il collega
@@ -1258,7 +1258,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 24: Il no ricevuto
 
 - Risposta: Giornata per raccogliere ciò che un rifiuto può insegnare, senza rimuginarci sopra. È arrivata una risposta negativa per un posto in cui speravi: non è una porta chiusa per sempre. Quel colloquio contiene ancora indicazioni preziose per il prossimo, se le cerchi.
-- Che cosa fare: Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che ti hanno creato difficoltà.
+- Che cosa fare: Rispondi alla mail ringraziando per il tempo dedicato e chiedi con garbo un commento su che cosa avresti potuto mostrare meglio. Bastano quattro righe, senza insistere sulla decisione presa. Stasera riscrivi meglio le risposte alle domande che hanno creato più difficoltà.
 - Risposta, Lunga: Le aziende ricordano chi sa ricevere un rifiuto con eleganza. Un riscontro sincero, quando arriva, vale come una lezione privata; intanto il contatto resta aperto per occasioni future. Conserva il foglio delle risposte migliori insieme ai materiali per il prossimo incontro di selezione.
 
 ### Carriera, In salita (livello 2 e sotto)

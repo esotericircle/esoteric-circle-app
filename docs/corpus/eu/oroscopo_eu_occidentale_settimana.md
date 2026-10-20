@@ -491,7 +491,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Amore, salita, voce 9: Una confidenza sfuggita
 
-- Risposta: Settimana fragile con una persona amica: una cosa che ti aveva confidato è arrivata ad altre orecchie, forse per una tua leggerezza. In questi giorni il silenzio rischia di peggiorare le cose, mentre parlarne subito, con franchezza, lascia aperta la porta.
+- Risposta: Settimana fragile con una persona amica: una confidenza che ti aveva fatto è arrivata ad altre orecchie, forse per una tua leggerezza. In questi giorni il silenzio rischia di peggiorare le cose, mentre parlarne subito, con franchezza, lascia aperta la porta.
 - Che cosa fare: Non aspettare che lo scopra da altri: cerca l'occasione di parlarle entro mercoledì, possibilmente di persona. Racconta com'è andata senza minimizzare e senza scaricare la colpa su chi ha riferito. Dopo il chiarimento fatti sentire con discrezione, senza pretendere che tutto torni subito come prima.
 - Risposta, Lunga: Ammettere una leggerezza costa più che difendersi, ma è l'unico modo per salvare la fiducia. Chi ha subito l'indiscrezione ha bisogno di sapere che il suo dispiacere conta più del tuo imbarazzo. Il rapporto si ricostruisce dimostrando, alla prima occasione, di saper custodire anche un segreto piccolo.
 
@@ -871,7 +871,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana fortunata per chi cerca qualcosa e lo dice: una stanza, una bici usata, un insegnante di chitarra. Finora te ne occupi in silenzio, mentre in questi giorni dirlo ad alta voce può farti arrivare la pista giusta da chi meno ti aspetti.
 - Che cosa fare: Entro mercoledì scrivi in tre righe che cosa cerchi, per quando e con quali caratteristiche. Mandale a cinque persone con giri diversi dal tuo: un parente, chi frequentava il tuo vecchio corso, chi gestisce il bar sotto casa. Ringrazia subito chiunque risponda.
-- Risposta, Lunga: Le occasioni migliori girano a voce prima di finire in un annuncio: qualcuno sa di un amico che trasloca, di un negozio che svuota il magazzino. Basta che il tuo bisogno sia nell'aria quando passa quella notizia. Racconta sempre com'è andata a chi ti ha segnalato una pista.
+- Risposta, Lunga: Le occasioni migliori girano a voce prima di finire in un annuncio: qualcuno sa di un amico che trasloca, di un negozio che svuota il magazzino. Basta che il tuo bisogno sia nell'aria quando passa quella notizia. Racconta sempre com'è andata a chi ti ha indicato una pista.
 
 ### Fortuna, In equilibrio (livello 3)
 
@@ -1005,7 +1005,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, salita, voce 8: Promesse di un conoscente
 
-- Risposta: Settimana in cui non conviene costruire i piani sulle promesse altrui: qualcuno ti ha assicurato che ti avrebbe presentato una persona utile o passato un contatto importante, ma i giorni passano e non succede niente. Serve una strada parallela, da aprire adesso.
+- Risposta: Settimana in cui non conviene costruire i piani sulle promesse altrui: qualcuno ha promesso con sicurezza di presentarti una persona utile o di passarti un contatto importante, ma i giorni passano e non succede niente. Serve una strada parallela, da aprire adesso.
 - Che cosa fare: Manda entro mercoledì un promemoria cordiale con tutto ciò che rende facile agire: il nome della persona, il motivo, una tua breve presentazione pronta da inoltrare. Poi lascia andare. Intanto cerca chi altro conosce quell'ambiente o quale evento frequenta quella figura.
 - Risposta, Lunga: Molte promesse nascono da uno slancio sincero e si perdono nella fretta di chi le fa. Non è cattiveria, è distrazione. Il tuo compito è mettere quella persona nella condizione di mantenere la parola in trenta secondi. Se il contatto non arriva, hai già un'altra via.
 

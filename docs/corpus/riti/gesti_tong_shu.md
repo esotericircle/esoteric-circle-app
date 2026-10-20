@@ -282,7 +282,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Oggi governa Shou, il giorno del raccolto. Negli affetti raccogli i momenti belli: ripensa con la persona amata a un ricordo felice vissuto insieme e raccontatevelo a vicenda. Poi mettilo per iscritto oppure stampa una foto di quel giorno e appendila.
 
 ### Shou, Amore, periodo
-- Rito: Il primo giorno del periodo è di Shou, l'ufficiale che raccoglie. Per gli affetti è tempo di riconoscere ciò che la relazione ha già dato: scrivi su un biglietto tre cose belle che la persona amata ti ha donato in questo ultimo tratto. Consegna il biglietto adesso.
+- Rito: Il primo giorno del periodo è di Shou, l'ufficiale che raccoglie. Per gli affetti è tempo di riconoscere ciò che la relazione ha già dato: scrivi su un biglietto tre cose belle che hai ricevuto dalla persona amata in questo ultimo tratto. Consegna il biglietto adesso.
 
 ### Shou, Carriera, giorno
 - Rito: Oggi l'almanacco indica Shou, adatto a chi entra in una scuola e a chi raccoglie. Al lavoro raccogli ciò che hai imparato: annota in una pagina le lezioni dell'ultimo progetto, gli errori e le soluzioni. Tienila a portata di mano per il prossimo inizio.

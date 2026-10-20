@@ -237,7 +237,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è pesante sul lavoro: hai accettato più incarichi di quanti ne regga il tuo tempo e la qualità comincia a risentirne. Non è un fallimento: è un segnale. Conviene guardare il carico con franchezza adesso, prima che sia la fatica a decidere per te.
 - Che cosa fare: Scegli due compiti che altri potrebbero svolgere bene quanto te e proponi di affidarli entro la metà del mese. Spiega a chi coordina che lo fai per consegnare meglio ciò che resta. Prima di dire sì a una richiesta nuova prenditi una notte per rispondere.
-- Risposta, Lunga: Anche la lampada più fedele si consuma se la fiamma è troppo alta. Ridurre il carico non è un passo indietro: permette di continuare con la cura che ti ha sempre distinto. Se una richiesta nuova non trova posto, la risposta onesta è un no gentile.
+- Risposta, Lunga: Anche la lampada più fedele si consuma se la fiamma è troppo alta. Ridurre il carico non è un passo indietro: permette di continuare con la cura che da sempre ti distingue. Se una richiesta nuova non trova posto, la risposta onesta è un no gentile.
 
 #### Carriera, salita, voce 4: Il metodo da rivedere
 
@@ -295,7 +295,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, equilibrio, voce 4: Le occasioni contate
 
-- Risposta: Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso che ti hanno proposto, un gruppo che ti cerca, una visita rimandata.
+- Risposta: Il mese è stabile per la sorte, a patto di guardare ciò che hai già intorno. Spesso si rincorrono occasioni nuove e si lasciano vuote proprio quelle più vicine: un corso già proposto da altri, un gruppo che ti cerca, una visita rimandata.
 - Che cosa fare: Prima di cercare altro, scrivi questa sera l'elenco delle possibilità che hai già aperte: persone, gruppi, proposte, inviti. Accanto a ognuna segna che cosa manca per coglierla. Poi scegline una a settimana fino alla fine del mese e fai il passo mancante.
 - Risposta, Lunga: Custodire le occasioni comincia dalle cose piccole e quotidiane: una telefonata fatta invece che rimandata, un invito accolto invece che lasciato scadere. Ripetere questi gesti con regolarità dà un ordine che si sente anche altrove. Attenzione all'elenco troppo lungo: meglio poche possibilità vive che molte spente.
 

@@ -161,7 +161,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Aiuto accolto',
             'Oggi è una buona giornata per accettare una mano: qualcuno intorno a te ha voglia di aiutarti e ti è più facile accorgertene. Dire di sì non ti toglie nulla, anzi alleggerisce le ore a entrambe le parti e rende il legame più semplice e quotidiano.',
-            'Alla prima offerta di aiuto rispondi con una richiesta precisa invece del solito «non preoccuparti»: ritirare un pacco, guardare un documento, accompagnarti in un posto. Stasera ringrazia con un messaggio che dica che cosa ti ha risparmiato quel gesto, oppure con un dolce lasciato davanti alla sua porta.',
+            'Alla prima offerta di aiuto rispondi con una richiesta precisa invece del solito «non preoccuparti»: ritirare un pacco, guardare un documento, accompagnarti in un posto. Stasera ringrazia con un messaggio che dica che cosa ha reso più facile quel gesto, oppure con un dolce lasciato davanti alla sua porta.',
             'Chi si offre spesso cerca un modo per stare vicino a qualcuno, non un favore da restituire. Accettare dà spazio a questo desiderio. Bada a non ricambiare subito con qualcosa di più grande: trasformeresti il gesto in uno scambio di conti e gli toglieresti la sua leggerezza naturale.',
           ),
           VoceEu(
@@ -2265,7 +2265,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Una confidenza sfuggita',
-            'Settimana fragile con una persona amica: una cosa che ti aveva confidato è arrivata ad altre orecchie, forse per una tua leggerezza. In questi giorni il silenzio rischia di peggiorare le cose, mentre parlarne subito, con franchezza, lascia aperta la porta.',
+            'Settimana fragile con una persona amica: una confidenza che ti aveva fatto è arrivata ad altre orecchie, forse per una tua leggerezza. In questi giorni il silenzio rischia di peggiorare le cose, mentre parlarne subito, con franchezza, lascia aperta la porta.',
             'Non aspettare che lo scopra da altri: cerca l\'occasione di parlarle entro mercoledì, possibilmente di persona. Racconta com\'è andata senza minimizzare e senza scaricare la colpa su chi ha riferito. Dopo il chiarimento fatti sentire con discrezione, senza pretendere che tutto torni subito come prima.',
             'Ammettere una leggerezza costa più che difendersi, ma è l\'unico modo per salvare la fiducia. Chi ha subito l\'indiscrezione ha bisogno di sapere che il suo dispiacere conta più del tuo imbarazzo. Il rapporto si ricostruisce dimostrando, alla prima occasione, di saper custodire anche un segreto piccolo.',
           ),
@@ -2645,7 +2645,7 @@ abstract final class ITestiEuOccidentaleData {
             'Una ricerca dichiarata',
             'Settimana fortunata per chi cerca qualcosa e lo dice: una stanza, una bici usata, un insegnante di chitarra. Finora te ne occupi in silenzio, mentre in questi giorni dirlo ad alta voce può farti arrivare la pista giusta da chi meno ti aspetti.',
             'Entro mercoledì scrivi in tre righe che cosa cerchi, per quando e con quali caratteristiche. Mandale a cinque persone con giri diversi dal tuo: un parente, chi frequentava il tuo vecchio corso, chi gestisce il bar sotto casa. Ringrazia subito chiunque risponda.',
-            'Le occasioni migliori girano a voce prima di finire in un annuncio: qualcuno sa di un amico che trasloca, di un negozio che svuota il magazzino. Basta che il tuo bisogno sia nell\'aria quando passa quella notizia. Racconta sempre com\'è andata a chi ti ha segnalato una pista.',
+            'Le occasioni migliori girano a voce prima di finire in un annuncio: qualcuno sa di un amico che trasloca, di un negozio che svuota il magazzino. Basta che il tuo bisogno sia nell\'aria quando passa quella notizia. Racconta sempre com\'è andata a chi ti ha indicato una pista.',
           ),
         ],
         [
@@ -2779,7 +2779,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Promesse di un conoscente',
-            'Settimana in cui non conviene costruire i piani sulle promesse altrui: qualcuno ti ha assicurato che ti avrebbe presentato una persona utile o passato un contatto importante, ma i giorni passano e non succede niente. Serve una strada parallela, da aprire adesso.',
+            'Settimana in cui non conviene costruire i piani sulle promesse altrui: qualcuno ha promesso con sicurezza di presentarti una persona utile o di passarti un contatto importante, ma i giorni passano e non succede niente. Serve una strada parallela, da aprire adesso.',
             'Manda entro mercoledì un promemoria cordiale con tutto ciò che rende facile agire: il nome della persona, il motivo, una tua breve presentazione pronta da inoltrare. Poi lascia andare. Intanto cerca chi altro conosce quell\'ambiente o quale evento frequenta quella figura.',
             'Molte promesse nascono da uno slancio sincero e si perdono nella fretta di chi le fa. Non è cattiveria, è distrazione. Il tuo compito è mettere quella persona nella condizione di mantenere la parola in trenta secondi. Se il contatto non arriva, hai già un\'altra via.',
           ),
@@ -2941,7 +2941,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Tre conversazioni scelte',
             'Per chi è senza legame il mese è equilibrato: le occasioni non mancano, ma disperse in troppe direzioni rischiano di non portare da nessuna parte. Funziona meglio scegliere con calma a chi dedicare attenzione, poche persone e conversazioni vere, invece di rispondere a tutti per non perdere niente.',
-            'Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa ti ha creato disagio.',
+            'Fra i contatti recenti tieni vive solo le tre conversazioni che ti incuriosiscono e saluta le altre con gentilezza. A quelle tre proponi un incontro dal vivo. Dopo ogni incontro annota in due righe che cosa ti ha fatto ridere e che cosa invece ha creato disagio.',
             'Rispondere a tutti dà l\'impressione di avere molte strade aperte, ma consuma serate e pazienza. Con meno persone sul tavolo diventa più facile capire chi ti fa piacere rivedere e perché. Le note scritte a caldo aiutano: a fine mese rileggile e decidi chi merita una seconda uscita.',
           ),
           VoceEu(
@@ -3068,7 +3068,7 @@ abstract final class ITestiEuOccidentaleData {
         [
           VoceEu(
             'Proposte a due isolati',
-            'Questo mese la buona sorte ti aspetta vicino a casa: le occasioni utili stanno più vicine di quanto pensi, un corso aperto a tutti, un mercatino di scambio, un servizio del comune che nessuno ti ha mai segnalato. Guarda bene le bacheche e i gruppi della zona.',
+            'Questo mese la buona sorte ti aspetta vicino a casa: le occasioni utili stanno più vicine di quanto pensi, un corso aperto a tutti, un mercatino di scambio, un servizio del comune di cui nessuno ha mai parlato. Guarda bene le bacheche e i gruppi della zona.',
             'Entro metà mese passa in biblioteca o al centro civico e fotografa la bacheca degli annunci. A casa scegli due iniziative che ti servono davvero e segna in agenda le date di iscrizione. Alla prima partecipazione chiedi il recapito di chi organizza.',
             'Chi abita la tua stessa zona spesso possiede ciò che ti manca: un attrezzo, un\'ora di tempo, un\'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Il gruppo di messaggi del quartiere è dove passano le proposte migliori.',
           ),

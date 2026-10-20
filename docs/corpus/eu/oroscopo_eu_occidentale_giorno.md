@@ -160,7 +160,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, favorevole, voce 12: Aiuto accolto
 
 - Risposta: Oggi è una buona giornata per accettare una mano: qualcuno intorno a te ha voglia di aiutarti e ti è più facile accorgertene. Dire di sì non ti toglie nulla, anzi alleggerisce le ore a entrambe le parti e rende il legame più semplice e quotidiano.
-- Che cosa fare: Alla prima offerta di aiuto rispondi con una richiesta precisa invece del solito «non preoccuparti»: ritirare un pacco, guardare un documento, accompagnarti in un posto. Stasera ringrazia con un messaggio che dica che cosa ti ha risparmiato quel gesto, oppure con un dolce lasciato davanti alla sua porta.
+- Che cosa fare: Alla prima offerta di aiuto rispondi con una richiesta precisa invece del solito «non preoccuparti»: ritirare un pacco, guardare un documento, accompagnarti in un posto. Stasera ringrazia con un messaggio che dica che cosa ha reso più facile quel gesto, oppure con un dolce lasciato davanti alla sua porta.
 - Risposta, Lunga: Chi si offre spesso cerca un modo per stare vicino a qualcuno, non un favore da restituire. Accettare dà spazio a questo desiderio. Bada a non ricambiare subito con qualcosa di più grande: trasformeresti il gesto in uno scambio di conti e gli toglieresti la sua leggerezza naturale.
 
 #### Generale, favorevole, voce 13: Piccole riparazioni
