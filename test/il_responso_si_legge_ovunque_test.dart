@@ -213,19 +213,26 @@ void main() {
           senzaPorta.add(nome);
         }
       });
-      // E l'Oroscopo, che la porta la usa dal di dentro.
+      // E l'Oroscopo, che la porta la usa dal di dentro. **Dall'ordine GA
+      // (voci GA.03 e GA.04, 20 ottobre 2026) la regola comune dei suoi
+      // paragrafi e' la forma dei responsi interpretati**: i paragrafi sono
+      // quelli del `ResponsoInterpretato` della scheda, e li dispone
+      // `IlResponsoInterpretato`, la porta comune delle quattro arti; la
+      // macchina da scrivere decide solo come compare il testo. Prima la
+      // porta era `spezzaInParagrafi`, che oggi i paragrafi della forma non
+      // li tocca piu'.
       final oroscopo = File('lib/features/horoscope/oroscopo_screen.dart')
           .readAsStringSync();
       // ignore: avoid_print
       print('ORDINE BV VOCE 6: responsi dalla porta unica '
           '${conLaPorta.length - senzaPorta.length} su ${conLaPorta.length}, '
-          'piu\' l\'Oroscopo che spezza col metodo comune: '
-          '${oroscopo.contains('spezzaInParagrafi(')}');
+          'piu\' l\'Oroscopo che dispone i paragrafi con la forma comune: '
+          '${oroscopo.contains('IlResponsoInterpretato(')}');
       expect(senzaPorta, isEmpty,
           reason: 'questi responsi si spezzano per conto loro: $senzaPorta');
-      expect(oroscopo.contains('spezzaInParagrafi('), isTrue,
-          reason: 'l\'Oroscopo ha smesso di usare la regola comune dei '
-              'paragrafi e se ne e\' scritta una propria');
+      expect(oroscopo.contains('IlResponsoInterpretato('), isTrue,
+          reason: 'l\'Oroscopo ha smesso di usare la forma comune dei '
+              'responsi e se ne e\' scritta una propria');
     });
   });
 

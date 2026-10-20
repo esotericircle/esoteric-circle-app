@@ -30,7 +30,6 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'answer_depth.dart';
 import '../pricing/upgrade_invite.dart';
 import '../pricing/pricing_screen.dart';
@@ -42,7 +41,8 @@ import '../../core/horoscope/il_domani.dart';
 import '../../core/horoscope/l_ora_d_oro.dart';
 import 'la_ruota_del_passaggio.dart';
 import 'il_periodo_view.dart';
-import '../../design_system/components/riquadro_in_evidenza.dart';
+import '../../design_system/components/il_responso_interpretato.dart';
+import '../../core/responsi/la_forma_del_responso.dart';
 import 'i_dodici_mesi_view.dart';
 import 'le_ore_del_giorno_view.dart';
 import 'letture_complete.dart';
@@ -2186,8 +2186,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                     perIlMaestro: cards
                                         .map((c) => [
                                               '${c.title}\n${c.text}',
-                                              if (c.rigaDelLivello != null)
-                                                'Da dove viene: ${c.rigaDelLivello}',
+                                              if (c.daDoveViene != null)
+                                                'Da dove viene: ${c.daDoveViene}',
                                             ].join('\n'))
                                         .join('\n\n'),
                                   ),
@@ -2784,17 +2784,36 @@ final TextStyle stileDelResponso =
 /// righe, distanti fra loro il DOPPIO della misura del testo. I paragrafi si
 /// scrivono in fila, uno dopo l'altro, non tutti insieme: la macchina da
 /// scrivere sarebbe diventata quattro macchine che battono in coro.
+///
+/// **Ordine GA voci GA.03 e GA.04, 20 ottobre 2026: la forma e' quella di
+/// tutte le arti.** I paragrafi sono quelli del [ResponsoInterpretato] della
+/// scheda, e li dispone [IlResponsoInterpretato]: la risposta, il riquadro
+/// "Cosa fare adesso", nella Lunga l'approfondimento e il riquadro del rito,
+/// in fondo il "Da dove viene" in corsivo, che arriva quando il responso e'
+/// intero. Qui resta solo la macchina da scrivere: come compare il testo di
+/// ogni paragrafo ([IlResponsoInterpretato.paragrafo]) e quanti se ne vedono
+/// mentre si scrivono ([IlResponsoInterpretato.paragrafiVisibili]). Il titolo
+/// sta nella testata della scheda ([TitoloDellaSchedaDelGiorno]).
 class _ResponsoCheSiScrive extends StatefulWidget {
   const _ResponsoCheSiScrive({
     super.key,
-    required this.testo,
+    required this.responso,
+    required this.chiave,
+    required this.palette,
     required this.durataScrittura,
     required this.scrivendo,
     required this.giaScritto,
     required this.onScritto,
   });
 
-  final String testo;
+  final ResponsoInterpretato responso;
+
+  /// Il prefisso delle chiavi dei pezzi del responso.
+  final String chiave;
+  final MaestroPalette palette;
+
+  /// Il testo di tutti i paragrafi: se cambia, e' un responso nuovo.
+  String get testo => responso.paragrafi.join('\n\n');
   final Duration durataScrittura;
   final bool scrivendo;
 
@@ -2812,8 +2831,7 @@ class _ResponsoCheSiScrive extends StatefulWidget {
 }
 
 class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
-  late List<String> _paragrafi =
-      spezzaInParagrafi(widget.testo, stile: stileDelResponso);
+  late List<String> _paragrafi = widget.responso.paragrafi;
   late List<GlobalKey<TestoCheSiScriveState>> _chiavi = _nuoveChiavi();
   int _inScrittura = 0;
   Timer? _passaggio;
@@ -2846,7 +2864,7 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
       // paragrafo per sempre. Era la causa della scheda Profonda vista da
       // Mauro: testo cancellato, un paragrafo solo, il vuoto sotto.
       _passaggio = null;
-      _paragrafi = spezzaInParagrafi(widget.testo, stile: stileDelResponso);
+      _paragrafi = widget.responso.paragrafi;
       _chiavi = _nuoveChiavi();
       _inScrittura = 0;
       // Il testo nuovo e' un responso nuovo: anche il tocco che aveva
@@ -2931,39 +2949,29 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: _completaTutto,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // L'ALTEZZA SEGUE IL TESTO CHE C'E' DAVVERO, ordine I voce 2b. I
-          // paragrafi non ancora scritti stavano in albero trasparenti per
-          // riservare il posto: quel posto era il vuoto sotto la scheda, e il
-          // ramo e' stato tolto. Mentre si scrive la scheda cresce paragrafo
-          // dopo paragrafo, e a scrittura finita non c'e' nessuna riserva.
-          for (var i = 0; i < _paragrafi.length; i++)
-            if (!attiva || i <= _inScrittura) ...[
-              if (i > 0) SizedBox(height: distanza),
-              // Il terzo paragrafo della Lunga in un riquadro (il fondatore,
-              // 1 ottobre 2026).
-              if (RiquadroInEvidenza.eIlTerzoDellaLunga(i, _paragrafi.length))
-                RiquadroInEvidenza(
-                  child: TestoCheSiScrive(
-                    key: _chiavi[i],
-                    testo: _paragrafi[i],
-                    stile: stile,
-                    durataMassima: _durataDi(i),
-                    attiva: attiva && i == _inScrittura,
-                  ),
-                )
-              else
-                TestoCheSiScrive(
-                  key: _chiavi[i],
-                  testo: _paragrafi[i],
-                  stile: stile,
-                  durataMassima: _durataDi(i),
-                  attiva: attiva && i == _inScrittura,
-                ),
-            ],
-        ],
+      // L'ALTEZZA SEGUE IL TESTO CHE C'E' DAVVERO, ordine I voce 2b. I
+      // paragrafi non ancora scritti stavano in albero trasparenti per
+      // riservare il posto: quel posto era il vuoto sotto la scheda, e il
+      // ramo e' stato tolto. Mentre si scrive la scheda cresce paragrafo dopo
+      // paragrafo ([IlResponsoInterpretato.paragrafiVisibili]), e a scrittura
+      // finita non c'e' nessuna riserva.
+      child: IlResponsoInterpretato(
+        responso: widget.responso,
+        chiave: widget.chiave,
+        palette: widget.palette,
+        mostraIlTitolo: false,
+        stileDelTitolo: TypographyTokens.titoloScheda()
+            .copyWith(color: widget.palette.goldSoft, height: 1.1),
+        stile: stile,
+        distanza: distanza,
+        paragrafiVisibili: attiva ? _inScrittura + 1 : null,
+        paragrafo: (i, testo, stile) => TestoCheSiScrive(
+          key: _chiavi[i],
+          testo: testo,
+          stile: stile,
+          durataMassima: _durataDi(i),
+          attiva: attiva && i == _inScrittura,
+        ),
       ),
     );
   }
@@ -4273,29 +4281,26 @@ class _HoroscopeCardView extends StatelessWidget {
           // IL RESPONSO SI COMPONE, ordine 2171 voce 5. **Un tocco sul testo
           // lo completa subito**: un'animazione da cui non si puo' uscire e'
           // una gabbia, e chi ha fretta non deve aspettare il rito.
-          _ResponsoCheSiScrive(
-            key: Key('oroscopo_testo_${card.domain.name}'),
-            testo: card.text,
-            durataScrittura: durataScrittura,
-            scrivendo: scrivendo,
-            giaScritto: giaScritto,
-            onScritto: onScritto,
-          ),
+          //
           // **DA DOVE VIENE, DOPO LA LETTURA** (ordine ES voce 28, spostata
-          // il 30 settembre 2026). La riga che nomina i pianeti e le case
-          // stava sotto il livello, prima del testo: chi leggeva incontrava
-          // il simbolo prima della risposta. Le Linee Guida, sezione 2: *"il
-          // simbolo non apre mai"*, il "da dove viene" e' la terza parte.
-          if (card.rigaDelLivello != null) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Text('Da dove viene',
-                style: TypographyTokens.etichetta().copyWith(
-                    color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-            Text(card.rigaDelLivello!,
-                key: Key('oroscopo_riga_del_livello_${card.domain.name}'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.35)),
-          ],
+          // il 30 settembre 2026): *"il simbolo non apre mai"* (Linee Guida,
+          // sezione 2). Dall'ordine GA lo disegna il responso, in fondo e in
+          // corsivo, con la fonte del rito nella Lunga.
+          if (card.responso case final responso?)
+            _ResponsoCheSiScrive(
+              key: Key('oroscopo_testo_${card.domain.name}'),
+              responso: responso,
+              chiave: 'oroscopo_responso_${card.domain.name}',
+              palette: palette,
+              durataScrittura: durataScrittura,
+              scrivendo: scrivendo,
+              giaScritto: giaScritto,
+              onScritto: onScritto,
+            )
+          else
+            Text(card.text,
+                key: Key('oroscopo_testo_${card.domain.name}'),
+                style: stileDelResponso),
           if (passaggio != null && carta != null && adesso != null) ...[
             const SizedBox(height: SpacingTokens.xs),
             LaRigaDelPassaggio(

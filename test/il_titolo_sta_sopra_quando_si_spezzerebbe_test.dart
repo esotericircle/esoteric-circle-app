@@ -144,6 +144,18 @@ void main() {
       for (final d in HoroscopeDomain.values) {
         final titolo = find.byKey(Key('oroscopo_titolo_${d.name}'));
         final selettore = find.byKey(Key('oroscopo_depth_${d.name}'));
+        // **LA SCHEDA SOTTO LA PIEGA SI RAGGIUNGE SCORRENDO**, ordine GA.
+        // Il cardinale "schede guardate" e' caduto a 7 su 8 quando i testi
+        // riscritti per la voce GA.07 (paragrafi da 40 a 50 parole) e il
+        // responso nella forma nuova hanno allungato le schede: alla scala
+        // 1.3 la Fortuna stava oltre i 5600 punti della finestra, e la lista,
+        // che costruisce solo cio' che si vede, non la montava. Si scorre
+        // fino al titolo, come fa chi legge; il numero resta 8.
+        if (titolo.evaluate().isEmpty) {
+          await tester.dragUntilVisible(titolo,
+              find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
+          await tester.pump();
+        }
         expect(titolo, findsOneWidget, reason: 'manca il titolo di ${d.name}');
         final larghezza =
             tester.getRect(selettore).right - tester.getRect(titolo).left;

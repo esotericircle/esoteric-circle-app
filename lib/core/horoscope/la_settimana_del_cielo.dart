@@ -5,6 +5,7 @@ import '../astro/natal_chart.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/transiti_nelle_case.dart';
 import '../astro/zodiac.dart';
+import '../responsi/la_forma_del_responso.dart';
 import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';
@@ -12,6 +13,7 @@ import 'i_testi_eu.dart';
 import 'i_tre_cieli.dart';
 import 'il_cielo_del_segno.dart';
 import 'il_livello_del_cielo.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'l_ora_d_oro.dart';
 import '../astro/il_segno_del_cielo.dart';
 
@@ -139,6 +141,45 @@ class DominioDelPeriodo {
   /// Il livello del dominio nel periodo, che decide la fascia: la media dei
   /// giorni, arrotondata.
   int get livello => media.round();
+
+  /// **IL "DA DOVE VIENE" DEL PERIODO**, la riga di oggi della scheda: nella
+  /// tradizione [tradizione], il momento chiave del cielo per l'Occidentale,
+  /// il giorno migliore col suo livello per la Vedica e la Cinese. **Nella
+  /// Lunga della Vedica e della Cinese il giorno migliore non si ripete**
+  /// (visto sul Realme il 1 ottobre 2026, la stessa frase due volte di fila):
+  /// il suo "Da dove viene" sta gia' fra i tre giorni migliori, e qui si dice
+  /// dove leggerlo.
+  String cieloDelPeriodo(TradizioneEu tradizione, {required bool lunga}) {
+    if (tradizione != TradizioneEu.occidentale) {
+      if (lunga) {
+        return 'Il livello del periodo viene dai suoi giorni: i tre '
+            'migliori, qui sopra, dicono ciascuno da dove viene il suo.';
+      }
+      return _maiuscola(momentoChiave);
+    }
+    return momentoChiave.startsWith('Nessun')
+        ? momentoChiave
+        : 'Il momento chiave è $momentoChiave';
+  }
+
+  static String _maiuscola(String s) =>
+      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
+
+  /// **IL RESPONSO DEL PERIODO NELLA FORMA NUOVA**, ordine GA voci GA.03 e
+  /// GA.04: la voce del periodo, col rito del reggente del primo giorno del
+  /// periodo (il primo dei [giorni], cioe' oggi), composta dalla porta unica
+  /// [IlResponsoDellOroscopo.componi].
+  ResponsoInterpretato responso(TradizioneEu tradizione,
+          {required bool mese, required bool lunga}) =>
+      IlResponsoDellOroscopo.componi(
+        voce: voce,
+        tradizione: tradizione,
+        periodo: mese ? PeriodoEu.mese : PeriodoEu.settimana,
+        dominio: dominio,
+        primoGiorno: giorni.first.giorno,
+        lunga: lunga,
+        cielo: cieloDelPeriodo(tradizione, lunga: lunga),
+      );
 }
 
 /// Un periodo intero: gli eventi e i quattro domini.

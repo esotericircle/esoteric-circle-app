@@ -1,0 +1,57 @@
+ORDINE GA VOCI 03, 04 E 05, L'OROSCOPO NELLA FORMA NUOVA. REGOLA A E REGOLA B, 20 ottobre 2026.
+
+LA GUARDIA NUOVA: test/l_oroscopo_ha_la_forma_nuova_test.dart
+Sul codice consegnato: responsi guardati 288, riti guardati 144, schede a video 63, difetti 0; 29 prove verdi.
+(Tre persone di dodiciPersone, le tre tradizioni, i quattro periodi, Breve e Lunga, quattro domini; a video
+le schede della Settimana e del Mese montate con IlPeriodoView nelle tre tradizioni in Breve e in Lunga, e
+l'Oroscopo montato nel Giorno delle tre tradizioni, quattro schede in Breve e la Generale in Lunga, il
+martedi' 20 ottobre 2026.)
+
+REGOLA A, tre innesti, ognuno verificato col grep prima di leggere l'esito, poi tolto:
+
+A1. Il rito del giorno sbagliato.
+    Innesto: lib/core/horoscope/il_responso_dell_oroscopo.dart riga 67,
+    "TradizioneEu.occidentale => pianetiDeiGiorni[giorno.weekday % 7]," (al posto di "weekday - 1":
+    il martedi' diventa Mercurio).
+    Grep: "INNESTO A1 PRESENTE: riga 67".
+    Esito: ORDINE GA, L'OROSCOPO HA LA FORMA NUOVA: responsi guardati 288, riti guardati 144, schede a video 63,
+    difetti 105; 00:29 +28 -1: Some tests failed. Prima colpa: "4/1/1958 (Capricorno, con la carta)
+    occidentale giorno Lunga Generale: il rito non e' quello di [Marte, Generale, giorno], «Oggi è il giorno
+    di Mercurio, il messaggero»".
+
+A2. Il riquadro "Cosa fare adesso" tolto.
+    Innesto: lib/design_system/components/il_responso_interpretato.dart riga 99,
+    ": colonna;" al posto di ": RiquadroInEvidenza(palette: p, child: colonna);".
+    Grep: "INNESTO A2 PRESENTE: riga 99".
+    Esito: difetti 63 (tutte le schede a video); 00:27 +28 -1: Some tests failed. Prima colpa:
+    "occidentale Settimana Breve Generale: il secondo paragrafo non sta nel riquadro".
+
+A3. La fonte del rito tolta dal "Da dove viene".
+    Innesto: lib/core/horoscope/il_responso_dell_oroscopo.dart riga 158, "fonteDelRito: null," al posto di
+    "fonteDelRito: fonte,".
+    Grep: "INNESTO A3 PRESENTE: riga 158".
+    Esito: difetti 144 (tutti i responsi Lunghi); 00:32 +28 -1: Some tests failed. Prima colpa:
+    "4/1/1958 (Capricorno, con la carta) occidentale giorno Lunga Generale: il "Da dove viene" non chiude
+    con la fonte del rito «Il verso viene dall'Inno orfico a Marte, numero sessantacinque, ...»".
+
+Ripristino: grep degli innesti sul codice, 0 righe; il componente il_responso_interpretato.dart senza
+differenze dal commit di partenza; la guardia di nuovo verde (288, 144, 63, difetti 0).
+
+REGOLA B, le guardie principali della zona viste rosse prima del lavoro.
+Fatta sulla copia del commit di partenza 297cd46f (cartella %TEMP%\gab), cioe' sulla zona com'era prima
+del lavoro: la copia esiste perche' le prove di partenza della zona giravano li'. NOTA DI METODO: nel ramo
+di lavoro le prime modifiche al codice sono arrivate prima di questa prova; la prova e' stata fatta sul
+codice di partenza, che e' quello che la Regola B chiede di guardare.
+
+B1. test/i_testi_eu_sono_quelli_dell_architetto_test.dart
+    Innesto: lib/core/horoscope/i_testi_eu_occidentale_data.dart riga 96, il titolo "Partenza leggera"
+    cambiato in "Partenza pesante". Grep: "INNESTO B1 PRESENTE riga 96".
+    Esito: "ogni testo del codice e' il testo del corpus, carattere per carattere [E]". ROSSA.
+
+B2. test/oroscopo_widget_test.dart
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 4266, la chiave 'oroscopo_opening' cambiata in
+    'oroscopo_opening_innesto_b'. Grep: "INNESTO B2 PRESENTE riga 4266".
+    Esito: "Schermata personalizzata L'apertura personalizzata porta il nome della persona [E]";
+    00:22 +19 -2: Some tests failed. ROSSA.
+
+Ripristino della copia: git checkout dei due file, nessuna differenza in lib.

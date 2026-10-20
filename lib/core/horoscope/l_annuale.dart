@@ -2,6 +2,7 @@ import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'la_rivoluzione_solare.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_annuale_data.dart';
@@ -94,6 +95,32 @@ abstract final class LAnnuale {
         'tuo anno: $peso.';
   }
 
+  /// **IL COMPLEANNO DELL'ANNO CHE COMINCIA COL RITORNO [ritorno]**: il
+  /// giorno civile della nascita piu' vicino al ritorno del Sole (che cade
+  /// il giorno del compleanno o uno accanto); senza la data di nascita, il
+  /// giorno del ritorno. Chi e' nato il 29 febbraio, negli anni che non lo
+  /// hanno, lo festeggia il 28.
+  static DateTime compleanno(DateTime ritorno, DateTime? nascita) {
+    final r = ritorno.toLocal();
+    final giorno = DateTime(r.year, r.month, r.day);
+    if (nascita == null) return giorno;
+    DateTime di(int anno) {
+      final ultimo = DateTime(anno, nascita.month + 1, 0).day;
+      return DateTime(
+          anno, nascita.month, nascita.day > ultimo ? ultimo : nascita.day);
+    }
+
+    var migliore = di(giorno.year);
+    for (final anno in [giorno.year - 1, giorno.year + 1]) {
+      final c = di(anno);
+      if (c.difference(giorno).inHours.abs() <
+          migliore.difference(giorno).inHours.abs()) {
+        migliore = c;
+      }
+    }
+    return migliore;
+  }
+
   /// Le quattro schede dell'anno che comincia col ritorno [tema].
   ///
   /// [approfondite] dice, scheda per scheda, se si legge la Lunga; senza, si
@@ -147,6 +174,9 @@ abstract final class LAnnuale {
 
     /// Il "da dove viene" che si legge sempre e cio' che la Lunga aggiunge;
     /// [delLivello] dice da dove viene il livello, in fondo alla riga.
+    // **IL PRIMO GIORNO DELL'ANNO E' IL COMPLEANNO** (ordine GA voce GA.04):
+    // il rito della Lunga segue il pianeta che governa quel giorno.
+    final primoGiorno = compleanno(tema.istante, nascita);
     HoroscopeCard scheda(
       HoroscopeDomain d, {
       required String daDove,
@@ -156,14 +186,25 @@ abstract final class LAnnuale {
       required String metodo,
     }) {
       final voce = voceDi(d, livello);
+      final cielo = LePartiDelResponso.insieme(
+          [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]);
+      final responso = IlResponsoDellOroscopo.componi(
+        voce: voce,
+        tradizione: TradizioneEu.occidentale,
+        periodo: PeriodoEu.anno,
+        dominio: d,
+        primoGiorno: primoGiorno,
+        lunga: lunga(d),
+        cielo: cielo,
+      );
       return HoroscopeCard(
         domain: d,
-        title: voce.titolo,
-        synthesis: voce.risposta,
-        text: voce.testo(lunga: lunga(d)),
+        title: responso.titolo,
+        synthesis: responso.risposta,
+        text: IlResponsoDellOroscopo.testo(responso),
+        responso: responso,
         indicator: livello.clamp(2, 5),
-        rigaDelLivello: LePartiDelResponso.insieme(
-            [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]),
+        rigaDelLivello: cielo,
         opening: d == HoroscopeDomain.generale ? apertura : null,
         metodo: metodo,
       );

@@ -167,14 +167,22 @@ List<String> frasiDelTesto(String testo) => [
 
 /// La voce del corpus da cui viene una scheda: cercata col titolo e il
 /// testo, in ogni fascia. Null se non viene dal corpus.
+///
+/// **Dall'ordine GA (voci GA.03 e GA.04) il testo della Lunga ha un quarto
+/// paragrafo che non sta nella voce**: il rito propiziatorio della
+/// tradizione, scelto dal reggente del giorno (`IlResponsoDellOroscopo`).
+/// La voce e' quella i cui tre paragrafi aprono il testo, seguiti dal rito.
 (FasciaEu, int)? voceDellaScheda(TradizioneEu t, PeriodoEu p, HoroscopeDomain d,
     String titolo, String testo) {
   for (final f in FasciaEu.values) {
     final voci = ITestiEu.fascia(t, p, d, f);
     for (var i = 0; i < voci.length; i++) {
       final v = voci[i];
+      final lunga = v.testo(lunga: true);
       if (v.titolo == titolo &&
-          (testo == v.testo(lunga: false) || testo == v.testo(lunga: true))) {
+          (testo == v.testo(lunga: false) ||
+              testo == lunga ||
+              testo.startsWith('$lunga${ITestiEu.fraIParagrafi}'))) {
         return (f, i);
       }
     }

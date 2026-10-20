@@ -162,10 +162,24 @@ void main() {
     var schede = 0;
     void guarda(String chi, HoroscopeCard c) {
       schede++;
+      // **Dall'ordine GA il rito propiziatorio della Lunga sta fuori dalla
+      // lettura misurata**: il fondatore vuole l'inno al pianeta del
+      // giorno, il mantra del graha, il gesto dell'ufficiale (voce GA.04),
+      // e il rito li nomina per forza, nel suo riquadro, dopo la risposta.
+      // La lettura che non deve aprire col simbolo e' quella dei tre
+      // paragrafi della voce.
+      final r = c.responso;
+      final lettura = r == null
+          ? c.text
+          : [
+              r.risposta,
+              r.cosaFare,
+              if (r.approfondimento != null) r.approfondimento!,
+            ].join('\n\n');
       for (final (cosa, t) in [
         ('titolo', c.title),
         ('sintesi', c.synthesis),
-        ('lettura', c.text),
+        ('lettura', lettura),
       ]) {
         final q = quale(t);
         if (q != null) fuori.add('$chi, $cosa "$q": $t');
