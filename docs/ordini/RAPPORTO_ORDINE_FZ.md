@@ -352,3 +352,9 @@ della persona (e): App Check rifiuta la build di debug, nessuna risposta del
 modello e nessuna spesa), FZ.13 (la persona (l), tre giorni su sei) e
 FZ.15. **Regola B**, confessata dove non e' stata rispettata: vedi il
 registro delle guardie.
+
+**Aggiunta del 20 ottobre 2026, ordine FZ, voce FZ.09 CHIUSA**: la persona (e) col modello vero, su una build release fatta sul PC (in release App Check non si installa), nove risposte vere di Gemini guardate; due difetti curati con la guardia `il_segno_non_dice_no_sulla_salute` (839): il gesto del no a "Mio padre e' malato, guarira'?" e a una domanda aperta (padri DJ voce 08 e la cura FZ `036dffda`, commit `1451117f`), un si' a lettere a caso (commit `1437df7e`); prova `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.
+
+**Aggiunta del 20 ottobre 2026, ordine FZ, voce FZ.13 CHIUSA**: la persona (l) rifatta per intero, sei giorni con sei animali diversi e nessun riconoscimento; curato il bordo della cenere che copriva la terza riga del titolo sulle carte alte (padre FZ.04, commit `c8cb31fe`, prova nuova in `il_volto_si_scopre_per_ultimo`); prova `docs/collaudo/FZ/simulazioni/note_di_percorso.md`.
+
+**Aggiunta del 20 ottobre 2026, ordine FZ, voce FZ.15 CHIUSA**: chiuse FZ.09 e FZ.13, quindici voci chiuse su quindici, verde di GitHub su ogni commit della giornata fino a `1437df7e`, nessuna build consegnata (R3); in piu' curati i cinque rossi dello sbarramento del commit `767425c8` (padre la cura FZ del 20 ottobre: il popup "Scopri chi e'" fuori dalla porta dei fogli e con una misura scritta a mano, la condivisione in video fuori dalla forma dell'aiutante; commit `4075b57d`); osservazioni lasciate al fondatore: l'ombra del Serpente non si riconosce, la riga monca di "Invita qualcuno" senza rete, la frase del segno che a volte ripete il significato del gesto, un tentativo senza rete che consuma un posto del tetto tecnico dei segni; prova `docs/ordini/RAPPORTO_ORDINE_FZ.md`.

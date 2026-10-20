@@ -7168,7 +7168,7 @@ Il fondatore, sulla 2308, con nove catture: non fatte le voci FR 1, 2, 4, 5 e 6;
 - **Le simulazioni (FY.21)**: 42 catture in `docs/collaudo/FY/giro_della_luna/`, `oracolo/`, `sinastrie/`.
 - Guardie da 804 a 822.
 
-## L'ORDINE FZ, L'ANIMALE DI POTERE CHE SI RIVELA NEL VIAGGIO (17 e 18 ottobre 2026) — IN CORSO, NON ANCORA CONSEGNATO
+## L'ORDINE FZ, L'ANIMALE DI POTERE CHE SI RIVELA NEL VIAGGIO (17 e 18 ottobre 2026), CONSEGNATO IL 20 OTTOBRE 2026
 
 **Stato alla sera del 18 ottobre 2026: le parti A, B e C (FZ.01-FZ.08) sono
 costruite e commesse sul ramo locale `lavoro-riallineamento-1014` (11 commit
@@ -7432,7 +7432,7 @@ perdita di progresso.
     il backup delle preferenze originali prima di proseguire con altre
     simulazioni sullo stesso telefono.
 
-## L'ORDINE FZA, LE NOVE OMBRE DEL VIAGGIO (19 ottobre 2026) — IN CORSO, NON ANCORA CONSEGNATO
+## L'ORDINE FZA, LE NOVE OMBRE DEL VIAGGIO (19 ottobre 2026), CONSEGNATO CON L'ORDINE FZ IL 20 OTTOBRE 2026
 
 Aggiunta all'ordine FZ, in esecuzione dentro di lui: si consegna con la sua
 consegna, voce FZ.10. Fonte: `D:\Clienti Roogly\Rituali Cartomanzia\App\
@@ -7724,7 +7724,65 @@ modello delle discese**: ogni discesa chiede la scena al modello al tocco di
 Scendi; le tre discese fatte con la rete accesa (giorni 1-3) sono tre
 chiamate che non erano nel conto, dentro il tetto di dieci concesso. Da li'
 le discese si fanno con la rete spenta al tocco di Scendi. Registro delle
-guardie a **838** (163, 288, 387).
+guardie a **838** (163, 288, 387). **Correzione dello stesso giorno**: quelle
+tre chiamate non sono mai arrivate a Gemini, perche' App Check rifiutava la
+build di debug (vedi sopra); non sono costate niente.
+
+**Aggiornamento, lo stesso 20 ottobre 2026, la chiusura dell'ordine FZ:
+quindici voci chiuse su quindici.** Nell'ordine:
+- **I cinque rossi dello sbarramento** sul commit `767425c8` (le prove
+  della suite erano verdi, lo sbarramento no): il popup "Scopri chi e'"
+  apriva il foglio col framework invece che da `foglioDelCerchio` e usava
+  una misura scritta a mano (`TypographyTokens.body(size: 16)`), e la
+  condivisione in video aveva perso la forma dell'aiutante che la guardia
+  `ogni_condivisione_dichiara_gli_eos` riconosce. Padre la cura FZ del
+  mattino (commit `33970c3d` e `41585ba7`). Curati, commit `4075b57d`,
+  verde.
+- **La persona (l) rifatta per intero** (FZ.13), sei giorni con la data del
+  telefono di collaudo spostata, su un Viaggio pulito e con la rete spenta:
+  sei animali diversi, nessun riconoscimento, le ombre gia' seguite tornano
+  ogni giorno. **Difetto curato**: sulle carte alte (Aquila, Cervo, Gufo,
+  Lince) il bordo sfrangiato della cenere copriva la terza riga del titolo,
+  perche' lo spazio sopra la carta contava l'immagine e non il suo bordo
+  (padre FZ.04). Cura in `IlVeloCheSiScosta.doveStaLIllustrazione` con
+  `PittoreDellaCenere.bordoDellaCenere`; prova nuova dentro
+  `il_volto_si_scopre_per_ultimo` che misura i pixel di cenere sopra le
+  barre (da 3739 a 0); commit `c8cb31fe`, verde; vista a video sulla
+  release col titolo su due e su tre righe.
+- **La persona (e) col modello vero** (FZ.09). Il fondatore ha chiesto se
+  una build "attestata" bastasse a lavorare da solo: in release l'app non
+  installa App Check (`Attestazione.installaSempre` falso) e il server non
+  lo pretende, quindi una build release fatta sul PC chiama Gemini come le
+  build di App Distribution. Disinstallata la debug, installata la release,
+  persona nuova dal Risveglio fino al Gufo riconosciuto (discese con la
+  rete spenta, nessuna chiamata). **Nove chiamate vere a Gemini** per il
+  segno, dentro il tetto di dieci concesso. **Due difetti curati**, guardia
+  nuova `il_segno_non_dice_no_sulla_salute` (839), vista rossa: il modello
+  rispondeva col gesto del no ("si allontana", che vuol dire no o non
+  adesso) a *"Mio padre e' malato, guarira'?"* e a una domanda aperta,
+  quattro risposte su quattro col no (padri DJ voce 08, l'istruzione senza
+  regola, e la cura FZ `036dffda`, che aveva messo la regola delle domande
+  aperte nella sola riserva), commit `1451117f`; e un si' a lettere a caso,
+  "asdfgh", commit `1437df7e`. Ora le domande aperte, quelle delicate
+  (salute, malattia, guarigione, morte, gravidanza, gioco d'azzardo) e le
+  righe che non sono domande ricevono sempre "si volta", dal modello e
+  dalla riserva: l'istruzione lo dice, e una risposta del modello con un
+  altro gesto si scarta. Rifatte sul telefono: tre risposte su tre giuste.
+  Il modello resta nel ruolo se gli si chiede il suo prompt.
+- **Osservazioni lasciate al fondatore, non curate**: l'ombra del Serpente
+  (`ani_ombra_serpente_v1.webp`), sfocata, sembra un fungo, e serve
+  un'immagine nuova (le immagini le genera il fondatore); senza rete la
+  riga sotto "Invita qualcuno nel Cerchio" del traguardo resta monca;
+  la frase del segno a volte ripete alla lettera il significato del gesto;
+  un tentativo di segno senza rete consuma un posto del tetto tecnico dei
+  segni; il titolo e il sottotitolo della schermata del segno stanno sopra
+  l'immagine e si leggono a fatica.
+Manifesto `docs/ordini/ORDINE_FZ_MANIFESTO.md` a 15 chiuse su 15, rapporto
+con le righe in coda per FZ.09, FZ.13 e FZ.15 (il corpo non e' toccato),
+note in `docs/collaudo/FZ/simulazioni/note_di_percorso.md`. Nessuna build
+consegnata (regola R3 dell'ordine). Sul Realme resta la release del commit
+`1437df7e` con la persona (e). Registro delle guardie a **839** (163, 288,
+388).
 
 ## Regole ferree
 

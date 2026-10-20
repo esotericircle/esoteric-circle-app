@@ -9,8 +9,8 @@ originale, FZA.01-FZA.05) continuano qui la numerazione di FZ**, come l'ordine
 FX fece con la sua aggiunta FXA: un manifesto, una sigla sola.
 
 VOCI_TOTALI: 15
-VOCI_CHIUSE: 12
-VOCI_APERTE: 3
+VOCI_CHIUSE: 15
+VOCI_APERTE: 0
 VOCI_DA_FARE: 0
 
 ## VOCE FZ.01
@@ -211,7 +211,7 @@ Viaggio restano tutte verdi a quel commit
 
 ## VOCE FZ.09
 
-**APERTA IN ATTESA DI VERIFICA.** La simulazione da persona, obbligatoria e
+**CHIUSA.** La simulazione da persona, obbligatoria e
 permanente. La regola e' scritta in CLAUDE.md (Regole non negoziabili).
 Completate sul Realme 767f596c: persona (a) chi segue sempre la stessa
 ombra; persona (b) chi cambia ombra ogni volta; persona (f) chi apre il
@@ -254,21 +254,38 @@ rapporto, righe in coda). **Resta aperta per una ragione sola**: la parte
 chiamata ("App attestation failed"), quindi i segni sono venuti tutti dalla
 riserva e nessuna risposta del modello si e' potuta guardare.
 
-ASPETTA: Mauro, una build attestata (App Distribution) o il token di debug
-registrato nella console Firebase, e il si' alla spesa (fino a dieci
-chiamate, gia' concesso) per guardare le risposte vere del segno.
+**Aggiornamento, lo stesso 20 ottobre 2026: la persona (e) col modello
+vero.** Col si' del fondatore a lavorare senza il token di debug, una build
+release fatta sul PC (in release l'app non installa App Check,
+`Attestazione.installaSempre` falso, come le build di App Distribution),
+installata sul Realme al posto della debug. Persona nuova dall'inizio del
+Risveglio, quattro discese con la rete spenta fino al riconoscimento del
+Gufo, poi dieci segni chiesti col modello vero: **nove sono arrivati a
+Gemini**, il decimo l'ha preso la riserva perche' il tetto tecnico dei
+segni era pieno (vedi il rapporto). Due difetti veri trovati e curati, con
+una guardia nuova vista rossa (`il_segno_non_dice_no_sulla_salute`, 839):
+il modello rispondeva col gesto del no a *"Mio padre e' malato,
+guarira'?"* e a una domanda aperta (padri DJ voce 08 e la cura FZ
+`036dffda`, commit `1451117f`), e con un si' a lettere a caso (commit
+`1437df7e`); rifatte col modello vero sulle build curate, le tre domande
+hanno avuto "si volta". Completata anche la persona (l) di FZ.13, che ha
+trovato il bordo della cenere sopra il titolo (commit `c8cb31fe`).
+**Si chiude**: tutte le persone di FZ.09 sono state simulate e guardate.
+Le previsioni scritte prima stanno in
+`docs/collaudo/FZ/simulazioni/previsioni.md` e nelle note, le catture in
+`docs/collaudo/FZ/simulazioni/catture/`.
+
 DOMANDA: "Voglio che prima della consegna... Code deve fare sempre
 obbligatoriamente e per ogni funzionalita', una simulazione realistica
 dell'ordine... si metta nei panni di un utente e simuli i suoi
 comportamenti e scelte e preveda decisioni, cosi' da rilevare eventuali
 Bug"
-PROVA: `docs/collaudo/FZ/simulazioni/previsioni.md`,
-`docs/collaudo/FZ/simulazioni/note_di_percorso.md`,
-`docs/collaudo/FZ/simulazioni/catture/`
-MISURA: persone simulate con esito completo, da 3 a 6 su 7 (a, b, c, d, f,
-g); parziale, 1 su 7 (e: la riserva guardata, il modello bloccato da App
-Check); difetti veri trovati e curati dalla seconda simulazione, 11, con 11
-guardie nuove viste rosse (registro da 827 a 838)
+PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
+MISURA: persone simulate con esito completo, da 3 a 7 su 7 (a, b, c, d, e,
+f, g); risposte del modello vero guardate, da 0 a 9; difetti veri trovati e
+curati dalle simulazioni del 20 ottobre, 14 (11 della seconda simulazione,
+il bordo della cenere della persona l, i due del segno della persona e),
+guardie da 827 a 839
 
 ## VOCE FZ.10
 
@@ -340,7 +357,7 @@ illustrazione ciascuno, da `findsNWidgets(26)`)
 
 ## VOCE FZ.13
 
-**APERTA IN ATTESA DI VERIFICA.** La simulazione delle nove ombre (FZA.04
+**CHIUSA.** La simulazione delle nove ombre (FZA.04
 nel testo originale dell'aggiunta). Persona (h), chi guarda tutte le nove
 ombre alla prima discesa, esce e rientra: **completata**, griglia tre per
 tre confermata, uscita vera (`am force-stop`) e rientro hanno ritrovato le
@@ -366,15 +383,23 @@ Persona (l) **a meta'**: tre giorni di fila con tre ombre mai seguite, le
 ombre gia' seguite che tornano fra le nove, nessun riconoscimento; gli altri
 tre giorni non sono stati fatti.
 
-ASPETTA: Code, gli altri tre giorni della persona (l) sul Realme.
+**Aggiornamento, lo stesso 20 ottobre 2026: persona (l) completata**,
+rifatta per intero su un Viaggio pulito, sei giorni di fila (date del
+telefono di collaudo dal 20 al 25 ottobre) con la rete spenta: Lince,
+Cavallo, Orso, Serpente, Cervo, Gufo. Ogni giorno tornano fra le nove
+tutte le ombre gia' seguite, nessun riconoscimento, la soglia dice sempre
+"Si e' mostrato una volta, ne mancano tre". Trovato e curato un difetto:
+sulle carte alte il bordo della cenere copriva la terza riga del titolo
+(padre FZ.04, commit `c8cb31fe`).
+
 DOMANDA: "Sul Realme, con la stessa regola di FZ.09, almeno queste persone
 in piu': h) chi alla prima discesa guarda tutte le nove ombre, esce,
 rientra e ritrova le stesse; i) chi segue un'ombra... fino a riconoscere un
 animale diverso dal primo; l) chi sceglie sempre ombre diverse per sei
 giorni di fila"
 PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
-MISURA: persone completate, da 1 a 2 su 3 (h, i); a meta', 1 su 3 (l, 3
-giorni su 6)
+MISURA: persone completate, da 1 a 3 su 3 (h, i, l); giorni della persona
+(l), da 3 a 6 su 6, con 6 animali diversi e 0 riconoscimenti
 
 ## VOCE FZ.14
 
@@ -400,8 +425,8 @@ rapporto nativo delle dodici carte
 
 ## VOCE FZ.15
 
-**APERTA IN ATTESA DI VERIFICA.** La consegna. Dipende da FZ.09 e FZ.13,
-entrambe ancora aperte: il testo dell'ordine lo dice esplicitamente
+**CHIUSA.** La consegna. Dipendeva da FZ.09 e FZ.13, chiuse il 20 ottobre
+2026; prima di quel giorno erano entrambe aperte: il testo dell'ordine lo dice esplicitamente
 ("L'ordine si consegna solo col verde di GitHub e con le simulazioni di
 FZ.09 fatte e guardate"). Fatto: manifesto, guardia del manifesto
 (`test/ordine_fz_guard_test.dart`), rapporto, STATO_VIVO e registro delle
@@ -414,11 +439,17 @@ precedenti, uno proprio: le voci dell'aggiunta FZA rinumerate FZ.10-FZ.14,
 vedi il rapporto; corretti tutti, commit `59c96d34`). **Resta da
 verificare**: le simulazioni rimaste aperte di FZ.09 e FZ.13.
 
-ASPETTA: la parte "modello vero" della persona (e) di FZ.09 (build attestata
-o token di debug, da Mauro), i tre giorni della persona (l) di FZ.13 (da
-Code), e il verde di GitHub sull'ultimo commit di questa giornata.
+**Aggiornamento del 20 ottobre 2026**: chiuse FZ.09 e FZ.13 (vedi sopra),
+il verde di GitHub e' arrivato su ogni commit della giornata fino a
+`1437df7e` (`refs/verde/1437df7ec9e459bc3c49366777e096abead8cf15`), l'ultimo
+che tocca il codice; il verde sul commit consegnato, che porta questi
+documenti, e' dichiarato in coda al rapporto. Nessuna build consegnata,
+come vuole R3: la build release fatta per la persona (e) e' rimasta sul
+telefono di collaudo.
+
 DOMANDA: regole fisse R3, R6, R11; FZ.09
 PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
-MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse
-12, aperte in attesa di verifica 3; verde di GitHub sul commit consegnato,
-da assente a presente (`refs/verde/a56d9a572b5485b19f09d188bba88c6c9935ec43`)
+MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse,
+da 12 a 15, aperte in attesa di verifica, da 3 a 0; verde di GitHub sul
+commit che chiude il codice, da assente a presente
+(`refs/verde/1437df7ec9e459bc3c49366777e096abead8cf15`)
