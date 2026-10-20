@@ -16,6 +16,14 @@ volte lo stesso gruppo serve a una persona. Con la memoria di cio' che la
 persona ha letto, una voce non torna finche' il gruppo non e' consumato: il
 gruppo deve avere almeno tante voci quante volte serve in 60 giorni.
 
+Il CONSIGLIO, campo nuovo dell'ordine GA voce GA.07 (20 ottobre 2026), e' il
+riquadro "Cosa fare adesso" della scheda di ogni runa: una voce per pietra,
+come PIETRA, quindi lo stesso fabbisogno di PIETRA gruppo per gruppo. Lo si
+copia da PIETRA invece di contarlo a parte, cosi' la simulazione resta
+quella di prima carattere per carattere (nessun numero a caso in piu') e i
+due campi non possono separarsi. La regola del fondatore resta: "non voglio
+ripetizioni per almeno 60gg".
+
 Due scenari:
 - MISTO: gettata e domanda a caso;
 - PEGGIORE: sempre il telo (piu' rune per gettata) e sempre la stessa
@@ -79,6 +87,8 @@ def una_persona(rng, peggiore):
         usi[('legame', gettata, tono(pietre))] += 1
         # 5. Cosa puoi fare: la pietra che decide, nel suo verso.
         usi[('gesto', chiave)] += 1
+        # 6. Il consiglio della scheda di ogni pietra (ordine GA voce GA.07)
+        # ha lo stesso fabbisogno di PIETRA: si copia in [tabella].
     return usi
 
 
@@ -109,8 +119,11 @@ def tabella():
              f'scenario, MISTO e PEGGIORE, {GIORNI} giorni, {AL_GIORNO} gettate al giorno; '
              f'massimo dei due scenari per gruppo, margine {int((MARGINE - 1) * 100)} per cento)', '']
     totale = 0
-    for campo in ('risposta', 'verdetto', 'pietra', 'legame', 'gesto'):
-        g = {k[1:]: math.ceil(v * MARGINE) for k, v in unione.items() if k[0] == campo}
+    for campo in ('risposta', 'verdetto', 'pietra', 'legame', 'gesto',
+                  'consiglio'):
+        # Il CONSIGLIO ha il fabbisogno di PIETRA, gruppo per gruppo.
+        fonte = 'pietra' if campo == 'consiglio' else campo
+        g = {k[1:]: math.ceil(v * MARGINE) for k, v in unione.items() if k[0] == fonte}
         somma = sum(g.values())
         totale += somma
         righe.append(f'{campo.upper()}: {len(g)} gruppi, {somma} voci')

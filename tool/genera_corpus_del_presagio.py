@@ -12,6 +12,14 @@ Un titolo di gruppo si scrive "## Fehu, dritta", "## Fehu, in ombra",
 numerate "1. testo". Il numero e' l'identificativo: una voce tolta lascia il
 suo numero vuoto ("17." senza testo), e il numero non si riusa.
 
+Ordine GA voce GA.07, 20 ottobre 2026: un sesto campo, consiglio.md, il
+riquadro "Cosa fare adesso" della scheda di ogni runa, coi gruppi per runa e
+verso come PIETRA ("## Fehu, dritta", "## Fehu, in ombra"). Finche' il file
+ha i gruppi vuoti il campo entra nel codice coi gruppi vuoti: lo legge solo
+chi lo chiede per nome (`CampiDelPresagio.tutti` resta dei cinque campi
+finche' il codice dell'app non cambia). I testi riscritti entrano con
+tool/applica_le_riscritture_delle_rune.py, che li controlla prima.
+
   python tool/genera_corpus_del_presagio.py
 """
 import pathlib
@@ -21,12 +29,12 @@ import sys
 RADICE = pathlib.Path(__file__).resolve().parent.parent
 CARTELLA = RADICE / 'docs/corpus/rune'
 USCITA = RADICE / 'lib/core/rituals/il_corpus_del_presagio.g.dart'
-CAMPI = ['risposta', 'verdetto', 'pietra', 'legame', 'gesto']
+CAMPI = ['risposta', 'verdetto', 'pietra', 'legame', 'gesto', 'consiglio']
 
 
 def gruppo_da_titolo(campo, titolo):
     a, b = [x.strip() for x in titolo.split(',', 1)]
-    if campo in ('risposta', 'pietra', 'gesto'):
+    if campo in ('risposta', 'pietra', 'gesto', 'consiglio'):
         return f"{a}/{'ombra' if b == 'in ombra' else 'dritta'}"
     return f'{a}/{b}'
 

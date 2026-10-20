@@ -151,4 +151,46 @@ GESTO: 40 gruppi, 712 voci
   Wunjo / dritta: 16
   Wunjo / ombra: 15
 
-TOTALE: 4929 voci
+CONSIGLIO: 40 gruppi, 2451 voci
+  Algiz / dritta: 66
+  Algiz / ombra: 41
+  Ansuz / dritta: 66
+  Ansuz / ombra: 41
+  Berkano / dritta: 70
+  Berkano / ombra: 41
+  Dagaz / dritta: 93
+  Ehwaz / dritta: 64
+  Ehwaz / ombra: 40
+  Eihwaz / dritta: 92
+  Fehu / dritta: 63
+  Fehu / ombra: 40
+  Gebo / dritta: 92
+  Hagalaz / dritta: 93
+  Ingwaz / dritta: 92
+  Isa / dritta: 89
+  Jera / dritta: 89
+  Kenaz / dritta: 63
+  Kenaz / ombra: 44
+  Laguz / dritta: 65
+  Laguz / ombra: 46
+  Mannaz / dritta: 68
+  Mannaz / ombra: 41
+  Nauthiz / dritta: 66
+  Nauthiz / ombra: 41
+  Othala / dritta: 64
+  Othala / ombra: 42
+  Perthro / dritta: 68
+  Perthro / ombra: 42
+  Raidho / dritta: 65
+  Raidho / ombra: 42
+  Sowilo / dritta: 90
+  Thurisaz / dritta: 65
+  Thurisaz / ombra: 44
+  Tiwaz / dritta: 65
+  Tiwaz / ombra: 42
+  Uruz / dritta: 66
+  Uruz / ombra: 45
+  Wunjo / dritta: 63
+  Wunjo / ombra: 42
+
+TOTALE: 7380 voci

@@ -7,14 +7,36 @@ prima". Scritta da Code il 2 ottobre 2026 sul codice del commit `666d0745`.
 > *"pensavo che l'estrazione rune fosse a zero AI"*; *"Si certo."* (le rune
 > deterministiche col corpus dell'Architetto).
 
+**L'ORDINE GA, VOCE GA.07, ORDINA DI RISCRIVERE I TESTI DELLE RUNE.**
+Integrazione del 20 ottobre 2026, sul commit `297cd46f`. Il fondatore, 19
+ottobre 2026 alle 23:08: *"bisogna cambiare le regole per i responsi delle
+funzionalità oroscopo, tarocchi, arcano angelo, estrazione rune: tutte le
+risposte composte da paragrafi ognuno con tra 40 a 50 parole ognuno. Per le
+risposte brevi 2 paragrafi di cui il secondo messo in evidenza in un riquadro
+e questo riquadro deve intitolarsi "cosa fare adesso" e di conseguenza
+adattare il testo."* (voce GA.03) e *"IMPORTANTE: risposte dirette
+immediatamente, l'utente deve avere subito e sempre risposte senza fronzoli o
+criptiche o includenti o sibilline."* (voce GA.06). La voce GA.07: *"I
+corpora e i compositori delle quattro arti si riscrivono nella forma di GA.03
+e con la regola di GA.06 [...] Nessun testo si tronca per rientrare nella
+misura. Restano le regole di non ripetizione di ogni corpus"*. Le sezioni
+qui sotto portano la forma nuova accanto a quella dell'ordine EX: dove le
+due dicono cose diverse vale quella dell'ordine GA. Le rune restano a zero
+modello: tutti i testi vengono dal corpus.
+
 **Code non scrive nessun testo del corpus.** I testi sono materiale
 dell'Architetto (Linee Guida, sezione 8). Qui ci sono la struttura, i campi,
 le lunghezze, i numeri e le regole che le prove pretenderanno. Gli esempi di
-forma usano `‹testo›` al posto delle parole.
+forma usano `‹testo›` al posto delle parole. **Dall'ordine GA voce GA.07** i
+testi li riscrivono gli scrittori di Code per ordine del fondatore, con le
+liste di lavoro e gli strumenti della sezione 8; la regola di prima vale per
+tutto ciò che quell'ordine non nomina.
 
 **Finché il corpus non entra, la lettura resta quella di oggi** (Gemini 2.5
 Flash, con la lettura di casa come riserva). Il passaggio avviene col corpus,
-tutto insieme: nessuna lettura mezza dal modello e mezza dal corpus.
+tutto insieme: nessuna lettura mezza dal modello e mezza dal corpus. Al 20
+ottobre 2026 il corpus è entrato tutto (cinque campi, ogni gruppo pieno) e il
+ramo del modello non si raggiunge più.
 
 ## 1. Com'è fatta oggi la lettura delle rune
 
@@ -81,19 +103,52 @@ e il Sigillo sono **già deterministici** e restano come sono.
 **Che cosa cambia col corpus**: solo il presagio di Calìgo, cioè le tre parti
 del punto 3. Tutto il resto della schermata non cambia.
 
+**La forma dell'ordine GA** (voci GA.03, GA.04 e GA.05; il codice dell'app
+la mostrerà dopo la riscrittura dei testi). Ogni paragrafo ha da 40 a 50
+parole, contate separate da uno spazio come `LaFormaDelResponso.parole`.
+- **Il responso principale**, nella bolla del presagio:
+  - **il titolo**: la riga dritta o d'ombra (`runes.dart`) della **pietra che
+    decide**, la stessa su cui poggiano la risposta e il gesto;
+  - **il paragrafo 1, la risposta**: RISPOSTA della pietra che decide più
+    VERDETTO del tono e della famiglia, uniti in un paragrafo da 40 a 50
+    parole; la prima frase risponde alla domanda (GA.06);
+  - **il paragrafo 2, nel riquadro "Cosa fare adesso"**: GESTO della pietra
+    che decide, scritto per il titolo, che dice che cosa fare o non fare;
+  - **nella Lunga, dall'Iniziato in su**: il paragrafo 3, che approfondisce
+    (LEGAME della gettata e del tono) e il paragrafo 4 nel riquadro "Il
+    galdr propiziatorio", il canto del nome della pietra che decide, da
+    `docs/corpus/riti/galdr_delle_rune.md` (una voce per runa e verso);
+  - **"Da dove viene"**, in corsivo, una volta sola in fondo alla
+    consultazione: lo compone il codice dalle fonti delle rune uscite (i poemi
+    runici di `rune.md` e, nella Lunga, la pratica del galdr), non il corpus.
+- **Le schede delle rune singole**, solo nelle gettate con più di una pietra
+  (le tre Norne, la Croce delle Cinque, il getto sul telo; la Runa di Odino
+  non ha schede, il responso principale è già la sua runa): la testata di oggi
+  (nome, posizione e glossa, verso, parola chiave), poi un paragrafo (PIETRA)
+  e il riquadro "Cosa fare adesso" (CONSIGLIO, campo nuovo). Le schede hanno
+  sempre la forma breve.
+
 ## 2. La lettura deterministica
 
 Il presagio si compone da **cinque campi**, ognuno diviso in **gruppi**. Per
 ogni gruppo l'Architetto scrive tante voci quante ne servono (sezione 4), e
 l'app ne sceglie una (sezione 5).
 
-| Parte a video | Campo | Da che cosa dipende il gruppo | Gruppi |
-|---|---|---|---|
-| La risposta, prima frase | **RISPOSTA** | la pietra che decide: la runa e il verso | 40 |
-| La risposta, seconda frase | **VERDETTO** | il tono della gettata e la famiglia che domina | 9 |
-| Da dove viene, una per pietra | **PIETRA** | la runa e il verso | 40 |
-| Da dove viene, in fondo | **LEGAME** | la gettata e il tono | 11 |
-| Cosa puoi fare | **GESTO** | la pietra che decide: la runa e il verso | 40 |
+| Parte a video (ordine EX) | Parte a video (ordine GA) | Campo | Da che cosa dipende il gruppo | Gruppi |
+|---|---|---|---|---|
+| La risposta, prima frase | il paragrafo 1, prima metà | **RISPOSTA** | la pietra che decide: la runa e il verso | 40 |
+| La risposta, seconda frase | il paragrafo 1, seconda metà | **VERDETTO** | il tono della gettata e la famiglia che domina | 9 |
+| Da dove viene, una per pietra | il paragrafo della scheda di ogni runa | **PIETRA** | la runa e il verso | 40 |
+| Da dove viene, in fondo | il paragrafo 3 della Lunga, l'approfondimento | **LEGAME** | la gettata e il tono | 11 |
+| Cosa puoi fare | il paragrafo 2, il riquadro "Cosa fare adesso" | **GESTO** | la pietra che decide: la runa e il verso | 40 |
+| (non c'era) | il riquadro "Cosa fare adesso" della scheda di ogni runa | **CONSIGLIO** | la runa e il verso | 40 |
+
+Il sesto campo, **CONSIGLIO**, sta in `docs/corpus/rune/consiglio.md`, coi
+gruppi di PIETRA. **Il galdr propiziatorio** (paragrafo 4 della Lunga) non è
+un campo di questo corpus: sta in `docs/corpus/riti/galdr_delle_rune.md`, una
+voce per runa e verso: è **escluso dalla prova dei 60 giorni**, con la
+stessa ragione del rito dell'Oracolo degli Angeli: è un gesto da ripetere, il
+canto della stessa runa che torna uguale ogni volta che quella pietra decide.
 
 **Quaranta gruppi** per runa e verso: 24 dritte e 16 in ombra (le 8 simmetriche
 non escono mai in ombra).
@@ -118,9 +173,33 @@ voce deve leggersi bene con ognuno dei valori possibili.
 | `{gettata}` | LEGAME | il nome della gettata ("le tre Norne") |
 | `[m\|f\|n]` | ovunque | la marca del genere della persona, come nei corpora di oggi (`LaMarcaDelGenere`) |
 
+**Gli spazi nell'ordine GA.** Uno spazio cambia il conto delle parole:
+`{cosa}` vale da 1 parola ("l’amore", "l’amicizia") a 6 ("ciò che continua
+da ieri sera", "ciò che non guardi di te"), `{glossa}` da 1 a 6, `{gettata}`
+da 3 a 4. Con due spazi nello stesso paragrafo la finestra da 40 a 50 parole
+si rispetterebbe solo con un numero esatto di parole: per questo **ogni voce
+porta al più uno spazio** e cambia dove gli spazi si possono usare:
+
+| Spazio | Dove, dall'ordine GA |
+|---|---|
+| `{cosa}` | RISPOSTA (esattamente uno), PIETRA (esattamente uno), GESTO e LEGAME (al più uno); mai in VERDETTO né in CONSIGLIO |
+| `{posizione}`, `{glossa}` | in nessun campo: la testata della scheda mostra già posizione e glossa |
+| `{gettata}` | LEGAME (al più uno spazio in tutto); il gruppo fissa la gettata, quindi il valore è uno solo per gruppo |
+| `[m\|f\|n]` | ovunque, come prima; si misura in tutte e tre le forme |
+
+I valori si leggono dal sorgente, non a memoria:
+`tool/controlla_il_corpus_delle_rune.py` prende quelli di `{cosa}` da
+`lib/core/rituals/il_presagio_dal_corpus.dart` (le cose delle domande del
+Cerchio, le famiglie di parole, "la tua giornata", "ciò che hai chiesto":
+venti valori diversi al 20 ottobre 2026) e quelli di `{gettata}`,
+`{posizione}` e `{glossa}` da `lib/core/rituals/rune_cast.dart`; poi misura
+ogni voce con ognuno.
+
 **Il nome della runa** non è uno spazio: le voci di RISPOSTA, VERDETTO e GESTO
 **non nominano nessuna runa** (il simbolo non apre mai, Linee Guida sezione
 2). Le voci di PIETRA la nominano, perché lì si dice da dove viene la lettura.
+Dall'ordine GA: neppure LEGAME e CONSIGLIO nominano una runa; PIETRA continua
+a nominare la sua e nessun'altra.
 
 ## 3. I campi di ogni voce e le lunghezze
 
@@ -138,6 +217,23 @@ giusta.
 | LEGAME | il filo fra le pietre di quella gettata e di quel tono | una o due frasi, da 60 a 200 caratteri | nessun nome di runa |
 | GESTO | un gesto concreto che la persona può fare oggi o nei prossimi giorni, legato al senso della pietra che decide | una frase, da 40 a 140 caratteri | si può fare davvero; mai "ascolta te stesso"; nessun nome di runa |
 
+**Le lunghezze dell'ordine GA, in parole** (contate separate da uno spazio,
+con OGNI valore degli spazi e ogni forma del genere). Sostituiscono la
+colonna "Lunghezza" qui sopra; le regole della colonna "Regole" restano.
+
+| Campo | Che cosa dice, dall'ordine GA | Parole | Spazi |
+|---|---|---|---|
+| RISPOSTA | la prima metà del paragrafo 1: che cosa la pietra che decide dice su `{cosa}`; la prima frase risponde alla domanda | da 19 a 22 fuori dallo spazio, cioè da 20 a 28 riempita | esattamente un `{cosa}` |
+| VERDETTO | la seconda metà del paragrafo 1: come pesa l'insieme della gettata, nel tono e nel colore della famiglia; segue qualunque RISPOSTA | da 20 a 22 | nessuno |
+| RISPOSTA + VERDETTO | il paragrafo 1 a video | da 40 a 50 per OGNI coppia e ogni valore (ogni verdetto può seguire ogni risposta) | |
+| GESTO | il riquadro "Cosa fare adesso": che cosa fare o non fare, scritto per il titolo (la riga della pietra che decide) | da 40 a 50 (da 39 a 44 fuori dallo spazio, se c'è) | al più un `{cosa}` |
+| LEGAME | il paragrafo 3 della Lunga: approfondisce la risposta col filo fra le pietre di quella gettata e di quel tono | da 40 a 50 (da 39 a 44 fuori da `{cosa}`) | al più uno, `{cosa}` o `{gettata}` |
+| PIETRA | il paragrafo della scheda: che cosa dice questa runa, nel suo verso, su `{cosa}` | da 39 a 44 fuori dallo spazio, da 40 a 50 riempita | esattamente un `{cosa}`; niente `{glossa}` né `{posizione}` |
+| CONSIGLIO | il riquadro "Cosa fare adesso" della scheda: che cosa fare o non fare, dal senso di questa runa in questo verso; non ripete PIETRA | da 40 a 50 | nessuno |
+
+Il galdr (`docs/corpus/riti/galdr_delle_rune.md`) sta anche lui fra 40 e 50
+parole, formula compresa (voce GA.04): lo misura il suo strumento.
+
 **Le regole che valgono per tutte le voci** (Linee Guida, sezioni 2, 8, 11, 15
 e 16, e le regole di casa):
 - la voce di Calìgo: profonda, solenne, autorevole, mai oscura o minacciosa;
@@ -151,8 +247,27 @@ e 16, e le regole di casa):
 - una voce non dichiara mai da dove viene il testo (niente "il corpus", "il
   sistema").
 
+**Le regole di lingua dell'ordine GA** (regola R7 dell'ordine e voce GA.06),
+che si sommano a quelle qui sopra; lo strumento di controllo prende quelle
+che una macchina sa vedere:
+- la risposta diretta: la prima frase della RISPOSTA risponde alla domanda,
+  niente preamboli, niente immagini al posto della risposta, niente frasi che
+  valgono per tutti; ogni affermazione poggia sulla runa e sul suo verso;
+- il tu; nessun aggettivo col genere riferito a chi legge, oppure la marca
+  `[maschile|femminile|neutra]` come fanno i corpora;
+- niente "!", niente cifre (i numeri in lettere), niente futuro in "-rai"
+  ("troverai", "sarai"): nessuna previsione data per certa, niente
+  "sicuramente", "di certo", "senza dubbio";
+- niente salute, denaro o questioni legali, oltre alle parole vietate di
+  `rune.md`;
+- la voce di Calìgo resta solenne e mai minacciosa (niente maledizioni,
+  sventure, morte);
+- nessuna voce uguale a un'altra e **nessuna frase uguale** in tutto il
+  corpus (una frase di almeno sei parole non torna in due voci).
+
 **La forma del file.** Un file per campo in `docs/corpus/rune/`:
-`risposta.md`, `verdetto.md`, `pietra.md`, `legame.md`, `gesto.md`. Dentro,
+`risposta.md`, `verdetto.md`, `pietra.md`, `legame.md`, `gesto.md` e,
+dall'ordine GA, `consiglio.md` (stessi titoli di PIETRA). Dentro,
 un titolo per gruppo e le voci numerate:
 
 ```
@@ -165,7 +280,7 @@ un titolo per gruppo e le voci numerate:
 ```
 
 I titoli dei gruppi: `## <Runa>, dritta` e `## <Runa>, in ombra` per
-RISPOSTA, PIETRA e GESTO; `## <tono>, <famiglia>` per VERDETTO;
+RISPOSTA, PIETRA, GESTO e CONSIGLIO; `## <tono>, <famiglia>` per VERDETTO;
 `## <gettata>, <tono>` per LEGAME (gettata: odino, norne, croce, telo).
 
 ## 4. Quante voci servono per 60 giorni senza ripetere
@@ -189,6 +304,19 @@ voci non ripete in 60 giorni. L'elenco completo:
 | LEGAME | 11 | da 20 a 196 | **587** |
 | GESTO | 40 | da 12 a 26 | **712** |
 | **Totale** | **140** | | **4.929** |
+| CONSIGLIO, dall'ordine GA | 40 | da 40 a 93 | **2.451** |
+| **Totale dall'ordine GA** | **180** | | **7.380** |
+
+**Il CONSIGLIO ha lo stesso fabbisogno di PIETRA**, gruppo per gruppo: è il
+riquadro della scheda di ogni pietra, una voce per pietra come PIETRA; la
+regola del fondatore resta (*"non voglio ripetizioni per almeno 60gg"*).
+`tool/le_voci_che_servono_alle_rune.py` lo copia da PIETRA invece di
+contarlo a parte: la simulazione resta quella di prima carattere per
+carattere (rigirata il 20 ottobre 2026, i numeri degli altri cinque campi
+sono usciti identici) e i due campi non possono separarsi. Il conto di PIETRA
+resta quello di prima anche se dall'ordine GA la Runa di Odino non ha schede:
+il caso peggiore è sempre il telo: togliere Odino abbassa solo lo scenario
+misto. **Il galdr è escluso dal conto** (sezione 2).
 
 **Perché PIETRA pesa tanto.** Sul telo si leggono sette pietre per gettata: al
 massimo, in 60 giorni, sono 1.260 pietre, e una runa dritta simmetrica (Dagaz,
@@ -199,6 +327,8 @@ ombra. Le simmetriche hanno bisogno di circa 90 voci, le altre di 40-70.
 quasi sempre: lo stesso gruppo serve fino a 163 volte in 60 giorni.
 
 **Gruppo per gruppo.**
+
+Nella tabella qui sotto le colonne di PIETRA valgono anche per CONSIGLIO.
 
 | Runa | RISPOSTA dritta | RISPOSTA in ombra | PIETRA dritta | PIETRA in ombra | GESTO dritta | GESTO in ombra |
 |---|---|---|---|---|---|---|
@@ -293,8 +423,61 @@ porta nel codice e la suite pretende:
 5. **le chiamate al modello per gettata**: oggi 1,85 in media (ordine EW), col
    corpus **zero**.
 
+**Dall'ordine GA voce GA.07** la misura della forma si conta in parole, con
+ogni valore degli spazi (sezione 3) e comprende il paragrafo composto
+RISPOSTA più VERDETTO e il sesto campo CONSIGLIO. La controlla
+`tool/controlla_il_corpus_delle_rune.py` prima che i testi entrino nel
+codice; la prova `test/il_corpus_delle_rune_test.dart` misura ancora in
+caratteri i cinque campi dell'ordine EX: si aggiorna insieme al codice
+dell'app che mostra la forma nuova (con la regola A delle guardie: vista
+rossa prima).
+
 ## 8. Come si consegna
 
 L'Architetto può consegnare i cinque file anche in tempi diversi, ma **il
 passaggio dal modello al corpus avviene quando ci sono tutti e cinque e
 passano le prove**. Fino ad allora l'app legge col modello come oggi.
+
+### La riscrittura dell'ordine GA voce GA.07
+
+I testi si riscrivono da più scrittori in parallelo, su gruppi disgiunti,
+ognuno con la sua lista di lavoro (il campo, i gruppi, i numeri da riscrivere
+col testo di oggi accanto, quelli da togliere, quante voci nuove e da quale
+numero, la finestra, gli spazi). Ogni scrittore consegna un **file di parte**
+nella forma del corpus:
+
+```
+## Fehu, dritta
+3. ‹testo nuovo della voce 3›
+17.
+30. ‹voce nuova›
+```
+
+- `N. testo` con N già nel gruppo **sostituisce** la voce N: l'identificativo
+  resta;
+- `N.` senza testo **toglie** la voce N: il numero resta vuoto e non si riusa;
+- `N. testo` con N oltre l'ultima voce **aggiunge** una voce: i numeri nuovi
+  partono dal primo libero e si seguono senza buchi.
+
+Gli strumenti:
+1. `python tool/controlla_il_corpus_delle_rune.py --parte <campo> <parte.md>`
+   controlla una parte prima della consegna: i numeri contro il corpus, la
+   misura e gli spazi di ogni voce, il paragrafo composto contro le voci del
+   corpus già a misura, le regole di lingua, voci e frasi uguali;
+2. `python tool/applica_le_riscritture_delle_rune.py <campo> <parte.md>...`
+   rimette le voci al loro posto; si ferma senza scrivere niente se un numero
+   da sostituire non c'è o se il controllo trova un difetto nelle voci
+   toccate;
+3. `python tool/controlla_il_corpus_delle_rune.py` sul corpus intero, coi
+   conti per campo (`--conti` per i soli conti);
+4. `python tool/genera_corpus_del_presagio.py` porta i sei campi nel codice.
+
+**La fase 1** è il responso principale (RISPOSTA, VERDETTO, GESTO, LEGAME):
+con lei la Runa di Odino è completa. **La fase 2** sono le schede (PIETRA e
+CONSIGLIO), che pesano il doppio di tutto il resto.
+
+**La memoria dei 60 giorni.** Una voce riscritta tiene il suo numero, quindi
+chi l'ha già letta non la rivede per 60 giorni anche se il testo è nuovo: è
+voluto. Con i campi nuovi l'elenco `diOggi` della memoria
+(`il_presagio_dal_corpus.dart`) cambia forma: il codice che mostra la forma
+nuova versiona la chiave della memoria.
