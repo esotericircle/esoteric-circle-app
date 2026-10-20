@@ -103,6 +103,16 @@ void main() {
             immagine: animale.fullPath,
             quale: 3,
             giaScoperte: tutte,
+            // **E I SOLCHI VECCHI SU TUTTA LA CARTA**, a zig zag: il dito dei
+            // giorni scorsi passato anche dove oggi c'e' il volto. Visto sul
+            // Realme: la testa del Cavallo aperta all'arrivo.
+            giaSolchi: [
+              [
+                for (var riga = 0; riga <= 32; riga++)
+                  for (final x in riga.isEven ? [0.01, 0.99] : [0.99, 0.01])
+                    Offset(x, (riga / 32).clamp(0.002, 0.998)),
+              ],
+            ],
             quandoCambia: (_) {},
             palette: MaestroPalette.caligo,
           ),
@@ -120,6 +130,38 @@ void main() {
       expect(find.text('Scosta la cenere con il dito.'), findsOneWidget,
           reason: '${animale.name}: all\'arrivo la lente dice gia\' che per '
               'oggi basta');
+      // **NESSUN TRATTO DEI SOLCHI VECCHI TOCCA IL VOLTO**: si campiona ogni
+      // segmento passato al pittore, e un punto e' sul volto solo se nessuna
+      // cella fuori dal volto lo tocca entro un milionesimo.
+      final velo3 = LaCartaInQuattroPezzi(animale.name, 3);
+      bool soloVolto(Offset p) {
+        const e = 1e-6;
+        for (final dx in [-e, 0.0, e]) {
+          for (final dy in [-e, 0.0, e]) {
+            if (velo3.pezzoDi(velo3.cellaSotto(p + Offset(dx, dy))) != 3) {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      var sulVolto = 0;
+      var campioni = 0;
+      for (final s in pittore.solchi) {
+        for (var k = 1; k < s.length; k++) {
+          for (var t = 0; t <= 100; t++) {
+            campioni++;
+            if (soloVolto(Offset.lerp(s[k - 1], s[k], t / 100)!)) sulVolto++;
+          }
+        }
+      }
+      expect(sulVolto, 0,
+          reason: '${animale.name}: alla quarta $sulVolto punti dei solchi '
+              'vecchi stanno sul volto, e lo aprono prima di grattare');
+      expect(campioni, greaterThan(1000),
+          reason: '${animale.name}: i solchi vecchi non sono arrivati al '
+              'pittore, la prova non guarda niente');
     }
   });
 

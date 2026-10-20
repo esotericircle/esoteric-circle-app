@@ -176,7 +176,12 @@ class LaCartaInQuattroPezzi {
   /// tratto che passa sopra il volto (o sopra un pezzo dei giorni dopo) si
   /// spezza in due e non lo attraversa; un tratto che entra da fuori comincia
   /// dove entra, non si perde: un dito veloce manda pochi punti.
-  List<(Offset, Offset)> trattiDentro(Offset da, Offset a) {
+  List<(Offset, Offset)> trattiDentro(Offset da, Offset a) =>
+      _trattiDove(da, a, siGratta);
+
+  /// I pezzi di [da]..[a] dove [dentro] vale, campionati ogni mezza cella.
+  static List<(Offset, Offset)> _trattiDove(
+      Offset da, Offset a, bool Function(Offset) dentro) {
     final passo = 0.5 / math.max(_colonne, _righe);
     final lungo = (a - da).distance;
     final n = math.max(1, (lungo / passo).ceil());
@@ -185,7 +190,7 @@ class LaCartaInQuattroPezzi {
     var ultimo = da;
     for (var k = 0; k <= n; k++) {
       final p = Offset.lerp(da, a, k / n)!;
-      if (siGratta(p)) {
+      if (dentro(p)) {
         inizio ??= p;
         ultimo = p;
       } else if (inizio != null) {
@@ -194,6 +199,39 @@ class LaCartaInQuattroPezzi {
       }
     }
     if (inizio != null) fuori.add((inizio, ultimo));
+    return fuori;
+  }
+
+  /// **I SOLCHI DEI GIORNI PRIMA CHE VALGONO SU QUESTA CARTA**: i loro
+  /// tratti sui soli pezzi gia' fatti, prima di quello attivo.
+  ///
+  /// Visto sul Realme il 20 ottobre 2026, alla quarta discesa del Cavallo: la
+  /// testa era gia' scoperta all'arrivo. Le celle vecchie non valevano piu'
+  /// ([valide]), ma i solchi vecchi si', e il dito dei giorni scorsi era
+  /// passato anche dove oggi c'e' il volto: al quarto pezzo il taglio del
+  /// pennello lascia scavare il volto, e i solchi di ieri lo aprivano da
+  /// soli. Il pezzo di oggi si apre col dito di oggi.
+  List<List<Offset>> solchiValidi(List<List<Offset>> solchi) {
+    bool fatto(Offset p) => _pezzoDiOgniCella[cellaSotto(p)] < pezzoAttivo;
+    final fuori = <List<Offset>>[];
+    for (final s in solchi) {
+      if (s.isEmpty) continue;
+      if (s.length == 1) {
+        if (fatto(s.first)) fuori.add([s.first]);
+        continue;
+      }
+      List<Offset>? corrente;
+      for (var k = 1; k < s.length; k++) {
+        for (final (da, a) in _trattiDove(s[k - 1], s[k], fatto)) {
+          if (corrente == null || (corrente.last - da).distance > 1e-6) {
+            corrente = [da];
+            fuori.add(corrente);
+          }
+          if ((a - da).distance > 1e-9) corrente.add(a);
+        }
+        if (!fatto(s[k])) corrente = null;
+      }
+    }
     return fuori;
   }
 

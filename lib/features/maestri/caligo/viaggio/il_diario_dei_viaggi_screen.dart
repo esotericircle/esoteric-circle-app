@@ -255,7 +255,7 @@ class _UnaCartaAMeta extends StatelessWidget {
                         coperte: velo.velato.difference(scoperte),
                         quanta: 1,
                         grana: GranaDellaCenere.pronta,
-                        solchi: solchi,
+                        solchi: velo.solchiValidi(solchi),
                         scoperte: scoperte,
                       ),
                     ),

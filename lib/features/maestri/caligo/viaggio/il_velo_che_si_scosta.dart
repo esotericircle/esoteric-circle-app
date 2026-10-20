@@ -130,7 +130,9 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
   late final Set<int> _scoperte = _velo.valide(widget.giaScoperte);
   final Set<int> _oggi = {};
   late final List<List<Offset>> _solchi = [
-    for (final s in widget.giaSolchi) [...s],
+    // **SOLO I TRATTI DEI PEZZI GIA' FATTI**: vedi
+    // `LaCartaInQuattroPezzi.solchiValidi`.
+    for (final s in _velo.solchiValidi(widget.giaSolchi)) [...s],
   ];
   List<Offset>? _corrente;
 
