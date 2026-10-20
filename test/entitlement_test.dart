@@ -256,26 +256,52 @@ void main() {
       expect(adepto.any((h) => h.contains('17 domande al giorno ai Maestri')),
           isTrue);
       // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
-      // voce 02).
+      // voce 02). Ordine GA voce 02, 20 ottobre 2026 sera: quattro, e la
+      // stesa a dieci una al giorno ("solo 1 al giorno", il fondatore).
       expect(
           adepto.contains(
-              '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
+              '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
           isTrue);
+      expect(adepto.contains('La stesa a dieci carte, 1 al giorno'), isTrue,
+          reason: 'la card dell\'Adepto non dice che la stesa a dieci e\' una '
+              'al giorno');
+      expect(adepto.any((h) => h.contains('appena arriva')), isFalse,
+          reason: 'la card promette ancora la stesa a dieci "appena arriva"');
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
       expect(
           illuminato.any((h) => h.contains('21 domande ai Maestri')), isTrue);
       // Ordine GA voce 01: tre stese all'Illuminato (quindici carte
-      // dall'ordine EX voce 02).
+      // dall'ordine EX voce 02). Ordine GA voce 02: cinque, e la stesa a
+      // dieci una al giorno.
       expect(
-          illuminato.contains(
-              '3 stese di tarocchi al giorno, anche la stesa a dieci carte'),
+          illuminato.contains('5 stese di tarocchi al giorno, anche la stesa '
+              'a dieci carte, 1 al giorno'),
           isTrue);
       // I numeri delle frasi sono quelli della matrice, piano per piano: una
       // frase scritta a mano non deve promettere un numero diverso dalla
       // riga che il cancello legge.
       const piani = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
-      const parole = {1: 'Una stesa', 2: '2 stese', 3: '3 stese'};
+      const parole = {
+        1: 'Una stesa',
+        2: '2 stese',
+        3: '3 stese',
+        4: '4 stese',
+        5: '5 stese',
+      };
+      // Ordine GA voce 02: dove la matrice apre la stesa a dieci, la card
+      // dice quante al giorno col numero della matrice; dove non la apre, la
+      // card non la promette con un numero.
+      for (final t in piani) {
+        final dieci =
+            PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStesaDaDieci, t)!;
+        final dette = PlanCatalog.forTier(t)
+            .highlights
+            .where((h) => h.contains('dieci carte, $dieci al giorno'));
+        expect(dette, dieci > 0 ? isNotEmpty : isEmpty,
+            reason: 'la card del piano ${t.name} non dice la stesa a dieci '
+                'della matrice ($dieci al giorno)');
+      }
       for (final t in piani) {
         final n = PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, t)!;
         expect(

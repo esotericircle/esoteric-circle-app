@@ -32,6 +32,11 @@ void main() {
     BudgetDelGiorno.gettate:
         'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
     BudgetDelGiorno.stese: 'lib/features/tarot/stesa_tre_carte_screen.dart',
+    // Ordine GA voce 02: la stesa a dieci carte, una al giorno, si dichiara
+    // nella stessa schermata, sotto la riga delle stese, quando la Croce
+    // Celtica e' la stesa scelta.
+    BudgetDelGiorno.steseDaDieci:
+        'lib/features/tarot/stesa_tre_carte_screen.dart',
     // **LA GALLERIA E NON IL VERDETTO, ordine CF voce 11.** Il gesto che
     // consuma una sinastria e' scegliere un volto, e si sceglie qui: nella
     // schermata del verdetto il numero arriva a consumo avvenuto.

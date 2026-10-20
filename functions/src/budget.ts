@@ -23,7 +23,8 @@ export type Budget =
   | "sinastrie"
   | "cieli"
   | "sinastrieEvolutive"
-  | "oracoliAngeli";
+  | "oracoliAngeli"
+  | "steseDaDieci";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -45,7 +46,29 @@ export const BUDGET: Budget[] = [
   // Flash-Lite una volta; quella del Viandante e' un assaggio del solo
   // corpus, senza modello.
   "oracoliAngeli",
+  // LA STESA A DIECI CARTE, UNA AL GIORNO, ordine GA voce 02 (20 ottobre
+  // 2026, sera). Il fondatore: "Limitiamo la stesa tarocchi a 10 carte: sarà
+  // disponibile solo per Tier 2 e 3 e solo 1 al giorno". Si consuma INSIEME
+  // a una stesa del budget `stese`: e' un tetto in piu', non un budget al
+  // posto di quello. Il nome non e' `steseDieci` perche' quel nome e' gia'
+  // il riscatto da 400 Eos della Croce Celtica (`riscatto_steseDieci` in
+  // `borsellino.ts`), e `budgetDelRiscatto` leggerebbe quel motivo come il
+  // riscatto di questo budget.
+  "steseDaDieci",
 ];
+
+/**
+ * **I BUDGET CHE NON SI RISCATTANO CON GLI EOS.** Ordine GA voce 02: la
+ * stesa a dieci carte e' una al giorno e non si ricompra, nemmeno con gli
+ * Eos ("solo 1 al giorno", il fondatore la sera del 20 ottobre 2026). Senza
+ * riscatto lo speso non puo' scendere sotto zero, e `decidi` lo tratta
+ * come zero anche se ci arrivasse per un'altra strada: il credito comprato
+ * che apre un budget a zero (ordine BN voce 09) qui non esiste.
+ */
+export const BUDGET_SENZA_RISCATTO: readonly Budget[] = ["steseDaDieci"];
+
+/** I budget che si riscattano: tutti tranne quelli senza riscatto. */
+export type BudgetRiscattabile = Exclude<Budget, "steseDaDieci">;
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
 /**
@@ -71,6 +94,10 @@ export const BUDGET: Budget[] = [
  * dell'Architetto approvata dal fondatore ("Si ok, approvo."). Le stese si
  * contano a CARTE: "mettiamo limite delle carte estratte e la stesa a 10
  * solo dal tier 2 19,99".
+ *
+ * **L'ORDINE GA, voci 01 e 02, 20 ottobre 2026**: le stese tornano a
+ * contarsi a stese (uno, tre, quattro e cinque al giorno) e la stesa a
+ * dieci carte ha il suo tetto, una al giorno all'Adepto e all'Illuminato.
  */
 const LIMITI: Record<Budget, (number | null)[]> = {
   /**
@@ -133,8 +160,18 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * carte". Una stesa vale una stesa qualunque sia il numero delle carte. I
    * numeri sono quelli che entrano nel 30 per cento (voce GA.02,
    * tool/i_limiti_degli_annuali.py): uno, tre, due e tre al giorno.
+   *
+   * **UNO, TRE, QUATTRO E CINQUE, ordine GA voce 02, 20 ottobre 2026,
+   * sera.** Con la scelta del fondatore "Carte dal corpus" (in ogni stesa
+   * le carte vengono dal corpus e il modello scrive il solo responso
+   * principale) una stesa costa quanto la lettura misurata, circa 0,0020
+   * dollari anche nella Croce Celtica in Lunga, e nel 30 per cento del
+   * netto entrano tre stese all'Iniziato, quattro all'Adepto e cinque
+   * all'Illuminato (tool/i_limiti_degli_annuali.py, uscita in
+   * docs/costi/i_limiti_degli_annuali.txt). La stesa a dieci carte e'
+   * una di queste, e in piu' ha il suo tetto qui sotto.
    */
-  stese: [1, 3, 2, 3],
+  stese: [1, 3, 4, 5],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *
@@ -187,6 +224,16 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    *   arriva al 29,97 per cento, con 6 si ferma al 29,9 e tiene un margine.
    */
   oracoliAngeli: [1, 3, 5, 6],
+  /**
+   * LA STESA A DIECI CARTE, ordine GA voce 02, 20 ottobre 2026, sera. Il
+   * fondatore: "Limitiamo la stesa tarocchi a 10 carte: sarà disponibile
+   * solo per Tier 2 e 3 e solo 1 al giorno". La riga del telefono e'
+   * `Stesa da 10 carte` (No, No, 1 al giorno, 1 al giorno). Una Croce
+   * Celtica consuma una stesa del budget delle stese E questa: dopo la
+   * prima del giorno la seconda non si apre, nemmeno con gli Eos (il
+   * budget sta in `BUDGET_SENZA_RISCATTO` e non ha prezzo nel listino).
+   */
+  steseDaDieci: [0, 0, 1, 1],
 };
 
 /**
@@ -245,6 +292,12 @@ export function decidi(
   quanti = 1
 ): {concesso: boolean; resta: number | null; motivo?: string} {
   const limite = limiteDi(budget, piano);
+  // **SENZA RISCATTO NON C'E' CREDITO, ordine GA voce 02.** Un budget che
+  // non si ricompra con gli Eos non puo' avere uno speso sotto zero: se ci
+  // arrivasse (un documento scritto a mano, un client che inventa un
+  // motivo) vale zero, e la stesa a dieci resta una al giorno.
+  const spesoVero =
+    BUDGET_SENZA_RISCATTO.includes(budget) && speso < 0 ? 0 : speso;
   // **IL LIMITE ZERO CEDE AL CREDITO COMPRATO, ordine BN voce 09.**
   //
   // Chi riscatta un uso con gli Eos porta lo speso a meno uno nella stessa
@@ -259,14 +312,14 @@ export function decidi(
   //
   // Adesso lo zero rifiuta solo quando non c'e' credito, cioe' quando lo
   // speso non e' andato sotto zero.
-  if (limite === 0 && speso >= 0) {
+  if (limite === 0 && spesoVero >= 0) {
     return {
       concesso: false,
       resta: 0,
       motivo: "Questo piano non comprende questa cosa.",
     };
   }
-  const resta = restaOggi(budget, piano, speso);
+  const resta = restaOggi(budget, piano, spesoVero);
   // **TUTTE LE CARTE O NIENTE**, ordine EX voce 02: una stesa da tre con
   // due carte rimaste non si apre a meta'.
   if (resta !== null && (resta <= 0 || resta < quanti)) {
@@ -276,7 +329,7 @@ export function decidi(
       motivo: "Il budget di oggi e' finito.",
     };
   }
-  const dopo = restaOggi(budget, piano, speso + quanti);
+  const dopo = restaOggi(budget, piano, spesoVero + quanti);
   return {concesso: true, resta: dopo};
 }
 

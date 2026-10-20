@@ -107,8 +107,10 @@ void main() {
       RigaDelPiano.approfondimenti: 3,
       RigaDelPiano.confronti: 3,
       // Ordine GA voce 01: tre stese, erano quindici carte (ordine EX voce
-      // 02).
-      RigaDelPiano.stese: 3,
+      // 02). Ordine GA voce 02, 20 ottobre 2026 sera: cinque, e la stesa a
+      // dieci una al giorno.
+      RigaDelPiano.stese: 5,
+      RigaDelPiano.stesaDaDieci: 1,
       RigaDelPiano.gettate: 3,
       RigaDelPiano.sinastria: 25,
     };

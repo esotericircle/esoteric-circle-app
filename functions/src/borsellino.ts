@@ -14,7 +14,12 @@
  * di un Sigillo si accredita due volte, e un saldo che cresce da solo e' un
  * saldo che non vale niente.
  */
-import {Budget, BUDGET, Piano, UNITA_DEL_RISCATTO} from "./budget";
+import {
+  Budget,
+  BudgetRiscattabile,
+  Piano,
+  UNITA_DEL_RISCATTO,
+} from "./budget";
 
 export type CausaleEos =
   | "premio_sigillo"
@@ -130,8 +135,16 @@ export const EOS_A_CHI_ARRIVA_CON_UN_INVITO = 150;
  * stesso listino; approfondimento e gettata a 60 sono decisi col mandato
  * esteso di BF, sotto la domanda perche' sono gesti piu' brevi. Il prezzo lo
  * decide QUESTO file: il client lo mostra e non lo detta mai.
+ *
+ * **NON TUTTI I BUDGET HANNO UN PREZZO, ordine GA voce 02.** La stesa a
+ * dieci carte (`steseDaDieci`) e' una al giorno e non si ricompra: il
+ * fondatore, la sera del 20 ottobre 2026, "sarà disponibile solo per Tier 2
+ * e 3 e solo 1 al giorno". Il tipo e' quello dei budget riscattabili, quindi
+ * un prezzo per `steseDaDieci` non si puo' nemmeno scrivere, e
+ * `riscatto_steseDaDieci` non e' un riscatto (`budgetDelRiscatto` torna
+ * null).
  */
-export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
+export const PREZZI_DEL_RISCATTO: Record<BudgetRiscattabile, number> = {
   domande: 80,
   approfondimenti: 60,
   confronti: 150,
@@ -197,6 +210,18 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
  * **Dall'ordine GA voce 01, 20 ottobre 2026, ridà UNA stesa**: il budget
  * torna a contare le stese. Il prezzo resta quello deciso ("Il giro in piu'
  * a Eos dopo l'ultima stesa del giorno resta com'e' oggi").
+ *
+ * **E SERVE SOLO SE LA CROCE CELTICA DEL GIORNO E' ANCORA LIBERA, ordine GA
+ * voce 02**, 20 ottobre 2026, sera ("solo 1 al giorno"). La stesa a dieci
+ * ha adesso il suo tetto, il budget `steseDaDieci` (una al giorno, senza
+ * riscatto). Questo riscatto resta, col prezzo deciso il 14 ottobre, per
+ * chi ha finito le stese del giorno e non ha ancora fatto la Croce Celtica:
+ * ridà una stesa del budget delle stese al prezzo della Croce Celtica. Il
+ * telefono lo offre solo in quel caso; fatta la Croce Celtica del giorno
+ * non offre nessun riscatto per lei, e dice che torna domani. Se qualcuno
+ * lo comprasse lo stesso, comprerebbe una stesa a 400 Eos e il budget
+ * `steseDaDieci` rifiuterebbe comunque la seconda Croce Celtica: il
+ * riscatto non apre mai una stesa a dieci in piu'.
  */
 export const RISCATTI_DELLA_STESA_INTERA: Record<
   string,
@@ -251,13 +276,20 @@ export function motivoDelRiscatto(budget: Budget): string {
   return "riscatto_" + budget;
 }
 
-/** Il budget di un motivo di riscatto, oppure null se non lo e'. */
-export function budgetDelRiscatto(motivo: string): Budget | null {
+/**
+ * Il budget di un motivo di riscatto, oppure null se non lo e'.
+ *
+ * **Solo i budget col prezzo nel listino, ordine GA voce 02**: prima bastava
+ * che il nome fosse un budget, e `riscatto_steseDaDieci` avrebbe riaperto la
+ * Croce Celtica del giorno. Solo le chiavi proprie: "riscatto_constructor"
+ * non e' un riscatto.
+ */
+export function budgetDelRiscatto(motivo: string): BudgetRiscattabile | null {
   if (!motivo.startsWith("riscatto_")) return null;
   const budget = motivo.substring("riscatto_".length);
-  return (BUDGET as readonly string[]).includes(budget)
-    ? (budget as Budget)
-    : null;
+  return Object.prototype.hasOwnProperty.call(PREZZI_DEL_RISCATTO, budget) ?
+    (budget as BudgetRiscattabile) :
+    null;
 }
 
 /**

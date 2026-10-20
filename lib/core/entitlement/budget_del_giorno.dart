@@ -49,6 +49,20 @@ enum BudgetDelGiorno {
   /// stese.
   stese(uno: 'stesa', molti: 'stese', femminile: true),
 
+  /// **La stesa a dieci carte**, ordine GA voce 02: il fondatore, la sera
+  /// del 20 ottobre 2026, *"Limitiamo la stesa tarocchi a 10 carte: sarà
+  /// disponibile solo per Tier 2 e 3 e solo 1 al giorno."* E' un tetto suo,
+  /// accanto a quello delle stese, e la persona deve sapere prima del gesto
+  /// se quella del giorno e' ancora libera (Linee Guida sezione 2.2): la
+  /// riga dice "Oggi hai 1 stesa a dieci carte" oppure "Non ti resta nessuna
+  /// stesa a dieci carte, oggi". Dove il piano non la comprende, il
+  /// borsellino lo dice per quello che e'.
+  steseDaDieci(
+    uno: 'stesa a dieci carte',
+    molti: 'stese a dieci carte',
+    femminile: true,
+  ),
+
   /// I confronti di Sinastria con un VIP.
   sinastrie(uno: 'sinastria', molti: 'sinastrie', femminile: true);
 
@@ -73,6 +87,7 @@ enum BudgetDelGiorno {
         BudgetDelGiorno.confronti => borsa.limiteConfronti(tier),
         BudgetDelGiorno.gettate => borsa.limiteGettate(tier),
         BudgetDelGiorno.stese => borsa.limiteStese(tier),
+        BudgetDelGiorno.steseDaDieci => borsa.limiteStesaDaDieci(tier),
         BudgetDelGiorno.sinastrie => borsa.limiteSinastrie(tier),
       };
 
@@ -84,6 +99,7 @@ enum BudgetDelGiorno {
         BudgetDelGiorno.confronti => borsa.confrontiRimasti(tier),
         BudgetDelGiorno.gettate => borsa.gettateRimaste(tier),
         BudgetDelGiorno.stese => borsa.steseRimaste(tier),
+        BudgetDelGiorno.steseDaDieci => borsa.steseDaDieciRimaste(tier),
         BudgetDelGiorno.sinastrie => borsa.sinastrieRimaste(tier),
       };
 

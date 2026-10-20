@@ -142,6 +142,7 @@ class QuestionAllowance extends ChangeNotifier {
     _approfondimenti = 0;
     _confronti = 0;
     _gettate = 0;
+    _steseDaDieci = 0;
     _giornoDelServer = null;
     _daMandare.clear();
     notifyListeners();
@@ -222,7 +223,20 @@ class QuestionAllowance extends ChangeNotifier {
   /// listino e nel motivo (`riscatto_steseDieci`, in
   /// `RISCATTI_DELLA_STESA_INTERA` di `functions/src/borsellino.ts`); il
   /// PREZZO non sta qui, arriva dal listino come ogni altro.
+  ///
+  /// **E SOLO SE LA CROCE CELTICA DEL GIORNO E' ANCORA LIBERA, ordine GA voce
+  /// 02**, 20 ottobre 2026, sera: il fondatore, *"Limitiamo la stesa
+  /// tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al
+  /// giorno."* Il riscatto da 400 resta (la decisione del 14 ottobre) per chi
+  /// ha finito le stese del giorno senza aver fatto la Croce Celtica; fatta
+  /// quella, la Croce Celtica non si ricompra (vedi [laStesaSiRiscattaIntera]).
   static const String kRiscattoDellaStesaIntera = 'steseDieci';
+
+  /// **IL BUDGET DELLA STESA A DIECI CARTE, ordine GA voce 02.** Il nome e'
+  /// quello del server (`functions/src/budget.ts`), e non e' `steseDieci`:
+  /// quel nome e' gia' il riscatto qui sopra, e il server leggerebbe
+  /// `riscatto_steseDieci` come il riscatto di questo budget.
+  static const String kSteseDaDieci = 'steseDaDieci';
 
   /// Il tetto di CORRETTEZZA per chi non ha limite: non e' una restrizione
   /// commerciale, e' la difesa contro un tocco ripetuto per sbaglio o per
@@ -278,6 +292,8 @@ class QuestionAllowance extends ChangeNotifier {
   static const _kConfronti = 'allowance.confronti';
   static const _kGettate = 'allowance.gettate';
   static const _kStese = 'allowance.stese';
+  static const _kSteseDaDieci = 'allowance.stese_da_dieci';
+  static const _kServerContaLaDieci = 'allowance.server_conta_la_dieci';
   static const _kSinastrie = 'allowance.sinastrie';
   static const _kEvolutive = 'allowance.sinastrie_evolutive';
   static const _kOracoli = 'allowance.oracoli_angeli';
@@ -298,6 +314,18 @@ class QuestionAllowance extends ChangeNotifier {
   /// budget SEPARATO da quello delle gettate perche' il listino tiene le
   /// due cose su due righe distinte.
   int _stese = 0;
+
+  /// **LE STESE A DIECI CARTE FATTE OGGI, ordine GA voce 02.** Un tetto in
+  /// piu' sopra quello delle stese: la Croce Celtica consuma una stesa E una
+  /// di queste. Stesso confine del giorno degli altri contatori.
+  int _steseDaDieci = 0;
+
+  /// Vero se il server ha dichiarato di conoscere il budget `steseDaDieci`
+  /// (vedi `StatoDelCerchio.budgetDelServer`): solo allora la Croce Celtica
+  /// gli si manda, e solo allora il suo conto vince su quello del telefono.
+  /// Finche' le funzioni nuove non sono pubblicate il telefono tiene il conto
+  /// da solo, e la Croce Celtica resta comunque una al giorno.
+  bool _serverContaLaDieci = false;
 
   /// LE SINASTRIE CELEB CONSUMATE OGGI, ordine BO voce 13. Budget suo,
   /// separato da quello dei confronti nel Cerchio: sono due righe diverse
@@ -338,6 +366,7 @@ class QuestionAllowance extends ChangeNotifier {
       _confronti = 0;
       _gettate = 0;
       _stese = 0;
+      _steseDaDieci = 0;
       _sinastrie = 0;
       _evolutive = 0;
       _oracoli = 0;
@@ -655,11 +684,42 @@ class QuestionAllowance extends ChangeNotifier {
     return resta == null || resta >= 1;
   }
 
+  /// **QUANTE STESE A DIECI CARTE PREVEDE IL PIANO OGNI GIORNO.** Ordine GA
+  /// voce 02, il fondatore la sera del 20 ottobre 2026: *"Limitiamo la stesa
+  /// tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al
+  /// giorno."* Il numero sta nella matrice, riga
+  /// [PlanCatalog.rigaStesaDaDieci]: zero al Viandante e all'Iniziato, uno
+  /// all'Adepto e all'Illuminato.
+  int limiteStesaDaDieci(Tier tier) =>
+      PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStesaDaDieci, tier) ?? 0;
+
+  /// Quante stese a dieci carte restano oggi. Non va mai sotto zero e non
+  /// sale mai sopra il tetto: questo budget non si riscatta, quindi non ha
+  /// credito comprato.
+  int steseDaDieciRimaste(Tier tier) {
+    _rollover();
+    final resta = limiteStesaDaDieci(tier) - _steseDaDieci;
+    return resta < 0 ? 0 : resta;
+  }
+
+  /// **LA CROCE CELTICA DI OGGI E' GIA' STATA FATTA.** Vero solo per un piano
+  /// che la stesa a dieci la comprende e l'ha gia' usata oggi: a chi non ce
+  /// l'ha nel piano si dice da quale piano si apre, non che e' fatta. Ordine
+  /// GA voce 02: in quel caso la Croce Celtica non si apre nemmeno con gli
+  /// Eos, e l'invito dice che torna domani e propone un'altra stesa.
+  bool laCroceCelticaDiOggiEFatta(Tier tier) =>
+      limiteStesaDaDieci(tier) > 0 && steseDaDieciRimaste(tier) == 0;
+
   /// **QUANTI RISCATTI SERVONO PERCHE' QUESTA STESA SI APRA**: uno se le
   /// stese del giorno sono finite, zero se ne resta una o se non c'e'
   /// limite. Ordine GA voce 01: un riscatto ridà una stesa, qualunque sia il
   /// numero delle sue carte. Dall'ordine EX voce 02 servivano tanti riscatti
   /// da tre carte quante ne mancavano.
+  ///
+  /// **Ordine GA voce 02**: conta i riscatti del budget delle stese. Per la
+  /// Croce Celtica gia' fatta oggi nessun riscatto basta, e chi la apre lo
+  /// chiede prima a [laCroceCelticaDiOggiEFatta]: la schermata in quel caso
+  /// non offre nessun riscatto.
   int riscattiPerLaStesa(Tier tier) => puoiStendere(tier) ? 0 : 1;
 
   /// **SE QUESTA STESA SI RISCATTA COL PREZZO DELLA STESA A DIECI CARTE.**
@@ -670,8 +730,13 @@ class QuestionAllowance extends ChangeNotifier {
   /// quando la stesa e' a dieci carte, le stese del giorno sono finite e il
   /// server ha mandato quel riscatto nel listino; un server che non lo manda
   /// lascia il riscatto di sempre.
+  ///
+  /// **E SOLO SE LA CROCE CELTICA DI OGGI E' ANCORA LIBERA, ordine GA voce
+  /// 02.** Fatta quella del giorno la Croce Celtica non si riscatta a nessun
+  /// prezzo: qui si torna falso, e la schermata non offre nessun riscatto.
   bool laStesaSiRiscattaIntera(Tier tier, {required int carte}) =>
       carte >= 10 &&
+      steseDaDieciRimaste(tier) > 0 &&
       riscattiPerLaStesa(tier) > 0 &&
       _listinoDelRiscatto[kRiscattoDellaStesaIntera] != null;
 
@@ -681,13 +746,19 @@ class QuestionAllowance extends ChangeNotifier {
   /// stesa e' compiuta: una stesa cominciata e abbandonata non consuma
   /// niente. Ordine GA voce 01: vale una stesa, quante che siano le sue
   /// carte.
-  void registraStesa(Tier tier) {
+  ///
+  /// **[daDieci], ordine GA voce 02**: la Croce Celtica consuma una stesa E
+  /// la stesa a dieci del giorno. Non e' il numero delle carte (la stesa
+  /// vale sempre una stesa): e' il secondo tetto, quello della dieci.
+  void registraStesa(Tier tier, {bool daDieci = false}) {
     if (limiteStese(tier) == null) return;
     _rollover();
     _stese += 1;
+    if (daDieci) _steseDaDieci += 1;
     notifyListeners();
     _persist();
     _chiediAlServer('stese', quanti: 1);
+    if (daDieci && _serverContaLaDieci) _chiediAlServer(kSteseDaDieci);
   }
 
   /// Quante SINASTRIE CELEB al giorno prevede il piano, oppure null se sono
@@ -846,6 +917,8 @@ class QuestionAllowance extends ChangeNotifier {
       _confronti = prefs.getInt(_kConfronti) ?? 0;
       _gettate = prefs.getInt(_kGettate) ?? 0;
       _stese = prefs.getInt(_kStese) ?? 0;
+      _steseDaDieci = prefs.getInt(_kSteseDaDieci) ?? 0;
+      _serverContaLaDieci = prefs.getBool(_kServerContaLaDieci) ?? false;
       _sinastrie = prefs.getInt(_kSinastrie) ?? 0;
       _evolutive = prefs.getInt(_kEvolutive) ?? 0;
       _oracoli = prefs.getInt(_kOracoli) ?? 0;
@@ -911,7 +984,18 @@ class QuestionAllowance extends ChangeNotifier {
       _ => Tier.free,
     };
     _giornoDelServer = stato.giorno;
+    final giornoNuovo = _day != stato.giorno;
     if (_day != stato.giorno) _day = stato.giorno;
+    // **LA STESA A DIECI DEL GIORNO, ordine GA voce 02.** Se il server la
+    // conosce, vince il suo conto come per ogni altro budget; se non la
+    // conosce ancora (funzioni non pubblicate), il conto resta quello del
+    // telefono, e ricomincia solo col giorno nuovo.
+    _serverContaLaDieci = stato.budgetDelServer.contains(kSteseDaDieci);
+    if (_serverContaLaDieci) {
+      _steseDaDieci = stato.spesi[kSteseDaDieci] ?? 0;
+    } else if (giornoNuovo) {
+      _steseDaDieci = 0;
+    }
     _count = stato.spesi['domande'] ?? 0;
     // Ordine BG voce 04: quante condivisioni premiate sono gia' state
     // pagate oggi. Serve al pulsante, per non promettere un bonus che il
@@ -1204,6 +1288,8 @@ class QuestionAllowance extends ChangeNotifier {
         _gettate = tetto;
       case 'stese':
         _stese = tetto;
+      case kSteseDaDieci:
+        _steseDaDieci = tetto;
       case 'sinastrie':
         _sinastrie = tetto;
       case kSinastrieEvolutive:
@@ -1231,6 +1317,8 @@ class QuestionAllowance extends ChangeNotifier {
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, tier),
       'gettate' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, tier),
       'stese' => PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier),
+      kSteseDaDieci =>
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStesaDaDieci, tier),
       'sinastrie' =>
         PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, tier),
       kSinastrieEvolutive =>
@@ -1275,6 +1363,8 @@ class QuestionAllowance extends ChangeNotifier {
       await prefs.setInt(_kConfronti, _confronti);
       await prefs.setInt(_kGettate, _gettate);
       await prefs.setInt(_kStese, _stese);
+      await prefs.setInt(_kSteseDaDieci, _steseDaDieci);
+      await prefs.setBool(_kServerContaLaDieci, _serverContaLaDieci);
       await prefs.setInt(_kSinastrie, _sinastrie);
       await prefs.setInt(_kEvolutive, _evolutive);
       await prefs.setInt(_kOracoli, _oracoli);

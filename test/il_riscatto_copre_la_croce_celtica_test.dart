@@ -62,6 +62,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// `steseDieci` da 400 Eos, le stese da una, tre e quattro carte col
 /// riscatto da 150. Con un server che `steseDieci` non lo manda, anche la
 /// Croce Celtica passa dal riscatto da 150.
+///
+/// **ORDINE GA VOCE 02, 20 ottobre 2026, sera.** Il fondatore: *"Limitiamo
+/// la stesa tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo
+/// 1 al giorno."* Il riscatto da 400 resta, e vale solo quando le stese del
+/// giorno sono finite e la Croce Celtica del giorno e' ancora libera: tutte
+/// le prove qui sotto la trovano libera. Fatta quella del giorno la Croce
+/// Celtica non si riscatta a nessun prezzo, e lo prova
+/// `test/la_croce_celtica_una_al_giorno_test.dart`. L'Adepto ha adesso
+/// quattro stese al giorno, e queste prove le contano dal borsellino.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -83,8 +92,9 @@ void main() {
     }
   }
 
-  /// Le stese del giorno dell'Adepto tutte fatte: due, ordine GA voce 01.
-  /// Si conta dal limite del borsellino e non da un numero scritto qui.
+  /// Le stese del giorno dell'Adepto tutte fatte: due dall'ordine GA voce
+  /// 01, quattro dalla voce GA.02, nessuna a dieci carte. Si conta dal
+  /// limite del borsellino e non da un numero scritto qui.
   void finisciLeStese(QuestionAllowance borsa) {
     final quante = borsa.limiteStese(Tier.tier2)!;
     for (var i = 0; i < quante; i++) {
@@ -284,8 +294,7 @@ void main() {
     expect(borsa.riscattiPerLaStesa(Tier.tier2), 0);
   });
 
-  test('le stese da una, tre, quattro e dieci carte, a stese finite',
-      () async {
+  test('le stese da una, tre, quattro e dieci carte, a stese finite', () async {
     final borsa = QuestionAllowance(porta: _PortaDelDenaro(saldoIniziale: 0));
     await borsa.sincronizza();
     finisciLeStese(borsa);
@@ -307,7 +316,8 @@ void main() {
     });
     // ignore: avoid_print
     print('IL RISCATTO DELLA STESA, stese finite: ${[
-      for (final c in intere.keys) '$c carte ${intere[c]! ? intero : unitario} Eos'
+      for (final c in intere.keys)
+        '$c carte ${intere[c]! ? intero : unitario} Eos'
     ].join(', ')}');
     expect(unitario, 150);
     expect(intero, 400);
@@ -317,8 +327,12 @@ void main() {
     expect(piena.riscattiPerLaStesa(Tier.tier2), 0);
     expect(piena.laStesaSiRiscattaIntera(Tier.tier2, carte: 10), isFalse);
     // Resta una stesa: la Croce Celtica la usa, e non si paga niente. Con le
-    // carte dell'ordine EX qui mancavano otto carte e si pagava.
-    piena.registraStesa(Tier.tier2);
+    // carte dell'ordine EX qui mancavano otto carte e si pagava. Ordine GA
+    // voce 02: le stese dell'Adepto sono quattro, e si fanno tutte tranne
+    // l'ultima, contandole dal borsellino.
+    while (piena.steseRimaste(Tier.tier2)! > 1) {
+      piena.registraStesa(Tier.tier2);
+    }
     expect(piena.steseRimaste(Tier.tier2), 1);
     expect(piena.riscattiPerLaStesa(Tier.tier2), 0,
         reason: 'con una stesa rimasta la Croce Celtica chiede un riscatto');

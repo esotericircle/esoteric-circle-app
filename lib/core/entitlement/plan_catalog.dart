@@ -138,7 +138,9 @@ enum RigaDelPiano {
   /// era la carta. La carta singola e' una stesa da una carta, e conta qui.
   stese,
 
-  /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02.
+  /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02. Dalla
+  /// sera del 20 ottobre 2026 (ordine GA voce 02) una al giorno: la cella
+  /// porta il numero, e il server ha il budget `steseDaDieci`.
   stesaDaDieci,
 
   /// **LA MATRICE DEI TAROCCHI, ordine FI voce 32**, 10 ottobre 2026: le
@@ -349,10 +351,10 @@ class PlanCatalog {
       ),
       nellAnnuale: {
         '12 domande al giorno ai Maestri': '11 domande al giorno ai Maestri',
-        // Ordine GA voce 02: sull'annuale dell'Iniziato entra una stesa sola
-        // sotto il 30 per cento (tool/i_limiti_degli_annuali.py).
-        '3 stese di tarocchi al giorno, anche la croce a quattro carte':
-            'Una stesa di tarocchi al giorno, anche la croce a quattro carte',
+        // LAPIDE, ordine GA voce 02: qui l'annuale dell'Iniziato diceva una
+        // stesa sola. Dalla sera del 20 ottobre 2026 una stesa costa il solo
+        // responso principale (le carte dal corpus), e l'annuale ne regge tre
+        // come il mensile (tool/i_limiti_degli_annuali.py).
       },
       highlights: [
         'Tutto di Viandante, senza pubblicità',
@@ -393,13 +395,21 @@ class PlanCatalog {
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese':
             'Voce AI dei tre Maestri nel LIVE, 55 minuti al mese',
         '17 domande al giorno ai Maestri': '14 domande al giorno ai Maestri',
+        // Ordine GA voce 02, 20 ottobre 2026, sera: sull'annuale
+        // dell'Adepto entrano tre stese sotto il 30 per cento
+        // (tool/i_limiti_degli_annuali.py, STESE_ANNUALE).
+        '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte':
+            '3 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
       },
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
         '17 domande al giorno ai Maestri',
-        '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
-        'La stesa a dieci carte, appena arriva nel Cerchio',
+        '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
+        // Ordine GA voce 02: la stesa a dieci carte e' una al giorno (il
+        // fondatore, la sera del 20 ottobre 2026, "solo 1 al giorno"). Diceva
+        // "appena arriva nel Cerchio".
+        'La stesa a dieci carte, 1 al giorno',
         'Sinastria VIP fino a 5 al giorno',
         'Sinastria evolutiva: 5 coppie nuove al giorno, col Tema Composito, il ritratto della coppia e il momento giusto',
         'Oracolo degli Angeli: 5 consultazioni al giorno e la risposta lunga',
@@ -436,7 +446,8 @@ class PlanCatalog {
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
         '21 domande ai Maestri al giorno',
-        '3 stese di tarocchi al giorno, anche la stesa a dieci carte',
+        // Ordine GA voce 02: cinque stese, e la stesa a dieci una al giorno.
+        '5 stese di tarocchi al giorno, anche la stesa a dieci carte, 1 al giorno',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
         'Sinastria evolutiva: 15 coppie nuove al giorno',
@@ -568,12 +579,13 @@ class PlanCatalog {
 
   /// **SE QUEL PIANO APRE LA STESA DA DIECI CARTE.** Ordine EX voce 02: solo
   /// dall'Adepto, *"la stesa a 10 solo dal tier 2 19,99"*.
-  static bool haLaStesaDaDieci(Tier tier) {
-    final riga = matrix.where((r) => r.chiave == RigaDelPiano.stesaDaDieci);
-    if (riga.isEmpty) return false;
-    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
-    return riga.first.values[ordine.indexOf(tier)] == 'Sì';
-  }
+  ///
+  /// **SI LEGGE IL NUMERO, ordine GA voce 02.** Dalla sera del 20 ottobre
+  /// 2026 la cella dice quante al giorno ("1 al giorno"), non "Sì": il piano
+  /// la apre se il suo tetto e' sopra zero. Leggere ancora "Sì" l'avrebbe
+  /// chiusa a tutti.
+  static bool haLaStesaDaDieci(Tier tier) =>
+      (limiteGiornaliero(RigaDelPiano.stesaDaDieci, tier) ?? 0) > 0;
 
   /// I minuti di LIVE al mese di quel piano. Ordine EX voce 02. La cella dice
   /// "al mese": [limiteGiornaliero] non va chiesto per questa riga.
@@ -742,6 +754,10 @@ class PlanCatalog {
   /// singola, dove il Viandante ha il suo gesto gratis del giorno.
   static const RigaDelPiano rigaStese = RigaDelPiano.stese;
 
+  /// Quante stese a dieci carte al giorno: la riga `Stesa da 10 carte`, il
+  /// budget `steseDaDieci` del server. Ordine GA voce 02.
+  static const RigaDelPiano rigaStesaDaDieci = RigaDelPiano.stesaDaDieci;
+
   /// Quante gettate di rune al giorno. IL NUMERO VIVE QUI, ordine I voce 3:
   /// UNA per il Viandante (cosi' dice la matrice qui sotto, che e' sovrana),
   /// illimitate dall'Iniziato in su. Il commento diceva "tre" mentre la
@@ -889,10 +905,28 @@ class PlanCatalog {
     // 3, con la scelta del fondatore del 20 ottobre: nella croce a quattro e
     // nella stesa a dieci le singole carte vengono dal corpus e il modello
     // scrive il solo responso principale.
+    // **UNO, TRE, QUATTRO E CINQUE, ordine GA voce 02, 20 ottobre 2026,
+    // sera.** La scelta del fondatore "Carte dal corpus" vale per OGNI
+    // stesa (una, tre, quattro, dieci carte): il modello scrive solo il
+    // responso principale, e una stesa costa circa 0,0020 dollari anche
+    // nella Croce Celtica in Lunga (la lettura misurata in
+    // docs/costi/costo_per_funzione_misure.txt). Nel 30 per cento del netto
+    // dopo IVA e store entrano tre stese all'Iniziato, quattro all'Adepto e
+    // cinque all'Illuminato, nel mensile come nell'annuale dell'Iniziato e
+    // dell'Illuminato; l'annuale dell'Adepto ne regge tre
+    // (`tool/i_limiti_degli_annuali.py`, `Plan.nellAnnuale`). Il server ha gli
+    // stessi numeri in `functions/src/budget.ts`.
     FeatureRow('Stese di tarocchi',
-        ['1 al giorno', '3 al giorno', '2 al giorno', '3 al giorno'],
+        ['1 al giorno', '3 al giorno', '4 al giorno', '5 al giorno'],
         chiave: RigaDelPiano.stese),
-    FeatureRow('Stesa da 10 carte', ['No', 'No', 'Sì', 'Sì'],
+    // **LA STESA A DIECI CARTE, UNA AL GIORNO, ordine GA voce 02.** Il
+    // fondatore, la sera del 20 ottobre 2026: *"Limitiamo la stesa tarocchi
+    // a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al giorno."*
+    // La cella diceva "Sì": adesso dice il numero, e il numero e' il tetto
+    // del budget `steseDaDieci` del server. La Croce Celtica e' una delle
+    // stese del giorno (consuma anche una stesa della riga sopra) e non si
+    // ricompra con gli Eos.
+    FeatureRow('Stesa da 10 carte', ['No', 'No', '1 al giorno', '1 al giorno'],
         chiave: RigaDelPiano.stesaDaDieci),
     // **LA MATRICE DEI TAROCCHI, ordine FI voce 32**, 10 ottobre 2026: la
     // tabella dell'Architetto approvata dal fondatore, "tabella ok", e per il

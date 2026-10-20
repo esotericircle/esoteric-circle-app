@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/entitlement/question_allowance.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/tarot/la_chiave_di_lettura.dart';
 import '../../core/tarot/i_mazzi_dei_tarocchi.dart';
@@ -213,7 +215,27 @@ class TarotSetupPanel extends StatelessWidget {
     );
   }
 
+  /// Cosa dice il lucchetto della Croce Celtica gia' fatta oggi. Ordine GA
+  /// voce 02.
+  static const String fattaOggi = 'Fatta oggi';
+
+  /// **SE LA CROCE CELTICA DI OGGI E' GIA' STATA FATTA**, letto dal
+  /// borsellino che sta sopra la rotta (ordine GA voce 02). Dove il
+  /// borsellino non c'e' (anteprime, prove che montano il pannello da solo)
+  /// non si sbarra niente: e' la stessa tolleranza della schermata della
+  /// stesa, e il cancello vero resta al pulsante.
+  static bool laCroceCelticaDiOggiEFatta(BuildContext context, Tier piano) {
+    try {
+      return context
+          .watch<QuestionAllowance>()
+          .laCroceCelticaDiOggiEFatta(piano);
+    } catch (errore) {
+      return false;
+    }
+  }
+
   Widget _pannello(BuildContext context) {
+    final croceFatta = laCroceCelticaDiOggiEFatta(context, piano);
     return Container(
       key: const Key('stesa_setup'),
       padding: const EdgeInsets.all(SpacingTokens.md),
@@ -308,11 +330,23 @@ class TarotSetupPanel extends StatelessWidget {
                       palette: palette,
                       etichetta: (t) => t.breve,
                       sottotitolo: (t) => t.descrizione,
-                      bloccata: (t) => !t.apribileDa(piano),
-                      perche: (t) => t.disponibile
-                          ? PlanCatalog.dalPiano((p) => t.apribileDa(p)) ??
-                              'Coming soon'
-                          : 'Coming soon',
+                      // **LA CROCE CELTICA FATTA OGGI, ordine GA voce 02.**
+                      // Il fondatore, la sera del 20 ottobre 2026: "solo 1
+                      // al giorno". Fatta quella del giorno, la voce resta
+                      // nell'elenco col lucchetto e dice "Fatta oggi": si
+                      // sa prima di posare dieci carte, e il tocco spiega
+                      // che torna domani (`onLocked`).
+                      bloccata: (t) =>
+                          !t.apribileDa(piano) ||
+                          (t == TarotSpreadType.dieciCarte && croceFatta),
+                      perche: (t) => t == TarotSpreadType.dieciCarte &&
+                              t.apribileDa(piano) &&
+                              croceFatta
+                          ? fattaOggi
+                          : t.disponibile
+                              ? PlanCatalog.dalPiano((p) => t.apribileDa(p)) ??
+                                  'Coming soon'
+                              : 'Coming soon',
                       onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
                       onLocked: (t) => onLocked(t.nome),
                     ),

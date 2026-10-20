@@ -32,10 +32,21 @@ class StatoDelCerchio {
     this.correzioniDeiVip = const {},
     this.attualitaDeiVip = const {},
     this.premioDellInvitoAccolto,
+    this.budgetDelServer = const {},
   });
 
   final String giorno;
   final String piano;
+
+  /// **I BUDGET CHE IL SERVER CONOSCE, ordine GA voce 02.** Sono le chiavi
+  /// di `resta`, che lo stato del server porta per ogni budget del suo
+  /// elenco (`residuiDi` in `functions/src/cerchio.ts`). Servono a non
+  /// mandare un consumo che le funzioni pubblicate non conoscono: la coda
+  /// dei gesti si ferma al primo che il server rifiuta, e dietro resterebbero
+  /// le domande e le stese. La stesa a dieci carte (`steseDaDieci`) non ha
+  /// un prezzo di riscatto, quindi il listino non puo' dirlo come per gli
+  /// oracoli. Vuoto con un server che non lo dichiara.
+  final Set<String> budgetDelServer;
 
   /// Quanto e' stato speso oggi, budget per budget, come lo conta il server.
   final Map<String, int> spesi;
@@ -174,6 +185,10 @@ class StatoDelCerchio {
       cerchioNuovo: risposta['cerchioNuovo'] is bool
           ? risposta['cerchioNuovo'] as bool
           : null,
+      budgetDelServer: {
+        if (risposta['resta'] is Map)
+          for (final chiave in (risposta['resta'] as Map).keys) '$chiave',
+      },
       accreditati: accreditati,
       invitiAccolti: risposta['invitiAccolti'] is num
           ? (risposta['invitiAccolti'] as num).toInt()

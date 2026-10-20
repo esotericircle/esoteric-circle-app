@@ -35,6 +35,12 @@ void main() {
     // un budget loro, `oracoliAngeli`, e la riga che lo promette e'
     // `Oracolo degli Angeli: consultazioni`.
     'oracoliAngeli': PlanCatalog.rigaOracoli,
+    // ORDINE GA VOCE 02, 20 ottobre 2026, sera: la stesa a dieci carte, una
+    // al giorno all'Adepto e all'Illuminato ("sarà disponibile solo per Tier
+    // 2 e 3 e solo 1 al giorno", il fondatore). Il budget del server e'
+    // `steseDaDieci`, la riga che lo promette e' `Stesa da 10 carte`: la
+    // cella "No" vale zero, "1 al giorno" vale uno.
+    'steseDaDieci': PlanCatalog.rigaStesaDaDieci,
   };
   const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
 

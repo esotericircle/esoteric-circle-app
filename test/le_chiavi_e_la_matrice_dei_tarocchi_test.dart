@@ -79,7 +79,9 @@ void main() {
       RigaDelPiano.stesaACroce: [false, true, true, true],
       // LAPIDE: il ferro di cavallo dall'Adepto, tolto dall'ordine FJ,
       // aggiunta 2.
-      RigaDelPiano.stesaDaDieci: [false, false, true, true],
+      // LAPIDE, ordine GA voce 02: qui c'era la stesa da dieci, una riga
+      // si'/no. Dalla sera del 20 ottobre 2026 la sua cella dice il numero,
+      // una al giorno, e si prova piu' sotto col numero.
       RigaDelPiano.chiaveRiflessione: [false, true, true, true],
       RigaDelPiano.chiaviEsotericaEArchetipica: [false, false, true, true],
       RigaDelPiano.mazzoDiMarsiglia: [false, true, true, true],
@@ -96,14 +98,25 @@ void main() {
     // Le carte al giorno non si toccano: 3, 6, 10, 15.
     // Ordine GA voce 01: la riga torna a contare le stese, 1, 3, 2 e 3; la
     // stesa da dieci resta dell'Adepto in su.
+    // Ordine GA voce 02, 20 ottobre 2026 sera: 1, 3, 4 e 5 stese, e la
+    // stesa da dieci una al giorno all'Adepto e all'Illuminato.
     expect([
       for (final t in _piani)
         PlanCatalog.limiteGiornaliero(RigaDelPiano.stese, t)
     ], [
       1,
       3,
-      2,
-      3
+      4,
+      5
+    ]);
+    expect([
+      for (final t in _piani)
+        PlanCatalog.limiteGiornaliero(RigaDelPiano.stesaDaDieci, t)
+    ], [
+      0,
+      0,
+      1,
+      1
     ]);
     expect([for (final t in _piani) PlanCatalog.haLaStesaDaDieci(t)],
         [false, false, true, true]);

@@ -52,6 +52,59 @@ void main() {
     expect(diversi, isEmpty, reason: diversi.join(' | '));
   });
 
+  // **LE STESE DEL CONTO SONO QUELLE DELLA MATRICE E DELLE CARD. Ordine GA
+  // voce 02, 20 ottobre 2026, sera.** Il fondatore: *"Limitiamo la stesa
+  // tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al
+  // giorno."* Con le carte dal corpus una stesa costa il solo responso
+  // principale, e il conto fa entrare 3, 4 e 5 stese nel mensile, 3, 3 e 5
+  // nell'annuale. Prima di questa prova il conto e la matrice potevano dire
+  // numeri diversi delle stese senza che niente cadesse: la prova qui sopra
+  // guardava solo domande e minuti.
+  test('GA.02: le stese del conto sono quelle della matrice e delle card', () {
+    final stese = lista('STESE');
+    final annuale = lista('STESE_ANNUALE');
+    final dieci = lista('STESE_DA_DIECI');
+    const piani = [Tier.tier1, Tier.tier2, Tier.tier3];
+    final diversi = <String>[];
+    for (final (i, tier) in piani.indexed) {
+      final piano = PlanCatalog.plans.firstWhere((p) => p.tier == tier);
+      final matrice =
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier);
+      if (matrice != stese[i]) {
+        diversi.add('${piano.name}: la matrice dice $matrice stese, il conto '
+            '${stese[i]}');
+      }
+      final aDieci =
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStesaDaDieci, tier);
+      if (aDieci != dieci[i]) {
+        diversi.add('${piano.name}: la matrice dice $aDieci stese a dieci, il '
+            'conto ${dieci[i]}');
+      }
+      // La stesa a dieci sta DENTRO le stese del giorno: mai piu' di loro.
+      if (dieci[i] > annuale[i] || dieci[i] > stese[i]) {
+        diversi.add('${piano.name}: piu\' stese a dieci che stese');
+      }
+      final mensile = piano.highlightsPer(PriceCycle.monthly).join(' | ');
+      if (!mensile.contains('${stese[i]} stese di tarocchi al giorno')) {
+        diversi.add('${piano.name}: il mensile non dice ${stese[i]} stese');
+      }
+      final perAnno = piano.highlightsPer(PriceCycle.yearly).join(' | ');
+      if (!perAnno.contains('${annuale[i]} stese di tarocchi al giorno')) {
+        diversi.add('${piano.name}: l\'annuale non dice ${annuale[i]} stese');
+      }
+    }
+    // ignore: avoid_print
+    print('GA.02 MISURA: piani confrontati sulle stese ${piani.length}, '
+        'diversi ${diversi.length}');
+    expect(diversi, isEmpty, reason: diversi.join(' | '));
+    final uscita =
+        File('docs/costi/i_limiti_degli_annuali.txt').readAsStringSync();
+    for (final n in annuale) {
+      expect(uscita, contains('$n stese di tarocchi al giorno'),
+          reason: 'l\'uscita del conto non e\' quella delle stese di oggi');
+    }
+  });
+
   test('FE.20: il conto ha trovato ogni ciclo sotto il tetto', () {
     final uscita =
         File('docs/costi/i_limiti_degli_annuali.txt').readAsStringSync();

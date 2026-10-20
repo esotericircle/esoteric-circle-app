@@ -60,8 +60,19 @@ void main() {
     }
     // Ordine GA voce 01: nessuna riga conta piu' le carte, che non sono un
     // budget del piano.
-    expect(righe.where((r) => r.toLowerCase().contains('cart')), isEmpty,
+    // **Ordine GA voce 02, 20 ottobre 2026 sera**: la stesa a dieci carte e'
+    // un budget suo, una al giorno all'Adepto e all'Illuminato, e la sua riga
+    // nomina le carte nel NOME della stesa ("stese a dieci carte"), non come
+    // unita' del conto. Si toglie quel nome prima di cercare le carte.
+    expect(
+        righe.where((r) =>
+            r.toLowerCase().replaceAll('a dieci carte', '').contains('cart')),
+        isEmpty,
         reason: 'il borsellino conta ancora le carte delle stese');
+    expect(righe.where((r) => r.toLowerCase().contains('a dieci carte')),
+        hasLength(1),
+        reason: 'il borsellino non dice la stesa a dieci carte, o la dice '
+            'due volte');
   });
 
   test('BB.02: la lingua e quella che il fondatore ha chiesto', () {

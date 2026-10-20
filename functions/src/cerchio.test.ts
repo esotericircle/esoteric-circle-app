@@ -278,11 +278,57 @@ test("la Croce Celtica si riscatta col suo prezzo: 400 Eos, una stesa, un riscat
   // 10)`. Adesso a contatore pieno (le due stese dell'Adepto fatte) il
   // riscatto porta lo speso da 2 a 1, e una stesa, anche la Croce Celtica,
   // si apre; la seconda no, perche' il riscatto ne ha ridata una sola.
-  assert.equal(decidi("stese", "tier2", 2).concesso, false);
-  const dopoIlRiscatto = 2 - RISCATTI_DELLA_STESA_INTERA.steseDieci.unita;
+  //
+  // Ordine GA voce 02, 20 ottobre 2026, sera: l'Adepto ha quattro stese, e
+  // il conto e' lo stesso a contatore pieno.
+  assert.equal(decidi("stese", "tier2", 4).concesso, false);
+  const dopoIlRiscatto = 4 - RISCATTI_DELLA_STESA_INTERA.steseDieci.unita;
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto).concesso, true);
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto).resta, 0);
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto + 1).concesso, false);
+});
+
+// --- ORDINE GA VOCE 02: la stesa a dieci carte, una al giorno ---
+
+test("la Croce Celtica e' una al giorno all'Adepto e all'Illuminato, e non si ricompra", () => {
+  // Il fondatore, 20 ottobre 2026, sera: "Limitiamo la stesa tarocchi a 10
+  // carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al giorno".
+  assert.deepEqual(
+    ["free", "tier1", "tier2", "tier3"].map((p) =>
+      limiteDi("steseDaDieci", p as never)),
+    [0, 0, 1, 1]
+  );
+  // La prima del giorno passa, la seconda no.
+  assert.equal(decidi("steseDaDieci", "tier2", 0).concesso, true);
+  assert.equal(decidi("steseDaDieci", "tier2", 0).resta, 0);
+  assert.equal(decidi("steseDaDieci", "tier2", 1).concesso, false);
+  assert.equal(decidi("steseDaDieci", "tier3", 1).concesso, false);
+  // Il Viandante e l'Iniziato non la aprono mai.
+  assert.equal(decidi("steseDaDieci", "free", 0).concesso, false);
+  assert.equal(decidi("steseDaDieci", "tier1", 0).concesso, false);
+  // **NEMMENO CON UNO SPESO SOTTO ZERO.** Il credito comprato apre un
+  // budget a zero (ordine BN voce 09), ma questo budget non si compra: uno
+  // speso negativo vale zero, e non apre ne' una seconda Croce Celtica ne'
+  // una prima a chi non ce l'ha nel piano.
+  assert.equal(decidi("steseDaDieci", "tier2", -1).concesso, true);
+  assert.equal(decidi("steseDaDieci", "tier2", -1).resta, 0);
+  assert.equal(decidi("steseDaDieci", "tier1", -1).concesso, false);
+  assert.equal(decidi("steseDaDieci", "free", -5).concesso, false);
+  // **IL MOTIVO DEL RISCATTO NON ESISTE.** Nessun prezzo nel listino, e
+  // `riscatto_steseDaDieci` non scala nessun contatore.
+  assert.equal(riscattoDelMotivo("riscatto_steseDaDieci"), null);
+  assert.equal(budgetDelRiscatto("riscatto_steseDaDieci"), null);
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(PREZZI_DEL_RISCATTO, "steseDaDieci"),
+    false
+  );
+  assert.equal(LISTINO_DEL_RISCATTO.steseDaDieci, undefined);
+  // E il riscatto da 400 resta del budget delle stese, non di questo: il
+  // nome nuovo non collide col motivo `riscatto_steseDieci`.
+  assert.equal(riscattoDelMotivo("riscatto_steseDieci")?.budget, "stese");
+  // Il client che chiede di spendere col motivo inventato non compra niente:
+  // e' una spesa qualunque, che non tocca il contatore.
+  assert.equal(importoRichiesto("spesa", "riscatto_steseDaDieci", undefined), null);
 });
 
 // --- ORDINE BN VOCE 09: il budget delle stese complete ---
@@ -300,10 +346,13 @@ test("le stese hanno il budget del listino, e non quello della carta singola", (
   // **LE CARTE, NON LE STESE, ordine EX voce 02**: 3, 6, 10 e 15 carte.
   // **LE STESE, NON LE CARTE, ordine GA voce 01**: 1, 3, 2 e 3 stese, i
   // numeri che entrano nel 30 per cento (voce GA.02).
+  // **Ordine GA voce 02, 20 ottobre 2026, sera**: con le carte dal corpus
+  // una stesa costa il solo responso principale, e nel 30 per cento entrano
+  // 1, 3, 4 e 5 stese (tool/i_limiti_degli_annuali.py).
   assert.equal(limiteDi("stese", "free"), 1);
   assert.equal(limiteDi("stese", "tier1"), 3);
-  assert.equal(limiteDi("stese", "tier2"), 2);
-  assert.equal(limiteDi("stese", "tier3"), 3);
+  assert.equal(limiteDi("stese", "tier2"), 4);
+  assert.equal(limiteDi("stese", "tier3"), 5);
   // E non e' il budget delle gettate: due contatori, due promesse.
   assert.notDeepEqual(
     ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("stese", p as never)),

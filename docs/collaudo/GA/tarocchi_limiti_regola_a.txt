@@ -1,0 +1,74 @@
+ORDINE GA VOCI 01 E 02, I TAROCCHI: LE STESE DEL GIORNO E LA STESA A DIECI UNA AL GIORNO.
+REGOLA B (la zona vista rossa prima di toccarla) e REGOLA A (ogni prova nuova vista rossa).
+20 ottobre 2026. Gli innesti sono stati verificati col grep PRIMA di leggere l'esito, e tolti dopo
+(verificato col grep e con git diff vuoto sui file innestati).
+
+======================================================================
+REGOLA B, 20 ottobre 2026 alle 18:34, prima di toccare la zona
+======================================================================
+Sei innesti, uno per zona, verificati col grep:
+  B1 functions/src/budget.ts:137        stese: [1, 3, 2, 4],            (il server dice 4 all'Illuminato)
+  B2 lib/core/entitlement/question_allowance.dart:655   return resta == null || resta >= 0;   (il cancello apre a zero)
+  B3 tool/i_limiti_degli_annuali.py:68  DOMANDE_ANNUALE = [11, 14, 19]  (il conto non e' quello del listino)
+  B4 lib/core/entitlement/plan_catalog.dart:439   '4 stese di tarocchi al giorno, anche la stesa a dieci carte'  (la card dice un numero non della matrice)
+  B5 functions/src/borsellino.ts:155    stese: 151,                      (il prezzo della stesa cambia)
+  B6 lib/core/entitlement/budget_del_giorno.dart:50   stese(uno: 'carta', molti: 'carte', ...)  (il residuo conta carte)
+
+Esito flutter (sei guardie insieme): 00:26 +26 -21: Some tests failed.
+  i_limiti_del_server_sono_quelli_promessi_test.dart   1 rossa  (B1: "la tabella del server dice quello che promette la matrice")
+  il_gating_della_stesa_test.dart                      7 rosse  (B2 sul cancello e sul consumo, B1 su "il server conosce il budget delle stese", B6 su "il conto e' quello del listino")
+  il_riscatto_copre_la_croce_celtica_test.dart         9 rosse  (B2: il cancello aperto a stese finite)
+  i_limiti_degli_annuali_test.dart                     2 rosse  (B3)
+  entitlement_test.dart                                1 rossa  (B4: "Gli highlights portano i limiti reali")
+  il_borsellino_dice_tutti_i_limiti_test.dart          1 rossa  (B6: "i limiti enumerati ... vengono dal codice")
+Esito node (functions, npx tsc -p . && node --test lib/cerchio.test.js): tests 24, pass 21, fail 3
+  (B5: "il listino del riscatto e' il server a deciderlo" e "la Croce Celtica si riscatta col suo prezzo";
+   B1: "le stese hanno il budget del listino").
+Innesti tolti alle 18:36, git diff vuoto sui sei file.
+
+======================================================================
+REGOLA A, le prove nuove e le asserzioni nuove
+======================================================================
+A1, 20 ottobre 2026 alle 18:38. functions/src/cerchio.test.ts, prova nuova
+  "la Croce Celtica e' una al giorno all'Adepto e all'Illuminato, e non si ricompra".
+  Innesto: functions/src/budget.ts:68  BUDGET_SENZA_RISCATTO: readonly Budget[] = [];
+  Esito: tests 25, pass 24, fail 1 (la prova nuova: "1 !== 0", lo speso negativo riapre la dieci).
+
+A2, 20 ottobre 2026 alle 18:39. Stessa prova.
+  Innesto: functions/src/borsellino.ts:290  return (budget === "steseDaDieci" || ...  (riscatto_steseDaDieci diventa un riscatto)
+  Esito: tests 25, pass 24, fail 1 (la prova nuova: riscattoDelMotivo("riscatto_steseDaDieci") torna {budget: 'steseDaDieci', ...}).
+  Innesti tolti: grep a zero; node --test lib/cerchio.test.js lib/sinastria_evolutiva.test.js: tests 51, pass 51, fail 0.
+
+A3, 20 ottobre 2026 alle 18:55. Cinque innesti insieme, verificati col grep:
+  G1 lib/core/entitlement/question_allowance.dart:757  if (daDieci) _steseDaDieci += 0;   (la Croce Celtica non consuma quella del giorno)
+  G2 tool/i_limiti_degli_annuali.py:127   STESE = [3, 4, 6]
+  G3 functions/src/budget.ts:236          steseDaDieci: [0, 0, 1, 2],
+  G4 lib/core/entitlement/plan_catalog.dart:421   'La stesa a dieci carte, appena arriva nel Cerchio',
+  G5 lib/core/entitlement/budget_del_giorno.dart:61   uno: 'stesa grande', molti: 'stese grandi'
+  Esito: 00:14 +21 -14: Some tests failed.
+  test/la_croce_celtica_una_al_giorno_test.dart (prova nuova)   9 rosse su 11 di allora:
+     i numeri server e matrice (G3, "Expected [0, 0, 1, 1] Actual [0, 0, 1, 2]"),
+     tier2 e tier3 la seconda Croce Celtica (G1), il conto del server (G1),
+     l'invito dell'Adepto e dell'Illuminato (G1: il residuo dice "Oggi hai 1", il riscatto da 400 offerto),
+     la tre carte con la Croce Celtica fatta (G1), la Croce Celtica libera (G1), il selettore "Fatta oggi" (G1).
+     Restavano verdi le due prove che G1..G5 non toccano (il prezzo di riscatto assente, il riscatto da 400 con la dieci libera).
+  test/i_limiti_degli_annuali_test.dart, prova nuova "GA.02: le stese del conto sono quelle della matrice e delle card": rossa (G2).
+  test/i_limiti_del_server_sono_quelli_promessi_test.dart, la coppia nuova steseDaDieci: rossa (G3, "matrice promette 1, server impone 2").
+  test/entitlement_test.dart, le asserzioni nuove della card dell'Adepto: rossa (G4).
+  test/il_borsellino_dice_tutti_i_limiti_test.dart, l'asserzione nuova "a dieci carte una volta": rossa (G5).
+  (entitlement_test "La mappa comparativa" rossa NON per un innesto: 66 attese, 67 trovate, la riga
+   'Gettata di rune: risposta lunga' scritta in parallelo dall'agente delle Rune, ordine GA voce GA.05.)
+
+A4, 20 ottobre 2026 alle 19:01. La parte del selettore della prova nuova, riscritta dopo A3
+  (il tocco sulla voce passa dalla callable onSelected della tendina vera).
+  Innesto: lib/features/tarot/tarot_selectors.dart:341  (t == TarotSpreadType.dieciCarte && croceFatta && false),
+  Esito: 00:04 +0 -1 (il selettore: "Found 0 widgets with text Fatta oggi").
+  Innesto tolto: grep a zero.
+
+======================================================================
+VERDE DOPO GLI INNESTI, 20 ottobre 2026 alle 19:05
+======================================================================
+flutter test di 16 file della zona: 00:55 +110 -1.
+  L'unica rossa: entitlement_test.dart "La mappa comparativa ha le righe attese con quattro valori",
+  66 contro 67: la riga delle Rune dell'ordine GA voce GA.05 (agente delle Rune, in parallelo), non di questa voce.
+node --test lib/cerchio.test.js lib/sinastria_evolutiva.test.js: tests 51, pass 51, fail 0.

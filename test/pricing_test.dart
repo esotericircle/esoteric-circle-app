@@ -70,18 +70,23 @@ void main() {
     // Ordine EX voce 02: le carte del giorno si dicono nelle card dei piani.
     // Ordine GA voce 01: si dicono le stese, e nell'annuale dell'Iniziato
     // la stesa e' una sola (voce GA.02, il conto del 30 per cento).
+    // **Ordine GA voce 02, 20 ottobre 2026, sera**: col solo responso
+    // principale la card annuale dice tre stese all'Iniziato (come il
+    // mensile), tre all'Adepto (quattro nel mensile) e cinque all'Illuminato,
+    // e la stesa a dieci una al giorno ("solo 1 al giorno", il fondatore).
     expect(
         find.text(
-            '2 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
+            '3 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
         findsOneWidget);
+    expect(find.text('La stesa a dieci carte, 1 al giorno'), findsOneWidget);
     expect(find.text('Una stesa di tarocchi al giorno'), findsOneWidget);
     expect(
         find.text(
-            'Una stesa di tarocchi al giorno, anche la croce a quattro carte'),
+            '3 stese di tarocchi al giorno, anche la croce a quattro carte'),
         findsOneWidget);
     expect(
-        find.text(
-            '3 stese di tarocchi al giorno, anche la stesa a dieci carte'),
+        find.text('5 stese di tarocchi al giorno, anche la stesa a dieci '
+            'carte, 1 al giorno'),
         findsOneWidget);
     expect(find.textContaining('carte di tarocchi al giorno'), findsNothing,
         reason: 'una card dei piani promette ancora carte al giorno');

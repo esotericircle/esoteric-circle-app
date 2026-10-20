@@ -38,6 +38,15 @@ import 'package:esoteric_circle/core/entitlement/budget_del_giorno.dart';
 /// Quello che NON cambia e' la macchina: budget proprio, consumo una volta
 /// sola a stesa compiuta, conto dichiarato prima, due strade a riserva finita,
 /// riscatto che conosce il budget nuovo.
+///
+/// **ORDINE GA VOCE 02, 20 ottobre 2026, sera.** Il fondatore: *"Limitiamo
+/// la stesa tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo
+/// 1 al giorno."* Con la scelta "Carte dal corpus" (in ogni stesa il modello
+/// scrive il solo responso principale) una stesa costa circa 0,0020 dollari,
+/// e nel 30 per cento del netto entrano 1, 3, 4 e 5 stese al giorno
+/// (`tool/i_limiti_degli_annuali.py`). I numeri di questa prova seguono; la
+/// stesa a dieci, una al giorno, ha la sua prova,
+/// `test/la_croce_celtica_una_al_giorno_test.dart`.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -86,10 +95,11 @@ void main() {
     ];
     // Ordine GA voce 01: le stese, 1, 3, 2 e 3 (dall'ordine EX voce 02 erano
     // le carte estratte, 3, 6, 10 e 15; prima ancora le stese 1, 4, 7 e 20).
-    expect(complete, [1, 3, 2, 3],
+    // Ordine GA voce 02: 1, 3, 4 e 5, col solo responso principale.
+    expect(complete, [1, 3, 4, 5],
         reason: 'la riga delle stese non promette piu\' quello che il conto '
-            'del 30 per cento regge: una, tre, due e tre stese, e niente di '
-            'illimitato');
+            'del 30 per cento regge: una, tre, quattro e cinque stese, e '
+            'niente di illimitato');
     // Ordine EX voce 02: la carta singola non ha piu' un numero suo.
     expect(PlanCatalog.rigaCartaSingola, PlanCatalog.rigaStese,
         reason: 'la carta singola ha di nuovo una riga a se\': sarebbe un '
@@ -121,14 +131,18 @@ void main() {
   // sull'ultima e non prima, e che a zero non si apre piu' niente.
   test('il consumo e\' a stese, e il conto cala solo quando cala', () async {
     final borsa = QuestionAllowance();
-    // L'Adepto ha due stese al giorno, ordine GA voce 01 (dieci carte
-    // dall'ordine EX voce 02, sette stese dall'ordine BV voce 03).
-    expect(borsa.steseRimaste(Tier.tier2), 2);
+    // L'Adepto ha quattro stese al giorno, ordine GA voce 02 (due dalla voce
+    // GA.01, dieci carte dall'ordine EX voce 02, sette stese dall'ordine BV
+    // voce 03).
+    expect(borsa.steseRimaste(Tier.tier2), 4);
     expect(borsa.puoiStendere(Tier.tier2), isTrue);
     // Una stesa consuma una stesa, non le sue carte.
     borsa.registraStesa(Tier.tier2);
-    expect(borsa.steseRimaste(Tier.tier2), 1,
+    expect(borsa.steseRimaste(Tier.tier2), 3,
         reason: 'una stesa ha tolto piu\' o meno di una stesa');
+    borsa.registraStesa(Tier.tier2);
+    borsa.registraStesa(Tier.tier2);
+    expect(borsa.steseRimaste(Tier.tier2), 1);
     expect(borsa.puoiStendere(Tier.tier2), isTrue,
         reason: 'con una stesa rimasta il cancello e\' gia\' chiuso');
     borsa.registraStesa(Tier.tier2);
@@ -144,24 +158,25 @@ void main() {
   });
 
   // Ordine EX voce 02: quindici carte all'Illuminato, erano venti stese.
-  // Ordine GA voce 01: tre stese all'Illuminato.
-  test('l\'Illuminato ha tre stese, e niente e\' piu\' illimitato', () {
+  // Ordine GA voce 01: tre stese all'Illuminato. Ordine GA voce 02: cinque.
+  test('l\'Illuminato ha cinque stese, e niente e\' piu\' illimitato', () {
     // **L'ILLIMITATO E' SPARITO, ordine BV voce 03**, ed e' un principio del
     // fondatore prima che un numero: non fare nulla di illimitato. Prima
     // l'Illuminato non aveva ne' conto ne' cancello; adesso ha un numero al
     // giorno e lo vede scendere come tutti.
     final borsa = QuestionAllowance();
-    expect(borsa.limiteStese(Tier.tier3), 3);
-    expect(borsa.steseRimaste(Tier.tier3), 3);
+    expect(borsa.limiteStese(Tier.tier3), 5);
+    expect(borsa.steseRimaste(Tier.tier3), 5);
     borsa.registraStesa(Tier.tier3);
     // Ordine GA voce 01: una stesa ne toglie una (dall'ordine EX una stesa a
     // tre carte ne toglieva tre).
-    expect(borsa.steseRimaste(Tier.tier3), 2);
+    expect(borsa.steseRimaste(Tier.tier3), 4);
     expect(borsa.puoiStendere(Tier.tier3), isTrue);
-    borsa.registraStesa(Tier.tier3);
-    borsa.registraStesa(Tier.tier3);
+    for (var i = 0; i < 4; i++) {
+      borsa.registraStesa(Tier.tier3);
+    }
     expect(borsa.puoiStendere(Tier.tier3), isFalse,
-        reason: 'l\'Illuminato ha un tetto, e alla terza stesa ci arriva');
+        reason: 'l\'Illuminato ha un tetto, e alla quinta stesa ci arriva');
   });
 
   test('le stese e le gettate sono due budget che non si toccano', () async {
@@ -352,7 +367,8 @@ void main() {
     // Ordine GA voce 01: il conto torna di STESE, e la riga dice stese. Dire
     // "Oggi hai 2 carte" a chi ha due stese da stendere come vuole e' il
     // falso di adesso.
-    expect(contoAVideo(tester), 'Oggi hai 2 stese',
+    // Ordine GA voce 02: quattro stese all'Adepto (erano due).
+    expect(contoAVideo(tester), 'Oggi hai 4 stese',
         reason: 'il numero, o la cosa contata, non e\' quello che la matrice '
             'promette all\'Adepto');
 
@@ -360,8 +376,8 @@ void main() {
     await monta(tester,
         piano: Tier.tier3, borsa: QuestionAllowance()..ilServerHaParlato());
     // Ordine GA voce 01: tre stese (quindici carte dall'ordine EX voce 02,
-    // venti stese prima).
-    expect(contoAVideo(tester), 'Oggi hai 3 stese',
+    // venti stese prima). Ordine GA voce 02: cinque.
+    expect(contoAVideo(tester), 'Oggi hai 5 stese',
         reason: 'l\'Illuminato non legge piu\' il suo conto: dall\'ordine BV '
             'voce 03 niente e\' illimitato, quindi anche lui ha un numero');
 
@@ -391,12 +407,14 @@ void main() {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
     // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
-    // voce 02, sette stese prima).
-    expect(borsa.steseRimaste(Tier.tier2), 2);
+    // voce 02, sette stese prima). Ordine GA voce 02: quattro.
+    final intere = borsa.limiteStese(Tier.tier2)!;
+    expect(intere, 4);
+    expect(borsa.steseRimaste(Tier.tier2), intere);
 
     // Una carta sola: la stesa e' cominciata e non e' compiuta.
     await pesca(tester, 38);
-    expect(borsa.steseRimaste(Tier.tier2), 2,
+    expect(borsa.steseRimaste(Tier.tier2), intere,
         reason: 'una stesa cominciata ha gia\' consumato: chi cambia idea '
             'alla prima carta paga per niente');
 
@@ -405,11 +423,11 @@ void main() {
     // Ordine EX voce 02: si paga a carte, ma tutte insieme al pulsante.
     // Ordine GA voce 01: si paga una stesa, al pulsante.
     await pesca(tester, 39);
-    expect(borsa.steseRimaste(Tier.tier2), 2,
+    expect(borsa.steseRimaste(Tier.tier2), intere,
         reason: 'la seconda carta posata ha consumato prima del pulsante');
     await pesca(tester, 40);
     await tester.pump(const Duration(seconds: 5));
-    expect(borsa.steseRimaste(Tier.tier2), 2,
+    expect(borsa.steseRimaste(Tier.tier2), intere,
         reason: 'tre carte posate hanno gia\' consumato la stesa: chi ci '
             'ripensa prima di leggere paga per niente, ed e\' cio\' che '
             'l\'ordine CQ voce 1.03 chiude');
@@ -418,9 +436,9 @@ void main() {
     await apri(tester);
     await tester.pump(const Duration(seconds: 5));
     // Ordine GA voce 01: la stesa a tre carte consuma UNA stesa, una volta
-    // sola: due meno uno. Se consumasse le sue tre carte il conto sarebbe a
-    // zero, se consumasse due volte anche.
-    expect(borsa.steseRimaste(Tier.tier2), 1,
+    // sola: quattro meno uno (ordine GA voce 02). Se consumasse le sue tre
+    // carte il conto sarebbe a uno, se consumasse due volte a due.
+    expect(borsa.steseRimaste(Tier.tier2), intere - 1,
         reason: 'la lettura e\' aperta e non ha consumato la sua stesa, o '
             'ne ha consumata piu\' di una (le tre carte, o due volte)');
   });
@@ -431,9 +449,10 @@ void main() {
     await monta(tester, piano: Tier.tier2, borsa: borsa);
     // Ordine EX voce 02: le dieci carte dell'Adepto tutte estratte (erano
     // sette stese da una unita' ciascuna). Ordine GA voce 01: le due stese
-    // dell'Adepto tutte fatte.
-    borsa.registraStesa(Tier.tier2);
-    borsa.registraStesa(Tier.tier2);
+    // dell'Adepto tutte fatte. Ordine GA voce 02: le quattro.
+    for (var i = 0; i < 4; i++) {
+      borsa.registraStesa(Tier.tier2);
+    }
     expect(borsa.steseRimaste(Tier.tier2), 0);
     await tester.pump();
 
@@ -458,12 +477,12 @@ void main() {
     // Ordine EX voce 02: a finire sono le carte, e l'invito deve dirlo.
     // Ordine GA voce 01: a finire sono le stese, coi numeri della matrice:
     // le due dell'Adepto, e le tre dell'Illuminato al livello dopo.
+    // Ordine GA voce 02: le quattro dell'Adepto e le cinque dell'Illuminato.
     expect(testo.contains('le stese di oggi sono finite'), isTrue,
         reason: 'l\'invito non dice che le stese del giorno sono finite');
-    expect(testo.contains('le 2 stese del giorno sono state fatte.'), isTrue,
+    expect(testo.contains('le 4 stese del giorno sono state fatte.'), isTrue,
         reason: 'l\'invito non dice quante stese l\'Adepto ha fatto oggi');
-    expect(
-        testo.contains('dal livello successivo le stese del giorno sono 3.'),
+    expect(testo.contains('dal livello successivo le stese del giorno sono 5.'),
         isTrue,
         reason: 'l\'invito non dice le stese del livello dopo, lette dalla '
             'matrice');
@@ -605,8 +624,11 @@ void main() {
     final budget = File('functions/src/budget.ts').readAsStringSync();
     // Ordine EX voce 02: le carte estratte, erano 1, 4, 7 e 20 stese.
     // Ordine GA voce 01: di nuovo le stese, 1, 3, 2 e 3.
-    expect(budget.contains('stese: [1, 3, 2, 3]'), isTrue,
+    // Ordine GA voce 02: 1, 3, 4 e 5, e la stesa a dieci una al giorno.
+    expect(budget.contains('stese: [1, 3, 4, 5]'), isTrue,
         reason: 'il server non impone piu\' i limiti del listino');
+    expect(budget.contains('steseDaDieci: [0, 0, 1, 1]'), isTrue,
+        reason: 'il server non tiene la stesa a dieci a una al giorno');
     // Ordine EX voce 02: il riscatto ridà le carte di una stesa a tre, dalle
     // due parti lo stesso numero. Ordine GA voce 01: ridà una stesa, dalle
     // due parti lo stesso numero.
