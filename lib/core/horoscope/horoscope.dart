@@ -1,5 +1,7 @@
+import '../responsi/la_forma_del_responso.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'il_livello_del_cielo.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'il_numero_e_il_colore.dart';
 import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
@@ -44,7 +46,23 @@ class HoroscopeCard {
     this.metodo,
     this.numeriDelGiorno,
     this.rigaSoloDelLivello,
+    this.responso,
   });
+
+  /// **IL RESPONSO NELLA FORMA NUOVA**, ordine GA voci GA.03, GA.04 e GA.05:
+  /// il titolo, la risposta, il riquadro "Cosa fare adesso" e, nella Lunga,
+  /// l'approfondimento e il rito propiziatorio della tradizione, col "Da dove
+  /// viene" in fondo. Lo compone [IlResponsoDellOroscopo.componi], in un
+  /// punto solo, e la scheda lo disegna con `IlResponsoInterpretato`. [title],
+  /// [text] e [synthesis] ne sono le letture per chi sta fuori dallo schermo
+  /// (la chat con Medora, il Diario, la card da condividere, il PDF). Null
+  /// sulle tessere della card del periodo, che non sono un responso.
+  final ResponsoInterpretato? responso;
+
+  /// **IL "DA DOVE VIENE" CHE SI LEGGE**: quello del responso, che nella
+  /// Lunga porta in coda la fonte del rito; senza responso la riga del
+  /// livello.
+  String? get daDoveViene => responso?.daDoveViene ?? rigaDelLivello;
 
   /// **LA SOLA RIGA DEL LIVELLO**, ordine EU voce 02: nella Settimana e nel
   /// Mese della Vedica e della Cinese ogni giorno porta, sotto la sua data,
@@ -317,9 +335,20 @@ class Horoscope {
     );
     final voce = ITestiEu.voce(
         TradizioneEu.occidentale, PeriodoEu.giorno, domain, fascia, indice);
-    final title = voce.titolo;
-    final text = voce.testo(lunga: profonda);
-    final primaParte = voce.risposta;
+    // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il responso nasce in
+    // un punto solo, col rito del pianeta che governa questo giorno.
+    final responso = IlResponsoDellOroscopo.componi(
+      voce: voce,
+      tradizione: TradizioneEu.occidentale,
+      periodo: PeriodoEu.giorno,
+      dominio: domain,
+      primoGiorno: giorno,
+      lunga: profonda,
+      cielo: rigaDelLivello,
+    );
+    final title = responso.titolo;
+    final text = IlResponsoDellOroscopo.testo(responso);
+    final primaParte = responso.risposta;
 
     // L'apertura personalizzata vive solo sulla scheda Generale: dal corpus,
     // con lo stesso indice della scheda e il vocativo di oggi.
@@ -350,6 +379,7 @@ class Horoscope {
         dalCieloVero: dalCielo,
         rigaDelLivello: rigaDelLivello,
         rigaDellaFortuna: regola,
+        responso: responso,
       );
     }
     return HoroscopeCard(
@@ -361,6 +391,7 @@ class Horoscope {
       opening: cardOpening,
       dalCieloVero: dalCielo,
       rigaDelLivello: rigaDelLivello,
+      responso: responso,
     );
   }
 

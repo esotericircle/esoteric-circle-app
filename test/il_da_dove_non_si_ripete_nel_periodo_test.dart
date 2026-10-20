@@ -33,7 +33,8 @@ void main() {
   /// e dopo il giorno migliore, in minuscolo.
   String cuore(String riga) {
     var s = riga.replaceFirst('Da dove viene: ', '');
-    final giorno = RegExp(r'^il giorno migliore, [^:]+: ').firstMatch(s);
+    final giorno = RegExp(r'^il giorno migliore, [^:]+: ', caseSensitive: false)
+        .firstMatch(s);
     if (giorno != null) s = s.substring(giorno.end);
     return s.toLowerCase().trim();
   }
@@ -41,6 +42,7 @@ void main() {
   var schedeGuardate = 0;
   final ripetute = <String>[];
   final maiuscole = <String>[];
+  final mancanti = <String>[];
 
   for (final t in TradizioneEu.values) {
     for (final mese in const [false, true]) {
@@ -91,14 +93,27 @@ void main() {
           for (final d in HoroscopeDomain.values) {
             schedeGuardate++;
             // Le righe dei tre giorni migliori, e la riga in fondo alla
-            // scheda (che nella Lunga puo' non esserci).
+            // scheda.
             final deiGiorni = daDoveIn(find.byWidgetPredicate((w) =>
                 w.key is ValueKey<String> &&
                 (w.key as ValueKey<String>)
                     .value
                     .startsWith('oroscopo_periodo_riga_${d.name}_')));
-            final inFondo =
-                daDoveIn(find.byKey(Key('oroscopo_periodo_da_dove_${d.name}')));
+            // **Dall'ordine GA il "Da dove viene" in fondo lo disegna il
+            // responso nella forma nuova** (`IlResponsoInterpretato`): la
+            // sua etichetta sta sopra, e la riga e' il testo della chiave
+            // `<responso>_da_dove_viene`, senza il prefisso. Nella Lunga
+            // della Vedica e della Cinese adesso c'e' sempre, e dice dove
+            // leggere i giorni invece di ripetere il migliore.
+            final fondo =
+                find.byKey(Key('oroscopo_periodo_${d.name}_da_dove_viene'));
+            final inFondo = [
+              for (final e in fondo.evaluate())
+                'Da dove viene: ${(e.widget as Text).data ?? ''}',
+            ];
+            if (inFondo.isEmpty) {
+              mancanti.add('${p.nome} ${t.name} ${d.name}');
+            }
             for (final r in [...deiGiorni, ...inFondo]) {
               if (RegExp(r': (Il|Lo|La|Gli|Le|I|Un|Una|Oggi) ')
                   .hasMatch(r.replaceFirst('Da dove viene: ', ''))) {
@@ -124,7 +139,8 @@ void main() {
   tearDownAll(() {
     print('ORDINE EU, DA DOVE VIENE NEL PERIODO: schede guardate '
         '$schedeGuardate, righe che ne ripetono un\'altra ${ripetute.length}, '
-        'maiuscole dopo i due punti ${maiuscole.length}');
+        'maiuscole dopo i due punti ${maiuscole.length}, schede senza "Da '
+        'dove viene" in fondo ${mancanti.length}');
   });
 
   test('i conti', () {
@@ -135,5 +151,8 @@ void main() {
             'nascita ne salta una), due periodi, quattro domini');
     expect(ripetute, isEmpty, reason: ripetute.take(6).join('\n'));
     expect(maiuscole, isEmpty, reason: maiuscole.take(6).join('\n'));
+    // Ordine GA voce GA.03: "Sotto sempre il paragrafo in corsivo 'da dove
+    // viene'".
+    expect(mancanti, isEmpty, reason: mancanti.take(6).join('\n'));
   });
 }

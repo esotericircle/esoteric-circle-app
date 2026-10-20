@@ -4,6 +4,7 @@ import 'horoscope.dart';
 import 'i_segni_delle_tradizioni.dart';
 import 'i_testi_eu.dart';
 import 'il_capodanno_lunare.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'l_almanacco_cinese.dart';
 import 'la_lettura_cinese.dart';
 import 'la_lettura_vedica.dart';
@@ -237,11 +238,24 @@ abstract final class LAnnoDelleTradizioni {
                 FasciaEu.di(livello),
                 ITestiEu.indiceDellAnno(anno.numero, scarto));
             final lunga = approfondite == null || (approfondite[d] ?? false);
+            // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della
+            // Lunga segue il primo giorno dell'anno della tradizione, il
+            // Capodanno lunare o il compleanno.
+            final responso = IlResponsoDellOroscopo.componi(
+              voce: voce,
+              tradizione: t,
+              periodo: PeriodoEu.anno,
+              dominio: d,
+              primoGiorno: anno.da,
+              lunga: lunga,
+              cielo: anno.daDove[d.index],
+            );
             return HoroscopeCard(
               domain: d,
-              title: voce.titolo,
-              synthesis: voce.risposta,
-              text: voce.testo(lunga: lunga),
+              title: responso.titolo,
+              synthesis: responso.risposta,
+              text: IlResponsoDellOroscopo.testo(responso),
+              responso: responso,
               indicator: livello,
               rigaDelLivello: anno.daDove[d.index],
               metodo: anno.metodo,

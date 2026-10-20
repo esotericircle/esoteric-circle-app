@@ -14,6 +14,7 @@ import 'package:esoteric_circle/core/horoscope/l_anno_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_cinese.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
 import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -38,6 +39,18 @@ import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 /// due volte (una frase del "Da dove viene" ripetuta nel testo, o due volte
 /// nella sua riga). Tutti e tre devono essere zero. La misura si scrive in
 /// `docs/collaudo/EU/paragrafi.txt`.
+///
+/// **DALL'ORDINE GA, voci GA.03 e GA.04 (20 ottobre 2026), i paragrafi sono
+/// quelli del responso nella forma nuova** (`HoroscopeCard.responso`,
+/// `DominioDelPeriodo.responso`): la risposta e "Cosa fare adesso" in Breve,
+/// in Lunga anche l'approfondimento e il rito propiziatorio, che e' il
+/// quarto. Il corpus dell'Architetto riscritto per GA.07 porta tre paragrafi
+/// per voce; il quarto lo aggiunge il rito, e prima che il rito arrivasse a
+/// video questa prova contava tre paragrafi in Lunga e cadeva. **Il rito e'
+/// fuori dalla misura delle parole del cielo**: il fondatore vuole l'inno al
+/// pianeta che governa il giorno, il mantra del graha, il gesto
+/// dell'ufficiale (voce GA.04, *"il testo lo dice"*), e il rito li nomina per
+/// forza. La sua fonte sta nel "Da dove viene", che qui si legge intero.
 void main() {
   // Le parole del cielo, dalla voce EU.01: "nessun transito, pianeta, casa,
   // aspetto, nakshatra, tara, tronco o ramo". La casa conta solo quando e'
@@ -96,51 +109,65 @@ void main() {
     final righe = <String>[];
     var schede = 0;
 
-    void misura(
-        String dove, List<HoroscopeCard> breve, List<HoroscopeCard> lunga) {
+    /// Una scheda come la misura la prova: il nome del dominio e il responso.
+    (String, ResponsoInterpretato) diScheda(HoroscopeCard c) =>
+        (c.domain.label, c.responso!);
+
+    void misura(String dove, List<(String, ResponsoInterpretato)> breve,
+        List<(String, ResponsoInterpretato)> lunga) {
       for (final (profondita, elenco, attesi) in [
         ('Breve', breve, 2),
         ('Lunga', lunga, 4),
       ]) {
         var parole = 0, sbagliati = 0, doppie = 0;
-        for (final c in elenco) {
+        final conti = <int>[];
+        for (final (dominio, r) in elenco) {
           schede++;
-          final p = spezzaInParagrafi(c.text, stile: stile);
+          final testo = r.paragrafi.join('\n\n');
+          final p = spezzaInParagrafi(testo, stile: stile);
+          conti.add(p.length);
           if (p.length != attesi) {
             sbagliati++;
-            paragrafiSbagliati.add('$dove $profondita ${c.domain.label}: '
+            paragrafiSbagliati.add('$dove $profondita $dominio: '
                 '${p.length} paragrafi');
           }
-          for (final x in p) {
+          // Il rito, il quarto, nomina il reggente per ordine (voce GA.04).
+          for (final x in [
+            r.risposta,
+            r.cosaFare,
+            if (r.approfondimento != null) r.approfondimento!,
+          ]) {
             for (final m in cielo.allMatches(x)) {
               parole++;
-              conIlCielo.add('$dove $profondita ${c.domain.label}: '
+              conIlCielo.add('$dove $profondita $dominio: '
                   '"${m.group(0)}" in "${x.length > 80 ? x.substring(0, 80) : x}"');
             }
           }
           // Il cielo una volta sola: nessuna frase del "Da dove viene" sta
           // anche nel testo, e nessuna sta due volte nella riga.
-          final daDove = (c.rigaDelLivello ?? '')
+          final daDove = (r.daDoveViene ?? '')
               .split(RegExp(r'(?<=[.!?]) '))
               .where((f) => f.trim().length > 20)
               .toList();
           final viste = <String>{};
           for (final f in daDove) {
-            if (c.text.contains(f.trim()) || !viste.add(f.trim())) {
+            if (testo.contains(f.trim()) || !viste.add(f.trim())) {
               doppie++;
-              cieloDueVolte.add('$dove $profondita ${c.domain.label}: '
-                  '"${f.trim()}"');
+              cieloDueVolte.add('$dove $profondita $dominio: "${f.trim()}"');
             }
           }
         }
         righe.add('$dove, $profondita: ${elenco.length} schede, paragrafi '
-            '${[
-          for (final c in elenco) spezzaInParagrafi(c.text, stile: stile).length
-        ].join(' ')}'
+            '${conti.join(' ')}'
             ', fuori misura $sbagliati, parole del cielo $parole, cielo due '
             'volte $doppie');
       }
     }
+
+    void misuraSchede(
+            String dove, List<HoroscopeCard> b, List<HoroscopeCard> l) =>
+        misura(dove, [for (final c in b) diScheda(c)],
+            [for (final c in l) diScheda(c)]);
 
     for (final (nascita, asc, conCarta) in persone) {
       final carta = conCarta ? cartaDi(nascita.toUtc(), asc) : null;
@@ -162,7 +189,7 @@ void main() {
             nascita: nascita,
             vocativo: 'Ciao Prova',
             profonde: {for (final d in HoroscopeDomain.values) d: lunga});
-        misura('Occidentale Giorno, $g', occ(false), occ(true));
+        misuraSchede('Occidentale Giorno, $g', occ(false), occ(true));
         // L'amico: la stessa porta, senza carta e senza vocativo.
         List<HoroscopeCard> amico(bool lunga) => Horoscope.forSign(
             sign: segno,
@@ -170,14 +197,15 @@ void main() {
             year: oggi.year,
             nascita: nascita,
             profonde: {for (final d in HoroscopeDomain.values) d: lunga});
-        misura('Amico, Occidentale Giorno, $g', amico(false), amico(true));
+        misuraSchede(
+            'Amico, Occidentale Giorno, $g', amico(false), amico(true));
         List<HoroscopeCard> ved(bool lunga) => LaLetturaVedica.schede(
             adesso: DateTime(oggi.year, oggi.month, oggi.day, 9),
             nascita: n,
             forma: CourtesyForm.unknown,
             vocativo: 'Ciao Prova',
             approfondite: {for (final d in HoroscopeDomain.values) d: lunga})!;
-        misura('Vedica Giorno, $g', ved(false), ved(true));
+        misuraSchede('Vedica Giorno, $g', ved(false), ved(true));
         List<HoroscopeCard> cin(bool lunga) => LaLetturaCinese.schede(
             oggi: oggi,
             nascita: nascita,
@@ -185,8 +213,8 @@ void main() {
             forma: CourtesyForm.unknown,
             vocativo: 'Ciao Prova',
             approfondite: {for (final d in HoroscopeDomain.values) d: lunga})!;
-        misura('Cinese Giorno, $g', cin(false), cin(true));
-        // La Settimana e il Mese: i paragrafi della voce del periodo.
+        misuraSchede('Cinese Giorno, $g', cin(false), cin(true));
+        // La Settimana e il Mese: i paragrafi del responso del periodo.
         for (final mese in [false, true]) {
           final nome = mese ? 'Mese' : 'Settimana';
           final periodi = <String, IlPeriodoDelCielo>{
@@ -217,14 +245,13 @@ void main() {
                     forma: CourtesyForm.unknown))!,
           };
           for (final e in periodi.entries) {
-            HoroscopeCard comeScheda(DominioDelPeriodo d, bool lunga) =>
-                HoroscopeCard(
-                    domain: d.dominio,
-                    title: d.voce.titolo,
-                    text: d.voce.testo(lunga: lunga),
-                    synthesis: d.voce.risposta,
-                    indicator: d.livello,
-                    rigaDelLivello: d.momentoChiave);
+            // Il responso come lo monta la schermata del periodo.
+            (String, ResponsoInterpretato) comeScheda(
+                    DominioDelPeriodo d, bool lunga) =>
+                (
+                  d.dominio.label,
+                  d.responso(e.value.tradizione, mese: mese, lunga: lunga)
+                );
             misura(
                 '${e.key} $nome, $g',
                 [for (final d in e.value.domini) comeScheda(d, false)],
@@ -241,7 +268,7 @@ void main() {
           (TradizioneEu.cinese, annoCinese),
           (TradizioneEu.vedica, annoVedico),
         ]) {
-          misura(
+          misuraSchede(
               '${t.name} Anno, $g',
               LAnnoDelleTradizioni.schede(t, anno,
                   scarto: ITestiEu.scarto(nascita), approfondite: const {}),

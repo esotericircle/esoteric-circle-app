@@ -8,6 +8,7 @@ import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'i_segni_delle_tradizioni.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'la_lettura_cinese.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_vedico_data.dart';
@@ -470,19 +471,32 @@ abstract final class LaLetturaVedica {
         'di nascita (${_nomeEsito(esitoLuna)})'
         '${esitoStella == null ? '' : '; e dalla tua tara $diOggi, ${_nomiDelleTare[t! - 1]} (${_nomeEsito(esitoStella)})'}.';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
+    final cieloGenerale = LePartiDelResponso.insieme([
+      lunaDaDove,
+      stellaDaDove,
+      rahuDaDove,
+      if (lungaGenerale) pianetaDaDove,
+      rigaDelLivelloGenerale,
+    ]);
+    // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della Lunga
+    // e' il mantra del graha che governa questo giorno della settimana.
+    final responsoGenerale = IlResponsoDellOroscopo.componi(
+      voce: voceGenerale,
+      tradizione: TradizioneEu.vedica,
+      periodo: PeriodoEu.giorno,
+      dominio: HoroscopeDomain.generale,
+      primoGiorno: giorno,
+      lunga: lungaGenerale,
+      cielo: cieloGenerale,
+    );
     final generale = HoroscopeCard(
       domain: HoroscopeDomain.generale,
-      title: voceGenerale.titolo,
-      synthesis: voceGenerale.risposta,
-      text: voceGenerale.testo(lunga: lungaGenerale),
+      title: responsoGenerale.titolo,
+      synthesis: responsoGenerale.risposta,
+      text: IlResponsoDellOroscopo.testo(responsoGenerale),
+      responso: responsoGenerale,
       indicator: livelloDelGiorno(esitoLuna, t),
-      rigaDelLivello: LePartiDelResponso.insieme([
-        lunaDaDove,
-        stellaDaDove,
-        rahuDaDove,
-        if (lungaGenerale) pianetaDaDove,
-        rigaDelLivelloGenerale,
-      ]),
+      rigaDelLivello: cieloGenerale,
       rigaSoloDelLivello: rigaDelLivelloGenerale,
       opening: vocativo == null
           ? null
@@ -504,22 +518,33 @@ abstract final class LaLetturaVedica {
       final fortuna = d == HoroscopeDomain.fortuna;
       final lunga = approfondita(d);
       final voce = voceDi(d, livello);
+      final cielo = LePartiDelResponso.insieme([
+        baseDaDove,
+        if (lunga)
+          'Oggi la Luna passa ${_nelSegno[rashiOggi]}, nella tua '
+              '${ordinali[h - 1]} casa contata dalla Luna di nascita; '
+              '${_temaDelDominio[d]}.',
+        if (lunga && fortuna) pianetaDaDove,
+        'Il livello viene dalla Luna $diOggi nella tua ${ordinali[h - 1]} '
+            'casa dalla Luna di nascita: $come.',
+      ]);
+      final responso = IlResponsoDellOroscopo.componi(
+        voce: voce,
+        tradizione: TradizioneEu.vedica,
+        periodo: PeriodoEu.giorno,
+        dominio: d,
+        primoGiorno: giorno,
+        lunga: lunga,
+        cielo: cielo,
+      );
       return HoroscopeCard(
         domain: d,
-        title: voce.titolo,
-        synthesis: voce.risposta,
-        text: voce.testo(lunga: lunga),
+        title: responso.titolo,
+        synthesis: responso.risposta,
+        text: IlResponsoDellOroscopo.testo(responso),
+        responso: responso,
         indicator: livello,
-        rigaDelLivello: LePartiDelResponso.insieme([
-          baseDaDove,
-          if (lunga)
-            'Oggi la Luna passa ${_nelSegno[rashiOggi]}, nella tua '
-                '${ordinali[h - 1]} casa contata dalla Luna di nascita; '
-                '${_temaDelDominio[d]}.',
-          if (lunga && fortuna) pianetaDaDove,
-          'Il livello viene dalla Luna $diOggi nella tua ${ordinali[h - 1]} '
-              'casa dalla Luna di nascita: $come.',
-        ]),
+        rigaDelLivello: cielo,
         rigaSoloDelLivello: 'Il livello viene dalla Luna $diOggi nella tua '
             '${ordinali[h - 1]} casa dalla Luna di nascita: $come.',
         metodo: _metodo(d, conStella: t != null),

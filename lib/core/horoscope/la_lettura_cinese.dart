@@ -2,6 +2,7 @@ import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'i_segni_delle_tradizioni.dart';
+import 'il_responso_dell_oroscopo.dart';
 import 'l_almanacco_cinese.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_cinese_data.dart';
@@ -123,18 +124,31 @@ abstract final class LaLetturaCinese {
         '${conArticolo(ramo)} $quando e ${_iltuo(animale)}: '
         '${rapportoDetto(rapporto, animale == ramo)}.';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
+    final cieloGenerale = LePartiDelResponso.insieme([
+      rapportoDaDove,
+      guardianoDaDove,
+      if (lungaGenerale) gioiaDaDove,
+      rigaDelLivelloGenerale,
+    ]);
+    // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della Lunga
+    // e' il gesto dell'ufficiale di questo giorno.
+    final responsoGenerale = IlResponsoDellOroscopo.componi(
+      voce: voceGenerale,
+      tradizione: TradizioneEu.cinese,
+      periodo: PeriodoEu.giorno,
+      dominio: HoroscopeDomain.generale,
+      primoGiorno: oggi,
+      lunga: lungaGenerale,
+      cielo: cieloGenerale,
+    );
     final generale = HoroscopeCard(
       domain: HoroscopeDomain.generale,
-      title: voceGenerale.titolo,
-      synthesis: voceGenerale.risposta,
-      text: voceGenerale.testo(lunga: lungaGenerale),
+      title: responsoGenerale.titolo,
+      synthesis: responsoGenerale.risposta,
+      text: IlResponsoDellOroscopo.testo(responsoGenerale),
+      responso: responsoGenerale,
       indicator: livelloGenerale,
-      rigaDelLivello: LePartiDelResponso.insieme([
-        rapportoDaDove,
-        guardianoDaDove,
-        if (lungaGenerale) gioiaDaDove,
-        rigaDelLivelloGenerale,
-      ]),
+      rigaDelLivello: cieloGenerale,
       rigaSoloDelLivello: rigaDelLivelloGenerale,
       // L'apertura dal corpus, con lo stesso indice della Generale.
       opening: vocativo == null
@@ -183,18 +197,29 @@ abstract final class LaLetturaCinese {
           OroscopoCineseData.direzioneRicchezza, ritorno.coppiaDiTronchi));
       final livello = livelloDelDio(d, dio, forma: f);
       final voce = voceDi(d, livello);
+      final cielo = LePartiDelResponso.insieme([
+        baseDaDove,
+        if (lunga) presentazione,
+        if (lunga && fortuna) ricchezzaDaDove,
+        '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
+      ]);
+      final responso = IlResponsoDellOroscopo.componi(
+        voce: voce,
+        tradizione: TradizioneEu.cinese,
+        periodo: PeriodoEu.giorno,
+        dominio: d,
+        primoGiorno: oggi,
+        lunga: lunga,
+        cielo: cielo,
+      );
       return HoroscopeCard(
         domain: d,
-        title: voce.titolo,
-        synthesis: voce.risposta,
-        text: voce.testo(lunga: lunga),
+        title: responso.titolo,
+        synthesis: responso.risposta,
+        text: IlResponsoDellOroscopo.testo(responso),
+        responso: responso,
         indicator: livello,
-        rigaDelLivello: LePartiDelResponso.insieme([
-          baseDaDove,
-          if (lunga) presentazione,
-          if (lunga && fortuna) ricchezzaDaDove,
-          '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
-        ]),
+        rigaDelLivello: cielo,
         rigaSoloDelLivello: 'Il dio $quando nel BaZi $e ${dio.nome}. '
             '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
         metodo: fortuna

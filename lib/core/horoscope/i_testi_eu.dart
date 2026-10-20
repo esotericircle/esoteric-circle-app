@@ -50,7 +50,7 @@ enum FasciaEu {
 /// 40 a 50 parole; il secondo va nel riquadro "Cosa fare adesso"; il quarto
 /// paragrafo della Lunga non e' piu' "che cosa fare" ma il rito propiziatorio
 /// della tradizione, che non sta nel corpus della voce
-/// (`IRitiDellOroscopo`).
+/// (`IlResponsoDellOroscopo.componi`, dai riti di `IRitiPropiziatori`).
 class VoceEu {
   const VoceEu(this.titolo, this.risposta, this.cosaFare, this.rispostaLunga);
 

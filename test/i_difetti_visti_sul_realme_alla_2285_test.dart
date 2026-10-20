@@ -391,6 +391,16 @@ void main() {
           w.key is ValueKey<String> &&
           (w.key! as ValueKey<String>).value.startsWith('oroscopo_titolo_') &&
           (w.key! as ValueKey<String>).value.toLowerCase().contains(d));
+      // **LA SCHEDA SOTTO LA PIEGA SI RAGGIUNGE SCORRENDO**, ordine GA voce
+      // GA.03: col riquadro "Cosa fare adesso" e il suo titolo ogni scheda
+      // e' piu' alta, e a 4.400 punti la Fortuna non nasceva piu' nella
+      // lista pigra (la stessa caduta del 1 ottobre, qui sopra). Invece di
+      // alzare ancora la finestra si scorre fino al titolo, come chi legge.
+      if (dove.evaluate().isEmpty) {
+        await tester.dragUntilVisible(dove,
+            find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
+        await tester.pump();
+      }
       if (dove.evaluate().isEmpty) {
         colpe.add('manca il titolo di $d');
         continue;

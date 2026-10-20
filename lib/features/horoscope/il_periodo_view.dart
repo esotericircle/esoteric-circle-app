@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/components/riquadro_in_evidenza.dart';
+import '../../design_system/components/il_responso_interpretato.dart';
 
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/horoscope.dart';
@@ -32,16 +32,19 @@ import 'titolo_della_scheda_del_giorno.dart';
 ///    migliore in evidenza;
 /// 2. **la risposta**: come va il periodo in quel campo, in parole di tutti i
 ///    giorni ([DominioDelPeriodo.risposta]), e qual e' il giorno migliore;
-/// 3. **che cosa puoi fare**: la lettura di quel giorno dal corpus delle
-///    schede del Giorno ([DominioDelPeriodo.cosaFare]);
-/// 4. **da dove viene**, in fondo al riquadro e piu' piccolo: il momento
-///    chiave, che e' un passaggio del cielo.
+/// 3. **il responso nella forma dell'ordine GA** ([IlResponsoInterpretato],
+///    voci GA.03 e GA.04): la risposta della voce del periodo, il riquadro
+///    "Cosa fare adesso" e, nella Lunga, l'approfondimento e il rito
+///    propiziatorio del primo giorno del periodo;
+/// 4. **da dove viene**, in fondo al riquadro, in corsivo e piu' piccolo: il
+///    momento chiave, che e' un passaggio del cielo, e nella Lunga la fonte
+///    del rito ([DominioDelPeriodo.responso]).
 ///
 /// **LA PROFONDITA' SU OGNI SCHEDA**: la Breve e' cio' che sta qui sopra; la
-/// Lunga aggiunge il giorno per giorno (sette giorni nella Settimana, i tre
-/// migliori nel Mese), ognuno con la sua lettura in parole e, dopo, i
-/// passaggi da cui viene il suo livello. In fondo alla pagina i fatti del
-/// cielo del periodo e, senza carta natale, su che cosa si e' letto.
+/// Lunga aggiunge i tre giorni migliori, ognuno col titolo della sua scheda
+/// e i passaggi da cui viene il suo livello, sopra il responso, e i due
+/// paragrafi della Lunga. In fondo alla pagina i fatti del cielo del periodo
+/// e, senza carta natale, su che cosa si e' letto.
 class IlPeriodoView extends StatelessWidget {
   const IlPeriodoView({
     super.key,
@@ -135,36 +138,12 @@ class IlPeriodoView extends StatelessWidget {
                   key: Key('oroscopo_periodo_migliore_${d.dominio.name}'),
                   style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft, height: 1.4)),
-              // 3. **I PARAGRAFI DELLA VOCE**, EU Aggiunta (voci EU.01 ed
-              // EU.16): la Risposta e Che cosa fare in Breve, e in Lunga gli
-              // altri due, dal corpus della Settimana o del Mese. Prima qui
-              // stava la lettura del giorno migliore presa dal Giorno, cioe'
-              // la stessa frase in due periodi.
-              for (final (i, p)
-                  in d.voce.paragrafi(lunga: _lunga(d.dominio)).indexed) ...[
-                const SizedBox(height: SpacingTokens.sm),
-                // Il terzo paragrafo della Lunga in un riquadro (il
-                // fondatore, 1 ottobre 2026).
-                if (RiquadroInEvidenza.eIlTerzoDellaLunga(
-                    i, d.voce.paragrafi(lunga: _lunga(d.dominio)).length))
-                  RiquadroInEvidenza(
-                    palette: palette,
-                    child: Text(p,
-                        key: Key(
-                            'oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
-                        style: TypographyTokens.corpo().copyWith(
-                            color: ColorTokens.textPrimary, height: 1.4)),
-                  )
-                else
-                  Text(p,
-                      key: Key(
-                          'oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
-                      style: TypographyTokens.corpo().copyWith(
-                          color: ColorTokens.textPrimary, height: 1.4)),
-              ],
               // La Lunga: i tre giorni migliori, ognuno col titolo della sua
               // scheda del Giorno e il suo "Da dove viene" (EU Aggiunta): il
-              // testo del Giorno si legge quel giorno.
+              // testo del Giorno si legge quel giorno. **Stanno sopra il
+              // responso dall'ordine GA**: il "Da dove viene" del responso
+              // chiude la scheda, in fondo (voce GA.03), e i tre giorni sono
+              // il colpo d'occhio del periodo detto giorno per giorno.
               if (_lunga(d.dominio)) ...[
                 const SizedBox(height: SpacingTokens.md),
                 Text('I tre giorni migliori',
@@ -200,23 +179,26 @@ class IlPeriodoView extends StatelessWidget {
                     ),
                   ),
               ],
-              // 4. Da dove viene, in fondo. **Nella Lunga della Vedica e della
-              // Cinese non c'e'**: e' il "Da dove viene" del giorno migliore,
-              // che sta gia' fra i tre giorni migliori qui sopra. Visto sul
-              // Realme il 1 ottobre 2026, la stessa frase due volte di fila.
-              if (periodo.tradizione == TradizioneEu.occidentale ||
-                  !_lunga(d.dominio)) ...[
-                const SizedBox(height: SpacingTokens.sm),
-                Text(
-                    periodo.tradizione != TradizioneEu.occidentale
-                        ? 'Da dove viene: ${d.momentoChiave}'
-                        : d.momentoChiave.startsWith('Nessun')
-                            ? 'Da dove viene: ${_minuscola(d.momentoChiave)}'
-                            : 'Da dove viene: il momento chiave è '
-                                '${d.momentoChiave}',
-                    key: Key('oroscopo_periodo_da_dove_${d.dominio.name}'),
-                    style: piccolo),
-              ],
+              // 3. **IL RESPONSO NELLA FORMA NUOVA**, ordine GA voci GA.03 e
+              // GA.04: la risposta, il riquadro "Cosa fare adesso" e, nella
+              // Lunga, l'approfondimento e il rito del primo giorno del
+              // periodo; in fondo il "Da dove viene" in corsivo, che e' il
+              // momento chiave (EU Aggiunta, voci EU.01 ed EU.16). Il titolo
+              // sta gia' in testa al riquadro, sopra il dominio.
+              const SizedBox(height: SpacingTokens.sm),
+              IlResponsoInterpretato(
+                key: Key('oroscopo_periodo_responso_${d.dominio.name}'),
+                chiave: 'oroscopo_periodo_${d.dominio.name}',
+                responso: d.responso(periodo.tradizione,
+                    mese: mese, lunga: _lunga(d.dominio)),
+                palette: palette,
+                mostraIlTitolo: false,
+                stileDelTitolo: TypographyTokens.titoloScheda()
+                    .copyWith(color: palette.goldSoft, height: 1.1),
+                stile: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.4),
+                distanza: SpacingTokens.sm,
+              ),
             ],
           ),
           const SizedBox(height: SpacingTokens.md),

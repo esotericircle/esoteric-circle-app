@@ -162,25 +162,41 @@ void main() {
     };
     await interrogaSeCe(tester);
     // La card sta in fondo, e la lista costruisce cio' che si avvicina.
+    //
+    // **LE SCHEDE SI CONTANO SCORRENDO**, ordine GA. Prima si guardavano
+    // tutte insieme alla fine, in una finestra alta 4.000 punti: coi testi
+    // riscritti per la voce GA.07 (paragrafi da 40 a 50 parole) e il
+    // responso nella forma nuova (il riquadro "Cosa fare adesso", la riga
+    // del "Da dove viene") le quattro schede non stanno piu' costruite
+    // insieme nella lista pigra, e la prova diceva "mancano" schede che a
+    // video c'erano. Adesso si scorre fino alla card da condividere, come chi
+    // legge, e ogni scheda e ogni selettore incontrati si segnano.
     final condividi = find.byKey(const Key('responso_condividi'));
-    if (!ce(condividi)) {
-      await tester.scrollUntilVisible(condividi, 400,
-          scrollable: find.byType(Scrollable).first, maxScrolls: 30);
+    final schedeViste = <String>{};
+    final selettoriVisti = <String>{};
+    void segna() {
+      for (final d in const ['generale', 'amore', 'carriera', 'fortuna']) {
+        if (ce(find.byKey(Key('oroscopo_card_$d')))) schedeViste.add(d);
+      }
+      for (final e in find
+          .byWidgetPredicate((w) =>
+              w.key is ValueKey<String> &&
+              (w.key! as ValueKey<String>).value.startsWith('oroscopo_depth_'))
+          .evaluate()) {
+        selettoriVisti.add((e.widget.key! as ValueKey<String>).value);
+      }
+    }
+
+    segna();
+    for (var i = 0; i < 30 && !ce(condividi); i++) {
+      await tester.drag(
+          find.byKey(const Key('oroscopo_list')), const Offset(0, -400));
+      await tester.pump();
+      segna();
     }
     final dopo = <String, bool>{
-      'le quattro schede': [
-        for (final d in const ['generale', 'amore', 'carriera', 'fortuna'])
-          ce(find.byKey(Key('oroscopo_card_$d')))
-      ].every((x) => x),
-      'i selettori di profondita\'': find
-              .byWidgetPredicate((w) =>
-                  w.key is ValueKey<String> &&
-                  (w.key! as ValueKey<String>)
-                      .value
-                      .startsWith('oroscopo_depth_'))
-              .evaluate()
-              .length >=
-          4,
+      'le quattro schede': schedeViste.length == 4,
+      'i selettori di profondita\'': selettoriVisti.length >= 4,
       'la card da condividere': ce(find.byKey(const Key('responso_condividi'))),
     };
     return {...prima, ...dopo};

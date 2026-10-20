@@ -103,7 +103,15 @@ void main() {
               HoroscopeDomain.values[i],
               FasciaEu.di(livello.clamp(2, 5)),
               ITestiEu.indiceDellAnno(t.istante.year, 0));
-          if (s[i].text != voce.testo(lunga: true) ||
+          // **Ordine GA voci GA.03 e GA.04**: senza profondita' scelta
+          // l'anno si legge intero, cioe' Lungo, e dopo i tre paragrafi
+          // della voce viene il rito propiziatorio del pianeta del
+          // compleanno, che nella voce non sta.
+          final r = s[i].responso;
+          if (!s[i].text.startsWith(
+                  '${voce.testo(lunga: true)}${ITestiEu.fraIParagrafi}') ||
+              r?.rito == null ||
+              r!.paragrafi.length != 4 ||
               s[i].title != voce.titolo) {
             fuori.add('$nome $n $anno');
           }
