@@ -113,6 +113,19 @@ jobs:
           flutter-version: 3.44.5
           cache: true
 
+      # **L'XCODE PIU' RECENTE DELLA MACCHINA. Ordine GA voce 12, 20 ottobre
+      # 2026.** Il primo giro col plist (39487970501) e' caduto con Xcode
+      # 16.4: device_info_plus 13.2 chiama isiOSAppOnVision, che esiste solo
+      # nell'SDK di iOS 26 (Xcode 26), quello con cui Codemagic costruisce
+      # le build vere. Si sceglie l'Xcode piu' alto installato sull'immagine.
+      - name: L'Xcode piu' recente
+        shell: bash
+        run: |
+          ls -d /Applications/Xcode*.app || true
+          ultimo=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -1)
+          if [ -n "$ultimo" ]; then sudo xcode-select -s "$ultimo/Contents/Developer"; fi
+          xcodebuild -version
+
       - name: Che macchina e', prima di costruire
         shell: bash
         run: |
