@@ -181,6 +181,10 @@ jobs:
         shell: bash
         run: |
           xcrun simctl install "$UDID" build/ios/iphonesimulator/Runner.app
+          # I permessi dati prima, cosi' nessuna finestra di sistema copre le
+          # catture; la posizione e' Milano, per il cielo in tempo reale.
+          xcrun simctl privacy "$UDID" grant all "$BUNDLE_ID" || true
+          xcrun simctl location "$UDID" set 45.4642,9.1900 || true
           xcrun simctl spawn "$UDID" log stream --level debug --style compact \
             --predicate 'process == "Runner"' > "$CATTURE/registro_dell_app.txt" 2>&1 &
           REGISTRO_PID=$!
@@ -203,7 +207,12 @@ jobs:
           xcrun simctl terminate "$UDID" "$BUNDLE_ID" || true
           kill "$REGISTRO_PID" || true
 
+      # IL PERCORSO NON DECIDE IL GIRO: la serie dell'avvio e' la prova
+      # minima, il percorso e' in piu'. Se cade, il passo resta segnato
+      # rosso, ripubblica la coda del suo registro in un'annotazione e il
+      # giro va avanti fino all'artifact.
       - name: Il percorso delle schermate principali
+        continue-on-error: true
         shell: bash
         run: |
           SORGENTI=tool/iphone_simulatore
@@ -214,18 +223,36 @@ jobs:
           # integration_test NON sta nel pubspec del repository: l'ordine
           # del 6 ottobre 2026 l'ha tolto perche' rompe le build di rilascio.
           # Si aggiunge solo qui, sulla copia del giro, che nessuno spinge.
-          flutter pub add --dev 'integration_test:{"sdk":"flutter"}'
+          flutter pub add --dev 'integration_test:{"sdk":"flutter"}' 'flutter_driver:{"sdk":"flutter"}'
           mkdir -p integration_test test_driver
           for f in "$SORGENTI"/*_test.dart.txt; do
             cp "$f" "integration_test/$(basename "${f%.txt}")"
           done
           cp "$SORGENTI/driver_delle_catture.dart.txt" test_driver/integration_test.dart
+          xcrun simctl privacy "$UDID" grant all "$BUNDLE_ID" || true
+          ESITO=0
           for prova in integration_test/*_test.dart; do
             flutter drive --driver=test_driver/integration_test.dart \
               --target="$prova" -d "$UDID" --debug \
-              2>&1 | tee -a "$CATTURE/registro_del_percorso.txt"
+              2>&1 | tee -a "$CATTURE/registro_del_percorso.txt" || ESITO=1
           done
-          ls -la "$CATTURE"
+          # La seconda strada delle catture: la cartella dei documenti
+          # dell'app, sul disco del Mac.
+          DATI="$(xcrun simctl get_app_container "$UDID" "$BUNDLE_ID" data 2>/dev/null || true)"
+          if [ -n "$DATI" ] && [ -d "$DATI/Documents/catture_percorso" ]; then
+            mkdir -p "$CATTURE/percorso_dal_telefono"
+            cp "$DATI/Documents/catture_percorso/"*.png "$CATTURE/percorso_dal_telefono/" || true
+          fi
+          ls -laR "$CATTURE"
+          if [ "$ESITO" -ne 0 ]; then
+            grep -E "PERCORSO GA.12|error|Error|EXCEPTION|Failure" "$CATTURE/registro_del_percorso.txt" | tail -40 \
+              | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}' | cut -c1-7000 > "$RUNNER_TEMP/percorso.txt"
+            echo "::error title=Il percorso delle schermate e' caduto::$(cat "$RUNNER_TEMP/percorso.txt")"
+            exit 1
+          fi
+          grep "PERCORSO GA.12" "$CATTURE/registro_del_percorso.txt" \
+            | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}' | cut -c1-7000 > "$RUNNER_TEMP/percorso.txt" || true
+          echo "::notice title=Il percorso delle schermate::$(cat "$RUNNER_TEMP/percorso.txt")"
 
       - name: Rapporti di crollo, se ce ne sono
         if: always()
