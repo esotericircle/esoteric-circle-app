@@ -208,7 +208,11 @@ void main() {
       // DICIASSETTE dall'ordine FV voce FV.12: il Calendario Lunare.
       // DICIOTTO dall'ordine FX voce FX.10: il Respiro della Luna,
       // Respiriamo insieme con la collana a due.
-      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 18);
+      // DICIASSETTE dall'ordine GA, decisione del fondatore del 20 ottobre
+      // 2026, per ordine del fondatore e non per condensare: la riga del
+      // respiro condiviso esce dalla card, perche' le sue funzioni non si
+      // pubblicano (respiriamo_insieme_non_si_promette_test).
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 17);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
@@ -376,7 +380,11 @@ void main() {
       // SESSANTASETTE dall'ordine GA voce GA.05, 20 ottobre 2026: la riga
       // della risposta lunga delle rune (`RigaDelPiano.runeLunga`), dalla
       // Iniziato in su e solo per il responso principale.
-      expect(PlanCatalog.matrix.length, 67);
+      // SESSANTASEI dall'ordine GA, decisione del fondatore del 20 ottobre
+      // 2026, per ordine del fondatore e non per condensare: esce la riga
+      // "Respiro della Luna: Respiriamo insieme", perche' le funzioni del
+      // Respiro condiviso non si pubblicano.
+      expect(PlanCatalog.matrix.length, 66);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

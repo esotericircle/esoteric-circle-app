@@ -1021,7 +1021,9 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     );
   }
 
-  /// La voce Respiro: il rito del respiro, la collana, Respiriamo insieme.
+  /// La voce Respiro: il rito del respiro e la collana (il respiro
+  /// condiviso e' uscito con la decisione del fondatore del 20 ottobre 2026:
+  /// le sue funzioni non si pubblicano).
   Widget _ilRito(BuildContext context, MaestroPalette palette,
       ParolaDiMedoraDelRespiro parola, double respiroVisto) {
     return Opacity(

@@ -17,15 +17,15 @@ import '../../core/entitlement/tier.dart';
 /// - **Iniziato**: in più la collana completa con la consegna alla Luna
 ///   nuova, lo scrigno delle collane, gli avvisi, e il tempo sotto il dito
 ///   su tutto il mese.
-/// - **Adepto e Illuminato**: in più Respiriamo insieme, con la collana a
-///   due e la bussola verso la Luna.
+/// - **Adepto e Illuminato**: lo stesso Respiro dell'Iniziato. Il respiro
+///   condiviso (il conteggio collettivo alla Luna piena e la collana a due,
+///   ordine FX voce FX.09) e' uscito con la decisione del fondatore del 20
+///   ottobre 2026, "Le funzioni del Respiro non si pubblicano": niente piu'
+///   riga nella matrice, voci nel listino o porte a video.
 ///
 /// Ogni voce che il piano chiude resta Premium bloccata col lucchetto e
 /// l'invito, mai un vicolo cieco (la schermata lo mostra, come per il
-/// Calendario Lunare): chi non ha Respiriamo insieme nel piano lo apre per
-/// una Luna piena sola con `ListinoDegliEos.respiroInsiemeUnaVolta`, e la
-/// collana a due per un ciclo solo con
-/// `ListinoDegliEos.collanaADueUnaVolta`.
+/// Calendario Lunare).
 abstract final class IlPianoDelRespiro {
   /// Se la collana completa (la consegna alla Luna nuova e lo scrigno delle
   /// collane) si apre a questo piano: dall'Iniziato in su.
@@ -43,13 +43,7 @@ abstract final class IlPianoDelRespiro {
   static bool tempoSottoIlDitoSuTuttoIlMese(Tier tier) =>
       PlanCatalog.apre(RigaDelPiano.respiroTempoSottoIlDitoMese, tier);
 
-  /// **SE "RESPIRIAMO INSIEME" SI APRE A QUESTO PIANO** (FX.09): dall'Adepto
-  /// in su. Chi non ce l'ha nel piano puo' comunque aprire un assaggio del
-  /// conteggio collettivo con gli Eos
-  /// (`ListinoDegliEos.respiroInsiemeUnaVolta`) o la collana a due per un
-  /// ciclo solo (`ListinoDegliEos.collanaADueUnaVolta`): quelli sono crediti
-  /// comprati e non cambiano questa risposta, che resta la domanda "il
-  /// piano lo apre?" e non "si puo' usare adesso?".
-  static bool respiroInsiemeAperto(Tier tier) =>
-      PlanCatalog.apre(RigaDelPiano.respiroInsieme, tier);
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+  // c'era `respiroInsiemeAperto` (FX.09), dall'Adepto in su. Il respiro
+  // condiviso non si pubblica, e il piano non lo apre a nessuno.
 }

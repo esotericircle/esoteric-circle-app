@@ -199,11 +199,17 @@ void main() {
           ),
         );
 
-    /// **LA RICUCITURA VERA, ordine FX aggiunta FXA.03.** Si tocca la perla
-    /// spenta, compare l'ago col filo, poi la conferma della spesa vestita
-    /// coi pezzi dipinti; pagato sul server (la porta finta risponde ok), la
-    /// perla si accende e non offre piu' la ricucitura.
-    testWidgets('mostra la collana dipinta e ricuce una perla pagando gli Eos',
+    /// **LA RICUCITURA VERA, ordine FX aggiunta FXA.03**, LAPIDE. Qui si
+    /// toccava la perla spenta, compariva l'ago col filo, poi la conferma
+    /// della spesa e la porta del server `ricuciUnaPerlaDelRespiro`. **Ordine
+    /// GA, decisione del fondatore del 20 ottobre 2026**: "Le funzioni del
+    /// Respiro non si pubblicano". La porta non c'e', e la schermata non
+    /// offre piu' la ricucitura: la prova pretende la collana con la sua
+    /// guida, nessun invito, nessun segno di perla ricucibile, e che un
+    /// tocco su una perla spenta recente non chieda niente al server ne'
+    /// apra una conferma di spesa.
+    testWidgets(
+        'mostra la collana dipinta e la sua guida, e non offre la ricucitura',
         (tester) async {
       final oggi = DateTime(2026, 10, 16, 9);
       SharedPreferences.setMockInitialValues({});
@@ -226,39 +232,34 @@ void main() {
       // La guida: dove sei, cosa fare, l'obiettivo.
       expect(find.byKey(const Key('collana_perla_di_oggi')), findsOneWidget);
       expect(find.byKey(const Key('collana_obiettivo')), findsOneWidget);
-      expect(
-          find.byKey(const Key('collana_invito_ricucitura')), findsOneWidget);
-
+      // Il modello sa ancora che tre giorni fa la perla era ricucibile: e'
+      // la schermata che non la offre piu'.
       final tresGiorniFa = oggi.subtract(const Duration(days: 3));
       final giorno =
           DateTime(tresGiorniFa.year, tresGiorniFa.month, tresGiorniFa.day);
-      final tocco =
-          find.byKey(Key('collana_ricuci_${IlRespiroDellaLuna.data(giorno)}'));
-      expect(tocco, findsOneWidget,
-          reason: 'un giorno spento recente dovrebbe offrire la ricucitura');
+      expect(
+          find.byKey(const Key('collana_invito_ricucitura')), findsNothing,
+          reason: 'la schermata invita a ricucire una perla con una porta '
+              'del server che non e\' pubblicata');
+      expect(
+          find.byKey(const Key('collana_tocchi_della_ricucitura')),
+          findsNothing);
+      expect(
+          find.byKey(Key('collana_ricuci_${IlRespiroDellaLuna.data(giorno)}')),
+          findsNothing);
+      expect(find.textContaining('ricucir'), findsNothing);
 
-      await tester.tap(tocco, warnIfMissed: false);
-      await tester.pump();
-      expect(find.byKey(const Key('collana_ago_e_filo')), findsOneWidget,
-          reason: 'l\'ago col filo compare sulla perla prima della conferma');
+      // Il tocco sulla collana, dove prima stava la perla ricucibile, non
+      // apre la conferma e non chiede niente al server.
+      await tester.tap(find.byKey(const Key('collana_finestra')),
+          warnIfMissed: false);
       await tester.pump(const Duration(milliseconds: 700));
       await tester.pumpAndSettle();
-
-      expect(find.byKey(const Key('conferma_spesa')), findsOneWidget);
-      expect(
-          find.text('Questa richiesta costa 25 Eos. Nel tuo borsellino ce '
-              'ne sono 100.'),
-          findsOneWidget);
-      await tester.tap(find.byKey(const Key('conferma_spesa_procedi')));
-      await tester.pumpAndSettle();
-
-      expect(
-          porta.chieste.map((c) => c.$1), contains('ricuciUnaPerlaDelRespiro'),
-          reason: 'la ricucitura deve passare dal server, non solo dal '
-              'telefono');
-      expect(tocco, findsNothing,
-          reason: 'ricucita, la perla non offre piu\' la ricucitura');
+      expect(find.byKey(const Key('conferma_spesa')), findsNothing);
       expect(find.byKey(const Key('collana_ago_e_filo')), findsNothing);
+      expect(porta.chieste.map((c) => c.$1),
+          isNot(contains('ricuciUnaPerlaDelRespiro')),
+          reason: 'la schermata chiama una porta del server non pubblicata');
     });
 
     test('nessuna finestra promette una funzione che non c\'e\'', () {

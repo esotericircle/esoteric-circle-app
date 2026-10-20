@@ -3,19 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 
-import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
-import '../../core/entitlement/listino_degli_eos.dart';
-import '../../core/entitlement/question_allowance.dart';
 import '../../core/lunario/il_respiro_della_luna.dart';
 import '../../core/lunario/la_collana_delle_lune.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/app_theme.dart';
-import '../../design_system/components/icona_degli_eos.dart';
-import '../../design_system/components/la_conferma_della_spesa.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -133,8 +127,9 @@ Set<int> giorniAccesi(List<PerlaDellaCollana> perle) => {
 bool collanaCompleta(List<PerlaDellaCollana> perle) =>
     perle.isNotEmpty && perle.every((p) => p.stato == StatoDellaPerla.accesa);
 
-/// La vista del ciclo in corso: lo scrigno dipinto, la ricucitura, lo
-/// scrigno delle collane passate e la condivisione.
+/// La vista del ciclo in corso: lo scrigno dipinto, lo scrigno delle
+/// collane passate e la condivisione (la ricucitura e' uscita con la
+/// decisione del fondatore del 20 ottobre 2026).
 class _LaCollanaInCorso extends StatefulWidget {
   const _LaCollanaInCorso(
       {required this.palette, required this.collana, required this.now});
@@ -157,72 +152,16 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
   final GlobalKey _cardKey = GlobalKey();
   bool _rendiLaCard = false;
 
-  /// Il giorno su cui e' posato l'ago col filo, mentre si ricuce.
-  DateTime? _inRicucitura;
-
-  T? _forse<T>() {
-    try {
-      return context.read<T>();
-    } catch (senzaProvider) {
-      debugPrint('Collana delle Lune: manca $T, ripiego ($senzaProvider)');
-      return null;
-    }
-  }
-
-  Future<void> _avviso(String titolo, String testo) {
-    return finestraDipinta<void>(
-      context,
-      titolo: titolo,
-      contenuto: Text(testo),
-      azioni: (c) => [
-        PulsanteDipinto(
-          key: const Key('collana_avviso_va_bene'),
-          testo: 'Va bene',
-          larghezzaPiena: true,
-          onTap: () => Navigator.of(c).pop(),
-        ),
-      ],
-    );
-  }
-
-  /// **LA RICUCITURA VERA** (FXA.03). Si tocca una perla spenta ricucibile:
-  /// compare l'ago col filo sulla perla, poi la conferma della spesa in Eos
-  /// (la stessa dell'app, vestita coi pezzi dipinti). Pagato sul server, la
-  /// perla passa dalla pittura spenta alla accesa in dissolvenza e il giorno
-  /// risulta ricucito anche sul telefono.
-  Future<void> _ricuci(DateTime giorno) async {
-    setState(() => _inRicucitura = giorno);
-    try {
-      await Future<void>.delayed(const Duration(milliseconds: 650));
-      if (!mounted) return;
-      final sociale = _forse<IlCerchioSociale>();
-      if (sociale == null) {
-        await _avviso(
-            'Ricuci questa perla', EsitoDelGesto.silenzio.rigaPerLaPersona);
-        return;
-      }
-      final consenso = await LaConfermaDellaSpesa.degliEos(context,
-          costo: ListinoDegliEos.perlaRicucita.costo, vestito: confermaDipinta);
-      if (consenso == null || !mounted) return;
-      final ciclo = widget.collana.cicloDi(widget.now);
-      final esito = await sociale.ricuciUnaPerlaDelRespiro(
-          consenso: consenso, giorno: giorno, inizioCiclo: ciclo.inizio);
-      if (!mounted) return;
-      if (esito.ok) {
-        // Il saldo che il server ha scalato arriva subito nel borsellino a
-        // schermo, senza aspettare la prossima lettura dello stato.
-        final saldo = esito.dati['saldo'];
-        if (saldo is int) {
-          await _forse<QuestionAllowance>()?.applicaSaldo(saldo);
-        }
-        await widget.collana.ricuciUnaPerlaLocalmente(giorno, now: widget.now);
-      } else {
-        await _avviso('Ricuci questa perla', esito.rigaPerLaPersona);
-      }
-    } finally {
-      if (mounted) setState(() => _inRicucitura = null);
-    }
-  }
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+  // c'era la ricucitura a video di una perla spenta (ordine FX aggiunta
+  // FXA.03): l'ago col filo, la conferma della spesa di 25 Eos e la porta
+  // del server `ricuciUnaPerlaDelRespiro`, che non e' mai stata pubblicata
+  // (dalla build 2314 la persona arrivava alla conferma e poi leggeva che la
+  // funzione non era aperta, ordine GA voce 11). Il fondatore: "Le funzioni
+  // del Respiro non si pubblicano". La collana mostra le perle respirate e
+  // non offre piu' una ricucitura che il server non sa fare; il modello
+  // della ricucitura (`LaCollanaDelleLune.giorniRicucibili`) resta, senza
+  // porta a video.
 
   Future<void> _condividi(String nome, int accese) async {
     setState(() => _rendiLaCard = true);
@@ -306,15 +245,10 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
     final accesi = giorniAccesi(perle);
     final completa = collanaCompleta(perle);
     final nome = widget.collana.nomeDelCiclo(ciclo.inizio);
-    final ricucibili = widget.collana.giorniRicucibili(widget.now);
     final oggiAcceso = accesi.contains(perle.indexWhere((p) =>
             IlRespiroDellaLuna.data(p.giorno) ==
             IlRespiroDellaLuna.data(widget.now)) +
         1);
-    int numeroDelGiorno(DateTime g) =>
-        perle.indexWhere((p) =>
-            IlRespiroDellaLuna.data(p.giorno) == IlRespiroDellaLuna.data(g)) +
-        1;
 
     final collana = LaCollanaDipinta(
       accesi: accesi,
@@ -369,81 +303,10 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
               ),
             ),
           ),
-          // **IL TOCCO SCEGLIE LA PERLA PIU' VICINA AL DITO.** Le perle a
-          // schermo distano meno di un dito: zone di tocco larghe 44 punti
-          // si sovrapponevano, e il tocco sul giorno 13 ricuciva il 14
-          // (preso dalla prova della schermata). Un tocco solo sulla
-          // pittura sceglie la perla ricucibile piu' vicina, entro mezzo
-          // dito dal suo centro.
-          if (ricucibili.isNotEmpty)
-            Positioned.fill(
-              child: GestureDetector(
-                key: const Key('collana_tocchi_della_ricucitura'),
-                behavior: HitTestBehavior.translucent,
-                onTapUp: _inRicucitura != null
-                    ? null
-                    : (d) {
-                        DateTime? scelto;
-                        var distanza = 26.0;
-                        for (final g in ricucibili) {
-                          final n = numeroDelGiorno(g);
-                          if (n <= 0 || n > LePerleDellaCollana.giorni.length) {
-                            continue;
-                          }
-                          final p = LePerleDellaCollana.giorni[n - 1];
-                          final dd = (Offset(p.x * scala, p.y * scala) -
-                                  d.localPosition)
-                              .distance;
-                          if (dd < distanza) {
-                            distanza = dd;
-                            scelto = g;
-                          }
-                        }
-                        if (scelto != null) unawaited(_ricuci(scelto));
-                      },
-              ),
-            ),
-          // I segni delle perle ricucibili, uno per giorno: non toccano
-          // niente, dicono dove sta il centro di ciascuna (e le prove ci
-          // toccano sopra).
-          for (final g in ricucibili)
-            if (numeroDelGiorno(g) > 0 &&
-                numeroDelGiorno(g) <= LePerleDellaCollana.giorni.length)
-              Positioned(
-                left: LePerleDellaCollana.giorni[numeroDelGiorno(g) - 1].x *
-                        scala -
-                    4,
-                top: LePerleDellaCollana.giorni[numeroDelGiorno(g) - 1].y *
-                        scala -
-                    4,
-                width: 8,
-                height: 8,
-                child: IgnorePointer(
-                  child: SizedBox(
-                      key: Key('collana_ricuci_${IlRespiroDellaLuna.data(g)}')),
-                ),
-              ),
-          // L'ago col filo, posato sulla perla che si sta ricucendo.
-          if (_inRicucitura != null && numeroDelGiorno(_inRicucitura!) > 0)
-            Positioned(
-              left: LePerleDellaCollana
-                          .giorni[numeroDelGiorno(_inRicucitura!) - 1].x *
-                      scala -
-                  36,
-              top: LePerleDellaCollana
-                          .giorni[numeroDelGiorno(_inRicucitura!) - 1].y *
-                      scala -
-                  40,
-              width: 72,
-              height: 74,
-              child: IgnorePointer(
-                child: Image.asset(
-                    'assets/img/respiro_della_luna/comandi/ago_e_filo_v1.webp',
-                    key: const Key('collana_ago_e_filo'),
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) => const SizedBox.shrink()),
-              ),
-            ),
+          // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026:
+          // qui c'erano i tocchi della ricucitura, i segni delle perle
+          // ricucibili e l'ago col filo (FXA.03), la porta a video di una
+          // funzione del server mai pubblicata.
         ],
       ),
     );
@@ -551,30 +414,9 @@ class _LaCollanaInCorsoState extends State<_LaCollanaInCorso> {
                 ),
               ),
             ),
-            if (ricucibili.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    SpacingTokens.lg, SpacingTokens.xs, SpacingTokens.lg, 0),
-                child: Row(
-                  key: const Key('collana_invito_ricucitura'),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text(
-                          'Tocca una perla spenta recente per ricucirla:',
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.label(size: 13)
-                              .copyWith(color: coloreSulVelluto)),
-                    ),
-                    const SizedBox(width: SpacingTokens.xs),
-                    const IconaDegliEos(misura: 16, colore: coloreSulVelluto),
-                    const SizedBox(width: 4),
-                    Text('${ListinoDegliEos.perlaRicucita.costo} Eos',
-                        style: TypographyTokens.label(size: 13)
-                            .copyWith(color: coloreSulVelluto)),
-                  ],
-                ),
-              ),
+            // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026:
+            // qui c'era l'invito "Tocca una perla spenta recente per
+            // ricucirla" col prezzo in Eos, tolto con la ricucitura.
             Padding(
               padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
                   SpacingTokens.sm, SpacingTokens.md, SpacingTokens.md),

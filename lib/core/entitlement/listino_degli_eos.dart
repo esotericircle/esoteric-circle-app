@@ -390,72 +390,15 @@ class ListinoDegliEos {
     },
   );
 
-  /// **LA PERLA RICUCITA, ordine FX voce FX.10.** Ricuce a Eos la perla di
-  /// un giorno della collana mancato: un gesto singolo e concluso, come
-  /// [oroscopoLungaDelGiorno], non un accesso che dura.
-  ///
-  /// **Il prezzo, letto da chi l'ha fissato per primo.** L'ordine chiede di
-  /// leggere `lib/core/lunario/il_listino_del_respiro.dart` se esiste gia' e
-  /// di usare lo stesso numero: quel file e' comparso durante questa stessa
-  /// voce, scritto da un altro agente dello stesso ordine FX (la voce FX.05),
-  /// con `IlListinoDelRespiro.costoRicucituraInEos`. Venticinque Eos, la sua
-  /// ragione: sotto i trenta di [confrontoDelCieloInPiu] (il prezzo piu'
-  /// basso del listino prima di questa voce), perche' ricucire una perla non
-  /// sblocca niente di nuovo, restituisce solo un giorno che si poteva avere
-  /// gratis respirando una volta.
-  static const perlaRicucita = VoceDelListino(
-    id: 'respiro_perla_ricucita',
-    nome: 'Una perla ricucita',
-    costo: 25,
-    budget: null,
-    gratisAlGiorno: {
-      Tier.free: 0,
-      Tier.tier1: 0,
-      Tier.tier2: 0,
-      Tier.tier3: 0,
-    },
-  );
-
-  /// **UN ASSAGGIO DEL RESPIRO INSIEME, ordine FX voce FX.10.** Chi non ha
-  /// "Respiriamo insieme" nel piano (Viandante e Iniziato) lo apre per una
-  /// Luna piena sola. **Il prezzo**: quaranta Eos, fra
-  /// [confrontoDelCieloInPiu] (30 Eos, un gesto che ripara un giorno gia'
-  /// gratuito, come [perlaRicucita]) e [oroscopoLungaDelGiorno] (50 Eos, un
-  /// giorno intero di una funzione che resta chiusa agli altri piani): qui
-  /// si apre per una Luna piena intera una funzione che il piano non da',
-  /// non solo un giorno, ma resta un assaggio singolo e non un accesso che
-  /// dura, nessuna chiamata al modello (come il Calendario Lunare, R2).
-  static const respiroInsiemeUnaVolta = VoceDelListino(
-    id: 'respiro_insieme_una_volta',
-    nome: 'Un assaggio di Respiriamo insieme',
-    costo: 40,
-    budget: null,
-    gratisAlGiorno: {
-      Tier.free: 0,
-      Tier.tier1: 0,
-      Tier.tier2: 0,
-      Tier.tier3: 0,
-    },
-  );
-
-  /// **UNA COLLANA A DUE A EOS, ordine FX voce FX.10.** Chi non ha
-  /// "Respiriamo insieme" nel piano apre la collana a due per un ciclo
-  /// solo, con lo stesso prezzo esatto di [propostaInsiemeDelLunario] (50
-  /// Eos): la stessa natura di gesto che coordina due persone, non una sola,
-  /// e quindi costa piu' dell'assaggio del respiro insieme (40 Eos, che
-  /// tocca solo chi lo compra).
-  static const collanaADueUnaVolta = VoceDelListino(
-    id: 'respiro_collana_a_due_una_volta',
-    nome: 'Una collana a due in più',
-    costo: 50,
-    budget: null,
-    gratisAlGiorno: {
-      Tier.free: 0,
-      Tier.tier1: 0,
-      Tier.tier2: 0,
-      Tier.tier3: 0,
-    },
-  );
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+  // c'erano le tre voci a Eos del Respiro della Luna dell'ordine FX voce
+  // FX.10, la perla ricucita (25 Eos), l'assaggio del respiro condiviso (40)
+  // e la collana a due in piu' (50). Tutte e tre si spendevano su porte del
+  // server mai pubblicate (`ricuciUnaPerlaDelRespiro`, le porte del respiro
+  // collettivo e della collana a due), e il fondatore: "Le funzioni del
+  // Respiro non si pubblicano". Il listino non vende una funzione senza
+  // server; la guardia respiriamo_insieme_non_si_promette cade se una voce
+  // `respiro_` ricompare.
 
   static const List<VoceDelListino> tutte = [
     stesaTreCarte,
@@ -476,9 +419,6 @@ class ListinoDegliEos {
     segnoDiChiTiHaIndovinato,
     meseExtraDelLunario,
     propostaInsiemeDelLunario,
-    perlaRicucita,
-    respiroInsiemeUnaVolta,
-    collanaADueUnaVolta,
   ];
 
   /// La voce di un'arte, oppure nulla se quell'arte non si compra a Eos.

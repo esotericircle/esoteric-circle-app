@@ -12,8 +12,6 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/astro/sky_location.dart';
-import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
-import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/lunario/il_dial_a_moon.dart';
 import 'package:esoteric_circle/core/lunario/il_respiro_della_luna.dart';
 import 'package:esoteric_circle/core/lunario/la_collana_delle_lune.dart';
@@ -31,8 +29,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'porta_finta_del_cerchio_sociale.dart';
 
 /// La posizione del telefono a Piacenza, per l'anteprima del Respiro (FXA.06).
 class _PiacenzaFinta extends SkyLocation {
@@ -190,41 +186,10 @@ void main() {
     await _scatta(tester, radice, 'fxa01_collana_completa');
   });
 
-  testWidgets('FXA.03: la ricucitura, l\'ago col filo e la conferma',
-      (tester) async {
-    final oggi = DateTime(2026, 10, 16, 9);
-    SharedPreferences.setMockInitialValues(await respirati(oggi, 2));
-    final borsa = QuestionAllowance();
-    await borsa.applicaSaldo(120);
-    final sociale = IlCerchioSociale(porta: PortaFintaDelCerchioSociale());
-    final radice = GlobalKey();
-    await _monta(
-        tester,
-        radice,
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => MaestroController()),
-            ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
-            ChangeNotifierProvider<IlCerchioSociale>.value(value: sociale),
-          ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: MaestroScope(child: LaCollanaDelleLuneScreen(now: oggi)),
-          ),
-        ));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 100));
-    final ieri = DateTime(2026, 10, 15);
-    await tester.tap(
-        find.byKey(Key('collana_ricuci_${IlRespiroDellaLuna.data(ieri)}')),
-        warnIfMissed: false);
-    await tester.pump(const Duration(milliseconds: 700));
-    await tester.pump(const Duration(milliseconds: 400));
-    await _scatta(tester, radice, 'fxa03_ricucitura_conferma');
-    // Si chiude la conferma senza spendere, per lasciare la prova pulita.
-    await tester.tap(find.byKey(const Key('conferma_spesa_non_ora')));
-    await tester.pump(const Duration(seconds: 1));
-  });
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+  // c'era l'anteprima FXA.03, la ricucitura con l'ago col filo e la
+  // conferma della spesa. Le funzioni del Respiro non si pubblicano, e la
+  // collana non offre piu' la ricucitura (la_collana_delle_lune_test).
 
   testWidgets('FXA.02: il pulsante dipinto a due larghezze e il pannello',
       (tester) async {

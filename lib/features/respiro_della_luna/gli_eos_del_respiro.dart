@@ -14,10 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// resta APERTA IN ATTESA DI VERIFICA per la parte che dipende dal server
 /// vero, e il rapporto lo dichiara.
 ///
-/// Le porte vere del server (quando saranno pubblicate, nella stessa forma
-/// delle altre voci a Eos del Cerchio) consumano
-/// `ListinoDegliEos.perlaRicucita`, `.respiroInsiemeUnaVolta` e
-/// `.collanaADueUnaVolta`.
+/// Le porte vere del server avrebbero consumato tre voci del listino, la
+/// perla ricucita, l'assaggio del respiro condiviso e la collana a due in
+/// piu'. **Ordine GA, decisione del fondatore del 20 ottobre 2026**: "Le
+/// funzioni del Respiro non si pubblicano". Le tre voci sono uscite dal
+/// listino e nessuna schermata usa questa classe: resta il deposito sul
+/// telefono, senza porte a video, finche' il fondatore non decide
+/// altrimenti.
 class GliEosDelRespiro extends ChangeNotifier {
   static const String _chiavePerleRicucite = 'respiro.perleRicucite';
   static const String _chiaveAssaggiRespiroInsieme =

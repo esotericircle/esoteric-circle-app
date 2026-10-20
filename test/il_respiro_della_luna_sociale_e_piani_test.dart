@@ -20,7 +20,11 @@ import 'porta_finta_del_cerchio_sociale.dart';
 /// respiro di oggi, la perla del giorno, il tempo sotto il dito sulle 24
 /// ore di oggi); l'Iniziato ha in più la collana completa, lo scrigno e gli
 /// avvisi, e il tempo sotto il dito su tutto il mese; l'Adepto e
-/// l'Illuminato hanno in più Respiriamo insieme.
+/// l'Illuminato avevano in più Respiriamo insieme. **Ordine GA, decisione
+/// del fondatore del 20 ottobre 2026**: "Le funzioni del Respiro non si
+/// pubblicano". La riga della matrice, la chiave del piano e le tre voci del
+/// listino sono uscite; qui si prova che non tornino, e la guardia
+/// respiriamo_insieme_non_si_promette_test guarda tutte le stringhe di lib.
 ///
 /// FX.09: il respiro collettivo (il conteggio e gli amici) e la collana a
 /// due (l'invito, la risposta, il segnale del giorno) sul solo client: le
@@ -49,38 +53,40 @@ void main() {
   group('FX.10 i piani del Respiro della Luna', () {
     test(
         'il Viandante non ha nulla oltre il gratuito; dall\'Iniziato la '
-        'collana completa, lo scrigno, gli avvisi e il mese; dall\'Adepto '
-        'Respiriamo insieme', () {
+        'collana completa, lo scrigno, gli avvisi e il mese; l\'Adepto e '
+        'l\'Illuminato lo stesso, senza il respiro condiviso', () {
       for (final t in Tier.values) {
         print('FX.10 MISURA ${t.name}: collana '
             '${IlPianoDelRespiro.collanaCompletaAperta(t)}, avvisi '
             '${IlPianoDelRespiro.avvisiAperti(t)}, mese '
-            '${IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(t)}, insieme '
-            '${IlPianoDelRespiro.respiroInsiemeAperto(t)}');
+            '${IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(t)}');
       }
       expect(IlPianoDelRespiro.collanaCompletaAperta(Tier.free), isFalse);
       expect(IlPianoDelRespiro.avvisiAperti(Tier.free), isFalse);
       expect(
           IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(Tier.free), isFalse);
-      expect(IlPianoDelRespiro.respiroInsiemeAperto(Tier.free), isFalse);
 
       expect(IlPianoDelRespiro.collanaCompletaAperta(Tier.tier1), isTrue);
       expect(IlPianoDelRespiro.avvisiAperti(Tier.tier1), isTrue);
       expect(
           IlPianoDelRespiro.tempoSottoIlDitoSuTuttoIlMese(Tier.tier1), isTrue);
-      expect(IlPianoDelRespiro.respiroInsiemeAperto(Tier.tier1), isFalse,
-          reason: 'Respiriamo insieme e\' esclusiva dell\'Adepto');
 
       expect(IlPianoDelRespiro.collanaCompletaAperta(Tier.tier2), isTrue);
-      expect(IlPianoDelRespiro.respiroInsiemeAperto(Tier.tier2), isTrue);
       expect(IlPianoDelRespiro.collanaCompletaAperta(Tier.tier3), isTrue);
-      expect(IlPianoDelRespiro.respiroInsiemeAperto(Tier.tier3), isTrue);
+
+      // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+      // si provava che Respiriamo insieme si apriva dall'Adepto
+      // (`IlPianoDelRespiro.respiroInsiemeAperto`, la riga
+      // `RigaDelPiano.respiroInsieme`). Le funzioni del Respiro condiviso
+      // non si pubblicano, e nessun piano le promette.
+      expect(
+          PlanCatalog.matrix.where((r) =>
+              r.label.startsWith('Respiro della Luna') &&
+              r.label.toLowerCase().contains('insieme')),
+          isEmpty,
+          reason: 'la matrice promette di nuovo il respiro condiviso');
 
       // Le voci chiuse dicono da quale piano si aprono (mai un vicolo cieco).
-      expect(
-          PlanCatalog.dalPiano(
-              (t) => PlanCatalog.apre(RigaDelPiano.respiroInsieme, t)),
-          'Dall’Adepto');
       expect(
           PlanCatalog.dalPiano((t) =>
               PlanCatalog.apre(RigaDelPiano.respiroCollanaCompleta, t)),
@@ -93,7 +99,6 @@ void main() {
         RigaDelPiano.respiroCollanaCompleta,
         RigaDelPiano.respiroAvvisi,
         RigaDelPiano.respiroTempoSottoIlDitoMese,
-        RigaDelPiano.respiroInsieme,
       ];
       for (final c in chiavi) {
         final volte =
@@ -104,25 +109,24 @@ void main() {
   });
 
   group('FX.10 il listino del Respiro della Luna', () {
-    test(
-        'la perla ricucita, l\'assaggio di Respiriamo insieme e la collana a '
-        'due in più hanno i prezzi dichiarati', () {
-      expect(ListinoDegliEos.perlaRicucita.costo, 25,
-          reason: 'lo stesso numero di IlListinoDelRespiro.costoRicucituraInEos, '
-              'scritto da un altro agente dello stesso ordine FX (voce FX.05)');
-      expect(ListinoDegliEos.perlaRicucita.costo,
-          IlListinoDelRespiro.costoRicucituraInEos,
-          reason: 'i due listini non devono mai divergere su questo prezzo');
-      expect(ListinoDegliEos.respiroInsiemeUnaVolta.costo, 40);
-      expect(ListinoDegliEos.collanaADueUnaVolta.costo, 50,
-          reason: 'lo stesso prezzo esatto della proposta insieme del lunario');
-      expect(ListinoDegliEos.collanaADueUnaVolta.costo,
-          ListinoDegliEos.propostaInsiemeDelLunario.costo);
-      expect(ListinoDegliEos.tutte, contains(ListinoDegliEos.perlaRicucita));
-      expect(
-          ListinoDegliEos.tutte, contains(ListinoDegliEos.respiroInsiemeUnaVolta));
-      expect(
-          ListinoDegliEos.tutte, contains(ListinoDegliEos.collanaADueUnaVolta));
+    // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+    // si provavano i prezzi della perla ricucita (25 Eos, lo stesso numero
+    // di `IlListinoDelRespiro.costoRicucituraInEos`), dell'assaggio del
+    // respiro condiviso (40) e della collana a due in piu' (50). Le tre voci
+    // si spendevano su porte del server mai pubblicate, e sono uscite dal
+    // listino: adesso si prova che non tornino.
+    test('il listino non vende piu\' le funzioni del Respiro senza server',
+        () {
+      final delRespiro = [
+        for (final v in ListinoDegliEos.tutte)
+          if (v.id.startsWith('respiro_')) v.id,
+      ];
+      expect(delRespiro, isEmpty,
+          reason: 'il listino vende di nuovo una funzione del Respiro che il '
+              'server non ha pubblicato');
+      // Il prezzo della ricucitura resta scritto dove lo usa il modello
+      // della collana: e' il numero di prima, non un'offerta a video.
+      expect(IlListinoDelRespiro.costoRicucituraInEos, 25);
     });
   });
 
@@ -241,8 +245,11 @@ void main() {
         'identificativo del movimento, mai il prezzo', () async {
       final porta = _PortaDelRespiro();
       final sociale = IlCerchioSociale(porta: porta);
+      // La voce del listino e' uscita con la decisione del fondatore del 20
+      // ottobre 2026: il client della porta resta (la prova della porta non
+      // pubblicata lo usa), col prezzo del modello della collana.
       final consenso = ConsensoDellaSpesa.perLeProve(
-          ListinoDegliEos.perlaRicucita.costo);
+          IlListinoDelRespiro.costoRicucituraInEos);
       await sociale.ricuciUnaPerlaDelRespiro(
           consenso: consenso,
           giorno: DateTime(2026, 10, 12),

@@ -266,11 +266,10 @@ enum RigaDelPiano {
   /// oggi (il Viandante).
   respiroTempoSottoIlDitoMese,
 
-  /// **RESPIRIAMO INSIEME, ordine FX voce FX.09**: il conteggio collettivo
-  /// alla Luna piena e la collana a due, esclusiva dell'Adepto e
-  /// dell'Illuminato. La bussola verso la Luna non c'e' piu': il fondatore,
-  /// ordine FY voce FY.02, "la bussola elimanala, non serve a nulla".
-  respiroInsieme,
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+  // c'era `respiroInsieme` (ordine FX voce FX.09), il conteggio collettivo
+  // alla Luna piena e la collana a due dall'Adepto. Le funzioni del Respiro
+  // condiviso non si pubblicano, e la chiave e' uscita con la sua riga.
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -427,8 +426,11 @@ class PlanCatalog {
         'Oracolo degli Angeli: 5 consultazioni al giorno',
         // Ordine FV voce FV.12: il Calendario Lunare.
         'Calendario Lunare: dodici mesi avanti e "Trova il giorno insieme"',
-        // Ordine FX voce FX.10: il Respiro della Luna, esclusiva da qui.
-        'Respiro della Luna: Respiriamo insieme, con la collana a due',
+        // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026:
+        // qui c'era "Respiro della Luna: Respiriamo insieme, con la collana
+        // a due" (ordine FX voce FX.10). Le funzioni del Respiro condiviso
+        // non si pubblicano, e la card non le promette; la guardia
+        // respiriamo_insieme_non_si_promette cade se la promessa ricompare.
         '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
@@ -1104,9 +1106,10 @@ class PlanCatalog {
     // giorno (non righe della matrice: sono sempre apribili, come il
     // nutrimento dell'animale guida), e il tempo sotto il dito solo sulle 24
     // ore di oggi. Dall'Iniziato la collana completa, lo scrigno e gli
-    // avvisi, e il tempo sotto il dito su tutto il mese. Dall'Adepto
-    // Respiriamo insieme, con la collana a due (la bussola, tolta dall'ordine
-    // FY voce FY.02).
+    // avvisi, e il tempo sotto il dito su tutto il mese. Dall'Adepto c'era
+    // il respiro condiviso con la collana a due (la bussola, tolta
+    // dall'ordine FY voce FY.02), tolto con la decisione del fondatore del 20
+    // ottobre 2026 perche' le sue funzioni non si pubblicano.
     FeatureRow('Respiro della Luna: collana completa e scrigno',
         ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroCollanaCompleta),
@@ -1115,9 +1118,11 @@ class PlanCatalog {
     FeatureRow('Respiro della Luna: tempo sotto il dito su tutto il mese',
         ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.respiroTempoSottoIlDitoMese),
-    FeatureRow(
-        'Respiro della Luna: Respiriamo insieme', ['No', 'No', 'Sì', 'Sì'],
-        chiave: RigaDelPiano.respiroInsieme),
+    // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui
+    // c'era la riga "Respiro della Luna: Respiriamo insieme", dall'Adepto
+    // (ordine FX voce FX.10). Il fondatore: "Le funzioni del Respiro non si
+    // pubblicano": il respiro collettivo e la collana a due non hanno il
+    // server, e la matrice non li promette.
     FeatureRow('Correlazione mood-transiti', ['No', 'Sì', 'Sì', 'Sì']),
     // **LA RIGA E' RISCRITTA, ordine CG voce 11, e supera quella di prima.**
     //
