@@ -1,0 +1,290 @@
+[
+ {
+  "scheda": 1,
+  "id": "oroscopo-1",
+  "scambiato": true,
+  "simboliDi": "oroscopo-2"
+ },
+ {
+  "scheda": 2,
+  "id": "oroscopo-2",
+  "scambiato": true,
+  "simboliDi": "oroscopo-6"
+ },
+ {
+  "scheda": 3,
+  "id": "oroscopo-3",
+  "scambiato": false,
+  "simboliDi": "oroscopo-3"
+ },
+ {
+  "scheda": 4,
+  "id": "oroscopo-4",
+  "scambiato": false,
+  "simboliDi": "oroscopo-4"
+ },
+ {
+  "scheda": 5,
+  "id": "oroscopo-5",
+  "scambiato": false,
+  "simboliDi": "oroscopo-5"
+ },
+ {
+  "scheda": 6,
+  "id": "oroscopo-6",
+  "scambiato": true,
+  "simboliDi": "oroscopo-8"
+ },
+ {
+  "scheda": 7,
+  "id": "oroscopo-7",
+  "scambiato": false,
+  "simboliDi": "oroscopo-7"
+ },
+ {
+  "scheda": 8,
+  "id": "oroscopo-8",
+  "scambiato": true,
+  "simboliDi": "oroscopo-9"
+ },
+ {
+  "scheda": 9,
+  "id": "oroscopo-9",
+  "scambiato": true,
+  "simboliDi": "oroscopo-10"
+ },
+ {
+  "scheda": 10,
+  "id": "oroscopo-10",
+  "scambiato": true,
+  "simboliDi": "oroscopo-12"
+ },
+ {
+  "scheda": 11,
+  "id": "oroscopo-11",
+  "scambiato": false,
+  "simboliDi": "oroscopo-11"
+ },
+ {
+  "scheda": 12,
+  "id": "oroscopo-12",
+  "scambiato": true,
+  "simboliDi": "oroscopo-15"
+ },
+ {
+  "scheda": 13,
+  "id": "oroscopo-13",
+  "scambiato": false,
+  "simboliDi": "oroscopo-13"
+ },
+ {
+  "scheda": 14,
+  "id": "oroscopo-14",
+  "scambiato": false,
+  "simboliDi": "oroscopo-14"
+ },
+ {
+  "scheda": 15,
+  "id": "oroscopo-15",
+  "scambiato": true,
+  "simboliDi": "oroscopo-17"
+ },
+ {
+  "scheda": 16,
+  "id": "oroscopo-16",
+  "scambiato": false,
+  "simboliDi": "oroscopo-16"
+ },
+ {
+  "scheda": 17,
+  "id": "oroscopo-17",
+  "scambiato": true,
+  "simboliDi": "oroscopo-20"
+ },
+ {
+  "scheda": 18,
+  "id": "oroscopo-18",
+  "scambiato": false,
+  "simboliDi": "oroscopo-18"
+ },
+ {
+  "scheda": 19,
+  "id": "oroscopo-19",
+  "scambiato": false,
+  "simboliDi": "oroscopo-19"
+ },
+ {
+  "scheda": 20,
+  "id": "oroscopo-20",
+  "scambiato": true,
+  "simboliDi": "oroscopo-23"
+ },
+ {
+  "scheda": 21,
+  "id": "oroscopo-21",
+  "scambiato": false,
+  "simboliDi": "oroscopo-21"
+ },
+ {
+  "scheda": 22,
+  "id": "oroscopo-22",
+  "scambiato": false,
+  "simboliDi": "oroscopo-22"
+ },
+ {
+  "scheda": 23,
+  "id": "oroscopo-23",
+  "scambiato": true,
+  "simboliDi": "oroscopo-24"
+ },
+ {
+  "scheda": 24,
+  "id": "oroscopo-24",
+  "scambiato": true,
+  "simboliDi": "oroscopo-25"
+ },
+ {
+  "scheda": 25,
+  "id": "oroscopo-25",
+  "scambiato": true,
+  "simboliDi": "oroscopo-27"
+ },
+ {
+  "scheda": 26,
+  "id": "oroscopo-26",
+  "scambiato": false,
+  "simboliDi": "oroscopo-26"
+ },
+ {
+  "scheda": 27,
+  "id": "oroscopo-27",
+  "scambiato": true,
+  "simboliDi": "oroscopo-28"
+ },
+ {
+  "scheda": 28,
+  "id": "oroscopo-28",
+  "scambiato": true,
+  "simboliDi": "oroscopo-30"
+ },
+ {
+  "scheda": 29,
+  "id": "oroscopo-29",
+  "scambiato": false,
+  "simboliDi": "oroscopo-29"
+ },
+ {
+  "scheda": 30,
+  "id": "oroscopo-30",
+  "scambiato": true,
+  "simboliDi": "oroscopo-31"
+ },
+ {
+  "scheda": 31,
+  "id": "oroscopo-31",
+  "scambiato": true,
+  "simboliDi": "oroscopo-33"
+ },
+ {
+  "scheda": 32,
+  "id": "oroscopo-32",
+  "scambiato": false,
+  "simboliDi": "oroscopo-32"
+ },
+ {
+  "scheda": 33,
+  "id": "oroscopo-33",
+  "scambiato": true,
+  "simboliDi": "oroscopo-38"
+ },
+ {
+  "scheda": 34,
+  "id": "oroscopo-34",
+  "scambiato": false,
+  "simboliDi": "oroscopo-34"
+ },
+ {
+  "scheda": 35,
+  "id": "oroscopo-35",
+  "scambiato": false,
+  "simboliDi": "oroscopo-35"
+ },
+ {
+  "scheda": 36,
+  "id": "oroscopo-36",
+  "scambiato": false,
+  "simboliDi": "oroscopo-36"
+ },
+ {
+  "scheda": 37,
+  "id": "oroscopo-37",
+  "scambiato": false,
+  "simboliDi": "oroscopo-37"
+ },
+ {
+  "scheda": 38,
+  "id": "oroscopo-38",
+  "scambiato": true,
+  "simboliDi": "oroscopo-39"
+ },
+ {
+  "scheda": 39,
+  "id": "oroscopo-39",
+  "scambiato": true,
+  "simboliDi": "oroscopo-40"
+ },
+ {
+  "scheda": 40,
+  "id": "oroscopo-40",
+  "scambiato": true,
+  "simboliDi": "oroscopo-41"
+ },
+ {
+  "scheda": 41,
+  "id": "oroscopo-41",
+  "scambiato": true,
+  "simboliDi": "oroscopo-43"
+ },
+ {
+  "scheda": 42,
+  "id": "oroscopo-42",
+  "scambiato": false,
+  "simboliDi": "oroscopo-42"
+ },
+ {
+  "scheda": 43,
+  "id": "oroscopo-43",
+  "scambiato": true,
+  "simboliDi": "oroscopo-44"
+ },
+ {
+  "scheda": 44,
+  "id": "oroscopo-44",
+  "scambiato": true,
+  "simboliDi": "oroscopo-1"
+ },
+ {
+  "scheda": 45,
+  "id": "oroscopo-45",
+  "scambiato": false,
+  "simboliDi": "oroscopo-45"
+ },
+ {
+  "scheda": 46,
+  "id": "oroscopo-46",
+  "scambiato": false,
+  "simboliDi": "oroscopo-46"
+ },
+ {
+  "scheda": 47,
+  "id": "oroscopo-47",
+  "scambiato": false,
+  "simboliDi": "oroscopo-47"
+ },
+ {
+  "scheda": 48,
+  "id": "oroscopo-48",
+  "scambiato": false,
+  "simboliDi": "oroscopo-48"
+ }
+]

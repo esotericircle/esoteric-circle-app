@@ -1,0 +1,604 @@
+{
+ "schede": [
+  {
+   "scheda": 1,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Spostarti oggi costa fatica: tra mezzi in ritardo, code impreviste e strade chiuse, ogni tragitto chiede più tempo di quanto hai messo in conto. Il nervosismo arriva facile, insieme alla voglia di accelerare, ma la fretta oggi non ti fa guadagnare nulla.",
+    "cosaFare": "Esci con venti minuti di anticipo e controlla il percorso prima di partire, tenendo pronta un'alternativa. Se capisci che non arrivi in orario, avvisa con un messaggio breve invece di correre. Metti nella borsa un libro sottile o un quaderno per le soste forzate."
+   }
+  },
+  {
+   "scheda": 2,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "La giornata ti rende facile dire a voce l'affetto che di solito scrivi. C'è qualcuno a cui mandi spesso parole affettuose ma a cui non le dici mai di persona: oggi la voce ti accompagna meglio della tastiera e il calore arriva diretto.",
+    "cosaFare": "Alla prima occasione di vedere o sentire questa persona, dille a voce che le vuoi bene, guardandola. Non preparare un discorso: basta una frase semplice, detta senza fretta. Stasera scrivi su un foglietto il nome di un'altra persona cara che aspetta parole così.",
+    "approfondimento": "Le parole scritte si possono rileggere, quelle dette restano nell'aria e nel ricordo. Pronunciarle costa un piccolo imbarazzo che oggi passa in fretta e lascia una vicinanza nuova. Il foglietto serve a non fermarti a un gesto isolato: l'affetto detto ad alta voce diventa un'abitudine."
+   }
+  },
+  {
+   "scheda": 3,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Carriera",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Oggi l'idea di cambiare settore smette di sembrare un salto nel buio: è una giornata adatta a ragionarci sul serio. Riesci a vedere quali delle tue capacità possono viaggiare con te anche in un ambiente nuovo e quali invece vanno ancora costruite con un po' di studio.",
+    "cosaFare": "Scrivi su due colonne: a sinistra le cose che sai fare, a destra come le chiamerebbe chi lavora nel settore che ti attira. Ricava tre parole chiave e usale oggi per cercare annunci. Poi chiedi venti minuti di conversazione a chi lavora già in quel campo."
+   }
+  },
+  {
+   "scheda": 4,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Oggi la fortuna arriva togliendo, non aggiungendo: un servizio, un'app o una rivista che non apri più occupa ancora spazio nei tuoi giorni. Liberarlo ti restituisce attenzione per ciò che conta, con meno notifiche, meno promemoria e meno sensi di colpa.",
+    "cosaFare": "Apri l'elenco degli abbonamenti e dei servizi attivi sul telefono. Individua quello che non hai usato nelle ultime quattro settimane e disdicilo prima di sera. Accanto a ciascuno di quelli che restano scrivi una parola sul perché lo tieni, così la scelta diventa chiara.",
+    "approfondimento": "Una scelta così piccola libera spazio anche nella testa. L'ordine nelle abitudini fisse è una forma di cura verso il tuo tempo, che nelle giornate in equilibrio si vede meglio. I servizi senza una ragione chiara restano in prova fino al prossimo rinnovo, poi decidi senza esitare."
+   }
+  },
+  {
+   "scheda": 5,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Settimana piena ma gestibile: impegni regolari, qualche richiesta in più, nessuna corsa. Tutto dipende da come distribuisci il tempo libero fra un dovere e l'altro, perché se non lo difendi finisce per riempirsi delle cose degli altri prima che tu te ne accorga.",
+    "cosaFare": "Apri oggi l'agenda e cerchia due sere, una a metà settimana e una verso la fine, da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi un altro giorno senza scusarti e senza dare troppe spiegazioni.",
+    "approfondimento": "Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura."
+   }
+  },
+  {
+   "scheda": 6,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Settimana adatta a riaprire con leggerezza la porta agli incontri, se da tempo hai messo in pausa le app o le occasioni per conoscere persone. Con meno aspettative e più verità su di te, questi giorni rendono facile ricominciare senza ansia.",
+    "cosaFare": "Scegli una foto degli ultimi mesi in cui si vede bene il tuo sorriso. Riscrivi la presentazione entro martedì con tre cose che fai davvero nel tempo libero, senza aggettivi su di te. Rispondi soltanto ai messaggi che fanno una domanda vera, lasciando cadere gli altri."
+   }
+  },
+  {
+   "scheda": 7,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Carriera",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Settimana lucida per i problemi tecnici: il nodo che ferma il progetto da giorni ha una soluzione più semplice di quanto sembri. In questi giorni ragioni con chiarezza ed è possibile che la strada giusta la individui proprio tu, prima di chiunque altro nel gruppo.",
+    "cosaFare": "Giovedì mattina, prima di aprire la posta, prenditi un'ora per disegnare il problema su un foglio, a mano, con frecce e riquadri. Poi spiega lo schema a un collega in dieci minuti ad alta voce: spesso è lì che il punto debole salta fuori.",
+    "approfondimento": "A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più."
+   }
+  },
+  {
+   "scheda": 8,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Settimana fortunata negli incontri casuali: nei tragitti di questi giorni, in treno, in sala d'attesa, in coda, chi ti siede accanto può avere qualcosa da dirti. Una chiacchiera nata per caso ha buone probabilità di portarti un'indicazione utile, un nome, un'idea.",
+    "cosaFare": "Per un viaggio della settimana lascia le cuffie nella borsa. Se chi ti sta vicino legge qualcosa che conosci o parla di un lavoro che ti incuriosisce, fai una domanda semplice e lascia che risponda. Se lo scambio diventa interessante, chiedi un recapito."
+   }
+  },
+  {
+   "scheda": 9,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Questo mese ti sorride sul fronte delle amicizie: le agende di quel gruppo che la vita ha sparpagliato si incastrano meglio del solito e il primo messaggio trova risposte rapide. Da tempo dici che dovreste rivedervi, adesso è il momento buono per farlo davvero, attorno alla tua tavola.",
+    "cosaFare": "Entro dieci giorni proponi due date nella chat del gruppo e offri la tua casa. Chiedi a ognuno di portare un piatto della propria cucina, così la serata non pesa su nessuno. A fine cena, prima che tutti si alzino, fissate insieme il prossimo incontro in agenda."
+   }
+  },
+  {
+   "scheda": 10,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Per chi è senza legame il mese è favorevole agli incontri nei luoghi dove si fa qualcosa insieme. Una passione condivisa crea confidenza più in fretta di cento chiacchiere davanti a uno schermo: è lì che in queste settimane le simpatie nascono con naturalezza.",
+    "cosaFare": "Cerca un corso serale o un gruppo che si ritrova con regolarità, come un coro, una squadra di camminate o un laboratorio di ceramica. Iscriviti entro dieci giorni e partecipa alle prime tre serate. Alla quarta proponi a chi ti è più simpatico un caffè prima dell'incontro.",
+    "approfondimento": "Quando le mani sono occupate la timidezza si scioglie e ci si mostra per come si è davvero. Chi ti incontra lì ti conosce mentre ridi di un errore, non mentre cerchi di fare bella figura. Un invito piccolo dentro un'abitudine comune toglie imbarazzo a entrambi."
+   }
+  },
+  {
+   "scheda": 11,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Amore",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Nel lavoro il mese non spinge e non frena: hai molti fronti aperti nello stesso momento e nessuno avanza come vorresti. Il periodo premia chi decide che cosa viene prima e lascia il resto in attesa, senza sensi di colpa e con date oneste per chi aspetta.",
+    "cosaFare": "Adesso scrivi tutti i lavori aperti su un foglio e cerchiane tre. Comunica a chi aspetta gli altri una data realistica, così la pressione scende. Ogni venerdì guarda i tre fronti scelti e segna con una crocetta quello che è avanzato davvero nella settimana."
+   }
+  },
+  {
+   "scheda": 12,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Fortuna",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Questo mese la buona sorte ti aspetta vicino a casa: le occasioni utili stanno più vicine di quanto pensi, un corso aperto a tutti, un mercatino di scambio, un servizio del comune di cui nessuno ha mai parlato. Guarda bene le bacheche e i gruppi della zona.",
+    "cosaFare": "Entro metà mese passa in biblioteca o al centro civico e fotografa la bacheca degli annunci. A casa scegli due iniziative che ti servono davvero e segna in agenda le date di iscrizione. Alla prima partecipazione chiedi il recapito di chi organizza.",
+    "approfondimento": "Chi abita la tua stessa zona spesso possiede ciò che ti manca: un attrezzo, un'ora di tempo, un'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Il gruppo di messaggi del quartiere è dove passano le proposte migliori."
+   }
+  },
+  {
+   "scheda": 13,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Quest'anno ti è favorevole per imparare qualcosa con le mani e con il tempo, come la ceramica, la falegnameria o il canto. Le condizioni per cominciare ci sono e la costanza trova terreno fertile: un percorso lungo dodici mesi può diventare il tuo appuntamento più prezioso.",
+    "cosaFare": "Nei prossimi due mesi visita due o tre scuole o associazioni della tua zona e chiedi di assistere a una lezione. Iscriviti al corso annuale che ti accende di più e proteggi la sua sera fissa. Tieni una scatola per conservare i primi lavori, anche quelli storti.",
+    "approfondimento": "Un percorso di un anno cambia il resto: ti dà persone nuove con cui condividere errori e progressi e un luogo dove la fretta resta fuori dalla porta. Il momento critico arriva dopo l'entusiasmo iniziale: a ogni cambio di stagione riguarda i lavori e scegli un obiettivo nuovo."
+   }
+  },
+  {
+   "scheda": 14,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Per la coppia l'anno è favorevole a costruire: avete l'energia per un progetto comune e concreto, da portare avanti fianco a fianco e da veder crescere nei mesi. È un tempo in cui il legame si rafforza facendo, più che parlando di come dovrebbe essere.",
+    "cosaFare": "Nei prossimi mesi scegliete insieme un progetto con una data d'arrivo, come un orto sul balcone, una lingua da imparare per un viaggio, una stanza da rifare. Fissate il primo passo entro trenta giorni e tenete un quaderno dove annotare a turno i passi fatti."
+   }
+  },
+  {
+   "scheda": 15,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "L'anno è in equilibrio ma chiede ordine: lavoro, studio e impegni di casa si contendono le stesse ore e finora hai tenuto tutto insieme con la buona volontà. Serve una struttura più solida, capace di reggere anche nei periodi pieni senza logorarti.",
+    "cosaFare": "Entro due mesi stabilisci un orario di chiusura del lavoro e rispettalo almeno quattro sere su cinque, anche nelle settimane piene. Annuncialo ai colleghi e ai clienti abituali, così smettono di cercarti oltre. Ogni tre mesi togli dall'agenda un impegno che non porta più niente.",
+    "approfondimento": "L'equilibrio non è dividere il tempo in parti uguali ma dare a ogni cosa il suo momento. Chi rispetta i propri limiti lavora meglio, con un'attenzione che i colleghi finiscono per notare. Non riempire subito lo spazio liberato: tienilo come margine per gli imprevisti dell'anno."
+   }
+  },
+  {
+   "scheda": 16,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Generale",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Quest'anno la buona sorte sta soprattutto in ciò che hai già: oggetti, tempo libero, persone su cui contare, capacità messe da parte. È un anno equilibrato, che premia chi conosce bene le proprie risorse e sa usarle nel momento in cui servono davvero.",
+    "cosaFare": "Apri adesso un quaderno diviso in quattro parti: cose, tempo, persone, capacità. Scrivi in ognuna ciò che possiedi, comprese le cose piccole. Rileggilo la prima domenica di ogni mese per aggiornarlo. Accanto a ogni riga aggiungi un'idea d'uso: prestare, scambiare, regalare, rimettere in funzione."
+   }
+  },
+  {
+   "scheda": 17,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Generale",
+    "fascia": "salita"
+   },
+   "testo": {
+    "risposta": "Oggi la giornata chiede molto e stasera la casa può sembrarti più disordinata, la testa più piena del solito. È facile portarsi dietro tutto fino al cuscino. Serve un gesto semplice che segni la fine del fare e l'inizio del riposo, senza pretendere di sistemare ogni cosa.",
+    "cosaFare": "Verso l'ora di cena accendi una lampada calda in un angolo e spegni le luci forti. Riordina una sola superficie (il tavolo d'ingresso o il piano della cucina) e lascia il resto a domani. Prima di dormire scrivi tre priorità su un foglio accanto alle chiavi.",
+    "approfondimento": "La lampada accesa all'imbrunire è un'immagine antica: segna il passaggio fra il tempo del fare e quello del riposo. Una luce sola, scelta con cura, basta per dire alla casa che la giornata si chiude. Al risveglio il foglio ti aspetta con un ordine già deciso."
+   }
+  },
+  {
+   "scheda": 18,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Giornata favorevole per chiudere bene una storia finita da tempo. Fotografie sul telefono, un oggetto sulla mensola, una chat che riapri ogni tanto: quel legame occupa ancora un angolo della tua vita. Oggi hai la calma giusta per rimettere ordine senza rimpianti e senza fretta.",
+    "cosaFare": "Scegli un'ora del pomeriggio per raccogliere ciò che resta di quella storia. Archivia la chat, sposta le foto in una cartella a parte e chiudi gli oggetti in una scatola da portare in cantina. Stasera metti nello spazio liberato qualcosa di tuo: un libro amato, una pianta."
+   }
+  },
+  {
+   "scheda": 19,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Carriera",
+    "fascia": "salita"
+   },
+   "testo": {
+    "risposta": "Giornata faticosa nel lavoro di gruppo per il corso: qualcuno non risponde e la parte comune resta indietro. Cresce la voglia di fare tutto per conto tuo, ma oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.",
+    "cosaFare": "Manda nella chat del gruppo un messaggio chiaro con l'elenco delle parti, un nome accanto a ciascuna e una data per il primo invio. Chiedi a tutti una conferma entro stasera. Domani scrivi in privato a chi resta in silenzio e chiedi se ha bisogno di una mano.",
+    "approfondimento": "Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Mantenere la tua parte con puntualità dà il tono a tutto il gruppo. Se la situazione non si sblocca, informa il docente con un messaggio sobrio, solo fatti."
+   }
+  },
+  {
+   "scheda": 20,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Giornata di equilibrio che mette alla prova la tua onestà: alla cassa qualcuno può darti un resto sbagliato a tuo favore. La fortuna vera non sta in ciò che ricevi per errore, sta nella fiducia che costruisci restituendolo con semplicità e senza farne un caso.",
+    "cosaFare": "Conta il resto prima di allontanarti dal banco e restituisci con un sorriso ciò che non ti spetta. Fallo in modo discreto, senza mettere in imbarazzo chi lavora, magari con una battuta gentile. Saluta per nome chi era alla cassa, se lo conosci."
+   }
+  },
+  {
+   "scheda": 21,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Questa settimana ha la mano giusta per le riparazioni di casa. La piccola cosa rotta che ogni mattina scegli di non vedere, una mensola storta, un'anta che non chiude, una lampadina bruciata in corridoio, si sistema adesso con poco tempo e senza fatica.",
+    "cosaFare": "Martedì procurati quello che serve: le viti, la colla, la lampadina della misura esatta. Mercoledì sera dedica mezz'ora alla riparazione con gli attrezzi stesi su un panno e senza fretta. Finito il lavoro, annota su un foglio le altre piccole cose da aggiustare."
+   }
+  },
+  {
+   "scheda": 22,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Amore",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "È una settimana equilibrata per pesare in due una scelta lunga. Con chi ami parlate di prendere un cane: una parte lo desidera da anni, l'altra pensa alle passeggiate sotto la pioggia e alle vacanze. Questi giorni invitano a provare prima di decidere.",
+    "cosaFare": "Entro giovedì chiedi a un canile della zona se cercano volontari per le uscite del fine settimana. Andateci sabato in due e portate a passeggio un cane per un'ora, senza promettere niente a nessuno. Domenica sera dividete per iscritto le uscite del mattino e della sera.",
+    "approfondimento": "Accogliere un animale è un impegno che dura molti anni, come una parola data. Nella lettura vedica i patti lunghi si preparano con lentezza: sapere prima che cosa cambia nelle vostre giornate vale più dell'entusiasmo. Pensate anche a dove resterebbe il cane in vacanza; se l'elenco regge, tornate al canile."
+   }
+  },
+  {
+   "scheda": 23,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Settimana di equilibrio per il tuo progetto, buona per rimettere in fila le parti più che per correre. Il piano iniziale è diventato troppo ricco per il tempo che hai. Lasciare andare qualcosa adesso non è una sconfitta: è il modo di arrivare davvero in fondo.",
+    "cosaFare": "Martedì elenca tutte le parti previste e dividile in tre gruppi: indispensabile, utile, rinviabile. Sposta il terzo gruppo in un documento separato chiamato seconda fase. Comunica il nuovo piano a chi lavora con te o a chi lo attende, spiegando in due righe il perché della scelta."
+   }
+  },
+  {
+   "scheda": 24,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "La settimana è tranquilla e la buona sorte si nasconde nella pausa pranzo. Il panino mangiato di corsa davanti allo schermo ti chiude in una bolla; un pranzo portato da casa e condiviso all'aperto o in una sala comune apre conversazioni che altrimenti non nascerebbero.",
+    "cosaFare": "Domenica prepara un piatto in quantità per tre pranzi e portalo al lavoro lunedì, mercoledì e venerdì. In quei giorni mangia lontano dalla scrivania e invita qualcuno che conosci poco. Gli altri giorni concediti il bar o la mensa in compagnia.",
+    "approfondimento": "La misura non toglie gusto: lo rende più chiaro. Un pasto preparato con le tue mani porta con sé cura; condiviso, crea una piccola confidenza che in ufficio raramente nasce altrove. Venerdì conta le conversazioni nuove della settimana: ti dicono se il nuovo ritmo funziona."
+   }
+  },
+  {
+   "scheda": 25,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Fortuna",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "È un buon mese per cambiare un'abitudine: quella da rinnovare è il risveglio. Le mattine scorrono troppo in fretta e la prima ora si perde fra telefono e corse. In queste settimane hai l'energia per dare all'inizio della giornata una forma nuova, più lenta e più tua.",
+    "cosaFare": "Da domani punta la sveglia venti minuti prima e usali per una cosa sola: una camminata, una pagina scritta, una colazione con calma. Prepara la sera prima ciò che ti serve. Segna su un foglio ogni mattina mantenuta e, se ne salti una, riprendi senza recuperi.",
+    "approfondimento": "Un'abitudine nuova ha bisogno di ripetizione più che di slancio. Il passo regolare conta quanto il traguardo: trenta mattine uguali scavano un solco che regge nei periodi pieni. Attenzione ai rimproveri dopo una mattina saltata, perché pesano più dello sbaglio: la costanza si misura sul mese intero."
+   }
+  },
+  {
+   "scheda": 26,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Amore",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "In amicizia il mese chiede di rimettere in pari una bilancia. Una persona amica di lunga data ti chiede molto: passaggi, ascolto a tarda sera, piccoli aiuti continui, mentre il ritorno manca. Puoi correggere le cose adesso, in un periodo calmo, con fermezza e senza rancore.",
+    "cosaFare": "Alla prossima richiesta che ti pesa rispondi con un no gentile e una controproposta: un pomeriggio insieme dedicato a una cosa tua, uno scaffale da montare o una cena da preparare a quattro mani. Nelle prossime settimane conta quante volte chiami tu e quante l'altra persona."
+   }
+  },
+  {
+   "scheda": 27,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Carriera",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Chi coordina cerca qualcuno a cui affidare un progetto nuovo e il tuo nome circola già: adesso conta proporsi senza giri di parole, prima che la scelta cada su altri.",
+    "cosaFare": "Prima della prossima riunione scrivi in mezza pagina perché quel progetto ti interessa e come lo imposteresti nelle prime settimane. Chiedi un colloquio e porta il foglio con te. Ottenuto il sì, fissa tre traguardi per la fine del mese e condividili con chi ti ha dato fiducia.",
+    "approfondimento": "Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico accolto adesso parte col passo giusto, senza dover rincorrere nessuno. Ogni venerdì manda due righe su che cosa è stato fatto e che cosa viene dopo."
+   }
+  },
+  {
+   "scheda": 28,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Fortuna",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Il mese porta buona sorte nelle occasioni che hai già a portata di mano. Inviti lasciati senza risposta, proposte messe da parte, messaggi letti di fretta: fra queste cose dimenticate c'è un'opportunità vera. Adesso hai la lucidità e la calma per riconoscerla.",
+    "cosaFare": "Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso nell'ultimo periodo. Scrivi su un foglio quelli che ti incuriosiscono ancora e rispondi ai due più promettenti entro pochi giorni, con una domanda concreta su tempi e modi."
+   }
+  },
+  {
+   "scheda": 29,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Generale",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua vita funzionano già: un'amicizia solida, una casa accogliente, un'abitudine buona. Dare loro attenzione adesso le rende più forti e più capaci di durare, nei mesi in cui tutto il resto si muove.",
+    "cosaFare": "Scegli tre cose che vanno bene e dai a ciascuna una piccola cura regolare a partire da questo mese: una telefonata ogni quindici giorni, un controllo della casa a ogni cambio di stagione, una camminata fissa. Segnale su un calendario semplice e ogni mese verifica di averle tenute."
+   }
+  },
+  {
+   "scheda": 30,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Per la coppia è un anno di inizi, adatto a trasformare un sogno in progetto. Con chi ami coltivate da tempo il desiderio di un lungo viaggio in un paese lontano, sempre rimandato: adesso potete renderlo concreto e condiviso, un passo alla volta.",
+    "cosaFare": "Cercate da subito un corso serale della lingua di quel paese, con una lezione fissa a settimana. Scegliete una data indicativa per la partenza e scrivetela in grande sul calendario di cucina. Una volta al mese cucinate un piatto di là e parlate solo la lingua nuova.",
+    "approfondimento": "Imparare insieme vi mette alla pari: si sbaglia, si ride, ci si corregge a vicenda con tenerezza. Il viaggio comincia molto prima della partenza, in ogni sera passata a ripetere parole nuove allo stesso tavolo. A metà anno fate il punto: se il ritmo regge, fissate le date."
+   }
+  },
+  {
+   "scheda": 31,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Carriera",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Nel lavoro l'anno procede lento, ma lento non vuol dire fermo. Hai l'impressione che la carriera non si muova: promozioni che tardano, progetti che non decollano, riconoscimenti che arrivano ad altri. È il tempo di crescere dove ancora non si vede.",
+    "cosaFare": "Scegli da questo mese una sola abilità da coltivare, legata al lavoro che vorresti fare fra qualche anno. Dedicale un'ora fissa ogni settimana con un libro, un corso breve o una persona da cui imparare. Tieni un quaderno dei piccoli progressi e rileggilo nei mesi faticosi."
+   }
+  },
+  {
+   "scheda": 32,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Per la sorte l'anno è in equilibrio e premia l'ordine più degli slanci. Caldaia, bicicletta, scarpe buone, mobili: le cose che usi di continuo durano di più quando qualcuno se ne occupa prima che si rompano. Così i contrattempi non arrivano nei momenti sbagliati.",
+    "cosaFare": "Prepara entro questo mese un calendario delle manutenzioni di casa: segna per ogni oggetto importante quando va controllato, pulito o sistemato. Comincia dal primo controllo in scadenza. Tieni in una cartella libretti di istruzioni, ricevute degli interventi e numeri dei tecnici di fiducia.",
+    "approfondimento": "Un anno in equilibrio premia il passo regolare: niente grandi svolte, molte piccole cure ripetute. Proteggere ciò che hai è un modo concreto di tenere lontana la sfortuna spicciola, quella che fa saltare un appuntamento o una partenza. Ogni volta che ripari invece di sostituire, annota la data."
+   }
+  },
+  {
+   "scheda": 33,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Oggi la sera ha un passo morbido e invita a stare all'aperto. È un momento propizio per le conversazioni che in casa non trovano spazio e che vengono meglio camminando, fianco a fianco, senza un tavolo in mezzo e senza fretta di arrivare da qualche parte.",
+    "cosaFare": "Dopo cena proponi a chi vive con te, o a un'amicizia del quartiere, un giro dell'isolato senza una direzione precisa. Tenete il telefono in tasca in silenzio. Al rientro proponi di rifarlo domani sera alla stessa ora, con lo stesso percorso."
+   }
+  },
+  {
+   "scheda": 34,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Carriera",
+    "fascia": "salita"
+   },
+   "testo": {
+    "risposta": "Giornata adatta a mettere le cose in fila con chi ami: avete in mente un progetto comune, un viaggio, un trasferimento, una stanza da rifare, ma ne parlate a frammenti. Ogni volta si riparte da capo. Oggi conta l'ordine dei passi, non la velocità con cui li fate.",
+    "cosaFare": "Stasera sedetevi al tavolo con un foglio e scrivete tre colonne: che cosa serve, in che ordine, chi se ne occupa. Fermatevi al primo passo concreto e fissate una data per compierlo. Domani appendete il foglio in un punto visibile e spuntate la prima voce appena fatta.",
+    "approfondimento": "I progetti condivisi si incagliano quando restano sogni detti a voce, che ognuno immagina a modo suo. Vedere le stesse parole sulla carta mostra dove siete in sintonia e dove serve trattare. Rimandate a un altro giorno le decisioni grandi o difficili da cambiare."
+   }
+  },
+  {
+   "scheda": 35,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Giornata da mettere in fila, non da rincorrere: un lavoro alla volta, finito bene. Nel tuo laboratorio gli ordini arrivano a ondate e oggi ne hai due che si contendono le stesse ore; scegliere quale viene prima evita di rovinarli entrambi.",
+    "cosaFare": "Chiama il cliente con la scadenza meno stretta e proponi una consegna di un giorno più tardi. Con il tempo guadagnato prepara gli attrezzi per il primo ordine e cominciane la parte più delicata. Prima di chiudere appendi accanto al banco l'elenco degli ordini e delle date."
+   }
+  },
+  {
+   "scheda": 36,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Fortuna",
+    "fascia": "salita"
+   },
+   "testo": {
+    "risposta": "Fortuna ingannevole oggi fra le bancarelle e gli annunci dell'usato: l'oggetto che cercavi da tempo può comparire all'improvviso e sembrare perfetto. La fretta di portarlo via, però, rischia di farti trascurare qualche difetto. La giornata chiede occhi lenti e domande precise prima di dire sì.",
+    "cosaFare": "Controlla l'oggetto con calma: aprilo, accendilo, giralo sotto la luce. Fai a chi lo vende una sola domanda diretta, cioè perché se ne separa e da quanto tempo lo usava. Se ti convince, chiedi di tenerlo da parte fino a domani e torna con le misure esatte.",
+    "approfondimento": "La vera fortuna non sta nell'oggetto trovato ma in quello che dura. Una scelta fatta di corsa diventa facilmente un ingombro in cantina, mentre una scelta ponderata ti accompagna per anni senza chiedere nulla. Se chi vende rifiuta di aspettare un giorno, lascia andare senza rimpianti."
+   }
+  },
+  {
+   "scheda": 37,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Generale",
+    "fascia": "salita"
+   },
+   "testo": {
+    "risposta": "La settimana è equilibrata solo se il peso si divide: fra fratelli, cugini o amici stretti c'è una persona anziana da accompagnare e i compiti finiscono sempre sulle stesse spalle. Non serve una discussione, serve un accordo chiaro e scritto.",
+    "cosaFare": "Entro mercoledì scrivi nel gruppo di famiglia un calendario semplice delle visite e delle commissioni per le prossime due settimane, con un nome per ogni giorno. Chiedi conferma a ognuno. Sabato chiama chi ha fatto il primo turno e ascolta senza correggere.",
+    "approfondimento": "Quando il peso è diviso, ciascuno arriva alla visita con più calore. Anche chi finora si è tirato indietro spesso aspetta solo un compito preciso per sentirsi parte. Se qualcosa non funziona, cambiate un solo dettaglio del calendario: rifarlo da capo scoraggia tutti."
+   }
+  },
+  {
+   "scheda": 38,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Settimana tenera per la coppia, adatta a un ritorno affettuoso alle origini. Fra te e chi ti sta accanto la vita pratica ha preso quasi tutto lo spazio e i ricordi dell'inizio sembrano lontani: questi giorni aiutano a ritrovarli con un gesto semplice.",
+    "cosaFare": "Proponi per sabato o domenica di tornare nel luogo dove vi siete incontrati la prima volta, o in uno che gli somiglia. Andateci a piedi, se potete, senza altri impegni subito dopo. Sul posto raccontatevi a turno un dettaglio di quel primo incontro."
+   }
+  },
+  {
+   "scheda": 39,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Carriera",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Settimana senza urgenze, adatta a mettersi d'accordo sulle ferie. Vorresti fissare qualche giorno di riposo per staccare davvero, ma anche i colleghi del tuo gruppo hanno chiesto periodi simili: conviene parlarne adesso, con calma, prima che le richieste si scontrino sulla scrivania di chi coordina.",
+    "cosaFare": "Entro martedì scrivi le due date che preferisci e una terza di riserva, poi confrontale con i colleghi coinvolti. Porta a chi coordina una proposta già concordata, non tre richieste in conflitto. Fissate le ferie, prepara una nota per chi ti sostituisce.",
+    "approfondimento": "Chi arriva per primo con una richiesta rigida rischia di ottenere i giorni e perdere un po' di fiducia nel gruppo. La misura sta nel cedere sulle date secondarie per tenere ferma quella che conta. Una nota con pratiche aperte e scadenze ti fa rientrare senza affanno."
+   }
+  },
+  {
+   "scheda": 40,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Settimana in cui la risorsa da proteggere è il tuo tempo. Le proposte si affollano e la tentazione è dire sì a tutto, ma una giornata piena fino all'orlo non lascia spazio alla telefonata inattesa che potrebbe valere più di tutte.",
+    "cosaFare": "Guarda l'agenda della settimana e cancella un impegno accettato per dovere, avvisando con garbo entro martedì. Lascia il sabato mattina vuoto, senza programmi e senza sensi di colpa. Se arriva un invito, valutalo con calma prima di riempire quello spazio con la prima cosa che capita."
+   }
+  },
+  {
+   "scheda": 41,
+   "dati": {
+    "periodo": "settimana",
+    "dominio": "Generale",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Il mese è equilibrato e ti invita a ridare spazio a una passione messa da parte, senza togliere nulla al resto. Lo strumento impolverato, i colori secchi, la bicicletta in cantina: tornare a quel gesto adesso è possibile, purché trovi due momenti fissi e li difenda.",
+    "cosaFare": "Ritaglia due momenti fissi nelle prossime settimane: un'ora il martedì, una la domenica, solo per quella passione. Annotali in agenda come un impegno di lavoro. Se manca lo slancio, cerca un corso breve, un gruppo del quartiere o una persona amica con lo stesso interesse."
+   }
+  },
+  {
+   "scheda": 42,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Generale",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Il mese favorisce i riavvicinamenti in famiglia, soprattutto con chi è cresciuto accanto a te. Con un fratello, una sorella o un cugino i rapporti si sono fatti radi e un po' formali: adesso basta una cosa semplice, fatta insieme, per ritrovare la confidenza perduta.",
+    "cosaFare": "Proponi nelle prossime settimane un pomeriggio ai fornelli per rifare un piatto di famiglia che nessuno cucina più. Chiedi a chi lo ricorda meglio di portare gli ingredienti; tu metti la cucina e il tempo. Mentre cucinate, annota su un quaderno passaggi e dosi.",
+    "approfondimento": "Fra chi ha condiviso l'infanzia certe parole restano difficili, ma le mani ricordano tutto. Impastare, assaggiare, correggere il sale: in quel ritmo comune torna la confidenza che le conversazioni non ritrovavano. Prima di salutarvi scegliete il prossimo piatto: un appuntamento al mese basta a tenere il filo."
+   }
+  },
+  {
+   "scheda": 43,
+   "dati": {
+    "periodo": "giorno",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "Il mese è tranquillo e adatto al lavoro di riordino, quello che non si vede ma rende più facile tutto il resto. Ogni volta che cerchi un documento perdi minuti preziosi fra cartelle con nomi vaghi e versioni doppie: è il momento di sistemarle una volta per tutte.",
+    "cosaFare": "Dedica due pomeriggi delle prossime settimane all'archivio: elimina i doppioni, dai alle cartelle nomi chiari con la data davanti e sposta a parte tutto ciò che è chiuso. Scrivi una regola breve per nominare i documenti e condividila con i colleghi."
+   }
+  },
+  {
+   "scheda": 44,
+   "dati": {
+    "periodo": "mese",
+    "dominio": "Fortuna",
+    "fascia": "equilibrio"
+   },
+   "testo": {
+    "risposta": "È un mese in equilibrio che ti restituisce una risorsa preziosa, il tempo: chiudendo le pratiche rimandate da troppo ne recuperi più di quanto pensi. Messe in fila richiedono meno fatica di quanto temi: basta una mattina ben organizzata per togliertene di torno parecchie.",
+    "cosaFare": "Scegli una mattina delle prossime settimane e tienila libera da ogni altro impegno. La sera prima prepara la cartellina con documenti, ricevute e numeri utili, poi affronta gli sportelli in ordine di distanza. Alla fine annota che cosa resta aperto e quando riprenderlo.",
+    "approfondimento": "Il beneficio non è solo il compito chiuso. Ogni pratica sospesa occupa un angolo della mente; liberarne tre o quattro restituisce attenzione per ciò che di buono arriva nelle settimane successive. Attacca il foglietto dove lo vedi ogni giorno e concediti un pranzo con calma, lontano dalle code."
+   }
+  },
+  {
+   "scheda": 45,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Quest'anno ti è favorevole per imparare: è il tempo giusto per cominciare qualcosa che chiede pazienza, una lingua, un mestiere manuale, uno strumento. Ciò che semini nei prossimi mesi ha spazio per mettere radici e può cambiare anche il modo in cui ti presenti agli altri.",
+    "cosaFare": "Entro la primavera iscriviti a un corso con incontri fissi oppure trova qualcuno che insegni ciò che vuoi imparare. Scegli un solo campo e dagli almeno due ore ogni settimana. Tieni un quaderno solo per questo percorso e annota ogni mese i progressi.",
+    "approfondimento": "Le cose apprese con calma restano a lungo: un anno di pratica regolare porta lontano, dove adesso sembra impossibile arrivare. Il rischio sta nell'entusiasmo dei primi mesi, che spinge a fare troppo e poi a smettere. Dopo sei mesi fissa una piccola prova davanti a qualcuno."
+   }
+  },
+  {
+   "scheda": 46,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Amore",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "In amore quest'anno è favorevole a costruire con chi ami qualcosa che duri. Un progetto comune rimasto nel campo dei desideri adesso trova circostanze che lo sostengono, purché i passi siano fatti insieme e con costanza, senza voler arrivare a tutto subito.",
+    "cosaFare": "Nei prossimi mesi scegliete un solo obiettivo condiviso e concreto, come imparare una lingua per un viaggio o rinnovare una stanza. Fissate una data d'arrivo e una sera stabilita per lavorarci. Segnate ogni traguardo su un foglio appeso in cucina."
+   }
+  },
+  {
+   "scheda": 47,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Generale",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "Sul lavoro quest'anno è favorevole al passo che rimandi: un ruolo con più responsabilità, un cambio di settore, una candidatura importante. Le porte si aprono più facilmente per chi bussa con preparazione e pazienza, non per chi aspetta che qualcuno noti il suo impegno.",
+    "cosaFare": "Nei prossimi mesi scrivi in una pagina dove vuoi arrivare entro dodici mesi e quali tre competenze ti mancano. Per ognuna scegli un modo concreto di acquisirla e una data di partenza. Aggiorna il curriculum a ogni traguardo raggiunto, così l'occasione ti trova con tutto in mano.",
+    "approfondimento": "Un anno favorevole non porta tutto subito: offre un terreno buono, su cui le cose seminate con ordine crescono meglio del solito. Le persone che incontri sul lavoro possono diventare alleate. Ogni due mesi fai il punto con qualcuno più avanti di te nel mestiere e chiedi un consiglio preciso."
+   }
+  },
+  {
+   "scheda": 48,
+   "dati": {
+    "periodo": "anno",
+    "dominio": "Fortuna",
+    "fascia": "favorevole"
+   },
+   "testo": {
+    "risposta": "È un anno fortunato per chi impara: una competenza nuova acquisita adesso può aprirti porte che oggi non vedi. Una lingua, un attestato pratico, un mestiere manuale ti mettono in contatto con persone e luoghi diversi: è da lì che arrivano le occasioni.",
+    "cosaFare": "Entro due mesi scegli una cosa sola da imparare e iscriviti a un corso con un calendario fisso. Metti in agenda le lezioni come appuntamenti di lavoro, da spostare solo per motivi seri. Verso metà anno prova ciò che hai imparato in una situazione reale."
+   }
+  }
+ ]
+}

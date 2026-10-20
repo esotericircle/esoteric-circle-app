@@ -1,0 +1,1685 @@
+{
+ "istruzione": "Per ogni scheda: i simboli indicati sono quelli da cui e nato il responso? Rispondi si o no con una riga di ragione.",
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "9 Haziel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Nelchael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Ieiazel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Vasariah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Trasforma senza demolire. Eiael ti chiede di lasciar crescere il nuovo dentro il vecchio, come un ramo che spunta sul tronco che già c'è. Scegli un'abitudine da cambiare e modificala di poco, un orario, un percorso, una parola: domani aggiungi un altro piccolo spostamento.",
+    "cosaFare": "Dopo tre giorni di piccoli spostamenti fermati a osservare che cosa del vecchio ritmo vuoi tenere, poi scrivilo. Non trasformare il cambiamento in un progetto da descrivere agli altri prima di farlo: rimandare il gesto concreto lo lascia un desiderio ben raccontato.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "22 Ieiaiel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Damabiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Veualiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "1 Vehuiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Umabel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Le persone giuste si riconoscono dai gesti",
+    "risposta": "La visibilità che hai, poca o tanta, è uno strumento: conta come la usi. Ieiaiel insegna a consegnare cose solide prima di cercare attenzione. Riguarda oggi il lavoro che stai per presentare, trova un punto debole e correggilo prima di mostrarlo a chiunque.",
+    "cosaFare": "Quando presenti il lavoro, nomina il limite che resta ancora e come pensi di affrontarlo. Non gonfiare il risultato per attirare attenzione: il valore sta nella consegna che regge. Chiedi a una persona fidata di cercare un secondo punto debole prima della data di presentazione.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Lelahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "66 Manakel",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Menadel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Daniel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "C'è un torto che porti ancora come un sacco pesante. Haziel insegna una clemenza consapevole: perdonare non per negare il fatto, ma per smettere di portarne il peso. Scrivi su un foglio il nome della persona da cui l'hai ricevuto e accanto la parola chiuso, poi piegalo e mettilo via.",
+    "cosaFare": "Nei prossimi giorni, quando il torto ti torna in mente, ripeti piano la parola chiuso e torna a ciò che stavi facendo. Non riaprire il foglio per rileggerlo: il peso si lascia anche smettendo di guardarlo. Evita di raccontare di nuovo quel torto a qualcuno questa settimana.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Sitael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Melahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Hahaiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "Una decisione pratica ti aspetta e la stai prendendo a sensazione. Lecabel chiede dati invece di impressioni, il dettaglio senza perdere l'insieme. Prendi un foglio, metti in colonna i numeri reali della questione, costi, tempi e scadenze: decidi soltanto dopo averli guardati.",
+    "cosaFare": "Prima di decidere, aggiungi accanto ai dati una riga sull'insieme: a che cosa serve questa scelta fra un anno. Non lasciarti trascinare da un dettaglio che colpisce più degli altri. Scrivi la decisione con il dato che la sostiene e rileggila domani mattina.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "62 Iahhel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Sealiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Pahaliah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "20 Pahaliah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Achaiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Ciò che hai imparato acquista senso quando lo passi a qualcun altro. Nella mia lettura questo angelo lega lo studio alla trasmissione, non al bisogno di avere ragione. Questa settimana spiega a una persona un concetto che hai capito di recente, usando un esempio tuo.",
+    "cosaFare": "Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda più spinosa e studiala in settimana.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Chavakhiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "4 Elemiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Hahahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "14 Mebahel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Lelahel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Le persone giuste si riconoscono dai gesti",
+    "risposta": "Prima di dire da che parte stai, guarda come stanno le cose. Mikael porta l'ordine interiore che precede ogni presa di posizione. Prima della prossima trattativa scrivi due colonne, ciò che sai e ciò che supponi: prendi posizione soltanto sulla prima e lascia aperta la seconda.",
+    "cosaFare": "Per ogni voce della colonna delle supposizioni scrivi la domanda che la trasforma in un fatto e portala con te alla trattativa. Non dare il tuo assenso nella stessa giornata in cui ricevi le risposte: concediti una notte per rimettere in ordine ciò che hai sentito.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Nanael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "34 Lehahiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Mitzrael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "angeloDellaPersona": null,
+     "coperta": true
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "La risposta che dai subito è spesso quella che rimpiangi. Iahhel ti insegna il valore di un momento di ritiro prima di parlare. Oggi, alla prima domanda che ti mette pressione, rispondi: ci penso e ti scrivo entro sera. Poi prenditi davvero quel tempo.",
+    "cosaFare": "Mantieni la promessa del ritorno e scrivi la risposta prima di sera, anche se è breve: il silenzio scelto vale soltanto se finisce con una parola. Non usare la stessa frase per ogni richiesta della giornata, altrimenti il raccoglimento diventa un modo elegante di evitare le persone.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Mihael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Aniel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "61 Umabel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Hahahel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "Un confine chiaro intorno a te non è un muro: è una soglia con una porta. Haheuiah insegna a decidere che cosa entra e che cosa resta fuori. Scrivi su un foglio due cose che da questa settimana non lasci più entrare nelle tue giornate e una che invece accogli.",
+    "cosaFare": "La prima volta che una di quelle due cose bussa, rispondi con la frase breve che hai preparato prima. Non alzare muri dove non servono: il confine ha una porta. La cosa che hai scelto di accogliere merita spazio vero, quindi fai oggi un gesto concreto per farla entrare.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "62 Iahhel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Haiaiel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Ieliel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "40 Ieiazel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Ariel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "La risposta che dai subito è spesso quella che rimpiangi. Iahhel ti insegna il valore di un momento di ritiro prima di parlare. Oggi, alla prima domanda che ti mette pressione, rispondi: ci penso e ti scrivo entro sera. Poi prenditi davvero quel tempo.",
+    "cosaFare": "Mantieni la promessa del ritorno e scrivi la risposta prima di sera, anche se è breve: il silenzio scelto vale soltanto se finisce con una parola. Non usare la stessa frase per ogni richiesta della giornata, altrimenti il raccoglimento diventa un modo elegante di evitare le persone.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "72 Mumiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Nithael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "39 Rehael",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Damabiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "56 Poyel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Daniel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Portare a termine ciò che resta a metà ti permette di ripartire senza zavorra. Nella mia lettura questo angelo è la mano che firma l'ultima pagina. Fai oggi l'elenco delle cose aperte da più di un mese e chiudine una prima di sera, anche soltanto con un no.",
+    "cosaFare": "Domani chiudi la seconda voce della lista, poi una al giorno, senza aggiungere nuove voci finché l'elenco non si accorcia. Non scegliere ogni volta la più facile: alterna una chiusura leggera e una che rimandi da tempo, così l'elenco perde peso davvero.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "8 Cahethel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Nelchael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Mikael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Iehuiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Ciò che hai in casa porta il segno della fatica di qualcuno, spesso anche della tua. Cahethel chiede una gratitudine che si vede nei gesti. Stasera scegli un oggetto della casa che usi ogni giorno, ricorda da dove viene e ringrazia ad alta voce chi l'ha reso possibile.",
+    "cosaFare": "Prenditi cura domani di quell'oggetto: puliscilo, riparalo o rimettilo nel posto dove lo usi meglio. Non sostituirlo per abitudine finché fa il suo lavoro: la tua gratitudine si vede nel modo in cui conservi. In settimana ripeti il gesto con un'altra cosa di casa che usi ogni giorno.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Lauviah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Anauel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "6 Lelahel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Lelahel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Sotto pressione la rettitudine non alza la voce, resta dove ha detto che sarebbe stata. Nella mia lettura questo angelo è la fermezza che non diventa durezza. Scrivi l'impegno che oggi ti costa di più mantenere e accanto il prezzo che accetti: poi rispettalo fino a sera.",
+    "cosaFare": "Domattina rileggi quel foglio e decidi se il prezzo è ancora sostenibile: se lo è, rinnova l'impegno a voce con chi lo riguarda. Non confondere la fermezza con la durezza. Puoi mantenere la parola e restare gentile con chi ti chiede di cambiarla.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Imamiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "22 Ieiaiel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Mebahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "72 Mumiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Anauel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La scelta si chiarisce mentre cammini",
+    "risposta": "Dopo una caduta netta non ti serve un grande slancio: ti serve la disciplina del passo che viene dopo. Nella mia lettura questo angelo riparte dal punto preciso dove il lavoro si è interrotto. Rimetti oggi in calendario quel progetto e segna un orario per tre mattine di fila.",
+    "cosaFare": "La prima delle tre mattine non rifare da capo ciò che c'era già: riparti dalla riga esatta dove il lavoro si era interrotto. Alla fine di ogni sessione scrivi la prima azione della mattina dopo, così cominci senza dover decidere. Non contare le cadute di prima: conta le mattine tenute.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Ariel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Haaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Omael",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "Quando doni aspettando un grazie, il dono si irrigidisce e pesa su chi lo riceve. Nella mia lettura questo angelo scioglie il gesto dall'attesa di riconoscimento: dare senza contare è la sua generosità pratica. Questa settimana fai tre piccoli favori senza firma e non raccontarli a nessuno.",
+    "cosaFare": "Fra un favore e l'altro, non controllare se qualcuno ha capito che venivano da te. Se ti accorgi di aspettare un grazie, scrivi su un foglio quel bisogno e strappalo. A fine settimana scegli un quarto gesto, più impegnativo, per una persona che non ti è simpatica.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Omael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Lauviah II",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "52 Imamiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Nelchael",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Prima di dire da che parte stai, guarda come stanno le cose. Mikael porta l'ordine interiore che precede ogni presa di posizione. Prima della prossima trattativa scrivi due colonne, ciò che sai e ciò che supponi: prendi posizione soltanto sulla prima e lascia aperta la seconda.",
+    "cosaFare": "Per ogni voce della colonna delle supposizioni scrivi la domanda che la trasforma in un fatto e portala con te alla trattativa. Non dare il tuo assenso nella stessa giornata in cui ricevi le risposte: concediti una notte per rimettere in ordine ciò che hai sentito.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "Che cosa mi aspetta?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "71 Haiaiel",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Vehuiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "30 Omael",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Lauviah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "angeloDellaPersona": null,
+     "coperta": true
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Un no detto a mente fredda vale più di dieci sì strappati dall'impulso. Haiaiel porta questo coraggio quieto, che non ha bisogno di alzare la voce. Scrivi la richiesta a cui vuoi rispondere no, aspetta un'ora, poi rispondi con una frase calma e senza giustificazioni.",
+    "cosaFare": "Se dopo il tuo no arriva un'insistenza, ripeti la stessa frase una seconda volta con lo stesso tono, senza aggiungere ragioni. Non trasformare il rifiuto in uno scontro: il no a mente fredda riguarda la richiesta, non la persona. Stasera scrivi che cosa hai difeso dicendolo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "8 Cahethel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Nithhaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Mehiel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "5 Mahasiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Mahasiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "Ciò che hai in casa porta il segno della fatica di qualcuno, spesso anche della tua. Cahethel chiede una gratitudine che si vede nei gesti. Stasera scegli un oggetto della casa che usi ogni giorno, ricorda da dove viene e ringrazia ad alta voce chi l'ha reso possibile.",
+    "cosaFare": "Prenditi cura domani di quell'oggetto: puliscilo, riparalo o rimettilo nel posto dove lo usi meglio. Non sostituirlo per abitudine finché fa il suo lavoro: la tua gratitudine si vede nel modo in cui conservi. In settimana ripeti il gesto con un'altra cosa di casa che usi ogni giorno.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Hahasiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Daniel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "9 Haziel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Mumiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Lasciare passare tutto non è tolleranza: è assenza di confini. La fermezza di questo angelo ti chiede di tracciare una linea dove oggi non c'è. Di' oggi un no gentile a una richiesta che invade il tuo tempo e scrivi su un foglio perché era necessario.",
+    "cosaFare": "Quando arriva una richiesta dello stesso tipo, rispondi con lo stesso no senza nuove giustificazioni. Non cedere al senso di colpa che spinge a compensare con un sì più grande. Usa il tempo che hai recuperato per una cosa che hai scelto tu, già questa settimana.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "34 Lehahiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Hahaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Habuhiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "33 Iehuiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Nanael",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "La fedeltà non è un giuramento pronunciato una volta: è un gesto che si rinnova ogni giorno. Mihael parla delle fasi in cui il legame non restituisce niente. Oggi fai per la persona che ami una piccola cosa quotidiana, senza aspettarti che venga notata.",
+    "cosaFare": "Domani ripeti un gesto diverso della stessa misura e non tenere il conto di ciò che ricevi in cambio. Evita di controllare se la persona che ami se n'è accorta: la fedeltà che conta qui è la tua costanza, non la sua risposta.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "18 Caliel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Lauviah II",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "15 Hariel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Pahaliah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "58 Ieialel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Lehahiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "In una discussione accesa, separa ciò che è accaduto da ciò che se ne pensa. Caliel insegna a pronunciarsi sui fatti senza bisogno di alzare la voce. Prima di rispondere, scrivi su un foglio due elenchi, fatti e opinioni, poi parla soltanto del primo con tono basso.",
+    "cosaFare": "Quando hai parlato, lascia cadere le opinioni anche se l'altra persona insiste sulle sue: resta sui fatti. Non ripetere lo stesso fatto alzando la voce per farlo pesare di più. Stasera rileggi l'elenco e segna quale fatto ha cambiato davvero il corso della discussione.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Iezalel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Mumiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "5 Mahasiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Ieliel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "La mitezza non c'entra: qui si parla di una forza trattenuta per scelta. Nella mia lettura questo angelo governa la collera senza negarla. Tieni sulla scrivania un foglio dove annoti ciò che ti fa arrabbiare durante il giorno e rileggilo la sera, a mente fredda, prima di rispondere a chiunque.",
+    "cosaFare": "Scegli dal foglio l'episodio che si ripete più spesso e prepara una risposta pacata da usare la prossima volta. Non trasformare la calma in durezza verso di te: annotare la rabbia non è un'accusa. A fine settimana getta via il foglio e ricomincia da una pagina bianca.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Lehahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Aniel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Ieialel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Manda oggi un messaggio breve a quella persona e riconosci il punto in cui aveva ragione.",
+    "cosaFare": "Non mandare un secondo messaggio dopo il primo per spiegare le tue ragioni: lascia che il riconoscimento arrivi senza aggiunte. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "26 Haaiah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Eiael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Hahasiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "angeloDellaPersona": null,
+     "coperta": true
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "Un metodo funziona quando lo puoi ripetere senza pensarci. La misura di questo angelo trasforma un'idea in procedura. Scrivi su una scheda i passaggi esatti di un compito che fai spesso, con il controllo da fare a ogni passaggio, poi usala la prossima volta.",
+    "cosaFare": "Dopo averla usata, segna con un tratto i passaggi in cui hai esitato e chiariscili sulla scheda. Non aggiungere controlli inutili: tieni quelli che hanno evitato un errore. Prepara in settimana una seconda scheda per un altro compito che torna spesso.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Lauviah II",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Melahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Vehuel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Ciò che prometti e ciò che fai devono stare sulla stessa riga. Nella mia lettura questo angelo misura la coerenza fra il patto detto e il patto mantenuto. Rileggi oggi gli impegni presi in una trattativa recente e segna con una croce quelli già tradotti in azioni.",
+    "cosaFare": "Per ogni impegno ancora senza croce scrivi accanto il primo gesto che lo traduce in azione e fallo entro la settimana. Non promettere niente di nuovo finché la lista non è in pari. Comunica all'altra parte ciò che hai fatto, con fatti e date.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Haiaiel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "46 Ariel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Haiaiel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Mahasiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Ricordare bene serve a capire, non a tenere la contabilità dei torti. Nella mia lettura questo angelo ti insegna a usare la memoria come un archivio ordinato. Riprendi oggi una faccenda che hai lasciato in sospeso con qualcuno e proponi una data per chiuderla, senza elencare le colpe passate.",
+    "cosaFare": "Il giorno dell'incontro porta una proposta per chiudere la faccenda e un modo concreto per metterla in pratica. Evita di risalire agli episodi lontani, anche quando la conversazione ci torna sopra. Dopo, scrivi su un foglio che cosa è stato concordato e conservalo con le note di allora.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Damabiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Ielahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Haiaiel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Hai le idee chiare su che cosa è giusto: Mebahiah ti chiede di renderlo gesto quotidiano, non principio dichiarato. Scegli uno dei tuoi principi e trovagli oggi un gesto concreto, piccolo, ripetibile: per esempio rispondere a chi aspetta da giorni.",
+    "cosaFare": "Ripeti quel gesto ogni giorno per una settimana alla stessa ora, così smette di essere un'eccezione e diventa la tua condotta. Non spiegare agli altri il principio che c'è dietro: se qualcuno nota il gesto, basta. La coerenza si trasmette meglio quando nessuno la predica.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "27 Ierathel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Iehuiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Vasariah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Elemiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Tenere una posizione sotto pressione non richiede di ferire chi la pensa diversamente. Nella mia lettura questo angelo porta una chiarezza che non ha bisogno di schiacciare. Scrivi la tua posizione in tre frasi senza nominare chi ti contraddice e rileggila prima di parlare.",
+    "cosaFare": "Quando parli, attieniti a quelle tre frasi e rispondi alle obiezioni senza uscire dal loro perimetro. Evita l'ironia sulle idee altrui, anche se ti sembra innocua. Se cambi parere su un punto, dillo apertamente: tenere una posizione non vuol dire ignorare un argomento buono.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Achaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "12 Hahaiah",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Veualiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Lauviah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Quello che trasmetti passa per ciò che fai, non per ciò che dichiari. Mebahiah ti invita a togliere distanza fra pensiero e condotta. Scrivi su un foglio una regola che chiedi agli altri di rispettare e osserva per tre giorni se la rispetti anche tu.",
+    "cosaFare": "Alla fine dei tre giorni, se hai mancato quella regola, correggi prima la tua condotta e solo dopo torna a chiederla agli altri. Non riprendere nessuno su quel punto per tutta la settimana: il silenzio sulla regola altrui ti costringe a guardare la tua.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Lauviah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Umabel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "32 Vasariah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Elemiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Manda oggi un messaggio breve a quella persona e riconosci il punto in cui aveva ragione.",
+    "cosaFare": "Non mandare un secondo messaggio dopo il primo per spiegare le tue ragioni: lascia che il riconoscimento arrivi senza aggiunte. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Mebahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "46 Ariel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Rochel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Ierathel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La pace in casa comincia da un tuo gesto",
+    "risposta": "Quando doni aspettando un grazie, il dono si irrigidisce e pesa su chi lo riceve. Nella mia lettura questo angelo scioglie il gesto dall'attesa di riconoscimento: dare senza contare è la sua generosità pratica. Questa settimana fai tre piccoli favori senza firma e non raccontarli a nessuno.",
+    "cosaFare": "Fra un favore e l'altro, non controllare se qualcuno ha capito che venivano da te. Se ti accorgi di aspettare un grazie, scrivi su un foglio quel bisogno e strappalo. A fine settimana scegli un quarto gesto, più impegnativo, per una persona che non ti è simpatica.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Ierathel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "25 Nithhaiah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Vehuiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "14 Mebahel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Mumiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Ciò che hai imparato acquista senso quando lo passi a qualcun altro. Nella mia lettura questo angelo lega lo studio alla trasmissione, non al bisogno di avere ragione. Questa settimana spiega a una persona un concetto che hai capito di recente, usando un esempio tuo.",
+    "cosaFare": "Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda più spinosa e studiala in settimana.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "18 Caliel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Mebahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "52 Imamiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Mumiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "angeloDellaPersona": null,
+     "coperta": true
+    }
+   ],
+   "responso": {
+    "titolo": "La scelta si chiarisce mentre cammini",
+    "risposta": "In una discussione accesa, separa ciò che è accaduto da ciò che se ne pensa. Caliel insegna a pronunciarsi sui fatti senza bisogno di alzare la voce. Prima di rispondere, scrivi su un foglio due elenchi, fatti e opinioni, poi parla soltanto del primo con tono basso.",
+    "cosaFare": "Quando hai parlato, lascia cadere le opinioni anche se l'altra persona insiste sulle sue: resta sui fatti. Non ripetere lo stesso fatto alzando la voce per farlo pesare di più. Stasera rileggi l'elenco e segna quale fatto ha cambiato davvero il corso della discussione.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Iahhel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Nithhaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Nemamiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "Nella mia lettura questo angelo unisce logica e calore: un accordo non è una partita da chiudere a tuo favore. Oggi, nella discussione che si è inceppata, proponi una soluzione che dia qualcosa a entrambe le parti e dilla senza ultimatum.",
+    "cosaFare": "Fatta la proposta, invita l'altra parte a migliorarla con una sua aggiunta invece di rispondere soltanto sì o no. Non irrigidirti se la prima reazione è fredda: lascia passare una notte prima di tornare sul tema. Un accordo condiviso nasce da due mani sulla stessa proposta.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Mikael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "59 Harahel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Elemiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "37 Aniel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Lelahel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "La scelta si chiarisce mentre cammini",
+    "risposta": "Identificarti col ruolo fino a sparirci dentro è l'ombra di questo angelo; la sua luce è il mestiere come crescita. Stasera, chiusa la giornata, scrivi una riga su chi sei fuori dall'ufficio e una su ciò che il mestiere ti sta facendo diventare.",
+    "cosaFare": "Difendi la riga su chi sei fuori dall'ufficio con un impegno fisso della settimana che non riguarda il lavoro. Non restare oltre l'orario per abitudine: la fatica non è una prova di valore. Rileggi le due righe domenica sera e correggi quella che è cambiata.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "54 Nithael",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Haheuiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "41 Hahahel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Poyel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "angeloDellaPersona": "Elemiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Manda oggi un messaggio breve a quella persona e riconosci il punto in cui aveva ragione.",
+    "cosaFare": "Non mandare un secondo messaggio dopo il primo per spiegare le tue ragioni: lascia che il riconoscimento arrivi senza aggiunte. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "60 Mitzrael",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Hahahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "angeloDellaPersona": "Vehuiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Sealiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Mostra agli altri ciò che rende bello il tuo angolo di mondo. Nithael lega la bellezza alla durata: si trasmette, non si accumula. Entro sabato condividi con qualcuno un oggetto, un luogo o un mestiere che ti è arrivato da prima, raccontandone la storia.",
+    "cosaFare": "Raccontata quella storia, chiedi a chi ti ascolta se c'è qualcosa che ha ricevuto da chi c'era prima e lascia che ne parli. Non confrontare le due storie per stabilire quale sia più bella: la bellezza che si trasmette non ha bisogno di primati.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "45 Sealiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Aniel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Nithael",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "angeloDellaPersona": null,
+     "coperta": true
+    }
+   ],
+   "responso": {
+    "titolo": "Le persone giuste si riconoscono dai gesti",
+    "risposta": "Una cosa si è incrinata fra te e un'altra persona e la tentazione è di restituire il torto. Mitzrael chiede pazienza al posto della rivincita. Scrivi oggi un messaggio che parte dal pezzo da riparare, non da chi ha cominciato: poi rileggilo e mandalo.",
+    "cosaFare": "Mandato il messaggio, lascia alla risposta il suo tempo e non scrivere di nuovo per sollecitarla. Se arriva una replica dura, non rispondere sul torto: torna al pezzo da riparare con una frase sola. Tieni da parte ogni voglia di rivincita finché la tensione non cala.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "64 Mehiel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "angeloDellaPersona": "Caliel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "4 Elemiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "angeloDellaPersona": "Nithhaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Hariel",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo cuore sa già da dove ricominciare",
+    "risposta": "Il ragionamento senza sentire suona freddo, il sentire senza ragionamento si disperde. Nella mia lettura questo angelo tiene insieme le due cose. Prendi un testo che hai scritto e aggiungi accanto a ogni argomento un esempio vissuto: poi leggilo ad alta voce a qualcuno.",
+    "cosaFare": "Finita la lettura, chiedi a chi ascolta quale esempio ricorda meglio e mettilo in apertura del testo. Non cambiare la sostanza del ragionamento per compiacere chi ascolta: accogli le osservazioni sul modo di dirlo, non sul contenuto che hai vagliato con la tua testa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "angeloDellaPersona": "Achaiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "49 Vehuel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Ielahiah",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "56 Poyel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "angeloDellaPersona": "Lauviah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Il passo giusto è quello che puoi fare oggi",
+    "risposta": "Sotto pressione la rettitudine non alza la voce, resta dove ha detto che sarebbe stata. Nella mia lettura questo angelo è la fermezza che non diventa durezza. Scrivi l'impegno che oggi ti costa di più mantenere e accanto il prezzo che accetti: poi rispettalo fino a sera.",
+    "cosaFare": "Domattina rileggi quel foglio e decidi se il prezzo è ancora sostenibile: se lo è, rinnova l'impegno a voce con chi lo riguarda. Non confondere la fermezza con la durezza. Puoi mantenere la parola e restare gentile con chi ti chiede di cambiarla.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "angeloDellaPersona": "Caliel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "angeloDellaPersona": "Melahel",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "angeloDellaPersona": "Veualiah",
+     "coperta": false
+    }
+   ],
+   "responso": {
+    "titolo": "Gli angeli rispondono con tre gesti per te",
+    "risposta": "Le cose lente non si sbloccano con la fretta, si scaldano con la costanza. Nella mia lettura questo angelo spinge piano un ingranaggio arrugginito finché torna a girare. Dedica dieci minuti al giorno, per tutta la settimana, alla cosa che hai lasciato in sospeso: non di più.",
+    "cosaFare": "Tieni un timer accanto e fermati davvero allo scadere dei dieci minuti, anche quando avresti voglia di continuare: la costanza nasce dal rispetto del limite. Domenica sera guarda quanto si è mosso l'ingranaggio e decidi se allungare di poco il tempo la settimana dopo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall'ora della tua nascita. Il messaggio e il consiglio della carta li ha scritti Medora per ogni angelo."
+   }
+  }
+ ]
+}

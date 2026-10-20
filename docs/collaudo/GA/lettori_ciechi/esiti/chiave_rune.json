@@ -1,0 +1,242 @@
+[
+ {
+  "scheda": 1,
+  "id": "rune-1",
+  "scambiato": false,
+  "simboliDi": "rune-1"
+ },
+ {
+  "scheda": 2,
+  "id": "rune-2",
+  "scambiato": true,
+  "simboliDi": "rune-3"
+ },
+ {
+  "scheda": 3,
+  "id": "rune-3",
+  "scambiato": true,
+  "simboliDi": "rune-4"
+ },
+ {
+  "scheda": 4,
+  "id": "rune-4",
+  "scambiato": true,
+  "simboliDi": "rune-5"
+ },
+ {
+  "scheda": 5,
+  "id": "rune-5",
+  "scambiato": true,
+  "simboliDi": "rune-7"
+ },
+ {
+  "scheda": 6,
+  "id": "rune-6",
+  "scambiato": false,
+  "simboliDi": "rune-6"
+ },
+ {
+  "scheda": 7,
+  "id": "rune-7",
+  "scambiato": true,
+  "simboliDi": "rune-8"
+ },
+ {
+  "scheda": 8,
+  "id": "rune-8",
+  "scambiato": true,
+  "simboliDi": "rune-9"
+ },
+ {
+  "scheda": 9,
+  "id": "rune-9",
+  "scambiato": true,
+  "simboliDi": "rune-10"
+ },
+ {
+  "scheda": 10,
+  "id": "rune-10",
+  "scambiato": true,
+  "simboliDi": "rune-14"
+ },
+ {
+  "scheda": 11,
+  "id": "rune-11",
+  "scambiato": false,
+  "simboliDi": "rune-11"
+ },
+ {
+  "scheda": 12,
+  "id": "rune-12",
+  "scambiato": false,
+  "simboliDi": "rune-12"
+ },
+ {
+  "scheda": 13,
+  "id": "rune-13",
+  "scambiato": false,
+  "simboliDi": "rune-13"
+ },
+ {
+  "scheda": 14,
+  "id": "rune-14",
+  "scambiato": true,
+  "simboliDi": "rune-15"
+ },
+ {
+  "scheda": 15,
+  "id": "rune-15",
+  "scambiato": true,
+  "simboliDi": "rune-16"
+ },
+ {
+  "scheda": 16,
+  "id": "rune-16",
+  "scambiato": true,
+  "simboliDi": "rune-19"
+ },
+ {
+  "scheda": 17,
+  "id": "rune-17",
+  "scambiato": false,
+  "simboliDi": "rune-17"
+ },
+ {
+  "scheda": 18,
+  "id": "rune-18",
+  "scambiato": false,
+  "simboliDi": "rune-18"
+ },
+ {
+  "scheda": 19,
+  "id": "rune-19",
+  "scambiato": true,
+  "simboliDi": "rune-21"
+ },
+ {
+  "scheda": 20,
+  "id": "rune-20",
+  "scambiato": false,
+  "simboliDi": "rune-20"
+ },
+ {
+  "scheda": 21,
+  "id": "rune-21",
+  "scambiato": true,
+  "simboliDi": "rune-22"
+ },
+ {
+  "scheda": 22,
+  "id": "rune-22",
+  "scambiato": true,
+  "simboliDi": "rune-27"
+ },
+ {
+  "scheda": 23,
+  "id": "rune-23",
+  "scambiato": false,
+  "simboliDi": "rune-23"
+ },
+ {
+  "scheda": 24,
+  "id": "rune-24",
+  "scambiato": false,
+  "simboliDi": "rune-24"
+ },
+ {
+  "scheda": 25,
+  "id": "rune-25",
+  "scambiato": false,
+  "simboliDi": "rune-25"
+ },
+ {
+  "scheda": 26,
+  "id": "rune-26",
+  "scambiato": false,
+  "simboliDi": "rune-26"
+ },
+ {
+  "scheda": 27,
+  "id": "rune-27",
+  "scambiato": true,
+  "simboliDi": "rune-28"
+ },
+ {
+  "scheda": 28,
+  "id": "rune-28",
+  "scambiato": true,
+  "simboliDi": "rune-29"
+ },
+ {
+  "scheda": 29,
+  "id": "rune-29",
+  "scambiato": true,
+  "simboliDi": "rune-32"
+ },
+ {
+  "scheda": 30,
+  "id": "rune-30",
+  "scambiato": false,
+  "simboliDi": "rune-30"
+ },
+ {
+  "scheda": 31,
+  "id": "rune-31",
+  "scambiato": false,
+  "simboliDi": "rune-31"
+ },
+ {
+  "scheda": 32,
+  "id": "rune-32",
+  "scambiato": true,
+  "simboliDi": "rune-34"
+ },
+ {
+  "scheda": 33,
+  "id": "rune-33",
+  "scambiato": false,
+  "simboliDi": "rune-33"
+ },
+ {
+  "scheda": 34,
+  "id": "rune-34",
+  "scambiato": true,
+  "simboliDi": "rune-40"
+ },
+ {
+  "scheda": 35,
+  "id": "rune-35",
+  "scambiato": false,
+  "simboliDi": "rune-35"
+ },
+ {
+  "scheda": 36,
+  "id": "rune-36",
+  "scambiato": false,
+  "simboliDi": "rune-36"
+ },
+ {
+  "scheda": 37,
+  "id": "rune-37",
+  "scambiato": false,
+  "simboliDi": "rune-37"
+ },
+ {
+  "scheda": 38,
+  "id": "rune-38",
+  "scambiato": false,
+  "simboliDi": "rune-38"
+ },
+ {
+  "scheda": 39,
+  "id": "rune-39",
+  "scambiato": false,
+  "simboliDi": "rune-39"
+ },
+ {
+  "scheda": 40,
+  "id": "rune-40",
+  "scambiato": true,
+  "simboliDi": "rune-2"
+ }
+]
