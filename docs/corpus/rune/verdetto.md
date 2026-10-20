@@ -99,7 +99,7 @@
 3. Il quadro cresce piano ma dritto: accompagna ciò che sta nascendo con pazienza, perché questa crescita lenta è anche solida.
 4. Nell'insieme un'alleanza aspetta solo di essere stretta: accetta la mano che ti tendono invece di portare tutto sulle tue spalle.
 5. Dopo un periodo faticoso la gettata annuncia un giorno chiaro: ciò che vedi adesso è affidabile, puoi credere ai tuoi occhi.
-6. L'eredità di chi ti ha preceduto è un fondamento solido: la gettata dice di poggiarci sopra le decisioni di adesso.
+6. L'eredità di chi c'era prima di te è un fondamento solido: la gettata dice di poggiarci sopra le decisioni di adesso.
 7. La fiducia scorre libera in questa gettata: puoi contare sulle persone che ti stanno accanto, chiedi il loro aiuto senza timore.
 8. L'accordo che sostiene la gettata è sano: un impegno preso sul serio diventa una base solida, onoralo e costruiscici sopra con fiducia.
 9. Il segno parla di lavoro in coppia: lo sforzo diviso con qualcuno arriva più lontano, cerca chi può camminare al tuo fianco.
@@ -389,7 +389,7 @@
 67. Una porta si spalanca e un'altra resta accostata: entra dove ti aspettano e avvicinati all'altra con delicatezza, senza bussare troppo forte.
 68. Un'intesa c'è ma passa per un modo di pensare diverso dal tuo: prima di chiedere comprensione, fai lo sforzo di capire.
 69. Dalla famiglia hai ricevuto coraggio e timori nello stesso pacchetto: usa il coraggio adesso e non dare voce ai timori.
-70. Un impegno di lunga data regge mentre uno recente vacilla: quando sei in dubbio torna ai principi che ti hanno sempre sostenuto.
+70. Un impegno di lunga data regge mentre uno recente vacilla: quando sei in dubbio torna ai principi che da sempre ti reggono.
 71. La gettata chiede di restare leali senza irrigidirsi: mantieni ciò che hai promesso, ma scegli con flessibilità il modo di farlo.
 72. Un potenziale è già seminato e intorno il clima è ancora instabile: tienilo al riparo, non mostrarlo prima che abbia preso forza.
 73. Qualcuno è pronto a darti aiuto, ma non lo offre per primo: le pietre dicono che la richiesta parte da te.
@@ -506,7 +506,7 @@
 24. Il tuo ruolo fra gli altri è diventato incerto: ritrovalo rendendoti utile in modo pratico alle persone che hai vicino.
 25. Le radici chiedono di essere messe in ordine: apri le stanze chiuse della memoria, guarda che cosa vi resta e poi decidi.
 26. Nel complesso il peso va verso l'ombra: ciò che si risveglia fatica a durare, resta vigile e non spegnere la speranza.
-27. Tutto il carico è finito da una parte: ridistribuiscilo con chi lavora al tuo fianco, prima che la stanchezza diventi risentimento.
+27. Tutto il carico è finito da una parte: ridistribuiscilo con chi lavora al tuo fianco, prima che la stanchezza diventi rancore.
 28. La determinazione della gettata vacilla: ricorda il motivo per cui hai cominciato e la mano torna ferma senza bisogno di altro.
 29. Un impegno nato dal cuore si è trasformato in un obbligo soffocante: rinnovalo con parole nuove oppure restituiscilo con rispetto.
 30. Qualcosa di nuovo spinge per nascere ma il terreno è duro: smuovilo con delicatezza, senza rovinare il germoglio appena spuntato.

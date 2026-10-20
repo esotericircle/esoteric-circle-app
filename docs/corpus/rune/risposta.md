@@ -57,7 +57,7 @@
 13. Attingi alla riserva: per {cosa} torna disponibile un'energia rimasta nascosta, da spendere solo su ciò che conta davvero per te.
 14. Non è troppo grande: dentro {cosa} l'ostacolo si fa affrontabile appena metti in gioco tutte le tue forze, senza risparmiarne una parte.
 15. Agisci col corpo: per {cosa} è tempo di muoverti, costruire, sollevare qualcosa di concreto, perché la mente segue le mani.
-16. Non chiedere permesso: con {cosa} il vigore ti appartiene già e aspetta soltanto di essere speso bene, su un obiettivo preciso.
+16. Non chiedere permesso: con {cosa} il vigore ti appartiene già e aspetta soltanto che tu lo spenda bene, su un obiettivo preciso.
 17.
 18.
 19.
@@ -156,7 +156,7 @@
 4. Chiedi conferma: con {cosa} oggi le parole arrivano annebbiate e ciò che hai soltanto intuito non è ancora stato detto davvero.
 5. Verifica prima di reagire: un messaggio che riguarda {cosa} si legge in due modi, parti dal più gentile e controlla.
 6. Non riempire i vuoti con la paura: sopra {cosa} pesa un discorso interrotto, domanda come finiva invece di immaginare il peggio.
-7. Ascolta lentamente: con {cosa} una frase che ti ha ferito poteva voler dire altro, rileggila o riascoltala prima di rispondere a tono.
+7. Ascolta lentamente: con {cosa} una frase che ti ha fatto male poteva voler dire altro, rileggila o riascoltala prima di rispondere a tono.
 8. Aspetta i fatti: per {cosa} la prima impressione non basta, lascia che siano i gesti a parlare prima delle parole.
 9. Semplifica: verso {cosa} anche le tue parole possono confondere, quindi taglia ciò che è superfluo e resta sul punto che ti preme.
 10. Chiarisci subito: fra te e {cosa} c'è un fraintendimento leggero come brina, che si scioglie con una sola domanda fatta senza sospetto.
@@ -870,7 +870,7 @@
 29.
 
 ## Othala, dritta
-1. Costruisci su ciò che hai ricevuto: per {cosa} le abitudini imparate da chi ti ha cresciuto sono la base più solida.
+1. Costruisci su ciò che hai ricevuto: per {cosa} le abitudini imparate da chi ha avuto cura di te sono la base più solida.
 2. Appoggiati alle tue capacità più antiche: dentro {cosa} lavora una radice profonda che ti regge anche quando dubiti di te.
 3. Guarda {cosa} come si guarda una casa ben costruita: i muri portanti ci sono già, va solo scelto come abitarla.
 4. Ciò che ti appartiene nel profondo è il punto fermo per {cosa}: un valore ricevuto da chi è venuto prima di te.
@@ -878,7 +878,7 @@
 6. Con {cosa} si tratta di custodire, non di inseguire: ciò che hai già merita cura prima di ogni conquista nuova.
 7. Verso {cosa} ti accompagna l'esempio di qualcuno della tua famiglia o della tua storia: ricordalo e prendi da lì la misura.
 8. Il focolare è acceso: per {cosa} c'è un luogo a cui tornare, persone che riconoscono il tuo nome e un posto a tavola.
-9. Usa il talento ereditato: con {cosa} hai una dote, venuta da chi ti ha preceduto, che stai usando solo a metà.
+9. Usa il talento ereditato: con {cosa} hai una dote, venuta da chi c'era prima di te, che stai usando solo a metà.
 10. Getta fondamenta: per {cosa} quello che costruisci adesso sul tuo terreno regge a lungo se scegli con cura dove posarlo.
 11. Pensa a chi viene dopo: con {cosa} stai preparando un riparo per altri, quindi ogni scelta di oggi va fatta pensando a loro.
 12. C'è un sapere di famiglia che fa al caso tuo con {cosa}: una ricetta, un proverbio, un modo di aggiustare le cose.
@@ -904,7 +904,7 @@
 10. Il blocco che tocca {cosa} viene da lontano, da un modo di pensare respirato in casa: adesso puoi scegliere quale tenere.
 11.
 12. Fra {cosa} e la libertà di muoverti c'è un vecchio nodo di famiglia: scioglierlo un filo per volta è possibile.
-13. Sopra {cosa} pesa il timore di deludere chi ti ha cresciuto: puoi onorarlo e intanto camminare per la tua strada.
+13. Sopra {cosa} pesa il timore di deludere chi si è preso cura di te: puoi onorarlo e intanto camminare per la tua strada.
 14.
 15. Ciò che hai sempre fatto così non è per forza giusto per {cosa}: interrogare un'usanza è il primo modo di renderla viva.
 16. La radice che trattiene {cosa} si allenta quando la nomini: chiamare per nome ciò che pesa toglie metà del suo peso.

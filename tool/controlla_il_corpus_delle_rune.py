@@ -117,6 +117,34 @@ CERTEZZE = ['sicuramente', 'certamente', 'di certo', 'senza dubbio',
 MINACCE = ['maledi', 'sventur', 'morte', 'morir', 'sciagur', 'pagherai']
 DICHIARA_LA_FONTE = ['il corpus', 'il sistema', "l'algoritmo", 'l’algoritmo']
 
+# **IL GENERE DI CHI LEGGE, ordine GA voci 03, 04, 05 e 07, 20 ottobre
+# 2026.** Il criterio e' quello della guardia `il_genere_non_si_indovina`
+# (`lib/core/chat/le_forme_del_genere.dart`), nella copia Python che ne fa
+# gia' `tool/genera_carte_nella_posizione.py`: si importa da li', cosi' i
+# due strumenti non contano due cose diverse. Prima di questa riga lo
+# strumento non lo guardava, e dieci voci riscritte per la forma nuova lo
+# dicevano a chi legge ("sei impigliato", "resti solo"): le vedeva solo la
+# guardia, nella suite.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from genera_carte_nella_posizione import forme_del_genere  # noqa: E402
+
+# **IL "TI" COMPLEMENTO OGGETTO COL PARTICIPIO**: "chi ti ha aiutato" si
+# accorda al maschile con chi legge ("chi ti ha aiutata" a una donna), e la
+# guardia del genere non lo prende perche' non ha un verbo alla seconda
+# persona. Si scrive al neutro ("chi ti ha dato aiuto"). Restano i participi
+# dove "ti" vale "a te" e il participio non si accorda: "ti ha dato", "ti ha
+# parlato", "ti ha affidato", "ti ha messo davanti".
+TI_COL_PARTICIPIO = re.compile(
+    r'\bti (?:ha|hanno|aveva|avevano|abbia|abbiano|avesse|avrà|avranno|'
+    r'avrebbe|avrebbero) (?:(?:solo|già|davvero|sempre|anche|appena|mai|più|'
+    r'molto|tanto|spesso|forse|ancora) )*([a-zàèéìòù]+(?:at|ut|it|es|ess|ott|'
+    r'st|nt|ers|ass|olt|ort|ent|ins)o)\b', re.I)
+TI_A_TE = set((
+    'dato detto chiesto mostrato concesso prestato permesso parlato affidato '
+    'mandato regalato riferito passato trasmesso imposto assegnato indicato '
+    'teso offerto promesso restituito scritto lasciato messo fatto tolto '
+    'insegnato').split())
+
 
 # ---------------------------------------------------------------------------
 # I valori degli spazi, dal sorgente
@@ -342,6 +370,12 @@ def difetti_di_lingua(campo, gruppo, voce):
         out.append('apostrofo al posto dell\'accento')
     if 'ascolta te stess' in basso:
         out.append('"ascolta te stesso"')
+    for f in forme_del_genere(voce):
+        out.append(f'il genere di chi legge fuori dalla marca "{f}"')
+    for m in TI_COL_PARTICIPIO.finditer(voce):
+        if m.group(1).lower() not in TI_A_TE:
+            out.append(f'"{m.group(0)}": il participio si accorda con chi '
+                       f'legge, scrivilo al neutro')
     # `{cosa}` porta il suo articolo ("il lavoro", "l’amore", "ciò che hai
     # chiesto"): dopo di, a, da, in, su l'app scriverebbe "di il lavoro"; e a
     # inizio di frase scriverebbe la minuscola.
