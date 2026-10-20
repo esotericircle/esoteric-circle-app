@@ -1,5 +1,42 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// **LA RISPOSTA FINTA DEL MODELLO, NELLA FORMA NUOVA.** Ordine GA voci
+/// GA.03 e GA.07, 20 ottobre 2026: il modello scrive il titolo, la risposta,
+/// il riquadro "Cosa fare adesso" e, nella Lunga, l'approfondimento, ognuno
+/// da 40 a 50 parole; una risposta fuori misura si scarta e parla il corpus.
+/// Nessuna chiamata vera (regola SPESE): le prove che montano l'Oracolo
+/// rispondono tutte con questi testi, scritti a misura (47 parole ciascuno).
+const String titoloFintoDellOracolo = 'Gli angeli ti chiedono un passo lento';
+const String rispostaFintaDellOracolo =
+    'Sì, il cambiamento che cerchi è vicino, ma chiede un passo lento e '
+    'misurato. Il tuo Angelo Custode ti invita a partire da ciò che già sai '
+    'fare bene, il Cuore a sentire dove ti senti a casa, l\'Intelletto a '
+    'distinguere il desiderio dalla fretta di oggi.';
+const String cosaFareFintoDellOracolo =
+    'Scrivi stasera su un foglio tre cose che sai fare meglio di altri e '
+    'scegline una da mettere alla prova questa settimana. Non lasciare il '
+    'lavoro di oggi prima di aver parlato con chi può aprirti una porta. '
+    'Muovi un passo alla volta, senza bruciare le tappe.';
+const String approfondimentoFintoDellOracolo =
+    'Il passo lento non è una rinuncia: è il modo in cui le tre carte '
+    'leggono la tua domanda. Il Custode chiede metodo, il Cuore chiede '
+    'ascolto, l\'Intelletto chiede chiarezza. Insieme dicono che la strada '
+    'nuova si apre quando smetti di correre e cominci a scegliere davvero.';
+
+/// Il JSON finto per i [campi] chiesti dalla lettura: l'approfondimento solo
+/// se lo schema lo chiede, come fa il modello vero.
+String jsonFintoDellOracolo(Map<String, Object?> campi,
+        {String titolo = titoloFintoDellOracolo}) =>
+    jsonEncode({
+      'titolo': titolo,
+      'risposta': rispostaFintaDellOracolo,
+      'cosaFare': cosaFareFintoDellOracolo,
+      if (campi.containsKey('approfondimento'))
+        'approfondimento': approfondimentoFintoDellOracolo,
+    });
 
 /// **IL GIRO DELL'ORACOLO DEGLI ANGELI, COME LO FA UNA PERSONA.** Ordine FY
 /// voci FY.15 e FY.16, 16 ottobre 2026: la domanda si affida, poi si

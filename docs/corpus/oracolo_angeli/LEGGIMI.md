@@ -8,20 +8,22 @@ Ordine FU voci FU.05 e FU.07, 15 ottobre 2026. Il fondatore, alla domanda su chi
 
 | File | Voce | Celle | Varianti per cella | Testi |
 |---|---|---|---|---|
-| custode.md | Medora: l'Angelo Custode, che cosa fare | 72 | 3 messaggi | 216 |
-| cuore.md | Medora: l'Angelo del Cuore, che cosa sentire | 72 | 3 messaggi | 216 |
-| intelletto.md | Medora: l'Angelo dell'Intelletto, che cosa capire | 72 | 3 messaggi | 216 |
+| custode.md | Medora: l'Angelo Custode, che cosa fare | 72 | 3 messaggi e 3 consigli | 432 |
+| cuore.md | Medora: l'Angelo del Cuore, che cosa sentire | 72 | 3 messaggi e 3 consigli | 432 |
+| intelletto.md | Medora: l'Angelo dell'Intelletto, che cosa capire | 72 | 3 messaggi e 3 consigli | 432 |
 | rito.md | Caligo: il rito nei venti minuti dell'angelo | 72 | 2 riti | 144 |
-| **Totale** | | | | **792** (648 messaggi più 144 riti) |
+| **Totale** | | | | **1.440** (648 messaggi, 648 consigli e 144 riti) |
+
+**Il consiglio, ordine GA voci GA.03, GA.05 e GA.07, 20 ottobre 2026.** Dalla forma nuova dei responsi ogni carta singola si legge così: il nome dell'angelo come titolo, il suo messaggio, e sotto il riquadro "Cosa fare adesso" col consiglio. Il consiglio n accompagna il messaggio n, nella stessa cella. Fino all'ordine FU i testi erano 792; i consigli sono 648 in più, scritti da sei agenti (custode, cuore e intelletto in due fasce di 36 angeli) e portati nella fonte con `applica`.
 
 Perché tre varianti per i messaggi: la stessa carta può uscire due volte di fila nella stessa posizione, e il messaggio del giorno (voce FU.08) ruota fra le varianti; con tre varianti la stessa persona non rilegge la stessa frase prima del terzo giorno. Perché due per il rito: il rito è un gesto da ripetere, non una lettura; due varianti bastano a non farlo diventare una formula.
 
 ## Come sono fatte le celle
 
 - Una cella per angelo, intestazione `## NN Nome`: NN il numero a due cifre (da 01 a 72), Nome il `seedName` di `lib/core/angels/angel_catalog.dart` (per esempio `## 01 Vehuiah`, `## 02 Jeliel`).
-- custode, cuore, intelletto: tre righe `- messaggio 1:`, `- messaggio 2:`, `- messaggio 3:`.
+- custode, cuore, intelletto: tre righe `- messaggio 1:`, `- messaggio 2:`, `- messaggio 3:` e, dall'ordine GA, tre righe `- consiglio 1:`, `- consiglio 2:`, `- consiglio 3:`.
 - rito: due righe `- rito 1:`, `- rito 2:`.
-- Il generatore scrive `lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart` con `const Map<String, List<String>> corpusDellOracolo`, chiave `<file>|<NN>|<campo>` (per esempio `custode|01|messaggio`, `rito|72|rito`), valore le varianti in ordine.
+- Il generatore scrive `lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart` con `const Map<String, List<String>> corpusDellOracolo`, chiave `<file>|<NN>|<campo>` (per esempio `custode|01|messaggio`, `cuore|07|consiglio`, `rito|72|rito`), valore le varianti in ordine.
 
 ## Le tre posizioni, e il confine fra loro
 
@@ -49,7 +51,8 @@ Il confine: un messaggio del cuore che finisce con un compito è caduto nel cust
 - **La POLITICA DI PUBBLICAZIONE** di `docs/corpus/angeli.md` (regola R8): niente salute, malattia, guarigione, fertilità, longevità, sensi del corpo, medicina; nessuna promessa di esito (vittoria, protezione, ricchezza, ritrovamento, liberazione letterale, successo); niente angeli contrari, niente goetia né demoni, niente nomi alternativi non attestati. Niente vita privata di terzi: nessuna affermazione su ciò che un'altra persona pensa, fa o nasconde. Mai gioco, sfida, punteggio.
 - **Nessuna cifra**: l'ora e il salmo li scrive l'app.
 - **Nessun nome di un altro angelo** dentro la cella.
-- **Lunghezze**: messaggio da 160 a 320 caratteri, un paragrafo; rito da 100 a 240.
+- **Lunghezze**: messaggio e consiglio da 40 a 50 parole, contate come le conta chi legge (separate da uno spazio, `LaFormaDelResponso.parole`), un paragrafo ciascuno; rito da 100 a 240 caratteri. Fino all'ordine GA il messaggio si misurava in caratteri, da 160 a 320: il fondatore, 19 ottobre 2026, *"tutte le risposte composte da paragrafi ognuno con tra 40 a 50 parole ognuno"*. I 126 messaggi fuori dalla misura nuova (custode 33, cuore 52, intelletto 41) sono stati riscritti, mai troncati.
+- **Il consiglio** dice che cosa fare o non fare adesso, all'imperativo, legato al dono dell'angelo: nel custode non ripete il gesto del messaggio e ne dà il passo dopo, oppure che cosa non fare; nel cuore e nell'intelletto parte da ciò che il messaggio fa sentire o capire. Non ripete il suo messaggio (Jaccard sulle parole sotto 0,5).
 - **Le varianti della stessa cella** dicono lo stesso angelo nella stessa posizione con attacchi e gesti diversi: non cominciano con la stessa parola e non si somigliano oltre 0,5 (Jaccard sulle parole). Lo stesso angelo non dice la stessa cosa in due posizioni. Nessun attacco di due parole apre più di dodici testi di un file. Nessun testo è uguale a un altro in tutto il corpus.
 
 ## La prova vista rossa
@@ -897,6 +900,8 @@ Per ogni angelo: il nome a video, la fonte con la riga di `docs/corpus/angeli.md
 Testi scritti da sette agenti in parallelo (custode, cuore e intelletto in due fasce di 36 angeli ciascuno, il rito in una), solo con `riempi`. Scartati al primo invio e riscritti: custode 17 su 216, cuore 9 su 216, intelletto 15 su 216, rito 4 su 144. I difetti più frequenti: la seconda persona non riconosciuta (testi solo all'imperativo, senza "ti", "te", "tuo"), la virgola prima di "e", parole che la politica ferma per radice ("successivo", "sterile", "ereditate", "vista", "contrario"), il genere di chi legge ("essere riconosciuta"), "promesso" come formula di certezza, una lunghezza fuori misura, una parola ripetuta ("piano piano").
 
 `python tool/il_corpus_dell_oracolo.py controlla` sulla fonte piena: **DIFETTI: 0 su 792 testi**. `conta`: custode 216, cuore 216, intelletto 216, rito 144, totale 792.
+
+**All'ordine GA**, 20 ottobre 2026: i 126 messaggi riscritti sono passati tutti al primo invio di `applica`; dei 648 consigli ne sono stati scartati 31 al primo invio e riscritti da Code (mai troncati): la seconda persona non riconosciuta (testi solo all'imperativo, 12), parole che la politica ferma per radice (12: "protegge", "proteggi", "vista", "rimedio", "gioco", "ritrovi", "successivo", "successo", "ereditata"), il voi ("fra voi", "siete", 2), "promesso" come certezza, una citazione fra virgolette, il genere di chi legge ("resti pulito", "diventi rimpianto"), e due attacchi "prima di" oltre il tetto di dodici per file. Al secondo invio tre riscritture erano uscite dalla misura (52, 52 e 53 parole) e una portava ancora "vista": riscritte di nuovo. `controlla` sulla fonte piena: **DIFETTI: 0 su 1.440 testi**. `conta`: custode 432, cuore 432, intelletto 432, rito 144, totale 1.440.
 
 ## L'innesto
 

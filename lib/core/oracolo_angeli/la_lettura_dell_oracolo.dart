@@ -5,9 +5,12 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../services/ai/l_etichetta_della_funzione.dart';
+import '../angels/angel_catalog.dart';
 import '../chat/il_blocco_di_cortesia.dart';
 import '../chat/user_profile.dart';
 import '../responsi/confine_del_responso.dart';
+import '../responsi/i_riti_propiziatori.dart';
+import '../responsi/la_forma_del_responso.dart';
 import '../../services/ai/maestro_persona.dart';
 import '../config/la_regione_dei_dati.dart';
 import '../viaggio/la_domanda_capita.dart';
@@ -21,33 +24,38 @@ import 'le_domande_dell_oracolo.dart';
 typedef ChiamataDellOracolo = Future<String?> Function(
     String istruzione, String richiesta, Map<String, Schema> campi);
 
-/// **LA RISPOSTA DELL'ORACOLO.** Ordine FU voci FU.04 e FU.06.
+/// **LA RISPOSTA DELL'ORACOLO.** Ordine FU voci FU.04 e FU.06, nella forma
+/// dell'ordine GA voci GA.03, GA.04 e GA.05 (20 ottobre 2026).
 ///
-/// Tre paragrafi, uno per carta nell'ordine Custode, Cuore, Intelletto, col
-/// secondo nel riquadro. Il primo e il terzo vengono dal corpus dei messaggi
-/// di Medora (FU.05), gratis. Il secondo, il riquadro, e il titolo li scrive
-/// il modello: sono cio' che lega la domanda alle tre carte, e il riquadro
-/// parte dall'Angelo del Cuore. Senza modello il riquadro e' il messaggio del
-/// Cuore dal corpus e il titolo viene dal tema riconosciuto sul telefono.
+/// Il responso principale della consultazione e' un [ResponsoInterpretato]
+/// dell'Oracolo: il titolo, la risposta, il riquadro "Cosa fare adesso" e,
+/// nella Lunga, l'approfondimento e il riquadro "Il salmo propiziatorio"; in
+/// fondo il "Da dove viene". Col modello titolo, risposta, cosa fare e
+/// approfondimento li scrive Medora per la domanda e le tre carte; il salmo
+/// viene sempre dalla raccolta dei riti (`IRitiPropiziatori.salmiMartini`),
+/// mai dal modello (GA.04: "nessuna formula inventata"). Senza modello il
+/// responso e' quello della carta del Custode, dal corpus.
+///
+/// **LAPIDE, ordine GA voce GA.03.** Prima la risposta erano tre paragrafi,
+/// uno per carta, col secondo scritto dal modello nel riquadro e i due
+/// approfondimenti della Lunga dentro lo stesso riquadro (ordine FY voce
+/// FY.19, `paragrafi` e `approfondimento`). Il fondatore, 19 ottobre 2026:
+/// "Per le risposte brevi 2 paragrafi di cui il secondo messo in evidenza in
+/// un riquadro [...] Per le risposte lunghe aggiungi 2 paragrafi sempre con
+/// il primo in riquadro".
 class RispostaDellOracolo {
   const RispostaDellOracolo({
-    required this.titolo,
-    required this.paragrafi,
+    required this.responso,
     required this.dalModello,
-    this.approfondimento = const [],
   });
 
-  final String titolo;
-
-  /// Tre paragrafi, uno per carta; il secondo va nel riquadro.
-  final List<String> paragrafi;
-
-  /// I due paragrafi in piu' della profondita' Lunga (dall'Adepto, FU.10),
-  /// nel loro riquadro dopo i tre. Vuoti nella Breve.
-  final List<String> approfondimento;
+  /// Il responso principale, nella forma di GA.03.
+  final ResponsoInterpretato responso;
 
   /// Falso se la risposta e' quella del solo corpus: la schermata lo dice.
   final bool dalModello;
+
+  String get titolo => responso.titolo;
 }
 
 abstract final class LaLetturaDellOracolo {
@@ -60,36 +68,48 @@ abstract final class LaLetturaDellOracolo {
   /// Quanto si aspetta il modello prima di dare la risposta del corpus.
   static const Duration pazienza = Duration(seconds: 8);
 
-  /// I tetti dei campi in caratteri: la guardia della risposta li fa
-  /// rispettare e il tetto dei token ne discende.
+  /// Il tetto del titolo in caratteri: il titolo e' una frase sola.
   static const int tettoDelTitolo = 80;
-  static const int tettoDelRiquadro = 420;
-  static const int tettoDellApprofondimento = 420;
+
+  /// **I CARATTERI DI UNA PAROLA, DALLA MISURA** (ordine GA voce GA.07: i
+  /// tetti "si rimisurano sui testi nuovi e si scrivono dalla misura"). Sui
+  /// 1.296 paragrafi del corpus nella misura nuova (648 messaggi e 648
+  /// consigli, da 40 a 50 parole) il rapporto fra caratteri e parole sta
+  /// sotto 7; il tetto ne tiene 8, e la prova
+  /// `l_oracolo_ha_la_forma_nuova_test.dart` cade se il corpus lo supera.
+  static const int caratteriPerParola = 8;
+
+  /// Il tetto di un paragrafo in caratteri: cinquanta parole da otto.
+  static int get tettoDelParagrafo =>
+      LaFormaDelResponso.massimo * caratteriPerParola;
 
   /// **IL TETTO DEI TOKEN DI USCITA**: i caratteri dei campi diviso tre
   /// (l'italiano sta sopra i tre caratteri per token), con un minimo. Breve:
-  /// 300 token; Lunga: 600.
+  /// titolo e due paragrafi, 880 caratteri, 294 token, il minimo 300; Lunga:
+  /// titolo e tre paragrafi (il salmo non lo scrive il modello), 1.280
+  /// caratteri, 427 token, il minimo 600.
   static int tettoDeiGettoni({required bool profonda}) {
-    final caratteri = tettoDelTitolo +
-        tettoDelRiquadro +
-        (profonda ? 2 * tettoDellApprofondimento : 0);
+    final caratteri = tettoDelTitolo + (profonda ? 3 : 2) * tettoDelParagrafo;
     final scalato = (caratteri / 3).ceil();
     final minimo = profonda ? 600 : 300;
     return scalato > minimo ? scalato : minimo;
   }
 
-  /// **L'ISTRUZIONE FISSA**, uguale per ogni consultazione: e' la parte che
-  /// il modello puo' tenere in cache. Porta la voce di Medora, la politica di
-  /// pubblicazione degli angeli (R8 dell'ordine), la regola di casa sul
-  /// futuro e sulla vita privata dei terzi, e i due punti che valgono per
-  /// tutte le arti, letti da dove vivono: il confine del responso
-  /// (`ConfineDelResponso.perIlModello`) e la regola del tema delicato delle
-  /// chat dei Maestri (`MaestroPersona.temaDelicato`). In coda,
-  /// dopo la parte uguale per tutti, il blocco di cortesia con la forma
-  /// scelta dalla persona (`IlBloccoDiCortesia`, la porta unica del genere):
-  /// cosi' la parte comune resta in testa e la cache la riusa.
-  static String istruzione([CourtesyForm? forma]) =>
-      '$_istruzioneFissa${ConfineDelResponso.perIlModello}\n'
+  /// **L'ISTRUZIONE**, uguale per ogni consultazione della stessa
+  /// profondita': e' la parte che il modello puo' tenere in cache. Porta la
+  /// voce di Medora e la politica di pubblicazione degli angeli (R8
+  /// dell'ordine FU), poi i punti che valgono per tutte le arti, letti da
+  /// dove vivono: **la forma del responso e la risposta diretta**
+  /// (`LaFormaDelResponso.perIlModello`, ordine GA voci GA.03 e GA.06, una
+  /// volta sola), il confine del responso (`ConfineDelResponso.perIlModello`)
+  /// e la regola del tema delicato delle chat dei Maestri
+  /// (`MaestroPersona.temaDelicato`). In coda il blocco di cortesia con la
+  /// forma scelta dalla persona (`IlBloccoDiCortesia`, la porta unica del
+  /// genere): cosi' la parte comune resta in testa e la cache la riusa.
+  static String istruzione([CourtesyForm? forma, bool lunga = false]) =>
+      '$_istruzioneFissa'
+      '${LaFormaDelResponso.perIlModello(arte: ArteInterpretata.oracolo, lunga: lunga)}\n'
+      '${ConfineDelResponso.perIlModello}\n'
       '- ${MaestroPersona.temaDelicato}\n'
       '${IlBloccoDiCortesia.perForma(forma)}';
 
@@ -98,17 +118,21 @@ abstract final class LaLetturaDellOracolo {
   // parla di farsi del male, [...] non leggere le carte", col numero da chiamare e l'invito
   // a parlarne con una persona di fiducia). Il fondatore: "elimina tutta la
   // parte e ciò che riguarda alle domande sensibili, non lo abbiamo fatto per
-  // le altre funzionalità". Adesso vale la regola dei Maestri, letta qui sopra.
+  // le altre funzionalità". Adesso vale la regola dei Maestri, letta qui sotto.
+  //
+  // **LAPIDE, ordine GA voce GA.03, 20 ottobre 2026.** Qui l'istruzione
+  // chiedeva due cose, "titolo (al massimo 80 caratteri)" e "riquadro (2 o 3
+  // frasi, al massimo 400 caratteri)", e nella Lunga due approfondimenti.
+  // Adesso i campi sono quelli della forma, e la misura e la regola della
+  // risposta diretta stanno in `LaFormaDelResponso.perIlModello`.
   static const String _istruzioneFissa = '''
 Sei Medora, Maestra del Cerchio: voce calda, colta, concreta. Dai del tu a chi ti consulta, in italiano, con gli accenti veri.
-Ricevi una domanda e tre carte dell'Oracolo degli Angeli, una per ruolo: Angelo Custode (cosa fare), Angelo del Cuore (cosa sentire), Angelo dell'Intelletto (cosa capire). Ogni carta porta il suo messaggio gia' scritto.
-Scrivi solo due cose:
-- titolo: la risposta alla domanda in una frase sola, al massimo 80 caratteri, senza punto finale.
-- riquadro: un paragrafo di 2 o 3 frasi, al massimo 400 caratteri, che parte da cosa sentire con l'Angelo del Cuore e lega la domanda alle tre carte. Chiude con un gesto concreto.
+Ricevi una domanda e tre carte dell'Oracolo degli Angeli, una per ruolo: Angelo Custode (cosa fare), Angelo del Cuore (cosa sentire), Angelo dell'Intelletto (cosa capire). Ogni carta porta il suo messaggio già scritto.
+Scrivi i campi titolo, risposta, cosaFare e, quando lo schema lo chiede, approfondimento. La risposta lega la domanda alle tre carte uscite; cosaFare parte dalla carta del Custode.
 Regole che non si rompono:
-- Niente salute, malattia, guarigione, fertilita, gravidanza, medicine o cure del corpo.
+- Niente salute, malattia, guarigione, fertilità, gravidanza, medicine o cure del corpo.
 - Nessuna promessa di esito: niente vittorie, ricchezze, successi garantiti, ritorni sicuri, protezioni.
-- Nessun futuro detto come certezza: parla di tendenze, possibilita, scelte.
+- Nessun futuro detto come certezza: parla di tendenze, possibilità, scelte.
 - Nessuna affermazione sulla vita privata, sui sentimenti o sulle intenzioni di altre persone.
 - Niente angeli contrari, demoni, goetia, nomi alternativi degli angeli.
 - Le chiavi di lettura sono tue, mai "la tradizione dice".
@@ -134,18 +158,23 @@ Regole che non si rompono:
     return righe.join('\n');
   }
 
+  static String _misura() =>
+      'da ${LaFormaDelResponso.minimo} a ${LaFormaDelResponso.massimo} parole';
+
   static Map<String, Schema> campi({required bool profonda}) => {
-        'titolo': Schema.string(description: 'La risposta in una frase.'),
-        'riquadro':
-            Schema.string(description: 'Il paragrafo che lega le tre carte.'),
-        if (profonda) ...{
-          'approfondimento1': Schema.string(
-              description: 'Primo paragrafo di approfondimento, 2 o 3 '
-                  'frasi, al massimo 400 caratteri.'),
-          'approfondimento2': Schema.string(
-              description: 'Secondo paragrafo di approfondimento, 2 o 3 '
-                  'frasi, al massimo 400 caratteri, con un gesto.'),
-        },
+        'titolo': Schema.string(
+            description: 'La risposta alla domanda in una frase sola.'),
+        'risposta': Schema.string(
+            description: 'Il primo paragrafo, ${_misura()}: la prima frase '
+                'risponde alla domanda.'),
+        'cosaFare': Schema.string(
+            description: 'Il paragrafo del riquadro '
+                '"${LaFormaDelResponso.titoloDelConsiglio}", ${_misura()}: '
+                'che cosa fare o non fare adesso.'),
+        if (profonda)
+          'approfondimento': Schema.string(
+              description: 'Il paragrafo che approfondisce la risposta, '
+                  '${_misura()}.'),
       };
 
   /// **LA CARTA COPERTA**: senza l'ora di nascita l'Angelo dell'Intelletto
@@ -168,8 +197,72 @@ Regole che non si rompono:
     return v[variante % v.length];
   }
 
-  /// **LA RISPOSTA DEL SOLO CORPUS**, gratis e sempre disponibile: i tre
-  /// messaggi delle carte, col titolo dal tema riconosciuto sul telefono.
+  /// **IL CONSIGLIO DI UNA CARTA**, ordine GA voce GA.05: il riquadro "Cosa
+  /// fare adesso" della carta singola, dal corpus di Medora, nella stessa
+  /// variante del messaggio che accompagna. Nullo per la carta coperta.
+  static String? consiglioDellaCarta(
+      Map<String, List<String>> corpus, CartaDellOracolo c, int variante) {
+    if (c.coperta) return null;
+    final v = corpus[LOraDegliAngeli.chiaveDelConsiglio(c.ruolo, c.angelo)];
+    if (v == null || v.isEmpty) return null;
+    return v[variante % v.length];
+  }
+
+  /// **LA CARTA SINGOLA NELLA FORMA NUOVA**, ordine GA voce GA.05: sempre
+  /// breve, il nome dell'angelo per titolo, il messaggio e il consiglio, e
+  /// nessun "Da dove viene" (chiude la consultazione una volta sola). Nullo
+  /// per la carta coperta.
+  static ResponsoInterpretato? responsoDellaCarta(
+      Map<String, List<String>> corpus, CartaDellOracolo c, int variante) {
+    final consiglio = consiglioDellaCarta(corpus, c, variante);
+    if (consiglio == null) return null;
+    return ResponsoInterpretato(
+      arte: ArteInterpretata.oracolo,
+      titolo: c.angelo.name,
+      risposta: messaggioDellaCarta(corpus, c, variante),
+      cosaFare: consiglio,
+    );
+  }
+
+  /// **IL SALMO PROPIZIATORIO** di un angelo, ordine GA voce GA.04: il
+  /// versetto che Lenain gli lega, nella Bibbia di Martini, dentro un rito
+  /// da 40 a 50 parole, dalla raccolta dei riti e mai dal modello.
+  static String? salmoDellAngelo(Angel a) => IRitiPropiziatori.rito(
+      IRitiPropiziatori.salmiMartini, ['${a.number}', a.name]);
+
+  /// La fonte del salmo di un angelo: il salmo nella Vulgata, Lenain e
+  /// Martini, per il "Da dove viene".
+  static String? fonteDelSalmo(Angel a) => IRitiPropiziatori.fonte(
+      IRitiPropiziatori.salmiMartini, ['${a.number}', a.name]);
+
+  /// **L'ANGELO DEL SALMO**: quello della carta del Custode, la posizione
+  /// di cio' che si fa, dove sta anche il riquadro "Cosa fare adesso". Scelta
+  /// di Code, ordine GA, scritta nel rapporto.
+  static CartaDellOracolo cartaDelCustode(List<CartaDellOracolo> carte) =>
+      carte.firstWhere((c) => c.ruolo == RuoloDellAngelo.custode,
+          orElse: () => carte.first);
+
+  /// **DA DOVE VIENE**, una volta sola in fondo alla consultazione: i nomi e
+  /// i salmi, i tre angeli della persona, chi scrive la risposta e, nella
+  /// Lunga, la fonte del salmo propiziatorio (Lenain e Martini).
+  static String daDoveViene({required bool dalModello, String? delSalmo}) {
+    final chi = dalModello
+        ? 'La risposta alla tua domanda la scrive Medora sulle tre carte '
+            'uscite.'
+        : 'Il messaggio e il consiglio della carta li ha scritti Medora per '
+            'ogni angelo.';
+    return 'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; '
+        'i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. '
+        'I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
+        'della tua nascita. $chi'
+        '${delSalmo == null ? '' : ' Il salmo propiziatorio: $delSalmo'}';
+  }
+
+  /// **LA RISPOSTA DEL SOLO CORPUS**, gratis e sempre disponibile:
+  /// l'assaggio del Viandante e il ripiego quando il modello manca. Il
+  /// responso principale e' la carta del Custode nella forma breve: il
+  /// titolo dal tema riconosciuto sul telefono, il suo messaggio e il suo
+  /// consiglio (ordine GA voce GA.05).
   static RispostaDellOracolo delCorpus({
     required String domanda,
     required List<CartaDellOracolo> carte,
@@ -177,11 +270,16 @@ Regole che non si rompono:
     required int variante,
   }) {
     final tema = TemaDellOracolo.di(domanda);
+    final custode = cartaDelCustode(carte);
+    final messaggio = messaggioDellaCarta(corpus, custode, variante);
     return RispostaDellOracolo(
-      titolo: tema?.titoloDiRipiego ?? TemaDellOracolo.titoloSenzaTema,
-      paragrafi: [
-        for (final c in carte) messaggioDellaCarta(corpus, c, variante)
-      ],
+      responso: ResponsoInterpretato(
+        arte: ArteInterpretata.oracolo,
+        titolo: tema?.titoloDiRipiego ?? TemaDellOracolo.titoloSenzaTema,
+        risposta: messaggio,
+        cosaFare: consiglioDellaCarta(corpus, custode, variante) ?? messaggio,
+        daDoveViene: daDoveViene(dalModello: false),
+      ),
       dalModello: false,
     );
   }
@@ -196,8 +294,10 @@ Regole che non si rompono:
 
   /// **LA LETTURA.** Una chiamata sola per consultazione. Se la rete manca,
   /// il modello non risponde entro [pazienza], o la risposta non regge
-  /// (vuota, troppo lunga, una parola vietata, il trattino lungo), parla il
-  /// corpus: mai un vicolo cieco, mai una risposta finta spacciata per letta.
+  /// (vuota, un paragrafo fuori dalla misura di GA.03, una parola vietata,
+  /// il trattino lungo), parla il corpus: mai un vicolo cieco, mai una
+  /// risposta finta spacciata per letta. **Un paragrafo fuori misura non si
+  /// tronca** (ordine S voce 18, ordine GA voce GA.07): si scarta.
   static Future<RispostaDellOracolo> leggi({
     required String domanda,
     required List<CartaDellOracolo> carte,
@@ -214,7 +314,7 @@ Regole che non si rompono:
     String? testo;
     try {
       testo = await chiama(
-              istruzione(forma),
+              istruzione(forma, profonda),
               richiesta(
                   domanda: domanda,
                   carte: carte,
@@ -227,22 +327,38 @@ Regole che non si rompono:
           'corpus ($errore)');
       return corpusSolo;
     }
-    final letta = _leggiIlJson(testo, profonda: profonda);
+    final letta = leggiIlJson(testo, profonda: profonda);
     if (letta == null) return corpusSolo;
+    final custode = cartaDelCustode(carte).angelo;
+    final salmo = profonda ? salmoDellAngelo(custode) : null;
+    // Senza il salmo la Lunga resterebbe a meta': si da' la Breve intera.
+    final lunga = profonda && salmo != null;
     return RispostaDellOracolo(
-      titolo: letta.titolo,
-      paragrafi: [
-        corpusSolo.paragrafi[0],
-        letta.riquadro,
-        corpusSolo.paragrafi[2],
-      ],
-      approfondimento: letta.approfondimento,
+      responso: ResponsoInterpretato(
+        arte: ArteInterpretata.oracolo,
+        titolo: letta.titolo,
+        risposta: letta.risposta,
+        cosaFare: letta.cosaFare,
+        approfondimento: lunga ? letta.approfondimento : null,
+        rito: lunga ? salmo : null,
+        daDoveViene: daDoveViene(
+            dalModello: true, delSalmo: lunga ? fonteDelSalmo(custode) : null),
+      ),
       dalModello: true,
     );
   }
 
-  static ({String titolo, String riquadro, List<String> approfondimento})?
-      _leggiIlJson(String? testo, {required bool profonda}) {
+  /// **LA RISPOSTA DEL MODELLO, LETTA E MISURATA.** Nulla se non regge:
+  /// ogni paragrafo sta fra 40 e 50 parole (`LaFormaDelResponso.aMisura`),
+  /// il titolo entro [tettoDelTitolo], niente trattino lungo, niente parole
+  /// vietate; nella Lunga l'approfondimento c'e'.
+  @visibleForTesting
+  static ({
+    String titolo,
+    String risposta,
+    String cosaFare,
+    String? approfondimento
+  })? leggiIlJson(String? testo, {required bool profonda}) {
     if (testo == null) return null;
     Object? dati;
     try {
@@ -252,35 +368,36 @@ Regole che non si rompono:
       return null;
     }
     if (dati is! Map) return null;
-    final titolo = '${dati['titolo'] ?? ''}'.trim();
-    final riquadro = '${dati['riquadro'] ?? ''}'.trim();
-    final approfondimento = profonda
-        ? [
-            '${dati['approfondimento1'] ?? ''}'.trim(),
-            '${dati['approfondimento2'] ?? ''}'.trim(),
-          ]
-        : const <String>[];
-    bool regge(String t, int tetto) =>
+    String campo(String k) => '${dati is Map ? dati[k] ?? '' : ''}'.trim();
+    final titolo = campo('titolo');
+    final risposta = campo('risposta');
+    final cosaFare = campo('cosaFare');
+    final approfondimento = profonda ? campo('approfondimento') : null;
+    bool pulito(String t) =>
         t.isNotEmpty &&
-        t.length <= tetto &&
         !t.contains(String.fromCharCode(0x2014)) &&
         !t.contains(String.fromCharCode(0x2013)) &&
         !_vietate.hasMatch(t);
-    if (!regge(titolo, tettoDelTitolo) ||
-        !regge(riquadro, tettoDelRiquadro) ||
-        approfondimento.any((a) => !regge(a, tettoDellApprofondimento))) {
+    bool paragrafo(String t) => pulito(t) && LaFormaDelResponso.aMisura(t);
+    if (!pulito(titolo) || titolo.length > tettoDelTitolo) return null;
+    if (!paragrafo(risposta) || !paragrafo(cosaFare)) {
+      debugPrint('Oracolo degli Angeli: la risposta del modello esce dalla '
+          'forma (${LaFormaDelResponso.parole(risposta)} e '
+          '${LaFormaDelResponso.parole(cosaFare)} parole), parla il corpus');
       return null;
     }
+    if (approfondimento != null && !paragrafo(approfondimento)) return null;
     return (
       titolo: titolo,
-      riquadro: riquadro,
-      approfondimento: approfondimento
+      risposta: risposta,
+      cosaFare: cosaFare,
+      approfondimento: approfondimento,
     );
   }
 
   static Future<String?> _chiamataVera(
       String istruzione, String richiesta, Map<String, Schema> campi) async {
-    final profonda = campi.containsKey('approfondimento1');
+    final profonda = campi.containsKey('approfondimento');
     final m =
         FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione).generativeModel(
       model: modello,

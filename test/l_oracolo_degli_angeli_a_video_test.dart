@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -26,6 +25,14 @@ import 'sopra_il_filmato.dart';
 /// domanda, le lettere di luce, le tre carte che si girano, il responso col
 /// riquadro e le bolle col Parlane e il rito, la nuova domanda che non rifa'
 /// partire il video; ogni domanda, anche sensibile, estrae le tre carte.
+///
+/// **L'ORDINE GA**, voci GA.03, GA.05 e GA.08, 20 ottobre 2026: all'apertura
+/// e dopo una domanda nuova l'altare e' vuoto, nessun dorso in vista finche'
+/// la persona non sceglie (il fondatore: "L'oracolo degli angeli non mostra
+/// all'inizio, all'apertura, nessuna Carta prima che l'utente le scelga");
+/// il responso ha la forma nuova, col titolo del responso principale. Le
+/// asserzioni di prima che pretendevano i tre dorsi all'apertura sono
+/// rovesciate, con la loro riga accanto.
 class _Finta implements LettoreDiScena {
   _Finta({this.fallira = false, this.muta = false});
   final bool fallira;
@@ -112,11 +119,7 @@ Future<void> _monta(WidgetTester tester,
                 hasBirthTime: conOra),
             chiamata: (i, r, c) async {
               richieste?.add(r);
-              return jsonEncode({
-                'titolo': 'Gli angeli ti chiedono un passo lento',
-                'riquadro': 'Senti dove il cuore si apre e lascia che sia '
-                    'lui a scegliere il ritmo di oggi.',
-              });
+              return jsonFintoDellOracolo(c);
             },
           ),
         ),
@@ -146,8 +149,8 @@ void main() {
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   testWidgets(
-      'il video parte, un tocco lo salta e i tre dorsi compaiono sull\'altare',
-      (tester) async {
+      'il video parte, un tocco lo salta e l\'altare resta vuoto (GA.08: '
+      'prima i tre dorsi comparivano sull\'altare)', (tester) async {
     final finta = _Finta();
     await _monta(tester, lettori: [finta]);
     expect(finta.aperture, 1);
@@ -165,8 +168,10 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
     }
     expect(finta.sospensioni, 1);
+    // GA.08: prima qui i tre dorsi stavano sull'altare (findsOneWidget).
     for (var i = 0; i < 3; i++) {
-      expect(find.byKey(Key('oracolo_dorso_$i')), findsOneWidget);
+      expect(find.byKey(Key('oracolo_dorso_$i')), findsNothing,
+          reason: 'GA.08: il dorso $i e\' in vista prima della scelta');
     }
     expect(find.byKey(const Key('oracolo_domanda')), findsOneWidget);
     expect(find.byKey(const Key('il_tocco_che_salta')), findsNothing);
@@ -178,8 +183,9 @@ void main() {
     final richieste = <String>[];
     final finta = _Finta(fallira: true);
     await _monta(tester, lettori: [finta], richieste: richieste);
-    // Video che non si carica: scena ferma coi dorsi e la domanda.
-    expect(find.byKey(const Key('oracolo_dorso_1')), findsOneWidget);
+    // Video che non si carica: scena ferma con la domanda e l'altare vuoto
+    // (GA.08: prima qui il dorso 1 era in vista, findsOneWidget).
+    expect(find.byKey(const Key('oracolo_dorso_1')), findsNothing);
     await affidaLaDomanda(tester, 'Devo cambiare lavoro?');
     await scegliLeTreCarte(tester);
     await Scrollable.ensureVisible(
@@ -196,7 +202,7 @@ void main() {
     expect(richieste, hasLength(1), reason: 'una chiamata sola');
     expect(
         tester
-            .widget<Text>(find.byKey(const Key('oracolo_titolo_del_responso')))
+            .widget<Text>(find.byKey(const Key('oracolo_principale_titolo')))
             .data!
             .replaceAll('\n', ' '),
         'Gli angeli ti chiedono un passo lento');
@@ -220,7 +226,8 @@ void main() {
     expect(
         find.byKey(const Key('oracolo_rito_aperto_custode')), findsOneWidget);
     expect(find.textContaining('Il momento: dalle '), findsOneWidget);
-    // Una nuova domanda: il video non riparte, le carte tornano dorsi.
+    // Una nuova domanda: il video non riparte, e l'altare torna vuoto
+    // (GA.08: prima le carte tornavano dorsi sull'altare).
     await _alCentro(tester, find.byKey(const Key('oracolo_nuova_domanda')));
     await tester.tap(find.byKey(const Key('oracolo_nuova_domanda')));
     for (var i = 0; i < 8; i++) {
@@ -228,7 +235,7 @@ void main() {
     }
     expect(finta.aperture, 1, reason: 'il video e\' ripartito');
     expect(find.byKey(const Key('oracolo_responso')), findsNothing);
-    expect(find.byKey(const Key('oracolo_dorso_2')), findsOneWidget);
+    expect(find.byKey(const Key('oracolo_dorso_2')), findsNothing);
   });
 
   testWidgets(

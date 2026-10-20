@@ -12,13 +12,24 @@ import 'package:esoteric_circle/core/oracolo_angeli/l_ora_degli_angeli.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/la_lettura_dell_oracolo.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/le_domande_dell_oracolo.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'il_giro_dell_oracolo.dart';
 
 /// **L'ORACOLO DEGLI ANGELI, IL NUCLEO.** Ordine FU voci FU.03, FU.04,
 /// FU.07 e FU.08: l'estrazione, l'ora degli angeli, la lettura col modello
 /// (sempre con la chiamata finta: R2, nessuna chiamata vera durante
 /// l'ordine) e il ripiego del corpus.
+///
+/// **L'ORDINE GA**, voci GA.03, GA.05, GA.06 e GA.07, 20 ottobre 2026: la
+/// lettura chiede al modello i campi della forma nuova (titolo, risposta,
+/// cosaFare e nella Lunga approfondimento), con l'istruzione comune della
+/// forma (`LaFormaDelResponso.perIlModello`) dentro; una risposta che esce
+/// dalla misura di 40-50 parole non si tronca, si scarta e parla la carta
+/// del Custode dal corpus. Le prove di prima che pretendevano il riquadro e
+/// i tre paragrafi (FU.04, FY.19) sono riscritte qui, con la regola nuova.
 AngelTriad _triade({bool conOra = true}) =>
     GuardianAngels.forBirth(BirthIdentity(
             birthMoment: DateTime(1990, 5, 12, 14, 30), hasBirthTime: conOra)
@@ -100,13 +111,12 @@ void main() {
     test('una chiamata sola: la domanda e i tre angeli, la regola dentro', () {
       final richieste = <String>[];
       final istruzioni = <String>[];
-      Future<String?> finta(String i, String r, Map campi) async {
+      Future<String?> finta(
+          String i, String r, Map<String, Object?> campi) async {
         istruzioni.add(i);
         richieste.add(r);
-        return jsonEncode({
-          'titolo': 'Il cuore ti chiede di fermarti',
-          'riquadro': 'Senti la pausa che ti serve, poi scegli con calma.',
-        });
+        return jsonFintoDellOracolo(campi,
+            titolo: 'Il cuore ti chiede di fermarti');
       }
 
       return LaLetturaDellOracolo.leggi(
@@ -122,14 +132,13 @@ void main() {
         }
         expect(risposta.dalModello, isTrue);
         expect(risposta.titolo, 'Il cuore ti chiede di fermarti');
-        expect(risposta.paragrafi, hasLength(3));
-        expect(risposta.paragrafi[1],
-            'Senti la pausa che ti serve, poi scegli con calma.');
-        // Il primo e il terzo vengono dal corpus, gratis.
-        expect(
-            corpusDellOracolo[
-                LOraDegliAngeli.chiave(carte[0].ruolo, carte[0].angelo)],
-            contains(risposta.paragrafi[0]));
+        // GA.03: la Breve e' una coppia, la risposta e il riquadro, scritti
+        // dal modello e nella misura; il "Da dove viene" chiude.
+        final r = risposta.responso;
+        expect(r.lungo, isFalse);
+        expect(r.risposta, rispostaFintaDellOracolo);
+        expect(r.cosaFare, cosaFareFintoDellOracolo);
+        expect(r.difetti(), isEmpty);
       });
     });
 
@@ -168,6 +177,9 @@ void main() {
           // Maestri e il confine del responso, letti dai loro punti.
           MaestroPersona.temaDelicato,
           ConfineDelResponso.perIlModello,
+          // Ordine GA voci GA.03 e GA.06: la forma e la risposta diretta.
+          LaFormaDelResponso.perIlModello(
+              arte: ArteInterpretata.oracolo, lunga: false),
         ]) {
           expect(vista, contains(regola), reason: '"$d" senza "$regola"');
         }
@@ -223,22 +235,50 @@ void main() {
         return '{}';
       });
       final rotta = await con(() async => throw Exception('rete giu\''));
-      final vietata = await con(() async => jsonEncode(
-          {'titolo': 'La guarigione arriva', 'riquadro': 'Sicuramente sì.'}));
-      final trattino = await con(() async => jsonEncode(
-          {'titolo': 'Una scelta — chiara', 'riquadro': 'Va bene.'}));
-      for (final r in [lenta, rotta, vietata, trattino]) {
+      final vietata = await con(() async => jsonEncode({
+            'titolo': 'La guarigione arriva',
+            'risposta': rispostaFintaDellOracolo,
+            'cosaFare': cosaFareFintoDellOracolo,
+          }));
+      final trattino = await con(() async => jsonEncode({
+            'titolo': 'Una scelta — chiara',
+            'risposta': rispostaFintaDellOracolo,
+            'cosaFare': cosaFareFintoDellOracolo,
+          }));
+      // GA.03 e GA.07: un paragrafo fuori dalla misura non si tronca, si
+      // scarta; e i campi di prima ("riquadro") non bastano piu'.
+      final corta = await con(() async => jsonEncode({
+            'titolo': 'Il passo lento',
+            'risposta': 'Sì, fai un passo lento.',
+            'cosaFare': cosaFareFintoDellOracolo,
+          }));
+      final vecchia = await con(() async => jsonEncode({
+            'titolo': 'Il passo lento',
+            'riquadro': 'Senti la pausa che ti serve, poi scegli con calma.',
+          }));
+      final custode = LaLetturaDellOracolo.cartaDelCustode(carte);
+      for (final r in [lenta, rotta, vietata, trattino, corta, vecchia]) {
         expect(r.dalModello, isFalse);
         expect(r.titolo, TemaDellOracolo.serenita.titoloDiRipiego);
-        expect(r.paragrafi, hasLength(3));
+        // Il ripiego e' la carta del Custode, nella forma breve.
+        expect(r.responso.lungo, isFalse);
+        expect(
+            r.responso.risposta,
+            LaLetturaDellOracolo.messaggioDellaCarta(
+                corpusDellOracolo, custode, 1));
+        expect(
+            r.responso.cosaFare,
+            LaLetturaDellOracolo.consiglioDellaCarta(
+                corpusDellOracolo, custode, 1));
+        expect(r.responso.difetti(), isEmpty);
       }
     });
 
-    test('la Lunga chiede due campi in piu\' e alza il tetto dei token', () {
+    test('la Lunga chiede un campo in piu\' e alza il tetto dei token', () {
       expect(LaLetturaDellOracolo.campi(profonda: false).keys,
-          ['titolo', 'riquadro']);
+          ['titolo', 'risposta', 'cosaFare']);
       expect(LaLetturaDellOracolo.campi(profonda: true).keys,
-          ['titolo', 'riquadro', 'approfondimento1', 'approfondimento2']);
+          ['titolo', 'risposta', 'cosaFare', 'approfondimento']);
       expect(LaLetturaDellOracolo.tettoDeiGettoni(profonda: false), 300);
       expect(LaLetturaDellOracolo.tettoDeiGettoni(profonda: true), 600);
     });
@@ -257,7 +297,16 @@ void main() {
             return null;
           });
       expect(richiesta, isNot(contains(coperte[2].angelo.name)));
-      expect(r.paragrafi[2], LaLetturaDellOracolo.testoDellaCartaCoperta);
+      expect(r.dalModello, isFalse);
+      // La carta coperta dice perche', e non ha un responso suo (GA.05).
+      expect(
+          LaLetturaDellOracolo.messaggioDellaCarta(
+              corpusDellOracolo, coperte[2], 0),
+          LaLetturaDellOracolo.testoDellaCartaCoperta);
+      expect(
+          LaLetturaDellOracolo.responsoDellaCarta(
+              corpusDellOracolo, coperte[2], 0),
+          isNull);
     });
 
     test('LA STIMA DI UNA CONSULTAZIONE, dai caratteri veri', () {
@@ -269,12 +318,14 @@ void main() {
           carte: carte,
           corpus: corpusDellOracolo,
           variante: 0);
-      final ingresso = LaLetturaDellOracolo.istruzione().length +
+      // Ordine GA: l'istruzione della Lunga e' la piu' lunga, con la riga
+      // dell'approfondimento e del salmo.
+      final ingresso = LaLetturaDellOracolo.istruzione(null, true).length +
           richiesta.length +
           200; // lo schema dei campi
       final gettoniIngresso = (ingresso / 3.5).ceil();
-      print('FU.04 STIMA: caratteri in ingresso $ingresso, token in ingresso '
-          'circa $gettoniIngresso; in uscita al piu\' '
+      print('FU.04 STIMA (GA): caratteri in ingresso $ingresso, token in '
+          'ingresso circa $gettoniIngresso; in uscita al piu\' '
           '${LaLetturaDellOracolo.tettoDeiGettoni(profonda: false)} (Breve) '
           'e ${LaLetturaDellOracolo.tettoDeiGettoni(profonda: true)} '
           '(Lunga)');

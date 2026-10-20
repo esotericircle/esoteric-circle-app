@@ -17,6 +17,26 @@ abstract final class GeometriaDellAltare {
       'brand_assets/oracolo_angeli/medora_scala_di_luce_v1.mp4';
   static const String dorso = 'assets/img/angeli/ang_dorso_medora_v1.webp';
 
+  /// **QUANDO NEL FILMATO COMPAIONO LE CARTE**, ordine GA voce GA.08, 20
+  /// ottobre 2026, misurato sui fotogrammi del file (720 per 1280, 24 al
+  /// secondo, 192 fotogrammi, 8 secondi) in
+  /// `docs/collaudo/GA/ga08_le_carte_nel_filmato.txt`: fino al fotogramma
+  /// 23 sulla scala scende solo polvere dorata; al fotogramma 24 (1,00 s) il
+  /// bordo della prima carta alata compare in cima alla scala, dal 40 (1,67
+  /// s) le carte scendono intere, fra il 110 e il 130 (da 4,6 a 5,4 s) si
+  /// posano sull'altare.
+  static const Duration primaCartaNelFilmato = Duration(milliseconds: 1000);
+
+  /// **IL FILMATO SI FERMA PRIMA DELLE CARTE** (GA.08): il fondatore,
+  /// *"L'oracolo degli angeli non mostra all'inizio, all'apertura, nessuna
+  /// Carta prima che l'utente le scelga"*. Finche' non arrivano i due asset
+  /// del fondatore (le carte che spariscono in polvere dorata), la scena si
+  /// ferma qui e sfuma sulla scena ferma con la dissolvenza del salto
+  /// (`IlFilmatoCheSfuma.dissolvenza`, 450 ms): il lettore legge la posizione
+  /// a passi di circa cento millisecondi, quindi la dissolvenza finisce entro
+  /// 400 + 100 + 450 = 950 ms, prima del fotogramma 24.
+  static const Duration finoAlleCarte = Duration(milliseconds: 400);
+
   static const Size fotogramma = Size(1080, 1920);
 
   /// **IL TAGLIO DELLA SCENA**: il fotogramma riempie lo schermo, centrato.

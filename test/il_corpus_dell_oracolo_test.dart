@@ -25,13 +25,20 @@ import 'cardinale_minimo.dart';
 ///
 /// **Vista rossa**: l'innesto e l'esito stanno in
 /// `docs/corpus/oracolo_angeli/LEGGIMI.md`, sezione L'innesto.
+///
+/// **L'ORDINE GA**, voci GA.03, GA.05 e GA.07, 20 ottobre 2026: ogni carta
+/// singola ha il suo riquadro "Cosa fare adesso", e il suo testo e' il campo
+/// `consiglio`, tre per cella accanto ai tre messaggi. I testi passano da 792
+/// a 1.440 (648 messaggi, 648 consigli, 144 riti) e le celle da 288 a 504.
+/// La misura in parole (da 40 a 50) la pretende
+/// `test/l_oracolo_ha_la_forma_nuova_test.dart`.
 void main() {
   const corpus = corpusDellOracolo;
   const file = {
-    'custode': ('messaggio', 3),
-    'cuore': ('messaggio', 3),
-    'intelletto': ('messaggio', 3),
-    'rito': ('rito', 2),
+    'custode': [('messaggio', 3), ('consiglio', 3)],
+    'cuore': [('messaggio', 3), ('consiglio', 3)],
+    'intelletto': [('messaggio', 3), ('consiglio', 3)],
+    'rito': [('rito', 2)],
   };
 
   /// La fonte riletta come la rilegge lo strumento: "## NN Nome" e le righe
@@ -57,24 +64,26 @@ void main() {
     return fuori;
   }
 
-  test('il corpus porta tutti i 792 testi, senza celle vuote', () {
+  test('il corpus porta tutti i 1.440 testi, senza celle vuote', () {
     final testi = corpus.values.fold<int>(0, (n, v) => n + v.length);
-    cardinaleMinimo(testi, 792,
+    cardinaleMinimo(testi, 1440,
         cosa: 'testi del corpus dell\'Oracolo degli Angeli',
-        perche: 'il disegno ne dichiara 792 (LEGGIMI.md): 648 messaggi di '
-            'Medora e 144 riti di Caligo');
-    expect(testi, 792);
+        perche: 'il disegno ne dichiara 1.440 (LEGGIMI.md): 648 messaggi e '
+            '648 consigli di Medora (ordine GA) e 144 riti di Caligo');
+    expect(testi, 1440);
     final mancanti = <String>[];
     final vuote = <String>[];
-    for (final MapEntry(key: nome, value: (campo, varianti)) in file.entries) {
-      for (final a in AngelCatalog.all) {
-        final k = '$nome|${a.number.toString().padLeft(2, '0')}|$campo';
-        final v = corpus[k];
-        if (v == null || v.length != varianti) {
-          mancanti.add(k);
-          continue;
+    for (final MapEntry(key: nome, value: campi) in file.entries) {
+      for (final (campo, varianti) in campi) {
+        for (final a in AngelCatalog.all) {
+          final k = '$nome|${a.number.toString().padLeft(2, '0')}|$campo';
+          final v = corpus[k];
+          if (v == null || v.length != varianti) {
+            mancanti.add(k);
+            continue;
+          }
+          if (v.any((t) => t.trim().isEmpty)) vuote.add(k);
         }
-        if (v.any((t) => t.trim().isEmpty)) vuote.add(k);
       }
     }
     // ignore: avoid_print
@@ -83,7 +92,7 @@ void main() {
         'testo vuoto ${vuote.length}');
     expect(mancanti, isEmpty, reason: 'celle mancanti o incomplete: $mancanti');
     expect(vuote, isEmpty, reason: 'celle con un testo vuoto: $vuote');
-    expect(corpus.length, 72 * 4);
+    expect(corpus.length, 72 * 7);
   });
 
   test('nessun testo e\' uguale a un altro', () {
@@ -96,14 +105,14 @@ void main() {
         visti[t] = e.key;
       }
     }
-    cardinaleMinimo(visti.length + doppi.length, 792,
+    cardinaleMinimo(visti.length + doppi.length, 1440,
         cosa: 'testi confrontati fra loro');
     expect(doppi, isEmpty, reason: 'testi ripetuti: $doppi');
   });
 
   test('il Dart generato coincide con la fonte', () {
     final f = fonte();
-    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 792,
+    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 1440,
         cosa: 'testi letti nella fonte docs/corpus/oracolo_angeli/');
     final diversi = <String>[];
     for (final k in {...f.keys, ...corpus.keys}) {
@@ -147,7 +156,7 @@ void main() {
         if (m != null) trovate.add('${e.key}: "${m.group(0)}" in $t');
       }
     }
-    cardinaleMinimo(guardati, 792, cosa: 'testi guardati per la politica');
+    cardinaleMinimo(guardati, 1440, cosa: 'testi guardati per la politica');
     // ignore: avoid_print
     print('ORDINE FU VOCI FU.05 E FU.07: testi guardati per la politica '
         '$guardati, parole vietate trovate ${trovate.length}');

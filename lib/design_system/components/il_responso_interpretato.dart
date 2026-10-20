@@ -135,21 +135,7 @@ class IlResponsoInterpretato extends StatelessWidget {
     final fonte = responso.daDoveViene;
     // Il "Da dove viene" arriva quando il responso e' intero.
     if (visibili >= indice && fonte != null && fonte.trim().isNotEmpty) {
-      aggiungi(Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(LaFormaDelResponso.etichettaDellaFonte,
-              style: TypographyTokens.etichetta().copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-          const SizedBox(height: SpacingTokens.xxs),
-          Text(fonte,
-              key: Key('${chiave}_da_dove_viene'),
-              style: TypographyTokens.didascalia().copyWith(
-                  color: ColorTokens.textSecondary,
-                  height: 1.35,
-                  fontStyle: FontStyle.italic)),
-        ],
-      ));
+      aggiungi(IlDaDoveViene(testo: fonte, chiave: chiave));
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,6 +150,45 @@ class IlResponsoInterpretato extends StatelessWidget {
           SizedBox(height: distanza),
         ],
         ...pezzi,
+      ],
+    );
+  }
+}
+
+/// **IL "DA DOVE VIENE", LO STESSO PEZZO OVUNQUE.** Ordine GA voce GA.05, 20
+/// ottobre 2026: *"Il 'Da dove viene' chiude la consultazione una volta sola
+/// in fondo e cita le fonti di tutte le carte o le rune uscite"*. Dove la
+/// consultazione ha le singole carte sotto il responso principale (l'Oracolo
+/// degli Angeli), il "Da dove viene" non sta subito dopo i paragrafi ma in
+/// fondo a tutto: l'arte mette qui il testo del suo responso
+/// ([ResponsoInterpretato.daDoveViene]) e il pezzo resta quello di
+/// [IlResponsoInterpretato], l'etichetta e il corsivo, con la chiave
+/// `<chiave>_da_dove_viene` sul testo.
+class IlDaDoveViene extends StatelessWidget {
+  const IlDaDoveViene({
+    super.key,
+    required this.testo,
+    this.chiave = 'responso',
+  });
+
+  final String testo;
+  final String chiave;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(LaFormaDelResponso.etichettaDellaFonte,
+            style: TypographyTokens.etichetta().copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(testo,
+            key: Key('${chiave}_da_dove_viene'),
+            style: TypographyTokens.didascalia().copyWith(
+                color: ColorTokens.textSecondary,
+                height: 1.35,
+                fontStyle: FontStyle.italic)),
       ],
     );
   }

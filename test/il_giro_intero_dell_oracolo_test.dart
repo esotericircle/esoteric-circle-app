@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
@@ -38,6 +37,11 @@ import 'il_giro_dell_oracolo.dart';
 /// sotto; una nuova domanda; la freccia riporta a casa. Ogni passo ha la sua
 /// asserzione, e con `--dart-define=CATTURE=si` la sua cattura in
 /// `docs/collaudo/FY/oracolo/`, a 360 per 797 punti col rapporto 3.
+///
+/// **L'ORDINE GA**, voci GA.03, GA.05 e GA.08, 20 ottobre 2026: a scena
+/// ferma l'altare e' vuoto (nessun dorso prima della scelta), la risposta ha
+/// la forma nuova (il responso principale, con la Lunga dall'Iniziato) e la
+/// bolla porta la carta singola breve. I passi restano sedici.
 const _catture = String.fromEnvironment('CATTURE');
 
 class _LettoreFinto implements LettoreDiScena {
@@ -164,14 +168,9 @@ void main() {
                             hasBirthTime: true),
                         chiamata: (i, r, c) async {
                           chiamate.add(r);
-                          return jsonEncode({
-                            'titolo': 'Il passo giusto chiede un cuore '
-                                'che ascolta',
-                            'riquadro': 'Senti dove il cuore si apre e '
-                                'lascia che sia lui a scegliere il ritmo di '
-                                'oggi: Vehuel ti chiede di misurare il passo '
-                                'sul respiro, non sulla fretta.',
-                          });
+                          return jsonFintoDellOracolo(c,
+                              titolo: 'Il passo giusto chiede un cuore '
+                                  'che ascolta');
                         },
                       ),
                     ),
@@ -199,8 +198,9 @@ void main() {
     lettore.finisci();
     await passa(tester, 10);
     expect(find.byKey(const Key('oracolo_domanda')), findsOneWidget);
+    // GA.08: prima qui i tre dorsi stavano sull'altare (findsOneWidget).
     for (var i = 0; i < 3; i++) {
-      expect(find.byKey(Key('oracolo_dorso_$i')), findsOneWidget);
+      expect(find.byKey(Key('oracolo_dorso_$i')), findsNothing);
     }
     await scatta(tester, '03_scena_ferma_e_domanda');
 
@@ -273,7 +273,12 @@ void main() {
     // RISPOSTA: la lettura scorre da se' alla risposta.
     await passa(tester, 10);
     expect(chiamate, hasLength(1));
-    expect(find.byKey(const Key('oracolo_riquadro')), findsOneWidget);
+    // GA.03: il responso principale nella forma nuova, col riquadro "Cosa
+    // fare adesso" (prima: un riquadro solo, oracolo_riquadro, FY.19).
+    expect(
+        find.byKey(const Key('oracolo_responso_principale')), findsOneWidget);
+    expect(
+        find.byKey(const Key('oracolo_principale_cosa_fare')), findsOneWidget);
     await scatta(tester, '12_la_risposta');
     final bolla = find.byKey(const Key('oracolo_bolla_custode'));
     await Scrollable.ensureVisible(tester.element(bolla), alignment: 0.1);
@@ -282,7 +287,7 @@ void main() {
     await scatta(tester, '13_la_carta_e_chi_e');
     // La barra col testo che scorre sotto.
     await Scrollable.ensureVisible(
-        tester.element(find.byKey(const Key('oracolo_riquadro'))),
+        tester.element(find.byKey(const Key('oracolo_principale_cosa_fare'))),
         alignment: 0);
     await tester.drag(find.byType(ListView).first, const Offset(0, 40));
     await passa(tester, 3);

@@ -15,9 +15,23 @@
 # lib/core/angels/angel_catalog.dart) seguita dalle righe
 # "- <campo> <n>: <testo>" (testo vuoto = da scrivere).
 #
+# **IL CONSIGLIO, ordine GA voci GA.03, GA.05 e GA.07, 20 ottobre 2026.**
+# Ogni carta singola si legge nella forma nuova dei responsi: il suo
+# messaggio e sotto il riquadro "Cosa fare adesso". Il testo del riquadro e'
+# il campo `consiglio`, nella stessa cella e nello stesso file del messaggio:
+# il consiglio n accompagna il messaggio n. Messaggio e consiglio si misurano
+# in PAROLE, da 40 a 50 (il fondatore, 19 ottobre 2026: "tutte le risposte
+# composte da paragrafi ognuno con tra 40 a 50 parole ognuno"), contate come
+# `LaFormaDelResponso.parole`, separate da uno spazio; la misura in caratteri
+# dell'ordine FU resta solo per il rito. Le parti scritte dagli agenti si
+# portano nella fonte col comando `applica`, che passa da `riempi` e quindi
+# da tutti i controlli qui sotto.
+#
 # I CONTROLLI (regole R7 e R8 dell'ordine FU, la POLITICA DI PUBBLICAZIONE
 # di docs/corpus/angeli.md, le guardie di casa sui testi a video):
-#  - lunghezza per campo;
+#  - lunghezza per campo (in parole per messaggio e consiglio, in caratteri
+#    per il rito);
+#  - il consiglio non ripete il suo messaggio (Jaccard 0,5, ordine GA);
 #  - si rivolge a te (seconda persona singolare), mai al voi;
 #  - il genere di chi legge: il criterio della guardia di casa,
 #    lib/core/chat/le_forme_del_genere.dart, chiamato con
@@ -43,9 +57,14 @@
 #   python tool/il_corpus_dell_oracolo.py controlla
 #   python tool/il_corpus_dell_oracolo.py genera
 #   python tool/il_corpus_dell_oracolo.py conta
+#   python tool/il_corpus_dell_oracolo.py applica <parte.md> [<parte.md>...]
 #
 # <file> e' custode, cuore, intelletto o rito. <testi.json> e' una lista di
 # {"cella": "01 Vehuiah", "campo": "messaggio", "n": 1, "testo": "..."}.
+# <parte.md> e' scritta nella forma della fonte ("## NN Nome" e righe
+# "- <campo> <n>: <testo>") e il suo nome dice il file: consiglio_cuore_01_36.md
+# o messaggi_custode.md vanno in cuore e in custode. `scheletro` aggiunge ai
+# file che esistono le righe vuote dei campi nuovi.
 import io
 import json
 import os
@@ -63,18 +82,34 @@ DART = os.path.join(RADICE, 'lib', 'core', 'oracolo_angeli',
 CATALOGO = os.path.join(RADICE, 'lib', 'core', 'angels', 'angel_catalog.dart')
 LORE = os.path.join(RADICE, 'lib', 'core', 'angels', 'angel_lore.dart')
 
-# I file e i loro campi: (campo, varianti per cella).
+# I file e i loro campi: [(campo, varianti per cella)]. Il consiglio
+# dall'ordine GA: tre per cella, uno per messaggio.
 FILE = {
-    'custode': ('messaggio', 3),
-    'cuore': ('messaggio', 3),
-    'intelletto': ('messaggio', 3),
-    'rito': ('rito', 2),
+    'custode': [('messaggio', 3), ('consiglio', 3)],
+    'cuore': [('messaggio', 3), ('consiglio', 3)],
+    'intelletto': [('messaggio', 3), ('consiglio', 3)],
+    'rito': [('rito', 2)],
 }
 
+# La misura di ogni campo: (unita', minimo, massimo). Messaggio e consiglio
+# in parole dall'ordine GA (prima: messaggio da 160 a 320 caratteri, ordine
+# FU); il rito resta in caratteri, perche' non e' un paragrafo del responso.
 LUNGHEZZE = {
-    'messaggio': (160, 320),
-    'rito': (100, 240),
+    'messaggio': ('parole', 40, 50),
+    'consiglio': ('parole', 40, 50),
+    'rito': ('caratteri', 100, 240),
 }
+
+
+def parole_di(testo):
+    """Le parole come le conta chi legge: separate da uno spazio, come
+    `LaFormaDelResponso.parole`."""
+    return len(testo.split())
+
+
+def misura(campo, testo):
+    unita, _, _ = LUNGHEZZE[campo]
+    return parole_di(testo) if unita == 'parole' else len(testo)
 
 
 def _riprova(fn):
@@ -105,8 +140,8 @@ def celle():
 
 
 def struttura():
-    return {nome: [(c, campo, k) for c in celle()]
-            for nome, (campo, k) in FILE.items()}
+    return {nome: [(c, campo, k) for c in celle() for campo, k in campi]
+            for nome, campi in FILE.items()}
 
 
 INTESTAZIONE = (
@@ -133,12 +168,46 @@ def _scrivi(p, testo):
     _riprova(lambda: os.replace(provvisorio, p))
 
 
+def _aggiungi_i_campi_nuovi(nome, cs):
+    """Ordine GA: nei file che esistono, le righe vuote dei campi che la
+    struttura chiede e il file non ha ancora, in fondo alla loro cella."""
+    p = percorso(nome)
+    righe = _riprova(lambda: io.open(p, encoding='utf-8').read()).split('\n')
+    presenti = set(leggi(nome))
+    attese = {}
+    for cella, campo, k in cs:
+        for n in range(1, k + 1):
+            if (cella, campo, n) not in presenti:
+                attese.setdefault(cella, []).append('- %s %d:' % (campo, n))
+    if not attese:
+        print('esiste gia', p)
+        return
+    fuori = []
+    cella = None
+    for riga in righe + ['## FINE']:
+        if riga.startswith('## '):
+            if cella in attese:
+                # Le righe nuove dopo l'ultima riga della cella, prima della
+                # riga vuota che la separa dalla seguente.
+                while fuori and not fuori[-1].strip():
+                    fuori.pop()
+                fuori.extend(attese.pop(cella))
+                fuori.append('')
+            cella = riga[3:].strip()
+        if riga != '## FINE':
+            fuori.append(riga)
+    while fuori and not fuori[-1].strip():
+        fuori.pop()
+    _scrivi(p, '\n'.join(fuori) + '\n')
+    print('righe nuove in', p)
+
+
 def scheletro():
     os.makedirs(FONTE, exist_ok=True)
     for nome, cs in struttura().items():
         p = percorso(nome)
         if os.path.exists(p):
-            print('esiste gia', p)
+            _aggiungi_i_campi_nuovi(nome, cs)
             continue
         out = io.StringIO()
         out.write('# %s\n\n' % TITOLI[nome] + INTESTAZIONE)
@@ -292,9 +361,10 @@ def altri_angeli(cella, testo):
 
 def difetti_di(cella, campo, testo):
     colpe = []
-    lo, hi = LUNGHEZZE[campo]
-    if not lo <= len(testo) <= hi:
-        colpe.append('lunghezza %d, fuori da %d-%d' % (len(testo), lo, hi))
+    unita, lo, hi = LUNGHEZZE[campo]
+    if not lo <= misura(campo, testo) <= hi:
+        colpe.append('lunghezza %d %s, fuori da %d-%d' % (
+            misura(campo, testo), unita, lo, hi))
     senza_marche = MARCA.sub(' ', testo)
     if not SEGNI_DEL_TU.search(senza_marche) and '[' not in testo:
         colpe.append('non si rivolge a te (seconda persona singolare)')
@@ -434,6 +504,14 @@ TETTO_ATTACCO = 12
 
 def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
     colpe = []
+    # Ordine GA: il consiglio n non ripete il messaggio n che accompagna, e
+    # un messaggio riscritto non ripete il suo consiglio.
+    compagno = {'consiglio': 'messaggio', 'messaggio': 'consiglio'}.get(chiave[1])
+    if compagno:
+        t = tutto.get((chiave[0], compagno, chiave[2]))
+        if t and jaccard(t, testo) > 0.5:
+            colpe.append('troppo simile al %s %d della stessa cella'
+                         % (compagno, chiave[2]))
     sorelle = [t for (c, f, n), t in tutto.items()
                if c == chiave[0] and f == chiave[1] and n != chiave[2] and t]
     for s in sorelle:
@@ -521,6 +599,57 @@ def riempi(nome, testi_json):
     print('  ancora da scrivere in %s: %d' % (nome, vuoti))
 
 
+# --- APPLICA ----------------------------------------------------------------
+
+def file_della_parte(percorso_parte):
+    """Il file della fonte che una parte riempie, dal suo nome:
+    consiglio_cuore_01_36.md -> cuore, messaggi_custode.md -> custode."""
+    base = os.path.basename(percorso_parte).lower()
+    trovati = [n for n in FILE if re.search(r'(^|_)%s(_|\.)' % n, base)]
+    if len(trovati) != 1:
+        raise SystemExit('dal nome %s non si capisce il file (%s)'
+                         % (base, ', '.join(FILE)))
+    return trovati[0]
+
+
+def leggi_la_parte(percorso_parte):
+    """[{cella, campo, n, testo}] dalle righe "- <campo> <n>: <testo>" sotto
+    le intestazioni "## NN Nome"."""
+    fuori = []
+    cella = None
+    testo = _riprova(lambda: io.open(percorso_parte, encoding='utf-8-sig').read())
+    for riga in testo.split('\n'):
+        riga = riga.rstrip('\r')
+        if riga.startswith('## '):
+            cella = riga[3:].strip()
+            continue
+        m = RIGA.match(riga)
+        if m and cella:
+            fuori.append({'cella': cella, 'campo': m.group(1),
+                          'n': int(m.group(2)), 'testo': m.group(3).strip()})
+    return fuori
+
+
+def applica(parti):
+    """Ordine GA: porta nella fonte le parti scritte dagli agenti, ognuna
+    attraverso `riempi`, cioe' attraverso tutti i controlli. Cio' che non li
+    passa resta fuori e lo strumento lo dice col difetto."""
+    for parte in parti:
+        nome = file_della_parte(parte)
+        voci = leggi_la_parte(parte)
+        if not voci:
+            raise SystemExit('nella parte %s non c\'e\' nessuna voce' % parte)
+        fd, provvisorio = tempfile.mkstemp(suffix='.json')
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(voci, f, ensure_ascii=False)
+        try:
+            print('APPLICA %s -> %s.md: %d voci' % (
+                os.path.basename(parte), nome, len(voci)))
+            riempi(nome, provvisorio)
+        finally:
+            _riprova(lambda: os.remove(provvisorio))
+
+
 # --- CONTROLLA, CONTA, GENERA ----------------------------------------------
 
 def conta():
@@ -565,10 +694,12 @@ def controlla():
             if q > TETTO_ATTACCO:
                 colpe.append('%s: l\'attacco "%s" apre %d testi (tetto %d)'
                              % (nome, a, q, TETTO_ATTACCO))
+        # Le varianti sono quelle dello stesso campo della cella: dall'ordine
+        # GA una cella porta due campi, messaggio e consiglio.
         per_cella = {}
         for (c, f, n), t in d.items():
             if t:
-                per_cella.setdefault(c, []).append(t)
+                per_cella.setdefault('%s, %s' % (c, f), []).append(t)
         for c, vs in per_cella.items():
             for i in range(len(vs)):
                 for j in range(i + 1, len(vs)):
@@ -577,6 +708,13 @@ def controlla():
                     if vs[i].split()[0].lower() == vs[j].split()[0].lower():
                         colpe.append('%s %s: due varianti con la stessa prima '
                                      'parola' % (nome, c))
+        # Ordine GA: il consiglio n non ripete il messaggio n.
+        for (c, f, n), t in d.items():
+            if f == 'consiglio' and t:
+                m = d.get((c, 'messaggio', n))
+                if m and jaccard(m, t) > 0.5:
+                    colpe.append('%s %s: il consiglio %d ripete il suo messaggio'
+                                 % (nome, c, n))
     ruoli = ('custode', 'cuore', 'intelletto')
     for i, a in enumerate(ruoli):
         for b in ruoli[i + 1:]:
@@ -607,13 +745,16 @@ def genera():
     out.write('// GENERATO da tool/il_corpus_dell_oracolo.py dalla fonte in\n'
               '// docs/corpus/oracolo_angeli/. Non si modifica a mano:\n'
               '// si corregge la fonte e si rigenera. Ordine FU voci FU.05 e '
-              'FU.07.\n\n'
+              'FU.07,\n'
+              '// col consiglio dell\'ordine GA voci GA.03, GA.05 e GA.07.\n\n'
               '/// Il corpus dell\'Oracolo degli Angeli: chiave\n'
               '/// "<file>|<NN>|<campo>" (file: custode, cuore, intelletto, '
               'rito;\n'
-              '/// NN: il numero dell\'angelo a due cifre; campo: messaggio o '
-              'rito),\n'
-              '/// valore le varianti in ordine.\n'
+              '/// NN: il numero dell\'angelo a due cifre; campo: messaggio, '
+              'consiglio\n'
+              '/// o rito), valore le varianti in ordine. Il consiglio n '
+              'accompagna il\n'
+              '/// messaggio n, nel riquadro "Cosa fare adesso".\n'
               'const Map<String, List<String>> corpusDellOracolo = {\n')
     for nome, cs in struttura().items():
         d = leggi(nome)
@@ -641,7 +782,9 @@ if __name__ == '__main__':
         conta()
     elif comando == 'genera':
         genera()
+    elif comando == 'applica':
+        applica(sys.argv[2:])
     else:
         print('comandi: scheletro, riempi <file> <testi.json>, controlla, '
-              'conta, genera')
+              'conta, genera, applica <parte.md>...')
         sys.exit(2)

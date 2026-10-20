@@ -91,6 +91,49 @@ abstract final class LaFormaDelResponso {
     final n = parole(testo);
     return n >= minimo && n <= massimo;
   }
+
+  /// **LA FORMA E LA RISPOSTA DIRETTA, PER IL MODELLO, IN UN PUNTO SOLO.**
+  /// Ordine GA voci GA.03, GA.06 e GA.07, 20 ottobre 2026: "dove un testo
+  /// lo scrive il modello, l'istruzione a Gemini si riscrive con la forma di
+  /// GA.03 e la regola di GA.06, una volta sola, in un punto solo". La parte
+  /// che vale per ogni arte che interpreta: i paragrafi da [minimo] a
+  /// [massimo] parole, la prima frase che risponde, il riquadro "Cosa fare
+  /// adesso" scritto per il titolo, ogni affermazione sui simboli usciti e
+  /// sulla domanda, niente futuro certo, salute, denaro, questioni legali.
+  /// Ogni istruzione la legge da qui, come legge il confine del responso
+  /// (`ConfineDelResponso.perIlModello`); la sua prova conta che compaia una
+  /// volta sola. Il fondatore, 19 ottobre 2026: *"risposte dirette
+  /// immediatamente, l'utente deve avere subito e sempre risposte senza
+  /// fronzoli o criptiche o includenti o sibilline"*.
+  ///
+  /// Il rito propiziatorio della Lunga non lo scrive il modello: viene dalle
+  /// raccolte dei riti con la sua fonte (GA.04, "nessuna formula
+  /// inventata"), e la riga lo dice.
+  static String perIlModello({
+    required ArteInterpretata arte,
+    required bool lunga,
+  }) =>
+      'LA FORMA DEL RESPONSO E LA RISPOSTA DIRETTA (${nome(arte)}):\n'
+      '- Il titolo è già la risposta, in una frase sola.\n'
+      '- Ogni paragrafo ha da $minimo a $massimo parole, contate separate '
+      'da uno spazio: mai meno di $minimo, mai più di $massimo.\n'
+      '- Il primo paragrafo è la risposta: la sua prima frase risponde alla '
+      'domanda (dove non c\'è una domanda, dice com\'è il giorno o il '
+      'periodo), subito, senza preamboli e senza immagini al posto della '
+      'risposta.\n'
+      '- Il secondo paragrafo sta nel riquadro "$titoloDelConsiglio": è '
+      'scritto per il titolo e dice che cosa fare o non fare adesso, con '
+      'verbi all\'imperativo.\n'
+      '${lunga ? '- Il terzo paragrafo approfondisce la risposta sugli '
+          'stessi simboli. Il quarto, "${titoloDelRito(arte)}", lo aggiunge '
+          'l\'app dalla sua fonte: non scriverlo e non inventare formule.\n' : ''}'
+      '- Ogni affermazione poggia sui simboli usciti, sul loro significato e '
+      'sulla domanda: un testo che starebbe bene sotto qualunque simbolo o '
+      'qualunque domanda è sbagliato.\n'
+      '- Niente fronzoli, niente frasi criptiche o sibilline: chi legge '
+      'deve sapere che cosa fare o non fare.\n'
+      '- Nessun futuro dato per certo; nessun consiglio su salute, denaro o '
+      'questioni legali.';
 }
 
 /// **UN RESPONSO INTERPRETATO**, i pezzi della forma di GA.03 senza il

@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
@@ -127,11 +126,8 @@ void main() {
             identita: BirthIdentity(
                 birthMoment: DateTime(1990, 5, 12, 14, 30),
                 hasBirthTime: conOra),
-            chiamata: (i, r, c) async => jsonEncode({
-              'titolo': 'Gli angeli ti chiedono un passo lento',
-              'riquadro': 'Senti dove il cuore si apre e lascia che sia lui '
-                  'a scegliere il ritmo di oggi.',
-            }),
+            // Ordine GA: la risposta finta nella forma nuova.
+            chiamata: (i, r, c) async => jsonFintoDellOracolo(c),
           ),
         ),
       ),

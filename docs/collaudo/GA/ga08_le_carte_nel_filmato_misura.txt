@@ -1,0 +1,193 @@
+fotogrammi 192 a 24 al secondo
+  0   0.00 s  dal primo   0.00  carte dal primo   0.00  dall'ultimo  53.67
+  1   0.04 s  dal primo   0.09  carte dal primo   0.11  dall'ultimo  53.61
+  2   0.08 s  dal primo   0.09  carte dal primo   0.11  dall'ultimo  53.60
+  3   0.12 s  dal primo   0.10  carte dal primo   0.12  dall'ultimo  53.59
+  4   0.17 s  dal primo   0.07  carte dal primo   0.10  dall'ultimo  53.61
+  5   0.21 s  dal primo   0.43  carte dal primo   0.49  dall'ultimo  53.31
+  6   0.25 s  dal primo   0.43  carte dal primo   0.49  dall'ultimo  53.31
+  7   0.29 s  dal primo   0.46  carte dal primo   0.53  dall'ultimo  53.27
+  8   0.33 s  dal primo   0.46  carte dal primo   0.53  dall'ultimo  53.30
+  9   0.38 s  dal primo   0.84  carte dal primo   0.98  dall'ultimo  52.91
+ 10   0.42 s  dal primo   0.85  carte dal primo   0.99  dall'ultimo  52.91
+ 11   0.46 s  dal primo   0.85  carte dal primo   0.99  dall'ultimo  52.91
+ 12   0.50 s  dal primo   0.85  carte dal primo   0.99  dall'ultimo  52.90
+ 13   0.54 s  dal primo   0.97  carte dal primo   1.13  dall'ultimo  52.79
+ 14   0.58 s  dal primo   0.96  carte dal primo   1.11  dall'ultimo  52.82
+ 15   0.62 s  dal primo   0.97  carte dal primo   1.13  dall'ultimo  52.80
+ 16   0.67 s  dal primo   0.96  carte dal primo   1.11  dall'ultimo  52.85
+ 17   0.71 s  dal primo   1.06  carte dal primo   1.23  dall'ultimo  52.76
+ 18   0.75 s  dal primo   1.06  carte dal primo   1.23  dall'ultimo  52.75
+ 19   0.79 s  dal primo   1.07  carte dal primo   1.24  dall'ultimo  52.74
+ 20   0.83 s  dal primo   1.06  carte dal primo   1.23  dall'ultimo  52.74
+ 21   0.88 s  dal primo   1.26  carte dal primo   1.45  dall'ultimo  52.53
+ 22   0.92 s  dal primo   1.27  carte dal primo   1.47  dall'ultimo  52.52
+ 23   0.96 s  dal primo   1.28  carte dal primo   1.48  dall'ultimo  52.51
+ 24   1.00 s  dal primo   1.29  carte dal primo   1.49  dall'ultimo  52.50
+ 25   1.04 s  dal primo   1.34  carte dal primo   1.56  dall'ultimo  52.45
+ 26   1.08 s  dal primo   1.33  carte dal primo   1.54  dall'ultimo  52.47
+ 27   1.12 s  dal primo   1.33  carte dal primo   1.55  dall'ultimo  52.47
+ 28   1.17 s  dal primo   1.33  carte dal primo   1.54  dall'ultimo  52.47
+ 29   1.21 s  dal primo   1.43  carte dal primo   1.67  dall'ultimo  52.42
+ 30   1.25 s  dal primo   1.44  carte dal primo   1.67  dall'ultimo  52.42
+ 31   1.29 s  dal primo   1.44  carte dal primo   1.68  dall'ultimo  52.41
+ 32   1.33 s  dal primo   1.44  carte dal primo   1.67  dall'ultimo  52.41
+ 33   1.38 s  dal primo   1.47  carte dal primo   1.70  dall'ultimo  52.39
+ 34   1.42 s  dal primo   1.47  carte dal primo   1.70  dall'ultimo  52.40
+ 35   1.46 s  dal primo   1.48  carte dal primo   1.72  dall'ultimo  52.39
+ 36   1.50 s  dal primo   1.48  carte dal primo   1.70  dall'ultimo  52.40
+ 37   1.54 s  dal primo   1.59  carte dal primo   1.84  dall'ultimo  52.27
+ 38   1.58 s  dal primo   1.59  carte dal primo   1.84  dall'ultimo  52.28
+ 39   1.62 s  dal primo   1.60  carte dal primo   1.86  dall'ultimo  52.26
+ 40   1.67 s  dal primo   1.60  carte dal primo   1.86  dall'ultimo  52.28
+ 41   1.71 s  dal primo   1.62  carte dal primo   1.88  dall'ultimo  52.26
+ 42   1.75 s  dal primo   1.61  carte dal primo   1.87  dall'ultimo  52.27
+ 43   1.79 s  dal primo   1.61  carte dal primo   1.87  dall'ultimo  52.26
+ 44   1.83 s  dal primo   1.61  carte dal primo   1.87  dall'ultimo  52.27
+ 45   1.88 s  dal primo   1.69  carte dal primo   1.97  dall'ultimo  52.16
+ 46   1.92 s  dal primo   1.69  carte dal primo   1.97  dall'ultimo  52.18
+ 47   1.96 s  dal primo   1.71  carte dal primo   2.00  dall'ultimo  52.15
+ 48   2.00 s  dal primo   1.72  carte dal primo   2.01  dall'ultimo  52.16
+ 49   2.04 s  dal primo   1.75  carte dal primo   2.05  dall'ultimo  52.11
+ 50   2.08 s  dal primo   1.74  carte dal primo   2.04  dall'ultimo  52.14
+ 51   2.12 s  dal primo   1.74  carte dal primo   2.04  dall'ultimo  52.14
+ 52   2.17 s  dal primo   1.74  carte dal primo   2.03  dall'ultimo  52.16
+ 53   2.21 s  dal primo   1.82  carte dal primo   2.13  dall'ultimo  52.05
+ 54   2.25 s  dal primo   1.83  carte dal primo   2.15  dall'ultimo  52.05
+ 55   2.29 s  dal primo   1.88  carte dal primo   2.24  dall'ultimo  51.98
+ 56   2.33 s  dal primo   1.89  carte dal primo   2.27  dall'ultimo  51.98
+ 57   2.38 s  dal primo   1.92  carte dal primo   2.30  dall'ultimo  51.96
+ 58   2.42 s  dal primo   1.91  carte dal primo   2.29  dall'ultimo  51.97
+ 59   2.46 s  dal primo   1.91  carte dal primo   2.29  dall'ultimo  51.97
+ 60   2.50 s  dal primo   1.90  carte dal primo   2.28  dall'ultimo  51.98
+ 61   2.54 s  dal primo   1.93  carte dal primo   2.32  dall'ultimo  51.94
+ 62   2.58 s  dal primo   1.92  carte dal primo   2.32  dall'ultimo  51.95
+ 63   2.62 s  dal primo   1.94  carte dal primo   2.34  dall'ultimo  51.92
+ 64   2.67 s  dal primo   1.94  carte dal primo   2.33  dall'ultimo  51.94
+ 65   2.71 s  dal primo   1.99  carte dal primo   2.38  dall'ultimo  51.90
+ 66   2.75 s  dal primo   1.98  carte dal primo   2.37  dall'ultimo  51.93
+ 67   2.79 s  dal primo   1.99  carte dal primo   2.37  dall'ultimo  51.94
+ 68   2.83 s  dal primo   2.00  carte dal primo   2.37  dall'ultimo  51.97
+ 69   2.88 s  dal primo   2.06  carte dal primo   2.44  dall'ultimo  51.90
+ 70   2.92 s  dal primo   2.07  carte dal primo   2.45  dall'ultimo  51.91
+ 71   2.96 s  dal primo   2.09  carte dal primo   2.46  dall'ultimo  51.89
+ 72   3.00 s  dal primo   2.12  carte dal primo   2.49  dall'ultimo  51.92
+ 73   3.04 s  dal primo   2.16  carte dal primo   2.53  dall'ultimo  51.89
+ 74   3.08 s  dal primo   2.19  carte dal primo   2.54  dall'ultimo  51.92
+ 75   3.12 s  dal primo   2.22  carte dal primo   2.57  dall'ultimo  51.93
+ 76   3.17 s  dal primo   2.26  carte dal primo   2.58  dall'ultimo  51.98
+ 77   3.21 s  dal primo   2.33  carte dal primo   2.70  dall'ultimo  51.87
+ 78   3.25 s  dal primo   2.35  carte dal primo   2.74  dall'ultimo  51.89
+ 79   3.29 s  dal primo   2.38  carte dal primo   2.79  dall'ultimo  51.86
+ 80   3.33 s  dal primo   2.56  carte dal primo   3.00  dall'ultimo  51.97
+ 81   3.38 s  dal primo   3.29  carte dal primo   4.02  dall'ultimo  50.81
+ 82   3.42 s  dal primo   4.34  carte dal primo   5.16  dall'ultimo  49.92
+ 83   3.46 s  dal primo   6.05  carte dal primo   7.04  dall'ultimo  49.12
+ 84   3.50 s  dal primo   9.01  carte dal primo  10.09  dall'ultimo  49.39
+ 85   3.54 s  dal primo  17.50  carte dal primo  19.10  dall'ultimo  52.23
+ 86   3.58 s  dal primo  26.12  carte dal primo  29.57  dall'ultimo  51.91
+ 87   3.62 s  dal primo  36.68  carte dal primo  42.23  dall'ultimo  51.81
+ 88   3.67 s  dal primo  44.49  carte dal primo  51.47  dall'ultimo  52.05
+ 89   3.71 s  dal primo  49.92  carte dal primo  58.38  dall'ultimo  50.53
+ 90   3.75 s  dal primo  55.17  carte dal primo  64.44  dall'ultimo  51.30
+ 91   3.79 s  dal primo  60.66  carte dal primo  70.55  dall'ultimo  52.68
+ 92   3.83 s  dal primo  65.14  carte dal primo  75.78  dall'ultimo  53.95
+ 93   3.88 s  dal primo  71.39  carte dal primo  82.91  dall'ultimo  57.40
+ 94   3.92 s  dal primo  77.63  carte dal primo  90.16  dall'ultimo  62.36
+ 95   3.96 s  dal primo  83.02  carte dal primo  95.90  dall'ultimo  66.97
+ 96   4.00 s  dal primo  87.52  carte dal primo 100.80  dall'ultimo  70.03
+ 97   4.04 s  dal primo  93.31  carte dal primo 106.94  dall'ultimo  74.09
+ 98   4.08 s  dal primo  98.60  carte dal primo 111.83  dall'ultimo  77.56
+ 99   4.12 s  dal primo 104.87  carte dal primo 117.45  dall'ultimo  81.59
+100   4.17 s  dal primo 109.52  carte dal primo 120.90  dall'ultimo  83.65
+101   4.21 s  dal primo 112.07  carte dal primo 122.50  dall'ultimo  84.37
+102   4.25 s  dal primo 111.24  carte dal primo 121.78  dall'ultimo  83.26
+103   4.29 s  dal primo 108.52  carte dal primo 120.18  dall'ultimo  82.07
+104   4.33 s  dal primo 104.34  carte dal primo 116.89  dall'ultimo  79.61
+105   4.38 s  dal primo  96.93  carte dal primo 110.45  dall'ultimo  74.93
+106   4.42 s  dal primo  88.67  carte dal primo 102.93  dall'ultimo  69.43
+107   4.46 s  dal primo  82.45  carte dal primo  96.58  dall'ultimo  64.08
+108   4.50 s  dal primo  76.27  carte dal primo  89.81  dall'ultimo  58.63
+109   4.54 s  dal primo  70.77  carte dal primo  83.50  dall'ultimo  52.59
+110   4.58 s  dal primo  66.11  carte dal primo  78.19  dall'ultimo  47.64
+111   4.62 s  dal primo  63.23  carte dal primo  74.65  dall'ultimo  43.87
+112   4.67 s  dal primo  60.74  carte dal primo  71.45  dall'ultimo  40.35
+113   4.71 s  dal primo  58.86  carte dal primo  69.33  dall'ultimo  38.04
+114   4.75 s  dal primo  56.31  carte dal primo  66.97  dall'ultimo  35.82
+115   4.79 s  dal primo  54.24  carte dal primo  64.70  dall'ultimo  33.31
+116   4.83 s  dal primo  52.93  carte dal primo  63.42  dall'ultimo  31.86
+117   4.88 s  dal primo  51.70  carte dal primo  62.07  dall'ultimo  29.97
+118   4.92 s  dal primo  50.32  carte dal primo  60.57  dall'ultimo  28.34
+119   4.96 s  dal primo  49.56  carte dal primo  59.74  dall'ultimo  27.23
+120   5.00 s  dal primo  48.35  carte dal primo  58.49  dall'ultimo  25.78
+121   5.04 s  dal primo  47.02  carte dal primo  57.19  dall'ultimo  24.53
+122   5.08 s  dal primo  45.49  carte dal primo  55.99  dall'ultimo  23.54
+123   5.12 s  dal primo  44.44  carte dal primo  54.92  dall'ultimo  22.70
+124   5.17 s  dal primo  43.23  carte dal primo  54.02  dall'ultimo  22.15
+125   5.21 s  dal primo  42.60  carte dal primo  53.58  dall'ultimo  21.44
+126   5.25 s  dal primo  41.72  carte dal primo  52.89  dall'ultimo  20.86
+127   5.29 s  dal primo  41.32  carte dal primo  52.51  dall'ultimo  20.37
+128   5.33 s  dal primo  40.33  carte dal primo  51.41  dall'ultimo  19.75
+129   5.38 s  dal primo  39.89  carte dal primo  51.09  dall'ultimo  19.45
+130   5.42 s  dal primo  40.41  carte dal primo  52.19  dall'ultimo  19.71
+131   5.46 s  dal primo  42.74  carte dal primo  55.61  dall'ultimo  20.25
+132   5.50 s  dal primo  46.86  carte dal primo  61.79  dall'ultimo  19.55
+133   5.54 s  dal primo  44.93  carte dal primo  59.25  dall'ultimo  18.49
+134   5.58 s  dal primo  43.83  carte dal primo  57.85  dall'ultimo  19.01
+135   5.62 s  dal primo  45.02  carte dal primo  59.32  dall'ultimo  18.45
+136   5.67 s  dal primo  44.83  carte dal primo  59.11  dall'ultimo  16.31
+137   5.71 s  dal primo  44.79  carte dal primo  59.23  dall'ultimo  14.00
+138   5.75 s  dal primo  44.49  carte dal primo  59.28  dall'ultimo  10.37
+139   5.79 s  dal primo  44.79  carte dal primo  59.65  dall'ultimo   8.66
+140   5.83 s  dal primo  44.75  carte dal primo  59.71  dall'ultimo   8.10
+141   5.88 s  dal primo  44.66  carte dal primo  59.62  dall'ultimo   7.73
+142   5.92 s  dal primo  44.32  carte dal primo  59.37  dall'ultimo   7.46
+143   5.96 s  dal primo  44.32  carte dal primo  59.44  dall'ultimo   7.45
+144   6.00 s  dal primo  44.13  carte dal primo  59.22  dall'ultimo   7.30
+145   6.04 s  dal primo  43.85  carte dal primo  59.05  dall'ultimo   7.09
+146   6.08 s  dal primo  43.47  carte dal primo  58.76  dall'ultimo   6.83
+147   6.12 s  dal primo  43.26  carte dal primo  58.47  dall'ultimo   6.64
+148   6.17 s  dal primo  42.95  carte dal primo  58.19  dall'ultimo   6.55
+149   6.21 s  dal primo  43.03  carte dal primo  58.28  dall'ultimo   6.49
+150   6.25 s  dal primo  42.94  carte dal primo  58.12  dall'ultimo   6.33
+151   6.29 s  dal primo  42.92  carte dal primo  58.15  dall'ultimo   6.32
+152   6.33 s  dal primo  42.60  carte dal primo  57.83  dall'ultimo   6.18
+153   6.38 s  dal primo  42.59  carte dal primo  57.71  dall'ultimo   6.00
+154   6.42 s  dal primo  42.33  carte dal primo  57.48  dall'ultimo   5.84
+155   6.46 s  dal primo  42.18  carte dal primo  57.43  dall'ultimo   5.81
+156   6.50 s  dal primo  41.87  carte dal primo  57.18  dall'ultimo   5.65
+157   6.54 s  dal primo  41.82  carte dal primo  57.16  dall'ultimo   5.35
+158   6.58 s  dal primo  41.60  carte dal primo  56.94  dall'ultimo   5.06
+159   6.62 s  dal primo  41.61  carte dal primo  56.94  dall'ultimo   4.95
+160   6.67 s  dal primo  41.24  carte dal primo  56.51  dall'ultimo   4.54
+161   6.71 s  dal primo  40.95  carte dal primo  56.25  dall'ultimo   4.14
+162   6.75 s  dal primo  40.71  carte dal primo  56.03  dall'ultimo   3.92
+163   6.79 s  dal primo  40.54  carte dal primo  55.83  dall'ultimo   3.77
+164   6.83 s  dal primo  40.30  carte dal primo  55.56  dall'ultimo   3.59
+165   6.88 s  dal primo  40.31  carte dal primo  55.60  dall'ultimo   3.30
+166   6.92 s  dal primo  40.19  carte dal primo  55.47  dall'ultimo   3.04
+167   6.96 s  dal primo  40.15  carte dal primo  55.42  dall'ultimo   2.92
+168   7.00 s  dal primo  39.86  carte dal primo  55.11  dall'ultimo   2.56
+169   7.04 s  dal primo  39.64  carte dal primo  54.86  dall'ultimo   2.15
+170   7.08 s  dal primo  39.52  carte dal primo  54.77  dall'ultimo   2.07
+171   7.12 s  dal primo  39.42  carte dal primo  54.68  dall'ultimo   1.99
+172   7.17 s  dal primo  39.22  carte dal primo  54.47  dall'ultimo   1.85
+173   7.21 s  dal primo  39.17  carte dal primo  54.41  dall'ultimo   1.55
+174   7.25 s  dal primo  39.12  carte dal primo  54.36  dall'ultimo   1.48
+175   7.29 s  dal primo  39.15  carte dal primo  54.37  dall'ultimo   1.46
+176   7.33 s  dal primo  39.00  carte dal primo  54.16  dall'ultimo   1.28
+177   7.38 s  dal primo  38.93  carte dal primo  54.06  dall'ultimo   1.04
+178   7.42 s  dal primo  38.84  carte dal primo  53.93  dall'ultimo   0.94
+179   7.46 s  dal primo  38.82  carte dal primo  53.94  dall'ultimo   0.93
+180   7.50 s  dal primo  38.76  carte dal primo  53.88  dall'ultimo   0.92
+181   7.54 s  dal primo  38.74  carte dal primo  53.87  dall'ultimo   0.81
+182   7.58 s  dal primo  38.69  carte dal primo  53.81  dall'ultimo   0.74
+183   7.62 s  dal primo  38.63  carte dal primo  53.74  dall'ultimo   0.53
+184   7.67 s  dal primo  38.52  carte dal primo  53.61  dall'ultimo   0.39
+185   7.71 s  dal primo  38.59  carte dal primo  53.70  dall'ultimo   0.17
+186   7.75 s  dal primo  38.57  carte dal primo  53.69  dall'ultimo   0.09
+187   7.79 s  dal primo  38.58  carte dal primo  53.69  dall'ultimo   0.08
+188   7.83 s  dal primo  38.56  carte dal primo  53.67  dall'ultimo   0.03
+189   7.88 s  dal primo  38.56  carte dal primo  53.67  dall'ultimo   0.04
+190   7.92 s  dal primo  38.56  carte dal primo  53.68  dall'ultimo   0.03
+191   7.96 s  dal primo  38.56  carte dal primo  53.67  dall'ultimo   0.00
