@@ -20,7 +20,6 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   const scena = Size(390, 844);
-  const misura = Size(1080, 1920);
 
   Future<void> monta(WidgetTester tester, GuideAnimal animale, int quale,
       Set<int> gia, void Function(Set<int>) quandoCambia) async {

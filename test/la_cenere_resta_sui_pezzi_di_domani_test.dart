@@ -210,8 +210,9 @@ void main() {
             }
           }
         }
-        if (aperti > 0)
+        if (aperti > 0) {
           sbagliati.add('${animale.name} al pezzo $quale: $aperti');
+        }
       }
     }
     expect(sbagliati, isEmpty,
