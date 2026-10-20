@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
-import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'motore_della_ripetizione.dart';
@@ -27,6 +27,11 @@ import 'motore_della_ripetizione.dart';
 /// **E se un giorno il pavimento salisse**, per esempio perche' due arti
 /// cominciano a usare le stesse formule, questa prova lo direbbe **prima** che
 /// la misura C smetta di distinguere qualcosa.
+///
+/// **Dall'ordine GA, 20 ottobre 2026**, la Stesa si legge nel suo responso
+/// principale di casa, la risposta e il "Cosa fare adesso" di
+/// `VoceDellaStesa`: e' il testo che l'app compone, ed e' quello che una
+/// formula comune con le rune farebbe somigliare.
 void main() {
   test('FRA DUE ARTI DIVERSE: a due parole c e un pavimento, a cinque no', () {
     final caso = Random(9);
@@ -35,8 +40,9 @@ void main() {
     final stese = <String>[];
     for (var i = 0; i < 10; i++) {
       final s = TarotSpread.draw(seed: caso.nextInt(1 << 31));
-      stese.add(TarotReading.of(s, TarotTopic.values[i % TarotTopic.values.length])
-          .consiglio);
+      stese.add(VoceDellaStesa.paragrafi(
+              s, TarotTopic.values[i % TarotTopic.values.length])
+          .join('\n\n'));
     }
     final gettate = <String>[];
     for (var i = 0; i < 10; i++) {

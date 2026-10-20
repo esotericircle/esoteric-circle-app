@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -28,16 +29,15 @@ import 'cardinale_minimo.dart';
 /// sono la ragione per cui questa guardia misura le PAROLE e non la presenza
 /// del parametro. Un parametro passato e ignorato sarebbe verde qui se
 /// misurassi la firma.
+///
+/// **DALL'ORDINE GA, voci GA.03 e GA.06, 20 ottobre 2026**, le parole della
+/// domanda non stanno piu' nel paragrafo: ogni paragrafo ha da 40 a 50
+/// parole, e con la domanda dentro la misura dipenderebbe da quanto scrive
+/// la persona. La domanda si legge a video sotto il titolo, e nel responso
+/// entra attraverso la lente che sceglie: la guardia misura che la lente
+/// della domanda stia nella prima frase, quella che risponde. LAPIDE: la
+/// funzione `portanti`, le parole portanti cercate nel primo paragrafo.
 void main() {
-  /// Le parole portanti di una frase: quelle che restano tolte le vuote.
-  /// Serve alla misura, e la stessa regola vive nel motore.
-  Set<String> portanti(String frase) => frase
-      .toLowerCase()
-      .replaceAll(RegExp(r'[^a-zàèéìòùA-Z ]'), ' ')
-      .split(RegExp(r'\s+'))
-      .where((p) => p.length > 3)
-      .toSet();
-
   DrawnCard di(String nome, SpreadPosition pos) => DrawnCard(
         card: TarotDeck.cards.firstWhere((c) => c.name == nome),
         position: pos,
@@ -50,40 +50,61 @@ void main() {
         di('La Papessa', SpreadPosition.futuro),
       ]);
 
-  test('le parole della domanda scritta arrivano nel testo del responso', () {
-    const domanda = 'Devo lasciare il mio lavoro per aprire una libreria?';
-    final lettura = TarotReading.of(stesa(), TarotTopic.momentoCheVivo,
-        domandaScritta: domanda);
-    // **SI CERCA NEL PRIMO PARAGRAFO, e ci sono voluti due giri.** La prima
-    // stesura cercava le parole in consiglio PIU' chiusura; la seconda nel
-    // solo consiglio. Tutte e due restavano verdi togliendo l'apertura,
-    // **perche' il consiglio finisce con la domanda in coda**: le parole
-    // c'erano lo stesso, portate da un altro pezzo della cura. Il primo
-    // paragrafo e' l'unico posto dove solo l'apertura puo' metterle, ed e'
-    // anche cio' che conta: chi legge deve vedere subito che la sua
-    // domanda e' stata letta, non scoprirlo in fondo.
-    final testo = lettura.consiglio.split(String.fromCharCode(10) * 2).first;
-    final cercate = portanti(domanda);
-    final arrivate = cercate.where((p) => testo.toLowerCase().contains(p));
-    // ignore: avoid_print
-    print('ORDINE CQ VOCE 6.10: parole portanti della domanda '
-        '${cercate.length}, arrivate nel responso ${arrivate.length}: '
-        '${arrivate.join(", ")}');
-    cardinaleMinimo(cercate.length, 4,
-        cosa: 'parole portanti estratte dalla domanda della prova',
-        perche: 'Con una domanda senza parole portanti la prova direbbe che '
-            'sono tutte arrivate per non averne cercata nessuna.');
-    expect(arrivate.length, cercate.length,
-        reason: 'il responso ignora ${cercate.length - arrivate.length} '
-            'parole su ${cercate.length} della domanda scritta: chi ha '
-            'scritto una domanda riceve un testo che non la nomina, e un '
-            'campo che raccoglie e non usa promette e non mantiene');
+  // **LAPIDE: "le parole della domanda scritta arrivano nel testo del
+  // responso"**, cioe' nel primo paragrafo, attraverso il riconoscimento
+  // della domanda (*"Hai chiesto: «...»"*). Ordine GA, voci GA.03 e GA.06, 20
+  // ottobre 2026, scelta della ricognizione della stesa: il riconoscimento
+  // esce dal paragrafo, perche' ogni paragrafo ha da 40 a 50 parole e con la
+  // domanda dentro la misura dipenderebbe da quanto scrive la persona. La
+  // domanda scritta sta a video sotto il titolo, e quella pretesa la tiene
+  // l'ultima prova di questo file (la schermata passa la domanda al motore).
+  //
+  // **LA LEGGE DEL FONDATORE RESTA**, *"il responso ha alcun riferimento alla
+  // mia domanda, le risposte sono generiche"*, e la grandezza misurata
+  // diventa questa: la domanda sceglie la lente, e **la lente sta nella
+  // prima frase della risposta**, che e' la frase che risponde (GA.06).
+  test('la domanda scritta porta la sua lente nella prima frase del responso',
+      () {
+    final casi = <(String, TarotTopic)>[
+      (
+        'Devo lasciare il mio lavoro per aprire una libreria?',
+        TarotTopic.momentoCheVivo
+      ),
+      ('Tornera da me il mio ex fidanzato?', TarotTopic.momentoCheVivo),
+      ('Il mio compagno mi sta nascondendo qualcosa?', TarotTopic.amoreQuadro),
+    ];
+    final guasti = <String>[];
+    var guardate = 0;
+    for (final (domanda, scelto) in casi) {
+      final lettura = TarotReading.of(stesa(), scelto, domandaScritta: domanda);
+      final risposta = VoceDellaStesa.responsoDiCasa(stesa(), lettura.topic,
+              domandaScritta: domanda)
+          .risposta;
+      final i = risposta.indexOf(RegExp(r'[.!?](\s|$)'));
+      final prima = i < 0 ? risposta : risposta.substring(0, i + 1);
+      guardate++;
+      // ignore: avoid_print
+      print('ORDINE GA VOCE 06: "$domanda" sceglie la lente '
+          '"${lettura.topic.lente}", e la prima frase dice: "$prima"');
+      if (lettura.topic == scelto) {
+        guasti.add('"$domanda" non ha scelto una lente sua');
+      }
+      if (!prima.toLowerCase().contains(lettura.topic.lente.toLowerCase())) {
+        guasti.add('"$domanda": la prima frase non porta la lente '
+            '"${lettura.topic.lente}"');
+      }
+      if (risposta.contains(domanda)) {
+        guasti.add('"$domanda" e\' tornata dentro il paragrafo');
+      }
+    }
+    cardinaleMinimo(guardate, 3, cosa: 'domande scritte guardate');
+    expect(guasti, isEmpty, reason: guasti.join('\n'));
   });
 
   test('e la domanda di chiusura e la sua, non una pescata dal corpus', () {
     const domanda = 'Il mio compagno mi sta nascondendo qualcosa?';
-    final sua = TarotReading.of(stesa(), TarotTopic.fiducia,
-        domandaScritta: domanda);
+    final sua =
+        TarotReading.of(stesa(), TarotTopic.fiducia, domandaScritta: domanda);
     final senza = TarotReading.of(stesa(), TarotTopic.fiducia);
     // ignore: avoid_print
     print('ORDINE CQ VOCE 6.10: con la domanda scritta la chiusura e '
@@ -103,7 +124,8 @@ void main() {
     final vuota =
         TarotReading.of(stesa(), TarotTopic.denaro, domandaScritta: '   ');
     // ignore: avoid_print
-    print('ORDINE CQ VOCE 6.10: senza domanda la chiusura e "${senza.domanda}"');
+    print(
+        'ORDINE CQ VOCE 6.10: senza domanda la chiusura e "${senza.domanda}"');
     expect(vuota.domanda, senza.domanda,
         reason: 'una domanda fatta di soli spazi cambia il responso: il '
             'campo vuoto non e una domanda');
@@ -141,8 +163,8 @@ void main() {
     // SILENZIO.** Questa riga esiste perche' il difetto originale era
     // esattamente di questa forma: il campo raccoglieva, il ricordo salvava,
     // e in mezzo nessuno passava niente.
-    final schermata =
-        File('lib/features/tarot/stesa_tre_carte_screen.dart').readAsStringSync();
+    final schermata = File('lib/features/tarot/stesa_tre_carte_screen.dart')
+        .readAsStringSync();
     // ignore: avoid_print
     print('ORDINE CQ VOCE 6.10: la schermata passa la domanda al motore '
         '${schermata.contains("domandaScritta: _setup.domandaScritta")}');

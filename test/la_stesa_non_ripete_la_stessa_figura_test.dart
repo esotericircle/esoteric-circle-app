@@ -4,11 +4,12 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/corrente_del_cielo.dart';
 import 'package:esoteric_circle/core/tarot/figure_della_stesa.dart';
-import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'cardinale_minimo.dart';
 
 /// **DENTRO UNA STESSA STESA NON SI RIPETE LA STESSA IMMAGINE.** Ordine DS
 /// voce 09, 17 settembre 2026.
@@ -21,6 +22,12 @@ import 'package:flutter_test/flutter_test.dart';
 /// da tavole diverse: e' li' che un pezzo non sapeva cosa aveva detto l'altro.
 /// I testi delle tre carte sono il corpus della carta, uno per carta e per
 /// verso, e non sono composti qui.
+///
+/// **Dall'ordine GA, voci GA.03 e GA.07, 20 ottobre 2026**, il Consiglio e'
+/// il responso principale di casa, `VoceDellaStesa.responsoDiCasa`: due
+/// paragrafi da sei pezzi. Il fatto del cielo non sta piu' nei paragrafi,
+/// va nel "Da dove viene" della stessa schermata: resta il primo dei pezzi,
+/// e le forme scelte continuano a girargli intorno.
 void main() {
   test('il rilevatore prende la ripetizione vista dal fondatore', () {
     final ripetute = FigureDellaStesa.ripetute(
@@ -94,10 +101,11 @@ void main() {
       final spread =
           TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 1709 + i));
       final topic = TarotTopic.values[i % TarotTopic.values.length];
-      final lettura = TarotReading.of(spread, topic, fattoDelCielo: fatto);
+      final letto =
+          VoceDellaStesa.responsoDiCasa(spread, topic, fattoDelCielo: fatto);
       print('ORDINE DS VOCE 09, STESA ${i + 1}: '
           '${spread.cards.map((c) => '${c.card.name}${c.reversed ? " (rovesciata)" : ""}').join(', ')}\n'
-          '${lettura.sintesi}\n${lettura.consiglio}\n');
+          '${letto.titolo}\n${letto.risposta}\n${letto.cosaFare}\n');
       final r = FigureDellaStesa.ripetuteFra(
           VoceDellaStesa.pezzi(spread, topic, fattoDelCielo: fatto));
       if (r.isNotEmpty) colpevoli.add('stesa ${i + 1}: $r');
@@ -106,21 +114,33 @@ void main() {
   });
 
   test('i pezzi sono il Consiglio: ognuno sta nel testo che si legge', () {
-    final spread = TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 3));
-    final lettura = TarotReading.of(spread, TarotTopic.bivio);
-    final pezzi = VoceDellaStesa.pezzi(spread, TarotTopic.bivio);
-    // Senza questa prova i pezzi potrebbero essere una lista qualunque, e la
-    // guardia sotto misurerebbe un testo che nessuno legge.
-    expect(pezzi.length, greaterThanOrEqualTo(8));
-    for (final p in pezzi) {
-      final senzaSegnaposto = p
-          .split(RegExp(r'\{\w+\}|\[[^\]]*\]'))
-          .where((s) => s.trim().length > 12);
-      for (final s in senzaSegnaposto) {
-        expect(lettura.consiglio, contains(s.trim()),
-            reason: 'il pezzo "$p" non sta nel Consiglio');
+    // **Dall'ordine GA il Consiglio e' il responso principale di casa**, la
+    // risposta e il "Cosa fare adesso": sei pezzi, il verdetto, che cosa dice
+    // la carta che regge, che cosa vuol dire, l'aggancio, il gesto e
+    // l'approdo. Erano otto o piu', col legame, il seguito, i versi e la
+    // chiusura del terzo paragrafo, che la forma Breve non ha piu'.
+    var guardati = 0;
+    for (var seme = 0; seme < 40; seme++) {
+      final spread =
+          TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seme));
+      final topic = TarotTopic.values[seme % TarotTopic.values.length];
+      final testo = VoceDellaStesa.paragrafi(spread, topic).join('\n\n');
+      final pezzi = VoceDellaStesa.pezzi(spread, topic);
+      // Senza questa prova i pezzi potrebbero essere una lista qualunque, e
+      // la guardia sotto misurerebbe un testo che nessuno legge.
+      expect(pezzi.length, 6, reason: 'seme $seme: ${pezzi.length} pezzi');
+      for (final p in pezzi) {
+        final senzaSegnaposto = p
+            .split(RegExp(r'\{\w+\}|\[[^\]]*\]'))
+            .where((s) => s.trim().length > 12);
+        for (final s in senzaSegnaposto) {
+          guardati++;
+          expect(testo, contains(s.trim()),
+              reason: 'il pezzo "$p" non sta nel responso');
+        }
       }
     }
+    cardinaleMinimo(guardati, 40 * 6, cosa: 'pezzi cercati nel responso');
   });
 
   test('DUEMILA STESE, con e senza cielo: nessuna figura in due pezzi', () {

@@ -10,6 +10,7 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/core/tarot/tetti_della_stesa.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
@@ -605,44 +606,65 @@ void main() {
   });
 
   group('P.09 il consiglio e\' la prima cosa, ed e\' la piu\' lunga', () {
-    test('il suo tetto e\' distinto e piu\' alto, e sta col blocco degli altri',
-        () {
-      for (final altro in TettiDellaStesa.tuttiTranneIlConsiglio) {
-        expect(TettiDellaStesa.consiglio, greaterThan(altro),
-            reason: 'il tetto del consiglio non e\' piu\' alto di $altro');
+    // **LAPIDE: "il suo tetto e' distinto e piu' alto, e sta col blocco degli
+    // altri".** Ordine GA voci GA.03 e GA.07, 20 ottobre 2026: ogni
+    // paragrafo, del responso principale o di una carta, ha da 40 a 50
+    // parole, e il paragrafo di una carta dal corpus (350 caratteri al piu')
+    // e' lungo quanto un paragrafo del responso principale (318). La legge che
+    // resta e' quella dell'ordine S voce 18: ogni tetto sta sopra la sua
+    // misura, col margine dichiarato accanto (`tetti_della_stesa.dart`).
+    test('ogni tetto della stesa sta nel blocco comune ed e\' positivo', () {
+      expect(TettiDellaStesa.tuttiTranneIlConsiglio, [
+        TettiDellaStesa.sintesi,
+        TettiDellaStesa.posizione,
+        TettiDellaStesa.domanda
+      ]);
+      for (final t in [
+        ...TettiDellaStesa.tuttiTranneIlConsiglio,
+        TettiDellaStesa.consiglio
+      ]) {
+        expect(t, greaterThan(0));
       }
     });
 
     test('il consiglio nomina almeno due delle tre carte uscite', () {
       // Su tutti i semi e tutti gli argomenti, non su uno scelto bene.
+      // **Dall'ordine GA il Consiglio di casa e' il responso principale**:
+      // la risposta nomina la carta che regge, il "Cosa fare adesso" la
+      // carta d'approdo. Si legge alla fonte, `VoceDellaStesa`.
       for (var seed = 0; seed < 60; seed++) {
         final spread = TarotSpread.draw(seed: seed);
         for (final topic in TarotTopic.values) {
-          final lettura = TarotReading.of(spread, topic);
-          final nominate = spread.cards
-              .where((c) => lettura.consiglio.contains(c.card.name))
-              .length;
+          final paragrafi = VoceDellaStesa.paragrafi(spread, topic);
+          final consiglio = paragrafi.join('\n\n');
+          final nominate =
+              spread.cards.where((c) => consiglio.contains(c.card.name)).length;
           expect(nominate, greaterThanOrEqualTo(2),
               reason: 'col seme $seed su ${topic.name} il consiglio nomina '
                   '$nominate carte: un testo che vale per qualunque stesa la '
                   'persona lo riconosce alla seconda lettura');
-          expect(lettura.consiglio.length,
-              lessThanOrEqualTo(TettiDellaStesa.consiglio),
-              reason: 'il consiglio sfora il proprio tetto col seme $seed');
+          for (final p in paragrafi) {
+            expect(p.length, lessThanOrEqualTo(TettiDellaStesa.consiglio),
+                reason: 'un paragrafo sfora il proprio tetto col seme $seed');
+          }
         }
       }
     });
 
-    test('la domanda e\' l\'ultimo paragrafo del consiglio, dopo uno stacco',
-        () {
+    // **LAPIDE: "la domanda e' l'ultimo paragrafo del consiglio, dopo uno
+    // stacco".** Ordine GA: la domanda di chiusura resta un dato
+    // (`TarotReading.domanda`, il dono del mattino dopo) e non e' un
+    // paragrafo della forma, che ne ha due da 40 a 50 parole.
+    test('la domanda resta un dato e non e\' un paragrafo del consiglio', () {
       for (var seed = 0; seed < 40; seed++) {
         final spread = TarotSpread.draw(seed: seed);
         final lettura = TarotReading.of(spread, TarotTopic.bivio);
-        expect(lettura.consiglio, contains('\n\n'),
-            reason: 'senza riga di stacco la domanda e\' appiccicata al testo');
-        final paragrafi = lettura.consiglio.split('\n\n');
-        expect(paragrafi.last.trim(), lettura.domanda,
-            reason: 'l\'ultimo paragrafo del consiglio non e\' la domanda');
+        expect(lettura.domanda.trim(), isNotEmpty,
+            reason: 'la domanda di chiusura non c\'e\' piu\' come dato');
+        final paragrafi = VoceDellaStesa.paragrafi(spread, TarotTopic.bivio);
+        expect(paragrafi, hasLength(2));
+        expect(paragrafi.join(' '), isNot(contains(lettura.domanda)),
+            reason: 'la domanda di chiusura e\' tornata dentro il consiglio');
       }
     });
 

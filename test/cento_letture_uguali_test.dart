@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print
 import 'dart:math';
 
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
-import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'motore_della_ripetizione.dart';
@@ -31,6 +32,19 @@ import 'motore_della_ripetizione.dart';
 ///
 /// **QUESTA PROVA NASCE ROSSA**, ed e' il modo di dimostrare che misura la cosa
 /// giusta.
+///
+/// **RIMISURATA DALL'ORDINE GA, voci GA.03, GA.05 e GA.07, 20 ottobre 2026.**
+/// Decisione del fondatore "Carte dal corpus": il responso principale di
+/// casa e' il titolo, la risposta e il "Cosa fare adesso" di
+/// `VoceDellaStesa.responsoDiCasa`, ogni paragrafo da 40 a 50 parole, e ogni
+/// carta ha sotto il suo responso breve dal corpus (`LeCarteNellaPosizione`).
+/// La prova legge quei pezzi alla fonte, cosi' resta vera qualunque forma
+/// prenda `TarotReading`. Le soglie sono quelle del motore e non si sono
+/// mosse. **La prima stesura della forma nuova e' caduta qui**: la misura C
+/// del testo a schermo saliva al 41,0 per cento, perche' due stese con la
+/// stessa carta che regge cadevano sulla stessa risposta fra
+/// sessantaquattro. Si e' cambiato il testo (la terza fessura
+/// `VoceDellaStesa.cosaVuolDire`), non la soglia.
 void main() {
   /// L'ingresso identico: la domanda del fondatore, lo stesso argomento, lo
   /// stesso giorno, lo stesso Maestro.
@@ -67,6 +81,12 @@ void main() {
 
   /// **IL TESTO CHE LA PERSONA VEDE A SCHERMO**, e non una sola bolla.
   ///
+  /// **Dall'ordine GA** si legge il responso principale di casa, titolo,
+  /// risposta e "Cosa fare adesso", e sotto ogni carta col suo titolo, il
+  /// suo paragrafo e il suo "Cosa fare adesso" dal corpus. La domanda di
+  /// chiusura e il "Da dove viene" non entrano: la prima non e' a schermo, il
+  /// secondo cita le carte uscite ed e' fuori dal conto della forma.
+  ///
   /// **Regola CINQUE dell'ordine DF**: *"una prova che misura un testo deve
   /// leggere il testo che la persona vede a schermo, non la stringa che lo
   /// genera"*. A schermo, nella Stesa, si legge **il titolo, il Consiglio di
@@ -77,14 +97,30 @@ void main() {
   /// **E la misura sul solo Consiglio si riporta lo stesso**, piu' avanti,
   /// perche' e' la bolla che ha aperto l'ordine e non ci si nasconde dietro
   /// alla media di tutta la schermata.
-  String testoAVideo(TarotReading lettura) => [
-        // Il titolo a video, ordine FK aggiunta voci A1 e A2.
-        lettura.titolo,
-        lettura.consiglio,
-        for (final p in lettura.posizioni)
-          '${p.drawn.position.label}. ${p.drawn.displayName}. '
-              '${p.apertura}, ${p.testo}',
-      ].join('\n\n');
+  String testoAVideo(TarotSpread stesa) {
+    final r = VoceDellaStesa.responsoDiCasa(stesa, argomento,
+        domandaScritta: domanda);
+    return [
+      // Il titolo a video, ordine FK aggiunta voci A1 e A2.
+      r.titolo,
+      r.risposta,
+      r.cosaFare,
+      for (final c in stesa.cards) ...[
+        '${c.position.etichetta}. ${c.displayName}. '
+            '${LeCarteNellaPosizione.titoloDi(c)}',
+        LeCarteNellaPosizione.letturaDiCasa(c, argomento.group),
+        LeCarteNellaPosizione.cosaFareDi(c, argomento.group),
+      ],
+    ].join('\n\n');
+  }
+
+  /// **I PARAGRAFI CHE COMPONE L'APP**, cioe' il responso principale di casa:
+  /// sono quelli su cui si conta la misura D.
+  String composto(TarotSpread stesa) {
+    final r = VoceDellaStesa.responsoDiCasa(stesa, argomento,
+        domandaScritta: domanda);
+    return '${r.risposta}\n\n${r.cosaFare}';
+  }
 
   EsitoDellaRipetizione misuraLaStesa({bool soloIlConsiglio = false}) {
     final stese = centoStese();
@@ -92,9 +128,8 @@ void main() {
     final composti = <String>[];
     final nomi = <List<String>>[];
     for (final s in stese) {
-      final lettura = TarotReading.of(s, argomento, domandaScritta: domanda);
-      testi.add(soloIlConsiglio ? lettura.consiglio : testoAVideo(lettura));
-      composti.add(lettura.consiglio);
+      testi.add(soloIlConsiglio ? composto(s) : testoAVideo(s));
+      composti.add(composto(s));
       nomi.add(nomiDi(s));
     }
     return MotoreDellaRipetizione.misura(
@@ -189,14 +224,20 @@ void main() {
         ('Due di Spade', false)
       ]),
     ];
-    final testi = [
-      for (final s in sue)
-        testoAVideo(TarotReading.of(s, argomento, domandaScritta: domanda)),
-    ];
+    final testi = [for (final s in sue) testoAVideo(s)];
     final esito = MotoreDellaRipetizione.misura(
       funzione: 'Le quattro letture vere del fondatore',
       testi: testi,
       nomiPerTesto: [for (final s in sue) nomiDi(s)],
+      // **LA MISURA D CONTA I PARAGRAFI CHE COMPONE L'APP**, la regola
+      // dichiarata in `MotoreDellaRipetizione.misura`. Ordine GA: dalla
+      // decisione "Carte dal corpus" sotto ogni carta c'e' il suo "Cosa fare
+      // adesso" dal corpus, uguale per la stessa carta nello stesso verso, e
+      // Il Mondo esce in tre delle quattro letture del fondatore: contarlo
+      // vorrebbe dire far cadere la guardia sul corpus, che deve dire la
+      // stessa cosa della stessa carta. Il difetto che il fondatore ha visto
+      // era nei paragrafi composti, ed e' li' che si guarda.
+      testiComposti: [for (final s in sue) composto(s)],
     );
     print(esito.refertoLungo);
     print('ORDINE DF VOCE 02: sulle QUATTRO letture vere del fondatore gli '

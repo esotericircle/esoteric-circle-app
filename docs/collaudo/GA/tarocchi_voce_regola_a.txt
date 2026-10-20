@@ -1,0 +1,134 @@
+ORDINE GA, VOCI GA.03, GA.05 E GA.07: IL RESPONSO PRINCIPALE DI CASA DELLA STESA
+Regola A e Regola B delle guardie, 20 ottobre 2026.
+File toccati: lib/core/tarot/voce_della_stesa.dart, lib/core/tarot/tetti_della_stesa.dart
+e le prove della loro zona. Ogni innesto verificato col grep prima di leggere
+l'esito, ogni file tornato identico dopo (md5 della voce b85c8f70..., dei
+tetti e703eb8a...). Uscite complete in %TEMP%\ga_voce_*.txt.
+
+======================================================================
+REGOLA B, PRIMA DI TOCCARE LA VOCE E I TETTI (18:36 - 18:39)
+======================================================================
+B1, 18:36. Innesto: la prima delle chiusure allungata di 120 parole
+    ("INNESTO_REGOLA_B_LUNGO", grep: 1 riga).
+    quanto_e_lungo_il_consiglio_test: ROSSA, ma solo sul margine (caso
+      peggiore 1249 contro il tetto 1250, margine 0,1 per cento). La pretesa
+      "il caso peggiore sta sotto il tetto" restava VERDE: misurava
+      TarotReading.consiglio, che consiglioDi tronca al tetto con
+      TettiDellaStesa.dentro. Guardia cieca per costruzione sulla sua prima
+      pretesa (padre: ordine DF, la prova scritta su un testo gia' troncato
+      dal tetto dell'ordine P voce 09). Riscritta in questo lavoro: misura la
+      voce prima di ogni taglio, e il taglio non c'e' piu'.
+    le_lunghezze_dei_responsi_test: la tabella ROSSA, ma per le righe
+      dell'Oroscopo cambiate da un altro agente (lavoro non consegnato); la
+      riga del Consiglio non vedeva l'innesto (il filo sceglie dalle sole
+      carte e la battuta ha dodici stese: la chiusura innestata non e' uscita).
+      "nessun tetto taglia" VERDE: stessa cecita' del troncamento.
+    Innesto tolto, grep: 0.
+B2, 18:37. Innesto: VoceDellaStesa.paragrafi rende tre righe fisse uguali
+    per ogni stesa ("INNESTO_REGOLA_B_STAMPO", grep: 1).
+    cento_letture_uguali_test: ROSSA (misura D, 100 volte su 100; il caso del
+      fondatore 4 volte).
+    le_lunghezze_dei_responsi_test: la riga "Tarocchi, consiglio" ROSSA (218 e
+      239 caratteri contro 842 e 994).
+    Innesto tolto, grep: 0.
+B3, 18:38. Innesto: TettiDellaStesa.sintesi = 2000 e posizione = 100
+    ("INNESTO_REGOLA_B_TETTI", grep: 2).
+    le_lunghezze_dei_responsi_test: ROSSA ("posizione vale 100 e il massimo
+      misurato e' 341").
+    la_stesa_si_capisce_test, gruppo P.09: ROSSA ("il tetto del consiglio non
+      e' piu' alto di 2000").
+    Innesto tolto, grep: 0; git diff dei tetti vuoto.
+
+======================================================================
+LA MISURA, PRIMA E DOPO
+======================================================================
+Prima (ricognizione della stesa, sezione 1.3): tre paragrafi a lunghezza
+libera. Risposta senza domanda 38,3 parole di media (da 29 a 47), con la
+domanda 49,6 piu' la domanda stessa; azione 33,7 (da 22 a 49); terzo
+paragrafo 66,5. Nessuna garanzia di 40-50.
+Dopo: due paragrafi. Fasce dichiarate (parole fisse, fuori dai segnaposto):
+  verdetto 11-12 (+ lente 2-5 + nome 1-5), cosa dice 14-15, cosa vuol dire
+  12-13: risposta da 40 a 50;
+  aggancio 8-9, gesto 18-20, approdo 13-14 (+ nome 1-5): cosa fare da 40 a 48;
+  senza approdo (carta sola) aggancio, gesto e perche' 14-16: da 40 a 45.
+  Misurate tutte le 180 forme con le quattro forme di cortesia (720 misure,
+  0 fuori fascia). Composizioni vere: 30.720 (quattro stese, sedici
+  argomenti, trenta semi, con e senza cielo, con e senza domanda, quattro
+  forme di cortesia): risposta da 41 a 49 parole, cosa fare da 40 a 48.
+  Risposte possibili: 512 per natura per 156 carte-verso per 16 lenti,
+  1.277.952, garantite dalla somma delle fasce e non dal campione.
+
+======================================================================
+REGOLA A, LE PROVE NUOVE E RISCRITTE (18:53 - 19:36)
+======================================================================
+A1, 18:53. Innesto: una parola in piu' nel verdetto "la risposta e'
+    favorevole e piena" ("INNESTO_A_51", grep: 1).
+    quanto_e_lungo: OGNI FORMA STA NELLA FASCIA ROSSA (13 parole fisse invece
+    di 11-12, quattro forme di cortesia); LA SOMMA DELLE FASCE ROSSA ("la
+    risposta puo' salire a 51 parole"). Le composizioni vere restavano verdi
+    (30.720, massimo 49): e' la ragione per cui la guardia somma le fasce.
+    Tolto, grep: 0.
+A2, 18:54. Innesto: una parola in meno in "Segnala uno spreco" ("INNESTO_A_39",
+    grep: 1). quanto_e_lungo: FASCIA ROSSA (25 invece di 26-28, la fascia
+    di allora); SOMMA ROSSA ("la risposta puo' scendere a 39 parole").
+    Tolto, grep: 0.
+A3, 18:55. Innesto: la risposta senza il verdetto ("INNESTO_A_SENZA_VERDETTO",
+    grep: 1). quanto_e_lungo: LE COMPOSIZIONI VERE ROSSA (risposta da 26 a 28
+    parole) e I NOMI ESTREMI ROSSA; le due delle fasce verdi, come devono.
+    Tolto, grep: 0.
+PRIMA MISURA DELLA DIVERSITA' sulla prima stesura (verdetto + cosa dice, 64
+    risposte per natura): cento_letture_uguali ROSSA, misura C del testo a
+    schermo 41,0 per cento (soglia 40): due stese con la stessa carta che
+    regge (Asso di Denari) sulla stessa risposta. Soglia non toccata: nata la
+    terza fessura VoceDellaStesa.cosaVuolDire, cosa dice riscritto a 14-15
+    parole. Dopo: C 36,6 per cento (testo a schermo col responso delle carte
+    dal corpus), D 2 (soglia 2), A 100/100, B 100/100.
+R1, 19:23. Innesto: la risposta e' una frase fissa di 45 parole senza carta
+    ne' lente ("INNESTO_A_STAMPO", grep: 1). ROSSE:
+    anatomia DF.04.1 e GA.06 (la prima frase), anatomia la lente;
+    cento_letture le quattro misure (D 100) e il caso del fondatore (D 4);
+    la_guardia_della_diversita TAROCCHI (D 100);
+    la_domanda_entra_nel_responso, la lente nella prima frase;
+    tarot_interpretazione "Ha tutti e sette gli strati" e "Il consiglio parte
+    dalla lente"; la_stesa_si_capisce P.09 "nomina almeno due delle tre
+    carte". Tolto, md5 tornato b85c8f70.
+R2, 19:26. Innesto in tre punti ("INNESTO_A_R2", grep: 3): paragrafi rende un
+    terzo paragrafo col cielo, la cornice delle rune ("Non hai chiesto
+    niente e va bene cosi'...") e una domanda; responsoDiCasa mette nella
+    risposta il cielo e la domanda scritta; pezzi porta un pezzo fantasma.
+    ROSSE: il_cielo_entra_nella_stesa (il cielo nei paragrafi); anatomia LA
+    DOMANDA NON STA NEI PARAGRAFI e NIENTE SI TRONCA; il_pavimento_della_
+    somiglianza (a cinque parole oltre il 5 per cento); la_domanda_entra (la
+    domanda tornata dentro); la_stesa_non_ripete_la_stessa_figura "i pezzi
+    sono il Consiglio"; tarot_interpretazione (due paragrafi);
+    la_stesa_si_capisce P.09 "la domanda resta un dato". Tolto (al nono
+    tentativo, il file era bloccato da un altro processo), md5 b85c8f70.
+    VERDE sotto R2, e giusto: il_cielo "SENZA carta natale", che confrontava
+    nulla con nulla. Riscritta (un cielo vuoto non sposta nessuna scelta) e
+    vista rossa in R3.
+R3, 19:34. Innesti nella voce (grep: 7) e nei tetti (grep: 3): una forma del
+    perche' con "Domani farai 3 cose, e la voce"; "condanna" in un approdo di
+    compimento; la lente del momento che vivi in ogni risposta; il cosa fare
+    senza il gesto e con la sintesi della carta; il titolo col punto; il
+    filo che consuma una scelta quando il cielo c'e' ma e' vuoto; tolto
+    l'ottavo verdetto dell'attrito; consiglio = 250, posizione = 360,
+    tuttiTranneIlConsiglio senza la domanda. ROSSE:
+    anatomia DF.04.2, DF.04.3, DF.04.5, DF.04.7 e GA.07, LE QUATTRO NATURE,
+    NIENTE SI TRONCA, il tetto di un paragrafo, la RISPOSTA prima
+    dell'AZIONE, la lente di un altro;
+    quanto_e_lungo tutte e quattro;
+    le_lunghezze IL TETTO DELLA CARTA (nuova), nessun tetto taglia, la tabella;
+    il_cielo SENZA carta natale e col cielo vero;
+    la_stesa_si_capisce P.09 "ogni tetto sta nel blocco comune" e "nomina
+    almeno due carte" (il paragrafo oltre 250).
+    Tolti, md5 della voce b85c8f70 e dei tetti e703eb8a, grep: 0.
+
+======================================================================
+ESITI FINALI (19:40)
+======================================================================
+Le undici prove della zona: 75 verdi, 1 rossa: la tabella delle lunghezze,
+per le righe dell'Oroscopo cambiate da un altro agente con lavoro non
+consegnato. Rigenerata; nel commit vanno solo le righe dei Tarocchi.
+Prove vicine del coordinatore (il_formato_del_responso_dei_tarocchi,
+la_stesa_di_n_carte, stesa_tre_carte, la_stesa_interpreta_davvero): 75 verdi.
+dart format e flutter analyze sui tredici file toccati: nessun problema.

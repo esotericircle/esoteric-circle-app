@@ -3,9 +3,11 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/corrente_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/tarot/filo_fra_le_carte.dart';
@@ -62,30 +64,36 @@ void main() {
             'stesso cielo');
   });
 
+  // **LAPIDE: "col cielo vero il consiglio lo raccoglie, e resta in due o tre
+  // paragrafi".** Ordine GA voci GA.03 e GA.07, 20 ottobre 2026: la riga del
+  // cielo vero non sta piu' nei paragrafi del responso, che hanno da 40 a 50
+  // parole ciascuno e con lei dentro uscirebbero dalla misura; va nel "Da
+  // dove viene", e la mette `TarotReading`. Della lettura di casa resta da
+  // pretendere che il cielo non entri nei paragrafi, che non cambi la loro
+  // misura e che le forme scelte girino intorno alle sue figure.
   test(
-      'col cielo vero il consiglio lo raccoglie, e resta in due o tre '
-      'paragrafi', () {
+      'col cielo vero la lettura di casa resta in due paragrafi nella misura, '
+      'e il cielo non ci entra', () {
     final cielo = CieloDiOggi.perIlGiorno(adesso: adesso, carta: carta);
     final fatto = CorrenteDelCielo.fattoDelGiorno(cielo)!;
     for (final seed in const [2, 5, 9]) {
       final spread =
           TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seed));
-      final con =
-          TarotReading.of(spread, TarotTopic.bivio, fattoDelCielo: fatto);
-      final senza = TarotReading.of(spread, TarotTopic.bivio);
+      final con = VoceDellaStesa.paragrafi(spread, TarotTopic.bivio,
+          fattoDelCielo: fatto);
+      final pezzi =
+          VoceDellaStesa.pezzi(spread, TarotTopic.bivio, fattoDelCielo: fatto);
 
-      expect(con.consiglio, contains(fatto),
-          reason: 'seme $seed: il consiglio non raccoglie il fatto del cielo');
-      expect(senza.consiglio, isNot(contains(fatto)));
-
-      // **LE DUE VOCI DELLO STESSO ORDINE DEVONO STARE IN PIEDI INSIEME**: il
-      // cielo non deve far nascere un quarto paragrafo, o cadrebbe la misura
-      // della voce 06. Sta in coda all'ultimo.
-      final corpo = con.consiglio.split('\n\n');
-      final paragrafi = corpo.sublist(0, corpo.length - 1);
-      expect(paragrafi.length, inInclusiveRange(2, 3),
-          reason: 'seme $seed: col cielo i paragrafi sono ${paragrafi.length}, '
-              'e la voce 06 ne ammette due o tre');
+      expect(con.join(' '), isNot(contains(fatto)),
+          reason: 'seme $seed: il fatto del cielo e\' tornato nei paragrafi');
+      expect(con, hasLength(2), reason: 'seme $seed: ${con.length} paragrafi');
+      for (final p in con) {
+        expect(LaFormaDelResponso.aMisura(p), isTrue,
+            reason: 'seme $seed: col cielo un paragrafo ha '
+                '${LaFormaDelResponso.parole(p)} parole');
+      }
+      // Il cielo resta il primo dei pezzi: le figure gli girano intorno.
+      expect(pezzi.first, fatto.trim());
     }
   });
 
@@ -98,8 +106,18 @@ void main() {
             'generica travestita da transito sarebbe una promessa non '
             'mantenuta');
 
-    // E il consiglio resta quello di oggi, identico.
+    // E il consiglio resta quello di oggi, identico. Per la lettura di casa
+    // la pretesa e' che un cielo vuoto, che e' cio' che arriva quando il
+    // fatto del giorno manca, non sposti nemmeno una scelta (ordine GA: il
+    // fatto nullo e il fatto vuoto sono la stessa assenza).
     final spread = TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: 2));
+    for (final vuoto in const ['', '   ']) {
+      expect(
+          VoceDellaStesa.paragrafi(spread, TarotTopic.bivio,
+              fattoDelCielo: vuoto),
+          VoceDellaStesa.paragrafi(spread, TarotTopic.bivio),
+          reason: 'un cielo vuoto cambia la lettura di casa');
+    }
     expect(
         TarotReading.of(spread, TarotTopic.bivio,
                 fattoDelCielo: CorrenteDelCielo.fattoDelGiorno(cielo))

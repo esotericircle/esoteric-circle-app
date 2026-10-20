@@ -3,9 +3,10 @@ import 'dart:math';
 
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
-import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/core/viaggio/scena_del_viaggio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +29,13 @@ import 'motore_della_ripetizione.dart';
 ///
 /// Il censimento completo, con i pezzi fissi e quelli variabili di **ogni**
 /// funzione che produce testo, sta in `docs/DF_censimento_delle_risposte.md`.
+///
+/// **I TAROCCHI DALL'ORDINE GA**, voci GA.03, GA.05 e GA.07, 20 ottobre
+/// 2026: decisione del fondatore "Carte dal corpus". Il responso principale
+/// di casa e' `VoceDellaStesa.responsoDiCasa`, titolo, risposta e "Cosa fare
+/// adesso" da 40 a 50 parole per paragrafo, e sotto ogni carta ha il suo
+/// responso breve dal corpus. La prova li legge alla fonte; soglie e simboli
+/// sono quelli di prima.
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -49,17 +57,22 @@ void main() {
       simboli.add({
         for (final c in stesa.cards) '${c.position.name}:${c.card.name}',
       });
-      final lettura = TarotReading.of(stesa, TarotTopic.denaro,
+      const argomento = TarotTopic.denaro;
+      final r = VoceDellaStesa.responsoDiCasa(stesa, argomento,
           domandaScritta: 'denaro e fortuna');
       testi.add([
         // Il titolo a video, ordine FK aggiunta voci A1 e A2.
-        lettura.titolo,
-        lettura.consiglio,
-        for (final p in lettura.posizioni)
-          '${p.drawn.position.label}. ${p.drawn.displayName}. '
-              '${p.apertura}, ${p.testo}',
+        r.titolo,
+        r.risposta,
+        r.cosaFare,
+        for (final c in stesa.cards) ...[
+          '${c.position.etichetta}. ${c.displayName}. '
+              '${LeCarteNellaPosizione.titoloDi(c)}',
+          LeCarteNellaPosizione.letturaDiCasa(c, argomento.group),
+          LeCarteNellaPosizione.cosaFareDi(c, argomento.group),
+        ],
       ].join('\n\n'));
-      composti.add(lettura.consiglio);
+      composti.add('${r.risposta}\n\n${r.cosaFare}');
       nomi.add([
         for (final c in stesa.cards) ...[
           c.displayName,

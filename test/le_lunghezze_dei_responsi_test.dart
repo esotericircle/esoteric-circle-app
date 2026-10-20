@@ -8,11 +8,17 @@ import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione_dati.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tetti_della_stesa.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'cardinale_minimo.dart';
 
 /// LE LUNGHEZZE SI MISURANO PRIMA DI DECIDERLE. Ordine S voce 18.
 ///
@@ -89,26 +95,39 @@ void main() {
     tutto['Rune, singola runa: riga breve di significato'] =
         kElderFuthark.map((r) => r.meaning).toList();
 
-    // --- TAROCCHI: le quattro parti della stesa ---
+    // --- TAROCCHI: le parti della stesa ---
+    //
+    // **Dall'ordine GA, voci GA.03, GA.05 e GA.07, 20 ottobre 2026**, il
+    // Consiglio e' il responso principale di casa, due paragrafi da 40 a 50
+    // parole (`VoceDellaStesa.responsoDiCasa`), e ogni carta ha il suo
+    // paragrafo e il suo "Cosa fare adesso" dal corpus: si misurano alla
+    // fonte, un paragrafo alla volta, perche' il tetto e' di un paragrafo.
+    // LAPIDE: la riga "Tarocchi, consiglio", il Consiglio intero in tre
+    // paragrafi piu' la domanda.
     final sintesi = <String>[];
     final posizioni = <String>[];
-    final consigli = <String>[];
+    final cosaFareDelleCarte = <String>[];
+    final paragrafi = <String>[];
     final domande = <String>[];
     for (final argomento in TarotTopic.values) {
       for (var seme = 0; seme < 12; seme++) {
         final stesa = TarotSpread.draw(seed: seme);
         final lettura = TarotReading.of(stesa, argomento);
         sintesi.add(lettura.sintesi);
-        for (final p in lettura.posizioni) {
-          posizioni.add(p.testo);
+        for (final c in stesa.cards) {
+          posizioni
+              .add(LeCarteNellaPosizione.letturaDiCasa(c, argomento.group));
+          cosaFareDelleCarte
+              .add(LeCarteNellaPosizione.cosaFareDi(c, argomento.group));
         }
-        consigli.add(lettura.consiglio);
+        paragrafi.addAll(VoceDellaStesa.paragrafi(stesa, argomento));
         domande.add(lettura.domanda);
       }
     }
     tutto['Tarocchi, sintesi'] = sintesi;
     tutto['Tarocchi, bolla di posizione'] = posizioni;
-    tutto['Tarocchi, consiglio'] = consigli;
+    tutto['Tarocchi, cosa fare di una carta'] = cosaFareDelleCarte;
+    tutto['Tarocchi, paragrafo del responso principale'] = paragrafi;
     tutto['Tarocchi, domanda di chiusura'] = domande;
 
     // --- OROSCOPO: le quattro schede del giorno, per i dodici segni ---
@@ -247,13 +266,74 @@ void main() {
         'TettiDellaStesa.sintesi');
     confronta('Tarocchi, bolla di posizione', TettiDellaStesa.posizione,
         'TettiDellaStesa.posizione');
-    confronta('Tarocchi, consiglio', TettiDellaStesa.consiglio,
-        'TettiDellaStesa.consiglio');
+    confronta('Tarocchi, cosa fare di una carta', TettiDellaStesa.posizione,
+        'TettiDellaStesa.posizione');
+    confronta('Tarocchi, paragrafo del responso principale',
+        TettiDellaStesa.consiglio, 'TettiDellaStesa.consiglio');
     confronta('Tarocchi, domanda di chiusura', TettiDellaStesa.domanda,
         'TettiDellaStesa.domanda');
 
     expect(sotto, isEmpty,
         reason: 'questi tetti tagliano testi che il corpus produce davvero:'
             '${String.fromCharCode(10)}${sotto.join(String.fromCharCode(10))}');
+  });
+
+  test(
+      'IL TETTO DELLA CARTA TIENE TUTTE LE COMPOSIZIONI DEL CORPUS, con '
+      'margine', () {
+    // **Ordine GA voce GA.07**: *"I tetti di lunghezza si rimisurano sui
+    // testi nuovi e si scrivono dalla misura"*. Qui non si campiona: ogni
+    // scheletro di ogni posizione con ogni registro del suo verso, e ogni
+    // "Cosa fare" del corpus, con ogni forma di cortesia.
+    var quanti = 0;
+    var massimo = 0;
+    var piuLungo = '';
+    final prima = LaMarcaDelGenere.formaCorrente;
+    try {
+      for (final f in CourtesyForm.values) {
+        LaMarcaDelGenere.formaCorrente = f;
+        for (final e in scheletriDelleCarte.entries) {
+          final parti = e.key.split('|');
+          final registri =
+              registriDelleCarte['${parti[1]}|${parti[2]}'] ?? const [];
+          for (final scheletro in e.value) {
+            for (final registro in registri) {
+              final t = LaMarcaDelGenere.risolvi('$scheletro $registro');
+              quanti++;
+              if (t.length > massimo) {
+                massimo = t.length;
+                piuLungo = t;
+              }
+            }
+          }
+        }
+        for (final l in cosaFareDelleCarte.values) {
+          for (final t0 in l) {
+            final t = LaMarcaDelGenere.risolvi(t0);
+            quanti++;
+            if (t.length > massimo) {
+              massimo = t.length;
+              piuLungo = t;
+            }
+          }
+        }
+      }
+    } finally {
+      LaMarcaDelGenere.formaCorrente = prima;
+    }
+    // ignore: avoid_print
+    print('ORDINE GA VOCE 07: paragrafi di carta misurati $quanti, il piu '
+        'lungo di $massimo caratteri, tetto ${TettiDellaStesa.posizione}: '
+        '$piuLungo');
+    // 84.240 paragrafi e 5.616 "Cosa fare" al 20 ottobre 2026.
+    cardinaleMinimo(quanti, 84240 + 5616,
+        cosa: 'paragrafi di carta del corpus misurati',
+        perche: 'Con un corpus vuoto il tetto sarebbe rispettato per non aver '
+            'misurato niente.');
+    expect(TettiDellaStesa.posizione - massimo,
+        greaterThan(TettiDellaStesa.posizione * 0.10),
+        reason: 'il paragrafo di carta piu lungo ha $massimo caratteri e il '
+            'tetto ${TettiDellaStesa.posizione}: meno del dieci per cento di '
+            'margine');
   });
 }

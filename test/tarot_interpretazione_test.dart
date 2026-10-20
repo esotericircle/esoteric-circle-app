@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 
@@ -180,12 +181,22 @@ void main() {
       // **Adesso la lente sta DENTRO la prima frase**, in una delle otto
       // aperture, e a volte apre e a volte no. Cio' che si pretende e' che ci
       // sia e che sia la sua.
+      //
+      // **E DALL'ORDINE GA, voci GA.03 e GA.06, 20 ottobre 2026**, la lente
+      // sta nella prima frase della risposta, a volte in testa e a volte in
+      // mezzo in minuscolo, e la domanda di chiusura non chiude piu' il
+      // consiglio: resta un dato (`TarotReading.domanda`) e la lettura di
+      // casa ha due paragrafi, la risposta e il "Cosa fare adesso". LAPIDE:
+      // `expect(r.consiglio.split('\n\n').last.trim(), r.domanda)`.
       final s = TarotSpread.draw(seed: 3);
       for (final t in TarotTopic.values) {
         final r = TarotReading.of(s, t);
-        expect(r.consiglio, contains(t.lente),
-            reason: '${t.name}: il consiglio non porta la sua lente');
-        expect(r.consiglio.split('\n\n').last.trim(), r.domanda);
+        final casa = VoceDellaStesa.paragrafi(s, t);
+        expect(casa.first.toLowerCase(), contains(t.lente.toLowerCase()),
+            reason: '${t.name}: la risposta non porta la sua lente');
+        expect(casa, hasLength(2));
+        expect(casa.join(' '), isNot(contains(r.domanda)),
+            reason: '${t.name}: la domanda di chiusura e\' nei paragrafi');
       }
     });
 
