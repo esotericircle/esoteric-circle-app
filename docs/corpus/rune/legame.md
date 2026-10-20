@@ -1,654 +1,654 @@
 ## odino, luce
-1. Una pietra sola basta quando parla chiaro: il suo filo arriva dritto alla tua mano e ti chiede soltanto di camminarle accanto per tutta la giornata.
-2. Fra la pietra e chi l'ha scelta corre un filo teso e lucente, come una corda d'arco: niente lo intralcia, tocca a te tenderlo verso ciò che conta.
-3. Semplice, oggi, il legame: una pietra dritta, una persona in ascolto. Ciò che ti consiglia può entrare nelle ore che hai davanti senza attrito.
-4. Questa pietra non ha compagne con cui discutere: la sua voce resta intera e cade nella tua giornata come un seme in terra lavorata.
-5. Il filo parte dalla pietra e finisce nei tuoi gesti di oggi: una parola detta bene, una porta aperta, un passo che non rimandi.
-6. Nessuna ombra fra te e il consiglio: la pietra ti guarda dritta come un'amica di vecchia data che non ha bisogno di giri di parole.
-7. Ciò che la pietra porta e ciò che porti tu si toccano come due mani che si stringono sopra un patto: è un'intesa, non un comando.
-8. Ha la forma di un sentiero già battuto, il legame di oggi: la pietra indica il primo tratto e i tuoi piedi conoscono il resto.
-9. Pietra e persona stanno sullo stesso lato della soglia. Il consiglio non va conquistato, va solo portato con cura fino in fondo.
-10. Come il fuoco del focolare scalda chi siede vicino, questa pietra scalda la giornata di chi l'ha gettata: resta presso la sua fiamma.
-11. Il nodo fra te e la pietra è stretto bene e regge. Puoi appoggiarci il peso della domanda senza timore che ceda.
-12. Una voce sola e limpida accompagna i tuoi passi: non deve prevalere su altre voci, le basta essere ricordata nei momenti in cui esiti.
-13. Fra la mano che getta e la pietra che risponde scorre acqua chiara. Bevine oggi: ciò che ti serve è già nel suo corso.
-14. Questo è un legame di fiducia: la pietra si offre dritta e chiede in cambio che tu la prenda sul serio almeno fino a domani.
-15. Il metallo è già battuto e la lama è dritta: tra la pietra e la tua giornata c'è un attrezzo pronto all'uso, non un enigma.
-16. Nel silenzio dopo il getto la pietra e chi l'ha chiamata si riconoscono. Quel riconoscimento è già metà del consiglio.
-17. Il filo di oggi è corto e robusto: va dalla pietra alla prossima cosa che fai. Non guardare lontano, guarda vicino.
-18. La pietra arriva dritta come un messaggero che bussa alla porta giusta. Aprire e farlo entrare nella giornata spetta a te.
-19. Nessun groviglio da sciogliere: tra te e la pietra il legame è una linea pulita, tracciata col carbone su legno chiaro.
-20. Questa gettata unisce due cose soltanto, la pietra e il tuo passo. Quando vanno nella stessa direzione il cammino si fa leggero.
-21. La pietra si posa nella giornata come una chiave nella toppa: gira senza forzare. Usala dove senti che qualcosa aspetta di aprirsi.
-22. Fra te e il consiglio non c'è nebbia da diradare. La pietra parla piano ma netta, come chi ti conosce da tanto.
-23. Il legame somiglia a una lanterna portata a mano: illumina il tratto davanti a te e non l'intera strada. Per oggi basta.
-24. Ciò che hai chiesto e ciò che la pietra offre combaciano come due assi incastrate dal falegname. Puoi costruirci sopra.
-25. Una pietra, un respiro, una direzione: il filo fra te e la giornata è tutto qui ed è più forte di quanto sembri.
-26. La pietra cade dritta e chiama la parte di te che sa già muoversi. Il legame non chiede sforzo, chiede presenza.
-27. Dal getto in avanti corre un filo d'oro sottile: ogni scelta fatta nello spirito della pietra lo rende più visibile.
-28. Chi getta una pietra sola cerca l'essenziale e l'essenziale arriva intero. Tienilo in tasca come un sasso raccolto al fiume.
-29. Il legame è quello di due viandanti che si incontrano al guado: la pietra conosce il passaggio, tu conosci il tuo passo.
-30. Oggi la pietra non ti mette alla prova, ti accompagna. Il suo consiglio cammina accanto, al ritmo che scegli tu.
-31. Il vento soffia nella stessa direzione della pietra: ciò che ti spinge e ciò che ti consiglia vanno d'accordo. Lasciati portare un tratto.
-32. Fra te e questa pietra c'è un'eco: quello che dice risuona in qualcosa che hai già pensato. Dalle credito.
-33. È una gettata di poche parole e di molta sostanza. Il filo con la tua giornata passa dalle cose piccole fatte con attenzione.
-34. La pietra dritta è un ponte di legno ben piantato sopra l'acqua: regge chi lo attraversa senza fretta e senza paura.
-35. Ciò che oggi ti serve sta tutto in una mano: la pietra lo ha raccolto per te e te lo porge aperto, senza nascondere nulla.
-36. Il ghiaccio non c'è. Fra la pietra e il tuo cammino il terreno è sciolto, la terra cede al passo e lascia segni chiari.
-37. La pietra e la giornata parlano la stessa lingua: ogni volta che ti fermi a scegliere, la sua voce torna utile come un attrezzo noto.
-38. Non c'è distanza da colmare: la pietra ti raggiunge dove sei, nel punto preciso della tua vita in cui hai fatto la domanda.
-39. Il legame è caldo come pane appena sfornato: va preso subito, condiviso se puoi, gustato senza rimandare.
-40. Un filo solo può cucire un intero orlo. Così la pietra lega la tua giornata: un punto dopo l'altro, con pazienza e mano ferma.
-41. La soglia è già aperta e la pietra sta sull'uscio a farti cenno. Fra il suo invito e il tuo passo non resta che muoverti.
-42. In questa gettata la pietra non comanda e non tace: consiglia, con la franchezza di chi vuole il tuo bene.
-43. Ciò che la pietra accende dentro di te è il vero legame. Conserva quella scintilla mentre fai le cose di sempre.
-44. Il consiglio essenziale ha trovato la sua strada fino a te senza deviare. Rispondi con un gesto altrettanto diretto.
-45. Pietra e domanda si sono riconosciute al primo sguardo. Quel che resta della giornata può partire da quell'intesa.
-46. Come un sigillo impresso nella cera calda, la pietra lascia un segno netto sul tuo giorno: riconoscibile, tuo, difficile da cancellare.
-47. Il filo si annoda attorno al polso, leggero: ogni volta che lo senti ricorda perché hai chiesto e che cosa ti è stato risposto.
-48. La pietra rotola dritta verso di te e si ferma ai tuoi piedi. Raccoglierla vuol dire accettare il suo aiuto per oggi.
-49. È un legame di accordo: quello che la pietra vede e quello che tu speri non litigano. Puoi procedere con il cuore in pace.
-50. La pietra illumina la stanza in cui ti trovi adesso, non quelle in fondo al corridoio. Comincia da ciò che hai sotto mano.
-51. Ogni pietra gettata senza compagne apre un dialogo a due voci. Oggi la sua è chiara: alla tua tocca rispondere con i fatti.
-52. Il bosco è attraversato da un sentiero segnato: la pietra ha inciso i tronchi per te. Seguili uno per uno, senza correre.
-53. La mano che ha gettato e la pietra caduta dritta si fanno compagnia. È la giornata a raccogliere il frutto di questa compagnia.
-54. Tra te e la risposta il passaggio è sgombro come un'aia spazzata. Tutto quello che entra trova posto.
-55. La pietra si offre come una brace viva passata di mano in mano: tienila accesa nelle ore che seguono.
-56. Il legame fra la pietra e il tuo oggi è fatto di fiducia reciproca: una voce che parla senza velo, un ascolto senza difese.
-57. Quando la pietra cade dritta il consiglio è un vento a favore: alza la vela verso ciò che ti sta a cuore.
-58. Nulla di storto in questo getto: la pietra guarda avanti e ti invita a guardare nella stessa direzione, spalla contro spalla.
-59. Ciò che si muove dentro di te trova nella pietra un appoggio solido, come una roccia nel torrente su cui posare il piede.
-60. La gettata è breve, la sua eco dura. Torna alla pietra più tardi e lascia che il filo si stringa ancora.
-61. La pietra ti consegna una cosa sola ed è quella giusta. Fra il riceverla e il viverla c'è soltanto la tua giornata di mezzo.
-62. Il filo che unisce te e la pietra è intrecciato con cura, come una corda da ormeggio: ti tiene vicino a ciò che conta mentre il resto si agita.
+1. Una pietra sola e dritta vuol dire che nessuna voce contraria si alza contro il consiglio. Non serve rifare la domanda né cercare conferme altrove: prendi ciò che hai letto come la regola di oggi e applicalo alla prima scelta concreta che ti si presenta.
+2. Il consiglio essenziale arriva senza ombre e senza compagne che lo correggano: è tutto qui. La forza di questa gettata sta nella sua semplicità, quindi non aggiungere condizioni o eccezioni. Fai una cosa sola nella direzione indicata e falla prima che la giornata finisca.
+3. Quando la pietra cade dritta il filo fra la domanda e la risposta è corto: niente da interpretare, molto da fare. Il rischio non è sbagliare strada ma rimandare il primo passo. Scegli adesso l'ora in cui lo compi e tienila come un appuntamento.
+4. Una gettata di una pietra chiede l'essenziale e oggi l'essenziale è favorevole. Questo non toglie lavoro, lo semplifica: sai da che parte andare. Scrivi in una riga ciò che la pietra ti ha detto e rileggila stasera per vedere quanto ne hai messo in pratica.
+5. La pietra dritta parla con te come un alleato, non come un giudice. Ciò che ti indica coincide con una forza che hai già e che forse stai usando poco. Riconoscila, chiamala per nome dentro di te e mettila al lavoro per {cosa} da oggi.
+6. Nessuna ombra si mette fra te e il consiglio, perciò il dubbio che senti non viene dalla pietra. Viene dall'abitudine di aspettare un segnale più forte. Questo è il segnale: smetti di chiederne altri e muovi il primo passo verso ciò che la risposta ti ha indicato.
+7. La pietra è sola e guarda nella tua stessa direzione: ciò che desideri e ciò che ti consiglia non sono in conflitto. Puoi agire senza tradire ciò che senti né la risposta. Comincia dal gesto più piccolo e visibile, quello che domani mattina ti sembrerebbe ovvio.
+8. Una sola pietra in luce funziona come un attrezzo affilato: va impugnato, non ammirato. Il consiglio che hai ricevuto vale per le prossime ore più che per i prossimi mesi. Usalo su una faccenda precisa che oggi ti aspetta e lascia il resto alla prossima gettata.
+9. Il legame fra te e questa pietra è diretto: chiedi e lei risponde senza giri. Rispondi allo stesso modo. Se c'è una conversazione da fare, falla oggi con parole semplici; se c'è una decisione da prendere, prendila senza aspettare che qualcuno la prenda al posto tuo.
+10. Chi getta una pietra sola chiede una direzione e oggi la direzione è netta. Non trasformarla in un programma lungo e complicato: un passo concreto vale più di un piano perfetto. Decidi quale passo ti avvicina a ciò che hai chiesto e fallo prima di sera.
+11. La pietra cade dritta e mette luce sopra {cosa} senza lasciare angoli scuri. Ciò che vedi adesso è affidabile: non è un'illusione del momento favorevole. Fidati di questa chiarezza e prendi una decisione che rimandavi, anche piccola, finché la vista resta così limpida.
+12. Il consiglio di oggi non ha bisogno di essere difeso da nessuno: nessuna pietra lo contraddice. Puoi dirlo ad alta voce a una persona di fiducia e chiederle di ricordartelo fra qualche giorno. Detto a un'altra persona diventa un impegno e smette di essere solo un pensiero.
+13. In questa gettata la risposta e il tuo passo sono uniti da un filo corto e solido. Più lo allunghi rimandando, più si allenta. Stabilisci oggi un primo gesto e fissalo nel calendario: l'ora precisa conta quanto il gesto stesso, perché trasforma un'intenzione in un appuntamento.
+14. La pietra dritta non promette che tutto vada liscio, indica che il vento è favorevole adesso. I momenti così si usano, non si conservano. Metti mano oggi alla cosa che richiede più slancio e lascia per domani quelle che si fanno anche controvoglia.
+15. Una pietra sola e chiara chiede fiducia nel primo senso che hai colto. Il secondo e il terzo pensiero, oggi, tendono a complicare ciò che è semplice. Torna alla prima impressione che hai avuto leggendo la risposta e agisci da lì, senza rimuginare oltre.
+16. Con un consiglio così netto la domanda si sposta: non più che cosa fare, ma quanto spazio dargli nella giornata. Ritaglia un tempo preciso, anche breve, da dedicare solo a questo. Mezz'ora fatta con attenzione vale più di un giorno intero passato a pensarci.
+17. La luce della pietra cade sopra {cosa} e mostra il passo che viene subito dopo, non tutto il percorso. Accontentati di quel passo: il resto si chiarisce camminando. Chi pretende di vedere la strada intera prima di partire resta fermo anche col tempo buono.
+18. Fra la tua domanda e la pietra non c'è attrito: ciò che chiedi è nella misura giusta. Non ingrandire l'obiettivo per paura che sia troppo poco e non ridurlo per prudenza. Tienilo così com'è e lavora con costanza, un giorno dopo l'altro, senza cambiarlo a metà.
+19. La risposta arriva intera e favorevole, ma resta tua la mano che la mette in opera. Il consiglio si spreca se rimane un pensiero gradevole. Scegli un segno concreto per ricordartelo, un biglietto o una nota sul telefono: guardalo prima di ogni scelta di oggi.
+20. Una pietra dritta e senza compagne dice che le condizioni ci sono già. Non aspettare il permesso di qualcuno né un giorno più adatto. Ciò che serve per cominciare lo hai sotto mano: fai l'elenco di quello che possiedi già e parti da lì, oggi stesso.
+21. Il filo fra te e questa gettata passa per le cose piccole. La pietra non chiede imprese, chiede coerenza: fare oggi ciò che hai detto ieri, mantenere una promessa minima, chiudere una faccenda lasciata a metà. È da lì che il consiglio prende corpo nella giornata.
+22. La pietra parla chiaro, quindi anche tu puoi parlare chiaro. Se qualcosa dentro {cosa} attende una parola netta, questo è il momento di dirla con calma e senza scuse. La chiarezza della gettata ti copre le spalle mentre lo fai, anche davanti a chi esita.
+23. Il consiglio di oggi illumina il tratto che hai davanti, non tutta la strada: basta così. Concentrati su ciò che puoi fare entro domani e lascia andare le preoccupazioni sui mesi lontani: quelle chiedono un'altra domanda e un'altra gettata, in un altro giorno.
+24. Ciò che la pietra offre combacia con ciò che hai chiesto: la domanda era ben posta. Puoi costruire su questa risposta con tranquillità. Il primo mattone è una decisione semplice da prendere oggi; gli altri vengono da sé se la tieni ferma nei prossimi giorni.
+25. La gettata è breve e la risposta è forte, più di quanto lasci intendere la sua semplicità. Non sottovalutarla perché è arrivata facile. Le risposte facili sono quelle che si dimenticano prima: rileggila domattina e controlla se la stai ancora seguendo davvero.
+26. La pietra dritta chiama in causa una capacità che hai già allenato. Non devi impararne una nuova, devi usarla di nuovo. Pensa a una volta in cui hai affrontato qualcosa di simile con successo e ripeti quel modo di fare, adattandolo a ciò che vivi adesso.
+27. Ogni scelta fatta nello spirito della risposta rende il consiglio più chiaro. Il legame cresce con l'uso: ascoltato una volta resta fragile, messo in pratica tre volte diventa un'abitudine. Cerca oggi tre occasioni piccole per applicarlo, anche minime: non saltarne nessuna.
+28. Una pietra sola porta l'essenziale e l'essenziale si può tenere in tasca. Riduci la risposta a una parola o a una frase brevissima che la riassuma per te. Ripetila nei momenti di esitazione: serve a riportarti in carreggiata senza bisogno di rileggere tutto.
+29. La pietra conosce il passaggio e tu conosci il tuo passo: insieme bastano. Non cercare guide supplementari né pareri di chi non vive ciò che vivi. Per {cosa} la decisione spetta a te e la gettata ti dà ragione nel prenderla adesso.
+30. Oggi la pietra non mette alla prova, accompagna. Il ritmo lo scegli tu: puoi andare piano senza perdere il favore della gettata. Ciò che conta è non fermarti del tutto. Un passo lento ogni giorno porta più lontano di uno slancio che poi si spegne.
+31. Quello che ti spinge e quello che la pietra consiglia vanno nella stessa direzione. Quando forza e consiglio concordano conviene approfittarne subito. Metti oggi la tua energia nella cosa che più ti preme e non disperderla in compiti che possono attendere fino a domani.
+32. La risposta risuona con un'intuizione che avevi già avuto e forse avevi messo da parte. La pietra dritta le dà credito. Riprendi quell'intuizione, scrivila con parole tue e chiediti quale gesto concreto ne nasce: quel gesto è il consiglio di oggi.
+33. Poche parole, molta sostanza: così parla una gettata di una pietra in luce. Il legame con la tua giornata passa per l'attenzione alle cose ordinarie. Fai bene ciò che fai di solito, con la direzione della risposta in mente: il cambiamento comincia da lì.
+34. La pietra dritta regge come un ponte ben piantato, a patto di attraversarlo. Restare sulla riva a guardarlo non serve a nulla. Se per {cosa} c'è un passaggio che rimandi, attraversalo oggi, senza correre e senza voltarti a ogni passo.
+35. Ciò che ti serve sta in una mano sola: la pietra lo porge aperto, senza nascondere nulla. Non c'è un secondo senso da cercare. Prendi la risposta alla lettera e applicala alla lettera; le sfumature, oggi, rischiano solo di farti perdere tempo prezioso.
+36. Il terreno fra la pietra e il tuo cammino è sciolto: niente gelo, niente blocchi. Ogni passo lascia un segno chiaro. Approfittane per cominciare qualcosa che vuoi vedere crescere nel tempo, perché ciò che parte in un giorno così trova radici facili.
+37. La pietra e la tua giornata parlano la stessa lingua. Ogni volta che ti fermi a scegliere, ripensa alla risposta e chiediti se la scelta va nella sua direzione. Se va, procedi senza altri dubbi; se non va, cambia la scelta, non il consiglio.
+38. Il consiglio ti raggiunge esattamente dove sei, nel punto in cui hai posto la domanda. Non devi spostarti altrove per seguirlo né aspettare una situazione diversa. Le condizioni di adesso bastano: parti da quello che hai oggi davanti agli occhi.
+39. Una risposta favorevole è come pane appena sfornato: si gusta finché è fresca. Non rimandare a una settimana più tranquilla ciò che la pietra ti suggerisce. Fra qualche giorno il momento cambia; oggi è propizio e vale la pena di usarlo fino in fondo.
+40. Un filo solo, se tirato con pazienza, cuce un orlo intero. La pietra dritta lega la giornata a un'unica intenzione. Ripeti lo stesso gesto ogni giorno per una settimana, anche piccolo; alla fine guarda quanto ha cambiato ciò che hai chiesto.
+41. La porta è aperta e la pietra ti fa cenno dalla soglia. Fra il suo invito e il tuo passo resta solo la decisione di muoverti. Non cercare garanzie ulteriori: questa gettata è già la conferma che aspettavi. Entra con passo tranquillo.
+42. La pietra consiglia con la franchezza di chi ti vuole bene, senza comandare. Puoi accogliere il consiglio a modo tuo, adattandolo ai tuoi tempi, purché non lo svuoti. La misura giusta è questa: un passo vero, fatto con convinzione, entro la fine della settimana.
+43. Ciò che la pietra accende dentro di te è il vero legame con la gettata. Se leggendo la risposta hai sentito slancio, quello slancio è il consiglio. Mettilo subito in un gesto, prima che le incombenze ordinarie della giornata lo raffreddino e lo riducano a un ricordo.
+44. Il consiglio essenziale è arrivato fino a te senza deviare, come una freccia scoccata bene. Rispondi con un gesto altrettanto diretto: niente preamboli, niente giustificazioni. Se c'è da chiedere qualcosa, chiedilo; se c'è da proporre, proponi; se c'è da rinunciare, rinuncia senza trattare.
+45. Domanda e pietra si sono riconosciute subito: la gettata è limpida. Ciò che resta della giornata può partire da questa intesa. Prima di dormire, guarda indietro e nota in quale momento hai seguito la risposta e in quale invece l'hai dimenticata.
+46. La pietra lascia sul giorno un segno netto, come un sigillo nella cera. Non va cancellato con un ripensamento a metà strada. Se domani ti sembra troppo facile, ricorda che la facilità era il messaggio: la strada è aperta verso {cosa} e va percorsa.
+47. Il consiglio di oggi è leggero da portare ma facile da dimenticare. Lega la risposta a un oggetto che tocchi spesso, un anello o una chiave: ogni volta che lo senti in mano, chiediti se stai andando nella direzione che la pietra ha indicato.
+48. La pietra rotola dritta e si ferma ai tuoi piedi: raccoglierla significa accettarne l'aiuto. Accettare un aiuto, oggi, è il gesto stesso che la gettata chiede. Se qualcuno ti offre una mano dentro {cosa}, prendila senza orgoglio e ringrazia chi te la porge.
+49. Ciò che la pietra vede e ciò che tu speri non litigano: è una gettata di accordo. Puoi procedere senza tenere il freno tirato. Concediti di credere che la cosa possa andare bene e comportati di conseguenza, con calma e con decisione, già da stamattina.
+50. La pietra illumina la stanza in cui ti trovi, non quelle in fondo al corridoio. Comincia da ciò che hai sotto mano, oggi, in questa casa, con queste persone. Il resto si avvicina da sé quando il primo spazio è in ordine.
+51. Una pietra sola apre un dialogo a due voci: la sua ha parlato chiara, ora tocca alla tua. Rispondi con i fatti più che con le intenzioni. Entro tre giorni deve esserci almeno un gesto che chiunque potrebbe vedere e riconoscere.
+52. La strada è segnata come un sentiero ben tracciato nel bosco. Seguila un segno alla volta, senza correre e senza cercare scorciatoie. Per {cosa} la gettata non chiede audacia, chiede costanza: lo stesso impegno ogni giorno, finché il risultato si vede.
+53. La mano che ha gettato e la pietra caduta dritta lavorano dalla stessa parte. Smetti di frenare il consiglio con le solite obiezioni interiori. Quando senti nascere un «però», lascialo passare e fai comunque il passo che la risposta indica, senza discuterlo.
+54. Il passaggio fra te e la risposta è sgombro come un'aia appena spazzata. Tutto ciò che decidi di portarci dentro trova posto. Scegli con cura che cosa far entrare oggi: un impegno nuovo, una persona, un'idea; uno solo, da accogliere bene.
+55. La pietra si offre come una brace viva passata di mano in mano. Tienila accesa: un fuoco così si spegne se nessuno lo alimenta. Ogni giorno di questa settimana aggiungi qualcosa alla direzione indicata, anche solo dieci minuti di lavoro mirato.
+56. Fra la pietra e il tuo oggi c'è fiducia reciproca: lei parla senza velo, tu ascolti senza difese. Mantieni questo patto anche quando la giornata si complica. Una risposta favorevole va difesa dalla distrazione più che dagli ostacoli, perché è lì che si perde.
+57. Quando la pietra cade dritta il consiglio è vento a favore: alza la vela. Per {cosa} questo vuol dire esporsi un poco di più, proporre, chiedere, farsi avanti. Il vento non aspetta: la gettata indica che adesso soffia nella tua direzione.
+58. Nulla di storto in questo getto: la pietra guarda avanti e ti chiede di guardare con lei. Smetti di voltarti verso ciò che non è andato. Per i prossimi giorni tieni gli occhi su ciò che puoi costruire e misura ogni scelta su quella direzione.
+59.
+60.
+61.
+62.
 
 ## odino, ombra
-1. La pietra esce in ombra e tende lo stesso un filo verso di te: è una soglia da passare insieme, con passo lento e attento.
-2. Fra te e il consiglio di oggi c'è un nodo. Non è un muro: è una corda da sciogliere con le dita, un giro alla volta.
-3. La pietra rovesciata non ti volta le spalle, ti mostra il rovescio della trama. Anche lì si legge il disegno, se guardi con calma.
-4. Il legame passa per una zona di nebbia. Chi cammina piano e tiene il filo in mano arriva comunque dall'altra parte.
-5. Questa pietra in ombra somiglia a un ramo che sbarra il sentiero: si scosta, non si combatte. La tua giornata ha spazio per farlo.
-6. C'è attrito fra la pietra e la domanda, come fra il legno e la lama che lo pialla. Dall'attrito nasce una superficie liscia.
-7. La pietra chiede un passo indietro prima di quello avanti. Il filo con la tua giornata si allenta un momento per poi tendersi meglio.
-8. Il consiglio essenziale arriva capovolto, come un riflesso nell'acqua del pozzo. Rovescialo con pazienza e ritrova la sua forma dritta.
-9. Fra te e la pietra il ghiaccio non si è ancora sciolto. Basta il calore di un'attenzione costante perché il passaggio si apra.
-10. La pietra in ombra mette un sasso nella scarpa, non un macigno sulla strada. Fermati, toglilo, poi riprendi il cammino.
-11. Il legame di oggi è una soglia stretta: si passa di fianco, lasciando giù qualcosa di superfluo. Dall'altra parte c'è più aria.
-12. Anche rovesciata la pietra resta tua. Ciò che indica al contrario è la parte di giornata che chiede più cura, non più paura.
-13. Il filo passa sotto una porta socchiusa. Puoi spingerla piano: dietro c'è una stanza che conosci meno di quanto credi.
-14. La pietra esce girata e mostra il lato ruvido. È quello che fa presa: appoggiati lì e trova un punto fermo.
-15. Questa gettata ti lega a un blocco da sciogliere. Il blocco non è una condanna, è un invito a cambiare il modo di toccare le cose.
-16. Fra la pietra e la tua giornata soffia vento contrario. Chi lo conosce stringe il mantello e avanza a zig zag, senza fermarsi.
-17. Il fuoco è coperto di cenere ma sotto la brace è viva. Il filo fra te e la pietra passa proprio da lì: soffia piano e ravviva.
-18. La pietra in ombra non chiude la via, ne mostra la curva. Rallenta all'angolo e il resto della strada si apre.
-19. Il legame è teso come una corda bagnata: pesa di più ma tiene. Tirala con costanza e ciò che è legato in fondo si avvicina.
-20. C'è un'esitazione fra la mano e la pietra: la stessa che senti tu davanti alla domanda. Guardarla in faccia è già scioglierla un poco.
-21. La pietra rovesciata domanda che cosa stai trattenendo. Il filo si libera nel momento in cui apri la mano.
-22. Ogni pietra in ombra porta con sé una soglia. Questa si trova dentro la tua giornata, nel punto che ti costa avvicinare: lì sta il passo.
-23. Il metallo va rimesso sul fuoco e battuto ancora. Fra te e il consiglio c'è una forgia accesa: il colpo giusto raddrizza.
-24. Nel getto c'è un intoppo, non un divieto. Fra la pietra e chi la getta resta un margine di scelta largo quanto la tua volontà.
-25. Il legame passa per un guado più profondo del previsto. Cerca i sassi piatti sotto l'acqua: ci sono, uno dopo l'altro.
-26. Quel che la pietra ti mostra in ombra è ciò che va guardato prima di andare avanti. Guardarlo oggi alleggerisce il cammino.
-27. La pietra cade girata come una chiave infilata al contrario. Voltala nella mano: la serratura è la stessa e attende.
-28. Nella tua giornata si è formato un groviglio di fili. Cercane il capo, uno solo: il resto si scioglie seguendolo.
-29. Questa è una gettata che rallenta. La pietra ti trattiene un istante sulla soglia perché tu possa scegliere a occhi aperti.
-30. Anche il legno storto scalda il focolare. La pietra in ombra ti ricorda che ciò che sembra fuori posto serve ancora.
-31. Il filo che ti lega alla pietra è annodato stretto attorno a una vecchia abitudine. Allentala e il consiglio torna a scorrere.
-32. La nebbia sta fra te e la pietra, ma la pietra non si è mossa. Aspetta che il vento la sposti o avanza tastando il terreno.
-33. È un incontro di sguardi in penombra: la pietra non nasconde, chiede di avvicinarti per vedere. Fai quel passo.
-34. La soglia di oggi ha il gradino alto. Solleva bene il piede e passa: dall'altra parte la giornata cambia colore.
-35. Rovesciata, la pietra indica dove spingere meno e dove insistere di più. Il legame è un'indicazione, non un peso.
-36. Fra la domanda e la risposta c'è una salita. Chi la affronta con fiato corto ma passo regolare arriva in cima con lo sguardo largo.
-37. Il consiglio è chiuso in un guscio duro. Romperlo richiede un colpo deciso e una buona dose di pazienza: il frutto c'è e nutre.
-38. Tu e la pietra rovesciata condividete lo stesso nodo. Scioglierlo insieme oggi è il modo più gentile di cominciare.
+1. Una pietra sola in ombra non chiude la strada: segnala un blocco preciso da sciogliere prima di andare avanti. Non forzare e non rinunciare. Fermati un giorno, individua il punto che si inceppa e lavora soltanto su quello finché non si allenta.
+2. Il consiglio arriva rovesciato e mostra il lato nascosto della domanda. Ciò che oggi resiste è proprio ciò che va guardato. Scrivi su un foglio che cosa stai evitando in questa faccenda: la risposta della pietra parte da quella riga e non da altrove.
+3. La pietra in ombra chiede un passo indietro prima di quello avanti. Non è una sconfitta, è una correzione di rotta. Rivedi il modo in cui ti stai muovendo verso {cosa}: il traguardo può restare lo stesso, è il metodo che va cambiato.
+4. Con una pietra sola e capovolta il messaggio è uno: non adesso, non così. Lascia passare qualche giorno prima di decidere e usa quel tempo per raccogliere ciò che ti manca. La scelta resta tua, ma va fatta con più elementi in mano.
+5. La pietra rovesciata somiglia a un ramo di traverso sul sentiero: si scosta, non si combatte. Se ti accorgi di spingere contro qualcosa che non cede, smetti di spingere. Cerca il punto in cui il ramo si sposta con meno fatica e passa da lì.
+6. Il filo fra te e la risposta è annodato. Il nodo non si taglia: si scioglie un giro alla volta, con le dita. Per i prossimi giorni rinuncia alle soluzioni brusche e preferisci i piccoli aggiustamenti, ripetuti con pazienza, anche quando sembrano troppo lenti.
+7. Questa gettata rallenta. La pietra in ombra ti trattiene sulla soglia perché tu scelga a occhi aperti, non per impedirti di passare. Prima di muoverti, fai la domanda che hai evitato di farti e rispondi con sincerità, anche se la risposta non piace.
+8. Anche capovolta la pietra resta dalla tua parte. Indica la zona della giornata che chiede più cura, non più paura. Dedica oggi attenzione alla parte di questa faccenda che trascuri da tempo: è lì che il blocco si è formato ed è lì che si scioglie.
+9. La pietra cade girata come una chiave infilata al contrario. La serratura è la stessa e attende ancora. Non cambiare porta: cambia il modo di girare la chiave, cioè l'approccio, il tono, il momento in cui ti presenti a chi devi incontrare.
+10. Il blocco segnalato non è un macigno, è un sasso nella scarpa. Fermati, toglilo, riprendi il cammino. Rimandare la sosta lo rende più fastidioso a ogni passo. Nomina oggi il piccolo fastidio che stai sopportando e risolvilo prima che cresca.
+11. C'è attrito fra la pietra e la domanda, come fra la lama e il legno che pialla. L'attrito qui lavora per te: leviga. Accetta che la cosa vada più piano del previsto e usa la lentezza per rifinire ciò che avevi fatto di fretta.
+12. Una sola pietra in ombra indica una soglia stretta: si passa solo lasciando giù qualcosa. Chiediti che cosa porti con te che non serve più, un'abitudine, una pretesa, un rancore. Posalo oggi e il passaggio si allarga abbastanza per farti passare.
+13. Il consiglio arriva capovolto, come un riflesso nell'acqua del pozzo. Rovescialo: ciò che la pietra mostra al contrario indica, raddrizzato, la strada buona. Se la risposta ti mette in guardia da un eccesso, la via passa per la sua misura giusta.
+14. La pietra in ombra mostra il lato ruvido, quello che fa presa. Non scivolare via dalla difficoltà: appoggiati lì e fai forza. Per {cosa} il punto fermo che cerchi sta proprio nella parte scomoda che finora hai girato al largo per paura.
+15. Questa gettata lega la domanda a un blocco da sciogliere, non a una condanna. Il blocco chiede di cambiare il modo di toccare le cose: meno controllo e più ascolto, oppure meno attesa e più iniziativa. Scegli quale dei due ti manca e comincia oggi.
+16. Fra la pietra e la tua giornata soffia vento contrario. Non ti chiede di fermarti, ti chiede di avanzare di bolina, con piccoli cambi di direzione. Se la via dritta non passa, prova quella laterale: un'altra persona, un altro momento, un'altra forma.
+17. Sotto la cenere la brace è viva. La pietra rovesciata non spegne ciò che hai chiesto, lo copre per un tempo. Non buttare via il progetto o il legame: rianimalo piano, con un gesto alla volta; fra una settimana controlla se la fiamma risale.
+18. La pietra in ombra non chiude la via, ne mostra la curva. Rallenta all'angolo. Ciò che fino a ieri funzionava andando dritto oggi chiede di girare: accetta il cambio di direzione invece di insistere sulla vecchia traiettoria che ormai non porta lontano.
+19. La corda fra te e la risposta è bagnata: pesa di più, ma tiene. Non mollare la presa e non strattonare. Una trazione costante e moderata, giorno dopo giorno, avvicina ciò che è legato all'altro capo più di qualunque sforzo improvviso.
+20. L'esitazione che senti davanti alla domanda è la stessa che la pietra rivela. Guardarla in faccia è già scioglierla un poco. Scrivi le paure che senti verso {cosa} e accanto a ogni paura annota il gesto minimo che serve per ridurla.
+21. La pietra capovolta chiede che cosa stai trattenendo. Il filo si libera quando apri la mano. Lascia andare una pretesa, oggi: sul tempo, sul modo, sulla risposta degli altri. Ciò che resta dopo è più leggero da portare avanti nei giorni che seguono.
+22. Ogni pietra in ombra porta una soglia: questa sta nel punto che ti costa avvicinare. Avvicinalo oggi, anche solo con una telefonata, un messaggio, una domanda. Il primo contatto con ciò che si evita toglie metà del suo peso e mostra la sua misura vera.
+23. Il metallo torna sul fuoco per essere battuto ancora. La risposta in ombra dice che la cosa non è finita: va ripresa e rifatta meglio. Non vederlo come un fallimento. Rimetti mano al lavoro con la calma di chi sa che il secondo colpo raddrizza.
+24. Nel getto c'è un intoppo, non un divieto. Fra la pietra e la tua mano resta un margine di scelta largo quanto la tua volontà. Decidi tu se attraversare l'intoppo adesso o aggirarlo; l'importante è decidere, non restare a guardarlo.
+25. Il guado è più profondo del previsto, ma i sassi piatti ci sono. Per {cosa} questo significa procedere per tappe brevi e verificabili. Spezza l'obiettivo in tre passi piccoli e controlla bene ognuno prima di mettere il piede sul successivo, senza saltarne.
+26. Ciò che la pietra mostra in ombra va guardato prima di andare avanti. Guardarlo oggi alleggerisce il cammino di domani. Trova un momento tranquillo, senza telefono: chiediti con onestà dove la cosa si è incrinata: la risposta ti è più vicina di quanto credi.
+27. La nebbia sta fra te e la pietra, ma la pietra non si è mossa. Il consiglio è ancora lì, solo meno visibile. Se non vedi chiaro, non decidere oggi: avanza tastando il terreno, con passi piccoli e reversibili, finché la vista torna.
+28. Nella giornata si è formato un groviglio di fili. Non provare a scioglierli tutti insieme. Cercane il capo, uno solo: la questione da cui gli altri dipendono. Segui quello e il resto si allenta mentre procedi, senza bisogno di tirare.
+29. Anche il legno storto scalda il focolare. La pietra in ombra ricorda che ciò che ti sembra fuori posto può ancora servire. Prima di scartare una situazione, una persona o un'idea che riguarda {cosa}, chiediti a che cosa può essere utile così com'è.
+30. Il filo che ti lega alla risposta è stretto attorno a una vecchia abitudine. Finché quell'abitudine resta, il consiglio non scorre. Individua il gesto ripetuto che ti blocca e per una settimana sostituiscilo con un altro, anche piccolo, scelto con cura.
+31. È un incontro in penombra: la pietra non nasconde, chiede di avvicinarti per vedere. Da lontano tutto sembra più pesante di com'è. Avvicinati alla questione con domande concrete, fatti, date: da vicino le dimensioni tornano vere e si possono affrontare.
+32. La soglia di oggi ha il gradino alto. Solleva bene il piede: serve più impegno del solito, non più fortuna. Mettici la cura che metteresti in una cosa importante, perché lo è: dall'altra parte del gradino la situazione cambia aspetto e diventa più semplice.
+33. La pietra rovesciata non ti volta le spalle, ti mostra il rovescio della trama. Anche il rovescio si legge, se guardi con calma. Prova a vedere {cosa} dal punto di vista di chi sta dall'altra parte: spesso il nodo si capisce da lì.
+34. Una pietra in ombra non ti toglie la scelta, te la rende più seria. Puoi andare avanti, aspettare o cambiare strada: tutte e tre le vie restano aperte. Quella da evitare è la quarta, fingere che il blocco non ci sia e tirare dritto.
+35.
+36.
+37.
+38.
 
 ## norne, luce
-1. Ciò che hai vissuto ha preparato il terreno; l'oggi lo lavora con mani salde. Quello che si apre davanti nasce da radici buone.
-2. Il filo corre dritto dalla prima pietra all'ultima: quanto hai imparato ieri sostiene il passo di oggi e illumina quello di domani.
-3. Tre pietre in luce cuciono un solo tessuto: il passato non pesa, il presente accoglie, l'orizzonte si allarga senza strappi.
-4. Ogni passo fatto finora diventa appoggio: quello che vivi adesso è la conseguenza calda di scelte giuste che hanno già messo radici.
-5. Dalla soglia che hai varcato al sentiero che percorri si snoda una linea limpida; davanti c'è spazio per camminare a passo pieno.
-6. La memoria qui è un fuoco che scalda, non una catena: ti accompagna nel presente e rischiara la strada che comincia.
-7. Il legno stagionato di ieri regge la casa di oggi; sopra quelle travi si può costruire ancora, con fiducia.
-8. Nulla si spezza fra un tempo e l'altro: ciò che hai seminato germoglia ora e chiede soltanto cura per crescere ancora.
-9. Tre tempi si danno la mano: il passato insegna, il presente lavora, il domani ti accoglie a mani aperte.
-10. Come un nodo ben stretto che tiene la vela, il passato trattiene ciò che vale e lascia correre il resto verso acque aperte.
-11. La strada percorsa non ti chiede di voltarti: ti spinge con gentilezza, mentre l'oggi offre il passo e il domani apre il varco.
-12. Dal ghiaccio sciolto di un tempo all'acqua viva di adesso, la corrente porta dove il terreno è pronto ad accoglierti.
-13. Quel che hai costruito con pazienza non va perduto: diventa la pietra su cui posare il piede oggi e quello dopo.
-14. Il metallo battuto nel passato ha preso forma; ora lo stringi in mano e il suo filo taglia netto verso ciò che desideri.
-15. Un'unica luce attraversa le tre pietre: le lezioni di ieri sono diventate forza, la forza di oggi diventa apertura.
-16. Il cammino ha una sua coerenza: ciò che si è chiuso bene lascia libere le mani, il presente le riempie, il domani le invita.
-17. Le radici bevono da un'acqua buona, il tronco cresce dritto, i rami si allungano verso spazi nuovi: la stagione è dalla tua parte.
-18. Ciò che ti ha formato non ti trattiene più; ti consegna strumenti che il presente sa già usare.
-19. C'è continuità in questa gettata: ogni tempo passa il testimone al successivo senza lasciarlo cadere.
-20. Il vento che soffiava alle tue spalle soffia ancora; oggi gonfia la vela e domani indica il porto con chiarezza.
-21. Hai già attraversato la parte più dura del sentiero: adesso il passo si fa fermo e la valle davanti si apre ampia.
-22. La nebbia del passato si è diradata; quel che resta è un paesaggio leggibile dove ogni scelta trova il suo posto.
-23. Ogni tempo qui parla la stessa lingua: quello che hai dato torna, quello che dai ora fruttifica, quello che si apre ha mani tese.
-24. Come in una casa abitata da generazioni, ogni stanza ricorda qualcosa e ogni finestra guarda avanti: abiti un luogo che ti sostiene.
-25. Dietro c'è un fuoco acceso con cura, davanti c'è legna asciutta: il presente è la mano che porta la legna verso la fiamma.
-26. Le scelte fatte con onestà tornano come alleate; chi hai incontrato lungo la via resta vicino mentre la strada si allarga.
-27. Il tessuto è compatto, senza nodi da sciogliere: puoi tirare il filo con fiducia e vedere dove ti conduce.
-28. La lezione è stata appresa e porta frutto: oggi agisci con più calma e il domani ti viene incontro con mitezza.
-29. Quello che hai lasciato andare ha fatto spazio; in quello spazio ora cresce qualcosa di tuo che chiede solo tempo e attenzione.
-30. Il primo passo, quello lontano, era giusto; il secondo lo conferma, il terzo trova il terreno già battuto.
-31. Tre pietre chiare in fila come sassi di guado: ognuna regge il peso e porta all'altra riva senza bagnarti i piedi.
-32. Il passato ha fatto la sua parte con generosità: adesso tocca a te raccogliere ciò che è maturo e seminare ancora.
-33. Non c'è attrito fra ieri e oggi: quello che sai fare nasce da quello che hai vissuto e apre porte che prima restavano chiuse.
-34. La mano che ha intrecciato il passato è la stessa che oggi tiene il filo: c'è coerenza nel tuo cammino e merita fiducia.
-35. Una corrente calda lega i tre tempi: gli affetti di ieri, le energie di oggi, le possibilità che si aprono si nutrono a vicenda.
-36. Ciò che è maturato in silenzio si mostra adesso alla luce; il momento chiede di accoglierlo e di lasciarlo crescere.
-37. Il ponte regge: le travi poste allora sono solide, il passaggio di oggi è sereno, l'altra sponda si vede bene.
-38. Dalla brace al fuoco al calore che si diffonde nella stanza: il tuo percorso cresce per gradi e ogni grado è guadagnato.
-39. Ogni incontro di ieri ha lasciato un dono; oggi quei doni si sommano e offrono una base generosa per ciò che si apre.
+1. Le tre pietre stanno tutte dritte: ciò che hai vissuto, ciò che vivi e ciò che si apre vanno nella stessa direzione. Non c'è un tempo che contraddice l'altro. Puoi fidarti dell'esperienza accumulata e usarla come base per il prossimo passo, senza ricominciare da capo.
+2. Con {gettata} tutte in luce il passato non pesa, sostiene. Ciò che hai imparato finora è lo strumento giusto per oggi. Prima di cercare soluzioni nuove, ripensa a come hai risolto una situazione simile e riprendi quel metodo, perché qui funziona ancora.
+3. Il filo corre dritto dalla prima pietra all'ultima. Quello che hai seminato sta dando frutto ora e il frutto prepara il raccolto successivo. Non cambiare ciò che funziona: continua sulla stessa linea e aggiungi soltanto quello che manca per il passo seguente.
+4. Tre tempi in accordo dicono che la strada è coerente. Le scelte che ti hanno portato fin qui erano buone; quelle che fai adesso le confermano. Il tuo compito, oggi, è non dubitare del percorso per il solo fatto che sta andando bene.
+5. Le radici sono buone, il tronco cresce dritto, i rami cercano luce. Questa gettata parla di una crescita che non va forzata né frenata. Cura {cosa} con regolarità e lascia che il tempo faccia la sua parte senza scavare per controllare le radici.
+6. Il passato ha preparato il terreno, il presente lo lavora, ciò che si apre lo raccoglie. La pietra di mezzo conta più delle altre: ciò che fai in questi giorni decide quanto rende ciò che è già stato seminato. Dedica oggi il tuo tempo migliore a questo.
+7. Nessuno dei tre tempi chiede di voltarti indietro. La memoria qui scalda, non trattiene. Puoi ricordare con gratitudine ciò che è stato e insieme guardare avanti senza nostalgia. Il passo giusto adesso è uno che non avresti saputo fare prima.
+8. Le travi di ieri reggono la casa di oggi. Su quelle travi puoi costruire ancora con fiducia: un piano nuovo, un impegno più grande, una responsabilità che prima evitavi. La struttura regge; non ti serve rifare le fondamenta prima di salire.
+9. Fra i tre tempi non c'è nessuna frattura. Ciò che hai seminato germoglia ora e chiede soltanto cura. Il rischio, in una gettata così favorevole, è distrarsi: tieni l'attenzione su ciò che sta crescendo invece di aprire nuovi fronti che la disperdono.
+10. Le tre pietre si passano il testimone senza lasciarlo cadere. Ciò che hai ricevuto da chi ti ha preceduto, una lezione, un esempio, un aiuto, è ancora utile. Riconoscilo e, se puoi, ringrazia: dire grazie a chi ti ha formato rafforza il filo.
+11. Il vento che ti spingeva fin qui continua a soffiare. Oggi gonfia la vela, domani mostra il porto. Non ammainare per prudenza proprio adesso che la rotta è chiara: mantieni l'andatura e correggi solo i piccoli scarti di rotta, senza cambiare destinazione.
+12. Le tre pietre in luce indicano che la parte più dura del sentiero è alle spalle. Non serve più lo sforzo di prima; serve continuità. Abbassa la tensione e mantieni il passo: chi ha superato la salita rischia solo di inciampare per stanchezza.
+13. Con {gettata} così limpide ogni scelta trova il suo posto nel paesaggio. Puoi vedere il punto raggiunto e quello verso cui vuoi andare. Prenditi dieci minuti per scrivere i due punti, partenza e meta, poi il passo che li collega questa settimana.
+14. Quello che hai dato torna, quello che dai ora fruttifica, quello che si apre ha mani tese. La gettata parla di reciprocità. Per {cosa} questo vuol dire continuare a dare con generosità, senza contare, perché lo scambio qui è in equilibrio.
+15. Dietro c'è un fuoco acceso con cura, davanti c'è legna asciutta. Il presente è la mano che porta la legna alla fiamma. Non lasciare che il fuoco si abbassi per mancanza di gesti semplici: alimenta ogni giorno ciò che funziona, anche quando sembra superfluo.
+16. Le persone incontrate lungo la via restano vicine mentre la strada si allarga. Questa gettata favorisce i legami già costruiti. Se c'è qualcuno con cui condividere un passo o a cui chiedere un consiglio, rivolgiti a quella persona: il sostegno è a portata di mano.
+17. Il tessuto è compatto, senza nodi. Puoi tirare il filo con fiducia e vedere dove porta. Non cercare un problema nascosto solo perché tutto sembra in ordine: a volte la trama è semplicemente buona e va lasciata scorrere senza sospetti.
+18. La lezione è stata appresa e porta frutto. Oggi puoi agire con più calma di un tempo, perché sai cose che allora non sapevi. Fidati di questa calma: non è distrazione, è esperienza. Muoviti con passo misurato, senza la fretta di chi deve ancora dimostrare.
+19. Ciò che hai lasciato andare ha fatto spazio. In quello spazio sta crescendo qualcosa di tuo. Non riempirlo con impegni nuovi per paura del vuoto: proteggi ciò che nasce, dagli tempo e attenzione e lascia che prenda la sua forma.
+20. Il primo passo, quello lontano, era giusto; il secondo lo conferma; il terzo trova il terreno già battuto. Le tre pietre ti chiedono di proseguire senza ripensamenti. Se hai un dubbio, guarda quanta strada hai già fatto nella stessa direzione.
+21. Le tre pietre sono come sassi di guado ben piantati: reggono il peso e portano all'altra riva. Non fermarti a metà fiume per controllare se tengono, perché hanno tenuto finora. Attraversa con passo regolare fino alla fine di ciò che hai cominciato.
+22. Il passato ha fatto la sua parte con generosità. Adesso tocca a te raccogliere ciò che è maturo e seminare di nuovo. Fai le due cose insieme dentro {cosa}: chiudi una faccenda che ha già dato il suo frutto e avviane una nuova.
+23. Fra ieri e oggi non c'è attrito: ciò che sai fare nasce da ciò che hai vissuto. È il momento di usare le tue capacità più mature, quelle conquistate con fatica. Mettile a disposizione senza modestia eccessiva, perché adesso servono a te e agli altri.
+24. La mano che ha intrecciato il passato è la stessa che oggi tiene il filo. Il cammino ha una coerenza che merita fiducia. Quando qualcuno ti chiede perché fai ciò che fai, puoi rispondere con la tua storia: è la tua ragione migliore.
+25. Una corrente calda lega i tre tempi: gli affetti di ieri, le energie di oggi e le possibilità che si aprono si nutrono a vicenda. Per {cosa} questo vuol dire coltivare insieme memoria e progetto, senza sacrificare mai l'uno all'altro, nemmeno per fretta.
+26. Ogni pietra di questa gettata è un appoggio. Quando ti manca il coraggio, ricorda che non parti da zero: hai alle spalle esperienza, accanto a te risorse, davanti un margine ampio. Scegli il passo più ambizioso fra quelli realistici e fallo oggi.
+27. Le tre pietre in luce dicono che il momento è maturo per {cosa}. Non è un inizio improvviso: è il punto d'arrivo di un lavoro lungo. Riconosci la fatica che ti ha portato qui e permettiti di raccoglierne i frutti senza sensi di colpa.
+28. La gettata non mostra fratture fra chi eri e chi stai diventando. Puoi cambiare senza rinnegare nulla. Se qualcosa di nuovo ti attira, seguilo con serenità: nasce dalla stessa radice di ciò che hai già costruito e non la tradisce.
+29. Tre pietre dritte chiedono gratitudine e audacia insieme. Gratitudine per ciò che ti ha portato fin qui, audacia per ciò che si apre. Prima di sera, nomina una cosa del passato che ti ha aiutato e una cosa nuova che vuoi tentare.
+30. La continuità è la forza delle pietre quando nessuna è in ombra. Non servono svolte né rivoluzioni: serve fare un po' meglio ciò che già fai bene. Scegli una sola abitudine buona e rafforzala nei prossimi giorni con attenzione costante.
+31. Le pietre raccontano un percorso che si regge da sé. Non hai bisogno di convincere nessuno della bontà della tua strada: i fatti parlano. Smetti di giustificarti con chi dubita e usa quell'energia per avanzare di un altro tratto, oggi stesso.
+32. Ciò che fu, ciò che è, ciò che si apre: tre tempi senza ombra. Questo significa che la tua domanda nasce su un terreno sano. Puoi porti obiettivi più ampi del solito senza perdere l'equilibrio, purché tu li raggiunga per gradi.
+33. Il legame fra le tre pietre è quello di una casa abitata da generazioni: ogni stanza ricorda e ogni finestra guarda avanti. Abita {cosa} come una casa tua: cura ciò che c'è, apri dove serve luce, non abbattere muri che reggono.
+34. In questa gettata il presente è il ponte robusto fra due rive buone. Attraversalo senza esitare. Se una decisione aspetta da tempo, oggi le condizioni sono favorevoli a prenderla: hai le informazioni, hai la forza, hai la memoria di come si fa.
+35. Le tre pietre in luce invitano a condividere. Ciò che stai vivendo di buono cresce se lo racconti e lo metti in comune. Coinvolgi una persona vicina nel passo che vuoi fare: il sostegno di qualcuno rende più solida una strada già buona.
+36.
+37.
+38.
+39.
 
 ## norne, misto
-1. Ciò che hai vissuto scorre ancora, ma un punto resiste: il presente è il luogo dove sciogliere quel nodo prima di avanzare.
-2. Il filo è buono ma ha un nodo a metà: con pazienza lo puoi allentare senza spezzare ciò che regge il resto.
-3. Una pietra chiede attenzione mentre le altre aprono la via: non tutto è da cambiare, solo il punto dove il passo inciampa.
-4. Il passato ti consegna insieme un dono e un peso; scegliere che cosa portare avanti è il lavoro di questi giorni.
-5. Fra luce e ombra il cammino resta percorribile: qualcosa ti spinge, qualcosa ti trattiene, la direzione la decide la tua mano.
-6. Le pietre parlano con due voci: una incoraggia, l'altra mette in guardia; ascoltarle entrambe rende il passo più saggio.
-7. Il ghiaccio di ieri si sta sciogliendo solo in parte: dove l'acqua scorre puoi avanzare, dove resiste conviene aspettare.
-8. C'è un legame fra ciò che ti ha frenato e ciò che oggi ti muove: capire il primo libera il secondo.
-9. Una parte della strada è in piena luce, un tratto è coperto di nebbia: cammina dove vedi e lascia che il resto si diradi.
-10. Il presente fa da ponte fra una memoria che pesa e un domani che invita: attraversarlo con calma basta a cambiare il peso.
-11. Non tutto il passato va trattenuto, non tutto va gettato: separa con cura ciò che nutre da ciò che appesantisce.
-12. Il fuoco arde, ma il legno è in parte umido: serve qualche giorno di vento perché la fiamma prenda tutto.
-13. Dove una pietra si rovescia, un'altra tiene la via aperta: il blocco esiste, però non chiude il passaggio.
-14. La trama ha fili lucenti e fili scuri; insieme fanno un disegno che ha senso solo guardandolo per intero.
-15. Qualcosa da ieri chiede ancora una risposta: dargliela oggi rende più leggero il passo verso ciò che si apre.
-16. Il tempo trascorso ha lasciato una soglia da attraversare; il tempo che si apre la rende meno ripida di quanto sembri.
-17. Luce e ombra si intrecciano come radici dello stesso albero: entrambe nutrono, entrambe chiedono di essere viste.
-18. Ciò che resiste in questa gettata non è un muro ma una porta socchiusa: basta una spinta paziente al momento giusto.
-19. Un vecchio nodo stringe ancora il presente, eppure la corda è salda: scioglierlo è possibile con dita lente.
-20. Dal passato arriva una forza utile insieme a un'abitudine che frena; tieni la prima, lascia andare la seconda.
-21. Il sentiero sale e poi scende: c'è una fatica da attraversare e oltre il valico una valle che accoglie.
-22. Il metallo è buono ma ha ancora qualche impurità: un altro giro di fuoco e di martello lo rende limpido.
-23. Nel mezzo del filo qualcosa si è attorcigliato: ciò che viene prima e ciò che viene dopo restano integri, il lavoro è tutto nel presente.
-24. Una porta si chiude mentre un'altra si apre: il passaggio fra le due è il momento più delicato, non il più difficile.
-25. Le radici sono forti ma il terreno di oggi è duro; serve acqua e attesa perché la crescita riprenda.
-26. Una parte di te corre avanti, un'altra guarda indietro: il cammino si fa chiaro quando le due trovano lo stesso passo.
-27. L'ombra in questa gettata segna dove fermarsi a riflettere, la luce dove osare: tenere insieme i due gesti è la vera saggezza.
-28. Come un torrente fra i sassi, il cammino gira attorno agli ostacoli senza fermarsi: lascia che l'acqua trovi il suo varco.
-29. Quello che hai costruito regge, una trave però scricchiola: rinforzarla adesso evita fatiche più grandi più avanti.
-30. La memoria porta calore e un filo di malinconia; il presente sa trasformarla in una spinta gentile verso ciò che si apre.
-31. Il vento cambia direzione a metà del viaggio: non è un errore di rotta, è l'invito a correggere la vela.
-32. Due forze tirano il filo in direzioni diverse; nessuna lo spezza: è proprio la tensione a tenerlo dritto.
-33. Un inverno lungo è alle spalle, il disgelo è iniziato solo a metà: qualche giorno di pazienza completa l'opera.
-34. Il cammino conosce già le tue salite; quella che hai davanti è più breve di quanto la stanchezza faccia credere.
-35. Qualcosa scorre libero, qualcosa resta incagliato: guarda bene dove si ferma la corrente, lì c'è il gesto da compiere oggi.
-36. La soglia è in ombra ma la stanza oltre è illuminata: attraversarla chiede coraggio, non fretta.
-37. Le lezioni del passato non sono tutte dolci, però ognuna ha lasciato uno strumento: il presente sa quale usare.
-38. Una mano trattiene, l'altra lascia andare: la gettata chiede di distinguere bene quale gesto serve a ciascuna cosa.
-39. Il bastone che ti accompagna ha un nodo proprio a metà: è lì che la mano trova la presa più ferma.
-40. Fra la pietra chiara e quella scura corre lo stesso filo: ciò che ti ha messo alla prova e ciò che ti fa crescere parlano la stessa lingua.
-41. Il presente è un guado: alle spalle una riva conosciuta, davanti una riva nuova, sotto i piedi sassi che a volte scivolano.
-42. Una stagione si chiude con qualche parola in sospeso, un'altra si apre con promesse vere: chiudere bene la prima rende piena la seconda.
-43. La strada è aperta ma non spianata: qualche pietra da spostare, qualche tratto da percorrere piano, poi il passo si allunga.
-44. Nella stessa gettata convivono un invito e un avvertimento: l'invito indica il traguardo, l'avvertimento il modo di arrivarci.
-45. Il passato ha lasciato una crepa e una radice: la crepa chiede cura, la radice regge tutto il resto.
-46. Ciò che è rimasto in sospeso non blocca il cammino, lo rallenta: dargli un nome è già metà del lavoro.
-47. La nebbia si alza a tratti: nei momenti chiari fissa la direzione, in quelli velati procedi con i passi già scelti.
-48. Un fuoco ben acceso e un angolo ancora freddo nella stessa casa: porta un tizzone dove serve calore.
-49. Il tempo intreccia gioie e intoppi senza dividerli: il cammino buono li tiene entrambi in mano e prosegue.
-50. Dalla prima all'ultima pietra il filo regge, anche dove si assottiglia: un po' di cura in quel punto e la tela resta intera.
-51. Ci sono passi che riescono subito e passi che chiedono un secondo tentativo: entrambi appartengono alla stessa strada.
+1. Delle tre pietre una sola è in ombra: il nodo sta in un tempo preciso, non in tutto il percorso. Guarda quale tempo ti indica la gettata, passato, presente o ciò che si apre: concentra lì il lavoro. Gli altri due reggono.
+2. Il filo è buono ma ha un nodo in un punto. Con pazienza lo puoi allentare senza spezzare ciò che regge il resto. Non buttare via tutto per un solo punto difficile: separa la parte che funziona da quella che chiede cura e lavora solo su quest'ultima.
+3. Una pietra chiede attenzione mentre le altre aprono la via. Non tutto va cambiato: solo il punto in cui il passo inciampa. Per {cosa} questo vuol dire correggere un dettaglio, non rifare il progetto intero. Trova il dettaglio entro domani.
+4. Il passato consegna insieme un dono e un peso. Scegliere che cosa portare avanti è il lavoro di questi giorni. Fai due colonne su un foglio: ciò che ti sostiene e ciò che ti rallenta. Tieni la prima, cerca di alleggerire la seconda.
+5. Fra luce e ombra il cammino resta percorribile. Qualcosa ti spinge, qualcosa ti trattiene: la direzione la decide la tua mano. Non lasciare che sia la parte trattenuta a scegliere per te. Ascoltala, prendine l'avvertimento, poi segui quella che spinge.
+6. Le pietre parlano con due voci: una incoraggia, l'altra mette in guardia. Ascoltarle entrambe rende il passo più saggio. Procedi, ma con un'attenzione in più nel punto che la pietra in ombra indica; lì una piccola prudenza evita un passo falso.
+7. Il ghiaccio di ieri si sta sciogliendo solo in parte. Dove l'acqua scorre puoi avanzare; dove resiste conviene aspettare. Non forzare il tratto ancora gelato: prosegui sulle parti già in movimento dentro {cosa} e torna su quella ferma fra qualche giorno.
+8. C'è un legame fra ciò che ti ha frenato e ciò che oggi ti muove. Capire il primo libera il secondo. Chiediti che cosa, in passato, ti ha fatto fermare: la stessa cosa oggi può tornare e riconoscerla per tempo ti risparmia la stessa sosta.
+9. Un tratto della strada è in piena luce, uno è coperto di nebbia. Cammina dove vedi e lascia che il resto si diradi. Per oggi fai solo ciò che è chiaro; le decisioni che dipendono dalla parte velata possono attendere qualche giorno.
+10. Il presente fa da ponte fra due tempi che non si somigliano: uno regge, l'altro fatica. Il ponte comunque tiene. Attraversalo con calma, senza guardare solo la riva che ti preoccupa: il peso cambia quando cambi il passo con cui lo porti.
+11. Non tutto il passato va trattenuto, non tutto va gettato. La gettata chiede di separare con cura ciò che nutre da ciò che appesantisce. Prima di una scelta importante per {cosa}, chiediti se la stai facendo per ciò che vuoi o per un'abitudine di prima.
+12. Il fuoco arde ma una parte del legno è ancora umida. Serve qualche giorno perché la fiamma prenda tutto. Non soffiare troppo forte per accelerare i tempi: continua ad alimentare con regolarità e lascia asciugare ciò che non è ancora pronto.
+13. Dove una pietra si rovescia le altre tengono aperta la via. Il blocco esiste ma non chiude il passaggio. Puoi andare avanti tenendo conto dell'ostacolo invece di aspettare che sparisca: aggiralo, riduci il suo peso, chiedi aiuto a qualcuno per spostarlo.
+14. La trama ha fili lucenti e fili scuri; insieme fanno un disegno che ha senso solo guardato per intero. Non giudicare la situazione dal suo punto peggiore né dal migliore. Guardala tutta, poi decidi il prossimo passo con questa visione completa.
+15. Qualcosa di ieri chiede ancora una risposta. Dargliela oggi rende più leggero il passo verso ciò che si apre. Può essere una parola non detta, una scusa, un ringraziamento, una faccenda da chiudere: individua quale e occupatene entro la settimana.
+16. Il tempo trascorso ha lasciato una soglia da attraversare; il tempo che si apre la rende meno ripida di quanto sembri. Non misurare la fatica di domani col metro di ieri. Ciò che ti aspetta è più accessibile di ciò che hai già superato.
+17. Luce e ombra si intrecciano come radici dello stesso albero: entrambe nutrono. La pietra in ombra non è un nemico da eliminare ma una parte della crescita. Accetta che {cosa} abbia un lato difficile e chiediti che cosa ti sta insegnando.
+18. Ciò che resiste in questa gettata non è un muro ma una porta socchiusa. Basta una spinta paziente al momento giusto. Non sfondarla con la forza e non andartene: resta accanto alla porta, prova di tanto in tanto, finché cede da sola.
+19. Un vecchio nodo stringe ancora il presente, eppure la corda è salda. Scioglierlo è possibile con dita lente. Dedica a questo nodo un tempo preciso nei prossimi giorni, senza mescolarlo alle altre faccende della settimana: le cose antiche chiedono attenzione esclusiva.
+20. Dal passato arrivano una forza utile e un'abitudine che frena. Tieni la prima, lascia andare la seconda. Per riconoscerle guarda i tuoi gesti automatici: quelli che ti avvicinano a ciò che vuoi sono forza, quelli che ti allontanano sono freno.
+21. Il sentiero sale e poi scende: c'è una fatica da attraversare e oltre il valico una valle che accoglie. Non fermarti a metà salita a lamentarti della pendenza. Dosa il fiato, riduci il carico e procedi: la parte dura ha una fine.
+22. Il metallo è buono ma conserva qualche impurità. Un altro giro di fuoco e di martello lo rende limpido e più forte. Per {cosa} questo vuol dire rifinire, correggere, ripassare ciò che è quasi pronto, invece di dichiararlo concluso troppo presto per stanchezza.
+23. In un punto del filo qualcosa si è attorcigliato, mentre il resto corre liscio. Il lavoro è tutto in quel punto. Non lasciare che un solo nodo ti faccia dubitare dell'intero percorso: scioglilo e prosegui con la stessa fiducia di prima.
+24. Una porta si chiude mentre un'altra si apre. Il passaggio fra le due è il momento più delicato, non il più difficile. Non correre verso la nuova prima di aver chiuso bene la vecchia: un saluto fatto con cura libera le mani per ciò che viene.
+25. Le radici sono forti ma il terreno di adesso è duro e secco. Servono acqua e attesa perché la crescita riprenda. Non sradicare la pianta per trapiantarla altrove: resta dove sei, annaffia con costanza, ammorbidisci il terreno con piccoli gesti quotidiani.
+26. Una parte di te corre avanti, un'altra guarda indietro. Il cammino si fa chiaro quando le due trovano lo stesso passo. Non zittire nessuna delle due: dai alla parte prudente il compito di controllare, a quella slanciata il compito di proporre.
+27. L'ombra in questa gettata segna dove fermarsi a riflettere, la luce dove osare. Tenere insieme i due gesti è la saggezza che ti si chiede. Per {cosa} osa nei punti chiari e rallenta solo dove la pietra rovesciata ti mette in guardia.
+28. Come un torrente fra i sassi, il cammino gira attorno agli ostacoli senza fermarsi. Lascia che l'acqua trovi il suo varco. Se una strada è chiusa, non battere la testa: cerca il passaggio laterale, spesso più breve di quanto pensi.
+29. Quello che hai costruito regge, ma una trave scricchiola. Rinforzarla adesso evita fatiche più grandi in seguito. Individua il punto fragile, un accordo, un'abitudine, un rapporto: dedicagli cura questa settimana, prima che il problema si allarghi e diventi difficile da riparare.
+30. La memoria porta calore e un filo di malinconia. Il presente sa trasformarla in una spinta gentile verso ciò che si apre. Non scacciare la nostalgia: usala per capire che cosa ti era caro e cercalo di nuovo, in una forma adatta a oggi.
+31. Il vento cambia direzione a metà del viaggio. Non è un errore di rotta, è l'invito a correggere la vela. Se qualcosa dentro {cosa} non va come previsto, adatta il piano invece di abbandonarlo: la meta può restare la stessa.
+32. Due forze tirano il filo in direzioni diverse e nessuna lo spezza. È proprio la tensione a tenerlo dritto. Non cercare di eliminare il contrasto che senti: tienilo, ascoltalo, lascia che ti costringa a scelte più ponderate e meno impulsive.
+33. Un inverno lungo è alle spalle, ma il disgelo è iniziato solo in parte. Qualche giorno di pazienza in più completa l'opera. Non giudicare la stagione dal tratto ancora gelato: guarda dove l'acqua già scorre e affidati a quello per decidere.
+34. Il cammino conosce già le tue salite. Quella che hai davanti è più breve di quanto la stanchezza faccia credere. Prima di decidere che è troppo, riposa una notte e riguarda la questione al mattino, con occhi più freschi e meno timore.
+35. Qualcosa scorre libero, qualcosa resta incagliato. Guarda bene dove si ferma la corrente: lì c'è il gesto da compiere oggi. Per {cosa} il punto incagliato è spesso una decisione rimandata da troppo tempo. Prendila, anche imperfetta: la corrente riparte quando smetti di aspettare.
+36. La soglia è in ombra ma la stanza oltre è illuminata. Attraversarla chiede coraggio, non fretta né forza. Non restare sulla soglia per paura del buio di un passo: dall'altra parte c'è più chiarezza di quanta ne hai adesso, su questa soglia.
+37. Le lezioni del passato non sono tutte dolci, ma ognuna ha lasciato uno strumento. Il presente sa quale usare. Quando la parte in ombra ti pesa, chiediti quale esperienza difficile ti ha preparato proprio a questo e usane l'insegnamento senza esitare.
+38. Una mano trattiene, l'altra lascia andare. La gettata chiede di distinguere bene quale gesto serve a ciascuna cosa. Fai l'elenco delle questioni aperte e accanto a ognuna scrivi «tengo» o «lascio»: la chiarezza viene dal decidere, non dal continuare a pensare.
+39. Il bastone che ti accompagna ha un nodo proprio dove la mano lo stringe. È lì che la presa si fa più ferma. La difficoltà che senti adesso può diventare il tuo punto d'appoggio, se smetti di evitarla e la usi per fare leva.
+40. Fra la pietra chiara e quella scura corre lo stesso filo. Ciò che ti ha messo alla prova e ciò che ti fa crescere parlano la stessa lingua. Per {cosa} questo significa che il problema e la soluzione sono più vicini di quanto sembrano.
+41. Il presente è un guado: alle spalle una riva conosciuta, davanti una riva nuova, sotto i piedi sassi che a volte scivolano. Procedi tenendo l'equilibrio e non guardare solo l'altra riva: guarda dove metti il piede, un passo per volta.
+42. Una stagione si chiude con qualche parola in sospeso, un'altra si apre con promesse vere. Chiudere bene la prima rende piena la seconda. Prima di lanciarti in ciò che è nuovo, scrivi o pronuncia quella parola rimasta in sospeso da troppo tempo.
+43. La strada è aperta ma non spianata. Qualche pietra da spostare, qualche tratto da percorrere piano, poi il passo si allunga. Non pretendere che {cosa} sia facile subito: accetta la prima parte lenta come il prezzo di una strada che poi scorre.
+44. Nella stessa gettata convivono un invito e un avvertimento. L'invito indica il traguardo, l'avvertimento il modo di arrivarci. Non scegliere fra i due come se fossero nemici: segui l'invito e rispetta l'avvertimento, cambiando il come senza rinunciare al dove che hai scelto.
+45. Il passato ha lasciato una crepa e una radice. La crepa chiede cura, la radice regge tutto il resto. Non concentrarti solo sulla crepa al punto di dimenticare la radice: ricorda ogni giorno, anche solo per un momento, ciò che ti tiene in piedi.
+46. Ciò che è rimasto in sospeso non blocca il cammino, lo rallenta. Dargli un nome è già metà del lavoro. Scrivi in una frase che cosa resta irrisolto dentro {cosa}; l'altra metà del lavoro è il primo gesto concreto per risolverlo.
+47. La nebbia si alza a tratti. Nei momenti chiari fissa la direzione; in quelli velati procedi con i passi già scelti, senza rimetterli in discussione. Le decisioni prese con la luce valgono anche quando la vista si annebbia per qualche giorno.
+48.
+49.
+50.
+51.
 
 ## norne, ombra
-1. Il filo passa per soglie da attraversare: ciò che ieri si è inceppato chiede oggi una mano paziente, poi la via si riapre.
-2. Il passato ha lasciato un nodo stretto; il presente è il tempo di scioglierlo con calma, perché il passo che viene ha bisogno di corda sciolta.
-3. Le pietre rovesciate non chiudono la strada: la segnano come un sentiero di montagna, dove si sale piano e si arriva lo stesso.
-4. Il ghiaccio ricopre ancora parte del cammino: chi procede con passo misurato lo attraversa senza scivolare.
-5. Tre soglie di fila: ognuna chiede di lasciare qualcosa sull'uscio, ognuna restituisce leggerezza a chi la varca.
-6. Ciò che resiste oggi ha radici in ieri; guardarlo con gentilezza è il primo gesto che lo scioglie.
-7. La nebbia è fitta ma non immobile: ogni respiro calmo ne dirada un poco, finché il sentiero torna leggibile.
-8. Questa gettata non parla di chiusura: parla di un passaggio stretto, da compiere un passo alla volta.
-9. Un vecchio peso scende lungo il filo fino a oggi: posarlo è possibile e alleggerisce anche ciò che si apre.
-10. Il fuoco è basso ma la brace è viva: soffia piano, aggiungi un ramo alla volta e la fiamma risale.
-11. Ciò che si è inceppato non è perduto: è in attesa di una mano che lo rimetta in moto con pazienza.
-12. La corda è tesa fra un passato faticoso e un presente incerto; allentarla un poco restituisce respiro a tutto il resto.
-13. In ombra non vuol dire al buio: ogni tempo di questa gettata ha una porta da aprire con la propria chiave.
-14. Il sentiero sale ripido, i sassi sono smossi: è il tratto della strada che insegna di più a chi lo percorre con calma.
-15. Gli intoppi di ieri e quelli di oggi sono parenti: sciogliere il più antico rende più facile districare il resto.
-16. Il legno è ancora verde e fatica ad ardere; serve tempo, non forza, perché il fuoco prenda davvero.
-17. La soglia si attraversa una volta sola: quello che oggi pesa diventa, una volta varcata, il ricordo di una prova superata.
-18. Ogni pietra rovesciata è una domanda posta con onestà: rispondere a ciascuna con calma riapre il cammino.
-19. Il vento soffia contro, ma insegna dove piantare i piedi: chi impara la sua forza smette di temerlo.
-20. Un inverno lungo attraversa la gettata: sotto la neve il seme non dorme, aspetta il suo momento con pazienza.
-21. Il blocco non sta fuori ma nel modo di guardarlo: spostare lo sguardo di poco cambia il peso di tutto il percorso.
-22. Dal passato arriva una fatica che ancora si sente; il presente può accoglierla senza farsene guidare.
-23. La strada si stringe fra due pareti di roccia: si passa uno per volta, lasciando a terra ciò che non serve.
-24. Ciò che hai sopportato ha temprato la tua mano: adesso quella mano sa sciogliere nodi che prima sembravano impossibili.
-25. Le pietre in ombra sono come porte socchiuse in un corridoio lungo: dietro ognuna c'è una stanza da riordinare.
-26. C'è un tempo per forzare e un tempo per sciogliere: questa gettata chiede il secondo, con dita lente e attente.
-27. Il metallo passa ancora sotto il martello: ogni colpo che oggi pesa toglie un'impurità e gli dà forma.
-28. Il filo si è impigliato più di una volta, eppure non si è rotto: è questa la notizia più importante della gettata.
-29. La salita è lunga ma ha i suoi punti di sosta: fermarsi a riprendere fiato fa parte del cammino.
-30. Quello che resta bloccato nel presente aspetta un gesto piccolo e preciso, non una scossa: cercalo con pazienza.
-31. Anche l'acqua ferma trova un varco, se le si apre un solco: oggi si tratta di scavare quel solco, poco alla volta.
-32. Dietro questa gettata in ombra c'è un invito a fare ordine: ciò che si chiarisce ora libera la strada per molto tempo.
-33. Ogni soglia ha il suo guardiano: qui chiede pazienza, là sincerità, più avanti il coraggio di lasciare andare.
-34. Il passato getta un'ombra lunga sul presente, ma un'ombra si sposta col passare delle ore: il varco si apre per gradi.
-35. Le radici cercano acqua in un terreno secco; scendono più a fondo e proprio così l'albero si fa più saldo.
-36. I nodi di questa gettata non si tagliano: si sciolgono uno per volta e ciascuno allenta un po' anche il successivo.
-37. La strada attraversa un bosco fitto: la luce filtra a tratti, abbastanza per vedere il prossimo passo; non serve di più.
+1. Più pietre in ombra che in luce: il filo fra i tre tempi passa per soglie strette. Non è una chiusura, è un passaggio lento. Riduci il passo, rinuncia a pretendere risultati rapidi e scegli per oggi una sola cosa da sistemare, la più vicina.
+2. Il passato ha lasciato un nodo che arriva fino a oggi. Il presente è il tempo di scioglierlo con calma, perché il passo che viene ha bisogno di corda sciolta. Comincia dal nodo più antico: spesso gli altri ne sono solo la conseguenza.
+3. Le pietre rovesciate segnano la strada come un sentiero di montagna: si sale piano, un tornante dopo l'altro. Non scegliere oggi la via più rapida, scegli quella che regge. Per {cosa} ogni piccolo progresso solido vale più di un grande salto incerto.
+4. Il ghiaccio copre ancora gran parte del cammino. Chi procede con passo misurato lo attraversa senza scivolare. Rinuncia alle mosse brusche nei prossimi giorni: niente decisioni prese d'impulso, niente parole dette nella rabbia. La prudenza, qui, è la tua forza.
+5. Più soglie una dietro l'altra: ognuna chiede di lasciare qualcosa sull'uscio. Lasciare non è perdere. Fai l'inventario di ciò che porti e chiediti che cosa puoi deporre, un'aspettativa, un risentimento, un impegno di troppo. Ogni peso posato restituisce respiro e libera le mani.
+6. Ciò che resiste oggi ha radici in ieri. Guardarlo con gentilezza è il primo gesto che lo scioglie. Smetti di rimproverarti per come sono andate le cose: la durezza verso di te stringe il nodo, la comprensione lo allenta e ti rimette in cammino.
+7. La nebbia è fitta ma non immobile: ogni respiro calmo ne dirada un poco. Non prendere decisioni importanti finché non vedi meglio. Usa questi giorni per raccogliere informazioni, fare domande, osservare; la scelta viene dopo, con più chiarezza e meno paura.
+8. Questa gettata non parla di chiusura: parla di un passaggio stretto. Si attraversa un passo alla volta, di fianco, senza bagagli inutili. Per {cosa} questo vuol dire rinunciare per ora agli obiettivi ampi e puntare a un risultato piccolo e raggiungibile.
+9. Un vecchio peso scende lungo il filo fino a oggi. Posarlo è possibile e alleggerisce anche ciò che si apre. Quel peso non ti appartiene più per forza: puoi scegliere di non portarlo oltre, a partire da un gesto concreto fatto oggi.
+10. Il fuoco è basso ma la brace è viva. Soffia piano e aggiungi un ramo alla volta: la fiamma risale con la cura, non con la forza. Riprendi ciò che hai trascurato con gesti minimi e quotidiani, senza pretendere di recuperare tutto in un giorno.
+11. Ciò che si è inceppato non è perduto: aspetta una mano che lo rimetta in moto: quella mano è la tua. Scegli il meccanismo più piccolo fra quelli fermi, una telefonata, una pratica, una conversazione: sbloccalo per primo, oggi stesso.
+12. La corda è tesa fra un passato faticoso e un presente incerto. Allentarla un poco restituisce respiro al resto. Concediti una pausa vera, anche breve, prima di affrontare {cosa}: la tensione continua consuma le forze che ti servono per sciogliere il nodo.
+13. In ombra non vuol dire al buio. Ogni tempo di questa gettata ha una porta da aprire con la sua chiave. Non cercare una chiave sola per tutte: per il passato serve il perdono, per il presente la pazienza, per ciò che si apre la prudenza.
+14. Il sentiero sale ripido e i sassi sono smossi. È il tratto che insegna di più a chi lo percorre con calma. Non guardare troppo in alto: tieni gli occhi sul prossimo appoggio e lascia che la vetta resti per ora un pensiero lontano.
+15. Gli intoppi di ieri e quelli di oggi sono parenti. Sciogliere il più antico rende più facile districare il resto. Chiediti quando è cominciata la difficoltà che vivi dentro {cosa}: risalire a quel primo momento ti mostra dove mettere mano.
+16. Il legno è ancora verde e fatica ad ardere. Serve tempo, non forza, perché il fuoco prenda davvero. Non insistere su ciò che non è maturo: rimanda di qualche giorno la decisione e intanto prepara con calma ciò che servirà dopo.
+17. La soglia si attraversa una volta sola. Quello che oggi pesa diventa, una volta varcata, il ricordo di una prova superata. Non fermarti a metà del passaggio: anche se è faticoso, finisci ciò che hai cominciato prima di valutare com'è andata.
+18. Ogni pietra rovesciata è una domanda posta con onestà. Rispondi a ciascuna con calma, una per giorno, senza sommarle in un unico peso. Oggi scegline una sola, la più urgente: dalle tutta la tua attenzione fino a sera, poi lascia riposare le altre.
+19. Il vento soffia contro, ma insegna dove piantare i piedi. Chi impara la sua forza smette di temerlo. Osserva da dove arriva la resistenza che incontri dentro {cosa}: conoscerne la direzione ti evita di sprecare energie a combatterla di fronte.
+20. Un inverno lungo attraversa la gettata. Sotto la neve il seme non dorme, aspetta il suo momento. Non scavare ogni giorno per vedere se germoglia: proteggilo e nutrilo, poi accetta che ora sia tempo di attesa operosa, non di raccolto.
+21. Il blocco non sta solo fuori ma anche nel modo di guardarlo. Spostare lo sguardo di poco cambia il peso del percorso. Prova a raccontare la situazione come la racconterebbe una persona che ti vuole bene: spesso il nodo appare meno stretto.
+22. Dal passato arriva una fatica che ancora si sente. Il presente può accoglierla senza farsene guidare. Riconosci la stanchezza, rispettala con un riposo vero, ma non lasciare che sia lei a decidere le tue prossime scelte importanti, né il loro ritmo.
+23. La strada si stringe fra due pareti di roccia: si passa uno per volta, lasciando a terra ciò che non serve. Per {cosa} questo significa semplificare: meno progetti insieme, meno voci da ascoltare, un'unica priorità finché il passaggio si allarga.
+24. Ciò che hai sopportato ha temprato la tua mano. Adesso quella mano sa sciogliere nodi che prima sembravano impossibili. Non sottovalutare la tua esperienza: affronta il problema con la competenza che hai acquisito, non con la paura che avevi allora.
+25. Le pietre in ombra sono come porte socchiuse in un corridoio lungo: dietro ognuna c'è una stanza da riordinare. Non aprirle tutte insieme. Entra in una, mettila in ordine, chiudila; poi passa alla successiva quando hai di nuovo forza e tempo.
+26. C'è un tempo per forzare e un tempo per sciogliere: questa gettata chiede il secondo. Rinuncia per ora alle soluzioni drastiche, agli ultimatum, alle rotture improvvise. Per {cosa} la via è fatta di gesti lenti, attenti, ripetuti, che allentano il nodo senza strappare.
+27. Il metallo passa ancora sotto il martello. Ogni colpo che oggi pesa toglie un'impurità e gli dà forma. Le difficoltà di questi giorni non sono inutili: guarda che cosa stanno modellando in te, una pazienza, una fermezza, una chiarezza nuova.
+28. Il filo si è impigliato più di una volta, eppure non si è rotto. È la notizia più importante di questa gettata. Il tuo legame con {cosa} ha resistito alle prove più dure: ora merita cura, non un abbandono per semplice stanchezza.
+29. La salita è lunga, ma ha i suoi punti di sosta. Fermarsi a riprendere fiato fa parte del cammino. Programma nei prossimi giorni una pausa vera, un pomeriggio intero senza pensare alla questione: riprendi dopo, con più lucidità e più forza.
+30. Quello che resta bloccato nel presente aspetta un gesto piccolo e preciso, non una scossa. Cercalo con pazienza: una frase da dire, una cosa da restituire, un orario da cambiare. Le grandi svolte, adesso, rischiano di stringere il nodo invece di scioglierlo.
+31. Anche l'acqua ferma trova un varco, se le si apre un solco. Oggi si tratta di scavare quel solco, poco alla volta. Scegli un'azione quotidiana di dieci minuti che vada nella direzione giusta e ripetila senza saltare un giorno, per almeno una settimana.
+32. Dietro questa gettata in ombra c'è un invito a fare ordine. Ciò che si chiarisce ora libera la strada per molto tempo. Dedica il fine settimana a mettere in chiaro una questione rimasta confusa: un accordo, un confine, una promessa.
+33. Ogni soglia ha il suo guardiano: qui chiede pazienza, là sincerità, più avanti il coraggio di lasciare andare. Non cercare di superarle tutte con lo stesso gesto. Per {cosa} chiediti quale delle tre virtù ti manca oggi e coltiva quella.
+34.
+35.
+36.
+37.
 
 ## croce, luce
-1. Dal cuore alla radice fino all'esito corre una sola corrente: ciò che senti, ciò che ti fonda e ciò che si apre parlano la stessa lingua.
-2. Anche l'ostacolo qui è una pietra dritta: segna il punto dove mettere il piede, non il muro davanti al passo.
-3. La radice regge il cuore come il ceppo regge la fiamma; il consiglio aggiunge legna buona e l'esito è il calore che ne viene.
-4. Cinque pietre in piedi formano un ponte saldo: dalla domanda che porti alla riva che si apre, ogni campata tiene.
-5. Il consiglio e l'esito si tengono per mano: quello che scegli di fare oggi dà già forma a ciò che ti aspetta.
-6. Nessuna pietra volta le spalle: la croce si legge come un sentiero di legno battuto, dove ogni asse sostiene la successiva.
-7. Ciò che hai alle spalle nutre ciò che hai davanti; perfino l'intralcio, qui, si lascia attraversare come un guado basso.
-8. Al centro batte una volontà limpida, sotto c'è terra buona e in fondo una porta socchiusa: il consiglio ti accompagna fino alla soglia.
-9. Questa croce somiglia a una casa con le travi ben incastrate: il cuore è la stanza abitata, la radice le fondamenta, l'esito la finestra aperta.
-10. Il nodo della questione e la sua origine sono intrecciati con cura; l'impedimento è solo il punto dove il filo si stringe prima di allargarsi.
-11. Qui la radice non trattiene, sostiene; l'ostacolo non chiude, insegna; ciò che si apre in fondo ha il passo di chi sa dove va.
-12. Le cinque posizioni suonano accordate come le corde di uno strumento: tocca quella del consiglio e risuonano tutte.
-13. Ogni pietra passa la mano alla seguente come in una catena di gente che porta acqua al fuoco: niente si perde lungo la fila.
-14. La via è aperta dal fondo alla cima: ciò da cui vieni dà forza a ciò che cerchi e il gesto consigliato porta dritto all'approdo.
-15. Una sola trama lega il centro ai quattro bracci; tirala dal lato del consiglio e senti tutta la tela rispondere.
-16. La resistenza che incontri è poca cosa davanti a una radice così profonda: è il sasso nel ruscello che fa cantare l'acqua.
-17. Fra il cuore e l'esito non c'è distanza da temere; c'è un tratto di strada chiaro, segnato da pietre che indicano tutte la stessa direzione.
-18. Quello che ti muove dentro è fatto della stessa materia di ciò che ti aspetta: segui il consiglio e il cerchio si chiude con dolcezza.
-19. La croce è stesa come una mano aperta: il palmo al centro, le dita tese verso l'origine, la prova, il gesto e l'approdo.
-20. Quando ogni pietra cade dritta l'ostacolo diventa gradino; qui si sale senza fatica inutile, un passo sull'altro.
-21. Il legno vecchio della radice ha dato frutti nuovi: l'esito raccoglie ciò che il cuore ha custodito con pazienza.
-22. Tutte le pietre crescono come rami dallo stesso tronco: la questione ha una forma intera e si lascia vivere fino in fondo.
-23. Il consiglio è la chiave e l'esito la porta che gira sui cardini senza cigolare: tra le due nessuna serratura arrugginita.
-24. In questa gettata il fuoco passa di mano in mano senza spegnersi, dalla prima scintilla fino alla brace che scalda la sera.
+1. Le cinque pietre cadono tutte dritte e si passano la stessa forza dal centro ai bracci. Ciò che senti nel Cuore ha una Radice solida e l'Esito resta aperto. Non cercare altre conferme: comincia dal gesto che indica il Consiglio e portalo avanti senza deviare.
+2. Anche la pietra dell'Ostacolo è dritta: l'intralcio che temi è reale ma ha la misura di un passo, non di un muro. Dagli un nome preciso, scegli il giorno in cui affrontarlo e intanto lascia che Radice e Cuore ti tengano in piedi.
+3. Ciò da cui vieni nutre ciò che vuoi adesso: la Radice sta sotto il Cuore come legna buona sotto un fuoco già acceso. Il Consiglio ne aggiunge altra. Non disperdere quel calore in dieci direzioni: tienilo su una sola cosa finché l'Esito comincia a prendere forma.
+4. Cinque pietre in piedi reggono come un ponte che tiene in ogni campata. Il punto debole che cerchi non c'è: l'Ostacolo stesso è dritto e chiede solo attenzione. Attraversa senza fermarti a ricontrollare ogni asse, perché il dubbio ripetuto rallenta più di qualsiasi intralcio vero.
+5. In questa croce il Consiglio e l'Esito si tengono stretti: il gesto che scegli oggi disegna già la forma di ciò che arriva. Per questo conta più la costanza che lo slancio. Ripeti quel gesto ogni giorno per una settimana prima di giudicare dove porta.
+6. Nessuna pietra volta le spalle: le cinque posizioni guardano tutte verso {cosa}. Quando la gettata è così concorde l'errore più probabile è esitare. Decidi entro domani il primo passo concreto e annotalo, così non lo lasci sfumare fra le buone intenzioni.
+7. La Radice qui non trattiene, ti spinge. Le esperienze che porti dietro sono il terreno su cui l'Esito si appoggia, anche quelle che ricordi con fatica. Prima di muoverti richiama un momento in cui hai già superato una prova simile e parti da lì.
+8. Il Cuore porta una volontà limpida, la Radice una terra che regge, l'Esito una porta che si apre. Il Consiglio sta in mezzo e indica come arrivarci senza sprechi: seguilo alla lettera per qualche giorno invece di inventarti una strada più lunga.
+9. Quando tutte e cinque le pietre sono dritte, la questione non ha zone nascoste: quello che vedi è quello che c'è. Non scavare cercando un tranello che la gettata non mostra. Usa l'energia risparmiata per agire nel punto che il Consiglio ti indica.
+10. Il nodo della questione e la sua origine sono legati bene, quindi la difficoltà non viene da lontano: nasce adesso e adesso si scioglie. L'Ostacolo dritto chiede un confronto diretto. Affrontalo presto, con parole semplici, prima che il tempo lo faccia sembrare più grande.
+11. Qui la Radice sostiene, l'Ostacolo insegna e l'Esito ha un passo deciso. È una croce che premia chi sa già dove vuole andare. Se non lo sai ancora, scrivilo stasera in una frase: con una meta chiara ogni pietra di questa gettata lavora per te.
+12. Ogni posizione della croce rinforza la vicina: un passo fatto bene nel punto del Consiglio si sente fino all'Esito. Non serve sistemare tutto insieme. Scegli una sola azione legata a ciò che il Consiglio suggerisce e lascia che il resto segua da sé.
+13. Nessuna pietra perde forza lungo la fila: dal Cuore all'Esito la spinta arriva intera. È il momento di chiedere, proporre, cominciare. Non tenere per te quello che hai capito su questa domanda: dillo alla persona che può aiutarti a portarlo avanti, oggi stesso.
+14. La strada è libera dal basso all'alto: la Radice dà forza al Cuore e il Consiglio conduce dritto all'Esito. Approfitta di questo allineamento, che non resta uguale per sempre. Fissa una scadenza vicina per ciò che stai rimandando e rispettala.
+15. Tira il filo dal lato del Consiglio e tutta la croce risponde: quando le pietre sono dritte, un cambiamento piccolo produce effetti larghi. Per questo il gesto giusto è modesto e preciso. Scegli qualcosa che puoi fare in meno di un'ora e fallo.
+16. La resistenza che incontri pesa poco accanto a una Radice così profonda. L'Ostacolo dritto è come un sasso nel torrente: devia l'acqua, non la ferma. Non sprecare forze per spostarlo. Giragli intorno con pazienza e continua a scorrere verso l'Esito che la croce lascia aperto.
+17. Tra quello che provi e quello che ti aspetta c'è un tratto breve e illuminato. Le pietre lo confermano una dopo l'altra. Il rischio non viene dalla gettata ma dalla fretta di arrivare. Percorrilo a passo regolare e goditi le tappe intermedie.
+18. Quello che ti muove dentro è della stessa materia di ciò che arriva: la croce lo dice con tutte le sue pietre in luce. Fidati di ciò che desideri davvero, non di ciò che ti conviene mostrare. Agisci a partire dal primo e lascia andare il secondo.
+19. Con cinque pietre dritte la gettata ti dà il permesso che stavi aspettando. Smetti di raccogliere pareri altrui per {cosa}: le posizioni dicono già che il terreno regge. Prendi la decisione che hai rimandato e comunicala entro la fine della settimana.
+20. Qui l'intralcio non sbarra la strada: alza il livello. Ogni difficoltà indicata dalla croce è un gradino che ti porta più in alto di dove partivi. Non evitarla. Salila un passo alla volta, contando su una Radice che non cede.
+21.
+22.
+23.
+24.
 
 ## croce, misto
-1. Una parte della croce scorre come acqua libera e un'altra trattiene come un argine: il consiglio indica dove aprire il varco.
-2. Fra il cuore e l'esito alcune pietre spingono e altre frenano; dare tempo a ciò che è bloccato rende più stabile ciò che già si muove.
-3. Luce e ombra si alternano lungo i bracci come le assi di un pontile: dove il legno regge cammina, dove scricchiola appoggia piano il piede.
-4. Le pietre dritte tracciano il sentiero, quelle rovesciate segnano i sassi da spostare: nessuna delle due lavora contro di te.
-5. L'esito resta aperto proprio perché la croce è mista: ciò che si sblocca dipende dal gesto che metti in campo adesso.
-6. Da qualche parte nella croce c'è un nodo; scioglierlo con calma libera anche il resto della trama, che in parte corre già.
-7. Ciò che ti muove e ciò che ti frena non si annullano, si misurano: la questione si decide nel punto in cui scegli a quale dare peso.
-8. Questa gettata somiglia a un campo arato a metà: dove la zolla è già rivoltata si semina, dove è dura si torna con l'aratro.
-9. La forza c'è e una parte del passaggio è ancora ingombra; non serve sfondare la porta, serve trovare il cardine che cede.
-10. Fra le cinque posizioni passa una corrente che a tratti si inceppa: segui i punti dove scorre e porta pazienza dove ristagna.
-11. Il fuoco è acceso, ma una parte della legna è ancora umida: lasciala asciugare vicino alla fiamma prima di gettarla dentro.
-12. Ciò che resiste in questa croce non è un nemico; è la parte della questione che chiede di essere guardata prima di lasciarti passare.
-13. Alcune pietre invitano ad andare avanti e altre a sostare un momento: il passo giusto nasce dal dare retta a entrambe.
-14. Le pietre in luce sono il corrimano a cui tenersi mentre scendi i gradini ancora in penombra; un appoggio basta per non scivolare.
-15. Questa croce ha la trama di un tessuto rammendato: i punti saldi tengono insieme quelli lenti, finché anche questi si possono ricucire.
-16. Il cuore della questione è conteso fra slancio e cautela; nessuno dei due ha torto e il consiglio insegna a farli camminare insieme.
-17. Qualcosa nella gettata è già maturo e qualcosa è ancora acerbo: cogli ciò che è pronto e lascia sul ramo il resto ancora un poco.
-18. Ombra e luce qui non si escludono: sono le due facce della stessa pietra che hai in mano; conviene girarla piano.
-19. La strada dalla radice all'esito ha tratti in piano e tratti in salita; nessuno dei due la interrompe, cambia solo il fiato che serve.
-20. Il filo che lega le pietre è teso in alcuni punti e allentato in altri: riprendilo dove si è fatto molle prima di tirare.
-21. Dove le pietre sono dritte c'è già un'apertura; dove sono rovesciate c'è una soglia. Entrambe portano avanti, con passo diverso.
-22. La gettata parla di un ghiaccio che in parte si è già sciolto: l'acqua che corre aiuta a sciogliere quello che resta.
-23. Una mano della croce è aperta, l'altra stringe ancora: ciò che trattieni può diventare offerta quando smetti di temerne la perdita.
-24. Il disegno è chiaro anche se non è tutto in luce; le zone in ombra indicano dove mettere attenzione, non dove fermarsi.
-25. In questa croce la nebbia copre solo alcuni tratti del sentiero: cammina con passo fermo dove vedi e rallenta dove il bianco si addensa.
-26. La questione ha due voci che si parlano sopra: una dice va', l'altra dice aspetta. Lasciale finire entrambe e capisci a quale tocca adesso.
-27. Ciò che ti fonda e ciò che ti ostacola sono più vicini di quanto sembri; a volte la stessa abitudine sostiene e trattiene.
-28. Il calore viene dalle pietre in luce, il peso da quelle in ombra: insieme danno la misura giusta di ciò che hai davanti.
-29. Il cammino dal cuore all'esito passa per una porta stretta; chi la attraversa senza fretta trova di là uno spazio più largo.
-30. Questa gettata ha il passo delle stagioni di mezzo: qualcosa germoglia mentre qualcos'altro dorme ancora sotto la neve.
-31. Un braccio della croce tira avanti e un altro trattiene: il punto di equilibrio è il gesto piccolo che puoi compiere oggi.
-32. Non tutto si muove alla stessa velocità; rispettare i tempi diversi delle pietre evita di strappare ciò che sta ancora crescendo.
-33. Le ombre della croce non cancellano la luce, la incorniciano: mostrano dove il chiaro ha bisogno di essere custodito con cura.
-34. La radice e l'esito si guardano attraverso un tratto incerto; il consiglio è il ponte di corda che li unisce, da passare tenendosi bene.
-35. Metallo ancora caldo sull'incudine: una parte ha già preso forma, l'altra aspetta il colpo giusto per piegarsi senza spezzarsi.
-36. Fra le pietre dritte e quelle rovesciate corre un dialogo; la risposta sta nel lasciarle parlare tutte prima di decidere.
-37. La croce mostra un passaggio in parte libero e in parte ostruito: sposta un sasso alla volta e il varco si allarga da sé.
-38. Qualcosa ti spinge e qualcosa ti trattiene; il punto non è scegliere chi vince, ma capire che cosa ciascuno sta proteggendo.
-39. In questa gettata il vento soffia a raffiche: approfitta delle spinte per avanzare e delle pause per riprendere fiato.
-40. Dal centro ai bracci la luce non è uniforme: dove è piena agisci, dove è velata osserva, dove manca chiedi aiuto.
-41. Una corda con nodi buoni e nodi stretti: quelli buoni reggono il carico, quelli stretti si allentano con dita pazienti.
-42. Il consiglio si legge meglio accanto all'ostacolo che accanto all'esito; è nel punto difficile che indica la mossa da fare.
-43. La gettata parla di una casa abitata con una stanza ancora chiusa: il resto della casa offre la luce per aprirla.
-44. Quello che scorre e quello che si inceppa appartengono alla stessa storia; tenerli insieme nello sguardo evita di dare troppo peso a uno solo.
-45. Le posizioni in ombra non sono condanne ma tappe: ciascuna chiede un'attenzione precisa e poi lascia passare.
-46. Questa croce ha il ritmo di un remo che entra ed esce dall'acqua: spinta e ritorno, avanzare e raccogliere le forze.
-47. Tra l'origine e l'approdo la strada fa una curva che non lascia vedere oltre; continua a camminare, la curva si apre mentre la percorri.
-48. Ciò che pesa nella gettata è bilanciato da ciò che solleva: tieni gli occhi sul secondo senza ignorare il primo.
-49. La croce somiglia a un bosco con radure e fitto: nelle radure ti orienti, nel fitto segui il tracciato già segnato.
-50. Un po' di resistenza fa parte del disegno; è l'attrito che permette alla ruota di far presa sul terreno invece di girare a vuoto.
-51. Dove la croce è limpida c'è la conferma, dove è torbida c'è la domanda ancora da porsi: entrambe servono a vedere intero.
-52. Il cuore e il consiglio dialogano anche quando le altre pietre esitano; il loro scambio orienta i passi dei giorni che vengono.
-53. Questa gettata insegna la pazienza del vasaio: l'argilla cede in alcuni punti e resiste in altri, la mano impara dove premere.
-54. Qualcosa si è già aperto e qualcosa resta in attesa; non c'è ritardo, c'è un ordine con cui le porte si lasciano attraversare.
-55. Le pietre in ombra chiedono di rallentare proprio dove le altre invitano a correre: è lì che si evita di inciampare.
-56. La trama della croce è fatta di fili chiari e fili scuri intrecciati; tagliarne uno solo disferebbe il disegno.
-57. Un lato della gettata offre slancio, l'altro chiede misura: usa il primo per partire e il secondo per non perdere la strada.
-58. Ciò che oggi resiste spesso custodisce una lezione che ciò che scorre non può dare; raccoglila e il passo si alleggerisce.
-59. La croce non promette una via sgombra, mostra una via praticabile: qualche pietra da scavalcare, molte su cui appoggiarsi.
-60. Fra luce e ombra la questione trova il suo spessore: niente è tutto facile o tutto difficile e proprio lì nasce la scelta.
-61. La soglia c'è e la porta è già socchiusa; quello che serve è il gesto di spingerla senza aspettare che si spalanchi da sé.
-62. In questa croce la forza e la fatica camminano accanto: una porta il carico, l'altra ricorda di posarlo quando serve.
+1. In questa croce una parte scorre e una parte trattiene. Prima di agire guarda dove cade l'ombra: è lì che la questione chiede lavoro. Sulle posizioni dritte puoi contare subito. Non trattare tutto come un problema solo perché un punto si inceppa.
+2. Se l'ombra cade sulla Radice, il freno viene da un'abitudine antica o da una paura che ti porti dietro da tempo. Il Cuore e l'Esito restano disponibili. Prima di muoverti per {cosa}, riconosci quella paura e chiamala per nome: perde gran parte del suo peso.
+3. Quando l'Ostacolo è rovesciato e il resto della croce è dritto, l'intralcio è più testardo del previsto ma resta isolato. Non lasciare che contamini il resto. Lavoralo a parte con un tempo dedicato. Intanto continua a muoverti nelle posizioni che vanno.
+4. Un'ombra nella posizione del Consiglio dice che il modo in cui stai agendo va corretto, non che la meta sia sbagliata. Il Cuore e la Radice reggono. Cambia il metodo prima di cambiare l'obiettivo: chiedi a qualcuno di esperto come lo farebbe al tuo posto.
+5. Se l'Esito cade rovesciato, non leggerlo come una porta chiusa: la croce mista dice che il risultato dipende ancora da te. Le altre posizioni ti danno materiale per cambiarlo. Rivedi il piano adesso, finché la strada è aperta, invece di aspettare di vedere come va.
+6. Un'ombra sul Cuore significa che la domanda stessa è annebbiata: forse vuoi due cose che si contraddicono. Le pietre dritte ti offrono appoggio, ma solo dopo una scelta. Scrivi le due cose che desideri una accanto all'altra e decidi a quale dare la precedenza.
+7. Spinta e freno convivono in questa gettata: nessuno dei due ha tutta la ragione. Il freno ti protegge da un passo troppo lungo, la spinta ti impedisce di restare immobile. Dai a ciascuno un compito: la spinta decide la direzione, il freno decide il ritmo.
+8. Una parte del terreno è già pronta per seminare, un'altra è ancora dura. Semina dove puoi, oggi stesso, senza aspettare che tutto il campo sia lavorato. Sul tratto duro torna fra qualche giorno con attrezzi migliori e più pazienza, senza rimproverarti il ritardo.
+9. La forza non manca: manca un varco libero in un tratto della croce. Spingere più forte su quel tratto consuma energia e non apre niente. Cerca invece il punto più debole della resistenza, magari una persona disposta a mediare: appoggia lì la tua pressione.
+10. La corrente fra le pietre scorre bene per lunghi tratti e si ferma in uno o due punti. Non serve ripartire da zero. Individua dove ristagna, osserva che cosa la blocca per un paio di giorni e intervieni solo dopo, con un gesto mirato.
+11. Hai già acceso qualcosa che funziona: le pietre dritte lo confermano. Ciò che è rovesciato indica una risorsa non ancora pronta da usare. Non buttarla dentro per impazienza. Tienila vicina a ciò che va bene perché si scaldi: usala quando smette di fare fumo.
+12. Ciò che in questa croce resiste chiede attenzione prima di farsi da parte: aggirarlo non basta, perché si ripresenta. Dedica a quel punto una conversazione onesta o mezz'ora di riflessione scritta. Poi riprendi il cammino appoggiandoti alle pietre che ti sostengono.
+13. Alcune pietre dicono di andare avanti, altre di fermarti un momento. Il passo giusto viene dal dare ascolto a entrambe: procedi sul tratto chiaro, sosta su quello velato. Non obbligarti a una sola velocità per tutta la questione, perché le sue parti maturano in tempi diversi.
+14. Usa le pietre dritte come appoggio mentre attraversi il tratto incerto. Ogni posizione in luce ti dice qualcosa su cui puoi contare: una persona, una capacità, un'occasione. Elencale prima di affrontare la parte rovesciata, così non ci entri a mani vuote.
+15. I punti forti della gettata tengono insieme quelli deboli, come una cucitura robusta accanto a una lenta. Non strappare la parte lenta per impazienza. Ripassala con calma, appoggiandoti alla parte che regge, finché anche quella torna a tenere il peso che le spetta.
+16. Dentro {cosa} slancio e cautela tirano in direzioni opposte: la croce mista dà ragione a tutti e due. Non scegliere un vincitore. Fai un passo deciso su ciò che è chiaro e tieni una riserva di prudenza per ciò che non lo è ancora.
+17. In questa gettata i frutti non sono maturi tutti insieme. Raccogli adesso quello che le pietre dritte offrono, senza aspettare il resto. Il frutto ancora duro, quello che l'ombra indica, ha bisogno di qualche giorno in più: staccarlo ora lo rovinerebbe.
+18. Luce e ombra qui sono due facce della stessa questione, non due questioni diverse. Ciò che ti aiuta e ciò che ti frena nascono spesso dalla stessa abitudine o dalla stessa persona. Prova a capire quale radice comune hanno: cambiare quella cambia entrambi i lati.
+19. Il percorso di questa croce alterna tratti facili e tratti in salita. La salita non interrompe la strada, chiede solo più fiato. Dosa le forze: non spendere tutto nei tratti piani, perché ti serve energia proprio nel punto che l'ombra segnala.
+20. Il legame fra le pietre si è allentato in un punto preciso. Prima di tirare per ottenere un risultato, riprendi quel tratto molle: una promessa trascurata, un accordo da rinnovare, una persona da richiamare. Tirare su un filo lento non sposta niente.
+21. Le posizioni dritte sono porte già aperte, quelle rovesciate soglie con un gradino alto. Le une e le altre portano avanti. Attraversa le porte aperte senza indugio, mentre per le soglie prenditi il tempo di preparare il passo, una alla volta.
+22. Una parte di ciò che era bloccato si è già mossa. Approfitta di quel movimento per sciogliere il resto: chi o che cosa si è sbloccato di recente può aiutarti con ciò che è ancora fermo. Non ripartire da capo, continua da dove le cose hanno ceduto.
+23. In questa croce c'è qualcosa che stai trattenendo per paura di perderlo. L'ombra della croce lo indica: tenerlo stretto lo blocca. Prova ad allentare la presa su un solo punto, per esempio un controllo o un'aspettativa. Poi osserva che cosa cambia nei giorni seguenti.
+24. La croce non è tutta in luce, ma il suo disegno si legge bene. Le zone in ombra indicano dove serve più attenzione, non dove fermarsi. Continua a muoverti verso {cosa} e dedica alla parte rovesciata uno sguardo in più ogni sera.
+25. Una velatura copre solo alcuni tratti del sentiero. Dove la vista è chiara, cammina con passo normale. Dove l'ombra stende il suo velo, rallenta e verifica prima di appoggiare il piede: una domanda in più, un controllo in più. È così che si evita l'inciampo.
+26. Nella gettata parlano due voci diverse: una ti spinge, l'altra ti chiede tempo. Non zittirne nessuna. Lasciale parlare fino in fondo, magari mettendo per iscritto le ragioni di ciascuna su un foglio diviso in due, poi decidi a quale tocca guidare la prossima settimana.
+27. Se Radice e Ostacolo sono uno dritto e l'altro rovesciato, guarda bene: spesso la stessa abitudine ti sostiene e ti trattiene insieme. Non buttarla via. Tieni la parte che ti regge e taglia solo quella che ti impedisce di cambiare.
+28. Le pietre in luce portano calore, quelle in ombra portano peso. Insieme dicono quanto pesa davvero {cosa}: né facile né impossibile. Diffida di chi ti dice che è tutto semplice o tutto perduto. La croce mista chiede un giudizio equilibrato e un impegno costante.
+29. Tra il Cuore e l'Esito il passaggio si restringe in un punto. Non è un vicolo cieco: è una strettoia. Si passa togliendo il superfluo, cioè gli impegni o le pretese che non servono a questa questione. Alleggerisciti prima di arrivarci, non a metà del passaggio.
+30. Questa croce ha il ritmo di inizio primavera: qualcosa sta germogliando, qualcos'altro dorme ancora. Coltiva i germogli con cura quotidiana. Non scavare per vedere se il seme addormentato è vivo: lascialo riposare, perché ha i suoi tempi e disturbarlo lo rallenta.
+31. La croce è in equilibrio instabile: un lato preme, l'altro resiste. Non cercare di risolvere la tensione con una mossa grande. Trova il gesto piccolo che puoi compiere oggi, per esempio una telefonata o una prima bozza: lascia che sia quello a spostare il peso.
+32. Le pietre di questa croce camminano con passi diversi. Pretendere che tutto si risolva insieme rischia di strappare ciò che sta ancora crescendo. Fai una lista delle parti che compongono la questione e scrivi accanto a ciascuna se è pronta, quasi pronta o da lasciare in pace.
+33. Le pietre rovesciate in questa gettata fanno da cornice a quelle dritte: mostrano che cosa va custodito. Ciò che funziona può rovinarsi se lo dai per scontato. Proteggi quello che va bene con un gesto di cura concreto, prima di occuparti di ciò che non va.
+34. Se l'ombra cade fra la Radice e l'Esito, il collegamento fra ciò che hai e ciò che vuoi è fragile. Il Consiglio diventa il tuo appoggio principale. Seguilo con disciplina per un tempo stabilito, per esempio due settimane, prima di valutare se funziona.
+35. Dentro {cosa} una parte ha già preso forma, un'altra è ancora malleabile. Non trattarle allo stesso modo. Su quella definita lavora di rifinitura, con mano leggera. Su quella ancora morbida puoi decidere molto: è il momento di dire con chiarezza che cosa vuoi.
+36. Le pietre di questa croce non sono tutte d'accordo: va bene così. Un parere contrario serve a mettere alla prova quello favorevole. Prima di decidere, cerca l'argomento più forte contro la tua scelta e verifica se regge anche dopo averlo ascoltato.
+37. Il passaggio è in parte libero e in parte ostruito. Non provare a sgomberare tutto in un pomeriggio. Ogni giorno togli un intralcio, il più piccolo che trovi: il varco si allarga poco a poco e intanto continui a muoverti sul tratto già percorribile.
+38. Ogni forza in questa croce difende qualcosa: la spinta difende il tuo desiderio, il freno difende la tua sicurezza. Non chiederti chi deve vincere. Chiediti che cosa rischi di perdere se ascolti soltanto una delle due, poi scegli il passo che salva entrambe.
+39. In questa gettata l'aiuto arriva a ondate, non in modo continuo. Quando senti la spinta, sfruttala subito: è il momento di fare la telefonata o di mandare il messaggio. Nelle pause non forzare, recupera energie. Alternare così rende il percorso meno faticoso.
+40. Ogni posizione dritta è un via libera, ogni posizione rovesciata è un semaforo giallo. Passa con decisione dove la strada è sgombra. Dove la pietra è girata, guarda a destra e a sinistra prima di procedere: un controllo in più costa poco ed evita guai.
+41. La gettata mostra legami che reggono e legami che stringono troppo. Fra le persone o gli impegni legati a questa domanda, distingui quelli che ti sostengono da quelli che ti soffocano. Tieni i primi. Sui secondi lavora con dita pazienti: allenta, non tagliare.
+42. In una croce mista conviene mettere vicine due posizioni: quella dell'Ostacolo e quella del Consiglio. La seconda risponde alla prima. Se una delle due è rovesciata, il rimedio va adattato: non applicarlo così com'è, prova una versione più graduale e più paziente.
+43. La croce descrive una situazione in gran parte vivibile, con un angolo che eviti. Quel punto evitato non sparisce da sé. Usa la stabilità delle altre posizioni come base per aprirlo: questa settimana dedicagli un'ora, sapendo che il resto della croce ti regge.
+44. Quello che scorre e quello che si blocca fanno parte della stessa storia. Se guardi solo il blocco perdi coraggio, se guardi solo lo scorrere perdi prudenza. Prima di ogni decisione per {cosa} nomina una cosa che va e una che non va.
+45. Le pietre rovesciate segnano tappe, non punti di arrivo. Ognuna vuole una cura precisa, dopo la quale ti lascia passare. Non restare a lungo sulla stessa difficoltà: datti un tempo, per esempio tre giorni, poi passa oltre anche se non tutto è perfetto.
+46. Questa croce alterna spinta e raccoglimento. Le pietre dritte sono il momento in cui il remo spinge, quelle rovesciate il momento in cui torna indietro per prendere slancio. Non viverle come un passo avanti e uno indietro: il ritorno prepara la spinta successiva.
+47. Fra l'origine e l'approdo la strada fa una curva che nasconde il seguito. Non pretendere di vedere l'Esito intero prima di muoverti. Cammina fino alla curva: è proprio percorrendola che la vista si apre. Fissa solo il prossimo traguardo raggiungibile, non l'ultimo.
+48. Nella gettata il peso delle pietre rovesciate è controbilanciato da quelle dritte. Tieni lo sguardo sulle seconde senza fingere che le prime non esistano. Ogni sera nota una cosa che ti ha sollevato e una che ti ha appesantito: col tempo vedi quale prevale.
+49. La croce somiglia a un bosco con radure e tratti fitti. Nelle radure, cioè nelle posizioni dritte, fermati a orientarti e prendi le decisioni importanti. Nel fitto, dove la pietra è rovesciata, non improvvisare: segui il sentiero già tracciato da chi c'è passato prima di te.
+50. Un po' di resistenza fa parte di questo disegno: senza attrito la ruota gira a vuoto. Il punto in ombra ti dà presa sul terreno. Invece di lamentarti dell'intralcio, chiediti che cosa ti costringe a fare meglio. Usa quella spinta per rendere il tuo passo più solido.
+51. Le posizioni dritte confermano quello che già sai della questione. Quelle rovesciate pongono una domanda che non ti sei ancora fatto. Scrivila: formulare la domanda giusta vale più che cercare subito una risposta. Torna a rileggerla fra tre giorni, con calma.
+52. Se il Cuore e il Consiglio sono dritti, la direzione tiene anche quando altre pietre esitano. Sono loro a dare la rotta. Affidati a quelle due posizioni e considera le altre come avvertenze da tenere a mente, non come divieti.
+53. In questa gettata la materia cede in alcuni punti e resiste in altri. Come chi lavora l'argilla, impara dove premere e dove alleggerire la mano. Non forzare la parte dura: inumidiscila con tempo e attenzione, mentre modelli quella che già si lascia plasmare.
+54. Le porte di questa croce non si aprono tutte insieme: c'è un ordine. Prima attraversa quelle che le pietre dritte tengono aperte. Le porte segnate dall'ombra si aprono più tardi, quando hai già varcato le prime. Rispettare la sequenza ti risparmia fatica.
+55. Proprio dove la gettata ti invita a correre, una pietra rovesciata chiede di rallentare. Non è una contraddizione: è un avviso sul punto in cui rischi di inciampare per troppa fretta. Accelera dove vuoi, ma su quel tratto preciso misura ogni passo.
+56. Fili chiari e fili scuri si intrecciano in questa croce: tagliarne uno disferebbe tutto il disegno. Accetta che {cosa} abbia anche un lato difficile. Non provare a eliminarlo con un colpo netto. Lavoralo dentro il tessuto, punto per punto, insieme a ciò che già regge.
+57. La croce ti offre slancio da un lato e prudenza dall'altro. Usa lo slancio per partire, oggi o domani. Usa la prudenza per non perdere la strada una volta in cammino. Chi parte con tutti e due arriva più lontano di chi ne porta uno soltanto.
+58. Ciò che in questa croce cade in ombra ha qualcosa da insegnarti che le pietre dritte non sanno dire. Prima di cercare di superarlo, chiediti quale errore ti sta evitando. Quando l'hai capito, il passo si fa più leggero e l'intralcio perde la sua presa.
+59.
+60.
+61.
+62.
 
 ## croce, ombra
-1. Molte pietre escono rovesciate: la croce non chiude la strada, indica le soglie da attraversare una alla volta, con passo lento.
-2. Quando l'ombra prevale il filo fra le pietre si fa più spesso, come una corda bagnata: va sciolto con pazienza, non tagliato.
-3. Dal cuore all'esito la gettata mostra nodi da allentare; ogni nodo sciolto restituisce un tratto di corda libera da usare.
-4. Questa croce chiede di guardare sotto la superficie: ciò che oggi si inceppa indica il punto preciso dove mettere mano.
-5. Le pietre in ombra formano una soglia larga; chi la attraversa con calma porta con sé ciò che ha imparato strada facendo.
-6. Il ghiaccio copre gran parte della gettata, ma il ghiaccio è acqua ferma: aspetta il calore giusto per tornare a scorrere.
-7. In questa croce le voci arrivano sommesse: per sentirle serve avvicinarsi e fare silenzio intorno alla questione.
-8. Ciò che resiste è più di ciò che scorre, eppure nulla è murato: ogni blocco ha una fessura da cui comincia lo scioglimento.
-9. La gettata è una stanza in penombra: gli occhi si abituano piano e gli oggetti riprendono forma uno dopo l'altro.
-10. Quando le pietre si girano l'invito è a rovesciare lo sguardo: ciò che sembrava ostacolo può rivelarsi riparo.
-11. Il filo della croce passa attraverso la nebbia; non serve vedere l'esito per fare il passo che il consiglio indica adesso.
-12. Questa gettata somiglia a un inverno lungo: sotto la terra dura i semi aspettano e conservano intera la loro forza.
-13. Le soglie sono parecchie e nessuna è un muro: ciascuna chiede un gesto diverso e lascia passare chi lo compie.
-14. Il nodo al centro si è stretto tirando da troppe parti; lasciare la presa per un momento è il primo modo di allentarlo.
-15. Quando l'ombra pesa di più la croce invita a ridurre il carico: posa ciò che non ti serve e il cammino torna percorribile.
-16. Anche il legno storto si raddrizza al fuoco lento; la gettata chiede tempo e calore, non forza.
-17. Le pietre rovesciate mostrano il rovescio della trama: i fili annodati che reggono il disegno, visibili solo da questo lato.
-18. Fra la radice e l'esito c'è un guado con l'acqua alta; si passa cercando le pietre ferme sul fondo, un appoggio dopo l'altro.
-19. La croce indica una sosta, non una resa: fermarsi qui permette di capire quale strada riprendere con forze nuove.
-20. Ciò che pesa in questa gettata non è una sentenza; è materia grezza, come il ferro prima della forgia, che aspetta la tua mano.
-21. In una croce così il consiglio vale doppio: è la lanterna che si porta in mano mentre il resto del sentiero è velato.
-22. Le ombre si raccolgono dove la questione chiede verità; guardarle senza fretta toglie loro gran parte del peso.
-23. La gettata mostra un passaggio stretto fra rocce; si attraversa di lato e senza bagagli inutili; di là l'aria si apre.
-24. Ogni pietra rovesciata è un invito a rifare un gesto con più cura: una parola da riprendere, un patto da riscrivere, un passo da ripetere.
-25. Quando molte pietre girano il viso verso il basso conviene guardare dove poggiano: è lì, nella terra, che si ritrova l'appoggio.
-26. Questa croce ha il colore della brace sotto la cenere: il calore c'è ancora e basta soffiare piano per ravvivarlo.
-27. Il blocco non sta soltanto dentro la questione, sta nel modo di guardarla; spostarsi di un passo cambia l'intero disegno.
-28. La gettata è un nodo rimasto troppo a lungo sotto sforzo: si scioglie bene se prima allenti la tensione di tutta la cima.
-29. Le soglie di questa croce si attraversano una per volta; contarle tutte insieme affatica, affrontarle in fila le rende leggere.
-30. Sotto le pietre rovesciate scorre una vena d'acqua: non si vede, ma tiene viva la terra e prepara il momento della ripresa.
-31. Ciò che oggi trattiene custodisce anche un'indicazione: dove il passo si ferma c'è qualcosa da raccogliere prima di ripartire.
+1. Più della metà delle pietre esce rovesciata: la croce non chiude la strada, ma segnala diverse soglie una dopo l'altra. Non affrontarle tutte insieme. Scegli la più vicina, quella che puoi toccare questa settimana: lascia le altre in attesa del loro turno.
+2. Quando l'ombra prevale, il legame fra le pietre si fa spesso e pesante, come una corda bagnata. Tagliarla non serve. Lasciala asciugare: riduci per qualche giorno le decisioni per {cosa} al minimo indispensabile, poi riprendi i nodi uno alla volta con mente più lucida.
+3. Ogni posizione rovesciata in questa croce è un nodo da allentare, non un muro. Ogni nodo sciolto ti restituisce un tratto di libertà da usare subito. Comincia da quello che dipende soltanto da te, non da quello che richiede il consenso di altri.
+4. Con tante pietre girate la gettata ti invita a cercare la causa, non l'effetto. Ciò che oggi si inceppa ha un'origine precisa, spesso più semplice di quanto pensi. Prima di cambiare tutto, chiediti quando è cominciata la difficoltà e che cosa è successo in quel momento.
+5. La croce in ombra non è un rifiuto: è un attraversamento lungo. Chi lo percorre con calma ne esce con qualcosa in più di quando è entrato. Tieni un quaderno di questo periodo, perché ciò che impari adesso può diventare la tua forza dopo.
+6. Gran parte della croce è ferma come acqua gelata: non scorre, ma non è sparita. Aspetta che torni il calore invece di picconare il ghiaccio. Nel frattempo cura le condizioni: riposo, ordine, relazioni buone. Quando il clima cambia, il movimento può riprendere da sé.
+7. In questa gettata le pietre parlano a bassa voce: per capirle servono vicinanza e silenzio. Riduci il rumore intorno a questa domanda per qualche giorno, meno opinioni altrui e meno informazioni. Torna alla questione con calma e senti che cosa resta quando il resto tace.
+8. Le resistenze superano gli slanci, ma nessuna posizione è sigillata. Ogni blocco ha un punto di cedimento, anche piccolo. Cercalo con pazienza: una persona più disponibile delle altre, un momento della giornata in cui hai più energia, una richiesta più modesta.
+9. Davanti a questa croce non decidere subito: gli occhi hanno bisogno di qualche giorno per abituarsi alla penombra. Ciò che adesso sembra confuso prende forma se lo guardi con regolarità. Torna alla questione ogni sera per una settimana prima di muoverti.
+10. Quando le pietre si girano, conviene girare anche il tuo punto di vista. Ciò che chiami ostacolo potrebbe essere un riparo da un errore più grande. Prova a scrivere la situazione come la racconterebbe qualcuno che ti vuole bene: spesso il blocco cambia nome.
+11. Anche se la croce è velata quasi ovunque, la posizione del Consiglio indica comunque un passo possibile. Non aspettare che la nebbia si alzi per compierlo. Fai quella cosa piccola oggi: è il modo più affidabile per vedere un tratto in più domani.
+12. La gettata ha il passo dell'inverno: sotto la superficie si conserva la forza. Non è il momento di raccogliere né di seminare, ma di custodire. Metti ordine in ciò che riguarda {cosa}, così al ritorno del tempo buono hai tutto a portata di mano.
+13. Ogni posizione rovesciata ha una chiave diversa: quella che apre la Radice non apre l'Esito. Non usare lo stesso rimedio per ogni difficoltà. Per ognuna chiediti che cosa le manca: tempo, chiarezza, aiuto, coraggio. Poi dai a ciascuna quello che le serve.
+14. Al centro della croce c'è un nodo che si è serrato perché troppe forze tirano insieme. Il primo gesto per scioglierlo è smettere di tirare. Per qualche giorno non insistere, non chiedere, non spiegare: lascia che la tensione cali da sola.
+15. Quando l'ombra pesa di più la croce chiede di alleggerire. Fai l'elenco di ciò che stai portando per {cosa} e cancella almeno una voce che non serve: un impegno, un'aspettativa, una persona da accontentare. Con meno peso il cammino si riapre.
+16. Con tante pietre rovesciate la forza peggiora le cose: ciò che è piegato si spezza se lo raddrizzi di colpo. Scegli la via lenta. Ogni giorno un piccolo gesto di cura sulla questione, senza scadenze strette, finché la forma torna giusta.
+17. Le pietre girate mostrano il retro della questione, quello che di solito non guardi: i nodi, le cuciture, le fatiche nascoste. Non spaventarti di quello che vedi, perché è il lato che regge tutto il resto. Esaminalo con onestà per capire dove rinforzare.
+18. Fra la Radice e l'Esito l'acqua è alta, ma sul fondo ci sono pietre ferme. Non lanciarti nella corrente sperando di arrivare dall'altra parte con un salto. Cerca un appoggio alla volta: una cosa che sai fare, una persona fidata, un'abitudine che regge.
+19. Questa croce consiglia una pausa, non una rinuncia. Concediti qualche giorno senza prendere decisioni importanti per {cosa}. Usali per riposare e per osservare. Quando riparti, scegli la strada con occhi freschi invece di continuare per inerzia su quella che si è inceppata.
+20. Ciò che pesa in questa gettata somiglia a ferro prima della forgia: duro, ma lavorabile. Non è un giudizio su di te. È materiale da modellare con le tue mani. Comincia dalla parte più piccola e trasformala, poi passa alla successiva con la mano già scaldata.
+21. Quando quasi tutto è velato, la posizione del Consiglio diventa la tua lanterna, anche se fosse rovesciata anch'essa. Leggila con attenzione e tienila davanti a te. Ogni volta che non sai che cosa fare, torna a quella indicazione invece di inventarne una nuova.
+22. In questa croce le pietre rovesciate si raccolgono dove {cosa} chiede sincerità. Guardare quei punti senza fretta toglie loro buona parte del peso. Fai una domanda scomoda a chi è coinvolto, oppure a te: accogli la risposta senza difenderti e senza rimandarla.
+23. Il varco che la croce lascia è stretto, ma c'è. Per passarlo devi lasciare indietro qualcosa: una pretesa, un rancore, un piano troppo grande. Scegli che cosa posare e fallo prima di muoverti. Di là dalla strettoia lo spazio torna largo.
+24. Ogni pietra rovesciata segnala un gesto da rifare meglio: una parola detta in fretta, un accordo preso male, un passo saltato. Scegli quello che ti pesa di più e rimettilo in ordine questa settimana. Riparare una cosa piccola sblocca spesso quelle grandi.
+25. Molte pietre guardano verso il basso: guarda anche tu le fondamenta. Il sostegno che cerchi sta nelle cose semplici e quotidiane, gli orari, la casa, le persone vicine. Rimetti in ordine queste prima di affrontare {cosa}: è lì che ritrovi l'appoggio.
+26. Il fuoco della questione non si è spento: è coperto. Basta poco per ravvivarlo, ma deve essere poco davvero. Non soffiare forte con gesti plateali. Riprendi con delicatezza un contatto, una pratica, un desiderio che avevi lasciato. Poi osserva se si riaccende.
+27. Il blocco non sta solo nella questione, ma anche nel modo in cui la guardi. Con tante pietre girate, cambiare posizione cambia il disegno intero. Prova a raccontare {cosa} dal punto di vista di un'altra persona coinvolta: spesso la via d'uscita appare da lì.
+28.
+29.
+30.
+31.
 
 ## telo, luce
-1. Al centro del telo arde la voce più forte e fino ai margini nessuna pietra si volta: il cerchio intero parla con una voce chiara.
-2. Ciò che pesa e ciò che sfiora guardano nella stessa direzione: dal cuore del telo all'orlo corre un solo filo, teso e lucente.
-3. Nessuna ombra sul telo. La pietra di mezzo regge il discorso e quelle sparse lungo il bordo lo accompagnano come voci di un coro.
-4. Come cerchi nell'acqua quando cade un sasso, il senso parte dal centro e arriva intatto fino al bordo del telo.
-5. Le pietre ai margini non contraddicono quella centrale: la ripetono a bassa voce, come un'eco che conferma la strada.
-6. Il telo si apre tutto in chiaro. Ciò che conta di più e i dettagli più lievi stanno dalla stessa parte e ti chiedono di muoverti.
-7. Sette voci senza un'ombra: quella al centro detta il passo, quella che le sta accanto lo sostiene, le lontane tengono aperta la via.
-8. Fra il cuore del telo e la sua frangia non c'è attrito. Ciò che è grande e ciò che è minuto lavorano insieme per te.
-9. Come le travi di una casa ben costruita, le pietre si reggono l'una con l'altra: il peso sta in mezzo, il riparo arriva fino ai bordi.
-10. La pietra che pesa di più ha accanto una compagna fedele e intorno un orlo quieto: niente si oppone, tutto accompagna.
-11. Dal centro ai margini il telo parla come una mano aperta: il palmo dice la cosa essenziale, le dita indicano dove andare.
-12. È una gettata concorde. Le voci lievi del bordo confermano senza clamore quello che la voce di mezzo afferma con forza.
-13. Nessuna pietra volta la faccia: la luce del centro si allarga come il calore di un focolare che raggiunge ogni angolo della stanza.
-14. Il filo che lega queste pietre è dritto. Quello che senti al cuore della questione trova sostegno anche nelle cose piccole intorno.
-15. Il centro e l'orlo del telo si rispondono come due rive dello stesso fiume, con un ponte già gettato fra l'una e l'altra.
-16. Le pietre lontane dal centro sfiorano appena il discorso, ma lo sfiorano nella stessa luce: anche il dettaglio ti dà ragione.
-17. Ogni pietra cade scoperta. Il centro chiama, la voce vicina risponde e i margini fanno spazio: la strada si sgombra da sé.
-18. Come un sentiero segnato da pietre bianche, il telo mostra il cammino dal punto che pesa fino all'ultimo segno sul bordo.
-19. Ciò che pesa non schiaccia e ciò che sfiora non distrae: le sette voci stanno in equilibrio, come metallo battuto con mano esperta.
-20. Il telo è un campo arato in pieno giorno: al centro il solco profondo, ai bordi i segni leggeri, tutti nella stessa direzione.
-21. La voce centrale non deve alzare il tono, perché nessuna pietra la contrasta: basta accoglierla con calma per capire il passo.
-22. Fra la pietra di mezzo e quelle sparse sul bordo scorre una corrente calda: ciò che conta e ciò che accompagna si danno la mano.
-23. Il cerchio è limpido dal cuore all'orlo. Puoi dare credito a ciò che senti forte e anche ai piccoli segnali che lo circondano.
-24. La forza del centro passa alla pietra vicina e si posa sui margini come brace che non si spegne: nessuna voce trattiene.
-25. Il peso è in mezzo, la grazia è ai bordi: in questa gettata la sostanza e la leggerezza camminano insieme senza pestarsi i piedi.
-26. Nessun nodo da sciogliere sul telo. La pietra che decide ha intorno compagne che la confermano e la rendono più facile da seguire.
-27. Come la nebbia che lascia una valle intera, il telo si mostra nitido: il centro indica, il vicino precisa, i margini rassicurano.
-28. Le voci più lievi non portano dubbi ma sfumature. Arricchiscono il centro senza tirarlo altrove: il quadro è coerente.
-29. La gettata somiglia a una tavola apparecchiata. Il piatto principale sta in mezzo e tutto intorno c'è ciò che serve per gustarlo appieno.
-30. La pietra centrale ha la voce di chi apre la porta di casa; quelle ai margini sono le finestre spalancate sulla stessa mattina.
-31. Dal punto più denso del telo fino al suo orlo sfilacciato la luce non si interrompe: ogni piano della tua vita va nello stesso senso.
-32. Sette pietre e una sola intenzione. Il centro la dice piena, la pietra accanto la ripete più piano, i margini la sussurrano.
-33. Ciò che sta al centro è il fuoco, ciò che sta al bordo è il suo riverbero: insieme scaldano la domanda che porti.
-34. Le pietre si sono posate come rondini sullo stesso ramo, tutte rivolte alla luce: il messaggio è uno e si legge con facilità.
-35. Fra ciò che pesa e ciò che sfiora non c'è da scegliere. La gettata li tiene insieme e ti invita a dare ascolto a entrambi.
-36. Il telo somiglia a un ricamo finito: il disegno grande sta al centro e i punti minuti dei margini lo completano senza strappi.
-37. Nessuna pietra si nasconde. Quello che è importante è anche visibile, quello che è secondario è anche favorevole: la via è libera.
-38. La voce di mezzo e la sua vicina formano un passo deciso; le lontane sono il terreno che regge quel passo senza cedere.
-39. Ogni pietra cade dritta, come chiodi piantati bene in un'asse: il centro tiene la struttura e il bordo la rifinisce.
-40. Il telo parla con una voce sola che si allarga in cerchi: vicino al centro è più forte, lontano è più dolce, mai diversa.
-41. Ciò che sfiora l'orlo del telo porta la stessa luce di ciò che pesa nel mezzo: anche le parti piccole della giornata stanno dalla tua parte.
-42. È un telo senza crepe. Il cuore della gettata e le sue frange si accordano come strumenti che suonano lo stesso tono.
-43. La pietra al centro porta il seme, quella vicina la terra buona, quelle lontane la pioggia leggera: tutto concorre a far crescere.
-44. Come un vento che spinge nella direzione del viaggio, ogni pietra sul telo soffia dalla stessa parte: approfitta della spinta.
-45. Il centro decide, i margini consentono. Quando nessuna voce dissente, il compito è uno solo: cominciare.
-46. Fra le pietre non c'è distanza vera, anche se il telo le sparge: ciò che pesa e ciò che sfiora sono due misure della stessa luce.
-47. Le pietre sparse sull'orlo sono come lanterne lungo un molo: il centro è l'approdo e tutte insieme ti indicano dove attraccare.
-48. La gettata è una stanza in ordine. Al centro la cosa che conta, intorno ogni oggetto al suo posto: niente da spostare, molto da usare.
-49. La voce che pesa di più ha intorno a sé un silenzio favorevole: i margini non disturbano, accompagnano e lasciano spazio.
-50. Ghiaccio sciolto in ogni punto del telo: dal centro ai bordi l'acqua scorre libera e porta con sé ciò che ti serve.
-51. La pietra vicina al centro fa da ponte fra la decisione e il dettaglio; la luce passa dall'una all'altra senza fermarsi.
-52. Sette pietre che si guardano senza diffidenza. Il centro ha l'autorità, il bordo ha la grazia: insieme danno un consenso pieno.
-53. Il telo è un patto firmato da tutte le sue pietre. Chi pesa e chi sfiora sottoscrivono la stessa frase: puoi procedere.
-54. Dal cuore al bordo la gettata respira con un ritmo lento e pieno, come chi sale un pendio sapendo bene dove porta il sentiero.
-55. La voce forte del centro e i bisbigli dei margini dicono la stessa cosa: quando il grande e il piccolo coincidono, la strada è buona.
-56. Nessuna pietra è rovesciata e il filo che le unisce è d'oro: ciò che decidi al centro trova risposta anche nei gesti minimi.
-57. Il telo intero è un'unica soglia aperta. Il centro è il passo, la pietra vicina è l'appoggio, l'orlo è lo spazio che ti accoglie.
+1. Sette pietre dritte e nessuna che contraddica le altre: il telo parla con una voce sola dal centro fino all'orlo. Quando la gettata è così unita il rischio è perdere tempo a cercare un ma che non c'è. Agisci sul punto centrale, già oggi.
+2. Ciò che pesa di più e ciò che sfiora appena vanno nella stessa direzione. Vuol dire che la decisione importante e i dettagli pratici non si ostacolano. Prendi la decisione grande e subito dopo sistema due o tre cose piccole che la rendono concreta.
+3. La pietra presso il centro regge il discorso di quella centrale, le pietre ai margini lo accompagnano. Puoi fidarti dell'insieme. Se cerchi qualcuno con cui condividere il passo che stai per fare, cercalo fra le persone vicine: il telo indica sostegno a portata di mano.
+4. Il senso della gettata si allarga dal centro verso l'esterno senza perdersi. Ciò che decidi nel cuore della questione arriva fino ai margini della tua vita quotidiana. Scegli con cura il primo gesto, perché il resto si dispone di conseguenza intorno a lui.
+5. Le pietre lontane dal centro non portano messaggi diversi: confermano il principale con toni più sommessi. Prendile come segnali che stai andando bene. Se nei prossimi giorni noti piccole coincidenze favorevoli che toccano {cosa}, non liquidarle: sono l'eco di questa gettata.
+6. Nessuna pietra in ombra su tutto il telo: l'essenziale e il secondario stanno dalla stessa parte. Questo è un invito a muoverti, non a contemplare. Fissa un'azione per domattina, scrivila dove la vedi appena ti svegli e completala prima di mezzogiorno.
+7. Al centro c'è la direzione, appena fuori il sostegno, ai margini lo spazio libero per muoversi. È una disposizione rara: tutto collabora. Usala per avviare qualcosa che rimandi da tempo, con un impegno preciso e una data già scritta in agenda.
+8. Le cose grandi e quelle minute di questa gettata lavorano dalla tua parte. Non serve combattere su nessun fronte. Concentrati sull'essenziale, cioè su quello che cade al centro: lascia che i dettagli si sistemino quasi da soli mentre procedi con passo costante.
+9. Le pietre del telo si sostengono a vicenda, come i pali di una tenda ben piantata. Se una cedesse, le altre la reggerebbero. Per questo puoi osare un passo più lungo del solito verso {cosa}: la struttura intorno è solida.
+10. Al centro una pietra forte, presso il centro un'alleata, ai margini un clima quieto. Niente si oppone. Non è il momento di difenderti da nemici che non ci sono. Abbassa la guardia quanto basta per accogliere l'aiuto che ti viene offerto.
+11. Il telo indica una cosa da fare e la indica da ogni lato. Non disperdere l'attenzione su altri progetti in questi giorni. Metti al primo posto ciò che chiede il centro e dagli il tuo tempo migliore, quello delle ore in cui hai più energia.
+12. Le voci più deboli, quelle del bordo, non sollevano obiezioni. Il centro può parlare pieno e tu puoi credergli fino in fondo. Non chiedere altri pareri per {cosa} solo per rassicurarti: la conferma ce l'hai già. Spendi l'energia nell'agire, a partire da oggi.
+13. Il calore della pietra centrale arriva fino agli angoli del telo. Ciò che senti di più intenso trova eco anche nelle piccole cose della giornata. Lascia che si veda: un gesto gentile, una parola sincera, un piccolo regalo di tempo a chi ti è vicino.
+14. Il filo che lega le sette pietre corre teso e senza nodi. Quello che senti al cuore della questione ha appoggio anche nelle circostanze. Se ti sembra troppo bello per essere vero, ricordati che il telo non mostra ombre. Accetta il favore senza sospetto.
+15. Fra l'essenziale e il marginale c'è già un passaggio pronto. Non serve costruire collegamenti nuovi: ciò che desideri al centro e ciò che vivi ogni giorno sono già in contatto. Attraversa quel passaggio con un gesto quotidiano che porti l'essenziale nelle tue abitudini.
+16. Perfino le pietre più lontane dal centro cadono dritte: i dettagli confermano la direzione. Quando anche le piccole cose vanno per il verso giusto, è il segno di un momento favorevole. Approfittane per chiudere una questione rimasta sospesa da settimane.
+17. Il telo ha un ordine chiaro: prima ciò che sta al centro, poi ciò che sta vicino, infine ciò che sta ai margini. Rispetta questa sequenza anche nelle tue azioni. Comincia dalla cosa più importante, non dalla più facile: il resto si libera strada facendo.
+18. Le pietre sparse sul telo sono tappe di un percorso visibile. Non hai bisogno di indovinare la direzione: seguila un segno alla volta. Se ti perdi, torna alla pietra centrale e chiediti che cosa ti chiede di fare oggi, non domani.
+19. Equilibrio fra le sette voci: nessuna sovrasta, nessuna si perde. È il momento di dare a ogni parte di questa domanda il suo spazio giusto. Dedica la maggior parte del tempo al punto centrale, ma riserva un momento anche ai dettagli che tieni ai margini.
+20. Sul telo il solco profondo è al centro e i segni leggeri ai bordi vanno tutti nello stesso verso. Il terreno è pronto. Semina adesso: comincia il progetto, fai la proposta, scrivi la prima pagina. Rimandare in una gettata così significa sprecare una stagione buona.
+21. La pietra al centro parla con calma perché nessuno la contraddice. Non serve forzare nulla. Rispondile con la stessa calma: siediti dieci minuti in silenzio, pensa a ciò che hai chiesto e annota la prima azione che ti viene in mente.
+22. Fra le pietre vicine al centro e quelle lontane scorre un'intesa. Le persone importanti e quelle di passaggio, in questi giorni, possono offrirti qualcosa di utile. Non trascurare l'incontro casuale, la frase detta di sfuggita, il suggerimento non richiesto: possono contare.
+23. Tutto il telo è nitido. Ciò che senti con forza e i segnali sottili che lo accompagnano dicono la stessa cosa. Smetti di metterli a confronto per cercare contraddizioni. Prendi la direzione che indicano insieme e cammina con passo deciso.
+24. La forza della gettata parte dal centro e arriva intera fino al bordo, senza dispersioni. È un momento di energia piena. Usala per qualcosa che richiede slancio: una richiesta coraggiosa, un inizio, un cambiamento che hai paura di fare da troppo tempo.
+25. Al centro la sostanza, ai margini la leggerezza: la gettata unisce serietà e gioia. Affronta {cosa} con impegno, ma senza appesantirti. Concediti anche un piacere piccolo lungo il cammino: una passeggiata, un caffè con chi ti fa ridere, una sera tutta libera.
+26. Sul telo non c'è niente da districare. Quello che la pietra centrale ti indica è semplice: non complicarlo con piani elaborati. Fai la cosa più diretta che ti viene in mente, nel modo più semplice possibile. Verifica il risultato dopo qualche giorno.
+27. La visibilità è piena: nessuna zona del telo resta coperta. Se fino a ieri non vedevi chiaro dentro {cosa}, oggi la gettata te lo mostra. Approfitta di questa lucidità per mettere per iscritto, oggi stesso, che cosa vuoi e come intendi arrivarci.
+28. Le pietre ai bordi aggiungono sfumature, non dubbi. Arricchiscono il messaggio centrale con dettagli utili: un tempo, un luogo, una persona. Rileggi la gettata cercando proprio questi particolari, perché ti dicono come mettere in pratica ciò che il centro ti chiede.
+29. Il telo è come una tavola già pronta: al centro il piatto principale, intorno tutto ciò che serve. Non serve procurarti altro. Siediti e comincia. In concreto: usa le risorse che hai già, senza aspettare l'occasione perfetta o l'aiuto che ancora non c'è.
+30. Dal centro al bordo il telo è aperto come una casa in primavera. Fai entrare aria nuova dentro {cosa}: un'abitudine diversa, un incontro, un'idea che prima scartavi senza pensarci. È il momento di accogliere, non di difendere ciò che già c'è.
+31. La luce attraversa tutto il telo senza interruzioni. Lavoro, affetti, tempo libero: ogni area della tua vita va nello stesso senso, in questi giorni. Non c'è bisogno di scegliere fra l'una e l'altra. Porta avanti ciò che conta su più fronti, con misura.
+32. Le sette pietre esprimono un'unica intenzione, con intensità diverse: piena al centro, più lieve verso il bordo. Riconosci quella intenzione e dichiarala, almeno a te, con una frase semplice. Una volta detta, ogni scelta dei prossimi giorni ha un criterio chiaro.
+33. Ciò che sta al centro del telo scalda, ciò che sta ai margini riflette quel calore. Insieme rendono più accogliente la domanda che porti. Lascia che anche gli altri sentano questo clima: condividi una notizia buona, un progetto, un entusiasmo che finora tenevi per te.
+34. Le pietre si sono posate tutte con la faccia alla luce, come uccelli rivolti al sole del mattino. Non c'è niente di ambiguo da interpretare. Fai ciò che la pietra centrale ti indica e smetti di rileggere la gettata in cerca di altri significati.
+35. Non devi scegliere fra la cosa grande e quelle piccole: il telo le tiene insieme. Dedica la mattina all'essenziale e il pomeriggio ai dettagli, o viceversa, ma non sacrificare né l'una né gli altri. In questa gettata vanno di pari passo.
+36. Il telo è un lavoro quasi finito: manca solo qualche punto di rifinitura. Non smontare ciò che funziona per ricominciare da capo. Cura i particolari, sistema le piccole imprecisioni, porta a termine. Chiudere bene vale quanto aver cominciato, a volte anche di più.
+37. Su questo telo niente resta nascosto: ciò che è importante si vede, ciò che è secondario è favorevole. Se stavi aspettando un segnale per agire verso {cosa}, la gettata intera te lo dà. Fai il primo passo prima della fine della settimana.
+38. La pietra centrale e quella che le sta accanto camminano insieme: decisione e sostegno. Quelle lontane sono il terreno sotto i piedi. Puoi muoverti con fiducia, perché nessuna parte del telo cede. Scegli oggi la direzione e mantienila per almeno un mese.
+39. Le pietre sul telo sono piantate bene, ognuna al suo posto. È una gettata che parla di costruzione: qualcosa di solido può nascere adesso. Tratta {cosa} come un edificio da fondare con cura, non come un problema da chiudere in fretta. Costruisci per durare.
+40. La gettata dice una cosa sola, ripetuta con forza diversa: intensa vicino al centro, sommessa ai margini, mai contraria. Quando un messaggio torna così coerente, merita fiducia. Smetti di aspettare e metti in pratica il primo punto, anche in forma piccola.
+41. Le pietre ai margini portano la stessa luce di quella centrale: anche le ore ordinarie sono dalla tua parte. Non riservare l'impegno ai momenti speciali. Inserisci ciò che conta per te nelle abitudini quotidiane, dieci minuti al giorno, a un'ora fissa.
+42. Le sette pietre stanno in armonia fra loro: nessuna stona. Lo stesso accordo può esserci fra ciò che pensi, ciò che dici e ciò che fai riguardo a questa domanda. Verifica se combaciano. Dove non combaciano, correggi la parola o il gesto.
+43. Ogni zona del telo aggiunge un elemento necessario: chi decide, chi sostiene, chi rende possibile. Guarda intorno a te e riconosci chi svolge questi ruoli nella tua vita. Ringrazia chi ti sostiene e coinvolgi chi può renderti più facile il cammino.
+44. La gettata è vento in poppa: tutte le pietre spingono dalla stessa parte. Con un vento così si alzano le vele, non si resta in porto. Prendi l'iniziativa per {cosa} adesso, finché la spinta c'è: le stagioni favorevoli non durano per sempre.
+45. Non c'è dissenso fra le pietre: rimane soltanto da cominciare. Non cercare la preparazione perfetta, perché la gettata dice che quella che hai basta. Scegli il primo gesto, anche minimo: fallo entro due giorni. Il resto si organizza in movimento.
+46. Le pietre sono sparse sul telo ma vicine nel significato: distanza diversa, luce uguale. Allo stesso modo le cose importanti e quelle leggere della tua vita stanno parlando la stessa lingua. Senti che cosa dicono insieme e lascia cadere i dubbi.
+47. Le pietre lontane dal centro fanno luce lungo il percorso, quella centrale segna l'approdo. Non hai bisogno di mappe nuove: segui le indicazioni minori, che possono portarti dove serve. Fai attenzione ai piccoli segnali di questi giorni, perché ti orientano.
+48. Ogni pietra è al posto giusto: niente da riorganizzare. È tempo di usare ciò che c'è, non di risistemarlo. Prendi gli strumenti, le capacità, i contatti che hai già e mettili al servizio di questa domanda, cominciando da quello più vicino.
+49. La pietra centrale parla in un ambiente quieto, senza voci che la disturbino. Proteggi anche tu questa quiete nei prossimi giorni: meno distrazioni, meno impegni superflui. Lascia spazio al pensiero principale, perché in questa calma diventa più facile capire il passo successivo.
+50. Su tutto il telo l'acqua scorre libera: quello che era fermo si è messo in moto. Seguilo. Riprendi un progetto, un contatto, un desiderio che avevi messo da parte: adesso trova la corrente giusta per andare avanti senza fatica e senza forzare.
+51. Fra la pietra principale e quelle sparse ai bordi ce n'è una che fa da mediatrice. Nella tua vita è la persona o lo strumento che traduce le idee in pratica. Individualo e affidagli un compito concreto già da questa settimana.
+52. Le sette pietre si danno ragione a vicenda: autorità al centro, garbo ai bordi. Porta questa stessa combinazione nel modo in cui affronti {cosa}: fermezza sulle cose importanti, gentilezza su quelle di contorno. È l'atteggiamento che questa gettata premia più di ogni altro.
+53. Su questo telo non manca nessuna firma: tutte le pietre approvano. Se aspettavi un permesso, eccolo. Procedi con la decisione su cui esiti, comunicala a chi deve saperla e smetti di chiedere conferme che hai già ricevuto dalla gettata intera.
+54.
+55.
+56.
+57.
 
 ## telo, misto
-1. Sul telo una parte tiene il passo e un'altra chiede tempo: guarda da quale lato cade la voce del mezzo per capire dove posare la tua pazienza.
-2. Sul telo luce e ombra si sono divise il campo come due vicini che condividono un muro: chi siede al centro decide, chi sta ai lembi suggerisce piano.
-3. Guarda la pietra di mezzo prima di tutte le altre: porta il peso della risposta. Quelle sparse sull'orlo, chiare o scure, sono il vento che passa.
-4. Ciò che cade nel cuore del telo è la trave della casa; le pietre lontane sono tegole, alcune lucide, altre coperte di muschio: nessuna fa crollare il tetto.
-5. Una corda tesa dal centro fino all'orlo lega tutte le pietre: dove è asciutta tiene bene, dove è umida va stretta di nuovo con pazienza.
-6. Il telo mostra un guado: sul sasso di mezzo appoggi il piede con fiducia, mentre quelli ai lati, alcuni scivolosi, chiedono solo un passo più attento.
-7. Accanto alla pietra centrale ne cade un'altra, quasi a farle da spalla: insieme dicono la parte seria, mentre il chiaro e lo scuro dei margini sfumano come nebbia al mattino.
-8. Fra le sette pietre c'è chi brilla e chi tace in penombra: è la trama normale di ogni tessuto vivo. Tira il filo che parte dal centro e il disegno si fa leggibile.
-9. Se il chiaro sta nel mezzo, le fatiche restano di contorno; se è il velato a occupare il centro, lì va la tua cura e i margini ti fanno da sponda.
-10. Un fuoco acceso in qualche punto del telo scalda anche gli angoli freddi: le pietre in ombra restano tiepide, mai spente: quella al centro custodisce la brace da cui ripartire.
-11. Sette pietre come sette voci in una stanza: alcune parlano chiaro, altre mormorano. Dai retta soprattutto a quella seduta al centro e alla sua vicina.
-12. Il metallo battuto ha zone lucide e zone brunite: è quel contrasto a dargli forma: così il telo, con il suo centro che decide e i margini che rifiniscono.
-13. Tra chiaro e scuro il telo non si spezza: si piega. La pietra che pesa di più segna la piega maestra, le altre fanno le pieghe piccole del giorno.
-14. Che sia il centro a scorrere e l'orlo a resistere o il contrario, il filo fra le pietre regge: chiede solo una mano ferma che lo tenga teso.
-15. Le pietre di questo telo sono passi su un sentiero di montagna, alcuni sulla roccia calda, altri sul ghiaccio. Quello centrale indica la direzione, gli altri il ritmo.
-16. Il nodo sta al centro, i capi liberi ai margini: dove la corda è chiara il nodo si scioglie con le dita, dove è scura serve un po' più di pazienza.
-17. Pesa di più la pietra nel mezzo, ma non senza aiuto: la sostiene quella che le cade accanto. Le luci e le ombre sparse più in là raccontano il contorno, non il cuore.
-18. Il telo somiglia a un bosco a metà mattina, con radure chiare e tratti fitti che si alternano. La pietra del centro indica la radura verso cui camminare.
-19. Ogni pietra in ombra è una porta socchiusa, non sbarrata; ogni pietra chiara è una finestra già aperta. Al centro del telo sta la soglia che conta.
-20. Il disegno del telo ricorda un mosaico ancora umido: tessere scure e tessere chiare stanno vicine e il colore d'insieme dipende da quella posata nel mezzo.
-21. Dove la luce tocca il telo il cammino si fa spedito; dove cade l'ombra il passo rallenta senza fermarsi. La voce del centro ti dice quale tratto percorri adesso.
-22. Il centro e il bordo non dicono la stessa cosa e va bene così: uno porta la sostanza, l'altro le sfumature. Il chiaroscuro fra loro è il ritratto onesto del momento.
-23. Quel che sta nel mezzo del telo è radice, quel che sta sull'orlo è foglia: le foglie possono scurirsi e cadere, la radice resta a nutrire il ramo.
-24. Qualcosa sul telo si apre e qualcosa resta chiuso: non è un conflitto, è una stagione di mezzo. La pietra più vicina al cuore indica da quale lato entrare.
-25. Al cuore del telo una voce ferma, intorno un cerchio di voci leggere che alternano chiarezza e silenzio: lascia che siano loro a colorare, non a decidere.
-26. Ogni pietra velata è un sassolino nella scarpa, ogni pietra chiara è terreno buono: conta soprattutto che cosa calpesti al centro, dove il passo pesa davvero.
-27. Il telo intreccia fili chiari e fili scuri come una coperta di lana fatta in casa: la trama regge proprio perché li tiene entrambi. Il punto più fitto è nel mezzo.
-28. Lascia che le pietre ai margini dicano la loro senza prenderle troppo sul serio, chiare o velate che siano: è nel mezzo che si decide la sostanza di ciò che chiedi.
-29. Il telo è un tavolo apparecchiato a metà: alcuni piatti già serviti, altri ancora coperti. Siediti al posto centrale e comincia da ciò che hai davanti.
-30. Quando luce e ombra si spartiscono il telo, nessuna delle due ha l'ultima parola: ce l'ha la pietra di mezzo, che tiene insieme le altre come il perno tiene la ruota.
-31. Una pietra al centro, un'altra a un palmo di distanza, poi il resto sparso sulla trama: è la mappa di ciò che ti preme, con strade chiare e passaggi in penombra.
-32. Le ombre ai lati del telo non sono buio: sono il fresco sotto un portico, dove si può sostare un momento prima di riprendere la via che parte dal centro.
-33. Il ghiaccio e il fuoco cadono sullo stesso telo: uno conserva, l'altro muove. Chiediti quale dei due serve al cuore della faccenda e lascia agli orli l'altro.
-34. Sul telo la luce non cancella l'ombra e l'ombra non spegne la luce: convivono come il giorno e la sera in una stanza con una sola finestra.
-35. Leggi le pietre come si legge un volto: lo sguardo al centro dice l'essenziale, le rughe e i lampi agli angoli raccontano ciò che resta da capire.
-36. La gettata ha il colore del legno vecchio, venature chiare e nodi scuri nella stessa asse. Il segno più marcato, al centro, è il punto in cui l'asse regge di più.
-37. Ciò che sfiora il bordo del telo passa in fretta, chiaro o scuro che sia; ciò che si posa nel mezzo resta. Concentra lì il tuo sguardo e la tua forza.
-38. In questo getto alcune pietre spingono e altre trattengono, come i rematori di una barca che cerca il suo ritmo. La voce al centro dà la battuta a tutte.
-39. Fra la pietra che pesa e quelle che sfiorano corre un filo sottile: dove è illuminato puoi seguirlo a occhi aperti, dove si perde nell'ombra seguilo col tatto.
-40. La trama del telo è doppia: una parte già tessuta, una parte ancora sul telaio. La pietra del centro è la spola che passa e ripassa fra le due.
-41. Non tutte le pietre parlano con la stessa forza: quella nel mezzo alza la voce, quelle sull'orlo sussurrano. Anche i sussurri in ombra hanno qualcosa da insegnare.
-42. Il chiaroscuro del telo è quello di un'officina, scintille vicino all'incudine e angoli in penombra. Il lavoro vero si fa al centro, dove il ferro è caldo.
-43. Accetta che qualche pietra resti in ombra: anche un sentiero ben tracciato ha i suoi tratti sotto gli alberi. Il centro del telo ti dice se la strada sale o riposa.
-44. Sette pietre sul telo come sette candele in una sala: alcune accese, altre da riaccendere. La fiamma che conta è quella nel mezzo, attorno a cui tutto si raccoglie.
-45. Le voci lievi dei margini e la voce grave del centro non sono in disaccordo: compongono un accordo di note chiare e note basse che insieme suona vero.
-46. Il centro del telo è la stanza dove si vive, i margini sono il corridoio: che il corridoio sia in luce o in ombra, conta come abiti la stanza.
-47. Se una pietra in ombra cade vicino al cuore del telo merita attenzione; se scivola sull'orlo merita solo un'occhiata. La luce sparsa intorno fa il resto.
-48. Questo getto somiglia a un campo dopo la mietitura: covoni raccolti e zolle ancora da rivoltare. Comincia dal pezzo di terra al centro, quello che rende di più.
-49. La gettata ha due mani: una aperta che offre, una chiusa che trattiene. La pietra di mezzo ti mostra quale delle due tendere per prima.
-50. Fra il peso del centro e la leggerezza dei bordi il telo trova il suo equilibrio, come una bilancia con piatti di colore diverso: nessuno dei due tocca terra.
-51. Come il pane che lievita in parte e in parte resta pasta, il getto è a metà dell'opera: la pietra del centro dice quanto tempo serve ancora al forno.
-52. Un ponte di pietre attraversa il telo, alcune salde e chiare, altre muschiose e scure. Cammina sulla campata centrale: è quella che porta il carico.
-53. Al pozzo si attinge acqua limpida e acqua torbida dallo stesso secchio: lascia posare, poi bevi. La voce di mezzo è lo strato chiaro che resta in superficie.
-54. Il getto disegna un giardino con aiuole in fiore e angoli ancora da vangare: la pietra centrale è l'albero che fa ombra buona a tutto il resto.
-55. Le pietre si sono distese come banchi di un mercato all'alba, alcuni già allestiti, altri ancora coperti dal telo. Fermati prima al banco di mezzo.
-56. Ogni pietra è una riga di una lettera scritta in fretta: alcune nitide, altre sbavate. La frase al centro è quella che porta il senso, il resto lo completa.
-57. Lo scafo è dritto, qualche vela è ancora ammainata: così si presenta il getto. La pietra di mezzo è il timone, le altre sono il vento che cambia di lato.
-58. Gira la macina del mulino e il grano esce in parte fine, in parte grosso: si setaccia. Quello che resta nel cuore del telo è la farina buona per oggi.
-59. Le zolle dell'orto non maturano tutte insieme: ce n'è di pronte e di acerbe. La pietra centrale ti indica che cosa raccogliere adesso e che cosa lasciare crescere.
-60. Una scala con gradini di legno chiaro e gradini consumati sale dal bordo al centro del telo: sali piano, tenendoti al corrimano di ciò che già regge.
-61. Sul telo una chiave luccica e una serratura resta arrugginita: la mano che le avvicina è la tua. Il centro ti dice quale porta aprire per prima.
-62. Una lanterna nel mezzo del telo non toglie le ombre agli angoli, le rende solo meno paurose: alla sua luce si vede abbastanza per fare il passo successivo.
-63. Il telaio ha fili tesi e fili allentati, come accade a ogni tessitura onesta. Stringi quelli del centro e lascia che i margini trovino il loro passo senza fretta.
-64. Dentro il cesto qualche frutto è maturo e qualcuno ha preso un colpo: si scelgono con calma. La pietra più pesante è il frutto da portare in tavola stasera.
-65. Il vino di quest'annata ha note dolci e note aspre: è proprio il contrasto a renderlo vivo. Assaggia il centro del getto prima di giudicare gli orli.
-66. Una campana al centro suona netta, le campanelle ai margini un po' stonate: il paese si raduna comunque al rintocco più grave, quello che chiama tutti.
-67. Nell'acqua ferma di uno stagno vedi riflessi chiari e fondali scuri: la pietra di mezzo è il sasso che lanci, i suoi cerchi raggiungono anche le rive.
-68. Un ruscello scende dal centro del telo: in certi punti scorre libero, in altri gira attorno ai sassi. Arriva comunque, perché l'acqua non smette di cercare la strada.
-69. La neve sta fondendo sul telo: dove è già acqua il passo è libero, dove resiste il ghiaccio conviene aspettare un'ora. Il centro ti dice da che parte batte il caldo.
-70. Sotto la cenere del getto la brace è ancora viva, mescolata a tizzoni spenti: soffia piano sul centro e lascia che il fuoco riprenda da lì.
-71. Il sale dà sapore e il miele addolcisce: il getto li mette sulla stessa tavola. Prendi dal centro la misura giusta e usa il resto per correggere il gusto.
-72. L'argilla sul tornio è morbida in un punto e secca in un altro: il vasaio bagna le mani e insiste nel mezzo. Lì il vaso prende forma, il bordo si rifinisce dopo.
-73. Il fabbro sa che il ferro non si scalda tutto insieme: batte dove è rosso, aspetta dove è scuro. Il centro del telo è il punto incandescente da lavorare adesso.
-74. Un falegname guarda le venature prima di tagliare, chiare o scure che siano, per seguire la fibra invece di forzarla. La pietra centrale è la fibra da seguire.
-75. Il pastore conta il gregge al recinto: qualche capo è già dentro, qualcuno vaga ancora sul pendio. Comincia da quello vicino al cancello, al centro del telo.
-76. Un muro a secco regge perché le pietre grandi stanno in basso e le piccole riempiono i vuoti, chiare o scure che siano. Qui la pietra grande è quella del centro.
-77. La strada bianca del getto ha tratti battuti e tratti fangosi: chi la conosce non si ferma, cambia solo il passo. La voce di mezzo indica la direzione del borgo.
-78. Al crocevia del telo un cartello è leggibile e un altro è sbiadito: fidati di quello al centro e prendi l'altro come semplice indicazione di massima.
-79. Sulla mappa di questo getto alcune zone sono disegnate con cura e altre lasciate in bianco: si parte dal punto segnato nel mezzo e si esplora il resto camminando.
-80. Il quaderno ha pagine scritte in bella e pagine piene di cancellature: entrambe servono. La pagina del centro è quella da rileggere stasera con calma.
-81. L'uva della vendemmia non matura tutta lo stesso giorno: si passa più volte fra i filari. Il grappolo centrale è pronto, quelli ai margini aspettano il loro turno.
-82. Il seme nella terra fa due cose insieme: spinge la radice al buio e il germoglio verso la luce. Così il getto, con il centro che tiene e i bordi che cercano.
-83. La potatura toglie i rami secchi perché i vivi prendano forza: il telo mostra gli uni e gli altri. Il ramo del centro è quello da proteggere.
-84. Un innesto attecchisce dove il legno è vivo, anche se intorno la corteccia è ruvida e scura. La pietra di mezzo segna il punto in cui l'innesto prende.
-85. Nell'alveare c'è miele già sigillato e celle ancora vuote: le api lavorano senza fretta. Il centro del telo è il favo da cui partire.
-86. Un nido si fa con rametti chiari e fili scuri, presi dove capita: regge lo stesso, se il cuore è ben intrecciato. La pietra centrale è quel cuore.
-87. Le rondini tornano e qualche tetto non è ancora pronto per loro: arrivano lo stesso, scelgono la gronda più riparata. Il centro del getto è quella gronda.
-88. Un coro ha voci limpide e voci roche: insieme fanno un canto più vero di ognuna presa a parte. Ascolta la voce che tiene la nota al centro del telo.
-89. Il tamburo batte al centro, i sonagli ai margini rispondono in disordine: la danza segue comunque il colpo grave. Lascia che il ritmo ti venga dal mezzo.
-90. Sulle corde del liuto alcune note escono pulite e altre gracchiano: si accorda una corda alla volta, partendo da quella che regge l'accordo, nel mezzo.
-91. La ruota del mulino gira anche se qualche pala è rotta: l'acqua la spinge dal centro. Ripara le pale con calma, intanto la farina continua a scendere.
-92. Nel frantoio l'olio nuovo esce torbido e chiaro insieme, va lasciato riposare. La pietra di mezzo è l'olio che si schiarisce per primo.
-93. La lampada a olio fa luce piena nel mezzo della stanza e lascia gli angoli in penombra: nessuno ha bisogno di vedere tutto per mettersi al lavoro.
-94. Lo specchio dell'acqua restituisce la luce dove è liscio e la confonde dove si increspa: guarda il centro del telo, dove la superficie è più quieta.
-95. Sul fiume che taglia il telo ci sono anse lente e tratti di rapide: il barcaiolo non combatte la corrente, la usa. La voce di mezzo è il remo da tenere.
-96. Sulle dune di questo getto un versante prende luce e l'altro resta in ombra, come accade a ogni rilievo vero. Sali dal lato che indica il centro.
-97. Il cervo esce dal bosco per metà, l'altra metà resta fra gli alberi: si avvicina se nessuno corre. La pietra al centro chiede questo passo quieto.
-98. Il cavallo è sellato, ma una cinghia è ancora lenta: si controlla prima di partire. Il centro del telo è la sella, i margini sono le cinghie da stringere.
-99. Il recinto ha un cancello aperto e un tratto di staccionata da rifare: entri dal cancello, ripari dopo. Lo indica la pietra che pesa di più.
-100. Il pane del forno comune esce dorato da un lato e pallido dall'altro: si gira la teglia. Il getto chiede questo gesto semplice verso il cuore del telo.
-101. Pensa a una casa nuova con alcune stanze già arredate e altre piene di scatoloni: si dorme comunque sotto quel tetto. Il centro del getto è la stanza da sistemare per prima.
-102. Due amici che si vogliono bene possono parlarsi chiaro su certe cose e tacere su altre: il legame tiene. Così fanno le pietre intorno a quella che cade nel mezzo.
-103. In una lunga conversazione ci sono frasi che illuminano e pause che pesano: la parola che resta è quella detta nel mezzo, quando entrambi ascoltavano davvero.
-104. Chi prepara un viaggio ha bagagli pronti e ultime cose ancora da chiudere. La pietra centrale è la valigia che conta, il resto si aggiusta per strada.
-105. Una tavola di famiglia raccoglie voci allegre e silenzi, piatti caldi e sedie vuote: il getto somiglia a quella tavola. Siediti accanto a chi sta al centro.
-106. Imparare un mestiere vuol dire alternare gesti riusciti e gesti sbagliati: la mano migliora proprio così. Il cuore del telo è il gesto da ripetere domani.
-107. Fra chi ama c'è sempre una parte detta e una parte ancora taciuta: le pietre lievi la custodiscono ai bordi, quella grave la porta al centro dove si può guardare.
-108. Quando si cambia strada, qualcosa resta indietro e qualcosa si apre davanti: il getto mostra entrambe le cose. Il passo del centro è quello che si muove già.
-109. Una porta si chiude piano mentre un'altra si socchiude: nel mezzo del getto c'è il corridoio dove si sta adesso, con un piede di qua e uno di là.
-110. Una stanza d'attesa è fatta di sedie scomode e di finestre aperte: le pietre la descrivono così. Il centro ti dice come usare il tempo che manca al tuo turno.
-111. Ogni inizio porta con sé un po' di timore e un po' di slancio, mescolati nello stesso respiro. La pietra del centro è il respiro, i bordi sono il batticuore.
-112. Le fini non sono mai tutte buie: dentro c'è sempre un angolo di sollievo. Il getto lo mostra intrecciando chiaro e scuro attorno alla voce che pesa di più.
-113. Un lavoro fatto bene ha parti che filano lisce e passaggi faticosi: nessuno dei due è inutile. La pietra di mezzo segna il passaggio che chiede le tue mani migliori.
-114. La telefonata attesa arriva con una notizia buona e una da digerire: si ringrazia per la prima e si respira per la seconda. Così si leggono le pietre di oggi.
-115. Un tavolo da lavoro in ordine a metà dice molto: si vede dove la mano è passata e dove non ancora. Il centro del getto è l'attrezzo da prendere adesso.
-116. Chi cuce una toppa sa che il tessuto nuovo e quello vecchio non hanno lo stesso colore: la toppa regge lo stesso. Cuci partendo dal centro del telo.
-117. Un vecchio amico ritrovato porta ricordi chiari e qualche ruggine: la mano tesa al centro scioglie la ruggine più di molte parole ai margini.
-118. Il getto ha l'aria di una cucina la mattina presto, il caffè sul fuoco e i piatti di ieri nel lavello: si comincia dal fuoco, il lavello aspetta.
-119. Una casa che si risveglia ha finestre già aperte e persiane ancora chiuse. Spalanca prima quella del centro: l'aria entra e arriva anche nelle stanze laterali.
-120. Nella bottega del getto alcuni attrezzi sono affilati e altri spuntati: si lavora con i primi mentre gli altri passano sulla mola. Il centro è la lama pronta.
-121. Chi scrive una lettera difficile alterna frasi che vengono subito e frasi che si cercano a lungo: la riga che conta, quella del centro, merita il tempo più lungo.
-122. Un ritorno a casa ha la gioia dell'abbraccio e la fatica delle valigie da disfare: il getto le tiene insieme. Lascia le valigie ai margini e resta nell'abbraccio.
-123. La stagione del raccolto porta cesti pieni e schiene stanche, insieme: la pietra di mezzo è il cesto, quelle sull'orlo la fatica che passa con una notte di sonno.
-124. Nella fiera del paese ci sono giostre illuminate e vicoli in penombra: si torna a casa con il ricordo delle prime. Il getto chiede di guardare la giostra al centro.
-125. Una promessa mantenuta a metà resta una promessa viva: si completa. La voce del centro è la parte già data, quelle intorno sono la parte ancora da dare.
-126. Un sentiero di famiglia passa per gioie e liti, per pranzi rumorosi e porte sbattute: le pietre lo sanno. Ciò che pesa nel mezzo è il bene che resiste a tutto.
-127. Le chiavi di casa sono sette, alcune lucide e altre opache: tutte aprono qualcosa. Comincia da quella che pende al centro del mazzo, la più usata.
-128. Un esame preparato bene ha argomenti sicuri e argomenti traballanti: si entra lo stesso, con quello che si sa. La pietra centrale è ciò che sai meglio.
-129. Il getto ricorda una festa a cui manca ancora qualcuno: la musica è partita, i posti vuoti si riempiono piano. Balla con chi è già al centro della sala.
-130. Due mani che si stringono non hanno mai la stessa temperatura: una scalda, l'altra raffredda. Il getto è questa stretta, con il centro che tiene saldo il palmo.
-131. Chi trasloca sa che alcune cose si portano via con gioia e altre si lasciano con un nodo in gola: il telo mostra entrambe. Il centro è ciò che porti con te.
-132. Un incontro atteso a lungo ha momenti di grazia e momenti di imbarazzo: entrambi dicono che è vero. La voce di mezzo è il momento di grazia da ricordare.
-133. Le pietre si dispongono come i compagni di una cordata: chi tira, chi si riposa, chi chiede corda. In testa, al centro del telo, sta chi segna il passo.
-134. Un dono ricevuto in un momento difficile ha un sapore doppio, dolce e amaro: il getto te lo porge così. Prendilo dal centro, dove si decide quale sapore resta.
-135. Le scelte di oggi non sono nette come si vorrebbe: hanno un lato chiaro e uno in penombra. La pietra che pesa ti dice quale lato guardare con più fiducia.
-136. Davanti a un mosaico da comporre alcune tessere sono già al loro posto e altre giacciono rovesciate: si parte dal centro, il resto si scopre pezzo dopo pezzo.
-137. Un orto di città cresce fra muri grigi e aiuole fiorite: basta poco spazio buono per dare frutto. Il centro del telo è quel poco spazio buono.
-138. Un rammendo ben fatto quasi non si vede: il filo chiaro e quello scuro spariscono nella trama. Così le pietre ai margini, quando il centro tiene.
-139. La finestra di cucina dà su un cortile per metà illuminato e per metà riparato da un muro: ci si siede dove fa bene. La pietra centrale segna quella sedia.
-140. Quando il gruppo cammina insieme c'è chi parla, chi tace e chi resta indietro: si arriva lo stesso. Il centro del getto è chi tiene unita la compagnia.
-141. Ogni nuovo lavoro ha giorni di scoperta e giorni di fatica: le pietre li mostrano insieme. Quella nel mezzo dice che cosa tenere stretto quando arriva la stanchezza.
-142. Una cicatrice ben chiusa è un segno chiaro sopra un ricordo scuro: racconta che si è passati oltre. Il centro del telo porta quella stessa forza.
-143. Il getto ha la voce di un nonno che racconta: storie liete, storie dure, tutte vere. Ascolta la storia del centro, è quella che parla a te stasera.
-144. Fra le mura di casa c'è l'angolo dove si legge e l'angolo dove si accumula: il telo li mostra entrambi. Siediti nel primo, che è anche il più vicino al cuore.
-145. Quando un progetto è a metà strada sembra più disordinato dell'inizio: è il segno che si lavora. Le pietre di questo getto stanno proprio in quel mezzo fecondo.
-146. Un saluto alla stazione mescola il dispiacere di chi parte e la curiosità per ciò che arriva: il getto parla di entrambe. Il centro guarda il treno, non il binario.
-147. Chi impara una lingua nuova capisce alcune frasi e ne perde altre: la conversazione continua. La pietra di mezzo è la parola che hai già capito bene.
-148. La mattina di un trasloco profuma di caffè e di polvere: si lavora sorridendo. Le pietre hanno quel profumo misto, con il caffè al centro.
-149. Una riconciliazione comincia con una frase gentile e si porta dietro qualche spina: la frase gentile resta. Le pietre la mettono nel cuore del telo.
-150. Una bambina che impara a camminare cade e si rialza nello stesso minuto: chi la guarda sorride. Le pietre di oggi hanno questo passo incerto e felice.
-151. Una soglia di pietra consumata dal passaggio: metà lucida per i piedi di chi è entrato, metà scura per chi ha esitato. Il getto ti mette proprio lì, col centro che invita a entrare.
-152. La nebbia del getto si dirada a chiazze: in certi punti vedi già il prato, in altri ancora il velo bianco. Cammina verso il varco più largo, quello nel mezzo del telo.
-153. Il vento che attraversa il telo piega alcune pietre e ne lascia altre immobili: chi tiene ferma la vela al centro usa anche le raffiche che arrivano storte.
-154. Una mano aperta posa le pietre senza scegliere: ne escono chiare e velate, come capita nella vita vera. Il gesto onesto è accoglierle tutte, cominciando da quella di mezzo.
-155. Il faro del porto illumina il molo e lascia scura l'acqua al largo: basta per entrare. La pietra del centro fa da faro, le altre sono onde che vanno e vengono.
-156. La barca è ormeggiata con una cima nuova e una vecchia, entrambe tengono. Il getto è un approdo sicuro, anche se qualche nodo ai margini va rifatto con calma.
-157. Sulla sabbia della riva restano impronte nette e impronte già cancellate dall'acqua: segui quelle chiare che partono dal centro del telo e portano verso l'asciutto.
-158. Una sorgente esce limpida dalla roccia e si intorbida più a valle: per bere si risale. Il getto ti chiede di risalire verso la pietra di mezzo, dove l'acqua nasce.
-159. Alla cascata l'acqua fa insieme schiuma bianca e gorghi scuri: la forza è la stessa. Nel getto di oggi la forza abita il centro, la schiuma i margini.
-160. Al valico il sentiero passa fra una parete in luce e una in ombra: chi lo percorre tiene la mano sulla roccia calda. Il centro del telo è quella roccia.
-161. Il rifugio in quota ha una stanza riscaldata e un fienile gelido: si dorme dove arde la stufa. Le pietre indicano la stanza calda al centro del getto.
-162. Il focolare della baita brucia legna secca e legna ancora verde: la prima fa la fiamma, la seconda fumo e pazienza. La pietra di mezzo è il ciocco che arde meglio.
-163. Spaccare la legna vuol dire trovare la fessura giusta: il ceppo cede dove la fibra è già aperta. Il getto mostra quella fessura nel suo punto centrale.
-164. Un gomitolo si dipana bene da un capo e si aggroviglia dall'altro: non tagliare, cerca il capo libero. La voce del centro è il capo da tirare con delicatezza.
-165. Il ricamo ha punti fitti e punti radi, fili lucenti e fili spenti: visto da lontano è un fiore. Il getto chiede di guardarlo da un passo indietro, partendo dal centro.
-166. Una collana con perle chiare e grani scuri sta insieme grazie al filo che le attraversa. Il filo, in questo getto, nasce dalla pietra che pesa di più.
-167. La clessidra ha sabbia già scesa e sabbia ancora in alto: il tempo scorre nel mezzo. È lì che il getto mette la sua voce più grave, nel collo stretto che lascia passare.
-168. Il gesso bianco sulla lavagna scura scrive parole che si leggono bene proprio per il contrasto. Il getto usa lo stesso contrasto: leggi la parola scritta al centro.
-169. Una goccia d'inchiostro su carta chiara può sporcare o firmare: dipende dalla mano. La pietra centrale è la mano, i margini sono il foglio ancora libero.
-170. Il sigillo di cera si imprime solo quando la cera è calda, non troppo liquida e non già indurita. Il centro del telo indica quel momento giusto, a metà fra i due.
-171. Il bruco e la farfalla sono la stessa vita in due tempi: il getto li tiene entrambi sul telo. La pietra di mezzo dice quale dei due tempi stai abitando.
-172. Un fiore si apre a petali, non tutti insieme: alcuni sono già distesi, altri ancora chiusi intorno al cuore. Il centro del getto è quel cuore che sta per schiudersi.
-173. La quercia ha rami spogli e rami fitti nello stesso inverno, eppure è un solo albero. Le pietre di oggi sono quei rami, il tronco è la pietra del centro.
-174. Sulla corteccia della betulla si alternano strisce bianche e segni scuri: è così che la si riconosce da lontano. Il getto ha la stessa pelle, con il centro ben visibile.
-175. I ricci di castagno pungono ma custodiscono il frutto: chi li apre con pazienza si scalda le mani la sera. Le pietre velate sono ricci, il frutto aspetta vicino al centro.
-176. Il muschio cresce sul lato in ombra della pietra e ne protegge il cuore dal gelo. Anche nel getto la parte velata fa un lavoro silenzioso attorno al centro.
-177. In autunno le foglie cadute coprono il sentiero di colori chiari e scuri: sotto, la terra si prepara. Il getto ti chiede di camminarci sopra senza fretta, verso il mezzo.
-178. Il disgelo libera un rivolo alla volta, mentre altrove il ghiaccio tiene ancora: a primavera ci si arriva così. La pietra centrale segna il primo rivolo.
-179. La brina del mattino copre l'erba di bianco e si scioglie dove arriva il tepore: il getto mostra già qualche zolla verde. Lì, nel mezzo, si appoggia il primo passo.
-180. Una goccia di rugiada sull'erba bagna e disseta insieme. Così le pietre in ombra di questo getto: rinfrescano ciò che la voce del centro sta facendo crescere.
-181. Nella pentola la zuppa bolle al centro e resta tiepida sui bordi: si mescola, partendo dal mezzo. Il getto chiede questo gesto lento che distribuisce il calore.
-182. Le spezie amare e quelle dolci, dosate insieme, fanno un piatto che si ricorda. Il getto offre entrambe: la pietra centrale è la spezia che dà il carattere.
-183. L'anfora antica ha una crepa e una decorazione ancora viva: tiene il vino lo stesso, se la si porta con cura. Il centro del telo è la parte salda da cui sollevarla.
-184. Un ponte di corda oscilla ai bordi e tiene fermo nel mezzo, dove le funi si incrociano. Cammina al centro del getto e lascia che i lati oscillino.
-185. Il traghetto parte anche se metà dei passeggeri è ancora sul molo: torna a prenderli. Il getto ti mette a bordo, con la pietra del centro alla prua.
-186. La scogliera ha pareti scure battute dall'acqua e piccole calette chiare: si attracca nelle calette. Il getto indica quella più vicina al suo centro.
-187. Un carro carico a metà procede lo stesso: le ruote girano, il resto si aggiunge strada facendo. La pietra che pesa di più è l'asse che regge tutto.
-188. L'aratro apre un solco dritto e lascia zolle chiare e zolle scure ai lati: è così che si prepara la semina. Il centro del getto è la lama, i margini le zolle.
-189. Un pellegrino porta un bastone e un sacco: il primo lo sostiene, il secondo a volte pesa. Il getto distingue i due, con il bastone nel cuore del telo.
-190. Il giogo pesa sulle spalle dei buoi, eppure è ciò che permette di tirare insieme. Le pietre in ombra del getto hanno quel peso, il centro dà la direzione.
-191. La corda che ti lega a chi ami ha tratti morbidi e tratti tesi: è viva per questo. Le pietre ai bordi mostrano la tensione, quella al centro la tenerezza che regge.
-192. Gli arnesi del contadino si appendono al muro dopo il lavoro: alcuni lucidi, altri sporchi di terra. Il getto ti fa vedere quale prendere per primo domattina.
-193. Il corno del pastore suona da lontano e arriva con un'eco confusa, ma chi lo ascolta capisce dove andare. Il centro del telo è il suono, i margini sono l'eco.
-194. Un ago d'osso cuce bene anche le pelli più dure, con pazienza e piccoli punti. La pietra centrale del getto è quell'ago, le altre sono pelli chiare e scure.
-195. Il fumo del camino sale dritto quando l'aria è ferma e si sparpaglia col vento: guarda dove nasce, non dove si perde. Il getto nasce dalla pietra di mezzo.
-196. Una tela di ragno brilla di rugiada su un filo e resta invisibile sull'altro: è intera lo stesso. Le pietre sono così, con il centro che tiene la tela.
-197. Lo scalpellino toglie pietra scura per far emergere una forma chiara: ogni colpo leva e rivela insieme. Il getto lavora allo stesso modo attorno alla voce del centro.
-198. Il conciatore lascia le pelli all'aria finché si fanno morbide: alcune ci mettono un giorno, altre una settimana. Il centro del telo è la pelle quasi pronta.
-199. Un pane spezzato a metà mostra la crosta dura e la mollica tenera: si mangia insieme. Il getto ti porge entrambe, con la mollica nel mezzo del telo.
-200. Il vetraio soffia piano e il vetro prende forma fra parti limpide e parti opache: la forma nasce dal respiro costante. La pietra centrale è quel respiro.
-201. La lana grezza e la lana cardata stanno nello stesso cesto: una è già pronta per il fuso, l'altra aspetta. Il getto ti dice quale filare adesso, partendo dal centro.
-202. Lungo la siepe crescono more mature e rovi pungenti: si raccolgono con attenzione, una mano dopo l'altra. Il cuore del telo indica il ramo più carico.
+1. Questo telo non dice sì a tutto e non dice no a tutto: dice dove. Dove le pietre sono chiare puoi avanzare adesso, dove sono in ombra ti serve tempo. Guarda da che parte cade la voce del centro: lì metti la pazienza, altrove il passo.
+2. Luce e ombra si dividono il telo come due vicini che condividono un muro: nessuno dei due può cacciare l'altro. Chi siede al centro decide la questione, chi sta ai bordi la colora soltanto. Non lasciare che un margine scuro ti faccia cambiare una decisione presa nel mezzo.
+3. Leggi prima la pietra del centro, poi le altre: è lei che porta il peso della risposta per {cosa}. Le pietre sparse sull'orlo, chiare o velate, segnano il clima e non la sostanza. Se una di loro ti preoccupa, annotala e torna al centro.
+4. Ciò che cade nel cuore del telo è la trave della casa, le pietre lontane sono tegole: qualcuna lucida, qualcuna coperta di muschio. Una tegola scura non fa crollare il tetto. Sistema le tegole quando puoi, ma oggi verifica che la trave regga.
+5. Una corda unisce il centro all'orlo e passa per ogni pietra. Dove è asciutta, cioè dove la pietra è chiara, tiene da sola. Dove è umida, cioè dove la pietra è in ombra, va stretta di nuovo. Fai il giro della corda con calma e stringi solo i tratti molli.
+6. Il telo ti mette davanti a un guado. Prova prima il sasso centrale: è quello che decide se passare. I sassi ai lati sono in parte scivolosi: non saltarli, mettici il piede uno alla volta. Dentro {cosa} conta arrivare dall'altra parte, non attraversare in fretta.
+7. Accanto alla pietra centrale ne cade un'altra, quasi a farle da spalla: insieme dicono la parte seria della faccenda. Il chiaro e lo scuro dei margini sono dettagli che cambiano da un giorno all'altro. Decidi guardando quella coppia, poi lascia che i margini si assestino.
+8. Fra le sette pietre qualcuna brilla e qualcuna resta in penombra: è la trama normale di una situazione viva, non un segnale di pericolo. Tira il filo che parte dal centro e segui solo quello per qualche giorno. Il disegno intero diventa leggibile mentre cammini.
+9. Fai una domanda semplice al telo: dove cade l'ombra? Se il chiaro occupa il mezzo, le fatiche restano di contorno e puoi procedere. Se è una pietra velata a sedere al centro, lì va tutta la tua cura, mentre i margini chiari ti fanno da sponda.
+10. Qualche pietra arde, qualche altra è fredda: il calore delle prime basta a scaldare le seconde, se non le abbandoni. Nessuna pietra in ombra è spenta del tutto. Per {cosa} parti da ciò che funziona e porta quel calore verso ciò che si è raffreddato.
+11. Sette pietre come sette voci in una stanza: alcune parlano chiaro, altre mormorano a mezza bocca. Non dare a tutte lo stesso ascolto. Dai retta prima a quella seduta al centro, poi alla sua vicina. Le altre cinque contano per i dettagli, non per la scelta.
+12. Il metallo battuto ha zone lucide e zone brunite: è proprio il contrasto a dargli forma. Questo getto lavora allo stesso modo con {cosa}. Il centro decide la forma, i margini la rifiniscono. Non cercare di lucidare tutto: lavora dove il colpo serve davvero.
+13. Fra chiaro e scuro il telo non si spezza, si piega. La pietra che pesa di più traccia la piega maestra, quella da rispettare. Le altre fanno le pieghe piccole dei prossimi giorni, che puoi stirare con un po' di cura. Non forzare la piega grande nella direzione opposta.
+14. Che sia il centro a scorrere e l'orlo a resistere, o il contrario, il filo fra le pietre regge. Chiede una mano che lo tenga teso, anche quando una pietra si scurisce. Con {cosa} serve costanza: un gesto ogni giorno vale più di uno slancio.
+15. Le pietre di questo getto sono passi su un sentiero di montagna: alcuni sulla roccia calda, altri sul ghiaccio. Quella centrale indica la direzione, le altre dettano il ritmo. Non cambiare meta per un tratto ghiacciato. Rallenta lì, metti il piede bene, poi riprendi il passo di prima.
+16. Il nodo sta al centro, i capi liberi ai margini. Dove la corda è chiara il nodo si scioglie con le dita, dove è scura serve pazienza. Non tagliare niente per fare prima: con {cosa} un taglio oggi costa più di un'ora spesa a sciogliere.
+17. La pietra nel mezzo pesa di più, ma non lavora senza aiuto: la sostiene quella che le cade accanto. Le luci e le ombre sparse intorno raccontano il contorno, non il cuore. Cerca chi o che cosa ti fa da seconda pietra: il centro da solo non basta.
+18. Il telo somiglia a un bosco a metà mattina, con radure chiare e macchie fitte che si alternano. Non serve attraversare ogni macchia. La pietra del centro indica la radura verso cui camminare: tieni quella direzione e aggira il fitto dove puoi, senza fermarti a contarlo.
+19. Ogni pietra in ombra è una porta socchiusa; ogni pietra chiara è una finestra già aperta. Al centro del telo sta la soglia che conta per {cosa}. Prima di spingere le porte, passa da quella soglia: ti dice quale delle altre vale la fatica.
+20. Il disegno del telo ricorda un mosaico ancora umido, con tessere scure e chiare vicine. Il colore d'insieme dipende dalla tessera posata nel mezzo. Finché la malta è fresca puoi ancora spostare qualcosa: approfittane nei prossimi giorni, prima che il disegno si fissi.
+21. Dove la luce tocca il telo il cammino è spedito, dove cade l'ombra il passo rallenta senza fermarsi. La voce del centro ti dice quale dei due tratti percorri adesso. Regola la tua andatura su quella, non sul tratto che vorresti davanti ai piedi.
+22. Il centro e il bordo non dicono la stessa cosa: va bene così. Il centro porta la sostanza, il bordo le sfumature. Per {cosa} prendi la sostanza come guida e le sfumature come avvertimenti. Non lasciare che un'avvertenza annulli quello che il mezzo afferma.
+23. Ciò che sta nel mezzo del telo è radice, ciò che sta sull'orlo è foglia. Le foglie possono scurirsi e cadere senza danno, la radice resta e nutre il ramo. Se oggi vedi qualche foglia scura, non sradicare niente: annaffia la radice e lascia fare alla stagione.
+24. Qualcosa sul telo si apre e qualcosa resta chiuso: non è un conflitto, è una stagione di mezzo. Non pretendere che si apra tutto insieme. La pietra più vicina al cuore indica da quale lato entrare: entra da lì, lascia per dopo le porte che oggi resistono.
+25. Al cuore del telo una voce ferma, intorno un cerchio di voci leggere che alternano chiarezza e silenzio. Lascia che il cerchio colori la risposta, non che la decida. Quando senti salire il dubbio dentro {cosa}, chiediti se viene dal centro o dai margini.
+26. Ogni pietra velata è un sassolino nella scarpa, ogni pietra chiara è terreno buono. I sassolini danno fastidio ma non impediscono di camminare. Conta che cosa calpesti al centro, dove il passo pesa davvero: se lì il terreno regge, togli i sassolini alla prima sosta e prosegui.
+27. Il telo intreccia fili chiari e fili scuri come una coperta di lana fatta in casa: regge proprio perché li tiene entrambi. Non cercare di sfilare quelli scuri, rovineresti la trama. Lavora sul punto più fitto, nel mezzo: lascia che il resto stia dove è caduto.
+28. Le pietre ai margini dicono la loro: ascoltale senza prenderle troppo sul serio. È nel mezzo che si decide la sostanza per {cosa}. Se devi scegliere fra due voci, segui la più vicina al centro, anche quando dice ciò che non volevi.
+29. Il telo è un tavolo apparecchiato a metà: alcuni piatti già serviti, altri ancora coperti. Non aspettare che arrivi tutto per cominciare. Siediti al posto centrale e prendi ciò che hai davanti. I piatti coperti si scoprono uno alla volta, mentre mangi.
+30. Quando luce e ombra si spartiscono il telo, nessuna delle due ha l'ultima parola: ce l'ha la pietra del centro, che tiene insieme le altre come il perno tiene la ruota. Per {cosa} cerca il perno. Se gira bene, la ruota sopporta qualche raggio storto.
+31. Una pietra al centro, un'altra a un palmo, poi il resto sparso sulla trama: è la mappa di ciò che ti preme, con strade chiare e passaggi in penombra. Segna sulla tua mappa i passaggi in penombra prima di partire. Così non ti sorprendono a metà strada.
+32. Le ombre ai lati del telo non sono buio: sono il fresco sotto un portico, dove si può sostare un momento. Fermati pure lì se ti serve, ma per poco. La via riparte dal centro: torna lì prima che la sosta diventi un'abitudine comoda.
+33. Ghiaccio e fuoco cadono sullo stesso telo: uno conserva, l'altro muove. Per {cosa} ti servono entrambi, ma non nello stesso punto. Chiediti quale dei due serve al cuore della faccenda e mettilo al centro. L'altro lascialo agli orli, dove fa meno danno e più servizio.
+34. Sul telo la luce non cancella l'ombra e l'ombra non spegne la luce: convivono come giorno e sera in una stanza con una finestra sola. Non chiedere a queste pietre un sì pulito. Ti chiedono di procedere vedendo bene una parte e intuendo l'altra, finché la stanza si rischiara.
+35. Leggi le pietre come si legge un volto: lo sguardo al centro dice l'essenziale, le rughe e i lampi agli angoli raccontano ciò che resta da capire. Prima di muoverti per {cosa}, guarda bene quello sguardo. Gli angoli li capisci strada facendo, uno alla volta.
+36. La gettata ha il colore del legno vecchio, venature chiare e nodi scuri nella stessa asse. Il segno più marcato, al centro, è il punto in cui l'asse regge di più. Appoggia lì il peso delle tue decisioni. Sui nodi non piantare chiodi: girali intorno.
+37. Ciò che sfiora il bordo del telo passa in fretta; ciò che si posa nel mezzo resta. Non spendere energie per inseguire quello che passa. Concentra lo sguardo e la forza sul centro, dove {cosa} ha la sua radice, poi lascia scorrere il resto.
+38. In questo getto alcune pietre spingono e altre trattengono, come i rematori di una barca che cerca il suo ritmo. La voce al centro dà la battuta a tutte. Non remare contro chi trattiene: rema a tempo con il centro e la barca trova la sua andatura.
+39. Fra la pietra che pesa e quelle che sfiorano corre un filo sottile. Dove è illuminato puoi seguirlo a occhi aperti, dove si perde nell'ombra seguilo col tatto: piano, senza tirare. Per {cosa} questo vuol dire avanzare anche quando non vedi tutto il percorso.
+40. La trama del telo è doppia: una parte già tessuta, una parte ancora sul telaio. La pietra del centro è la spola che passa fra le due. Non disfare ciò che è tessuto per paura di ciò che manca. Aggiungi un passaggio oggi, un altro domani, senza strappi.
+41. Non tutte le pietre parlano con la stessa forza: quella nel mezzo alza la voce, quelle sull'orlo sussurrano. Anche i sussurri in ombra hanno qualcosa da insegnarti, di solito un dettaglio trascurato. Prendi nota di quel dettaglio, poi agisci secondo la voce forte.
+42. Il chiaroscuro del telo è quello di un'officina: scintille vicino all'incudine, angoli in penombra. Il lavoro vero si fa al centro, dove il ferro è caldo. Gli angoli scuri non vanno illuminati adesso. Batti finché il ferro risponde per {cosa}, poi riordina la bottega.
+43. Accetta che qualche pietra resti in ombra: anche un sentiero ben tracciato ha i suoi tratti sotto gli alberi. Non è un motivo per tornare indietro. Il centro del telo ti dice se la strada sale o riposa: se sale, risparmia fiato; se riposa, recupera forze.
+44. Sette pietre sul telo come sette candele in una sala: alcune accese, altre da riaccendere. Comincia dalla candela del mezzo, attorno a cui tutto si raccoglie: se arde, proteggila dagli spifferi; se è spenta, riaccendila per prima. Le altre vengono dopo, con la sua fiamma.
+45. Le voci lievi dei margini e la voce grave del centro non sono in disaccordo: compongono un accordo di note chiare e note basse che insieme suona vero. Per {cosa} non scartare le note basse. Spesso danno profondità a ciò che il centro afferma.
+46. Il centro del telo è la stanza dove si vive, i margini sono il corridoio. Che il corridoio sia in luce o in ombra pesa poco: conta come abiti la stanza. Metti ordine lì prima di tutto, nei prossimi giorni. Il corridoio si sistema quando la stanza è in ordine.
+47. Se una pietra in ombra cade vicino al cuore del telo merita attenzione, se scivola sull'orlo merita solo un'occhiata. Misura la distanza prima di preoccuparti. Con {cosa} l'ombra lontana è un fastidio, l'ombra vicina è un compito: affronta il compito, tieni d'occhio il fastidio.
+48. Questo getto somiglia a un campo dopo la mietitura: covoni raccolti e zolle ancora da rivoltare. Non contare solo le zolle. Riconosci i covoni già al sicuro, poi comincia dal pezzo di terra al centro, quello che rende di più con meno fatica.
+49. La gettata ha due mani: una aperta che offre, una chiusa che trattiene. Non chiederti quale delle due vince. La pietra del centro ti mostra quale tendere per prima: se è chiara, prendi ciò che ti viene offerto; se è velata, prima apri ciò che stringi.
+50. Fra il peso del centro e la leggerezza dei bordi il telo trova il suo equilibrio, come una bilancia con piatti di colore diverso: nessuno dei due tocca terra. Con {cosa} non sbilanciarti per correggere un'ombra. Una piccola correzione basta a tenere i piatti pari.
+51. Come il pane che in parte lievita e in parte resta pasta, il getto è a metà dell'opera. Aprire il forno adesso fa solo sgonfiare tutto. La pietra del centro dice quanto tempo serve ancora: rispettalo e intanto prepara ciò che viene dopo la cottura.
+52. Un ponte di pietre attraversa il telo: alcune salde e chiare, altre muschiose e scure. Non fermarti a metà a contare quelle scivolose. Cammina sulla campata centrale, quella che porta il carico: tieni le mani libere per reggerti dove il muschio è più spesso.
+53. Al pozzo l'acqua sale limpida e torbida nello stesso secchio. Non berla subito: lasciala posare. La voce del centro è lo strato chiaro che resta in superficie. Per {cosa} questo vuol dire aspettare un giorno prima di rispondere, poi prendere solo la parte chiara.
+54. Il getto disegna un giardino con aiuole in fiore e angoli ancora da vangare. La pietra centrale è l'albero che fa ombra buona a tutto il resto. Prima di vangare gli angoli, cura l'albero: un'annaffiatura al tronco oggi vale più di mezzo giardino rivoltato.
+55. Le pietre si sono distese come banchi di un mercato all'alba: alcuni già allestiti, altri ancora coperti dal telo. Non girare a vuoto fra quelli chiusi. Fermati prima al banco centrale, prendi ciò che ti serve, poi torna più tardi per gli altri.
+56. Ogni pietra è una riga di una lettera scritta in fretta: alcune nitide, altre sbavate. La frase al centro porta il senso, il resto lo completa. Se una riga sbavata ti confonde per {cosa}, rileggi la frase centrale: è lei a interpretare le altre.
+57. Lo scafo è dritto e qualche vela è ancora ammainata: così si presenta il getto. La pietra del centro è il timone, le altre sono il vento che cambia di lato. Tieni il timone. Le vele ammainate le alzi quando il vento si fa costante, non prima.
+58. Gira la macina e il grano esce in parte fine, in parte grosso: va setacciato. Ciò che resta nel cuore del telo è la farina di oggi. Il grosso rimettilo sotto la macina. Per {cosa} ciò che ora sembra ruvido può servire più avanti.
+59. Gli ortaggi non maturano tutti insieme: alcuni sono da cogliere, altri ancora acerbi. Raccogliere tutto oggi vuol dire sprecarne la metà. La pietra centrale ti indica che cosa cogliere adesso, le pietre in ombra che cosa lasciare crescere ancora per qualche settimana.
+60. Una scala sale dal bordo al centro del telo, con gradini di legno chiaro e gradini consumati. Sali piano, tenendoti al corrimano di ciò che già regge. Sui gradini consumati appoggia il piede intero. Per {cosa} conta arrivare in cima, non salirci di corsa.
+61. Sul telo una chiave luccica e una serratura resta arrugginita. La mano che le avvicina è la tua: nessuna pietra lo fa al tuo posto. Il centro ti dice quale porta aprire per prima. Metti un po' d'olio nella serratura e prova di nuovo, senza forzare.
+62. Una lanterna nel mezzo del telo non toglie le ombre agli angoli: le rende solo meno paurose. Alla sua luce vedi il passo successivo, non tutta la strada. Accontentati di quel passo. Verso {cosa} il prossimo passo basta, il resto si illumina camminando.
+63. Il telaio ha fili tesi e fili allentati, come accade a ogni tessitura onesta. Stringi quelli del centro, dove la tela deve reggere il peso. I margini lasciali trovare il loro passo senza fretta: tirarli adesso deformerebbe tutto il lavoro fatto finora.
+64. Nel cesto qualche frutto è maturo e qualcuno ha preso un colpo: si scelgono con calma, non si butta il cesto. La pietra più pesante è il frutto da portare in tavola stasera. Quelli ammaccati usali subito per qualcosa di semplice, prima che si guastino.
+65. Il vino di quest'annata ha note dolci e note aspre: è il contrasto a renderlo vivo. Assaggia il centro del getto prima di giudicare gli orli. Per {cosa} un sorso amaro sul bordo non rovina la bottiglia, se il cuore del vino è buono.
+66. Una campana grande al centro, campanelle un po' stonate ai margini: il paese si raduna comunque al rintocco più grave. Fai lo stesso. Muoviti quando suona la campana grande. Le stonature dei margini ti dicono soltanto dove manca ancora un po' di cura.
+67. Nell'acqua ferma vedi riflessi chiari e fondali scuri. La pietra del centro è il sasso che lanci: i suoi cerchi raggiungono anche le rive più lontane. Con {cosa} un gesto deciso al centro arriva fino ai margini. Lancia quel sasso, non cento sassolini sparsi.
+68. Un ruscello scende dal centro del telo: in certi punti scorre libero, in altri gira intorno ai sassi. Arriva comunque, perché l'acqua non smette di cercare la strada. Fai come l'acqua: dove trovi un ostacolo non fermarti a spingerlo, giraci intorno e prosegui.
+69. La neve sta fondendo sul telo: dove è già acqua il passo è libero, dove resiste il ghiaccio conviene aspettare. Il centro ti dice da che parte batte il caldo. Muoviti da quella parte adesso e torna sui tratti gelati fra qualche giorno, quando il ghiaccio cede.
+70. Sotto la cenere la brace è ancora viva, mescolata a tizzoni spenti. Non rimestare tutto il focolare. Soffia piano sul centro e lascia che il fuoco riprenda da lì. Per {cosa} questo vuol dire rinnovare una cosa sola, quella che ancora scalda.
+71. Il sale dà sapore e il miele addolcisce: il getto li mette sulla stessa tavola. Non scegliere uno solo dei due. Prendi dal centro la misura giusta e usa il resto per correggere il gusto, un pizzico alla volta, assaggiando prima di aggiungere altro.
+72. L'argilla sul tornio è morbida in un punto e secca in un altro. Il vasaio bagna le mani e insiste nel mezzo: lì il vaso prende forma, il bordo si rifinisce dopo. Per {cosa} lavora dove la materia risponde, non dove si è indurita.
+73. Il fabbro sa che il ferro non si scalda tutto insieme: batte dove è rosso, aspetta dove è scuro. Guarda il centro del telo. Se lì il ferro è rosso, battilo adesso; se è scuro, rimettilo nel fuoco prima del martello. Le parti scure non sono perse.
+74. Un falegname guarda le venature prima di tagliare, chiare o scure che siano, per seguire la fibra invece di forzarla. La pietra centrale è la fibra da seguire. Per {cosa} non tagliare contro la venatura: la scheggia che ne esce costa più del tempo risparmiato.
+75. Il pastore conta il gregge al recinto: qualche capo è già dentro, qualcuno vaga ancora sul pendio. Non lasciare il cancello aperto per correre dietro agli ultimi. Prima chiudi dentro quelli che hai, al centro del telo, poi vai a riprendere chi si è allontanato.
+76. Un muro a secco regge perché le pietre grandi stanno in basso e le piccole riempiono i vuoti, chiare o scure che siano. Qui la pietra grande è quella del centro. Per {cosa} posa prima lei, ben ferma. Le piccole si incastrano dopo, da sole.
+77. La strada bianca del getto ha tratti battuti e tratti fangosi. Chi la conosce non si ferma: cambia solo il passo. La voce del centro indica la direzione del borgo. Tienila anche quando il fango ti fa pensare di tornare indietro: il borgo sta avanti.
+78. Al crocevia del telo un cartello è leggibile e un altro è sbiadito. Fidati di quello al centro. L'altro prendilo come un'indicazione di massima, utile per capire la zona, non per scegliere la strada. Per {cosa} decidi guardando il cartello che si legge.
+79. Sulla mappa di questo getto alcune zone sono disegnate con cura e altre lasciate in bianco. Non aspettare che sia tutta disegnata. Si parte dal punto segnato nel mezzo e il resto si esplora camminando, segnando a matita ciò che scopri lungo il percorso.
+80. Il quaderno ha pagine scritte in bella e pagine piene di cancellature: servono entrambe. La pagina del centro è quella da rileggere stasera con calma. Per {cosa} scrivi in una riga che cosa ti dice, poi chiudi il quaderno e dormici sopra.
+81. L'uva non matura tutta lo stesso giorno: in vendemmia si passa più volte fra i filari. Il grappolo centrale è da cogliere, quelli ai margini aspettano il loro turno. Prendi quello adesso e torna fra i filari tra qualche giorno, senza fretta.
+82. Il seme nella terra fa due cose insieme: spinge la radice al buio e il germoglio verso la luce. Così questo getto, con il centro che tiene e i bordi che cercano. Per {cosa} non spaventarti del buio sotto: lì la radice si fa forte.
+83. La potatura toglie i rami secchi perché i vivi prendano forza: il telo mostra gli uni e gli altri. Il ramo del centro è quello da proteggere. Taglia senza rimpianto un ramo secco ai margini, se ruba linfa a quello centrale che deve crescere.
+84. Un innesto attecchisce dove il legno è vivo, anche se intorno la corteccia è ruvida e scura. La pietra del centro segna il punto in cui l'innesto prende. Per {cosa} inserisci lì il cambiamento, fermalo bene e non toccarlo per qualche settimana.
+85. Nell'alveare c'è miele già sigillato e ci sono celle ancora vuote: le api lavorano senza fretta. Il centro del telo è il favo da cui partire. Non disturbare le celle vuote per vedere se si riempiono. Lavora sul favo pieno e lascia al resto il suo tempo.
+86. Un nido si fa con rametti chiari e fili scuri, presi dove capita: regge lo stesso, se il cuore è ben intrecciato. La pietra centrale è quel cuore. Per {cosa} non andare a cercare materiali perfetti: intreccia bene quello che hai già sotto mano.
+87. Le rondini tornano anche se qualche tetto non è ancora sistemato per loro: scelgono la gronda più riparata. Il centro del getto è quella gronda. Non aspettare che tutta la casa sia in ordine per tornare a ciò che ti sta a cuore. Fai il nido dove già si può.
+88. Un coro ha voci limpide e voci roche: insieme fanno un canto più vero di ognuna presa a parte. Ascolta la voce che tiene la nota al centro del telo. Per {cosa} non cercare di zittire le voci roche: chiedi loro di cantare più piano.
+89. Il tamburo batte al centro, i sonagli ai margini rispondono in disordine. La danza segue comunque il colpo grave. Lascia che il ritmo ti venga dal mezzo e non dai rumori ai bordi: muoviti a tempo con ciò che conta, il resto si accorda da sé.
+90. Sulle corde del liuto alcune note escono pulite e altre gracchiano. Si accorda una corda alla volta, partendo da quella che regge l'accordo, nel mezzo. Per {cosa} sistema prima la cosa principale, poi ascolta di nuovo: spesso le altre stonano meno.
+91. La ruota del mulino gira anche se qualche pala è rotta, perché l'acqua la spinge dal centro. Non fermare il mulino per ripararla. Sistema le pale con calma, una per volta, mentre la farina continua a scendere. Il lavoro non deve aspettare la perfezione.
+92. Nel frantoio l'olio nuovo esce torbido e chiaro insieme: va lasciato riposare. La pietra del centro ti dice se il tuo è già limpido. Per {cosa} vale così: se lo è, usalo subito; se è ancora torbido, aspetta qualche giorno senza agitarlo.
+93. La lampada a olio fa luce piena nel mezzo della stanza e lascia gli angoli in penombra. Nessuno ha bisogno di vedere tutto per mettersi al lavoro. Siediti sotto la lampada, fai quello che la sua luce permette e lascia gli angoli a un'altra sera.
+94. Lo specchio dell'acqua restituisce la luce dove è liscio e la confonde dove si increspa. Guarda il centro del telo, dove la superficie è più quieta. Per {cosa} non fidarti dell'immagine mossa ai bordi: un'impressione increspata non è una risposta.
+95. Sul fiume che taglia il telo ci sono anse lente e tratti di rapide. Il barcaiolo non combatte la corrente, la usa. La voce del centro è il remo da tenere in mano. Nelle anse lente rema, nelle rapide tieni la barca dritta e lasciati portare.
+96. Sulle dune di questo getto un versante prende luce e l'altro resta in ombra, come accade a ogni rilievo vero. Non scalare il lato in ombra per orgoglio. Per {cosa} sali dal lato che indica il centro: arrivi in cima con meno sabbia negli occhi.
+97. Il cervo esce dal bosco per metà, l'altra metà resta fra gli alberi. Si avvicina se nessuno corre. La pietra al centro chiede questo passo quieto: non inseguire ciò che è ancora in ombra. Resta dove sei, fai poco rumore, lascia che sia lui a venire.
+98. Il cavallo è sellato, ma una cinghia è ancora lenta: si controlla prima di partire. Il centro del telo è la sella, i margini sono le cinghie da stringere. Per {cosa} parti pure, dopo un ultimo controllo: dieci minuti adesso evitano una caduta dopo.
+99. Il recinto ha un cancello aperto e un tratto di staccionata da rifare. Entri dal cancello, ripari dopo. Lo indica la pietra che pesa di più. Non fermarti davanti alla staccionata rotta come se fosse l'unico ingresso: la via è già aperta, al centro.
+100. Il pane del forno comune esce dorato da un lato e pallido dall'altro: si gira la teglia. Il getto chiede questo gesto semplice. Per {cosa} non rifare tutto da capo: cambia solo l'esposizione, offri al calore il lato rimasto indietro.
+101. Pensa a una casa nuova con alcune stanze già arredate e altre piene di scatoloni: si dorme comunque sotto quel tetto. Il centro del getto è la stanza da sistemare per prima. Apri uno scatolone al giorno, non tutti in una sera.
+102. Due amici che si vogliono bene possono parlarsi chiaro su certe cose e tacere su altre: il legame tiene. Così fanno le pietre intorno a quella del mezzo. Per {cosa} non pretendere chiarezza su tutto adesso. Basta che sia chiara la cosa centrale.
+103. In una lunga conversazione ci sono frasi che illuminano e pause che pesano. La parola che resta è quella detta nel mezzo, quando entrambi ascoltavano davvero. Dai più peso a quella parola che alle pause. Le pause servono a pensare, non a decidere.
+104. Chi prepara un viaggio ha bagagli fatti e ultime cose ancora da chiudere. La pietra centrale è la valigia che conta, il resto si aggiusta per strada. Per {cosa} controlla di avere l'essenziale e parti: ciò che manca si trova lungo il cammino.
+105. Una tavola di famiglia raccoglie voci allegre e silenzi, piatti caldi e sedie vuote: il getto somiglia a quella tavola. Siediti accanto a chi sta al centro e comincia da lì. Le sedie vuote non riempirle di pensieri: stasera conta chi c'è.
+106. Imparare un mestiere vuol dire alternare gesti riusciti e gesti sbagliati: la mano migliora proprio così. Il cuore del telo è il gesto da ripetere domani. Per {cosa} non abbandonarlo perché una volta è venuto storto. Ripetilo, correggendo un dettaglio alla volta.
+107. Fra chi ama c'è sempre una parte detta e una parte taciuta. Le pietre lievi la custodiscono ai bordi, quella grave la porta al centro, dove si può guardare. Guarda proprio lì: la cosa che non hai detto è più leggera da dire di quanto temi.
+108. Quando si cambia strada qualcosa resta indietro e qualcosa si apre davanti: il getto mostra entrambe le cose. Il passo del centro si muove già. Per {cosa} non voltarti a ogni metro. Segui il passo che è partito e lascia indietro ciò che non viene.
+109. Una porta si chiude piano mentre un'altra si socchiude. Nel mezzo del getto c'è il corridoio dove stai adesso, con un piede di qua e uno di là. Non restare a lungo in quel corridoio: scegli quale soglia varcare entro pochi giorni.
+110. Una stanza d'attesa è fatta di sedie scomode e di finestre aperte: le pietre la descrivono così. Per {cosa} il turno non è ancora arrivato. Il centro ti dice come usare il tempo che manca: prepara quello che porti, invece di fissare la porta.
+111. Ogni inizio porta con sé un po' di timore e un po' di slancio, mescolati nello stesso respiro. La pietra del centro è il respiro, i bordi sono il batticuore. Non aspettare che il batticuore passi per cominciare. Respira dal centro e fai il primo passo.
+112. Le fini non sono mai tutte buie: dentro c'è sempre un angolo di sollievo. Il getto lo mostra intrecciando chiaro e scuro intorno alla voce che pesa di più. Per {cosa} cerca quel sollievo e appoggiati lì mentre chiudi ciò che va chiuso.
+113. Un lavoro fatto bene ha parti che filano lisce e passaggi faticosi: nessuno dei due è inutile. La pietra del centro segna il passaggio che chiede le tue mani migliori. Dedicagli le ore in cui hai più energia, non i ritagli di fine giornata.
+114. La telefonata attesa arriva con una notizia buona e una da digerire: si ringrazia per la prima e si respira per la seconda. Così si leggono queste pietre. Per {cosa} prendi la parte buona come base, poi affronta l'altra a mente fredda.
+115. Un tavolo da lavoro in ordine a metà dice molto: si vede dove la mano è passata e dove non ancora. Il centro del getto è l'attrezzo da prendere adesso. Non riordinare tutto il tavolo prima di cominciare: usa quell'attrezzo e lascia il resto dov'è.
+116. Chi cuce una toppa sa che il tessuto nuovo e quello vecchio non hanno lo stesso colore: la toppa regge lo stesso. Per {cosa} non cercare la riparazione invisibile. Cuci partendo dal centro, con punti fitti: accetta che la differenza si veda.
+117. Un vecchio legame ritrovato porta ricordi chiari e qualche ruggine. La mano tesa al centro scioglie la ruggine più di molte parole ai margini. Se c'è una persona da riavvicinare, fai un gesto semplice prima di un discorso lungo: una chiamata, un invito.
+118. Il getto ha l'aria di una cucina la mattina presto: il caffè sul fuoco, i piatti di ieri nel lavello. Si comincia dal fuoco, il lavello aspetta. Per {cosa} occupati prima di ciò che si brucia se lo trascuri, poi di ciò che può aspettare.
+119. Una casa che si risveglia ha finestre già aperte e persiane ancora chiuse. Spalanca prima quella del centro: l'aria entra e arriva anche nelle stanze laterali. Non correre a forzare ogni persiana. Una sola apertura ben scelta cambia l'aria di tutta la casa.
+120. Nella bottega alcuni attrezzi sono affilati e altri spuntati: si lavora con i primi mentre gli altri passano sulla mola. Il centro è l'attrezzo da prendere in mano. Per {cosa} usa ciò che taglia oggi e intanto rimetti in sesto il resto, senza fermarti.
+121. Chi scrive una lettera difficile alterna frasi che vengono subito e frasi che si cercano a lungo. La riga che conta, quella del centro, merita il tempo più lungo. Scrivi di getto le altre, ma su quella torna più volte prima di spedire.
+122. Un ritorno a casa ha la gioia dell'abbraccio e la fatica delle valigie da disfare: il getto le tiene insieme. Per {cosa} resta nell'abbraccio e lascia le valigie ai margini fino a domani. Disfarle stasera ti ruba proprio ciò per cui hai fatto il viaggio.
+123. La stagione del raccolto porta cesti pieni e schiene stanche, insieme. La pietra del centro è il cesto, quelle sull'orlo la fatica che passa con una notte di sonno. Non giudicare il raccolto dalla stanchezza. Conta i cesti, poi riposa.
+124. Nella fiera del paese ci sono giostre illuminate e vicoli in penombra: si torna a casa con il ricordo delle prime. Il getto chiede di guardare la giostra al centro. Per {cosa} non lasciare che un vicolo scuro ti rovini la sera intera.
+125. Una promessa mantenuta a metà resta una promessa viva: si completa. La voce del centro è la parte già data, quelle intorno sono la parte ancora da dare. Fai l'elenco di ciò che manca e mantieni un pezzo alla settimana, senza annunciarlo.
+126. Un sentiero di famiglia passa per gioie e liti, pranzi e porte sbattute: le pietre lo sanno. Per {cosa} ciò che pesa nel mezzo è il bene che resiste. Difendi quello, anche quando una lite ai margini ti spinge a parole più dure del necessario.
+127. Il mazzo ha sette chiavi, alcune lucide e altre opache: tutte aprono qualcosa. Comincia da quella che pende al centro del mazzo, la più usata, perché conosci già la sua serratura. Le chiavi opache provale dopo, una per volta, senza buttarne nessuna.
+128. Un esame preparato bene ha argomenti solidi e argomenti traballanti: si entra lo stesso, con quello che si sa. La pietra centrale è ciò che sai meglio. Per {cosa} parti da lì e lascia che sia quella forza a portarti attraverso i punti deboli.
+129. Il getto ricorda una festa a cui manca ancora qualcuno: la musica è partita, i posti vuoti si riempiono piano. Balla con chi è già al centro della sala. Se aspetti tutti per cominciare, la festa finisce prima che tu entri.
+130. Due mani che si stringono non hanno mai la stessa temperatura: una scalda, l'altra raffredda. Il getto è questa stretta, con il centro che tiene saldo il palmo. Per {cosa} non mollare la presa perché una parte è fredda: è la stretta a scaldarla.
+131. Chi trasloca sa che alcune cose si portano via con gioia e altre si lasciano con un nodo in gola. Il telo mostra entrambe. Il centro è ciò che porti con te: mettilo nella prima scatola, ben protetto. Il resto lascialo con un grazie.
+132. Un incontro atteso a lungo ha momenti di grazia e momenti di imbarazzo, entrambi veri. La voce del centro è il momento di grazia da ricordare. Per {cosa} non tornare con la mente all'imbarazzo di ieri: riparti da ciò che quel momento ti ha dato.
+133. Le pietre si dispongono come una cordata: chi tira, chi riposa, chi chiede corda. In testa, al centro del telo, sta chi segna il passo. Non fermare la cordata per chi rallenta in coda. Dagli corda, tieni il passo della testa e salite insieme.
+134. Un dono ricevuto in un momento difficile ha un sapore doppio, dolce e amaro: il getto te lo porge così. Prendilo dal centro, dove si decide quale sapore resta. Per {cosa} ringrazia per ciò che arriva, anche se il momento non è quello che speravi.
+135. Le scelte di questi giorni non sono nette come vorresti: hanno un lato chiaro e uno in penombra. La pietra che pesa ti dice quale lato guardare con più fiducia. Scegli da quel lato. Aspettare una scelta senza ombre vuol dire non scegliere.
+136. Davanti a un mosaico da comporre alcune tessere sono già al loro posto e altre giacciono rovesciate. Per {cosa} si parte dal centro, il resto si scopre pezzo dopo pezzo. Gira una tessera rovesciata alla volta e guarda dove si incastra prima di forzarla.
+137. Un orto di città cresce fra muri grigi e aiuole fiorite: basta poco spazio buono per dare frutto. Il centro del telo è il pezzetto da coltivare, anche se oggi è in ombra. Cura bene quel pezzetto e lascia che sia il raccolto a cambiare la vista.
+138. Un rammendo ben fatto quasi non si vede: il filo chiaro e quello scuro spariscono nella trama. Così le pietre ai margini quando il centro tiene. Per {cosa} ripara le piccole crepe con pazienza, senza farne un'occasione per rifare tutto da capo.
+139. La finestra della cucina dà su un cortile per metà al sole e per metà riparato da un muro. Ci si siede dove fa bene. La pietra centrale segna quella sedia: prendila senza sensi di colpa e lascia che l'altra metà del cortile resti com'è.
+140. Quando un gruppo cammina insieme c'è chi parla, chi tace e chi resta indietro: si arriva lo stesso. Il centro del getto è chi tiene unita la compagnia. Per {cosa} cerca quella persona o quella abitudine e affidati a lei, invece di contare chi manca.
+141. Ogni impresa nuova ha giorni di scoperta e giorni di fatica: le pietre li mostrano insieme. Quella nel mezzo dice che cosa tenere stretto quando arriva la stanchezza. Scrivilo da qualche parte adesso, mentre è chiaro, così lo ritrovi nei giorni grigi.
+142. Un segno ben chiuso sulla corteccia di un albero racconta che la pianta è passata oltre: chiaro sopra, scuro sotto. Il centro del telo porta quella stessa forza. Per {cosa} non riaprire ciò che si è già rimarginato: cresci intorno, come fa il legno.
+143. Il getto ha la voce di un nonno che racconta: storie liete, storie dure, tutte vere. Ascolta la storia del centro, è quella che parla a te stasera. Le altre servono a capire da dove arrivi. Prendi da lei un insegnamento e applicalo domani.
+144. Fra le mura di casa c'è l'angolo dove si legge e l'angolo dove si accumula: il telo li mostra entrambi. Per {cosa} siediti nel primo, che è anche il più vicino al cuore. Svuota l'altro un cassetto alla volta, quando ne hai voglia.
+145. Quando un progetto è a metà strada sembra più disordinato dell'inizio: è il segno che si lavora. Le pietre di questo getto stanno proprio in quel mezzo fecondo. Non scambiare il disordine per un fallimento. Continua a costruire secondo ciò che dice il centro.
+146. Un saluto alla stazione mescola il dispiacere di chi parte e la curiosità per ciò che arriva. Per {cosa} il centro guarda il treno, non il binario: tieni gli occhi su ciò che si muove e lascia andare il resto con un gesto.
+147. Chi impara una lingua nuova capisce alcune frasi e ne perde altre: la conversazione continua. La pietra del centro è la parola che hai già capito bene. Usala. Le parole che sfuggono si chiariscono parlando, non aspettando di conoscerle tutte.
+148. La mattina di un trasloco profuma di caffè e di polvere: si lavora sorridendo. Le pietre hanno quel profumo misto, con il caffè al centro. Per {cosa} concediti la pausa prima del lavoro pesante: il caffè è parte del trasloco, non una perdita di tempo.
+149. Una riconciliazione comincia con una frase gentile e si porta dietro qualche spina: la frase gentile resta. Le pietre la mettono nel cuore del telo. Fai tu il primo passo, se puoi. Le spine si tolgono dopo, quando la mano è già tesa.
+150. Una bambina che impara a camminare cade e si rialza nello stesso minuto: chi la guarda sorride. Le pietre hanno questo passo incerto e felice. Per {cosa} non vergognarti delle cadute. Rialzati subito e fai il passo successivo verso il centro.
+151. Una soglia di pietra consumata dal passaggio: metà lucida per i piedi di chi è entrato, metà scura per chi ha esitato. Il getto ti mette proprio lì. Il centro dice se entrare. Se è chiaro, entra oggi; se è velato, resta sulla soglia ancora un poco.
+152. La nebbia si dirada a chiazze: in certi punti vedi già il prato, in altri ancora il velo bianco. Per {cosa} cammina verso il varco più largo, quello nel mezzo del telo. Non aspettare che si alzi tutta: intanto il prato si raggiunge a piedi.
+153. Il vento attraversa il telo, piega alcune pietre e ne lascia altre immobili. Chi tiene ferma la vela al centro usa anche le raffiche che arrivano storte. Non ammainare per una raffica contraria. Tieni la direzione e regola la vela, poco alla volta.
+154. Una mano aperta posa le pietre senza scegliere: ne escono chiare e velate, come capita nella vita vera. Per {cosa} il gesto onesto è accoglierle tutte, cominciando da quella del centro. Non rifare la domanda sperando in un telo più chiaro: lavora con questo.
+155. Il faro del porto illumina il molo e lascia scura l'acqua al largo: basta per entrare. La pietra del centro fa da faro. Se è chiara ti mostra il molo, se è velata ti mostra gli scogli da evitare: in tutti e due i casi ti dice dove passare.
+156. La barca è ormeggiata con una cima nuova e una vecchia: entrambe tengono. Per {cosa} questo getto è un approdo che regge, anche se qualche nodo ai margini va rifatto. Rifallo con calma, uno alla volta, senza slegare la barca per controllarli tutti insieme.
+157. Sulla sabbia restano impronte nette e impronte già cancellate dall'acqua. Segui le orme che partono dal centro del telo, nette o sbiadite che siano: indicano ancora la strada. Non metterti a cercare quelle sparite. Ciò che l'onda ha cancellato non indica più nessuna direzione.
+158. Una sorgente esce limpida dalla roccia e si intorbida più a valle: per bere si risale. Per {cosa} il getto ti chiede di risalire verso la pietra del centro, dove l'acqua nasce. Torna al motivo iniziale e lascia stare le complicazioni nate dopo.
+159. Alla cascata l'acqua fa insieme schiuma bianca e gorghi scuri: la forza è la stessa. Qui la forza abita il centro, la schiuma i margini. Non lasciarti distrarre dalla schiuma, che fa rumore e sparisce. Metti la tua attenzione dove l'acqua cade davvero.
+160. Al valico il sentiero passa fra una parete in luce e una in ombra. Chi lo percorre tiene la mano sulla roccia calda. Per {cosa} cerca fra le pietre chiare la tua roccia calda: appoggiati lì e attraversa il passaggio stretto senza guardare il vuoto.
+161. Il rifugio in quota ha una stanza riscaldata e un fienile gelido: si dorme dove arde la stufa. Le pietre chiare indicano dove sta la stufa: raccogliti lì. Non dormire al freddo per dimostrare qualcosa. Il fienile lo sistemi domani, con la luce del giorno.
+162. Il focolare brucia legna secca e legna ancora verde: la prima fa la fiamma, la seconda fumo e pazienza. Per {cosa} le pietre chiare sono i ciocchi che ardono: alimenta quelli. La legna verde mettila da parte, fra qualche mese brucia bene anche lei.
+163. Spaccare la legna vuol dire trovare la fessura giusta: il ceppo cede dove la fibra è già aperta. Il getto mostra quella fessura nel suo punto centrale. Non colpire a caso con più forza. Cerca dove la cosa sta già cedendo e colpisci lì, una volta sola.
+164. Un gomitolo si dipana bene da un capo e si aggroviglia dall'altro. Non tagliare: cerca il capo libero. Per {cosa} la voce del centro è il capo da tirare con delicatezza. Tira piano e i nodi ai margini si allentano da soli, uno dopo l'altro.
+165. Il ricamo ha punti fitti e punti radi, fili lucenti e fili spenti: visto da lontano è un fiore. Il getto chiede di guardarlo da un passo indietro, partendo dal centro. Se un punto storto ti tormenta, allontanati: vedi meglio la forma intera.
+166. Una collana con perle chiare e grani scuri sta insieme grazie al filo che li attraversa. Il filo, in questo getto, nasce dalla pietra che pesa di più. Per {cosa} controlla che il filo sia saldo. Se regge, qualche grano scuro non rovina la collana.
+167. La clessidra ha sabbia già scesa e sabbia ancora in alto: il tempo scorre nel mezzo. È lì che il getto mette la sua voce più grave, nel collo stretto che lascia passare. Non scuotere la clessidra per accelerare. Usa questo tempo, granello dopo granello.
+168. Il gesso bianco sulla lavagna scura scrive parole che si leggono bene proprio per il contrasto. Il getto usa lo stesso contrasto per {cosa}. Leggi la parola scritta al centro e copiala da qualche parte, un foglio o una nota: ti serve nei prossimi giorni.
+169. Una goccia d'inchiostro su carta chiara può sporcare o firmare: dipende dalla mano. La pietra centrale è la mano, i margini sono il foglio ancora libero. Prima di posare la penna decidi che cosa vuoi scrivere. Un segno pensato vale più di dieci macchie.
+170. Il sigillo di cera si imprime solo quando la cera è calda, non liquida e non indurita. Per {cosa} il centro del telo indica quel momento giusto, a metà fra i due. Prepara il sigillo adesso, così quando arriva il momento non lo perdi cercandolo.
+171. Il bruco e la farfalla sono la stessa vita in due tempi: il getto li tiene entrambi sul telo. La pietra del centro dice quale dei due tempi stai abitando. Non chiederti di volare se sei ancora nel bozzolo. Lì si lavora in silenzio: va bene così.
+172. Un fiore si apre a petali, non tutti insieme: alcuni sono distesi, altri ancora chiusi intorno al cuore. Per {cosa} il centro del getto è quel cuore che sta per schiudersi. Non aprire i petali con le dita. Proteggilo e lascia che faccia da sé.
+173. La quercia ha rami spogli e rami fitti nello stesso inverno, eppure è un solo albero. Le pietre sono quei rami, il tronco è la pietra del centro. Non giudicare l'albero dal ramo più spoglio. Guarda il tronco: se è saldo, la primavera fa il resto.
+174. Sulla corteccia della betulla si alternano strisce bianche e segni scuri: è così che la si riconosce da lontano. Il getto ha la stessa pelle. Per {cosa} non vergognarti dei segni scuri: fanno parte di ciò che porti e ti rendono riconoscibile.
+175. I ricci del castagno pungono ma custodiscono il frutto: chi li apre con pazienza si scalda le mani la sera. Le pietre velate sono ricci, il frutto aspetta vicino al centro. Mettiti i guanti, cioè prenditi tempo e attenzione, poi apri senza fretta.
+176. Il muschio cresce sul lato in ombra della pietra e ne protegge il cuore dal gelo. Anche qui la parte velata fa un lavoro silenzioso intorno al centro. Per {cosa} non avere fretta di togliere l'ombra. Chiediti prima che cosa sta proteggendo.
+177. In autunno le foglie cadute coprono il sentiero di colori chiari e scuri, mentre sotto la terra si prepara. Il getto ti chiede di camminarci sopra senza fretta, verso il mezzo. Non spazzare via tutto: quelle foglie diventano il terreno buono della prossima stagione.
+178. Il disgelo libera un rivolo alla volta, mentre altrove il ghiaccio tiene ancora: alla primavera si arriva così. Per {cosa} la pietra centrale segna il primo rivolo. Seguilo, scavagli un piccolo canale: lascia che sia lui ad aprire la strada agli altri.
+179. La brina copre l'erba di bianco e si scioglie dove arriva il tepore. Il getto mostra già qualche zolla verde: lì si appoggia il primo passo. Non aspettare che sia sparita tutta. Cammina sul verde e lascia al tepore il lavoro sul resto.
+180. Una goccia di rugiada sull'erba bagna e disseta insieme. Così le pietre in ombra: rinfrescano ciò che la voce del centro sta facendo crescere. Per {cosa} non leggere ogni pietra velata come un freno. Qualcuna è acqua che serve, se la lasci arrivare.
+181. Nella pentola la zuppa bolle al centro e resta tiepida sui bordi. Si mescola partendo dal mezzo, con un gesto lento che distribuisce il calore. Fai lo stesso: porta ciò che funziona verso ciò che è rimasto freddo, senza alzare la fiamma.
+182. Le spezie amare e quelle dolci, dosate insieme, fanno un piatto che si ricorda. Il getto offre entrambe. Per {cosa} la pietra centrale è la spezia che dà il carattere: usala con decisione. Le altre servono a bilanciare, non a coprirla.
+183. L'anfora antica ha una crepa e una decorazione ancora viva: tiene il vino lo stesso, se la si porta con cura. Il centro del telo è la parte salda da cui sollevarla. Afferrala da lì. Non prenderla mai per il bordo incrinato, nemmeno per fare prima.
+184. Un ponte di corda oscilla ai bordi e sta fermo nel mezzo, dove le funi si incrociano. Per {cosa} cammina al centro e lascia che i lati oscillino. Guarda avanti, non le assi che ondeggiano: chi fissa l'oscillazione perde l'equilibrio.
+185. Il traghetto parte anche se metà dei passeggeri è ancora sul molo, poi torna a prenderli. Il getto ti mette a bordo, con la pietra del centro alla prua. Non scendere per aspettare gli altri. Fai la traversata adesso: ciò che resta indietro arriva con la corsa successiva.
+186. La scogliera ha pareti scure battute dall'acqua e piccole calette chiare dove si attracca. Per {cosa} le pietre chiare sono quelle calette. Non cercare di approdare contro la roccia per orgoglio: entra dove l'acqua è calma e scendi lì, con la barca intera.
+187. Un carro carico a metà procede lo stesso: le ruote girano, il resto si aggiunge strada facendo. La pietra che pesa di più è l'asse che regge tutto. Controlla l'asse prima di partire. Se tiene, metti in moto il carro senza aspettare il carico completo.
+188. L'aratro apre un solco dritto e lascia ai lati zolle chiare e zolle scure: è così che si prepara la semina. Per {cosa} il centro del getto è la lama, i margini le zolle. Tieni dritto il solco. Le zolle si sistemano con l'erpice, dopo.
+189. Un pellegrino porta un bastone e un sacco: il primo lo sostiene, il secondo a volte pesa. Il getto distingue i due, con il bastone nel cuore del telo. Appoggiati al bastone. Dal sacco togli una cosa inutile al giorno, finché il passo si alleggerisce.
+190. Il giogo pesa sulle spalle dei buoi, eppure permette di tirare insieme. Le pietre in ombra di questo getto hanno quel peso, il centro dà la direzione. Per {cosa} non cercare di toglierti ogni vincolo. Qualcuno ti fa tirare dritto: tienilo.
+191. La corda che ti unisce a chi ami ha tratti morbidi e tratti tesi: è viva per questo. Le pietre ai bordi mostrano la tensione, quella al centro la tenerezza che regge. Quando senti la tensione, tira meno e avvicinati di un passo.
+192. Gli arnesi del contadino si appendono al muro dopo il lavoro: alcuni lucidi, altri sporchi di terra. Per {cosa} il getto ti fa vedere quale prendere per primo domattina. Preparalo stasera, pulito e in ordine, così la giornata comincia senza esitazioni.
+193. Il corno del pastore suona da lontano e arriva con un'eco confusa, ma chi lo ascolta capisce dove andare. Il centro del telo è il suono, i margini sono l'eco. Non inseguire l'eco. Gira la testa verso il suono e cammina in quella direzione.
+194. Un ago d'osso cuce anche le pelli più dure, con pazienza e piccoli punti. La pietra centrale è quell'ago, le altre sono pelli chiare e scure. Per {cosa} non cercare un punto unico che chiuda tutto. Fai punti piccoli e regolari, uno per giorno.
+195. Il fumo del camino sale dritto quando l'aria è ferma e si sparpaglia col vento. Guarda dove nasce, non dove si perde: il getto nasce dalla pietra del centro. Se un pensiero ti disperde, torna alla sua origine. Lì capisci che cosa ti serve davvero.
+196. Una tela di ragno brilla di rugiada su un filo e resta invisibile sull'altro: è intera lo stesso. Le pietre sono così: il centro tiene la tela. Per {cosa} non dare per rotto ciò che non vedi. Tocca piano il filo centrale: vibra tutto.
+197.
+198.
+199.
+200.
+201.
+202.
 
 ## telo, ombra
-1. Molte pietre cadono in ombra, ma il centro resta il punto da cui partire: sciogli prima il nodo che pesa di più, i margini seguono.
-2. Il telo mostra più soglie che porte aperte. Ciò che pesa chiede un passo coraggioso; ciò che sfiora chiede solo un po' di pazienza.
-3. Quando l'ombra si allarga sul telo, i margini parlano di piccoli intralci e il centro del blocco vero: comincia da quello.
-4. Le pietre rovesciate sono nodi in una corda, non tagli: si sciolgono uno alla volta, partendo da quello in mezzo al telo.
-5. L'ombra copre gran parte della gettata come la brina su un campo all'alba: basta il primo calore al centro perché ceda anche ai bordi.
-6. Fra il centro e l'orlo corrono soglie da attraversare. Nessuna è chiusa a chiave: chiedono solo che tu scelga da quale cominciare.
-7. Le voci lievi in ombra sono sassolini nella scarpa; quella di mezzo, se è girata, è il sentiero da correggere. Distingui le due cose.
-8. Il telo si è scurito, ma resta un campo dove le cose si spostano. Ciò che oggi resiste al centro può cedere con un gesto giusto.
-9. Più di metà delle pietre volge la faccia in basso. È il segno di un passaggio stretto, non di una strada chiusa: si passa di lato.
-10. Ombra diffusa sul telo: ciò che pesa e ciò che sfiora chiedono la stessa cosa, rallentare abbastanza da vedere dove inciampi.
-11. Il centro trattiene, i margini frenano. È un invito a fermarti e riordinare prima di ripartire, non un divieto di andare.
-12. Come il ghiaccio sulle assi di un ponte, l'ombra rende il passaggio scivoloso ma non lo toglie: cammina con passo misurato.
-13. Ai margini l'ombra segna questioni piccole lasciate a metà; al centro sta quella che conta. Chiudi le piccole, affronta la grande.
-14. Il telo parla di blocchi, ma un blocco è pietra da lavorare. Lo scalpello sta nelle tue mani e la prima incisione va fatta al centro.
-15. Molte voci girate al rovescio: la gettata non nega, chiede di guardare le cose dal lato che di solito eviti.
-16. L'ombra lega queste pietre come una nebbia bassa lega i campi. Si dirada piano, a partire dal punto in cui fermi lo sguardo più a lungo.
-17. Dal centro all'orlo il filo è teso, quasi tirato. Allentalo: le soglie di questa gettata si passano meglio con le spalle sciolte.
-18. Ciò che pesa è in salita e ciò che sfiora ha qualche spina. Nulla è definitivo: ogni pietra rovesciata si rigira con la scelta giusta.
-19. Il telo chiede manutenzione. Come in una casa dopo l'inverno, le cose da sistemare sono tante, ma si comincia dalla stanza di mezzo.
-20. Le pietre in ombra non accusano: indicano. Il centro mostra dove si è inceppato il meccanismo, i margini dove si è accumulata polvere.
-21. Questa gettata è un guado. L'acqua sale fino ai margini e al centro scorre forte, ma le pietre su cui posare il piede ci sono.
-22. Più ombra che luce sul telo: è il momento di potare, non di raccogliere. Ciò che togli al centro dà respiro a tutto il resto.
-23. Il filo fra le pietre si è annodato. Non tirarlo con forza: cerca il capo al centro della gettata e scioglilo con le dita, piano.
-24. Anche la voce più lieve in ombra ha qualcosa da dire, ma la soglia vera sta in mezzo al telo: è lì che il tuo passo cambia tutto.
-25. Il telo è coperto di cenere, non di buio. Sotto c'è ancora brace: soffia piano sul centro e il calore torna fino all'orlo.
-26. Le soglie si moltiplicano sul telo, come porte di un corridoio. Non serve aprirle tutte oggi: basta la prima, quella che pesa.
-27. Ciò che si oppone lo fa a bassa voce ai margini e con più forza al centro. Dai ascolto a entrambi senza cedere a nessuno dei due.
-28. L'ombra prevalente è una pausa disegnata sul telo. Il vento ha girato e conviene orientare la vela prima di riprendere il largo.
-29. Dove le pietre si rovesciano, la gettata segna i punti da rinforzare. Il centro è la trave maestra, i margini sono i chiodi allentati.
-30. Il telo raccoglie più resistenze che spinte, eppure resta aperto: ogni nodo sciolto al centro alleggerisce anche le voci lontane.
+1. Più della metà delle pietre sul telo è rovesciata, ma il punto di partenza rimane il centro. Non disperdere le forze sulle difficoltà ai margini. Individua il blocco centrale, quello che pesa di più: dedica a lui la prima energia della settimana.
+2. Il telo mostra soprattutto passaggi da conquistare. Ciò che pesa al centro chiede coraggio, un passo che rimandi da tempo. Ciò che sfiora i margini chiede soltanto pazienza. Non confondere i due: non serve coraggio per le cose piccole, non basta pazienza per quella grande.
+3. Con tante pietre girate, è facile vedere solo problemi. Distinguili: quelli lontani dal centro sono fastidi minori, quello al centro è la questione reale. Ignora per qualche giorno quei fastidi e metti tutta la tua attenzione sul blocco che conta davvero dentro {cosa}.
+4. Le pietre rovesciate sono nodi, non tagli: la corda è intera. Sciogliere un nodo alla volta è lento ma funziona. Comincia da quello più vicino al centro del telo, perché quando si allenta quello anche gli altri perdono tensione uno dopo l'altro.
+5. L'ombra sul telo somiglia a un gelo mattutino più che a una notte lunga. Si scioglie partendo dal punto dove arriva il primo sole. Porta il tuo impegno al centro della questione: quando lì si sblocca qualcosa, il resto si rilassa di conseguenza.
+6. Tra il centro e l'orlo ci sono parecchi passaggi difficili, ma nessuno è sbarrato. Ti chiedono di scegliere da quale cominciare. Non tirare a sorte: parti da quello che ti fa più paura, perché è lì che si nasconde la chiave degli altri.
+7. Le pietre girate ai margini sono fastidi da poco, sassolini da togliere con un gesto. Se è girata anche quella vicina al centro, il problema è più serio: riguarda la direzione stessa. Distingui fra i due casi prima di reagire, per non sprecare forze.
+8. La gettata è scura ma non immobile: le cose possono ancora cambiare posto. Il blocco principale è sensibile alle tue scelte, più di quanto sembri. Cerca il gesto preciso che lo sposta, una parola chiarita o un'abitudine cambiata: provalo prima di arrenderti.
+9. Quando la maggior parte delle pietre si capovolge, la strada si restringe ma non si chiude. Chi procede di fronte urta, chi si gira di lato passa. Affronta {cosa} in modo indiretto: una domanda invece di una richiesta, un tentativo invece di una scelta definitiva.
+10. Su tutto il telo l'ombra chiede la stessa cosa, al centro come ai margini: rallentare. Non perché sia tardi, ma perché andando di corsa non vedi dove metti i piedi. Riduci il ritmo per qualche giorno e nota dove inciampi più spesso.
+11. La gettata in ombra non vieta di andare: chiede una pausa di riordino. Metti in fila ciò che resta aperto dentro {cosa}, chiudi quel che puoi chiudere, rimanda il resto con una data precisa. Solo dopo riprendi il cammino, con meno peso addosso.
+12. Il passaggio c'è ma è scivoloso: l'ombra rende insidioso ogni passo senza toglierlo. In questi giorni evita mosse brusche e decisioni prese di getto. Ogni azione per {cosa} va preparata e verificata, come chi attraversa un ponte gelato tenendosi al parapetto.
+13. Sul telo l'ombra si distribuisce in due modi: tante piccole cose lasciate in sospeso ai bordi, una questione seria nel mezzo. Liberati delle piccole in un pomeriggio, con una lista. Così hai la mente sgombra per affrontare con calma quella seria.
+14. I blocchi che il telo mostra sono materiale grezzo, non sentenze. Hai gli strumenti per lavorarli. Comincia dal punto centrale con un'azione piccola e precisa, ripetuta ogni giorno: è la costanza, non la forza, che cambia la forma della pietra.
+15. Quando così tante pietre si rovesciano, il telo non sta dicendo no. Ti chiede di guardare {cosa} dal lato che di solito eviti: la tua parte di responsabilità, la paura che non nomini, il desiderio che non ammetti. Comincia da uno di questi.
+16. Le pietre girate sono collegate fra loro: una difficoltà alimenta l'altra. Per questo la soluzione non arriva tutta insieme. Fissa lo sguardo su un punto, il più centrale: tienilo lì a lungo, perché è da quel punto che la confusione comincia a diradarsi.
+17. Su questo telo tutto è tirato: tensione dal centro ai bordi. Forzare aumenta la resistenza. Prima di qualunque passo, allenta: dormi bene, cammina, parla con qualcuno di cui ti fidi. Le soglie di una gettata in ombra si superano meglio a spalle rilassate.
+18. Il centro è in salita, i margini sono pieni di piccole spine. Niente di questo è definitivo. Ogni pietra rovesciata può tornare dritta con una scelta diversa. Chiediti quale scelta hai ripetuto finora per abitudine e prova a cambiarla, anche una volta sola.
+19. Questa gettata somiglia a un lavoro di manutenzione rimandato troppo a lungo. Le cose da sistemare sono molte, ma non tutte urgenti. Stabilisci una priorità, quella più centrale per {cosa}: dedicale due ore precise questa settimana. Il resto viene dopo.
+20. Le pietre girate non ti accusano di niente. Segnalano dove qualcosa si è inceppato: al centro il meccanismo principale, ai margini l'accumulo di piccole trascuratezze. Leggile come una lista di interventi, non come un giudizio. Comincia dal meccanismo, prima di spolverare il resto.
+21. Il telo descrive un fiume da attraversare con l'acqua alta: forte al centro, insidiosa anche ai bordi. Le pietre su cui posare il piede però ci sono. Cercale prima di partire: chi può aiutarti, che cosa sai fare bene, quanto tempo hai a disposizione.
+22. Questa è una gettata da forbici, non da cesto. Togli qualcosa invece di aggiungere: un impegno, una pretesa, un'abitudine che ruba spazio. Ciò che elimini vicino al centro libera respiro a tutto il resto della questione. Scegli oggi che cosa togliere e toglilo entro sera.
+23. Le pietre del telo sono aggrovigliate come un gomitolo caduto. Tirare a caso stringe i nodi. Cerca il capo, cioè il punto da cui è partita la difficoltà con {cosa}: lavora da lì con le dita, senza fretta e senza strappi.
+24. Ogni pietra rovesciata, anche la più marginale, porta un'indicazione. Non tutte però valgono uguale: quella vicina al centro decide il resto. Prendi nota delle piccole senza farti distrarre e investi la tua energia migliore nel passaggio centrale, quello che sposta tutto il resto.
+25. Il telo sembra spento, ma il calore non è scomparso: si è ritirato sotto la superficie. Non aggiungere legna in fretta. Cerca il punto ancora caldo, una relazione che regge, una passione che resiste: riparti da quello con cura, un poco alla volta.
+26. Sul telo in ombra le difficoltà si mettono in fila una dietro l'altra. Non devi superarle tutte oggi. Apri soltanto la prima, quella più vicina al centro: fermati lì per stasera. Domani la seconda può sembrare già più leggera di come appare adesso.
+27.
+28.
+29.
+30.
