@@ -109,6 +109,20 @@ class IlSoggettoDellOroscopo {
         Provider.of<ProfileController>(context, listen: ascolta).identity);
   }
 
+  /// **QUALI DATI DI NASCITA LA PERSONA HA DATO**, letti dalla fonte unica,
+  /// il profilo. Ordine GA voce 15: gli inviti dell'Oroscopo leggevano solo la
+  /// carta in mano, e mentre la carta nuova si calcolava chiedevano l'ora a
+  /// chi l'aveva appena data. Per un amico la carta non c'e' per scelta, e
+  /// gli inviti restano quelli di sempre.
+  ({bool ora, bool luogo}) datiDati(BuildContext context,
+      {bool ascolta = true}) {
+    if (amico != null) return (ora: false, luogo: false);
+    final io =
+        Provider.of<ProfileController>(context, listen: ascolta).identity;
+    if (io.isExample) return (ora: false, luogo: false);
+    return (ora: io.hasBirthTime, luogo: io.birthPlace != null);
+  }
+
   /// Il segno solare di chi guarda, per tornare alla propria lettura dalla
   /// lettura di un amico; nullo se la sua nascita e' quella d'esempio.
   static Zodiac? segnoDiChiGuarda(BuildContext context) {

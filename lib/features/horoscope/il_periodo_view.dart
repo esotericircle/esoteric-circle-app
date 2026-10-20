@@ -53,7 +53,13 @@ class IlPeriodoView extends StatelessWidget {
     required this.premiumUnlocked,
     required this.onDepthSelected,
     required this.onDepthLocked,
+    this.cartaInArrivo = false,
   });
+
+  /// **LA CARTA E' IN ARRIVO**, ordine GA voce 15: la persona ha dato i dati
+  /// e la carta che li riflette non c'e' ancora. Allora non si scrive "Senza
+  /// l'ora di nascita" a chi l'ora l'ha data.
+  final bool cartaInArrivo;
 
   /// La profondita' scelta per ogni dominio, la stessa delle schede del
   /// Giorno.
@@ -233,7 +239,8 @@ class IlPeriodoView extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Text(e.testo, style: piccolo),
                 ),
-              if (livello != LivelloPersonalizzazione.cartaCompleta)
+              if (livello != LivelloPersonalizzazione.cartaCompleta &&
+                  !cartaInArrivo)
                 Text(
                   livello == LivelloPersonalizzazione.soloSegno
                       ? 'Senza ora e luogo di nascita $nome si legge sul tuo '

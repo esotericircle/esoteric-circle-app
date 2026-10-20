@@ -1335,7 +1335,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // l'oggetto: adesso la distinzione la fa la porta, una volta per tutti.
     final cielo = CieloDiOggi.perIlGiorno(adesso: _date, carta: carta);
     _cieloDelGesto = cielo;
-    final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
+    // **I DATI DATI, dalla fonte unica**, ordine GA voce 15: mentre la carta
+    // nuova si calcola nessun invito chiede cio' che la persona ha gia' dato.
+    final dati = _soggetto.datiDati(context);
+    final cartaInArrivo = CorrenteDelCielo.inArrivo(cielo,
+        oraData: dati.ora, luogoDato: dati.luogo);
+    final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo,
+        oraData: dati.ora, luogoDato: dati.luogo);
     // I dati di nascita per il segno delle altre tradizioni (ordine ES).
     final tier = context.watch<EntitlementService>().tier;
     final nascitaDeiSegni = _soggetto.nascitaDeiSegni(context);
@@ -1763,6 +1769,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                           mese: _period == HoroscopePeriod.mese,
                                           palette: palette,
                                           livello: cielo.livello,
+                                          cartaInArrivo: cartaInArrivo,
                                           // La profondita' su ogni scheda, come nel Giorno.
                                           profondita: _depth,
                                           premiumUnlocked:
@@ -1832,6 +1839,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                                 _period == HoroscopePeriod.mese,
                                             palette: palette,
                                             livello: cielo.livello,
+                                            cartaInArrivo: cartaInArrivo,
                                             profondita: _depth,
                                             premiumUnlocked:
                                                 PlanCatalog.haProfondita(tier),
@@ -1954,11 +1962,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                   )
                                 else if (_inCima ==
                                         AstroTradition.occidentale &&
-                                    CorrenteDelCielo.rigaDellInvito(cielo) !=
+                                    CorrenteDelCielo.rigaDellInvito(cielo,
+                                            oraData: dati.ora,
+                                            luogoDato: dati.luogo) !=
                                         null)
                                   _InvitoAllaNascita(
                                       testo: CorrenteDelCielo.rigaDellInvito(
-                                          cielo)!,
+                                          cielo,
+                                          oraData: dati.ora,
+                                          luogoDato: dati.luogo)!,
                                       palette: palette),
                                 // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
                                 // dove staranno le schede, cosi' lo sguardo non si sposta
@@ -2080,7 +2092,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                       palette: palette,
                                       completa: cielo.ceCieloVero,
                                       invito: CorrenteDelCielo.invitoDelLivello(
-                                          cielo)),
+                                          cielo,
+                                          oraData: dati.ora,
+                                          luogoDato: dati.luogo)),
                                   const SizedBox(height: SpacingTokens.md),
                                 ],
                                 // SI PORTA CON SE' SOLO CIO' CHE SI E' LETTO. Prima del

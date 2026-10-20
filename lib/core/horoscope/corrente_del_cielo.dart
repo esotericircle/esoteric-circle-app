@@ -636,6 +636,25 @@ class CorrenteDelCielo {
       'Con l\'ora e il luogo di nascita Medora legge i passaggi veri sopra di te.';
 
   /// La stessa riga per chi ha la carta ma non l'ora.
+  /// **LA CARTA IN ARRIVO**, ordine GA voce 15: la persona ha dato i dati, la
+  /// carta che li riflette non c'e' ancora (si sta calcolando, o la rete non
+  /// c'e'). Non si chiede di nuovo cio' che e' stato dato.
+  /// **SE LA CARTA E' IN ARRIVO**: i dati dati sono piu' di quelli che la
+  /// carta in mano riflette. Col luogo si calcola almeno la carta senza ora,
+  /// con l'ora anche le case.
+  static bool inArrivo(CieloDiOggi cielo,
+          {required bool oraData, required bool luogoDato}) =>
+      switch (cielo.livello) {
+        LivelloPersonalizzazione.soloSegno => luogoDato,
+        LivelloPersonalizzazione.cartaSenzaOra => oraData,
+        LivelloPersonalizzazione.cartaCompleta => false,
+      };
+
+  static const String cartaInArrivo =
+      'La tua carta natale si sta aggiornando coi dati che hai dato: fino ad '
+      'allora questa lettura non legge ancora tutto il tuo cielo. Si completa '
+      'da sola.';
+
   static const String ripiegoSenzaOra =
       'Senza l\'ora di nascita le case non si possono calcolare: qui leggi i '
       'passaggi sui tuoi pianeti, non ancora sui settori della tua vita.';
@@ -650,7 +669,9 @@ class CorrenteDelCielo {
   /// L'etichetta cambia col livello, perche' a chi ha gia' dato luogo e data
   /// manca solo l'ora, e chiedergli tutto un'altra volta sarebbe una porta
   /// sbagliata.
-  static String? invitoDelLivello(CieloDiOggi cielo) {
+  static String? invitoDelLivello(CieloDiOggi cielo,
+      {bool oraData = false, bool luogoDato = false}) {
+    if (inArrivo(cielo, oraData: oraData, luogoDato: luogoDato)) return null;
     switch (cielo.livello) {
       case LivelloPersonalizzazione.soloSegno:
         return 'Completa i dati di nascita';
@@ -666,7 +687,9 @@ class CorrenteDelCielo {
   /// schede, dopo il consulto: chi apriva l'Oroscopo non la vedeva. Questa
   /// riga sta sopra il gesto che apre il consulto, e sparisce quando i dati
   /// ci sono.
-  static String? rigaDellInvito(CieloDiOggi cielo) {
+  static String? rigaDellInvito(CieloDiOggi cielo,
+      {bool oraData = false, bool luogoDato = false}) {
+    if (inArrivo(cielo, oraData: oraData, luogoDato: luogoDato)) return null;
     switch (cielo.livello) {
       case LivelloPersonalizzazione.soloSegno:
         return 'Con la tua ora e il tuo luogo di nascita questa lettura '
@@ -681,7 +704,11 @@ class CorrenteDelCielo {
 
   /// La nota da mostrare sotto le schede, per il livello raggiunto. Nulla
   /// quando il cielo e' completo: li' non c'e' niente da dichiarare.
-  static String? notaDelLivello(CieloDiOggi cielo) {
+  static String? notaDelLivello(CieloDiOggi cielo,
+      {bool oraData = false, bool luogoDato = false}) {
+    if (inArrivo(cielo, oraData: oraData, luogoDato: luogoDato)) {
+      return cartaInArrivo;
+    }
     switch (cielo.livello) {
       case LivelloPersonalizzazione.soloSegno:
         return ripiegoDichiarato;

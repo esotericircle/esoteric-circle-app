@@ -262,6 +262,13 @@ class BirthIdentityController extends ChangeNotifier {
     if (_chart != null) return;
     final carta = await CartaConservata.riprendi();
     if (carta == null) return;
+    // **UNA CARTA CHE NON VIENE DA QUESTI DATI NON SI RIPRENDE.** Ordine GA
+    // voce 15: chi aggiungeva l'ora dopo il Risveglio ritrovava all'avvio la
+    // carta di prima, calcolata senza ora, e l'Oroscopo continuava a
+    // chiedergli l'ora. La carta conservata non dice da quale data e' nata,
+    // ma dice se aveva l'ora: se non corrisponde ai dati, si lascia al ponte
+    // della carta, che la ricalcola.
+    if (!_vieneDa(carta, _details)) return;
     _chart = carta;
     final d = _details;
     if (d != null) _facts = NatalFacts.from(details: d, chart: carta);
@@ -299,8 +306,24 @@ class BirthIdentityController extends ChangeNotifier {
         gia.place?.longitude == nuovi.place?.longitude) {
       return;
     }
-    setBirth(nuovi, _chart);
+    // **I DATI SONO CAMBIATI: LA CARTA DI PRIMA NON E' PIU' LA LORO.** Ordine
+    // GA voce 15. Qui si teneva `_chart` anche quando la persona aveva
+    // appena aggiunto l'ora, e la carta senza ora restava in mano a tutti:
+    // il ponte non la ricalcolava, perche' una carta c'era. Se i dati
+    // c'erano gia' e sono cambiati, la carta si lascia andare, anche dal
+    // disco; se non c'erano (l'avvio), si tiene solo quella che viene da
+    // questi dati.
+    final carta = _chart;
+    final tieni = carta != null && gia == null && _vieneDa(carta, nuovi);
+    if (carta != null && !tieni) unawaited(CartaConservata.conserva(null));
+    setBirth(nuovi, tieni ? carta : null);
   }
+
+  /// **SE LA CARTA PUO' VENIRE DA QUESTI DATI**: chi ha dato l'ora ha una
+  /// carta con l'ora, chi non l'ha data una carta senza. Senza dati non si
+  /// giudica.
+  static bool _vieneDa(NatalChart carta, BirthDetails? dati) =>
+      dati == null || carta.isEssential || carta.hasTime == dati.hasTime;
 
   void clear() {
     _details = null;
