@@ -613,7 +613,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Gratitudine più che nostalgia: il bene che questa memoria che sfuma porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.
+- 1: Gratitudine più che nostalgia: il bene che questa memoria ormai lontana porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.
 - 2: Il tetto di questa nostalgia quando cala è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.
 - 3: Quello che questa spinta sa dare quando cede è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.
 

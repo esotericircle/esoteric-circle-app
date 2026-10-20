@@ -7444,7 +7444,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Al suo meglio questa carta salva la bontà delle origini della tua questione: quel bene resta a disposizione come un oggetto di casa, col ricordo che lo tiene lucido.',
   ],
   'corona|Sei di Coppe|capovolta': [
-    'Gratitudine più che nostalgia: il bene che questa memoria che sfuma porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.',
+    'Gratitudine più che nostalgia: il bene che questa memoria ormai lontana porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.',
     'Il tetto di questa nostalgia quando cala è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.',
     'Quello che questa spinta sa dare quando cede è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.',
   ],

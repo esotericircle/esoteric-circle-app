@@ -2787,7 +2787,7 @@ abstract final class ITestiEuOccidentaleData {
             'La goccia che costa',
             'Settimana di piccole dispersioni che passano inosservate: notifiche continue, chat che non ti riguardano, commissioni spezzettate in dieci uscite, un rubinetto che gocciola da mesi. Una alla volta sembrano niente, insieme rubano tempo ed energia proprio alle occasioni che contano.',
             'Sabato mattina ripercorri la tua settimana con un taccuino e annota ogni piccola perdita di tempo che noti. Scegli quella più facile da risolvere e sistemala entro domenica: esci da un gruppo, spegni una notifica, chiama chi ripara il rubinetto.',
-            'Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere ciò che hai. Per le altre voci della lista fissa una data, una per volta.',
+            'Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere ciò che hai. Per le altre cose della lista fissa una data, una per volta.',
           ),
           VoceEu(
             'Il momento di chiedere',

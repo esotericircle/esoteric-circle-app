@@ -645,7 +645,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Dai forma all\'idea che porti in giro da settimane: Mehiel la vuole viva, non perfetta, perché un abbozzo che circola vale più di un capolavoro chiuso nel cassetto. Registra un messaggio vocale di due minuti in cui la spieghi a una persona che stimi e mandaglielo stasera.',
   ],
   'custode|64|consiglio': [
-    'Domani, rileggendola, segna con una riga le tre frasi più vive e riscrivi il resto intorno a quelle, togliendo ciò che spiega troppo. Non mostrare la bozza a chi parla più forte prima di averla sistemata: l\'idea ha bisogno della sua voce prima di sentire quella degli altri.',
+    'Domani, rileggendola, segna con una riga le tre frasi più vive e riscrivi il resto intorno a quelle, togliendo ciò che spiega troppo. Non mostrare la bozza a chi parla più forte prima di averla sistemata: l\'idea ha bisogno di crescere da sola prima di sentire gli altri.',
     'Finita la lettura, chiedi a chi ascolta quale esempio ricorda meglio e mettilo in apertura del testo. Non cambiare la sostanza del ragionamento per compiacere chi ascolta: accogli le osservazioni sul modo di dirlo, non sul contenuto che hai vagliato con la tua testa.',
     'Domani riascolta il messaggio vocale e scrivi su un foglio le parole che hai usato per spiegare l\'idea: sono la base della prima versione scritta. Non aspettare la forma perfetta per condividerla: un\'idea viva si affina parlandone, a patto di vagliarla con i fatti.',
   ],

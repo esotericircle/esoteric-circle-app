@@ -277,7 +277,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata è in equilibrio: non spinge e non frena, offre lo spazio giusto per poche cose fatte bene. Il rischio è disperderti in mille piccoli compiti che sembrano tutti urgenti allo stesso modo. Chi sceglie presto che cosa conta arriva a sera con la testa leggera.
 - Che cosa fare: Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l'hai chiusa davvero. Se arriva una richiesta nuova, annotala sul retro e rimandala a domattina.
-- Risposta, Lunga: Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre voci restano tre fino a stasera.
+- Risposta, Lunga: Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre punti restano tre fino a stasera.
 
 #### Generale, equilibrio, voce 2: La promessa onorata
 
