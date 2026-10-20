@@ -81,6 +81,7 @@ import 'la_scena_del_cielo.dart';
 import 'l_orizzonte_in_scena.dart';
 import 'il_cielo_profondo_in_scena.dart';
 import 'l_eclittica_in_scena.dart';
+import 'la_misura_della_luna.dart';
 import 'le_meteore_in_scena.dart';
 import 'la_via_lattea_in_scena.dart';
 import 'le_linee_in_scena.dart';
@@ -1099,6 +1100,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     Offset sposta,
   ) {
     final ppg = proiezione.puntiPerGrado;
+    // **LA LUNA SI RICONOSCE A COLPO D'OCCHIO**, ordine GA voce 13: il suo
+    // diametro dalla misura unica, e il Sole con la stessa regola.
+    final diametroDellaLuna = LaMisuraDellaLuna.diametro(
+        larghezza: proiezione.larghezza, campo: proiezione.campoGradi);
     for (var k = 0; k < a.corpi.length; k++) {
       final ca = a.corpi[k];
       var x = ca.x, y = ca.y, z = ca.z;
@@ -1123,11 +1128,11 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       posa.luce = 1.0;
       if (ca.corpo == CorpoCeleste.luna) {
         posa.visibile = false;
-        _posaLaLuna(a, b, posa.x, posa.y, ppg, z < 0);
+        _posaLaLuna(a, b, posa.x, posa.y, diametroDellaLuna, z < 0);
         continue;
       }
       posa.raggio = ca.corpo == CorpoCeleste.sole
-          ? math.max(14.0, ppg * 1.5)
+          ? LaMisuraDellaLuna.raggioDelSole(diametroDellaLuna)
           // I pianeti con la regola delle stelle, ma con un tetto: Giove a
           // -2,3 darebbe un globo di cinquanta punti, Venere di ottanta.
           // e nessuno con un alone piu' grande del disco della Luna a riposo
@@ -1148,17 +1153,19 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// istante calcolato.
   ///
   /// Il disco e' ingrandito: la Luna vera e' mezzo grado, due punti e mezzo
-  /// a settanta gradi di campo. Qui il raggio e' un grado, mai sotto i nove
-  /// punti, come in ogni carta del cielo. L'immagine cotta e' larga dieci
-  /// raggi: l'alone di `LunaReale` arriva a 4,6 raggi dal centro, e
-  /// un'immagine piu' stretta lo tagliava in un quadrato visibile (anteprima
-  /// fg_07: con due raggi e poi con quattro, misurato e visto).
+  /// a settanta gradi di campo. **Dall'ordine GA voce 13 il diametro e'
+  /// [LaMisuraDellaLuna.diametro]**, fra 55 e 60 punti al campo di partenza
+  /// (era un grado di raggio, mai sotto i nove punti: circa diciotto punti,
+  /// e il fondatore non la trovava). L'immagine cotta e' larga dieci raggi:
+  /// l'alone di `LunaReale` arriva a 4,6 raggi dal centro, e un'immagine piu'
+  /// stretta lo tagliava in un quadrato visibile (anteprima fg_07: con due
+  /// raggi e poi con quattro, misurato e visto).
   void _posaLaLuna(
     CieloInUnIstante a,
     CieloInUnIstante? b,
     double x,
     double y,
-    double ppg,
+    double diametro,
     bool sotto,
   ) {
     final illum = b != null && _tFraIstanti > 0.5
@@ -1170,7 +1177,7 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
     // di scena della corsa (voce F2): nella corsa la Luna si cuoce gia'
     // grande cinque volte e si posa alla misura del momento, cosi' crescere
     // non la ricuoce a ogni fotogramma.
-    final riposo = math.max(9.0, ppg) * 10;
+    final riposo = diametro * 5;
     final lato = riposo * _scalaDellaLuna;
     final inCorsa =
         _modo == ModoDelCielo.ritorno && _fase.value == FaseDelRitorno.ritorno;
@@ -1193,7 +1200,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
 
   void _cuociLaLuna(double illum, bool crescente, double lato) {
     final dpr = MediaQuery.maybeDevicePixelRatioOf(context) ?? 3.0;
-    final px = (lato * dpr).ceil();
+    // **UN TETTO AL LATO COTTO**, ordine GA voce 13: col disco nuovo
+    // l'immagine della corsa arriverebbe a circa 4.300 pixel di lato.
+    final px =
+        math.min((lato * dpr).ceil(), LaMisuraDellaLuna.latoCottoMassimo);
     final registratore = ui.PictureRecorder();
     final tela = Canvas(registratore);
     LunaReale.dipingi(
@@ -2267,11 +2277,17 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
       campoGradi: _campo,
     );
     final p = d.localPosition;
+    // Il bersaglio della Luna e' il suo disco, ordine GA voce 13.
+    final raggioDellaLuna = LaMisuraDellaLuna.diametro(
+            larghezza: proiezione.larghezza, campo: proiezione.campoGradi) /
+        2;
     // Prima i corpi, che sono pochi e grandi.
     for (var k = 0; k < cielo.corpi.length; k++) {
       final c = cielo.corpi[k];
       if (!proiezione.proietta(_orientamento, c.x, c.y, c.z, _punto)) continue;
-      if ((Offset(_punto[0], _punto[1]) - p).distance < 26) {
+      final bersaglio =
+          c.corpo == CorpoCeleste.luna ? math.max(26.0, raggioDellaLuna) : 26.0;
+      if ((Offset(_punto[0], _punto[1]) - p).distance < bersaglio) {
         setState(() => _scelta = _Scelta.corpo(c.corpo));
         return;
       }

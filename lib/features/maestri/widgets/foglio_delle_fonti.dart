@@ -299,6 +299,10 @@ class TestiDelleFonti {
       'VSOP87. Le stelle stanno alle coordinate dell\'epoca J2000: la '
       'precessione le sposta di poco più di un grado in un secolo, cioè di '
       'qualche punto sullo schermo.\n\n'
+      // Ordine GA voce 13: la Luna grande, e quanto.
+      'La Luna è disegnata circa venti volte più grande del vero: in cielo è '
+      'mezzo grado, qui è un disco che si riconosce a colpo d\'occhio. Il '
+      'Sole ha la stessa misura.\n\n'
       'Il nord della bussola diventa nord vero con la declinazione magnetica '
       'del World Magnetic Model 2025 della NOAA e del British Geological '
       'Survey, materiale del governo degli Stati Uniti non soggetto a diritto '
@@ -324,9 +328,10 @@ class TestiDelleFonti {
       'diametri della Luna piena.\n\n'
       'Il moto proprio delle stelle non è applicato. Dentro questa finestra '
       'il suo effetto non è visibile a occhio nudo.\n\n'
-      'Durante l\'animazione la Luna viene ingrandita per renderla leggibile. '
-      'Quando l\'animazione finisce torna alla sua misura, che è quella del '
-      'cielo che vedi alzando il telefono.';
+      'Durante l\'animazione la Luna viene ingrandita ancora, cinque volte, '
+      'per renderla leggibile. Quando l\'animazione finisce torna alla sua '
+      'misura, quella del cielo che vedi alzando il telefono: già circa '
+      'venti volte più grande del vero.';
 
   static const String cartaDiNascita =
       'La Carta di nascita nasce nella linea della Golden Dawn, poi la '

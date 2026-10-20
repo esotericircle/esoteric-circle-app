@@ -283,8 +283,26 @@ class PittoreDelCielo extends CustomPainter {
         _corpo,
       );
       if (f.nomiDeiCorpi) {
-        c.nome?.paint(
-            canvas, Offset(c.x - c.nome!.width / 2, c.y + c.raggio * 0.6 + 4));
+        final nome = c.nome;
+        if (nome != null) {
+          var dove = Offset(c.x - nome.width / 2, c.y + c.raggio * 0.6 + 4);
+          // **IL NOME NON FINISCE SOTTO LA LUNA**, ordine GA voce 13: col
+          // disco grande un pianeta vicino perdeva il nome sotto di lei, che
+          // si dipinge per ultima. Si sposta il nome, sotto il disco; la
+          // Luna non si rimpicciolisce.
+          if (f.luna != null && f.lunaLuce > 0) {
+            final raggio = f.lunaLato / 10;
+            final centro = Offset(f.lunaX, f.lunaY);
+            final scritta = dove & Size(nome.width, nome.height);
+            final vicino = Offset(
+                (centro.dx).clamp(scritta.left, scritta.right),
+                (centro.dy).clamp(scritta.top, scritta.bottom));
+            if ((vicino - centro).distance < raggio + 2) {
+              dove = Offset(dove.dx, f.lunaY + raggio + 4);
+            }
+          }
+          nome.paint(canvas, dove);
+        }
       }
     }
 

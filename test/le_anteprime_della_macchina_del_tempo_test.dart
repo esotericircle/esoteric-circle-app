@@ -10,8 +10,10 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/core/astro/real_time_cosmo/la_camera_del_cielo.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/cielo_reale_screen.dart';
+import 'package:esoteric_circle/features/real_time_cosmo/la_misura_della_luna.dart';
 import 'package:esoteric_circle/features/real_time_cosmo/pittore_del_cielo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -167,6 +169,11 @@ void main() {
     }
     expect(aloneDelPianeta * 3 <= riposo * 3 / 10 + 0.5, isTrue,
         reason: 'un pianeta ha l\'alone piu\' grande del disco della Luna');
+    // **UN TETTO ALL'IMMAGINE COTTA**, ordine GA voce 13: col disco nuovo
+    // la Luna della corsa si cuocerebbe a circa 4.300 pixel di lato.
+    expect(f.luna!.width, lessThanOrEqualTo(LaMisuraDellaLuna.latoCottoMassimo),
+        reason: 'la Luna della corsa si cuoce in un\'immagine di '
+            '${f.luna!.width} pixel di lato');
     // ignore: avoid_print
     print('MACCHINA: Luna al colmo, lato ${(f.lunaLato * 3).round()} px '
         '(disco ${(f.lunaLato * 3 / 10 * 2).round()} px di diametro), '
@@ -204,6 +211,17 @@ void main() {
         'lato ${(f.lunaLato * 3).round()} px');
     expect(f.lunaX > 0 && f.lunaX < 360 && f.lunaY > 0 && f.lunaY < 797, isTrue,
         reason: 'la Luna non sta in quadro');
+    // **LA LUNA SI RICONOSCE A COLPO D'OCCHIO**, ordine GA voce 13: sul
+    // fotogramma vero, a riposo, il disco e' quello della misura unica
+    // (l'immagine e' larga dieci raggi, cioe' cinque diametri).
+    expect(
+        f.lunaLato / 5,
+        closeTo(
+            LaMisuraDellaLuna.diametro(
+                larghezza: 360, campo: kCampoDiPartenza),
+            0.5),
+        reason: 'a riposo il disco della Luna non e\' quello della misura '
+            'dell\'ordine GA: ${(f.lunaLato / 5).toStringAsFixed(1)} punti');
     await scatta(tester, 'i11_la_luna_quasi_piena');
   });
 
