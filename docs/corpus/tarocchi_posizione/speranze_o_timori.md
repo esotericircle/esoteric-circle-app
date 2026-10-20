@@ -34,12 +34,12 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri di poter partire con poco nella bisaccia, senza conoscere tutta la strada, fidandoti del primo passo; insieme ti spaventa il bordo del dirupo, quel vuoto che non vedi.
 - 2: Dentro di te convivono la voglia di un salto senza garanzie e la paura di cadere: immagini la leggerezza di andare via col cane alle calcagna, ma temi che sia solo ingenuità.
-- 3: Ciò che ti auguri è un inizio libero, il cuore aperto e niente pesi sulle spalle. Ciò che temi è la stessa cosa vista dall'altra parte: un passo nel vuoto fatto senza sapere dove poggerà il piede.
+- 3: Ti auguri un inizio libero, il cuore aperto e niente pesi sulle spalle. Temi la stessa cosa vista dall'altra parte: un passo nel vuoto senza sapere dove poggia il piede.
 
 ### capovolta
 
 - 1: Temi di lanciarti alla cieca, per uno slancio che sembra coraggio ma potrebbe essere fuga. Temi anche il contrario, di restare sull'orlo per sempre mentre la strada ti chiama.
-- 2: La paura che porti è doppia: un passo avventato che non hai pensato, oppure un piede che non si stacca mai da terra. Speri, in fondo, di capire da dove nasce il tuo impulso prima di muoverti.
+- 2: La paura che porti è doppia: un passo avventato, oppure un piede che non si stacca mai da terra. In fondo speri di capire da dove nasce il tuo impulso prima di muoverti.
 - 3: Immagini il momento del salto e ti chiedi se stai scappando da qualcosa che non hai guardato. Ti auguri di partire con gli occhi aperti, non sotto la spinta della fretta.
 
 ## Il Mago
@@ -52,7 +52,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi che il tuo dono resti chiuso nel cassetto, mai provato davvero. Ti spaventa l'idea di promettere più di quanto le tue mani sapranno mantenere.
+- 1: Temi che il tuo dono resti chiuso nel cassetto, mai provato davvero. Ti spaventa promettere più di quanto le tue mani sanno mantenere, lasciare che le parole corrano avanti.
 - 2: Hai paura dello scarto fra ciò che dici e ciò che fai: un'intenzione brillante che non diventa mai gesto. Speri di colmare quella distanza, ma il dubbio ti accompagna.
 - 3: Nella tua attesa c'è l'ombra di un trucco: il sospetto che il talento sia solo apparenza, tua o di chi ti sta davanti. Vorresti che la magia tornasse vera, senza parole in eccesso.
 
@@ -76,7 +76,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri che qualcosa di vivo cresca nelle tue mani, un progetto, un legame, un campo di grano che matura. Temi soltanto di forzarne i tempi e di spezzarlo per troppa fretta.
 - 2: Ti immagini in un giardino che fiorisce sotto la tua cura, ricco e generoso. La paura che accompagna questo sogno è di non saper nutrire abbastanza ciò che stai facendo nascere.
-- 3: Il desiderio che porti è l'abbondanza: creare, accudire, vedere germogliare. Ti preoccupa però l'idea di soffocare ciò che ami con troppe attenzioni.
+- 3: Il desiderio che porti è l'abbondanza: creare, accudire, vedere germogliare ciò che semini. Ti preoccupa però l'idea di soffocare ciò che ami con troppe attenzioni e troppa fretta.
 
 ### capovolta
 
@@ -116,7 +116,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Speri in un amore che non tradisca ciò in cui credi, una scelta fatta col cuore e con la testa insieme. Temi il bivio, il momento in cui dire sì a qualcosa vorrà dire lasciare altro.
+- 1: Speri in un amore che non tradisca ciò in cui credi, una scelta fatta col cuore e con la testa; temi il bivio, il momento in cui dire sì vuol dire lasciare altro.
 - 2: Ti immagini sotto un angelo che benedice un incontro sincero, senza nulla da nascondere. La paura è che la scelta del cuore ti chieda di rinunciare a una parte di ciò che sei.
 - 3: Ciò che desideri è un legame allineato ai tuoi valori più veri. Ciò che temi è il desiderio del momento che ti tira da un'altra parte, mettendo alla prova ciò che pensi di volere.
 
@@ -214,7 +214,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Temi una fine, la chiusura di qualcosa a cui tieni. Speri, insieme, che chiudere quella porta faccia spazio a ciò che vuole nascere.
+- 1: Temi una fine, la chiusura di qualcosa a cui tieni. Speri, insieme, che chiudere quella porta faccia finalmente spazio a ciò che dentro di te vuole nascere.
 - 2: Ti immagini davanti a un passaggio senza ritorno, col cavaliere nero che avanza lento. La paura del distacco convive con il desiderio segreto di trasformarti.
 - 3: Ciò che desideri è liberarti di ciò che è giunto al suo termine. Ciò che temi è il vuoto che resta subito dopo, prima che il nuovo abbia un nome.
 
@@ -234,7 +234,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi l'eccesso, la fretta, due parti di te che non si parlano più. Speri di ritrovare il ritmo giusto, ma ti chiedi se avrai la volontà di rallentare.
+- 1: Temi l'eccesso, la fretta, due parti di te che non si parlano più. Speri di ritrovare il ritmo giusto, ma ti chiedi se hai davvero la volontà di rallentare.
 - 2: Hai paura di perdere la misura, di versare troppo da una parte e niente dall'altra. Immagini di dover ricominciare a dosare ogni cosa e il pensiero ti stanca.
 - 3: Nella tua attesa c'è un miscuglio che non si amalgama, un disaccordo che non trova ricetta. Ti auguri pace fra gli opposti, ma temi che resti un desiderio.
 
@@ -285,7 +285,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Le paure notturne ti visitano: immagini cose che forse non sono come sembrano, sentieri che si perdono fra i due cani che ululano. Speri di vedere chiaro anche nel buio.
-- 2: Temi l'inganno, l'ombra che ingigantisce ogni dubbio, il gambero che risale dall'acqua profonda. Ti auguri di fidarti dell'intuito quando la ragione non basta.
+- 2: Temi l'inganno, l'ombra che ingigantisce ogni dubbio, il gambero che risale dall'acqua profonda. Insieme ti auguri di saperti fidare dell'intuito quando la ragione non basta più.
 - 3: Hai paura di ciò che la tua immaginazione costruisce di notte, quando tutto sembra più grande. Il desiderio è una certezza qualsiasi, anche piccola, a cui aggrapparti.
 
 ### capovolta
@@ -300,7 +300,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri in una gioia piena, nel calore che illumina ogni cosa senza lasciare ombre, come un bambino sul cavallo bianco. Temi di non meritare tanta luce.
 - 2: Ti auguri di riuscire alla luce del giorno, sotto gli occhi di tutti. La paura che accompagna questo desiderio è restare senza un angolo d'ombra in cui ripararti.
-- 3: Desideri chiarezza e calore, un cuore che ride senza nascondersi. Ciò che ti inquieta è che tanta felicità duri poco, come un'estate troppo luminosa.
+- 3: Desideri chiarezza e calore, un cuore che ride senza nascondersi davanti a nessuno. Ciò che ti inquieta è che tanta felicità duri poco, come un'estate troppo luminosa.
 
 ### capovolta
 
@@ -342,7 +342,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri che una scintilla accenda finalmente qualcosa, come il ramo fiorito offerto da una mano che esce dalla nuvola. Temi che il fuoco si raffreddi nei ripensamenti prima di prendere.
 - 2: Vorresti afferrare l'impulso nuovo che ti attraversa e partire subito. La paura che lo accompagna è che sia una fiammata breve, destinata a spegnersi al primo ostacolo.
-- 3: Ti brucia dentro il desiderio di cominciare, un'ispirazione che chiede gesti. Insieme ti inquieta l'idea di sprecarla aspettando il momento perfetto.
+- 3: Ti brucia dentro il desiderio di cominciare, un'ispirazione che chiede gesti e non parole. Insieme ti inquieta l'idea di sprecarla aspettando il momento perfetto, finché il calore se ne va.
 
 ### capovolta
 
@@ -390,27 +390,27 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi che la festa slitti ancora, come una casa nuova in cui non riesci mai a entrare. Speri di trovare il momento per celebrare ciò che hai raggiunto.
 - 2: Hai paura di vivere il traguardo a metà, con la ghirlanda appesa e le sedie vuote. Ti auguri di concederti finalmente la gioia che ti spetta.
-- 3: Immagini un brindisi sempre spostato a domani e ti chiedi perché. Desideri sentirti a casa, ma temi che qualcosa continui a tenerti sulla porta.
+- 3: Immagini un brindisi sempre spostato a domani e ti chiedi perché. Desideri sentirti a casa in ciò che hai costruito, ma temi che qualcosa continui a tenerti sulla porta.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Speri in un confronto vivace che ti metta alla prova, bastoni alzati senza ferire nessuno. Temi però che la sfida diventi scontro vero.
+- 1: Speri in un confronto vivace che ti metta alla prova, bastoni alzati senza ferire nessuno. Temi però che la sfida si inasprisca e diventi uno scontro vero.
 - 2: Ti piace l'idea di misurarti con gli altri, di far valere le tue idee nel trambusto. La paura è di perdere la calma quando gli animi si scaldano.
-- 3: Il tuo desiderio è crescere attraverso l'attrito, imparare dalla competizione. Ciò che ti inquieta è un caos di opinioni in cui nessuno ascolta più.
+- 3: Il tuo desiderio è crescere attraverso l'attrito, imparare qualcosa dalla competizione. Ciò che ti inquieta è un caos di opinioni in cui nessuno ascolta più nessuno.
 
 ### capovolta
 
 - 1: Temi attriti che covano sotto la superficie, tensioni che eviti lasciandole crescere. Speri di scegliere le battaglie che contano e lasciar cadere le altre.
 - 2: Hai paura di un conflitto che ti stanca senza portare a niente. Ti auguri di non dover spendere energia in ogni piccola scaramuccia.
-- 3: Immagini discussioni infinite, bastoni che si incrociano senza mai fermarsi. Desideri pace, ma temi che tirarti indietro sembri una resa.
+- 3: Immagini discussioni infinite, bastoni che si incrociano senza mai fermarsi su faccende da poco. Desideri pace, ma temi che tirarti indietro sembri una resa.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: Speri in un riconoscimento pubblico, nella corona d'alloro e nella folla che applaude il tuo passaggio. Temi di non meritarlo fino in fondo.
+- 1: Speri in un riconoscimento pubblico, nella corona d'alloro e nella folla che applaude il tuo passaggio. Temi però di non meritarlo fino in fondo, quando arriva.
 - 2: Ti piacerebbe vedere finalmente premiato il tuo lavoro, sotto gli occhi di chi conta. La paura è che il successo ti monti la testa o ti esponga all'invidia.
 - 3: Il tuo desiderio è sfilare a cavallo dopo la fatica, con il merito visibile a tutti. Ciò che ti inquieta è che l'applauso duri meno del lavoro che è costato.
 
@@ -418,7 +418,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi che il tuo merito resti invisibile, che nessuno si accorga di ciò che hai fatto. Speri di ricordare il tuo valore anche quando l'applauso non c'è.
 - 2: Hai paura di sentirti di valere poco, di aspettare un riconoscimento che tarda. Ti auguri di non legare ciò che vali soltanto allo sguardo degli altri.
-- 3: Immagini la parata che passa senza fermarsi davanti a te. Desideri un segno di stima, ma temi che nessuno pensi a dartelo.
+- 3: Immagini la parata che passa senza fermarsi davanti a te e al tuo lavoro. Desideri un segno di stima, ma temi che nessuno pensi a dartelo davvero.
 
 ## Sette di Bastoni
 
@@ -431,7 +431,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Temi che la pressione ti travolga, di dover difendere ogni collina anche quando non serve. Speri di capire dove vale la pena resistere.
-- 2: Hai paura di una guardia sempre alzata che ti sfinisce. Ti auguri di poter lasciare qualche battaglia senza viverla come un fallimento.
+- 2: Hai paura di una guardia sempre alzata che ti sfinisce giorno dopo giorno. Ti auguri di poter lasciare qualche battaglia senza viverla come un fallimento.
 - 3: Immagini attacchi da ogni lato e ti chiedi quanto puoi reggere. Desideri tregua, ma temi che abbassare il bastone ti lasci senza riparo.
 
 ## Otto di Bastoni
@@ -501,7 +501,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Temi una foga incauta che ti bruci, uno slancio senza rotta che si sparpagli in mille direzioni. Speri di incanalare l'ardore prima che diventi danno.
-- 2: Hai paura della tua impazienza, di partire senza pensare per pentirti dopo. Ti auguri di dare una meta a quella energia che scalpita.
+- 2: Hai paura della tua impazienza, di partire senza pensare e pentirti dopo. Ti auguri di dare una meta precisa a quell'energia che scalpita dentro di te.
 - 3: Immagini un cavallo che scappa senza cavaliere e ti chiedi se sei tu a guidare. Desideri muoverti, ma temi di farlo nel modo sbagliato.
 
 ## Regina di Bastoni
@@ -528,7 +528,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi un'autorità impaziente, tua o di chi comanda, che spinge senza ascoltare. Speri di guidare con l'ascolto oltre che con la forza.
+- 1: Temi un'autorità impaziente, tua o di chi comanda, che spinge senza ascoltare. Speri di imparare a guidare con l'ascolto oltre che con la forza del tuo fuoco.
 - 2: Hai paura di travolgere chi ti segue, di imporre il tuo ritmo a chi non lo regge. Ti auguri di trovare il passo giusto per tutti.
 - 3: Immagini un capo che urla ordini mentre nessuno lo capisce più e ti chiedi se ti somigli. Desideri comandare bene, ma temi la tua durezza.
 
@@ -551,7 +551,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Speri in un incontro a due, in un patto d'amore sigillato con lo scambio delle coppe. Temi che il sentimento non sia ricambiato con la stessa intensità.
-- 2: Ti auguri un'armonia profonda con qualcuno che ti riconosca davvero. La paura è di offrire il tuo cuore e vederlo appena sfiorato.
+- 2: Ti auguri un'armonia profonda con qualcuno che ti riconosca davvero. La paura è di offrire il tuo cuore e vederlo appena sfiorato, accolto a metà.
 - 3: Il tuo desiderio è un legame alla pari, due sguardi che si incontrano sotto il caduceo alato. Ciò che ti inquieta è la fragilità di ciò che nasce.
 
 ### capovolta
@@ -570,8 +570,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi amicizie di facciata, sorrisi che non nutrono e brindisi senza sostanza. Speri di tornare ai legami veri, anche se sono pochi.
-- 2: Hai paura di disperderti in troppe feste e troppe persone. Ti auguri di curare meglio il tuo cerchio, togliendo ciò che pesa.
+- 1: Temi amicizie di facciata, sorrisi che non nutrono e brindisi senza sostanza. Speri di tornare ai legami veri, anche se sono pochi: quelli che ti conoscono davvero.
+- 2: Hai paura di disperderti in troppe feste e troppe persone. Ti auguri di curare meglio il tuo cerchio, togliendo ciò che pesa e tenendo vicino chi ti nutre.
 - 3: Immagini una tavola piena di gente in cui nessuno ti conosce davvero. Desideri sincerità fra amici, ma temi un pettegolezzo o un eccesso che rompa l'incanto.
 
 ## Quattro di Coppe
@@ -600,7 +600,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri di accettare ciò che hai perso e di rialzare lo sguardo, piano. Temi però di ricadere nel dolore appena ti sembra di stare meglio.
 - 2: Ti auguri il perdono, verso gli altri o verso di te, per chiudere un capitolo amaro. La paura è che il sollievo sia solo una pausa.
-- 3: Immagini di raccogliere le coppe ancora intere per portarle oltre il fiume. Desideri ricominciare, ma ti spaventa lasciare indietro il ricordo.
+- 3: Immagini di raccogliere le coppe ancora intere per portarle oltre il fiume, verso la casa sull'altra riva. Desideri ricominciare, ma ti spaventa lasciare indietro il ricordo di ciò che hai perso.
 
 ## Sei di Coppe
 
@@ -626,7 +626,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Speri di mettere a fuoco un desiderio vero fra i tanti, ora che la nebbia si dirada. Temi però ciò a cui dovrai rinunciare scegliendo.
+- 1: Speri di mettere a fuoco un desiderio vero fra i tanti, ora che la nebbia si dirada. Temi però ciò a cui scegliere ti chiede di rinunciare.
 - 2: Ti auguri chiarezza dopo la confusione, sapere finalmente quale strada vuoi. La paura è che le altre coppe ti manchino una volta lasciate.
 - 3: Immagini di posare tutte le coppe tranne una e senti sollievo misto a nostalgia. Desideri la libertà della scelta, ma temi il suo prezzo.
 
@@ -683,7 +683,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Temi che la tua sensibilità venga ferita, così pensi di chiuderti per proteggerla. Speri di trovare il modo di averne cura senza murarla.
-- 2: Hai paura di un'emotività che ti sfugge, di lacrime che arrivano senza preavviso. Ti auguri di sentire senza esporti troppo.
+- 2: Hai paura di un'emotività che ti sfugge, di lacrime che arrivano senza preavviso davanti agli altri. Ti auguri di sentire tutto senza esporti troppo.
 - 3: Immagini una coppa vuotata in fretta per nascondere ciò che conteneva. Desideri tenerezza, ma temi che chi ti sta vicino non la sappia maneggiare.
 
 ## Cavaliere di Coppe
@@ -696,7 +696,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi promesse vaghe, parole dolci che non diventano mai gesti. Speri che alle parole seguano i fatti, tuoi o dell'altra persona.
+- 1: Temi promesse vaghe, parole dolci che non diventano mai gesti. Speri che alle parole seguano finalmente i fatti, tuoi o dell'altra persona.
 - 2: Hai paura di un sentimento incostante che oggi c'è e domani svanisce. Ti auguri qualcosa che duri, ma l'illusione ti sembra dietro l'angolo.
 - 3: Ti immagini un cavaliere che riparte prima di averti consegnato la coppa. Desideri un amore con radici, ma temi l'ennesima promessa lasciata a metà.
 
@@ -710,7 +710,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi di annegare negli stati d'animo degli altri, assorbendoli fino a smarrire i tuoi. Speri di imparare ad amare senza affondare.
+- 1: Temi di annegare negli stati d'animo degli altri, assorbendoli fino a smarrire i tuoi. Speri di imparare ad amare senza affondare con chi ami.
 - 2: Hai paura di perderti dentro chi ami, come acqua che si mescola fino a non distinguersi più. Ti auguri confini gentili, ma ti sembrano un tradimento.
 - 3: Immagini un'onda che ti travolge ogni volta che qualcuno soffre accanto a te. Desideri sentire meno, ma temi di perdere la tua dolcezza.
 
@@ -740,7 +740,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi di lasciare sfumare un'occasione concreta, di accorgertene quando ormai è passata. Speri di guardare meglio ciò che hai davanti prima di decidere.
 - 2: Hai paura di valutare male un rischio, di investire tempo o fiducia nel posto sbagliato. Ti auguri occhi attenti, ma il dubbio ti paralizza.
-- 3: Immagini la moneta che scivola dalla tua mano aperta e rotola via nell'erba. Desideri afferrarla, ma temi di stringere troppo tardi.
+- 3: Immagini la moneta che scivola dalla tua mano aperta e rotola via nell'erba del giardino. Desideri afferrarla in tempo, ma temi di stringere troppo tardi.
 
 ## Due di Denari
 
@@ -754,7 +754,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi che il gioco ti sfugga di mano, troppe cose insieme e il ritmo ormai rotto. Speri di scegliere le priorità prima che qualcosa cada.
 - 2: Hai paura di lasciar scivolare ciò che conta mentre corri dietro a tutto. Ti auguri di tenere bene poche cose, ma non sai quali lasciare.
-- 3: Immagini le monete che rotolano a terra mentre le tue mani restano vuote. Desideri ordine, ma temi di accorgertene troppo tardi.
+- 3: Immagini le monete che rotolano a terra mentre le tue mani restano vuote. Desideri ordine e poche cose tenute bene, ma temi di accorgertene troppo tardi.
 
 ## Tre di Denari
 
@@ -768,7 +768,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi ruoli confusi, un lavoro comune che non ingrana per mancanza di sintonia. Speri di chiarire compiti e attese prima che il progetto si areni.
 - 2: Hai paura di lavorare con persone che non ti capiscono, o che non ascolti tu. Ti auguri una comunicazione chiara, ma ti sembra lontana.
-- 3: Immagini un cantiere fermo in cui ognuno aspetta l'altro. Desideri collaborare davvero, ma temi di dover fare tutto con le tue mani.
+- 3: Immagini un cantiere fermo in cui ognuno aspetta la mossa dell'altro. Desideri collaborare davvero, con compiti chiari, ma temi di dover fare tutto con le tue mani.
 
 ## Quattro di Denari
 
@@ -810,20 +810,20 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi una generosità che ti svuota, dare troppo a chi non ricambia mai. Speri che lo scambio diventi equo, in entrambe le direzioni.
 - 2: Hai paura di debiti, materiali o affettivi, che ti legano a qualcuno. Ti auguri di pareggiare i conti, ma non sai da dove partire.
-- 3: Immagini una bilancia che pende sempre dalla stessa parte, la tua. Desideri ricevere quanto dai, ma ti imbarazza chiederlo.
+- 3: Immagini una bilancia che pende sempre dalla stessa parte, la tua, mai dall'altra. Desideri davvero ricevere quanto dai, ma ti imbarazza chiederlo apertamente.
 
 ## Sette di Denari
 
 ### dritta
 
-- 1: Speri che il raccolto maturi mentre ti appoggi alla zappa e guardi le monete sulla pianta. Temi di aver seminato invano.
-- 2: Ti auguri la pazienza di chi coltiva e aspetta il tempo giusto. La paura è che l'attesa non venga ripagata come meriti.
+- 1: Speri che il raccolto maturi mentre ti appoggi alla zappa e guardi le monete crescere sulla pianta. Temi di aver seminato invano e di aspettare per niente.
+- 2: Ti auguri la pazienza di chi coltiva e aspetta il tempo giusto senza toccare i frutti. La paura è che l'attesa, così lunga, non venga ripagata come meriti.
 - 3: Il tuo desiderio cresce lento fra le foglie, un investimento che chiede tempo. Ciò che ti inquieta è la tentazione di cogliere i frutti prima che siano pronti.
 
 ### capovolta
 
 - 1: Temi uno sforzo mal ripagato, mesi di lavoro che non danno ciò che speravi. Speri di capire dove mettere la tua energia senza scoraggiarti.
-- 2: Hai paura di aver piantato il seme sbagliato e di accorgertene tardi. Ti auguri un raccolto, ma l'impazienza ti divora.
+- 2: Hai paura di aver piantato il seme sbagliato e di accorgertene tardi, a stagione finita. Ti auguri un raccolto vero, ma l'impazienza ti divora giorno dopo giorno.
 - 3: Immagini la pianta che non cresce mentre tu conti i giorni. Desideri vedere i frutti subito, ma temi che la fretta rovini anche ciò che matura.
 
 ## Otto di Denari
@@ -838,21 +838,21 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi un lavoro senz'anima, la monotonia di gesti ripetuti finché perdono senso. Speri di ritrovare la passione o il coraggio di cambiare strada.
 - 2: Hai paura che il tuo mestiere sia diventato una gabbia. Ti auguri di tornare a sentire la cura di un tempo, ma non sai dove l'hai persa.
-- 3: Immagini lo stesso pezzo inciso mille volte senza più piacere. Desideri senso in ciò che fai, ma temi che cambiare costi troppo.
+- 3: Immagini lo stesso pezzo inciso mille volte senza più piacere, con la mano che va da sola. Desideri senso in ciò che fai, ma temi che cambiare costi troppo.
 
 ## Nove di Denari
 
 ### dritta
 
 - 1: Speri in un giardino tuo, l'uva matura e il falco sul guanto, frutti meritati con le tue mani. Temi di non saper godere di ciò che hai conquistato.
-- 2: Ti auguri un'indipendenza serena, uno spazio tuo da abitare con piacere. La paura è che l'autonomia ti porti solitudine.
+- 2: Ti auguri un'indipendenza serena, uno spazio tuo da abitare con piacere e senza chiedere permesso. La paura è che l'autonomia, a lungo andare, ti porti solitudine.
 - 3: Il tuo desiderio ha la forma di una tenuta fiorita costruita senza chiedere a nessuno. Ciò che ti inquieta è che qualcuno possa portartela via.
 
 ### capovolta
 
-- 1: Temi che la libertà costruita col tuo lavoro vacilli, consumata da spese oltre misura. Speri di proteggerla prima che sia troppo tardi.
+- 1: Temi che la libertà costruita col tuo lavoro vacilli, consumata da spese oltre misura e dal bisogno di farla vedere. Speri di proteggerla adesso, prima che sia troppo tardi.
 - 2: Hai paura del bisogno di mostrare ciò che possiedi, come se valessi per ciò che esibisci. Ti auguri di tornare a godere in silenzio del tuo giardino.
-- 3: Immagini le viti che seccano mentre tu guardi altrove. Desideri autonomia vera, ma temi di dipendere dalle apparenze.
+- 3: Immagini le viti che seccano mentre tu guardi altrove, verso chi ti osserva da fuori. Desideri un'autonomia vera, quieta, ma temi di dipendere ormai dalle apparenze.
 
 ## Dieci di Denari
 
@@ -880,7 +880,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi che l'impegno preso resti a metà, che la distrazione ti porti via da ciò che hai promesso. Speri di ritrovare la concentrazione.
 - 2: Hai paura di un progetto fermo, studiato ma mai tradotto in pratica. Ti auguri di riprenderlo, ma ti sembra sempre il momento sbagliato.
-- 3: Immagini la moneta che resta lì, guardata a lungo e mai spesa. Desideri concretezza, ma temi la tua pigrizia di sempre.
+- 3: Immagini la moneta che resta lì, guardata a lungo e mai spesa, come un progetto mai cominciato. Desideri concretezza, ma temi la tua solita tendenza a rimandare.
 
 ## Cavaliere di Denari
 
@@ -901,28 +901,28 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Speri di prenderti cura di chi ami con concretezza, come la regina nel giardino fiorito con la moneta in grembo. Temi di non bastare a tutti.
-- 2: Ti auguri una casa calda e ordinata, conti in regola e affetti nutriti. La paura è che la praticità ti lasci poco spazio per te.
-- 3: Il tuo desiderio è unire cuore e concretezza, accoglienza e buon senso. Ciò che ti inquieta è dare tanto senza ricevere attenzione.
+- 2: Ti auguri una casa calda e ordinata, conti in regola e affetti nutriti ogni giorno. La paura è che la praticità ti lasci poco spazio per te, sempre in fondo alla lista.
+- 3: Il tuo desiderio è unire cuore e concretezza, accoglienza e buon senso, come in una casa dove tutti trovano posto. Ciò che ti inquieta è dare tanto senza ricevere attenzione.
 
 ### capovolta
 
 - 1: Temi di curare tutti tranne te, di occuparti della casa e dei bisogni altrui finché ti inaridisci. Speri che qualcuno si ricordi di annaffiare anche il tuo giardino.
 - 2: Hai paura di sparire nell'elenco delle cose da fare, il tuo nome sempre in fondo. Ti auguri di concederti una cura che non sia solo dovere.
-- 3: Immagini il giardino che fiorisce per gli altri mentre la tua aiuola resta secca. Desideri attenzione, ma ti sembra egoismo chiederla.
+- 3: Immagini il giardino che fiorisce per gli altri mentre la tua aiuola resta secca. Desideri attenzione e un po' di cura per te, ma chiederla ti sembra egoismo.
 
 ## Re di Denari
 
 ### dritta
 
 - 1: Speri in una prosperità sicura, il trono circondato di grappoli e di tori scolpiti. Temi di perderla, o di non saperla condividere con misura.
-- 2: Ti auguri successo concreto e la saggezza di gestirlo, abbondanza che diventa generosità. La paura è che il benessere ti cambi.
+- 2: Ti auguri un successo concreto e la saggezza di gestirlo, un'abbondanza che diventa generosità verso chi ami. La paura è che il benessere ti cambi.
 - 3: Il tuo desiderio è una stabilità matura, qualcosa di solido da cui guidare. Ciò che ti inquieta è la responsabilità verso chi dipende da te.
 
 ### capovolta
 
 - 1: Temi che il possesso ti irrigidisca, che ciò che hai costruito resti fermo nelle tue mani invece di dare frutto. Speri di non farti possedere dalle cose.
-- 2: Hai paura di stringere i beni fino a dimenticare a cosa servono. Ti auguri di lasciarli muovere, ma l'idea di perderli ti spaventa.
-- 3: Immagini un tesoro chiuso in un forziere che nessuno apre più. Desideri sicurezza, ma temi che sia diventata la tua prigione dorata.
+- 2: Hai paura di stringere i beni fino a dimenticare a che cosa servono. Ti auguri di lasciarli muovere, di tornare a dare, ma l'idea di perderli ti spaventa ancora.
+- 3: Immagini un tesoro chiuso in un forziere che nessuno apre più, nemmeno tu. Desideri sicurezza, ma temi che sia diventata la tua prigione dorata.
 
 ## Asso di Spade
 
@@ -934,9 +934,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi idee annebbiate, una mente che non riesce a decidere o parole taglienti usate male. Speri di rischiarare i pensieri prima di parlare.
+- 1: Temi idee annebbiate, una mente che non riesce a decidere o parole taglienti usate male. Speri di rischiarare i pensieri prima di parlare, per non ferire chi ti sta vicino.
 - 2: Hai paura di ferire con ciò che dici, o che qualcuno ferisca te con una frase affilata. Ti auguri di impugnare la lama con più cura.
-- 3: Ti immagini con una spada brandita alla cieca nella nebbia. Desideri chiarezza, ma temi di colpire chi non volevi.
+- 3: Ti immagini con una spada brandita alla cieca nella nebbia, mentre intorno qualcuno si avvicina. Desideri chiarezza, ma temi di colpire proprio chi non volevi.
 
 ## Due di Spade
 
@@ -950,7 +950,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi la verità che riaffiora, la scelta rimandata che torna a chiederti una risposta. Speri di affrontarla, ma il blocco che si scioglie ti spaventa.
 - 2: Hai paura di vedere ciò che prima coprivi con la benda. Ti auguri che vederlo pesi meno del continuare a girarci intorno.
-- 3: Immagini la benda che scivola via e la luce improvvisa negli occhi. Desideri chiarezza, ma temi ciò che ti toccherà guardare.
+- 3: Immagini la benda che scivola via e la luce improvvisa negli occhi. Desideri chiarezza, ma temi ciò che ti toccherà guardare una volta tolta.
 
 ## Tre di Spade
 
@@ -963,7 +963,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Speri che la ferita rimargini, che la pioggia smetta e il cuore torni a respirare. Temi però che basti poco per farla sanguinare ancora.
-- 2: Ti auguri il perdono, verso chi ti ha ferito o verso di te. La paura è che ricordare faccia ancora troppo male.
+- 2: Ti auguri il perdono, verso chi ti ha fatto del male o verso di te. La paura è che ricordare bruci ancora troppo.
 - 3: Immagini le lame che escono una alla volta e il cielo che si schiarisce. Desideri voltare pagina, ma temi che il segno resti per sempre su di te.
 
 ## Quattro di Spade
@@ -972,7 +972,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri in una pausa, nel silenzio di una cappella dove distenderti come il cavaliere scolpito sulla pietra. Temi che fermarti sia tempo perso.
 - 2: Ti auguri quiete per la mente e per il corpo, un riposo che restituisca forza. La paura è che rallentare ti faccia restare indietro.
-- 3: Il tuo desiderio è deporre le armi per un po', le spade appese al muro. Ciò che ti inquieta è non sapere quanto tempo ti concederai.
+- 3: Il tuo desiderio è deporre le armi per un po', con le spade appese al muro. Ciò che ti inquieta è non sapere quanto tempo puoi concederti prima di ripartire.
 
 ### capovolta
 
@@ -992,14 +992,14 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri di deporre le armi, di ricucire una pace dopo un conflitto che ha lasciato ferite. Temi però che il primo passo resti senza risposta.
 - 2: Ti auguri una riconciliazione, anche a costo di rinunciare ad avere ragione. La paura è che l'orgoglio, tuo o dell'altro, si metta di nuovo in mezzo.
-- 3: Immagini le spade raccolte e restituite, una stretta di mano sulla sabbia. Desideri la pace, ma temi che il rancore ti resti addosso.
+- 3: Immagini le spade raccolte e restituite, una stretta di mano sulla sabbia. Desideri la pace, ma temi che il rancore ti resti addosso anche dopo il perdono.
 
 ## Sei di Spade
 
 ### dritta
 
 - 1: Speri di raggiungere una sponda più calma, come i passeggeri avvolti nel mantello sulla barca che scivola. Temi di lasciare la riva che conosci.
-- 2: Ti auguri una traversata tranquilla, acque agitate che restano alle spalle. La paura è che la tempesta ti segua anche dall'altra parte.
+- 2: Ti auguri una traversata tranquilla, con le acque agitate che restano alle spalle. La paura è che la tempesta ti segua anche dall'altra parte.
 - 3: Il tuo desiderio è un viaggio lento verso la quiete, spade piantate sul fondo della barca. Ciò che ti inquieta è ciò che porti con te.
 
 ### capovolta
@@ -1018,9 +1018,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Temi che un inganno venga a galla, tuo o di qualcun altro, pesando sulla coscienza. Speri di liberarti tornando alla trasparenza.
+- 1: Temi che un inganno venga a galla, tuo o di qualcun altro, pesando sulla coscienza. Speri di liberarti tornando alla trasparenza, anche se costa qualcosa.
 - 2: Hai paura di una bugia da mantenere che ti costa sempre di più. Ti auguri il coraggio di dire la verità, ma il prezzo ti spaventa.
-- 3: Immagini le spade rubate restituite all'alba e il silenzio che segue. Desideri pulizia, ma temi lo sguardo di chi ti scoprirà.
+- 3: Immagini le spade rubate restituite all'alba e il silenzio che segue. Desideri pulizia, ma ti spaventa lo sguardo di chi scopre che cosa è successo.
 
 ## Otto di Spade
 
@@ -1046,7 +1046,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Speri nell'alba dopo l'incubo, che la paura allenti finalmente la presa. Temi però che la notte torni con le stesse ombre.
+- 1: Speri nell'alba dopo l'incubo, che la paura allenti finalmente la presa e il respiro si distenda. Temi però che la notte torni con le stesse ombre.
 - 2: Ti auguri di parlare di ciò che ti angoscia per dimezzarne il peso. La paura è che dirlo apertamente lo renda più vero.
 - 3: Immagini la prima luce sulle coperte e il respiro che si distende. Desideri credere che il peggio sia passato, ma una parte di te resta in allerta.
 
@@ -1060,7 +1060,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Speri di rialzarti da terra dopo una chiusura completa, di ripartire da zero. Temi però che non resti niente da salvare.
+- 1: Speri di rialzarti da terra dopo una chiusura completa e di ripartire da zero con le tue forze. Temi però che non resti niente da salvare.
 - 2: Ti auguri una risalita lenta ma tua, un gesto alla volta. La paura è che il dolore di prima ti tenga ancora a terra.
 - 3: Sfili, nella tua immaginazione, le lame una per una e metti un piede davanti all'altro. Desideri ricominciare, ma temi la fatica di ricostruire tutto.
 
@@ -1068,9 +1068,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Speri di scoprire la verità con occhi attenti, la spada alzata sulla collina battuta dal vento. Temi ciò che potresti scoprire.
+- 1: Speri di scoprire la verità con occhi attenti, come chi tiene la spada alzata sulla collina battuta dal vento. Temi però ciò che potresti scoprire.
 - 2: Ti auguri una mente vigile, idee acute che ti aiutino a capire. La paura è che la curiosità ti porti a sapere più di quanto vorresti.
-- 3: Il tuo desiderio è informarti, osservare, non farti sfuggire nulla. Ciò che ti inquieta è la tentazione di dire subito ciò che trovi.
+- 3: Il tuo desiderio è informarti, osservare, non farti sfuggire nulla di ciò che accade. Ciò che ti inquieta è la tentazione di dire subito ciò che trovi.
 
 ### capovolta
 
@@ -1083,14 +1083,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Speri di andare dritto allo scopo, come il cavaliere lanciato al galoppo con la spada tesa contro il vento. Temi di travolgere chi ti sta accanto.
-- 2: Ti auguri determinazione, idee decise e la rapidità per metterle in pratica. La paura è che la velocità della mente diventi fretta cieca.
-- 3: Il tuo desiderio corre più veloce delle nuvole, puntato verso un obiettivo chiaro. Ciò che ti inquieta è non poterti fermare in tempo.
+- 2: Ti auguri determinazione, idee decise e la rapidità per metterle in pratica subito. La paura è che la velocità della mente diventi fretta cieca e travolga qualcuno.
+- 3: Il tuo desiderio corre più veloce delle nuvole, puntato verso un obiettivo chiaro e vicino. Ciò che ti inquieta è non riuscire a fermarti in tempo.
 
 ### capovolta
 
-- 1: Temi una foga imprudente, parole affilate lanciate senza pensare. Speri di trovare un istante di pausa prima di colpire.
-- 2: Hai paura di fare passi indietro per una fretta che non controlli. Ti auguri lucidità, ma la tua mente corre troppo.
-- 3: Immagini un galoppo sfrenato che lascia dietro di sé ferite non volute. Desideri agire, ma temi le conseguenze della tua impazienza.
+- 1: Temi una foga imprudente, parole affilate lanciate senza pensare a chi le riceve. Speri di trovare un istante di pausa prima di colpire.
+- 2: Hai paura di fare passi indietro per una fretta che non controlli. Ti auguri lucidità, ma la tua mente corre troppo e non aspetta.
+- 3: Immagini un galoppo sfrenato che lascia dietro di sé ferite non volute. Desideri agire, ma temi le conseguenze della tua impazienza su chi ami.
 
 ## Regina di Spade
 
@@ -1104,7 +1104,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Temi di trasformare la lucidità in corazza, una freddezza che tiene lontani tutti. Speri di ammorbidire il giudizio, cominciando da quello verso di te.
 - 2: Hai paura di una solitudine scelta per difesa, di una lama rivolta contro chi la porta. Ti auguri dolcezza, ma ti sembra una debolezza.
-- 3: Immagini un trono di ghiaccio a cui nessuno osa avvicinarsi. Desideri calore, ma temi di abbassare la spada che ti protegge.
+- 3: Immagini un trono di ghiaccio a cui nessuno osa avvicinarsi. Desideri calore, ma temi di abbassare la spada che ti protegge e di restare senza difese.
 
 ## Re di Spade
 
@@ -1112,10 +1112,10 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Speri in un giudizio equo e lucido, il re seduto con la spada dritta che decide secondo ragione. Temi lo sguardo severo con cui qualcuno potrebbe pesare te.
 - 2: Ti auguri di decidere con etica e chiarezza, la ragione al servizio del cuore. La paura è che la tua autorità venga contestata.
-- 3: Il tuo desiderio è diventare un punto di riferimento onesto. Ciò che ti inquieta è la responsabilità di decidere per altri.
+- 3: Il tuo desiderio è diventare un punto di riferimento onesto per chi ti sta vicino. Ciò che ti inquieta è la responsabilità di decidere per altri.
 
 ### capovolta
 
-- 1: Temi un rigore senza cuore, tuo o di un'autorità che dimentica le persone. Speri che logica e compassione trovino un accordo.
+- 1: Temi un rigore senza cuore, tuo o di un'autorità che dimentica le persone. Speri che logica e compassione trovino un accordo nelle tue decisioni.
 - 2: Hai paura di vincere le discussioni e perdere i legami. Ti auguri di mettere più calore nelle tue decisioni, ma temi di sembrare debole.
 - 3: Immagini una sala fredda dove si decide senza guardare in faccia nessuno. Desideri equità, ma temi la durezza di chi la amministra su di te.

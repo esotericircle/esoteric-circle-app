@@ -49,7 +49,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un banco già apparecchiato, con la bacchetta e la coppa e la lama e la moneta a portata di mano, sta sotto la tua domanda: quello che hai davanti poggia su una capacità di eseguire che è tua da prima.
+- 1: Un banco già apparecchiato, con bacchetta, coppa, lama e moneta a portata di mano, sta sotto la tua domanda: quello che hai davanti poggia su una capacità di eseguire che è tua da prima.
 - 2: Gli attrezzi disposti sul tavolo sono stati pagati prima che la tua domanda nascesse: è quella spesa chiusa a tenere su quello che hai davanti, mentre la mano sa dove prenderli senza guardare.
 - 3: Rose e gigli cresciuti ai piedi del tavolo hanno messo radice nel terreno della tua questione: da lì il gesto prende alimento e su quelle radici quello che hai davanti continua a stare.
 
@@ -65,7 +65,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua domanda sta un sapere arrivato senza parole, di quelli che si sono posati prima che tu potessi spiegarli: quel libro mezzo nascosto nel manto regge tutto il resto.
 - 2: Un silenzio che hai già pagato in attese lunghe e in risposte trattenute tiene su quello che oggi hai davanti: la quiete fra le due colonne fa da appoggio alla tua questione.
-- 3: La tua questione è piantata in un terreno che ha già bevuto a lungo: quello che hai saputo prima di ogni ragionamento, al riparo del velo, resta la radice e tiene in piedi il resto.
+- 3: La tua questione è piantata in un terreno che ha già bevuto: quello che hai saputo prima di ogni ragionamento, al riparo del velo, resta la radice e tiene in piedi il resto.
 
 ### capovolta
 
@@ -121,7 +121,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una preferenza già dichiarata fra due valori tuoi sta sotto la tua domanda: la figura in alto ha visto la mano alzarsi; quella mano alzata è l'appoggio che regge il resto.
 - 2: Sotto la tua questione c'è una radice di valori già messa a dimora: l'albero fiorito dietro le due figure affonda in quel suolo e ne beve da prima che la domanda nascesse.
-- 3: Quello che hai già imparato a distinguere, il tuo bene dal bene dell'altro, non si conquista più: le due figure nude sotto la benedizione stanno su quella competenza; è lei che regge la tua domanda.
+- 3: Quello che hai già imparato a distinguere, il tuo bene dal bene dell'altro, non va più conquistato: su quella competenza poggia la tua domanda, come le due figure sotto la benedizione.
 
 ### capovolta
 
@@ -195,7 +195,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Un prezzo è già stato pagato in durezza: la carezza sul muso si è chiusa in stretta e quella presa, costata molto, tiene su la tua questione come un appoggio che schiaccia invece di sostenere.
+- 1: Un prezzo è già stato pagato in durezza: la carezza sul muso si è chiusa in stretta e quella presa, costata molto, regge la tua questione schiacciandola invece di sostenerla.
 - 2: La tua domanda affonda in un terreno indurito: la mitezza esercitata una volta si è fatta pugno e da quella radice secca la cosa prende ancora quello che le serve per stare in piedi.
 - 3: Di che cosa è fatto quello che hai davanti: di una tenuta ottenuta a denti stretti, materia buona lavorata male; la questione continua a posare su quella stessa stoffa.
 
@@ -210,7 +210,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Una rinuncia già offerta a nessuno ha chiuso le altre vie: resta quella sola, con la corda ferma alla caviglia; su quella chiusura la tua questione sta in piedi adesso.
-- 2: La tua questione pesca in un terreno di attesa che ha smesso di dare frutto: quel suolo è stato scelto quando il legno ha preso su di sé il corpo appeso e sotto la cosa ci sta comunque, ne regge il peso.
+- 2: La tua questione poggia su un'attesa che ha smesso di dare frutto: quel terreno è stato scelto quando il ramo ha preso il tuo peso e adesso regge comunque ciò che hai davanti.
 - 3: Quel che sta sotto la tua domanda è una sosta diventata stallo: il corpo a testa in giù ha dato tutto quello che aveva; quel residuo fa da appoggio a quello che hai davanti.
 
 ## La Morte
@@ -245,7 +245,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una comodità scelta una volta e mai disfatta sta sotto la tua questione: quel sì ha chiuso le altre porte e il collare appoggiato al collo, con la catena larga, continua a reggere quello che hai davanti.
+- 1: Una comodità scelta una volta e mai disfatta sta sotto la tua questione: quel sì ha chiuso le altre porte e il collare dalla catena larga regge ancora quello che hai davanti.
 - 2: Il gusto che hai già preso non si è disperso: è rimasto come una scorta a cui la tua questione pesca senza chiedere permesso; il piedistallo di pietra sotto la figura cornuta sta fermo da prima.
 - 3: Qualcosa è stato pagato in cambio di quel piacere e il conto è chiuso: la tua questione poggia su quella moneta versata, come i due ai piedi del trono poggiano sulla catena che li tiene allacciati.
 
@@ -293,7 +293,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Riconoscere una forma gonfiata dal buio è una competenza che non si riconquista: si è formata quando il sentiero fra le due torri si è visto per intero; oggi tiene su la tua questione.
+- 1: Riconoscere una forma gonfiata dal buio è una competenza ormai tua: è nata quando il sentiero fra le due torri si è visto per intero e oggi regge la tua questione.
 - 2: Resta il sedimento di una nebbia già attraversata: la misura vera delle cose, raccolta mentre i cani tacevano, è il deposito su cui quello che hai davanti si appoggia.
 - 3: Il conto di quelle notti è stato versato fino in fondo; quella moneta non si riprende e la tua domanda sta su di essa, non sullo stagno che si è calmato.
 
@@ -357,15 +357,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La tua questione è piantata su un muro che altri hanno alzato: da quel parapetto il mondo sta già in una mano e la pietra sotto i piedi è quella che regge lo sguardo lungo.
+- 1: La tua questione è piantata su un muro alzato da altri: da quel parapetto il mondo sta già in una mano e la pietra sotto i piedi regge lo sguardo lungo.
 - 2: Di una cosa già ottenuta è impastato quello che hai davanti: il globo chiuso nel palmo. Quel possesso acquisito porta adesso la tua questione, mentre un piede resta dentro le mura.
 - 3: Una delle due aste è stata fissata alla pietra e non si stacca: quell'atto compiuto ha chiuso la strada del restare fermi, così la tua domanda poggia oggi su quel punto saldo.
 
 ### capovolta
 
 - 1: Hai imparato a guardare lontano e quella capacità lavora ancora da sé sotto la tua questione: si è fermata però allo sguardo, perché il parapetto è diventato il posto dove si abita.
-- 2: Sotto quello che ti riguarda si è accumulata una scorta di piani mai aperti: il globo è in mano da prima di questa domanda e la cosa continua a stare su quel mucchio di rotte non scelte.
-- 3: L'unica cosa fuori discussione è che il mondo ti sta in una mano: il fatto si è compiuto, la rotta è rimasta scritta a metà e proprio quel misto fa da appoggio alla tua questione.
+- 2: Sotto ciò che ti riguarda giace una scorta di piani mai aperti: il globo è in mano da prima di questa domanda, che poggia su quel mucchio di rotte non scelte.
+- 3: Fuori discussione c'è solo questo: il mondo ti sta in una mano. Il fatto è compiuto, la rotta è rimasta scritta a metà e quel misto regge la tua questione.
 
 ## Tre di Bastoni
 
@@ -413,7 +413,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un lavoro portato a termine fa da base a quello che hai davanti: l'alloro legato in cima all'asta è stato messo lì da mani che non sono le tue e il cavallo cammina sopra quel peso.
+- 1: Un lavoro portato a termine fa da base a quello che hai davanti: l'alloro legato in cima all'asta è già lì e il cavallo cammina sopra quel peso.
 - 2: La tua questione pesca in un terreno già lavorato: un'opera finita ha messo radice lì sotto e il suolo tiene su l'alloro che il corteo è venuto a guardare.
 - 3: Una misura imparata nel reggere l'applauso sta sotto quello che hai in mano: il modo di stare in sella senza montarsi la testa è stato acquisito e lavora da sé.
 
@@ -443,7 +443,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua domanda c'è una spinta già data: le aste sono partite tutte nello stesso istante e la loro traiettoria porta adesso il peso di quello che hai davanti.
 - 2: Un solo lancio è già stato pagato con tutta la mira di prima: quel colpo speso non si riprende e il volo parallelo delle aste regge quello che ti sta a cuore.
-- 3: Le radici di quello che hai per le mani stanno in un braccio che si è già mosso: le aste viaggiano in aria senza essere spinte di nuovo e il terreno sorvolato fa da suolo alla tua questione.
+- 3: Le radici di quello che hai in mano stanno in un braccio che si è già mosso: le aste viaggiano senza altra spinta e quel lancio fa da suolo alla tua questione.
 
 ### capovolta
 
@@ -457,7 +457,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Reggere sotto pressione è una capacità che la tua questione ha già acquisito: la benda sulla testa ha insegnato la guardia; quella guardia lavora da sé e fa da appoggio al resto.
 - 2: La tua domanda affonda in una fila di pali già piantati: ogni palo è entrato nel terreno con un colpo incassato; quel suolo ripetuto è quello che tiene su la cosa adesso.
-- 3: Un prezzo in forze è stato versato prima di questo tratto: la fasciatura sulla fronte è la ricevuta di quella spesa; su di essa, non sulla stanchezza di oggi, la tua questione poggia.
+- 3: Un prezzo in forze è stato versato prima di questo tratto: la fasciatura sulla fronte ne è la ricevuta e su quella spesa, non sulla stanchezza di oggi, poggia la tua questione.
 
 ### capovolta
 
@@ -483,8 +483,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Si è messa da parte una scorta di curiosità mai spesa: quel ramo con le foglie nuove, tenuto in mano prima di partire, non si è disperso e sostiene quello che oggi hai davanti.
-- 2: Una partenza resta fuori discussione nella tua questione: il piede è già a terra e lo sguardo è andato in cima al ramo. Quel punto fissato tiene su tutto quello che si muove intorno.
+- 1: Si è messa da parte una scorta di curiosità mai spesa: quel ramo con le foglie nuove, tenuto in mano prima di partire, sostiene quello che oggi hai davanti.
+- 2: Una partenza resta fuori discussione nella tua questione: il piede è già a terra e lo sguardo è salito in cima al ramo. Quel punto fermo regge ciò che si muove intorno.
 - 3: Sotto la tua domanda sta una notizia portata fin qui da chi ancora imparava a portarla: quel messaggio consegnato con slancio fa da appoggio a quello che adesso ti sta davanti.
 
 ### capovolta
@@ -513,11 +513,11 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua domanda sta un calore che nessuno ha disperso: il girasole tenuto in mano ha raccolto sole per stagioni, cosicché la cosa attinge a quella provvista senza dover domandare nulla.
 - 2: L'elemento che nella tua questione nessuno rimette in discussione è un modo di stare al mondo: il seggio coi leoni è stato preso una volta, dunque quel posto regge quanto hai davanti.
-- 3: Il peso di quello che hai davanti lo porta una presenza riconosciuta da tutti: il gatto nero seduto ai piedi del seggio non si è mosso di lì, dunque quel posto regge la cosa.
+- 3: Il peso di quello che hai davanti lo porta una presenza riconosciuta da tutti: il gatto nero seduto ai piedi del seggio non si è mosso, dunque quel posto regge la cosa.
 
 ### capovolta
 
-- 1: Un confronto pagato con la luce di qualcun altro è la spesa chiusa su cui la tua questione si appoggia: il girasole si è voltato verso un fuoco non suo, dunque quel costo regge la cosa.
+- 1: Un confronto pagato con la luce di qualcun altro è la spesa chiusa su cui poggia la tua questione: il girasole si è voltato verso un fuoco non suo e quel costo regge la cosa.
 - 2: Nel suolo della tua faccenda ha messo radice un paragone: il seggio coi leoni è rimasto occupato, mentre la pianta beve da un dubbio piantato sul proprio valore.
 - 3: La tua questione è impastata di calore trattenuto: una fiamma coperta dalla mano di chi l'ha portata fin qui regge la cosa, perché quel riparo non è stato ancora aperto.
 
@@ -587,7 +587,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: La tua domanda pesca in un torpore attraversato fino al fondo: quel fondo toccato ha messo radice e tiene su la curiosità di adesso, come un albero che ha bevuto anche nella stagione secca.
+- 1: La tua domanda pesca in un torpore attraversato fino al fondo: quel fondo toccato ha messo radice e regge la curiosità di adesso, come un albero cresciuto nella stagione secca.
 - 2: Aprire le braccia è stato un gesto fatto una volta e quella porta non si richiude: la tua questione poggia su quell'apertura, col calice teso finalmente preso in mano.
 - 3: Quello che hai già sentito tornare non è più in discussione: fa da punto fermo sotto la cosa, mentre i calici a terra restano dove erano e l'albero fa la stessa ombra.
 
@@ -609,9 +609,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una tenerezza data senza contare ha chiuso la strada del calcolo: il fiore bianco porto da una mano piccola nel cortile è già passato di mano e quel dono regge la tua questione.
+- 1: Una tenerezza data senza contare ha chiuso la strada del calcolo: il fiore porto da una mano piccola nel cortile è già passato di mano e quel dono regge la tua questione.
 - 2: Hai imparato presto a offrire senza chiedere in cambio e quella capacità acquisita lavora da sé sotto la tua domanda, come un gesto da bambini che nessuno ha corretto.
-- 3: Sotto quello che ti riguarda si è depositato un affetto antico: i vasi pieni di fiori bianchi nel cortile del borgo sono stati riempiti tempo fa e la cosa pesca ancora da quella scorta.
+- 3: Sotto quello che ti riguarda si è depositato un affetto antico: i vasi di fiori bianchi nel cortile del borgo sono stati riempiti tempo fa e la cosa pesca da quella scorta.
 
 ### capovolta
 
@@ -686,14 +686,14 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Quello che le dita hanno appreso sul coprire l'apertura di un calice è diventato abitudine: su quel riparo automatico la tua domanda si appoggia, col pesce rimasto giù nel fondo.
-- 2: Sotto la tua questione si è raccolta acqua che nessuno ha versato fuori: il calice messo giù a bocca in su ha preso dentro senza mai offrire, dunque la cosa pesca da quel pieno fermo.
+- 2: Sotto la tua questione si è raccolta acqua mai versata fuori: il calice posato a bocca in su ha preso senza offrire, dunque la cosa pesca da quel pieno fermo.
 - 3: L'elemento della tua domanda che non si discute più è il pesce rimasto nel fondo: guardato una volta sola, quel riserbo sostiene la cosa mentre tutto intorno a lui cambia posto.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: La tua questione affonda in un terreno di cortesia: un calice è stato portato a mano fino a destinazione, il cavallo al passo ha già coperto la strada e quel suolo la nutre da sotto.
+- 1: La tua questione affonda in un terreno di cortesia: un calice è stato portato a mano fino a destinazione, il cavallo ha già coperto la strada e quel suolo la nutre.
 - 2: Di che materia è quello che hai per le mani: di un'offerta consegnata di persona. Chi aveva le ali sull'elmo si è mosso per primo e quella stoffa gentile fa da base alla cosa.
 - 3: Una proposta avanzata a braccio teso ha chiuso la strada del tenersi al coperto: quel gesto compiuto non si disfa e la tua domanda sta su quella esposizione.
 
@@ -701,7 +701,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Hai imparato a dire bene le cose e quella bravura lavora da sé sotto la tua questione: il calice è rimasto teso in mano mentre il cavallo non ha mosso un passo.
 - 2: Sotto quello che ti riguarda si è accumulato un magazzino di promesse belle: ognuna detta con grazia dal dorso del cavallo, nessuna scesa fino a destinazione; la cosa posa su quel mucchio.
-- 3: Il punto che non si rimette in gioco è la grazia del modo: il calice è stato teso con bellezza e quel gesto compiuto tiene su la tua domanda, mentre il passo che doveva seguirlo resta sospeso.
+- 3: Il punto fermo è la grazia del modo: il calice è stato teso con bellezza e quel gesto regge la tua domanda, mentre il passo seguente resta sospeso.
 
 ## Regina di Coppe
 
@@ -713,7 +713,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Un prezzo in sentire è già stato versato per gli altri: quella spesa, fatta a coppa aperta sulla riva, non si riprende; la tua questione sta su di essa come su un conto chiuso.
+- 1: Un prezzo in sentire è già stato versato per gli altri: quella spesa, fatta a coppa aperta sulla riva, non si riprende e la tua questione poggia su quel conto chiuso.
 - 2: Di acqua d'altri è fatta la materia che hai davanti: è entrata nella coppa aperta prima di questa domanda e non è stata separata; su quella mescolanza la cosa si tiene.
 - 3: Tenere la coppa aperta a chiunque è stata una scelta che ha chiuso le altre: da allora il proprio stato d'animo passa per ultimo; su quella porta chiusa la tua questione poggia.
 
@@ -728,8 +728,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Di acqua e di pietra insieme è impastato quello che hai davanti: la materia è quella di un governo già costruito; il livello dentro il calice lo decide l'onda.
-- 2: Mettere un trono in mezzo al mare è stata una scelta che non si rifà: quella pietra posata sta sotto la tua questione mentre lo scettro resta in mano e l'umore detta la misura.
-- 3: Una maturità affettiva appresa da tempo lavora da sé sotto quello che hai davanti: quel mestiere tiene su la tua questione nel giorno in cui a dare la misura è l'umore e non lo scranno di pietra.
+- 2: Mettere un trono in mezzo al mare è stata una scelta che non si rifà: quella pietra sta sotto la tua questione, lo scettro resta in mano e l'umore detta la misura.
+- 3: Una maturità affettiva appresa da tempo lavora da sé sotto quello che hai davanti: quel mestiere regge la tua questione anche nei giorni in cui a dare la misura è l'umore.
 
 ## Asso di Denari
 
@@ -778,8 +778,8 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Sotto la tua questione c'è una riserva messa al sicuro: le braccia si sono chiuse attorno a un disco di metallo e i piedi stanno posati su altri due. Quel blocco regge il resto.
-- 2: Un risparmio già fatto non si riprende da sé: quello che hai messo al sicuro è stato sottratto a qualcos'altro e quella sottrazione, pesante come una corona di metallo sul capo, tiene su la tua domanda.
-- 3: Le radici di quello che hai davanti stanno dentro le mura di una città che era già in piedi: il disco stretto al petto è stato guadagnato là e quel suolo murato sostiene la cosa.
+- 2: Un risparmio già fatto non si riprende da sé: quello che hai messo al sicuro è stato sottratto a qualcos'altro e quella sottrazione, pesante come metallo, tiene su la tua domanda.
+- 3: Le radici di quello che hai davanti stanno dentro le mura di una città già in piedi: il disco stretto al petto è stato guadagnato là e quel suolo murato regge la cosa.
 
 ### capovolta
 
@@ -792,12 +792,12 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Un conto è già stato pagato in freddo davanti alla vetrata accesa: quella spesa non si riprende; su di essa, non sulla neve di stasera, la tua questione sta in piedi.
-- 2: Sotto la tua domanda c'è un terreno gelato in cui la cosa è stata piantata: la neve battuta davanti alla porta chiusa è il suolo da cui prende tutto quello che la regge.
-- 3: Che la porta sia rimasta chiusa non è più in discussione: le monete illuminate stanno dentro il vetro da prima di questa domanda; quel vetro fa da punto fermo a quello che hai davanti.
+- 2: Sotto la tua domanda c'è un terreno gelato in cui la cosa è stata piantata: la neve battuta davanti alla porta chiusa è il suolo che la regge.
+- 3: Che la porta sia rimasta chiusa non è più in discussione: le monete illuminate stanno dietro il vetro da prima della tua domanda e quel vetro fa da punto fermo.
 
 ### capovolta
 
-- 1: Si è messo da parte un sostegno trovato nel gelo: quel deposito di mani tese, raccolto fuori dalla vetrata, sta sotto la tua questione e la porta adesso che il vetro è dietro.
+- 1: Si è messo da parte un sostegno trovato nel gelo: quel deposito di mani tese, raccolto fuori dalla vetrata, sta sotto la tua questione e la regge.
 - 2: Il peso che tiene su quello che hai davanti è una soglia già attraversata: il passo dentro il tiepido è stato fatto prima della domanda; su quella pietra d'ingresso la cosa sta.
 - 3: Chiedere senza vergogna è diventata una capacità acquisita nel freddo: non si riconquista a ogni inverno, lavora da sé e fa da appoggio alla tua questione.
 
@@ -827,7 +827,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Hai pagato in giornate di zappa un raccolto staccato prima del tempo: quel prezzo versato nel campo non si riprende e tiene su adesso la tua questione.
 - 2: La tua questione è piantata su un seme scelto in fretta: il terreno ha già bevuto quella scelta e la radice venuta su regge tutto quello che adesso guardi dal manico.
-- 3: Quello che hai davanti è impastato di impazienza e di frutti toccati verdi: la tua questione è fatta di quella materia e sta sul conto fra lo sforzo messo e quello che il ramo ha reso.
+- 3: Quello che hai davanti è impastato di impazienza e di frutti toccati verdi: la tua questione sta sul conto fra lo sforzo messo e quello che il ramo ha reso.
 
 ## Otto di Denari
 
@@ -841,7 +841,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un peso di colpi uguali, battuti uno dopo l'altro, sta sotto la tua questione: il banco tiene su il lavoro e i pezzi identici restano appesi al muro dove sono stati messi.
 - 2: Della stessa materia di un gesto ripetuto è fatto quello che hai davanti: quella stoffa tiene su il lavoro; il senso che aveva messo in mano lo scalpello non è dentro il colpo.
-- 3: Quello che la tua questione ha sotto è una scorta di abitudine accumulata al banco: il gesto si è depositato nella mano e continua a incidere lo stesso disco senza che nessuno glielo chieda.
+- 3: La tua questione ha sotto una scorta di abitudine accumulata al banco: il gesto si è depositato nella mano e continua a incidere lo stesso disco senza che nessuno lo chieda.
 
 ## Nove di Denari
 
@@ -862,13 +862,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Sotto la tua questione si è depositato il lavoro di chi c'era prima: le monete disposte sull'arco di casa sono state contate da altre mani e la cosa pesca ancora da quella scorta.
-- 2: Il punto che non torna in discussione è la casa: lo stemma sul muro è stato dipinto prima della tua domanda, i cani stanno ai piedi del vecchio sotto l'arco e quel nome regge il resto.
+- 2: Il punto che non torna in discussione è la casa: lo stemma sul muro era dipinto prima della tua domanda e quel nome di famiglia regge tutto il resto.
 - 3: Sostiene quello che hai davanti un patrimonio di famiglia già formato: muri alzati, vigne piantate, un cortile dove si passa senza chiedere permesso. Quel peso antico tiene su la tua questione.
 
 ### capovolta
 
 - 1: Un conto di famiglia è già stato aperto e nessuno lo ha chiuso: beni comuni contati una moneta per volta sotto lo stesso stemma. Quella contabilità regge la tua questione.
-- 2: La tua domanda affonda in un terreno diviso per quote: la vigna è stata piantata da uno solo e raccolta da molti; da quella radice contesa la cosa prende quello che la tiene in piedi.
+- 2: La tua domanda affonda in un terreno diviso per quote, una vigna piantata da uno e raccolta da molti: da quella radice contesa prende ciò che la regge.
 - 3: Di roba che appartiene a più di uno è fatta la tua questione: un bene già diventato comune, con l'attrito cucito dentro; su quella stoffa tutto posa.
 
 ## Fante di Denari
@@ -877,7 +877,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Quello che hai già imparato su questa cosa non si deve più conquistare: la moneta è stata girata fra le dita fino a conoscerla; quella conoscenza regge la tua domanda.
 - 2: Di materia concreta è fatta la tua questione: non un'idea, ma un oggetto preso in mano sopra un campo già arato; quella sostanza porta su di sé quello che hai davanti.
-- 3: Mettere le due mani su una cosa sola è stata una scelta che ha chiuso le altre: da allora gli occhi stanno lì; su quella porta chiusa la tua domanda si tiene in piedi.
+- 3: Mettere le due mani su una cosa sola è stata una scelta che ha chiuso le altre: da allora l'attenzione sta lì e su quella scelta la tua domanda si regge.
 
 ### capovolta
 
@@ -946,13 +946,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Una scelta è già stata fatta, quella di non guardare: la benda è stata annodata da te e le due lame restano in pari sul petto. Quell'equilibrio comprato sostiene la tua questione.
-- 2: Hai imparato a tenere in pari due pesi senza aprire gli occhi e quella bravura lavora da sé: sta sotto la tua domanda come due braccia che hanno preso la posizione e la mantengono.
+- 2: Hai imparato a tenere in pari due pesi senza aprire gli occhi e quella bravura lavora da sé: regge la tua domanda come due braccia che hanno preso posizione e la mantengono.
 - 3: Sotto quello che ti riguarda si è accumulato tutto quello che non è stato guardato: un deposito di rinvii, fermo come il mare dietro le rocce, su cui la cosa sta ancora.
 
 ### capovolta
 
-- 1: Il punto che non si rimette in gioco è che le braccia si sono stancate: la benda è stata sciolta, le lame sono già scese dal petto e quel cedimento tiene su la tua questione.
-- 2: Sostiene quello che hai davanti un peso tolto dagli occhi: la stoffa che copriva è stata levata e quello che stava coperto fa adesso da appoggio, visibile come il mare dietro la pietra.
+- 1: Il punto che non si rimette in gioco è la stanchezza delle braccia: la benda è sciolta, le lame sono scese dal petto e quel cedimento regge la tua questione.
+- 2: Sostiene quello che hai davanti un peso tolto dagli occhi: la stoffa è stata levata e ciò che stava coperto fa adesso da appoggio, visibile come il mare dietro la pietra.
 - 3: Un prezzo in stanchezza è già stato versato per tenere ferme due lame: quella spesa non si riprende e la tua domanda poggia su braccia che hanno smesso di fingere la calma.
 
 ## Tre di Spade
@@ -965,7 +965,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Perdonare è stata una scelta che ha chiuso le altre vie: da quando il ferro è fuori dal petto, il conto non si riapre; su quella chiusura la tua questione sta in piedi.
+- 1: Perdonare è stata una scelta che ha chiuso le altre vie: col ferro fuori dal petto il conto non si riapre e la tua questione poggia su quella chiusura.
 - 2: Portare un dolore nominato è diventata una capacità acquisita: la cicatrice sul petto è la prova che non si deve più imparare; quella competenza tiene su quello che hai davanti.
 - 3: Che il ferro sia fuori non si rimette in gioco: è avvenuto prima della tua domanda; mentre il resto si muove, quella cicatrice chiusa fa da punto fermo alla questione.
 
@@ -973,14 +973,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La pietra della cappella ha preso in sé tutta la stanchezza di una marcia già fatta: su quelle radici di silenzio la tua questione posa, con tre lame appese al muro sopra il capo.
+- 1: La pietra della cappella ha preso in sé la stanchezza di una marcia già fatta: su quel fondo di silenzio posa la tua questione, con tre lame appese sopra il capo.
 - 2: Di quiete presa e di pietra fredda è impastato quello che hai davanti: quella materia tiene su la tua questione, con le mani giunte che stanno come le ha messe il sonno.
 - 3: Stendersi è stato un atto compiuto che non si rifà: quel corpo posato sulla lastra sta sotto la tua questione e la regge, con una lama sola rimasta sotto il fianco.
 
 ### capovolta
 
-- 1: Riposare a fondo è cosa che il corpo ha già imparato e quel sapere lavora da sé: la tua questione sta su quella sosta compiuta, mentre le dita si sciolgono sopra la pietra.
-- 2: Nel petto è rimasta la riserva che il silenzio ha messo da parte: da quel fondo la tua questione attinge e su di esso si appoggia, con le tre lame ferme al loro chiodo.
+- 1: Riposare a fondo è cosa che il corpo ha già imparato e quel sapere lavora da sé: la tua questione poggia su quella sosta compiuta, con le dita sciolte sulla pietra.
+- 2: Nel petto è rimasta la riserva che il silenzio ha messo da parte: la tua questione attinge da quel fondo e vi si appoggia, con le tre lame ferme al chiodo.
 - 3: Il recupero è già avvenuto e questo non torna in discussione: dentro la tua questione si muove il modo di rialzarsi, mentre sotto la vetrata quella sosta compiuta sostiene il resto.
 
 ## Cinque di Spade
@@ -1023,7 +1023,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Quello che i piedi hanno appreso sul muoversi senza rumore è un mestiere vecchio: il passo fuori dalla tenda non chiede più concentrazione, dunque la tua domanda si regge su quell'arte.
 - 2: Sotto la tua questione si è depositato il non detto: le lame portate per il filo hanno pesato a ogni passo, dunque la cosa pesca da quel silenzio messo via tempo addietro.
-- 3: L'elemento della tua domanda che resta inchiodato è il campo: la tenda è ancora là dietro, dunque il luogo da cui le aste sono state prese fa da appoggio a quanto hai in mano.
+- 3: L'elemento della tua domanda che resta inchiodato è il campo: la tenda è ancora là dietro e il luogo da cui le aste sono state prese regge quanto hai in mano.
 
 ## Otto di Spade
 
@@ -1031,7 +1031,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La tua questione è piantata in un fango di pensieri: le lame sono state infilate nel terreno una per una, la corda è stata allacciata larga e quella radice la tiene su.
 - 2: Di che cosa è fatto quello che hai davanti: di un limite creduto. Il recinto è stato costruito con poche lame piantate di fuori e quella materia leggera porta tutto il peso.
-- 3: Una convinzione presa per vera ha chiuso le altre letture: che da lì non si passa. Quel verdetto già dato è il piano su cui la tua domanda sta, col castello in alto che resta a guardare.
+- 3: Una convinzione presa per vera ha chiuso le altre letture: da lì non si passa. Quel verdetto già dato è il piano su cui sta la tua domanda, col castello a guardare.
 
 ### capovolta
 
@@ -1044,14 +1044,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Sotto la tua questione c'è un terreno notturno già bagnato: dalle ore passate con le mani sul volto la cosa ha bevuto quello che la tiene su; quel suolo è stato preparato prima.
-- 2: Il peso che porta la tua domanda è una parete di lame appese: sono state contate una per una nel buio; quel conto, fatto da seduti sul letto, è l'appoggio di quello che hai davanti.
+- 2: Ciò che regge la tua domanda è una parete di lame appese, contate una per una nel buio: quelle notti di conti sul bordo del letto sono la sua base.
 - 3: Si è accumulata una scorta di pensieri ripassati di notte: quel sedimento, steso come la coperta ricamata, sta sotto la tua questione e non si è disperso con il giorno.
 
 ### capovolta
 
 - 1: Un prezzo in notti è stato versato fino in fondo: quelle ore contate sotto la coperta ricamata sono una spesa chiusa; su di essa la tua questione sta in piedi adesso.
-- 2: Dire a parole quello che il buio teneva fermo è stata una scelta che non si disfa: da allora la parete delle lame è solo una parete; su quella chiusura la tua domanda poggia.
-- 3: Di materia già detta è fatto quello che hai davanti: il pensiero portato fuori dalla testa e messo in parole non è tornato sotto la coperta; su quella sostanza la tua questione si tiene.
+- 2: Dire quello che il buio teneva fermo è stata una scelta che non si disfa: da allora la parete di lame è solo una parete e la tua domanda poggia lì.
+- 3: Di materia già detta è fatto quello che hai davanti: il pensiero portato fuori dalla testa non è tornato sotto la coperta e su quella sostanza la tua questione si tiene.
 
 ## Dieci di Spade
 
@@ -1077,7 +1077,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Quello che hai davanti è impastato di mezze notizie passate di mano: una lama maneggiata da chi ancora non la sa tenere. La tua questione si regge su quel materiale e non su altro.
+- 1: Quello che hai davanti è impastato di mezze notizie passate di mano, una lama maneggiata da chi ancora non la sa tenere: la tua questione si regge su quel materiale.
 - 2: Hai riferito una volta quello che avevi sentito senza verificarlo e da quella parola non si torna: su quel detto, con la punta rivolta a caso, la tua questione poggia adesso.
 - 3: Dire presto quello che arriva alle orecchie ti riesce da sé, senza che sia da imparare: quella pratica acquisita a lama scoperta fa da base a quello che oggi ti riguarda.
 
@@ -1093,7 +1093,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La tua questione affonda in un terreno percorso prima di essere guardato: quel suolo tiene su la corsa e gli zoccoli battono dove nessuno ha letto la mappa.
 - 2: Di fretta impastata con lucidità vera è fatto quello che hai in mano: quella materia ha già tenuto un galoppo intero e regge ancora, col vento che entra nel mantello.
-- 3: Una scorta di slancio messa insieme da prima della tua domanda regge adesso la sella: il fondo c'è, battuto nella corsa; la lama alzata pesa su un braccio che non si è fermato.
+- 3: Una scorta di slancio messa insieme prima della tua domanda regge adesso la sella: il fondo c'è, battuto nella corsa, mentre la lama alzata pesa su un braccio che non si ferma.
 
 ## Regina di Spade
 
@@ -1115,10 +1115,10 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua questione c'è un criterio fissato una volta per tutte: la lama è stata alzata ritta e tenuta così senza calare, così quel metro regge quello che hai davanti.
 - 2: Un prezzo in impopolarità è già stato pagato per decidere con chiarezza: quella moneta versata non torna indietro e la tua domanda poggia sul mestiere di chi ha giudicato molte volte.
-- 3: Le radici di quello che hai per le mani stanno in un seggio alto: le due farfalle sullo schienale sono state intagliate da altri, il giudizio è stato esercitato e quel suolo duro sostiene tutto.
+- 3: Le radici di quello che hai per le mani stanno in un seggio alto: le farfalle sullo schienale le hanno intagliate altri, il giudizio è stato esercitato e quel suolo sostiene tutto.
 
 ### capovolta
 
 - 1: Di logica senza tepore è impastato quello che hai davanti: una regola è stata applicata dall'alto del seggio senza guardare in faccia nessuno e su quella materia la tua questione posa.
 - 2: Una decisione già presa ha chiuso la via del ripensamento: la lama è rimasta ritta anche quando chiedeva di essere abbassata e quel punto saldo sostiene la tua questione.
-- 3: Hai imparato a vincere le discussioni e quella capacità lavora ancora da sé sotto la tua domanda: resta acquisita come una lama tenuta affilata, mentre i legami intorno al seggio hanno pagato il conto.
+- 3: Hai imparato a vincere le discussioni e quella capacità lavora ancora da sé sotto la tua domanda, affilata come una lama, mentre i legami intorno al seggio pagano il conto.

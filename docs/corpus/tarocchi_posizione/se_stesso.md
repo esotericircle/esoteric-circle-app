@@ -40,7 +40,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti lanci in avanti senza guardare dove poggi il piede: lo slancio c'è, la rotta la decidi dopo, se la decidi. In questa faccenda corri prima di chiederti da cosa stai scappando.
 - 2: Stai sull'orlo con il salto già immaginato e il piede che non scende: ti trattieni proprio mentre vorresti andare, senza capire se ti ferma la prudenza o un timore che non guardi.
-- 3: Il modo in cui ti muovi qui somiglia a una fuga travestita da coraggio: cambi passo di continuo, la bisaccia sbatte sulla schiena e non ti fermi abbastanza da sentire da dove nasce la spinta.
+- 3: Il tuo modo di muoverti somiglia a una fuga travestita da coraggio: cambi passo di continuo e non ti fermi abbastanza da sentire da dove nasce la spinta.
 
 ## Il Mago
 
@@ -48,7 +48,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Prendi in mano gli attrezzi e li usi: davanti a questa faccenda smetti di aspettare le condizioni perfette e trasformi l'idea in un gesto che si può vedere.
 - 2: Il tuo modo di stare qui è col braccio alzato e la mano già sul tavolo: scegli lo strumento giusto, lo nomini, lo metti al lavoro senza chiedere permesso a nessuno.
-- 3: Agisci con la sicurezza di chi sa cosa fare: parli e subito dopo fai, così ogni parola che dici ha dietro una mano che la mantiene.
+- 3: Agisci con la sicurezza di chi sa che cosa fare: parli e subito dopo fai, così ogni parola che dici in questa faccenda ha dietro una mano che la mantiene.
 
 ### capovolta
 
@@ -67,7 +67,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Copri con il ragionamento quello che senti già: ogni volta che l'intuito prova a parlare accendi un rumore nuovo, una spiegazione, un impegno, pur di non fermarti ad ascoltarlo.
-- 2: Ti muovi in questa faccenda tirando il velo sopra ciò che sai: preferisci la prova al presentimento, forse perché temi quello che sentiresti in silenzio.
+- 2: Ti muovi in questa faccenda tirando il velo sopra ciò che sai: preferisci la prova al presentimento, forse perché temi quello che sentiresti in un minuto di silenzio.
 - 3: Riempi ogni pausa di parole: davanti alla cosa non ti concedi un minuto di quiete, così il segreto che cerchi resta lì ad aspettare che tu lo lasci entrare.
 
 ## L'Imperatrice
@@ -76,7 +76,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti prendi cura di ciò che sta crescendo come si cura un campo di grano: annaffi, proteggi, aspetti, senza tirare i germogli per farli salire prima.
 - 2: Il tuo modo di stare in questa faccenda è generoso e paziente: nutri invece di pretendere, offri calore invece di scadenze, lasci che la cosa prenda forma nei suoi tempi.
-- 3: Accogli e fai crescere: ciò che tocchi lo tratti come cosa viva, con mani morbide e piedi ben piantati nella terra fertile.
+- 3: Accogli e fai crescere: in questa faccenda ciò che tocchi lo tratti come una cosa viva, con mani morbide e piedi ben piantati nella terra fertile.
 
 ### capovolta
 
@@ -89,7 +89,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Metti ordine: davanti alla faccenda fissi regole chiare, distribuisci i compiti, ti assumi il peso della decisione con la schiena dritta sul trono di pietra.
-- 2: Il tuo atteggiamento è quello di chi costruisce la cornice: non soffochi, sostieni, tracci confini netti perché dentro la cosa possa crescere al sicuro.
+- 2: Il tuo atteggiamento in questa faccenda è quello di chi costruisce la cornice: non soffochi, sostieni, tracci confini netti perché dentro la cosa possa crescere al sicuro.
 - 3: Prendi su di te la responsabilità senza girarci intorno: tieni lo scettro con fermezza, mantieni la parola data, pretendi da te la stessa disciplina che chiedi.
 
 ### capovolta
@@ -122,22 +122,22 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Rimandi la scelta perché dentro di te due valori litigano: ascolti ora l'uno ora l'altro, così finché uno resta zitto nessuna decisione ti convince davvero.
+- 1: Rimandi la scelta perché dentro di te due valori litigano: ascolti ora l'uno ora l'altro e finché uno dei due resta zitto nessuna decisione ti convince davvero.
 - 2: Ti muovi a metà: una parte di te dice sì, l'altra trattiene. Cerchi un accordo fuori, con l'altra persona, mentre il disaccordo vero sta dentro di te.
-- 3: Chiedi all'altra persona di scegliere al posto tuo: deleghi il bivio perché fra ciò in cui credi e ciò che desideri non hai ancora fatto pace.
+- 3: Chiedi all'altra persona di scegliere al posto tuo: deleghi il bivio perché fra ciò in cui credi e ciò che desideri non hai ancora fatto pace dentro di te.
 
 ## Il Carro
 
 ### dritta
 
 - 1: Prendi le redini: davanti alla faccenda tieni insieme le due spinte che tirano in versi opposti, la sfinge bianca e quella nera, poi le porti nella stessa direzione.
-- 2: Il tuo modo di muoverti qui è padronanza pura: sguardo fisso sulla meta, mani salde, nessuna esitazione a ogni scossone della strada.
-- 3: Avanzi senza chiedere permesso: decidi dove andare, raccogli le forze contrarie che hai dentro, fai di quella tensione il motore che ti porta avanti.
+- 2: Il tuo modo di muoverti qui è padronanza pura: sguardo fisso sulla meta, mani salde sulle redini, nessuna esitazione davanti a ogni scossone che la strada ti mette sotto le ruote.
+- 3: Avanzi senza chiedere permesso: decidi dove andare, raccogli le forze contrarie che hai dentro e fai di quella tensione il motore che ti porta avanti, un metro dopo l'altro.
 
 ### capovolta
 
 - 1: Sbandi: due forze ti tirano in versi opposti e invece di governarle lasci che si contendano le redini, così il tuo cammino va a strattoni.
-- 2: Corri senza sapere bene dove: in questa faccenda acceleri per non sentire il dubbio, cambi direzione a ogni curva, perdi il centro.
+- 2: Corri senza sapere bene dove: in questa faccenda acceleri per non sentire il dubbio, cambi direzione a ogni curva e intanto perdi il centro che ti teneva in strada.
 - 3: Le redini ti scivolano dalle mani: tieni ancora il posto di guida, però lasci che sia la strada a decidere al posto tuo dove andare.
 
 ## La Giustizia
@@ -146,7 +146,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Pesi con lucidità: davanti alla faccenda metti sui piatti della bilancia la tua parte e quella degli altri, senza sconti per te e senza colpe inutili.
 - 2: Il tuo atteggiamento è quello di chi tiene la spada dritta: dici il vero, ti prendi le conseguenze di ciò che hai seminato, agisci con onestà anche quando costa.
-- 3: Scegli l'equità: non ti lasci spostare dalla simpatia né dal rancore, guardi i fatti come stanno, decidi con la mente fredda e il cuore onesto.
+- 3: Scegli l'equità: non ti lasci spostare dalla simpatia né dal rancore, guardi i fatti come stanno e decidi con la mente fredda e il cuore onesto, anche quando costa.
 
 ### capovolta
 
@@ -201,7 +201,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Ti fermi di proposito: davanti alla faccenda rinunci all'azione, lasci il corpo sospeso e capovolgi lo sguardo per vedere la cosa da un'angolazione che prima ti sfuggiva.
-- 2: Il tuo atteggiamento è un'attesa scelta, non subita: a testa in giù, con l'aureola attorno al capo, lasci andare il bisogno di fare per dare spazio a ciò che si capisce solo nella sosta.
+- 2: Il tuo atteggiamento è un'attesa scelta, non subita: a testa in giù, con l'aureola intorno al capo, lasci andare il bisogno di fare per capire ciò che si vede solo nella sosta.
 - 3: Accetti di sospendere: non forzi, non rincorri, ti lasci appendere al ramo dell'albero vivo con una calma che chi guarda scambia per resa.
 
 ### capovolta
@@ -221,22 +221,22 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti aggrappi a ciò che sta finendo: il cambiamento è già arrivato, ma tu stringi la forma vecchia con tutte e due le mani, come se trattenere potesse fermare il tempo.
-- 2: Resisti al passaggio: in questa faccenda rimandi l'addio, rianimi ciò che non respira più, eviti di guardare il campo dove il vecchio è già caduto.
+- 2: Resisti al passaggio: in questa faccenda rimandi l'addio, rianimi ciò che non respira più ed eviti di guardare il campo dove il vecchio è già caduto da tempo.
 - 3: Il tuo modo di stare qui è una porta tenuta chiusa col piede: senti che una stagione si è chiusa, però non lasci entrare quella nuova perché trattenere ti pare meno doloroso.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: Dosi con pazienza: davanti alla faccenda tu versi da una coppa all'altra senza perderne una goccia, mescolando ciò che ti sembrava inconciliabile.
+- 1: Dosi con pazienza: davanti alla faccenda tu versi da una coppa all'altra senza perderne una goccia, mescolando piano, con mano ferma, ciò che ti sembrava inconciliabile.
 - 2: Il tuo modo di muoverti è misurato: un piede nell'acqua e uno sulla terra, vai piano, assaggi, correggi, finché le due parti della cosa trovano un accordo.
-- 3: Scegli il ritmo lento: rinunci agli eccessi, tieni il giusto mezzo fra la spinta e il freno, fai dell'equilibrio un esercizio di ogni giorno.
+- 3: Scegli il ritmo lento: rinunci agli eccessi, tieni il giusto mezzo fra la spinta e il freno, fai dell'equilibrio un esercizio piccolo e paziente di ogni giorno.
 
 ### capovolta
 
-- 1: Eccedi: in questa faccenda versi troppo e troppo in fretta, l'acqua trabocca dalle coppe mentre tu già pensi alla mossa dopo.
-- 2: Lasci che due parti di te smettano di parlarsi: una corre, l'altra frena, tu passi dall'una all'altra senza mai fermarti a mescolarle.
-- 3: Il tuo atteggiamento ha perso la misura: alterni il troppo e il niente, ti accorgi tardi di aver rotto il ritmo, rimedi con un altro eccesso.
+- 1: Eccedi: in questa faccenda versi troppo e troppo in fretta, l'acqua trabocca dalle coppe e bagna tutto intorno mentre tu già pensi alla mossa che viene dopo.
+- 2: Lasci che due parti di te smettano di parlarsi: una corre, l'altra frena e tu passi dall'una all'altra di continuo, senza mai fermarti a mescolarle in una misura comune.
+- 3: Il tuo atteggiamento ha perso la misura: alterni il troppo e il niente, ti accorgi tardi di aver rotto il ritmo e rimedi subito con un altro eccesso, che sbilancia ancora.
 
 ## Il Diavolo
 
@@ -249,8 +249,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti accorgi della catena: davanti alla faccenda smetti di fingere che non ci sia, la guardi, la chiami per nome, cominci con dolcezza a sciogliere il nodo.
-- 2: Il tuo atteggiamento cambia proprio adesso: alzi le mani al collo, senti che l'anello era più largo di quanto credevi, provi a sfilarlo.
-- 3: Rompi un patto che ti teneva: riconosci l'attaccamento per quello che è, gli togli il buio in cui comandava, fai il primo gesto di libertà.
+- 2: Il tuo atteggiamento cambia proprio adesso: alzi le mani al collo, senti che l'anello era più largo di quanto credevi e provi a sfilarlo piano, senza strattoni.
+- 3: Rompi un patto che ti teneva: riconosci l'attaccamento per quello che è, gli togli il buio in cui comandava e fai il primo gesto di libertà, anche piccolo.
 
 ## La Torre
 
@@ -262,7 +262,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Rimandi la scossa: in questa faccenda puntelli una costruzione che sai incrinata, aggiungi travi, copri le crepe, pur di non vederla venire giù.
+- 1: Rimandi la scossa: in questa faccenda puntelli una costruzione che sai incrinata, aggiungi travi, copri le crepe con l'intonaco, pur di non vederla venire giù davanti a te.
 - 2: Ti muovi intorno alla crepa senza guardarla: preferisci un falso che regge in apparenza a un vero che vacilla, così rimandi un crollo che intanto si fa più grande.
 - 3: Il tuo atteggiamento è di chi esce dalle macerie a fatica: la scossa c'è stata, però cammini ancora fra i calcinacci cercando di rimettere in piedi le vecchie mura.
 
@@ -270,14 +270,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Ti fidi: davanti alla faccenda versi l'acqua con le due brocche senza misurare, lasciando che una quiete luminosa guidi i tuoi gesti.
+- 1: Ti fidi: davanti alla faccenda versi l'acqua con le due brocche senza misurare, senza difese, lasciando che una quiete luminosa guidi i tuoi gesti uno dopo l'altro.
 - 2: Il tuo modo di stare qui è speranza tranquilla: non urli, non pretendi, alzi lo sguardo verso la luce alta e ritrovi l'ispirazione dopo la tempesta.
 - 3: Spogli i tuoi gesti di ogni difesa: con un ginocchio a terra e un piede nell'acqua offri quello che hai, credendo che il dono generoso trovi da sé la sua strada.
 
 ### capovolta
 
 - 1: Fatichi a credere: in questa faccenda abbassi lo sguardo, smetti di cercare la luce, ti convinci che le cose non possano andare meglio di così.
-- 2: La tua fiducia è stanca: versi ancora l'acqua, ma con mano esitante, senza aspettarti che qualcosa germogli, come chi ha smesso di sperare.
+- 2: La tua fiducia è stanca: versi ancora l'acqua, ma con mano esitante e senza aspettarti che qualcosa germogli, come chi ha smesso di sperare in un raccolto.
 - 3: Ti neghi la speranza: ogni volta che uno spiraglio compare lo copri con un pensiero di sfiducia, scambiando la nube passeggera per un cielo spento.
 
 ## La Luna
@@ -299,8 +299,8 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Ti mostri senza nasconderti: davanti alla faccenda vieni avanti come il bambino sul cavallo bianco, a braccia aperte, lasciando che tutti vedano quello che sei.
-- 2: Il tuo modo di stare qui è luminoso: ridi apertamente, dici quello che ti rende felice, non lasci zone d'ombra nelle tue intenzioni.
-- 3: Scegli la chiarezza e il calore: affronti la cosa con entusiasmo semplice, condividi la gioia invece di custodirla, scaldi chi ti sta accanto.
+- 2: Il tuo modo di stare qui è luminoso: ridi apertamente, dici senza giri di parole quello che ti rende felice, non lasci zone d'ombra nelle tue intenzioni.
+- 3: Scegli la chiarezza e il calore: affronti la cosa con un entusiasmo semplice, condividi la gioia invece di custodirla in segreto, scaldi chi ti sta accanto.
 
 ### capovolta
 
@@ -314,7 +314,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Rispondi alla chiamata: davanti alla faccenda ti alzi dal vecchio modo di fare come da una cassa aperta e accetti di diventare ciò che stai diventando.
 - 2: Il tuo modo di stare qui è un bilancio onesto: guardi la strada percorsa senza condannarla, poi scegli la vita più vera a cui la tromba ti chiama.
-- 3: Ti risvegli: senti un richiamo forte e invece di rimandarlo lo segui, lasciando la persona che eri per quella che sta nascendo in te.
+- 3: Ti risvegli: senti un richiamo forte e invece di rimandarlo ancora lo segui subito, lasciando la persona che eri per quella che sta nascendo dentro di te.
 
 ### capovolta
 
@@ -326,7 +326,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Abiti il compimento con pienezza: davanti alla faccenda danzi dentro la ghirlanda, integri ciò che hai attraversato, chiudi il cerchio con calma.
+- 1: Abiti il compimento con pienezza: davanti alla faccenda danzi dentro la ghirlanda, integri ciò che hai attraversato fin qui, chiudi il cerchio con calma e senza fretta di ripartire.
 - 2: Il tuo modo di stare qui è intero: non corri già al prossimo traguardo, ti godi l'armonia raggiunta, senti che ogni pezzo ha trovato il suo posto.
 - 3: Ti muovi con la sicurezza di chi ha compiuto un viaggio: tieni insieme gli opposti come le due bacchette in mano alla danzatrice, sapendo dove finisce un cerchio.
 
@@ -340,9 +340,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Afferri la scintilla mentre è viva: davanti alla faccenda non aspetti che il fuoco si raffreddi nei ripensamenti, stringi il ramo germogliato e cominci.
+- 1: Afferri la scintilla mentre è viva: davanti alla faccenda non aspetti che il fuoco si raffreddi nei ripensamenti, stringi il ramo germogliato e cominci, anche senza avere già tutto chiaro.
 - 2: Il tuo modo di entrare in questa cosa è un'accensione: senti l'impulso, gli dai subito un gesto, parti prima che il dubbio abbia il tempo di sedersi accanto a te.
-- 3: Cominci tu: mentre gli altri valutano, prendi in mano il bastone che fiorisce e lo alzi, trasformando l'ispirazione in un primo atto concreto.
+- 3: Cominci tu: mentre gli altri valutano e aspettano, prendi in mano il bastone che fiorisce e lo alzi, trasformando l'ispirazione in un primo atto concreto e visibile a tutti.
 
 ### capovolta
 
@@ -355,8 +355,8 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Guardi oltre le mura col globo in mano: davanti alla faccenda non ti accontenti di ciò che conosci, studi l'orizzonte e decidi una rotta ambiziosa.
-- 2: Il tuo modo di stare qui è da stratega: pianifichi, misuri le distanze, tieni un bastone saldo accanto e immagini già dove porterai l'altro.
-- 3: Scegli la direzione invece di aspettarla: ti affacci dal parapetto, pesi le strade possibili, poi indichi con decisione quella che vuoi percorrere.
+- 2: Il tuo modo di stare qui è da stratega: pianifichi, misuri le distanze, tieni un bastone saldo accanto e immagini già dove portare l'altro oltre le mura.
+- 3: Scegli la direzione invece di aspettarla: ti affacci dal parapetto, pesi con calma le strade possibili, poi indichi con decisione quella che vuoi percorrere per prima.
 
 ### capovolta
 
@@ -390,7 +390,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Rimandi la festa: il traguardo c'è, ma tu resti fuori dal pergolato, come davanti a una casa nuova in cui non hai ancora fatto ingresso.
 - 2: Il tuo atteggiamento verso ciò che hai ottenuto è a metà: lo vivi di corsa, senza fermarti a celebrarlo, quasi temessi di godertelo troppo presto.
-- 3: Lasci appassire le ghirlande prima di appenderle: trovi sempre un motivo per non brindare adesso, così la soglia raggiunta non diventa mai casa tua.
+- 3: Lasci appassire le ghirlande prima di appenderle: trovi sempre un motivo per non brindare adesso, così la soglia che hai raggiunto non diventa mai casa tua.
 
 ## Cinque di Bastoni
 
@@ -402,7 +402,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Eviti l'attrito lasciandolo covare: in questa faccenda abbassi il bastone, taci sulle tensioni, mentre sotto la superficie lo scontro continua a ribollire.
+- 1: Eviti l'attrito lasciandolo covare: in questa faccenda abbassi il bastone e taci sulle tensioni, mentre sotto la superficie lo scontro continua a ribollire e ti stanca.
 - 2: Il tuo atteggiamento disperde energia in battaglie che non contano: rispondi a ogni provocazione, difendi ogni piccola posizione, ti stanchi dove potresti lasciar cadere.
 - 3: Combatti per abitudine più che per scelta: brandisci il bastone anche quando nessuno ti sfida davvero, così la tensione diventa il tuo modo di stare con gli altri.
 
@@ -410,15 +410,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Accogli l'onore con misura: davanti alla faccenda sfili a cavallo con la corona d'alloro, saluti chi applaude, tieni la testa al suo posto.
+- 1: Accogli l'onore con misura: davanti alla faccenda sfili a cavallo con la corona d'alloro, saluti chi applaude e tieni la testa ben salda al suo posto.
 - 2: Il tuo modo di stare qui è sicuro senza boria: riconosci il merito che ti viene dato, non lo sminuisci, non ci costruisci sopra un trono.
 - 3: Porti alto il bastone della vittoria: ti mostri a chi ha creduto in te, condividi il successo con la folla che ti segue a piedi, senza montarti la testa.
 
 ### capovolta
 
-- 1: Leghi il tuo valore all'applauso: quando il riconoscimento tarda, in questa faccenda ti sminuisci, abbassi il bastone, ti chiedi se meriti di sfilare.
+- 1: Leghi il tuo valore all'applauso: quando il riconoscimento tarda, in questa faccenda ti sminuisci, abbassi il bastone e ti chiedi se meriti davvero di sfilare.
 - 2: Il tuo atteggiamento dipende dallo sguardo altrui: aspetti la corona da fuori e intanto smetti di vedere quello che hai fatto, come se valesse solo ciò che viene confermato.
-- 3: Cerchi conferme in ogni volto: misuri la tua riuscita dal rumore della folla, così il silenzio ti pesa più di quanto dovrebbe.
+- 3: Cerchi conferme in ogni volto: misuri la tua riuscita dal rumore della folla, così il silenzio intorno al tuo lavoro ti pesa più di quanto dovrebbe.
 
 ## Sette di Bastoni
 
@@ -459,7 +459,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti difendi anche da chi vorrebbe solo avvicinarsi: in questa faccenda la guardia alzata per le ferite passate tiene fuori pure chi viene in pace.
-- 2: Il tuo atteggiamento è una staccionata di sospetto: guardi ogni gesto con occhio diffidente, ti aspetti un colpo che nessuno sta preparando.
+- 2: Il tuo atteggiamento è una staccionata di sospetto: guardi ogni gesto con occhio diffidente e ti aspetti un colpo che nessuno sta preparando, nemmeno da lontano.
 - 3: Stringi il bastone per un attacco che non arriva: proteggi un posto che nessuno contende, perché ti fidi meno del presente che delle cicatrici.
 
 ## Dieci di Bastoni
@@ -488,7 +488,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti accendi e ti spegni: in questa faccenda ogni idea nuova scalza la precedente prima che abbia messo una foglia, così il bastone non arriva mai a germogliare.
 - 2: Il tuo atteggiamento è un entusiasmo a intermittenza: cominci con fuoco, ti distrai alla prima difficoltà, passi oltre lasciando dietro tante prove abbandonate.
-- 3: Salti da un inizio all'altro: annunci con gioia l'ennesimo progetto, poi lo lasci a metà quando smette di sembrarti nuovo.
+- 3: Salti da un inizio all'altro: annunci con gioia l'ennesimo progetto, ne parli a tutti, poi lo lasci a metà appena smette di sembrarti nuovo.
 
 ## Cavaliere di Bastoni
 
@@ -500,9 +500,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Corri con foga senza una rotta: in questa faccenda sproni il cavallo in mille direzioni, bruci l'ardore in partenze impazienti, rischi di scottarti.
+- 1: Corri con foga senza una rotta: in questa faccenda sproni il cavallo in mille direzioni, bruci l'ardore in partenze impazienti e rischi di scottarti.
 - 2: Il tuo atteggiamento è un'impazienza che brucia: non sopporti l'attesa, forzi i tempi, lasci dietro di te una scia di fiamme anziché un sentiero.
-- 3: Ti getti avanti prima di sapere perché: il desiderio c'è, la meta no, così la tua energia si consuma nella galoppata stessa.
+- 3: Ti getti avanti prima di sapere perché: il desiderio c'è, la meta no, così la tua energia si consuma nella galoppata stessa invece di portarti da qualche parte.
 
 ## Regina di Bastoni
 
@@ -515,7 +515,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Vivi gli altri come rivali: in questa faccenda hai bisogno di brillare più di chi ti sta accanto, così ogni luce altrui ti sembra tolta alla tua.
-- 2: Il tuo atteggiamento è punto dalla gelosia: confronti, misuri, controlli chi riceve più attenzione, perdendo il centro da cui veniva il tuo calore.
+- 2: Il tuo atteggiamento è punto dalla gelosia: confronti, misuri, controlli chi riceve più attenzione di te, perdendo il centro da cui veniva il tuo calore.
 - 3: Alzi la fiamma per coprire quella degli altri: invece di scaldare competi. La sicurezza che mostri nasconde la tua paura di passare in secondo piano.
 
 ## Re di Bastoni
@@ -529,7 +529,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Comandi spingendo senza ascoltare: in questa faccenda la tua fiamma travolge invece di accendere, imponi la direzione prima di aver sentito chi ti segue.
-- 2: Il tuo atteggiamento è un'autorità impaziente: alzi il bastone, decidi da te, ti irriti se gli altri non tengono il tuo passo.
+- 2: Il tuo atteggiamento è un'autorità impaziente: alzi il bastone, decidi da te, ti irriti se gli altri non tengono il tuo passo e non chiedi perché.
 - 3: Pretendi obbedienza invece di ispirare: la tua visione resta forte, però la imponi con una foga che spegne l'entusiasmo di chi ti sta intorno.
 
 ## Asso di Coppe
@@ -538,7 +538,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Apri il cuore e lasci scorrere: davanti alla faccenda tieni la coppa che trabocca senza chiuderla, accogli ciò che senti invece di difenderti da esso.
 - 2: Il tuo modo di stare qui è un'apertura piena: ti lasci toccare, dici quello che provi, permetti all'emozione nuova di sgorgare come l'acqua dalle cinque fonti.
-- 3: Ricevi senza sospetto: offri la tua coppa alla grazia che scende come la colomba, lasci che l'affetto ti riempia fino all'orlo e oltre.
+- 3: Ricevi senza sospetto: offri la tua coppa alla grazia che scende come la colomba e lasci che l'affetto ti riempia fino all'orlo, poi anche oltre.
 
 ### capovolta
 
@@ -552,7 +552,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Porgi la tua coppa e accetti quella dell'altra persona: davanti alla faccenda ti offri nel patto alla pari, guardi negli occhi chi ti sta di fronte.
 - 2: Il tuo modo di stare qui è reciproco: dai quanto ricevi, ascolti quanto parli, sigilli il legame con un gesto semplice sotto il caduceo alato.
-- 3: Scegli l'incontro: fai il primo passo verso l'altro cuore, pronunci la tua promessa, accetti di unire la tua forza alla sua.
+- 3: Scegli l'incontro: fai il primo passo verso l'altro cuore, pronunci la tua promessa e accetti di unire la tua forza alla sua, senza perdere la tua.
 
 ### capovolta
 
@@ -572,7 +572,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti disperdi in troppi legami di facciata: in questa faccenda brindi con molti e non ti confidi con nessuno, così la festa ti lascia con la coppa vuota.
 - 2: Il tuo atteggiamento eccede: alzi il calice una volta di troppo, ti perdi nel gruppo, trascuri le due o tre amicizie che ti nutrono davvero.
-- 3: Corri da un cerchio all'altro: cerchi compagnia per non sentire il silenzio, mentre le persone sincere aspettano che tu torni da loro.
+- 3: Corri da un cerchio all'altro: cerchi compagnia per non sentire il silenzio, mentre le persone sincere aspettano che tu torni da loro con un po' di tempo vero.
 
 ## Quattro di Coppe
 
@@ -586,7 +586,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Esci dal torpore: in questa faccenda sciogli le braccia incrociate, alzi gli occhi verso la mano che porge la coppa, ricominci a provare curiosità.
 - 2: Il tuo atteggiamento si ridesta: ciò che prima rifiutavi con noia ora lo guardi, lo prendi in mano, ti chiedi che sapore abbia.
-- 3: Accetti finalmente l'offerta: ti alzi da sotto l'albero, lasci le coppe vecchie dove sono e allunghi la mano verso quella nuova.
+- 3: Accetti finalmente l'offerta: ti alzi da sotto l'albero, lasci le coppe vecchie dove sono e allunghi la mano verso quella nuova, con una curiosità che non provavi da tempo.
 
 ## Cinque di Coppe
 
@@ -656,7 +656,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti accontenti di piaceri che non colmano: in questa faccenda allinei coppe su coppe, ma nessuna arriva al fondo di ciò che desideri davvero.
 - 2: Il tuo atteggiamento cerca la soddisfazione in superficie: ti distrai con ciò che piace subito, sorridi in pubblico, eviti la domanda su che cosa ti riempirebbe.
-- 3: Esibisci un appagamento di facciata: mostri le coppe piene a chi guarda, mentre dentro di te il desiderio vero resta senza risposta.
+- 3: Esibisci un appagamento di facciata: mostri le coppe piene a chi guarda, mentre dentro di te il desiderio vero resta senza risposta e la fame cresce in silenzio.
 
 ## Dieci di Coppe
 
@@ -670,7 +670,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Tiri dalla tua parte sotto lo stesso tetto: in questa faccenda difendi le tue ragioni dentro casa, mentre l'arcobaleno sopra di voi si sbiadisce.
 - 2: Il tuo atteggiamento in famiglia è distante: ti chiudi nella tua stanza, eviti la tavola comune, lasci che la serenità del gruppo la curino altri.
-- 3: Contribuisci alla divisione senza accorgertene: rispondi con freddezza, tieni il broncio, misuri chi ha dato di più fra le persone che ami.
+- 3: Contribuisci alla divisione senza accorgertene: rispondi con freddezza, tieni il broncio, misuri chi ha dato di più fra le persone che ami e lasci che ogni silenzio allarghi la distanza.
 
 ## Fante di Coppe
 
@@ -678,12 +678,12 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ascolti l'emozione fragile che nasce: davanti alla faccenda guardi il pesce che spunta dalla tua coppa e gli sorridi, invece di rimetterlo in acqua per vergogna.
 - 2: Il tuo modo di stare qui è sensibile e fantasioso: dai spazio ai sogni, alle intuizioni, a quella poesia che senti senza saperla ancora dire.
-- 3: Lasci affiorare la tenerezza: scrivi, immagini, ti commuovi, accogli con stupore ciò che il cuore ti porge, anche se è piccolo e strano.
+- 3: Lasci affiorare la tenerezza: scrivi, immagini, ti commuovi e accogli con stupore ciò che il cuore ti porge, anche quando è piccolo, strano o difficile da spiegare.
 
 ### capovolta
 
 - 1: Ti chiudi per proteggere una sensibilità ferita: in questa faccenda copri la coppa con la mano, non lasci uscire niente, per paura che qualcuno rida di ciò che senti.
-- 2: Il tuo atteggiamento è suscettibile: ogni parola ti tocca troppo, reagisci col broncio o col silenzio, muri il cuore invece di curarlo.
+- 2: Il tuo atteggiamento è suscettibile: ogni parola ti tocca troppo, reagisci col broncio o col silenzio e muri il cuore invece di curarlo con pazienza.
 - 3: Nascondi le tue fantasie: le giudichi infantili prima che altri possano farlo, così la parte tenera di te resta muta in fondo alla coppa.
 
 ## Cavaliere di Coppe
@@ -697,8 +697,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Prometti con dolcezza e poi non mantieni: in questa faccenda il tuo cavallo resta fermo sulla riva, la coppa offerta a parole e mai consegnata.
-- 2: Il tuo atteggiamento in amore è vago: dici frasi belle, fai intendere, sparisci quando bisognerebbe esserci con i fatti.
-- 3: Insegui l'idea del sentimento più del sentimento stesso: ti innamori dell'invito che stai per fare, cambi direzione appena qualcosa chiede costanza.
+- 2: Il tuo atteggiamento è vago: dici frasi belle, fai intendere molto, poi sparisci proprio quando bisognerebbe esserci con i fatti e con la presenza.
+- 3: Insegui l'idea del sentimento più del sentimento stesso: ti innamori dell'invito che stai per fare e cambi direzione appena qualcosa ti chiede costanza.
 
 ## Regina di Coppe
 
@@ -706,7 +706,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Accogli con empatia: davanti alla faccenda guardi la tua coppa chiusa con attenzione profonda, leggi gli altri sotto le parole e usi questo dono anche per te.
 - 2: Il tuo modo di stare qui è intuitivo e tenero: senti prima di capire, ti siedi in riva al mare dei sentimenti, comprendi senza giudicare.
-- 3: Tieni lo spazio per chi soffre: ascolti, consoli, intuisci, facendo della tua sensibilità una forza che non ha bisogno di alzare il tono.
+- 3: Tieni lo spazio per chi soffre: ascolti, consoli, intuisci, facendo della tua sensibilità una forza quieta che non ha bisogno di alzare il tono.
 
 ### capovolta
 
@@ -720,7 +720,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Governi i sentimenti con calma: davanti alla faccenda siedi sul trono in mezzo al mare mosso, la coppa in una mano, lo scettro nell'altra. Le onde non ti travolgono.
 - 2: Il tuo modo di stare qui è quello di un porto sicuro: accogli le emozioni tue e altrui senza farti trascinare, rispondi con serenità matura.
-- 3: Tieni la rotta del cuore: ascolti ciò che provi, lo riconosci, poi scegli come agire, unendo il calore alla padronanza.
+- 3: Tieni la rotta del cuore: ascolti ciò che provi, lo riconosci senza paura, poi scegli con calma come agire, unendo il calore alla padronanza di chi ha già navigato.
 
 ### capovolta
 
@@ -753,8 +753,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Tieni in aria troppe cose insieme: in questa faccenda il nastro si è attorcigliato, una moneta ti sta già scivolando e tu ne aggiungi un'altra.
-- 2: Il tuo atteggiamento rifiuta di scegliere: vuoi tenere tutto, non lasci niente, così il ritmo si rompe e il gioco ti sfugge di mano.
-- 3: Perdi il passo del giocoliere: rincorri gli impegni invece di guidarli, inciampi fra le onde, non decidi quali monete posare per salvare le altre.
+- 2: Il tuo atteggiamento rifiuta di scegliere: vuoi tenere tutto e non lasci niente, così il ritmo si rompe e il gioco ti sfugge di mano un pezzo alla volta.
+- 3: Perdi il passo del giocoliere: rincorri gli impegni invece di guidarli, inciampi fra le onde e non decidi quali monete posare per salvare le altre.
 
 ## Tre di Denari
 
@@ -766,7 +766,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Lavori senza chiarire i ruoli: in questa faccenda scolpisci la tua parte senza guardare i disegni comuni, così l'opera non ingrana.
+- 1: Lavori senza chiarire i ruoli: in questa faccenda scolpisci la tua parte senza guardare i disegni comuni e senza chiedere agli altri dove arrivano, così l'opera non ingrana.
 - 2: Il tuo atteggiamento nel gruppo è stonato: fai di testa tua, non chiedi, non spieghi, ti lamenti poi che gli altri non capiscono il lavoro.
 - 3: Eviti di parlare dei compiti: lasci che ognuno scalpelli dove vuole, tu per conto tuo, mentre la volontà c'è e manca solo la parola giusta fra voi.
 
@@ -790,11 +790,11 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Passi sotto la finestra illuminata senza bussare: davanti alla faccenda cammini nella neve, senti il freddo, ma non chiedi aiuto per vergogna.
 - 2: Il tuo atteggiamento è quello di chi si crede fuori: ti stringi lo scialle addosso, guardi la porta della chiesa come se non fosse per te.
-- 3: Tieni nascosta la mancanza: stringi i denti, avanzi a fatica, preferisci attraversare l'inverno senza compagnia piuttosto che ammettere di avere bisogno.
+- 3: Tieni nascosta la mancanza: stringi i denti, avanzi a fatica e preferisci attraversare l'inverno senza compagnia piuttosto che ammettere davanti a qualcuno di avere bisogno.
 
 ### capovolta
 
-- 1: Ti riavvicini al caldo: in questa faccenda smetti di girare intorno alla finestra illuminata, bussi, accetti di entrare.
+- 1: Ti riavvicini al caldo: in questa faccenda smetti di girare intorno alla finestra illuminata, bussi, accetti di entrare e lasci che qualcuno ti faccia posto dentro.
 - 2: Il tuo atteggiamento torna alla fiducia: riconosci il periodo duro, chiedi una mano, la prendi, ti concedi di uscire dal freddo un passo alla volta.
 - 3: Accetti il sostegno che ti viene offerto: posi la stampella dell'orgoglio, ti siedi accanto al fuoco, lasci che qualcuno si prenda cura di te.
 
@@ -802,9 +802,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Tieni la bilancia nello scambio: davanti alla faccenda dai con una mano e pesi con l'altra, distribuisci quanto serve, ricevi senza imbarazzo.
+- 1: Tieni la bilancia nello scambio: davanti alla faccenda dai con una mano e pesi con l'altra, distribuisci quanto serve e ricevi senza imbarazzo quando tocca a te.
 - 2: Il tuo modo di stare qui è generoso e giusto: aiuti chi chiede, ma guardi che il dono circoli, che nessuno resti in debito per sempre.
-- 3: Distribuisci con equità: le tue monete passano da una mano all'altra senza ostentazione, sapendo che domani potresti essere tu a chiedere.
+- 3: Distribuisci con equità: le tue monete passano da una mano all'altra senza ostentazione, perché sai che domani potresti essere tu a chiedere e a ricevere.
 
 ### capovolta
 
@@ -822,7 +822,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Vuoi raccogliere prima del tempo: in questa faccenda strattoni la pianta, conti le foglie, ti scoraggi perché i frutti non sono ancora d'oro.
+- 1: Vuoi raccogliere prima del tempo: in questa faccenda strattoni la pianta, conti le foglie una per una e ti scoraggi perché i frutti non sono ancora d'oro.
 - 2: Il tuo atteggiamento è impaziente col raccolto: ti sembra di aver dato tanto e ricevuto poco, così rischi di abbandonare la zappa proprio ora.
 - 3: Rivedi con amarezza dove hai messo la tua energia: invece di chiederti con calma se il seme era quello giusto, ti lamenti del tempo che non passa.
 
@@ -850,8 +850,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Consumi la tua indipendenza: in questa faccenda spendi oltre misura per mostrare il giardino, finché le viti si diradano sotto il peso dell'apparenza.
-- 2: Il tuo atteggiamento cerca approvazione dove prima bastavi a te: esibisci ciò che possiedi, ti misuri sugli altri, la libertà conquistata vacilla.
+- 1: Consumi la tua indipendenza: in questa faccenda spendi oltre misura per mostrare il giardino, finché le viti si diradano sotto il peso dell'apparenza e l'agio diventa fatica.
+- 2: Il tuo atteggiamento cerca approvazione dove prima ti bastava il tuo giudizio: esibisci ciò che possiedi, ti misuri sugli altri e la libertà che avevi conquistata comincia a vacillare.
 - 3: Trascuri la vigna che ti dava autonomia: il falco resta incappucciato, il lavoro paziente lascia il posto a gesti che si vedono, la tua serenità si incrina.
 
 ## Dieci di Denari
@@ -879,15 +879,15 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti distrai: in questa faccenda la moneta che tenevi davanti agli occhi è scivolata in tasca, il progetto si è fermato a metà mentre guardi altrove.
-- 2: Il tuo atteggiamento rimanda l'impegno preso: prometti di studiare, di cominciare, di metterci costanza, poi lasci i libri chiusi sul tavolo.
-- 3: Lasci l'apprendistato a metà: ti piaceva l'idea, meno la fatica di praticarla, così l'impegno aspetta ancora che tu lo riprenda.
+- 2: Il tuo atteggiamento rimanda l'impegno preso: prometti di studiare, di cominciare, di metterci costanza, poi lasci i libri chiusi sul tavolo e rinvii tutto alla settimana dopo.
+- 3: Lasci l'apprendistato a metà: ti piaceva l'idea, meno la fatica di praticarla, così l'impegno aspetta ancora che tu lo riprenda in mano, magari da dove lo avevi interrotto.
 
 ## Cavaliere di Denari
 
 ### dritta
 
 - 1: Avanzi piano e senza fermarti: davanti alla faccenda tieni il cavallo da tiro al passo, guardi la moneta in mano e il campo arato, non salti nessuna tappa.
-- 2: Il tuo modo di stare qui è affidabile: lavori con metodo, mantieni gli impegni, preferisci la costanza alla brillantezza di un giorno.
+- 2: Il tuo modo di stare qui è affidabile: lavori con metodo, mantieni gli impegni presi con gli altri, preferisci la costanza di tutti i giorni alla brillantezza di uno solo.
 - 3: Scegli la lentezza come forza: un solco dopo l'altro, la stessa cura ogni giorno, finché la strada lunga si accorcia sotto i tuoi passi.
 
 ### capovolta
@@ -901,13 +901,13 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Ti prendi cura con praticità: davanti alla faccenda tieni la moneta in grembo come qualcosa di prezioso, pensi ai bisogni concreti di chi ami e li soddisfi.
-- 2: Il tuo modo di stare qui unisce cuore e concretezza: accogli, nutri, organizzi la casa, tieni i piedi a terra senza perdere la tenerezza.
-- 3: Rendi fertile ciò che tocchi con gesti semplici: prepari, sistemi, fai trovare le cose al loro posto, con la calma di chi coltiva un roseto.
+- 2: Il tuo modo di stare qui unisce cuore e concretezza: accogli, nutri, organizzi la casa e i conti, tieni i piedi a terra senza perdere la tenerezza verso chi ami.
+- 3: Rendi fertile ciò che tocchi con gesti semplici: prepari, sistemi, fai trovare ogni cosa al suo posto, con la calma di chi coltiva un roseto e sa aspettare la fioritura.
 
 ### capovolta
 
 - 1: Curi tutti tranne te: in questa faccenda ti occupi della casa, dei conti, dei bisogni altrui; nell'elenco delle cose da fare il tuo nome non compare.
-- 2: Il tuo atteggiamento è una dedizione che dimentica chi la offre: annaffi il giardino di tutti, mentre il tuo resta secco sotto il sole.
+- 2: Il tuo atteggiamento è una dedizione che dimentica chi la offre: annaffi il giardino di tutti, mentre il tuo resta secco sotto il sole e nessuno, nemmeno tu, se ne accorge.
 - 3: Ti disperdi fra mille incombenze pratiche: corri dietro alle necessità della famiglia, rimandi ogni piacere tuo, lasci che la stanchezza diventi il tuo modo di amare.
 
 ## Re di Denari
@@ -934,9 +934,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Impugni male la lama: in questa faccenda parli tagliente quando servirebbe chiarezza, ferisci con parole che volevano solo spiegare.
+- 1: Impugni male la lama: in questa faccenda parli in modo tagliente quando servirebbe chiarezza e ferisci con parole che volevano soltanto spiegare il tuo punto di vista.
 - 2: Il tuo atteggiamento decide con la mente annebbiata: credi di vedere netto, invece tagli alla cieca, confondi l'idea che hai con il fatto che è.
-- 3: Brandisci la ragione come un'arma: vuoi avere ragione più che capire, così la stessa spada che potrebbe liberarti ti si rivolta contro.
+- 3: Brandisci la ragione come un'arma: vuoi avere ragione più che capire, così la stessa spada che potrebbe liberarti si rivolta contro di te e contro chi ti ascolta.
 
 ## Due di Spade
 
@@ -958,7 +958,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Lasci scorrere il dolore: davanti alla faccenda non neghi le tre lame che attraversano il cuore, piangi sotto la pioggia invece di fingere che non piova.
 - 2: Il tuo modo di stare qui è sincero con la ferita: la guardi, la nomini, accetti di sentire la delusione fino in fondo perché sai che il dolore negato resta.
-- 3: Accogli il colpo senza indurirti: lasci uscire le lacrime, chiedi ascolto, permetti al cuore trafitto di sanguinare quanto serve prima di chiudersi.
+- 3: Accogli il colpo senza indurirti: lasci uscire le lacrime, chiedi ascolto a una persona cara, permetti al cuore trafitto di sanguinare quanto serve prima di chiudersi.
 
 ### capovolta
 
@@ -991,8 +991,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Deponi le armi: in questa faccenda lasci a terra le spade che avevi raccolto, rinunci ad avere ragione, fai il primo passo verso chi avevi ferito.
-- 2: Il tuo atteggiamento cerca la riconciliazione: chiedi scusa, o almeno smetti di attaccare, scegli la pace anche quando potresti ancora vincere.
-- 3: Rinunci al trofeo: capisci che quella vittoria ti isolava, così torni sulla spiaggia a cercare gli altri invece di contare le lame conquistate.
+- 2: Il tuo atteggiamento cerca la riconciliazione: chiedi scusa o almeno smetti di attaccare, scegli la pace anche quando potresti ancora vincere la discussione e avere l'ultima parola.
+- 3: Rinunci al trofeo: capisci che quella vittoria ti isolava, così torni sulla spiaggia a cercare gli altri invece di restare a contare le lame conquistate.
 
 ## Sei di Spade
 
@@ -1042,7 +1042,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Rimugini di notte: davanti alla faccenda ti siedi sul letto con il volto fra le mani, lasci che le nove lame dei pensieri cupi si allineino sopra di te.
 - 2: Il tuo atteggiamento crede a tutto ciò che la mente racconta al buio: ingigantisci le paure, immagini il peggio, ti togli il sonno per cose che di giorno sembrerebbero piccole.
-- 3: Tieni l'angoscia tutta per te: non ne parli, la rigiri, la nutri nelle ore insonni, come se ripensarci ancora potesse risolverla.
+- 3: Tieni l'angoscia tutta per te: non ne parli con nessuno, la rigiri, la nutri nelle ore insonni, come se ripensarci ancora una volta potesse risolverla.
 
 ### capovolta
 
@@ -1056,26 +1056,26 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti arrendi: davanti alla faccenda smetti di combattere una battaglia ormai chiusa, giaci a terra sotto le dieci lame e riconosci che più in basso non si va.
 - 2: Il tuo modo di stare qui è una resa lucida: non ti ostini, non cerchi più appigli, accetti la fine di un ciclo doloroso mentre all'orizzonte schiarisce.
-- 3: Lasci cadere ogni difesa: guardi il fondo che hai toccato senza raccontarti storie, sapendo che proprio questa resa ti libera da una lotta inutile.
+- 3: Lasci cadere ogni difesa: guardi il fondo che hai toccato senza raccontarti storie, sapendo che proprio questa resa ti libera da una lotta inutile che durava da troppo.
 
 ### capovolta
 
 - 1: Ti rialzi da terra: in questa faccenda togli le lame una alla volta, ti metti in ginocchio, poi in piedi, con gesti lenti ma tuoi.
 - 2: Il tuo atteggiamento è quello di chi riparte da zero: di prima non salvi niente, accetti di ricominciare, metti un piede davanti all'altro senza fretta.
-- 3: Rimetti in piedi qualcosa ogni giorno: non pretendi di tornare come prima, costruisci da capo con pazienza, guardando l'alba invece del fondo.
+- 3: Rimetti in piedi qualcosa ogni giorno: non pretendi di tornare come prima, costruisci da capo con pazienza e tieni lo sguardo sull'alba invece che sul fondo.
 
 ## Fante di Spade
 
 ### dritta
 
-- 1: Osservi vigile: davanti alla faccenda stai sulla collina ventosa con la spada alzata, scruti ogni movimento, raccogli informazioni prima di muoverti.
+- 1: Osservi vigile: davanti alla faccenda stai sulla collina ventosa con la spada alzata, scruti ogni movimento e raccogli informazioni prima di muoverti o di parlare.
 - 2: Il tuo modo di stare qui è curioso e acuto: fai domande, verifichi, cerchi la verità con occhi attenti, la lingua pronta a dire subito ciò che trovi.
 - 3: Tieni la mente all'erta: segui gli indizi, ascolti più di quanto parli, ma la voglia di dire ciò che scopri ti preme sulle labbra.
 
 ### capovolta
 
-- 1: Parli a vanvera: in questa faccenda riporti dicerie, pungi con la lingua, lanci frasi taglienti senza aver verificato niente.
-- 2: Il tuo atteggiamento è pettegolo e sparso: salti da un pensiero all'altro, commenti, critichi, ferisci senza costruire nulla.
+- 1: Parli a vanvera: in questa faccenda riporti dicerie, pungi con la lingua, lanci frasi taglienti senza aver verificato niente di quello che dici.
+- 2: Il tuo atteggiamento è pettegolo e sparso: salti da un pensiero all'altro, commenti, critichi, ferisci chi non c'è e non costruisci nulla.
 - 3: Usi la lingua come una punta: dici prima di pensare, ripeti ciò che hai sentito, così le tue parole tornano indietro a colpirti.
 
 ## Cavaliere di Spade
@@ -1089,7 +1089,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Lanci parole affilate senza pensare: in questa faccenda sproni il cavallo contro tutto, colpisci prima di capire, ti ritrovi a dover tornare indietro.
-- 2: Il tuo atteggiamento è fretta cieca: decidi a metà del ragionamento, interrompi, imponi, scambi la velocità per lucidità.
+- 2: Il tuo atteggiamento è fretta cieca: decidi a metà del ragionamento, interrompi chi parla, imponi la tua idea e scambi la velocità per lucidità.
 - 3: Corri alla carica senza bersaglio: la tua mente è veloce, ma la usi come un ariete, così ogni discussione diventa uno scontro e ogni scelta un passo da rifare.
 
 ## Regina di Spade
@@ -1102,9 +1102,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Ti chiudi nella corazza fredda: in questa faccenda tieni tutti a distanza con un giudizio tagliente, scegli la solitudine come difesa.
+- 1: Ti chiudi nella corazza fredda: in questa faccenda tieni tutti a distanza con un giudizio tagliente e scegli la solitudine come difesa, anche contro chi ti cerca.
 - 2: Il tuo atteggiamento è duro, prima di tutto con te: ti rimproveri ogni errore, rivolgi la lama verso chi la porta, non concedi indulgenza a nessuno.
-- 3: Rispondi con freddezza dove servirebbe calore: la tua lucidità si è irrigidita in sarcasmo, così tagli i legami invece di chiarirli.
+- 3: Rispondi con freddezza dove servirebbe calore: la tua lucidità si è irrigidita in sarcasmo, così tagli i legami invece di chiarirli e resti dietro la tua lama.
 
 ## Re di Spade
 
@@ -1117,5 +1117,5 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Applichi la logica senza compassione: in questa faccenda vinci la discussione e perdi le persone, tratti ogni cuore come un argomento da confutare.
-- 2: Il tuo atteggiamento è un'autorità rigida: imponi le tue conclusioni, non ammetti eccezioni, dimentichi che dietro ogni regola c'è qualcuno.
+- 2: Il tuo atteggiamento è un'autorità rigida: imponi le tue conclusioni, non ammetti eccezioni e dimentichi che dietro ogni regola c'è qualcuno che la subisce.
 - 3: Usi la ragione come un martello: hai sempre una risposta pronta e fredda, così chi ti sta intorno smette di parlarti di ciò che sente.

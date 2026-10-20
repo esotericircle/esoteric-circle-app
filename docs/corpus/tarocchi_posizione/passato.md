@@ -38,7 +38,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai scelto di lasciare alle spalle ciò che ti appesantiva, iniziando un nuovo capitolo con fiducia nel primo passo, senza sapere dove ti avrebbe portato.
+- 1: Hai scelto di lasciare alle spalle ciò che ti appesantiva e hai cominciato un capitolo nuovo fidandoti del primo passo, senza sapere allora dove ti avrebbe portato.
 - 2: Tutto è cominciato da un passo oltre il bordo: avevi poco nella bisaccia e nessuna mappa, eppure hai scelto di fidarti della strada più che della paura.
 - 3: Quella leggerezza che allora ti ha messo in cammino non era ingenuità ma coraggio: hai lasciato a terra i pesi inutili, poi hai camminato verso un orizzonte che ancora non vedevi.
 
@@ -80,7 +80,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai saputo coltivare con cura e pazienza un'idea o un legame, lasciando che prendesse forma senza forzature. Raccogli i frutti di tale dedizione.
+- 1: Hai coltivato con cura e pazienza un'idea o un legame, lasciando che prendesse forma senza forzature: da quella dedizione è nato ciò che oggi porta frutto.
 - 2: Come terra fertile, in quella stagione, hai nutrito qualcosa di vivo senza tirarlo per farlo crescere: un progetto o un legame è sbocciato dalle tue mani coi suoi tempi.
 - 3: Grano maturo, cura paziente, un'abbondanza nata dalla dolcezza: ciò che allora hai fatto nascere è la radice da cui viene la domanda che porti oggi.
 
@@ -128,7 +128,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai trascinato a lungo un dubbio che non ti ha permesso di prendere una direzione chiara. Dentro di te, un disaccordo profondo ti ha bloccato e hai evitato di affrontare la verità.
+- 1: Hai trascinato a lungo un dubbio che non ti ha permesso di prendere una direzione chiara. Dentro di te un disaccordo profondo ha bloccato ogni passo e hai evitato di affrontare la verità.
 - 2: Dentro di te, per un lungo tratto, due valori hanno litigato senza che uno dei due avesse la parola: la scelta è rimasta sospesa, poi le conseguenze di quel silenzio sono arrivate fin qui.
 - 3: Prima di metterti d'accordo con te, hai provato a decidere con l'altro: ciò in cui credevi e ciò che desideravi tiravano in versi diversi, così quel bivio è rimasto aperto.
 
@@ -136,13 +136,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai usato la tua determinazione per superare gli ostacoli, dimostrando padronanza delle situazioni. Questa spinta interiore ti ha guidato verso i tuoi obiettivi.
+- 1: Hai usato la tua determinazione per superare gli ostacoli, con una padronanza che non veniva dalla fortuna: quella spinta interiore ha guidato i tuoi passi fino ai traguardi che avevi scelto.
 - 2: Redini in pugno, allora, hai guidato due forze che tiravano in direzioni opposte verso un'unica meta: quella vittoria non era fortuna ma padronanza, il punto da cui vieni.
 - 3: Con lo sguardo fermo sulla meta, in quel periodo, hai tenuto insieme slancio e controllo: la corsa che hai condotto ha aperto la strada su cui ora ti trovi.
 
 ### capovolta
 
-- 1: Hai affrontato un periodo di forte dispersione, con molteplici direzioni che ti hanno disorientato. Questa mancanza di una guida chiara ti ha portato a muoverti in modo incerto.
+- 1: Hai affrontato un periodo di forte dispersione, con molteplici direzioni che confondevano la rotta. La mancanza di una guida chiara ha reso i tuoi movimenti incerti.
 - 2: Sbandando fra spinte contrarie, in quella fase, hai corso senza sapere bene dove: le redini allentate di allora spiegano perché oggi la rotta ti sembra confusa.
 - 3: Quando le forze che dovevi guidare hanno preso a tirare ognuna per sé, hai perso il centro: quel tempo di corsa disordinata ha lasciato tracce in ciò che porti adesso.
 
@@ -150,13 +150,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai agito con onestà e hai affrontato le conseguenze delle tue scelte, accettando ciò che hai seminato senza cercare scorciatoie.
+- 1: Hai agito con onestà e hai affrontato le conseguenze delle tue scelte: hai accettato ciò che avevi seminato senza cercare scorciatoie e senza caricarti di colpe inutili.
 - 2: Sul piatto della bilancia, allora, hai messo le tue scelte senza sconti: hai raccolto con lucidità ciò che avevi seminato, accettando causa ed effetto senza colpe inutili.
 - 3: Una decisione onesta, presa con la spada in mano e gli occhi aperti, ha chiuso un conto: la verità che allora hai scelto di guardare regge l'equilibrio da cui oggi parti.
 
 ### capovolta
 
-- 1: Una responsabilità rimandata ti ha portato a un conto in sospeso. Hai evitato una verità scomoda, che ora ti si presenta come un peso da affrontare.
+- 1: Una responsabilità rimandata ha lasciato aperto un conto a tuo nome. Hai evitato una verità scomoda, che ora ti si presenta come un peso da affrontare.
 - 2: Un conto rimasto a tuo nome, in quel periodo, l'hai attribuito al caso o agli altri: quella conseguenza non riconosciuta ha tenuto sospesa la bilancia fino a oggi.
 - 3: Quando è arrivato il momento di rispondere delle tue scelte, hai guardato altrove: da quell'equilibrio mancato, mai riportato in pari, nasce la questione che porti adesso.
 
@@ -164,15 +164,15 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai rallentato i ritmi per cercare risposte dentro di te. Hai preferito la riflessione solitaria all'azione precipitosa, ponendo le basi per una maggiore consapevolezza.
+- 1: Hai rallentato i ritmi per cercare risposte dentro di te: alla corsa hai preferito la riflessione solitaria e in quel silenzio hai posto le basi di una consapevolezza nuova.
 - 2: Con la lanterna alzata, in quel tempo di ritiro, hai cercato dentro invece che fuori: un passo alla volta, nel silenzio, hai trovato risposte che ancora ti accompagnano.
 - 3: Lontano dal rumore, allora, hai scelto la montagna e il raccoglimento: quella ricerca lenta ti ha dato una luce piccola ma vera, che illumina ancora il tuo cammino.
 
 ### capovolta
 
-- 1: Una solitudine che doveva illuminare si è trasformata in un peso, allontanandoti invece di portarti chiarezza. Hai preferito nasconderti anziché raccoglierti.
+- 1: Una solitudine che doveva illuminarti si è trasformata in un peso: invece di chiarezza ha portato distanza dagli altri, perché hai preferito nasconderti anziché raccoglierti.
 - 2: Quel raccoglimento che doveva chiarirti, in quella fase, è diventato un rifugio da cui non uscivi più: la lanterna illuminava solo la tua grotta, non la strada verso gli altri.
-- 3: Nascondersi e raccogliersi, allora, ti sembravano la stessa cosa: la solitudine che avevi scelto per capire ti ha allontanato da chi ti voleva vicino, pesando più del previsto.
+- 3: Nascondersi e raccogliersi, allora, ti sembravano la stessa cosa: la solitudine scelta per capire ha scavato un fossato fra te e chi ti voleva accanto, pesando più del previsto.
 
 ## La Ruota della Fortuna
 
@@ -184,7 +184,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Un periodo di stallo ti ha impedito di avanzare, costringendoti a fermarti e a riflettere sulla direzione del tuo percorso. Hai percepito un blocco che ti ha rallentato.
+- 1: Un periodo di stallo ti ha impedito di avanzare, costringendoti a fermarti e a riflettere sulla direzione del tuo percorso. Hai percepito un blocco che rallentava ogni passo.
 - 2: Per un tratto, allora, il ciclo si è inceppato: ogni tuo sforzo girava a vuoto, ti mancava presa sugli eventi, poi quella sosta forzata ha lasciato il suo segno.
 - 3: Quando tutto ti girava storto, in quella fase, hai provato a forzare un movimento che non voleva ripartire: ciò che oggi chiedi nasce da quello stallo.
 
@@ -193,7 +193,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Hai saputo gestire le tue pulsioni interiori con grande equilibrio, affrontando le sfide con determinazione e una calma che ti ha permesso di superare ogni ostacolo.
-- 2: Con la mano gentile sulla bocca del leone, allora, hai domato un istinto che ti agitava: non con la lotta ma con la calma, una fermezza tenera che ti ha portato fin qui.
+- 2: Con la mano gentile sulla bocca del leone, allora, hai domato un istinto che ti agitava: non con la lotta ma con la calma, una fermezza tenera che ha aperto la strada fino a oggi.
 - 3: Quella belva interiore, rabbia o paura, in quel periodo l'hai addomesticata con mitezza: il coraggio dolce che hai mostrato è la base su cui oggi conti.
 
 ### capovolta
@@ -213,7 +213,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Hai vissuto un periodo di attesa che si è trasformata in un blocco, una situazione statica che ti ha impedito di progredire e ti ha fatto percepire ogni rinuncia come un peso inutile.
-- 2: Su quel ramo, allora, hai aspettato più del necessario: l'attesa aveva smesso di insegnarti qualcosa, ma non hai trovato il modo di scendere.
+- 2: Su quel ramo, allora, hai aspettato più del necessario: l'attesa aveva smesso di insegnarti qualcosa, ma non hai trovato il modo di scendere e tornare ad agire.
 - 3: Un sacrificio che non serviva a nessuno, in quella fase, ti è sembrato nobile: forse era paura travestita da rinuncia, così il tempo sospeso è diventato stallo.
 
 ## La Morte
@@ -226,7 +226,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai trattenuto una situazione che era già finita, opponendo resistenza a un cambiamento necessario che premeva per manifestarsi nella tua vita.
+- 1: Hai trattenuto una situazione che era già finita, opponendo resistenza a un cambiamento necessario che premeva da tempo, con insistenza, per entrare nella tua vita e trasformarla.
 - 2: Con la mano stretta su ciò che stava già finendo, in quel periodo, hai resistito a un passaggio inevitabile: trattenere ti è costato più del lasciare.
 - 3: Quel cambiamento era già arrivato, allora, ma tu hai continuato a vivere come se nulla fosse finito: da quella chiusura rimandata viene il peso che porti.
 
@@ -240,17 +240,17 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Una mancanza di misura ha segnato le tue azioni, portando ad eccessi o a una fretta che ti ha allontanato da un equilibrio interiore. Hai perso il ritmo che ti guidava.
-- 2: Troppo, troppo in fretta: in quel periodo hai perso il ritmo giusto, tra eccessi e corse, mentre due parti di te smettevano di parlarsi.
+- 1: Una mancanza di misura ha segnato le tue azioni, portando ad eccessi o a una fretta che ha messo distanza fra te e il tuo equilibrio interiore. Hai perso il ritmo che ti guidava.
+- 2: Troppo, troppo in fretta: in quel periodo hai perso il ritmo giusto, tra eccessi e corse, mentre due parti di te smettevano a poco a poco di parlarsi tra loro.
 - 3: Quando la coppa traboccava da una parte sola, allora, non hai rallentato per ridosare: lo squilibrio di quella stagione ha lasciato tracce in ciò che porti oggi.
 
 ## Il Diavolo
 
 ### dritta
 
-- 1: Hai affrontato un legame che ti ha condizionato, una tentazione forte che ora ti lasci alle spalle. Hai riconosciuto la sua influenza e ti liberi da ciò che ti vincolava.
-- 2: Catene lente al collo, in quel periodo, ti hanno tenuto più di quanto ammettevi: una tentazione o un attaccamento ha guidato le tue mosse nell'ombra.
-- 3: Quel legame che allora non riuscivi a nominare comandava nel buio: un desiderio, una dipendenza, una persona, qualcosa che ti ha condizionato fino a portarti qui.
+- 1: Hai affrontato un legame che condizionava le tue scelte, una tentazione forte che ora ti lasci alle spalle: ne hai riconosciuto l'influenza e ti liberi da ciò che ti vincolava.
+- 2: Catene lente al collo, in quel periodo, avevano su di te più presa di quanto ammettevi: una tentazione o un attaccamento ha guidato le tue mosse nell'ombra, senza nome.
+- 3: Quel legame che allora non riuscivi a nominare comandava nel buio: un desiderio, una dipendenza, una persona, qualcosa che ha orientato i tuoi passi fino a portarti qui.
 
 ### capovolta
 
@@ -269,7 +269,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Hai evitato un cambiamento profondo, mantenendo in piedi ciò che era destinato a finire. Questa tua resistenza ha rallentato un processo necessario, prolungando un periodo di instabilità.
-- 2: Puntellando una costruzione che scricchiolava, in quel periodo, hai rimandato una scossa necessaria: il falso è rimasto in piedi in apparenza, prolungando l'instabilità.
+- 2: Puntellando una costruzione che scricchiolava, in quel periodo, hai rimandato una scossa necessaria: il falso è rimasto in piedi in apparenza, prolungando l'instabilità e la fatica di tenerlo su.
 - 3: Quel crollo che temevi, allora, l'hai tenuto lontano con tutte le forze, oppure l'hai attraversato a fatica: le crepe di quel tempo spiegano ciò che oggi vacilla.
 
 ## La Stella
@@ -278,13 +278,13 @@ scrive l'Architetto.
 
 - 1: Hai affrontato un periodo difficile e ritrovato la fiducia in un esito positivo. Hai lasciato andare un senso di smarrimento o una situazione che ti opprimeva.
 - 2: Dopo la tempesta, allora, è comparsa una luce dolce: hai ritrovato fiducia, come acqua versata su una terra assetata, poi l'ispirazione è tornata a guidarti.
-- 3: Quella quiete luminosa che hai sentito dopo un periodo buio ti ha rimesso in cammino: la speranza ritrovata in quella notte è il filo che ti ha condotto fino a questa domanda.
+- 3: Quella quiete luminosa che hai sentito dopo un periodo buio ha rimesso in cammino i tuoi passi: la speranza ritrovata in quella notte è il filo che ti porta fino a questa domanda.
 
 ### capovolta
 
-- 1: Hai vissuto un periodo in cui la fiducia nelle tue capacità o nel buon esito delle situazioni era affievolita. Hai percepito scoraggiamento, con la sensazione che i tuoi sforzi non portassero a nulla di concreto.
+- 1: Hai vissuto un periodo in cui la fiducia nelle tue capacità era affievolita: lo scoraggiamento ti diceva che i tuoi sforzi non portavano a nulla di concreto.
 - 2: Sotto un cielo coperto, in quella stagione, faticavi a credere che le cose potessero migliorare: la luce non era spenta, ma tu non la vedevi più.
-- 3: Stanchezza nella fiducia, ispirazione lontana: allora hai smesso di sperare per un po', mentre una nube passeggera velava ciò che ti orientava.
+- 3: Stanchezza nella fiducia, ispirazione lontana: allora hai smesso di sperare per un po', mentre una nube passeggera velava la luce che di solito ti orientava.
 
 ## La Luna
 
@@ -311,7 +311,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Un velo ha coperto la tua gioia, hai faticato a sentire la luce anche quando era presente. Hai permesso che pensieri superati offuscassero il tuo entusiasmo, trattenendo la tua naturale espressione.
-- 2: Dietro una nube, allora, la tua gioia è rimasta trattenuta: la luce c'era, ma un pensiero vecchio ti impediva di sentirla sulla pelle.
+- 2: Dietro una nube, allora, la tua gioia è rimasta trattenuta: la luce c'era tutta intorno a te, ma un pensiero vecchio ti impediva di sentirla sulla pelle.
 - 3: Entusiasmo a metà, in quella stagione: hai lasciato che una preoccupazione superata coprisse il calore che pure avevi intorno, così la festa ti è passata accanto.
 
 ## Il Giudizio
@@ -332,7 +332,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai completato un ciclo importante, raggiungendo una meta che ti dà grande pienezza. Tutto ciò che hai attraversato ora ti appartiene, senza più tensioni.
+- 1: Hai completato un ciclo importante, raggiungendo una meta che ti ha dato grande pienezza. Tutto ciò che avevi attraversato è diventato tuo, senza più tensioni né pezzi sparsi.
 - 2: Un cerchio si è chiuso, allora, in armonia: hai raggiunto il traguardo che cercavi, poi tutto ciò che avevi attraversato è diventato parte di te.
 - 3: Quella pienezza che hai toccato alla fine di un lungo viaggio è il punto di partenza della domanda: hai danzato dentro la ghirlanda del compimento prima di aprire un nuovo ciclo.
 
@@ -340,20 +340,20 @@ scrive l'Architetto.
 
 - 1: Hai portato avanti un progetto fino a un punto quasi conclusivo, ma hai interrotto l'azione lasciando un elemento senza integrazione. Questa sospensione ha creato un senso di incompletezza che ancora ti accompagna.
 - 2: A un passo dal traguardo, in quel periodo, hai lasciato cadere l'ultimo pezzo: un dettaglio non sciolto ha tenuto aperto un cerchio quasi chiuso.
-- 3: Quasi tutto era compiuto, allora, eppure hai interrotto l'ultimo tratto: quell'opera incompiuta così vicina alla fine pesa ancora su ciò che chiedi.
+- 3: Quasi tutto era compiuto, allora, eppure hai interrotto l'ultimo tratto: quell'opera rimasta incompiuta così vicino alla fine pesa ancora oggi su ciò che chiedi alle carte.
 
 ## Asso di Bastoni
 
 ### dritta
 
-- 1: Una spinta interiore ti ha mosso, un desiderio forte ti ha portato a un nuovo inizio e a lasciare alle spalle ciò che non ti serviva più. Hai acceso la fiamma di un progetto o di una relazione con grande ardore, senza esitazioni.
+- 1: Hai seguito una spinta interiore: un desiderio forte ha aperto un nuovo inizio e lasciato alle spalle ciò che non serviva più. Hai acceso con ardore la fiamma di un progetto o di un legame.
 - 2: Da una scintilla è partito tutto: un'ispirazione ardente ti ha attraversato, tu hai afferrato il bastone fiorito finché la fiamma era viva, senza lasciarla raffreddare nei ripensamenti.
 - 3: Quel fuoco acceso di slancio, allora, è l'origine della situazione: hai detto sì a un inizio che ti chiamava, poi tutto il resto è cresciuto da quella prima fiamma.
 
 ### capovolta
 
 - 1: Una tua iniziativa ha subito continui rinvii. Qualcosa ti ha impedito di partire, forse la paura di non farcela, tenendo la scintilla in attesa di accensione.
-- 2: Rimandata una volta, poi un'altra ancora: in quel periodo la tua partenza è rimasta ferma, col fuoco soffocato dalla paura di sbagliare.
+- 2: Rimandata una volta, poi un'altra ancora: in quel periodo la tua partenza è rimasta ferma al punto di prima, col fuoco soffocato dalla paura di sbagliare.
 - 3: Quella fiamma che avevi in mano, allora, non hai osato accenderla: il desiderio c'era, ma qualcosa lo copriva, così lo slancio è rimasto spento fino a qui.
 
 ## Due di Bastoni
@@ -374,9 +374,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai avviato un processo importante e ora vedi i primi risultati. Hai posto le basi per ciò che si manifesta oggi.
+- 1: Hai avviato un processo importante e lo hai lasciato andare lontano con fiducia: ora ne vedi i primi risultati. Hai posto allora le basi per ciò che si manifesta oggi.
 - 2: Navi al largo, in quel periodo, cariche di ciò che avevi seminato: hai messo in moto un'espansione, poi hai guardato l'orizzonte aspettando i frutti che adesso prendono forma.
-- 3: Quello che allora hai lanciato lontano con fiducia ha cominciato a viaggiare verso di te: il presente raccoglie un movimento avviato dalle tue mani.
+- 3: Quello che allora hai lanciato lontano con fiducia, oltre il tuo orizzonte, ha cominciato a viaggiare verso di te: il presente raccoglie un movimento avviato dalle tue mani.
 
 ### capovolta
 
@@ -388,7 +388,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai festeggiato un successo, gioendo di ciò che hai edificato. Hai riconosciuto il bello che c'è, senza correre già al prossimo obiettivo.
+- 1: Hai festeggiato un successo, gioendo di ciò che avevi edificato con le tue mani. Hai riconosciuto il bello che c'era, senza correre subito al prossimo obiettivo.
 - 2: Sotto un arco di fiori, allora, hai festeggiato con chi amavi un traguardo raggiunto: la soglia varcata insieme ha dato fondamenta alla tua situazione.
 - 3: Quella festa, la casa nuova, il riconoscimento condiviso, ti ha dato una stabilità che ancora conta: allora hai saputo goderti il bello senza correre subito oltre.
 
@@ -396,7 +396,7 @@ scrive l'Architetto.
 
 - 1: Hai posticipato i momenti di celebrazione, forse per basi ancora instabili, forse per non sentirti pienamente in armonia. Ciò ha limitato la tua capacità di godere appieno dei traguardi raggiunti finora.
 - 2: Mai celebrato, allora, il traguardo che avevi raggiunto: la festa è stata rimandata o vissuta a metà, come una casa nuova in cui non hai fatto ingresso.
-- 3: Quella soglia, in quel periodo, l'hai varcata senza festeggiarla: forse le basi ti sembravano incerte, così la gioia è rimasta sospesa fino a oggi.
+- 3: Quella soglia, in quel periodo, l'hai varcata senza festeggiarla: forse le basi ti sembravano ancora incerte, così la gioia di quel traguardo è rimasta sospesa fino a oggi.
 
 ## Cinque di Bastoni
 
@@ -404,12 +404,12 @@ scrive l'Architetto.
 
 - 1: Attriti e competizioni hanno caratterizzato le tue esperienze recenti. Hai saputo affrontare gli scontri di idee, usandoli per la tua crescita e per misurare le tue forze senza arrecare danno.
 - 2: Bastoni incrociati, toni alti, una gara di idee: in quel periodo hai accettato il confronto acceso con gli altri, poi da quella sfida ben giocata hai tratto forza.
-- 3: Quegli attriti, allora, ti hanno messo alla prova senza ferirti: competere ti ha costretto a crescere, perciò la tua posizione di oggi viene anche da quelle scintille.
+- 3: Quegli attriti, allora, hanno messo alla prova le tue forze senza ferirti: competere le ha fatte crescere, perciò la tua posizione di oggi viene anche da quelle scintille.
 
 ### capovolta
 
 - 1: Hai affrontato conflitti che ti hanno stancato, spesso inutili, oppure hai evitato le tensioni lasciando che si accumulassero, portandoti qui con un senso di logoramento.
-- 2: Troppe battaglie inutili, in quella fase, o tensioni lasciate covare sotto la cenere: ti hanno logorato a poco a poco fino a portarti qui con meno energia.
+- 2: Troppe battaglie inutili, in quella fase, o tensioni lasciate covare sotto la cenere: hanno consumato le tue forze a poco a poco fino a portarti qui con meno energia.
 - 3: Dietro di te c'è una lunga serie di scaramucce che non valevano la fatica: allora non hai scelto quali combattere, così ogni attrito si è preso un pezzo delle tue forze.
 
 ## Sei di Bastoni
@@ -423,21 +423,21 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Un riconoscimento atteso non è arrivato oppure hai messo in discussione il tuo valore, percependo una mancanza di stima. Hai legato la tua autostima al giudizio esterno: questo ha generato delusione.
-- 2: Nessuno, allora, ha visto quanto valevi: l'applauso è mancato, il riconoscimento è arrivato tardi o mai, così hai cominciato a dubitare del tuo valore.
+- 2: Nessuno, allora, ha visto quanto valevi davvero: l'applauso è mancato, il riconoscimento è arrivato tardi o mai, così hai cominciato a dubitare del tuo stesso valore.
 - 3: Quel merito rimasto nell'ombra in quel periodo ti ha insegnato a legare il tuo valore allo sguardo altrui, un'abitudine che la domanda di oggi riporta a galla.
 
 ## Sette di Bastoni
 
 ### dritta
 
-- 1: Hai saputo tenere duro di fronte alle difficoltà, difendendo le tue convinzioni. Hai affrontato la pressione senza cedere, consolidando la tua posizione.
+- 1: Hai saputo tenere duro di fronte alle difficoltà, difendendo le tue convinzioni contro chi le contestava. Hai retto la pressione senza cedere, consolidando la tua posizione.
 - 2: Dall'alto di una collina, in quel periodo, hai difeso la tua posizione contro molti: la pressione era forte, ma hai tenuto il punto senza cedere.
 - 3: Quel coraggio sotto assedio, quando tutti spingevano, ti ha permesso di difendere ciò in cui credevi: da quella resistenza viene il terreno su cui oggi stai.
 
 ### capovolta
 
 - 1: Hai speso energie per difendere ogni posizione, anche quelle che non ne valevano la pena. A volte hai resistito in modo eccessivo, lasciando poca lucidità per valutare le situazioni.
-- 2: Ogni collina, allora, ti sembrava da difendere: hai alzato la guardia anche quando nessuno attaccava, finché la stanchezza ti ha tolto lucidità.
+- 2: Ogni collina, allora, ti sembrava da difendere: hai alzato la guardia anche quando nessuno attaccava, finché la stanchezza ti ha tolto la lucidità di scegliere.
 - 3: Sempre sulla difensiva, in quella fase, hai speso forze per resistere ovunque: quella pressione continua ti ha tolto il respiro, lasciando la fatica che porti ancora.
 
 ## Otto di Bastoni
@@ -458,9 +458,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai affrontato un periodo molto faticoso, superando ostacoli con grande tenacia. Le sfide ti hanno messo alla prova, ma hai resistito fino a questo punto.
+- 1: Hai affrontato un periodo molto faticoso, superando ostacoli con grande tenacia. Le sfide hanno messo alla prova le tue forze, ma hai resistito fino a questo punto.
 - 2: Con la fasciatura in testa ma ancora in piedi, allora, hai tenuto duro fino all'ultimo tratto: la stanchezza c'era, la tenacia era più forte.
-- 3: Quell'ultima prova che hai retto quando avresti voluto posare lo scudo ti ha condotto fin qui: hai resistito proprio quando il traguardo era vicino.
+- 3: Quell'ultima prova che hai retto quando avresti voluto posare lo scudo ha condotto la tua strada fin qui: hai resistito proprio quando il traguardo era vicino.
 
 ### capovolta
 
@@ -472,13 +472,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai portato un peso notevole, un carico che ti ha piegato. Ora puoi riconoscere cosa ti appartiene davvero e cosa, invece, non dovevi tenere.
+- 1: Hai portato un peso notevole, un carico che ha piegato le tue spalle. Ora puoi riconoscere cosa ti appartiene davvero e cosa, invece, non dovevi tenere.
 - 2: Sotto un fascio di bastoni, allora, hai camminato con la schiena piegata: responsabilità su responsabilità, un carico che hai portato fino a questo punto.
 - 3: Tutto quel peso, in quel periodo, l'hai preso su di te senza chiederti cosa fosse davvero tuo: la fatica di adesso viene da quel lungo trasporto.
 
 ### capovolta
 
-- 1: Hai mantenuto un fardello pesante, forse per senso del dovere o per abitudine, anche quando potevi lasciarlo andare. Questo ti ha portato a un punto in cui il carico è diventato troppo gravoso.
+- 1: Hai mantenuto un fardello pesante, forse per senso del dovere o per abitudine, anche quando potevi lasciarlo andare. Col tempo quel carico è diventato troppo gravoso per le tue spalle.
 - 2: Per dovere o per abitudine, in quella fase, hai caricato sulle spalle un fardello che non ti apparteneva: non l'hai posato nemmeno quando potevi.
 - 3: Quel carico che portavi per altri, allora, ti pesava più di quanto ammettevi: alleggerirti ti sembrava tradire qualcuno, così hai continuato a camminare sotto il peso.
 
@@ -500,9 +500,9 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai agito con impeto e coraggio, inseguendo ciò che desideravi con audacia. Hai iniziato un'avventura seguendo la tua passione.
+- 1: Hai agito con impeto e coraggio, inseguendo con audacia ciò che desideravi: hai cominciato un'avventura seguendo la tua passione, senza aspettare che qualcuno ti desse il via.
 - 2: Al galoppo, in quel periodo, hai inseguito ciò che desideravi con passione: quell'avventura cominciata con audacia ha aperto la strada su cui ti trovi.
-- 3: Quella partenza di slancio, senza troppe esitazioni, ha cambiato il corso delle cose: allora hai scelto di osare invece di aspettare.
+- 3: Quella partenza di slancio, senza troppe esitazioni, ha cambiato il corso delle cose: allora hai scelto di osare invece di aspettare, mettendo per tempo il piede nella staffa.
 
 ### capovolta
 
@@ -543,13 +543,13 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Un'apertura sentimentale ti ha permesso di accogliere un flusso di emozioni pure, portandoti a vivere un periodo di dolcezza e grazia. Hai lasciato che il cuore traboccasse, accettando ciò che sentivi senza difenderti.
-- 2: Dalla coppa che traboccava, allora, è sgorgata un'emozione pura: hai aperto il cuore a un amore nuovo, poi lo hai lasciato scorrere senza difenderti.
+- 2: Dalla coppa che traboccava, allora, è sgorgata un'emozione pura: hai aperto il cuore a un amore nuovo, poi lo hai lasciato scorrere senza difenderti da quello che sentivi.
 - 3: Quella sorgente che ti ha riempito in quel periodo, dolce come una grazia inattesa, è l'origine di ciò che senti oggi: hai accolto ciò che arrivava.
 
 ### capovolta
 
 - 1: Hai trattenuto le tue emozioni, lasciando che il timore di soffrire ti bloccasse. Questo atteggiamento ti ha impedito di aprirti pienamente alle esperienze e alle persone intorno a te.
-- 2: Per timore di soffrire, allora, hai tenuto chiusa la sorgente: un'emozione nuova è rimasta trattenuta, un amore rimandato, così l'acqua ha ristagnato.
+- 2: Per timore di soffrire, allora, hai tenuto chiusa la sorgente: un'emozione nuova è rimasta trattenuta, un amore è stato rimandato, così l'acqua ha ristagnato dentro di te.
 - 3: Quella coppa che avresti potuto riempire, in quel periodo, l'hai tenuta coperta: aprirti ti sembrava un rischio troppo grande, perciò l'affetto non ha trovato la sua strada.
 
 ## Due di Coppe
@@ -562,7 +562,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Non hai ascoltato a fondo e questo ha incrinato un rapporto importante. Un malinteso rischia di allontanarti da chi ti vuole bene.
+- 1: Non hai ascoltato fino in fondo e questo ha incrinato un rapporto importante: un malinteso ha aperto una distanza fra te e chi ti vuole bene.
 - 2: Un malinteso, allora, ha incrinato la tua armonia con una persona cara: le parole non dette e l'ascolto mancato hanno aperto una distanza che porti ancora.
 - 3: Fra te e qualcuno che ti voleva bene, in quel periodo, l'equilibrio si è spezzato: nessuno dei due ha parlato col cuore aperto, così il legame si è sfilacciato.
 
@@ -585,7 +585,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: Hai ignorato un'occasione preziosa, non riconoscendo il valore di ciò che ti veniva offerto. La tua apatia ti ha impedito di vedere un'opportunità che era già presente.
-- 2: Sotto l'albero, a braccia conserte, allora hai rifiutato una coppa offerta senza nemmeno guardarla: la sazietà ti rendeva indifferente a ciò che arrivava.
+- 2: Sotto l'albero, a braccia conserte, allora hai rifiutato una coppa offerta senza nemmeno guardarla: la sazietà di quei giorni ti rendeva indifferente a ciò che arrivava.
 - 3: Quella noia di allora, la sensazione di avere già abbastanza, ti ha fatto passare accanto a un'offerta: ciò che non hai visto spiega una parte del presente.
 
 ### capovolta
@@ -604,7 +604,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai superato un momento di grande perdita e delusione. Hai iniziato a voltarti verso ciò che è rimasto, lasciando andare il dolore.
+- 1: Hai superato un momento di grande perdita e delusione: piano piano hai iniziato a voltarti verso ciò che era rimasto, lasciando andare il dolore.
 - 2: Voltandoti, a un certo punto, hai visto le coppe rimaste in piedi: l'accettazione è arrivata piano, il perdono anche, così hai cominciato a riprenderti.
 - 3: Dopo il pianto, allora, hai alzato lo sguardo: la speranza ha preso a poco a poco il posto del dolore, poi hai rivolto l'attenzione a ciò che c'era ancora.
 
@@ -612,7 +612,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Un ricordo affettuoso, una nostalgia dolce, ha influenzato le tue scelte recenti, portandoti a cercare situazioni o legami che ti hanno riportato a sensazioni familiari e confortanti. Hai cercato di ricreare un senso di innocenza.
+- 1: Un ricordo affettuoso ha guidato le tue scelte: hai cercato legami e luoghi che ti riportavano a sensazioni familiari, provando a ricreare l'innocenza di un tempo.
 - 2: Nel giardino dell'infanzia, fra fiori offerti in una coppa, è nato il tuo modo di amare: un affetto antico e sincero ti ha scaldato, lasciandoti una tenerezza che porti ancora.
 - 3: Ricordi cari, allora, ti hanno nutrito: la bontà semplice di un tempo lontano, un gesto ricevuto nell'infanzia, ha formato la parte di te che oggi si interroga.
 
@@ -660,8 +660,8 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai cercato una gratificazione superficiale, un appagamento che non toccava il tuo intimo, lasciando un senso di vuoto nonostante i successi.
-- 2: Piaceri di facciata, allora, che non arrivavano al profondo: hai inseguito soddisfazioni che lasciavano vuoto, mentre la gioia vera restava lontana.
+- 1: Hai cercato una gratificazione superficiale, un appagamento che non toccava il tuo intimo: nonostante i successi di allora, ti è rimasto addosso un senso di vuoto.
+- 2: Piaceri di facciata, allora, che non arrivavano al profondo: hai inseguito soddisfazioni che lasciavano il vuoto di prima, mentre la gioia vera restava lontana da te.
 - 3: Quel benessere solo apparente, in quella fase, ti ha distratto invece di colmarti: dietro i successi esibiti cresceva una fame che porti ancora.
 
 ## Dieci di Coppe
@@ -682,8 +682,8 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai seguito un'intuizione delicata, un messaggio emotivo che ti ha guidato. Hai dato spazio a un'emozione nuova, forse fragile, ma ricca di sensibilità.
-- 2: Un pesce affacciato alla coppa, allora, ti ha portato un messaggio inatteso: hai ascoltato un'emozione fragile e poetica, dandole spazio invece di zittirla.
+- 1: Hai seguito un'intuizione delicata, un messaggio del cuore che ti ha guidato fin qui. Hai dato spazio a un'emozione nuova, forse fragile, però ricca di sensibilità.
+- 2: Un pesce affacciato alla coppa, allora, ti ha portato un messaggio inatteso: hai ascoltato un'emozione fragile e poetica, dandole spazio invece di zittirla subito.
 - 3: Quella sensibilità nuova che hai lasciato affiorare in quel periodo, delicata come un sogno a occhi aperti, ha aperto un capitolo affettivo di cui oggi porti i frutti.
 
 ### capovolta
@@ -696,13 +696,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai accolto un invito o una proposta con entusiasmo, seguendo il tuo sentimento. Hai permesso alla bellezza di guidarti fino a questo punto.
+- 1: Hai accolto con entusiasmo un invito o una proposta, seguendo il tuo sentimento. Hai permesso alla bellezza di guidarti passo dopo passo fino a questo punto.
 - 2: A passo lento, con la coppa tesa davanti a sé, qualcuno ti ha portato un invito: in quel periodo hai accolto la proposta con grazia, seguendo il sentimento.
 - 3: Quel corteggiamento, offerto o ricevuto, ha aperto una stagione romantica: allora hai scelto di offrire il tuo cuore, poi la bellezza ha guidato i passi successivi.
 
 ### capovolta
 
-- 1: Hai dato ascolto a impegni che si sono rivelati inconsistenti, o hai espresso l'intenzione di fare qualcosa che non si è poi realizzata. Questo ti ha lasciato con la sensazione che le parole non siano sufficienti.
+- 1: Hai creduto a impegni che si sono rivelati inconsistenti, oppure hai annunciato qualcosa che poi non hai fatto. Ti è rimasta la sensazione che le parole non bastino.
 - 2: Promesse vaghe, allora, sussurrate con grazia ma senza radici: alle parole non sono seguiti i gesti, tuoi o dell'altro, lasciandoti un'amarezza che ancora conti.
 - 3: Quel sentimento incostante, in quella fase, è durato quanto un'onda: si diceva molto, si manteneva poco, così hai imparato a misurare l'amore su ciò che resta.
 
@@ -716,7 +716,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai spesso permesso agli altri di influenzarti profondamente, mettendo da parte le tue esigenze. Questo atteggiamento ha condizionato le tue scelte.
+- 1: Hai spesso permesso agli altri di influenzarti profondamente, mettendo da parte le tue esigenze. Questo atteggiamento ha condizionato le tue scelte fino a oggi.
 - 2: Negli stati d'animo altrui, allora, hai perso il tuo: assorbivi ogni emozione intorno a te fino ad annegare, lasciando i tuoi bisogni senza cura.
 - 3: Quel tempo in cui amavi senza confini ti ha sommerso: hai dato tutta la cura agli altri, poi per te non è rimasto niente da tenere.
 
@@ -738,7 +738,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai saputo cogliere un'occasione concreta, mettendo radici solide per ciò che hai costruito. Hai avviato un progetto con basi promettenti.
+- 1: Hai saputo cogliere un'occasione concreta, mettendo radici solide per ciò che hai costruito. Hai avviato un progetto su basi promettenti ed è da lì che viene quello che hai oggi in mano.
 - 2: Una moneta d'oro offerta da una mano nel cielo, allora, è caduta nel tuo giardino: hai piantato quel seme concreto, un lavoro o una base, da cui è cresciuto ciò che hai oggi.
 - 3: Quell'occasione solida che hai colto in quel periodo aveva buone radici: il terreno era fertile, tu l'hai riconosciuto, così è cominciata la costruzione di adesso.
 
@@ -773,7 +773,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Una scarsa intesa nei ruoli ha reso difficile la collaborazione, impedendo al progetto di procedere come desideravi. Hai affrontato momenti di confusione riguardo ai compiti.
-- 2: Ruoli confusi, allora, compiti mai chiariti: il lavoro comune a cui partecipavi non ha ingranato, poi ognuno ha tirato per conto suo.
+- 2: Ruoli confusi, allora, compiti mai chiariti: il lavoro comune a cui partecipavi non ha ingranato, poi ognuno ha tirato per conto suo e la tua parte è rimasta sospesa.
 - 3: Quel progetto condiviso, in quella fase, si è inceppato più per mancanza di dialogo che di volontà: la poca sintonia di allora spiega ciò che oggi ti blocca.
 
 ## Quattro di Denari
@@ -829,7 +829,7 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Hai agito con troppa fretta, desiderando risultati immediati e non hai valutato con attenzione dove impiegare le tue energie. Questo atteggiamento ti ha portato a una delusione.
-- 2: Fretta di raccogliere, allora: hai guardato la pianta aspettandoti frutti che non arrivavano, poi lo scoraggiamento ha preso il posto della cura.
+- 2: Fretta di raccogliere, allora: hai guardato la pianta aspettandoti frutti che non arrivavano, poi lo scoraggiamento ha preso il posto della cura e hai smesso di zappare.
 - 3: Quello sforzo che ti è sembrato mal ripagato, in quella fase, forse cadeva sul seme sbagliato più che sul tempo sbagliato: da lì viene il dubbio che porti.
 
 ## Otto di Denari
@@ -857,8 +857,8 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Eccessi ti hanno portato a un'insicurezza che ha minato la tua serenità. Hai faticato a trovare un equilibrio tra il tuo valore personale e ciò che possiedi, perdendo di vista la tua essenza.
-- 2: Spese oltre misura, allora, o il bisogno di mostrare ciò che possedevi: la libertà costruita col tuo lavoro ha cominciato a vacillare, consumata dall'apparenza.
-- 3: Quel giardino che avevi conquistato, in quella fase, l'hai trascurato per farlo vedere agli altri: l'autonomia si è incrinata, lasciando l'inquietudine che porti.
+- 2: Spese oltre misura, allora, o il bisogno di mostrare ciò che possedevi: la libertà costruita col tuo lavoro ha cominciato a vacillare, consumata a poco a poco dall'apparenza.
+- 3: Quel giardino che avevi conquistato, in quella fase, l'hai trascurato per farlo vedere agli altri: l'autonomia si è incrinata e ti ha lasciato addosso l'inquietudine che porti ancora oggi.
 
 ## Dieci di Denari
 
@@ -892,8 +892,8 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai affrontato il cammino con serietà, dedicando tempo e costanza a ogni passo. La tua determinazione ti ha portato fin qui, grazie a un impegno metodico e affidabile.
-- 2: Al passo, su un cavallo fermo nel campo arato, allora hai avanzato con metodo: lentamente, senza fermarti, hai percorso la strada che ti ha portato qui.
+- 1: Hai affrontato il cammino con serietà, dedicando tempo e costanza a ogni passo: è grazie alla tua determinazione e a un impegno metodico che oggi sei a questo punto.
+- 2: Al passo, su un cavallo fermo nel campo arato, allora hai proceduto con metodo: lentamente, senza fermarti, hai percorso la strada che arriva fin qui.
 - 3: Quella costanza paziente di allora, affidabile come il ritmo delle stagioni, è stata la tua forza: ogni tappa compiuta con calma ha costruito il terreno di oggi.
 
 ### capovolta
@@ -906,13 +906,13 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai saputo unire la cura per le persone amate con la concretezza necessaria, creando basi solide che ti hanno sostenuto finora. La tua generosità ha nutrito i progetti e le relazioni, permettendoti di costruire un ambiente accogliente e prospero.
+- 1: Hai saputo unire la cura per le persone care con la concretezza necessaria, mettendo basi solide che reggono ancora: la tua generosità ha nutrito progetti e relazioni, costruendo intorno a te un ambiente accogliente.
 - 2: Con la moneta in grembo e il giardino fiorito intorno, allora hai curato la casa e le persone care coi piedi a terra: la tua generosità concreta ha nutrito chi ti stava accanto.
 - 3: Quella capacità di unire cuore e praticità, in quel periodo, ha creato un ambiente accogliente: il benessere di cui godi viene anche da quella tua cura quotidiana.
 
 ### capovolta
 
-- 1: Hai messo da parte i tuoi bisogni, dedicando energie a chi ti circonda. Questo ti ha lasciato senza forze e senza una chiara direzione personale.
+- 1: Hai messo da parte i tuoi bisogni, dedicando energie a chi ti circonda: da lì sono rimaste poche forze per te e una direzione personale ancora da trovare.
 - 2: Nell'elenco delle cose da curare, allora, il tuo nome non compariva: hai pensato alla casa, ai conti, ai bisogni di tutti, lasciando a secco il tuo giardino.
 - 3: Quel periodo in cui davi cura a ogni cosa tranne che a te ha consumato le tue riserve: la fatica che porti adesso viene da quell'attenzione sempre rivolta altrove.
 
@@ -920,7 +920,7 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai saputo costruire una base solida, agendo con generosità e saggezza. Questo ti ha permesso di raggiungere una stabilità importante.
+- 1: Hai saputo costruire una base solida, agendo con generosità e saggezza: le scelte fatte con misura ti hanno dato una stabilità importante, che ancora oggi regge ciò che fai.
 - 2: Sul trono ornato di tori e grappoli, allora, hai governato con misura ciò che avevi costruito: hai condiviso la prosperità invece di tenerla per te.
 - 3: Quella stabilità concreta che hai creato in quel periodo, gestita con saggezza, è il fondamento della tua situazione: i tuoi frutti hanno nutrito anche altri.
 
@@ -934,14 +934,14 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai affrontato una situazione con grande lucidità, distinguendo il vero dal falso. Con onestà hai espresso quello che pensavi, ottenendo chiarezza.
+- 1: Hai affrontato una situazione con grande lucidità, distinguendo il vero dal falso: con onestà hai detto quello che pensavi e quella chiarezza ha sciolto un nodo che ti pesava.
 - 2: Una lama alzata verso il cielo, allora, ha tagliato la nebbia: hai visto con chiarezza, distinto il vero dal falso, poi hai detto le cose come stavano.
 - 3: Quella verità detta bene in quel periodo, con un taglio netto, ha aperto più di quanto ha ferito: da quella tua lucidità viene la chiarezza da cui oggi parti.
 
 ### capovolta
 
 - 1: Hai affrontato il passato con idee poco chiare, lasciandoti alle spalle decisioni affrettate o discorsi inopportuni che hanno creato fraintendimenti. Hai agito senza la necessaria lucidità, causando incomprensioni.
-- 2: Parole taglienti usate male, allora, o idee annebbiate: la lama che impugnavi ha ferito invece di liberare, poi i fraintendimenti si sono moltiplicati.
+- 2: Parole taglienti usate male, allora, o idee annebbiate: la lama che impugnavi ha ferito invece di liberare, poi i fraintendimenti si sono moltiplicati e la distanza è cresciuta.
 - 3: Quella mente confusa di quel periodo ti ha fatto decidere o parlare troppo presto: il colpo sbagliato di allora ha lasciato tagli che senti ancora.
 
 ## Due di Spade
@@ -956,7 +956,7 @@ scrive l'Architetto.
 
 - 1: Hai affrontato una verità che tenevi nascosta, risolvendo un blocco che ti impediva di avanzare. Hai scelto di guardare in faccia ciò che prima evitavi.
 - 2: La benda, a un certo punto, è caduta: la verità che coprivi è riaffiorata, così hai dovuto rispondere a una scelta che rimandavi da tempo.
-- 3: Quel blocco che si è sciolto in quel periodo ti ha costretto a guardare: affrontare la decisione ti è pesato meno che continuare a girarci intorno.
+- 3: Quel blocco che si è sciolto in quel periodo ha obbligato i tuoi occhi a guardare: affrontare la decisione ti è pesato meno che continuare a girarci intorno.
 
 ## Tre di Spade
 
@@ -976,37 +976,37 @@ scrive l'Architetto.
 
 ### dritta
 
-- 1: Hai sentito l'esigenza di prendere le distanze da situazioni logoranti, di creare uno spazio per te. Hai recuperato le energie dopo un periodo impegnativo, concedendo alla tua mente il riposo di cui aveva urgenza.
+- 1: Hai sentito il bisogno di prendere le distanze da situazioni logoranti e di creare uno spazio per te: in quel riposo hai recuperato le energie che la fatica ti aveva tolto.
 - 2: Come una statua in una cappella silenziosa, allora, hai concesso alla mente una tregua: il riposo dopo la fatica ti ha restituito le forze.
-- 3: Quella pausa che hai preso in quel periodo, lontano dalle battaglie, non è stata tempo perso: ti ha ricaricato, preparando ciò che affronti oggi.
+- 3: Quella pausa che hai preso in quel periodo, al riparo dalle battaglie, non è stata tempo perso: ti ha ridato forza, preparando ciò che affronti oggi.
 
 ### capovolta
 
 - 1: Hai concluso un periodo di riposo, mettendo in pausa le preoccupazioni. Questa sosta ti ha permesso di recuperare le energie necessarie.
 - 2: Dopo la sosta, a un certo punto, hai ripreso la spada: il riposo aveva fatto il suo lavoro, così hai rimesso in moto il cammino senza strafare.
-- 3: Quel risveglio dalla quiete, in quella fase, ti ha rimesso in moto con calma: ciò che vivi nasce da quel ritorno all'azione dopo il silenzio.
+- 3: Quel risveglio dalla quiete, in quella fase, ha rimesso in moto i tuoi passi con calma: ciò che vivi nasce da quel ritorno all'azione dopo il silenzio.
 
 ## Cinque di Spade
 
 ### dritta
 
-- 1: Hai affrontato un conflitto che ti ha lasciato un senso di vittoria amara, dove il successo ottenuto non ha ripagato il costo emotivo o relazionale sostenuto. Ti ritrovi con la sensazione di aver perso qualcosa di importante per raggiungere il tuo obiettivo.
+- 1: Hai affrontato un conflitto che ha lasciato una vittoria amara: il successo ottenuto non ha ripagato quello che è costato nei rapporti. Per raggiungere il tuo obiettivo hai perso qualcosa di importante.
 - 2: Raccogliendo le spade lasciate a terra, allora, hai vinto uno scontro che è costato più di quanto valesse: l'orgoglio ha avuto la meglio, ma qualcosa si è perso.
 - 3: Quella vittoria amara di quel periodo, con gli altri che si allontanavano a testa bassa, ti ha lasciato un sapore di cenere: la domanda di oggi porta quella ferita.
 
 ### capovolta
 
-- 1: Hai scelto di non alimentare un conflitto, preferendo una tregua rispetto ad avere ragione a tutti i costi. Questo approccio ti ha portato a cercare una via di uscita pacifica da situazioni difficili.
+- 1: Hai scelto di non alimentare un conflitto, preferendo una tregua rispetto ad avere ragione a tutti i costi. Con questo approccio hai cercato una via di uscita pacifica da situazioni difficili.
 - 2: Deponendo le armi, allora, hai scelto la tregua invece della ragione: la voglia di riconciliazione ha prevalso, così hai fatto il primo passo verso la pace.
-- 3: Quel conflitto che hai lasciato cadere in quella fase, anche quando avresti avuto ragione, ha aperto uno spazio nuovo: il perdono ti ha liberato più della vittoria.
+- 3: Quel conflitto che hai lasciato cadere in quella fase, anche quando avresti avuto ragione, ha aperto uno spazio nuovo: il perdono ti ha dato più libertà della vittoria.
 
 ## Sei di Spade
 
 ### dritta
 
-- 1: Hai lasciato alle spalle una situazione difficile, intraprendendo un percorso di distacco. La decisione di allontanarti da un periodo turbolento ti ha condotto qui.
+- 1: Hai lasciato alle spalle una situazione difficile, intraprendendo un percorso di distacco. La decisione di allontanarti da un periodo turbolento è ciò che ha portato la tua strada fin qui.
 - 2: Su una barca guidata dal traghettatore, con le spade piantate a prua, allora hai lasciato acque agitate: il viaggio verso una sponda più quieta è cominciato lì.
-- 3: Quella traversata di allora, fatta un passo alla volta, ti ha allontanato dalla tempesta: la transizione che hai compiuto spiega dove ti trovi.
+- 3: Quella traversata di allora, fatta un passo alla volta, ha messo distanza fra te e la tempesta: la transizione che hai compiuto spiega dove ti trovi.
 
 ### capovolta
 
@@ -1024,9 +1024,9 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Un inganno ha pesato sulla tua coscienza, impedendoti di agire con piena trasparenza. Questa situazione ti ha portato a vivere un periodo di poca chiarezza.
+- 1: Un inganno ha pesato sulla tua coscienza, impedendoti di agire con piena trasparenza. Per questo hai vissuto a lungo un periodo di poca chiarezza.
 - 2: Bugie da mantenere, allora, tue o di qualcun altro: il peso sulla coscienza è cresciuto finché ciò che era nascosto ha cominciato a venire a galla.
-- 3: Quel gioco poco chiaro di quel periodo ti ha costretto a vivere fra mezze verità: la trasparenza mancata di allora pesa ancora sulla questione che porti.
+- 3: Quel gioco poco chiaro di quel periodo ha imposto alla tua vita mezze verità: la trasparenza mancata di allora pesa ancora sulla questione che porti.
 
 ## Otto di Spade
 
@@ -1066,7 +1066,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai superato un momento di grande difficoltà, lasciandoti alle spalle la parte più dura di un ciclo per ritrovare la pace.
+- 1: Hai superato un momento di grande difficoltà, lasciandoti alle spalle la parte più dura di un ciclo: da lì hai cominciato, piano, a ritrovare la pace.
 - 2: Da terra, a un certo punto, hai cominciato a rialzarti: di prima non restava niente da salvare, così hai ripreso da zero con gesti lenti ma tuoi.
 - 3: Quella risalita, iniziata in quel periodo dopo una chiusura completa, ti ha rimesso in piedi un pezzo alla volta: ciò che vivi è il frutto di quel lento rialzarti.
 
@@ -1081,14 +1081,14 @@ scrive l'Architetto.
 ### capovolta
 
 - 1: Hai spesso usato parole affrettate o giudizi taglienti che hanno lasciato ferite, anche involontariamente. Questo comportamento ha creato distanza o incomprensioni nelle tue relazioni.
-- 2: Pettegolezzi, allora, o parole pungenti dette senza pensare: le tue frasi taglienti hanno colpito senza costruire, poi sono tornate indietro.
+- 2: Pettegolezzi, allora, o parole pungenti dette senza pensare: le tue frasi taglienti hanno colpito senza costruire niente e poi, una dopo l'altra, sono tornate indietro.
 - 3: Quei pensieri sparsi che hai lasciato uscire in quella fase hanno creato distanze: una lingua poco moderata ha seminato incomprensioni che porti ancora.
 
 ## Cavaliere di Spade
 
 ### dritta
 
-- 1: Hai agito con grande determinazione, seguendo idee chiare e veloci che ti hanno portato a raggiungere i tuoi obiettivi. Questa carica di pensiero ti ha dato la spinta per superare gli ostacoli che si frapponevano sulla tua via.
+- 1: Hai agito con grande determinazione, seguendo idee chiare e veloci: quella carica di pensiero ti ha dato la spinta per superare gli ostacoli e raggiungere i tuoi obiettivi.
 - 2: Al galoppo contro il vento, con la spada tesa in avanti, allora hai caricato verso lo scopo: idee decise, azione rapida, ostacoli superati di slancio.
 - 3: Quella determinazione veloce che hai mostrato in quel periodo ti ha fatto avanzare a grandi passi: forse hai travolto qualcuno, ma la tua mente ti ha aperto la strada.
 
@@ -1108,7 +1108,7 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Hai scelto di proteggerti con una freddezza difensiva, adottando la solitudine come corazza per non affrontare ciò che ti appariva minaccioso. Questa scelta ti ha portato a usare un giudizio severo, anche su di te.
+- 1: Hai scelto di proteggerti con una freddezza difensiva, usando la solitudine come corazza contro ciò che ti appariva minaccioso. Così il giudizio severo è caduto anche su di te.
 - 2: Una corazza di ghiaccio, allora, al posto del cuore: hai scelto la freddezza per difenderti, poi il giudizio duro si è rivolto anche contro di te.
 - 3: Quella solitudine indossata come protezione in quel periodo ha indurito il tuo sguardo: la lama si è voltata verso chi la portava, cioè verso di te.
 

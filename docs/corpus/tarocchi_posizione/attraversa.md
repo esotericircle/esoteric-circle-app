@@ -36,12 +36,12 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un principio a mani vuote si apre nell'ora degli impegni dichiarati. La fiducia nel primo passo precede le garanzie che il lavoro avviato ti chiedeva di dare.
 - 2: La mano libera porta bene a quello che nasce da zero. Il legame che hai già stretto vive di continuità; quello slancio senza preparativi cerca terreno vergine.
-- 3: Verso il momento iniziale tira questa fiducia senza bagagli. La decisione che hai davanti voleva lo sguardo sull'arco intero e l'attenzione resta sul partire.
+- 3: Verso il momento iniziale tira questa fiducia senza bagagli e qui ti intralcia: la decisione che hai davanti voleva lo sguardo sull'arco intero, mentre la tua attenzione resta tutta sul partire.
 
 ### capovolta
 
 - 1: Questa spinta parte prima di avere un nome. Una ragione dicibile serviva al passo che hai davanti; l'orlo è già sotto il tuo piede e la provenienza resta impronunciata.
-- 2: Sull'orlo punta questo slancio. L'origine che ti serviva nominare resta dietro e il vuoto davanti prende tutta l'attenzione che toccava al motivo.
+- 2: Sull'orlo punta questo slancio e ti fa da ostacolo: l'origine che ti serviva nominare resta dietro, mentre il vuoto davanti prende tutta l'attenzione che toccava al motivo.
 - 3: Il bordo non ferma questo impulso. Una sosta bastava a dire da dove nasce la partenza e la meta che il tuo partire chiede resta da fissare.
 
 ## Il Mago
@@ -96,16 +96,16 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Il comando che hai dato continua a stringere oltre il punto in cui il lavoro aveva bisogno di gioco, oppure manca la base sotto e l'impianto oscilla: la forma non si arresta dove finisce quello che tiene.
+- 1: Il comando che hai dato stringe oltre il punto in cui serviva gioco, oppure manca la base e l'impianto oscilla: la forma non si ferma dove finisce ciò che tiene.
 - 2: Troppo serrata, la norma prosegue dove serviva allentarla; oppure sotto la tua costruzione il piano d'appoggio non c'è e ogni scelta che prendi oscilla sul vuoto. Il respiro resta la parte che si restringe.
-- 3: Stringe oltre il necessario l'autorità che ti sei dato: il margine in cui una decisione poteva muoversi si assottiglia a ogni giro. Oppure le fondamenta mancano del tutto mentre l'impianto va avanti a reggersi da sé.
+- 3: Stringe oltre il necessario l'autorità che eserciti: il margine in cui una tua decisione poteva muoversi si assottiglia a ogni giro. Oppure le fondamenta mancano mentre l'impianto prova a reggersi da sé.
 
 ## Il Papa
 
 ### dritta
 
 - 1: Un magistero più antico di te si pronuncia con l'autorità che gli viene dalla trasmissione: quel pronunciamento giova al corpo che lo custodisce; la questione che hai portato resta tua.
-- 2: L'antica scuola a cui ti appoggi ti tiene su e serra nello stesso movimento il margine in cui cercavi una soluzione inedita.
+- 2: L'antica scuola a cui ti appoggi ti tiene su e, nello stesso movimento, ti serra il margine in cui stavi cercando una soluzione inedita, pensata da te.
 - 3: Arriva una sapienza che ha già risposto a mille casi prima del tuo: la sua parola è pronta, mentre la faccenda che hai in mano chiederebbe un giudizio nato dentro di lei.
 
 ### capovolta
@@ -126,7 +126,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una disputa interna occupa il posto che l'intesa da stringere voleva libero. Il credere e il volere si dividono la scelta e portano tutti e due la tua firma.
 - 2: Dentro di te lavora questo disaccordo. La risposta da dare all'altra persona aspetta; il tuo credere e il tuo volere litigano sulla parola e uno dei due resta muto.
-- 3: Questo dissidio mostra un valore che tu tenevi al coperto, proprio quando il desiderio bastava a decidere. I due termini della contesa sono tuoi.
+- 3: Questo dissidio fa emergere un valore che tenevi nascosto, proprio quando il desiderio sembrava bastare a decidere: i due termini della contesa sono tuoi, tutti e due.
 
 ## Il Carro
 
@@ -195,7 +195,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il dubbio sulla tua tenuta esce alla luce nel punto in cui la decisione da prendere aveva bisogno che la saldezza restasse fuori discussione.
-- 2: Un dominio che credi perduto chiede una verifica su di te in più, in aggiunta alle pratiche che stai già reggendo da settimane.
+- 2: Un dominio che credi perduto ti chiede una prova in più su di te, che si aggiunge alle pratiche già pesanti che reggi da settimane.
 - 3: La durezza con cui ti tratti sta là dove la mitezza stava prima: la pratica aperta aspettava una mano mite e incontra la tua stretta.
 
 ## L'Appeso
@@ -208,7 +208,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Una rinuncia priva di destinatario sta nel posto del gesto atteso. Il sacrificio prosegue e il tuo lavoro da fare resta dove era.
+- 1: Una rinuncia priva di destinatario occupa il posto del gesto che serviva: il sacrificio prosegue e quello che avevi da fare resta fermo dove era.
 - 2: Questa offerta mostra il timore che stava sotto un nome alto, proprio quando una decisione bastava. Quello che hai chiamato dono non trova chi lo riceva.
 - 3: Hai le braccia piene della tua faccenda da chiudere e questo sacrificio mette dentro una privazione in più da reggere. L'attesa ha smesso di insegnare.
 
@@ -250,7 +250,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Lo scioglimento arriva dove il tuo patto aveva bisogno che quella presa tenesse fermo il proprio appoggio: il nodo si allenta a mano, un giro per volta, mentre il gusto che lo nutriva se ne va con lui.
+- 1: Lo scioglimento arriva dove il tuo patto aveva bisogno che la presa tenesse: il nodo si allenta a mano, un giro per volta, mentre il gusto che lo nutriva se ne va con lui.
 - 2: Una rinuncia nuova entra fra le cose da portare, perché il legame riconosciuto si allenta al prezzo di un piacere gradito, mentre la tua intesa aveva già la sua parte da lasciare.
 - 3: Si vede in chiaro il giro di catena che il tuo legame di famiglia teneva sotto il tavolo: la presa era vera e il nome che riceve la porta in mezzo al discorso di tutti.
 
@@ -274,20 +274,20 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una quiete luminosa giova alla parte di te che ha attraversato la tempesta; il punto che hai messo sul tavolo aspettava un criterio per decidere.
 - 2: La rassicurazione scende su di te nel punto in cui la pratica aperta avrebbe avuto bisogno di una scossa: la fiducia torna, intanto il fascicolo resta là dove l'hai lasciato.
-- 3: Il conforto di questa luce ti difende dalla stanchezza e insieme smorza l'inquietudine da cui la questione traeva la spinta per muoversi.
+- 3: Il conforto di questa luce ti difende dalla stanchezza e insieme smorza l'inquietudine da cui la tua questione traeva la spinta per muoversi e decidere.
 
 ### capovolta
 
 - 1: La fatica di credere dura più a lungo del segno in cui il tuo caso chiedeva una scommessa: l'ispirazione resta lontana e il velo copre la scelta che devi fare.
 - 2: Una speranza affaticata tiene occupato il punto in cui il tuo progetto chiedeva slancio intatto: il velo è passeggero, intanto il tuo slancio non ritrova quel posto libero.
-- 3: Il dubbio sul domani aggiunge un peso da portare proprio là dove le tue mani erano già piene della pratica che hai aperto.
+- 3: Il dubbio sul domani aggiunge un peso da portare proprio là dove le tue mani erano già piene della pratica che hai aperto da tempo.
 
 ## La Luna
 
 ### dritta
 
 - 1: Il buio arriva nell'ora del contorno netto. Quello che vedi non coincide con quello che è e il tuo passo da compiere si fa al tatto.
-- 2: Questa foschia porta l'attenzione su quello che senti. Il dato da verificare aspettava il tuo esame e la prova resta in secondo piano.
+- 2: Questa foschia sposta la tua attenzione su quello che senti, proprio quando il dato da verificare aspettava il tuo esame: così la prova concreta resta in secondo piano.
 - 3: Le forme notturne di una scena che tu guardavi alla luce del giorno si alzano con questa penombra. Quello che sale dal sonno sta davanti alla superficie leggibile.
 
 ### capovolta
@@ -349,7 +349,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il fuoco resta intero sotto il suo coperchio proprio nell'ora in cui quel progetto tuo chiedeva di essere avviato. Il desiderio non è calato: sta chiuso, mentre la finestra buona passa.
-- 2: Trattenuta sotto un timore di sbagliare, la fiamma conserva tutta la sua forza e la tiene per sé nel punto in cui il tuo impegno aveva bisogno della prima mossa. Il rinvio non spegne niente.
+- 2: Trattenuta dal timore di sbagliare, la fiamma conserva tutta la sua forza e la tiene per sé proprio dove il tuo impegno chiedeva la prima mossa. Il rinvio non spegne niente.
 - 3: Sotto coperta c'è una fiamma viva e la partenza slitta un'altra volta, mentre la cosa che hai in mano reggeva solo se cominciata subito. Quello che manca non è l'ardore: è il via.
 
 ## Due di Bastoni
@@ -358,20 +358,20 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un progetto di largo respiro porta il tuo sguardo oltre il confine del conosciuto; il caso che hai portato sta sul terreno su cui hai i piedi.
 - 2: La scelta della rotta si offre nel punto in cui la tua pratica chiedeva una mossa già partita: hai il mondo in mano, intanto la partenza resta da fare.
-- 3: Il piano che prende corpo rende visibile l'ampiezza delle tue intenzioni, là dove tenevi riservata la parte più ambiziosa della trattativa.
+- 3: Il piano che prende corpo rende visibile a tutti l'ampiezza delle tue intenzioni, proprio là dove ti conveniva tenere riservata la parte più ambiziosa della trattativa.
 
 ### capovolta
 
 - 1: Una direzione confusa sta ferma sul posto che la tua decisione serbava per un bersaglio nitido: la soglia è presa da una domanda a cui non hai risposto.
 - 2: Il timore di osare mette una verifica davanti a ogni mossa, dentro un fascicolo che tenevi già pieno delle tue pratiche da chiudere.
-- 3: Stare sulla soglia ti mette al coperto dalle conseguenze e insieme sigilla l'apertura da cui la questione poteva prendere aria.
+- 3: Stare sulla soglia ti mette al coperto dalle conseguenze di una scelta e insieme sigilla l'apertura da cui la tua questione poteva prendere aria e movimento.
 
 ## Tre di Bastoni
 
 ### dritta
 
-- 1: Gli occhi di questa attesa vanno oltre l'orizzonte nell'ora della presa vicina. Il carico che hai mandato fuori naviga e la tua mano resta vuota.
-- 2: Questa attesa del ritorno satura di orizzonte lo sguardo che il lavoro vicino ti chiedeva. La decisione da prendere resta senza occhi.
+- 1: Gli occhi di questa attesa vanno oltre l'orizzonte proprio nell'ora in cui serviva una presa vicina. Il carico che hai mandato fuori naviga ancora e la tua mano resta vuota.
+- 2: Questa attesa del ritorno satura di orizzonte lo sguardo che il lavoro vicino ti chiedeva per sé. La decisione da prendere qui, adesso, resta senza i tuoi occhi.
 - 3: Al largo chiama questa fiducia nel ritorno. Il lavoro che hai sotto le dita voleva la tua presenza e gli occhi stanno sulle vele non rientrate.
 
 ### capovolta
@@ -404,7 +404,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: La frizione va avanti a bassa fiamma oltre il punto in cui aveva esaurito il suo motivo: nessuno apre la contesa, nessuno la chiude, cosicché quello che hai da tenere insieme convive col brontolio.
+- 1: La frizione va avanti a bassa fiamma anche dopo aver perso il suo motivo: nessuno apre la contesa, nessuno la chiude e quello che hai da tenere insieme convive col brontolio.
 - 2: Il coperchio tiene l'attrito al sicuro dallo scoppio e nello stesso gesto chiude la discussione che la tua faccenda aveva bisogno di sentire per intero.
 - 3: Molte piccole contese restano da tenere in piedi, una per fronte, dove le tue mani erano già occupate: ognuna chiede la sua dose di attenzione, cosicché la faccenda che conta divide la provvista.
 
@@ -433,8 +433,8 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: La guardia continua oltre i lati che la tua faccenda aveva davvero da tenere e si distende su quelli già quieti. Difendere tutto insieme distribuisce la tenuta su un perimetro che nessuno preme.
-- 2: Resistere non si arresta dove il campo si era fatto tranquillo: la difesa si estende a ogni lato, compreso quello da cui la tua richiesta attendeva risposta. Il perimetro cresce; le braccia sono quelle.
-- 3: Troppi fronti insieme restano presidiati e la tenuta prosegue dove la pressione era già finita, mentre la parte della tua faccenda che chiedeva una mano aperta ne incontra una chiusa. La stanchezza è della sentinella.
+- 2: Resistere non si arresta dove il campo si era fatto tranquillo: la difesa copre ogni lato, anche quello da cui la tua richiesta attendeva risposta. Il perimetro cresce, le braccia no.
+- 3: Troppi fronti restano presidiati e la tenuta prosegue dove la pressione era già finita: la parte della tua faccenda che chiedeva una mano aperta ne incontra una chiusa.
 
 ## Otto di Bastoni
 
@@ -442,7 +442,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La corsa dei fatti non si arresta al segno in cui il tuo caso avrebbe avuto bisogno di una sosta: le risposte si accavallano mentre tu stai leggendo la prima.
 - 2: Il movimento che viene da fuori entra nel punto in cui la tua pratica chiedeva tempo fermo: la fretta è nell'aria, intanto il tuo documento resta da rileggere.
-- 3: Molte notizie insieme portano materia nuova da tenere a mente, sopra la decisione che hai in preparazione da tempo.
+- 3: Molte notizie insieme portano materia nuova da tenere a mente e si posano sopra la decisione che hai in preparazione da tempo, togliendole calma.
 
 ### capovolta
 
@@ -456,7 +456,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Questa guardia da reduce tiene occupato con la vigilanza il posto che l'accoglienza voleva libero. I segni dei colpi già presi stanno sul lavoro che hai davanti.
 - 2: Lo scudo alzato difende quello che è quasi concluso e nello stesso gesto lo chiude a quello che potrebbe aggiungersi. La tua tenacia serra il perimetro.
-- 3: La resistenza prosegue dopo il momento di posare lo scudo. La fermezza che ti ha portato fino a questo punto non conosce una pausa.
+- 3: La resistenza prosegue dopo il momento di posare lo scudo. La fermezza che ti regge da tanto tempo non conosce una pausa nemmeno adesso.
 
 ### capovolta
 
@@ -510,8 +510,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il calore della tua presenza tira su di te l'attenzione di tutti, mentre quello che hai messo in piedi chiedeva occhi puntati sul lavoro. L'attrazione è vera e sposta il centro su chi la emana.
-- 2: Magnetica, la tua figura porta il centro della scena su se stessa e la faccenda in corso scivola di lato, mentre chiedeva di stare in mezzo. Scaldi chi ti sta intorno; il fuoco resta il tuo.
+- 1: Il calore della tua presenza tira su di te l'attenzione di tutti, mentre ciò che hai messo in piedi chiedeva occhi sul lavoro. L'attrazione è vera e sposta il centro.
+- 2: Magnetica, la tua figura porta su di sé il centro della scena e la faccenda scivola di lato, mentre chiedeva di stare in mezzo. Scaldi gli altri; il fuoco resta tuo.
 - 3: Sicurezza e calore attirano le persone verso di te ed è lì che finisce lo sguardo che la tua proposta aveva bisogno di ricevere. Il richiamo funziona: tira da una parte sola.
 
 ### capovolta
@@ -531,7 +531,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: La spinta senza ascolto tira dritto oltre la soglia in cui il tuo caso chiedeva una pausa per sentire: l'autorità insiste e la parte davanti a te si irrigidisce.
-- 2: Un comando impaziente siede nel posto che l'ascolto teneva libero: la trattativa che hai aperto aveva messo lì una domanda che aspetta ancora.
+- 2: Un comando impaziente siede nel posto che l'ascolto teneva libero: la trattativa che hai aperto aveva messo lì una domanda che aspetta ancora la sua risposta.
 - 3: Si vede allo scoperto il punto in cui non cedi, perché la rigidità con cui tieni il campo lo espone, là dove la tua pratica guadagnava dal margine coperto.
 
 ## Asso di Coppe
@@ -539,14 +539,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Buona per il cuore che si apre, questa piena si rivolge a un destinatario diverso. Il contegno che la faccenda ti chiedeva resta in piedi e l'acqua nuova sgorga.
-- 2: La coppa versa oltre il proprio orlo. Un riserbo bastava al punto in cui ti trovi e il sentimento nuovo arriva anche là.
+- 2: La coppa versa oltre il proprio orlo: dove ti bastava un riserbo, il sentimento nuovo arriva lo stesso e bagna anche ciò che volevi tenere asciutto.
 - 3: Questa piena aggiunge un sentire da portare sopra un impegno già colmo. La sorgente dà acqua nuova e la faccenda che tratti voleva le tue mani libere.
 
 ### capovolta
 
 - 1: Un'acqua trattenuta colma il recipiente che occorreva vuoto per ricevere. Il sentimento esiste e resta chiuso a chiave; la parola da dire aspetta il tuo turno.
 - 2: Il coperchio difende il tuo sentire dal rischio di soffrire e nello stesso gesto serra quello che chiedeva di uscire. La sorgente sta sotto e non dà acqua.
-- 3: Dove le tue mani erano già occupate entra un sentimento non detto da custodire. Il recipiente resta sigillato e l'acqua dentro sale.
+- 3: Dove le tue mani erano già occupate entra un sentimento non detto da custodire. Il recipiente resta sigillato e l'acqua dentro sale, senza trovare la sua uscita.
 
 ## Due di Coppe
 
@@ -600,7 +600,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: L'accettazione che ti rialza chiude il conto con quello che è andato e nello stesso gesto chiude la richiesta che il tuo lavoro aveva bisogno di tenere aperta. Il perdono archivia il fascicolo intero.
+- 1: L'accettazione che ti rialza chiude il conto con ciò che è andato e insieme chiude la richiesta che il tuo lavoro doveva tenere aperta: il perdono archivia il fascicolo intero.
 - 2: Volgendoti verso quello che resta, metti pace dove c'era il lutto e insieme metti un coperchio sulla pretesa che non era stata detta. La ripresa protegge te; sigilla anche il punto.
 - 3: Il dolore lascia posto alla speranza ed è un bene vero, mentre lo stesso movimento serra una partita della tua faccenda che reggeva solo da aperta. Ti rialzi: la porta si chiude dietro.
 
@@ -614,7 +614,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: La memoria di un tempo buono tiene pieno il vuoto che la tua giornata serbava per una presenza nuova venuta da fuori.
+- 1: La memoria di un tempo buono tiene pieno il vuoto che la tua giornata serbava per una presenza nuova venuta da fuori: il posto c'era, il ricordo lo occupa.
 - 2: Un tempo che non c'è più domanda una cura continua da tenere in piedi, accanto ai tuoi legami vivi che reggi ogni giorno nel presente.
 - 3: Il ritorno di una dolcezza antica capita nel punto in cui la tua giornata chiedeva presente pieno: il ricordo scalda, intanto il tavolo di oggi aspetta la tua mano.
 
@@ -652,7 +652,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Questo appagamento fa bene a quello che hai già ottenuto, mentre la cosa che hai chiesto riguardava una faccenda non ancora avviata: la contentezza siede davanti alla tavola imbandita.
 - 2: La pienezza mette al sicuro quello che hai raccolto e nello stesso gesto chiude la porta alla domanda successiva: davanti alla tavola servita la fame tace.
-- 3: Arriva il contento dell'augurio esaudito proprio dove la faccenda che hai davanti chiedeva fame: il desiderio appagato posa le mani in grembo.
+- 3: Arriva il contento dell'augurio esaudito proprio dove la faccenda che hai davanti chiedeva fame: il desiderio appagato posa le mani in grembo e smette di cercare ciò che ancora mancava.
 
 ### capovolta
 
@@ -664,7 +664,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: L'armonia fra le persone di casa compie il cerchio degli affetti e lo tiene pieno: la gioia tocca i tuoi, mentre la decisione che il tuo lavoro chiede a te soltanto sta fuori dal tetto.
+- 1: L'armonia fra le persone di casa compie il cerchio degli affetti: la gioia tocca i tuoi, mentre la decisione che il tuo lavoro chiede a te soltanto sta fuori dal tetto.
 - 2: La pienezza condivisa occupa le ore che la tua scelta solitaria chiedeva vuote: l'amore attorno si fa ricchezza e tiene il tavolo apparecchiato per tutti.
 - 3: Sotto gli occhi di parenti e vicini la casa in festa porta quello che il tuo riserbo teneva fra due persone: il legame felice diventa cosa di tutti.
 
@@ -680,7 +680,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La tenerezza appena nata fa bene alla tua vita interiore e porta poesia dentro di te, mentre quello che hai sul tavolo chiedeva una presa ferma. Il germoglio nutre il sentire, non la pratica.
 - 2: Un'emozione fragile affiora e trova il suo posto nel tuo mondo intimo, dove è giusta e preziosa, mentre la faccenda aperta aveva bisogno di mani esperte. Il dono è reale e sta altrove.
-- 3: Fiorisce in te una sensibilità che è un bene autentico per chi la sente la prima volta; la cosa concreta che attende una risposta non si nutre di quel fiore. Il bene c'è ed è rivolto dentro.
+- 3: Fiorisce in te una sensibilità che è un bene autentico per chi la prova la prima volta, mentre la cosa concreta che attende risposta non si nutre di quel fiore.
 
 ### capovolta
 
@@ -693,12 +693,12 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: La proposta che arriva con grazia svela un sentimento che tenevi riservato, nel rapporto in cui la tua scelta era di restare sul generico.
-- 2: Un corteggiamento garbato fa bene al gusto dell'incontro; la questione che hai posto riguarda un impegno già preso con qualcuno.
+- 2: Un corteggiamento garbato fa bene al gusto dell'incontro e alla leggerezza del momento; la questione che hai posto, però, riguarda un impegno già preso con qualcuno.
 - 3: Il richiamo della bellezza porta il tuo sentimento verso chi lo invita, mentre la trattativa affettiva che avevi aperto chiedeva una parola sul domani.
 
 ### capovolta
 
-- 1: Le promesse vaghe depositano parole da verificare, oltre i gesti che tu stavi già contando uno per uno nelle settimane passate.
+- 1: Le promesse vaghe aggiungono parole da verificare a una faccenda che chiedeva fatti, proprio mentre stavi contando uno per uno i gesti delle settimane passate.
 - 2: Un'illusione senza appoggio si posa nel punto in cui il legame chiedeva prove durevoli: il discorso è bello, intanto la verifica che hai chiesto resta da fare.
 - 3: Il detto sta nel posto che il fatto teneva libero: il rapporto che hai in corso aspettava un gesto compiuto e si trova davanti una frase.
 
@@ -756,7 +756,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una cosa in più entra nel giro dove le tue mani ne reggevano già troppe: il ritmo rotto chiede di tenere anche quella e qualcosa comincia a scivolare.
 - 2: Si rompe la cadenza mentre la tua giornata contava su un passo uguale: le cose in aria scendono fuori misura e la mano arriva dopo quella che cade.
-- 3: Verso quella che sta scivolando corre tutta l'attenzione, mentre le altre faccende del tuo lavoro giravano a tempo e chiedevano la mano alzata.
+- 3: Verso la cosa che sta scivolando corre tutta l'attenzione, mentre le altre faccende in gioco giravano a tempo e chiedevano soltanto la tua mano alzata al momento giusto.
 
 ## Tre di Denari
 
@@ -777,14 +777,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: La mano chiusa sopra i beni che possiedi mette al sicuro il tuo avere e con quel gesto stesso blocca l'ingresso da cui l'apporto nuovo doveva arrivare.
-- 2: Un controllo accurato sui beni tiene impegnato il margine che la tua trattativa serbava libero per muovere un'offerta a chi aspetta.
+- 2: Un controllo accurato sui beni occupa il margine che la tua trattativa teneva libero per fare un passo verso chi aspetta: la mano impegnata a contare non arriva a offrire.
 - 3: Il gesto di custodire non si interrompe quando il tuo bene è già al riparo: la stretta tiene, poi seguita a tenere anche sul punto che chiedeva una tua apertura.
 
 ### capovolta
 
-- 1: La presa non si allenta dopo il segno in cui il tuo bene era già protetto: il timore di perdere insiste sulla stretta; il legame che hai in gioco chiedeva mani morbide.
+- 1: La presa non si allenta dopo il segno in cui il tuo bene era già protetto: il timore di perdere insiste sulla stretta, mentre il legame in gioco chiedeva mani morbide.
 - 2: Un timore di perdere mostra il prezzo che dai ai beni che hai, là dove la trattativa guadagnava dal silenzio su questa stima.
-- 3: Il bisogno di trattenere porta altri beni sotto sorveglianza, in cima all'impegno che hai appena preso con qualcuno.
+- 3: Il bisogno di trattenere mette sotto sorveglianza anche altri beni, proprio sopra l'impegno che hai appena preso con qualcuno: la mano che controlla non riesce a dare.
 
 ## Cinque di Denari
 
@@ -805,14 +805,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: La generosità rimette in moto lo scambio e tiene in piedi chi riceve la parte. Quello che hai in gioco voleva una cosa trattenuta per te fino in fondo.
-- 2: Il piatto che pende dalla parte di chi dà ripara chi prende dalla mancanza e col medesimo gesto fissa chi dei due sta più in alto: la parità era quanto il tuo rapporto aveva in gioco.
+- 2: Il piatto che pende dalla parte di chi dà ripara chi prende e insieme fissa chi dei due sta più in alto: la parità era ciò che il tuo rapporto aveva in gioco.
 - 3: Una cosa da rimandare indietro si aggiunge a quelle che l'altra mano tiene già, perché il dono pesato chiama il suo ritorno. Il legame che hai in gioco voleva mani libere.
 
 ### capovolta
 
 - 1: Quel dare va alla mano che prende e a nessun'altra. La faccenda su cui chiedi aveva bisogno di una riserva tua intatta per essere portata fino in fondo.
 - 2: La generosità tira verso la mano che non ricambia e porta là quello che hai, mentre il legame alla pari su cui chiedi voleva proprio quella parte.
-- 3: Il dare prosegue oltre il punto in cui lo scambio aveva già avuto la sua parte, perché una mano che non rimanda niente non segna mai il termine. La tua riserva era quanto serviva.
+- 3: Il dare prosegue oltre il punto in cui lo scambio aveva avuto la sua parte, perché una mano che non rimanda niente non segna il termine. La tua riserva era ciò che serviva.
 
 ## Sette di Denari
 
@@ -847,8 +847,8 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: L'autonomia che hai costruito fa bene al tuo giardino e lo tiene in fiore da sé, mentre la faccenda aperta chiedeva di poggiare su qualcuno. Il bene è pieno ed è rivolto al recinto.
-- 2: Bastare a sé è un frutto vero del tuo lavoro e nutre la quiete dentro il recinto, dove tutto è a posto; il punto che attende una risposta vive invece di mani in più. Il dono resta dentro il muro.
-- 3: Quello che hai messo insieme con le tue mani prospera senza chiedere niente a nessuno ed è giusto goderne, mentre la parte in gioco cresceva solo con un patto a due. L'agiatezza serve il tuo orto.
+- 2: Bastare a sé è un frutto del tuo lavoro e nutre la quiete nel recinto; il punto che attende risposta vive invece di mani in più. Il dono resta dentro il muro.
+- 3: Quello che hai messo insieme con le tue mani prospera senza chiedere niente a nessuno ed è giusto goderne, mentre la parte in gioco cresceva solo con un patto a due.
 
 ### capovolta
 
@@ -860,15 +860,15 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una ricchezza che dura porta frutto a chi viene dopo di te; il bisogno che hai portato chiede risposta dentro questa stagione.
-- 2: Lo sguardo sulle radici attira il tuo interesse verso le generazioni; la questione che hai portato si gioca con un interlocutore unico.
-- 3: La solidità costruita ti protegge dall'incertezza e nello stesso tempo trattiene la disponibilità da cui il cambiamento in esame poteva passare.
+- 1: Ti ostacola una ricchezza pensata per durare: porta frutto a chi viene dopo di te, mentre il bisogno che hai portato chiede una risposta dentro questa stagione, non fra vent'anni.
+- 2: Lo sguardo rivolto alle generazioni ti allontana dal punto: tiri dentro parenti, eredi e radici, mentre la questione che hai portato si gioca con una persona sola, qui e adesso.
+- 3: La solidità costruita ti protegge dall'incertezza e nello stesso tempo ti trattiene: la prudenza di chi custodisce chiude la porta da cui il cambiamento che stai valutando poteva passare.
 
 ### capovolta
 
 - 1: Un attrito sui beni comuni mette in piazza chi pretende che cosa dentro la parentela, là dove la tua pratica reggeva sul riserbo fra parenti.
 - 2: La contesa fra chi dovrebbe condividere occupa il tavolo che il bene comune serbava per una gestione concorde: la tua parte resta piena di pretese.
-- 3: Beni che appartengono a più di uno portano partite nuove da trattare, sopra il punto che hai messo sul tavolo.
+- 3: Beni che appartengono a più di uno ti mettono davanti partite nuove da trattare, proprio sopra il punto che hai messo sul tavolo: l'attrito fra parenti ingombra la tua domanda.
 
 ## Fante di Denari
 
@@ -1029,7 +1029,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Il pensiero del vincolo tiene occupato il margine in cui la tua pratica chiedeva una mossa qualunque: dentro ci sta l'inventario dei tuoi limiti.
-- 2: Una lista di legacci dichiarati impone calcoli da rifare ogni volta, addosso alla pratica che hai avviato e che aspetta una mossa.
+- 2: Una lista di legacci dichiarati impone calcoli da rifare ogni volta, addosso alla pratica che hai avviato e che aspetta soltanto una tua mossa.
 - 3: Le corde e la benda tirano la tua attenzione sui limiti, mentre il punto che hai posto riguardava il margine già largo che hai dietro.
 
 ### capovolta
@@ -1056,8 +1056,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La resa riconosciuta chiude il contendere: la tua trattativa aveva bisogno che restasse aperto almeno un fronte da cui parlare.
-- 2: Il fondo toccato resta visibile a tutto il tavolo. Il tuo riserbo su come stanno davvero le cose era la parte su cui l'accordo poggiava.
+- 1: La resa riconosciuta chiude il contendere, mentre la tua trattativa aveva bisogno che restasse aperto almeno un fronte da cui parlare: il fondo ammesso toglie la leva che ti serviva.
+- 2: Il fondo toccato resta visibile a tutto il tavolo. Il tuo riserbo su come stanno davvero le cose era la parte su cui l'accordo poggiava e adesso quel riparo manca.
 - 3: Questa chiusura prosegue oltre la cosa che era davvero esaurita e arriva a quello che stava ancora in piedi accanto. Il legame che hai in gioco apparteneva al secondo.
 
 ### capovolta
@@ -1086,7 +1086,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La carica tiene un solo scopo davanti e corre in linea retta anche dopo che il tuo accordo aveva chiesto un fermo per rileggere: quello che sta in mezzo resta dietro al galoppo.
 - 2: Detta in corsa, la cosa vista finisce in mezzo al tavolo, mentre il tuo riserbo con quelle persone la teneva fuori: la mente rapida nomina lo scopo e non aspetta il giro di parole.
-- 3: Il taglio netto fa bene allo scopo che hai già scelto: la determinazione lavora per quello, mentre il legame delicato che il tuo patto tiene in piedi sta davanti a una corsa che non devia.
+- 3: Il taglio netto fa bene allo scopo che hai già scelto, mentre il legame delicato che il tuo patto tiene in piedi si trova davanti a una corsa che non devia.
 
 ### capovolta
 
@@ -1098,26 +1098,26 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La tua franchezza è un dono vero e fa bene alla nitidezza del tuo pensiero, mentre il legame in gioco chiedeva un margine di silenzio prima di sentirsi dire tutto. Il bene c'è: non arriva là.
-- 2: Dire il vero senza giri serve alla chiarezza che hai conquistato e tiene puliti i tuoi confini; la cosa aperta sul tavolo cresceva invece su una frase non detta. Il dono è intero ed è altrove.
+- 1: La tua franchezza è un dono vero e giova alla nitidezza del tuo pensiero, mentre il legame in gioco chiedeva un margine di silenzio prima di sentirsi dire tutto.
+- 2: Dire il vero senza giri serve alla chiarezza che hai conquistato e tiene puliti i tuoi confini, mentre la cosa aperta sul tavolo cresceva su una frase non detta.
 - 3: Confini chiari e parola onesta fanno un bene autentico a chi li porta, mentre quello che hai in corso si nutriva di un riserbo lasciato in piedi. La sincerità rende: rende ad altro.
 
 ### capovolta
 
 - 1: La corazza che indossi ti protegge davvero e nello stesso gesto serra la fessura da cui il tuo legame attendeva di passare. Il giudizio affilato taglia fuori il rischio insieme al resto.
-- 2: Una solitudine scelta tiene al sicuro la parte di te che non vuole essere toccata, mentre sigilla il punto in cui la faccenda aperta aveva bisogno di una mano tesa. Il riparo è saldo da ogni lato.
+- 2: Una solitudine scelta tiene al riparo la parte di te che non vuole farsi toccare, ma sigilla il punto in cui la faccenda aperta aveva bisogno di una mano tesa.
 - 3: Difendersi con la durezza funziona: la stessa durezza chiude a chiave la conversazione da cui quello che hai in corso dipendeva. La lama rivolta a te sorveglia la porta.
 
 ## Re di Spade
 
 ### dritta
 
-- 1: Il giudizio che pronunci espone il criterio con cui decidi, là dove la trattativa reggeva sul tenere riservato il tuo metro.
+- 1: Il giudizio che pronunci espone il criterio con cui decidi, proprio là dove la trattativa reggeva sul tenere riservato il tuo metro di misura.
 - 2: Una deliberazione limpida fa bene alla correttezza della materia che tratti; il legame su cui hai chiesto voleva indulgenza più che equità.
-- 3: La lucidità con cui separi il vero continua dopo il segno in cui il tuo caso chiedeva di fermarsi: distingui una prima volta, poi torni a dividere le parti che andavano tenute insieme.
+- 3: La lucidità con cui separi il vero continua oltre il segno in cui il tuo caso chiedeva di fermarsi: distingui ancora e dividi parti che andavano tenute insieme.
 
 ### capovolta
 
 - 1: La freddezza con cui tieni la ragione sposta il tuo interesse sulla correttezza dell'argomento, mentre la questione che hai posto riguardava le persone dentro.
 - 2: Un rigore senza tenerezza ti difende dal contraccolpo e con lo stesso gesto sigilla la fessura da cui la riconciliazione poteva passare.
-- 3: Il bisogno di avere ragione porta discussioni da vincere, accanto ai legami che stavi tenendo su con le tue mani.
+- 3: Il bisogno di avere ragione porta discussioni da vincere proprio accanto ai legami che stavi tenendo su con le tue mani, che così si raffreddano.
