@@ -171,10 +171,38 @@ void main() {
     // elenco di eccezioni diventa un elenco che nessuno mantiene. Le undici
     // virgole sono state togliete e questo file guarda tutto `lib`, cornici
     // comprese.
+    //
+    // **IL VERSETTO DI MARTINI NON E' TESTO DI CASA**, ordine GA, i rossi del
+    // cancello su 4caad709, 21 ottobre 2026. I riti propiziatori degli
+    // angeli (ordine GA voci 04 e 07, 297cd46f) fanno leggere fra le
+    // virgolette basse un versetto della Bibbia di Antonio Martini nella
+    // stampa Passigli del 1842, alla lettera: "Viva il Signore, e diasi
+    // benedizione al mio Dio, e sia glorificato il Dio di mia salute". La
+    // virgola prima della "e" e' la punteggiatura della stampa, in una
+    // trentina di versetti, e togliendola si riscriverebbe la Scrittura, non
+    // una frase di casa; `tool/genera_i_riti.py` lascia gia' le citazioni
+    // fuori dai controlli della lingua. Non e' la deroga che il fondatore ha
+    // negato per le cornici del presagio (testo di casa, dove la virgola si
+    // toglie senza cambiare niente): si cambia la grandezza misurata, e nelle
+    // sole stringhe dei riti della raccolta `salmi_martini` il versetto « »
+    // si toglie prima di cercare. Il resto del rito resta guardato.
+    const riti = 'i_riti_propiziatori_dati.dart';
+    final versetto = RegExp(r'«[^»]*»');
+    final ritiDeiSalmi = <String>{
+      for (final r in File('lib/core/responsi/$riti').readAsLinesSync())
+        if (r.trimLeft().startsWith("'salmi_martini|"))
+          ..._logicalStrings(r).skip(1),
+    };
+    expect(ritiDeiSalmi.length, greaterThanOrEqualTo(72),
+        reason: 'i riti dei salmi di Martini sono uno per angelo: se non si '
+            'trovano piu\' l\'eccezione guarda un file sbagliato');
     final files = sorgentiDiLib();
     for (final file in files) {
       final strings = _logicalStrings(file.readAsStringSync());
-      for (final s in strings) {
+      for (final s0 in strings) {
+        final s = file.path.endsWith(riti) && ritiDeiSalmi.contains(s0)
+            ? s0.replaceAll(versetto, '«»')
+            : s0;
         expect(commaE.hasMatch(s), isFalse,
             reason: 'Virgola piu "e" in ${file.path}, nella stringa: "$s".');
         expect(s.contains('—'), isFalse,

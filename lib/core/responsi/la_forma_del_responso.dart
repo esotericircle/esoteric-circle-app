@@ -152,7 +152,7 @@ abstract final class LaFormaDelResponso {
       'titolo deve sapere che cosa dicono i simboli sulla sua domanda. Non '
       'finisce col punto, non ha i due punti e non è una domanda.\n'
       '- Ogni affermazione poggia sui simboli usciti e sul loro significato '
-      'documentato, dritto o rovesciato, e risponde alla domanda posta: un '
+      'documentato (dritto o rovesciato) e risponde alla domanda posta: un '
       'testo che starebbe bene sotto qualunque simbolo o qualunque domanda è '
       'sbagliato.\n'
       '- Nessun futuro dato per certo, nessuna promessa, nessun consiglio su '

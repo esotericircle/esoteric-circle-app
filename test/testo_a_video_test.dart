@@ -142,14 +142,38 @@ void main() {
     final citazione =
         RegExp(r"(^|\s)'[A-Za-zÀ-ÿ][^']*?[A-Za-zÀ-ÿ]'(?=[\s.,;:!?]|$)");
     final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
+    // **IL VERSETTO DI MARTINI SI LEGGE ALLA LETTERA**, ordine GA, i rossi
+    // del cancello su 4caad709, 21 ottobre 2026. I riti propiziatori degli
+    // angeli (ordine GA voci 04 e 07, 297cd46f) fanno leggere fra le
+    // virgolette basse un versetto della Bibbia di Antonio Martini nella
+    // stampa Passigli del 1842, con le sue forme antiche ("tu se'", "de'",
+    // "ch'", "ell'", "fe'", "que'", "ne'"), che
+    // `docs/corpus/riti/salmi_martini.md` dichiara una per una e che
+    // `tool/genera_i_riti.py` gia' lascia fuori dai controlli della lingua di
+    // casa. Si cambia la grandezza misurata, come per le citazioni fra apici:
+    // nelle sole righe della raccolta `salmi_martini` la citazione « » si
+    // toglie prima di cercare. Il resto del rito resta guardato, e le altre
+    // raccolte anche. La stessa eccezione sta in accenti_veri_test.
+    const riti = 'lib/core/responsi/i_riti_propiziatori_dati.dart';
+    final righeDeiSalmi = <int>{
+      for (final (i, r) in File(riti).readAsLinesSync().indexed)
+        if (r.contains("'salmi_martini|")) i + 1,
+    };
+    expect(righeDeiSalmi.length, greaterThanOrEqualTo(72),
+        reason: 'i riti dei salmi di Martini sono uno per angelo: se non si '
+            'trovano piu\' l\'eccezione guarda un file sbagliato');
+    final versetto = RegExp(r'«[^»]*»');
     final colpevoli = <String>[];
     for (final (file, riga, testo) in stringheDiLib()) {
       if (!testo.contains(' ')) continue;
       // Nel sorgente l'apostrofo dentro una stringa a apici singoli porta
       // davanti la barra dell'escape, quindi si normalizza prima di cercare:
       // e' il passo che mancava alla misura di allora, quella che trovo' zero.
-      final senzaCitazioni =
+      var senzaCitazioni =
           testo.replaceAll(r"\'", "'").replaceAll(citazione, ' ');
+      if (file == riti && righeDeiSalmi.contains(riga)) {
+        senzaCitazioni = senzaCitazioni.replaceAll(versetto, '«»');
+      }
       for (final m in parola.allMatches(senzaCitazioni)) {
         final p = m.group(1)!.toLowerCase();
         if (elisioni.contains(p)) continue;
