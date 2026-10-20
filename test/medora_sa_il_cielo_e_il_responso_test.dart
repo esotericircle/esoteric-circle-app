@@ -383,7 +383,12 @@ void main() {
   test('l\'Oroscopo passa a Medora le schede con Da dove viene', () {
     final oroscopo =
         File('lib/features/horoscope/oroscopo_screen.dart').readAsStringSync();
-    expect(oroscopo, contains("'Da dove viene: \${c.rigaDelLivello}'"),
+    // Dall'ordine GA (voce GA.03, 20 ottobre 2026) il "Da dove viene" della
+    // scheda e' quello del responso nella forma nuova
+    // (`HoroscopeCard.daDoveViene`: la riga del cielo e, nella Lunga, la
+    // fonte del rito), non piu' la sola riga del livello: Medora riceve
+    // quello che la persona legge in fondo alla scheda.
+    expect(oroscopo, contains("'Da dove viene: \${c.daDoveViene}'"),
         reason: 'il responso dell\'Oroscopo arriva a Medora senza il '
             'transito da cui nasce');
     expect(oroscopo, contains('perIlMaestro: perIlMaestro'));

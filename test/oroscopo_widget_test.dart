@@ -116,7 +116,12 @@ void main() {
       // EU Aggiunta, 1 ottobre 2026: le schede portano i due paragrafi del
       // corpus dell'Architetto separati, e a 2600 punti la quarta restava
       // fuori dalla lista.
-      tester.view.physicalSize = const Size(440, 3600);
+      // Ordine GA, 20 ottobre 2026: i paragrafi da 40 a 50 parole della voce
+      // GA.07 e il responso nella forma nuova (il riquadro "Cosa fare
+      // adesso" col suo titolo) allungano le schede, e a 3600 punti la
+      // Fortuna restava fuori dalla lista: quattro prove dicevano 3 schede
+      // su 4 e "manca il selettore della Fortuna".
+      tester.view.physicalSize = const Size(440, 5200);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);

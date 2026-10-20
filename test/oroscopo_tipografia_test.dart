@@ -156,7 +156,38 @@ void main() {
       await tester.pump();
       expect(responso, findsOneWidget,
           reason: 'manca il responso della scheda ${dominio.name}');
-      final stili = stiliDi(tester, responso);
+      // **DALL'ORDINE GA SI MISURANO I PARAGRAFI DEL RESPONSO** (voce GA.03,
+      // 20 ottobre 2026). Il responso nella forma nuova porta dentro di se'
+      // anche il titolo del riquadro "Cosa fare adesso" (un'etichetta, 14
+      // punti) e il "Da dove viene" in corsivo (una didascalia): non sono
+      // prosa da leggere e non hanno mai avuto il ruolo lettura. La prova
+      // cadeva su "Cosa fare adesso" a 14.0 contro 20.0. Si misurano i
+      // paragrafi, ognuno con la sua chiave: la risposta e "Cosa fare
+      // adesso" sempre, l'approfondimento e il rito quando ci sono. La
+      // scheda appena entrata in vista si scrive ancora un paragrafo alla
+      // volta (la macchina da scrivere): si aspetta che abbia finito.
+      for (var i = 0;
+          i < 10 &&
+              find
+                  .byKey(Key('oroscopo_responso_${dominio.name}_cosa_fare'))
+                  .evaluate()
+                  .isEmpty;
+          i++) {
+        await tester.pump(const Duration(seconds: 1));
+      }
+      final paragrafi = [
+        for (final nome in const [
+          'risposta',
+          'cosa_fare',
+          'approfondimento',
+          'rito'
+        ])
+          find.byKey(Key('oroscopo_responso_${dominio.name}_$nome')),
+      ].where((f) => f.evaluate().isNotEmpty).toList();
+      expect(paragrafi.length, greaterThanOrEqualTo(2),
+          reason: 'il responso di ${dominio.name} non porta la risposta e '
+              '"Cosa fare adesso"');
+      final stili = [for (final p in paragrafi) ...stiliDi(tester, p)];
       expect(stili, isNotEmpty,
           reason: 'il responso di ${dominio.name} non porta nessun testo');
       for (final s in stili) {

@@ -145,9 +145,50 @@ void main() {
 
   bool ce(Finder f) => f.evaluate().isNotEmpty;
 
+  /// **LE INFOGRAFICHE DELLA SCHEDA**, ordine FC voce 05: il colpo d'occhio
+  /// visivo prima del testo, una per una.
+  final infografiche = <String, Finder>{
+    'il livello del dominio (DomainLevel)': find.byType(DomainLevel),
+    'le ore del giorno (LeOreDelGiornoView)': find.byType(LeOreDelGiornoView),
+    'il numero e il colore della Fortuna (RiquadroDelNumero)':
+        find.byType(RiquadroDelNumero),
+    'la ruota del passaggio (LaRigaDelPassaggio)':
+        find.byType(LaRigaDelPassaggio),
+    'l\'ora d\'oro': find.byKey(const Key('oroscopo_ora_d_oro')),
+  };
+
+  /// **LE INFOGRAFICHE SI CONTANO SCORRENDO**, ordine GA (20 ottobre 2026).
+  /// Prima si contavano una volta sola, a lista scorsa fino alla card da
+  /// condividere: coi paragrafi da 40 a 50 parole della voce GA.07 e il
+  /// responso nella forma nuova le schede sono piu' lunghe, la lista pigra
+  /// non costruisce piu' la cima quando sta in fondo, e l'ora d'oro della
+  /// Generale non si contava (4 infografiche su 5, la prova rossa per
+  /// l'insieme che si svuotava e non per l'oroscopo). Adesso ogni
+  /// infografica si segna dove la si incontra scorrendo, una per scheda
+  /// (la chiave della scheda che la contiene, o "fuori" se non sta in una
+  /// scheda): il livello del dominio resta quattro, uno per scheda.
+  final infoViste = <String, Set<String>>{};
+  void segnaLeInfografiche() {
+    for (final MapEntry(key: nome, value: f) in infografiche.entries) {
+      for (final e in f.evaluate()) {
+        var dove = 'fuori';
+        e.visitAncestorElements((a) {
+          final k = a.widget.key;
+          if (k is ValueKey<String> && k.value.startsWith('oroscopo_card_')) {
+            dove = k.value;
+            return false;
+          }
+          return true;
+        });
+        infoViste.putIfAbsent(nome, () => <String>{}).add(dove);
+      }
+    }
+  }
+
   /// **LE COSE CHE L'OROSCOPO MOSTRA**, ordine FC voce 02 punto 5: prima del
   /// tocco e dopo. Una mancante e' una differenza fra le due letture.
   Future<Map<String, bool>> leCose(WidgetTester tester) async {
+    infoViste.clear();
     final prima = <String, bool>{
       'il fondale cosmico in parallasse': ce(find.byType(CosmosBackground)),
       'la riga "Oroscopo per"': ce(find.byKey(const Key('oroscopo_per'))),
@@ -185,6 +226,7 @@ void main() {
           .evaluate()) {
         selettoriVisti.add((e.widget.key! as ValueKey<String>).value);
       }
+      segnaLeInfografiche();
     }
 
     segna();
@@ -202,19 +244,10 @@ void main() {
     return {...prima, ...dopo};
   }
 
-  /// **LE INFOGRAFICHE DELLA SCHEDA**, ordine FC voce 05: il colpo d'occhio
-  /// visivo prima del testo, una per una.
+  /// Le infografiche incontrate scorrendo l'ultima lettura ([leCose]).
   Map<String, int> leInfografiche() => {
-        'il livello del dominio (DomainLevel)':
-            find.byType(DomainLevel).evaluate().length,
-        'le ore del giorno (LeOreDelGiornoView)':
-            find.byType(LeOreDelGiornoView).evaluate().length,
-        'il numero e il colore della Fortuna (RiquadroDelNumero)':
-            find.byType(RiquadroDelNumero).evaluate().length,
-        'la ruota del passaggio (LaRigaDelPassaggio)':
-            find.byType(LaRigaDelPassaggio).evaluate().length,
-        'l\'ora d\'oro':
-            find.byKey(const Key('oroscopo_ora_d_oro')).evaluate().length,
+        for (final nome in infografiche.keys)
+          nome: infoViste[nome]?.length ?? 0,
       };
 
   /// **LE INFOGRAFICHE CHE SENZA LA CARTA NATALE NON HANNO SENSO.** Di un
