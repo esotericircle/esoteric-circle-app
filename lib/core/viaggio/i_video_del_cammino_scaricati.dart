@@ -26,42 +26,61 @@ class IVideoDelCamminoScaricati {
     http.Client? client,
     Future<Directory> Function()? cartella,
     this.indirizzoDelManifesto = manifestoSulBucket,
-    this.indirizzoDiRipiego = manifestoV1SulBucket,
+    this.indirizziDiRipiego = const [
+      manifestoV2SulBucket,
+      manifestoV1SulBucket,
+    ],
   })  : _client = client,
         _cartella = cartella ?? getApplicationSupportDirectory;
 
   /// L'unico, quello dell'app.
   static IVideoDelCamminoScaricati diCasa = IVideoDelCamminoScaricati();
 
+  /// **IL MANIFESTO V3**, 20 ottobre 2026, scritto da
+  /// `tool/gli_asset_del_viaggio_v3.py`: per Lince, Volpe, Orso, Lupo,
+  /// Cavallo, Cervo e Tartaruga il pezzo `volta` viene dal video nuovo del
+  /// "si volta" dell'Architetto (l'animale gira il capo a guardare dietro di
+  /// se', resta, e torna in posa, da 5,4 a 6,8 s), al posto del taglio
+  /// andata e ritorno della v2, che per gli animali di terra durava fra 0,46
+  /// e 1,2 s. Gufo, Aquila, Falco, Corvo e Serpente tengono il pezzo della
+  /// v2, e tutto il resto e' quello della v2. Lo pubblica il fondatore.
+  static const String manifestoSulBucket =
+      'https://storage.googleapis.com/esoteric-circle-assets-cdn/'
+      'viaggio_sciamano/manifesto_viaggio_v3.json';
+
   /// **IL MANIFESTO V2**, 20 ottobre 2026, scritto da
   /// `tool/gli_asset_del_viaggio_v2.py`: porta per ogni animale il pezzo
   /// `volta` (il gesto "si volta", taglio andata e ritorno), l'arrivo del
   /// Cervo dal fotogramma 3 e le uscite che si fermano prima che l'animale
-  /// diventi trasparente. Lo pubblica il fondatore.
-  static const String manifestoSulBucket =
+  /// diventi trasparente. E' il primo ripiego, finche' la v3 non e' sul
+  /// bucket.
+  static const String manifestoV2SulBucket =
       'https://storage.googleapis.com/esoteric-circle-assets-cdn/'
       'viaggio_sciamano/manifesto_viaggio_v2.json';
 
   /// **IL RIPIEGO SULLA V1**, scritto da `tool/gli_asset_dell_ordine_fz.py`:
-  /// finche' la v2 non e' sul bucket, il manifesto v2 risponde 404 e l'app
-  /// scarica la v1 come prima, invece di restare senza video.
+  /// se ne' la v3 ne' la v2 rispondono, l'app scarica la v1 come prima,
+  /// invece di restare senza video.
   static const String manifestoV1SulBucket =
       'https://storage.googleapis.com/esoteric-circle-assets-cdn/'
       'viaggio_sciamano/manifesto_viaggio_v1.json';
 
   /// **LA VERSIONE CHE L'APP VUOLE.** Un animale scaricato con un manifesto
   /// piu' vecchio resta buono senza rete, ma non e' [aggiornato]: alla
-  /// prossima occasione con la rete si riscarica (e i file che non cambiano
-  /// si riprendono dal telefono, non dalla rete).
-  static const int versioneAttuale = 2;
+  /// prossima occasione con la rete si riscarica (e i file che non cambiano,
+  /// con lo stesso nome e la stessa impronta SHA-256, si riprendono dal
+  /// telefono, non dalla rete: passando dalla v2 alla v3 un animale di terra
+  /// chiede alla rete il solo pezzo volta nuovo, un uccello o il Serpente
+  /// nessun file).
+  static const int versioneAttuale = 3;
 
   final http.Client? _client;
   final Future<Directory> Function() _cartella;
   final String indirizzoDelManifesto;
 
-  /// Dove chiedere il manifesto quando [indirizzoDelManifesto] non risponde
-  /// 200; nullo, nessun ripiego.
-  final String? indirizzoDiRipiego;
+  /// Dove chiedere il manifesto, in ordine, quando [indirizzoDelManifesto]
+  /// non risponde 200: la v2, poi la v1. Vuoto, nessun ripiego.
+  final List<String> indirizziDiRipiego;
 
   /// Quante richieste di rete ha fatto: le prove pretendono zero all'avvio.
   @visibleForTesting
@@ -149,12 +168,12 @@ class IVideoDelCamminoScaricati {
         : '$cartella/00_scena_ultimo.webp';
   }
 
-  /// Il manifest dal bucket: la v2, e se non c'e' ancora la v1
-  /// ([indirizzoDiRipiego]).
+  /// Il manifest dal bucket: la v3, e se non c'e' ancora il primo dei
+  /// [indirizziDiRipiego] che risponde (la v2, poi la v1).
   Future<Map<String, dynamic>> manifesto() async {
     var r = await _chiedi(indirizzoDelManifesto);
-    final ripiego = indirizzoDiRipiego;
-    if (r.statusCode != 200 && ripiego != null) {
+    for (final ripiego in indirizziDiRipiego) {
+      if (r.statusCode == 200) break;
       r = await _chiedi(ripiego);
     }
     if (r.statusCode != 200) {
@@ -222,7 +241,9 @@ class IVideoDelCamminoScaricati {
       for (final f in elenco) {
         var buono = false;
         // **UN FILE CHE IL TELEFONO HA GIA' NON SI RISCARICA**: passando
-        // dalla v1 alla v2 i file che non cambiano portano lo stesso nome e
+        // dalla v1 alla v2, e dalla v2 alla v3, i file che non cambiano
+        // (alla v3 tutti tranne il pezzo volta dei sette animali di terra)
+        // portano lo stesso nome e
         // la stessa impronta, e si prendono dalla cartella installata.
         if (vecchio != null) {
           final giaQui = File('${vecchio.cartella}/${f.file}');

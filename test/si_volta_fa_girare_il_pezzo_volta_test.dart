@@ -9,8 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 
-/// **"SI VOLTA" FA GIRARE IL PEZZO VOLTA, E IL MANIFESTO V2 LO PORTA PER
-/// TUTTI E DODICI.** 20 ottobre 2026.
+/// **"SI VOLTA" FA GIRARE IL PEZZO VOLTA, E IL MANIFESTO LO PORTA PER TUTTI
+/// E DODICI.** 20 ottobre 2026.
 ///
 /// **Il fatto**: la verifica fotogramma per fotogramma dei dodici animali
 /// del Viaggio dello Sciamano ha trovato che il pezzo "centro", quello che
@@ -21,29 +21,45 @@ import 'cardinale_minimo.dart';
 /// La cura scelta da lui: *"Taglio andata e ritorno"*. Padre: ordine FZ voce
 /// FZ.05 (la sequenza dei gesti) e FZ.06 (i tagli dei video).
 ///
+/// **La v3, lo stesso 20 ottobre 2026 sera.** Il taglio andata e ritorno
+/// della v2 era buono per Gufo, Aquila, Falco, Corvo e Serpente, debole per
+/// i sette animali di terra (fra 0,46 e 1,2 s: il capo girava di pochi
+/// fotogrammi prima del passo). L'Architetto ha consegnato per loro un video
+/// nuovo del "si volta"; `tool/gli_asset_del_viaggio_v3.py` ne fa il pezzo
+/// `volta` v3, dall'inizio alla fine del gesto, con la dissolvenza di 0,3 s
+/// verso la posa in testa e in coda. Padre del difetto: ordine GA voce 11,
+/// la v2 (commit fb2b74fb), che per gli animali di terra prendeva il voltarsi
+/// dall'uscita.
+///
 /// **Cosa misura**:
 /// - il gesto "si volta" fa girare il solo pezzo `volta`, mai il centro;
-/// - il manifesto v2 (la copia nel repo, `docs/collaudo/viaggio_volta/`,
-///   identica byte per byte a quella che `tool/gli_asset_del_viaggio_v2.py`
-///   scrive in `_pronti_v2` accanto ai video: le impronte dei file si
-///   rileggono dal disco prima di caricarli, non qui, perche' i video non
-///   stanno nel repo e una prova non si salta) porta per ognuno dei dodici
-///   animali del catalogo il pezzo `volta` col suo SHA-256, diverso da quello
-///   del centro, che
-///   comincia dove comincia l'uscita e il cui primo e ultimo fotogramma
-///   stanno sulla posa (scarto misurato sotto 6 su 255: senza il raccordo
-///   sarebbe stato fra 9 e 13);
+/// - il manifesto v3 (la copia nel repo, `docs/collaudo/viaggio_volta/v3/`,
+///   identica byte per byte a quella che lo strumento scrive in `_pronti_v3`
+///   accanto ai video: le impronte dei file si rileggono dal disco prima di
+///   caricarli, non qui, perche' i video non stanno nel repo e una prova non
+///   si salta) porta per i sette animali di terra un pezzo `volta` nuovo
+///   (`<animale>_volta_v3.mp4`, la sua impronta, diversa da quella della v2 e
+///   del centro, il gesto intero fra 5 e 7 secondi, il primo e l'ultimo
+///   fotogramma sulla posa con lo scarto sotto 6 su 255), e per Gufo, Aquila,
+///   Falco, Corvo e Serpente il pezzo della v2 com'e'; e tutto il resto
+///   identico alla v2;
 /// - le cure D3, D4 e D5: l'arrivo del Cervo dal fotogramma 3, l'uscita che
 ///   finisce prima della trasparenza con la dissolvenza sulla scena vuota per
 ///   tutti e dodici, la riga dell'uscita che dice quello che il video mostra.
 ///
-/// **Cardinale proprio**: i dodici animali del catalogo, e i dodici pezzi
-/// volta trovati nel manifesto.
-const _copia = 'docs/collaudo/viaggio_volta/manifesto_viaggio_v2.json';
+/// **Cardinale proprio**: i dodici animali del catalogo, i sette pezzi volta
+/// nuovi e i cinque rimasti della v2.
+const _copia = 'docs/collaudo/viaggio_volta/v3/manifesto_viaggio_v3.json';
+const _copiaV2 = 'docs/collaudo/viaggio_volta/manifesto_viaggio_v2.json';
 
 /// Gli animali di terra la cui uscita diventava trasparente (D4).
 const _trasparentiSulSentiero = {
   'Cavallo', 'Cervo', 'Lince', 'Lupo', 'Orso', 'Serpente', 'Volpe', //
+};
+
+/// I sette animali di terra col video nuovo del "si volta" (v3).
+const _diTerra = {
+  'Lince', 'Volpe', 'Orso', 'Lupo', 'Cavallo', 'Cervo', 'Tartaruga', //
 };
 
 Map<String, dynamic> _manifesto(String percorso) =>
@@ -69,42 +85,74 @@ void main() {
   });
 
   test(
-      'IL MANIFESTO V2 PORTA PER OGNI ANIMALE IL PEZZO VOLTA COL SUO SHA, che '
-      'comincia e finisce sulla posa', () {
+      'IL MANIFESTO V3 PORTA PER I SETTE ANIMALI DI TERRA IL PEZZO VOLTA '
+      'NUOVO COL SUO SHA, e per gli uccelli e il Serpente quello della v2', () {
     cardinaleMinimo(nomi.length, 12, cosa: 'animali del catalogo');
     final m = _manifesto(_copia);
     expect(m['versione'], IVideoDelCamminoScaricati.versioneAttuale,
         reason:
             'il manifesto della copia non e\' la versione che l\'app vuole');
     final animali = m['animali'] as Map;
-    var visti = 0;
+    final v2 = _manifesto(_copiaV2)['animali'] as Map;
+    var nuovi = 0;
+    var rimasti = 0;
     for (final nome in nomi) {
-      final voce = animali[nome.toLowerCase()] as Map?;
-      expect(voce, isNotNull, reason: 'il manifesto v2 non porta $nome');
+      final chiave = nome.toLowerCase();
+      final voce = animali[chiave] as Map?;
+      expect(voce, isNotNull, reason: 'il manifesto v3 non porta $nome');
       final pezzi = voce!['pezzi'] as Map;
       final volta = pezzi['volta'] as Map?;
       expect(volta, isNotNull, reason: '$nome non ha il pezzo volta');
-      expect(volta!['file'], '${nome.toLowerCase()}_volta_v2.mp4');
-      expect(volta['sha256'], matches(RegExp(r'^[0-9a-f]{64}$')),
-          reason: '$nome: il pezzo volta senza la sua impronta');
-      expect(volta['byte'] as int, greaterThan(100000));
-      expect(volta['sha256'], isNot((pezzi['centro'] as Map)['sha256']),
-          reason: '$nome: il pezzo volta e\' il centro con un altro nome');
-      expect(volta['da_fotogramma'], (pezzi['uscita'] as Map)['da_fotogramma'],
-          reason: '$nome: il voltarsi e\' il primo tratto dell\'uscita');
-      expect(volta['a_fotogramma'] as int,
-          greaterThan(volta['da_fotogramma'] as int));
+      final voltaV2 = (v2[chiave] as Map)['pezzi']['volta'] as Map;
+      if (_diTerra.contains(nome)) {
+        expect(volta!['file'], '${chiave}_volta_v3.mp4',
+            reason: '$nome ha ancora il taglio della v2');
+        expect(volta['sha256'], matches(RegExp(r'^[0-9a-f]{64}$')),
+            reason: '$nome: il pezzo volta senza la sua impronta');
+        expect(volta['sha256'], isNot(voltaV2['sha256']),
+            reason: '$nome: il pezzo volta e\' quello della v2');
+        expect(volta['sha256'], isNot((pezzi['centro'] as Map)['sha256']),
+            reason: '$nome: il pezzo volta e\' il centro con un altro nome');
+        expect(volta['byte'] as int, greaterThan(1000000));
+        expect(volta['sorgente'], '${chiave}_si_volta_v1.mp4');
+        final da = volta['da_fotogramma'] as int;
+        final girata = volta['girata_completa'] as int;
+        final ritorno = volta['ritorno_inizio'] as int;
+        final a = volta['a_fotogramma'] as int;
+        expect(da < girata && girata < ritorno && ritorno < a, isTrue,
+            reason: '$nome: i punti del gesto fuori ordine');
+        expect(volta['fotogrammi'], a - da + 1,
+            reason: '$nome: il pezzo non e\' il gesto intero');
+        expect(volta['durata_s'] as num, inInclusiveRange(5.0, 7.0),
+            reason: '$nome: il gesto dura ${volta['durata_s']} s');
+        expect(volta['dissolvenza_con_la_posa'], 7,
+            reason: '$nome: la dissolvenza con la posa non e\' 0,3 s');
+        nuovi++;
+      } else {
+        expect(volta, voltaV2,
+            reason: '$nome: il pezzo volta della v2 e\' cambiato');
+        rimasti++;
+      }
       for (final chi in [
         'scarto_primo_dalla_posa',
         'scarto_ultimo_dalla_posa'
       ]) {
-        expect(volta[chi] as num, lessThan(6),
+        expect(volta![chi] as num, lessThan(6),
             reason: '$nome: $chi ${volta[chi]} su 255, il pezzo non '
                 'comincia o non finisce sulla posa');
       }
-      visti++;
+      // Tutto il resto e' la v2: i file che non cambiano si riprendono dal
+      // telefono.
+      final senzaVolta = {...voce}..remove('pezzi');
+      final v2SenzaVolta = {...v2[chiave] as Map}..remove('pezzi');
+      expect(senzaVolta, v2SenzaVolta, reason: nome);
+      for (final p in ['arrivo', 'centro', 'uscita']) {
+        expect(pezzi[p], (v2[chiave] as Map)['pezzi'][p],
+            reason: '$nome: il pezzo $p e\' cambiato dalla v2');
+      }
     }
-    cardinaleMinimo(visti, 12, cosa: 'pezzi volta nel manifesto v2');
+    cardinaleMinimo(nuovi, 7, cosa: 'pezzi volta nuovi nel manifesto v3');
+    cardinaleMinimo(rimasti, 5, cosa: 'pezzi volta della v2 nel manifesto v3');
   });
 
   test(
@@ -142,13 +190,19 @@ void main() {
     }
   });
 
-  test('L\'APP CHIEDE LA V2 E, FINCHE\' NON C\'E\', RIPIEGA SULLA V1', () {
+  test(
+      'L\'APP CHIEDE LA V3 E, FINCHE\' NON C\'E\', RIPIEGA SULLA V2 E POI SULLA V1',
+      () {
     expect(IVideoDelCamminoScaricati.manifestoSulBucket,
+        endsWith('viaggio_sciamano/manifesto_viaggio_v3.json'));
+    expect(IVideoDelCamminoScaricati.manifestoV2SulBucket,
         endsWith('viaggio_sciamano/manifesto_viaggio_v2.json'));
     expect(IVideoDelCamminoScaricati.manifestoV1SulBucket,
         endsWith('viaggio_sciamano/manifesto_viaggio_v1.json'));
     final casa = IVideoDelCamminoScaricati();
-    expect(casa.indirizzoDiRipiego,
-        IVideoDelCamminoScaricati.manifestoV1SulBucket);
+    expect(casa.indirizziDiRipiego, [
+      IVideoDelCamminoScaricati.manifestoV2SulBucket,
+      IVideoDelCamminoScaricati.manifestoV1SulBucket,
+    ]);
   });
 }

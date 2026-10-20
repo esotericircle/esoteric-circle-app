@@ -28,6 +28,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// **Dal 20 ottobre 2026, col manifesto v2 e il pezzo `volta`**, il video
 /// "gia' sul disco" e' quello della v2: il Lupo della v1, che non ha il
 /// pezzo volta, si ritrova ma chiede l'aggiornamento (la prova accanto).
+///
+/// **Dal 20 ottobre 2026 sera, col manifesto v3** (il pezzo volta nuovo dei
+/// sette animali di terra), il video "gia' sul disco" e' quello della v3, e
+/// anche il Lupo della v2 si ritrova ma chiede l'aggiornamento.
 class _VideoDaDisco extends IVideoDelCamminoScaricati {
   _VideoDaDisco(Directory dir) : super(cartella: () async => dir);
   int scaricati = 0;
@@ -43,7 +47,8 @@ class _VideoDaDisco extends IVideoDelCamminoScaricati {
 
 /// Il segno `installato.json` del Lupo come lo scrive la [versione] del
 /// manifesto: la v2 (20 ottobre 2026) aggiunge il pezzo `volta` e la
-/// versione; quello della v1 non la scriveva.
+/// versione, la v3 cambia il pezzo `volta`; quello della v1 non scriveva la
+/// versione.
 Directory _lupoSulDisco({required int versione}) {
   final dir = Directory.systemTemp.createTempSync('video_cammino_');
   final lupo = Directory('${dir.path}/viaggio_sciamano/lupo')
@@ -52,7 +57,8 @@ Directory _lupoSulDisco({required int versione}) {
     'file': {
       'arrivo': 'lupo_arrivo_v1.mp4',
       'centro': 'lupo_centro_v1.mp4',
-      if (versione >= 2) 'volta': 'lupo_volta_v2.mp4',
+      if (versione >= 2)
+        'volta': versione >= 3 ? 'lupo_volta_v3.mp4' : 'lupo_volta_v2.mp4',
       'uscita': versione >= 2 ? 'lupo_uscita_v2.mp4' : 'lupo_uscita_v1.mp4',
       'posa': 'lupo_posa_v1.webp',
     },
@@ -90,29 +96,41 @@ void main() {
     ));
   }
 
-  testWidgets(
-      'UN LUPO DELLA V1 SUL DISCO NON E\' AGGIORNATO: il segno lo ritrova e '
-      'chiede la v2, che porta il pezzo volta', (tester) async {
-    final dir = _lupoSulDisco(versione: 1);
-    addTearDown(() => dir.deleteSync(recursive: true));
-    final video = _VideoDaDisco(dir);
-    await apriIlSegno(tester, video);
-    for (var i = 0; i < 10 && video.scaricati == 0; i++) {
-      await tester.runAsync(
-          () => Future<void>.delayed(const Duration(milliseconds: 50)));
-      await tester.pump();
-    }
-    expect(video.installato('lupo'), isTrue,
-        reason: 'il Lupo della v1 resta buono senza rete');
-    expect(video.scaricati, 1,
-        reason: 'un Lupo senza il pezzo volta non chiede l\'aggiornamento: '
-            '"si volta" resterebbe sulla posa per sempre');
-  });
+  for (final (versione, perche) in [
+    (
+      1,
+      'un Lupo senza il pezzo volta non chiede l\'aggiornamento: "si '
+          'volta" resterebbe sulla posa per sempre'
+    ),
+    (
+      2,
+      'un Lupo della v2 non chiede l\'aggiornamento: "si volta" '
+          'resterebbe il taglio di 0,7 s invece del video nuovo'
+    ),
+  ]) {
+    testWidgets(
+        'UN LUPO DELLA V$versione SUL DISCO NON E\' AGGIORNATO: il segno lo '
+        'ritrova e chiede la v3, che porta il pezzo volta nuovo',
+        (tester) async {
+      final dir = _lupoSulDisco(versione: versione);
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final video = _VideoDaDisco(dir);
+      await apriIlSegno(tester, video);
+      for (var i = 0; i < 10 && video.scaricati == 0; i++) {
+        await tester.runAsync(
+            () => Future<void>.delayed(const Duration(milliseconds: 50)));
+        await tester.pump();
+      }
+      expect(video.installato('lupo'), isTrue,
+          reason: 'il Lupo della v$versione resta buono senza rete');
+      expect(video.scaricati, 1, reason: perche);
+    });
+  }
 
   testWidgets(
       'IL SEGNO DEL LUPO, CON IL VIDEO GIA\' SUL DISCO E L\'APP APPENA '
       'RIAPERTA, LO RITROVA E NON LO RISCARICA', (tester) async {
-    final dir = _lupoSulDisco(versione: 2);
+    final dir = _lupoSulDisco(versione: 3);
     addTearDown(() => dir.deleteSync(recursive: true));
     final video = _VideoDaDisco(dir);
     expect(video.installato('lupo'), isFalse,

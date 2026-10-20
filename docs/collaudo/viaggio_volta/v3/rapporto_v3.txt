@@ -1,0 +1,96 @@
+GLI ASSET DEL VIAGGIO v3, generato da tool/gli_asset_del_viaggio_v3.py
+
+== Lince
+  gesto: inizio 22, girata completa 66, ritorno 120, fine 184 (sorgente lince_si_volta_v1.mp4, 15803492 byte)
+  tratto fermo 66-120, 54 fotogrammi (2.25 s): non accorciato. Fra due fotogrammi vicini 1.66/255, deriva dalla girata fino a 7.46/255; taglio invisibile al massimo 16 fotogrammi (0.67 s); per due secondi di fermo ne andrebbero tolti 6 (costo 1.4)
+  pezzo: 163 fotogrammi, 6.792 s, 3497963 byte, video 4016 kbit/s
+  punti nel pezzo: inizio n0, girata n44, ritorno n98, fine n162
+  primo contro la posa: 3.60/255 (posa webp) 3.47/255 (posa del cammino) 3.71/255 (carta del pacchetto); ultimo: 4.59 / 4.53 / 4.57
+  senza la dissolvenza: primo 15.29/255 dalla posa webp (4.29 alla scala 180x320 dalla carta), ultimo 12.99 (4.13)
+  qualita inizio (f22, n0): PSNR Y contro il composto 36.6 dB, scarto dalla sorgente 15.41/255
+  qualita girata (f66, n44): PSNR Y contro il composto 35.1 dB, scarto dalla sorgente 3.93/255
+  qualita ritorno (f120, n98): PSNR Y contro il composto 35.0 dB, scarto dalla sorgente 3.90/255
+  qualita fine (f184, n162): PSNR Y contro il composto 34.0 dB, scarto dalla sorgente 13.25/255
+  il pezzo volta della v2: lince_volta_v2.mp4, 532687 byte, 0.458 s
+
+== Volpe
+  gesto: inizio 30, girata completa 68, ritorno 128, fine 180 (sorgente volpe_si_volta_v1.mp4, 17026113 byte)
+  tratto fermo 68-128, 60 fotogrammi (2.50 s): non accorciato. Fra due fotogrammi vicini 1.68/255, deriva dalla girata fino a 8.07/255; taglio invisibile al massimo 32 fotogrammi (1.33 s); per due secondi di fermo ne andrebbero tolti 12 (costo 1.75)
+  pezzo: 151 fotogrammi, 6.292 s, 3463855 byte, video 4300 kbit/s
+  punti nel pezzo: inizio n0, girata n38, ritorno n98, fine n150
+  primo contro la posa: 3.75/255 (posa webp) 3.64/255 (posa del cammino) 3.86/255 (carta del pacchetto); ultimo: 4.71 / 4.66 / 4.71
+  senza la dissolvenza: primo 14.54/255 dalla posa webp (3.98 alla scala 180x320 dalla carta), ultimo 14.25 (3.88)
+  qualita inizio (f30, n0): PSNR Y contro il composto 36.2 dB, scarto dalla sorgente 14.63/255
+  qualita girata (f68, n38): PSNR Y contro il composto 34.6 dB, scarto dalla sorgente 4.13/255
+  qualita ritorno (f128, n98): PSNR Y contro il composto 33.4 dB, scarto dalla sorgente 4.39/255
+  qualita fine (f180, n150): PSNR Y contro il composto 33.8 dB, scarto dalla sorgente 14.52/255
+  il pezzo volta della v2: volpe_volta_v2.mp4, 538198 byte, 0.458 s
+
+== Orso
+  gesto: inizio 36, girata completa 80, ritorno 158, fine 186 (sorgente orso_si_volta_v1.mp4, 18163428 byte)
+  tratto fermo 80-158, 78 fotogrammi (3.25 s): non accorciato. Fra due fotogrammi vicini 2.27/255, deriva dalla girata fino a 10.77/255; taglio invisibile al massimo 9 fotogrammi (0.38 s); per due secondi di fermo ne andrebbero tolti 30 (costo 5.14)
+  pezzo: 151 fotogrammi, 6.292 s, 3399866 byte, video 4219 kbit/s
+  punti nel pezzo: inizio n0, girata n44, ritorno n122, fine n150
+  primo contro la posa: 3.61/255 (posa webp) 3.47/255 (posa del cammino) 3.73/255 (carta del pacchetto); ultimo: 4.60 / 4.53 / 4.61
+  senza la dissolvenza: primo 16.13/255 dalla posa webp (4.76 alla scala 180x320 dalla carta), ultimo 12.98 (3.81)
+  qualita inizio (f36, n0): PSNR Y contro il composto 36.6 dB, scarto dalla sorgente 16.26/255
+  qualita girata (f80, n44): PSNR Y contro il composto 34.6 dB, scarto dalla sorgente 3.98/255
+  qualita ritorno (f158, n122): PSNR Y contro il composto 35.4 dB, scarto dalla sorgente 3.73/255
+  qualita fine (f186, n150): PSNR Y contro il composto 34.0 dB, scarto dalla sorgente 13.29/255
+  il pezzo volta della v2: orso_volta_v2.mp4, 910436 byte, 1.208 s
+
+== Lupo
+  gesto: inizio 30, girata completa 56, ritorno 128, fine 158 (sorgente lupo_si_volta_v1.mp4, 18430478 byte)
+  tratto fermo 56-128, 72 fotogrammi (3.00 s): non accorciato. Fra due fotogrammi vicini 1.96/255, deriva dalla girata fino a 9.17/255; taglio invisibile al massimo 17 fotogrammi (0.71 s); per due secondi di fermo ne andrebbero tolti 24 (costo 3.44)
+  calo di luminosita' riportato: fotogramma 71, 0.81 su 255 sotto la media dei vicini
+  pezzo: 129 fotogrammi, 5.375 s, 3035258 byte, video 4413 kbit/s
+  punti nel pezzo: inizio n0, girata n26, ritorno n98, fine n128
+  primo contro la posa: 3.57/255 (posa webp) 3.44/255 (posa del cammino) 3.63/255 (carta del pacchetto); ultimo: 4.54 / 4.50 / 4.58
+  senza la dissolvenza: primo 15.30/255 dalla posa webp (4.25 alla scala 180x320 dalla carta), ultimo 14.47 (4.06)
+  qualita inizio (f30, n0): PSNR Y contro il composto 36.6 dB, scarto dalla sorgente 15.45/255
+  qualita girata (f56, n26): PSNR Y contro il composto 34.6 dB, scarto dalla sorgente 4.06/255
+  qualita ritorno (f128, n98): PSNR Y contro il composto 33.6 dB, scarto dalla sorgente 4.35/255
+  qualita fine (f158, n128): PSNR Y contro il composto 34.1 dB, scarto dalla sorgente 14.77/255
+  il pezzo volta della v2: lupo_volta_v2.mp4, 689833 byte, 0.708 s
+
+== Cavallo
+  gesto: inizio 32, girata completa 50, ritorno 148, fine 182 (sorgente cavallo_si_volta_v1.mp4, 19730931 byte)
+  tratto fermo 50-148, 98 fotogrammi (4.08 s): non accorciato. Fra due fotogrammi vicini 2.26/255, deriva dalla girata fino a 10.15/255; taglio invisibile al massimo 16 fotogrammi (0.67 s); per due secondi di fermo ne andrebbero tolti 50 (costo 6.61)
+  calo di luminosita' riportato: fotogramma 71, 0.97 su 255 sotto la media dei vicini
+  pezzo: 151 fotogrammi, 6.292 s, 3477135 byte, video 4317 kbit/s
+  punti nel pezzo: inizio n0, girata n18, ritorno n116, fine n150
+  primo contro la posa: 3.67/255 (posa webp) 3.55/255 (posa del cammino) 3.80/255 (carta del pacchetto); ultimo: 4.59 / 4.54 / 4.62
+  senza la dissolvenza: primo 15.49/255 dalla posa webp (4.63 alla scala 180x320 dalla carta), ultimo 14.62 (4.06)
+  qualita inizio (f32, n0): PSNR Y contro il composto 36.3 dB, scarto dalla sorgente 15.64/255
+  qualita girata (f50, n18): PSNR Y contro il composto 34.8 dB, scarto dalla sorgente 4.00/255
+  qualita ritorno (f148, n116): PSNR Y contro il composto 34.2 dB, scarto dalla sorgente 4.16/255
+  qualita fine (f182, n150): PSNR Y contro il composto 34.0 dB, scarto dalla sorgente 14.97/255
+  il pezzo volta della v2: cavallo_volta_v2.mp4, 724774 byte, 0.792 s
+
+== Cervo
+  NOTA: la sorgente ha 189 fotogrammi e non 192 (mancano dopo la fine del gesto, che sta tutto a passo regolare)
+  gesto: inizio 34, girata completa 84, ritorno 128, fine 172 (sorgente cervo_si_volta_v1.mp4, 16291899 byte)
+  tratto fermo 84-128, 44 fotogrammi (1.83 s): non accorciato. Fra due fotogrammi vicini 2.60/255, deriva dalla girata fino a 9.04/255; taglio invisibile al massimo 17 fotogrammi (0.71 s); per due secondi di fermo ne andrebbero tolti 0 (costo None)
+  pezzo: 139 fotogrammi, 5.792 s, 3335377 byte, video 4503 kbit/s
+  punti nel pezzo: inizio n0, girata n50, ritorno n94, fine n138
+  primo contro la posa: 3.84/255 (posa webp) 3.71/255 (posa del cammino) 3.89/255 (carta del pacchetto); ultimo: 4.76 / 4.71 / 4.70
+  senza la dissolvenza: primo 16.14/255 dalla posa webp (4.64 alla scala 180x320 dalla carta), ultimo 14.65 (3.95)
+  qualita inizio (f34, n0): PSNR Y contro il composto 36.1 dB, scarto dalla sorgente 16.20/255
+  qualita girata (f84, n50): PSNR Y contro il composto 36.1 dB, scarto dalla sorgente 3.53/255
+  qualita ritorno (f128, n94): PSNR Y contro il composto 33.9 dB, scarto dalla sorgente 4.20/255
+  qualita fine (f172, n138): PSNR Y contro il composto 33.8 dB, scarto dalla sorgente 14.88/255
+  il pezzo volta della v2: cervo_volta_v2.mp4, 760362 byte, 0.875 s
+
+== Tartaruga
+  gesto: inizio 36, girata completa 80, ritorno 128, fine 164 (sorgente tartaruga_si_volta_v1.mp4, 16253504 byte)
+  tratto fermo 80-128, 48 fotogrammi (2.00 s): non accorciato. Fra due fotogrammi vicini 1.58/255, deriva dalla girata fino a 4.72/255; taglio invisibile al massimo 24 fotogrammi (1.00 s); per due secondi di fermo ne andrebbero tolti 0 (costo None)
+  pezzo: 129 fotogrammi, 5.375 s, 2910302 byte, video 4224 kbit/s
+  punti nel pezzo: inizio n0, girata n44, ritorno n92, fine n128
+  primo contro la posa: 3.57/255 (posa webp) 3.45/255 (posa del cammino) 3.65/255 (carta del pacchetto); ultimo: 4.50 / 4.46 / 4.46
+  senza la dissolvenza: primo 14.50/255 dalla posa webp (4.32 alla scala 180x320 dalla carta), ultimo 12.95 (3.88)
+  qualita inizio (f36, n0): PSNR Y contro il composto 36.7 dB, scarto dalla sorgente 14.64/255
+  qualita girata (f80, n44): PSNR Y contro il composto 35.0 dB, scarto dalla sorgente 3.82/255
+  qualita ritorno (f128, n92): PSNR Y contro il composto 34.2 dB, scarto dalla sorgente 4.04/255
+  qualita fine (f164, n128): PSNR Y contro il composto 34.1 dB, scarto dalla sorgente 13.28/255
+  il pezzo volta della v2: tartaruga_volta_v2.mp4, 534992 byte, 0.542 s
+
