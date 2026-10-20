@@ -836,10 +836,36 @@ class _ViaggioDelloSciamanoScreenState
     // consumato" e il conto dei cammini fermo.
     _celleAllaLente = _diario.celleScoperteDi(nome);
     _solchiAllaLente = _diario.solchiDi(nome);
+    _scaricaIlSuoVideo(nome);
     setState(() {
       _seguito = nome;
       _fase = FaseDelViaggio.lente;
     });
+  }
+
+  /// **IL VIDEO DELLA CARTA CHE SI STA SCOPRENDO SI SCARICA ADESSO.** Ordine
+  /// FZ voce FZ.06: *"si scaricano solo quando servono, cioe' il video
+  /// dell'animale della persona e quelli delle carte che sta scoprendo"*.
+  ///
+  /// **Fino a qui si scaricava solo nella schermata del segno**
+  /// (`IlSegnoCheRisponde`), che si apre dopo il riconoscimento: alla
+  /// rivelazione il video non c'era mai, e la carta non si animava
+  /// (*"ALLA RIVELAZIONE ... parte il centro, dal fotogramma della posa"*)
+  /// ne' compariva "Condividi come video" (FZ.08). Trovato leggendo il codice
+  /// durante la simulazione da persona del 20 ottobre 2026. Padre: ordine FZ
+  /// voce FZ.06. Senza rete non succede niente: la posa basta, e alla
+  /// prossima carta si riprova.
+  void _scaricaIlSuoVideo(String nome) {
+    final video = IVideoDelCamminoScaricati.diCasa;
+    if (video.installato(nome.toLowerCase())) return;
+    unawaited(() async {
+      try {
+        await video.scaricaAnimale(nome);
+      } catch (errore) {
+        // Lo scaricamento dice da se' com'e' andata; qui si tace anche cio'
+        // che cade prima, come la cartella che non si trova.
+      }
+    }());
   }
 
   /// La cenere e i solchi di [_seguito] all'ingresso nella lente.
