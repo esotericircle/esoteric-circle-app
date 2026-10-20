@@ -23,7 +23,15 @@ void main() {
   // **ANCHE RONDA E VERDE, ordine BF voce 05.i.** Dichiaravano "channel:
   // stable" senza numero, cioe' la stable del giorno: un rialzo a monte
   // avrebbe cambiato la CI sotto i piedi senza nessun commit.
-  const altre = ['.github/workflows/ronda.yml', '.github/workflows/verde.yml'];
+  //
+  // **E IL SIMULATORE DI IPHONE, ordine GA voce 12.** Il lavoro che compila
+  // l'app per il simulatore e la fotografa porta anche lui il suo numero:
+  // un Flutter diverso li' darebbe catture di un'app che nessuno costruisce.
+  const altre = [
+    '.github/workflows/ronda.yml',
+    '.github/workflows/verde.yml',
+    '.github/workflows/iphone-simulatore.yml',
+  ];
 
   test('il sovrano e i due file della CI portano lo stesso numero', () {
     final dichiarata = (jsonDecode(File(sovrano).readAsStringSync())
