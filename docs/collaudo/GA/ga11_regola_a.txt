@@ -1,0 +1,95 @@
+ORDINE GA VOCE 11, LA CACCIA AI DIFETTI E ALLE REGRESSIONI DEI TESTER.
+REGOLA A (ogni prova nuova vista rossa sul codice di prima, poi verde) e REGOLA B (la zona vista rossa prima di toccarla).
+20 ottobre 2026, worktree aspetta-testo-riallineamento-5a7bfd, ramo locale lavoro-riallineamento-1014.
+
+Le cinque cure dei commit f304d061, 5f5c9daa, d4587e48, 8e7627d8 e 3219ca83 erano state scritte da un
+agente fermato prima del rapporto: i messaggi dicono "rossa prima e verde dopo", ma nessun file in docs/
+lo documentava. Qui la Regola A è rifatta per tutte e cinque, e fatta per le due cure nuove (52164e7a,
+9517c5ab).
+
+Gli innesti sono stati verificati col grep PRIMA di leggere l'esito. Ogni file innestato aveva la sua
+copia di sicurezza e il suo sha1 preso prima; dopo il giro è tornato identico al byte (sha1sum -c: OK).
+Le uscite intere stanno in C:\Users\user\AppData\Local\Temp\ga11_*.txt.
+
+======================================================================
+VERDE DI PARTENZA, sul codice a HEAD 73dee801
+======================================================================
+flutter test delle cinque prove nuove più la_celebrazione_offre_sempre_la_condivisione_test.dart:
+  01:00 +16: All tests passed!                                    (ga11_verde_0.txt)
+
+======================================================================
+REGOLA A, LE CINQUE CURE DELL'AGENTE DI PRIMA
+======================================================================
+Innesto: il diff della cura applicato al contrario (git apply -R del solo file di lib del commit), cioè
+il codice di prima della cura dentro il codice di oggi. Tutti e cinque applicati puliti.
+
+Verifica col grep, prima dell'esito:
+  A1 f304d061 lib/core/entitlement/question_allowance.dart   "_rifiutiDellaVoce" presente 0 volte (era 3)
+  A2 5f5c9daa lib/features/scene/la_scena_in_video.dart       riga 308 "IL VIDEO PRONTO TARDI PARTE LO STESSO" tornata
+  A3 d4587e48 lib/features/santuario/santuario_screen.dart    riga 751 "final viewportH = outer.maxHeight -" senza pavimento
+  A4 8e7627d8 lib/core/cerchio/il_cerchio_sociale.dart        "portaNonAperta" presente 0 volte
+  A5 3219ca83 lib/features/sigilli/card_del_traguardo.dart    riga 237 "q[0].toUpperCase()" tornata
+
+Esito (flutter test -r expanded delle cinque prove insieme, ga11_rosso_1.txt): 9 rosse, ognuna sul suo difetto.
+  A1 la_coda_dei_consumi_non_si_avvelena_test.dart              3 rosse su 3
+     "sincronizza() e' caduta col rifiuto di una voce della coda: [firebase_functions/invalid-argument]
+      Budget sconosciuto.. Il telefono non sente piu' il server" (Expected: null, Actual: FirebaseFunctionsException);
+     il consumo nuovo rifiutato esce come errore senza padrone; il rifiuto unauthenticated ferma la sincronia.
+  A2 la_scena_tardiva_non_rinasconde_il_resto_test.dart         1 rossa su 2 (la seconda, il video pronto entro
+     l'attesa che parte, è la metà buona della cura FY e resta verde come deve)
+     riga 131: "il video arrivato dopo l'attesa ha rinascosto il resto che la persona stava gia' leggendo"
+     (Found 0 widgets with text "il resto").
+  A3 la_home_non_va_in_negativo_test.dart                       3 rosse su 3 (finestra di 0, 60 e 120 punti)
+     "BoxConstraints has a negative minimum height" e poi "'_elements.contains(element)': is not true".
+  A4 una_porta_non_pubblicata_dice_il_vero_test.dart            1 rossa su 3 (le altre due sono le controprove:
+     il not-found con una frase del server resta la sua frase, la rete assente resta la sua riga)
+     Expected: not contains 'riprova', Actual: 'Il Cerchio non risponde adesso: riprova fra poco.'
+  A5 la_riga_del_premio_non_e_monca_test.dart                   1 rossa su 1
+     Expected: a string starting with 'Gli Eos arrivano ', Actual: 'Quando il tuo amico entra nel Cerchio. In attesa.'
+
+Innesti tolti dalle copie di sicurezza: sha1sum -c OK sui cinque file. Il verde dopo è quello di partenza
+(stessi sha1), e di nuovo verde nel giro finale (ga11_finale.txt).
+
+======================================================================
+REGOLA B, prima di toccare le zone delle cure nuove
+======================================================================
+Tre innesti, uno per zona, verificati col grep:
+  B1 lib/features/onboarding/primo_approdo.dart:649   final fondo = schermo.height - _orlo;   (la barra dei tasti tolta dal fondo)
+  B2 lib/features/santuario/santuario_screen.dart:392 if (!onboarding.resolved) return;      (l'invito non guarda più il Risveglio)
+  B3 lib/features/sigilli/card_del_traguardo.dart:229 ' In attesa. In attesa.'                (lo stato dell'invito detto due volte)
+
+Esito (ga11_regola_b.txt): 00:17 +27 -3: Some tests failed.
+  il_primo_approdo_test.dart                               1 rossa (B1): "I TRE MAESTRI, primo_approdo_avanti: fondo 840 oltre 825"
+  la_registrazione_non_interrompe_il_risveglio_test.dart   1 rossa (B2): "l'invito alla custodia non guarda piu' il Risveglio"
+  la_celebrazione_offre_sempre_la_condivisione_test.dart   1 rossa (B3, BW.03): "lo stato dell'invito compare 2 volte nella stessa riga"
+Innesti tolti (la copia rifiutava la scrittura: tolti con Edit), sha1sum -c OK sui tre file.
+
+======================================================================
+REGOLA A, LE DUE CURE NUOVE
+======================================================================
+Le due prove nuove sono state lanciate sul codice di prima della cura, senza innesti, perché il difetto
+era vero (ga11_nuove_rosse.txt): 00:12 +2 -8: Some tests failed.
+
+  N1 il_tutorial_non_va_in_negativo_test.dart (cura 52164e7a, difetto 12 della ricognizione)
+     6 rosse su 8, i vincoli di _Carta.build: finestra 360x0 al benvenuto 0<=h<=-32.0 (lo stesso numero
+     dei sei eventi di Crashlytics sulla 2314), 360x0 con la freccia -48, 360x20 -12 e -28, 360x40 con la
+     freccia -8, 0x0 al benvenuto -32. Verdi anche prima: 360x40 al benvenuto e 0x0 con la freccia.
+     Dopo la cura: 8 verdi su 8, 0 vincoli negativi; a 360x40 con la freccia resta un solo errore non
+     grave, "A RenderFlex overflowed by 8.0 pixels on the bottom" per un fotogramma, stampato dalla prova.
+  N2 il_conto_dei_momenti_senza_rete_test.dart (cura 9517c5ab, difetto 14 della ricognizione)
+     2 rosse su 2: "[cloud_firestore/unavailable] The service is currently unavailable." uscita dalla home
+     come errore senza padrone, e nel primo caso anche "Found 0 widgets with key [<'invito_a_custodire'>]"
+     (il primo avviso a chi usa il Cerchio senza account non compariva).
+     Dopo la cura: 2 verdi su 2.
+
+Dopo le cure (ga11_nuove_verdi.txt): le due prove nuove con il_primo_approdo_test,
+la_registrazione_non_interrompe_il_risveglio_test e la_home_non_va_in_negativo_test: 00:46 +39: All tests passed!
+
+======================================================================
+GIRO FINALE, dopo i commit 52164e7a e 9517c5ab
+======================================================================
+Le sette prove della voce (le cinque dell'agente di prima e le due nuove) con le prove delle zone toccate
+(il_primo_approdo_test, la_registrazione_non_interrompe_il_risveglio_test,
+la_celebrazione_offre_sempre_la_condivisione_test, gli_enigmi_a_video_test), ga11_finale.txt:
+  00:56 +69: All tests passed!
+flutter analyze sui sei file toccati dalle due cure nuove e dal lavoro a metà: No issues found!
