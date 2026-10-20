@@ -69,8 +69,15 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       contains(github.event.head_commit.message, 'Ordine GA') ||
       contains(github.event.head_commit.message, '[iphone]')
-    runs-on: macos-15
-    timeout-minutes: 90
+    # **LA MACCHINA INTEL, ordine GA voce 12, 21 ottobre 2026.** Sulle
+    # macchine Apple Silicon (macos-15) il giro cadeva al collegamento con
+    # "Framework 'Pods_Runner' not found" (118904570114, 118925633814): i pod
+    # di ML Kit e di MediaPipe non hanno la fetta per il simulatore arm64,
+    # quindi i pod si costruiscono solo per x86_64 e l'app arm64 non li
+    # trova. Sulla macchina Intel il simulatore e' x86_64 e tutto combacia,
+    # senza toccare le impostazioni del progetto che servono a Codemagic.
+    runs-on: macos-15-intel
+    timeout-minutes: 120
     env:
       BUNDLE_ID: com.esotericircle.esotericCircle
       CATTURE: ${{ github.workspace }}/catture_iphone
@@ -152,7 +159,16 @@ jobs:
           else
             echo "Nessun token di debug di App Check: l'app parte, le chiamate al server vengono rifiutate."
           fi
-          flutter build ios --simulator --debug "${DEFINE[@]}" 2>&1 | tee "$CATTURE/registro_della_compilazione.txt"
+          # Il registro intero (-v) va nell'artifact; a video e nelle
+          # annotazioni restano le righe del collegamento e degli errori, che
+          # senza -v Flutter riassume in una riga sola.
+          set +e
+          flutter build ios --simulator --debug -v "${DEFINE[@]}" > "$CATTURE/registro_della_compilazione_intero.txt" 2>&1
+          ESITO=$?
+          set -e
+          grep -nE "error:|Error|ld: |building for|ignoring file|Pods_Runner|EXCLUDED_ARCHS|ARCHS =" "$CATTURE/registro_della_compilazione_intero.txt" | grep -v "Fetching" | head -80 | tee "$CATTURE/registro_della_compilazione.txt"
+          tail -40 "$CATTURE/registro_della_compilazione_intero.txt"
+          if [ "$ESITO" != "0" ]; then exit "$ESITO"; fi
           ls -la build/ios/iphonesimulator/
 
       - name: Accende un iPhone simulato
