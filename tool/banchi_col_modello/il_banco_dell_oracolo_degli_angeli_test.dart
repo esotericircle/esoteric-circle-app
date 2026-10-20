@@ -122,10 +122,15 @@ void main() {
           '${forma.name} | dal modello: ${risposta.dalModello}\n'
           'DOMANDA: $domanda\n'
           'TITOLO: ${risposta.titolo}\n'
-          'RIQUADRO: ${risposta.paragrafi[1]}'
-          '${risposta.approfondimento.isEmpty ? '' : '\nAPPROFONDIMENTO 1: '
-              '${risposta.approfondimento[0]}\nAPPROFONDIMENTO 2: '
-              '${risposta.approfondimento[1]}'}\n'
+          // Ordine GA, i rossi dell'unione: la risposta e' il responso nella
+          // forma comune dell'ordine GA (89ae8a24), non piu' `paragrafi` e
+          // `approfondimento` dell'ordine FY.
+          'RISPOSTA: ${risposta.responso.risposta}\n'
+          'RIQUADRO: ${risposta.responso.cosaFare}'
+          '${risposta.responso.approfondimento == null ? '' : '\nAPPROFONDIMENTO: '
+              '${risposta.responso.approfondimento}'}'
+          '${risposta.responso.rito == null ? '' : '\nRITO: '
+              '${risposta.responso.rito}'}\n'
           'GREZZO: $grezzo');
       i++;
     }
