@@ -54,7 +54,7 @@ enum GestoDelSegno {
       };
 
   /// **COSA FA, detto per quell'animale**: un uccello si allontana in volo,
-  /// il Serpente strisciando.
+  /// il Serpente strisciando, gli altri fra gli alberi.
   String descrizione(GuideAnimal animale) {
     final uccello = GestiDelSegno.uccelli.contains(animale.name);
     switch (this) {
@@ -62,10 +62,17 @@ enum GestoDelSegno {
         return 'ti si avvicina';
       case GestoDelSegno.siVolta:
         return 'si volta a guardare dietro di sé';
+      // **LA RIGA DICE QUELLO CHE IL VIDEO MOSTRA**, verifica fotogramma per
+      // fotogramma del 20 ottobre 2026: gli animali di terra non fanno
+      // "qualche passo", si voltano e se ne vanno lungo il sentiero fra gli
+      // alberi fino a farsi piccoli. "Si volta" resta com'e': dal 20 ottobre
+      // il gesto fa girare il pezzo `volta`, che lo mostra.
       case GestoDelSegno.siAllontana:
         if (uccello) return 'si allontana in volo';
-        if (animale.name == 'Serpente') return 'si allontana strisciando';
-        return 'si allontana di qualche passo';
+        if (animale.name == 'Serpente') {
+          return 'si allontana strisciando fra gli alberi';
+        }
+        return 'si allontana fra gli alberi';
     }
   }
 }

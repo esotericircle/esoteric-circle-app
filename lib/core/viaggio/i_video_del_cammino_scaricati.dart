@@ -26,21 +26,42 @@ class IVideoDelCamminoScaricati {
     http.Client? client,
     Future<Directory> Function()? cartella,
     this.indirizzoDelManifesto = manifestoSulBucket,
+    this.indirizzoDiRipiego = manifestoV1SulBucket,
   })  : _client = client,
         _cartella = cartella ?? getApplicationSupportDirectory;
 
   /// L'unico, quello dell'app.
   static IVideoDelCamminoScaricati diCasa = IVideoDelCamminoScaricati();
 
-  /// Dove sta il manifest dei video, scritto da
-  /// `tool/gli_asset_dell_ordine_fz.py` e pubblicato sul bucket.
+  /// **IL MANIFESTO V2**, 20 ottobre 2026, scritto da
+  /// `tool/gli_asset_del_viaggio_v2.py`: porta per ogni animale il pezzo
+  /// `volta` (il gesto "si volta", taglio andata e ritorno), l'arrivo del
+  /// Cervo dal fotogramma 3 e le uscite che si fermano prima che l'animale
+  /// diventi trasparente. Lo pubblica il fondatore.
   static const String manifestoSulBucket =
       'https://storage.googleapis.com/esoteric-circle-assets-cdn/'
+      'viaggio_sciamano/manifesto_viaggio_v2.json';
+
+  /// **IL RIPIEGO SULLA V1**, scritto da `tool/gli_asset_dell_ordine_fz.py`:
+  /// finche' la v2 non e' sul bucket, il manifesto v2 risponde 404 e l'app
+  /// scarica la v1 come prima, invece di restare senza video.
+  static const String manifestoV1SulBucket =
+      'https://storage.googleapis.com/esoteric-circle-assets-cdn/'
       'viaggio_sciamano/manifesto_viaggio_v1.json';
+
+  /// **LA VERSIONE CHE L'APP VUOLE.** Un animale scaricato con un manifesto
+  /// piu' vecchio resta buono senza rete, ma non e' [aggiornato]: alla
+  /// prossima occasione con la rete si riscarica (e i file che non cambiano
+  /// si riprendono dal telefono, non dalla rete).
+  static const int versioneAttuale = 2;
 
   final http.Client? _client;
   final Future<Directory> Function() _cartella;
   final String indirizzoDelManifesto;
+
+  /// Dove chiedere il manifesto quando [indirizzoDelManifesto] non risponde
+  /// 200; nullo, nessun ripiego.
+  final String? indirizzoDiRipiego;
 
   /// Quante richieste di rete ha fatto: le prove pretendono zero all'avvio.
   @visibleForTesting
@@ -71,6 +92,8 @@ class IVideoDelCamminoScaricati {
           file: (dati['file'] as Map).cast<String, String>(),
           fineUscita: dati['fineUscita'] as String?,
           scenaVuota: dati['scenaVuota'] as String?,
+          // Il segno scritto prima della v2 non porta la versione: e' la 1.
+          versione: (dati['versione'] as int?) ?? 1,
         );
       } catch (errore) {
         debugPrint('Segno del video di $nome illeggibile: $errore');
@@ -80,6 +103,13 @@ class IVideoDelCamminoScaricati {
 
   /// Se [nome] si puo' far girare senza rete.
   bool installato(String nome) => _installati.containsKey(nome);
+
+  /// **SE [nome] E' INSTALLATO CON LA VERSIONE CHE L'APP VUOLE.** Chi decide
+  /// se scaricare guarda questo, non [installato]: un animale della v1 non ha
+  /// il pezzo `volta`, e "si volta" resterebbe sulla posa per sempre.
+  bool aggiornato(String nome) =>
+      installato(nome) &&
+      (_installati[nome]?.versione ?? versioneAttuale) >= versioneAttuale;
 
   /// Il percorso scaricato del pezzo [pezzo] di [nome], o nullo se
   /// l'animale non e' installato: chi chiama ripiega sulla posa, mai su un
@@ -119,19 +149,31 @@ class IVideoDelCamminoScaricati {
         : '$cartella/00_scena_ultimo.webp';
   }
 
-  /// Il manifest dal bucket.
+  /// Il manifest dal bucket: la v2, e se non c'e' ancora la v1
+  /// ([indirizzoDiRipiego]).
   Future<Map<String, dynamic>> manifesto() async {
-    richiesteFatte++;
-    final r = await _rete
-        .get(Uri.parse(indirizzoDelManifesto))
-        .timeout(const Duration(seconds: 20));
+    var r = await _chiedi(indirizzoDelManifesto);
+    final ripiego = indirizzoDiRipiego;
+    if (r.statusCode != 200 && ripiego != null) {
+      r = await _chiedi(ripiego);
+    }
     if (r.statusCode != 200) {
       throw HttpException('manifest: ${r.statusCode}');
     }
     return jsonDecode(utf8.decode(r.bodyBytes)) as Map<String, dynamic>;
   }
 
-  /// **SCARICA I TRE PEZZI E LA POSA DI [nome]**, con l'avanzamento in byte.
+  Future<http.Response> _chiedi(String indirizzo) {
+    richiesteFatte++;
+    return _rete.get(Uri.parse(indirizzo)).timeout(const Duration(seconds: 20));
+  }
+
+  /// La versione di un manifesto: la v1 non la scrive.
+  static int versioneDi(Map<String, dynamic> manifesto) =>
+      (manifesto['versione'] as int?) ?? 1;
+
+  /// **SCARICA I PEZZI E LA POSA DI [nome]** (tre con la v1, quattro con la
+  /// v2 che aggiunge `volta`), con l'avanzamento in byte.
   /// Non lancia: dice com'e' andata.
   Future<EsitoDelDownload> scaricaAnimale(
     String nome, {
@@ -143,6 +185,14 @@ class IVideoDelCamminoScaricati {
     final lavoro = Directory('${radice.path}/$nomeFile.scaricando');
     try {
       final m = await manifesto();
+      final versione = versioneDi(m);
+      final vecchio = _installati[nomeFile];
+      // **NIENTE DA AGGIORNARE**: sul bucket c'e' ancora solo la versione
+      // che il telefono ha gia' (la v2 non e' pubblicata). Senza questo, a
+      // ogni apertura del segno si riscaricherebbero gli stessi file.
+      if (vecchio != null && vecchio.versione >= versione) {
+        return EsitoDelDownload.installato;
+      }
       final voce = (m['animali'] as Map)[nomeFile] as Map?;
       if (voce == null) {
         throw StateError('il manifest non porta $nomeFile');
@@ -171,6 +221,20 @@ class IVideoDelCamminoScaricati {
       avanzamento?.call(0, totali);
       for (final f in elenco) {
         var buono = false;
+        // **UN FILE CHE IL TELEFONO HA GIA' NON SI RISCARICA**: passando
+        // dalla v1 alla v2 i file che non cambiano portano lo stesso nome e
+        // la stessa impronta, e si prendono dalla cartella installata.
+        if (vecchio != null) {
+          final giaQui = File('${vecchio.cartella}/${f.file}');
+          if (giaQui.existsSync()) {
+            final byte = await giaQui.readAsBytes();
+            if (sha256.convert(byte).toString() == f.sha256) {
+              await File('${lavoro.path}/${f.file}')
+                  .writeAsBytes(byte, flush: true);
+              buono = true;
+            }
+          }
+        }
         for (var tentativo = 0; tentativo < 2 && !buono; tentativo++) {
           if (annulla?.annullato ?? false) throw const _Annullato();
           richiesteFatte++;
@@ -199,6 +263,7 @@ class IVideoDelCamminoScaricati {
             'file': file,
             'fineUscita': voce['fine_uscita'],
             'scenaVuota': voce['scena_vuota'],
+            'versione': versione,
           }),
           flush: true);
       _installati[nomeFile] = _AnimaleInstallato(
@@ -206,6 +271,7 @@ class IVideoDelCamminoScaricati {
         file: file,
         fineUscita: voce['fine_uscita'] as String?,
         scenaVuota: voce['scena_vuota'] as String?,
+        versione: versione,
       );
       return EsitoDelDownload.installato;
     } on _Annullato {
@@ -265,9 +331,13 @@ class _AnimaleInstallato {
     required this.file,
     this.fineUscita,
     this.scenaVuota,
+    this.versione = 1,
   });
   final String cartella;
   final Map<String, String> file;
   final String? fineUscita;
   final String? scenaVuota;
+
+  /// La versione del manifesto con cui si e' scaricato.
+  final int versione;
 }

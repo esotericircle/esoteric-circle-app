@@ -102,7 +102,9 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
       }
       if (!mounted) return;
       setState(() {});
-      if (!_video.installato(widget.animale.name.toLowerCase())) {
+      // **AGGIORNATO, NON SOLO INSTALLATO**: un animale scaricato con la v1
+      // non ha il pezzo `volta`, e "si volta" restava sulla posa.
+      if (!_video.aggiornato(widget.animale.name.toLowerCase())) {
         await _video.scaricaAnimale(widget.animale.name);
         if (mounted) setState(() {});
       }

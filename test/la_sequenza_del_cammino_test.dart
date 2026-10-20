@@ -17,10 +17,13 @@ void main() {
     expect(s.esito, EsitoDelCammino.restaInPosa);
   });
 
-  test('si volta: il solo centro, resta in posa', () {
+  // **DAL 20 OTTOBRE 2026 IL PEZZO VOLTA, NON IL CENTRO**: il centro mostra
+  // il verso e non il voltarsi (verifica fotogramma per fotogramma dei
+  // dodici animali); la cura del fondatore, "Taglio andata e ritorno".
+  test('si volta: il solo pezzo volta, resta in posa', () {
     final s = LaSequenzaDelCammino.perIlGesto(GestoDelSegno.siVolta,
         haFineUscita: false);
-    expect(s.pezzi, [PezzoDelCammino.centro]);
+    expect(s.pezzi, [PezzoDelCammino.volta]);
     expect(s.esito, EsitoDelCammino.restaInPosa);
   });
 

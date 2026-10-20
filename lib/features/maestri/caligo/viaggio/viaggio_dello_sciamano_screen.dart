@@ -881,7 +881,8 @@ class _ViaggioDelloSciamanoScreenState
     unawaited(() async {
       try {
         await video.leggiIInstallati();
-        if (video.installato(nome.toLowerCase())) return;
+        // Aggiornato, non solo installato: la v1 non ha il pezzo `volta`.
+        if (video.aggiornato(nome.toLowerCase())) return;
         await video.scaricaAnimale(nome);
       } catch (errore) {
         // Lo scaricamento dice da se' com'e' andata; qui si tace anche cio'

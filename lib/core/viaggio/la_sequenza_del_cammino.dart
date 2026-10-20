@@ -11,8 +11,22 @@ import 'il_segno_dell_animale.dart';
 /// `fine_uscita` (Tartaruga, Gufo, Falco, Aquila, Corvo), l'uscita non si
 /// ferma sulla sua posa finale, ma dissolve nella scena vuota (il manifesto
 /// dei video dell'ordine FZ voce FZ.06 dice quale, terra o uccelli). Pura:
-/// nessun file, nessun video, nessun `Timer` qui.
-enum PezzoDelCammino { arrivo, centro, uscita }
+/// nessun file, nessun video, nessun `Timer` qui. Col manifesto v2 del 20
+/// ottobre 2026 la `fine_uscita` la portano tutti e dodici: Cavallo, Cervo,
+/// Lince, Lupo, Orso, Serpente e Volpe diventavano trasparenti sul sentiero
+/// alla fine dell'uscita, e la loro uscita si ferma prima.
+///
+/// **IL PEZZO "VOLTA", 20 ottobre 2026.** La verifica fotogramma per
+/// fotogramma dei dodici animali ha trovato che il "centro" mostra il verso
+/// dell'animale e non il voltarsi: il voltarsi c'e' solo nel primo secondo
+/// dell'uscita. Il fondatore: *"Certo che devi controllare che il gufo si
+/// giri, ma anche gli altri animali devono comportarsi allo stesso modo"*, e
+/// la cura scelta, *"Taglio andata e ritorno"*: il pezzo `volta` e' quel
+/// primo tratto dell'uscita, dalla posa al punto in cui l'animale ha girato
+/// il capo o il corpo, e poi lo stesso tratto al contrario, fino alla posa
+/// (`tool/gli_asset_del_viaggio_v2.py`, manifesto v2). Il centro resta per
+/// la rivelazione e per "si avvicina", dove il verso e' giusto.
+enum PezzoDelCammino { arrivo, centro, volta, uscita }
 
 /// Cosa fare quando la sequenza finisce di girare.
 enum EsitoDelCammino {
@@ -32,8 +46,8 @@ class LaSequenzaDelCammino {
 
   /// **ALLA RIVELAZIONE**, quando l'ultimo pezzo della carta cade: *"parte il
   /// centro, dal fotogramma della posa, col verso; poi resta sulla posa."*
-  static const rivelazione =
-      LaSequenzaDelCammino([PezzoDelCammino.centro], EsitoDelCammino.restaInPosa);
+  static const rivelazione = LaSequenzaDelCammino(
+      [PezzoDelCammino.centro], EsitoDelCammino.restaInPosa);
 
   /// **LA SEQUENZA PER UN GESTO DEL SEGNO.** [haFineUscita] viene dal
   /// manifesto dei video di quell'animale (ordine FZ voce FZ.06): vero per
@@ -46,8 +60,10 @@ class LaSequenzaDelCammino {
             [PezzoDelCammino.arrivo, PezzoDelCammino.centro],
             EsitoDelCammino.restaInPosa);
       case GestoDelSegno.siVolta:
+        // **IL PEZZO VOLTA, NON IL CENTRO**: il centro mostra il verso, e la
+        // riga dice "si volta a guardare dietro di sé".
         return const LaSequenzaDelCammino(
-            [PezzoDelCammino.centro], EsitoDelCammino.restaInPosa);
+            [PezzoDelCammino.volta], EsitoDelCammino.restaInPosa);
       case GestoDelSegno.siAllontana:
         return LaSequenzaDelCammino(
             [PezzoDelCammino.uscita],

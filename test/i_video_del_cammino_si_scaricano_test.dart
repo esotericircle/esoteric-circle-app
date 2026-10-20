@@ -12,6 +12,13 @@
 // - chi annulla non installa niente;
 // - fineUscita e scenaVuota, letti dal manifest, si ritrovano dopo
 //   l'installazione.
+//
+// E dal 20 ottobre 2026, il manifesto v2 col pezzo `volta` (taglio andata e
+// ritorno, scelta del fondatore):
+// - finche' la v2 non e' sul bucket l'app ripiega sulla v1;
+// - un animale della v1 non e' aggiornato, e passando alla v2 riprende dal
+//   telefono i file che non cambiano;
+// - con la sola v1 sul bucket un animale della v1 non si riscarica.
 
 import 'dart:convert';
 import 'dart:io';
@@ -25,52 +32,73 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
 const _manifesto =
+    'https://finto.bucket/viaggio_sciamano/manifesto_viaggio_v2.json';
+const _manifestoV1 =
     'https://finto.bucket/viaggio_sciamano/manifesto_viaggio_v1.json';
 const _base = 'https://finto.bucket/viaggio_sciamano/';
 
-/// Il bucket finto: un manifest col solo Lupo, i suoi tre pezzi e la posa.
+/// I file del Lupo nella v1 e nella v2: la v2 aggiunge il pezzo volta e
+/// cambia l'uscita, arrivo, centro e posa restano quelli della v1.
+const _fileV1 = {
+  'arrivo': 'lupo_arrivo_v1.mp4',
+  'centro': 'lupo_centro_v1.mp4',
+  'uscita': 'lupo_uscita_v1.mp4',
+};
+const _fileV2 = {
+  'arrivo': 'lupo_arrivo_v1.mp4',
+  'centro': 'lupo_centro_v1.mp4',
+  'volta': 'lupo_volta_v2.mp4',
+  'uscita': 'lupo_uscita_v2.mp4',
+};
+
+/// Il bucket finto: i manifesti col solo Lupo, i suoi pezzi e la posa.
 class _Bucket {
-  _Bucket({this.guasti = const {}});
+  _Bucket({this.guasti = const {}, this.v2Pubblicata = true});
 
   final Map<String, int> guasti;
+  final bool v2Pubblicata;
   final Map<String, int> chiamate = {};
   final Map<String, Uint8List> file = {
-    for (final n in const [
-      'lupo_arrivo_v1.mp4',
-      'lupo_centro_v1.mp4',
-      'lupo_uscita_v1.mp4',
-      'lupo_posa_v1.webp',
-    ])
+    for (final n in {..._fileV1.values, ..._fileV2.values, 'lupo_posa_v1.webp'})
       n: Uint8List.fromList(utf8.encode('byte di $n')),
   };
 
-  Map<String, dynamic> get manifesto => {
-        'animali': {
-          'lupo': {
-            'pezzi': {
-              for (final p in const ['arrivo', 'centro', 'uscita'])
-                p: {
-                  'file': 'lupo_${p}_v1.mp4',
-                  'byte': file['lupo_${p}_v1.mp4']!.length,
-                  'sha256':
-                      sha256.convert(file['lupo_${p}_v1.mp4']!).toString(),
-                },
+  Map<String, dynamic> _voce(Map<String, String> pezzi) => {
+        'pezzi': {
+          for (final p in pezzi.entries)
+            p.key: {
+              'file': p.value,
+              'byte': file[p.value]!.length,
+              'sha256': sha256.convert(file[p.value]!).toString(),
             },
-            'posa': {
-              'file': 'lupo_posa_v1.webp',
-              'byte': file['lupo_posa_v1.webp']!.length,
-              'sha256': sha256.convert(file['lupo_posa_v1.webp']!).toString(),
-            },
-            'fine_uscita': null,
-            'scena_vuota': null,
-          },
         },
+        'posa': {
+          'file': 'lupo_posa_v1.webp',
+          'byte': file['lupo_posa_v1.webp']!.length,
+          'sha256': sha256.convert(file['lupo_posa_v1.webp']!).toString(),
+        },
+        'fine_uscita': null,
+        'scena_vuota': null,
+      };
+
+  Map<String, dynamic> get manifestoV1 => {
+        'animali': {'lupo': _voce(_fileV1)},
+      };
+
+  Map<String, dynamic> get manifesto => {
+        'versione': 2,
+        'animali': {'lupo': _voce(_fileV2)},
       };
 
   MockClient get client => MockClient((r) async {
         final u = r.url.toString();
         if (u == _manifesto) {
-          return http.Response(jsonEncode(manifesto), 200);
+          return v2Pubblicata
+              ? http.Response(jsonEncode(manifesto), 200)
+              : http.Response('no', 404);
+        }
+        if (u == _manifestoV1) {
+          return http.Response(jsonEncode(manifestoV1), 200);
         }
         final percorso = u.substring(_base.length);
         final n = chiamate[percorso] = (chiamate[percorso] ?? 0) + 1;
@@ -94,19 +122,23 @@ void main() {
       IVideoDelCamminoScaricati(
           client: client,
           cartella: () async => cartella,
-          indirizzoDelManifesto: _manifesto);
+          indirizzoDelManifesto: _manifesto,
+          indirizzoDiRipiego: _manifestoV1);
 
-  test('UN DOWNLOAD RIUSCITO INSTALLA I TRE PEZZI E LA POSA, e resta',
+  test('UN DOWNLOAD RIUSCITO INSTALLA I QUATTRO PEZZI E LA POSA, e resta',
       () async {
     final v = nuovo(_Bucket().client);
     final esito = await v.scaricaAnimale('Lupo');
     expect(esito, EsitoDelDownload.installato);
     expect(v.installato('lupo'), isTrue);
+    expect(v.aggiornato('lupo'), isTrue);
     for (final p in PezzoDelCammino.values) {
       final percorso = v.percorsoDiPezzo('lupo', p);
       expect(percorso, isNotNull, reason: '$p non si trova dopo il download');
       expect(File(percorso!).existsSync(), isTrue);
     }
+    expect(v.percorsoDiPezzo('lupo', PezzoDelCammino.volta),
+        endsWith('lupo_volta_v2.mp4'));
     expect(v.percorsoDellaPosa('lupo'), isNotNull);
 
     // Un'altra istanza, senza rete: lo ritrova dal telefono.
@@ -116,6 +148,8 @@ void main() {
         cartella: () async => cartella);
     await v2.leggiIInstallati();
     expect(v2.installato('lupo'), isTrue);
+    expect(v2.aggiornato('lupo'), isTrue,
+        reason: 'la versione scaricata non si e\' riletta dal telefono');
     expect(v2.richiesteFatte, 0,
         reason: 'un animale gia\' installato non deve chiamare la rete');
   });
@@ -178,5 +212,58 @@ void main() {
     await v.scaricaAnimale('Lupo');
     expect(v.haFineUscita('lupo'), isTrue);
     expect(v.percorsoDellaScenaVuota('lupo'), contains('00_scena_ultimo.webp'));
+  });
+
+  test(
+      'FINCHE\' LA V2 NON E\' SUL BUCKET SI RIPIEGA SULLA V1: l\'animale si '
+      'installa, senza il pezzo volta e non aggiornato', () async {
+    final v = nuovo(_Bucket(v2Pubblicata: false).client);
+    final esito = await v.scaricaAnimale('Lupo');
+    expect(esito, EsitoDelDownload.installato,
+        reason: 'senza la v2 sul bucket l\'app installata resta senza video');
+    expect(v.installato('lupo'), isTrue);
+    expect(v.percorsoDiPezzo('lupo', PezzoDelCammino.centro),
+        endsWith('lupo_centro_v1.mp4'));
+    expect(v.percorsoDiPezzo('lupo', PezzoDelCammino.volta), isNull);
+    expect(v.aggiornato('lupo'), isFalse);
+  });
+
+  test(
+      'CON LA SOLA V1 SUL BUCKET UN ANIMALE DELLA V1 NON SI RISCARICA: due '
+      'manifesti chiesti, nessun file', () async {
+    final b = _Bucket(v2Pubblicata: false);
+    final v = nuovo(b.client);
+    await v.scaricaAnimale('Lupo');
+    final prima = v.richiesteFatte;
+    final esito = await v.scaricaAnimale('Lupo');
+    expect(esito, EsitoDelDownload.installato);
+    expect(v.richiesteFatte - prima, 2,
+        reason: 'la v1 gia\' sul telefono si e\' riscaricata');
+  });
+
+  test(
+      'UN ANIMALE DELLA V1 PASSA ALLA V2: chiede alla rete solo i file nuovi '
+      '(volta e uscita), gli altri li riprende dal telefono', () async {
+    final soloV1 = _Bucket(v2Pubblicata: false);
+    final v = nuovo(soloV1.client);
+    await v.scaricaAnimale('Lupo');
+    expect(v.aggiornato('lupo'), isFalse);
+
+    final conV2 = _Bucket();
+    final v2 = nuovo(conV2.client);
+    await v2.leggiIInstallati();
+    expect(v2.aggiornato('lupo'), isFalse);
+    final esito = await v2.scaricaAnimale('Lupo');
+    expect(esito, EsitoDelDownload.installato);
+    expect(v2.aggiornato('lupo'), isTrue);
+    expect(v2.percorsoDiPezzo('lupo', PezzoDelCammino.volta),
+        endsWith('lupo_volta_v2.mp4'));
+    expect(conV2.chiamate.keys.toSet(),
+        {'lupo_volta_v2.mp4', 'lupo_uscita_v2.mp4'},
+        reason: 'i file che non cambiano si sono riscaricati dalla rete');
+    for (final p in PezzoDelCammino.values) {
+      expect(File(v2.percorsoDiPezzo('lupo', p)!).existsSync(), isTrue,
+          reason: '$p manca dopo il passaggio alla v2');
+    }
   });
 }

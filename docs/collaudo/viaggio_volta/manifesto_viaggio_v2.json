@@ -1,0 +1,629 @@
+{
+ "versione": 2,
+ "animali": {
+  "aquila": {
+   "pezzi": {
+    "arrivo": {
+     "file": "aquila_arrivo_v1.mp4",
+     "byte": 1540551,
+     "sha256": "34e78f632894ba5d05bc62ccea50498055c5785fee7feba96685e50c69deb52c",
+     "da_fotogramma": 0,
+     "a_fotogramma": 95
+    },
+    "centro": {
+     "file": "aquila_centro_v1.mp4",
+     "byte": 985820,
+     "sha256": "60b730b589f8dffce08341ae7fb0e5bdce55efaf43d1768dffe2d02d29fb923d",
+     "da_fotogramma": 95,
+     "a_fotogramma": 165
+    },
+    "uscita": {
+     "file": "aquila_uscita_v1.mp4",
+     "byte": 1357760,
+     "sha256": "328daae39215c89f616b10f8aa208cde9366d846d479b0cb66636de7abe103db",
+     "da_fotogramma": 165,
+     "a_fotogramma": 239
+    },
+    "volta": {
+     "file": "aquila_volta_v2.mp4",
+     "byte": 1115744,
+     "sha256": "7fd45f394d7d42e1df48b953501cf4e91aea19aa3896149a3fc94ad568c1256f",
+     "da_fotogramma": 165,
+     "a_fotogramma": 187,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 5.8,
+      "a_s": 7.92,
+      "picco_db": -37.4
+     },
+     "scarto_primo_dalla_posa": 3.5,
+     "scarto_ultimo_dalla_posa": 4.23
+    }
+   },
+   "posa": {
+    "file": "aquila_posa_v1.webp",
+    "byte": 481472,
+    "sha256": "1c8e1dc5c98f0e5aa8acb8d2a348f489bfaed86e6744a4eee91a11f3ee390afe",
+    "fotogramma": 95
+   },
+   "scarto_fra_le_due_pose": 4.8,
+   "fine_uscita": "all'ultimo fotogramma l'aquila e' ancora in volo, piccola e lontana: l'app chiude con una dissolvenza di 0,5 s sulla scena vuota con la roccia.",
+   "scena_vuota": "Uccelli/00_SCENA_UCCELLI_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "cavallo": {
+   "pezzi": {
+    "arrivo": {
+     "file": "cavallo_arrivo_v1.mp4",
+     "byte": 1439125,
+     "sha256": "53321139a96bff77b509ec198f6adb01814f33f43f187ee62bc6e2c3624b9623",
+     "da_fotogramma": 0,
+     "a_fotogramma": 97
+    },
+    "centro": {
+     "file": "cavallo_centro_v1.mp4",
+     "byte": 1083502,
+     "sha256": "429e5359b30cd4cf868d6ab354979a4ec26d26450fb8ffe854daad243ebad142",
+     "da_fotogramma": 97,
+     "a_fotogramma": 163
+    },
+    "uscita": {
+     "file": "cavallo_uscita_v2.mp4",
+     "byte": 1184590,
+     "sha256": "845df136b5c6020dafbceda11a17cf7c38d1bc19ccd8df95e24bee9c977b0c2f",
+     "da_fotogramma": 163,
+     "a_fotogramma": 221
+    },
+    "volta": {
+     "file": "cavallo_volta_v2.mp4",
+     "byte": 724774,
+     "sha256": "634278e313df12bfec66aa08eebbcb40a1526c58372e699c12fd63020fd126c5",
+     "da_fotogramma": 163,
+     "a_fotogramma": 169,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 6.1,
+      "a_s": 6.89,
+      "picco_db": -46.6
+     },
+     "scarto_primo_dalla_posa": 3.76,
+     "scarto_ultimo_dalla_posa": 4.64
+    }
+   },
+   "posa": {
+    "file": "cavallo_posa_v1.webp",
+    "byte": 546046,
+    "sha256": "567489fc244b0216e55f55be95ff2c94387a393458781bc34b6af494b43ad2c4",
+    "fotogramma": 97
+   },
+   "scarto_fra_le_due_pose": 3.1,
+   "fine_uscita": "il video dopo il fotogramma 221 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 221 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "cervo": {
+   "pezzi": {
+    "arrivo": {
+     "file": "cervo_arrivo_v2.mp4",
+     "byte": 1613698,
+     "sha256": "71e1479567adebbd0a3a2138716673eb2e3661869b581c06d48ca455cf8d1303",
+     "da_fotogramma": 3,
+     "a_fotogramma": 103
+    },
+    "centro": {
+     "file": "cervo_centro_v1.mp4",
+     "byte": 947665,
+     "sha256": "de8767acf0cf3693424b8c8eb0fdc69ec20e38f79442e8299406bd453b95b50e",
+     "da_fotogramma": 103,
+     "a_fotogramma": 162
+    },
+    "uscita": {
+     "file": "cervo_uscita_v2.mp4",
+     "byte": 1242921,
+     "sha256": "a4ac2cbe81144849b1291fe79aedce32f4f529bdb36a0ab4d2937f70012e6b36",
+     "da_fotogramma": 162,
+     "a_fotogramma": 227
+    },
+    "volta": {
+     "file": "cervo_volta_v2.mp4",
+     "byte": 760362,
+     "sha256": "9e52cd43055513885bc8bd32bd958646d9d4c14f15d64f087eedcb3c08446114",
+     "da_fotogramma": 162,
+     "a_fotogramma": 169,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 6.2,
+      "a_s": 7.08,
+      "picco_db": -44.7
+     },
+     "scarto_primo_dalla_posa": 3.92,
+     "scarto_ultimo_dalla_posa": 4.79
+    }
+   },
+   "posa": {
+    "file": "cervo_posa_v1.webp",
+    "byte": 564396,
+    "sha256": "a9ff9bcc556447f23480fe93c330abe096db9c33e6cf85719900c223cbf9fd57",
+    "fotogramma": 103
+   },
+   "scarto_fra_le_due_pose": 3.8,
+   "fine_uscita": "il video dopo il fotogramma 227 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 227 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "corvo": {
+   "pezzi": {
+    "arrivo": {
+     "file": "corvo_arrivo_v1.mp4",
+     "byte": 1489199,
+     "sha256": "85dbe26208ee5d4e74804d70a856dd6b644665f4dd4961bc275ac55726274d0b",
+     "da_fotogramma": 0,
+     "a_fotogramma": 98
+    },
+    "centro": {
+     "file": "corvo_centro_v1.mp4",
+     "byte": 1033293,
+     "sha256": "e3f3e5ec8dd2a61dc331210889e345e243d5e855692d782d0c8322f1a97dc05e",
+     "da_fotogramma": 98,
+     "a_fotogramma": 165
+    },
+    "uscita": {
+     "file": "corvo_uscita_v1.mp4",
+     "byte": 1380711,
+     "sha256": "2ee8bf6dd87bbaca25b488f0423b11d64509e5f74907a85cff8451cbb86b0511",
+     "da_fotogramma": 165,
+     "a_fotogramma": 238
+    },
+    "volta": {
+     "file": "corvo_volta_v2.mp4",
+     "byte": 1220616,
+     "sha256": "965fadbb99b6526529af051363b4ed09b2274a337eabf2e920788010f3bb2cf8",
+     "da_fotogramma": 165,
+     "a_fotogramma": 188,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 5.4,
+      "a_s": 7.61,
+      "picco_db": -39.9
+     },
+     "scarto_primo_dalla_posa": 3.51,
+     "scarto_ultimo_dalla_posa": 4.45
+    }
+   },
+   "posa": {
+    "file": "corvo_posa_v1.webp",
+    "byte": 511440,
+    "sha256": "71facc2f1ac415cf5046ea6fd786573b38e015292c768a1ced6e908cedd52701",
+    "fotogramma": 98
+   },
+   "scarto_fra_le_due_pose": 4.3,
+   "fine_uscita": "all'ultimo fotogramma il corvo e' ancora in volo, piccolo e lontano: l'app chiude con una dissolvenza di 0,5 s sulla scena vuota con la roccia.",
+   "scena_vuota": "Uccelli/00_SCENA_UCCELLI_ULTIMO.jpg",
+   "durata_s": 9.958,
+   "fotogrammi_al_secondo": 24
+  },
+  "falco": {
+   "pezzi": {
+    "arrivo": {
+     "file": "falco_arrivo_v1.mp4",
+     "byte": 1460195,
+     "sha256": "985647bfaea0cb9b38054347bbcaf169c832ef7d48375b406f1b873f7968ec84",
+     "da_fotogramma": 0,
+     "a_fotogramma": 95
+    },
+    "centro": {
+     "file": "falco_centro_v1.mp4",
+     "byte": 1021080,
+     "sha256": "2a709c6546adf869716f41a28411aef97d082c32f197b2bc33e7455128855590",
+     "da_fotogramma": 95,
+     "a_fotogramma": 166
+    },
+    "uscita": {
+     "file": "falco_uscita_v1.mp4",
+     "byte": 1163382,
+     "sha256": "15d9c54d7dcd78266411b2aa3e6450726df6a6d99fa30169cc0c81bd7c359cd2",
+     "da_fotogramma": 166,
+     "a_fotogramma": 236
+    },
+    "volta": {
+     "file": "falco_volta_v2.mp4",
+     "byte": 1046954,
+     "sha256": "377103546b912947dd440b7f592a6fe843af1fb937bb629171eea6d84eca66bc",
+     "da_fotogramma": 166,
+     "a_fotogramma": 188,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 5.3,
+      "a_s": 7.42,
+      "picco_db": -46.5
+     },
+     "scarto_primo_dalla_posa": 3.44,
+     "scarto_ultimo_dalla_posa": 4.34
+    }
+   },
+   "posa": {
+    "file": "falco_posa_v1.webp",
+    "byte": 492626,
+    "sha256": "69f4ac944f16cc9f6b314402aa01c5b5384d9b18bc1d850e9fa5963906b741fc",
+    "fotogramma": 95
+   },
+   "scarto_fra_le_due_pose": 3.6,
+   "fine_uscita": "il video dopo il fotogramma 236 NON si usa: il falco sparisce di colpo fra 237 e 238. Al fotogramma 236 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota con la roccia.",
+   "scena_vuota": "Uccelli/00_SCENA_UCCELLI_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "gufo": {
+   "pezzi": {
+    "arrivo": {
+     "file": "gufo_arrivo_v1.mp4",
+     "byte": 1444254,
+     "sha256": "6d515310a9507327fe864074692920dad78726a1184dbc1ad4e30e367fdbb992",
+     "da_fotogramma": 0,
+     "a_fotogramma": 87
+    },
+    "centro": {
+     "file": "gufo_centro_v1.mp4",
+     "byte": 1241434,
+     "sha256": "a7f46850383d5912bbe64ff00f0ec0913f06815c72b523af91363bb4b2e33616",
+     "da_fotogramma": 87,
+     "a_fotogramma": 165
+    },
+    "uscita": {
+     "file": "gufo_uscita_v1.mp4",
+     "byte": 1348325,
+     "sha256": "4a0cd7ca822d0d5baff230bd21ff6b95a023a0879521db8bc837423d841511d9",
+     "da_fotogramma": 165,
+     "a_fotogramma": 234
+    },
+    "volta": {
+     "file": "gufo_volta_v2.mp4",
+     "byte": 1250059,
+     "sha256": "e20578866d2a9d8ffdcf41181f8ac90555e937a5c0514659d0a3f8242b1fa97d",
+     "da_fotogramma": 165,
+     "a_fotogramma": 188,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 5.6,
+      "a_s": 7.81,
+      "picco_db": -46.1
+     },
+     "scarto_primo_dalla_posa": 3.63,
+     "scarto_ultimo_dalla_posa": 4.45
+    }
+   },
+   "posa": {
+    "file": "gufo_posa_v1.webp",
+    "byte": 508032,
+    "sha256": "e8ec09cf5f51f70556932da78595db4e3a4438ec32f5d9d30b9134186d1851b4",
+    "fotogramma": 87
+   },
+   "scarto_fra_le_due_pose": 5.0,
+   "fine_uscita": "il video dopo 9,75 s NON si usa: il gufo sparisce di colpo a mezz'aria. Al fotogramma 234 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota con la roccia.",
+   "scena_vuota": "Uccelli/00_SCENA_UCCELLI_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "lince": {
+   "pezzi": {
+    "arrivo": {
+     "file": "lince_arrivo_v1.mp4",
+     "byte": 1417817,
+     "sha256": "24e358215cf32d0920fe4fae1e4acc738d111bbb9e21a56a9645d3aaef17c8ed",
+     "da_fotogramma": 0,
+     "a_fotogramma": 96
+    },
+    "centro": {
+     "file": "lince_centro_v1.mp4",
+     "byte": 1063791,
+     "sha256": "8583ef5a04ada759e2c24560e0a9b658f4783a1008732eca9765dd4911fa6dc0",
+     "da_fotogramma": 96,
+     "a_fotogramma": 164
+    },
+    "uscita": {
+     "file": "lince_uscita_v2.mp4",
+     "byte": 1254594,
+     "sha256": "8bef9d5b47c375dace8d71883551be2c76144a8093a989373a21bf25dfa350d5",
+     "da_fotogramma": 164,
+     "a_fotogramma": 229
+    },
+    "volta": {
+     "file": "lince_volta_v2.mp4",
+     "byte": 532687,
+     "sha256": "93265c8bf995d9c39b942aa4ed3c3fd77d87d2d4ad7d7f3627392ed7dedb276a",
+     "da_fotogramma": 164,
+     "a_fotogramma": 166,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 0.0,
+      "a_s": 0.46,
+      "picco_db": -50.7
+     },
+     "scarto_primo_dalla_posa": 4.13,
+     "scarto_ultimo_dalla_posa": 4.67
+    }
+   },
+   "posa": {
+    "file": "lince_posa_v1.webp",
+    "byte": 530790,
+    "sha256": "b8cd0e23e243cc53dfebbbf758a89379391ce01342401ae64a18984462ea3ba8",
+    "fotogramma": 96
+   },
+   "scarto_fra_le_due_pose": 4.6,
+   "fine_uscita": "il video dopo il fotogramma 229 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 229 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "lupo": {
+   "pezzi": {
+    "arrivo": {
+     "file": "lupo_arrivo_v1.mp4",
+     "byte": 1378754,
+     "sha256": "d836b88d2ed161b7740c1437590a4da7fa09bba09be7c85b7b589eb80e5b86ec",
+     "da_fotogramma": 0,
+     "a_fotogramma": 95
+    },
+    "centro": {
+     "file": "lupo_centro_v1.mp4",
+     "byte": 1087267,
+     "sha256": "58deb23d3d7167575a53111f071da267f304722f07cb45a0c0063bd565cd08e6",
+     "da_fotogramma": 95,
+     "a_fotogramma": 163
+    },
+    "uscita": {
+     "file": "lupo_uscita_v2.mp4",
+     "byte": 1274891,
+     "sha256": "3172e16a5c1a8f2134ec6c01803adb63dfe36e449aff4bad9bc705abddea269f",
+     "da_fotogramma": 163,
+     "a_fotogramma": 230
+    },
+    "volta": {
+     "file": "lupo_volta_v2.mp4",
+     "byte": 689833,
+     "sha256": "78f67c5ed47e34be325dd9479953af9ce82ae67b39f07a30b69f06e9ab08584b",
+     "da_fotogramma": 163,
+     "a_fotogramma": 168,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 0.0,
+      "a_s": 0.71,
+      "picco_db": -48.4
+     },
+     "scarto_primo_dalla_posa": 3.75,
+     "scarto_ultimo_dalla_posa": 4.58
+    }
+   },
+   "posa": {
+    "file": "lupo_posa_v1.webp",
+    "byte": 523034,
+    "sha256": "a0cc8624f0abbcaf52165bcc41c9e169fdeaba074f175b3929805f641ace7955",
+    "fotogramma": 95
+   },
+   "scarto_fra_le_due_pose": 3.0,
+   "fine_uscita": "il video dopo il fotogramma 230 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 230 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "orso": {
+   "pezzi": {
+    "arrivo": {
+     "file": "orso_arrivo_v1.mp4",
+     "byte": 1532475,
+     "sha256": "705a6c3b609d29bc381049f809e772a01df98d00131f7fa54236fa35907982c6",
+     "da_fotogramma": 0,
+     "a_fotogramma": 95
+    },
+    "centro": {
+     "file": "orso_centro_v1.mp4",
+     "byte": 1109402,
+     "sha256": "79070ad3c7b75c16648c9b0bd978a030377159a1f17c879c6d96aa9cf8cc4a6e",
+     "da_fotogramma": 95,
+     "a_fotogramma": 159
+    },
+    "uscita": {
+     "file": "orso_uscita_v2.mp4",
+     "byte": 1361414,
+     "sha256": "d2e60e9f526acfdc67d434ab5f3c0e80a011972e2b6c60f96edce89cad8d4faf",
+     "da_fotogramma": 159,
+     "a_fotogramma": 222
+    },
+    "volta": {
+     "file": "orso_volta_v2.mp4",
+     "byte": 910436,
+     "sha256": "f3dc30dca42122e3461b4803f962b88fe5ec1d4fd8c4d3b727c5194dc526fb0a",
+     "da_fotogramma": 159,
+     "a_fotogramma": 170,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 6.2,
+      "a_s": 7.41,
+      "picco_db": -45.9
+     },
+     "scarto_primo_dalla_posa": 3.67,
+     "scarto_ultimo_dalla_posa": 4.61
+    }
+   },
+   "posa": {
+    "file": "orso_posa_v1.webp",
+    "byte": 547978,
+    "sha256": "a4b3e7828f2381e4cf5834f5c3810fdc2db90ff8528eceaafbf88a2af93203b2",
+    "fotogramma": 95
+   },
+   "scarto_fra_le_due_pose": 3.9,
+   "fine_uscita": "il video dopo il fotogramma 222 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 222 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "serpente": {
+   "pezzi": {
+    "arrivo": {
+     "file": "serpente_arrivo_v1.mp4",
+     "byte": 1517785,
+     "sha256": "2380f7191bb85d136aca3d98190f1bfb9d48b2456fdfc0faf666ab88493e7dd9",
+     "da_fotogramma": 0,
+     "a_fotogramma": 96
+    },
+    "centro": {
+     "file": "serpente_centro_v1.mp4",
+     "byte": 1100524,
+     "sha256": "57e7cf499fc698330e0ca96c353a4d051e73c1aab13e5194b58cb3bb5cc0a6ef",
+     "da_fotogramma": 96,
+     "a_fotogramma": 162
+    },
+    "uscita": {
+     "file": "serpente_uscita_v2.mp4",
+     "byte": 1321374,
+     "sha256": "3bae97c23e90e2651cebbdb600c9004da03c0ce86838e00d62ebcc9efd2e65a2",
+     "da_fotogramma": 162,
+     "a_fotogramma": 229
+    },
+    "volta": {
+     "file": "serpente_volta_v2.mp4",
+     "byte": 1371713,
+     "sha256": "600d30deb268726d74da192875095cbd95a53bd5b304efc5b28f54a131008363",
+     "da_fotogramma": 162,
+     "a_fotogramma": 186,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 5.4,
+      "a_s": 7.69,
+      "picco_db": -36.9
+     },
+     "scarto_primo_dalla_posa": 3.9,
+     "scarto_ultimo_dalla_posa": 4.85
+    }
+   },
+   "posa": {
+    "file": "serpente_posa_v1.webp",
+    "byte": 569824,
+    "sha256": "f0095d15f381ea3803c81c0243861a4cfc26effe2a6434d5917ac400e641a424",
+    "fotogramma": 96
+   },
+   "scarto_fra_le_due_pose": 5.3,
+   "fine_uscita": "il video dopo il fotogramma 229 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 229 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "tartaruga": {
+   "pezzi": {
+    "arrivo": {
+     "file": "tartaruga_arrivo_v1.mp4",
+     "byte": 1198896,
+     "sha256": "df4c031531e3cbe933fa18352c76a3ac8c042fae74b819ef4420595bacb1742d",
+     "da_fotogramma": 0,
+     "a_fotogramma": 79
+    },
+    "centro": {
+     "file": "tartaruga_centro_v1.mp4",
+     "byte": 1067417,
+     "sha256": "34804f055d22fa0c486704938e6d61012d9a4d62555eddf1ea364fbacc16111a",
+     "da_fotogramma": 79,
+     "a_fotogramma": 142
+    },
+    "uscita": {
+     "file": "tartaruga_uscita_v1.mp4",
+     "byte": 1337344,
+     "sha256": "57e6a72a8c4a3d13c61b5da0b505c1bed2c73dfabe6e856d6dd57ecbb85e54da",
+     "da_fotogramma": 142,
+     "a_fotogramma": 222
+    },
+    "volta": {
+     "file": "tartaruga_volta_v2.mp4",
+     "byte": 534992,
+     "sha256": "d4349a84054d9e7a79eb1472c4d7427ea9f2ac6413a9c322e2b11f863056ace4",
+     "da_fotogramma": 142,
+     "a_fotogramma": 145,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 4.8,
+      "a_s": 5.34,
+      "picco_db": -45.8
+     },
+     "scarto_primo_dalla_posa": 3.94,
+     "scarto_ultimo_dalla_posa": 4.56
+    }
+   },
+   "posa": {
+    "file": "tartaruga_posa_v1.webp",
+    "byte": 526682,
+    "sha256": "dbc87a7198617974c25742654ad19b96749c1808f2be029c612e5b1d9bf3558d",
+    "fotogramma": 79
+   },
+   "scarto_fra_le_due_pose": 3.2,
+   "fine_uscita": "il video da 9,25 s in poi NON si usa: la tartaruga diventa trasparente sul posto. Al fotogramma 222 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 10.0,
+   "fotogrammi_al_secondo": 24
+  },
+  "volpe": {
+   "pezzi": {
+    "arrivo": {
+     "file": "volpe_arrivo_v1.mp4",
+     "byte": 1376913,
+     "sha256": "d5a8e87518ee39091ba7f987f3da97efce0960910f91a9f73e59580c840e0c2d",
+     "da_fotogramma": 0,
+     "a_fotogramma": 96
+    },
+    "centro": {
+     "file": "volpe_centro_v1.mp4",
+     "byte": 1186680,
+     "sha256": "090c9bd611e0d7153f1b6dbad41d5a744d8724ed1c7b02b7f6239fe71dd938a3",
+     "da_fotogramma": 96,
+     "a_fotogramma": 167
+    },
+    "uscita": {
+     "file": "volpe_uscita_v2.mp4",
+     "byte": 1202969,
+     "sha256": "c723cc4080c26ebc5f5728297fdf215dcae3b9da819464c2d94580915f6427e7",
+     "da_fotogramma": 167,
+     "a_fotogramma": 231
+    },
+    "volta": {
+     "file": "volpe_volta_v2.mp4",
+     "byte": 538198,
+     "sha256": "136ceafcda7c55c210023017b75572674bef47988315544a8d8ca97aac63ed5d",
+     "da_fotogramma": 167,
+     "a_fotogramma": 169,
+     "fermo": 6,
+     "raccordo_con_la_posa": 4,
+     "audio": {
+      "da_s": 4.7,
+      "a_s": 5.16,
+      "picco_db": -47.6
+     },
+     "scarto_primo_dalla_posa": 4.25,
+     "scarto_ultimo_dalla_posa": 4.8
+    }
+   },
+   "posa": {
+    "file": "volpe_posa_v1.webp",
+    "byte": 565310,
+    "sha256": "ec7c79dc05ee3ea0b6e12c3fb9386f13e724e30fd28c4931d6f70a3b461a2f1c",
+    "fotogramma": 96
+   },
+   "scarto_fra_le_due_pose": 4.0,
+   "fine_uscita": "il video dopo il fotogramma 231 NON si usa: l'animale diventa trasparente sul sentiero. Al fotogramma 231 l'app chiude con una dissolvenza di 0,5 s sulla scena vuota.",
+   "scena_vuota": "00_SCENA_ULTIMO.jpg",
+   "durata_s": 9.958,
+   "fotogrammi_al_secondo": 24
+  }
+ }
+}
