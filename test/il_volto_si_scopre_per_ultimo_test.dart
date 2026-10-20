@@ -11,6 +11,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,13 @@ import 'la_soglia_si_guarda_prima_di_leggerla_test.dart'
 /// volto resta coperto all'arrivo; la lente mostra l'animale di lato; la
 /// carta parte sotto lo spazio delle barre in cima.
 void main() {
+  // **LA GRANA DELLA CENERE SI PREPARA PRIMA DI TUTTO, IN TEMPO VERO**: si
+  // prepara una volta sola (`GranaDellaCenere.prepara`), e se la cominciasse
+  // una prova di questo file nel suo tempo finto non finirebbe mai, e la
+  // prova dei pixel qui sotto la aspetterebbe fino al limite dei dieci
+  // minuti. E' successo alla sua prima stesura, il 20 ottobre 2026.
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(GranaDellaCenere.prepara);
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   test(
@@ -209,8 +217,86 @@ void main() {
             '(${altoUtile.toStringAsFixed(0)})');
   });
 
-  testWidgets(
-      'LA LENTE GRATTA L\'ANIMALE DI LATO, con la sua proporzione vera',
+  /// **LA CENERE NON SALE SULLE BARRE, NEMMENO COL SUO BORDO.** Il fatto,
+  /// dalla seconda simulazione da persona (l) del 20 ottobre 2026 sul Realme
+  /// 767f596c: al quinto giorno, sulla carta del Cervo, i morsi sfrangiati in
+  /// cima alla cenere coprivano il fondo di *"Sciamano"*, la terza riga del
+  /// titolo (`docs/collaudo/FZ/simulazioni/catture/l2_g5_carta.png`). La
+  /// prova qui sopra era verde, perche' misura dove comincia l'immagine: il
+  /// bordo della cenere esce dall'immagine di un raggio di pennello e un
+  /// quarto. Padre: ordine FZ voce FZ.04, la cura del 20 ottobre che ha messo
+  /// la carta sotto le barre contando l'immagine e non il suo bordo.
+  ///
+  /// **Si misurano i pixel dipinti** sopra lo spazio delle barre, a velo
+  /// intero, per tutti e dodici: devono essere zero. Il cardinale: sotto le
+  /// barre la cenere dipinge decine di migliaia di pixel, o la prova non
+  /// guarda niente.
+  testWidgets('LA CENERE NON SALE SULLE BARRE, NEMMENO COL SUO BORDO',
+      (tester) async {
+    const scena = Size(360, 719);
+    const sopra = 142.0;
+    await tester.binding.setSurfaceSize(scena);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    cardinaleMinimo(AnimalCatalog.animals.length, 12, cosa: 'animali');
+    final sulleBarre = <String>[];
+    await tester.runAsync(() async {
+      await GranaDellaCenere.prepara();
+      for (final animale in AnimalCatalog.animals) {
+        await tester.pumpWidget(MaterialApp(
+          home: MediaQuery(
+            data: const MediaQueryData(
+                size: scena, padding: EdgeInsets.only(top: sopra)),
+            child: RepaintBoundary(
+              key: const Key('foglio'),
+              child: SizedBox(
+                width: scena.width,
+                height: scena.height,
+                child: IlVeloCheSiScosta(
+                  key: ValueKey(animale.name),
+                  nome: animale.name,
+                  immagine: 'assets/img/animali/nessuno.webp',
+                  quale: 0,
+                  giaScoperte: const {},
+                  quandoCambia: (_) {},
+                  palette: MaestroPalette.caligo,
+                ),
+              ),
+            ),
+          ),
+        ));
+        await tester.pump(const Duration(milliseconds: 400));
+        await tester.pump(IlVeloCheSiScosta.vitaDellaParticella);
+        final foglio = tester.renderObject<RenderRepaintBoundary>(
+            find.byKey(const Key('foglio')));
+        final quadro = await foglio.toImage();
+        final dati =
+            (await quadro.toByteData(format: ui.ImageByteFormat.rawRgba))!
+                .buffer
+                .asUint8List();
+        var su = 0;
+        var giu = 0;
+        for (var y = 0; y < scena.height.toInt(); y++) {
+          for (var x = 0; x < scena.width.toInt(); x++) {
+            if (dati[(y * scena.width.toInt() + x) * 4 + 3] <= 25) continue;
+            if (y < sopra) {
+              su++;
+            } else {
+              giu++;
+            }
+          }
+        }
+        expect(giu, greaterThan(20000),
+            reason: '${animale.name}: sotto le barre la cenere dipinge solo '
+                '$giu pixel, e allora la prova non guarda la cenere');
+        if (su > 0) sulleBarre.add('${animale.name} $su');
+      }
+    });
+    expect(sulleBarre, isEmpty,
+        reason: 'LA CENERE SALE SULLE BARRE, pixel dipinti sopra $sopra: '
+            '${sulleBarre.join(', ')}. Il bordo sfrangiato copre il titolo.');
+  });
+
+  testWidgets('LA LENTE GRATTA L\'ANIMALE DI LATO, con la sua proporzione vera',
       (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
@@ -271,8 +357,8 @@ void main() {
       final dati = File(animale.fullPath).readAsBytesSync();
       final codec = await ui.instantiateImageCodec(dati);
       final frame = await codec.getNextFrame();
-      final vera = Size(
-          frame.image.width.toDouble(), frame.image.height.toDouble());
+      final vera =
+          Size(frame.image.width.toDouble(), frame.image.height.toDouble());
       expect(LaCartaInQuattroPezzi.misure[animale.name], vera,
           reason: '${animale.name}: misura dichiarata '
               '${LaCartaInQuattroPezzi.misure[animale.name]}, il file e\' '

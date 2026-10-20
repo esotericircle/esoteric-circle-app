@@ -103,15 +103,23 @@ class IlVeloCheSiScosta extends StatefulWidget {
   /// scena, e sul Realme il suo pezzo in cima stava dietro la barra di stato,
   /// la striscia del Cerchio e la barra del titolo: non si vedeva, e il dito
   /// li' toccava i pulsanti della barra invece della cenere.
+  ///
+  /// **E SOTTO LE BARRE CI VA ANCHE IL BORDO DELLA CENERE**,
+  /// [PittoreDellaCenere.bordoDellaCenere]:
+  /// dalla seconda simulazione da persona (l) del 20 ottobre 2026, sulle
+  /// carte alte (Aquila, Cervo, Gufo, Lince) i morsi sfrangiati in cima alla
+  /// cenere coprivano la terza riga del titolo, perche' qui si contava
+  /// l'immagine e non il suo bordo.
   static Rect doveStaLIllustrazione(Size scena, Size misura,
       {double sopra = 0}) {
+    final cima = sopra + PittoreDellaCenere.bordoDellaCenere;
     final spazio =
-        Size(scena.width, math.max(0.0, scena.height * 0.78 - sopra));
+        Size(scena.width, math.max(0.0, scena.height * 0.78 - cima));
     final k =
         math.min(spazio.width / misura.width, spazio.height / misura.height);
     return Rect.fromLTWH(
       (scena.width - misura.width * k) / 2,
-      sopra + (spazio.height - misura.height * k) / 2,
+      cima + (spazio.height - misura.height * k) / 2,
       misura.width * k,
       misura.height * k,
     );
@@ -938,6 +946,14 @@ class PittoreDellaCenere extends CustomPainter {
   /// tre decimi. Le guardie del velo misurano i pixel e direbbero subito se
   /// qualcosa venisse tagliato dritto.
   static const double quantoMargine = 40;
+
+  /// **QUANTO ESCE IL BORDO SFRANGIATO DALL'ILLUSTRAZIONE, in punti**: i
+  /// morsi stanno entro un raggio di pennello e un quarto (vedi
+  /// [quantoMargine]). E' lo spazio che
+  /// [IlVeloCheSiScosta.doveStaLIllustrazione] lascia fra le
+  /// barre e la carta.
+  static const double bordoDellaCenere =
+      LaCartaInQuattroPezzi.raggioDelPennello * 1.25;
 
   /// Il tracciato dei solchi, in punti: un segmento per coppia di punti, un
   /// cerchio per il solco di un punto solo.

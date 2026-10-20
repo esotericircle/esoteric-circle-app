@@ -1030,6 +1030,41 @@ tocco automatico sbagliato, nel rito del tamburo, e mi sono fermato.
 Osservato li': il tamburo si apre anche prima del riconoscimento, con
 l'ombra di un rapace (`v2_l1_soglia.png`), da capire se e' voluto.
 
+**Rifatta per intero lo stesso giorno, sei giorni di fila** (date del
+telefono di collaudo dal 20 al 25 ottobre 2026), su un Viaggio pulito
+(preferenze del profilo di prova salvate prima sul PC,
+`prefs_prima_di_l.xml` nello scratchpad, scrittura verificata byte per
+byte) e con la rete spenta per tutta la prova, cosi' il Cerchio non
+riportava il Viaggio vecchio e nessuna discesa chiamava il modello.
+Catture `l2_*`. Decisioni previste e provate: seguire ogni giorno un'ombra
+mai seguita; grattare ovunque a zig zag; aspettare con lo schermo spento a
+meta' di una giornata; cambiare tema a fine ciclo; aprire il Diario.
+- Le sei ombre seguite: Lince, Cavallo, Orso, Serpente, Cervo, Gufo. **Ogni
+  giorno tornano fra le nove tutte quelle gia' seguite** (al sesto giorno
+  cinque su cinque), al posto cambiato, e le altre sono nuove.
+- **Nessun riconoscimento**: `viaggio.riconosciuto` resta falso, il conto
+  sale da 1 a 6. La soglia dice sempre il vero, *"Si e' mostrato una
+  volta, ne mancano tre"*, anche al quarto giorno, quando le discese sono
+  quattro ma nessuna ombra e' stata seguita due volte (`l2_g4_soglia.png`).
+- Ogni giorno si scopre solo il pezzo in basso dell'animale di oggi, anche
+  grattando tutta la carta.
+- Finito il ciclo di quattro strati, la soglia richiede il tema e Scendi
+  resta spento finche' non si sceglie (`l2_g5_soglia.png`).
+- Il Diario mostra le carte a meta' con "Ombra seguita" al posto del nome e
+  i due cammini, quello in corso e quello concluso.
+- **Difetto trovato e curato**: sulle carte alte (Cervo al quinto giorno,
+  Gufo al sesto) i morsi in cima alla cenere coprivano il fondo di
+  *Sciamano*, la terza riga del titolo (`l2_g5_carta.png`,
+  `l2_g6_carta.png`). Padre FZ.04 (la cura del 20 ottobre contava
+  l'immagine e non il suo bordo). Cura in `doveStaLIllustrazione`, prova
+  nuova in `il_volto_si_scopre_per_ultimo`, vista rossa sul difetto vero
+  (Aquila 3739, Cervo 3603, Gufo 2192, Lince 3416 pixel sopra le barre).
+- **Osservazione per il fondatore, non curata**: l'ombra del Serpente
+  (`ani_ombra_serpente_v1.webp`, il serpente arrotolato con la testa
+  alzata), sfocata come vuole la scena, a video sembra un fungo o un
+  sasso: e' l'unica delle dodici che una persona non riconosce. Serve
+  un'immagine nuova, e le immagini le genera il fondatore.
+
 ### Il telefono alla fine
 
 Data vera (20 ottobre 2026), ora automatica accesa, rete accesa. Sul
