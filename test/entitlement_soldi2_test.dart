@@ -128,7 +128,9 @@ void main() {
           // Ordine EX voce 02: dieci carte estratte all'Adepto, erano trenta
           // carte singole. Ordine GA voce 01: due stese. Ordine GA voce 02,
           // 20 ottobre 2026 sera: quattro (il solo responso principale).
-          4,
+          // Ordine GA, decisione del 20 ottobre 2026: tre, in entrambi i
+          // cicli (il server non distingue l'annuale).
+          3,
           reason: 'il tetto delle stese dell\'Adepto e\' cambiato');
     });
 

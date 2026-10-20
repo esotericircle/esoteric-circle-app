@@ -364,13 +364,15 @@ void main() {
     expect(testo, contains('una al giorno'));
     expect(testo, contains('torna domani'));
     expect(testo, contains('un’altra stesa'));
-    // Le stese che restano, col numero del borsellino: tre su quattro.
-    expect(testo, contains('Ti restano 3 stese su 4, oggi.'),
+    // Le stese che restano, col numero del borsellino: erano tre su
+    // quattro; dalla decisione del 20 ottobre 2026 l'Adepto ha tre stese in
+    // entrambi i cicli, e ne restano due su tre.
+    expect(testo, contains('Ti restano 2 stese su 3, oggi.'),
         reason: 'l\'invito non dice quante stese restano per un\'altra stesa');
     expect(testo, isNot(contains('Eos')),
         reason: 'con stese rimaste l\'invito parla di Eos');
     expect(porta.movimenti, isEmpty, reason: 'si e\' speso qualcosa');
-    expect(borsa.steseRimaste(Tier.tier2), 3,
+    expect(borsa.steseRimaste(Tier.tier2), 2,
         reason: 'la Croce Celtica rifiutata ha consumato una stesa');
   });
 
@@ -417,7 +419,9 @@ void main() {
         reason: 'la Croce Celtica fatta ha chiuso anche le altre stese');
     expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget,
         reason: 'la stesa a tre carte non si e\' aperta');
-    expect(borsa.steseRimaste(Tier.tier2), 2);
+    // Tre stese all'Adepto (decisione del 20 ottobre 2026): la Croce
+    // Celtica e la stesa a tre carte ne lasciano una.
+    expect(borsa.steseRimaste(Tier.tier2), 1);
     expect(borsa.steseDaDieciRimaste(Tier.tier2), 0);
     await lasciaFinire(tester);
   });
@@ -439,7 +443,9 @@ void main() {
     await stendiEApri(tester, 10);
     expect(find.byKey(const Key('upgrade_invite')), findsNothing);
     expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget);
-    expect(borsa.steseRimaste(Tier.tier2), 3);
+    // Tre stese all'Adepto (decisione del 20 ottobre 2026): la Croce
+    // Celtica ne consuma una.
+    expect(borsa.steseRimaste(Tier.tier2), 2);
     expect(borsa.laCroceCelticaDiOggiEFatta(Tier.tier2), isTrue,
         reason: 'la Croce Celtica letta non ha consumato quella del giorno');
     await lasciaFinire(tester);

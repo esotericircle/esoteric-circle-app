@@ -57,7 +57,8 @@ void main() {
   // tarocchi a 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al
   // giorno."* Con le carte dal corpus una stesa costa il solo responso
   // principale, e il conto fa entrare 3, 4 e 5 stese nel mensile, 3, 3 e 5
-  // nell'annuale. Prima di questa prova il conto e la matrice potevano dire
+  // nell'annuale. Ordine GA, decisione del 20 ottobre 2026: 3, 3 e 5 in
+  // entrambi i cicli, perche' il server ha un tetto solo per piano. Prima di questa prova il conto e la matrice potevano dire
   // numeri diversi delle stese senza che niente cadesse: la prova qui sopra
   // guardava solo domande e minuti.
   test('GA.02: le stese del conto sono quelle della matrice e delle card', () {

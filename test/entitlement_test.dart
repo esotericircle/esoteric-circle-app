@@ -258,9 +258,12 @@ void main() {
       // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
       // voce 02). Ordine GA voce 02, 20 ottobre 2026 sera: quattro, e la
       // stesa a dieci una al giorno ("solo 1 al giorno", il fondatore).
+      // Ordine GA, decisione del 20 ottobre 2026: tre stese in entrambi i
+      // cicli (il server non distingue l'annuale, e con quattro l'annuale
+      // saliva al 30,08 per cento del netto).
       expect(
           adepto.contains(
-              '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
+              '3 stese di tarocchi al giorno, da una, tre, quattro o dieci carte'),
           isTrue);
       expect(adepto.contains('La stesa a dieci carte, 1 al giorno'), isTrue,
           reason: 'la card dell\'Adepto non dice che la stesa a dieci e\' una '

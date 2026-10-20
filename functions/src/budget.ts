@@ -170,8 +170,15 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * all'Illuminato (tool/i_limiti_degli_annuali.py, uscita in
    * docs/costi/i_limiti_degli_annuali.txt). La stesa a dieci carte e'
    * una di queste, e in piu' ha il suo tetto qui sotto.
+   *
+   * **UNO, TRE, TRE E CINQUE, ordine GA, decisione del 20 ottobre 2026.**
+   * Questo tetto non distingue il ciclo mensile dall'annuale, e con quattro
+   * stese l'annuale dell'Adepto sale al 30,08 per cento del netto: l'Adepto
+   * ha tre stese in entrambi i cicli, come nella matrice dell'app
+   * (lib/core/entitlement/plan_catalog.dart) e nel conto
+   * (tool/i_limiti_degli_annuali.py, STESE e STESE_ANNUALE).
    */
-  stese: [1, 3, 4, 5],
+  stese: [1, 3, 3, 5],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *

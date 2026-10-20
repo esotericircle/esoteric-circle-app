@@ -279,10 +279,12 @@ test("la Croce Celtica si riscatta col suo prezzo: 400 Eos, una stesa, un riscat
   // riscatto porta lo speso da 2 a 1, e una stesa, anche la Croce Celtica,
   // si apre; la seconda no, perche' il riscatto ne ha ridata una sola.
   //
-  // Ordine GA voce 02, 20 ottobre 2026, sera: l'Adepto ha quattro stese, e
-  // il conto e' lo stesso a contatore pieno.
-  assert.equal(decidi("stese", "tier2", 4).concesso, false);
-  const dopoIlRiscatto = 4 - RISCATTI_DELLA_STESA_INTERA.steseDieci.unita;
+  // Ordine GA voce 02, 20 ottobre 2026, sera: l'Adepto aveva quattro
+  // stese. Ordine GA, decisione del 20 ottobre 2026: tre in entrambi i cicli
+  // (il tetto del server non distingue l'annuale), e il conto e' lo stesso
+  // a contatore pieno.
+  assert.equal(decidi("stese", "tier2", 3).concesso, false);
+  const dopoIlRiscatto = 3 - RISCATTI_DELLA_STESA_INTERA.steseDieci.unita;
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto).concesso, true);
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto).resta, 0);
   assert.equal(decidi("stese", "tier2", dopoIlRiscatto + 1).concesso, false);
@@ -349,9 +351,12 @@ test("le stese hanno il budget del listino, e non quello della carta singola", (
   // **Ordine GA voce 02, 20 ottobre 2026, sera**: con le carte dal corpus
   // una stesa costa il solo responso principale, e nel 30 per cento entrano
   // 1, 3, 4 e 5 stese (tool/i_limiti_degli_annuali.py).
+  // **Ordine GA, decisione del 20 ottobre 2026**: 1, 3, 3 e 5. Il tetto del
+  // server vale per il mensile e per l'annuale, e con quattro stese
+  // l'annuale dell'Adepto saliva al 30,08 per cento del netto.
   assert.equal(limiteDi("stese", "free"), 1);
   assert.equal(limiteDi("stese", "tier1"), 3);
-  assert.equal(limiteDi("stese", "tier2"), 4);
+  assert.equal(limiteDi("stese", "tier2"), 3);
   assert.equal(limiteDi("stese", "tier3"), 5);
   // E non e' il budget delle gettate: due contatori, due promesse.
   assert.notDeepEqual(

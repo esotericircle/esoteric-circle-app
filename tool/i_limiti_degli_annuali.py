@@ -124,7 +124,11 @@ TAROCCHI_DEL_CONTO_EX = [0.0041, 0.0069, 0.0103]
 # 3, adepto 6, illuminato 10"), e quelle della matrice dopo il conto
 # (ordine GA voce 02, la sera del 20 ottobre 2026).
 STESE_CHIESTE = [3, 6, 10]
-STESE = [3, 4, 5]
+# Ordine GA, decisione del 20 ottobre 2026: il server non distingue il ciclo
+# mensile dall'annuale (un solo tetto per piano in functions/src/budget.ts),
+# e con quattro stese l'annuale dell'Adepto saliva al 30,08 per cento del
+# netto. L'Adepto ha tre stese in entrambi i cicli: era STESE = [3, 4, 5].
+STESE = [3, 3, 5]
 STESE_ANNUALE = [3, 3, 5]
 # La stesa a dieci carte, una al giorno all'Adepto e all'Illuminato, DENTRO
 # le stese del giorno (il fondatore, la sera del 20 ottobre 2026: "sarà

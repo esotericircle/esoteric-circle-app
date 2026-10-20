@@ -405,17 +405,19 @@ class PlanCatalog {
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese':
             'Voce AI dei tre Maestri nel LIVE, 55 minuti al mese',
         '17 domande al giorno ai Maestri': '14 domande al giorno ai Maestri',
-        // Ordine GA voce 02, 20 ottobre 2026, sera: sull'annuale
-        // dell'Adepto entrano tre stese sotto il 30 per cento
-        // (tool/i_limiti_degli_annuali.py, STESE_ANNUALE).
-        '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte':
-            '3 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
+        // LAPIDE, ordine GA, decisione del 20 ottobre 2026: qui l'annuale
+        // dell'Adepto diceva tre stese contro le quattro del mensile. Il
+        // server non distingue il ciclo mensile dall'annuale, e con quattro
+        // stese l'annuale dell'Adepto sale al 30,08 per cento: l'Adepto ha
+        // tre stese in entrambi i cicli, e la card le dice una volta sola.
       },
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
         '17 domande al giorno ai Maestri',
-        '4 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
+        // Ordine GA, decisione del 20 ottobre 2026: tre stese in entrambi i
+        // cicli (erano quattro nel mensile).
+        '3 stese di tarocchi al giorno, da una, tre, quattro o dieci carte',
         // Ordine GA voce 02: la stesa a dieci carte e' una al giorno (il
         // fondatore, la sera del 20 ottobre 2026, "solo 1 al giorno"). Diceva
         // "appena arriva nel Cerchio".
@@ -926,8 +928,13 @@ class PlanCatalog {
     // dell'Illuminato; l'annuale dell'Adepto ne regge tre
     // (`tool/i_limiti_degli_annuali.py`, `Plan.nellAnnuale`). Il server ha gli
     // stessi numeri in `functions/src/budget.ts`.
+    // **UNO, TRE, TRE E CINQUE, ordine GA, decisione del 20 ottobre 2026.**
+    // Il server non distingue il ciclo mensile dall'annuale: un solo tetto
+    // per piano, e con quattro stese l'annuale dell'Adepto salirebbe al
+    // 30,08 per cento del netto. L'Adepto ha tre stese in entrambi i cicli
+    // (`STESE` e `STESE_ANNUALE` dello strumento, `stese` del server).
     FeatureRow('Stese di tarocchi',
-        ['1 al giorno', '3 al giorno', '4 al giorno', '5 al giorno'],
+        ['1 al giorno', '3 al giorno', '3 al giorno', '5 al giorno'],
         chiave: RigaDelPiano.stese),
     // **LA STESA A DIECI CARTE, UNA AL GIORNO, ordine GA voce 02.** Il
     // fondatore, la sera del 20 ottobre 2026: *"Limitiamo la stesa tarocchi

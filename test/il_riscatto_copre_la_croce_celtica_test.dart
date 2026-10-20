@@ -70,7 +70,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// le prove qui sotto la trovano libera. Fatta quella del giorno la Croce
 /// Celtica non si riscatta a nessun prezzo, e lo prova
 /// `test/la_croce_celtica_una_al_giorno_test.dart`. L'Adepto ha adesso
-/// quattro stese al giorno, e queste prove le contano dal borsellino.
+/// tre stese al giorno (ordine GA, decisione del 20 ottobre 2026; erano
+/// quattro), e queste prove le contano dal borsellino.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 

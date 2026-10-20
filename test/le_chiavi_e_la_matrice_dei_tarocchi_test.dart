@@ -100,13 +100,15 @@ void main() {
     // stesa da dieci resta dell'Adepto in su.
     // Ordine GA voce 02, 20 ottobre 2026 sera: 1, 3, 4 e 5 stese, e la
     // stesa da dieci una al giorno all'Adepto e all'Illuminato.
+    // Ordine GA, decisione del 20 ottobre 2026: 1, 3, 3 e 5, l'Adepto con
+    // tre stese in entrambi i cicli.
     expect([
       for (final t in _piani)
         PlanCatalog.limiteGiornaliero(RigaDelPiano.stese, t)
     ], [
       1,
       3,
-      4,
+      3,
       5
     ]);
     expect([

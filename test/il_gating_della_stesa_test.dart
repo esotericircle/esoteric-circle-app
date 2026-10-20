@@ -44,7 +44,9 @@ import 'package:esoteric_circle/core/entitlement/budget_del_giorno.dart';
 /// 1 al giorno."* Con la scelta "Carte dal corpus" (in ogni stesa il modello
 /// scrive il solo responso principale) una stesa costa circa 0,0020 dollari,
 /// e nel 30 per cento del netto entrano 1, 3, 4 e 5 stese al giorno
-/// (`tool/i_limiti_degli_annuali.py`). I numeri di questa prova seguono; la
+/// (`tool/i_limiti_degli_annuali.py`). Con la decisione del 20 ottobre 2026
+/// l'Adepto ne ha tre, perche' il server ha un tetto solo per il mensile e
+/// per l'annuale: 1, 3, 3 e 5. I numeri di questa prova seguono; la
 /// stesa a dieci, una al giorno, ha la sua prova,
 /// `test/la_croce_celtica_una_al_giorno_test.dart`.
 void main() {
@@ -96,7 +98,10 @@ void main() {
     // Ordine GA voce 01: le stese, 1, 3, 2 e 3 (dall'ordine EX voce 02 erano
     // le carte estratte, 3, 6, 10 e 15; prima ancora le stese 1, 4, 7 e 20).
     // Ordine GA voce 02: 1, 3, 4 e 5, col solo responso principale.
-    expect(complete, [1, 3, 4, 5],
+    // Ordine GA, decisione del 20 ottobre 2026: 1, 3, 3 e 5, perche' il
+    // server ha un tetto solo per i due cicli, e con quattro l'annuale
+    // dell'Adepto saliva al 30,08 per cento del netto.
+    expect(complete, [1, 3, 3, 5],
         reason: 'la riga delle stese non promette piu\' quello che il conto '
             'del 30 per cento regge: una, tre, quattro e cinque stese, e '
             'niente di illimitato');
@@ -131,16 +136,16 @@ void main() {
   // sull'ultima e non prima, e che a zero non si apre piu' niente.
   test('il consumo e\' a stese, e il conto cala solo quando cala', () async {
     final borsa = QuestionAllowance();
-    // L'Adepto ha quattro stese al giorno, ordine GA voce 02 (due dalla voce
+    // L'Adepto ha tre stese al giorno, ordine GA, decisione del 20 ottobre
+    // 2026, in entrambi i cicli (quattro dalla voce GA.02, due dalla voce
     // GA.01, dieci carte dall'ordine EX voce 02, sette stese dall'ordine BV
     // voce 03).
-    expect(borsa.steseRimaste(Tier.tier2), 4);
+    expect(borsa.steseRimaste(Tier.tier2), 3);
     expect(borsa.puoiStendere(Tier.tier2), isTrue);
     // Una stesa consuma una stesa, non le sue carte.
     borsa.registraStesa(Tier.tier2);
-    expect(borsa.steseRimaste(Tier.tier2), 3,
+    expect(borsa.steseRimaste(Tier.tier2), 2,
         reason: 'una stesa ha tolto piu\' o meno di una stesa');
-    borsa.registraStesa(Tier.tier2);
     borsa.registraStesa(Tier.tier2);
     expect(borsa.steseRimaste(Tier.tier2), 1);
     expect(borsa.puoiStendere(Tier.tier2), isTrue,
@@ -367,8 +372,9 @@ void main() {
     // Ordine GA voce 01: il conto torna di STESE, e la riga dice stese. Dire
     // "Oggi hai 2 carte" a chi ha due stese da stendere come vuole e' il
     // falso di adesso.
-    // Ordine GA voce 02: quattro stese all'Adepto (erano due).
-    expect(contoAVideo(tester), 'Oggi hai 4 stese',
+    // Ordine GA voce 02: quattro stese all'Adepto (erano due). Ordine GA,
+    // decisione del 20 ottobre 2026: tre, in entrambi i cicli.
+    expect(contoAVideo(tester), 'Oggi hai 3 stese',
         reason: 'il numero, o la cosa contata, non e\' quello che la matrice '
             'promette all\'Adepto');
 
@@ -407,9 +413,10 @@ void main() {
     final borsa = QuestionAllowance();
     await monta(tester, piano: Tier.tier2, borsa: borsa);
     // Ordine GA voce 01: due stese all'Adepto (dieci carte dall'ordine EX
-    // voce 02, sette stese prima). Ordine GA voce 02: quattro.
+    // voce 02, sette stese prima). Ordine GA voce 02: quattro. Ordine GA,
+    // decisione del 20 ottobre 2026: tre, in entrambi i cicli.
     final intere = borsa.limiteStese(Tier.tier2)!;
-    expect(intere, 4);
+    expect(intere, 3);
     expect(borsa.steseRimaste(Tier.tier2), intere);
 
     // Una carta sola: la stesa e' cominciata e non e' compiuta.
@@ -478,9 +485,10 @@ void main() {
     // Ordine GA voce 01: a finire sono le stese, coi numeri della matrice:
     // le due dell'Adepto, e le tre dell'Illuminato al livello dopo.
     // Ordine GA voce 02: le quattro dell'Adepto e le cinque dell'Illuminato.
+    // Ordine GA, decisione del 20 ottobre 2026: le tre dell'Adepto.
     expect(testo.contains('le stese di oggi sono finite'), isTrue,
         reason: 'l\'invito non dice che le stese del giorno sono finite');
-    expect(testo.contains('le 4 stese del giorno sono state fatte.'), isTrue,
+    expect(testo.contains('le 3 stese del giorno sono state fatte.'), isTrue,
         reason: 'l\'invito non dice quante stese l\'Adepto ha fatto oggi');
     expect(testo.contains('dal livello successivo le stese del giorno sono 5.'),
         isTrue,
@@ -625,7 +633,8 @@ void main() {
     // Ordine EX voce 02: le carte estratte, erano 1, 4, 7 e 20 stese.
     // Ordine GA voce 01: di nuovo le stese, 1, 3, 2 e 3.
     // Ordine GA voce 02: 1, 3, 4 e 5, e la stesa a dieci una al giorno.
-    expect(budget.contains('stese: [1, 3, 4, 5]'), isTrue,
+    // Ordine GA, decisione del 20 ottobre 2026: 1, 3, 3 e 5.
+    expect(budget.contains('stese: [1, 3, 3, 5]'), isTrue,
         reason: 'il server non impone piu\' i limiti del listino');
     expect(budget.contains('steseDaDieci: [0, 0, 1, 1]'), isTrue,
         reason: 'il server non tiene la stesa a dieci a una al giorno');
