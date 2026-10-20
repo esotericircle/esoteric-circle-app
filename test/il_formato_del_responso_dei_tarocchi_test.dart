@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/tarot/i_mazzi_dei_tarocchi.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/core/tarot/le_fonti_dei_tarocchi.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'la_lettura_finta_della_stesa.dart';
 
 /// IL FORMATO DEL RESPONSO DEI TAROCCHI. Ordine FK, aggiunta voci A2, A3 e
 /// A5, 11 ottobre 2026.
@@ -33,21 +35,19 @@ import 'cardinale_minimo.dart';
 /// che e' gia' la risposta (voce A1), le bolle per carta che restano col loro
 /// titolo (voce A3) e il pannello delle fonti col mazzo e la stesa veri (voce
 /// A5).
-
-LetturaDelModello _buona(TarotSpread s, {String titolo = ''}) =>
-    LetturaDelModello(
-      risposta: 'Le carte indicano che puoi accettare, a patto di chiarire '
-          'prima le condizioni. ${s.presente.card.name} nel presente dice che '
-          'la decisione e\' matura.',
-      passato: '${s.passato.card.name} nel passato racconta da dove parti.',
-      presente: '${s.presente.card.name} nel presente dice che hai gli '
-          'strumenti per scegliere.',
-      futuro: '${s.futuro.card.name} nel futuro indica un ambiente nuovo.',
-      legame: 'Dal passato al futuro le carte vanno da una chiusura a un '
-          'inizio.',
-      consiglio: 'Questa settimana chiedi per iscritto orari e compenso.',
-      titolo: titolo,
-    );
+///
+/// **ORDINE GA, 20 ottobre 2026, voci GA.03, GA.04 e GA.05.** Il fondatore,
+/// 19 ottobre 2026 alle 23:08: *"tutte le risposte composte da paragrafi
+/// ognuno con tra 40 a 50 parole ognuno. Per le risposte brevi 2 paragrafi
+/// di cui il secondo messo in evidenza in un riquadro e questo riquadro deve
+/// intitolarsi 'cosa fare adesso' [...] Restano all'inizio i titoli, anche
+/// per le singola carte"*. LAPIDE: i tre paragrafi della voce A2 (la
+/// risposta, il consiglio nel riquadro, il legame con la domanda di chiusura)
+/// e il "Da dove viene" dentro il consiglio, prima delle carte. Adesso il
+/// responso principale e' `IlResponsoInterpretato` (la risposta e il riquadro
+/// "Cosa fare adesso"), ogni carta ha il suo titolo, il suo paragrafo e il
+/// suo riquadro, e il "Da dove viene" chiude la consultazione una volta sola,
+/// dopo le carte.
 
 /// Le letture di casa: ogni argomento per [quanti] semi.
 Iterable<(TarotTopic, TarotSpread, TarotReading)> _letture(int quanti) sync* {
@@ -111,71 +111,74 @@ void main() {
       final s = TarotSpread.draw(seed: 3);
       const suo = 'Accetta, ma prima metti tutto per iscritto';
       final r = TarotReading.of(s, TarotTopic.lavoroTrovare,
-          dalModello: _buona(s, titolo: '$suo.'));
+          dalModello: letturaFinta(s, titolo: '$suo.'));
       expect(r.titolo, suo, reason: 'il punto in fondo si toglie');
       final conLaCarta = TarotReading.of(s, TarotTopic.lavoroTrovare,
-          dalModello: _buona(s, titolo: 'Lo dice ${s.presente.card.name}'));
+          dalModello:
+              letturaFinta(s, titolo: 'Lo dice ${s.presente.card.name}'));
       expect(VoceDellaStesa.titoliDelPresente.values.expand((v) => v),
           contains(conLaCarta.titolo),
           reason: 'un titolo che nomina la carta apre col simbolo: parla '
               'quello di casa');
-      final senza =
-          TarotReading.of(s, TarotTopic.lavoroTrovare, dalModello: _buona(s));
+      final senza = TarotReading.of(s, TarotTopic.lavoroTrovare,
+          dalModello: letturaFinta(s));
       expect(senza.titolo, isNotEmpty);
     });
 
     test('A1: il modello riceve la richiesta del titolo, per ultimo', () {
       final i = LaLetturaDellaStesa.istruzione(CourtesyForm.neutral);
-      expect(i, contains('- TITOLO:'));
-      expect(i, contains('"consiglio" e "titolo"'));
-      expect(LaLetturaDellaStesa.campi.keys.last, 'titolo');
+      expect(i, contains('- TITOLO (campo "titolo")'));
+      expect(i.trimRight().split('\n').last, contains('e "titolo"'));
       final s = TarotSpread.draw(seed: 3);
-      final lungo = _buona(s, titolo: 'parola ' * 20);
+      expect(LaLetturaDellaStesa.campiPer(s).keys.last, 'titolo');
+      final lungo = letturaFinta(s, titolo: 'parola ' * 20);
       expect(LaLetturaDellaStesa.scarto(lungo, s), 'titolo troppo lungo');
       // Il titolo del primo giro vero, che l'istruzione vietava.
       expect(
           LaLetturaDellaStesa.scarto(
-              _buona(s, titolo: 'Vendita casa: lascio andare o resto'), s),
+              letturaFinta(s, titolo: 'Vendita casa: lascio andare o resto'),
+              s),
           'il titolo ha i due punti o il punto di domanda');
       expect(
           LaLetturaDellaStesa.scarto(
-              _buona(s, titolo: 'Lo dice ${s.presente.card.name}'), s),
+              letturaFinta(s, titolo: 'Lo dice ${s.presente.card.name}'), s),
           startsWith('il titolo nomina'));
-      expect(LaLetturaDellaStesa.scarto(_buona(s), s), isNull,
+      expect(LaLetturaDellaStesa.scarto(letturaFinta(s), s), isNull,
           reason: 'un titolo vuoto non fa cadere la lettura');
-      expect(LetturaDelModello.daJson({..._buona(s).toJson()})?.titolo, '',
+      expect(
+          LetturaDelModello.daJson({...letturaFinta(s).toJson()})?.titolo, '',
           reason: 'una lettura senza titolo non cade: il titolo lo da\' casa');
     });
   });
 
-  group('i tre paragrafi', () {
-    test('A2: la lettura di casa ha tre paragrafi, il secondo e\' il gesto',
+  group('la forma nuova, ordine GA', () {
+    test('GA.03: la lettura di casa e\' Breve e ogni paragrafo e\' a misura',
         () {
       final guasti = <String>[];
+      var quante = 0;
       for (final (t, _, l) in _letture(8)) {
-        if (l.paragrafi.length != 3) {
-          guasti.add('${t.name}: ${l.paragrafi.length} paragrafi');
+        quante++;
+        if (l.principale.paragrafi.length != 2) {
+          guasti.add('${t.name}: ${l.principale.paragrafi.length} paragrafi');
         }
+        guasti.addAll(l.principale.difetti());
       }
+      cardinaleMinimo(quante, 100, cosa: 'letture di casa');
       expect(guasti, isEmpty, reason: guasti.take(6).join('\n'));
     });
 
-    test('A2: la lettura del modello ha la stessa forma', () {
+    test('GA.03: la lettura del modello ha la stessa forma', () {
       final s = TarotSpread.draw(seed: 4);
-      final l = _buona(s);
-      final senza =
-          TarotReading.of(s, TarotTopic.momentoCheVivo, dalModello: l);
-      expect(senza.paragrafi, hasLength(3));
-      expect(senza.paragrafi[0], l.risposta);
-      expect(senza.paragrafi[1], l.consiglio);
-      expect(senza.paragrafi[2], startsWith(l.legame));
-      expect(senza.paragrafi[2], endsWith(senza.domanda));
+      final l = letturaFinta(s);
+      final r = TarotReading.of(s, TarotTopic.momentoCheVivo, dalModello: l);
+      expect(r.principale.paragrafi, [l.risposta, l.cosaFare]);
+      expect(r.principale.difetti(), isEmpty);
       final con = TarotReading.of(s, TarotTopic.momentoCheVivo,
           domandaScritta: 'Devo cambiare casa?', dalModello: l);
-      expect(con.paragrafi, hasLength(3));
+      expect(con.principale.paragrafi, hasLength(2));
     });
 
-    test('A2: da dove viene nomina le carte, il mazzo e la stesa', () {
+    test('GA.05: da dove viene nomina le carte, il mazzo e la stesa', () {
       final s = TarotSpread.draw(seed: 5);
       final d = TarotReading.daDoveViene(s,
           mazzo: TarotDeckStyle.marsiglia.label,
@@ -185,6 +188,29 @@ void main() {
       }
       expect(d, contains('Marsiglia'));
       expect(d, contains(TarotSpreadType.treCarte.nome));
+      final r = TarotReading.of(s, TarotTopic.momentoCheVivo,
+          mazzo: TarotDeckStyle.marsiglia.label,
+          nomeDellaStesa: TarotSpreadType.treCarte.nome);
+      expect(r.fonte, d, reason: 'il "Da dove viene" della lettura e\' uno');
+    });
+
+    test('GA.05: le carte hanno titolo, paragrafo e riquadro, senza la fonte',
+        () {
+      final guasti = <String>[];
+      var carte = 0;
+      for (final (t, _, l) in _letture(4)) {
+        for (final p in l.posizioni) {
+          carte++;
+          final r = p.responso!;
+          guasti.addAll(r.difetti(conLaFonte: false));
+          if (r.daDoveViene != null) {
+            guasti.add('${t.name}: ${p.drawn.displayName} ha il suo "Da '
+                'dove viene"');
+          }
+        }
+      }
+      cardinaleMinimo(carte, 150, cosa: 'carte lette');
+      expect(guasti, isEmpty, reason: guasti.take(6).join('\n'));
     });
   });
 
@@ -237,7 +263,7 @@ void main() {
             Future.value(ByteData.view(File(f[1]).readAsBytesSync().buffer)));
         await loader.load();
       }
-      tester.view.physicalSize = const Size(360, 4400);
+      tester.view.physicalSize = const Size(360, 6000);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
@@ -270,40 +296,54 @@ void main() {
             t.data ?? '',
         ].join(' ');
 
-    testWidgets('A1 e A2: il titolo, tre paragrafi, il riquadro, da dove viene',
-        (tester) async {
+    testWidgets(
+        'GA.03: il titolo, la risposta, il riquadro "Cosa fare adesso", e '
+        'il "Da dove viene" in fondo, dopo le carte', (tester) async {
       await monta(tester);
       final titolo =
           testoSotto(tester, find.byKey(const Key('stesa_synthesis')));
       expect(VoceDellaStesa.titoliDelPresente.values.expand((v) => v),
           contains(titolo),
           reason: 'il titolo in cima non e\' quello della risposta: "$titolo"');
-      for (var i = 0; i < 3; i++) {
-        expect(find.byKey(Key('responso_paragrafo_$i')), findsOneWidget);
-      }
+      final risposta = find.byKey(const Key('stesa_principale_risposta'));
+      final cosaFare = find.byKey(const Key('stesa_principale_cosa_fare'));
+      expect(risposta, findsOneWidget);
+      expect(cosaFare, findsOneWidget);
       expect(
           find.descendant(
-              of: find.byType(RiquadroInEvidenza),
-              matching: find.byKey(const Key('responso_paragrafo_1'))),
+              of: find.byType(RiquadroInEvidenza), matching: cosaFare),
           findsOneWidget,
-          reason: 'il secondo paragrafo non sta nel riquadro');
+          reason: 'il cosa fare non sta nel riquadro');
       expect(
           find.descendant(
-              of: find.byType(RiquadroInEvidenza),
-              matching: find.byKey(const Key('responso_paragrafo_0'))),
+              of: find.byType(RiquadroInEvidenza), matching: risposta),
           findsNothing);
-      final dove = find.byKey(const Key('responso_da_dove_viene'));
-      expect(dove, findsOneWidget);
-      expect(tester.widget<Text>(dove).style!.fontStyle, FontStyle.italic);
       expect(
-          tester.getTopLeft(dove).dy,
-          greaterThan(tester
-              .getBottomLeft(find.byKey(const Key('responso_paragrafo_2')))
-              .dy),
-          reason: 'da dove viene non sta in fondo');
+          find.descendant(
+              of: find.byKey(const Key('stesa_consiglio')),
+              matching: find.text(LaFormaDelResponso.titoloDelConsiglio)),
+          findsOneWidget,
+          reason: 'il riquadro non si intitola "Cosa fare adesso"');
+      final dove = find.byKey(const Key('stesa_principale_da_dove_viene'));
+      expect(dove, findsOneWidget, reason: 'il "Da dove viene" e\' uno solo');
+      expect(find.byKey(const Key('responso_da_dove_viene')), findsNothing);
+      expect(tester.widget<Text>(dove).style!.fontStyle, FontStyle.italic);
+      final stesa = tester
+          .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen))
+          .stesaCorrente;
+      for (final d in stesa.cards) {
+        expect(
+            tester.getTopLeft(dove).dy,
+            greaterThan(tester
+                .getBottomLeft(
+                    find.byKey(Key('stesa_letta_${d.position.name}')))
+                .dy),
+            reason: 'il "Da dove viene" non chiude la consultazione: sta '
+                'sopra la carta ${d.position.name}');
+      }
     });
 
-    testWidgets('A3: le bolle per carta restano, ognuna col suo titolo',
+    testWidgets('A3 e GA.05: le bolle per carta col loro titolo e riquadro',
         (tester) async {
       await monta(tester);
       final stesa = tester
@@ -317,6 +357,21 @@ void main() {
         final dentro = testoSotto(tester, bolla);
         expect(dentro, contains(d.displayName));
         expect(dentro, contains(d.position.label.toUpperCase()));
+        for (final pezzo in const ['titolo', 'risposta', 'cosa_fare']) {
+          expect(
+              find.descendant(
+                  of: bolla,
+                  matching: find.byKey(Key('carta_${d.position.name}_$pezzo'))),
+              findsOneWidget,
+              reason: '${d.position.name}: manca il pezzo $pezzo');
+        }
+        expect(
+            find.descendant(
+                of: bolla,
+                matching: find.text(LaFormaDelResponso.titoloDelConsiglio)),
+            findsOneWidget,
+            reason: '${d.position.name}: il riquadro della carta non si '
+                'intitola "Cosa fare adesso"');
       }
     });
   });

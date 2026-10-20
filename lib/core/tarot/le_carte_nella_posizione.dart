@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 
+import '../chat/la_marca_del_genere.dart';
+import '../responsi/i_riti_propiziatori.dart';
+import '../responsi/la_forma_del_responso.dart';
 import 'le_carte_nella_posizione_dati.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
@@ -61,7 +64,7 @@ abstract final class LeCarteNellaPosizione {
   static String di(DrawnCard d, {int uscita = 0}) {
     final varianti = variantiDi(d);
     if (varianti.isEmpty) return d.meaning;
-    return varianti[uscita % varianti.length];
+    return LaMarcaDelGenere.risolvi(varianti[uscita % varianti.length]);
   }
 
   /// **IL REGISTRO DELLA CARTA [d] NEL [gruppo]**, il metodo di Dora (voce
@@ -72,9 +75,21 @@ abstract final class LeCarteNellaPosizione {
     if (righe == null || righe.length != TarotTopicGroup.values.length) {
       return null;
     }
-    return righe[gruppo.index];
+    return LaMarcaDelGenere.risolvi(righe[gruppo.index]);
   }
 
+  /// **LA MARCA DEL GENERE SI RISOLVE QUI**, ordine GA. Il corpus delle
+  /// posizioni porta le marche a tre vie (`[maschile|femminile|neutro]`)
+  /// dove una frase da' un genere a chi legge, e lo strumento misura ogni
+  /// forma fra 40 e 50 parole. Prima di questa riga nessuno le risolveva: lo
+  /// scheletro arrivava a video con le quadre e, contato grezzo, usciva dalla
+  /// misura (51 e 53 parole su nove responsi di carta: li ha trovati la prova
+  /// `la_stesa_ha_la_forma_nuova_test.dart`). PADRE: ordine FK Parte 1 e
+  /// voce FK.08 (commit 4f650dd9), che ha portato le marche nel Dart delle
+  /// posizioni (22 righe prima dell'ordine GA) senza che il codice le
+  /// risolvesse. Lo scheletro, il registro, il titolo e il cosa fare passano
+  /// tutti da `LaMarcaDelGenere.risolvi`, con la forma di chi legge.
+  ///
   /// **IL MONTAGGIO DELLA LETTURA DI CASA** (aggiunta A3): lo scheletro della
   /// posizione e dopo di lui il registro del gruppo dell'argomento, nello
   /// stesso paragrafo. Lo scheletro dice che cosa la carta fa in quel posto,
@@ -85,4 +100,82 @@ abstract final class LeCarteNellaPosizione {
     final registro = registroDi(d, gruppo);
     return registro == null ? scheletro : '$scheletro $registro';
   }
+
+  /// **IL TITOLO DELLA CARTA [d] NELLA SUA POSIZIONE**, ordine GA voci
+  /// GA.03 e GA.05: il fondatore, 19 ottobre 2026, *"Restano all'inizio i
+  /// titoli, anche per le singola carte"*. Uno per le tre varianti, dal
+  /// corpus (`docs/corpus/tarocchi_posizione/titoli.md`). Se manca, la
+  /// sintesi del verso senza il punto: non succede, la guardia del corpus
+  /// pretende tutti i 2.340 titoli.
+  static String titoloDi(DrawnCard d) {
+    final t = titoliDelleCarte[chiaveDi(d)];
+    if (t != null && t.trim().isNotEmpty) {
+      return LaMarcaDelGenere.risolvi(t.trim());
+    }
+    var s = d.summary.trim();
+    while (s.endsWith('.')) {
+      s = s.substring(0, s.length - 1).trimRight();
+    }
+    return s;
+  }
+
+  /// La chiave del "cosa fare" della carta [d] nel [gruppo]: nome, verso e
+  /// gruppo, come in `cosaFareDelleCarte`.
+  static String chiaveDelCosaFare(DrawnCard d, TarotTopicGroup gruppo) =>
+      '${d.card.name}|${_verso(d)}|${gruppo.name}';
+
+  /// Le varianti del "Cosa fare adesso" della carta [d] nel [gruppo].
+  static List<String> cosaFareVariantiDi(DrawnCard d, TarotTopicGroup gruppo) =>
+      cosaFareDelleCarte[chiaveDelCosaFare(d, gruppo)] ?? const [];
+
+  /// **IL "COSA FARE ADESSO" DELLA CARTA [d]**, ordine GA voci GA.03 e
+  /// GA.07: per carta, verso e gruppo dell'argomento, alla sua [uscita] come
+  /// lo scheletro (la prima volta la prima variante, poi la seconda, poi la
+  /// terza, poi si ricomincia: la stessa carta che torna non ripete il suo
+  /// riquadro). Vuoto se il corpus non lo porta: non succede, la guardia del
+  /// corpus pretende le 1.404 voci.
+  static String cosaFareDi(DrawnCard d, TarotTopicGroup gruppo,
+      {int uscita = 0}) {
+    final varianti = cosaFareVariantiDi(d, gruppo);
+    if (varianti.isEmpty) return '';
+    return LaMarcaDelGenere.risolvi(varianti[uscita % varianti.length]);
+  }
+
+  /// **IL RESPONSO DELLA CARTA [d] NELLA FORMA NUOVA**, ordine GA voce GA.05:
+  /// *"Le singole carte e le singole rune hanno sempre il responso breve: il
+  /// loro titolo, un paragrafo e il riquadro 'Cosa fare adesso'"*, tutto dal
+  /// corpus (decisione del fondatore del 20 ottobre 2026, "Carte dal
+  /// corpus"). Senza il "Da dove viene", che chiude la consultazione una
+  /// volta sola in fondo.
+  static ResponsoInterpretato responsoDi(DrawnCard d, TarotTopicGroup gruppo,
+          {int uscita = 0}) =>
+      ResponsoInterpretato(
+        arte: ArteInterpretata.tarocchi,
+        titolo: titoloDi(d),
+        risposta: letturaDiCasa(d, gruppo, uscita: uscita),
+        cosaFare: cosaFareDi(d, gruppo, uscita: uscita),
+      );
+
+  /// Il verso come lo nomina la raccolta dei riti: e' la CHIAVE delle
+  /// intestazioni di `docs/corpus/riti/contemplazione_dei_tarocchi.md`, non
+  /// una parola mostrata (quella viene sempre da `TarotCard.reversedWord`,
+  /// accordata al genere della carta: la guardia
+  /// `tarot_accordo_rovescio_test.dart`).
+  static const String _chiaveDelRovescio = "rovesciata";
+
+  static String _versoDelRito(DrawnCard d) =>
+      d.reversed ? _chiaveDelRovescio : 'dritta';
+
+  /// **LA CONTEMPLAZIONE PROPIZIATORIA DELLA CARTA [d]**, ordine GA voce
+  /// GA.04: la carta tenuta davanti agli occhi per qualche respiro, con una
+  /// frase breve da ripetere legata al suo significato. Dal corpus dei riti
+  /// (`docs/corpus/riti/contemplazione_dei_tarocchi.md`), mai dal modello:
+  /// *"Nessuna formula inventata: ciò che non ha fonte non entra"*.
+  static String? contemplazioneDi(DrawnCard d) => IRitiPropiziatori.rito(
+      IRitiPropiziatori.contemplazione, [d.card.name, _versoDelRito(d)]);
+
+  /// La riga del "Da dove viene" della contemplazione della carta [d].
+  static String? fonteDellaContemplazione(DrawnCard d) =>
+      IRitiPropiziatori.fonte(
+          IRitiPropiziatori.contemplazione, [d.card.name, _versoDelRito(d)]);
 }

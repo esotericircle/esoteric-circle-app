@@ -13,6 +13,7 @@ import '../chat/user_profile.dart';
 import '../config/la_regione_dei_dati.dart';
 import '../l10n/la_lingua_del_modello.dart';
 import '../responsi/confine_del_responso.dart';
+import '../responsi/la_forma_del_responso.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'le_carte_nella_posizione.dart';
 import 'tarot_reading.dart';
@@ -26,47 +27,29 @@ import '../../services/ai/l_etichetta_della_funzione.dart';
 typedef ChiamataDellaStesa = Future<String?> Function(
     String istruzione, String richiesta, Map<String, Schema> campi);
 
-/// **LA LETTURA SCRITTA DAL MODELLO**, un pezzo per ogni cosa che la persona
-/// deve trovare: la risposta, le tre carte nella loro posizione, il legame e
-/// il consiglio.
+/// **LA LETTURA SCRITTA DAL MODELLO: IL SOLO RESPONSO PRINCIPALE.** Ordine GA
+/// voci GA.03, GA.05 e GA.07, 20 ottobre 2026, decisione del fondatore
+/// "Carte dal corpus": in ogni stesa, da una, tre, quattro o dieci carte, le
+/// singole carte vengono dal corpus (`LeCarteNellaPosizione.responsoDi`) e il
+/// modello scrive soltanto il responso principale, letto sulla domanda e su
+/// tutte le carte: il titolo, la risposta, il "Cosa fare adesso" e, nella
+/// Lunga, l'approfondimento. Ogni paragrafo da 40 a 50 parole
+/// (`LaFormaDelResponso`).
+///
+/// **LAPIDE: "un pezzo per ogni cosa che la persona deve trovare: la
+/// risposta, le tre carte nella loro posizione, il legame e il consiglio".**
+/// Dall'ordine EQ voce 04 all'ordine GA il modello scriveva anche un testo
+/// per ogni carta (i campi `passato`, `presente`, `futuro` o i nomi delle
+/// posizioni delle altre stese), il legame e i due approfondimenti della
+/// Lunga (ordine FN): erano i gettoni d'uscita che il conto dei piani
+/// (`tool/i_limiti_degli_annuali.py`, voce GA.02) non reggeva.
 class LetturaDelModello {
-  /// **LE CARTE IN ORDINE DI LETTURA, ordine FK aggiunta 2 voce A9.** Prima
-  /// i testi erano tre campi fissi, passato presente e futuro, e nessun'altra
-  /// stesa poteva essere letta. Adesso sono [carte], uno per posto, coi nomi
-  /// dei campi in [chiavi]. Per la stesa a tre carte i nomi restano quelli di
-  /// sempre, e i tre parametri nominati costruiscono la stessa lettura.
   LetturaDelModello({
     required this.risposta,
-    String passato = '',
-    String presente = '',
-    String futuro = '',
-    List<String>? carte,
-    List<String>? chiavi,
-    required this.legame,
-    required this.consiglio,
+    required this.cosaFare,
     this.titolo = '',
-    this.approfondimento1 = '',
-    this.approfondimento2 = '',
-  })  : carte = List.unmodifiable(carte ?? [passato, presente, futuro]),
-        chiavi = List.unmodifiable(chiavi ?? chiaviATre);
-
-  /// I nomi dei campi delle carte nella stesa a tre carte.
-  static const List<String> chiaviATre = ['passato', 'presente', 'futuro'];
-
-  /// Il testo di ogni carta, nell'ordine di lettura della stesa.
-  final List<String> carte;
-
-  /// Il nome del campo di ogni carta, nello stesso ordine.
-  final List<String> chiavi;
-
-  /// Le tre scorciatoie della stesa a tre carte.
-  String get passato => dellaCarta(0);
-  String get presente => dellaCarta(1);
-  String get futuro => dellaCarta(2);
-
-  /// Il testo della carta al posto [posto], o vuoto.
-  String dellaCarta(int posto) =>
-      posto >= 0 && posto < carte.length ? carte[posto] : '';
+    this.approfondimento = '',
+  });
 
   /// **IL TITOLO, ordine FK aggiunta voce A1.** Il fondatore, 3 settembre
   /// 2026: *"le risposte devono partire con un titolo diretto che riassume
@@ -76,36 +59,18 @@ class LetturaDelModello {
   /// senza.
   final String titolo;
 
-  /// Le prime due frasi: rispondono alla domanda.
+  /// Il paragrafo della risposta: la prima frase risponde alla domanda
+  /// (voce GA.06).
   final String risposta;
 
-  /// Come le carte si legano fra loro.
-  final String legame;
+  /// Il paragrafo del riquadro "Cosa fare adesso": che cosa fare o non fare.
+  final String cosaFare;
 
-  /// Il passo concreto.
-  final String consiglio;
-
-  /// **L'APPROFONDIMENTO DELLA PROFONDITA' LUNGA. Ordine FN, 13 ottobre
-  /// 2026.** Il fondatore: la Lunga non cambiava niente nel responso. Due
-  /// paragrafi in piu', richiesti solo quando la persona ha scelto la
-  /// profondita' Lunga: risposte dirette, senza giri di parole, con
-  /// un'indicazione pratica di che fare. Vuoti quando la lettura e' alla
-  /// profondita' Breve: `campiPer` non li chiede nemmeno al modello.
-  final String approfondimento1;
-  final String approfondimento2;
-
-  /// Il testo della prima carta in [posizione]. **LAPIDE: "le posizioni
-  /// delle altre stese qui non hanno un campo"** (ordine FI): adesso ogni
-  /// posto ha il suo. Una posizione che torna due volte (i due `lato`) si
-  /// legge per posto, con [dellaCarta].
-  String della(SpreadPosition posizione) {
-    for (var i = 0; i < chiavi.length; i++) {
-      if (chiavi[i] == posizione.name || chiavi[i] == '${posizione.name}_1') {
-        return dellaCarta(i);
-      }
-    }
-    return '';
-  }
+  /// **IL PARAGRAFO DELLA LUNGA**, voce GA.03: approfondisce la risposta.
+  /// Vuoto alla profondita' Breve: `campiPer` non lo chiede nemmeno. Il
+  /// quarto paragrafo, la contemplazione propiziatoria, non lo scrive il
+  /// modello: viene dal corpus dei riti (voce GA.04).
+  final String approfondimento;
 
   /// **OGNI PEZZO PASSA DALLE REGOLE DI LINGUA DI CASA**, come le risposte
   /// dei Maestri (`LaRispostaRipulita`): il trattino lungo e la virgola
@@ -113,30 +78,25 @@ class LetturaDelModello {
   /// una virgola.
   LetturaDelModello ripulita() => LetturaDelModello(
         risposta: LaRispostaRipulita.applica(risposta),
-        carte: [for (final c in carte) LaRispostaRipulita.applica(c)],
-        chiavi: chiavi,
-        legame: LaRispostaRipulita.applica(legame),
-        consiglio: LaRispostaRipulita.applica(consiglio),
+        cosaFare: LaRispostaRipulita.applica(cosaFare),
         titolo: LaRispostaRipulita.applica(titolo),
-        approfondimento1: LaRispostaRipulita.applica(approfondimento1),
-        approfondimento2: LaRispostaRipulita.applica(approfondimento2),
+        approfondimento: LaRispostaRipulita.applica(approfondimento),
       );
 
   Map<String, String> toJson() => {
         'risposta': risposta,
-        for (var i = 0; i < chiavi.length; i++) chiavi[i]: dellaCarta(i),
-        'legame': legame,
-        'consiglio': consiglio,
+        'cosaFare': cosaFare,
+        if (approfondimento.isNotEmpty) 'approfondimento': approfondimento,
         if (titolo.isNotEmpty) 'titolo': titolo,
-        if (approfondimento1.isNotEmpty) 'approfondimento1': approfondimento1,
-        if (approfondimento2.isNotEmpty) 'approfondimento2': approfondimento2,
       };
 
   /// Null se manca un pezzo: una lettura a meta' non si mostra. **Il titolo
   /// non e' fra i pezzi che la fanno cadere**: senza, la lettura resta e il
-  /// titolo lo da' la lettura di casa.
+  /// titolo lo da' la lettura di casa. **Nella Lunga ([lunga]) anche
+  /// l'approfondimento e' obbligatorio**: un responso Lungo senza il suo
+  /// terzo paragrafo non ha la forma di GA.03, e la richiesta si ripete.
   static LetturaDelModello? daJson(Map<String, Object?>? j,
-      {List<String> chiavi = chiaviATre}) {
+      {bool lunga = false}) {
     if (j == null) return null;
     String? pezzo(String k) {
       final v = j[k];
@@ -146,24 +106,14 @@ class LetturaDelModello {
     }
 
     final r = pezzo('risposta');
-    final carte = [for (final k in chiavi) pezzo(k)];
-    final le = pezzo('legame');
-    final co = pezzo('consiglio');
-    if (r == null || carte.any((c) => c == null) || le == null || co == null) {
-      return null;
-    }
+    final c = pezzo('cosaFare');
+    final a = pezzo('approfondimento');
+    if (r == null || c == null || (lunga && a == null)) return null;
     return LetturaDelModello(
       risposta: r,
-      carte: [for (final c in carte) c!],
-      chiavi: chiavi,
-      legame: le,
-      consiglio: co,
+      cosaFare: c,
       titolo: pezzo('titolo') ?? '',
-      // **NON OBBLIGATORI**, a differenza degli altri pezzi: la Lunga li
-      // chiede, ma se il modello li saltasse la lettura resta comunque
-      // intera (si vede senza il riquadro arancione) invece di sparire.
-      approfondimento1: pezzo('approfondimento1') ?? '',
-      approfondimento2: pezzo('approfondimento2') ?? '',
+      approfondimento: lunga ? a! : '',
     );
   }
 }
@@ -180,17 +130,23 @@ class LetturaDelModello {
 ///
 /// **La via scelta.** Una chiamata sola a Flash, il modello che il fondatore
 /// ha approvato (*"Sì, con Flash"*), che riceve la domanda, l'argomento, la
-/// carta chiave e per ogni carta il suo significato tradizionale, e scrive la
-/// lettura intera: la risposta, le tre carte lette nella posizione e rispetto
-/// alla domanda, il legame, il consiglio.
+/// carta chiave e per ogni carta il suo significato tradizionale.
 ///
-/// **IL TESTO DELLA POSIZIONE NON ARRIVA PIU' AL MODELLO**, e lo dice una
+/// **DALL'ORDINE GA SCRIVE IL SOLO RESPONSO PRINCIPALE**, 20 ottobre 2026:
+/// la decisione del fondatore "Carte dal corpus" mette le singole carte nel
+/// corpus delle posizioni (titolo, paragrafo e cosa fare per carta, verso,
+/// posizione e ambito), e al modello resta la cosa che solo lui sa fare:
+/// rispondere alla domanda leggendo tutte le carte insieme. La forma e la
+/// regola della risposta diretta gli arrivano da `LaFormaDelResponso
+/// .perIlModello`, una volta sola (voce GA.07).
+///
+/// **IL TESTO DELLA POSIZIONE NON ARRIVA AL MODELLO**, e lo dice una
 /// misura. Con lui il modello lo parafrasava e nominava appena la domanda
 /// (*"riguardo a questa amicizia"*): carte lette sulla domanda 23 su 30 alla
 /// sonda 13; senza, 24 su 30 alla sonda 14, cioe' la stessa cosa con meno
-/// parafrasi. Resta alla lettura di casa, dove sotto ogni carta si legge lui. **Le guardie guardano a valle**
-/// quello che torna, come per il Sigillo: una lettura che non regge non si
-/// mostra, e parla la lettura di casa.
+/// parafrasi. **Le guardie guardano a valle** quello che torna, come per il
+/// Sigillo: una lettura che non regge non si mostra, e parla la lettura di
+/// casa.
 abstract final class LaLetturaDellaStesa {
   static const String modello = 'gemini-2.5-flash';
 
@@ -209,6 +165,13 @@ abstract final class LaLetturaDellaStesa {
   /// che i due paragrafi della Lunga non li ha. Due secondi e un quarto per
   /// ogni carta oltre la terza: dieci carte, venticinque secondi e mezzo,
   /// cioe' due tentativi interi. Fino a tre carte resta la pazienza di prima.
+  ///
+  /// **DALL'ORDINE GA IL MODELLO NON SCRIVE PIU' LE CARTE**, e una chiamata
+  /// sulla Croce Celtica scrive quanto una a tre carte: la richiesta pero'
+  /// resta piu' lunga (dieci carte col loro significato), e la misura col
+  /// modello vero della forma nuova non c'e' ancora (chiede il si' del
+  /// fondatore, regola SPESE). La pazienza resta quella misurata: aspettare
+  /// di piu' non costa niente se la risposta arriva prima.
   static Duration pazienzaPer(int carte) => carte <= 3
       ? pazienza
       : pazienza + Duration(milliseconds: (carte - 3) * 2250);
@@ -279,15 +242,16 @@ abstract final class LaLetturaDellaStesa {
 
   /// **L'ISTRUZIONE DELLA RISCRITTURA.** Ordine EQ voce 04: nel giro di prova
   /// tre letture su venti, con la forma neutra, cadevano per una frase sola
-  /// col genere anche al terzo tentativo, e quella frase era spesso la stessa
-  /// che nominava la carta: togliendola, la carta restava senza nome.
-  /// Rigenerare tutta la lettura ripeteva lo sbaglio in un'altra frase; qui
-  /// si riscrivono soltanto le frasi colpevoli, tenendo il nome della carta.
+  /// col genere anche al terzo tentativo. Rigenerare tutta la lettura
+  /// ripeteva lo sbaglio in un'altra frase; qui si riscrivono soltanto le
+  /// frasi colpevoli, tenendo il nome della carta.
   ///
   /// **LA PAROLA DA TOGLIERE SI NOMINA.** Nella prima stesura il correttore
   /// riceveva le frasi e la regola, e rimandava indietro *"sei arrivat…"* e
   /// *"restare bloccat…"* quasi uguali (sonda 12): accanto a ogni frase adesso
   /// c'e' la parola che la guardia ha trovato, e le sostituzioni tipiche.
+  /// **Dall'ordine GA la frase riscritta tiene anche la sua lunghezza**: il
+  /// paragrafo deve restare fra 40 e 50 parole, e la guardia lo rimisura.
   static const String istruzioneDellaRiscrittura = 'Sei un correttore di '
       'bozze italiano. Ricevi alcune frasi di una lettura dei tarocchi, '
       'rivolte a una persona col tu, che può essere un uomo o una donna. '
@@ -298,61 +262,43 @@ abstract final class LaLetturaDellaStesa {
       'raggiunto», «rischi di restare bloccat…» diventa «rischi di non '
       'muoverti», «stare attent…» diventa «fare attenzione», «ti vede '
       'impegnat…» diventa «ti vede all\'opera», «te stess…» diventa «te». '
-      'Tieni lo stesso senso, il tu e, se c\'è, il nome della carta così '
-      'com\'è scritto. Rispondi solo con un oggetto JSON col campo "frasi": '
-      'le frasi riscritte, senza le quadre, una per riga, nello stesso '
-      'ordine.';
+      'Tieni lo stesso senso, il tu, più o meno lo stesso numero di parole '
+      'e, se c\'è, il nome della carta così com\'è scritto. Rispondi solo con '
+      'un oggetto JSON col campo "frasi": le frasi riscritte, senza le '
+      'quadre, una per riga, nello stesso ordine.';
 
-  /// I tetti dei pezzi, in caratteri: sopra, la lettura non si mostra.
-  static const int tettoDellaRisposta = 380;
-  static const int tettoDellaCarta = 560;
-  static const int tettoDelLegame = 360;
-  static const int tettoDelConsiglio = 260;
-
-  /// **IL TETTO DEI DUE PARAGRAFI DELLA LUNGA.** Ordine FN, 13 ottobre 2026.
-  /// Piu' largo del consiglio: sono risposte dirette di approfondimento, non
-  /// una frase sola.
-  static const int tettoDellApprofondimento = 420;
+  // **LAPIDE: I TETTI IN CARATTERI DEI PEZZI.** Dall'ordine EQ voce 04
+  // all'ordine GA la lettura cadeva oltre 380 caratteri di risposta, 560 per
+  // carta, 360 di legame, 260 di consiglio e 420 per ogni approfondimento
+  // (ordine FN). Dall'ordine GA ogni paragrafo si misura in parole, da 40 a
+  // 50 (`LaFormaDelResponso.aMisura`): fuori misura si scarta e si ripiega
+  // sulla lettura di casa, mai si tronca (voce GA.07).
 
   /// Il tetto del titolo: da tre a otto parole, scritte grandi in cima.
   static const int tettoDelTitolo = 70;
 
-  /// **I NOMI DEI CAMPI DELLE CARTE DI [spread]**, ordine FK aggiunta 2
-  /// voce A9: per la stesa a tre carte quelli di sempre; per le altre il nome
-  /// della posizione, e un numero dove la posizione torna (`lato_1`,
-  /// `lato_2`).
-  static List<String> chiaviPer(TarotSpread spread) {
-    if (spread.eATreCarte) return LetturaDelModello.chiaviATre;
-    final quante = <SpreadPosition, int>{};
-    for (final c in spread.cards) {
-      quante[c.position] = (quante[c.position] ?? 0) + 1;
-    }
-    final viste = <SpreadPosition, int>{};
-    return [
-      for (final c in spread.cards)
-        if (quante[c.position]! > 1)
-          '${c.position.name}_${viste[c.position] = (viste[c.position] ?? 0) + 1}'
-        else
-          c.position.name,
-    ];
-  }
+  /// **QUANTI CARATTERI PUO' AVERE AL PIU' UN PARAGRAFO A MISURA**, per il
+  /// tetto dei gettoni ([tettoDeiGettoni]): cinquanta parole a otto
+  /// caratteri l'una, spazio compreso. Misurato sui 1.404 "cosa fare" del
+  /// corpus delle carte, tutti fra 40 e 50 parole: il piu' lungo ha 316
+  /// caratteri, la parola media piu' lunga 7,02 caratteri; otto tiene un
+  /// margine del quattordici per cento su quella parola media.
+  static const int caratteriDelParagrafo = LaFormaDelResponso.massimo * 8;
 
-  /// I campi che il modello deve restituire per [spread], tutti obbligatori,
-  /// nell'ordine in cui li scrive. **[profonda] aggiunge i due paragrafi
-  /// dell'approfondimento, ordine FN 13 ottobre 2026**: solo quando la
-  /// persona ha scelto la profondita' Lunga, altrimenti non si chiedono.
+  /// **I CAMPI DEL SOLO RESPONSO PRINCIPALE**, nell'ordine in cui il modello
+  /// li scrive: la risposta, il cosa fare, nella Lunga l'approfondimento, e
+  /// il titolo per ultimo, perche' riassume la lettura. **Uguali per ogni
+  /// stesa** (voce GA.05: le carte vengono dal corpus): la stesa entra solo
+  /// nella richiesta. LAPIDE: un campo per carta (`passato`, `lato_1`,
+  /// `copre`...) e `legame`, `consiglio`, `approfondimento1` e
+  /// `approfondimento2`, dall'ordine EQ voce 04 all'ordine GA.
   static Map<String, Schema> campiPer(TarotSpread spread,
           {bool profonda = false}) =>
       {
         'risposta': Schema.string(),
-        for (final k in chiaviPer(spread)) k: Schema.string(),
-        'legame': Schema.string(),
-        'consiglio': Schema.string(),
+        'cosaFare': Schema.string(),
+        if (profonda) 'approfondimento': Schema.string(),
         'titolo': Schema.string(),
-        if (profonda) ...{
-          'approfondimento1': Schema.string(),
-          'approfondimento2': Schema.string(),
-        },
       };
 
   /// **COSA VUOL DIRE OGNI POSIZIONE**, detto al modello nella richiesta.
@@ -380,19 +326,6 @@ abstract final class LaLetturaDellaStesa {
     SpreadPosition.speranzeOTimori: 'ciò che chi domanda spera o teme',
   };
 
-  /// I campi che il modello deve restituire, tutti obbligatori.
-  static final Map<String, Schema> campi = {
-    'risposta': Schema.string(),
-    'passato': Schema.string(),
-    'presente': Schema.string(),
-    'futuro': Schema.string(),
-    'legame': Schema.string(),
-    'consiglio': Schema.string(),
-    // **PER ULTIMO, non per caso**: il titolo riassume la lettura e il
-    // modello scrive i campi nell'ordine dello schema.
-    'titolo': Schema.string(),
-  };
-
   /// L'istruzione, con la voce di Medora e le regole della lettura.
   ///
   /// La [chiave] entra come voce prima delle regole di lettura (ordine FI
@@ -400,20 +333,28 @@ abstract final class LaLetturaDellaStesa {
   /// regole della RISPOSTA e delle CARTE, e sedici letture vere non si
   /// distinguevano fra le chiavi, `docs/collaudo/FS/le_chiavi_dal_modello.txt`);
   /// la Predittiva non aggiunge niente, e l'istruzione resta quella di sempre.
+  ///
+  /// **DALL'ORDINE GA LA FORMA E LA RISPOSTA DIRETTA ARRIVANO DA UN PUNTO
+  /// SOLO**, `LaFormaDelResponso.perIlModello` (voci GA.03, GA.06 e GA.07):
+  /// qui restano la voce di Medora, le carte della stesa, le regole di
+  /// prudenza e di lingua di casa e il formato del JSON. LAPIDE: le regole
+  /// RISPOSTA "due frasi", LE CARTE "per ciascuna carta due o tre frasi",
+  /// LEGAME, CONSIGLIO "una frase sola", TITOLO e APPROFONDIMENTO1 e 2
+  /// "al massimo trecentottanta caratteri", scritte qui dall'ordine EQ voce 04
+  /// all'ordine GA.
   static String istruzione(CourtesyForm forma,
           {ReadingKey chiave = ReadingKey.predittiva, bool profonda = false}) =>
       '''
-Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa dei Tarocchi Rider-Waite: la richiesta ti dice quante carte, in quali posizioni e che cosa vuol dire ciascuna posizione. Leggila in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
+Sei Medora, la Maestra dell'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa dei Tarocchi Rider-Waite: la richiesta ti dice quante carte, in quali posizioni, che cosa vuol dire ciascuna posizione e il significato tradizionale di ogni carta nel verso in cui è uscita. Le carte una per una la persona le legge già sotto il tuo responso: tu scrivi il responso principale della stesa, la risposta alla sua domanda letta su tutte le carte insieme. Scrivi in ${LaLinguaDelModello.nome}, rivolgendoti alla persona col tu, con parole semplici e dirette, come una persona esperta e franca.
 
-${chiave.voce == null ? '' : '${chiave.voce}\n\n'}COME SI LEGGE:
-- RISPOSTA: due frasi. La prima risponde alla domanda in modo diretto: se chiede se una cosa accadrà o se farla, dice che cosa indicano le carte, sì, no o a quali condizioni; se chiede che cosa fare o come farlo, dice il gesto concreto da fare, con chi o quando, mai un atteggiamento; se la domanda è un argomento generale, dice in concreto che cosa le carte mostrano della sua situazione in quell'ambito. La seconda dice perché, partendo dalla carta chiave che ti indico. Un sì o un no si dice con la sua condizione e come lettura delle carte («le carte indicano di sì, se...», «le carte non mostrano un ritorno, finché...»), mai come un fatto certo o una promessa («non tornerà», «ce la farai»). Niente premesse, niente giochi di parole.
-- Di un'altra persona non dire mai che cosa pensa, che cosa sente, che cosa nasconde o che cosa farà come se fosse un fatto: di' che cosa le carte mostrano di quella situazione (un ritorno, un segreto, un rapporto) come un segno e non come una certezza; poi che cosa può fare chi domanda. Vale anche per ogni carta: ognuna dice che cosa mostra di quella situazione.
-- LE CARTE: per ciascuna carta della stesa due o tre frasi, nel campo che la richiesta le assegna. Nomina la carta col suo nome. Parti dal suo significato tradizionale, che ti do: leggila nella sua posizione (la richiesta dice che cosa vuol dire; nella stesa a tre carte: che cosa ha portato fin qui, che cosa è in gioco adesso, dove va la situazione) e sempre rispetto alla domanda della persona. In ogni carta nomina con parole tue la cosa di cui parla la domanda (l'offerta, il rapporto, i soldi per la casa, l'amore, il momento che vive) e di' che cosa la carta indica su quella cosa: un testo che andrebbe bene per qualunque domanda non va bene. Il testo di ogni carta risponde anch'esso alla domanda, dal punto della sua posizione, proprio per quello che la persona ha chiesto.
-- LEGAME: una o due frasi su come le carte si legano fra loro: una causa, un passaggio, un contrasto. Se la carta è una sola, il legame dice come la carta si lega alla domanda.
-- CONSIGLIO: una frase sola, un passo concreto che la persona può fare, con un momento o un modo definiti.
-- TITOLO: da tre a otto parole, scritto dopo tutto il resto. È la risposta alla domanda detta a colpo d'occhio, come il titolo che si legge prima di ogni altra cosa: chi legge solo il titolo deve già sapere che cosa dicono le carte sulla sua domanda. Parla della persona o della sua situazione, mai in prima persona. Non nomina le carte, non finisce col punto, non ha i due punti e non è una domanda.
-${profonda ? '''- APPROFONDIMENTO1 e APPROFONDIMENTO2: la persona ha chiesto la lettura Lunga. Due paragrafi di risposta diretta e concreta, senza giri di parole: che cosa fare, con chi, quando, in che ordine. Non ripetono la RISPOSTA né il CONSIGLIO, li approfondiscono: il primo entra nel dettaglio pratico del passo da fare, il secondo in un ostacolo concreto da aspettarsi e come affrontarlo. Niente filosofia, niente frasi che andrebbero bene per qualunque domanda: nomi, momenti, gesti precisi. Ciascuno da due a tre frasi, al massimo trecentottanta caratteri.
-''' : ''}- Niente frasi che andrebbero bene per qualunque stesa. Nessuna previsione data per certa, nessuna promessa su salute, denaro, leggi, gravidanza o morte. Niente cifre: i numeri si scrivono in lettere.
+${chiave.voce == null ? '' : '${chiave.voce}\n\n'}${LaFormaDelResponso.perIlModello(arte: ArteInterpretata.tarocchi, lunga: profonda)}
+
+COME SI LEGGE LA STESA:
+- La risposta parte dalla carta chiave che ti indico e la nomina col suo nome; le altre carte le nomini quando dicono qualcosa sulla domanda, ciascuna letta nella sua posizione. Il titolo non nomina le carte.
+- Un sì o un no si dice con la sua condizione e come lettura delle carte («le carte indicano di sì, se...», «le carte non mostrano un ritorno, finché...»), mai come un fatto certo o una promessa («non tornerà», «ce la farai»). Niente premesse, niente giochi di parole.
+- Di un'altra persona non dire mai che cosa pensa, che cosa sente, che cosa nasconde o che cosa farà come se fosse un fatto: di' che cosa le carte mostrano di quella situazione (un ritorno, un segreto, un rapporto) come un segno e non come una certezza; poi che cosa può fare chi domanda.
+- Nomina con parole tue la cosa di cui parla la domanda (l'offerta, il rapporto, i soldi per la casa, l'amore, il momento che vive): un testo che andrebbe bene per qualunque domanda non va bene.
+- Niente cifre: i numeri si scrivono in lettere.
 - Nelle frasi rivolte alla persona non scrivere mai queste parole: $paroleDelConfine. Se la domanda tocca uno di questi temi, parla di come la persona può affrontare la situazione, non dell'esito. La carta La Morte si scrive sempre così, con la maiuscola.
 - Niente verbi al futuro, né per la persona (troverai, affronterai, tenderai, saprai, potrai) né per le cose (sarà, porterà, arriverà, accadrà). Niente «sicuramente», «senza dubbio», «è certo che», «è in arrivo»: per ciò che viene scrivi al presente, «tendi a», «puoi», «potresti», «rischi di», «la situazione tende a». Vale anche quando la domanda è al futuro («Quando diventerò padre?», «Troverò lavoro?»): non riprendere il suo verbo, rispondi con «le carte mostrano», «il momento tende a», «puoi».
 - Accorda articoli, verbi, aggettivi e participi al nome della carta: «Gli Amanti indicano», «la Torre ti mostra».
@@ -422,7 +363,7 @@ ${forma.agree(masculine: '', feminine: '', neutral: senzaGenere)}
 ${ConfineDelResponso.perIlModello}
 
 ${IlBloccoDiCortesia.perForma(forma)}
-Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni carta col nome che la richiesta le dà, poi "legame", "consiglio" e "titolo"${profonda ? ', poi "approfondimento1" e "approfondimento2"' : ''}.''';
+Rispondi solo con un oggetto JSON con i campi "risposta", "cosaFare"${profonda ? ', "approfondimento"' : ''} e "titolo", in quest'ordine.''';
 
   /// **LE PAROLE DEL CONFINE, DETTE AL MODELLO.** Ordine EQ voce 04: la
   /// guardia a valle (`ConfineDelResponso`) scarta la frase rivolta alla
@@ -457,9 +398,15 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
       'verbo attivo o un nome: «ti manca compagnia», «hai quello che serve», '
       '«c\'è calma fra voi».';
 
-  /// La richiesta: la domanda, l'argomento, la carta chiave e le tre carte,
-  /// ciascuna col suo significato tradizionale. [scartataPerche] e' il motivo
-  /// per cui la lettura di prima non si e' potuta mostrare.
+  /// La richiesta: la domanda, l'argomento, la carta chiave e le carte,
+  /// ciascuna con la sua posizione e il suo significato tradizionale.
+  /// [scartataPerche] e' il motivo per cui la lettura di prima non si e'
+  /// potuta mostrare.
+  ///
+  /// **DALL'ORDINE GA OGNI STESA DICE LE SUE POSIZIONI**, anche quella a tre
+  /// carte, e nessuna carta ha piu' un campo suo (LAPIDE: la riga "Campo:"
+  /// dell'ordine FK aggiunta 2 voce A9): il modello legge le carte insieme e
+  /// scrive il solo responso principale.
   static String richiesta(TarotSpread spread,
       {required String domanda,
       required String argomento,
@@ -469,30 +416,20 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     final righe = <String>[
       'Domanda della persona: $domanda',
       'Argomento: $argomento',
-      // **LA CARTA CHIAVE E' QUELLA DELLA SCHERMATA**: la seconda frase della
-      // risposta parte da lei, e la bolla che porta "LA CHIAVE" e' la stessa.
+      // **LA CARTA CHIAVE E' QUELLA DELLA SCHERMATA**: la risposta parte da
+      // lei, e la bolla che porta "LA CHIAVE" e' la stessa.
       'Carta chiave: ${TarotReading.chiaveDi(spread).drawn.displayName}',
+      'Stesa: ${spread.cards.length} '
+          '${spread.cards.length == 1 ? 'carta' : 'carte'}',
     ];
-    // **LE CARTE DELLA STESA IN CORSO, nel suo ordine**, ordine FK aggiunta
-    // 2 voce A9: ogni carta col campo in cui va scritta e, fuori dalla stesa
-    // a tre carte, con quello che la sua posizione vuol dire.
-    final chiavi = chiaviPer(spread);
-    if (!spread.eATreCarte) {
-      righe.add('Stesa: ${spread.cards.length} '
-          '${spread.cards.length == 1 ? 'carta' : 'carte'}');
-    }
     for (var i = 0; i < spread.cards.length; i++) {
       final d = spread.cards[i];
       righe
         ..add('')
-        ..add('${d.position.etichetta.toUpperCase()}: ${d.displayName}');
-      if (!spread.eATreCarte) {
-        righe
-          ..add('Campo: ${chiavi[i]}')
-          ..add('La posizione vuol dire: '
-              '${cosaDiceLaPosizione[d.position] ?? d.position.etichetta}');
-      }
-      righe.add('Significato tradizionale: ${d.meaning}');
+        ..add('${d.position.etichetta.toUpperCase()}: ${d.displayName}')
+        ..add('La posizione vuol dire: '
+            '${cosaDiceLaPosizione[d.position] ?? d.position.etichetta}')
+        ..add('Significato tradizionale: ${d.meaning}');
       // **IL REGISTRO ARRIVA AL MODELLO, lo scheletro no** (ordine FI,
       // aggiunta A3; decisione dell'Architetto, ordine FJ voce 23). Il
       // registro dice di che cosa parla la carta nell'ambito della domanda
@@ -548,9 +485,10 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
     ReadingKey chiave = ReadingKey.predittiva,
     ChiamataDellaStesa? chiamata,
     Duration? entro,
-    // **LA PROFONDITA' LUNGA CHIEDE I DUE PARAGRAFI IN PIU'. Ordine FN, 13
-    // ottobre 2026.** Falso di default: ogni chiamata gia' scritta (prove,
-    // strumenti) resta la stessa lettura breve di sempre.
+    // **LA PROFONDITA' LUNGA CHIEDE IL PARAGRAFO IN PIU'. Ordine FN, 13
+    // ottobre 2026, e ordine GA voce GA.03 (un approfondimento solo, il rito
+    // viene dal corpus).** Falso di default: ogni chiamata gia' scritta
+    // (prove, strumenti) resta la lettura breve.
     bool profonda = false,
   }) async {
     // **LA STESA LEGGE IL FILO E CI SCRIVE. Ordine FE voce 08.** Era una
@@ -572,7 +510,7 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
           maestro: Maestro.medora,
           domanda: domanda,
           risposta: '${lettura.risposta}\n'
-              '${ConsiglioFinale.stella} ${lettura.consiglio}');
+              '${ConsiglioFinale.stella} ${lettura.cosaFare}');
     }
     return lettura;
   }
@@ -629,8 +567,7 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
         ultimiScarti.add(ultimoScarto!);
         break;
       }
-      final grezza =
-          LetturaDelModello.daJson(_json(testo), chiavi: chiaviPer(spread));
+      final grezza = LetturaDelModello.daJson(_json(testo), lunga: profonda);
       if (grezza == null) {
         scartataPerche = 'la risposta non porta tutti i pezzi';
         ultimoScarto = scartataPerche;
@@ -726,7 +663,8 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
       nuovi = nuovi.map((k, v) =>
           MapEntry(k, (v as String).replaceFirst(daRiscrivere[i], righe[i])));
     }
-    return LetturaDelModello.daJson(nuovi, chiavi: l.chiavi)?.ripulita();
+    return LetturaDelModello.daJson(nuovi, lunga: l.approfondimento.isNotEmpty)
+        ?.ripulita();
   }
 
   /// **LE FRASI COL GENERE SI TOLGONO**, ordine EQ voce 04: la regola di
@@ -734,6 +672,13 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
   /// di `LaRispostaRipulita`, che toglie le frasi fatte. Mai dalla risposta,
   /// che e' la risposta alla domanda: se il genere sta li', nulla. Nulla
   /// anche se un pezzo resta vuoto.
+  ///
+  /// **TOGLIERE UNA FRASE NON DEVE ROMPERE LA MISURA**, ordine GA voce
+  /// GA.07: un paragrafo a cui si toglie una frase puo' scendere sotto le
+  /// quaranta parole. La lettura curata non si mostra per questo: chi la
+  /// chiama la ripassa da [scarto], che rimisura ogni paragrafo in parole e la
+  /// scarta se un paragrafo e' uscito dalla misura (parla la lettura di
+  /// casa). Mai si tronca e mai si allunga a mano.
   static LetturaDelModello? senzaLeFrasiColGenere(
       LetturaDelModello l, CourtesyForm forma) {
     if (formeContrarieAllaForma(l.risposta, forma).isNotEmpty) return null;
@@ -746,28 +691,23 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
       return t.isEmpty ? null : t;
     }
 
-    final carte = [for (final c in l.carte) senza(c)];
-    final legame = senza(l.legame);
-    final consiglio = senza(l.consiglio);
-    if (carte.any((c) => c == null) || legame == null || consiglio == null) {
-      return null;
-    }
+    final cosaFare = senza(l.cosaFare);
+    if (cosaFare == null) return null;
+    // **IL PARAGRAFO DELLA LUNGA PASSA DALLA CURA. Ordine FS.** Prima la
+    // lettura curata nasceva senza, e la Lunga arrivava a video senza i suoi
+    // paragrafi: misurato col modello vero sulla Croce Celtica, una lettura
+    // Lunga su due (`docs/collaudo/FS/la_croce_celtica_lunga.txt`).
+    // PROVENIENZA: ordine FN voce 01, che aveva aggiunto i campi e non li
+    // aveva portati qui.
+    final approfondimento =
+        l.approfondimento.isEmpty ? '' : senza(l.approfondimento);
+    if (approfondimento == null) return null;
     return LetturaDelModello(
       risposta: l.risposta,
-      carte: [for (final c in carte) c!],
-      chiavi: l.chiavi,
-      legame: legame,
-      consiglio: consiglio,
+      cosaFare: cosaFare,
       // Il titolo col genere non si cura: si toglie: parla quello di casa.
       titolo: formeContrarieAllaForma(l.titolo, forma).isEmpty ? l.titolo : '',
-      // **I DUE PARAGRAFI DELLA LUNGA PASSANO DALLA CURA. Ordine FS.** Prima
-      // la lettura curata nasceva senza, e la Lunga arrivava a video coi soli
-      // tre paragrafi: misurato col modello vero sulla Croce Celtica, una
-      // lettura Lunga su due (`docs/collaudo/FS/la_croce_celtica_lunga.txt`).
-      // PROVENIENZA: ordine FN voce 01, che ha aggiunto i due campi e non li
-      // ha portati qui.
-      approfondimento1: senza(l.approfondimento1) ?? '',
-      approfondimento2: senza(l.approfondimento2) ?? '',
+      approfondimento: approfondimento,
     );
   }
 
@@ -795,23 +735,32 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
 
   /// **LE GUARDIE DELLA LETTURA.** Null se regge, altrimenti il motivo.
   ///
-  /// Si guarda cio' che si puo' guardare a macchina: i tetti, il nome di ogni
-  /// carta nel suo pezzo, niente cifre e niente trattino lungo, il confine
-  /// del responso su ogni pezzo, e nessun genere dato a chi legge contro la
-  /// forma che ha scelto (`formeContrarieAllaForma`, la stessa porta dei
-  /// testi del Viaggio). Il resto, se la lettura risponde e se interpreta, lo
-  /// misura il collaudo con Gemini vero (`tool/collaudo_eq04.dart`).
+  /// Si guarda cio' che si puo' guardare a macchina: la misura in parole di
+  /// ogni paragrafo, il titolo, una carta della stesa nominata, niente cifre
+  /// e niente trattino lungo, il confine del responso su ogni pezzo, e nessun
+  /// genere dato a chi legge contro la forma che ha scelto
+  /// (`formeContrarieAllaForma`, la stessa porta dei testi del Viaggio). Il
+  /// resto, se la lettura risponde e se interpreta, lo misurano i lettori
+  /// ciechi della voce GA.06 e, col si' del fondatore, il collaudo con Gemini
+  /// vero.
   static String? scarto(LetturaDelModello l, TarotSpread spread,
       {CourtesyForm forma = CourtesyForm.unknown}) {
-    if (l.risposta.length > tettoDellaRisposta) return 'risposta troppo lunga';
-    if (l.legame.length > tettoDelLegame) return 'legame troppo lungo';
-    if (l.consiglio.length > tettoDelConsiglio) return 'consiglio troppo lungo';
-    if (l.approfondimento1.length > tettoDellApprofondimento) {
-      return 'il primo approfondimento è troppo lungo';
+    // **LA MISURA IN PAROLE, ordine GA voci GA.03 e GA.07.** Ogni paragrafo
+    // da 40 a 50 parole, contate come le conta chi legge: fuori misura la
+    // lettura si scarta col motivo e il numero (il tentativo dopo lo legge),
+    // mai si tronca. LAPIDE: i tetti in caratteri dall'ordine EQ voce 04.
+    String? fuoriMisura(String nome, String testo) {
+      if (LaFormaDelResponso.aMisura(testo)) return null;
+      return '$nome ha ${LaFormaDelResponso.parole(testo)} parole, ne servono '
+          'da ${LaFormaDelResponso.minimo} a ${LaFormaDelResponso.massimo}';
     }
-    if (l.approfondimento2.length > tettoDellApprofondimento) {
-      return 'il secondo approfondimento è troppo lungo';
-    }
+
+    final misura = fuoriMisura('la risposta', l.risposta) ??
+        fuoriMisura('il cosa fare', l.cosaFare) ??
+        (l.approfondimento.isEmpty
+            ? null
+            : fuoriMisura('l\'approfondimento', l.approfondimento));
+    if (misura != null) return misura;
     // **IL TITOLO SI GUARDA, quando c'e'.** Collaudo dell'ordine FK
     // aggiunta voce A1 (docs/collaudo/FK/il_titolo_dal_modello_giro_1.txt):
     // una lettura su quattro titolava "Vendita casa: lascio andare o resto",
@@ -828,15 +777,13 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
         return 'il titolo nomina ${d.card.name}';
       }
     }
-    for (var i = 0; i < spread.cards.length; i++) {
-      final d = spread.cards[i];
-      final t = l.dellaCarta(i);
-      if (t.length > tettoDellaCarta) {
-        return '${d.position.label} troppo lungo';
-      }
-      if (!nominaLaCarta(t, d.card.name)) {
-        return '${d.position.label} non nomina ${d.card.name}';
-      }
+    // **LA RISPOSTA POGGIA SULLE CARTE USCITE**, voce GA.06: il responso
+    // principale nomina almeno una carta della stesa (l'istruzione chiede la
+    // carta chiave). LAPIDE: dall'ordine EQ voce 04 ogni testo di carta
+    // doveva nominare la sua; dall'ordine GA le carte vengono dal corpus.
+    if (!spread.cards.any(
+        (d) => nominaLaCarta('${l.risposta} ${l.cosaFare}', d.card.name))) {
+      return 'il responso non nomina nessuna carta della stesa';
     }
     for (final pezzo in l.toJson().values) {
       if (RegExp(r'\d').hasMatch(pezzo)) return 'una cifra nella lettura';
@@ -899,36 +846,38 @@ Rispondi solo con un oggetto JSON con il campo "risposta", un campo per ogni car
   /// nell'ordinamento (`campiPer`), approfondimento1 e approfondimento2:
   /// restano vuoti, non per un rifiuto, per mancanza di spazio.
   ///
-  /// Il tetto si calcola dai tetti di carattere gia' dichiarati per ogni
-  /// campo (`tettoDellaRisposta` e gli altri), sommati su quanti campi
-  /// chiede davvero QUESTA stesa: tre carte o dieci cambiano il conto. Tre
-  /// caratteri per gettone e' prudente apposta, perche' nel tetto entra
-  /// anche il ragionamento del modello, che consuma lo stesso spazio
-  /// (vedi la nota "token_count conta il ragionamento"). Il conto non scende
-  /// mai sotto i tetti di prima: solo sale, quando le carte sono piu' di tre.
+  /// **IL TETTO DALLA MISURA NUOVA, ordine GA voce GA.07.** Dall'ordine GA
+  /// il modello scrive il solo responso principale, uguale per ogni stesa:
+  /// due paragrafi nella Breve, tre nella Lunga, e il titolo. Il tetto e' la
+  /// somma dei caratteri che quei campi possono avere al piu'
+  /// ([caratteriDelParagrafo] per paragrafo, [tettoDelTitolo] per il titolo),
+  /// piu' venti caratteri a campo per le chiavi e le virgolette del JSON, a
+  /// DUE caratteri per gettone: l'italiano ne fa circa quattro, e il doppio
+  /// del margine serve perche' un paragrafo fuori misura arrivi intero e si
+  /// scarti col suo motivo, invece di arrivare troncato come un JSON rotto.
+  /// Il ragionamento del modello e' a zero (`LaDomandaCapita.ragionamentoPer`)
+  /// e non entra nel conto.
+  ///
+  /// LAPIDE: dall'ordine FR voce 03 all'ordine GA il tetto saliva con le
+  /// carte (dieci testi di carta sulla Croce Celtica) e non scendeva mai
+  /// sotto 1.400 gettoni, o 2.000 nella Lunga.
   static int tettoDeiGettoni(Map<String, Schema> campi,
       {required bool profonda}) {
-    final fissi = profonda ? 2 : 0;
-    final campiDiCarte = campi.length - 4 - fissi;
-    final caratteri = tettoDellaRisposta +
-        tettoDelLegame +
-        tettoDelConsiglio +
-        tettoDelTitolo +
-        campiDiCarte * tettoDellaCarta +
-        (profonda ? 2 * tettoDellApprofondimento : 0);
-    final scalato = (caratteri / 3).ceil();
-    final minimo = profonda ? 2000 : 1400;
-    return scalato > minimo ? scalato : minimo;
+    final paragrafi = campi.keys.where((k) => k != 'titolo').length;
+    final caratteri = paragrafi * caratteriDelParagrafo +
+        (campi.containsKey('titolo') ? tettoDelTitolo : 0) +
+        campi.length * 20;
+    return (caratteri / 2).ceil();
   }
 
   static Future<String?> _chiamataVera(
       String istruzione, String richiesta, Map<String, Schema> campi) async {
-    // **IL TETTO SALE CON L'APPROFONDIMENTO.** Ordine FN, 13 ottobre 2026: i
-    // due paragrafi in piu' della Lunga si scrivono DAVVERO solo se c'e'
-    // posto per scriverli. Si deduce dalla stessa mappa dei campi che va
-    // allo schema, non da un parametro in piu' su questa firma: e' la
-    // stessa che le prove passano con la loro `chiamata` finta.
-    final profonda = campi.containsKey('approfondimento1');
+    // **IL TETTO SALE CON L'APPROFONDIMENTO.** Ordine FN, 13 ottobre 2026: il
+    // paragrafo in piu' della Lunga si scrive DAVVERO solo se c'e' posto per
+    // scriverlo. Si deduce dalla stessa mappa dei campi che va allo schema,
+    // non da un parametro in piu' su questa firma: e' la stessa che le prove
+    // passano con la loro `chiamata` finta.
+    final profonda = campi.containsKey('approfondimento');
     final m =
         FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione).generativeModel(
       model: modello,

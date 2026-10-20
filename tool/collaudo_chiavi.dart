@@ -156,10 +156,10 @@ void main() {
           final testo = l == null
               ? ''
               : [
+                  // Ordine GA: il modello scrive il solo responso principale,
+                  // le carte vengono dal corpus.
                   l.risposta,
-                  ...l.carte,
-                  l.legame,
-                  l.consiglio,
+                  l.cosaFare,
                   l.titolo,
                 ].join('\n');
           testi[s]![k]!.add(testo);
@@ -172,13 +172,7 @@ void main() {
             accostati
               ..add('TITOLO: ${l.titolo}')
               ..add('RISPOSTA: ${l.risposta}');
-            for (var i = 0; i < l.carte.length; i++) {
-              accostati.add('${l.chiavi[i].toUpperCase()} '
-                  '(${spread.cards[i].displayName}): ${l.carte[i]}');
-            }
-            accostati
-              ..add('LEGAME: ${l.legame}')
-              ..add('CONSIGLIO: ${l.consiglio}');
+            accostati.add('COSA FARE ADESSO: ${l.cosaFare}');
           }
         }
       }

@@ -24,6 +24,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'la_lettura_finta_della_stesa.dart';
 
 /// LA STESA DI N CARTE. Ordine FK, aggiunta 2 voci A8, A9, A10 e A12, 12
 /// ottobre 2026.
@@ -36,6 +37,12 @@ import 'cardinale_minimo.dart';
 /// che le fonti vuote stiano solo nella Croce Celtica chiusa, che le due
 /// stese aperte si leggano, e che sul tavolo nessuna carta esca dallo schermo
 /// alla larghezza vera.
+///
+/// **ORDINE GA, 20 ottobre 2026, voci GA.03 e GA.05.** Decisione del
+/// fondatore "Carte dal corpus": in ogni stesa le singole carte vengono dal
+/// corpus e il modello scrive il solo responso principale, coi campi uguali
+/// per ogni stesa (risposta, cosa fare, titolo). La stesa a una carta non ha
+/// un secondo blocco per la stessa carta: niente bolla sotto il responso.
 
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
@@ -80,34 +87,31 @@ void main() {
     });
   });
 
-  group('A9, la richiesta al modello', () {
-    test('un campo per posto, e i due lati sono due campi', () {
+  // **ORDINE GA, 20 ottobre 2026, decisione del fondatore "Carte dal
+  // corpus".** LAPIDE: "un campo per posto, e i due lati sono due campi"
+  // (ordine FK aggiunta 2 voce A9). Dall'ordine GA il modello scrive il solo
+  // responso principale in ogni stesa, con gli stessi campi; la stesa entra
+  // nella richiesta, coi due lati della croce come due carte, e ogni carta
+  // viene dal corpus.
+  group('A9 e GA, la richiesta al modello', () {
+    test('gli stessi campi in ogni stesa, e i due lati sono due carte', () {
       TarotSpread di(TarotSpreadType t) =>
           TarotSpread.draw(seed: 11, posizioni: t.posizioni);
-      expect(LaLetturaDellaStesa.chiaviPer(di(TarotSpreadType.treCarte)),
-          ['passato', 'presente', 'futuro']);
-      expect(LaLetturaDellaStesa.chiaviPer(di(TarotSpreadType.unaCarta)),
-          ['cartaSola']);
+      for (final t in TarotSpreadType.values) {
+        expect(LaLetturaDellaStesa.campiPer(di(t)).keys.toList(),
+            ['risposta', 'cosaFare', 'titolo'],
+            reason: t.name);
+      }
       final croce = di(TarotSpreadType.croceQuattro);
-      expect(LaLetturaDellaStesa.chiaviPer(croce),
-          ['consultante', 'lato_1', 'lato_2', 'esito']);
-      expect(LaLetturaDellaStesa.campiPer(croce).keys.toList(), [
-        'risposta',
-        'consultante',
-        'lato_1',
-        'lato_2',
-        'esito',
-        'legame',
-        'consiglio',
-        'titolo',
-      ]);
       final r = LaLetturaDellaStesa.richiesta(croce,
           domanda: 'Devo cambiare lavoro?', argomento: 'Lavoro');
       for (final c in croce.cards) {
         expect(r, contains(c.displayName));
         expect(r, contains(c.meaning));
       }
-      expect(r, contains('Campo: lato_2'));
+      expect('LATO'.allMatches(r), hasLength(2),
+          reason: 'i due lati della croce sono due carte nella richiesta');
+      expect(r, isNot(contains('Campo:')));
       expect(r, contains('La posizione vuol dire:'));
     });
 
@@ -115,31 +119,25 @@ void main() {
       final i = LaLetturaDellaStesa.istruzione(CourtesyForm.neutral);
       expect(i, isNot(contains('PASSATO, PRESENTE, FUTURO')));
       expect(i, isNot(contains('una stesa di tre carte')));
-      expect(i, contains('leggila nella sua posizione'));
+      expect(i, contains('ciascuna letta nella sua posizione'));
     });
 
     test('la lettura della croce si legge, si guarda e si rilegge', () {
       final croce = TarotSpread.draw(
           seed: 11, posizioni: TarotSpreadType.croceQuattro.posizioni);
-      final chiavi = LaLetturaDellaStesa.chiaviPer(croce);
-      final l = LetturaDelModello(
-        risposta: 'Le carte indicano che puoi cambiare, se prima chiarisci '
-            'che cosa cerchi.',
-        carte: [
-          for (final c in croce.cards)
-            '${c.card.name} in questa posizione dice che la tua questione '
-                'chiede chiarezza.',
-        ],
-        chiavi: chiavi,
-        legame: 'Le carte vanno da una domanda a una scelta.',
-        consiglio: 'Questa settimana scrivi che cosa cerchi.',
-      );
+      final l = letturaFinta(croce);
       expect(LaLetturaDellaStesa.scarto(l, croce), isNull);
-      final tornata = LetturaDelModello.daJson(l.toJson(), chiavi: chiavi);
-      expect(tornata?.carte, l.carte);
+      final tornata = LetturaDelModello.daJson(l.toJson());
+      expect(tornata?.risposta, l.risposta);
+      expect(tornata?.cosaFare, l.cosaFare);
       final reading =
           TarotReading.of(croce, TarotTopic.lavoroTrovare, dalModello: l);
-      expect(reading.posizioni.map((p) => p.testo).toList(), l.carte);
+      expect(reading.principale.risposta, l.risposta);
+      expect(reading.posizioni.map((p) => p.testo).toList(), [
+        for (final c in croce.cards)
+          LeCarteNellaPosizione.letturaDiCasa(
+              c, TarotTopic.lavoroTrovare.group),
+      ]);
     });
   });
 
@@ -194,9 +192,9 @@ void main() {
             final s = TarotSpread.draw(
                 seed: seme * 13 + topic.index, posizioni: t.posizioni);
             final l = TarotReading.of(s, topic);
-            if (l.paragrafi.length != 3) {
-              guasti.add('${t.name} ${topic.name}: ${l.paragrafi.length} '
-                  'paragrafi');
+            // Ordine GA: la forma di GA.03 al posto dei tre paragrafi.
+            for (final d in l.principale.difetti()) {
+              guasti.add('${t.name} ${topic.name}: $d');
             }
             if (l.titolo.trim().isEmpty) guasti.add('${t.name}: senza titolo');
             // I nomi delle carte non contano: "Tre di Bastoni" non e' il
@@ -207,7 +205,10 @@ void main() {
             }
             // Ne' il conto dei Maggiori usciti, che e' un fatto della stesa.
             senzaNomi = senzaNomi.replaceAll('tre Arcani Maggiori', '');
-            if (!VoceDellaStesa.valeOvunque(senzaNomi)) {
+            // Ordine GA: nella stesa a una carta il responso di casa e' quello
+            // della carta dal corpus, non le forme di `VoceDellaStesa`.
+            if (t != TarotSpreadType.unaCarta &&
+                !VoceDellaStesa.valeOvunque(senzaNomi)) {
               guasti.add('${t.name} ${topic.name}: il consiglio parla di tre '
                   'carte o del passato: ${l.consiglio}');
             }
@@ -292,7 +293,9 @@ void main() {
               Future.value(ByteData.view(File(f[1]).readAsBytesSync().buffer)));
           await loader.load();
         }
-        tester.view.physicalSize = const Size(360, 4400);
+        // Ordine GA: ogni bolla porta titolo, paragrafo e riquadro, e la
+        // lista pigra costruisce solo cio' che sta nella finestra.
+        tester.view.physicalSize = const Size(360, 8000);
         tester.view.devicePixelRatio = 1.0;
         addTearDown(tester.view.resetPhysicalSize);
         addTearDown(tester.view.resetDevicePixelRatio);
@@ -327,8 +330,10 @@ void main() {
           expect(r.left, greaterThanOrEqualTo(0), reason: '${t.name} posto $i');
           expect(r.right, lessThanOrEqualTo(360), reason: '${t.name} posto $i');
         }
-        // Una bolla per carta, ognuna col suo nome.
-        expect(find.byType(BollaDellaPosizione), findsNWidgets(t.carte));
+        // Una bolla per carta, ognuna col suo nome; ordine GA voce GA.05: la
+        // stesa a una carta non ha la bolla, il responso principale e' il suo.
+        expect(find.byType(BollaDellaPosizione),
+            findsNWidgets(t.carte == 1 ? 0 : t.carte));
         for (final c in stesa.cards) {
           expect(find.textContaining(c.displayName), findsWidgets);
         }

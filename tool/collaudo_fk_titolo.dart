@@ -83,10 +83,10 @@ void main() {
             'LETTURA: ${l == null ? 'di casa (${LaLetturaDellaStesa.ultimoScarto})' : 'del modello'}')
         ..add('TITOLO DEL MODELLO: ${l?.titolo ?? '(nessuno)'}')
         ..add('TITOLO A VIDEO: ${r.titolo}')
-        ..add('PARAGRAFI: ${r.paragrafi.length}');
-      for (var i = 0; i < r.paragrafi.length; i++) {
+        ..add('PARAGRAFI: ${r.principale.paragrafi.length}');
+      for (var i = 0; i < r.principale.paragrafi.length; i++) {
         righe.add('  ${i + 1}${i == 1 ? ' (nel riquadro)' : ''}. '
-            '${r.paragrafi[i]}');
+            '${r.principale.paragrafi[i]}');
       }
       righe
         ..add(

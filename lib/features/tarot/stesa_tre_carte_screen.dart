@@ -36,7 +36,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../sigilli/celebrazione.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
-import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
+import '../../design_system/components/il_responso_interpretato.dart';
+import '../../core/responsi/la_forma_del_responso.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../core/tarot/le_fonti_dei_tarocchi.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -709,6 +710,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// testo della condivisione); adesso viene dal nome corto della stesa.
   String get _quanteCarte => _setup.tipo.breve.toLowerCase();
 
+  /// **LA CHIAVE DELLA BOLLA DELLA CARTA [i]**, ordine GA: il nome della
+  /// posizione, e il numero del posto dove la posizione torna (i due `lato`
+  /// della croce a quattro carte, `stesa_letta_lato` e `stesa_letta_lato_2`).
+  String _chiaveDellaBolla(int i) {
+    final carte = _spread.cards;
+    final p = carte[i].position;
+    final prima = carte.sublist(0, i).where((c) => c.position == p).length;
+    return prima == 0
+        ? 'stesa_letta_${p.name}'
+        : 'stesa_letta_${p.name}_${prima + 1}';
+  }
+
   /// La lettura a sette strati, letta dentro l'argomento scelto. E'
   /// deterministica: stesse carte e stesso argomento danno sempre lo stesso
   /// testo, quindi si puo' mettere in cache senza toccare l'LLM.
@@ -723,7 +736,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       fattoDelCielo: _fattoDelCielo,
       domandaScritta: _setup.domandaScritta,
       dalModello: _dalModello,
-      uscite: _uscite);
+      uscite: _uscite,
+      // **IL "DA DOVE VIENE" E' UNO SOLO**, ordine GA voce GA.05: lo compone
+      // la lettura col mazzo e la stesa scelti.
+      mazzo: _setup.deck.label,
+      nomeDellaStesa: _setup.tipo.nome);
 
   /// **LE USCITE DI OGNI CARTA, ordine FI voce 18**: quante volte ognuna
   /// era gia' uscita a questa persona in quella posizione, che sceglie la
@@ -1233,8 +1250,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (borsa != null && !_conservata) {
       // **UNA STESA VALE UNA STESA**, ordine GA voce 01: qualunque sia il
       // numero delle sue carte (dall'ordine EX si contavano le carte).
+      // **E LA CROCE CELTICA CONSUMA ANCHE QUELLA DEL GIORNO**, ordine GA
+      // voce 02: la stesa a dieci carte e' una al giorno.
       borsa.registraStesa(
-          _forse<EntitlementService>(context)?.tier ?? Tier.free);
+          _forse<EntitlementService>(context)?.tier ?? Tier.free,
+          daDieci: _spread.cards.length >= 10);
     }
     final carte = _spread.cards;
     unawaited(RegiaDelCammino.dopoUnGesto(
@@ -1331,6 +1351,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (borsa == null) return true;
     final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
     final carte = _spread.cards.length;
+    // **LA CROCE CELTICA E' UNA AL GIORNO, ordine GA voce 02.** Il
+    // fondatore, la sera del 20 ottobre 2026: "Limitiamo la stesa tarocchi a
+    // 10 carte: sarà disponibile solo per Tier 2 e 3 e solo 1 al giorno".
+    // Fatta quella del giorno non si apre, nemmeno con gli Eos: l'invito non
+    // offre riscatti per lei, dice che torna domani e manda a un'altra
+    // stesa, che resta aperta o riscattabile (mai un vicolo cieco).
+    if (carte >= 10 && borsa.laCroceCelticaDiOggiEFatta(piano)) {
+      _laCroceCelticaTornaDomani(borsa, piano);
+      return false;
+    }
     if (borsa.puoiStendere(piano)) return true;
     final limite = borsa.limiteStese(piano);
     // Il numero del livello dopo, letto dalla matrice: all'Illuminato non c'e'
@@ -1406,6 +1436,35 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       onRiscatta: riscatto.azione,
     );
     return false;
+  }
+
+  /// **LA CROCE CELTICA TORNA DOMANI, ordine GA voce 02.** Il fondatore, la
+  /// sera del 20 ottobre 2026: *"Limitiamo la stesa tarocchi a 10 carte:
+  /// sarà disponibile solo per Tier 2 e 3 e solo 1 al giorno."*
+  ///
+  /// Nessun riscatto: la stesa a dieci del giorno non si ricompra, e un
+  /// pulsante a Eos qui venderebbe una cosa che non si apre. Il foglio dice
+  /// quando torna e cosa si puo' fare oggi: un'altra stesa, con le stese che
+  /// restano (il residuo detto come in ogni altro punto dell'app) oppure col
+  /// riscatto di sempre, se le stese del giorno sono finite. Mai un vicolo
+  /// cieco.
+  void _laCroceCelticaTornaDomani(QuestionAllowance borsa, Tier piano) {
+    final rimaste = borsa.steseRimaste(piano) ?? 0;
+    final limite = borsa.limiteStese(piano) ?? 0;
+    const stese = BudgetDelGiorno.stese;
+    final residuo = QuestionAllowance.residuoDiCosa(rimaste, limite,
+        uno: stese.uno, molti: stese.molti, femminile: stese.femminile);
+    final oggi = rimaste > 0
+        ? '$residuo.'
+        : 'Le stese del giorno sono finite: un’altra stesa si riscatta con '
+            'gli Eos.';
+    showUpgradeInvite(
+      context,
+      title: 'La Croce Celtica di oggi è stata fatta',
+      message: 'La stesa a dieci carte è una al giorno: la prossima torna '
+          'domani. Oggi puoi scegliere un’altra stesa, da una, tre o quattro '
+          'carte, in «${TarotSetupPanel.titolo}». $oggi',
+    );
   }
 
   /// L'ATTESA FRA L'ULTIMA CARTA E IL PRIMO RESPONSO. Ordine P voce 06.
@@ -2077,6 +2136,14 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               budget: BudgetDelGiorno.stese,
               allineamento: MainAxisAlignment.center,
             ),
+          // **E PER LA CROCE CELTICA, SE QUELLA DEL GIORNO E' LIBERA.**
+          // Ordine GA voce 02: la stesa a dieci carte e' una al giorno, e
+          // chi l'ha scelta lo sa prima di posare la prima carta.
+          if (_drawn == 0 && _setup.tipo == TarotSpreadType.dieciCarte)
+            const RigaDelResiduo(
+              budget: BudgetDelGiorno.steseDaDieci,
+              allineamento: MainAxisAlignment.center,
+            ),
         ],
         // **IL VENTAGLIO RESTA IN CAMPO ALLA TERZA CARTA. Ordine CQ voce
         // 6.09, riaperta il 5 settembre 2026 col telefono in mano.**
@@ -2406,14 +2473,20 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             testo: _reading.consiglio,
             palette: palette,
             inEvidenza: true,
-            // **TRE PARAGRAFI, IL SECONDO NEL RIQUADRO, POI DA DOVE VIENE.**
-            // Ordine FK aggiunta voce A2.
-            paragrafi: _reading.paragrafi,
-            daDoveViene: TarotReading.daDoveViene(_spread,
-                mazzo: _setup.deck.label, stesa: _setup.tipo.nome),
-            // **SOLO QUI, NON NELLE TRE BOLLE.** Il fondatore, scelta fra le
-            // due: l'approfondimento resta nel solo Consiglio di Medora.
-            approfondimento: _reading.approfondimento,
+            // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.05.** LAPIDE: tre
+            // paragrafi col secondo nel riquadro, i due approfondimenti nel
+            // riquadro arancione e il "Da dove viene" qui dentro (ordine FK
+            // aggiunta voce A2, ordine FN). Adesso il responso principale e'
+            // `IlResponsoInterpretato`, senza il titolo che sta gia' in cima
+            // (`stesa_synthesis`): la risposta, il riquadro "Cosa fare
+            // adesso" e, nella Lunga, l'approfondimento e la contemplazione
+            // propiziatoria. **Solo qui la Lunga, non nelle carte**: il
+            // fondatore, *"solo per il responso principale e non per le
+            // singole carte"*. Il "Da dove viene" sta qui solo nella stesa a
+            // una carta; nelle altre chiude la consultazione dopo le carte.
+            responso: _spread.cards.length == 1
+                ? _reading.principale
+                : _reading.principaleSenzaLaFonte,
           ),
           const SizedBox(height: SpacingTokens.sm),
           // **LA PRIMA BOLLA DI RISPOSTA AVEVA IL SUO PARLANE SOLO IN
@@ -2433,32 +2506,55 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          // Le tre posizioni col testo ricco letto nell'argomento. La lente sta
-          // qui una volta sola: ripeterla su ogni posizione la rendeva una
-          // formula.
-          // **L'INTESTAZIONE DICE COSA SI STA PER LEGGERE, ordine BU voce 01.**
-          // Parole del fondatore: "anziche' nel momento che vivi, carta per
-          // carta scrivi ma in grande LE CARTE, UNA ALLA VOLTA". Era la lente
-          // dell'argomento scritta al pavimento della scala; adesso e' un
-          // titolo di sezione, e dice cosa viene dopo invece di ripetere cosa
-          // si era chiesto.
-          Text('LE CARTE, UNA ALLA VOLTA',
-              key: const Key('stesa_lente'),
-              style: TypographyTokens.titoloSezione().copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.9),
-                  letterSpacing: 1.2)),
-          const SizedBox(height: SpacingTokens.xs),
-          for (final letta in _reading.posizioni) ...[
-            BollaDellaPosizione(
-              key: Key('stesa_letta_${letta.drawn.position.name}'),
-              letta: letta,
-              palette: palette,
-              domanda: _setup.domandaScritta ?? _setup.topic.label,
-              // LA BOLLA CHIAVE E' UNA DI QUESTE TRE, ordine P voce 07.
-              perche: letta.drawn.card.name == _reading.chiave.drawn.card.name
-                  ? _reading.chiave.perche
-                  : null,
-            ),
+          // **LA STESA A UNA CARTA NON HA UN SECONDO BLOCCO**, ordine GA voce
+          // GA.05: *"il responso principale è quello della carta [...] senza
+          // ripetere un secondo blocco per la stessa carta"*. LAPIDE: fino
+          // all'ordine GA sotto il consiglio c'era la bolla della carta sola,
+          // che ripeteva la carta del responso.
+          if (_reading.posizioni.length > 1) ...[
+            // Le posizioni col testo ricco letto nell'argomento. La lente sta
+            // qui una volta sola: ripeterla su ogni posizione la rendeva una
+            // formula.
+            // **L'INTESTAZIONE DICE COSA SI STA PER LEGGERE, ordine BU voce
+            // 01.** Parole del fondatore: "anziche' nel momento che vivi,
+            // carta per carta scrivi ma in grande LE CARTE, UNA ALLA VOLTA".
+            // Era la lente dell'argomento scritta al pavimento della scala;
+            // adesso e' un titolo di sezione, e dice cosa viene dopo invece
+            // di ripetere cosa si era chiesto.
+            Text('LE CARTE, UNA ALLA VOLTA',
+                key: const Key('stesa_lente'),
+                style: TypographyTokens.titoloSezione().copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.9),
+                    letterSpacing: 1.2)),
+            const SizedBox(height: SpacingTokens.xs),
+            for (var i = 0; i < _reading.posizioni.length; i++) ...[
+              BollaDellaPosizione(
+                // **UNA CHIAVE PER POSTO, ordine GA.** Le posizioni che
+                // tornano due volte (i due `lato` della croce) davano due
+                // bolle sorelle con la stessa chiave: la seconda prende il
+                // suo numero.
+                key: Key(_chiaveDellaBolla(i)),
+                letta: _reading.posizioni[i],
+                palette: palette,
+                domanda: _setup.domandaScritta ?? _setup.topic.label,
+                // LA BOLLA CHIAVE E' UNA DI QUESTE, ordine P voce 07.
+                perche: _reading.posizioni[i].drawn.card.name ==
+                        _reading.chiave.drawn.card.name
+                    ? _reading.chiave.perche
+                    : null,
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+            ],
+            // **IL "DA DOVE VIENE" CHIUDE LA CONSULTAZIONE, una volta sola**,
+            // ordine GA voce GA.05: dopo le carte, con le fonti di tutte le
+            // carte uscite e, nella Lunga, della contemplazione. LAPIDE: dal
+            // l'ordine FK aggiunta voce A2 stava dentro il consiglio, prima
+            // delle carte.
+            const SizedBox(height: SpacingTokens.xs),
+            IlDaDoveViene(
+                key: const Key('stesa_da_dove_viene'),
+                testo: _reading.fonte,
+                chiave: 'stesa_principale_da_dove_viene'),
             const SizedBox(height: SpacingTokens.sm),
           ],
           const SizedBox(height: SpacingTokens.sm),
@@ -2511,14 +2607,45 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // dall'Adepto, e a chi non lo e' si dice come aprirla.
     final tipo =
         TarotSpreadType.values.where((t) => t.nome == voce).firstOrNull;
-    if (tipo != null && tipo.disponibile) {
+    // **LA CROCE CELTICA FATTA OGGI, ordine GA voce 02.** Il selettore la
+    // chiude col lucchetto "Fatta oggi" a chi l'ha gia' stesa: il tocco
+    // dice che e' una al giorno e torna domani, non che e' dell'Adepto.
+    final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    final borsa = _forse<QuestionAllowance>(context);
+    if (tipo == TarotSpreadType.dieciCarte &&
+        tipo!.apribileDa(piano) &&
+        borsa != null &&
+        borsa.laCroceCelticaDiOggiEFatta(piano)) {
+      _laCroceCelticaTornaDomani(borsa, piano);
+      return;
+    }
+    if (tipo == TarotSpreadType.dieciCarte && tipo!.disponibile) {
+      // I numeri dell'Adepto dalla matrice, ordine GA voci 01 e 02: le stese
+      // del giorno e la stesa a dieci, una al giorno.
+      final aDieci = PlanCatalog.limiteGiornaliero(
+              PlanCatalog.rigaStesaDaDieci, Tier.tier2) ??
+          0;
       showUpgradeInvite(
         context,
         title: 'La stesa a dieci carte è dell’Adepto',
-        // Il numero delle stese dell'Adepto dalla matrice, ordine GA voce 01.
         message: 'La stesa a dieci carte si apre dal piano Adepto in su, '
-            'insieme a ${PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, Tier.tier2)} '
+            '${aDieci == 1 ? 'una' : '$aDieci'} al giorno, insieme a '
+            '${PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, Tier.tier2)} '
             'stese al giorno.',
+      );
+      return;
+    }
+    // **LA CROCE A QUATTRO NON E' "DELL'ADEPTO"**, ordine GA voce 02: questo
+    // ramo diceva "La stesa a dieci carte è dell’Adepto" a ogni stesa
+    // disponibile chiusa dal piano, quindi anche al Viandante che toccava la
+    // croce a quattro, che si apre dall'Iniziato. Adesso dice la stesa
+    // toccata e il piano che la apre, letto dalla matrice.
+    final dalla = tipo == null ? null : PlanCatalog.dalPiano(tipo.apribileDa);
+    if (tipo != null && tipo.disponibile && dalla != null) {
+      showUpgradeInvite(
+        context,
+        title: tipo.descrizione,
+        message: '${dalla.replaceFirst('Dall’', 'Si apre dal piano ')} in su.',
       );
       return;
     }
@@ -3239,24 +3366,19 @@ class _Strato extends StatelessWidget {
     required this.testo,
     required this.palette,
     this.inEvidenza = false,
-    this.paragrafi,
-    this.daDoveViene,
-    this.approfondimento = const [],
+    this.responso,
   });
 
   final String titolo;
   final String testo;
   final MaestroPalette palette;
 
-  /// I tre paragrafi del responso, quando lo strato li porta separati: il
-  /// secondo va nel riquadro (`ResponsoInTreParagrafi`).
-  final List<String>? paragrafi;
-
-  /// Il paragrafo piccolo in corsivo, in fondo.
-  final String? daDoveViene;
-
-  /// I due paragrafi dell'approfondimento della Lunga, ordine FN.
-  final List<String> approfondimento;
+  /// **IL RESPONSO PRINCIPALE NELLA FORMA NUOVA**, ordine GA voce GA.03:
+  /// quando lo strato lo porta, lo disegna `IlResponsoInterpretato` senza il
+  /// titolo, che sta gia' in cima. LAPIDE: `paragrafi`, `daDoveViene` e
+  /// `approfondimento` per `ResponsoInTreParagrafi`, dall'ordine FK aggiunta
+  /// voce A2 all'ordine GA.
+  final ResponsoInterpretato? responso;
 
   /// Il consiglio si stacca dagli altri strati, e' quello che si porta a casa.
   ///
@@ -3315,12 +3437,14 @@ class _Strato extends StatelessWidget {
           // i PARAGRAFI restano separati invece di fondersi, e li tiene
           // separati chi sa gia' farlo. Il titolo resta oro: quello e' un
           // titolo.
-          if (paragrafi != null)
-            ResponsoInTreParagrafi(
-              paragrafi: paragrafi!,
-              daDoveViene: daDoveViene,
+          if (responso != null)
+            IlResponsoInterpretato(
+              responso: responso!,
+              chiave: 'stesa_principale',
+              mostraIlTitolo: false,
               palette: palette,
-              approfondimento: approfondimento,
+              stileDelTitolo: TypographyTokens.titoloSezione()
+                  .copyWith(color: palette.goldSoft, height: 1.25),
               stile: TypographyTokens.lettura().copyWith(
                 color: ColorTokens.textPrimary,
               ),
@@ -3483,10 +3607,25 @@ class BollaDellaPosizione extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           // **ANCHE LE ALTRE BOLLE SALGONO, ordine BU voce 01**: "anche le
           // altre bolle hanno il font piccolo".
-          ParagrafiDiLettura(
-              testo: letta.testo,
+          // **IL RESPONSO BREVE DELLA CARTA, ordine GA voce GA.05**: il suo
+          // titolo, il paragrafo e il riquadro "Cosa fare adesso", dal
+          // corpus. LAPIDE: un paragrafo solo, senza titolo e senza riquadro,
+          // dall'ordine EQ voce 04 all'ordine GA.
+          if (letta.responso != null)
+            IlResponsoInterpretato(
+              responso: letta.responso!,
+              chiave: 'carta_${letta.drawn.position.name}',
+              palette: palette,
+              stileDelTitolo: TypographyTokens.titoloScheda()
+                  .copyWith(color: palette.goldSoft, height: 1.25),
               stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary)),
+                  .copyWith(color: ColorTokens.textPrimary),
+            )
+          else
+            ParagrafiDiLettura(
+                testo: letta.testo,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
           // LA MARCATURA PICCOLA CHE DICE PERCHE' E' QUELLA.
           if (eLaChiave) ...[
             const SizedBox(height: SpacingTokens.xs),

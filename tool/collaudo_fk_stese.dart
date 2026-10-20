@@ -89,9 +89,9 @@ void main() {
         ..add(
             'LETTURA: ${l == null ? 'di casa (${LaLetturaDellaStesa.ultimiScarti.join(' | ')})' : 'del modello'}')
         ..add('TITOLO: ${r.titolo}');
-      for (var i = 0; i < r.paragrafi.length; i++) {
+      for (var i = 0; i < r.principale.paragrafi.length; i++) {
         righe.add('  ${i + 1}${i == 1 ? ' (nel riquadro)' : ''}. '
-            '${r.paragrafi[i]}');
+            '${r.principale.paragrafi[i]}');
       }
       for (final p in r.posizioni) {
         righe.add('  CARTA, ${p.drawn.position.etichetta}, '

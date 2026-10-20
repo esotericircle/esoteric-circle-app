@@ -86,11 +86,9 @@ void main() {
           ..add(
               '  esito: ${l == null ? 'LETTURA DI CASA (${LaLetturaDellaStesa.ultimiScarti.join(' | ')})' : 'dal modello'}');
         if (l != null && profonda) {
-          righe
-            ..add('  approfondimento1 (${l.approfondimento1.length} car.): '
-                '${l.approfondimento1}')
-            ..add('  approfondimento2 (${l.approfondimento2.length} car.): '
-                '${l.approfondimento2}');
+          // Ordine GA: un approfondimento solo, misurato in parole.
+          righe.add('  approfondimento (${l.approfondimento.split(' ').length} '
+              'parole): ${l.approfondimento}');
         }
         righe.add('');
       }

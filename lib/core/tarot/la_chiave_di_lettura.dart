@@ -99,36 +99,39 @@ enum ReadingKey {
   /// confine, il genere) restano sopra tutte.
   String? get voce => switch (this) {
         ReadingKey.predittiva => null,
+        // **ORDINE GA, 20 ottobre 2026**: il modello scrive il solo responso
+        // principale (decisione del fondatore "Carte dal corpus"), quindi le
+        // voci parlano della RISPOSTA e della carta chiave, non piu' di un
+        // campo per ogni carta.
         ReadingKey.riflessione => 'LA CHIAVE DI LETTURA, che prevale sulle '
-            'regole della RISPOSTA e delle CARTE qui sotto: Riflessione, '
-            'nella tradizione della Tarologia di Alejandro Jodorowsky e '
-            'Marianne Costa. Questa lettura non predice. La RISPOSTA non dice '
-            'sì, no né se la cosa accadrà: la prima frase dice che cosa la '
-            'stesa mostra di come la persona vive la sua domanda, la seconda '
-            'quale scelta ha davanti, partendo dalla carta chiave. In ogni '
-            'carta scrivi che cosa la carta rispecchia della persona davanti '
-            'alla sua domanda; chiudi con una domanda che la persona può '
-            'farsi. Anche la carta del futuro si legge come una tendenza da '
-            'riconoscere, mai come un annuncio. Non nominare Jodorowsky.',
+            'regole della RISPOSTA qui sotto: Riflessione, nella tradizione '
+            'della Tarologia di Alejandro Jodorowsky e Marianne Costa. Questa '
+            'lettura non predice. La RISPOSTA non dice sì, no né se la cosa '
+            'accadrà: la prima frase dice che cosa la stesa mostra di come la '
+            'persona vive la sua domanda, poi quale scelta ha davanti, '
+            'partendo dalla carta chiave. Di ogni carta che nomini scrivi che '
+            'cosa rispecchia della persona davanti alla sua domanda. Anche la '
+            'carta del futuro si legge come una tendenza da riconoscere, mai '
+            'come un annuncio. Non nominare Jodorowsky.',
         ReadingKey.esoterica => "LA CHIAVE DI LETTURA, che prevale sulle "
-            "regole della RISPOSTA e delle CARTE qui sotto: Esoterica, nella "
-            "tradizione di Arthur Edward Waite e dell'Ordine Ermetico "
-            "dell'Alba Dorata. In ogni carta nomina almeno un simbolo "
-            "dell'immagine di Waite (una figura, un oggetto, un colore) e che "
-            "cosa significa in quella tradizione; la corrispondenza della "
-            "carta con un elemento, un pianeta o un segno nominala solo "
-            "quando la conosci con certezza: non inventarla. La seconda "
-            "frase della RISPOSTA parte dal simbolo della carta chiave. Il "
-            "simbolo serve a rispondere alla domanda, non a fare lezione.",
+            "regole della RISPOSTA qui sotto: Esoterica, nella tradizione di "
+            "Arthur Edward Waite e dell'Ordine Ermetico dell'Alba Dorata. "
+            "Della carta chiave nomina almeno un simbolo dell'immagine di "
+            "Waite (una figura, un oggetto, un colore) e che cosa significa "
+            "in quella tradizione; la corrispondenza della carta con un "
+            "elemento, un pianeta o un segno nominala solo quando la conosci "
+            "con certezza: non inventarla. La seconda frase della RISPOSTA "
+            "parte dal simbolo della carta chiave. Il simbolo serve a "
+            "rispondere alla domanda, non a fare lezione.",
         ReadingKey.archetipica => 'LA CHIAVE DI LETTURA, che prevale sulle '
-            'regole della RISPOSTA e delle CARTE qui sotto: Archetipica, nella '
-            'lettura di Sallie Nichols e di Rachel Pollack. In ogni carta '
-            'nomina l\'archetipo che la carta incarna (il Viandante, il '
-            'Mago, la Madre, il Guerriero, l\'Eremita e così via) e quale '
-            'passaggio del cammino interiore della persona rappresenta '
-            'rispetto alla sua domanda. La RISPOSTA dice in quale passaggio '
-            'del suo cammino si trova la persona e che cosa quel passaggio le '
-            'chiede. Niente linguaggio clinico e niente diagnosi.',
+            'regole della RISPOSTA qui sotto: Archetipica, nella lettura di '
+            'Sallie Nichols e di Rachel Pollack. Della carta chiave nomina '
+            'l\'archetipo che incarna (il Viandante, il Mago, la Madre, il '
+            'Guerriero, l\'Eremita e così via) e quale passaggio del cammino '
+            'interiore della persona rappresenta rispetto alla sua domanda. '
+            'La RISPOSTA dice in quale passaggio del suo cammino si trova la '
+            'persona e che cosa quel passaggio le chiede. Niente linguaggio '
+            'clinico e niente diagnosi.',
       };
 
   /// **IL PROMEMORIA DELLA CHIAVE, in fondo alla richiesta**, ordine FS:
@@ -138,13 +141,12 @@ enum ReadingKey {
         ReadingKey.predittiva => null,
         ReadingKey.riflessione => 'Chiave di lettura: Riflessione. La '
             'RISPOSTA non dice sì, no né se la cosa accadrà: dice come la '
-            'persona vive la sua domanda e quale scelta ha davanti. Ogni '
-            'carta chiude con una domanda che la persona può farsi.',
-        ReadingKey.esoterica => "Chiave di lettura: Esoterica. In ogni carta "
-            "nomina almeno un simbolo dell'immagine di Waite e che cosa "
-            "significa in quella tradizione.",
-        ReadingKey.archetipica => "Chiave di lettura: Archetipica. In ogni "
-            "carta nomina l'archetipo che la carta incarna e il passaggio "
-            "del cammino interiore che rappresenta per la persona.",
+            'persona vive la sua domanda e quale scelta ha davanti.',
+        ReadingKey.esoterica => "Chiave di lettura: Esoterica. Della carta "
+            "chiave nomina almeno un simbolo dell'immagine di Waite e che "
+            "cosa significa in quella tradizione.",
+        ReadingKey.archetipica => "Chiave di lettura: Archetipica. Della "
+            "carta chiave nomina l'archetipo che incarna e il passaggio del "
+            "cammino interiore che rappresenta per la persona.",
       };
 }

@@ -1,0 +1,71 @@
+ORDINE GA, I TAROCCHI NELLA FORMA NUOVA (voci GA.03, GA.04, GA.05 e GA.07)
+Regola A e Regola B delle guardie, 20 ottobre 2026. Ogni innesto e' stato
+verificato col grep (marca INNESTO_REGOLA_B o INNESTO_REGOLA_A nel file)
+prima di leggere l'esito, e tolto dopo, verificato col grep che non ci fosse
+piu'. Le uscite stanno in %TEMP% della sessione (ga_tar_regolab.txt,
+ga_tar_regolab_schermata.txt, ga_tar_regola_a.txt, ga_tar_regola_a2.txt).
+
+REGOLA B, PRIMA DI TOCCARE LA ZONA
+
+B1, 20/10/2026 18:31, sull'albero del lavoro, prima di ogni modifica ai file
+sotto:
+- lib/core/tarot/le_carte_nella_posizione.dart: letturaDiCasa monta il
+  registro prima dello scheletro.
+  Rossa: il_corpus_delle_posizioni_test "il montaggio: scheletro, poi
+  registro del gruppo".
+- lib/core/tarot/la_lettura_dal_modello.dart: tettoDellaRisposta 3800.
+  Rossa: la_stesa_interpreta_davvero_test "le guardie scartano la lettura
+  che non regge".
+- lib/core/tarot/tarot_reading.dart: il "Da dove viene" senza il mazzo.
+  Rossa: il_formato_del_responso_dei_tarocchi_test "A2: da dove viene nomina
+  le carte, il mazzo e la stesa".
+- lib/core/responsi/la_forma_del_responso.dart: massimo 52.
+  Rosse: la_forma_del_responso_test "le parole si contano come le conta chi
+  legge" e "i difetti portano il nome dell'arte e del testo".
+Esito: 44 passate, 5 rosse, tutte imputabili a un innesto. Innesti tolti,
+git diff dei quattro file vuoto alle 18:33.
+
+B2, 20/10/2026 18:48, sulla schermata, in una copia della testa 7c68222d
+(git archive in %TEMP%\ga_copia_head), perche' nell'albero del lavoro il
+cuore della lettura era gia' cambiato e le prove a video della forma vecchia
+non compilavano piu':
+- lib/features/tarot/stesa_tre_carte_screen.dart: la bolla mostra il
+  significato del verso invece del testo della posizione; la chiave del
+  consiglio cambiata.
+  Rosse: la_stesa_interpreta_davvero_test "la schermata aspetta la lettura
+  del modello e la mostra" e "senza modello la schermata legge le carte
+  nella posizione"; la_chiave_e_il_consiglio_si_vedono_test "BU.01: il
+  consiglio ha paragrafi separati e non e' oro".
+Esito: 34 passate, 3 rosse.
+
+REGOLA A, LE PROVE NUOVE
+
+A1, 20/10/2026 19:22, test/la_stesa_ha_la_forma_nuova_test.dart, cinque
+innesti insieme:
+- le_carte_nella_posizione.dart: lo scheletro senza LaMarcaDelGenere.risolvi;
+- le_carte_nella_posizione.dart: ogni carta col suo "Da dove viene";
+- la_lettura_dal_modello.dart: la forma comune due volte nell'istruzione;
+- tarot_reading.dart: la contemplazione dell'ultima carta invece della carta
+  chiave;
+- stesa_tre_carte_screen.dart: le bolle anche nella stesa a una carta.
+Esito: 5 passate, 7 rosse ("ogni carta e il responso principale", 3.578
+difetti; "il corpus intero", 9 difetti; "la forma comune una volta sola";
+le quattro prove a video). Innesti tolti, grep vuoto.
+Prima degli innesti la prova era gia' stata rossa da sola sul corpus vero:
+nove responsi di carta a 51 e 53 parole, e il paragrafo con le quadre della
+marca a video (difetto curato, vedi il rapporto).
+
+A2, 20/10/2026 19:47, le prove riscritte sulla forma nuova
+(la_stesa_interpreta_davvero, le_correzioni_dell_ordine_fn,
+il_formato_del_responso_dei_tarocchi, la_lunga_passa_dalla_cura,
+la_stesa_di_n_carte, la_chiave_e_il_consiglio_si_vedono), tre innesti:
+- la_lettura_dal_modello.dart: lo scarto non guarda piu' la misura in parole;
+- tarot_reading.dart: il responso principale e' Lungo anche alla Breve;
+- stesa_tre_carte_screen.dart: il responso principale porta il suo "Da dove
+  viene" anche nelle stese con piu' carte (due "Da dove viene" a video).
+Esito: 73 passate, 6 rosse ("le guardie scartano la lettura che non regge",
+"un paragrafo fuori misura si richiede, mai si tronca", "la cura che toglie
+una frase non rompe la misura", "un approfondimento fuori misura fa cadere
+la lettura", "il responso principale e' Lungo SOLO con depth profonda", "a
+video GA.03 [...] il Da dove viene in fondo, dopo le carte"). Innesti tolti,
+grep vuoto.

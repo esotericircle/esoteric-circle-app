@@ -91,6 +91,72 @@ abstract final class LaFormaDelResponso {
     final n = parole(testo);
     return n >= minimo && n <= massimo;
   }
+
+  /// Che cosa sono i simboli usciti in quell'arte, detto al modello.
+  static String simboli(ArteInterpretata arte) => switch (arte) {
+        ArteInterpretata.tarocchi => 'le carte della stesa, ciascuna nella '
+            'sua posizione',
+        ArteInterpretata.oracolo => 'gli angeli delle carte scelte',
+        ArteInterpretata.rune => 'le rune della gettata',
+        ArteInterpretata.oroscopoOccidentale ||
+        ArteInterpretata.oroscopoVedico ||
+        ArteInterpretata.oroscopoCinese =>
+          'i segni e il cielo del periodo',
+      };
+
+  /// L'intestazione della forma detta al modello: la prova che l'istruzione
+  /// la porti una volta sola la cerca col suo nome.
+  static const String intestazioneDelModello =
+      'LA FORMA DEL RESPONSO E LA RISPOSTA DIRETTA, NON NEGOZIABILI:';
+
+  /// **LA FORMA E LA RISPOSTA DIRETTA DETTE AL MODELLO, IN UN PUNTO SOLO.**
+  /// Ordine GA voci GA.03, GA.06 e GA.07, 20 ottobre 2026: *"Dove un testo
+  /// lo scrive il modello, l'istruzione a Gemini si riscrive con la forma di
+  /// GA.03 e la regola di GA.06, una volta sola, in un punto solo"*. Ogni
+  /// arte che fa scrivere al modello il suo responso principale mette QUESTO
+  /// pezzo nella sua istruzione, e accanto solo cio' che e' suo (la voce del
+  /// Maestro, i simboli, i campi del JSON): la misura e la regola della
+  /// risposta diretta non si riscrivono altrove.
+  ///
+  /// Il rito propiziatorio (il quarto paragrafo della Lunga) non lo scrive il
+  /// modello: viene dalle raccolte documentate di `IRitiPropiziatori` (voce
+  /// GA.04, *"Nessuna formula inventata"*), e qui non si nomina.
+  ///
+  /// I campi del JSON hanno gli stessi nomi in ogni arte: `titolo`,
+  /// `risposta`, `cosaFare` e, nella Lunga, `approfondimento`.
+  static String perIlModello(
+          {required ArteInterpretata arte, required bool lunga}) =>
+      '$intestazioneDelModello\n'
+      '- In questo responso i simboli usciti sono ${simboli(arte)}.\n'
+      '- Ogni paragrafo ha da $minimo a $massimo parole, contate separate da '
+      'uno spazio: un paragrafo con meno di $minimo o con più di $massimo '
+      'parole non si mostra. Scrivilo della misura giusta, non tagliarlo a '
+      'metà.\n'
+      '- RISPOSTA (campo "risposta"): un paragrafo. La prima frase risponde '
+      'subito alla domanda, senza preamboli, senza immagini al posto della '
+      'risposta e senza frasi sibilline: se la domanda chiede se una cosa '
+      'accade o se farla, dice che cosa indicano i simboli usciti, sì, no o a '
+      'quali condizioni; se chiede che cosa fare, dice il gesto. Dove non c\'è '
+      'una domanda, la prima frase dice com\'è il periodo o la situazione. Le '
+      'frasi dopo dicono perché, partendo dai simboli usciti.\n'
+      '- COSA FARE ADESSO (campo "cosaFare"): un paragrafo che dice che cosa '
+      'fare o che cosa non fare, con un gesto concreto, un momento o un modo '
+      'definiti. Non ripete la risposta.\n'
+      '${lunga ? '- APPROFONDIMENTO (campo "approfondimento"): la persona ha '
+          'chiesto il responso Lungo. Un paragrafo che approfondisce la '
+          'risposta: entra nel dettaglio pratico o in un ostacolo concreto da '
+          'aspettarsi e in come affrontarlo. Non ripete la risposta né il cosa '
+          'fare.\n' : ''}'
+      '- TITOLO (campo "titolo"): da tre a otto parole, scritto dopo tutto il '
+      'resto. È già la risposta detta a colpo d\'occhio: chi legge solo il '
+      'titolo deve sapere che cosa dicono i simboli sulla sua domanda. Non '
+      'finisce col punto, non ha i due punti e non è una domanda.\n'
+      '- Ogni affermazione poggia sui simboli usciti e sul loro significato '
+      'documentato, dritto o rovesciato, e risponde alla domanda posta: un '
+      'testo che starebbe bene sotto qualunque simbolo o qualunque domanda è '
+      'sbagliato.\n'
+      '- Nessun futuro dato per certo, nessuna promessa, nessun consiglio su '
+      'salute, denaro o questioni legali.';
 }
 
 /// **UN RESPONSO INTERPRETATO**, i pezzi della forma di GA.03 senza il

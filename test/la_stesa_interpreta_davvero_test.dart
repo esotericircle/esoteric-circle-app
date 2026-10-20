@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/tarot/la_chiave_di_lettura.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
@@ -17,7 +18,6 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
-import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +26,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'la_lettura_finta_della_stesa.dart';
 
 /// **LA STESA INTERPRETA DAVVERO.** Ordine EQ voce 04, 27 settembre 2026.
 ///
@@ -50,6 +51,19 @@ import 'cardinale_minimo.dart';
 /// Se la lettura **risponde** e se **interpreta** lo misura il collaudo con
 /// Gemini vero, `tool/collaudo_eq04.dart`: una prova di casa non puo'
 /// giudicare un testo libero.
+///
+/// **ORDINE GA, 20 ottobre 2026, voci GA.03, GA.05, GA.06 e GA.07.** La
+/// decisione del fondatore "Carte dal corpus": in ogni stesa le singole
+/// carte vengono dal corpus (titolo, paragrafo e "Cosa fare adesso" per
+/// carta, verso, posizione e ambito) e il modello scrive il solo responso
+/// principale, ogni paragrafo da 40 a 50 parole. LAPIDE: un campo per carta
+/// (`passato`, `presente`, `futuro`), il legame e il consiglio "una frase
+/// sola", dall'ordine EQ voce 04 all'ordine GA; le prove di quella forma qui
+/// sono riscritte sulla forma nuova. Le guardie scartano adesso un paragrafo
+/// fuori misura, un responso che non nomina nessuna carta, la cifra, il
+/// confine e il genere; la cura del genere che toglie una frase non deve
+/// rompere la misura. Nessuna chiamata vera: le letture sono finte
+/// (`la_lettura_finta_della_stesa.dart`).
 void main() {
   // --- Il corpus ---
 
@@ -112,30 +126,45 @@ void main() {
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 
-  // --- La lettura di casa ---
+  // --- Le carte, sempre dal corpus ---
 
-  test('senza modello ogni carta si legge col testo della sua posizione', () {
+  test(
+      'ogni carta si legge col responso della sua posizione, col modello o '
+      'senza', () {
     final colpe = <String>[];
     var guardate = 0;
     for (var seme = 0; seme < 60; seme++) {
       final stesa = TarotSpread.draw(seed: seme);
-      final lettura = TarotReading.of(stesa, TarotTopic.momentoCheVivo);
-      for (final p in lettura.posizioni) {
-        guardate++;
-        if (p.testo !=
-            LeCarteNellaPosizione.letturaDiCasa(
-                p.drawn, TarotTopic.momentoCheVivo.group)) {
-          colpe.add('seme $seme, ${p.drawn.displayName}: non e\' il testo '
-              'della sua posizione');
-        }
-        if (p.testo == p.drawn.meaning) {
-          colpe.add('seme $seme, ${p.drawn.displayName}: e\' il significato '
-              'uguale per tutte le posizioni');
+      for (final dalModello in [null, letturaFinta(stesa)]) {
+        final lettura = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
+            dalModello: dalModello);
+        for (final p in lettura.posizioni) {
+          guardate++;
+          final g = TarotTopic.momentoCheVivo.group;
+          if (p.testo != LeCarteNellaPosizione.letturaDiCasa(p.drawn, g)) {
+            colpe.add('seme $seme, ${p.drawn.displayName}: non e\' il testo '
+                'della sua posizione');
+          }
+          if (p.testo == p.drawn.meaning) {
+            colpe.add('seme $seme, ${p.drawn.displayName}: e\' il significato '
+                'uguale per tutte le posizioni');
+          }
+          final r = p.responso!;
+          if (r.titolo != LeCarteNellaPosizione.titoloDi(p.drawn) ||
+              r.cosaFare != LeCarteNellaPosizione.cosaFareDi(p.drawn, g)) {
+            colpe.add('seme $seme, ${p.drawn.displayName}: il titolo o il '
+                'cosa fare non sono quelli del corpus');
+          }
+          if (r.lungo) {
+            colpe.add('seme $seme, ${p.drawn.displayName}: una carta e\' '
+                'lunga');
+          }
         }
       }
     }
-    cardinaleMinimo(guardate, 180,
-        cosa: 'carte lette di casa', perche: 'sessanta stese per tre carte');
+    cardinaleMinimo(guardate, 360,
+        cosa: 'carte lette',
+        perche: 'sessanta stese per tre carte, col modello e senza');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
 
@@ -167,113 +196,120 @@ void main() {
       expect(r, contains(d.displayName));
       expect(r, contains(d.meaning),
           reason: 'il modello parte dal significato tradizionale');
+      expect(r, contains(LaLetturaDellaStesa.cosaDiceLaPosizione[d.position]),
+          reason: 'ogni carta dice che cosa vuol dire la sua posizione');
       // Il testo della posizione non ci va: il modello lo parafrasava invece
       // di leggere la carta sulla domanda (sonde 13 e 14).
       expect(r, isNot(contains(LeCarteNellaPosizione.di(d))));
     }
+    expect(r, isNot(contains('Campo:')),
+        reason: 'dall\'ordine GA nessuna carta ha un campo del modello');
   });
 
-  test('l\'istruzione chiede la risposta per prima e le carte nella posizione',
+  test('l\'istruzione chiede il solo responso principale nella forma nuova',
       () {
     final i = LaLetturaDellaStesa.istruzione(CourtesyForm.neutral);
-    expect(i, contains('La prima risponde alla domanda in modo diretto'));
-    expect(i, contains('leggila nella sua posizione'));
-    expect(i, contains('partendo dalla carta chiave che ti indico'));
-    expect(i, contains('sempre rispetto alla domanda della persona'));
-    expect(i, contains('Nessuna previsione data per certa'));
+    expect(
+        i,
+        contains(LaFormaDelResponso.perIlModello(
+            arte: ArteInterpretata.tarocchi, lunga: false)));
+    expect(i, contains('La prima frase risponde subito alla domanda'));
+    expect(i, contains('La risposta parte dalla carta chiave che ti indico'));
+    expect(i, contains('Nessun futuro dato per certo'));
+    expect(LaLetturaDellaStesa.campiPer(TarotSpread.draw(seed: 1)).keys,
+        ['risposta', 'cosaFare', 'titolo']);
+    expect(
+        LaLetturaDellaStesa.campiPer(TarotSpread.draw(seed: 1), profonda: true)
+            .keys,
+        ['risposta', 'cosaFare', 'approfondimento', 'titolo']);
   });
 
   // --- La lettura del modello ---
 
-  LetturaDelModello buona(TarotSpread s) => LetturaDelModello(
-        risposta: 'Le carte indicano che puoi accettare, a patto di chiarire '
-            'prima le condizioni. ${s.presente.card.name} nel presente dice '
-            'che la decisione e\' matura.',
-        passato: '${s.passato.card.name} nel passato racconta da dove parti: '
-            'un lavoro che ti stava stretto.',
-        presente: '${s.presente.card.name} nel presente dice che adesso hai '
-            'gli strumenti per scegliere.',
-        futuro: '${s.futuro.card.name} nel futuro indica un ambiente dove il '
-            'tuo mestiere puo\' crescere.',
-        legame: 'Dal passato al futuro le carte vanno da una chiusura a un '
-            'inizio.',
-        consiglio: 'Questa settimana chiedi per iscritto orari e compenso.',
-      );
-
-  test('la lettura del modello diventa la lettura a schermo', () {
+  test('la lettura del modello diventa il responso principale', () {
     final stesa = TarotSpread.draw(seed: 3);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
     final r = TarotReading.of(stesa, TarotTopic.lavoroTrovare,
         domandaScritta: 'Devo accettare l\'offerta di lavoro a Milano?',
         dalModello: l);
-    expect(r.consiglio, startsWith(l.risposta),
+    expect(r.principale.risposta, l.risposta,
         reason: 'la risposta e\' la prima cosa che si legge');
-    expect(r.consiglio, contains(l.legame));
-    expect(r.consiglio, contains(l.consiglio));
-    expect(r.posizioni.map((p) => p.testo).toList(),
-        [l.passato, l.presente, l.futuro]);
-    // **LAPIDE: "il consiglio del modello e' l'ultimo paragrafo".** Ordine
-    // FK aggiunta voce A2: tre paragrafi, il secondo e' il consiglio (nel
-    // riquadro) e il terzo e' il legame. Chi ha scritto la sua domanda non la
-    // ritrova in coda.
-    expect(r.paragrafi[1], l.consiglio);
-    expect(r.paragrafi.last, l.legame);
+    expect(r.principale.cosaFare, l.cosaFare);
+    expect(r.consiglio, startsWith(l.risposta));
+    expect(r.principale.difetti(), isEmpty);
+    // **LAPIDE: "le tre carte sono quelle del modello".** Dall'ordine GA le
+    // carte vengono dal corpus anche quando il modello risponde.
+    expect(r.posizioni.map((p) => p.testo).toList(), [
+      for (final d in stesa.cards)
+        LeCarteNellaPosizione.letturaDiCasa(d, TarotTopic.lavoroTrovare.group)
+    ]);
   });
 
-  test('la domanda di chiusura resta a chi non ha scritto la sua', () {
+  test('la domanda di chiusura resta un dato, fuori dai paragrafi', () {
     final stesa = TarotSpread.draw(seed: 4);
-    final r = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
-        dalModello: buona(stesa));
-    // In fondo al terzo paragrafo, non in un quarto (ordine FK aggiunta
-    // voce A2, *"3 paragrafi"*).
-    expect(r.paragrafi, hasLength(3));
-    expect(r.paragrafi.last, endsWith(r.domanda));
+    for (final dalModello in [null, letturaFinta(stesa)]) {
+      final r = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
+          dalModello: dalModello);
+      expect(r.domanda, isNotEmpty, reason: 'torna nel dono del mattino');
+      for (final p in r.principale.paragrafi) {
+        expect(p, isNot(contains(r.domanda)),
+            reason: 'la forma di GA.03 non le da\' un paragrafo');
+      }
+    }
   });
 
-  test('il cielo di oggi resta accanto alle carte', () {
+  test('il cielo di oggi sta nel "Da dove viene", non nei paragrafi', () {
     final stesa = TarotSpread.draw(seed: 5);
     const cielo = 'La Luna oggi passa sul tuo Sole.';
-    final r = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
-        fattoDelCielo: cielo, dalModello: buona(stesa));
-    expect(r.consiglio, contains(VoceDellaStesa.rigaDelCielo(cielo)));
+    for (final dalModello in [null, letturaFinta(stesa)]) {
+      final r = TarotReading.of(stesa, TarotTopic.momentoCheVivo,
+          fattoDelCielo: cielo, dalModello: dalModello);
+      expect(r.fonte, contains(cielo));
+      expect(r.consiglio, isNot(contains(cielo)));
+    }
   });
 
   test('le guardie scartano la lettura che non regge', () {
     final stesa = TarotSpread.draw(seed: 6);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
     expect(LaLetturaDellaStesa.scarto(l, stesa), isNull,
         reason: 'una lettura buona deve passare, o la prova sotto non '
             'distingue niente');
-    LetturaDelModello con({String? risposta, String? passato}) =>
+    LetturaDelModello con({String? risposta, String? cosaFare}) =>
         LetturaDelModello(
           risposta: risposta ?? l.risposta,
-          passato: passato ?? l.passato,
-          presente: l.presente,
-          futuro: l.futuro,
-          legame: l.legame,
-          consiglio: l.consiglio,
+          cosaFare: cosaFare ?? l.cosaFare,
         );
+    final parole = l.risposta.split(' ');
     expect(
         LaLetturaDellaStesa.scarto(
-            con(passato: 'Qui c\'era una carta.'), stesa),
-        isNotNull,
-        reason: 'una carta letta senza nominarla');
+            con(risposta: parole.take(39).join(' ')), stesa),
+        contains('la risposta ha 39 parole'),
+        reason: 'una risposta sotto la misura');
     expect(
         LaLetturaDellaStesa.scarto(
-            con(risposta: 'Fra 3 mesi arriva la risposta.'), stesa),
-        isNotNull,
-        reason: 'una cifra');
-    expect(
-        LaLetturaDellaStesa.scarto(con(risposta: 'x' * 400), stesa), isNotNull,
-        reason: 'una risposta oltre il tetto');
+            con(cosaFare: '${l.cosaFare} ${parole.take(4).join(' ')}'), stesa),
+        contains('il cosa fare ha 51 parole'),
+        reason: 'un cosa fare sopra la misura');
     expect(
         LaLetturaDellaStesa.scarto(
             con(
-                passato: '${stesa.passato.card.name} dice che ti tiene '
-                    'legata a un vecchio posto.'),
+                risposta: l.risposta
+                    .replaceFirst('Prima di firmare,', 'Fra 3 giorni,')),
+            stesa),
+        'una cifra nella lettura');
+    final senzaCarte = l.risposta
+        .replaceFirst(TarotReading.chiaveDi(stesa).drawn.card.name, 'la carta');
+    expect(LaLetturaDellaStesa.scarto(con(risposta: senzaCarte), stesa),
+        'il responso non nomina nessuna carta della stesa');
+    expect(
+        LaLetturaDellaStesa.scarto(
+            con(
+                cosaFare: l.cosaFare.replaceFirst(
+                    'Non accettare a voce', 'Se ti senti sopraffatto,')),
             stesa,
             forma: CourtesyForm.neutral),
-        isNotNull,
+        startsWith(LaLetturaDellaStesa.motivoDelGenere),
         reason: 'un genere dato a chi legge, con la forma neutra');
   });
 
@@ -326,14 +362,13 @@ void main() {
 
   test('una lettura scartata si chiede di nuovo, col motivo', () async {
     final stesa = TarotSpread.draw(seed: 9);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
     final richieste = <String>[];
     // Un difetto che non e' il genere: per il genere c'e' la riscrittura,
     // provata qui sotto.
     final conCifra = {
       ...l.toJson(),
-      'risposta': 'Fra 3 mesi le carte indicano un cambio. '
-          '${stesa.presente.card.name} lo dice.',
+      'risposta': l.risposta.replaceFirst('Prima di firmare,', 'Fra 3 giorni,'),
     };
     final letta = await LaLetturaDellaStesa.leggi(
       spread: stesa,
@@ -354,13 +389,41 @@ void main() {
         reason: 'il motivo arriva al modello');
   });
 
+  test('un paragrafo fuori misura si richiede, mai si tronca', () async {
+    final stesa = TarotSpread.draw(seed: 15);
+    final l = letturaFinta(stesa);
+    final richieste = <String>[];
+    final lunga = {
+      ...l.toJson(),
+      'cosaFare': '${l.cosaFare} Fallo prima di sera, con calma.',
+    };
+    final letta = await LaLetturaDellaStesa.leggi(
+      spread: stesa,
+      domanda: 'Il momento che vivo',
+      argomento: TarotTopic.momentoCheVivo.label,
+      forma: CourtesyForm.neutral,
+      chiamata: (i, r, c) async {
+        richieste.add(r);
+        return jsonEncode(richieste.length == 1 ? lunga : l.toJson());
+      },
+    );
+    expect(letta, isNotNull);
+    expect(letta!.cosaFare, l.cosaFare,
+        reason: 'si mostra la lettura a misura, non quella tagliata');
+    expect(richieste.last, contains('il cosa fare ha 53 parole'));
+  });
+
   test('finiti i tentativi, la frase col genere si toglie e la lettura resta',
       () async {
     final stesa = TarotSpread.draw(seed: 12);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
+    // 45 parole, e con la frase col genere 49: tolta la frase, il cosa fare
+    // resta nella misura.
+    final corto = l.cosaFare.replaceFirst(
+        'davvero a quello che cerchi adesso.', 'a quello che cerchi.');
     final conGenere = {
       ...l.toJson(),
-      'passato': '${l.passato} Ti ha lasciato stanco.',
+      'cosaFare': '$corto Ti ha lasciato stanco.',
     };
     var chiamate = 0;
     final letta = await LaLetturaDellaStesa.leggi(
@@ -379,16 +442,48 @@ void main() {
         reason: 'la cura viene dopo i tentativi, non al loro posto');
     expect(letta, isNotNull, reason: '${LaLetturaDellaStesa.ultimiScarti}');
     expect(LaLetturaDellaStesa.ultimaCurata, isTrue);
-    expect(letta!.passato, l.passato,
+    expect(letta!.cosaFare, corto,
         reason: 'si toglie la sola frase col genere');
     expect(letta.risposta, l.risposta);
+  });
+
+  test('la cura che toglie una frase non rompe la misura', () async {
+    final stesa = TarotSpread.draw(seed: 16);
+    final l = letturaFinta(stesa);
+    // Il cosa fare con la frase col genere ha 42 parole; senza, 38: sotto la
+    // misura, e la lettura curata non si mostra (parla quella di casa).
+    final conGenere = {
+      ...l.toJson(),
+      'cosaFare': 'Questa settimana chiedi per iscritto orari, compenso e '
+          'durata del contratto, poi rileggi tutto prima di rispondere. Non '
+          'accettare a voce e non lasciarti mettere fretta: una sera di '
+          'riflessione ti aiuta a capire se l\'offerta va bene. Ti ha '
+          'lasciato stanco.',
+    };
+    expect(LaFormaDelResponso.aMisura(conGenere['cosaFare']!), isTrue);
+    final letta = await LaLetturaDellaStesa.leggi(
+      spread: stesa,
+      domanda: 'Il momento che vivo',
+      argomento: TarotTopic.momentoCheVivo.label,
+      forma: CourtesyForm.neutral,
+      chiamata: (i, r, c) async => jsonEncode(conGenere),
+    );
+    expect(
+        LaLetturaDellaStesa.senzaLeFrasiColGenere(
+            LetturaDelModello.daJson(conGenere)!, CourtesyForm.neutral),
+        isNotNull,
+        reason: 'la cura toglie la frase');
+    expect(letta, isNull,
+        reason: 'ma il cosa fare curato e\' sotto le quaranta parole');
+    expect(LaLetturaDellaStesa.ultimaCurata, isFalse);
   });
 
   test('le frasi col genere si riscrivono, e la carta resta nominata',
       () async {
     final stesa = TarotSpread.draw(seed: 14);
-    final l = buona(stesa);
-    final carta = stesa.presente.card.name;
+    final l = letturaFinta(stesa);
+    final corto = l.cosaFare.replaceFirst(
+        'davvero a quello che cerchi adesso.', 'a quello che cerchi.');
     final riscritture = <String>[];
     final letta = await LaLetturaDellaStesa.leggi(
       spread: stesa,
@@ -398,12 +493,11 @@ void main() {
       chiamata: (i, r, c) async {
         if (i == LaLetturaDellaStesa.istruzioneDellaRiscrittura) {
           riscritture.add(r);
-          return jsonEncode(
-              {'frasi': '$carta nel presente indica che senti un peso.'});
+          return jsonEncode({'frasi': 'Oggi senti un peso.'});
         }
         return jsonEncode({
           ...l.toJson(),
-          'presente': '$carta nel presente indica che ti senti sopraffatto.',
+          'cosaFare': '$corto Oggi ti senti sopraffatto.',
         });
       },
     );
@@ -413,15 +507,16 @@ void main() {
         reason: 'la riscrittura viene prima di rigenerare');
     expect(riscritture.single, contains('ti senti sopraffatto'),
         reason: 'si manda al correttore la sola frase col genere');
-    expect(letta!.presente, '$carta nel presente indica che senti un peso.');
+    expect(letta!.cosaFare, '$corto Oggi senti un peso.');
+    expect(letta.risposta, l.risposta, reason: 'la carta resta nominata');
     expect(
-        formeContrarieAllaForma(letta.presente, CourtesyForm.neutral), isEmpty);
+        formeContrarieAllaForma(letta.cosaFare, CourtesyForm.neutral), isEmpty);
   });
 
   test('il genere nella risposta non si cura: parla la lettura di casa',
       () async {
     final stesa = TarotSpread.draw(seed: 13);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
     final letta = await LaLetturaDellaStesa.leggi(
       spread: stesa,
       domanda: 'Il momento che vivo',
@@ -429,8 +524,8 @@ void main() {
       forma: CourtesyForm.neutral,
       chiamata: (i, r, c) async => jsonEncode({
         ...l.toJson(),
-        'risposta': 'Sei pronto a cambiare. ${stesa.presente.card.name} lo '
-            'dice.',
+        'risposta': l.risposta
+            .replaceFirst('Prima di firmare, però,', 'Sei pronto, però, prima'),
       }),
     );
     expect(letta, isNull,
@@ -458,11 +553,12 @@ void main() {
   test('il trattino lungo e la virgola con la e si correggono, non si buttano',
       () async {
     final stesa = TarotSpread.draw(seed: 7);
-    final l = buona(stesa);
+    final l = letturaFinta(stesa);
     final grezza = {
       ...l.toJson(),
-      'legame': 'Le carte vanno da una chiusura — a un inizio, e lo '
-          'fanno piano.',
+      'cosaFare': l.cosaFare
+          .replaceFirst('compenso e durata', 'compenso, e durata')
+          .replaceFirst('rispondere. Non', 'rispondere — non'),
     };
     final letta = await LaLetturaDellaStesa.leggi(
       spread: stesa,
@@ -472,8 +568,8 @@ void main() {
       chiamata: (i, r, c) async => jsonEncode(grezza),
     );
     expect(letta, isNotNull, reason: '${LaLetturaDellaStesa.ultimoScarto}');
-    expect(letta!.legame, isNot(contains('—')));
-    expect(letta.legame, isNot(contains(', e ')));
+    expect(letta!.cosaFare, isNot(contains('—')));
+    expect(letta.cosaFare, isNot(contains(', e ')));
   });
 
   test('una chiamata che non torna lascia parlare la lettura di casa',
@@ -572,7 +668,7 @@ void main() {
     silenzia();
     // Alta abbastanza da costruire tutto il responso: la lista e' pigra, e
     // una bolla fuori dalla finestra non c'e' proprio.
-    tester.view.physicalSize = const Size(402, 5000);
+    tester.view.physicalSize = const Size(402, 6000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -620,19 +716,21 @@ void main() {
     LetturaDelModello? mandata;
     final stesa = await leggiLeCarte(tester, (s, richiesta) async {
       richieste++;
-      mandata = buona(s);
+      mandata = letturaFinta(s);
       return jsonEncode(mandata!.toJson());
     });
     expect(richieste, 1, reason: 'una chiamata sola per stesa');
     expect(find.byKey(const Key('stesa_consiglio')), findsOneWidget);
-    final consiglio = testoDi(tester, 'stesa_consiglio');
-    expect(consiglio, contains(piano(mandata!.risposta)),
-        reason: 'il consiglio a schermo non comincia dalla risposta del '
-            'modello');
+    expect(
+        testoDi(tester, 'stesa_principale_risposta'), piano(mandata!.risposta),
+        reason: 'il responso principale non e\' la risposta del modello');
+    expect(testoDi(tester, 'stesa_principale_cosa_fare'),
+        piano(mandata!.cosaFare));
     for (final d in stesa.cards) {
       expect(testoDi(tester, 'stesa_letta_${d.position.name}'),
-          contains(piano(mandata!.della(d.position))),
-          reason: '${d.position.label}: non e\' il testo del modello');
+          contains(piano(LeCarteNellaPosizione.di(d))),
+          reason: '${d.position.label}: la carta viene dal corpus anche col '
+              'modello (ordine GA, "Carte dal corpus")');
     }
   });
 
@@ -656,7 +754,8 @@ void main() {
   // un'altra chiave.
   testWidgets('la chiave scelta arriva al modello come voce', (tester) async {
     final istruzioni = <String>[];
-    await leggiLeCarte(tester, (s, r) async => jsonEncode(buona(s).toJson()),
+    await leggiLeCarte(
+        tester, (s, r) async => jsonEncode(letturaFinta(s).toJson()),
         chiave: ReadingKey.riflessione, istruzione: istruzioni.add);
     expect(istruzioni, isNotEmpty);
     expect(istruzioni.first, contains(ReadingKey.riflessione.voce!));

@@ -13,7 +13,7 @@ import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
-import 'package:esoteric_circle/design_system/components/il_responso_in_tre_paragrafi.dart';
+import 'package:esoteric_circle/design_system/components/il_responso_interpretato.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +30,11 @@ import 'package:provider/provider.dart';
 /// - **BN.06**: il titolo del consiglio sale di una misura piena della scala e
 ///   resta su una riga sola; il testo si presenta in due o tre paragrafi, e
 ///   nessun paragrafo comincia a meta' di una frase.
+///
+/// **ORDINE GA, 20 ottobre 2026, voce GA.03.** Il consiglio di Medora e' il
+/// responso principale nella forma nuova, disegnato da
+/// `IlResponsoInterpretato`: nella Breve due paragrafi da 40 a 50 parole, il
+/// secondo nel riquadro "Cosa fare adesso".
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -233,24 +238,26 @@ void main() {
     expect(dipinto.text.toPlainText(), contains('MEDORA'));
   });
 
-  test('il consiglio ha due o tre paragrafi, e nessuno comincia a meta\'', () {
+  // **ORDINE GA, voce GA.03, 20 ottobre 2026.** LAPIDE: "due o tre
+  // paragrafi, piu' la domanda staccata". Il responso Breve di casa ha due
+  // paragrafi, la risposta e il "Cosa fare adesso", ognuno da 40 a 50
+  // parole; la domanda di chiusura resta un dato fuori dai paragrafi.
+  test(
+      'il consiglio ha i due paragrafi della Breve, e nessuno comincia a '
+      'meta\'', () {
     for (final seed in const [2, 5, 9, 13, 21]) {
       for (final topic in TarotTopic.values) {
         final lettura = TarotReading.of(
           TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seed)),
           topic,
         );
-        // La domanda finale sta gia' staccata da sempre: si guarda il corpo.
-        final corpo = lettura.consiglio.split('\n\n');
-        expect(corpo.length, greaterThanOrEqualTo(3),
-            reason: 'seme $seed, ${topic.name}: il consiglio non e\' diviso '
-                'in paragrafi');
-        // L'ultimo pezzo e' la domanda: i paragrafi del consiglio sono gli
-        // altri, e devono essere due o tre.
-        final paragrafi = corpo.sublist(0, corpo.length - 1);
-        expect(paragrafi.length, inInclusiveRange(2, 3),
+        final paragrafi = lettura.principale.paragrafi;
+        expect(paragrafi, hasLength(2),
             reason: 'seme $seed, ${topic.name}: i paragrafi sono '
-                '${paragrafi.length}, e l\'ordine ne chiede due o tre');
+                '${paragrafi.length}, e la Breve ne chiede due');
+        expect(lettura.principale.difetti(), isEmpty,
+            reason: 'seme $seed, ${topic.name}: '
+                '${lettura.principale.difetti()}');
         for (final p in paragrafi) {
           final primo = p.trimLeft();
           expect(primo.isNotEmpty, isTrue);
@@ -364,6 +371,21 @@ void main() {
       misure['bolla ${quale++}: ${w.testo.substring(0, 18)}...'] =
           w.stile.fontSize!;
     }
+    // **ORDINE GA, voce GA.05**: il testo narrato di ogni carta e del
+    // responso principale passa da `IlResponsoInterpretato`, la forma in un
+    // punto solo, e la sua misura sta nel suo stile. Senza queste righe la
+    // guardia avrebbe perso il bersaglio: le bolle non hanno piu' un
+    // `ParagrafiDiLettura` per il loro paragrafo.
+    final responsi = find.byType(IlResponsoInterpretato);
+    var quanto = 0;
+    for (final e in responsi.evaluate()) {
+      final w = e.widget as IlResponsoInterpretato;
+      misure['responso ${quanto++}: ${w.responso.risposta.substring(0, 18)}'
+          '...'] = w.stile.fontSize!;
+    }
+    expect(quanto, greaterThanOrEqualTo(4),
+        reason: 'il responso principale e le tre carte non passano piu\' '
+            'da IlResponsoInterpretato: la guardia non vede il loro testo');
     final lettura = TypographyTokens.lettura().fontSize!;
     // ignore: avoid_print
     print('ORDINE BU VOCE 1: misura di lettura $lettura, testi di contenuto '
@@ -385,22 +407,24 @@ void main() {
     final bolla = find.byKey(const Key('stesa_consiglio'));
     expect(bolla, findsOneWidget);
     // **LAPIDE: "un ParagrafiDiLettura solo dentro il consiglio".** Ordine
-    // FK aggiunta voce A2: i paragrafi sono tre, il secondo nel riquadro, e li
-    // dispone `ResponsoInTreParagrafi`. La legge resta: paragrafi separati,
-    // alla misura di lettura, non tutti d'oro.
+    // FK aggiunta voce A2: i paragrafi erano tre, il secondo nel riquadro, e
+    // li disponeva `ResponsoInTreParagrafi`. **Ordine GA voce GA.03**: li
+    // dispone `IlResponsoInterpretato`, la forma in un punto solo (due nella
+    // Breve, il secondo nel riquadro "Cosa fare adesso"). La legge resta:
+    // paragrafi separati, alla misura di lettura, non tutti d'oro.
     final paragrafi = find.descendant(
-        of: bolla, matching: find.byType(ResponsoInTreParagrafi));
+        of: bolla, matching: find.byType(IlResponsoInterpretato));
     expect(paragrafi, findsOneWidget,
         reason: 'il consiglio e\' tornato un blocco solo: i paragrafi si '
             'fondono e il testo diventa un muro');
-    final w = tester.widget<ResponsoInTreParagrafi>(paragrafi);
-    expect(w.paragrafi, hasLength(3));
+    final w = tester.widget<IlResponsoInterpretato>(paragrafi);
+    expect(w.responso.paragrafi, hasLength(2));
     expect(w.stile.fontSize, TypographyTokens.lettura().fontSize,
         reason: 'il consiglio non e\' alla misura di lettura');
     expect(w.stile.color, isNot(MaestroPalette.medora.goldSoft),
         reason: 'il consiglio e\' ancora tutto oro: un accento su ogni riga '
             'non accenta niente');
-    final quanti = w.paragrafi.length;
+    final quanti = w.responso.paragrafi.length;
     // ignore: avoid_print
     print('ORDINE BU VOCE 1: il consiglio ha $quanti paragrafi, misura '
         '${w.stile.fontSize}, colore ${w.stile.color}');

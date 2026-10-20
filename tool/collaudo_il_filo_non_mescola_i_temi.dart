@@ -85,14 +85,14 @@ void main() {
       chiamata: chiama,
     );
     final rispostaSeconda = '${seconda?.risposta ?? ''} '
-        '${seconda?.consiglio ?? ''}';
+        '${seconda?.cosaFare ?? ''}';
     final mescolato = rispostaSeconda.toLowerCase().contains('bambino') ||
         rispostaSeconda.toLowerCase().contains('partorir');
     righe
       ..add('== SECONDA STESA, una carta, "${TarotTopic.fiducia.label}"')
       ..add('  esito: ${seconda == null ? 'LETTURA DI CASA' : 'dal modello'}')
       ..add('  risposta: ${seconda?.risposta}')
-      ..add('  consiglio: ${seconda?.consiglio}')
+      ..add('  consiglio: ${seconda?.cosaFare}')
       ..add('  MESCOLA IL TEMA DEL BAMBINO: $mescolato')
       ..add('');
 

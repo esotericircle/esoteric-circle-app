@@ -3967,10 +3967,16 @@ void main() {
         'FK/fk_a1_stesa_il_titolo.png');
     await fkInQuadro(tester, rootKey, const Key('stesa_consiglio'),
         'FK/fk_a2_stesa_i_tre_paragrafi.png');
-    await fkInQuadro(tester, rootKey, const Key('responso_da_dove_viene'),
-        'FK/fk_a2_stesa_da_dove_viene.png');
     await fkInQuadro(tester, rootKey, const Key('stesa_letta_presente'),
         'FK/fk_a3_stesa_le_bolle.png');
+    // Ordine GA voce GA.05: il "Da dove viene" chiude la consultazione dopo
+    // le carte, una volta sola, con la sua chiave: si inquadra dopo le bolle,
+    // perche' la lista si scorre solo in giu'.
+    await fkInQuadro(
+        tester,
+        rootKey,
+        const Key('stesa_principale_da_dove_viene'),
+        'FK/fk_a2_stesa_da_dove_viene.png');
     await tester.tap(find.byKey(const Key('tarocchi_fonti_bottone')).first,
         warnIfMissed: false);
     await step(tester);
@@ -4152,7 +4158,15 @@ void main() {
           'FK/fk_a12_${nome}_il_tavolo.png');
       await fkInQuadro(tester, rootKey, const Key('stesa_consiglio'),
           'FK/fk_a12_${nome}_il_responso.png');
-      await fkInQuadro(tester, rootKey, const Key('stesa_lente'),
+      // Ordine GA voce GA.05: la stesa a una carta non ha le bolle (il
+      // responso principale e' quello della carta): si inquadra il suo
+      // "Da dove viene".
+      await fkInQuadro(
+          tester,
+          rootKey,
+          tipo.carte == 1
+              ? const Key('stesa_principale_da_dove_viene')
+              : const Key('stesa_lente'),
           'FK/fk_a12_${nome}_le_bolle.png');
     });
   }

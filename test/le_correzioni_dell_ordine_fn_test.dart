@@ -1,60 +1,43 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
-import 'package:esoteric_circle/core/chat/user_profile.dart';
-import 'package:esoteric_circle/design_system/components/il_responso_in_tre_paragrafi.dart';
+import 'package:esoteric_circle/design_system/components/il_responso_interpretato.dart';
+import 'package:esoteric_circle/design_system/components/riquadro_arancione.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'la_lettura_finta_della_stesa.dart';
+
 /// **LE DIECI CORREZIONI DELL'ORDINE FN.** 13 ottobre 2026, richieste del
 /// fondatore sulla Stesa di Tarocchi dopo la consegna della build 2306.
+///
+/// **ORDINE GA, 20 ottobre 2026, voci GA.03, GA.04 e GA.05.** LAPIDE: la
+/// Lunga dell'ordine FN erano due paragrafi di approfondimento in un riquadro
+/// arancione, `approfondimento1` e `approfondimento2`. Adesso la Lunga ha la
+/// forma di GA.03: il paragrafo che approfondisce, scritto dal modello, e il
+/// riquadro arancione "La contemplazione propiziatoria" della carta chiave,
+/// dal corpus dei riti; solo nel responso principale, mai nelle carte
+/// (*"solo per il responso principale e non per le singole carte"*).
 void main() {
-  LetturaDelModello buona(TarotSpread s, {bool profonda = false}) =>
-      LetturaDelModello(
-        risposta: 'Le carte indicano che puoi accettare, a patto di '
-            'chiarire prima le condizioni. ${s.presente.card.name} nel '
-            'presente dice che la decisione è matura.',
-        passato: '${s.passato.card.name} nel passato racconta da dove '
-            'parti: un lavoro che ti stava stretto.',
-        presente: '${s.presente.card.name} nel presente dice che adesso '
-            'hai gli strumenti per scegliere.',
-        futuro: '${s.futuro.card.name} nel futuro indica un ambiente '
-            'dove il tuo mestiere può crescere.',
-        legame: 'Dal passato al futuro le carte vanno da una chiusura a '
-            'un inizio.',
-        consiglio: 'Questa settimana chiedi per iscritto orari e '
-            'compenso.',
-        approfondimento1: profonda
-            ? 'Scrivi una lista di tre condizioni non negoziabili e '
-                'mandala prima del colloquio di martedì.'
-            : '',
-        approfondimento2: profonda
-            ? 'Se la risposta tarda oltre venerdì, richiama tu: non '
-                'aspettare un secondo silenzio.'
-            : '',
-      );
+  // --- FN.1 e GA.03: la profondità Lunga porta l'approfondimento e la
+  // contemplazione, solo nel responso principale ---
 
-  // --- FN.1: la profondità Lunga porta due paragrafi in riquadro arancione,
-  // solo nel Consiglio di Medora ---
-
-  group('FN.1, la profondità Lunga', () {
-    test('campiPer chiede i due campi solo se profonda', () {
+  group('FN.1 e GA.03, la profondità Lunga', () {
+    test('campiPer chiede l\'approfondimento solo se profonda', () {
       final croce = TarotSpread.draw(seed: 2);
-      expect(
-          LaLetturaDellaStesa.campiPer(croce).containsKey('approfondimento1'),
+      expect(LaLetturaDellaStesa.campiPer(croce).containsKey('approfondimento'),
           isFalse);
       expect(
           LaLetturaDellaStesa.campiPer(croce, profonda: true)
-              .containsKey('approfondimento1'),
-          isTrue);
-      expect(
-          LaLetturaDellaStesa.campiPer(croce, profonda: true)
-              .containsKey('approfondimento2'),
+              .containsKey('approfondimento'),
           isTrue);
     });
 
@@ -63,97 +46,116 @@ void main() {
       final lunga =
           LaLetturaDellaStesa.istruzione(CourtesyForm.neutral, profonda: true);
       expect(breve, isNot(contains('APPROFONDIMENTO')));
-      expect(lunga, contains('APPROFONDIMENTO1'));
-      expect(lunga, contains('approfondimento1'),
-          reason: 'il JSON finale deve nominare il campo in minuscolo');
+      expect(lunga, contains('APPROFONDIMENTO (campo "approfondimento")'));
+      expect(lunga.trimRight().split('\n').last, contains('"approfondimento"'),
+          reason: 'il JSON finale deve nominare il campo');
     });
 
-    test('daJson legge i due campi quando ci sono, vuoti quando mancano', () {
+    test('nella Lunga l\'approfondimento e\' obbligatorio, nella Breve no', () {
       final s = TarotSpread.draw(seed: 5);
-      final l = buona(s, profonda: true);
+      final l = letturaFinta(s, lunga: true);
       final conApprofondimento =
-          LetturaDelModello.daJson(l.toJson(), chiavi: l.chiavi);
-      expect(conApprofondimento!.approfondimento1, isNotEmpty);
-      expect(conApprofondimento.approfondimento2, isNotEmpty);
-      final senza = buona(s);
-      final senzaApprofondimento =
-          LetturaDelModello.daJson(senza.toJson(), chiavi: senza.chiavi);
-      expect(senzaApprofondimento!.approfondimento1, isEmpty);
-      // Una lettura senza i due campi resta comunque una lettura: non sono
-      // obbligatori come risposta, legame o consiglio.
+          LetturaDelModello.daJson(l.toJson(), lunga: true);
+      expect(conApprofondimento!.approfondimento, approfondimentoFinto);
+      final senza = letturaFinta(s);
+      expect(LetturaDelModello.daJson(senza.toJson(), lunga: true), isNull,
+          reason: 'un responso Lungo senza il suo terzo paragrafo non ha la '
+              'forma di GA.03: si chiede di nuovo');
+      expect(LetturaDelModello.daJson(l.toJson())!.approfondimento, isEmpty,
+          reason: 'nella Breve l\'approfondimento non si legge');
     });
 
-    test('un approfondimento troppo lungo fa cadere la lettura', () {
+    test('un approfondimento fuori misura fa cadere la lettura', () {
       final s = TarotSpread.draw(seed: 7);
-      final l = buona(s, profonda: true);
+      final l = letturaFinta(s, lunga: true);
       final lungo = LetturaDelModello(
         risposta: l.risposta,
-        carte: l.carte,
-        chiavi: l.chiavi,
-        legame: l.legame,
-        consiglio: l.consiglio,
-        approfondimento1:
-            'x' * (LaLetturaDellaStesa.tettoDellApprofondimento + 1),
-        approfondimento2: l.approfondimento2,
+        cosaFare: l.cosaFare,
+        approfondimento: '${l.approfondimento} Poi riposa.',
       );
-      expect(LaLetturaDellaStesa.scarto(lungo, s), isNotNull);
+      expect(LaLetturaDellaStesa.scarto(lungo, s),
+          contains('l\'approfondimento ha 51 parole'));
     });
 
     test(
-        'TarotReading.of porta approfondimento SOLO con depth profonda e '
-        'dalModello completo', () {
+        'il responso principale e\' Lungo SOLO con depth profonda e '
+        'l\'approfondimento del modello', () {
       final s = TarotSpread.draw(seed: 11);
-      final l = buona(s, profonda: true);
+      final l = letturaFinta(s, lunga: true);
       final conTutto = TarotReading.of(s, TarotTopic.lavoroTrovare,
           depth: AnswerDepth.profonda, dalModello: l);
-      expect(conTutto.approfondimento, hasLength(2));
+      expect(conTutto.principale.approfondimento, approfondimentoFinto);
+      expect(conTutto.principale.rito,
+          LeCarteNellaPosizione.contemplazioneDi(conTutto.chiave.drawn),
+          reason: 'il rito e\' la contemplazione della carta chiave, dal '
+              'corpus');
+      expect(conTutto.principale.difetti(), isEmpty);
+      expect(conTutto.fonte, contains('Golden Dawn'),
+          reason: 'il "Da dove viene" della Lunga dice la fonte del rito');
+      for (final p in conTutto.posizioni) {
+        expect(p.responso!.lungo, isFalse,
+            reason: 'le singole carte restano Brevi');
+      }
 
       final breveConModelloLungo = TarotReading.of(s, TarotTopic.lavoroTrovare,
           depth: AnswerDepth.breve, dalModello: l);
-      expect(breveConModelloLungo.approfondimento, isEmpty,
+      expect(breveConModelloLungo.principale.lungo, isFalse,
           reason: 'la Breve non mostra l\'approfondimento anche se per '
               'caso ci fosse');
+      expect(breveConModelloLungo.fonte, isNot(contains('Golden Dawn')));
 
       final profondaSenzaModello = TarotReading.of(s, TarotTopic.lavoroTrovare,
           depth: AnswerDepth.profonda);
-      expect(profondaSenzaModello.approfondimento, isEmpty,
+      expect(profondaSenzaModello.principale.lungo, isFalse,
           reason: 'la lettura di casa, senza modello, non ha un '
               'approfondimento da mostrare');
 
-      final mezzo = buona(s);
-      final profondaMaModelloMuto = TarotReading.of(s, TarotTopic.lavoroTrovare,
-          depth: AnswerDepth.profonda, dalModello: mezzo);
-      expect(profondaMaModelloMuto.approfondimento, isEmpty,
-          reason: 'se il modello non ha scritto i due campi, niente '
+      final profondaMaModelloBreve = TarotReading.of(
+          s, TarotTopic.lavoroTrovare,
+          depth: AnswerDepth.profonda, dalModello: letturaFinta(s));
+      expect(profondaMaModelloBreve.principale.lungo, isFalse,
+          reason: 'se il modello non ha scritto l\'approfondimento, niente '
               'riquadro vuoto');
     });
 
-    testWidgets('il riquadro arancione compare coi due paragrafi, mai con uno',
+    testWidgets('il riquadro arancione del rito compare solo nella Lunga',
         (tester) async {
-      Future<void> monta(List<String> approfondimento) => tester.pumpWidget(
+      final s = TarotSpread.draw(seed: 11);
+      Future<void> monta(ResponsoInterpretato r) => tester.pumpWidget(
             MaterialApp(
               home: Material(
-                child: ResponsoInTreParagrafi(
-                  paragrafi: const ['Uno.', 'Due.', 'Tre.'],
-                  stile: const TextStyle(fontSize: 16),
-                  approfondimento: approfondimento,
+                child: SingleChildScrollView(
+                  child: IlResponsoInterpretato(
+                    responso: r,
+                    chiave: 'stesa_principale',
+                    stileDelTitolo: const TextStyle(fontSize: 20),
+                    stile: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             ),
           );
-      await monta(const ['Primo approfondimento.', 'Secondo approfondimento.']);
-      expect(find.byKey(const Key('riquadro_approfondimento')), findsOneWidget,
-          reason: 'con due paragrafi il riquadro arancione deve comparire');
-      expect(find.text('Primo approfondimento.'), findsOneWidget);
-      expect(find.text('Secondo approfondimento.'), findsOneWidget);
+      final lunga = TarotReading.of(s, TarotTopic.lavoroTrovare,
+          depth: AnswerDepth.profonda,
+          dalModello: letturaFinta(s, lunga: true));
+      await monta(lunga.principale);
+      expect(
+          find.descendant(
+              of: find.byType(RiquadroArancione),
+              matching: find.text(
+                  LaFormaDelResponso.titoloDelRito(ArteInterpretata.tarocchi))),
+          findsOneWidget,
+          reason: 'nella Lunga il riquadro arancione porta il titolo del '
+              'rito');
+      expect(find.text('La contemplazione propiziatoria'), findsOneWidget);
+      expect(find.byKey(const Key('stesa_principale_approfondimento')),
+          findsOneWidget);
 
-      await monta(const []);
-      expect(find.byKey(const Key('riquadro_approfondimento')), findsNothing,
-          reason: 'senza approfondimento niente riquadro arancione');
-
-      await monta(const ['Solo uno.']);
-      expect(find.byKey(const Key('riquadro_approfondimento')), findsNothing,
-          reason: 'un paragrafo solo non basta: ne servono due');
+      final breve = TarotReading.of(s, TarotTopic.lavoroTrovare,
+          dalModello: letturaFinta(s));
+      await monta(breve.principale);
+      expect(find.byType(RiquadroArancione), findsNothing,
+          reason: 'nella Breve niente riquadro arancione');
     });
   });
 

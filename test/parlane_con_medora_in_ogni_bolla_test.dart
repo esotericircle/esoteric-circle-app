@@ -55,8 +55,8 @@ void main() {
           // senza, la prova lancia invece di misurare quello che vuole
           // misurare.
           ChangeNotifierProvider(
-              create: (_) => RegistroDeiRicordi(
-                  orologio: () => DateTime(2026, 10, 13))),
+              create: (_) =>
+                  RegistroDeiRicordi(orologio: () => DateTime(2026, 10, 13))),
         ],
         child: MediaQuery(
           data: const MediaQueryData(),
@@ -69,7 +69,10 @@ void main() {
 
   Future<void> monta(WidgetTester tester) async {
     silenzia();
-    tester.view.physicalSize = const Size(360, 4400);
+    // Ordine GA voce GA.05: ogni bolla porta il suo titolo, il paragrafo e
+    // il riquadro "Cosa fare adesso", e la lista pigra costruisce solo cio'
+    // che sta nella finestra: a 4400 il pulsante in fondo non c'era piu'.
+    tester.view.physicalSize = const Size(360, 8000);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -113,8 +116,7 @@ void main() {
     await monta(tester);
     final dentroLaBolla =
         tester.getSize(find.byKey(const Key('bolla_parlane_passato')));
-    final infondo =
-        tester.getSize(find.byKey(const Key('responso_parlane')));
+    final infondo = tester.getSize(find.byKey(const Key('responso_parlane')));
     // ignore: avoid_print
     print('PARLANE IN OGNI BOLLA: pulsante nella bolla '
         '${dentroLaBolla.width.toStringAsFixed(0)}x'
@@ -128,8 +130,8 @@ void main() {
   });
 
   test('ChatOpeners.cartaDellaStesa cita l\'etichetta e la carta', () {
-    final sorgente = File('lib/features/maestri/chat/chat_openers.dart')
-        .readAsStringSync();
+    final sorgente =
+        File('lib/features/maestri/chat/chat_openers.dart').readAsStringSync();
     expect(sorgente.contains('static String cartaDellaStesa('), isTrue,
         reason: 'la porta della chat per la singola bolla non esiste piu\'');
   });

@@ -8,6 +8,7 @@ import 'tarot_topic.dart';
 import 'voce_della_stesa.dart';
 import 'tetti_della_stesa.dart';
 import '../../core/chat/user_profile.dart';
+import '../responsi/la_forma_del_responso.dart';
 
 // LE CARTE CHE DIALOGANO NON VIVONO PIU' QUI, ordine P voce 08.
 //
@@ -43,9 +44,7 @@ class CartaChiave {
 /// disclaimer.
 ///
 /// La ragione sta nella voce 09: il consiglio e' la bolla che la persona porta
-/// via, quindi si genera prima e si legge prima. E la domanda non e' piu' una
-/// bolla: e' come finisce cio' che Medora dice, perche' una domanda in una
-/// cornice sua sembra un compito assegnato.
+/// via, quindi si genera prima e si legge prima.
 ///
 /// **LAPIDE: "A RUNTIME GEMINI CUCE SOLO L'ULTIMO STRATO".** Qui era scritto
 /// che tutto era deterministico e cacheabile, e che l'LLM non toccava la
@@ -53,9 +52,18 @@ class CartaChiave {
 /// Flash quando risponde (`LaLetturaDellaStesa`): il fondatore l'aveva
 /// trovata *"troppo criptica"*, e il collaudo "prima" gli ha dato ragione,
 /// una risposta diretta su venti letture e nessuna carta su sessanta letta
-/// nella sua posizione (`docs/collaudo/EQ/tarocchi/prima`). **Deterministica
-/// resta la lettura di casa**, quella senza modello: il consiglio composto
-/// dalle carte e, sotto ogni carta, il testo della sua posizione.
+/// nella sua posizione (`docs/collaudo/EQ/tarocchi/prima`).
+///
+/// **LA FORMA NUOVA, ordine GA voci GA.03, GA.04, GA.05 e GA.07, 20 ottobre
+/// 2026.** Il responso principale e' un `ResponsoInterpretato` ([principale]):
+/// il titolo, la risposta, il riquadro "Cosa fare adesso" e, nella Lunga,
+/// l'approfondimento e la contemplazione propiziatoria della carta chiave.
+/// Lo scrive il modello sulla domanda e su tutte le carte; quando il modello
+/// non torna parla la lettura di casa (`VoceDellaStesa.responsoDiCasa`, o la
+/// carta sola dal corpus), sempre Breve. Ogni carta ha il suo responso breve
+/// dal corpus (decisione del fondatore "Carte dal corpus",
+/// [PosizioneLetta.responso]). Il "Da dove viene" ([fonte]) e' uno solo
+/// e chiude la consultazione.
 class TarotReading {
   const TarotReading({
     required this.spread,
@@ -64,72 +72,77 @@ class TarotReading {
     required this.sintesi,
     required this.posizioni,
     required this.chiave,
-    required this.consiglio,
+    required this.principale,
     required this.domanda,
-    required this.titolo,
-    this.approfondimento = const [],
   });
 
   final TarotSpread spread;
   final TarotTopic topic;
 
-  /// La profondita' di TUTTA la lettura, non di una posizione sola.
-  ///
-  /// Le tre posizioni sono una lettura unica e continua: una profondita' per
-  /// posizione darebbe un racconto sbilanciato, lungo in un punto e stretto in
-  /// quello dopo. A runtime questa e' il tetto di lunghezza di ogni testo di
-  /// responso, e i testi lunghi si generano solo quando la persona li chiede.
+  /// La profondita' del responso principale, non delle carte: le singole
+  /// carte hanno sempre il responso breve (voce GA.05, il fondatore: *"solo
+  /// per il responso principale e non per le singole carte"*).
   final AnswerDepth depth;
 
   /// Strato 1: una riga forte, dalla sintesi della carta del Presente.
   final String sintesi;
 
-  /// Strato 3: le tre posizioni, ognuna col testo ricco letto nell'argomento.
+  /// Strato 3: le carte, ognuna col suo responso breve letto nell'argomento.
   final List<PosizioneLetta> posizioni;
 
-  /// Quale delle tre posizioni porta lo STATO di carta chiave.
+  /// Quale delle posizioni porta lo STATO di carta chiave.
   ///
   /// **Non e' piu' una bolla**, ordine P voce 07: la carta chiave e' uno stato
-  /// di una delle tre bolle di Passato, Presente e Futuro, e la ragione della
-  /// scelta e' la marcatura piccola dentro quella bolla.
+  /// di una delle bolle delle carte, e la ragione della scelta e' la
+  /// marcatura piccola dentro quella bolla.
   final CartaChiave chiave;
 
-  /// STRATO 2, IL PRIMO CHE SI LEGGE: il consiglio di Medora, con la domanda
-  /// dentro come ultimo paragrafo.
-  final String consiglio;
+  /// **IL RESPONSO PRINCIPALE**, nella forma di GA.03, col suo "Da dove
+  /// viene". Nella stesa a una carta e' il responso della carta, e sotto non
+  /// c'e' un secondo blocco per la stessa carta (voce GA.05).
+  final ResponsoInterpretato principale;
 
   /// **IL TITOLO, CHE E' GIA' LA RISPOSTA.** Ordine FK aggiunta voci A1 e A2.
   /// Quello del modello quando c'e' e regge (non nomina le carte), altrimenti
   /// quello della lettura di casa: mai vuoto, mai col punto in fondo.
-  final String titolo;
+  String get titolo => principale.titolo;
 
-  /// **I TRE PARAGRAFI DEL RESPONSO**, ordine FK aggiunta voce A2. Il
-  /// fondatore, 11 ottobre 2026: *"3 paragrafi, il secondo e' evidenziato in
-  /// riquadro"*. La risposta, cosa puoi fare, poi come le carte si legano.
-  /// **La domanda di chiusura nei dati resta un paragrafo suo** (ordine P
-  /// voce 09, dopo uno stacco: torna nel dono del mattino e la si conta); a
-  /// video chiude il terzo paragrafo, perche' i paragrafi sono tre.
-  List<String> get paragrafi {
-    final pezzi = consiglio.split('\n\n');
-    if (pezzi.length <= 3) return pezzi;
-    return [pezzi[0], pezzi[1], pezzi.sublist(2).join(' ')];
-  }
+  /// **IL "DA DOVE VIENE" DELLA CONSULTAZIONE**, uno solo (voce GA.05): le
+  /// carte uscite col verso e la posizione, il mazzo, la stesa, la fonte dei
+  /// significati, nella Lunga la fonte della contemplazione e il cielo di
+  /// oggi quando c'e'.
+  String get fonte => principale.daDoveViene ?? '';
 
-  /// La domanda di chiusura, tenuta anche come dato suo.
+  /// Il responso principale senza il "Da dove viene": la schermata delle
+  /// stese con piu' carte lo disegna cosi', e chiude la consultazione col
+  /// "Da dove viene" dopo le carte.
+  ResponsoInterpretato get principaleSenzaLaFonte => ResponsoInterpretato(
+        arte: principale.arte,
+        titolo: principale.titolo,
+        risposta: principale.risposta,
+        cosaFare: principale.cosaFare,
+        approfondimento: principale.approfondimento,
+        rito: principale.rito,
+      );
+
+  /// **IL CONSIGLIO COME TESTO**, per chi lo porta via: il Parlane con
+  /// Medora, il diario, la card da condividere, le prove della diversita'.
+  /// La risposta, il cosa fare e, nella Lunga, l'approfondimento, separati da
+  /// una riga vuota. **La domanda di chiusura non ci sta piu'** (ordine GA):
+  /// resta un dato ([domanda]) per il dono del mattino.
+  String get consiglio => [
+        principale.risposta,
+        principale.cosaFare,
+        if (principale.approfondimento != null) principale.approfondimento!,
+      ].join('\n\n');
+
+  /// La domanda di chiusura, tenuta come dato suo.
   ///
-  /// A schermo vive dentro il [consiglio] e non ha una bolla propria. Resta un
-  /// campo perche' va SALVATA: ricompare nel dono del mattino successivo con la
-  /// formula "Ieri Medora ti ha lasciato questa domanda", ed e' quella la
-  /// ragione per cui la domanda esiste.
+  /// **Non va a video dall'ordine GA**: la forma di GA.03 non le da' un
+  /// posto. Resta un campo perche' va SALVATA: ricompare nel dono del
+  /// mattino successivo con la formula "Ieri Medora ti ha lasciato questa
+  /// domanda", ed e' quella la ragione per cui la domanda esiste.
   final String domanda;
-
-  /// **I DUE PARAGRAFI DELL'APPROFONDIMENTO. Ordine FN, 13 ottobre 2026.**
-  /// Vuota alla profondita' Breve, o quando la lettura di casa (senza
-  /// modello) risponde: solo il modello, quando la persona ha scelto la
-  /// Lunga, scrive risposte dirette abbastanza concrete da meritare un
-  /// paragrafo in piu'. Nella schermata vanno nel riquadro arancione, solo
-  /// nel Consiglio di Medora, non nelle tre bolle di posizione.
-  final List<String> approfondimento;
 
   /// Strato 4: le azioni e il disclaimer stanno nella schermata, una sola volta.
 
@@ -137,12 +150,12 @@ class TarotReading {
   /// [fattoDelCielo] e' la riga del cielo VERO di oggi, quando c'e'. Ordine BN
   /// voce 07: le due arti vivono nella stessa app e non si parlavano, e la
   /// stesa non sapeva niente del cielo che l'Oroscopo calcola gia'. Nulla
-  /// quando la carta natale manca: in quel caso il consiglio resta quello di
-  /// oggi, e **non si finge nessun transito**.
+  /// quando la carta natale manca: in quel caso **non si finge nessun
+  /// transito**. Dall'ordine GA la riga del cielo sta nel "Da dove viene".
   ///
-  /// [dalModello] e' la lettura scritta da Flash, ordine EQ voce 04: quando
-  /// c'e', la risposta apre il consiglio e ogni carta si legge col suo testo.
-  /// Nulla, parla la lettura di casa.
+  /// [dalModello] e' il responso principale scritto da Flash, ordine EQ voce
+  /// 04 e ordine GA. Nullo, parla la lettura di casa. [mazzo] e
+  /// [nomeDellaStesa] entrano nel "Da dove viene".
   static TarotReading of(
     TarotSpread spread,
     TarotTopic topic, {
@@ -151,65 +164,128 @@ class TarotReading {
     String? domandaScritta,
     LetturaDelModello? dalModello,
     List<int>? uscite,
+    String? mazzo,
+    String? nomeDellaStesa,
   }) {
     // **LA DOMANDA DELLA PERSONA ENTRA QUI, ordine CQ voce 6.10.**
     //
     // Prima non entrava affatto: misurato, su una domanda di cinque parole
-    // portanti ne arrivavano ZERO nel testo del responso. Il campo esisteva,
-    // raccoglieva il testo e lo mostrava, e la lettura chiudeva con una
-    // domanda pescata dal corpus, identica che tu avessi scritto qualcosa o
-    // no.
-    //
-    // **Fa due cose, e la seconda e' quella che conta.** Si fa nominare, cosi'
-    // chi legge vede che e' stata letta; e **sceglie la lente**, cosi' tutte
-    // e tre le carte vengono lette col taglio della sua domanda. Solo la
-    // prima sarebbe la sua frase incollata sopra un testo generale, ed e'
-    // esattamente cio' che il fondatore ha chiamato "generiche".
+    // portanti ne arrivavano ZERO nel testo del responso. **Fa due cose, e la
+    // seconda e' quella che conta.** Si fa nominare, cosi' chi legge vede che
+    // e' stata letta; e **sceglie la lente**, cosi' le carte vengono lette
+    // col taglio della sua domanda.
     final sua = DomandaDellaPersona.pulita(domandaScritta);
     final lente =
         sua == null ? topic : DomandaDellaPersona.lenteDedotta(sua) ?? topic;
     final domanda = sua ?? domandaDi(spread, topic);
+    final posizioni = [
+      for (var i = 0; i < spread.cards.length; i++)
+        PosizioneLetta.of(spread.cards[i], topic, spread,
+            uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
+    ];
+    final chiave = chiaveDi(spread);
     return TarotReading(
       spread: spread,
       topic: lente,
       depth: depth,
       sintesi:
           TettiDellaStesa.dentro(spread.cuore.summary, TettiDellaStesa.sintesi),
-      posizioni: [
-        for (var i = 0; i < spread.cards.length; i++)
-          PosizioneLetta.of(spread.cards[i], topic, spread,
-              testoDelModello: dalModello?.dellaCarta(i),
-              uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
-      ],
-      chiave: chiaveDi(spread),
-      // **LA DOMANDA PULITA E NON LA FRASE GIA' CONFEZIONATA.** Ordine DF
-      // voce 02: il riconoscimento della domanda ha adesso otto forme, e la
-      // forma la sceglie `VoceDellaStesa`. Passando qui
-      // `DomandaDellaPersona.apertura`, che e' gia' una frase intera, la
-      // domanda finiva dentro le virgolette della forma e si leggeva
-      // «Su "Hai chiesto: denaro e fortuna? Le tre carte rispondono..."», che
-      // e' una frase dentro una frase.
-      consiglio: dalModello == null
-          ? consiglioDi(spread, lente, domanda, fattoDelCielo, sua)
-          : consiglioDelModello(dalModello, domanda, fattoDelCielo, sua),
+      posizioni: posizioni,
+      chiave: chiave,
+      principale: principaleDi(spread, lente, posizioni, chiave,
+          depth: depth,
+          dalModello: dalModello,
+          domandaScritta: sua,
+          fattoDelCielo: fattoDelCielo,
+          mazzo: mazzo,
+          nomeDellaStesa: nomeDellaStesa),
       domanda: domanda,
-      titolo: titoloDi(spread, lente, dalModello,
-          domandaScritta: sua, fattoDelCielo: fattoDelCielo),
-      // **SOLO ALLA LUNGA, SOLO DAL MODELLO.** Ordine FN, 13 ottobre 2026:
-      // la lettura di casa (senza modello) non ha un corpus per
-      // l'approfondimento, e mostrarlo vuoto sarebbe un riquadro arancione
-      // senza niente dentro.
-      approfondimento: depth == AnswerDepth.profonda &&
-              dalModello != null &&
-              dalModello.approfondimento1.isNotEmpty &&
-              dalModello.approfondimento2.isNotEmpty
-          ? [dalModello.approfondimento1, dalModello.approfondimento2]
-          : const [],
     );
   }
 
+  /// **IL RESPONSO PRINCIPALE**, ordine GA voci GA.03, GA.04 e GA.05.
+  ///
+  /// - **Dal modello**, quando c'e': il suo titolo se regge (non nomina le
+  ///   carte), la sua risposta e il suo cosa fare; nella Lunga il suo
+  ///   approfondimento e la contemplazione propiziatoria della carta chiave
+  ///   dal corpus dei riti, mai dal modello (*"Nessuna formula inventata"*).
+  /// - **Di casa**, quando il modello non torna: nella stesa a una carta il
+  ///   responso della carta dal corpus (titolo, paragrafo e cosa fare), nelle
+  ///   altre `VoceDellaStesa.responsoDiCasa`. Sempre Breve: senza modello non
+  ///   c'e' un approfondimento, e un rito senza approfondimento sarebbe una
+  ///   forma a meta' (ordine FN, *"un riquadro arancione senza niente
+  ///   dentro"*).
+  static ResponsoInterpretato principaleDi(
+    TarotSpread spread,
+    TarotTopic lente,
+    List<PosizioneLetta> posizioni,
+    CartaChiave chiave, {
+    required AnswerDepth depth,
+    LetturaDelModello? dalModello,
+    String? domandaScritta,
+    String? fattoDelCielo,
+    String? mazzo,
+    String? nomeDellaStesa,
+  }) {
+    final cartaSola = spread.cards.length == 1 ? posizioni.single : null;
+    final lunga = depth == AnswerDepth.profonda &&
+        dalModello != null &&
+        dalModello.approfondimento.isNotEmpty;
+    final rito =
+        lunga ? LeCarteNellaPosizione.contemplazioneDi(chiave.drawn) : null;
+    // Un rito che manca nel corpus non si inventa: senza, il responso resta
+    // Breve. Non succede, la guardia pretende i 156 riti.
+    final eLunga = lunga && rito != null && rito.trim().isNotEmpty;
+    final fonte = daDoveViene(spread,
+        mazzo: mazzo,
+        stesa: nomeDellaStesa,
+        contemplazione: eLunga ? chiave.drawn : null,
+        cielo: fattoDelCielo);
+    if (dalModello == null) {
+      if (cartaSola != null) {
+        final r = cartaSola.responso!;
+        return ResponsoInterpretato(
+          arte: ArteInterpretata.tarocchi,
+          titolo: r.titolo,
+          risposta: r.risposta,
+          cosaFare: r.cosaFare,
+          daDoveViene: fonte,
+        );
+      }
+      final casa = VoceDellaStesa.responsoDiCasa(spread, lente,
+          domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
+      return ResponsoInterpretato(
+        arte: ArteInterpretata.tarocchi,
+        titolo: _senzaPunto(casa.titolo),
+        risposta: casa.risposta,
+        cosaFare: casa.cosaFare,
+        daDoveViene: fonte,
+      );
+    }
+    return ResponsoInterpretato(
+      arte: ArteInterpretata.tarocchi,
+      titolo: titoloDi(spread, lente, dalModello,
+          domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo),
+      risposta: dalModello.risposta,
+      cosaFare: dalModello.cosaFare,
+      approfondimento: eLunga ? dalModello.approfondimento : null,
+      rito: eLunga ? rito : null,
+      daDoveViene: fonte,
+    );
+  }
+
+  static String _senzaPunto(String t) {
+    var s = t.trim();
+    while (s.endsWith('.')) {
+      s = s.substring(0, s.length - 1).trimRight();
+    }
+    return s;
+  }
+
   /// Il titolo della lettura: quello del modello se c'e' e non nomina una
-  /// carta (il simbolo non apre mai), altrimenti quello di casa.
+  /// carta (il simbolo non apre mai), altrimenti quello di casa: nella stesa
+  /// a una carta il titolo della carta dal corpus, nelle altre quello di
+  /// `VoceDellaStesa`.
   static String titoloDi(
       TarotSpread spread, TarotTopic topic, LetturaDelModello? dalModello,
       {String? domandaScritta, String? fattoDelCielo}) {
@@ -221,13 +297,12 @@ class TarotReading {
       t = '';
     }
     if (t.isEmpty) {
-      t = VoceDellaStesa.titoloDellaLettura(spread, topic,
-          domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
+      t = spread.cards.length == 1
+          ? LeCarteNellaPosizione.titoloDi(spread.cards.single)
+          : VoceDellaStesa.titoloDellaLettura(spread, topic,
+              domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
     }
-    while (t.endsWith('.')) {
-      t = t.substring(0, t.length - 1).trimRight();
-    }
-    return t;
+    return _senzaPunto(t);
   }
 
   /// **DA DOVE VIENE, in forma breve e verso la fine.** Ordine FK aggiunta
@@ -235,124 +310,56 @@ class TarotReading {
   /// informarlo come e' stata estratta questa parola [...] ma questo in forma
   /// breve e verso la fine"*. Le carte uscite col loro verso e la loro
   /// posizione, il mazzo, la stesa e da dove vengono i significati.
+  ///
+  /// **Ordine GA voci GA.04 e GA.05**: chiude la consultazione una volta
+  /// sola e cita le fonti di tutte le carte uscite; nella Lunga aggiunge la
+  /// fonte della contemplazione propiziatoria della carta [contemplazione]
+  /// (la pratica della Golden Dawn, `docs/corpus/riti/
+  /// contemplazione_dei_tarocchi.md`); il cielo di oggi, quando c'e', sta
+  /// qui e non dentro i paragrafi, che hanno la loro misura.
   static String daDoveViene(TarotSpread spread,
-      {required String mazzo, required String stesa}) {
+      {String? mazzo,
+      String? stesa,
+      DrawnCard? contemplazione,
+      String? cielo}) {
     final carte = [
       for (final d in spread.cards)
         '${d.displayName} (${d.position.label.toLowerCase()})',
     ].join(', ');
-    return 'Le carte uscite: $carte. Mazzo $mazzo, $stesa: ogni '
-        'carta si legge col suo significato nella tradizione di Waite e '
-        'nella posizione in cui è uscita.';
+    final dove = [
+      if (mazzo != null && mazzo.trim().isNotEmpty) 'Mazzo ${mazzo.trim()}',
+      if (stesa != null && stesa.trim().isNotEmpty) stesa.trim(),
+    ].join(', ');
+    final righe = <String>[
+      'Le carte uscite: $carte.',
+      '${dove.isEmpty ? 'Ogni' : '$dove: ogni'} carta si legge col suo '
+          'significato nella tradizione di Waite e nella posizione in cui è '
+          'uscita.',
+      if (contemplazione != null)
+        'La contemplazione propiziatoria: '
+            '${LeCarteNellaPosizione.fonteDellaContemplazione(contemplazione) ?? ''}',
+      if (cielo != null && cielo.trim().isNotEmpty)
+        'Accanto alle carte, il cielo di oggi: ${cielo.trim()}',
+    ];
+    return righe.where((r) => r.trim().isNotEmpty).join(' ');
   }
 
-  /// **IL CONSIGLIO QUANDO LA LETTURA LA SCRIVE IL MODELLO.** Ordine EQ voce
-  /// 04, 27 settembre 2026.
-  ///
-  /// La risposta per prima, perche' e' la prima cosa che si legge: le sue
-  /// due frasi rispondono alla domanda. Poi come le tre carte si legano, e il
-  /// passo da fare. **Due cose restano quelle di casa, e per le ragioni di
-  /// casa**: il cielo vero di oggi sta accanto alle carte con la stessa riga
-  /// (ordine BN voce 07, ordine DS voce 09), e la domanda di chiusura chiude
-  /// solo chi non ha scritto la sua, perche' e' quella che torna nel dono del
-  /// mattino dopo (ordine P voce 09, ordine DF voce 02).
-  static String consiglioDelModello(LetturaDelModello l, String domanda,
-      [String? fattoDelCielo, String? apertura]) {
-    final cielo = fattoDelCielo?.trim() ?? '';
-    final laRipete = apertura != null && apertura.trim().isNotEmpty;
-    // **TRE PARAGRAFI, il secondo e' il consiglio.** Ordine FK aggiunta
-    // voce A2. LAPIDE: "la risposta, il legame col cielo, il consiglio, la
-    // domanda", quattro paragrafi in un ordine diverso da quello della
-    // lettura di casa. Adesso le due letture hanno la stessa forma: la
-    // risposta, cosa puoi fare (nel riquadro), come le carte si legano; la
-    // domanda di chiusura resta un paragrafo suo nei dati e a video chiude il
-    // terzo (`TarotReading.paragrafi`).
-    return [
-      l.risposta,
-      l.consiglio,
-      [
-        l.legame,
-        if (cielo.isNotEmpty) VoceDellaStesa.rigaDelCielo(cielo),
-      ].join(' '),
-      if (!laRipete) domanda,
-    ].join('\n\n');
-  }
-
-  /// **IL CONSIGLIO DI MEDORA, E OGNI PAROLA DIPENDE DALLE CARTE USCITE.**
-  /// Rifatto dall'ordine DF voci 02, 04.1, 04.2, 04.3, 04.7, 04.8 e 04.9,
-  /// 11 settembre 2026.
-  ///
-  /// **IL FATTO CHE HA APERTO L'ORDINE, con le parole del fondatore.** *"ho
-  /// fatto 4 letture di tarocchi con la stessa domanda denaro e fortuna"*, e i
-  /// primi due paragrafi erano **identici al carattere** in tutte e quattro,
-  /// pur con dodici carte diverse fra loro. *"IO ESIGO CHE OGNI RISPOSTA SIA
-  /// DIVERSA ANCHE SE DOVESSI FARE 100 LETTURE CONSECUTIVE CON LA STESSA
-  /// DOMANDA."*
-  ///
-  /// **LA CAUSA, e stava scritta qui dentro in due righe.** I primi due pezzi
-  /// erano:
-  ///
-  ///     '${topic.lente}, ${topic.group.risposta}',
-  ///     topic.group.consiglio,
-  ///
-  /// `topic.lente` ha sedici valori, `group.risposta` e `group.consiglio` ne
-  /// hanno **tre**, uno per gruppo. **Nessuno dei tre guardava le carte.** A
-  /// parita' di argomento quei due paragrafi erano una costante, e nessuna
-  /// estrazione poteva cambiarli. **Attribuzione: ordine S voce 26 per la
-  /// risposta e corpus `stesa_interpretazione.md` per l'azione**, montati qui
-  /// dall'ordine P voce 09.
-  ///
-  /// **E LA MISURA LO DICEVA GIA', se qualcuno l'avesse presa.** Su cento
-  /// letture con lo stesso argomento la somiglianza massima a coppie era del
-  /// **94,4 per cento** e lo **stesso paragrafo compariva cento volte su
-  /// cento**. Adesso i numeri veri li stampa
-  /// `test/cento_letture_uguali_test.dart`.
-  ///
-  /// **LA CURA, in una riga: il testo lo sceglie l'estrazione.** Le forme
-  /// stanno in `VoceDellaStesa`, il filo che le sceglie nasce dalle tre carte e
-  /// dai loro versi, e **non da un orologio**: le stesse tre carte danno sempre
-  /// lo stesso testo, quindi la bolla piu' lunga dell'app continua a non
-  /// toccare l'LLM e resta cacheabile. **La casualita' sta nel mazzo, dove deve
-  /// stare.**
-  ///
-  /// **E L'ORDINE DI LETTURA E' CAMBIATO**, voce DF.04.9: le carte sono nel
-  /// **primo** paragrafo, non dal terzo in poi. Il fondatore: *"con un verdetto
-  /// sempre uguale, la persona legge le prime otto righe, le riconosce, e non
-  /// arriva mai alla parte che cambia"*.
-  static String consiglioDi(
-      TarotSpread spread, TarotTopic topic, String domanda,
-      [String? fattoDelCielo, String? apertura]) {
-    final paragrafi = VoceDellaStesa.paragrafi(
-      spread,
-      topic,
-      domandaScritta: apertura,
-      fattoDelCielo: fattoDelCielo,
-    );
-    // **LA LETTURA DEI VERSI E DEI MAGGIORI RESTA**, e sta gia' dentro
-    // l'ultimo paragrafo composto da `VoceDellaStesa`: e' il pezzo di verita'
-    // rimasto della bolla eliminata dalla voce P.08, e sono fatti della
-    // tradizione, non ornamenti. **Da qui se n'e' andata** perche' anche lei
-    // aveva bisogno del filo: una frase sola per ogni conto di rovesciate
-    // tornava una trentina di volte su cento letture.
-    final tutti = [...paragrafi];
-    // **LA DOMANDA DI CHIUSURA NON SI RIPETE.** Ordine DF voce 02, misura D.
-    //
-    // Prima la domanda finiva **sempre** in coda come paragrafo suo, e quando
-    // era quella scritta dalla persona compariva **due volte nella stessa
-    // bolla**: una in cima, riconosciuta, e una in fondo, identica. Su cento
-    // letture con la stessa domanda faceva **cento paragrafi uguali**, che e'
-    // la misura D dell'ordine, e la soglia e' due.
-    //
-    // Adesso: se la persona ha scritto la sua domanda, quella e' gia'
-    // riconosciuta nella prima riga e in coda non si ripete. Se non l'ha
-    // scritta, in coda va la domanda del corpus, che nasce **dalle carte** e
-    // quindi cambia a ogni estrazione.
-    final laRipete = apertura != null && apertura.trim().isNotEmpty;
-    final coda = laRipete ? '' : '\n\n$domanda';
-    final prosa = tutti.join('\n\n');
-    return '${TettiDellaStesa.dentro(prosa, TettiDellaStesa.consiglio - domanda.length - 2)}'
-        '$coda';
-  }
+  // **LAPIDE: IL CONSIGLIO COMPOSTO A TRE PARAGRAFI.** Qui vivevano
+  // `consiglioDelModello` (ordine EQ voce 04 e ordine FK aggiunta voce A2: la
+  // risposta, il consiglio, il legame col cielo e la domanda di chiusura) e
+  // `consiglioDi` (ordine DF voci 02, 04.1-04.9: i tre paragrafi di
+  // `VoceDellaStesa` troncati al tetto `TettiDellaStesa.consiglio`). Dal
+  // l'ordine GA il responso principale ha la forma di GA.03, due paragrafi
+  // da 40 a 50 parole nella Breve, e non si tronca mai (voce GA.07): lo
+  // compone [principaleDi].
+  //
+  // **IL FATTO CHE AVEVA APERTO L'ORDINE DF, con le parole del fondatore.**
+  // *"ho fatto 4 letture di tarocchi con la stessa domanda denaro e
+  // fortuna"*, e i primi due paragrafi erano identici al carattere. *"IO
+  // ESIGO CHE OGNI RISPOSTA SIA DIVERSA ANCHE SE DOVESSI FARE 100 LETTURE
+  // CONSECUTIVE CON LA STESSA DOMANDA."* La cura resta: il testo di casa lo
+  // sceglie l'estrazione (`VoceDellaStesa`, il filo nato dalle carte), e le
+  // prove della diversita' lo misurano sul responso nuovo.
 
   // **LA SINTESI IN MINUSCOLA NON SERVE PIU.** Ordine DF voce 04.3, 11
   // settembre 2026. Qui viveva un aiutante che toglieva la maiuscola e il
@@ -459,6 +466,7 @@ class PosizioneLetta {
     required this.drawn,
     required this.apertura,
     required this.testo,
+    this.responso,
   });
 
   final DrawnCard drawn;
@@ -466,35 +474,42 @@ class PosizioneLetta {
   /// La riga che introduce la posizione dentro l'argomento.
   final String apertura;
 
-  /// Il testo della carta nella sua posizione: quello del modello quando la
-  /// lettura l'ha scritta Flash, altrimenti quello del corpus, per verso e
-  /// per posizione.
+  /// Il testo della carta nella sua posizione: il paragrafo del suo
+  /// responso ([responso]), scheletro della posizione e registro del gruppo.
+  /// La carta aperta a tutta scena ne costruisce una col significato del
+  /// verso (`stesa_tre_carte_screen.dart`, `_apriLaCarta`).
   final String testo;
+
+  /// **IL RESPONSO BREVE DELLA CARTA**, ordine GA voce GA.05: il titolo della
+  /// carta in quel posto, il paragrafo e il riquadro "Cosa fare adesso",
+  /// tutto dal corpus (`LeCarteNellaPosizione.responsoDi`). Nullo solo nella
+  /// carta aperta a tutta scena, che porta il significato del verso.
+  final ResponsoInterpretato? responso;
 
   static PosizioneLetta of(
       DrawnCard drawn, TarotTopic topic, TarotSpread spread,
-      {String? testoDelModello, int uscita = 0}) {
+      {int uscita = 0}) {
+    // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
+    // c'era il significato del verso, uguale nel passato, nel presente e
+    // nel futuro e per qualunque domanda. Dall'ordine FI, aggiunta A3: lo
+    // scheletro e dopo di lui il registro del gruppo dell'argomento.
+    // **LAPIDE: "testoDelModello ??"**, dall'ordine EQ voce 04 all'ordine
+    // GA: quando il modello rispondeva, il testo della carta era il suo.
+    // Dall'ordine GA ("Carte dal corpus") la carta viene SEMPRE dal corpus,
+    // in ogni stesa e in ogni piano.
+    final responso =
+        LeCarteNellaPosizione.responsoDi(drawn, topic.group, uscita: uscita);
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,
       // identica in tutte e tre le posizioni di tutte le letture: quindici
-      // parole regalate a ogni confronto. La lente resta il taglio con cui la
-      // carta si legge, ma non e' piu' lei a fare da attacco.
-      // Il posto nella stesa e non la posizione, ordine FK aggiunta 2 voce
-      // A8: i due `lato` della croce sono due posti.
+      // parole regalate a ogni confronto. Il posto nella stesa e non la
+      // posizione, ordine FK aggiunta 2 voce A8: i due `lato` della croce
+      // sono due posti.
       apertura: VoceDellaStesa.aperturaDellaPosizione(
           spread, spread.cards.indexOf(drawn)),
-      // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
-      // c'era il significato del verso, uguale nel passato, nel presente e
-      // nel futuro e per qualunque domanda: l'Architetto l'ha letto nel
-      // codice, il fondatore nelle catture. Adesso, senza modello, la carta
-      // si legge col testo della sua posizione (`LeCarteNellaPosizione`,
-      // 468 testi scritti una volta sola dal significato di casa).
-      // Dall'ordine FI, aggiunta A3: lo scheletro e dopo di lui il
-      // registro del gruppo dell'argomento, quando la fonte lo porta.
-      testo: testoDelModello ??
-          LeCarteNellaPosizione.letturaDiCasa(drawn, topic.group,
-              uscita: uscita),
+      testo: responso.risposta,
+      responso: responso,
     );
   }
 }
