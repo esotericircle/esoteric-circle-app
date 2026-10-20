@@ -555,14 +555,38 @@ class EsitoDelGesto {
   /// rispondeva "NOT_FOUND", e il Ritratto lo mostrava cosi'.
   String get rigaPerLaPersona {
     final r = riga?.trim() ?? '';
-    final frase = r.contains(' ') && r != r.toUpperCase();
-    return frase ? r : silenzio.riga!;
+    return eUnaFrase(r) ? r : silenzio.riga!;
   }
 
-  /// **IL RIPIEGO DICHIARATO**: senza rete o con la funzione non ancora
-  /// pubblicata il gesto non parte, e la persona lo legge.
+  /// Vero se [r] e' una frase da leggere e non un codice del server
+  /// (`NOT_FOUND`, `INTERNAL`).
+  static bool eUnaFrase(String? r) {
+    final t = r?.trim() ?? '';
+    return t.contains(' ') && t != t.toUpperCase();
+  }
+
+  /// **IL RIPIEGO DICHIARATO**: senza rete il gesto non parte, e la persona
+  /// lo legge.
   static const EsitoDelGesto silenzio = EsitoDelGesto(
       ok: false, riga: 'Il Cerchio non risponde adesso: riprova fra poco.');
+
+  /// **LA PORTA CHE NON C'E' ANCORA**, ordine GA voce 11, 20 ottobre 2026.
+  /// Una funzione del server non ancora pubblicata risponde `not-found` con
+  /// la parola grezza `NOT_FOUND`. Fino a qui la persona leggeva la riga
+  /// della rete assente, "riprova fra poco": falso, perche' nessun nuovo
+  /// tentativo apre una porta che non e' pubblicata. Nella build 2314 ci
+  /// passavano la ricucitura di una perla del Respiro della Luna, dopo la
+  /// conferma della spesa, e le porte di Respiriamo insieme e della collana
+  /// a due. Padre: ordine FF voce 02 (la riga della rete per la porta non
+  /// pubblicata del Ritratto) e ordine FX voci FXA.03, FX.09 e FX.10.
+  ///
+  /// Un `not-found` con una frase vera ("Questa collana non c'è più.") e'
+  /// un rifiuto del server e resta la sua frase.
+  static const EsitoDelGesto portaNonAperta = EsitoDelGesto(
+      ok: false,
+      riga: 'Questa funzione del Cerchio non è ancora aperta: niente è '
+          'partito e nessun Eos è stato speso.',
+      dati: {_chiaveDelMotivo: 'portaNonAperta'});
 }
 
 /// **IL MOTORE SOCIALE DEL CERCHIO, dal lato del telefono. Ordine EY.**
@@ -754,6 +778,9 @@ class IlCerchioSociale extends ChangeNotifier {
   EsitoDelGesto _esito(EsitoSociale? e) {
     if (e == null) return EsitoDelGesto.silenzio;
     if (e.rifiutato) {
+      if (e.errore == 'not-found' && !EsitoDelGesto.eUnaFrase(e.riga)) {
+        return EsitoDelGesto.portaNonAperta;
+      }
       return EsitoDelGesto(ok: false, riga: e.rigaDaMostrare, dati: e.dati);
     }
     return EsitoDelGesto(

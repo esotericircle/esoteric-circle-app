@@ -229,7 +229,10 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   /// piu' di quattro secondi: la scena si arrendeva ("La scena non si
   /// prepara entro 0:00:04", letto dai registri del telefono) e il video non
   /// partiva; la seconda volta era gia' in memoria e partiva. Padre FXA.08.
-  /// E se il video e' pronto dopo l'attesa, parte lo stesso.
+  /// **Un video pronto dopo l'attesa resta fermo** (ordine GA voce 11): a
+  /// quel punto il resto della schermata e' gia' davanti alla persona, e
+  /// la prova `la_scena_tardiva_non_rinasconde_il_resto_test.dart` cade se
+  /// il video tardivo glielo toglie.
   static const Duration attesaMassima = Duration(seconds: 12);
 
   /// La scena e' ferma sul suo ultimo fotogramma: Riduci Movimento, grafica
@@ -293,18 +296,16 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
       _scaduta = true;
       if (!_chiusa) notifyListeners();
     });
-    // IL VIDEO PRONTO TARDI PARTE LO STESSO: si aspetta la fine vera
-    // dell'apertura, e se arriva pronto si torna a mostrarlo.
-    if (_scaduta && !_chiusa) {
-      try {
-        await apertura;
-      } catch (errore) {
-        debugPrint('La scena non si apre: $errore');
-      }
-      if (_chiusa || _saltata || !lettore.pronto) return;
-      _scaduta = false;
-      notifyListeners();
-    }
+    // **IL VIDEO PRONTO TARDI NON PARTE PIU'**, ordine GA voce 11, 20
+    // ottobre 2026. Qui l'ordine FY (`8ac4f41c`) aspettava la fine vera
+    // dell'apertura e, se il video arrivava pronto, rimetteva la scena in
+    // corso: ma passata l'attesa il resto della schermata era gia' comparso,
+    // e la persona lo stava leggendo e toccando. Il video tardivo lo
+    // rinascondeva (la Porta della Sinastria VIP, la Chat senza messaggi),
+    // copriva le carte, e il velo del tocco che salta si stendeva sopra i
+    // pulsanti mangiando il tocco. Il caso per cui era nato, il Realme a
+    // freddo che chiede piu' di quattro secondi, lo copre gia' l'attesa di
+    // dodici: dentro l'attesa il video parte come sempre. Padre: ordine FY.
     if (_chiusa || _scaduta || !lettore.pronto) return;
     final muto = !suono || await LaSuoneria.spenta();
     if (_chiusa) return;

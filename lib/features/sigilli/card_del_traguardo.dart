@@ -232,9 +232,13 @@ class VieDellaCondivisione extends StatelessWidget {
     // dentro il testo del modo, quindi quando il numero mancava a schermo si
     // leggeva "Eos quando il tuo amico entra nel Cerchio". L'ha visto
     // l'anteprima della festa del primo sogno.
+    // **E NON COMINCIA NEMMENO DAL QUANDO**, ordine GA voce 11, 20 ottobre
+    // 2026: senza rete si leggeva "Quando il tuo amico entra nel Cerchio. In
+    // attesa.", una frase senza soggetto (simulazione FZ, osservazione non
+    // curata). Padre: ordine BX. Senza il numero si dice che cosa arriva,
+    // senza promettere quanto.
     if (quanti == null) {
-      final q = modo.quandoArriva;
-      return '${q[0].toUpperCase()}${q.substring(1)}$coda';
+      return 'Gli Eos arrivano ${modo.quandoArriva}$coda';
     }
     return '$quanti Eos ${modo.quandoArriva}$coda';
   }

@@ -385,8 +385,10 @@ void main() {
     await t.runAsync(() async => Future<void>.delayed(Duration.zero));
     await passa(t);
     expect(find.text('NOT_FOUND'), findsNothing);
-    expect(
-        find.textContaining('Il Cerchio non risponde adesso'), findsOneWidget);
+    // Ordine GA voce 11: la porta non pubblicata non e' la rete assente, e
+    // la riga lo dice invece di invitare a riprovare fra poco.
+    expect(find.textContaining('non è ancora aperta'), findsOneWidget);
+    expect(find.textContaining('riprova fra poco'), findsNothing);
   });
 
   // FF aggiunta 1 voce A11, le catture del genere: lo stesso tratto marcato

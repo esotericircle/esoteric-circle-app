@@ -748,8 +748,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   // barra, che e' esattamente quanto il SafeArea consumava
                   // prima: i tre Maestri non cambiano grandezza di un punto,
                   // e la prova che li sorveglia resta verde senza allentarsi.
-                  final viewportH = outer.maxHeight -
-                      SpazioDellaBarraNelloScroll.quanto(context);
+                  // **MAI SOTTO ZERO**, ordine GA voce 11, 20 ottobre 2026.
+                  // Quando lo spazio sotto la striscia del giorno vale meno
+                  // della barra (la finestra che non ha ancora la sua
+                  // altezza, aprendo l'app), qui nasceva un'altezza
+                  // negativa, -112: in debug l'errore rosso e poi l'albero
+                  // rotto (`_elements.contains`), in release un riquadro
+                  // grigio al posto della home. Padre: il commit `bc162adf`
+                  // del 7 agosto 2026, la sottrazione senza pavimento. La
+                  // prova: `la_home_non_va_in_negativo_test.dart`.
+                  final viewportH = math.max(
+                      0.0,
+                      outer.maxHeight -
+                          SpazioDellaBarraNelloScroll.quanto(context));
                   return SingleChildScrollView(
                     child: Column(
                       children: [
