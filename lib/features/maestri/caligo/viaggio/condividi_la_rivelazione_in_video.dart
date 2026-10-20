@@ -89,9 +89,12 @@ Future<bool> condividiLaRivelazioneInVideo({
       return false;
     }
     final testo = 'Mi ha trovato ${animale.articolo}${animale.name}.';
-    return condividi != null
-        ? condividi(uscita.path, testo)
-        : PortaDellaCondivisione.daFile(uscita.path, testo: testo);
+    if (condividi != null) return condividi(uscita.path, testo);
+    // **L'AIUTANTE RESTITUISCE L'ESITO VERO DELLA PORTA**, e il premio lo
+    // paga il chiamante a condivisione avvenuta (`RegiaDelCammino`): la
+    // guardia `ogni_condivisione_dichiara_gli_eos` riconosce gli aiutanti da
+    // questa forma.
+    return PortaDellaCondivisione.daFile(uscita.path, testo: testo);
   } catch (errore) {
     return false;
   }

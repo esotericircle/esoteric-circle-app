@@ -10,6 +10,7 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../animal/guide_animal_screen.dart';
 
 /// **IL TUO ANIMALE, DALLA SOGLIA DEL VIAGGIO.** Richiesta del fondatore, 20
@@ -48,7 +49,9 @@ Future<void> mostraLeQualitaDellAnimale(
     // bolla dell'intreccio.
     archetipo = null;
   }
-  return showModalBottomSheet<void>(
+  // **DALLA PORTA DEI FOGLI**, `foglioDelCerchio`: il velo del Cerchio, il
+  // foglio sotto le barre in alto e la chiusura col dito anche quando scorre.
+  return foglioDelCerchio<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: const Color(0xFF120E24),
@@ -97,7 +100,7 @@ Future<void> mostraLeQualitaDellAnimale(
                     .copyWith(color: palette.goldSoft)),
             Text(animale.summary,
                 textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: 16).copyWith(
+                style: TypographyTokens.corpo().copyWith(
                     color: ColorTokens.textSecondary,
                     fontStyle: FontStyle.italic)),
             const SizedBox(height: SpacingTokens.lg),
