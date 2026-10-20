@@ -286,7 +286,15 @@ abstract final class GestiDelSegno {
   }) {
     final seme = _seme('$domanda|${giorno.year}-${giorno.month}-${giorno.day}'
         '|${animale.name}');
-    final gesto = GestoDelSegno.values[seme % GestoDelSegno.values.length];
+    // **A UNA DOMANDA APERTA NON SI RISPONDE SI' O NO.** Simulazione da
+    // persona del 20 ottobre 2026 sul Realme: *"Quali numeri usciranno al
+    // lotto sabato?"* riceveva *"Il Cavallo ti si avvicina. Vuol dire che
+    // quello che chiedi ha il suo si'"*: un si' a caso a una domanda che non
+    // lo chiede, e sul gioco d'azzardo. Il gesto per cio' che un si' o un no
+    // non possono dire e' quello che volta lo sguardo: guarda meglio.
+    final gesto = domandaAperta(domanda)
+        ? GestoDelSegno.siVolta
+        : GestoDelSegno.values[seme % GestoDelSegno.values.length];
     final significati = _significati[gesto]!;
     final chi = '${animale.articolo}${animale.name}';
     final riga = '${chi[0].toUpperCase()}${chi.substring(1)} '
@@ -294,6 +302,14 @@ abstract final class GestiDelSegno {
         '${significati[(seme ~/ 31) % significati.length]}';
     return UnSegno(gesto: gesto, riga: riga);
   }
+
+  /// **SE LA DOMANDA E' APERTA**, cioe' chiede quale, quanto, quando, come,
+  /// dove, perche', chi o che cosa, e non si risponde con un si' o un no.
+  static bool domandaAperta(String domanda) => RegExp(
+          r'^\s*(?:e\s+)?(quali|quale|quanto|quanti|quanta|quante|quando|come|'
+          r'dove|perch[eé]|chi|cosa|che\s+cosa|che)(?![a-zàèéìòù])',
+          caseSensitive: false)
+      .hasMatch(domanda);
 
   /// **COSA VUOL DIRE OGNI GESTO**, per la via di riserva: tre letture per
   /// gesto, col significato dell'ordine DJ voce 08, e nessuna dice se chi
