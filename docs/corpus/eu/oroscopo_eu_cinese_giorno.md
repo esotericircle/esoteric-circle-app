@@ -747,7 +747,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata tranquilla in famiglia, con un leggero attrito da sciogliere: si prepara un pranzo o una ricorrenza e fra fratelli, sorelle o cugini non è chiaro chi fa che cosa. Nulla di serio. Conviene mettere ordine oggi, prima che i piccoli malumori si accumulino.
 - Che cosa fare: Apri oggi la conversazione di gruppo e proponi una lista semplice: piatti, bevande, chi arriva prima per apparecchiare. Prendi per te il compito meno gradito, così gli altri seguono con più facilità. Se qualcuno risponde brusco, non replicare in chat ma telefona stasera.
-- Risposta, Lunga: Le tensioni di famiglia nascono spesso da aspettative mai dette: qualcuno pensa di fare sempre di più. Una divisione scritta rende visibile lo sforzo di ciascuno e toglie materia alle recriminazioni. Dietro un tono brusco c'è spesso una stanchezza che chiede soltanto di essere riconosciuta.
+- Risposta, Lunga: Le tensioni di famiglia nascono spesso da aspettative mai dette: qualcuno pensa di fare sempre di più. Una divisione scritta rende visibile lo sforzo di ciascuno e toglie materia alle recriminazioni. Dietro un tono brusco c'è spesso una stanchezza che chiede soltanto un riconoscimento.
 
 #### Amore, equilibrio, voce 10: Lo spazio sulla mensola
 

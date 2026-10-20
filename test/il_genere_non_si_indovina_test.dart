@@ -131,8 +131,21 @@ void main() {
   /// frase: escludere il file intero vorrebbe dire smettere di guardare le
   /// sue 1.548 voci per salvarne una.
   const frasiDelCorpus = <String, String>{
-    'una stanchezza che ha bisogno di essere riconosciuta':
-        '"riconosciuta" concorda con "stanchezza", non con chi legge',
+    // LAPIDE, ordine GA, i rossi dell'unione, 20 ottobre 2026: qui c'era
+    // "una stanchezza che ha bisogno di essere riconosciuta" (cinese,
+    // Giorno). La riscrittura della forma nuova (297cd46f) l'aveva fatta
+    // diventare "che chiede soltanto di essere riconosciuta", che questa
+    // frase non esentava piu'; ora la voce dice "che chiede soltanto un
+    // riconoscimento", senza participio, e l'esenzione morta e' tolta.
+    // **LE CITAZIONI DEI SALMI NELLA BIBBIA DI MARTINI**, ordine GA, i rossi
+    // dell'unione, 20 ottobre 2026. I riti propiziatori degli angeli (salmi
+    // di Lenain, docs/corpus/riti/salmi_martini.md) fanno leggere un
+    // versetto alla lettera, fra le virgolette basse, dalla stampa Passigli
+    // del 1842: chi parla e' il salmista, e a chi si rivolge e' il Signore,
+    // non chi legge. Il testo di una citazione non si riscrive.
+    'e fino a quando (sarai sdegnato)? placati coi servi tuoi':
+        '"sdegnato" e\' detto al Signore nel versetto del salmo di Damabiah '
+            '(Salmo 89,13 della Vulgata, Martini 1842), citato alla lettera',
     // **IL CORPUS DELLE RUNE**, ordine EX, EX Aggiunta 2.
     'la forza è già tua e attende solo di essere spesa bene':
         '"spesa" concorda con "la forza" (RISPOSTA Uruz dritta 16)',
