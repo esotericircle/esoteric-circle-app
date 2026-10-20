@@ -891,3 +891,79 @@ Cercando la causa, tre fatti verificati:
    accanto all'altra"*.
 Padre di tutti e tre: ordine FZ voce FZ.04, chiusa con una misura sul
 contare le celle e non sull'immagine che la persona vede.
+
+### Le decisioni del fondatore del 20 ottobre 2026, e cio' che ne e' seguito
+
+Risposte del fondatore: pubblicare i video del cammino; rifare la FZ.04 subito;
+lasciare il server com'e' (basta la cura della custodia nel telefono). Poi,
+guardando il Realme: *"Per la cenere da scostare, non devi usare il video, ma
+l'immagine dell'animale di lato"*; *"in alto usi la silhouette proprio del
+cavallo, ma cosi' stai rivelando all'utente in anticipo che si tratta del
+cavallo ... a queste cose devi pensarci tu"*; *"Ogni scelta ha delle
+conseguenze, ma devi sempre tenere d'occhio l'obiettivo e il percorso e il
+pensiero dell'utente"*; e la richiesta del pulsante dell'animale rivelato.
+
+**I video pubblicati**: `tool/pubblica_i_video_del_cammino.py` rilegge ogni
+file contro misura e impronta del manifesto (48 file, 53.411.222 byte, tutte
+giuste) e li carica; il manifesto risponde 200. Sul Realme, seguendo il
+Cavallo e poi il Lupo con la rete accesa, la cartella del video si crea in
+circa dieci secondi.
+
+**La carta della FZ.04, rifatta** (commit `fe18050e`, `c3b74295`,
+`f19d3c44`): l'immagine dell'animale di lato con la sua proporzione vera
+(prima era stirata in 1080x1920); il volto di ciascun animale misurato
+sull'immagine e messo nel quarto pezzo; la carta sotto le barre; le carte a
+meta' nel Diario dei viaggi, senza nome prima della carta intera. Sul Realme:
+al terzo giorno del Cavallo tre pezzi aperti e la testa coperta
+(`v2_d8c_lente.png`), al quarto si gratta la testa (`v2_d8c_volto.png`).
+Due difetti trovati lungo la strada e curati: con le celle e i solchi di un
+Diario vecchio il volto si apriva da solo alla quarta (visto sul Realme, la
+testa scoperta all'arrivo con "Per oggi hai scostato abbastanza"); e la
+cenere cotta sbavava una riga di pixel sui pezzi dopo, per un ricampionamento
+su misure non intere (trovato dalla guardia).
+
+**Il cammino in alto non rivela piu' l'animale**: prima della rivelazione le
+impronte sono le ombre scure scelte fra le nove (`v2_d8b_03.png`), non le
+sagome dorate nitide.
+
+**"Condividi come video" non aveva mai funzionato sul telefono**: il
+pulsante non faceva niente, il file di uscita restava a zero byte. Misurato
+nella libreria vera: la variante `ffmpeg_kit_flutter_new_min_gpl` su Android
+non ha il filtro `drawtext` (ha `overlay`, `png`, `libx264`). Padre: FZ.08,
+provata solo con un FFmpeg finto. Curato: il titolo si disegna in Flutter in
+un PNG trasparente e FFmpeg lo sovrappone; durante la preparazione il
+pulsante dice "Sto preparando il video..." con l'indicatore e non accetta un
+secondo tocco; se non riesce, un messaggio indica la card. **Persona (g)
+completata sul Realme**: alla rivelazione del Lupo, "Condividi come video",
+in circa dieci secondi il foglio di sistema con `rivelazione_Lupo.mp4`
+(`v2_g_10.png`, `v2_g_11.png`), annullato senza inviare. Il video scaricato
+dal telefono (`rivelazione_Lupo_dal_telefono.mp4`, 1080x1920, h264,
+yuv420p, 2,9 s) mostra il Lupo che ulula col titolo sopra
+(`v2_g_fotogramma_video.png`); la terza riga ripeteva "mi ha trovato" ed e'
+ora solo la data.
+
+**Il video della rivelazione**: il registro del decodificatore del telefono
+dice che ha lavorato 3,2 secondi alla rivelazione del Lupo; le mie catture,
+arrivate dopo, mostrano la posa ferma. Da riverificare con una registrazione
+dello schermo.
+
+**Il pulsante del tuo animale**: dopo la rivelazione, sotto il nome, "Scopri
+chi e' il Cavallo" apre un popup con le qualita' della voce Animale Guida
+del Passport (`v2_scopri_03.png`, `v2_scopri_popup1.png`,
+`v2_scopri_popup2.png`); anche l'immagine lo apre; "Scendi" resta sopra la
+piega (l'immagine da 340 a 230 punti). La prima stesura in una fascia in
+cima alla soglia spingeva "Scendi" sotto la piega: l'ha detto una guardia.
+Corretta anche la riga "Dal tuo cielo, Leone" nella scheda del Passport: ora
+"Riconosciuto nel Viaggio dello Sciamano".
+
+**Due osservazioni dovute alla data spostata o allo stato scritto a mano, non
+a difetti**: il Diario Cosmico rifiuta le voci con "Momento non valido" (la
+data del telefono e' nel futuro rispetto al server); e lo stato del Lupo
+scritto a mano e' stato sostituito dalla copia del Cerchio (Cavallo, cinque
+discese contro quattro), come vuole la regola della fusione.
+
+**Un difetto trovato e non ancora curato**: `IVideoDelCamminoScaricati.
+leggiIInstallati()` non lo chiama nessuno, quindi dopo ogni riavvio l'app
+dimentica i video gia' scaricati: li riscarica alla prima ombra seguita, e
+senza rete non li trova (nel segno e alla rivelazione resta la posa). Padre
+FZ.06.
