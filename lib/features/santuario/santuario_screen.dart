@@ -23,6 +23,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../services/ai/registro_dei_guasti.dart';
 import '../../services/app_services.dart';
 import '../maestri/chat/maestro_chat_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -398,7 +399,24 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     final ultima =
         DateTime.tryParse(prefs.getString(_chiaveUltimoInvito) ?? '');
     if (!mounted) return;
-    final momenti = await context.read<AppServices>().memory.quantiMomenti();
+    // **IL CONTO CHE NON ARRIVA VALE ZERO**, ordine GA voce 11, 20 ottobre
+    // 2026. Qui c'era un'attesa nuda su `quantiMomenti`, sei letture di
+    // Firestore: senza rete o con l'accesso non ancora pronto lanciavano
+    // (`unavailable`, `permission-denied`), e l'eccezione usciva da una
+    // richiamata dopo il fotogramma che nessuno aspetta. Il cruscotto la
+    // contava come un crollo (24 eventi fatali sulla 2314), e il primo
+    // avviso a chi usa il Cerchio senza account non compariva. Padre:
+    // ordine N voce 1c (commit `df7551f1`); l'area account l'aveva gia'
+    // curata l'ordine AL voce 06. Il primo avviso non aspetta i momenti, e
+    // per gli altri inviti zero momenti vuol dire non insistere. La prova:
+    // `il_conto_dei_momenti_senza_rete_test.dart`.
+    var momenti = 0;
+    try {
+      momenti = await context.read<AppServices>().memory.quantiMomenti();
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'la home non conta i momenti per la custodia', errore, traccia);
+    }
     if (!mounted) return;
     if (!QuandoChiedereLaCustodia.eIlMomento(
       anonimo: account.eAnonimo,
