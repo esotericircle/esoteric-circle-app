@@ -1,6 +1,5 @@
 import 'dart:async';
 import '../../../../design_system/components/collasso.dart';
-import '../../../../services/app_services.dart';
 import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
@@ -18,13 +17,12 @@ import '../../../../core/rituals/il_presagio_dal_corpus.dart';
 import '../../../../core/rituals/il_corpus_del_presagio.g.dart';
 import '../../../../core/rituals/sunset_rune_corpus.dart';
 import '../../../../core/rituals/rune_lore.g.dart';
-import '../../../../core/rituals/rune_presage.dart';
 import '../../../../core/rituals/rune_voce.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
 import '../../../../design_system/components/scroll_reveal.dart';
-import '../../../../design_system/components/titolo_del_responso.dart';
-import '../../../../core/rituals/il_titolo_della_gettata.dart';
+import '../../../../design_system/components/il_responso_interpretato.dart';
+import '../../../../core/responsi/la_forma_del_responso.dart';
 import '../../../../design_system/theme/maestro_palette.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -49,7 +47,6 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../core/domande/domande_del_cerchio.dart';
 import '../../../../core/rituals/filo_del_giorno.dart';
 import '../../../../core/rituals/sunset_rune_memory.dart';
-import '../../../../core/responsi/anatomia_del_responso.dart';
 import '../../../../services/ai/registro_dei_guasti.dart';
 import '../../../../core/condivisione/premio_della_condivisione.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
@@ -66,7 +63,16 @@ class RuneDrawScreen extends StatefulWidget {
     this.userBirth,
     this.random,
     this.scuotimento,
+    this.preferenze,
   });
+
+  /// **IL DISCO, iniettabile nelle prove.** Ordine GA voce GA.07. A runtime
+  /// resta null e la schermata usa `SharedPreferences.getInstance`. Nelle
+  /// prove il disco e' istantaneo, e un difetto che vive solo mentre il
+  /// telefono scrive (il presagio della gettata di prima rimasto a video
+  /// dopo "Getta ancora") non si vede: con un disco lento si vede, ed e'
+  /// cosi' che la prova lo prende.
+  final Future<SharedPreferences> Function()? preferenze;
 
   /// L'ascoltatore di scuotimento, iniettabile nelle prove: a runtime resta
   /// null e la schermata usa la porta unica dell'app.
@@ -85,6 +91,17 @@ class RuneDrawScreen extends StatefulWidget {
   /// L'identita' di chi non ha dato la nascita, nei semi della caduta e della
   /// voce. Una sola per tutti: la sorte vera resta il caso del lancio.
   static const String personaSenzaNascita = 'cerchio';
+
+  /// **LA MEMORIA DEL PRESAGIO HA UNA CHIAVE NUOVA, ordine GA voce GA.07.**
+  /// La forma del presagio di oggi e' cambiata (le parti per nome, non per
+  /// posizione): la memoria si salva in [chiaveDellaMemoria] e, la prima
+  /// volta, dalla chiave di prima ([chiaveDellaMemoriaDiPrima]) si prendono
+  /// solo le voci lette, perche' i sessanta giorni restino veri anche per chi
+  /// aveva gia' gettato. [chiaveDellaPersona] e' l'identificativo che semina
+  /// l'ordine delle voci, e non cambia.
+  static const String chiaveDellaMemoria = 'rune.presagio.memoria.v2';
+  static const String chiaveDellaMemoriaDiPrima = 'rune.presagio.memoria';
+  static const String chiaveDellaPersona = 'rune.presagio.persona';
 
   /// Sorgente del caso, iniettabile nei test e nelle catture per un lancio
   /// riproducibile. A runtime resta null, un vero lancio senza seme.
@@ -125,13 +142,18 @@ enum _Fase { preparazione, responso }
 class _RuneDrawScreenState extends State<RuneDrawScreen> {
   final TextEditingController _domanda = TextEditingController();
 
-  /// Il presagio composto dal modello, quando arriva. Nullo prima e nullo se il
-  /// modello non risponde: in quel caso vale il ripiego, che non si dichiara.
-  Responso? _presagioDelModello;
+  /// Il presagio della gettata a video, composto dal corpus. Nullo finche'
+  /// non e' composto.
+  ///
+  /// **ORDINE GA voci GA.03, GA.05 e GA.07, 20 ottobre 2026.** Qui c'era
+  /// `_presagioDelModello`, un `Responso` del modello o del corpus, e sotto
+  /// la bolla mostrava la lettura di casa (`RunePresagio`) finche' era nullo.
+  /// Col corpus completo il modello non si raggiunge piu' (ordine EX voce
+  /// 03), e il ramo che lo chiamava e' uscito dalla schermata.
+  IlPresagioComposto? _presagio;
 
-  /// Vero mentre il modello sta scrivendo. Serve alla bolla per non mostrare un
-  /// testo che fra un istante viene sostituito da un altro: uno scambio a video
-  /// direbbe alla persona che il primo era un ripiego.
+  /// Vero mentre il presagio si compone. La bolla mostra l'attesa invece di
+  /// un testo che fra un istante verrebbe sostituito da un altro.
   bool _presagioInArrivo = false;
 
   /// I DATI CHE LE DOMANDE PERSONALI CHIEDONO, e solo quelli che ci sono davvero.
@@ -318,6 +340,14 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
     setState(() {
       _esito = RuneCast.getta(_gettata, random: widget.random);
       _fase = _Fase.responso;
+      // **IL PRESAGIO DI PRIMA SI SPEGNE NELLO STESSO ISTANTE DEL GETTO.**
+      // Ordine GA voce GA.07, e il padre e' l'ordine EX voce 03: nel ramo
+      // del corpus l'attesa non si accendeva e il presagio vecchio non si
+      // azzerava, quindi finche' la composizione non tornava (si aspetta il
+      // disco) la bolla mostrava la lettura di casa alla prima gettata e il
+      // presagio della gettata PRECEDENTE dopo "Getta ancora".
+      _presagio = null;
+      _presagioInArrivo = true;
     });
     _chiediIlPresagio();
   }
@@ -325,122 +355,116 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   void _gettaAncora() {
     if (!_consumaUnaGettata()) return;
     PaletteSensoriale.eseguiSchema(SchemaAptico.tocco);
-    setState(() => _esito = RuneCast.getta(_gettata, random: widget.random));
+    setState(() {
+      _esito = RuneCast.getta(_gettata, random: widget.random);
+      _presagio = null;
+      _presagioInArrivo = true;
+    });
     _chiediIlPresagio();
   }
 
-  /// IL PRESAGIO DEL MODELLO, e il ripiego che non si dichiara.
+  /// La Lunga del presagio, dall'Iniziato in su (`RigaDelPiano.runeLunga`,
+  /// ordine GA voce GA.05).
+  bool get _lunga => PlanCatalog.apre(
+      RigaDelPiano.runeLunga, context.read<EntitlementService>().tier);
+
+  /// **IL LUCCHETTO DELLA LUNGA SI APRE SUL SUO PIANO.** Come nell'Oracolo
+  /// degli Angeli: il nome del piano dalla matrice, mai scritto a mano.
+  Future<void> _invitoAllaLunga() async {
+    const cosa = 'La risposta lunga delle rune';
+    final dal = PlanCatalog.dalPiano(
+        (t) => PlanCatalog.apre(RigaDelPiano.runeLunga, t));
+    final piano = dal?.replaceFirst('Dall’', '');
+    await showUpgradeInvite(
+      context,
+      title: piano == null ? cosa : '$cosa è dell’$piano',
+      message: piano == null
+          ? '$cosa si apre con un piano del Cerchio.'
+          : '$cosa si apre dal piano $piano in su: Calìgo approfondisce il '
+              'legame fra le pietre e ti dà il galdr della runa che decide.',
+    );
+  }
+
+  /// **IL PRESAGIO DAL CORPUS, e soltanto da li'.** Ordine EX voce 03, e
+  /// dall'ordine GA voce GA.07 nella forma nuova.
   ///
-  /// **Ordine S voce 19, punto 3 della decisione D5.** Il presagio e' l'unica bolla
-  /// che deve davvero rispondere alla domanda, ed e' una sola per gettata: la
-  /// compone il modello dai due dati che non puo' inventare, la runa col suo
-  /// significato dal corpus e la domanda scelta.
-  ///
-  /// **UNA GENERAZIONE AL GIORNO NEL PIANO GRATUITO, senza un contatore nuovo.** Si
-  /// chiede una volta per gettata, e le gettate del giorno le limita gia' il tier:
-  /// nel piano gratuito e' una. Un secondo contatore qui sarebbe la stessa cosa
-  /// contata due volte, e al primo ritocco i due direbbero numeri diversi.
-  ///
-  /// **IL RIPIEGO NON SI DICHIARA MAI.** Se il modello non c'e', non risponde o
-  /// risponde male, resta il presagio deterministico: cornice dell'allegato B piu'
-  /// la frase della runa dal corpus. La persona non deve poter capire quale dei due
-  /// sta leggendo, quindi non c'e' nessun avviso e nessuna icona.
+  /// **LAPIDE DEL RAMO DEL MODELLO, ordine GA voce GA.07, 20 ottobre 2026.**
+  /// Qui viveva il presagio chiesto al modello (ordine S voce 19, punto 3
+  /// della decisione D5) col suo ripiego che non si dichiarava, la lettura di
+  /// casa di `RunePresagio`. Dall'ordine EX voce 03 il corpus e' completo e
+  /// quel ramo non si raggiungeva piu': restava scritto, con un'istruzione
+  /// al modello nella forma di prima. L'ordine GA vuole un'istruzione sola
+  /// nella forma nuova dove un testo lo scrive il modello; per le rune non lo
+  /// scrive nessun modello, e il ramo e' uscito dalla schermata. L'istruzione
+  /// (`MaestroPersona.presagioInstruction`) e la chiamata
+  /// (`presagioDelleRune`) restano nel fornitore, ferme: la proposta di
+  /// toglierle o di riscriverle sta nel rapporto.
   void _chiediIlPresagio() {
     final esito = _esito;
     if (esito == null) return;
-    // **IL CORPUS DELL'ARCHITETTO, QUANDO C'E' TUTTO. Ordine EX voce 03.**
-    // La lettura si compone sul telefono, senza modello e senza ripetere un
-    // testo alla stessa persona per sessanta giorni. Finche' il corpus non
-    // e' completo si passa oltre, e la lettura e' quella del modello.
-    if (corpusDelPresagio.completo) {
-      unawaited(_presagioDalCorpus(esito));
+    if (!corpusDelPresagio.completo) {
+      // Non succede: lo pretende `il_corpus_delle_rune_test`. Se succedesse,
+      // la bolla resta vuota invece di mostrare un testo di un'altra forma.
+      annotaGuastoInnocuo('il corpus del presagio delle rune non è completo',
+          StateError('corpus incompleto'), StackTrace.current);
+      setState(() => _presagioInArrivo = false);
       return;
     }
-    // **LA LETTURA E' NULLABILE apposta:** questa schermata si monta anche da sola
-    // nelle prove e nelle catture, dove `AppServices` non c'e'. Senza il punto di
-    // domanda il getto schianterebbe la' dentro.
-    final servizi = Provider.of<AppServices?>(context, listen: false);
-    final ai = servizi?.ai;
-    if (ai == null || !ai.isReady) return;
-    setState(() {
-      _presagioDelModello = null;
-      _presagioInArrivo = true;
-    });
-    final domanda = _domanda.text.trim();
-    // **L'ATTESA DAL LANCIO AL TESTO. Ordine ET voce 07**: l'ordine la
-    // chiede misurata sul Realme, e nessuna riga del registro la diceva. Il
-    // presagio si chiede nello stesso momento del lancio.
-    final cronometro = Stopwatch()..start();
-    unawaited(() async {
-      try {
-        // Il profilo arriva dalla memoria, che e' la sua casa: serve al modello
-        // per il nome e la forma di cortesia, e non lo ricopia nessuno qui.
-        final profilo = await servizi!.memory.loadProfile();
-        if (!mounted || !identical(_esito, esito)) return;
-        final responso = await ai.presagioDelleRune(
-          esito: esito,
-          domanda: domanda,
-          profile: profilo,
-        );
-        if (!mounted || !identical(_esito, esito)) return;
-        debugPrint('RUNE ATTESA dal lancio al testo del modello: '
-            '${cronometro.elapsedMilliseconds} ms');
-        setState(() {
-          _presagioDelModello = responso;
-          _presagioInArrivo = false;
-        });
-      } catch (errore, traccia) {
-        // **QUI L'ERRORE SI IGNORA DI PROPOSITO, e va detto due volte.** Alla
-        // PERSONA non si dice niente: il ripiego e' un presagio a tutti gli
-        // effetti, e un avviso lo declasserebbe. A NOI si dice tutto: il guasto e'
-        // gia' nel registro, perche' la chiamata passa dalla `VoceSorvegliata`, e
-        // qui lo si annota una seconda volta come guasto innocuo per avere il
-        // punto esatto in cui la schermata ha deciso di cadere sul ripiego.
-        debugPrint('RUNE ATTESA dal lancio alla lettura di casa: '
-            '${cronometro.elapsedMilliseconds} ms');
-        annotaGuastoInnocuo(
-            'chiedendo il presagio delle rune al modello', errore, traccia);
-        if (!mounted || !identical(_esito, esito)) return;
-        setState(() => _presagioInArrivo = false);
-      }
-    }());
+    unawaited(_presagioDalCorpus(esito, lunga: _lunga));
   }
 
   /// **IL PRESAGIO DAL CORPUS.** Ordine EX voce 03. La memoria di cio' che
   /// la persona ha letto vive sul telefono, con un identificativo suo che
   /// semina l'ordine delle voci.
-  Future<void> _presagioDalCorpus(EsitoGettata esito) async {
-    const chiaveDellaMemoria = 'rune.presagio.memoria';
-    const chiaveDellaPersona = 'rune.presagio.persona';
+  /// Le chiavi stanno su [RuneDrawScreen.chiaveDellaMemoria].
+  Future<void> _presagioDalCorpus(EsitoGettata esito,
+      {required bool lunga}) async {
     final domanda = _domanda.text.trim();
+    IlPresagioComposto presagio;
     try {
-      final prefs = await SharedPreferences.getInstance();
-      var persona = prefs.getString(chiaveDellaPersona);
+      final prefs =
+          await (widget.preferenze ?? SharedPreferences.getInstance)();
+      var persona = prefs.getString(RuneDrawScreen.chiaveDellaPersona);
       if (persona == null) {
         persona = '${DateTime.now().microsecondsSinceEpoch}';
-        await prefs.setString(chiaveDellaPersona, persona);
+        await prefs.setString(RuneDrawScreen.chiaveDellaPersona, persona);
       }
-      final memoria =
-          LaMemoriaDelPresagio.daTesto(prefs.getString(chiaveDellaMemoria));
-      final responso = IlPresagioDalCorpus.componi(
+      final memoria = LaMemoriaDelPresagio.daTesto(
+          prefs.getString(RuneDrawScreen.chiaveDellaMemoria) ??
+              prefs.getString(RuneDrawScreen.chiaveDellaMemoriaDiPrima));
+      presagio = IlPresagioDalCorpus.componi(
         corpus: corpusDelPresagio,
         esito: esito,
         domanda: domanda,
         persona: persona,
         oggi: DateTime.now(),
         memoria: memoria,
+        lunga: lunga,
       );
-      await prefs.setString(chiaveDellaMemoria, memoria.comeTesto());
-      if (!mounted || !identical(_esito, esito)) return;
-      setState(() {
-        _presagioDelModello = responso;
-        _presagioInArrivo = false;
-      });
+      await prefs.setString(
+          RuneDrawScreen.chiaveDellaMemoria, memoria.comeTesto());
     } catch (errore, traccia) {
-      // La lettura di casa resta: alla persona non si dice niente.
+      // **IL DISCO NON RISPONDE: IL PRESAGIO SI COMPONE LO STESSO**, con una
+      // memoria di questo momento soltanto. La persona legge un presagio
+      // intero nella forma di sempre; la regola dei sessanta giorni, per
+      // questa gettata, non si puo' tenere, e il guasto si annota.
       annotaGuastoInnocuo(
           'componendo il presagio delle rune dal corpus', errore, traccia);
+      presagio = IlPresagioDalCorpus.componi(
+        corpus: corpusDelPresagio,
+        esito: esito,
+        domanda: domanda,
+        persona: _persona,
+        oggi: DateTime.now(),
+        memoria: LaMemoriaDelPresagio(),
+        lunga: lunga,
+      );
     }
+    if (!mounted || !identical(_esito, esito)) return;
+    setState(() {
+      _presagio = presagio;
+      _presagioInArrivo = false;
+    });
   }
 
   /// IL SEME DELLA FISICA: persona, giorno, domanda e rune uscite.
@@ -525,8 +549,10 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   esito: _esito!,
                   seme: _semeDellaGettata(_esito!),
                   domanda: _domanda.text.trim(),
-                  presagioDelModello: _presagioDelModello,
+                  presagio: _presagio,
                   presagioInArrivo: _presagioInArrivo,
+                  lunga: PlanCatalog.apre(RigaDelPiano.runeLunga, piano),
+                  onLunga: _invitoAllaLunga,
                   persona: _persona,
                   giorno: DateTime.now(),
                   animazioni: _animazioni,
@@ -875,8 +901,10 @@ class _Responso extends StatelessWidget {
     required this.esito,
     required this.seme,
     required this.domanda,
-    required this.presagioDelModello,
+    required this.presagio,
     required this.presagioInArrivo,
+    required this.lunga,
+    required this.onLunga,
     required this.persona,
     required this.giorno,
     required this.animazioni,
@@ -893,13 +921,16 @@ class _Responso extends StatelessWidget {
   final int seme;
   final String domanda;
 
-  /// Il presagio composto dal modello, quando c'e'. Nullo vuol dire ripiego, e il
-  /// ripiego non si dichiara: la persona legge un presagio, non un avviso.
-  final Responso? presagioDelModello;
+  /// Il presagio composto dal corpus; nullo mentre si compone.
+  final IlPresagioComposto? presagio;
 
-  /// Vero mentre il modello scrive. La bolla mostra l'attesa invece di un testo
-  /// che fra un istante verrebbe sostituito: uno scambio a video direbbe alla
-  /// persona che il primo era un ripiego.
+  /// Vero quando il piano apre la Lunga (`RigaDelPiano.runeLunga`): falso
+  /// per il Viandante, che vede il lucchetto e l'invito, mai un vicolo cieco.
+  final bool lunga;
+  final VoidCallback onLunga;
+
+  /// Vero mentre il presagio si compone. La bolla mostra l'attesa invece di
+  /// un testo che fra un istante verrebbe sostituito.
   final bool presagioInArrivo;
   final String persona;
   final DateTime giorno;
@@ -943,13 +974,10 @@ class _Responso extends StatelessWidget {
     // riceveva nemmeno: la domanda entrava nel seme della gettata e nell'eco
     // della singola runa, ma la lettura d'insieme parlava come se nessuno avesse
     // chiesto niente.
-    // **IL MODELLO SE C'E', il ripiego altrimenti, e nessuno dei due si annuncia.**
-    // Ordine S voce 19, punto 3 della D5: quando il modello risponde il presagio
-    // e' suo; quando non risponde e' la cornice dell'allegato B piu' la frase della
-    // runa dal corpus, e la persona non deve poter capire quale sta leggendo.
-    final responso = presagioDelModello ??
-        RunePresagio.componiIlResponso(esito, domanda: domanda);
-    final presagio = responso.inParole;
+    // **IL PRESAGIO VIENE DAL CORPUS, nella forma dell'ordine GA.** Qui c'era
+    // il modello col suo ripiego (ordine S voce 19, punto 3 della D5): il
+    // perche' non c'e' piu' sta sulla lapide di `_chiediIlPresagio`.
+    final testoDelPresagio = presagio?.inParole ?? '';
     // LA VOCE DELLA RUNA: la runa dentro la domanda e dentro il giorno,
     // agganciata al cielo vero. Il perche' sta su RuneVoce.
     // **IL CONTATORE SI CHIAMA `quale` E NON `i`, e c'e' una ragione.**
@@ -1073,55 +1101,34 @@ class _Responso extends StatelessWidget {
           // nessuno la accorci per uniformita' con le bolle brevi delle rune: e'
           // l'unica misura gia' giusta di tutta la sezione.
           // IL PRESAGIO, la lettura sola che intreccia le rune.
+          //
+          // **LA FORMA DELL'ORDINE GA, voci GA.03, GA.04 e GA.05, 20 ottobre
+          // 2026.** La bolla porta il responso principale nella forma comune
+          // (`IlResponsoInterpretato`): il titolo dalla pietra che decide, la
+          // risposta, il riquadro "Cosa fare adesso" e, nella Lunga, il
+          // paragrafo che approfondisce e il riquadro "Il galdr
+          // propiziatorio". Ogni paragrafo ha da 40 a 50 parole. Il "Da dove
+          // viene" non sta qui: chiude la consultazione una volta sola, in
+          // fondo, dopo le schede e il Sigillo.
+          //
+          // **LE TRE PARTI DI PRIMA**, la risposta, il riquadro dorato
+          // dell'azione e il "da dove viene" in prosa bianca (ordini S voce 19,
+          // CQ voce 6.20, DD voce 11), qui erano scritte a mano: la forma
+          // comune le sostituisce, e "Il presagio di Calìgo" sotto il titolo
+          // e' uscito perche' il titolo, che e' gia' la risposta, resta il
+          // primo pezzo (*"Restano all'inizio i titoli"*).
           ScrollReveal(
             depth: 1,
             child: DepthCard(
               key: const Key('rune_presage'),
               raised: true,
               padding: const EdgeInsets.all(SpacingTokens.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // **IL TITOLO DEL PRESAGIO, dal punto comune.** Ordine FK
-                  // aggiunta voce A1: la riga della runa che sta al centro
-                  // della gettata, nel suo verso, che e' la stessa riga con
-                  // cui la Runa del Tramonto apre il suo responso.
-                  if (IlTitoloDellaGettata.di(esito).isNotEmpty) ...[
-                    TitoloDelResponso(
-                        testo: IlTitoloDellaGettata.di(esito),
-                        chiaveDelTesto: const Key('rune_presage_titolo'),
-                        stile: TypographyTokens.titoloScheda()
-                            .copyWith(color: palette.goldSoft, height: 1.2)),
-                    const SizedBox(height: SpacingTokens.xs),
-                  ],
-                  Row(
-                    children: [
-                      Icon(Icons.auto_awesome,
-                          size: 16, color: palette.goldSoft),
-                      const SizedBox(width: SpacingTokens.xs),
-                      // **I COLORI DEL PRESAGIO, come il fondatore li ha
-                      // dettati. Ordine CQ voce 6.20, 4 settembre 2026.**
-                      //
-                      // Parole sue: *Titolo Giallo, un po' piu' grande. Sotto
-                      // paragrafo bianco. Poi riquadro con paragrafo GIALLO.
-                      // Poi ultimo paragrafo bianco.*
-                      //
-                      // Il titolo passa da `etichetta` a `titoloDiRiga`,
-                      // cioe' da quattordici punti a sedici: **un gradino
-                      // della scala, non una misura scritta a mano qui.**
-                      Text('Il presagio di Calìgo',
-                          style: TypographyTokens.titoloDiRiga().copyWith(
-                              color: palette.goldSoft, letterSpacing: 0.6)),
-                    ],
-                  ),
-                  const SizedBox(height: SpacingTokens.xs),
-                  // **L'ATTESA NON MOSTRA UN TESTO CHE POI CAMBIA.** Mentre il
-                  // modello scrive, la bolla tiene tre righe di respiro invece del
-                  // ripiego: se mostrasse il ripiego e poi lo sostituisse, la
-                  // persona vedrebbe lo scambio e capirebbe che il primo era un
-                  // ripiego, che e' esattamente cio' che l'ordine vieta.
-                  if (presagioInArrivo)
-                    Padding(
+              child: presagio == null
+                  // **L'ATTESA NON MOSTRA UN TESTO CHE POI CAMBIA.** Il
+                  // presagio si compone in un istante, ma passa dal disco:
+                  // finche' non c'e', la bolla respira invece di mostrare un
+                  // testo di un'altra gettata.
+                  ? Padding(
                       key: const Key('rune_presage_attesa'),
                       padding: const EdgeInsets.symmetric(
                           vertical: SpacingTokens.md),
@@ -1130,8 +1137,10 @@ class _Responso extends StatelessWidget {
                           SizedBox(
                             width: 14,
                             height: 14,
-                            child: CircularProgressIndicator(
-                                strokeWidth: 1.6, color: palette.goldSoft),
+                            child: presagioInArrivo
+                                ? CircularProgressIndicator(
+                                    strokeWidth: 1.6, color: palette.goldSoft)
+                                : null,
                           ),
                           const SizedBox(width: SpacingTokens.sm),
                           Text('Calìgo sta leggendo le pietre',
@@ -1140,91 +1149,66 @@ class _Responso extends StatelessWidget {
                         ],
                       ),
                     )
-                  else ...[
-                    // **LE TRE PARTI SI VEDONO, ordine S voce 19 sull'anatomia
-                    // della voce S.16.** Erano un paragrafo unico, e in un
-                    // paragrafo unico la cosa da fare si perde in mezzo: e' la
-                    // parte che fa tornare, quindi ha la sua superficie.
-                    // **IL GIALLO SOLO PER CIO' CHE PARLA ADESSO. Ordine DD
-                    // voce 11, 10 settembre 2026, e la ragione e' del
-                    // fondatore.**
-                    //
-                    // Qui il primo paragrafo del presagio era dorato, per la
-                    // regola dell'ordine B: in una prosa a piu' blocchi il
-                    // primo porta il senso e si stacca. **In questa schermata
-                    // quella regola faceva a pugni con un'altra**: il
-                    // riquadro dell'azione, cioe' l'unica riga che chiede di
-                    // fare qualcosa **adesso**, e' dorato anche lui. Due ori
-                    // nella stessa bolla non sono una gerarchia, sono due
-                    // richiami che si annullano.
-                    //
-                    // **L'oro resta uno solo, ed e' quello nel riquadro.**
-                    // Qui la prosa e' tutta bianca: il senso lo porta gia'
-                    // l'ordine dei blocchi, che nel presagio e' fisso.
-                    ParagrafiDiLettura(
-                        key: const Key('rune_presage_text'),
-                        testo: responso.risposta,
-                        stile: TypographyTokens.lettura()
-                            .copyWith(color: ColorTokens.textPrimary)),
-                    const SizedBox(height: SpacingTokens.sm),
-                    Container(
-                      key: const Key('rune_presage_azione'),
-                      padding: const EdgeInsets.all(SpacingTokens.sm),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(SpacingTokens.radiusMd),
-                        border: Border.all(
-                            color: palette.gold.withValues(alpha: 0.4)),
-                        color: palette.deepest.withValues(alpha: 0.35),
-                      ),
-                      // **ANCHE QUI SI PASSA DALLA PORTA UNICA**, e a dirlo e'
-                      // stata la prova `etichette_e_lettura`: un Text diretto nel
-                      // ruolo lettura e' la famiglia delle due porte, e da quella
-                      // porta il muro di testo rientra.
-                      // **IL RIQUADRO E' GIALLO, ordine CQ voce 6.20.** E'
-                      // l'unico blocco del presagio che chiede di fare
-                      // qualcosa, e il colore lo stacca dalle due prose
-                      // bianche che lo circondano.
-                      // **NESSUN ORO NELL'ORO.** Ordine DD voce 11: questo
-                      // riquadro e' gia' dorato per intero, e chiedere l'oro
-                      // anche al primo blocco non cambiava un pixel mentre
-                      // faceva credere a chi legge il codice che qui ci fosse
-                      // una gerarchia.
-                      child: ParagrafiDiLettura(
-                          testo: responso.cosaPuoiFare,
-                          stile: TypographyTokens.lettura()
-                              .copyWith(color: palette.goldSoft)),
+                  : IlResponsoInterpretato(
+                      responso: presagio!.principaleSenzaLaFonte,
+                      chiave: 'rune_presage',
+                      palette: palette,
+                      stileDelTitolo: TypographyTokens.titoloScheda()
+                          .copyWith(color: palette.goldSoft, height: 1.2),
+                      stile: TypographyTokens.lettura()
+                          .copyWith(color: ColorTokens.textPrimary),
                     ),
-                    const SizedBox(height: SpacingTokens.sm),
-                    // DA DOVE VIENE, e qui compaiono le rune: non prima.
-                    // **L'ULTIMO PARAGRAFO E' BIANCO E DELLA STESSA MISURA,
-                    // ordine CQ voce 6.20.** Era in `didascalia` e in grigio,
-                    // cioe' si faceva leggere piu' piccolo degli altri dentro
-                    // lo stesso riquadro: e' la disuniformita' che il
-                    // fondatore chiede di togliere da tre ordini.
-                    ParagrafiDiLettura(
-                        testo: responso.daDoveViene,
-                        key: const Key('rune_presage_fonte'),
-                        stile: TypographyTokens.lettura()
-                            .copyWith(color: ColorTokens.textPrimary)),
-                  ],
-                ],
-              ),
             ),
           ),
+          // **LA LUNGA E' DALL'INIZIATO IN SU, ordine GA voce GA.05**: a chi
+          // non l'ha, il lucchetto e l'invito, come nell'Oracolo degli
+          // Angeli. Mai un vicolo cieco.
+          if (presagio != null && !lunga) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Material(
+              color: palette.primary.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              child: InkWell(
+                key: const Key('rune_lucchetto_lunga'),
+                enableFeedback: false,
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                onTap: onLunga,
+                child: Padding(
+                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  child: Row(
+                    children: [
+                      Icon(Icons.lock_rounded, color: palette.goldSoft),
+                      const SizedBox(width: SpacingTokens.sm),
+                      Expanded(
+                        child: Text(
+                            'La risposta lunga: Calìgo approfondisce il legame '
+                            'fra le pietre e ti dà il galdr della runa che '
+                            'decide',
+                            style: TypographyTokens.corpo()
+                                .copyWith(color: ColorTokens.textPrimary)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: SpacingTokens.md),
           // LE RUNE UNA PER UNA, il dettaglio dopo la lettura d'insieme.
+          // **ORDINE GA voce GA.05**: ogni scheda ha la forma breve (il
+          // titolo, che e' la riga della runa nel suo verso, il paragrafo
+          // PIETRA e il riquadro "Cosa fare adesso" col CONSIGLIO). La Runa
+          // di Odino non ha una scheda col testo: il responso principale e'
+          // gia' la sua runa, e qui resta la testata con la porta.
           for (var i = 0; i < esito.rune.length; i++) ...[
             _LetturaRuna(
                 runa: esito.rune[i],
                 indice: i,
                 palette: palette,
                 libera: esito.gettata.libera,
-                // **QUANTE NE SONO USCITE IN TUTTO. Ordine CQ voce 2.10**, 4
-                // settembre 2026: a una runa sola la scheda intera diventa
-                // tutto cio' che c'e' a schermo, e il responso si legge come
-                // una pagina di manuale invece che come una risposta.
-                sola: esito.rune.length == 1,
+                scheda: presagio != null && i < presagio!.schede.length
+                    ? presagio!.schede[i]
+                    : null,
                 voce: i < voci.length ? voci[i].risposta : null,
                 daDoveNasce: i < voci.length ? voci[i].daDoveNasce : null,
                 giuntura: giunture != null && i < giunture.length
@@ -1327,7 +1311,18 @@ class _Responso extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.md),
-          _Azioni(palette: palette, esito: esito, presagio: presagio),
+          // **IL "DA DOVE VIENE" E' UNO SOLO, IN FONDO. Ordine GA voce
+          // GA.05**: chiude la consultazione e cita le fonti di tutte le
+          // rune uscite (i poemi runici e, nella Lunga, il galdr). Dal pezzo
+          // comune della forma, in corsivo.
+          if (presagio?.principale.daDoveViene != null) ...[
+            IlDaDoveViene(
+              testo: presagio!.principale.daDoveViene!,
+              chiave: 'rune_presage_da_dove_viene',
+            ),
+            const SizedBox(height: SpacingTokens.md),
+          ],
+          _Azioni(palette: palette, esito: esito, presagio: testoDelPresagio),
           const SizedBox(height: SpacingTokens.xxxl),
         ],
       ),
@@ -1343,7 +1338,7 @@ class _LetturaRuna extends StatelessWidget {
       required this.indice,
       required this.palette,
       this.libera = false,
-      this.sola = false,
+      this.scheda,
       this.voce,
       this.daDoveNasce,
       this.giuntura});
@@ -1363,23 +1358,20 @@ class _LetturaRuna extends StatelessWidget {
   /// Nel getto libero le rune lette sono in luce, non hanno il verso d'ombra.
   final bool libera;
 
-  /// **VERO QUANDO LA GETTATA E' DI UNA RUNA SOLA.**
-  /// Ordine CQ voce 2.10, 4 settembre 2026.
+  /// **LA SCHEDA DELLA RUNA NELLA FORMA BREVE, ordine GA voce GA.05**, 20
+  /// ottobre 2026: *"Le singole carte e le singole rune hanno sempre il
+  /// responso breve: il loro titolo, un paragrafo e il riquadro 'Cosa fare
+  /// adesso'"*. Il titolo e' la riga della runa nel suo verso, il paragrafo
+  /// e' PIETRA, il riquadro e' il CONSIGLIO, dal corpus.
   ///
-  /// **Il fatto, parole del fondatore:** il responso della runa singola e'
-  /// troppo lungo, tre paragrafi.
-  ///
-  /// **Misurato:** la scheda intera porta in media 264 caratteri contro i 50
-  /// della sola risposta, cioe' **cinque volte e un quarto**, e su una gettata
-  /// a tre o cinque rune quel corpo e' la lettura ed e' giusto che ci sia. Su
-  /// una sola diventa l'unica cosa a schermo.
-  ///
-  /// **Il corpus non si tocca**: le stesse frasi restano, e restano
-  /// leggibili. Cambia quante ne arrivano insieme: la risposta subito, il
-  /// resto sotto una porta che si apre.
-  final bool sola;
+  /// **Nulla con una runa sola**: la Runa di Odino e' gia' il responso
+  /// principale, e qui restano la testata e la porta. Prima qui c'era `sola`
+  /// (ordine CQ voce 2.10), che a una runa sola chiudeva il corpo dietro la
+  /// porta: adesso il corpo della runa sola e' il responso principale.
+  final ResponsoInterpretato? scheda;
 
   /// La Voce della Runa: la runa dentro la domanda e dentro il giorno.
+  /// **Dall'ordine GA sta dietro la porta**, col significato e la strofa.
   final String? voce;
 
   /// La giuntura del Verso delle Norne, quando la stesa e' a tre.
@@ -1487,101 +1479,45 @@ class _LetturaRuna extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: SpacingTokens.sm),
-            // **LA DESCRIZIONE DEL SIMBOLO, la promessa di S.20 mantenuta.**
-            // Ordine BF voce 05.a: quando S.20 accorcio' le righe di risposta
-            // dichiaro' che la descrizione sarebbe vissuta "nella sua scheda",
-            // ma nella scheda non era mai entrata, e il fondatore leggeva i
-            // responsi come tagliati a meta'. La risposta resta corta come
-            // S.20 vuole; il simbolo, dal corpus, le rida' il suo corpo.
-            // **A UNA RUNA SOLA IL CORPO STA DIETRO UNA PORTA.**
-            // Ordine CQ voce 2.10, 4 settembre 2026. La descrizione del
-            // simbolo, la Voce della Runa e la strofa attestata sono il corpo
-            // della lettura quando le rune sono tre o cinque; con una sola
-            // diventano tutto cio' che c'e' a schermo, e la risposta si perde
-            // in mezzo. **Non spariscono: si aprono.**
-            // **TRE PARAGRAFI, E BASTA. Ordine CQ voci 6.19 e 6.22,
-            // 4 settembre 2026.**
-            //
-            // Parole del fondatore: *Intestazione con immagine runa OK. Poi
-            // sotto 3 paragrafi: Giallo, Bianco, Giallo.* E prima: *per
-            // quanto riguarda la quantita' di testo nelle bolle delle singole
-            // rune, non hai fatto nulla?*
-            //
-            // **Aveva ragione.** La porta valeva per la sola runa singola,
-            // per una decisione mia: *a tre e a cinque restano dove erano,
-            // perche' li' sono il corpo della lettura*. Misurato sui suoi
-            // screenshot: **1833 caratteri per la gettata a tre, 3055 per la
-            // Croce delle Cinque.** E' una parete.
-            //
-            // **La soluzione si posa da sola.** Dietro la porta vanno la
-            // materia storica e la strofa, che sono la FONTE e per la legge
-            // dei testi stanno brevi e in fondo. Restano esattamente i tre
-            // paragrafi che il fondatore chiede, e i colori seguono il senso:
-            // il significato e il cielo sono di Caligo, la risposta e' la
-            // voce che parla a te.
-            //
-            // **E QUI L'ORO SE N'E' ANDATO. Ordine DD voce 11, 10 settembre
-            // 2026, e la ragione e' del fondatore: il giallo resta solo per
-            // cio' che parla all'utente ADESSO, e quella frase sta in un
-            // riquadro.**
-            //
-            // **Cosa c'era, e perche' era stato deciso cosi'.** I tre
-            // paragrafi della scheda avevano i colori del senso: il
-            // significato e il cielo in oro, *"di Caligo"*, e la risposta in
-            // bianco, *"la voce che parla a te"*. Era una gerarchia
-            // ragionata, e **diceva il contrario di quello che serve**: in una
-            // gettata da tre rune quell'assetto accendeva **sei prose
-            // dorate**, piu' quella del presagio, e cio' che parla adesso era
-            // l'unica cosa bianca in mezzo a tutto l'oro.
-            //
-            // Adesso l'oro di questa lettura e' **uno solo**, il riquadro
-            // dell'azione nel presagio, e una guardia conta le prose dorate a
-            // video invece di fidarsi di questo commento.
-            //
-            // **UNO. Il significato del segno.**
-            ParagrafiDiLettura(
-                key: Key('rune_meaning_$indice'),
-                testo: runa.rune.meaning,
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary)),
-            const SizedBox(height: SpacingTokens.sm),
-            // **DUE. La risposta**: e' cio' che la runa dice a te, e sta in
-            // mezzo perche' e' la cosa che conta. **Dal 10 settembre 2026 non
-            // e' piu' l'unica bianca fra due ori**, sono bianche tutte e tre:
-            // a distinguerla resta il posto, che nel responso e' fisso.
-            ParagrafiDiLettura(
-                key: Key('rune_riga_$indice'),
-                testo: runa.riga,
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary)),
-            // **TRE. Il cielo con la domanda.** Qui vive la frase che nomina
-            // la domanda scritta, una volta sola su tutta la gettata.
-            // **Anche questa non e' piu' dorata**, ordine DD voce 11: dice da
-            // dove viene la lettura, non cosa fare adesso.
-            if (voce != null) ...[
+            // **LA SCHEDA NELLA FORMA BREVE. Ordine GA voce GA.05, 20 ottobre
+            // 2026.** Qui c'erano tre paragrafi, il significato del segno, la
+            // riga dritta o d'ombra e la Voce della Runa (ordini BF voce
+            // 05.a, CQ voci 6.19 e 6.22, DD voce 11). Il fondatore, 19
+            // ottobre 2026 alle 23:08: *"Restano all'inizio i titoli, anche
+            // per le singola carte o le singole rune"*, e la voce GA.05 vuole
+            // per ogni runa il titolo, un paragrafo da 40 a 50 parole e il
+            // riquadro "Cosa fare adesso". La riga diventa il TITOLO; il
+            // paragrafo e il riquadro vengono dal corpus (PIETRA e
+            // CONSIGLIO); il significato e la Voce della Runa scendono
+            // dietro la porta "Da dove nasce questa runa", con la materia
+            // storica e la strofa, perche' dicono da dove viene la lettura e
+            // non che cosa fare.
+            if (scheda != null) ...[
               const SizedBox(height: SpacingTokens.sm),
-              ParagrafiDiLettura(
-                  key: Key('rune_voce_$indice'),
-                  testo: voce!,
-                  stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textPrimary)),
+              IlResponsoInterpretato(
+                responso: scheda!,
+                chiave: 'rune_scheda_$indice',
+                palette: palette,
+                stileDelTitolo: TypographyTokens.titoloDiRiga()
+                    .copyWith(color: palette.goldSoft, height: 1.25),
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary),
+              ),
             ],
             // **E LA FONTE STA DIETRO LA PORTA, per ogni gettata.** Non
             // sparisce: si apre. Chi vuole sapere da dove nasce la runa tocca
             // e legge; chi vuole la risposta l'ha gia' letta qui sopra.
-            if ((daDoveNasce != null && daDoveNasce!.trim().isNotEmpty) ||
-                kRuneLore[runa.rune.name] != null)
-              _IlRestoDellaRuna(
-                indice: indice,
-                palette: palette,
-                simbolo: daDoveNasce,
-                voce: null,
-                strofa: kRuneLore[runa.rune.name] == null
-                    ? null
-                    : '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
-                        '\u00ab${kRuneLore[runa.rune.name]!.strofe.first.traduzione}\u00bb',
-              ),
+            _IlRestoDellaRuna(
+              indice: indice,
+              palette: palette,
+              significato: runa.rune.meaning,
+              voce: voce,
+              simbolo: daDoveNasce,
+              strofa: kRuneLore[runa.rune.name] == null
+                  ? null
+                  : '${kRuneLore[runa.rune.name]!.strofe.first.fonte}: '
+                      '«${kRuneLore[runa.rune.name]!.strofe.first.traduzione}»',
+            ),
           ],
         ),
       ),
@@ -2541,6 +2477,7 @@ class _IlRestoDellaRuna extends StatefulWidget {
     required this.indice,
     required this.palette,
     required this.simbolo,
+    this.significato,
     this.voce,
     this.strofa,
   });
@@ -2552,6 +2489,12 @@ class _IlRestoDellaRuna extends StatefulWidget {
   /// materia storica della voce, e una runa senza lore non ne ha: in quel
   /// caso la porta si apre sulla sola strofa.
   final String? simbolo;
+
+  /// **IL SIGNIFICATO DEL SEGNO E LA VOCE DELLA RUNA, dall'ordine GA voce
+  /// GA.05.** Stavano a vista nella scheda, sopra e sotto la riga: adesso la
+  /// scheda ha la forma breve, e questi due testi dicono da dove viene la
+  /// lettura. Stanno qui, prima della materia storica e della strofa.
+  final String? significato;
   final String? voce;
   final String? strofa;
 
@@ -2597,26 +2540,40 @@ class _IlRestoDellaRunaState extends State<_IlRestoDellaRuna> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // **LA MATERIA STORICA, quando c'e'. Ordine CQ voce 6.19.**
-              //
-              // La chiave non e' piu' `rune_meaning`, che adesso vive fuori
-              // dalla porta col significato del segno: **due cose diverse
-              // non portano lo stesso nome**, o la prima guardia che le
-              // cerca ne trova una per l'altra.
-              if (widget.simbolo != null && widget.simbolo!.trim().isNotEmpty)
+              // **UNO. Il significato del segno**, dal catalogo delle rune.
+              if (widget.significato != null &&
+                  widget.significato!.trim().isNotEmpty)
                 ParagrafiDiLettura(
-                    key: Key('rune_da_dove_nasce_${widget.indice}'),
-                    testo: widget.simbolo!,
+                    key: Key('rune_meaning_${widget.indice}'),
+                    testo: widget.significato!,
                     stile: TypographyTokens.lettura()
-                        .copyWith(color: ColorTokens.textSecondary)),
-              if (widget.voce != null) ...[
+                        .copyWith(color: ColorTokens.textPrimary)),
+              // **DUE. La Voce della Runa**: la runa dentro la domanda e
+              // dentro il giorno. Bianca come il resto della prosa: l'oro
+              // e' dei riquadri "Cosa fare adesso" (ordine DD voce 11).
+              if (widget.voce != null && widget.voce!.trim().isNotEmpty) ...[
                 const SizedBox(height: SpacingTokens.sm),
                 ParagrafiDiLettura(
                     key: Key('rune_voce_${widget.indice}'),
                     testo: widget.voce!,
                     stile: TypographyTokens.lettura()
-                        .copyWith(color: widget.palette.goldSoft)),
+                        .copyWith(color: ColorTokens.textPrimary)),
               ],
+              // **TRE. La materia storica, quando c'e'. Ordine CQ voce
+              // 6.19.** La chiave non e' `rune_meaning`, che e' il
+              // significato del segno: **due cose diverse non portano lo
+              // stesso nome**, o la prima guardia che le cerca ne trova una
+              // per l'altra.
+              if (widget.simbolo != null &&
+                  widget.simbolo!.trim().isNotEmpty) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                ParagrafiDiLettura(
+                    key: Key('rune_da_dove_nasce_${widget.indice}'),
+                    testo: widget.simbolo!,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textSecondary)),
+              ],
+              // **QUATTRO. La strofa del poema, con la sua fonte.**
               if (widget.strofa != null) ...[
                 const SizedBox(height: SpacingTokens.sm),
                 Text(widget.strofa!,

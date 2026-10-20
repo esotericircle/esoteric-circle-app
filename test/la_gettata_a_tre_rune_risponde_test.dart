@@ -44,8 +44,14 @@ void main() {
     final storte = <String>[];
     var guardate = 0;
     for (final nome in const [
-      'Luna nuova', 'Luna piena', 'Luna crescente', 'Luna calante',
-      'Gibbosa crescente', 'Gibbosa calante', 'Primo quarto', 'Ultimo quarto',
+      'Luna nuova',
+      'Luna piena',
+      'Luna crescente',
+      'Luna calante',
+      'Gibbosa crescente',
+      'Gibbosa calante',
+      'Primo quarto',
+      'Ultimo quarto',
     ]) {
       guardate++;
       final frase = 'e la Luna ${MoonPhase.comeSiDice(nome)}.';
@@ -90,8 +96,8 @@ void main() {
     // far passare la prova. E' la seconda volta oggi.
     final codice = sorgente
         .split(String.fromCharCode(10))
-        .where((r) => !r.trimLeft().startsWith('//') &&
-            !r.trimLeft().startsWith('///'))
+        .where((r) =>
+            !r.trimLeft().startsWith('//') && !r.trimLeft().startsWith('///'))
         .join(String.fromCharCode(10));
     expect(codice.contains('luna.italianName.toLowerCase()'), isFalse,
         reason: 'la voce della runa prende di nuovo il nome grezzo della '
@@ -115,8 +121,7 @@ void main() {
           indice: i,
         ),
     ];
-    final conLaDomanda =
-        voci.where((v) => v.contains(domanda)).length;
+    final conLaDomanda = voci.where((v) => v.contains(domanda)).length;
     // ignore: avoid_print
     print('ORDINE CQ VOCE 6.16: rune ${voci.length}, voci che nominano la '
         'domanda $conLaDomanda');
@@ -138,9 +143,7 @@ void main() {
   test('il Sigillo del Giorno risponde all intreccio, quando c e una domanda',
       () {
     const domanda = 'quando diventerò immortale?';
-    final chiavi = <String>[
-      for (final r in kElderFuthark.take(3)) r.keyword
-    ];
+    final chiavi = <String>[for (final r in kElderFuthark.take(3)) r.keyword];
     final conDomanda = SigilloDelGiorno.riga(
         paroleChiave: chiavi, domanda: domanda, giorno: giorno);
     final senza = SigilloDelGiorno.riga(
@@ -192,16 +195,14 @@ void main() {
       // Con quattrocento caratteri per lato la chiave del Sigillo restava
       // fuori dalla vista del suo stile, che sta in fondo a un blocco
       // lungo: la prova diceva "non usa il ruolo lettura" mentre lo usava.
-      final intorno = schermata.substring(
-          dove > 800 ? dove - 800 : 0,
+      final intorno = schermata.substring(dove > 800 ? dove - 800 : 0,
           dove + 800 < schermata.length ? dove + 800 : schermata.length);
       // **SI MISURA L'UNIFORMITA', NON UN RUOLO PRECISO.** La prima
       // stesura pretendeva `lettura`, e quando la prosa e' salita alla
       // misura ampia e' caduta pur essendo tutto uniforme: **una prova
       // legata al nome del ruolo cade quando il ruolo migliora.** Adesso
       // raccoglie i ruoli trovati e pretende che siano UNO.
-      final m = RegExp(r'TypographyTokens\.(\w+)\(\)')
-          .firstMatch(intorno);
+      final m = RegExp(r'TypographyTokens\.(\w+)\(\)').firstMatch(intorno);
       if (m == null) {
         storti.add('$chiave: non passa da nessun ruolo della scala');
       } else {
@@ -241,13 +242,12 @@ void main() {
     expect(schermata.contains('SigilloDelGiorno.riga('), isTrue,
         reason: 'la schermata non chiama la porta che compone la risposta del '
             'Sigillo: la porta sa rispondere e nessuno gliela chiede');
-    expect(schermata.contains("'Le rune di questa gettata, strette in un "), 
+    expect(schermata.contains("'Le rune di questa gettata, strette in un "),
         isFalse,
         reason: 'la riga vecchia e tornata scritta a mano nella schermata');
   });
 
-  test('la bolla della runa porta tre paragrafi, e le fonti stanno dietro',
-      () {
+  test('la bolla della runa porta tre paragrafi, e le fonti stanno dietro', () {
     // **Ordine CQ voci 6.19 e 6.22, 4 settembre 2026.** Parole del fondatore:
     // *Intestazione con immagine runa OK. Poi sotto 3 paragrafi: Giallo,
     // Bianco, Giallo.* E prima: *per quanto riguarda la quantita' di testo
@@ -280,16 +280,40 @@ void main() {
     // **Questa prova non e' stata cancellata**, perche' cio' che difendeva
     // vale ancora: i tre paragrafi, il loro ordine, e la misura di lettura.
     // Ha smesso di difendere i due ori, e chi legge deve sapere perche'.
+    //
+    // **REGOLA D UN'ALTRA VOLTA: L'ORDINE GA, voce GA.05, 20 ottobre 2026.**
+    // Il fondatore, 19 ottobre 2026 alle 23:08: *"Restano all'inizio i
+    // titoli, anche per le singola carte o le singole rune"*, e la voce
+    // GA.05: ogni runa ha *"il loro titolo, un paragrafo e il riquadro
+    // 'Cosa fare adesso'"*. La scheda adesso e' la forma comune
+    // (`IlResponsoInterpretato`, chiave `rune_scheda_`): la riga e' il
+    // titolo, il paragrafo e il riquadro vengono dal corpus. Il significato e
+    // la Voce della Runa, che erano il primo e il terzo paragrafo, sono
+    // scesi dietro la porta, prima della materia storica e della strofa:
+    // **le fonti stanno dietro**, come dice il nome di questa prova, e
+    // adesso ci stanno tutte. Qui si pretendono la scheda nella forma comune
+    // con la prosa di lettura, e dietro la porta i quattro pezzi in
+    // quest'ordine, la prosa nella misura di lettura.
+    final scheda = schermata.indexOf("chiave: 'rune_scheda_\$indice',");
+    expect(scheda, greaterThan(0),
+        reason: 'la scheda della runa non passa dalla forma comune');
+    final intornoAllaScheda = schermata.substring(scheda, scheda + 400);
+    expect(intornoAllaScheda.contains('TypographyTokens.lettura()'), isTrue,
+        reason: 'la prosa della scheda non ha la misura di lettura');
+    expect(intornoAllaScheda.contains('ColorTokens.textPrimary'), isTrue,
+        reason: 'la prosa della scheda non e bianca');
+    final porta = schermata.indexOf('class _IlRestoDellaRunaState');
+    expect(porta, greaterThan(0), reason: 'la porta non esiste piu');
     final ordine = <String, String>{
       'rune_meaning_': 'ColorTokens.textPrimary',
-      'rune_riga_': 'ColorTokens.textPrimary',
       'rune_voce_': 'ColorTokens.textPrimary',
+      'rune_da_dove_nasce_': 'ColorTokens.textSecondary',
     };
     final storti = <String>[];
-    var precedente = -1;
+    var precedente = porta;
     var guardati = 0;
     for (final voce in ordine.entries) {
-      final dove = schermata.indexOf("Key('${voce.key}");
+      final dove = schermata.indexOf("Key('${voce.key}", porta);
       if (dove < 0) {
         storti.add('${voce.key}: non e piu a video');
         continue;
@@ -308,10 +332,13 @@ void main() {
       }
     }
     // ignore: avoid_print
-    print('ORDINE CQ VOCE 6.22: paragrafi guardati $guardati, storti '
-        '${storti.length}');
+    final strofa = schermata.indexOf("Key('rune_strofa_", porta);
+    if (strofa < precedente) storti.add('rune_strofa_: non sta in fondo');
+    // ignore: avoid_print
+    print('ORDINE GA VOCE 05: paragrafi dietro la porta guardati $guardati, '
+        'storti ${storti.length}');
     cardinaleMinimo(guardati, 3,
-        cosa: 'paragrafi della bolla della runa trovati nel sorgente',
+        cosa: 'paragrafi della porta della runa trovati nel sorgente',
         perche: 'Con meno di tre paragrafi la prova direbbe che l ordine e '
             'giusto per non averne guardato nessuno.');
     expect(storti, isEmpty,
@@ -329,8 +356,7 @@ void main() {
     final dove = schermata.indexOf('_IlRestoDellaRuna(');
     expect(dove, greaterThanOrEqualTo(0),
         reason: 'la porta delle fonti non esiste piu');
-    final prima = schermata.substring(
-        dove > 500 ? dove - 500 : 0, dove);
+    final prima = schermata.substring(dove > 500 ? dove - 500 : 0, dove);
     // ignore: avoid_print
     print('ORDINE CQ VOCE 6.19: la porta si monta sotto una condizione che '
         'nomina "sola" ${prima.contains("if (sola)")}');

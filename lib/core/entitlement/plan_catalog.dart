@@ -221,6 +221,14 @@ enum RigaDelPiano {
   oracoloTreCarte,
   oracoloLunga,
 
+  /// **LA RISPOSTA LUNGA DELLE RUNE, ordine GA voce GA.05**, 20 ottobre
+  /// 2026. Il fondatore, 20 ottobre 2026 alle 00:10: *"Profondità lunga solo
+  /// dal tier 1 e solo per il responso principale e non per le singole
+  /// carte"*. Il responso principale della gettata aggiunge il paragrafo che
+  /// approfondisce e il galdr propiziatorio; le schede delle rune restano
+  /// brevi. Zero modello: tutto viene dal corpus.
+  runeLunga,
+
   /// **IL CALENDARIO LUNARE, ordine FV voce FV.12**, 15 ottobre 2026: quanti
   /// mesi avanti si scorrono. Zero per il Viandante (solo il mese in
   /// corso), uno per l'Iniziato (anche il mese dopo), dodici per l'Adepto e
@@ -377,7 +385,8 @@ class PlanCatalog {
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
         'L’oroscopo per gli amici, fino a tre',
-        '2 gettate di rune al giorno; I-Ching e Pendolo a Eos scontati',
+        '2 gettate di rune al giorno, con la risposta lunga; I-Ching e '
+            'Pendolo a Eos scontati',
       ],
     ),
     Plan(
@@ -967,6 +976,12 @@ class PlanCatalog {
     FeatureRow('Gettate di rune',
         ['1 al giorno', '2 al giorno', '3 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.gettate),
+    // **LA RISPOSTA LUNGA DELLE RUNE, ordine GA voce GA.05**, 20 ottobre
+    // 2026: dall'Iniziato in su, solo per il responso principale. Non costa
+    // niente: la Lunga viene dal corpus come la Breve, e il caso peggiore
+    // dei piani (ordine GA voce GA.02) non cambia.
+    FeatureRow('Gettata di rune: risposta lunga', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.runeLunga),
     // **IL VIAGGIO DELLO SCIAMANO, ordine DI voce 15, 12 settembre 2026.** I
     // valori sono dell'ordine, parola per parola. **Prima del riconoscimento
     // la discesa resta una al giorno per tutti**, anche per l'Illuminato: e'

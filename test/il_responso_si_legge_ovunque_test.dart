@@ -133,9 +133,13 @@ void main() {
         // lei a far vedere che sorvegliava la cosa sbagliata: **una
         // guardia che punta al pezzo accanto**, la stessa famiglia che
         // il conto delle ore ha contato sette volte su sette.
+        // **E DALL'ORDINE GA VOCE GA.03 il presagio passa dalla forma
+        // comune**, `IlResponsoInterpretato` con la chiave `rune_presage`:
+        // la misura e il colore della prosa sono quelli che la schermata
+        // gli passa qui, ed e' qui che si guardano.
         'le Rune': (
           'lib/features/maestri/caligo/rune/rune_draw_screen.dart',
-          'key: const Key(\'rune_presage_text\'),',
+          'chiave: \'rune_presage\',',
         ),
         'gli Angeli': (
           'lib/features/angels/angels_screen.dart',

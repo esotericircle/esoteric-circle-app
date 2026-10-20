@@ -1,4 +1,9 @@
 import 'dart:io';
+import 'dart:math';
+
+import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
+import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -25,8 +30,7 @@ void main() {
       File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
           .readAsStringSync();
 
-  test('sotto il Sigillo c e scritto a cosa serve, prima della tradizione',
-      () {
+  test('sotto il Sigillo c e scritto a cosa serve, prima della tradizione', () {
     // I due numeri si leggono sullo STESSO testo, o il confronto stampato
     // direbbe una cosa e la pretesa un'altra.
     final aCosaServe = schermata.indexOf("Key('rune_sigillo_a_cosa_serve')");
@@ -73,20 +77,39 @@ void main() {
     expect(codice.contains('_IlRestoDellaRuna('), isTrue,
         reason: 'la porta che tiene il corpo della scheda non esiste piu: a '
             'una runa sola il responso torna a essere una pagina di manuale');
-    expect(codice.contains('sola: esito.rune.length == 1'), isTrue,
-        reason: 'la scheda non sa piu quando la runa e sola, quindi la porta '
-            'non si monta mai oppure si monta sempre');
+    // **DALL'ORDINE GA, voce GA.05, la runa sola E' il responso
+    // principale**, e la sua scheda non ha paragrafi: resta la testata con la
+    // porta. Qui si pretendeva `sola: esito.rune.length == 1` nel sorgente;
+    // adesso si guarda il fatto, sul compositore: a una runa sola nessuna
+    // scheda col testo.
+    final odino = IlPresagioDalCorpus.componi(
+      corpus: corpusDelPresagio,
+      esito: RuneCast.getta(gettate.first, random: Random(1)),
+      domanda: '',
+      persona: 'sola',
+      oggi: DateTime(2026, 10, 20),
+      memoria: LaMemoriaDelPresagio(),
+    );
+    expect(odino.schede, isEmpty,
+        reason: 'a una runa sola torna una scheda col testo sotto il '
+            'responso principale');
     // **E LA PORTA SI APRE**: un blocco che si nasconde e non si riapre
     // sarebbe una perdita di contenuto, non un accorciamento.
     expect(schermata.contains("Key('rune_apri_il_resto_"), isTrue,
         reason: 'la porta non ha nessun comando per aprirsi');
     var quanti = 0;
-    for (final pezzo in const ['simbolo:', 'voce:', 'strofa:']) {
+    // Dall'ordine GA voce GA.05 nella porta entra anche il significato.
+    for (final pezzo in const [
+      'significato:',
+      'simbolo:',
+      'voce:',
+      'strofa:'
+    ]) {
       if (codice.contains(pezzo)) quanti++;
     }
     // ignore: avoid_print
-    print('ORDINE CQ VOCE 2.10: dentro la porta entrano $quanti pezzi su 3');
-    cardinaleMinimo(quanti, 3,
+    print('ORDINE CQ VOCE 2.10: dentro la porta entrano $quanti pezzi su 4');
+    cardinaleMinimo(quanti, 4,
         cosa: 'pezzi del corpo della scheda che entrano nella porta',
         perche: 'Se la porta si svuotasse, la prova direbbe che il taglio c e '
             'mentre il contenuto e stato perso invece che spostato.');

@@ -16,6 +16,18 @@ import 'cardinale_minimo.dart';
 /// quante la specifica ne chiede (`docs/corpus/rune/le_voci_che_servono.txt`),
 /// ognuna fatta solo del suo identificativo e degli spazi da riempire. Non e'
 /// un testo: e' la forma che il testo dell'Architetto dovra' avere.
+///
+/// **LA FORMA DELL'ORDINE GA, voci GA.03, GA.05 e GA.07, 20 ottobre 2026.**
+/// Il presagio non e' piu' un `Responso` in tre parti (la risposta, il cosa
+/// puoi fare, il da dove viene con una PIETRA per pietra e il LEGAME): e' un
+/// `IlPresagioComposto`, col responso principale nella forma comune (la
+/// risposta RISPOSTA piu' VERDETTO, il riquadro col GESTO, nella Lunga il
+/// LEGAME e il galdr) e una scheda per pietra (PIETRA e il campo nuovo
+/// CONSIGLIO) quando le pietre sono piu' di una. Il corpus di prova porta i
+/// sei campi e gli spazi dell'ordine GA: `{cosa}` in PIETRA, niente
+/// `{glossa}`. Le prove qui sotto pretendono le stesse cose di prima nella
+/// forma nuova, e i sessanta giorni si contano nella Lunga, che e' il caso
+/// che legge piu' voci.
 void main() {
   /// Le voci che servono, gruppo per gruppo, dal file della specifica.
   Map<String, Map<String, int>> leVociCheServono() {
@@ -47,12 +59,13 @@ void main() {
             for (final gruppo in IlPresagioDalCorpus.gruppiDi(campo))
               gruppo: [
                 for (var i = 1; i <= quante[campo]![gruppo]!; i++)
-                  campo == CampiDelPresagio.pietra
-                      // L'Architetto usa per PIETRA solo {glossa}, mai
-                      // {posizione} (EX Aggiunta 2).
-                      ? '[$campo/$gruppo/$i] {glossa} {cosa}'
-                      : campo == CampiDelPresagio.legame
-                          ? '[$campo/$gruppo/$i] {gettata}'
+                  // Dall'ordine GA: PIETRA porta solo {cosa}, CONSIGLIO e
+                  // VERDETTO nessuno spazio (SPECIFICA.md, sezione 2).
+                  campo == CampiDelPresagio.legame
+                      ? '[$campo/$gruppo/$i] {gettata}'
+                      : campo == CampiDelPresagio.consiglio ||
+                              campo == CampiDelPresagio.verdetto
+                          ? '[$campo/$gruppo/$i]'
                           : '[$campo/$gruppo/$i] {cosa}',
               ]
           }
@@ -65,9 +78,8 @@ void main() {
       final dallaSpecifica = quante[campo]!.keys.toSet();
       expect(dalCodice, dallaSpecifica, reason: campo);
     }
-    final totale = quante.values
-        .expand((g) => g.values)
-        .fold<int>(0, (a, b) => a + b);
+    final totale =
+        quante.values.expand((g) => g.values).fold<int>(0, (a, b) => a + b);
     cardinaleMinimo(totale, 4000, cosa: 'voci che servono al corpus');
     print('ORDINE EX VOCE 03: gruppi '
         '${quante.values.fold<int>(0, (a, g) => a + g.length)}, voci che '
@@ -80,29 +92,46 @@ void main() {
     expect(CorpusDelPresagio.vuoto.quante, 0);
   });
 
-  test('il presagio ha le tre parti, con gli spazi riempiti', () {
+  test('il presagio ha la forma nuova, con gli spazi riempiti', () {
     final corpus = corpusDiProva(leVociCheServono());
     expect(corpus.completo, isTrue);
     for (final g in gettate) {
       final esito = RuneCast.getta(g, random: Random(7));
-      final r = IlPresagioDalCorpus.componi(
-        corpus: corpus,
-        esito: esito,
-        domanda: 'In amore, dove sto andando?',
-        persona: 'persona-di-prova',
-        oggi: DateTime(2026, 10, 2),
-        memoria: LaMemoriaDelPresagio(),
-      );
-      expect(r.risposta, isNotEmpty);
-      expect(r.cosaPuoiFare, isNotEmpty);
-      expect(r.daDoveViene, isNotEmpty);
-      for (final parte in [r.risposta, r.cosaPuoiFare, r.daDoveViene]) {
-        expect(parte.contains('{'), isFalse, reason: parte);
+      for (final lunga in const [false, true]) {
+        final p = IlPresagioDalCorpus.componi(
+          corpus: corpus,
+          esito: esito,
+          domanda: 'In amore, dove sto andando?',
+          persona: 'persona-di-prova',
+          oggi: DateTime(2026, 10, 2),
+          memoria: LaMemoriaDelPresagio(),
+          lunga: lunga,
+        );
+        final r = p.principale;
+        expect(r.risposta, contains('[risposta/'));
+        expect(r.risposta, contains('[verdetto/'));
+        expect(r.cosaFare, contains('[gesto/'));
+        expect(r.daDoveViene, isNotEmpty);
+        for (final parte in [...r.paragrafi, r.daDoveViene!]) {
+          expect(parte.contains('{'), isFalse, reason: parte);
+        }
+        expect(r.risposta, contains('l’amore'));
+        if (lunga) {
+          // Il legame della gettata e il galdr della pietra che decide.
+          expect(r.approfondimento, contains('[legame/${g.id}/'));
+          expect(r.rito, isNotNull);
+        } else {
+          expect(r.approfondimento, isNull);
+          expect(r.rito, isNull);
+        }
+        // Una scheda per pietra, con PIETRA e CONSIGLIO; nessuna con una
+        // pietra sola.
+        expect(p.schede.length, esito.rune.length > 1 ? esito.rune.length : 0);
+        for (final s in p.schede) {
+          expect(s.risposta, contains('[pietra/'));
+          expect(s.cosaFare, contains('[consiglio/'));
+        }
       }
-      expect(r.risposta, contains('l’amore'));
-      // Una voce di PIETRA per ogni pietra letta, e il legame.
-      expect('[pietra/'.allMatches(r.daDoveViene).length, esito.rune.length);
-      expect(r.daDoveViene, contains('[legame/${g.id}/'));
     }
   });
 
@@ -111,16 +140,17 @@ void main() {
     final corpus = corpusDiProva(leVociCheServono());
     final memoria = LaMemoriaDelPresagio();
     final esito = RuneCast.getta(gettate[1], random: Random(3));
-    Map<String, String> una() {
-      final r = IlPresagioDalCorpus.componi(
+    List<String> una() {
+      final p = IlPresagioDalCorpus.componi(
         corpus: corpus,
         esito: esito,
         domanda: 'Nel lavoro, quale passo fare?',
         persona: 'p',
         oggi: DateTime(2026, 10, 2, 9),
         memoria: memoria,
+        lunga: true,
       );
-      return {'r': r.risposta, 'd': r.daDoveViene, 'c': r.cosaPuoiFare};
+      return [p.inParole, for (final s in p.schede) ...s.paragrafi];
     }
 
     expect(una(), una());
@@ -154,12 +184,13 @@ void main() {
               persona: 'persona-$persona',
               oggi: oggi,
               memoria: memoria,
+              lunga: true,
             );
             // Le voci del presagio appena composto: ognuna gia' letta nei
             // sessanta giorni (anche oggi, in un'altra gettata) e' una
             // ripetizione.
-            final nuove =
-                memoria.diOggi[IlPresagioDalCorpus.firma(esito, domanda)]!;
+            final nuove = memoria
+                .diOggi[IlPresagioDalCorpus.firma(esito, domanda)]!.values;
             for (final id in nuove) {
               final prima = ultimaLettura[id];
               if (prima != null && giorno - prima < 60) ripetute++;

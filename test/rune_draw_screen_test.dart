@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// La schermata dell'Estrazione Rune di Caligo.
 void main() {
@@ -40,25 +41,33 @@ void main() {
     }
   }
 
-  Widget host() => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (_) => MaestroController(
-                  initial: const ThemeKey.of(Maestro.caligo))),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
-          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-          ChangeNotifierProvider(create: (_) => ZodiacController()),
-        ],
-        child: MaterialApp(
-          builder: (ctx, child) => MediaQuery(
-            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-            child: MaestroScope(child: child!),
-          ),
-          home: RuneDrawScreen(random: Random(3)),
+  // **IL DISCO FINTO, ordine GA voce GA.07.** Senza, la memoria del
+  // presagio aspetta un disco che nelle prove non risponde mai, e la bolla
+  // resta nell'attesa. Prima la bolla mostrava intanto la lettura di casa,
+  // ed e' il lampo della lettura sbagliata (padre: ordine EX voce 03) che
+  // l'ordine GA ha tolto: questa prova passava su quel ripiego.
+  Widget host() {
+    SharedPreferences.setMockInitialValues({});
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) =>
+                MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: MaestroScope(child: child!),
         ),
-      );
+        home: RuneDrawScreen(random: Random(3)),
+      ),
+    );
+  }
 
   Future<void> passo(WidgetTester tester) async {
     for (var i = 0; i < 4; i++) {
@@ -166,8 +175,11 @@ void main() {
     expect(find.byKey(const Key('rune_presage')), findsOneWidget);
     // Il presagio passa dalla porta unica dei paragrafi, quindi non e' piu'
     // un Text solo: si verifica che il blocco ci sia e porti del testo.
+    // **Dall'ordine GA voce GA.03** il presagio ha la forma comune
+    // (`IlResponsoInterpretato`) e la risposta sta in `rune_presage_risposta`,
+    // dove prima c'era `rune_presage_text`.
     final presagio = find.descendant(
-        of: find.byKey(const Key('rune_presage_text')),
+        of: find.byKey(const Key('rune_presage_risposta')),
         matching: find.byType(Text));
     expect(presagio, findsWidgets);
     expect(tester.widget<Text>(presagio.first).data!.trim(), isNotEmpty);

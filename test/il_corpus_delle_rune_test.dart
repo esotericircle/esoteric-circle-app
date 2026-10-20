@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
 import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
@@ -18,6 +19,23 @@ import 'cardinale_minimo.dart';
 ///
 /// Code non scrive ne' corregge nessuna voce: una voce che non passa si
 /// riporta col file, il gruppo e il numero, e la corregge l'Architetto.
+///
+/// **LA MISURA DELL'ORDINE GA, voci GA.03 e GA.07, 20 ottobre 2026.** Il
+/// fondatore, 19 ottobre 2026 alle 23:08: *"tutte le risposte composte da
+/// paragrafi ognuno con tra 40 a 50 parole ognuno"*. La forma qui sotto
+/// misurava i cinque campi dell'ordine EX in CARATTERI, con un valore medio
+/// per spazio ("il lavoro", "ciò che diviene"): adesso misura i sei campi in
+/// PAROLE, contate come `LaFormaDelResponso.parole`, con OGNI valore di
+/// `{cosa}` che il compositore conosce e ogni nome di gettata, nelle
+/// finestre di `docs/corpus/rune/SPECIFICA.md` sezione 3: RISPOSTA da 20 a
+/// 28 riempita con un solo `{cosa}`, VERDETTO da 20 a 22 senza spazi (e la
+/// loro somma, il paragrafo della risposta, sempre fra 40 e 50), PIETRA da
+/// 40 a 50 con un solo `{cosa}` e niente `{glossa}`, GESTO e LEGAME da 40 a
+/// 50 con al piu' uno spazio, CONSIGLIO, il campo nuovo, da 40 a 50 senza
+/// spazi. Il cardinale sale a 7.380 voci, i sessanta giorni si contano sul
+/// presagio composto nella Lunga e sulle schede. Dall'ordine GA i testi li
+/// riscrivono gli scrittori di Code, per ordine del fondatore (SPECIFICA.md,
+/// in testa).
 void main() {
   const rune = [
     'Fehu',
@@ -46,22 +64,64 @@ void main() {
     'Othala',
   ];
 
-  /// Per campo: gli spazi permessi, la lunghezza minima e massima (a spazi
-  /// riempiti con valori medi), e se la voce nomina la sua runa.
-  const regole = <String, (Set<String>, int, int, bool)>{
-    CampiDelPresagio.risposta: ({'cosa'}, 60, 160, false),
-    CampiDelPresagio.verdetto: ({'cosa'}, 60, 160, false),
-    // **SOLO {glossa}, MAI {posizione}**: la scelta dell'Architetto (EX
-    // Aggiunta 2), perche' "Al centro" o "Skuld" non entrano in una frase.
-    CampiDelPresagio.pietra: ({'cosa', 'glossa'}, 80, 240, true),
-    CampiDelPresagio.legame: ({'gettata'}, 60, 200, false),
-    CampiDelPresagio.gesto: ({'cosa'}, 40, 140, false),
+  /// Per campo, dall'ordine GA: gli spazi permessi, quanti spazi (il primo e
+  /// l'ultimo numero), le parole a spazi riempiti con OGNI valore, e se la
+  /// voce nomina la sua runa. **Prima dell'ordine GA** qui c'erano le
+  /// lunghezze in caratteri dell'ordine EX e `{glossa}` in PIETRA.
+  const regole = <String, (Set<String>, int, int, int, int, bool)>{
+    CampiDelPresagio.risposta: ({'cosa'}, 1, 1, 20, 28, false),
+    CampiDelPresagio.verdetto: (<String>{}, 0, 0, 20, 22, false),
+    CampiDelPresagio.pietra: ({'cosa'}, 1, 1, 40, 50, true),
+    CampiDelPresagio.legame: ({'cosa', 'gettata'}, 0, 1, 40, 50, false),
+    CampiDelPresagio.gesto: ({'cosa'}, 0, 1, 40, 50, false),
+    CampiDelPresagio.consiglio: (<String>{}, 0, 0, 40, 50, false),
   };
-  const riempi = {
-    'cosa': 'il lavoro',
-    'glossa': 'ciò che diviene',
-    'gettata': 'le tre norne',
+
+  /// OGNI VALORE DI `{cosa}`, letto dal compositore e non scritto qui:
+  /// nessuna domanda, le domande del Cerchio, una domanda per famiglia di
+  /// parole e una che l'app non riconosce.
+  final valoriDiCosa = <String>{
+    for (final d in [
+      '',
+      for (final d in DomandeDelCerchio.generichePerLaGettata) d.testo,
+      for (final d in DomandeDelCerchio.personaliPerLaGettata) d.testo,
+      'Il mio amore tornerà?',
+      'Il colloquio andrà bene?',
+      'Devo cambiare casa?',
+      'Con mio fratello come va?',
+      'Un amico mi ha deluso',
+      'I soldi bastano?',
+      'Passerò l’esame?',
+      'Quale decisione prendere?',
+      'Che cosa mi aspetta?',
+    ])
+      IlPresagioDalCorpus.cosaDellaDomanda(d),
   };
+  int parole(String t) =>
+      t.trim().split(RegExp(r'\s+')).where((p) => p.isNotEmpty).length;
+
+  /// Le parole di una voce col minimo e il massimo fra i valori dei suoi
+  /// spazi; `{gettata}` vale il nome della gettata del gruppo del LEGAME.
+  (int, int) misura(String gruppo, String voce) {
+    final gettata = gettate
+        .where((g) => g.id == gruppo.split('/').first)
+        .map((g) => g.nome.toLowerCase())
+        .toList();
+    final valori = voce.contains('{cosa}') ? valoriDiCosa : <String>{''};
+    var lo = 1 << 30;
+    var hi = -1;
+    for (final v in valori) {
+      var piena = voce.replaceAll('{cosa}', v);
+      if (gettata.isNotEmpty) {
+        piena = piena.replaceAll('{gettata}', gettata.first);
+      }
+      final n = parole(piena);
+      if (n < lo) lo = n;
+      if (n > hi) hi = n;
+    }
+    return (lo, hi);
+  }
+
   const vietate = [
     'guarigion',
     'guarir',
@@ -97,16 +157,25 @@ void main() {
 
   test('il corpus e\' completo', () {
     expect(corpusDelPresagio.completo, isTrue);
-    cardinaleMinimo(corpusDelPresagio.quante, 4929,
+    // Dall'ordine GA voce GA.07: 4.929 voci dei cinque campi e 2.451 del
+    // CONSIGLIO, il riquadro delle schede.
+    cardinaleMinimo(corpusDelPresagio.quante, 7380,
         cosa: 'voci del corpus delle rune');
     print('ORDINE EX VOCE 03: voci del corpus ${corpusDelPresagio.quante}');
   });
 
-  test('1. LA FORMA: gruppi, spazi, lunghezze, parole, nomi di runa', () {
+  test('1. LA FORMA: gruppi, spazi, parole, nomi di runa', () {
     final difetti = <String>[];
     var guardate = 0;
+    // Il paragrafo della risposta e' RISPOSTA piu' VERDETTO, e ogni verdetto
+    // puo' seguire ogni risposta: bastano il minimo e il massimo di ognuno.
+    var risposteMin = 1 << 30, risposteMax = -1;
+    var verdettiMin = 1 << 30, verdettiMax = -1;
+    cardinaleMinimo(valoriDiCosa.length, 20,
+        cosa: 'valori di {cosa} misurati',
+        perche: 'venti valori nel compositore al 20 ottobre 2026');
     for (final campo in CampiDelPresagio.tutti) {
-      final (spazi, minimo, massimo, nomina) = regole[campo]!;
+      final (spazi, pochi, tanti, minimo, massimo, nomina) = regole[campo]!;
       final gruppi = corpusDelPresagio.voci[campo]!;
       expect(gruppi.keys.toSet(), IlPresagioDalCorpus.gruppiDi(campo).toSet(),
           reason: campo);
@@ -116,19 +185,31 @@ void main() {
           if (voce.trim().isEmpty) continue;
           guardate++;
           final dove = '$campo.md, $gruppo, voce ${i + 1}';
-          final usati = RegExp(r'\{([a-z]+)\}')
+          final tutti = RegExp(r'\{([a-z]+)\}')
               .allMatches(voce)
               .map((m) => m.group(1)!)
-              .toSet();
+              .toList();
+          final usati = tutti.toSet();
           if (usati.difference(spazi).isNotEmpty) {
             difetti.add('$dove: spazio non permesso '
                 '${usati.difference(spazi)}');
           }
-          final piena = voce.replaceAllMapped(
-              RegExp(r'\{([a-z]+)\}'), (m) => riempi[m.group(1)] ?? '');
-          if (piena.length < minimo || piena.length > massimo) {
-            difetti.add('$dove: lunghezza ${piena.length} fuori da '
+          if (tutti.length < pochi || tutti.length > tanti) {
+            difetti.add('$dove: ${tutti.length} spazi, ne vuole da $pochi a '
+                '$tanti');
+          }
+          final (lo, hi) = misura(gruppo, voce);
+          if (lo < minimo || hi > massimo) {
+            difetti.add('$dove: da $lo a $hi parole fuori da '
                 '$minimo-$massimo');
+          }
+          if (campo == CampiDelPresagio.risposta) {
+            risposteMin = lo < risposteMin ? lo : risposteMin;
+            risposteMax = hi > risposteMax ? hi : risposteMax;
+          }
+          if (campo == CampiDelPresagio.verdetto) {
+            verdettiMin = lo < verdettiMin ? lo : verdettiMin;
+            verdettiMax = hi > verdettiMax ? hi : verdettiMax;
           }
           if (voce.contains('—') || voce.contains('–')) {
             difetti.add('$dove: trattino lungo');
@@ -172,9 +253,15 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(guardate, 4929, cosa: 'voci guardate');
-    print('ORDINE EX VOCE 03: voci guardate $guardate, difetti '
-        '${difetti.length}');
+    cardinaleMinimo(guardate, 7380, cosa: 'voci guardate');
+    if (risposteMin + verdettiMin < 40 || risposteMax + verdettiMax > 50) {
+      difetti.add('il paragrafo della risposta va da '
+          '${risposteMin + verdettiMin} a ${risposteMax + verdettiMax} '
+          'parole, fuori da 40-50');
+    }
+    print('ORDINE GA VOCE 07: voci guardate $guardate, il paragrafo della '
+        'risposta da ${risposteMin + verdettiMin} a '
+        '${risposteMax + verdettiMax} parole, difetti ${difetti.length}');
     expect(difetti, isEmpty, reason: difetti.take(30).join('\n'));
   });
 
@@ -199,7 +286,8 @@ void main() {
         if (piene < quante) sotto.add('$campo/$gruppo: $piene su $quante');
       }
     }
-    cardinaleMinimo(gruppi, 140, cosa: 'gruppi');
+    // Dall'ordine GA: i 40 gruppi del CONSIGLIO.
+    cardinaleMinimo(gruppi, 180, cosa: 'gruppi');
     print('ORDINE EX VOCE 03: gruppi $gruppi, sotto il numero che serve '
         '${sotto.length}');
     expect(sotto, isEmpty);
@@ -280,6 +368,8 @@ void main() {
                 : 'domanda ${caso.nextInt(12)}';
             final firma = IlPresagioDalCorpus.firma(esito, domanda);
             final giaOggi = memoria.diOggi.containsKey(firma);
+            // Dall'ordine GA: la Lunga, che legge anche il LEGAME, e le
+            // schede, che leggono PIETRA e CONSIGLIO.
             final r = IlPresagioDalCorpus.componi(
               corpus: corpusDelPresagio,
               esito: esito,
@@ -287,13 +377,19 @@ void main() {
               persona: 'persona-$persona',
               oggi: oggi,
               memoria: memoria,
+              lunga: true,
             );
-            for (final parte in [r.risposta, r.cosaPuoiFare, r.daDoveViene]) {
+            for (final parte in [
+              ...r.principale.paragrafi,
+              for (final s in r.schede) ...s.paragrafi,
+            ]) {
               parti++;
-              expect(parte.contains('{'), isFalse, reason: parte);
+              if (parte.contains('{')) {
+                fail('uno spazio non riempito: $parte');
+              }
             }
             if (giaOggi) continue;
-            for (final id in memoria.diOggi[firma]!) {
+            for (final id in memoria.diOggi[firma]!.values) {
               if (daCorreggere.contains(id)) {
                 trattenuteUscite++;
               }
@@ -318,7 +414,8 @@ void main() {
             'trattenuta');
     expect(trattenuteUscite, 0,
         reason: 'una voce trattenuta in attesa dell\'Architetto e\' uscita');
-    cardinaleMinimo(parti, 900000, cosa: 'parti composte');
+    // Dall'ordine GA: almeno quattro paragrafi per gettata nella Lunga.
+    cardinaleMinimo(parti, 1400000, cosa: 'paragrafi composti');
     expect(ripetute, 0);
   }, timeout: const Timeout(Duration(minutes: 20)));
 }

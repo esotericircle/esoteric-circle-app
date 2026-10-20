@@ -104,7 +104,10 @@ e il Sigillo sono **già deterministici** e restano come sono.
 del punto 3. Tutto il resto della schermata non cambia.
 
 **La forma dell'ordine GA** (voci GA.03, GA.04 e GA.05; il codice dell'app
-la mostrerà dopo la riscrittura dei testi). Ogni paragrafo ha da 40 a 50
+la mostra dal 20 ottobre 2026, `IlPresagioDalCorpus.componi` e
+`RuneDrawScreen` con `IlResponsoInterpretato`; la Lunga si apre dall'Iniziato
+con la riga `RigaDelPiano.runeLunga`, e al Viandante resta il lucchetto con
+l'invito). Ogni paragrafo ha da 40 a 50
 parole, contate separate da uno spazio come `LaFormaDelResponso.parole`.
 - **Il responso principale**, nella bolla del presagio:
   - **il titolo**: la riga dritta o d'ombra (`runes.dart`) della **pietra che
@@ -391,6 +394,13 @@ Nella tabella qui sotto le colonne di PIETRA valgono anche per CONSIGLIO.
 - **Lo stesso giorno, la stessa gettata con la stessa domanda dà lo stesso
   presagio** (Linee Guida, sezione 5: il responso resta valido per la
   giornata).
+- **Dall'ordine GA si sceglie solo ciò che si mostra**: il LEGAME solo nella
+  Lunga, PIETRA e CONSIGLIO solo nelle gettate con più di una pietra. Se nello
+  stesso giorno la stessa gettata torna con la Lunga aperta, la parte che
+  mancava si sceglie allora e si aggiunge al presagio di quel giorno.
+- **Il verdetto segue il tono vero della gettata**, anche quando la pietra
+  che decide ha un verso diverso dal tono d'insieme: il VERDETTO dice come
+  pesa l'insieme.
 - **Il gruppo finito.** Se un gruppo non ha più voci non lette nei 60 giorni,
   torna la voce letta da più tempo: con i numeri della sezione 4 non succede
   nella simulazione, ed è la ragione del margine.
@@ -430,10 +440,17 @@ porta nel codice e la suite pretende:
 ogni valore degli spazi (sezione 3) e comprende il paragrafo composto
 RISPOSTA più VERDETTO e il sesto campo CONSIGLIO. La controlla
 `tool/controlla_il_corpus_delle_rune.py` prima che i testi entrino nel
-codice; la prova `test/il_corpus_delle_rune_test.dart` misura ancora in
-caratteri i cinque campi dell'ordine EX: si aggiorna insieme al codice
-dell'app che mostra la forma nuova (con la regola A delle guardie: vista
-rossa prima).
+codice, e dal 20 ottobre 2026 guarda anche il genere di chi legge (col
+criterio della guardia `il_genere_non_si_indovina`) e il "ti" complemento
+oggetto col participio ("chi ti ha aiutato" si scrive "chi ti ha dato
+aiuto"). La prova `test/il_corpus_delle_rune_test.dart` misurava in
+caratteri i cinque campi dell'ordine EX; dal 20 ottobre 2026 misura i sei
+campi in parole, con ogni valore di `{cosa}` e di `{gettata}`, il paragrafo
+della risposta fra 40 e 50 e il cardinale di 7.380 voci, e i sessanta giorni
+sul presagio composto nella Lunga con le schede. La forma a video la prova
+`test/le_rune_hanno_la_forma_nuova_test.dart`: presagi veri delle quattro
+gettate, Breve e Lunga, il titolo dalla pietra che decide, il galdr, le
+schede, e la schermata vera (vista rossa prima, regola A delle guardie).
 
 ## 8. Come si consegna
 
@@ -483,4 +500,8 @@ CONSIGLIO), che pesano il doppio di tutto il resto.
 chi l'ha già letta non la rivede per 60 giorni anche se il testo è nuovo: è
 voluto. Con i campi nuovi l'elenco `diOggi` della memoria
 (`il_presagio_dal_corpus.dart`) cambia forma: il codice che mostra la forma
-nuova versiona la chiave della memoria.
+nuova versiona la chiave della memoria. **Fatto il 20 ottobre 2026**: il
+presagio di oggi si ricorda per nome della parte (`risposta`, `verdetto`,
+`gesto`, `legame`, `pietra|<Runa>`, `consiglio|<Runa>`), il testo porta
+`versione: 2` e sta nella chiave `rune.presagio.memoria.v2`; dalla chiave di
+prima si prendono solo le voci lette col loro giorno.

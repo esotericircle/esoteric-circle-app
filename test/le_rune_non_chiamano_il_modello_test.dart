@@ -100,10 +100,12 @@ void main() {
     expect(modello.presagi, 0,
         reason: 'col corpus completo la gettata non chiama il modello');
     // La lettura e' passata dal corpus: la memoria di cio' che la persona
-    // ha letto e' scritta sul telefono.
+    // ha letto e' scritta sul telefono. **Dall'ordine GA voce GA.07** la
+    // memoria e' versionata e sta nella chiave nuova.
     final prefs = await SharedPreferences.getInstance();
-    expect(prefs.getString('rune.presagio.memoria'), isNotNull);
-    expect(prefs.getString('rune.presagio.memoria'), isNotEmpty);
+    expect(prefs.getString(RuneDrawScreen.chiaveDellaMemoria), isNotNull);
+    expect(prefs.getString(RuneDrawScreen.chiaveDellaMemoria),
+        contains('"versione":2'));
   });
 }
 

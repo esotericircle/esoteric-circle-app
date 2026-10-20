@@ -15,9 +15,9 @@ suo numero vuoto ("17." senza testo), e il numero non si riusa.
 Ordine GA voce GA.07, 20 ottobre 2026: un sesto campo, consiglio.md, il
 riquadro "Cosa fare adesso" della scheda di ogni runa, coi gruppi per runa e
 verso come PIETRA ("## Fehu, dritta", "## Fehu, in ombra"). Finche' il file
-ha i gruppi vuoti il campo entra nel codice coi gruppi vuoti: lo legge solo
-chi lo chiede per nome (`CampiDelPresagio.tutti` resta dei cinque campi
-finche' il codice dell'app non cambia). I testi riscritti entrano con
+ha i gruppi vuoti il campo entra nel codice coi gruppi vuoti. Dal 20
+ottobre 2026 il codice dell'app lo legge: `CampiDelPresagio.tutti` porta i
+sei campi, e il corpus e' completo solo con tutti e sei. I testi riscritti entrano con
 tool/applica_le_riscritture_delle_rune.py, che li controlla prima.
 
   python tool/genera_corpus_del_presagio.py

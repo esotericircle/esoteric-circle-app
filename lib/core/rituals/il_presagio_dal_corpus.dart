@@ -2,8 +2,11 @@ import '../domande/domande_del_cerchio.dart';
 import 'dart:convert';
 
 import '../chat/user_profile.dart';
-import '../responsi/anatomia_del_responso.dart';
+import '../responsi/i_riti_propiziatori.dart';
+import '../responsi/la_forma_del_responso.dart';
+import 'il_titolo_della_gettata.dart';
 import 'rune_cast.dart';
+import 'rune_lore.g.dart';
 
 /// **IL PRESAGIO DELLE RUNE DAL CORPUS, SENZA MODELLO. Ordine EX voce 03.**
 ///
@@ -18,15 +21,80 @@ import 'rune_cast.dart';
 /// **Finche' il corpus non e' entrato tutto, la lettura resta quella del
 /// modello**: [CorpusDelPresagio.completo] e' falso e chi legge le rune non
 /// passa di qui. Code non scrive nessun testo: i testi sono dell'Architetto.
+///
+/// **LA FORMA DELL'ORDINE GA, voci GA.03, GA.04, GA.05 e GA.07, 20 ottobre
+/// 2026.** Il fondatore, 19 ottobre 2026 alle 23:08: *"tutte le risposte
+/// composte da paragrafi ognuno con tra 40 a 50 parole ognuno. Per le
+/// risposte brevi 2 paragrafi di cui il secondo messo in evidenza in un
+/// riquadro e questo riquadro deve intitolarsi "cosa fare adesso" [...] Per
+/// le risposte lunghe aggiungi 2 paragrafi sempre con il primo in riquadro.
+/// Sotto sempre il paragrafo in corsivo "da dove viene". Restano all'inizio i
+/// titoli, anche per le singola carte o le singole rune."* Il presagio adesso
+/// e' un [IlPresagioComposto]: il responso principale nella forma comune
+/// ([ResponsoInterpretato]: il titolo dalla pietra che decide, la risposta
+/// RISPOSTA piu' VERDETTO, il riquadro "Cosa fare adesso" col GESTO e, nella
+/// Lunga, l'approfondimento col LEGAME e il galdr propiziatorio) e una scheda
+/// breve per ogni pietra (PIETRA e CONSIGLIO) quando le pietre sono piu' di
+/// una. Il "Da dove viene" e' uno solo e lo compone il codice dalle fonti
+/// delle rune uscite ([daDoveViene]), non il corpus. Il corpus e' completo e
+/// le rune non chiamano mai il modello.
 
-/// I cinque campi del corpus, nell'ordine della specifica.
+/// I sei campi del corpus, nell'ordine della specifica. **CONSIGLIO e'
+/// dell'ordine GA voce GA.07**: il riquadro "Cosa fare adesso" della scheda
+/// di ogni runa, coi gruppi di PIETRA.
 abstract final class CampiDelPresagio {
   static const String risposta = 'risposta';
   static const String verdetto = 'verdetto';
   static const String pietra = 'pietra';
   static const String legame = 'legame';
   static const String gesto = 'gesto';
-  static const List<String> tutti = [risposta, verdetto, pietra, legame, gesto];
+  static const String consiglio = 'consiglio';
+  static const List<String> tutti = [
+    risposta,
+    verdetto,
+    pietra,
+    legame,
+    gesto,
+    consiglio,
+  ];
+}
+
+/// **IL PRESAGIO COMPOSTO**, ordine GA voci GA.03 e GA.05: il responso
+/// principale della gettata e le schede delle rune singole.
+class IlPresagioComposto {
+  const IlPresagioComposto({required this.principale, this.schede = const []});
+
+  /// Il responso principale, nella forma comune: breve per il Viandante,
+  /// lungo dall'Iniziato in su. Porta il "Da dove viene" di tutta la
+  /// consultazione, che la schermata mostra una volta sola in fondo.
+  final ResponsoInterpretato principale;
+
+  /// Una scheda breve per pietra, nell'ordine della gettata (il titolo e' la
+  /// riga della runa nel suo verso, poi PIETRA e il riquadro col CONSIGLIO),
+  /// senza "Da dove viene". Vuota quando la pietra e' una sola: la Runa di
+  /// Odino e' gia' il responso principale (voce GA.05, *"senza ripetere un
+  /// secondo blocco per la stessa carta"*).
+  final List<ResponsoInterpretato> schede;
+
+  /// Il responso principale senza il "Da dove viene", come sta nella bolla
+  /// del presagio: la fonte chiude la consultazione, non la bolla.
+  ResponsoInterpretato get principaleSenzaLaFonte => ResponsoInterpretato(
+        arte: principale.arte,
+        titolo: principale.titolo,
+        risposta: principale.risposta,
+        cosaFare: principale.cosaFare,
+        approfondimento: principale.approfondimento,
+        rito: principale.rito,
+      );
+
+  /// Il testo per condividere e custodire: i paragrafi del responso
+  /// principale nell'ordine in cui si leggono, poi il "Da dove viene". La
+  /// prima frase e' la risposta (voce GA.06), ed e' quella che la card da
+  /// condividere porta in coda.
+  String get inParole => [
+        ...principale.paragrafi,
+        if (principale.daDoveViene != null) principale.daDoveViene!,
+      ].join('\n\n');
 }
 
 /// Il corpus: per campo, per gruppo, le voci nell'ordine dell'Architetto.
@@ -61,13 +129,26 @@ class CorpusDelPresagio {
 /// Per ogni voce letta, il giorno in cui l'ha letta; e per oggi, il presagio
 /// dato a ogni gettata, perche' la stessa gettata con la stessa domanda, lo
 /// stesso giorno, ridia lo stesso presagio (Linee Guida, sezione 5).
+///
+/// **LA MEMORIA E' VERSIONATA, ordine GA voce GA.07.** Fino all'ordine EX il
+/// presagio di oggi si ricordava come un elenco di identificativi in
+/// posizione fissa (la risposta per prima, poi il verdetto, poi una pietra
+/// per pietra, il legame e il gesto per ultimo): con i campi nuovi lo stesso
+/// elenco letto con la regola nuova avrebbe scambiato le parti. Adesso ogni
+/// identificativo sta sotto il NOME della sua parte ([IlPresagioDalCorpus.parteDellaPietra]
+/// e le chiavi `risposta`, `verdetto`, `gesto`, `legame`), il testo porta
+/// `versione: 2`, e un testo della versione di prima conserva solo cio' che
+/// resta vero, le voci lette e il loro giorno ([daTesto]).
 class LaMemoriaDelPresagio {
   LaMemoriaDelPresagio({
     Map<String, String>? letti,
-    Map<String, List<String>>? diOggi,
+    Map<String, Map<String, String>>? diOggi,
     this.giornoDiOggi = '',
   })  : letti = letti ?? {},
         diOggi = diOggi ?? {};
+
+  /// La versione del testo salvato, dall'ordine GA voce GA.07.
+  static const int versione = 2;
 
   /// Identificativo della voce, giorno "aaaa-mm-gg" dell'ultima lettura.
   final Map<String, String> letti;
@@ -75,8 +156,9 @@ class LaMemoriaDelPresagio {
   /// Il giorno a cui si riferisce [diOggi].
   String giornoDiOggi;
 
-  /// Per firma della gettata, gli identificativi del presagio dato oggi.
-  final Map<String, List<String>> diOggi;
+  /// Per firma della gettata, il presagio dato oggi: per nome della parte,
+  /// l'identificativo della voce.
+  final Map<String, Map<String, String>> diOggi;
 
   /// Quanti giorni una voce letta non torna.
   static const int finestra = 60;
@@ -98,24 +180,36 @@ class LaMemoriaDelPresagio {
   }
 
   String comeTesto() => jsonEncode({
+        'versione': versione,
         'letti': letti,
         'giornoDiOggi': giornoDiOggi,
         'diOggi': diOggi,
       });
 
+  /// La memoria da un testo salvato. **Un testo senza `versione: 2` e' della
+  /// forma dell'ordine EX**: si tengono le voci lette, che portano gli stessi
+  /// identificativi (una voce riscritta tiene il suo numero, SPECIFICA.md
+  /// sezione 8), e si lascia il presagio di oggi, che era un elenco in
+  /// posizione fissa e qui verrebbe letto con le parti scambiate.
   static LaMemoriaDelPresagio daTesto(String? testo) {
     if (testo == null || testo.isEmpty) return LaMemoriaDelPresagio();
     try {
       final j = jsonDecode(testo) as Map<String, dynamic>;
+      final letti = (j['letti'] as Map? ?? {}).cast<String, String>();
+      if (j['versione'] != versione) {
+        return LaMemoriaDelPresagio(letti: {...letti});
+      }
       return LaMemoriaDelPresagio(
-        letti: (j['letti'] as Map? ?? {}).cast<String, String>(),
+        letti: {...letti},
         giornoDiOggi: j['giornoDiOggi'] as String? ?? '',
         diOggi: {
           for (final e in (j['diOggi'] as Map? ?? {}).entries)
-            '${e.key}': (e.value as List).cast<String>(),
+            '${e.key}': {...(e.value as Map).cast<String, String>()},
         },
       );
     } on FormatException {
+      return LaMemoriaDelPresagio();
+    } on TypeError {
       return LaMemoriaDelPresagio();
     }
   }
@@ -274,29 +368,58 @@ abstract final class IlPresagioDalCorpus {
         domanda.trim().toLowerCase(),
       ].join('|');
 
-  /// **IL PRESAGIO**, nelle tre parti che la persona vede oggi.
+  /// La pietra che decide di una gettata: quella su cui poggiano il titolo,
+  /// la risposta, il gesto e il galdr.
+  static RunaGettata pietraCheDecide(EsitoGettata esito) =>
+      esito.rune[indiceDellaPietraCheDecide(esito.gettata.id)
+          .clamp(0, esito.rune.length - 1)];
+
+  /// **I NOMI DELLE PARTI NELLA MEMORIA DI OGGI**, ordine GA voce GA.07: le
+  /// quattro del responso principale e due per ogni pietra della scheda.
+  static const String parteRisposta = 'risposta';
+  static const String parteVerdetto = 'verdetto';
+  static const String parteGesto = 'gesto';
+  static const String parteLegame = 'legame';
+  static String parteDellaPietra(String campo, String runa) => '$campo|$runa';
+
+  /// **IL PRESAGIO**, nella forma dell'ordine GA (voci GA.03, GA.04 e
+  /// GA.05): il responso principale e le schede delle rune singole.
   ///
   /// [cosa] e' cio' di cui la persona chiede, con l'articolo (vedi
   /// [cosaDellaDomanda]); [persona] l'identificativo che semina l'ordine
-  /// delle voci; [memoria] si aggiorna con le voci lette.
-  static Responso componi({
+  /// delle voci; [memoria] si aggiorna con le voci lette. [lunga] aggiunge
+  /// al responso principale l'approfondimento (LEGAME) e il galdr
+  /// propiziatorio della pietra che decide: dall'Iniziato in su
+  /// (`RigaDelPiano.runeLunga`), mai alle schede (voce GA.05).
+  ///
+  /// **Si sceglie solo cio' che si mostra**: il LEGAME solo nella Lunga, le
+  /// schede solo con piu' di una pietra. Lo stesso giorno, la stessa
+  /// gettata con la stessa domanda ridà le stesse voci; se nel frattempo si
+  /// e' aperta la Lunga, la parte che mancava si sceglie adesso e si
+  /// aggiunge al presagio di oggi.
+  static IlPresagioComposto componi({
     required CorpusDelPresagio corpus,
     required EsitoGettata esito,
     required String domanda,
     required String persona,
     required DateTime oggi,
     required LaMemoriaDelPresagio memoria,
+    bool lunga = false,
     CourtesyForm? forma,
   }) {
     memoria.pota(oggi);
     final pietre = esito.rune;
     final gettata = esito.gettata.id;
-    final decide =
-        pietre[indiceDellaPietraCheDecide(gettata).clamp(0, pietre.length - 1)];
+    final decide = pietraCheDecide(esito);
     final laFirma = firma(esito, domanda);
-    final gia = memoria.diOggi[laFirma];
-    final presi = <String>[];
-    String prendi(String campo, String gruppo) {
+    final diOggi = memoria.diOggi.putIfAbsent(laFirma, () => {});
+    final giorno = LaMemoriaDelPresagio.chiaveDelGiorno(oggi);
+    // Mai la stessa voce due volte nello stesso presagio, nemmeno fra una
+    // parte gia' data oggi e una scelta adesso.
+    final presi = <String>{...diOggi.values};
+    String prendi(String parte, String campo, String gruppo) {
+      final gia = diOggi[parte];
+      if (gia != null) return gia;
       final n = corpus.voci[campo]?[gruppo]?.length ?? 0;
       if (n == 0) {
         throw StateError('corpus incompleto: $campo/$gruppo');
@@ -307,63 +430,136 @@ abstract final class IlPresagioDalCorpus {
         quante: n,
         persona: persona,
         memoria: memoria,
-        giaPresi: presi.toSet(),
+        giaPresi: presi,
         vuota: (i) =>
             corpus.voci[campo]![gruppo]![i].trim().isEmpty ||
             vociTrattenute.contains('$campo/$gruppo/${i + 1}'),
       );
       presi.add(v);
+      diOggi[parte] = v;
+      memoria.letti[v] = giorno;
       return v;
     }
 
-    final List<String> ids;
-    if (gia != null) {
-      ids = gia;
-    } else {
-      final t = tono(pietre);
-      ids = [
-        prendi(CampiDelPresagio.risposta, gruppoDellaPietra(decide)),
-        prendi(CampiDelPresagio.verdetto,
-            '$t/${famigliaCheDomina(pietre, decide.rune.name)}'),
-        for (final p in pietre)
-          prendi(CampiDelPresagio.pietra, gruppoDellaPietra(p)),
-        prendi(CampiDelPresagio.legame, '$gettata/$t'),
-        prendi(CampiDelPresagio.gesto, gruppoDellaPietra(decide)),
-      ];
-      final giorno = LaMemoriaDelPresagio.chiaveDelGiorno(oggi);
-      for (final v in ids) {
-        memoria.letti[v] = giorno;
-      }
-      memoria.diOggi[laFirma] = ids;
-    }
-
     final cosa = cosaDellaDomanda(domanda);
-    String testo(String id, {RunaGettata? pietra}) {
+    String testo(String id) {
       final parti = id.split('/');
       final campo = parti.first;
       final numero = int.parse(parti.last);
       final gruppo = parti.sublist(1, parti.length - 1).join('/');
-      var t = corpus.voci[campo]![gruppo]![numero - 1];
-      t = t
+      final t = corpus.voci[campo]![gruppo]![numero - 1]
           .replaceAll('{cosa}', cosa)
           .replaceAll('{gettata}', esito.gettata.nome.toLowerCase());
-      if (pietra != null) {
-        t = t
-            .replaceAll('{posizione}', pietra.posizione.titolo)
-            .replaceAll('{glossa}', pietra.posizione.glossa);
-      }
       return LaMarcaDelGenere.risolvi(t, forma: forma);
     }
 
-    final daPietre = [
-      for (var i = 0; i < pietre.length; i++)
-        testo(ids[2 + i], pietra: pietre[i])
+    // **IL VERDETTO SEGUE IL TONO VERO DELLA GETTATA**, non quello della
+    // sola pietra che decide: dice come pesa l'insieme, e una gettata in
+    // ombra con la pietra che decide dritta resta in ombra nel suo insieme
+    // (nota degli scrittori dell'ordine GA, R2).
+    final t = tono(pietre);
+    final risposta = testo(prendi(
+        parteRisposta, CampiDelPresagio.risposta, gruppoDellaPietra(decide)));
+    final verdetto = testo(prendi(parteVerdetto, CampiDelPresagio.verdetto,
+        '$t/${famigliaCheDomina(pietre, decide.rune.name)}'));
+    final gesto = testo(
+        prendi(parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
+    final legame = lunga
+        ? testo(prendi(parteLegame, CampiDelPresagio.legame, '$gettata/$t'))
+        : null;
+    final galdr = lunga ? galdrDi(decide, forma: forma) : null;
+    final schede = <ResponsoInterpretato>[
+      if (pietre.length > 1)
+        for (final p in pietre)
+          ResponsoInterpretato(
+            arte: ArteInterpretata.rune,
+            titolo: p.riga.trim(),
+            risposta: testo(prendi(
+                parteDellaPietra(CampiDelPresagio.pietra, p.rune.name),
+                CampiDelPresagio.pietra,
+                gruppoDellaPietra(p))),
+            cosaFare: testo(prendi(
+                parteDellaPietra(CampiDelPresagio.consiglio, p.rune.name),
+                CampiDelPresagio.consiglio,
+                gruppoDellaPietra(p))),
+          ),
     ];
-    return Responso(
-      risposta: '${testo(ids[0])} ${testo(ids[1])}',
-      cosaPuoiFare: testo(ids.last),
-      daDoveViene: [...daPietre, testo(ids[ids.length - 2])].join(' '),
+    return IlPresagioComposto(
+      principale: ResponsoInterpretato(
+        arte: ArteInterpretata.rune,
+        titolo: IlTitoloDellaGettata.di(esito),
+        risposta: '$risposta $verdetto',
+        cosaFare: gesto,
+        approfondimento: legame,
+        rito: galdr,
+        daDoveViene: daDoveViene(esito, lunga: lunga),
+      ),
+      schede: schede,
     );
+  }
+
+  /// **IL GALDR PROPIZIATORIO DELLA PIETRA CHE DECIDE**, ordine GA voce
+  /// GA.04: *"Per le rune 'il galdr propiziatorio'"*. Il canto del nome della
+  /// runa nel suo verso, da `docs/corpus/riti/galdr_delle_rune.md` (una voce
+  /// per runa e verso, la stessa ogni volta che quella pietra decide: e' un
+  /// gesto da ripetere ed e' fuori dalla regola dei sessanta giorni,
+  /// SPECIFICA.md sezione 2).
+  static String? galdrDi(RunaGettata pietra, {CourtesyForm? forma}) {
+    final rito = IRitiPropiziatori.rito(IRitiPropiziatori.galdr,
+        [pietra.rune.name, pietra.inOmbra ? 'in ombra' : 'dritta']);
+    return rito == null ? null : LaMarcaDelGenere.risolvi(rito, forma: forma);
+  }
+
+  /// I poemi runici col loro nome italiano, nell'ordine in cui si citano.
+  static const Map<String, String> _poemi = {
+    'Old English Rune Poem': 'anglosassone',
+    'Old Icelandic Rune Poem': 'islandese',
+    'Old Norwegian Rune Rhyme': 'norvegese',
+  };
+
+  static String _elenco(List<String> voci) => voci.length < 2
+      ? voci.join()
+      : '${voci.sublist(0, voci.length - 1).join(', ')} e ${voci.last}';
+
+  /// **IL "DA DOVE VIENE" DELLA GETTATA, composto dal codice**, ordine GA
+  /// voce GA.05: *"Il 'Da dove viene' chiude la consultazione una volta sola
+  /// in fondo e cita le fonti di tutte le carte o le rune uscite"*. Le fonti
+  /// sono i poemi runici in cui le rune uscite sono attestate (`kRuneLore`,
+  /// da `docs/corpus/rune.md`) e, nella Lunga, la pratica del galdr
+  /// (Thorsson, voce GA.04: *"il 'Da dove viene' lo dice così"*). Non lo
+  /// scrive il corpus: una fonte e' un fatto, e si legge dove sta.
+  static String daDoveViene(EsitoGettata esito, {required bool lunga}) {
+    final nomi = <String>[];
+    for (final p in esito.rune) {
+      if (!nomi.contains(p.rune.name)) nomi.add(p.rune.name);
+    }
+    final trovati = <String>{
+      for (final n in nomi)
+        for (final s in kRuneLore[n]?.strofe ?? const <StrofaRunica>[])
+          if (_poemi.containsKey(s.fonte)) s.fonte,
+    };
+    final poemi = [
+      for (final e in _poemi.entries)
+        if (trovati.contains(e.key)) e.value,
+    ];
+    final da = switch (poemi.length) {
+      0 => 'dalla tradizione runica del Futhark antico',
+      1 => 'dal poema runico ${poemi.first}',
+      _ => 'dai poemi runici medievali, ${_elenco([
+              for (final p in poemi) p == 'norvegese' ? 'il $p' : 'l’$p'
+            ])}',
+    };
+    final parti = [
+      'Il senso di ${_elenco(nomi)}, nel verso in cui '
+          '${nomi.length == 1 ? 'è uscita' : 'sono uscite'}, viene $da.',
+      if (lunga)
+        IRitiPropiziatori.fonte(IRitiPropiziatori.galdr, [
+              pietraCheDecide(esito).rune.name,
+              pietraCheDecide(esito).inOmbra ? 'in ombra' : 'dritta',
+            ]) ??
+            '',
+    ];
+    return parti.where((p) => p.trim().isNotEmpty).join(' ');
   }
 
   /// **CIO' DI CUI LA PERSONA CHIEDE**, con l'articolo. Per le domande del

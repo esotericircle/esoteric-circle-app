@@ -1,3 +1,9 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
+import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
+import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_lore.g.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
@@ -26,74 +32,105 @@ import 'cardinale_minimo.dart';
 ///
 /// **La grandezza misurata sono i CARATTERI a schermo**, non i paragrafi: un
 /// paragrafo puo' essere di due righe o di dieci, e contarli direbbe poco.
+///
+/// **DALL'ORDINE GA, voce GA.05, 20 ottobre 2026, la runa sola E' il
+/// responso principale.** Il fondatore, 20 ottobre 2026 alle 00:10:
+/// *"Profondità lunga solo dal tier 1 e solo per il responso principale"*, e
+/// l'ordine: *"La stesa a una carta e la runa singola: il responso
+/// principale è quello della carta o della runa, nella forma di GA.03, senza
+/// ripetere un secondo blocco per la stessa carta."* La misura in caratteri
+/// della scheda (al piu' 280 caratteri a vista) non vale piu': a vista ci
+/// sono il titolo e due paragrafi da 40 a 50 parole nella Breve. Cio' che
+/// resta vero di questa voce si misura qui in parole: **a vista non c'e'
+/// una lezione**, cioe' due paragrafi e non di piu' nella Breve, e il
+/// significato del segno e la strofa (la "lezione") stanno dietro la porta,
+/// non nei paragrafi a vista.
 void main() {
-  /// Quanto testo porta la scheda di una runa, contando i pezzi che la
-  /// schermata mostra sempre.
-  int caratteriDi(Rune r, {required bool tutto}) {
-    final dritta = RunaGettata(
-        rune: r,
-        verso: RuneVerso.dritto,
-        posizione: const PosizioneGettata('Prova', 'la posizione della prova'));
-    var quanti = r.keyword.length + dritta.riga.length;
-    if (tutto) {
-      quanti += r.meaning.length;
-      final lore = kRuneLore[r.name];
-      if (lore != null && lore.strofe.isNotEmpty) {
-        quanti += lore.strofe.first.traduzione.length +
-            lore.strofe.first.fonte.length;
-      }
-    }
-    return quanti;
-  }
-
-  test('a una runa sola il responso sta sotto la misura di una risposta', () {
+  test(
+      'a una runa sola il responso e\' quello principale, breve, senza '
+      'scheda', () {
     var guardate = 0;
     final lunghe = <String>[];
-    var sommaCorta = 0;
-    var sommaLunga = 0;
-    for (final r in kElderFuthark) {
+    var somma = 0;
+    for (var seme = 0; seme < 200; seme++) {
+      final esito = RuneCast.getta(gettate.first, random: Random(seme));
+      expect(esito.rune.length, 1);
+      final p = IlPresagioDalCorpus.componi(
+        corpus: corpusDelPresagio,
+        esito: esito,
+        domanda: '',
+        persona: 'runa-sola-$seme',
+        oggi: DateTime(2026, 10, 20),
+        memoria: LaMemoriaDelPresagio(),
+      );
       guardate++;
-      final corta = caratteriDi(r, tutto: false);
-      final lunga = caratteriDi(r, tutto: true);
-      sommaCorta += corta;
-      sommaLunga += lunga;
-      // **DUECENTOTTANTA CARATTERI**, e il numero non e' scelto a caso: e' la
-      // misura di un messaggio che si legge in un colpo d'occhio senza
-      // scorrere, ed e' circa quattro righe piene a diciotto punti su uno
-      // schermo da 390. Sopra questa misura una risposta smette di essere una
-      // risposta e diventa un testo da leggere.
-      if (corta > 280) lunghe.add('${r.name} a $corta caratteri');
+      final parole = p.principale.paragrafi
+          .map(LaFormaDelResponso.parole)
+          .fold<int>(0, (a, b) => a + b);
+      somma += parole;
+      if (p.principale.paragrafi.length != 2 ||
+          parole > 2 * LaFormaDelResponso.massimo ||
+          p.schede.isNotEmpty) {
+        lunghe.add('${esito.rune.first.rune.name}: '
+            '${p.principale.paragrafi.length} paragrafi, $parole parole, '
+            '${p.schede.length} schede');
+      }
     }
     // ignore: avoid_print
-    print('ORDINE CQ VOCE 2.10: rune guardate $guardate; a una runa sola la '
-        'scheda porta in media ${(sommaCorta / guardate).round()} caratteri, '
-        'con tutto ne porterebbe ${(sommaLunga / guardate).round()}');
-    cardinaleMinimo(guardate, 24,
-        cosa: 'rune del Futhark antico misurate',
-        perche: 'Con un corpus vuoto la misura sarebbe zero caratteri, e la '
+    print('ORDINE GA VOCE 05: rune sole guardate $guardate; a vista in media '
+        '${(somma / guardate).round()} parole in due paragrafi');
+    cardinaleMinimo(guardate, 200,
+        cosa: 'gettate a una runa composte',
+        perche: 'Con un corpus vuoto la misura sarebbe zero parole, e la '
             'prova verde per assenza.');
     expect(lunghe, isEmpty,
-        reason: 'queste rune, da sole, portano piu di 280 caratteri: '
+        reason: 'a una runa sola a vista c\'e\' piu\' del responso breve: '
             '${lunghe.take(4).join(", ")}');
   });
 
-  test('e il taglio e vero: con tutto sarebbe piu del doppio', () {
+  test('e la lezione sta dietro la porta, non nei paragrafi a vista', () {
     // **UNA PROVA CHE MISURA SOLO IL DOPO NON DICE SE QUALCOSA E' CAMBIATO.**
-    // Qui si misura anche il prima, cioe' quanto porterebbe la scheda intera,
-    // cosi' il numero racconta il taglio invece di dichiararlo.
-    var corta = 0;
-    var lunga = 0;
+    // Il significato del segno e la strofa del poema sono la lezione: non
+    // devono comparire nei paragrafi a vista, e la porta "Da dove nasce
+    // questa runa" deve portarli.
+    var guardate = 0;
+    final dentro = <String>[];
     for (final r in kElderFuthark) {
-      corta += caratteriDi(r, tutto: false);
-      lunga += caratteriDi(r, tutto: true);
+      final esito = EsitoGettata(gettata: gettate.first, rune: [
+        RunaGettata(
+            rune: r,
+            verso: RuneVerso.dritto,
+            posizione: gettate.first.posizioni.first),
+      ]);
+      final p = IlPresagioDalCorpus.componi(
+        corpus: corpusDelPresagio,
+        esito: esito,
+        domanda: '',
+        persona: 'lezione',
+        oggi: DateTime(2026, 10, 20),
+        memoria: LaMemoriaDelPresagio(),
+      );
+      guardate++;
+      final aVista = p.principale.paragrafi.join(' ');
+      final strofa = kRuneLore[r.name]?.strofe.first.traduzione;
+      if (aVista.contains(r.meaning) ||
+          (strofa != null && aVista.contains(strofa))) {
+        dentro.add(r.name);
+      }
     }
-    final rapporto = lunga / corta;
-    // ignore: avoid_print
-    print('ORDINE CQ VOCE 2.10: la scheda intera e ${rapporto.toStringAsFixed(2)} '
-        'volte quella corta');
-    expect(rapporto, greaterThan(2.0),
-        reason: 'la scheda intera e solo ${rapporto.toStringAsFixed(2)} volte '
-            'quella corta: allora non c era niente da accorciare, e questa '
-            'voce sta curando una cosa che non esiste');
+    final schermata =
+        File('lib/features/maestri/caligo/rune/rune_draw_screen.dart')
+            .readAsStringSync();
+    final porta = schermata.indexOf('class _IlRestoDellaRunaState');
+    cardinaleMinimo(guardate, 24,
+        cosa: 'rune del Futhark antico misurate',
+        perche: 'tutte e ventiquattro, dritte');
+    expect(dentro, isEmpty,
+        reason: 'la lezione e\' a vista per ${dentro.join(", ")}');
+    expect(porta, greaterThan(0), reason: 'la porta non c\'e\' piu\'');
+    for (final chiave in const ['rune_meaning_', 'rune_strofa_']) {
+      expect(schermata.indexOf("Key('$chiave", porta), greaterThan(porta),
+          reason: '$chiave non sta dietro la porta');
+    }
   });
 }

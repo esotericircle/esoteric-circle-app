@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
-import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
+import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sorgenti_di_lib.dart';
 
@@ -52,25 +53,33 @@ void main() {
     }
   }
 
-  Widget host() => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (_) => MaestroController(
-                  initial: const ThemeKey.of(Maestro.caligo))),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
-          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
-          ChangeNotifierProvider(create: (_) => ZodiacController()),
-        ],
-        child: MaterialApp(
-          builder: (ctx, child) => MediaQuery(
-            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
-            child: MaestroScope(child: child!),
-          ),
-          home: RuneDrawScreen(random: Random(3)),
+  // **IL DISCO FINTO, ordine GA voce GA.07.** Senza, la memoria del
+  // presagio aspetta un disco che nelle prove non risponde mai, e la bolla
+  // resta nell'attesa. Prima la bolla mostrava intanto la lettura di casa,
+  // ed e' il lampo della lettura sbagliata (padre: ordine EX voce 03) che
+  // l'ordine GA ha tolto: questa prova passava su quel ripiego.
+  Widget host() {
+    SharedPreferences.setMockInitialValues({});
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) =>
+                MaestroController(initial: const ThemeKey.of(Maestro.caligo))),
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => ParallaxController()),
+        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider(create: (_) => ZodiacController()),
+      ],
+      child: MaterialApp(
+        builder: (ctx, child) => MediaQuery(
+          data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+          child: MaestroScope(child: child!),
         ),
-      );
+        home: RuneDrawScreen(random: Random(3)),
+      ),
+    );
+  }
 
   Future<void> passo(WidgetTester tester) async {
     for (var i = 0; i < 4; i++) {
@@ -149,26 +158,33 @@ void main() {
     await tester.tap(cast);
     await passo(tester);
 
-    // **SI CERCA L'APERTURA DELLA CORNICE della domanda scelta**, che dall'allegato
-    // B e' cio' che la persona legge come prima riga del presagio. Prima si
-    // cercava una riga mia, "Sulla domanda che hai posto": era il provvisorio che
-    // teneva il posto finche' le cornici non arrivavano.
-    final apertura = CorniciDelPresagio.perDomanda(
-            DomandeDelCerchio.generichePerLaGettata.first.testo)!
-        .apertura;
+    // **SI CERCA CIO' DI CUI LA DOMANDA CHIEDE, dentro la risposta.**
+    // Fino all'ordine GA si cercava l'apertura della cornice dell'allegato B
+    // (`CorniciDelPresagio`), che e' la lettura di casa: questa prova la
+    // trovava perche' qui il disco non c'e', la composizione dal corpus
+    // cadeva e la bolla restava sul ripiego. **Una prova verde sul ripiego,
+    // non sul presagio che si vede.** Dall'ordine EX voce 03 il presagio
+    // viene dal corpus, e la RISPOSTA porta sempre `{cosa}`, cio' di cui la
+    // domanda chiede ("il tuo momento"): e' quella la misura che la domanda
+    // e' arrivata fino al testo (ordine GA voce GA.06, *"coerente con la
+    // domanda posta"*).
+    final cosa = IlPresagioDalCorpus.cosaDellaDomanda(
+        DomandeDelCerchio.generichePerLaGettata.first.testo);
     final dentroIlPresagio = find.descendant(
-      of: find.byKey(const Key('rune_presage')),
-      matching: find.textContaining(apertura.split('.').first),
+      of: find.byKey(const Key('rune_presage_risposta')),
+      matching: find.textContaining(cosa),
     );
     expect(dentroIlPresagio, findsOneWidget,
         reason: 'il presagio non dice di stare rispondendo alla domanda: la '
             'domanda arriva alla sua scatola e si ferma li\'');
 
-    // Le tre parti dell'anatomia hanno ciascuna la sua superficie: la cosa da
-    // fare non si perde in mezzo a un paragrafo, ed e' la parte che fa tornare.
-    expect(find.byKey(const Key('rune_presage_text')), findsOneWidget);
-    expect(find.byKey(const Key('rune_presage_azione')), findsOneWidget);
-    expect(find.byKey(const Key('rune_presage_fonte')), findsOneWidget);
+    // Le parti della forma hanno ciascuna la sua superficie: la cosa da fare
+    // sta nel suo riquadro, ed e' la parte che fa tornare. **Dall'ordine GA**
+    // le chiavi sono quelle della forma comune, e il "Da dove viene" chiude
+    // la consultazione fuori dalla bolla.
+    expect(find.byKey(const Key('rune_presage_risposta')), findsOneWidget);
+    expect(find.byKey(const Key('rune_presage_cosa_fare')), findsOneWidget);
+    expect(find.byKey(const Key('rune_presage_da_dove_viene')), findsOneWidget);
   });
 
   testWidgets('si puo\' ancora gettare senza domanda, e la riga lo dice',
