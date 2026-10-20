@@ -967,3 +967,70 @@ leggiIInstallati()` non lo chiama nessuno, quindi dopo ogni riavvio l'app
 dimentica i video gia' scaricati: li riscarica alla prima ombra seguita, e
 senza rete non li trova (nel segno e alla rivelazione resta la posa). Padre
 FZ.06.
+
+### Persona (e): domande all'animale riconosciuto
+
+Due segni chiesti al Cavallo, con la rete accesa, a una settimana di
+distanza (data spostata). "Devo accettare il nuovo lavoro a Milano?": il
+Cavallo si allontana, "Vuol dire che oggi questa strada va lasciata", e il
+pezzo d'uscita del video parte e lascia la scena vuota (`v2_e_q1_2.png`).
+"Quali numeri usciranno al lotto sabato?": "Il Cavallo ti si avvicina. Vuol
+dire che quello che chiedi ha il suo si'".
+
+**Tutte e due le righe vengono dalla riserva, non dal modello**: il
+registro del telefono dice "App Check token ... 403 App attestation failed",
+poi "Too many attempts". La build di debug installata a mano non e'
+attestata, e Firebase rifiuta la chiamata prima che arrivi a Gemini:
+nessuna spesa oggi, e lo stesso vale per le scene chieste dalle discese dei
+primi tre giorni. **La parte "modello vero" della persona (e) non si puo'
+misurare su questa build**: serve una build attestata (quella di App
+Distribution) o il token di debug registrato nella console Firebase.
+
+**Difetto trovato e curato**: la riserva rispondeva si' o no a caso anche
+alle domande aperte (il lotto). Ora a quale, quando, come, perche', chi,
+che cosa, dove, quanto risponde sempre "si volta", guarda meglio (commit
+`036dffda`, guardia `a_una_domanda_aperta_il_segno_non_dice_si`).
+
+**Osservazione, non curata**: nella schermata del segno il titolo e il
+sottotitolo stanno sopra il corpo dell'animale e le pietre chiare, e "Il
+Cavallo non parla: risponde con un gesto" si legge a fatica
+(`v2_e_02.png`).
+
+### Persona (c): chi aveva concluso col vecchio sistema
+
+Preferenze del vecchio sistema scritte a mano sul telefono di collaudo
+(quattro discese, riconosciuto, nessuna chiave di FZ.02), rete spenta.
+Riaperta l'app: il Viaggio mostra la Volpe riconosciuta, l'animale che il
+vecchio sistema dava a un Gemelli, col pulsante "Scopri chi e' la Volpe"
+(`v2_c_viaggio.png`); il Passport mostra "ANIMALE GUIDA, Volpe": lo stesso
+animale. **Difetto trovato e curato**: aprendo la scheda, il popup diceva
+"Posso rivelarlo ora, leggendolo dal tuo cielo di nascita" e "Rivelalo dal
+mio cielo" (padre FZ.07): ora "Prima di leggerlo" e "Leggilo ora" (commit
+`39442275`).
+
+### Persona (d): chi era a meta'
+
+Preferenze del vecchio sistema a meta' (due discese, cammino allo strato
+due, il velo nel formato vecchio "Lupo:celle"). Riaperta l'app: la soglia
+riparte da capo, "Non si e' ancora mostrato, ne mancano quattro", nessun
+guasto dal velo vecchio; **ma nessun avviso**: la migrazione la faceva la
+home, che l'avviso lo buttava (padre FZ.02). Curato (commit `7ab00db3`,
+guardia `l_avviso_della_migrazione_arriva_al_viaggio`): rifatta la prova
+sul telefono, l'avviso "Il riconoscimento del tuo animale guida segue ora
+la regola delle ombre: il tuo cammino riparte da qui" compare
+(`v2_d_avviso1.png`), e alla seconda apertura non torna.
+
+### Persona (l), rimasta a meta'
+
+Tre giorni di fila con tre ombre mai seguite (Lince, Cavallo, un rapace):
+le ombre gia' seguite tornano fra le nove, quelle nuove ci sono, nessun
+riconoscimento. I sei giorni che l'ordine chiede non sono stati fatti: il
+quarto giorno sul profilo ripartito dalla persona (d) e' finito, per un
+tocco automatico sbagliato, nel rito del tamburo, e mi sono fermato.
+Osservato li': il tamburo si apre anche prima del riconoscimento, con
+l'ombra di un rapace (`v2_l1_soglia.png`), da capire se e' voluto.
+
+### Il telefono alla fine
+
+Data vera (20 ottobre 2026), ora automatica accesa, rete accesa. Sul
+profilo di prova restano le preferenze della persona (d).
