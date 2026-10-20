@@ -116,7 +116,9 @@ void main() {
     expect(find.byKey(const Key('animal_test_popup')), findsOneWidget);
     expect(find.byKey(const Key('animal_popup_test')), findsOneWidget);
     expect(find.byKey(const Key('animal_popup_reveal')), findsOneWidget);
-    expect(find.text('Il tuo animale ti sta cercando'), findsOneWidget);
+    expect(find.text('Prima di leggerlo'), findsOneWidget);
+    // **NESSUN CIELO**: l'animale non si legge dal segno (FZ.01, FZ.07).
+    expect(find.textContaining('cielo'), findsNothing);
 
     // Rivela dal cielo: il popup si chiude e resta il viaggio col tamburo.
     await tester.tap(find.byKey(const Key('animal_popup_reveal')));

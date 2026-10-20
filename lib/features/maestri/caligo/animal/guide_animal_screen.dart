@@ -298,15 +298,21 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Il tuo animale ti sta cercando',
+              // **L'ANIMALE NON SI LEGGE DAL CIELO.** Qui c'era *"Il tuo animale
+              // ti sta cercando ... Posso rivelarlo ora, leggendolo dal tuo
+              // cielo di nascita"* e il pulsante *"Rivelalo dal mio cielo"*:
+              // il legame segno-animale che l'ordine FZ voce FZ.01 ha abolito
+              // (l'animale si riconosce nel Viaggio) e FZ.07 vuole fuori da
+              // ogni riga. Visto sul Realme nella simulazione da persona del
+              // 20 ottobre 2026. Padre FZ.07.
+              Text('Prima di leggerlo',
                   style: TypographyTokens.titoloSezione()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.sm),
               Text(
-                'Posso rivelarlo ora, leggendolo dal tuo cielo di nascita. Ma se '
-                'prima ascolti chi sei nel profondo, il tuo totem ti somiglierà '
-                'di più. Il Test Archetipo dura tre minuti e rende questa '
-                'rivelazione tua fino in fondo.',
+                'Se prima ascolti chi sei nel profondo, la lettura del tuo '
+                'animale si intreccia con il tuo archetipo e ti somiglia di '
+                'più. Il Test Archetipo dura tre minuti.',
                 style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.5),
               ),
@@ -334,7 +340,7 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                     side:
                         BorderSide(color: palette.gold.withValues(alpha: 0.6))),
                 onPressed: () => Navigator.of(dialog).pop(),
-                child: const Text('Rivelalo dal mio cielo'),
+                child: const Text('Leggilo ora'),
               ),
               const SizedBox(height: SpacingTokens.sm),
               Text(
