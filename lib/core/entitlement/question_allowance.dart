@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'il_consenso_della_spesa.dart';
+import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'plan_catalog.dart';
 import '../cammino/cammino_da_custodire.dart';
+import '../../services/ai/registro_dei_guasti.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'budget_del_giorno.dart';
@@ -1147,25 +1149,84 @@ class QuestionAllowance extends ChangeNotifier {
   /// che la prima aveva gia' tolto. Trovato dalla prova, non ragionato.
   bool _stoSvuotando = false;
 
+  /// **NON LANCIA MAI**, ordine GA voce 11. Chi la chiama e' [sincronizza],
+  /// che deve leggere lo stato del Cerchio comunque vada la coda, e
+  /// [_chiediAlServer], che non la aspetta: un errore che uscisse di qui
+  /// fermerebbe la sincronia o diventerebbe un errore senza padrone.
   Future<void> _svuotaLaCoda() async {
     if (!_porta.viva || _stoSvuotando) return;
     _stoSvuotando = true;
     try {
       await _svuotaDavvero();
+    } catch (errore, traccia) {
+      // Si ignora per chi usa l'app, non per chi guarda il cruscotto: la
+      // coda resta com'e' e riparte alla prossima occasione.
+      annotaGuastoInnocuo('la coda dei consumi si ferma', errore, traccia);
     } finally {
       _stoSvuotando = false;
     }
   }
 
+  /// **I RIFIUTI CHE RIGUARDANO LA VOCE, NON IL MOMENTO.** Ordine GA voce 11,
+  /// 20 ottobre 2026. Il server ha guardato il consumo e ha detto che cosi'
+  /// non lo prendera' mai: `invalid-argument` ("Budget sconosciuto." di un
+  /// server pubblicato prima del budget) e `failed-precondition`. Ripetere
+  /// quella voce a ogni apertura non cambia la risposta, e tenerla in testa
+  /// ferma tutte quelle dietro di lei.
+  ///
+  /// **Gli altri rifiuti non sono qui, ed e' voluto.** `unauthenticated` e
+  /// `permission-denied` dicono che adesso il telefono non e' riconosciuto
+  /// (l'accesso che torna, il gettone di App Check): il consumo e' giusto e
+  /// passera' dopo, buttarlo vorrebbe dire non contarlo mai.
+  static const Set<String> _rifiutiDellaVoce = {
+    'invalid-argument',
+    'failed-precondition',
+  };
+
+  /// **LA CODA SI AVVELENAVA**, ordine GA voce 11, difetto 1 della
+  /// ricognizione. Qui un rifiuto definitivo del server usciva come
+  /// eccezione: la voce restava in testa alla coda (che e' salvata e
+  /// sopravvive ai riavvii), le voci dietro non partivano piu', e
+  /// [sincronizza] cadeva prima di leggere piano, residui, saldo Eos, inviti
+  /// e cammino. Sul telefono del fondatore e su tre iPhone dei tester dalla
+  /// build 2312, coi budget `oracoliAngeli` e `sinastrieEvolutive` che il
+  /// `consumaDelGiorno` pubblicato non conosce. Padre: ordine FT voce FT.13 e
+  /// ordine FU voce FU.10 (i budget nuovi senza la pubblicazione della porta),
+  /// e questo ciclo, che trattava il rifiuto definitivo come la rete assente.
+  ///
+  /// Adesso la voce rifiutata in modo definitivo esce dalla coda, il guasto
+  /// va al cruscotto, e si continua con le altre. Il conto locale non si
+  /// tocca: il server quella voce non l'ha contata, e la lettura dello stato
+  /// che segue porta il telefono sul numero del server.
   Future<void> _svuotaDavvero() async {
     while (_daMandare.isNotEmpty) {
       final primo = _daMandare.first;
-      final esito = await _porta.consumaQuanti(
-        budget: primo['budget']!,
-        idMovimento: primo['id']!,
-        quanti: int.tryParse(primo['quanti'] ?? '') ?? 1,
-      );
-      if (esito == null) return;
+      final EsitoDelConsumo? esito;
+      try {
+        esito = await _porta.consumaQuanti(
+          budget: primo['budget']!,
+          idMovimento: primo['id']!,
+          quanti: int.tryParse(primo['quanti'] ?? '') ?? 1,
+        );
+      } on FirebaseException catch (rifiuto, traccia) {
+        if (!_rifiutiDellaVoce.contains(rifiuto.code)) {
+          // Un rifiuto del momento: la voce resta, e ci si ferma qui come
+          // senza rete. Lo stato si legge lo stesso.
+          annotaGuastoInnocuo(
+              'il consumo ${primo['budget']} aspetta: ${rifiuto.code}',
+              rifiuto,
+              traccia);
+          await _persist();
+          return;
+        }
+        annotaGuastoInnocuo(
+            'il server rifiuta il consumo ${primo['budget']}, esce dalla coda',
+            rifiuto,
+            traccia);
+        _daMandare.removeAt(0);
+        continue;
+      }
+      if (esito == null) break;
       _daMandare.removeAt(0);
       if (!esito.concesso) {
         // IL SERVER HA DETTO DI NO: il conto locale si allinea a lui, anche
