@@ -197,9 +197,15 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
   // NESSUN dispose dello storico: non e' di questa schermata, e chiuderlo
   // uscendo dal viaggio spegnerebbe il dato anche per la chat e il Passaporto.
 
+  /// **DA DOVE VIENE L'ANIMALE: DAL VIAGGIO, NON DAL CIELO.** Qui c'era *"Dal
+  /// tuo cielo, Leone"*, cioe' il legame fra segno solare e animale che
+  /// l'ordine FZ voce FZ.01 ha abolito (l'animale si riconosce seguendo la
+  /// stessa ombra quattro volte) e FZ.07 vuole fuori da ogni riga; visto nella
+  /// cattura del fondatore del 20 ottobre 2026. Padre: FZ.07, applicata al
+  /// solo pannello delle fonti.
   String get _origine => _archetipo != null
-      ? 'Dal tuo cielo, ${widget.userSign.italianName}, intrecciato col tuo archetipo'
-      : 'Dal tuo cielo, ${widget.userSign.italianName}';
+      ? 'Riconosciuto nel Viaggio dello Sciamano, intrecciato col tuo archetipo'
+      : 'Riconosciuto nel Viaggio dello Sciamano';
 
   @override
   Widget build(BuildContext context) {
@@ -630,47 +636,8 @@ class _Identita extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          _Bolla(
-              chiave: 'animal_natura',
-              titolo: 'La sua natura',
-              testo: r.natura,
-              palette: palette),
-          const SizedBox(height: SpacingTokens.md),
-          _Bolla(
-              chiave: 'animal_dono',
-              titolo: 'Il dono',
-              testo: r.dono,
-              palette: palette),
-          const SizedBox(height: SpacingTokens.md),
-          _Bolla(
-              chiave: 'animal_lezione',
-              titolo: 'La lezione',
-              testo: r.lezione,
-              palette: palette),
-          const SizedBox(height: SpacingTokens.md),
-          _Bolla(
-              chiave: 'animal_quando',
-              titolo: 'Quando ti guida',
-              testo: r.quando,
-              palette: palette),
-          const SizedBox(height: SpacingTokens.md),
-          _Bolla(
-              chiave: 'animal_invito',
-              titolo: "L'invito",
-              testo: r.invito,
-              palette: palette),
-
-          // LA SEZIONE DELL'ARCHETIPO, solo se c'e' un risultato del Test.
-          if (archetipo != null) ...[
-            const SizedBox(height: SpacingTokens.md),
-            _Bolla(
-              chiave: 'animal_archetipo',
-              titolo: 'Con il tuo archetipo',
-              testo: GuideAnimalCorpus.intreccioArchetipo(animal, archetipo!),
-              palette: palette,
-            ),
-          ],
-
+          LeQualitaDellAnimale(
+              animal: animal, archetipo: archetipo, palette: palette),
           const SizedBox(height: SpacingTokens.lg),
           _Azioni(
               palette: palette,
@@ -680,6 +647,75 @@ class _Identita extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xxxl),
         ],
       ),
+    );
+  }
+}
+
+/// **LE QUALITA' DELL'ANIMALE, IN UN POSTO SOLO.** La sua natura, il dono,
+/// la lezione, quando ti guida, l'invito e, se c'e' il Test, l'intreccio con
+/// l'archetipo, dal corpus `GuideAnimalCorpus`. Le leggono la scheda
+/// dell'Animale Guida (dal Passport) e, dal 20 ottobre 2026, il popup che il
+/// Viaggio dello Sciamano apre dopo la rivelazione (richiesta del fondatore):
+/// una copia sola, perche' due copie dello stesso testo divergono.
+class LeQualitaDellAnimale extends StatelessWidget {
+  const LeQualitaDellAnimale({
+    super.key,
+    required this.animal,
+    required this.archetipo,
+    required this.palette,
+  });
+
+  final GuideAnimal animal;
+  final Archetype? archetipo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final r = GuideAnimalCorpus.di(animal.name);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _Bolla(
+            chiave: 'animal_natura',
+            titolo: 'La sua natura',
+            testo: r.natura,
+            palette: palette),
+        const SizedBox(height: SpacingTokens.md),
+        _Bolla(
+            chiave: 'animal_dono',
+            titolo: 'Il dono',
+            testo: r.dono,
+            palette: palette),
+        const SizedBox(height: SpacingTokens.md),
+        _Bolla(
+            chiave: 'animal_lezione',
+            titolo: 'La lezione',
+            testo: r.lezione,
+            palette: palette),
+        const SizedBox(height: SpacingTokens.md),
+        _Bolla(
+            chiave: 'animal_quando',
+            titolo: 'Quando ti guida',
+            testo: r.quando,
+            palette: palette),
+        const SizedBox(height: SpacingTokens.md),
+        _Bolla(
+            chiave: 'animal_invito',
+            titolo: "L'invito",
+            testo: r.invito,
+            palette: palette),
+
+        // LA SEZIONE DELL'ARCHETIPO, solo se c'e' un risultato del Test.
+        if (archetipo != null) ...[
+          const SizedBox(height: SpacingTokens.md),
+          _Bolla(
+            chiave: 'animal_archetipo',
+            titolo: 'Con il tuo archetipo',
+            testo: GuideAnimalCorpus.intreccioArchetipo(animal, archetipo!),
+            palette: palette,
+          ),
+        ],
+      ],
     );
   }
 }

@@ -249,7 +249,10 @@ class _UnaCartaAMeta extends StatelessWidget {
                     errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                   ),
                   if (!intera)
+                    // **LA MISURA SI DICHIARA**, regola DC.21: l'ha chiesto
+                    // `nessun_pittore_dipinge_sul_nulla`.
                     CustomPaint(
+                      size: Size.infinite,
                       painter: PittoreDellaCenere(
                         velo: velo,
                         coperte: velo.velato.difference(scoperte),

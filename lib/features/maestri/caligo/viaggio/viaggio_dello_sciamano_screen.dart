@@ -36,6 +36,7 @@ import 'il_cammino_dell_animale.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_discesa_in_video.dart';
 import 'il_segno_che_risponde.dart';
+import 'il_tuo_animale_rivelato.dart';
 import 'il_tamburo_che_nutre.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
 import '../../../../core/viaggio/il_responso_del_viaggio.dart';
@@ -2011,16 +2012,26 @@ class _ViaggioDelloSciamanoScreenState
       // **CON LA MISURA VERA DELL'ANIMALE**, ordine DI voce 10, e alto al
       // massimo quanto il Lupo a tutta larghezza: il Gufo, alto e stretto,
       // altrimenti spingerebbe il nome e le tre azioni sotto la piega.
+      //
+      // **230 E NON PIU' 340**, dal 20 ottobre 2026: lo spazio va al pulsante
+      // "Scopri chi e'" sotto il nome, e "Scendi" resta sopra la piega del
+      // Realme per tutti e dodici gli animali (misurato: con 280 il Cavallo
+      // lo spingeva a 735 in una finestra di 719). E toccare l'animale apre
+      // le sue qualita', come il pulsante.
       Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 340),
+          constraints: const BoxConstraints(maxHeight: 230),
           child: AspectRatio(
             aspectRatio: misura.width / misura.height,
-            child: Image.asset(
-              suo.fullPath,
-              key: const Key('viaggio_animale_riconosciuto'),
-              fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+            child: GestureDetector(
+              onTap: () => mostraLeQualitaDellAnimale(context,
+                  animale: suo, palette: palette),
+              child: Image.asset(
+                suo.fullPath,
+                key: const Key('viaggio_animale_riconosciuto'),
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+              ),
             ),
           ),
         ),
@@ -2031,6 +2042,25 @@ class _ViaggioDelloSciamanoScreenState
         testo: '${conArticolo[0].toUpperCase()}${conArticolo.substring(1)}',
         stile: TypographyTokens.titoloScheda()
             .copyWith(color: ColorTokens.textPrimary),
+      ),
+      const SizedBox(height: SpacingTokens.xs),
+      // **SCOPRI CHI E'**: le sue qualita', le stesse del Passport, in un
+      // popup. Richiesta del fondatore del 20 ottobre 2026: vedi
+      // `IlTuoAnimaleRivelato`.
+      Center(
+        child: OutlinedButton.icon(
+          key: const Key('viaggio_il_tuo_animale'),
+          onPressed: () => mostraLeQualitaDellAnimale(context,
+              animale: suo, palette: palette),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: palette.goldSoft,
+            side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+            minimumSize: const Size(0, 44),
+          ),
+          icon: const Icon(Icons.auto_stories_outlined, size: 18),
+          label: Text('Scopri chi è $conArticolo',
+              style: TypographyTokens.etichetta()),
+        ),
       ),
       const SizedBox(height: SpacingTokens.sm),
       Text(
