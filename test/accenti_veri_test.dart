@@ -213,9 +213,7 @@ const esenzioni = <Esenzione>[
       'lib/core/cerchio/il_cerchio_sociale.dart',
       "da: d['da'] as String? ?? '',",
       'e la chiave di chi manda la proposta, mai mostrata'),
-  Esenzione(
-      'lib/core/cerchio/il_cerchio_sociale.dart',
-      "'attivita': attivita,",
+  Esenzione('lib/core/cerchio/il_cerchio_sociale.dart', "'attivita': attivita,",
       'e la chiave inviata al server per proporre il giorno, mai mostrata'),
   // Le chiavi del JSON salvato sul telefono per i promemoria del lunario
   // (FV.08), mai mostrate: il testo dell'attivita' a video viene da
@@ -229,6 +227,33 @@ const esenzioni = <Esenzione>[
       "final nome = j['attivita'];",
       'e la stessa chiave, letta tornando dal JSON salvato'),
 ];
+
+/// **IL "SE'" DEI SALMI DI MARTINI E' IL VERBO ESSERE, NON IL PRONOME.**
+/// Ordine GA, i rossi dell'unione, 20 ottobre 2026.
+///
+/// I riti propiziatori degli angeli (salmi di Lenain, ordine GA voci 04 e 07,
+/// 297cd46f) fanno leggere un versetto alla lettera, fra le virgolette basse,
+/// dalla Bibbia di Antonio Martini nella stampa Passigli del 1842: "tu se'
+/// mio scudo", "ti se' ritirato". Li' "se'" e' l'apocope di "sei", e
+/// `docs/corpus/riti/salmi_martini.md` lo dichiara fra le forme antiche
+/// della stampa. Scriverlo "sé" cambierebbe la parola, e il testo di una
+/// citazione si lascia alla lettera.
+///
+/// **L'eccezione e' stretta di proposito, tre condizioni insieme**: la
+/// riga e' un rito della raccolta dei salmi di Martini (la chiave
+/// `'salmi_martini|`), la parola sta dentro una citazione aperta e non
+/// ancora chiusa (piu' « che » prima di lei), e la precede "tu" o "ti",
+/// l'unico posto dove la forma e' il verbo. Fuori dalla citazione, in
+/// un'altra raccolta o dopo un'altra parola, "se'" resta un accento finto e
+/// cade. La prova `IL SE' DEI SALMI` qui sotto lo pretende.
+bool seiTroncatoNelSalmo(String riga, String testo) {
+  if (!riga.contains("'salmi_martini|")) return false;
+  final aperte = '«'.allMatches(testo).length;
+  final chiuse = '»'.allMatches(testo).length;
+  if (aperte <= chiuse) return false;
+  return RegExp(r'(?:^|[\s,;:(«])(?:tu|ti) se$', caseSensitive: false)
+      .hasMatch(testo);
+}
 
 /// Le stringhe di [righe] che usano l'apostrofo al posto dell'accento.
 ///
@@ -283,6 +308,7 @@ List<String> colpevoliIn(String percorso, List<String> righe,
             colpita = true;
             continue;
           }
+          if (e.key == "SE'" && seiTroncatoNelSalmo(riga, testo)) continue;
           colpevoli.add('$percorso:$n  "$testo" va scritto ${e.value}');
         }
       }
@@ -388,5 +414,46 @@ void main() {
     // ignore: avoid_print
     print('ORDINE DS VOCE 04: file esentati spostati di sette righe $spostati');
     expect(spostati, greaterThanOrEqualTo(5));
+  });
+
+  test('IL SE\' DEI SALMI DI MARTINI SI LASCIA SOLO DENTRO LA CITAZIONE', () {
+    // **Ordine GA, i rossi dell'unione.** Le righe vere dei riti che
+    // l'eccezione lascia passare si contano, e il cardinale minimo e' quello
+    // del 20 ottobre 2026: cinque salmi con "tu se'" o "ti se'".
+    const percorso = 'lib/core/responsi/i_riti_propiziatori_dati.dart';
+    final righe = File(percorso).readAsLinesSync();
+    var lasciate = 0;
+    for (final r in righe) {
+      final pezzi = r.split("'");
+      for (var k = 1; k < pezzi.length; k += 2) {
+        final p = pezzi[k].endsWith(r'\')
+            ? pezzi[k].substring(0, pezzi[k].length - 1)
+            : pezzi[k];
+        if (seiTroncatoNelSalmo(r, p)) lasciate++;
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE GA: "se\'" dei salmi di Martini lasciati alla lettera '
+        '$lasciate');
+    expect(lasciate, greaterThanOrEqualTo(5),
+        reason: 'l\'eccezione non trova piu\' i salmi: o i riti sono cambiati '
+            'o la prova guarda un altro file');
+    expect(colpevoliIn(percorso, righe), isEmpty);
+    // E non esenta niente fuori dalle tre condizioni: ognuna di queste righe
+    // innestate deve cadere.
+    const innesti = <String>[
+      // un'altra raccolta, la stessa citazione
+      r"    'inni_orfici|12|Hahaiah': 'Leggi «E perchè, o Signore, ti se\' ritirato». Poi taci.',",
+      // la parola dopo la citazione chiusa
+      r"    'salmi_martini|12|Hahaiah': 'Leggi «Signore». Poi ripeti tu se\' calmo.',",
+      // dentro la citazione, ma dopo un'altra parola
+      r"    'salmi_martini|12|Hahaiah': 'Leggi «E chi lo se\' ritirato». Poi taci.',",
+      // fuori da ogni citazione
+      r"    'salmi_martini|12|Hahaiah': 'Pensa a te se\' vuoi. Poi taci.',",
+    ];
+    for (final innesto in innesti) {
+      expect(colpevoliIn(percorso, [...righe, innesto]), hasLength(1),
+          reason: 'l\'eccezione dei salmi esenta anche: $innesto');
+    }
   });
 }
