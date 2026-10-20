@@ -103,8 +103,11 @@ class _Ferma implements LettoreDiScena {
 Future<void> _monta(WidgetTester tester, Tier tier) async {
   SharedPreferences.setMockInitialValues({});
   await tester.pumpWidget(const SizedBox());
-  tester.view.physicalSize = const Size(390, 844);
-  tester.view.devicePixelRatio = 1;
+  // Il rapporto del corredo delle anteprime (`corredo_anteprime_test.dart`):
+  // in questo file si scrivono anche le catture, e ogni misura dichiara il
+  // rapporto 3. Lo schermo resta di 390 per 844 punti.
+  tester.view.physicalSize = const Size(1170, 2532);
+  tester.view.devicePixelRatio = 3.0;
   addTearDown(tester.view.reset);
   await tester.pumpWidget(MultiProvider(
     providers: [
@@ -327,13 +330,32 @@ void main() {
         print('GA.06 MISURA l\'istruzione comune nell\'istruzione '
             '${lunga ? 'Lunga' : 'Breve'}: $volte');
         expect(volte, 1);
+        // **DOPO L'UNIONE CON I TAROCCHI**, 20 ottobre 2026: la forma comune
+        // e' quella scritta per la Stesa, con la sua intestazione
+        // (`LaFormaDelResponso.intestazioneDelModello`). Si conta anche
+        // l'intestazione: un secondo pezzo della forma, anche diverso da
+        // questo, la porterebbe due volte.
+        final intestazioni = LaFormaDelResponso.intestazioneDelModello
+            .allMatches(istruzione)
+            .length;
+        print('GA.06 MISURA l\'intestazione della forma nell\'istruzione '
+            '${lunga ? 'Lunga' : 'Breve'}: $intestazioni');
+        expect(intestazioni, 1);
         // La regola di casa la dice una volta: nessuna seconda misura.
         expect('da 40 a 50 parole'.allMatches(istruzione).length, 1);
         expect(istruzione, isNot(contains('400 caratteri')));
+        // Il campo dell'approfondimento solo nella Lunga.
+        expect(istruzione.contains('APPROFONDIMENTO (campo "approfondimento")'),
+            lunga);
+        // Il salmo propiziatorio non lo scrive il modello (GA.04, "nessuna
+        // formula inventata"): l'istruzione non lo nomina, ne' Breve ne'
+        // Lunga, e il modello non ha un campo per scriverlo.
         expect(
             istruzione.contains(
                 LaFormaDelResponso.titoloDelRito(ArteInterpretata.oracolo)),
-            lunga);
+            isFalse);
+        expect(LaLetturaDellOracolo.campi(profonda: lunga).keys,
+            isNot(contains('rito')));
       }
     });
   });

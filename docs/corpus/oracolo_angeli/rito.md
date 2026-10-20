@@ -115,7 +115,7 @@
 - rito 2: Seheiah va detto con un'agenda aperta davanti. Guarda la settimana che viene e togli un impegno che non reggi. Al suo posto scrivi una pausa.
 
 ## 29 Reiyel
-- rito 1: Fai un nodo stretto a una cordicella. Pronuncia Reiiel. Nomina una credenza ricevuta da chi ti ha cresciuto che oggi ti trattiene. Sciogli il nodo con pazienza, senza rancore.
+- rito 1: Fai un nodo stretto a una cordicella. Pronuncia Reiiel. Nomina una credenza ricevuta da chi ti ha fatto crescere che oggi ti trattiene. Sciogli il nodo con pazienza, senza rancore.
 - rito 2: Reiiel si chiama a finestra aperta. Scrivi su un foglio una frase che ripeti da sempre senza averla scelta. Chiediti se è tua. Se non lo è, strappa il foglio e lascia andare.
 
 ## 30 Omael
@@ -155,7 +155,7 @@
 - rito 2: Haamiah si nomina allo stesso posto, alla stessa maniera. Metti le mani aperte sul tavolo. Di' a voce bassa una frase che dice chi sei. Ripetila uguale anche domani.
 
 ## 39 Rehael
-- rito 1: Pensa a chi ti ha cresciuto o a chi viene dopo di te. Pronuncia Rehael. Accendi una candela per quella persona senza ricordare i torti. Il rispetto si dà prima, non si incassa dopo.
+- rito 1: Pensa a chi ti ha fatto crescere o a chi viene dopo di te. Pronuncia Rehael. Accendi una candela per quella persona senza ricordare i torti. Il rispetto si dà prima, non si incassa dopo.
 - rito 2: Rehael va pronunciato a mani aperte. Scrivi il nome di una persona vicina da anni e accanto una cosa che rispetti in lei. Non scrivere i conti in sospeso. Chiudi il quaderno.
 
 ## 40 Ieiazel

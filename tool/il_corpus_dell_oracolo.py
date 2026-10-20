@@ -35,7 +35,9 @@
 #  - si rivolge a te (seconda persona singolare), mai al voi;
 #  - il genere di chi legge: il criterio della guardia di casa,
 #    lib/core/chat/le_forme_del_genere.dart, chiamato con
-#    tool/forme_del_genere_dei_testi.dart (stesso criterio, non una copia);
+#    tool/forme_del_genere_dei_testi.dart (stesso criterio, non una copia),
+#    e il "ti" complemento oggetto col participio ("chi ti ha cresciuto"),
+#    che quel criterio non vede (ordine GA, TI_COL_PARTICIPIO);
 #  - la marca del genere ben formata [maschile|femminile|neutra];
 #  - mai una virgola prima di "e" o "ed";
 #  - accenti veri: nessun apostrofo che non sia un'elisione dell'elenco
@@ -324,6 +326,27 @@ POLITICA = re.compile(
     r"vocativ\w*"
     r")(?![%s])" % (L, L), re.I)
 
+# **IL "TI" COMPLEMENTO OGGETTO COL PARTICIPIO**, ordine GA voci 03, 04, 05
+# e 08, 20 ottobre 2026. "Chi ti ha cresciuto" si accorda con chi legge ("chi
+# ti ha cresciuta" a una donna), e il criterio del genere non lo prende
+# perche' non c'e' un verbo alla seconda persona: si scrive al neutro ("chi ti
+# ha fatto crescere"). Lo stesso criterio delle Rune
+# (tool/controlla_il_corpus_delle_rune.py, TI_COL_PARTICIPIO), allargato a
+# ogni parola dopo l'ausiliare: la' sfuggivano "deluso", "mosso",
+# "contraddetto". Restano i participi dove "ti" vale "a te" e il participio
+# non si accorda ([TI_A_TE]): "ti ha dato", "ti ha insegnato", "ti ha fatto
+# torto", "ti ha lasciato qualcosa".
+TI_COL_PARTICIPIO = re.compile(
+    r"\bti (?:ha|hanno|aveva|avevano|abbia|abbiano|avesse|avessero|avrà|"
+    r"avranno|avrebbe|avrebbero) (?:(?:solo|soltanto|già|davvero|sempre|"
+    r"anche|appena|mai|più|molto|tanto|spesso|forse|ancora|poi) )*"
+    r"([%s]+)" % L, re.I)
+TI_A_TE = set((
+    'dato detto chiesto mostrato concesso prestato permesso parlato affidato '
+    'mandato regalato riferito passato trasmesso imposto assegnato indicato '
+    'teso offerto promesso restituito scritto insegnato confidato raccontato '
+    'proposto ripetuto fatto lasciato tolto').split())
+
 
 def nomi_degli_angeli():
     """{numero: [nomi]} con le due grafie, dal piu' lungo al piu' corto."""
@@ -396,6 +419,10 @@ def difetti_di(cella, campo, testo):
     m = POLITICA.search(testo)
     if m:
         colpe.append('parola vietata dalla politica: "%s"' % m.group(0))
+    for m in TI_COL_PARTICIPIO.finditer(testo):
+        if m.group(1).lower() not in TI_A_TE:
+            colpe.append('"ti" oggetto col participio, si accorda col genere '
+                         'di chi legge: "%s"' % m.group(0))
     if CIFRA.search(testo):
         colpe.append('cifra nel testo')
     if '«' in testo or '»' in testo or '"' in testo:

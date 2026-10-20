@@ -21,11 +21,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'custode|02|messaggio': [
     'Dopo un disaccordo il legame non si spezza in un colpo: si allenta se nessuno torna. Ieliel chiede di essere chi ritorna, senza pretendere di aver avuto ragione. Scrivi oggi alla persona con cui hai discusso una riga semplice che riapra il filo, senza riprendere la discussione.',
-    'Tornare verso chi ti ha contraddetto è la fedeltà che questo angelo insegna, non la pace finta. Il litigio di ieri non chiude il legame: lo mette alla prova. Scrivi a quella persona entro la settimana e proponi un caffè, lasciando fuori il punto della lite.',
+    'Tornare verso chi ti ha dato torto è la fedeltà che questo angelo insegna, non la pace finta. Il litigio di ieri non chiude il legame: lo mette alla prova. Scrivi a quella persona entro la settimana e proponi un caffè, lasciando fuori il punto della lite.',
     'Nella mia lettura il legame che tiene si vede proprio dopo lo scontro, quando torni senza che nessuno te lo chieda. Non stringerlo per possederlo: riallaccialo. Stasera ripensa alla discussione recente e di\' ad alta voce la frase con cui domani fai il primo passo di ritorno.',
   ],
   'custode|02|consiglio': [
-    'Dopo aver scritto, lascia all\'altra persona il tempo di rispondere senza mandare un secondo messaggio. Non riaprire il punto della lite nemmeno se la risposta tarda: il ritorno vale per sé, non per il risultato. Stasera annota che cosa ti ha mosso a fare il primo passo.',
+    'Dopo aver scritto, lascia all\'altra persona il tempo di rispondere senza mandare un secondo messaggio. Non riaprire il punto della lite nemmeno se la risposta tarda: il ritorno vale per sé, non per il risultato. Stasera annota che cosa ti ha dato la spinta a fare il primo passo.',
     'Al caffè parla di ciò che vi lega, non di chi aveva ragione. Prepara due argomenti leggeri e uno che ricordi una cosa fatta insieme, così il legame trova da dove ripartire. Se la lite affiora, rimandala con una frase tranquilla: ne parliamo un altro giorno.',
     'Pronuncia domani quella frase senza aggiungere spiegazioni né richieste. Evita di controllare l\'altra persona con domande su che cosa pensa di te: tornare non vuol dire trattenere. Dopo l\'incontro scrivi una riga su ciò che è cambiato fra te e quella persona, anche se ti sembra poco.',
   ],
@@ -86,7 +86,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'custode|08|consiglio': [
     'Prenditi cura domani di quell\'oggetto: puliscilo, riparalo o rimettilo nel posto dove lo usi meglio. Non sostituirlo per abitudine finché fa il suo lavoro: la tua gratitudine si vede nel modo in cui conservi. In settimana ripeti il gesto con un\'altra cosa di casa che usi ogni giorno.',
-    'Consegna il biglietto a mano quando puoi e aggiungi a voce che cosa ti ha reso possibile quel lavoro. Non sminuire il grazie con una battuta per alleggerire il momento. Questa settimana restituisci un piccolo aiuto concreto a quella stessa persona, senza aspettare che te lo chieda.',
+    'Consegna il biglietto a mano quando puoi e aggiungi a voce che cosa del suo aiuto ha reso possibile quel lavoro. Non sminuire il grazie con una battuta per alleggerire il momento. Questa settimana restituisci un piccolo aiuto concreto a quella stessa persona, senza aspettare che te lo chieda.',
     'Davanti a quell\'angolo riordinato scrivi su un foglio tre frutti della tua fatica dei mesi passati e attaccalo vicino. Non elencare ciò che ancora manca: oggi lo sguardo resta su ciò che c\'è. Ogni sera della settimana aggiungi un frutto piccolo che prima non avevi notato.',
   ],
   'custode|09|messaggio': [
@@ -205,18 +205,18 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Un\'abitudine ti trattiene da anni e la chiami realismo. La svolta di questo angelo è una scelta da rinnovare ogni giorno, non un evento unico. Togli da domani mattina quell\'abitudine per una settimana intera e segna sul calendario ogni sera in cui hai tenuto la nuova direzione.',
   ],
   'custode|20|consiglio': [
-    'Fissa entro tre giorni il secondo passo verso la nuova meta e scrivilo sul calendario. Non rinnegare il tratto già percorso davanti agli altri: ti ha portato fin qui e ti ha mostrato la direzione. Evita per ora di giustificare la svolta con chi non ne fa parte.',
+    'Fissa entro tre giorni il secondo passo verso la nuova meta e scrivilo sul calendario. Non rinnegare il tratto già percorso davanti agli altri: ti ha fatto arrivare fin qui e ti ha mostrato la direzione. Evita per ora di giustificare la svolta con chi non ne fa parte.',
     'Al primo tentativo di rimettere in discussione quei punti rispondi brevemente, senza giustificarti. Non pretendere che i tuoi punti fermi valgano anche per gli altri: sono la tua misura, non una legge comune. A fine settimana rileggi il biglietto e chiediti quale punto hai difeso con più fatica.',
     'Riempi subito lo spazio lasciato da quell\'abitudine con un gesto che va nella nuova direzione, sempre lo stesso e alla stessa ora. Non dare il nome di realismo alla tua voglia di tornare indietro. Se salti una sera, riparti la sera dopo senza ricominciare il conto da capo.',
   ],
   'custode|21|messaggio': [
-    'Davanti a una materia difficile la tentazione è dichiararla incomprensibile e chiudere il libro. Nelchael insegna a sopportare di non capire subito. Rileggi oggi la pagina che ti ha fermato, scrivi la domanda precisa che non sai risolvere e portala a qualcuno che ne sa più di te.',
+    'Davanti a una materia difficile la tentazione è dichiararla incomprensibile e chiudere il libro. Nelchael insegna a sopportare di non capire subito. Rileggi oggi la pagina che ti blocca, scrivi la domanda precisa che non sai risolvere e portala a qualcuno che ne sa più di te.',
     'Ciò che hai imparato acquista senso quando lo passi a qualcun altro. Nella mia lettura questo angelo lega lo studio alla trasmissione, non al bisogno di avere ragione. Questa settimana spiega a una persona un concetto che hai capito di recente, usando un esempio tuo.',
     'Il dubbio è utile finché ti spinge a studiare, non quando diventa un nascondiglio. Lo studio di questo angelo arriva a una conclusione, anche provvisoria. Scegli una questione astratta che rimugini da tempo, scrivi oggi la tua conclusione in cinque righe e firmala.',
   ],
   'custode|21|consiglio': [
-    'Dopo la risposta, riscrivi la spiegazione con parole tue senza guardare gli appunti. Non passare alla pagina seguente finché non sai ripetere quella che ti ha fermato. Se qualcosa resta oscuro, annotalo in fondo al quaderno e torna a guardarlo fra qualche giorno, a mente riposata.',
-    'Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda che ti ha messo in difficoltà e studiala in settimana.',
+    'Dopo la risposta, riscrivi la spiegazione con parole tue senza guardare gli appunti. Non passare alla pagina seguente finché non sai ripetere quella che ti bloccava. Se qualcosa resta oscuro, annotalo in fondo al quaderno e torna a guardarlo fra qualche giorno, a mente riposata.',
+    'Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda più spinosa e studiala in settimana.',
     'Mostra quelle cinque righe a una persona che conosce l\'argomento e chiedile dove il ragionamento zoppica. Evita di riaprire tutto da capo per un dubbio piccolo: correggi soltanto la riga che non regge. Tieni la conclusione come punto fermo per un mese prima di rimetterla in discussione.',
   ],
   'custode|22|messaggio': [
@@ -390,12 +390,12 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ogni volta che compi quel gesto ripreso, scrivi su un quaderno una parola sola che dica come ti senti in quel momento. A fine settimana rileggi le parole in fila. Non cambiare la forma del gesto per renderlo più interessante: lascia che sia lui a cambiare te.',
   ],
   'custode|39|messaggio': [
-    'Con chi ti ha cresciuto tieni forse ancora un conto aperto, voce per voce, da anni. Rehael chiede il rispetto dato prima che sia meritato, non come premio. Oggi, quando parli con quella persona, ascoltala fino alla fine senza citare nessun episodio del passato.',
+    'Con chi ti ha fatto crescere tieni forse ancora un conto aperto, voce per voce, da anni. Rehael chiede il rispetto dato prima che sia meritato, non come premio. Oggi, quando parli con quella persona, ascoltala fino alla fine senza citare nessun episodio del passato.',
     'Il registro degli anni è utile per capire, pesa quando diventa il modo in cui guardi chi ti sta vicino. Nella mia lettura questo angelo chiude il registro, non lo strappa. Scrivi una cosa che rispetti in chi viene dopo di te e diglielo con parole tue entro domenica.',
     'Dai rispetto in anticipo, come si dà fiducia a uno sconosciuto. Il conto aperto con chi ti è vicino non si salda pareggiando, si chiude scegliendo di non riaprirlo. Questa settimana cerca una persona di famiglia e salutala come la saluteresti la prima volta.',
   ],
   'custode|39|consiglio': [
-    'Finita quella conversazione, scrivi una cosa che hai imparato da chi ti ha cresciuto e che usi ancora oggi, anche piccola: un modo di apparecchiare, una frase, un\'abitudine. Non usare quel ricordo per riaprire il bilancio: tienilo come segno che il rispetto ha già una base.',
+    'Finita quella conversazione, scrivi una cosa che hai imparato da chi ti ha fatto crescere e che usi ancora oggi, anche piccola: un modo di apparecchiare, una frase, un\'abitudine. Non usare quel ricordo per riaprire il bilancio: tienilo come segno che il rispetto ha già una base.',
     'Quando lo dici, non accompagnare l\'apprezzamento con un consiglio o una correzione: lascialo intero, senza un però dietro. Per il resto della settimana evita di commentare le sue scelte se non ti chiede un parere. Il rispetto che dai in anticipo si vede anche in ciò che taci.',
     'Durante quel saluto fai una domanda sulla sua vita di adesso, non su quella di anni fa. Ascolta la risposta senza confrontarla con ciò che sai già. Evita ogni frase che contenga le parole sempre o mai riferite a quella persona: la rimettono dentro il vecchio registro.',
   ],
@@ -417,7 +417,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'custode|41|consiglio': [
     'Stasera ripeti lo stesso gesto in un\'altra situazione della giornata, dove ti costa un po\' di più. Non usare quella coerenza per misurare gli altri: se noti chi non pratica ciò che dice, lascia la cosa lì. Il compito riguarda la tua mano, non quella degli altri.',
     'Quando arriva la data, compi quel gesto prima di mezzogiorno, così non resta a fine giornata come una cosa da recuperare. Evita di annunciarlo prima: una convinzione raccontata in anticipo si consuma nelle parole. Poi segna sul foglio la nuova data accanto alla vecchia.',
-    'Domani compi il secondo passo di quella promessa, sempre senza dirlo. Poi scrivi in una riga che cosa ti ha frenato fino a oggi. Non giustificare il ritardo davanti a chi aspettava: lascia che a parlare sia il lavoro fatto, quando c\'è.',
+    'Domani compi il secondo passo di quella promessa, sempre senza dirlo. Poi scrivi in una riga che cosa ti frenava fino a oggi. Non giustificare il ritardo davanti a chi aspettava: lascia che a parlare sia il lavoro fatto, quando c\'è.',
   ],
   'custode|42|messaggio': [
     'Prima di dire da che parte stai, guarda come stanno le cose. Mikael porta l\'ordine interiore che precede ogni presa di posizione. Prima della prossima trattativa scrivi due colonne, ciò che sai e ciò che supponi: prendi posizione soltanto sulla prima e lascia aperta la seconda.',
@@ -462,7 +462,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'custode|46|messaggio': [
     'Hai notato un dettaglio che altrove nessuno ha ancora colto: un numero che non torna, una frase fuori posto. Ariel chiede di non innamorartene ma di verificarlo. Oggi cerca una prova concreta che lo confermi o lo smentisca: poi annotala accanto alla tua impressione.',
     'Nella mia lettura questo angelo è l\'occhio che si accorge prima che una cosa diventi evidente a tutti. La percezione però vale quando passa la prova. Scrivi su un taccuino l\'impressione che hai da giorni e accanto il fatto che la sosterrebbe: poi vai a controllarlo.',
-    'Fidati del dettaglio che ti ha colpito, poi mettilo alla prova. Ariel tiene insieme intuizione e verifica: una senza l\'altra si perde, la prima in fantasia, la seconda in un controllo senza oggetto. Prima di parlarne con chiunque, raccogli due elementi verificabili che confermino ciò che hai percepito.',
+    'Fidati del dettaglio che ha catturato la tua attenzione, poi mettilo alla prova. Ariel tiene insieme intuizione e verifica: una senza l\'altra si perde, la prima in fantasia, la seconda in un controllo senza oggetto. Prima di parlarne con chiunque, raccogli due elementi verificabili che confermino ciò che hai percepito.',
   ],
   'custode|46|consiglio': [
     'Se la prova conferma la tua impressione, scrivi a chi deve saperlo in poche righe, citando il fatto e non la sensazione. Se la smentisce, cancella l\'impressione dal taccuino senza rimpianto. Non cercare segni ovunque per tenerla in piedi: un dettaglio vale finché regge alla verifica.',
@@ -745,7 +745,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nel ritorno dopo una lite c\'è un sollievo che quasi fa vergogna, tanto è dolce. Puoi lasciarlo salire per intero. Sotto, forse, resta il timore che il disaccordo torni: è un timore legittimo, ma non pesa quanto la gioia di sapere che quel filo ha retto.',
   ],
   'cuore|02|consiglio': [
-    'Concedi all\'orgoglio ferito un momento di ascolto, poi non lasciargli l\'ultima parola. Scrivi per te tre righe su ciò che ti ha punto nel disaccordo e una riga su ciò che ti manca di quella persona. Rileggi soltanto l\'ultima: Ieliel ti mostra che il legame riprende da lì.',
+    'Concedi all\'orgoglio ferito un momento di ascolto, poi non lasciargli l\'ultima parola. Scrivi per te tre righe su ciò che ti ha dato fastidio nel disaccordo e una riga su ciò che ti manca di quella persona. Rileggi soltanto l\'ultima: Ieliel ti mostra che il legame riprende da lì.',
     'Torna verso quella persona senza chiederle di cambiare per te. Oggi fai un gesto di attenzione che non pretende risposta: un caffè preparato, una domanda sincera sulla sua giornata, un ricordo condiviso. Evita di controllare se ricambia. Il legame di Ieliel si rinnova scegliendo, mai trattenendo.',
     'Accogli la pace tornata senza riaprire il fascicolo della lite. Se il timore che il disaccordo si ripeta si fa sentire, nominalo in silenzio e lascialo lì. Stasera richiama alla mente un momento buono vissuto insieme dopo un litigio: il filo di Ieliel ha retto una volta e merita fiducia.',
   ],
@@ -767,7 +767,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|04|consiglio': [
     'Separa il fatto dal sospetto prima di muoverti. Prendi un foglio e scrivi da una parte ciò che quella persona ha fatto davvero, dall\'altra ciò che temi. Non affrontarla finché la prima colonna resta vuota: se il sospetto vive soltanto nella seconda, Elemiah ti dice che nasce dal tuo tumulto.',
     'Concediti un giorno prima di reagire all\'ostacolo che senti. Oggi osserva soltanto: quando arriva l\'agitazione, segna l\'ora e che cosa stava succedendo intorno. Stasera rileggi le note. Se l\'agitazione sale anche quando non accade niente, Elemiah ti mostra che il rumore viene da dentro, non dalla strada che hai davanti.',
-    'Lascia la tristezza al suo posto e rinuncia a regolare i conti. Non cercare spiegazioni né rivalse con chi ti ha mancato di lealtà. Pensa invece a una persona che ti è rimasta accanto con fedeltà e rivolgile un grazie concreto: Elemiah ti fa vedere anche la lealtà che c\'è.',
+    'Lascia la tristezza al suo posto e rinuncia a regolare i conti. Non cercare spiegazioni né rivalse con chi è stato sleale. Pensa invece a una persona che ti è rimasta accanto con fedeltà e rivolgile un grazie concreto: Elemiah ti fa vedere anche la lealtà che c\'è.',
   ],
   'cuore|05|messaggio': [
     'C\'è una pace che non nasce dal cedere: nasce dal restare con calma dentro la tua posizione. Mahasiah te ne fa sentire il calore. Dove pesa, si mescola al timore di deludere chi vorrebbe da te un sì facile; anche quel timore si può accogliere, senza lasciargli la parola.',
@@ -776,7 +776,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|05|consiglio': [
     'Mantieni la tua posizione con tono pacato e non concedere il sì facile che ti chiedono. Prima della prossima conversazione difficile, prepara una sola frase che dica ciò che pensi senza attaccare nessuno. Ripetila con voce piana: la pace di Mahasiah non cede terreno, resta dove si trova.',
-    'Riprendi oggi la pagina che ti ha irritato e leggila senza difenderti da lei. Segna a matita il punto preciso in cui smetti di capire, poi fermati e torna su quel punto domani a mente fresca. Mahasiah scioglie l\'irritazione dello studio quando la resistenza ha un nome e un posto.',
+    'Riprendi oggi la pagina che ti irrita e leggila senza difenderti da lei. Segna a matita il punto preciso in cui smetti di capire, poi fermati e torna su quel punto domani a mente fresca. Mahasiah scioglie l\'irritazione dello studio quando la resistenza ha un nome e un posto.',
     'Non forzare il riavvicinamento: preparalo dentro di te. Oggi ripensa a quella persona senza ripassare le ragioni del distacco, ricordando soltanto ciò che apprezzavi. Scrivi su un foglio la prima frase che vorresti dirle e tienila da parte finché ti suona serena, non orgogliosa. Mahasiah avvicina senza fretta.',
   ],
   'cuore|06|messaggio': [
@@ -787,7 +787,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|06|consiglio': [
     'Accetta il riconoscimento con un grazie semplice, senza sminuirlo. Oggi non aggiungere giustificazioni quando qualcuno nota ciò che sai fare. Poi metti quel talento al servizio di qualcun altro con un aiuto piccolo e concreto: così la luce di Lelahel chiarisce invece di abbagliare, anche per te.',
     'Mostra una tua capacità in un ambito raccolto, non davanti a tutti. Scegli oggi una sola persona di fiducia e falle vedere ciò che hai fatto o sai fare. Non chiedere giudizi: osserva che cosa provi mentre lo condividi. Con Lelahel il pudore si scioglie a piccole dosi di luce.',
-    'Trasforma l\'invidia in un indizio da seguire. Scrivi il talento altrui che ti ha punto e accanto la parte di esso che vorresti per te. Oggi dedica un quarto d\'ora a esercitare proprio quella parte, senza confrontarti con nessuno: Lelahel ti indica una capacità tua che chiede di uscire.',
+    'Trasforma l\'invidia in un indizio da seguire. Scrivi il talento altrui che ti punge e accanto la parte di esso che vorresti per te. Oggi dedica un quarto d\'ora a esercitare proprio quella parte, senza confrontarti con nessuno: Lelahel ti indica una capacità tua che chiede di uscire.',
   ],
   'cuore|07|messaggio': [
     'La noia che arriva quando una cosa smette di essere nuova è un\'emozione che di solito scacci. Achaiah ti invita a sentirla: dentro la noia c\'è la porta del capire lungo. Più in fondo, quieta, abita la meraviglia che torna a chi resta a guardare.',
@@ -945,7 +945,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Risentimento è la parola esatta per ciò che senti quando il tuo lavoro passa inosservato. Ieiaiel lo accoglie senza vergogna. Accanto, però, c\'è un orgoglio artigiano che non dipende dagli sguardi: la cosa che hai fatto è solida, questo basta a scaldare.',
   ],
   'cuore|22|consiglio': [
-    'Accogli la visibilità senza nasconderti né gonfiarla. Quando qualcuno nota il tuo lavoro, rispondi con un grazie e nomina chi ti ha aiutato a farlo. Poi torna subito alla prossima cosa da costruire. Ieiaiel insegna a stare nella luce quanto basta, con la mente già rivolta all\'opera che viene dopo.',
+    'Accogli la visibilità senza nasconderti né gonfiarla. Quando qualcuno nota il tuo lavoro, rispondi con un grazie e nomina chi ti ha dato aiuto. Poi torna subito alla prossima cosa da costruire. Ieiaiel insegna a stare nella luce quanto basta, con la mente già rivolta all\'opera che viene dopo.',
     'Goditi l\'attenzione di oggi come una festa, poi chiudila. Concediti di gioire fino a sera, ma domani non rileggere i commenti e non usarli per decidere quanto vali. Domattina riapri il tuo lavoro dal punto in cui l\'avevi lasciato: Ieiaiel ne misura il valore sulla tenuta, non sul rumore.',
     'Non lasciare che il risentimento rovini la qualità di ciò che fai. Oggi rifinisci un dettaglio del tuo lavoro che nessuno noterebbe, solo perché sia fatto bene. Se vuoi che venga visto, presentalo tu con semplicità, senza accusare chi non l\'ha notato. Ieiaiel scalda l\'orgoglio artigiano che regge da sé.',
   ],
@@ -1045,9 +1045,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Clemenza è una parola che Vasariah mette accanto alla tua rabbia, non al suo posto. Puoi sentire l\'una e l\'altra: la rabbia dice che il torto c\'è stato, la clemenza ricorda che chi l\'ha commesso non coincide col suo errore.',
   ],
   'cuore|32|consiglio': [
-    'Nomina l\'errore con chiarezza, ma tratta la persona con rispetto. Se oggi devi parlarne, comincia dal fatto preciso e da come ti ha colpito, senza etichette sul carattere dell\'altro. Non pretendere scuse a ogni costo: Vasariah misura il torto e lascia intatta la dignità di chi l\'ha commesso.',
+    'Nomina l\'errore con chiarezza, ma tratta la persona con rispetto. Se oggi devi parlarne, comincia dal fatto preciso e da come l\'hai vissuto, senza etichette sul carattere dell\'altro. Non pretendere scuse a ogni costo: Vasariah misura il torto e lascia intatta la dignità di chi l\'ha commesso.',
     'Chiudi oggi una voce del tuo conto dei torti. Scegli il torto più vecchio che ancora rileggi e decidi che è stato pesato abbastanza. Scrivilo, poi cancellalo con una riga netta. Non serve dirlo a nessuno: Vasariah giudica una volta sola e poi lascia andare, senza tenere il registro aperto.',
-    'Lascia che la rabbia dica il torto, poi non permetterle di definire la persona. Pensa a chi ti ha ferito e scrivi una sua qualità che resta vera. Tieni la rabbia e la qualità sullo stesso foglio. Non decidere oggi niente di definitivo: Vasariah tempera il giudizio prima di pronunciarlo.',
+    'Lascia che la rabbia dica il torto, poi non permetterle di definire la persona. Pensa a chi ti ha fatto male e scrivi una sua qualità ancora vera. Tieni la rabbia e la qualità sullo stesso foglio. Non decidere oggi niente di definitivo: Vasariah tempera il giudizio prima di pronunciarlo.',
   ],
   'cuore|33|messaggio': [
     'Dentro un\'organizzazione grande può nascere un senso di smarrimento, come se il tuo nome contasse meno del tuo ruolo. Iehuiah ti concede di sentirlo senza vergogna. Sotto c\'è un\'identità che resta intera: non coincidi con la casella che occupi, anche quando la giornata te lo fa credere.',
@@ -1086,7 +1086,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|36|consiglio': [
     'Cerca nel tuo lavoro una cosa che hai imparato quest\'anno. Scrivila e accanto annota com\'era la tua giornata prima di saperla fare. Oggi non definire il tuo lavoro una condanna, nemmeno per scherzo: Menadel ti chiede di guardare il posto in cui stai crescendo, un giorno alla volta.',
-    'Non decidere oggi se andartene o restare. Per una settimana annota ogni sera una cosa che il tuo lavoro ti ha insegnato e una che ti ha soltanto stancato. Alla fine guarda quale colonna è più lunga. Menadel invita a restare finché il posto insegna, non un giorno di più.',
+    'Non decidere oggi se andartene o restare. Per una settimana annota ogni sera una cosa che il tuo lavoro ti ha insegnato e una che ti ha tolto energie. Alla fine guarda quale colonna è più lunga. Menadel invita a restare finché il posto insegna, non un giorno di più.',
     'Coltiva l\'orgoglio del mestiere senza lasciarti assorbire dal ruolo. Oggi fai con cura particolare una parte del lavoro che ami, poi stacca a un\'ora precisa e dedica la sera a ciò che ti riguarda fuori dal lavoro. Menadel ti chiede di riconoscerti nel mestiere senza sparire dentro di esso.',
   ],
   'cuore|37|messaggio': [
@@ -1110,12 +1110,12 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Elenca stasera le piccole liturgie della tua giornata: il caffè, la strada, la parola prima di dormire. Accanto a ognuna scrivi se la vivi o la attraversi in fretta. Domani rendi viva quella più vuota, con un minuto di attenzione in più, senza aggiungerne di nuove.',
   ],
   'cuore|39|messaggio': [
-    'Pesa, quel conto degli anni che tieni aperto verso chi ti ha cresciuto: ogni torto annotato, ogni mancanza ricordata. Rehael non ti chiede di strapparlo. Ti permette di sentire, accanto al rancore, una tenerezza che non avevi messo in conto: il rispetto che nasce prima del merito, quasi senza permesso.',
+    'Pesa, quel conto degli anni che tieni aperto verso chi ti ha fatto crescere: ogni torto annotato, ogni mancanza ricordata. Rehael non chiede di strapparlo. Ti permette di sentire, accanto al rancore, una tenerezza che non avevi messo in conto: il rispetto che nasce prima del merito, quasi senza permesso.',
     'Guardando chi viene dopo di te senti una severità che non ti piace, la stessa che hai ricevuto. Accogli il dispiacere di riconoscerla: è il segno che qualcosa sta passando di mano. Rehael porta un rispetto dato in anticipo: lì il dispiacere si scioglie in una calma nuova.',
     'Il rispetto dato prima che sia meritato ha un sapore strano: un po\' di vertigine, un po\' di dignità. Nella mia lettura Rehael vive in quella vertigine. Senti la libertà di guardare chi ti è vicino come se lo incontrassi oggi, senza il peso degli anni passati.',
   ],
   'cuore|39|consiglio': [
-    'Non strappare il conto degli anni e non riaprirlo: oggi lascialo chiuso in un cassetto. Pensa a chi ti ha cresciuto e scrivi una cosa sola che rispetti in quella persona, senza aggiungere nessun ma. Lascia che la tenerezza stia accanto al rancore, senza chiederle di cancellarlo.',
+    'Non strappare il conto degli anni e non riaprirlo: oggi lascialo chiuso in un cassetto. Pensa a chi ti ha fatto crescere e scrivi una cosa sola che rispetti in quella persona, senza aggiungere nessun ma. Lascia che la tenerezza stia accanto al rancore, senza chiederle di cancellarlo.',
     'Quando senti salire verso chi viene dopo di te la stessa severità che hai ricevuto, rallenta prima di parlare. Abbassa il tono di un grado e comincia da ciò che quella persona fa bene. Non punirti per averla riconosciuta: è proprio lì che il conto cambia mano.',
     'Guarda oggi una persona vicina come se la incontrassi per la prima volta: ascoltala fino in fondo prima di rispondere, senza richiamare episodi vecchi. Offrile rispetto prima che abbia fatto qualcosa per meritarlo. Se affiora un ricordo amaro, lascialo passare: per oggi non decide lui.',
   ],
@@ -1147,7 +1147,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|42|consiglio': [
     'Rimanda di qualche ora la risposta che l\'urgenza ti chiede di dare subito. Nel frattempo metti in fila i fatti che conosci, separati da ciò che senti dire. Prendi posizione soltanto quando la stanza dentro di te è in ordine: la calma che arriva prima è già lucidità.',
     'Prima di chiudere un accordo, rileggi ad alta voce ciò che ognuna delle parti ha detto e controlla che sia vero anche per te. Non firmare per stanchezza. Se l\'intelligenza ti suggerisce una scorciatoia, chiediti chi ne porta la responsabilità e decidi da lì.',
-    'Lascia bruciare la delusione senza trasformarla subito in sfiducia verso tutti. Poi guarda il legame che ti ha deluso con occhi aperti: scrivi che cosa hai dato per scontato. Continua a dare fiducia, ma da oggi misurala sui fatti prima di metterci tutto.',
+    'Lascia bruciare la delusione senza trasformarla subito in sfiducia verso tutti. Poi guarda con occhi aperti il legame che ha deluso la tua fiducia: scrivi che cosa hai dato per scontato. Continua a dare fiducia, ma da oggi misurala sui fatti prima di metterci tutto.',
   ],
   'cuore|43|messaggio': [
     'Dopo una caduta netta resta un bruciore che non vuole essere consolato in fretta. Veualiah ti lascia sentirlo per intero, poi ti mostra che cosa c\'è sotto: una determinazione quieta, ostinata, che chiede di ricominciare dal primo mattone. Quel bruciore e quella determinazione abitano insieme in te.',
@@ -1185,7 +1185,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nella mia lettura Ariel abita l\'eccitazione del dettaglio che stona, il particolare che cattura l\'occhio prima della ragione. È un\'emozione bella da accogliere. Dove pesa, è quando diventa sospetto e vedi segni ovunque; dove scalda, ti tiene in ascolto del reale.',
   ],
   'cuore|46|consiglio': [
-    'Annota subito il dettaglio che ti ha colpito, con la data e ciò che hai notato esattamente. Non parlarne ancora come di una certezza. Cerca nei prossimi giorni un modo semplice per controllarlo: lo stupore resta intatto, la prudenza gli dà un fondamento su cui contare.',
+    'Annota subito il dettaglio che ha acceso il tuo stupore, con la data e ciò che hai notato esattamente. Non parlarne ancora come di una certezza. Cerca nei prossimi giorni un modo semplice per controllarlo: lo stupore resta intatto, la prudenza gli dà un fondamento su cui contare.',
     'Non aspettare che qualcuno confermi ciò che hai percepito prima di prenderlo sul serio. Scrivi la tua impressione in una riga, poi verificala da te con un fatto semplice. Quando risulta fondata, prendine nota: così impari a fidarti del tuo modo di accorgerti delle cose.',
     'Se in questi giorni vedi segni ovunque, fermati: scegline uno e lascia andare gli altri. Verifica quello con calma prima di cercarne di nuovi. Coltiva l\'ascolto del reale, non il sospetto: un dettaglio vero vale più di dieci coincidenze messe in fila una dietro l\'altra.',
   ],
@@ -1260,8 +1260,8 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mantieni oggi un impegno di studio piccolo e preciso, anche se nessuno lo vede. Quando qualcuno ti chiede aiuto, rispondi con ciò che sai davvero, senza esibirlo e senza minimizzarlo. Accetta il grazie che ricevi: la modestia finta toglie valore a ciò che hai costruito.',
   ],
   'cuore|54|messaggio': [
-    'Davanti a un\'opera che dura da secoli sale una commozione particolare: la sensazione di toccare qualcosa che ha superato chi l\'ha fatta. Nithael ti lascia sentirla piena. È meraviglia, ma anche gratitudine per chi ti ha preceduto e ha lasciato qualcosa di bello dietro di sé.',
-    'Quando riconosci la bellezza dove altri passano oltre, senti il desiderio di mostrarla: indicarla, condividerla, farla vedere. Nella mia lettura Nithael vive in quel desiderio. Accoglilo come generosità, non come vezzo. È la gioia di dividere con qualcuno ciò che ti ha colpito.',
+    'Davanti a un\'opera che dura da secoli sale una commozione particolare: la sensazione di toccare qualcosa che ha superato chi l\'ha fatta. Nithael ti lascia sentirla piena. È meraviglia, ma anche gratitudine per chi è venuto prima di te e ha lasciato qualcosa di bello dietro di sé.',
+    'Quando riconosci la bellezza dove altri passano oltre, senti il desiderio di mostrarla: indicarla, condividerla, farla vedere. Nella mia lettura Nithael vive in quel desiderio. Accoglilo come generosità, non come vezzo. È la gioia di dividere con qualcuno ciò che ha catturato il tuo sguardo.',
     'Forse senti a volte una punta d\'invidia verso chi occupa il posto che avresti voluto. Nithael non te ne fa una colpa. Ti invita a guardarla con onestà: sotto c\'è un amore per il bello che chiede spazio anche in te. Quando si trasforma in ammirazione, pesa molto meno.',
   ],
   'cuore|54|consiglio': [
@@ -1830,12 +1830,12 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Non giustificarti per un gesto simbolico che ti aiuta e non caricarlo di poteri che non ha. Se qualcuno lo trova ingenuo, lascia cadere la discussione senza difenderlo. Fallo uguale anche domani: la sua utilità sta proprio nella ripetizione che ti riporta a ciò che conta.',
   ],
   'intelletto|39|messaggio': [
-    'Distingui il rispetto dalla ricompensa. La ricompensa arriva dopo, quando l\'altra persona l\'ha meritata; il rispetto che Rehael insegna viene prima, come punto di partenza. Se lo concedi solo a conto saldato, con chi ti ha cresciuto tieni un registro, non un legame.',
+    'Distingui il rispetto dalla ricompensa. La ricompensa arriva dopo, quando l\'altra persona l\'ha meritata; il rispetto che Rehael insegna viene prima, come punto di partenza. Se lo concedi solo a conto saldato, con chi ti ha fatto crescere tieni un registro, non un legame.',
     'C\'è un conto che resta aperto per anni: ogni vecchio torto viene sommato al presente, fino a coprire la persona che hai davanti oggi. Rehael fa vedere il meccanismo. Non stai guardando chi ti è vicino, stai rileggendo il saldo. Chiudere quel conto non vuol dire dimenticare.',
-    'Il nodo da capire, con Rehael, riguarda la memoria di casa: ricordare un fatto e usarlo come prova sono due operazioni diverse. La prima conserva, la seconda accusa. Chi viene dopo di te e chi ti ha preceduto chiedono uno sguardo che non arrivi già carico del verdetto degli anni.',
+    'Il nodo da capire, con Rehael, riguarda la memoria di casa: ricordare un fatto e usarlo come prova sono due operazioni diverse. La prima conserva, la seconda accusa. Chi viene dopo di te e chi è venuto prima chiedono uno sguardo che non arrivi già carico del verdetto degli anni.',
   ],
   'intelletto|39|consiglio': [
-    'Concedi oggi a un genitore o a chi ti ha cresciuto un gesto di rispetto senza aspettare che lo meriti: una risposta paziente, un saluto non dovuto. Non tenere il registro di ciò che ricevi in cambio. Il rispetto dato per primo apre il legame che il conto tiene chiuso.',
+    'Concedi oggi a chi ti ha fatto crescere un gesto di rispetto senza aspettare che lo meriti: una risposta paziente, un saluto non dovuto. Non tenere il registro di ciò che ricevi in cambio. Il rispetto dato per primo apre il legame che il conto tiene chiuso.',
     'Separa sulla carta il passato dal presente: in una colonna i vecchi torti, nell\'altra ciò che la persona ha fatto questa settimana. Nella prossima conversazione tieni conto soltanto della seconda colonna. Non serve dimenticare la prima: basta non sommarla a ciò che accade oggi.',
     'Prima di citare un fatto di famiglia in una discussione, chiediti se lo stai ricordando o se lo stai usando come prova. Se è una prova, tienilo per te oggi. Parla di ciò che accade adesso: chi hai davanti merita uno sguardo libero dal verdetto degli anni.',
   ],
@@ -2077,7 +2077,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'intelletto|63|consiglio': [
     'Scrivi su due colonne che cosa vuoi tu e che cosa chiede l\'altra parte, poi cerca la riga in cui le colonne si toccano. Parti da lì nella prossima conversazione. Non aprire dal punto dello scontro: l\'accordo possibile spesso c\'è già, basta guardarlo dall\'altro lato.',
     'Chiediti, prima della trattativa, se stai cercando il punto che tiene insieme le parti o soltanto la mossa che ti avvantaggia. Se è la seconda, sospendi il calcolo per un giorno. Proponi una soluzione che puoi spiegare anche all\'altra parte senza imbarazzo.',
-    'Se una parola ti ha ferito in una discussione, non fermare tutto su quella. Rimettila al suo posto: annotala, poi torna alla sostanza dell\'accordo. Chiedi un chiarimento in un secondo momento, se serve. Oggi non lasciare che la suscettibilità copra l\'interesse comune che resta sotto.',
+    'Se una parola ti ha fatto male in una discussione, non fermare tutto su quella. Rimettila al suo posto: annotala, poi torna alla sostanza dell\'accordo. Chiedi un chiarimento in un secondo momento, se serve. Oggi non lasciare che la suscettibilità copra l\'interesse comune che resta sotto.',
   ],
   'intelletto|64|messaggio': [
     'Un\'idea che hai in testa e una che ha preso forma non sono la stessa cosa. La prima sembra completa perché nessuno la verifica; la seconda, scritta o detta, mostra i vuoti. Mehiel insegna che dare forma è il primo vaglio: la pagina rivela ciò che la mente nascondeva.',
@@ -2282,7 +2282,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Seheiah va detto con un\'agenda aperta davanti. Guarda la settimana che viene e togli un impegno che non reggi. Al suo posto scrivi una pausa.',
   ],
   'rito|29|rito': [
-    'Fai un nodo stretto a una cordicella. Pronuncia Reiiel. Nomina una credenza ricevuta da chi ti ha cresciuto che oggi ti trattiene. Sciogli il nodo con pazienza, senza rancore.',
+    'Fai un nodo stretto a una cordicella. Pronuncia Reiiel. Nomina una credenza ricevuta da chi ti ha fatto crescere che oggi ti trattiene. Sciogli il nodo con pazienza, senza rancore.',
     'Reiiel si chiama a finestra aperta. Scrivi su un foglio una frase che ripeti da sempre senza averla scelta. Chiediti se è tua. Se non lo è, strappa il foglio e lascia andare.',
   ],
   'rito|30|rito': [
@@ -2322,7 +2322,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Haamiah si nomina allo stesso posto, alla stessa maniera. Metti le mani aperte sul tavolo. Di\' a voce bassa una frase che dice chi sei. Ripetila uguale anche domani.',
   ],
   'rito|39|rito': [
-    'Pensa a chi ti ha cresciuto o a chi viene dopo di te. Pronuncia Rehael. Accendi una candela per quella persona senza ricordare i torti. Il rispetto si dà prima, non si incassa dopo.',
+    'Pensa a chi ti ha fatto crescere o a chi viene dopo di te. Pronuncia Rehael. Accendi una candela per quella persona senza ricordare i torti. Il rispetto si dà prima, non si incassa dopo.',
     'Rehael va pronunciato a mani aperte. Scrivi il nome di una persona vicina da anni e accanto una cosa che rispetti in lei. Non scrivere i conti in sospeso. Chiudi il quaderno.',
   ],
   'rito|40|rito': [

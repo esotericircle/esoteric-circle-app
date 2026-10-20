@@ -57,3 +57,36 @@ nella prova "la Lunga dell'Iniziato". Innesto: il responso principale di nuovo c
    ROSSA "la Lunga dell'Iniziato" (oracolo_principale_risposta non e' un paragrafo solo: due testi). Tolto: verde.
 
 DOPO, innesti tolti: le due prove nuove VERDI, 12 su 12 (e le 76 prove della zona, sotto).
+
+DOPO L'UNIONE COI TAROCCHI E LE RUNE, 20 ottobre 2026 sera (ramo lavoro-riallineamento-1014, unione 929746b9)
+Nell'unione LaFormaDelResponso.perIlModello e' rimasta quella dei Tarocchi (intestazioneDelModello, simboli(arte),
+campi titolo, risposta, cosaFare, approfondimento; il rito non si nomina). La prova "l'istruzione comune della forma
+compare una volta sola" cadeva per la ragione vecchia (cercava "Il salmo propiziatorio" nell'istruzione Lunga).
+Riscritta: conta anche intestazioneDelModello (1), il campo APPROFONDIMENTO solo nella Lunga, il titolo del salmo mai
+nell'istruzione e nessun campo "rito" fra i campi del modello. Prova nuova in test/il_corpus_dell_oracolo_test.dart:
+"nessun ti oggetto col participio che si accorda con chi legge" (1.440 testi, cardinale delle forme col ti "a te"
+almeno 10: sul corpus vero 43). Controllo nuovo in tool/il_corpus_dell_oracolo.py (TI_COL_PARTICIPIO).
+Innesti con sostituzioni con assert (una sola occorrenza), verificati col grep prima di leggere l'esito, tolti dopo
+(file rimessi dalla copia, git diff del file vuoto). Uscite in %TEMP%\ga_oracolo_regola_a_giro*.txt.
+
+C1 tool/il_corpus_dell_oracolo.py controlla, il controllo nuovo sul corpus vero PRIMA della riscrittura (il difetto
+   e' quello vero, non innestato): ROSSO, "DIFETTI: 31 su 1440 testi", ognuno col "ti ha" + participio trovato.
+GIRO 1 (uscita troncata dal tempo: la cache di compilazione condivisa con gli altri agenti ha fermato la seconda prova)
+C2 il_corpus_dell_oracolo.g.dart, "Con chi ti ha fatto crescere tieni forse" -> "Con chi ti ha cresciuto tieni forse"
+   (grep 1): ROSSA "nessun ti oggetto col participio" (Actual: custode|39|messaggio: "ti ha cresciuto"; forme col ti
+   "a te" 42, col ti oggetto 1) e ROSSA "il Dart generato coincide con la fonte" (custode|39|messaggio variante 1).
+GIRO 2
+C3 la_lettura_dell_oracolo.dart, l'intestazione della forma scritta una seconda volta nell'istruzione (grep riga 112):
+   ROSSA "l'istruzione comune della forma compare una volta sola" (MISURA intestazione nell'istruzione Breve: 2,
+   Expected 1, Actual 2). La misura vecchia (il pezzo intero contato con split) restava 1: senza la riga nuova
+   l'innesto passava.
+C4 test/il_corpus_dell_oracolo_test.dart, la regola che non vede piu' niente ("ti (?:hX|hanno", grep 1): ROSSA
+   "nessun ti oggetto col participio" per il cardinale ("HA GUARDATO 2 forme [...] ne pretende almeno 10").
+   Esito del giro: 12 verdi, 2 rosse, ognuna col motivo del suo innesto.
+GIRO 3
+C5 la_lettura_dell_oracolo.dart, "Chiudi con Il salmo propiziatorio." nell'istruzione fissa (grep 1): ROSSA
+   "l'istruzione comune della forma compare una volta sola" (Expected false, Actual true). 8 verdi, 1 rossa.
+DOPO, innesti tolti, con la cura del rapporto 3 nella prova a video: corredo_anteprime, forma nuova e corpus VERDI,
+21 su 21 (%TEMP%\ga_oracolo_finale.txt); forme col ti "a te" 43, col ti oggetto 0; il corpus al neutro, controlla 0 su
+1.440. La zona intera (106 file del grep su oracolo, angel, Oracolo, la_forma_del_responso): +1041 -2, i due rossi
+nel rapporto (corredo_anteprime, curato qui; entitlement_test, delle Rune).

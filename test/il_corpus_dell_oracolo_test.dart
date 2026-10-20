@@ -163,4 +163,56 @@ void main() {
     expect(trovate, isEmpty,
         reason: 'parole vietate dalla politica di pubblicazione: $trovate');
   });
+
+  /// **IL "TI" OGGETTO COL PARTICIPIO**, ordine GA voci 03, 04, 05 e 08, 20
+  /// ottobre 2026. "Chi ti ha cresciuto" si accorda con chi legge ("chi ti ha
+  /// cresciuta" a una donna) e la guardia del genere non lo vede, perche' non
+  /// c'e' un verbo alla seconda persona: il corpus lo dice al neutro ("chi ti
+  /// ha fatto crescere"). Restano i participi dove "ti" vale "a te" e non si
+  /// accordano ("ti ha dato", "ti ha insegnato", "ti ha fatto torto"). Lo
+  /// stesso criterio di `tool/il_corpus_dell_oracolo.py` (TI_COL_PARTICIPIO),
+  /// che ferma il testo prima che entri; qui si guarda cio' che arriva in lib.
+  /// Vista rossa: `docs/collaudo/GA/oracolo_regola_a.txt`.
+  test('nessun "ti" oggetto col participio che si accorda con chi legge', () {
+    final tiCol = RegExp(
+        r'(?<![A-Za-zÀ-ÿ])ti (?:ha|hanno|aveva|avevano|abbia|abbiano|avesse|'
+        r'avessero|avrà|avranno|avrebbe|avrebbero) (?:(?:solo|soltanto|già|'
+        r'davvero|sempre|anche|appena|mai|più|molto|tanto|spesso|forse|ancora|'
+        r'poi) )*([a-zàèéìòù]+)',
+        caseSensitive: false);
+    const aTe = {
+      'dato', 'detto', 'chiesto', 'mostrato', 'concesso', 'prestato', //
+      'permesso', 'parlato', 'affidato', 'mandato', 'regalato', 'riferito',
+      'passato', 'trasmesso', 'imposto', 'assegnato', 'indicato', 'teso',
+      'offerto', 'promesso', 'restituito', 'scritto', 'insegnato',
+      'confidato', 'raccontato', 'proposto', 'ripetuto', 'fatto', 'lasciato',
+      'tolto',
+    };
+    final trovati = <String>[];
+    var guardati = 0;
+    var aTeVisti = 0;
+    for (final e in corpus.entries) {
+      for (final t in e.value) {
+        guardati++;
+        for (final m in tiCol.allMatches(t)) {
+          if (aTe.contains(m.group(1)!.toLowerCase())) {
+            aTeVisti++;
+          } else {
+            trovati.add('${e.key}: "${m.group(0)}"');
+          }
+        }
+      }
+    }
+    cardinaleMinimo(guardati, 1440, cosa: 'testi guardati per il ti oggetto');
+    // La grandezza misurata esiste: il corpus porta forme col "ti" che vale
+    // "a te" (ti ha dato, ti ha insegnato), e la prova le vede.
+    cardinaleMinimo(aTeVisti, 10,
+        cosa: 'forme "ti ha" + participio col ti che vale "a te"');
+    // ignore: avoid_print
+    print('ORDINE GA: testi guardati per il ti oggetto $guardati, forme '
+        'col ti "a te" $aTeVisti, col ti oggetto ${trovati.length}');
+    expect(trovati, isEmpty,
+        reason: 'si accordano col genere di chi legge, si scrivono al neutro '
+            'nella fonte e si rigenera: $trovati');
+  });
 }

@@ -24,3 +24,20 @@ ESITI (+32 -27 sulla corsa)
 - ogni_scena_si_salta_col_tocco_test: ROSSA (7, l'Oracolo non passa piu' da "IlToccoCheSalta(").
 - l_altare_dell_oracolo_test: ROSSA a 360, 390 e 430 punti (8, gli angoli non coincidono col fotogramma).
 Tutte e nove le guardie della zona sono vive.
+
+DOPO L'UNIONE, 20 ottobre 2026 sera, sul ramo lavoro-riallineamento-1014 all'unione 73dee801, prima di toccare il
+corpus e le prove (il ti oggetto col participio e la prova dell'istruzione adattata alla forma dei Tarocchi).
+Due innesti con sostituzioni con assert, verificati col grep, una corsa (%TEMP%\ga_oracolo_regola_b.txt), poi i due
+file rimessi dalla copia (git diff dei file dell'Oracolo vuoto).
+1 docs/corpus/oracolo_angeli/cuore.md: "la pagina che ti ha irritato" -> "ti ha irritata" (grep 1).
+2 lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart: tolte le prime due frasi di custode|02|messaggio variante 2
+  ("Tornare verso chi ti ha contraddetto", grep 0).
+ESITI (+8 -5)
+- il_corpus_dell_oracolo_test: ROSSA "il Dart generato coincide con la fonte" (custode|02|messaggio variante 2 e
+  cuore|05|consiglio variante 2, i due innesti).
+- l_oracolo_ha_la_forma_nuova_test: ROSSA "ogni messaggio e ogni consiglio ha da 40 a 50 parole" (custode|02|messaggio
+  variante 2: 17 parole), ROSSA "ogni carta singola e' un responso breve senza difetti" e ROSSA "il responso del
+  corpus" (lo stesso testo corto). Rossa anche "l'istruzione comune della forma compare una volta sola", ma per la
+  ragione dell'unione, gia' rossa prima dell'innesto (la prova cercava il titolo del salmo nell'istruzione): e' la
+  guardia riparata per prima, sopra nella Regola A.
+Le guardie della zona sono vive.
