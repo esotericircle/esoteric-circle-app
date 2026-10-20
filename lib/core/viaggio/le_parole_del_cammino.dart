@@ -98,6 +98,19 @@ abstract final class LeParoleDelCammino {
   static const String rileggiIQuattroStrati = 'Rileggi i quattro strati';
   static const String ilDiario = 'Il Diario dei viaggi';
   static const String leAltreDiscese = 'LE ALTRE DISCESE';
+
+  /// **LE CARTE A META'**, ordine FZ voce FZ.04: *"Chi segue ombre diverse
+  /// ha piu' carte scoperte a meta', ciascuna col suo numero di pezzi: si
+  /// vedono tutte nel Diario dei viaggi, una accanto all'altra"*.
+  static const String leCarteCheScopri = 'LE CARTE CHE STAI SCOPRENDO';
+
+  /// Quanti pezzi di una carta sono scoperti, in parole: *"due pezzi su
+  /// quattro"*, e alla quarta *"la carta intera"*.
+  static String pezziScoperti(int quanti) => quanti >= 4
+      ? 'la carta intera'
+      : quanti == 1
+          ? 'un pezzo su quattro'
+          : '${IQuattroViaggi.inLettere(quanti)} pezzi su quattro';
   static const String diarioVuoto =
       'Il Diario si riempie a ogni discesa: qui ritrovi le domande e le '
       'risposte.';

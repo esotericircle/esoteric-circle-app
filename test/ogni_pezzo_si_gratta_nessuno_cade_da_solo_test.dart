@@ -47,7 +47,7 @@ void main() {
         // **OGNI CELLA SCOSTABILE APPARTIENE AL PEZZO ATTIVO**, e a nessun
         // altro.
         for (final i in velo.scostabile) {
-          expect(LaCartaInQuattroPezzi.fasciaDi(i), pezzo,
+          expect(velo.pezzoDi(i), pezzo,
               reason: '${animale.name}: la cella $i e\' scostabile al pezzo '
                   '$pezzo ma appartiene a un\'altra fascia');
         }
@@ -58,11 +58,9 @@ void main() {
             final dito = Offset(da + (a - da) * ix / (quanti - 1),
                 da + (a - da) * iy / (quanti - 1));
             provate++;
-            for (final i in velo.scoperteDa(
-                dito,
-                dito,
+            for (final i in velo.scoperteDa(dito, dito,
                 IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura).size)) {
-              expect(LaCartaInQuattroPezzi.fasciaDi(i), pezzo,
+              expect(velo.pezzoDi(i), pezzo,
                   reason: '${animale.name}: il dito in $dito scosta la '
                       'cella $i, che non e\' del pezzo attivo $pezzo');
             }

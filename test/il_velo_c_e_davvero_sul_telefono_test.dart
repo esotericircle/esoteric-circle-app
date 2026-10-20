@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 
 /// **LA GUARDIA CHE GUARDA I PIXEL.** Nata con l'ordine DE voce 03 per la
@@ -42,8 +43,7 @@ void main() {
         for (var x = r.left.toInt(); x < r.right.toInt(); x++) {
           final i = (y * larga + x) * 4;
           if (i < 0 || i + 2 >= a.length) continue;
-          somma += ((a[i] + a[i + 1] + a[i + 2]) -
-                      (b[i] + b[i + 1] + b[i + 2]))
+          somma += ((a[i] + a[i + 1] + a[i + 2]) - (b[i] + b[i + 1] + b[i + 2]))
                   .abs() /
               3;
           quanti++;
@@ -63,13 +63,18 @@ void main() {
 
   /// Il fotogramma del velo di [animale]; **senza l'illustrazione** quando
   /// [conLAnimale] e' falso, cioe' la sola cenere nella stessa posizione.
-  Future<Uint8List> fotogramma(WidgetTester tester, GuideAnimal animale,
-      int quale, Set<int> gia, {bool conLAnimale = true}) async {
+  Future<Uint8List> fotogramma(
+      WidgetTester tester, GuideAnimal animale, int quale, Set<int> gia,
+      {bool conLAnimale = true}) async {
     // **LA GRANA PRIMA DI TUTTO**: i due fotogrammi di una coppia devono
     // avere la stessa cenere, o la differenza fra loro sarebbe la grana.
     await GranaDellaCenere.prepara();
-    final immagine =
-        conLAnimale ? animale.fullPath : 'assets/img/animali/nessuno.webp';
+    // **LA CARTA VERA**, quella che la lente mostra dalla simulazione da
+    // persona del 20 ottobre 2026 (ordine FZ voce FZ.04): prima qui c'era
+    // l'illustrazione dell'animale, come nella lente sbagliata.
+    final immagine = conLAnimale
+        ? IlSegnoCheRisponde.posaDi(animale)
+        : 'assets/img/animali/nessuno.webp';
     await tester.pumpWidget(MaterialApp(
       home: RepaintBoundary(
         key: const Key('foglio'),
@@ -89,7 +94,7 @@ void main() {
       ),
     ));
     if (conLAnimale) {
-      await precacheImage(AssetImage(animale.fullPath),
+      await precacheImage(AssetImage(IlSegnoCheRisponde.posaDi(animale)),
           tester.element(find.byType(SizedBox).first));
     }
     await tester.pump(const Duration(milliseconds: 400));
@@ -117,10 +122,10 @@ void main() {
       for (var y = r.top.toInt(); y < r.bottom.toInt(); y++) {
         for (var x = r.left.toInt(); x < r.right.toInt(); x++) {
           final i = (y * scena.width.toInt() + x) * 4;
-          final d = ((a[i] + a[i + 1] + a[i + 2]) -
-                      (b[i] + b[i + 1] + b[i + 2]))
-                  .abs() /
-              3;
+          final d =
+              ((a[i] + a[i + 1] + a[i + 2]) - (b[i] + b[i + 1] + b[i + 2]))
+                      .abs() /
+                  3;
           if (d > 25.5) n++;
         }
       }
@@ -135,23 +140,28 @@ void main() {
         final velo = LaCartaInQuattroPezzi(animale.name, 0);
         final r = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
         // **IL CARDINALE DI QUESTO ANIMALE**: senza cenere se ne vedono
-        // decine di migliaia, o la prova non guarda niente.
+        // decine di migliaia, o la prova non guarda niente. **Al quarto
+        // pezzo**: dalla simulazione da persona del 20 ottobre 2026 le celle
+        // dei pezzi dei giorni dopo non valgono (`LaCartaInQuattroPezzi.
+        // valide`), quindi la carta tutta scoperta esiste solo all'ultimo.
         final tutto = visibili(
-            await fotogramma(tester, animale, 0, velo.velato),
-            await fotogramma(tester, animale, 0, velo.velato,
+            await fotogramma(tester, animale, 3, velo.velato),
+            await fotogramma(tester, animale, 3, velo.velato,
                 conLAnimale: false),
             r);
         expect(tutto, greaterThan(20000),
             reason: '${animale.name}: senza cenere se ne vedono solo $tutto '
                 'pixel, e allora la prova non guarda la carta');
-        final sotto = visibili(await fotogramma(tester, animale, 0, const {}),
+        final sotto = visibili(
+            await fotogramma(tester, animale, 0, const {}),
             await fotogramma(tester, animale, 0, const {}, conLAnimale: false),
             r);
         if (sotto > 0) visti.add('${animale.name} $sotto su $tutto');
       }
     });
     expect(visti, isEmpty,
-        reason: 'A VELO INTERO SI VEDE UN PEZZO DI CARTA: ${visti.join(', ')}.');
+        reason:
+            'A VELO INTERO SI VEDE UN PEZZO DI CARTA: ${visti.join(', ')}.');
   });
 
   /// **LA RIVELAZIONE E' CUMULATIVA: cio' che hai scostato ieri resta in
@@ -233,7 +243,7 @@ void main() {
           child: IlVeloCheSiScosta(
             key: ValueKey(quale),
             nome: lupo.name,
-            immagine: lupo.fullPath,
+            immagine: IlSegnoCheRisponde.posaDi(lupo),
             quale: quale,
             giaScoperte: const {},
             quandoCambia: (_) {},
@@ -248,8 +258,13 @@ void main() {
           .descendant(of: velo, matching: find.byWidgetPredicate((_) => true))
           .evaluate()
           .length;
-      for (final vietato in [ShaderMask, ImageFiltered, BackdropFilter,
-          Opacity, ColorFiltered]) {
+      for (final vietato in [
+        ShaderMask,
+        ImageFiltered,
+        BackdropFilter,
+        Opacity,
+        ColorFiltered
+      ]) {
         expect(find.descendant(of: velo, matching: find.byType(vietato)),
             findsNothing,
             reason: 'al pezzo attivo $quale nel velo c\'e\' un $vietato: '

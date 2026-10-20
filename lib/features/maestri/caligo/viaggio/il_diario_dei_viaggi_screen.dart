@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/astro/data_italiana.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../../core/rituals/animal_catalog.dart';
 import '../../../../core/viaggio/diario_dei_viaggi.dart';
+import '../../../../core/viaggio/la_carta_in_quattro_pezzi.dart';
 import '../../../../core/viaggio/la_domanda_del_viaggio.dart';
 import '../../../../core/viaggio/le_parole_del_cammino.dart';
 import '../../../../design_system/components/depth_card.dart';
@@ -14,7 +16,9 @@ import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
+import 'il_segno_che_risponde.dart';
 import 'il_tunnel_che_scende.dart';
+import 'il_velo_che_si_scosta.dart';
 
 /// **IL DIARIO DEI VIAGGI, e i quattro strati si leggono di fila.** Ordine DQ
 /// voci 01 e 02, 15 settembre 2026.
@@ -86,6 +90,14 @@ class IlDiarioDeiViaggiScreen extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
               SpacingTokens.lg, SpacingTokens.xxl),
           children: [
+            // **LE CARTE A META', UNA ACCANTO ALL'ALTRA.** Ordine FZ voce
+            // FZ.04: mancavano, e la prima simulazione da persona l'aveva
+            // annotato ("Non trovata una vista aggregata delle carte
+            // scoperte per animale"); curato il 20 ottobre 2026.
+            if (_LeCarteAMeta.seguiti(diario).isNotEmpty) ...[
+              _LeCarteAMeta(diario: diario, palette: palette),
+              const SizedBox(height: SpacingTokens.lg),
+            ],
             if (cammini.isEmpty && altre.isEmpty)
               ParagrafiDiLettura(
                 testo: LeParoleDelCammino.diarioVuoto,
@@ -114,6 +126,148 @@ class IlDiarioDeiViaggiScreen extends StatelessWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// **LE CARTE CHE LA PERSONA STA SCOPRENDO**, ognuna col suo numero di
+/// pezzi, in una fila che scorre di lato. Ogni carta e' la carta vera
+/// dell'animale con la cenere dove non ha ancora grattato: la stessa cenere,
+/// gli stessi solchi e la stessa geometria della lente
+/// (`LaCartaInQuattroPezzi`), in piccolo.
+class _LeCarteAMeta extends StatelessWidget {
+  const _LeCarteAMeta({required this.diario, required this.palette});
+
+  final DiarioDeiViaggi diario;
+  final MaestroPalette palette;
+
+  /// Gli animali seguiti almeno una volta, dal piu' seguito, con quante
+  /// volte: le volte sono i pezzi grattati, al massimo quattro.
+  static List<(GuideAnimal, int)> seguiti(DiarioDeiViaggi diario) {
+    final volte = <String, int>{};
+    for (final s in diario.scelteInOrdine) {
+      if (s.isEmpty) continue;
+      volte[s] = (volte[s] ?? 0) + 1;
+    }
+    final fuori = <(GuideAnimal, int)>[
+      for (final a in AnimalCatalog.animals)
+        if ((volte[a.name] ?? 0) > 0)
+          (a, (volte[a.name]!).clamp(1, LaCartaInQuattroPezzi.pezzi)),
+    ];
+    fuori.sort((x, y) => y.$2.compareTo(x.$2));
+    return fuori;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: const Key('diario_carte_a_meta'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          LeParoleDelCammino.leCarteCheScopri,
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft, letterSpacing: 2.0),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final (animale, pezziFatti) in seguiti(diario)) ...[
+                _UnaCartaAMeta(
+                  animale: animale,
+                  pezziFatti: pezziFatti,
+                  celle: diario.celleScoperteDi(animale.name),
+                  solchi: diario.solchiDi(animale.name),
+                  palette: palette,
+                ),
+                const SizedBox(width: SpacingTokens.md),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Una carta a meta': la carta, la cenere sui pezzi non ancora grattati, il
+/// nome e quanti pezzi, in parole.
+class _UnaCartaAMeta extends StatelessWidget {
+  const _UnaCartaAMeta({
+    required this.animale,
+    required this.pezziFatti,
+    required this.celle,
+    required this.solchi,
+    required this.palette,
+  });
+
+  final GuideAnimal animale;
+  final int pezziFatti;
+  final Set<int> celle;
+  final List<List<Offset>> solchi;
+  final MaestroPalette palette;
+
+  static const double larga = 104;
+
+  @override
+  Widget build(BuildContext context) {
+    // **IL VELO DEI PEZZI GIA' FATTI**: si apre solo cio' che sta nei pezzi
+    // grattati, come nella lente, e il volto resta sotto la cenere fino alla
+    // quarta.
+    final velo = LaCartaInQuattroPezzi(
+        animale.name, (pezziFatti - 1).clamp(0, LaCartaInQuattroPezzi.pezzi - 1));
+    final scoperte = velo.valide(celle);
+    final intera = pezziFatti >= LaCartaInQuattroPezzi.pezzi;
+    return SizedBox(
+      key: Key('diario_carta_${animale.name}'),
+      width: larga,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+            child: AspectRatio(
+              aspectRatio: 1080 / 1920,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    IlSegnoCheRisponde.posaDi(animale),
+                    key: Key('diario_carta_immagine_${animale.name}'),
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                  ),
+                  if (!intera)
+                    CustomPaint(
+                      painter: PittoreDellaCenere(
+                        velo: velo,
+                        coperte: velo.velato.difference(scoperte),
+                        quanta: 1,
+                        grana: GranaDellaCenere.pronta,
+                        solchi: solchi,
+                        scoperte: scoperte,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            animale.name,
+            style: TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
+          ),
+          Text(
+            LeParoleDelCammino.pezziScoperti(pezziFatti),
+            key: Key('diario_carta_pezzi_${animale.name}'),
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ],
       ),
     );
   }

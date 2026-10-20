@@ -4,13 +4,14 @@ import 'dart:ui' as ui;
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/la_carta_in_quattro_pezzi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_segno_che_risponde.dart';
 import 'package:esoteric_circle/features/maestri/caligo/viaggio/il_velo_che_si_scosta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// **LA CENERE RESTA SUI PEZZI DI DOMANI.** Ordine FZ, trovato dalla
-/// simulazione da persona del 20 ottobre 2026 sul Realme 767f596c.
+/// **LA CENERE RESTA SUI PEZZI DI DOMANI, E SUL VOLTO.** Ordine FZ, trovato
+/// dalla simulazione da persona del 20 ottobre 2026 sul Realme 767f596c.
 ///
 /// **Il fatto**: alla prima discesa, passando il dito su tutta la carta come
 /// fa una persona curiosa, la cenere veniva via quasi tutta e la Lince si
@@ -20,16 +21,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// dito un pezzo della sua carta. Il volto dell'animale sta nel quarto pezzo e
 /// si scopre per ultimo"*.
 ///
-/// **La causa**: la contabilita' contava solo le celle della fascia attiva, ma
+/// **La causa**: la contabilita' contava solo le celle del pezzo attivo, ma
 /// il solco del dito registrava ogni punto toccato e il pittore scavava la
-/// cenere lungo tutto il solco. La guardia di prima
-/// (`il_gesto_che_scosta_test.dart`) misurava le celle contate, non i pixel.
-/// Padre: ordine FZ voce FZ.04 (commit `4acde9c2`), che ha tolto la nube
-/// sopra la testa della vecchia sagoma senza mettere niente al suo posto.
+/// cenere lungo tutto il solco. Padre: ordine FZ voce FZ.04 (commit
+/// `4acde9c2`).
 ///
-/// **Cosa misura**: il solco conservato non contiene punti sopra la fascia
-/// che oggi si puo' grattare, e il disegno lascia piena la cenere sopra quella
-/// fascia anche quando il pennello morbido lavora sul suo bordo.
+/// **Riscritta lo stesso giorno per la geometria nuova** (il volto misurato
+/// di ogni animale e' il quarto pezzo, il resto in tre fasce dal basso): il
+/// grattabile non e' piu' una fascia continua sopra una riga, e la misura
+/// guarda la sua forma vera, cella per cella.
+///
+/// **Cosa misura**: il solco conservato non contiene punti fuori dal
+/// grattabile di oggi, e il disegno lascia piena la cenere su ogni cella dei
+/// pezzi dei giorni dopo e del volto, anche con un pennello che passa
+/// dappertutto.
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -37,127 +42,174 @@ void main() {
   const misura = Size(1080, 1920);
   final illustrazione = IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
 
-  /// La frazione dall'alto sopra la quale, al pezzo [quale], non si gratta.
-  double cima(int quale) =>
-      (LaCartaInQuattroPezzi.pezzi - 1 - quale) / LaCartaInQuattroPezzi.pezzi;
+  /// Il dito della persona curiosa, in frazioni della carta: a zig zag su
+  /// tutta la carta, dall'alto in basso.
+  List<Offset> ziczac(int righe) => [
+        for (var riga = 0; riga <= righe; riga++)
+          for (final x in riga.isEven ? [0.01, 0.99] : [0.99, 0.01])
+            Offset(x, (riga / righe).clamp(0.002, 0.998)),
+      ];
 
   testWidgets(
-      'IL SOLCO CONSERVATO NON SALE SOPRA IL PEZZO DI OGGI: un dito che passa '
-      'ovunque, ai pezzi 0, 1 e 2, lascia nel Diario solo punti dal pezzo di '
-      'oggi in giu', (tester) async {
+      'IL SOLCO CONSERVATO STA SOLO DOVE OGGI SI GRATTA: un dito che passa '
+      'ovunque, ai pezzi 0, 1 e 2, lascia nel Diario solo punti dei pezzi '
+      'fatti e di oggi, mai del volto', (tester) async {
     await tester.binding.setSurfaceSize(scena);
     addTearDown(() => tester.binding.setSurfaceSize(null));
-    final animale = AnimalCatalog.animals.first;
     var guardati = 0;
-    for (final quale in [0, 1, 2]) {
-      List<List<Offset>> conservati = const [];
-      await tester.pumpWidget(MaterialApp(
-        home: SizedBox(
-          width: scena.width,
-          height: scena.height,
-          child: IlVeloCheSiScosta(
-            key: ValueKey('cima$quale'),
-            nome: animale.name,
-            immagine: animale.fullPath,
-            quale: quale,
-            giaScoperte: const {},
-            quandoCambia: (_) {},
-            quandoSolca: (s) => conservati = s,
-            palette: MaestroPalette.caligo,
+    for (final nome in ['Cavallo', 'Lince', 'Serpente']) {
+      final animale = AnimalCatalog.animals.firstWhere((a) => a.name == nome);
+      for (final quale in [0, 1, 2]) {
+        List<List<Offset>> conservati = const [];
+        await tester.pumpWidget(MaterialApp(
+          home: SizedBox(
+            width: scena.width,
+            height: scena.height,
+            child: IlVeloCheSiScosta(
+              key: ValueKey('$nome$quale'),
+              nome: animale.name,
+              immagine: IlSegnoCheRisponde.posaDi(animale),
+              quale: quale,
+              giaScoperte: const {},
+              quandoCambia: (_) {},
+              quandoSolca: (s) => conservati = s,
+              palette: MaestroPalette.caligo,
+            ),
           ),
-        ),
-      ));
-      await tester.pump(const Duration(milliseconds: 50));
-      // **IL DITO DELLA PERSONA CURIOSA**: dall'alto in basso, a zig zag su
-      // tutta la carta, come sul telefono.
-      final g = await tester
-          .startGesture(Offset(illustrazione.left + 4, illustrazione.top + 4));
-      for (var riga = 0; riga <= 32; riga++) {
-        final y = illustrazione.top + illustrazione.height * riga / 32;
-        final xs = riga.isEven
-            ? [illustrazione.left + 4, illustrazione.right - 4]
-            : [illustrazione.right - 4, illustrazione.left + 4];
-        for (final x in xs) {
-          await g.moveTo(Offset(
-              x, y.clamp(illustrazione.top + 1, illustrazione.bottom - 1)));
+        ));
+        await tester.pump(const Duration(milliseconds: 50));
+        final punti = ziczac(32);
+        Offset inScena(Offset f) => Offset(
+            illustrazione.left + f.dx * illustrazione.width,
+            illustrazione.top + f.dy * illustrazione.height);
+        final g = await tester.startGesture(inScena(punti.first));
+        for (final p in punti.skip(1)) {
+          await g.moveTo(inScena(p));
         }
+        await g.up();
+        await tester.pump(const Duration(milliseconds: 50));
+        final velo = LaCartaInQuattroPezzi(animale.name, quale);
+        // **I TRATTI, NON SOLO I PUNTI**: il pittore scava lungo il segmento
+        // fra due punti conservati, quindi si guarda ogni segmento campionato
+        // ogni mezzo centesimo. E si misura col pezzo della cella, non con
+        // `siGratta`, che e' proprio cio' che la prova sorveglia.
+        final tutti = <Offset>[
+          for (final s in conservati) ...[
+            if (s.length == 1) s.first,
+            for (var k = 1; k < s.length; k++)
+              for (var t = 0; t <= 200; t++)
+                Offset.lerp(s[k - 1], s[k], t / 200)!,
+          ],
+        ];
+        guardati += tutti.length;
+        // **SUL CONFINE FRA DUE CELLE IL PUNTO E' DI TUTTE E DUE**: un punto
+        // conservato esattamente sulla riga fra due fasce, ricampionato, puo'
+        // cadere di un milionesimo nella cella sopra. E' fuori solo se
+        // nessuna cella lecita lo tocca entro quel milionesimo.
+        bool lecito(Offset p) {
+          const e = 1e-6;
+          for (final dx in [-e, 0.0, e]) {
+            for (final dy in [-e, 0.0, e]) {
+              if (velo.pezzoDi(velo.cellaSotto(p + Offset(dx, dy))) <= quale) {
+                return true;
+              }
+            }
+          }
+          return false;
+        }
+
+        final fuori = tutti.where((p) => !lecito(p)).toList();
+        expect(fuori, isEmpty,
+            reason: '$nome al pezzo $quale: il solco conservato ha '
+                '${fuori.length} punti fuori dal grattabile di oggi, per '
+                'esempio ${fuori.take(3).join(' ')}: e\' cenere scavata su '
+                'pezzi dei giorni dopo o sul volto');
+        // **SULLE CELLE DEL VOLTO**: il quarto pezzo e' fatto delle celle
+        // che toccano il volto, ed e' su quelle che il dito non deve scavare.
+        final nelVolto = tutti
+            .where((p) =>
+                velo.pezzoDi(velo.cellaSotto(p)) ==
+                LaCartaInQuattroPezzi.pezzi - 1)
+            .length;
+        expect(nelVolto, 0,
+            reason: '$nome al pezzo $quale: $nelVolto punti del solco sul '
+                'volto, che si scopre per ultimo');
       }
-      await g.up();
-      await tester.pump(const Duration(milliseconds: 50));
-      final punti = [for (final s in conservati) ...s];
-      guardati += punti.length;
-      final sopra = punti.where((p) => p.dy < cima(quale) - 1e-9).toList();
-      expect(sopra, isEmpty,
-          reason: 'al pezzo $quale il solco conservato ha ${sopra.length} '
-              'punti sopra la fascia di oggi (cima ${cima(quale)}): sono '
-              'cenere scavata su pezzi che si grattano nei giorni dopo, e il '
-              'volto si vedrebbe prima della quarta volta');
     }
     // **IL CARDINALE**: se il dito non lasciasse nessun punto la prova
     // sarebbe verde senza aver guardato niente.
-    expect(guardati, greaterThan(30),
+    expect(guardati, greaterThan(9000),
         reason: 'i solchi conservati sono solo $guardati punti: il gesto non '
             'e\' arrivato al velo');
   });
 
   testWidgets(
-      'IL PENNELLO NON SBAVA SUL PEZZO DI DOMANI: un tratto lecito sul bordo '
-      'del pezzo di oggi lascia piena la cenere subito sopra, ai pezzi 0, 1 e '
-      '2', (tester) async {
+      'IL PENNELLO NON APRE NIENTE FUORI DAL GRATTABILE: un pennello che passa '
+      'dappertutto lascia piena la cenere su ogni cella dei giorni dopo e del '
+      'volto, ai pezzi 0, 1 e 2, per tutti e dodici', (tester) async {
     final size = illustrazione.size;
     final w = size.width.ceil();
     final h = size.height.ceil();
-    var righeGuardate = 0;
-    for (final quale in [0, 1, 2]) {
-      final velo = LaCartaInQuattroPezzi('Lupo', quale);
-      // Un tratto orizzontale quattro punti sotto il bordo del pezzo di oggi:
-      // dentro la fascia lecita, ma col pennello che arriva oltre il bordo.
-      final y = cima(quale) + 4 / size.height;
-      late Uint8List px;
-      await tester.runAsync(() async {
-        final p = PittoreDellaCenere(
-          velo: velo,
-          coperte: velo.velato,
-          quanta: 1,
-          solchi: [
-            [Offset(0.2, y), Offset(0.8, y)],
-          ],
-          scoperte: const {},
-        );
-        final registro = ui.PictureRecorder();
-        p.paint(Canvas(registro), size);
-        final img = await registro.endRecording().toImage(w, h);
-        px = (await img.toByteData(format: ui.ImageByteFormat.rawStraightRgba))!
-            .buffer
-            .asUint8List();
-      });
-      // **SOPRA IL BORDO**: tutte le righe del pezzo di domani fino a un punto
-      // sopra il bordo. La cenere piena ha l'alfa alta: un pixel sotto 128 e'
-      // un buco.
-      final bordo = (cima(quale) * size.height).floor();
-      final aperti = <String>[];
-      for (var yy = 0; yy < bordo - 1; yy++) {
-        righeGuardate++;
-        for (var x = (0.2 * w).round(); x < (0.8 * w).round(); x++) {
-          if (px[(yy * w + x) * 4 + 3] < 128) aperti.add('($x,$yy)');
+    var pixelGuardati = 0;
+    var apertiDentro = 0;
+    final sbagliati = <String>[];
+    for (final animale in AnimalCatalog.animals) {
+      for (final quale in [0, 1, 2]) {
+        final velo = LaCartaInQuattroPezzi(animale.name, quale);
+        late Uint8List px;
+        await tester.runAsync(() async {
+          final p = PittoreDellaCenere(
+            velo: velo,
+            coperte: velo.velato,
+            quanta: 1,
+            // **IL SOLCO SENZA IL TAGLIO DELLA LENTE**: qui si guarda il
+            // pittore da solo, con un pennello che passa anche sul volto.
+            solchi: [ziczac(40)],
+            scoperte: const {},
+          );
+          final registro = ui.PictureRecorder();
+          p.paint(Canvas(registro), size);
+          final img = await registro.endRecording().toImage(w, h);
+          px = (await img.toByteData(
+                  format: ui.ImageByteFormat.rawStraightRgba))!
+              .buffer
+              .asUint8List();
+        });
+        var aperti = 0;
+        for (var i = 0; i < velo.colonne * velo.righe; i++) {
+          final r = velo.cella(i);
+          // **IL CUORE DELLA CELLA**, un pixel dentro i bordi: sul bordo il
+          // taglio passa esatto, e l'arrotondamento non e' un difetto.
+          final x0 = (r.left * size.width).ceil() + 1;
+          final x1 = (r.right * size.width).floor() - 1;
+          final y0 = (r.top * size.height).ceil() + 1;
+          final y1 = (r.bottom * size.height).floor() - 1;
+          final lecita = velo.grattabile.contains(i);
+          for (var y = y0; y <= y1; y++) {
+            for (var x = x0; x <= x1; x++) {
+              final aperto = px[(y * w + x) * 4 + 3] < 128;
+              if (lecita) {
+                if (aperto) apertiDentro++;
+              } else {
+                pixelGuardati++;
+                if (aperto) aperti++;
+              }
+            }
+          }
         }
+        if (aperti > 0)
+          sbagliati.add('${animale.name} al pezzo $quale: $aperti');
       }
-      expect(aperti, isEmpty,
-          reason: 'al pezzo $quale il pennello ha aperto ${aperti.length} '
-              'pixel sopra il bordo del pezzo di oggi (riga $bordo), per '
-              'esempio ${aperti.take(3).join(' ')}: la cenere di domani va '
-              'tenuta piena');
-      // **E IL TRATTO SCAVA DAVVERO SOTTO**: altrimenti la prova sarebbe verde
-      // perche' il pittore non disegna niente.
-      final sotto = (y * size.height).round();
-      var apertiSotto = 0;
-      for (var x = (0.3 * w).round(); x < (0.7 * w).round(); x++) {
-        if (px[(sotto * w + x) * 4 + 3] < 128) apertiSotto++;
-      }
-      expect(apertiSotto, greaterThan(0),
-          reason: 'al pezzo $quale il tratto non ha scavato nemmeno sulla sua '
-              'riga: la prova non sta guardando il pennello');
     }
-    expect(righeGuardate, greaterThan(100));
+    expect(sbagliati, isEmpty,
+        reason: 'il pennello ha aperto la cenere fuori dal grattabile (pezzi '
+            'dei giorni dopo o volto): ${sbagliati.join(', ')}');
+    // **I DUE CARDINALI**: abbastanza pixel vietati guardati, e il pennello
+    // che scava davvero dove si puo', o la prova sarebbe verde perche' il
+    // pittore non disegna niente.
+    expect(pixelGuardati, greaterThan(100000));
+    expect(apertiDentro, greaterThan(10000),
+        reason: 'il pennello non ha scavato nemmeno dove si puo\': la prova '
+            'non sta guardando il pennello');
   });
 }

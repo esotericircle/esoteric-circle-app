@@ -1,27 +1,36 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
-/// **LA CARTA DI UN ANIMALE, IN QUATTRO PEZZI ORIZZONTALI.** Ordine FZ voce
-/// FZ.04, 17 ottobre 2026. Il fondatore, 11:38: *"una card tutta da scoprire
-/// a pezzi, ma non l'animale da scoprire, ma una card intera, una schermata
-/// quasi intera. La card dell'animale da grattare"*; 11:48: *"Stile A"*.
+/// **LA CARTA DI UN ANIMALE, IN QUATTRO PEZZI, COL VOLTO PER ULTIMO.** Ordine
+/// FZ voce FZ.04, 17 ottobre 2026. Il fondatore, 11:38: *"una card tutta da
+/// scoprire a pezzi, ma non l'animale da scoprire, ma una card intera, una
+/// schermata quasi intera. La card dell'animale da grattare"*; 11:48:
+/// *"Stile A"*. E l'ordine: *"Il volto dell'animale sta nel quarto pezzo e si
+/// scopre per ultimo"*.
 ///
 /// **SOSTITUISCE `IlVeloDellAnimale`** (ordine DI voce 10, DQ voce 05): non
-/// piu' il velo sulla sola sagoma dell'animale, ma la cenere sopra la
-/// fotografia intera (`*_carta_da_grattare_v1.jpg`), a quasi tutto schermo.
-/// **La contabilita' per pezzi resta** (un pezzo per discesa, lo stesso
-/// pennello: [raggioDelPennello], [chiarezza], [scoperteDa]), e cio' che
-/// cambia e' la geometria: non una sagoma con la testa protetta fino alla
-/// quarta, ma quattro fasce uguali, tutte da grattare col dito, **nessuna
-/// che cade da sola**. Il volto sta nella fascia piu' alta e si scopre per
-/// ultimo perche' e' l'ultimo pezzo a grattarsi, non perche' un cumulo lo
-/// protegga: vedi [pezzoAttivo].
+/// piu' il velo sulla sola sagoma dell'animale, ma la cenere sopra la carta
+/// intera (`assets/img/mondo_di_sotto/carte/*_carta_da_grattare_v1.webp`), a
+/// quasi tutto schermo. **La contabilita' per pezzi resta** (un pezzo per
+/// discesa, lo stesso pennello: [raggioDelPennello], [chiarezza],
+/// [scoperteDa]), **nessun pezzo cade da solo**.
+///
+/// **LA GEOMETRIA, RIFATTA DALLA SIMULAZIONE DA PERSONA DEL 20 OTTOBRE
+/// 2026.** Fino a quel giorno i pezzi erano quattro fasce uguali scoperte dal
+/// basso, e il volto doveva stare in quella piu' alta. **Misurato sulle dodici
+/// carte, non ci sta mai**: in cima ci sono cielo, luna e alberi, e i volti
+/// cadono fra il 29 e il 73 per cento dell'altezza (il foglio delle dodici
+/// carte con le linee dei quarti sta nel rapporto dell'ordine). Sul Realme
+/// la testa del Cavallo si vedeva al terzo pezzo. Adesso **il quarto pezzo e'
+/// il volto di ciascun animale**, il rettangolo misurato carta per carta in
+/// [volti]; il resto della carta si divide in tre fasce, dal basso: le
+/// stesse tre discese di prima, ma nessuna tocca il volto.
 ///
 /// **NESSUN CUMULO, NESSUNA TESTA**: [cumulo] e [testa] restano per la
 /// stessa porta di `PittoreDellaCenere`, che li legge per decidere se
 /// ridipingere la nube sopra una zona protetta. Qui non c'e' zona protetta:
-/// [cumulo] e' sempre nullo e [testa] sempre vuota, e il pittore non
-/// disegna nessuna nube, senza bisogno di cambiare una riga sua.
+/// il volto si protegge perche' non e' scostabile prima della quarta, non
+/// con una nube.
 ///
 /// Pura, senza disegno: una guardia la percorre cella per cella.
 class LaCartaInQuattroPezzi {
@@ -30,10 +39,9 @@ class LaCartaInQuattroPezzi {
 
   final String nome;
 
-  /// **IL PEZZO CHE QUESTA DISCESA PUO' GRATTARE**: 0 il piu' basso, 3 il
-  /// volto in alto. Quante apparizioni c'erano prima di questa, alla
-  /// lettera di `IlVeloCheSiScosta.quale` che l'ordine DQ aveva scritto per
-  /// la sagoma: la stessa cifra, letta adesso come indice di fascia.
+  /// **IL PEZZO CHE QUESTA DISCESA PUO' GRATTARE**: 0 la fascia piu' bassa,
+  /// 1 quella di mezzo, 2 quella in cima, 3 il volto. Quante volte questo
+  /// animale era stato seguito prima di questa discesa.
   final int pezzoAttivo;
 
   /// **QUATTRO PEZZI**, come l'ordine: FZ.04 dice "divisa in quattro pezzi".
@@ -43,10 +51,42 @@ class LaCartaInQuattroPezzi {
   /// morbido, grossa abbastanza perche' la contabilita' resti leggera.
   static const int _colonne = 24;
 
-  /// Otto righe per fascia: trentadue righe in tutto, divisibili esatte per
-  /// [pezzi].
-  static const int righePerPezzo = 8;
-  static const int _righe = pezzi * righePerPezzo;
+  /// Trentadue righe: la griglia di sempre, che i Diari scritti prima
+  /// conoscono.
+  static const int _righe = 32;
+
+  /// **DOVE COMINCIANO LE TRE FASCE**, in righe dall'alto: la fascia in cima
+  /// va da 0 a 10, quella di mezzo da 11 a 20, quella in basso da 21 a 31.
+  static const int _cimaDiMezzo = 11;
+  static const int _cimaDelBasso = 21;
+
+  /// **IL VOLTO DI OGNI ANIMALE**, in frazioni della carta (1080x1920),
+  /// misurato a occhio su ogni carta ingrandita con una griglia di cinque
+  /// centesimi, il 20 ottobre 2026: dalle orecchie (o dalla cresta) al mento
+  /// (o al becco), con un margine. Le corna del Cervo restano fuori: sono
+  /// sopra il volto, nella fascia di mezzo. Un nome che non c'e' prende il
+  /// volto medio delle dodici carte, [voltoMedio], cosi' nessun pezzo resta
+  /// mai senza volto.
+  static const Map<String, Rect> volti = {
+    'Aquila': Rect.fromLTRB(0.39, 0.32, 0.58, 0.44),
+    'Cavallo': Rect.fromLTRB(0.41, 0.39, 0.55, 0.53),
+    'Cervo': Rect.fromLTRB(0.39, 0.42, 0.56, 0.545),
+    'Corvo': Rect.fromLTRB(0.36, 0.42, 0.53, 0.51),
+    'Falco': Rect.fromLTRB(0.43, 0.46, 0.57, 0.545),
+    'Gufo': Rect.fromLTRB(0.34, 0.38, 0.60, 0.515),
+    'Lince': Rect.fromLTRB(0.37, 0.465, 0.62, 0.61),
+    'Lupo': Rect.fromLTRB(0.37, 0.48, 0.59, 0.595),
+    'Orso': Rect.fromLTRB(0.36, 0.455, 0.645, 0.585),
+    'Serpente': Rect.fromLTRB(0.38, 0.28, 0.54, 0.365),
+    'Tartaruga': Rect.fromLTRB(0.45, 0.675, 0.59, 0.74),
+    'Volpe': Rect.fromLTRB(0.36, 0.505, 0.58, 0.62),
+  };
+
+  /// Il volto di chi non e' nelle dodici carte: il mezzo della carta.
+  static const Rect voltoMedio = Rect.fromLTRB(0.38, 0.42, 0.58, 0.55);
+
+  /// Il volto di questa carta.
+  Rect get volto => volti[nome] ?? voltoMedio;
 
   static final List<int> _tutte = [
     for (var i = 0; i < _righe * _colonne; i++) i,
@@ -58,7 +98,7 @@ class LaCartaInQuattroPezzi {
   int get righe => _righe;
 
   /// **TUTTA LA CARTA E' COPERTA**: non c'e' una sagoma da ritagliare, e' una
-  /// fotografia intera a quasi tutto schermo.
+  /// carta intera a quasi tutto schermo.
   late final Set<int> corpo = Set.of(_tutte);
   late final Set<int> velato = corpo;
 
@@ -66,52 +106,104 @@ class LaCartaInQuattroPezzi {
   ({Offset centro, double a, double b})? get cumulo => null;
   Set<int> get testa => const {};
 
-  /// La fascia (0..3) a cui appartiene la cella [i]: 0 la piu' bassa (prima
-  /// a scoprirsi), [pezzi]-1 il volto in alto (ultima a scoprirsi).
-  static int fasciaDi(int i) {
+  /// **IL PEZZO A CUI APPARTIENE LA CELLA [i]** su questa carta: 3 se tocca
+  /// il volto, anche solo con un lembo (cosi' nessun pezzo del volto cade in
+  /// una fascia che si gratta prima), altrimenti la sua fascia (0 in basso, 1
+  /// in mezzo, 2 in cima).
+  int pezzoDi(int i) {
+    if (cella(i).overlaps(volto)) return pezzi - 1;
     final r = i ~/ _colonne;
-    final dallAlto = r ~/ righePerPezzo;
-    return pezzi - 1 - dallAlto;
+    if (r >= _cimaDelBasso) return 0;
+    if (r >= _cimaDiMezzo) return 1;
+    return 2;
   }
 
-  /// **LE CELLE DEL SOLO PEZZO ATTIVO**: le altre fasce non si toccano
-  /// ancora, ne' quella sopra ne' quella sotto.
+  late final List<int> _pezzoDiOgniCella = [for (final i in _tutte) pezzoDi(i)];
+
+  /// **LE CELLE DEL SOLO PEZZO ATTIVO**: gli altri pezzi non si contano.
   late final Set<int> scostabile = {
-    for (final i in _tutte) if (fasciaDi(i) == pezzoAttivo) i,
+    for (final i in _tutte)
+      if (_pezzoDiOgniCella[i] == pezzoAttivo) i,
   };
 
-  /// **FIN DOVE SI GRATTA OGGI**, in frazione dall'alto: il pezzo attivo e
-  /// quelli gia' grattati sotto di lui, mai i pezzi dei giorni dopo. Sopra
-  /// questa riga la cenere resta piena anche se il dito ci passa: la
-  /// contabilita' contava gia' solo il pezzo attivo, ma il solco scavava
-  /// ovunque, e la simulazione del 20 ottobre 2026 ha visto la Lince intera,
-  /// volto compreso, alla prima discesa.
-  double get cimaDelGrattabile => (pezzi - 1 - pezzoAttivo) / pezzi;
+  /// **DOVE OGGI IL DITO PUO' SCAVARE**: il pezzo attivo e quelli dei giorni
+  /// prima, mai i pezzi dei giorni dopo. La simulazione del 20 ottobre 2026
+  /// ha visto la Lince intera, volto compreso, alla prima discesa: la
+  /// contabilita' contava solo il pezzo attivo, ma il solco scavava ovunque.
+  late final Set<int> grattabile = {
+    for (final i in _tutte)
+      if (_pezzoDiOgniCella[i] <= pezzoAttivo) i,
+  };
 
-  /// Se il punto [frazione] della carta sta dove oggi si puo' grattare.
-  bool siGratta(Offset frazione) => frazione.dy >= cimaDelGrattabile;
-
-  /// **IL TRATTO DEL DITO, TAGLIATO SUL BORDO DEL PEZZO DI OGGI**: il pezzo
-  /// di [da]..[a] che sta dove si gratta, o nullo se il tratto e' tutto
-  /// sopra. Un tratto che arriva da sopra comincia sul bordo, non si perde:
-  /// un dito veloce manda pochi punti, e il primo dentro puo' gia' essere in
-  /// fondo alla carta.
-  (Offset, Offset)? tagliaSulBordo(Offset da, Offset a) {
-    final c = cimaDelGrattabile;
-    final dentroDa = da.dy >= c;
-    final dentroA = a.dy >= c;
-    if (dentroDa && dentroA) return (da, a);
-    if (!dentroDa && !dentroA) return null;
-    final t = (c - da.dy) / (a.dy - da.dy);
-    final bordo = Offset(da.dx + (a.dx - da.dx) * t, c);
-    return dentroDa ? (da, bordo) : (bordo, a);
+  /// La cella sotto il punto [frazione] della carta, dentro i bordi.
+  int cellaSotto(Offset frazione) {
+    final c = (frazione.dx * _colonne).floor().clamp(0, _colonne - 1);
+    final r = (frazione.dy * _righe).floor().clamp(0, _righe - 1);
+    return r * _colonne + c;
   }
 
-  /// **QUANTO SI PUO' SCOPRIRE IN UNA DISCESA**: un pezzo intero, cioe' una
-  /// fascia. A differenza della sagoma, qui la quota e' sempre esatta: non
-  /// resta mai un'area scostabile piu' piccola della quota, perche' ogni
-  /// pezzo e' la stessa misura.
-  int get perDiscesa => _righe ~/ pezzi * _colonne;
+  /// Se il punto [frazione] della carta sta dove oggi si puo' grattare.
+  bool siGratta(Offset frazione) => grattabile.contains(cellaSotto(frazione));
+
+  /// **IL TRATTO DEL DITO, SOLO DOVE OGGI SI GRATTA**: i pezzi di [da]..[a]
+  /// che stanno sul grattabile, in ordine, campionati ogni mezza cella. Un
+  /// tratto che passa sopra il volto (o sopra un pezzo dei giorni dopo) si
+  /// spezza in due e non lo attraversa; un tratto che entra da fuori comincia
+  /// dove entra, non si perde: un dito veloce manda pochi punti.
+  List<(Offset, Offset)> trattiDentro(Offset da, Offset a) {
+    final passo = 0.5 / math.max(_colonne, _righe);
+    final lungo = (a - da).distance;
+    final n = math.max(1, (lungo / passo).ceil());
+    final fuori = <(Offset, Offset)>[];
+    Offset? inizio;
+    var ultimo = da;
+    for (var k = 0; k <= n; k++) {
+      final p = Offset.lerp(da, a, k / n)!;
+      if (siGratta(p)) {
+        inizio ??= p;
+        ultimo = p;
+      } else if (inizio != null) {
+        fuori.add((inizio, ultimo));
+        inizio = null;
+      }
+    }
+    if (inizio != null) fuori.add((inizio, ultimo));
+    return fuori;
+  }
+
+  /// **LA FORMA DEL GRATTABILE** in una carta grande [size], allargata di
+  /// [margine] punti oltre i bordi della carta: il pennello del disegno non
+  /// passa fuori da qui. Una riga di celle alla volta, a strisce.
+  Path regione(Size size, {double margine = 0}) {
+    final p = Path();
+    final cw = size.width / _colonne;
+    final ch = size.height / _righe;
+    for (var r = 0; r < _righe; r++) {
+      var c = 0;
+      while (c < _colonne) {
+        if (!grattabile.contains(r * _colonne + c)) {
+          c++;
+          continue;
+        }
+        final da = c;
+        while (c < _colonne && grattabile.contains(r * _colonne + c)) {
+          c++;
+        }
+        p.addRect(Rect.fromLTRB(
+          da == 0 ? -margine : da * cw,
+          r == 0 ? -margine : r * ch,
+          c == _colonne ? size.width + margine : c * cw,
+          r == _righe - 1 ? size.height + margine : (r + 1) * ch,
+        ));
+      }
+    }
+    return p;
+  }
+
+  /// **QUANTO SI PUO' SCOPRIRE IN UNA DISCESA**: il pezzo intero. I pezzi
+  /// non hanno piu' la stessa misura (il volto e' piccolo), quindi la quota
+  /// e' quella del pezzo di oggi.
+  int get perDiscesa => scostabile.length;
 
   /// Il rettangolo di una cella, in frazione della carta.
   Rect cella(int i) {
@@ -176,6 +268,13 @@ class LaCartaInQuattroPezzi {
     dentro.sort((x, y) => x.$2.compareTo(y.$2));
     return [for (final x in dentro) x.$1];
   }
+
+  /// **LE CELLE GIA' SCOPERTE CHE VALGONO SU QUESTA CARTA**: quelle dei pezzi
+  /// fino a quello attivo. Un Diario scritto con le fasce uguali di prima
+  /// puo' portare celle che adesso stanno nel volto o in un pezzo dei giorni
+  /// dopo: aperte, mostrerebbero il volto prima della quarta.
+  Set<int> valide(Set<int> scoperte) =>
+      {for (final i in scoperte) if (grattabile.contains(i)) i};
 
   /// La distanza di [p] dal segmento da [a] a [b].
   static double _distanza(Offset p, Offset a, Offset b) {

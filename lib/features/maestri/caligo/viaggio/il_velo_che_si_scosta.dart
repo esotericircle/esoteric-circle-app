@@ -96,13 +96,22 @@ class IlVeloCheSiScosta extends StatefulWidget {
   /// vere, nei tre quarti alti della scena, perche' sotto ci sono l'istruzione
   /// e il pulsante. Pubblico perche' una guardia misuri esattamente questo
   /// rettangolo e non uno suo.
-  static Rect doveStaLIllustrazione(Size scena, Size misura) {
-    final spazio = Size(scena.width, scena.height * 0.78);
+  ///
+  /// **[sopra] E' LO SPAZIO DELLE BARRE IN CIMA**: la lente e' una scena
+  /// piena e il corpo passa sotto la barra del titolo. Fino alla simulazione
+  /// da persona del 20 ottobre 2026 la carta partiva dal bordo alto della
+  /// scena, e sul Realme il suo pezzo in cima stava dietro la barra di stato,
+  /// la striscia del Cerchio e la barra del titolo: non si vedeva, e il dito
+  /// li' toccava i pulsanti della barra invece della cenere.
+  static Rect doveStaLIllustrazione(Size scena, Size misura,
+      {double sopra = 0}) {
+    final spazio =
+        Size(scena.width, math.max(0.0, scena.height * 0.78 - sopra));
     final k =
         math.min(spazio.width / misura.width, spazio.height / misura.height);
     return Rect.fromLTWH(
       (scena.width - misura.width * k) / 2,
-      (spazio.height - misura.height * k) / 2,
+      sopra + (spazio.height - misura.height * k) / 2,
       misura.width * k,
       misura.height * k,
     );
@@ -115,7 +124,10 @@ class IlVeloCheSiScosta extends StatefulWidget {
 class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
   late final LaCartaInQuattroPezzi _velo =
       LaCartaInQuattroPezzi(widget.nome, widget.quale);
-  late final Set<int> _scoperte = {...widget.giaScoperte};
+  /// **SOLO LE CELLE CHE VALGONO SU QUESTA CARTA**: un Diario scritto con le
+  /// fasce uguali di prima puo' portarne nel volto. Vedi
+  /// `LaCartaInQuattroPezzi.valide`.
+  late final Set<int> _scoperte = _velo.valide(widget.giaScoperte);
   final Set<int> _oggi = {};
   late final List<List<Offset>> _solchi = [
     for (final s in widget.giaSolchi) [...s],
@@ -216,39 +228,43 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
     // Diario non si riempie di punti uguali.
     if (inPunti.distance < 3) return;
     _ultimoDito = punto;
-    // **IL TRATTO SI TAGLIA SUL BORDO DEL PEZZO DI OGGI**: la parte sopra
-    // non scava, e un tratto che entra da sopra comincia sul bordo.
-    final tratto = _velo.tagliaSulBordo(prima, punto);
-    if (tratto == null) {
+    // **IL TRATTO SI TIENE SOLO DOVE OGGI SI GRATTA**: la parte sopra il
+    // volto o sopra un pezzo dei giorni dopo non scava, e un tratto che la
+    // attraversa si spezza in due. Ordine FZ voce FZ.04.
+    final tratti = _velo.trattiDentro(prima, punto);
+    if (tratti.isEmpty) {
       _corrente = null;
       return;
     }
-    final (da, a) = tratto;
-    var solco = _corrente;
-    if (solco == null || !_velo.siGratta(prima)) {
-      solco = _corrente = [da];
-      _solchi.add(solco);
-    }
-    solco.add(a);
-    _conta(da, a, illustrazione);
-    // Uscito dal pezzo di oggi: il solco finisce sul bordo.
-    if (!_velo.siGratta(punto)) _corrente = null;
-    final strada = Offset((a.dx - da.dx) * illustrazione.width,
-        (a.dy - da.dy) * illustrazione.height);
-    _percorso += strada.distance;
-    // **UNA BRACE PER OGNI TRATTO**, che si accende e si spegne.
-    _braci.add(UnaBrace(da: da, a: a, nata: _adesso));
-    // **POCHI GRANELLI**: uno ogni sedici punti di strada, e mai piu' di
-    // trenta in aria. Una nuvola sarebbe un effetto: qui serve una materia.
-    while (_percorso > 16) {
-      _percorso -= 16;
-      if (_particelle.length < 30) {
-        _sollevaDa(
-            Offset(illustrazione.left + a.dx * illustrazione.width,
-                illustrazione.top + a.dy * illustrazione.height),
-            strada);
+    for (final (da, a) in tratti) {
+      var solco = _corrente;
+      // **UN TRATTO CHE NON RIPRENDE DALL'ULTIMO PUNTO APRE UN SOLCO NUOVO**:
+      // altrimenti il solco tirerebbe una riga attraverso il volto.
+      if (solco == null || solco.isEmpty || (solco.last - da).distance > 1e-6) {
+        solco = _corrente = [da];
+        _solchi.add(solco);
+      }
+      if ((a - da).distance > 1e-9) solco.add(a);
+      _conta(da, a, illustrazione);
+      final strada = Offset((a.dx - da.dx) * illustrazione.width,
+          (a.dy - da.dy) * illustrazione.height);
+      _percorso += strada.distance;
+      // **UNA BRACE PER OGNI TRATTO**, che si accende e si spegne.
+      _braci.add(UnaBrace(da: da, a: a, nata: _adesso));
+      // **POCHI GRANELLI**: uno ogni sedici punti di strada, e mai piu' di
+      // trenta in aria. Una nuvola sarebbe un effetto: qui serve una materia.
+      while (_percorso > 16) {
+        _percorso -= 16;
+        if (_particelle.length < 30) {
+          _sollevaDa(
+              Offset(illustrazione.left + a.dx * illustrazione.width,
+                  illustrazione.top + a.dy * illustrazione.height),
+              strada);
+        }
       }
     }
+    // Uscito dal grattabile: il solco finisce dove e' uscito.
+    if (!_velo.siGratta(punto)) _corrente = null;
     _accendi();
     setState(() {});
   }
@@ -292,8 +308,9 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
     final dpr = MediaQuery.maybeDevicePixelRatioOf(context) ?? 1;
     return LayoutBuilder(builder: (context, vincoli) {
       final scena = Size(vincoli.maxWidth, vincoli.maxHeight);
-      final illustrazione =
-          IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
+      final illustrazione = IlVeloCheSiScosta.doveStaLIllustrazione(
+          scena, misura,
+          sopra: MediaQuery.paddingOf(context).top);
       // **LA GRANA ALLA RISOLUZIONE DELLO SCHERMO**, una volta per misura.
       final grana = GranaDellaCenere.allaScena(illustrazione.size, dpr, () {
         if (mounted) setState(() {});
@@ -951,14 +968,13 @@ class PittoreDellaCenere extends CustomPainter {
     canvas.restore();
   }
 
-  /// **IL PENNELLO NON SBAVA SUI PEZZI DI DOMANI.** Il pennello e' morbido e
-  /// largo diciotto punti: un tratto lecito vicino al bordo del pezzo di oggi
-  /// aprirebbe la cenere di qualche punto sopra. Il taglio lascia libero il
-  /// margine ai lati e sotto, dove il disegno di prima arrivava gia'.
+  /// **IL PENNELLO NON SBAVA SUI PEZZI DI DOMANI, NE' SUL VOLTO.** Il
+  /// pennello e' morbido e largo diciotto punti: un tratto lecito vicino al
+  /// bordo del pezzo di oggi aprirebbe la cenere di qualche punto oltre. Il
+  /// taglio segue la forma vera del grattabile, e lascia libero il margine
+  /// fuori dalla carta, dove il disegno di prima arrivava gia'.
   void _soloDoveSiGratta(Canvas canvas, Size size) {
-    final m = margine(size);
-    canvas.clipRect(Rect.fromLTRB(-m, size.height * velo.cimaDelGrattabile,
-        size.width + m, size.height + m));
+    canvas.clipPath(velo.regione(size, margine: margine(size)));
   }
 
   void _scavaDentro(Canvas canvas, Size size, List<List<Offset>> quali) {
