@@ -162,12 +162,19 @@ jobs:
           # Il registro intero (-v) va nell'artifact; a video e nelle
           # annotazioni restano le righe del collegamento e degli errori, che
           # senza -v Flutter riassume in una riga sola.
+          # Il filtro scrive su file e non in un tubo con head: con pipefail un
+          # head che chiude presto faceva uscire il passo col codice 2 anche a
+          # compilazione riuscita (giro 118947297363).
           set +e
           flutter build ios --simulator --debug -v "${DEFINE[@]}" > "$CATTURE/registro_della_compilazione_intero.txt" 2>&1
           ESITO=$?
+          grep -nE "error:|\*\* BUILD|ld: |building for|ignoring file|Pods_Runner|Failed to build|Built build" "$CATTURE/registro_della_compilazione_intero.txt" > "$RUNNER_TEMP/filtrate.txt"
+          grep -v "Fetching" "$RUNNER_TEMP/filtrate.txt" > "$RUNNER_TEMP/filtrate2.txt"
+          sed -n '1,80p' "$RUNNER_TEMP/filtrate2.txt" > "$CATTURE/registro_della_compilazione.txt"
           set -e
-          grep -nE "error:|Error|ld: |building for|ignoring file|Pods_Runner|EXCLUDED_ARCHS|ARCHS =" "$CATTURE/registro_della_compilazione_intero.txt" | grep -v "Fetching" | head -80 | tee "$CATTURE/registro_della_compilazione.txt"
-          tail -40 "$CATTURE/registro_della_compilazione_intero.txt"
+          cat "$CATTURE/registro_della_compilazione.txt"
+          echo "Esito della compilazione: $ESITO"
+          tail -n 40 "$CATTURE/registro_della_compilazione_intero.txt"
           if [ "$ESITO" != "0" ]; then exit "$ESITO"; fi
           ls -la build/ios/iphonesimulator/
 
