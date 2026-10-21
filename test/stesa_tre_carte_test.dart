@@ -13,7 +13,6 @@ import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
-import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:esoteric_circle/features/tarot/medora_stage.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
@@ -47,8 +46,11 @@ void main() {
   Future<void> pumpScreen(WidgetTester tester, {int seed = 2}) async {
     await loadFonts();
     // Alta abbastanza da tenere in campo tutti e sette gli strati: quel che
-    // la lista non costruisce, il test non lo troverebbe.
-    tester.view.physicalSize = const Size(390, 4400);
+    // la lista non costruisce, il test non lo troverebbe. Ordine GA voce
+    // GA.06: da 4400 a 5200, perche' le azioni del responso con la risposta
+    // nuova cadevano fuori dalla lista costruita (la chiave
+    // `responso_condividi` non c'era).
+    tester.view.physicalSize = const Size(390, 5200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -608,11 +610,12 @@ void main() {
               of: find.byKey(const Key('stesa_synthesis')),
               matching: find.byType(Text)))
           .data!;
-      expect(
-          VoceDellaStesa
-              .titoliDelPresente[NaturaDellaCarta.di(reading.spread.presente)],
-          contains(titolo),
-          reason: 'il titolo non e\' quello della risposta del Presente');
+      // **LAPIDE: "uno dei titoli di `titoliDelPresente` per la natura del
+      // Presente".** Ordine GA voce GA.06: il titolo di casa viene dalla
+      // carta chiave e dalla forma della domanda (`VoceDellaStesa`), e la
+      // pretesa diventa che sia quello della lettura.
+      expect(titolo, reading.titolo,
+          reason: 'il titolo non e\' quello della risposta della lettura');
       expect(titolo.endsWith('.'), isFalse);
       // 2. Le tre posizioni col testo ricco.
       for (final p in SpreadPosition.treCarte) {

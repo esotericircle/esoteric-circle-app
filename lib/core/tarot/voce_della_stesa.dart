@@ -1,49 +1,25 @@
+import '../responsi/la_forma_del_responso.dart';
 import '../responsi/scelta_senza_ripetere.dart';
 import 'figure_della_stesa.dart';
+import 'la_carta_nella_risposta.dart';
+import 'la_domanda_letta.dart';
 import 'tarot_card.dart';
+import 'tarot_reading.dart';
 import 'tarot_spread.dart';
 import 'tarot_topic.dart';
-import '../../core/chat/user_profile.dart';
 
-/// **LA NATURA DI UNA CARTA USCITA.** Ordine DF voce 04.2, 11 settembre 2026.
-///
-/// **DA DOVE NASCE.** Lo stampo vecchio trattava il futuro come una minaccia
-/// **qualunque carta fosse uscita**: *"X non e' una sentenza: e' dove questo va
-/// se non cambi passo"*. Quella frase e' toccata a **L'Appeso**, il dono della
-/// sospensione, e a **Il Mondo**, il cerchio che si compie. Il fondatore lo ha
-/// nominato per primo, e aveva ragione: una minaccia detta sulla carta migliore
-/// del mazzo e' una lettura che non ha guardato le carte.
-///
-/// **QUATTRO NATURE, e vengono da due fatti del corpus, non da un giudizio.**
-/// Il **verso** dice se la carta e' aperta o trattenuta, ed e' il corpus stesso
-/// a dirlo, perche' per ogni carta ci sono due testi diversi. L'**arcano** dice
-/// se parla del destino o della giornata. Incrociandoli si hanno quattro
-/// nature, e nessuna e' un'invenzione di chi scrive: sono due colonne del
-/// corpus messe in croce.
-enum NaturaDellaCarta {
-  /// Maggiore dritto: il compimento, il dono, la svolta grande.
-  compimento,
-
-  /// Minore dritto: la cosa buona ma quotidiana, il passo che riesce.
-  favore,
-
-  /// Maggiore rovesciato: il destino trattenuto, la prova.
-  prova,
-
-  /// Minore rovesciato: l'attrito piccolo, il rallentamento.
-  attrito;
-
-  /// La natura di una carta uscita, dal suo verso e dal suo arcano.
-  static NaturaDellaCarta di(DrawnCard c) {
-    final maggiore = c.card.arcana == TarotArcana.maggiore;
-    if (c.reversed) return maggiore ? NaturaDellaCarta.prova : attrito;
-    return maggiore ? NaturaDellaCarta.compimento : favore;
-  }
-
-  /// Se questa natura porta con se' qualcosa di aperto.
-  bool get eAperta =>
-      this == NaturaDellaCarta.compimento || this == NaturaDellaCarta.favore;
-}
+// **LAPIDE: `NaturaDellaCarta`, ordine DF voce 04.2, 11 settembre 2026.**
+// Qui vivevano quattro "nature" di una carta uscita, compimento, favore,
+// prova e attrito, fatte solo dall'arcano e dal verso: un Minore dritto era
+// sempre un favore. L'ordine GA voce GA.06 le ha tolte dopo il lettore cieco
+// dei Tarocchi del 20 ottobre 2026: il Nove di Spade, l'angoscia della notte,
+// apriva *"Con Nove di Spade le carte [...] indicano una situazione che gira a
+// tuo favore"*; il Tre di Spade *"la risposta e' buona"*; il Dieci di Spade
+// *"un favore concreto e vicino"*; Il Diavolo *"un compimento vero"*. Il tono
+// di una carta adesso viene dal suo significato documentato, per carta e
+// verso: `LaCartaNellaRisposta.tono`. PADRE: ordine DF voce 04.2 (le nature),
+// portato nella prima frase dall'ordine GA voci 03, 05 e 07, commit
+// cb5fa8e3.
 
 /// **IL FILO CON CUI SI SCEGLIE OGNI FORMA.**
 /// Ordine DF voce 02, 11 settembre 2026.
@@ -106,648 +82,116 @@ class FiloDellaVoce {
   }
 }
 
-/// **LE FORME DELLA VOCE DI MEDORA.** Ordine DF voci 02 e 04, rifatte
-/// dall'ordine GA voci GA.03, GA.05, GA.06 e GA.07, 20 ottobre 2026.
+/// **IL VERDETTO DI UNA DOMANDA**: la prima frase, cio' che va detto prima e
+/// dopo di lei, il titolo, e se il gesto della carta e' gia' stato usato.
+class _Verdetto {
+  const _Verdetto({
+    required this.frasi,
+    required this.titolo,
+    this.prima,
+    this.dopo,
+    this.viaUsata = false,
+    this.azioneUsata,
+  });
+
+  /// Le forme della prima frase che risponde, in ordine di preferenza.
+  final List<String> frasi;
+
+  /// Una frase obbligatoria prima del verdetto: la domanda doppia.
+  final String? prima;
+
+  /// Una frase obbligatoria dopo il verdetto: il perche' quando la prima frase
+  /// non lo porta (il tema sensibile, la scelta col criterio).
+  final String? dopo;
+  final String titolo;
+  final bool viaUsata;
+
+  /// Il gesto della situazione gia' detto nella risposta (la domanda sul
+  /// modo): il "Cosa fare" non lo ripete.
+  final String? azioneUsata;
+}
+
+/// **UN POSTO DEL PARAGRAFO**: le forme che puo' prendere, in ordine di
+/// preferenza, e se e' obbligatorio.
+class _Posto {
+  const _Posto(this.forme,
+      {this.obbligatorio = false, this.lettura, this.diRiserva = false});
+  final List<String> forme;
+  final bool obbligatorio;
+
+  /// Un posto di riserva entra solo se senza di lui il paragrafo non arriva
+  /// a quaranta parole: la ricerca prova prima a farne a meno.
+  final bool diRiserva;
+
+  /// Dove la frase si legge nel paragrafo, quando non e' l'ordine di
+  /// preferenza: il gesto di una carta si preferisce a un secondo gesto
+  /// della domanda, ma la cosa da non fare si legge in fondo.
+  final int? lettura;
+}
+
+/// **LA VOCE DELLA STESA, IL RESPONSO PRINCIPALE DI CASA.** Ordine GA voci
+/// GA.03, GA.05, GA.06 e GA.07, riscritta dall'ordine GA voce GA.06 il 21
+/// ottobre 2026 dopo il lettore cieco dei Tarocchi.
 ///
-/// **PERCHE' SONO ELENCHI E NON FRASI.** La regola QUATTRO dell'ordine DF dice
-/// che *"un testo composto infilando nomi diversi dentro la stessa frase non
-/// passa la misura B, e quindi una via basata su stampi fissi va dimostrata
-/// capace di cento scheletri distinti oppure sostituita"*.
+/// **IL FATTO.** Su quaranta responsi di casa (`docs/collaudo/GA/
+/// lettori_ciechi/tarocchi.json`, seme 606) la prima frase rispondeva alla
+/// domanda in otto, il "Cosa fare" era concreto e pertinente in diciannove,
+/// il responso era coerente con le carte e la domanda in dieci
+/// (`docs/collaudo/GA/lettori_ciechi/esiti/esito_tre_domande_tarocchi.md`).
+/// Le cause, una per una: la prima frase era una forma fissa con dentro il
+/// nome della carta, scelta da una "natura" che non guardava il significato;
+/// la carta nominata era quella della prima posizione e non la carta chiave
+/// (19 stese su 30); la lente dell'argomento entrava nella prima frase anche
+/// quando era sbagliata (*"sul ritorno che aspetti"* su una causa legale); il
+/// "Cosa fare" girava su otto gesti per natura che non conoscevano la
+/// domanda; nessuna domanda vaga, doppia, di salute, di legge o di denaro era
+/// riconosciuta.
 ///
-/// **PERCHE' OGNI ELENCO E' LUNGO OTTO, e non tre come nella prima stesura.**
-/// Il conto si fa a coppie, non a testi: piu' fessure indipendenti da otto
-/// forme fanno si' che due letture qualsiasi condividano poco, e la misura C
-/// dell'ordine DF guarda **la coppia peggiore**, cioe' una coda e non una
-/// media.
+/// **LA FORMA NUOVA, scelta e misurata.**
+/// - **La domanda si legge** (`LaDomandaLetta`): la sua forma (si' o no, come,
+///   cosa, quando, scelta fra due), il tema sensibile, la situazione, se e'
+///   vaga o doppia, se chiede un distacco.
+/// - **La carta chiave decide** (`TarotReading.chiaveDi`, la stessa che la
+///   schermata marca come chiave), e porta cio' che il suo significato dice
+///   (`LaCartaNellaRisposta`): il tono, il tema, il perche', il gesto.
+/// - **La prima frase risponde alla domanda nella sua forma**, col tono della
+///   carta chiave, il suo nome e il suo perche': *"Per ora no: Nove di Spade
+///   dice che l'ansia e i pensieri della notte ingigantiscono le paure."*
+///   Sulla salute, la legge e il denaro dice che le carte non decidono e chi
+///   decide; sulla domanda doppia dice che risponde alla prima; sulla vaga
+///   risponde sul periodo e invita a precisare.
+/// - **Le frasi dopo poggiano sulle altre carte**, ognuna col suo tema e col
+///   rapporto col verdetto (conferma, contrasta, attenua), e sull'approdo
+///   letto per cio' che e': una carta di dolore all'esito e' un rischio da
+///   guardare, mai una meta.
+/// - **Il "Cosa fare adesso"** porta il gesto della carta chiave, il gesto
+///   concreto della situazione della domanda e una cosa da non fare.
 ///
-/// **E NON SI CITANO PIU' LE SINTESI DELLE CARTE.** Ordine DF voce 04.3: i
-/// significati erano scritti **due volte nella stessa schermata**. Qui le carte
-/// si **nominano** e si parla della loro natura: il significato si legge una
-/// volta sola, sotto la carta.
-///
-/// **LA FORMA NUOVA, ordine GA.** Il fondatore, 19 ottobre 2026: *"tutte le
-/// risposte composte da paragrafi ognuno con tra 40 a 50 parole ognuno. Per
-/// le risposte brevi 2 paragrafi di cui il secondo messo in evidenza in un
-/// riquadro e questo riquadro deve intitolarsi 'cosa fare adesso'"*; e il 20
-/// ottobre, decisione "Carte dal corpus": in ogni stesa le singole carte
-/// vengono dal corpus e il modello scrive solo il responso principale. Quando
-/// il modello non torna parla questa voce, e il responso principale di casa
-/// e' **sempre Breve**: senza modello non c'e' approfondimento, e la forma
-/// pretende approfondimento e rito insieme (`ResponsoInterpretato.difetti`).
-/// Quindi due paragrafi, non piu' tre:
-///
-/// - **la risposta** = [verdettiDelCuore] + [cosaDiceIlPresente] +
-///   [cosaVuolDire];
-/// - **il "Cosa fare adesso"** = [aggancioDellAzione] + [gestoPerNatura] +
-///   [formeDellApprodo] (o [percheFarlo] quando la stesa non ha un approdo,
-///   cioe' nella carta sola).
-///
-/// **LE FASCE DICHIARATE, e sono loro a garantire la misura.** Le parole si
-/// contano come le conta chi legge, separate da uno spazio
-/// (`LaFormaDelResponso.parole`). Due cose cambiano il numero senza che la
-/// forma lo sappia: la **lente** dell'argomento (`TarotTopic.lente`, da due a
-/// cinque parole) e il **nome della carta** (`DrawnCard.displayName`, da una,
-/// *"L'Appeso"*, a cinque, *"La Ruota della Fortuna rovesciata"*). Ogni
-/// elenco ha percio' una fascia di parole fisse, quelle fuori dai
-/// segnaposto, scritta accanto all'elenco, e le fasce sono scelte perche' la
-/// somma stia fra 40 e 50 **con la lente e il nome piu' corti e piu' lunghi**:
-///
-/// - risposta: verdetto 11-12 fisse + lente 2-5 + nome 1-5, piu' cosa dice
-///   14-15 e cosa vuol dire 12-13; da 40 a 50;
-/// - cosa fare: aggancio 8-9, gesto 18-20, approdo 13-14 fisse + nome 1-5;
-///   da 40 a 48. Senza approdo: aggancio 8-9, gesto 18-20, perche' 14-16; da
-///   40 a 45.
-///
-/// La guardia `quanto_e_lungo_il_consiglio_test.dart` misura ogni forma di
-/// ogni fessura con ogni lente, ogni nome e ogni marca del genere, e cade se
-/// una fascia esce dalla sua dichiarazione o se una composizione esce da 40
-/// e 50.
-///
-/// **IL RICONOSCIMENTO DELLA DOMANDA ESCE DAL PARAGRAFO.** Ordine GA,
-/// scelta della ricognizione della stesa. La domanda scritta sta gia' a
-/// video sotto il titolo; dentro il paragrafo la misura dipenderebbe da
-/// quanto scrive la persona, e nessuna fascia la terrebbe. La domanda conta
-/// ancora: sceglie la lente (`DomandaDellaPersona`), e la lente apre la prima
-/// frase. LAPIDE: `riconoscimentiDellaDomanda`, otto forme, ordine DF voce
-/// 02.
-///
-/// **IL TERZO PARAGRAFO ESCE DAL RESPONSO BREVE.** Il legame fra le carte, il
-/// seguito per natura, i versi e i Maggiori, la riga del cielo e la
-/// chiusura vivevano li'. Della stesa resta l'approdo, dentro il "Cosa fare
-/// adesso", perche' dice verso che cosa il gesto porta; le singole carte si
-/// leggono sotto, ognuna col suo responso dal corpus; la riga del cielo va
-/// nel "Da dove viene" e la mette `TarotReading`. LAPIDI: `formeDelLegame`,
-/// `formeDelFuturo`, `formeDeiVersi`, `formeDeiMaggiori`, `letturaDeiVersi`,
-/// `chiusure`, `comeSiVede`, `apertureDellaRisposta`, `inLettere`.
+/// **LA MISURA.** Ogni paragrafo sta fra 40 e 50 parole
+/// (`LaFormaDelResponso`): i posti di un paragrafo si scelgono in ordine di
+/// preferenza fra quelli che stanno nella misura, e nessun testo si tronca
+/// (GA.07). Nessuna figura ripetuta fra due pezzi (ordine DS voce 09): le
+/// scelte passano dall'impianto unico `SceltaSenzaRipetere`.
 abstract final class VoceDellaStesa {
-  // --- LA RISPOSTA, primo paragrafo, e dipende dalla carta che regge ---
-
-  /// **IL VERDETTO, la prima frase della risposta.** Ordine GA voce GA.06:
-  /// *"risposte dirette immediatamente, l'utente deve avere subito e sempre
-  /// risposte senza fronzoli o criptiche"*. La prima frase dice che cosa le
-  /// carte mostrano sulla questione: porta la lente dell'argomento, che
-  /// viene dalla domanda, il nome della carta che regge la stesa
-  /// (`TarotSpread.cuore`) e la sua natura.
-  ///
-  /// LAPIDE: `apertureDellaRisposta`, ordine DF voce 04.1, otto aperture
-  /// uguali per ogni natura: *"la lettura si ferma su X. Da li' parte tutto il
-  /// resto"* era un preambolo, non una risposta.
-  ///
-  /// `{lente}` apre la frase e diventa la lente con la virgola, `{inLente}`
-  /// sta in mezzo e diventa la lente in minuscolo. **Fascia: da 11 a 12
-  /// parole fisse.**
-  static const Map<NaturaDellaCarta, List<String>> verdettiDelCuore = {
-    NaturaDellaCarta.compimento: [
-      '{lente} le carte vedono una cosa arrivata al suo compimento: lo mostra '
-          '{presente}.',
-      'Le carte, {inLente}, rispondono con una notizia buona: {presente} porta '
-          'un compimento vero.',
-      '{lente} la risposta è favorevole e piena: la dà {presente}, una carta di '
-          'compimento.',
-      '{presente} risponde, {inLente}, con una cosa grande che si sta '
-          'compiendo proprio adesso.',
-      '{lente} le carte dicono che quello che chiedi ha preso forma: lo mostra '
-          '{presente}.',
-      'Con {presente} le carte, {inLente}, indicano un compimento chiaro e non '
-          'una mancanza.',
-      '{lente} la risposta è netta, un arrivo e non un\'attesa: a dirlo è '
-          '{presente}.',
-      '{presente} regge la lettura e, {inLente}, dice che il momento è maturo '
-          'davvero.',
-    ],
-    NaturaDellaCarta.favore: [
-      '{lente} le carte rispondono in modo favorevole: lo dice {presente}, una '
-          'carta concreta.',
-      'Le carte, {inLente}, vedono un vantaggio a portata di mano: lo porta '
-          '{presente}.',
-      '{lente} la risposta è buona e sta alla tua misura, come mostra '
-          '{presente}.',
-      '{presente} risponde, {inLente}, con un favore concreto e vicino su cui '
-          'puoi contare.',
-      '{lente} le carte dicono che la cosa è fattibile adesso: lo conferma '
-          '{presente}.',
-      'Con {presente} le carte, {inLente}, indicano una situazione che gira a '
-          'tuo favore.',
-      '{lente} la risposta è positiva e concreta, senza clamore: a dirlo è '
-          '{presente}.',
-      '{presente} regge la lettura e, {inLente}, dice che hai i mezzi per '
-          'riuscire.',
-    ],
-    NaturaDellaCarta.prova: [
-      '{lente} le carte vedono una cosa importante che oggi resta ferma: lo '
-          'mostra {presente}.',
-      'Le carte, {inLente}, rispondono con una prova seria da attraversare: la '
-          'porta {presente}.',
-      '{lente} la risposta è un rinvio e non un rifiuto, come mostra '
-          '{presente}.',
-      '{presente} risponde, {inLente}, che la cosa resta possibile ma chiede '
-          'prima una condizione.',
-      '{lente} le carte dicono che i tempi non sono ancora maturi: lo conferma '
-          '{presente}.',
-      'Con {presente} le carte, {inLente}, indicano una spinta grande che oggi '
-          'incontra resistenza.',
-      '{lente} la risposta è che serve più tempo del previsto: a dirlo è '
-          '{presente}.',
-      '{presente} regge la lettura e, {inLente}, dice che la via diretta oggi è '
-          'chiusa.',
-    ],
-    NaturaDellaCarta.attrito: [
-      '{lente} le carte vedono una cosa che si è inceppata: lo mostra '
-          '{presente}.',
-      'Le carte, {inLente}, vedono un rallentamento e non un blocco: lo porta '
-          '{presente}.',
-      '{lente} la risposta è un ritardo piccolo e del tutto rimediabile, come '
-          'mostra {presente}.',
-      '{presente} risponde, {inLente}, che la cosa si muove ancora ma con una '
-          'fatica inutile.',
-      '{lente} le carte dicono che la soluzione è vicina e semplice: lo '
-          'conferma {presente}.',
-      'Con {presente} le carte, {inLente}, indicano un intralcio che si toglie '
-          'con poco.',
-      '{lente} la risposta è che manca solo un dettaglio: a dirlo è '
-          '{presente}.',
-      '{presente} regge la lettura e, {inLente}, dice che la cosa si ripara '
-          'con poco.',
-    ],
-  };
-
-  /// **COSA DICE LA CARTA CHE REGGE, per natura.** Ordine DF voce 04.2.
-  ///
-  /// Quattro famiglie, otto forme ognuna: una carta di compimento non dice la
-  /// stessa cosa di una carta di attrito. Ordine GA voce GA.07: ogni forma e'
-  /// stata **riscritta**, mai troncata, per stare nella fascia, e dice la
-  /// stessa cosa di prima alla stessa posizione, perche' il titolo
-  /// ([titoliDelPresente]) la riassume. **Fascia: da 14 a 15 parole.**
-  static const Map<NaturaDellaCarta, List<String>> cosaDiceIlPresente = {
-    NaturaDellaCarta.compimento: [
-      'È una carta che chiude un giro: quello che portavi avanti ha preso '
-          'forma.',
-      'Parla di una cosa arrivata a maturazione: sei alla fine di un tratto, '
-          'non all\'inizio.',
-      'È fra le carte più aperte: quello che hai davanti va nel verso giusto.',
-      'Dice che il lavoro è stato fatto: manca solo riconoscere che è finito '
-          'davvero.',
-      'Non descrive un desiderio: descrive una cosa che sta già accadendo, '
-          'ancora in silenzio.',
-      'Segna un passaggio vero, di quelli che si riconoscono solo guardandosi '
-          'indietro dopo qualche mese.',
-      'Porta un compimento: il rischio non è fallire, è non accorgersi di '
-          '[essere arrivato|essere arrivata|avercela fatta].',
-      'Racconta un pieno e non un vuoto: la domanda giusta è che cosa farne.',
-    ],
-    NaturaDellaCarta.favore: [
-      'Parla di cose che si toccano: il vantaggio c\'è ed è alla tua portata.',
-      'Dice che il terreno è buono: non promette clamori, ma quello che ci '
-          'pianti cresce.',
-      'Parla di un passo che riesce, di quelli che non fanno rumore e spostano '
-          'molto.',
-      'È una carta della giornata, non del destino: parla di settimane e non '
-          'di anni.',
-      'Racconta una misura giusta: le cose stanno dove devono e chiedono solo '
-          'di essere usate.',
-      'Dice che hai più materiale di quanto pensi: non serve procurarti altro, '
-          'serve metterlo insieme.',
-      'È una carta di mestiere: premia chi conosce bene ciò che fa, come fai '
-          'tu.',
-      'Parla di una porta socchiusa: non si apre da sola, ma non è chiusa.',
-    ],
-    NaturaDellaCarta.prova: [
-      'È una carta grande uscita al rovescio: non toglie quello che promette, '
-          'lo rimanda.',
-      'Parla di una forza trattenuta: non è un no, è soltanto un non adesso.',
-      'Stai spingendo contro qualcosa che non si muove: la strada c\'è, ma è '
-          'un\'altra.',
-      'Racconta un tempo che non coincide col tuo: non è ostilità, è un altro '
-          'orologio.',
-      'Segna una prova, cioè una richiesta precisa: una cosa sola, chiesta bene '
-          'e chiesta adesso.',
-      'Segna un nodo: si scioglie tirando il capo giusto, mentre tirando tutto '
-          'si stringe.',
-      'C\'è un prezzo e il prezzo è noto: resta da decidere se pagarlo adesso.',
-      'È una carta di traverso: quello che promette resta, ma passa da una '
-          'porta stretta.',
-    ],
-    NaturaDellaCarta.attrito: [
-      'È un attrito piccolo, di quelli che non si vedono da fuori e rallentano '
-          'tutto.',
-      'Parla di un intoppo: non è il destino, è un dettaglio che nessuno ha '
-          'sistemato.',
-      'Dice che c\'è qualcosa fuori posto. Ed è più piccolo di come lo stai '
-          'vivendo.',
-      'Un ingranaggio gratta: non si è rotto niente, manca qualcosa in un punto '
-          'solo.',
-      'Il fastidio è reale, ma ha la misura di un fastidio, non di un '
-          'problema.',
-      'Segnala uno spreco: stai mettendo energia in un punto che non te la '
-          'restituisce.',
-      'Dice che ti manca un\'informazione, non una forza: qui cercare con cura '
-          'batte insistere.',
-      'Parla di una cosa rimandata troppe volte, che ormai costa più rimandarla '
-          'che farla.',
-    ],
-  };
-
-  /// **COSA VUOL DIRE PER LA QUESTIONE, per natura**, la terza frase della
-  /// risposta. Ordine GA voci GA.06 e GA.07, 20 ottobre 2026.
-  ///
-  /// **Nasce da una misura, non da un gusto.** Alla prima stesura della forma
-  /// nuova la risposta era il verdetto piu' [cosaDiceIlPresente], otto per
-  /// otto forme per natura: sessantaquattro risposte. Su cento letture con la
-  /// stessa domanda due stese con la stessa carta che regge cadevano sulle
-  /// stesse due forme, e con la risposta uguale e il testo della carta uguale
-  /// la misura C dell'ordine DF saliva al 41,0 per cento, oltre la soglia del
-  /// 40 (`cento_letture_uguali_test.dart`). La soglia non si tocca: si e'
-  /// cambiato il testo. Questa terza fessura moltiplica per otto le risposte e
-  /// dice a chi legge che cosa la natura della carta vuol dire per la sua
-  /// questione. **Fascia: da 12 a 13 parole.**
-  static const Map<NaturaDellaCarta, List<String>> cosaVuolDire = {
-    NaturaDellaCarta.compimento: [
-      'Per la tua domanda vuol dire che puoi contare su quello che hai.',
-      'Qui non serve altra fatica: serve accorgersi di ciò che è già tuo.',
-      'Le carte grandi e dritte non minacciano: aprono e chiedono di essere '
-          'riconosciute.',
-      'È il momento di raccogliere quello che hai seminato, non di '
-          'ricominciare.',
-      'Quello che hai costruito regge, anche se ti sembra ancora troppo '
-          'fragile.',
-      'Su questa questione la parte difficile è dietro di te, non davanti.',
-      'Puoi fidarti di quello che senti: la carta conferma ciò che intuivi.',
-      'Non resta niente da conquistare: resta da prenderne atto e da usarlo.',
-    ],
-    NaturaDellaCarta.favore: [
-      'In concreto, la riuscita dipende più da te che dalla fortuna del '
-          'momento.',
-      'Non serve un colpo di fortuna: serve la costanza delle cose piccole.',
-      'Le carte minori dritte parlano di cose che si vedono e si contano.',
-      'È il momento buono per muoverti, senza aspettare condizioni migliori di '
-          'queste.',
-      'Quello che ti serve è già vicino: va solo preso e usato.',
-      'Su questa questione il tempo lavora dalla tua parte, a patto di '
-          'cominciare.',
-      'Il buon senso basta: qui la scelta semplice è anche quella che '
-          'funziona.',
-      'Non è una promessa di miracoli: è una base solida su cui contare.',
-    ],
-    NaturaDellaCarta.prova: [
-      'Sulla tua questione vuol dire prepararti bene invece di insistere a '
-          'vuoto.',
-      'Non è una condanna: è un tratto difficile che si attraversa con calma.',
-      'Le carte rovesciate trattengono: quello che chiedi resta, ma con un '
-          'altro tempo.',
-      'Forzare adesso costa più che aspettare: la pazienza qui è una scelta '
-          'attiva.',
-      'Quello che desideri non sparisce affatto: chiede soltanto un\'altra via '
-          'per arrivare.',
-      'Su questa questione la fretta è l\'unico vero nemico che hai adesso.',
-      'Puoi fidarti di questo rallentamento: ti sta proteggendo da una mossa '
-          'sbagliata.',
-      'Non è un fallimento: è una tappa che chiede più preparazione del '
-          'previsto.',
-    ],
-    NaturaDellaCarta.attrito: [
-      'Per quello che chiedi conta sistemare un dettaglio prima di giudicare '
-          'tutto.',
-      'Non è un segnale di fine: è un granello che si toglie subito.',
-      'Le carte minori rovesciate frenano senza fermare: la strada resta del '
-          'tutto aperta.',
-      'Insistere a testa bassa non serve: serve guardare dove la cosa si '
-          'inceppa.',
-      'Quello che ti frena ha un nome preciso: trovarlo è metà del lavoro.',
-      'Su questa questione basta poco per tornare a muoverti di nuovo con '
-          'facilità.',
-      'Non serve un esperto: serve un\'ora di attenzione onesta sul punto '
-          'giusto.',
-      'Il ritardo è reale ma si recupera, se te ne occupi adesso.',
-    ],
-  };
-
-  /// **IL TITOLO DELLA LETTURA DI CASA, uno per ogni cosa che dice il
-  /// presente.** Ordine FK aggiunta voci A1 e A2, 11 ottobre 2026.
-  ///
-  /// Il fondatore, 3 settembre 2026: *"un titolo che a colpo d'occhio e' gia'
-  /// una risposta diretta e poi sotto la risposta vera"*. Il titolo e' la
-  /// frase di [cosaDiceIlPresente] detta in poche parole, **alla stessa
-  /// posizione dell'elenco**, cosi' titolo e risposta non possono dire due
-  /// cose diverse. Non nomina la carta, perche' il simbolo non apre mai (Linee
-  /// Guida, sezione 2). Da 3 a 8 parole, senza punto in fondo.
-  ///
-  /// **LAPIDE: "il titolo e' la sintesi della carta del Presente"**, ordine
-  /// DF voce 04.5. Quella era il significato di una carta, non la risposta
-  /// alla domanda: due persone con domande diverse e lo stesso Presente
-  /// leggevano lo stesso titolo.
-  static const Map<NaturaDellaCarta, List<String>> titoliDelPresente = {
-    NaturaDellaCarta.compimento: [
-      'Un giro si chiude',
-      'La cosa è arrivata a maturazione',
-      'Il movimento va nel verso giusto',
-      'Il lavoro è fatto',
-      'Sta già accadendo',
-      'Un passaggio vero',
-      'Il traguardo è già qui',
-      'Il pieno c\'è: decidi cosa farne',
-    ],
-    NaturaDellaCarta.favore: [
-      'Il vantaggio è alla tua portata',
-      'Il terreno è buono',
-      'Un passo che riesce',
-      'Questione di settimane, non di anni',
-      'Le cose stanno dove devono',
-      'Hai più di quanto pensi',
-      'Il tuo mestiere ti premia',
-      'La porta è socchiusa',
-    ],
-    NaturaDellaCarta.prova: [
-      'Non è tolto: è rimandato',
-      'Non è un no: è un non adesso',
-      'La strada c\'è, ma è un\'altra',
-      'Il tempo giusto non è ancora il tuo',
-      'Una prova che chiede una cosa sola',
-      'Il nodo si scioglie dal capo giusto',
-      'C\'è un prezzo noto da pagare',
-      'Resta, ma passa da una porta stretta',
-    ],
-    NaturaDellaCarta.attrito: [
-      'Un attrito piccolo frena tutto',
-      'Un dettaglio da sistemare',
-      'È più piccolo di come lo vivi',
-      'Manca un pezzo in un punto solo',
-      'Un fastidio vero ma piccolo',
-      'Energia nel punto sbagliato',
-      'Ti manca un\'informazione',
-      'Rimandare ormai costa di più',
-    ],
-  };
-
-  // --- IL "COSA FARE ADESSO", secondo paragrafo, nel riquadro ---
-
-  /// **GLI AGGANCI DELL'AZIONE, la prima frase del riquadro.** Ordine DF voce
-  /// 02, misura D.
-  ///
-  /// Nell'ordine DF portavano il nome della carta che regge, perche' il
-  /// paragrafo dell'azione era **l'unico senza un nome di carta dentro** e su
-  /// cento letture si ripeteva nove volte. Nella forma nuova il nome nel
-  /// riquadro lo porta l'approdo ([formeDellApprodo]), che dice verso che
-  /// cosa il gesto porta: due nomi di carta nello stesso riquadro avrebbero
-  /// sommato due incertezze di lunghezza, e la fascia non le avrebbe tenute.
-  /// Valgono per qualunque stesa ([valeOvunque]). **Fascia: da 8 a 9
-  /// parole.**
-  static const List<String> aggancioDellAzione = [
-    'Quello che le carte chiedono è una cosa sola.',
-    'Le carte indicano un gesto preciso: è questo.',
-    'Da qui viene un\'indicazione precisa e facile da seguire.',
-    'La mossa suggerita si fa in pochi giorni.',
-    'In pratica, la lettura ti chiede soltanto questo.',
-    'Le carte non lasciano il consiglio nel vago: eccolo.',
-    'Ecco che cosa farne adesso, stando alle carte lette.',
-    'Il gesto che le carte mettono davanti è piccolo.',
-    'Con questa lettura in mano, il compito è chiaro.',
-    'Tradotta in un gesto, la lettura dice proprio questo.',
-    'La lettura porta un compito breve e chiaro.',
-    'Non serve un piano intero: serve una cosa sola.',
-  ];
-
-  /// **IL GESTO, otto per natura: che cosa fare e che cosa non fare.**
-  /// Ordine DF voce 02, riscritto dall'ordine GA voce GA.06: *"L'utente deve
-  /// avere una risposta o una guida, deve sapere cosa fare o non fare"*. Ogni
-  /// forma porta il gesto concreto e subito dopo la cosa da non fare, e il
-  /// gesto resta agganciato alla natura della carta che regge. **Fascia: da
-  /// 18 a 20 parole.**
-  static const Map<NaturaDellaCarta, List<String>> gestoPerNatura = {
-    NaturaDellaCarta.compimento: [
-      'Dichiara che è finita: dillo, scrivilo o mandalo a qualcuno. E non '
-          'aggiungere un altro ritocco per paura di consegnare.',
-      'Usa adesso quello che hai costruito, invece di aspettare di [sentirti '
-          'più pronto|sentirti più pronta|avere più certezze]. Non rimandarlo a '
-          'un momento migliore.',
-      'Dai una data precisa alla consegna, entro questa settimana. Non '
-          'lasciarla aperta: una data vaga diventa una data mai.',
-      'Mostra il risultato a una persona che conta e lascia che lo veda '
-          'davvero. Non nasconderlo dietro le solite scuse.',
-      'Togli le ultime cose che hai aggiunto e guarda se non era già finito '
-          'prima. Non ricominciare da capo.',
-      'Segna il traguardo in un posto dove puoi ritrovarlo, anche solo una riga '
-          'sul calendario. Non farlo passare in silenzio.',
-      'Chiedi adesso quello che rimandavi a quando [saresti stato più forte|'
-          'saresti stata più forte|avresti avuto più forza]. Non aspettare un '
-          'permesso che nessuno ti deve dare.',
-      'Scrivi in poche righe che cosa hai imparato in questo tratto e tienile '
-          'con te. Non buttarle via domani.',
-    ],
-    NaturaDellaCarta.favore: [
-      'Fai oggi il passo concreto che rimandi da tempo, anche se piccolo. Non '
-          'aspettare di avere tutto chiaro.',
-      'Scegli una sola cosa fra quelle aperte e portala a termine. Non aprirne '
-          'un\'altra prima di averla chiusa.',
-      'Chiedi apertamente quello che finora hai solo sperato che ti venisse '
-          'offerto. Non pretendere che lo indovinino da soli.',
-      'Metti un numero su quello che stai valutando: quanto costa, quanto '
-          'rende, entro quando. Non decidere a sensazione.',
-      'Cerca chi ha già fatto questa cosa e fagli due domande precise. Non '
-          'chiedere un parere generico a tutti.',
-      'Rendi visibile quello che sai fare, anche con una riga sola in più. Non '
-          'lasciare che resti un segreto.',
-      'Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non '
-          'farti dettare i tempi da chi aspetta.',
-      'Fai la versione piccola della cosa grande che hai in mente, questa '
-          'settimana. Non progettare oltre prima di averla provata.',
-    ],
-    NaturaDellaCarta.prova: [
-      'Smetti di spingere per qualche giorno e guarda che cosa si muove da '
-          'solo. Non forzare la porta.',
-      'Cerca il pezzo che manca invece di ripetere il tentativo. Non rifare la '
-          'stessa cosa sperando in un esito diverso.',
-      'Rimanda di una settimana la decisione che stai per prendere di fretta. '
-          'Non firmare e non promettere niente sotto pressione.',
-      'Scrivi su un foglio quale condizione dovrebbe cambiare perché questa '
-          'cosa funzioni. Non insistere finché quella condizione resta ferma.',
-      'Prova la stessa cosa in una versione che, se va male, non ti costa '
-          'niente. Non giocarti tutto subito.',
-      'Parla con chi ti sta dicendo di no e chiedi cosa servirebbe per un sì. '
-          'Non prenderlo come un rifiuto.',
-      'Prenditi il tempo che serve, ma mettici una scadenza scritta. Non '
-          'lasciare che l\'attesa diventi una scusa comoda per fermarti.',
-      'Cambia una sola variabile invece di rifare tutto il piano. Non buttare '
-          'via quello che fin qui ha funzionato bene.',
-    ],
-    NaturaDellaCarta.attrito: [
-      'Togli oggi l\'intoppo più piccolo fra quelli che hai in mente. Non '
-          'cominciare dal più grande perché fa più paura.',
-      'Metti per iscritto che cosa esattamente si è inceppato e dove. Non '
-          'lamentartene con nessuno prima di averlo nominato bene.',
-      'Parla presto con la persona che sta dall\'altra parte dell\'inghippo. '
-          'Non provare a sistemarlo in segreto, senza dirglielo.',
-      'Dai mezz\'ora a questa cosa oggi stesso. Non dedicarle un minuto di più: '
-          'il resto della giornata è tuo.',
-      'Elimina un passaggio invece di renderlo più veloce. Non aggiungere '
-          'controlli a un meccanismo che è già troppo lento.',
-      'Controlla la cosa più banale prima di cercare la causa complicata. Non '
-          'chiamare rinforzi per un guasto da poco.',
-      'Rinuncia a quello che ti costa più di quanto rende e dillo chiaramente. '
-          'Non continuare per abitudine o per orgoglio.',
-      'Rifai con calma la parte che la prima volta hai fatto di corsa. Non '
-          'saltare i dettagli che sembrano inutili.',
-    ],
-  };
-
-  /// **L'APPRODO, l'ultima frase del riquadro: verso che cosa il gesto
-  /// porta.** Ordine GA voci GA.06 e GA.07, dalle forme del seguito
-  /// dell'ordine DF voce 04.2.
-  ///
-  /// **E' la riparazione della voce DF.04.2 che resta.** La formula unica
-  /// *"X non e' una sentenza: e' dove questo va se non cambi passo"* toccava a
-  /// **L'Appeso** e a **Il Mondo**: una minaccia detta sulla carta del
-  /// compimento. L'approdo **parla come la carta che e' uscita**: verso una
-  /// carta aperta il gesto e' la via per arrivarci, verso una carta chiusa e'
-  /// il modo di attraversarla o di non incontrarla. Nessuna forma la da' per
-  /// certa (regola dell'ordine S voce 17, ribadita da GA.06), e nessuna dice
-  /// "futuro": la stesa a quattro e la Croce Celtica approdano all'esito.
-  /// `{futuro}` diventa il nome della carta d'approdo (`TarotSpread.approdo`).
-  /// **Fascia: da 13 a 14 parole fisse.**
-  static const Map<NaturaDellaCarta, List<String>> formeDellApprodo = {
-    NaturaDellaCarta.compimento: [
-      '{futuro} chiude la lettura su un compimento: questo gesto è la via '
-          'diretta per arrivarci.',
-      'In fondo c\'è {futuro}: è lì che questo gesto ti accompagna, un giorno '
-          'alla volta.',
-      'La lettura si chiude con {futuro}: il gesto di oggi serve a restare in '
-          'cammino.',
-      '{futuro} aspetta in fondo alla stesa: fare questo adesso è il modo di '
-          'andarci incontro.',
-      'Con {futuro} in fondo alla lettura, ogni gesto fatto adesso va nella '
-          'direzione giusta.',
-      'Dove la lettura si chiude c\'è {futuro}: questo gesto è il primo tratto '
-          'per arrivarci.',
-      '{futuro} sta in fondo alla stesa e dice che lo sforzo ha un approdo '
-          'vero.',
-      'L\'ultima carta è {futuro}, fra le più aperte: questo gesto ti tiene '
-          'sulla sua linea.',
-    ],
-    NaturaDellaCarta.favore: [
-      '{futuro} chiude la lettura su una nota concreta: questo gesto è il modo '
-          'di raggiungerla.',
-      'In fondo c\'è {futuro}: un risultato che somiglia al lavoro che ci metti '
-          'adesso.',
-      'La lettura si chiude con {futuro}: cose che si vedono e si contano, se '
-          'cominci.',
-      '{futuro} aspetta in fondo alla stesa: è il seguito di questo gesto, non '
-          'una sorpresa.',
-      'Con {futuro} in fondo alla lettura, il seguito dipende più da te che '
-          'dalle circostanze.',
-      'Dove la lettura si chiude c\'è una cosa che si costruisce e non capita: '
-          '{futuro}.',
-      '{futuro} sta in fondo alla stesa: una carta piccola e dritta, che chiede '
-          'solo costanza.',
-      'L\'ultima carta è {futuro}: un risultato alla portata, se il gesto si fa '
-          'adesso.',
-    ],
-    NaturaDellaCarta.prova: [
-      '{futuro} chiude la lettura con una prova: questo gesto serve a renderla '
-          'più leggera.',
-      'In fondo c\'è {futuro}: un tratto difficile, più leggero se questo gesto '
-          'viene prima.',
-      '{futuro} chiude la lettura rimandando, non negando: il gesto di oggi '
-          'prepara proprio quel momento.',
-      '{futuro} aspetta in fondo: non toglie l\'arrivo, sposta la data e il '
-          'gesto la prepara.',
-      'Con {futuro} in fondo alla lettura, il gesto vale doppio: ti prepara '
-          'alla prova.',
-      'In chiusura c\'è {futuro}: una prova che costa meno se ti muovi fin da '
-          'subito.',
-      '{futuro} sta in fondo: una carta di traverso, che chiede preparazione e '
-          'non paura.',
-      'L\'ultima carta è {futuro}: conviene guardarla adesso, finché c\'è tempo '
-          'per scegliere come arrivarci.',
-    ],
-    NaturaDellaCarta.attrito: [
-      '{futuro} chiude la lettura su un attrito piccolo: questo gesto lo toglie '
-          'prima che cresca.',
-      'In fondo c\'è {futuro}: un avviso utile, che questo gesto rende innocuo '
-          'per tempo.',
-      'La lettura si chiude con {futuro}: un granello da togliere adesso, '
-          'finché è ancora piccolo.',
-      '{futuro} aspetta in fondo alla stesa e si smonta appena qualcuno ci '
-          'guarda davvero.',
-      'Con {futuro} in fondo alla lettura, il gesto di oggi evita un inciampo '
-          'domani.',
-      'Dove la lettura si chiude c\'è {futuro}: se ti muovi adesso, '
-          'quell\'intralcio non lo incontri.',
-      '{futuro} sta in fondo alla stesa: avverte e non minaccia. E un avviso '
-          'si usa.',
-      'L\'ultima carta è {futuro}: la più facile da smentire, con un gesto '
-          'come questo.',
-    ],
-  };
-
-  /// **LA RAGIONE, otto e valgono per ogni gesto, quando la stesa non ha un
-  /// approdo** (la carta sola). Dicono **perche' quel gesto sposta
-  /// qualcosa**, e nessuna promette niente. **Fascia: da 14 a 16 parole.**
-  static const List<String> percheFarlo = [
-    'Qui conta muoversi più che trovare il momento perfetto, che arriva dopo '
-        'il primo gesto.',
-    'Una cosa finita vale più di molte iniziate: è lei a cambiare davvero la '
-        'situazione.',
-    'Un gesto piccolo fatto oggi sposta più di un gesto grande rimandato a un '
-        'giorno migliore.',
-    'Finché resta nella testa è un pensiero; appena esce diventa una cosa che '
-        'si può maneggiare.',
-    'È la mossa che costa meno fra tutte quelle che stai considerando in '
-        'questi giorni.',
-    'Serve a togliere l\'incertezza. E l\'incertezza, più della fatica, è la '
-        'parte che stanca.',
-    'Da lì in poi la situazione smette di dipendere solo dall\'attesa e torna '
-        'nelle tue mani.',
-    'È un gesto semplice, ma cambia le cose più di molti giorni passati a '
-        'ragionarci sopra.',
-  ];
+  // **LAPIDI dell'ordine GA voci 03, 05 e 07 (commit cb5fa8e3)**:
+  // `verdettiDelCuore`, `cosaDiceIlPresente`, `cosaVuolDire`,
+  // `titoliDelPresente`, `aggancioDellAzione`, `gestoPerNatura`,
+  // `formeDellApprodo`, `percheFarlo`, `senzaRipetere` e `riempi`. Erano le
+  // otto forme per natura di ogni fessura: *"Con {presente} le carte,
+  // {inLente}, indicano una situazione che gira a tuo favore"*, chiunque fosse
+  // la carta. Le frasi che il lettore cieco ha trovato ripetute (*"Su questa
+  // questione il tempo lavora dalla tua parte, a patto di cominciare"* sette
+  // volte su quaranta) venivano da li'.
 
   /// **UNA FORMA CHE VALE PER QUALUNQUE STESA.** Ordine FK aggiunta 2 voce
   /// A8: non nomina il numero tre ne' le posizioni del passato, del presente
-  /// e del futuro (i segnaposto fra graffe non contano, li riempie la stesa).
-  /// Dall'ordine GA ogni forma della voce vale ovunque: la stesa a una, a
-  /// quattro e a dieci carte hanno la stessa varieta' di quella a tre.
+  /// e del futuro (i segnaposto fra graffe non contano).
   static bool valeOvunque(String forma) => !RegExp(
           r'(?<![A-Za-zÀ-ÿ])(tre|passato|presente|futuro|spalle)(?![A-Za-zÀ-ÿ])',
           caseSensitive: false)
       .hasMatch(forma.replaceAll(RegExp(r'\{\w+\}'), ''));
 
-  /// **SCEGLIE UNA FORMA SENZA RIPETERE UN'IMMAGINE GIA' DETTA.** Ordine DS
-  /// voce 09.
-  ///
-  /// Il filo sceglie come sempre, e il filo consuma come sempre: le letture
-  /// che non incontravano una ripetizione restano identiche al carattere. Se
-  /// la forma scelta usa una figura che un altro pezzo ha gia' detto, si
-  /// passa alla forma successiva della stessa tavola che non la usa. Solo se
-  /// nessuna forma della tavola e' libera si tiene quella scelta: una tavola
-  /// intera sulla stessa figura sarebbe un difetto della tavola, e la guardia
-  /// lo direbbe. Le forme di una tavola stanno tutte nella stessa fascia di
-  /// parole, quindi il salto non sposta la misura.
-  static String senzaRipetere(
-      FiloDellaVoce filo, List<String> forme, Set<String> usate,
-      {List<String>? pezzi}) {
-    final scelta = filo.scegli(forme);
-    final da = forme.indexOf(scelta);
-    // L'impianto e' uno solo dall'ordine DT voce 27: qui gli si danno le forme
-    // nell'ordine del filo e le figure come marche.
-    final tenuta = SceltaSenzaRipetere.primoLibero(
-          [
-            for (var k = 0; k < forme.length; k++)
-              forme[(da + k) % forme.length]
-          ],
-          FigureDellaStesa.di,
-          usate,
-        ) ??
-        scelta;
-    usate.addAll(FigureDellaStesa.di(tenuta));
-    pezzi?.add(tenuta);
-    return tenuta;
-  }
-
   /// **LE OTTO APERTURE DI UNA POSIZIONE.** Ordine DF voce 02, misura C.
-  ///
-  /// **Era una sola, ed era la lente dell'argomento**: *"Sul denaro che ti
-  /// riguarda,"* apriva **tutte e tre** le posizioni di **tutte** le cento
-  /// letture. Quindici parole identiche per testo, trecento sequenze comuni
-  /// regalate a ogni coppia, e nessuna di quelle sequenze diceva niente.
   static const List<String> apertureDellaPosizione = [
     'In questa posizione',
     'Qui la carta dice che',
@@ -759,11 +203,8 @@ abstract final class VoceDellaStesa {
     'In questo tratto della lettura',
   ];
 
-  /// **LA RIGA DEL CIELO VERO**, in un punto solo: la dice la lettura di casa
-  /// e, dall'ordine EQ voce 04, anche quella scritta dal modello. Ordine DS
-  /// voce 09: dice a cosa si accosta il cielo, le tre carte. Dall'ordine GA
-  /// non sta nei paragrafi del responso: va nel "Da dove viene", e la mette
-  /// `TarotReading`.
+  /// **LA RIGA DEL CIELO VERO**, in un punto solo. Dall'ordine GA va nel "Da
+  /// dove viene", e la mette `TarotReading`.
   static String rigaDelCielo(String cielo) =>
       'Accanto a queste tre carte c\'è il cielo di oggi. $cielo';
 
@@ -773,92 +214,568 @@ abstract final class VoceDellaStesa {
     return filo.scegli(apertureDellaPosizione);
   }
 
-  // **IL TITOLO DELLA SINTESI DELLA CARTA NON C'E' PIU'.** Ordine FK
-  // aggiunta voci A1 e A2. Qui viveva `titolo(spread)`, la sintesi della
-  // carta del Presente senza il punto (ordine DF voci 04.5 e 04.9): era il
-  // significato di una carta e non la risposta alla domanda. Il titolo adesso
-  // e' `TarotReading.titolo`, quello del modello o [titoliDelPresente].
+  // --- LE FORME DELLA RISPOSTA ---
+
+  /// **LE PAROLE DEI TEMI SENSIBILI**: la prima frase, che risponde dicendo
+  /// che le carte non decidono e chi decide (ordine S voce 17).
+  static const Map<TemaSensibile, String> avvisiSensibili = {
+    TemaSensibile.salute: 'Le carte non dicono come va un intervento o una '
+        'cura: decide il tuo medico.',
+    TemaSensibile.legge:
+        'Le carte non dicono come finisce una causa: decide il tuo avvocato.',
+    TemaSensibile.denaro: 'Le carte non dicono se un investimento conviene: '
+        'chiedi a un consulente abilitato.',
+  };
+
+  /// I titoli dei temi sensibili.
+  static const Map<TemaSensibile, String> titoliSensibili = {
+    TemaSensibile.salute: 'Qui decide il medico, non le carte',
+    TemaSensibile.legge: 'Qui decide un avvocato, non le carte',
+    TemaSensibile.denaro: 'Qui serve un consulente, non le carte',
+  };
+
+  /// **IL LIMITE DETTO IN BREVE**, in coda alla risposta su un tema
+  /// sensibile.
+  static const String avvisoBreveSensibile =
+      'Nessuna carta sostituisce quel parere.';
+
+  /// **LA DOMANDA DOPPIA**: lo si dice prima del verdetto.
+  static const String avvisoDoppia = 'Le domande sono due: le carte rispondono '
+      'alla prima, la seconda chiede una stesa sua.';
+
+  /// **E NEL "COSA FARE"**, per la domanda doppia e per la vaga.
+  static const String gestoDoppia =
+      'Per l\'altra domanda fai una stesa a parte, con quella sola.';
+  static const String gestoVaga = 'Per una risposta precisa, rifai la domanda '
+      'nominando la cosa che ti sta a cuore.';
+
+  /// **LE FRASI DI SERVIZIO**, uguali per scelta: gli avvisi dei temi
+  /// sensibili, della domanda doppia e della vaga. La guardia della frase
+  /// fissa le conta a parte, perche' devono essere sempre le stesse.
+  static List<String> get frasiDiServizio => [
+        ...avvisiSensibili.values,
+        avvisoBreveSensibile,
+        avvisoDoppia,
+        gestoDoppia,
+        gestoVaga,
+      ];
+
+  /// **DOVE STA UNA CARTA**, detto in poche parole dentro una frase.
+  static String doveSta(SpreadPosition p) => switch (p) {
+        SpreadPosition.passato => 'alle spalle',
+        SpreadPosition.presente => 'nel presente',
+        SpreadPosition.futuro => 'davanti a te',
+        SpreadPosition.cartaSola => 'sul tavolo',
+        SpreadPosition.consultante => 'su di te',
+        SpreadPosition.lato => 'di lato',
+        SpreadPosition.esito => 'all\'esito',
+        SpreadPosition.copre => 'al centro',
+        SpreadPosition.attraversa => 'di traverso',
+        SpreadPosition.corona => 'sopra',
+        SpreadPosition.sotto => 'alla base',
+        SpreadPosition.dietro => 'dietro di te',
+        SpreadPosition.seStesso => 'su di te',
+        SpreadPosition.laCasa => 'intorno a te',
+        SpreadPosition.speranzeOTimori => 'fra speranze e timori',
+      };
+
+  static String _maiuscola(String s) =>
+      s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
+
+  /// **IL VERBO ACCORDATO AL NOME DELLA CARTA**: Gli Amanti e' il solo nome
+  /// plurale del mazzo (`ReversedAgreement.maschilePlurale`), e *"Gli Amanti
+  /// dice"* si legge subito come un errore.
+  static String _v(DrawnCard c, String singolare, String plurale) =>
+      c.card.reversedAgreement == ReversedAgreement.maschilePlurale
+          ? plurale
+          : singolare;
+
+  /// **LA TERZA FORMA DEL VERDETTO**: *"Per ora no: X dice che..."* si dice
+  /// anche *"X risponde: per ora no, perche'..."*. La carta e la risposta
+  /// restano nella prima frase; due letture con la stessa carta chiave non
+  /// aprono sempre allo stesso modo.
+  static List<String> _conLaTerzaForma(List<String> frasi, DrawnCard chiave) {
+    final n = chiave.displayName;
+    final k = LaCartaNellaRisposta.di(chiave);
+    final mezzo = ': $n ${_v(chiave, 'dice', 'dicono')} che ${k.dice}.';
+    return [
+      ...frasi,
+      for (final f in frasi)
+        if (f.endsWith(mezzo) &&
+            !f.startsWith('Le carte') &&
+            !f.startsWith('La domanda') &&
+            !f.startsWith('In generale'))
+          '$n ${_v(chiave, 'risponde', 'rispondono')}: '
+              '${f[0].toLowerCase()}${f.substring(1, f.length - mezzo.length)}, '
+              'perché ${k.dice}.',
+    ];
+  }
+
+  /// **IL VERDETTO**, la prima frase che risponde, per la forma della domanda
+  /// [d] e il tono della carta chiave [chiave]. [azioni] sono i gesti della
+  /// situazione della domanda: a una domanda sul modo risponde il primo.
+  static _Verdetto _verdetto(LaDomandaLetta d, DrawnCard chiave,
+      TarotTopic argomento, List<String> azioni) {
+    final k = LaCartaNellaRisposta.di(chiave);
+    final n = chiave.displayName;
+    final dice = k.dice;
+    final via = k.via;
+    final tema = k.tema;
+    final diceV = _v(chiave, 'dice', 'dicono');
+    String perche(String apertura) => '$apertura: $n $diceV che $dice.';
+    String percheB(String apertura) =>
+        '$apertura, perché $n ${_v(chiave, 'indica', 'indicano')} che $dice.';
+    final prima = d.doppia ? avvisoDoppia : null;
+
+    if (d.sensibile != null) {
+      return _Verdetto(
+        frasi: [avvisiSensibili[d.sensibile]!],
+        // Il perche' della carta non entra: detto accanto a un intervento
+        // o a una causa, *"le cose riescono"* suonerebbe come un esito. La
+        // carta dice come attraversarla, col suo gesto.
+        dopo: '$n ${_v(chiave, 'parla', 'parlano')} del modo di viverla e non '
+            'dell\'esito; ${_v(chiave, 'chiede', 'chiedono')} questo: $via.',
+        titolo: titoliSensibili[d.sensibile]!,
+        viaUsata: true,
+      );
+    }
+    final tono = k.tono;
+    if (d.vaga) {
+      return _Verdetto(
+        frasi: [
+          perche(d.forma == FormaDellaDomanda.siNo
+              ? switch (tono) {
+                  TonoDellaCarta.favorevole =>
+                    'In generale sì, anche se la domanda è ampia',
+                  TonoDellaCarta.condizionato =>
+                    'In generale sì, a una condizione, ma la domanda è ampia',
+                  TonoDellaCarta.sfavorevole =>
+                    'In generale non ancora, anche se la domanda è ampia',
+                }
+              : switch (tono) {
+                  TonoDellaCarta.favorevole => 'La domanda è ampia, quindi sul '
+                      'periodo le carte vedono una cosa buona',
+                  TonoDellaCarta.condizionato =>
+                    'La domanda è ampia, quindi sul '
+                        'periodo le carte vedono una cosa in sospeso',
+                  TonoDellaCarta.sfavorevole =>
+                    'La domanda è ampia, quindi sul '
+                        'periodo le carte vedono una difficoltà',
+                }),
+        ],
+        prima: prima,
+        titolo: 'Il periodo porta $tema',
+      );
+    }
+    final distacco = d.distacco &&
+        (d.forma == FormaDellaDomanda.siNo ||
+            d.forma == FormaDellaDomanda.scelta);
+    if (distacco) {
+      if (k.distacco || (tono == TonoDellaCarta.favorevole && !k.legame)) {
+        return _Verdetto(
+          frasi: [
+            perche('Sì, le carte sostengono questo passo'),
+            percheB('Sì, è il momento di andare'),
+          ],
+          prima: prima,
+          titolo: 'Sì, conta $tema',
+        );
+      }
+      return switch (tono) {
+        TonoDellaCarta.favorevole => _Verdetto(
+            frasi: [
+              perche('Per ora no, perché il legame ha ancora valore'),
+              percheB('Per ora no, il legame vale ancora'),
+            ],
+            prima: prima,
+            titolo: 'Ora no, conta $tema',
+          ),
+        TonoDellaCarta.condizionato => _Verdetto(
+            frasi: [
+              perche('Non ancora, prima serve una condizione'),
+              percheB('Non ancora'),
+            ],
+            prima: prima,
+            titolo: 'Non ancora, pesa $tema',
+          ),
+        TonoDellaCarta.sfavorevole => _Verdetto(
+            frasi: [
+              perche('Non decidere adesso'),
+              percheB('Non decidere adesso'),
+            ],
+            prima: prima,
+            titolo: 'Non adesso, pesa $tema',
+          ),
+      };
+    }
+    switch (d.forma) {
+      case FormaDellaDomanda.nessuna:
+        return _Verdetto(
+          frasi: [perche('${argomento.lente}, le carte vedono $tema')],
+          titolo: 'Le carte vedono $tema',
+        );
+      case FormaDellaDomanda.siNo when d.timore:
+        // A una domanda di timore il si' e' la cosa temuta: una carta che
+        // apre risponde no, e una che chiude non trasforma il timore in un
+        // fatto, dice che c'e' qualcosa da chiarire.
+        return switch (tono) {
+          TonoDellaCarta.favorevole => _Verdetto(
+              frasi: [
+                perche('No, le carte non vedono quello che temi'),
+                percheB('No, il timore non trova conferma'),
+              ],
+              prima: prima,
+              titolo: 'No, conta $tema',
+            ),
+          TonoDellaCarta.condizionato => _Verdetto(
+              frasi: [
+                perche('Non è detto, ma c\'è qualcosa da chiarire'),
+                percheB('Non è detto, ma va chiarito'),
+              ],
+              prima: prima,
+              titolo: 'Da chiarire, pesa $tema',
+            ),
+          TonoDellaCarta.sfavorevole => _Verdetto(
+              frasi: [
+                perche('Non come certezza, ma c\'è qualcosa da chiarire'),
+                percheB('Non come certezza, ma il disagio è reale'),
+              ],
+              prima: prima,
+              titolo: 'Da chiarire, pesa $tema',
+            ),
+        };
+      case FormaDellaDomanda.siNo:
+        return switch (tono) {
+          TonoDellaCarta.favorevole => _Verdetto(
+              frasi: [
+                perche('Sì, la tendenza è favorevole'),
+                percheB('La risposta delle carte è sì'),
+              ],
+              prima: prima,
+              titolo: 'Sì, conta $tema',
+            ),
+          TonoDellaCarta.condizionato => _Verdetto(
+              frasi: [
+                perche('Sì, ma a una condizione'),
+                percheB('Sì, se rispetti una condizione'),
+              ],
+              prima: prima,
+              titolo: 'Sì, ma pesa $tema',
+            ),
+          TonoDellaCarta.sfavorevole => _Verdetto(
+              frasi: [
+                perche('Per ora no'),
+                percheB('Così com\'è adesso no'),
+              ],
+              prima: prima,
+              titolo: 'Ora no, pesa $tema',
+            ),
+        };
+      case FormaDellaDomanda.come:
+        // A una domanda sul modo risponde un gesto: quello della situazione
+        // quando la carta apre, la condizione della carta quando apre a una
+        // condizione, la difficoltà da affrontare quando chiude.
+        final azione = azioni.first;
+        final minuscola = azione[0].toLowerCase() + azione.substring(1);
+        return switch (tono) {
+          TonoDellaCarta.favorevole => _Verdetto(
+              frasi: ['Il modo è questo: $minuscola'],
+              dopo: 'Lo ${_v(chiave, 'sostiene', 'sostengono')} $n: $diceV '
+                  'che $dice.',
+              prima: prima,
+              titolo: 'Punta su $tema',
+              azioneUsata: azione,
+            ),
+          TonoDellaCarta.condizionato => _Verdetto(
+              frasi: ['Il modo c\'è, a una condizione: $via.'],
+              dopo: '$n $diceV che $dice.',
+              prima: prima,
+              titolo: 'Prima cura $tema',
+              viaUsata: true,
+            ),
+          TonoDellaCarta.sfavorevole => _Verdetto(
+              frasi: [
+                perche('Prima va affrontata una difficoltà'),
+                percheB('Prima c\'è una difficoltà da affrontare'),
+              ],
+              prima: prima,
+              titolo: 'Prima affronta $tema',
+            ),
+        };
+      case FormaDellaDomanda.quando:
+        return switch (tono) {
+          TonoDellaCarta.favorevole => _Verdetto(
+              frasi: [perche('Non manca molto, se la tendenza resta questa')],
+              prima: prima,
+              titolo: 'A breve, conta $tema',
+            ),
+          TonoDellaCarta.condizionato => _Verdetto(
+              frasi: [perche('Non subito, prima serve una condizione')],
+              prima: prima,
+              titolo: 'Non subito, pesa $tema',
+            ),
+          TonoDellaCarta.sfavorevole => _Verdetto(
+              frasi: [perche('Non a breve'), percheB('Non a breve')],
+              prima: prima,
+              titolo: 'Non presto, pesa $tema',
+            ),
+        };
+      case FormaDellaDomanda.cosa:
+        return _Verdetto(
+          frasi: [
+            perche(switch (tono) {
+              TonoDellaCarta.favorevole => 'Le carte vedono una cosa buona',
+              TonoDellaCarta.condizionato =>
+                'Le carte vedono una cosa ancora in sospeso',
+              TonoDellaCarta.sfavorevole => 'Le carte vedono una difficoltà',
+            }),
+          ],
+          prima: prima,
+          titolo: 'Le carte vedono $tema',
+        );
+      case FormaDellaDomanda.scelta:
+        final restare = d.sceltaFraMuoversiERestare;
+        if (restare == null) {
+          // Il criterio viene dal tono della carta chiave: l'opzione in cui
+          // c'e' cio' che la carta apre, o quella in cui non pesa cio' che
+          // la carta chiude.
+          final criterio = switch (tono) {
+            TonoDellaCarta.favorevole => 'scegli l\'opzione in cui trovi $tema',
+            TonoDellaCarta.condizionato =>
+              'scegli l\'opzione che ti lascia il tempo di capire, perché '
+                  'c\'è $tema',
+            TonoDellaCarta.sfavorevole => 'scarta l\'opzione in cui pesa $tema',
+          };
+          return _Verdetto(
+            frasi: [
+              'Le carte non scelgono al posto tuo, ma danno il criterio: '
+                  '$criterio.',
+            ],
+            dopo: 'Lo ${_v(chiave, 'indica', 'indicano')} $n, con un consiglio '
+                'preciso: $via.',
+            prima: prima,
+            titolo: 'Scegli guardando $tema',
+            viaUsata: true,
+          );
+        }
+        return switch (tono) {
+          TonoDellaCarta.favorevole => _Verdetto(
+              frasi: [perche('Le carte inclinano a muoverti')],
+              prima: prima,
+              titolo: 'Muoviti, conta $tema',
+            ),
+          TonoDellaCarta.condizionato => _Verdetto(
+              frasi: [perche('Prima di scegliere serve una condizione')],
+              prima: prima,
+              titolo: 'Prima guarda $tema',
+            ),
+          TonoDellaCarta.sfavorevole => _Verdetto(
+              frasi: [
+                perche(restare == 'aspettare'
+                    ? 'Le carte inclinano ad aspettare, per ora'
+                    : 'Le carte inclinano a restare, per ora'),
+              ],
+              prima: prima,
+              titolo: restare == 'aspettare'
+                  ? 'Aspetta, pesa $tema'
+                  : 'Resta, pesa $tema',
+            ),
+        };
+    }
+  }
+
+  /// **UNA CARTA ACCANTO AL VERDETTO**: il suo tema e il suo rapporto con la
+  /// carta chiave; l'approdo detto per cio' che e'.
+  static List<String> _altra(DrawnCard c, TonoDellaCarta tonoChiave,
+      {required bool approdo}) {
+    final a = LaCartaNellaRisposta.di(c);
+    final n = c.displayName;
+    final dove = doveSta(c.position);
+    final ce = _v(c, 'c\'è', 'ci sono');
+    if (approdo) {
+      final inizio = _maiuscola(dove);
+      return switch (a.tono) {
+        // Un approdo che apre dopo una chiave che chiude non e' una meta
+        // gia' raggiunta: dice che la cosa puo' ancora girare.
+        TonoDellaCarta.favorevole
+            when tonoChiave == TonoDellaCarta.sfavorevole =>
+          [
+            '$inizio $ce $n, cioè ${a.tema}: la cosa può ancora girare, se '
+                'cambi qualcosa adesso.',
+            '$inizio $ce $n, cioè ${a.tema}.',
+          ],
+        TonoDellaCarta.favorevole => [
+            '$inizio $ce $n, cioè ${a.tema}: è lì che la cosa può arrivare.',
+            '$inizio $ce $n, cioè ${a.tema}.',
+          ],
+        TonoDellaCarta.condizionato => [
+            '$inizio $ce $n, cioè ${a.tema}: un esito che chiede ancora un '
+                'impegno.',
+            '$inizio $ce $n, cioè ${a.tema}.',
+          ],
+        TonoDellaCarta.sfavorevole => [
+            '$inizio $ce $n, cioè ${a.tema}: un rischio da guardare adesso, '
+                'non una meta.',
+            '$inizio $ce $n, cioè ${a.tema}: un rischio, non una meta.',
+          ],
+      };
+    }
+    final verbo = switch ((tonoChiave, a.tono)) {
+      (_, TonoDellaCarta.condizionato) => null,
+      (TonoDellaCarta.favorevole, TonoDellaCarta.favorevole) ||
+      (TonoDellaCarta.sfavorevole, TonoDellaCarta.sfavorevole) =>
+        _v(c, 'Lo conferma', 'Lo confermano'),
+      (TonoDellaCarta.favorevole, TonoDellaCarta.sfavorevole) ||
+      (TonoDellaCarta.condizionato, TonoDellaCarta.sfavorevole) =>
+        _v(c, 'Lo contrasta', 'Lo contrastano'),
+      (TonoDellaCarta.sfavorevole, TonoDellaCarta.favorevole) =>
+        _v(c, 'Lo attenua', 'Lo attenuano'),
+      (TonoDellaCarta.condizionato, TonoDellaCarta.favorevole) =>
+        _v(c, 'Lo sostiene', 'Lo sostengono'),
+    };
+    if (verbo == null) {
+      return ['Accanto $ce $n $dove, con ${a.tema}: una cosa da curare.'];
+    }
+    return ['$verbo $n $dove, con ${a.tema}.'];
+  }
+
+  /// **SCEGLIE I POSTI DI UN PARAGRAFO** perche' stia fra 40 e 50 parole:
+  /// in ordine, gli obbligatori sempre e gli altri quando ci stanno, con la
+  /// prima forma libera da figure gia' dette (`SceltaSenzaRipetere`). La
+  /// prima composizione nella misura vince; i posti prima nell'elenco
+  /// vengono preferiti.
+  static List<String> _scegli(List<_Posto> posti, Set<String> usate) {
+    List<(int, String)>? trovata;
+    void cerca(int i, List<(int, String)> fin, int parole, Set<String> viste) {
+      if (trovata != null || parole > LaFormaDelResponso.massimo) return;
+      if (i == posti.length) {
+        if (parole >= LaFormaDelResponso.minimo) trovata = List.of(fin);
+        return;
+      }
+      final p = posti[i];
+      final libere = <String>[];
+      final restanti = List.of(p.forme);
+      while (restanti.isNotEmpty) {
+        final f = SceltaSenzaRipetere.primoLibero(
+            restanti, FigureDellaStesa.di, viste);
+        if (f == null) break;
+        libere.add(f);
+        restanti.remove(f);
+      }
+      // Un posto obbligatorio senza forme libere tiene comunque la sua prima
+      // forma: togliere un obbligatorio toglierebbe la risposta.
+      final forme = libere.isEmpty && p.obbligatorio ? [p.forme.first] : libere;
+      if (p.diRiserva) cerca(i + 1, fin, parole, viste);
+      if (trovata != null) return;
+      for (final f in forme) {
+        cerca(
+            i + 1,
+            [...fin, (p.lettura ?? i * 10, f)],
+            parole + LaFormaDelResponso.parole(f),
+            {...viste, ...FigureDellaStesa.di(f)});
+        if (trovata != null) return;
+      }
+      if (!p.obbligatorio && !p.diRiserva) cerca(i + 1, fin, parole, viste);
+    }
+
+    cerca(0, const [], 0, usate);
+    // Nessuna composizione nella misura: la guardia della misura lo dice.
+    // Si consegnano gli obbligatori, mai un testo tagliato.
+    final scelte = trovata == null
+        ? [
+            for (final p in posti)
+              if (p.obbligatorio) p.forme.first
+          ]
+        : [
+            for (final e in trovata!..sort((a, b) => a.$1.compareTo(b.$1))) e.$2
+          ];
+    for (final f in scelte) {
+      usate.addAll(FigureDellaStesa.di(f));
+    }
+    return scelte;
+  }
+
+  /// **LE CARTE ACCANTO ALLA CHIAVE**, in ordine: l'approdo, il cuore della
+  /// stesa, poi le altre nell'ordine di lettura.
+  static List<(DrawnCard, bool)> _accanto(
+      TarotSpread spread, DrawnCard chiave) {
+    final fuori = <(DrawnCard, bool)>[];
+    final approdo = spread.approdo;
+    if (approdo != null && !identical(approdo, chiave)) {
+      fuori.add((approdo, true));
+    }
+    for (final c in [spread.cuore, ...spread.cards]) {
+      if (identical(c, chiave)) continue;
+      if (fuori.any((e) => identical(e.$1, c))) continue;
+      fuori.add((c, false));
+    }
+    return fuori;
+  }
 
   /// **I DUE PARAGRAFI DEL RESPONSO PRINCIPALE DI CASA**, la risposta e il
-  /// "Cosa fare adesso". Ordine DF voci 02 e 04.9, ordine GA voce GA.03.
-  ///
-  /// **L'ORDINE DI LETTURA, che e' la voce DF.04.9 e adesso la GA.06.** Il
-  /// fondatore, ordine DF: *"il Consiglio apre con il verdetto e mette le
-  /// carte in fondo"*; ordine GA: *"risposte dirette immediatamente"*. La
-  /// carta che regge e' nella prima frase, e la prima frase e' la risposta.
-  ///
-  /// [domandaScritta] non entra nei paragrafi (vedi l'intestazione della
-  /// classe): la firma resta perche' i chiamanti la passano.
+  /// "Cosa fare adesso".
   static List<String> paragrafi(
     TarotSpread spread,
     TarotTopic topic, {
     String? domandaScritta,
     String? fattoDelCielo,
+    DrawnCard? chiave,
   }) {
-    final c = _componi(spread, topic, fattoDelCielo: fattoDelCielo);
+    final c = _componi(spread, topic,
+        domandaScritta: domandaScritta,
+        fattoDelCielo: fattoDelCielo,
+        chiave: chiave);
     return [c.risposta, c.cosaFare];
   }
 
-  /// **IL TITOLO DELLA LETTURA DI CASA**: quello di [titoliDelPresente] che
-  /// sta alla posizione della risposta scelta.
+  /// **IL TITOLO DELLA LETTURA DI CASA**, che e' gia' la risposta.
   static String titoloDellaLettura(
     TarotSpread spread,
     TarotTopic topic, {
     String? domandaScritta,
     String? fattoDelCielo,
+    DrawnCard? chiave,
   }) =>
-      _componi(spread, topic, fattoDelCielo: fattoDelCielo).titolo;
+      _componi(spread, topic,
+              domandaScritta: domandaScritta,
+              fattoDelCielo: fattoDelCielo,
+              chiave: chiave)
+          .titolo;
 
-  /// **IL RESPONSO PRINCIPALE DI CASA NELLA FORMA NUOVA.** Ordine GA voci
-  /// GA.03, GA.05 e GA.07, 20 ottobre 2026: quando il modello non torna, il
-  /// responso principale della stesa e' questo, il titolo, la risposta e il
-  /// "Cosa fare adesso", ogni paragrafo da 40 a 50 parole
-  /// (`LaFormaDelResponso`) in ogni composizione. La domanda di chiusura e la
-  /// riga del cielo non stanno qui: la prima resta un dato
-  /// (`TarotReading.domanda`), la seconda va nel "Da dove viene".
+  /// **IL RESPONSO PRINCIPALE DI CASA NELLA FORMA NUOVA**: il titolo, la
+  /// risposta e il "Cosa fare adesso", ogni paragrafo da 40 a 50 parole.
+  /// [chiave] e' la carta chiave della stesa; nulla, la sceglie
+  /// `TarotReading.chiaveDi`.
   static ({String titolo, String risposta, String cosaFare}) responsoDiCasa(
     TarotSpread spread,
     TarotTopic topic, {
     String? domandaScritta,
     String? fattoDelCielo,
+    DrawnCard? chiave,
   }) {
-    final c = _componi(spread, topic, fattoDelCielo: fattoDelCielo);
+    final c = _componi(spread, topic,
+        domandaScritta: domandaScritta,
+        fattoDelCielo: fattoDelCielo,
+        chiave: chiave);
     return (titolo: c.titolo, risposta: c.risposta, cosaFare: c.cosaFare);
   }
 
-  /// **I PEZZI DEL RESPONSO, uno per scelta.** Ordine DS voce 09: la guardia
-  /// delle figure li conta pezzo per pezzo, perche' un pezzo solo puo'
-  /// riprendere la sua parola (*"Un nodo si scioglie... il nodo"*) e due
-  /// pezzi diversi non devono dire la stessa immagine. Il fatto del cielo e'
-  /// un pezzo anche lui, e sta per primo: non sta piu' nei paragrafi, ma si
-  /// legge nella stessa schermata, nel "Da dove viene", e le forme scelte gli
-  /// girano intorno.
+  /// **I PEZZI DEL RESPONSO, uno per frase.** Ordine DS voce 09: la guardia
+  /// delle figure li conta pezzo per pezzo. Il fatto del cielo e' un pezzo
+  /// anche lui, e sta per primo: non sta nei paragrafi, ma si legge nella
+  /// stessa schermata, nel "Da dove viene".
   static List<String> pezzi(
     TarotSpread spread,
     TarotTopic topic, {
     String? domandaScritta,
     String? fattoDelCielo,
+    DrawnCard? chiave,
   }) =>
-      _componi(spread, topic, fattoDelCielo: fattoDelCielo).pezzi;
-
-  /// **RIEMPIE UNA FORMA**: la marca del genere prima, sul modello della
-  /// frase (ordine DL voce 02: un nome con una quadra dentro non deve
-  /// diventare una marca), poi i segnaposto. Pubblica perche' la guardia
-  /// della misura riempia le forme esattamente come le riempie la voce.
-  static String riempi(
-    String forma, {
-    required String lente,
-    String presente = '',
-    String futuro = '',
-  }) =>
-      LaMarcaDelGenere.risolvi(forma)
-          .replaceAll('{lente}', '$lente,')
-          .replaceAll('{inLente}', _minuscola(lente))
-          .replaceAll('{presente}', presente)
-          .replaceAll('{futuro}', futuro);
-
-  static String _minuscola(String s) =>
-      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
+      _componi(spread, topic,
+              domandaScritta: domandaScritta,
+              fattoDelCielo: fattoDelCielo,
+              chiave: chiave)
+          .pezzi;
 
   static ({
     String risposta,
@@ -868,56 +785,146 @@ abstract final class VoceDellaStesa {
   }) _componi(
     TarotSpread spread,
     TarotTopic topic, {
+    String? domandaScritta,
     String? fattoDelCielo,
+    DrawnCard? chiave,
   }) {
     final filo = FiloDellaVoce.daStesa(spread);
-    // **LE FIGURE GIA' DETTE, a partire dal cielo**, che non si sceglie: e'
-    // il fatto vero del giorno, e sono le forme scelte a girargli intorno.
     final cielo = fattoDelCielo?.trim() ?? '';
     final usate = FigureDellaStesa.di(cielo);
-    final pezzi = <String>[if (cielo.isNotEmpty) cielo];
-    // **LA STESA DI N CARTE, ordine FK aggiunta 2 voce A8.** Fuori dalla
-    // stesa a tre carte si scelgono solo le forme che valgono per qualunque
-    // numero di carte; dall'ordine GA lo sono tutte, e il filtro resta come
-    // cintura per la forma che un giorno non lo fosse.
-    final aTre = spread.eATreCarte;
-    String scegli(List<String> forme) {
-      final buone =
-          aTre ? forme : forme.where(valeOvunque).toList(growable: false);
-      return senzaRipetere(filo, buone.isEmpty ? forme : buone, usate,
-          pezzi: pezzi);
+    final d = LaDomandaLetta.di(domandaScritta);
+    final laChiave = chiave ?? TarotReading.chiaveDi(spread).drawn;
+    final k = LaCartaNellaRisposta.di(laChiave);
+    final n = laChiave.displayName;
+    final cartaSola = spread.cards.length == 1;
+
+    // Il filo mette in ordine le forme: la stessa stesa da' sempre lo stesso
+    // testo, due stese diverse cominciano da forme diverse.
+    List<String> inOrdine(List<String> forme) {
+      if (forme.length < 2) return forme;
+      final primo = forme.indexOf(filo.scegli(forme));
+      return [
+        for (var i = 0; i < forme.length; i++)
+          forme[(primo + i) % forme.length],
+      ];
     }
 
-    final natura = NaturaDellaCarta.di(spread.cuore);
-    final approdo = spread.approdo;
-    String riempiQui(String forma) => riempi(forma,
-        lente: topic.lente,
-        presente: spread.cuore.displayName,
-        futuro: approdo?.displayName ?? '');
+    final accanto = _accanto(spread, laChiave);
+    final tutteLeAzioni = inOrdine(d.azioni(topic));
+    final v = _verdetto(d, laChiave, topic, tutteLeAzioni);
 
-    // --- LA RISPOSTA: il verdetto, che cosa dice la carta che regge, che
-    // cosa vuol dire per la questione ---
-    final verdetto = riempiQui(scegli(verdettiDelCuore[natura]!));
-    final formeDelCuore = cosaDiceIlPresente[natura]!;
-    final formaDetta = scegli(formeDelCuore);
-    final titolo =
-        titoliDelPresente[natura]![formeDelCuore.indexOf(formaDetta)];
-    final vuolDire = riempiQui(scegli(cosaVuolDire[natura]!));
-    final risposta = '$verdetto ${riempiQui(formaDetta)} $vuolDire';
+    // --- LA RISPOSTA ---
+    var viaUsata = v.viaUsata;
+    final postiRisposta = <_Posto>[
+      if (v.prima != null) _Posto([v.prima!], obbligatorio: true),
+      _Posto(
+          inOrdine(d.forma == FormaDellaDomanda.nessuna
+              ? v.frasi
+              : _conLaTerzaForma(v.frasi, laChiave)),
+          obbligatorio: true),
+      if (v.dopo != null) _Posto([v.dopo!], obbligatorio: true),
+      // La condizione della carta, detta: *"chiede prima una condizione"*
+      // senza dirla era un difetto trovato dal lettore cieco.
+      if (!viaUsata &&
+          k.tono == TonoDellaCarta.condizionato &&
+          d.sensibile == null)
+        _Posto(inOrdine([
+          switch (d.forma) {
+            FormaDellaDomanda.siNo ||
+            FormaDellaDomanda.quando ||
+            FormaDellaDomanda.scelta =>
+              'La condizione è questa: ${k.via}.',
+            _ => 'Il consiglio della carta è questo: ${k.via}.',
+          },
+          'Prima, però, ${k.via}.',
+          'Prima serve questo: ${k.via}.',
+        ])),
+      // La carta sola non ha altre carte da mettere accanto: dice come
+      // sostenere o come cambiare la tendenza.
+      if (cartaSola &&
+          !viaUsata &&
+          v.azioneUsata == null &&
+          k.tono != TonoDellaCarta.condizionato &&
+          d.sensibile == null)
+        _Posto([
+          k.tono == TonoDellaCarta.sfavorevole
+              ? 'Per cambiare questa tendenza, ${k.via}.'
+              : 'Per sostenere questa tendenza, ${k.via}.',
+        ]),
+      for (final (c, approdo) in accanto.take(3))
+        _Posto(_altra(c, k.tono, approdo: approdo)),
+      // Sui temi sensibili il limite si ripete in breve: nessuna carta
+      // prende il posto di chi e' competente.
+      if (d.sensibile != null) const _Posto([avvisoBreveSensibile]),
+      // Il tema della carta chiave detto per nome, e il suo consiglio quando
+      // il "Cosa fare" non lo porta gia': frasi che stanno solo sotto questa
+      // carta. LAPIDE: "X e' la carta chiave di questa stesa", "X e'
+      // l'unica carta uscita: decide tutto" e "E' cio' che X mostra adesso:
+      // la direzione e' buona", che col nome tolto erano la stessa frase
+      // sotto qualunque carta.
+      _Posto(
+          inOrdine([
+            'Al centro c\'è ${k.tema}: è questo che decide la risposta.',
+            'Il punto è ${k.tema}: da questo dipende la risposta.',
+            'Al centro c\'è ${k.tema}.',
+          ]),
+          diRiserva: true),
+      if (!viaUsata && !cartaSola && d.sensibile == null)
+        _Posto(['Il suo consiglio è chiaro: ${k.via}.']),
+    ];
+    final scelteRisposta = _scegli(postiRisposta, usate);
+    if (scelteRisposta.any((f) => f.contains(k.via))) viaUsata = true;
 
-    // --- IL "COSA FARE ADESSO": l'aggancio, il gesto, l'approdo ---
-    final aggancio = riempiQui(scegli(aggancioDellAzione));
-    final gesto = riempiQui(scegli(gestoPerNatura[natura]!));
-    final perche = approdo == null
-        ? riempiQui(scegli(percheFarlo))
-        : riempiQui(scegli(formeDellApprodo[NaturaDellaCarta.di(approdo)]!));
-    final cosaFare = '$aggancio $gesto $perche';
+    // --- IL "COSA FARE ADESSO" ---
+    final azioni = [
+      for (final a in tutteLeAzioni)
+        if (a != v.azioneUsata) a,
+    ];
+    final nonFare = inOrdine(d.nonFare(topic));
+    final postiFare = <_Posto>[
+      if (d.doppia) const _Posto([gestoDoppia], obbligatorio: true),
+      if (d.vaga) const _Posto([gestoVaga], obbligatorio: true),
+      // **IL GESTO DI UN'ALTRA CARTA**, preferito a quello della chiave, che
+      // ha gia' il suo verdetto nella risposta: senza, il "Cosa fare" di due
+      // letture con la stessa domanda e la stessa carta chiave sarebbe lo
+      // stesso (la misura D di `cento_letture_uguali_test.dart` l'ha presa:
+      // otto volte lo stesso paragrafo su cento letture, e la C oltre il
+      // quaranta per cento). La carta sola, che non ha un'altra carta, porta
+      // il suo gesto quando la risposta non lo dice gia'. LAPIDE: "E' il modo
+      // pratico di stare dentro cio' che X chiede", che col nome tolto era la
+      // stessa frase sotto qualunque carta sola.
+      if (accanto.isNotEmpty)
+        _Posto([
+          '${accanto.first.$1.displayName} ${doveSta(accanto.first.$1.position)} '
+              '${_v(accanto.first.$1, 'aggiunge', 'aggiungono')} un gesto: '
+              '${LaCartaNellaRisposta.di(accanto.first.$1).via}.',
+        ], lettura: 30),
+      if (!viaUsata)
+        _Posto(
+            inOrdine([
+              'Il gesto che $n ${_v(laChiave, 'chiede', 'chiedono')} è questo: '
+                  '${k.via}.',
+              'Prima di tutto, ${k.via}.',
+              'In pratica, ${k.via}.',
+            ]),
+            lettura: 20),
+      if (azioni.isNotEmpty) _Posto(azioni, obbligatorio: true, lettura: 50),
+      _Posto(nonFare, obbligatorio: true, lettura: 90),
+      if (azioni.length > 1) _Posto([azioni[1]], lettura: 60),
+      // La seconda cosa da non fare e il terzo gesto vengono per ultimi:
+      // con piu' frasi della domanda, due letture con la stessa domanda si
+      // somiglierebbero per meta' riquadro.
+      if (nonFare.length > 1)
+        _Posto([nonFare[1]], lettura: 95, diRiserva: true),
+      if (azioni.length > 2) _Posto([azioni[2]], lettura: 70, diRiserva: true),
+    ];
+    final scelteFare = _scegli(postiFare, usate);
 
     return (
-      risposta: risposta,
-      cosaFare: cosaFare,
-      pezzi: pezzi,
-      titolo: titolo,
+      risposta: scelteRisposta.join(' '),
+      cosaFare: scelteFare.join(' '),
+      pezzi: [if (cielo.isNotEmpty) cielo, ...scelteRisposta, ...scelteFare],
+      titolo: v.titolo,
     );
   }
 }

@@ -377,7 +377,7 @@ List<Map<String, Object?>> campioniDeiTarocchi() {
         'simboli': [
           for (final c in s.cards)
             {
-              'posizione': c.position.label,
+              'posizione': c.position.etichetta,
               'carta': c.card.name,
               'verso': c.reversed ? 'rovesciata' : 'dritta',
               'significatoDelVerso': c.summary,
@@ -394,7 +394,7 @@ List<Map<String, Object?>> campioniDeiTarocchi() {
             : [
                 for (final p in r.posizioni)
                   {
-                    'posizione': p.drawn.position.label,
+                    'posizione': p.drawn.position.etichetta,
                     'carta': p.drawn.displayName,
                     ..._pezzi(p.responso!),
                   }

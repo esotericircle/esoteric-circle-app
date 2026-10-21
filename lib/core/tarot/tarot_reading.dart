@@ -227,7 +227,6 @@ class TarotReading {
     String? mazzo,
     String? nomeDellaStesa,
   }) {
-    final cartaSola = spread.cards.length == 1 ? posizioni.single : null;
     final lunga = depth == AnswerDepth.profonda &&
         dalModello != null &&
         dalModello.approfondimento.isNotEmpty;
@@ -242,18 +241,21 @@ class TarotReading {
         contemplazione: eLunga ? chiave.drawn : null,
         cielo: fattoDelCielo);
     if (dalModello == null) {
-      if (cartaSola != null) {
-        final r = cartaSola.responso!;
-        return ResponsoInterpretato(
-          arte: ArteInterpretata.tarocchi,
-          titolo: r.titolo,
-          risposta: r.risposta,
-          cosaFare: r.cosaFare,
-          daDoveViene: fonte,
-        );
-      }
+      // **LA CARTA SOLA PASSA DALLA VOCE ANCHE LEI**, ordine GA voce GA.06,
+      // 21 ottobre 2026. LAPIDE: il responso principale della stesa a una
+      // carta era il responso della carta dal corpus (titolo, paragrafo e
+      // cosa fare della posizione `cartaSola`). Il lettore cieco ha trovato
+      // che in nove stese a una carta su dieci quel paragrafo descriveva la
+      // carta senza rispondere alla domanda (*"L'abitudine fa da cinghia a
+      // un peso che non ti riguarda"* a chi chiede di una promozione). Il
+      // corpus della carta descrive la carta e resta suo; la risposta alla
+      // domanda la compone la voce, con la carta come carta chiave. Resta
+      // un blocco solo per la stessa carta (voce GA.05). PADRE: ordine GA
+      // voci 03 e 05, commit 8208cbcf.
       final casa = VoceDellaStesa.responsoDiCasa(spread, lente,
-          domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
+          domandaScritta: domandaScritta,
+          fattoDelCielo: fattoDelCielo,
+          chiave: chiave.drawn);
       return ResponsoInterpretato(
         arte: ArteInterpretata.tarocchi,
         titolo: _senzaPunto(casa.titolo),
@@ -297,10 +299,10 @@ class TarotReading {
       t = '';
     }
     if (t.isEmpty) {
-      t = spread.cards.length == 1
-          ? LeCarteNellaPosizione.titoloDi(spread.cards.single)
-          : VoceDellaStesa.titoloDellaLettura(spread, topic,
-              domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo);
+      t = VoceDellaStesa.titoloDellaLettura(spread, topic,
+          domandaScritta: domandaScritta,
+          fattoDelCielo: fattoDelCielo,
+          chiave: chiaveDi(spread).drawn);
     }
     return _senzaPunto(t);
   }
@@ -324,7 +326,14 @@ class TarotReading {
       String? cielo}) {
     final carte = [
       for (final d in spread.cards)
-        '${d.displayName} (${d.position.label.toLowerCase()})',
+        // **L'ETICHETTA, NON IL NOME CON LA MARCA**, ordine GA voce GA.06:
+        // `label` porta la marca del genere a tre vie e arrivava a video
+        // grezza, *"La Papessa ([te stesso|te stessa|tu])"*, in tutte e
+        // dieci le Croci Celtiche del lettore cieco. PADRE: ordine FK
+        // aggiunta voce A2 (commit 42e1fd68), che ha scritto la riga col
+        // `label` dopo che l'ordine FI voce 05 (commit 6daf8be5) ci aveva
+        // messo la marca.
+        '${d.displayName} (${d.position.etichetta.toLowerCase()})',
     ].join(', ');
     final dove = [
       if (mazzo != null && mazzo.trim().isNotEmpty) 'Mazzo ${mazzo.trim()}',

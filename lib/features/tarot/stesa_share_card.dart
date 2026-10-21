@@ -64,7 +64,7 @@ class StesaShareCard extends StatelessWidget {
       // La scala e' dichiarata, ed e' uno: la card vive dentro
       // `CardAMisuraFissa`, che la scala del testo la toglie.
       final pittore = TextPainter(
-        text: TextSpan(text: p.label.toUpperCase(), style: stile),
+        text: TextSpan(text: p.etichetta.toUpperCase(), style: stile),
         textDirection: TextDirection.ltr,
         textScaler: TextScaler.noScaling,
         maxLines: 1,
@@ -146,7 +146,7 @@ class StesaShareCard extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: larghezzaDellePosizioni(palette),
-                      child: Text(drawn.position.label.toUpperCase(),
+                      child: Text(drawn.position.etichetta.toUpperCase(),
                           key: Key('card_posizione_${drawn.position.name}'),
                           maxLines: 1,
                           softWrap: false,

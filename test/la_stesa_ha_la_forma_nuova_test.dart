@@ -23,6 +23,7 @@ import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
@@ -121,14 +122,18 @@ void main() {
                   }
                 }
                 // La stesa a una carta: il responso principale di casa e'
-                // quello della carta, senza un secondo blocco.
+                // quello della carta, senza un secondo blocco. **Dall'ordine
+                // GA voce GA.06** lo compone la voce con la carta come carta
+                // chiave, perche' risponda alla domanda (LAPIDE: "e' il
+                // responso della carta dal corpus", che in nove stese su
+                // dieci descriveva la carta senza rispondere).
                 if (tipo == TarotSpreadType.unaCarta && dalModello == null) {
-                  final c = r.posizioni.single.responso!;
-                  if (r.principale.titolo != c.titolo ||
-                      r.principale.risposta != c.risposta ||
-                      r.principale.cosaFare != c.cosaFare) {
+                  final casa = VoceDellaStesa.responsoDiCasa(s, topic,
+                      chiave: s.cards.single);
+                  if (r.principale.risposta != casa.risposta ||
+                      r.principale.cosaFare != casa.cosaFare) {
                     guasti.add('$dove: il responso di casa della carta sola '
-                        'non e\' quello della carta');
+                        'non e\' quello della voce sulla sua carta');
                   }
                 }
               }

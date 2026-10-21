@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/tarot/domanda_della_persona.dart';
+import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
-import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -60,38 +60,48 @@ void main() {
   // l'ultima prova di questo file (la schermata passa la domanda al motore).
   //
   // **LA LEGGE DEL FONDATORE RESTA**, *"il responso ha alcun riferimento alla
-  // mia domanda, le risposte sono generiche"*, e la grandezza misurata
-  // diventa questa: la domanda sceglie la lente, e **la lente sta nella
-  // prima frase della risposta**, che e' la frase che risponde (GA.06).
-  test('la domanda scritta porta la sua lente nella prima frase del responso',
-      () {
-    final casi = <(String, TarotTopic)>[
+  // mia domanda, le risposte sono generiche"*.
+  //
+  // **LA GRANDEZZA MISURATA CAMBIA DI NUOVO, ordine GA voce GA.06, 21 ottobre
+  // 2026.** LAPIDE: "la lente della domanda sta nella prima frase". Il
+  // lettore cieco ha trovato proprio quella lente in testa alla risposta
+  // anche quando era sbagliata (*"sul ritorno che aspetti"* su una causa
+  // contro l'ex socio, *"sul lavoro che cerchi"* su un investimento), e una
+  // lente in testa non e' una risposta. Adesso la domanda entra in due modi,
+  // e si misurano tutti e due: **la prima frase risponde nella forma della
+  // domanda** (a un si' o no risponde si', no o non ancora), e **il "Cosa
+  // fare adesso" porta il gesto della sua situazione** (`LaDomandaLetta`).
+  test('la domanda scritta decide la forma della risposta e il suo gesto', () {
+    final casi = <(String, Situazione)>[
       (
         'Devo lasciare il mio lavoro per aprire una libreria?',
-        TarotTopic.momentoCheVivo
+        Situazione.lasciareIlLavoro
       ),
-      ('Tornera da me il mio ex fidanzato?', TarotTopic.momentoCheVivo),
-      ('Il mio compagno mi sta nascondendo qualcosa?', TarotTopic.amoreQuadro),
+      ('Tornera da me il mio ex fidanzato?', Situazione.ritorno),
+      ('Il mio compagno mi sta nascondendo qualcosa?', Situazione.fiducia),
     ];
+    // Non `\b`: in Dart non vede le lettere accentate, e "sì" sfuggirebbe.
+    final risponde = RegExp(
+        r'(^|: |, )(sì|no|per ora no|non ancora|non decidere)(?![A-Za-zÀ-ÿ])',
+        caseSensitive: false);
     final guasti = <String>[];
     var guardate = 0;
-    for (final (domanda, scelto) in casi) {
-      final lettura = TarotReading.of(stesa(), scelto, domandaScritta: domanda);
-      final risposta = VoceDellaStesa.responsoDiCasa(stesa(), lettura.topic,
-              domandaScritta: domanda)
-          .risposta;
+    for (final (domanda, situazione) in casi) {
+      final lettura = TarotReading.of(stesa(), TarotTopic.momentoCheVivo,
+          domandaScritta: domanda);
+      final risposta = lettura.principale.risposta;
       final i = risposta.indexOf(RegExp(r'[.!?](\s|$)'));
       final prima = i < 0 ? risposta : risposta.substring(0, i + 1);
       guardate++;
       // ignore: avoid_print
-      print('ORDINE GA VOCE 06: "$domanda" sceglie la lente '
-          '"${lettura.topic.lente}", e la prima frase dice: "$prima"');
-      if (lettura.topic == scelto) {
-        guasti.add('"$domanda" non ha scelto una lente sua');
+      print('ORDINE GA VOCE 06: "$domanda": "$prima"');
+      if (!risponde.hasMatch(prima)) {
+        guasti.add('"$domanda": la prima frase non risponde si\' o no: '
+            '"$prima"');
       }
-      if (!prima.toLowerCase().contains(lettura.topic.lente.toLowerCase())) {
-        guasti.add('"$domanda": la prima frase non porta la lente '
-            '"${lettura.topic.lente}"');
+      if (!situazione.azioni.any(lettura.principale.cosaFare.contains)) {
+        guasti.add('"$domanda": il cosa fare non porta il gesto della '
+            'situazione ${situazione.name}: "${lettura.principale.cosaFare}"');
       }
       if (risposta.contains(domanda)) {
         guasti.add('"$domanda" e\' tornata dentro il paragrafo');

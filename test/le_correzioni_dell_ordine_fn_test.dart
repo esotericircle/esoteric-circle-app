@@ -287,7 +287,9 @@ void main() {
           .readAsStringSync();
       expect(
           RegExp(r'ChatOpeners\.cartaDellaStesa\(\s*domanda,\s*'
-                  r'letta\.drawn\.position\.label')
+                  // L'etichetta risolta e non il nome con la marca del genere,
+                  // ordine GA voce GA.06 (la posizione "Te stesso").
+                  r'letta\.drawn\.position\.etichetta')
               .hasMatch(schermata),
           isTrue,
           reason: 'la bolla non passa più la domanda all\'apertura della '

@@ -962,7 +962,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sulla tua domanda sta una luce da temporale che non concede ombre: il taglio al centro è illuminato per intero, mentre nessun angolo della cosa resta fuori da quella chiarezza.
 - 2: Passa dentro la tua domanda un colpo che va da parte a parte e non si ferma a metà: entra da un lato ed esce dall'altro, lasciando la cosa aperta esattamente al centro.
-- 3: Comanda dentro la tua domanda una regola senza sconti: trova strada quello che viene chiamato col suo nome, non ne trova quello che gira attorno al punto dove fa male.
+- 3: Comanda nella tua domanda una regola senza sconti: va avanti solo ciò che chiami col suo nome, mentre resta fermo ciò che gira attorno al punto dove fa male.
 
 ### capovolta
 
@@ -1046,7 +1046,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Nella tua domanda l'aria è quella delle ore piccole, quando ogni dettaglio suona più grosso di quanto sia: in quel clima la cosa cresce senza che si aggiunga un fatto nuovo.
 - 2: Pretende attenzione continua e non la restituisce mai la forza che lavora sulla tua domanda: esige che la cosa sia ripassata ancora, mentre a ogni giro chiede un giro in più.
-- 3: Allunga le ombre di tutto quello che la tua domanda contiene una lampada accesa nella notte: le sagome diventano enormi, mentre i loro contorni restano identici a prima.
+- 3: Allunga le ombre di tutto ciò che riguarda la tua domanda, come una lampada accesa di notte: le sagome sembrano enormi, mentre i contorni restano identici a prima.
 
 ### capovolta
 

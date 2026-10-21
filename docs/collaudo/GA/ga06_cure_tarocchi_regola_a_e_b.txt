@@ -1,0 +1,119 @@
+ORDINE GA, VOCE GA.06, LA CURA DEI TAROCCHI: REGOLA B E REGOLA A
+21 ottobre 2026, worktree agent-a52411482eeb82a05, sopra il commit 1804c7d7.
+
+Ogni innesto e' stato scritto con uno script con assert (una sola occorrenza),
+verificato col grep sul file, e il file e' tornato identico (git checkout per
+i file tracciati, sha1 confrontato per gli altri).
+
+======================================================================
+REGOLA B, LE GUARDIE DELLA ZONA VISTE ROSSE PRIMA DI TOCCARE
+======================================================================
+
+Innesto B1, lib/core/tarot/voce_della_stesa.dart (sha1 prima
+f0406a43ac7f13489909786eed7dbd5b2baa55d5):
+  final cosaFare = 'INNESTO REGOLA B GA06 fai questo.';
+  grep: riga 914 "INNESTO REGOLA B GA06".
+  Rosse (14 prove in 11 file):
+  - cento_letture_uguali: CENTO CONSULTAZIONI, LE QUATTRO MISURE; IL CASO DEL
+    FONDATORE
+  - il_cielo_entra_nella_stesa: col cielo vero la lettura di casa resta in due
+    paragrafi nella misura
+  - il_consiglio_dei_tarocchi_e_la_sua_anatomia: NIENTE SI TRONCA; la RISPOSTA
+    viene prima dell AZIONE
+  - il_formato_del_responso_dei_tarocchi: GA.03 la lettura di casa e' Breve e
+    ogni paragrafo e' a misura
+  - la_guardia_della_diversita: TAROCCHI, la Stesa a tre carte
+  - la_stesa_di_n_carte: le due stese aperte si leggono anche senza modello
+  - la_stesa_ha_la_forma_nuova: ogni carta e il responso principale hanno la
+    forma di GA.03
+  - la_stesa_non_ripete_la_stessa_figura: i pezzi sono il Consiglio
+  - la_stesa_si_capisce: P.09 il consiglio nomina almeno due delle tre carte
+  - le_lunghezze_dei_responsi: la tabella delle lunghezze esiste e dice il vero
+  - quanto_e_lungo_il_consiglio: I NOMI ESTREMI; LE COMPOSIZIONI VERE
+  Ripristino: git checkout, sha1 di nuovo f0406a43...
+
+Innesto B2 (voce_della_stesa.dart) e B3 (tarot_spread.dart, sha1 prima
+e14cd7644ac1c8c0f96891b623e5a9da12822774), insieme, per le tre guardie rimaste
+verdi con B1:
+  B2: final risposta = 'INNESTO REGOLA B2 GA06 una risposta senza carta.';
+  B3: static const double reversedChance = 0.90; // INNESTO REGOLA B3 GA06
+  grep: voce_della_stesa.dart:906, tarot_spread.dart:138.
+  Rosse:
+  - la_domanda_entra_nel_responso: la domanda scritta porta la sua lente
+    nella prima frase (B2)
+  - tarot_interpretazione: Ha tutti e sette gli strati; Il consiglio parte
+    dalla lente (B2)
+  - stesa_tre_carte: Pescaggio, Il rovesciato resta la minoranza (B3)
+  Ripristino: git checkout, sha1 di nuovo quelli di prima.
+
+Innesto B4, lib/features/tarot/stesa_tre_carte_screen.dart (sha1 prima
+17eadb6c413830ca9dcdd64350447e87a545809b), sul codice di HEAD, prima di
+cambiare l'etichetta della posizione:
+  child: Text('INNESTO B4 GA06', // INNESTO REGOLA B4
+  grep: riga 3576.
+  Rossa: il_formato_del_responso_dei_tarocchi, "a video A3 e GA.05: le bolle
+  per carta col loro titolo e riquadro" (Expected: contains 'PASSATO').
+  Ripristino: git checkout, sha1 di nuovo 17eadb6c...
+
+======================================================================
+REGOLA A, LE GUARDIE NUOVE VISTE ROSSE
+======================================================================
+
+1. test/i_segnaposto_del_genere_non_arrivano_a_video_test.dart
+   Rossa sul codice di HEAD, cioe' col difetto vero (lib di HEAD rimesso con
+   git checkout, la guardia nuova accanto):
+   - nessuna lettura porta una marca grezza: 40 marche su 4960 pezzi, in 40
+     stese con la carta "Te stesso";
+   - la Croce Celtica a video: 6 marche grezze su 339 testi,
+     [TE STESSO|TE STESSA|TU] quattro volte (bolla della carta e riga della
+     posizione) e [te stesso|te stessa|tu] due volte (il "Da dove viene").
+     IL SEGNAPOSTO ARRIVAVA A VIDEO.
+   Rossa di nuovo sul codice curato con l'innesto E (tarot_reading.dart,
+   "position.label.toLowerCase()})', // INNESTO E GA06", grep riga 336): 40
+   marche nelle letture, 2 a video.
+
+2. test/la_risposta_viene_dalla_carta_test.dart, quattro prove.
+   Rosse sul codice di HEAD (difetto vero):
+   - 1. carta di dolore in un verdetto favorevole: 872 su 1920;
+   - 2. carta nominata non chiave: 170 su 240;
+   - 3. salute, legge, denaro: 831 guasti su 360 responsi;
+   - 4. frase fissa: la piu' ripetuta 28 volte su 400 (soglia 20), "Le carte
+     minori dritte parlano di cose che si vedono e si contano."
+   Rosse di nuovo sul codice curato, con quattro innesti insieme (grep):
+   - A: la_carta_nella_risposta.dart:882, Nove di Spade dritta "_f, //
+     INNESTO A GA06": prova 1 rossa, 64 su 1920;
+   - B: tarot_reading.dart:258, "chiave: spread.cuore); // INNESTO B GA06":
+     prova 2 rossa, 132 su 240;
+   - C: voce_della_stesa.dart:299, "if (d.sensibile != null && d.testo ==
+     'INNESTO C GA06')": prova 3 rossa, 466 guasti;
+   - D: voce_della_stesa.dart:749, una frase obbligatoria "Il tempo lavora
+     per te.": prova 4 rossa, 400 volte su 400.
+   Ripristino: copie salvate e sha1 confrontati (sha_prima_a.txt): OK per
+   la_carta_nella_risposta.dart, tarot_reading.dart, voce_della_stesa.dart.
+
+3. test/la_carta_nella_risposta_test.dart (nuova) e le prove riscritte
+   (quanto_e_lungo_il_consiglio, il_consiglio_dei_tarocchi_e_la_sua_anatomia,
+   la_domanda_entra_nel_responso, il_formato_del_responso_dei_tarocchi).
+   Innesti insieme sul codice curato (copie salvate, sha_prima_b.txt), grep:
+   - F: voce_della_stesa.dart:886, una frase obbligatoria "INNESTO F GA06 una
+     frase lunga..." nel cosa fare;
+   - G: la_carta_nella_risposta.dart:886, il gesto del Nove di Spade con la
+     figura "passo" ("un passo alla volta");
+   - H: voce_della_stesa.dart:451-452, il si' diventa "Forse";
+   - I: voce_della_stesa.dart:455, il titolo col punto.
+   Rosse: quanto_e_lungo (OGNI CARTA CHIAVE e LE STESE ESTRATTE: fuori
+   misura), anatomia (DF.04.7: la cifra di "GA06"; il tetto), la_carta_nella
+   _risposta (tutte le carte-verso: figura "passo"), la_domanda_entra (la
+   prima frase non risponde si' o no). Il formato e' rimasto verde con I,
+   perche' la lettura toglie il punto in fondo al titolo e le letture senza
+   domanda non passano dal si': innesto sbagliato mio, rifatto con J
+   (voce_della_stesa.dart:415, "Le carte vedono: $tema", i due punti nel
+   titolo della lettura senza domanda): rossa "A1 e GA.06: il titolo di casa
+   e' breve, senza punto, e non nomina le carte".
+   Ripristino: copie, sha1 OK.
+
+4. Regola B sul corpus delle posizioni, prima di riscrivere le dodici frasi
+   criptiche: innesto B5 in docs/corpus/tarocchi_posizione/copre.md:1049
+   ("- 3: INNESTO REGOLA B5 GA06 troppo breve."), grep riga 1049; rossa
+   il_corpus_delle_posizioni, "FI.39: il Dart e' quello della fonte".
+   Ripristino: git checkout, grep "INNESTO" 0.

@@ -118,7 +118,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Al suo meglio questa forza tiene in piedi l'accordo fra quello in cui credi e quello che ti muove: il massimo in gioco è una decisione che non lascia fuori nessuna delle due parti.
-- 2: Il genere di bene che questa forza dà alla tua questione è interezza, non intesa: il tetto qui è una scelta in cui la testa e il sentimento firmano la stessa riga.
+- 2: Il bene più alto che questa forza porta alla tua questione è l'interezza: una scelta in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia.
 - 3: Più in alto di così non arriva: il metro della decisione diventa quello che hai di più tuo, i valori che reggono la tua vita invece del gusto di un pomeriggio.
 
 ### capovolta
@@ -607,7 +607,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Questo massimo è fatto di un fiore porto da una mano piccola: un affetto di molti anni indietro che alla tua questione torna intatto, con l'innocenza che aveva allora.
+- 1: Questo meglio è un dono semplice, come un fiore offerto da un bambino: un affetto di molti anni fa torna intatto alla tua questione, con l'innocenza che aveva allora.
 - 2: Una tenerezza antica questa carta la sa restituire per intero, il tempo in cui nacque no: alla tua domanda tocca il calore di quel dono, portato dentro la vita che hai adesso.
 - 3: Al suo meglio questa carta salva la bontà delle origini della tua questione: quel bene resta a disposizione come un oggetto di casa, col ricordo che lo tiene lucido.
 

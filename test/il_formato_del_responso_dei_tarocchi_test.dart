@@ -24,6 +24,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'ga06_campioni_per_i_lettori_ciechi_test.dart' as campioni;
 import 'la_lettura_finta_della_stesa.dart';
 
 /// IL FORMATO DEL RESPONSO DEI TAROCCHI. Ordine FK, aggiunta voci A2, A3 e
@@ -63,21 +64,44 @@ void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
   group('il titolo', () {
-    test('A1: un titolo per ogni cosa che il presente puo\' dire', () {
+    // **LAPIDE: "A1: un titolo per ogni cosa che il presente puo' dire"**,
+    // che pretendeva un titolo di `titoliDelPresente` per ogni forma di
+    // `cosaDiceIlPresente`. Ordine GA voce GA.06: il titolo di casa viene
+    // dalla carta chiave e dalla forma della domanda (*"Ora no, pesa l'ansia
+    // notturna"*), e la legge del titolo si misura su tutte le stese e su
+    // tutte le domande del campione dei lettori ciechi.
+    test(
+        'A1 e GA.06: il titolo di casa e\' breve, senza punto, e non nomina '
+        'le carte', () {
+      final guasti = <String>[];
       var quanti = 0;
-      for (final n in NaturaDellaCarta.values) {
-        final titoli = VoceDellaStesa.titoliDelPresente[n]!;
-        quanti += titoli.length;
-        expect(titoli.length, VoceDellaStesa.cosaDiceIlPresente[n]!.length,
-            reason: '${n.name}: i titoli non sono uno per risposta');
-        for (final t in titoli) {
-          expect(t.endsWith('.'), isFalse, reason: '"$t" finisce col punto');
-          expect(
-              t.length, lessThanOrEqualTo(LaLetturaDellaStesa.tettoDelTitolo),
-              reason: '"$t" supera il tetto del titolo');
+      for (final tipo in TarotSpreadType.values) {
+        for (var seme = 0; seme < 40; seme++) {
+          final s =
+              TarotSpread.draw(seed: 400 + seme, posizioni: tipo.posizioni);
+          final (domanda, gruppo, _) =
+              campioni.domande[seme % campioni.domande.length];
+          final l = TarotReading.of(s, TarotTopic.of(gruppo).first,
+              domandaScritta: seme.isEven ? domanda : null);
+          quanti++;
+          final t = l.titolo;
+          final n = LaFormaDelResponso.parole(t);
+          if (n < 3 || n > 8) guasti.add('$n parole: "$t"');
+          if (t.endsWith('.') || t.contains(':') || t.contains('?')) {
+            guasti.add('punteggiatura: "$t"');
+          }
+          if (t.length > LaLetturaDellaStesa.tettoDelTitolo) {
+            guasti.add('oltre il tetto: "$t"');
+          }
+          for (final d in s.cards) {
+            if (LaLetturaDellaStesa.nominaLaCarta(t, d.card.name)) {
+              guasti.add('nomina ${d.card.name}: "$t"');
+            }
+          }
         }
       }
-      cardinaleMinimo(quanti, 32, cosa: 'titoli della lettura di casa');
+      cardinaleMinimo(quanti, 160, cosa: 'titoli della lettura di casa');
+      expect(guasti, isEmpty, reason: guasti.take(6).join('\n'));
     });
 
     test('A1: la lettura di casa ha sempre il titolo della sua risposta', () {
@@ -85,12 +109,12 @@ void main() {
       var quante = 0;
       for (final (t, s, l) in _letture(12)) {
         quante++;
-        final natura = NaturaDellaCarta.di(s.presente);
-        if (!VoceDellaStesa.titoliDelPresente[natura]!.contains(l.titolo)) {
-          guasti.add('${t.name}: "${l.titolo}" non e\' un titolo di '
-              '${natura.name}');
+        final suo = VoceDellaStesa.titoloDellaLettura(s, t,
+            chiave: TarotReading.chiaveDi(s).drawn);
+        if (l.titolo != suo) {
+          guasti.add('${t.name}: "${l.titolo}" invece di "$suo"');
         }
-        // Il titolo non e' piu' il significato della carta del Presente.
+        // Il titolo non e' il significato della carta del Presente.
         if (s.presente.summary.startsWith(l.titolo)) {
           guasti.add('${t.name}: il titolo e\' la sintesi della carta');
         }
@@ -116,8 +140,10 @@ void main() {
       final conLaCarta = TarotReading.of(s, TarotTopic.lavoroTrovare,
           dalModello:
               letturaFinta(s, titolo: 'Lo dice ${s.presente.card.name}'));
-      expect(VoceDellaStesa.titoliDelPresente.values.expand((v) => v),
-          contains(conLaCarta.titolo),
+      expect(
+          conLaCarta.titolo,
+          VoceDellaStesa.titoloDellaLettura(s, TarotTopic.lavoroTrovare,
+              chiave: TarotReading.chiaveDi(s).drawn),
           reason: 'un titolo che nomina la carta apre col simbolo: parla '
               'quello di casa');
       final senza = TarotReading.of(s, TarotTopic.lavoroTrovare,
@@ -302,8 +328,13 @@ void main() {
       await monta(tester);
       final titolo =
           testoSotto(tester, find.byKey(const Key('stesa_synthesis')));
-      expect(VoceDellaStesa.titoliDelPresente.values.expand((v) => v),
-          contains(titolo),
+      final laStesa = tester
+          .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen))
+          .stesaCorrente;
+      expect(
+          titolo,
+          VoceDellaStesa.titoloDellaLettura(laStesa, TarotTopic.bivio,
+              chiave: TarotReading.chiaveDi(laStesa).drawn),
           reason: 'il titolo in cima non e\' quello della risposta: "$titolo"');
       final risposta = find.byKey(const Key('stesa_principale_risposta'));
       final cosaFare = find.byKey(const Key('stesa_principale_cosa_fare'));
@@ -356,7 +387,7 @@ void main() {
             reason: 'manca la bolla di ${d.position.name}');
         final dentro = testoSotto(tester, bolla);
         expect(dentro, contains(d.displayName));
-        expect(dentro, contains(d.position.label.toUpperCase()));
+        expect(dentro, contains(d.position.etichetta.toUpperCase()));
         for (final pezzo in const ['titolo', 'risposta', 'cosa_fare']) {
           expect(
               find.descendant(

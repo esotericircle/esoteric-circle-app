@@ -120,7 +120,9 @@ void main() {
     // l'approdo. Erano otto o piu', col legame, il seguito, i versi e la
     // chiusura del terzo paragrafo, che la forma Breve non ha piu'.
     var guardati = 0;
-    for (var seme = 0; seme < 40; seme++) {
+    // Sessanta semi e non quaranta dall'ordine GA voce GA.06: i pezzi per
+    // lettura sono scesi da sei a cinque o sei, e il cardinale resta 240.
+    for (var seme = 0; seme < 60; seme++) {
       final spread =
           TarotSpread.dalMazzo(TarotSpread.mazzoMescolato(seed: seme));
       final topic = TarotTopic.values[seme % TarotTopic.values.length];
@@ -128,7 +130,12 @@ void main() {
       final pezzi = VoceDellaStesa.pezzi(spread, topic);
       // Senza questa prova i pezzi potrebbero essere una lista qualunque, e
       // la guardia sotto misurerebbe un testo che nessuno legge.
-      expect(pezzi.length, 6, reason: 'seme $seme: ${pezzi.length} pezzi');
+      // **Dall'ordine GA voce GA.06 i pezzi sono le frasi scelte**, da tre a
+      // sei per paragrafo secondo la domanda e le carte (LAPIDE: "sei pezzi",
+      // il verdetto, che cosa dice, che cosa vuol dire, l'aggancio, il gesto e
+      // l'approdo delle forme a segnaposto).
+      expect(pezzi.length, greaterThanOrEqualTo(5),
+          reason: 'seme $seme: ${pezzi.length} pezzi');
       for (final p in pezzi) {
         final senzaSegnaposto = p
             .split(RegExp(r'\{\w+\}|\[[^\]]*\]'))

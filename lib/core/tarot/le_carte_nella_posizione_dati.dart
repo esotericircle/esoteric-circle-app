@@ -4275,7 +4275,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'lato|Asso di Coppe|capovolta': [
     'Tieni la mano sopra la tua stessa sorgente perché aprirla fa male e l\'acqua che non esce si ferma sul fondo. Non c\'è un legame da ricucire: c\'è un sentire che non hai fatto partire.',
-    'Il tuo sentire tenuto a chiave da dentro, prima che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l\'acqua ferma resta nella coppa.',
+    'Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l\'acqua ferma resta nella coppa.',
     'Finché rimandi di sentire, la fonte spinge e non trova una via d\'uscita: non c\'è un malinteso da sciogliere con qualcuno, c\'è l\'acqua che si è fermata dove nasce.',
   ],
   'lato|Due di Coppe|dritta': [
@@ -6131,7 +6131,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'copre|Tre di Spade|dritta': [
     'Sulla tua domanda sta una luce da temporale che non concede ombre: il taglio al centro è illuminato per intero, mentre nessun angolo della cosa resta fuori da quella chiarezza.',
     'Passa dentro la tua domanda un colpo che va da parte a parte e non si ferma a metà: entra da un lato ed esce dall\'altro, lasciando la cosa aperta esattamente al centro.',
-    'Comanda dentro la tua domanda una regola senza sconti: trova strada quello che viene chiamato col suo nome, non ne trova quello che gira attorno al punto dove fa male.',
+    'Comanda nella tua domanda una regola senza sconti: va avanti solo ciò che chiami col suo nome, mentre resta fermo ciò che gira attorno al punto dove fa male.',
   ],
   'copre|Tre di Spade|capovolta': [
     'Si sposta dal sangue alla cicatrice il criterio che dà valore dentro la tua domanda: conta quello che si chiude, mentre la grandezza del colpo preso smette di fare numero.',
@@ -6191,7 +6191,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'copre|Nove di Spade|dritta': [
     'Nella tua domanda l\'aria è quella delle ore piccole, quando ogni dettaglio suona più grosso di quanto sia: in quel clima la cosa cresce senza che si aggiunga un fatto nuovo.',
     'Pretende attenzione continua e non la restituisce mai la forza che lavora sulla tua domanda: esige che la cosa sia ripassata ancora, mentre a ogni giro chiede un giro in più.',
-    'Allunga le ombre di tutto quello che la tua domanda contiene una lampada accesa nella notte: le sagome diventano enormi, mentre i loro contorni restano identici a prima.',
+    'Allunga le ombre di tutto ciò che riguarda la tua domanda, come una lampada accesa di notte: le sagome sembrano enormi, mentre i contorni restano identici a prima.',
   ],
   'copre|Nove di Spade|capovolta': [
     'Passa dentro la tua domanda una corrente che va dal chiuso al detto: quello che girava sempre nello stesso cerchio esce in parole e perde metà del proprio volume nel passaggio.',
@@ -6456,7 +6456,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'attraversa|Il Giudizio|capovolta': [
     'La condanna già emessa occupa il posto in cui andava il riepilogo: la pronuncia precede i fatti, cosicché la faccenda che hai davanti resta senza il conteggio che chiedeva.',
     'Tira tutto verso la colpa, mentre la faccenda che hai davanti guardava a quello che c\'è da riconoscere: la severità prende la scena che era della rassegna dei fatti.',
-    'Il rinvio tiene il bilancio al coperto dallo sguardo e nello stesso gesto lo chiude fuori dalla stanza in cui la tua decisione lo stava aspettando.',
+    'Il rinvio tiene il bilancio lontano dagli occhi e intanto lo esclude dalla decisione che stai prendendo: rimandare la resa dei conti ti impedisce di scegliere davvero.',
   ],
   'attraversa|Il Mondo|dritta': [
     'La chiusura intera del cerchio cade sul punto in cui il tuo progetto teneva una porta aperta per quello che viene dopo: il giro si compie, si salda, raccoglie tutto il percorso dentro di te.',
@@ -6571,7 +6571,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'attraversa|Fante di Bastoni|dritta': [
     'Un annuncio fresco bussa alla porta proprio dove il tuo lavoro avviato chiedeva di essere portato a termine: la novità vuole essere seguita subito, appena recapitata.',
     'Verso l\'esplorazione tira questa curiosità giovane, mentre la faccenda che hai davanti guardava al compimento: il messaggero porta terre da vedere invece della firma che aspettavi.',
-    'Il recapito dell\'annuncio porta allo scoperto un tuo riserbo: il messaggero racconta subito quello che ha visto, senza sapere quali porte erano chiuse.',
+    'Il messaggio arriva e svela ciò che tenevi per te: chi lo porta racconta subito quello che ha visto, senza badare a ciò che era riservato.',
   ],
   'attraversa|Fante di Bastoni|capovolta': [
     'Le partenze nuove tengono pieni i posti dove doveva stare una sola cosa da finire: ogni accensione scalza quella di prima, cosicché quello che hai cominciato resta senza il suo turno.',
@@ -6935,7 +6935,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'attraversa|Cinque di Spade|capovolta': [
     'La riconciliazione si affaccia proprio dove il tuo punto chiedeva che la differenza restasse detta: le armi scendono prima che il torto abbia avuto un nome.',
-    'Il perdono mette il legame al riparo e nello stesso gesto chiude la partita che la tua faccenda voleva aperta: le armi posate rinunciano a riscuotere la ragione.',
+    'Il perdono protegge il legame ma chiude la partita che volevi ancora aperta: chi posa le armi rinuncia a far valere la propria ragione, anche quando ce l\'ha.',
     'Questa pace fa bene al rapporto fra le due parti, mentre quello che hai chiesto riguardava un riconoscimento: la mano tesa arriva a chi si era allontanato.',
   ],
   'attraversa|Sei di Spade|dritta': [
@@ -6986,7 +6986,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'attraversa|Dieci di Spade|capovolta': [
     'Il ricominciare da terra tiene occupate le tue mani con le fondamenta. La cosa che aspetti chiedeva un pezzo già pronto da consegnare subito.',
     'La risalita tira tutto verso un principio tuo da costruire. L\'accordo in sospeso guardava quello che restava in piedi da prima e contava di appoggiarsi là.',
-    'Un intero cominciamento da reggere si aggiunge alle cose che porti, perché di prima non resta materia da riusare. La faccenda che aspetta le tue ore ne vuole altrettante.',
+    'Ripartire da zero si aggiunge a tutto quello che già porti, perché di prima non resta niente da riusare. La faccenda che aspetta il tuo tempo ne chiede altrettanto.',
   ],
   'attraversa|Fante di Spade|dritta': [
     'Chi osserva riporta allo scoperto quello che stava sotto il riserbo della faccenda che hai in corso: il rapporto parte appena raccolto, prima che le porte si aprissero da sole.',
@@ -7090,7 +7090,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'corona|Gli Amanti|dritta': [
     'Al suo meglio questa forza tiene in piedi l\'accordo fra quello in cui credi e quello che ti muove: il massimo in gioco è una decisione che non lascia fuori nessuna delle due parti.',
-    'Il genere di bene che questa forza dà alla tua questione è interezza, non intesa: il tetto qui è una scelta in cui la testa e il sentimento firmano la stessa riga.',
+    'Il bene più alto che questa forza porta alla tua questione è l\'interezza: una scelta in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia.',
     'Più in alto di così non arriva: il metro della decisione diventa quello che hai di più tuo, i valori che reggono la tua vita invece del gusto di un pomeriggio.',
   ],
   'corona|Gli Amanti|capovolta': [
@@ -7439,7 +7439,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'A pieno rendimento un\'accettazione come questa sa dare l\'inventario del residuo: alla tua domanda consegna le cose vive che il lutto teneva fuori campo, nella quantità in cui stanno.',
   ],
   'corona|Sei di Coppe|dritta': [
-    'Questo massimo è fatto di un fiore porto da una mano piccola: un affetto di molti anni indietro che alla tua questione torna intatto, con l\'innocenza che aveva allora.',
+    'Questo meglio è un dono semplice, come un fiore offerto da un bambino: un affetto di molti anni fa torna intatto alla tua questione, con l\'innocenza che aveva allora.',
     'Una tenerezza antica questa carta la sa restituire per intero, il tempo in cui nacque no: alla tua domanda tocca il calore di quel dono, portato dentro la vita che hai adesso.',
     'Al suo meglio questa carta salva la bontà delle origini della tua questione: quel bene resta a disposizione come un oggetto di casa, col ricordo che lo tiene lucido.',
   ],
@@ -8059,7 +8059,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Il carico rientrato c\'è e non si discute più: quello che il mare ha riportato è il punto fermo della tua domanda, mentre il conto fra l\'atteso e il ricevuto resta aperto.',
   ],
   'sotto|Quattro di Bastoni|dritta': [
-    'Pali piantati nel terreno con una ghirlanda legata in cima: quel portale regge da sé e sta sotto la tua questione, che da prima di questa domanda ci passa in mezzo.',
+    'Pali piantati nel terreno con una ghirlanda legata in cima: alla base della tua questione c\'è una casa solida già festeggiata, che regge da sé da prima di questa domanda.',
     'La spesa del raccolto è già stata fatta: fiori e frutti intrecciati sopra la soglia sono stati pagati col lavoro di una stagione; su quel conto chiuso poggia quello che hai davanti.',
     'Il prato davanti al castello ha nutrito la ghirlanda prima che tu chiedessi: quelle radici stanno sotto la tua questione e la tengono su mentre la gente arriva fino al ponte.',
   ],
@@ -8499,7 +8499,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Una cosa non torna in discussione nella tua questione: le armi sono state deposte e il campo è stato lasciato aperto a chi era andato via. Quel passo fermo tiene su il resto.',
   ],
   'sotto|Sei di Spade|dritta': [
-    'La tua questione sta su un fondo basso dove la pertica ha già fatto presa: quella spinta data dal fondale tiene su lo scafo e l\'acqua davanti alla prua è liscia.',
+    'La tua questione poggia su un viaggio già cominciato, come una barca spinta dal fondo verso acque calme: la spinta data con pazienza c\'è già e l\'acqua davanti alla prua è liscia.',
     'Un imbarco fatto una volta non si disfa: la tua questione sta su quel passo compiuto e le lame infisse nella prua viaggiano a bordo con la figura incappucciata.',
     'Quello che hai già messo in acqua non torna in discussione: sta come punto fermo sotto la cosa, mentre il traghettatore spinge e la riva davanti resta ferma al suo posto.',
   ],
@@ -8544,7 +8544,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'Nella sabbia bagnata la resa ha messo radice prima di questa domanda: da quel terreno la tua questione prende appoggio e lì sta, con la mano destra rimasta aperta.',
   ],
   'sotto|Dieci di Spade|capovolta': [
-    'Di terra e di ferro tolto è impastato quello che hai davanti: quella materia sta sotto la tua questione e la regge, col corpo che si tira su un gomito alla volta.',
+    'Alla base della tua questione c\'è una ripartenza da terra dopo una chiusura completa: ti rialzi un gomito alla volta, con un movimento lento che però è tutto tuo.',
     'Rialzarsi dalla sabbia è stato un atto compiuto che non si disfa: quel primo movimento fa da base a quello che hai davanti, con le lame tolte una per una.',
     'Toccare un fondo e averlo sentito duro sotto il piede è un sapere che non si dimentica: su quello la tua questione si appoggia, mentre il gomito regge il peso del primo gesto.',
   ],
