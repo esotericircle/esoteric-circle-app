@@ -30,8 +30,14 @@ class SectionTitle extends StatelessWidget {
             Flexible(
               child: Text(
                 title.toUpperCase(),
-                style: TypographyTokens.titoloDiRiga(weight: 600)
-                    .copyWith(letterSpacing: 2, color: palette.goldSoft),
+                style: TypographyTokens.titoloDiRiga(weight: 600).copyWith(
+                    letterSpacing: 2,
+                    color: palette.goldSoft,
+                    // L'ombra del testo (ordine GA voce GA.10): i titoli
+                    // di riga stanno sul ritratto o sul cielo; nel punto
+                    // piu' chiaro "ENERGIA" sul ritratto di Aura misurava
+                    // 2,72 a 1.
+                    shadows: TypographyTokens.ombraDelTesto),
               ),
             ),
           ],
@@ -40,8 +46,9 @@ class SectionTitle extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xxs),
           Text(
             subtitle!,
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary),
+            style: TypographyTokens.corpo().copyWith(
+                color: ColorTokens.textSecondary,
+                shadows: TypographyTokens.ombraDelTesto),
           ),
         ],
       ],

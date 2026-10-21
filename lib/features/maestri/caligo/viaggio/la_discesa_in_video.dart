@@ -721,9 +721,10 @@ class _LaDiscesaState extends State<LaDiscesa> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final palette = widget.palette;
     final lettore = _lettore;
-    final ombra = [
-      Shadow(color: Colors.black.withValues(alpha: 0.7), blurRadius: 10),
-    ];
+    // L'ombra comune del testo sulla scena (ordine GA voce GA.10): "Tieni
+    // premuto per scendere" sulle radici misurava 4,28 a 1 nel punto piu'
+    // chiaro.
+    const ombra = TypographyTokens.ombraDelTesto;
     final etichetta = TypographyTokens.etichetta()
         .copyWith(color: palette.goldSoft, letterSpacing: 1.4, shadows: ombra);
     return Stack(

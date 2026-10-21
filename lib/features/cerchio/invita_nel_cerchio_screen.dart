@@ -167,7 +167,7 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                         key: const Key('invita_rubrica'),
                         style: FilledButton.styleFrom(
                             backgroundColor: palette.gold,
-                            foregroundColor: palette.onPrimary,
+                            foregroundColor: palette.onGold,
                             minimumSize: const Size.fromHeight(48)),
                         onPressed: _apriLaRubrica,
                         child: const Text('Apri la rubrica'),
@@ -184,7 +184,7 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                   key: const Key('invita_link'),
                   style: FilledButton.styleFrom(
                       backgroundColor: palette.gold,
-                      foregroundColor: palette.onPrimary,
+                      foregroundColor: palette.onGold,
                       minimumSize: const Size.fromHeight(48)),
                   onPressed: _mandaIlLink,
                   child: const Text('Manda il link'),

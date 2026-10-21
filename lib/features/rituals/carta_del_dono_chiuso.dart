@@ -98,8 +98,9 @@ class CartaDelDonoChiuso extends StatelessWidget {
                     minimumSize: const Size.fromHeight(48),
                   ),
                   child: Text('Torna al Cerchio',
-                      style: TypographyTokens.etichetta()
-                          .copyWith(fontWeight: FontWeight.w700)),
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette.onPrimary,
+                          fontWeight: FontWeight.w700)),
                 ),
               ],
             ),

@@ -219,6 +219,14 @@ class _SunHorizonPainter extends CustomPainter {
 Color _accentFor(Maestro maestro) =>
     MaestroPalette.forKey(ThemeKey.of(maestro)).primary;
 
+/// **IL COLORE DEL MAESTRO CHE SI LEGGE, ordine GA voce GA.10.** Il primario
+/// e' un colore di marchio e non porta testo: "Guidato da Medora" era blu
+/// `2C48A0` su nero e misurava 2,40 a 1. Il testo che nomina il Maestro usa
+/// l'alone della sua tavolozza, che sul fondo del popup (`080718`) fa 5,03 per
+/// Medora, 10,91 per Aura e 5,58 per Caligo.
+Color _testoDelMaestro(Maestro maestro) =>
+    MaestroPalette.forKey(ThemeKey.of(maestro)).glow;
+
 /// La riga "Guidato da" del popup informativo. Per il Rito dell'Alba, che
 /// ruota, indica il Maestro di turno del giorno; per gli altri il loro Maestro
 /// fisso.
@@ -299,7 +307,7 @@ void _showElementInfo(
             Text(
               _guideLine(element, maestro),
               style: TypographyTokens.didascalia().copyWith(
-                color: accent.withValues(alpha: 0.95),
+                color: _testoDelMaestro(maestro),
               ),
             ),
             const SizedBox(height: SpacingTokens.sm),

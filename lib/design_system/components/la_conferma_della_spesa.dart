@@ -130,7 +130,7 @@ class LaConfermaDellaSpesa {
                   key: const Key('conferma_spesa_procedi'),
                   style: FilledButton.styleFrom(
                     backgroundColor: palette.gold,
-                    foregroundColor: palette.onPrimary,
+                    foregroundColor: palette.onGold,
                   ),
                   // **COL SALDO CHE NON BASTA IL PULSANTE E' SPENTO**, e la conferma
                   // non puo' restituire un consenso.

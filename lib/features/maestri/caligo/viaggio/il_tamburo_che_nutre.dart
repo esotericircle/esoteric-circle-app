@@ -187,9 +187,9 @@ class _IlTamburoCheNutreState extends State<IlTamburoCheNutre> {
     final etichetta = TypographyTokens.etichetta().copyWith(
       color: palette.goldSoft,
       letterSpacing: 1.4,
-      shadows: [
-        Shadow(color: Colors.black.withValues(alpha: 0.7), blurRadius: 10)
-      ],
+      // L'ombra comune del testo sulla scena (ordine GA voce GA.10): sopra il
+      // video l'etichetta misurava fra 2,85 e 3,90 a 1 nel punto piu' chiaro.
+      shadows: TypographyTokens.ombraDelTesto,
     );
     return LayoutBuilder(builder: (context, vincoli) {
       final w = vincoli.maxWidth;

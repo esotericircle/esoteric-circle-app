@@ -291,7 +291,9 @@ class _FoglioDelLinkState extends State<_FoglioDelLink> {
                   padding:
                       const EdgeInsets.symmetric(vertical: SpacingTokens.md)),
               onPressed: _manda,
-              child: Text('Mandami il link', style: TypographyTokens.label()),
+              child: Text('Mandami il link',
+                  style:
+                      TypographyTokens.label().copyWith(color: palette.onGold)),
             ),
             TextButton(
               key: const Key('link_piu_tardi'),

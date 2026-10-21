@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
 import '../../core/cammino/rinascita_del_cammino.dart';
+import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -79,8 +80,10 @@ class FoglioDellaRinascita {
                     foregroundColor: palette?.onPrimary,
                   ),
                   onPressed: () => Navigator.of(foglio).pop(),
-                  child:
-                      Text('Ricomincio', style: TypographyTokens.etichetta()),
+                  child: Text('Ricomincio',
+                      style: TypographyTokens.etichetta().copyWith(
+                          color: palette?.onPrimary ??
+                              MaestroPalette.neutral.onPrimary)),
                 ),
               ),
             ],

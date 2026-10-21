@@ -636,9 +636,12 @@ class _Identita extends StatelessWidget {
               padding: const EdgeInsets.only(top: 2),
               child: Text(origine,
                   textAlign: TextAlign.center,
+                  // Oro chiaro pieno e ombra, ordine GA voce GA.10: all'80
+                  // per cento misurava 4,28 a 1 sul viola della scena.
                   style: TypographyTokens.etichetta().copyWith(
-                      color: palette.goldSoft.withValues(alpha: 0.8),
-                      letterSpacing: 0.5)),
+                      color: palette.goldSoft,
+                      letterSpacing: 0.5,
+                      shadows: TypographyTokens.ombraDelTesto)),
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),

@@ -107,7 +107,12 @@ class MaestroPalette {
     glow: ColorTokens.auraGlow,
     gold: ColorTokens.gold,
     goldSoft: ColorTokens.goldLight,
-    onPrimary: ColorTokens.textPrimary,
+    // **L'INCHIOSTRO SULLO SMERALDO E' SCURO, ordine GA voce GA.10.** Il
+    // crema sul verde di Aura faceva 2,84 a 1 ("SCEGLI IL SINTOMO",
+    // "Comincia", "Inquadra il tuo volto"): il verde e' il piu' luminoso dei
+    // tre primari; l'inchiostro scuro gli da' 5,89. PROVENIENZA IGNOTA: la
+    // tavolozza ha sempre dichiarato lo stesso crema per tutti i Maestri.
+    onPrimary: ColorTokens.auraDeepest,
     textPrimary: ColorTokens.textPrimary,
     textSecondary: ColorTokens.textSecondary,
   );
@@ -166,6 +171,20 @@ class MaestroPalette {
 
   /// Colore dominante per gli sfondi e le ombre (il piu' saturo del gradiente).
   Color get deepest => backgroundGradient.first;
+
+  /// **L'INCHIOSTRO SULL'ORO, ordine GA voce GA.10.** Il testo di un
+  /// pulsante pieno d'oro e' scuro, mai il crema di [onPrimary]: il crema sta
+  /// sul primario viola, blu, verde o rosso del Maestro; sull'oro
+  /// (`D4AF37`) fa 1,86 a 1, cioe' non si legge (visto sul Realme in "Chiama
+  /// nel tuo Cerchio", "Apri la rubrica", "Manda il link" e "Compila il
+  /// Ritratto"). Il fondo piu' scuro del Maestro sull'oro fa da 9,3 a 9,9.
+  ///
+  /// **PROVENIENZA IGNOTA** per i dodici pulsanti che avevano
+  /// `backgroundColor: palette.gold` con `foregroundColor: palette.onPrimary`:
+  /// l'accoppiata e' entrata copiando lo stile del pulsante primario, e
+  /// nessuna voce l'ha mai misurata. Sorvegliata da
+  /// `i_testi_da_leggere_hanno_il_contrasto_test`.
+  Color get onGold => deepest;
 
   /// Interpola due palette. E' il cuore della dissolvenza cromatica al cambio
   /// di Maestro: interpolando ogni ruolo di colore, l'intera interfaccia

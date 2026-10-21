@@ -968,9 +968,12 @@ class _RisultatoState extends State<_Risultato>
                   'La tua figura è nel Passaporto, con la data di oggi.',
                   key: const Key('archetype_passaporto_aggiornato'),
                   textAlign: TextAlign.center,
+                  // Crema pieno e ombra, ordine GA voce GA.10: il grigio caldo
+                  // faceva 4,07 a 1 sul violetto della scena, il crema 5,43.
                   style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textSecondary,
-                      fontStyle: FontStyle.italic),
+                      color: ColorTokens.textPrimary,
+                      fontStyle: FontStyle.italic,
+                      shadows: TypographyTokens.ombraDelTesto),
                 ),
               ),
               const SizedBox(height: SpacingTokens.sm),

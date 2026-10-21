@@ -84,7 +84,7 @@ class _LaRichiesta extends StatelessWidget {
               key: const Key('richiesta_accetta'),
               style: FilledButton.styleFrom(
                   backgroundColor: palette.gold,
-                  foregroundColor: palette.onPrimary,
+                  foregroundColor: palette.onGold,
                   minimumSize: const Size.fromHeight(48)),
               onPressed: () => Navigator.of(context).pop(true),
               child: const Text('Entra nel suo Cerchio'),

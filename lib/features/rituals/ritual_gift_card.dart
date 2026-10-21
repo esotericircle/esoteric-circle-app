@@ -12,6 +12,7 @@ import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/abito_del_responso.dart';
+import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
@@ -540,6 +541,13 @@ class _StreakChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = days == 1 ? 'Primo giorno' : '$days giorni di fila';
+    // **IL FONDO DELLA PASTIGLIA, ordine GA voce GA.10.** L'accento era portato
+    // alla soglia sul fondo del vetro; ma la pastiglia sta sull'incasso, che
+    // lo schiarisce di un dieci per cento: "Primo giorno" (verde di Aura)
+    // misurava 4,23 a 1 a video. Qui l'accento si porta alla soglia sul fondo
+    // composto, vetro piu' incasso.
+    final fondo = Color.alphaBlend(abito.incasso, abito.superficiePeggiore);
+    final colore = AccentoDelMaestro.portatoSu(accento, fondo);
     return Container(
       key: const Key('gift_streak'),
       padding: const EdgeInsets.symmetric(
@@ -551,13 +559,13 @@ class _StreakChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.wb_twilight_rounded, size: 14, color: accento),
+          Icon(Icons.wb_twilight_rounded, size: 14, color: colore),
           const SizedBox(width: 6),
           Text(
             label,
             key: const Key('alba_giorni_di_fila'),
             style: TypographyTokens.lettura().copyWith(
-              color: accento,
+              color: colore,
               letterSpacing: 0.4,
             ),
           ),

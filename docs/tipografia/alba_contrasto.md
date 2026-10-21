@@ -41,8 +41,8 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `arcano_alba_dono`, Fai in segreto una cosa utile p... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:675 | lettura | 20 | 400 | #F4F1E8 | #080D1E | **17.11** | 4.5 | si' |
 | `arcano_alba_etichetta_perche` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #070C1C | **13.64** | 4.5 | si' |
 | `arcano_alba_perche`, Fare bene senza pubblico ti mos... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:689 | lettura | 20 | 400 | #D8D6D0 | #080D1E | **13.25** | 4.5 | si' |
-| `arcano_alba_pannello`, Condividi | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #0E1329 | **12.86** | 4.5 | si' |
-| `arcano_alba_pannello`, Segna nel Diario | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #101429 | **12.75** | 4.5 | si' |
+| `arcano_alba_pannello`, Condividi | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #090E20 | **13.43** | 4.5 | si' |
+| `arcano_alba_pannello`, Segna nel Diario | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #0A0F20 | **13.35** | 4.5 | si' |
 | `arcano_alba_pannello`, Parlane con Medora | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F4F1E8 | #2E4CA6 | **6.89** | 4.5 | si' |
 | `arcano_alba_titolo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:362 | titoloScheda | 20 | 600 | #F4F1E8 | #151C3B | **14.74** | 3.0 | si' |
 

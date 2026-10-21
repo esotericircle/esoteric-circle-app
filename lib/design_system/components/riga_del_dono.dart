@@ -52,9 +52,14 @@ class RigaDelDono extends StatelessWidget {
               // e ne campiona il fondo vero. La misura passa da dodici a
               // sedici, cioe' dal ruolo didascalia: voce 13.
               key: const Key('alba_riga_dono'),
+              // L'ombra del testo (ordine GA voce GA.10): sul cielo del
+              // Sigillo del Sogno il blu di Medora misurava 3,04 a 1 sul
+              // violetto della nebulosa: il fondo dichiarato e' quello del
+              // vetro, piu' scuro.
               style: TypographyTokens.didascalia().copyWith(
                 color: accento,
                 letterSpacing: 0.4,
+                shadows: TypographyTokens.ombraDelTesto,
               ),
             ),
           ),

@@ -233,11 +233,12 @@ class _ScegliDallaRubricaScreenState extends State<ScegliDallaRubricaScreen> {
                       onPressed: _scelti.isEmpty || _inCorso ? null : _manda,
                       style: FilledButton.styleFrom(
                         backgroundColor: palette.gold,
-                        foregroundColor: palette.onPrimary,
+                        foregroundColor: palette.onGold,
                         minimumSize: const Size.fromHeight(52),
                       ),
                       child: Text('Manda l’invito',
-                          style: TypographyTokens.etichetta()),
+                          style: TypographyTokens.etichetta()
+                              .copyWith(color: palette.onGold)),
                     ),
                   ),
               ],

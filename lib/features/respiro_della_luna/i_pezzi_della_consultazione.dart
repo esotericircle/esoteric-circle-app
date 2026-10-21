@@ -62,10 +62,13 @@ Widget _immagine(String asset, {double? width, double? height, Key? key}) =>
 
 /// Un'ombra dipinta sotto il testo che sta sulla scena o sulla foto della
 /// Luna, perche' si legga su un cielo chiaro come su uno scuro.
-const List<Shadow> ombraSullaScena = [
-  Shadow(color: Color(0xCC000000), blurRadius: 6),
-  Shadow(color: Color(0x99000000), blurRadius: 2, offset: Offset(0, 1)),
-];
+///
+/// **ORDINE GA VOCE GA.10: E' L'OMBRA COMUNE DELL'APP.** Prima erano due
+/// strati (nero all'80 sfocato 6, nero al 60 sfocato 2) e sulle colonne di
+/// marmo e sul mare il testo misurava da 2,46 a 3,31 a 1 nel punto piu'
+/// chiaro. Adesso e' l'ombra a tre strati di `TypographyTokens`, un punto solo
+/// per tutta l'app.
+const List<Shadow> ombraSullaScena = TypographyTokens.ombraDelTesto;
 
 /// **1. LA CITTA'.** Il nome della citta' vera dal GPS (FXA.06) col
 /// segnaposto; la penna apre la scelta di un'altra citta'.

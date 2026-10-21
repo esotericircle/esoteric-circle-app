@@ -160,12 +160,13 @@ class _PortaDellaSpesaState extends State<PortaDellaSpesa> {
             onPressed: _inCorso ? null : _tocca,
             style: FilledButton.styleFrom(
               backgroundColor: palette.gold,
-              foregroundColor: palette.onPrimary,
+              foregroundColor: palette.onGold,
               minimumSize: const Size.fromHeight(48),
             ),
             child: Text(
               _inCorso ? 'Un momento...' : widget.etichetta,
-              style: TypographyTokens.etichetta(),
+              style:
+                  TypographyTokens.etichetta().copyWith(color: palette.onGold),
             ),
           ),
       ],

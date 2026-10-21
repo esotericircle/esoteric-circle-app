@@ -2490,7 +2490,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   key: const Key('oroscopo_lunga_col_piano'),
                   style: FilledButton.styleFrom(
                     backgroundColor: palette.gold,
-                    foregroundColor: palette.onPrimary,
+                    foregroundColor: palette.onGold,
                     minimumSize: const Size.fromHeight(52),
                     padding: const EdgeInsets.symmetric(
                         horizontal: SpacingTokens.md,
@@ -2508,7 +2508,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   child: Text('Abbonati per avere sempre l\'oroscopo completo',
                       textAlign: TextAlign.center,
                       style: TypographyTokens.corpo().copyWith(
-                          color: palette.onPrimary,
+                          color: palette.onGold,
                           fontWeight: FontWeight.w600,
                           height: 1.3)),
                 ),

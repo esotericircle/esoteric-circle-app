@@ -312,7 +312,8 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
                       ),
                       icon: const Icon(Icons.auto_awesome, size: 18),
                       label: Text('Cerca il tuo gemello VIP',
-                          style: TypographyTokens.titoloScheda()),
+                          style: TypographyTokens.titoloScheda()
+                              .copyWith(color: palette.onGold)),
                     ),
                   ),
                 ],

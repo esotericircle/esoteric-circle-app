@@ -787,7 +787,8 @@ class _LaSceltaDellaPersona extends StatelessWidget {
     // Il velo sale dal fondo dello schermo e si spegne verso Medora: il
     // testo si legge sul pavimento dello studio senza un riquadro che la
     // copra.
-    const ombra = [Shadow(color: Color(0xCC000000), blurRadius: 6)];
+    // L'ombra comune dell'app (ordine GA voce GA.10).
+    const ombra = TypographyTokens.ombraDelTesto;
     return DecoratedBox(
       key: const Key('sinastria_la_scelta'),
       decoration: BoxDecoration(

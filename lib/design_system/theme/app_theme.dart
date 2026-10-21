@@ -101,8 +101,29 @@ class AppTheme {
           style: ButtonStyle(enableFeedback: false)),
       elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(enableFeedback: false)),
-      textButtonTheme:
-          const TextButtonThemeData(style: ButtonStyle(enableFeedback: false)),
+      // **IL COMANDO DI TESTO SENZA COLORE SI LEGGE, ordine GA voce GA.10.**
+      // Un `TextButton` che non dichiara il suo colore prendeva il primario
+      // dello schema (il viola `5A3AA6`), che sul fondo dei dialoghi e dei
+      // fogli (`1C1338`) misura 2,16 a 1: "Lascia tutto" e "Ricomincia" erano
+      // viola su viola scuro e identici fra loro. Ora il colore di fabbrica
+      // di ogni comando di testo e' l'oro chiaro, 12,26 a 1 su quel fondo e
+      // almeno 12 su tutti gli altri; chi vuole un altro colore lo dichiara,
+      // come prima. PROVENIENZA IGNOTA: il comportamento e' quello di fabbrica
+      // di Material; le diciassette deroghe del censimento dei grigi
+      // (ordine CI) lo lasciavano com'era.
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              foregroundColor: ColorTokens.goldLight, enableFeedback: false)),
+      // **ANNULLA E OK DEL SELETTORE DI DATA SI LEGGONO, ordine GA voce
+      // GA.10.** Nel foglio "Un'altra data" del Sigillo erano viola scuro su
+      // grigio scuro (1,59 a 1). Si dichiarano qui, in un punto solo, per tutti
+      // i selettori di data e di ora: oro chiaro sul fondo del selettore.
+      datePickerTheme: DatePickerThemeData(
+        cancelButtonStyle: TextButton.styleFrom(
+            foregroundColor: ColorTokens.goldLight, enableFeedback: false),
+        confirmButtonStyle: TextButton.styleFrom(
+            foregroundColor: ColorTokens.goldLight, enableFeedback: false),
+      ),
       outlinedButtonTheme: const OutlinedButtonThemeData(
           style: ButtonStyle(enableFeedback: false)),
       iconButtonTheme:

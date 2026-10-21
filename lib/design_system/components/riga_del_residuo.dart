@@ -91,13 +91,21 @@ class RigaDelResiduo extends StatelessWidget {
                       maxLines: 1,
                       softWrap: false,
                       style: TypographyTokens.didascalia().copyWith(
-                          color: ColorTokens.textSecondary, height: 1.15),
+                          color: ColorTokens.textPrimary,
+                          height: 1.15,
+                          shadows: TypographyTokens.ombraDelTesto),
                     ),
                   )
                 : Text(
                     detto,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary),
+                    // **CREMA PIENO E OMBRA, ordine GA voce GA.10.** Il
+                    // conteggio sta sopra scene chiare (il faretto della
+                    // Sinastria VIP, il violetto delle Rune): il grigio caldo
+                    // faceva 3,44 a 1 su "Oggi hai 1 gettata di rune", il crema
+                    // pieno ne fa 4,62 e l'ombra toglie i punti chiari.
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textPrimary,
+                        shadows: TypographyTokens.ombraDelTesto),
                   ),
           ),
         ],

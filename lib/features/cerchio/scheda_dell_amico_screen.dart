@@ -273,14 +273,15 @@ class SchedaDellAmicoScreen extends StatelessWidget {
                 key: const Key('amico_confronto'),
                 style: FilledButton.styleFrom(
                   backgroundColor: palette.gold,
-                  foregroundColor: palette.onPrimary,
+                  foregroundColor: palette.onGold,
                   minimumSize: const Size.fromHeight(48),
                 ),
                 onPressed: () => Navigator.of(context)
                     .push(ConfrontoDelCieloScreen.route(amico)),
                 icon: const Icon(Icons.auto_awesome),
                 label: Text('Confronta i cieli di oggi',
-                    style: TypographyTokens.etichetta()),
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.onGold)),
               ),
               for (final cat in CategoriaDelSegno.values) ...[
                 Padding(

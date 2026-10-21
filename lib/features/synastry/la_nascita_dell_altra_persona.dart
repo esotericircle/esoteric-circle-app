@@ -357,7 +357,8 @@ class _LaNascitaDellAltraPersonaState extends State<LaNascitaDellAltraPersona> {
                     key: const Key('nascita_altra_conferma'),
                     onPressed: _pronto ? _conferma : null,
                     style: FilledButton.styleFrom(
-                        backgroundColor: palette.goldSoft),
+                        backgroundColor: palette.goldSoft,
+                        foregroundColor: palette.onGold),
                     child: const Text('Continua'),
                   ),
                 ),

@@ -237,7 +237,7 @@ class _IConfrontiFiniti extends StatelessWidget {
             onPressed: onPiu,
             style: FilledButton.styleFrom(
                 backgroundColor: palette.gold,
-                foregroundColor: palette.onPrimary,
+                foregroundColor: palette.onGold,
                 minimumSize: const Size.fromHeight(48)),
             child: const Text('Confronta ancora'),
           ),

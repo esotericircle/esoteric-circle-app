@@ -193,8 +193,9 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
       key: const Key('viaggio_torna_dal_segno'),
       onPressed: widget.quandoTorni,
       child: Text('Torna',
-          style:
-              TypographyTokens.etichetta().copyWith(color: palette.goldSoft)),
+          style: TypographyTokens.etichetta().copyWith(
+              color: palette.goldSoft,
+              shadows: TypographyTokens.ombraDelTesto)),
     );
     if (!widget.siPuoChiedere && segno == null) {
       return Column(
@@ -259,8 +260,11 @@ class _IlSegnoCheRispondeState extends State<IlSegnoCheRisponde> {
         Text(
           '${_maiuscola(_conArticolo)} non parla: risponde con un gesto.',
           textAlign: TextAlign.center,
-          style: TypographyTokens.didascalia()
-              .copyWith(color: ColorTokens.textSecondary),
+          // Crema pieno e ombra (ordine GA voce GA.10): "Il Gufo non parla"
+          // sul video misurava 2,85 a 1 nel punto piu' chiaro.
+          style: TypographyTokens.didascalia().copyWith(
+              color: ColorTokens.textPrimary,
+              shadows: TypographyTokens.ombraDelTesto),
         ),
         const SizedBox(height: SpacingTokens.md),
         TextField(

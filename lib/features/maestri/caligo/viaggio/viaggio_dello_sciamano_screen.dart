@@ -1527,9 +1527,7 @@ class _ViaggioDelloSciamanoScreenState
                   maxLines: 1,
                   style: TypographyTokens.didascalia().copyWith(
                     color: ColorTokens.textPrimary,
-                    shadows: const [
-                      Shadow(color: Color(0xCC060410), blurRadius: 8),
-                    ],
+                    shadows: TypographyTokens.ombraDelTesto,
                   ),
                 ),
               ],
@@ -2278,7 +2276,9 @@ class _ViaggioDelloSciamanoScreenState
                   child: Text('Passa la mano',
                       key: const Key('viaggio_istruzione_nebbia'),
                       style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 1.4)),
+                          color: palette.goldSoft,
+                          letterSpacing: 1.4,
+                          shadows: TypographyTokens.ombraDelTesto)),
                 ),
               ),
           ],

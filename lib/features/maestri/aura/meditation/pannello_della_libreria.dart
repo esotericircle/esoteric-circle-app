@@ -107,8 +107,10 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
           ),
           child: Text(
             _aperto ? 'CHIUDI I SINTOMI' : 'SCEGLI IL SINTOMO',
-            style: TypographyTokens.etichetta()
-                .copyWith(fontWeight: FontWeight.w700, letterSpacing: 1.2),
+            style: TypographyTokens.etichetta().copyWith(
+                color: palette.onPrimary,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2),
           ),
         ),
         const SizedBox(height: SpacingTokens.sm),

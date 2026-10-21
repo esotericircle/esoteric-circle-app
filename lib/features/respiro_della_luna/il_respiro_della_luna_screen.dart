@@ -1508,25 +1508,78 @@ class _IlGiroSullaScena extends StatelessWidget {
     final sotto = finito
         ? 'La perla di oggi è accesa nella tua Collana'
         : 'Giro ${cicli + 1} di $cicliTotali';
+    // **IL VELO SCURO SOTTO IL GESTO E IL GIRO, ordine GA voce GA.10.** Le due
+    // righe correvano sulle colonne di marmo e sul mare: "Tieni premuto sulla
+    // Luna, poi lascia" 2,46 a 1 e "Giro 1 di 8" 3,31 nel punto piu' chiaro:
+    // e' l'unica istruzione del rito. Un velo nero al 50 per cento, sfumato
+    // sopra e sotto, porta il fondo piu' chiaro da una luminanza di 0,25 a
+    // 0,05 senza coprire la Luna.
     return IgnorePointer(
-      child: Column(
-        key: const Key('respiro_giro_sulla_scena'),
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(gesto,
-                key: const Key('respiro_gesto_del_momento'),
-                style: TypographyTokens.titoloSezione().copyWith(
-                    color: palette.goldSoft, shadows: ombraSullaScena)),
+      // Il velo sfuma anche ai lati, cosi' non ha un bordo che si veda.
+      child: ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (r) => const LinearGradient(
+          colors: [
+            Color(0x00FFFFFF),
+            Color(0xFFFFFFFF),
+            Color(0xFFFFFFFF),
+            Color(0x00FFFFFF),
+          ],
+          stops: [0.0, 0.18, 0.82, 1.0],
+        ).createShader(r),
+        child: DecoratedBox(
+          key: const Key('respiro_giro_velo'),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0x00000000),
+                Color(0x80000000),
+                Color(0x80000000),
+                Color(0x00000000),
+              ],
+              stops: [0.0, 0.3, 0.7, 1.0],
+            ),
           ),
-          Text(sotto,
-              key: const Key('respiro_giro'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: Colors.white, shadows: ombraSullaScena)),
-        ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 56, vertical: SpacingTokens.sm),
+            child: _IGiroTesti(gesto: gesto, sotto: sotto, palette: palette),
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class _IGiroTesti extends StatelessWidget {
+  const _IGiroTesti(
+      {required this.gesto, required this.sotto, required this.palette});
+
+  final String gesto;
+  final String sotto;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: const Key('respiro_giro_sulla_scena'),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(gesto,
+              key: const Key('respiro_gesto_del_momento'),
+              style: TypographyTokens.titoloSezione()
+                  .copyWith(color: palette.goldSoft, shadows: ombraSullaScena)),
+        ),
+        Text(sotto,
+            key: const Key('respiro_giro'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.etichetta()
+                .copyWith(color: Colors.white, shadows: ombraSullaScena)),
+      ],
     );
   }
 }

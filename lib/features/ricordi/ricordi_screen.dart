@@ -848,6 +848,9 @@ class _RigaDelRitorno extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
       key: const Key('ricordi_torna_su'),
+      // Oro chiaro dichiarato (ordine GA voce GA.10): il viola dello schema
+      // faceva 2,56 a 1 sul nero del Diario, l'oro chiaro ne fa 13,9.
+      style: TextButton.styleFrom(foregroundColor: ColorTokens.goldLight),
       onPressed: onTap,
       icon: const Icon(Icons.arrow_back_rounded, size: 18),
       label: Text(etichetta),

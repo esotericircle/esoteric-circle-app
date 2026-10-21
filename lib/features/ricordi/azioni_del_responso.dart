@@ -478,6 +478,14 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
               key: const Key('responso_condividi'),
               style: OutlinedButton.styleFrom(
                   textStyle: _misuraDelleAzioni,
+                  // **UN VELO SCURO DIETRO IL COMANDO, ordine GA voce GA.10.**
+                  // Il pulsante col solo bordo stava sul cielo del responso:
+                  // "Condividi +15 Eos" oro chiaro sul violetto misurava 3,36
+                  // nel punto piu' chiaro. Il fondo del Maestro al 60 per cento
+                  // lo porta a 9 senza fare un pulsante pieno.
+                  backgroundColor: widget.suChiaro
+                      ? null
+                      : palette.deepest.withValues(alpha: 0.6),
                   foregroundColor: widget.suChiaro
                       ? RegimeChiaro.testoSuChiaro
                       : palette.goldSoft,
@@ -495,6 +503,9 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
             key: const Key('responso_custodisci'),
             style: OutlinedButton.styleFrom(
                 textStyle: _misuraDelleAzioni,
+                backgroundColor: widget.suChiaro
+                    ? null
+                    : palette.deepest.withValues(alpha: 0.6),
                 foregroundColor: widget.suChiaro
                     ? RegimeChiaro.testoSuChiaro
                     : palette.goldSoft,
@@ -609,8 +620,8 @@ class ParlaneConMaestroCompatto extends StatelessWidget {
           key: keyDelPulsante,
           style: FilledButton.styleFrom(
               textStyle: _AzioniDelResponsoState._misuraDelleAzioni,
-              backgroundColor:
-                  AccentoDelMaestro.portatoSu(palette.primary, palette.onPrimary),
+              backgroundColor: AccentoDelMaestro.portatoSu(
+                  palette.primary, palette.onPrimary),
               foregroundColor: palette.onPrimary,
               padding: const EdgeInsets.symmetric(
                   horizontal: SpacingTokens.sm, vertical: SpacingTokens.xxs)),

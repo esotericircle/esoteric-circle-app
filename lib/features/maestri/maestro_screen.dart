@@ -387,8 +387,12 @@ class CircleArtTile extends StatelessWidget {
                           // Due righe e non tre: la striscia ha un'altezza fissa,
                           // e tre nomi del catalogo ne prendevano tre.
                           righeMassime: 2,
-                          stile: TypographyTokens.titoloDiRiga()
-                              .copyWith(color: palette.textPrimary),
+                          // L'ombra del testo, ordine GA voce GA.10: il titolo
+                          // della riga sta sul ritratto del Maestro e nel punto
+                          // piu' chiaro misurava 2,72 a 1 ("ENERGIA").
+                          stile: TypographyTokens.titoloDiRiga().copyWith(
+                              color: palette.textPrimary,
+                              shadows: TypographyTokens.ombraDelTesto),
                         ),
                       ),
                     ),
@@ -397,6 +401,7 @@ class CircleArtTile extends StatelessWidget {
                         style: TypographyTokens.etichetta().copyWith(
                           color: propria.goldSoft.withValues(alpha: 0.95),
                           letterSpacing: 0.6,
+                          shadows: TypographyTokens.ombraDelTesto,
                         )),
                   ],
                 ),

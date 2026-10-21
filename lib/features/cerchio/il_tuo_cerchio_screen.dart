@@ -147,14 +147,15 @@ class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen>
                     key: const Key('cerchio_invita'),
                     style: FilledButton.styleFrom(
                       backgroundColor: palette.gold,
-                      foregroundColor: palette.onPrimary,
+                      foregroundColor: palette.onGold,
                       minimumSize: const Size.fromHeight(48),
                     ),
                     onPressed: () => Navigator.of(context)
                         .push(InvitaNelCerchioScreen.route()),
                     icon: const Icon(Icons.person_add_alt_1_rounded),
                     label: Text('Chiama nel tuo Cerchio',
-                        style: TypographyTokens.etichetta()),
+                        style: TypographyTokens.etichetta()
+                            .copyWith(color: palette.onGold)),
                   ),
                   // Ordine FF: la casa dei giochi del Cerchio.
                   const SizedBox(height: SpacingTokens.sm),

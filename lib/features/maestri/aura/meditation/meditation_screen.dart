@@ -793,8 +793,12 @@ class _MeditationScreenState extends State<MeditationScreen>
                               _preset.binaural
                                   ? 'Metti le cuffie: il battito nasce fra i due orecchi.'
                                   : 'Con le cuffie l\'ascolto si fa più pieno.',
-                              style: TypographyTokens.corpo()
-                                  .copyWith(color: ColorTokens.textSecondary),
+                              // Crema pieno e ombra (ordine GA voce GA.10): il
+                              // grigio caldo faceva 4,03 a 1 sul violetto della
+                              // scena, il crema ne fa 5,43.
+                              style: TypographyTokens.corpo().copyWith(
+                                  color: ColorTokens.textPrimary,
+                                  shadows: TypographyTokens.ombraDelTesto),
                             ),
                           ),
                         ],
@@ -1118,10 +1122,20 @@ class _BreathGuide extends StatelessWidget {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: RadialGradient(colors: [
-              palette.primary.withValues(alpha: 0.35),
-              palette.deepest.withValues(alpha: 0.05),
-            ]),
+            // **IL VELO SCURO SOTTO LA GUIDA, ordine GA voce GA.10.** Il testo
+            // dorato stava sul fiore giallo e misurava da 1,58 a 2,10 a 1
+            // ("PREMI PLAY", "INSPIRA 4", "IL RESPIRO E' COMPIUTO"). Il centro
+            // del cerchio porta adesso un velo del fondo del Maestro al 72 per
+            // cento che svanisce prima del bordo: il fiore si vede tutto attorno;
+            // sotto la riga il giallo scende a un fondo scuro.
+            gradient: RadialGradient(
+              colors: [
+                palette.deepest.withValues(alpha: 0.72),
+                palette.deepest.withValues(alpha: 0.72),
+                palette.primary.withValues(alpha: 0.12),
+              ],
+              stops: const [0.0, 0.82, 1.0],
+            ),
             border: Border.all(
                 color: palette.gold.withValues(alpha: 0.5), width: 1.2),
           ),
@@ -1140,6 +1154,7 @@ class _BreathGuide extends StatelessWidget {
                 style: TypographyTokens.label(size: 12).copyWith(
                   color: palette.goldSoft,
                   letterSpacing: 1.4,
+                  shadows: TypographyTokens.ombraDelTesto,
                 ),
               ),
               if (secondi != null) ...[
@@ -1151,6 +1166,7 @@ class _BreathGuide extends StatelessWidget {
                   style: TypographyTokens.titoloDiSchermata().copyWith(
                     color: palette.goldSoft,
                     height: 1.0,
+                    shadows: TypographyTokens.ombraDelTesto,
                     fontFeatures: const [FontFeature.tabularFigures()],
                   ),
                 ),

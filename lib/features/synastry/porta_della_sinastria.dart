@@ -553,8 +553,13 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
                             : 'La Compatibilità fra ${_primo!.name} e un VIP',
                         key: const Key('sinastria_titolo_confronto'),
                         textAlign: TextAlign.center,
-                        style: TypographyTokens.titoloSezione()
-                            .copyWith(color: palette.goldSoft, height: 1.2),
+                        // **L'OMBRA SOTTO IL TITOLO, ordine GA voce GA.10.** Sul
+                        // palco i faretti dorati passano dietro le lettere: il
+                        // titolo misurava 2,65 a 1 nel punto piu' chiaro, e
+                        // l'ombra scura gli toglie il faretto da sotto.
+                        style: TypographyTokens.suLaScena(
+                            TypographyTokens.titoloSezione().copyWith(
+                                color: palette.goldSoft, height: 1.2)),
                       ),
                       // **IL CONTEGGIO STA ANCHE QUI, ED E' LA TERZA VOLTA CHE IL
                       // FONDATORE LO CHIEDE.** Ordine CO voce 09, 3 settembre 2026.
@@ -860,8 +865,8 @@ class _Casella extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style:
-                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
+            style: TypographyTokens.suLaScena(
+                TypographyTokens.etichetta().copyWith(color: palette.goldSoft)),
           ),
           if (suggerimento != null)
             // **DUE RIGHE, NON I TRE PUNTINI.** Sulla build 2285 (ordine ER)
@@ -872,8 +877,8 @@ class _Casella extends StatelessWidget {
               key: const Key('sinastria_suggerimento_tu'),
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: ColorTokens.textSecondary),
+              style: TypographyTokens.suLaScena(TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textPrimary)),
             ),
         ],
       ),

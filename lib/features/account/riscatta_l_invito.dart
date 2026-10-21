@@ -98,10 +98,11 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
               onPressed: () => Navigator.of(foglio).pop(scritto.text.trim()),
               style: FilledButton.styleFrom(
                   backgroundColor: palette.gold,
-                  foregroundColor: palette.onPrimary,
+                  foregroundColor: palette.onGold,
                   minimumSize: const Size.fromHeight(48)),
               child: Text('Riconosci chi ti ha invitato',
-                  style: TypographyTokens.etichetta()),
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.onGold)),
             ),
           ),
         ],

@@ -822,8 +822,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             'IL SALUTO DI ${_maestro.nomeAVideo.toUpperCase()}',
             key: const Key('dream_message_title'),
             style: TypographyTokens.didascalia(weight: 600).copyWith(
-                color: _palette.goldSoft.withValues(alpha: 0.85),
-                letterSpacing: 1.2)),
+                color: _palette.goldSoft,
+                letterSpacing: 1.2,
+                shadows: TypographyTokens.ombraDelTesto)),
         const SizedBox(height: SpacingTokens.xxs),
         // Dal punto comune, ordine FK aggiunta voce A1.
         TitoloDelResponso(
@@ -843,8 +844,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         Text(DreamRiteCorpus.provenienza(_luna),
             key: const Key('dream_provenienza'),
             style: TypographyTokens.etichetta().copyWith(
-                color: _palette.goldSoft.withValues(alpha: 0.85),
-                letterSpacing: 0.5)),
+                color: _palette.goldSoft,
+                letterSpacing: 0.5,
+                shadows: TypographyTokens.ombraDelTesto)),
         // **LE TRE RIGHE SCENDONO SOTTO LA RISPOSTA. Ordine CO voce 17**,
         // 3 settembre 2026. Stavano in cima e dicevano cosa fare: erano il
         // TERZO livello della gerarchia messo al primo posto, e la risposta
@@ -1010,9 +1012,12 @@ class _Riga extends StatelessWidget {
               // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
               // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
               style: TypographyTokens.lettura().copyWith(
-                color: palette.goldSoft.withValues(alpha: 0.75),
+                // Oro chiaro pieno e ombra, ordine GA voce GA.10: al 75 per
+                // cento misurava 3,97 a 1 sul violetto del cielo.
+                color: palette.goldSoft,
                 letterSpacing: 0.2,
                 height: 1.4,
+                shadows: TypographyTokens.ombraDelTesto,
               )),
         ),
       ],

@@ -30,10 +30,11 @@ class PulsanteDegliEnigmi extends StatelessWidget {
     const palette = MaestroPalette.neutral;
     final stile = FilledButton.styleFrom(
       backgroundColor: palette.gold,
-      foregroundColor: palette.onPrimary,
+      foregroundColor: palette.onGold,
       minimumSize: const Size.fromHeight(48),
     );
-    final testo = Text(etichetta, style: TypographyTokens.etichetta());
+    final testo = Text(etichetta,
+        style: TypographyTokens.etichetta().copyWith(color: palette.onGold));
     if (segno != null) {
       return FilledButton.icon(
           style: stile, onPressed: onPressed, icon: segno!, label: testo);

@@ -467,8 +467,10 @@ class _NotaDelRipiego extends StatelessWidget {
         children: [
           ParagrafiDiLettura(
               testo: testo,
+              // Crema pieno, ordine GA voce GA.10: il grigio caldo faceva
+              // 4,49 a 1 nel riquadro sul cielo.
               stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textSecondary)),
+                  .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.sm),
           Align(
             alignment: Alignment.centerRight,

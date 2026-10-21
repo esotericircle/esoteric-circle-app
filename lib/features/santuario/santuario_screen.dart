@@ -1365,11 +1365,16 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           // stare una frase: **le tre guide sono il prodotto, la
                           // riga di testo no**.
                           child: LayoutBuilder(builder: (context, box) {
+                            // **CREMA PIENO E OMBRA, ordine GA voce GA.10**: il
+                            // grigio caldo faceva 3,86 a 1 sulla Home di Aura
+                            // ("Chi nasce sotto Gemelli cerca quiete"), il crema
+                            // pieno ne fa 5,22 e l'ombra toglie i punti chiari.
                             final stile =
                                 TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary,
+                              color: ColorTokens.textPrimary,
                               fontStyle: FontStyle.italic,
                               height: 1.15,
+                              shadows: TypographyTokens.ombraDelTesto,
                             );
                             // Prima dei puntini si scende la scala: col
                             // segno, senza segno, senza nome. Un taglio a
@@ -2267,10 +2272,15 @@ class _EnterDomainButton extends StatelessWidget {
               horizontal: SpacingTokens.sm, vertical: 9),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            // **IL FONDO DELLA PASTIGLIA SI LEGGE, ordine GA voce GA.10.** Col
+            // primario al 60 per cento sulla Home verde l'oro chiaro faceva 3,19
+            // a 1 ("Entra nel Dominio di Aura"). La superficie del Maestro al 90
+            // per cento gli da' da 5,4 a 7,4 su ogni fondo; la tinta resta
+            // quella del Maestro.
             gradient: LinearGradient(
               colors: [
-                palette.primary.withValues(alpha: 0.6),
-                palette.surfaceElevated.withValues(alpha: 0.6),
+                palette.surface.withValues(alpha: 0.9),
+                palette.surfaceElevated.withValues(alpha: 0.9),
               ],
             ),
             border: Border.all(color: palette.gold.withValues(alpha: 0.6)),

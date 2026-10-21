@@ -1059,12 +1059,22 @@ Future<void> _azzeraIDati(BuildContext context) async {
             .copyWith(color: ColorTokens.textSecondary, height: 1.4),
       ),
       actions: [
+        // **DUE ASPETTI, ordine GA voce GA.10.** Erano tutti e due viola su
+        // viola scuro (2,16 a 1) e identici: il comando che non si disfa deve
+        // distinguersi. "Lascia tutto" e' il crema di casa (11,58 sul fondo del
+        // dialogo), "Ricomincia" e' il rosso di casa in grassetto, lo stesso
+        // dell'ultima conferma (4,91).
         TextButton(
+          style:
+              TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
           onPressed: () => Navigator.of(dialogo).pop(false),
           child: const Text('Lascia tutto'),
         ),
         TextButton(
           key: const Key('azzera_conferma_si'),
+          style: TextButton.styleFrom(
+              foregroundColor: ColorTokens.caligoGlow,
+              textStyle: const TextStyle(fontWeight: FontWeight.w700)),
           onPressed: () => Navigator.of(dialogo).pop(true),
           child: const Text('Ricomincia'),
         ),

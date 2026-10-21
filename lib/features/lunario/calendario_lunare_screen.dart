@@ -886,9 +886,7 @@ class _IlMese extends StatelessWidget {
                           maxLines: 1,
                           style: TypographyTokens.titoloScheda().copyWith(
                               color: palette.goldSoft,
-                              shadows: const [
-                                Shadow(color: Colors.black, blurRadius: 6)
-                              ])),
+                              shadows: TypographyTokens.ombraDelTesto)),
                     ),
                     _Passo(
                       chiave: 'lunario_mese_dopo',
@@ -911,9 +909,7 @@ class _IlMese extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TypographyTokens.etichetta().copyWith(
                           color: ColorTokens.textPrimary,
-                          shadows: const [
-                            Shadow(color: Colors.black, blurRadius: 4)
-                          ])),
+                          shadows: TypographyTokens.ombraDelTesto)),
                 ),
               // OGGI: l'alone d'oro dietro la sua Luna, quando nessuna
               // attivita' accende i giorni d'oro.
@@ -1121,7 +1117,7 @@ class _IlGiorno extends StatelessWidget {
                     fontWeight: oggi ? FontWeight.w800 : null,
                     decoration: oggi ? TextDecoration.underline : null,
                     decorationColor: palette.goldSoft,
-                    shadows: const [Shadow(color: Colors.black, blurRadius: 4)],
+                    shadows: TypographyTokens.ombraDelTesto,
                   )),
             ),
             _LaLunaAccesa(

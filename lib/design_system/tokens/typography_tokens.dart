@@ -258,6 +258,38 @@ class TypographyTokens {
   static TextStyle etichetta({double weight = 600}) =>
       label(size: misuraEtichetta, weight: weight);
 
+  /// **L'OMBRA DEL TESTO SULLA SCENA, ordine GA voce GA.10.** Il fondatore:
+  /// *"a volte in alcune funzionalita' c'e' testo chiaro su sfondo chiaro e
+  /// potrebbe valutare il cambio di colore o di usare un'ombreggiatura del
+  /// testo o un contorno del testo"*.
+  ///
+  /// Dove un testo sta sopra un'immagine, un video o un cielo che hanno punti
+  /// chiari (un faretto, il disco della Luna, un lampo, una stella), il suo
+  /// sfondo non e' un colore solo e il contrasto cambia lettera per lettera.
+  /// Un'ombra scura e morbida attorno ai segni abbassa proprio quei punti
+  /// senza toccare la grafica: e' la cura che pesa meno, sta qui, in un
+  /// punto solo, perche' chi scrive una scena nuova la chiami invece di
+  /// inventarne una sua.
+  ///
+  /// Tre strati, dal piu' largo al piu' stretto: un alone ampio (nero al 60
+  /// per cento, sfocatura 12) che scurisce l'intorno della riga, uno medio
+  /// (nero all'80, sfocatura 6) e uno stretto (nero al 90, sfocatura 3,
+  /// spostato di un punto) che da' il contorno alla lettera. Dove le tre si
+  /// sommano, attorno a un tratto sottile (copertura di meta' per strato:
+  /// 1 - 0,7 x 0,6 x 0,55 = 0,77), il fondo scende a circa un quarto del suo
+  /// valore: e' la stima con cui si calcola il contrasto "dopo" nel
+  /// rapporto `docs/collaudo/GA/ga10_cure_del_contrasto.md`.
+  static const List<Shadow> ombraDelTesto = [
+    Shadow(color: Color(0x99000000), blurRadius: 12),
+    Shadow(color: Color(0xCC000000), blurRadius: 6),
+    Shadow(color: Color(0xE6000000), blurRadius: 3, offset: Offset(0, 1)),
+  ];
+
+  /// Lo stile [base] con l'ombra del testo sulla scena. Non cambia colore ne'
+  /// misura: toglie soltanto i punti chiari da sotto le lettere.
+  static TextStyle suLaScena(TextStyle base) =>
+      base.copyWith(shadows: ombraDelTesto);
+
   /// Serif cerimoniale per display, titoli e nomi dei Maestri.
   ///
   /// CHIAMARLA CON UNA MISURA E' DEBITO, non una eccezione. L'unico punto che
