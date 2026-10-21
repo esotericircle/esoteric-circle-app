@@ -49,7 +49,7 @@ percio' le lunghezze nuove.
 | Tarocchi, bolla di posizione | 576 | 263 | 311 |
 | Tarocchi, cosa fare di una carta | 576 | 262 | 304 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
-| Tarocchi, paragrafo del responso principale | 384 | 271 | 337 |
+| Tarocchi, paragrafo del responso principale | 384 | 272 | 337 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
 ## Il piu' lungo di ogni tipo, in testa

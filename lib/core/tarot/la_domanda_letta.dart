@@ -543,8 +543,8 @@ class LaDomandaLetta {
                 'specialista.',
           ],
         TemaSensibile.legge => const [
-            'Raccogli i documenti in ordine cronologico e fissa un incontro '
-                'con un avvocato.',
+            'Raccogli i documenti in ordine cronologico e confrontati con un '
+                'avvocato.',
             'Chiedi a un avvocato una stima onesta dei tempi, dei costi e dei '
                 'rischi.',
             'Scrivi una cronologia dei fatti, con le date, da consegnare a un '
@@ -553,8 +553,8 @@ class LaDomandaLetta {
         TemaSensibile.denaro => const [
             'Prima di muovere i risparmi, parla con un consulente finanziario '
                 'abilitato e indipendente.',
-            'Chiedi a un consulente abilitato di spiegarti rischi e costi per '
-                'iscritto, prima di firmare.',
+            'Metti per iscritto cifre, rischi e scadenze dell\'operazione e'
+                'portali con te.',
             'Scrivi quanto puoi permetterti di perdere senza cambiare la tua '
                 'vita; poi porta il foglio al consulente.',
           ],
@@ -572,16 +572,15 @@ class LaDomandaLetta {
         TemaSensibile.legge => const [
             'Non prendere decisioni legali in base alle carte: decide chi '
                 'conosce la legge.',
-            'Non parlare della vicenda con la controparte senza un parere '
+            'Non basare le tue scelte su ciò che dicono altri senza un parere '
                 'competente.',
-            'Non firmare niente prima che un professionista abbia letto i '
-                'documenti.',
+            'Non decidere sulla vicenda prima di aver sentito un professionista '
+                'abilitato.',
           ],
         TemaSensibile.denaro => const [
             'Non investire in base alle carte: le carte non leggono i mercati.',
-            'Non prendere decisioni sui risparmi senza un parere scritto di '
-                'chi è abilitato.',
-            'Non decidere nulla prima di aver sentito un consulente abilitato.',
+            'Non impegnare somme che non puoi permetterti di perdere.',
+            'Non lasciarti convincere da chi promette guadagni sicuri.',
           ],
         null => const [],
       };

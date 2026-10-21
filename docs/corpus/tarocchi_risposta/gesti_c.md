@@ -378,7 +378,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 
 ### sfavorevole
 
-- azione_1: Rallenta e semplifica la giornata: tieni solo ciò che è davvero necessario.
+- azione_1: Semplifica la giornata: tieni solo ciò che è davvero necessario.
 - azione_2: Dedica tempo a ciò che ti calma, come camminare, respirare o riposare.
 - azione_3: Parla con una persona di fiducia di ciò che ti preoccupa, senza cercare soluzioni.
 - azione_4: Riposa e fai una cosa semplice che ti fa sentire bene.

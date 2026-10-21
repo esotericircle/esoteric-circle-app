@@ -1140,7 +1140,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'presente|Re di Bastoni|dritta': [
     'La tua guida è richiesta adesso per tracciare una direzione precisa: con generosità indichi agli altri il cammino e il tuo esempio conta più di qualunque ordine.',
-    'Dal tuo trono decorato di salamandre, in questi giorni guidi gli altri con l\'esempio: la tua volontà apre strade, chi ti segue prende fuoco dalla tua visione e tu indichi la direzione con generosità.',
+    'Come dal trono decorato di salamandre, in questi giorni la tua volontà guida con l\'esempio: apre strade, accende chi ti segue con la tua visione e indica la direzione con generosità e con costanza.',
     'Adesso tieni in mano la rotta di un gruppo o di un progetto. Il tuo fuoco è maturo, non corre ma accende: gli altri si muovono per ciò che fai, non per ciò che dici.',
   ],
   'presente|Re di Bastoni|capovolta': [
@@ -4275,7 +4275,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'lato|Asso di Coppe|capovolta': [
     'Tieni la mano sopra la tua stessa sorgente perché aprirla fa male e l\'acqua che non esce si ferma sul fondo. Non c\'è un legame da ricucire: c\'è un sentire che non hai fatto partire.',
-    'Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l\'acqua ferma resta nella coppa.',
+    'Il tuo sentire resta chiuso da dentro, anche quando c\'è qualcuno pronto a riceverlo con cura. Il timore di soffrire frena ciò che vorrebbe scorrere verso qualcuno e l\'acqua ferma resta ancora nella coppa.',
     'Finché rimandi di sentire, la fonte spinge e non trova una via d\'uscita: non c\'è un malinteso da sciogliere con qualcuno, c\'è l\'acqua che si è fermata dove nasce.',
   ],
   'lato|Due di Coppe|dritta': [
@@ -4349,7 +4349,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
     'La porta l\'hai aperta e non l\'hai attraversata. Resti sul punto in cui si decide se lasciare quello che hai, senza fretta addosso ma anche senza alibi che tengano.',
   ],
   'lato|Nove di Coppe|dritta': [
-    'Tieni fra le mani una cosa che avevi chiesto al cielo e l\'hai avuta, quindi puoi goderla senza sentirti in debito con nessuno.',
+    'Tieni fra le mani una contentezza piena e semplice che non devi mai giustificare, quindi puoi goderla senza sentirti in debito con nessuno.',
     'C\'è un augurio avverato che ti riguarda da vicino: il benessere arrivato non ti obbliga a scusarti con nessuno e la contentezza non chiede permesso.',
     'Una soddisfazione piena siede con te a tavola. Riconosci la fortuna che ti è capitata e assaporala, lasciando la colpa fuori dalla porta.',
   ],
@@ -4366,7 +4366,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'lato|Dieci di Coppe|capovolta': [
     'Sotto il tuo tetto ognuno tira dalla sua parte: orari sfalsati, decisioni prese per conto proprio, una tavola che si apparecchia a turni. Nessuno è andato via e il calore del gruppo cala comunque.',
     'La casa intorno alla tua domanda tiene insieme persone che vogliono cose diverse. Il tetto resta uno e il passo no: ciascuno porta la sua parte altrove e la serenità comune si assottiglia.',
-    'Molti affetti stretti in un solo spazio con le volontà divise. Chi condivide con te le stanze non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l\'aria di famiglia.',
+    'Molti affetti stretti in un solo spazio con le volontà divise. Chi ti sta vicino ogni giorno non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l\'aria di famiglia.',
   ],
   'lato|Fante di Coppe|dritta': [
     'Una tenerezza inesperta affiora nella tua domanda e porta con sé immagini, sogni, parole trattenute in gola. È piccola, è vera e non sa ancora come dirsi.',
@@ -4536,7 +4536,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'lato|Regina di Denari|capovolta': [
     'Accanto a te lavora una cura tutta pratica: la casa in ordine, i conti pagati in tempo, i bisogni di ciascuno sbrigati prima che li chiedano. In quell\'elenco il tuo nome non è scritto.',
     'Le mani le tieni dentro le cose concrete, dispensa, scadenze, turni, stanze. Quello che serve a te non entra nel giro: lo sposti a domani ogni volta che qualcun altro ha bisogno di qualcosa adesso.',
-    'Una generosità materiale ti circonda la strada: si occupa di tutto, dai conti alle scadenze alle date degli altri. Il tuo appuntamento rimandato è l\'unico che nessuno segna.',
+    'Una generosità materiale ti circonda la strada: si occupa di tutto, dai conti alle scadenze alle date degli altri. Nel conto manca spesso ciò che serve a te.',
   ],
   'lato|Re di Denari|dritta': [
     'La solidità che hai costruito ti sostiene da sé e la generosità matura apre il granaio agli altri, misurando bene e senza vanto.',
@@ -4971,7 +4971,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'esito|Sette di Bastoni|dritta': [
     'La forza in campo sta dalla tua parte e proprio per questo in molti la contendono. Il terreno alto è già tuo: tenerlo chiede fegato sotto pressione, non l\'ultimo sforzo di chi è allo stremo.',
     'Qui si va verso una posizione difesa in vantaggio. Chi spinge da sotto è più numeroso, non più forte di te: reggere adesso conta più di qualunque passo in avanti.',
-    'Il punto di arrivo somiglia a una collina presidiata: hai qualcosa che vale e ora la vogliono anche altri. Il percorso ripaga chi non lascia il campo per stanchezza di discutere.',
+    'Il punto di arrivo somiglia a una collina presidiata: tieni una posizione che vale e che merita tutta l\'attenzione. Il percorso ripaga chi non lascia il campo per stanchezza di discutere.',
   ],
   'esito|Sette di Bastoni|capovolta': [
     'Il campo è occupato da troppi fronti aperti insieme: difendi ogni cosa e per questo nessuna tiene. Il nodo è la cernita fra le battaglie che contano e tutte le altre.',
@@ -5465,7 +5465,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'esito|Re di Spade|capovolta': [
     'Sulla scena comanda la tua ragione ed è esatta: decidi per altri col criterio giusto, ma chi sta dentro quel criterio non lo conti. Resta una persona che non hai guardato.',
-    'Sei al punto in cui avere ragione può finire per costare un rapporto. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.',
+    'Qui il rischio è giudicare con una freddezza che allontana chi ti ascolta. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.',
     'La china è quella di un rigore che ha perso i nomi: applichi bene la regola e dimentichi chi ci sta sotto. Il saldo: discussioni vinte e legami più freddi.',
   ],
   'copre|Il Matto|dritta': [
@@ -6721,7 +6721,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   'attraversa|Cavaliere di Coppe|dritta': [
     'Ti mette alla prova una proposta gentile che porta allo scoperto un sentimento che preferivi tenere riservato, proprio mentre volevi restare ancora sul vago.',
     'La sfida è che un invito garbato rende piacevole il momento, mentre la questione che hai posto chiede impegni chiari e non soltanto belle maniere.',
-    'Proprio quando ti serviva una parola sul futuro, il richiamo della bellezza porta il tuo sentimento verso ciò che ti affascina adesso e rimanda le decisioni.',
+    'Proprio quando servirebbe una scelta chiara sul futuro, il tuo sentimento si lascia attrarre da ciò che lo affascina adesso e rimanda ogni decisione più importante.',
   ],
   'attraversa|Cavaliere di Coppe|capovolta': [
     'Ti mette alla prova una serie di promesse vaghe: aggiungono parole da verificare a una questione che chiedeva fatti, proprio mentre contavi i gesti concreti.',
@@ -9865,7 +9865,7 @@ const Map<String, List<String>> scheletriDelleCarte = {
   ],
   'seStesso|Re di Coppe|capovolta': [
     'Ti lasci condurre dagli umori: in questa faccenda il mare intorno al tuo trono decide per te, un giorno calmo, il giorno dopo in tempesta.',
-    'Il tuo atteggiamento rischia di usare le emozioni come leva: il malumore pesa sugli altri e la calma si concede o si ritira.',
+    'Il rischio è che l\'umore guidi tutte le scelte: quando è basso pesa su chi ti sta vicino e la calma diventa incostante.',
     'Perdi il governo del cuore proprio quando gli altri si aspettano che tu lo tenga: sbalzi, silenzi, scatti prendono il posto della guida che sapresti dare.',
   ],
   'seStesso|Asso di Denari|dritta': [
@@ -12352,7 +12352,7 @@ const Map<String, List<String>> registriDelleCarte = {
   ],
   'Re di Denari|capovolta': [
     'In amore la carta racconta di affetto misurato con i beni e di possesso che irrigidisce.',
-    'Per un lavoro o un progetto mostra avidità e risorse ferme per paura di perdere tutto.',
+    'Per un lavoro o un progetto mostra chiusura e risorse ferme per paura di perdere tutto.',
     'Nella vita la carta descrive un possesso che irrigidisce, con beni che possiedono chi li ha.',
   ],
   'Asso di Spade|dritta': [

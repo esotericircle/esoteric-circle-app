@@ -562,7 +562,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Tieni la mano sopra la tua stessa sorgente perché aprirla fa male e l'acqua che non esce si ferma sul fondo. Non c'è un legame da ricucire: c'è un sentire che non hai fatto partire.
-- 2: Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa.
+- 2: Il tuo sentire resta chiuso da dentro, anche quando c'è qualcuno pronto a riceverlo con cura. Il timore di soffrire frena ciò che vorrebbe scorrere verso qualcuno e l'acqua ferma resta ancora nella coppa.
 - 3: Finché rimandi di sentire, la fonte spinge e non trova una via d'uscita: non c'è un malinteso da sciogliere con qualcuno, c'è l'acqua che si è fermata dove nasce.
 
 ## Due di Coppe
@@ -667,7 +667,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Tieni fra le mani una cosa che avevi chiesto al cielo e l'hai avuta, quindi puoi goderla senza sentirti in debito con nessuno.
+- 1: Tieni fra le mani una contentezza piena e semplice che non devi mai giustificare, quindi puoi goderla senza sentirti in debito con nessuno.
 - 2: C'è un augurio avverato che ti riguarda da vicino: il benessere arrivato non ti obbliga a scusarti con nessuno e la contentezza non chiede permesso.
 - 3: Una soddisfazione piena siede con te a tavola. Riconosci la fortuna che ti è capitata e assaporala, lasciando la colpa fuori dalla porta.
 
@@ -689,7 +689,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Sotto il tuo tetto ognuno tira dalla sua parte: orari sfalsati, decisioni prese per conto proprio, una tavola che si apparecchia a turni. Nessuno è andato via e il calore del gruppo cala comunque.
 - 2: La casa intorno alla tua domanda tiene insieme persone che vogliono cose diverse. Il tetto resta uno e il passo no: ciascuno porta la sua parte altrove e la serenità comune si assottiglia.
-- 3: Molti affetti stretti in un solo spazio con le volontà divise. Chi condivide con te le stanze non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l'aria di famiglia.
+- 3: Molti affetti stretti in un solo spazio con le volontà divise. Chi ti sta vicino ogni giorno non ti è avversario, segue soltanto un disegno suo e questo basta a raffreddare l'aria di famiglia.
 
 ## Fante di Coppe
 
@@ -927,7 +927,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Accanto a te lavora una cura tutta pratica: la casa in ordine, i conti pagati in tempo, i bisogni di ciascuno sbrigati prima che li chiedano. In quell'elenco il tuo nome non è scritto.
 - 2: Le mani le tieni dentro le cose concrete, dispensa, scadenze, turni, stanze. Quello che serve a te non entra nel giro: lo sposti a domani ogni volta che qualcun altro ha bisogno di qualcosa adesso.
-- 3: Una generosità materiale ti circonda la strada: si occupa di tutto, dai conti alle scadenze alle date degli altri. Il tuo appuntamento rimandato è l'unico che nessuno segna.
+- 3: Una generosità materiale ti circonda la strada: si occupa di tutto, dai conti alle scadenze alle date degli altri. Nel conto manca spesso ciò che serve a te.
 
 ## Re di Denari
 

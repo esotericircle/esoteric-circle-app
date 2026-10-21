@@ -358,7 +358,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 
 ### favorevole
 
-- azione_1: Scegli una data oltre la quale sei tu a chiedere notizie e scrivila sul calendario.
+- azione_1: Scegli un giorno in cui fare il punto sull'attesa e scrivilo sul calendario.
 - azione_2: Occupa l'attesa con una cosa utile che dipende solo da te.
 - azione_3: Prepara fin d'ora ciò che serve quando la risposta arriva così sei in ordine.
 - azione_4: Concediti una piccola gratificazione ogni giorno mentre aspetti, senza legarla alla risposta.
@@ -369,10 +369,10 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 ### condizionato
 
 - azione_1: Chiedi con gentilezza entro quando puoi aspettarti una risposta e annotalo.
-- azione_2: Verifica di aver fornito tutto ciò che serviva e manda ciò che manca.
+- azione_2: Fai una lista di ciò che dipende da te e di ciò che dipende dagli altri.
 - azione_3: Prepara un piano alternativo da usare se la risposta tarda troppo.
-- azione_4: Rileggi cosa hai inviato e controlla che sia chiaro e completo.
-- non_1: Non mandare più messaggi di sollecito senza aver aspettato un tempo ragionevole.
+- azione_4: Metti in ordine ciò che dipende da te, così non resta nulla in sospeso.
+- non_1: Non fissare scadenze troppo vicine per una risposta che non dipende da te.
 - non_2: Non fermare la tua vita in attesa di quella notizia.
 - non_3: Non interpretare ogni ritardo come un segnale negativo.
 
@@ -383,7 +383,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 - azione_3: Mantieni le tue abitudini e dedica tempo a ciò che ti fa stare meglio.
 - azione_4: Dedica la prossima ora a una cosa pratica che dipende solo da te.
 - non_1: Non costruire aspettative alte su una risposta che non dipende da te.
-- non_2: Non scrivere messaggi insistenti per ottenere subito una risposta.
+- non_2: Non cercare di forzare i tempi di una risposta altrui.
 - non_3: Non rimandare altre decisioni finché la risposta non arriva.
 
 ## stallo

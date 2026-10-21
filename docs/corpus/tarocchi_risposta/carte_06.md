@@ -56,7 +56,7 @@ Ordine GA voce GA.06. Predicati in minuscolo, senza punto: vedi le regole dello 
 - nota_ora: invita a posare un dovere che non è tuo
 - nota_passato: ricorda un fardello preso per abitudine e portato troppo a lungo
 - nota_esito: lascia intravedere un respiro nuovo, una volta ridistribuiti i compiti
-- nota_ostacolo: complica tutto con un senso di colpa che blocca ogni delega
+- nota_ostacolo: pesa sulle cose con la fatica di chiedere aiuto
 - nota_influenza: porta la spinta a rifiutare le richieste che non ti competono
 - nota_ambiente: descrive persone vicine che possono riprendersi la loro parte di compiti
 - nota_timori: mostra la speranza di alleggerirti insieme alla paura di deludere

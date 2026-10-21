@@ -220,3 +220,71 @@ giro3_esito_tarocchi_12.md)
     30 per cento (prima 97), Cosa fare con la formula della carta 16,5 per
     cento (prima 27,3) e con "oggi" 37,1 (prima 63,4); composizioni 22464 tutte
     fra 40 e 50 parole.
+
+QUARTO GIRO, 21 ottobre 2026 (lettore cieco su 12 stese: D1 11/12, D2 11/12,
+D3 9/12, tre si' 8/12; esito in docs/collaudo/GA/lettori_ciechi/esiti/
+giro4_esito_tarocchi_12.md)
+
+11. Regola B, rosse viste prima di toccare, sul codice del terzo giro dopo i
+    primi ritocchi (rosse vere):
+    - la_risposta_viene_dalla_carta 11 (singole sensibili di 39 e 38 parole;
+      poi 280 singole di salute che ricadevano nel corpus perche' nessuna
+      composizione stava fra 40 e 50 parole): allungate le forme, aggiunte
+      le code e la frase sul competente;
+    - la_risposta_viene_dalla_carta 6 (la parola "tendenza" nella riserva
+      della carta sola, vietata dai testi scritti): "orientamento";
+    - la_risposta_viene_dalla_carta 12 (la riserva "mostra un orientamento"
+      ripeteva il verbo della frase prima): "da' un orientamento";
+    - quanto_e_lungo_il_consiglio (1 risposta di 39 parole con le carte di
+      tono opposto: la riserva nuova era troppo lunga per la forma breve):
+      due riserve corte in piu'.
+
+12. Regola A sulle forme nuove (copie in scratchpad/mie2, sha1 prima e dopo
+    uguali: voce_della_stesa 6f40d5e0, la_carta_nella_risposta 819fb832,
+    le_singole_sulla_domanda 81af07ef, la_domanda_letta 864ede73), grep
+    "INNESTO" 0 dopo il ripristino:
+    - S: le_singole_sulla_domanda.dart:60, "cosaFare: dalCorpus.cosaFare //
+      INNESTO S GA06" (il Cosa fare della singola dal corpus di gruppo):
+      rossa la_risposta_viene_dalla_carta 11, 1020 guasti (la promozione e
+      l'esame senza i gesti della loro situazione);
+    - T: le_singole_sulla_domanda.dart:217, "risposta: dalCorpus.risposta //
+      INNESTO T GA06" (la singola sensibile col testo del corpus, che parla
+      dell'esito): rossa la stessa prova, 1530 guasti;
+    - W: la_carta_nella_risposta.dart, "Otto di Bastoni|dritta" rimessa fra
+      le carte da verdetto: rossa "l'Otto di Bastoni dice un tempo, non un
+      si'" in le_stese_miste_e_gli_amanti_test;
+    - X: voce_della_stesa.dart, "final tonoGesti = tono; // INNESTO X GA06":
+      rossa "una stesa mista non da' gesti di un solo tono", 51 su 51;
+    - Y: voce_della_stesa.dart, "laCarta" sempre "la carta": rossa "gli Amanti
+      sono plurale in ogni posizione", 46 letture su 54;
+    - Z: la_domanda_letta.dart, "lontan" rimessa fra le radici della distanza:
+      rossa "andare a vivere lontano dai genitori non e' una coppia a
+      distanza".
+
+13. Misure del quarto giro: singole sensibili 1530 e sulla promozione e
+    sull'esame 1020, guasti 0; stese miste 51 con gesti di un solo tono 0;
+    letture con Gli Amanti 54 con l'accordo sbagliato 0; carte sole con due
+    letture 100 con una parola ripetuta 0; composizioni 22464 tutte fra 40 e
+    50 parole; cento consultazioni MISURA C 37,5 e MISURA D 2.
+
+14. Ultimo ritocco del quarto giro (21 ottobre 2026), sulla rilettura severa:
+    - REGOLA B: prima di toccare le singole, la_stesa_interpreta_davvero
+      "ogni carta si legge col responso della sua posizione" e' stata
+      trovata ROSSA dalla batteria (senza domanda scritta le singole
+      prendevano i gesti della situazione invece del corpus). PADRE: ordine GA
+      voce GA.06, commit 9b2d2d29 (le singole dai gesti della situazione).
+      Cura: senza domanda scritta la singola si legge dal corpus della
+      posizione (tarot_reading.dart, domanda nulla se `sua == null`). Verde
+      dopo la cura.
+    - REGOLA A: nuova prova "la singola non ripete la frase che il
+      principale ha gia' detto" in le_stese_miste_e_gli_amanti_test. INNESTO
+      V: in le_singole_sulla_domanda.dart la condizione
+      `!dettaDalPrincipale` sostituita con `true`, verificato col grep:
+      rossa 8 su 8 (singole della carta chiave con la frase del principale).
+      File ripristinato, sha1 a7c1e208b36c0d9d4213bca6be8f547206c2a209
+      uguale a prima dell'innesto, prova verde (8 singole, 0 ripetizioni).
+    - Misure: Cosa fare delle singole scelto fra le composizioni con meno
+      gesti gia' detti (le frasi del principale pesano il triplo); gesti
+      "Dai tempo alla conoscenza" e "Valuta un percorso diverso da quello che
+      desideri" riscritti perche' presupponevano incontri e una rinuncia.
+      Batteria della zona: 306 prove verdi.

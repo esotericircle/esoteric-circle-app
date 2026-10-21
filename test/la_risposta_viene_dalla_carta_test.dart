@@ -2,8 +2,8 @@
 import 'dart:math';
 
 import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta_scritta.dart';
 import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
-import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
@@ -81,9 +81,8 @@ List<String> _frasi(String p) => p
 /// domanda sul modo risponde col gesto e nomina la carta subito dopo).
 String _verdetto(String risposta, TarotSpread s) {
   final f = _frasi(risposta);
-  final i = f.first.startsWith('Le carte rispondono alla prima') && f.length > 1
-      ? 1
-      : 0;
+  final i =
+      f.first.startsWith('Le carte leggono la prima') && f.length > 1 ? 1 : 0;
   final v = f[i];
   if (!s.cards
           .any((c) => v.toLowerCase().contains(c.card.name.toLowerCase())) &&
@@ -264,7 +263,7 @@ void main() {
     // servizio, uguali per scelta: il limite sui temi sensibili e gli avvisi
     // della domanda doppia e della vaga, scritte qui alla lettera.
     const diServizio = [
-      'Le carte rispondono alla prima',
+      'Le carte leggono la prima',
       'Le carte aiutano',
       'Le carte possono aiutarti',
       'Le carte non dicono',
@@ -504,6 +503,8 @@ void main() {
       'Sette di Bastoni|dritta',
       'Regina di Denari|dritta',
       'Re di Spade|capovolta',
+      // Rapidita' e notizie, non approvazione (tarocchi-30, quarto giro).
+      'Otto di Bastoni|dritta',
     };
     final guasti = <String>[];
     var guardati = 0;
@@ -520,7 +521,7 @@ void main() {
       guardati++;
       final risposta = r.principale.risposta;
       final frasi = _frasi(risposta);
-      final i = frasi.first.startsWith('Le carte rispondono alla prima') &&
+      final i = frasi.first.startsWith('Le carte leggono la prima') &&
               frasi.length > 1
           ? 1
           : 0;
@@ -584,6 +585,7 @@ void main() {
             'Riuscirò a ottenere la promozione che aspetto?',
             TarotTopic.momentoCheVivo
           ),
+          ('Passerò l\'esame di stato a dicembre?', TarotTopic.amoreQuadro),
         ]) {
           if (s.cards.length < 2) continue;
           final r = TarotReading.of(s, argomento, domandaScritta: domanda);
@@ -598,16 +600,31 @@ void main() {
                 guasti.add('"$domanda", ${p.drawn.displayName}: $parole '
                     'parole, "$c"');
               }
+              // Nessuna previsione: il paragrafo dice che cosa la carta
+              // mostra in quel posto (e non il testo del corpus, che parla
+              // dell'esito: *"una nuova base tende a emergere"* su una causa).
+              final r1 = p.responso!.risposta;
+              if (!RegExp(r'la carta (mostra|porta|richiama) ').hasMatch(r1) ||
+                  _frasi(r1).length < 2) {
+                guasti.add('"$domanda", ${p.drawn.displayName}: "$r1"');
+              }
               if (c.contains('mentore') || c.contains('carriera')) {
                 guasti.add('"$domanda": un gesto del lavoro in "$c"');
               }
             } else {
               dalLavoro++;
-              // La promozione e' lavoro anche con l'argomento della vita.
-              final atteso = LeCarteNellaPosizione.cosaFareDi(
-                  p.drawn, TarotTopicGroup.lavoro);
-              if (c != atteso) {
-                guasti.add('"$domanda", ${p.drawn.displayName}: "$c"');
+              // Il Cosa fare della singola viene dai gesti della situazione
+              // (la promozione, l'esame), qualunque argomento fosse stato
+              // scelto, ed e' lungo quanto la forma pretende.
+              final situazione = d.situazione!.name;
+              final suoi = {
+                for (final e in gestiDellaDomanda.entries)
+                  if (e.key.startsWith('$situazione|')) ...e.value.values,
+              };
+              final frasi = c.split(RegExp(r'(?<=[.!?])\s+'));
+              if (!frasi.any(suoi.contains) || parole < 40 || parole > 50) {
+                guasti.add('"$domanda", ${p.drawn.displayName}: $parole '
+                    'parole, "$c"');
               }
             }
           }
@@ -617,7 +634,8 @@ void main() {
     print('ORDINE GA VOCE 06: singole su temi sensibili $sensibili, '
         'sulla promozione $dalLavoro, guasti ${guasti.length}');
     cardinaleMinimo(sensibili, 200, cosa: 'singole su temi sensibili');
-    cardinaleMinimo(dalLavoro, 100, cosa: 'singole sulla promozione');
+    cardinaleMinimo(dalLavoro, 200,
+        cosa: 'singole sulla promozione e sull\'esame');
     expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
   });
 

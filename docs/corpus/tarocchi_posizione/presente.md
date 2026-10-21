@@ -529,7 +529,7 @@ scrive l'Architetto.
 ### dritta
 
 - 1: La tua guida è richiesta adesso per tracciare una direzione precisa: con generosità indichi agli altri il cammino e il tuo esempio conta più di qualunque ordine.
-- 2: Dal tuo trono decorato di salamandre, in questi giorni guidi gli altri con l'esempio: la tua volontà apre strade, chi ti segue prende fuoco dalla tua visione e tu indichi la direzione con generosità.
+- 2: Come dal trono decorato di salamandre, in questi giorni la tua volontà guida con l'esempio: apre strade, accende chi ti segue con la tua visione e indica la direzione con generosità e con costanza.
 - 3: Adesso tieni in mano la rotta di un gruppo o di un progetto. Il tuo fuoco è maturo, non corre ma accende: gli altri si muovono per ciò che fai, non per ciò che dici.
 
 ### capovolta
