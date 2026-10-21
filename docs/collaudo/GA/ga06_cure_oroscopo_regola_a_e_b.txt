@@ -507,3 +507,57 @@ APERTO (non chiuso, da dire alla lettura indipendente):
 4. Il riempitivo "Il giudizio della settimana viene da tutto il cielo del periodo, non da quel
    momento solo" e' vero ma e' una frase di metodo, non un fatto del cielo: se il lettore la
    trova vuota, si toglie e la Lunga occidentale settimana/mese resta a due frasi.
+
+----------------------------------------------------------------------------------------------
+MICRO-GIRO FINALE, 21 ottobre 2026 (sul commit 0776fb65, letto cieco: D1 12/12, D2 12/12, D3 9/12)
+----------------------------------------------------------------------------------------------
+I tre no di D3 erano oroscopo-12, 13 e 34, tutti per il "Da dove viene" (e il rito del 34).
+Punti e padri (Regola C):
+1. oroscopo-12, "la Luna e' calante a meta' in Leone": gergo e senza effetto. Padre: GA.06 sesto
+   giro (le fasi della Luna dette cosi'). Cura: la fase in parole ("in Leone la Luna cala verso la
+   nuova, il momento di chiudere e lasciare andare") e, nella Lunga, "Cade nell'area della tua
+   vita che riguarda la fortuna" quando la fase e' scelta perche' cade nell'area del campo. Il
+   riempitivo "Il giudizio viene da tutto il cielo del periodo" e' tolto.
+2. oroscopo-13, "il Sole sta nell'area del lavoro di ogni giorno: li' resta sullo sfondo": frase
+   vuota. Padre: GA.06 sesto giro. Cura: "il Sole tocca l'area ... da lontano: e' un tema che
+   nell'anno resta in secondo piano" (e le due varianti, in primo piano e con forza), stessa forma
+   per Saturno; "Se il tempo tuo salta" diventa "Se il tempo per te salta" nel corpus dell'Anno
+   occidentale (docs/corpus/eu/oroscopo_eu_occidentale_anno.md, voce dell'Architetto, rigenerato
+   con tool/_gen_oroscopo_eu.py: UN RITOCCO a una frase dell'Architetto da dichiarare).
+3. oroscopo-34: "porta" ripetuto, "neutro, perche' c'e' intensita'" senza nesso, rito che tira
+   in senso opposto. Padri: GA.06 sesto giro (le frasi), GA.04 (il rito del Kai scritto come
+   "pronuncia una frase sincera" senza guardare la risposta). Cura: "una forza intensa, fatta di
+   sfida e di energia"; "Per l'amore c'e' intensita', fra attrazione e tensione: il giorno e' in
+   equilibrio" (prima il fatto, poi il giudizio con le parole del livello); il rito Kai
+   dell'Amore diventa un gesto (un biglietto con due parole gentili, aprire una finestra) che non
+   prende posizione sulle parole e non e' piu' quasi uguale al rito di oroscopo-2.
+4. Lo stesso verso in oroscopo-7 e 12, e nomi greci accanto a Marte. Padre: GA.06 prima cura
+   (un verso per dominio: il verso otto serviva a Carriera e Fortuna). Cura: la Fortuna di Marte
+   cita solo la seconda meta' dello stesso verso, "nelle opere di Demetra" (εἰς ἔργα τὰ Δηοῦς),
+   dichiarato nelle formule; la fonte dice "un verso di un antico inno greco ad Ares, il Marte dei
+   Romani" e i riti della Fortuna dicono "ad Ares, il Marte dei Romani". Il verso 9 dell'inno 65
+   non e' stato verificato sulla fonte e non e' stato inventato: la Carriera e la Fortuna restano
+   due campi sullo stesso verso, ma non piu' parola per parola.
+5. Le gabbie "Il livello della settimana e' la media dei suoi sette giorni" (vedica e cinese) e
+   "il gesto del calendario cinese per il giorno che compie" detto di un anno o di un mese.
+   Padri: ordine EU voce 02 (la media dei giorni) e GA.06 sesto giro (la gabbia, il descrittore).
+   Cura: "Per il lavoro e lo studio il cielo della settimana e' in equilibrio, con il giorno
+   migliore lunedi' 26 ottobre" e, nella Lunga, il fatto di quel giorno ("Per la tradizione
+   cinese quel giorno porta la forza della protezione ..."); il descrittore e' "Un gesto del
+   calendario cinese, quello legato al giorno che compie", giusto per ogni periodo. In piu' "Per
+   le occasioni" nei riti cinesi della Fortuna (23) diventa "Per la fortuna" (vago, 44), e
+   "oggi il giorno" sotto la data di un altro giorno non diventa piu' "quel giorno il giorno".
+6. Tre Amore con la stessa struttura "Se vivi una relazione... se sei senza legame...": e' la
+   struttura delle voci dell'Architetto (cosa fare), non di questo giro: NON TOCCATA, da dire
+   all'Architetto. Il rito quasi identico fra oroscopo-2 e 34 e' curato al punto 3.
+
+Regola A, la guardia il_da_dove_viene_non_ha_gergo_test ha quattro controlli nuovi, tutti visti
+rossi con innesti a mano verificati col grep («INNESTO GA06G7», 4 occorrenze) e tolti (0):
+ H1 "calante a meta'" nella fase della Luna: ROSSA (2 righe);
+ H2 "e' la media dei suoi giorni": ROSSA (128 righe);
+ H3 ": li' resta sullo sfondo": ROSSA (36 righe; piu' 18 corpi a 3 frasi e 14 a 4 nella Lunga);
+ H4 "per il giorno che" nella fonte del rito: ROSSA (48 + 96 righe).
+Senza innesti: VERDE, difetti 0, corpo piu' lungo 52 parole (Breve) e 64 (Lunga), tetti 56 e 66.
+Regola B: le prove della zona toccata passano (189 + 64), nessuna e' stata cambiata in questo
+micro-giro; le formule del controllo dei riti (strumento di lavoro) tengono la nuova formula
+della Fortuna di Marte. flutter analyze lib test tool: nessun problema.

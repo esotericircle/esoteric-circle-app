@@ -151,22 +151,31 @@ abstract final class LAnnuale {
     // per il campo. Niente case, Ascendente, Medio Cielo, Rivoluzione Solare:
     // chi legge sa il compleanno e il pianeta.
     String doveStaIlPianeta(String pianeta, int casa, {bool doveri = false}) {
-      final peso = switch (forza(casa)) {
-        3 => doveri
-            ? 'è in primo piano e pesa molto, quindi l\'anno di lavoro chiede '
-                'costanza'
-            : 'è in primo piano',
-        2 => doveri
-            ? 'ha una buona forza, quindi l\'anno di lavoro chiede un po\' di '
-                'impegno'
-            : 'ha una buona forza',
-        _ => doveri
-            ? 'resta sullo sfondo e pesa poco, quindi l\'anno di lavoro è più '
-                'leggero'
-            : 'resta sullo sfondo',
+      final periodo = 'Nell\'anno ${_dal(primoGiorno)} ${_al(ultimoGiorno)}';
+      final area = IlLessicoDelCielo.areaDellaVita(casa);
+      // **MICRO-GIRO GA.06**: "il Sole sta nell'area del lavoro di ogni
+      // giorno: li' resta sullo sfondo" non diceva niente. Adesso si dice
+      // che cosa fa il pianeta (mette in primo piano, da' forza, tocca da
+      // lontano) e che cosa vuol dire per l'anno.
+      if (!doveri) {
+        return switch (forza(casa)) {
+          3 => '$periodo $pianeta mette in primo piano l\'$area: è un tema '
+              'che nell\'anno conta molto.',
+          2 => '$periodo $pianeta dà forza all\'$area: è un tema che '
+              'nell\'anno conta.',
+          _ => '$periodo $pianeta tocca l\'$area da lontano: è un tema che '
+              'nell\'anno resta in secondo piano.',
+        };
+      }
+      return switch (forza(casa)) {
+        3 => '$periodo $pianeta mette in primo piano l\'$area e pesa molto: '
+            'l\'anno di lavoro chiede costanza.',
+        2 =>
+          '$periodo $pianeta dà forza all\'$area: l\'anno di lavoro chiede un '
+              'po\' di impegno.',
+        _ => '$periodo $pianeta tocca l\'$area da lontano e pesa poco: '
+            'l\'anno di lavoro è più leggero.',
       };
-      return 'Nell\'anno ${_dal(primoGiorno)} ${_al(ultimoGiorno)} $pianeta '
-          'sta nell\'${IlLessicoDelCielo.areaDellaVita(casa)}: lì $peso.';
     }
 
     // Il corpo del campo (il Sole, Venere, Saturno, Giove) e il segno in cui

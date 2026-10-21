@@ -115,13 +115,21 @@ abstract final class IlLessicoDelCielo {
     'jupiter': 'la tua fortuna di fondo',
   };
 
-  /// Le fasi della Luna dette senza gergo, come predicato: "c\'è la Luna
-  /// piena in Toro".
+  /// Le fasi della Luna dette in parole di tutti, da dopo "in Leone": la
+  /// Luna nuova, a un quarto, piena, all'ultimo quarto.
   static const List<String> fasiDellaLuna = [
     'c\'è la Luna nuova',
-    'la Luna è crescente a metà',
+    'la Luna cresce verso la piena',
     'c\'è la Luna piena',
-    'la Luna è calante a metà',
+    'la Luna cala verso la nuova',
+  ];
+
+  /// Che cosa fa quella fase, in una frase che continua la precedente.
+  static const List<String> effettoDelleFasi = [
+    'il momento di cominciare qualcosa',
+    'quando ciò che avvii prende forza',
+    'quando ciò che era in corso si vede con più chiarezza',
+    'il momento di chiudere e lasciare andare',
   ];
 
   /// "È il momento da cogliere", con il campo davanti tranne che nel

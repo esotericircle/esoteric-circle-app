@@ -87,8 +87,10 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
   dell'Amore: «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso). Cipride
   è Afrodite, Lieo è Dioniso.
   Verso 8 (Abel): ἀλλάξας ἀλκὴν ὅπλων εἰς ἔργα τὰ Δηοῦς. Formula della
-  Carriera e della Fortuna: «mutando la forza delle armi nelle opere di
-  Demetra». Deò, Δηώ, è un nome di Demetra; la formula comincia con la
+  Carriera: «mutando la forza delle armi nelle opere di Demetra». Formula
+  della Fortuna: solo la seconda metà dello stesso verso, «nelle opere di
+  Demetra» (εἰς ἔργα τὰ Δηοῦς), perché due campi non dicano lo stesso verso
+  parola per parola. Deò, Δηώ, è un nome di Demetra; la formula comincia con la
   minuscola perché è un participio che continua il verso sette, e nel rito si
   introduce con "pronuncia le parole dell'inno" o simile.
   La scelta per dominio, ordine GA voce GA.06: prima il verso sei stava in
@@ -113,7 +115,7 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 
 - Sole: Un verso di un antico inno greco al Sole.
 - Luna: Un verso di un antico inno greco alla Luna.
-- Marte: Un verso di un antico inno greco a Marte.
+- Marte: Un verso di un antico inno greco ad Ares, il Marte dei Romani.
 - Mercurio: Un verso di un antico inno greco a Mercurio.
 - Giove: Un verso di un antico inno greco a Giove.
 - Venere: Un verso di un antico inno greco a Venere.
@@ -254,16 +256,16 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 - Rito: Nel martedì di Marte è nato il tuo anno, dal compleanno: un vigore per il lavoro e lo studio. Adesso spezza un pezzo di pane e mangialo con calma prima di rimetterti all'opera. Recita a mente «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto).
 
 ### Marte, Fortuna, giorno
-- Rito: Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi a Marte, detto Ares dai Greci, «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi tocca la terra.
+- Rito: Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi ad Ares, il Marte dei Romani, le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi tocca la terra.
 
 ### Marte, Fortuna, settimana
-- Rito: Questa settimana nasce oggi, nel martedì di Marte, che insegna a cogliere l'attimo con mano ferma. Tieni adesso nel palmo un chicco di grano o di riso. Sussurra «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi riponilo in tasca per sette giorni.
+- Rito: Questa settimana nasce oggi, nel martedì di Marte, che insegna a cogliere l'attimo con mano ferma. Tieni adesso nel palmo un chicco di grano o di riso. Sussurra le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi riponilo in tasca per sette giorni.
 
 ### Marte, Fortuna, mese
-- Rito: Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi annaffiali e guardali crescere in questi trenta giorni.
+- Rito: Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi annaffiali e guardali crescere in questi trenta giorni.
 
 ### Marte, Fortuna, anno
-- Rito: Marte vuole, dal compleanno, che il tuo anno rivolga l'audacia alle occasioni buone. Adesso togli le foglie secche a una pianta di casa. Ripeti due volte l'invocazione dell'inno, «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi muovi un passo verso un'occasione in attesa.
+- Rito: Marte vuole, dal compleanno, che il tuo anno rivolga l'audacia alle occasioni buone. Adesso togli le foglie secche a una pianta di casa. Ripeti due volte le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi muovi un passo verso un'occasione in attesa.
 
 ### Mercurio, Generale, giorno
 - Rito: Oggi è il giorno di Mercurio, il messaggero che collega le cose. Apri una finestra per far passare l'aria e resta lì qualche respiro. Recita a voce bassa «Ascoltami, Hermes, messaggero di Zeus, figlio di Maia» due volte, poi lascia che i pensieri circolino come l'aria.

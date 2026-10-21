@@ -46,12 +46,16 @@ void main() {
       r'\bKanya|\bTula\b|\bVrishchika|\bDhanu|\bMakara|\bKumbha|\bMina\b|'
       r'reggente|Inno orfico|Ficino|Cipride|Lieo|Demetra|Afrodite|Dioniso|'
       r'gli dei|\bi dei\b|\bdio\b|polarità|elemento di nascita|\bramo\b|\brami\b|'
-      r'\bterna\b|\bterne\b|\bBaZi\b|\bgraha\b|\bnakshatra\b|\bayanamsa\b');
+      r'\bterna\b|\bterne\b|\bBaZi\b|\bgraha\b|\bnakshatra\b|\bayanamsa\b|'
+      // Micro-giro GA.06: le fasi della Luna dette in parole, la gabbia "e'
+      // la media dei suoi giorni", il rito detto "per il giorno" di un anno.
+      r'calante a metà|crescente a metà|è la media dei suoi|'
+      r'per il giorno che');
 
   // Le frasi che non dicono niente.
   final vuote = RegExp(r'conta per questo campo|lo mette in primo piano|'
       r'segno che conta|scelto dal suo|il segno che per la tradizione indiana '
-      r'conta');
+      r'conta|: lì resta sullo sfondo|perché c.è intensità, fra');
 
   // I termini che la riga Fonte puo' portare, al massimo uno.
   final tecniciDellaFonte = RegExp(r'BaZi|Tong Shu|Sade Sati|gochara');

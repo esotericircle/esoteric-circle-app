@@ -41,18 +41,18 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 
 ## Da dove viene
 
-- Jian: Il gesto del calendario cinese per il giorno che stabilisce.
-- Chu: Il gesto del calendario cinese per il giorno che toglie.
-- Man: Il gesto del calendario cinese per il giorno del pieno.
-- Ping: Il gesto del calendario cinese per il giorno che livella.
-- Ding: Il gesto del calendario cinese per il giorno che fissa.
-- Zhi: Il gesto del calendario cinese per il giorno che tiene.
-- Po: Il gesto del calendario cinese per il giorno che rompe.
-- Wei: Il gesto del calendario cinese per il giorno della vigilanza.
-- Cheng: Il gesto del calendario cinese per il giorno che compie.
-- Shou: Il gesto del calendario cinese per il giorno che raccoglie.
-- Kai: Il gesto del calendario cinese per il giorno che apre.
-- Bi: Il gesto del calendario cinese per il giorno che chiude.
+- Jian: Un gesto del calendario cinese, quello legato al giorno che stabilisce.
+- Chu: Un gesto del calendario cinese, quello legato al giorno che toglie.
+- Man: Un gesto del calendario cinese, quello legato al giorno del pieno.
+- Ping: Un gesto del calendario cinese, quello legato al giorno che livella.
+- Ding: Un gesto del calendario cinese, quello legato al giorno che fissa.
+- Zhi: Un gesto del calendario cinese, quello legato al giorno che tiene.
+- Po: Un gesto del calendario cinese, quello legato al giorno che rompe.
+- Wei: Un gesto del calendario cinese, quello legato al giorno della vigilanza.
+- Cheng: Un gesto del calendario cinese, quello legato al giorno che compie.
+- Shou: Un gesto del calendario cinese, quello legato al giorno che raccoglie.
+- Kai: Un gesto del calendario cinese, quello legato al giorno che apre.
+- Bi: Un gesto del calendario cinese, quello legato al giorno che chiude.
 
 ## I riti
 
@@ -93,13 +93,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Il lavoro di quest'anno cinese segue Jian, che guida la serie dei dodici: l'anno è nato sotto di lui a Capodanno. Prepara adesso il terreno a un compito che nessuno ha ancora avviato: raccogli in una cartella ciò che serve, dalle un nome e mettila in cima alla scrivania.
 
 ### Jian, Fortuna, giorno
-- Rito: Oggi è Jian, il giorno che rende solido ciò che nasce e che l'almanacco dà buono anche per mettersi in cammino. Per le occasioni prendi una strada mai percorsa per andare dove devi: guarda le vetrine, le insegne, i volti. Un percorso nuovo mostra ciò che l'abitudine nasconde.
+- Rito: Oggi è Jian, il giorno che rende solido ciò che nasce e che l'almanacco dà buono anche per mettersi in cammino. Per la fortuna prendi una strada mai percorsa per andare dove devi: guarda le vetrine, le insegne, i volti. Un percorso nuovo mostra ciò che l'abitudine nasconde.
 
 ### Jian, Fortuna, settimana
 - Rito: Nei sette giorni che Jian, l'ufficiale che costruisce, governa da oggi, le occasioni chiedono un primo contatto. Telefona a una persona che fa già ciò che vorresti fare tu e chiedile come ha mosso i primi passi. Ascolta con attenzione, prendi nota, ringrazia.
 
 ### Jian, Fortuna, mese
-- Rito: Per le occasioni dei trenta giorni che partono oggi con Jian, che mette in piedi le cose ed è buono anche per chi parte, scegli una meta vicina mai visitata: un borgo, un museo, un sentiero. Decidi adesso con chi andarci e come arrivarci.
+- Rito: Per la fortuna dei trenta giorni che partono oggi con Jian, che mette in piedi le cose ed è buono anche per chi parte, scegli una meta vicina mai visitata: un borgo, un museo, un sentiero. Decidi adesso con chi andarci e come arrivarci.
 
 ### Jian, Fortuna, anno
 - Rito: Le occasioni del tuo anno cinese, nato a Capodanno sotto Jian, passano anche dal mettersi in cammino, che l'almanacco affianca allo stabilire. Rendi adesso pronti gli strumenti dell'uscita: riordina la borsa, sistema le scarpe, gonfia le ruote della bicicletta. Ciò che è pronto invita a partire.
@@ -141,7 +141,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Sotto Chu, che elimina l'inutile, è nato a Capodanno il tuo anno cinese. Nel lavoro e nello studio il suo gesto vale in qualsiasi giorno: apri adesso la memoria del computer, cancella le cartelle doppie e i file superati, poi svuota il cestino digitale.
 
 ### Chu, Fortuna, giorno
-- Rito: Oggi è Chu, il giorno del ricambio. Per le occasioni spalanca le finestre di tutte le stanze per qualche minuto e lascia uscire l'aria ferma. Intanto togli dal davanzale e dal tavolo ciò che si è accumulato senza motivo. Un luogo arioso accoglie meglio.
+- Rito: Oggi è Chu, il giorno del ricambio. Per la fortuna spalanca le finestre di tutte le stanze per qualche minuto e lascia uscire l'aria ferma. Intanto togli dal davanzale e dal tavolo ciò che si è accumulato senza motivo. Un luogo arioso accoglie meglio.
 
 ### Chu, Fortuna, settimana
 - Rito: In questa settimana di Chu, che scarta ciò che non serve, le occasioni chiedono tempo libero prima ancora di cose nuove. Togli dall'agenda dei sette giorni un impegno che non ti somiglia più e lascia vuota quell'ora: usala per una passeggiata senza meta.
@@ -150,7 +150,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Le occasioni dei trenta giorni che partono oggi con Chu, l'ufficiale che porta via, chiedono posto. Metti accanto alla porta una borsa vuota e ogni sera aggiungi un oggetto che non usi, da regalare. Quando è piena, consegnala a chi ne ha bisogno. Comincia adesso con il primo.
 
 ### Chu, Fortuna, anno
-- Rito: A Capodanno l'anno cinese è nato sotto Chu, l'ufficiale che fa posto. Per le occasioni il gesto vale in qualunque giorno: libera adesso un angolo della casa da ciò che non usi, puliscilo e lascialo vuoto. Quel posto libero lascia spazio a ciò che deve venire.
+- Rito: A Capodanno l'anno cinese è nato sotto Chu, l'ufficiale che fa posto. Per la fortuna il gesto vale in qualunque giorno: libera adesso un angolo della casa da ciò che non usi, puliscilo e lascialo vuoto. Quel posto libero lascia spazio a ciò che deve venire.
 
 ### Man, Generale, giorno
 - Rito: Oggi è il giorno di Man, l'ufficiale del pieno, che l'almanacco dedica anche alle offerte e ai desideri espressi. Accendi una candela sul tavolo e pronuncia a voce bassa un augurio per chi ti è caro. Poi ringrazia per una cosa che oggi c'è già.
@@ -189,7 +189,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Nel lavoro di quest'anno cinese, venuto al mondo sotto Man a Capodanno, vale l'avvertenza dell'almanacco: quel che si colma oltre misura si versa. Prima di accettare un nuovo incarico, lascia adesso un impegno a chi può prenderlo con più respiro, spiegando con chiarezza come si svolge.
 
 ### Man, Fortuna, giorno
-- Rito: Oggi è Man, il giorno della misura colma, legato dalla tradizione ai desideri espressi. Per le occasioni dai forma a ciò che speri: dillo in una frase chiara, a voce alta, davanti alla finestra aperta. Un desiderio detto con precisione è più facile da riconoscere quando passa.
+- Rito: Oggi è Man, il giorno della misura colma, legato dalla tradizione ai desideri espressi. Per la fortuna dai forma a ciò che speri: dillo in una frase chiara, a voce alta, davanti alla finestra aperta. Un desiderio detto con precisione è più facile da riconoscere quando passa.
 
 ### Man, Fortuna, settimana
 - Rito: Una settimana sotto Man, il recipiente colmo, comincia oggi: le occasioni amano chi sa ricevere. Prepara un angolo della casa con un oggetto che per te significa gioia, una conchiglia, un disegno, un ricordo di viaggio. Guardalo ogni mattina come un augurio.
@@ -237,7 +237,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Ping, sotto cui è nato a Capodanno il tuo anno cinese, chiede al lavoro un piano ben in bolla. Regola adesso la tua postazione: lo schermo all'altezza degli occhi, la sedia alla giusta misura, il piano sgombro e dritto. Un luogo in pari aiuta il lavoro di ogni giorno.
 
 ### Ping, Fortuna, giorno
-- Rito: Oggi è Ping, il giorno che leviga, legato dalla tradizione ai lavori di abbellimento. Per le occasioni abbellisci il luogo dove passi più tempo: un fiore in un bicchiere, un panno sulla superficie opaca, una luce meglio orientata. Un ambiente curato prepara l'accoglienza.
+- Rito: Oggi è Ping, il giorno che leviga, legato dalla tradizione ai lavori di abbellimento. Per la fortuna abbellisci il luogo dove passi più tempo: un fiore in un bicchiere, un panno sulla superficie opaca, una luce meglio orientata. Un ambiente curato prepara l'accoglienza.
 
 ### Ping, Fortuna, settimana
 - Rito: Le occasioni dei sette giorni che oggi apre Ping, che rende piana la strada, passano più volentieri dove non si inciampa. Individua un ostacolo pratico che ti frena, una pratica in sospeso, un documento da rinnovare: toglilo di mezzo adesso, senza rimandare.
@@ -285,7 +285,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Per il lavoro e lo studio, l'anno cinese nato sotto Ding a Capodanno chiede scelte ferme. Prendi adesso la decisione che lasci in sospeso da troppo, fra due strade, due metodi, due offerte: scegline una e comunicala a chi deve saperlo. Ciò che è deciso smette di pesare.
 
 ### Ding, Fortuna, giorno
-- Rito: Oggi è Ding, il giorno che dà contorni netti. Per le occasioni prepara ciò che serve a coglierle: un curriculum aggiornato, i recapiti giusti, una presentazione di poche righe. Raccogli tutto adesso in un'unica cartella, così niente resta incerto o disperso.
+- Rito: Oggi è Ding, il giorno che dà contorni netti. Per la fortuna prepara ciò che serve a coglierle: un curriculum aggiornato, i recapiti giusti, una presentazione di poche righe. Raccogli tutto adesso in un'unica cartella, così niente resta incerto o disperso.
 
 ### Ding, Fortuna, settimana
 - Rito: Ding, l'ufficiale dei progetti ben fondati, regge oggi una settimana in cui le occasioni si riconoscono meglio con una mappa. Apri sul telefono una nota con ciò che speri e, sotto, i nomi di tre persone che potrebbero aiutarti. Rileggila ogni mattina dei sette giorni.
@@ -294,7 +294,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Le occasioni del mese che comincia oggi con Ding, che dà ancoraggio, chiedono appuntamenti fissati, non attese. Scegli tre persone che possono aprirti una porta e fissa con ciascuna un incontro nei trenta giorni. Scrivi adesso la prima data, con l'ora e il luogo.
 
 ### Ding, Fortuna, anno
-- Rito: Ding, che mette ogni cosa al suo posto, ha fissato a Capodanno il segno del tuo anno cinese. Per le occasioni scegli adesso un luogo del quartiere dove tornare con regolarità, un mercato, un caffè, finché le persone imparano a riconoscerti. Le occasioni passano da chi si trova sempre lì.
+- Rito: Ding, che mette ogni cosa al suo posto, ha fissato a Capodanno il segno del tuo anno cinese. Per la fortuna scegli adesso un luogo del quartiere dove tornare con regolarità, un mercato, un caffè, finché le persone imparano a riconoscerti. Le occasioni passano da chi si trova sempre lì.
 
 ### Zhi, Generale, giorno
 - Rito: Oggi è il giorno di Zhi, l'ufficiale che tiene: l'almanacco antico dice che conserva ciò che è stato compiuto. Scegli una buona abitudine che hai già e ripetila adesso con più attenzione del solito. Mantenere vale quanto cominciare, ricorda questo giorno.
@@ -333,13 +333,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: L'anno cinese, che Zhi ha accolto a Capodanno, chiede al lavoro di non lasciar sfumare ciò che hai costruito. Scegli adesso un risultato ottenuto e insegnalo a chi lavora con te: mostra il percorso che lo ha reso possibile. Ciò che si trasmette non va perduto.
 
 ### Zhi, Fortuna, giorno
-- Rito: Oggi è Zhi, il giorno della presa salda. Per le occasioni non lasciar cadere un contatto prezioso: rispondi adesso a un messaggio rimasto aperto oppure ringrazia chi ti ha dato una mano. Le occasioni restano volentieri vicine a chi sa tenerle.
+- Rito: Oggi è Zhi, il giorno della presa salda. Per la fortuna non lasciar cadere un contatto prezioso: rispondi adesso a un messaggio rimasto aperto oppure ringrazia chi ti ha dato una mano. Le occasioni restano volentieri vicine a chi sa tenerle.
 
 ### Zhi, Fortuna, settimana
 - Rito: Zhi, l'ufficiale che tiene vicino ciò che vale, segna oggi una settimana in cui le occasioni vengono da ciò che hai già. Scorri la rubrica e scegli tre persone con cui riallacciare un filo nei sette giorni. Comincia adesso con la prima: un saluto semplice, senza richieste.
 
 ### Zhi, Fortuna, mese
-- Rito: Per le occasioni, il mese che si apre oggi sotto Zhi, che serba ciò che è buono, chiede di ricambiare. Ogni settimana dei trenta giorni ricambia un favore ricevuto: un aiuto, un'indicazione, un passaggio. Fallo adesso per la prima volta, scegliendo il favore più vecchio.
+- Rito: Per la fortuna, il mese che si apre oggi sotto Zhi, che serba ciò che è buono, chiede di ricambiare. Ogni settimana dei trenta giorni ricambia un favore ricevuto: un aiuto, un'indicazione, un passaggio. Fallo adesso per la prima volta, scegliendo il favore più vecchio.
 
 ### Zhi, Fortuna, anno
 - Rito: Le buone occasioni dell'anno cinese, nato sotto Zhi a Capodanno, si fermano dove trovano cura. Proponi adesso di rivedere di persona un contatto prezioso che rischi di perdere: fissa un caffè, una passeggiata, una visita. Mantenere i legami è il gesto di Zhi.
@@ -381,7 +381,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Po, che fa crollare ciò che non regge, ha segnato a Capodanno la nascita del tuo anno cinese. Nel lavoro il suo gesto è lasciare un metodo che ti rallenta: abbandonalo adesso e scrivi con che cosa lo sostituisci. Un metodo caduto fa posto a uno migliore.
 
 ### Po, Fortuna, giorno
-- Rito: Oggi è Po, il giorno che recide, in cui l'almanacco consiglia di non intraprendere nulla di propizio. Per le occasioni il gesto è tagliare un vincolo inutile: cancella un'iscrizione automatica che ti riempie la casella di posta o il telefono. Così la strada resta più libera.
+- Rito: Oggi è Po, il giorno che recide, in cui l'almanacco consiglia di non intraprendere nulla di propizio. Per la fortuna il gesto è tagliare un vincolo inutile: cancella un'iscrizione automatica che ti riempie la casella di posta o il telefono. Così la strada resta più libera.
 
 ### Po, Fortuna, settimana
 - Rito: Po, l'ufficiale che separa, apre oggi una settimana in cui le occasioni non si inseguono: la tradizione lo lascia al disfare. Elimina adesso un impegno che ti pesa senza portarti nulla e rimanda ai giorni seguenti ogni passo nuovo. Prima si libera la strada.
@@ -390,7 +390,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Strada sgombra: è ciò che chiedono le occasioni dei trenta giorni che partono oggi con Po, che scioglie i nodi stretti. Individua l'abitudine che ti blocca più spesso, come dire di sì a tutto: spezzala adesso con un no gentile, poi ripeti quel no una volta a settimana.
 
 ### Po, Fortuna, anno
-- Rito: Per le occasioni, l'anno cinese nato sotto Po a Capodanno chiede di demolire una scusa prima di cercare. Smetti adesso di ripetere la frase con cui rifiuti in partenza ciò che non conosci: ogni volta che ti sale alle labbra, sostituiscila con una domanda.
+- Rito: Per la fortuna, l'anno cinese nato sotto Po a Capodanno chiede di demolire una scusa prima di cercare. Smetti adesso di ripetere la frase con cui rifiuti in partenza ciò che non conosci: ogni volta che ti sale alle labbra, sostituiscila con una domanda.
 
 ### Wei, Generale, giorno
 - Rito: Oggi è il giorno di Wei, l'ufficiale del pericolo: l'almanacco lo consiglia per il raccoglimento e sconsiglia di salire in alto o di cambiare casa. Prenditi cinque minuti di silenzio in un luogo tranquillo e dedica un pensiero a chi vuoi proteggere.
@@ -429,7 +429,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Il tuo anno cinese porta da Capodanno il segno di Wei e chiede al lavoro passi controllati. Metti adesso al sicuro i dati del progetto più fragile: una copia su un secondo supporto, una password cambiata, una scadenza resa più realistica. Prevedere il guasto è il gesto dell'ufficiale della cautela.
 
 ### Wei, Fortuna, giorno
-- Rito: Oggi è Wei, il giorno in cui la tradizione sconsiglia viaggi rischiosi e salite in alto. Per le occasioni resta con i piedi per terra: davanti a una proposta appena arrivata, chiedi tempo prima di rispondere e valutala con lucidità. Una pausa ponderata è un gesto saggio.
+- Rito: Oggi è Wei, il giorno in cui la tradizione sconsiglia viaggi rischiosi e salite in alto. Per la fortuna resta con i piedi per terra: davanti a una proposta appena arrivata, chiedi tempo prima di rispondere e valutala con lucidità. Una pausa ponderata è un gesto saggio.
 
 ### Wei, Fortuna, settimana
 - Rito: Wei, l'ufficiale del discernimento, segna oggi una settimana in cui le occasioni vanno pesate. Scrivi adesso, accanto a ogni possibilità che vedi, un rischio e una precauzione. Dedica poi qualche minuto di raccoglimento a ciò che speri nei sette giorni.
@@ -438,7 +438,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Per trenta giorni, a partire da oggi, Wei invita le occasioni alla prudenza. Metti in tasca un piccolo sasso liscio e tienilo con te per tutto il mese: prima di ogni sì importante, stringilo e conta fino a dieci. Comincia adesso a portarlo.
 
 ### Wei, Fortuna, anno
-- Rito: Wei ha dato a Capodanno il suo segno all'anno cinese che stai vivendo, ufficiale vigile che diffida delle partenze. Per le occasioni rinuncia adesso a uno spostamento che non serve, un viaggio fatto per abitudine, una salita rischiosa: le buone occasioni si trovano anche vicino.
+- Rito: Wei ha dato a Capodanno il suo segno all'anno cinese che stai vivendo, ufficiale vigile che diffida delle partenze. Per la fortuna rinuncia adesso a uno spostamento che non serve, un viaggio fatto per abitudine, una salita rischiosa: le buone occasioni si trovano anche vicino.
 
 ### Cheng, Generale, giorno
 - Rito: Oggi è il giorno di Cheng, l'ufficiale del compimento: l'almanacco lo considera fra i più propizi. Prendi il libro lasciato a metà e leggilo fino all'ultima pagina, oppure fino al capitolo che chiude una parte. Rimetterlo sullo scaffale, finito, è il gesto di questo giorno.
@@ -477,13 +477,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Nel lavoro e nello studio conta il segno di Cheng, l'ufficiale delle opere finite: sotto di lui, a Capodanno, ha preso vita il tuo anno cinese. Scegli adesso un impegno di lavoro, di studio o personale che puoi chiudere in pochi giorni e portalo fino in fondo.
 
 ### Cheng, Fortuna, giorno
-- Rito: Oggi è Cheng, il giorno che compie e che l'almanacco dà buono anche per mettersi in viaggio. Per le occasioni muoviti: vai di persona dove finora hai solo scritto, a un incontro, da qualcuno che stimi. Le cose si compiono spesso quando ci si mette in strada.
+- Rito: Oggi è Cheng, il giorno che compie e che l'almanacco dà buono anche per mettersi in viaggio. Per la fortuna muoviti: vai di persona dove finora hai solo scritto, a un incontro, da qualcuno che stimi. Le cose si compiono spesso quando ci si mette in strada.
 
 ### Cheng, Fortuna, settimana
 - Rito: Cheng, che fa arrivare in fondo, regge oggi una settimana in cui le occasioni chiedono di essere completate. Riprendi una possibilità lasciata cadere a metà strada e fai adesso il passaggio che mancava: una risposta, una richiesta, un documento allegato. Ciò che manca è spesso poco.
 
 ### Cheng, Fortuna, mese
-- Rito: Il mese che parte oggi segue Cheng, che dà compimento e accompagna, secondo la tradizione, anche chi parte. Per le occasioni organizza nei trenta giorni una gita di un giorno verso un luogo che ti chiama da tempo: scegli adesso la meta e il mezzo.
+- Rito: Il mese che parte oggi segue Cheng, che dà compimento e accompagna, secondo la tradizione, anche chi parte. Per la fortuna organizza nei trenta giorni una gita di un giorno verso un luogo che ti chiama da tempo: scegli adesso la meta e il mezzo.
 
 ### Cheng, Fortuna, anno
 - Rito: Nato a Capodanno sotto Cheng, che non lascia le cose a metà, il tuo anno cinese chiede di portare fino in fondo le occasioni: la candidatura rimasta in bozza, la domanda mai inviata, la richiesta tenuta nel cassetto. Inviala adesso, così com'è.
@@ -525,7 +525,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Il tuo anno cinese, venuto al mondo a Capodanno sotto Shou, lega il lavoro ai frutti raccolti. Metti adesso in ordine i lavori riusciti in una raccolta da mostrare: progetti, testi, immagini, risultati, ciascuno con una riga di spiegazione. Ciò che hai raccolto parla per te.
 
 ### Shou, Fortuna, giorno
-- Rito: Oggi è Shou, il giorno che porta dentro il raccolto, sconsigliato dall'almanacco per i viaggi lunghi. Per le occasioni resta nei paraggi: rispondi adesso alle proposte arrivate, rileggi gli inviti ricevuti, segna quali meritano un sì. Spesso l'occasione è già sulla soglia.
+- Rito: Oggi è Shou, il giorno che porta dentro il raccolto, sconsigliato dall'almanacco per i viaggi lunghi. Per la fortuna resta nei paraggi: rispondi adesso alle proposte arrivate, rileggi gli inviti ricevuti, segna quali meritano un sì. Spesso l'occasione è già sulla soglia.
 
 ### Shou, Fortuna, settimana
 - Rito: In questa settimana aperta oggi da Shou, che vede maturare il seminato, le occasioni nascono dagli incontri recenti. Ripercorri le persone conosciute di recente e scegli l'incontro da far crescere: riprendilo adesso con un invito vicino a casa, perché la tradizione sconsiglia i viaggi lunghi.
@@ -549,7 +549,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Kai, l'ufficiale dell'apertura, ha visto nascere a Capodanno il tuo anno cinese. Il gesto vale oggi come in ogni altro giorno: riprendi adesso un'amicizia interrotta senza motivo, con una telefonata o una visita. Ciò che era chiuso torna a respirare.
 
 ### Kai, Amore, giorno
-- Rito: Oggi governa Kai, il giorno che schiude, buono anche per le unioni secondo l'almanacco antico. Negli affetti pronuncia una frase sincera che di solito tieni per te: dilla a chi ami o a chi desideri conoscere, guardando la persona negli occhi.
+- Rito: Oggi governa Kai, il giorno che schiude, buono anche per le unioni secondo l'almanacco antico. Negli affetti scrivi un biglietto con due parole gentili per chi ami o per chi desideri conoscere, poi lascialo dove lo troverà e apri una finestra per far entrare aria.
 
 ### Kai, Amore, settimana
 - Rito: Allargare il cerchio degli affetti è il gesto della settimana che Kai governa da oggi. Se hai un legame, proponi a chi ami un'attività nuova da provare insieme nei sette giorni, un ballo, un laboratorio; se sei senza legame, iscriviti a un'attività di gruppo dove conoscere persone.
@@ -573,16 +573,16 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Nel lavoro conta il soffio di Kai, l'ufficiale che dischiude: il tuo anno cinese è nato sotto di lui a Capodanno. Proponi adesso in riunione, o per iscritto a chi decide, l'idea che tieni nel cassetto da troppo tempo. Un'idea detta circola.
 
 ### Kai, Fortuna, giorno
-- Rito: Oggi è Kai, fra i giorni più graditi alla tradizione, quello che apre. Per le occasioni saluta per primo qualcuno che vedi spesso senza mai salutarlo: il vicino, il negoziante, chi fa la tua stessa strada. Un saluto può aprire una porta.
+- Rito: Oggi è Kai, fra i giorni più graditi alla tradizione, quello che apre. Per la fortuna saluta per primo qualcuno che vedi spesso senza mai salutarlo: il vicino, il negoziante, chi fa la tua stessa strada. Un saluto può aprire una porta.
 
 ### Kai, Fortuna, settimana
 - Rito: Kai, che fa circolare l'aria nuova, segna oggi una settimana in cui le occasioni passano dagli incontri. Scegli un gruppo, un coro o un'associazione da frequentare nei sette giorni e fai adesso la prima telefonata per entrarci. Entrare in un cerchio nuovo è il gesto.
 
 ### Kai, Fortuna, mese
-- Rito: Esci e incontra persone: il mese che comincia oggi è di Kai, che l'almanacco conta fra i più fausti. Per le occasioni accetta ogni settimana almeno un invito che di solito declini. Comincia adesso rispondendo sì al primo che hai davanti.
+- Rito: Esci e incontra persone: il mese che comincia oggi è di Kai, che l'almanacco conta fra i più fausti. Per la fortuna accetta ogni settimana almeno un invito che di solito declini. Comincia adesso rispondendo sì al primo che hai davanti.
 
 ### Kai, Fortuna, anno
-- Rito: Kai, sotto cui l'anno cinese è nato a Capodanno, porta il segno dell'uscio spalancato. Per le occasioni il gesto è uscire incontro agli altri: entra adesso in un luogo del quartiere dove non hai mai messo piede, una bottega, una sala, un cortile: presentati a chi trovi.
+- Rito: Kai, sotto cui l'anno cinese è nato a Capodanno, porta il segno dell'uscio spalancato. Per la fortuna il gesto è uscire incontro agli altri: entra adesso in un luogo del quartiere dove non hai mai messo piede, una bottega, una sala, un cortile: presentati a chi trovi.
 
 ### Bi, Generale, giorno
 - Rito: Oggi è il giorno di Bi, l'ufficiale che chiude: l'almanacco lo sconsiglia per aprire o partire e lo lascia al sigillare. Chiudi bene ciò che è rimasto aperto in casa, barattoli, cassetti, ante, la finestra che sbatte. Poi riponi ogni oggetto che hai usato.
@@ -621,13 +621,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Sotto Bi, che raccoglie le forze dentro un recinto, il tuo anno cinese è nato a Capodanno. Nel lavoro chiudi adesso un fronte secondario che disperde le energie: comunica con chiarezza che lo lasci e a chi passa ciò che resta. Le forze tornano così al compito principale.
 
 ### Bi, Fortuna, giorno
-- Rito: Oggi è Bi, il giorno che mette il suggello, in cui l'almanacco sconsiglia di inseguire novità. Per le occasioni conserva ciò che hai: rileggi una proposta già accettata e porta a termine l'ultimo passaggio che manca. Un affare concluso lascia libere le mani.
+- Rito: Oggi è Bi, il giorno che mette il suggello, in cui l'almanacco sconsiglia di inseguire novità. Per la fortuna conserva ciò che hai: rileggi una proposta già accettata e porta a termine l'ultimo passaggio che manca. Un affare concluso lascia libere le mani.
 
 ### Bi, Fortuna, settimana
-- Rito: Bi, che mette il punto finale, regge oggi una settimana per chiudere un capitolo. Per le occasioni saluta un progetto finito e ringrazia, di persona o per iscritto, chi ha fatto la strada con te. Così prepari spazio a ciò che viene dopo.
+- Rito: Bi, che mette il punto finale, regge oggi una settimana per chiudere un capitolo. Per la fortuna saluta un progetto finito e ringrazia, di persona o per iscritto, chi ha fatto la strada con te. Così prepari spazio a ciò che viene dopo.
 
 ### Bi, Fortuna, mese
 - Rito: Le occasioni del mese che si apre oggi con Bi, che chiude a chiave, chiedono di tenere stretto ciò che hai. Ogni sera dei trenta giorni chiudi con calma la porta di casa e, girando la chiave, pensa a una cosa buona da conservare. Comincia stasera.
 
 ### Bi, Fortuna, anno
-- Rito: Il segno di Bi, sotto cui l'anno cinese è nato a Capodanno, è quello delle cose messe al riparo. Per le occasioni sigilla adesso ciò che hai ottenuto: metti al sicuro un documento importante, conferma per iscritto un impegno preso, salva il recapito di una persona preziosa.
+- Rito: Il segno di Bi, sotto cui l'anno cinese è nato a Capodanno, è quello delle cose messe al riparo. Per la fortuna sigilla adesso ciò che hai ottenuto: metti al sicuro un documento importante, conferma per iscritto un impegno preso, salva il recapito di una persona preziosa.

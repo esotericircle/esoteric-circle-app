@@ -79,12 +79,17 @@ class DominioDelPeriodo {
     required this.migliore,
     required this.momentoChiave,
     required this.voce,
+    this.effettoDelMomento = '',
   });
 
   final HoroscopeDomain dominio;
   final List<GiornoDelPeriodo> giorni;
   final GiornoDelPeriodo migliore;
   final String momentoChiave;
+
+  /// Una frase in piu' per la Lunga: dove cade il momento chiave nella vita
+  /// di chi legge (vuota quando non c'e' niente da dire).
+  final String effettoDelMomento;
 
   /// **LA VOCE DEL PERIODO**, dal corpus della Settimana o del Mese (EU
   /// Aggiunta, voci EU.08, EU.16 ed EU.18): il titolo della scheda e i suoi
@@ -159,27 +164,24 @@ class DominioDelPeriodo {
     final conclusione =
         IlLessicoDelCielo.conclusione(dominio, livello, quando: del);
     if (tradizione != TradizioneEu.occidentale) {
-      final quanti = giorni.length == 7
-          ? 'sette giorni'
-          : giorni.length == 30
-              ? 'trenta giorni'
-              : 'giorni';
-      final base = 'Il livello $del è la media dei suoi $quanti: il giorno '
-          'migliore è ${LaSettimanaDelCielo.data(migliore.giorno)}.';
-      final come = tradizione == TradizioneEu.vedica
-          ? 'Ogni giorno si legge dalla posizione della Luna rispetto alla tua '
-              'Luna di nascita.'
-          : 'Ogni giorno si legge dal rapporto fra il suo animale e il tuo e da '
-              'quanto quel giorno ti aiuta.';
-      return lunga ? '$base $come $conclusione' : '$base $conclusione';
+      // **MICRO-GIRO GA.06**: la gabbia "Il livello e' la media dei suoi sette
+      // giorni" non dice niente a chi legge. Si dice il giudizio, il giorno
+      // migliore e (nella Lunga) il fatto di quel giorno, con le parole della
+      // sua scheda del Giorno.
+      final giudizio = conclusione.substring(0, conclusione.length - 1);
+      final breve = '$giudizio, con il giorno migliore '
+          '${LaSettimanaDelCielo.data(migliore.giorno)}.';
+      final fatto = LaSettimanaDelCielo.senzaOggi(migliore.motivo
+          .split(RegExp(r'(?<=[.!?])\s+'))
+          .firstWhere((f) => f.trim().isNotEmpty, orElse: () => ''));
+      return lunga && fatto.isNotEmpty ? '$breve $fatto' : breve;
     }
     if (momentoChiave.startsWith('Nessun')) return momentoChiave;
     // Il momento chiave e che cosa vuol dire per il campo; la Lunga dice anche
     // che il giudizio e' del cielo intero del periodo, non di quel momento.
     final chiave = 'Il momento chiave è $momentoChiave';
-    return lunga
-        ? '$chiave Il giudizio $del viene da tutto il cielo del periodo, non '
-            'da quel momento solo. $conclusione'
+    return lunga && effettoDelMomento.isNotEmpty
+        ? '$chiave $effettoDelMomento $conclusione'
         : '$chiave $conclusione';
   }
 
@@ -532,11 +534,13 @@ abstract final class LaSettimanaDelCielo {
                     .titolo);
           }(),
       ];
+      final (momento, effetto) =
+          _momentoChiave(dominio, segno, carta, da, a, fasiDelPeriodo);
       domini.add(dominioDelPeriodo(
         dominio: dominio,
         righe: righe,
-        momentoChiave:
-            _momentoChiave(dominio, segno, carta, da, a, fasiDelPeriodo),
+        momentoChiave: momento,
+        effettoDelMomento: effetto,
         tradizione: TradizioneEu.occidentale,
         mese: giorni > 7,
         oggi: inizio,
@@ -558,6 +562,7 @@ abstract final class LaSettimanaDelCielo {
     required HoroscopeDomain dominio,
     required List<GiornoDelPeriodo> righe,
     required String momentoChiave,
+    String effettoDelMomento = '',
     required TradizioneEu tradizione,
     required bool mese,
     required DateTime oggi,
@@ -581,6 +586,7 @@ abstract final class LaSettimanaDelCielo {
       giorni: righe,
       migliore: migliore,
       momentoChiave: momentoChiave,
+      effettoDelMomento: effettoDelMomento,
       voce: voce,
     );
   }
@@ -663,13 +669,16 @@ abstract final class LaSettimanaDelCielo {
   static String senzaOggi(String t) {
     var s = t.replaceAllMapped(RegExp(r'(^|[.!?:;]\s+)Oggi,?\s+(\S)'),
         (m) => '${m[1]}${m[2]!.toUpperCase()}');
+    // "oggi il giorno porta ..." diventa "quel giorno porta ...", non "quel
+    // giorno il giorno porta ..." (cinese, micro-giro GA.06).
+    s = s.replaceAll(RegExp(r'\boggi il giorno\b'), 'quel giorno');
     s = s.replaceAll(RegExp(r'\bdi oggi\b'), 'di quel giorno');
     s = s.replaceAll(RegExp(r'\boggi\b'), 'quel giorno');
     s = s.replaceAll(RegExp(r'\bOggi\b'), 'Quel giorno');
     return s;
   }
 
-  static String _momentoChiave(
+  static (String, String) _momentoChiave(
     HoroscopeDomain dominio,
     Zodiac segno,
     NatalChart? carta,
@@ -697,28 +706,36 @@ abstract final class LaSettimanaDelCielo {
             final t = istanti.first;
             // Sesto giro GA.06: la Luna va d'accordo con il tuo modo di amare,
             // e che cosa vuol dire per il campo, senza nessun nome di figura.
-            return '${data(t)} alle ${ora(t)}: la Luna '
-                '${IlLessicoDelCielo.rapportoCon(nome)} '
-                '${IlLessicoDelCielo.chePorta[id]}.';
+            return (
+              '${data(t)} alle ${ora(t)}: la Luna '
+                  '${IlLessicoDelCielo.rapportoCon(nome)} '
+                  '${IlLessicoDelCielo.chePorta[id]}.',
+              ''
+            );
           }
         }
       }
     }
     final caseDelDominio = CorrenteDelCielo.caseDi[dominio]!;
     (DateTime, int)? scelta;
+    var neiSuoiSegni = false;
     for (final f in fasiDelPeriodo) {
       final l = IlCieloDiMeeus.longitudine(
           CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(f.$1));
       final (casa, _) = _casa(l, segno, carta);
       if (caseDelDominio.contains(casa)) {
         scelta = f;
+        neiSuoiSegni = true;
         break;
       }
     }
     scelta ??= fasiDelPeriodo.firstOrNull;
     if (scelta == null) {
-      return 'Nessuna fase della Luna e nessun passaggio esatto in questo '
-          'periodo: il cielo scorre senza un momento solo.';
+      return (
+        'Nessuna fase della Luna e nessun passaggio esatto in questo '
+            'periodo: il cielo scorre senza un momento solo.',
+        ''
+      );
     }
     // Sesto giro GA.06: la fase della Luna detta in parole ("la Luna piena",
     // "la Luna calante a metà"), col segno, e che cosa vuol dire per il
@@ -727,7 +744,16 @@ abstract final class LaSettimanaDelCielo {
     final l = IlCieloDiMeeus.longitudine(
         CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(t));
     final dove = IlSegnoDelCielo.dellaLongitudine(l);
-    return '${data(t)} alle ${ora(t)}: ${IlLessicoDelCielo.fasiDellaLuna[k]} '
-        'in ${dove.italianName}.';
+    // La fase in parole e che cosa vuol dire; nella Lunga, se la fase cade
+    // nell'area del campo, lo si dice.
+    return (
+      '${data(t)} alle ${ora(t)}: in ${dove.italianName} '
+          '${IlLessicoDelCielo.fasiDellaLuna[k]}, '
+          '${IlLessicoDelCielo.effettoDelleFasi[k]}.',
+      neiSuoiSegni
+          ? 'Cade nell\'area della tua vita che riguarda '
+              '${IlLessicoDelCielo.cheCosaRiguarda[dominio]}.'
+          : ''
+    );
   }
 }

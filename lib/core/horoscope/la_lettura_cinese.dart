@@ -460,7 +460,7 @@ abstract final class LaLetturaCinese {
         'pazienza',
     'una forza che porta guadagni e occasioni di lato, impreviste',
     'la forza del guadagno regolare, di ciò che hai seminato',
-    'una forza intensa, che porta insieme sfida ed energia',
+    'una forza intensa, fatta di sfida e di energia',
     'la forza della regola, della responsabilità e del riconoscimento',
     'una forza di sostegno insolito e di intuizione',
     'la forza della protezione, dello studio e della cura',
@@ -518,17 +518,15 @@ abstract final class LaLetturaCinese {
   static String rigaDelTema(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
     final livello = livelloDelDio(d, dio, forma: forma);
-    final giorno = switch (livello) {
-      >= 5 => 'un giorno molto favorevole',
-      4 => 'un giorno favorevole',
-      3 => 'un giorno neutro',
-      _ => 'un giorno contrastato',
-    };
     final perche = switch (d) {
       HoroscopeDomain.carriera => _percheDellUfficiale[dio.index],
       HoroscopeDomain.amore => _perchePerLAmore[dio.index],
       _ => _percheDellaRicchezza[dio.index],
     };
-    return '${IlLessicoDelCielo.perIlCampo[d]} è $giorno, perché $perche.';
+    // **MICRO-GIRO GA.06**: "e' un giorno neutro, perche' c'e' intensita'"
+    // non aveva nesso. Adesso prima il fatto del campo, poi, dopo i due
+    // punti, il giudizio che ne segue, con le parole del livello.
+    return '${IlLessicoDelCielo.perIlCampo[d]} $perche: il giorno è '
+        '${IlLessicoDelCielo.giudizio(livello)}.';
   }
 }

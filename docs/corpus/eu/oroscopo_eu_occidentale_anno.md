@@ -27,7 +27,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è in equilibrio fra doveri e desideri, ma quell'equilibrio va difeso con poche regole semplici. Se non lo proteggi, gli impegni degli altri tendono a occupare ogni spazio libero; se lo curi, resta posto per ciò che ti fa stare bene senza trascurare il resto.
 - Che cosa fare: Scegli adesso un pomeriggio o una sera a settimana che appartiene a te e scrivilo subito in agenda, settimana per settimana, prima che arrivino altre richieste. Usalo per qualcosa che desideri, non per recuperare faccende. Se salta, spostalo entro tre giorni invece di cancellarlo.
-- Risposta, Lunga: Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Se il tempo tuo salta tre volte di fila, è ora di togliere un impegno ricorrente.
+- Risposta, Lunga: Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Se il tempo per te salta tre volte di fila, è ora di togliere un impegno ricorrente.
 
 #### Generale, equilibrio, voce 2: Le sere senza schermi
 
