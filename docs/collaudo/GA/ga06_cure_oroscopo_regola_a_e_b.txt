@@ -149,3 +149,25 @@ B11. test/la_lettura_vedica_test.dart: rossa sui testi nuovi per i puntini («Mi
 GIRO FINALE DELLA ZONA (32 file di prove: Oroscopo, forme delle quattro arti, genere, accenti,
 campioni GA.06, le due guardie nuove): 223 prove su 223 verdi.
 flutter analyze lib test: No issues found.
+
+I ROSSI DELL'UNIONE 9624d5b8 (21 ottobre 2026)
+
+Regola B: le quattro guardie della lingua erano gia' rosse sull'unione, prima di toccare
+(giro del 21 ottobre, 4 cadute su 4):
+- test/la_parola_voce_resta_allaudio_test.dart: «Per le altre voci della lista» (occidentale
+  settimana, dart riga 2790), «dopo le tre voci» e «tre voci restano tre» (vedica giorno, righe
+  280 e 281);
+- test/i_nomi_del_menu_e_del_diario_test.dart: «Custodisci adesso un contatto prezioso» nel rito
+  "Zhi, Fortuna, anno";
+- test/la_carta_natale_sopravvive_test.dart: i_testi_eu_vedica_data.dart "avvisa di dati di
+  nascita mancanti" ("ora e luogo" accanto a "senza" in tre righe di contenuto);
+- test/language_rule_test.dart: la virgola prima di "e" nel Rahu Kalam senza citta'.
+Cure alla fonte: 27 "voce/voci" nel senso di riga di elenco riscritte nei corpora (righe, cose,
+impegni, punti); "Proteggi" al posto di "Custodisci"; "orario e luogo" al posto di "ora e
+luogo"; i due punti al posto della virgola nel Rahu Kalam. Piu' il genere nelle righe del dio
+della serie dell'Amore cinese (48 righe, 13 frasi): la regola dei testi classici ("negli
+oroscopi maschili/femminili") detta come regola della tradizione, non applicata a chi legge.
+Dopo: verdi le quattro guardie, il_genere_non_si_indovina, accenti_veri, testo_a_video,
+nessuna_promessa_di_memoria_integrale, le due guardie nuove e le prove dell'Oroscopo (222 su
+222, dopo la tabella delle lunghezze rigenerata). Il campione delle rune, riscritto da
+GA06_SCRIVI per un lavoro altrui, e' stato rimesso com'era (git checkout).

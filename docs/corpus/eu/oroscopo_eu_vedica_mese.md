@@ -76,7 +76,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, salita, voce 3: Tempi che si allungano
 
 - Risposta: È un mese lento, con attese più lunghe del previsto. Una riparazione, una pratica in un ufficio, una risposta che doveva arrivare: ciò che dipende da altri tende a tardare. Non è un blocco ma un rallentamento, che chiede un margine più largo in ogni cosa che organizzi.
-- Che cosa fare: Fai oggi l'elenco di ciò che stai aspettando e accanto a ogni voce scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.
+- Che cosa fare: Fai oggi l'elenco di ciò che stai aspettando e accanto a ogni attesa scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.
 - Risposta, Lunga: Nelle attese il rischio è riempire il vuoto di supposizioni e di nervosismo. La tradizione indiana chiede di fare con cura la propria parte e di lasciare al resto il suo tempo. Se una data salta per ragioni non tue, scegli quella nuova senza restare in sospeso.
 
 #### Generale, salita, voce 4: Il rumore di fondo
@@ -98,7 +98,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 2: Una porta da spingere
 
 - Risposta: Il mese è favorevole ai primi passi in amore, con un clima leggero che toglie timidezza. Se sei senza legame e qualcuno ti incuriosisce, una porta si apre se la spingi con garbo; se vivi una relazione, è il momento di proporre qualcosa che non avete mai fatto insieme.
-- Che cosa fare: Entro dieci giorni fai una proposta concreta con giorno, ora e luogo, senza aspettare che arrivi dall'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.
+- Che cosa fare: Entro dieci giorni fai una proposta concreta con giorno, orario e luogo, senza aspettare che arrivi dall'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.
 - Risposta, Lunga: C'è un momento per cominciare e uno per insistere: adesso è il primo. Una proposta precisa mostra interesse senza bisogno di spiegarlo e lascia all'altra persona la libertà di rispondere. Se il sì arriva, prepara il secondo incontro con la stessa cura del primo, senza cambiare tono.
 
 #### Amore, favorevole, voce 3: Parole calde senza difese

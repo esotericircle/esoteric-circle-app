@@ -1216,13 +1216,13 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 17: Il profilo da riscrivere
 
 - Risposta: Oggi nel lavoro la giornata è sobria: adatta alle cure lente, come riscrivere il tuo profilo professionale o di studio. Spesso racconta chi eri qualche anno fa più di chi sei adesso; aggiornarlo non si vede subito, ma rende più facili gli incontri con chi cerca collaboratori.
-- Che cosa fare: Riscrivi la frase di presentazione in modo che dica che cosa sai fare e per chi. Aggiungi l'ultimo lavoro o studio concluso con un risultato concreto e togli le voci che non ti rappresentano più. Poi chiedi a due persone che ti conoscono un breve commento.
+- Che cosa fare: Riscrivi la frase di presentazione in modo che dica che cosa sai fare e per chi. Aggiungi l'ultimo lavoro o studio concluso con un risultato concreto e togli le righe che non ti rappresentano più. Poi chiedi a due persone che ti conoscono un breve commento.
 - Risposta, Lunga: Chi cerca collaboratori legge in fretta, spesso in pochi secondi. Un profilo ordinato fa il lavoro di presentazione al posto tuo nelle ore in cui ti occupi d'altro, come una porta lasciata socchiusa. Offriti di ricambiare i commenti: il riconoscimento reciproco rafforza entrambi i rapporti.
 
 #### Carriera, equilibrio, voce 18: Il controllo a metà strada
 
 - Risposta: Giornata stabile nel lavoro e nello studio, senza sorprese: è adatta a controllare a metà strada se stai andando dove volevi. Una pausa di verifica a metà giornata evita di scoprire troppo tardi che le ore migliori sono finite su un compito secondario.
-- Che cosa fare: Scrivi adesso i tre risultati che vuoi avere prima di sera. A metà giornata fermati cinque minuti, rileggi il foglio e segna accanto a ogni voce a che punto sei. Se uno dei tre è fermo, sposta su di lui la prima ora del pomeriggio.
+- Che cosa fare: Scrivi adesso i tre risultati che vuoi avere prima di sera. A metà giornata fermati cinque minuti, rileggi il foglio e segna accanto a ogni risultato a che punto sei. Se uno dei tre è fermo, sposta su di lui la prima ora del pomeriggio.
 - Risposta, Lunga: Le giornate tranquille ingannano perché nessuna urgenza obbliga a guardarsi indietro. Un controllo breve a metà strada corregge la rotta quando costa ancora poco. Il segno che il metodo funziona è chiudere la sera con almeno due risultati su tre, senza la sensazione di aver corso a vuoto.
 
 #### Carriera, equilibrio, voce 19: Favori in equilibrio

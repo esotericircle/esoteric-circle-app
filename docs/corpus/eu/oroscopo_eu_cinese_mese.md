@@ -30,8 +30,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, favorevole, voce 4: Arretrati di casa
 
 - Risposta: È un mese propizio per chiudere ciò che è rimasto a metà nella vita di ogni giorno. Un documento da rinnovare, una lettera a cui rispondere, una riparazione rimandata: messe in fila, le piccole questioni in sospeso adesso si sbrigano più in fretta di quanto temi.
-- Che cosa fare: Fai l'elenco di tutte le cose in sospeso, anche le più piccole, poi assegna a ciascuna un giorno entro la fine del mese. Comincia dalla più noiosa. Se una faccenda dipende da qualcun altro chiama subito invece di aspettare. Cancella ogni voce appena la chiudi.
-- Risposta, Lunga: Ogni faccenda chiusa libera spazio nella testa più di quanto immagini: il conto delle cose da fare torna in pari e senti di nuovo che il tempo è tuo. Il pericolo è aggiungere voci nuove mentre chiudi le vecchie. Fino alla fine del mese, prima si chiude, poi si apre.
+- Che cosa fare: Fai l'elenco di tutte le cose in sospeso, anche le più piccole, poi assegna a ciascuna un giorno entro la fine del mese. Comincia dalla più noiosa. Se una faccenda dipende da qualcun altro chiama subito invece di aspettare. Cancella ogni riga appena la chiudi.
+- Risposta, Lunga: Ogni faccenda chiusa libera spazio nella testa più di quanto immagini: il conto delle cose da fare torna in pari e senti di nuovo che il tempo è tuo. Il pericolo è aggiungere righe nuove mentre chiudi le vecchie. Fino alla fine del mese, prima si chiude, poi si apre.
 
 ### Generale, In equilibrio (livello 3)
 

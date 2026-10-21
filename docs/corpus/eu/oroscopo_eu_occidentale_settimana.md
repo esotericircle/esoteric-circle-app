@@ -202,7 +202,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, salita, voce 4: Cantieri aperti
 
 - Risposta: Settimana pesante, affollata di cose cominciate e mai finite: una pratica, un armadio, un regalo da fare, una telefonata. Il periodo non regge tutti questi fronti insieme e chiede una selezione onesta, perché avanzare un poco su tutto lascia più stanchezza che risultati.
-- Che cosa fare: Scrivi oggi l'elenco di tutto ciò che hai lasciato a metà e cerchia tre voci soltanto, quelle che pesano di più. Per le altre segna accanto una data più avanti, senza sensi di colpa. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.
+- Che cosa fare: Scrivi oggi l'elenco di tutto ciò che hai lasciato a metà e cerchia tre cose soltanto, quelle che pesano di più. Per le altre segna accanto una data più avanti, senza sensi di colpa. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.
 - Risposta, Lunga: Ogni cosa aperta occupa un piccolo spazio nella mente anche quando non ci pensi. Chiuderne poche, ma per davvero, alleggerisce più che toccarle tutte senza arrivare in fondo. L'errore da evitare è passare alla voce successiva prima che la precedente sia chiusa del tutto.
 
 #### Generale, salita, voce 5: Meglio a voce
@@ -618,7 +618,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, equilibrio, voce 1: Una priorità sola
 
 - Risposta: Settimana equilibrata nel lavoro, né spinta né frenata: premia chi sceglie dove mettere le energie migliori. Molte cose chiedono attenzione insieme ma poche sono davvero urgenti, quindi conviene farne avanzare una per bene invece di toccarle tutte appena e lasciarle a metà.
-- Che cosa fare: Oggi scrivi su un foglio tutto ciò che hai aperto, nel lavoro o nello studio, con accanto a ogni voce il prossimo passo concreto. Scegline una da chiudere prima che la settimana finisca e dedica alle altre mezz'ora a testa, senza sensi di colpa.
+- Che cosa fare: Oggi scrivi su un foglio tutto ciò che hai aperto, nel lavoro o nello studio, con accanto a ogni cosa il prossimo passo concreto. Scegline una da chiudere prima che la settimana finisca e dedica alle altre mezz'ora a testa, senza sensi di colpa.
 - Risposta, Lunga: Il rischio di questi giorni è dare un colpo al cerchio e uno alla botte senza chiudere niente. La sensazione di avere sempre da fare non coincide col lavoro fatto. Alla fine dei sette giorni guarda il foglio: una voce chiusa vale più di cinque mosse a metà.
 
 #### Carriera, equilibrio, voce 2: Due strade valutate con calma
@@ -914,8 +914,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, equilibrio, voce 7: Il taccuino delle occasioni
 
 - Risposta: Per la fortuna è una settimana ordinaria, senza colpi di scena: la buona sorte passa in piccole dosi e aiuta chi la nota. Un'idea, un nome, una proposta sentita di sfuggita svaniscono in fretta se nessuno li scrive; annotati, invece, tornano utili al momento giusto.
-- Che cosa fare: Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due voci a cui dare un seguito concreto.
-- Risposta, Lunga: Molte occasioni non mancano: si perdono fra un pensiero e l'altro. Scriverle le trasforma da impressioni in possibilità concrete. Il segnale più chiaro: rileggendo ti accorgi che alcune voci si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.
+- Che cosa fare: Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due righe a cui dare un seguito concreto.
+- Risposta, Lunga: Molte occasioni non mancano: si perdono fra un pensiero e l'altro. Scriverle le trasforma da impressioni in possibilità concrete. Il segnale più chiaro: rileggendo ti accorgi che alcune righe si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.
 
 #### Fortuna, equilibrio, voce 8: Un margine libero
 
@@ -1013,7 +1013,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana faticosa per la buona sorte, che si disperde in mille piccole perdite di tempo: notifiche continue, chat che non ti riguardano, commissioni spezzettate in dieci uscite. Una alla volta sembrano niente; insieme rubano energia proprio alle occasioni che contano.
 - Che cosa fare: Per tre giorni annota su un taccuino ogni piccola perdita di tempo che noti. Scegli quella più facile da eliminare e sistemala prima che la settimana finisca: esci da un gruppo, spegni una notifica, raccogli le commissioni in un'uscita sola.
-- Risposta, Lunga: Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere le energie per ciò che conta. Per le altre voci della lista fissa una data, una per volta.
+- Risposta, Lunga: Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere le energie per ciò che conta. Per le altre cose della lista fissa una data, una per volta.
 
 #### Fortuna, salita, voce 10: Il momento di chiedere
 

@@ -878,7 +878,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, equilibrio, voce 1: Un impegno in meno
 
 - Risposta: Settimana tranquilla per la fortuna, che si costruisce mettendo ordine in quello che già fai. Le uscite fisse, le serate di sempre e gli appuntamenti ricorrenti meritano uno sguardo attento, perché alcuni non ti danno più niente e occupano il posto di ciò che potrebbe arrivare.
-- Che cosa fare: Scrivi su un foglio tutti gli impegni che si ripetono ogni settimana, dal corso alla cena fissa. Accanto a ogni voce annota l'ultima volta che ti ha fatto piacere davvero. Entro quattro giorni lasciane andare uno solo, con garbo e senza giustificarti troppo.
+- Che cosa fare: Scrivi su un foglio tutti gli impegni che si ripetono ogni settimana, dal corso alla cena fissa. Accanto a ogni impegno annota l'ultima volta che ti ha fatto piacere davvero. Entro quattro giorni lasciane andare uno solo, con garbo e senza giustificarti troppo.
 - Risposta, Lunga: Un impegno che non scegli più pesa più del tempo che occupa. Togliere una sola voce non chiede rinunce dolorose: libera una sera per ciò che può arrivare di nuovo. La misura di questa settimana sta nel fare poco e bene, senza rivoluzionare il resto.
 
 #### Fortuna, equilibrio, voce 2: Fra due proposte

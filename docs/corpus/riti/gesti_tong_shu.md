@@ -342,7 +342,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Per le occasioni, il mese che si apre oggi sotto Zhi chiede di tenere vicino ciò che è prezioso. Ogni settimana dei trenta giorni rispondi a un messaggio rimasto aperto o ringrazia chi ti ha dato un'indicazione utile. Fallo adesso per la prima volta.
 
 ### Zhi, Fortuna, anno
-- Rito: Le buone occasioni dell'anno cinese, nato sotto Zhi a Capodanno, restano vicine a chi sa tenerle. Custodisci adesso un contatto prezioso che rischi di perdere: scrivigli due righe, ricorda un favore ricevuto, proponi di rivedervi. Tenere è il gesto dell'ufficiale che custodisce.
+- Rito: Le buone occasioni dell'anno cinese, nato sotto Zhi a Capodanno, restano vicine a chi sa tenerle. Proteggi adesso un contatto prezioso che rischi di perdere: scrivigli due righe, ricorda un favore ricevuto, proponi di rivedervi. Tenere è il gesto dell'ufficiale che custodisce.
 
 ### Po, Generale, giorno
 - Rito: Oggi è il giorno di Po, l'ufficiale che rompe: l'almanacco lo sconsiglia per quasi ogni impresa e lo lascia soltanto al demolire. Non cominciare nulla di importante. Butta via invece un oggetto rotto che conservi senza motivo e lascia quel vuoto com'è.

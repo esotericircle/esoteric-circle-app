@@ -27,7 +27,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è sereno nel suo insieme e premia le giornate che cominciano con ordine più di quelle prese di corsa. Non chiede svolte: chiede un ritmo regolare, in cui pochi minuti dedicati a scegliere le priorità del giorno evitano la sensazione di inseguire gli impegni fino a sera.
 - Che cosa fare: Da adesso dedica i primi dieci minuti di ogni mattina a scegliere le tre cose più importanti della giornata, prima di guardare messaggi e notizie. Scrivile su un biglietto che tieni con te. La sera spunta quelle fatte e porta avanti le altre.
-- Risposta, Lunga: Un mattino ordinato dà la direzione a tutto il resto: chi sa che cosa conta non si lascia trascinare dalle urgenze altrui. Il pericolo è riempire l'elenco con troppe voci e sentirsi in difetto la sera. Tre cose bastano; se ne fai due, la giornata è già riuscita.
+- Risposta, Lunga: Un mattino ordinato dà la direzione a tutto il resto: chi sa che cosa conta non si lascia trascinare dalle urgenze altrui. Il pericolo è riempire l'elenco con troppe righe e sentirsi in difetto la sera. Tre cose bastano; se ne fai due, la giornata è già riuscita.
 
 #### Generale, equilibrio, voce 2: I messaggi sospesi
 

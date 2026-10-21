@@ -366,7 +366,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 16: Un solo giro
 
 - Risposta: Oggi è una giornata normale, adatta a mettere in fila le piccole commissioni: fatte una alla volta rubano ore intere, raccolte in un solo giro si sbrigano in fretta. La posta, una restituzione, un pezzo da comprare trovano posto nello stesso percorso.
-- Che cosa fare: Scrivi le commissioni che hai in sospeso in ordine di percorso, dalla più vicina alla più lontana, poi fai un unico giro a metà mattina o nel pomeriggio. Porta con te una borsa capiente per non dover tornare indietro. Al rientro cancella ogni voce con una riga ben visibile.
+- Che cosa fare: Scrivi le commissioni che hai in sospeso in ordine di percorso, dalla più vicina alla più lontana, poi fai un unico giro a metà mattina o nel pomeriggio. Porta con te una borsa capiente per non dover tornare indietro. Al rientro cancella ogni commissione con un tratto ben visibile.
 - Risposta, Lunga: Raggruppare è una delle forme più semplici di ordine. Ti toglie il senso di avere sempre qualcosa in sospeso e rende evidente quanto tempo ti resta davvero. In fondo al foglio annota ciò che hai notato per strada e che può servire più avanti, prima che ti sfugga.
 
 #### Generale, equilibrio, voce 17: Il passatempo trascurato
@@ -385,7 +385,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata è in equilibrio e il suo tono dipende da come scegli le priorità. Se rincorri ogni richiesta, le ore tendono a inseguirti; se decidi tu le tre cose che contano, si lasciano guidare invece di dettare il passo.
 - Che cosa fare: Prima di aprire posta o messaggi, scrivi su un foglio le tre cose che contano davvero per oggi e mettilo dove lo vedi. Comincia dalla prima e non passare oltre finché non è fatta. Quando arriva una richiesta nuova, chiediti se vale più di quelle tre.
-- Risposta, Lunga: Quei pochi minuti non sono tempo perso: sono il punto in cui decidi tu la direzione, prima che lo facciano gli altri. Un elenco breve rende più facile dire di no alle richieste che arrivano dopo. Tieni le voci a tre: con dieci, il foglio diventa un altro peso.
+- Risposta, Lunga: Quei pochi minuti non sono tempo perso: sono il punto in cui decidi tu la direzione, prima che lo facciano gli altri. Un elenco breve rende più facile dire di no alle richieste che arrivano dopo. Tieni le righe a tre: con dieci, il foglio diventa un altro peso.
 
 #### Generale, equilibrio, voce 20: Il pasto al tavolo
 
@@ -422,7 +422,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, salita, voce 1: La casa chiede tempo
 
 - Risposta: Oggi la giornata è in salita sul fronte della casa: le piccole faccende rimandate chiedono il conto tutte insieme, i panni da piegare, il lavello pieno, la spesa da sistemare. Non è disordine grave, è un peso che si scioglie soltanto un pezzo alla volta.
-- Che cosa fare: Scegli una faccenda sola e portala a termine prima di pranzo, senza toccare le altre. Il resto scrivilo su un foglio da attaccare al frigorifero, con accanto a ogni voce il momento della giornata in cui farla. Stasera spunta ciò che hai chiuso e non aggiungere altro.
+- Che cosa fare: Scegli una faccenda sola e portala a termine prima di pranzo, senza toccare le altre. Il resto scrivilo su un foglio da attaccare al frigorifero, con accanto a ogni faccenda il momento della giornata in cui farla. Stasera spunta ciò che hai chiuso e non aggiungere altro.
 - Risposta, Lunga: Quando tutto sembra chiedere attenzione insieme, la stanchezza nasce più dall'elenco che dalla fatica vera. Ogni cosa sistemata alleggerisce lo sguardo e restituisce alla stanza il suo respiro. L'errore da evitare è attaccare tutto nello stesso pomeriggio: una faccenda chiusa vale più di cinque cominciate.
 
 #### Generale, salita, voce 2: Parole da maneggiare
@@ -1071,7 +1071,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Per riprendere le richieste di lavoro o di studio rimaste senza risposta, oggi è una giornata buona. Un sollecito garbato tende a essere accolto meglio del solito. Se hai mandato una candidatura, una domanda o una proposta, è il momento di farti sentire di nuovo con discrezione.
 - Che cosa fare: Fai un elenco delle richieste che aspettano una risposta, con la data in cui le hai mandate. Scegli le due più importanti e manda per ciascuna un messaggio breve: ricorda di che cosa si tratta e chiedi con cortesia i tempi previsti. Tieni l'elenco aggiornato prima di sera.
-- Risposta, Lunga: Spesso il silenzio nasce da agende piene, non da un rifiuto: un promemoria cortese aiuta chi deve rispondere. Serve però ordine: confondere due richieste lascia un'impressione difficile da correggere. Il segno che funziona è un elenco in cui ogni voce ha una data e una persona.
+- Risposta, Lunga: Spesso il silenzio nasce da agende piene, non da un rifiuto: un promemoria cortese aiuta chi deve rispondere. Serve però ordine: confondere due richieste lascia un'impressione difficile da correggere. Il segno che funziona è un elenco in cui ogni riga ha una data e una persona.
 
 #### Carriera, favorevole, voce 24: Idee che arrivano facili
 
@@ -1120,7 +1120,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 1: Tre priorità bastano
 
 - Risposta: Oggi nel lavoro e nello studio la giornata è equilibrata ma dispersiva. Le richieste arrivano da più direzioni e non serve inseguirle tutte. Conta capire quali cose pesano davvero e quali possono aspettare senza danni, per non arrivare a sera con molto cominciato e niente chiuso.
-- Che cosa fare: Prima di aprire la posta o i messaggi scrivi a mano le tre cose che vuoi chiudere entro sera. Rispondi alle richieste soltanto dopo aver finito la prima, in un blocco unico di mezz'ora. Stasera annota accanto a ogni voce quanto tempo ti ha chiesto davvero.
+- Che cosa fare: Prima di aprire la posta o i messaggi scrivi a mano le tre cose che vuoi chiudere entro sera. Rispondi alle richieste soltanto dopo aver finito la prima, in un blocco unico di mezz'ora. Stasera annota accanto a ogni punto quanto tempo ti ha chiesto davvero.
 - Risposta, Lunga: Rispondere subito fa sembrare presenti, ma toglie le ore lunghe in cui nasce il lavoro buono. Oggi l'ordine vale più dello zelo. I tempi annotati stasera ti mostrano quanto stimi male certe attività e ti aiutano a dare un orario realistico agli impegni successivi.
 
 #### Carriera, equilibrio, voce 2: Dire bene che cosa offri
@@ -1132,8 +1132,8 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 3: Il carico diviso in parti
 
 - Risposta: Oggi lo studio e il lavoro procedono in modo regolare, ma il carico sembra più grande perché lo guardi tutto insieme. La materia si lascia dividere bene. Serve una mappa chiara più che altre ore di fatica disordinata e affannosa davanti alle stesse pagine.
-- Che cosa fare: Sfoglia l'indice o l'elenco delle cose da fare e segna ogni voce con un colore: verde se è chiara, giallo se va ripassata, rosso se è ancora oscura. Dedica la mattina al rosso, quando la testa è fresca. Prima di cena riprendi una voce gialla a voce alta.
-- Risposta, Lunga: La fatica nasce dal saltare da un punto all'altro inseguendo il timore di non arrivare in fondo. Uno studio ordinato non è più lento: lascia ricordi più stabili e meno dubbi notturni. Stasera guarda quante voci sono passate di colore: è la misura onesta del passo fatto.
+- Che cosa fare: Sfoglia l'indice o l'elenco delle cose da fare e segna ogni punto con un colore: verde se è chiara, giallo se va ripassata, rosso se è ancora oscura. Dedica la mattina al rosso, quando la testa è fresca. Prima di cena riprendi una voce gialla a voce alta.
+- Risposta, Lunga: La fatica nasce dal saltare da un punto all'altro inseguendo il timore di non arrivare in fondo. Uno studio ordinato non è più lento: lascia ricordi più stabili e meno dubbi notturni. Stasera guarda quanti punti sono passati di colore: è la misura onesta del passo fatto.
 
 #### Carriera, equilibrio, voce 4: Poche richieste curate
 

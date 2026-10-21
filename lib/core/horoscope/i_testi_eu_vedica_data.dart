@@ -275,10 +275,10 @@ abstract final class ITestiEuVedicaData {
         ],
         [
           VoceEu(
-            'Tre voci scelte',
+            'Tre cose scelte',
             'Oggi la giornata è in equilibrio: non spinge e non frena, offre lo spazio giusto per poche cose fatte bene. Il rischio è disperderti in mille piccoli compiti che sembrano tutti urgenti allo stesso modo. Chi sceglie presto che cosa conta arriva a sera con la testa leggera.',
-            'Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l\'hai chiusa davvero. Se arriva una richiesta nuova, annotala sul retro e guardala soltanto dopo le tre voci.',
-            'Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre voci restano tre fino a stasera.',
+            'Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l\'hai chiusa davvero. Se arriva una richiesta nuova, annotala sul retro e guardala soltanto dopo le tre cose.',
+            'Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre cose restano tre fino a stasera.',
           ),
           VoceEu(
             'Un no gentile',
@@ -385,7 +385,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Impegni da confermare',
             'Oggi la giornata è stabile e buona per fare chiarezza nel calendario. Se alcuni impegni sono rimasti vaghi, un orario da confermare, un incontro fissato a voce, una cena accennata e mai decisa, scioglierli richiede pochi messaggi e toglie un peso che non si vede.',
-            'Apri l\'agenda e manda un breve messaggio di conferma per ogni impegno ancora incerto, con giorno, ora e luogo. Ciò che non riesci a confermare entro sera, spostalo o cancellalo. Accanto a ogni impegno confermato annota che cosa ti serve per prepararti.',
+            'Apri l\'agenda e manda un breve messaggio di conferma per ogni impegno ancora incerto, con giorno, orario e luogo. Ciò che non riesci a confermare entro sera, spostalo o cancellalo. Accanto a ogni impegno confermato annota che cosa ti serve per prepararti.',
             'Un calendario chiaro è una forma di ordine che si estende anche agli altri: chi ti aspetta sa quando contare su di te. Le cose dette a metà occupano la mente senza mai arrivare da nessuna parte. Prima di dormire rileggi l\'agenda: adesso parla chiaro e non chiede più attenzione.',
           ),
           VoceEu(
@@ -1205,7 +1205,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Togliere con criterio',
             'Oggi nel lavoro la giornata è misurata e chiede di togliere più che di aggiungere. Elenchi di cose da fare, riunioni fisse, iscrizioni e impegni presi per abitudine tendono a crescere senza che nessuno li controlli: è un giorno adatto per sfoltirli con criterio.',
-            'Scrivi l\'elenco completo dei tuoi impegni ricorrenti di lavoro o di studio, anche quelli piccoli. Accanto a ciascuno segna se ti serve ancora oppure no. Elimina o riduci almeno due voci prima di sera e avvisa con una riga chi ne è coinvolto.',
+            'Scrivi l\'elenco completo dei tuoi impegni ricorrenti di lavoro o di studio, anche quelli piccoli. Accanto a ciascuno segna se ti serve ancora oppure no. Elimina o riduci almeno due impegni prima di sera e avvisa con una riga chi ne è coinvolto.',
             'Un calendario troppo pieno diluisce le cose importanti come un discorso troppo lungo diluisce le idee. Meno impegni, scelti con criterio, lasciano spazio a ciò che conta. Il pericolo è tagliare proprio ciò che ti nutre perché non produce subito: tieni almeno un impegno che ti fa crescere.',
           ),
           VoceEu(
@@ -1591,7 +1591,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Una proposta al gruppo',
             'Oggi la fortuna è misurata e premia le idee semplici. In un gruppo di cui fai parte, i vicini, una cerchia di conoscenti, una chat di interessi, una proposta concreta e facile da accettare trova ascolto più di un discorso lungo e pieno di condizioni.',
-            'Scegli uno dei tuoi gruppi e scrivi una sola proposta chiara, con ora e luogo: una passeggiata, uno scambio di libri, una cena in cui ognuno porta qualcosa. Chiedi chi aderisce entro sera. Tieni il messaggio breve e non insistere con chi tace.',
+            'Scegli uno dei tuoi gruppi e scrivi una sola proposta chiara, con orario e luogo: una passeggiata, uno scambio di libri, una cena in cui ognuno porta qualcosa. Chiedi chi aderisce entro sera. Tieni il messaggio breve e non insistere con chi tace.',
             'La giornata non spinge né frena: chiede di occupare il proprio posto con misura. Chi porta idee concrete trova ascolto più facilmente di chi alza la voce. Il segno buono sono due adesioni rapide; se arrivano, conferma subito i dettagli per tenere vivo l\'entusiasmo.',
           ),
           VoceEu(
@@ -2392,7 +2392,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'L\'elenco delle precedenze',
             'Settimana in equilibrio nel lavoro: non spinge e non frena, chiede di scegliere che cosa viene prima. Quando le richieste arrivano da più parti e sembrano tutte urgenti, seguire la voce più alta rischia di lasciarti con molte cose cominciate e nessuna chiusa davvero.',
-            'Oggi scrivi l\'elenco completo di ciò che hai in corso nel lavoro o nello studio, poi numera le voci per importanza. Se rispondi a qualcuno, chiedi conferma dell\'ordine. Quando arriva una richiesta nuova, domanda quale voce può slittare per farle spazio, invece di aggiungerla in cima.',
+            'Oggi scrivi l\'elenco completo di ciò che hai in corso nel lavoro o nello studio, poi numera le righe per importanza. Se rispondi a qualcuno, chiedi conferma dell\'ordine. Quando arriva una richiesta nuova, domanda quale impegno può slittare per farle spazio, invece di aggiungerla in cima.',
             'Quando tutto preme insieme, la misura sta nell\'ordine: un lavoro alla volta, portato a fondo, vale più di cinque lasciati a metà. Il rischio è un elenco che invecchia in un cassetto. Aggiornalo ogni sera in due minuti, così resta vero e non diventa un rimprovero.',
           ),
           VoceEu(
@@ -2893,7 +2893,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Tempi che si allungano',
             'È un mese lento, con attese più lunghe del previsto. Una riparazione, una pratica in un ufficio, una risposta che doveva arrivare: ciò che dipende da altri tende a tardare. Non è un blocco ma un rallentamento, che chiede un margine più largo in ogni cosa che organizzi.',
-            'Fai oggi l\'elenco di ciò che stai aspettando e accanto a ogni voce scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.',
+            'Fai oggi l\'elenco di ciò che stai aspettando e accanto a ogni attesa scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.',
             'Nelle attese il rischio è riempire il vuoto di supposizioni e di nervosismo. La tradizione indiana chiede di fare con cura la propria parte e di lasciare al resto il suo tempo. Se una data salta per ragioni non tue, scegli quella nuova senza restare in sospeso.',
           ),
           VoceEu(
@@ -2915,7 +2915,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Una porta da spingere',
             'Il mese è favorevole ai primi passi in amore, con un clima leggero che toglie timidezza. Se sei senza legame e qualcuno ti incuriosisce, una porta si apre se la spingi con garbo; se vivi una relazione, è il momento di proporre qualcosa che non avete mai fatto insieme.',
-            'Entro dieci giorni fai una proposta concreta con giorno, ora e luogo, senza aspettare che arrivi dall\'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.',
+            'Entro dieci giorni fai una proposta concreta con giorno, orario e luogo, senza aspettare che arrivi dall\'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.',
             'C\'è un momento per cominciare e uno per insistere: adesso è il primo. Una proposta precisa mostra interesse senza bisogno di spiegarlo e lascia all\'altra persona la libertà di rispondere. Se il sì arriva, prepara il secondo incontro con la stessa cura del primo, senza cambiare tono.',
           ),
           VoceEu(

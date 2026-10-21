@@ -64,7 +64,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, salita, voce 1: Rallentare per arrivare
 
 - Risposta: Il mese è in salita sul piano delle energie: ciò che prima facevi di slancio ora chiede fatica. Non è un passo indietro, è il segnale che per qualche settimana conviene rallentare, togliere peso e accettare un ritmo più corto, così arrivi in fondo senza strappi.
-- Che cosa fare: Scrivi tutto ciò che hai in programma fino alla fine del mese e taglia un terzo delle voci: rimanda, delega o chiedi aiuto. Comunica ogni rinuncia subito, così nessuno resta ad aspettarti. Poi metti in agenda due momenti che ti ricaricano, come una colazione lenta o mezz'ora di musica.
+- Che cosa fare: Scrivi tutto ciò che hai in programma fino alla fine del mese e taglia un terzo degli impegni: rimanda, delega o chiedi aiuto. Comunica ogni rinuncia subito, così nessuno resta ad aspettarti. Poi metti in agenda due momenti che ti ricaricano, come una colazione lenta o mezz'ora di musica.
 - Risposta, Lunga: Nei periodi in salita l'errore più comune è voler tenere il passo di sempre a tutti i costi. Così la fatica si accumula e diventa più lunga da smaltire. Un ritmo ridotto, invece, permette di ritrovare la forza piano piano, senza lasciare indietro le cose che contano.
 
 #### Generale, salita, voce 2: Malintesi da ricucire con calma

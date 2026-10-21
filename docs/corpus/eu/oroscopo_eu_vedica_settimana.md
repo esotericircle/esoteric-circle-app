@@ -618,7 +618,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, equilibrio, voce 1: L'elenco delle precedenze
 
 - Risposta: Settimana in equilibrio nel lavoro: non spinge e non frena, chiede di scegliere che cosa viene prima. Quando le richieste arrivano da più parti e sembrano tutte urgenti, seguire la voce più alta rischia di lasciarti con molte cose cominciate e nessuna chiusa davvero.
-- Che cosa fare: Oggi scrivi l'elenco completo di ciò che hai in corso nel lavoro o nello studio, poi numera le voci per importanza. Se rispondi a qualcuno, chiedi conferma dell'ordine. Quando arriva una richiesta nuova, domanda quale voce può slittare per farle spazio, invece di aggiungerla in cima.
+- Che cosa fare: Oggi scrivi l'elenco completo di ciò che hai in corso nel lavoro o nello studio, poi numera le righe per importanza. Se rispondi a qualcuno, chiedi conferma dell'ordine. Quando arriva una richiesta nuova, domanda quale impegno può slittare per farle spazio, invece di aggiungerla in cima.
 - Risposta, Lunga: Quando tutto preme insieme, la misura sta nell'ordine: un lavoro alla volta, portato a fondo, vale più di cinque lasciati a metà. Il rischio è un elenco che invecchia in un cassetto. Aggiornalo ogni sera in due minuti, così resta vero e non diventa un rimprovero.
 
 #### Carriera, equilibrio, voce 2: L'orario dichiarato

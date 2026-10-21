@@ -367,7 +367,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Un solo giro',
             'Oggi è una giornata normale, adatta a mettere in fila le piccole commissioni: fatte una alla volta rubano ore intere, raccolte in un solo giro si sbrigano in fretta. La posta, una restituzione, un pezzo da comprare trovano posto nello stesso percorso.',
-            'Scrivi le commissioni che hai in sospeso in ordine di percorso, dalla più vicina alla più lontana, poi fai un unico giro a metà mattina o nel pomeriggio. Porta con te una borsa capiente per non dover tornare indietro. Al rientro cancella ogni voce con una riga ben visibile.',
+            'Scrivi le commissioni che hai in sospeso in ordine di percorso, dalla più vicina alla più lontana, poi fai un unico giro a metà mattina o nel pomeriggio. Porta con te una borsa capiente per non dover tornare indietro. Al rientro cancella ogni commissione con un tratto ben visibile.',
             'Raggruppare è una delle forme più semplici di ordine. Ti toglie il senso di avere sempre qualcosa in sospeso e rende evidente quanto tempo ti resta davvero. In fondo al foglio annota ciò che hai notato per strada e che può servire più avanti, prima che ti sfugga.',
           ),
           VoceEu(
@@ -386,7 +386,7 @@ abstract final class ITestiEuOccidentaleData {
             'Le tre cose che contano',
             'Oggi la giornata è in equilibrio e il suo tono dipende da come scegli le priorità. Se rincorri ogni richiesta, le ore tendono a inseguirti; se decidi tu le tre cose che contano, si lasciano guidare invece di dettare il passo.',
             'Prima di aprire posta o messaggi, scrivi su un foglio le tre cose che contano davvero per oggi e mettilo dove lo vedi. Comincia dalla prima e non passare oltre finché non è fatta. Quando arriva una richiesta nuova, chiediti se vale più di quelle tre.',
-            'Quei pochi minuti non sono tempo perso: sono il punto in cui decidi tu la direzione, prima che lo facciano gli altri. Un elenco breve rende più facile dire di no alle richieste che arrivano dopo. Tieni le voci a tre: con dieci, il foglio diventa un altro peso.',
+            'Quei pochi minuti non sono tempo perso: sono il punto in cui decidi tu la direzione, prima che lo facciano gli altri. Un elenco breve rende più facile dire di no alle richieste che arrivano dopo. Tieni le righe a tre: con dieci, il foglio diventa un altro peso.',
           ),
           VoceEu(
             'Il pasto al tavolo',
@@ -423,7 +423,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'La casa chiede tempo',
             'Oggi la giornata è in salita sul fronte della casa: le piccole faccende rimandate chiedono il conto tutte insieme, i panni da piegare, il lavello pieno, la spesa da sistemare. Non è disordine grave, è un peso che si scioglie soltanto un pezzo alla volta.',
-            'Scegli una faccenda sola e portala a termine prima di pranzo, senza toccare le altre. Il resto scrivilo su un foglio da attaccare al frigorifero, con accanto a ogni voce il momento della giornata in cui farla. Stasera spunta ciò che hai chiuso e non aggiungere altro.',
+            'Scegli una faccenda sola e portala a termine prima di pranzo, senza toccare le altre. Il resto scrivilo su un foglio da attaccare al frigorifero, con accanto a ogni faccenda il momento della giornata in cui farla. Stasera spunta ciò che hai chiuso e non aggiungere altro.',
             'Quando tutto sembra chiedere attenzione insieme, la stanchezza nasce più dall\'elenco che dalla fatica vera. Ogni cosa sistemata alleggerisce lo sguardo e restituisce alla stanza il suo respiro. L\'errore da evitare è attaccare tutto nello stesso pomeriggio: una faccenda chiusa vale più di cinque cominciate.',
           ),
           VoceEu(
@@ -1072,7 +1072,7 @@ abstract final class ITestiEuOccidentaleData {
             'Richieste in sospeso da riprendere',
             'Per riprendere le richieste di lavoro o di studio rimaste senza risposta, oggi è una giornata buona. Un sollecito garbato tende a essere accolto meglio del solito. Se hai mandato una candidatura, una domanda o una proposta, è il momento di farti sentire di nuovo con discrezione.',
             'Fai un elenco delle richieste che aspettano una risposta, con la data in cui le hai mandate. Scegli le due più importanti e manda per ciascuna un messaggio breve: ricorda di che cosa si tratta e chiedi con cortesia i tempi previsti. Tieni l\'elenco aggiornato prima di sera.',
-            'Spesso il silenzio nasce da agende piene, non da un rifiuto: un promemoria cortese aiuta chi deve rispondere. Serve però ordine: confondere due richieste lascia un\'impressione difficile da correggere. Il segno che funziona è un elenco in cui ogni voce ha una data e una persona.',
+            'Spesso il silenzio nasce da agende piene, non da un rifiuto: un promemoria cortese aiuta chi deve rispondere. Serve però ordine: confondere due richieste lascia un\'impressione difficile da correggere. Il segno che funziona è un elenco in cui ogni riga ha una data e una persona.',
           ),
           VoceEu(
             'Idee che arrivano facili',
@@ -1121,7 +1121,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Tre priorità bastano',
             'Oggi nel lavoro e nello studio la giornata è equilibrata ma dispersiva. Le richieste arrivano da più direzioni e non serve inseguirle tutte. Conta capire quali cose pesano davvero e quali possono aspettare senza danni, per non arrivare a sera con molto cominciato e niente chiuso.',
-            'Prima di aprire la posta o i messaggi scrivi a mano le tre cose che vuoi chiudere entro sera. Rispondi alle richieste soltanto dopo aver finito la prima, in un blocco unico di mezz\'ora. Stasera annota accanto a ogni voce quanto tempo ti ha chiesto davvero.',
+            'Prima di aprire la posta o i messaggi scrivi a mano le tre cose che vuoi chiudere entro sera. Rispondi alle richieste soltanto dopo aver finito la prima, in un blocco unico di mezz\'ora. Stasera annota accanto a ogni punto quanto tempo ti ha chiesto davvero.',
             'Rispondere subito fa sembrare presenti, ma toglie le ore lunghe in cui nasce il lavoro buono. Oggi l\'ordine vale più dello zelo. I tempi annotati stasera ti mostrano quanto stimi male certe attività e ti aiutano a dare un orario realistico agli impegni successivi.',
           ),
           VoceEu(
@@ -1133,8 +1133,8 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il carico diviso in parti',
             'Oggi lo studio e il lavoro procedono in modo regolare, ma il carico sembra più grande perché lo guardi tutto insieme. La materia si lascia dividere bene. Serve una mappa chiara più che altre ore di fatica disordinata e affannosa davanti alle stesse pagine.',
-            'Sfoglia l\'indice o l\'elenco delle cose da fare e segna ogni voce con un colore: verde se è chiara, giallo se va ripassata, rosso se è ancora oscura. Dedica la mattina al rosso, quando la testa è fresca. Prima di cena riprendi una voce gialla a voce alta.',
-            'La fatica nasce dal saltare da un punto all\'altro inseguendo il timore di non arrivare in fondo. Uno studio ordinato non è più lento: lascia ricordi più stabili e meno dubbi notturni. Stasera guarda quante voci sono passate di colore: è la misura onesta del passo fatto.',
+            'Sfoglia l\'indice o l\'elenco delle cose da fare e segna ogni punto con un colore: verde se è chiara, giallo se va ripassata, rosso se è ancora oscura. Dedica la mattina al rosso, quando la testa è fresca. Prima di cena riprendi una voce gialla a voce alta.',
+            'La fatica nasce dal saltare da un punto all\'altro inseguendo il timore di non arrivare in fondo. Uno studio ordinato non è più lento: lascia ricordi più stabili e meno dubbi notturni. Stasera guarda quanti punti sono passati di colore: è la misura onesta del passo fatto.',
           ),
           VoceEu(
             'Poche richieste curate',
@@ -1976,7 +1976,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Cantieri aperti',
             'Settimana pesante, affollata di cose cominciate e mai finite: una pratica, un armadio, un regalo da fare, una telefonata. Il periodo non regge tutti questi fronti insieme e chiede una selezione onesta, perché avanzare un poco su tutto lascia più stanchezza che risultati.',
-            'Scrivi oggi l\'elenco di tutto ciò che hai lasciato a metà e cerchia tre voci soltanto, quelle che pesano di più. Per le altre segna accanto una data più avanti, senza sensi di colpa. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.',
+            'Scrivi oggi l\'elenco di tutto ciò che hai lasciato a metà e cerchia tre cose soltanto, quelle che pesano di più. Per le altre segna accanto una data più avanti, senza sensi di colpa. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.',
             'Ogni cosa aperta occupa un piccolo spazio nella mente anche quando non ci pensi. Chiuderne poche, ma per davvero, alleggerisce più che toccarle tutte senza arrivare in fondo. L\'errore da evitare è passare alla voce successiva prima che la precedente sia chiusa del tutto.',
           ),
           VoceEu(
@@ -2392,7 +2392,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Una priorità sola',
             'Settimana equilibrata nel lavoro, né spinta né frenata: premia chi sceglie dove mettere le energie migliori. Molte cose chiedono attenzione insieme ma poche sono davvero urgenti, quindi conviene farne avanzare una per bene invece di toccarle tutte appena e lasciarle a metà.',
-            'Oggi scrivi su un foglio tutto ciò che hai aperto, nel lavoro o nello studio, con accanto a ogni voce il prossimo passo concreto. Scegline una da chiudere prima che la settimana finisca e dedica alle altre mezz\'ora a testa, senza sensi di colpa.',
+            'Oggi scrivi su un foglio tutto ciò che hai aperto, nel lavoro o nello studio, con accanto a ogni cosa il prossimo passo concreto. Scegline una da chiudere prima che la settimana finisca e dedica alle altre mezz\'ora a testa, senza sensi di colpa.',
             'Il rischio di questi giorni è dare un colpo al cerchio e uno alla botte senza chiudere niente. La sensazione di avere sempre da fare non coincide col lavoro fatto. Alla fine dei sette giorni guarda il foglio: una voce chiusa vale più di cinque mosse a metà.',
           ),
           VoceEu(
@@ -2688,8 +2688,8 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il taccuino delle occasioni',
             'Per la fortuna è una settimana ordinaria, senza colpi di scena: la buona sorte passa in piccole dosi e aiuta chi la nota. Un\'idea, un nome, una proposta sentita di sfuggita svaniscono in fretta se nessuno li scrive; annotati, invece, tornano utili al momento giusto.',
-            'Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due voci a cui dare un seguito concreto.',
-            'Molte occasioni non mancano: si perdono fra un pensiero e l\'altro. Scriverle le trasforma da impressioni in possibilità concrete. Il segnale più chiaro: rileggendo ti accorgi che alcune voci si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.',
+            'Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due righe a cui dare un seguito concreto.',
+            'Molte occasioni non mancano: si perdono fra un pensiero e l\'altro. Scriverle le trasforma da impressioni in possibilità concrete. Il segnale più chiaro: rileggendo ti accorgi che alcune righe si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.',
           ),
           VoceEu(
             'Un margine libero',
@@ -2787,7 +2787,7 @@ abstract final class ITestiEuOccidentaleData {
             'Le piccole dispersioni',
             'Settimana faticosa per la buona sorte, che si disperde in mille piccole perdite di tempo: notifiche continue, chat che non ti riguardano, commissioni spezzettate in dieci uscite. Una alla volta sembrano niente; insieme rubano energia proprio alle occasioni che contano.',
             'Per tre giorni annota su un taccuino ogni piccola perdita di tempo che noti. Scegli quella più facile da eliminare e sistemala prima che la settimana finisca: esci da un gruppo, spegni una notifica, raccogli le commissioni in un\'uscita sola.',
-            'Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere le energie per ciò che conta. Per le altre voci della lista fissa una data, una per volta.',
+            'Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere le energie per ciò che conta. Per le altre cose della lista fissa una data, una per volta.',
           ),
           VoceEu(
             'Il momento di chiedere',
@@ -2881,7 +2881,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Rallentare per arrivare',
             'Il mese è in salita sul piano delle energie: ciò che prima facevi di slancio ora chiede fatica. Non è un passo indietro, è il segnale che per qualche settimana conviene rallentare, togliere peso e accettare un ritmo più corto, così arrivi in fondo senza strappi.',
-            'Scrivi tutto ciò che hai in programma fino alla fine del mese e taglia un terzo delle voci: rimanda, delega o chiedi aiuto. Comunica ogni rinuncia subito, così nessuno resta ad aspettarti. Poi metti in agenda due momenti che ti ricaricano, come una colazione lenta o mezz\'ora di musica.',
+            'Scrivi tutto ciò che hai in programma fino alla fine del mese e taglia un terzo degli impegni: rimanda, delega o chiedi aiuto. Comunica ogni rinuncia subito, così nessuno resta ad aspettarti. Poi metti in agenda due momenti che ti ricaricano, come una colazione lenta o mezz\'ora di musica.',
             'Nei periodi in salita l\'errore più comune è voler tenere il passo di sempre a tutti i costi. Così la fatica si accumula e diventa più lunga da smaltire. Un ritmo ridotto, invece, permette di ritrovare la forza piano piano, senza lasciare indietro le cose che contano.',
           ),
           VoceEu(

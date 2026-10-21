@@ -1217,13 +1217,13 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il profilo da riscrivere',
             'Oggi nel lavoro la giornata è sobria: adatta alle cure lente, come riscrivere il tuo profilo professionale o di studio. Spesso racconta chi eri qualche anno fa più di chi sei adesso; aggiornarlo non si vede subito, ma rende più facili gli incontri con chi cerca collaboratori.',
-            'Riscrivi la frase di presentazione in modo che dica che cosa sai fare e per chi. Aggiungi l\'ultimo lavoro o studio concluso con un risultato concreto e togli le voci che non ti rappresentano più. Poi chiedi a due persone che ti conoscono un breve commento.',
+            'Riscrivi la frase di presentazione in modo che dica che cosa sai fare e per chi. Aggiungi l\'ultimo lavoro o studio concluso con un risultato concreto e togli le righe che non ti rappresentano più. Poi chiedi a due persone che ti conoscono un breve commento.',
             'Chi cerca collaboratori legge in fretta, spesso in pochi secondi. Un profilo ordinato fa il lavoro di presentazione al posto tuo nelle ore in cui ti occupi d\'altro, come una porta lasciata socchiusa. Offriti di ricambiare i commenti: il riconoscimento reciproco rafforza entrambi i rapporti.',
           ),
           VoceEu(
             'Il controllo a metà strada',
             'Giornata stabile nel lavoro e nello studio, senza sorprese: è adatta a controllare a metà strada se stai andando dove volevi. Una pausa di verifica a metà giornata evita di scoprire troppo tardi che le ore migliori sono finite su un compito secondario.',
-            'Scrivi adesso i tre risultati che vuoi avere prima di sera. A metà giornata fermati cinque minuti, rileggi il foglio e segna accanto a ogni voce a che punto sei. Se uno dei tre è fermo, sposta su di lui la prima ora del pomeriggio.',
+            'Scrivi adesso i tre risultati che vuoi avere prima di sera. A metà giornata fermati cinque minuti, rileggi il foglio e segna accanto a ogni risultato a che punto sei. Se uno dei tre è fermo, sposta su di lui la prima ora del pomeriggio.',
             'Le giornate tranquille ingannano perché nessuna urgenza obbliga a guardarsi indietro. Un controllo breve a metà strada corregge la rotta quando costa ancora poco. Il segno che il metodo funziona è chiudere la sera con almeno due risultati su tre, senza la sensazione di aver corso a vuoto.',
           ),
           VoceEu(
@@ -2652,7 +2652,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Un impegno in meno',
             'Settimana tranquilla per la fortuna, che si costruisce mettendo ordine in quello che già fai. Le uscite fisse, le serate di sempre e gli appuntamenti ricorrenti meritano uno sguardo attento, perché alcuni non ti danno più niente e occupano il posto di ciò che potrebbe arrivare.',
-            'Scrivi su un foglio tutti gli impegni che si ripetono ogni settimana, dal corso alla cena fissa. Accanto a ogni voce annota l\'ultima volta che ti ha fatto piacere davvero. Entro quattro giorni lasciane andare uno solo, con garbo e senza giustificarti troppo.',
+            'Scrivi su un foglio tutti gli impegni che si ripetono ogni settimana, dal corso alla cena fissa. Accanto a ogni impegno annota l\'ultima volta che ti ha fatto piacere davvero. Entro quattro giorni lasciane andare uno solo, con garbo e senza giustificarti troppo.',
             'Un impegno che non scegli più pesa più del tempo che occupa. Togliere una sola voce non chiede rinunce dolorose: libera una sera per ciò che può arrivare di nuovo. La misura di questa settimana sta nel fare poco e bene, senza rivoluzionare il resto.',
           ),
           VoceEu(
@@ -2847,8 +2847,8 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Arretrati di casa',
             'È un mese propizio per chiudere ciò che è rimasto a metà nella vita di ogni giorno. Un documento da rinnovare, una lettera a cui rispondere, una riparazione rimandata: messe in fila, le piccole questioni in sospeso adesso si sbrigano più in fretta di quanto temi.',
-            'Fai l\'elenco di tutte le cose in sospeso, anche le più piccole, poi assegna a ciascuna un giorno entro la fine del mese. Comincia dalla più noiosa. Se una faccenda dipende da qualcun altro chiama subito invece di aspettare. Cancella ogni voce appena la chiudi.',
-            'Ogni faccenda chiusa libera spazio nella testa più di quanto immagini: il conto delle cose da fare torna in pari e senti di nuovo che il tempo è tuo. Il pericolo è aggiungere voci nuove mentre chiudi le vecchie. Fino alla fine del mese, prima si chiude, poi si apre.',
+            'Fai l\'elenco di tutte le cose in sospeso, anche le più piccole, poi assegna a ciascuna un giorno entro la fine del mese. Comincia dalla più noiosa. Se una faccenda dipende da qualcun altro chiama subito invece di aspettare. Cancella ogni riga appena la chiudi.',
+            'Ogni faccenda chiusa libera spazio nella testa più di quanto immagini: il conto delle cose da fare torna in pari e senti di nuovo che il tempo è tuo. Il pericolo è aggiungere righe nuove mentre chiudi le vecchie. Fino alla fine del mese, prima si chiude, poi si apre.',
           ),
         ],
         [
@@ -3167,7 +3167,7 @@ abstract final class ITestiEuCineseData {
             'Un mattino ordinato',
             'L\'anno è sereno nel suo insieme e premia le giornate che cominciano con ordine più di quelle prese di corsa. Non chiede svolte: chiede un ritmo regolare, in cui pochi minuti dedicati a scegliere le priorità del giorno evitano la sensazione di inseguire gli impegni fino a sera.',
             'Da adesso dedica i primi dieci minuti di ogni mattina a scegliere le tre cose più importanti della giornata, prima di guardare messaggi e notizie. Scrivile su un biglietto che tieni con te. La sera spunta quelle fatte e porta avanti le altre.',
-            'Un mattino ordinato dà la direzione a tutto il resto: chi sa che cosa conta non si lascia trascinare dalle urgenze altrui. Il pericolo è riempire l\'elenco con troppe voci e sentirsi in difetto la sera. Tre cose bastano; se ne fai due, la giornata è già riuscita.',
+            'Un mattino ordinato dà la direzione a tutto il resto: chi sa che cosa conta non si lascia trascinare dalle urgenze altrui. Il pericolo è riempire l\'elenco con troppe righe e sentirsi in difetto la sera. Tre cose bastano; se ne fai due, la giornata è già riuscita.',
           ),
           VoceEu(
             'I messaggi sospesi',

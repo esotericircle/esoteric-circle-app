@@ -273,11 +273,11 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 ### Generale, In equilibrio (livello 3)
 
-#### Generale, equilibrio, voce 1: Tre voci scelte
+#### Generale, equilibrio, voce 1: Tre cose scelte
 
 - Risposta: Oggi la giornata è in equilibrio: non spinge e non frena, offre lo spazio giusto per poche cose fatte bene. Il rischio è disperderti in mille piccoli compiti che sembrano tutti urgenti allo stesso modo. Chi sceglie presto che cosa conta arriva a sera con la testa leggera.
-- Che cosa fare: Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l'hai chiusa davvero. Se arriva una richiesta nuova, annotala sul retro e guardala soltanto dopo le tre voci.
-- Risposta, Lunga: Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre voci restano tre fino a stasera.
+- Che cosa fare: Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l'hai chiusa davvero. Se arriva una richiesta nuova, annotala sul retro e guardala soltanto dopo le tre cose.
+- Risposta, Lunga: Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio. Non allungarla strada facendo: tre cose restano tre fino a stasera.
 
 #### Generale, equilibrio, voce 2: Un no gentile
 
@@ -384,7 +384,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 19: Impegni da confermare
 
 - Risposta: Oggi la giornata è stabile e buona per fare chiarezza nel calendario. Se alcuni impegni sono rimasti vaghi, un orario da confermare, un incontro fissato a voce, una cena accennata e mai decisa, scioglierli richiede pochi messaggi e toglie un peso che non si vede.
-- Che cosa fare: Apri l'agenda e manda un breve messaggio di conferma per ogni impegno ancora incerto, con giorno, ora e luogo. Ciò che non riesci a confermare entro sera, spostalo o cancellalo. Accanto a ogni impegno confermato annota che cosa ti serve per prepararti.
+- Che cosa fare: Apri l'agenda e manda un breve messaggio di conferma per ogni impegno ancora incerto, con giorno, orario e luogo. Ciò che non riesci a confermare entro sera, spostalo o cancellalo. Accanto a ogni impegno confermato annota che cosa ti serve per prepararti.
 - Risposta, Lunga: Un calendario chiaro è una forma di ordine che si estende anche agli altri: chi ti aspetta sa quando contare su di te. Le cose dette a metà occupano la mente senza mai arrivare da nessuna parte. Prima di dormire rileggi l'agenda: adesso parla chiaro e non chiede più attenzione.
 
 #### Generale, equilibrio, voce 20: Dieci minuti fuori
@@ -1204,7 +1204,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 15: Togliere con criterio
 
 - Risposta: Oggi nel lavoro la giornata è misurata e chiede di togliere più che di aggiungere. Elenchi di cose da fare, riunioni fisse, iscrizioni e impegni presi per abitudine tendono a crescere senza che nessuno li controlli: è un giorno adatto per sfoltirli con criterio.
-- Che cosa fare: Scrivi l'elenco completo dei tuoi impegni ricorrenti di lavoro o di studio, anche quelli piccoli. Accanto a ciascuno segna se ti serve ancora oppure no. Elimina o riduci almeno due voci prima di sera e avvisa con una riga chi ne è coinvolto.
+- Che cosa fare: Scrivi l'elenco completo dei tuoi impegni ricorrenti di lavoro o di studio, anche quelli piccoli. Accanto a ciascuno segna se ti serve ancora oppure no. Elimina o riduci almeno due impegni prima di sera e avvisa con una riga chi ne è coinvolto.
 - Risposta, Lunga: Un calendario troppo pieno diluisce le cose importanti come un discorso troppo lungo diluisce le idee. Meno impegni, scelti con criterio, lasciano spazio a ciò che conta. Il pericolo è tagliare proprio ciò che ti nutre perché non produce subito: tieni almeno un impegno che ti fa crescere.
 
 #### Carriera, equilibrio, voce 16: Quaranta minuti fedeli
@@ -1590,7 +1590,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, equilibrio, voce 9: Una proposta al gruppo
 
 - Risposta: Oggi la fortuna è misurata e premia le idee semplici. In un gruppo di cui fai parte, i vicini, una cerchia di conoscenti, una chat di interessi, una proposta concreta e facile da accettare trova ascolto più di un discorso lungo e pieno di condizioni.
-- Che cosa fare: Scegli uno dei tuoi gruppi e scrivi una sola proposta chiara, con ora e luogo: una passeggiata, uno scambio di libri, una cena in cui ognuno porta qualcosa. Chiedi chi aderisce entro sera. Tieni il messaggio breve e non insistere con chi tace.
+- Che cosa fare: Scegli uno dei tuoi gruppi e scrivi una sola proposta chiara, con orario e luogo: una passeggiata, uno scambio di libri, una cena in cui ognuno porta qualcosa. Chiedi chi aderisce entro sera. Tieni il messaggio breve e non insistere con chi tace.
 - Risposta, Lunga: La giornata non spinge né frena: chiede di occupare il proprio posto con misura. Chi porta idee concrete trova ascolto più facilmente di chi alza la voce. Il segno buono sono due adesioni rapide; se arrivano, conferma subito i dettagli per tenere vivo l'entusiasmo.
 
 #### Fortuna, equilibrio, voce 10: Il grazie rimasto in sospeso
