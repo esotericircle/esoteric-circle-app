@@ -175,10 +175,20 @@ test("FXA.03 la ricucitura: lo stesso giorno due volte e' idempotente, mai un ri
 
 test("FXA.03 GUARDIA: il prezzo e le regole del server sono quelli del telefono", () => {
   const radice = path.join(__dirname, "..", "..");
+  // LAPIDE, ordine GA, decisione del fondatore del 20 ottobre 2026: qui si
+  // pretendeva che il prezzo del server fosse quello della voce
+  // `perlaRicucita` del listino del telefono. Il fondatore: "Le funzioni del
+  // Respiro non si pubblicano". La porta `ricuciUnaPerlaDelRespiro` resta
+  // scritta e non pubblicata, col suo prezzo; il telefono non la vende piu'
+  // (la voce e' uscita dal listino, commit e09da3e0) e il suo prezzo resta
+  // solo nel modello della collana, `IlListinoDelRespiro`, che e' il numero
+  // da tenere uguale. Questa prova pretende adesso le due cose vere: il
+  // listino non vende la ricucitura, e i numeri del modello sono quelli del
+  // server.
   const listino = fs.readFileSync(
     path.join(radice, "lib", "core", "entitlement", "listino_degli_eos.dart"), "utf8");
-  const voce = /static const perlaRicucita = VoceDelListino\([\s\S]*?costo: (\d+),/.exec(listino);
-  assert.ok(voce !== null, "la voce perlaRicucita non si trova nel listino del telefono");
+  assert.ok(!listino.includes("'respiro_perla_ricucita'"),
+    "il listino del telefono vende di nuovo una ricucitura che il server non ha pubblicato");
   const respiro = fs.readFileSync(
     path.join(radice, "lib", "core", "lunario", "il_listino_del_respiro.dart"), "utf8");
   const numero = (nome: string) => {
@@ -187,8 +197,7 @@ test("FXA.03 GUARDIA: il prezzo e le regole del server sono quelli del telefono"
     return Number(m[1]);
   };
   console.log(`FXA.03 MISURA il prezzo: server ${EOS_DELLA_PERLA_RICUCITA}, ` +
-    `telefono ${voce[1]}`);
-  assert.equal(EOS_DELLA_PERLA_RICUCITA, Number(voce[1]));
+    `modello del telefono ${numero("costoRicucituraInEos")}`);
   assert.equal(EOS_DELLA_PERLA_RICUCITA, numero("costoRicucituraInEos"));
   assert.equal(RICUCITURE_MASSIME_PER_CICLO, numero("massimePerleRicucitePerCiclo"));
   assert.equal(GIORNI_INDIETRO_DELLA_RICUCITURA, numero("massimoGiorniIndietro"));
