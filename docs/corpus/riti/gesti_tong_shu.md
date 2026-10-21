@@ -41,18 +41,18 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 
 ## Da dove viene
 
-- Jian: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Jian, il giorno che stabilisce.
-- Chu: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Chu, il giorno che toglie.
-- Man: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Man, il giorno del pieno.
-- Ping: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Ping, il giorno che livella.
-- Ding: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Ding, il giorno che fissa.
-- Zhi: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Zhi, il giorno che tiene.
-- Po: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Po, il giorno che rompe.
-- Wei: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Wei, il giorno della vigilanza.
-- Cheng: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Cheng, il giorno che compie.
-- Shou: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Shou, il giorno che raccoglie.
-- Kai: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Kai, il giorno che apre.
-- Bi: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Bi, il giorno che chiude.
+- Jian: Il gesto del calendario cinese per il giorno che stabilisce.
+- Chu: Il gesto del calendario cinese per il giorno che toglie.
+- Man: Il gesto del calendario cinese per il giorno del pieno.
+- Ping: Il gesto del calendario cinese per il giorno che livella.
+- Ding: Il gesto del calendario cinese per il giorno che fissa.
+- Zhi: Il gesto del calendario cinese per il giorno che tiene.
+- Po: Il gesto del calendario cinese per il giorno che rompe.
+- Wei: Il gesto del calendario cinese per il giorno della vigilanza.
+- Cheng: Il gesto del calendario cinese per il giorno che compie.
+- Shou: Il gesto del calendario cinese per il giorno che raccoglie.
+- Kai: Il gesto del calendario cinese per il giorno che apre.
+- Bi: Il gesto del calendario cinese per il giorno che chiude.
 
 ## I riti
 
@@ -450,7 +450,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Sotto Cheng, che conclude, si apre oggi il tuo mese. Ogni settimana dei trenta giorni chiudi una piccola pratica di casa rimasta in sospeso: un documento da rinnovare, una lampadina da cambiare, un orlo da cucire. Comincia adesso dalla più semplice, prima di sera.
 
 ### Cheng, Generale, anno
-- Rito: Cheng, l'ufficiale che porta a compimento, ha dato a Capodanno il suo segno al tuo anno cinese. Il gesto vale in qualunque punto dell'anno: scrivi adesso una lettera a mano a una persona cara, oppure finisci quella rimasta a metà se ne hai una, poi firmala e spediscila.
+- Rito: Il Capodanno del tuo anno cinese portava il segno di Cheng, l'ufficiale che porta a termine le cose. Il gesto vale in qualunque punto dell'anno: scrivi adesso su un foglio una cosa che vuoi aver portato a termine entro il prossimo Capodanno e mettilo dove lo vedi ogni giorno.
 
 ### Cheng, Amore, giorno
 - Rito: Oggi governa Cheng, il giorno del traguardo, che la tradizione lega anche alle unioni. Negli affetti realizza adesso la sorpresa progettata e mai fatta, piccola o grande, per chi ami o per chi desideri avvicinare. Non aspettare un'occasione speciale: l'occasione è oggi.
@@ -468,7 +468,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Oggi l'almanacco segna Cheng, il giorno buono per le consegne. Al lavoro porta a termine il compito più vicino alla fine e consegnalo prima di sera, anche se non è perfetto. Vedere una cosa completata dà slancio a quelle che seguono.
 
 ### Cheng, Carriera, settimana
-- Rito: Sotto Cheng, che perfeziona, la settimana di lavoro e di studio chiede arrivi più che partenze. Scegli la cosa più vicina alla fine, che sia un compito, una pratica o un capitolo: fissa adesso il passo che la chiude entro i sette giorni. Se serve un sì, chiedilo subito.
+- Rito: Sotto Cheng, che perfeziona, la settimana di lavoro e di studio invita a portare a termine ciò che è avviato. Scegli la cosa più vicina alla fine, che sia un compito, una pratica o un capitolo: fissa adesso il passo che la chiude entro i sette giorni.
 
 ### Cheng, Carriera, mese
 - Rito: Cheng, che dopo la vigilanza porta a compimento, governa il primo dei tuoi trenta giorni di lavoro. Fai l'elenco dei compiti vicini alla fine e assegna a ciascuno una data di consegna dentro il mese. Chiudi adesso il primo e cancellalo con un tratto.

@@ -25,6 +25,7 @@ import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 void main() {
   test('senza carta: a cielo uguale livello uguale, 48 schede su 48', () {
     final dallaData = <String>[];
+    final fattiDelGiorno = <String, Set<String>>{};
     var schede = 0;
     for (final segno in Zodiac.values) {
       for (final dominio in HoroscopeDomain.values) {
@@ -44,16 +45,26 @@ void main() {
                   IlSegnoDelCielo.delCorpo(
                       IlCieloDelSegno.corpoDi[dominio]!, quando));
           perCasa.putIfAbsent(casa, () => {}).add(carta.indicator);
-          // LAPIDE, ordine GA voce GA.06, quarto giro: la riga non comincia piu'
-          // "Dalla Luna di oggi in..." ma "Oggi la Luna e' in...".
-          expect(carta.rigaDelLivello, contains('Oggi la Luna'));
-          // E il corpo del dominio, visto sul Realme: con la sola Luna le
-          // quattro schede avevano lo stesso livello e la stessa riga.
+          // LAPIDE, ordine GA voce GA.06, quarto e sesto giro: la riga non
+          // comincia piu' "Dalla Luna di oggi in..." ma "Oggi la Luna e'
+          // in...". E il corpo del dominio, visto sul Realme (con la sola
+          // Luna le quattro schede avevano lo stesso livello e la stessa
+          // riga): prima la riga lo nominava sempre ("il Sole è in ..."),
+          // adesso lo nomina quando pesa nel verso del livello, insieme alla
+          // Luna o da solo. Si pretende che la riga nomini la Luna o il
+          // corpo del dominio, e che le quattro schede dello stesso giorno
+          // non abbiano quasi mai lo stesso fatto (misura sotto).
           final corpo = IlCieloDelSegno.corpoDi[dominio]!;
-          expect(
-              carta.rigaDelLivello,
-              contains(
-                  '${corpo == CorpoCeleste.sole ? 'il Sole' : corpo.nome} è in'));
+          final nomeDelCorpo =
+              corpo == CorpoCeleste.sole ? 'il Sole' : corpo.nome;
+          expect(carta.rigaDelLivello,
+              anyOf(contains('Oggi la Luna'), contains('Oggi $nomeDelCorpo')),
+              reason: 'la riga non nomina ne\' la Luna ne\' $nomeDelCorpo');
+          final fatto = carta.rigaDelLivello!
+              .substring(0, carta.rigaDelLivello!.lastIndexOf('. ') + 1);
+          fattiDelGiorno
+              .putIfAbsent('${segno.id} $g', () => <String>{})
+              .add(fatto);
         }
         if (perCasa.values.any((s) => s.length > 1)) {
           dallaData.add('${segno.id} ${dominio.name}: $perCasa');
@@ -61,6 +72,15 @@ void main() {
       }
     }
     cardinaleMinimo(schede, 48, cosa: 'schede senza carta');
+    final stessoFatto =
+        fattiDelGiorno.values.where((f) => f.length == 1).length;
+    print('ORDINE GA VOCE GA.06 giro 6: giorni in cui le quattro schede '
+        'dicono lo stesso fatto $stessoFatto su ${fattiDelGiorno.length}');
+    // Il fatto del cielo che spiega il livello e' di norma diverso fra i
+    // quattro campi: al piu' un giorno su venti ha la stessa riga su tutti.
+    expect(stessoFatto, lessThan(fattiDelGiorno.length ~/ 20),
+        reason: 'le quattro schede dello stesso giorno dicono lo stesso '
+            'fatto: $stessoFatto su ${fattiDelGiorno.length}');
     print('ORDINE ES VOCE 28: schede il cui livello non dipende dal cielo '
         '${dallaData.length} su $schede');
     expect(dallaData, isEmpty, reason: dallaData.take(5).join('\n'));

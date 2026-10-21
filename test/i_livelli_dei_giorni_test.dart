@@ -160,9 +160,11 @@ void main() {
         cielo: c,
         quando: DateTime.utc(2026, 10, 1, 12));
     expect(l, 4, reason: 'la Luna del giorno in trigono al Sole non conta');
-    // LAPIDE, ordine GA voce GA.06, quarto giro: "in trigono" diventa "in
-    // accordo con" (la sostanza prima del termine).
-    expect(riga, contains('la Luna è in accordo con il tuo Sole di nascita'),
+    // LAPIDE, ordine GA voce GA.06, quarto e sesto giro: "in trigono" diventa
+    // "in accordo con" e poi, senza nessun nome di figura, "va d'accordo con
+    // il tuo carattere di fondo" (il Sole di nascita, in parole).
+    expect(
+        riga, contains('la Luna va d\'accordo con il tuo carattere di fondo'),
         reason: 'la riga non dice da dove viene il gradino: $riga');
   });
 }

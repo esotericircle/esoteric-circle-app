@@ -168,6 +168,13 @@ abstract final class IlLivelloDelCielo {
   static int _scala(double somma) => (3 + somma).round().clamp(2, 5);
 
   /// Il livello (2-5) e la riga che dice da dove viene.
+  ///
+  /// **SESTO GIRO GA.06**: la riga e' il corpo del "Da dove viene" come lo
+  /// direbbe un amico che sa leggere il cielo, due frasi: che cosa fa il cielo
+  /// e che cosa significa per il campo. Niente quadratura, trigono, casa,
+  /// Ascendente: "la Luna va d'accordo con il tuo segno, ti sostiene". Il
+  /// corpo che si nomina e' quello che pesa nel verso del livello, cosi' la
+  /// riga non dice mai il contrario della risposta.
   static (int, String) per({
     required HoroscopeDomain dominio,
     required Zodiac segno,
@@ -175,12 +182,8 @@ abstract final class IlLivelloDelCielo {
     required DateTime quando,
     bool oggi = true,
   }) {
-    // **LA RIGA DI UN GIORNO CHE NON E' OGGI NON DICE "OGGI".** Visto sul
-    // Realme il 30 settembre 2026: nella Settimana e nel Mese ogni giorno,
-    // anche sabato prossimo, portava "Dal cielo di oggi" o "Dalla Luna di
-    // oggi". Padre: ordine ES voci 02 e 03, che riusano questa riga per i
-    // giorni del periodo. Con [oggi] falso la riga sta sotto la data del suo
-    // giorno e dice "del giorno".
+    final quale = oggi ? 'Oggi' : 'Quel giorno';
+    final del = oggi ? 'di oggi' : 'di quel giorno';
     if (cielo.ceCieloVero) {
       final voci = CorrenteDelCielo.vociPer(cielo, dominio);
       var delClima = 0.0;
@@ -192,7 +195,7 @@ abstract final class IlLivelloDelCielo {
       if (dellaLuna != null) {
         final (p, v) = dellaLuna;
         delGiorno += p;
-        pesate.add((p.abs(), v));
+        pesate.add((p, v));
       }
       for (final v in voci) {
         if (dellaLuna != null &&
@@ -208,57 +211,102 @@ abstract final class IlLivelloDelCielo {
         } else {
           delGiorno += p;
         }
-        pesate.add((p.abs(), v));
+        pesate.add((p, v));
       }
       final somma =
           delClima.clamp(-tettoDelClima, tettoDelClima).toDouble() + delGiorno;
-      pesate.sort((a, b) => b.$1.compareTo(a.$1));
-      // **LA SOSTANZA PRIMA DEL TERMINE** (ordine GA voce GA.06, quarto
-      // giro): "il Sole in quadratura al tuo Ascendente" non diceva niente
-      // a chi non sa che cosa sia una quadratura o un Ascendente. Adesso
-      // "il Sole è in tensione con il tuo Ascendente (il segno che sorgeva
-      // all'orizzonte alla tua nascita)", e la spiegazione c'e' una volta.
-      final spiegati = <String>{};
-      final nomi = [
-        for (final (_, v) in pesate.take(2))
-          '${CorrenteDelCielo.colSuoArticolo(v.transito, maiuscola: false)} è '
-              '${IlLessicoDelCielo.rapportoDi(v.aspetto)} '
-              '${IlLessicoDelCielo.conIlBersaglio(v, spiega: spiegati.add(v.idBersaglio))}',
-      ];
-      final elenco = nomi.join('; ');
-      final riga = nomi.isEmpty
-          ? (oggi
-              ? 'Oggi nessun passaggio stretto parla a questo campo.'
-              : 'Quel giorno nessun passaggio stretto parla a questo campo.')
-          : 'Dal cielo ${oggi ? 'di oggi' : 'del giorno'}: $elenco.';
-      return (_scala(somma), riga);
+      final livello = _scala(somma);
+      final verso = livello > 3 ? 1 : (livello < 3 ? -1 : 0);
+      // Il passaggio che pesa di piu' nel verso del livello; a livello di
+      // mezzo, il piu' forte qualunque sia.
+      (double, VoceDelCielo)? scelto;
+      for (final e in pesate) {
+        if (e.$1 == 0) continue;
+        if (verso != 0 && e.$1.sign != verso) continue;
+        if (scelto == null || e.$1.abs() > scelto.$1.abs()) scelto = e;
+      }
+      final frase = scelto == null || verso == 0
+          ? '$quale i passaggi del cielo si bilanciano: nessuno spinge in '
+              'modo netto su questo campo.'
+          : '$quale ${CorrenteDelCielo.colSuoArticolo(scelto.$2.transito, maiuscola: false)} '
+              '${IlLessicoDelCielo.rapportoCon(scelto.$2.aspetto)} '
+              '${IlLessicoDelCielo.bersaglioInParole(scelto.$2)}: '
+              '${IlLessicoDelCielo.effetto(scelto.$1)}.';
+      return (
+        livello,
+        '$frase ${IlLessicoDelCielo.conclusione(dominio, livello, quando: del)}'
+      );
     }
     final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, quando);
     final casa = IlCieloDelSegno.casaSolare(segno, luna);
     final caseDelDominio = CorrenteDelCielo.caseDi[dominio] ?? const <int>{};
-    var somma = pesoDellaCasaSolare(casa);
-    if (caseDelDominio.contains(casa)) somma += 0.5;
+    final pLuna = pesoDellaCasaSolare(casa);
+    var somma = pLuna;
+    final bonusLuna = caseDelDominio.contains(casa);
+    if (bonusLuna) somma += 0.5;
     // **E IL CORPO DEL DOMINIO**, vista sul Realme il 29 settembre: con la
     // sola Luna le quattro schede avevano lo stesso livello e la stessa riga,
     // e chi legge si chiede perche'. Il corpo del dominio (il Sole, Venere,
-    // Marte, Giove) pesa la meta' della Luna, dalla sua casa solare, e la riga
-    // lo nomina.
+    // Marte, Giove) pesa la meta' della Luna, dalla sua casa solare.
     final corpo = IlCieloDelSegno.corpoDi[dominio]!;
     final suo = IlSegnoDelCielo.delCorpo(corpo, quando);
     final casaSua = IlCieloDelSegno.casaSolare(segno, suo);
-    somma += 0.5 * pesoDellaCasaSolare(casaSua);
+    final pCorpo = 0.5 * pesoDellaCasaSolare(casaSua);
+    somma += pCorpo;
     if (caseDelDominio.contains(casaSua)) somma += 0.5;
-    // **LA RIGA IN PAROLE DI TUTTI I GIORNI** (ordine GA voce GA.06, quarto
-    // giro, padre: ordine ES voci 02 e 03): "nella tua quarta casa solare, in
-    // quadratura al tuo segno" diventa l'area della vita e il rapporto col
-    // segno, col nome tecnico fra parentesi dopo la sostanza.
-    final aspetto = IlLessicoDelCielo.rapportoDelSegno[casa];
-    final riga = '${oggi ? 'Oggi la Luna' : 'Quel giorno la Luna'} è in '
-        '${luna.italianName}${aspetto == null ? ' e' : ', $aspetto:'} porta '
-        'l\'attenzione sull\'${IlLessicoDelCielo.areaDellaVita(casa)}; '
-        '${CorrenteDelCielo.colSuoArticolo(corpo, maiuscola: false)} è in '
-        '${suo.italianName}, nell\'area '
-        '${CorrenteDelCielo.materiaDelleCase[casaSua - 1]}.';
-    return (_scala(somma), riga);
+    final livello = _scala(somma);
+    final verso = livello > 3 ? 1 : (livello < 3 ? -1 : 0);
+    String frase;
+    final lunaVale = pLuna != 0 && (verso == 0 || pLuna.sign == verso);
+    final corpoVale = pCorpo != 0 && (verso == 0 || pCorpo.sign == verso);
+    // A livello di mezzo il rapporto c'e' ma non sposta il giudizio: si dice
+    // "ma poco", non "ti mette alla prova" sotto un "in equilibrio".
+    String esito(double p) =>
+        verso == 0 ? ', ma poco' : ': ${IlLessicoDelCielo.effetto(p)}';
+    // La Luna cambia segno ogni due giorni e mezzo: quando spinge nel verso
+    // del livello e' lei a dare la ragione, cosi' la riga di una settimana
+    // cambia coi giorni; altrimenti il corpo del campo, che e' lento.
+    if (lunaVale && corpoVale) {
+      // Tutti e due contano: si nominano insieme, cosi' le quattro schede
+      // dello stesso giorno non hanno la stessa riga (Realme, 29 settembre)
+      // e la riga cambia coi giorni.
+      final guida = IlLessicoDelCielo.chiGuida[dominio];
+      if (pLuna.sign != pCorpo.sign) {
+        frase = '$quale la Luna è in ${luna.italianName} e '
+            '${pLuna > 0 ? 'va d\'accordo con' : 'fa attrito con'} il tuo '
+            'segno, mentre $guida, è in ${suo.italianName} e '
+            '${pCorpo > 0 ? 'va d\'accordo con' : 'fa attrito con'} il tuo '
+            'segno: i due si bilanciano.';
+      } else {
+        frase = '$quale la Luna è in ${luna.italianName} e $guida, è in '
+            '${suo.italianName}: '
+            '${pLuna > 0 ? 'vanno d\'accordo con' : 'fanno attrito con'} il '
+            'tuo segno${verso == 0 ? ', ma poco' : (pLuna > 0 ? ' e ti sostengono' : ' e ti mettono un po\' alla prova')}.';
+      }
+    } else if (lunaVale) {
+      frase = '$quale la Luna è in ${luna.italianName} e '
+          '${pLuna > 0 ? 'va d\'accordo con' : 'fa attrito con'} il tuo '
+          'segno${esito(pLuna)}.';
+    } else if (corpoVale) {
+      frase = '$quale ${IlLessicoDelCielo.chiGuida[dominio]}, è in '
+          '${suo.italianName} e '
+          '${pCorpo > 0 ? 'va d\'accordo con' : 'fa attrito con'} il tuo '
+          'segno${esito(pCorpo)}.';
+    } else if (verso > 0 && bonusLuna) {
+      frase = '$quale la Luna è in ${luna.italianName}, proprio nell\'area '
+          'della tua vita che riguarda '
+          '${IlLessicoDelCielo.cheCosaRiguarda[dominio]}.';
+    } else if (verso > 0 && caseDelDominio.contains(casaSua)) {
+      frase = '$quale ${IlLessicoDelCielo.chiGuida[dominio]}, è in '
+          '${suo.italianName}, proprio nell\'area della tua vita che '
+          'riguarda ${IlLessicoDelCielo.cheCosaRiguarda[dominio]}.';
+    } else {
+      frase = '$quale la Luna è in ${luna.italianName} e non spinge il tuo '
+          'segno né in un senso né nell\'altro.';
+    }
+    return (
+      livello,
+      '$frase ${IlLessicoDelCielo.conclusione(dominio, livello, quando: del)}'
+    );
   }
 }

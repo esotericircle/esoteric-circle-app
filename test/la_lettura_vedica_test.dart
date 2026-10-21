@@ -5,8 +5,8 @@ import 'package:esoteric_circle/core/astro/meeus/l_alba_e_il_tramonto.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
+import 'package:esoteric_circle/core/horoscope/il_lessico_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
-import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_vedico_data.dart';
 import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -165,36 +165,20 @@ void main() {
   final conOra = NascitaDeiSegni(
       locale: DateTime(1990, 3, 15, 8, 30), oraNota: true, fuso: 'Europe/Rome');
 
-  test('ogni scheda dice la frase del suo gruppo, e il ritorno cambia frase',
+  test('ogni scheda dice la sua posizione della Luna, col giudizio del livello',
       () {
-    // Dal 30 settembre 2026 ogni frase e' "TESTO || DA DOVE VIENE"
-    // ([LePartiDelResponso]). LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si
-    // cercava il TESTO nella lettura; adesso la lettura e' una voce del
-    // Giorno vedico dell'Architetto nella fascia del livello, e del corpus di
-    // prima resta il DA DOVE VIENE, che si cerca nella sua riga.
-    RegExp gruppo(List<String> varianti) => RegExp(
-        varianti
-            .map((v) => RegExp.escape(LePartiDelResponso.di(v).$2)
-                .replaceAll(RegExp(r'\\\{\w+\\\}'), '.+?')
-                .replaceAll(RegExp(r'\\\[[^\]]*\\\]'), '.+?'))
-            .join('|'),
-        // Quando la Luna e la stella si contraddicono il testo entra dopo
-        // "Da una parte, " con la prima lettera minuscola.
-        caseSensitive: false);
-    int? quale(String testo, List<String> varianti) {
-      for (var i = 0; i < varianti.length; i++) {
-        if (gruppo([varianti[i]]).hasMatch(testo)) return i;
-      }
-      return null;
-    }
-
+    // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui si
+    // cercavano le frasi del corpus vedico nel "Da dove viene" (Chandra Bala
+    // per la casa della Luna, Tara Bala per la stella) e che al ritorno dello
+    // stesso caso cambiasse la variante. Sono nomi sanscriti e gergo, e non
+    // vanno piu' a video: la riga dice dove sta la Luna rispetto alla tua
+    // Luna di nascita (il segno, contato dalla regola scritta qui) e il
+    // giudizio del livello della scheda. Che il ritorno dello stesso caso
+    // legga un'altra voce lo misura i_testi_non_tornano_test.dart.
     final roma = citta['Roma']!;
     final fuori = <String>[];
     final difetti = <String>[];
     var schede = 0;
-    var ritorni = 0;
-    var uguali = 0;
-    final ultima = <String, int>{};
     final (rashiN, nakN) = LaLetturaVedica.lunaDiNascita(conOra)!;
     for (var k = 0; k < 120; k++) {
       final adesso = DateTime(2026, 9, 1 + k, 9);
@@ -203,28 +187,29 @@ void main() {
           nascita: conOra,
           luogo: roma,
           forma: CourtesyForm.unknown)!;
-      final (r, n) = LaLetturaVedica.lunaAlle(
+      final (r, _) = LaLetturaVedica.lunaAlle(
           LaLetturaVedica.istanteDelGiorno(DateTime(2026, 9, 1 + k), roma));
       // La regola scritta qui, non riletta dal codice: dalla Luna di nascita
-      // alla Luna di oggi, il segno di partenza compreso; la tara a gruppi di
-      // nove.
+      // alla Luna di oggi, il segno di partenza compreso.
       final h = (r - rashiN + 12) % 12 + 1;
-      final t = ((n - nakN! + 27) % 27) % 9 + 1;
-      final g = OroscopoVedicoData.chandraBala[h - 1];
-      if (!gruppo(g).hasMatch(s[0].rigaDelLivello!)) fuori.add('generale $k');
-      final ga = OroscopoVedicoData.amore[h - 1];
-      if (!gruppo(ga).hasMatch(s[1].rigaDelLivello!)) fuori.add('amore $k');
-      if (!gruppo(OroscopoVedicoData.lavoro[h - 1])
-          .hasMatch(s[2].rigaDelLivello!)) {
-        fuori.add('lavoro $k');
-      }
-      if (!gruppo(OroscopoVedicoData.fortuna[h - 1])
-          .hasMatch(s[3].rigaDelLivello!)) {
-        fuori.add('fortuna $k');
-      }
-      if (!gruppo(OroscopoVedicoData.taraBala[t - 1])
-          .hasMatch(s[0].rigaDelLivello!)) {
-        fuori.add('tara $k');
+      final posizione = h == 1
+          ? 'lo stesso segno della tua Luna di nascita'
+          : '${LaLetturaVedica.ilOrdinaleM(h)} segno dalla tua Luna di nascita';
+      for (final c in s) {
+        final riga = c.rigaDelLivello!;
+        if (!riga.contains('Oggi la Luna è ${LaLetturaVedica.nelSegno(r)}')) {
+          fuori.add('${c.domain.name} $k: la Luna non e\' nel suo segno');
+        }
+        // Il segno dalla Luna di nascita lo dice la riga della Generale e dei
+        // domini che non toccano il segno del campo; negli altri casi lo dice
+        // in forma di "proprio quello che riguarda l'amore": basta che ci sia
+        // o la posizione o il giudizio.
+        if (c.domain == HoroscopeDomain.generale && !riga.contains(posizione)) {
+          fuori.add('generale $k: manca "$posizione"');
+        }
+        if (!riga.contains(IlLessicoDelCielo.giudizio(c.indicator))) {
+          fuori.add('${c.domain.name} $k: manca il giudizio del livello');
+        }
       }
       for (final c in s) {
         final voci = ITestiEu.fascia(TradizioneEu.vedica, PeriodoEu.giorno,
@@ -233,18 +218,6 @@ void main() {
             (v) => v.titolo == c.title && v.testo(lunga: false) == c.text)) {
           fuori.add('${c.domain.name} $k fuori dalla sua fascia');
         }
-      }
-      // Il ritorno dello stesso caso: la casa della Luna e la tara.
-      for (final (cosa, varianti) in [
-        ('casa $h', g),
-        ('tara $t', OroscopoVedicoData.taraBala[t - 1]),
-      ]) {
-        final v = quale(s[0].rigaDelLivello!, varianti);
-        if (ultima.containsKey(cosa)) {
-          ritorni++;
-          if (ultima[cosa] == v) uguali++;
-        }
-        ultima[cosa] = v!;
       }
       for (final c in s) {
         schede++;
@@ -257,11 +230,9 @@ void main() {
       }
     }
     cardinaleMinimo(schede, 480, cosa: 'schede vediche');
-    print('ORDINE ES VOCE 09: schede fuori dal loro gruppo ${fuori.length} su '
-        '$schede; stessa frase al ritorno dello stesso caso $uguali su '
-        '$ritorni; testi con un difetto di scrittura ${difetti.length}');
+    print('ORDINE ES VOCE 09: schede fuori dal loro caso ${fuori.length} su '
+        '$schede; testi con un difetto di scrittura ${difetti.length}');
     expect(fuori, isEmpty, reason: fuori.take(6).join('\n'));
-    expect(uguali, 0);
     expect(difetti, isEmpty, reason: difetti.take(4).join('\n'));
   });
 
@@ -324,10 +295,11 @@ void main() {
     final s = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9), nascita: senzaOra)!;
     // Lo dice il "da dove viene", non la lettura (ordine ES, 30 settembre).
-    expect(
-        s[0].rigaDelLivello,
-        contains(
-            'Con l\'ora di nascita leggo anche la stella della tua nascita'));
+    // LAPIDE, ordine GA voce GA.06, sesto giro: la frase era "Con l'ora di
+    // nascita leggo anche la stella della tua nascita"; adesso, in due frasi,
+    // dice "Senza l'ora di nascita leggo solo la Luna".
+    expect(s[0].rigaDelLivello,
+        contains('Senza l\'ora di nascita leggo solo la Luna'));
     // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026): qui si
     // pretendeva la riga del Rahu Kalam senza la citta' anche nella Breve, e
     // il lettore cieco l'ha trovata un vicolo cieco ("serve la citta' in cui
@@ -339,14 +311,19 @@ void main() {
         adesso: DateTime(2026, 10, 5, 9),
         nascita: senzaOra,
         approfondite: tutte)!;
-    expect(lungaSenzaCitta[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
-    expect(s[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
+    // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui si
+    // cercava il nome "Rahu Kalam". E' gergo e non sta piu' nel "Da dove
+    // viene": la riga dice la cosa, "la tradizione indiana sconsiglia di
+    // cominciare cose nuove" fino a una certa ora.
+    expect(lungaSenzaCitta[0].rigaDelLivello,
+        isNot(contains('cominciare cose nuove')));
+    expect(s[0].rigaDelLivello, isNot(contains('cominciare cose nuove')));
     final lungaConCitta = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9),
         nascita: senzaOra,
         luogo: citta['Roma'],
         approfondite: tutte)!;
-    expect(lungaConCitta[0].rigaDelLivello, contains('Rahu Kalam'));
+    expect(lungaConCitta[0].rigaDelLivello, contains('cominciare cose nuove'));
     // Breve e Approfondita diverse su tutte e quattro le schede.
     final prof = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9),
@@ -367,8 +344,8 @@ void main() {
     // del Rahu in corso), e il rapporto lo segnala all'Architetto.
     // LAPIDE, ordine GA voce GA.06, quarto giro: il Rahu Kalam sta solo nella
     // Lunga (la Breve era un muro), e con la citta' dice l'ora.
-    expect(prof[0].rigaDelLivello, contains('Rahu Kalam'));
-    expect(breve[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
+    expect(prof[0].rigaDelLivello, contains('cominciare cose nuove'));
+    expect(breve[0].rigaDelLivello, isNot(contains('cominciare cose nuove')));
   });
 
   test('le frasi del codice sono quelle del corpus', () {

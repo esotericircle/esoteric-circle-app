@@ -198,7 +198,11 @@ void main() {
       ]) {
         final segno = segni[
             IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
-        final attesa = '$nome era in $segno, nella casa ${tema.casaDi(corpo)}:';
+        // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): il fatto
+        // era "Venere era in Capricorno, nella casa 3:", con la casa, che e'
+        // gergo e non va piu' a video. Adesso la Lunga aggiunge una frase sola:
+        // "Al tuo compleanno Venere era in Capricorno."
+        final attesa = 'Al tuo compleanno $nome era in $segno.';
         final lunga = lunghe.firstWhere((s) => s.domain == dominio);
         final breve = brevi.firstWhere((s) => s.domain == dominio);
         if (!lunga.rigaDelLivello!.contains(attesa) ||

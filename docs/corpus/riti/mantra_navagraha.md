@@ -82,13 +82,13 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 
 ## Da dove viene
 
-- Surya: Il mantra saluta Surya, il Sole, che governa la domenica: «Om Suryaya namah» vuol dire «Om, mi inchino a Surya».
-- Chandra: Il mantra saluta Chandra, la Luna, che governa il lunedì: «Om Chandraya namah» vuol dire «Om, mi inchino a Chandra».
-- Mangala: Il mantra saluta Mangala, Marte, che governa il martedì: «Om Mangalaya namah» vuol dire «Om, mi inchino a Mangala».
-- Budha: Il mantra saluta Budha, Mercurio, che governa il mercoledì: «Om Budhaya namah» vuol dire «Om, mi inchino a Budha».
-- Guru: Il mantra saluta Guru, Giove, che governa il giovedì: «Om Gurave namah» vuol dire «Om, mi inchino a Guru».
-- Shukra: Il mantra saluta Shukra, Venere, che governa il venerdì: «Om Shukraya namah» vuol dire «Om, mi inchino a Shukra».
-- Shani: Il mantra saluta Shani, Saturno, che governa il sabato: «Om Shanaishcharaya namah» vuol dire «Om, mi inchino a Shani».
+- Surya: La formula che saluta il Sole, il pianeta che regge la domenica.
+- Chandra: La formula che saluta la Luna, il pianeta che regge il lunedì.
+- Mangala: La formula che saluta Marte, il pianeta che regge il martedì.
+- Budha: La formula che saluta Mercurio, il pianeta che regge il mercoledì.
+- Guru: La formula che saluta Giove, il pianeta che regge il giovedì.
+- Shukra: La formula che saluta Venere, il pianeta che regge il venerdì.
+- Shani: La formula che saluta Saturno, il pianeta che regge il sabato.
 
 ## I riti
 

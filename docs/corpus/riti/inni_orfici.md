@@ -84,7 +84,7 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
   che addolora l'animo». È il verso in cui l'inno chiede ad Ares di placare la
   guerra: per questo è stato scelto al posto degli epiteti guerrieri.
   Verso 7 (Abel): εἰς δὲ πόθον νεῦσον Κύπριδος κώμους τε Λυαίου. Formula
-  dell'Amore: «Volgiti al desiderio di Cipride e alle feste di Lieo». Cipride
+  dell'Amore: «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso). Cipride
   è Afrodite, Lieo è Dioniso.
   Verso 8 (Abel): ἀλλάξας ἀλκὴν ὅπλων εἰς ἔργα τὰ Δηοῦς. Formula della
   Carriera e della Fortuna: «mutando la forza delle armi nelle opere di
@@ -111,13 +111,13 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 
 ## Da dove viene
 
-- Sole: Il verso viene dall'Inno orfico al Sole, uno degli inni che Marsilio Ficino cantava alla lira.
-- Luna: Il verso viene dall'Inno orfico alla Luna, uno degli inni che Marsilio Ficino cantava alla lira.
-- Marte: Il verso viene dall'Inno orfico a Marte, uno degli inni che Marsilio Ficino cantava alla lira.
-- Mercurio: Il verso viene dall'Inno orfico a Mercurio, uno degli inni che Marsilio Ficino cantava alla lira.
-- Giove: Il verso viene dall'Inno orfico a Giove, uno degli inni che Marsilio Ficino cantava alla lira.
-- Venere: Il verso viene dall'Inno orfico a Venere, uno degli inni che Marsilio Ficino cantava alla lira.
-- Saturno: Il verso viene dall'Inno orfico a Saturno, uno degli inni che Marsilio Ficino cantava alla lira.
+- Sole: Un verso di un antico inno greco al Sole.
+- Luna: Un verso di un antico inno greco alla Luna.
+- Marte: Un verso di un antico inno greco a Marte.
+- Mercurio: Un verso di un antico inno greco a Mercurio.
+- Giove: Un verso di un antico inno greco a Giove.
+- Venere: Un verso di un antico inno greco a Venere.
+- Saturno: Un verso di un antico inno greco a Saturno.
 
 ## I riti
 
@@ -230,40 +230,40 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 - Rito: Dal compleanno Marte, dio delle armi, dà al tuo anno un'energia che cerca pace. Adesso riponi in un cassetto un oggetto con la lama, un coltello o delle forbici. Pronuncia due volte «Ferma la contesa furiosa, allenta il travaglio che addolora l'animo» e lascia cadere una contesa, anche piccola.
 
 ### Marte, Amore, giorno
-- Rito: Marte, che accende il desiderio, governa questa giornata degli affetti. Versa nel bicchiere qualcosa che ti piace e alzalo in un brindisi silenzioso a chi ami o a chi desideri incontrare. Poi sussurra due volte le parole dell'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».
+- Rito: Marte, che accende il desiderio, governa questa giornata degli affetti. Versa nel bicchiere qualcosa che ti piace e alzalo in un brindisi silenzioso a chi ami o a chi desideri incontrare. Poi sussurra due volte «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso).
 
 ### Marte, Amore, settimana
-- Rito: Da oggi, martedì, Marte guida una settimana di passione e pazienza corta. Ogni volta che senti salire una parola dura, respira a fondo e ripeti a mente «Volgiti al desiderio di Cipride e alle feste di Lieo», pensando alla persona amata o, se sei senza legame, a chi vorresti accanto.
+- Rito: Da oggi, martedì, Marte guida una settimana di passione e pazienza corta. Ogni volta che senti salire una parola dura, respira a fondo e ripeti a mente «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso), pensando a chi ami o vorresti accanto.
 
 ### Marte, Amore, mese
-- Rito: Sotto Marte nasce oggi un mese per gli affetti, pieno di calore. Proponi una serata di festa a chi ami o, se sei senza legame, agli amici cari: una cena semplice o un ballo. Apri la festa con l'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».
+- Rito: Sotto Marte nasce oggi un mese per gli affetti. Proponi una serata di festa a chi ami o, se sei senza legame, agli amici cari: una cena semplice o un ballo. Aprila con «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso).
 
 ### Marte, Amore, anno
-- Rito: Il tuo anno porta, dal compleanno, il segno di Marte: un fuoco che chiede gioia più che conflitto. Adesso metti una musica che ti piace e pensa a chi ami o a chi vorresti incontrare. Canta piano il verso dell'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».
+- Rito: Il tuo anno porta, dal compleanno, il segno di Marte: un fuoco che chiede gioia più che conflitto. Adesso metti una musica che ti piace e pensa a chi ami o a chi vorresti incontrare. Canta piano «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso).
 
 ### Marte, Carriera, giorno
-- Rito: Nel giorno di Marte conviene affrontare ciò che rimandi. Prima di metterti al lavoro alzati in piedi e raddrizza le spalle, come chi depone lo scudo. Pronuncia le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi metti la tua energia nel compito più temuto.
+- Rito: Nel giorno di Marte conviene affrontare ciò che rimandi. Prima di metterti al lavoro alzati in piedi e raddrizza le spalle, come chi depone lo scudo. Pronuncia «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi metti la tua energia nel compito più temuto.
 
 ### Marte, Carriera, settimana
-- Rito: Comincia oggi, martedì, una settimana di Marte: il lavoro chiede coraggio più che fretta. Scrivi su un foglio il compito più pesante e piegalo in quattro. Leggi tre volte il verso dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi tienilo in tasca per sette giorni.
+- Rito: Comincia oggi, martedì, una settimana di Marte: il lavoro chiede coraggio più che fretta. Scrivi su un foglio il compito più pesante e piegalo in quattro. Leggi tre volte «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi tienilo in tasca per sette giorni.
 
 ### Marte, Carriera, mese
-- Rito: Trenta giorni di lavoro partono oggi, nel martedì di Marte, signore della spada. Tempera una matita o affila lo strumento che usi di più, come chi muta un'arma in un attrezzo. Mormora il verso orfico, «mutando la forza delle armi nelle opere di Demetra»; ogni martedì riprendi quello strumento.
+- Rito: Trenta giorni di lavoro partono oggi, nel martedì di Marte, signore della spada. Tempera una matita o affila lo strumento che usi di più, come chi muta un'arma in un attrezzo. Mormora «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto); ogni martedì riprendi quello strumento.
 
 ### Marte, Carriera, anno
-- Rito: Nel martedì di Marte è nato il tuo anno, dal compleanno: un vigore per il lavoro e lo studio. Adesso spezza un pezzo di pane e mangialo con calma prima di rimetterti all'opera. Recita a mente le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra».
+- Rito: Nel martedì di Marte è nato il tuo anno, dal compleanno: un vigore per il lavoro e lo studio. Adesso spezza un pezzo di pane e mangialo con calma prima di rimetterti all'opera. Recita a mente «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto).
 
 ### Marte, Fortuna, giorno
-- Rito: Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi a Marte, che i Greci chiamavano Ares, le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi tocca la terra.
+- Rito: Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi a Marte, detto Ares dai Greci, «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi tocca la terra.
 
 ### Marte, Fortuna, settimana
-- Rito: Questa settimana nasce oggi, nel martedì di Marte, che insegna a cogliere l'attimo con mano ferma. Tieni adesso nel palmo un chicco di grano o di riso. Sussurra una volta il verso dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi riponilo in tasca per sette giorni.
+- Rito: Questa settimana nasce oggi, nel martedì di Marte, che insegna a cogliere l'attimo con mano ferma. Tieni adesso nel palmo un chicco di grano o di riso. Sussurra «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi riponilo in tasca per sette giorni.
 
 ### Marte, Fortuna, mese
-- Rito: Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano con le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi annaffiali e guardali crescere in questi trenta giorni.
+- Rito: Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi annaffiali e guardali crescere in questi trenta giorni.
 
 ### Marte, Fortuna, anno
-- Rito: Marte vuole, dal compleanno, che il tuo anno rivolga l'audacia alle occasioni buone. Adesso togli le foglie secche a una pianta di casa. Ripeti due volte l'invocazione dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi muovi un passo verso un'occasione in attesa.
+- Rito: Marte vuole, dal compleanno, che il tuo anno rivolga l'audacia alle occasioni buone. Adesso togli le foglie secche a una pianta di casa. Ripeti due volte l'invocazione dell'inno, «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi muovi un passo verso un'occasione in attesa.
 
 ### Mercurio, Generale, giorno
 - Rito: Oggi è il giorno di Mercurio, il messaggero che collega le cose. Apri una finestra per far passare l'aria e resta lì qualche respiro. Recita a voce bassa «Ascoltami, Hermes, messaggero di Zeus, figlio di Maia» due volte, poi lascia che i pensieri circolino come l'aria.

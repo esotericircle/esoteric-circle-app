@@ -61,7 +61,7 @@ Regola: i rami opposti (distanza sei) si urtano. Gli almanacchi scrivono ogni gi
 Titolo: Una giornata controvento
 
 1. Oggi le spinte vanno in direzioni opposte: non vuol dire che vada male, solo che serve più pazienza. Rimanda a domani la decisione che stavi per prendere di corsa. || Oggi è il giorno di {animale_giorno}, che sta di fronte al tuo animale: l'almanacco cinese lo chiama scontro.
-2. Oggi è facile trovarsi su fronti opposti, anche per poco. Tieni le cose semplici: fai una cosa alla volta e lascia cadere la discussione che non ti serve vincere. || L'animale di oggi è l'opposto del tuo. Gli almanacchi cinesi lo scrivono in chiaro: oggi si scontra con {animale_tuo}.
+2. Oggi è facile trovarsi su fronti opposti, anche per poco. Tieni le cose semplici: fai una cosa alla volta e lascia cadere la discussione che non ti serve vincere. || L'animale di oggi è l'opposto del tuo: gli almanacchi cinesi scrivono in chiaro che oggi si scontra con {animale_tuo}.
 3. Oggi ciò che era fermo si muove, anche a strattoni. Se qualcosa si rompe guarda se non era già incrinato; se qualcosa si sblocca lascialo andare senza trattenerlo. || È un giorno di scontro col tuo animale: nella tradizione cinese l'animale di oggi sta di fronte a quello del tuo anno.
 
 ### 1.4 Punizione (三刑 Xing)
@@ -80,7 +80,7 @@ Titolo: Non farti la guerra
 
 1. Oggi il rischio sei tu contro di te: tendi a pretendere troppo e a perdonarti poco. Non chiederti più di quanto chiederesti a una persona cara. Scrivi ciò che pretendi da te entro stasera e dimezzalo. || Oggi è il giorno del tuo stesso animale: la tradizione cinese dice che {animale_tuo} con se stesso si punisce.
 2. Oggi i pensieri tendono a girare a vuoto più del solito. Se ti accorgi di rimuginare, fermati e fai una cosa con le mani: lava i piatti, riordina un cassetto, cucina qualcosa. || È il giorno del tuo animale, nella forma che l'almanacco cinese chiama punizione di sé: Drago, Cavallo, Gallo e Maiale puniscono se stessi quando il giorno è il loro.
-3. Oggi è facile inciampare per conto proprio, soprattutto con troppe cose in fila. Scegli tre impegni soltanto e portali fino in fondo prima di cominciarne un quarto. || L'animale di oggi è il tuo. Per {animale_tuo} la tradizione cinese lo legge come un giorno in cui ci si inciampa da soli.
+3. Oggi è facile inciampare per conto proprio, soprattutto con troppe cose in fila. Scegli tre impegni soltanto e portali fino in fondo prima di cominciarne un quarto. || L'animale di oggi è il tuo: per {animale_tuo} la tradizione cinese lo legge come un giorno in cui ci si inciampa da soli.
 
 ### 1.6 Danno (六害 Hai)
 
@@ -114,7 +114,7 @@ Titolo: A modo tuo
 Regola: fra il ramo del giorno e il tuo non c'è accordo, terna, scontro, punizione o danno. È il caso più frequente (66 celle su 144): servono più varianti.
 Titolo: Campo libero
 
-1. Oggi la giornata non ti spinge e non ti frena: va come la porti tu. Per sapere che cosa conviene fare, leggi le righe che seguono e scegli da lì una cosa sola da fare bene. || Oggi guida {animale_giorno}, che col tuo animale non ha legami nella tradizione cinese: né accordo né urto. Il giorno si legge meglio dal suo guardiano.
+1. Oggi la giornata non ti spinge e non ti frena: va come la porti tu. Per sapere che cosa conviene fare, leggi le righe che seguono e scegli da lì una cosa sola da fare bene. || Oggi guida {animale_giorno}, che col tuo animale non ha legami nella tradizione cinese: né accordo né urto.
 2. Oggi è una giornata neutra: quello che ne esce dipende da ciò che ci metti. Decidi adesso una cosa che vuoi vedere fatta entro sera e dedicale la prima ora libera. || Fra {animale_giorno} e {animale_tuo} oggi non c'è un rapporto classico: né accordo, né gruppo di tre animali, né scontro, né punizione, né danno.
 3. Oggi è una buona occasione per le cose ordinarie fatte con cura, senza colpi di scena. Prendi una faccenda di tutti i giorni e falla meglio del solito: la spesa, una risposta da scrivere, la scrivania da riordinare. || Fra l'animale del giorno e quello del tuo anno non c'è nessun accordo e nessuno scontro: è il caso più frequente nelle tabelle della tradizione cinese.
 4. Oggi niente ti viene incontro e niente ti sbarra la strada: la giornata è libera. Regolati sul consiglio pratico che leggi subito dopo e tieni l'agenda leggera, con un'ora vuota da usare come viene. || L'animale di oggi e il tuo non si cercano e non si respingono: dal lato degli animali la giornata è libera e a parlare resta il guardiano del giorno.

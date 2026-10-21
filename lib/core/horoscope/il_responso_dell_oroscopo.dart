@@ -93,55 +93,65 @@ abstract final class IlResponsoDellOroscopo {
     return [chi, dominio.label, periodo.name];
   }
 
-  static const List<String> _giorni = [
-    'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato', //
-    'domenica',
-  ];
-  static const List<String> _mesi = [
-    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
-    'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
-  ];
-
-  static String _data(DateTime g, {required bool conLAnno}) =>
-      '${_giorni[g.weekday - 1]} ${g.day} ${_mesi[g.month - 1]}'
-      '${conLAnno ? ' ${g.year}' : ''}';
-
   static String _minuscola(String s) =>
       s.isEmpty ? s : '${s[0].toLowerCase()}${s.substring(1)}';
 
-  /// **IL "DA DOVE VIENE" DELLA SCHEDA**: la riga di oggi ([cielo]) e, nella
-  /// Lunga, in coda la fonte del rito, legata da una frase che dice quale
-  /// giorno il rito segue.
-  ///
-  /// **ORDINE GA VOCE GA.06**: il legame dice il periodo col suo nome ("il
-  /// primo giorno della settimana", "del tuo anno, il compleanno", "dell'anno
-  /// cinese, il Capodanno"): "il primo giorno del periodo" sotto un Anno
-  /// cominciato mesi prima non diceva a chi legge di quale giorno si parla.
+  /// **LA FONTE**, una riga separata in coda (sesto giro GA.06): la tradizione
+  /// e la scuola in poche parole, con al piu' un termine tecnico e spiegato.
+  static String laFonte(TradizioneEu tradizione, PeriodoEu periodo) =>
+      switch ((tradizione, periodo)) {
+        (TradizioneEu.occidentale, PeriodoEu.giorno) =>
+          'astrologia occidentale, che legge il cielo di oggi rispetto al tuo '
+              'segno.',
+        (TradizioneEu.occidentale, PeriodoEu.anno) =>
+          'astrologia occidentale, che legge l\'anno dal cielo del tuo '
+              'compleanno.',
+        (TradizioneEu.occidentale, _) =>
+          'astrologia occidentale, che segue la Luna e i pianeti nel periodo.',
+        (TradizioneEu.vedica, PeriodoEu.anno) =>
+          'astrologia indiana, che guarda Giove e Saturno al tuo compleanno.',
+        (TradizioneEu.vedica, _) =>
+          'astrologia indiana, che conta i segni a partire dalla tua Luna di '
+              'nascita.',
+        (TradizioneEu.cinese, PeriodoEu.giorno) =>
+          'astrologia cinese, che legge il tuo carattere di nascita (il BaZi) '
+              'e il calendario del giorno.',
+        (TradizioneEu.cinese, PeriodoEu.anno) =>
+          'astrologia cinese, che legge il rapporto fra il tuo animale e '
+              'quello dell\'anno.',
+        (TradizioneEu.cinese, _) =>
+          'astrologia cinese, che legge il rapporto fra il tuo animale e i '
+              'giorni del periodo.',
+      };
+
+  /// **IL "DA DOVE VIENE" DELLA SCHEDA**, sesto giro GA.06, come lo direbbe
+  /// un amico che sa leggere il cielo: il corpo ([cielo], due frasi nella
+  /// Breve e tre nella Lunga, senza termini tecnici), nella Lunga la riga
+  /// breve del rito ("Il rito del giorno: ...", senza nomi di dei o scuole) e
+  /// in coda, su una riga separata, la fonte. Due letture cieche
+  /// indipendenti hanno dato D3 sei e tre su dodici: spiegare il termine
+  /// accanto al termine allungava il testo e il lettore trovava muri.
   static String? daDoveViene(String? cielo,
       {String? fonteDelRito,
       required PeriodoEu periodo,
       required DateTime primoGiorno,
       TradizioneEu tradizione = TradizioneEu.occidentale}) {
-    final riga = cielo?.trim() ?? '';
-    if (fonteDelRito == null || fonteDelRito.trim().isEmpty) {
-      return riga.isEmpty ? null : riga;
-    }
-    final quale = switch (periodo) {
-      PeriodoEu.giorno => '',
-      PeriodoEu.settimana => 'del primo giorno della settimana',
-      PeriodoEu.mese => 'del primo giorno del mese',
-      PeriodoEu.anno => tradizione == TradizioneEu.cinese
-          ? 'del Capodanno lunare'
-          : 'del tuo compleanno',
+    final corpo = cielo?.trim() ?? '';
+    if (corpo.isEmpty) return null;
+    final quando = switch (periodo) {
+      PeriodoEu.giorno => 'del giorno',
+      PeriodoEu.settimana => 'della settimana',
+      PeriodoEu.mese => 'del mese',
+      PeriodoEu.anno => 'dell\'anno',
     };
-    final legame = periodo == PeriodoEu.giorno
-        ? 'Il rito è quello del giorno, scelto dal suo '
-            'reggente: '
-        : 'Il rito è quello $quale, '
-            '${_data(primoGiorno, conLAnno: periodo == PeriodoEu.anno)}, '
-            'scelto dal suo reggente: ';
-    final coda = '$legame${_minuscola(fonteDelRito.trim())}';
-    return riga.isEmpty ? coda : '$riga $coda';
+    final rito = fonteDelRito == null || fonteDelRito.trim().isEmpty
+        ? null
+        : 'Il rito $quando: ${_minuscola(fonteDelRito.trim())}';
+    return [
+      corpo,
+      if (rito != null) rito,
+      'Fonte: ${laFonte(tradizione, periodo)}',
+    ].join('\n');
   }
 
   /// **COMPONE IL RESPONSO** dalla [voce] del corpus, nella [tradizione] e

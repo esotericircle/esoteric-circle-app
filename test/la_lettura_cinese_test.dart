@@ -76,8 +76,16 @@ void main() {
     for (final c in giorni) {
       final g = DateTime.parse(c[0]);
       final atteso = LAlmanaccoCinese.guardiani[guardiani.indexOf(c[10])];
+      // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui il
+      // guardiano stava nel "Da dove viene" della Breve. Il corpo adesso e'
+      // di due frasi (il rapporto fra gli animali e che cosa vuol dire), e il
+      // guardiano sta nella Lunga: la verifica sull'almanacco pubblicato
+      // resta, si fa sulla Lunga.
       final generale = LaLetturaCinese.schede(
-              oggi: g, nascita: DateTime(1990, 3, 15), animale: 6)!
+              oggi: g,
+              nascita: DateTime(1990, 3, 15),
+              animale: 6,
+              approfondite: tutteApprofondite)!
           .first;
       // Il nome del guardiano sta nel "da dove viene", dopo la lettura: il
       // simbolo non apre mai (Linee Guida, sezione 2).
@@ -125,15 +133,14 @@ void main() {
           }
           for (final c in s.skip(1)) {
             schede++;
-            // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026): qui si
-            // cercava la frase del dio del corpus ("ha il tuo stesso elemento
-            // con polarita' opposta"), gergo che il lettore cieco non capiva.
-            // Adesso la riga apre con la forza del giorno detta in parole:
-            // "Nel BaZi, la lettura cinese del tuo carattere di nascita, oggi
-            // pesa il Rivale: ...". Il corpus resta ai dati dell'Architetto.
-            final apertura = 'Nel BaZi, la lettura cinese del tuo carattere di '
-                'nascita, oggi ${dio == DioDelGiorno.setteUccisioni ? 'pesano' : 'pesa'} '
-                '${dio.nome}: ';
+            // LAPIDE, ordine GA voce GA.06, quarto e sesto giro (21 ottobre
+            // 2026): qui si cercava la frase del dio del corpus, poi "Nel BaZi,
+            // la lettura cinese del tuo carattere di nascita, oggi pesa il
+            // Rivale: ...", gergo che il lettore cieco non capiva. Adesso la
+            // riga apre con la forza del giorno detta in parole, senza il nome
+            // del dio ("Per la tradizione cinese oggi il giorno porta una
+            // forza ..."). Il corpus resta ai dati dell'Architetto.
+            final apertura = LaLetturaCinese.ilGiornoNelBaZi(dio);
             if (!nellaFascia(c) || !c.rigaDelLivello!.contains(apertura)) {
               fuori.add('${c.domain.name} $a $f $g: ${c.text}');
             }
@@ -141,14 +148,13 @@ void main() {
                 LaLetturaCinese.livelloDelDio(c.domain, dio, forma: f)) {
               fuori.add('livello ${c.domain.name} $a $g');
             }
-            // Il dio puo' aprire la frase del "da dove viene" ("Il Compagno
-            // è di turno") o stare dopo una preposizione ("la giornata del
-            // Compagno"): il nome si cerca senza l'articolo.
+            // Sesto giro GA.06: il nome del dio NON sta piu' nel "Da dove
+            // viene" (il gergo non si legge): si pretende che non ci sia.
             final nome = dio.nome.replaceFirst(
                 RegExp(r"^(il |lo |la |i |gli |le |l')", caseSensitive: false),
                 '');
-            if (!c.rigaDelLivello!.contains(nome)) {
-              fuori.add('riga del livello senza il dio: ${c.rigaDelLivello}');
+            if (c.rigaDelLivello!.contains(nome)) {
+              fuori.add('riga col nome del dio: ${c.rigaDelLivello}');
             }
           }
           schede++;
@@ -211,7 +217,11 @@ void main() {
     expect(LAlmanaccoCinese.ramo(g), 6);
     final s = LaLetturaCinese.schede(
         oggi: g, nascita: DateTime(1990, 3, 15), animale: 6)!;
-    expect(s[0].rigaDelLivello, contains('punizione di sé'));
+    // LAPIDE, ordine GA voce GA.06, sesto giro: la frase di questo caso non
+    // e' piu' una sola ("punizione di sé"): le tre varianti del corpus dicono
+    // la stessa cosa in parole diverse, e una e' scelta dal ritorno del caso.
+    expect(s[0].rigaDelLivello,
+        matches(RegExp('punizione di sé|puniscono|si punisce|inciamp')));
   });
 
   test('due giorni di fila, due testi diversi; Breve e Approfondita diverse',

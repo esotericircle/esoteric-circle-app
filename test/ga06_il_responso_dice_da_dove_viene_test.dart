@@ -4,21 +4,22 @@ import 'dart:io';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
+import 'package:esoteric_circle/core/horoscope/il_lessico_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/il_responso_dell_oroscopo.dart';
 import 'package:esoteric_circle/core/horoscope/l_anno_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
-import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
-import 'package:esoteric_circle/core/horoscope/oroscopo_vedico_data.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 
-/// **IL "DA DOVE VIENE" DICE PERCHE', ordine GA voce GA.06, quarto giro.**
+/// **IL "DA DOVE VIENE" DICE PERCHE', ordine GA voce GA.06, quarto giro e
+/// sesto giro.**
 ///
 /// Il fondatore, 21 ottobre 2026: *"Le risposte vanno curate, sono la parte
-/// più importante e criticata dell'app."* L'ultima lettura cieca (12 responsi)
-/// ha dato tre sì su dodici meno due, e i due no avevano un padre ciascuno:
+/// più importante e criticata dell'app."* L'ultima lettura cieca del quarto
+/// giro (12 responsi) ha dato tre sì su dodici meno due, e i due no avevano un
+/// padre ciascuno:
 /// - **oroscopo-17** (vedica, giorno): la riga apriva con la Luna in terza
 ///   casa, "successo e vesti, affetti e beni in abbondanza", sotto una
 ///   risposta che dice "giornata stancante"; la ragione vera, la tara
@@ -30,31 +31,23 @@ import 'cardinale_minimo.dart';
 ///   Padre: ordine ES voce 28 (la riga del Tai Sui) e GA.06 terza cura (che
 ///   aveva tolto una virgola mettendo i due punti).
 ///
+/// **Sesto giro**: il "Da dove viene" non ha piu' gergo ne' nomi propri del
+/// metodo (Tara, Chandra Bala, Naidhana, Tai Sui, Inno orfico): le prove
+/// qui sotto controllano la stessa cosa, la ragione vera detta in parole, e
+/// la forma nuova del rito e della fonte. La guardia del gergo e'
+/// `il_da_dove_viene_non_ha_gergo_test`.
+///
 /// Il rito non si lega al tema della lettura (si sceglie dal reggente del
-/// primo giorno): invece di fingere un nesso, la coda del "Da dove viene" lo
-/// dichiara. In piu', dal Realme (gruppo B): "L'oroscopo della mese".
+/// primo giorno): la riga del rito lo dice in una frase breve. In piu', dal
+/// Realme (gruppo B): "L'oroscopo della mese".
 void main() {
-  RegExp gruppo(List<String> varianti) => RegExp(
-      varianti
-          .map((v) => RegExp.escape(LePartiDelResponso.di(v).$2)
-              .replaceAll(RegExp(r'\\\{\w+\\\}'), '.+?')
-              .replaceAll(RegExp(r'\\\[[^\]]*\\\]'), '.+?'))
-          .join('|'),
-      caseSensitive: false);
-
-  int? posizione(String testo, List<String> varianti) {
-    var migliore = -1;
-    for (final v in varianti) {
-      final m = gruppo([v]).firstMatch(testo);
-      if (m != null && (migliore < 0 || m.start < migliore)) {
-        migliore = m.start;
-      }
-    }
-    return migliore < 0 ? null : migliore;
-  }
-
-  test('vedica: nel "Da dove viene" viene prima la forza che porta il livello',
-      () {
+  test('vedica: la ragione che porta il livello e\' detta in parole', () {
+    // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui si
+    // pretendeva l'ordine fra le frasi del corpus (la Luna in casa, poi la
+    // stella, "Il livello viene dalla Luna ..., Rahu Kalam"). Quelle frasi
+    // sono gergo e non vanno piu' a video: il corpo e' di due frasi, la
+    // posizione della Luna e la costellazione (che dice "la piu' delicata"
+    // nel giorno peggiore), poi il giudizio del livello.
     final conOra = NascitaDeiSegni(
         locale: DateTime(1990, 3, 15, 8, 30),
         oraNota: true,
@@ -80,70 +73,77 @@ void main() {
       final luna = LaLetturaVedica.esitoDellaCasa(h);
       final stella = LaLetturaVedica.esitoDellaTara(t);
       final riga = s[0].rigaDelLivello!;
-      final pLuna = posizione(riga, OroscopoVedicoData.chandraBala[h - 1]);
-      final pStella = posizione(riga, OroscopoVedicoData.taraBala[t - 1]);
-      if (pLuna == null || pStella == null) {
-        fuori.add('giorno $k: manca la Luna o la stella nella riga');
-        continue;
+      if (RegExp(r'Naidhana|Chandra Bala|Tara Bala|\btara\b|Rahu Kalam')
+          .hasMatch(riga)) {
+        fuori.add('giorno $k: gergo nella riga: $riga');
+      }
+      final giudizio = IlLessicoDelCielo.giudizio(s[0].indicator);
+      if (!riga.contains(giudizio)) {
+        fuori.add('giorno $k: la riga non dice il giudizio $giudizio: $riga');
       }
       final stellaDecide =
           t == 7 || (luna != EsitoVedico.ottava && stella.index > luna.index);
       if (stellaDecide) {
         stellaPeggiore++;
-        if (t == 7) naidhana++;
-        if (pStella > pLuna) {
-          fuori.add('giorno $k (tara $t, casa $h): la stella viene dopo la '
-              'Luna');
+        if (!riga.contains('costellazione in cui sta la Luna')) {
+          fuori.add('giorno $k: la costellazione non e\' detta: $riga');
         }
-        // La riga del livello sta accanto alle due forze, prima del Rahu
-        // Kalam e del giorno della settimana.
-        final pLivello = riga.indexOf('Il livello viene dalla Luna');
-        final pRahu = riga.indexOf('Rahu Kalam');
-        if (pRahu >= 0 && pLivello > pRahu) {
-          fuori.add('giorno $k: il livello arriva dopo il Rahu Kalam');
+        if (t == 7) {
+          naidhana++;
+          if (!riga.contains('la più delicata')) {
+            fuori.add('giorno $k: il giorno piu\' delicato non e\' detto');
+          }
         }
-      } else if (pLuna > pStella && luna != EsitoVedico.ottava) {
-        fuori.add('giorno $k: la Luna decide e la stella la precede');
       }
     }
     cardinaleMinimo(stellaPeggiore, 40, cosa: 'giorni con la stella peggiore');
-    cardinaleMinimo(naidhana, 12, cosa: 'giorni di Naidhana');
-    print('GA.06 giro 4: giorni vedici letti 180, con la stella che porta il '
-        'livello $stellaPeggiore (Naidhana $naidhana), fuori posto '
+    cardinaleMinimo(naidhana, 12, cosa: 'giorni del giorno piu\' delicato');
+    print('GA.06 giro 6: giorni vedici letti 180, con la stella che porta il '
+        'livello $stellaPeggiore (il piu\' delicato $naidhana), fuori posto '
         '${fuori.length}');
     expect(fuori, isEmpty, reason: fuori.take(5).join('\n'));
   });
 
   test('il rito dichiara di essere quello del reggente, non finge un nesso',
       () {
+    // LAPIDE, ordine GA voce GA.06, sesto giro: qui si pretendeva la coda
+    // "Il rito è quello del primo giorno ..., scelto dal suo reggente: ...".
+    // E' gergo ("reggente") e allungava il muro. Adesso il rito ha la sua
+    // riga breve, "Il rito del giorno: ...", e la fonte una riga sua.
     var righe = 0;
     final fuori = <String>[];
     for (final tr in TradizioneEu.values) {
       for (final per in PeriodoEu.values) {
         final riga = IlResponsoDellOroscopo.daDoveViene('Il cielo di oggi.',
-            fonteDelRito: 'Il verso viene dall\'Inno orfico al Sole.',
+            fonteDelRito: 'La formula che saluta il Sole.',
             periodo: per,
             primoGiorno: DateTime(2026, 10, 25),
             tradizione: tr)!;
         righe++;
-        if (!riga.contains('Il rito è quello ') ||
-            !riga.contains('scelto dal suo reggente: ') ||
+        final linee = riga.split('\n');
+        final quando = switch (per) {
+          PeriodoEu.giorno => 'del giorno',
+          PeriodoEu.settimana => 'della settimana',
+          PeriodoEu.mese => 'del mese',
+          PeriodoEu.anno => 'dell\'anno',
+        };
+        if (linee.length != 3 ||
+            linee[1] != 'Il rito $quando: la formula che saluta il Sole.' ||
+            !linee[2].startsWith('Fonte: astrologia ') ||
+            riga.contains('reggente') ||
             riga.contains('propiziatorio')) {
           fuori.add('${tr.name} ${per.name}: $riga');
-        }
-        if (RegExp(r'quello (il|la) ').hasMatch(riga)) {
-          fuori.add('${tr.name} ${per.name}: preposizione mancante');
         }
       }
     }
     cardinaleMinimo(righe, 12, cosa: 'combinazioni tradizione e periodo');
-    print('GA.06 giro 4: code del rito lette $righe, fuori ${fuori.length}');
+    print('GA.06 giro 6: righe del rito lette $righe, fuori ${fuori.length}');
     expect(fuori, isEmpty, reason: fuori.take(4).join('\n'));
   });
 
   test(
-      'l\'anno cinese: il rapporto detto in frase e un solo due punti per '
-      'frase', () {
+      'l\'anno cinese: il rapporto e\' detto in frase, senza Tai Sui e con un '
+      'solo due punti per frase', () {
     var anni = 0;
     final fuori = <String>[];
     for (var animale = 0; animale < 12; animale++) {
@@ -159,21 +159,24 @@ void main() {
       if (RegExp(r'Con (il|la|lo|l.)\s?\w+, il tuo animale:').hasMatch(riga)) {
         fuori.add('animale $animale: la forma telegrafica «il tuo animale:»');
       }
-      if (!riga.contains('Tai Sui è il signore dell\'anno')) {
-        fuori.add('animale $animale: Tai Sui non e\' detto per intero');
+      // LAPIDE, ordine GA voce GA.06, sesto giro: qui si pretendeva "Tai Sui
+      // è il signore dell'anno" per intero. Il nome e' gergo: adesso la riga
+      // dice se fra i due animali c'e' attrito e che cosa vuol dire.
+      if (riga.contains('Tai Sui') || !RegExp(r"c.è attrito").hasMatch(riga)) {
+        fuori.add('animale $animale: il rapporto non e\' detto in parole');
       }
     }
     cardinaleMinimo(anni, 12, cosa: 'anni cinesi per animale');
-    print('GA.06 giro 4: anni cinesi letti $anni, fuori ${fuori.length}');
+    print('GA.06 giro 6: anni cinesi letti $anni, fuori ${fuori.length}');
     expect(fuori, isEmpty, reason: fuori.take(4).join('\n'));
   });
 
-  test('il Mese e\' maschile e il mantra dice che cosa vuol dire', () {
+  test('il Mese e\' maschile e il mantra dice che cosa saluta', () {
     // Realme, gruppo B, difetto D7: "L'oroscopo della mese".
     final schermo =
         File('lib/features/horoscope/oroscopo_screen.dart').readAsStringSync();
     final sbagliate = RegExp(r'della \$\{period\.label').allMatches(schermo);
-    print('GA.06 giro 4: "della \${period.label" nello schermo '
+    print('GA.06 giro 6: "della \${period.label" nello schermo '
         '${sbagliate.length}');
     expect(sbagliate, isEmpty,
         reason: 'il periodo si dice con etichetta o conArticolo');
@@ -183,22 +186,27 @@ void main() {
     }
     expect(HoroscopePeriod.mese.conArticolo, 'il mese');
 
-    // Quarto lettore cieco (oroscopo-17 e 25): "è la forma breve del suo nome
-    // con l'omaggio" non diceva niente a chi non conosce il sanscrito.
+    // LAPIDE, ordine GA voce GA.06, sesto giro: qui si pretendeva "vuol dire"
+    // nella fonte del mantra (quarto lettore cieco, oroscopo-17 e 25). Il
+    // mantra in sanscrito e il nome del graha sono gergo: la fonte dice in
+    // parole che cosa saluta ("La formula che saluta Marte, il pianeta che
+    // regge il martedì."), senza nomi sanscriti.
     final riti = File('lib/core/responsi/i_riti_propiziatori_dati.dart')
         .readAsStringSync();
-    final mantra = RegExp(r"'mantra_navagraha\|(\w+)': '([^']*(?:\\'[^']*)*)',")
+    final fonti = RegExp(r"'mantra_navagraha\|(\w+)': '([^']*(?:\\'[^']*)*)',")
         .allMatches(riti)
+        .where((m) => !m.group(1)!.contains('|'))
         .toList();
-    cardinaleMinimo(mantra.length, 7, cosa: 'mantra con la loro fonte');
+    cardinaleMinimo(fonti.length, 7, cosa: 'mantra con la loro fonte');
     final senza = [
-      for (final m in mantra)
-        if (!m.group(2)!.contains('vuol dire') ||
-            m.group(2)!.contains('forma breve del suo nome'))
+      for (final m in fonti)
+        if (!m.group(2)!.startsWith('La formula che saluta ') ||
+            RegExp(r'Surya|Chandra|Mangala|Budha|Guru|Shukra|Shani|Rahu|Ketu')
+                .hasMatch(m.group(2)!))
           m.group(1)!,
     ];
-    print('GA.06 giro 4: mantra ${mantra.length}, senza il significato '
-        '${senza.length}');
+    print('GA.06 giro 6: fonti dei mantra ${fonti.length}, senza la forma '
+        'in parole ${senza.length}');
     expect(senza, isEmpty);
   });
 }

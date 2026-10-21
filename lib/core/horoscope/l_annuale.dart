@@ -1,12 +1,13 @@
+import '../astro/il_segno_del_cielo.dart';
 import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
+import 'il_lessico_del_cielo.dart';
 import 'il_responso_dell_oroscopo.dart';
 import 'la_rivoluzione_solare.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_annuale_data.dart';
-import '../astro/il_segno_del_cielo.dart';
 
 /// **L'ANNUALE DAL COMPLEANNO, ordine ES voce 04.**
 ///
@@ -44,11 +45,6 @@ import '../astro/il_segno_del_cielo.dart';
 /// secondo piano, in una cadente (3, 6, 9, 12) resta sullo sfondo. Per
 /// Saturno, che pesa, l'angolo vuol dire un anno che chiede fatica.
 abstract final class LAnnuale {
-  static const List<String> _segni = [
-    'Ariete', 'Toro', 'Gemelli', 'Cancro', 'Leone', 'Vergine', //
-    'Bilancia', 'Scorpione', 'Sagittario', 'Capricorno', 'Acquario', 'Pesci',
-  ];
-
   /// **I TITOLI DELLE QUATTRO SCHEDE, IN PAROLE.** Fino al 30 settembre 2026
   /// erano "Un anno con l'Ascendente in Pesci", "Venere in casa 5", "Il Medio
   /// Cielo in Sagittario", "Giove in casa 5": la scheda apriva col simbolo, e
@@ -68,18 +64,6 @@ abstract final class LAnnuale {
         _ => 1, // 3, 6, 9, 12
       };
 
-  /// Il tipo della casa, detto con la sua spiegazione: "angolare" da solo era
-  /// gergo che chi legge non sa leggere (secondo lettore cieco, ordine GA
-  /// voce GA.06, oroscopo-13, 14, 15 e 16).
-  static String _tipo(int casa) => switch (forza(casa)) {
-        3 => 'una casa angolare, cioè in primo piano: lì i pianeti pesano '
-            'di più',
-        2 => 'una casa succedente, cioè di buon sostegno: lì i pianeti '
-            'pesano abbastanza',
-        _ => 'una casa cadente, cioè di secondo piano: lì i pianeti pesano '
-            'di meno',
-      };
-
   static const List<String> _mesi = [
     'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
     'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
@@ -97,45 +81,6 @@ abstract final class LAnnuale {
     final apostrofo = g.day == 8 || g.day == 11;
     return '${apostrofo ? 'all\'' : 'al '}${g.day} ${_mesi[g.month - 1]} '
         '${g.year}';
-  }
-
-  /// **L'ARCO DELL'ANNO**, in testa al "Da dove viene" di ogni scheda: dal
-  /// compleanno al giorno prima del compleanno dopo. Secondo lettore cieco
-  /// (ordine GA voce GA.06, oroscopo-16): un anno che finisce fra cinque
-  /// settimane si leggeva come se cominciasse, perche' la scheda non diceva
-  /// dove cade l'anno. L'anno cinese lo diceva gia' ("L'anno del Cavallo va
-  /// dal ... al ...").
-  static String arco(DateTime primoGiorno) {
-    final dopo =
-        DateTime(primoGiorno.year + 1, primoGiorno.month, primoGiorno.day - 1);
-    return 'Il tuo anno va ${_dal(primoGiorno)} ${_al(dopo)} e si legge dal '
-        'cielo del tuo compleanno.';
-  }
-
-  static const String ascSpiegato =
-      'il segno che sorgeva all\'orizzonte al tuo compleanno';
-  static const String mcSpiegato =
-      'il punto più alto del cielo al tuo compleanno';
-
-  /// Che cosa sono le case, detto una volta nel "Da dove viene" dell'anno.
-  static const String casePerChiLeggeI =
-      'Quel cielo è diviso in dodici case, cioè dodici aree della vita.';
-
-  /// **DOVE STA IL PIANETA, E QUANTO CONTA**: la riga che la Lunga aggiunge
-  /// al "da dove viene" dell'Amore e della Fortuna. Il segno e la casa sono
-  /// calcolati dal tema; il peso e' la regola dell'angolarita' scritta qui
-  /// sopra, con le sue parole.
-  static String doveSta(
-      String pianeta, CorpoCeleste corpo, TemaDellaRivoluzione tema) {
-    final casa = tema.casaDi(corpo);
-    final segno = _segni[
-        IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
-    final peso = switch (forza(casa)) {
-      3 => 'una casa angolare, cioè in primo piano',
-      2 => 'una casa succedente, cioè di buon sostegno',
-      _ => 'una casa cadente, cioè di secondo piano',
-    };
-    return 'Al tuo compleanno $pianeta era in $segno, nella casa $casa: $peso.';
   }
 
   /// **IL COMPLEANNO DELL'ANNO CHE COMINCIA COL RITORNO [ritorno]**: il
@@ -190,55 +135,75 @@ abstract final class LAnnuale {
         d,
         FasciaEu.di(livello.clamp(2, 5)),
         ITestiEu.indiceDellAnno(numeroDellAnno, scarto));
-    // Il testo e il "da dove viene" della variante dell'anno; con [passo] la
-    // variante accanto, che la Lunga aggiunge dove il caso e' uno solo.
-    (String, String) frase(List<String> varianti, [int passo = 0]) =>
-        LePartiDelResponso.di(LaMarcaDelGenere.risolvi(
-            varianti[(anno + passo) % varianti.length],
-            forma: forma));
     bool lunga(HoroscopeDomain d) =>
         approfondite == null || (approfondite[d] ?? false);
-    final asc = tema.segnoDellAscendente;
-    final mc = tema.segnoDelMedioCielo;
     final casaSole = tema.casaDi(CorpoCeleste.sole);
     final casaVenere = tema.casaDi(CorpoCeleste.venere);
     final casaGiove = tema.casaDi(CorpoCeleste.giove);
     final casaSaturno = tema.casaDi(CorpoCeleste.saturno);
-
-    final (_, ascDaDove) = frase(OroscopoAnnualeData.ascendente[asc]);
-    final (_, venereDaDove) = frase(OroscopoAnnualeData.venere[casaVenere - 1]);
-    final (_, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
-    final (_, gioveDaDove) = frase(OroscopoAnnualeData.giove[casaGiove - 1]);
-
-    /// Il "da dove viene" che si legge sempre e cio' che la Lunga aggiunge;
-    /// [delLivello] dice da dove viene il livello, in fondo alla riga.
-    // **IL PRIMO GIORNO DELL'ANNO E' IL COMPLEANNO** (ordine GA voce GA.04):
-    // il rito della Lunga segue il pianeta che governa quel giorno.
     final primoGiorno = compleanno(tema.istante, nascita);
+    final ultimoGiorno =
+        DateTime(primoGiorno.year + 1, primoGiorno.month, primoGiorno.day - 1);
+
+    // **SESTO GIRO GA.06**: il corpo del "Da dove viene" dell'anno e' di
+    // due frasi (tre nella Lunga della Generale): dove sta il pianeta del
+    // campo, in quale area della vita e quanto pesa, e che cosa vuol dire
+    // per il campo. Niente case, Ascendente, Medio Cielo, Rivoluzione Solare:
+    // chi legge sa il compleanno e il pianeta.
+    String doveStaIlPianeta(String pianeta, int casa, {bool doveri = false}) {
+      final peso = switch (forza(casa)) {
+        3 => doveri
+            ? 'è in primo piano e pesa molto, quindi l\'anno di lavoro chiede '
+                'costanza'
+            : 'è in primo piano',
+        2 => doveri
+            ? 'ha una buona forza, quindi l\'anno di lavoro chiede un po\' di '
+                'impegno'
+            : 'ha una buona forza',
+        _ => doveri
+            ? 'resta sullo sfondo e pesa poco, quindi l\'anno di lavoro è più '
+                'leggero'
+            : 'resta sullo sfondo',
+      };
+      return 'Nell\'anno ${_dal(primoGiorno)} ${_al(ultimoGiorno)} $pianeta '
+          'sta nell\'${IlLessicoDelCielo.areaDellaVita(casa)}: lì $peso.';
+    }
+
+    // Il corpo del campo (il Sole, Venere, Saturno, Giove) e il segno in cui
+    // stava al ritorno del Sole.
+    CorpoCeleste corpoDel(HoroscopeDomain d) => switch (d) {
+          HoroscopeDomain.generale => CorpoCeleste.sole,
+          HoroscopeDomain.amore => CorpoCeleste.venere,
+          HoroscopeDomain.carriera => CorpoCeleste.saturno,
+          HoroscopeDomain.fortuna => CorpoCeleste.giove,
+        };
+    String nomeDelPianeta(HoroscopeDomain d) => switch (d) {
+          HoroscopeDomain.generale => 'il Sole',
+          HoroscopeDomain.amore => 'Venere',
+          HoroscopeDomain.carriera => 'Saturno',
+          HoroscopeDomain.fortuna => 'Giove',
+        };
+    String segnoDelPianeta(HoroscopeDomain d) =>
+        IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpoDel(d)]!)
+            .italianName;
+
     HoroscopeCard scheda(
       HoroscopeDomain d, {
-      required String daDove,
-      required List<String> daDoveInPiu,
-      required String delLivello,
+      required String chiSta,
       required int livello,
       required String metodo,
-      String? delLivelloNellaLunga,
     }) {
       final voce = voceDi(d, livello);
-      // L'arco dell'anno in testa; nella Lunga, dove la riga del pianeta ha
-      // gia' spiegato che casa e', il livello si dice senza ripeterla.
-      final resto = [
-        daDove,
-        if (lunga(d)) ...daDoveInPiu,
-        lunga(d) ? (delLivelloNellaLunga ?? delLivello) : delLivello,
-      ];
-      // **LA CASA SI SPIEGA UNA VOLTA** (ordine GA voce GA.06, quarto giro):
-      // "casa 6" da sola non dice niente a chi non sa di astrologia.
-      final conCase = resto.any((r) => RegExp(r'\bcasa\b').hasMatch(r));
+      // La Lunga aggiunge dove stava il pianeta al compleanno, nel segno: un
+      // fatto del cielo in piu' che la Breve non ha (terza frase del corpo).
       final cielo = LePartiDelResponso.insieme([
-        arco(primoGiorno),
-        if (conCase) casePerChiLeggeI,
-        ...resto,
+        chiSta,
+        // Per il Sole non serve: al compleanno sta sempre nel tuo segno.
+        if (lunga(d) && d != HoroscopeDomain.generale)
+          'Al tuo compleanno ${nomeDelPianeta(d)} era in '
+              '${segnoDelPianeta(d)}.',
+        IlLessicoDelCielo.conclusione(d, livello.clamp(2, 5),
+            quando: 'dell\'anno'),
       ]);
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
@@ -264,65 +229,32 @@ abstract final class LAnnuale {
 
     return [
       scheda(HoroscopeDomain.generale,
-          daDove: ascDaDove.isEmpty
-              ? 'L\'Ascendente del tuo anno, $ascSpiegato, è in ${_segni[asc]}.'
-              : ascDaDove,
-          // La Luna dell'anno resta nella voce: nel "Da dove viene" non c'e'
-          // piu', per tenerlo breve (quarto giro GA.06).
-          daDoveInPiu: const [],
-          delLivello: 'Il livello viene dal Sole nel tuo anno, in casa '
-              '$casaSole, ${_tipo(casaSole)}.',
+          chiSta: doveStaIlPianeta('il Sole', casaSole),
           livello: 2 + forza(casaSole),
           metodo: '${OroscopoAnnualeData.notaGenerale} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.amore,
-          daDove: venereDaDove.isEmpty
-              ? 'Venere nel tuo anno cade nella casa '
-                  '$casaVenere.'
-              : venereDaDove,
-          daDoveInPiu: [doveSta('Venere', CorpoCeleste.venere, tema)],
-          delLivello: 'Il livello viene da Venere nella casa $casaVenere, '
-              '${_tipo(casaVenere)}.',
-          delLivelloNellaLunga: 'Il livello viene da questa casa di Venere.',
+          chiSta:
+              doveStaIlPianeta('Venere, il pianeta dell\'amore,', casaVenere),
           livello: 2 + forza(casaVenere),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.carriera,
-          daDove: mcDaDove.isEmpty
-              ? 'Il Medio Cielo del tuo anno, $mcSpiegato, è in ${_segni[mc]}.'
-              : mcDaDove,
-          // Terzo lettore cieco (ordine GA voce GA.06, oroscopo-15): la riga
-          // della casa di Saturno parlava di legami e lealta' dentro una
-          // lettura di lavoro. Nel lavoro Saturno conta per quanto e' in
-          // vista, e la Lunga dice dove sta e quanto pesa.
-          daDoveInPiu: [doveSta('Saturno', CorpoCeleste.saturno, tema)],
-          // Terzo lettore cieco indipendente: "più è in vista, più il lavoro
-          // chiede" non diceva che cosa vuol dire "in vista" ne' perche'
-          // Saturno pesa sul lavoro.
-          delLivelloNellaLunga: 'Per il lavoro conta questo: Saturno è il '
-              'pianeta dei doveri: più è in primo piano, più l\'anno di '
-              'lavoro chiede impegno.',
           // Fonte, ordine EV voce EV.08, verifica dell'Architetto (O-A-003):
           // le case angolari, succedenti e cadenti e la forza delle angolari
           // sono di William Lilly, Christian Astrology (1647), libro I, le
           // dignita' accidentali. Dalla casa al livello e' una regola
-          // dell'app, e la nota dell'anno lo dice.
-          delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
-              '${_tipo(casaSaturno)}. Saturno è il pianeta dei doveri: più '
-              'pesa, più l\'anno di lavoro chiede impegno.',
-          // Saturno angolare: l'anno chiede fatica.
+          // dell'app, e la nota dell'anno lo dice. Saturno in primo piano:
+          // l'anno chiede fatica.
+          chiSta: doveStaIlPianeta(
+              'Saturno, il pianeta dei doveri,', casaSaturno,
+              doveri: true),
           livello: 6 - forza(casaSaturno),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.fortuna,
-          daDove: gioveDaDove.isEmpty
-              ? 'Giove nel tuo anno cade nella casa '
-                  '$casaGiove.'
-              : gioveDaDove,
-          daDoveInPiu: [doveSta('Giove', CorpoCeleste.giove, tema)],
-          delLivello: 'Il livello viene da Giove nella casa $casaGiove, '
-              '${_tipo(casaGiove)}.',
-          delLivelloNellaLunga: 'Il livello viene da questa casa di Giove.',
+          chiSta:
+              doveStaIlPianeta('Giove, il pianeta della fortuna,', casaGiove),
           livello: 2 + forza(casaGiove),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),

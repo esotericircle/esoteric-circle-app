@@ -18,6 +18,10 @@ import 'cardinale_minimo.dart';
 /// - Tre carte natali diverse dello stesso segno non danno la stessa
 ///   settimana.
 /// - Ogni riga di ogni giorno ha dietro un fatto del cielo di quel giorno.
+/// Il motivo di un giorno comincia con un fatto del cielo, detto in parole.
+final _fattoDelCielo = RegExp(r'^(Quel giorno|Oggi) (la Luna|il Sole|Mercurio|'
+    r'Venere|Marte|Giove|Saturno|Urano|Nettuno|Plutone|i passaggi del cielo)\b');
+
 void main() {
   test('le fasi della Luna contro il JPL, sei mesi', () {
     final righe = File('docs/collaudo/ES/fasi_lunari.csv')
@@ -121,8 +125,14 @@ void main() {
         }
         for (final g in d.giorni) {
           righe++;
-          if (!RegExp(r'^(Dal|Quel giorno la Luna|Oggi la Luna)')
-              .hasMatch(g.motivo)) {
+          // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui il
+          // motivo del giorno cominciava con "Dal ..." o "Quel giorno la Luna"
+          // (la casa, l'aspetto con il suo nome). Sono gergo e non vanno piu'
+          // a video: il motivo apre con il corpo del cielo ("Quel giorno
+          // Giove va d'accordo con ...") o, quando nessuno spinge, con
+          // "i passaggi del cielo si bilanciano", che vale solo al livello 3.
+          if (!_fattoDelCielo.hasMatch(g.motivo) ||
+              (g.motivo.contains('si bilanciano') && g.livello != 3)) {
             senzaFatto.add('${d.dominio.name} ${g.giorno}: "${g.motivo}"');
           }
           // L'istante della scheda del Giorno (le 12 UTC del giorno civile),
@@ -186,8 +196,8 @@ void main() {
           '${d.momentoChiave}');
       for (final g in d.giorni) {
         righe++;
-        if (!RegExp(r'^(Dal|Quel giorno la Luna|Oggi la Luna)')
-            .hasMatch(g.motivo)) {
+        if (!_fattoDelCielo.hasMatch(g.motivo) ||
+            (g.motivo.contains('si bilanciano') && g.livello != 3)) {
           senzaFatto.add('${g.giorno}');
         }
       }

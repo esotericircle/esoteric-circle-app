@@ -8,8 +8,8 @@ import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'i_segni_delle_tradizioni.dart';
+import 'il_lessico_del_cielo.dart';
 import 'il_responso_dell_oroscopo.dart';
-import 'la_lettura_cinese.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_vedico_data.dart';
 import '../astro/il_segno_del_cielo.dart';
@@ -395,7 +395,6 @@ abstract final class LaLetturaVedica {
   }) {
     // Sotto la data di un altro giorno (la Settimana e il Mese) la riga del
     // livello non dice "oggi" (ordine EU voce 02).
-    final diOggi = oggi ? 'di oggi' : 'del giorno';
     final natale = lunaDiNascita(nascita);
     if (natale == null) return null;
     final (rashiNascita, nakNascita) = natale;
@@ -404,25 +403,6 @@ abstract final class LaLetturaVedica {
     final h = casa(rashiNascita, rashiOggi);
     final t = nakNascita == null ? null : tara(nakNascita, nakOggi);
     final (pianeta, colore, numero) = pianetiDelGiorno[giorno.weekday % 7];
-    final f = forma;
-    String nak(int i) => '${nakshatra[i].$1}, ${nakshatra[i].$2}';
-    final valori = {
-      'segno_luna': _nelSegno[rashiOggi],
-      'casa': ordinali[h - 1],
-      'nakshatra_oggi': nak(nakOggi),
-      'nakshatra_nascita': nakNascita == null ? '' : nak(nakNascita),
-      'pianeta': pianeta,
-      'colore': colore,
-      'numero': '$numero',
-      'il_numero': numero == 1 || numero == 8 ? 'l\'$numero' : 'il $numero',
-      'luogo': luogo?.citta ?? '',
-      'inizio': '',
-      'fine': '',
-    };
-    String frase(List<String> varianti, int volta) => LaLetturaCinese.riempi(
-        _risolvi(varianti[volta % varianti.length], f)
-            .replaceAll('il {numero}', '{il_numero}'),
-        valori);
     bool approfondita(HoroscopeDomain d) => approfondite[d] ?? false;
 
     // GENERALE. **LE TRE PARTI DEL RESPONSO**, dal 30 settembre 2026 (il
@@ -430,36 +410,25 @@ abstract final class LaLetturaVedica {
     // vuoi inserire i transiti, li inserisci dopo giusto per motivare da dove
     // arriva la risposta."*): di ogni frase del corpus il testo va nella
     // lettura, il "da dove viene" nella riga sotto ([LePartiDelResponso]).
-    final (_, lunaDaDove) = LePartiDelResponso.di(frase(
-        OroscopoVedicoData.chandraBala[h - 1],
-        volte(giorno, luogo, (r, _) => casa(rashiNascita, r) == h)));
-    // Senza l'ora di nascita la stella non si legge: lo dice il "da dove
-    // viene", non la lettura.
-    final (_, stellaDaDove) = t == null
-        ? (
-            '',
-            'Con l\'ora di nascita leggo anche la stella della tua nascita e '
-                'la confronto con quella di oggi: oggi la Luna è in '
-                '${nak(nakOggi)}.'
-          )
-        : LePartiDelResponso.di(frase(OroscopoVedicoData.taraBala[t - 1],
-            volte(giorno, luogo, (_, k) => tara(nakNascita!, k) == t)));
-    String delRahu;
+    // **SESTO GIRO GA.06**: il "Da dove viene" non cita piu' le frasi del
+    // corpus ("la Brihat Samhita parla di..."): dice che cosa fa la Luna e
+    // che cosa significa per il campo, in due frasi, come lo direbbe un
+    // amico che sa leggere il cielo. Il Rahu Kalam, che ha un nome che non
+    // dice niente, e' "l'ora in cui si sconsiglia di cominciare".
     final rk = luogo == null ? null : rahuKalam(giorno, luogo);
-    if (rk == null) {
-      delRahu =
-          frase(OroscopoVedicoData.rahuSenzaCitta, _giornoGiuliano(giorno));
-    } else {
-      valori['inizio'] = _hm(rk.$1.toLocal());
-      valori['fine'] = _hm(rk.$2.toLocal());
-      final gruppo = adesso.isBefore(rk.$1)
-          ? OroscopoVedicoData.rahuPrima
+    String? rahuInParole;
+    if (rk != null) {
+      final inizio = _hm(rk.$1.toLocal());
+      final fine = _hm(rk.$2.toLocal());
+      rahuInParole = adesso.isBefore(rk.$1)
+          ? 'Fra le $inizio e le $fine la tradizione indiana sconsiglia di '
+              'cominciare cose nuove.'
           : adesso.isBefore(rk.$2)
-              ? OroscopoVedicoData.rahuInCorso
-              : OroscopoVedicoData.rahuPassato;
-      delRahu = frase(gruppo, _giornoGiuliano(giorno));
+              ? 'Adesso, fino alle $fine, la tradizione indiana sconsiglia di '
+                  'cominciare cose nuove.'
+              : 'Fra le $inizio e le $fine la tradizione indiana sconsigliava '
+                  'di cominciare cose nuove: ormai è passato.';
     }
-    final (_, rahuDaDove) = LePartiDelResponso.di(delRahu);
     final esitoLuna = esitoDellaCasa(h);
     final esitoStella = t == null ? null : esitoDellaTara(t);
     // **I TESTI DELL'ARCHITETTO, EU Aggiunta, 1 ottobre 2026**: il titolo e
@@ -490,62 +459,45 @@ abstract final class LaLetturaVedica {
 
     final lungaGenerale = approfondita(HoroscopeDomain.generale);
     final livelloGenerale = livelloDelGiorno(esitoLuna, t);
-    // **QUARTO GIRO GA.06**: due righe del livello. Quella del "Da dove
-    // viene" della scheda (dopo la frase che spiega le case) e quella che sta
-    // in piedi da sola, per la Settimana e il Mese (senza la parola "casa").
-    final poiDaSola = t == 7 || esitoLuna == EsitoVedico.ottava;
-    final soloLei = poiDaSola
-        ? ': ${t == 7 ? 'Naidhana' : 'la Luna in ottava'} da sola porta la '
-            'giornata al livello più delicato'
-        : '';
-    final rigaDelLivelloGenerale = esitoStella == null
-        ? 'Il livello viene dalla Luna $diOggi: ${_nomeLuna(esitoLuna)}$soloLei.'
-        : 'Il livello viene da due forze: la Luna (${_nomeLuna(esitoLuna)}) e la stella (${_nomeEsito(esitoStella)})$soloLei.';
-    final rigaSoloDelLivelloGenerale = 'Il livello viene dalla Luna $diOggi '
-        '${_nelSegno[rashiOggi]}, ${nelOrdinaleM(h)} segno a partire da '
-        'quello della tua Luna di nascita (${_nomeLuna(esitoLuna)})'
-        '${esitoStella == null ? '' : '; e dalla tua stella $diOggi, ${_nomiDelleTare[t! - 1]} (${_sensoDelleTare[t - 1]}, ${_nomeEsito(esitoStella)})'}'
-        // Secondo lettore cieco (ordine GA voce GA.06, oroscopo-17): una Luna
-        // favorevole in testa alla riga e una giornata "stancante" nel testo
-        // sembravano dirsi il contrario. Naidhana, come la Luna in ottava,
-        // porta da sola la giornata al livello piu' delicato: si dice.
-        '$soloLei.';
+    final quale = oggi ? 'Oggi' : 'Quel giorno';
+    final sulGiorno = oggi ? 'di oggi' : 'di quel giorno';
+    final sullaLuna = h == 1
+        ? 'lo stesso segno della tua Luna di nascita'
+        : '${ilOrdinaleM(h)} segno dalla tua Luna di nascita';
+    final primaFrase = '$quale la Luna è ${_nelSegno[rashiOggi]}, $sullaLuna: '
+        'per la tradizione indiana è ${_posizione(esitoLuna)}.';
+    String secondaFrase;
+    if (esitoStella == null) {
+      // Senza l'ora di nascita la costellazione non si legge: lo dice, in
+      // modo che il giudizio non sembri piu' completo di quello che e'.
+      secondaFrase = 'Senza l\'ora di nascita leggo solo la Luna: in generale '
+          'il cielo $sulGiorno è ${IlLessicoDelCielo.giudizio(livelloGenerale)}.';
+    } else {
+      final lunaBuona = esitoLuna == EsitoVedico.favorevole;
+      final stellaBuona = esitoStella == EsitoVedico.favorevole;
+      final lunaCattiva = esitoLuna == EsitoVedico.sfavorevole ||
+          esitoLuna == EsitoVedico.ottava;
+      final stellaCattiva = esitoStella == EsitoVedico.sfavorevole || t == 7;
+      final ma = (lunaBuona && stellaCattiva) || (lunaCattiva && stellaBuona);
+      final come = t == 7
+          ? 'è per te la più delicata, adatta alle chiusure e non agli inizi'
+          : switch (esitoStella) {
+              EsitoVedico.favorevole => 'è amica della tua',
+              EsitoVedico.attenzione => 'chiede attenzione, rispetto alla tua',
+              _ => 'è contraria alla tua',
+            };
+      secondaFrase =
+          '${ma ? 'Ma la' : 'La'} costellazione in cui sta la Luna $come; in '
+          'generale il cielo $sulGiorno è '
+          '${IlLessicoDelCielo.giudizio(livelloGenerale)}.';
+    }
+    final corpoGenerale = '$primaFrase $secondaFrase';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
-    // **PRIMA CIO' CHE FA IL LIVELLO**, ordine GA voce GA.06, quarto lettore
-    // cieco (oroscopo-17): con la Luna in terza casa (favorevole) e la tara
-    // Naidhana, il "Da dove viene" apriva con "successo e vesti, affetti e
-    // beni in abbondanza" sotto una risposta che dice "giornata stancante", e
-    // la ragione vera arrivava tre frasi dopo. Adesso viene per prima la forza
-    // peggiore delle due, quella che porta il livello.
-    final stellaPrima = esitoStella != null &&
-        (t == 7 ||
-            (esitoLuna != EsitoVedico.ottava &&
-                esitoStella.index > esitoLuna.index));
-    // Con la stella peggiore della Luna, la frase della Luna dice di essere
-    // quella che il livello non segue: "successo e vesti" sotto una giornata
-    // in salita non si legge piu' come una contraddizione.
-    final lunaLetta = stellaPrima && esitoLuna == EsitoVedico.favorevole
-        ? 'Da sola la Luna direbbe altro: '
-            '${lunaDaDove.isEmpty ? '' : '${lunaDaDove[0].toLowerCase()}${lunaDaDove.substring(1)}'}'
-        : lunaDaDove;
-    // La Breve: la spiegazione delle case, le due forze e il livello. La
-    // Lunga aggiunge il Rahu Kalam (che con la citta' dice l'ora, senza la
-    // citta' dice come averla); il colore e il numero del giorno non stanno
-    // piu' qui, per tenere la riga breve (quarto giro GA.06).
+    // Il corpo: due frasi (la Luna, la stella e che cosa vuol dire); la
+    // Lunga aggiunge, se si sa dove sei, l'ora in cui non cominciare.
     final cieloGenerale = LePartiDelResponso.insieme([
-      casePerChiLegge,
-      if (stellaPrima) stellaDaDove,
-      lunaLetta,
-      // Quando le due forze non vanno d\'accordo la riga del livello sta
-      // subito accanto a loro: dice perche' una giornata con la Luna
-      // favorevole e' comunque in salita.
-      if (stellaPrima) rigaDelLivelloGenerale,
-      if (!stellaPrima) stellaDaDove,
-      if (!stellaPrima) rigaDelLivelloGenerale,
-      // Il Rahu Kalam si dice solo quando si sa dove sei: con l\'ora. Senza
-      // citta' la riga non finiva in un vicolo cieco ma pesava sulla scheda
-      // (quarto giro GA.06): si omette, e la citta' si chiede altrove.
-      if (lungaGenerale && rk != null) rahuDaDove,
+      corpoGenerale,
+      if (lungaGenerale && rahuInParole != null) rahuInParole,
     ]);
     // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della Lunga
     // e' il mantra del graha che governa questo giorno della settimana.
@@ -566,7 +518,7 @@ abstract final class LaLetturaVedica {
       responso: responsoGenerale,
       indicator: livelloDelGiorno(esitoLuna, t),
       rigaDelLivello: cieloGenerale,
-      rigaSoloDelLivello: rigaSoloDelLivelloGenerale,
+      rigaSoloDelLivello: corpoGenerale,
       opening: vocativo == null
           ? null
           : ITestiEu.apertura(
@@ -579,24 +531,33 @@ abstract final class LaLetturaVedica {
 
     HoroscopeCard delDominio(
         HoroscopeDomain d, List<List<String>> gruppi, Set<int> sueCase) {
-      final gruppo = gruppi[h - 1];
-      final volta = volte(giorno, luogo,
-          (r, _) => identical(gruppi[casa(rashiNascita, r) - 1], gruppo));
-      final (_, baseDaDove) = LePartiDelResponso.di(frase(gruppo, volta));
-      final (_, livello, come) = _casoDelDominio(h, sueCase);
+      final (_, livello) = _casoDelDominio(h, sueCase);
       final fortuna = d == HoroscopeDomain.fortuna;
       final lunga = approfondita(d);
       final voce = voceDi(d, livello);
-      // **QUARTO GIRO GA.06**: la casa si spiega, la riga del tema dice cosa
-      // fa la Luna di oggi alle case del dominio (oroscopo-19 del secondo
-      // lettore) senza ripetere dove sta, e il livello e' una riga sola.
-      final cielo = LePartiDelResponso.insieme([
-        casePerChiLegge,
-        baseDaDove,
-        if (lunga)
-          '${_maiuscola(_temaDelDominio[d]!)}: ${sueCase.contains(h) ? 'oggi la Luna ci passa' : sueCase.contains((h + 5) % 12 + 1) ? (sueCase.length > 1 ? 'oggi la Luna ne guarda una dalla casa di fronte' : 'oggi la Luna la guarda dalla casa di fronte') : (sueCase.length > 1 ? 'oggi la Luna non le tocca' : 'oggi la Luna non la tocca')}.',
-        'Il livello viene dalla Luna $diOggi: $come.',
-      ]);
+      // **SESTO GIRO GA.06**: due frasi. La prima dice dove sta la Luna e,
+      // se tocca il campo, che e' proprio il segno di questo campo; la
+      // seconda dice che cosa significa per il campo.
+      final cosa = IlLessicoDelCielo.cheCosaRiguarda[d]!;
+      final doveLuna = h == 1
+          ? 'lo stesso segno della tua Luna di nascita'
+          : '${ilOrdinaleM(h)} segno dalla tua Luna di nascita';
+      final String primaFrase;
+      if (sueCase.contains(h)) {
+        primaFrase = '$quale la Luna è ${_nelSegno[rashiOggi]}, $doveLuna, '
+            'proprio quello che per la tradizione indiana riguarda $cosa: '
+            '${_posizione(esitoLuna)}.';
+      } else if (sueCase.contains((h + 5) % 12 + 1)) {
+        primaFrase = '$quale la Luna è ${_nelSegno[rashiOggi]}, '
+            '${_posizione(esitoLuna)}: da lì tocca anche l\'area che per la '
+            'tradizione indiana riguarda $cosa.';
+      } else {
+        primaFrase = '$quale la Luna è ${_nelSegno[rashiOggi]}, $doveLuna: '
+            'per la tradizione indiana è ${_posizione(esitoLuna)}.';
+      }
+      final corpoDelDominio = '$primaFrase '
+          '${IlLessicoDelCielo.conclusione(d, livello, quando: sulGiorno)}';
+      final cielo = corpoDelDominio;
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
         tradizione: TradizioneEu.vedica,
@@ -614,9 +575,7 @@ abstract final class LaLetturaVedica {
         responso: responso,
         indicator: livello,
         rigaDelLivello: cielo,
-        rigaSoloDelLivello: 'Il livello viene dalla Luna $diOggi, '
-            '${nelOrdinaleM(h)} segno a partire da quello della tua Luna di '
-            'nascita: $come.',
+        rigaSoloDelLivello: corpoDelDominio,
         metodo: _metodo(d, conStella: t != null),
         luckyNumber: fortuna ? numero : null,
         dayColor: fortuna ? colore : null,
@@ -689,31 +648,6 @@ abstract final class LaLetturaVedica {
         '${_nomeEsito(esitoDellaCasa(h))}.';
   }
 
-  static String _maiuscola(String s) =>
-      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
-
-  static String _risolvi(String s, CourtesyForm? f) =>
-      LaMarcaDelGenere.risolvi(s, forma: f);
-
-  static int _giornoGiuliano(DateTime g) =>
-      DateTime.utc(g.year, g.month, g.day).millisecondsSinceEpoch ~/ 86400000;
-
-  static const List<String> _nomiDelleTare = [
-    'Janma', 'Sampat', 'Vipat', 'Kshema', 'Pratyak', 'Sadhana', //
-    'Naidhana', 'Mitra', 'Parama Mitra',
-  ];
-
-  /// Che cosa vuole dire il nome della tara, per dirlo accanto al nome.
-  static const List<String> _sensoDelleTare = [
-    'la tua stessa stella', 'la ricchezza', 'il pericolo', 'il benessere', //
-    'l\'ostacolo', 'la riuscita', 'la fine', 'l\'amico', 'il grande amico',
-  ];
-
-  /// Come si dice la forza della Luna, accanto al suo esito.
-  static String _nomeLuna(EsitoVedico e) => e == EsitoVedico.ottava
-      ? 'Chandrashtama, il giorno più delicato'
-      : _nomeEsito(e);
-
   static String _nomeEsito(EsitoVedico e) => switch (e) {
         EsitoVedico.favorevole => 'favorevole',
         EsitoVedico.attenzione => 'di attenzione',
@@ -743,67 +677,38 @@ abstract final class LaLetturaVedica {
     return switch (s) { 2 => 5, 1 => 4, -2 => 2, _ => 3 };
   }
 
-  static const Map<HoroscopeDomain, String> _temaDelDominio = {
-    // Fonte, ordine EV voce EV.08, verifica dell'Architetto (V-G-003): la
-    // settima casa dell'unione, Brihat Parashara Hora Shastra, cap. 11; la
-    // quinta come cuore e' la lettura moderna dichiarata dalla nota del
-    // metodo (V-M-008).
-    HoroscopeDomain.amore:
-        'per l\'amore la tradizione guarda la settima casa, dell\'unione, con '
-            'la quinta, del cuore che si apre',
-    HoroscopeDomain.carriera:
-        'per il lavoro la tradizione guarda la decima casa, del lavoro e del '
-            'nome',
-    HoroscopeDomain.fortuna:
-        'per la fortuna la tradizione guarda la seconda casa, dei beni, con '
-            'l\'undicesima, dei guadagni',
-  };
-
   /// Il caso di una scheda, con la precedenza della specifica (6.3): il
   /// titolo, il livello e che cosa fa la Luna al dominio.
-  static (String, int, String) _casoDelDominio(int h, Set<int> sueCase) {
+  static (String, int) _casoDelDominio(int h, Set<int> sueCase) {
     final esito = esitoDellaCasa(h);
-    if (h == 8) {
-      return ('Chandrashtama', 2, 'la Luna in ottava, il giorno più delicato');
-    }
+    if (h == 8) return ('Chandrashtama', 2);
     if (sueCase.contains(h)) {
-      // "l'undicesima", "nell'ottava": l'articolo si elide davanti alla
-      // vocale (secondo lettore cieco, ordine GA voce GA.06, oroscopo-28:
-      // "la Luna attraversa la undicesima").
-      final vocale = 'aeiou'.contains(ordinali[h - 1][0]);
-      final nella = vocale ? 'nell\'' : 'nella ';
-      // La ragione dice perche' conta (secondo lettore cieco, oroscopo-26 e
-      // 28: "la Luna attraversa la settima" ripeteva la frase prima, che
-      // nomina gia' la casa).
       return (
-        'La Luna $nella${ordinali[h - 1]} casa',
-        esito == EsitoVedico.favorevole ? 5 : 4,
-        'passa sul segno che conta per questo campo e lo mette in primo '
-            'piano',
+        'La Luna nella casa del campo',
+        esito == EsitoVedico.favorevole ? 5 : 4
       );
     }
     final guardata = (h + 5) % 12 + 1;
     if (sueCase.contains(guardata)) {
-      final vocale = 'aeiou'.contains(ordinali[guardata - 1][0]);
-      final la = vocale ? 'l\'' : 'la ';
       return (
-        'La Luna guarda $la${ordinali[guardata - 1]} casa',
-        esito == EsitoVedico.favorevole ? 4 : 3,
-        'guarda, dalla sua posizione, il segno che conta per questo campo, '
-            'perché nella tradizione indiana ogni pianeta guarda il segno '
-            'che gli sta di fronte',
+        'La Luna guarda la casa del campo',
+        esito == EsitoVedico.favorevole ? 4 : 3
       );
     }
     return switch (esito) {
-      EsitoVedico.favorevole => ('Una Luna favorevole', 4, 'è favorevole'),
-      EsitoVedico.attenzione => (
-          'Una Luna di attenzione',
-          3,
-          'è di attenzione'
-        ),
-      _ => ('Una Luna sfavorevole', 2, 'è sfavorevole'),
+      EsitoVedico.favorevole => ('Una Luna favorevole', 4),
+      EsitoVedico.attenzione => ('Una Luna di attenzione', 3),
+      _ => ('Una Luna sfavorevole', 2),
     };
   }
+
+  /// Come si dice la posizione della Luna, in parole di tutti i giorni.
+  static String _posizione(EsitoVedico e) => switch (e) {
+        EsitoVedico.favorevole => 'una posizione favorevole',
+        EsitoVedico.attenzione => 'una posizione da prendere con attenzione',
+        EsitoVedico.sfavorevole => 'una posizione sfavorevole',
+        EsitoVedico.ottava => 'la posizione più delicata',
+      };
 
   static String _metodo(HoroscopeDomain d, {required bool conStella}) {
     String voce(String termine) => OroscopoVedicoData.glossario

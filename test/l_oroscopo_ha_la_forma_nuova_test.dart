@@ -193,10 +193,24 @@ void main() {
                     '«${(r.rito ?? 'nessuno').split(' ').take(8).join(' ')}»');
               }
               final fonte = IRitiPropiziatori.fonte(raccolte[t]!, chiave)!;
-              final coda = fonte.substring(1);
-              if (!(r.daDoveViene ?? '').endsWith(coda)) {
-                colpe.add('$dove: il "Da dove viene" non chiude con la fonte '
-                    'del rito «$fonte»');
+              // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026):
+              // qui si pretendeva che il "Da dove viene" CHIUDESSE con la
+              // fonte del rito. Adesso il rito ha una riga sua ("Il rito del
+              // giorno: ...") e in coda sta la riga "Fonte: ...": si
+              // pretende la riga del rito, intera, e la fonte dopo.
+              final quando = switch (periodo) {
+                PeriodoEu.giorno => 'del giorno',
+                PeriodoEu.settimana => 'della settimana',
+                PeriodoEu.mese => 'del mese',
+                PeriodoEu.anno => 'dell\'anno',
+              };
+              final lineeDelDaDove = (r.daDoveViene ?? '').split('\n');
+              final rigaDelRito =
+                  'Il rito $quando: ${fonte[0].toLowerCase()}${fonte.substring(1)}';
+              if (!lineeDelDaDove.contains(rigaDelRito) ||
+                  !lineeDelDaDove.last.startsWith('Fonte: astrologia ')) {
+                colpe.add('$dove: il "Da dove viene" non ha la riga del rito '
+                    '«$rigaDelRito» e la fonte in coda');
               }
             }
           }

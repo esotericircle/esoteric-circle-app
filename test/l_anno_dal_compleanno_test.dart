@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/core/horoscope/il_lessico_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/l_annuale.dart';
 import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
-import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_annuale_data.dart';
 import 'package:esoteric_circle/features/horoscope/il_pdf_dell_anno.dart';
 import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
@@ -34,12 +34,6 @@ void main() {
   const lat = 41.9;
   const lon = 12.5;
 
-  // Dal 30 settembre 2026 ogni frase del corpus ha due parti, "TESTO || DA
-  // DOVE VIENE": il testo va nella lettura, il da dove viene nella riga sotto
-  // ([LePartiDelResponso]).
-  RegExp daDove(List<String> v) => RegExp(
-      v.map((f) => RegExp.escape(LePartiDelResponso.di(f).$2)).join('|'));
-
   test('ogni scheda dice la frase del suo caso, col livello della regola', () {
     var temi = 0;
     final fuori = <String>[];
@@ -61,45 +55,42 @@ void main() {
           for (final c in CorpoCeleste.values)
             if (t.longitudini.containsKey(c)) c: t.casaDi(c),
         };
+        // LAPIDE, ordine GA voce GA.06, sesto giro (21 ottobre 2026): qui si
+        // pretendevano le frasi del corpus annuale nella riga del "Da dove
+        // viene" (segno dell'Ascendente, casa di Venere, segno del Medio
+        // Cielo, casa di Giove). Sono gergo (case, Ascendente, Medio Cielo) e
+        // non vanno piu' a video. La riga dice il pianeta del campo, l'area
+        // della vita in cui sta (la casa, in parole) e il giudizio del livello.
         final attesi = [
           (
             'generale',
-            [
-              // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026):
-              // qui si pretendeva anche le frasi del Sole e della Luna nella
-              // riga del "Da dove viene". La riga e' tornata breve (tre frasi:
-              // l'arco dell'anno con la spiegazione delle case, l'Ascendente,
-              // il livello): il Sole sta nella riga del livello, la Luna nella
-              // voce.
-              OroscopoAnnualeData.ascendente[t.segnoDellAscendente],
-            ],
-            2 + forza(casa[CorpoCeleste.sole]!),
+            'il Sole',
+            casa[CorpoCeleste.sole]!,
+            2 + forza(casa[CorpoCeleste.sole]!)
           ),
           (
             'amore',
-            [OroscopoAnnualeData.venere[casa[CorpoCeleste.venere]! - 1]],
-            2 + forza(casa[CorpoCeleste.venere]!),
+            'Venere',
+            casa[CorpoCeleste.venere]!,
+            2 + forza(casa[CorpoCeleste.venere]!)
           ),
+          // Nel lavoro Saturno conta per quanto e' in vista, e il livello e'
+          // quello di Saturno al rovescio.
           (
             'carriera',
-            // LAPIDE, ordine GA voce GA.06 (terzo lettore cieco, 21 ottobre
-            // 2026): qui si pretendeva anche la frase della casa di Saturno
-            // dal corpus annuale ("i legami si fanno seri" con Saturno in
-            // settima), che dentro una lettura di lavoro parlava d'altro.
-            // Nel lavoro Saturno conta per quanto e' in vista: la Lunga dice
-            // dove sta e quanto pesa (`LAnnuale.doveSta`), e il livello resta
-            // quello di Saturno, qui sotto.
-            [OroscopoAnnualeData.medioCielo[t.segnoDelMedioCielo]],
-            6 - forza(casa[CorpoCeleste.saturno]!),
+            'Saturno',
+            casa[CorpoCeleste.saturno]!,
+            6 - forza(casa[CorpoCeleste.saturno]!)
           ),
           (
             'fortuna',
-            [OroscopoAnnualeData.giove[casa[CorpoCeleste.giove]! - 1]],
-            2 + forza(casa[CorpoCeleste.giove]!),
+            'Giove',
+            casa[CorpoCeleste.giove]!,
+            2 + forza(casa[CorpoCeleste.giove]!)
           ),
         ];
         for (var i = 0; i < 4; i++) {
-          final (nome, gruppi, livello) = attesi[i];
+          final (nome, pianeta, nellaCasa, livello) = attesi[i];
           // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che la
           // lettura fosse la frase del caso dal corpus annuale di prima.
           // Adesso la lettura e' la voce del corpus dell'Anno occidentale
@@ -123,14 +114,16 @@ void main() {
               s[i].title != voce.titolo) {
             fuori.add('$nome $n $anno');
           }
-          for (final g in gruppi) {
-            if (!daDove(g).hasMatch(s[i].rigaDelLivello!)) {
-              fuori.add('da dove $nome $n $anno');
-            }
-            // Il simbolo non apre mai: sta nella riga, non nella lettura.
-            if (daDove(g).hasMatch(s[i].text)) {
-              fuori.add('simbolo nella lettura $nome $n $anno');
-            }
+          final area = IlLessicoDelCielo.areaDellaVita(nellaCasa);
+          final riga = s[i].rigaDelLivello!;
+          if (!riga.contains(pianeta) ||
+              !riga.contains(area) ||
+              !riga.contains(IlLessicoDelCielo.giudizio(livello.clamp(2, 5)))) {
+            fuori.add('da dove $nome $n $anno: $riga');
+          }
+          // Il simbolo non apre mai: sta nella riga, non nella lettura.
+          if (s[i].text.contains(area)) {
+            fuori.add('simbolo nella lettura $nome $n $anno');
           }
           if (s[i].indicator != livello.clamp(2, 5)) {
             fuori.add('livello $nome $n $anno: ${s[i].indicator}, $livello');

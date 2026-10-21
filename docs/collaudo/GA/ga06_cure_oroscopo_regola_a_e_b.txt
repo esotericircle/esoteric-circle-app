@@ -396,3 +396,114 @@ riga 511 (variabile 's' non usata), della cura dei Tarocchi (ordine GA voce GA.0
 Lunghezze del "Da dove viene" sul campione di 48: Breve da 22 a 101 parole (la piu' lunga: vedica
 anno con la Sade Sati), Lunga da 56 a 134 (la piu' lunga: vedica giorno con tara e Rahu Kalam); la
 guardia tiene 105 e 140. Prima: fino a 209 parole.
+
+==============================================================================================
+IL SESTO GIRO, 21 ottobre 2026: IL "DA DOVE VIENE" RIPROGETTATO (D3 12 su 12 e' l'obiettivo)
+==============================================================================================
+Il fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata dell'app."
+Lettura cieca indipendente sul quinto giro (c4cac27a, unito come 62491f37): D1 12/12, D2 12/12,
+D3 3/12. Spiegare il termine accanto al termine non bastava: allungava il testo e il lettore
+trovava muri, frasi vuote e gergo. Stato: APERTA IN ATTESA DI LETTURA INDIPENDENTE.
+
+La forma nuova (come la direbbe un amico che sa leggere il cielo):
+- il CORPO, prima riga: al massimo due frasi nella Breve, tre nella Lunga: che cosa fa il cielo e
+  che cosa vuol dire per il campo ("Per l'amore il cielo di oggi e' favorevole"), senza nessun
+  termine tecnico (niente quadratura, trigono, casa, Ascendente, Medio Cielo, tara, Naidhana,
+  Chandra Bala, Sade Sati, Rahu Kalam, BaZi come nome, dieci forze, Sette Uccisioni, Rivale,
+  Ufficiale, Tai Sui, Tong Shu, nomi sanscriti dei segni, reggente, dei greci, Inno orfico);
+- nella Lunga, UNA riga breve del rito: "Il rito del giorno: la formula che saluta Marte, il
+  pianeta che regge il martedi'", senza nomi di dei o di scuole;
+- in coda, riga separata e unica: "Fonte: astrologia indiana, che conta i segni a partire dalla
+  tua Luna di nascita" (la tradizione e al piu' un termine, il BaZi, spiegato).
+Il lessico di tutti i giorni sta in lib/core/horoscope/il_lessico_del_cielo.dart (campi, giudizi,
+rapporti fra i corpi, punti della carta). Il livello e il giudizio dicono la stessa cosa della
+fascia: un cielo in equilibrio non "ti sostiene" e non "ti mette alla prova".
+
+Padri (Regola C):
+- gergo e muri nel "Da dove viene": ordine ES voci 02, 03, 04, 08 e 09 (la riga scritta con le
+  parole dei metodi) e le cure GA.06 dalla prima alla quinta (spiegavano il gergo senza toglierlo);
+- frasi vuote ("il segno che conta per questo campo", "scelto dal suo reggente"): GA.06 quinto
+  giro (c4cac27a);
+- "tempo di prove" sotto un "anno stabile": GA.06 quinto giro (Sade Sati collegata alla risposta
+  ma con la fascia sbagliata); adesso Giove e Saturno si bilanciano e il giudizio e' "in
+  equilibrio";
+- riga identica per sette giorni (Venere lenta) scoperta da questa cura: padre GA.06 sesto giro,
+  stesso lavoro (la prima stesura sceglieva sempre il corpo lento), curata nello stesso lavoro:
+  la Luna e il corpo del campo si nominano insieme;
+- "un po'di" senza spazio (Saturno nell'anno): GA.06 sesto giro, stesso lavoro, curato;
+- rapporti cinesi del corpus su due frasi: ordine ES voce 08 (corpus dell'Architetto): rifatti
+  in una frase sola SOLO i tre che erano su due frasi (1.3 var.2, 1.5 var.3, 1.9 var.1); gli
+  altri testi dell'Architetto (C-G-068, C-G-069) sono rimasti com'erano e la prova
+  i_testi_nuovi_dell_architetto_sono_nel_codice e' verde SENZA l'adattamento C-G-069 dichiarato
+  nel quinto giro (che non serve piu');
+- rito che non c'entra col tema della risposta (oroscopo-39, 45): ordine GA voci GA.03 e GA.04
+  (il rito si sceglie dal reggente del primo giorno, non dal tema): APERTO, vedi sotto.
+
+Cosa e' cambiato (file): il_lessico_del_cielo.dart (nuovo lessico), il_livello_del_cielo.dart
+(la riga del Giorno occidentale: la Luna e il corpo del campo insieme, "ma poco" a livello di
+mezzo), la_settimana_del_cielo.dart (momento chiave + giudizio; il giorno migliore e la media),
+l_annuale.dart (pianeta, area della vita, giudizio; la Lunga dice dove stava il pianeta al
+compleanno), la_lettura_vedica.dart (Luna, costellazione, giudizio; il Rahu detto "la tradizione
+indiana sconsiglia di cominciare cose nuove fino alle ..."; senza l'ora: "Senza l'ora di nascita
+leggo solo la Luna"), l_anno_delle_tradizioni.dart (Giove e Saturno, rapporto fra gli animali
+dell'anno), la_lettura_cinese.dart (il rapporto fra gli animali e "Per la tradizione cinese oggi
+il giorno porta una forza ..."), il_responso_dell_oroscopo.dart (laFonte, daDoveViene), i riti
+(inni_orfici, mantra_navagraha, gesti_tong_shu: i "Da dove viene" delle raccolte sono descrizioni
+in parole), docs/corpus/oroscopo_cinese.md (tre frasi), docs/corpus/eu/oroscopo_eu_vedica_anno.md
+(voce 29: "della tua vita").
+
+Regola A, guardia nuova test/il_da_dove_viene_non_ha_gergo_test.dart (sostituisce
+i_termini_del_cielo_hanno_la_loro_spiegazione_test.dart, tolta): legge i 2272 "Da dove viene"
+veri (12 persone, 3 tradizioni, 4 periodi, 4 domini, Breve e Lunga; di cui 1136 con la riga del
+rito); cardinale minimo 1200 righe e 300 righe di rito. Pretende: nessun termine vietato nel
+corpo e nel rito; al massimo 2 frasi (Breve) e 3 (Lunga); al massimo 56 parole (Breve) e 66
+(Lunga); nessuna frase vuota; il giudizio del livello nel corpo; nessun "oggi" fuori dal Giorno;
+la riga "Fonte:" presente, una, in coda, con al massimo un termine tecnico; la coerenza con la
+fascia (nessun "ti sostiene" in equilibrio o in salita, nessun "alla prova" in equilibrio o
+favorevole). Misura sul codice vero: corpo piu' lungo Breve 52 parole, Lunga 61; frasi al massimo
+3; difetti 0. Prima del limite a 56/66 il tetto era 62/85: si e' stretto il tetto, non allentato.
+Innesti a mano, verificati col grep («INNESTO GA06G6», 6 occorrenze e poi 7 al momento della prova) e tolti:
+ G1 "trigono" al posto di "va d'accordo con": ROSSA (30 + 40 + 8 + 24 + 14 + 6 + 8 + 12 + 10 + 4
+    righe);
+ G2 la frase vuota "il segno che conta per questo campo": ROSSA (332 righe);
+ G3 "reggente" / "scelto dal suo reggente": ROSSA (58 + 58 + 124 + 68 + 62 + 370 righe);
+ G4 una seconda riga "Fonte:" nella vedica anno: ROSSA (160 righe);
+ G5 "Oggi" in una settimana: ROSSA (64 righe);
+ G6 due frasi in piu' nella Lunga cinese: ROSSA (64 righe, 5 frasi);
+ G7 il giudizio sbagliato (livello 5 detto "in salita"): ROSSA (138 righe);
+ G8 la coerenza con la fascia ("ti sostiene" al posto di "ti mette un po' alla prova"): ROSSA
+    (78 righe);
+ G9 test/il_livello_viene_dal_cielo_test.dart, nuova asserzione "le quattro schede dello stesso
+    giorno dicono lo stesso fatto" (al massimo un giorno su venti): senza innesto 5 su 360;
+    con l'innesto (il fatto della Luna e del corpo non piu' insieme) 109 su 360: ROSSA.
+Senza innesti VERDE. Tutti gli innesti tolti, grep «INNESTO GA06G6» in lib e test: 0.
+
+Regola B: le guardie della zona toccata sono cadute sul codice nuovo (19 rossi al primo giro:
+ga06_il_responso_dice_da_dove_viene x4, language_rule, l_anno_dal_compleanno, la_lettura_cinese
+x3, l_oroscopo_ha_la_forma_nuova, la_lettura_vedica x2, la_settimana_viene_dal_cielo x2,
+il_livello_viene_dal_cielo, i_livelli_dei_giorni, la_profondita_sta_su_ogni_scheda x2,
+i_testi_nuovi_dell_architetto_sono_nel_codice), cioe' erano vive. Sono state riscritte con la
+LAPIDE accanto (che cosa pretendevano, perche' non vale piu', che cosa pretendono adesso); la
+cardinale di ognuna e' rimasta (480 schede vediche, 4320 cinesi, 48 senza carta, ecc.) e nessuna
+soglia e' stata abbassata. Dove la misura non era piu' quella (le "7 righe diverse in sette
+giorni" senza carta) si e' cambiato il prodotto, non la soglia: la riga nomina la Luna insieme al
+corpo del campo.
+
+Numeri finali (miei, non della lettura cieca): zona 189 prove verdi (37 file), prove vicine 64
+(17 file), flutter analyze lib test tool pulito (3 avvisi miei trovati e tolti). Campione di 48:
+"Da dove viene" interi da 39 a 82 parole (riga del rito e della fonte comprese); il corpo piu'
+lungo, sui 2272 veri, 52 parole nella Breve e 61 nella Lunga.
+
+APERTO (non chiuso, da dire alla lettura indipendente):
+1. Il rito non si lega al tema della risposta (oroscopo-39 e 45): si sceglie dal reggente del
+   primo giorno e dal campo, non dal tema della voce. I testi dei riti sono stati rifatti perche'
+   non contraddicano (niente "arrivi piu' che partenze" sotto una settimana di riposo) e la riga
+   del rito li presenta come "il gesto del calendario cinese per il giorno che compie". Una
+   scelta del rito per fascia richiede di scrivere i riti per fascia: fuori da questo giro.
+2. Il giudizio "in equilibrio" nasce a volte da un fatto favorevole e uno contrario ("i due si
+   bilanciano"): e' vero ma e' una struttura "se X, se Y" ripetuta.
+3. La Fonte dice la tradizione e quello che legge, non la scuola citata (Sanming Tonghui, Lilly,
+   Parashara): le scuole stanno nei metodi (`metodo`) della scheda, non in questa riga.
+4. Il riempitivo "Il giudizio della settimana viene da tutto il cielo del periodo, non da quel
+   momento solo" e' vero ma e' una frase di metodo, non un fatto del cielo: se il lettore la
+   trova vuota, si toglie e la Lunga occidentale settimana/mese resta a due frasi.

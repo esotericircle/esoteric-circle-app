@@ -31,7 +31,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Generale, equilibrio, voce 2: Ciò che già regge
 
-- Risposta: È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua giornata probabilmente funzionano già: un'abitudine buona, un angolo di casa accogliente, un rapporto su cui contare. Dare loro attenzione adesso le rende più forti e capaci di durare anche quando il resto si muove.
+- Risposta: È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua vita probabilmente funzionano già: un'abitudine buona, un angolo di casa accogliente, un rapporto su cui contare. Dare loro attenzione adesso le rende più forti e capaci di durare anche quando il resto si muove.
 - Che cosa fare: Scegli tre cose che vanno bene e dai a ciascuna una cura piccola e regolare: una telefonata ogni dieci giorni, un angolo di casa riordinato ogni settimana, una camminata fissa. Annotale in un promemoria e ogni settimana controlla di averle tenute, senza aggiungerne altre.
 - Risposta, Lunga: Ciò che funziona tende a essere dato per scontato fino al giorno in cui scricchiola. Una cura costante, fatta senza fretta, è il lavoro silenzioso che fa durare le cose. Se ne trascuri una, riprendila subito senza rimproverarti: la continuità conta più della perfezione.
 

@@ -2,6 +2,7 @@ import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'i_segni_delle_tradizioni.dart';
+import 'il_lessico_del_cielo.dart';
 import 'il_responso_dell_oroscopo.dart';
 import 'l_almanacco_cinese.dart';
 import 'le_parti_del_responso.dart';
@@ -59,7 +60,6 @@ abstract final class LaLetturaCinese {
   }) {
     // Sotto la data di un altro giorno (la Settimana e il Mese) la riga del
     // livello non dice "di oggi" (ordine EU voce 02).
-    final quando = diOggi ? 'di oggi' : 'del giorno';
     final guardiano = LAlmanaccoCinese.guardiano(oggi);
     if (guardiano == null) return null;
     final ramo = LAlmanaccoCinese.ramo(oggi);
@@ -116,19 +116,21 @@ abstract final class LaLetturaCinese {
         frase(OroscopoCineseData.rapporti[chiave]!, ritorno.ramo));
     final (_, guardianoDaDove) = LePartiDelResponso.di(
         frase(OroscopoCineseData.guardiani[guardiano], ritorno.guardiano));
-    final (_, gioiaDaDove) = LePartiDelResponso.di(
-        frase(OroscopoCineseData.direzioneGioia, ritorno.gioia));
     final lungaGenerale = approfondita(HoroscopeDomain.generale);
     final livelloGenerale = livelloDelRapporto(rapporto);
-    final rigaDelLivelloGenerale = 'Il livello viene dal rapporto fra '
-        '${conArticolo(ramo)} $quando e ${_iltuo(animale)}: '
-        '${rapportoDetto(rapporto, animale == ramo)}.';
+    // **SESTO GIRO GA.06**: il corpo e' la frase del rapporto fra i due
+    // animali (che gia' dice che cosa vuol dire) e, in fondo, che cosa
+    // significa per la giornata; la Lunga aggiunge il guardiano del giorno.
+    // Niente BaZi, dei, elementi, polarita'.
+    final conclusioneGenerale = IlLessicoDelCielo.conclusione(
+        HoroscopeDomain.generale, livelloGenerale,
+        quando: diOggi ? 'di oggi' : 'di quel giorno');
+    final corpoGenerale = '$rapportoDaDove $conclusioneGenerale';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
     final cieloGenerale = LePartiDelResponso.insieme([
       rapportoDaDove,
-      guardianoDaDove,
-      if (lungaGenerale) gioiaDaDove,
-      rigaDelLivelloGenerale,
+      if (lungaGenerale) guardianoDaDove,
+      conclusioneGenerale,
     ]);
     // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della Lunga
     // e' il gesto dell'ufficiale di questo giorno.
@@ -149,7 +151,7 @@ abstract final class LaLetturaCinese {
       responso: responsoGenerale,
       indicator: livelloGenerale,
       rigaDelLivello: cieloGenerale,
-      rigaSoloDelLivello: rigaDelLivelloGenerale,
+      rigaSoloDelLivello: corpoGenerale,
       // L'apertura dal corpus, con lo stesso indice della Generale.
       opening: vocativo == null
           ? null
@@ -177,38 +179,26 @@ abstract final class LaLetturaCinese {
         neutro: 'amoreNeutro',
         forma: f);
     HoroscopeCard delDio(HoroscopeDomain d, String serie) {
-      final gruppo = OroscopoCineseData.dei[serie]![dio.name]!;
       // Il gruppo del corpus resta nei dati dell\'Architetto; a video va la
-      // frase in parole di tutti i giorni ([ilGiornoNelBaZi]).
-      LePartiDelResponso.di(frase(gruppo, ritorno.tronco));
-      // **UNA RIGA DIVERSA PER SCHEDA.** La spiegazione del dio e' la
-      // stessa sulle tre schede; la riga dice anche che cosa fa quel dio al
-      // tema della scheda, cosi' tre Lunghe non ripetono la stessa frase
-      // una sotto l'altra. Sta nel "da dove viene": e' il simbolo.
-      //
-      // **ORDINE GA VOCE GA.06, LA SPIEGAZIONE UNA VOLTA SOLA.** Qui la Lunga
-      // aggiungeva una seconda presentazione del dio ("Il dio di oggi nel
-      // BaZi sono le Sette Uccisioni (七杀): governa il tuo elemento...")
-      // subito sotto la riga del corpus che lo aveva gia' spiegato: il
-      // lettore cieco ha letto due volte di fila la stessa spiegazione
-      // (oroscopo-34 e 36). La riga del corpus basta; la Lunga aggiunge solo
-      // cio' che la Breve non ha, il Dio della Ricchezza nella Fortuna.
+      // frase in parole di tutti i giorni (sesto giro GA.06).
       final fortuna = d == HoroscopeDomain.fortuna;
       final lunga = approfondita(d);
       final colore =
           frase(OroscopoCineseData.coloreENumeri, ritorno.coppiaDiTronchi);
-      final (_, ricchezzaDaDove) = LePartiDelResponso.di(frase(
-          OroscopoCineseData.direzioneRicchezza, ritorno.coppiaDiTronchi));
       final livello = livelloDelDio(d, dio, forma: f);
-      final voce = voceDi(d, livello);
-      // **LA SOSTANZA PRIMA DEL TERMINE** (quarto giro GA.06): la frase del
-      // corpus ("ha il tuo stesso elemento con polarita' opposta") lascia il
-      // posto a quella che dice che cosa porta la forza del giorno.
-      final cielo = LePartiDelResponso.insieme([
+      // **SESTO GIRO GA.06**: due frasi: che cosa porta il giorno e che cosa
+      // significa per il campo; la Lunga della Fortuna aggiunge la direzione.
+      final corpo = LePartiDelResponso.insieme([
         ilGiornoNelBaZi(dio, diOggi: diOggi),
-        if (lunga && fortuna) ricchezzaDaDove,
         rigaDelTema(d, dio, forma: f),
       ]);
+      final cielo = LePartiDelResponso.insieme([
+        corpo,
+        if (lunga && fortuna)
+          'La direzione fortunata ${diOggi ? 'di oggi' : 'di quel giorno'}, '
+              'per la tradizione cinese, è ${valori['direzione_ricchezza']}.',
+      ]);
+      final voce = voceDi(d, livello);
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
         tradizione: TradizioneEu.cinese,
@@ -226,8 +216,7 @@ abstract final class LaLetturaCinese {
         responso: responso,
         indicator: livello,
         rigaDelLivello: cielo,
-        rigaSoloDelLivello: '${ilGiornoNelBaZi(dio, diOggi: diOggi)} '
-            '${rigaDelTema(d, dio, forma: f)}',
+        rigaSoloDelLivello: corpo,
         metodo: fortuna
             ? '${OroscopoCineseData.notaDei} ${OroscopoCineseData.notaColore}'
             : OroscopoCineseData.notaDei,
@@ -316,9 +305,6 @@ abstract final class LaLetturaCinese {
     return 'Oggi è il giorno ${_preposizione('di', conArticolo(ramo))}, '
         'col guardiano ${LAlmanaccoCinese.guardiani[g]}.';
   }
-
-  static String _maiuscola(String s) =>
-      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
 
   /// L'animale con l'articolo: "il Cavallo", "la Capra".
   static String conArticolo(int i) {
@@ -460,28 +446,6 @@ abstract final class LaLetturaCinese {
   static const List<int> _versoLaRicchezza = [3, 2, 4, 4, 4, 5, 2, 3, 3, 3];
   static const List<int> _versoLUfficiale = [3, 2, 3, 2, 4, 4, 3, 5, 4, 4];
 
-  // **CHE COSA FA IL DIO DI OGGI ALLA STELLA DEL DOMINIO, DETTO COL LIVELLO.**
-  // Ordine GA voce GA.06. Il primo lettore cieco ha trovato righe come "Per il
-  // lavoro: doma l'Ufficiale." (oroscopo-35); il secondo, sulla riscrittura,
-  // "oggi è tenuta a bada dal tuo talento" (35), "nutrita dall'impegno
-  // concreto ... ciò che arriva dal lavoro fatto" detto dell'amore (38) e una
-  // giornata d'amore calma con sotto due volte "pressione e sfida" (34). La
-  // riga adesso dice il giudizio che il livello gia' contiene (le tabelle
-  // [_versoLaRicchezza] e [_versoLUfficiale], specifiche paragrafo 4): cosi'
-  // non puo' dire il contrario della risposta. Nel lavoro e nella fortuna
-  // aggiunge il perche' in parole di tutti; nell'amore no, perche' le due
-  // stelle si leggono come la figura dell'altro e il perche' del lavoro o del
-  // denaro non c'entra.
-  static String _giudizio(int livello, {bool plurale = false}) =>
-      switch (livello) {
-        >= 5 => plurale ? 'molto favorite' : 'molto favorita',
-        4 => plurale ? 'favorite' : 'favorita',
-        3 => plurale
-            ? 'neutre, né favorite né contrastate'
-            : 'neutra, né favorita né contrastata',
-        _ => plurale ? 'contrastate' : 'contrastata',
-      };
-
   /// **LE DIECI FORZE DEL GIORNO IN PAROLE DI TUTTI I GIORNI** (ordine GA
   /// voce GA.06, quarto giro). Il BaZi chiama "dei" le dieci forze che il
   /// giorno porta al carattere di chi nasce; la spiegazione del corpus
@@ -490,13 +454,13 @@ abstract final class LaLetturaCinese {
   /// [DioDelGiorno].
   static const List<String> _laForzaDelGiorno = [
     'una forza alla pari con te, che porta le persone che ti somigliano',
-    'una forza che contende ciò che hai e porta concorrenza',
-    'la forza di ciò che produci con calma, con le tue mani e le tue idee',
+    'una forza di concorrenza, che contende ciò che hai',
+    'la forza di ciò che produci con calma e con le tue idee',
     'la forza dell\'espressione che rompe le regole: idee brillanti e poca '
         'pazienza',
     'una forza che porta guadagni e occasioni di lato, impreviste',
     'la forza del guadagno regolare, di ciò che hai seminato',
-    'una forza di pressione e di sfida',
+    'una forza intensa, che porta insieme sfida ed energia',
     'la forza della regola, della responsabilità e del riconoscimento',
     'una forza di sostegno insolito e di intuizione',
     'la forza della protezione, dello studio e della cura',
@@ -505,10 +469,8 @@ abstract final class LaLetturaCinese {
   /// **IL GIORNO NEL BAZI**, la prima frase del "Da dove viene" delle tre
   /// schede del dio: la sostanza prima del nome, e il nome una volta.
   static String ilGiornoNelBaZi(DioDelGiorno dio, {bool diOggi = true}) =>
-      'Nel BaZi, la lettura cinese del tuo carattere di nascita, '
-      '${diOggi ? 'oggi' : 'quel giorno'} '
-      '${dio == DioDelGiorno.setteUccisioni ? 'pesano' : 'pesa'} '
-      '${dio.nome}: ${_laForzaDelGiorno[dio.index]}.';
+      'Per la tradizione cinese ${diOggi ? 'oggi il giorno' : 'quel giorno'} '
+      'porta ${_laForzaDelGiorno[dio.index]}.';
 
   static const List<String> _percheDellUfficiale = [
     'conta il lavoro alla pari con gli altri',
@@ -535,64 +497,38 @@ abstract final class LaLetturaCinese {
     'conta più la protezione dell\'occasione',
   ];
 
-  /// Che cosa fa il dio di oggi alle due figure dell'altro, nell'ordine di
-  /// [DioDelGiorno]; il giudizio va d'accordo con [_versoLUfficiale] e
-  /// [_versoLaRicchezza].
-  static const List<String> _amoreNeutro = [
-    'oggi la forza del giorno non tocca né l\'una né l\'altra: in amore '
-        'pesano più le persone che hai intorno',
-    'oggi la forza del giorno contende la Ricchezza e lascia in ombra '
-        'l\'Ufficiale: in amore entrano confronti e gelosie',
-    'oggi la forza del giorno nutre la Ricchezza e lascia l\'Ufficiale '
-        'com\'è: in amore conta la dolcezza dei gesti',
-    'oggi la forza del giorno nutre la Ricchezza ma urta l\'Ufficiale: in '
-        'amore il fascino c\'è, la pazienza meno',
-    'oggi pesa la Ricchezza che arriva di lato e nutre l\'Ufficiale: in '
-        'amore sono favoriti gli incontri',
-    'oggi pesa la Ricchezza regolare e nutre l\'Ufficiale: in amore è '
-        'favorito ciò che si costruisce',
-    'oggi pesa l\'Ufficiale nella sua forma più dura e consuma la '
-        'Ricchezza: in amore c\'è intensità, fra attrazione e attrito',
-    'oggi pesa l\'Ufficiale nella sua forma regolare: in amore sono '
-        'favoriti l\'impegno e la parola data',
-    'oggi pesa la protezione, che sostiene l\'Ufficiale e lascia in '
-        'disparte la Ricchezza: in amore serve spazio per pensare',
-    'oggi pesa la protezione, che custodisce l\'Ufficiale e lascia in '
-        'disparte la Ricchezza: in amore conta la cura',
+  /// Perche' il giorno e' cosi' per l\'amore, in parole di tutti i giorni, nell\'ordine
+  /// di [DioDelGiorno]. Vale per ogni genere: il giudizio lo da' il livello.
+  static const List<String> _perchePerLAmore = [
+    'contano più le persone che hai intorno',
+    'entrano confronti e gelosie',
+    'conta la dolcezza dei gesti',
+    'il fascino c\'è, la pazienza meno',
+    'sono favoriti gli incontri inattesi',
+    'è favorito ciò che si costruisce con costanza',
+    'c\'è intensità, fra attrazione e tensione',
+    'sono favoriti l\'impegno e la parola data',
+    'serve spazio per pensare',
+    'conta la cura',
   ];
 
-  /// **LA RIGA DEL TEMA** nel "Da dove viene" delle schede del dio: quale
-  /// stella del BaZi la tradizione guarda per il dominio [d] e il giudizio
-  /// che il dio di oggi le da', lo stesso del livello della scheda.
-  /// Nell'Amore la stella dipende dal genere dichiarato e passa dalla porta
-  /// del genere; chi non l'ha dichiarato legge le due stelle, e il livello e'
-  /// la loro media.
+  /// **LA FRASE DEL CAMPO** nel "Da dove viene" (sesto giro GA.06): come va il
+  /// giorno per il campo e perche', in una frase, senza stelle, figure ne'
+  /// dei. Il giudizio e' quello del livello della scheda.
   static String rigaDelTema(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
-    final r = _giudizio(_versoLaRicchezza[dio.index]);
-    final u = _giudizio(_versoLUfficiale[dio.index]);
-    return switch (d) {
-      HoroscopeDomain.carriera => 'Per il lavoro la tradizione cinese guarda '
-          'la forza dell\'Ufficiale, quella del ruolo e delle responsabilità: '
-          'oggi è $u, perché ${_percheDellUfficiale[dio.index]}.',
-      HoroscopeDomain.amore => LaMarcaDelGenere.scegli(
-          maschile: 'Per l\'amore i testi classici, negli oroscopi maschili, '
-              'guardano la forza della Ricchezza, che rappresenta l\'altra '
-              'persona nel legame: oggi è $r.',
-          femminile: 'Per l\'amore i testi classici, negli oroscopi '
-              'femminili, guardano la forza dell\'Ufficiale, che rappresenta '
-              'l\'altra persona nel legame: oggi è $u.',
-          // Quarto giro GA.06: "le due figure dell'altro" e "il dio" erano
-          // gergo del BaZi. Adesso: due forze che rappresentano l'altra
-          // persona, e che cosa fa quella di oggi.
-          neutro: 'Per l\'amore la tradizione cinese guarda due forze, '
-              'l\'Ufficiale e la Ricchezza, che rappresentano l\'altra persona '
-              'nel legame; il livello della giornata è la media delle due. '
-              '${_maiuscola(_amoreNeutro[dio.index])}.',
-          forma: forma),
-      _ => 'Per la fortuna la tradizione cinese guarda la forza della '
-          'Ricchezza, quella delle occasioni: oggi è $r, perché '
-          '${_percheDellaRicchezza[dio.index]}.',
+    final livello = livelloDelDio(d, dio, forma: forma);
+    final giorno = switch (livello) {
+      >= 5 => 'un giorno molto favorevole',
+      4 => 'un giorno favorevole',
+      3 => 'un giorno neutro',
+      _ => 'un giorno contrastato',
     };
+    final perche = switch (d) {
+      HoroscopeDomain.carriera => _percheDellUfficiale[dio.index],
+      HoroscopeDomain.amore => _perchePerLAmore[dio.index],
+      _ => _percheDellaRicchezza[dio.index],
+    };
+    return '${IlLessicoDelCielo.perIlCampo[d]} è $giorno, perché $perche.';
   }
 }

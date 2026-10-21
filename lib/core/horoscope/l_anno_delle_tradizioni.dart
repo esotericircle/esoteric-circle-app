@@ -4,6 +4,7 @@ import 'horoscope.dart';
 import 'i_segni_delle_tradizioni.dart';
 import 'i_testi_eu.dart';
 import 'il_capodanno_lunare.dart';
+import 'il_lessico_del_cielo.dart';
 import 'il_responso_dell_oroscopo.dart';
 import 'l_almanacco_cinese.dart';
 import 'la_lettura_cinese.dart';
@@ -20,6 +21,7 @@ class AnnoDellaTradizione {
     required this.livelli,
     required this.daDove,
     required this.metodo,
+    this.daDoveLunga,
   });
 
   /// Il primo giorno dell'anno e il primo del successivo (date civili).
@@ -34,6 +36,10 @@ class AnnoDellaTradizione {
 
   /// La riga "Da dove viene" di ogni dominio, dal calcolo.
   final List<String> daDove;
+
+  /// La stessa nella Lunga, che puo' aggiungere una frase; se manca, e' la
+  /// Breve.
+  final List<String>? daDoveLunga;
 
   /// La nota del metodo, per il punto interrogativo.
   final String metodo;
@@ -97,22 +103,17 @@ abstract final class LAnnoDelleTradizioni {
     (7, 10),
   ];
 
-  /// Il rapporto fra il tuo animale e quello dell'anno detto in una frase
-  /// intera (terzo lettore cieco indipendente, ordine GA voce GA.06: "Con
-  /// la Tigre, il tuo animale: tripla armonia." era telegrafico).
+  /// **IL RAPPORTO FRA GLI ANIMALI IN PAROLE**, sesto giro GA.06: "Il tuo
+  /// Cane e il Cavallo si sostengono: stanno nello stesso gruppo di tre
+  /// animali", senza tripla armonia, Tai Sui e Tong Shu.
   static String _rapportoDellAnno(
-          RapportoFraAnimali r, bool stesso, String tuo, String dellAnno) =>
+          RapportoFraAnimali r, String tuo, String dellAnno) =>
       switch (r) {
         RapportoFraAnimali.stessoAnimale =>
-          'Il tuo animale, $tuo, è lo stesso dell\'anno.',
-        RapportoFraAnimali.nessuno => 'Fra $dellAnno dell\'anno e il tuo '
-            'animale, $tuo, le tabelle non segnano nessun rapporto.',
-        RapportoFraAnimali.triplaArmonia => 'Il tuo animale, $tuo, è in '
-            'tripla armonia con $dellAnno dell\'anno: stanno nello stesso '
-            'gruppo di tre animali che si sostengono.',
-        _ => 'Il tuo animale, $tuo, è in rapporto di '
-            '${LaLetturaCinese.rapportoDetto(r, stesso)} con $dellAnno '
-            'dell\'anno.',
+          'il tuo animale, $tuo, è lo stesso dell\'anno',
+        RapportoFraAnimali.nessuno => '$tuo e $dellAnno non hanno un '
+            'rapporto particolare',
+        _ => '$tuo e $dellAnno ${IlLessicoDelCielo.rapportoFraAnimali[r.name]}',
       };
 
   /// L'anno cinese che contiene [oggi], per chi e' nato nell'anno
@@ -134,22 +135,27 @@ abstract final class LAnnoDelleTradizioni {
       livello -= 1;
     }
     final (nome, articolo) = ISegniDelleTradizioni.animali[ramo];
-    final riga = 'L\'anno ${articolo == 'la' ? 'della' : 'del'} $nome va '
-        // Il giorno prima del Capodanno dopo (terzo lettore cieco, ordine GA
-        // voce GA.06: "al 6 febbraio 2027" e' gia' l'anno della Capra), e il
-        // Tai Sui detto per intero: "non lo offendi" da solo era telegrafico.
-        '${_con('dal', da)} '
-        '${_con('al', DateTime(a.year, a.month, a.day - 1))}. '
-        '${_rapportoDellAnno(rapporto, animale == ramo, LaLetturaCinese.conArticolo(animale), '$articolo $nome')} '
-        'Tai Sui è il signore dell\'anno, la divinità che la tradizione '
-        'invita a non contrariare. '
-        '${offeso == null ? 'Il tuo animale non lo offende, quindi per te l\'anno non chiede cautele particolari' : 'Quest\'anno lo offendi, perché $offeso, quindi la tradizione consiglia prudenza nelle scelte grandi'}.';
+    final tuoAnimale = ISegniDelleTradizioni.animali[animale];
+    final tuo = '${tuoAnimale.$2} ${tuoAnimale.$2 == 'la' ? 'tua' : 'tuo'} '
+        '${tuoAnimale.$1}';
+    final dellAnno = '$articolo $nome';
+    final fine = DateTime(a.year, a.month, a.day - 1);
+    // **SESTO GIRO GA.06**: due frasi. Il rapporto fra i due animali e che
+    // cosa vuol dire per l\'anno e per il campo.
+    String riga(HoroscopeDomain d) =>
+        'Nell\'anno ${articolo == 'la' ? 'della' : 'del'} $nome, '
+        '${_con('dal', da)} ${_con('al', fine)}, '
+        '${_rapportoDellAnno(rapporto, tuo, dellAnno)}. '
+        '${offeso == null ? 'Con l\'animale dell\'anno non c\'è attrito, quindi l\'anno non chiede cautele particolari' : 'Fra i due animali c\'è attrito, quindi l\'anno consiglia prudenza nelle scelte grandi'}: '
+        '${IlLessicoDelCielo.perIlCampoMinuscolo(d)} il cielo dell\'anno è '
+        '${IlLessicoDelCielo.giudizio(livello)}.';
+    final righe = [for (final d in HoroscopeDomain.values) riga(d)];
     return AnnoDellaTradizione(
       da: da,
       a: a,
       numero: annoDiNascita == null ? anno : anno - annoDiNascita,
       livelli: [livello, livello, livello, livello],
-      daDove: [riga, riga, riga, riga],
+      daDove: righe,
       // C-M-006 e C-M-008, testi dell'Architetto (ordine EV voce EV.08). Il
       // Tai Sui e le relazioni che lo offendono: gli almanacchi annuali
       // cinesi, il Tong Shu (C-A-003, C-A-004).
@@ -199,49 +205,43 @@ abstract final class LAnnoDelleTradizioni {
     final sadeSati = caseDellaSadeSati.contains(saturno);
     final s = caseBuoneDiSaturno.contains(saturno) ? 1 : (sadeSati ? -1 : 0);
     int tra(int x) => x.clamp(2, 5);
-    // **QUARTO GIRO GA.06**: i segni vedici in italiano ("nei Gemelli", non
-    // "Mithuna"), la posizione detta in parole ("il quinto segno a partire
-    // da quello della tua Luna di nascita") e i pianeti con la loro
-    // funzione (lettore cieco, oroscopo-29: "Giove era in Mithuna, nella tua
-    // quinta casa" non diceva niente).
-    String nelSegno(CorpoCeleste c) => LaLetturaVedica.nelSegno(
-        IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index);
-    final diGiove = 'Al tuo compleanno ${_con('del', da)} Giove, il pianeta '
-        'della crescita, era ${nelSegno(CorpoCeleste.giove)}, '
-        '${LaLetturaVedica.ilOrdinaleM(giove)} segno dalla tua Luna di '
-        'nascita: ${g == 1 ? 'una posizione favorevole' : 'una posizione non fra le sue favorevoli'}.';
-    // **ORDINE GA VOCE GA.06**: "è la Sade Sati." da sola era un nome senza
-    // spiegazione (lettore cieco, oroscopo-29 e 31); la riga adesso dice che
-    // cos'e', con le parole della nota del metodo (V-M-011).
-    final arco = 'Il tuo anno va ${_con('dal', da)} '
-        '${_con('al', DateTime(a.year, a.month, a.day - 1))}.';
-    // La Sade Sati si collega al responso: che cosa vuol dire per te (lettore
-    // cieco, oroscopo-29: "buttata li' senza dire cosa fare").
-    final diSaturno = 'Saturno, il pianeta dei limiti e della pazienza, era '
-        '${nelSegno(CorpoCeleste.saturno)}, '
-        '${LaLetturaVedica.ilOrdinaleM(saturno)} segno dalla tua Luna di '
-        'nascita: '
-        '${s == 1 ? 'una posizione favorevole' : sadeSati ? 'è la Sade Sati, i sette anni e mezzo in cui Saturno attraversa il segno prima del tuo, il tuo e quello dopo: per la tradizione indiana è un tempo di prove, che per te vuol dire andare più piano e costruire con calma' : 'una posizione non fra le sue favorevoli'}.';
+    // **SESTO GIRO GA.06**: i segni vedici in italiano ("nei Gemelli", non
+    // "Mithuna"), Giove e Saturno con la loro funzione, la Sade Sati detta
+    // come "un lungo periodo di prove e di pazienza" con quello che vuol
+    // dire per te, e due frasi: che cosa fanno i pianeti e che cosa
+    // significa per il campo.
+    final fine = DateTime(a.year, a.month, a.day - 1);
+    final periodo = 'Nell\'anno ${_con('dal', da)} ${_con('al', fine)}';
+    final giove1 = '$periodo Giove, il pianeta della crescita, '
+        '${g == 1 ? 'ti aiuta' : 'non ti aiuta in modo particolare'}.';
+    const prove = 'un lungo periodo di prove e di pazienza, che per te vuol '
+        'dire andare più piano e costruire con calma';
+    String saturnoDice(bool dopoGiove) => s == 1
+        ? '${dopoGiove ? 'Anche Saturno' : 'Saturno'}, il pianeta dei limiti, è in una posizione favorevole'
+        : sadeSati
+            ? 'Saturno attraversa ${dopoGiove && g == 1 ? 'invece ' : ''}$prove'
+            : 'Saturno, il pianeta dei limiti, non pesa in modo particolare';
+    String chiudi(HoroscopeDomain d, int livello) =>
+        '${IlLessicoDelCielo.perIlCampoMinuscolo(d)} il cielo dell\'anno è '
+        '${IlLessicoDelCielo.giudizio(livello)}.';
+    final livelli = [
+      tra(3 + g + s),
+      tra(3 + g - (sadeSati ? 1 : 0)),
+      tra(3 + s),
+      tra(3 + g),
+    ];
+    final breve = [
+      '$giove1 ${saturnoDice(true)}; ${chiudi(HoroscopeDomain.generale, livelli[0])}',
+      '$giove1 ${sadeSati ? 'Saturno attraversa però $prove; ' : ''}${sadeSati ? chiudi(HoroscopeDomain.amore, livelli[1]) : IlLessicoDelCielo.conclusione(HoroscopeDomain.amore, livelli[1], quando: 'dell\'anno')}',
+      '$periodo ${saturnoDice(false)}: ${chiudi(HoroscopeDomain.carriera, livelli[2])}',
+      '$giove1 ${IlLessicoDelCielo.conclusione(HoroscopeDomain.fortuna, livelli[3], quando: 'dell\'anno')}',
+    ];
     return AnnoDellaTradizione(
       da: da,
       a: a,
       numero: da.year - nascita.year,
-      livelli: [
-        tra(3 + g + s),
-        tra(3 + g - (sadeSati ? 1 : 0)),
-        tra(3 + s),
-        tra(3 + g),
-      ],
-      // **L'ARCO DELL'ANNO IN TESTA**, e Saturno da solo col suo quando
-      // (secondo lettore cieco, ordine GA voce GA.06: oroscopo-16, l'anno che
-      // finisce fra cinque settimane letto come se cominciasse; oroscopo-31,
-      // "Saturno era in Mina" senza dire quando).
-      daDove: [
-        '$arco $diGiove $diSaturno',
-        '$arco $diGiove${sadeSati ? ' $diSaturno' : ''}',
-        '$arco Al tuo compleanno ${_con('del', da)} $diSaturno',
-        '$arco $diGiove',
-      ],
+      livelli: livelli,
+      daDove: breve,
       // V-M-009 e V-M-011, testi dell'Architetto (ordine EV voce EV.08).
       // La Sade Sati (V-A-005): una lettura della tradizione indiana
       // costruita sul gochara; Phaladeepika, cap. 26, Saturno buono solo in
@@ -289,7 +289,9 @@ abstract final class LAnnoDelleTradizioni {
               dominio: d,
               primoGiorno: anno.da,
               lunga: lunga,
-              cielo: anno.daDove[d.index],
+              cielo: lunga
+                  ? (anno.daDoveLunga ?? anno.daDove)[d.index]
+                  : anno.daDove[d.index],
             );
             return HoroscopeCard(
               domain: d,
@@ -298,7 +300,9 @@ abstract final class LAnnoDelleTradizioni {
               text: IlResponsoDellOroscopo.testo(responso),
               responso: responso,
               indicator: livello,
-              rigaDelLivello: anno.daDove[d.index],
+              rigaDelLivello: lunga
+                  ? (anno.daDoveLunga ?? anno.daDove)[d.index]
+                  : anno.daDove[d.index],
               metodo: anno.metodo,
             );
           }(),

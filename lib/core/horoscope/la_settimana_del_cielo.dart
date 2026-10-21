@@ -151,49 +151,37 @@ class DominioDelPeriodo {
   /// il suo "Da dove viene" sta gia' fra i tre giorni migliori, e qui si dice
   /// dove leggerlo.
   String cieloDelPeriodo(TradizioneEu tradizione, {required bool lunga}) {
+    // **SESTO GIRO GA.06**: due frasi nella Breve, tre nella Lunga. Vedica e
+    // Cinese: il livello e' la media dei giorni e il giorno migliore, poi (nella
+    // Lunga) come si legge un giorno; l'Occidentale: il momento chiave. In
+    // fondo, che cosa significa per il campo.
+    final del = giorni.length > 8 ? 'del mese' : 'della settimana';
+    final conclusione =
+        IlLessicoDelCielo.conclusione(dominio, livello, quando: del);
     if (tradizione != TradizioneEu.occidentale) {
-      if (lunga) {
-        // **ORDINE GA VOCE GA.06**: qui stava "i tre migliori, qui sopra,
-        // dicono ciascuno da dove viene il suo", un rimando a una parte che
-        // il responso letto fuori dalla schermata (la chat, il Diario, il
-        // PDF) non ha: il lettore cieco l'ha trovato otto volte su otto Lunghe
-        // della Vedica e della Cinese. Adesso la riga sta in piedi da sola:
-        // dice da che cosa viene il livello e qual e' il giorno migliore,
-        // senza ripetere la sua ragione, che sta gia' nella riga dei tre
-        // giorni migliori (la guardia il_da_dove_non_si_ripete_nel_periodo).
-        // Secondo lettore cieco (ordine GA voce GA.06): "ciascuno letto col
-        // metodo del Giorno" era gergo di prodotto, un rimando a un metodo
-        // che chi legge non vede. La riga dice la cosa: il voto e' la media
-        // dei giorni, e qual e' il giorno migliore.
-        final quanti = giorni.length == 7
-            ? 'sette giorni'
-            : giorni.length == 30
-                ? 'trenta giorni'
-                : 'giorni';
-        // Il terzo lettore cieco: la riga senza nessun simbolo non diceva da
-        // che cosa vengono i livelli dei giorni. Adesso lo dice, per
-        // tradizione, senza ripetere la ragione del giorno migliore.
-        // Quarto giro GA.06: "ognuno letto dalla Luna di quel giorno, contata
-        // dalla tua Luna di nascita" e "dal dio che quel giorno porta al tuo
-        // elemento di nascita" erano gergo. Adesso: la sostanza, in frasi corte.
-        final simbolo = tradizione == TradizioneEu.vedica
-            ? 'ogni giorno si legge dalla posizione della Luna di quel giorno '
-                'rispetto alla tua Luna di nascita'
-            : 'ogni giorno si legge dal rapporto fra il suo animale e il tuo e '
-                'dalla forza che porta al tuo carattere di nascita (il BaZi)';
-        return 'Il livello di questo periodo è la media dei livelli dei suoi '
-            '$quanti: $simbolo. Il giorno migliore è '
-            '${LaSettimanaDelCielo.data(migliore.giorno)}.';
-      }
-      return _maiuscola(momentoChiave);
+      final quanti = giorni.length == 7
+          ? 'sette giorni'
+          : giorni.length == 30
+              ? 'trenta giorni'
+              : 'giorni';
+      final base = 'Il livello $del è la media dei suoi $quanti: il giorno '
+          'migliore è ${LaSettimanaDelCielo.data(migliore.giorno)}.';
+      final come = tradizione == TradizioneEu.vedica
+          ? 'Ogni giorno si legge dalla posizione della Luna rispetto alla tua '
+              'Luna di nascita.'
+          : 'Ogni giorno si legge dal rapporto fra il suo animale e il tuo e da '
+              'quanto quel giorno ti aiuta.';
+      return lunga ? '$base $come $conclusione' : '$base $conclusione';
     }
-    return momentoChiave.startsWith('Nessun')
-        ? momentoChiave
-        : 'Il momento chiave è $momentoChiave';
+    if (momentoChiave.startsWith('Nessun')) return momentoChiave;
+    // Il momento chiave e che cosa vuol dire per il campo; la Lunga dice anche
+    // che il giudizio e' del cielo intero del periodo, non di quel momento.
+    final chiave = 'Il momento chiave è $momentoChiave';
+    return lunga
+        ? '$chiave Il giudizio $del viene da tutto il cielo del periodo, non '
+            'da quel momento solo. $conclusione'
+        : '$chiave $conclusione';
   }
-
-  static String _maiuscola(String s) =>
-      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
 
   /// **IL RESPONSO DEL PERIODO NELLA FORMA NUOVA**, ordine GA voci GA.03 e
   /// GA.04: la voce del periodo, col rito del reggente del primo giorno del
@@ -314,16 +302,6 @@ abstract final class LaSettimanaDelCielo {
     HoroscopeDomain.amore: 'venus',
     HoroscopeDomain.carriera: 'mars',
     HoroscopeDomain.fortuna: 'jupiter',
-  };
-
-  /// Lo stesso, per dire "in accordo CON la tua Venere" (quarto giro
-  /// GA.06: "la Luna forma un trigono alla tua Venere" non diceva niente a
-  /// chi non sa che cosa sia un trigono).
-  static const Map<String, String> _conCorpo = {
-    'sun': 'il tuo Sole',
-    'venus': 'la tua Venere',
-    'mars': 'il tuo Marte',
-    'jupiter': 'il tuo Giove',
   };
 
   static const List<CorpoCeleste> _chiEntra = [
@@ -717,11 +695,11 @@ abstract final class LaSettimanaDelCielo {
           ]..sort();
           if (istanti.isNotEmpty) {
             final t = istanti.first;
-            // La sostanza prima del termine: "la Luna è in accordo con la tua
-            // Venere di nascita, il tuo modo di amare".
-            return '${data(t)} alle ${ora(t)}: la Luna è '
-                '${IlLessicoDelCielo.rapportoDi(nome)} ${_conCorpo[id]} di '
-                'nascita, ${IlLessicoDelCielo.chePorta[id]}.';
+            // Sesto giro GA.06: la Luna va d'accordo con il tuo modo di amare,
+            // e che cosa vuol dire per il campo, senza nessun nome di figura.
+            return '${data(t)} alle ${ora(t)}: la Luna '
+                '${IlLessicoDelCielo.rapportoCon(nome)} '
+                '${IlLessicoDelCielo.chePorta[id]}.';
           }
         }
       }
@@ -742,15 +720,14 @@ abstract final class LaSettimanaDelCielo {
       return 'Nessuna fase della Luna e nessun passaggio esatto in questo '
           'periodo: il cielo scorre senza un momento solo.';
     }
-    // Col segno e la casa: "Ultimo quarto" da solo non dice che cosa c'entri
-    // con chi legge (visto sul Realme).
+    // Sesto giro GA.06: la fase della Luna detta in parole ("la Luna piena",
+    // "la Luna calante a metà"), col segno, e che cosa vuol dire per il
+    // campo: niente area della vita, che non c'entrava col testo (oroscopo-12).
     final (t, k) = scelta;
     final l = IlCieloDiMeeus.longitudine(
         CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(t));
-    final (casa, natale) = _casa(l, segno, carta);
     final dove = IlSegnoDelCielo.dellaLongitudine(l);
-    return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]} in '
-        '${dove.italianName}, che per te porta l\'attenzione sull\''
-        '${IlLessicoDelCielo.areaDellaVita(casa)}.';
+    return '${data(t)} alle ${ora(t)}: ${IlLessicoDelCielo.fasiDellaLuna[k]} '
+        'in ${dove.italianName}.';
   }
 }
