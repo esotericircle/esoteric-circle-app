@@ -69,13 +69,14 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       contains(github.event.head_commit.message, 'Ordine GA') ||
       contains(github.event.head_commit.message, '[iphone]')
-    # **LA MACCHINA INTEL, ordine GA voce 12, 21 ottobre 2026.** Sulle
-    # macchine Apple Silicon (macos-15) il giro cadeva al collegamento con
-    # "Framework 'Pods_Runner' not found" (118904570114, 118925633814): i pod
-    # di ML Kit e di MediaPipe non hanno la fetta per il simulatore arm64,
-    # quindi i pod si costruiscono solo per x86_64 e l'app arm64 non li
-    # trova. Sulla macchina Intel il simulatore e' x86_64 e tutto combacia,
-    # senza toccare le impostazioni del progetto che servono a Codemagic.
+    # **LA MACCHINA INTEL, ordine GA voce 12, 21 ottobre 2026.** Era
+    # un'ipotesi: che il collegamento cadesse su "Framework 'Pods_Runner' not
+    # found" perche' i pod di ML Kit e MediaPipe non avessero la fetta per il
+    # simulatore arm64. L'ipotesi e' caduta: sulla macchina Intel il giro
+    # cade allo stesso modo (118968402031), e la causa vera e' il target
+    # Pods-Runner che Xcode non costruisce (vedi il passo della
+    # compilazione). La macchina Intel resta perche' col simulatore x86_64 i
+    # pod di ML Kit non pongono dubbi di architettura.
     runs-on: macos-15-intel
     timeout-minutes: 120
     env:
@@ -162,6 +163,18 @@ jobs:
           # Il registro intero (-v) va nell'artifact; a video e nelle
           # annotazioni restano le righe del collegamento e degli errori, che
           # senza -v Flutter riassume in una riga sola.
+          # **IL FRAMEWORK OMBRELLO DEI POD PRIMA DELL'APP, 21 ottobre 2026.**
+          # Il registro intero del giro 39522190741 lo dice: nel grafo delle
+          # dipendenze il target Runner dipende dai singoli pod (via
+          # OTHER_LDFLAGS) ma non dal target Pods-Runner, che quindi Xcode non
+          # costruisce mai, e il collegamento cade su "framework 'Pods_Runner'
+          # not found" (su Apple Silicon e su Intel allo stesso modo). Qui si
+          # preparano i pod (--config-only fa pod install), si costruisce
+          # Pods-Runner nella stessa cartella dei prodotti, poi l'app.
+          flutter build ios --simulator --debug --config-only "${DEFINE[@]}"
+          xcodebuild -project ios/Pods/Pods.xcodeproj -target Pods-Runner -configuration Debug -sdk iphonesimulator SYMROOT="$PWD/build/ios" build > "$CATTURE/registro_dei_pod.txt" 2>&1 || { tail -n 60 "$CATTURE/registro_dei_pod.txt"; echo "::error title=Pods-Runner non si costruisce::vedi registro_dei_pod.txt"; exit 1; }
+          tail -n 5 "$CATTURE/registro_dei_pod.txt"
+          ls -d build/ios/Debug-iphonesimulator/Pods_Runner.framework
           # Il filtro scrive su file e non in un tubo con head: con pipefail un
           # head che chiude presto faceva uscire il passo col codice 2 anche a
           # compilazione riuscita (giro 118947297363).
