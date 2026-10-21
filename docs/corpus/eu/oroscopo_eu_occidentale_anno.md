@@ -13,13 +13,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nella vita di ogni giorno l'anno è favorevole all'ospitalità e ai rapporti vicini. Le persone che inviti tendono a rispondere con calore e da un incontro semplice possono nascere abitudini piacevoli. È il momento di aprire la porta più spesso, senza aspettare l'occasione perfetta.
 - Che cosa fare: Entro tre settimane invita due persone a casa tua o in un locale vicino, per una cena semplice o un caffè lungo. Da lì in avanti tieni un invito ogni quindici giorni, alternando volti di sempre e persone conosciute da poco. Conta la frequenza più della perfezione.
-- Risposta, Lunga: La convivialità regolare crea fiducia e rende naturale chiedere o offrire un aiuto quando serve. Il rischio è trasformare ogni invito in una prova da superare, con menu elaborati e pulizie infinite: così si smette presto. Il segno che funziona è quando qualcuno ricambia senza che tu lo chieda.
+- Risposta, Lunga: La convivialità regolare crea fiducia e rende naturale chiedere o offrire un aiuto quando serve. Se trasformi ogni invito in una prova da superare, con menu elaborati e pulizie infinite, finisci per smettere presto. Un invito ricambiato senza che tu lo chieda dice che la casa aperta sta funzionando.
 
 #### Generale, favorevole, voce 2: Le prime volte
 
 - Risposta: Il tuo anno è favorevole alle prime volte: un luogo mai visto, un piatto mai cucinato, uno spettacolo diverso dal solito, una strada mai percorsa. La curiosità trova terreno aperto e ogni piccola novità può dare energia anche alle abitudini di sempre, che tornano a sembrarti tue.
 - Che cosa fare: Scrivi adesso cinque cose che non hai mai fatto e che puoi fare vicino a casa, senza grandi spese. Fai la prima entro dieci giorni e da lì una ogni due settimane, da qui al tuo prossimo compleanno. Quando l'elenco finisce, aggiungi altre cinque idee.
-- Risposta, Lunga: La novità tiene sveglia l'attenzione: chi prova cose diverse nota di più anche ciò che ha già intorno. La trappola è collezionare esperienze senza goderle, correndo da una all'altra. Dopo ogni prima volta prenditi qualche minuto per dire a qualcuno che cosa ti è piaciuto e che cosa no.
+- Risposta, Lunga: La novità tiene sveglia l'attenzione: chi prova cose diverse nota di più anche ciò che ha già intorno. Collezionare esperienze correndo da una all'altra toglie il gusto a ciascuna. Dopo ogni prima volta prenditi qualche minuto per dire a qualcuno che cosa ti è piaciuto e che cosa no.
 
 ### Generale, In equilibrio (livello 3)
 
@@ -27,13 +27,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è in equilibrio fra doveri e desideri, ma quell'equilibrio va difeso con poche regole semplici. Se non lo proteggi, gli impegni degli altri tendono a occupare ogni spazio libero; se lo curi, resta posto per ciò che ti fa stare bene senza trascurare il resto.
 - Che cosa fare: Scegli adesso un pomeriggio o una sera a settimana che appartiene a te e scrivilo subito in agenda, settimana per settimana, prima che arrivino altre richieste. Usalo per qualcosa che desideri, non per recuperare faccende. Se salta, spostalo entro tre giorni invece di cancellarlo.
-- Risposta, Lunga: Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Il segno è quando il tempo tuo salta tre volte di fila: allora togli un impegno ricorrente.
+- Risposta, Lunga: Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Se il tempo tuo salta tre volte di fila, è ora di togliere un impegno ricorrente.
 
 #### Generale, equilibrio, voce 2: Le sere senza schermi
 
 - Risposta: L'anno scorre tranquillo nella vita di casa e premia le abitudini sobrie più dei grandi cambiamenti. È un buon tempo per riprendere il controllo delle sere, che spesso si consumano davanti agli schermi senza accorgersene: restituiscile a ciò che ti riposa davvero.
 - Che cosa fare: Scegli due sere a settimana in cui, dopo cena, gli schermi restano spenti fino a quando vai a dormire. Prepara prima qualcosa con cui riempirle: un libro, un gioco da tavolo, una telefonata lunga, una passeggiata nel quartiere. Comincia questa settimana e tieni il conto delle sere riuscite.
-- Risposta, Lunga: Le sere libere dagli schermi sembrano lunghe le prime volte, poi diventano lo spazio dove tornano conversazioni e pensieri lenti. Il pericolo è vivere la regola come una punizione: scegli attività che ti piacciono davvero. Ti accorgi che funziona quando arrivi al mattino con la testa più sgombra.
+- Risposta, Lunga: Le sere libere dagli schermi sembrano lunghe le prime volte, poi diventano lo spazio dove tornano conversazioni e pensieri lenti. Perché la regola non sembri una punizione, riempi quelle ore con attività che ti piacciono davvero. Se arrivi al mattino con la testa più sgombra, la regola sta funzionando.
 
 ### Generale, In salita (livello 2 e sotto)
 
@@ -47,7 +47,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è faticoso sul piano delle energie e chiede di non portare tutto sulle tue spalle. Il periodo premia chi impara a chiedere una mano e ad accettarla senza imbarazzo: un aiuto preciso, chiesto per tempo, alleggerisce le settimane più di qualunque sforzo in più fatto in silenzio.
 - Che cosa fare: Scrivi entro tre giorni i nomi di tre persone a cui potresti chiedere qualcosa: un passaggio, un consiglio, un'ora di compagnia, una commissione. Entro una settimana fai una richiesta concreta a una di loro, con un giorno e un orario. Quando qualcuno ti offre aiuto, rispondi di sì.
-- Risposta, Lunga: Chi chiede aiuto non perde valore agli occhi degli altri: spesso li fa sentire utili e rende il legame più vero. Il rischio di un anno pesante è stringere i denti fino a crollare. Ricambia con un gesto piccolo appena puoi, così chiedere diventa uno scambio e non un peso.
+- Risposta, Lunga: Chi chiede aiuto non perde valore agli occhi degli altri: spesso li fa sentire utili e rende il legame più vero. In un anno pesante si tende a stringere i denti fino a crollare. Ricambia con un gesto piccolo appena puoi, così chiedere diventa uno scambio e non un peso.
 
 ## Amore
 
@@ -57,7 +57,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: In amore l'anno è favorevole a dire ciò che desideri, con parole semplici e senza aspettare il momento perfetto. Se vivi una relazione, un desiderio detto apertamente può riaccendere l'intesa; se sei senza legame, è il tempo giusto per fare tu il primo passo verso chi ti interessa.
 - Che cosa fare: Entro tre settimane trova le parole per una cosa che desideri e non hai ancora detto. Se vivi una relazione, dilla a voce in un momento tranquillo, partendo da te e non da ciò che manca; se sei senza legame, proponi un caffè alla prossima persona che ti incuriosisce.
-- Risposta, Lunga: Il desiderio taciuto a lungo si trasforma in attesa e poi in delusione, perché l'altra persona non può indovinarlo. Detto con calore diventa un invito. L'errore tipico è parlare sotto forma di rimprovero: parti da due parole, io vorrei. Il segno buono è una risposta curiosa.
+- Risposta, Lunga: Il desiderio taciuto a lungo si trasforma in attesa e poi in delusione, perché l'altra persona non può indovinarlo. Detto con calore diventa un invito. Detto come rimprovero, invece, chiude l'ascolto: parti da due parole, io vorrei. Una risposta curiosa ti dice che la strada è giusta.
 
 #### Amore, favorevole, voce 2: Stupore in luoghi nuovi
 
@@ -71,7 +71,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: In amore l'anno è sereno e senza scosse: premia chi sa ascoltare più di chi cerca di sorprendere. Se vivi una relazione, le conversazioni tranquille rafforzano il legame; se sei senza legame, l'ascolto attento negli incontri ti fa conoscere le persone per ciò che sono davvero.
 - Che cosa fare: Ogni settimana scegli una conversazione in cui ascoltare senza interrompere e senza preparare la risposta mentre l'altra persona parla. Se vivi una relazione, chiedi una sera come sta davvero e lascia il telefono in un'altra stanza; se sei senza legame, al prossimo incontro fai domande prima di raccontarti.
-- Risposta, Lunga: Ascoltare bene è una forma di tenerezza che si nota subito: chi si sente capito si apre e mostra lati che tiene nascosti. Il rischio di un periodo calmo è parlarsi per abitudine, dando le risposte per scontate. Il segno giusto è uscire da una conversazione sapendo qualcosa di nuovo.
+- Risposta, Lunga: Ascoltare bene è una forma di tenerezza che si nota subito: chi si sente capito si apre e mostra lati che tiene nascosti. Nei periodi calmi capita di parlarsi per abitudine, dando le risposte per scontate. Quando esci da una conversazione sapendo qualcosa di nuovo, l'ascolto sta lavorando.
 
 #### Amore, equilibrio, voce 2: Aspettative dette
 
@@ -91,7 +91,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è lento in amore e invita a ritrovare i tuoi gusti prima di cercare conferme negli altri. Chi è senza legame ha bisogno di tempo per capire che cosa vuole davvero; chi vive una relazione può dare aria al legame riprendendo una passione personale lasciata da parte.
 - Che cosa fare: Riprendi entro tre settimane un'attività tutta tua, che ti somiglia: uno sport, la musica, il disegno, il ballo. Dalle un posto fisso ogni settimana. Se sei senza legame, accetta incontri leggeri senza promesse; se vivi una relazione, racconta all'altra persona che cosa ti dà quel tempo.
-- Risposta, Lunga: Chi coltiva una vita piena attira rapporti più liberi, perché non chiede all'altra persona di riempire ogni vuoto. Il rischio di un anno lento è aggrapparsi al primo segnale di interesse o, in coppia, chiedere al legame tutto ciò che manca altrove. Il tempo per te protegge entrambe le cose.
+- Risposta, Lunga: Chi coltiva una vita piena attira rapporti più liberi, perché non chiede all'altra persona di riempire ogni vuoto. Un anno lento spinge ad aggrapparsi al primo segnale di interesse o, in coppia, a chiedere al legame tutto ciò che manca altrove. Il tempo per te protegge entrambe le cose.
 
 ## Carriera
 
@@ -101,13 +101,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro e nello studio l'anno è favorevole a crescere e a farti riconoscere per ciò che sai fare. Le occasioni tendono a cercare chi ha i risultati in ordine e sa raccontarli con semplicità: conviene prepararsi adesso, senza aspettare che qualcuno noti il tuo impegno.
 - Che cosa fare: Ogni settimana annota in poche righe un risultato concreto, con numeri e date. Entro tre settimane chiedi un colloquio a chi valuta il tuo lavoro: chi coordina, un cliente, un docente, una persona del settore se cerchi lavoro. Porta tre risultati e una richiesta precisa per il prossimo passo.
-- Risposta, Lunga: Il riconoscimento raramente arriva da sé: qualcuno deve mettere in fila i risultati e renderli visibili: quella persona puoi essere tu. Raccontarli non è vanità, è chiarezza per chi decide. Il rischio è presentarti con aggettivi invece che con fatti: un numero convince più di una promessa.
+- Risposta, Lunga: Il riconoscimento raramente arriva da sé: qualcuno deve mettere in fila i risultati e renderli visibili: quella persona puoi essere tu. Raccontarli non è vanità, è chiarezza per chi decide. Gli aggettivi pesano poco, i fatti molto: un numero convince più di una promessa.
 
 #### Carriera, favorevole, voce 2: L'idea da provare
 
 - Risposta: Nel lavoro è un anno propizio alle idee nuove da mettere alla prova, accanto all'attività di sempre o dentro di essa. Chi ha un progetto nel cassetto trova il respiro giusto per provarlo in piccolo, un passo alla volta, senza bruciare i ponti e senza rimandare all'infinito.
 - Che cosa fare: Scegli un'idea di lavoro che ti incuriosisce: un servizio, un miglioramento nel modo in cui lavori o studi, un progetto da proporre. Entro tre settimane prepara la versione più semplice che qualcuno possa provare e mostrala a tre persone di cui ti fidi. Tieni una sola correzione, la più importante.
-- Risposta, Lunga: Le idee crescono provandole, non perfezionandole sulla carta: un parere vero su una versione grezza vale più di molte ore di progetti immaginati. La trappola è voler partire in grande e fermarsi alla prima difficoltà. Il segno buono è che qualcuno chieda di poterla usare di nuovo.
+- Risposta, Lunga: Le idee crescono provandole, non perfezionandole sulla carta: un parere vero su una versione grezza vale più di molte ore di progetti immaginati. Chi vuole partire in grande spesso si ferma alla prima difficoltà. Quando qualcuno chiede di poterla usare di nuovo, l'idea ha attecchito.
 
 ### Carriera, In equilibrio (livello 3)
 
@@ -115,7 +115,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro l'anno è stabile, senza svolte improvvise: il terreno regge e permette di affinare ciò che già sai fare invece di inseguire il nuovo a ogni costo. Vale per chi lavora e per chi studia: una capacità portata da buona a ottima vale più di molte competenze appena accennate.
 - Che cosa fare: Scegli adesso una capacità che usi spesso e fai bene ma non benissimo: scrivere, spiegare, organizzare, calcolare. Dedicale due ore ogni quindici giorni con un manuale, un video serio o una persona esperta da osservare. Segna subito le prime quattro sessioni, in orari tranquilli.
-- Risposta, Lunga: La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Il segno che funziona è un compito che prima ti costava e adesso esce più rapido e pulito.
+- Risposta, Lunga: La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Un compito che prima ti costava e adesso esce più rapido e pulito dice che la strada è giusta.
 
 #### Carriera, equilibrio, voce 2: Orari che reggono
 
@@ -129,7 +129,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è in salita per il lavoro e lo studio: richieste diverse e strumenti nuovi possono chiedere un aggiornamento che costa fatica. Puoi restare in pista imparando con metodo, un passo alla volta, senza lasciarti travolgere dall'ansia di dover sapere tutto subito.
 - Che cosa fare: Scegli adesso uno strumento o un metodo che nel tuo campo sta diventando necessario e dedicagli un'ora alla settimana. Trova chi lo usa già bene e chiedi di vederlo all'opera. Entro tre settimane applicalo a un compito reale, anche piccolo: annota i punti in cui hai perso tempo.
-- Risposta, Lunga: L'esperienza non perde valore, cambia forma: chi conosce il mestiere capisce prima degli altri dove gli strumenti nuovi servono e dove no. Questo sguardo è un vantaggio, se lo tieni vivo. Il pericolo è chiuderti per orgoglio: chiedere a chi ne sa di più accorcia la strada.
+- Risposta, Lunga: L'esperienza non perde valore, cambia forma: chi conosce il mestiere capisce prima degli altri dove gli strumenti nuovi servono e dove no. Questo sguardo è un vantaggio, se lo tieni vivo. L'orgoglio chiude porte utili: chiedere a chi ne sa di più accorcia la strada.
 
 #### Carriera, salita, voce 2: Decidere a mente fredda
 
@@ -151,21 +151,21 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la fortuna l'anno è propizio a farti conoscere per ciò che sai fare: cucinare per molti, scrivere bene, aggiustare le cose, fare foto, organizzare. Una capacità che dai per scontata può aprire porte inattese, a patto che le persone giuste ne sappiano qualcosa da te.
 - Che cosa fare: Scegli adesso la capacità che gli altri ti riconoscono più spesso. Nelle prossime tre settimane falla sapere con naturalezza ad almeno tre persone: una frase in una conversazione, la foto di un lavoro riuscito, un'offerta di aiuto. Alla prima richiesta accetta un impegno piccolo e chiaro.
-- Risposta, Lunga: Le persone cercano aiuto da chi conoscono prima che da chi trovano per caso. Se nessuno sa del tuo talento, l'occasione passa accanto senza fermarsi: dirlo non è vanità ma cortesia. L'errore tipico è promettere troppo al primo invito; il segno buono è una seconda richiesta spontanea.
+- Risposta, Lunga: Le persone cercano aiuto da chi conoscono prima che da chi trovano per caso. Se nessuno sa del tuo talento, l'occasione passa accanto senza fermarsi: dirlo non è vanità ma cortesia. Al primo invito conviene non promettere troppo; una seconda richiesta spontanea vale più di qualsiasi lode.
 
 ### Fortuna, In equilibrio (livello 3)
 
 #### Fortuna, equilibrio, voce 1: Risorse da rimettere in circolo
 
-- Risposta: L'anno è equilibrato per la buona sorte e premia chi conosce bene le proprie risorse: oggetti, tempo libero, persone su cui contare, capacità messe da parte. Qui la sorte sta meno nelle novità e più in ciò che hai già e puoi rimettere in circolo.
+- Risposta: L'anno è equilibrato per la buona sorte e premia chi fa girare le proprie risorse: oggetti, tempo libero, capacità, persone su cui contare. Non chiede di scegliere fra ciò che hai e ciò che è nuovo: una cosa già tua, rimessa in circolo, può aprire la strada a un'esperienza diversa.
 - Che cosa fare: Ogni settimana rimetti in uso una cosa dimenticata: un oggetto chiuso in un armadio, un contatto che non senti da tempo, un'abilità che non pratichi. Prestala, scambiala, regalala o usala tu. Comincia entro sette giorni e tieni il conto delle cose tornate in circolo.
-- Risposta, Lunga: Chi tiene d'occhio ciò che possiede non lo spreca e non lo dimentica. Spesso l'attrezzo che cercavi era già in casa e la persona giusta era già nella tua rubrica. Il rischio di un anno quieto è non guardare: le occasioni piccole passano accanto a chi non le cerca.
+- Risposta, Lunga: Chi tiene d'occhio ciò che possiede non lo spreca e non lo dimentica. L'attrezzo che cercavi era già in casa e la persona giusta era già nella tua rubrica. Vale in ogni campo, dalla casa ai viaggi: in un anno quieto la sorte si ferma da chi guarda con attenzione.
 
 #### Fortuna, equilibrio, voce 2: Il sì scelto
 
 - Risposta: Per la sorte è un anno in equilibrio, che può portare proposte di ogni tipo: gruppi nuovi, eventi, collaborazioni, inviti. Chiede di scegliere con misura, perché accettare tutto disperde le forze e rifiutare tutto chiude le porte: la buona sorte qui sta in un sì dato alle occasioni giuste.
 - Che cosa fare: Scrivi adesso tre criteri che una proposta deve rispettare per meritare un sì: insegnarti qualcosa, farti incontrare persone nuove, avere una durata chiara. Per ogni invito che arriva concediti due giorni prima di rispondere e rileggi i criteri. Se ne rispetta meno di due, declina con gentilezza.
-- Risposta, Lunga: Una scelta misurata protegge le occasioni migliori: chi ha l'agenda piena di impegni tiepidi non trova spazio quando arriva quella giusta. Il tempo lasciato libero è una risorsa come le altre. Capisci che funziona quando dici sì con entusiasmo e non per cortesia.
+- Risposta, Lunga: Una scelta misurata protegge le occasioni migliori: chi ha l'agenda piena di impegni tiepidi non trova spazio quando arriva quella giusta. Il tempo lasciato libero è una risorsa come le altre. Quando i tuoi sì nascono dall'entusiasmo e non dalla cortesia, la misura è quella giusta.
 
 ### Fortuna, In salita (livello 2 e sotto)
 
@@ -179,4 +179,4 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la sorte l'anno è delicato e chiede di custodire più che inseguire: la casa, gli oggetti di ogni giorno, i documenti, le scadenze. Un guasto trascurato pesa più di molte occasioni mancate, mentre la cura regolare evita i contrattempi nei momenti sbagliati.
 - Che cosa fare: Scrivi entro una settimana le manutenzioni che rimandi: una lampadina, la bicicletta, il computer, un documento in scadenza, una cerniera che cigola. Ogni settimana chiudine una, cominciando dalla più fastidiosa. Tieni in un unico posto ricevute, istruzioni e recapiti delle persone utili.
-- Risposta, Lunga: Le difficoltà di questo periodo nascono spesso da piccole cose lasciate andare troppo a lungo. Occuparsene per tempo non è pessimismo: è il modo più semplice per avere energie libere quando si presenta un'occasione. Ti accorgi del cambio quando passa una settimana senza imprevisti domestici.
+- Risposta, Lunga: Le difficoltà di questo periodo nascono spesso da piccole cose lasciate andare troppo a lungo. Occuparsene per tempo non è pessimismo: è il modo più semplice per avere energie libere quando si presenta un'occasione. Una settimana intera senza imprevisti domestici è un buon indizio che la manutenzione rende.

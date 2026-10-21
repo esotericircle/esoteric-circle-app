@@ -149,3 +149,112 @@ B11. test/la_lettura_vedica_test.dart: rossa sui testi nuovi per i puntini («Mi
 GIRO FINALE DELLA ZONA (32 file di prove: Oroscopo, forme delle quattro arti, genere, accenti,
 campioni GA.06, le due guardie nuove): 223 prove su 223 verdi.
 flutter analyze lib test: No issues found.
+
+I ROSSI DELL'UNIONE 9624d5b8 (21 ottobre 2026)
+
+Regola B: le quattro guardie della lingua erano gia' rosse sull'unione, prima di toccare
+(giro del 21 ottobre, 4 cadute su 4):
+- test/la_parola_voce_resta_allaudio_test.dart: «Per le altre voci della lista» (occidentale
+  settimana, dart riga 2790), «dopo le tre voci» e «tre voci restano tre» (vedica giorno, righe
+  280 e 281);
+- test/i_nomi_del_menu_e_del_diario_test.dart: «Custodisci adesso un contatto prezioso» nel rito
+  "Zhi, Fortuna, anno";
+- test/la_carta_natale_sopravvive_test.dart: i_testi_eu_vedica_data.dart "avvisa di dati di
+  nascita mancanti" ("ora e luogo" accanto a "senza" in tre righe di contenuto);
+- test/language_rule_test.dart: la virgola prima di "e" nel Rahu Kalam senza citta'.
+Cure alla fonte: 27 "voce/voci" nel senso di riga di elenco riscritte nei corpora (righe, cose,
+impegni, punti); "Proteggi" al posto di "Custodisci"; "orario e luogo" al posto di "ora e
+luogo"; i due punti al posto della virgola nel Rahu Kalam. Piu' il genere nelle righe del dio
+della serie dell'Amore cinese (48 righe, 13 frasi): la regola dei testi classici ("negli
+oroscopi maschili/femminili") detta come regola della tradizione, non applicata a chi legge.
+Dopo: verdi le quattro guardie, il_genere_non_si_indovina, accenti_veri, testo_a_video,
+nessuna_promessa_di_memoria_integrale, le due guardie nuove e le prove dell'Oroscopo (222 su
+222, dopo la tabella delle lunghezze rigenerata). Il campione delle rune, riscritto da
+GA06_SCRIVI per un lavoro altrui, e' stato rimesso com'era (git checkout).
+
+LA SECONDA CURA, DAL SECONDO LETTORE CIECO (21 ottobre 2026, sopra 0dfd834b)
+
+Regola B, prima di toccare:
+- test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart e
+  test/i_riti_dell_oroscopo_seguono_il_periodo_test.dart: sono guardie di questa stessa voce,
+  viste rosse il 21 ottobre (A2, A3, A4 qui sopra); prima della seconda cura erano verdi, e il
+  secondo lettore ha trovato difetti che non misuravano: le guardie si sono estese (A5, A6, A7).
+- test/la_lettura_vedica_test.dart, la_lettura_cinese_test.dart, il_da_dove_non_si_ripete_nel_periodo:
+  viste rosse il 21 ottobre (B2, B3, B4, B5).
+
+A5. le_voci_dell_oroscopo_rispondono_nel_periodo, prova nuova "le frasi non aprono a stampo":
+    in ogni corpus al massimo il tre per cento delle voci (almeno due) con una frase che apre
+    con "Il segno", "Il pericolo è", "Il rischio è", "La trappola è", "L'errore tipico è" e
+    simili; soglia scritta prima della cura. Misura prima: 740 frasi nei dodici corpora (cinese
+    giorno 218, vedica giorno 136, occidentale giorno 123, ...). ROSSA sul difetto vero mentre
+    gli scrittori lavoravano: "occidentale giorno: 123 frasi a stampo su 276 voci (al massimo
+    8)".
+    Dopo la cura delle cinque riscritture (tre tradizioni): 0 frasi a stampo in tutti e
+    dodici i corpora.
+
+A6. le_voci_dell_oroscopo_rispondono_nel_periodo, prova "a video, il "Da dove viene" non rimanda
+    e non ripete", estesa: il gergo non spiegato ("angolare", "succedente", "cadente" senza "una
+    casa", "metodo del Giorno", "la scheda dell'amore", Saturno senza il quando, "del 8",
+    "la undicesima", la direzione del dio senza uso) e l'Ascendente per chi non ha dato l'ora.
+    Al primo giro la prova ha trovato due difetti veri non ancora curati: "la Luna guarda la
+    undicesima" in la_lettura_vedica.dart (curata) e un falso allarme sul "Saturno era in" che
+    segue la frase di Giove: la grandezza si e' ristretta a Saturno in testa alla riga o subito
+    dopo l'arco dell'anno, prima di leggere l'esito.
+    Innesti, verificati col grep («// INNESTO A6») e tolti:
+    1. in l_annuale.dart il tipo di casa tornato "angolare" senza spiegazione: ROSSA, 6 righe
+       («angolare» nell'anno occidentale);
+    2. in la_settimana_del_cielo.dart una riga "Il momento chiave tocca il tuo Ascendente." nella
+       Lunga: ROSSA, 48 righe per le persone senza l'ora («l'Ascendente senza l'ora di nascita»).
+    Innesti tolti: VERDE, 0 su 1040.
+
+A7. i_riti_dell_oroscopo_seguono_il_periodo, prova nuova "i sedici riti di un reggente non si
+    ripetono a pezzi" (nessuna sequenza di sei parole in comune fra i riti dello stesso
+    reggente, formula e formule dei due rami dell'Amore escluse), e lo stesso controllo in
+    tool/genera_i_riti.py. Sul difetto vero, prima della seconda passata sui riti: la prova
+    ROSSA, "in due riti dello stesso reggente 119" (dati della prima cura); lo strumento ROSSO,
+    "DIFETTI: 75, non scrivo niente" (la raccolta cinese ancora da curare, per esempio
+    «gesti_tong_shu|Wei: «dedica un momento di raccoglimento a»»).
+    Rileggendo il campione rigenerato sono comparsi due difetti nuovi dei compositori, nati da
+    questa stessa cura: "dal'8 marzo" (l'elisione scritta male in l_anno_delle_tradizioni.dart)
+    e "Conla Tigre" (uno spazio perso nella riga dell'anno cinese). Curati, e la prova li
+    misura: innesto della vecchia elisione («// INNESTO A6», grep 1) ROSSA, 32 righe; tolto,
+    VERDE.
+    Dopo la seconda passata sui riti (tre raccolte): lo strumento genera senza difetti, la prova
+    "a pezzi" VERDE, "in due riti dello stesso reggente 0" su 14029 sequenze.
+
+LA TERZA CURA, DAL LETTORE CIECO INDIPENDENTE (21 ottobre 2026, sopra 6a7bedb4)
+
+Il lettore cieco indipendente lanciato sul campione della seconda cura: D1 46, D2 45, D3 39,
+tre si' 35 su 48; no 3, 6, 15, 17, 19, 20, 27, 34, 37, 45, 46, 47, 48. Difetti non contati: dati
+senza luogo 5, vite inventate 10, futuri certi 7, sala giochi 1, criptici 29, incoerenze 6,
+sgrammaticature 7, genere 0, sequenze di sette parole ripetute 384 (366 nelle code fisse del
+"Da dove viene").
+
+Regola B, prima di toccare:
+- test/l_anno_dal_compleanno_test.dart, carriera: la prova pretendeva la frase della casa di
+  Saturno dal corpus annuale dentro la lettura di lavoro (oroscopo-15, "i legami si fanno
+  seri" con Saturno in settima). Tolta quella riga da l_annuale.dart, la prova vecchia e'
+  ROSSA, 100 schede fuori su 400; con l'attesa giusta (solo il Medio Cielo, LAPIDE nella prova)
+  VERDE, 0 su 400.
+- test/language_rule_test.dart, "Nessuna stringa del codice viola la regola della virgola":
+  ROSSA durante questa stessa cura, sul difetto entrato con lei ("la settima casa,
+  dell'unione, e la quinta" in la_lettura_vedica.dart; e le righe nuove del Rahu Kalam e del
+  Tai Sui). Curate: VERDE.
+- test/la_lettura_vedica_test.dart, "testi con un difetto di scrittura": ROSSA, 51 testi (", e "
+  nella ragione nuova del livello, "una delle case di questo campo, e la mette in primo
+  piano"). Riscritta: VERDE, 0.
+
+Cure: i dodici corpora docs/corpus/eu (72 frasi "Te ne accorgi / Capisci che" riscritte come
+criterio condizionale; 21 voci del campione); sette riti (Marte detto anche Ares, il fiore nel
+bicchiere, "richiama alla mente", Mangala e la scrivania, quattro riti di Cheng con
+l'alternativa per chi non ha niente a meta', Mangala in amore senza lo stato del desiderio);
+i "Da dove viene" criptici (Naidhana, la casa delle uscite, il Buon Demone, "per gli
+astrologi", il Nutrimento, «Tenere», Saturno nell'anno, la media del periodo con il suo
+simbolo, l'anno cinese in una frase intera, la serie neutra dell'Amore cinese senza la frase
+doppia, il colore e il numero del giorno con il loro uso, il Rahu Kalam senza rimandi).
+
+Dopo: verdi le quattro guardie della lingua (la_parola_voce_resta_allaudio,
+i_nomi_del_menu_e_del_diario, la_carta_natale_sopravvive, language_rule), il_genere_non_si_
+indovina, accenti_veri e le prove dell'Oroscopo (31 file, 150 prove), dopo la tabella delle
+lunghezze e i campioni rigenerati. flutter analyze lib test: No issues found. Il campione delle
+rune, riscritto da GA06_SCRIVI, e' stato rimesso com'era (git checkout).

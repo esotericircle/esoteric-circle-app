@@ -97,6 +97,23 @@ abstract final class LAnnoDelleTradizioni {
     (7, 10),
   ];
 
+  /// Il rapporto fra il tuo animale e quello dell'anno detto in una frase
+  /// intera (terzo lettore cieco indipendente, ordine GA voce GA.06: "Con
+  /// la Tigre, il tuo animale: tripla armonia." era telegrafico).
+  static String _rapportoDellAnno(
+          RapportoFraAnimali r, bool stesso, String tuo, String dellAnno) =>
+      switch (r) {
+        RapportoFraAnimali.stessoAnimale =>
+          'Il tuo animale, $tuo, è lo stesso dell\'anno.',
+        RapportoFraAnimali.nessuno => 'Fra $dellAnno dell\'anno e il tuo '
+            'animale, $tuo, le tabelle non segnano nessun rapporto.',
+        RapportoFraAnimali.triplaArmonia => 'Con $dellAnno dell\'anno il '
+            'tuo animale, $tuo, è in tripla armonia: stanno nello stesso '
+            'gruppo di tre animali che si sostengono.',
+        _ => 'Con $dellAnno dell\'anno il tuo animale, $tuo, è in '
+            'rapporto di ${LaLetturaCinese.rapportoDetto(r, stesso)}.',
+      };
+
   /// L'anno cinese che contiene [oggi], per chi e' nato nell'anno
   /// dell'animale [animale]. Null fuori dalla tabella dei Capodanni.
   static AnnoDellaTradizione? cinese(DateTime oggi, int animale,
@@ -116,11 +133,16 @@ abstract final class LAnnoDelleTradizioni {
       livello -= 1;
     }
     final (nome, articolo) = ISegniDelleTradizioni.animali[ramo];
-    final riga = 'L\'anno ${articolo == 'la' ? 'della' : 'del'} $nome va dal '
-        '${_data(da)} al ${_data(a)}. Con ${LaLetturaCinese.conArticolo(animale)}'
-        ', il tuo animale: ${LaLetturaCinese.rapportoDetto(rapporto, animale == ramo)}. '
-        'Tai Sui, il signore dell\'anno: '
-        '${offeso == null ? 'non lo offendi' : 'lo offendi, $offeso'}.';
+    final riga = 'L\'anno ${articolo == 'la' ? 'della' : 'del'} $nome va '
+        // Il giorno prima del Capodanno dopo (terzo lettore cieco, ordine GA
+        // voce GA.06: "al 6 febbraio 2027" e' gia' l'anno della Capra), e il
+        // Tai Sui detto per intero: "non lo offendi" da solo era telegrafico.
+        '${_con('dal', da)} '
+        '${_con('al', DateTime(a.year, a.month, a.day - 1))}. '
+        '${_rapportoDellAnno(rapporto, animale == ramo, LaLetturaCinese.conArticolo(animale), '$articolo $nome')} '
+        'Tai Sui, il signore dell\'anno, è la divinità che la tradizione '
+        'invita a non contrariare: '
+        '${offeso == null ? 'il tuo animale non lo offende: l\'anno non ti chiede cautele particolari' : 'quest\'anno lo offendi, perché $offeso: la tradizione consiglia prudenza nelle scelte grandi'}.';
     return AnnoDellaTradizione(
       da: da,
       a: a,
@@ -179,12 +201,14 @@ abstract final class LAnnoDelleTradizioni {
     String segno(CorpoCeleste c) => ISegniDelleTradizioni
         .rashi[IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index];
     const ordinali = LaLetturaVedica.ordinali;
-    final diGiove = 'Al tuo compleanno del ${_data(da)} Giove era in '
+    final diGiove = 'Al tuo compleanno ${_con('del', da)} Giove era in '
         '${segno(CorpoCeleste.giove)}, nella tua ${ordinali[giove - 1]} casa '
         'dalla Luna di nascita: ${g == 1 ? 'una casa favorevole' : 'non una delle sue case favorevoli'}.';
     // **ORDINE GA VOCE GA.06**: "è la Sade Sati." da sola era un nome senza
     // spiegazione (lettore cieco, oroscopo-29 e 31); la riga adesso dice che
     // cos'e', con le parole della nota del metodo (V-M-011).
+    final arco = 'Il tuo anno va ${_con('dal', da)} '
+        '${_con('al', DateTime(a.year, a.month, a.day - 1))}.';
     final diSaturno = 'Saturno era in ${segno(CorpoCeleste.saturno)}, nella '
         'tua ${ordinali[saturno - 1]} casa dalla Luna di nascita: '
         '${s == 1 ? 'una casa favorevole' : sadeSati ? 'è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza' : 'non una delle sue case favorevoli'}.';
@@ -198,11 +222,15 @@ abstract final class LAnnoDelleTradizioni {
         tra(3 + s),
         tra(3 + g),
       ],
+      // **L'ARCO DELL'ANNO IN TESTA**, e Saturno da solo col suo quando
+      // (secondo lettore cieco, ordine GA voce GA.06: oroscopo-16, l'anno che
+      // finisce fra cinque settimane letto come se cominciasse; oroscopo-31,
+      // "Saturno era in Mina" senza dire quando).
       daDove: [
-        '$diGiove $diSaturno',
-        '$diGiove${sadeSati ? ' $diSaturno' : ''}',
-        diSaturno,
-        diGiove,
+        '$arco $diGiove $diSaturno',
+        '$arco $diGiove${sadeSati ? ' $diSaturno' : ''}',
+        '$arco Al tuo compleanno ${_con('del', da)} $diSaturno',
+        '$arco $diGiove',
       ],
       // V-M-009 e V-M-011, testi dell'Architetto (ordine EV voce EV.08).
       // La Sade Sati (V-A-005): una lettura della tradizione indiana
@@ -334,4 +362,10 @@ abstract final class LAnnoDelleTradizioni {
   ];
 
   static String _data(DateTime d) => '${d.day} ${_mesi[d.month - 1]} ${d.year}';
+
+  /// La preposizione articolata davanti alla data: "del 24 novembre", ma
+  /// "dell'8 marzo" e "dell'11 aprile" (secondo lettore cieco, ordine GA voce
+  /// GA.06, oroscopo-32: "Al tuo compleanno del 8 marzo 2026").
+  static String _con(String prep, DateTime d) =>
+      d.day == 8 || d.day == 11 ? '${prep}l\'${_data(d)}' : '$prep ${_data(d)}';
 }

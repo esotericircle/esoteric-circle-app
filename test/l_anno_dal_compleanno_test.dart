@@ -78,10 +78,14 @@ void main() {
           ),
           (
             'carriera',
-            [
-              OroscopoAnnualeData.medioCielo[t.segnoDelMedioCielo],
-              OroscopoAnnualeData.saturno[casa[CorpoCeleste.saturno]! - 1],
-            ],
+            // LAPIDE, ordine GA voce GA.06 (terzo lettore cieco, 21 ottobre
+            // 2026): qui si pretendeva anche la frase della casa di Saturno
+            // dal corpus annuale ("i legami si fanno seri" con Saturno in
+            // settima), che dentro una lettura di lavoro parlava d'altro.
+            // Nel lavoro Saturno conta per quanto e' in vista: la Lunga dice
+            // dove sta e quanto pesa (`LAnnuale.doveSta`), e il livello resta
+            // quello di Saturno, qui sotto.
+            [OroscopoAnnualeData.medioCielo[t.segnoDelMedioCielo]],
             6 - forza(casa[CorpoCeleste.saturno]!),
           ),
           (

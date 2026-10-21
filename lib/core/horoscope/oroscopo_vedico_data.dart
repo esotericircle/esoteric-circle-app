@@ -118,7 +118,7 @@ abstract final class OroscopoVedicoData {
     ],
     [
       'Non è il giorno per cominciare qualcosa di grande: custodisci quello che c\'è. Fai la manutenzione di una cosa che hai già: un lavoro, un rapporto, un oggetto da riparare. || La stella di oggi, {nakshatra_oggi}, è per te Naidhana, la settima contata dalla tua: la tradizione indiana la considera la più delicata delle nove.',
-      'Meglio non aprire cose nuove e chiudere bene quelle vecchie. Finisci un lavoro lasciato a metà, rispondi a una lettera in sospeso, riordina un cassetto. || Oggi hai Naidhana, "la fine". Non è un presagio: nella Tara Bala è il giorno che la tradizione indiana lascia alle chiusure, non agli inizi.',
+      'Meglio non aprire cose nuove e chiudere bene quelle vecchie. Finisci un lavoro lasciato a metà, rispondi a una lettera in sospeso, riordina un cassetto. || Oggi la tua tara è Naidhana, "la fine" di un ciclo: nella Tara Bala, il conto delle stelle dalla tua stella di nascita, è il giorno che la tradizione indiana lascia alle chiusure, non agli inizi.',
       'Conviene la prudenza piena. Rimanda di qualche giorno le firme, i viaggi e le decisioni che non hanno fretta; tieni per oggi solo gli impegni di sempre. || Con Naidhana, la settima tara, Raman sconsiglia le imprese importanti; il Drik Panchang la segna come il giorno meno adatto dei nove.',
     ],
     [
@@ -135,13 +135,13 @@ abstract final class OroscopoVedicoData {
 
   /// La riga del pianeta del giorno, da domenica a sabato.
   static const List<String> righeDelGiorno = [
-    'Oggi è un buon giorno per farti vedere. Proponi la tua idea, presenta un lavoro finito o prendi la parola dove di solito taci. || Oggi è Ravivara, il giorno del Sole. Il suo colore è il rosso, il suo numero l\'uno.',
-    'Oggi conviene ascoltare più che parlare. Chiama una persona cara e lasciala raccontare fino in fondo, senza interromperla. || Oggi è Somavara, il giorno della Luna. Il suo colore è il bianco, il suo numero il due.',
-    'Oggi è un giorno per agire con decisione. Prendi la cosa che rimandi da giorni e chiudila entro stasera, senza ripensarci. || Oggi è Mangalavara, il giorno di Marte. Il suo colore è il rosso, il suo numero il nove.',
-    'Oggi vanno bene le parole: parlare, scrivere, trattare. Manda il messaggio che tieni in sospeso o discuti un prezzo che ti sembra alto. || Oggi è Budhavara, il giorno di Mercurio. Il suo colore è il verde, il suo numero il cinque.',
-    'Oggi è un giorno per imparare e per consigliare. Leggi qualche pagina su ciò che vuoi capire o dai il tuo parere a chi te lo chiede. || Oggi è Guruvara, il giorno di Giove. Il suo colore è il giallo, il suo numero il tre.',
-    'Oggi è un giorno per la bellezza e per gli affetti. Metti un fiore in casa, cura un dettaglio del tuo aspetto o invita a cena chi ami. || Oggi è Shukravara, il giorno di Venere. Il suo colore è lo screziato, il suo numero il sei.',
-    'Oggi è un giorno per la pazienza e per il lavoro lento. Scegli un compito lungo, come riordinare le carte di casa: portalo avanti senza fretta. || Oggi è Shanivara, il giorno di Saturno. Il suo colore è il nero, il suo numero l\'otto.',
+    'Oggi è un buon giorno per farti vedere. Proponi la tua idea, presenta un lavoro finito o prendi la parola dove di solito taci. || Oggi è Ravivara, il giorno del Sole. Il suo colore è il rosso, il suo numero l\'uno: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi conviene ascoltare più che parlare. Chiama una persona cara e lasciala raccontare fino in fondo, senza interromperla. || Oggi è Somavara, il giorno della Luna. Il suo colore è il bianco, il suo numero il due: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi è un giorno per agire con decisione. Prendi la cosa che rimandi da giorni e chiudila entro stasera, senza ripensarci. || Oggi è Mangalavara, il giorno di Marte. Il suo colore è il rosso, il suo numero il nove: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi vanno bene le parole: parlare, scrivere, trattare. Manda il messaggio che tieni in sospeso o discuti un prezzo che ti sembra alto. || Oggi è Budhavara, il giorno di Mercurio. Il suo colore è il verde, il suo numero il cinque: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi è un giorno per imparare e per consigliare. Leggi qualche pagina su ciò che vuoi capire o dai il tuo parere a chi te lo chiede. || Oggi è Guruvara, il giorno di Giove. Il suo colore è il giallo, il suo numero il tre: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi è un giorno per la bellezza e per gli affetti. Metti un fiore in casa, cura un dettaglio del tuo aspetto o invita a cena chi ami. || Oggi è Shukravara, il giorno di Venere. Il suo colore è lo screziato, il suo numero il sei: chi segue la tradizione li sceglie per le cose importanti di oggi.',
+    'Oggi è un giorno per la pazienza e per il lavoro lento. Scegli un compito lungo, come riordinare le carte di casa: portalo avanti senza fretta. || Oggi è Shanivara, il giorno di Saturno. Il suo colore è il nero, il suo numero l\'otto: chi segue la tradizione li sceglie per le cose importanti di oggi.',
   ];
 
   /// Le varianti generiche della riga del pianeta del giorno.
@@ -275,7 +275,7 @@ abstract final class OroscopoVedicoData {
     [
       'Oggi al lavoro può sembrarti che nessuno noti quello che fai. Lavora in silenzio senza cercare conferme: porta a termine il tuo compito e annota il risultato per quando serve. || Oggi la Luna è nella dodicesima casa dalla tua Luna di nascita, quella delle uscite: una posizione sfavorevole della Chandra Bala.',
       'Per il lavoro oggi le energie sono basse. Fai il necessario, togli dalla lista ciò che può aspettare, stacca all\'ora giusta: stasera vai a letto presto. || La Luna in dodicesima casa, per la tradizione indiana, porta stanchezza: è una delle posizioni sfavorevoli nel conto dalla tua Luna di nascita.',
-      'Al lavoro oggi l\'attenzione si disperde in fretta. Rimanda le riunioni che puoi spostare, tenendo in agenda solo l\'indispensabile con un orario di fine già deciso. || Il cielo di oggi disperde: la Luna sta nella casa delle uscite, la dodicesima dalla tua Luna di nascita.',
+      'Al lavoro oggi l\'attenzione si disperde in fretta. Rimanda le riunioni che puoi spostare, tenendo in agenda solo l\'indispensabile con un orario di fine già deciso. || La dodicesima casa dalla tua Luna di nascita è quella che la tradizione indiana chiama la casa delle uscite: con la Luna lì l\'attenzione si disperde.',
     ],
   ];
 
@@ -324,7 +324,7 @@ abstract final class OroscopoVedicoData {
     [
       'Oggi la fortuna chiede pazienza e i soldi si muovono piano. Non forzare le trattative: se l\'altra parte prende tempo lascia passare la giornata senza rilanciare. || Oggi la Luna è nella nona casa dalla tua Luna di nascita, una posizione che la Chandra Bala dà di attenzione.',
       'Con il denaro oggi le spese d\'impulso lasciano il rimpianto. Aspetta domani: salva l\'articolo fra i preferiti, chiudi la pagina, riguardalo a mente fresca. || Il cielo di oggi non ama le spese impulsive: con la Luna in nona casa la tradizione indiana parla di impedimenti.',
-      'Per i soldi oggi conviene tenere le cose come stanno. Non cambiare contratti, tariffe o accordi già presi: prendi appunti sulle alternative e riparlane nei prossimi giorni. || La Luna in nona casa rende il giorno un po\' stretto per la tradizione indiana: è una delle posizioni di attenzione della Chandra Bala.',
+      'Per i soldi oggi conviene tenere le cose come stanno. Non cambiare contratti, tariffe o accordi già presi: prendi appunti sulle alternative e riparlane nei prossimi giorni. || La Luna in nona casa rende il giorno un po\' stretto per la tradizione indiana: è una delle posizioni di attenzione della Chandra Bala, la forza della Luna del giorno contata dalla tua Luna di nascita.',
     ],
     [
       'Oggi per la fortuna la giornata è buona. Tieni gli occhi aperti sulle piccole occasioni: uno sconto su una cosa che ti serve, un\'offerta di lavoro, una proposta arrivata per caso. || Per la fortuna il cielo di oggi è buono: la Luna transita in una casa favorevole contata dalla tua Luna di nascita.',
@@ -415,9 +415,9 @@ abstract final class OroscopoVedicoData {
 
   /// Rahu Kalam: manca la città.
   static const List<String> rahuSenzaCitta = [
-    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo in cui sei: senza la tua città non si può dire quando cade oggi.',
-    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro e serve la tua città.',
-    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città, e senza la tua non si può calcolare.',
+    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo: per conoscerne l\'ora esatta di oggi serve la città in cui ti trovi.',
+    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro: l\'ora di oggi si calcola sulla città in cui ti trovi.',
+    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città: per calcolare quella di oggi serve la tua.',
   ];
 
   /// Il glossario della nota del metodo: termine e spiegazione.

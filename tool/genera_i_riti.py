@@ -75,6 +75,15 @@ ALTRA_STRADA = re.compile(
     r'senza legame|se cerchi|se non hai|se hai un legame)', re.IGNORECASE)
 
 
+ESENTI_DEI_RAMI = [
+    'a chi ami o a chi desideri incontrare',
+    'chi ami o a chi desideri incontrare',
+    'chi ami o chi desideri incontrare',
+    'se hai un legame',
+    'se sei senza legame',
+]
+
+
 def frasi_del_rito(testo):
     """Le frasi di cinque parole o piu', senza le citazioni fra virgolette
     basse (la formula torna in ogni rito del suo reggente, di proposito)."""
@@ -110,6 +119,25 @@ def difetti_dell_oroscopo(raccolta, riti):
             if f in viste and viste[f] != k:
                 fuori.append(f'{k}: frase gia\' in {viste[f]}: «{f[:50]}»')
             viste.setdefault(f, k)
+    # Ordine GA voce GA.06, il secondo lettore cieco: fra i sedici riti dello
+    # stesso reggente nessuna sequenza di sei parole in comune (la glossa di
+    # Kai, lo stesso gesto di Cheng in quattro riti), fuori dalla formula e
+    # dalle formule dei due rami dell'Amore.
+    per_reggente = {}
+    for k, testo in riti.items():
+        reggente = '|'.join(k.split('|')[:2])
+        t = CITAZIONE.sub(' | ', testo.lower())
+        for x in ESENTI_DEI_RAMI:
+            t = t.replace(x, ' | ')
+        parole_ = re.sub(r"[^a-zàèéìòù'| ]", ' ', t).split()
+        for i in range(len(parole_) - 5):
+            g = parole_[i:i + 6]
+            if '|' in g:
+                continue
+            per_reggente.setdefault((reggente, ' '.join(g)), set()).add(k)
+    for (reggente, g), chiavi in sorted(per_reggente.items()):
+        if len(chiavi) > 1:
+            fuori.append(f'{reggente}: «{g}» in {sorted(chiavi)}')
     return fuori
 
 

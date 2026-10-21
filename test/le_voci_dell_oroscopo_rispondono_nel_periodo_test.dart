@@ -42,9 +42,9 @@ void main() {
   const a = r'(?<![A-Za-zÀ-ÿ])';
   const z = r'(?![A-Za-zÀ-ÿ])';
   // E \w non prende le lettere accentate: "generosità" non finirebbe mai.
-  RegExp parole(String alternative) => RegExp(
-      '$a(${alternative.replaceAll(r'\w', '[A-Za-zÀ-ÿ]')})$z',
-      caseSensitive: false);
+  RegExp parole(String alternative) =>
+      RegExp('$a(${alternative.replaceAll(r'\w', '[A-Za-zÀ-ÿ]')})$z',
+          caseSensitive: false);
 
   const giorni = r'luned[iì]|marted[iì]|mercoled[iì]|gioved[iì]|venerd[iì]|'
       r'sabato|domenica|sabati|domeniche';
@@ -132,8 +132,7 @@ void main() {
           voci++;
           final risposta = campi['Risposta'] ?? '';
           final tutto = campi.values.join(' ');
-          final prima =
-              risposta.split(RegExp(r'(?<=[.?;:])\s+')).first;
+          final prima = risposta.split(RegExp(r'(?<=[.?;:])\s+')).first;
           if (!periodo[p.name]!.hasMatch(prima) ||
               !fascia[laFascia]!.hasMatch(prima)) {
             primaFrase.add('$dove: «$prima»');
@@ -141,10 +140,8 @@ void main() {
           final m = tempo[p.name]!.firstMatch(tutto);
           if (m != null) fuoriTempo.add('$dove: «${m.group(0)}»');
           if (dominio == 'Amore') {
-            final due = risposta
-                .split(RegExp(r'(?<=[.?;:])\s+'))
-                .take(2)
-                .join(' ');
+            final due =
+                risposta.split(RegExp(r'(?<=[.?;:])\s+')).take(2).join(' ');
             final fuori = fuoriDallAmore.firstMatch(due);
             if (fuori != null) {
               amore.add('$dove: parla d\'altro «${fuori.group(0)}»');
@@ -186,24 +183,90 @@ void main() {
     expect(amore, isEmpty, reason: amore.take(8).join('\n'));
   });
 
+  test('le frasi non aprono a stampo', () {
+    // **LE CHIUSE A FORMULA**, dal secondo lettore cieco (21 ottobre 2026):
+    // "Il segno buono è", "Il segno che funziona è", "Il pericolo è", "Il
+    // rischio è" negli approfondimenti di tre schede di fila. Nei dodici
+    // corpora erano 740 frasi. La soglia, scritta prima della cura: in ogni
+    // corpus al massimo il tre per cento delle voci (almeno due) puo' avere
+    // una frase che apre con una di queste formule.
+    final formula = RegExp(r"^(Il segno\b|Il pericolo è|Il rischio è|"
+        r"Il rischio di|La trappola è|L'errore tipico è|L'errore da evitare|"
+        r"La prova che funziona|Il segnale più chiaro|"
+        r"La verifica più semplice|Funziona se|Attenzione a)");
+    final troppe = <String>[];
+    var frasiGuardate = 0;
+    for (final t in TradizioneEu.values) {
+      for (final p in PeriodoEu.values) {
+        final f = File('docs/corpus/eu/oroscopo_eu_${t.name}_${p.name}.md');
+        var voci = 0;
+        final aStampo = <String>[];
+        for (final riga in f.readAsLinesSync()) {
+          if (riga.startsWith('#### ')) voci++;
+          final c = campo.firstMatch(riga);
+          if (c == null) continue;
+          for (final frase in c.group(2)!.split(RegExp(r'(?<=[.?;:])\s+'))) {
+            frasiGuardate++;
+            if (formula.hasMatch(frase.trim())) aStampo.add(frase.trim());
+          }
+        }
+        final soglia = (voci * 3 / 100).floor().clamp(2, 1000);
+        if (aStampo.length > soglia) {
+          troppe.add('${t.name} ${p.name}: ${aStampo.length} frasi a '
+              'stampo su $voci voci (al massimo $soglia), per esempio '
+              '«${aStampo.first}»');
+        }
+      }
+    }
+    cardinaleMinimo(frasiGuardate, 12000,
+        cosa: 'frasi dei dodici corpora',
+        perche: '1548 voci per tre paragrafi di tre frasi o piu\'');
+    print('ORDINE GA VOCE GA.06: frasi guardate $frasiGuardate, corpora con '
+        'troppe frasi a stampo ${troppe.length}');
+    expect(troppe, isEmpty, reason: troppe.join('\n'));
+  });
+
   test('a video, il "Da dove viene" non rimanda e non ripete', () {
     // I rimandi a parti che il responso non ha (oroscopo-22, 24, 25, 27,
     // 37, 39, 42, 44: "i tre migliori, qui sopra"), le righe del dio che
     // dicono il simbolo senza spiegarlo ("Per il lavoro: doma
     // l'Ufficiale.", oroscopo-34, 35, 36, 38, 40) e la spiegazione dello
     // stesso dio due volte di fila (oroscopo-34, 36).
-    final rimando = RegExp(r'(qui sopra|qui sotto|più sopra|più sotto|'
-        r'vedi sopra|vedi sotto|leggi sopra)', caseSensitive: false);
-    final criptica = RegExp(
-        r'(Per il (lavoro|legame|denaro|giorno): |è la Sade Sati\.|'
-        r'Il guardiano di oggi è [A-Z]|è di turno, come pressione)');
+    final rimando = RegExp(
+        r'(qui sopra|qui sotto|più sopra|più sotto|'
+        r'vedi sopra|vedi sotto|leggi sopra)',
+        caseSensitive: false);
+    final criptica =
+        RegExp(r'(Per il (lavoro|legame|denaro|giorno): |è la Sade Sati\.|'
+            r'Il guardiano di oggi è [A-Z]|è di turno, come pressione)');
+    // **IL GERGO NON SPIEGATO**, dal secondo lettore cieco (21 ottobre
+    // 2026): "angolare" e "cadente" senza dire che cosa sono (oroscopo-13,
+    // 14, 15, 16), il "metodo del Giorno" e "la scheda dell'amore", gergo di
+    // prodotto (22, 24, 25, 27, 34, 37, 39, 42, 44), Saturno senza il quando
+    // (31), le elisioni mancanti ("del 8 marzo", "la undicesima": 28, 32), la
+    // direzione del dio senza un uso (36).
+    final gergo = RegExp(
+        r"((?<!una casa )(angolare|succedente|cadente)\b|metodo del Giorno|"
+        // Saturno senza il quando: in testa alla riga o subito dopo l'arco
+        // dell'anno, che finisce con l'anno ("... al 5 febbraio 2027.").
+        r"[Ss]cheda dell'amore|(^|\d{4}\. )Saturno era in|"
+        r"\b(del|dal|al) (8|11) [a-z]|\b(del|dal|al)'\d|\bCon(il|la|lo)\b|"
+        r"\b(la|nella|della|dalla) "
+        r"(undicesima|ottava)\b|oggi sta a [a-z\-]+\.)");
     final colpe = <String>[];
     var righe = 0;
-    void guarda(String dove, String? daDove) {
+    void guarda(String dove, String? daDove, {bool senzaOra = false}) {
       if (daDove == null) return;
       righe++;
-      final m = rimando.firstMatch(daDove) ?? criptica.firstMatch(daDove);
+      final m = rimando.firstMatch(daDove) ??
+          criptica.firstMatch(daDove) ??
+          gergo.firstMatch(daDove);
       if (m != null) colpe.add('$dove: «${m.group(0)}» in «$daDove»');
+      // **L'ASCENDENTE CHIEDE L'ORA DI NASCITA** (secondo lettore cieco,
+      // oroscopo-4 e 13): chi non l'ha data non lo legge.
+      if (senzaOra && daDove.contains('Ascendente')) {
+        colpe.add('$dove: l\'Ascendente senza l\'ora di nascita «$daDove»');
+      }
       // Lo stesso dio del BaZi nominato due volte nella stessa riga: e' la
       // sua spiegazione ripetuta.
       for (final dio in const [
@@ -225,19 +288,25 @@ void main() {
           for (final lunga in const [false, true]) {
             final nome = '${persona.nome} ${oggi.day}/${oggi.month} ${t.name} '
                 '${lunga ? 'Lunga' : 'Breve'}';
+            final senzaOra = !persona.conCarta;
             for (final c in persona.giorno(t, oggi, lunga: lunga)) {
-              guarda('$nome Giorno ${c.domain.label}',
-                  c.responso?.daDoveViene);
+              guarda('$nome Giorno ${c.domain.label}', c.responso?.daDoveViene,
+                  senzaOra: senzaOra);
             }
             for (final mese in const [false, true]) {
               for (final d in persona.periodo(t, oggi, mese: mese).domini) {
                 guarda(
                     '$nome ${mese ? 'Mese' : 'Settimana'} ${d.dominio.label}',
-                    d.responso(t, mese: mese, lunga: lunga).daDoveViene);
+                    d.responso(t, mese: mese, lunga: lunga).daDoveViene,
+                    senzaOra: senzaOra);
               }
             }
+            // L'anno occidentale, come nell'app, solo per chi ha l'ora
+            // (`OroscopoScreen._lAnno`).
+            if (t == TradizioneEu.occidentale && senzaOra) continue;
             for (final c in persona.anno(t, oggi, lunga: lunga)) {
-              guarda('$nome Anno ${c.domain.label}', c.responso?.daDoveViene);
+              guarda('$nome Anno ${c.domain.label}', c.responso?.daDoveViene,
+                  senzaOra: senzaOra);
             }
           }
         }

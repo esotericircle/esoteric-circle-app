@@ -27,10 +27,10 @@ percio' le lunghezze nuove.
 | --- | --- | --- | --- |
 | Arcano dell'Alba, Medora | 528 | 62 | 84 |
 | Arcano dell'Alba, il dono | 528 | 91 | 116 |
-| Oroscopo, scheda «amore» | 4392 | 550 | 596 |
+| Oroscopo, scheda «amore» | 4392 | 556 | 596 |
 | Oroscopo, scheda «carriera» | 4392 | 533 | 577 |
 | Oroscopo, scheda «fortuna» | 4392 | 528 | 597 |
-| Oroscopo, scheda «generale» | 4392 | 524 | 596 |
+| Oroscopo, scheda «generale» | 4392 | 525 | 596 |
 | Rito dell'Alba, il gesto | 366 | 106 | 157 |
 | Rito dell'Alba, la parola | 366 | 6 | 9 |
 | Rune, presagio Lungo della gettata «croce» | 200 | 1047 | 1110 |

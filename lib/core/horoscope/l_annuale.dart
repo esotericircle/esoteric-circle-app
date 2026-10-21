@@ -68,11 +68,48 @@ abstract final class LAnnuale {
         _ => 1, // 3, 6, 9, 12
       };
 
+  /// Il tipo della casa, detto con la sua spiegazione: "angolare" da solo era
+  /// gergo che chi legge non sa leggere (secondo lettore cieco, ordine GA
+  /// voce GA.06, oroscopo-13, 14, 15 e 16).
   static String _tipo(int casa) => switch (forza(casa)) {
-        3 => 'angolare',
-        2 => 'succedente',
-        _ => 'cadente',
+        3 => 'una casa angolare, quelle in cui la tradizione vede i pianeti '
+            'più forti',
+        2 => 'una casa succedente, quelle in cui la tradizione vede i '
+            'pianeti con una buona forza, subito dopo le angolari',
+        _ => 'una casa cadente, quelle in cui la tradizione vede i pianeti '
+            'più deboli',
       };
+
+  static const List<String> _mesi = [
+    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
+    'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+  ];
+
+  /// "dal 24 novembre 2025", "dall'8 marzo 2026", "dall'11 aprile 2026".
+  static String _dal(DateTime g) {
+    final apostrofo = g.day == 8 || g.day == 11;
+    return '${apostrofo ? 'dall\'' : 'dal '}${g.day} ${_mesi[g.month - 1]} '
+        '${g.year}';
+  }
+
+  /// "al 23 novembre 2026", "all'8 marzo 2027".
+  static String _al(DateTime g) {
+    final apostrofo = g.day == 8 || g.day == 11;
+    return '${apostrofo ? 'all\'' : 'al '}${g.day} ${_mesi[g.month - 1]} '
+        '${g.year}';
+  }
+
+  /// **L'ARCO DELL'ANNO**, in testa al "Da dove viene" di ogni scheda: dal
+  /// compleanno al giorno prima del compleanno dopo. Secondo lettore cieco
+  /// (ordine GA voce GA.06, oroscopo-16): un anno che finisce fra cinque
+  /// settimane si leggeva come se cominciasse, perche' la scheda non diceva
+  /// dove cade l'anno. L'anno cinese lo diceva gia' ("L'anno del Cavallo va
+  /// dal ... al ...").
+  static String arco(DateTime primoGiorno) {
+    final dopo =
+        DateTime(primoGiorno.year + 1, primoGiorno.month, primoGiorno.day - 1);
+    return 'Il tuo anno va ${_dal(primoGiorno)} ${_al(dopo)}.';
+  }
 
   /// **DOVE STA IL PIANETA, E QUANTO CONTA**: la riga che la Lunga aggiunge
   /// al "da dove viene" dell'Amore e della Fortuna. Il segno e la casa sono
@@ -86,8 +123,8 @@ abstract final class LAnnuale {
     final peso = switch (forza(casa)) {
       3 => 'una casa angolare, dove per la tradizione il pianeta è fra i '
           'protagonisti dell\'anno',
-      2 => 'una casa succedente, dove per la tradizione il pianeta lavora '
-          'in secondo piano',
+      2 => 'una casa succedente, dove per la tradizione il pianeta ha una '
+          'buona forza, subito dopo le angolari',
       _ => 'una casa cadente, dove per la tradizione il pianeta resta sullo '
           'sfondo',
     };
@@ -168,8 +205,6 @@ abstract final class LAnnuale {
     final (_, lunaDaDove) = frase(OroscopoAnnualeData.luna[casaLuna - 1]);
     final (_, venereDaDove) = frase(OroscopoAnnualeData.venere[casaVenere - 1]);
     final (_, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
-    final (_, saturnoDaDove) =
-        frase(OroscopoAnnualeData.saturno[casaSaturno - 1]);
     final (_, gioveDaDove) = frase(OroscopoAnnualeData.giove[casaGiove - 1]);
 
     /// Il "da dove viene" che si legge sempre e cio' che la Lunga aggiunge;
@@ -184,10 +219,17 @@ abstract final class LAnnuale {
       required String delLivello,
       required int livello,
       required String metodo,
+      String? delLivelloNellaLunga,
     }) {
       final voce = voceDi(d, livello);
-      final cielo = LePartiDelResponso.insieme(
-          [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]);
+      // L'arco dell'anno in testa; nella Lunga, dove la riga del pianeta ha
+      // gia' spiegato che casa e', il livello si dice senza ripeterla.
+      final cielo = LePartiDelResponso.insieme([
+        arco(primoGiorno),
+        daDove,
+        if (lunga(d)) ...daDoveInPiu,
+        lunga(d) ? (delLivelloNellaLunga ?? delLivello) : delLivello,
+      ]);
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
         tradizione: TradizioneEu.occidentale,
@@ -229,6 +271,7 @@ abstract final class LAnnuale {
           daDoveInPiu: [doveSta('Venere', CorpoCeleste.venere, tema)],
           delLivello: 'Il livello viene da Venere nella casa $casaVenere, '
               '${_tipo(casaVenere)}.',
+          delLivelloNellaLunga: 'Il livello viene da questa casa di Venere.',
           livello: 2 + forza(casaVenere),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
@@ -236,14 +279,25 @@ abstract final class LAnnuale {
           daDove: mcDaDove.isEmpty
               ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
               : mcDaDove,
-          daDoveInPiu: [saturnoDaDove],
+          // Terzo lettore cieco (ordine GA voce GA.06, oroscopo-15): la riga
+          // della casa di Saturno parlava di legami e lealta' dentro una
+          // lettura di lavoro. Nel lavoro Saturno conta per quanto e' in
+          // vista, e la Lunga dice dove sta e quanto pesa.
+          daDoveInPiu: [doveSta('Saturno', CorpoCeleste.saturno, tema)],
+          // Terzo lettore cieco indipendente: "più è in vista, più il lavoro
+          // chiede" non diceva che cosa vuol dire "in vista" ne' perche'
+          // Saturno pesa sul lavoro.
+          delLivelloNellaLunga: 'Per il lavoro conta proprio questo, perché '
+              'Saturno è il pianeta dei doveri: più forte è la sua casa, più '
+              'l\'anno di lavoro chiede impegno.',
           // Fonte, ordine EV voce EV.08, verifica dell'Architetto (O-A-003):
           // le case angolari, succedenti e cadenti e la forza delle angolari
           // sono di William Lilly, Christian Astrology (1647), libro I, le
           // dignita' accidentali. Dalla casa al livello e' una regola
           // dell'app, e la nota dell'anno lo dice.
           delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
-              '${_tipo(casaSaturno)}: più è in vista, più il lavoro chiede.',
+              '${_tipo(casaSaturno)}. Saturno è il pianeta dei doveri: più '
+              'forte è la sua casa, più l\'anno di lavoro chiede impegno.',
           // Saturno angolare: l'anno chiede fatica.
           livello: 6 - forza(casaSaturno),
           metodo: '${OroscopoAnnualeData.notaDomini} '
@@ -256,6 +310,7 @@ abstract final class LAnnuale {
           daDoveInPiu: [doveSta('Giove', CorpoCeleste.giove, tema)],
           delLivello: 'Il livello viene da Giove nella casa $casaGiove, '
               '${_tipo(casaGiove)}.',
+          delLivelloNellaLunga: 'Il livello viene da questa casa di Giove.',
           livello: 2 + forza(casaGiove),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),

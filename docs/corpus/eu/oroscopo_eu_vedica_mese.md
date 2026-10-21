@@ -19,19 +19,19 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Questo è un mese favorevole agli inizi, soprattutto a quelli che continui a rimandare. Una lingua, uno strumento, un lavoro delle mani: ciò che vuoi imparare trova adesso tempo ed energia. Smettere di aspettare il momento perfetto conviene in queste settimane, perché il primo passo pesa meno del solito.
 - Che cosa fare: Scegli oggi una sola cosa da imparare e trova entro tre giorni il modo di cominciare: una lezione di prova, un manuale preso in biblioteca, una persona esperta che conosci. Fissa venti minuti di pratica sempre alla stessa ora e segna sul calendario ogni volta che li rispetti.
-- Risposta, Lunga: Ciò che parte con il passo giusto trova la forza di continuare: per questo il tempo del cominciare ha un valore suo. Una data scritta pesa più di cento propositi. Attenzione alla seconda settimana, quando l'entusiasmo cala: lì conta la regolarità più dello slancio iniziale.
+- Risposta, Lunga: Ciò che parte con il passo giusto trova la forza di continuare: per questo il tempo del cominciare ha un valore suo. Una data scritta pesa più di cento propositi. Nella seconda settimana l'entusiasmo di solito cala: lì conta la regolarità più dello slancio iniziale.
 
 #### Generale, favorevole, voce 3: Tavole di nuovo piene
 
 - Risposta: Il mese è propizio agli incontri e alle tavole di nuovo piene. Se ci sono persone care che vedi meno di quanto vorresti, adesso rimetterle intorno a un tavolo riesce più semplice del solito. Il clima di queste settimane premia chi fa il primo passo invece di aspettarlo.
 - Che cosa fare: Scrivi oggi a tre persone che senti poco e proponi un incontro con due date precise nelle prossime due settimane e un luogo comodo per tutti. Un invito con giorno e ora riceve più risposte di un vago ci vediamo. A fine serata fissate già la volta successiva.
-- Risposta, Lunga: I legami lunghi non si spengono per mancanza di affetto ma per mancanza di occasioni. Una sera preparata con cura fa riprendere i discorsi da dove si erano fermati. Il rischio è lasciare sempre alla stessa persona il peso di organizzare: se l'impegno passa di mano, il gruppo resta vivo.
+- Risposta, Lunga: I legami lunghi non si spengono per mancanza di affetto ma per mancanza di occasioni. Una sera preparata con cura fa riprendere i discorsi da dove si erano fermati. Se organizza sempre la stessa persona, tutto pesa su una spalla sola: quando l'impegno passa di mano, il gruppo resta vivo.
 
 #### Generale, favorevole, voce 4: Mattine da costruire
 
 - Risposta: È un buon mese per cambiare un'abitudine: la prima da rinnovare è il risveglio. Se le tue mattine corrono in fretta fra telefono e commissioni, in queste settimane hai l'energia per dare all'inizio della giornata una forma nuova, più lenta e più tua. Basta un gesto ripetuto.
 - Che cosa fare: Da domani punta la sveglia venti minuti prima e usali per una cosa sola: una camminata, una pagina scritta, una colazione con calma. Prepara la sera prima ciò che ti serve. Segna ogni mattina mantenuta e, se ne salti una, riprendi il giorno dopo senza recuperi.
-- Risposta, Lunga: Un'abitudine nuova ha bisogno di ripetizione più che di slancio: trenta mattine uguali scavano un solco che regge anche nei periodi pieni. Attenzione ai rimproveri dopo una mattina saltata, perché pesano più dello sbaglio. La costanza si misura sul mese intero, non sul singolo giorno.
+- Risposta, Lunga: Un'abitudine nuova ha bisogno di ripetizione più che di slancio: trenta mattine uguali scavano un solco che regge anche nei periodi pieni. Una mattina saltata non merita rimproveri: il rimprovero pesa più dello sbaglio. La costanza si misura sul mese intero, non sul singolo giorno.
 
 ### Generale, In equilibrio (livello 3)
 
@@ -45,13 +45,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è tranquillo e adatto a finire più che a cominciare. Se in casa o fuori restano lavori avviati e mai chiusi, un armadio svuotato a metà, un album di fotografie fermo, una pratica iniziata, chiuderli adesso libera spazio ed energia per ciò che viene dopo.
 - Che cosa fare: Scrivi oggi su un foglio tutte le cose rimaste a metà e scegline due da chiudere entro la fine del mese. Per ciascuna fissa una data e il primo gesto concreto, come comprare il pezzo mancante o chiamare l'ufficio giusto. Ogni idea nuova aspetta che quelle due siano finite.
-- Risposta, Lunga: Portare a termine ciò che è avviato vale quanto cominciare: ogni lavoro chiuso restituisce un po' di energia e toglie un peso che non vedevi. Attenzione alla tentazione di aprire una cosa nuova a metà strada. Finita una delle due, fermati a guardarla prima di cancellarla dal foglio.
+- Risposta, Lunga: Portare a termine ciò che è avviato vale quanto cominciare: ogni lavoro chiuso restituisce un po' di energia e toglie un peso che non vedevi. Aprire una cosa nuova a metà strada è una tentazione da lasciar passare. Finita una delle due, fermati a guardarla prima di cancellarla dal foglio.
 
 #### Generale, equilibrio, voce 3: Aria nella routine
 
 - Risposta: Il mese scorre sereno e senza scosse, ma chiede un po' d'aria nella routine. Quando le giornate si somigliano, il rischio è passare dalla casa agli impegni senza mai un tempo all'aperto che sia soltanto tuo. Queste settimane premiano un appuntamento fisso con l'esterno, anche breve.
 - Che cosa fare: Scegli oggi un percorso a piedi vicino a casa, come un parco o una strada alberata. Fissa due uscite ogni settimana alla stessa ora. Esci senza cuffie e senza fretta. A ogni passeggiata nota una cosa nuova lungo la strada e scrivila la sera, prima di cena.
-- Risposta, Lunga: Un'abitudine all'aperto dà alle settimane tranquille un punto fermo che le distingue una dall'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Il segno che funziona: dopo qualche uscita ti accorgi di aspettarla, invece di doverti convincere a farla.
+- Risposta, Lunga: Un'abitudine all'aperto dà alle settimane tranquille un punto fermo che le distingue una dall'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Se dopo qualche uscita ti ritrovi ad aspettarla invece di doverti convincere a farla, l'abitudine ha attecchito.
 
 #### Generale, equilibrio, voce 4: Sere alterne
 
@@ -63,9 +63,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Generale, salita, voce 1: Pesi da condividere
 
-- Risposta: Il mese è faticoso e porta più pesi di quanti convenga reggere senza aiuto. La trappola è stringere i denti e arrivare in fondo alle settimane con le energie esaurite. Chiedere una mano, adesso, è la mossa giusta: non è debolezza ma buon senso.
+- Risposta: Il mese è faticoso e porta più pesi di quanti convenga reggere senza aiuto. Stringere i denti da soli porta in fondo alle settimane con le energie esaurite. Chiedere una mano, adesso, è la mossa giusta: non è debolezza ma buon senso.
 - Che cosa fare: Scrivi oggi tre cose concrete che ti costano fatica e accanto a ciascuna il nome di chi potrebbe aiutarti: una commissione, una faccenda di casa, un passaggio. Entro dieci giorni chiedi almeno una di queste con una richiesta precisa e offri qualcosa in cambio.
-- Risposta, Lunga: Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Ti accorgi che funziona quando alla fine della settimana ti resta un'ora in più da usare per riposare davvero.
+- Risposta, Lunga: Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Un'ora in più per riposare davvero, alla fine di ogni settimana, dice che la richiesta d'aiuto ha funzionato.
 
 #### Generale, salita, voce 2: Attriti di casa
 
@@ -76,14 +76,14 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Generale, salita, voce 3: Tempi che si allungano
 
 - Risposta: È un mese lento, con attese più lunghe del previsto. Una riparazione, una pratica in un ufficio, una risposta che doveva arrivare: ciò che dipende da altri tende a tardare. Non è un blocco ma un rallentamento, che chiede un margine più largo in ogni cosa che organizzi.
-- Che cosa fare: Fai oggi l'elenco di ciò che stai aspettando e accanto a ogni voce scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.
+- Che cosa fare: Fai oggi l'elenco di ciò che stai aspettando e accanto a ogni attesa scrivi chi può darti notizie. Sollecita con un messaggio cortese le due attese più vecchie e annota la data. Per ciò che organizzi da adesso calcola tempi più ampi e avvisa chi aspetta qualcosa da te.
 - Risposta, Lunga: Nelle attese il rischio è riempire il vuoto di supposizioni e di nervosismo. La tradizione indiana chiede di fare con cura la propria parte e di lasciare al resto il suo tempo. Se una data salta per ragioni non tue, scegli quella nuova senza restare in sospeso.
 
 #### Generale, salita, voce 4: Il rumore di fondo
 
 - Risposta: Mese faticoso per la concentrazione, con troppo rumore intorno. Messaggi, notizie e discussioni di gruppo alzano un brusio continuo che sposta l'umore e disperde le energie. Basta poco per chiudere la sera con la testa piena e la sensazione di non aver concluso niente.
 - Che cosa fare: Scegli da oggi due momenti fissi per leggere chat e notizie, uno a metà mattina e uno verso sera. Togli le notifiche dalle applicazioni che ti agitano. Sostituisci il primo sguardo al telefono del mattino con un gesto lento, come aprire la finestra o preparare il tè.
-- Risposta, Lunga: La mente ha bisogno di silenzi per mettere ordine, come una stanza ha bisogno di aria. Quando le voci esterne diminuiscono, ciò che conta torna in primo piano e le scelte si fanno nitide. Attenzione ai primi giorni: la voglia di controllare tutto è forte, poi si quieta.
+- Risposta, Lunga: La mente ha bisogno di silenzi per mettere ordine, come una stanza ha bisogno di aria. Quando le voci esterne diminuiscono, ciò che conta torna in primo piano e le scelte si fanno nitide. Nei primi giorni la voglia di controllare tutto si fa sentire forte, poi si quieta.
 
 ## Amore
 
@@ -98,14 +98,14 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 2: Una porta da spingere
 
 - Risposta: Il mese è favorevole ai primi passi in amore, con un clima leggero che toglie timidezza. Se sei senza legame e qualcuno ti incuriosisce, una porta si apre se la spingi con garbo; se vivi una relazione, è il momento di proporre qualcosa che non avete mai fatto insieme.
-- Che cosa fare: Entro dieci giorni fai una proposta concreta con giorno, ora e luogo, senza aspettare che arrivi dall'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.
+- Che cosa fare: Entro dieci giorni fai una proposta concreta con giorno, orario e luogo, senza aspettare che arrivi dall'altra parte: un invito a cena, una mostra, una passeggiata serale. Chi è senza legame può scegliere un contesto con altre persone intorno, che toglie la tensione del primo appuntamento.
 - Risposta, Lunga: C'è un momento per cominciare e uno per insistere: adesso è il primo. Una proposta precisa mostra interesse senza bisogno di spiegarlo e lascia all'altra persona la libertà di rispondere. Se il sì arriva, prepara il secondo incontro con la stessa cura del primo, senza cambiare tono.
 
 #### Amore, favorevole, voce 3: Parole calde senza difese
 
 - Risposta: Il mese è propizio a dire in amore ciò che di solito resta taciuto. Le parole trovano un tono caldo e arrivano senza difese: un desiderio, un apprezzamento, una richiesta di vicinanza suonano naturali. Vale per chi ha un legame e per chi sta conoscendo qualcuno di nuovo.
 - Che cosa fare: Scegli entro una settimana una cosa vera che non hai mai detto e dilla a voce, guardando negli occhi, in un momento tranquillo. Se sei in coppia, parla di un desiderio che riguarda voi due; se sei senza legame, esprimi interesse a chi ti piace con una frase semplice.
-- Risposta, Lunga: Nei legami molte distanze nascono da ciò che si dà per scontato. Una parola detta con calore mette in luce ciò che c'è già e invita l'altra persona a rispondere sullo stesso piano. Il pericolo è caricarla di attese: dilla per il piacere di dirla, senza chiedere subito qualcosa indietro.
+- Risposta, Lunga: Nei legami molte distanze nascono da ciò che si dà per scontato. Una parola detta con calore mette in luce ciò che c'è già e invita l'altra persona a rispondere sullo stesso piano. Non caricarla di attese: dilla per il piacere di dirla, senza chiedere subito qualcosa indietro.
 
 #### Amore, favorevole, voce 4: Il futuro che desideri
 
@@ -130,14 +130,14 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, equilibrio, voce 3: La bilancia del dare
 
 - Risposta: In amore il mese è stabile e adatto a guardare l'equilibrio fra dare e ricevere. Nella vita sentimentale chi offre sempre per primo finisce per svuotarsi, chi riceve senza accorgersene si abitua. Queste settimane calme aiutano a rimettere in pari la bilancia senza rancore e senza scenate.
-- Che cosa fare: Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi risponde soltanto quando conviene a quella persona.
+- Che cosa fare: Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi si fa vivo solo quando gli fa comodo.
 - Risposta, Lunga: L'affetto è anche uno scambio fatto con giustizia: dare senza misura alla lunga sfinisce chi dà e impigrisce chi riceve. Rimettere confini chiari protegge proprio il legame che ti sta a cuore. Se il conto resta sbilanciato, parlane a voce, con un esempio preciso e nessun elenco di torti.
 
 #### Amore, equilibrio, voce 4: Gesti piccoli e regolari
 
 - Risposta: Sereno e regolare, il mese in amore procede senza grandi slanci e senza scosse. È il tempo dei gesti piccoli ripetuti con costanza: un messaggio a metà giornata, un'attenzione inattesa, una cura per il proprio aspetto che non aspetta un'occasione speciale. Contano più delle grandi dichiarazioni.
 - Che cosa fare: Scegli un gesto piccolo e ripetilo ogni settimana fino alla fine del mese. Se vivi una relazione, lascia all'altra persona un biglietto o prepara ciò che le piace senza motivo. Se sei senza legame, dedica una sera a qualcosa che ti fa sentire a tuo agio e attraente.
-- Risposta, Lunga: Nei periodi quieti i legami si nutrono di continuità più che di sorprese. Un gesto ripetuto diventa un linguaggio: dice ci sono senza bisogno di dichiararlo. Anche per chi cerca, prendersi cura di sé con regolarità cambia il modo di stare negli incontri. L'errore tipico è trasformarlo in dovere.
+- Risposta, Lunga: Nei periodi quieti i legami si nutrono di continuità più che di sorprese. Un gesto ripetuto diventa un linguaggio: dice ci sono senza bisogno di dichiararlo. Anche per chi cerca, prendersi cura di sé con regolarità cambia il modo di stare negli incontri. Basta che non diventi un dovere.
 
 ### Amore, In salita (livello 2 e sotto)
 
@@ -163,7 +163,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: In amore è un mese faticoso, in cui gelosie e insicurezze si accendono facilmente. Un ritardo, un silenzio, uno sguardo altrove: piccoli segnali diventano sospetti. Se vivi una relazione, conviene parlarne prima che diventi accusa; se sei senza legame, attenzione a non leggere rifiuti dove c'è soltanto distrazione.
 - Che cosa fare: Quando senti la gelosia salire, scrivi il fatto preciso che l'ha accesa e separalo da ciò che immagini. Se hai una relazione, parlane a voce partendo da ciò che provi, senza interrogatori. Se sei senza legame, prima di trarre conclusioni su qualcuno aspetta un secondo segnale.
-- Risposta, Lunga: La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Il segno che stai facendo bene è semplice: dopo averne parlato il respiro torna più largo e i pensieri smettono di girare.
+- Risposta, Lunga: La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Se dopo averne parlato il respiro torna più largo e i pensieri smettono di girare, hai scelto la strada giusta.
 
 ## Carriera
 
@@ -171,9 +171,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 1: Farsi avanti con garbo
 
-- Risposta: Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Se c'è un incarico, un ruolo o un progetto che ti interessa, adesso conta proporsi senza giri di parole. Vale per chi lavora, per chi studia e per chi cerca: una richiesta precisa ottiene più ascolto.
-- Che cosa fare: Scrivi in mezza pagina che cosa vuoi fare e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni chiedi un colloquio a chi decide, oppure invia la tua candidatura se stai cercando. Porta il foglio con te e lascia una proposta precisa.
-- Risposta, Lunga: Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico chiesto adesso parte col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa subito tre traguardi entro la fine del mese e condividili con chi ti ha dato fiducia.
+- Risposta: Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Vale per chi lavora, per chi studia, per chi cerca e per chi porta avanti un progetto personale o un impegno scelto: una richiesta o una proposta precisa di solito trova più ascolto.
+- Che cosa fare: Scrivi in mezza pagina che cosa vuoi proporre e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni, se lavori o studi, portala a chi decide; se cerchi, invia una candidatura; se il progetto è tuo, presentalo a chi può sostenerlo, come un gruppo o un'associazione.
+- Risposta, Lunga: Ci sono settimane adatte a cominciare e settimane adatte a proseguire: queste sono adatte a cominciare. Una proposta fatta adesso può partire col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa tre traguardi da raggiungere entro la fine del mese e condividili con chi ti sostiene.
 
 #### Carriera, favorevole, voce 2: Dieci nomi da riprendere
 
@@ -191,7 +191,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è favorevole nel lavoro per far riconoscere il valore di ciò che fai. Chi decide è più disposto ad ascoltare una richiesta ben preparata e documentata. Se svolgi compiti che vanno oltre il tuo ruolo, queste settimane sono adatte a nominarli con garbo e con dati concreti.
 - Che cosa fare: Raccogli in un elenco i risultati ottenuti di recente, con un fatto misurabile accanto a ciascuno. Se lavori alle dipendenze, chiedi un incontro a chi decide entro tre settimane e proponi una formula precisa; altrimenti usa lo stesso elenco per aggiornare il curriculum o la presentazione.
-- Risposta, Lunga: La parola mantenuta nel tempo costruisce un credito silenzioso. Ora quel credito si può nominare: non per pretendere, ma per allineare ciò che fai ogni giorno a come viene riconosciuto. Attenzione al tono, perché una richiesta che suona come lamentela perde forza anche quando è giusta.
+- Risposta, Lunga: La parola mantenuta nel tempo costruisce un credito silenzioso. Ora quel credito si può nominare: non per pretendere, ma per allineare ciò che fai ogni giorno a come viene riconosciuto. Conta il tono: una richiesta che suona come lamentela perde forza anche quando è giusta.
 
 ### Carriera, In equilibrio (livello 3)
 
@@ -199,7 +199,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro è un mese stabile, di scelte più che di spinte. Il periodo non accelera e non frena: premia chi concentra le forze su pochi impegni e li porta avanti con ordine. Se hai molti fronti aperti, ognuno rischia di avanzare di poco.
 - Che cosa fare: Elenca adesso tutti gli impegni di lavoro o di studio in corso e cerchia i tre che contano di più per queste settimane. Per gli altri fissa una data realistica di ripresa e comunicala a chi aspetta. Ogni settimana dedica un quarto d'ora a controllare i tre scelti.
-- Risposta, Lunga: Ogni periodo ha la sua misura: quella di queste settimane è stretta e precisa. Meglio un lavoro finito con cura che sette cominciati con entusiasmo e lasciati a metà. Attenzione alle richieste urgenti degli altri, che rischiano di riaprire i fronti messi da parte.
+- Risposta, Lunga: Ogni periodo ha la sua misura: quella di queste settimane è stretta e precisa. Meglio un lavoro finito con cura che sette cominciati con entusiasmo e lasciati a metà. Le richieste urgenti degli altri possono riaprire i fronti messi da parte: valutale prima di dire sì.
 
 #### Carriera, equilibrio, voce 2: Confini chiari fra compiti
 
@@ -225,7 +225,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro il mese è in salita: i tempi tendono ad allungarsi oltre le promesse. Un passaggio si complica, una risposta tarda, una parte richiede più del previsto. Se una consegna o un esame rischia di slittare, adesso conta l'onestà, prima che il ritardo diventi una sorpresa sgradita.
 - Che cosa fare: Calcola con realismo quanto tempo ti serve davvero per ciò che hai in corso. Se rischi un ritardo, scrivi entro pochi giorni a chi attende, spiega il motivo in due righe e proponi una data nuova che sai rispettare, tenendo tre giorni di margine.
-- Risposta, Lunga: Una parola mantenuta vale molto, ma una parola corretta in tempo vale quasi altrettanto. Chi avvisa presto conserva la fiducia, chi tace fino all'ultimo la consuma anche quando il lavoro arriva fatto bene. Attenzione a non promettere una data troppo vicina soltanto per accontentare.
+- Risposta, Lunga: Una parola mantenuta vale molto, ma una parola corretta in tempo vale quasi altrettanto. Chi avvisa presto conserva la fiducia, chi tace fino all'ultimo la consuma anche quando il lavoro arriva fatto bene. Meglio non promettere una data troppo vicina soltanto per accontentare.
 
 #### Carriera, salita, voce 2: Ordine davanti alle modifiche
 
@@ -251,9 +251,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, favorevole, voce 1: Inviti alla luce
 
-- Risposta: Il mese porta buona sorte alle occasioni che hai già a portata di mano. Inviti lasciati senza risposta, proposte messe da parte, messaggi letti di fretta: fra queste cose dimenticate può nascondersi qualcosa di buono. Adesso hai la lucidità e la calma per riconoscerlo.
-- Che cosa fare: Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso. Segna in una lista breve quelli che ti incuriosiscono ancora e rispondi ai due più promettenti entro pochi giorni, con una domanda concreta su tempi e modi.
-- Risposta, Lunga: La buona sorte, molte volte, non arriva da lontano: passa vicino e aspetta soltanto uno sguardo attento. Rimettere in fila ciò che hai ricevuto è come accendere una lampada in una stanza attraversata sempre di corsa. Attenzione a non rispondere a tutto insieme: scegli, poi agisci.
+- Risposta: Il mese porta buona sorte alle occasioni che hai già a portata di mano. Se fra i tuoi messaggi restano inviti senza risposta o proposte messe da parte, lì può nascondersi qualcosa di buono; altrimenti cercala fra le persone e i luoghi di sempre.
+- Che cosa fare: Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso: rispondi ai due che ti incuriosiscono di più con una domanda concreta su tempi e modi. Se non trovi nulla, chiedi a due persone di fiducia se hanno in vista qualcosa che fa per te.
+- Risposta, Lunga: La buona sorte, molte volte, non arriva da lontano: passa vicino e aspetta soltanto uno sguardo attento. Rimettere in fila ciò che hai ricevuto è come accendere una lampada in una stanza attraversata sempre di corsa. Rispondere a tutto insieme disperde l'effetto: scegli poche cose, poi agisci con calma.
 
 #### Fortuna, favorevole, voce 2: Porte vicine
 
@@ -279,13 +279,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la sorte è un mese stabile, che premia chi fa spazio. Se in casa ci sono oggetti fermi da tempo, in cantina, sopra gli armadi o in un cassetto, occupano posto e non danno nulla: rimetterli in circolo può smuovere anche le occasioni.
 - Che cosa fare: Dedica due pomeriggi del mese, il primo già questa settimana, a svuotare uno spazio alla volta. Dividi tutto in tre scatole: da tenere, da regalare, da portare a un'associazione. Offri prima le cose utili a vicini e conoscenti, scrivendo a chi può averne bisogno.
-- Risposta, Lunga: Ciò che sta fermo pesa anche quando non lo vedi. Liberare un angolo restituisce spazio e chiarezza, mentre gli oggetti che ripartono trovano chi li aspettava e a volte tornano indietro sotto forma di favori, contatti, inviti. Attenzione a non riempire di nuovo lo spazio liberato: lascialo respirare.
+- Risposta, Lunga: Ciò che sta fermo pesa anche quando non lo vedi. Liberare un angolo restituisce spazio e chiarezza, mentre gli oggetti che ripartono trovano chi li aspettava e a volte tornano indietro sotto forma di favori, contatti, inviti. Lo spazio liberato non va riempito subito: lascialo respirare.
 
 #### Fortuna, equilibrio, voce 2: Favori nel cassetto
 
 - Risposta: Il mese è quieto per la sorte: la buona occasione sta in ciò che ti è già stato offerto. Un aiuto promesso, un contatto suggerito, un invito del tipo se ti serve chiamami: restano fermi nel cassetto finché non li usi, poi si spengono.
 - Che cosa fare: Ripensa in questi giorni alle offerte di aiuto ricevute di recente e annotale con il nome di chi le ha fatte. Scegline una che oggi ti servirebbe davvero e richiama quella persona entro dieci giorni, con una domanda semplice e precisa.
-- Risposta, Lunga: Un'offerta lasciata cadere è come una lampada spenta in un angolo: c'è, ma non illumina nulla. Chi ha detto chiamami di solito lo pensava davvero e ricorda volentieri la promessa. Attenzione a chiedere troppo in una volta: un favore piccolo apre la strada ai successivi.
+- Risposta, Lunga: Un'offerta lasciata cadere è come una lampada spenta in un angolo: c'è, ma non illumina nulla. Chi ha detto chiamami di solito lo pensava davvero e ricorda volentieri la promessa. Chiedere troppo in una volta chiude porte: un favore piccolo apre la strada ai successivi.
 
 #### Fortuna, equilibrio, voce 3: Saperi in scambio
 
@@ -297,7 +297,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la fortuna il mese è calmo: niente colpi di scena, ma piccole aperture per chi chiede. Un'informazione domandata al momento giusto, un consiglio chiesto a chi conosce un ambiente, una curiosità detta ad alta voce: in queste settimane la buona sorte passa soprattutto dalle domande.
 - Che cosa fare: Scegli una cosa che vorresti trovare: un luogo, un'attività, un contatto utile. Ogni settimana fanne parola a una persona diversa che può saperne qualcosa. Annota ogni risposta ricevuta accanto al nome di chi te l'ha data. Segui subito la pista più concreta, prima che si raffreddi.
-- Risposta, Lunga: Molte occasioni restano invisibili soltanto perché nessuno le ha chieste. Una domanda semplice mette in moto la memoria e la disponibilità degli altri, che spesso aspettano proprio un pretesto per aiutare. Attenzione a non chiedere a tutti la stessa cosa insieme: lascia alle risposte il tempo di arrivare.
+- Risposta, Lunga: Molte occasioni restano invisibili soltanto perché nessuno le ha chieste. Una domanda semplice mette in moto la memoria e la disponibilità degli altri, che spesso aspettano proprio un pretesto per aiutare. Chiedi a poche persone per volta, non a tutti insieme: lascia alle risposte il tempo di arrivare.
 
 ### Fortuna, In salita (livello 2 e sotto)
 
@@ -305,7 +305,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è in salita per la sorte, fatto di piccoli contrattempi. Un treno in ritardo, un appuntamento che salta, una chiave dimenticata: niente di grave, ma queste disattenzioni possono far perdere occasioni che contano. Conviene prevenirle con un po' di anticipo invece di inseguirle.
 - Che cosa fare: Per ogni impegno importante delle prossime settimane prepara un piano di riserva: un treno prima, un numero da chiamare, un percorso alternativo. La sera prima controlla documenti, chiavi e orari, poi prepara la borsa vicino alla porta. Esci con dieci minuti di anticipo, da subito.
-- Risposta, Lunga: Nei periodi in salita un contrattempo curato all'inizio costa poco, uno trascurato si porta dietro altri problemi. La pazienza qui è fatta di ordine e di anticipo. Attenzione alla fretta delle ultime ore: è lì che si dimenticano le cose e si perdono gli appuntamenti migliori.
+- Risposta, Lunga: Nei periodi in salita un contrattempo curato all'inizio costa poco, uno trascurato si porta dietro altri problemi. La pazienza qui è fatta di ordine e di anticipo. Sono le ultime ore, prese di fretta, a far dimenticare le cose e perdere gli appuntamenti migliori.
 
 #### Fortuna, salita, voce 2: Offerte troppo lucide
 

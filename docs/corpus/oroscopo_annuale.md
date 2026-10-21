@@ -134,7 +134,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 ### Sole in casa 1
 1. L'energia di questi dodici mesi torna su di te: conta ciò che vuoi tu, prima di ciò che si aspettano gli altri. Metti al primo posto un progetto personale e un'abitudine che fa bene al corpo, come una camminata a giorni fissi. || Il Sole della tua Rivoluzione Solare cade nella casa 1, quella della persona e del corpo: l'anno è centrato su di te.
 2. Le forze di questi mesi servono a ricominciare da te, come a un nuovo inizio. Decidi chi vuoi essere da qui al prossimo compleanno: scrivilo in tre righe, poi scegli la prima cosa da cambiare già da questa settimana. || Il Sole dell'anno è in casa 1: la tradizione legge questa posizione come un anno di rinascita personale.
-3. La spinta di questi mesi parte da te e rende quando ti muovi in prima persona. Non aspettare che siano gli altri a cominciare: prendi tu l'iniziativa su una cosa che ti riguarda, con una proposta o una richiesta chiara. || Il Sole della tua Rivoluzione Solare è nella casa 1, la casa dell'io: lì, per gli autori, si concentra l'attività dell'anno.
+3. La spinta di questi mesi parte da te e rende quando ti muovi in prima persona. Non aspettare che siano gli altri a cominciare: prendi tu l'iniziativa su una cosa che ti riguarda, con una proposta o una richiesta chiara. || Il Sole della tua Rivoluzione Solare è nella casa 1, la casa dell'io: lì, per gli astrologi, si concentra l'attività dell'anno.
 
 ### Sole in casa 2
 1. L'energia di questi mesi va verso ciò che hai e ciò che sai fare: denaro, beni, talenti concreti. Fai i conti di entrate e uscite una volta al mese. Dai un prezzo onesto al tuo lavoro, scrivendolo nero su bianco. || Il Sole della tua Rivoluzione Solare cade nella casa 2, quella del denaro, dei beni e dei talenti concreti.
@@ -307,7 +307,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 
 ### Giove in casa 11
 1. Quest'anno le occasioni vengono dagli amici e dalle persone che vogliono ciò che vuoi tu. In questi mesi frequenta un gruppo, un'associazione o un circolo in cui si parla dei tuoi obiettivi. || Giove nella tua Rivoluzione Solare cade nella casa 11, quella degli amici, dei gruppi e dei protettori.
-2. È uno degli anni migliori per i progetti fatti insieme e per i desideri che chiedono tempo. Scrivi un desiderio a lungo termine e proponi a due persone di lavorarci con te. || Giove è nella casa 11 della tua Rivoluzione Solare, che la tradizione chiama il Buon Demone: è la sua gioia.
+2. È uno degli anni migliori per i progetti fatti insieme e per i desideri che chiedono tempo. Scrivi un desiderio a lungo termine e proponi a due persone di lavorarci con te. || Giove è nella casa 11 della tua Rivoluzione Solare, che la tradizione antica chiama il Buon Demone: è la casa in cui Giove «gioisce», cioè dà il meglio di sé.
 3. Fino al prossimo compleanno la tua rete di conoscenze conta più del solito. Chiedi aiuto a chi può dartelo con una richiesta precisa. Poi ricambia: presenta fra loro due persone che possono essersi utili. || Nella Rivoluzione Solare di quest'anno Giove sta nella casa 11, che è la casa delle speranze e degli appoggi: le opportunità hanno molti volti.
 
 ### Giove in casa 12
@@ -443,7 +443,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 
 ### Luna in casa 1
 1. Il cuore in questi mesi sta in superficie: senti tutto di più e ti si legge in faccia. Invece di trattenere, racconta ciò che provi a una persona vicina entro la giornata, con una frase semplice. || La Luna della tua Rivoluzione Solare cade nella casa 1: lì le emozioni dell'anno stanno in superficie e si sentono di più.
-2. Dentro di te l'umore cambia più spesso del solito e cresce il bisogno di attenzione. Rispetta i tuoi ritmi: tieni fissi gli orari del sonno e dei pasti. Nei giorni storti alleggerisci l'agenda invece di forzarti. || La Luna dell'anno è in casa 1: per gli autori porta un'emotività accentuata, fatta di umori che cambiano.
+2. Dentro di te l'umore cambia più spesso del solito e cresce il bisogno di attenzione. Rispetta i tuoi ritmi: tieni fissi gli orari del sonno e dei pasti. Nei giorni storti alleggerisci l'agenda invece di forzarti. || La Luna dell'anno è in casa 1: per gli astrologi porta un'emotività accentuata, fatta di umori che cambiano.
 3. Le emozioni in questi mesi guidano le tue scelte più della ragione. Ascoltale prima di decidere: davanti a una scelta scrivi che cosa senti, aspetta una notte, poi rileggi e decidi. || La Luna della tua Rivoluzione Solare è nella casa 1, la casa della persona: le emozioni dell'anno riguardano prima di tutto te.
 
 ### Luna in casa 2
@@ -472,7 +472,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 3. Le emozioni in questi mesi sono operose: ti senti bene quando fai, male quando ti fermi. Non misurare il tuo valore con ciò che produci: tieni ogni settimana mezza giornata in cui non devi concludere niente. || La Luna della tua Rivoluzione Solare è nella casa 6, la casa del lavoro di ogni giorno: è lì che si sentono le emozioni dell'anno.
 
 ### Luna in casa 7
-1. Il cuore in questi mesi sta nelle relazioni: ciò che accade con l'altro ti tocca più di tutto il resto. Chiedi ciò che ti serve: una richiesta chiara alla settimana, invece di aspettare che l'altro indovini. || La Luna della tua Rivoluzione Solare cade nella casa 7: per gli autori rende le relazioni emotivamente centrali.
+1. Il cuore in questi mesi sta nelle relazioni: ciò che accade con l'altro ti tocca più di tutto il resto. Chiedi ciò che ti serve: una richiesta chiara alla settimana, invece di aspettare che l'altro indovini. || La Luna della tua Rivoluzione Solare cade nella casa 7: per gli astrologi rende le relazioni emotivamente centrali.
 2. Dentro di te c'è voglia di avvicinarti a qualcuno, con l'umore degli altri che pesa sul tuo. Proponi a quella persona un tempo solo per voi. Quando torni da un incontro difficile prenditi dieci minuti per tornare in te. || La Luna dell'anno è in casa 7: la tradizione avverte che qui l'umore degli altri pesa sul tuo.
 3. Le emozioni in questi mesi si specchiano in chi hai di fronte. Distingui ciò che senti da ciò che senti per riflesso: prima di reagire chiediti "è mio o è suo?", poi rispondi solo a ciò che è tuo. || La Luna della tua Rivoluzione Solare è nella casa 7, la casa dell'altro: le emozioni dell'anno passano dalle relazioni.
 
@@ -487,7 +487,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 3. Le emozioni in questi mesi cercano un senso più che una consolazione. Dai parola alle grandi domande: scrivine una in cima a una pagina, poi parlane con una persona che stimi, senza fretta di chiudere. || La Luna della tua Rivoluzione Solare è nella casa 9, la casa dei viaggi e della ricerca di senso: lì le emozioni dell'anno cercano orizzonti.
 
 ### Luna in casa 10
-1. Il cuore in questi mesi si gioca nel lavoro e davanti agli altri. Non portare ogni stato d'animo in ufficio: prima di entrare fai tre respiri e decidi che cosa tenere per te fino a sera. || La Luna della tua Rivoluzione Solare cade nella casa 10: per gli autori carriera e vita pubblica si caricano di emozioni.
+1. Il cuore in questi mesi si gioca nel lavoro e davanti agli altri. Non portare ogni stato d'animo in ufficio: prima di entrare fai tre respiri e decidi che cosa tenere per te fino a sera. || La Luna della tua Rivoluzione Solare cade nella casa 10: per gli astrologi carriera e vita pubblica si caricano di emozioni.
 2. Dentro di te si muove qualcosa che riguarda la carriera: sei più in vista e ogni cambiamento ti tocca. Cura la tua immagine: aggiorna la tua presentazione e scegli come vuoi farti conoscere da chi ti incontra per la prima volta. || La Luna dell'anno è in casa 10: la tradizione lega questa posizione a cambiamenti nella carriera e a una maggiore esposizione.
 3. Le emozioni in questi mesi stanno sotto gli occhi di tutti. Scegli che cosa mostrare: prima di una riunione o di un messaggio pubblico decidi una cosa da dire e una da tenere per la cerchia stretta. || La Luna della tua Rivoluzione Solare è nella casa 10, la casa della vita pubblica: lì le emozioni dell'anno si vedono.
 
