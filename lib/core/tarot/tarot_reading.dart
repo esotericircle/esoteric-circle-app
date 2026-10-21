@@ -437,9 +437,9 @@ class TarotReading {
         drawn: approdo,
         perche: aTre
             ? 'È la carta del Futuro: la tua domanda chiede dove va la '
-                'questione, e risponde lei.'
+                'questione: risponde lei.'
             : 'È la carta dell\'esito: la tua domanda chiede dove va la '
-                'questione, e risponde lei.',
+                'questione: risponde lei.',
       );
     }
     if (presente.card.arcana == TarotArcana.maggiore) {

@@ -617,7 +617,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Al cuore della tua domanda c'è un richiamo verso il passato: ogni scelta tende a guardare indietro, a una stagione dolce che ti sembra migliore di adesso.
-- 2: Sulla tua questione il passato si vede nitido e il presente resta sfocato: i ricordi di un tempo lontano occupano più posto di ciò che accade oggi.
+- 2: Sulla tua questione il passato si vede nitido e il presente resta velato: i ricordi di un tempo lontano occupano più posto di ciò che accade oggi.
 - 3: Questa situazione ti mette davanti a una nostalgia che vuole tutto come allora: accetti ciò che ha il sapore di un tempo e rifiuti le soluzioni nuove, anche quando sarebbero migliori.
 
 ## Sette di Coppe
