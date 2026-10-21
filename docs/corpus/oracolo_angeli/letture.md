@@ -371,7 +371,7 @@
 - intelletto_legami 1: Hariel ti spiega che pensieri in ordine diventano parole chiare.
 - intelletto_scelta 1: Hariel ti mostra che l'intuizione regge al metodo, l'impulso no.
 - intelletto_limite 1: Hariel ti spiega che domande ordinate ricevono risposte più chiare.
-- gesto_orienta 1: Svuota oggi la testa su un foglio e raggruppa ciò che hai scritto in tre voci.
+- gesto_orienta 1: Svuota oggi la testa su un foglio e raggruppa ciò che hai scritto in tre gruppi.
 - gesto_attesa 1: Metti in ordine su un foglio ciò che sai, ciò che non sai e ciò che dipende da te.
 - gesto_legami 1: Scrivi in ordine i pensieri che hai su questo rapporto, dal più chiaro al più confuso.
 - gesto_scelta 1: Dai a ogni strada una pagina con ragioni, timori e primi passi, poi confrontale con calma in più giorni.

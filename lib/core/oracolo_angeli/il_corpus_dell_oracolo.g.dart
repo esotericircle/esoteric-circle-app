@@ -3912,7 +3912,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Hariel ti spiega che domande ordinate ricevono risposte più chiare.',
   ],
   'letture|15|gesto_orienta': [
-    'Svuota oggi la testa su un foglio e raggruppa ciò che hai scritto in tre voci.',
+    'Svuota oggi la testa su un foglio e raggruppa ciò che hai scritto in tre gruppi.',
   ],
   'letture|15|gesto_attesa': [
     'Metti in ordine su un foglio ciò che sai, ciò che non sai e ciò che dipende da te.',

@@ -38,6 +38,12 @@ abstract final class LOggettoDellaDomanda {
     'tue',
   };
 
+  /// Le parole che chiudono l'oggetto della domanda: da qui comincia un'altra
+  /// cosa (una congiunzione, un tempo). Un'espressione sola e non un elenco di
+  /// parole fra apostrofi: non sono testo mostrato.
+  static final RegExp _confine = RegExp(
+      r'^(o|oppure|nonostante|dopo|entro|come|quando|perché|se|ancora|davvero|presto|adesso|ora|oggi)$');
+
   static final RegExp _verbo = RegExp(
       r"^([a-zà-ÿ]+(rò|rà|remo|ranno)|può|possono|è|sono|sei|sta|stanno|va|"
       r'vanno|ha|hanno|finisce|arriva|torna|durerà|serve)$');
@@ -116,12 +122,7 @@ abstract final class LOggettoDellaDomanda {
     for (var i = da + 1; i < p.length; i++) {
       final w = p[i];
       final basso = w.toLowerCase().replaceAll(',', '');
-      if (_verbo.hasMatch(basso) ||
-          const {
-            'o', 'oppure', 'nonostante', 'dopo', 'entro', 'come', //
-            'quando', 'perché', 'se', 'ancora', 'davvero', 'presto',
-            'adesso', 'ora', 'oggi'
-          }.contains(basso)) {
+      if (_verbo.hasMatch(basso) || _confine.hasMatch(basso)) {
         break;
       }
       fuori.add(w.replaceAll(',', ''));

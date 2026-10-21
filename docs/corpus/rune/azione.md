@@ -178,7 +178,7 @@
 2. Per {cosa} scegli una sola abitudine che ti rimette in forze, come andare a letto alla stessa ora o camminare mezz'ora: tienila ferma per dieci giorni. Non caricare tutto in un'unica giornata: segna sul calendario ogni giorno rispettato e guarda come torna l'energia.
 3. Se per {cosa} senti la spinta a forzare tutto in una volta, scrivi su un foglio che cosa vorresti fare di getto. Dividilo in piccole parti e falle una al giorno da domani: la forza ritrovata a poco a poco regge più a lungo.
 4. Per {cosa} chiedi a una persona fidata di dirti se ti vede con meno energia del solito e ascolta senza difenderti. Se dice di sì, concediti due sere di riposo vero, senza schermi né impegni: chi ritrova il fiato prima carica meglio dopo.
-5. Scrivi per {cosa} che cosa ti toglie forze e che cosa te le restituisce, almeno tre voci per colonna. Per una settimana aggiungi ogni giorno una cosa della seconda colonna e rinuncia a una della prima: si riparte dal fiato, non dalla fretta.
+5. Scrivi per {cosa} che cosa ti toglie forze e che cosa te le restituisce, almeno tre righe per colonna. Per una settimana aggiungi ogni giorno una cosa della seconda colonna e rinuncia a una della prima: si riparte dal fiato, non dalla fretta.
 
 ## Uruz, in ombra, altrui
 1. Per {cosa} rimanda di qualche giorno le conversazioni impegnative e intanto rimetti in ordine le tue energie: sonno regolare, un'ora di movimento, una serata con gli amici. Quando ti senti di nuovo in forze, scegli tu se e come parlarne con l'altra persona.
@@ -869,7 +869,7 @@
 ## Nauthiz, dritta, vaga
 1. Scegli stasera, per {cosa}, la sola questione che ti sta più a cuore e formulala in una frase: è quella da portare alla prossima lettura. Intanto dedica per sette giorni mezz'ora fissa, ogni sera alla stessa ora, al compito che rimandi da più tempo.
 2. Elenca per {cosa} tre cose che senti di dover affrontare e mettile in ordine di urgenza. Riporta qui la prima come domanda precisa, in una sola frase. Nel frattempo, ogni mattina, fai un pezzo del lavoro che ti piace meno, senza scorciatoie.
-3. Scrivi per {cosa} che cosa ti serve davvero in questo periodo, distinguendo il necessario dal superfluo. Tieni solo tre voci. Lavora su una di esse ogni giorno per due settimane, con metodo, poi fai una domanda su quella che pesa di più.
+3. Scrivi per {cosa} che cosa ti serve davvero in questo periodo, distinguendo il necessario dal superfluo. Tieni solo tre punti. Lavora su uno di essi ogni giorno per due settimane, con metodo, poi fai una domanda su quello che pesa di più.
 4. Prenditi un'ora domenica per {cosa} e rispondi per iscritto: dove ti senti più alle strette adesso? Trasforma la risposta in una domanda chiara da portare alle rune. Fino ad allora affronta quella stretta con un compito al giorno, senza scorciatoie.
 5. Per una settimana annota ogni sera, prima di dormire, che cosa ti è mancato di più nella giornata. Quel bisogno, se si ripete, è la domanda precisa da fare per {cosa}. Intanto non cercare soluzioni rapide: osservalo con pazienza e con metodo.
 
