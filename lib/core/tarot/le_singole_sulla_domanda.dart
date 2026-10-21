@@ -121,7 +121,7 @@ abstract final class LeSingoleSullaDomanda {
           'le domande e portale a un consulente abilitato e indipendente.',
       'In questo posto la carta indica {t}, senza dire se una scelta '
           'economica convenga. Usala per capire con quale stato d\'animo ti '
-          'avvicini alla decisione: prima di muovere qualsiasi somma chiedi '
+          'avvicini alla decisione: prima di muovere qualsiasi somma chiedi sempre '
           'un parere scritto a chi è abilitato a darlo.',
       'Questa carta richiama {t}: una riflessione sul modo di affrontare la '
           'questione, non un verdetto sul denaro. Calcola con calma quanto '
@@ -129,7 +129,7 @@ abstract final class LeSingoleSullaDomanda {
           'consulente competente e indipendente prima di impegnarti.',
       'Qui la carta porta {t}: un\'immagine sul tuo rapporto con i soldi, non '
           'un consiglio d\'acquisto. Prima di impegnare qualsiasi somma scrivi '
-          'cifre, rischi e scadenze: fai verificare tutto da un consulente '
+          'cifre, rischi e scadenze: poi fai verificare tutto da un consulente '
           'abilitato e indipendente prima di firmare.',
       'In questa posizione la carta mostra {t}, senza dire se un investimento '
           'o una spesa convenga. Tienila come spunto di riflessione. Per '
