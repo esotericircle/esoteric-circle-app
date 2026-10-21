@@ -1,25 +1,29 @@
-Build 2289, ordine ES: l'Oroscopo completo, il Sigillo del Sogno e le voci aperte dell'ordine ET, con le tue richieste del 30 settembre sera.
+Build 2315, ordine GA: le risposte dirette e coerenti delle quattro arti, le stese contate per stesa, la caccia ai difetti dei tester, la Luna piu' grande nel cielo reale, l'Oroscopo che si apre subito, l'ora di nascita che non si richiede piu' a chi l'ha data.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
 La build si accende sul Realme, senza errori nel registro.
 
-Nell'Oroscopo "L'oroscopo per un amico" sta in alto, nella barra accanto alla freccia, e il tocco apre i tuoi amici. La lettura dell'amica ha il pulsante della profondità su ogni scheda e sotto la lettura la riga "Da dove viene".
+Le stese dei Tarocchi contano per stesa, non per carta: 1, 3, 3 e 5 al giorno (Viandante, Iniziato, Adepto, Illuminato), non i 6 e 10 che avevi scritto, perche' col 30% dopo provvigioni e IVA 6 stese sforavano oltre il 39%. Se vuoi 6 e 10, serve un prezzo diverso: dimmi tu.
 
-Il selettore della profondità dice "Breve" e "Lunga".
+I responsi delle quattro arti (Oroscopo, Tarocchi, Oracolo degli Angeli, Rune) rispondono subito nella prima frase, con il riquadro "Cosa fare adesso". Letti alla cieca da un lettore indipendente su dodici responsi per arte: Tarocchi 11 su 12, Oracolo 10 su 12, Oroscopo 9 su 12. Le Rune restano il punto piu' debole, 6 su 12: le schede delle singole pietre sono ancora generiche, serve testo scritto per pietra e tipo di domanda, non altri pozzi di voci neutre.
 
-La Settimana, per ogni campo: le barre dei sette giorni, la risposta in parole ("In amore la settimana è favorevole"), il giorno migliore, che cosa fare, e solo in fondo "Da dove viene". Con la Lunga compaiono i sette giorni, ognuno con la sua lettura e sotto il suo "da dove viene". In fondo alla pagina il pulsante dice per intero "Condividi la settimana · +15 Eos". Il Mese è fatto allo stesso modo.
+L'Oracolo degli Angeli si apre senza carte in vista. La Luna nel Cielo Reale si riconosce a colpo d'occhio, piu' grande dei puntini delle stelle. I selettori bloccati della Stesa di Tarocchi (un mazzo o una chiave che il tuo piano non apre) mostrano un invito all'upgrade, mai un vicolo cieco silenzioso: l'avevo segnalato come difetto e poi ho trovato che era un mio errore di verifica, non del codice.
 
-L'Anno: i titoli sono in parole ("Il lavoro nel tuo anno"), la Lunga aggiunge una lettura in più, e i pianeti e le case stanno nella riga "Da dove viene".
+Ventidue testi col contrasto curato (pulsanti pieni d'oro, il dialogo "Ricominciare da zero", il fiore della Meditazione): letti bene sullo schermo.
 
-La Cinese e la Vedica, aperte, rispondono allo stesso modo. Oggi la Vedica aveva la Luna e la stella in disaccordo, e la lettura comincia con "Oggi la giornata è in salita, anche se non tutto frena", poi dice i due lati.
-
-Il Sigillo del Sogno di Medora, stasera alle 22:31: la nebbia diradata, le sei stelle dei Gemelli unite, il saluto e la buonanotte di Medora, e nessuna parola su rune.
-
-Alla comparsa del responso suona il tuo file orchestrale: dal sistema audio del telefono lo vedo partire alla comparsa delle schede e durare quanto il file, in Occidentale e in Cinese.
+Pubblicate le funzioni del server per la Croce Celtica (statoDelCerchio, consumaDelGiorno, muoviGliEos), le hai lanciate tu da PowerShell il 21 ottobre.
 
 DA PROVARE TU, PERCHÉ OGGI IO NON HO POTUTO.
 
-Il suono l'ho misurato dal sistema del telefono, non l'ho ascoltato: dimmi se il volume ti va bene.
+L'ora di nascita non si deve piu' chiedere a chi l'ha gia' data: l'account di collaudo non ha l'ora, quindi non ho potuto vederlo sparire a video, solo nella prova automatica.
 
-Da Viandante la Lunga, la Cinese, la Vedica e gli amici hanno il lucchetto e l'invito al piano: nella demo il Viandante non si sceglie dal telefono, e questi li hanno visti solo le prove.
+Le schede delle Rune (il difetto piu' pesante di questo giro): dimmi cosa leggi tu.
+
+I sette animali di terra del Viaggio dello Sciamano (Lince, Volpe, Orso, Lupo, Cavallo, Cervo, Tartaruga) hanno il video nuovo del "si volta": li ho analizzati sui file ma non visti a video, perche' servirebbe azzerare il tuo Diario e non scrivo dati di produzione.
+
+Il filmato della ruota dell'Oroscopo dura circa 9 secondi prima del contenuto: se lo vuoi piu' corto, dimmelo.
+
+Le due date della Luna (Calendario degli eventi contro Respiro della Luna e Collana) restano diverse, una e' la finestra che comincia e l'altra il picco esatto: quale preferisci?
+
+Il resto dei difetti aperti e delle decisioni che ti aspettano sono nel rapporto dell'ordine, docs/ordini/RAPPORTO_ORDINE_GA.md.
