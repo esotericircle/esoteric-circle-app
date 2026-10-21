@@ -533,6 +533,9 @@ abstract final class IlPresagioDalCorpus {
     final tipoDiretto = LeRisposteDirette.tipoDelCorpus(letta, domanda);
     final licenze = {
       ...LeRisposteDirette.licenze(domanda),
+      // Una scelta di vita col suo lato di denaro: le schede leggono la
+      // pietra sulla scelta e non spingono a muovere beni.
+      if (letta.sceltaDiVita) 'denaro',
       // Le domande sugli altri hanno sempre una controparte.
       if (LeRisposteDirette.tipoDelCorpus(letta, domanda) == 'altrui')
         'controparte',
@@ -541,6 +544,13 @@ abstract final class IlPresagioDalCorpus {
         ? LaRispostaDellaGettata.notaDellaSeconda(letta)
         : const [''];
     String voce(String v) => LaMarcaDelGenere.risolvi(v, forma: forma);
+
+    // **LA POSTURA DEL PRESAGIO**: se il principale chiede di attendere,
+    // nessuna scheda chiede di agire subito, e viceversa; e le schede non si
+    // contraddicono fra loro (lettore cieco dell'ultimo giro: "Sospendi per
+    // tre settimane ogni discorso decisivo" accanto a "chiedi entro tre giorni
+    // un momento a quattr'occhi"). Si riempie dopo il principale.
+    final posturaVietata = <String>{};
 
     /// **LA COPPIA: LA VOCE N DEL PARAGRAFO E LA VOCE N DEL RIQUADRO.** Gli
     /// scrittori hanno scritto l'azione che segue il suo paragrafo; sceglierle
@@ -584,7 +594,17 @@ abstract final class IlPresagioDalCorpus {
           note: n,
           chiude: letta.chiude,
           forma: forma,
-          licenze: licenze,
+          licenze: {...licenze, ...posturaVietata},
+          // Le voci gia' prese in questo presagio (o gia' lette, per le
+          // schede) non contano: il livello dei filtri si sceglie su quelle
+          // che restano, senza cadere al neutro perche' l'unica voce che
+          // stava con i filtri piu' severi e' gia' del principale.
+          soloSicuri: nonRipetere,
+          occupata: (i) =>
+              stato == null &&
+              (presi.contains('diretta/$gruppo/${i + 1}') ||
+                  (nonRipetere &&
+                      memoria.letti.containsKey('diretta/$gruppo/${i + 1}'))),
         );
         if (scelta == null) continue;
         final fonte = [
@@ -613,7 +633,8 @@ abstract final class IlPresagioDalCorpus {
         }
         var p1 =
             LeRisposteDirette.riempi(voce(dirette[numero - 1]), [v], note: n);
-        var p2 = LeRisposteDirette.riempi(voce(azioni[numero - 1]), [v]);
+        var p2 = LeRisposteDirette.riempi(voce(azioni[numero - 1]), [v],
+            comeAzione: true);
         // La persona della domanda al posto di "chi e' coinvolto": solo se il
         // testo resta a misura.
         if (persona != null && p1 != null && p2 != null) {
@@ -651,7 +672,55 @@ abstract final class IlPresagioDalCorpus {
           diOggi[parteA] == null &&
           strette.every(
               (c) => memoria.letti.containsKey('$campoA/$gruppo/${c.$1}'));
-      final coppie = stretteLette ? [...strette, ...?largheQui] : strette;
+      // Senza coppie strette per questo gruppo, le larghe: mai tutte le voci.
+      final senzaStrette = strette == null || strette.isEmpty;
+      var coppie = stretteLette
+          ? [...strette, ...?largheQui]
+          : senzaStrette
+              ? largheQui
+              : strette;
+      // Una scheda non chiede di agire dove il presagio chiede di attendere,
+      // e non presuppone una paura o un conflitto che la domanda non porta:
+      // le coppie che lo fanno restano fuori, se ne resta qualcuna.
+      if (coppie != null) {
+        final seguiti = corpus.voci[campoB]?[gruppo] ?? const <String>[];
+        bool vietata((int, int) c) {
+          final a = c.$1 >= 1 && c.$1 <= voci.length ? voci[c.$1 - 1] : '';
+          final b =
+              c.$2 >= 1 && c.$2 <= seguiti.length ? seguiti[c.$2 - 1] : '';
+          final p = LeRisposteDirette.postura(b);
+          if ((p == 'azione' && posturaVietata.contains('noAzione')) ||
+              (p == 'attesa' && posturaVietata.contains('noAttesa'))) {
+            return true;
+          }
+          final testo = '$a $b';
+          return (!licenze.contains('paura') &&
+                  LeRisposteDirette.haLaPaura(testo)) ||
+              (!licenze.contains('conflitto') &&
+                  LeRisposteDirette.haIlConflitto(testo)) ||
+              (licenze.contains('breve') &&
+                  !licenze.contains('senzaBreve') &&
+                  LeRisposteDirette.haUnTempoLungo(b));
+        }
+
+        // Il filtro e' una preferenza, non un divieto: la regola dei sessanta
+        // giorni (ordine EX voce 03) vince. Si preferisce una coppia
+        // ammessa e non ancora letta; se non ce n'e', una non ancora letta
+        // anche se il filtro l'avrebbe tolta (meglio una voce che qui e li'
+        // presuppone che una voce ripetuta); se tutte sono lette, fra le
+        // ammesse.
+        bool nonLetta((int, int) c) =>
+            !memoria.letti.containsKey('$campoA/$gruppo/${c.$1}');
+        final ammesse = [
+          for (final c in coppie)
+            if (!vietata(c)) c,
+        ];
+        if (ammesse.any(nonLetta)) {
+          coppie = ammesse;
+        } else if (!coppie.any(nonLetta) && ammesse.isNotEmpty) {
+          coppie = ammesse;
+        }
+      }
       final scelti = {for (final c in coppie ?? const <(int, int)>[]) c.$1};
       final fonte = scelti.isEmpty
           ? null
@@ -766,16 +835,28 @@ abstract final class IlPresagioDalCorpus {
     // accanto, senza un verdetto che potrebbe contraddire quello della pietra
     // che decide. Su salute, legge e denaro la scheda dice il limite e manda
     // a chi e' competente, come il principale.
+    final posturaDelPrincipale =
+        LeRisposteDirette.posturaDelVerdetto(paragrafo) ??
+            LeRisposteDirette.postura(cosaFare);
+    if (posturaDelPrincipale == 'attesa') posturaVietata.add('noAzione');
+    if (posturaDelPrincipale == 'azione') posturaVietata.add('noAttesa');
     final schede = <ResponsoInterpretato>[];
     if (pietre.length > 1) {
-      final tipoSchede = LeRisposteDirette.tipoDelleSchede(tipoDiretto);
-      final valoriSchede = ambito == null && tipoSchede != null
-          ? LeRisposteDirette.valoriPerLeSchede(letta, domanda, tipoDiretto)
+      // La scelta di vita col suo lato di denaro (lasciare il lavoro, aprire
+      // un'attivita') ha il limite nel principale e le schede come una
+      // decisione: ognuna legge la sua pietra sulla scelta, senza ripetere il
+      // rinvio al consulente e senza conti presunti.
+      final ambitoSchede = letta.sceltaDiVita ? null : ambito;
+      final tipoSchede = LeRisposteDirette.tipoDelleSchede(
+          letta.sceltaDiVita ? 'decisione' : tipoDiretto);
+      final valoriSchede = ambitoSchede == null && tipoSchede != null
+          ? LeRisposteDirette.valoriPerLeSchede(
+              letta, domanda, letta.sceltaDiVita ? 'decisione' : tipoDiretto)
           : const <String>[];
       // Lo stesso nome per la cosa in tutte le schede, se tutte le pietre lo
       // reggono: la persona della domanda non cambia da una scheda all'altra.
       String? comune;
-      if (ambito == null && tipoSchede != null) {
+      if (ambitoSchede == null && tipoSchede != null) {
         for (final v in valoriSchede) {
           final tutte = pietre.every((p) {
             final gr = '${gruppoDellaPietra(p)}/$tipoSchede';
@@ -791,7 +872,7 @@ abstract final class IlPresagioDalCorpus {
                   note: const [''],
                   chiude: letta.chiude,
                   forma: forma,
-                  licenze: licenze,
+                  licenze: {...licenze, ...posturaVietata},
                 ) !=
                 null;
           });
@@ -805,11 +886,14 @@ abstract final class IlPresagioDalCorpus {
         final p = pietre[i];
         String? rispostaScheda;
         String? cosaFareScheda;
-        if (ambito != null) {
+        if (ambitoSchede != null) {
           rispostaScheda = LaRispostaDellaGettata.schedaDelicata(
-              ambito: ambito, pietra: p, indice: i, variante: variante);
+              ambito: ambitoSchede, pietra: p, indice: i, variante: variante);
           cosaFareScheda = LaRispostaDellaGettata.consiglioDelicato(
-              ambito: ambito, indice: i, variante: variante, escludi: cosaFare);
+              ambito: ambitoSchede,
+              indice: i,
+              variante: variante,
+              escludi: cosaFare);
         } else if (tipoSchede != null) {
           final c = coppia(
             parteDellaPietra('diretta', p.rune.name),
@@ -849,13 +933,18 @@ abstract final class IlPresagioDalCorpus {
           rispostaScheda = testo(pc.a, cosaQui: cosaQui);
           cosaFareScheda = testo(pc.b, cosaQui: cosaQui);
         }
+        if (posturaVietata.isEmpty) {
+          final ps = LeRisposteDirette.postura(cosaFareScheda);
+          if (ps == 'attesa') posturaVietata.add('noAzione');
+          if (ps == 'azione') posturaVietata.add('noAttesa');
+        }
         schede.add(ResponsoInterpretato(
           arte: ArteInterpretata.rune,
           // **IL TITOLO LEGGE LA POSIZIONE**, ordine GA voce GA.06: era la
           // riga della runa, uguale in ogni posto, e una pietra
           // nell'Ostacolo si leggeva come un favore.
           titolo: LaRispostaDellaGettata.titoloDellaScheda(p,
-              delicata: ambito != null),
+              delicata: ambitoSchede != null),
           risposta: rispostaScheda,
           cosaFare: cosaFareScheda,
         ));
@@ -865,7 +954,8 @@ abstract final class IlPresagioDalCorpus {
       principale: ResponsoInterpretato(
         arte: ArteInterpretata.rune,
         titolo: ambito != null
-            ? LaRispostaDellaGettata.titoloDelicato(ambito, decide)
+            ? LaRispostaDellaGettata.titoloDelicato(ambito, decide,
+                sceltaDiVita: letta.sceltaDiVita)
             : IlTitoloDellaGettata.di(esito),
         risposta: paragrafo,
         cosaFare: cosaFare,

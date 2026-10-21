@@ -282,3 +282,114 @@ DEBITO DICHIARATO (non e' una cura)
   azione, e sotto uso pesante il principale ripete. Il cricchetto del test n. 3
   impedisce che il debito cresca; per scenderlo serve scrittura (padre:
   ordine EX voce 03, corpus dell'Architetto).
+
+================================================================================
+ULTIMO GIRO DELLE RUNE DI CALIGO (21 ottobre 2026, terza parte)
+Dopo la lettura cieca indipendente sulle dodici gettate varie del campione
+ridotto (146b2051): D1 10 su 12, D2 SOLO 6 su 12, D3 9 su 12, tre si' pieni 5
+su 12; schede con il Cosa fare legato alla domanda 17 su 35.
+================================================================================
+
+PADRI (Regola C)
+  - Azioni scalate di un posto rispetto alla loro diretta (Isa, Gebo, Eihwaz,
+    Tiwaz, Algiz, Fehu e altre): azione.md del secondo giro, GA.06 (511229c2),
+    scritto a piu' mani e numerato a coppie senza che nessuno le leggesse
+    accostate. Cura: 119 voci di azione.md rifatte o rimesse al loro posto, 7 di
+    diretta.md.
+  - "Le rune non danno consigli di denaro" sopra lasciare il lavoro e aprire
+    un'attivita': l'estensione del denaro a "aprire un'attivita'" e "lasciare
+    il lavoro", prima riapertura GA.06 (f8bd1425, 146b2051 la manteneva).
+  - Schede che si contraddicono fra loro e col principale: la scelta delle
+    coppie "come" per le schede, GA.06 riapertura (la scheda di ogni pietra
+    sceglieva per conto suo).
+  - "Per questa situazione" in apertura: `diretta.md` e `azione.md` del secondo
+    giro (la voce si apre con "Per {cosa}" e le schede riempivano il generico).
+  - "Una voce lieve" su dieci titoli: `ruolo` in la_risposta_della_gettata.dart,
+    GA.06 prima riapertura.
+  - Sensi/presupposti nelle voci neutre (il compito che ti preoccupa, il blocco
+    che hai davanti, arriva il freddo, stai vedendo conferme in ogni
+    coincidenza, qualcosa piu' grande di te, le tue carte migliori, ti e' stato
+    preso): `pietra.md` e `consiglio.md` dell'ordine EX voce 03 (Architetto).
+    Cura: 17 voci riscritte al loro posto (8 PIETRA e 9 CONSIGLIO nel conto di
+    git).
+  - "Dirle che sono innamorato" letta con "persone che contano": Wunjo
+    dritta/decisione, `diretta.md` e `azione.md` del secondo giro (GA.06).
+  - Il debito non curato qui sotto resta con il suo padre.
+
+REGOLA B, le guardie della zona viste rosse prima di toccarla (21 ottobre 2026)
+  - la_pietra_nell_ostacolo_non_e_un_favore_test: titolo "Ciò che ti frena"
+    cambiato in "Ciò che ti aiuta", ROSSA, 40 pietre su 40 lette senza posto.
+  - le_schede_delle_rune_seguono_la_domanda_test n. 1 (paura e conflitto): il
+    filtro della paura tolto dalle voci (regge), ROSSA, 322.
+
+REGOLA A, le guardie nuove nate rosse (stesso giorno), ognuna con l'innesto
+verificato col grep prima di leggere l'esito
+  1. la_scelta_di_vita_non_e_una_domanda_di_soldi_test (NUOVA). Innesto:
+     `if (false && domanda.sceltaDiVita)` nel paragrafo delicato (riga 1503).
+     Esito: ROSSA, n. 2 "scelte di vita lette 240, difetti 860", n. 3 "coppie
+     48, con due frasi uguali nel paragrafo 32". Dopo: 0 e 0.
+  2. le_schede_non_si_contraddicono_test (NUOVA). Innesto: la postura spenta
+     in `regge` (due righe) e nella coppia neutra (due condizioni a `false &&`).
+     Esito: ROSSA, "gettate con schede 900, che chiedono insieme di attendere
+     e di agire 399". Dopo: 0 su 900.
+  3. le_formule_delle_schede_non_si_ripetono_test (NUOVA, sei prove).
+     - n. 1 (la cosa generica non apre il testo): innesto `if (false &&
+       spazio == '{cosa}' ...` in riempi. ROSSA, "testi di schede 5760, aperti
+       da Per questa situazione e simili 1312 (22,8 per cento)". Dopo 0,0.
+     - n. 2 (per questo momento non sta nel paragrafo e nel riquadro): innesto
+       `false && comeAzione`. ROSSA, 93 responsi su 192. Dopo 0.
+     - n. 3 (Una voce lieve): innesto `% 1`. ROSSA, 320 su 320 e titoli
+       diversi 1. Dopo: 6 titoli, 16 su 320.
+     - n. 4 (i presupposti del lettore nelle voci neutre): innesto della frase
+       vecchia nel generato. ROSSA, 1. Dopo 0.
+     - n. 5 (persone care non nominate, campione di gettate): NON NATA ROSSA
+       (innesto `false && ... terzi`, esito 0 su 2432): il campione non ha
+       pescato una voce con persone care. Misura cambiata, non soglia: n. 6
+       sul filtro stesso.
+     - n. 6 (il filtro esclude ogni voce che nomina persone care): innesto
+       `false && !licenze.contains('terzi')`. ROSSA, "voci che nominano
+       persone care 21, che reggono con una domanda senza terzi 21". Dopo 0.
+  4. le_azioni_corrette_seguono_la_loro_diretta_test (NUOVA). Innesto: il testo
+     dell'azione Gebo/dritta/come/7 rimesso a "parli tu per cinque minuti e poi
+     ascolti" nel generato. ROSSA, "coppie corrette lette 18, azioni che non
+     seguono la diretta 1". Dopo 0. LIMITE DICHIARATO: la guardia protegge le
+     18 coppie che il lettore ha contato; l'allineamento delle altre e' un
+     fatto di senso che nessuna misura sulle parole prende (provato: la
+     sovrapposizione di radici da' 84 violazioni sul corpus di prima e 96 su
+     quello curato, cioe' non distingue). La lettura ha coperto: tutti i 40 gruppi "come" e tutti i 40
+     "previsione", 26 su 40 di "quando", 21 su 40 di "decisione", 28 su 40 di
+     "scelta", 7 su 40 di "altrui", 8 su 40 di "vaga".
+  5. Aggiornate alle forme nuove: la_risposta_della_gettata_test (prima frase
+     della scelta di vita), la_pietra_nell_ostacolo (i sei modi ai margini),
+     le_schede_delle_rune_seguono_la_domanda_test (lunghezze).
+
+NUMERI, prima e dopo (21 ottobre 2026)
+  - Lettura cieca indipendente sul campione ridotto: D1 10/12, D2 6/12, D3
+    9/12, tre si' pieni 5/12. Dopo la cura: da rileggere dal coordinatore.
+  - Gettate con schede che chiedono insieme di attendere e di agire: 399 su
+    900 con la postura spenta, 0 su 900 con la postura accesa.
+  - Testi di schede aperti da "Per questa situazione" e simili: 22,8 per cento
+    senza la cura, 0,0 con.
+  - Sessanta giorni (corpus vero, 2000 persone, 359.965 gettate): voci ripetute
+    427.736, come prima del giro; scelte che ripetevano con una voce libera 0;
+    larghe prima delle strette 0. Una prima versione del giro aveva portato le
+    ripetizioni a 1.111.160 (547.722 con una voce libera) perche' il filtro
+    sulle coppie neutre le toglieva anche quando erano le uniche non lette: ora
+    il filtro e' una preferenza, e la regola dei sessanta giorni vince.
+  - Prestazione: la misura della postura sul corpus vero non finiva in 40
+    minuti; con le misure ricordate per voce, il test dei sessanta giorni
+    torna a circa 10 minuti.
+
+DEBITO DICHIARATO (non e' una cura)
+  - Le coppie non lette (vedi sopra) possono avere ancora l'azione scalata.
+  - Le schede con la stessa pietra e lo stesso tipo di domanda restano in 5-8
+    varianti: due gettate diverse possono dare la stessa scheda parola per
+    parola (Laguz e Tiwaz del lettore). Il cardinale non cresce senza scrittura.
+  - Una scheda per cui nel gruppo non resta nessuna coppia che non contraddica,
+    non presupponga e non porti persone care passa alla coppia neutra della
+    pietra, che e' piu' generica: il "Cosa fare finto" del lettore e' sostituito
+    da un Cosa fare di tutte le domande, non da una scheda piu' corta.
+  - Il principale legge la sola pietra che decide; le altre sono
+    nell'approfondimento e nelle schede.
+  - Il pozzo neutro non e' lessicalmente puro: restano formule che un lettore
+    severo conta come presupposti.

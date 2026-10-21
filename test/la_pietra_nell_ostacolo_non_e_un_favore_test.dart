@@ -123,8 +123,12 @@ void main() {
         );
         for (var i = 0; i < p.schede.length; i++) {
           schede++;
-          final ruolo = ruoli[esito.rune[i].posizione.titolo];
-          if (ruolo == null || !p.schede[i].titolo.startsWith('$ruolo:')) {
+          final titolo = esito.rune[i].posizione.titolo;
+          final ammessi = titolo == 'Ai margini'
+              ? LaRispostaDellaGettata.ruoliAiMargini
+              : [ruoli[titolo]];
+          if (!ammessi.any((ruolo) =>
+              ruolo != null && p.schede[i].titolo.startsWith('$ruolo:'))) {
             colpe.add('${g.id}, $seme, ${esito.rune[i].posizione.titolo}: '
                 '«${p.schede[i].titolo}»');
           }
