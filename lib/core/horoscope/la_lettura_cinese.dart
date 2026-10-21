@@ -186,9 +186,14 @@ abstract final class LaLetturaCinese {
       // stessa sulle tre schede; la riga dice anche che cosa fa quel dio al
       // tema della scheda, cosi' tre Lunghe non ripetono la stessa frase
       // una sotto l'altra. Sta nel "da dove viene": e' il simbolo.
-      final presentazione = 'Il dio di oggi nel BaZi $e ${dio.nome} '
-          '(${_caratteri[dio.index]}): '
-          '${OroscopoCineseData.spiegazioni[dio.name]!.replaceFirst(': ', ', cioè ')}.';
+      //
+      // **ORDINE GA VOCE GA.06, LA SPIEGAZIONE UNA VOLTA SOLA.** Qui la Lunga
+      // aggiungeva una seconda presentazione del dio ("Il dio di oggi nel
+      // BaZi sono le Sette Uccisioni (七杀): governa il tuo elemento...")
+      // subito sotto la riga del corpus che lo aveva gia' spiegato: il
+      // lettore cieco ha letto due volte di fila la stessa spiegazione
+      // (oroscopo-34 e 36). La riga del corpus basta; la Lunga aggiunge solo
+      // cio' che la Breve non ha, il Dio della Ricchezza nella Fortuna.
       final fortuna = d == HoroscopeDomain.fortuna;
       final lunga = approfondita(d);
       final colore =
@@ -199,9 +204,8 @@ abstract final class LaLetturaCinese {
       final voce = voceDi(d, livello);
       final cielo = LePartiDelResponso.insieme([
         baseDaDove,
-        if (lunga) presentazione,
         if (lunga && fortuna) ricchezzaDaDove,
-        '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
+        rigaDelTema(d, dio, forma: f),
       ]);
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
@@ -221,7 +225,7 @@ abstract final class LaLetturaCinese {
         indicator: livello,
         rigaDelLivello: cielo,
         rigaSoloDelLivello: 'Il dio $quando nel BaZi $e ${dio.nome}. '
-            '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
+            '${rigaDelTema(d, dio, forma: f)}',
         metodo: fortuna
             ? '${OroscopoCineseData.notaDei} ${OroscopoCineseData.notaColore}'
             : OroscopoCineseData.notaDei,
@@ -310,19 +314,6 @@ abstract final class LaLetturaCinese {
     return 'Oggi è il giorno ${_preposizione('di', conArticolo(ramo))}, '
         'col guardiano ${LAlmanaccoCinese.guardiani[g]}.';
   }
-
-  static const Map<HoroscopeDomain, String> _perIlTema = {
-    HoroscopeDomain.generale: 'Per il giorno',
-    HoroscopeDomain.amore: 'Per il legame',
-    HoroscopeDomain.carriera: 'Per il lavoro',
-    HoroscopeDomain.fortuna: 'Per il denaro',
-  };
-
-  /// I nomi cinesi dei Dieci Dei, nell'ordine di [DioDelGiorno].
-  static const List<String> _caratteri = [
-    '比肩', '劫财', '食神', '伤官', '偏财', //
-    '正财', '七杀', '正官', '偏印', '正印',
-  ];
 
   /// L'animale con l'articolo: "il Cavallo", "la Capra".
   static String conArticolo(int i) {
@@ -464,45 +455,63 @@ abstract final class LaLetturaCinese {
   static const List<int> _versoLaRicchezza = [3, 2, 4, 4, 4, 5, 2, 3, 3, 3];
   static const List<int> _versoLUfficiale = [3, 2, 3, 2, 4, 4, 3, 5, 4, 4];
 
+  // **CHE COSA FA IL DIO DI OGGI ALLA STELLA DEL DOMINIO, IN PAROLE DI TUTTI.**
+  // Ordine GA voce GA.06: il lettore cieco ha trovato nel "Da dove viene"
+  // righe come "Per il lavoro: doma l'Ufficiale." e "Per il legame: l'Ufficiale
+  // è di turno, come pressione e la Ricchezza va verso obblighi e pressioni.",
+  // che dicono il simbolo senza spiegarlo (oroscopo-34, 35, 36, 38, 40). La
+  // regola e' la stessa (specifiche, paragrafo 4); la riga adesso dice quale
+  // stella la tradizione guarda per il dominio, che cos'e', e che cosa le
+  // succede oggi. Il soggetto delle frasi e' la stella.
   static const List<String> _allaRicchezza = [
-    'divide la Ricchezza, in forma leggera',
-    'contende la Ricchezza',
-    'genera la Ricchezza',
-    'genera la Ricchezza, con impeto',
-    'la Ricchezza è di turno',
-    'la Ricchezza è di turno',
-    'la Ricchezza va verso obblighi e pressioni',
-    'la Ricchezza va verso posizione e doveri',
-    'non tocca la Ricchezza',
-    'non tocca la Ricchezza',
+    'oggi si divide con chi ti è pari, senza strappi',
+    'oggi è contesa, le occasioni tendono a uscire più che a entrare',
+    'oggi la genera il tuo talento, con calma',
+    'oggi la genera il tuo talento, con impeto',
+    'oggi è di scena nella sua forma imprevista, le occasioni che arrivano '
+        'di lato',
+    'oggi è di scena nella sua forma regolare, ciò che arriva dal lavoro fatto',
+    'oggi se ne va in obblighi e pressioni',
+    'oggi va verso doveri e posizione',
+    'oggi resta in disparte, il giorno porta sostegno più che occasioni',
+    'oggi resta in disparte, il giorno porta protezione più che occasioni',
   ];
   static const List<String> _allUfficiale = [
-    'il tema è la rete dei pari',
-    'il tema è la concorrenza fra pari',
-    'doma l\'Ufficiale',
-    'ferisce l\'Ufficiale',
-    'nutre l\'Ufficiale',
-    'nutre l\'Ufficiale',
-    'l\'Ufficiale è di turno, come pressione',
-    'l\'Ufficiale è di turno',
-    'trasforma l\'Ufficiale in sostegno',
-    'trasforma l\'Ufficiale in sostegno',
+    'oggi resta fuori scena, conta la rete dei pari',
+    'oggi resta fuori scena, conta la gara fra pari',
+    'oggi è tenuta a bada dal tuo talento, con più libertà e meno '
+        'riconoscimenti',
+    'oggi è ferita, con possibili attriti con chi ha autorità',
+    'oggi è nutrita dalle occasioni',
+    'oggi è nutrita dall\'impegno concreto',
+    'oggi è di scena nella sua forma dura, pressione e sfida',
+    'oggi è di scena nella sua forma piena, regole e riconoscimento',
+    'oggi diventa sostegno, attraverso lo studio',
+    'oggi diventa sostegno, attraverso chi ti protegge',
   ];
 
-  static String relazioneDelDio(HoroscopeDomain d, DioDelGiorno dio,
+  /// **LA RIGA DEL TEMA** nel "Da dove viene" delle schede del dio: quale
+  /// stella del BaZi la tradizione guarda per il dominio [d], che cos'e', e
+  /// che cosa le fa il dio di oggi. Nell'Amore la stella dipende dal genere
+  /// dichiarato, e passa dalla porta del genere; chi non l'ha dichiarato legge
+  /// le due stelle.
+  static String rigaDelTema(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
-    if (d == HoroscopeDomain.amore) {
-      // Chi non ha dichiarato il genere: le due letture insieme.
-      return LaMarcaDelGenere.scegli(
-          maschile: '${_allaRicchezza[dio.index]}; per un uomo la Ricchezza '
-              'è il legame',
-          femminile: '${_allUfficiale[dio.index]}; per una donna '
-              'l\'Ufficiale è il legame',
-          neutro: '${_allUfficiale[dio.index]} e ${_allaRicchezza[dio.index]}',
-          forma: forma);
-    }
-    return d == HoroscopeDomain.carriera
-        ? _allUfficiale[dio.index]
-        : _allaRicchezza[dio.index];
+    final r = _allaRicchezza[dio.index];
+    final u = _allUfficiale[dio.index];
+    return switch (d) {
+      HoroscopeDomain.carriera => 'Per il lavoro il BaZi guarda l\'Ufficiale, '
+          'la stella del ruolo e delle responsabilità: $u.',
+      HoroscopeDomain.amore => LaMarcaDelGenere.scegli(
+          maschile: 'Per l\'amore di un uomo il BaZi guarda la Ricchezza, la '
+              'stella del legame: $r.',
+          femminile: 'Per l\'amore di una donna il BaZi guarda l\'Ufficiale, '
+              'la stella del legame: $u.',
+          neutro: 'Per l\'amore il BaZi guarda due stelle del legame, '
+              'l\'Ufficiale e la Ricchezza: la prima $u; la seconda $r.',
+          forma: forma),
+      _ => 'Per la fortuna il BaZi guarda la Ricchezza, la stella delle '
+          'occasioni: $r.',
+    };
   }
 }

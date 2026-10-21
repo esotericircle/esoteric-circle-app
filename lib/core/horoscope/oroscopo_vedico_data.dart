@@ -393,31 +393,31 @@ abstract final class OroscopoVedicoData {
 
   /// Rahu Kalam: il Rahu Kalam deve ancora venire.
   static const List<String> rahuPrima = [
-    'Oggi fra le {inizio} e le {fine} conviene non cominciare niente di nuovo. Se hai un inizio in programma, mettilo prima o dopo quelle ore. || È il Rahu Kalam, l\'ora e mezza circa che la tradizione indiana lascia a Rahu.',
-    'A {luogo} oggi le ore da lasciare passare vanno dalle {inizio} alle {fine}. Le cose già avviate puoi continuarle; quelle nuove spostale a un altro momento della giornata. || È il Rahu Kalam di oggi: nella tradizione indiana in quel tempo si evita di cominciare, non di continuare.',
-    'Tieni libere da inizi e firme le ore fra le {inizio} e le {fine}. Se hai una firma in agenda proprio lì, chiedi di spostarla di un paio d\'ore. || È il Rahu Kalam, un\'ora e mezza circa che in India si lascia passare: è il tempo di Rahu, che la tradizione indiana considera un pianeta d\'ombra.',
+    'Oggi fra le {inizio} e le {fine} conviene non cominciare niente di nuovo. Se hai un inizio in programma, mettilo prima o dopo quelle ore. || Fra le {inizio} e le {fine} cade il Rahu Kalam di oggi, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove: è il tempo che lascia a Rahu, il nodo lunare nord.',
+    'A {luogo} oggi le ore da lasciare passare vanno dalle {inizio} alle {fine}. Le cose già avviate puoi continuarle; quelle nuove spostale a un altro momento della giornata. || Dalle {inizio} alle {fine} cade il Rahu Kalam di oggi: nella tradizione indiana in quel tempo si evita di cominciare cose nuove, non di continuare quelle avviate.',
+    'Tieni libere da inizi e firme le ore fra le {inizio} e le {fine}. Se hai una firma in agenda proprio lì, chiedi di spostarla di un paio d\'ore. || Il Rahu Kalam di oggi va dalle {inizio} alle {fine}: un\'ora e mezza circa che in India si lascia passare senza cominciare niente, il tempo di Rahu, che la tradizione indiana considera un pianeta d\'ombra.',
     'Se oggi devi partire, fare una proposta o firmare, fallo prima delle {inizio} o dopo le {fine}. In mezzo porta avanti ciò che è già in corso. || Fra le {inizio} e le {fine} oggi cade il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu.',
   ];
 
   /// Rahu Kalam: il Rahu Kalam è in corso.
   static const List<String> rahuInCorso = [
-    'Fino alle {fine} non è il momento di cominciare cose nuove. Continua pure quello che stai facendo; il resto fallo partire dopo quell\'ora. || Adesso è Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu: finisce alle {fine}.',
-    'Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}.',
+    'Fino alle {fine} non è il momento di cominciare cose nuove. Continua pure quello che stai facendo; il resto fallo partire dopo quell\'ora. || Adesso è Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove: finisce alle {fine}.',
+    'Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}. È l\'ora e mezza che la tradizione indiana lascia a Rahu, il nodo lunare nord: si continua ciò che è avviato, non si comincia altro.',
     'Fino alle {fine} conviene aspettare con le cose importanti. Se puoi, rimanda di poco quella telefonata e intanto prepara ciò che vuoi dire. || Fino alle {fine} è Rahu Kalam, l\'ora e mezza in cui la tradizione indiana evita di dare inizio alle cose.',
   ];
 
   /// Rahu Kalam: il Rahu Kalam è già passato.
   static const List<String> rahuPassato = [
-    'Le ore da lasciare passare, fra le {inizio} e le {fine}, sono già alle spalle. Il resto della giornata è libero per inizi, partenze e proposte. || Era il Rahu Kalam di oggi, l\'ora e mezza che la tradizione indiana lascia a Rahu.',
-    'Da adesso puoi cominciare senza pensarci: le ore in cui conveniva aspettare erano fra le {inizio} e le {fine}. Manda quella richiesta o fissa quell\'appuntamento. || Oggi il Rahu Kalam è stato fra le {inizio} e le {fine}: è il tempo che la tradizione indiana lascia a Rahu.',
-    'Se avevi rimandato qualcosa, adesso è il momento di farlo. Le ore da evitare, fra le {inizio} e le {fine}, sono passate: riprendi la telefonata o la firma che avevi spostato. || Il momento di Rahu è alle spalle: il Rahu Kalam di oggi era fra le {inizio} e le {fine}.',
+    'Le ore da lasciare passare, fra le {inizio} e le {fine}, sono già alle spalle. Il resto della giornata è libero per inizi, partenze e proposte. || Il Rahu Kalam di oggi, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, era fra le {inizio} e le {fine}: adesso è passato.',
+    'Da adesso puoi cominciare senza pensarci: le ore in cui conveniva aspettare erano fra le {inizio} e le {fine}. Manda quella richiesta o fissa quell\'appuntamento. || Oggi il Rahu Kalam è stato fra le {inizio} e le {fine}: è il tempo che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove; adesso è alle spalle.',
+    'Se avevi rimandato qualcosa, adesso è il momento di farlo. Le ore da evitare, fra le {inizio} e le {fine}, sono passate: riprendi la telefonata o la firma che avevi spostato. || Il momento di Rahu è alle spalle: il Rahu Kalam di oggi, l\'ora e mezza in cui la tradizione indiana non comincia niente di importante, era fra le {inizio} e le {fine}.',
   ];
 
   /// Rahu Kalam: manca la città.
   static const List<String> rahuSenzaCitta = [
-    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || È il Rahu Kalam: dipende dall\'alba e dal tramonto del luogo in cui sei.',
-    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || È il Rahu Kalam, un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro.',
-    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu.',
+    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo in cui sei: senza la tua città non si può dire quando cade oggi.',
+    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro e serve la tua città.',
+    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città, e senza la tua non si può calcolare.',
   ];
 
   /// Il glossario della nota del metodo: termine e spiegazione.

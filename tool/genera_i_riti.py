@@ -41,6 +41,78 @@ RACCOLTE = ['inni_orfici', 'mantra_navagraha', 'gesti_tong_shu',
 CITAZIONE = re.compile(r'«[^»]*»')
 
 
+# **ORDINE GA VOCE GA.06, I RITI DELL'OROSCOPO SEGUONO IL PERIODO.** Le tre
+# raccolte dell'Oroscopo hanno, per ogni reggente e dominio, un rito per il
+# Giorno, la Settimana, il Mese e l'Anno: prima un solo rito "periodo" valeva
+# per tutti e tre, e la Settimana e l'Anno con lo stesso reggente mostravano lo
+# stesso rito parola per parola (lettore cieco, oroscopo-7 e 15, 37 e 45, 39 e
+# 47), mentre un rito scritto per un periodo che comincia oggi ("Al primo
+# mattino del periodo", "Inaugura il tratto") finiva sotto un Anno cominciato
+# da sette mesi (oroscopo-32, 45, 47).
+REGGENTI = {
+    'inni_orfici': ['Sole', 'Luna', 'Marte', 'Mercurio', 'Giove', 'Venere',
+                    'Saturno'],
+    'mantra_navagraha': ['Surya', 'Chandra', 'Mangala', 'Budha', 'Guru',
+                         'Shukra', 'Shani'],
+    'gesti_tong_shu': ['Jian', 'Chu', 'Man', 'Ping', 'Ding', 'Zhi', 'Po',
+                       'Wei', 'Cheng', 'Shou', 'Kai', 'Bi'],
+}
+DOMINI = ['Generale', 'Amore', 'Carriera', 'Fortuna']
+PERIODI = ['giorno', 'settimana', 'mese', 'anno']
+# Il rito dell'Anno vale in qualunque punto dell'anno: niente inizi, niente
+# stagioni o mesi, niente "periodo" che non dice quale.
+FUORI_DALL_ANNO = re.compile(
+    r"\b(inizi\w*|inaugur\w*|primo mattino|comincia\w*|si apre|apre|"
+    r"prim[oa] giorn[oi]|mesi|ogni mese|met[àa] (dell.)?anno|"
+    r"fine dell.anno|periodo|primavera|estate|autunno|inverno|stagion\w*|"
+    r"gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|"
+    r"ottobre|novembre|dicembre)\b", re.IGNORECASE)
+# L'Amore vale per chi ha un legame e per chi non lo ha (oroscopo-10).
+SOLO_COPPIA = re.compile(r'(chi ami|persona amata|il partner|la partner)',
+                         re.IGNORECASE)
+ALTRA_STRADA = re.compile(
+    r'(o a chi|o chi|o per chi|o di chi|o con chi|chi desideri|chi vorresti|'
+    r'senza legame|se cerchi|se non hai|se hai un legame)', re.IGNORECASE)
+
+
+def frasi_del_rito(testo):
+    """Le frasi di cinque parole o piu', senza le citazioni fra virgolette
+    basse (la formula torna in ogni rito del suo reggente, di proposito)."""
+    t = CITAZIONE.sub('«»', testo)
+    return [f.strip().lower() for f in re.split(r'(?<=[.?:;])\s+', t)
+            if len(f.split()) >= 5]
+
+
+def difetti_dell_oroscopo(raccolta, riti):
+    """I difetti GA.06 di una raccolta dell'Oroscopo."""
+    fuori = []
+    for reggente in REGGENTI[raccolta]:
+        for dominio in DOMINI:
+            for periodo in PERIODI:
+                if f'{raccolta}|{reggente}|{dominio}|{periodo}' not in riti:
+                    fuori.append(f'{raccolta}|{reggente}|{dominio}|{periodo}: '
+                                 'manca')
+    viste = {}
+    for k, testo in riti.items():
+        parti = k.split('|')
+        if len(parti) != 4 or parti[3] not in PERIODI:
+            fuori.append(f'{k}: il periodo dev\'essere uno di {PERIODI}')
+            continue
+        senza = CITAZIONE.sub('', testo)
+        if parti[3] == 'anno':
+            m = FUORI_DALL_ANNO.search(senza)
+            if m:
+                fuori.append(f'{k}: il rito dell\'anno dice «{m.group(0)}»')
+        if parti[2] == 'Amore' and SOLO_COPPIA.search(senza) \
+                and not ALTRA_STRADA.search(senza):
+            fuori.append(f'{k}: l\'Amore parla solo a chi ha un legame')
+        for f in frasi_del_rito(testo):
+            if f in viste and viste[f] != k:
+                fuori.append(f'{k}: frase gia\' in {viste[f]}: «{f[:50]}»')
+            viste.setdefault(f, k)
+    return fuori
+
+
 def dart(testo):
     return "'" + testo.replace('\\', '\\\\').replace("'", "\\'") \
         .replace('$', '\\$') + "'"
@@ -102,6 +174,8 @@ def main():
         riti.update(a)
         fonti.update(b)
         difetti.extend(c)
+        if r in REGGENTI:
+            difetti.extend(difetti_dell_oroscopo(r, a))
         print(f'{r}: {len(a)} riti, {len(b)} righe di "Da dove viene"')
     if difetti:
         print('\n'.join(difetti[:60]))

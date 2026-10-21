@@ -132,97 +132,97 @@ Formato proposto: una frase, poi due righe brevi "Adatto a" e "Meglio evitare" p
 
 Adatto a: cominciare un percorso, partire, prendere un incarico. Meglio evitare: lavori di scavo, grandi spostamenti di cose.
 
-1. È il momento di mettere in piedi qualcosa di nuovo. Comincia il corso, l'abitudine o il progetto che rimandi: basta il primo passo, un'iscrizione o la prima mezz'ora. || Il guardiano di oggi è Stabilire, il primo dei dodici: nel calendario cinese è il giorno in cui qualcosa si mette in piedi.
-2. Vanno bene gli inizi e le partenze, meno il rivoltare ciò che è già al suo posto. Prenota il viaggio o scegli la data in cui parti. Se avevi in mente uno scavo in giardino, rimandalo. || Oggi veglia Stabilire: la tradizione cinese lo vuole per gli inizi e per mettersi in viaggio, lo sconsiglia per i lavori di scavo.
-3. È un buon momento per prendere un impegno nuovo e dirlo a voce alta. Accetta l'incarico o annuncia a qualcuno ciò che hai deciso di fare. Lascia per un altro giorno i traslochi di cose pesanti. || Stabilire guida il giorno: fra i dodici guardiani è quello adatto a prendere un incarico, non ai grandi spostamenti di cose.
+1. È il momento di mettere in piedi qualcosa di nuovo. Comincia il corso, l'abitudine o il progetto che rimandi: basta il primo passo, un'iscrizione o la prima mezz'ora. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, si chiama «Stabilire», il primo della serie: nel calendario cinese è il giorno in cui qualcosa si mette in piedi.
+2. Vanno bene gli inizi e le partenze, meno il rivoltare ciò che è già al suo posto. Prenota il viaggio o scegli la data in cui parti. Se avevi in mente uno scavo in giardino, rimandalo. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Stabilire»: la tradizione cinese lo vuole per gli inizi e per mettersi in viaggio, lo sconsiglia per i lavori di scavo.
+3. È un buon momento per prendere un impegno nuovo e dirlo a voce alta. Accetta l'incarico o annuncia a qualcuno ciò che hai deciso di fare. Lascia per un altro giorno i traslochi di cose pesanti. || Il guardiano «Stabilire» guida il giorno, uno dei dodici del calendario cinese: fra i dodici guardiani è quello adatto a prendere un incarico, non ai grandi spostamenti di cose.
 
 ### 2.2 Togliere (除 Chu)
 
 Adatto a: pulire, curarsi, liberarsi del vecchio, piccoli affari. Meglio evitare: partenze, traslochi, candidature a un incarico.
 
-1. La giornata è adatta a portare via ciò che ingombra. Svuota un armadio, salda un piccolo debito o prenota il controllo che rimandi da mesi: una sola di queste cose basta. || Oggi il guardiano è Togliere: la tradizione cinese lo dedica a ciò che si porta via, dal pulire al curarsi al liberarsi del vecchio.
-2. Conviene fare spazio prima di aggiungere: una cosa tolta vale più di tre cose nuove. Butta dieci oggetti che non usi, disdici un abbonamento inutile o libera la scrivania prima di prendere altro. || Togliere veglia sul giorno: è il guardiano che il calendario cinese lega al pulire e al liberarsi del vecchio.
-3. Vanno bene la cura di te e i conti in sospeso da sistemare, meno le partenze. Prenditi un'ora per un bagno lungo o per rispondere a chi aspetta da te una risposta. Se puoi, sposta il viaggio a un altro giorno. || È una giornata di Togliere, dice l'almanacco cinese: buona per curarsi e per liberarsi del vecchio, sconsigliata per partenze e traslochi.
+1. La giornata è adatta a portare via ciò che ingombra. Svuota un armadio, salda un piccolo debito o prenota il controllo che rimandi da mesi: una sola di queste cose basta. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Togliere»: la tradizione cinese lo dedica a ciò che si porta via, dal pulire al curarsi al liberarsi del vecchio.
+2. Conviene fare spazio prima di aggiungere: una cosa tolta vale più di tre cose nuove. Butta dieci oggetti che non usi, disdici un abbonamento inutile o libera la scrivania prima di prendere altro. || Il guardiano «Togliere» veglia sul giorno: è il guardiano che il calendario cinese lega al pulire e al liberarsi del vecchio.
+3. Vanno bene la cura di te e i conti in sospeso da sistemare, meno le partenze. Prenditi un'ora per un bagno lungo o per rispondere a chi aspetta da te una risposta. Se puoi, sposta il viaggio a un altro giorno. || È una giornata del guardiano «Togliere», uno dei dodici dell'almanacco cinese: buona per curarsi e per liberarsi del vecchio, sconsigliata per partenze e traslochi.
 
 ### 2.3 Pieno (满 Man)
 
 Adatto a: celebrare, incontri di famiglia, aprire un'attività, cercare un guadagno. Meglio evitare: traslochi, lavori di terra, prendere un nuovo incarico.
 
-1. È un giorno per festeggiare ciò che c'è già, più che per inseguire altro. Organizza una cena con i tuoi o di' un grazie per bene, a voce, alla persona che se lo merita da tempo. || Oggi veglia Pieno, il guardiano del raccolto: il calendario cinese lo lega alle celebrazioni e agli incontri di famiglia.
-2. La giornata parla di abbondanza, non di avidità: va bene incassare e fare il punto, non caricarti di impegni nuovi. Chiedi un pagamento che ti spetta e rimanda la risposta a chi ti propone un incarico. || Il guardiano Pieno dice abbondanza: è adatto a cercare un guadagno, non a prendere un nuovo incarico.
-3. Meglio restare dove sei e goderti ciò che hai raccolto. Brinda a un risultato, anche piccolo, con chi ti ha dato una mano. Scatoloni, traslochi e lavori in giardino possono aspettare. || È un giorno di Pieno: la tradizione cinese lo vuole per le celebrazioni e i guadagni, non per i traslochi né per i lavori di terra.
+1. È un giorno per festeggiare ciò che c'è già, più che per inseguire altro. Organizza una cena con i tuoi o di' un grazie per bene, a voce, alla persona che se lo merita da tempo. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Pieno», il guardiano del raccolto: il calendario cinese lo lega alle celebrazioni e agli incontri di famiglia.
+2. La giornata parla di abbondanza, non di avidità: va bene incassare e fare il punto, non caricarti di impegni nuovi. Chiedi un pagamento che ti spetta e rimanda la risposta a chi ti propone un incarico. || Il guardiano del giorno, «Pieno», uno dei dodici del calendario cinese, dice abbondanza: è adatto a cercare un guadagno, non a prendere un nuovo incarico.
+3. Meglio restare dove sei e goderti ciò che hai raccolto. Brinda a un risultato, anche piccolo, con chi ti ha dato una mano. Scatoloni, traslochi e lavori in giardino possono aspettare. || È un giorno del guardiano «Pieno», uno dei dodici del calendario cinese: la tradizione cinese lo vuole per le celebrazioni e i guadagni, non per i traslochi né per i lavori di terra.
 
 ### 2.4 Livellare (平 Ping)
 
 Adatto a: riparare, sistemare, abbellire. Meglio evitare: aprire strade nuove (la tradizione dice "scavare canali").
 
-1. La giornata è piana, né favorevole né contraria: perfetta per aggiustare ciò che è storto. Ripara la cosa rotta che hai in casa da settimane: la lampadina, la cerniera, il rubinetto che gocciola. || Il guardiano di oggi è Livellare: nel calendario cinese è il giorno adatto a riparare, sistemare e abbellire.
-2. Non è una giornata da svolte: conviene rimettere in pari ciò che è rimasto indietro. Riordina una stanza, aggiorna l'agenda o ricambia il favore a chi ultimamente ha dato più di te. || Oggi veglia Livellare: la tradizione cinese lo vuole per sistemare e lo sconsiglia per ciò che chiama "scavare canali", cioè aprire strade nuove.
-3. Le cose ordinarie vanno bene, le deviazioni meno. Finisci di sistemare quello che c'è prima di avviare altro: completa la pratica a metà, rispondi ai messaggi arretrati, poi pensa al resto. || Livellare guida il giorno: fra i dodici guardiani è quello che vuole sistemare ciò che c'è, non aprire strade nuove.
+1. La giornata è piana, né favorevole né contraria: perfetta per aggiustare ciò che è storto. Ripara la cosa rotta che hai in casa da settimane: la lampadina, la cerniera, il rubinetto che gocciola. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Livellare»: nel calendario cinese è il giorno adatto a riparare, sistemare e abbellire.
+2. Non è una giornata da svolte: conviene rimettere in pari ciò che è rimasto indietro. Riordina una stanza, aggiorna l'agenda o ricambia il favore a chi ultimamente ha dato più di te. || Oggi veglia il guardiano «Livellare»: la tradizione cinese lo vuole per sistemare e lo sconsiglia per ciò che chiama "scavare canali", cioè aprire strade nuove.
+3. Le cose ordinarie vanno bene, le deviazioni meno. Finisci di sistemare quello che c'è prima di avviare altro: completa la pratica a metà, rispondi ai messaggi arretrati, poi pensa al resto. || Il guardiano «Livellare» guida il giorno: fra i dodici guardiani è quello che vuole sistemare ciò che c'è, non aprire strade nuove.
 
 ### 2.5 Fissare (定 Ding)
 
 Adatto a: pianificare, decisioni che devono durare, cerimonie. Meglio evitare: liti, cause, partenze.
 
-1. Riescono meglio le cose che devono durare. Metti per iscritto un piano in cinque righe e scegli una data precisa per il primo passo: scrivila in agenda. || Oggi veglia Fissare: la tradizione cinese lo lega a ciò che deve restare, dai piani alle decisioni che devono durare.
-2. Serve stabilità: si decide bene a mente fredda, si discute male. Prendi con calma la decisione che aspetta da giorni. Se una lite si affaccia, di' che ne riparlate domani. || Il guardiano Fissare chiede stabilità: l'almanacco cinese lo dà adatto alle decisioni che devono durare e sconsigliato per liti e cause.
-3. Conviene restare, costruire e programmare più che muoversi. Prepara il programma della settimana o del mese. Il viaggio e il confronto duro spostali a un giorno più adatto. || È un giorno di Fissare: nel calendario cinese va bene per pianificare, mentre partenze e liti hanno giorni migliori.
+1. Riescono meglio le cose che devono durare. Metti per iscritto un piano in cinque righe e scegli una data precisa per il primo passo: scrivila in agenda. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Fissare»: la tradizione cinese lo lega a ciò che deve restare, dai piani alle decisioni che devono durare.
+2. Serve stabilità: si decide bene a mente fredda, si discute male. Prendi con calma la decisione che aspetta da giorni. Se una lite si affaccia, di' che ne riparlate domani. || Il guardiano del giorno, «Fissare», chiede stabilità: l'almanacco cinese lo dà adatto alle decisioni che devono durare e sconsigliato per liti e cause.
+3. Conviene restare, costruire e programmare più che muoversi. Prepara il programma della settimana o del mese. Il viaggio e il confronto duro spostali a un giorno più adatto. || È un giorno del guardiano «Fissare», uno dei dodici del calendario cinese: nel calendario cinese va bene per pianificare, mentre partenze e liti hanno giorni migliori.
 
 ### 2.6 Tenere (执 Zhi)
 
 Adatto a: tenere fermo ciò che hai, costruire, piantare, portare a termine. Meglio evitare: aprire un'attività, commerciare, traslocare, partire.
 
-1. È una giornata per trattenere e concludere, non per lasciare andare. Riprendi una cosa iniziata e portala a termine prima di sera: il lavoro a metà, il libro all'ultimo capitolo, la pratica in sospeso. || Il guardiano di oggi è Tenere: la tradizione cinese lo vuole per trattenere, non per lasciare andare.
-2. Meglio custodire ciò che hai costruito che cercare altrove. Fai manutenzione a una cosa tua: una copia delle carte importanti, un controllo alla bici, una telefonata a chi ti è vicino da anni. Compravendite e partenze, un altro giorno. || Oggi veglia Tenere: per compravendite e partenze l'almanacco cinese consiglia altri giorni.
-3. Presa salda e pochi movimenti: è così che la giornata rende. Pianta qualcosa, anche solo un vaso sul balcone. Se ti chiedono una firma in fretta, prenditi un giorno per rileggere. || Tenere guida il giorno: nel calendario cinese è adatto a costruire, piantare e portare a termine, non a commerciare.
+1. È una giornata per trattenere e concludere, non per lasciare andare. Riprendi una cosa iniziata e portala a termine prima di sera: il lavoro a metà, il libro all'ultimo capitolo, la pratica in sospeso. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Tenere»: la tradizione lo vuole per trattenere, non per lasciare andare.
+2. Meglio custodire ciò che hai costruito che cercare altrove. Fai manutenzione a una cosa tua: una copia delle carte importanti, un controllo alla bici, una telefonata a chi ti è vicino da anni. Compravendite e partenze, un altro giorno. || Oggi veglia il guardiano «Tenere», uno dei dodici del calendario cinese: per compravendite e partenze l'almanacco cinese consiglia altri giorni.
+3. Presa salda e pochi movimenti: è così che la giornata rende. Pianta qualcosa, anche solo un vaso sul balcone. Se ti chiedono una firma in fretta, prenditi un giorno per rileggere. || Il guardiano «Tenere» guida il giorno: nel calendario cinese è adatto a costruire, piantare e portare a termine, non a commerciare.
 
 ### 2.7 Rompere (破 Po)
 
 Adatto a: demolire il vecchio, cercare cure. Meglio evitare: ogni cosa importante di buon augurio (gli almanacchi scrivono "诸事不宜", nessuna impresa conviene).
 
-1. Non è il momento di cominciare cose importanti: la giornata serve piuttosto a farla finita con ciò che non regge più. Smonta il mobile rotto, svuota la cantina, butta ciò che tieni solo per abitudine. || Oggi il guardiano è Rompere, il più severo dei dodici: gli almanacchi cinesi sconsigliano di cominciare cose importanti.
-2. Niente firme e niente inizi: la giornata è fatta per tagliare. Di' un no chiaro a una richiesta che ti pesa e disdici un impegno che hai preso controvoglia. || Rompere veglia sul giorno: gli almanacchi cinesi ne scrivono "nessuna impresa conviene" e lo tengono buono per demolire il vecchio.
-3. I programmi vanno tenuti leggeri: le cose nuove possono aspettare. Sposta a domani l'avvio di ciò che conta. Usa il tempo che si libera per te: una camminata, una dormita, un'ora senza telefono. || È un giorno di Rompere: la tradizione cinese lo vuole solo per demolire il vecchio e per cercare cure.
+1. Non è il momento di cominciare cose importanti: la giornata serve piuttosto a farla finita con ciò che non regge più. Smonta il mobile rotto, svuota la cantina, butta ciò che tieni solo per abitudine. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Rompere», il più severo: gli almanacchi cinesi sconsigliano di cominciare cose importanti.
+2. Niente firme e niente inizi: la giornata è fatta per tagliare. Di' un no chiaro a una richiesta che ti pesa e disdici un impegno che hai preso controvoglia. || Il guardiano «Rompere», uno dei dodici del calendario cinese, veglia sul giorno: gli almanacchi cinesi ne scrivono "nessuna impresa conviene" e lo tengono buono per demolire il vecchio.
+3. I programmi vanno tenuti leggeri: le cose nuove possono aspettare. Sposta a domani l'avvio di ciò che conta. Usa il tempo che si libera per te: una camminata, una dormita, un'ora senza telefono. || È un giorno del guardiano «Rompere»: la tradizione cinese lo vuole solo per demolire il vecchio e per cercare cure.
 
 ### 2.8 Pericolo (危 Wei)
 
 Adatto a: cerimonie, raccoglimento. Meglio evitare: salire in alto, andare per mare, traslocare.
 
-1. Serve prudenza, senza rischi fisici inutili. Guida con calma e parti qualche minuto prima. Se dovevi salire su una scala o su un tetto, fallo un altro giorno o fatti aiutare. || Il guardiano di oggi è Pericolo: la tradizione cinese chiede prudenza con l'altezza e con l'acqua, sconsiglia di salire in alto e di andare per mare.
-2. Nessun presagio, solo un invito alla cautela: la giornata è buona per raccoglierti, meno per spostarti. Resta in zona e ritagliati mezz'ora di silenzio, a casa o in un posto tranquillo. || Oggi veglia Pericolo: il calendario cinese lo dà adatto alle cerimonie e al raccoglimento, non ai traslochi.
-3. Tutto va meglio se fai con calma ciò che di solito fai in fretta. Scendi le scale senza telefono in mano, attraversa guardando due volte. In cantiere o su una scala a pioli, un occhio in più. || Pericolo guida il giorno: fra i dodici guardiani è quello che vuole cautela, soprattutto dove si sale in alto.
+1. Serve prudenza, senza rischi fisici inutili. Guida con calma e parti qualche minuto prima. Se dovevi salire su una scala o su un tetto, fallo un altro giorno o fatti aiutare. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Pericolo»: la tradizione cinese chiede prudenza con l'altezza e con l'acqua, sconsiglia di salire in alto e di andare per mare.
+2. Nessun presagio, solo un invito alla cautela: la giornata è buona per raccoglierti, meno per spostarti. Resta in zona e ritagliati mezz'ora di silenzio, a casa o in un posto tranquillo. || Oggi veglia il guardiano «Pericolo», uno dei dodici del calendario cinese: il calendario cinese lo dà adatto alle cerimonie e al raccoglimento, non ai traslochi.
+3. Tutto va meglio se fai con calma ciò che di solito fai in fretta. Scendi le scale senza telefono in mano, attraversa guardando due volte. In cantiere o su una scala a pioli, un occhio in più. || Il guardiano «Pericolo» guida il giorno: fra i dodici guardiani è quello che vuole cautela, soprattutto dove si sale in alto.
 
 ### 2.9 Compiere (成 Cheng)
 
 Adatto a: aprire, firmare accordi, cominciare un'unione, partire, traslocare, curarsi. Meglio evitare: liti e cause.
 
-1. Poche giornate sono così favorevoli a ciò che deve arrivare in fondo. Consegna il lavoro pronto, conferma l'appuntamento, firma l'accordo che avete già discusso. || Oggi veglia Compiere, uno dei guardiani più favorevoli: la tradizione cinese lo vuole per ciò che deve arrivare in fondo.
-2. Le cose rimaste a metà hanno una buona occasione per concludersi. Se hai un sì da dare o da chiedere, fallo entro sera con una telefonata. Lascia fuori le discussioni. || Il guardiano Compiere porta a termine: nel calendario cinese è adatto agli accordi, sconsigliato per liti e cause.
-3. Vanno bene gli accordi, le partenze e gli inizi di coppia. Scegli il giorno della partenza, proponi l'uscita a chi ti piace o stringi la mano su un'intesa. Evita solo di trascinare qualcuno in una lite. || È un giorno di Compiere: accordi, partenze e inizi di coppia vanno bene secondo l'almanacco cinese, liti e cause no.
+1. Poche giornate sono così favorevoli a ciò che deve arrivare in fondo. Consegna il lavoro pronto, conferma l'appuntamento, firma l'accordo che avete già discusso. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Compiere», uno dei più favorevoli: la tradizione cinese lo vuole per ciò che deve arrivare in fondo.
+2. Le cose rimaste a metà hanno una buona occasione per concludersi. Se hai un sì da dare o da chiedere, fallo entro sera con una telefonata. Lascia fuori le discussioni. || Il guardiano del giorno, «Compiere», porta a termine: nel calendario cinese è adatto agli accordi, sconsigliato per liti e cause.
+3. Vanno bene gli accordi, le partenze e gli inizi di coppia. Scegli il giorno della partenza, proponi l'uscita a chi ti piace o stringi la mano su un'intesa. Evita solo di trascinare qualcuno in una lite. || È un giorno del guardiano «Compiere», uno dei dodici del calendario cinese: accordi, partenze e inizi di coppia vanno bene secondo l'almanacco cinese, liti e cause no.
 
 ### 2.10 Raccogliere (收 Shou)
 
 Adatto a: incassare, raccogliere i frutti, studiare. Meglio evitare: partire, i riti funebri.
 
-1. Si tirano le somme più che avviare cose nuove. Incassa ciò che ti devono, archivia le carte sparse, fai il bilancio del mese in una pagina. || Il guardiano di oggi è Raccogliere: la tradizione cinese lo lega al raccolto e ai frutti da incassare.
-2. Non è il momento di seminare ma di prendere ciò che è maturo. Chiedi il compenso che ti spetta, con un messaggio cortese e la cifra scritta. Poi rimetti in ordine ciò che hai guadagnato. || Oggi veglia Raccogliere: fra i dodici guardiani è quello adatto a incassare e a raccogliere i frutti.
-3. Rendono bene lo studio e il mettere da parte, meno le partenze. Dedica un'ora a imparare una cosa che ti serve e metti via qualcosa, anche una piccola somma. Il viaggio può slittare. || Raccogliere guida il giorno: il calendario cinese lo dà buono per studiare e per mettere da parte, mentre le partenze le rimanda.
+1. Si tirano le somme più che avviare cose nuove. Incassa ciò che ti devono, archivia le carte sparse, fai il bilancio del mese in una pagina. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Raccogliere»: la tradizione cinese lo lega al raccolto e ai frutti da incassare.
+2. Non è il momento di seminare ma di prendere ciò che è maturo. Chiedi il compenso che ti spetta, con un messaggio cortese e la cifra scritta. Poi rimetti in ordine ciò che hai guadagnato. || Oggi veglia il guardiano «Raccogliere»: fra i dodici guardiani è quello adatto a incassare e a raccogliere i frutti.
+3. Rendono bene lo studio e il mettere da parte, meno le partenze. Dedica un'ora a imparare una cosa che ti serve e metti via qualcosa, anche una piccola somma. Il viaggio può slittare. || Il guardiano «Raccogliere», uno dei dodici del calendario cinese, guida il giorno: il calendario cinese lo dà buono per studiare e per mettere da parte, mentre le partenze le rimanda.
 
 ### 2.11 Aprire (开 Kai)
 
 Adatto a: aprire un'attività, inizi di coppia, entrare in casa nuova, chiedere. Meglio evitare: lavori di terra, i riti funebri.
 
-1. Le porte si aprono più volentieri a chi bussa. Presentati a una persona che vuoi conoscere o fai la richiesta che tieni in sospeso: un aumento, un favore, un appuntamento. || Oggi veglia Aprire, il guardiano delle porte che si aprono: la tradizione cinese lo vuole per inaugurare, presentarsi, chiedere.
-2. Rende di più farti vedere che aspettare che ti cerchino. Manda la candidatura, fai la proposta, rispondi a chi aspetta da te un cenno e invitalo a entrare. || Il guardiano Aprire invita a farsi vedere: nel calendario cinese è il giorno adatto a chiedere e a cominciare.
-3. Gli inizi vanno bene quasi tutti. Avvia la cosa nuova a cui pensi: il primo giorno di un'attività, il primo invito a una persona, la prima sera nella casa nuova. Lascia stare soltanto gli scavi e i lavori in giardino. || È un giorno di Aprire: buono per gli inizi, secondo l'almanacco cinese, che lascia fuori solo i lavori di terra e i riti funebri.
+1. Le porte si aprono più volentieri a chi bussa. Presentati a una persona che vuoi conoscere o fai la richiesta che tieni in sospeso: un aumento, un favore, un appuntamento. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Aprire», il guardiano delle porte che si aprono: la tradizione cinese lo vuole per inaugurare, presentarsi, chiedere.
+2. Rende di più farti vedere che aspettare che ti cerchino. Manda la candidatura, fai la proposta, rispondi a chi aspetta da te un cenno e invitalo a entrare. || Il guardiano del giorno, «Aprire», invita a farsi vedere: nel calendario cinese è il giorno adatto a chiedere e a cominciare.
+3. Gli inizi vanno bene quasi tutti. Avvia la cosa nuova a cui pensi: il primo giorno di un'attività, il primo invito a una persona, la prima sera nella casa nuova. Lascia stare soltanto gli scavi e i lavori in giardino. || È un giorno del guardiano «Aprire», uno dei dodici del calendario cinese: buono per gli inizi, secondo l'almanacco cinese, che lascia fuori solo i lavori di terra e i riti funebri.
 
 ### 2.12 Chiudere (闭 Bi)
 
 Adatto a: riposo, mettere al sicuro, chiudere falle. Meglio evitare: aprire un'attività, sposarsi, partire, cercare guadagni.
 
-1. È una giornata buona per rientrare in te e mettere al sicuro ciò che conta. Stasera spegni il telefono un'ora prima del solito e vai a letto presto: il riposo è la cosa più utile che puoi fare. || Il guardiano di oggi è Chiudere: la tradizione cinese lo lega al riposo e a ciò che si mette al sicuro.
-2. Niente inaugurazioni e niente grandi richieste: conviene tappare le falle. Salva una copia di ogni file importante, ripara la serratura che non tiene, controlla che porte e finestre siano a posto. || Oggi veglia Chiudere: l'almanacco cinese lo sconsiglia per le inaugurazioni e per cercare guadagni, lo vuole per mettere al sicuro.
-3. È il caso di tenerti stretto ciò che hai, senza avviare altro né metterti in viaggio. Metti in ordine i documenti e le chiavi, riponi ciò che è in giro. Tutto il resto lo riprendi domani. || Chiudere guida il giorno: l'almanacco cinese lo sconsiglia per aprire un'attività e per partire.
+1. È una giornata buona per rientrare in te e mettere al sicuro ciò che conta. Stasera spegni il telefono un'ora prima del solito e vai a letto presto: il riposo è la cosa più utile che puoi fare. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Chiudere»: la tradizione cinese lo lega al riposo e a ciò che si mette al sicuro.
+2. Niente inaugurazioni e niente grandi richieste: conviene tappare le falle. Salva una copia di ogni file importante, ripara la serratura che non tiene, controlla che porte e finestre siano a posto. || Oggi veglia il guardiano «Chiudere», uno dei dodici del calendario cinese: l'almanacco cinese lo sconsiglia per le inaugurazioni e per cercare guadagni, lo vuole per mettere al sicuro.
+3. È il caso di tenerti stretto ciò che hai, senza avviare altro né metterti in viaggio. Metti in ordine i documenti e le chiavi, riponi ciò che è in giro. Tutto il resto lo riprendi domani. || Il guardiano «Chiudere» guida il giorno: l'almanacco cinese lo sconsiglia per aprire un'attività e per partire.
 
 ---
 
@@ -329,7 +329,7 @@ Regola generale: l'Ufficiale (正官, 七杀) è ciò che controlla il tuo eleme
 Titolo: Lavoro di squadra
 1. Oggi al lavoro si va meglio in squadra che in solitaria; farsi notare da chi decide è più difficile. Prendi un compito da fare a quattro mani e portalo avanti con un collega. || Il dio di oggi nel BaZi è il Compagno: il giorno ha il tuo stesso elemento con la tua stessa polarità. Sul lavoro sono i pari grado, le persone come te.
 2. Oggi il lavoro scorre in orizzontale, fra colleghi più che verso i capi. Chiedi una mano a chi ha già risolto il tuo problema; in cambio offri la tua su una cosa che sai fare. || Il Compagno è di turno: nel BaZi chi ha il tuo stesso elemento sta al tuo fianco, non sopra di te. Per il lavoro vuol dire collaborazione orizzontale.
-3. Oggi sul lavoro conta la rete delle persone al tuo livello. Coltivala senza metterti a confronto: un caffè con una collega, un grazie a chi ti ha dato una mano la settimana scorsa. || È la giornata del Compagno: nella scheda del lavoro il BaZi guarda all'Ufficiale, l'autorità, mentre il Compagno porta il confronto fra pari.
+3. Oggi sul lavoro conta la rete delle persone al tuo livello. Coltivala senza metterti a confronto: un caffè con una collega, un grazie a chi ti ha dato una mano la settimana scorsa. || È la giornata del Compagno, il dio che ha il tuo stesso elemento e la tua stessa polarità: sul lavoro porta il confronto fra pari.
 
 **劫财, il Rivale**
 Titolo: Lascia parlare i fatti

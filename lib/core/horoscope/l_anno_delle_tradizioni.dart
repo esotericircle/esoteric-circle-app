@@ -182,9 +182,12 @@ abstract final class LAnnoDelleTradizioni {
     final diGiove = 'Al tuo compleanno del ${_data(da)} Giove era in '
         '${segno(CorpoCeleste.giove)}, nella tua ${ordinali[giove - 1]} casa '
         'dalla Luna di nascita: ${g == 1 ? 'una casa favorevole' : 'non una delle sue case favorevoli'}.';
+    // **ORDINE GA VOCE GA.06**: "è la Sade Sati." da sola era un nome senza
+    // spiegazione (lettore cieco, oroscopo-29 e 31); la riga adesso dice che
+    // cos'e', con le parole della nota del metodo (V-M-011).
     final diSaturno = 'Saturno era in ${segno(CorpoCeleste.saturno)}, nella '
         'tua ${ordinali[saturno - 1]} casa dalla Luna di nascita: '
-        '${s == 1 ? 'una casa favorevole' : sadeSati ? 'è la Sade Sati' : 'non una delle sue case favorevoli'}.';
+        '${s == 1 ? 'una casa favorevole' : sadeSati ? 'è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza' : 'non una delle sue case favorevoli'}.';
     return AnnoDellaTradizione(
       da: da,
       a: a,

@@ -9,1038 +9,1038 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 ### Generale, Favorevole (livello 4 e 5)
 
-#### Generale, favorevole, voce 1: La mensola da montare
+#### Generale, favorevole, voce 1: Il lavoro lasciato a metà
 
-- Risposta: Settimana buona per chiudere i lavori di casa rimasti a metà. La mensola da montare o la tenda da appendere che ti guarda dall'angolo da settimane trova adesso la voglia e la mano ferma che servivano. Bastano un pomeriggio e gli attrezzi giusti per finire.
-- Che cosa fare: Prendi oggi le misure e scrivile su un foglietto. Martedì passa dalla ferramenta per viti e tasselli adatti, poi blocca in agenda il mercoledì pomeriggio come ora del montaggio. Quando è tutto su, scegli con calma che cosa appoggiarci sopra, senza riempirla subito.
-- Risposta, Lunga: Un lavoro lasciato a metà occupa più spazio di quanto sembri: lo vedi entrando e lo rimandi uscendo. Chiuderlo libera lo sguardo e restituisce una stanza che ti somiglia. Attenzione solo a non trasformarlo in un cantiere più grande: finisci quello, il resto aspetta.
+- Risposta: Settimana buona nel complesso, con la voglia giusta per chiudere le faccende di casa rimaste in sospeso. Hai la mano ferma che serve: se c'è una mensola da montare, una tenda da appendere o un cassetto da aggiustare, adesso bastano un pomeriggio e gli attrezzi giusti.
+- Che cosa fare: Scegli oggi un lavoro da finire, il più piccolo fra quelli che rimandi. Prendi le misure e scrivile su un foglietto. Entro tre giorni procurati viti, tasselli o ciò che manca, poi fissa in agenda un'ora precisa per completarlo. Finito quello, fermati: il resto aspetta.
+- Risposta, Lunga: Un lavoro lasciato a metà occupa più spazio di quanto sembri: lo vedi entrando e lo rimandi uscendo. Chiuderlo libera lo sguardo e restituisce una stanza che ti somiglia. Il rischio è trasformarlo in un cantiere più grande; il segno che funziona è un angolo che torna in ordine.
 
-#### Generale, favorevole, voce 2: Un invito sul pianerottolo
+#### Generale, favorevole, voce 2: Un saluto ai vicini
 
-- Risposta: Settimana aperta verso chi abita accanto a te. I vicini che conosci solo di vista, fra un saluto in ascensore e un pacco ritirato, aspettano soltanto un passo in più: farlo adesso è più facile del previsto e rende il palazzo un luogo meno anonimo.
-- Che cosa fare: Scrivi oggi due righe su un biglietto e lascialo sotto la porta dei vicini entro mercoledì: un caffè da te giovedì dopo cena, con il tuo numero in fondo. Prepara qualcosa di semplice da offrire, biscotti del forno o una torta fatta in casa.
-- Risposta, Lunga: Il quartiere diventa casa quando ci sono porte a cui bussare. Basta una sera in cucina perché i nomi sul citofono diventino persone con una storia. Non serve preparare argomenti: il palazzo, la strada rumorosa e il lavoro bastano a far partire la conversazione da sé.
+- Risposta: Settimana aperta verso le persone che vivono vicino a te. Fra un saluto sulle scale e un pacco ritirato, i rapporti di vicinato aspettano soltanto un passo in più: farlo adesso viene facile e rende il luogo dove abiti meno anonimo, più tuo, più accogliente.
+- Che cosa fare: Scrivi oggi due righe su un biglietto per un vicino che conosci appena e lascialo sotto la sua porta entro tre giorni: un caffè da te una sera di questa settimana, con il tuo numero in fondo. Prepara qualcosa di semplice da offrire, biscotti o una torta.
+- Risposta, Lunga: Un quartiere diventa casa quando ci sono porte a cui bussare. Basta una sera in cucina perché i nomi sul citofono diventino persone con una storia. Non serve preparare argomenti: la strada, i rumori del palazzo e le piccole notizie della zona bastano a far partire la conversazione.
 
 #### Generale, favorevole, voce 3: Mattini con margine
 
 - Risposta: Settimana favorevole per cambiare il ritmo dei tuoi mattini. Hai l'energia per provarci e una sveglia appena anticipata basta a rendere più distese le ore che seguono. Non serve stravolgere nulla: venti minuti guadagnati all'inizio cambiano il tono dell'intera giornata.
-- Che cosa fare: Da domani fino a venerdì punta la sveglia venti minuti prima e usali per una cosa sola: la colazione al tavolo, con la finestra aperta e il telefono ancora nella borsa. Venerdì decidi se tenere l'abitudine; un giorno saltato non conta, riparti senza recuperi.
-- Risposta, Lunga: Spesso la fretta nasce nei primi dieci minuti e poi ti insegue fino a sera, colorando anche le conversazioni con chi incontri. Un inizio con margine assorbe i piccoli intoppi prima che diventino nervosismo. Fai attenzione solo a non riempire quei minuti con la posta.
+- Che cosa fare: Per cinque mattine di fila punta la sveglia venti minuti prima e usali per una cosa sola: la colazione al tavolo, con la finestra aperta e il telefono ancora spento. Al quinto giorno decidi se tenere l'abitudine; una mattina saltata non conta, riparti senza recuperi.
+- Risposta, Lunga: Spesso la fretta nasce nei primi dieci minuti e poi ti insegue fino a sera, colorando anche le conversazioni con chi incontri. Un inizio con margine assorbe i piccoli intoppi prima che diventino nervosismo. Fai attenzione soltanto a non riempire quei minuti con la posta.
 
 #### Generale, favorevole, voce 4: La lezione di prova
 
-- Risposta: Settimana buona per dare spazio a una curiosità che coltivi da tempo. Il coro del quartiere, un corso di ceramica, la fotografia: la porta che rimandi di aprire adesso si apre con facilità e una prima volta può dirti molto più di mesi di ipotesi.
-- Che cosa fare: Cerca oggi l'associazione o la scuola che propone ciò che ti attira e chiedi entro mercoledì se esiste una lezione di prova. Fissala per sabato o per la prima sera libera in agenda e porta con te un quaderno piccolo per gli appunti.
+- Risposta: Settimana buona per dare spazio a una curiosità che coltivi da tempo. Il canto, la ceramica, la fotografia o una lingua nuova: la porta che rimandi di aprire adesso si apre con facilità e una prima volta può dirti più di tante ipotesi fatte a tavolino.
+- Che cosa fare: Cerca oggi una scuola o un'associazione della tua zona che propone ciò che ti attira e chiedi entro tre giorni se esiste una lezione di prova. Fissala nella prima sera libera della settimana e porta con te una domanda da fare all'insegnante alla fine.
 - Risposta, Lunga: Non serve sapere già dove ti porta: la gente che c'è, l'aria della stanza e quanto ti diverti sono informazioni vere. Tre righe scritte subito dopo, prima di tornare a casa, aiutano a decidere se iscriverti senza farti guidare dall'entusiasmo del momento.
 
-#### Generale, favorevole, voce 5: Il pranzo al sacco
+#### Generale, favorevole, voce 5: Una gita in giornata
 
-- Risposta: Settimana propizia per la gita di famiglia di cui si parla da mesi. Le agende si allineano con facilità e la proposta giusta trova orecchie disposte ad ascoltarla: basta che qualcuno si prenda il compito di deciderla: quel qualcuno puoi essere proprio tu.
-- Che cosa fare: Scrivi oggi nella chat di famiglia due mete possibili con gli orari del treno o il tempo in auto. Chiedi a tutti di scegliere entro giovedì: chi vince porta il pranzo al sacco. Sabato prepara la borsa con acqua, una coperta e qualcosa per la pioggia.
-- Risposta, Lunga: Le uscite di famiglia saltano quasi sempre perché nessuno le decide davvero. Quando le carte sono in tavola gli altri seguono volentieri e la domenica diventa una data vera. Attenzione a non trasformarla in un programma fitto: lasciate a casa i compiti e anche la posta del telefono.
+- Risposta: Settimana propizia per una gita di un giorno fuori dai tuoi soliti percorsi. Le agende delle persone care si allineano con facilità e una proposta precisa trova orecchie disposte ad ascoltarla: basta che qualcuno si prenda il compito di deciderla: puoi farlo tu.
+- Che cosa fare: Scrivi oggi a una o due persone con cui stai bene due mete possibili, con gli orari del treno o il tempo in auto. Chiedi di scegliere entro tre giorni e fissa la data nel fine settimana; se preferisci, parti per conto tuo. Porta acqua e pranzo al sacco.
+- Risposta, Lunga: Le gite saltano quasi sempre perché nessuno le decide davvero. Quando le carte sono in tavola gli altri seguono volentieri e la giornata diventa una data vera. Attenzione a non trasformarla in un programma fitto: una meta, un pranzo all'aperto e il ritorno con calma bastano.
 
-#### Generale, favorevole, voce 6: Il fuso orario
+#### Generale, favorevole, voce 6: Una telefonata lunga
 
-- Risposta: Settimana adatta a riavvicinarti a una persona cara che vive lontano. Le vostre chiamate si sono ridotte a messaggi frettolosi, ma in questi giorni hai il tempo e la disposizione per una conversazione lunga, fatta con calma, in cui raccontarvi davvero come state.
-- Che cosa fare: Proponi già oggi per sabato mattina una videochiamata di un'ora, con un orario che vada bene anche col fuso dell'altra parte. Durante la settimana tieni sul telefono una nota con le cose da raccontare man mano che capitano, così sabato hai una lista viva.
-- Risposta, Lunga: La distanza pesa meno quando ci si racconta le cose piccole: che cosa hai mangiato, la strada nuova verso il lavoro. Sono quelle a far sentire vicini, più delle notizie importanti. Senza una lista si finisce nel solito scambio di saluti di rito, cordiale ma vuoto.
+- Risposta: Settimana adatta a riavvicinarti alle persone care che senti poco. Se con qualcuno le chiamate si sono ridotte a messaggi frettolosi, in questi giorni hai il tempo e la disposizione per una conversazione lunga, fatta con calma, in cui raccontarvi davvero come state.
+- Che cosa fare: Pensa oggi a chi ti manca di più fra le persone lontane e proponi una videochiamata di un'ora in uno di questi sette giorni, a un orario comodo per entrambi. Nel frattempo tieni sul telefono una nota con le cose da raccontare man mano che capitano.
+- Risposta, Lunga: La distanza pesa meno quando ci si racconta le cose piccole: che cosa hai mangiato, la strada nuova che hai scoperto. Sono quelle a far sentire vicini, più delle notizie importanti. Senza una nota si finisce nel solito scambio di saluti di rito, cordiale ma vuoto.
 
 #### Generale, favorevole, voce 7: Lo sgabuzzino aperto
 
-- Risposta: Settimana buona per alleggerire la casa. Lo spazio dove finiscono le cose senza posto si è riempito oltre il limite e in questi giorni hai la lucidità per decidere in fretta che cosa tenere e che cosa lasciar andare, senza ripensamenti a ogni oggetto.
-- Che cosa fare: Giovedì dedica un'ora allo sgabuzzino o alla cantina con tre sacchi: da buttare, da regalare, da rimettere in ordine. Chiedi oggi a una parrocchia o a un mercatino solidale gli orari di raccolta e venerdì porta via il secondo sacco senza riaprirlo.
-- Risposta, Lunga: Gli oggetti tenuti per ogni evenienza chiedono un pensiero ogni volta che apri quella porta. Toglierne una parte ti fa ritrovare in un attimo ciò che serve davvero. Il rischio è il sacco lasciato in corridoio per settimane: per questo la raccolta va fissata prima di cominciare.
+- Risposta: Settimana buona per alleggerire la casa e la testa insieme. Gli spazi dove finiscono le cose senza posto tendono a riempirsi oltre il limite e in questi giorni hai la lucidità per decidere in fretta che cosa tenere e che cosa lasciar andare, senza ripensamenti.
+- Che cosa fare: Dedica un'ora, entro tre giorni, all'armadio o all'angolo più ingombro con tre sacchi: da buttare, da regalare, da rimettere in ordine. Chiedi oggi a una parrocchia o a un mercatino solidale gli orari di raccolta e porta via il secondo sacco senza riaprirlo.
+- Risposta, Lunga: Gli oggetti tenuti per ogni evenienza chiedono un pensiero ogni volta che apri quella porta. Toglierne una parte ti fa ritrovare in un attimo ciò che serve davvero. La trappola è il sacco lasciato in corridoio per giorni: per questo la raccolta va fissata prima di cominciare.
 
 #### Generale, favorevole, voce 8: Il traguardo degli altri
 
-- Risposta: Settimana generosa per festeggiare chi ti sta vicino. Qualcuno a cui tieni ha appena chiuso una tappa importante, una laurea, un trasloco o un lavoro nuovo: questi giorni hanno spazio per riconoscerlo con un gesto che si ricordi a lungo, più di un messaggio.
-- Che cosa fare: Contatta oggi tre o quattro amici in comune e organizzate entro venerdì un piccolo festeggiamento a sorpresa, con un dolce di pasticceria. Prepara un biglietto da far firmare a tutti e scrivici una cosa precisa che hai visto fare a quella persona lungo la strada.
-- Risposta, Lunga: Celebrare chi ti sta intorno mette in circolo un calore che poi torna in mille forme. Spesso i traguardi passano in silenzio solo perché nessuno si prende la briga di fermarli. Nel biglietto contano le parole concrete, una fatica o una scelta coraggiosa, più dei complimenti generici.
+- Risposta: Settimana generosa nei rapporti con chi ti sta vicino. Hai occhi buoni per i meriti altrui: se una persona a cui tieni ha appena chiuso una tappa importante, un esame o un lavoro nuovo, questi giorni hanno spazio per riconoscerlo con un gesto che si ricordi.
+- Che cosa fare: Pensa oggi a qualcuno che ha fatto un passo importante di recente, anche piccolo. Prima che la settimana finisca scrivigli un biglietto a mano o un messaggio lungo in cui nomini una cosa precisa che gli hai visto fare lungo la strada. Consegnalo di persona, se puoi.
+- Risposta, Lunga: Celebrare chi ti sta intorno mette in circolo un calore che poi torna in mille forme. Spesso i traguardi passano in silenzio soltanto perché nessuno si prende la briga di fermarli. Nelle parole contano i dettagli concreti, una fatica o una scelta coraggiosa, più dei complimenti generici.
 
-#### Generale, favorevole, voce 9: La mostra di mercoledì
+#### Generale, favorevole, voce 9: Una sera fuori
 
-- Risposta: Settimana vivace, adatta a rompere la routine delle sere. Divano, schermo e qualcosa da sgranocchiare si somigliano da troppo tempo: adesso la curiosità pesa più della stanchezza e una novità a metà settimana ti fa davvero gola. Uscire in un giorno feriale conviene.
-- Che cosa fare: Cerca oggi il programma di musei, biblioteche e circoli della tua città e scegli un evento serale per mercoledì: una mostra con apertura lunga, una presentazione, un concerto gratuito. Invita una persona con cui non esci da tempo e proponi un panino insieme dopo.
-- Risposta, Lunga: Una sera fuori nei giorni feriali ha un sapore diverso dal sabato: meno folla, più attenzione, la sensazione di aver rubato qualcosa alla routine. Rinfresca anche le mattine successive. Il giorno dopo una foto o una frase mandata a chi era con te tiene vivo ciò che vi è rimasto.
+- Risposta: Settimana vivace, adatta a rompere la routine delle sere. Se divano, schermo e qualcosa da sgranocchiare si somigliano da troppo tempo, adesso la curiosità pesa più della stanchezza e una novità in un giorno feriale ti fa davvero gola: uscire conviene, anche per poco.
+- Che cosa fare: Cerca oggi il programma di musei, biblioteche e circoli della tua città e scegli un evento serale nei giorni feriali: una mostra con apertura lunga, una presentazione, un concerto gratuito. Invita una persona con cui non esci da tempo oppure vacci per conto tuo.
+- Risposta, Lunga: Una sera fuori nei giorni feriali ha un sapore diverso dal fine settimana: meno folla, più attenzione, la sensazione di aver rubato qualcosa alla routine. Rinfresca anche le mattine successive. Una foto o una frase annotata il giorno dopo tiene vivo ciò che ti è rimasto.
 
-#### Generale, favorevole, voce 10: La spesa portata su
+#### Generale, favorevole, voce 10: Una mano a chi fatica
 
-- Risposta: Settimana con energia da condividere. Accanto a te vive una persona anziana che fa fatica con le scale o con le borse pesanti e in questi giorni hai tempo a sufficienza per offrirle una mano, senza togliere nulla ai tuoi impegni né al tuo riposo.
-- Che cosa fare: Bussa oggi o domani a quella porta e chiedi se serve qualcosa quando giovedì vai al supermercato. Lascia il tuo numero scritto grande su un foglio da attaccare al frigo. Quando porti su le borse, accetta il caffè se ti viene offerto e fermati dieci minuti.
-- Risposta, Lunga: Gesti come questo cambiano l'aria di un palazzo. Chi riceve aiuto senza doverlo chiedere ritrova fiducia e tu ti porti a casa racconti del quartiere di una volta. Se la cosa funziona, conviene fissare insieme un appuntamento regolare invece di aspettare che serva.
+- Risposta: Settimana generosa, con energia da condividere. Hai tempo e forze a sufficienza per offrire un piccolo aiuto a chi ne ha bisogno, senza togliere nulla ai tuoi impegni né al tuo riposo: un gesto pratico, dato adesso, cambia la giornata di qualcuno più di quanto immagini.
+- Che cosa fare: Guarda oggi intorno a te: un vicino che fatica con le borse, una persona anziana del palazzo, un'associazione che cerca volontari per qualche ora. Offri un aiuto preciso entro tre giorni, per esempio la spesa portata su. Lascia il tuo numero scritto grande su un foglio.
+- Risposta, Lunga: Gesti come questo cambiano l'aria di un palazzo o di una via. Chi riceve aiuto senza doverlo chiedere ritrova fiducia e tu ti porti a casa storie e volti nuovi. Se la cosa funziona, conviene fissare un appuntamento regolare invece di aspettare che serva.
 
 #### Generale, favorevole, voce 11: Armadi in scambio
 
-- Risposta: Settimana allegra, fatta per mettere in movimento cose e persone. Negli armadi tuoi e dei tuoi amici dormono vestiti in buono stato che nessuno indossa più: questi giorni sono adatti a un'idea leggera che li faccia circolare e porti gente nuova a casa tua.
-- Che cosa fare: Lancia oggi l'invito per uno scambio di vestiti domenica pomeriggio: ognuno porta cinque capi puliti e piegati. Metti a disposizione un letto per esporli e uno specchio grande. Prepara all'ingresso una scatola per i capi avanzati, da portare lunedì a un punto di raccolta.
-- Risposta, Lunga: Uno scambio così fa ridere, fa conoscere gli amici degli amici e svuota gli armadi senza sprechi. Spesso un capo dimenticato trova sulle spalle di un altro la vita che da te aveva perso. Serve solo un orario preciso, altrimenti il pomeriggio si sfilaccia.
+- Risposta: Settimana allegra e leggera, fatta per mettere in movimento cose e persone. Negli armadi di molti dormono vestiti in buono stato che nessuno indossa più: questi giorni sono adatti a un'idea semplice che li faccia circolare e porti gente nuova a casa tua.
+- Che cosa fare: Lancia oggi l'invito per uno scambio di vestiti nel fine settimana: ognuno porta cinque capi puliti e piegati. Metti a disposizione un letto per esporli e uno specchio grande. Prepara all'ingresso una scatola per i capi avanzati, da portare poi a un punto di raccolta.
+- Risposta, Lunga: Uno scambio così fa ridere, fa conoscere gli amici degli amici e svuota gli armadi senza sprechi. Spesso un capo dimenticato trova sulle spalle di un altro la vita che da te aveva perso. Serve un orario preciso di inizio e di fine, altrimenti il pomeriggio si sfilaccia.
 
 #### Generale, favorevole, voce 12: Un'ora con l'agenda
 
-- Risposta: Settimana lucida, con la mente sgombra e lo sguardo lungo. Vedi con facilità ciò che arriva più avanti e puoi mettere in fila gli impegni prima che ti cadano addosso tutti insieme. È il momento giusto per organizzare le prossime settimane, non per rincorrerle.
-- Che cosa fare: Prenditi stasera o domattina un'ora con l'agenda e scrivi gli impegni delle prossime sei settimane: compleanni, rinnovi, visite di parenti, scadenze di casa, con un promemoria per ciascuno. Poi scegline uno da anticipare, per esempio un regalo da cercare con calma: chiudilo entro venerdì.
-- Risposta, Lunga: Molta fatica quotidiana nasce da sorprese che non erano sorprese: la data c'era, solo che nessuno l'aveva guardata. Vedere il quadro intero restituisce una calma molto pratica. Anticipare una sola cosa insegna il gesto senza appesantire la settimana: il resto segue con più naturalezza.
+- Risposta: Settimana lucida, con la mente sgombra e lo sguardo lungo. Vedi con facilità ciò che arriva più avanti e puoi mettere in fila gli impegni prima che ti cadano addosso tutti insieme. È il momento giusto per organizzare ciò che viene, invece di rincorrerlo.
+- Che cosa fare: Prenditi stasera o domattina un'ora con l'agenda e scrivi tutti gli impegni che vedi all'orizzonte: compleanni, rinnovi, visite, scadenze di casa, con un promemoria per ciascuno. Poi scegline uno da anticipare, per esempio un regalo da cercare con calma: chiudilo prima che la settimana finisca.
+- Risposta, Lunga: Molta fatica quotidiana nasce da sorprese che non erano sorprese: la data c'era, soltanto che nessuno l'aveva guardata. Vedere il quadro intero restituisce una calma molto pratica. Anticipare una sola cosa insegna il gesto senza appesantire questi giorni: il resto segue con più naturalezza.
 
 #### Generale, favorevole, voce 13: Il quartiere mai visto
 
-- Risposta: Settimana curiosa, con una voglia di scoperta alta. Conosci la tua città solo per i tragitti di ogni giorno, casa, lavoro e la solita spesa, ma in questi giorni anche pochi chilometri possono sembrare un viaggio. Basta uscire dal percorso abituale per sentirlo.
-- Che cosa fare: Scegli oggi sulla mappa un quartiere dove non hai mai messo piede e sabato mattina raggiungilo con i mezzi, con le scarpe comode e nessun programma oltre al ritorno per cena. Fermati a pranzo dove mangia la gente del posto e chiedi che cosa vedere.
-- Risposta, Lunga: Camminare senza meta in un posto nuovo sveglia l'attenzione: le insegne, i cortili, le voci dalle finestre. Torni con occhi diversi anche sulle strade di sempre. Un taccuino in tasca serve a fermare i posti da riprendere, prima che la settimana dopo li cancelli.
+- Risposta: Settimana curiosa e aperta, con una voglia di scoperta alta. Spesso della propria città si conoscono soltanto i tragitti di ogni giorno, ma in questi giorni anche pochi chilometri possono sembrare un viaggio: basta uscire dal percorso abituale per sentirlo.
+- Che cosa fare: Scegli oggi sulla mappa un quartiere o un paese vicino dove non hai mai messo piede e raggiungilo nel fine settimana, con le scarpe comode e nessun programma oltre al ritorno per cena. Fermati a pranzo dove mangia la gente del posto e chiedi che cosa vedere.
+- Risposta, Lunga: Camminare senza meta in un posto nuovo sveglia l'attenzione: le insegne, i cortili, le voci dalle finestre. Torni con occhi diversi anche sulle strade di sempre. Un taccuino in tasca serve a fermare i posti da riprendere, prima che la routine li cancelli dalla memoria.
 
-#### Generale, favorevole, voce 14: Vasi nuovi sul balcone
+#### Generale, favorevole, voce 14: Una pianta nuova
 
-- Risposta: Settimana adatta a ridare colore alla casa partendo dalle piante. Quelle sul balcone o sul davanzale hanno passato una stagione difficile e chiedono cura: in questi giorni hai la voglia e la pazienza per rimetterle in sesto senza fretta, un vaso dopo l'altro.
-- Che cosa fare: Misura oggi i vasi e scrivi le misure su un foglio. Sabato mattina passa da un vivaio per terriccio fresco, due vasi più grandi e una pianta nuova che ti piace, poi rinvasa tutto prima di pranzo. Attacca alla finestra un biglietto con i giorni dell'acqua.
-- Risposta, Lunga: Occuparsi delle piante ha un ritmo lento che fa bene all'umore: le mani nella terra, l'acqua versata piano, i rametti secchi tolti uno a uno. Alla fine resta un angolo più vivo. Le talee avanzate in un barattolo d'acqua diventano un piccolo regalo per un vicino.
+- Risposta: Settimana adatta a ridare colore alla casa partendo dal verde. Hai la voglia e la pazienza per prenderti cura di qualcosa che cresce: se hai già delle piante, chiedono terra fresca e attenzione; se non ne hai, è il momento giusto per accoglierne una.
+- Che cosa fare: Passa entro tre giorni da un vivaio o da un fioraio e chiedi una pianta facile, adatta alla luce della tua stanza. Se ne hai già, prendi terriccio fresco e un vaso più grande per quella più sofferente. Attacca alla finestra un biglietto con i giorni dell'acqua.
+- Risposta, Lunga: Occuparsi delle piante ha un ritmo lento che fa bene all'umore: le mani nella terra, l'acqua versata piano, le foglie secche tolte una a una. Alla fine resta un angolo più vivo. Le talee avanzate in un barattolo d'acqua diventano un piccolo regalo per qualcuno.
 
 ### Generale, In equilibrio (livello 3)
 
 #### Generale, equilibrio, voce 1: Due sere tutte tue
 
 - Risposta: Settimana piena ma gestibile: impegni regolari, qualche richiesta in più, nessuna corsa. Tutto dipende da come distribuisci il tempo libero fra un dovere e l'altro, perché se non lo difendi finisce per riempirsi delle cose degli altri prima che tu te ne accorga.
-- Che cosa fare: Apri oggi l'agenda e cerchia due sere, una a metà settimana e una verso la fine, da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi un altro giorno senza scusarti e senza dare troppe spiegazioni.
+- Che cosa fare: Apri oggi l'agenda e cerchia due sere di questi sette giorni da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi con gentilezza un altro giorno, senza scusarti e senza dare troppe spiegazioni a nessuno.
 - Risposta, Lunga: Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura.
 
-#### Generale, equilibrio, voce 2: Chi chiama per primo
+#### Generale, equilibrio, voce 2: Un ordine nelle richieste
 
-- Risposta: Settimana equilibrata, che non spinge e non frena. Due persone ti chiedono una mano negli stessi giorni e vorresti accontentarle entrambe: il periodo premia chi stabilisce un ordine chiaro, invece di correre ovunque e arrivare dappertutto con il fiato corto.
-- Che cosa fare: Rispondi a tutte e due entro martedì con una proposta concreta: alla prima offri il tuo aiuto giovedì, alla seconda sabato mattina, con orari precisi. Il giorno prima di ogni aiuto manda un messaggio breve per confermare e chiedere se serve portare qualcosa.
-- Risposta, Lunga: Dividere bene il tempo è una forma di rispetto anche per chi deve attendere qualche giorno. Una data certa rassicura più di un sì vago, che poi si trascina per settimane. Finito l'impegno, attenzione a non offrire altro sul momento solo per senso di colpa.
+- Risposta: Settimana equilibrata, che non spinge e non frena. Se più persone ti chiedono una mano negli stessi giorni, il periodo premia chi stabilisce un ordine chiaro, invece di correre ovunque e arrivare dappertutto con il fiato corto e la testa altrove.
+- Che cosa fare: Quando arriva una richiesta, rispondi entro un giorno con una proposta concreta: un giorno e un orario precisi, anche non immediati. Se le richieste sono due, dai a ciascuna il suo momento senza sovrapporle. Il giorno prima di ogni aiuto manda un messaggio breve per confermare.
+- Risposta, Lunga: Dividere bene il tempo è una forma di rispetto anche per chi deve attendere qualche giorno. Una data certa rassicura più di un sì vago, che poi si trascina a lungo. Finito l'impegno, attenzione a non offrire altro sul momento soltanto per senso di colpa.
 
 #### Generale, equilibrio, voce 3: Il menu sul foglio
 
-- Risposta: Settimana regolare, in cui l'ordine delle piccole cose ti restituisce molta calma. Le cene dei giorni feriali diventano spesso una corsa all'ultimo minuto con il frigo mezzo vuoto: basta un po' di organizzazione all'inizio per togliere quella fatica da tutte le sere.
-- Che cosa fare: Scrivi oggi su un foglio il menu delle cinque sere successive, con piatti semplici e già collaudati; da lì ricava la lista e fai un unico giro di spesa. Cucina il doppio martedì e giovedì e attacca il foglio al frigo per chi vive con te.
+- Risposta: Settimana ordinaria, in cui l'ordine delle piccole cose ti restituisce molta calma. Le cene dei giorni feriali rischiano di diventare una corsa all'ultimo minuto con il frigo mezzo vuoto: basta un po' di organizzazione all'inizio per togliere quella fatica da tutte le sere.
+- Che cosa fare: Scrivi oggi su un foglio il menu delle cinque sere successive, con piatti semplici e già collaudati; da lì ricava la lista e fai un unico giro di spesa. Cucina il doppio in due sere e attacca il foglio al frigo, così nessuno deve chiedere.
 - Risposta, Lunga: Scegliere una volta sola toglie dalle sere decine di piccole decisioni. Non si tratta di rigidità: il menu si può cambiare, ma averlo davanti evita il panino in piedi davanti al frigo. Le porzioni in più salvano proprio i giorni pieni, quelli in cui cucinare pesa.
 
-#### Generale, equilibrio, voce 4: Le ferie da accordare
+#### Generale, equilibrio, voce 4: Il riposo da pensare
 
-- Risposta: Settimana di mediazione in casa sulle prossime ferie: ognuno tira dalla propria parte e il momento chiede misura. Conviene raccogliere le voci di tutti prima di proporre qualcosa, senza imporre la tua idea, perché un accordo nato insieme regge meglio di una decisione calata dall'alto.
-- Che cosa fare: Crea oggi una nota condivisa e chiedi a ciascuno di scrivere entro giovedì tre desideri e una cosa da evitare. Venerdì leggetela insieme a cena, scegliete due possibilità e rimandate la decisione finale alla settimana dopo, senza fretta di chiudere la questione.
-- Risposta, Lunga: Molte discussioni sulle vacanze sono in realtà discussioni su che cosa significa riposare per ciascuno. Vedere i desideri scritti uno accanto all'altro mostra punti in comune che a voce sfuggono. Qualche giorno di distanza fa sbollire le insistenze e rende il compromesso più facile da accettare.
+- Risposta: Settimana quieta, buona per pensare con calma al tuo prossimo riposo. Che siano ferie, un ponte o un fine settimana lungo, conviene raccogliere i desideri prima di prenotare qualcosa: una scelta pensata regge meglio di una decisione presa all'ultimo per stanchezza.
+- Che cosa fare: Scrivi oggi su una nota tre desideri per il tuo prossimo riposo e una cosa da evitare. Se lo condividi con qualcuno, chiedi di fare lo stesso entro tre giorni e leggete le note insieme. Tieni due possibilità aperte senza fretta di chiudere la questione.
+- Risposta, Lunga: Molte vacanze deludono perché si sceglie la meta prima di sapere che cosa significa riposare per sé. Vedere i desideri scritti mostra punti che a voce sfuggono. Qualche giorno di distanza fa sbollire gli entusiasmi del momento e rende la scelta più vicina a ciò che serve.
 
-#### Generale, equilibrio, voce 5: Il telefono in cucina
+#### Generale, equilibrio, voce 5: Il telefono fuori dalla camera
 
-- Risposta: Settimana adatta a correggere un'abitudine senza drammi. Le ultime ore della sera scivolano via davanti al telefono e il mattino dopo ne porti il peso: con un passo misurato puoi riprenderti quel tempo prima di dormire e cominciare le giornate in modo meno brusco.
-- Che cosa fare: Da stasera per tre sere, alle dieci, metti il telefono in carica in cucina e non riprenderlo fino alla colazione. Sul comodino lascia un libro già cominciato e per la sveglia usa un orologio da comodino. Venerdì decidi se allungare la prova al fine settimana.
+- Risposta: Settimana pacata, adatta a correggere un'abitudine senza drammi. Le ultime ore della sera tendono a scivolare via davanti al telefono e il mattino dopo ne porti il peso: con un passo misurato puoi riprenderti quel tempo prima di dormire e cominciare le giornate meno di corsa.
+- Che cosa fare: Da stasera per tre sere, a un'ora fissa, metti il telefono in carica fuori dalla camera e non riprenderlo fino alla colazione. Sul comodino lascia un libro già cominciato e per la sveglia usa un orologio. Alla terza sera decidi se allungare la prova.
 - Risposta, Lunga: Tre sere non cambiano una vita, ma mostrano che cosa succede quando il tempo prima di dormire torna libero: pensieri più lenti, qualche pagina in più, un risveglio più morbido. Il punto debole è la sveglia sul telefono, che diventa la scusa per riportarlo in camera.
 
-#### Generale, equilibrio, voce 6: Uno sfogo misurato
+#### Generale, equilibrio, voce 6: Ascolto con confini
 
-- Risposta: Settimana di affetto con confini chiari. Una persona a cui vuoi bene attraversa un periodo pieno di lamentele e ti cerca spesso per sfogarsi: il tuo bene resta intero, ma il tempo che puoi darle in questi giorni ha un limite che conviene dichiarare subito.
-- Che cosa fare: Quando ti chiede di vedervi, proponi un caffè a un orario preciso, per esempio mercoledì alle sei, dicendo fin da subito che hai un'ora. Verso la fine chiedi che cosa potrebbe fare di diverso nei prossimi giorni e fissate il prossimo incontro fra due settimane.
+- Risposta: Settimana serena nei rapporti, a patto di dare confini chiari al tuo tempo. Se qualcuno a cui vuoi bene ti cerca spesso per sfogarsi, il tuo affetto resta intero, ma il tempo che puoi dargli in questi giorni ha un limite che conviene dichiarare subito.
+- Che cosa fare: Quando qualcuno ti chiede di vedervi per parlare, proponi un caffè a un orario preciso, dicendo fin da subito che hai un'ora. Verso la fine chiedi che cosa potrebbe fare di diverso e fissate il prossimo incontro dopo qualche giorno, non prima.
 - Risposta, Lunga: Ascoltare senza limiti sembra generoso ma spesso stanca entrambi e lascia le cose come sono. Un tempo definito spinge la conversazione verso l'essenziale e a volte verso una piccola soluzione. Una domanda che guarda avanti sposta il discorso dal lamento alla possibilità, senza togliere calore.
 
-#### Generale, equilibrio, voce 7: Sabato diviso in due
+#### Generale, equilibrio, voce 7: Il fine settimana diviso
 
-- Risposta: Settimana né troppo piena né vuota, ma con un fine settimana a rischio. Lavatrici, commissioni e messaggi arretrati possono mangiarsi tutto il sabato: il periodo chiede di decidere fin da ora dove finiscono i doveri e dove comincia il tempo per te.
-- Che cosa fare: Scrivi giovedì sera le commissioni del sabato in ordine di percorso e concentrale tutte nella mattina. Prenota già da oggi qualcosa che ti piace per il pomeriggio, così hai un motivo per chiudere in tempo. Domenica mattina non toccare nessuna faccenda.
-- Risposta, Lunga: Senza un confine i doveri si allargano fino a coprire anche il riposo. Una mattina ben spesa basta per quasi ogni cosa e il pomeriggio libero diventa una ricompensa vera. Se qualcosa resta indietro, spostarlo a lunedì sera costa meno che sacrificare la domenica.
+- Risposta: Settimana né troppo piena né vuota, ma con il fine settimana a rischio. Lavatrici, commissioni e messaggi arretrati possono mangiarsi tutti i giorni liberi: il periodo chiede di decidere fin da ora dove finiscono i doveri e dove comincia il tempo per te.
+- Che cosa fare: Scrivi prima del fine settimana le commissioni in ordine di percorso e concentrale tutte in una mattina. Prenota già da oggi qualcosa che ti piace per il pomeriggio, così hai un motivo per chiudere in tempo. Nel secondo giorno libero non toccare nessuna faccenda.
+- Risposta, Lunga: Senza un confine i doveri si allargano fino a coprire anche il riposo. Una mattina ben spesa basta per quasi ogni cosa e il pomeriggio libero diventa una ricompensa vera. Se qualcosa resta indietro, spostarlo a una sera feriale costa meno che sacrificare tutto il riposo.
 
 #### Generale, equilibrio, voce 8: Le mani ferme
 
-- Risposta: Settimana senza slanci improvvisi, che regge bene la costanza dei piccoli passi. È il tempo giusto per riprendere un passatempo fermo in un cassetto da mesi, un ricamo, un modellino o un quaderno di disegni, purché tu lo faccia a piccole dosi.
-- Che cosa fare: Tira fuori oggi il materiale e lascialo in vista sul tavolo. Martedì, giovedì e sabato dedicagli venti minuti dopo cena con un timer e smetti quando suona, anche se vorresti continuare. Annota la data di ogni sessione su un foglietto accanto al lavoro.
-- Risposta, Lunga: Ripartire in grande scoraggia, perché la distanza fra ciò che vorresti e ciò che riesci a fare pesa troppo. Pochi minuti regolari rimettono le mani in confidenza con il gesto, senza giudizio. Tre righe sul foglietto a fine settimana dicono che il passatempo è tornato nelle tue sere.
+- Risposta: Settimana stabile, senza slanci improvvisi, che regge bene la costanza dei piccoli passi. È il tempo giusto per riprendere un passatempo rimasto fermo in un cassetto, un ricamo, un modellino o un album di disegni, purché tu lo faccia a piccole dosi.
+- Che cosa fare: Tira fuori oggi il materiale e lascialo in vista sul tavolo. Per tre sere di questa settimana dedicagli venti minuti dopo cena con un timer e smetti quando suona, anche se vorresti continuare. Annota la data di ogni sessione su un foglietto accanto al lavoro.
+- Risposta, Lunga: Ripartire in grande scoraggia, perché la distanza fra ciò che vorresti e ciò che riesci a fare pesa troppo. Pochi minuti regolari rimettono le mani in confidenza con il gesto, senza giudizio. Tre date sul foglietto prima che la settimana finisca dicono che il passatempo è tornato nelle tue sere.
 
-#### Generale, equilibrio, voce 9: Lo stesso sabato
+#### Generale, equilibrio, voce 9: Due proposte insieme
 
-- Risposta: Settimana che ti chiede una scelta netta fra due inviti per lo stesso sabato. Ognuno ha le sue buone ragioni e il periodo non decide al posto tuo: conviene scegliere presto e con chiarezza, invece di tenere aperte entrambe le porte fino all'ultimo.
-- Che cosa fare: Scrivi oggi in due righe che cosa ti dà ciascun invito e scegli entro mercoledì sera. Rispondi subito a entrambi. A chi riceve il tuo no offri un grazie caloroso e un'alternativa con una data precisa, da segnare in agenda prima di chiudere il messaggio.
-- Risposta, Lunga: Tenere due possibilità in sospeso sembra prudenza ma diventa disagio per tutti: chi organizza ha bisogno di numeri. Una risposta data presto è già un gesto di riguardo. Il pranzo proposto in cambio evita che il no suoni come un passo indietro nell'amicizia.
+- Risposta: Settimana calma, che chiede di scegliere presto fra le proposte che arrivano. Se ti trovi con due inviti per la stessa sera, il periodo non decide al posto tuo: conviene scegliere con chiarezza, invece di tenere aperte entrambe le porte fino all'ultimo momento.
+- Che cosa fare: A ogni invito di questi giorni rispondi entro un giorno, sì o no. Se due si sovrappongono, scrivi in due righe che cosa ti dà ciascuno e scegli. A chi riceve il tuo no offri un grazie caloroso e un'alternativa con una data precisa, segnata in agenda.
+- Risposta, Lunga: Tenere due possibilità in sospeso sembra prudenza ma diventa disagio per tutti: chi organizza ha bisogno di numeri. Una risposta data presto è già un gesto di riguardo. La data proposta in cambio evita che il no suoni come un passo indietro nel rapporto.
 
 #### Generale, equilibrio, voce 10: Risposte in sospeso
 
-- Risposta: Settimana tranquilla, buona per smaltire gli arretrati. Messaggi, inviti e richieste di parenti e amici si sono accumulati senza risposta e ogni volta che apri il telefono pesano un po': niente di urgente, ma il mucchio comincia a fare rumore e conviene chiuderlo.
-- Che cosa fare: Mercoledì, in pausa pranzo, prenditi mezz'ora solo per questo: rispondi ai messaggi rimasti, dal più vecchio al più recente, con due righe ciascuno. Ciò che richiede più tempo va in agenda. Da oggi, ciò che si risolve in due minuti riceve risposta subito.
+- Risposta: Settimana tranquilla, buona per smaltire gli arretrati. Messaggi, inviti e richieste si accumulano facilmente senza risposta e ogni volta che apri il telefono pesano un po': niente di urgente, ma il mucchio comincia a fare rumore e conviene chiuderlo adesso.
+- Che cosa fare: Scegli oggi mezz'ora in una pausa e dedicala soltanto a questo: rispondi ai messaggi rimasti, dal più vecchio al più recente, con due righe ciascuno. Ciò che richiede più tempo va in agenda. Da oggi, ciò che si risolve in due minuti riceve risposta subito.
 - Risposta, Lunga: Le risposte rimandate non spariscono: restano sullo sfondo e consumano attenzione. Chiuderle in un unico blocco costa meno che pensarci dieci volte al giorno e ti ridà il piacere dei messaggi nuovi. La regola dei due minuti impedisce che il mucchio si riformi.
 
-#### Generale, equilibrio, voce 11: Dal calzolaio
+#### Generale, equilibrio, voce 11: Riparare o cambiare
 
-- Risposta: Settimana pratica, che premia le scelte fatte senza fretta. Qualcosa di tuo si è rovinato, un paio di scarpe a cui tieni, una borsa o una giacca. Da giorni oscilli fra ripararlo e sostituirlo: adesso hai la calma per decidere con le informazioni giuste.
-- Che cosa fare: Giovedì porta l'oggetto in una bottega di riparazioni del quartiere e chiedi quanto tempo serve e quanto costa il lavoro. Decidi solo dopo la risposta, non prima di entrare. Se ripari, lascia il tuo numero; se cambi, porta il vecchio a un punto di raccolta.
+- Risposta: Settimana pratica e misurata, che premia le scelte fatte senza fretta. Se qualcosa a cui tieni si è rovinato (un paio di scarpe, una borsa, una giacca) e oscilli fra ripararlo e sostituirlo, adesso hai la calma per decidere con le informazioni giuste.
+- Che cosa fare: Porta l'oggetto entro tre giorni in una bottega di riparazioni della zona e chiedi tempi e costo del lavoro. Decidi soltanto dopo la risposta, non prima di entrare. Se ripari, lascia il tuo numero; se cambi, porta il vecchio a un punto di raccolta.
 - Risposta, Lunga: Spesso riparare è più semplice di quanto si pensi e restituisce un oggetto già adattato alle tue abitudini. Altre volte non conviene e saperlo con chiarezza libera la scelta dal rimpianto. Ciò che stanca, in questi casi, non è la decisione ma l'oscillazione che la precede.
 
 #### Generale, equilibrio, voce 12: Umori a onde
 
-- Risposta: Settimana dall'umore a onde: mattine con la testa chiara, pomeriggi più opachi, qualche sera irritabile senza un motivo preciso. Niente di grave, solo un ritmo da conoscere e assecondare invece di combatterlo, mettendo ogni cosa nell'ora in cui ti riesce meglio.
+- Risposta: Settimana dall'umore a onde, nel complesso equilibrata: mattine con la testa chiara, pomeriggi più opachi, qualche sera irritabile senza un motivo preciso. Niente di grave, soltanto un ritmo da conoscere e assecondare, mettendo ogni cosa nell'ora in cui ti riesce meglio.
 - Che cosa fare: Sposta da domani le cose che richiedono concentrazione nelle prime ore del giorno e lascia al pomeriggio telefonate e faccende leggere. Nei pomeriggi più pesanti esci per un quarto d'ora a camminare intorno all'isolato, senza cuffie, poi chiudi il compito più semplice della lista.
-- Risposta, Lunga: Combattere contro il proprio ritmo consuma molte energie. Riconoscerlo ti permette di mettere al posto giusto le cose difficili e di non leggere un calo come un fallimento personale. A fine settimana guarda la differenza: spesso basta cambiare l'ordine per alleggerire le stesse ore.
+- Risposta, Lunga: Combattere contro il proprio ritmo consuma molte energie. Riconoscerlo ti permette di mettere al posto giusto le cose difficili e di non leggere un calo come un fallimento personale. Prima che la settimana finisca guarda la differenza: spesso basta cambiare l'ordine per alleggerire le stesse ore.
 
-#### Generale, equilibrio, voce 13: L'androne ingombro
+#### Generale, equilibrio, voce 13: La questione di vicinato
 
-- Risposta: Settimana giusta per sistemare con garbo una piccola questione di palazzo. Biciclette nell'androne, sacchi sul pianerottolo, una porta che sbatte: il problema torna da mesi e adesso puoi affrontarlo senza toni accesi, con una proposta che metta d'accordo i vicini.
-- Che cosa fare: Scrivi entro mercoledì un biglietto cortese da appendere vicino alle cassette della posta: descrivi il problema senza accusare nessuno e proponi una soluzione pratica, come un posto fisso per le biciclette. Se qualcuno ti ferma sulle scale per parlarne, prendi nota delle idee.
-- Risposta, Lunga: Le tensioni di condominio crescono soprattutto nel silenzio, quando ognuno rimugina per conto proprio. Un messaggio chiaro e gentile dà a tutti un modo per cambiare senza perdere la faccia. Aggiornare il biglietto con la soluzione più condivisa trasforma una lamentela in un accordo comune.
+- Risposta: Settimana sobria, giusta per sistemare con garbo una piccola questione del luogo dove vivi. Biciclette nell'androne, sacchi sul pianerottolo, un rumore dalla casa accanto: se qualcosa ti disturba da tempo, adesso puoi affrontarlo senza toni accesi, con una proposta concreta.
+- Che cosa fare: Scrivi entro tre giorni un biglietto cortese, da appendere dove lo vedono tutti o da consegnare a mano: descrivi il problema senza accusare nessuno e proponi una soluzione pratica. Se qualcuno ti ferma per parlarne, prendi nota delle idee e ringrazia per il tempo.
+- Risposta, Lunga: Le tensioni fra vicini crescono soprattutto nel silenzio, quando ognuno rimugina per conto proprio. Un messaggio chiaro e gentile dà a tutti un modo per cambiare senza perdere la faccia. Aggiornare il biglietto con la soluzione più condivisa trasforma una lamentela in un accordo comune.
 
-#### Generale, equilibrio, voce 14: Due fermate a piedi
+#### Generale, equilibrio, voce 14: Qualche tratto a piedi
 
-- Risposta: Settimana che chiede movimento misurato, inserito nei tragitti di ogni giorno. Fra scrivania, mezzi e divano gli spostamenti si sono ridotti al minimo e la sera arrivi con le gambe ferme e la testa piena: un po' d'aria fra un luogo e l'altro cambia il tono delle giornate.
-- Che cosa fare: Da domani scendi dall'autobus due fermate prima oppure parcheggia più lontano e fai a piedi l'ultimo tratto verso il lavoro. Tieni nella borsa un paio di scarpe comode. Usa il ritorno per una telefonata a una persona cara o un vocale da ascoltare.
-- Risposta, Lunga: Non si tratta di allenarsi né di inseguire un numero di passi: è un margine di aria fra un ambiente e l'altro. Quei dieci minuti aiutano a lasciare indietro le faccende di casa la mattina e quelle dell'ufficio la sera, prima di varcare la porta.
+- Risposta: Settimana regolare, che chiede movimento misurato dentro i tragitti di ogni giorno. Fra sedie, mezzi e divano gli spostamenti tendono a ridursi al minimo e la sera arrivi con le gambe ferme e la testa piena: un po' d'aria fra un luogo e l'altro cambia il tono delle giornate.
+- Che cosa fare: Da domani fai a piedi un tratto di uno spostamento che di solito copri con un mezzo: scendi una fermata prima o lascia l'auto più lontano. Tieni nella borsa un paio di scarpe comode. Usa il ritorno per una telefonata a una persona cara.
+- Risposta, Lunga: Non si tratta di allenarsi né di inseguire un numero di passi: è un margine di aria fra un ambiente e l'altro. Quei dieci minuti aiutano a lasciare indietro i pensieri di un luogo prima di entrare nell'altro, la mattina come la sera, varcando la porta.
 
 ### Generale, In salita (livello 2 e sotto)
 
 #### Generale, salita, voce 1: L'impegno da togliere
 
-- Risposta: Settimana in salita per eccesso di impegni: l'agenda è più piena di quanto riesci a reggere con serenità e lo senti già dal primo giorno. Non è un muro, è un invito a togliere qualcosa prima che sia la fatica a decidere al posto tuo.
-- Che cosa fare: Scegli entro martedì un impegno non indispensabile: una cena, una riunione facoltativa, un favore promesso con leggerezza. Disdicilo con un messaggio chiaro che proponga un'altra data. Il tempo liberato lascialo vuoto: una sera a casa, un'ora di lettura, niente di nuovo da incastrare.
-- Risposta, Lunga: Disdire costa un piccolo imbarazzo, mentre arrivare a fine settimana senza fiato pesa molto di più su di te e su chi ti sta intorno. La misura protegge tutto ciò che resta in agenda. Il rischio vero è riempire subito lo spazio liberato con un altro impegno.
+- Risposta: Settimana in salita per eccesso di impegni: l'agenda tende a riempirsi più di quanto riesci a reggere con serenità. Non è un muro, è un invito a togliere qualcosa prima che sia la fatica a decidere al posto tuo e a farti arrivare in fondo senza fiato.
+- Che cosa fare: Scegli entro due giorni un impegno non indispensabile: una cena, una riunione facoltativa, un favore promesso con leggerezza. Disdicilo con un messaggio chiaro che proponga un'altra data. Il tempo liberato lascialo vuoto: una sera in casa, un'ora di lettura, niente di nuovo da incastrare.
+- Risposta, Lunga: Disdire costa un piccolo imbarazzo, mentre arrivare in fondo alla settimana senza fiato pesa molto di più su di te e su chi ti sta intorno. La misura protegge tutto ciò che resta in agenda. Il rischio vero è riempire subito lo spazio liberato con un altro impegno.
 
 #### Generale, salita, voce 2: Il margine di tempo
 
-- Risposta: Settimana che inciampa nei passaggi pratici: ritardi dei mezzi, code impreviste, un oggetto dimenticato all'ultimo. Niente di grave, ma i contrattempi si sommano. Con un po' di anticipo la maggior parte si assorbe senza guastarti l'umore, quindi conviene muoversi prima del solito ogni mattina.
-- Che cosa fare: Da stasera prepara prima di dormire la borsa del giorno dopo e mettila accanto alla porta con le chiavi. Esci di casa dieci minuti prima del solito almeno fino a venerdì e controlla gli orari dei mezzi la sera prima. Se qualcosa salta, avvisa subito.
-- Risposta, Lunga: Quando si corre, ogni piccolo intoppo sembra un'offesa personale e guasta l'umore per ore. Con un margine di tempo lo stesso ritardo diventa solo un'attesa da riempire con qualcosa di tuo. Un libro tascabile o un quaderno nella borsa trasformano le attese in pause.
+- Risposta: Settimana faticosa nei passaggi pratici: ritardi, code impreviste, un oggetto dimenticato all'ultimo. Niente di grave, ma i contrattempi si sommano. Con un po' di anticipo la maggior parte si assorbe senza guastarti l'umore, quindi conviene muoversi prima del solito ogni mattina.
+- Che cosa fare: Da stasera prepara prima di dormire la borsa del giorno dopo e mettila accanto alla porta con le chiavi. Per tutta la settimana esci di casa dieci minuti prima del solito e controlla la sera prima orari e percorsi. Se qualcosa salta, avvisa subito chi ti aspetta.
+- Risposta, Lunga: Quando si corre, ogni piccolo intoppo sembra un'offesa personale e guasta l'umore per ore. Con un margine di tempo lo stesso ritardo diventa soltanto un'attesa da riempire con qualcosa di tuo. Un libro tascabile o un quaderno nella borsa trasformano le attese in pause.
 
-#### Generale, salita, voce 3: Il discorso a venerdì
+#### Generale, salita, voce 3: Il chiarimento rimandato
 
-- Risposta: Settimana di pazienza corta, poco adatta ai chiarimenti difficili. C'è una questione che vorresti affrontare con una persona vicina, ma in questi giorni le parole escono più taglienti di quanto vorresti: meglio dare tempo al tono e rimandare il confronto di qualche giorno.
-- Che cosa fare: Scrivi oggi su un foglio tutto quello che vuoi dire, senza censure, poi mettilo via. Proponi di parlarne venerdì sera o nel fine settimana, quando nessuno dei due ha fretta. Il giorno prima rileggi il foglio e cancella le frasi che servono solo a colpire.
+- Risposta: Settimana di pazienza corta, difficile per i chiarimenti delicati. Se c'è una questione che vorresti affrontare con qualcuno, in questi giorni le parole tendono a uscire più taglienti di quanto vorresti: meglio dare tempo al tono e rimandare il confronto di qualche giorno.
+- Che cosa fare: Se hai qualcosa da chiarire, scrivi oggi su un foglio tutto quello che vuoi dire, senza censure, poi mettilo via. Proponi di parlarne prima che la settimana finisca, quando nessuno dei due ha fretta. Il giorno prima rileggi il foglio e cancella le frasi che servono a colpire.
 - Risposta, Lunga: Rimandare non significa evitare: significa scegliere il momento in cui riesci ad ascoltare oltre che a parlare. Una discussione fatta a nervi tesi lascia spesso più ferite che chiarezza. Conviene tenere le due o tre cose che stanno davvero a cuore e cominciare dalla più facile.
 
 #### Generale, salita, voce 4: Cantieri aperti
 
-- Risposta: Settimana affollata di cose cominciate e mai finite: una pratica, un armadio, un regalo da fare, una telefonata. Il periodo non regge tutti questi fronti insieme e chiede una selezione onesta, perché avanzare un poco su tutto lascerebbe più stanchezza che risultati.
-- Che cosa fare: Scrivi oggi l'elenco di tutto ciò che hai lasciato a metà e cerchia tre voci soltanto, quelle che pesano di più. Per le altre segna accanto una data dopo il fine settimana. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.
+- Risposta: Settimana pesante, affollata di cose cominciate e mai finite: una pratica, un armadio, un regalo da fare, una telefonata. Il periodo non regge tutti questi fronti insieme e chiede una selezione onesta, perché avanzare un poco su tutto lascia più stanchezza che risultati.
+- Che cosa fare: Scrivi oggi l'elenco di tutto ciò che hai lasciato a metà e cerchia tre voci soltanto, quelle che pesano di più. Per le altre segna accanto una data più avanti, senza sensi di colpa. Affronta le tre cerchiate una alla volta e cancella ciascuna con un tratto deciso.
 - Risposta, Lunga: Ogni cosa aperta occupa un piccolo spazio nella mente anche quando non ci pensi. Chiuderne poche, ma per davvero, alleggerisce più che toccarle tutte senza arrivare in fondo. L'errore da evitare è passare alla voce successiva prima che la precedente sia chiusa del tutto.
 
 #### Generale, salita, voce 5: Meglio a voce
 
-- Risposta: Settimana fredda con una persona amica, dopo un messaggio scritto di fretta e letto nel modo sbagliato. Più si scrive, più il nodo si stringe: questi giorni chiedono di cambiare canale e di passare alla voce prima che la distanza diventi un'abitudine.
-- Che cosa fare: Smetti di rispondere per iscritto e chiama entro mercoledì chiedendo semplicemente di parlarne. Se non risponde, lascia un vocale breve con una proposta di orario. Durante la telefonata comincia spiegando che cosa volevi dire tu, prima di chiedere conto delle sue reazioni.
-- Risposta, Lunga: La voce porta ciò che il testo perde: il tono, le pause, l'intenzione. Spesso bastano due minuti al telefono perché ciascuno capisca che l'altro non voleva ferire e che il problema stava tutto nelle parole. Un caffè nel fine settimana chiude il chiarimento di persona.
+- Risposta: Settimana delicata per i messaggi scritti, che si fraintendono facilmente. Una frase mandata di fretta può essere letta nel modo sbagliato e più si scrive, più il nodo si stringe: in questi giorni conviene cambiare canale e passare alla voce prima che la distanza cresca.
+- Che cosa fare: Se uno scambio per iscritto si fa freddo o confuso, smetti di rispondere in chat e chiama entro un giorno chiedendo semplicemente di parlarne. Se nessuno risponde, lascia un vocale breve con una proposta di orario. Comincia spiegando che cosa volevi dire tu, senza chiedere conto.
+- Risposta, Lunga: La voce porta ciò che il testo perde: il tono, le pause, l'intenzione. Spesso bastano due minuti al telefono perché ciascuno capisca che l'altro non voleva ferire e che il problema stava tutto nelle parole. Un caffè insieme, poi, chiude il chiarimento di persona.
 
 #### Generale, salita, voce 6: Una stanza a sera
 
-- Risposta: Settimana con poche forze, mentre la casa è rimasta indietro e il disordine pesa sull'umore ogni volta che rientri. Non è il momento delle grandi pulizie: l'energia va spesa con intelligenza, a piccole dosi, senza pretendere di rimettere tutto in ordine in un colpo solo.
-- Che cosa fare: Da stasera fino a giovedì dedica un quarto d'ora a una sola stanza, cominciando da quella dove passi più tempo. Metti un timer e fermati quando suona. Parti sempre dalle superfici: tavolo, comodino, piano della cucina. Nel fine settimana chiedi aiuto a chi vive con te.
+- Risposta: Settimana stancante, con poche forze, in cui il disordine di casa pesa sull'umore più del solito. Non è il momento delle grandi pulizie: l'energia va spesa con intelligenza, a piccole dosi, senza pretendere di rimettere tutto in ordine in un colpo.
+- Che cosa fare: Per quattro sere dedica un quarto d'ora a una stanza, cominciando da quella dove passi più tempo. Metti un timer e fermati quando suona. Parti sempre dalle superfici: tavolo, comodino, piano della cucina. Se vivi con altri, chiedi aiuto per il fine settimana.
 - Risposta, Lunga: Un ambiente in ordine non risolve i pensieri, ma toglie un rumore di fondo. Vedere almeno un angolo sgombro ogni sera ricorda che la situazione si muove, anche a piccoli passi. Le superfici contano perché sono ciò che lo sguardo incontra per primo entrando.
 
-#### Generale, salita, voce 7: Il favore da spostare
+#### Generale, salita, voce 7: La promessa da ritoccare
 
-- Risposta: Settimana in cui una promessa fatta non regge: avevi offerto un aiuto per questi giorni e ora ti accorgi che non riesci a mantenerlo come avevi detto. Il disagio cresce a ogni giorno di silenzio, quindi conviene parlarne subito invece di sperare che si risolva.
-- Che cosa fare: Avvisa oggi stesso la persona, spiegando in modo semplice che cosa è cambiato. Offri due alternative concrete: un aiuto più piccolo in settimana oppure quello intero in una data successiva. Scrivi subito in agenda la soluzione scelta e manda un promemoria il giorno prima.
+- Risposta: Settimana stretta per le promesse fatte con leggerezza. Se hai offerto un aiuto per questi giorni e ti accorgi che non riesci a mantenerlo come avevi detto, il disagio cresce a ogni giorno di silenzio: conviene parlarne subito invece di sperare che si risolva.
+- Che cosa fare: Guarda oggi gli impegni presi con altri per questi sette giorni e chiediti se reggono. Se uno non regge, avvisa subito la persona e offri due alternative: un aiuto più piccolo adesso oppure quello intero in una data successiva, scritta subito in agenda.
 - Risposta, Lunga: Chi riceve un avviso per tempo può organizzarsi e di solito apprezza la franchezza. È il silenzio fino all'ultimo minuto a ferire davvero, non la promessa ritoccata. Dopo aver spostato un impegno conviene essere impeccabili su quello nuovo, perché è lì che si misura la fiducia.
 
-#### Generale, salita, voce 8: Il gruppo silenziato
+#### Generale, salita, voce 8: Le chat silenziate
 
 - Risposta: Settimana rumorosa, con un'attenzione più fragile del solito. Notizie e chat di gruppo arrivano a raffica e ognuna porta un'urgenza o un'agitazione che non è tua: in questi giorni conviene proteggere la concentrazione scegliendo tu quando leggere, invece di inseguire ogni vibrazione.
-- Che cosa fare: Silenzia oggi le due chat più rumorose fino a giovedì e togli dal telefono le notifiche delle notizie. Controlla tutto in un unico momento, verso le sei di sera. Avvisa in privato chi potrebbe cercarti per qualcosa di importante che per qualche giorno rispondi più tardi.
-- Risposta, Lunga: Non si tratta di sparire, ma di scegliere quando esserci. Leggere tutto a ogni vibrazione spezza le ore in frammenti e lascia addosso un'agitazione difficile da scrollarsi la sera. Venerdì, riattivando solo le chat davvero utili, scopri quante potevano restare mute più a lungo.
+- Che cosa fare: Silenzia oggi le due chat più rumorose per tre giorni e togli le notifiche delle notizie. Controlla tutto in un unico momento, verso le sei di sera. Avvisa in privato chi potrebbe cercarti per qualcosa di importante che per qualche giorno rispondi più tardi.
+- Risposta, Lunga: Non si tratta di sparire, ma di scegliere quando esserci. Leggere tutto a ogni vibrazione spezza le ore in frammenti e lascia addosso un'agitazione difficile da scrollarsi la sera. Riattivando poi soltanto le chat davvero utili, scopri quante potevano restare mute più a lungo.
 
-#### Generale, salita, voce 9: La scelta a sabato
+#### Generale, salita, voce 9: La decisione rinviata
 
-- Risposta: Settimana poco adatta alle decisioni prese di corsa. Una scelta pratica ti preme addosso (un cambio di abitudini in famiglia, una nuova divisione degli orari) e qualcuno aspetta la tua risposta: le informazioni però sono ancora incomplete e conviene prendersi qualche giorno.
-- Che cosa fare: Chiedi oggi un rinvio fino a sabato. Nel frattempo raccogli due pareri di persone che ci sono già passate, con una telefonata a ciascuna entro giovedì e tre domande preparate prima. Venerdì sera scrivi vantaggi e svantaggi delle due strade e sabato mattina comunica la scelta.
-- Risposta, Lunga: Decidere sotto pressione porta spesso a scegliere per stanchezza, solo per togliersi il peso. Qualche giorno in più non rallenta nulla di essenziale e ti permette di scegliere con il quadro davanti. Rileggere il foglio a mente fresca mostra quale strada regge anche senza l'ansia.
+- Risposta: Settimana incerta, poco adatta alle decisioni prese di corsa. Se una scelta pratica ti preme addosso e qualcuno aspetta la tua risposta, le informazioni tendono a restare incomplete: conviene prendersi qualche giorno invece di decidere soltanto per togliersi il peso.
+- Che cosa fare: Se hai una decisione in sospeso, chiedi oggi un rinvio di qualche giorno. Nel frattempo raccogli due pareri di persone che ci sono già passate, con tre domande preparate prima. Il giorno prima della risposta scrivi vantaggi e svantaggi delle due strade, poi rileggili a mente fresca.
+- Risposta, Lunga: Decidere sotto pressione porta spesso a scegliere per stanchezza, soltanto per togliersi il pensiero. Qualche giorno in più non rallenta nulla di essenziale e ti permette di scegliere con il quadro davanti. Rileggere il foglio con calma mostra quale strada regge anche senza l'ansia.
 
-#### Generale, salita, voce 10: Il lavandino che gocciola
+#### Generale, salita, voce 10: Il guasto da affrontare
 
-- Risposta: Settimana disturbata da un piccolo guasto in casa: un rubinetto che perde o una tapparella bloccata ti ruba tranquillità più di quanto meriti. Rimandarlo ancora lo rende solo più ingombrante, mentre affrontarlo adesso lo riporta alla sua misura reale, quella di una telefonata.
-- Che cosa fare: Chiama oggi un tecnico o chiedi a un vicino il numero di qualcuno di fiducia e fissa l'intervento entro la settimana. Nel frattempo metti una soluzione provvisoria, un secchio o un nastro. Il giorno dell'intervento organizzati per essere in casa senza fretta.
+- Risposta: Settimana irrequieta per i piccoli inconvenienti di casa. Un rubinetto che perde o una tapparella bloccata tendono a rubare tranquillità più di quanto meritino: rimandarli li rende soltanto più ingombranti, mentre affrontarli adesso li riporta alla loro misura reale, quella di una telefonata.
+- Che cosa fare: Se in casa c'è un guasto che rimandi, chiama oggi un tecnico o chiedi a un vicino il numero di qualcuno di fiducia e fissa l'intervento entro la settimana. Nel frattempo metti una soluzione provvisoria. Se tutto funziona, scrivi su un foglio i numeri utili per le emergenze.
 - Risposta, Lunga: I guasti piccoli diventano grandi soprattutto nella testa: ogni volta che li vedi ti ricordano qualcosa che non hai fatto. Una telefonata basta a spostarli dalla preoccupazione all'agenda. Chiedere al tecnico come evitare che il problema si ripeta vale quanto la riparazione stessa.
 
-#### Generale, salita, voce 11: Chiederlo chiaramente
+#### Generale, salita, voce 11: Una richiesta precisa
 
-- Risposta: Settimana tesa in casa: ti sembra di portare più peso degli altri e il fastidio si accumula in silenzio, fino a uscire in battute amare. Questi giorni chiedono di dire le cose prima che diventino rancore, con una richiesta precisa invece di un lamento generico.
-- Che cosa fare: Scegli oggi una sola faccenda da condividere, per esempio la spesa del sabato o i piatti dopo cena. Chiedi a chi vive con te di occuparsene a turni fissi, con giorni precisi, a partire da martedì. Quando qualcuno fa la sua parte, ringrazia senza commentare.
-- Risposta, Lunga: Spesso gli altri non vedono il carico perché nessuno lo ha mai nominato. Una richiesta concreta dà un compito chiaro e permette a chiunque di dire sì. Nella prima settimana conviene lasciar correre le imperfezioni: domenica guardate insieme com'è andata e aggiustate i turni.
+- Risposta: Settimana tesa nei rapporti di tutti i giorni: il fastidio trattenuto tende ad accumularsi in silenzio, fino a uscire in battute amare. Questi giorni chiedono di dire le cose prima che diventino rancore, con una richiesta precisa invece di un lamento generico.
+- Che cosa fare: Scegli oggi una sola cosa che ti pesa nei rapporti con chi frequenti in casa o fuori. Trasformala in una richiesta concreta, con un giorno e un compito precisi. Dilla a voce alla persona interessata. Quando qualcuno fa la sua parte, ringrazia senza commentare.
+- Risposta, Lunga: Spesso gli altri non vedono un peso perché nessuno lo ha mai nominato. Una richiesta concreta dà un compito chiaro e permette a chiunque di dire sì. All'inizio conviene lasciar correre le imperfezioni: dopo qualche giorno guardate insieme com'è andata e aggiustate il tiro.
 
-#### Generale, salita, voce 12: Pasti a orario fisso
+#### Generale, salita, voce 12: Un pasto a orario fisso
 
-- Risposta: Settimana dagli orari spezzati fra turni, spostamenti e impegni dei familiari: i pasti finiscono mangiati in piedi o saltati e la giornata perde ogni punto fermo. Conviene fissarne almeno uno, perché un orario che non si sposta tiene insieme tutto il resto.
-- Che cosa fare: Fissa oggi per i prossimi cinque giorni un orario di pranzo che non si sposta, anche breve. Scrivilo in agenda come una riunione. La sera prima prepara qualcosa di semplice da portare con te. Mangia lontano dalla scrivania, oppure spegni lo schermo per quel tempo.
-- Risposta, Lunga: Un punto fermo in mezzo al caos dà alle altre ore una struttura su cui appoggiarsi. Venti minuti a tavola con calma valgono più di un'ora passata a rincorrere impegni a stomaco vuoto. Anche una panchina vicina all'ufficio basta a staccare davvero dal lavoro.
+- Risposta: Settimana dagli orari spezzati e faticosi: i pasti rischiano di finire mangiati in piedi o saltati e la giornata perde ogni punto fermo. Conviene fissarne almeno uno, perché un orario che non si sposta tiene insieme tutto il resto delle ore.
+- Che cosa fare: Fissa oggi per i prossimi cinque giorni un orario di pranzo che non si sposta, anche breve. Scrivilo in agenda come un appuntamento. La sera prima prepara qualcosa di semplice da portare con te. Mangia a tavola, lontano dagli schermi, almeno per quel tempo.
+- Risposta, Lunga: Un punto fermo in mezzo al caos dà alle altre ore una struttura su cui appoggiarsi. Venti minuti a tavola con calma valgono più di un'ora passata a rincorrere impegni a stomaco vuoto. Anche una panchina all'aperto basta a staccare davvero da ciò che stai facendo.
 
-#### Generale, salita, voce 13: La domenica vuota
+#### Generale, salita, voce 13: La mattina vuota
 
-- Risposta: Settimana faticosa, che chiede una pausa vera alla fine. Dopo giorni pesanti viene spontaneo riempire anche il fine settimana di cose da recuperare, ma il periodo chiede il contrario: qualche ora senza programmi da rispettare né arretrati da smaltire, decisa per tempo.
-- Che cosa fare: Tieni libera da oggi la domenica mattina e rifiuta con garbo gli inviti che arrivano per quelle ore. Venerdì avvisa chi vive con te che quella mattina non organizzi nulla. Domenica concediti un risveglio senza sveglia e un'attività senza scopo, come sistemare le piante.
-- Risposta, Lunga: Il riposo che arriva per caso viene sempre interrotto da qualcosa. Quello deciso in anticipo si può difendere: nessuno ti chiede di esserci perché lo hai già detto chiaramente. La tentazione da evitare è usare quella mattina per le faccende rimaste indietro durante la settimana.
+- Risposta: Settimana faticosa, che chiede una pausa vera alla fine. Dopo giorni pesanti viene spontaneo riempire anche il tempo libero di cose da recuperare, ma il periodo chiede il contrario: qualche ora senza programmi da rispettare né arretrati da smaltire, decisa per tempo.
+- Che cosa fare: Tieni libera da oggi una mattina del fine settimana e rifiuta con garbo gli inviti che arrivano per quelle ore. Avvisa per tempo chi potrebbe cercarti. Quella mattina concediti un risveglio senza sveglia e un'attività senza scopo, come una passeggiata lenta o un libro.
+- Risposta, Lunga: Il riposo che arriva per caso viene sempre interrotto da qualcosa. Quello deciso in anticipo si può difendere: nessuno ti chiede di esserci perché lo hai già detto chiaramente. La tentazione da evitare è usare quella mattina per le faccende rimaste indietro nei giorni pieni.
 
-#### Generale, salita, voce 14: Polvere sulle scale
+#### Generale, salita, voce 14: Pratiche e sportelli
 
-- Risposta: Settimana rumorosa per i lavori cominciati nel palazzo: martello, trapano e polvere sulle scale fin dal mattino presto. Il rumore rischia di toglierti concentrazione e pazienza più di quanto vorresti ammettere, quindi conviene organizzare le giornate attorno al cantiere invece di subirlo.
-- Che cosa fare: Chiedi oggi ai vicini o all'amministratore gli orari e la durata prevista dei lavori. Sposta le attività che richiedono silenzio nelle fasce libere e tieni a portata di mano dei tappi per le orecchie. Nelle mattine peggiori rifugiati in biblioteca o in un bar tranquillo.
-- Risposta, Lunga: Il fastidio cresce soprattutto quando il rumore sembra senza fine e senza regole. Sapere che smette alle sei, o che finisce fra tre settimane, rende tutto più sopportabile e restituisce un po' di controllo. Alla fine, un biglietto di ringraziamento a chi ha ascoltato le tue richieste migliora i rapporti.
+- Risposta: Settimana lenta per le pratiche di ogni giorno: sportelli, telefonate a uffici, moduli da rifare. Le attese si allungano e la pazienza si accorcia: conviene prepararsi bene prima di muoversi, così ogni passaggio richiede un tentativo soltanto invece di tre.
+- Che cosa fare: Se hai una pratica da sbrigare, controlla oggi sul sito dell'ufficio orari, documenti richiesti e possibilità di prenotare. Metti tutto in una cartellina, con una copia di ciascun foglio. Presentati presto con qualcosa da leggere. Annota il nome di chi ti risponde allo sportello.
+- Risposta, Lunga: Il nervosismo agli sportelli nasce quasi sempre dal foglio mancante o dall'orario sbagliato, più che dalla lentezza degli altri. Prepararsi toglie metà della fatica. Il segno che funziona è uscire con la pratica chiusa al primo tentativo, anche dopo una lunga attesa in fila.
 
 ## Amore
 
 ### Amore, Favorevole (livello 4 e 5)
 
-#### Amore, favorevole, voce 1: Un'ora di strada
+#### Amore, favorevole, voce 1: Aria nuova in amore
 
-- Risposta: Settimana favorevole per la coppia, con voglia di aria nuova fra te e chi ami. Non serve un grande viaggio: basta cambiare scenario per qualche ora perché tornino le chiacchiere dei primi tempi e vi guardiate di nuovo con la curiosità di allora.
-- Che cosa fare: Scegli entro mercoledì un posto a un'ora di strada che nessuno dei due conosce, come un lago o un borgo. Proponilo per sabato e prepara tu i dettagli. Durante la gita lascia il telefono nello zaino e chiedi a chi ami che cosa vorrebbe provare insieme.
-- Risposta, Lunga: Quando la routine è ben oliata si finisce per parlare solo di spesa, turni e bollette. Lontano dal solito tavolo riaffiorano domande che a casa nessuno fa più. Segnare in calendario il desiderio raccolto durante la gita fa continuare il viaggio anche dopo il ritorno.
+- Risposta: Settimana favorevole in amore, con voglia di aria nuova. Se vivi una relazione, basta cambiare scenario per qualche ora perché tornino le chiacchiere dei primi tempi; se sei senza legame, un posto mai visto accende una curiosità che si nota e attira gli sguardi.
+- Che cosa fare: Scegli entro tre giorni un posto a un'ora di strada che non conosci, come un lago o un borgo. Vacci nel fine settimana: se hai un legame, porta chi ami e lascia il telefono nello zaino; altrimenti scegli un luogo vivo, una sagra o un mercato.
+- Risposta, Lunga: Quando la routine è ben oliata, nella coppia si finisce per parlare soltanto di spesa e bollette; fuori dal solito tavolo riaffiorano domande che a casa nessuno fa più. Per chi cerca, un ambiente nuovo toglie i copioni di sempre: ci si presenta senza il peso delle abitudini.
 
-#### Amore, favorevole, voce 2: La cena degli sconosciuti
+#### Amore, favorevole, voce 2: Facce nuove
 
-- Risposta: Settimana socievole per chi è senza legame. Un invito che di solito declineresti, a una cena dove conosci poche persone, può portarti conversazioni che restano in mente a lungo: è il momento di dire sì alle facce nuove invece di restare nel giro di sempre.
-- Che cosa fare: Se qualcuno ti propone una serata con persone nuove, rispondi sì entro il giorno dopo. Porta qualcosa di tuo, un dolce o una bottiglia, perché offrire rompe il ghiaccio. Se una conversazione ti incuriosisce, chiedi il contatto e scrivi entro due giorni riprendendo un dettaglio.
+- Risposta: Settimana socievole e aperta nella vita sentimentale: un invito che di solito declineresti può portarti incontri che restano in mente. Se sei senza legame, è il momento di dire sì alle facce nuove; se vivi una relazione, uscire insieme fra persone sconosciute vi mostra a vicenda sotto una luce diversa.
+- Che cosa fare: Se qualcuno ti propone una serata con persone nuove, rispondi sì entro un giorno e porta un dolce o una bottiglia. Se hai un legame, andateci insieme e poi raccontatevi chi avete conosciuto. Se sei senza legame, quando una conversazione ti incuriosisce chiedi il contatto.
 - Risposta, Lunga: Non si tratta di cercare a ogni costo qualcuno da corteggiare. È il piacere di farsi conoscere senza copione e di scoprire che hai ancora storie da raccontare. Un messaggio che riprende una frase detta a tavola vale più di un semplice saluto, perché mostra ascolto.
 
-#### Amore, favorevole, voce 3: La colazione della domenica
+#### Amore, favorevole, voce 3: Dire ciò che senti
 
-- Risposta: Settimana propizia per riavvicinarti a un fratello o a una sorella, o a chi per te conta come tale. Da tempo i messaggi fra voi si limitano agli auguri e alle foto di rito: questi giorni favoriscono un incontro vero, semplice da organizzare e da accettare.
-- Che cosa fare: Scrivi entro giovedì e proponi una colazione domenica mattina, in un bar a metà strada fra le vostre case. Al tavolo racconta una cosa che ti sta a cuore, non solo le novità di famiglia. Prima di salutarvi fissate sul telefono la data del prossimo incontro.
-- Risposta, Lunga: Crescendo ognuno ha preso la sua strada e il filo si è assottigliato per distrazione, senza litigi. Proprio per questo basta poco a riannodarlo: nessuno deve chiedere scusa di niente. Un orario presto e un tempo breve tolgono peso all'invito e rendono facile dire di sì.
+- Risposta: Settimana propizia in amore per dire ciò che senti, senza giri di parole. Le frasi trattenute trovano adesso il tono giusto: se vivi una relazione, è il momento di dire un affetto che di solito taci; se sei senza legame, di far capire a qualcuno che ti interessa.
+- Che cosa fare: Scrivi oggi su un foglio una frase sincera che non hai ancora detto, breve e senza condizioni. Entro tre giorni dilla a voce, guardando negli occhi: a chi ami, oppure alla persona che ti incuriosisce, magari proponendo un caffè con giorno e ora precisi.
+- Risposta, Lunga: Molti sentimenti restano in sospeso non per mancanza di coraggio ma per paura del momento sbagliato. In questi sette giorni il momento regge. Il segno che funziona è la risposta del corpo dell'altra persona, un sorriso o uno sguardo che si ferma, più delle parole che arrivano dopo.
 
-#### Amore, favorevole, voce 4: Una cuccia da scegliere
+#### Amore, favorevole, voce 4: Il piacere di piacerti
 
-- Risposta: Settimana buona per trasformare in progetto il desiderio di accogliere un animale, di cui parlate da mesi fra una cena e l'altra. Questi giorni danno il terreno giusto per passare dai discorsi a una scelta concreta, presa a due e con calma.
-- Che cosa fare: Sabato mattina andate insieme a un rifugio della vostra zona, anche solo per conoscere i volontari e fare domande. Domenica sera scrivete su un foglio chi porta fuori al mattino, chi compra il cibo e che cosa cambia nei fine settimana. Leggetelo con sincerità.
-- Risposta, Lunga: Dietro questa voglia c'è qualcosa di più grande di una cuccia: il bisogno di prendervi cura di qualcosa insieme, una routine che appartiene a entrambi. Se la lista dei compiti vi fa sorridere invece di spaventarvi, avete già la vostra risposta; se pesa, aspettate ancora.
+- Risposta: Settimana luminosa per il desiderio e la seduzione. Hai addosso un fascino che si nota più del solito: se vivi una relazione, è il momento di farti guardare di nuovo da chi ami; se sei senza legame, di uscire con la voglia di farti notare e di notare.
+- Che cosa fare: Scegli entro tre giorni un capo che ti piace e che metti di rado, poi indossalo per una serata fuori. Se hai un legame, prepara un invito a cena come ai primi tempi; se sei senza legame, vai in un locale dove si chiacchiera volentieri.
+- Risposta, Lunga: Il desiderio vive di sguardi: quando ci si sente bene nella propria pelle, anche gli altri lo percepiscono. Non serve cambiare chi sei, basta smettere di nasconderti dietro l'abitudine. Il pericolo è cercare conferme in ogni sguardo: conta come ti senti tu, non quanti ti notano.
 
-#### Amore, favorevole, voce 5: Dopo la lezione
+#### Amore, favorevole, voce 5: Una simpatia da coltivare
 
-- Risposta: Settimana favorevole per portare una simpatia fuori dall'aula. Al corso che frequenti, o in palestra, c'è una persona con cui la conversazione scorre facile da qualche tempo: questi giorni sono adatti a fare un passo in più, leggero e senza pressioni.
-- Che cosa fare: Alla fine della prossima lezione proponi un caffè nel locale più vicino con una frase semplice: «ti va di continuare il discorso fuori?». Se va bene, lascia passare due o tre giorni e proponi tu un luogo diverso, una mostra o un mercato.
-- Risposta, Lunga: Avete già un terreno comune, la stessa passione e le stesse fatiche della settimana: questo toglie l'imbarazzo dei primi incontri. Non serve inventare argomenti. Conoscersi fuori dal contesto del corso mostra però lati che in aula restano nascosti: è lì che si capisce davvero.
+- Risposta: Settimana favorevole in amore per trasformare una simpatia in qualcosa di più. Se sei senza legame e c'è una persona che incroci spesso, in palestra o al bar, questi giorni sono adatti a un passo leggero; se vivi una relazione, la stessa leggerezza serve a corteggiare ancora chi ami.
+- Che cosa fare: Se c'è qualcuno che ti incuriosisce, alla prossima occasione proponi un caffè con una frase semplice: «ti va di continuare il discorso fuori?». Se hai un legame, invita chi ami a un caffè fuori programma, come fosse il primo, in un posto mai provato.
+- Risposta, Lunga: Un terreno comune, la stessa passione o lo stesso posto, toglie l'imbarazzo dei primi incontri e non obbliga a inventare argomenti. Conoscersi fuori dal contesto abituale mostra però lati che restano nascosti: è lì che si capisce se la simpatia ha gambe per camminare.
 
 #### Amore, favorevole, voce 6: Canzoni dei primi tempi
 
-- Risposta: Settimana tenera per le coppie di lunga data, con un'ondata di affetto inattesa. Un ricordo dei primi tempi, una canzone o un luogo, può riaccendere fra te e chi ami la complicità che sembrava sopita sotto le abitudini di ogni giorno.
-- Che cosa fare: Prepara una raccolta delle canzoni che ascoltavate all'inizio e falla partire venerdì in macchina o mentre cucinate, senza annunciarla. Quando una vi fa sorridere, chiedi che cosa ricorda di quel periodo e racconta il tuo ricordo. Nel fine settimana tornate in un posto di allora.
-- Risposta, Lunga: Gli anni insieme costruiscono fiducia ma consumano un po' di sorpresa. Non è un problema da risolvere: è un terreno da rinfrescare. Le memorie condivise sono la via più dolce per farlo, perché ricordano a entrambi il motivo per cui vi siete scelti, senza bisogno di dirlo.
+- Risposta: Settimana tenera nella vita sentimentale, con un'ondata di affetto inattesa. Se vivi una relazione, un ricordo dei primi tempi, una canzone o un luogo, può riaccendere la complicità sopita sotto le abitudini; se sei senza legame, ripensare a ciò che ti ha fatto innamorare in passato chiarisce che cosa cerchi.
+- Che cosa fare: Prepara una raccolta di canzoni legate all'amore come lo intendi tu. Se hai un legame, falla partire in casa senza annunciarla e chiedi che cosa ricorda la prima che vi fa sorridere. Se sei senza legame, ascoltala camminando e annota tre qualità che desideri.
+- Risposta, Lunga: Gli anni insieme costruiscono fiducia ma consumano un po' di sorpresa: le memorie condivise sono la via più dolce per rinfrescarla, perché ricordano il motivo di una scelta. Per chi cerca, gli amori passati non sono rimpianti: sono mappe che indicano che cosa ti fa stare bene.
 
-#### Amore, favorevole, voce 7: La videochiamata insegnata
+#### Amore, favorevole, voce 7: Un complimento vero
 
-- Risposta: Settimana propizia per accorciare la distanza con una persona anziana della tua famiglia, che sente la tua mancanza più di quanto dica. Un piccolo aiuto pratico, dato in questi giorni, può durare nel tempo e cambiare il sapore delle sue serate.
-- Che cosa fare: Nel fine settimana passa a trovarla con il suo telefono carico e insegnale a fare una videochiamata passo per passo, scrivendo i passaggi su un foglio. Scegliete insieme un appuntamento fisso, per esempio il mercoledì dopo cena: la prima chiamata falla tu.
-- Risposta, Lunga: Chi è avanti con gli anni spesso non chiede per non disturbare e si accontenta di una telefonata frettolosa. Vedere un volto, anche su uno schermo, fa compagnia più delle parole. Nelle chiamate contano le cose piccole: la tua cucina, una pianta, la strada sotto casa.
+- Risposta: Settimana dolce in amore, adatta alle parole gentili dette al momento giusto. Se vivi una relazione, un complimento preciso a chi ami, non generico, accende più di un regalo; se sei senza legame, un apprezzamento sincero rivolto a qualcuno che ti piace apre una conversazione con naturalezza.
+- Che cosa fare: Una volta al giorno, per tre giorni, fai un complimento preciso: un dettaglio notato, una frase che ti è piaciuta, il modo di ridere. Rivolgilo a chi ami oppure, se cerchi, alla persona che ti incuriosisce. Evita le lodi generiche: scegli ciò che hai visto soltanto tu.
+- Risposta, Lunga: Un complimento generico scivola via, uno preciso resta perché dimostra attenzione: chi lo riceve capisce che qualcuno ha guardato davvero. L'errore tipico è esagerare, perché dieci lodi al giorno suonano come una strategia. Il segno che funziona è un sorriso che arriva prima della risposta.
 
-#### Amore, favorevole, voce 8: Una foto recente
+#### Amore, favorevole, voce 8: La presentazione sincera
 
-- Risposta: Settimana adatta a riaprire con leggerezza la porta agli incontri, se da tempo hai messo in pausa le app o le occasioni per conoscere persone. Con meno aspettative e più verità su di te, questi giorni rendono facile ricominciare senza ansia.
-- Che cosa fare: Scegli una foto degli ultimi mesi in cui si vede bene il tuo sorriso. Riscrivi la presentazione entro martedì con tre cose che fai davvero nel tempo libero, senza aggettivi su di te. Rispondi soltanto ai messaggi che fanno una domanda vera, lasciando cadere gli altri.
-- Risposta, Lunga: Una presentazione vera attira persone compatibili con la tua vita reale, non con un'immagine ritoccata. Così anche i primi messaggi partono da qualcosa di concreto. Se una conversazione ti diverte, una telefonata breve prima di vedervi aiuta a capire se c'è davvero intesa.
+- Risposta: Settimana favorevole agli incontri cercati con sincerità. Se sei senza legame e da tempo hai messo in pausa le app o le occasioni per conoscere persone, adesso riaprire la porta viene facile; se vivi una relazione, la stessa sincerità serve a raccontarti a chi ami senza filtri.
+- Che cosa fare: Se cerchi, scegli una foto recente in cui si vede bene il tuo sorriso e riscrivi la presentazione con tre cose che fai davvero nel tempo libero. Se hai un legame, racconta a chi ami una passione tua che conosce poco. In entrambi i casi, fatti concreti.
+- Risposta, Lunga: Una presentazione vera attira persone compatibili con la tua vita reale, non con un'immagine ritoccata. Nella coppia succede lo stesso: farsi conoscere ancora, dopo tanto tempo, rinnova la curiosità. Se una conversazione nuova ti diverte, una telefonata breve prima di vedervi aiuta a capire se c'è intesa.
 
 #### Amore, favorevole, voce 9: Il gesto restituito
 
-- Risposta: Settimana di gratitudine nella coppia. C'è un piccolo gesto che chi ti sta accanto ripete ogni mattina senza farci caso, come preparare il caffè o aprire le tende: in questi giorni ti viene naturale accorgertene e restituirlo con la stessa semplicità.
-- Che cosa fare: Una mattina, prima che l'altra persona si alzi, fai tu quel gesto al suo posto e lascia accanto un biglietto: «tocca a me, grazie per tutte le altre volte». Nei giorni successivi chiedi se c'è un gesto tuo a cui tiene in modo particolare.
-- Risposta, Lunga: Nelle coppie la gratitudine si consuma in silenzio: le attenzioni diventano abitudini e le abitudini smettono di vedersi. Nominarle restituisce valore a chi le fa e a chi le riceve. Spesso si scopre che conta una cosa minuscola, da fare d'ora in poi con attenzione nuova.
+- Risposta: Settimana generosa in amore, fatta di gratitudine per le piccole attenzioni. Se vivi una relazione, spesso c'è un gesto che chi ami ripete senza farci caso, come preparare il caffè: adesso ti viene naturale accorgertene; se sei senza legame, è il momento di notare chi ti riserva attenzioni gentili.
+- Che cosa fare: Se hai un legame, una mattina fai tu il gesto abituale dell'altra persona e lascia un biglietto: «tocca a me, grazie per tutte le altre volte». Se sei senza legame, rispondi con calore a chi ti cerca con garbo e restituisci la cortesia con un invito.
+- Risposta, Lunga: Nelle coppie la gratitudine si consuma in silenzio: le attenzioni diventano abitudini e le abitudini smettono di vedersi. Nominarle restituisce valore a chi le fa. Per chi cerca, accorgersi della gentilezza ricevuta aiuta a distinguere chi tiene davvero da chi passa soltanto per un momento.
 
-#### Amore, favorevole, voce 10: Il brindisi a sorpresa
+#### Amore, favorevole, voce 10: Un invito preparato con cura
 
-- Risposta: Settimana giusta per festeggiare di persona un'amicizia che ha raggiunto un traguardo, un lavoro nuovo o un esame superato. Finora se n'è parlato solo in chat: questi giorni offrono l'occasione di trasformare i messaggi in un abbraccio e in un brindisi veri.
-- Che cosa fare: Coinvolgi oggi altre due o tre persone che le vogliono bene e organizzate un brindisi venerdì dopo il lavoro, in un locale vicino a casa sua. Avvisala all'ultimo con un messaggio: «scendi, ti aspettiamo». Durante la serata chiedile di raccontare quando è arrivata la notizia.
-- Risposta, Lunga: I successi delle persone care rischiano di passare in fretta, schiacciati dagli impegni di tutti. Fermarsi a celebrarli dice più di cento emoticon: dice che il loro percorso ti sta a cuore. Una foto della serata con una riga tua fa durare il ricordo oltre la festa.
+- Risposta: Settimana calorosa in amore, con un'intesa facile negli incontri a due. Se vivi una relazione, una serata preparata con cura riporta il gusto del corteggiamento; se sei senza legame, è il momento di proporre un appuntamento vero invece di una chiacchierata in chat che si trascina.
+- Che cosa fare: Scegli oggi un posto che ti piace davvero e proponi una sera precisa entro questi sette giorni, con orario e luogo. Se hai un legame, organizza tu ogni dettaglio senza rivelarlo; se sei senza legame, invita la persona che ti incuriosisce di più con una frase diretta.
+- Risposta, Lunga: Un invito preciso comunica interesse più di cento messaggi: dice che hai pensato a quella persona e al tempo da passare insieme. Il rischio è caricare la serata di attese: meglio un posto dove si parla bene che un locale da cartolina. Conta la presenza, non la scenografia.
 
-#### Amore, favorevole, voce 11: Il prossimo abbraccio
+#### Amore, favorevole, voce 11: Un sogno da dire
 
-- Risposta: Settimana favorevole alle decisioni pratiche per chi ama a distanza. Se tu e chi ami vivete in città diverse, questi giorni aiutano ad accorciare la lontananza: è il momento di dare una data precisa al prossimo abbraccio invece di lasciarlo nel vago.
-- Che cosa fare: Mercoledì sera aprite insieme i calendari, scegliete un fine settimana del prossimo mese e prenotate subito il viaggio. Poi cominciate un elenco a due delle cose da fare in quei giorni, un posto per la colazione o un film, aggiungendo una voce a testa ogni sera.
-- Risposta, Lunga: La distanza è più faticosa quando il prossimo incontro resta vago. Con una data fissata le chiamate cambiano tono: si parla di che cosa fare insieme invece di quanto manca l'altra persona. Un viaggio prenotato pesa meno di cento promesse di vedersi presto.
+- Risposta: Settimana fertile in amore per i progetti del cuore. Se vivi una relazione, è il momento di parlare di un desiderio comune, un viaggio, una casa diversa, un'abitudine nuova; se sei senza legame, è il momento giusto per mettere a fuoco che tipo di storia desideri davvero.
+- Che cosa fare: Se hai un legame, una sera di questa settimana chiedi a chi ami: «che cosa ti piacerebbe fare insieme che non abbiamo mai fatto?». Scrivete le risposte e sceglietene una da avviare. Se sei senza legame, scrivi tre cose da vivere in una storia e tre che non accetti più.
+- Risposta, Lunga: I progetti condivisi danno alla coppia una direzione che la quotidianità non offre: parlare di futuro senza fretta rafforza il presente. Per chi cerca, sapere che cosa si vuole evita di scegliere per solitudine. Il segno che funziona è riconoscere subito chi non c'entra con la storia che desideri.
 
-#### Amore, favorevole, voce 12: Il nome alla fermata
+#### Amore, favorevole, voce 12: Un biglietto scritto a mano
 
-- Risposta: Settimana favorevole per uscire dall'anonimato con una persona che incroci spesso al bar sotto l'ufficio o alla fermata. Da un po' ti rivolge sguardi e sorrisi: questi giorni rendono più facile passare dai cenni di saluto a una parola vera.
-- Che cosa fare: La prossima volta che vi incrociate presentati tu: di' il tuo nome, chiedi il suo e aggiungi una domanda semplice sul posto in cui vi trovate. Se il saluto diventa chiacchiera, proponi nei giorni successivi un caffè seduti, con giorno e ora precisi.
-- Risposta, Lunga: Spesso si aspetta un'occasione speciale per farsi avanti, invece le storie migliori cominciano da un dettaglio quotidiano. Un nome conosciuto cambia il modo di salutarsi già dal mattino dopo. Le proposte vaghe tendono a perdersi, mentre una leggera ma precisa lascia all'altra persona la libertà di rispondere.
+- Risposta: Settimana felice in amore per i gesti scritti, quelli che si conservano. Se vivi una relazione, poche righe a mano lasciate dove chi ami le trova valgono più di cento messaggi; se sei senza legame, scrivere con cura a qualcuno che ti piace, senza fretta, ti distingue subito dagli altri.
+- Che cosa fare: Scrivi entro tre giorni un biglietto breve, a mano o in un messaggio lungo e curato: una cosa che apprezzi e un invito preciso. Se hai un legame, nascondilo nella giacca o nella borsa di chi ami; altrimenti mandalo alla persona che ti incuriosisce, senza faccine.
+- Risposta, Lunga: Le parole scritte con calma hanno un peso diverso: si possono rileggere e restano. In un'epoca di messaggi rapidi, un biglietto dice che hai fermato il tempo per quella persona. La trappola è la frase troppo elaborata: meglio poche parole tue che una citazione presa in prestito.
 
 #### Amore, favorevole, voce 13: Il piatto mai provato
 
-- Risposta: Settimana leggera per la coppia, adatta alle esperienze semplici e condivise. Fra te e chi ami c'è voglia di fare qualcosa insieme che non sia il solito divano, qualcosa in cui si ride anche quando le cose vanno storte e si impara qualcosa dell'altra persona.
-- Che cosa fare: Sabato mattina andate insieme al mercato e lasciate che ognuno scelga un ingrediente mai usato. Domenica inventate un piatto che li metta d'accordo, cucinando fianco a fianco. Apparecchiate con cura, anche solo con una candela. Scegliete già la ricetta della domenica dopo.
-- Risposta, Lunga: In cucina emergono i caratteri: chi segue le dosi al grammo, chi va a occhio, chi assaggia di continuo. Scoprirlo con ironia insegna sull'altra persona più di tante conversazioni serie. Ripetuto ogni domenica, diventa un piccolo rito che appartiene soltanto a voi due.
+- Risposta: Settimana leggera in amore, adatta alle esperienze semplici e condivise. Se vivi una relazione, c'è voglia di fare qualcosa insieme che non sia il solito divano; se sei senza legame, un'attività pratica con persone nuove, come una lezione di cucina, rende facile conoscere qualcuno ridendo.
+- Che cosa fare: Se hai un legame, andate al mercato e lasciate che ognuno scelga un ingrediente mai usato, poi inventate un piatto cucinando fianco a fianco. Se sei senza legame, iscriviti a una serata di cucina o di degustazione e scambia due parole con chi ti siede accanto.
+- Risposta, Lunga: In cucina emergono i caratteri: chi segue le dosi al grammo, chi va a occhio, chi assaggia di continuo. Scoprirlo con ironia insegna più di tante conversazioni serie. Fare qualcosa con le mani toglie l'imbarazzo degli sguardi e lascia parlare la complicità, anche fra chi si conosce appena.
 
-#### Amore, favorevole, voce 14: Gli amici da presentare
+#### Amore, favorevole, voce 14: Risate che sciolgono tensioni
 
-- Risposta: Settimana favorevole a un passo naturale in una storia cominciata da poco: far conoscere chi ami alle persone amiche che contano per te. Il clima è leggero e senza esami, adatto a mescolare i due mondi senza che nessuno si senta sotto osservazione.
-- Che cosa fare: Organizza entro sabato un aperitivo con due o tre amicizie strette in un locale dove si chiacchiera bene. Racconta prima a chi ami chi incontra, con un dettaglio simpatico per ciascuno. Nei giorni dopo chiedi un'impressione sincera della serata e ascolta senza difendere nessuno.
-- Risposta, Lunga: Vedere chi ami fra le tue persone mostra lati nuovi: come ride, come ascolta, come entra in un gruppo che non conosce. Anche le tue amicizie capiscono che cosa ti rende felice in questo periodo. Proporre poi di ricambiare con le sue amicizie rende lo scambio equo.
+- Risposta: Settimana brillante in amore, con l'ironia dalla tua parte. Se vivi una relazione, ridere insieme di una piccola disavventura scioglie tensioni accumulate; se sei senza legame, la leggerezza è il tuo biglietto da visita negli incontri: fa avvicinare più di qualunque frase studiata.
+- Che cosa fare: Scegli per una sera un'attività che fa ridere: un film comico, un gioco da tavolo, uno spettacolo di improvvisazione. Se hai un legame, proponila a chi ami senza preavviso; se sei senza legame, vai con un gruppo e lasciati coinvolgere dalla conversazione dopo lo spettacolo.
+- Risposta, Lunga: Chi ride insieme abbassa le difese: l'ironia condivisa crea una complicità che le parole serie faticano a costruire. Il pericolo è usare la battuta per evitare un discorso importante, rimandandolo all'infinito. Il segno che funziona è una risata che torna in mente il giorno dopo.
 
 ### Amore, In equilibrio (livello 3)
 
-#### Amore, equilibrio, voce 1: Serate a testa
+#### Amore, equilibrio, voce 1: Tempo tuo, tempo condiviso
 
-- Risposta: Settimana da riequilibrare nella coppia: gli impegni con le amicizie di ciascuno si accavallano e qualcuno resta a casa con il muso. Il periodo chiede di dividere il tempo con un criterio chiaro, deciso insieme, così che le uscite di ciascuno trovino il loro posto.
-- Che cosa fare: Stasera sedetevi con le agende aperte e segnate una serata libera a testa e una sera tutta vostra, protetta da altri inviti. Scrivetele sul frigo o in un calendario condiviso. Venerdì controllate se l'accordo ha funzionato e correggete una sola cosa, senza processi.
-- Risposta, Lunga: Avere vite proprie fa bene alla coppia, a patto che a nessuno tocchi sempre l'ultimo posto. Il malumore nasce raramente dall'uscita in sé: nasce dalla sorpresa, quando arriva senza un accordo. La sera vostra conta solo se riguarda voi, anche con una semplice passeggiata.
+- Risposta: Settimana equilibrata in amore, se trovi la misura fra il tempo per te e quello per il cuore. Se vivi una relazione, gli impegni di ciascuno rischiano di accavallarsi e serve un criterio deciso insieme; se sei senza legame, serve dosare uscite e serate tranquille senza riempire ogni spazio.
+- Che cosa fare: Apri oggi l'agenda. Se hai un legame, segnate con chi ami una serata libera a testa e una tutta vostra, protetta da altri inviti; se sei senza legame, scegli una sera per uscire e una per te. Rispetta queste date fino alla fine della settimana.
+- Risposta, Lunga: Avere vite proprie fa bene a una storia, a patto che a nessuno tocchi sempre l'ultimo posto: il malumore nasce dalla sorpresa, non dall'uscita. Per chi cerca, una sera tranquilla non è tempo perso: si arriva agli incontri con più energia e meno fame di conferme.
 
-#### Amore, equilibrio, voce 2: Due nomi in sospeso
+#### Amore, equilibrio, voce 2: Che cosa cerchi davvero
 
-- Risposta: Settimana di piccola scelta per chi è senza legame: due persone ti interessano in modi diversi e nessuna delle due storie è ancora cominciata davvero. Non c'è fretta di decidere, ma conviene smettere di dividere l'attenzione a metà fra entrambe.
-- Che cosa fare: In questi giorni vedi una sola delle due, di giorno, per un'attività precisa come una mostra o un giro al mercato. Lascia l'altra conversazione aperta ma senza alimentarla. Dopo l'incontro aspetta una notte e annota che cosa ti ha fatto ridere e che cosa no.
-- Risposta, Lunga: Quando l'attenzione si divide si finisce per conoscere entrambe le persone a metà. Un incontro pieno con una sola permette di sentire se c'è qualcosa oltre la curiosità del momento. Le risposte scritte, compreso il desiderio di rivederla, aiutano più dei pensieri che girano in tondo.
+- Risposta: Settimana tranquilla nella vita sentimentale, buona per fare chiarezza. Se vivi una relazione, chiediti che cosa desideri dalla tua storia adesso, non all'inizio; se sei senza legame, chiediti che cosa cerchi davvero, prima di dividere l'attenzione fra persone diverse senza conoscerne bene nessuna.
+- Che cosa fare: Prenditi stasera venti minuti con un foglio e scrivi tre cose che ti fanno stare bene in amore e una che non vuoi più. Se hai un legame, condividi con chi ami la prima voce; se sei senza legame, rileggi il foglio prima del prossimo appuntamento.
+- Risposta, Lunga: Quando l'attenzione si divide o scorre in automatico, si finisce per vivere l'amore a metà. Mettere per iscritto i desideri li rende meno vaghi e più facili da riconoscere. Il segno che funziona è una scelta che arriva senza ansia, perché sai già che cosa conta.
 
-#### Amore, equilibrio, voce 3: La domenica a turno
+#### Amore, equilibrio, voce 3: Nessuna tappa bruciata
 
-- Risposta: Settimana adatta a rinegoziare con garbo il pranzo di famiglia della domenica, che da tempo è un appuntamento fisso dove ogni assenza viene notata. Puoi cambiare l'abitudine senza strappi né sensi di colpa, se la proponi come un modo per stare meglio insieme.
-- Che cosa fare: Telefona entro giovedì a chi organizza il pranzo e proponi un'alternanza: una domenica con la famiglia, una libera. Alla prima domenica di famiglia porta qualcosa preparato da te e resta fino al caffè senza guardare il telefono. Usa quella libera per ricaricarti davvero.
-- Risposta, Lunga: Le tradizioni familiari tengono unite le persone finché restano una scelta. Quando diventano un obbligo, anche il pranzo più affettuoso si riempie di sguardi all'orologio e di silenzi a tavola. L'alternanza funziona se le domeniche di famiglia diventano più presenti, non più rare e distratte.
+- Risposta: Settimana calma in amore, che premia chi non ha fretta. Se vivi una relazione, le decisioni importanti possono aspettare qualche giorno senza perdere nulla; se sei senza legame e qualcuno ti interessa, conviene lasciare che la conoscenza cresca con il suo ritmo, senza bruciare le tappe.
+- Che cosa fare: In questi sette giorni niente ultimatum e niente domande sul futuro. Se hai un legame, rimanda le decisioni grandi e scegli piccoli momenti da vivere insieme; se sei senza legame, dopo un primo incontro aspetta un giorno prima di scrivere e proponi il secondo senza insistere.
+- Risposta, Lunga: La fretta in amore nasce spesso dall'ansia di avere conferme: chi corre chiede all'altro una risposta che non è ancora pronta. Lasciare tempo mostra sicurezza e rispetto. Il rischio opposto è il silenzio che sembra disinteresse: un segnale piccolo e gentile tiene vivo il filo.
 
-#### Amore, equilibrio, voce 4: Telefoni in cucina
+#### Amore, equilibrio, voce 4: Lasciar finire le frasi
 
-- Risposta: Settimana adatta a ritrovare le chiacchiere della sera con chi ami. Fra voi si sono infilati gli schermi: ciascuno scorre il proprio telefono a letto e il tempo prima di dormire si è ridotto a un saluto distratto. Basta un patto semplice per cambiarlo.
-- Che cosa fare: Proponi oggi un patto per tre sere: i telefoni restano a caricare in cucina e in camera si entra con un libro o con una domanda. Scegliete insieme quali sere, così nessuno lo vive come un divieto. Dopo, chiedetevi senza giudizi che cosa è cambiato.
-- Risposta, Lunga: Il problema non è il telefono ma il momento che si porta via: quello in cui la fatica si scioglie e si racconta ciò che è rimasto dentro. Senza quel momento la vicinanza si riduce ad abitudine. Se il patto piace, due sere fisse bastano a tenerlo vivo.
+- Risposta: Settimana serena nella vita sentimentale, adatta all'ascolto più che ai discorsi. Se vivi una relazione, è il momento di lasciar finire le frasi di chi ami, senza anticipare le risposte; se sei senza legame, negli incontri colpisce chi ascolta davvero, più di chi racconta molto di sé.
+- Che cosa fare: Per tre giorni, in ogni conversazione importante, aspetta che l'altra persona finisca prima di rispondere e fai una domanda sul suo racconto invece di passare al tuo. Se hai un legame, provaci a cena; se sei senza legame, al prossimo incontro conta quante domande fai.
+- Risposta, Lunga: Sentirsi ascoltati è una delle forme più profonde di intimità: chi parla capisce che conta. Molti attriti nascono da frasi interrotte a metà. Il segno che funziona è vedere l'altra persona aprirsi un po' di più, raccontando cose che di solito tiene per sé.
 
 #### Amore, equilibrio, voce 5: Una risposta breve
 
-- Risposta: Settimana da affrontare con misura, perché una persona del tuo passato sentimentale può farsi viva con un messaggio cordiale, come se niente fosse. Non è né una minaccia né un'occasione: è un messaggio che merita una risposta gentile e breve, senza riaprire capitoli chiusi.
-- Che cosa fare: Rispondi entro un giorno o due con poche righe gentili e neutre, senza domande che riaprano il discorso. Se ti propone di vedervi, prendi tempo fino al fine settimana. Nel frattempo racconta tutto a una persona fidata e chiedile un parere schietto.
+- Risposta: Settimana pacata in amore, anche se il passato può bussare alla porta. Una persona della tua storia sentimentale può farsi viva con un messaggio cordiale, che non è né una minaccia né un'occasione: che tu viva una relazione o sia senza legame, merita una risposta gentile e breve.
+- Che cosa fare: Se ti arriva un messaggio dal passato, rispondi entro un giorno o due con poche righe gentili e neutre, senza domande che riaprano il discorso. Se ti propone di vedervi, prendi tempo fino al fine settimana. Nel frattempo chiedi un parere schietto a una persona fidata.
 - Risposta, Lunga: Conta da dove rispondi: dalla curiosità, dalla nostalgia o dalla serenità che hai costruito. Riconoscere il motivo vero ti permette di scegliere invece di reagire d'impulso. Qualunque decisione prendi, comunicala in modo chiaro e una volta sola, così non lasci spiragli che confondono entrambi.
 
-#### Amore, equilibrio, voce 6: Amicizia a senso unico
+#### Amore, equilibrio, voce 6: Chi fa il primo passo
 
-- Risposta: Settimana per riportare equilibrio in un'amicizia a cui tieni, dove ti accorgi di essere quasi sempre tu a proporre, a chiamare, a ricordare le date. Puoi farlo senza rinfacciare nulla, semplicemente lasciando all'altra persona lo spazio per fare la sua parte.
-- Che cosa fare: Manda oggi un messaggio aperto come «mi farebbe piacere vederti, dimmi tu quando» e lascia che sia l'altra persona a scegliere giorno e luogo. Non riempire tu il silenzio. Se arriva una proposta, accoglila con calore e senza commenti sul ritardo.
-- Risposta, Lunga: Non sempre chi cerca meno tiene meno: c'è chi annega negli impegni e chi ha preso l'abitudine di ricevere l'iniziativa. Un passo indietro aiuta a capire quale delle due situazioni hai davanti. Se non arriva nulla, una domanda dolce sull'amicizia vale più di un rimprovero.
+- Risposta: Settimana stabile in amore, utile a riportare reciprocità nei gesti. Se vivi una relazione e ti accorgi di essere quasi sempre tu a proporre, a organizzare, a ricordare le date, puoi cambiare le cose senza rinfacciare nulla; se sei senza legame, vale lo stesso con chi stai conoscendo.
+- Che cosa fare: Per qualche giorno non prendere tu l'iniziativa: manda un messaggio aperto come «mi piacerebbe vederti, scegli tu quando» e lascia che sia l'altra persona a proporre giorno e luogo. Non riempire tu il silenzio. Se arriva una proposta, accoglila con calore e senza commenti.
+- Risposta, Lunga: Non sempre chi cerca meno tiene meno: c'è chi annega negli impegni e chi ha preso l'abitudine di ricevere l'iniziativa. Un passo indietro aiuta a capire quale situazione hai davanti. Se non arriva nulla, una domanda dolce su che cosa vi lega vale più di un rimprovero.
 
-#### Amore, equilibrio, voce 7: Tre posti a testa
+#### Amore, equilibrio, voce 7: Le abitudini da cambiare
 
-- Risposta: Settimana di compromesso sulle vacanze di coppia: fra te e chi ami i desideri non coincidono, c'è chi sogna il mare e chi la montagna, chi il riposo e chi le scoperte. Un punto d'incontro esiste e si trova guardando i motivi più che le mete.
-- Che cosa fare: Entro venerdì scrivete ciascuno tre posti su un foglietto, senza consultarvi, poi confrontateli a cena. Cercate ciò che li accomuna: silenzio, buon cibo, novità. Se la scelta resta in bilico, dividete il viaggio e decidete entro domenica chi organizza quale parte.
-- Risposta, Lunga: Dietro una destinazione si nasconde spesso un bisogno: staccare, respirare, ritrovarsi. Quando si parla dei bisogni invece che delle località, il compromesso smette di sembrare una rinuncia. Dividere l'organizzazione dà a ciascuno una parte del viaggio da regalare all'altra persona.
+- Risposta: Settimana regolare in amore, quasi troppo: la routine rischia di spegnere la curiosità. Se vivi una relazione, basta cambiare un'abitudine piccola, l'ora della cena o il posto della passeggiata, per vedervi con occhi nuovi; se sei senza legame, basta cambiare i luoghi che frequenti per incontrare facce diverse.
+- Che cosa fare: Scegli oggi un'abitudine da rompere in questi sette giorni. Se hai un legame, proponi a chi ami una sera diversa dal solito, fuori orario o in un posto nuovo; se sei senza legame, cambia il bar, la palestra o il percorso a piedi per almeno tre giorni.
+- Risposta, Lunga: La routine protegge ma addormenta: si smette di guardare ciò che si conosce. Un piccolo cambio basta a riaccendere l'attenzione, perché obbliga a essere presenti. L'errore tipico è trasformare la novità in un dovere: se diventa una gara a sorprendere, perde il suo gusto e stanca.
 
-#### Amore, equilibrio, voce 8: Un angolo per ciascuno
+#### Amore, equilibrio, voce 8: Spazio e vicinanza
 
-- Risposta: Settimana in cui la convivenza chiede respiro. Se vivi con chi ami, gli spazi della casa sono diventati di tutti e di nessuno: questi giorni invitano a ritagliare per ciascuno un angolo proprio, dove ritirarsi senza dover dare spiegazioni all'altra persona.
-- Che cosa fare: Nel fine settimana scegliete insieme un angolo a testa, anche piccolo: una poltrona vicino alla finestra, una scrivania, un pezzo di balcone. Ognuno lo sistema come vuole, senza commenti. Concordate già da oggi un segnale semplice per dire che serve un po' di tempo lì.
-- Risposta, Lunga: Anche la coppia più unita ha bisogno di respiro. Un luogo proprio riduce gli attriti sulle piccole cose, perché ognuno sa dove ritrovarsi quando serve, senza sensi di colpa. Una tazza sul tavolino o una lampada accesa evitano spiegazioni e rendono il bisogno leggero.
+- Risposta: Settimana ordinaria in amore, che chiede respiro. Se vivi una relazione, specie sotto lo stesso tetto, ciascuno ha bisogno di un angolo e di un tempo propri, senza dover dare spiegazioni; se sei senza legame e stai conoscendo qualcuno, proteggere i tuoi spazi rende l'incontro più sano.
+- Che cosa fare: Se hai un legame, scegliete insieme un angolo o un momento a testa, anche piccolo. Concordate un segnale semplice per dire che serve un po' di tempo lì. Se sei senza legame, tieni fermi i tuoi appuntamenti con te anche quando qualcuno ti interessa.
+- Risposta, Lunga: Anche la coppia più unita ha bisogno di respiro: un luogo proprio riduce gli attriti sulle piccole cose, perché ognuno sa dove ritrovarsi. Per chi comincia a frequentare qualcuno, non annullarsi subito dice molto: mostra una vita piena, che è la cosa più attraente da offrire.
 
-#### Amore, equilibrio, voce 9: Il cinema senza compagnia
+#### Amore, equilibrio, voce 9: Una sera con te
 
-- Risposta: Settimana tranquilla per chi è senza legame, con un'occasione rara: stare bene con la propria compagnia invece di riempire ogni sera con incontri presi per abitudine. È il tempo giusto per scegliere solo ciò che ti incuriosisce davvero e lasciare andare il resto.
-- Che cosa fare: Scegli un film che desideri vedere e vai al cinema mercoledì sera senza compagnia, sedendoti dove preferisci. Dopo, fermati in un bar a scrivere due righe su che cosa ti è rimasto. Declina con un messaggio cortese gli inviti che non ti attirano.
-- Risposta, Lunga: Chi si gode il proprio tempo arriva agli incontri con più leggerezza e meno attese. Le persone se ne accorgono: nessuno ha voglia di essere la soluzione alla noia di qualcun altro. Una sera libera non è una sera persa: non va giustificata con nessuno.
+- Risposta: Settimana quieta in amore, con un'occasione rara: stare bene con la propria compagnia. Se sei senza legame, è il tempo giusto per smettere di riempire ogni sera con incontri presi per abitudine; se vivi una relazione, una serata per conto tuo fa bene anche alla coppia.
+- Che cosa fare: Scegli un film o una mostra che desideri vedere e vacci una sera di questa settimana senza compagnia, sedendoti dove preferisci. Dopo, fermati in un bar a scrivere due righe su che cosa ti è rimasto. Se hai un legame, racconta poi la serata a chi ami.
+- Risposta, Lunga: Chi si gode il proprio tempo arriva agli incontri con più leggerezza e meno attese: nessuno ha voglia di essere la soluzione alla noia di qualcun altro. Nella coppia, una serata per sé porta a casa racconti nuovi. Una sera libera non va giustificata con nessuno.
 
-#### Amore, equilibrio, voce 10: In macchina, senza fretta
+#### Amore, equilibrio, voce 10: I modi dell'affetto
 
-- Risposta: Settimana di presenza discreta con chi in famiglia sta attraversando l'adolescenza, che in questo periodo parla poco e risponde a monosillabi. Non serve forzare: questi giorni premiano lo stare accanto più delle domande dirette, che ora rischiano di chiudere la porta.
-- Che cosa fare: Offri un passaggio per un allenamento o un'uscita e durante il tragitto fai una sola domanda leggera, sulla musica o su una serie. Poi lascia spazio al silenzio. Ripeti il passaggio prima di domenica, senza parlare di scuola. Se emerge qualcosa, ascolta fino in fondo.
-- Risposta, Lunga: Con chi sta crescendo le conversazioni migliori nascono di fianco più che di fronte: in auto, mentre si cucina, mentre si cammina. Lo sguardo non pesa e le parole escono quando trovano un posto sicuro. Ringraziare per la fiducia, prima dei consigli, la fa crescere.
+- Risposta: Settimana sobria in amore, buona per capire come ciascuno mostra l'affetto. Se vivi una relazione, può darsi che chi ami lo dica con i fatti mentre tu lo cerchi nelle parole, o il contrario; se sei senza legame, osservare come ti piace ricevere attenzioni chiarisce che cosa cercare.
+- Che cosa fare: Scrivi oggi i tre gesti che per te dicono affetto: parole, tempo, aiuti pratici, contatto o piccoli regali. Se hai un legame, chiedi a chi ami di fare lo stesso e confrontate le liste; se sei senza legame, tieni la tua lista presente negli incontri.
+- Risposta, Lunga: Molte incomprensioni nascono da lingue diverse: uno porta la colazione a letto, l'altro aspetta una frase. Entrambi amano, ma non si riconoscono. Il segno che funziona è vedere un gesto dell'altra persona che prima ti sfuggiva e accoglierlo come la dichiarazione che è.
 
-#### Amore, equilibrio, voce 11: La famiglia acquisita
+#### Amore, equilibrio, voce 11: Un no con garbo
 
-- Risposta: Settimana da chiarire a due prima di rispondere agli inviti. La famiglia di chi ami chiede la vostra presenza più spesso di quanto vi vada e rischi di dire sì per gentilezza e pentirtene dopo: un accordo di coppia, adesso, evita malumori nelle prossime settimane.
-- Che cosa fare: Prima di accettare il prossimo invito, prenditi mezz'ora con chi ami per decidere insieme quante visite vi stanno bene nel mese. Lascia che sia l'altra persona a comunicarlo ai suoi. Alla visita concordata porta un dolce e chiedi una storia di famiglia.
-- Risposta, Lunga: Ognuno conosce i codici della propria famiglia e sa come dire un no senza ferire. Quando parla chi ami, l'accordo suona come una scelta di coppia e non come un tuo capriccio. Una presenza scelta, poi, vale molto più di dieci presenze subite a denti stretti.
+- Risposta: Settimana lineare in amore, utile a mettere confini gentili. Se vivi una relazione, una richiesta che non ti va può ricevere un no sereno, senza sensi di colpa; se sei senza legame, puoi declinare un invito che non ti attira invece di accettarlo per cortesia.
+- Che cosa fare: Quando arriva una proposta che non senti tua, prendi qualche ora prima di rispondere. Poi di' di no in una frase, con calore e senza lunghe giustificazioni, offrendo un'alternativa se ti fa piacere. Vale per chi ami come per chi ti corteggia: la sincerità protegge entrambi.
+- Risposta, Lunga: Un sì detto controvoglia pesa più di un no gentile: si sente nel tono e nei silenzi. Nelle storie, i confini chiari non allontanano, rendono sincera la vicinanza. Il rischio è dire no a tutto per prudenza: il confine serve a scegliere, non a chiudersi.
 
-#### Amore, equilibrio, voce 12: Un vocale lungo
+#### Amore, equilibrio, voce 12: Messaggi meno frettolosi
 
-- Risposta: Settimana adatta a ridare vita a un'amicizia storica che vive in un'altra città ed è scivolata nei messaggi veloci e nei cuoricini sotto le foto. Basta un gesto misurato per rimetterla in moto, senza grandi recuperi né sensi di colpa per il silenzio.
-- Che cosa fare: Una sera di questa settimana, mentre cammini o cucini, registra un vocale di qualche minuto in cui racconti una cosa vera del tuo periodo. Chiudilo con una domanda precisa sulla sua vita. Quando arriva la risposta, ascoltala per intero e rispondi riprendendo un dettaglio.
-- Risposta, Lunga: Le amicizie lontane non si spengono per mancanza di affetto ma per mancanza di dettagli. Sapere che cosa mangia, che cosa la preoccupa, chi frequenta l'altra persona tiene viva la vicinanza. Un vocale a testa ogni settimana o due può diventare un'abitudine che non pesa.
+- Risposta: Settimana costante in amore, ma con messaggi troppo rapidi e poco ascoltati. Se vivi una relazione, la chat con chi ami rischia di ridursi a orari e commissioni; se sei senza legame, negli scambi con chi conosci da poco le domande vere lasciano facilmente il posto alle faccine.
+- Che cosa fare: Una sera di questa settimana registra o scrivi un messaggio lungo, in cui racconti una cosa vera della tua giornata e chiudi con una domanda precisa. Mandalo a chi ami oppure a chi stai conoscendo. Quando arriva la risposta, riprendi un dettaglio invece di cambiare argomento.
+- Risposta, Lunga: Le storie non si spengono per mancanza di affetto ma per mancanza di dettagli: sapere che cosa preoccupa o diverte l'altra persona tiene viva la vicinanza. Un messaggio curato dice che quel tempo è suo. Il pericolo è farne un obbligo: uno ogni tanto basta.
 
 #### Amore, equilibrio, voce 13: Sostegno con misura
 
-- Risposta: Settimana che chiede misura nel sostegno: chi ti sta accanto attraversa un periodo carico di impegni e ha meno tempo per voi. Il rapporto tiene, ma conviene sostenere senza annullarti e senza contare le assenze, aspettando che il carico si alleggerisca.
-- Che cosa fare: Chiedi oggi a chi ami quale aiuto pratico farebbe davvero comodo in questi giorni, una cena pronta o una commissione sbrigata al suo posto. Fallo senza aspettarti ringraziamenti. Nel fine settimana ritagliate un'ora tutta vostra, una colazione lenta o una passeggiata.
-- Risposta, Lunga: Quando una persona è sotto pressione, la vicinanza migliore per un po' non chiede nulla in cambio. Allo stesso tempo i tuoi bisogni non spariscono: vanno solo rimandati di qualche giorno. In quell'ora insieme puoi dire che cosa ti manca senza trasformarlo in un rimprovero.
+- Risposta: Settimana misurata in amore, che chiede di sostenere senza annullarti. Se vivi una relazione e chi ami attraversa giorni carichi di impegni, conviene aiutare senza contare le assenze; se sei senza legame e la persona che ti interessa ha poco tempo, conviene non leggere ogni ritardo come un rifiuto.
+- Che cosa fare: Se hai un legame, chiedi a chi ami quale aiuto pratico farebbe davvero comodo, una cena pronta o una commissione sbrigata al suo posto. Nel fine settimana ritagliate un'ora tutta vostra. Se sei senza legame, proponi un incontro breve e compatibile con i suoi orari.
+- Risposta, Lunga: Quando una persona è sotto pressione, la vicinanza migliore non chiede nulla in cambio per qualche giorno. Allo stesso tempo i tuoi bisogni non spariscono: vanno soltanto rimandati. Il segno che il rapporto regge è che, passata la corsa, l'attenzione torna a cercarti spontaneamente.
 
-#### Amore, equilibrio, voce 14: Un anniversario sobrio
+#### Amore, equilibrio, voce 14: La serata semplice
 
-- Risposta: Settimana di accordo da trovare per un anniversario che si avvicina. Fra te e chi ami le attese non coincidono: c'è chi immagina una sera speciale e chi preferirebbe lasciarlo passare in sordina. Nessuno dei due ha torto e una via di mezzo esiste.
-- Che cosa fare: Entro mercoledì chiedi a chi ami di raccontarti in tre parole come vorrebbe passare quella sera, poi fai lo stesso tu. Scegliete una via di mezzo e prenotate subito. Aggiungete ciascuno un dettaglio piccolo con la propria firma, un biglietto o un piatto.
-- Risposta, Lunga: Dietro aspettative diverse ci sono spesso abitudini di famiglia: in certe case le ricorrenze si festeggiano con cura, in altre si notano appena. Capirlo toglie il sospetto che all'altra persona importi meno. Il dettaglio di ciascuno rende la ricorrenza davvero di entrambi.
+- Risposta: Settimana normale in amore, che non chiede grandi gesti. Se vivi una relazione, una serata semplice in casa vale più di una ricorrenza organizzata con ansia; se sei senza legame, un primo appuntamento senza pretese, una passeggiata invece di una cena elegante, mette entrambi a proprio agio.
+- Che cosa fare: Scegli una sera di questa settimana per qualcosa di semplice e curato: se hai un legame, una cena in casa con la tavola apparecchiata bene e niente schermi; se sei senza legame, proponi a chi ti incuriosisce una passeggiata con un gelato, a un orario preciso.
+- Risposta, Lunga: Le aspettative alte trasformano le serate in esami: si guarda se tutto va come previsto invece di godersi la compagnia. La semplicità lascia spazio alla conversazione e ai silenzi comodi. Il segno che funziona è non guardare l'orologio e accorgersi tardi che è passata un'ora in più.
 
 ### Amore, In salita (livello 2 e sotto)
 
 #### Amore, salita, voce 1: La stessa discussione
 
-- Risposta: Settimana nervosa per la coppia: fra te e chi ami torna la discussione che conosci a memoria, quella su chi fa che cosa in casa. Basta poco perché un piatto lasciato nel lavello diventi una questione di principio, quindi conviene non affrontarla a caldo.
-- Che cosa fare: Quando senti salire il fastidio, rimanda il discorso a sabato mattina con una frase calma: «ne parliamo a mente fresca». Nel frattempo annota le faccende che ti pesano di più, senza accuse. Sabato confrontate i fogli e scegliete due compiti a testa per un mese.
-- Risposta, Lunga: Dietro la lite sulle pulizie c'è quasi sempre altro: la sensazione di portare un peso invisibile, il bisogno che qualcuno se ne accorga. Finché si discute dei piatti, quel bisogno resta senza nome. Se poi qualcosa salta, una battuta funziona meglio di un sospiro.
+- Risposta: Settimana nervosa in amore, con discussioni che tornano a memoria. Se vivi una relazione, basta poco perché un piatto nel lavello diventi una questione di principio, quindi conviene rimandare i discorsi accesi; se sei senza legame, il rischio è ripassare in testa una vecchia lite chiusa da tempo.
+- Che cosa fare: Quando senti salire il fastidio, rimanda il discorso con una frase calma: «ne parliamo a mente fresca». Se hai un legame, annota le cose che ti pesano senza accuse e confrontatele in un momento tranquillo; se sei senza legame, scrivi la vecchia lite su un foglio e poi buttalo.
+- Risposta, Lunga: Dietro le liti ripetute c'è quasi sempre altro: la sensazione di portare un peso invisibile, il bisogno che qualcuno se ne accorga. Finché si discute dei piatti, quel bisogno resta senza nome. Il segno che funziona è una frase detta con calma che prima sarebbe uscita gridata.
 
-#### Amore, salita, voce 2: Nessuna risposta
+#### Amore, salita, voce 2: Il silenzio dell'altro
 
-- Risposta: Settimana di delusione da maneggiare con cura: dopo un incontro che ti era sembrato promettente, l'altra persona è sparita senza spiegazioni. In questi giorni il silenzio può pesare più del dovuto e farti dubitare di cose che invece vanno bene.
-- Che cosa fare: Scrivi un solo messaggio di chiusura, breve e cortese, come «è stato bello conoscerti, ti auguro il meglio». Poi archivia la chat per non riaprirla ogni sera. Per il fine settimana organizza un'uscita con persone che ti conoscono da anni e ti fanno stare bene.
-- Risposta, Lunga: Un silenzio dice qualcosa di chi lo sceglie, non di chi lo riceve. Non misura il tuo valore né quello che hai portato all'incontro: racconta solo che le vostre strade andavano altrove. Raccontare l'accaduto una volta sola agli amici, poi parlare d'altro, aiuta a chiuderlo.
+- Risposta: Settimana delicata in amore, con silenzi che pesano più del dovuto. Se sei senza legame, dopo un incontro promettente l'altra persona può sparire senza spiegazioni; se vivi una relazione, una risposta che tarda può farti dubitare di cose che vanno bene. Non riempire il vuoto di ipotesi.
+- Che cosa fare: Se sei senza legame e qualcuno è sparito, scrivi un solo messaggio di chiusura, breve e cortese, poi archivia la chat. Se hai un legame e una risposta tarda, aspetta e chiedi a voce, senza processi. Intanto esci con persone che ti fanno stare bene.
+- Risposta, Lunga: Un silenzio dice qualcosa di chi lo sceglie, non di chi lo riceve: non misura il tuo valore. Spesso dietro una risposta che manca ci sono stanchezza o distrazione, non disinteresse. Raccontare l'accaduto una volta sola, poi parlare d'altro, aiuta a non farne un caso.
 
-#### Amore, salita, voce 3: Telefonate a orario
+#### Amore, salita, voce 3: Aspettative troppo alte
 
-- Risposta: Settimana di pazienza corta con un genitore o un parente stretto: le telefonate tendono a scivolare in critiche e consigli non richiesti e una frase può accendere vecchie ruggini. Conviene dare a ogni chiamata una forma e un tempo, decisi da te.
-- Che cosa fare: Chiama tu, a un orario scelto da te, quando hai mezz'ora tranquilla. Annuncia subito quanto tempo hai: «ho venti minuti prima di uscire». Alla frase che ferisce rispondi con una domanda neutra o racconta una cosa bella. Chiudi all'ora detta, salutando con affetto.
-- Risposta, Lunga: Chi ti critica spesso lo fa con la sola lingua che conosce per esprimere preoccupazione. Capirlo non rende le parole meno pungenti, ma aiuta a non prenderle come un verdetto sulla tua vita. Un tempo dichiarato all'inizio toglie alle chiamate il rischio di trascinarsi in polemica.
+- Risposta: Settimana complicata in amore per le aspettative troppo alte. Se vivi una relazione, rischi di chiedere a chi ami di indovinare ciò che non dici; se sei senza legame, di caricare un primo appuntamento di speranze che nessuno regge. La delusione nasce fra ciò che immagini e ciò che accade.
+- Che cosa fare: Prima di ogni incontro importante di questa settimana, scrivi in una riga che cosa ti aspetti. Se hai un legame, trasforma quell'attesa in una richiesta detta a voce; se sei senza legame, riduci l'appuntamento a un caffè e lascia a casa il copione della serata perfetta.
+- Risposta, Lunga: Le attese non dette diventano prove che l'altra persona non sa di dover superare. Dirle ad alta voce le rende possibili, oppure ne mostra l'eccesso. Il segno che funziona è uscire da un incontro con un ricordo bello, anche se diverso da come lo avevi immaginato.
 
 #### Amore, salita, voce 4: Un nome nelle notifiche
 
-- Risposta: Settimana di insicurezze amplificate in amore. Un messaggio sul telefono di chi ami, un nome che non conosci o una risata in chat, può accendere in te un sospetto che fatica a spegnersi: in questi giorni conviene parlare invece di indagare.
-- Che cosa fare: Non controllare il telefono dell'altra persona: è una strada che non porta pace. Scegli un momento tranquillo nei prossimi giorni e chiedi in modo semplice chi è quella persona. Se resta un dubbio, chiedi di riparlarne nel fine settimana spiegando che cosa ti fa paura.
+- Risposta: Settimana fragile in amore, con insicurezze amplificate. Se vivi una relazione, un nome che non conosci sul telefono di chi ami può accendere un sospetto che fatica a spegnersi; se sei senza legame, la gelosia può nascere verso chi frequenti da poco. In questi giorni conviene parlare invece di indagare.
+- Che cosa fare: Non controllare il telefono dell'altra persona né i suoi profili: è una strada che non porta pace. Scegli un momento tranquillo e chiedi in modo semplice ciò che ti preoccupa. Se resta un dubbio, spiega che cosa ti fa paura invece di accusare o di tacere.
 - Risposta, Lunga: La gelosia raramente riguarda soltanto l'altra persona: spesso parla di una paura tua, di un periodo in cui ti senti meno al centro. Riconoscerlo non cancella il disagio, ma lo rende più maneggevole. Una risposta rassicurante va accolta apertamente, chiudendo lì il discorso.
 
-#### Amore, salita, voce 5: La pasta al pomodoro
+#### Amore, salita, voce 5: Energie basse
 
-- Risposta: Settimana stanca per la coppia: la fatica di entrambi si accumula e ogni piccola scelta, dal menu della cena al programma del sabato, rischia di diventare una trattativa estenuante. Conviene ridurre le decisioni al minimo e rimandare le questioni importanti di qualche giorno.
-- Che cosa fare: Proponi oggi una tregua dalle decisioni fino a venerdì: cene semplici come una pasta al pomodoro, nessun discorso importante, nessun programma per il fine settimana. Ogni sera chiedi a chi ami di che cosa avrebbe bisogno adesso. Sabato rimettete in fila le decisioni rimandate.
-- Risposta, Lunga: Quando le energie sono basse la coppia vive di riserva: le parole escono più dure e la pazienza si consuma in fretta. Non è un problema fra voi, solo un periodo da attraversare con poche pretese. A volte la risposta è un abbraccio, a volte il silenzio.
+- Risposta: Settimana stanca in amore: la fatica si accumula e ogni piccola scelta rischia di diventare una trattativa. Se vivi una relazione, conviene ridurre le decisioni al minimo e rimandare le questioni importanti; se sei senza legame, conviene non forzare appuntamenti quando le energie sono basse.
+- Che cosa fare: Proponi o concediti una tregua fino al fine settimana: cene semplici, nessun discorso importante, pochi programmi. Se hai un legame, chiedi ogni sera a chi ami di che cosa avrebbe bisogno adesso; se sei senza legame, sposta con garbo gli incontri a quando ti senti in forze.
+- Risposta, Lunga: Quando le energie sono basse, le parole escono più dure e la pazienza si consuma in fretta. Non è un problema fra te e gli altri, soltanto un periodo da attraversare con poche pretese. Un incontro rimandato con sincerità vale più di una serata passata a sbadigliare.
 
-#### Amore, salita, voce 6: La chat da archiviare
+#### Amore, salita, voce 6: L'altalena delle attese
 
-- Risposta: Settimana di altalena emotiva con una persona che ti piace: risponde ai tuoi messaggi con gentilezza ma non prende mai l'iniziativa. Speranza e delusione si alternano in fretta e consumano energie, quindi conviene fare un passo indietro e guardare i fatti.
-- Che cosa fare: Per i prossimi sette giorni non mandare tu il primo messaggio e archivia la chat per non controllarla di continuo. Quando ti viene voglia di scrivere, chiama una persona amica e parla d'altro. Iscriviti a un'attività che ti piace per il fine settimana.
+- Risposta: Settimana irrequieta nella vita sentimentale, fra speranza e delusione. Se sei senza legame, una persona che ti piace può rispondere con gentilezza senza mai prendere l'iniziativa; se vivi una relazione, chi ami può sembrarti distante. In entrambi i casi conviene fare un passo indietro e guardare i fatti.
+- Che cosa fare: Per sette giorni non mandare tu il primo messaggio e archivia la chat per non controllarla di continuo. Se hai un legame, invece di inseguire chiedi una sera per parlare con calma. Quando ti viene voglia di scrivere, esci a camminare o chiama qualcuno.
 - Risposta, Lunga: L'interesse vero si vede da come qualcuno ti cerca, non da come ti risponde. Accettare questa differenza fa male all'inizio, ma restituisce tempo e attenzione per chi ha voglia di esserci. Alla fine dei sette giorni, se non è arrivato nulla, hai già la tua risposta.
 
-#### Amore, salita, voce 7: Chi ospita le feste
+#### Amore, salita, voce 7: Parole che pungono
 
-- Risposta: Settimana tesa in famiglia sulla questione di chi ospita le prossime feste: i toni fra fratelli o cugini si alzano in fretta e ogni parola rischia di essere letta come un rimprovero. Conviene spostare la discussione dalla chat a una telefonata.
-- Che cosa fare: Telefona alla persona con cui l'attrito è più forte e proponi una regola semplice: un turno a rotazione, deciso una volta per tutte. Se viene accolta, scrivi tu il calendario e mandalo nella chat con tono leggero. Se non passa, rimanda la decisione al mese prossimo.
-- Risposta, Lunga: Le discussioni sulle feste raramente riguardano sedie e piatti: riaprono vecchie questioni su chi ha dato di più e chi ha ricevuto più attenzioni. Dirlo a voce, con calma, sgonfia molte tensioni. Per adesso basta che nessuno alzi più la voce: il resto può attendere.
+- Risposta: Settimana tesa in amore, con l'ironia che rischia di diventare sarcasmo. Se vivi una relazione, una battuta detta per ridere può ferire chi ami più del previsto; se sei senza legame, negli incontri una frase pungente può chiudere una conoscenza appena nata. Conviene pesare le parole prima di dirle.
+- Che cosa fare: Per tre giorni, prima di una battuta su chi hai davanti, conta fino a tre e chiediti se la diresti anche in pubblico. Se ti scappa una frase che punge, scusati subito, in poche parole. Se hai un legame, chiedi a chi ami quale tua battuta pesa di più.
+- Risposta, Lunga: L'ironia unisce quando ride con l'altra persona, divide quando ride di lei. Nei giorni tesi la differenza si assottiglia e le frasi escono più affilate di come le pensi. Il segno che funziona è una risata condivisa al posto di un silenzio offeso.
 
-#### Amore, salita, voce 8: Un impegno mancato
+#### Amore, salita, voce 8: Una mancanza da riparare
 
-- Risposta: Settimana fredda nella coppia dopo un impegno mancato a cui chi ami teneva, una cena con i suoi amici o una telefonata importante. Il clima si è raffreddato e questi giorni chiedono di riparare con i fatti più che con le parole.
-- Che cosa fare: Scusati una volta sola, senza giustificazioni lunghe, dicendo chiaramente che cosa hai sbagliato. Proponi una data precisa per recuperare entro sabato e organizzala tu in ogni dettaglio. Nei giorni seguenti chiedi della persona o dell'occasione saltata, senza riaprire la colpa.
+- Risposta: Settimana difficile in amore dopo una mancanza, anche piccola. Se vivi una relazione, una cena saltata o una promessa dimenticata può raffreddare il clima con chi ami; se sei senza legame, un appuntamento disdetto all'ultimo pesa più del solito. Servono fatti, più che parole.
+- Che cosa fare: Se hai mancato qualcosa, scusati una volta, senza giustificazioni lunghe, dicendo chiaramente che cosa hai sbagliato. Proponi una data precisa per recuperare prima che la settimana finisca e organizzala tu in ogni dettaglio. Poi non riaprire la colpa e guarda avanti.
 - Risposta, Lunga: Una scusa ripetuta troppe volte finisce per mettere al centro chi la dice invece del dispiacere dell'altra persona. Il gesto che ripara è quello che dimostra attenzione, non quello che chiede perdono. La fiducia si ricuce un punto alla volta, con piccole cose costanti.
 
-#### Amore, salita, voce 9: Una confidenza sfuggita
+#### Amore, salita, voce 9: Un segreto custodito
 
-- Risposta: Settimana fragile con una persona amica: una confidenza che ti aveva fatto è arrivata ad altre orecchie, forse per una tua leggerezza. In questi giorni il silenzio rischia di peggiorare le cose, mentre parlarne subito, con franchezza, lascia aperta la porta.
-- Che cosa fare: Non aspettare che lo scopra da altri: cerca l'occasione di parlarle entro mercoledì, possibilmente di persona. Racconta com'è andata senza minimizzare e senza scaricare la colpa su chi ha riferito. Dopo il chiarimento fatti sentire con discrezione, senza pretendere che tutto torni subito come prima.
-- Risposta, Lunga: Ammettere una leggerezza costa più che difendersi, ma è l'unico modo per salvare la fiducia. Chi ha subito l'indiscrezione ha bisogno di sapere che il suo dispiacere conta più del tuo imbarazzo. Il rapporto si ricostruisce dimostrando, alla prima occasione, di saper custodire anche un segreto piccolo.
+- Risposta: Settimana insidiosa in amore per le confidenze. Se vivi una relazione, raccontare ad altri le difficoltà intime con chi ami può sembrare uno sfogo e diventare un tradimento; se sei senza legame, girare a qualcuno la chat di chi ti corteggia può arrivare dove non vuoi.
+- Che cosa fare: In questi sette giorni tieni per te ciò che riguarda l'intimità di una storia: niente schermate inoltrate, niente racconti dettagliati. Se hai bisogno di sfogarti, scrivi su un foglio. Se hai un legame, porta il problema a chi ami invece che ad altre orecchie.
+- Risposta, Lunga: La fiducia in amore si costruisce anche con ciò che non si racconta fuori. Scoprire che i propri messaggi sono girati fra estranei ferisce più di un litigio. Custodire un segreto piccolo dimostra che si può custodire anche uno grande. Il segno che funziona è sentire meno bisogno di raccontare.
 
-#### Amore, salita, voce 10: La convivenza rimandata
+#### Amore, salita, voce 10: Progetti che slittano
 
-- Risposta: Settimana di impazienza attorno al progetto di vivere insieme a chi ami, che continua a slittare per ragioni pratiche: contratti, lavori, tempi che non tornano. In questi giorni la fretta può farti dire cose che poi pesano, quindi conviene fissare un momento per parlarne.
-- Che cosa fare: Non riaprire il discorso alla prima occasione: proponi oggi un momento preciso, per esempio domenica pomeriggio camminando. Fino ad allora niente battute o allusioni. Domenica scrivete insieme i tre ostacoli concreti e per ciascuno un primo passo piccolo, con il nome di chi se ne occupa.
-- Risposta, Lunga: Ogni rinvio di un passo importante può far pensare a un'esitazione nascosta, anche quando le ragioni sono solo pratiche. Il dubbio cresce soprattutto quando resta inespresso e si nutre di supposizioni. Vedere il percorso nero su bianco rende l'attesa più sopportabile per entrambi.
+- Risposta: Settimana rallentata in amore, con progetti che slittano. Se vivi una relazione, un passo importante, vivere insieme o un viaggio, può continuare a rinviarsi per ragioni pratiche; se sei senza legame, un appuntamento può saltare più volte. La fretta può farti dire cose che poi pesano.
+- Che cosa fare: Non riaprire il discorso alla prima occasione. Se hai un legame, proponi un momento preciso per parlarne camminando e scrivete insieme i tre ostacoli concreti con un primo passo per ciascuno. Se sei senza legame, proponi una data sola e lascia all'altra persona la conferma.
+- Risposta, Lunga: Ogni rinvio può far pensare a un'esitazione nascosta, anche quando le ragioni sono pratiche. Il dubbio cresce quando resta inespresso e si nutre di supposizioni. Vedere il percorso nero su bianco, o ricevere una conferma chiara, rende l'attesa più sopportabile per chi aspetta.
 
 #### Amore, salita, voce 11: Una festa di coppie
 
-- Risposta: Settimana delicata per chi è senza legame: arriva l'invito a una festa dove quasi tutti vanno in coppia e la serata può pesare più del previsto, riaccendendo vecchie domande. Puoi andarci alle tue condizioni, senza subirla e senza rinunciare per forza.
-- Che cosa fare: Chiedi a chi organizza se puoi portare una persona amica e scegli qualcuno con cui ti diverti davvero. Se l'idea pesa troppo, rispondi con garbo che passi solo per il brindisi. Decidi prima l'ora per andare via e rispettala, qualunque cosa succeda.
-- Risposta, Lunga: Il confronto con le vite altrui pesa di più quando ci si sente in ritardo su una tabella di marcia che nessuno ha scritto. Le coppie alla festa mostrano la serata migliore, non le fatiche. Una o due conversazioni vere valgono più di un giro fra tutti i gruppi.
+- Risposta: Settimana pesante in amore per i confronti con le vite altrui. Se sei senza legame, una festa dove quasi tutti vanno in coppia può riaccendere vecchie domande; se vivi una relazione, guardare le storie degli altri può farti sembrare la tua meno bella. Puoi vivere quelle serate alle tue condizioni.
+- Che cosa fare: Se ti invitano a una serata di coppie, decidi prima l'ora per andare via e rispettala. Se sei senza legame, porta con te una persona con cui ti diverti davvero. Se hai un legame, evita i paragoni a voce alta e cerca due conversazioni vere invece del giro fra tutti.
+- Risposta, Lunga: Il confronto pesa di più quando ci si sente in ritardo su una tabella di marcia che nessuno ha scritto. Le coppie alle feste mostrano la serata migliore, non le fatiche. Ogni storia ha il suo passo: misurarlo con quello degli altri lo rende soltanto più faticoso.
 
-#### Amore, salita, voce 12: Le chiamate saltate
+#### Amore, salita, voce 12: Il ritmo dei contatti
 
-- Risposta: Settimana irregolare per chi ama a distanza: le chiamate rischiano di saltare per impegni e orari diversi, lasciando un senso di trascuratezza che nessuno dei due vuole. Ogni ritardo può sembrare un segnale, quindi conviene dare una forma fissa ai vostri appuntamenti.
-- Che cosa fare: Concordate oggi due appuntamenti fissi per questa settimana, martedì e venerdì alle nove di sera, da trattare come impegni che non si spostano. Negli altri giorni bastano due righe. Se una chiamata salta, chi la manca manda un vocale entro un'ora con un nuovo orario.
-- Risposta, Lunga: A distanza l'irregolarità pesa più della lontananza stessa: non sapere quando arriva la prossima voce crea un'attesa che logora. Un orario fisso restituisce tranquillità a entrambi. Una foto mandata a turno nel fine settimana tiene vicini anche i giorni senza chiamata.
+- Risposta: Settimana irregolare e incerta in amore per il ritmo dei contatti. Se vivi una relazione, specie a distanza, le chiamate rischiano di saltare per impegni e orari diversi; se sei senza legame, chi stai conoscendo può rispondere a intermittenza. Ogni ritardo può sembrare un segnale, ma spesso non lo è.
+- Che cosa fare: Se hai un legame, concordate oggi due appuntamenti fissi per sentirvi in questi sette giorni, da trattare come impegni che non si spostano. Se sei senza legame, proponi una telefonata a un orario preciso invece di aspettare la risposta in chat. Negli altri momenti, niente controlli continui.
+- Risposta, Lunga: A distanza o all'inizio di una storia l'irregolarità pesa più dell'assenza: non sapere quando arriva la prossima voce crea un'attesa che logora. Un orario fisso restituisce tranquillità a entrambi. Il segno che funziona è smettere di guardare il telefono ogni dieci minuti.
 
-#### Amore, salita, voce 13: Il sabato offerto
+#### Amore, salita, voce 13: Il desiderio che cala
 
-- Risposta: Settimana impegnativa accanto a una persona cara che attraversa un momento faticoso e ti cerca spesso, a ogni ora, per sfogarsi. Il rischio è dare tutto e arrivare a domenica senza più energie per nessuno: conviene offrire un aiuto con confini chiari.
-- Che cosa fare: Offri un aiuto preciso e delimitato: un'ora sabato mattina per una commissione insieme, oppure una telefonata fissa giovedì sera. Nelle altre sere rispondi con un messaggio breve e affettuoso. Se serve di più, proponi di coinvolgere un familiare o un'amicizia comune.
-- Risposta, Lunga: Esserci non significa rispondere sempre e subito. Un sostegno che ha confini dura più a lungo di uno che si esaurisce in pochi giorni: così l'altra persona può contare davvero su di te. Dividersi la presenza con altri è un modo di volere bene, non di tirarsi indietro.
+- Risposta: Settimana lenta in amore per il desiderio, con poca voglia di intimità. Se vivi una relazione, non è un segnale contro chi ami ma un periodo da attraversare con tenerezza, senza forzare; se sei senza legame, è normale avere meno voglia di incontri e non serve forzarti.
+- Che cosa fare: Se hai un legame, scegli una vicinanza semplice: un abbraccio lungo, una carezza, il divano condiviso. Dillo a chi ami con parole chiare prima che il silenzio crei dubbi. Se sei senza legame, rimanda gli incontri e dedica il tempo a ciò che ti ricarica.
+- Risposta, Lunga: Il desiderio ha onde: si abbassa con la stanchezza, i pensieri, i periodi pieni. Forzarlo lo spegne di più, mentre la tenerezza lo tiene al caldo. Il pericolo è il silenzio, che l'altra persona può leggere come rifiuto. Il segno che funziona è una vicinanza che non chiede nulla.
 
-#### Amore, salita, voce 14: Le domande dei parenti
+#### Amore, salita, voce 14: Curiosità altrui da disinnescare
 
-- Risposta: Settimana pungente in famiglia: a una riunione tornano le solite domande sulla tua vita sentimentale, quando vi sposate, quando trovi qualcuno, quando arrivano i figli. In questi giorni quelle frasi possono pesare più del solito, ma una risposta preparata le disinnesca.
-- Che cosa fare: Prepara prima dell'incontro una risposta breve e cordiale, come «quando ci sono novità ve le racconto», poi cambia argomento con una domanda a chi l'ha chiesto. Ripetila uguale ogni volta. Se qualcuno insiste, parlane a quattr'occhi con quella persona nei giorni successivi.
-- Risposta, Lunga: Chi fa quelle domande di rado vuole ferire: spesso non sa di che altro parlare o ripete frasi che anni fa toccavano a sua volta. Questo non le rende gradevoli, ma aiuta a non prenderle come un giudizio. Una richiesta chiara a una sola persona vale più di dieci battute.
+- Risposta: Settimana esigente in amore per le domande degli altri sulla tua vita sentimentale. Quando vi sposate, quando trovi qualcuno, a che punto siete: che tu viva una relazione o sia senza legame, in questi giorni quelle frasi possono pesare più del solito, ma una risposta preparata le disinnesca.
+- Che cosa fare: Prepara oggi una risposta breve e cordiale, come «quando ci sono novità ve le racconto», poi cambia argomento con una domanda a chi l'ha chiesto. Ripetila uguale ogni volta. Se qualcuno insiste, parlane a quattr'occhi con quella persona nei giorni successivi.
+- Risposta, Lunga: Chi fa quelle domande di rado vuole ferire: spesso non sa di che altro parlare o ripete frasi che anni fa ha ricevuto a sua volta. Questo non le rende gradevoli, ma aiuta a non prenderle come un giudizio. Una richiesta chiara a una persona vale più di dieci battute.
 
 ## Carriera
 
 ### Carriera, Favorevole (livello 4 e 5)
 
-#### Carriera, favorevole, voce 1: La richiesta in agenda
+#### Carriera, favorevole, voce 1: I risultati in vista
 
-- Risposta: Settimana favorevole per farti riconoscere ciò che fai già: chi ti coordina comincia ad accorgersi che da mesi vai oltre il tuo ruolo e in questi giorni ti ascolta con un'attenzione rara. È il momento di dare un nome preciso al lavoro che porti avanti.
-- Che cosa fare: Entro martedì chiedi a chi ti coordina un incontro di venti minuti. Porta un foglio con tre attività che segui oltre il tuo incarico e una proposta precisa per riconoscerle: un titolo nuovo, una responsabilità scritta, un obiettivo condiviso. Parla con calma, senza scusarti.
-- Risposta, Lunga: Per anni hai aspettato che qualcuno notasse da sé il tuo impegno, ma chi decide raramente vede ciò che nessuno racconta. Dopo l'incontro manda una mail breve con quanto vi siete detti e le date concordate, poi segna un promemoria fra due settimane per verificare.
+- Risposta: Settimana favorevole nel lavoro e nello studio per far vedere ciò che fai bene. Chi valuta il tuo impegno, un responsabile, un cliente, un docente o chi seleziona, in questi giorni ascolta con più attenzione del solito. È il momento di dare un nome preciso ai tuoi risultati.
+- Che cosa fare: Entro tre giorni scrivi tre risultati recenti, ognuno con un fatto che si possa verificare: una scadenza rispettata, un problema risolto, un voto, un lavoro consegnato. Se lavori, portali a chi valuta il tuo lavoro in un incontro breve; se studi o cerchi lavoro, mettili nel curriculum.
+- Risposta, Lunga: Chi decide raramente vede ciò che nessuno racconta: aspettare che il tuo impegno venga notato da sé lascia spazio ad altri. Parla con calma, senza scusarti e senza gonfiare. Il segno che funziona è una domanda in più su come lavori, non un complimento di circostanza.
 
-#### Carriera, favorevole, voce 2: Il listino aggiornato
+#### Carriera, favorevole, voce 2: Condizioni da rivedere
 
-- Risposta: Settimana buona per rivedere il valore del tuo lavoro: le tue tariffe sono ferme a quando hai cominciato, mentre la tua esperienza è cresciuta parecchio. In questi giorni può bussare un cliente nuovo ed è l'occasione giusta per presentarti con ciò che vali adesso.
-- Che cosa fare: Prima di rispondere alla prossima richiesta riscrivi il listino con le tariffe che ritieni corrette e mandalo così com'è, senza giustificarti. Fallo entro giovedì. Nel fine settimana avvisa i clienti abituali che dal mese prossimo cambia qualcosa e spiega che cosa resta uguale.
-- Risposta, Lunga: Il timore di perdere clienti ha abbassato il tuo prezzo più volte del necessario. Chi resta dopo un ritocco onesto ti sceglie per come lavori, non per quanto costi. Avvisare in anticipo trasforma poi una notizia scomoda in un gesto di rispetto verso chi ti segue.
+- Risposta: Nel lavoro e nello studio questa settimana è propizia per rivedere le condizioni in cui ti muovi: un orario, una scadenza, un carico, un modo di organizzarti. In questi giorni chi ascolta è più incline a trattare, purché la richiesta arrivi chiara e accompagnata da una proposta già pensata.
+- Che cosa fare: Scegli una sola condizione che vorresti diversa e scrivila in tre righe: com'è adesso, come la vorresti, che cosa ci guadagna anche l'altra parte. Presentala entro quattro giorni a chi può decidere, un responsabile, un cliente, un docente. Se cerchi lavoro, prepara così il prossimo colloquio.
+- Risposta, Lunga: Una richiesta vaga suona come una lamentela; una richiesta precisa suona come una soluzione. Mostrare il vantaggio per chi deve dire di sì sposta la conversazione dal favore all'accordo. Se la risposta è un forse, chiedi che cosa servirebbe per arrivare al sì e annotalo con la data.
 
-#### Carriera, favorevole, voce 3: Lo scritto di venerdì
+#### Carriera, favorevole, voce 3: La mente corre
 
-- Risposta: Settimana favorevole allo studio: i capitoli che sembravano un muro adesso si lasciano leggere e la mente corre più svelta del solito. Con lo scritto di venerdì all'orizzonte, il lavoro delle ultime settimane comincia a dare frutti che puoi usare fin da subito.
-- Che cosa fare: Mercoledì pomeriggio rifai per intero una prova degli anni passati, col cronometro e senza appunti. Dove ti blocchi segna il numero della pagina e giovedì ripassa soltanto quelle. La sera prima chiudi i libri a un'ora fissa e prepara documento, penne e acqua.
-- Risposta, Lunga: Non devi più capire tutto da capo: resta da mettere ordine, collegare, ritrovare le formule al primo colpo. È un lavoro che ti riesce bene quando ti fidi di ciò che sai. Venerdì mattina rileggi solo il foglio dei punti deboli ed esci con qualche minuto di margine.
+- Risposta: Per lo studio e per ciò che nel lavoro chiede di imparare, la settimana è favorevole: la memoria è più svelta e i concetti difficili si lasciano afferrare. Ciò che sembrava un muro adesso si apre, se gli dedichi ore piene e non ritagli distratti fra un impegno e l'altro.
+- Che cosa fare: Se studi, rifai entro tre giorni una prova d'esame per intero, col cronometro e senza appunti, poi ripassa solo i punti dove ti blocchi. Se lavori, scegli una funzione dello strumento che usi di più e impara a usarla bene in due sessioni da un'ora.
+- Risposta, Lunga: In periodi così il rischio è disperdere la lucidità su dieci argomenti insieme. Concentrare lo sforzo su ciò che ti frena davvero rende il guadagno visibile in pochi giorni. Il segno che funziona: alla seconda prova i blocchi si dimezzano e ritrovi le risposte al primo colpo.
 
-#### Carriera, favorevole, voce 4: La lettera spontanea
+#### Carriera, favorevole, voce 4: Bussare per primo
 
-- Risposta: Settimana propizia per una candidatura diretta: l'azienda che guardi da tempo non ha annunci aperti, ma una lettera mandata adesso ha più strada del solito. Chi la legge può essere proprio la persona che stava cercando qualcuno come te, senza averlo ancora scritto da nessuna parte.
-- Che cosa fare: Cerca il nome di chi guida il reparto che ti interessa e scrivi a quella persona una lettera di dieci righe: che cosa ammiri del loro lavoro, che cosa sai fare tu, una proposta concreta. Spediscila entro mercoledì e segna in agenda la data del secondo messaggio.
-- Risposta, Lunga: Le candidature spontanee mettono timore perché sembrano una pretesa. Per chi assume sono spesso un sollievo: qualcuno che conosce già il loro lavoro e bussa senza aspettare un invito. Se dopo una settimana nessuno risponde, manda tre righe col collegamento a un tuo lavoro recente.
+- Risposta: Settimana propizia nel lavoro alle richieste dirette: una candidatura spontanea, una proposta di collaborazione, la domanda di partecipare a un progetto. In questi giorni un messaggio chiaro trova lettori più attenti del solito, che arrivano fino in fondo e rispondono anche quando non c'è un annuncio aperto.
+- Che cosa fare: Scegli un luogo o una persona con cui vorresti lavorare e cerca il nome di chi decide. Scrivi dieci righe: che cosa apprezzi del loro lavoro, che cosa sai fare tu, una proposta concreta. Spedisci il messaggio prima che la settimana finisca e segna la data del secondo contatto.
+- Risposta, Lunga: Le richieste spontanee mettono timore perché sembrano una pretesa. Per chi le riceve sono spesso un sollievo: qualcuno che conosce già il loro lavoro e bussa senza aspettare un invito. Se dopo qualche giorno nessuno risponde, manda tre righe con un esempio recente di ciò che fai.
 
-#### Carriera, favorevole, voce 5: La pagina pubblicata
+#### Carriera, favorevole, voce 5: La prima versione
 
-- Risposta: Settimana adatta a mostrare il progetto che porti avanti la sera, dopo il lavoro: ha già una forma presentabile. Una prima versione imperfetta, messa online adesso, può raccogliere più curiosità di quanta immagini e dirti con precisione dove conviene mettere le mani.
-- Che cosa fare: Scegli un giorno preciso, per esempio giovedì: quel giorno metti online la pagina così com'è. Mandala poi a dieci persone che conosci, ognuna con un messaggio personale e una sola domanda: che cosa manca? Nel fine settimana raccogli tutte le risposte in un unico foglio.
-- Risposta, Lunga: Rimandare il lancio finché tutto è perfetto è un modo elegante per proteggersi dal giudizio. Le prime risposte vere valgono più di cento ritocchi fatti al buio. Sottolinea ciò che torna almeno due volte e scegli una sola modifica da fare entro lunedì prossimo, non dieci.
+- Risposta: Questa settimana nel lavoro e nello studio è adatta a mostrare ciò che è ancora incompleto. Una relazione, una tesina, un progetto o un'idea messi adesso davanti a occhi esterni possono raccogliere indicazioni preziose, più utili di qualunque ritocco fatto in silenzio e senza confronto.
+- Che cosa fare: Scegli la cosa a cui stai lavorando e mostrala così com'è a due persone di cui ti fidi, con una sola domanda: che cosa manca? Se non hai un lavoro in corso, fallo con il tuo curriculum. Raccogli le risposte in un unico foglio entro il fine settimana.
+- Risposta, Lunga: Rimandare finché tutto è perfetto è un modo elegante per proteggersi dal giudizio. Le prime osservazioni vere valgono più di cento correzioni fatte al buio. Sottolinea ciò che ritorna almeno due volte e scegli una sola modifica da fare subito, non dieci insieme che si confondono.
 
-#### Carriera, favorevole, voce 6: Affiancamento ben fatto
+#### Carriera, favorevole, voce 6: Una mano a chi comincia
 
-- Risposta: Settimana favorevole al tuo talento di guida: arriva una persona nuova nel gruppo e tocca a te accompagnarla nei primi giorni. Sai spiegare senza far sentire nessuno in difetto e in questi giorni la tua pazienza ha una marcia in più del solito.
-- Che cosa fare: Lunedì prepara una pagina con le dieci cose che nessuno ti ha detto quando hai cominciato: chi chiamare, dove sono i file, quali riunioni contano davvero. Consegnala a mano con un caffè e fissa due momenti brevi, mercoledì e venerdì, per raccogliere i dubbi.
-- Risposta, Lunga: Insegnare ti obbliga a guardare il tuo lavoro con occhi freschi. Mentre spieghi una procedura può capitare di accorgerti che un passaggio è inutile da anni. Annota le domande che ricevi in questi giorni: possono diventare la base di una guida per chi arriva dopo.
+- Risposta: Settimana favorevole nel lavoro e nello studio al tuo talento di guida: spiegare ciò che sai ti riesce meglio del solito. Aiutare chi comincia, un collega nuovo, un compagno di corso, chi chiede un consiglio sul tuo mestiere, rafforza anche la tua posizione e la stima che ricevi.
+- Che cosa fare: Scrivi una pagina con le dieci cose che nessuno ti ha detto quando hai cominciato: dove trovare le informazioni, quali errori evitare, a chi chiedere. Offrila a una persona che sta muovendo i primi passi nel tuo campo, insieme a un quarto d'ora per le sue domande.
+- Risposta, Lunga: Insegnare ti obbliga a guardare il tuo lavoro con occhi freschi. Mentre spieghi può capitare di accorgerti che un passaggio è inutile da anni. Annota le domande che ricevi: sono il segno di ciò che conta davvero e possono diventare una piccola guida per chi arriva dopo.
 
-#### Carriera, favorevole, voce 7: La presentazione del giovedì
+#### Carriera, favorevole, voce 7: La squadra gira
 
-- Risposta: Settimana buona per il lavoro di squadra: la presentazione di giovedì arriva al momento giusto. Il cliente ha aspettative alte ma anche voglia di lasciarsi convincere, quindi le condizioni per un incontro riuscito ci sono, purché arriviate con i ruoli ben chiari.
-- Che cosa fare: Martedì fate con il gruppo una prova completa a cronometro e decidete chi risponde a quale tipo di domanda. Ognuno arriva giovedì sapendo quando parla e quando tace. Apri l'incontro con una frase che riprenda il problema come lo ha descritto il cliente.
-- Risposta, Lunga: Le presentazioni si decidono spesso nei primi due minuti, quando il cliente capisce se lo avete ascoltato. Ripartire dalle sue parole e non dalle vostre diapositive fa la differenza. Venerdì mattina mandate un riepilogo di una pagina con i prossimi passi e le date concordate.
+- Risposta: Il lavoro di squadra trova una settimana buona: le collaborazioni scorrono, gli scambi sono più rapidi e le idee altrui si sommano alle tue invece di intralciarle. Conviene approfittarne per mettere sul tavolo ciò che un lavoro isolato fatica a sbloccare, chiedendo pareri e dividendo i pesi.
+- Che cosa fare: Se lavori o studi in gruppo, proponi entro tre giorni un incontro breve in cui ognuno dice che cosa lo frena e di che cosa ha bisogno. Se lavori per conto tuo, chiama una persona del tuo settore e proponi uno scambio di pareri su un problema comune.
+- Risposta, Lunga: I gruppi si inceppano spesso per ciò che nessuno dice: un'attesa, un dubbio, un compito poco chiaro. Darne voce in un momento sereno evita che diventi un attrito. Il segno che l'incontro è servito: alla fine ognuno ha un passo preciso e una data accanto al proprio nome.
 
-#### Carriera, favorevole, voce 8: Il passaparola gentile
+#### Carriera, favorevole, voce 8: Chi fa il tuo nome
 
-- Risposta: Settimana favorevole ai contatti nuovi: chi si è servito da te negli ultimi mesi parla bene del tuo lavoro, anche quando non lo sai. Nei prossimi giorni quel passaparola può portarti una richiesta da un ambiente che non frequenti e che non avresti cercato.
-- Che cosa fare: Entro venerdì scegli tre clienti soddisfatti e chiedi loro, con un messaggio personale, se possono fare il tuo nome a chi cerca qualcuno come te. Quando arriva il contatto nuovo rispondi entro poche ore e proponi una telefonata breve, poi ringrazia chi l'ha mandato.
-- Risposta, Lunga: La bottega, lo studio, il laboratorio: qualunque sia il tuo spazio, la fiducia degli altri è la cosa più solida che hai. Chiedere una parola buona non è vanità ma un modo semplice per farti aiutare. Un grazie ricevuto invoglia a parlare ancora di te.
+- Risposta: Settimana favorevole ai contatti nel lavoro: chi conosce il tuo impegno fa volentieri il tuo nome. Una parola buona detta da chi ha visto come lavori, in questi giorni, può arrivare a persone e ambienti che con le tue sole forze non raggiungeresti facilmente.
+- Che cosa fare: Entro quattro giorni scegli tre persone che conoscono come lavori o come studi e scrivi a ciascuna un messaggio personale: che cosa cerchi adesso, in una frase chiara, con la richiesta di pensarti quando sente di un'occasione adatta. Ringrazia subito chi risponde, anche con due righe.
+- Risposta, Lunga: La fiducia degli altri è la risorsa più solida che hai nel lavoro, ma resta ferma se nessuno sa che cosa cerchi. Chiedere una parola buona non è vanità: è un modo semplice per farti aiutare. Annota da dove arriva ogni contatto nuovo, per ringraziare la persona giusta.
 
-#### Carriera, favorevole, voce 9: Mestiere nuovo in vista
+#### Carriera, favorevole, voce 9: Un'altra strada
 
-- Risposta: Settimana propizia per esplorare un cambio di strada: quello che finora era un pensiero da domenica pomeriggio comincia a prendere una forma concreta. In questi giorni trovi più facilmente le informazioni e le persone che servono per capire da dove partire davvero.
-- Che cosa fare: Entro mercoledì cerca qualcuno che fa già il lavoro che ti attira e chiedi mezz'ora del suo tempo per una chiacchierata. Prepara cinque domande pratiche: come ha cominciato, che cosa serve, che cosa non si dice. Sabato metti in agenda il primo passo, con un orario preciso.
-- Risposta, Lunga: Lasciare un mestiere non vuol dire buttare quello che sai. Molte tue capacità, come guidare persone o tenere in ordine un progetto, servono anche altrove con un nome nuovo. Dopo la chiacchierata scrivi i tre passi più piccoli del prossimo mese: un corso, un libro, un contatto.
+- Risposta: È una settimana propizia nel lavoro per esplorare un cambio di direzione, anche solo con la fantasia: informazioni e persone utili si trovano più facilmente del solito. Un mestiere, un settore o un percorso di studio che ti incuriosisce può prendere una forma concreta, senza decisioni affrettate.
+- Che cosa fare: Scrivi su un foglio il lavoro o lo studio che sceglieresti se potessi ricominciare. Poi cerca una persona che lo fa già e chiedile venti minuti di conversazione, con cinque domande pratiche: come ha cominciato, che cosa serve, che cosa nessuno racconta, quanto tempo chiede, da dove partire.
+- Risposta, Lunga: Esplorare non obbliga a lasciare nulla: serve a capire se un desiderio regge davanti ai fatti. Molte tue capacità valgono anche altrove con un nome nuovo. Il segno che la strada merita attenzione è semplice: dopo la conversazione hai più voglia di sapere, non meno, con nuove domande.
 
-#### Carriera, favorevole, voce 10: Il nodo tecnico
+#### Carriera, favorevole, voce 10: Il problema difficile
 
-- Risposta: Settimana lucida per i problemi tecnici: il nodo che ferma il progetto da giorni ha una soluzione più semplice di quanto sembri. In questi giorni ragioni con chiarezza ed è possibile che la strada giusta la individui proprio tu, prima di chiunque altro nel gruppo.
-- Che cosa fare: Giovedì mattina, prima di aprire la posta, prenditi un'ora per disegnare il problema su un foglio, a mano, con frecce e riquadri. Poi spiega lo schema a un collega in dieci minuti ad alta voce: spesso è lì che il punto debole salta fuori.
-- Risposta, Lunga: A volte un ostacolo resiste perché tutti lo guardano dallo stesso lato. Una tua domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.
+- Risposta: Settimana lucida nel lavoro e nello studio per i problemi che resistono: ragioni con chiarezza e vedi collegamenti che di solito sfuggono. È il momento di affrontare la questione più ostica che hai davanti, invece di girarle intorno rifugiandoti nei compiti più comodi e già noti.
+- Che cosa fare: In una mattina di questi giorni, prima di aprire la posta, prenditi un'ora per disegnare il problema a mano, con frecce e riquadri. Poi spiegalo ad alta voce in dieci minuti a qualcuno, anche a chi non conosce la materia: spesso il punto debole salta fuori lì.
+- Risposta, Lunga: Un ostacolo resiste spesso perché lo si guarda sempre dallo stesso lato. Una domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.
 
-#### Carriera, favorevole, voce 11: L'abstract in partenza
+#### Carriera, favorevole, voce 11: Una competenza nuova
 
-- Risposta: Settimana favorevole per far conoscere la tua ricerca: dopo mesi di lavoro hai finalmente qualcosa da dire a voce alta. Un convegno o una rivista apre le proposte proprio adesso e il tuo tema ci sta dentro con naturalezza, senza bisogno di forzature.
-- Che cosa fare: Scrivi l'abstract in due sessioni: martedì la prima stesura senza correggere, giovedì la revisione con una persona del tuo gruppo. Invialo entro venerdì, anche se la scadenza ufficiale è più in là. Nell'attesa prepara tre diapositive: domanda, metodo, dato più interessante.
-- Risposta, Lunga: Chi fa ricerca rischia di aspettare il risultato definitivo prima di mostrarsi. Un risultato parziale ben presentato porta domande, critiche e incontri che fanno crescere il lavoro più di un altro mese chiuso in laboratorio. Chiedi un parere sincero a chi ti segue.
+- Risposta: Nel lavoro la settimana è favorevole a imparare una competenza che ti manca: la testa è ricettiva e ogni sforzo lascia traccia. Una lingua, un programma, un metodo che compare spesso negli annunci o nelle richieste del tuo campo si lascia avvicinare meglio adesso che in altri momenti.
+- Che cosa fare: Scegli una sola competenza, quella che vedi chiedere più spesso nel tuo settore o in quello che desideri. Dedicale venti minuti al giorno per cinque giorni, con una guida gratuita o un video ben fatto. Alla fine prova a usarla su un compito vero, anche piccolo.
+- Risposta, Lunga: Le competenze nuove si fissano con la pratica breve e regolare, non con le maratone. Usarle subito su qualcosa di reale le trasforma da teoria a mestiere. La prova che funziona: al quinto giorno riesci a spiegare a qualcuno che cosa hai imparato in tre frasi semplici.
 
-#### Carriera, favorevole, voce 12: La fiera di settore
+#### Carriera, favorevole, voce 12: Farti conoscere nel settore
 
-- Risposta: Settimana buona per farti conoscere nel tuo ambiente: una fiera o un incontro pubblico raduna nei prossimi giorni le persone che contano per il tuo lavoro. Puoi presentarti senza forzare nulla, perché la tua curiosità sincera apre più porte di un discorso preparato.
-- Che cosa fare: Prima di andare scegli tre persone che vuoi davvero incontrare e prepara per ognuna una domanda sul loro lavoro, non sul tuo. Tieni a portata di mano il collegamento al tuo profilo. Entro due giorni dall'evento scrivi a ciascuna citando qualcosa che ti ha detto.
-- Risposta, Lunga: Gli incontri migliori nascono spesso ai margini: in coda al caffè, all'uscita, in un corridoio. Lì le persone parlano senza la fretta degli stand. Nel messaggio successivo proponi un passo piccolo, come un articolo da scambiare o una telefonata, invece di una richiesta grande.
+- Risposta: Settimana buona per la carriera negli incontri del tuo ambiente: eventi, presentazioni, gruppi di settore, anche in rete. Puoi presentarti senza forzare nulla, perché in questi giorni la curiosità sincera apre più porte di un discorso preparato a memoria e recitato a chiunque passi.
+- Che cosa fare: Cerca un incontro del tuo campo che cade nei prossimi sette giorni, dal vivo o in rete: iscriviti subito. Prima di andare prepara una domanda sul lavoro degli altri, non sul tuo. Entro due giorni dall'incontro scrivi a una persona conosciuta lì, citando qualcosa che ti ha detto.
+- Risposta, Lunga: Gli scambi migliori nascono spesso ai margini: in coda, all'uscita, nei commenti dopo un intervento. Lì le persone parlano senza fretta. Nel messaggio successivo proponi un passo piccolo, come un articolo da scambiare o una telefonata, invece di una richiesta grande che mette in imbarazzo.
 
-#### Carriera, favorevole, voce 13: La proposta in bacheca
+#### Carriera, favorevole, voce 13: Un'idea che migliora
 
-- Risposta: Settimana aperta alle idee che arrivano dal basso: chi decide è più disponibile del solito ad ascoltare un miglioramento per il tuo ambiente di lavoro o di studio. Il metodo, lo strumento o l'appuntamento fisso che hai in mente da tempo può trovare spazio.
-- Che cosa fare: Scrivi la proposta su una pagina sola: che cosa cambia, quanto tempo chiede, chi ne trae vantaggio. Mercoledì presentala a voce a chi può dire di sì, poi lascia il foglio sulla sua scrivania. Offri di provarla per tre settimane misurando un solo risultato.
-- Risposta, Lunga: Le idee che migliorano il lavoro di tutti restano spesso in un cassetto per timore di disturbare. Hai fatto abbastanza strada da poter proporre un cambiamento senza che sembri una pretesa. Se la risposta è un forse, chiedi che cosa servirebbe per arrivare al sì e annotalo.
+- Risposta: Settimana aperta nel lavoro e nello studio alle idee che migliorano il modo di fare le cose. Un metodo, uno strumento, un'abitudine da cambiare: ciò che hai in mente da tempo trova adesso orecchie più disponibili, se lo presenti in modo semplice e con un vantaggio visibile.
+- Che cosa fare: Scrivi la tua proposta su una pagina sola: che cosa cambia, quanto tempo chiede, chi ne trae vantaggio. Se c'è qualcuno che può approvarla, presentala a voce entro quattro giorni. Se lavori o studi per conto tuo, provala su di te per sette giorni e misura il risultato.
+- Risposta, Lunga: Le idee che migliorano il lavoro di tutti restano spesso in un cassetto per timore di disturbare. Proporre una prova breve, con un solo risultato da misurare, rende facile dire di sì. Se ti chiedono di aspettare, domanda una data precisa per riparlarne e scrivila in agenda.
 
-#### Carriera, favorevole, voce 14: La lezione ai colleghi
+#### Carriera, favorevole, voce 14: La parola in pubblico
 
-- Risposta: Settimana adatta a condividere ciò che sai fare meglio di molti intorno a te: un programma, un metodo, un modo di scrivere. Insegnarlo ai colleghi in questi giorni ti fa conoscere oltre la tua scrivania e mostra una qualità che chi decide nota volentieri.
-- Che cosa fare: Entro mercoledì proponi a chi coordina il gruppo una lezione di mezz'ora, all'ora di pranzo o a fine turno. Indica un titolo chiaro e tre cose che chi partecipa può fare subito. Prepara una pagina di appunti con gli esempi da lasciare alla fine.
-- Risposta, Lunga: Insegnare ti mostra sotto un'altra luce: non solo come chi esegue bene, ma come chi aiuta gli altri a lavorare meglio. Spesso è proprio questo che si ricorda quando nascono ruoli nuovi. Nei giorni successivi chiedi a due partecipanti se hanno messo in pratica qualcosa.
+- Risposta: Per parlare davanti agli altri, nel lavoro e nello studio, la settimana è brillante: una riunione, un esame orale, una presentazione, un colloquio. La voce tiene e le idee arrivano in ordine. In questi giorni conviene cercare l'occasione di intervenire invece di aspettare il proprio turno in silenzio.
+- Che cosa fare: Prepara un intervento di due minuti sul tema che conosci meglio: un'apertura che dice il punto, due fatti, una proposta. Ripetilo ad alta voce tre volte, registrandoti col telefono. Usalo alla prima occasione di questi sette giorni, oppure come presentazione in un colloquio di lavoro.
+- Risposta, Lunga: Chi parla poco ma bene viene ricordato più di chi riempie il silenzio. Dire il punto nella prima frase rispetta il tempo di chi ascolta e rende le tue idee facili da riprendere. Il segno che hai fatto centro: qualcuno cita le tue parole dopo l'incontro.
 
 ### Carriera, In equilibrio (livello 3)
 
-#### Carriera, equilibrio, voce 1: Tre fronti aperti
+#### Carriera, equilibrio, voce 1: Una priorità sola
 
-- Risposta: Settimana di lavoro equilibrata, né spinta né frenata: premia chi sceglie con lucidità dove mettere le energie migliori. Tre progetti chiedono attenzione nello stesso momento ma nessuno è davvero urgente, quindi conviene farne avanzare uno per bene invece di toccarli tutti appena.
-- Che cosa fare: Lunedì mattina scrivi i tre progetti su un foglio e accanto a ciascuno il prossimo passo concreto. Scegline uno da portare avanti davvero entro venerdì e dedica agli altri mezz'ora a testa. Mercoledì controlla il foglio e capisci che cosa si è inceppato.
-- Risposta, Lunga: In momenti come questi il rischio è dare un colpo al cerchio e uno alla botte senza chiudere niente. La sensazione di avere sempre da fare non coincide col lavoro fatto. Venerdì segna che cosa è avanzato e scegli il protagonista della settimana successiva.
+- Risposta: Settimana equilibrata nel lavoro, né spinta né frenata: premia chi sceglie dove mettere le energie migliori. Molte cose chiedono attenzione insieme ma poche sono davvero urgenti, quindi conviene farne avanzare una per bene invece di toccarle tutte appena e lasciarle a metà.
+- Che cosa fare: Oggi scrivi su un foglio tutto ciò che hai aperto, nel lavoro o nello studio, con accanto a ogni voce il prossimo passo concreto. Scegline una da chiudere prima che la settimana finisca e dedica alle altre mezz'ora a testa, senza sensi di colpa.
+- Risposta, Lunga: Il rischio di questi giorni è dare un colpo al cerchio e uno alla botte senza chiudere niente. La sensazione di avere sempre da fare non coincide col lavoro fatto. Alla fine dei sette giorni guarda il foglio: una voce chiusa vale più di cinque mosse a metà.
 
-#### Carriera, equilibrio, voce 2: Due offerte sul piatto
+#### Carriera, equilibrio, voce 2: Due strade valutate con calma
 
-- Risposta: Settimana di scelta, senza strade sbagliate: due proposte di lavoro autonomo arrivano a pochi giorni di distanza e non è chiaro quale convenga. Nessuna delle due è un errore. La differenza la fa ciò che vuoi costruire nei prossimi mesi, non l'offerta più rumorosa.
-- Che cosa fare: Dividi un foglio in due colonne e per ciascuna offerta scrivi tempo richiesto, compenso, che cosa impari e con chi lavori. Rileggilo il giorno dopo a mente fresca e rispondi entro giovedì. Prima di un no, chiedi se una parte del lavoro può slittare.
-- Risposta, Lunga: A volte l'offerta più grande è anche quella che lascia meno spazio al lavoro che ami; altre volte il progetto piccolo apre una porta che vale di più. Molti clienti preferiscono aspettare due settimane piuttosto che rinunciare a te: chiederlo tiene aperte entrambe le strade.
+- Risposta: Nel lavoro la settimana è calma, adatta a valutare senza ansia le scelte aperte. Se hai davanti due strade, un'offerta, un corso, un cambio di ruolo o la scelta di restare, nessuna è un errore: conta ciò che vuoi costruire, non la proposta più rumorosa.
+- Che cosa fare: Per ogni strada possibile scrivi quattro righe: quanto tempo chiede, che cosa impari, con chi lavori, come ti senti immaginando il primo giorno. Rileggi tutto a mente fresca il giorno dopo. Se non hai scelte aperte, fai lo stesso esercizio sul lavoro o sullo studio di oggi.
+- Risposta, Lunga: A volte la proposta più grande lascia meno spazio a ciò che ami; altre volte un passo piccolo apre una porta che vale di più. Prima di un no, chiedi se una parte può cambiare o slittare: molte trattative restano aperte più a lungo di quanto pensi.
 
-#### Carriera, equilibrio, voce 3: Il piano a blocchi
+#### Carriera, equilibrio, voce 3: Il ritmo dello studio
 
-- Risposta: Settimana di mezzo per lo studio, ideale per costruire un ritmo che regga fino all'esame. La data è abbastanza lontana da non mettere fretta e abbastanza vicina da non poterla ignorare: adesso conta la costanza più delle ore. La costanza si organizza oggi.
-- Che cosa fare: All'inizio della settimana dividi il programma in blocchi da due ore e assegnane uno a ogni giorno, sabato compreso. Accanto a ogni blocco scrivi un obiettivo verificabile: dieci esercizi, un capitolo, una mappa. Lascia la domenica libera, senza sensi di colpa.
-- Risposta, Lunga: Studiare un poco ogni giorno lascia ai concetti il tempo di posarsi, mentre le maratone dell'ultimo momento riempiono la memoria per pochi giorni. Venerdì conta i blocchi completati davvero e correggi il piano successivo su quei numeri, non sulle speranze. Il riposo fa parte del metodo.
+- Risposta: Per lo studio e la formazione è una settimana regolare: adesso conta la costanza più delle ore. Ciò che devi preparare, un esame, un corso, un aggiornamento per il lavoro, cresce meglio con un passo fisso e quotidiano che con le corse affannose dell'ultimo momento.
+- Che cosa fare: Dividi ciò che devi imparare in blocchi da un'ora e assegnane uno a ogni giorno di questa settimana. Accanto a ogni blocco scrivi un obiettivo verificabile: dieci esercizi, un capitolo, una mappa. Se non stai studiando nulla, scegli una lettura del tuo campo e procedi allo stesso modo.
+- Risposta, Lunga: Studiare un poco ogni giorno lascia ai concetti il tempo di posarsi, mentre le maratone riempiono la memoria per pochi giorni. Alla fine della settimana conta i blocchi completati davvero e correggi il piano su quei numeri, non sulle speranze. Il riposo fa parte del metodo.
 
-#### Carriera, equilibrio, voce 4: La tabella delle candidature
+#### Carriera, equilibrio, voce 4: Le cose in sospeso
 
-- Risposta: Settimana di attesa ordinata per chi cerca lavoro: le risposte alle candidature arrivano a rilento, alcune per niente. Non è un brutto segnale ma il ritmo normale di questa fase, che adesso chiede metodo più che quantità di lettere mandate a caso.
-- Che cosa fare: Martedì apri un foglio di calcolo con quattro colonne: azienda, data di invio, persona di riferimento, prossimo passo. Inserisci tutte le candidature fatte finora, anche quelle che sembrano perse. A chi tace da più di dieci giorni manda un breve sollecito cortese.
-- Risposta, Lunga: Vedere tutto in fila mostra dove metti troppe energie e dove troppo poche: magari scrivi molte lettere generiche e pochissime mirate. Da qui in avanti basta qualche candidatura nuova alla settimana, ma curata, con un nome a cui rivolgerti e una ricerca sull'azienda.
+- Risposta: Settimana ordinaria nel lavoro, senza scosse, adatta a fare il punto su ciò che aspetti dagli altri: risposte, conferme, materiali, esiti di candidature. Il silenzio di questi giorni non è un brutto segnale ma il ritmo normale delle cose, che chiede metodo più che insistenza.
+- Che cosa fare: Scrivi in un elenco tutto ciò che attendi, con la data in cui l'hai chiesto e la persona di riferimento. A chi tace da più di dieci giorni manda entro tre giorni un sollecito breve e cortese, con il riferimento preciso della tua richiesta.
+- Risposta, Lunga: Vedere le attese in fila mostra dove metti troppe energie e dove troppo poche. Un sollecito gentile con i dati giusti viene letto prima di uno vago. Il segno che il metodo funziona: alla fine della settimana almeno una voce dell'elenco è chiusa o ha una data.
 
-#### Carriera, equilibrio, voce 5: Compiti da dividere
+#### Carriera, equilibrio, voce 5: Che cosa si aspettano
 
-- Risposta: Settimana tranquilla, adatta a sciogliere un attrito lieve con un collega di scrivania. Non c'è ostilità ma confusione: chi fa che cosa, chi risponde a chi. È il momento giusto per sistemare le cose prima che i malintesi si incrostino e diventino abitudine.
-- Che cosa fare: Proponi un caffè per giovedì, fuori dall'ufficio se puoi. Arriva con una domanda semplice e non con un elenco di torti: come possiamo dividerci meglio il lavoro su questo progetto? Alla fine scrivete insieme chi segue che cosa e condividetelo con chi coordina.
-- Risposta, Lunga: Molti attriti nascono da compiti che nessuno ha mai assegnato con chiarezza. Ciascuno pensa di fare la parte dell'altro e se ne risente in silenzio. Messi per iscritto, quei compiti perdono peso. Fissate un altro caffè fra due settimane per vedere se la divisione regge.
+- Risposta: Settimana tranquilla nel lavoro, adatta a chiarire che cosa ci si aspetta da te. Molti malintesi nascono da richieste mai dette per intero: adesso c'è lo spazio per chiederle senza tensioni, prima che diventino un'abitudine scomoda o un rimprovero che nessuno aveva previsto.
+- Che cosa fare: Entro quattro giorni chiedi a chi valuta il tuo lavoro, un responsabile, un cliente o un docente, quali sono le due cose che contano di più per lui o per lei in questo momento. Se cerchi lavoro, rileggi un annuncio e sottolinea ciò che chiede davvero.
+- Risposta, Lunga: Lavorare bene sulla cosa sbagliata è una fatica che nessuno vede. Una domanda semplice riallinea le energie e mostra cura per il risultato comune. Annota la risposta con parole esatte e rileggila prima di ogni scelta importante: è la bussola dei giorni che restano.
 
-#### Carriera, equilibrio, voce 6: Il confine delle sei
+#### Carriera, equilibrio, voce 6: Il confine dell'orario
 
-- Risposta: Settimana senza sforzi straordinari, che chiede invece un confine fra lavoro e casa. Il computer resta aperto sul tavolo della cucina fino a tardi e il lavoro scivola in ogni ora libera. Adesso conta tracciare un limite con gentilezza e poi tenerlo davvero.
-- Che cosa fare: Scegli un orario di chiusura, per esempio le sei, scrivendolo nel tuo profilo della chat di lavoro. All'ora stabilita spegni e metti il computer in un cassetto. Se arriva una richiesta fuori orario, rispondi il mattino seguente con naturalezza, senza scuse.
-- Risposta, Lunga: Essere sempre raggiungibili sembra dedizione, ma col tempo abbassa la qualità di ciò che fai nelle ore vere. Un limite chiaro protegge anche i colleghi, che smettono di aspettarsi risposte a mezzanotte. Venerdì conta le sere in cui il confine ha tenuto e quale tentazione pesava.
+- Risposta: Nel lavoro la settimana scorre senza scosse, ma chiede un confine chiaro fra impegno e riposo. Quando il lavoro o lo studio scivolano in ogni ora libera la qualità cala piano piano. Adesso conta tracciare un limite con gentilezza e poi tenerlo davvero, ogni sera.
+- Che cosa fare: Scegli un orario di chiusura e scrivilo dove lo vedi, anche nel profilo della chat di lavoro se ne usi una. All'ora stabilita chiudi tutto e metti via computer e libri. Se arriva una richiesta fuori orario, rispondi il mattino seguente con naturalezza, senza scuse.
+- Risposta, Lunga: Essere sempre raggiungibili sembra dedizione, ma col tempo abbassa la qualità di ciò che fai nelle ore vere. Un limite chiaro insegna anche agli altri quando cercarti. Alla fine dei sette giorni conta le sere in cui il confine ha tenuto e quale tentazione pesava di più.
 
-#### Carriera, equilibrio, voce 7: La riunione più corta
+#### Carriera, equilibrio, voce 7: Il tempo protetto
 
-- Risposta: Settimana neutra sul lavoro, né favorevole né ostile, adatta proprio a proporre un piccolo aggiustamento. La riunione fissa che ogni settimana occupa un'ora intera lascia quasi sempre la sensazione di tempo perso: può diventare più corta, se qualcuno lo chiede con garbo.
-- Che cosa fare: Prima del prossimo incontro scrivi a chi lo organizza una proposta concreta: trenta minuti invece di sessanta, ordine del giorno inviato la sera prima, decisioni annotate alla fine. Tono leggero, nessuna polemica. Alla prima prova tieni il tempo con discrezione e leggi le decisioni.
-- Risposta, Lunga: Spesso nessuno ama quella riunione ma nessuno osa toccarla, perché c'è sempre stata. Basta una voce calma che proponga di provare per un mese per scoprire che molti la pensavano come te. Il giorno dopo un riepilogo in cinque righe a tutti fa il resto.
+- Risposta: Settimana neutra nel lavoro, né favorevole né ostile, adatta a difendere il tempo della concentrazione. Interruzioni, notifiche e richieste veloci spezzano le ore in frammenti: ridurle adesso costa poco e restituisce il piacere di finire un compito con calma, dall'inizio alla fine.
+- Che cosa fare: Ogni giorno di questa settimana blocca novanta minuti senza posta, chat o telefono, che resta in un'altra stanza. Decidi prima il compito di quel blocco e annotalo su un foglio. Avvisa chi lavora o studia con te che in quell'intervallo rispondi più tardi.
+- Risposta, Lunga: La mente impiega parecchi minuti a tornare sul compito dopo ogni interruzione: dieci piccole pause rubano un pomeriggio intero. Proteggere un blocco fisso ogni giorno vale più di una giornata libera strappata ogni tanto. Il segnale più chiaro: alla fine del blocco hai qualcosa di finito.
 
-#### Carriera, equilibrio, voce 8: Due mattine fisse
+#### Carriera, equilibrio, voce 8: Due ore fisse
 
-- Risposta: Settimana di passo regolare per il progetto che porti avanti accanto al lavoro: il libro, il corso o l'idea procedono, ma senza una cadenza precisa. Non serve un'accelerazione. Adesso conta trovare un ritmo che possa durare mesi senza chiederti sacrifici impossibili.
-- Che cosa fare: Scegli due mattine della settimana, per esempio martedì e sabato: blocca un'ora in agenda come fosse un appuntamento con un cliente. La sera prima lascia il file aperto sulla pagina giusta. A fine sessione scrivi una riga su che cosa fare la volta dopo.
-- Risposta, Lunga: Un progetto personale si spegne più per discontinuità che per mancanza di talento. Un'ora regolare vale più di un fine settimana intero ogni tanto, perché tiene viva la memoria dell'ultima pagina. Se sabato le sessioni sono state due, la parte più difficile è già alle spalle.
+- Risposta: Settimana di passo regolare nel lavoro, adatta a dare uno spazio fisso a ciò che vorresti far crescere accanto agli impegni principali. Non serve un'accelerazione: conta trovare un ritmo che possa durare a lungo, che si tratti di un'idea, di un libro o di un'attività in proprio.
+- Che cosa fare: Scegli due momenti di questa settimana e blocca un'ora per ciascuno, come fosse un appuntamento con un cliente. Se un progetto personale ancora non c'è, usa quelle ore per leggere o imparare qualcosa del tuo campo. Alla fine di ogni sessione scrivi una riga sul passo successivo.
+- Risposta, Lunga: Un progetto personale si spegne più per discontinuità che per mancanza di talento. Un'ora regolare vale più di un fine settimana intero ogni tanto, perché tiene viva la memoria dell'ultima pagina. Se alla fine dei sette giorni le sessioni sono state due, la parte più difficile è fatta.
 
-#### Carriera, equilibrio, voce 9: Lodi e riserve
+#### Carriera, equilibrio, voce 9: Un giudizio da chiedere
 
-- Risposta: Settimana da prendere con calma sul fronte dei giudizi: ti è arrivato un parere sul tuo lavoro che mescola lodi e critiche. Non c'è motivo di rallegrarsi troppo né di preoccuparsi. Conviene separare le due parti senza fretta di rispondere a chi l'ha scritto.
-- Che cosa fare: Mercoledì, a mente fresca, rileggi il commento dividendolo in due elenchi: ciò che ti serve davvero per migliorare e ciò che riflette soprattutto i gusti di chi scrive. Scegli una sola critica fondata e trasformala in una modifica concreta entro venerdì.
-- Risposta, Lunga: Un giudizio misto è spesso il più onesto. Chi elogia soltanto non insegna molto e chi critica soltanto di solito parla d'altro. In quella miscela c'è materiale utile, a patto di non lasciarsi ferire. Due righe di ringraziamento con la modifica fatta rendono facile il dialogo.
+- Risposta: Sul fronte dei giudizi, nel lavoro e nello studio, la settimana è serena: puoi ascoltare un parere sul tuo operato senza farti travolgere. Le osservazioni altrui, in questi giorni, arrivano più misurate e si possono separare con calma fra ciò che serve e ciò che riflette solo gusti personali.
+- Che cosa fare: Entro quattro giorni chiedi a una persona che conosce il tuo lavoro o il tuo studio due cose: una da tenere e una da cambiare. Ascolta senza difenderti e prendi appunti. Scegli l'osservazione più fondata e trasformala in una modifica concreta prima che la settimana finisca.
+- Risposta, Lunga: Un giudizio misto è spesso il più onesto: chi elogia soltanto non insegna molto e chi critica soltanto di solito parla d'altro. Chiederlo tu cambia il tono della conversazione. Due righe di ringraziamento con la modifica già fatta mostrano che sai usare ciò che ricevi.
 
-#### Carriera, equilibrio, voce 10: Il modulo interrotto
+#### Carriera, equilibrio, voce 10: Ciò che è rimasto a metà
 
-- Risposta: Settimana dal passo giusto per riprendere il corso online lasciato a metà fra un impegno e l'altro. Non serve ricominciare da capo né recuperare tutto in pochi giorni: un modulo alla volta, senza sensi di colpa, basta a rimettere in moto ciò che si era fermato.
-- Che cosa fare: Riapri la piattaforma lunedì sera e guarda soltanto l'ultima lezione completata. Fissa tre sessioni da quaranta minuti nei prossimi giorni e mettile in agenda con un nome preciso. Tieni accanto un quaderno con una domanda sola: dove posso usarlo nel mio lavoro?
-- Risposta, Lunga: Un corso abbandonato pesa più di quanto sembri, come una piccola promessa non mantenuta. Chiuderlo, anche lentamente, restituisce fiducia nella tua capacità di portare a termine le cose. Venerdì scegli un'idea dal quaderno e provala in un compito vero entro la settimana dopo.
+- Risposta: Settimana costante nel lavoro e nello studio, dal passo giusto per riprendere qualcosa lasciato a metà: un corso, una pratica, una lettura, una competenza. Non serve ricominciare da capo né recuperare tutto in pochi giorni: un pezzo alla volta basta a rimettere in moto ciò che si era fermato.
+- Che cosa fare: Scegli una sola cosa rimasta interrotta e guarda soltanto il punto dove si era fermata. Fissa tre sessioni da quaranta minuti nei prossimi giorni e mettile in agenda con un nome preciso. Tieni accanto un foglio con una domanda sola: dove posso usarlo subito?
+- Risposta, Lunga: Una cosa abbandonata pesa più di quanto sembri, come una piccola promessa non mantenuta. Chiuderla, anche lentamente, restituisce fiducia nella capacità di portare a termine gli impegni. La verifica più semplice: alla terza sessione non devi più rileggere tutto per ritrovare il filo del discorso.
 
-#### Carriera, equilibrio, voce 11: L'inventario del lunedì
+#### Carriera, equilibrio, voce 11: Gli strumenti in ordine
 
-- Risposta: Settimana tranquilla per la tua attività, adatta a guardare con onestà che cosa tenere. Si sono accumulate cose che non girano: servizi che nessuno chiede, materiali fermi, abitudini superate. Fare spazio adesso mette in luce ciò che fai meglio, senza fretta e senza drammi.
-- Che cosa fare: Lunedì dedica un'ora a elencare ciò che offri e accanto a ogni voce scrivi quando è stata richiesta l'ultima volta. Sposta in una colonna a parte ciò che dorme da più di sei mesi. Giovedì decidi per ciascuna: togliere, rinnovare o proporre diversamente.
-- Risposta, Lunga: Tenere tutto dà l'impressione di non perdere occasioni, ma disperde attenzione e spazio. Togliere qualcosa rende più facile spiegare chi sei a un cliente nuovo. Comunica le scelte a chi ti segue da tempo con un messaggio semplice, senza toni da svendita né lunghe spiegazioni.
+- Risposta: Settimana tranquilla nel lavoro, buona per fare ordine negli strumenti che usi ogni giorno. Cartelle, posta, scrivania, appunti: ciò che si è accumulato senza criterio rallenta ogni ricerca. Sistemarlo adesso, senza fretta, alleggerisce i giorni più densi che prima o poi tornano a riempire l'agenda.
+- Che cosa fare: Dedica un'ora a una sola zona, la posta o le cartelle del computer o la scrivania. Cancella il superfluo, archivia ciò che è chiuso e lascia in vista soltanto ciò che è aperto. Ripeti con un'altra zona prima che la settimana finisca, se l'ora è bastata.
+- Risposta, Lunga: Il disordine costa in piccole dosi: due minuti per trovare un file, cinque per un documento, finché a fine giornata è sparita un'ora intera. Un sistema semplice tiene più di uno perfetto che nessuno rispetta. Il segno che funziona: trovi ciò che cerchi al primo tentativo.
 
-#### Carriera, equilibrio, voce 12: La delega possibile
+#### Carriera, equilibrio, voce 12: Un compito alleggerito in due
 
-- Risposta: Settimana senza emergenze, un'occasione equilibrata per cominciare a delegare. Da quando coordini altre persone finisci per fare tu le cose che potresti affidare, anche se il gruppo è capace. Lasciare andare un compito adesso ti restituisce tempo per il lavoro che spetta soltanto a te.
-- Che cosa fare: Martedì scegli un compito che fai sempre tu e che un collega può imparare in pochi giorni. Spiegalo una volta, con calma, poi lascia che lo svolga a modo suo senza intervenire. Venerdì chiedi come è andata e che cosa cambierebbe nel procedimento.
-- Risposta, Lunga: Delegare non significa perdere il controllo ma spostarlo: da come si fanno le cose a che cosa si ottiene. Chi riceve fiducia di solito cresce. Correggi solo ciò che incide sul risultato, non lo stile: se il lavoro regge, d'ora in poi quel compito è suo.
+- Risposta: Nel lavoro la settimana è equilibrata e adatta a smettere di fare tutto con le tue forze. Un compito che ti pesa si alleggerisce se qualcuno ti affianca: un collega, un compagno di studio, una guida ben fatta, una persona più esperta che conosci e che stimi.
+- Che cosa fare: Scegli il compito che ti costa più tempo rispetto al risultato. Entro tre giorni chiedi aiuto in modo preciso: che cosa ti serve, per quanto tempo, che cosa offri in cambio. Se coordini altre persone, affidane uno e lascia che lo svolgano a modo loro.
+- Risposta, Lunga: Chiedere aiuto non è debolezza ma organizzazione: chi riceve una richiesta chiara di solito risponde volentieri. Delegare sposta l'attenzione da come si fanno le cose a che cosa si ottiene. Correggi solo ciò che incide sul risultato, non lo stile: lascia spazio a chi impara.
 
-#### Carriera, equilibrio, voce 13: Il rientro graduale
+#### Carriera, equilibrio, voce 13: Un caffè con chi conosci poco
 
-- Risposta: Settimana di rientro senza pressioni: dopo qualche giorno di ferie trovi una pila di messaggi, decisioni prese senza di te, ritmi cambiati. Nulla preme davvero. C'è spazio per riprendere con ordine e conservare lo sguardo più largo che il riposo ti ha lasciato.
-- Che cosa fare: Il primo giorno non rispondere a tutto: leggi, segna, raggruppa. Chiedi a un collega fidato quindici minuti per raccontarti che cosa è cambiato davvero mentre non c'eri. Mercoledì scegli le tre questioni più importanti emerse dalla lettura e occupatene per prime.
-- Risposta, Lunga: Rientrare di corsa, cercando di recuperare tutto in due giorni, rischia di cancellare l'effetto delle ferie. Riprendere con misura permette di vedere che cosa conta e che cosa no. Metti il resto in una lista con una data accanto: entro venerdì la rotta è chiara.
+- Risposta: Settimana pacata nel lavoro, adatta a coltivare i rapporti che di solito restano in superficie. Nel tuo ambiente, fra colleghi, compagni di corso o persone del settore, c'è chi conosci appena e da cui potresti imparare qualcosa o ricevere una prospettiva diversa sul tuo percorso.
+- Che cosa fare: Entro quattro giorni proponi un caffè o una telefonata di venti minuti a una persona del tuo ambiente con cui parli poco. Chiedi come è arrivata al suo lavoro e che cosa la appassiona. Se cerchi lavoro, fallo con qualcuno che lavora nel campo che desideri.
+- Risposta, Lunga: I rapporti di lavoro più utili nascono spesso fuori dalle riunioni, quando nessuno deve dimostrare niente. Un caffè senza scopo apparente crea una fiducia che nessuna email sa costruire. Il segno che ha funzionato: la volta dopo vi salutate per nome e vi scrivete senza imbarazzo.
 
-#### Carriera, equilibrio, voce 14: La scheda di valutazione
+#### Carriera, equilibrio, voce 14: Profilo professionale da rinfrescare
 
-- Risposta: Settimana che chiede un resoconto onesto e ordinato: devi compilare la scheda di autovalutazione per il colloquio annuale e il foglio bianco mette a disagio. Il rischio è sminuirti o gonfiare tutto. La via giusta sta nei fatti, raccontati con date e numeri.
-- Che cosa fare: Martedì apri la posta e l'agenda degli ultimi dodici mesi e annota cinque risultati concreti, ognuno con una data e un dato misurabile. Scrivi la scheda partendo da quelli, con frasi brevi. Aggiungi una riga su che cosa ti servirebbe per lavorare meglio.
-- Risposta, Lunga: Una valutazione equilibrata contiene anche ciò che non è andato: un obiettivo mancato, un progetto rallentato. Nominarlo subito, con le ragioni e con ciò che hai imparato, rende credibile anche il resto. Al colloquio porta la richiesta finale come proposta, non come lamentela.
+- Risposta: Una settimana tranquilla nel lavoro è il momento giusto per aggiornare curriculum e profilo professionale, anche se non cerchi niente. Farlo a mente calma, senza la fretta di un annuncio in scadenza, permette di raccontare il tuo percorso con precisione e di vedere quanto è cresciuto.
+- Che cosa fare: Apri il curriculum o il profilo in rete e aggiungi le esperienze recenti, ognuna con un fatto misurabile e una data. Togli ciò che non ti rappresenta più. Chiedi a una persona di fiducia di leggerlo e di dirti in una frase che lavoro ti affiderebbe.
+- Risposta, Lunga: Un curriculum aggiornato all'ultimo momento tende a sminuire o a gonfiare. Scritto con calma, invece, mostra i fatti come sono e ti prepara alle domande dei colloqui. Il segno che è riuscito: leggendolo riconosci la persona che sei adesso, non quella di qualche anno fa.
 
 ### Carriera, In salita (livello 2 e sotto)
 
 #### Carriera, salita, voce 1: Il pezzo che manca
 
-- Risposta: Settimana in salita sul lavoro, che chiede più vigilanza del solito: una scadenza importante si avvicina e qualcuno da cui dipendi è in ritardo. Aspettare in silenzio sperando che tutto si sistemi da sé è la scelta più rischiosa che puoi fare adesso.
-- Che cosa fare: Lunedì scrivi a chi deve consegnarti la sua parte e chiedi una data precisa, non una promessa vaga. Se quella data non combacia con la tua scadenza, avvisa subito chi aspetta il lavoro finito. Prepara intanto un piano di riserva da proporre mercoledì.
-- Risposta, Lunga: Un ritardo comunicato in anticipo è un problema di organizzazione; uno scoperto all'ultimo è un problema di fiducia. Chi ti aspetta sa adattarsi se ha il tempo per farlo. Una versione ridotta, un aiuto esterno o un rinvio parziale lasciano la scelta nelle vostre mani.
+- Risposta: Settimana in salita nel lavoro, con scadenze che si stringono e ritardi altrui che pesano sui tuoi tempi. Aspettare in silenzio sperando che tutto si sistemi da sé è la scelta più rischiosa di questi giorni: conviene muoversi prima che il ritardo degli altri diventi il tuo.
+- Che cosa fare: Oggi scrivi l'elenco di ciò che aspetti da altri per chiudere i tuoi compiti e chiedi a ciascuno una data precisa, non una promessa vaga. Se una data non combacia con la tua scadenza, avvisa subito chi aspetta il risultato e proponi un piano di riserva.
+- Risposta, Lunga: Un ritardo comunicato in anticipo è un problema di organizzazione; uno scoperto all'ultimo è un problema di fiducia. Chi ti aspetta sa adattarsi se ha il tempo per farlo. Una versione ridotta, un aiuto esterno o un rinvio parziale lasciano la scelta in mani tranquille.
 
-#### Carriera, salita, voce 2: La critica in sala
+#### Carriera, salita, voce 2: Non rispondere a caldo
 
-- Risposta: Settimana delicata nei rapporti di lavoro, con la pelle più sottile del solito: in una riunione qualcuno potrebbe mettere in discussione ciò che fai davanti agli altri, con un tono che punge. La regola di questi giorni è semplice: non rispondere a caldo.
-- Che cosa fare: Se succede, ringrazia per l'osservazione e chiedi di parlarne a parte entro un paio di giorni. Annota subito su un foglio le parole esatte usate, prima che il ricordo si colori. Al colloquio porta i punti giusti della critica e una proposta per correggerli.
-- Risposta, Lunga: Una critica pubblica ferisce più per il pubblico che per il contenuto. Separare le due cose richiede tempo: spesso dietro un tono brusco c'è una pressione che chi parla non sa gestire. Chiudi il colloquio chiedendo che le prossime osservazioni arrivino prima in privato.
+- Risposta: Nei rapporti di lavoro la settimana è delicata, con la pelle più sottile del solito: una critica o un tono brusco possono pungere più di quanto meritano. La regola di questi giorni è semplice: non rispondere a caldo, né a voce né per iscritto, nemmeno quando hai ragione.
+- Che cosa fare: Per tutta la settimana lascia passare almeno un'ora prima di rispondere a un messaggio o a un'osservazione che ti irrita. Annota subito le parole esatte, prima che il ricordo si colori. Quando ne parlate, porta i punti giusti della critica e una proposta per correggerli.
+- Risposta, Lunga: Una critica davanti ad altri ferisce più per il pubblico che per il contenuto. Separare le due cose richiede tempo: spesso dietro un tono brusco c'è una pressione che chi parla non sa gestire. Chiudi la conversazione chiedendo che le prossime osservazioni arrivino prima in privato.
 
-#### Carriera, salita, voce 3: Il riscontro chiesto
+#### Carriera, salita, voce 3: Un no da capire
 
-- Risposta: Settimana faticosa per il morale, dopo un colloquio di lavoro andato peggio del previsto. Resta addosso una stanchezza sottile, ma questi giorni si prestano a trasformare l'amarezza in informazioni utili per il prossimo tentativo, con pazienza e un po' di lucidità.
-- Che cosa fare: Entro mercoledì scrivi a chi ti ha fatto il colloquio un messaggio cortese: grazie per il tempo, mi daresti un parere su che cosa è mancato? Poche righe, senza difenderti né chiedere un ripensamento. Nel fine settimana fatti fare tre domande di prova da qualcuno.
-- Risposta, Lunga: Non tutti rispondono, ma chi lo fa ti regala lo sguardo di chi era dall'altra parte del tavolo. Spesso il motivo è più piccolo e più correggibile di quanto temi. Registra col telefono le risposte di prova e riascoltale: senti subito dove ti perdi e dove convinci.
+- Risposta: Settimana faticosa per il morale nel lavoro e nello studio: i no e i risultati sotto le attese pesano più del solito. Questi giorni si prestano però a trasformare l'amarezza in informazioni utili per il tentativo successivo, con pazienza e un po' di lucidità, senza processi a te.
+- Che cosa fare: Se hai ricevuto un no di recente, scrivi a chi l'ha dato un messaggio cortese: mi daresti un parere su che cosa è mancato? Poche righe, senza difenderti. Se non c'è un no da capire, rileggi il tuo ultimo lavoro consegnato e trova un punto da migliorare.
+- Risposta, Lunga: Non tutti rispondono, ma chi lo fa ti regala lo sguardo di chi era dall'altra parte del tavolo. Spesso il motivo è più piccolo e più correggibile di quanto temi. Il segno che stai uscendo dalla fatica: guardi l'errore come un dato, non come un giudizio.
 
-#### Carriera, salita, voce 4: Il cliente volubile
+#### Carriera, salita, voce 4: Le richieste che cambiano
 
-- Risposta: Settimana che chiede fermezza gentile con un cliente che cambia idea a ogni scambio. Senza un punto fermo il progetto gira su sé stesso, il lavoro si allunga e la pazienza si consuma. Adesso serve fissare ciò che non si tocca più, prima che il tempo scappi.
-- Che cosa fare: Martedì proponi una chiamata di mezz'ora per stabilire i punti definitivi. Subito dopo mandali per iscritto in un elenco numerato e chiedi una conferma esplicita via mail. Per ogni nuova richiesta indica che cosa comporta: giorni in più o una parte da togliere.
-- Risposta, Lunga: Chi cambia spesso idea di solito non sa bene che cosa vuole, più che volerti mettere in difficoltà. Aiutarlo a decidere con domande semplici ed esempi concreti protegge il tuo tempo e anche il suo. Rendere visibile il prezzo di ogni cambio ne riduce il numero.
+- Risposta: Settimana tesa nel lavoro, con richieste che cambiano da un giorno all'altro e accordi chiusi che si riaprono. Senza un punto fermo i compiti si allungano e la pazienza si consuma: adesso serve fissare per iscritto ciò che non si tocca più, prima che il tempo scappi.
+- Che cosa fare: Dopo ogni conversazione importante di questa settimana manda entro poche ore un riepilogo di tre righe: che cosa avete deciso, chi fa che cosa, per quando. Chiedi una conferma esplicita. Per ogni nuova richiesta indica con calma che cosa comporta: tempo in più o una parte da togliere.
+- Risposta, Lunga: Chi cambia spesso idea di solito non sa bene che cosa vuole, più che volerti mettere in difficoltà. Aiutarlo a decidere con domande semplici protegge il tuo tempo e anche il suo. Rendere visibile il costo in tempo di ogni cambio ne riduce il numero.
 
-#### Carriera, salita, voce 5: L'esame da ridare
+#### Carriera, salita, voce 5: La prova da rifare
 
-- Risposta: Settimana in salita per lo studio: l'esame non è andato come speravi e la prossima data sembra lontana e vicina insieme. Questi giorni chiedono di tenere stabile il morale e di ripartire da un piano più realistico del precedente, costruito sugli errori veri.
-- Che cosa fare: Chiedi entro giovedì di vedere il compito corretto, se è possibile: dividi ogni errore fra distrazione, lacuna di teoria e mancanza di tempo. Nel fine settimana scrivi il nuovo calendario fino alla prossima data, con una simulazione completa ogni dieci giorni.
-- Risposta, Lunga: Il voto negativo misura una prova, non la tua testa. Capire il tipo di errore fa tutta la differenza: le lacune si colmano studiando, la fretta si allena con le simulazioni, la distrazione con il riposo. Fissa il primo blocco già lunedì, in un posto nuovo.
+- Risposta: Nello studio e nelle prove di ogni tipo la settimana è in salita: esami, verifiche e selezioni chiedono più energia del previsto e un errore pesa più del solito. Questi giorni chiedono di tenere stabile il morale e di ripartire da un piano più realistico, costruito sugli errori veri.
+- Che cosa fare: Prendi la prova più recente andata sotto le attese, un compito, un test, una consegna di lavoro: dividi ogni errore in tre gruppi: distrazione, lacuna, mancanza di tempo. Entro il fine settimana scrivi un piano con un rimedio preciso per ogni gruppo e una simulazione completa.
+- Risposta, Lunga: Un voto negativo misura una prova, non la tua testa. Capire il tipo di errore fa tutta la differenza: le lacune si colmano studiando, la fretta si allena con le simulazioni, la distrazione con il riposo. Comincia dal gruppo più numeroso, quello che rende di più.
 
-#### Carriera, salita, voce 6: Un incarico di troppo
+#### Carriera, salita, voce 6: Il carico al limite
 
-- Risposta: Settimana di carico al limite: ti chiedono un compito in più proprio quando la tua scrivania è già piena. Dire sempre di sì, in questi giorni, rischia di pesare troppo e di abbassare la qualità di tutto ciò che stai portando avanti con fatica.
-- Che cosa fare: Prima di rispondere prenditi un giorno. Poi torna da chi te l'ha chiesto con la lista dei tuoi impegni attuali e una domanda: quale di questi possiamo spostare per fare spazio al nuovo? Se l'incarico resta tuo, concorda per iscritto che cosa slitta.
-- Risposta, Lunga: Un no motivato non è mancanza di spirito di squadra. Chi coordina spesso non vede quanto hai già in mano e una risposta chiara aiuta a distribuire meglio il lavoro. Ogni venerdì delle prossime settimane manda due righe sull'avanzamento: così il carico resta visibile.
+- Risposta: Settimana pesante nel lavoro e nello studio: le richieste tendono ad accavallarsi e il tempo sembra non bastare mai. Dire sempre di sì, in questi giorni, rischia di abbassare la qualità di tutto ciò che porti avanti con fatica e di consumare le energie migliori.
+- Che cosa fare: Prima di accettare un compito nuovo prenditi un giorno per pensarci. Scrivi la lista degli impegni che hai già e torna da chi chiede con una domanda: che cosa possiamo spostare per fare spazio? Se il compito resta tuo, concorda per iscritto che cosa slitta.
+- Risposta, Lunga: Un no motivato non è mancanza di spirito di squadra. Chi chiede spesso non vede quanto hai già in mano e una risposta chiara aiuta a distribuire meglio il lavoro. Il segno che stai reggendo: alla fine della settimana nessuna promessa è rimasta a metà senza un avviso.
 
-#### Carriera, salita, voce 7: La cifra da correggere
+#### Carriera, salita, voce 7: L'errore di distrazione
 
-- Risposta: Settimana che chiede di muoverti presto su un errore: rileggendo un documento già inviato ti accorgi di una cifra sbagliata o di una data fuori posto. Niente di irreparabile, purché la correzione arrivi da te prima che qualcun altro lo noti.
-- Che cosa fare: Correggi il documento e mandalo di nuovo entro ventiquattr'ore con una nota breve: ho trovato un errore a pagina tre, ecco la versione giusta. Niente lunghe scuse, soltanto la correzione chiara. Da adesso rileggi a voce alta ogni documento importante prima di inviarlo.
-- Risposta, Lunga: Ammettere una svista prima che la scopra qualcun altro cambia tutto il racconto: diventi la persona che controlla il proprio lavoro, non quella colta in fallo. La fiducia degli altri ne esce più salda. Annota dove sbagli più spesso e controlla prima lì.
+- Risposta: Settimana insidiosa nel lavoro per gli errori di distrazione: una cifra, una data, un nome fuori posto scivolano via più facilmente del solito. Niente di irreparabile, purché il controllo arrivi prima dell'invio o la correzione arrivi da te prima che qualcun altro la noti.
+- Che cosa fare: Per tutti i sette giorni rileggi a voce alta ogni documento importante prima di inviarlo, con attenzione a numeri, date e nomi. Se scopri un errore in qualcosa già consegnato, correggilo entro la giornata con una nota breve: ho trovato un errore, ecco la versione giusta.
+- Risposta, Lunga: Ammettere una svista prima che la scopra qualcun altro cambia tutto il racconto: diventi la persona che controlla il proprio lavoro, non quella colta in fallo. La fiducia ne esce più salda. Annota dove sbagli più spesso e controlla prima lì, ogni volta che rileggi.
 
-#### Carriera, salita, voce 8: Comandi da imparare
+#### Carriera, salita, voce 8: Lo strumento ostinato
 
-- Risposta: Settimana lenta e un po' frustrante sul lavoro: è arrivato un programma nuovo e niente funziona più come prima. I passaggi si inceppano e la pazienza si accorcia. La fatica è comprensibile, ma passa prima se la guardi in faccia invece di aggirarla.
-- Che cosa fare: Martedì prenota un'ora senza riunioni e segui per intero la guida ufficiale, provando su un caso vero. Scrivi su un foglio i cinque comandi che ti servono più spesso e tienilo accanto allo schermo. Giovedì chiedi venti minuti a chi lo usa già bene.
-- Risposta, Lunga: Ogni strumento nuovo costa fatica nelle prime settimane e poi restituisce tempo, ma solo a chi lo impara davvero. Aggirarlo con vecchi trucchi sembra più comodo e invece allunga il disagio. Porta domande scritte a chi ti aiuta e offri in cambio una tua competenza.
+- Risposta: Settimana lenta e un po' frustrante nel lavoro: strumenti, programmi e procedure si inceppano e la pazienza si accorcia. La fatica è comprensibile, ma passa prima se la guardi in faccia invece di aggirarla con vecchi trucchi che allungano soltanto il disagio di ogni giorno.
+- Che cosa fare: Scrivi su un foglio i cinque passaggi che ti bloccano più spesso. Entro tre giorni prenota un'ora senza interruzioni e segui la guida ufficiale su un caso vero. Per ciò che resta oscuro chiedi venti minuti a chi usa già bene quello strumento o quella procedura.
+- Risposta, Lunga: Ogni strumento nuovo costa fatica all'inizio e poi restituisce tempo, ma solo a chi lo impara davvero. Aggirarlo sembra più comodo e invece rimanda il momento in cui diventa naturale. Porta domande scritte a chi ti aiuta e offri in cambio una tua competenza.
 
-#### Carriera, salita, voce 9: L'aria dopo il riassetto
+#### Carriera, salita, voce 9: Restare ai fatti
 
-- Risposta: Settimana pesante in ufficio, in cui conviene restare ai fatti: dopo un cambio ai vertici o una riorganizzazione girano voci di ogni tipo e l'aria si è fatta tesa. Le ipotesi consumano energia. Le informazioni vere, invece, si chiedono a chi le ha.
-- Che cosa fare: Invece di inseguire le indiscrezioni, chiedi a chi ti coordina un incontro breve entro mercoledì con una domanda diretta: che cosa cambia per il mio ruolo nei prossimi mesi? Annota la risposta. Intanto aggiorna un elenco dei tuoi risultati recenti con numeri e date.
-- Risposta, Lunga: Le voci crescono dove mancano informazioni e chi ne parla di più spesso ne sa di meno. Partecipare alle chiacchiere sembra innocuo, ma può farti trovare dalla parte sbagliata. Comunque vadano le cose, avere i tuoi risultati a portata di mano rende solida ogni conversazione.
+- Risposta: Nel lavoro la settimana è tesa e conviene restare ai fatti: girano voci, ipotesi e indiscrezioni più delle notizie vere. Le supposizioni consumano energia e mettono di cattivo umore; le informazioni, invece, si chiedono direttamente a chi le ha, con una domanda semplice e senza giri.
+- Che cosa fare: Non alimentare le chiacchiere e non inoltrare ciò che non hai verificato. Se un cambiamento ti riguarda, chiedi entro tre giorni un incontro breve a chi può rispondere, con una domanda diretta su che cosa cambia per te. Annota la risposta con la data.
+- Risposta, Lunga: Le voci crescono dove mancano informazioni e chi ne parla di più spesso ne sa di meno. Partecipare sembra innocuo, ma può farti trovare dalla parte sbagliata. Comunque vadano le cose, avere davanti i fatti scritti rende solida ogni conversazione che ti aspetta.
 
-#### Carriera, salita, voce 10: Il pubblico tiepido
+#### Carriera, salita, voce 10: Il riscontro tiepido
 
-- Risposta: Settimana faticosa per il morale: il progetto in cui hai messo tanto, un servizio, un canale, un laboratorio, raccoglie meno interesse di quanto sperassi. Questi giorni chiedono di cercare dati e non conferme, prima di decidere che cosa cambiare e che cosa tenere.
-- Che cosa fare: Entro giovedì scrivi a cinque persone del tuo pubblico ideale e chiedi loro dieci minuti al telefono, con una sola domanda: che cosa ti farebbe dire di sì? Nel fine settimana cambia una cosa sola fra titolo, descrizione e canale, poi aspetta due settimane.
+- Risposta: Settimana faticosa nel lavoro per chi aspetta riscontri: ciò che proponi, un servizio, un progetto, una candidatura, un'idea, può raccogliere meno interesse di quanto speri. Questi giorni chiedono di cercare dati e non conferme, prima di decidere che cosa cambiare e che cosa tenere.
+- Che cosa fare: Scegli una cosa che stai proponendo agli altri, oppure il tuo curriculum se non proponi nulla. Chiedi a tre persone a cui si rivolge un parere sincero, con una sola domanda: che cosa ti farebbe dire di sì? Prima che la settimana finisca cambia un elemento solo.
 - Risposta, Lunga: Un riscontro scarso non dice che l'idea è sbagliata: spesso dice che è spiegata male o offerta alle persone sbagliate. Prima di cambiare tutto conviene capire quale delle due cose sta succedendo. Toccando un solo elemento alla volta capisci davvero che cosa funziona.
 
-#### Carriera, salita, voce 11: Il gruppo sbilanciato
+#### Carriera, salita, voce 11: Il peso diviso male
 
-- Risposta: Settimana scomoda nel lavoro di gruppo: qualcuno non fa la sua parte e il peso ricade su di te, all'università o in un corso. Conviene affrontare la questione adesso, con chiarezza, prima che il risentimento cresca e guasti anche ciò che funziona.
-- Che cosa fare: Proponi una breve riunione del gruppo martedì e porta un calendario con le parti da consegnare, il nome di chi se ne occupa e una data per ciascuna. Chiedi che ognuno confermi ad alta voce. Se venerdì manca ancora qualcosa, avvisa con garbo chi coordina.
-- Risposta, Lunga: Spesso chi si sottrae non lo fa per pigrizia ma per confusione: non ha capito il suo compito o teme di sbagliare. Un incarico chiaro con una scadenza vicina fa uscire allo scoperto le difficoltà vere. Scrivere a chi coordina, date alla mano, protegge il lavoro di tutti.
+- Risposta: Settimana complicata nel lavoro di gruppo e nello studio condiviso: i carichi si sbilanciano facilmente e il peso tende a ricadere su chi è più disponibile. Conviene affrontare la questione presto, con chiarezza, prima che il risentimento cresca e guasti anche ciò che funziona.
+- Che cosa fare: Se condividi un compito con altri, proponi entro tre giorni un incontro breve con un calendario: ogni parte, il nome di chi la segue, una data. Chiedi che ognuno confermi. Se lavori per conto tuo, applica lo stesso metodo agli impegni presi con clienti o fornitori.
+- Risposta, Lunga: Spesso chi si sottrae non lo fa per pigrizia ma per confusione: non ha capito il suo compito o teme di sbagliare. Un incarico chiaro con una scadenza vicina fa uscire allo scoperto le difficoltà vere. Mettere tutto per iscritto protegge il lavoro di tutti.
 
-#### Carriera, salita, voce 12: Il turno da scambiare
+#### Carriera, salita, voce 12: L'agenda che si scontra
 
-- Risposta: Settimana rigida, poco incline ai favori: il calendario dei turni ti mette in difficoltà proprio nei giorni in cui avevi preso un impegno importante. Un cambio è possibile, ma chiede più preparazione del solito e una proposta già pensata da offrire.
-- Che cosa fare: Lunedì individua due colleghi a cui lo scambio potrebbe convenire e proponi a ciascuno una soluzione precisa: il tuo turno di sabato in cambio del loro di giovedì. Quando trovi l'accordo avvisa subito per iscritto chi gestisce i turni, con entrambi in copia.
-- Risposta, Lunga: Le richieste dell'ultimo minuto vengono accolte peggio di quelle che arrivano con una proposta pronta. Chi risponde vuole sapere che cosa ci guadagna e quanto gli costa. Segna in agenda il favore ricevuto: alla prossima richiesta di un collega tocca a te ricambiare.
+- Risposta: Settimana rigida e stretta nel lavoro, poco incline ai favori: orari e impegni lasciano poco margine e gli imprevisti costano più del solito. Un cambio di programma è possibile, ma chiede preparazione e una proposta già pensata da offrire a chi deve accettarlo.
+- Che cosa fare: Oggi guarda l'agenda dei prossimi sette giorni e cerca i punti dove lavoro o studio e impegni personali si scontrano. Per ciascuno prepara subito una soluzione: uno scambio, un orario diverso, una parte affidata ad altri. Chiedila per tempo e conferma per iscritto.
+- Risposta, Lunga: Le richieste dell'ultimo minuto vengono accolte peggio di quelle che arrivano con una proposta pronta. Chi risponde vuole sapere che cosa ci guadagna e quanto gli costa. Segna il favore ricevuto: alla prossima richiesta di qualcun altro tocca a te ricambiare.
 
-#### Carriera, salita, voce 13: Il buco nel curriculum
+#### Carriera, salita, voce 13: La domanda difficile
 
-- Risposta: Settimana in cui una vecchia pausa pesa più del solito: nel tuo percorso c'è un periodo vuoto che ti mette a disagio ogni volta che ti candidi. In questi giorni conviene preparare un racconto sincero e convincente, invece di sperare che nessuno lo chieda.
-- Che cosa fare: Mercoledì scrivi tre frasi che spiegano quel periodo: che cosa è successo, che cosa hai fatto o imparato, perché adesso hai l'energia per ripartire. Ripetile finché suonano tue. Sabato chiedi a una persona di fiducia di farti la domanda a bruciapelo, come in un colloquio vero.
-- Risposta, Lunga: Chi seleziona raramente si spaventa per una pausa; si insospettisce davanti a una spiegazione confusa o difensiva. Una storia breve e serena trasforma il vuoto in una parte qualunque della tua vita. Ripeti la risposta finché la dici guardando negli occhi, senza giustificarti.
+- Risposta: Nel lavoro la settimana è incerta e le domande scomode sul tuo percorso pesano più del solito: una pausa, un cambio, un risultato mancato. In questi giorni conviene preparare un racconto sincero e sereno, invece di sperare che nessuno lo chieda in un colloquio o in una valutazione.
+- Che cosa fare: Scrivi la domanda che temi di più sul tuo lavoro o sul tuo studio e rispondi in tre frasi: che cosa è successo, che cosa hai imparato, perché adesso hai l'energia per andare avanti. Ripetile finché suonano tue. Poi chiedi a una persona di fiducia di fartela a bruciapelo.
+- Risposta, Lunga: Chi valuta raramente si spaventa per un passaggio difficile; si insospettisce davanti a una spiegazione confusa o difensiva. Una storia breve e serena trasforma il punto debole in una parte qualunque del percorso. La prova che funziona: la dici guardando negli occhi, senza giustificarti.
 
-#### Carriera, salita, voce 14: L'idea senza firma
+#### Carriera, salita, voce 14: Il merito delle idee
 
-- Risposta: Settimana amara sul lavoro, in cui conviene muoverti con calma e con le prove: un'idea che avevi proposto torna in riunione con il nome di un collega sopra. La tentazione è reagire subito. La strada migliore è un'altra, più lenta e più efficace.
-- Che cosa fare: Recupera entro martedì la mail, il documento o il messaggio in cui avevi presentato l'idea, con la data. Parla prima col collega in privato, senza accuse. Poi scrivi a chi coordina il gruppo offrendo il tuo contributo allo sviluppo e allega quel testo.
-- Risposta, Lunga: Non sempre dietro questi scambi c'è malizia: a volte un'idea passa di bocca in bocca e perde la firma per strada. D'ora in poi metti per iscritto le tue proposte dopo ogni incontro, con un riepilogo breve a tutti: protegge il tuo lavoro senza creare tensioni.
+- Risposta: Settimana amara e difficile nel lavoro sul fronte del merito: le idee passano di bocca in bocca e rischiano di perdere la firma per strada. Conviene muoversi con calma e con le prove, perché la reazione a caldo, in questi giorni, fa più danni del torto subito.
+- Che cosa fare: Da oggi metti per iscritto ogni proposta che fai, con un riepilogo breve dopo ogni incontro e la data. Se un'idea tua compare col nome di un altro, recupera il testo in cui l'avevi presentata e parlane prima con quella persona, in privato e senza accuse.
+- Risposta, Lunga: Non sempre dietro questi scambi c'è malizia: a volte un'idea viaggia fra molte voci e nessuno ricorda chi l'ha detta per primo. Le tracce scritte proteggono il tuo lavoro senza creare tensioni. Il segnale più chiaro: in riunione qualcuno cita la tua proposta col tuo nome.
 
 ## Fortuna
 
 ### Fortuna, Favorevole (livello 4 e 5)
 
-#### Fortuna, favorevole, voce 1: La tessera nel portafoglio
+#### Fortuna, favorevole, voce 1: Vantaggi dimenticati
 
-- Risposta: Settimana fortunata per ciò che possiedi già senza ricordarlo: nel portafoglio o nel telefono hai tessere di biblioteche, musei e associazioni che offrono più di quanto usi. Uno di quei vantaggi dimenticati, un ingresso, un corso, un prestito, in questi giorni torna utile.
-- Che cosa fare: Martedì sera stendi sul tavolo tutte le tessere che hai e controlla per ciascuna che cosa offre: eventi per i soci, ingressi, laboratori, prestiti. Scegli una proposta da usare entro domenica e scrivila in agenda. Butta le tessere dei luoghi dove non vai più.
+- Risposta: Per la fortuna la settimana è favorevole a ciò che hai già e non ricordi: una tessera, un'iscrizione, un servizio gratuito che non usi. Uno di questi vantaggi dimenticati, un ingresso, un prestito in biblioteca, un incontro per i soci, in questi giorni può tornare utile.
+- Che cosa fare: Una sera di questa settimana raccogli tessere, iscrizioni e abbonamenti che hai, anche quelli nel telefono: controlla che cosa offrono. Scegli una proposta da usare prima che la settimana finisca e mettila in agenda. Se non hai nessuna tessera, iscriviti alla biblioteca più vicina.
 - Risposta, Lunga: Spesso la buona sorte non arriva da fuori: è già tua e aspetta solo di essere ricordata. Un'iscrizione rinnovata per abitudine può aprirti una sala, un incontro, un gruppo che non conoscevi. Chi usa davvero ciò che ha si trova più spesso nel posto giusto.
 
-#### Fortuna, favorevole, voce 2: Notizie dal vecchio ufficio
+#### Fortuna, favorevole, voce 2: Persone di un tempo
 
-- Risposta: Settimana propizia ai ritorni dal passato: una persona con cui hai lavorato anni fa ha in mano un'informazione che ti riguarda, un posto che si libera, un incarico, un nome da contattare. Basta poco perché quella notizia faccia la strada fino a te.
-- Che cosa fare: Entro mercoledì scrivi a un ex collega con cui ti trovavi bene: due righe per sapere come va e una frase chiara su che cosa cerchi adesso. Se la conversazione si riaccende, proponi un caffè entro venerdì e porta una richiesta precisa da fare.
-- Risposta, Lunga: Le occasioni migliori girano spesso fra persone che si conoscono da tempo, prima ancora di comparire in un annuncio. Chi ha visto come lavori parla di te con una fiducia che nessun curriculum sa dare. Dire che cosa cerchi permette di pensarti al momento giusto.
+- Risposta: Settimana propizia per la fortuna che passa dalle persone di un tempo: un vecchio compagno, un ex collega, un conoscente perso di vista possono avere una notizia, un nome o un'idea che ti riguarda. Basta un messaggio perché quella strada si riapra con naturalezza.
+- Che cosa fare: Entro tre giorni scrivi a una persona con cui ti trovavi bene e che non senti da tempo: due righe per sapere come va e una frase chiara su ciò che cerchi adesso. Se la conversazione si riaccende, proponi un caffè o una telefonata prima che la settimana finisca.
+- Risposta, Lunga: Le occasioni migliori girano spesso fra persone che si conoscono da tempo, prima ancora di comparire altrove. Chi conosce la tua storia parla di te con una fiducia che nessuna presentazione sa dare. Dire che cosa cerchi permette agli altri di pensarti al momento giusto.
 
-#### Fortuna, favorevole, voce 3: Un banco al mercatino
+#### Fortuna, favorevole, voce 3: Un sapere da scambiare
 
-- Risposta: Settimana favorevole agli scambi e agli incontri di quartiere: in cantina o in fondo all'armadio ci sono oggetti in buono stato che a te non servono più. In questi giorni è facile trovare chi li cerca. Con loro arriva anche qualche conoscenza nuova.
-- Che cosa fare: Scegli entro giovedì cinque oggetti da far ripartire: libri, una lampada, una giacca, un piccolo attrezzo. Puliscili e prenota un banco al mercatino del quartiere per sabato, anche solo per scambiarli. Al banco parla con chi espone accanto a te e chiedi che cosa cerca.
-- Risposta, Lunga: Liberare spazio ha un valore che si sente subito: la casa respira e ciò che resta torna visibile. Conta soprattutto l'incontro con chi porta via le tue cose con piacere. Chi espone vicino a te spesso sa dove trovare proprio ciò che ti manca da tempo.
+- Risposta: Settimana favorevole alla buona sorte negli scambi di saperi: ciò che sai fare bene può servire a qualcuno che a sua volta conosce ciò che vorresti imparare. In questi giorni questi incroci si trovano più facilmente del solito, basta dichiararli a voce alta.
+- Che cosa fare: Scrivi due righe: una cosa che sai fare, cucinare un piatto, aggiustare, una lingua, un programma; poi una che vorresti imparare. Proponi lo scambio di un'ora per un'ora a tre conoscenti o in un gruppo di quartiere. Ringrazia chiunque risponda, anche con un no.
+- Risposta, Lunga: Uno scambio di saperi non costa nulla e crea un legame alla pari: nessuno deve niente a nessuno. Spesso chi ti insegna qualcosa ti presenta anche altre persone e altre occasioni. La verifica più semplice: dopo il primo incontro nasce la voglia di un secondo.
 
-#### Fortuna, favorevole, voce 4: Una via che ritorna
+#### Fortuna, favorevole, voce 4: Coincidenze da seguire
 
-- Risposta: Settimana di coincidenze da seguire: un nome di strada, un negozio, un quartiere ti è capitato davanti più volte di recente, in una conversazione, in un annuncio, sul percorso dell'autobus. Non chiede di essere interpretato ma visitato, perché lì può esserci qualcosa per te.
-- Che cosa fare: Nel fine settimana fai un giro proprio in quella via, a piedi e senza fretta. Entra almeno in un posto che ti incuriosisce e chiedi da quanto è aperto e che cosa propone. Annota su un foglietto orari, recapiti e volantini che ti interessano.
-- Risposta, Lunga: Dietro un nome che ricorre può esserci una bottega, un corso, una persona che fa esattamente ciò che stai cercando. Le coincidenze di questi giorni premiano chi si muove. Entro lunedì decidi se tornarci con un motivo preciso: un'iscrizione, una domanda, un incontro da fissare.
+- Risposta: La buona sorte, questa settimana, è generosa di coincidenze: un nome, un luogo, un argomento che ti passa davanti più volte in questi giorni merita attenzione. Non chiede di essere interpretato ma visitato, perché la fortuna spesso si fa notare così, ripetendosi finché qualcuno se ne accorge.
+- Che cosa fare: Per tutta la settimana annota sul telefono ciò che ti capita davanti più di una volta: una via, un libro, una parola, una persona nominata. Prima che la settimana finisca scegli la coincidenza più insistente e dalle un seguito concreto: una visita, una lettura, un messaggio.
+- Risposta, Lunga: Dietro un nome che ricorre può esserci una bottega, un corso, una persona che fa esattamente ciò che stai cercando. Le coincidenze di questi giorni premiano chi si muove più di chi si limita a stupirsi. Se non portano a nulla, hai comunque conosciuto un angolo nuovo.
 
-#### Fortuna, favorevole, voce 5: Accanto al finestrino
+#### Fortuna, favorevole, voce 5: Gli incontri per strada
 
-- Risposta: Settimana fortunata negli incontri casuali: nei tragitti di questi giorni, in treno, in sala d'attesa, in coda, chi ti siede accanto può avere qualcosa da dirti. Una chiacchiera nata per caso ha buone probabilità di portarti un'indicazione utile, un nome, un'idea.
-- Che cosa fare: Per un viaggio della settimana lascia le cuffie nella borsa. Se chi ti sta vicino legge qualcosa che conosci o parla di un lavoro che ti incuriosisce, fai una domanda semplice e lascia che risponda. Se lo scambio diventa interessante, chiedi un recapito.
-- Risposta, Lunga: Gli sconosciuti parlano con una libertà che fra conoscenti si perde. Proprio perché forse non vi rivedete più, possono indicarti un libro, un ufficio, una persona che risolve, senza secondi fini. Entro il fine settimana scrivi due righe di saluto per tenere aperta la porta.
+- Risposta: Settimana fortunata negli incontri casuali: nei tragitti di questi giorni, in treno, in sala d'attesa, in coda, chi ti sta accanto può avere qualcosa da dirti. Una chiacchiera nata per caso può portarti un'indicazione utile, un nome, un'idea che cercavi senza saperlo.
+- Che cosa fare: Per almeno un tragitto di questa settimana lascia le cuffie nella borsa e il telefono in tasca. Se chi ti sta vicino legge qualcosa che conosci o parla di un tema che ti incuriosisce, fai una domanda semplice e lascia che risponda. Se lo scambio decolla, chiedi un recapito.
+- Risposta, Lunga: Gli sconosciuti parlano con una libertà che fra conoscenti si perde. Proprio perché forse non vi rivedete più, possono indicarti un libro, un ufficio, una persona che risolve, senza secondi fini. Se ricevi un recapito, scrivi due righe di saluto entro il giorno stesso.
 
-#### Fortuna, favorevole, voce 6: Il bando in bacheca
+#### Fortuna, favorevole, voce 6: Gli avvisi scritti in piccolo
 
-- Risposta: Settimana propizia alle opportunità scritte in piccolo: in un luogo che frequenti, la biblioteca, il comune, un'associazione, c'è un avviso che ti riguarda. Può essere un bando, un concorso di idee, un posto in un laboratorio gratuito, con una scadenza vicina da non lasciar passare.
-- Che cosa fare: Mercoledì passa davanti alle bacheche e sfoglia le pagine degli avvisi del tuo comune. Fotografa quelli adatti a te e scrivi accanto la scadenza in grande. Scegli il più promettente e raccogli entro venerdì i documenti richiesti in una cartella sola.
-- Risposta, Lunga: Molte opportunità restano senza candidati solo perché nessuno legge fino in fondo. Il tuo vantaggio è semplice: guardare dove gli altri passano di corsa e prendere sul serio un foglio appeso. Se un punto non è chiaro, telefona all'ufficio indicato: è la via più rapida.
+- Risposta: Settimana propizia per la fortuna nascosta negli avvisi: bacheche, pagine del comune, siti di biblioteche e associazioni possono proporre un laboratorio gratuito, un posto libero, un'iniziativa con una scadenza vicina. Chi legge fino in fondo, in questi giorni, trova più di chi passa di corsa.
+- Che cosa fare: Entro tre giorni dedica mezz'ora a leggere le bacheche e le pagine degli avvisi del tuo comune e dei luoghi che frequenti. Fotografa ciò che fa per te e scrivi accanto la scadenza in grande. Scegli la proposta più promettente e prepara subito ciò che chiede.
+- Risposta, Lunga: Molte opportunità restano senza candidati solo perché nessuno le legge per intero. Il tuo vantaggio è semplice: guardare dove gli altri passano veloci e prendere sul serio un foglio appeso. Se un punto non è chiaro, telefona all'ufficio indicato: è la via più rapida.
 
-#### Fortuna, favorevole, voce 7: L'inaugurazione di giovedì
+#### Fortuna, favorevole, voce 7: Un invito da accettare
 
-- Risposta: Settimana favorevole agli inviti che di solito declineresti: un'apertura, la presentazione di un libro, la mostra di un amico di amici. Proprio lì, in questi giorni, può esserci la persona giusta da conoscere, a patto che tu decida di andarci davvero.
-- Che cosa fare: Rispondi di sì a quell'invito e scrivilo in agenda come un impegno vero. Prepara una frase semplice per presentarti, che dica che cosa fai e che cosa ti piacerebbe fare. Resta almeno un'ora e parla con tre persone che non conosci.
-- Risposta, Lunga: Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce mezzo quartiere e ama presentare gli ospiti fra loro: lasciati accompagnare. All'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha fatto più impressione.
+- Risposta: Per la buona sorte la settimana è favorevole agli inviti che di solito declini: un'apertura, una presentazione, una cena con persone nuove. Proprio lì può esserci la persona giusta da conoscere, a patto che tu decida di andarci davvero e di restare oltre i primi saluti.
+- Che cosa fare: Al prossimo invito di questi sette giorni rispondi di sì e scrivilo in agenda come un impegno vero. Se non arriva nessun invito, scegli un evento aperto a tutti, una presentazione, una mostra, un incontro pubblico. Resta almeno un'ora e parla con tre persone nuove.
+- Risposta, Lunga: Nelle occasioni informali le persone abbassano la guardia e parlano volentieri di progetti. Chi organizza conosce molta gente e ama presentare gli ospiti fra loro: lasciati accompagnare. All'uscita salva i nomi con un appunto su che cosa fanno e scrivi a chi ti ha lasciato il segno.
 
-#### Fortuna, favorevole, voce 8: La giacca dell'anno scorso
+#### Fortuna, favorevole, voce 8: Ciò che torna a galla
 
-- Risposta: Settimana di piccole sorprese ritrovate: nelle tasche di un cappotto riposto, in una borsa dimenticata, in un cassetto della scrivania c'è qualcosa che adesso torna buono. Un biglietto con un recapito, un invito, una chiave perduta possono riaprire una strada che sembrava interrotta.
-- Che cosa fare: Con il cambio di stagione alle porte dedica sabato mattina a svuotare tasche e borse dell'inverno passato. Metti in una scatola tutto ciò che trovi e smista con calma, foglio per foglio. Per ogni cosa utile decidi subito il passo successivo.
-- Risposta, Lunga: Le risorse non stanno solo davanti ma anche alle tue spalle. Un recapito perso, un abbonamento ancora valido, un appunto scritto di fretta valgono più di quanto sembri. Salva il numero, restituisci la chiave a chi spetta, lascia uscire di casa ciò che non serve più.
+- Risposta: Settimana di buona sorte nelle piccole cose ritrovate: tasche, borse, cassetti e cartelle dimenticate custodiscono qualcosa che adesso torna utile. Un biglietto con un recapito, un invito, un appunto, una chiave perduta possono riaprire una strada che sembrava chiusa da tempo.
+- Che cosa fare: Nel fine settimana dedica un'ora a svuotare tasche, borse e un cassetto che non apri da tempo. Metti tutto ciò che trovi in una scatola e smista con calma, foglio per foglio. Per ogni cosa utile decidi subito il passo successivo: chiamare, restituire, conservare.
+- Risposta, Lunga: Le risorse non stanno solo davanti ma anche alle tue spalle. Un recapito perso, un appunto scritto di fretta, una promessa di aiuto mai richiamata valgono più di quanto sembri. Ciò che non serve più lascialo uscire di casa: anche lo spazio libero è una piccola fortuna.
 
-#### Fortuna, favorevole, voce 9: Un divano lontano
+#### Fortuna, favorevole, voce 9: Rispondere presto
 
-- Risposta: Settimana favorevole ai viaggi verso le persone care: chi vive in un'altra città e ti invita da tempo a casa sua può finalmente avere una risposta. L'invito può diventare un viaggio vero, con un letto pronto e qualcuno che conosce le strade.
-- Che cosa fare: Entro giovedì chiama quella persona e proponi due fine settimana possibili nei prossimi mesi. Cerca subito i collegamenti, così hai la scelta degli orari migliori. Quando la data è fissata chiedi che cosa desidera dalla tua città e porta quel pensiero con te.
-- Risposta, Lunga: Essere ospiti di chi ci vuole bene è un piccolo lusso che spesso si rimanda per pudore. Visitare un luogo con gli occhi di chi ci abita apre porte che un turista non vede: un mercato, una trattoria, una conoscenza nuova. Offri tu almeno una cena.
+- Risposta: La fortuna di questa settimana è favorevole a chi risponde presto: le occasioni di questi giorni sono rapide e premiano chi dice sì o no senza lasciarle in sospeso. Un messaggio letto e rimandato può contenere proprio la proposta che cercavi, ancora aperta per poco.
+- Che cosa fare: Oggi apri i messaggi a cui non hai risposto e dividili in due gruppi: quelli che contano e quelli che puoi chiudere con una riga. Rispondi a tutti entro tre giorni. Per il resto della settimana prova a rispondere alle proposte entro la giornata.
+- Risposta, Lunga: Chi tarda a rispondere non perde solo tempo: perde il posto in fila quando un'occasione ha pochi posti. Anche un no veloce lascia un buon ricordo e tiene aperta la porta per la volta successiva. Il segno che funziona: la casella si svuota e la testa si alleggerisce.
 
-#### Fortuna, favorevole, voce 10: Chi ha una scala
+#### Fortuna, favorevole, voce 10: La scala del vicino
 
-- Risposta: Settimana fortunata nell'aiuto fra vicini: ti serve un oggetto che useresti una volta sola, una scala alta, un trapano, un seggiolino per un ospite. Chi ti sta intorno può risolverti il problema in un attimo, basta chiederlo apertamente e con una proposta chiara.
-- Che cosa fare: Scrivi nella chat del condominio o del quartiere una richiesta precisa: che cosa ti serve, per quanti giorni, quando lo restituisci. Offri in cambio qualcosa di tuo, un passaggio, una torta, un'ora di aiuto. Riporta l'oggetto pulito con un biglietto di grazie.
-- Risposta, Lunga: Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni fra vicini. Tieni nota di chi ti ha prestato qualcosa: quando qualcuno chiede, sai già a chi rivolgerti.
+- Risposta: Settimana fortunata nell'aiuto fra vicini e conoscenti: chi ti sta intorno è più disponibile del solito a dare una mano o a prestare ciò che serve. Se ti manca un oggetto che useresti una volta sola, una scala, un trapano, una valigia grande, chiedere apertamente risolve in un attimo.
+- Che cosa fare: Scegli una cosa che ti servirebbe per poco tempo e chiedila a un vicino, a un conoscente o nella chat del palazzo: che cosa, per quanti giorni, quando la restituisci. Offri in cambio qualcosa di tuo. Se non ti serve nulla, offri tu un prestito a chi chiede.
+- Risposta, Lunga: Chiedere apertamente crea legami più di quanto pensi. Chi presta si sente utile, chi riceve impara a fidarsi. Da uno scambio così nascono spesso altre piccole collaborazioni. Riporta ciò che ricevi pulito e con un biglietto di grazie: è il dettaglio che fa ricordare.
 
-#### Fortuna, favorevole, voce 11: Il passaparola
+#### Fortuna, favorevole, voce 11: Tre tentativi piccoli
 
-- Risposta: Settimana in cui il tuo buon nome lavora per te: qualcuno che ha apprezzato il tuo aiuto o il tuo lavoro sta parlando bene di te. Quella voce, nei prossimi giorni, può raggiungere una persona che ha proprio bisogno di ciò che sai fare.
-- Che cosa fare: Scrivi entro martedì a due persone che hai aiutato di recente e chiedi se possono consigliarti a chi cerca qualcosa di simile. Dai loro una frase pronta da girare, breve e chiara. Quando qualcuno ti contatta, rispondi entro un giorno.
-- Risposta, Lunga: Il buon nome si costruisce lentamente ma corre veloce quando qualcuno lo porta per mano. Una raccomandazione sincera pesa più di qualsiasi presentazione, perché arriva da chi ha visto i risultati. Ringrazia chi ha fatto il tuo nome e annota da dove arriva ogni richiesta.
+- Risposta: Settimana propizia per la fortuna di chi tenta: in questi giorni la buona sorte premia il numero dei tentativi più della perfezione di ciascuno. Una domanda fatta, un'iscrizione inviata, una proposta lanciata hanno più strada del solito, anche quando sembrano piccole e poco importanti.
+- Che cosa fare: Scrivi tre tentativi che rimandi da tempo e che richiedono meno di mezz'ora ciascuno: chiedere un'informazione, iscriverti a qualcosa, proporre un'idea a qualcuno. Fanne uno al giorno, a partire da oggi. Accanto a ognuno annota la data e che cosa è successo dopo.
+- Risposta, Lunga: La fortuna ha bisogno di porte da attraversare: chi bussa a tre porte ha tre volte le possibilità di chi aspetta davanti a una. I tentativi piccoli costano poco e insegnano molto. Anche un no ti dice qualcosa: dove riprovare, con chi, in che modo.
 
-#### Fortuna, favorevole, voce 12: La sedia libera
+#### Fortuna, favorevole, voce 12: Una domanda a chi ammiri
 
-- Risposta: Settimana propizia per farti avanti: al lavoro, in un'associazione o in una squadra qualcuno sta per lasciare un ruolo che ti interessa. Chi si propone presto, con garbo, ha buone possibilità che la sua voce conti nella scelta, prima che si cerchi altrove.
-- Che cosa fare: Entro mercoledì parla con la persona che se ne va e chiedile com'è davvero quel ruolo. Poi comunica il tuo interesse a chi decide, con una frase sola e una cosa concreta che sapresti fare. Prepara per venerdì un foglio con tre idee.
-- Risposta, Lunga: Le sostituzioni si decidono spesso in fretta, fra chi è già presente e ha mostrato disponibilità. Non servono tutti i titoli: conta far sapere che ci sei. Un foglio con le tue idee e le ore che puoi dedicare rende facile a chiunque dirti di sì.
+- Risposta: Per la buona sorte è una settimana favorevole alle richieste coraggiose: una persona che stimi, per ciò che fa o per come lo fa, è più raggiungibile di quanto pensi. Una domanda precisa, in questi giorni, può portarti una risposta che apre una strada.
+- Che cosa fare: Scegli una persona che ammiri e che puoi raggiungere con un messaggio: un autore, un artigiano, una persona esperta del tuo quartiere o della tua città. Scrivile entro tre giorni con una domanda sola, breve e concreta, più un grazie sincero per il suo lavoro.
+- Risposta, Lunga: Le persone che hanno costruito qualcosa ricevono molti complimenti e poche domande vere. Una domanda precisa mostra rispetto e rende facile rispondere in due righe. Se la risposta arriva, ringrazia raccontando che cosa ne hai fatto: spesso è lì che nasce un dialogo.
 
-#### Fortuna, favorevole, voce 13: Il gruppo della domenica
+#### Fortuna, favorevole, voce 13: Una passione in compagnia
 
-- Risposta: Settimana favorevole alle compagnie nuove: un gruppo che si ritrova con regolarità per camminare, cucinare, leggere o fare volontariato cerca facce nuove. Entrarci adesso può aprirti una rete di conoscenze preziose, nate dal fare insieme e non dalla fretta di presentarsi.
-- Che cosa fare: Cerca entro giovedì un gruppo del tuo quartiere che si incontra nel fine settimana e scrivi a chi lo organizza per unirti alla prossima uscita. Presentati con il nome e una passione. Porta qualcosa da condividere, un termos di tè, dei biscotti, una mappa.
-- Risposta, Lunga: Quando si fa qualcosa insieme, le persone si raccontano senza sforzo: il mestiere, i figli, il negozio che vogliono aprire. In quelle chiacchiere passano informazioni che nessun annuncio riporta. Impara tre nomi e prima di salutare chiedi la data del prossimo incontro.
+- Risposta: Settimana favorevole alla fortuna nelle compagnie nuove: i gruppi che si ritrovano per camminare, cucinare, leggere, cantare o fotografare cercano spesso volti nuovi. Entrarci adesso può aprirti una rete di conoscenze nate dal fare insieme, più solide di quelle nate dalla fretta di presentarsi.
+- Che cosa fare: Entro quattro giorni cerca un gruppo vicino a te legato a una passione che hai o che vorresti avere e scrivi a chi lo organizza per partecipare al prossimo incontro. Presentati col nome e con una curiosità. Porta qualcosa da condividere, un termos di tè, una mappa.
+- Risposta, Lunga: Quando si fa qualcosa insieme le persone si raccontano senza sforzo: il mestiere, i viaggi, il negozio che vogliono aprire. In quelle chiacchiere passano informazioni che nessun annuncio riporta. Impara tre nomi e prima di salutare chiedi quando è il prossimo appuntamento.
 
-#### Fortuna, favorevole, voce 14: Una ricerca dichiarata
+#### Fortuna, favorevole, voce 14: Dillo ad alta voce
 
-- Risposta: Settimana fortunata per chi cerca qualcosa e lo dice: una stanza, una bici usata, un insegnante di chitarra. Finora te ne occupi in silenzio, mentre in questi giorni dirlo ad alta voce può farti arrivare la pista giusta da chi meno ti aspetti.
-- Che cosa fare: Entro mercoledì scrivi in tre righe che cosa cerchi, per quando e con quali caratteristiche. Mandale a cinque persone con giri diversi dal tuo: un parente, chi frequentava il tuo vecchio corso, chi gestisce il bar sotto casa. Ringrazia subito chiunque risponda.
+- Risposta: Settimana fortunata per chi cerca qualcosa e lo dice: una casa, un oggetto usato, un insegnante, un'informazione. Tenerlo per te riduce le possibilità; dirlo ad alta voce, in questi giorni, può farti arrivare la pista giusta da chi meno ti aspetti, anche da lontano.
+- Che cosa fare: Scrivi in tre righe che cosa cerchi adesso, con le caratteristiche che contano. Mandale entro tre giorni a cinque persone con giri diversi dal tuo: un parente, un vicino, un vecchio compagno, una persona conosciuta di recente. Ringrazia subito chiunque risponda, anche senza notizie.
 - Risposta, Lunga: Le occasioni migliori girano a voce prima di finire in un annuncio: qualcuno sa di un amico che trasloca, di un negozio che svuota il magazzino. Basta che il tuo bisogno sia nell'aria quando passa quella notizia. Racconta sempre com'è andata a chi ti ha indicato una pista.
 
 ### Fortuna, In equilibrio (livello 3)
 
-#### Fortuna, equilibrio, voce 1: Due proposte per sabato
+#### Fortuna, equilibrio, voce 1: Scegliere fra due occasioni
 
-- Risposta: Settimana di abbondanza da governare: per lo stesso fine settimana arrivano due inviti interessanti e non puoi accettarli entrambi. Nessuno dei due è sbagliato. La fortuna di questi giorni sta nella scelta, cioè nel preferire quello che ti avvicina a ciò che vuoi.
-- Che cosa fare: Entro mercoledì scrivi su un foglio, per ciascun invito, chi incontreresti e che cosa ti resterebbe dopo. Scegli quello con la risposta più concreta e comunica la decisione a entrambi. Al secondo rispondi con gratitudine e proponi un'altra data precisa.
-- Risposta, Lunga: L'abbondanza è tanto un dono quanto una prova. Chi prova a stare ovunque non si gode niente; chi sceglie con calma porta la sua presenza intera dove va. Offrire un'altra data fa capire che il tuo no riguarda il calendario e non il vostro legame.
+- Risposta: Settimana equilibrata per la fortuna: le occasioni ci sono ma non si possono cogliere tutte. La buona sorte di questi giorni sta nella scelta, cioè nel preferire ciò che ti avvicina davvero a quello che vuoi, invece di inseguire ogni proposta per paura di perderla.
+- Che cosa fare: Se due proposte si sovrappongono, scrivi per ciascuna chi incontreresti e che cosa ti resterebbe dopo. Scegli quella con la risposta più concreta e comunica la decisione a entrambe le parti. Se nulla si sovrappone, scegli lo stesso una sola occasione su cui puntare in questi giorni.
+- Risposta, Lunga: L'abbondanza è tanto un dono quanto una prova. Chi prova a stare ovunque non si gode niente; chi sceglie con calma porta la sua presenza intera dove va. A chi rinunci, proponi un'altra data precisa: il tuo no riguarda il calendario, non il legame.
 
 #### Fortuna, equilibrio, voce 2: Il favore che pareggia
 
-- Risposta: Settimana giusta per pareggiare con eleganza un conto aperto: qualcuno ti ha dato una mano di recente, con un passaggio, un contatto, un consiglio prezioso. Restituire adesso il gesto mantiene vivo un legame che può portarti altre occasioni nei mesi a venire.
-- Che cosa fare: Pensa a che cosa servirebbe davvero a quella persona e offrilo entro venerdì: una cena cucinata da te, un'ora del tuo tempo, un contatto utile. Proponilo con una data già pronta. Nel fine settimana scrivi su un quaderno i favori ricevuti e quelli fatti.
-- Risposta, Lunga: Le reti che funzionano reggono sull'equilibrio fra dare e ricevere. Un favore restituito al momento giusto rafforza un legame più di cento ringraziamenti, perché dimostra che di te ci si può fidare. Se una colonna del quaderno pesa troppo, pareggiala con un gesto alla volta.
+- Risposta: Per la buona sorte nei rapporti la settimana è stabile, adatta a restituire un favore ricevuto. La fortuna di questi giorni passa dai legami che si nutrono nei due sensi: un gesto ricambiato al momento giusto tiene viva una rete che porta occasioni a chi la cura.
+- Che cosa fare: Pensa a una persona che ti ha dato una mano con un passaggio, un contatto, un consiglio. Offrile entro quattro giorni qualcosa che le serva davvero: un'ora del tuo tempo, una cena cucinata da te, un nome utile. Proponilo con una data già pronta.
+- Risposta, Lunga: Le reti che funzionano reggono sull'equilibrio fra dare e ricevere. Un favore restituito vale più di cento ringraziamenti, perché mostra che di te ci si può fidare. Tieni una nota dei favori ricevuti e fatti: se una parte pesa troppo, pareggiala con un gesto alla volta.
 
-#### Fortuna, equilibrio, voce 3: I biglietti da visita
+#### Fortuna, equilibrio, voce 3: I contatti in ordine
 
-- Risposta: Settimana tranquilla, adatta a rimettere in ordine i contatti: fra portafoglio, borsa e telefono si sono accumulati nomi e numeri di persone conosciute di passaggio. Alcuni contano, altri no. Ritrovarli prima che sbiadiscano può riaprire una porta che avevi dimenticato.
-- Che cosa fare: Martedì raccogli i biglietti da visita e i contatti salvati negli ultimi mesi. Per ciascuno scrivi una riga: dove vi siete conosciuti, di che cosa si occupa, se ha senso risentirsi. Scegli tre nomi e scrivi entro venerdì un breve messaggio a ognuno.
+- Risposta: Settimana tranquilla per la fortuna, adatta a rimettere in ordine i contatti. Fra telefono, posta e biglietti conservati si sono accumulati nomi di persone conosciute di passaggio: ritrovarli prima che sbiadiscano può riaprire una porta dimenticata e ricordarti chi può darti una mano.
+- Che cosa fare: Una sera di questa settimana scorri i contatti salvati di recente e per ciascuno scrivi una riga: dove vi siete conosciuti, di che cosa si occupa, se ha senso risentirsi. Scegli tre nomi e manda a ognuno un breve messaggio prima che la settimana finisca.
 - Risposta, Lunga: Una rubrica disordinata è un cassetto chiuso a chiave. Basta un'ora per ritrovare chi lavora in un campo che adesso ti interessa, o chi ti aveva offerto aiuto e non hai mai richiamato. I contatti senza una riga utile puoi cancellarli senza rimpianti.
 
-#### Fortuna, equilibrio, voce 4: Il reso entro venerdì
+#### Fortuna, equilibrio, voce 4: Le piccole scadenze
 
-- Risposta: Settimana in cui una piccola finestra si chiude presto: in un angolo di casa c'è un oggetto preso di recente che non ti convince, scarpe strette, un maglione mai indossato, un doppione. Il tempo per cambiarlo con qualcosa che usi davvero non è infinito.
-- Che cosa fare: Lunedì recupera lo scontrino o la mail di conferma e controlla fino a quando puoi rimediare. Rimetti l'oggetto nella sua confezione e fissa in agenda il giorno in cui riportarlo. Scegli al suo posto una cosa che ti serve sul serio, senza fretta.
-- Risposta, Lunga: Tenere una cosa sbagliata per pigrizia significa lasciarle occupare spazio e pensieri. Rimediare non è un fallimento: è il modo più semplice di rimettere in circolo ciò che è tuo. La buona sorte di questi giorni premia chi chiude le piccole questioni prima della scadenza.
+- Risposta: La buona sorte, in questa settimana regolare, premia chi chiude le piccole questioni prima che scadano: un documento da rinnovare, un'iscrizione da confermare, una prenotazione da fissare, un modulo da consegnare. Niente di urgente, ma lasciarle correre trasforma una cosa semplice in un fastidio.
+- Che cosa fare: Oggi scrivi l'elenco delle piccole scadenze che ti aspettano, con la data accanto a ciascuna. Scegline due da chiudere prima che la settimana finisca e falle subito, anche se mancano giorni. Per le altre metti un promemoria sul telefono qualche giorno prima.
+- Risposta, Lunga: Le occasioni perse per una scadenza dimenticata pesano più di quelle mai arrivate. Chiudere in anticipo libera la testa e lascia spazio alle sorprese buone. La prova che funziona: nessuna data ti arriva addosso all'improvviso e le richieste nuove trovano la strada sgombra.
 
-#### Fortuna, equilibrio, voce 5: Il noleggio in tre
+#### Fortuna, equilibrio, voce 5: Le cose fatte insieme
 
-- Risposta: Settimana buona per i progetti condivisi, purché le regole siano chiare: con amici o parenti state pensando a un viaggio o a un'attività da fare insieme, un'auto a noleggio, una casa per qualche giorno. Organizzarsi bene adesso evita malintesi durante il viaggio.
-- Che cosa fare: Prima di prenotare apri entro giovedì una nota condivisa con il gruppo: chi si occupa di che cosa, entro quando, chi tiene i documenti. Chiedi a ognuno di confermare per iscritto prima di procedere. Al ritorno fate insieme un bilancio di dieci minuti.
-- Risposta, Lunga: Le cose comuni lasciate nel vago rovinano più amicizie dei litigi veri. Mettere tutto nero su bianco fin dall'inizio non è sfiducia ma rispetto: ciascuno sa che cosa gli tocca e nessuno si sente in debito. Così il viaggio resta il centro di tutto.
+- Risposta: Settimana in equilibrio per la fortuna nelle cose condivise: gite, attività di gruppo, impegni presi con altri funzionano bene se le regole sono chiare fin dall'inizio. Organizzarsi adesso evita malintesi e lascia spazio al piacere di stare insieme senza pesi nascosti.
+- Che cosa fare: Se stai organizzando qualcosa con altre persone, apri una nota condivisa: chi si occupa di che cosa, entro quando, chi tiene i documenti. Chiedi a ognuno di confermare per iscritto. Se non hai nulla in programma, proponi tu un'attività semplice a due o tre persone.
+- Risposta, Lunga: Le cose comuni lasciate nel vago rovinano più rapporti dei litigi veri. Mettere tutto nero su bianco non è sfiducia ma rispetto: ciascuno sa che cosa gli tocca e nessuno si sente in difetto. Così l'attenzione resta su ciò che conta, la compagnia.
 
-#### Fortuna, equilibrio, voce 6: Due conversazioni vere
+#### Fortuna, equilibrio, voce 6: Due scambi lunghi alla festa
 
-- Risposta: Settimana in cui conta la qualità degli incontri più del numero: ti aspetta un'occasione affollata, una fiera, un convegno, una festa con molta gente. La tentazione è salutare tutti e non ricordare nessuno, mentre la strada più fruttuosa passa da poche conversazioni vere.
-- Che cosa fare: Prima di entrare decidi di avere solo due conversazioni lunghe con persone che non conosci. Fai domande sul loro lavoro e ascolta davvero, poi chiedi come restare in contatto. Entro due giorni scrivi a entrambe citando un dettaglio della chiacchierata.
-- Risposta, Lunga: Venti strette di mano lasciano un ricordo vago; due scambi sinceri lasciano un nome, un volto, la voglia reciproca di risentirsi. Nel messaggio successivo proponi un passo piccolo e preciso, come un articolo da scambiarsi o un caffè la settimana dopo, senza chiedere troppo.
+- Risposta: Settimana misurata per la fortuna negli incontri: conta la qualità delle conversazioni più del numero. In ogni occasione con molta gente, una riunione, una festa, un pranzo, la strada più fruttuosa passa da pochi scambi veri, non da molti saluti dimenticati subito.
+- Che cosa fare: Alla prossima occasione affollata di questa settimana decidi di avere solo due conversazioni lunghe con persone che conosci poco. Fai domande sulla loro vita e ascolta davvero, poi chiedi come restare in contatto. Entro due giorni scrivi a entrambe citando un dettaglio.
+- Risposta, Lunga: Venti strette di mano lasciano un ricordo vago; due scambi sinceri lasciano un nome, un volto, la voglia reciproca di risentirsi. Nel messaggio successivo proponi un passo piccolo e preciso, come un libro da scambiarsi o una passeggiata, senza chiedere troppo.
 
-#### Fortuna, equilibrio, voce 7: La casa in fotografia
+#### Fortuna, equilibrio, voce 7: Il taccuino delle occasioni
 
-- Risposta: Settimana in cui conviene distinguere l'occasione vera dall'immagine troppo bella: ti capita sotto gli occhi un'offerta che sembra perfetta, una casa per le vacanze, un corso, un servizio. Il periodo non spinge né trattiene e lascia a te il compito di verificare.
-- Che cosa fare: Prima di impegnarti o di lasciare i tuoi dati chiedi entro mercoledì una videochiamata o un contatto telefonico diretto. Cerca recensioni con il nome esatto dell'offerta e confrontala con proposte simili. Conserva ogni messaggio scambiato fino alla fine e non decidere prima di aver ricevuto tutte le risposte.
-- Risposta, Lunga: Chi offre qualcosa di serio risponde volentieri alle domande; chi ha fretta di chiudere spesso sparisce alla seconda richiesta. Se tutto torna, procedi con calma. Se qualcosa stride, lascia perdere senza rimpianto: un'alternativa più limpida si trova quasi sempre, basta cercarla.
+- Risposta: Per la fortuna è una settimana ordinaria, senza colpi di scena: la buona sorte passa in piccole dosi e aiuta chi la nota. Un'idea, un nome, una proposta sentita di sfuggita svaniscono in fretta se nessuno li scrive; annotati, invece, tornano utili al momento giusto.
+- Che cosa fare: Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due voci a cui dare un seguito concreto.
+- Risposta, Lunga: Molte occasioni non mancano: si perdono fra un pensiero e l'altro. Scriverle le trasforma da impressioni in possibilità concrete. Il segnale più chiaro: rileggendo ti accorgi che alcune voci si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.
 
-#### Fortuna, equilibrio, voce 8: Il venerdì libero
+#### Fortuna, equilibrio, voce 8: Un margine libero
 
-- Risposta: Settimana in cui la fortuna ha bisogno di spazio: la tua agenda è piena fino all'orlo e non lascia posto a niente di imprevisto. Eppure le occasioni arrivano spesso senza preavviso e trovano chiusa la porta di chi non ha un'ora libera.
-- Che cosa fare: Scegli un pomeriggio, per esempio venerdì: tienilo vuoto. Se qualcuno propone un incontro o un'opportunità all'ultimo minuto, rispondi che quel giorno ci sei. Se non arriva nulla, usa quelle ore per aggiornare il profilo o rispondere a un messaggio importante.
-- Risposta, Lunga: Il tempo è una risorsa come le altre e va amministrato con lo stesso criterio. Un margine lasciato aperto non è spreco: è il posto dove entrano l'imprevisto buono, la telefonata che conta, l'invito inatteso. Anche una visita rimandata può aprire una strada nuova.
+- Risposta: Settimana neutra per la buona sorte: le occasioni impreviste trovano posto solo dove c'è un margine libero. Un'agenda piena fino all'orlo chiude la porta proprio alle sorprese migliori, che di solito arrivano senza preavviso e chiedono un'ora disponibile per essere accolte.
+- Che cosa fare: Scegli un pomeriggio o una sera di questa settimana e tienilo vuoto, senza riempirlo per abitudine. Se qualcuno propone un incontro all'ultimo minuto, rispondi che quel giorno ci sei. Se non arriva nulla, usa quelle ore per una passeggiata in un posto nuovo.
+- Risposta, Lunga: Il tempo è una risorsa come le altre e va amministrato con lo stesso criterio. Un margine aperto non è spreco: è il posto dove entrano l'imprevisto buono, la telefonata che conta, l'invito inatteso. Anche una visita rimandata può aprire una strada nuova.
 
-#### Fortuna, equilibrio, voce 9: Il regalo da cambiare
+#### Fortuna, equilibrio, voce 9: Il dono che riparte
 
-- Risposta: Settimana adatta a dare una vita vera a un dono poco adatto: una taglia sbagliata, un libro già letto, un oggetto che resta nel cassetto. Lasciarlo lì non rende onore a chi te l'ha fatto, mentre trasformarlo in qualcosa di utile prolunga il pensiero.
-- Che cosa fare: Chiedi con delicatezza a chi te l'ha regalato se esiste lo scontrino per il cambio, oppure verifica entro giovedì le condizioni del negozio. Scegli al suo posto qualcosa da usare davvero. Se il cambio non è possibile, regalalo a chi può apprezzarlo.
-- Risposta, Lunga: Un regalo vive quando viene usato. Cambiarlo non toglie nulla all'affetto di chi l'ha scelto: gli dà un posto vero nella tua vita. Se passa di mano, accompagnalo con un biglietto sincero e racconta com'è finita a chi te l'aveva donato, se il legame lo permette.
+- Risposta: Settimana tranquilla per la fortuna, adatta a far circolare ciò che resta fermo: un libro già letto, un oggetto mai usato, un regalo che non fa per te. Lasciarlo in un cassetto non serve a nessuno, mentre donarlo a chi lo apprezza mette in moto la gentilezza.
+- Che cosa fare: Scegli entro tre giorni un oggetto in buono stato che non usi e pensa a chi potrebbe goderselo davvero: un'amica, un vicino, una biblioteca, un'associazione. Consegnalo di persona con due parole sul perché hai pensato proprio a lui o a lei.
+- Risposta, Lunga: Un oggetto vive quando viene usato. Farlo ripartire non toglie nulla a nessuno: libera spazio in casa e nei pensieri, oltre che negli armadi. La gentilezza che circola tende a tornare indietro, spesso per vie impreviste: un favore, un invito, un contatto.
 
-#### Fortuna, equilibrio, voce 10: Il baratto sul pianerottolo
+#### Fortuna, equilibrio, voce 10: Un'ora fuori casa
 
-- Risposta: Settimana favorevole agli scambi alla pari: hai in casa qualcosa in abbondanza, limoni del giardino, barattoli di marmellata, libri doppi, mentre un vicino ha esattamente ciò che a te manca. Un baratto conviene a entrambi e crea una fiducia che dura nel tempo.
-- Che cosa fare: Nel fine settimana bussa alla porta accanto con un vasetto o un sacchetto di ciò che hai in più. Offrilo senza chiedere niente e lascia cadere nella conversazione che cosa ti servirebbe. Se lo scambio funziona, proponi di ripeterlo con una cadenza fissa.
-- Risposta, Lunga: I baratti fra vicini sono una forma antica di ricchezza: non costano nulla e creano legami. Il valore sta nell'equilibrio, nel dare quanto si riceve senza tenere il conto al centesimo. Un messaggio nella chat del palazzo può allargare il giro a chi vuole partecipare.
+- Risposta: La buona sorte, in una settimana stabile come questa, si incontra fuori dalle quattro mura: le occasioni nascono dove passano le persone. Biblioteche, parchi, piazze, mercati e caffè sono il terreno dove un saluto può diventare una conversazione utile o un'idea nuova.
+- Che cosa fare: Ogni giorno di questa settimana passa almeno mezz'ora in un luogo pubblico, senza fretta e con lo sguardo alzato. Cambia luogo almeno tre volte. Saluta chi incontri più di una volta e, se l'occasione si presenta, scambia due parole su ciò che sta succedendo intorno.
+- Risposta, Lunga: La fortuna ha bisogno di incroci e gli incroci hanno bisogno di presenza. Chi esce con regolarità diventa un volto noto: ai volti noti si raccontano le notizie, gli inviti, i consigli. La verifica più semplice: qualcuno comincia a salutarti per primo.
 
-#### Fortuna, equilibrio, voce 11: La rimpatriata di classe
+#### Fortuna, equilibrio, voce 11: Gratitudine che rafforza i legami
 
-- Risposta: Settimana di ritorni utili: arriva un invito per ritrovare i vecchi compagni di scuola o di università. Al di là dei ricordi, fra quelle persone c'è chi adesso lavora in campi che ti interessano da vicino e può offrirti uno sguardo nuovo.
-- Che cosa fare: Rispondi entro mercoledì e prima della cena sfoglia i profili di chi ha confermato. Scegli due o tre persone con cui vuoi davvero parlare e prepara una domanda per ciascuna. Durante la serata racconta in due frasi che cosa fai adesso.
-- Risposta, Lunga: Le rimpatriate hanno un equilibrio delicato: troppa nostalgia e si resta nel passato, troppo calcolo e si rovina l'atmosfera. La misura giusta è la curiosità sincera per la strada di ognuno. Nei giorni dopo riprendi i contatti promettenti con una proposta concreta.
+- Risposta: Settimana serena per la fortuna, adatta a dire grazie a chi lo merita. La buona sorte di questi giorni si muove sulla gratitudine: un ringraziamento sincero rafforza i legami e ricorda agli altri che con te vale la pena collaborare, chiacchierare, condividere una notizia.
+- Che cosa fare: Entro tre giorni scrivi o dì a voce un grazie preciso a tre persone: chi ti ha dato un consiglio, chi ti ha fatto un piacere, chi ti ha insegnato qualcosa. Nomina il gesto esatto e che cosa ha cambiato per te. Niente frasi generiche.
+- Risposta, Lunga: Un grazie preciso vale più di un regalo, perché mostra che hai notato. Chi si sente riconosciuto ricorda il tuo nome nel momento in cui passa un'occasione. Il segno che funziona: qualcuno risponde raccontandoti a sua volta una cosa che non sapevi.
 
-#### Fortuna, equilibrio, voce 12: L'occasione che preme
+#### Fortuna, equilibrio, voce 12: Non ogni occasione è un'occasione
 
-- Risposta: Settimana in cui non ogni occasione è un'occasione: arrivano proposte a ripetizione, inviti, iscrizioni, offerte valide solo fino a domani, tutte con la stessa urgenza. Alcune ti servono davvero; la maggior parte vuole soltanto una risposta in fretta. La scadenza stretta non è un buon motivo.
-- Che cosa fare: Prima di aprire le proposte scrivi su un foglio le tre cose che desideri sul serio in questo mese. Prendi in considerazione solo ciò che corrisponde a quell'elenco e archivia il resto senza leggerlo. Cancella l'iscrizione a due liste che non apri mai.
+- Risposta: Per la fortuna la settimana è misurata e non ogni occasione è un'occasione: proposte, inviti e iscrizioni arrivano tutti con la stessa urgenza. Alcuni servono davvero; la maggior parte vuole soltanto una risposta in fretta. La scadenza stretta, da sola, non è un buon motivo per accettare.
+- Che cosa fare: Prima di aprire le proposte di questi giorni scrivi su un foglio le tre cose che desideri sul serio adesso. Prendi in considerazione solo ciò che corrisponde a quell'elenco e archivia il resto senza leggerlo. Cancella l'iscrizione a due liste che non apri mai.
 - Risposta, Lunga: Un vantaggio è tale quando risponde a un bisogno che avevi già. Dire di sì solo perché la porta sembra chiudersi trasforma un'occasione apparente in un impegno fuori programma. Le proposte utili arrivano lo stesso, con meno rumore: trovano il tuo tempo ancora libero.
 
-#### Fortuna, equilibrio, voce 13: L'iscrizione anticipata
+#### Fortuna, equilibrio, voce 13: Un'ora per gli altri
 
-- Risposta: Settimana in cui decidere presto premia: un corso, un laboratorio o un evento che ti interessa riserva i posti migliori a chi si iscrive entro pochi giorni. Il vantaggio è concreto, ma vale solo se poi ci vai davvero e con continuità.
-- Che cosa fare: Prima di iscriverti apri l'agenda e verifica che le date siano libere per tutta la durata. Se lo sono, completa l'iscrizione entro giovedì e riporta subito i giorni sul calendario. Cerca fra amici e colleghi qualcuno interessato allo stesso corso.
-- Risposta, Lunga: Chi decide presto viene premiato per la chiarezza, non per la fretta. Un posto prenotato e poi lasciato vuoto pesa più di una rinuncia; uno scelto con consapevolezza diventa un impegno che fa crescere. Andarci in compagnia aiuta anche a non saltare gli incontri.
+- Risposta: Settimana tranquilla per la buona sorte, che passa volentieri da chi dà qualcosa senza calcolo. Offrire un'ora del tuo tempo a una causa, un'associazione, una raccolta, una biblioteca di quartiere apre incontri che altrove non capitano, con persone che altrimenti non conosceresti.
+- Che cosa fare: Entro quattro giorni cerca un'associazione vicina a te che chiede volontari anche per poche ore e scrivi per offrire un turno. Scegli un compito adatto a ciò che sai fare. Il giorno dell'impegno arriva in orario e presentati agli altri volontari con il tuo nome.
+- Risposta, Lunga: Fra i volontari si incontrano persone di ogni età e mestiere, unite da qualcosa di concreto. Le conversazioni nascono senza sforzo e da lì passano notizie, consigli, legami. La prova che funziona: alla fine del turno qualcuno ti chiede se torni.
 
-#### Fortuna, equilibrio, voce 14: Il passaggio condiviso
+#### Fortuna, equilibrio, voce 14: Una seconda occhiata
 
-- Risposta: Settimana adatta a valutare con calma un tragitto in compagnia: un collega o un vicino fa ogni mattina la tua stessa strada, alla stessa ora, ciascuno nella propria auto. Viaggiare insieme può portare chiacchiere, notizie e nomi di persone da conoscere.
-- Che cosa fare: Entro giovedì proponi di provare per una settimana: un giorno guida uno, un giorno l'altro. Mettete subito in chiaro gli orari di partenza, il tempo massimo di attesa e le piccole regole del viaggio, dalla radio al silenzio del mattino.
-- Risposta, Lunga: Il viaggio insieme chiede elasticità: ritardi altrui, gusti diversi, un silenzio da rispettare. Proprio per questo funziona meglio se si dice tutto prima. Alla fine della prova fate il punto in cinque minuti e, se uno preferisce smettere, chiudete con gentilezza.
+- Risposta: Per la fortuna la settimana è neutra, adatta a riguardare con calma ciò che hai scartato in fretta. Una proposta rifiutata, un invito ignorato, un'idea messa da parte per stanchezza possono meritare una seconda occhiata, adesso che la mente è più pacata e lo sguardo più lungo.
+- Che cosa fare: Ripensa alle ultime proposte a cui hai detto no o non hai risposto. Scegline una e chiediti se il motivo del rifiuto vale ancora. Se non vale più, scrivi entro tre giorni a chi te l'aveva proposta chiedendo se c'è ancora spazio.
+- Risposta, Lunga: Molti no nascono dalla fretta o dall'umore di un momento, non da una valutazione vera. Tornare su una scelta non è debolezza: è dare alla fortuna una seconda possibilità di passare. Se la porta è chiusa, almeno sai che la tua decisione era quella giusta.
 
 ### Fortuna, In salita (livello 2 e sotto)
 
 #### Fortuna, salita, voce 1: La prossima tornata
 
-- Risposta: Settimana in salita per le occasioni, ma con la partita ancora aperta: un posto è andato ad altri, una selezione è finita male, un evento era già al completo. Il dispiacere è comprensibile, eppure questa porta chiusa non è un verdetto definitivo.
-- Che cosa fare: Entro mercoledì scrivi con garbo a chi organizzava e chiedi se è prevista un'altra tornata e quando. Domanda di ricevere un avviso alla riapertura e che cosa renderebbe più forte la tua domanda. Poi segna in agenda la data probabile.
-- Risposta, Lunga: Chi mostra interesse anche dopo un no resta nella memoria di chi decide: spesso è il primo nome che torna in mente alla prima rinuncia. Usa i giorni che seguono per colmare il punto debole emerso, un documento mancante o una competenza da mostrare meglio.
+- Risposta: Settimana in salita per la fortuna: le porte si aprono a fatica e un no può arrivare dove speravi in un sì. Il dispiacere è comprensibile, eppure una porta chiusa in questi giorni non è un verdetto definitivo ma un'indicazione su quando e come riprovare.
+- Che cosa fare: Se in questi giorni ricevi un no, scrivi con garbo a chi lo ha dato e chiedi se è prevista un'altra occasione e quando. Se non ne arrivano, riprendi l'ultimo no ricevuto e fai la stessa domanda. Segna in agenda la data probabile.
+- Risposta, Lunga: Chi mostra interesse anche dopo un rifiuto resta nella memoria di chi decide: spesso è il primo nome che torna in mente alla prima rinuncia. Usa i giorni che seguono per colmare il punto debole emerso, un documento mancante o una qualità da mostrare meglio.
 
 #### Fortuna, salita, voce 2: Il sorriso troppo largo
 
-- Risposta: Settimana che chiede di andare piano con le proposte troppo entusiaste: una persona conosciuta da poco ti offre uno scambio o una collaborazione molto vantaggiosa, con tanto slancio e pochi dettagli. Prima di dire di sì servono condizioni chiare e un po' di tempo.
-- Che cosa fare: Chiedi che le condizioni ti arrivino per iscritto e prenditi almeno tre giorni per rispondere. Nel frattempo domanda a una persona di fiducia se conosce chi ti fa la proposta. Se dopo tre giorni qualcosa resta vago, declina con una frase cortese.
-- Risposta, Lunga: L'entusiasmo altrui è contagioso e rende difficile fare domande scomode. Eppure chi agisce in buona fede non teme le verifiche: le accoglie, perché lo mettono al riparo dai malintesi. Se invece tutto è chiaro, accetta solo una parte, per provare la collaborazione su piccola scala.
+- Risposta: Settimana delicata per la buona sorte, che chiede di andare piano con le proposte troppo entusiaste. Una collaborazione o uno scambio molto vantaggioso, offerto con tanto slancio e pochi dettagli da qualcuno conosciuto da poco, merita condizioni chiare e un po' di tempo prima del sì.
+- Che cosa fare: Per tutta la settimana, davanti a ogni proposta molto vantaggiosa, chiedi i dettagli per iscritto e prenditi tre giorni prima di rispondere. Domanda a una persona di fiducia se conosce chi propone. Se qualcosa resta vago, declina con una frase cortese e senza giustificarti.
+- Risposta, Lunga: L'entusiasmo altrui è contagioso e rende difficile fare domande scomode. Eppure chi agisce in buona fede non teme le verifiche: le accoglie, perché lo mettono al riparo dai malintesi. Se tutto è chiaro, accetta solo una parte, per provare la collaborazione su piccola scala.
 
 #### Fortuna, salita, voce 3: Il piattino all'ingresso
 
-- Risposta: Settimana distratta, in cui le piccole perdite si sommano: chiavi che non trovi, un abbonamento dimenticato a casa, un ombrello lasciato in treno. Pesano sul tempo e sull'umore. Un sistema semplice basta a fermarle prima che rovinino il resto dei tuoi giorni.
-- Che cosa fare: Lunedì metti un piattino o una scatola vicino alla porta e decidi che chiavi, portafoglio e tessere finiscono sempre lì. Ogni mattina, prima di uscire, tocca con la mano le tre cose. Mercoledì sera svuota la borsa da tutto ciò che non serve.
+- Risposta: Per la fortuna nelle piccole cose la settimana è distratta e un po' faticosa: chiavi, documenti, ombrelli tendono a sparire proprio quando servono. Le piccole perdite si sommano e pesano sul tempo e sull'umore, ma un sistema semplice basta a fermarle prima che rovinino il resto.
+- Che cosa fare: Oggi metti un piattino o una scatola vicino alla porta e decidi che chiavi, portafoglio e documenti finiscono sempre lì. Ogni mattina, prima di uscire, tocca con la mano le tre cose. Una sera di questa settimana svuota la borsa da tutto ciò che non serve.
 - Risposta, Lunga: Quando la testa è piena le cose sfuggono dalle mani senza che ce ne accorgiamo. Non è sbadataggine da rimproverare ma il segnale che serve un sistema più semplice, non più forza di volontà. Meno cose porti con te, meno ne puoi perdere per strada.
 
-#### Fortuna, salita, voce 4: Il silenzio della segreteria
+#### Fortuna, salita, voce 4: Chiedere notizie una volta
 
-- Risposta: Settimana lenta per le risposte che aspetti: hai inviato una richiesta importante a un ufficio, a una scuola o a un'agenzia e tutto tace. L'attesa innervosisce, ma insistere ogni giorno rischia di farti finire in fondo alla pila invece che in cima.
-- Che cosa fare: Mercoledì mattina telefona una sola volta e chiedi il nome di chi segue la pratica e il numero di protocollo. Scrivi tutto su un foglio con la data della chiamata e i tempi indicati. Nel frattempo prepara un'alternativa, un altro ufficio o un'altra data.
-- Risposta, Lunga: Le strutture lente rispondono meglio alla precisione che all'urgenza. A chi richiama con riferimenti esatti e tono pacato si risponde più volentieri che a chi protesta. Se entro i tempi indicati non arriva nulla, manda una mail breve citando nome e numero annotati.
+- Risposta: Settimana lenta per la buona sorte nelle risposte che aspetti: uffici, scuole, agenzie e persone indaffarate tendono a tacere più del solito. L'attesa innervosisce, ma insistere ogni giorno rischia di farti finire in fondo alla pila invece che in cima, dove vorresti stare.
+- Che cosa fare: Scegli la risposta che aspetti da più tempo e chiedi notizie una sola volta, con calma: il nome di chi segue la pratica, un riferimento, i tempi previsti. Scrivi tutto su un foglio con la data. Nel frattempo prepara un'alternativa, un altro ufficio o un'altra strada.
+- Risposta, Lunga: Le strutture lente rispondono meglio alla precisione che all'urgenza. A chi richiama con riferimenti esatti e tono pacato si risponde più volentieri che a chi protesta. Se entro i tempi indicati non arriva nulla, manda un messaggio breve citando nome e riferimento annotati.
 
-#### Fortuna, salita, voce 5: La seconda porta
+#### Fortuna, salita, voce 5: Il margine contro i contrattempi
 
-- Risposta: Settimana di rifiuti da non prendere come definitivi: una richiesta che contavi di vedere accolta riceve un no secco, un cambio rifiutato, un servizio che non ti spetta, un'eccezione negata. Il primo no, però, raramente è l'unica strada disponibile per arrivare dove vuoi.
-- Che cosa fare: Ringrazia con calma e chiedi se esiste un altro canale: un responsabile, un'altra sede, un modulo diverso. Scrivi entro giovedì una richiesta ordinata, con i fatti in fila e ciò che chiedi in una riga. Annota con chi hai parlato e quando.
-- Risposta, Lunga: Chi sta allo sportello spesso non ha margini di scelta, anche quando vorrebbe aiutarti. Prendersela con chi sta al banco chiude tutto; chiedere chi può decidere apre una possibilità che prima non vedevi. Se anche la seconda porta resta chiusa, lascia passare qualche giorno.
+- Risposta: Settimana irrequieta per la fortuna negli spostamenti e negli appuntamenti: ritardi, cambi di orario e piccoli contrattempi sono più frequenti del solito. Non è il caso di rinunciare, ma di partire con un margine che trasformi l'imprevisto in un fastidio da poco.
+- Che cosa fare: Per tutti i sette giorni aggiungi un quarto d'ora a ogni tragitto importante e controlla gli orari poco prima di uscire. Porta con te qualcosa da leggere per le attese. Se un appuntamento salta, proponi subito una nuova data invece di lasciarlo in sospeso.
+- Risposta, Lunga: I contrattempi pesano soprattutto quando trovano il tempo già contato al minuto. Un margine piccolo cambia l'umore della giornata e lascia spazio a ciò che di buono l'imprevisto porta con sé. Il segnale più chiaro: arrivi in orario anche nei giorni storti.
 
-#### Fortuna, salita, voce 6: L'attrezzo che non torna
+#### Fortuna, salita, voce 6: Ciò che è tuo
 
-- Risposta: Settimana adatta a riprendere ciò che è tuo, anche se costa un po' di imbarazzo: qualcosa che hai prestato settimane fa non è ancora rientrato, un attrezzo, un libro, un piatto da portata. Più aspetti, più chiederlo diventa difficile. Intanto ti manca.
-- Che cosa fare: Scrivi entro martedì un messaggio leggero: ti serve quell'oggetto per una data precisa e chiedi quando puoi passare a prenderlo. Proponi tu un orario, così la richiesta non resta sospesa. Quando l'oggetto torna a casa, attacca sotto un'etichetta col tuo nome e ringrazia senza rimproveri.
+- Risposta: La buona sorte è lenta, questa settimana, con ciò che hai prestato o lasciato in giro: le tue cose tendono a restare lontane più del previsto. Più aspetti a riprenderle, più chiederle diventa difficile e intanto ti mancano proprio quando servono.
+- Che cosa fare: Scrivi l'elenco di ciò che hai prestato o lasciato altrove: un libro, un attrezzo, un contenitore, un file mai restituito. Per la cosa che ti serve di più manda entro tre giorni un messaggio leggero, con un orario preciso in cui passare a prenderla.
 - Risposta, Lunga: Riprendere le proprie cose non è sgarbo ma cura di ciò che hai. Chi le tiene di solito ha solo dimenticato e accoglie volentieri un promemoria; il disagio nasce semmai dal silenzio che si allunga. Per i prossimi prestiti tieni una nota sul telefono.
 
-#### Fortuna, salita, voce 7: La vetrina di mezzanotte
+#### Fortuna, salita, voce 7: Le decisioni di mezzanotte
 
-- Risposta: Settimana in cui le decisioni prese a tarda sera vanno rimandate al mattino: stanchezza e schermo acceso diventano una combinazione rischiosa. Un clic dopo l'altro accetti inviti, iscrizioni, proposte che di giorno non avresti scelto. Il giorno dopo tocca a te rimediare.
-- Che cosa fare: Da lunedì prendi una regola semplice: dopo le dieci di sera nessuna decisione, solo una lista. Rileggila il giorno dopo con calma e tieni solo ciò che regge alla luce del mattino. Lascia il telefono fuori dalla camera, a caricare in cucina.
-- Risposta, Lunga: Molte scelte notturne non rispondono a un bisogno ma a una stanchezza da consolare. Riconoscerlo non significa privarsi di tutto: significa dare al desiderio il tempo di mostrarsi per quello che è. Un passaggio in più tra l'impulso e il sì basta spesso a chiarire.
+- Risposta: Settimana insidiosa per la buona sorte nelle decisioni prese a tarda sera: stanchezza e schermo acceso diventano una combinazione rischiosa. Un clic dopo l'altro si accettano inviti, iscrizioni e impegni che di mattina, a mente riposata, nessuno sceglierebbe con la stessa leggerezza.
+- Che cosa fare: Da oggi prendi una regola semplice: dopo le dieci di sera nessuna decisione, solo una lista. Rileggila la mattina dopo con calma e tieni solo ciò che regge alla luce del giorno. Lascia il telefono fuori dalla camera, a caricare in un'altra stanza.
+- Risposta, Lunga: Molte scelte notturne non rispondono a un bisogno ma a una stanchezza da consolare. Riconoscerlo non significa privarsi di tutto: significa dare al desiderio il tempo di mostrarsi per quello che è. Un passaggio in più fra l'impulso e il sì basta spesso a chiarire.
 
-#### Fortuna, salita, voce 8: Promesse di un conoscente
+#### Fortuna, salita, voce 8: Le promesse altrui
 
-- Risposta: Settimana in cui non conviene costruire i piani sulle promesse altrui: qualcuno ha promesso con sicurezza di presentarti una persona utile o di passarti un contatto importante, ma i giorni passano e non succede niente. Serve una strada parallela, da aprire adesso.
-- Che cosa fare: Manda entro mercoledì un promemoria cordiale con tutto ciò che rende facile agire: il nome della persona, il motivo, una tua breve presentazione pronta da inoltrare. Poi lascia andare. Intanto cerca chi altro conosce quell'ambiente o quale evento frequenta quella figura.
+- Risposta: Per la fortuna che dipende dalle promesse altrui la settimana è incerta: un contatto annunciato, una presentazione, un aiuto promesso con sicurezza tendono a slittare. Costruire i piani solo su quelle parole è rischioso: serve una strada parallela, da aprire adesso.
+- Che cosa fare: Se qualcuno ti ha promesso un contatto o un aiuto, manda entro tre giorni a quella persona un promemoria cordiale con ciò che rende facile agire: il nome, il motivo, una tua presentazione pronta. Se non aspetti nulla da nessuno, cerca da te un contatto che ti serve.
 - Risposta, Lunga: Molte promesse nascono da uno slancio sincero e si perdono nella fretta di chi le fa. Non è cattiveria, è distrazione. Il tuo compito è mettere quella persona nella condizione di mantenere la parola in trenta secondi. Se il contatto non arriva, hai già un'altra via.
 
-#### Fortuna, salita, voce 9: La goccia che costa
+#### Fortuna, salita, voce 9: Le piccole dispersioni
 
-- Risposta: Settimana di piccole dispersioni che passano inosservate: notifiche continue, chat che non ti riguardano, commissioni spezzettate in dieci uscite, un rubinetto che gocciola da mesi. Una alla volta sembrano niente, insieme rubano tempo ed energia proprio alle occasioni che contano.
-- Che cosa fare: Sabato mattina ripercorri la tua settimana con un taccuino e annota ogni piccola perdita di tempo che noti. Scegli quella più facile da risolvere e sistemala entro domenica: esci da un gruppo, spegni una notifica, chiama chi ripara il rubinetto.
-- Risposta, Lunga: Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere ciò che hai. Per le altre voci della lista fissa una data, una per volta.
+- Risposta: Settimana faticosa per la buona sorte, che si disperde in mille piccole perdite di tempo: notifiche continue, chat che non ti riguardano, commissioni spezzettate in dieci uscite. Una alla volta sembrano niente; insieme rubano energia proprio alle occasioni che contano.
+- Che cosa fare: Per tre giorni annota su un taccuino ogni piccola perdita di tempo che noti. Scegli quella più facile da eliminare e sistemala prima che la settimana finisca: esci da un gruppo, spegni una notifica, raccogli le commissioni in un'uscita sola.
+- Risposta, Lunga: Il periodo chiede attenzione alle crepe minuscole più che ai grandi gesti. Una perdita ignorata diventa un fastidio fisso; intervenire presto è il modo più tranquillo di proteggere le energie per ciò che conta. Per le altre voci della lista fissa una data, una per volta.
 
 #### Fortuna, salita, voce 10: Il momento di chiedere
 
-- Risposta: Settimana in cui il tempismo conta più della richiesta: hai bisogno di un favore da una persona che in questi giorni è sotto pressione, una firma, un parere, una mano. Chiedere nel momento sbagliato rischia un no che in altre settimane sarebbe stato un sì.
+- Risposta: Settimana difficile per la fortuna nelle richieste: il tempismo conta più del contenuto. Chi deve concederti un favore, una firma, un parere, una mano, in questi giorni può essere sotto pressione: chiedere nel momento sbagliato rischia un no che in un altro momento sarebbe stato un sì.
 - Che cosa fare: Prima di chiedere informati con discrezione su quando quella persona ha un momento più tranquillo. Prepara la richiesta in modo che le costi pochi minuti: tutto scritto, chiaro, con una scadenza ragionevole. Se non può aspettare, offri qualcosa in cambio.
-- Risposta, Lunga: La buona sorte nei rapporti dipende spesso dal momento scelto. Chi sa aspettare mostra rispetto e quel rispetto, prima o poi, torna indietro sotto forma di disponibilità. Dire che sai del periodo difficile e offrire il tuo aiuto su una sua scadenza rende tutto più leggero.
+- Risposta, Lunga: La buona sorte nei rapporti dipende spesso dal momento scelto. Chi sa aspettare mostra rispetto e quel rispetto torna indietro sotto forma di disponibilità. Dire che sai del periodo difficile e offrire una mano su una sua scadenza rende tutto più leggero.
 
-#### Fortuna, salita, voce 11: Una cifra da ricontrollare
+#### Fortuna, salita, voce 11: I dati da ricontrollare
 
-- Risposta: Settimana in cui un numero sbagliato può costarti un'occasione: in una prenotazione, un biglietto o una conferma c'è un dato che non torna, un orario diverso, una data spostata, un nome scritto male. Vale la pena guardarci bene adesso, prima di partire o presentarti.
-- Che cosa fare: Giovedì sera apri tutte le conferme dei prossimi impegni e confronta ogni dato con ciò che avevi concordato. Se trovi un errore chiama subito chi l'ha emesso e annota il nome di chi ti risponde e l'ora della chiamata. Non partire finché il dato non è corretto.
+- Risposta: Nei dettagli pratici la fortuna è insidiosa, questa settimana: in una prenotazione, un biglietto o una conferma un dato sbagliato può costarti un'occasione, un orario diverso, una data spostata, un nome scritto male. Vale la pena guardarci bene adesso, prima di partire o presentarti.
+- Che cosa fare: Una sera di questa settimana apri tutte le conferme dei prossimi impegni e confronta ogni dato con ciò che avevi concordato. Se trovi un errore chiama subito chi l'ha emesso e annota il nome di chi ti risponde. Non muoverti finché il dato non è corretto.
 - Risposta, Lunga: Le piccole sviste altrui passano facilmente quando si ha fretta. Il periodo invita a rallentare proprio sui dettagli, senza ansia: un controllo calmo vale più di cento proteste. Dopo la telefonata chiedi una conferma scritta e, da qui in avanti, rileggi ogni prenotazione appena arriva.
 
-#### Fortuna, salita, voce 12: La gita che lievita
+#### Fortuna, salita, voce 12: Ciò che è andato bene
 
-- Risposta: Settimana in cui è giusto dire la tua dentro un gruppo: gli amici organizzano un fine settimana che, proposta dopo proposta, diventa sempre più carico, una cena in più, un'attività extra, partenze all'alba. Il programma si gonfia e rischia di stancare tutti.
-- Che cosa fare: Entro martedì scrivi nella chat del gruppo che cosa va bene per te e che cosa no, senza scuse né giri di parole. Proponi tu un'alternativa concreta per la parte più pesante del programma. Se non cambia nulla, partecipa solo alla parte che ti sta bene.
-- Risposta, Lunga: Spesso nei gruppi tutti pensano la stessa cosa e nessuno la dice. Chi rompe il silenzio con garbo fa un favore anche agli altri: il programma si ridimensiona e la compagnia resta piacevole. Fra un mese nessuno ci pensa più; a te resta una scelta tua.
+- Risposta: Settimana pesante per la buona sorte: una serie di piccoli intoppi può darti l'impressione che tutto giri storto. È un'impressione da non ascoltare troppo, perché lo scoraggiamento fa vedere solo gli ostacoli e nasconde le occasioni che passano comunque, ogni giorno.
+- Che cosa fare: Ogni sera di questa settimana scrivi tre cose andate bene nella giornata, anche minime: una persona gentile, un ritardo evitato, un lavoro finito. Vicino a ognuna segna il gesto che l'ha favorita. Alla fine dei sette giorni rileggi tutto in una volta.
+- Risposta, Lunga: Lo scoraggiamento è una lente che ingrandisce gli intoppi e rimpicciolisce il resto. Annotare ciò che va bene non è ingenuità: riporta lo sguardo in equilibrio e ti rende di nuovo capace di riconoscere un'occasione. La verifica più semplice: la lista si allunga senza sforzo.
 
 #### Fortuna, salita, voce 13: L'allarme da verificare
 
-- Risposta: Settimana in cui l'attenzione protegge più di qualsiasi fortuna: un messaggio o una mail ti chiedono di confermare dati o aprire un collegamento entro poche ore, con toni allarmati. L'urgenza è proprio il dettaglio che deve metterti in guardia, prima di qualsiasi risposta.
-- Che cosa fare: Non rispondere e non aprire i collegamenti. Cerca da te il recapito ufficiale del servizio citato e chiedi se la richiesta è vera. Poi cancella il messaggio e avvisa chi vive con te. Nel fine settimana attiva la doppia verifica sugli account principali.
-- Risposta, Lunga: Chi prova a ingannare punta tutto sulla fretta e sulla paura di perdere qualcosa: fermarsi cinque minuti basta a smontare quasi ogni trappola. Mostra anche a un parente anziano come riconoscere questi messaggi. È un quarto d'ora che può evitargli un brutto momento.
+- Risposta: Per la fortuna la settimana è tesa sul fronte dei messaggi e delle richieste urgenti: mail e messaggi che chiedono di confermare dati o aprire un collegamento entro poche ore, con toni allarmati, vanno trattati con sospetto. L'urgenza è proprio il dettaglio che deve metterti in guardia.
+- Che cosa fare: Se ricevi un messaggio così, non rispondere e non aprire i collegamenti. Cerca da te il recapito ufficiale del servizio citato e chiedi se la richiesta è vera. Poi cancella il messaggio. Nel fine settimana attiva la doppia verifica sugli account principali che usi.
+- Risposta, Lunga: Chi prova a ingannare punta tutto sulla fretta e sulla paura di perdere qualcosa: fermarsi cinque minuti basta a smontare quasi ogni trappola. Mostra anche a chi è meno pratico di te come riconoscere questi messaggi: è un quarto d'ora che può evitargli un brutto momento.
 
-#### Fortuna, salita, voce 14: Il pacco mai arrivato
+#### Fortuna, salita, voce 14: Niente rincorse
 
-- Risposta: Settimana di pazienza e di metodo, più che di telefonate nervose: un ordine fatto con anticipo risulta consegnato, ma alla porta non è arrivato niente e il venditore risponde con messaggi automatici. Una sola richiesta ben fatta ottiene più di dieci proteste.
-- Che cosa fare: Lunedì raccogli in una sola cartella la conferma d'ordine, il numero di spedizione e le foto della cassetta vuota. Chiedi prima ai vicini e al portiere, poi apri una segnalazione scritta con tutti i dati. Fissa venerdì come giorno del sollecito.
-- Risposta, Lunga: In questi casi la fretta porta a scrivere messaggi diversi a indirizzi diversi, che si perdono uno dopo l'altro. Una richiesta completa, con date e prove, viene presa più sul serio. Fino a venerdì non tornarci sopra e in futuro valuta il ritiro in un punto vicino.
+- Risposta: Settimana nervosa per la fortuna, in cui la fretta di recuperare fa più danni dell'occasione persa. Quando qualcosa sfuma, la tentazione è buttarsi sulla prima proposta che passa: in questi giorni conviene invece fermarsi e guardare con calma ciò che arriva.
+- Che cosa fare: Se un'occasione ti è sfuggita, prenditi due giorni prima di accettare qualunque alternativa. Scrivi che cosa cercavi davvero e misura su quella riga ogni nuova proposta. Se non hai perso nulla, applica la stessa pausa a ogni proposta che ti mette fretta.
+- Risposta, Lunga: Le rincorse nascono dal dispiacere più che dal desiderio: portano spesso a scelte che poi si rimpiangono. Due giorni di pausa sono un tempo breve, ma bastano a distinguere un'occasione vera da una consolazione. La prossima porta giusta non ha fretta di chiudersi.

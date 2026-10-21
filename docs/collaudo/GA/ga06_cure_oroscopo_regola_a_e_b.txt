@@ -1,0 +1,151 @@
+ORDINE GA VOCE GA.06, LE CURE DELL'OROSCOPO: LE PROVE DELLA REGOLA A E DELLA REGOLA B
+Worktree sopra 1804c7d7, 21 ottobre 2026. Ogni innesto e' verificato col grep prima di leggere l'esito, e tolto subito dopo.
+
+REGOLA B, le guardie della zona viste rosse PRIMA di toccarla
+
+B1. test/l_oroscopo_ha_la_forma_nuova_test.dart (il rito del reggente e la sua chiave).
+    Innesto: in lib/core/horoscope/il_responso_dell_oroscopo.dart, chiaveDelRito, la terza parte
+    della chiave "periodo" scritta "giorno" per tutti i periodi.
+    Grep: riga 86 «periodo == PeriodoEu.giorno ? 'giorno' : 'giorno',».
+    Esito: ROSSA, "difetti 132", per esempio «occidentale settimana Lunga Carriera: il rito non e'
+    quello di [Marte, Carriera, periodo]». Innesto tolto.
+
+B2. test/la_lettura_cinese_test.dart (la riga del dio nel "Da dove viene" delle schede cinesi).
+    Innesto: in lib/core/horoscope/la_lettura_cinese.dart, delDio, tolta la riga del corpus
+    (baseDaDove) dall'elenco del cielo.
+    Grep: «        baseDaDove,» contato 0 volte nel file.
+    Esito: ROSSA, «riga del livello senza il dio: Per il lavoro: il tema è la rete dei pari.»
+    e simili. Innesto tolto.
+
+B3. test/il_da_dove_non_si_ripete_nel_periodo_test.dart (il "Da dove viene" della Settimana e
+    del Mese che ripete la riga dei giorni migliori).
+    Innesto: in lib/core/horoscope/la_settimana_del_cielo.dart, cieloDelPeriodo, la Lunga della
+    Vedica e della Cinese torna a ripetere il momento chiave («return _maiuscola(momentoChiave);
+    // INNESTO REGOLA B»).
+    Grep: riga 155 «return _maiuscola(momentoChiave); // INNESTO REGOLA B».
+    Esito: ROSSA, "righe che ne ripetono un'altra 48". Innesto tolto; con la riga nuova
+    ("Il livello del periodo è la media dei livelli dei suoi giorni ...; il più alto è <data>.")
+    VERDE, "righe che ne ripetono un'altra 0", 7 prove su 7.
+
+B4. test/la_lettura_vedica_test.dart, "le frasi del codice sono quelle del corpus".
+    Innesto: le undici righe del "Da dove viene" del Rahu Kalam riscritte in
+    docs/corpus/oroscopo_vedico.md SENZA rigenerare il file dart.
+    Grep: «Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}. È l'ora» trovato 1 volta.
+    Esito: ROSSA, "rigenerare con python tool/_gen_oroscopo_vedico.py". Poi rigenerato: verde.
+
+B5. test/la_lettura_cinese_test.dart, "le frasi del codice sono quelle del corpus, nello stesso
+    ordine". Stesso innesto sulle trentasei righe dei guardiani in docs/corpus/oroscopo_cinese.md.
+    Esito: ROSSA, "rigenerare con python tool/_gen_oroscopo_cinese.py". Poi rigenerato: verde
+    (la_lettura_cinese, la_lettura_vedica, i_testi_nuovi_dell_architetto_sono_nel_codice,
+    le_rifiniture_dei_da_dove_viene: 22 prove su 22).
+
+B6. tool/genera_i_riti.py (la misura e la lingua dei riti).
+    Innesto: in docs/corpus/riti/inni_orfici.md il rito "Sole, Generale, giorno" accorciato
+    («Poi lascia andare.»). Grep: trovato 1 volta.
+    Esito: ROSSO, «DIFETTI: 1, non scrivo niente», «inni_orfici|Sole|Generale|giorno: 36 parole».
+    Innesto tolto. (Nota di onesta': questa prova e' stata fatta dopo una prima generazione
+    delle raccolte nuove, non prima; il controllo era vivo, come mostra l'esito.)
+
+REGOLA A, le guardie nuove viste rosse
+
+A1. tool/genera_i_riti.py, i controlli GA.06 delle tre raccolte dell'Oroscopo
+    (difetti_dell_oroscopo: quattro periodi per reggente e dominio, il rito dell'anno senza
+    inizi ne' mesi, l'Amore anche per chi e' senza legame, nessuna frase in due riti).
+    Quattro innesti in docs/corpus/riti/mantra_navagraha.md, uno alla volta, ciascuno verificato
+    col grep e tolto (scratchpad/ga06o/regola_a_riti.py):
+    1. "Al primo mattino del periodo" davanti al rito "Surya, Fortuna, anno": ROSSO,
+       «il rito dell'anno dice «primo mattino»».
+    2. la sezione "Surya, Generale, settimana" rinominata "periodo": ROSSO, «manca» e «il periodo
+       dev'essere uno di [...]».
+    3. il rito "Mangala, Carriera, settimana" copiato nell'anno: ROSSO, tre «frase gia' in ...».
+    4. un "Shukra, Amore, mese" che parla solo a chi ama: ROSSO, «l'Amore parla solo a chi ha un
+       legame».
+    Raccolta rimessa com'era (confronto byte per byte), rigenerata: 684 riti, nessun difetto.
+
+A2. test/i_riti_dell_oroscopo_seguono_il_periodo_test.dart (cinque prove).
+    Verde sui dati nuovi: 416 riti, 0 mancanti, 0 chiavi fuori dai quattro periodi; 1396 frasi,
+    0 ripetute; 104 riti dell'Anno, 0 col tempo fuori dall'anno; 104 riti dell'Amore, 0 solo
+    per la coppia; 576 riti a video, 0 uguali fra due periodi dello stesso giorno.
+    Innesti nei dati generati (lib/core/responsi/i_riti_propiziatori_dati.dart,
+    scratchpad/ga06o/innesto_dati_riti.py), grep: 3 righe trovate per le tre stringhe innestate
+    («Surya|Generale|periodo'», «Al primo mattino del periodo», «Porta a chi ami un fiore»),
+    piu' la settimana di Mangala Carriera copiata nell'anno:
+    - prova 1 ROSSA: "mancanti 1, chiavi fuori dai quattro periodi 1";
+    - prova 2 ROSSA: "riti o frasi ripetute 4";
+    - prova 3 ROSSA: "con un inizio o un tempo fuori dall'anno 2";
+    - prova 4 ROSSA: "solo per chi ha un legame 1".
+    Dati rimessi con python tool/genera_i_riti.py.
+    Innesto nel codice per la prova 5: IlResponsoDellOroscopo.chiaveDelRito che da' al Mese la
+    chiave della Settimana (riga 93, «// INNESTO», grep trovato): ROSSA, "uguali fra due periodi
+    dello stesso giorno 144", per esempio «Settimana e Mese hanno lo stesso rito». Innesto tolto.
+
+A3. test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart, prova "a video, il "Da dove
+    viene" non rimanda e non ripete" (1088 righe "Da dove viene" composte: sei persone, due
+    giorni, tre tradizioni, Breve e Lunga, quattro periodi, quattro domini).
+    Verde dopo le cure: 0 righe con un rimando, una riga criptica o un dio spiegato due volte.
+    Tre innesti, uno alla volta, ciascuno verificato col grep («// INNESTO A») e tolto:
+    1. la riga di prima "i tre migliori, qui sopra, dicono ciascuno da dove viene il suo" in
+       la_settimana_del_cielo.dart: ROSSA, 176 righe («qui sopra»);
+    2. "Per il lavoro: il BaZi guarda..." in la_lettura_cinese.dart, rigaDelTema: ROSSA, 48 righe;
+    3. di nuovo "Il dio di oggi nel BaZi e' ..." nella Lunga cinese, sotto la riga del corpus:
+       ROSSA, 37 righe («Sette Uccisioni spiegato due volte»). La prima misura di questa
+       grandezza contava "nel BaZi e'/sono" due volte, e non avrebbe preso il Rivale di
+       oroscopo-36 ("È la giornata del Rivale, che nel BaZi contende..."): la grandezza e'
+       stata cambiata, prima di leggere l'esito, nel nome del dio contato due volte.
+    Dopo i tre innesti la prova era ancora rossa su un caso vero (2 righe): la riga del corpus
+    cinese del Compagno sul lavoro ("nella scheda del lavoro il BaZi guarda all'Ufficiale ...
+    mentre il Compagno porta il confronto fra pari") nominava il dio due volte e ripeteva quello
+    che la riga del tema dice subito dopo. Riscritta in docs/corpus/oroscopo_cinese.md ("È la
+    giornata del Compagno, il dio che ha il tuo stesso elemento e la tua stessa polarità: sul
+    lavoro porta il confronto fra pari."), dati rigenerati: VERDE, 0 su 1088.
+
+B7. tool/le_parole_dei_responsi.py (la misura dei paragrafi dei dodici corpora).
+    Innesto: in docs/corpus/eu/oroscopo_eu_cinese_mese.md la prima Risposta ridotta a trentotto
+    parole piu' «INNESTO». Grep: « INNESTO» trovato 1 volta.
+    Esito: ROSSO, «Generale, favorevole, voce 1: Stanze da ridisegnare | Risposta: 39 parole»,
+    «DIFETTI: 1». (Il primo tentativo aveva lasciato quaranta parole e lo strumento, giustamente,
+    era verde: l'innesto era sbagliato, non la guardia; rifatto a trentanove.) File rimesso dalla
+    copia, NESSUN DIFETTO. (Anche qui la prova e' venuta dopo l'applicazione delle riscritture.)
+
+A4. test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart, prova "nei dodici corpora:
+    la prima frase, il tempo, l'Amore" (1548 voci).
+    Prima della cura, sui corpora di 1804c7d7 (misura dello strumento gemello
+    scratchpad/ga06o/controlla_tutto.py, stesse grandezze): prima frase senza periodo o fascia
+    583+19 casi, tempo fuori dal periodo 1143 occorrenze (543 nel Giorno, 450 nella Settimana,
+    108 nell'Anno, 39 nel Mese), Amore fuori dominio 120 e solo per la coppia 151; 1284 voci su
+    1548 con almeno un difetto. Dopo la cura: 0, 0, 0.
+    Tre innesti (scratchpad/ga06o/innesto_voci.py), ciascuno verificato col grep (1 riga in
+    ciascuno dei tre file) e tolti dalle copie:
+    1. la prima frase bocciata di oroscopo-33 («Oggi la sera ha un passo morbido e invita a
+       stare all'aperto.») in occidentale giorno, Generale favorevole voce 1;
+    2. «Entro la primavera» nel Che cosa fare di cinese anno, Generale favorevole voce 1;
+    3. la prima frase bocciata di oroscopo-26 («In amicizia il mese chiede di rimettere in pari
+       una bilancia.») in vedica mese, Amore equilibrio voce 3.
+    Primo esito: tempo 1 e Amore 1 ROSSI, ma la prima frase di oroscopo-33 PASSAVA: il lessico
+    della fascia favorevole conteneva "apert-", e "all'aperto" lo soddisfaceva. Si e' cambiata
+    la grandezza, non la soglia: "apert-" vale come giudizio solo se non viene dopo "all'"
+    ("Giornata aperta agli incontri" si', "stare all'aperto" no). Secondo esito con gli innesti:
+    prima frase 2 (le due bocciate), tempo 1, Amore 1: ROSSA su tutti e tre. Innesti tolti:
+    VERDE, 0, 0, 0; seconda prova (Da dove viene) verde, 0 su 1088.
+    Aggiunta dalla rilettura del campione rigenerato: "stamattina" fra le parole fuori dal
+    Giorno (letto la sera e' gia' passato; ventidue righe dei tre corpora del Giorno riscritte
+    in "adesso" o "subito"). Innesto: «Chiedi che cosa è arrivato stamattina» rimesso in
+    occidentale giorno riga 1587, grep 1: ROSSA, "tempo fuori dal periodo 1". Tolto, grep 0:
+    VERDE.
+
+B8. test/il_genere_non_si_indovina_test.dart: non vista rossa con un innesto prima di toccare i
+    corpora; e' diventata rossa da sola sui testi nuovi (3 forme: «resti accanto», «essere
+    preziosa», «essere raccolta»; padre: questa stessa riscrittura GA.06), quindi e' viva su
+    questa zona. Le tre frasi riformulate: verde, "con il genere fuori da una marca 0".
+B9. test/le_lunghezze_dei_responsi_test.dart: rossa sui testi nuovi ("la tabella delle lunghezze
+    esiste e dice il vero"), come deve: tabella rigenerata con
+    --dart-define=AGGIORNA_LUNGHEZZE=1 (docs/responsi/lunghezze.md), poi verde.
+B10. test/i_testi_non_tornano_test.dart: rossa sui testi nuovi su una frase uguale fra Giorno e
+    Settimana («Accanto a ciascuna annota che cosa l'ha resa possibile.»), riscritta nella
+    Settimana: verde.
+B11. test/la_lettura_vedica_test.dart: rossa sui testi nuovi per i puntini («Mi farebbe
+    piacere...») in vedica giorno; tolti: verde.
+
+GIRO FINALE DELLA ZONA (32 file di prove: Oroscopo, forme delle quattro arti, genere, accenti,
+campioni GA.06, le due guardie nuove): 223 prove su 223 verdi.
+flutter analyze lib test: No issues found.
