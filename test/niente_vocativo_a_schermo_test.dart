@@ -92,7 +92,15 @@ void main() {
           // MOSTRATO**, ordine EX voce 03: `'Othala/ombra'` e' la chiave della
           // runa e del verso nel corpus generato (la "a" di Othala e la "o" di
           // ombra), mai una parola a video.
-          if (RegExp(r"^'[A-Z][a-z]+/(dritta|ombra)'$").hasMatch(trovata)) {
+          //
+          // **E LA CHIAVE A TRE PARTI DELLE RISPOSTE DIRETTE**, ordine GA voce
+          // GA.06: `'Othala/ombra/decisione'` aggiunge il tipo di domanda
+          // (decisione, scelta, come, quando, previsione, altrui, vaga) al
+          // gruppo della runa e del verso, nel corpus generato
+          // `le_risposte_dirette.g.dart`. Cambiata la grandezza misurata,
+          // non la soglia: la chiave resta una chiave, il participio no.
+          if (RegExp(r"^'[A-Z][a-z]+/(dritta|ombra)(/[a-z]+)?'$")
+              .hasMatch(trovata)) {
             continue;
           }
           sospette.add('${f.path}:${i + 1} $trovata');
