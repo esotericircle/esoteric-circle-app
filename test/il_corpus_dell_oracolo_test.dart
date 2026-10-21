@@ -43,12 +43,41 @@ import 'cardinale_minimo.dart';
 /// file (era in 41 messaggi del cuore).
 void main() {
   const corpus = corpusDellOracolo;
-  const file = {
+  final file = {
     'custode': [('messaggio', 3), ('consiglio', 3)],
     'cuore': [('messaggio', 3), ('consiglio', 3)],
     'intelletto': [('messaggio', 3), ('consiglio', 3)],
     'rito': [('rito', 2)],
     'doni': [('dono', 1), ('via', 1)],
+    // Ordine GA voce GA.06, seconda cura: le letture, 23 per angelo.
+    'letture': [
+      for (final f in const [
+        'aperta',
+        'futuro',
+        'esito',
+        'altrui',
+        'decisione',
+        'scelta',
+        'come',
+        'limite',
+        'cuore_orienta',
+        'cuore_attesa',
+        'cuore_legami',
+        'cuore_scelta',
+        'cuore_limite',
+        'intelletto_orienta',
+        'intelletto_attesa',
+        'intelletto_legami',
+        'intelletto_scelta',
+        'intelletto_limite',
+        'gesto_orienta',
+        'gesto_attesa',
+        'gesto_legami',
+        'gesto_scelta',
+        'gesto_limite',
+      ])
+        (f, 1),
+    ],
   };
 
   /// La fonte riletta come la rilegge lo strumento: "## NN Nome" e le righe
@@ -74,14 +103,14 @@ void main() {
     return fuori;
   }
 
-  test('il corpus porta tutti i 1.584 testi, senza celle vuote', () {
+  test('il corpus porta tutti i 3.240 testi, senza celle vuote', () {
     final testi = corpus.values.fold<int>(0, (n, v) => n + v.length);
-    cardinaleMinimo(testi, 1584,
+    cardinaleMinimo(testi, 3240,
         cosa: 'testi del corpus dell\'Oracolo degli Angeli',
-        perche: 'il disegno ne dichiara 1.584 (LEGGIMI.md): 648 messaggi e '
+        perche: 'il disegno ne dichiara 3.240 (LEGGIMI.md): 648 messaggi e '
             '648 consigli di Medora (ordine GA), 144 riti di Caligo, 72 doni '
-            'e 72 vie (ordine GA voce GA.06)');
-    expect(testi, 1584);
+            'e 72 vie e 1.656 letture (ordine GA voce GA.06)');
+    expect(testi, 3240);
     final mancanti = <String>[];
     final vuote = <String>[];
     for (final MapEntry(key: nome, value: campi) in file.entries) {
@@ -103,7 +132,7 @@ void main() {
         'testo vuoto ${vuote.length}');
     expect(mancanti, isEmpty, reason: 'celle mancanti o incomplete: $mancanti');
     expect(vuote, isEmpty, reason: 'celle con un testo vuoto: $vuote');
-    expect(corpus.length, 72 * 9);
+    expect(corpus.length, 72 * 32);
   });
 
   test('nessun testo e\' uguale a un altro', () {
@@ -116,14 +145,14 @@ void main() {
         visti[t] = e.key;
       }
     }
-    cardinaleMinimo(visti.length + doppi.length, 1584,
+    cardinaleMinimo(visti.length + doppi.length, 3240,
         cosa: 'testi confrontati fra loro');
     expect(doppi, isEmpty, reason: 'testi ripetuti: $doppi');
   });
 
   test('il Dart generato coincide con la fonte', () {
     final f = fonte();
-    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 1584,
+    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 3240,
         cosa: 'testi letti nella fonte docs/corpus/oracolo_angeli/');
     final diversi = <String>[];
     for (final k in {...f.keys, ...corpus.keys}) {
@@ -167,7 +196,7 @@ void main() {
         if (m != null) trovate.add('${e.key}: "${m.group(0)}" in $t');
       }
     }
-    cardinaleMinimo(guardati, 1584, cosa: 'testi guardati per la politica');
+    cardinaleMinimo(guardati, 3240, cosa: 'testi guardati per la politica');
     // ignore: avoid_print
     print('ORDINE FU VOCI FU.05 E FU.07: testi guardati per la politica '
         '$guardati, parole vietate trovate ${trovate.length}');
@@ -217,6 +246,69 @@ void main() {
             '$oltre');
   });
 
+  /// **LE LETTURE SENZA CUCITURE**, ordine GA voce GA.06, seconda cura: le
+  /// frasi scritte per ogni angelo e famiglia di domanda non portano le
+  /// formule che il secondo lettore cieco ha sentito come cuciture ("È il
+  /// gesto che X lega a", "Nella mia lettura", "questo angelo", "a mente
+  /// fresca", "basta un passo"), e quelle del Custode, del Cuore e
+  /// dell'Intelletto cominciano col nome dell'angelo, perche' il telefono le
+  /// mette dopo l'apertura o dopo "Nel Cuore," e "Nell'Intelletto,". Lo
+  /// stesso criterio di `tool/il_corpus_dell_oracolo.py` (CUCITURE), su cio'
+  /// che arriva in lib.
+  test('le letture non hanno cuciture e cominciano col nome dell\'angelo', () {
+    final cuciture = RegExp(
+        r'(?<![A-Za-zÀ-ÿ])(è il gesto che|lega a|lega al|lega alla|lega all|'
+        r'nella mia lettura|questo angelo|dove pesa|dove scalda|tua domanda|'
+        r'a mente fresca|basta un passo)(?![A-Za-zÀ-ÿ])',
+        caseSensitive: false);
+    final colpe = <String>[];
+    var guardate = 0;
+    for (final a in AngelCatalog.all) {
+      final nn = a.number.toString().padLeft(2, '0');
+      for (final e in corpus.entries) {
+        if (!e.key.startsWith('letture|$nn|')) continue;
+        final campo = e.key.split('|').last;
+        for (final t in e.value) {
+          guardate++;
+          final m = cuciture.firstMatch(t);
+          if (m != null) colpe.add('${e.key}: "${m[0]}"');
+          if (!campo.startsWith('gesto_') && !t.startsWith('${a.name} ')) {
+            colpe.add('${e.key}: non comincia con ${a.name}');
+          }
+        }
+      }
+    }
+    cardinaleMinimo(guardate, 1656, cosa: 'letture guardate');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
+  });
+
+  /// **LA DECISIONE NON GIRA IN TONDO**, ordine GA voce GA.06, terza lettura
+  /// cieca: "sì se i fatti reggono questa scelta", "sì se puoi viverla
+  /// secondo ciò che ritieni giusto" danno tutti e due gli esiti. La
+  /// condizione del sì dice una cosa che la persona può verificare da sé
+  /// (lo stesso elenco di `tool/il_corpus_dell_oracolo.py`, TAUTOLOGIE).
+  /// L'aggancio delle frasi del Cuore e dell'Intelletto alla domanda lo dà il
+  /// compositore, non questa prova.
+  test('la decisione delle letture non gira in tondo', () {
+    final tautologie = RegExp(
+        r'(ritieni giusto|consideri giusto|è giusto|sia giusto|'
+        r'i fatti reggono|reggono questa scelta|regge questa scelta|se regge|'
+        r'se è la scelta giusta|se te la senti|se ne sei convint\w*)',
+        caseSensitive: false);
+    final colpe = <String>[];
+    var guardate = 0;
+    for (final e in corpus.entries) {
+      if (!e.key.startsWith('letture|')) continue;
+      if (e.key.split('|').last != 'decisione') continue;
+      for (final t in e.value) {
+        guardate++;
+        if (tautologie.hasMatch(t)) colpe.add('${e.key}: gira in tondo: $t');
+      }
+    }
+    cardinaleMinimo(guardate, 72, cosa: 'decisioni delle letture guardate');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
+  });
+
   /// **IL "TI" OGGETTO COL PARTICIPIO**, ordine GA voci 03, 04, 05 e 08, 20
   /// ottobre 2026. "Chi ti ha cresciuto" si accorda con chi legge ("chi ti ha
   /// cresciuta" a una donna) e la guardia del genere non lo vede, perche' non
@@ -256,7 +348,7 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(guardati, 1584, cosa: 'testi guardati per il ti oggetto');
+    cardinaleMinimo(guardati, 3240, cosa: 'testi guardati per il ti oggetto');
     // La grandezza misurata esiste: il corpus porta forme col "ti" che vale
     // "a te" (ti ha dato, ti ha insegnato), e la prova le vede.
     cardinaleMinimo(aTeVisti, 10,

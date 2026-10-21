@@ -114,10 +114,36 @@ FILE = {
     # Ordine GA voce GA.06: il dono e la via di ogni angelo, per il
     # compositore del responso principale senza modello.
     'doni': [('dono', 1), ('via', 1)],
+    # **LE LETTURE, ordine GA voce GA.06, seconda cura (21 ottobre 2026).**
+    # Il responso composto da frammenti (dono e via incollati sulla domanda)
+    # il lettore cieco l'ha sentito cucito: D3 14 su 40. Adesso per ogni
+    # angelo e per ogni famiglia di domanda c'e' un testo SCRITTO che applica
+    # il suo dono a quella famiglia (vedi LEGGIMI.md, "Le letture").
+    'letture': [(f, 1) for f in (
+        'aperta', 'futuro', 'esito', 'altrui', 'decisione', 'scelta', 'come',
+        'limite',
+        'cuore_orienta', 'cuore_attesa', 'cuore_legami', 'cuore_scelta',
+        'cuore_limite',
+        'intelletto_orienta', 'intelletto_attesa', 'intelletto_legami',
+        'intelletto_scelta', 'intelletto_limite',
+        'gesto_orienta', 'gesto_attesa', 'gesto_legami', 'gesto_scelta',
+        'gesto_limite')],
 }
 
 # I campi che sono pezzi di frase e non testi rivolti a te.
 PEZZI = ('dono', 'via')
+
+# I campi delle letture, per specie: la frase del Custode che segue
+# l'apertura del responso, le frasi del Cuore e dell'Intelletto, il gesto
+# del riquadro "Cosa fare adesso".
+LETTURE_CUSTODE = ('aperta', 'futuro', 'esito', 'altrui', 'decisione',
+                   'scelta', 'come', 'limite')
+LETTURE_RUOLI = tuple('%s_%s' % (r, g) for r in ('cuore', 'intelletto')
+                      for g in ('orienta', 'attesa', 'legami', 'scelta',
+                                'limite'))
+LETTURE_GESTI = tuple('gesto_%s' % g for g in ('orienta', 'attesa', 'legami',
+                                                'scelta', 'limite'))
+LETTURE = LETTURE_CUSTODE + LETTURE_RUOLI + LETTURE_GESTI
 
 # La misura di ogni campo: (unita', minimo, massimo). Messaggio e consiglio
 # in parole dall'ordine GA (prima: messaggio da 160 a 320 caratteri, ordine
@@ -130,6 +156,13 @@ LUNGHEZZE = {
     'dono': ('parole', 2, 7),
     'via': ('parole', 3, 11),
 }
+for _f in LETTURE_CUSTODE:
+    LUNGHEZZE[_f] = ('parole', 12, 18) if _f == 'decisione' else (
+        'parole', 10, 15)
+for _f in LETTURE_RUOLI:
+    LUNGHEZZE[_f] = ('parole', 7, 11)
+for _f in LETTURE_GESTI:
+    LUNGHEZZE[_f] = ('parole', 13, 20)
 
 
 def parole_di(testo):
@@ -187,6 +220,8 @@ TITOLI = {
     'intelletto': 'L\'Angelo dell\'Intelletto: che cosa capire (voce di Medora)',
     'rito': 'Il rito con Caligo: come vivere i venti minuti dell\'angelo',
     'doni': 'Il dono e la via di ogni angelo: i pezzi del responso senza modello',
+    'letture': 'Le letture: il dono di ogni angelo applicato a ogni famiglia di '
+               'domanda (voce di Medora)',
 }
 
 
@@ -395,6 +430,33 @@ ARTICOLO = re.compile(r"^((il|lo|la|i|gli|le|un|una|uno)\s|l'|un')", re.I)
 INFINITO = re.compile(r"^([a-zà-ÿ]+(are|ere|ire|rre)|[a-zà-ÿ]+(ar|er|ir|r)"
                       r"(ti|lo|la|li|le|ne|ci|si|gli|tene|sene))(?![a-zà-ÿ])")
 
+# **LE FORMULE CHE IL LETTORE CIECO HA SENTITO COME CUCITURE**, ordine GA
+# voce GA.06, seconda lettura: il gesto attribuito all'angelo ("È il gesto
+# che X lega a"), la voce che cambia persona, i legami finti, la fretta su
+# scelte grandi.
+CUCITURE = re.compile(
+    r"(?<![%s])(è il gesto che|lega a|lega al|lega alla|lega all|"
+    r"nella mia lettura|questo angelo|dove pesa|dove scalda|tua domanda|"
+    r"a mente fresca|basta un passo)(?![%s])" % (L, L), re.I)
+TETTO_SECONDE = 10
+
+# **L'AGGANCIO ALLA DOMANDA**, ordine GA voce GA.06, terza lettura cieca: le
+# frasi del Cuore e dell'Intelletto erano "glosse fisse dell'angelo,
+# incollate". Il giro di riscrittura con l'aggancio obbligatorio e' stato
+# fermato dal fondatore (troppi agenti in parallelo): l'aggancio lo da' il
+# compositore, che apre la frase dei ruoli con la situazione della domanda
+# ("Mentre aspetti, nel Cuore, ..."; `LaRispostaDaiDoni`).
+
+# **LA DECISIONE NON GIRA IN TONDO**, terza lettura cieca: "sì se i fatti
+# reggono questa scelta", "sì se puoi viverla secondo ciò che ritieni
+# giusto" danno tutti e due gli esiti. La condizione dice una cosa che la
+# persona puo' verificare, venuta dal dono dell'angelo.
+TAUTOLOGIE = re.compile(
+    r"(?<![%s])(ritieni giusto|consideri giusto|è giusto|sia giusto|"
+    r"i fatti reggono|reggono questa scelta|regge questa scelta|se regge|"
+    r"se è la scelta giusta|se te la senti|se ne sei convint\w*)"
+    r"(?![%s])" % (L, L), re.I)
+
 TI_A_TE = set((
     'dato detto chiesto mostrato concesso prestato permesso parlato affidato '
     'mandato regalato riferito passato trasmesso imposto assegnato indicato '
@@ -443,6 +505,29 @@ def difetti_di(cella, campo, testo):
         colpe.append('lunghezza %d %s, fuori da %d-%d' % (
             misura(campo, testo), unita, lo, hi))
     senza_marche = MARCA.sub(' ', testo)
+    if campo in LETTURE:
+        m = CUCITURE.search(testo)
+        if m:
+            colpe.append('formula vietata nelle letture: "%s"' % m.group(0))
+        if not testo.rstrip().endswith('.'):
+            colpe.append('la lettura chiude con un punto')
+        if campo in LETTURE_CUSTODE or campo in LETTURE_RUOLI:
+            numero = int(cella.split()[0])
+            if not any(testo.startswith(n + ' ')
+                       for n in nomi_degli_angeli()[numero]):
+                colpe.append('la frase comincia col nome dell\'angelo (il '
+                             'compositore la mette dopo l\'apertura o dopo '
+                             '"Nel Cuore," e "Nell\'Intelletto,")')
+        if campo == 'decisione' and TAUTOLOGIE.search(testo):
+            colpe.append('la condizione gira in tondo: "%s" (serve un criterio '
+                         'che la persona possa verificare)'
+                         % TAUTOLOGIE.search(testo).group(0))
+        if campo == 'decisione' and not (
+                re.search(r'(?<![%s])sì(?![%s])' % (L, L), testo) and
+                re.search(r'(?<![%s])(no|aspetta|rimanda)(?![%s])' % (L, L),
+                          testo)):
+            colpe.append('la decisione dice il sì e il no (o l\'attesa) '
+                         'nella stessa frase')
     if campo in PEZZI:
         if testo[:1] != testo[:1].lower():
             colpe.append('il pezzo comincia con la maiuscola: il compositore '
@@ -598,6 +683,18 @@ def _attacco(t):
 TETTO_ATTACCO = 12
 
 
+def _seconde(cella, testo):
+    """Le due parole che vengono dopo il nome dell'angelo (o le prime due,
+    per i gesti): e' li' che si sente una formula ripetuta."""
+    t = testo
+    numero = int(cella.split()[0])
+    for n in nomi_degli_angeli()[numero]:
+        if t.startswith(n + ' '):
+            t = t[len(n) + 1:]
+            break
+    return ' '.join(t.lower().split()[:2])
+
+
 def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
     colpe = []
     # Ordine GA: il consiglio n non ripete il messaggio n che accompagna, e
@@ -625,6 +722,16 @@ def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
             colpe.append('formula "dove pesa / dove scalda": la usano gia\' '
                          '%d testi di questo file (tetto %d)'
                          % (con_formula, TETTO_FORMULA))
+    if chiave[1] in LETTURE:
+        seconda = _seconde(chiave[0], testo)
+        stesse = sum(1 for (c, f, n), t in tutto.items()
+                     if t and f == chiave[1] and (c, f, n) != chiave and
+                     _seconde(c, t) == seconda)
+        if stesse >= TETTO_SECONDE:
+            colpe.append('attacco ripetuto nel campo %s: "%s" apre gia\' %d '
+                         'testi (tetto %d)' % (chiave[1], seconda, stesse,
+                                               TETTO_SECONDE))
+        return colpe
     uguali = sum(1 for (c, f, n), t in tutto.items()
                  if t and (c, f, n) != chiave and _attacco(t) == _attacco(testo))
     if uguali >= TETTO_ATTACCO:
@@ -643,7 +750,7 @@ def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
 
 def stessi_angelo_altri_ruoli(nome, cella):
     fuori = []
-    if nome in ('rito', 'doni'):
+    if nome in ('rito', 'doni', 'letture'):
         return fuori
     for altro in ('custode', 'cuore', 'intelletto'):
         if altro == nome or not os.path.exists(percorso(altro)):
@@ -657,7 +764,7 @@ def stessi_angelo_altri_ruoli(nome, cella):
 def riempi(nome, testi_json):
     if nome not in FILE:
         raise SystemExit('file sconosciuto: %s (custode, cuore, intelletto, '
-                         'rito, doni)' % nome)
+                         'rito, doni, letture)' % nome)
     proposte = json.load(io.open(testi_json, encoding='utf-8-sig'))
     scartati = []
     candidati = []
@@ -793,7 +900,16 @@ def controlla():
     # angelo, i doppioni su tutto il corpus.
     letti = {nome: leggi(nome) for nome in FILE}
     for nome, d in letti.items():
-        attacchi = Counter(_attacco(t) for t in d.values() if t)
+        if nome == 'letture':
+            per_campo = Counter((f, _seconde(c, t)) for (c, f, n), t in d.items()
+                                if t)
+            for (f, a), q in per_campo.items():
+                if q > TETTO_SECONDE:
+                    colpe.append('letture, %s: l\'attacco "%s" apre %d testi '
+                                 '(tetto %d)' % (f, a, q, TETTO_SECONDE))
+            attacchi = Counter()
+        else:
+            attacchi = Counter(_attacco(t) for t in d.values() if t)
         for a, q in attacchi.items():
             if q > TETTO_ATTACCO:
                 colpe.append('%s: l\'attacco "%s" apre %d testi (tetto %d)'

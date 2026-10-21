@@ -257,8 +257,11 @@ Regole che non si rompono:
             'per ogni angelo.';
     return 'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; '
         'i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. '
-        'I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
-        'della tua nascita. $chi'
+        // Ordine GA voce GA.06: con la carta dell'Intelletto coperta l'ora
+        // manca, e il secondo lettore cieco l'ha notato.
+        'I tuoi angeli vengono dal grado del Sole e dal giorno della tua '
+        'nascita; l\'Angelo dell\'Intelletto, quando la conosci, dalla sua '
+        'ora. $chi'
         '${delSalmo == null ? '' : ' Il salmo propiziatorio: $delSalmo'}';
   }
 

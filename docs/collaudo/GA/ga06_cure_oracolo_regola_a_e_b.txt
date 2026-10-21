@@ -119,3 +119,114 @@ non si ripete".
   scalda" oltre otto testi: {cuore: 11}
 
 Ripristino dopo ogni innesto: copia rimessa, grep -c INNESTO = 0, md5 uguale.
+
+======================================================================
+SECONDA CURA (21 ottobre 2026): le letture scritte
+======================================================================
+
+Base: 0dfd834b (ramo comune con la prima cura 312a2f1d unita).
+
+Regola B prima di toccare: le guardie della zona erano quelle della prima
+cura, viste rosse qui sopra il giorno prima (A1-A8, Regola B sulle tre
+guardie del corpus e della lettura); prima di riscrivere il compositore
+la guardia della misura e' stata rivista rossa sul codice nuovo senza
+innesto: con le letture appena generate "responsi composti guardati 47460,
+difetti 7099" (paragrafi fuori misura), poi 536, 258, 151, 0 curando le
+alternative di frase intera. La guardia D2 e' caduta sul codice vero
+quattro volte (stessa risposta sotto "Compro casa" e "Conviene investire",
+stesso titolo dei limiti di denaro, stesso "Cosa fare" della decisione) e
+la guardia D6 due volte (il "Cosa fare" del denaro senza consulente, la
+prima frase spezzata dal punto di domanda): curato ogni volta nel
+compositore.
+
+Regola A delle guardie nuove della seconda cura (copia, innesto di una riga
+marcata INNESTO, grep, esito, ripristino con grep -c INNESTO = 0):
+
+B1, "le letture scritte entrano intere nel responso, per ogni famiglia"
+(test/l_oracolo_risponde_dai_doni_test.dart).
+  Innesto: il compositore cerca la frase del Custode in un campo che non
+  esiste e ripiega sul dono incollato.
+  grep: 993: lettura(corpus, a, 'x${f.custode}') ?? '$c ti chiede di ${via(corpus, a)}.'; // INNESTO B1
+  Esito: [E] '"Lui tornerà da me dopo quello che è successo?", angelo 1: la
+  lettura custode altrui non entra intera'
+
+B2, la forma e il confine, parte nuova: la preposizione senza l'articolo
+unito ("Su la risposta che aspetti", trovata alla rilettura del campione).
+  Innesto: il passo dell'esito torna a "Su ${o}".
+  grep: 1360: 'Su ${o.replaceFirst('la fine di ', '')} lascia ' // INNESTO B2
+  Esito: '"La mia relazione può durare nonostante la distanza?" custode 2,
+  ...: cosaFare: preposizione senza articolo unito «Su la»'
+
+B3, la forma e il confine, parte nuova: le cuciture ("Basta un passo.", "È
+il gesto che X lega a", "a mente fresca"...).
+  Innesto: una frase in piu' del "Cosa fare" del limite diventa "Basta un
+  passo."
+  grep: 1468: 'Basta un passo.', // INNESTO B3
+  Esito: MISURA difetti 3306; SPECIE "È il momento giusto per aprire la mia
+  attività?" ... cosaFare: cucitura
+
+B4, "le letture non hanno cuciture e cominciano col nome dell'angelo"
+(test/il_corpus_dell_oracolo_test.dart).
+  Innesto nel Dart generato: "Nella mia lettura INNESTO B4" davanti alla
+  frase dell'esito di Mahasiah.
+  grep: 3177: 'Nella mia lettura INNESTO B4 Mahasiah ti insegna ad attendere in pace,
+  Esito: [E] le letture non hanno cuciture e cominciano col nome dell'angelo
+
+Le prove dello strumento (tool/il_corpus_dell_oracolo.py) sui controlli
+nuovi delle letture le hanno date gli scrittori stessi, rifiutati dallo
+strumento: attacco oltre il tetto di 10 (47, 39, 9 scarti nei lotti),
+frase senza il tu, lunghezza fuori misura, "vista" parola vietata.
+
+Ultimo giro della seconda cura, 21 ottobre 2026 (lavoro da solo, senza
+sotto-agenti, per ordine del coordinatore).
+
+B5, "la decisione delle letture non gira in tondo"
+(test/il_corpus_dell_oracolo_test.dart). Nasce dalla terza lettura cieca
+("sì se i fatti reggono questa scelta", "sì se ritieni giusto"). La parte
+sulle parole della situazione (ANCORE) e' stata tolta dallo strumento e
+dalla prova: l'aggancio alla domanda lo da' il compositore (B6).
+  Strumento prima della cura: 4 difetti (18 Caliel, 31 Lecabel, 42 Mikael,
+  55 Mebahiah, la condizione gira in tondo); riscritte a mano con lo
+  strumento, dopo: 0 difetti su 3240 testi.
+  Innesto nel Dart generato: la decisione di Mikael diventa "Mikael accorda
+  il sì se la scelta è la scelta che ritieni giusto".
+  grep -c "ritieni giusto" nel generato: 3 (2 prima dell'innesto, in campi
+  che non sono la decisione).
+  Esito: [E] 'letture|42|decisione: gira in tondo: Mikael accorda il sì se
+  la scelta è la scelta che ritieni giusto; altrimenti aspetta.'
+  Ripristino dalla copia, grep -c = 2, 8 prove su 8 verdi.
+
+B6, "il Cuore e l'Intelletto sono detti sulla situazione della domanda"
+(test/l_oracolo_risponde_dai_doni_test.dart). Nasce dalla terza lettura
+cieca: le frasi del Cuore e dell'Intelletto erano "glosse fisse
+dell'angelo, incollate". Il compositore apre la frase dei ruoli con la
+situazione ("Mentre aspetti, nel Cuore, ...", `LaRispostaDaiDoni._cornice`).
+  Grandezza: frasi dei ruoli dette sulla situazione, su ogni domanda del
+  campione e fuori campione per i 72 custodi (4176). Prima della cura
+  nessuna cornice esisteva. Misura alla nascita: 2598 su 4176 (62,2 per
+  cento) con la cornice dietro l'apertura piena; 4119 (98,6) con tutte le
+  aperture, ma D2 rossa (11 coppie di domande diverse con la stessa
+  risposta: l'apertura generica "Alla tua domanda,"); 3695 su 4176 (88,5)
+  con la cornice davanti a tutte le aperture tranne la generica. Soglia
+  0,85.
+  Alla rilettura del campione la cornice ripeteva la frase del Custode
+  ("imparando mentre aspetti. Mentre aspetti, nel Cuore", oracolo-11, 24,
+  34) e diceva l'attesa sotto la relazione a distanza (oracolo-35): curati
+  nel compositore. La grandezza e' scesa a 85,0 perche' non contava i
+  responsi in cui la situazione la dice la frase del Custode: cambiata la
+  grandezza (conta anche quella), non la soglia. Dopo: 88,5.
+  Innesto: `_cornice` restituisce sempre null.
+  grep: 1173:    return null; // INNESTO A
+  Esito: MISURA 467 su 4176 (11,2 per cento), Expected >= 0,85, Actual
+  0,1118.
+  Ripristino, grep -c INNESTO A = 0, 11 prove su 11 verdi.
+
+Prove della zona dopo l'ultimo giro: l_oracolo_risponde_dai_doni (11),
+il_corpus_dell_oracolo, il_giro_intero, a_video, sociale_e_piani,
+l_oracolo_degli_angeli, forma_nuova, si_sceglie, le_dieci_domande,
+il_genere_non_si_indovina, accenti_veri: 91 su 91 verdi. Con l_altare,
+si_apre_senza_carte, le_anteprime, testo_a_video e language_rule: 102 verdi
+e 1 rosso, language_rule "Nessuna stringa del codice viola la regola della
+virgola" su lib/core/horoscope/oroscopo_vedico_data.dart, file che questo
+lavoro non tocca (padre: d51c03a9, le cure dell'Oroscopo GA.06).
+flutter analyze lib test: nessun problema.

@@ -148,7 +148,11 @@ void main() {
         // Il dono e la via (ordine GA voce GA.06) sono pezzi di frase del
         // responso composto, non paragrafi: la loro misura la tiene lo
         // strumento, e quella del responso l_oracolo_risponde_dai_doni_test.
-        if (e.key.endsWith('|rito') || e.key.startsWith('doni|')) continue;
+        if (e.key.endsWith('|rito') ||
+            e.key.startsWith('doni|') ||
+            e.key.startsWith('letture|')) {
+          continue;
+        }
         for (final (i, t) in e.value.indexed) {
           misurati++;
           final n = LaFormaDelResponso.parole(t);

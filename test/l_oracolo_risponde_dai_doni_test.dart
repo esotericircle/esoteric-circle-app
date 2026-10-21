@@ -106,7 +106,7 @@ const List<(FormaDellaDomanda, LimiteDellaDomanda?)> attesiDelCampione = [
   (FormaDellaDomanda.esito, null),
   (FormaDellaDomanda.decisione, null),
   (FormaDellaDomanda.esito, null),
-  (FormaDellaDomanda.decisione, null),
+  (FormaDellaDomanda.decisione, LimiteDellaDomanda.denaro),
   (FormaDellaDomanda.come, null),
   (FormaDellaDomanda.decisione, null),
   (FormaDellaDomanda.esito, null),
@@ -115,7 +115,7 @@ const List<(FormaDellaDomanda, LimiteDellaDomanda?)> attesiDelCampione = [
   (FormaDellaDomanda.decisione, null),
   (FormaDellaDomanda.come, null),
   (FormaDellaDomanda.scelta, null),
-  (FormaDellaDomanda.scelta, null),
+  (FormaDellaDomanda.scelta, LimiteDellaDomanda.denaro),
   (FormaDellaDomanda.decisione, null),
   (FormaDellaDomanda.scelta, null),
   (FormaDellaDomanda.esito, null),
@@ -170,6 +170,16 @@ final RegExp _vietate = RegExp(
     caseSensitive: false,
     unicode: true);
 
+/// **LE CUCITURE** che il secondo lettore cieco ha sentito (ordine GA voce
+/// GA.06, 21 ottobre 2026): il gesto attribuito all'angelo, la voce che
+/// cambia persona, i riempitivi che valgono per tutto, la fretta su scelte
+/// grandi, l'etichetta "ti riporta a ciò che è tuo".
+final RegExp _cuciture = RegExp(
+    r"(è il gesto che|lega a|nella mia lettura|questo angelo|basta un passo|"
+    r"non serve fare tutto oggi|un passo piccolo vale|a mente fresca|"
+    r"decidi domani|ti riporta a ciò che è tuo)",
+    caseSensitive: false);
+
 /// Le rotture di casa di un testo a video, in un elenco.
 List<String> rottureDi(String nome, String t) => [
       if (t.contains(String.fromCharCode(0x2014)) ||
@@ -184,6 +194,14 @@ List<String> rottureDi(String nome, String t) => [
         '$nome: non chiude con un punto',
       if (_vietate.hasMatch(t))
         '$nome: parola vietata «${_vietate.firstMatch(t)![0]}»',
+      if (RegExp(
+              r"(?<![\p{L}])(su|di|a|da|in) (il|lo|la|i|gli|le|l')(?![\p{L}])",
+              caseSensitive: false,
+              unicode: true)
+          .hasMatch(t))
+        '$nome: preposizione senza articolo unito «${RegExp(r"(?<![\p{L}])(su|di|a|da|in) (il|lo|la|i|gli|le|l')(?![\p{L}])", caseSensitive: false, unicode: true).firstMatch(t)![0]}»',
+      if (_cuciture.hasMatch(t))
+        '$nome: cucitura «${_cuciture.firstMatch(t)![0]}»',
       for (final v in ConfineDelResponso.violazioni(t)) '$nome: confine $v',
       for (final g in formeDelGenere(t)) '$nome: genere «$g»',
     ];
@@ -280,7 +298,13 @@ void main() {
               colpe
                   .add('${custode.angelo.name} $v: copia la carta del Custode');
             }
-            if (!primaFrase(r.risposta).contains(custode.angelo.name)) {
+            // Sotto salute, legge e denaro la prima frase dice il limite e
+            // chi e' competente; l'angelo viene nella seconda.
+            final limite = LaDomandaDellOracolo.leggi(d).limite != null;
+            final dove = limite
+                ? r.risposta.substring(primaFrase(r.risposta).length)
+                : primaFrase(r.risposta);
+            if (!dove.contains(custode.angelo.name)) {
               colpe
                   .add('${custode.angelo.name} "$d": la prima frase non nomina '
                       'l\'angelo: ${primaFrase(r.risposta)}');
@@ -370,18 +394,22 @@ void main() {
             (q.forma == FormaDellaDomanda.futuro ||
                 q.forma == FormaDellaDomanda.aperta)) {
           vaghe++;
-          if (!r.cosaFare.contains('situazione precisa')) {
+          if (!r.cosaFare.contains('rifai la domanda') &&
+              !r.cosaFare.contains('Rifai la domanda')) {
             colpe.add('$d: la domanda vaga non invita a precisarla');
           }
         }
         if (q.doppia) {
           doppie++;
-          if (!r.risposta.contains('un\'altra consultazione')) {
+          if ('${r.risposta} ${r.cosaFare}'
+                  .split('un\'altra consultazione')
+                  .length !=
+              2) {
             colpe.add('$d: la doppia non rimanda la seconda domanda');
           }
         }
       }
-      cardinaleMinimo(limiti, 9, cosa: 'domande su salute, legge e denaro');
+      cardinaleMinimo(limiti, 11, cosa: 'domande su salute, legge e denaro');
       cardinaleMinimo(vaghe, 5, cosa: 'domande vaghe');
       cardinaleMinimo(doppie, 3, cosa: 'domande doppie');
       expect(colpe, isEmpty, reason: colpe.join('\n'));
@@ -442,26 +470,36 @@ void main() {
   test(
       'la forma e il confine: ogni responso composto sta fra 40 e 50 parole '
       'per paragrafo, col titolo entro 80 caratteri, senza rotture', () {
-    // Gli angeli col dono e con la via piu' lunghi e piu' corti: la misura
-    // e' additiva, quindi i casi estremi coprono il resto.
-    int lunghezza(int n, String campo) => LaFormaDelResponso.parole(
-        corpusDellOracolo['doni|${n.toString().padLeft(2, '0')}|$campo']!
-            .first);
-    final numeri = [for (var n = 1; n <= 72; n++) n];
-    final perVia = [...numeri]
-      ..sort((a, b) => lunghezza(a, 'via').compareTo(lunghezza(b, 'via')));
-    final perDono = [...numeri]
-      ..sort((a, b) => lunghezza(a, 'dono').compareTo(lunghezza(b, 'dono')));
-    final estremi = <(int, int)>[
-      (perDono.last, perVia.last),
-      (perDono.first, perVia.first),
-      (perDono.last, perVia.first),
-      (perDono.first, perVia.last),
-    ];
+    // Gli angeli con le frasi del Cuore e dell'Intelletto piu' lunghe e piu'
+    // corte nel gruppo della domanda: la misura e' additiva, quindi i casi
+    // estremi coprono il resto. Le frasi del Custode e i gesti li coprono i
+    // 72 custodi.
+    int lunghezza(int n, String campo) =>
+        LaFormaDelResponso.parole(LaRispostaDaiDoni.lettura(
+                corpusDellOracolo, AngelCatalog.byNumber(n), campo) ??
+            '');
+    List<(int, int)> estremiDi(String gruppo) {
+      final numeri = [for (var n = 1; n <= 72; n++) n];
+      final perCuore = [...numeri]..sort((a, b) => lunghezza(a, 'cuore_$gruppo')
+          .compareTo(lunghezza(b, 'cuore_$gruppo')));
+      final perIntelletto = [...numeri]..sort((a, b) =>
+          lunghezza(a, 'intelletto_$gruppo')
+              .compareTo(lunghezza(b, 'intelletto_$gruppo')));
+      return [
+        (perCuore.last, perIntelletto.last),
+        (perCuore.first, perIntelletto.first),
+        (perCuore.last, perIntelletto.first),
+        (perCuore.first, perIntelletto.last),
+      ];
+    }
+
     final domandeTutte = [...tutte, for (final (f, _, _) in fuoriCampione) f];
     final colpe = <String>[];
     var guardati = 0;
     for (final d in domandeTutte) {
+      final gruppo =
+          FamigliaDellaDomanda.di(LaDomandaDellOracolo.leggi(d)).gruppo;
+      final estremi = estremiDi(gruppo);
       for (var c = 1; c <= 72; c++) {
         for (final (h, i) in estremi) {
           if (h == c || i == c || h == i) continue;
@@ -508,6 +546,127 @@ void main() {
       print('SPECIE $s');
     }
     expect(colpe, isEmpty, reason: colpe.take(15).join('\n'));
+  });
+
+  /// **IL CUORE DETTO SULLA DOMANDA**, ordine GA voce GA.06, terza lettura
+  /// cieca: le frasi del Cuore e dell'Intelletto erano "glosse fisse
+  /// dell'angelo, incollate", vere sotto qualunque domanda e legate a
+  /// nessuna. La frase dei ruoli si apre con la situazione della domanda
+  /// ("Mentre aspetti, nel Cuore, ..."), o la frase scritta la nomina gia'.
+  /// La misura: su ogni domanda del campione e fuori campione, per ognuno dei
+  /// 72 custodi con tre carte scoperte, quante frasi dei ruoli sono dette
+  /// sulla situazione.
+  test('il Cuore e l\'Intelletto sono detti sulla situazione della domanda',
+      () {
+    final situazione = RegExp(
+        r'(In questa situazione|Mentre ti prepari|Mentre aspetti|Intanto|'
+        r'In questo rapporto|Davanti a questa scelta|Per riuscirci|'
+        r'Per questo periodo), nel Cuore,');
+    var guardati = 0;
+    var detti = 0;
+    final senza = <String>[];
+    for (final d in [...tutte, for (final (f, _, _) in fuoriCampione) f]) {
+      for (var n = 1; n <= 72; n++) {
+        final h = n % 72 + 1;
+        final i = (n + 30) % 72 + 1;
+        final r = LaRispostaDaiDoni.componi(
+            domanda: d, carte: _carte(n, h, i), corpus: corpusDellOracolo);
+        if (!r.risposta.contains('Nel Cuore,') &&
+            !r.risposta.contains('nel Cuore,')) {
+          continue;
+        }
+        guardati++;
+        final frase = LaRispostaDaiDoni.lettura(
+                corpusDellOracolo,
+                AngelCatalog.byNumber(h),
+                'cuore_${FamigliaDellaDomanda.di(LaDomandaDellOracolo.leggi(d)).gruppo}') ??
+            '';
+        final f = FamigliaDellaDomanda.di(LaDomandaDellOracolo.leggi(d));
+        final delCustode = (LaRispostaDaiDoni.lettura(
+                    corpusDellOracolo, AngelCatalog.byNumber(n), f.custode) ??
+                '')
+            .toLowerCase();
+        if (situazione.hasMatch(r.risposta) ||
+            // La frase del Custode dice gia' la situazione con le stesse
+            // parole della cornice ("imparando mentre aspetti").
+            [
+              'in questa situazione',
+              'mentre ti prepari',
+              'mentre aspetti',
+              'intanto',
+              'in questo rapporto',
+              'davanti a questa scelta',
+              'per riuscirci',
+              'per questo periodo',
+            ].any(delCustode.contains) ||
+            RegExp(
+                    r'situazione|prepar|aspett|attes|mentre|intanto|rapporto|'
+                    r'scelt|davanti|riuscir|periodo',
+                    caseSensitive: false)
+                .hasMatch(frase)) {
+          detti++;
+        } else if (senza.length < 10) {
+          senza.add('"$d" custode $n: ${r.risposta}');
+        }
+      }
+    }
+    cardinaleMinimo(guardati, 72 * 30, cosa: 'frasi dei ruoli guardate');
+    final quota = detti / guardati;
+    // ignore: avoid_print
+    print('GA.06 MISURA ruoli detti sulla situazione $detti su $guardati '
+        '(${(quota * 100).toStringAsFixed(1)} per cento)');
+    // 88,5 per cento alla nascita della guardia (3695 su 4176): il resto
+    // sono le domande in cui con la cornice il paragrafo supera le 50 parole
+    // e l'unica apertura che lascia posto e' quella generica, che darebbe la
+    // stessa risposta a domande diverse.
+    expect(quota, greaterThanOrEqualTo(0.85), reason: senza.join('\n'));
+  });
+
+  /// **LE LETTURE ENTRANO INTERE**, ordine GA voce GA.06, seconda cura: il
+  /// secondo lettore cieco ha sentito il dono incollato sulla domanda e il
+  /// Cuore e l'Intelletto come etichette. Adesso il responso porta le frasi
+  /// SCRITTE per quell'angelo e quella famiglia di domanda: la frase del
+  /// Custode e quelle del Cuore e dell'Intelletto nella risposta, il gesto
+  /// nel "Cosa fare". Nessun ripiego sul dono incollato.
+  test('le letture scritte entrano intere nel responso, per ogni famiglia', () {
+    final colpe = <String>[];
+    var guardati = 0;
+    final perFamiglia = <FamigliaDellaDomanda, String>{};
+    for (final d in [...tutte, for (final (f, _, _) in fuoriCampione) f]) {
+      perFamiglia.putIfAbsent(
+          FamigliaDellaDomanda.di(LaDomandaDellOracolo.leggi(d)), () => d);
+    }
+    cardinaleMinimo(perFamiglia.length, FamigliaDellaDomanda.values.length,
+        cosa: 'famiglie di domanda con una domanda di prova');
+    for (final MapEntry(key: f, value: d) in perFamiglia.entries) {
+      for (var n = 1; n <= 72; n++) {
+        final h = n % 72 + 1;
+        final i = (n + 30) % 72 + 1;
+        final r = LaRispostaDaiDoni.componi(
+            domanda: d, carte: _carte(n, h, i), corpus: corpusDellOracolo);
+        guardati++;
+        String? l(int a, String campo) => LaRispostaDaiDoni.lettura(
+            corpusDellOracolo, AngelCatalog.byNumber(a), campo);
+        final pezzi = {
+          'custode ${f.custode}': (l(n, f.custode), r.risposta),
+          'cuore_${f.gruppo}': (l(h, 'cuore_${f.gruppo}'), r.risposta),
+          'intelletto_${f.gruppo}': (
+            l(i, 'intelletto_${f.gruppo}'),
+            r.risposta
+          ),
+          'gesto_${f.gruppo}': (l(n, 'gesto_${f.gruppo}'), r.cosaFare),
+        };
+        for (final MapEntry(key: k, value: (frase, testo)) in pezzi.entries) {
+          if (frase == null) {
+            colpe.add('angelo $n: manca la lettura $k');
+          } else if (!testo.contains(frase)) {
+            colpe.add('"$d", angelo $n: la lettura $k non entra intera');
+          }
+        }
+      }
+    }
+    cardinaleMinimo(guardati, 72 * 8, cosa: 'responsi guardati');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
   });
 
   test('i doni del corpus: uno e una via per ognuno dei 72 angeli', () {
