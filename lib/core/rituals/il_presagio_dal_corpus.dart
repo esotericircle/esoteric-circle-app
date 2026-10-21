@@ -6,6 +6,8 @@ import '../responsi/i_riti_propiziatori.dart';
 import '../responsi/la_forma_del_responso.dart';
 import 'il_titolo_della_gettata.dart';
 import 'la_risposta_della_gettata.dart';
+import 'le_risposte_dirette.dart';
+import 'le_risposte_dirette.g.dart';
 import 'rune_cast.dart';
 import 'rune_lore.g.dart';
 
@@ -320,6 +322,14 @@ abstract final class IlPresagioDalCorpus {
   /// Le voci che chiedono al corpo uno sforzo: camminare, correre, salire,
   /// sollevare, fare attivita' fisica. Su una domanda di salute non si
   /// scelgono (ordine GA voce GA.06).
+  /// Le voci che spingono a muovere beni: spendere, scambiare, mettere in
+  /// gioco, far circolare. Su una domanda di denaro non si scelgono.
+  static final RegExp spintaAMuovereBeni = LaDomandaLetta.parola(
+      r'muov\w* il bene|metti in circolo|mettil\w* in circolo|fai circolare|'
+      r'far circolare|investi\w*|spend\w*|compra\w*|vend\w*|capitale|'
+      r'risparmi\w*|scambial\w*|usalo|offrilo|metti in gioco|mettil\w* in '
+      r'gioco|presta\w*|regala\w*|dona\w*|acquist\w*|bene che hai fermo');
+
   static final RegExp sforzoFisico = LaDomandaLetta.parola(
       r'cammin\w*|corri|correre|corsa|corsetta|salit\w*|sali[lr]\w*|scal[ae]|'
       r'scalinat\w*|'
@@ -436,11 +446,19 @@ abstract final class IlPresagioDalCorpus {
     // voci di PIETRA e CONSIGLIO che chiedono al corpo uno sforzo non si
     // scelgono quando la domanda tocca la salute (se un gruppo le avesse
     // tutte, si sceglie come sempre).
+    //
+    // **E SU UNA DOMANDA DI DENARO NON SPINGONO A MUOVERE BENI**: il lettore
+    // cieco indipendente ha letto "Muovi il bene che hai fermo ... Usalo,
+    // scambialo, offrilo" sotto "Conviene investire i miei risparmi in
+    // borsa?". Stessa regola, con le voci che spingono a spendere,
+    // scambiare, mettere in gioco.
     final perLaSalute = letta.delicato == AmbitoDelicato.salute;
-    String prendi(String parte, String campo, String gruppo) {
+    final perIlDenaro = letta.delicato == AmbitoDelicato.denaro;
+    String prendi(String parte, String campo, String gruppo,
+        {List<String>? fonte}) {
       final gia = diOggi[parte];
       if (gia != null) return gia;
-      final voci = corpus.voci[campo]?[gruppo] ?? const <String>[];
+      final voci = fonte ?? corpus.voci[campo]?[gruppo] ?? const <String>[];
       final n = voci.length;
       if (n == 0) {
         throw StateError('corpus incompleto: $campo/$gruppo');
@@ -448,11 +466,13 @@ abstract final class IlPresagioDalCorpus {
       bool vuota(int i) =>
           voci[i].trim().isEmpty ||
           vociTrattenute.contains('$campo/$gruppo/${i + 1}');
-      final faticosa = perLaSalute &&
-              (campo == CampiDelPresagio.consiglio ||
-                  campo == CampiDelPresagio.pietra)
+      final scheda = campo == CampiDelPresagio.consiglio ||
+          campo == CampiDelPresagio.pietra;
+      final faticosa = scheda && perLaSalute
           ? (int i) => sforzoFisico.hasMatch(voci[i])
-          : null;
+          : scheda && perIlDenaro
+              ? (int i) => spintaAMuovereBeni.hasMatch(voci[i])
+              : null;
       final restano = faticosa == null
           ? true
           : [for (var i = 0; i < n; i++) i]
@@ -500,7 +520,92 @@ abstract final class IlPresagioDalCorpus {
     // RISPOSTA del corpus li' non entra. Tutto in `la_risposta_della_gettata.dart`.
     final t = tono(pietre);
     String? paragrafo;
-    if (letta.delicato != null) {
+    String? riquadroDiretto;
+    // **LE RISPOSTE DIRETTE, SCRITTE PER PIETRA E PER TIPO DI DOMANDA.**
+    // Ordine GA voce GA.06, il secondo giro della cura delle Rune: il
+    // lettore cieco indipendente, sulla prima cura (paragrafi montati da
+    // frammenti), ha contato il cosa fare concreto in 25 responsi su 40 e la
+    // coerenza in 24, con formule ripetute ("Lo chiede la pietra che decide"
+    // 21 volte) e la persona della domanda sparita dietro un ambito. Qui il
+    // paragrafo e il riquadro sono testi interi di `diretta.md` e
+    // `azione.md`, scritti per la pietra che decide nel suo verso e per il
+    // tipo della domanda, con la cosa della domanda nelle parole di chi
+    // chiede (`LOggettoDellaDomanda`). Salute, legge e denaro restano col
+    // loro limite; la giornata e le domande aperte del Cerchio restano come
+    // prima.
+    final tipoDiretto = LeRisposteDirette.tipoDelCorpus(letta, domanda);
+    if (tipoDiretto != null) {
+      final gruppo = '${gruppoDellaPietra(decide)}/$tipoDiretto';
+      final dirette = leRisposteDirette['diretta']?[gruppo];
+      final azioni = leRisposteDirette['azione']?[gruppo];
+      if (dirette != null &&
+          dirette.isNotEmpty &&
+          azioni != null &&
+          azioni.isNotEmpty) {
+        final valori = LeRisposteDirette.valori(letta, domanda, tipoDiretto);
+        final nota = LaRispostaDellaGettata.notaDellaSeconda(letta);
+        String voce(String id, List<String> fonte) =>
+            LaMarcaDelGenere.risolvi(fonte[int.parse(id.split('/').last) - 1],
+                forma: forma);
+        final note = letta.doppia ? nota : const [''];
+        // **LA COSA DELLA DOMANDA NELLE PAROLE PIU' FEDELI, LA STESSA NEI DUE
+        // TESTI.** Si sceglie prima il valore dello spazio, dal piu' fedele
+        // alle parole di chi chiede al piu' generale, e poi le voci: fra
+        // quelle del gruppo restano le sole che con quel valore stanno nella
+        // misura (con la nota della seconda domanda, se c'e') e che non lo
+        // ripetono gia' con parole loro. Il campione aveva "la decisione di
+        // prendere questa decisione" (una voce lunga che con "andare a vivere
+        // lontano dai tuoi genitori" non stava e prendeva la riserva), "il
+        // pranzo con la famiglia di lui" sopra e "la tua famiglia" sotto, e
+        // per la domanda doppia la forma di prima ("per il trasferimento la
+        // gettata indica"). Le voci lasciate da parte restano vuote per la
+        // scelta, senza spostare i numeri; solo se nessun valore trova voci
+        // nei due campi si sceglie fra tutte, come prima.
+        List<String> filtra(List<String> voci, String v, List<String> n) => [
+              for (final x in voci)
+                LeRisposteDirette.riempi(
+                                LaMarcaDelGenere.risolvi(x, forma: forma), [v],
+                                note: n) !=
+                            null &&
+                        LeRisposteDirette.senzaRipetizioni(x, [v, '']).first ==
+                            v
+                    ? x
+                    : '',
+            ];
+        bool qualcuna(List<String> voci) => voci.any((x) => x.isNotEmpty);
+        var fonteDiretta = dirette;
+        var fonteAzione = azioni;
+        var usa = valori;
+        for (final v in valori) {
+          final fd = filtra(dirette, v, note);
+          final fa = filtra(azioni, v, const ['']);
+          if (qualcuna(fd) && qualcuna(fa)) {
+            fonteDiretta = fd;
+            fonteAzione = fa;
+            usa = [v];
+            break;
+          }
+        }
+        final idDiretta =
+            prendi('diretta', 'diretta', gruppo, fonte: fonteDiretta);
+        final idAzione = prendi('azione', 'azione', gruppo, fonte: fonteAzione);
+        final vd = voce(idDiretta, dirette);
+        final va = voce(idAzione, azioni);
+        final p1 = LeRisposteDirette.riempi(vd, usa, note: note) ??
+            LeRisposteDirette.riempi(vd, valori, note: note) ??
+            '';
+        final p2 = LeRisposteDirette.riempi(va, usa) ??
+            LeRisposteDirette.riempi(va, valori) ??
+            '';
+        if (p1.isNotEmpty && p2.isNotEmpty) {
+          paragrafo = p1;
+          riquadroDiretto = p2;
+        }
+      }
+    }
+    if (paragrafo != null) {
+      // Le risposte dirette hanno gia' il paragrafo e il riquadro.
+    } else if (letta.delicato != null) {
       paragrafo = LaRispostaDellaGettata.paragrafoDelicato(
           domanda: letta, esito: esito);
     } else {
@@ -515,10 +620,15 @@ abstract final class IlPresagioDalCorpus {
     }
     paragrafo ??= LaRispostaDellaGettata.primeFrasi(letta, esito).first;
     final variante = _seme('$persona|$giorno|${letta.tipo.name}') % 7;
-    final cosaFare = (letta.tipo == TipoDiDomanda.giornata
-            ? null
-            : LaRispostaDellaGettata.riquadro(
-                domanda: letta, esito: esito, variante: variante)) ??
+    // Il riquadro: la risposta diretta; per salute, legge e denaro (e per
+    // una domanda doppia che non trova la sua) quello composto; per la
+    // giornata e le domande aperte del Cerchio il GESTO della pietra, un
+    // gesto concreto che la formula composta non sapeva dare.
+    final cosaFare = riquadroDiretto ??
+        (letta.delicato != null || letta.doppia
+            ? LaRispostaDellaGettata.riquadro(
+                domanda: letta, esito: esito, variante: variante)
+            : null) ??
         testo(prendi(
             parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
     final legame = lunga

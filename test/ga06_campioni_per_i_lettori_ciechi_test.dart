@@ -430,12 +430,20 @@ List<Map<String, Object?>> campioniDeiTarocchi() {
 List<Map<String, Object?>> campioniDelleRune() {
   final caso = Random(_seme + 2);
   final giro = _inGiro(_seme + 2);
+  // **UN SOLO GENERATORE PER TUTTE LE GETTATE**, ordine GA voce GA.06, la
+  // cura delle Rune. Qui ogni gettata aveva il suo `Random(_seme * 100 + i)`:
+  // in Dart semi consecutivi danno estrazioni vicine, e nei 40 campioni
+  // Ingwaz decideva 9 gettate (attese 1,7), le quattro Rune di Odino 17, 21,
+  // 25 e 29 tutte Ingwaz (il lettore cieco dell'ordine GA l'ha visto). L'app
+  // non semina per gettata (`RuneCast.getta` senza `random` usa un
+  // `Random()` nuovo): un solo generatore e' come la persona vera.
+  final getti = Random(_seme * 100);
   final fuori = <Map<String, Object?>>[];
   var i = 0;
   for (var volta = 0; volta < 10; volta++) {
     for (final gettata in gettate) {
       final (domanda, _, ambito) = giro[i % giro.length];
-      final esito = RuneCast.getta(gettata, random: Random(_seme * 100 + i));
+      final esito = RuneCast.getta(gettata, random: getti);
       final lunga = i.isOdd;
       final forma =
           CourtesyForm.values[caso.nextInt(CourtesyForm.values.length)];

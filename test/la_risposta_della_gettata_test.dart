@@ -6,7 +6,9 @@ import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
 import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
+import 'package:esoteric_circle/core/rituals/l_oggetto_della_domanda.dart';
 import 'package:esoteric_circle/core/rituals/la_risposta_della_gettata.dart';
+import 'package:esoteric_circle/core/rituals/le_risposte_dirette.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -673,7 +675,17 @@ void main() {
             colpe.add('${g.id}, $seme, «$d»: il VERDETTO nel paragrafo');
           }
           final inizio = r.cosaFare.split(' ').take(8).join(' ');
-          if (d.trim().isNotEmpty && gesti.contains(inizio)) {
+          // Dal secondo giro della voce GA.06 il GESTO resta il riquadro
+          // di chi getta senza domanda e delle domande aperte del Cerchio
+          // ("Cosa devo sapere sul mio momento?"), che non hanno un tipo
+          // del corpus diretto; ogni domanda con un tipo ha il riquadro
+          // scritto per lei (`azione.md`), e una domanda di salute, legge
+          // o denaro il suo.
+          final q = LaDomandaLetta.di(d);
+          final haIlSuo = LeRisposteDirette.tipoDelCorpus(q, d) != null ||
+              q.delicato != null ||
+              q.doppia;
+          if (haIlSuo && gesti.contains(inizio)) {
             colpe.add('${g.id}, $seme, «$d»: il GESTO nel riquadro');
           }
           if (d.trim().isEmpty && !gesti.contains(inizio)) {
@@ -724,6 +736,63 @@ void main() {
           lette++;
           final prima = primaFrase(p.principale.risposta);
           final dove = '${g.id}, $seme, «$d»: «$prima»';
+          // **LE RISPOSTE DIRETTE**, secondo giro della voce GA.06: il
+          // paragrafo di una domanda con un tipo del corpus e' una voce
+          // intera di `diretta.md`, e la sua prima frase si misura con le
+          // regole di `tool/controlla_le_risposte_dirette_delle_rune.py`:
+          // nelle decisioni un verdetto e l'azione di chi chiede; negli altri
+          // tipi la cosa della domanda e mai un si' o un no; nella scelta il
+          // criterio; in quando, previsione, altrui e vaghe il limite delle
+          // rune con una negazione; nelle vaghe l'invito a precisare.
+          final tipoDiretto = LeRisposteDirette.tipoDelCorpus(q, d);
+          if (tipoDiretto != null) {
+            final r = p.principale.risposta;
+            final colpeDirette = <String>[
+              if (tipoDiretto == 'decisione' &&
+                  !RegExp(r'^(Sì|No(?![a-zà-ÿ])|Non(?![a-zà-ÿ])|Ancora no|'
+                          r'Aspetta|Rimanda|Fermati|Meglio|Prima(?![a-zà-ÿ]))')
+                      .hasMatch(prima))
+                'non comincia con un verdetto',
+              if (tipoDiretto == 'decisione' &&
+                  !LOggettoDellaDomanda.azioni(q.azione).any(prima.contains))
+                'non nomina l\'azione di chi chiede',
+              if (tipoDiretto != 'decisione' &&
+                  !LeRisposteDirette.valori(q, d, tipoDiretto)
+                      .any(prima.contains))
+                'non nomina la cosa della domanda',
+              if (tipoDiretto != 'decisione' &&
+                  RegExp(r'^(Sì|No)(?![a-zà-ÿ])').hasMatch(prima))
+                'un sì o un no a una domanda che non li chiede',
+              if (tipoDiretto == 'scelta' &&
+                  !RegExp(r'scegl|strad|preferisc', caseSensitive: false)
+                      .hasMatch(prima))
+                'non dà il criterio di scelta',
+              if (const {'quando', 'previsione', 'altrui', 'vaga'}
+                      .contains(tipoDiretto) &&
+                  !(LaDomandaLetta.parola(r'rune|runa|pietr\w*|gettata|segni')
+                          .hasMatch(prima.toLowerCase()) &&
+                      LaDomandaLetta.parola(r'non|nessun\w*|né')
+                          .hasMatch(prima.toLowerCase())))
+                'non dice il limite delle rune',
+              if (tipoDiretto == 'vaga' &&
+                  !RegExp(
+                          r'precis|riformul|dimmi|raccontami|una domanda (più|'
+                          r'meglio)|domanda (concreta|mirata)|nomina|restringi|'
+                          r'scegli una (cosa|domanda)',
+                          caseSensitive: false)
+                      .hasMatch(r))
+                'non invita a precisare la domanda',
+            ];
+            for (final c in colpeDirette) {
+              colpe.add('$dove: $c');
+            }
+            if (q.doppia &&
+                !RegExp(r'[Ll]a seconda( domanda)?[ ,].*un’altra gettata')
+                    .hasMatch(r)) {
+              colpe.add('$dove: la domanda doppia non e\' separata');
+            }
+            continue;
+          }
           final atteso = q.delicato != null
               ? switch (q.delicato!) {
                   AmbitoDelicato.salute => RegExp(r'medici.*non le rune'),

@@ -33,7 +33,9 @@ import 'cardinale_minimo.dart';
 ///   di pietre in ombra diverso da uno;
 /// - conta le pietre ("le tre pietre", "due pietre su cinque") con un numero
 ///   che non e' quello della gettata;
-/// - parla di "pietre" al plurale quando la pietra e' una sola.
+/// - parla di "pietre" al plurale quando la pietra e' una sola (salvo il
+///   plurale dell'oracolo in generale, "le pietre non predicono", vedi
+///   `pluraleDellOracolo`).
 void main() {
   const rune = [
     'Fehu', 'Uruz', 'Thurisaz', 'Ansuz', 'Raidho', 'Kenaz', 'Gebo', 'Wunjo',
@@ -70,6 +72,16 @@ void main() {
       r'dritte|rovesciate))?',
       caseSensitive: false);
   final plurale = parola(r'pietre');
+  // **IL PLURALE DELL'ORACOLO NON E' UN CONTO**, ordine GA voce GA.06,
+  // secondo giro: le risposte dirette dicono "Le pietre non predicono
+  // l'esito", "Ciò che prova un'altra persona non entra nelle pietre",
+  // "torna alle pietre con una domanda precisa". E' l'oracolo delle rune in
+  // generale, vero anche sotto una pietra sola; il difetto da prendere resta
+  // "le pietre" che descrivono questa gettata ("le pietre uscite dicono").
+  // Qui si tolgono dal testo solo gli usi generali, prima di cercare il
+  // plurale.
+  final pluraleDellOracolo = parola(r'le pietre non|(alle|nelle|dalle) pietre|'
+      r'pietre non');
 
   /// Le colpe di un testo letto sotto una gettata di [n] pietre con [k] in
   /// ombra; [uscite] le rune uscite (null: non si guardano i nomi).
@@ -107,7 +119,7 @@ void main() {
             };
       if (!giusto) fuori.add('«${m[0]}» con $n pietre, $k in ombra');
     }
-    if (n == 1 && plurale.hasMatch(testo)) {
+    if (n == 1 && plurale.hasMatch(testo.replaceAll(pluraleDellOracolo, ' '))) {
       fuori.add('«pietre» al plurale con una pietra sola');
     }
     return fuori;
