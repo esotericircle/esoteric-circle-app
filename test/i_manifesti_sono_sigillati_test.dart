@@ -408,6 +408,7 @@ void main() {
     // piu' FZA.01-FZA.05 dell'aggiunta FZA (le nove ombre del Viaggio, la
     // simulazione, il riquadro che non taglia le gambe), un titolo per voce.
     'FZ': 15,
+    'GA': 16,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
