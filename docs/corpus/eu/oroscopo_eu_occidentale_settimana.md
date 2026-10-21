@@ -13,7 +13,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana buona nel complesso, con la voglia giusta per chiudere le faccende di casa rimaste in sospeso. Hai la mano ferma che serve: se c'è una mensola da montare, una tenda da appendere o un cassetto da aggiustare, adesso bastano un pomeriggio e gli attrezzi giusti.
 - Che cosa fare: Scegli oggi un lavoro da finire, il più piccolo fra quelli che rimandi. Prendi le misure e scrivile su un foglietto. Entro tre giorni procurati viti, tasselli o ciò che manca, poi fissa in agenda un'ora precisa per completarlo. Finito quello, fermati: il resto aspetta.
-- Risposta, Lunga: Un lavoro lasciato a metà occupa più spazio di quanto sembri: lo vedi entrando e lo rimandi uscendo. Chiuderlo libera lo sguardo e restituisce una stanza che ti somiglia. Tienilo piccolo, senza farne un cantiere più grande: te ne accorgi da un angolo che torna in ordine.
+- Risposta, Lunga: Un lavoro lasciato a metà occupa più spazio di quanto sembri: lo vedi entrando e lo rimandi uscendo. Chiuderlo libera lo sguardo e restituisce una stanza che ti somiglia. Tienilo piccolo, senza farne un cantiere più grande: un angolo tornato in ordine dice già che hai fatto bene.
 
 #### Generale, favorevole, voce 2: Un saluto ai vicini
 
@@ -313,9 +313,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Amore, favorevole, voce 8: La presentazione sincera
 
-- Risposta: Settimana favorevole agli incontri cercati con sincerità. Se sei senza legame e da tempo hai messo in pausa le app o le occasioni per conoscere persone, adesso riaprire la porta viene facile; se vivi una relazione, la stessa sincerità serve a raccontarti a chi ami senza filtri.
-- Che cosa fare: Se cerchi, scegli una foto recente in cui si vede bene il tuo sorriso e riscrivi la presentazione con tre cose che fai davvero nel tempo libero. Se hai un legame, racconta a chi ami una passione tua che conosce poco. In entrambi i casi, fatti concreti.
-- Risposta, Lunga: Una presentazione vera attira persone compatibili con la tua vita reale, non con un'immagine ritoccata. Nella coppia succede lo stesso: farsi conoscere ancora, dopo tanto tempo, rinnova la curiosità. Se una conversazione nuova ti diverte, una telefonata breve prima di vedervi aiuta a capire se c'è intesa.
+- Risposta: Settimana favorevole agli incontri cercati con sincerità. Se sei senza legame, riaprire la porta alle occasioni per conoscere persone viene più facile, con un'app o di persona; se vivi una relazione, la stessa sincerità serve a raccontarti a chi ami senza filtri.
+- Che cosa fare: Se cerchi e usi un'app, aggiorna la foto e scrivi tre cose che fai davvero nel tempo libero; se le app non fanno per te, cerca un'uscita in compagnia e presentati partendo da una passione vera. Se hai un legame, racconta a chi ami una passione che conosce poco.
+- Risposta, Lunga: Una presentazione vera tende ad attirare persone compatibili con la tua vita reale, non con un'immagine ritoccata. Nella coppia succede lo stesso: farsi conoscere ancora, dopo tanto tempo, rinnova la curiosità. Se una conversazione nuova ti diverte, una telefonata breve prima di vedervi aiuta a capire se c'è intesa.
 
 #### Amore, favorevole, voce 9: Il gesto restituito
 
@@ -365,7 +365,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana tranquilla nella vita sentimentale, buona per fare chiarezza. Se vivi una relazione, chiediti che cosa desideri dalla tua storia adesso, non all'inizio; se sei senza legame, chiediti che cosa cerchi davvero, prima di dividere l'attenzione fra persone diverse senza conoscerne bene nessuna.
 - Che cosa fare: Prenditi stasera venti minuti con un foglio e scrivi tre cose che ti fanno stare bene in amore e una che non vuoi più. Se hai un legame, condividi con chi ami la prima voce; se sei senza legame, rileggi il foglio prima del prossimo appuntamento.
-- Risposta, Lunga: Quando l'attenzione si divide o scorre in automatico, si finisce per vivere l'amore a metà. Mettere per iscritto i desideri li rende meno vaghi e più facili da riconoscere. Te ne accorgi quando una scelta arriva senza ansia, perché sai già che cosa conta.
+- Risposta, Lunga: Quando l'attenzione si divide o scorre in automatico, si finisce per vivere l'amore a metà. Mettere per iscritto i desideri li rende meno vaghi e più facili da riconoscere. Quando una scelta arriva senza ansia, perché sai già che cosa conta, quelle righe hanno fatto il loro lavoro.
 
 #### Amore, equilibrio, voce 3: Nessuna tappa bruciata
 
@@ -511,7 +511,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana irregolare e incerta in amore per il ritmo dei contatti. Se vivi una relazione, specie a distanza, le chiamate rischiano di saltare per impegni e orari diversi; se sei senza legame, chi stai conoscendo può rispondere a intermittenza. Ogni ritardo può sembrare un segnale, ma spesso non lo è.
 - Che cosa fare: Se hai un legame, concordate oggi due appuntamenti fissi per sentirvi in questi sette giorni, da trattare come impegni che non si spostano. Se sei senza legame, proponi una telefonata a un orario preciso invece di aspettare la risposta in chat. Negli altri momenti, niente controlli continui.
-- Risposta, Lunga: A distanza o all'inizio di una storia l'irregolarità pesa più dell'assenza: non sapere quando arriva la prossima voce crea un'attesa che logora. Un orario fisso restituisce tranquillità a entrambi. Lo capisci quando smetti di controllare il telefono ogni dieci minuti, senza sforzo.
+- Risposta, Lunga: A distanza o all'inizio di una storia l'irregolarità pesa più dell'assenza: non sapere quando arriva la prossima voce crea un'attesa che logora. Un orario fisso restituisce tranquillità a entrambi. Smettere senza sforzo di controllare il telefono ogni dieci minuti vuol dire che il ritmo sta tenendo.
 
 #### Amore, salita, voce 13: Il desiderio che cala
 
@@ -759,7 +759,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana faticosa nel lavoro per chi aspetta riscontri: ciò che proponi, un servizio, un progetto, una candidatura, un'idea, può raccogliere meno interesse di quanto speri. Questi giorni chiedono di cercare dati e non conferme, prima di decidere che cosa cambiare e che cosa tenere.
 - Che cosa fare: Scegli una cosa che stai proponendo agli altri, oppure il tuo curriculum se non proponi nulla. Chiedi a tre persone a cui si rivolge un parere sincero, con una sola domanda: che cosa ti farebbe dire di sì? Prima che la settimana finisca cambia un elemento solo.
-- Risposta, Lunga: Un riscontro scarso non dice che l'idea è sbagliata: spesso dice che è spiegata male o offerta alle persone sbagliate. Prima di cambiare tutto conviene capire quale delle due cose sta succedendo. Toccando un solo elemento alla volta capisci davvero che cosa funziona.
+- Risposta, Lunga: Un riscontro scarso non dice che l'idea è sbagliata: spesso dice che è spiegata male o offerta alle persone sbagliate. Prima di cambiare tutto conviene capire quale delle due cose sta succedendo. Toccando un solo elemento alla volta puoi vedere davvero che cosa funziona.
 
 #### Carriera, salita, voce 11: Il peso diviso male
 
@@ -783,7 +783,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana amara e difficile nel lavoro sul fronte del merito: le idee passano di bocca in bocca e rischiano di perdere la firma per strada. Conviene muoversi con calma e con le prove, perché la reazione a caldo, in questi giorni, fa più danni del torto subito.
 - Che cosa fare: Da oggi metti per iscritto ogni proposta che fai, con un riepilogo breve dopo ogni incontro e la data. Se un'idea tua compare col nome di un altro, recupera il testo in cui l'avevi presentata e parlane prima con quella persona, in privato e senza accuse.
-- Risposta, Lunga: Non sempre dietro questi scambi c'è malizia: a volte un'idea viaggia fra molte voci e nessuno ricorda chi l'ha detta per primo. Le tracce scritte proteggono il tuo lavoro senza creare tensioni. Ti accorgi che servono quando in riunione qualcuno cita la tua proposta col tuo nome.
+- Risposta, Lunga: Non sempre dietro questi scambi c'è malizia: a volte un'idea viaggia fra molte voci e nessuno ricorda chi l'ha detta per primo. Le tracce scritte proteggono il tuo lavoro senza creare tensioni. Se qualcuno cita una tua proposta col tuo nome, quelle tracce stanno lavorando per te.
 
 ## Fortuna
 
@@ -915,7 +915,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la fortuna è una settimana ordinaria, senza colpi di scena: la buona sorte passa in piccole dosi e aiuta chi la nota. Un'idea, un nome, una proposta sentita di sfuggita svaniscono in fretta se nessuno li scrive; annotati, invece, tornano utili al momento giusto.
 - Che cosa fare: Apri oggi una nota sul telefono intitolata occasioni e per tutti i sette giorni scrivici ogni spunto che passa: un evento, un nome, un consiglio, un posto da vedere. Alla fine della settimana rileggila con calma e scegli due righe a cui dare un seguito concreto.
-- Risposta, Lunga: Molte occasioni non mancano: si perdono fra un pensiero e l'altro. Scriverle le trasforma da impressioni in possibilità concrete. Col tempo, rileggendo, ti accorgi che alcune righe si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.
+- Risposta, Lunga: Molte occasioni non mancano: si perdono fra un pensiero e l'altro. Scriverle le trasforma da impressioni in possibilità concrete. Rileggendo prima che la settimana finisca, puoi scoprire righe che si ripetono e indicano una direzione che la memoria, presa dalle cose di ogni giorno, non vedeva.
 
 #### Fortuna, equilibrio, voce 8: Un margine libero
 
@@ -933,7 +933,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La buona sorte, in una settimana stabile come questa, si incontra fuori dalle quattro mura: le occasioni nascono dove passano le persone. Biblioteche, parchi, piazze, mercati e caffè sono il terreno dove un saluto può diventare una conversazione utile o un'idea nuova.
 - Che cosa fare: Ogni giorno di questa settimana passa almeno mezz'ora in un luogo pubblico, senza fretta e con lo sguardo alzato. Cambia luogo almeno tre volte. Saluta chi incontri più di una volta e, se l'occasione si presenta, scambia due parole su ciò che sta succedendo intorno.
-- Risposta, Lunga: La fortuna ha bisogno di incroci e gli incroci hanno bisogno di presenza. Chi esce con regolarità diventa un volto noto: ai volti noti si raccontano le notizie, gli inviti, i consigli. Te ne rendi conto quando qualcuno comincia a salutarti per primo.
+- Risposta, Lunga: La fortuna ha bisogno di incroci e gli incroci hanno bisogno di presenza. Chi esce con regolarità diventa un volto noto: ai volti noti si raccontano le notizie, gli inviti, i consigli. Se qualcuno comincia a salutarti per primo, la tua presenza è stata notata.
 
 #### Fortuna, equilibrio, voce 11: Gratitudine che rafforza i legami
 

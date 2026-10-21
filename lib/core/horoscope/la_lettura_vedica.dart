@@ -469,7 +469,12 @@ abstract final class LaLetturaVedica {
     final rigaDelLivelloGenerale = 'Il livello viene dalla Luna $diOggi '
         '${_nelSegno[rashiOggi]}, nella tua ${ordinali[h - 1]} casa dalla Luna '
         'di nascita (${_nomeEsito(esitoLuna)})'
-        '${esitoStella == null ? '' : '; e dalla tua tara $diOggi, ${_nomiDelleTare[t! - 1]} (${_nomeEsito(esitoStella)})'}.';
+        '${esitoStella == null ? '' : '; e dalla tua tara $diOggi, ${_nomiDelleTare[t! - 1]} (${_nomeEsito(esitoStella)})'}'
+        // Secondo lettore cieco (ordine GA voce GA.06, oroscopo-17): una Luna
+        // favorevole in testa alla riga e una giornata "stancante" nel testo
+        // sembravano dirsi il contrario. Naidhana, come la Luna in ottava,
+        // porta da sola la giornata al livello piu' delicato: si dice.
+        '${t == 7 || esitoLuna == EsitoVedico.ottava ? ', che da sola porta la giornata al livello più delicato, qualunque cosa faccia il resto del cielo' : ''}.';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
     final cieloGenerale = LePartiDelResponso.insieme([
       lunaDaDove,
@@ -520,10 +525,13 @@ abstract final class LaLetturaVedica {
       final voce = voceDi(d, livello);
       final cielo = LePartiDelResponso.insieme([
         baseDaDove,
+        // Il tema del dominio dice anche che cosa fa la Luna di oggi alle
+        // sue case (secondo lettore cieco, oroscopo-19: "per il lavoro conta
+        // la decima casa" restava senza seguito).
         if (lunga)
           'Oggi la Luna passa ${_nelSegno[rashiOggi]}, nella tua '
               '${ordinali[h - 1]} casa contata dalla Luna di nascita; '
-              '${_temaDelDominio[d]}.',
+              '${_temaDelDominio[d]}: ${sueCase.contains(h) ? 'oggi la Luna ci passa' : sueCase.contains((h + 5) % 12 + 1) ? (sueCase.length > 1 ? 'oggi la Luna ne guarda una dalla casa di fronte' : 'oggi la Luna la guarda dalla casa di fronte') : (sueCase.length > 1 ? 'oggi la Luna non le tocca' : 'oggi la Luna non la tocca')}.',
         if (lunga && fortuna) pianetaDaDove,
         'Il livello viene dalla Luna $diOggi nella tua ${ordinali[h - 1]} '
             'casa dalla Luna di nascita: $come.',
@@ -665,12 +673,13 @@ abstract final class LaLetturaVedica {
     // quinta come cuore e' la lettura moderna dichiarata dalla nota del
     // metodo (V-M-008).
     HoroscopeDomain.amore:
-        'per l\'amore contano la settima casa, dell\'unione, con la quinta, '
-            'del cuore che si apre',
+        'per l\'amore la tradizione guarda la settima casa, dell\'unione, con '
+            'la quinta, del cuore che si apre',
     HoroscopeDomain.carriera:
-        'per il lavoro conta la decima casa, del lavoro e del nome',
+        'per il lavoro la tradizione guarda la decima casa, del lavoro e del '
+            'nome',
     HoroscopeDomain.fortuna:
-        'per la fortuna contano la seconda casa, dei beni, con '
+        'per la fortuna la tradizione guarda la seconda casa, dei beni, con '
             'l\'undicesima, dei guadagni',
   };
 
@@ -686,12 +695,15 @@ abstract final class LaLetturaVedica {
       // vocale (secondo lettore cieco, ordine GA voce GA.06, oroscopo-28:
       // "la Luna attraversa la undicesima").
       final vocale = 'aeiou'.contains(ordinali[h - 1][0]);
-      final la = vocale ? 'l\'' : 'la ';
       final nella = vocale ? 'nell\'' : 'nella ';
+      // La ragione dice perche' conta (secondo lettore cieco, oroscopo-26 e
+      // 28: "la Luna attraversa la settima" ripeteva la frase prima, che
+      // nomina gia' la casa).
       return (
         'La Luna $nella${ordinali[h - 1]} casa',
         esito == EsitoVedico.favorevole ? 5 : 4,
-        'la Luna attraversa $la${ordinali[h - 1]}',
+        'è una delle case di cui questa lettura tiene conto, perciò la Luna '
+            'che ci passa la mette in primo piano',
       );
     }
     final guardata = (h + 5) % 12 + 1;
@@ -701,7 +713,10 @@ abstract final class LaLetturaVedica {
       return (
         'La Luna guarda $la${ordinali[guardata - 1]} casa',
         esito == EsitoVedico.favorevole ? 4 : 3,
-        'la Luna guarda $la${ordinali[guardata - 1]} dalla settima da sé',
+        'dalla sua casa la Luna guarda $la${ordinali[guardata - 1]}, una '
+            'delle case di cui questa lettura tiene conto, perché nella '
+            'tradizione indiana ogni pianeta guarda la casa che gli sta di '
+            'fronte',
       );
     }
     return switch (esito) {

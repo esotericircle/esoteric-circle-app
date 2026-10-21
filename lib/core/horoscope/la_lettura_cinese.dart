@@ -315,6 +315,9 @@ abstract final class LaLetturaCinese {
         'col guardiano ${LAlmanaccoCinese.guardiani[g]}.';
   }
 
+  static String _maiuscola(String s) =>
+      s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
+
   /// L'animale con l'articolo: "il Cavallo", "la Capra".
   static String conArticolo(int i) {
     final (nome, articolo) = ISegniDelleTradizioni.animali[i];
@@ -480,7 +483,7 @@ abstract final class LaLetturaCinese {
   static const List<String> _percheDellUfficiale = [
     'conta il lavoro alla pari con gli altri',
     'c\'è concorrenza fra pari',
-    'conta più il talento del ruolo',
+    'conta più quello che sai fare del posto che occupi',
     'è facile l\'attrito con chi ha autorità',
     'le occasioni sostengono il ruolo',
     'l\'impegno concreto sostiene il ruolo',
@@ -502,6 +505,32 @@ abstract final class LaLetturaCinese {
     'conta più la protezione dell\'occasione',
   ];
 
+  /// Che cosa fa il dio di oggi alle due figure dell'altro, nell'ordine di
+  /// [DioDelGiorno]; il giudizio va d'accordo con [_versoLUfficiale] e
+  /// [_versoLaRicchezza].
+  static const List<String> _amoreNeutro = [
+    'oggi il dio non tocca né l\'una né l\'altra: in amore pesano più le '
+        'persone che hai intorno',
+    'oggi il dio contende la Ricchezza e lascia in ombra l\'Ufficiale: in '
+        'amore entrano confronti e gelosie',
+    'oggi il dio nutre la Ricchezza e lascia l\'Ufficiale com\'è: in amore '
+        'conta la dolcezza dei gesti',
+    'oggi il dio nutre la Ricchezza ma urta l\'Ufficiale: in amore il '
+        'fascino c\'è, la pazienza meno',
+    'oggi la Ricchezza è di scena nella sua forma imprevista e nutre '
+        'l\'Ufficiale: in amore sono favoriti gli incontri',
+    'oggi la Ricchezza è di scena nella sua forma stabile e nutre '
+        'l\'Ufficiale: in amore è favorito ciò che si costruisce',
+    'oggi l\'Ufficiale è di scena nella sua forma dura e consuma la '
+        'Ricchezza: in amore c\'è intensità, fra attrazione e attrito',
+    'oggi l\'Ufficiale è di scena nella sua forma piena: in amore sono '
+        'favoriti l\'impegno e la parola data',
+    'oggi i Sigilli sostengono l\'Ufficiale e lasciano in disparte la '
+        'Ricchezza: in amore serve spazio per pensare',
+    'oggi i Sigilli proteggono l\'Ufficiale e lasciano in disparte la '
+        'Ricchezza: in amore conta la cura',
+  ];
+
   /// **LA RIGA DEL TEMA** nel "Da dove viene" delle schede del dio: quale
   /// stella del BaZi la tradizione guarda per il dominio [d] e il giudizio
   /// che il dio di oggi le da', lo stesso del livello della scheda.
@@ -513,7 +542,8 @@ abstract final class LaLetturaCinese {
     final r = _giudizio(_versoLaRicchezza[dio.index]);
     final u = _giudizio(_versoLUfficiale[dio.index]);
     return switch (d) {
-      HoroscopeDomain.carriera => 'Per il lavoro il BaZi guarda l\'Ufficiale, '
+      HoroscopeDomain.carriera => 'Per il lavoro la tradizione cinese guarda '
+          'l\'Ufficiale, '
           'la stella del ruolo e delle responsabilità: oggi è $u, perché '
           '${_percheDellUfficiale[dio.index]}.',
       HoroscopeDomain.amore => LaMarcaDelGenere.scegli(
@@ -523,12 +553,18 @@ abstract final class LaLetturaCinese {
           femminile: 'Per l\'amore i testi classici, negli oroscopi '
               'femminili, guardano l\'Ufficiale, la figura dell\'altro nel '
               'legame: oggi è $u.',
-          neutro: 'Per l\'amore il BaZi guarda l\'Ufficiale e la Ricchezza, '
-              'le due figure dell\'altro nel legame: '
-              '${u == r ? 'oggi sono tutte e due ${_giudizio(_versoLUfficiale[dio.index], plurale: true)}' : 'oggi la prima è $u, la seconda $r'}'
-              '; il livello della giornata è la loro media.',
+          // Terzo lettore cieco (oroscopo-34): con le Sette Uccisioni, che
+          // sono l'Ufficiale stesso nella sua forma dura, "l'Ufficiale è
+          // neutro" suonava falso. Per l'amore senza genere dichiarato la
+          // riga dice in parole che cosa il dio di oggi fa alle due figure
+          // dell'altro, e da li' il livello di mezzo, alto o basso.
+          neutro: 'Per l\'amore la tradizione cinese guarda l\'Ufficiale e '
+              'la Ricchezza, le due figure dell\'altro nel legame; il livello '
+              'della giornata è la media delle due. '
+              '${_maiuscola(_amoreNeutro[dio.index])}.',
           forma: forma),
-      _ => 'Per la fortuna il BaZi guarda la Ricchezza, la stella delle '
+      _ => 'Per la fortuna la tradizione cinese guarda la Ricchezza, la '
+          'stella delle '
           'occasioni: oggi è $r, perché ${_percheDellaRicchezza[dio.index]}.',
     };
   }

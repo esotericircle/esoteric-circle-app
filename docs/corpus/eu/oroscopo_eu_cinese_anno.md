@@ -13,13 +13,13 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Anno luminoso per la casa e per l'umore di ogni giorno: è un tempo favorevole a rinnovare gli spazi in cui vivi, a cominciare dall'ingresso e dalla luce delle stanze. Piccoli cambiamenti, un angolo liberato, una lampada nuova, una pianta vicino alla porta, possono rendere più leggere le giornate.
 - Che cosa fare: Entro tre settimane libera l'ingresso di casa da ciò che ingombra il passaggio e porta più luce nella stanza in cui passi più tempo, spostando una tenda o una lampada. Poi, ogni settimana, cambia una piccola cosa in un angolo diverso, finché la casa ti somiglia di più.
-- Risposta, Lunga: Nella tradizione cinese l'ingresso è la bocca della casa, da cui entra l'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Te ne accorgi quando rientrare la sera diventa un piacere.
+- Risposta, Lunga: Nella tradizione cinese l'ingresso è la bocca della casa, da cui entra l'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Rientrare la sera con piacere ne è la conferma.
 
 #### Generale, favorevole, voce 2: Il passo all'aperto
 
 - Risposta: Per l'energia di ogni giorno l'anno è vivace e favorevole al movimento all'aperto: camminate, parchi, scale fatte a piedi, gesti lenti come quelli del tai chi. Uscire con regolarità può ricaricare l'umore e rende più leggere anche le giornate piene di impegni.
 - Che cosa fare: Da questa settimana regalati tre uscite a piedi di almeno venti minuti, scegliendo ogni volta un percorso diverso vicino a casa. Entro tre settimane prova una lezione all'aperto di tai chi o di qi gong, se ce n'è una nella tua zona. Muoviti al tuo ritmo, senza gare.
-- Risposta, Lunga: Il tai chi nasce dall'idea di far scorrere l'energia vitale, il qi, senza forzarla: la stessa idea vale per una camminata fatta con attenzione. Non farne un dovere da spuntare su un elenco. Ti accorgi che funziona quando cerchi l'uscita invece di rimandarla.
+- Risposta, Lunga: Il tai chi nasce dall'idea di far scorrere l'energia vitale, il qi, senza forzarla: la stessa idea vale per una camminata fatta con attenzione. Non farne un dovere da spuntare su un elenco. Se cerchi l'uscita invece di rimandarla, l'abitudine ha preso il passo giusto.
 
 ### Generale, In equilibrio (livello 3)
 
@@ -55,9 +55,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Amore, favorevole, voce 1: Ridere insieme
 
-- Risposta: In amore l'anno è leggero e favorevole al gioco, alle risate, alla complicità. Se vivi una relazione, ridere insieme scioglie tensioni accumulate e riaccende il desiderio; se sei senza legame, un approccio ironico e sereno negli incontri può renderti più attraente di qualunque strategia.
-- Che cosa fare: Entro tre settimane organizza qualcosa di giocoso: una gara di cucina, una sala giochi, una serata di karaoke, una gita senza meta. Se vivi una relazione, proponila all'altra persona come una sorpresa; se sei senza legame, vai con gente che ti mette allegria e lasciati andare.
-- Risposta, Lunga: Il gioco abbassa le difese e mostra le persone come sono quando non devono dimostrare niente. Nella coppia riporta lo spirito degli inizi; negli incontri nuovi crea complicità più in fretta delle conversazioni serie. L'ironia non deve diventare un modo per evitare i discorsi importanti: ridi, poi ascolta.
+- Risposta: In amore l'anno è leggero e favorevole al gioco, alle risate, alla complicità. Se vivi una relazione, ridere insieme può riaccendere il desiderio e alleggerire ciò che pesa; se sei senza legame, un approccio ironico e sereno negli incontri può renderti più attraente di qualunque strategia.
+- Che cosa fare: Entro tre settimane organizza qualcosa di giocoso: una gara di cucina, un gioco da tavolo, una serata di karaoke, una gita senza meta. Se vivi una relazione, proponila all'altra persona come una sorpresa; se sei senza legame, vai con gente che ti mette allegria e lasciati andare.
+- Risposta, Lunga: Il gioco abbassa le difese e mostra le persone come sono quando non devono dimostrare niente. Nella coppia può riportare lo spirito degli inizi; negli incontri nuovi aiuta la complicità più delle conversazioni serie. L'ironia non deve diventare un modo per evitare i discorsi importanti: ridi, poi ascolta.
 
 #### Amore, favorevole, voce 2: Il tempo lento
 
@@ -71,7 +71,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: In amore l'anno è stabile e chiede di dare più peso alla presenza che ai messaggi. Se vivi una relazione, gli scambi rapidi sul telefono non bastano a nutrire il legame; se sei senza legame, le chat troppo lunghe possono creare un'idea dell'altra persona lontana dal vero.
 - Che cosa fare: Da adesso sposta a voce o di persona ogni discorso che conta. Se vivi una relazione, scegli una sera a settimana senza telefoni a tavola e raccontatevi la giornata; se sei senza legame, dopo pochi messaggi con chi ti interessa proponi presto un incontro dal vivo in un luogo tranquillo.
-- Risposta, Lunga: Le parole scritte perdono il tono della voce e lo sguardo: si fraintendono più facilmente e lasciano spazio alle supposizioni. La presenza invece corregge in un attimo ciò che un messaggio complica. Rimandare l'incontro per paura allunga le distanze; capisci che funziona quando la vicinanza cresce dopo ogni incontro.
+- Risposta, Lunga: Le parole scritte perdono il tono della voce e lo sguardo: si fraintendono più facilmente e lasciano spazio alle supposizioni. La presenza invece corregge in un attimo ciò che un messaggio complica. Rimandare l'incontro per paura allunga le distanze; una vicinanza che cresce dopo ogni incontro conferma la scelta.
 
 #### Amore, equilibrio, voce 2: Non forzare i tempi
 
@@ -149,9 +149,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, favorevole, voce 2: Desideri detti
 
-- Risposta: Quest'anno la fortuna è generosa con chi dice ad alta voce che cosa cerca: un oggetto, un'occasione, un'esperienza, un aiuto. Chi tiene i desideri per sé chiude una strada alla sorte; chi li racconta con semplicità moltiplica le coincidenze utili, perché ognuno conosce qualcuno che può aiutare.
+- Risposta: Quest'anno la fortuna è generosa con chi dice ad alta voce che cosa cerca: un oggetto, un'occasione, un'esperienza, un aiuto. Chi tiene i desideri per sé chiude una strada alla sorte; chi li racconta con semplicità può moltiplicare le coincidenze utili, perché spesso qualcuno conosce chi può aiutare.
 - Che cosa fare: Scegli adesso una cosa concreta che desideri trovare o realizzare da qui al prossimo Capodanno lunare. Nelle prossime tre settimane raccontala ad almeno cinque persone diverse, con una frase chiara e senza imbarazzo. Quando qualcuno ti dà un'indicazione, seguila entro pochi giorni e fai sapere com'è andata.
-- Risposta, Lunga: Gli altri non possono aiutarti a trovare ciò che non sanno che cerchi: dirlo trasforma i conoscenti in alleati. Una domanda vaga, fatta con frasi che non si ricordano, si perde subito. Una richiesta precisa resta in mente e torna al momento giusto, magari dopo settimane.
+- Risposta, Lunga: Gli altri non possono aiutarti a trovare ciò che non sanno che cerchi: dirlo può trasformare i conoscenti in alleati. Una domanda vaga, fatta con frasi che non si ricordano, si perde subito. Una richiesta precisa resta in mente e può tornare al momento giusto, magari dopo settimane.
 
 ### Fortuna, In equilibrio (livello 3)
 

@@ -321,7 +321,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è propizia in amore a chi prende l'iniziativa. Aspettare che sia l'altra persona a muoversi adesso fa perdere occasioni: se sei senza legame, un invito diretto a chi ti piace può essere accolto con piacere; se vivi una relazione, organizzare tu una sorpresa rompe i ruoli di sempre.
 - Che cosa fare: Entro tre giorni fai una proposta concreta con giorno e ora: un aperitivo, una mostra, una passeggiata al tramonto. Se hai un legame, organizza tutto tu senza svelare la meta; se non ce l'hai, invita la persona che ti piace con una frase semplice e senza giri di parole.
-- Risposta, Lunga: Chi fa il primo passo mostra interesse senza chiedere garanzie: proprio questa leggerezza attrae. Un no detto a una proposta chiara pesa meno di molte sere passate ad aspettare. Te ne accorgi così: dopo l'invito ti senti in pace, qualunque sia la risposta.
+- Risposta, Lunga: Chi fa il primo passo mostra interesse senza chiedere garanzie: proprio questa leggerezza attrae. Un no detto a una proposta chiara pesa meno di molte sere passate ad aspettare. Sentirti in pace dopo l'invito, qualunque sia la risposta, vuol dire che il passo era giusto.
 
 #### Amore, favorevole, voce 10: Un giorno fuori
 
@@ -365,7 +365,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è equilibrata nella vita sentimentale e chiede di fare spazio prima di cercare. Le persone e le emozioni nuove entrano soltanto dove trovano posto: se sei senza legame, sere tutte piene lasciano fuori anche chi potresti incontrare; se vivi una relazione, la stanchezza accumulata toglie spazio alla complicità.
 - Che cosa fare: Guarda i prossimi sette giorni e togli un impegno che fai per abitudine più che per piacere. Se sei senza legame, usa quel tempo per un posto dove si conosce gente; se hai un legame, regalalo a chi ami senza programmi, una passeggiata o una cena improvvisata.
-- Risposta, Lunga: Una vita piena fino all'orlo lascia fuori anche ciò che si desidera. Liberare una sola sera è un inizio misurato, che non stravolge il resto ma cambia la direzione. Ti accorgi che serve quando hai attenzione per chi ti sta davanti, invece di pensare già all'impegno dopo.
+- Risposta, Lunga: Una vita piena fino all'orlo lascia fuori anche ciò che si desidera. Liberare una sola sera è un inizio misurato, che non stravolge il resto ma cambia la direzione. Se hai attenzione per chi ti sta davanti, invece di pensare già all'impegno dopo, lo spazio liberato funziona.
 
 #### Amore, equilibrio, voce 3: Il telefono a faccia in giù
 
@@ -383,7 +383,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è serena in amore e chiede chiarezza su ciò che c'è. Se una persona che ti interessa scrive soltanto a tarda notte, con messaggi che di giorno spariscono, serve un passo verso la luce; se vivi una relazione, porta di giorno le confidenze nate a notte fonda.
 - Che cosa fare: Al prossimo messaggio notturno rispondi il mattino dopo e proponi un incontro di giorno: un pranzo o una passeggiata nel fine settimana. Se hai un legame, riprendi a colazione un discorso lasciato a metà la sera prima. Se le proposte restano sempre sospese, smetti di rispondere dopo le undici.
-- Risposta, Lunga: Le parole di mezzanotte sono facili da dire e difficili da portare nelle ore di lavoro. Un legame che vuole crescere accetta orari normali, posti veri, volti visibili: è lì che si vede la serietà. Dalla risposta a una proposta concreta capisci più che da cento messaggi.
+- Risposta, Lunga: Le parole di mezzanotte sono facili da dire e difficili da portare nelle ore di lavoro. Un legame che vuole crescere accetta orari normali, posti veri, volti visibili: è lì che si vede la serietà. Una risposta a una proposta concreta dice più di cento messaggi.
 
 #### Amore, equilibrio, voce 6: Fare il punto in amore
 
@@ -407,7 +407,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana tranquilla in amore, adatta a rimettere a posto i ricordi di una storia passata. Foto, chat e oggetti di chi è uscito dalla tua vita possono restare, purché non occupino il centro: se sei senza legame, liberano spazio per il nuovo; se vivi una relazione, alleggeriscono il presente.
 - Che cosa fare: Una sera di questa settimana raccogli in una scatola o in una cartella del telefono ciò che ti lega a una storia finita. Non buttare niente per forza: decidi soltanto dove sta. Archivia le vecchie conversazioni e togli dai preferiti i profili che guardi per abitudine.
-- Risposta, Lunga: Il passato tenuto in vista continua a parlare anche quando non lo ascolti. Dargli un posto preciso non significa rinnegarlo, ma scegliere quando riaprirlo. Te ne accorgi quando riesci a guardare la scatola senza sentire il bisogno di aprirla; aprirla di corsa, invece, lascia spesso un rimpianto.
+- Risposta, Lunga: Il passato tenuto in vista continua a parlare anche quando non lo ascolti. Dargli un posto preciso non significa rinnegarlo, ma scegliere quando riaprirlo. Guardare la scatola senza il bisogno di aprirla è già un buon segno; aprirla di corsa, invece, lascia spesso un rimpianto.
 
 #### Amore, equilibrio, voce 10: Una domanda sola
 
@@ -425,7 +425,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana regolare nella vita sentimentale, senza scosse né accelerazioni. Il ritmo giusto è quello che non forza: se una conoscenza sta nascendo, conviene lasciarle i suoi tempi; se vivi una relazione, la quiete di questi giorni è un terreno buono per gesti piccoli e quotidiani.
 - Che cosa fare: Per tutta la settimana scegli un gesto affettuoso al giorno, piccolo e concreto: un messaggio a metà giornata, un caffè portato, una mano cercata. Se sei senza legame, rivolgi lo stesso gesto a te: una cosa bella fatta per il gusto di farla, senza aspettare qualcuno.
-- Risposta, Lunga: Le relazioni crescono più con la regolarità che con gli slanci improvvisi. Un gesto piccolo ripetuto costruisce fiducia, mentre le grandi dichiarazioni isolate si dimenticano presto. Per chi è senza legame vale lo stesso: la cura costante di sé si vede da fuori e attrae persone serene.
+- Risposta, Lunga: Le relazioni crescono più con la regolarità che con gli slanci improvvisi. Un gesto piccolo ripetuto costruisce fiducia, mentre le grandi dichiarazioni isolate si dimenticano presto. Per chi è senza legame vale lo stesso: la cura costante di sé spesso si nota da fuori e può attirare persone serene.
 
 #### Amore, equilibrio, voce 13: Il racconto a turno
 
@@ -551,7 +551,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: È una settimana favorevole nel lavoro per farti avanti per un posto o un incarico che somiglia davvero a ciò che sai fare. Chi si propone presto e con chiarezza viene notato più facilmente. Vale per chi cerca lavoro e per chi vuole un compito nuovo dove già lavora.
 - Che cosa fare: Scegli una sola possibilità, un annuncio o un incarico interno: sottolinea le tre richieste principali. Per ognuna scrivi un esempio concreto di ciò che hai già fatto, senza formule generiche. Presenta la proposta entro quattro giorni, poi prepara le risposte alle domande più probabili.
-- Risposta, Lunga: Dieci candidature uguali pesano meno di una scritta per quel posto: chi legge se ne accorge in poche righe. Questa settimana premia la cura più della quantità. Dopo l'invio informati su chi lavora già lì e su come racconta il proprio ruolo, così al colloquio sai di che cosa parlare.
+- Risposta, Lunga: Dieci candidature uguali pesano meno di una scritta per quel posto: chi legge può notarlo in poche righe. Questa settimana premia la cura più della quantità. Dopo l'invio informati su chi lavora già lì e su come racconta il proprio ruolo, così al colloquio sai di che cosa parlare.
 
 #### Carriera, favorevole, voce 5: Il lavoro mostrato
 
@@ -945,7 +945,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: È una settimana regolare per la buona sorte, che premia chi tiene un margine libero nelle giornate. Le occasioni impreviste, un invito, un incontro, una richiesta d'aiuto, arrivano spesso quando l'agenda è piena e non trovano posto. Lasciare spazio vuoto è un modo di accoglierle.
 - Che cosa fare: Guarda i prossimi sette giorni e lascia libere almeno due mezze giornate, o due serate, senza programmi. Difendile dalle richieste ordinarie. Se in quei momenti arriva una proposta, valutala con calma; se non arriva nulla, usa quel tempo per uscire senza meta.
-- Risposta, Lunga: Un calendario pieno in ogni ora non lascia entrare nulla di nuovo: la buona sorte ha bisogno di un posto dove posarsi. Il margine si riempie facilmente, per abitudine, al primo messaggio: difendilo. Te ne accorgi a fine settimana, quando ricordi qualcosa di bello che non avevi previsto.
+- Risposta, Lunga: Un calendario pieno in ogni ora non lascia entrare nulla di nuovo: la buona sorte ha bisogno di un posto dove posarsi. Il margine si riempie facilmente, per abitudine, al primo messaggio: difendilo. Un ricordo bello e imprevisto a fine settimana dice che il margine ha lavorato.
 
 #### Fortuna, equilibrio, voce 13: Il grazie in ritardo
 

@@ -102,7 +102,7 @@ abstract final class ITestiEuVedicaData {
             'Onorare un impegno a metà',
             'Oggi è una giornata favorevole per mantenere la parola data. Se hai promesso qualcosa a qualcuno e l\'hai lasciato a metà strada, adesso onorarlo costa poco e restituisce molto. Se non hai impegni di questo tipo in sospeso, la giornata premia comunque chi fa ciò che dice.',
             'Ritrova l\'impegno più piccolo preso a voce e mai mantenuto. Fissa subito l\'orario in cui onorarlo e scrivilo a chi aspetta. Se non ne trovi, scegli una cosa che avevi deciso di fare per te e falla prima di sera, senza rimandarla ancora una volta.',
-            'Una parola mantenuta rimette in piedi la fiducia senza bisogno di discorsi. Chi la riceve se ne accorge e tu ritrovi la solidità che nasce dal fare ciò che si è detto. Evita di promettere altro nella stessa giornata: prima si chiude l\'impegno vecchio, poi si apre il nuovo.',
+            'Una parola mantenuta rimette in piedi la fiducia senza bisogno di discorsi. Chi la riceve può notarlo e tu puoi ritrovare la solidità che nasce dal fare ciò che si è detto. Evita di promettere altro nella stessa giornata: prima si chiude l\'impegno vecchio, poi si apre il nuovo.',
           ),
           VoceEu(
             'Lampada accesa',
@@ -150,7 +150,7 @@ abstract final class ITestiEuVedicaData {
             'Un sapere che passa',
             'Oggi la giornata è favorevole per insegnare qualcosa. C\'è una cosa che sai fare bene e che a qualcuno intorno a te potrebbe servire: passarla adesso, con pazienza e senza fretta di vedere il risultato, dà soddisfazione a chi impara e anche a te.',
             'Offri un\'ora a chi sta imparando una cosa che conosci: cucinare un piatto, impostare un foglio di calcolo, cambiare una ruota. Lascia che sia l\'altra persona a fare con le proprie mani. Se nessuno è a portata, scrivi i passi su un foglio e regalalo a chi può usarli.',
-            'Insegnare costringe a guardare con occhi nuovi quello che dai per scontato. Spiegandolo capisci meglio anche tu perché lo fai in quel modo e quanto vale la tua esperienza. Resisti alla voglia di intervenire a ogni errore: si impara sbagliando, mentre chi insegna aspetta.',
+            'Insegnare costringe a guardare con occhi nuovi quello che dai per scontato. Spiegandolo può diventare più chiaro anche a te perché lo fai in quel modo e quanto vale la tua esperienza. Resisti alla voglia di intervenire a ogni errore: si impara sbagliando, mentre chi insegna aspetta.',
           ),
           VoceEu(
             'Chi ti ha insegnato',
@@ -204,7 +204,7 @@ abstract final class ITestiEuVedicaData {
             'Le foto ritrovate',
             'Oggi la giornata è luminosa per i ricordi belli. Fra le foto che tieni nel telefono o in una scatola ce ne sono alcune che non guardi da anni: ritrovarle adesso porta allegria e può riaprire un contatto con chi c\'era in quel momento.',
             'Scorri le foto più vecchie che hai e scegline tre che ti fanno sorridere. Mandane una a una persona che c\'era quel giorno, con una riga sul ricordo. Le altre due stampale o mettile in una cornice, in un punto della casa dove passi spesso.',
-            'Un ricordo condiviso al momento giusto accorcia le distanze più di molti messaggi di circostanza. Chi lo riceve rivive un pezzo di storia comune e tu ti accorgi di quanto sia stato ricco quel tempo. Non cadere nella nostalgia: guarda le foto per sorridere, non per rimpiangere.',
+            'Un ricordo condiviso al momento giusto accorcia le distanze più di molti messaggi di circostanza. Chi lo riceve può rivivere un pezzo di storia comune e a te può ricordare quanto sia stato ricco quel tempo. Non cadere nella nostalgia: guarda le foto per sorridere, non per rimpiangere.',
           ),
           VoceEu(
             'Un cesto di frutta',
@@ -542,7 +542,7 @@ abstract final class ITestiEuVedicaData {
             'Un piacere mai provato',
             'Oggi in amore la giornata è luminosa e aperta alla gioia: favorisce chi fa spazio a un piacere nuovo invece di ripetere il solito. Se vivi una relazione, una prima volta condivisa può riaccendere la curiosità reciproca; se sei senza legame, un luogo nuovo può metterti davanti a volti diversi.',
             'Scegli per stasera una cosa che non hai mai fatto e che ti dà piacere. Se vivi una relazione, proponila all\'altra persona: un piatto mai cucinato, una strada mai percorsa, un ballo in cucina. Se sei senza legame, portala dove c\'è gente: una lezione aperta, una degustazione, un concerto.',
-            'La gioia in amore si nutre di prime volte: ciò che è nuovo accende la curiosità e fa guardare con occhi diversi chi hai accanto o chi incontri. Non serve un gesto grande, basta uscire dal solito per un\'ora. Te ne accorgi da come ripensi alla serata, sorridendo.',
+            'La gioia in amore si nutre di prime volte: ciò che è nuovo accende la curiosità e fa guardare con occhi diversi chi hai accanto o chi incontri. Non serve un gesto grande, basta uscire dal solito per un\'ora. Ripensarci con un sorriso dice che la novità ha funzionato.',
           ),
           VoceEu(
             'Il gesto concreto',
@@ -608,7 +608,7 @@ abstract final class ITestiEuVedicaData {
             'Chiedere ciò che desideri',
             'Giornata limpida in amore per chiedere ciò che desideri, senza giri di parole. Oggi una richiesta detta con calma viene ascoltata, non subita. Se vivi una relazione, può essere più tempo insieme o un gesto che ti manca; se sei senza legame, è il coraggio di proporre tu un incontro.',
             'Trova una frase che parta da te e non da un rimprovero: «Mi farebbe piacere se», non «Tu non fai mai». Dilla una volta sola, in un momento tranquillo, a chi ami oppure a chi ti interessa. Poi ascolta la risposta senza difenderti e senza trattare.',
-            'Molte delusioni in amore nascono da desideri mai detti, che l\'altra persona avrebbe dovuto indovinare. Chiedere con chiarezza non è pretendere: è dare all\'altra persona la possibilità di renderti felice. Te ne accorgi quando la risposta arriva sulla richiesta, non su una difesa.',
+            'Molte delusioni in amore nascono da desideri mai detti, che l\'altra persona avrebbe dovuto indovinare. Chiedere con chiarezza non è pretendere: è dare all\'altra persona la possibilità di renderti felice. Una risposta che entra nel merito della richiesta, invece di difendersi, dice che la domanda era chiara.',
           ),
           VoceEu(
             'Una porta nuova',
@@ -940,13 +940,13 @@ abstract final class ITestiEuVedicaData {
             'Comincia ciò che rimandi',
             'Oggi nel lavoro la giornata è favorevole agli inizi: ciò che avvii con ordine prende una buona strada. Vale per un compito nuovo, un capitolo di studio, una candidatura o una pratica che aspetta di essere aperta. Conta fare il primo passo vero, senza attendere un piano perfetto.',
             'Scegli la cosa di lavoro o di studio che rimandi di più e dedicale mezz\'ora prima di aprire la posta. Scrivi su un foglio i primi tre passaggi e completa il primo entro mezzogiorno. Stasera annota il punto esatto in cui ti fermi e il passo successivo.',
-            'Nella lettura vedica il momento di cominciare ha un valore distinto da quello di proseguire: ciò che parte con ordine regge meglio nelle ore di fatica. Oggi la mattina tende a riempirsi di telefonate e messaggi: difendila. Capisci che hai fatto bene se stasera il primo passaggio è chiuso.',
+            'Nella lettura vedica il momento di cominciare ha un valore distinto da quello di proseguire: ciò che parte con ordine regge meglio nelle ore di fatica. Oggi la mattina tende a riempirsi di telefonate e messaggi: difendila. Se stasera il primo passaggio è chiuso, hai cominciato nel modo giusto.',
           ),
           VoceEu(
             'Prometti il giusto',
             'Giornata buona nel lavoro per farti scegliere: oggi le tue parole hanno peso, se prometti soltanto ciò che puoi mantenere. Una proposta, un preventivo o una candidatura convincono quando dicono con chiarezza che cosa offri e in quali tempi, più che quando sono pieni di promesse brillanti.',
             'Prima di mandare qualunque proposta oggi, rileggila riga per riga e togli ogni frase vaga. Accanto a ogni impegno scrivi che cosa consegni e quando. Poi invia con una sola frase di accompagnamento e tieni per te un margine sui tempi che hai annunciato.',
-            'Chi sceglie qualcuno con cui lavorare cerca affidabilità prima che brillantezza: una data rispettata pesa più di una frase ben costruita. Il pericolo della giornata è promettere troppo sull\'onda dell\'entusiasmo. Ti accorgi di essere sulla strada giusta quando ogni promessa scritta ha accanto una data realistica.',
+            'Chi sceglie qualcuno con cui lavorare cerca affidabilità prima che brillantezza: una data rispettata pesa più di una frase ben costruita. Il pericolo della giornata è promettere troppo sull\'onda dell\'entusiasmo. Quando ogni promessa scritta ha accanto una data realistica, stai lavorando nel modo giusto.',
           ),
           VoceEu(
             'Il capitolo che temi',
@@ -1176,7 +1176,7 @@ abstract final class ITestiEuVedicaData {
             'Due pause lontano dallo schermo',
             'Oggi nel lavoro la giornata è costante e senza scosse, ma lunga: rende di più chi la divide con pause vere. Lavorare o studiare per ore senza staccare dà l\'impressione di fare molto, mentre la qualità cala proprio nelle ultime ore.',
             'Fissa due pause di dieci minuti, una a metà mattina e una nel pomeriggio, lontano dallo schermo e dai libri. Cammina, guarda fuori, respira con calma. Al rientro scrivi in una riga che cosa fai nella mezz\'ora successiva e comincia subito da lì.',
-            'La mente attenta lavora a onde, non in linea retta: una pausa scelta prima della stanchezza restituisce lucidità a tutto il resto. Non riempire la pausa col telefono, che stanca gli occhi e la testa come il lavoro. Ti accorgi che funziona dalla qualità dell\'ultima ora.',
+            'La mente attenta lavora a onde, non in linea retta: una pausa scelta prima della stanchezza restituisce lucidità a tutto il resto. Non riempire la pausa col telefono, che stanca gli occhi e la testa come il lavoro. Un\'ultima ora ancora lucida dice che le pause hanno funzionato.',
           ),
           VoceEu(
             'Il compito in più',
@@ -1309,14 +1309,14 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'La tua parte prima',
             'Giornata faticosa nel lavoro e nello studio, soprattutto dove dipendi dalle risposte di altre persone: i tempi comuni si allungano e cresce la voglia di fare tutto per conto tuo. Oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.',
-            'Oggi metti al sicuro la tua parte: finisci la cosa che dipende solo da te prima di tutto il resto. Se qualcuno tace su un lavoro comune, scrivigli in privato, non nel gruppo: chiedi se serve una mano e quando può consegnare la sua parte.',
+            'Oggi metti al sicuro la tua parte: finisci per prima la cosa che dipende solo da te. Se non lavori più, vale per un impegno che porti avanti, in un\'associazione o in casa. Se qualcuno tace su una cosa comune, scrivigli in privato e chiedi se serve una mano.',
             'Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Consegnare puntuale la tua parte dà il tono agli altri. Se una cosa comune resta ferma e c\'è chi la coordina, avvisalo con un messaggio sobrio, solo fatti.',
           ),
           VoceEu(
             'Le interruzioni',
             'Giornata frammentata e faticosa nel lavoro: telefonate, messaggi e richieste improvvise spezzano il filo appena lo riprendi. Lo stesso vale per lo studio, dove la mente salta da un pensiero all\'altro e fatica a fermarsi su una pagina sola o su un solo compito.',
             'Dividi la giornata in blocchi da mezz\'ora e in ognuno fai una cosa sola. Raccogli le richieste che arrivano su un foglio invece di rispondere subito, poi smaltiscile tutte insieme in due momenti fissi. Se puoi, chiudi la porta o indossa le cuffie durante il blocco.',
-            'Ogni interruzione costa più dei minuti che dura, perché poi serve tempo per ritrovare il punto. Raccogliere le richieste invece di inseguirle ti restituisce il comando della giornata. Ti accorgi che il metodo funziona quando, a sera, almeno un blocco è arrivato fino in fondo.',
+            'Ogni interruzione costa più dei minuti che dura, perché poi serve tempo per ritrovare il punto. Raccogliere le richieste invece di inseguirle ti restituisce il comando della giornata. Se a sera almeno un blocco è arrivato fino in fondo, il metodo regge.',
           ),
           VoceEu(
             'Regole appena cambiate',
@@ -1368,7 +1368,7 @@ abstract final class ITestiEuVedicaData {
             'Il libro in scambio',
             'Giornata generosa per la buona sorte che passa di mano in mano. Negli scaffali di scambio dei bar, delle biblioteche e delle stazioni oggi conviene lasciare e prendere: un libro scelto per caso può portarti proprio la pagina che ti serviva. Dare per primo mette in moto il giro.',
             'Prendi un libro già letto che non pensi di rileggere e scrivi sulla prima pagina una riga di dedica senza firma. Lascialo in uno scaffale di scambio o su una panchina riparata. Se trovi un titolo che ti incuriosisce, portalo via e leggine subito qualche pagina.',
-            'Chi lascia qualcosa con cura avvia una piccola corrente che spesso riporta qualcosa indietro. Ti accorgi che la giornata lavora per te da un dettaglio semplice: una frase del libro preso ti resta in mente fino a sera. Annotala in fondo all\'agenda, perché le parole trovate per caso tornano utili.',
+            'Chi lascia qualcosa con cura avvia una piccola corrente che spesso riporta qualcosa indietro. Se una frase del libro preso ti resta in mente fino a sera, la giornata sta lavorando per te. Annotala in fondo all\'agenda, perché le parole trovate per caso tornano utili.',
           ),
           VoceEu(
             'Una mano offerta',
@@ -1422,7 +1422,7 @@ abstract final class ITestiEuVedicaData {
             'Una talea in dono',
             'Oggi la buona sorte cresce fra le piante e passa di mano in mano. Una talea regalata o ricevuta apre conversazioni che con le parole di circostanza non comincerebbero mai. Porta anche in casa qualcosa di vivo, che chiede poca cura e restituisce molta allegria.',
             'Se in casa hai una pianta rigogliosa, taglia due talee e mettile in un barattolo d\'acqua da offrire a chi incontri. Se non ne hai, chiedi una talea a un vicino o a un fioraio, insieme a un consiglio su come curarla bene.',
-            'Le cose che crescono insegnano il passo regolare: acqua, luce, attesa. Uno scambio nato da una foglia crea un legame semplice, senza obblighi. Lo capisci dalla domanda che ricevi in cambio: chi accetta una pianta di solito vuole raccontare la sua.',
+            'Le cose che crescono insegnano il passo regolare: acqua, luce, attesa. Uno scambio nato da una foglia crea un legame semplice, senza obblighi. Una domanda ricevuta in cambio dice che il dono è arrivato: chi accetta una pianta di solito vuole raccontare la sua.',
           ),
           VoceEu(
             'La strada indicata',
@@ -1470,7 +1470,7 @@ abstract final class ITestiEuVedicaData {
             'Meno rumore sul telefono',
             'Oggi la fortuna è leggera e passa dall\'attenzione. Fra gruppi, avvisi e notifiche che suonano tutto il giorno ce n\'è qualcuno che ti ruba tempo senza darti niente: spegnerlo libera lo sguardo per le occasioni vere, quelle che arrivano piano e senza rumore.',
             'Apri sul telefono l\'elenco delle notifiche e dei gruppi attivi. Silenzia fino a sera quelli che non ti servono e spegni del tutto quello che apri meno. Lascia attivi soltanto i messaggi delle persone che contano e i promemoria che usi davvero.',
-            'La cura delle proprie risorse comincia dalle piccole perdite che nessuno guarda: minuti, attenzione, energia. Un controllo calmo restituisce la sensazione di tenere tu le redini. Stasera te ne accorgi da una cosa notata per strada che di solito ti sfugge.',
+            'La cura delle proprie risorse comincia dalle piccole perdite che nessuno guarda: minuti, attenzione, energia. Un controllo calmo restituisce la sensazione di tenere tu le redini. Se stasera noti per strada una cosa che di solito ti sfugge, l\'attenzione recuperata sta già rendendo.',
           ),
           VoceEu(
             'Biglietti in fondo alla borsa',
@@ -1482,7 +1482,7 @@ abstract final class ITestiEuVedicaData {
             'Uscire prima',
             'Oggi la buona sorte si alza presto. Le prime ore hanno strade più libere, uffici meno affollati, persone disponibili prima che la giornata le travolga: chi parte in anticipo raccoglie con calma il meglio di un giorno favorevole alle partenze e ai primi passi.',
             'Esci un quarto d\'ora prima del solito e usa quel margine per la cosa più scomoda della giornata. Se incontri qualcuno da salutare, fermati: il tempo guadagnato te lo permette. Stasera guarda quale momento del mattino è stato più utile e perché.',
-            'Chi parte presto cammina con passo regolare invece di correre. Quel piccolo anticipo cambia l\'umore della giornata e ti mette sulla strada di persone che a metà mattina non incroceresti. Lo misuri dal respiro: arrivi al primo impegno senza il fiato corto.',
+            'Chi parte presto cammina con passo regolare invece di correre. Quel piccolo anticipo cambia l\'umore della giornata e può metterti sulla strada di persone che a metà mattina non incroceresti. Arrivare al primo impegno senza il fiato corto è la misura più semplice del guadagno.',
           ),
           VoceEu(
             'Imparare da mani esperte',
@@ -1674,8 +1674,8 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Un sì, un no',
-            'Oggi la sorte è in equilibrio e chiede scelte misurate. Fra le proposte e le richieste della giornata, accettarne una con convinzione e rifiutarne un\'altra con garbo protegge il tempo per ciò che conta e lascia spazio alle occasioni migliori quando si presentano.',
-            'Quando arriva la prima proposta di oggi, prenditi un minuto prima di rispondere. Chiediti se ti avvicina a qualcosa che desideri. Accetta la proposta che supera questa domanda e rifiuta con una frase gentile quella che ti allontana, senza giustificarti a lungo.',
+            'Oggi la sorte è in equilibrio e chiede scelte misurate. Che arrivino proposte o che la giornata resti quieta, dire un sì convinto e un no garbato, anche solo ai tuoi impegni, protegge il tempo per ciò che conta e lascia spazio alle occasioni migliori.',
+            'Se oggi arriva una proposta o una richiesta, prenditi un minuto prima di rispondere e chiediti se ti avvicina a qualcosa che desideri: accetta quella che lo fa, rifiuta con garbo quella che ti allontana. Se non ne arriva nessuna, scegli tu un impegno da onorare e uno da lasciare.',
             'Un no detto bene è una forma di cura, per te e per chi chiede. Chi dice sì a tutto finisce per non avere spazio quando arriva l\'occasione giusta. A sera conta avere un impegno onorato e un\'ora rimasta per te.',
           ),
           VoceEu(
@@ -1762,7 +1762,7 @@ abstract final class ITestiEuVedicaData {
             'La borsa da svuotare',
             'Oggi la buona sorte inciampa nel disordine piccolo, in una giornata delicata. Borse, tasche e portafogli pieni di scontrini, tessere scadute e foglietti senza origine nascondono proprio ciò che conta nel momento del bisogno: il rimedio è semplice e richiede venti minuti.',
             'Stasera svuota borsa e tasche sul tavolo e rimetti dentro soltanto documenti, tessere valide e ciò che usi ogni giorno. I foglietti utili vanno in una busta con la data di oggi. Butta subito il resto, senza rileggerlo due volte.',
-            'Una borsa leggera è come una soglia sgombra: ci passi senza inciampare. Quando ogni cosa sta nel suo scomparto, ti accorgi subito se manca qualcosa o se una tessera sta per scadere. Trovare al primo colpo ciò che cerchi dice che l\'ordine funziona.',
+            'Una borsa leggera è come una soglia sgombra: ci passi senza inciampare. Quando ogni cosa sta nel suo scomparto, si vede subito se manca qualcosa o se una tessera sta per scadere. Trovare al primo colpo ciò che cerchi dice che l\'ordine funziona.',
           ),
           VoceEu(
             'L\'occasione passata',
@@ -2095,7 +2095,7 @@ abstract final class ITestiEuVedicaData {
             'Il primo passo tuo',
             'La settimana è propizia in amore a chi prende l\'iniziativa. Aspettare che sia l\'altra persona a muoversi adesso fa perdere occasioni: se sei senza legame, un invito diretto a chi ti piace può essere accolto con piacere; se vivi una relazione, organizzare tu una sorpresa rompe i ruoli di sempre.',
             'Entro tre giorni fai una proposta concreta con giorno e ora: un aperitivo, una mostra, una passeggiata al tramonto. Se hai un legame, organizza tutto tu senza svelare la meta; se non ce l\'hai, invita la persona che ti piace con una frase semplice e senza giri di parole.',
-            'Chi fa il primo passo mostra interesse senza chiedere garanzie: proprio questa leggerezza attrae. Un no detto a una proposta chiara pesa meno di molte sere passate ad aspettare. Te ne accorgi così: dopo l\'invito ti senti in pace, qualunque sia la risposta.',
+            'Chi fa il primo passo mostra interesse senza chiedere garanzie: proprio questa leggerezza attrae. Un no detto a una proposta chiara pesa meno di molte sere passate ad aspettare. Sentirti in pace dopo l\'invito, qualunque sia la risposta, vuol dire che il passo era giusto.',
           ),
           VoceEu(
             'Un giorno fuori',
@@ -2139,7 +2139,7 @@ abstract final class ITestiEuVedicaData {
             'Fare posto',
             'La settimana è equilibrata nella vita sentimentale e chiede di fare spazio prima di cercare. Le persone e le emozioni nuove entrano soltanto dove trovano posto: se sei senza legame, sere tutte piene lasciano fuori anche chi potresti incontrare; se vivi una relazione, la stanchezza accumulata toglie spazio alla complicità.',
             'Guarda i prossimi sette giorni e togli un impegno che fai per abitudine più che per piacere. Se sei senza legame, usa quel tempo per un posto dove si conosce gente; se hai un legame, regalalo a chi ami senza programmi, una passeggiata o una cena improvvisata.',
-            'Una vita piena fino all\'orlo lascia fuori anche ciò che si desidera. Liberare una sola sera è un inizio misurato, che non stravolge il resto ma cambia la direzione. Ti accorgi che serve quando hai attenzione per chi ti sta davanti, invece di pensare già all\'impegno dopo.',
+            'Una vita piena fino all\'orlo lascia fuori anche ciò che si desidera. Liberare una sola sera è un inizio misurato, che non stravolge il resto ma cambia la direzione. Se hai attenzione per chi ti sta davanti, invece di pensare già all\'impegno dopo, lo spazio liberato funziona.',
           ),
           VoceEu(
             'Il telefono a faccia in giù',
@@ -2157,7 +2157,7 @@ abstract final class ITestiEuVedicaData {
             'Messaggi a mezzanotte',
             'La settimana è serena in amore e chiede chiarezza su ciò che c\'è. Se una persona che ti interessa scrive soltanto a tarda notte, con messaggi che di giorno spariscono, serve un passo verso la luce; se vivi una relazione, porta di giorno le confidenze nate a notte fonda.',
             'Al prossimo messaggio notturno rispondi il mattino dopo e proponi un incontro di giorno: un pranzo o una passeggiata nel fine settimana. Se hai un legame, riprendi a colazione un discorso lasciato a metà la sera prima. Se le proposte restano sempre sospese, smetti di rispondere dopo le undici.',
-            'Le parole di mezzanotte sono facili da dire e difficili da portare nelle ore di lavoro. Un legame che vuole crescere accetta orari normali, posti veri, volti visibili: è lì che si vede la serietà. Dalla risposta a una proposta concreta capisci più che da cento messaggi.',
+            'Le parole di mezzanotte sono facili da dire e difficili da portare nelle ore di lavoro. Un legame che vuole crescere accetta orari normali, posti veri, volti visibili: è lì che si vede la serietà. Una risposta a una proposta concreta dice più di cento messaggi.',
           ),
           VoceEu(
             'Fare il punto in amore',
@@ -2181,7 +2181,7 @@ abstract final class ITestiEuVedicaData {
             'Il passato al suo posto',
             'Settimana tranquilla in amore, adatta a rimettere a posto i ricordi di una storia passata. Foto, chat e oggetti di chi è uscito dalla tua vita possono restare, purché non occupino il centro: se sei senza legame, liberano spazio per il nuovo; se vivi una relazione, alleggeriscono il presente.',
             'Una sera di questa settimana raccogli in una scatola o in una cartella del telefono ciò che ti lega a una storia finita. Non buttare niente per forza: decidi soltanto dove sta. Archivia le vecchie conversazioni e togli dai preferiti i profili che guardi per abitudine.',
-            'Il passato tenuto in vista continua a parlare anche quando non lo ascolti. Dargli un posto preciso non significa rinnegarlo, ma scegliere quando riaprirlo. Te ne accorgi quando riesci a guardare la scatola senza sentire il bisogno di aprirla; aprirla di corsa, invece, lascia spesso un rimpianto.',
+            'Il passato tenuto in vista continua a parlare anche quando non lo ascolti. Dargli un posto preciso non significa rinnegarlo, ma scegliere quando riaprirlo. Guardare la scatola senza il bisogno di aprirla è già un buon segno; aprirla di corsa, invece, lascia spesso un rimpianto.',
           ),
           VoceEu(
             'Una domanda sola',
@@ -2199,7 +2199,7 @@ abstract final class ITestiEuVedicaData {
             'Né fretta né freno',
             'Settimana regolare nella vita sentimentale, senza scosse né accelerazioni. Il ritmo giusto è quello che non forza: se una conoscenza sta nascendo, conviene lasciarle i suoi tempi; se vivi una relazione, la quiete di questi giorni è un terreno buono per gesti piccoli e quotidiani.',
             'Per tutta la settimana scegli un gesto affettuoso al giorno, piccolo e concreto: un messaggio a metà giornata, un caffè portato, una mano cercata. Se sei senza legame, rivolgi lo stesso gesto a te: una cosa bella fatta per il gusto di farla, senza aspettare qualcuno.',
-            'Le relazioni crescono più con la regolarità che con gli slanci improvvisi. Un gesto piccolo ripetuto costruisce fiducia, mentre le grandi dichiarazioni isolate si dimenticano presto. Per chi è senza legame vale lo stesso: la cura costante di sé si vede da fuori e attrae persone serene.',
+            'Le relazioni crescono più con la regolarità che con gli slanci improvvisi. Un gesto piccolo ripetuto costruisce fiducia, mentre le grandi dichiarazioni isolate si dimenticano presto. Per chi è senza legame vale lo stesso: la cura costante di sé spesso si nota da fuori e può attirare persone serene.',
           ),
           VoceEu(
             'Il racconto a turno',
@@ -2325,7 +2325,7 @@ abstract final class ITestiEuVedicaData {
             'La candidatura mirata',
             'È una settimana favorevole nel lavoro per farti avanti per un posto o un incarico che somiglia davvero a ciò che sai fare. Chi si propone presto e con chiarezza viene notato più facilmente. Vale per chi cerca lavoro e per chi vuole un compito nuovo dove già lavora.',
             'Scegli una sola possibilità, un annuncio o un incarico interno: sottolinea le tre richieste principali. Per ognuna scrivi un esempio concreto di ciò che hai già fatto, senza formule generiche. Presenta la proposta entro quattro giorni, poi prepara le risposte alle domande più probabili.',
-            'Dieci candidature uguali pesano meno di una scritta per quel posto: chi legge se ne accorge in poche righe. Questa settimana premia la cura più della quantità. Dopo l\'invio informati su chi lavora già lì e su come racconta il proprio ruolo, così al colloquio sai di che cosa parlare.',
+            'Dieci candidature uguali pesano meno di una scritta per quel posto: chi legge può notarlo in poche righe. Questa settimana premia la cura più della quantità. Dopo l\'invio informati su chi lavora già lì e su come racconta il proprio ruolo, così al colloquio sai di che cosa parlare.',
           ),
           VoceEu(
             'Il lavoro mostrato',
@@ -2719,7 +2719,7 @@ abstract final class ITestiEuVedicaData {
             'Il margine nell\'agenda',
             'È una settimana regolare per la buona sorte, che premia chi tiene un margine libero nelle giornate. Le occasioni impreviste, un invito, un incontro, una richiesta d\'aiuto, arrivano spesso quando l\'agenda è piena e non trovano posto. Lasciare spazio vuoto è un modo di accoglierle.',
             'Guarda i prossimi sette giorni e lascia libere almeno due mezze giornate, o due serate, senza programmi. Difendile dalle richieste ordinarie. Se in quei momenti arriva una proposta, valutala con calma; se non arriva nulla, usa quel tempo per uscire senza meta.',
-            'Un calendario pieno in ogni ora non lascia entrare nulla di nuovo: la buona sorte ha bisogno di un posto dove posarsi. Il margine si riempie facilmente, per abitudine, al primo messaggio: difendilo. Te ne accorgi a fine settimana, quando ricordi qualcosa di bello che non avevi previsto.',
+            'Un calendario pieno in ogni ora non lascia entrare nulla di nuovo: la buona sorte ha bisogno di un posto dove posarsi. Il margine si riempie facilmente, per abitudine, al primo messaggio: difendilo. Un ricordo bello e imprevisto a fine settimana dice che il margine ha lavorato.',
           ),
           VoceEu(
             'Il grazie in ritardo',
@@ -2868,7 +2868,7 @@ abstract final class ITestiEuVedicaData {
             'Aria nella routine',
             'Il mese scorre sereno e senza scosse, ma chiede un po\' d\'aria nella routine. Quando le giornate si somigliano, il rischio è passare dalla casa agli impegni senza mai un tempo all\'aperto che sia soltanto tuo. Queste settimane premiano un appuntamento fisso con l\'esterno, anche breve.',
             'Scegli oggi un percorso a piedi vicino a casa, come un parco o una strada alberata. Fissa due uscite ogni settimana alla stessa ora. Esci senza cuffie e senza fretta. A ogni passeggiata nota una cosa nuova lungo la strada e scrivila la sera, prima di cena.',
-            'Un\'abitudine all\'aperto dà alle settimane tranquille un punto fermo che le distingue una dall\'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Capisci che sta funzionando quando, dopo qualche uscita, ti accorgi di aspettarla invece di doverti convincere a farla.',
+            'Un\'abitudine all\'aperto dà alle settimane tranquille un punto fermo che le distingue una dall\'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Se dopo qualche uscita ti ritrovi ad aspettarla invece di doverti convincere a farla, l\'abitudine ha attecchito.',
           ),
           VoceEu(
             'Sere alterne',
@@ -2882,7 +2882,7 @@ abstract final class ITestiEuVedicaData {
             'Pesi da condividere',
             'Il mese è faticoso e porta più pesi di quanti convenga reggere senza aiuto. Stringere i denti da soli porta in fondo alle settimane con le energie esaurite. Chiedere una mano, adesso, è la mossa giusta: non è debolezza ma buon senso.',
             'Scrivi oggi tre cose concrete che ti costano fatica e accanto a ciascuna il nome di chi potrebbe aiutarti: una commissione, una faccenda di casa, un passaggio. Entro dieci giorni chiedi almeno una di queste con una richiesta precisa e offri qualcosa in cambio.',
-            'Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Ti accorgi che funziona quando alla fine della settimana ti resta un\'ora in più da usare per riposare davvero.',
+            'Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Un\'ora in più per riposare davvero, alla fine di ogni settimana, dice che la richiesta d\'aiuto ha funzionato.',
           ),
           VoceEu(
             'Attriti di casa',
@@ -2947,7 +2947,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'La bilancia del dare',
             'In amore il mese è stabile e adatto a guardare l\'equilibrio fra dare e ricevere. Nella vita sentimentale chi offre sempre per primo finisce per svuotarsi, chi riceve senza accorgersene si abitua. Queste settimane calme aiutano a rimettere in pari la bilancia senza rancore e senza scenate.',
-            'Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi risponde soltanto quando conviene a quella persona.',
+            'Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi si fa vivo solo quando gli fa comodo.',
             'L\'affetto è anche uno scambio fatto con giustizia: dare senza misura alla lunga sfinisce chi dà e impigrisce chi riceve. Rimettere confini chiari protegge proprio il legame che ti sta a cuore. Se il conto resta sbilanciato, parlane a voce, con un esempio preciso e nessun elenco di torti.',
           ),
           VoceEu(
@@ -2980,7 +2980,7 @@ abstract final class ITestiEuVedicaData {
             'La gelosia da sciogliere',
             'In amore è un mese faticoso, in cui gelosie e insicurezze si accendono facilmente. Un ritardo, un silenzio, uno sguardo altrove: piccoli segnali diventano sospetti. Se vivi una relazione, conviene parlarne prima che diventi accusa; se sei senza legame, attenzione a non leggere rifiuti dove c\'è soltanto distrazione.',
             'Quando senti la gelosia salire, scrivi il fatto preciso che l\'ha accesa e separalo da ciò che immagini. Se hai una relazione, parlane a voce partendo da ciò che provi, senza interrogatori. Se sei senza legame, prima di trarre conclusioni su qualcuno aspetta un secondo segnale.',
-            'La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Te ne accorgi subito: dopo averne parlato il respiro torna più largo e i pensieri smettono di girare.',
+            'La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Se dopo averne parlato il respiro torna più largo e i pensieri smettono di girare, hai scelto la strada giusta.',
           ),
         ],
       ],
@@ -2988,9 +2988,9 @@ abstract final class ITestiEuVedicaData {
         [
           VoceEu(
             'Farsi avanti con garbo',
-            'Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Se c\'è un incarico, un ruolo o un progetto che ti interessa, adesso conta proporsi senza giri di parole. Vale per chi lavora, per chi studia e per chi cerca: una richiesta precisa ottiene più ascolto.',
-            'Scrivi in mezza pagina che cosa vuoi fare e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni chiedi un colloquio a chi decide, oppure invia la tua candidatura se stai cercando. Porta il foglio con te e lascia una proposta precisa.',
-            'Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico chiesto adesso parte col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa subito tre traguardi da raggiungere nelle prossime tre settimane e condividili con chi ti ha dato fiducia.',
+            'Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Vale per chi lavora, per chi studia, per chi cerca e per chi porta avanti un progetto personale o un impegno scelto: una richiesta o una proposta precisa di solito trova più ascolto.',
+            'Scrivi in mezza pagina che cosa vuoi proporre e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni, se lavori o studi, portala a chi decide; se cerchi, invia una candidatura; se il progetto è tuo, presentalo a chi può sostenerlo, come un gruppo o un\'associazione.',
+            'Ci sono settimane adatte a cominciare e settimane adatte a proseguire: queste sono adatte a cominciare. Una proposta fatta adesso può partire col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa tre traguardi da raggiungere entro la fine del mese e condividili con chi ti sostiene.',
           ),
           VoceEu(
             'Dieci nomi da riprendere',
@@ -3217,7 +3217,7 @@ abstract final class ITestiEuVedicaData {
             'I gesti piccoli',
             'L\'anno è tranquillo in amore e premia la tenerezza dei gesti piccoli più delle grandi dichiarazioni. Se vivi una relazione, la gratitudine detta ad alta voce rinnova il legame; se sei senza legame, la gentilezza che offri negli incontri dice di te più di qualunque presentazione.',
             'Ogni settimana fai un gesto piccolo e concreto di attenzione. Se vivi una relazione, ringrazia l\'altra persona per una cosa precisa che ha fatto, guardandola negli occhi; se sei senza legame, a ogni incontro lascia un complimento sincero su qualcosa che hai notato davvero, senza secondi fini.',
-            'Dire grazie per una cosa precisa fa sentire all\'altra persona il proprio valore e invita a ricambiare. Nei periodi calmi è facile dimenticarlo, perché tutto sembra scontato. Lo si vede da un clima più morbido, con meno puntualizzazioni e più sorrisi.',
+            'Dire grazie per una cosa precisa fa sentire all\'altra persona il proprio valore e invita a ricambiare. Nei periodi calmi è facile dimenticarlo, perché tutto sembra scontato. Un clima più morbido, con meno puntualizzazioni e più sorrisi, dice che il gesto è arrivato.',
           ),
         ],
         [
@@ -3255,7 +3255,7 @@ abstract final class ITestiEuVedicaData {
             'La rete del mestiere',
             'Nel lavoro è un anno stabile, senza grandi svolte all\'orizzonte, adatto a curare i rapporti professionali che contano. Colleghi, ex compagni di studi, clienti passati, persone del tuo campo: una rete tenuta viva con regolarità sostiene nei momenti pieni e può portare notizie utili anche a chi cerca lavoro.',
             'Ogni settimana scrivi a una persona del tuo ambito di lavoro o di studio che non senti da tempo: un saluto, un articolo utile, un complimento per un risultato. Comincia entro tre giorni. Non chiedere favori nei primi messaggi: offri qualcosa e ascolta che cosa fa.',
-            'Una rete professionale non si costruisce quando serve, ma prima, con gesti piccoli e senza richieste. Chi si fa vivo soltanto per chiedere viene ricordato per quello. Capisci che la rete lavora quando qualcuno ti scrive per primo con una notizia o una proposta.',
+            'Una rete professionale non si costruisce quando serve, ma prima, con gesti piccoli e senza richieste. Chi si fa vivo soltanto per chiedere viene ricordato per quello. Se qualcuno ti scrive per primo con una notizia o una proposta, la rete sta lavorando.',
           ),
           VoceEu(
             'Imparare senza strappi',
@@ -3273,8 +3273,8 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Crescere dove non si vede',
-            'Nel lavoro l\'anno procede lento, ma lento non vuol dire fermo. Promozioni, risposte alle candidature o riconoscimenti possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti che servono quando le porte tornano ad aprirsi, senza smettere di bussare.',
-            'Scegli adesso una sola abilità legata al lavoro che vorresti fare e dedicale un\'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare. Ogni tre settimane incontra o chiama qualcuno del settore per un confronto, senza chiedere niente.',
+            'Nel lavoro e nei progetti l\'anno procede lento, ma lento non vuol dire fermo. Riconoscimenti, risposte o risultati possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti utili quando le porte si riaprono, senza smettere di bussare.',
+            'Scegli adesso una sola abilità da far crescere, per il lavoro che fai o cerchi oppure, se non lavori più, per un progetto o un impegno che ti sta a cuore. Dedicale un\'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare.',
             'Il lavoro a volte cresce sotto la superficie, come radici che si allungano prima dei frutti. Ciò che coltivi con pazienza prepara il momento della ripresa. Misurarti con chi corre più veloce scoraggia soltanto: confrontati con te di tre settimane fa.',
           ),
         ],
@@ -3298,14 +3298,14 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il consiglio di chi sa',
             'Quest\'anno la sorte è quieta e passa dai consigli di chi ha più esperienza di te: una persona che ha già fatto la strada che ti interessa può indicarti la porta giusta o farti evitare un giro inutile. È una fortuna sobria, che premia chi chiede con umiltà.',
-            'Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz\'ora. Porta una domanda, precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.',
+            'Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz\'ora. Porta una domanda precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.',
             'La tradizione indiana chiama satsang la compagnia di chi sa: stare vicino a chi ha esperienza è già una forma di buona sorte. In un anno senza grandi spinte, un consiglio giusto vale più di molte occasioni nuove. Ricambia raccontando com\'è andata: chi aiuta ama conoscere il seguito.',
           ),
           VoceEu(
             'Dieci minuti di anticipo',
             'Per la fortuna l\'anno è regolare e premia chi si concede un margine: arrivare un po\' prima, lasciare spazio fra un impegno e l\'altro, non riempire ogni ora. Gli imprevisti trovano meno presa e le piccole occasioni, una chiacchierata, un incontro casuale, hanno il tempo di accadere.',
             'Da questa settimana esci dieci minuti prima per ogni appuntamento e lascia almeno mezz\'ora libera fra due impegni importanti. Usa quel margine per guardarti intorno, salutare qualcuno, entrare in un posto mai visto. Una volta a settimana annota che cosa è successo in quei minuti.',
-            'La fretta è la prima nemica della buona sorte: chi corre non vede le porte aperte e arriva con l\'affanno dove serve calma. Il margine non è tempo perso, è lo spazio in cui succede l\'inatteso. Te ne accorgi quando arrivi agli appuntamenti con la mente libera.',
+            'La fretta è la prima nemica della buona sorte: chi corre non vede le porte aperte e arriva con l\'affanno dove serve calma. Il margine non è tempo perso, è lo spazio in cui succede l\'inatteso. Arrivare agli appuntamenti con la mente libera conferma che il margine funziona.',
           ),
         ],
         [

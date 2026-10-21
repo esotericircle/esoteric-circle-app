@@ -35,7 +35,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Generale, favorevole, voce 5: Sette righe sul foglio
 
-- Risposta: La settimana è scorrevole e ti lascia margine, se la guardi intera fin da oggi. Gli impegni dei prossimi sette giorni si incastrano meglio quando li vedi tutti insieme: capisci subito dove c'è aria e dove le ore sono piene, così puoi spostare qualcosa prima che nasca l'affanno.
+- Risposta: La settimana è scorrevole e ti lascia margine, se la guardi intera fin da oggi. Gli impegni dei prossimi sette giorni si incastrano meglio quando li vedi tutti insieme: si vede subito dove c'è aria e dove le ore sono piene, così puoi spostare qualcosa prima che nasca l'affanno.
 - Che cosa fare: Prendi un foglio e traccia sette righe, una per ogni giorno a partire da oggi. Scrivi su ognuna al massimo tre cose, mettendo per prime quelle che dipendono da altre persone. Appendilo dove passi spesso, poi ogni sera cancella con una riga netta ciò che hai chiuso.
 - Risposta, Lunga: Quando l'ordine è visibile, l'ansia di non riuscire a fare tutto perde presa. Il foglio diventa una mappa e non un giudice: ciò che resta si sposta in avanti senza colpa. Attenzione soltanto a non riempire ogni riga fino all'orlo, perché i giorni portano sempre qualche imprevisto.
 
@@ -91,7 +91,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana ha un passo sereno e fertile, adatto a dare vita a un piccolo angolo verde. Basta un davanzale, un balcone o un tavolo vicino alla finestra: tre vasi curati trasformano un punto qualsiasi della casa in un posto da guardare volentieri ogni mattina.
 - Che cosa fare: Nel fine settimana passa da un vivaio o da un mercato e scegli tre piante facili, adatte alla luce che hai. Sistemale in vasi con terra nuova prima di pranzo. Scrivi su un biglietto il nome di ciascuna e quanta acqua le serve.
-- Risposta, Lunga: Prendersi cura di qualcosa che cresce dà un ritmo nuovo alle mattine e un motivo per affacciarsi. Anche chi passa se ne accorge: un davanzale fiorito apre spesso conversazioni inattese. Fissa due momenti alla settimana per annaffiare, così la cura non diventa un pensiero in più.
+- Risposta, Lunga: Prendersi cura di qualcosa che cresce dà un ritmo nuovo alle mattine e un motivo per affacciarsi. Anche chi passa può notarlo: un davanzale fiorito apre spesso conversazioni inattese. Fissa due momenti alla settimana per annaffiare, così la cura non diventa un pensiero in più.
 
 ### Generale, In equilibrio (livello 3)
 
@@ -103,7 +103,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Generale, equilibrio, voce 2: I pesi divisi
 
-- Risposta: La settimana è equilibrata se i pesi si dividono: nei compiti che tornano ogni giorno conviene vedere chi porta che cosa. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare il malcontento silenzioso in un accordo chiaro e scritto.
+- Risposta: La settimana è equilibrata e adatta a vedere come si dividono i pesi nei compiti che tornano ogni giorno. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare un eventuale malcontento silenzioso in un accordo chiaro e scritto.
 - Che cosa fare: Entro tre giorni scrivi l'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.
 - Risposta, Lunga: Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Anche chi finora si è tirato indietro spesso aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell'accordo: rifarlo da capo scoraggia tutti.
 
@@ -493,7 +493,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Settimana difficile in amore per chi ha fretta: accelerare adesso crea pressione e allontana. Se vivi una relazione, spingere su una decisione importante rischia di irrigidire l'altra persona; se sei senza legame, bruciare le tappe con qualcuno appena conosciuto toglie il piacere della scoperta.
 - Che cosa fare: Se hai un legame, rimanda di qualche giorno la conversazione decisiva e intanto chiedi all'altra persona di che cosa ha bisogno per sentirsi pronta. Se non ce l'hai, con chi frequenti da poco tieni un incontro alla volta, senza progetti né dichiarazioni.
-- Risposta, Lunga: La fretta in amore nasce spesso dall'ansia, non dal desiderio: si vuole una certezza subito per non sopportare l'attesa. Rallentare non significa rinunciare, ma lasciare all'altro il tempo di arrivare allo stesso punto. Te ne accorgi quando l'altra persona comincia a cercarti da sé.
+- Risposta, Lunga: La fretta in amore nasce spesso dall'ansia, non dal desiderio: si vuole una certezza subito per non sopportare l'attesa. Rallentare non significa rinunciare, ma lasciare all'altro il tempo di arrivare allo stesso punto. Se l'altra persona comincia a cercarti da sé, il passo è quello giusto.
 
 #### Amore, salita, voce 10: Impegni presi per due
 

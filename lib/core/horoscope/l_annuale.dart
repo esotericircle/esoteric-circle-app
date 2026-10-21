@@ -75,7 +75,7 @@ abstract final class LAnnuale {
         3 => 'una casa angolare, quelle in cui la tradizione vede i pianeti '
             'più forti',
         2 => 'una casa succedente, quelle in cui la tradizione vede i '
-            'pianeti lavorare in secondo piano',
+            'pianeti con una buona forza, subito dopo le angolari',
         _ => 'una casa cadente, quelle in cui la tradizione vede i pianeti '
             'più deboli',
       };
@@ -123,8 +123,8 @@ abstract final class LAnnuale {
     final peso = switch (forza(casa)) {
       3 => 'una casa angolare, dove per la tradizione il pianeta è fra i '
           'protagonisti dell\'anno',
-      2 => 'una casa succedente, dove per la tradizione il pianeta lavora '
-          'in secondo piano',
+      2 => 'una casa succedente, dove per la tradizione il pianeta ha una '
+          'buona forza, subito dopo le angolari',
       _ => 'una casa cadente, dove per la tradizione il pianeta resta sullo '
           'sfondo',
     };
@@ -205,8 +205,6 @@ abstract final class LAnnuale {
     final (_, lunaDaDove) = frase(OroscopoAnnualeData.luna[casaLuna - 1]);
     final (_, venereDaDove) = frase(OroscopoAnnualeData.venere[casaVenere - 1]);
     final (_, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
-    final (_, saturnoDaDove) =
-        frase(OroscopoAnnualeData.saturno[casaSaturno - 1]);
     final (_, gioveDaDove) = frase(OroscopoAnnualeData.giove[casaGiove - 1]);
 
     /// Il "da dove viene" che si legge sempre e cio' che la Lunga aggiunge;
@@ -281,14 +279,25 @@ abstract final class LAnnuale {
           daDove: mcDaDove.isEmpty
               ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
               : mcDaDove,
-          daDoveInPiu: [saturnoDaDove],
+          // Terzo lettore cieco (ordine GA voce GA.06, oroscopo-15): la riga
+          // della casa di Saturno parlava di legami e lealta' dentro una
+          // lettura di lavoro. Nel lavoro Saturno conta per quanto e' in
+          // vista, e la Lunga dice dove sta e quanto pesa.
+          daDoveInPiu: [doveSta('Saturno', CorpoCeleste.saturno, tema)],
+          // Terzo lettore cieco indipendente: "più è in vista, più il lavoro
+          // chiede" non diceva che cosa vuol dire "in vista" ne' perche'
+          // Saturno pesa sul lavoro.
+          delLivelloNellaLunga: 'Per il lavoro conta proprio questo, perché '
+              'Saturno è il pianeta dei doveri: più forte è la sua casa, più '
+              'l\'anno di lavoro chiede impegno.',
           // Fonte, ordine EV voce EV.08, verifica dell'Architetto (O-A-003):
           // le case angolari, succedenti e cadenti e la forza delle angolari
           // sono di William Lilly, Christian Astrology (1647), libro I, le
           // dignita' accidentali. Dalla casa al livello e' una regola
           // dell'app, e la nota dell'anno lo dice.
           delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
-              '${_tipo(casaSaturno)}: più è in vista, più il lavoro chiede.',
+              '${_tipo(casaSaturno)}. Saturno è il pianeta dei doveri: più '
+              'forte è la sua casa, più l\'anno di lavoro chiede impegno.',
           // Saturno angolare: l'anno chiede fatica.
           livello: 6 - forza(casaSaturno),
           metodo: '${OroscopoAnnualeData.notaDomini} '

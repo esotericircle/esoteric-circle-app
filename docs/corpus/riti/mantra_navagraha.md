@@ -114,7 +114,7 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 - Rito: Per i trenta giorni che si aprono oggi, domenica di Surya, gli affetti cercano calore e sincerità. Sbuccia un'arancia e dividila con chi ami o, se sei senza legame, con una persona cara. Recita sette volte «Om Suryaya namah» mentre la offri: la luce, come il frutto, si condivide.
 
 ### Surya, Amore, anno
-- Rito: Il compleanno ha dato al tuo anno il calore di Surya, che scalda chiunque gli stia accanto. Indossa adesso qualcosa di rosso o color oro e porta alla mente chi ami o chi desideri incontrare. Sussurra sette volte «Om Suryaya namah» per gli affetti che l'anno custodisce.
+- Rito: Il compleanno ha dato al tuo anno il calore di Surya, che scalda chiunque gli stia accanto. Indossa adesso qualcosa di rosso o color oro e richiama alla mente chi ami o chi desideri incontrare. Sussurra sette volte «Om Suryaya namah» per gli affetti che l'anno custodisce.
 
 ### Surya, Carriera, giorno
 - Rito: Nel giorno di Surya ogni compito trova il suo posto nella luce. Prima di lavorare, siediti con la schiena dritta e fai tre respiri lenti e profondi. Pronuncia sottovoce undici volte «Om Suryaya namah», poi affronta il compito che richiede più chiarezza.
@@ -204,7 +204,7 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 - Rito: Mangala governa questo martedì: la passione chiede di essere guidata con cura. Se c'è stata tensione con la persona amata, o se sei senza legame e un desiderio ti agita, fermati un momento. Sussurra nove volte «Om Mangalaya namah» e scegli una parola che ripara, non una che ferisce.
 
 ### Mangala, Amore, settimana
-- Rito: Nella settimana che nasce oggi, martedì di Mangala, il desiderio è vivo e impaziente. Offri un fiore rosso in un bicchiere d'acqua sul davanzale. A mente, ripeti sette volte «Om Mangalaya namah» pensando a chi ami o a chi desideri incontrare; poi cambia l'acqua finché il fiore resta fresco.
+- Rito: La settimana nasce oggi, martedì di Mangala, che scalda il desiderio. Metti un fiore rosso in un bicchiere d'acqua sul davanzale. Ripeti a mente sette volte «Om Mangalaya namah» pensando a una persona cara o a chi vorresti accanto; poi cambia l'acqua finché il fiore resta fresco.
 
 ### Mangala, Amore, mese
 - Rito: Il mese degli affetti che nasce oggi porta l'ardore di Mangala, nel suo martedì. Lega un nastro rosso alla maniglia della tua stanza. Sussurra sette volte «Om Mangalaya namah» per chi ami o per chi vorresti incontrare, poi cerca un modo coraggioso e gentile di mostrare ciò che senti.
@@ -213,7 +213,7 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 - Rito: Nato da un compleanno di martedì, il tuo anno sta sotto Mangala, che nell'amore chiede ardore senza urti. Cuoci dei legumi rossi, cibo di questo graha: dividili con chi ami o, se sei senza legame, con una persona cara. Sussurra sette volte «Om Mangalaya namah» mentre li servi.
 
 ### Mangala, Carriera, giorno
-- Rito: Mangala, signore del martedì, sostiene l'iniziativa e il lavoro che chiede energia. Prima di cominciare, togli dalla scrivania ogni cosa che non serve e lascia solo il compito che rimandi da tempo. Pronuncia sottovoce undici volte «Om Mangalaya namah» e affrontalo senza esitare.
+- Rito: Mangala, signore del martedì, sostiene l'iniziativa e il lavoro che chiede energia. Prima di cominciare, togli dalla scrivania ogni cosa che non serve e lascia solo ciò che ti occorre per il compito più importante di oggi. Pronuncia sottovoce undici volte «Om Mangalaya namah» e mettiti all'opera.
 
 ### Mangala, Carriera, settimana
 - Rito: Mangala apre oggi la settimana di lavoro, che chiede fermezza senza durezza. Scrivi in cima all'agenda l'obiettivo più impegnativo di questi sette giorni. Recita nove volte «Om Mangalaya namah» a voce bassa e sottolinea il primo passo concreto che porta verso quell'obiettivo.

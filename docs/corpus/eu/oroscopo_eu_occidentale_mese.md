@@ -31,7 +31,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Questo è un mese propizio alla creatività: mani e testa chiedono di fare qualcosa di bello, per il piacere di farlo. Se c'è una passione lasciata a metà, come uno strumento, i colori o l'uncinetto, è il momento di riprenderla; se non c'è, di provarne una nuova.
 - Che cosa fare: Entro dieci giorni prepara un angolo con il materiale in vista, dove lo incontri ogni mattina. Dedica venti minuti a sere alterne, sempre alla stessa ora, senza pretendere risultati. Cerca anche un laboratorio, una scuola serale o un gruppo vicino a casa e prova almeno un incontro.
-- Risposta, Lunga: Le mani ricordano più in fretta di quanto credi. I primi tentativi sembrano goffi e lì molti si arrendono: non giudicare le prime sere. Fare accanto ad altre persone dà un ritmo che in solitudine si perde e capisci che funziona quando aspetti con piacere la sera dedicata.
+- Risposta, Lunga: Le mani ricordano più in fretta di quanto credi. I primi tentativi sembrano goffi e lì molti si arrendono: non giudicare le prime sere. Fare accanto ad altre persone dà un ritmo che in solitudine si perde. Aspettare con piacere la sera dedicata è la conferma che funziona.
 
 ### Generale, In equilibrio (livello 3)
 
@@ -98,7 +98,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 2: Insieme facendo qualcosa
 
 - Risposta: Mese propizio all'amore che nasce o si rinnova facendo qualcosa insieme. Una passione condivisa crea confidenza più in fretta di cento chiacchiere davanti a uno schermo: se sei senza legame è lì che le simpatie nascono con naturalezza, se vivi una relazione è lì che l'intesa si riaccende.
-- Che cosa fare: Entro dieci giorni scegli un'attività che si ripete con regolarità, come un coro, una squadra di camminate o un laboratorio di ceramica. Se hai un legame, iscrivetevi insieme e non saltate nessun incontro; se non hai un legame, dopo tre incontri proponi un caffè a chi ti sta simpatico.
+- Che cosa fare: Entro dieci giorni scegli un'attività che si ripete con regolarità, come un coro, un gruppo di cammino o un laboratorio di ceramica. Se hai un legame, iscrivetevi insieme e non saltate nessun incontro; se non hai un legame, dopo tre incontri proponi un caffè a chi ti sta simpatico.
 - Risposta, Lunga: Quando le mani sono occupate la timidezza si scioglie e ci si mostra per come si è davvero. Chi ti incontra lì ti conosce mentre ridi di un errore, non mentre cerchi di fare bella figura. Un invito piccolo dentro un'abitudine comune toglie imbarazzo a entrambe le persone.
 
 #### Amore, favorevole, voce 3: Un'occasione pensata con cura
@@ -185,7 +185,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Questo è un mese propizio per imparare: la testa è ricettiva e il tempo si lascia organizzare meglio del solito. Nel lavoro, nello studio o nella ricerca di un impiego, una competenza nuova presa adesso rende di più, purché il traguardo abbia subito una data vera in calendario.
 - Che cosa fare: Scegli una competenza utile e fissa un traguardo con una data entro la fine del mese: un esame, un attestato, un modulo completato. Dividi il programma per settimane e attacca il piano vicino a dove lavori. Trova chi studia la stessa cosa e ripassate insieme ogni dieci giorni.
-- Risposta, Lunga: Imparare qualcosa di nuovo restituisce anche l'entusiasmo che la routine aveva consumato e chi ti sta intorno se ne accorge prima ancora del risultato. Spiegare a voce un argomento a qualcuno mostra subito dove la preparazione regge e dove va rinforzata, prima che lo scopra la prova finale.
+- Risposta, Lunga: Imparare qualcosa di nuovo può restituire anche l'entusiasmo che la routine aveva consumato e spesso chi ti sta intorno lo nota prima ancora del risultato. Spiegare a voce un argomento a qualcuno mostra subito dove la preparazione regge e dove va rinforzata, prima che lo scopra la prova finale.
 
 #### Carriera, favorevole, voce 4: Il lavoro che si nota
 
@@ -197,8 +197,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, equilibrio, voce 1: Tre fronti scelti
 
-- Risposta: Nel lavoro il mese è stabile, non spinge e non frena: i fronti aperti tendono a moltiplicarsi e nessuno avanza come vorresti. Il periodo premia chi decide che cosa viene prima e lascia il resto in attesa, senza sensi di colpa e con date oneste per chi aspetta.
-- Che cosa fare: Scrivi adesso tutti i lavori o gli impegni di studio aperti su un foglio e cerchiane tre. Comunica a chi aspetta gli altri una data realistica, così la pressione scende. Alla fine di ogni settimana guarda i tre fronti scelti e segna quello che è avanzato davvero.
+- Risposta: Nel lavoro il mese è stabile, non spinge e non frena: se i fronti aperti si moltiplicano, nessuno avanza come vorresti. Il periodo premia chi decide che cosa viene prima e lascia il resto in attesa, senza sensi di colpa e con date oneste per chi aspetta.
+- Che cosa fare: Scrivi adesso su un foglio tutti i lavori o gli impegni di studio aperti e cerchiane tre. Se qualcuno aspetta gli altri, dagli una data realistica, così la pressione scende. Alla fine di ogni settimana guarda i tre fronti scelti e segna quello che è avanzato davvero.
 - Risposta, Lunga: La dispersione non nasce da poca volontà ma dal desiderio di accontentare tutti. Scegliere significa accettare di deludere qualcuno per qualche settimana in cambio di risultati veri. Se uno dei tre resta fermo per due settimane di fila, chiediti che cosa gli manca: un'informazione, un aiuto, una decisione.
 
 #### Carriera, equilibrio, voce 2: Compiti divisi bene

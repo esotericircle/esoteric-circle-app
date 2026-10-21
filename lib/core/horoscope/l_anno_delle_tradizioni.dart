@@ -97,6 +97,23 @@ abstract final class LAnnoDelleTradizioni {
     (7, 10),
   ];
 
+  /// Il rapporto fra il tuo animale e quello dell'anno detto in una frase
+  /// intera (terzo lettore cieco indipendente, ordine GA voce GA.06: "Con
+  /// la Tigre, il tuo animale: tripla armonia." era telegrafico).
+  static String _rapportoDellAnno(
+          RapportoFraAnimali r, bool stesso, String tuo, String dellAnno) =>
+      switch (r) {
+        RapportoFraAnimali.stessoAnimale =>
+          'Il tuo animale, $tuo, è lo stesso dell\'anno.',
+        RapportoFraAnimali.nessuno => 'Fra $dellAnno dell\'anno e il tuo '
+            'animale, $tuo, le tabelle non segnano nessun rapporto.',
+        RapportoFraAnimali.triplaArmonia => 'Con $dellAnno dell\'anno il '
+            'tuo animale, $tuo, è in tripla armonia: stanno nello stesso '
+            'gruppo di tre animali che si sostengono.',
+        _ => 'Con $dellAnno dell\'anno il tuo animale, $tuo, è in '
+            'rapporto di ${LaLetturaCinese.rapportoDetto(r, stesso)}.',
+      };
+
   /// L'anno cinese che contiene [oggi], per chi e' nato nell'anno
   /// dell'animale [animale]. Null fuori dalla tabella dei Capodanni.
   static AnnoDellaTradizione? cinese(DateTime oggi, int animale,
@@ -117,10 +134,15 @@ abstract final class LAnnoDelleTradizioni {
     }
     final (nome, articolo) = ISegniDelleTradizioni.animali[ramo];
     final riga = 'L\'anno ${articolo == 'la' ? 'della' : 'del'} $nome va '
-        '${_con('dal', da)} ${_con('al', a)}. Con ${LaLetturaCinese.conArticolo(animale)}'
-        ', il tuo animale: ${LaLetturaCinese.rapportoDetto(rapporto, animale == ramo)}. '
-        'Tai Sui, il signore dell\'anno: '
-        '${offeso == null ? 'non lo offendi' : 'lo offendi, $offeso'}.';
+        // Il giorno prima del Capodanno dopo (terzo lettore cieco, ordine GA
+        // voce GA.06: "al 6 febbraio 2027" e' gia' l'anno della Capra), e il
+        // Tai Sui detto per intero: "non lo offendi" da solo era telegrafico.
+        '${_con('dal', da)} '
+        '${_con('al', DateTime(a.year, a.month, a.day - 1))}. '
+        '${_rapportoDellAnno(rapporto, animale == ramo, LaLetturaCinese.conArticolo(animale), '$articolo $nome')} '
+        'Tai Sui, il signore dell\'anno, è la divinità che la tradizione '
+        'invita a non contrariare: '
+        '${offeso == null ? 'il tuo animale non lo offende: l\'anno non ti chiede cautele particolari' : 'quest\'anno lo offendi, perché $offeso: la tradizione consiglia prudenza nelle scelte grandi'}.';
     return AnnoDellaTradizione(
       da: da,
       a: a,

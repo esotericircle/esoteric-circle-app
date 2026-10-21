@@ -444,13 +444,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Oggi è il giorno di Cheng, l'ufficiale del compimento: l'almanacco lo considera fra i più propizi. Prendi il libro lasciato a metà e leggilo fino all'ultima pagina, oppure fino al capitolo che chiude una parte. Rimetterlo sullo scaffale, finito, è il gesto di questo giorno.
 
 ### Cheng, Generale, settimana
-- Rito: Cheng, che fa giungere al termine, regge oggi il primo dei sette giorni. Riprendi un lavoro manuale rimasto a metà, un maglione, un disegno, un mobile da verniciare: completalo entro il settimo giorno, un poco ogni sera. Comincia adesso con il primo tratto.
+- Rito: Cheng, che fa giungere al termine, regge oggi il primo dei sette giorni. Scegli un lavoro manuale da finire entro il settimo giorno: uno rimasto a metà, se ne hai, oppure uno nuovo e piccolo, un disegno, una cornice, un vaso da dipingere. Comincia adesso con il primo tratto.
 
 ### Cheng, Generale, mese
 - Rito: Sotto Cheng, che conclude, si apre oggi il tuo mese. Ogni settimana dei trenta giorni chiudi una piccola pratica di casa rimasta in sospeso: un documento da rinnovare, una lampadina da cambiare, un orlo da cucire. Comincia adesso dalla più semplice, prima di sera.
 
 ### Cheng, Generale, anno
-- Rito: Il segno che Cheng ha posto a Capodanno sul tuo anno cinese è quello delle cose finite. Il gesto vale in qualunque punto dell'anno: riprendi adesso una lettera scritta a metà e mai spedita, poi finiscila, firmala e spediscila, anche se è passato del tempo.
+- Rito: Il segno che Cheng ha posto a Capodanno sul tuo anno cinese è quello delle cose finite. Il gesto vale in qualunque punto dell'anno: scrivi adesso una lettera a mano a una persona cara, oppure finisci quella rimasta a metà se ne hai una, poi firmala e spediscila.
 
 ### Cheng, Amore, giorno
 - Rito: Oggi governa Cheng, il giorno del traguardo, che la tradizione lega anche alle unioni. Negli affetti realizza adesso la sorpresa progettata e mai fatta, piccola o grande, per chi ami o per chi desideri avvicinare. Non aspettare un'occasione speciale: l'occasione è oggi.
@@ -468,13 +468,13 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Oggi l'almanacco segna Cheng, il giorno buono per le consegne. Al lavoro porta a termine il compito più vicino alla fine e consegnalo prima di sera, anche se non è perfetto. Vedere una cosa completata dà slancio a quelle che seguono.
 
 ### Cheng, Carriera, settimana
-- Rito: Sotto Cheng, che perfeziona, la settimana di lavoro chiede arrivi più che partenze. Scegli il progetto più maturo e coinvolgi adesso chi deve approvarlo: fissa con quella persona un incontro entro i sette giorni per l'ultimo via libera. Così il compimento non resta in sospeso.
+- Rito: Sotto Cheng, che perfeziona, la settimana di lavoro e di studio chiede arrivi più che partenze. Scegli la cosa più vicina alla fine, che sia un compito, una pratica o un capitolo: fissa adesso il passo che la chiude entro i sette giorni. Se serve un sì, chiedilo subito.
 
 ### Cheng, Carriera, mese
 - Rito: Cheng, che dopo la vigilanza porta a compimento, governa il primo dei tuoi trenta giorni di lavoro. Fai l'elenco dei compiti vicini alla fine e assegna a ciascuno una data di consegna dentro il mese. Chiudi adesso il primo e cancellalo con un tratto.
 
 ### Cheng, Carriera, anno
-- Rito: Nel lavoro e nello studio conta il segno di Cheng, l'ufficiale delle opere finite: sotto di lui, a Capodanno, ha preso vita il tuo anno cinese. Riprendi adesso un corso o un percorso di studio lasciato a metà e completa la lezione successiva.
+- Rito: Nel lavoro e nello studio conta il segno di Cheng, l'ufficiale delle opere finite: sotto di lui, a Capodanno, ha preso vita il tuo anno cinese. Scegli adesso un impegno di lavoro, di studio o personale che puoi chiudere in pochi giorni e portalo fino in fondo.
 
 ### Cheng, Fortuna, giorno
 - Rito: Oggi è Cheng, il giorno che compie e che l'almanacco dà buono anche per mettersi in viaggio. Per le occasioni muoviti: vai di persona dove finora hai solo scritto, a un incontro, da qualcuno che stimi. Le cose si compiono spesso quando ci si mette in strada.

@@ -13,7 +13,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nella vita di ogni giorno l'anno è favorevole all'ospitalità e ai rapporti vicini. Le persone che inviti tendono a rispondere con calore e da un incontro semplice possono nascere abitudini piacevoli. È il momento di aprire la porta più spesso, senza aspettare l'occasione perfetta.
 - Che cosa fare: Entro tre settimane invita due persone a casa tua o in un locale vicino, per una cena semplice o un caffè lungo. Da lì in avanti tieni un invito ogni quindici giorni, alternando volti di sempre e persone conosciute da poco. Conta la frequenza più della perfezione.
-- Risposta, Lunga: La convivialità regolare crea fiducia e rende naturale chiedere o offrire un aiuto quando serve. Se trasformi ogni invito in una prova da superare, con menu elaborati e pulizie infinite, finisci per smettere presto. Capisci che sta funzionando quando qualcuno ricambia senza che tu lo chieda.
+- Risposta, Lunga: La convivialità regolare crea fiducia e rende naturale chiedere o offrire un aiuto quando serve. Se trasformi ogni invito in una prova da superare, con menu elaborati e pulizie infinite, finisci per smettere presto. Un invito ricambiato senza che tu lo chieda dice che la casa aperta sta funzionando.
 
 #### Generale, favorevole, voce 2: Le prime volte
 
@@ -33,7 +33,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno scorre tranquillo nella vita di casa e premia le abitudini sobrie più dei grandi cambiamenti. È un buon tempo per riprendere il controllo delle sere, che spesso si consumano davanti agli schermi senza accorgersene: restituiscile a ciò che ti riposa davvero.
 - Che cosa fare: Scegli due sere a settimana in cui, dopo cena, gli schermi restano spenti fino a quando vai a dormire. Prepara prima qualcosa con cui riempirle: un libro, un gioco da tavolo, una telefonata lunga, una passeggiata nel quartiere. Comincia questa settimana e tieni il conto delle sere riuscite.
-- Risposta, Lunga: Le sere libere dagli schermi sembrano lunghe le prime volte, poi diventano lo spazio dove tornano conversazioni e pensieri lenti. Perché la regola non sembri una punizione, riempi quelle ore con attività che ti piacciono davvero. Ti accorgi che funziona quando arrivi al mattino con la testa più sgombra.
+- Risposta, Lunga: Le sere libere dagli schermi sembrano lunghe le prime volte, poi diventano lo spazio dove tornano conversazioni e pensieri lenti. Perché la regola non sembri una punizione, riempi quelle ore con attività che ti piacciono davvero. Se arrivi al mattino con la testa più sgombra, la regola sta funzionando.
 
 ### Generale, In salita (livello 2 e sotto)
 
@@ -115,7 +115,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro l'anno è stabile, senza svolte improvvise: il terreno regge e permette di affinare ciò che già sai fare invece di inseguire il nuovo a ogni costo. Vale per chi lavora e per chi studia: una capacità portata da buona a ottima vale più di molte competenze appena accennate.
 - Che cosa fare: Scegli adesso una capacità che usi spesso e fai bene ma non benissimo: scrivere, spiegare, organizzare, calcolare. Dedicale due ore ogni quindici giorni con un manuale, un video serio o una persona esperta da osservare. Segna subito le prime quattro sessioni, in orari tranquilli.
-- Risposta, Lunga: La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Te ne accorgi da un compito che prima ti costava e adesso esce più rapido e pulito.
+- Risposta, Lunga: La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Un compito che prima ti costava e adesso esce più rapido e pulito dice che la strada è giusta.
 
 #### Carriera, equilibrio, voce 2: Orari che reggono
 
@@ -165,7 +165,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la sorte è un anno in equilibrio, che può portare proposte di ogni tipo: gruppi nuovi, eventi, collaborazioni, inviti. Chiede di scegliere con misura, perché accettare tutto disperde le forze e rifiutare tutto chiude le porte: la buona sorte qui sta in un sì dato alle occasioni giuste.
 - Che cosa fare: Scrivi adesso tre criteri che una proposta deve rispettare per meritare un sì: insegnarti qualcosa, farti incontrare persone nuove, avere una durata chiara. Per ogni invito che arriva concediti due giorni prima di rispondere e rileggi i criteri. Se ne rispetta meno di due, declina con gentilezza.
-- Risposta, Lunga: Una scelta misurata protegge le occasioni migliori: chi ha l'agenda piena di impegni tiepidi non trova spazio quando arriva quella giusta. Il tempo lasciato libero è una risorsa come le altre. Capisci che funziona quando dici sì con entusiasmo e non per cortesia.
+- Risposta, Lunga: Una scelta misurata protegge le occasioni migliori: chi ha l'agenda piena di impegni tiepidi non trova spazio quando arriva quella giusta. Il tempo lasciato libero è una risorsa come le altre. Quando i tuoi sì nascono dall'entusiasmo e non dalla cortesia, la misura è quella giusta.
 
 ### Fortuna, In salita (livello 2 e sotto)
 
@@ -179,4 +179,4 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la sorte l'anno è delicato e chiede di custodire più che inseguire: la casa, gli oggetti di ogni giorno, i documenti, le scadenze. Un guasto trascurato pesa più di molte occasioni mancate, mentre la cura regolare evita i contrattempi nei momenti sbagliati.
 - Che cosa fare: Scrivi entro una settimana le manutenzioni che rimandi: una lampadina, la bicicletta, il computer, un documento in scadenza, una cerniera che cigola. Ogni settimana chiudine una, cominciando dalla più fastidiosa. Tieni in un unico posto ricevute, istruzioni e recapiti delle persone utili.
-- Risposta, Lunga: Le difficoltà di questo periodo nascono spesso da piccole cose lasciate andare troppo a lungo. Occuparsene per tempo non è pessimismo: è il modo più semplice per avere energie libere quando si presenta un'occasione. Ti accorgi del cambio quando passa una settimana senza imprevisti domestici.
+- Risposta, Lunga: Le difficoltà di questo periodo nascono spesso da piccole cose lasciate andare troppo a lungo. Occuparsene per tempo non è pessimismo: è il modo più semplice per avere energie libere quando si presenta un'occasione. Una settimana intera senza imprevisti domestici è un buon indizio che la manutenzione rende.

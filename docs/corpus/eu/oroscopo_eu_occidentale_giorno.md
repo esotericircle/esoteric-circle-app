@@ -189,7 +189,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Generale, favorevole, voce 17: Un ritmo disteso
 
-- Risposta: Oggi la giornata ha un passo più disteso del solito ed è favorevole alla calma: ti accorgi di quanto ti giovi fare le cose senza corsa. Conviene trattenere quella sensazione e trasformarla in un'abitudine, invece di lasciarla scivolare via con la fretta di sempre.
+- Risposta: Oggi la giornata ha un passo più disteso del solito ed è favorevole alla calma: può farti sentire quanto ti giovi fare le cose senza corsa. Conviene trattenere quella sensazione e trasformarla in un'abitudine, invece di lasciarla scivolare via con la fretta di sempre.
 - Che cosa fare: Prenditi dieci minuti al tavolo con una bevanda calda, senza telefono e senza leggere nulla. Guarda fuori dalla finestra e lascia che i pensieri si posino. Stasera, prima di dormire, prepara la tazza e il necessario per la colazione: è il modo di regalarti un altro inizio calmo.
 - Risposta, Lunga: Il modo in cui si fanno le cose si riversa sulle ore che seguono. Pochi minuti di calma diventano margine per tutto il resto: un ritardo assorbito, una risposta data senza nervi. Non spendere quel tempo sullo schermo, che lo consuma in fretta senza restituirti la calma cercata.
 
@@ -301,7 +301,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata scorre senza scosse e la sera può offrirti un'ora libera da usare bene. Il rischio non è la mancanza di tempo, è sprecarlo: la tentazione è riempirlo con il primo schermo a portata di mano, senza sceglierlo davvero e senza accorgertene.
 - Che cosa fare: Decidi adesso come usare quell'ora: un disco ascoltato per intero, una ricetta nuova, una lettera a mano. Scrivilo su un foglietto e attaccalo al frigorifero. Quando arriva il momento, spegni le notifiche e mettiti nel posto più comodo della casa, con tutto il necessario vicino.
-- Risposta, Lunga: Il tempo libero non scelto si consuma in fretta e lascia una stanchezza strana. Quello scelto, anche se breve, ha un inizio e una fine: ti accorgi di averlo vissuto. Alla fine annota in una riga che cosa ti è piaciuto, perché la prossima volta ti aiuta a scegliere.
+- Risposta, Lunga: Il tempo libero non scelto si consuma in fretta e lascia una stanchezza strana. Quello scelto, anche se breve, ha un inizio e una fine che possono restare nel ricordo. Alla fine annota in una riga che cosa ti è piaciuto, perché la prossima volta ti aiuta a scegliere.
 
 #### Generale, equilibrio, voce 6: Le risposte in sospeso
 
@@ -583,7 +583,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi in amore la giornata è favorevole e calorosa, soprattutto per ciò che si dice a voce: le parole arrivano più dirette di quelle scritte. Se vivi una relazione, di' a chi ami che cosa provi, guardando negli occhi; se sei senza legame e qualcuno ti piace, diglielo a voce.
 - Che cosa fare: Alla prima occasione di vedere o sentire chi ti sta a cuore, pronuncia una frase semplice e sincera: se ti aiuta, comincia con «Volevo dirti una cosa», poi lascia una pausa. Se nessuno occupa ancora i tuoi pensieri, rivolgi un apprezzamento a voce a una persona che ti incuriosisce.
-- Risposta, Lunga: Le parole scritte si rileggono, quelle dette restano nell'aria e nella memoria. Pronunciarle costa un piccolo imbarazzo, ma in una giornata così aperta pesa meno e può lasciare una vicinanza nuova. Te ne accorgi da uno sguardo che si ferma più a lungo o da una risposta data sorridendo.
+- Risposta, Lunga: Le parole scritte si rileggono, quelle dette restano nell'aria e nella memoria. Pronunciarle costa un piccolo imbarazzo, ma in una giornata così aperta pesa meno e può lasciare una vicinanza nuova. Se uno sguardo si ferma più a lungo o la risposta è un sorriso, le parole sono arrivate.
 
 #### Amore, favorevole, voce 13: Il desiderio detto
 
@@ -647,7 +647,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, favorevole, voce 23: Ciò che cerchi
 
-- Risposta: Oggi la vita sentimentale è limpida: capisci meglio che cosa desideri da un legame. Non chi vuoi accanto, ma come: i ritmi, le attenzioni, i limiti. Se sei senza legame, questa chiarezza orienta gli incontri; se vivi una relazione, ti aiuta a dire che cosa ti serve adesso.
+- Risposta: Oggi la vita sentimentale è limpida: si vede meglio che cosa desideri da un legame. Non chi vuoi accanto, ma come: i ritmi, le attenzioni, i limiti. Se sei senza legame, questa chiarezza orienta gli incontri; se vivi una relazione, ti aiuta a dire che cosa ti serve adesso.
 - Che cosa fare: Scrivi in una nota del telefono tre cose che vuoi in un rapporto e tre che non accetti più. Prima di dormire rileggile e cerchia la più importante. Se vivi una relazione, scegli quale condividere con chi ami; se sei senza legame, chiediti dove si incontra chi la possiede.
 - Risposta, Lunga: Molte delusioni nascono dal cercare un'idea vaga, adattandosi a chiunque si avvicini. Avere chiari i propri desideri non chiude porte: rende più facile riconoscere chi vale la pena. La lista però non è un esame: serve a orientarti, non a scartare le persone.
 
@@ -661,7 +661,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi in amore gli apprezzamenti arrivano dritti e la giornata è generosa con chi li fa. Un complimento preciso vale più di dieci generici. Se vivi una relazione, di' a chi ami una qualità che noti da tempo; se sei senza legame, regala a chi ti interessa un'osservazione sincera.
 - Che cosa fare: Scegli un dettaglio vero, non l'aspetto in generale: il modo in cui una persona ha gestito una situazione, una frase che ti è rimasta, la cura in un gesto. Dillo in giornata, guardando negli occhi o in un messaggio breve. Non aggiungere richieste dopo il complimento.
-- Risposta, Lunga: Nelle relazioni lunghe si dice spesso soltanto ciò che non va, dando per scontato il resto; negli incontri nuovi i complimenti sono di solito vaghi. Un apprezzamento preciso dimostra attenzione. Quando arriva, lo capisci da un piccolo silenzio sorpreso, seguito da un grazie che non ha nulla di formale.
+- Risposta, Lunga: Nelle relazioni lunghe si dice spesso soltanto ciò che non va, dando per scontato il resto; negli incontri nuovi i complimenti sono di solito vaghi. Un apprezzamento preciso dimostra attenzione. Un piccolo silenzio sorpreso, seguito da un grazie che non ha nulla di formale, dice che è arrivato.
 
 #### Amore, favorevole, voce 26: Lo sguardo ricambiato
 
@@ -685,7 +685,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata lucida in amore: trovi la forza di chiudere un'attesa che ti consuma. Se aspetti risposte da qualcuno che si fa sentire a intermittenza, è il momento di riprenderti il tuo tempo. Se vivi una relazione e una questione resta rimandata, puoi chiedere con garbo una risposta chiara.
 - Che cosa fare: Se aspetti qualcuno che risponde a tratti, scrivi un ultimo messaggio gentile: ringrazia e spiega che cerchi una presenza costante, poi archivia la conversazione. Se vivi una relazione, scegli il momento più calmo della sera per porre la tua domanda, una soltanto: ascolta la risposta intera.
-- Risposta, Lunga: Restare in sospeso consuma più di una risposta difficile, mentre una scelta netta restituisce leggerezza. Chiudere con garbo non è una sconfitta: libera energia per chi può esserci davvero. Lo capisci quando il telefono smette di attirare la tua mano ogni pochi minuti.
+- Risposta, Lunga: Restare in sospeso consuma più di una risposta difficile, mentre una scelta netta restituisce leggerezza. Chiudere con garbo non è una sconfitta: libera energia per chi può esserci davvero. Se il telefono smette di attirare la tua mano ogni pochi minuti, la scelta era quella giusta.
 
 #### Amore, favorevole, voce 30: Un'atmosfera da creare
 
@@ -747,7 +747,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi in amore il clima è sereno e un gesto piccolo arriva lontano. Un'attenzione concreta dice che hai notato l'altra persona. Se vivi una relazione, un pensiero per chi ami alleggerisce una giornata piena; se sei senza legame, un segnale leggero verso chi ti interessa tiene vivo il contatto.
 - Che cosa fare: Prendi una piccola cosa scelta sui gusti dell'altra persona: un dolce, un fiore, il suo tè preferito. Lasciala dove può trovarla, oppure mandane una foto con una riga soltanto. Evita domande e consigli: scrivi che ci hai pensato. Vale per chi ami e per chi ti interessa.
-- Risposta, Lunga: I regali piccoli non chiedono di essere ricambiati, per questo arrivano dritti. Dicono che l'altra persona è nei tuoi pensieri anche nei giorni normali, non soltanto nelle occasioni. Te ne accorgi da una risposta che cambia tono: più morbida, più lunga, magari con una domanda per te.
+- Risposta, Lunga: I regali piccoli non chiedono di essere ricambiati, per questo arrivano dritti. Dicono che l'altra persona è nei tuoi pensieri anche nei giorni normali, non soltanto nelle occasioni. Una risposta che cambia tono, più morbida, più lunga, magari con una domanda per te, dice che il pensiero è arrivato.
 
 #### Amore, equilibrio, voce 10: Niente confronti
 
@@ -1099,7 +1099,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Carriera, favorevole, voce 28: Capacità che viaggiano
 
-- Risposta: Oggi è una giornata adatta a ragionare sulla tua direzione nel lavoro o negli studi. Riesci a vedere quali capacità possono viaggiare con te anche in un ambiente nuovo e quali invece vanno ancora costruite. Se pensi a un cambiamento, oggi lo guardi con i piedi per terra.
+- Risposta: Oggi è una giornata favorevole nel lavoro e nello studio, soprattutto per ragionare sulla tua direzione. È più facile vedere quali capacità possono viaggiare con te anche in un ambiente nuovo e quali invece vanno ancora costruite. Se pensi a un cambiamento, oggi lo guardi con i piedi per terra.
 - Che cosa fare: Scrivi le cinque cose che sai fare meglio e accanto a ciascuna un ambito diverso dal tuo in cui servirebbe. Ricava due parole chiave e usale per cercare annunci, corsi o persone in quel campo. Scegli una persona e chiedile venti minuti di conversazione.
 - Risposta, Lunga: Chi cambia strada porta con sé un modo di guardare le cose che gli altri non hanno: quella che sembra inesperienza può diventare una ricchezza. Prepara qualche domanda sul lavoro quotidiano di chi incontri, perché la realtà conta più dell'immagine che ne hai da fuori.
 
@@ -1749,7 +1749,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata complicata per la buona sorte, in cui le parole arrivano storte: un orario capito male, un indirizzo confuso, un accordo che ciascuno ricorda a modo suo. Sono piccoli malintesi, ma bastano a far perdere un appuntamento o un'occasione se nessuno li ferma in tempo.
 - Che cosa fare: Per ogni accordo preso oggi, a voce o al telefono, manda subito un messaggio di conferma con i dati essenziali: giorno, ora, luogo, che cosa porta ciascuno. Chiedi una risposta breve. Quando ricevi un'indicazione importante, ripetila con parole tue prima di salutare.
-- Risposta, Lunga: I malintesi nascono quasi sempre da ciò che sembrava ovvio. Mettere per iscritto due righe sembra pignoleria e invece risparmia attese, telefonate nervose e figure storte. Capisci che serviva quando qualcuno risponde correggendo un dettaglio che avevate capito in modo diverso.
+- Risposta, Lunga: I malintesi nascono quasi sempre da ciò che sembrava ovvio. Mettere per iscritto due righe sembra pignoleria e invece risparmia attese, telefonate nervose e figure storte. Se qualcuno risponde correggendo un dettaglio che avevate capito in modo diverso, quelle due righe sono servite.
 
 #### Fortuna, salita, voce 12: La fortuna degli altri
 

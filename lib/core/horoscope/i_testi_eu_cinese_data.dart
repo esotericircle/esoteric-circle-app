@@ -518,7 +518,7 @@ abstract final class ITestiEuCineseData {
             'Giornata buona per dirlo',
             'Oggi in amore la giornata è favorevole a dire ciò che senti con parole semplici. Le frasi sincere arrivano meglio del solito e non suonano pesanti. Se vivi una relazione, è il momento di nominare un affetto che dai per scontato; se sei senza legame, di esprimere interesse senza giri.',
             'Prima di sera scegli una frase vera e dilla a voce, guardando negli occhi: mi piace come mi fai ridere, mi fa bene parlarti. Se hai un legame, rivolgila a chi ami; se non ce l\'hai, dilla alla prossima persona che ti fa piacere incontrare, come un complimento sincero.',
-            'Le parole d\'affetto taciute non spariscono: si accumulano e diventano distanza. Dette in una giornata limpida, invece, trovano spazio senza sembrare una richiesta. Troppe premesse le indeboliscono: meglio dirle nude. Te ne accorgi dopo averle dette, quando il respiro si fa più largo.',
+            'Le parole d\'affetto taciute non spariscono: si accumulano e diventano distanza. Dette in una giornata limpida, invece, trovano spazio senza sembrare una richiesta. Troppe premesse le indeboliscono: meglio dirle nude. Se dopo averle dette il respiro si fa più largo, erano parole da dire.',
           ),
           VoceEu(
             'Il primo passo conviene',
@@ -530,7 +530,7 @@ abstract final class ITestiEuCineseData {
             'Ringraziare avvicina',
             'Oggi la vita sentimentale sorride alla gratitudine detta ad alta voce: riconoscere un gesto scalda più di un regalo. Se vivi una relazione, nomina le attenzioni che ricevi senza chiederle. Se sei senza legame, la giornata è buona per accorgerti di quanta cura sai dare e ricevere.',
             'Stasera, se hai un legame, elenca a voce tre gesti precisi che l\'altra persona fa per te e ringrazia per ciascuno, senza aggiungere richieste. Se non hai un legame, scrivi su un foglio tre attenzioni che desideri ricevere e tre che ti viene naturale offrire.',
-            'La gratitudine taciuta si consuma e lascia il dubbio che la cura non conti. Dirla con parole esatte, non generiche, restituisce valore ai gesti di tutti i giorni. Non serve un discorso solenne. Lo capisci da un sorriso sorpreso, oppure da una calma nuova dentro di te.',
+            'La gratitudine taciuta si consuma e lascia il dubbio che la cura non conti. Dirla con parole esatte, non generiche, restituisce valore ai gesti di tutti i giorni. Non serve un discorso solenne. Un sorriso sorpreso, oppure una calma nuova dentro di te, dice che il grazie è arrivato.',
           ),
           VoceEu(
             'Una sorpresa piccola vince',
@@ -542,7 +542,7 @@ abstract final class ITestiEuCineseData {
             'Il fascino è dalla tua',
             'In amore la giornata è luminosa per il fascino: ti mostri a tuo agio e chi ti incontra può notarlo. È un buon momento per curare l\'aspetto che ti fa stare bene. Se vivi una relazione, la cura riaccende il desiderio; se sei senza legame, rende più naturali gli sguardi.',
             'Scegli adesso un capo che ti piace davvero, di quelli tenuti per le occasioni: indossalo oggi. Aggiungi un profumo leggero e cammina con calma. Se incontri uno sguardo che ti interessa, sostienilo un attimo in più e sorridi. Se hai un legame, fatti trovare così stasera.',
-            'Il fascino non nasce dalla perfezione ma dall\'agio con cui abiti il tuo corpo e i tuoi gesti. Quando ti piaci, lo sguardo degli altri cambia di conseguenza. Recitare una parte lo spegne subito. Lo noti quando ti viene voglia di parlare con qualcuno invece di nasconderti.',
+            'Il fascino non nasce dalla perfezione ma dall\'agio con cui abiti il tuo corpo e i tuoi gesti. Quando ti piaci, lo sguardo degli altri cambia di conseguenza. Recitare una parte lo spegne subito. La voglia di parlare con qualcuno invece di nasconderti è un buon indizio.',
           ),
           VoceEu(
             'Ascoltare rende vicini',
@@ -632,7 +632,7 @@ abstract final class ITestiEuCineseData {
             'Presenza piena, legame forte',
             'Nella vita sentimentale la giornata è limpida e premia la presenza piena: oggi conta più lo sguardo della quantità di tempo. Mezz\'ora senza distrazioni vale una serata intera a metà. In coppia, dedica attenzione totale all\'altra persona; se sei senza legame, porta la stessa presenza negli incontri che ti interessano.',
             'Stasera metti il telefono in un\'altra stanza per mezz\'ora e guarda chi hai davanti mentre parla, senza preparare la risposta. Se hai un legame, fallo a tavola con l\'altra persona; altrimenti scegli una conversazione che ti incuriosisce, anche al telefono: dedicale la stessa attenzione piena.',
-            'L\'attenzione divisa si sente anche quando non si vede: l\'altra persona percepisce se sei lì oppure altrove. La presenza piena è il regalo più raro e attraente. Lo schermo cercato per abitudine la incrina. Lo capisci quando ricordi i dettagli di ciò che hai ascoltato.',
+            'L\'attenzione divisa si sente anche quando non si vede: l\'altra persona percepisce se sei lì oppure altrove. La presenza piena è il regalo più raro e attraente. Lo schermo cercato per abitudine la incrina. Ricordare i dettagli di ciò che hai ascoltato vuol dire che eri presente davvero.',
           ),
           VoceEu(
             'Domande che sorprendono',
@@ -668,7 +668,7 @@ abstract final class ITestiEuCineseData {
             'I sensi accesi',
             'Giornata fertile per i sensi in amore: profumi, musica, tessuti morbidi parlano oggi più forte delle parole. È il momento di dare spazio al piacere senza fretta. Se vivi una relazione, crea un\'atmosfera per la sera; se non hai un legame, concediti un piacere che di solito rimandi.',
             'Stasera abbassa le luci, scegli un profumo e una musica lenta, togli dalla stanza ciò che ricorda gli impegni. Se hai un legame, invita l\'altra persona a rallentare con te, senza programmi. Se non ce l\'hai, scegli un piacere preciso: un dolce buono, un libro, una musica ascoltata al buio.',
-            'Il desiderio cresce dove c\'è lentezza: i sensi hanno bisogno di tempo per accendersi, mentre la fretta li spegne. Un\'atmosfera vissuta come prestazione da riuscire perde calore. Te ne accorgi dal corpo che si scioglie, dal respiro che rallenta, dalla voglia di restare.',
+            'Il desiderio cresce dove c\'è lentezza: i sensi hanno bisogno di tempo per accendersi, mentre la fretta li spegne. Un\'atmosfera vissuta come prestazione da riuscire perde calore. Un corpo che si scioglie, un respiro che rallenta e la voglia di restare dicono che il ritmo è giusto.',
           ),
           VoceEu(
             'Spazio che rende liberi',
@@ -698,7 +698,7 @@ abstract final class ITestiEuCineseData {
         [
           VoceEu(
             'Una novità minima',
-            'In amore la giornata è tranquilla, senza scosse e un po\' abitudinaria. Niente di grave, ma la routine rischia di rendere tutto prevedibile. Se vivi una relazione, basta un piccolo strappo alla regola per ravvivare la sera; se sei senza legame, cambia un\'abitudine che ti tiene sempre negli stessi posti.',
+            'In amore la giornata è stabile e un po\' abitudinaria. Niente di grave, ma la routine rischia di rendere tutto prevedibile. Se vivi una relazione, basta un piccolo strappo alla regola per ravvivare la sera; se sei senza legame, cambia un\'abitudine che ti tiene sempre negli stessi posti.',
             'Scegli una cosa sola da fare diversamente stasera: un altro percorso per tornare a casa, un locale mai provato, la cena in un\'altra stanza. Se hai un legame, proponila senza spiegare il perché. Se non ce l\'hai, scegli comunque la strada nuova e guarda chi incontri.',
             'La routine protegge e rassicura, ma senza piccole variazioni spegne la curiosità che tiene vivo il desiderio. Non serve rivoluzionare nulla: una novità minima basta a far sentire la sera diversa. L\'entusiasmo forzato si sente. Basta una conversazione che esce dai soliti binari per capirlo.',
           ),
@@ -728,13 +728,13 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Cura i saluti',
-            'Oggi in amore il clima è calmo e premia i gesti ordinari fatti bene, a cominciare dai saluti. Un buongiorno distratto e un bentornato frettoloso pesano più di quanto sembri. In coppia, cura l\'arrivo e la partenza; senza legame, porta calore nei saluti a chi ti incuriosisce.',
+            'Oggi in amore il clima è stabile e premia i gesti ordinari fatti bene, a cominciare dai saluti. Un buongiorno distratto e un bentornato frettoloso pesano più di quanto sembri. In coppia, cura l\'arrivo e la partenza; senza legame, porta calore nei saluti a chi ti incuriosisce.',
             'Oggi, quando saluti, fermati tre secondi in più: guarda negli occhi, sorridi, usa il nome. Se hai un legame, quando vi vedete lascia ciò che stai facendo e accogli l\'altra persona con tutto il corpo. Se sei single, saluta per nome qualcuno che incroci spesso.',
             'I saluti sono le cerniere della giornata: dicono all\'altra persona se il suo arrivo è una gioia o un\'interruzione. Curarli costa pochi secondi e cambia il tono delle ore insieme. Un rito meccanico, però, non scalda. Un sorriso ricambiato senza sforzo dice che stai facendo bene.',
           ),
           VoceEu(
             'Lascia maturare',
-            'Oggi l\'amore procede quieto, adatto all\'attesa paziente più che alle mosse decise. Ciò che sta nascendo ha bisogno di tempo per mostrarsi. Se una conoscenza ti incuriosisce, lasciala crescere senza forzare; se vivi una relazione, rinvia le domande grandi e goditi la vicinanza di oggi.',
+            'Oggi l\'amore procede regolare, adatto all\'attesa paziente più che alle mosse decise. Ciò che sta nascendo ha bisogno di tempo per mostrarsi. Se una conoscenza ti incuriosisce, lasciala crescere senza forzare; se vivi una relazione, rinvia le domande grandi e goditi la vicinanza di oggi.',
             'Oggi non chiedere definizioni e non sollecitare risposte con altri messaggi. Fai invece una cosa che ti piace mentre aspetti: una camminata, una lettura, un lavoro manuale. Prima di dormire annota che cosa provi, senza tirare conclusioni. Vale per chi ha un legame e per chi cerca.',
             'Le cose del cuore hanno tempi che non si comandano: forzarle porta spesso a risposte affrettate, di cui poi ci si pente. Annotare ciò che provi aiuta a distinguere il desiderio dall\'ansia. Pazienza non vuol dire indifferenza. Se la calma regge fino a sera, sei sulla buona via.',
           ),
@@ -764,7 +764,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Cucinare a quattro mani',
-            'Oggi in amore la giornata ha un ritmo tranquillo e domestico, adatto ai gesti semplici fatti insieme. Preparare da mangiare a quattro mani avvicina senza bisogno di discorsi. In coppia, cucinate qualcosa stasera; se sei senza legame, invita a cena chi ti incuriosisce o cucina con cura per te.',
+            'Oggi in amore la giornata ha un ritmo misurato e domestico, adatto ai gesti semplici fatti insieme. Preparare da mangiare a quattro mani avvicina senza bisogno di discorsi. In coppia, cucinate qualcosa stasera; se sei senza legame, invita a cena chi ti incuriosisce o cucina con cura per te.',
             'Scegli una ricetta facile da mezz\'ora e dividete i compiti: chi taglia, chi mescola, chi apparecchia. Niente telefoni in cucina. Se sei senza legame e cucini per te, apparecchia come per un ospite caro, accendi una musica bassa e siediti a tavola davvero.',
             'Lavorare con le mani accanto a qualcuno crea un dialogo silenzioso: ci si passa il sale, si ride degli errori, si aspettano i tempi dell\'altra persona. È intimità senza solennità. La cucina non è una gara. A tavola, con i piatti, può arrivare anche il buonumore.',
           ),
@@ -778,7 +778,7 @@ abstract final class ITestiEuCineseData {
             'Aspettative alla giusta misura',
             'Oggi la vita sentimentale è lineare e invita a rivedere le aspettative, né troppo alte né troppo basse. Chiedere a un legame di essere tutto porta delusione; chiedere poco porta noia. In coppia, guarda che cosa pretendi dall\'altra persona; da single, che cosa pretendi da un primo incontro.',
             'Stasera scrivi tre cose che ti aspetti da chi ami o da chi vorresti incontrare. Accanto a ciascuna segna se è un desiderio giusto o una pretesa. Tieni i desideri e lascia andare una pretesa, con un gesto concreto: per esempio smettere di aspettare un messaggio a un\'ora precisa.',
-            'Molte delusioni in amore non nascono da ciò che l\'altra persona fa, ma da ciò che ci si aspettava in silenzio. Riportare le attese alla misura giusta libera entrambe le parti. Misura non è rinuncia. Te ne accorgi quando godi di più ciò che c\'è.',
+            'Molte delusioni in amore non nascono da ciò che l\'altra persona fa, ma da ciò che ci si aspettava in silenzio. Riportare le attese alla misura giusta libera entrambe le parti. Misura non è rinuncia. Godere di più ciò che c\'è vuol dire che la misura è quella buona.',
           ),
           VoceEu(
             'Il passato resta lì',
@@ -818,13 +818,13 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Il silenzio che sta bene',
-            'Giornata quieta in amore, in cui anche il silenzio può essere buona compagnia. Non serve riempire ogni pausa. Se vivi una relazione, concedetevi un tempo insieme senza parlare, ognuno con le sue cose; se sei single, goditi la serata senza cercare subito qualcuno da sentire.',
+            'Giornata lineare in amore, in cui anche il silenzio può essere buona compagnia. Non serve riempire ogni pausa. Se vivi una relazione, concedetevi un tempo insieme senza parlare, ognuno con le sue cose; se sei single, goditi la serata senza cercare subito qualcuno da sentire.',
             'Stasera prenditi mezz\'ora di quiete: una lettura, una musica, una tisana. Se hai un legame, proponi all\'altra persona di stare nella stessa stanza, ognuno con la propria attività, senza televisione. Se sei single, resisti alla voglia di scorrere profili e messaggi per riempire il vuoto.',
             'Saper stare in silenzio accanto a qualcuno è un segno di intimità matura: vuol dire che la presenza basta. Per chi non ha un legame, stare bene con sé è la base per scegliere. La quiete non va confusa con la distanza. Un silenzio comodo lo conferma.',
           ),
           VoceEu(
             'Una poesia d\'amore',
-            'Oggi la vita sentimentale è calma e lascia spazio alle parole belle degli altri: una poesia d\'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all\'altra persona; senza legame, tienila con te come un augurio.',
+            'Oggi la vita sentimentale è in equilibrio e lascia spazio alle parole belle degli altri: una poesia d\'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all\'altra persona; senza legame, tienila con te come un augurio.',
             'Cerca oggi una poesia d\'amore breve di un autore che ami e copiala a mano su un cartoncino. Se hai un legame, leggila stasera a voce bassa, senza spiegarla né commentarla. Se sei single, mettila dove cade lo sguardo quando rientri a casa.',
             'I poeti hanno dato forma a sentimenti che tutti provano e pochi sanno dire. Prendere in prestito le loro parole non è un trucco: è un modo di riconoscersi. Versi troppo solenni stonano col momento. Basta una riga che ti resti in mente fino a sera.',
           ),
@@ -976,7 +976,7 @@ abstract final class ITestiEuCineseData {
             'Dove va il tempo',
             'Oggi la giornata è lucida per il lavoro e lo studio: è adatta a capire dove va davvero il tuo tempo. Le ore spese fra messaggi, interruzioni e compiti diversi si lasciano ricostruire con facilità e mostrano quale impegno ne assorbe più del dovuto, senza bisogno di indovinare.',
             'Prendi un foglio e ricostruisci la mattina appena passata a blocchi di mezz\'ora: che cosa hai fatto, per chi, con quale risultato. Dove non ricordi, guarda i messaggi inviati. Nel pomeriggio segna ogni passaggio mentre accade e cerchia il compito che ha chiesto più tempo del previsto.',
-            'Quando il conto delle ore torna, torna anche la serenità nel lavoro e nello studio. Sapere quanto pesa ogni impegno ti rende più chiaro nelle promesse e meno incline a concedere troppo. Lo capisci da una sorpresa: un compito che pesa più di quanto credevi.',
+            'Quando il conto delle ore torna, torna anche la serenità nel lavoro e nello studio. Sapere quanto pesa ogni impegno ti rende più chiaro nelle promesse e meno incline a concedere troppo. Se un compito pesa più di quanto credevi, il conto ha già fatto il suo lavoro.',
           ),
           VoceEu(
             'Ricucire un rapporto',
@@ -1066,7 +1066,7 @@ abstract final class ITestiEuCineseData {
             'Un inizio e una fine',
             'Giornata favorevole nel lavoro a ritrovare un ordine nelle ore. Quando lavoro e studio si mescolano al resto e il giorno scivola senza un vero inizio, piccoli confini ben messi rendono il lavoro più rapido e restituiscono la sera, che spesso appartiene un po\' anche alla scrivania.',
             'Adesso siediti al lavoro a un\'ora fissa e scrivi su un foglio i tre compiti principali. A metà giornata esci dieci minuti a camminare. A un orario deciso adesso chiudi il computer e spegni le notifiche di lavoro sul telefono per il resto della sera.',
-            'Il corpo segue i segnali dell\'ambiente: un inizio riconoscibile e una fine dichiarata dicono alla mente quando è tempo di fare e quando di lasciar andare. Questo confine tiene alta la qualità del lavoro. Lo noti stasera, quando i pensieri di lavoro tacciono presto.',
+            'Il corpo segue i segnali dell\'ambiente: un inizio riconoscibile e una fine dichiarata dicono alla mente quando è tempo di fare e quando di lasciar andare. Questo confine tiene alta la qualità del lavoro. Se stasera i pensieri di lavoro tacciono presto, il confine ha tenuto.',
           ),
           VoceEu(
             'Chi ci è già passato',
@@ -1157,7 +1157,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Un lavoro alla volta',
             'Giornata piana nel lavoro, da mettere in fila e non da rincorrere: un compito alla volta, finito bene. Se oggi due impegni si contendono le stesse ore, scegliere quale viene prima evita di rovinarli entrambi e di arrivare a sera con due lavori a metà.',
-            'Metti accanto a ogni impegno di oggi la sua scadenza vera. Per quello che può aspettare chiedi subito un po\' di tempo in più a chi lo attende, con un orario preciso. Con le ore guadagnate comincia dal passaggio più delicato del primo, quando la mente è fresca.',
+            'Metti accanto a ogni impegno di oggi la sua scadenza vera. Se due impegni si contendono le ore, sposta quello che può aspettare e, se qualcuno lo attende, avvisalo subito con un orario preciso. Poi comincia dal passaggio più delicato, quando la mente è fresca.',
             'Le persone tollerano un\'attesa annunciata con garbo molto meglio di un lavoro consegnato in fretta. Chiedere tempo prima, invece che scusarsi dopo, rafforza la fiducia nel tuo modo di lavorare. Dividere l\'attenzione in due costa caro: chi passa da un compito all\'altro paga ogni passaggio.',
           ),
           VoceEu(
@@ -1410,7 +1410,7 @@ abstract final class ITestiEuCineseData {
             'Il banco di fiducia',
             'Nei negozi dove ti conoscono la fortuna di oggi è buona: chi lavora al banco della bottega che frequenti più spesso è ben disposto e può darti un consiglio o tenerti da parte ciò che cerchi. La cortesia di tutti i giorni apre corsie che nessuna vetrina mostra.',
             'Entra nel negozio dove vai più spesso, il forno, l\'edicola o la libreria: chiedi un consiglio preciso su ciò che ti serve. Lascia detto che cosa cerchi, con titolo, misura o colore. Se ancora non sai il nome di chi sta al banco, chiedilo prima di uscire.',
-            'Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone. È una fortuna costruita con la cortesia, una visita dopo l\'altra. Meglio non chiedere troppo in una volta: un desiderio preciso resta in mente più di una lista. Te ne accorgi quando ti salutano per nome.',
+            'Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone. È una fortuna costruita con la cortesia, una visita dopo l\'altra. Meglio non chiedere troppo in una volta: un desiderio preciso resta in mente più di una lista. Un saluto per nome è già un frutto.',
           ),
           VoceEu(
             'Ciò che sai fare',
@@ -1422,7 +1422,7 @@ abstract final class ITestiEuCineseData {
             'L\'ingresso sgombro',
             'Oggi la buona sorte è favorevole a chi apre la strada: nella tradizione cinese la fortuna entra dalla porta di casa e un ingresso ingombro la ferma sulla soglia. Liberare quel passaggio è un gesto piccolo che rende la giornata più leggera e lo sguardo più sgombro.',
             'Togli dall\'ingresso scarpe, borse e pacchi che non servono oggi e trova a ciascuno un posto. Pulisci la soglia e lo zerbino. Se c\'è una lampadina spenta vicino alla porta, cambiala; se lo spazio lo permette, metti accanto all\'entrata una pianta o una luce calda.',
-            'Il feng shui chiama bocca del qi la porta d\'ingresso: da lì entrano le occasioni come entrano le persone. Un passaggio libero rende più facile anche uscire con calma, senza cercare le chiavi in un mucchio. Stasera te ne accorgi rientrando senza inciampare in niente.',
+            'Il feng shui chiama bocca del qi la porta d\'ingresso: da lì entrano le occasioni come entrano le persone. Un passaggio libero rende più facile anche uscire con calma, senza cercare le chiavi in un mucchio. Se stasera rientri senza inciampare in niente, il passaggio è davvero libero.',
           ),
           VoceEu(
             'Il volto di ogni giorno',
@@ -1440,7 +1440,7 @@ abstract final class ITestiEuCineseData {
             'Il complimento sincero',
             'Giornata luminosa per la fortuna che nasce dalla gentilezza: un complimento preciso, detto a chi se lo merita, oggi torna indietro in forme inattese. Una parola buona apre porte che restano chiuse alle richieste. Costa pochissimo e mette in moto uno scambio di attenzioni che fa bene a tutti.',
             'Scegli oggi una persona che fa bene qualcosa, a casa, al lavoro o in un negozio. Diglielo con un dettaglio vero: che cosa hai notato e perché ti piace. Niente frasi generiche. Se a voce ti viene difficile, scrivilo in un messaggio breve prima di sera.',
-            'Nella tradizione cinese la buona sorte cresce dove circola la benevolenza, come l\'acqua che scorre in un canale pulito. Un complimento sincero rafforza chi lo riceve e chi lo fa. Diversa è l\'adulazione: un elogio vago suona falso. Lo capisci da un sorriso sorpreso.',
+            'Nella tradizione cinese la buona sorte cresce dove circola la benevolenza, come l\'acqua che scorre in un canale pulito. Un complimento sincero rafforza chi lo riceve e chi lo fa. Diversa è l\'adulazione: un elogio vago suona falso. Un sorriso sorpreso dice che le parole erano vere.',
           ),
           VoceEu(
             'Spie accese di notte',
@@ -1592,7 +1592,7 @@ abstract final class ITestiEuCineseData {
             'Il posto delle chiavi',
             'Nelle abitudini abita oggi una buona sorte ordinaria: chiavi, occhiali e documenti che cambiano posto ogni sera sono la causa più comune dei piccoli contrattempi. Dare a ognuno una casa fissa toglie dalla giornata minuti di ansia e qualche ritardo.',
             'Scegli vicino alla porta un punto preciso per le chiavi: una ciotola, un gancio, un piccolo vassoio. Mettici accanto ciò che porti sempre con te. Stasera, rientrando, lascia tutto lì prima ancora di toglierti le scarpe o di accendere la luce.',
-            'Un gesto ripetuto ogni giorno diventa automatico e smette di chiedere attenzione. Nella tradizione cinese l\'ordine vicino all\'ingresso accoglie le occasioni invece di respingerle. Il nuovo posto si dimentica in fretta, a volte già stasera. Lo capisci quando esci senza cercare niente.',
+            'Un gesto ripetuto ogni giorno diventa automatico e smette di chiedere attenzione. Nella tradizione cinese l\'ordine vicino all\'ingresso accoglie le occasioni invece di respingerle. Il nuovo posto si dimentica in fretta, a volte già stasera. Uscire senza cercare niente vuol dire che il gesto è entrato nell\'abitudine.',
           ),
           VoceEu(
             'Libri in circolo',
@@ -1616,7 +1616,7 @@ abstract final class ITestiEuCineseData {
             'Il calendario con margine',
             'Una fortuna regolare accompagna oggi chi lascia spazio fra un impegno e l\'altro: una giornata troppo piena non lascia posto alle occasioni che arrivano per caso. Un margine di mezz\'ora permette di accettare un invito, una chiacchierata o un aiuto imprevisto.',
             'Guarda gli impegni di oggi e sposta o cancella quello che conta meno. Lascia libera almeno mezz\'ora nel pomeriggio, senza riempirla in anticipo. Se in quel tempo non arriva nulla, usalo per una camminata o per una telefonata a cui tieni.',
-            'Le coincidenze fortunate hanno bisogno di spazio per accadere: chi corre da un appuntamento all\'altro non le vede passare. Un margine nel calendario è una porta lasciata socchiusa. Non è tempo perso. Te ne accorgi arrivando a sera senza il fiato corto.',
+            'Le coincidenze fortunate hanno bisogno di spazio per accadere: chi corre da un appuntamento all\'altro non le vede passare. Un margine nel calendario è una porta lasciata socchiusa. Non è tempo perso. Arrivare a sera senza il fiato corto dice che il margine ha retto.',
           ),
           VoceEu(
             'L\'ascolto fino in fondo',
@@ -1744,7 +1744,7 @@ abstract final class ITestiEuCineseData {
             'Partire prima',
             'Oggi la fortuna è in affanno negli spostamenti: mezzi in ritardo, traffico imprevisto e coincidenze perse sono più probabili del solito. Chi parte all\'ultimo minuto rischia di arrivare col fiato corto proprio dove serve presentarsi bene. Un margine di tempo cambia l\'esito della giornata.',
             'Per ogni spostamento di oggi esci con un quarto d\'ora di anticipo e controlla prima il percorso. Tieni nel telefono un\'alternativa: un altro mezzo, un\'altra strada. Se arrivi presto, usa il tempo in più per rileggere ciò che ti serve dove vai.',
-            'Le giornate storte si sentono soprattutto nei passaggi stretti, dove un ritardo ne chiama un altro. Partire prima toglie potere ai contrattempi. Quel margine va difeso all\'ultimo minuto da un messaggio o da una commissione in più. Lo capisci quando arrivi senza correre.',
+            'Le giornate storte si sentono soprattutto nei passaggi stretti, dove un ritardo ne chiama un altro. Partire prima toglie potere ai contrattempi. Quel margine va difeso all\'ultimo minuto da un messaggio o da una commissione in più. Se arrivi senza correre, partire prima ha funzionato.',
           ),
           VoceEu(
             'Non promettere troppo',
@@ -1809,7 +1809,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Sette righe sul foglio',
-            'La settimana è scorrevole e ti lascia margine, se la guardi intera fin da oggi. Gli impegni dei prossimi sette giorni si incastrano meglio quando li vedi tutti insieme: capisci subito dove c\'è aria e dove le ore sono piene, così puoi spostare qualcosa prima che nasca l\'affanno.',
+            'La settimana è scorrevole e ti lascia margine, se la guardi intera fin da oggi. Gli impegni dei prossimi sette giorni si incastrano meglio quando li vedi tutti insieme: si vede subito dove c\'è aria e dove le ore sono piene, così puoi spostare qualcosa prima che nasca l\'affanno.',
             'Prendi un foglio e traccia sette righe, una per ogni giorno a partire da oggi. Scrivi su ognuna al massimo tre cose, mettendo per prime quelle che dipendono da altre persone. Appendilo dove passi spesso, poi ogni sera cancella con una riga netta ciò che hai chiuso.',
             'Quando l\'ordine è visibile, l\'ansia di non riuscire a fare tutto perde presa. Il foglio diventa una mappa e non un giudice: ciò che resta si sposta in avanti senza colpa. Attenzione soltanto a non riempire ogni riga fino all\'orlo, perché i giorni portano sempre qualche imprevisto.',
           ),
@@ -1865,7 +1865,7 @@ abstract final class ITestiEuCineseData {
             'Un angolo verde',
             'La settimana ha un passo sereno e fertile, adatto a dare vita a un piccolo angolo verde. Basta un davanzale, un balcone o un tavolo vicino alla finestra: tre vasi curati trasformano un punto qualsiasi della casa in un posto da guardare volentieri ogni mattina.',
             'Nel fine settimana passa da un vivaio o da un mercato e scegli tre piante facili, adatte alla luce che hai. Sistemale in vasi con terra nuova prima di pranzo. Scrivi su un biglietto il nome di ciascuna e quanta acqua le serve.',
-            'Prendersi cura di qualcosa che cresce dà un ritmo nuovo alle mattine e un motivo per affacciarsi. Anche chi passa se ne accorge: un davanzale fiorito apre spesso conversazioni inattese. Fissa due momenti alla settimana per annaffiare, così la cura non diventa un pensiero in più.',
+            'Prendersi cura di qualcosa che cresce dà un ritmo nuovo alle mattine e un motivo per affacciarsi. Anche chi passa può notarlo: un davanzale fiorito apre spesso conversazioni inattese. Fissa due momenti alla settimana per annaffiare, così la cura non diventa un pensiero in più.',
           ),
         ],
         [
@@ -1877,7 +1877,7 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'I pesi divisi',
-            'La settimana è equilibrata se i pesi si dividono: nei compiti che tornano ogni giorno conviene vedere chi porta che cosa. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare il malcontento silenzioso in un accordo chiaro e scritto.',
+            'La settimana è equilibrata e adatta a vedere come si dividono i pesi nei compiti che tornano ogni giorno. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare un eventuale malcontento silenzioso in un accordo chiaro e scritto.',
             'Entro tre giorni scrivi l\'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.',
             'Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Anche chi finora si è tirato indietro spesso aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell\'accordo: rifarlo da capo scoraggia tutti.',
           ),
@@ -2267,7 +2267,7 @@ abstract final class ITestiEuCineseData {
             'Il passo troppo veloce',
             'Settimana difficile in amore per chi ha fretta: accelerare adesso crea pressione e allontana. Se vivi una relazione, spingere su una decisione importante rischia di irrigidire l\'altra persona; se sei senza legame, bruciare le tappe con qualcuno appena conosciuto toglie il piacere della scoperta.',
             'Se hai un legame, rimanda di qualche giorno la conversazione decisiva e intanto chiedi all\'altra persona di che cosa ha bisogno per sentirsi pronta. Se non ce l\'hai, con chi frequenti da poco tieni un incontro alla volta, senza progetti né dichiarazioni.',
-            'La fretta in amore nasce spesso dall\'ansia, non dal desiderio: si vuole una certezza subito per non sopportare l\'attesa. Rallentare non significa rinunciare, ma lasciare all\'altro il tempo di arrivare allo stesso punto. Te ne accorgi quando l\'altra persona comincia a cercarti da sé.',
+            'La fretta in amore nasce spesso dall\'ansia, non dal desiderio: si vuole una certezza subito per non sopportare l\'attesa. Rallentare non significa rinunciare, ma lasciare all\'altro il tempo di arrivare allo stesso punto. Se l\'altra persona comincia a cercarti da sé, il passo è quello giusto.',
           ),
           VoceEu(
             'Impegni presi per due',
@@ -2830,7 +2830,7 @@ abstract final class ITestiEuCineseData {
             'Stanze da ridisegnare',
             'È un mese favorevole per la vita di casa: hai l\'energia giusta per rimettere ordine negli spazi dove vivi. Un mobile nel punto sbagliato, una stanza diventata deposito, un angolo che eviti: adesso spostare e sgombrare costa meno del solito e dà subito respiro alle giornate.',
             'Scegli una stanza sola e dedicale due mezze giornate nelle prossime due settimane: la prima per svuotare ciò che non usi, la seconda per spostare i mobili. Se vivi con altri chiedi una mano. A lavoro finito lascia libero un ripiano e tienilo sgombro.',
-            'Quando gli oggetti trovano un ordine anche i pensieri si sciolgono: entri in quella stanza e respiri meglio. Te ne accorgi da un fatto semplice: smetti di evitarla. Viene voglia di allargarti a tutta la casa nello stesso slancio: una stanza finita vale più di tre cominciate.',
+            'Quando gli oggetti trovano un ordine anche i pensieri si sciolgono: entri in quella stanza e respiri meglio. Se smetti di evitarla, il lavoro è riuscito. Viene voglia di allargarti a tutta la casa nello stesso slancio: una stanza finita vale più di tre cominciate.',
           ),
           VoceEu(
             'Sedie da aggiungere',
@@ -2900,7 +2900,7 @@ abstract final class ITestiEuCineseData {
             'Parole da pesare',
             'Nei rapporti di ogni giorno il mese è delicato: le parole si fraintendono facilmente e una battuta può ferire più del previsto. Non serve chiudersi, basta parlare un po\' più piano e lasciare che le frasi brusche, le tue e quelle degli altri, si raffreddino prima di rispondere.',
             'Quando un messaggio ti irrita, aspetta un\'ora prima di rispondere e rileggi la risposta ad alta voce. Per le questioni che contano preferisci una telefonata o un incontro allo scritto. Se una tua frase ha ferito qualcuno, dillo con parole brevi e senza giustificarti.',
-            'Nei periodi tesi le incomprensioni si allargano quando nessuno le nomina e si gonfiano quando le si discute per iscritto. La voce porta il tono che il testo perde. Lo vedi da un dato: meno conversazioni da ricucire alla fine di ogni settimana.',
+            'Nei periodi tesi le incomprensioni si allargano quando nessuno le nomina e si gonfiano quando le si discute per iscritto. La voce porta il tono che il testo perde. Meno conversazioni da ricucire alla fine di ogni settimana dicono che la voce sta aiutando.',
           ),
         ],
       ],
@@ -3032,9 +3032,9 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Archivio da riordinare',
-            'Il mese è sereno e adatto al lavoro di riordino, quello che non si vede ma rende più facile tutto il resto. Cartelle con nomi vaghi, versioni doppie, appunti sparsi fanno perdere minuti ogni volta che cerchi qualcosa: è il momento di sistemarli una volta per tutte.',
-            'Dedica due pomeriggi all\'archivio del computer o degli appunti: elimina i doppioni, dai alle cartelle nomi chiari con la data davanti, sposta a parte ciò che è chiuso. Scrivi una regola breve per nominare i documenti e, se li condividi, falla conoscere a chi li usa.',
-            'Un tavolo in ordine non è una questione di estetica: è il modo più semplice per pensare con chiarezza. Anche chi condivide i tuoi file trova ciò che serve. Per non tornare al disordine, fissa un quarto d\'ora alla fine di ogni settimana per sistemare ciò che si è accumulato.',
+            'Il mese è sereno nel lavoro e adatto al riordino, quello che non si vede ma rende più facile tutto il resto. Se hai cartelle con nomi vaghi, versioni doppie o appunti sparsi, ogni ricerca costa minuti: è il momento di sistemarli una volta per tutte.',
+            'Dedica due pomeriggi ai tuoi documenti, sul computer o su carta: elimina gli eventuali doppioni, dai alle cartelle nomi chiari con la data davanti, sposta a parte ciò che è chiuso. Scrivi una regola breve per nominare i documenti e, se li condividi, falla conoscere a chi li usa.',
+            'Un tavolo in ordine non è una questione di estetica: è il modo più semplice per pensare con chiarezza. Ne guadagna anche chi usa i tuoi file. Per non tornare al disordine, fissa un quarto d\'ora alla fine di ogni settimana per sistemare ciò che si è accumulato.',
           ),
         ],
         [
@@ -3114,7 +3114,7 @@ abstract final class ITestiEuCineseData {
             'L\'ora giusta',
             'Per la fortuna il mese è regolare: le piccole cose girano meglio quando scegli tu il momento invece di subirlo. Code più corte, uffici meno affollati, persone più disponibili: la buona sorte minuta di queste settimane premia chi esce nelle ore tranquille e chiede con garbo.',
             'Raggruppa le commissioni delle prossime settimane e falle nelle ore meno affollate, a metà mattina o nel primo pomeriggio. Prepara prima ciò che serve. Allo sportello o in negozio chiedi sempre se esiste un\'alternativa più comoda: spesso c\'è ma nessuno la propone.',
-            'La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Ti accorgi che è l\'ora giusta quando torni a casa con qualcosa in più di ciò che cercavi.',
+            'La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Tornare a casa con qualcosa in più di ciò che cercavi vuol dire che l\'ora era quella giusta.',
           ),
         ],
         [
@@ -3153,13 +3153,13 @@ abstract final class ITestiEuCineseData {
             'La casa rinnovata',
             'Anno luminoso per la casa e per l\'umore di ogni giorno: è un tempo favorevole a rinnovare gli spazi in cui vivi, a cominciare dall\'ingresso e dalla luce delle stanze. Piccoli cambiamenti, un angolo liberato, una lampada nuova, una pianta vicino alla porta, possono rendere più leggere le giornate.',
             'Entro tre settimane libera l\'ingresso di casa da ciò che ingombra il passaggio e porta più luce nella stanza in cui passi più tempo, spostando una tenda o una lampada. Poi, ogni settimana, cambia una piccola cosa in un angolo diverso, finché la casa ti somiglia di più.',
-            'Nella tradizione cinese l\'ingresso è la bocca della casa, da cui entra l\'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Te ne accorgi quando rientrare la sera diventa un piacere.',
+            'Nella tradizione cinese l\'ingresso è la bocca della casa, da cui entra l\'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Rientrare la sera con piacere ne è la conferma.',
           ),
           VoceEu(
             'Il passo all\'aperto',
             'Per l\'energia di ogni giorno l\'anno è vivace e favorevole al movimento all\'aperto: camminate, parchi, scale fatte a piedi, gesti lenti come quelli del tai chi. Uscire con regolarità può ricaricare l\'umore e rende più leggere anche le giornate piene di impegni.',
             'Da questa settimana regalati tre uscite a piedi di almeno venti minuti, scegliendo ogni volta un percorso diverso vicino a casa. Entro tre settimane prova una lezione all\'aperto di tai chi o di qi gong, se ce n\'è una nella tua zona. Muoviti al tuo ritmo, senza gare.',
-            'Il tai chi nasce dall\'idea di far scorrere l\'energia vitale, il qi, senza forzarla: la stessa idea vale per una camminata fatta con attenzione. Non farne un dovere da spuntare su un elenco. Ti accorgi che funziona quando cerchi l\'uscita invece di rimandarla.',
+            'Il tai chi nasce dall\'idea di far scorrere l\'energia vitale, il qi, senza forzarla: la stessa idea vale per una camminata fatta con attenzione. Non farne un dovere da spuntare su un elenco. Se cerchi l\'uscita invece di rimandarla, l\'abitudine ha preso il passo giusto.',
           ),
         ],
         [
@@ -3195,9 +3195,9 @@ abstract final class ITestiEuCineseData {
         [
           VoceEu(
             'Ridere insieme',
-            'In amore l\'anno è leggero e favorevole al gioco, alle risate, alla complicità. Se vivi una relazione, ridere insieme scioglie tensioni accumulate e riaccende il desiderio; se sei senza legame, un approccio ironico e sereno negli incontri può renderti più attraente di qualunque strategia.',
-            'Entro tre settimane organizza qualcosa di giocoso: una gara di cucina, una sala giochi, una serata di karaoke, una gita senza meta. Se vivi una relazione, proponila all\'altra persona come una sorpresa; se sei senza legame, vai con gente che ti mette allegria e lasciati andare.',
-            'Il gioco abbassa le difese e mostra le persone come sono quando non devono dimostrare niente. Nella coppia riporta lo spirito degli inizi; negli incontri nuovi crea complicità più in fretta delle conversazioni serie. L\'ironia non deve diventare un modo per evitare i discorsi importanti: ridi, poi ascolta.',
+            'In amore l\'anno è leggero e favorevole al gioco, alle risate, alla complicità. Se vivi una relazione, ridere insieme può riaccendere il desiderio e alleggerire ciò che pesa; se sei senza legame, un approccio ironico e sereno negli incontri può renderti più attraente di qualunque strategia.',
+            'Entro tre settimane organizza qualcosa di giocoso: una gara di cucina, un gioco da tavolo, una serata di karaoke, una gita senza meta. Se vivi una relazione, proponila all\'altra persona come una sorpresa; se sei senza legame, vai con gente che ti mette allegria e lasciati andare.',
+            'Il gioco abbassa le difese e mostra le persone come sono quando non devono dimostrare niente. Nella coppia può riportare lo spirito degli inizi; negli incontri nuovi aiuta la complicità più delle conversazioni serie. L\'ironia non deve diventare un modo per evitare i discorsi importanti: ridi, poi ascolta.',
           ),
           VoceEu(
             'Il tempo lento',
@@ -3211,7 +3211,7 @@ abstract final class ITestiEuCineseData {
             'Presenza prima dei messaggi',
             'In amore l\'anno è stabile e chiede di dare più peso alla presenza che ai messaggi. Se vivi una relazione, gli scambi rapidi sul telefono non bastano a nutrire il legame; se sei senza legame, le chat troppo lunghe possono creare un\'idea dell\'altra persona lontana dal vero.',
             'Da adesso sposta a voce o di persona ogni discorso che conta. Se vivi una relazione, scegli una sera a settimana senza telefoni a tavola e raccontatevi la giornata; se sei senza legame, dopo pochi messaggi con chi ti interessa proponi presto un incontro dal vivo in un luogo tranquillo.',
-            'Le parole scritte perdono il tono della voce e lo sguardo: si fraintendono più facilmente e lasciano spazio alle supposizioni. La presenza invece corregge in un attimo ciò che un messaggio complica. Rimandare l\'incontro per paura allunga le distanze; capisci che funziona quando la vicinanza cresce dopo ogni incontro.',
+            'Le parole scritte perdono il tono della voce e lo sguardo: si fraintendono più facilmente e lasciano spazio alle supposizioni. La presenza invece corregge in un attimo ciò che un messaggio complica. Rimandare l\'incontro per paura allunga le distanze; una vicinanza che cresce dopo ogni incontro conferma la scelta.',
           ),
           VoceEu(
             'Non forzare i tempi',
@@ -3289,9 +3289,9 @@ abstract final class ITestiEuCineseData {
           ),
           VoceEu(
             'Desideri detti',
-            'Quest\'anno la fortuna è generosa con chi dice ad alta voce che cosa cerca: un oggetto, un\'occasione, un\'esperienza, un aiuto. Chi tiene i desideri per sé chiude una strada alla sorte; chi li racconta con semplicità moltiplica le coincidenze utili, perché ognuno conosce qualcuno che può aiutare.',
+            'Quest\'anno la fortuna è generosa con chi dice ad alta voce che cosa cerca: un oggetto, un\'occasione, un\'esperienza, un aiuto. Chi tiene i desideri per sé chiude una strada alla sorte; chi li racconta con semplicità può moltiplicare le coincidenze utili, perché spesso qualcuno conosce chi può aiutare.',
             'Scegli adesso una cosa concreta che desideri trovare o realizzare da qui al prossimo Capodanno lunare. Nelle prossime tre settimane raccontala ad almeno cinque persone diverse, con una frase chiara e senza imbarazzo. Quando qualcuno ti dà un\'indicazione, seguila entro pochi giorni e fai sapere com\'è andata.',
-            'Gli altri non possono aiutarti a trovare ciò che non sanno che cerchi: dirlo trasforma i conoscenti in alleati. Una domanda vaga, fatta con frasi che non si ricordano, si perde subito. Una richiesta precisa resta in mente e torna al momento giusto, magari dopo settimane.',
+            'Gli altri non possono aiutarti a trovare ciò che non sanno che cerchi: dirlo può trasformare i conoscenti in alleati. Una domanda vaga, fatta con frasi che non si ricordano, si perde subito. Una richiesta precisa resta in mente e può tornare al momento giusto, magari dopo settimane.',
           ),
         ],
         [

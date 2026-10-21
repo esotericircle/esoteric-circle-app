@@ -172,7 +172,7 @@ Adatto a: pianificare, decisioni che devono durare, cerimonie. Meglio evitare: l
 
 Adatto a: tenere fermo ciò che hai, costruire, piantare, portare a termine. Meglio evitare: aprire un'attività, commerciare, traslocare, partire.
 
-1. È una giornata per trattenere e concludere, non per lasciare andare. Riprendi una cosa iniziata e portala a termine prima di sera: il lavoro a metà, il libro all'ultimo capitolo, la pratica in sospeso. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Tenere»: la tradizione lo vuole per trattenere, non per lasciare andare.
+1. È una giornata per trattenere e concludere, non per lasciare andare. Riprendi una cosa iniziata e portala a termine prima di sera: il lavoro a metà, il libro all'ultimo capitolo, la pratica in sospeso. || Oggi il guardiano del giorno, uno dei dodici del calendario cinese, è «Tenere»: per la tradizione è un giorno adatto a custodire ciò che hai e a finire ciò che hai cominciato.
 2. Meglio custodire ciò che hai costruito che cercare altrove. Fai manutenzione a una cosa tua: una copia delle carte importanti, un controllo alla bici, una telefonata a chi ti è vicino da anni. Compravendite e partenze, un altro giorno. || Oggi veglia il guardiano «Tenere», uno dei dodici del calendario cinese: per compravendite e partenze l'almanacco cinese consiglia altri giorni.
 3. Presa salda e pochi movimenti: è così che la giornata rende. Pianta qualcosa, anche solo un vaso sul balcone. Se ti chiedono una firma in fretta, prenditi un giorno per rileggere. || Il guardiano «Tenere» guida il giorno: nel calendario cinese è adatto a costruire, piantare e portare a termine, non a commerciare.
 
@@ -342,7 +342,7 @@ Regola in più: il Nutrimento doma le Sette Uccisioni (食神制杀): il talento
 Titolo: Il lavoro ben fatto
 1. Oggi il lavoro ti viene con naturalezza, specie dove hai mano. Dedica le ore migliori al compito che ti riesce meglio e consegnalo senza presentazioni: si spiega da solo. || Il dio di oggi nel BaZi è il Nutrimento: il tuo elemento lo genera con la stessa polarità. È ciò che produci con calma, il talento che lavora senza sforzo.
 2. Oggi al lavoro la qualità conta più della velocità. Se qualcuno ti mette fretta, rispondi con una cosa fatta bene e con una data di consegna realistica: la pressione la regge la competenza. || Il Nutrimento è di turno: la regola del BaZi dice che doma le Sette Uccisioni, cioè che il talento tiene a bada la pressione.
-3. Oggi è un buon giorno per creare, scrivere, insegnare: i risultati vengono senza forzare. Spiega a un collega una cosa che sai fare, oppure butta giù la prima stesura di un testo. || È la giornata del Nutrimento: nella lettura dei Dieci Dei è la vena che produce, quella che il tuo elemento genera da sé.
+3. Oggi è un buon giorno per creare, scrivere, insegnare: i risultati vengono senza forzare. Spiega a un collega una cosa che sai fare, oppure butta giù la prima stesura di un testo. || È la giornata del Nutrimento: nella lettura dei Dieci Dei è l'elemento che il tuo genera, cioè ciò che sai produrre con le tue mani e le tue idee.
 
 **伤官, l'Ufficiale Ferito**
 Regola in più: 伤官见官, l'Ufficiale Ferito urta l'Ufficiale: attrito con i superiori e con le regole.
@@ -536,63 +536,63 @@ Regola: scelta dell'app, non della tradizione. La serie legge il dio del giorno 
 
 **比肩, il Compagno**
 Titolo: Un legame alla pari
-1. Oggi in amore vincono l'amicizia e la complicità. Parla alla pari con chi ami: chiedi un parere su una cosa tua, poi dai il tuo su una cosa sua. || Il dio di oggi nel BaZi è il Compagno: ha il tuo stesso elemento e la tua stessa polarità. In amore lo si legge come le persone che hai intorno.
-2. L'affetto oggi passa anche dagli amici, non solo dalla coppia. Dai loro del tempo: chiama una persona amica che non senti da settimane, fissate un caffè. || Oggi è di turno il Compagno, fra i Dieci Dei del BaZi: ha il tuo stesso elemento e la tua stessa polarità. In amore lo si legge come le persone che hai intorno.
-3. Il legame oggi è prima di tutto un'alleanza. Trova una cosa da affrontare in due, un problema pratico o una decisione: mettetevi dalla stessa parte del tavolo. || Nel BaZi il giorno di oggi ti porta il Compagno: ha il tuo stesso elemento e la tua stessa polarità. In amore lo si legge come le persone che hai intorno.
+1. Oggi in amore vincono l'amicizia e la complicità. Parla alla pari con chi ami: chiedi un parere su una cosa tua, poi dai il tuo su una cosa sua. || Il dio di oggi nel BaZi è il Compagno: ha il tuo stesso elemento e la tua stessa polarità.
+2. L'affetto oggi passa anche dagli amici, non solo dalla coppia. Dai loro del tempo: chiama una persona amica che non senti da settimane, fissate un caffè. || Oggi è di turno il Compagno, fra i Dieci Dei del BaZi: ha il tuo stesso elemento e la tua stessa polarità.
+3. Il legame oggi è prima di tutto un'alleanza. Trova una cosa da affrontare in due, un problema pratico o una decisione: mettetevi dalla stessa parte del tavolo. || Nel BaZi il giorno di oggi ti porta il Compagno: ha il tuo stesso elemento e la tua stessa polarità.
 
 **劫财, il Rivale**
 Titolo: Scegli la fiducia
-1. Oggi in amore è facile sentirsi in competizione con qualcuno. Prima di immaginare chiedi: una domanda sola, fatta con calma, vale più di una sera di sospetti. || Il dio di oggi nel BaZi è il Rivale: ha il tuo stesso elemento con polarità opposta, contende ciò che hai. In amore lo si legge come le persone che hai intorno.
-2. La gelosia oggi è a portata di mano. Scegli la fiducia con un gesto: non controllare orari né telefoni, chiedi invece a chi ami di raccontarti la sua giornata. || Oggi è di turno il Rivale, fra i Dieci Dei del BaZi: ha il tuo stesso elemento con polarità opposta, contende ciò che hai. In amore lo si legge come le persone che hai intorno.
-3. Viene voglia, oggi, di mettersi in gara per chi ami. Non farlo: niente confronti con altre persone, niente dimostrazioni. Passate un'ora insieme senza parlare di nessun altro. || Nel BaZi il giorno di oggi ti porta il Rivale: ha il tuo stesso elemento con polarità opposta, contende ciò che hai. In amore lo si legge come le persone che hai intorno.
+1. Oggi in amore è facile sentirsi in competizione con qualcuno. Prima di immaginare chiedi: una domanda sola, fatta con calma, vale più di una sera di sospetti. || Il dio di oggi nel BaZi è il Rivale: ha il tuo stesso elemento con polarità opposta, contende ciò che hai.
+2. La gelosia oggi è a portata di mano. Scegli la fiducia con un gesto: non controllare orari né telefoni, chiedi invece a chi ami di raccontarti la sua giornata. || Oggi è di turno il Rivale, fra i Dieci Dei del BaZi: ha il tuo stesso elemento con polarità opposta, contende ciò che hai.
+3. Viene voglia, oggi, di mettersi in gara per chi ami. Non farlo: niente confronti con altre persone, niente dimostrazioni. Passate un'ora insieme senza parlare di nessun altro. || Nel BaZi il giorno di oggi ti porta il Rivale: ha il tuo stesso elemento con polarità opposta, contende ciò che hai.
 
 **食神, il Nutrimento**
 Titolo: Gesti semplici
-1. Oggi l'amore è fatto di dolcezza, con gesti semplici. Cucina qualcosa, invita chi ti piace o chi ami, poi ascolta più di quanto parli. || Il dio di oggi nel BaZi è il Nutrimento: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma. In amore lo si legge come il tuo modo di esprimerti.
-2. Il legame oggi cresce da ciò che offri con calma. Regala un'attenzione senza aspettare niente in cambio: un passaggio, una tazza di tè, dieci minuti di ascolto vero. || Oggi è di turno il Nutrimento, fra i Dieci Dei del BaZi: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma. In amore lo si legge come il tuo modo di esprimerti.
-3. In amore oggi sta bene chi si gode il piacere semplice. Lascia stare i bilanci: una passeggiata, un gelato, un film scelto insieme bastano a fare la giornata. || Nel BaZi il giorno di oggi ti porta il Nutrimento: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma. In amore lo si legge come il tuo modo di esprimerti.
+1. Oggi l'amore è fatto di dolcezza, con gesti semplici. Cucina qualcosa, invita chi ti piace o chi ami, poi ascolta più di quanto parli. || Il dio di oggi nel BaZi è il Nutrimento: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma.
+2. Il legame oggi cresce da ciò che offri con calma. Regala un'attenzione senza aspettare niente in cambio: un passaggio, una tazza di tè, dieci minuti di ascolto vero. || Oggi è di turno il Nutrimento, fra i Dieci Dei del BaZi: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma.
+3. In amore oggi sta bene chi si gode il piacere semplice. Lascia stare i bilanci: una passeggiata, un gelato, un film scelto insieme bastano a fare la giornata. || Nel BaZi il giorno di oggi ti porta il Nutrimento: il tuo elemento lo genera con la stessa polarità, è ciò che produci con calma.
 
 **伤官, l'Ufficiale Ferito**
 Titolo: Una parola dolce
-1. Oggi in amore le parole escono prima dei pensieri. Una frase dolce vale più di una frase giusta: se devi correggere chi ami comincia da ciò che apprezzi. || Il dio di oggi nel BaZi è l'Ufficiale Ferito: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole. In amore lo si legge come il tuo modo di esprimerti.
-2. Hai bisogno, oggi, di dire tutto a chi ami. Dillo in modo chiaro, senza alzare la voce; poi fai silenzio, lascia all'altra persona tutto il tempo per rispondere. || Oggi è di turno l'Ufficiale Ferito, fra i Dieci Dei del BaZi: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole. In amore lo si legge come il tuo modo di esprimerti.
-3. In amore oggi porti fascino e insofferenza insieme. Scegli quale mostrare: tieni la battuta brillante, rimanda a domani il rimprovero che hai sulla punta della lingua. || Nel BaZi il giorno di oggi ti porta l'Ufficiale Ferito: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole. In amore lo si legge come il tuo modo di esprimerti.
+1. Oggi in amore le parole escono prima dei pensieri. Una frase dolce vale più di una frase giusta: se devi correggere chi ami comincia da ciò che apprezzi. || Il dio di oggi nel BaZi è l'Ufficiale Ferito: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole.
+2. Hai bisogno, oggi, di dire tutto a chi ami. Dillo in modo chiaro, senza alzare la voce; poi fai silenzio, lascia all'altra persona tutto il tempo per rispondere. || Oggi è di turno l'Ufficiale Ferito, fra i Dieci Dei del BaZi: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole.
+3. In amore oggi porti fascino e insofferenza insieme. Scegli quale mostrare: tieni la battuta brillante, rimanda a domani il rimprovero che hai sulla punta della lingua. || Nel BaZi il giorno di oggi ti porta l'Ufficiale Ferito: il tuo elemento lo genera con polarità opposta, è l'espressione che rompe le regole.
 
 **偏财, la Ricchezza indiretta**
 Titolo: Fuori programma
-1. Oggi in amore c'è movimento: incontri, sorprese, uscite fuori programma. Rispondi di sì a un invito dell'ultimo momento oppure proponine uno tu. || Il dio di oggi nel BaZi è la Ricchezza indiretta: il tuo elemento la governa con la stessa polarità. In amore la si legge come la figura dell'altro.
-2. Il cuore oggi si muove, a volte verso più di una persona. Mantieni l'onestà con te e con chi hai accanto: non promettere a nessuno ciò che non intendi mantenere. || Oggi è di turno la Ricchezza indiretta, fra i Dieci Dei del BaZi: il tuo elemento la governa con la stessa polarità. In amore la si legge come la figura dell'altro.
-3. L'amore oggi chiede generosità. Dai qualcosa al legame senza fare conti: un'ora in più, un piccolo regalo, un favore che nessuno ti ha chiesto. || Nel BaZi il giorno di oggi ti porta la Ricchezza indiretta: il tuo elemento la governa con la stessa polarità. In amore la si legge come la figura dell'altro.
+1. Oggi in amore c'è movimento: incontri, sorprese, uscite fuori programma. Rispondi di sì a un invito dell'ultimo momento oppure proponine uno tu. || Il dio di oggi nel BaZi è la Ricchezza indiretta: il tuo elemento la governa con la stessa polarità.
+2. Il cuore oggi si muove, a volte verso più di una persona. Mantieni l'onestà con te e con chi hai accanto: non promettere a nessuno ciò che non intendi mantenere. || Oggi è di turno la Ricchezza indiretta, fra i Dieci Dei del BaZi: il tuo elemento la governa con la stessa polarità.
+3. L'amore oggi chiede generosità. Dai qualcosa al legame senza fare conti: un'ora in più, un piccolo regalo, un favore che nessuno ti ha chiesto. || Nel BaZi il giorno di oggi ti porta la Ricchezza indiretta: il tuo elemento la governa con la stessa polarità.
 
 **正财, la Ricchezza diretta**
 Titolo: Progetti concreti
-1. Oggi in amore si costruisce. Parla di progetti concreti con chi ami: un viaggio, un trasloco, una spesa da fare in due. Uscitene con una data. || Il dio di oggi nel BaZi è la Ricchezza diretta: il tuo elemento la governa con polarità opposta. In amore la si legge come la figura dell'altro.
-2. La cura pratica oggi vale quanto una carezza. Fai una cosa utile per chi ami: ritira un pacco, sbriga una commissione, sistema ciò che si è rotto. || Oggi è di turno la Ricchezza diretta, fra i Dieci Dei del BaZi: il tuo elemento la governa con polarità opposta. In amore la si legge come la figura dell'altro.
-3. È la stabilità, oggi, a fare bene al legame. Tieni fermo un appuntamento fisso, la cena di metà settimana o la telefonata della sera: non spostarlo. || Nel BaZi il giorno di oggi ti porta la Ricchezza diretta: il tuo elemento la governa con polarità opposta. In amore la si legge come la figura dell'altro.
+1. Oggi in amore si costruisce. Parla di progetti concreti con chi ami: un viaggio, un trasloco, una spesa da fare in due. Uscitene con una data. || Il dio di oggi nel BaZi è la Ricchezza diretta: il tuo elemento la governa con polarità opposta.
+2. La cura pratica oggi vale quanto una carezza. Fai una cosa utile per chi ami: ritira un pacco, sbriga una commissione, sistema ciò che si è rotto. || Oggi è di turno la Ricchezza diretta, fra i Dieci Dei del BaZi: il tuo elemento la governa con polarità opposta.
+3. È la stabilità, oggi, a fare bene al legame. Tieni fermo un appuntamento fisso, la cena di metà settimana o la telefonata della sera: non spostarlo. || Nel BaZi il giorno di oggi ti porta la Ricchezza diretta: il tuo elemento la governa con polarità opposta.
 
 **七杀, le Sette Uccisioni**
 Titolo: Senti, poi decidi
-1. Oggi in amore c'è un'attrazione forte oppure una tensione forte. Senti tutto, ma decidi con calma: dormici sopra prima di dire una cosa che cambia i rapporti. || Il dio di oggi nel BaZi sono le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida. In amore le si legge come la figura dell'altro.
-2. Il legame oggi rischia di diventare una prova di forza. Cedi tu su una cosa piccola, il ristorante o l'orario: mostra che non stai tenendo il punteggio. || Oggi sono di turno le Sette Uccisioni, fra i Dieci Dei del BaZi: governano il tuo elemento con la stessa polarità, sono pressione e sfida. In amore le si legge come la figura dell'altro.
-3. In amore oggi le promesse contano poco, i fatti molto. Guarda chi hai davanti per quello che fa: ripassa che cosa è successo nell'ultima settimana, non le parole di ieri sera. || Nel BaZi il giorno di oggi ti porta le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida. In amore le si legge come la figura dell'altro.
+1. Oggi in amore c'è un'attrazione forte oppure una tensione forte. Senti tutto, ma decidi con calma: dormici sopra prima di dire una cosa che cambia i rapporti. || Il dio di oggi nel BaZi sono le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida.
+2. Il legame oggi rischia di diventare una prova di forza. Cedi tu su una cosa piccola, il ristorante o l'orario: mostra che non stai tenendo il punteggio. || Oggi sono di turno le Sette Uccisioni, fra i Dieci Dei del BaZi: governano il tuo elemento con la stessa polarità, sono pressione e sfida.
+3. In amore oggi le promesse contano poco, i fatti molto. Guarda chi hai davanti per quello che fa: ripassa che cosa è successo nell'ultima settimana, non le parole di ieri sera. || Nel BaZi il giorno di oggi ti porta le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida.
 
 **正官, l'Ufficiale diretto**
 Titolo: La parola data
-1. Oggi in amore contano l'impegno e la fiducia. Dai una parola, poi mantienila entro sera: l'orario di un appuntamento, una chiamata, una risposta che devi da giorni. || Il dio di oggi nel BaZi è l'Ufficiale diretto: governa il tuo elemento con polarità opposta, è regola e responsabilità. In amore lo si legge come la figura dell'altro.
-2. Esserci oggi vale più di qualunque gesto. Fatti trovare dove hai detto, per tutto il tempo: metti via il telefono, resta fino alla fine. || Oggi è di turno l'Ufficiale diretto, fra i Dieci Dei del BaZi: governa il tuo elemento con polarità opposta, è regola e responsabilità. In amore lo si legge come la figura dell'altro.
-3. L'amore oggi è una cosa seria, fatta di poche parole mantenute. Prometti una sola cosa a chi ami, piccola e precisa, poi falla prima di parlare d'altro. || Nel BaZi il giorno di oggi ti porta l'Ufficiale diretto: governa il tuo elemento con polarità opposta, è regola e responsabilità. In amore lo si legge come la figura dell'altro.
+1. Oggi in amore contano l'impegno e la fiducia. Dai una parola, poi mantienila entro sera: l'orario di un appuntamento, una chiamata, una risposta che devi da giorni. || Il dio di oggi nel BaZi è l'Ufficiale diretto: governa il tuo elemento con polarità opposta, è regola e responsabilità.
+2. Esserci oggi vale più di qualunque gesto. Fatti trovare dove hai detto, per tutto il tempo: metti via il telefono, resta fino alla fine. || Oggi è di turno l'Ufficiale diretto, fra i Dieci Dei del BaZi: governa il tuo elemento con polarità opposta, è regola e responsabilità.
+3. L'amore oggi è una cosa seria, fatta di poche parole mantenute. Prometti una sola cosa a chi ami, piccola e precisa, poi falla prima di parlare d'altro. || Nel BaZi il giorno di oggi ti porta l'Ufficiale diretto: governa il tuo elemento con polarità opposta, è regola e responsabilità.
 
 **偏印, il Sigillo indiretto**
 Titolo: Spazio per respirare
-1. Oggi in amore hai bisogno di uno spazio tuo. Dillo a chi ami con parole chiare, aggiungi quando torni: così non sembra distanza. || Il dio di oggi nel BaZi è il Sigillo indiretto: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione. In amore i Sigilli si leggono come la cura.
-2. Ti pare, oggi, di intuire che cosa passa per la testa di chi ami. Verifica con una domanda prima di darlo per buono: chiedi, non dedurre. || Oggi è di turno il Sigillo indiretto, fra i Dieci Dei del BaZi: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione. In amore i Sigilli si leggono come la cura.
-3. Anche il silenzio condiviso oggi è vicinanza. Passate del tempo nella stessa stanza facendo ognuno la sua cosa: non serve riempire ogni pausa di parole. || Nel BaZi il giorno di oggi ti porta il Sigillo indiretto: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione. In amore i Sigilli si leggono come la cura.
+1. Oggi in amore hai bisogno di uno spazio tuo. Dillo a chi ami con parole chiare, aggiungi quando torni: così non sembra distanza. || Il dio di oggi nel BaZi è il Sigillo indiretto: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione.
+2. Ti pare, oggi, di intuire che cosa passa per la testa di chi ami. Verifica con una domanda prima di darlo per buono: chiedi, non dedurre. || Oggi è di turno il Sigillo indiretto, fra i Dieci Dei del BaZi: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione.
+3. Anche il silenzio condiviso oggi è vicinanza. Passate del tempo nella stessa stanza facendo ognuno la sua cosa: non serve riempire ogni pausa di parole. || Nel BaZi il giorno di oggi ti porta il Sigillo indiretto: genera il tuo elemento con la stessa polarità, è sostegno insolito e intuizione.
 
 **正印, il Sigillo diretto**
 Titolo: Un rifugio sicuro
-1. Oggi in amore contano la cura e la famiglia. Lasciati accudire: accetta il piatto caldo, la coperta, l'aiuto offerto, senza dire che non ce n'è bisogno. || Il dio di oggi nel BaZi è il Sigillo diretto: genera il tuo elemento con polarità opposta, è protezione e cura. In amore i Sigilli si leggono come la cura.
-2. Il legame oggi è un rifugio. Chiedi un abbraccio a voce, senza aspettare che l'altra persona indovini: poi restaci dentro qualche secondo in più. || Oggi è di turno il Sigillo diretto, fra i Dieci Dei del BaZi: genera il tuo elemento con polarità opposta, è protezione e cura. In amore i Sigilli si leggono come la cura.
-3. L'affetto che conta oggi è quello di lunga data. Chiama chi ti vuole bene da sempre, un genitore o un'amicizia storica: una telefonata vera, non un messaggio. || Nel BaZi il giorno di oggi ti porta il Sigillo diretto: genera il tuo elemento con polarità opposta, è protezione e cura. In amore i Sigilli si leggono come la cura.
+1. Oggi in amore contano la cura e la famiglia. Lasciati accudire: accetta il piatto caldo, la coperta, l'aiuto offerto, senza dire che non ce n'è bisogno. || Il dio di oggi nel BaZi è il Sigillo diretto: genera il tuo elemento con polarità opposta, è protezione e cura.
+2. Il legame oggi è un rifugio. Chiedi un abbraccio a voce, senza aspettare che l'altra persona indovini: poi restaci dentro qualche secondo in più. || Oggi è di turno il Sigillo diretto, fra i Dieci Dei del BaZi: genera il tuo elemento con polarità opposta, è protezione e cura.
+3. L'affetto che conta oggi è quello di lunga data. Chiama chi ti vuole bene da sempre, un genitore o un'amicizia storica: una telefonata vera, non un messaggio. || Nel BaZi il giorno di oggi ti porta il Sigillo diretto: genera il tuo elemento con polarità opposta, è protezione e cura.
 
 ---
 
@@ -620,7 +620,7 @@ Generale:
 Fortuna:
 1. Per le faccende di denaro, oggi c'è un lato da cui conviene passare. Se hai una commissione che riguarda i soldi, scegli lo sportello, il negozio o l'ufficio che sta a {direzione_ricchezza} rispetto a casa tua. || L'almanacco cinese pone oggi il Dio della Ricchezza a {direzione_ricchezza}: chi lo segue comincia da quella parte le commissioni che contano.
 2. Quando oggi ti occupi di soldi, puoi farlo con un piccolo gesto simbolico. Siediti al tavolo con lo sguardo a {direzione_ricchezza} mentre controlli le spese, prepari una richiesta o fai il punto del mese. || La direzione della ricchezza oggi è {direzione_ricchezza}, secondo il calendario cinese: la tradizione suggerisce di sedersi rivolti da quella parte quando si fanno progetti.
-3. Sul denaro la giornata indica una direzione, non una cifra. Tieni il portafoglio e le carte da sistemare sul lato della stanza che sta a {direzione_ricchezza}: è da lì che oggi conviene fare i conti. || Il Dio della Ricchezza, dicono gli almanacchi cinesi, oggi sta a {direzione_ricchezza}: è il lato verso cui la tradizione consiglia di muovere il primo passo della giornata.
+3. Sul denaro la giornata indica una direzione, non una cifra. Tieni il portafoglio e le carte da sistemare sul lato della stanza che sta a {direzione_ricchezza}: è da lì che oggi conviene fare i conti. || Il Dio della Ricchezza, dicono gli almanacchi cinesi, oggi sta a {direzione_ricchezza}: è il lato verso cui la tradizione consiglia di volgersi quando si comincia qualcosa che conta.
 
 ### 4.3 Nota del metodo (una per scheda, col punto interrogativo)
 

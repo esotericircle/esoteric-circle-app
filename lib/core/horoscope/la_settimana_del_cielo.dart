@@ -169,8 +169,16 @@ class DominioDelPeriodo {
             : giorni.length == 30
                 ? 'trenta giorni'
                 : 'giorni';
+        // Il terzo lettore cieco: la riga senza nessun simbolo non diceva da
+        // che cosa vengono i livelli dei giorni. Adesso lo dice, per
+        // tradizione, senza ripetere la ragione del giorno migliore.
+        final simbolo = tradizione == TradizioneEu.vedica
+            ? 'ognuno letto dalla Luna di quel giorno, contata dalla tua Luna '
+                'di nascita'
+            : 'ognuno letto dal rapporto fra il suo animale e il tuo e dal dio '
+                'che quel giorno porta al tuo elemento di nascita';
         return 'Il livello di questo periodo è la media dei livelli dei suoi '
-            '$quanti; il giorno migliore è '
+            '$quanti, $simbolo; il giorno migliore è '
             '${LaSettimanaDelCielo.data(migliore.giorno)}.';
       }
       return _maiuscola(momentoChiave);

@@ -101,7 +101,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi è una giornata favorevole per mantenere la parola data. Se hai promesso qualcosa a qualcuno e l'hai lasciato a metà strada, adesso onorarlo costa poco e restituisce molto. Se non hai impegni di questo tipo in sospeso, la giornata premia comunque chi fa ciò che dice.
 - Che cosa fare: Ritrova l'impegno più piccolo preso a voce e mai mantenuto. Fissa subito l'orario in cui onorarlo e scrivilo a chi aspetta. Se non ne trovi, scegli una cosa che avevi deciso di fare per te e falla prima di sera, senza rimandarla ancora una volta.
-- Risposta, Lunga: Una parola mantenuta rimette in piedi la fiducia senza bisogno di discorsi. Chi la riceve se ne accorge e tu ritrovi la solidità che nasce dal fare ciò che si è detto. Evita di promettere altro nella stessa giornata: prima si chiude l'impegno vecchio, poi si apre il nuovo.
+- Risposta, Lunga: Una parola mantenuta rimette in piedi la fiducia senza bisogno di discorsi. Chi la riceve può notarlo e tu puoi ritrovare la solidità che nasce dal fare ciò che si è detto. Evita di promettere altro nella stessa giornata: prima si chiude l'impegno vecchio, poi si apre il nuovo.
 
 #### Generale, favorevole, voce 3: Lampada accesa
 
@@ -149,7 +149,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata è favorevole per insegnare qualcosa. C'è una cosa che sai fare bene e che a qualcuno intorno a te potrebbe servire: passarla adesso, con pazienza e senza fretta di vedere il risultato, dà soddisfazione a chi impara e anche a te.
 - Che cosa fare: Offri un'ora a chi sta imparando una cosa che conosci: cucinare un piatto, impostare un foglio di calcolo, cambiare una ruota. Lascia che sia l'altra persona a fare con le proprie mani. Se nessuno è a portata, scrivi i passi su un foglio e regalalo a chi può usarli.
-- Risposta, Lunga: Insegnare costringe a guardare con occhi nuovi quello che dai per scontato. Spiegandolo capisci meglio anche tu perché lo fai in quel modo e quanto vale la tua esperienza. Resisti alla voglia di intervenire a ogni errore: si impara sbagliando, mentre chi insegna aspetta.
+- Risposta, Lunga: Insegnare costringe a guardare con occhi nuovi quello che dai per scontato. Spiegandolo può diventare più chiaro anche a te perché lo fai in quel modo e quanto vale la tua esperienza. Resisti alla voglia di intervenire a ogni errore: si impara sbagliando, mentre chi insegna aspetta.
 
 #### Generale, favorevole, voce 11: Chi ti ha insegnato
 
@@ -203,7 +203,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata è luminosa per i ricordi belli. Fra le foto che tieni nel telefono o in una scatola ce ne sono alcune che non guardi da anni: ritrovarle adesso porta allegria e può riaprire un contatto con chi c'era in quel momento.
 - Che cosa fare: Scorri le foto più vecchie che hai e scegline tre che ti fanno sorridere. Mandane una a una persona che c'era quel giorno, con una riga sul ricordo. Le altre due stampale o mettile in una cornice, in un punto della casa dove passi spesso.
-- Risposta, Lunga: Un ricordo condiviso al momento giusto accorcia le distanze più di molti messaggi di circostanza. Chi lo riceve rivive un pezzo di storia comune e tu ti accorgi di quanto sia stato ricco quel tempo. Non cadere nella nostalgia: guarda le foto per sorridere, non per rimpiangere.
+- Risposta, Lunga: Un ricordo condiviso al momento giusto accorcia le distanze più di molti messaggi di circostanza. Chi lo riceve può rivivere un pezzo di storia comune e a te può ricordare quanto sia stato ricco quel tempo. Non cadere nella nostalgia: guarda le foto per sorridere, non per rimpiangere.
 
 #### Generale, favorevole, voce 20: Un cesto di frutta
 
@@ -541,7 +541,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi in amore la giornata è luminosa e aperta alla gioia: favorisce chi fa spazio a un piacere nuovo invece di ripetere il solito. Se vivi una relazione, una prima volta condivisa può riaccendere la curiosità reciproca; se sei senza legame, un luogo nuovo può metterti davanti a volti diversi.
 - Che cosa fare: Scegli per stasera una cosa che non hai mai fatto e che ti dà piacere. Se vivi una relazione, proponila all'altra persona: un piatto mai cucinato, una strada mai percorsa, un ballo in cucina. Se sei senza legame, portala dove c'è gente: una lezione aperta, una degustazione, un concerto.
-- Risposta, Lunga: La gioia in amore si nutre di prime volte: ciò che è nuovo accende la curiosità e fa guardare con occhi diversi chi hai accanto o chi incontri. Non serve un gesto grande, basta uscire dal solito per un'ora. Te ne accorgi da come ripensi alla serata, sorridendo.
+- Risposta, Lunga: La gioia in amore si nutre di prime volte: ciò che è nuovo accende la curiosità e fa guardare con occhi diversi chi hai accanto o chi incontri. Non serve un gesto grande, basta uscire dal solito per un'ora. Ripensarci con un sorriso dice che la novità ha funzionato.
 
 #### Amore, favorevole, voce 6: Il gesto concreto
 
@@ -607,7 +607,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata limpida in amore per chiedere ciò che desideri, senza giri di parole. Oggi una richiesta detta con calma viene ascoltata, non subita. Se vivi una relazione, può essere più tempo insieme o un gesto che ti manca; se sei senza legame, è il coraggio di proporre tu un incontro.
 - Che cosa fare: Trova una frase che parta da te e non da un rimprovero: «Mi farebbe piacere se», non «Tu non fai mai». Dilla una volta sola, in un momento tranquillo, a chi ami oppure a chi ti interessa. Poi ascolta la risposta senza difenderti e senza trattare.
-- Risposta, Lunga: Molte delusioni in amore nascono da desideri mai detti, che l'altra persona avrebbe dovuto indovinare. Chiedere con chiarezza non è pretendere: è dare all'altra persona la possibilità di renderti felice. Te ne accorgi quando la risposta arriva sulla richiesta, non su una difesa.
+- Risposta, Lunga: Molte delusioni in amore nascono da desideri mai detti, che l'altra persona avrebbe dovuto indovinare. Chiedere con chiarezza non è pretendere: è dare all'altra persona la possibilità di renderti felice. Una risposta che entra nel merito della richiesta, invece di difendersi, dice che la domanda era chiara.
 
 #### Amore, favorevole, voce 17: Una porta nuova
 
@@ -939,13 +939,13 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi nel lavoro la giornata è favorevole agli inizi: ciò che avvii con ordine prende una buona strada. Vale per un compito nuovo, un capitolo di studio, una candidatura o una pratica che aspetta di essere aperta. Conta fare il primo passo vero, senza attendere un piano perfetto.
 - Che cosa fare: Scegli la cosa di lavoro o di studio che rimandi di più e dedicale mezz'ora prima di aprire la posta. Scrivi su un foglio i primi tre passaggi e completa il primo entro mezzogiorno. Stasera annota il punto esatto in cui ti fermi e il passo successivo.
-- Risposta, Lunga: Nella lettura vedica il momento di cominciare ha un valore distinto da quello di proseguire: ciò che parte con ordine regge meglio nelle ore di fatica. Oggi la mattina tende a riempirsi di telefonate e messaggi: difendila. Capisci che hai fatto bene se stasera il primo passaggio è chiuso.
+- Risposta, Lunga: Nella lettura vedica il momento di cominciare ha un valore distinto da quello di proseguire: ciò che parte con ordine regge meglio nelle ore di fatica. Oggi la mattina tende a riempirsi di telefonate e messaggi: difendila. Se stasera il primo passaggio è chiuso, hai cominciato nel modo giusto.
 
 #### Carriera, favorevole, voce 2: Prometti il giusto
 
 - Risposta: Giornata buona nel lavoro per farti scegliere: oggi le tue parole hanno peso, se prometti soltanto ciò che puoi mantenere. Una proposta, un preventivo o una candidatura convincono quando dicono con chiarezza che cosa offri e in quali tempi, più che quando sono pieni di promesse brillanti.
 - Che cosa fare: Prima di mandare qualunque proposta oggi, rileggila riga per riga e togli ogni frase vaga. Accanto a ogni impegno scrivi che cosa consegni e quando. Poi invia con una sola frase di accompagnamento e tieni per te un margine sui tempi che hai annunciato.
-- Risposta, Lunga: Chi sceglie qualcuno con cui lavorare cerca affidabilità prima che brillantezza: una data rispettata pesa più di una frase ben costruita. Il pericolo della giornata è promettere troppo sull'onda dell'entusiasmo. Ti accorgi di essere sulla strada giusta quando ogni promessa scritta ha accanto una data realistica.
+- Risposta, Lunga: Chi sceglie qualcuno con cui lavorare cerca affidabilità prima che brillantezza: una data rispettata pesa più di una frase ben costruita. Il pericolo della giornata è promettere troppo sull'onda dell'entusiasmo. Quando ogni promessa scritta ha accanto una data realistica, stai lavorando nel modo giusto.
 
 #### Carriera, favorevole, voce 3: Il capitolo che temi
 
@@ -1175,7 +1175,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi nel lavoro la giornata è costante e senza scosse, ma lunga: rende di più chi la divide con pause vere. Lavorare o studiare per ore senza staccare dà l'impressione di fare molto, mentre la qualità cala proprio nelle ultime ore.
 - Che cosa fare: Fissa due pause di dieci minuti, una a metà mattina e una nel pomeriggio, lontano dallo schermo e dai libri. Cammina, guarda fuori, respira con calma. Al rientro scrivi in una riga che cosa fai nella mezz'ora successiva e comincia subito da lì.
-- Risposta, Lunga: La mente attenta lavora a onde, non in linea retta: una pausa scelta prima della stanchezza restituisce lucidità a tutto il resto. Non riempire la pausa col telefono, che stanca gli occhi e la testa come il lavoro. Ti accorgi che funziona dalla qualità dell'ultima ora.
+- Risposta, Lunga: La mente attenta lavora a onde, non in linea retta: una pausa scelta prima della stanchezza restituisce lucidità a tutto il resto. Non riempire la pausa col telefono, che stanca gli occhi e la testa come il lavoro. Un'ultima ora ancora lucida dice che le pause hanno funzionato.
 
 #### Carriera, equilibrio, voce 11: Il compito in più
 
@@ -1308,14 +1308,14 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, salita, voce 8: La tua parte prima
 
 - Risposta: Giornata faticosa nel lavoro e nello studio, soprattutto dove dipendi dalle risposte di altre persone: i tempi comuni si allungano e cresce la voglia di fare tutto per conto tuo. Oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.
-- Che cosa fare: Oggi metti al sicuro la tua parte: finisci la cosa che dipende solo da te prima di tutto il resto. Se qualcuno tace su un lavoro comune, scrivigli in privato, non nel gruppo: chiedi se serve una mano e quando può consegnare la sua parte.
+- Che cosa fare: Oggi metti al sicuro la tua parte: finisci per prima la cosa che dipende solo da te. Se non lavori più, vale per un impegno che porti avanti, in un'associazione o in casa. Se qualcuno tace su una cosa comune, scrivigli in privato e chiedi se serve una mano.
 - Risposta, Lunga: Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Consegnare puntuale la tua parte dà il tono agli altri. Se una cosa comune resta ferma e c'è chi la coordina, avvisalo con un messaggio sobrio, solo fatti.
 
 #### Carriera, salita, voce 9: Le interruzioni
 
 - Risposta: Giornata frammentata e faticosa nel lavoro: telefonate, messaggi e richieste improvvise spezzano il filo appena lo riprendi. Lo stesso vale per lo studio, dove la mente salta da un pensiero all'altro e fatica a fermarsi su una pagina sola o su un solo compito.
 - Che cosa fare: Dividi la giornata in blocchi da mezz'ora e in ognuno fai una cosa sola. Raccogli le richieste che arrivano su un foglio invece di rispondere subito, poi smaltiscile tutte insieme in due momenti fissi. Se puoi, chiudi la porta o indossa le cuffie durante il blocco.
-- Risposta, Lunga: Ogni interruzione costa più dei minuti che dura, perché poi serve tempo per ritrovare il punto. Raccogliere le richieste invece di inseguirle ti restituisce il comando della giornata. Ti accorgi che il metodo funziona quando, a sera, almeno un blocco è arrivato fino in fondo.
+- Risposta, Lunga: Ogni interruzione costa più dei minuti che dura, perché poi serve tempo per ritrovare il punto. Raccogliere le richieste invece di inseguirle ti restituisce il comando della giornata. Se a sera almeno un blocco è arrivato fino in fondo, il metodo regge.
 
 #### Carriera, salita, voce 10: Regole appena cambiate
 
@@ -1367,7 +1367,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata generosa per la buona sorte che passa di mano in mano. Negli scaffali di scambio dei bar, delle biblioteche e delle stazioni oggi conviene lasciare e prendere: un libro scelto per caso può portarti proprio la pagina che ti serviva. Dare per primo mette in moto il giro.
 - Che cosa fare: Prendi un libro già letto che non pensi di rileggere e scrivi sulla prima pagina una riga di dedica senza firma. Lascialo in uno scaffale di scambio o su una panchina riparata. Se trovi un titolo che ti incuriosisce, portalo via e leggine subito qualche pagina.
-- Risposta, Lunga: Chi lascia qualcosa con cura avvia una piccola corrente che spesso riporta qualcosa indietro. Ti accorgi che la giornata lavora per te da un dettaglio semplice: una frase del libro preso ti resta in mente fino a sera. Annotala in fondo all'agenda, perché le parole trovate per caso tornano utili.
+- Risposta, Lunga: Chi lascia qualcosa con cura avvia una piccola corrente che spesso riporta qualcosa indietro. Se una frase del libro preso ti resta in mente fino a sera, la giornata sta lavorando per te. Annotala in fondo all'agenda, perché le parole trovate per caso tornano utili.
 
 #### Fortuna, favorevole, voce 3: Una mano offerta
 
@@ -1421,7 +1421,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la buona sorte cresce fra le piante e passa di mano in mano. Una talea regalata o ricevuta apre conversazioni che con le parole di circostanza non comincerebbero mai. Porta anche in casa qualcosa di vivo, che chiede poca cura e restituisce molta allegria.
 - Che cosa fare: Se in casa hai una pianta rigogliosa, taglia due talee e mettile in un barattolo d'acqua da offrire a chi incontri. Se non ne hai, chiedi una talea a un vicino o a un fioraio, insieme a un consiglio su come curarla bene.
-- Risposta, Lunga: Le cose che crescono insegnano il passo regolare: acqua, luce, attesa. Uno scambio nato da una foglia crea un legame semplice, senza obblighi. Lo capisci dalla domanda che ricevi in cambio: chi accetta una pianta di solito vuole raccontare la sua.
+- Risposta, Lunga: Le cose che crescono insegnano il passo regolare: acqua, luce, attesa. Uno scambio nato da una foglia crea un legame semplice, senza obblighi. Una domanda ricevuta in cambio dice che il dono è arrivato: chi accetta una pianta di solito vuole raccontare la sua.
 
 #### Fortuna, favorevole, voce 12: La strada indicata
 
@@ -1469,7 +1469,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la fortuna è leggera e passa dall'attenzione. Fra gruppi, avvisi e notifiche che suonano tutto il giorno ce n'è qualcuno che ti ruba tempo senza darti niente: spegnerlo libera lo sguardo per le occasioni vere, quelle che arrivano piano e senza rumore.
 - Che cosa fare: Apri sul telefono l'elenco delle notifiche e dei gruppi attivi. Silenzia fino a sera quelli che non ti servono e spegni del tutto quello che apri meno. Lascia attivi soltanto i messaggi delle persone che contano e i promemoria che usi davvero.
-- Risposta, Lunga: La cura delle proprie risorse comincia dalle piccole perdite che nessuno guarda: minuti, attenzione, energia. Un controllo calmo restituisce la sensazione di tenere tu le redini. Stasera te ne accorgi da una cosa notata per strada che di solito ti sfugge.
+- Risposta, Lunga: La cura delle proprie risorse comincia dalle piccole perdite che nessuno guarda: minuti, attenzione, energia. Un controllo calmo restituisce la sensazione di tenere tu le redini. Se stasera noti per strada una cosa che di solito ti sfugge, l'attenzione recuperata sta già rendendo.
 
 #### Fortuna, favorevole, voce 20: Biglietti in fondo alla borsa
 
@@ -1481,7 +1481,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la buona sorte si alza presto. Le prime ore hanno strade più libere, uffici meno affollati, persone disponibili prima che la giornata le travolga: chi parte in anticipo raccoglie con calma il meglio di un giorno favorevole alle partenze e ai primi passi.
 - Che cosa fare: Esci un quarto d'ora prima del solito e usa quel margine per la cosa più scomoda della giornata. Se incontri qualcuno da salutare, fermati: il tempo guadagnato te lo permette. Stasera guarda quale momento del mattino è stato più utile e perché.
-- Risposta, Lunga: Chi parte presto cammina con passo regolare invece di correre. Quel piccolo anticipo cambia l'umore della giornata e ti mette sulla strada di persone che a metà mattina non incroceresti. Lo misuri dal respiro: arrivi al primo impegno senza il fiato corto.
+- Risposta, Lunga: Chi parte presto cammina con passo regolare invece di correre. Quel piccolo anticipo cambia l'umore della giornata e può metterti sulla strada di persone che a metà mattina non incroceresti. Arrivare al primo impegno senza il fiato corto è la misura più semplice del guadagno.
 
 #### Fortuna, favorevole, voce 22: Imparare da mani esperte
 
@@ -1673,8 +1673,8 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Fortuna, equilibrio, voce 23: Un sì, un no
 
-- Risposta: Oggi la sorte è in equilibrio e chiede scelte misurate. Fra le proposte e le richieste della giornata, accettarne una con convinzione e rifiutarne un'altra con garbo protegge il tempo per ciò che conta e lascia spazio alle occasioni migliori quando si presentano.
-- Che cosa fare: Quando arriva la prima proposta di oggi, prenditi un minuto prima di rispondere. Chiediti se ti avvicina a qualcosa che desideri. Accetta la proposta che supera questa domanda e rifiuta con una frase gentile quella che ti allontana, senza giustificarti a lungo.
+- Risposta: Oggi la sorte è in equilibrio e chiede scelte misurate. Che arrivino proposte o che la giornata resti quieta, dire un sì convinto e un no garbato, anche solo ai tuoi impegni, protegge il tempo per ciò che conta e lascia spazio alle occasioni migliori.
+- Che cosa fare: Se oggi arriva una proposta o una richiesta, prenditi un minuto prima di rispondere e chiediti se ti avvicina a qualcosa che desideri: accetta quella che lo fa, rifiuta con garbo quella che ti allontana. Se non ne arriva nessuna, scegli tu un impegno da onorare e uno da lasciare.
 - Risposta, Lunga: Un no detto bene è una forma di cura, per te e per chi chiede. Chi dice sì a tutto finisce per non avere spazio quando arriva l'occasione giusta. A sera conta avere un impegno onorato e un'ora rimasta per te.
 
 #### Fortuna, equilibrio, voce 24: Un'idea scritta subito
@@ -1761,7 +1761,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la buona sorte inciampa nel disordine piccolo, in una giornata delicata. Borse, tasche e portafogli pieni di scontrini, tessere scadute e foglietti senza origine nascondono proprio ciò che conta nel momento del bisogno: il rimedio è semplice e richiede venti minuti.
 - Che cosa fare: Stasera svuota borsa e tasche sul tavolo e rimetti dentro soltanto documenti, tessere valide e ciò che usi ogni giorno. I foglietti utili vanno in una busta con la data di oggi. Butta subito il resto, senza rileggerlo due volte.
-- Risposta, Lunga: Una borsa leggera è come una soglia sgombra: ci passi senza inciampare. Quando ogni cosa sta nel suo scomparto, ti accorgi subito se manca qualcosa o se una tessera sta per scadere. Trovare al primo colpo ciò che cerchi dice che l'ordine funziona.
+- Risposta, Lunga: Una borsa leggera è come una soglia sgombra: ci passi senza inciampare. Quando ogni cosa sta nel suo scomparto, si vede subito se manca qualcosa o se una tessera sta per scadere. Trovare al primo colpo ciò che cerchi dice che l'ordine funziona.
 
 #### Fortuna, salita, voce 14: L'occasione passata
 

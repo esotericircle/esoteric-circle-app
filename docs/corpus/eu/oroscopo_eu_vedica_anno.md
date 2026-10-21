@@ -77,7 +77,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'anno è tranquillo in amore e premia la tenerezza dei gesti piccoli più delle grandi dichiarazioni. Se vivi una relazione, la gratitudine detta ad alta voce rinnova il legame; se sei senza legame, la gentilezza che offri negli incontri dice di te più di qualunque presentazione.
 - Che cosa fare: Ogni settimana fai un gesto piccolo e concreto di attenzione. Se vivi una relazione, ringrazia l'altra persona per una cosa precisa che ha fatto, guardandola negli occhi; se sei senza legame, a ogni incontro lascia un complimento sincero su qualcosa che hai notato davvero, senza secondi fini.
-- Risposta, Lunga: Dire grazie per una cosa precisa fa sentire all'altra persona il proprio valore e invita a ricambiare. Nei periodi calmi è facile dimenticarlo, perché tutto sembra scontato. Lo si vede da un clima più morbido, con meno puntualizzazioni e più sorrisi.
+- Risposta, Lunga: Dire grazie per una cosa precisa fa sentire all'altra persona il proprio valore e invita a ricambiare. Nei periodi calmi è facile dimenticarlo, perché tutto sembra scontato. Un clima più morbido, con meno puntualizzazioni e più sorrisi, dice che il gesto è arrivato.
 
 ### Amore, In salita (livello 2 e sotto)
 
@@ -115,7 +115,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel lavoro è un anno stabile, senza grandi svolte all'orizzonte, adatto a curare i rapporti professionali che contano. Colleghi, ex compagni di studi, clienti passati, persone del tuo campo: una rete tenuta viva con regolarità sostiene nei momenti pieni e può portare notizie utili anche a chi cerca lavoro.
 - Che cosa fare: Ogni settimana scrivi a una persona del tuo ambito di lavoro o di studio che non senti da tempo: un saluto, un articolo utile, un complimento per un risultato. Comincia entro tre giorni. Non chiedere favori nei primi messaggi: offri qualcosa e ascolta che cosa fa.
-- Risposta, Lunga: Una rete professionale non si costruisce quando serve, ma prima, con gesti piccoli e senza richieste. Chi si fa vivo soltanto per chiedere viene ricordato per quello. Capisci che la rete lavora quando qualcuno ti scrive per primo con una notizia o una proposta.
+- Risposta, Lunga: Una rete professionale non si costruisce quando serve, ma prima, con gesti piccoli e senza richieste. Chi si fa vivo soltanto per chiedere viene ricordato per quello. Se qualcuno ti scrive per primo con una notizia o una proposta, la rete sta lavorando.
 
 #### Carriera, equilibrio, voce 2: Imparare senza strappi
 
@@ -133,8 +133,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, salita, voce 2: Crescere dove non si vede
 
-- Risposta: Nel lavoro l'anno procede lento, ma lento non vuol dire fermo. Promozioni, risposte alle candidature o riconoscimenti possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti che servono quando le porte tornano ad aprirsi, senza smettere di bussare.
-- Che cosa fare: Scegli adesso una sola abilità legata al lavoro che vorresti fare e dedicale un'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare. Ogni tre settimane incontra o chiama qualcuno del settore per un confronto, senza chiedere niente.
+- Risposta: Nel lavoro e nei progetti l'anno procede lento, ma lento non vuol dire fermo. Riconoscimenti, risposte o risultati possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti utili quando le porte si riaprono, senza smettere di bussare.
+- Che cosa fare: Scegli adesso una sola abilità da far crescere, per il lavoro che fai o cerchi oppure, se non lavori più, per un progetto o un impegno che ti sta a cuore. Dedicale un'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare.
 - Risposta, Lunga: Il lavoro a volte cresce sotto la superficie, come radici che si allungano prima dei frutti. Ciò che coltivi con pazienza prepara il momento della ripresa. Misurarti con chi corre più veloce scoraggia soltanto: confrontati con te di tre settimane fa.
 
 ## Fortuna
@@ -158,14 +158,14 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, equilibrio, voce 1: Il consiglio di chi sa
 
 - Risposta: Quest'anno la sorte è quieta e passa dai consigli di chi ha più esperienza di te: una persona che ha già fatto la strada che ti interessa può indicarti la porta giusta o farti evitare un giro inutile. È una fortuna sobria, che premia chi chiede con umiltà.
-- Che cosa fare: Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz'ora. Porta una domanda, precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.
+- Che cosa fare: Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz'ora. Porta una domanda precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.
 - Risposta, Lunga: La tradizione indiana chiama satsang la compagnia di chi sa: stare vicino a chi ha esperienza è già una forma di buona sorte. In un anno senza grandi spinte, un consiglio giusto vale più di molte occasioni nuove. Ricambia raccontando com'è andata: chi aiuta ama conoscere il seguito.
 
 #### Fortuna, equilibrio, voce 2: Dieci minuti di anticipo
 
 - Risposta: Per la fortuna l'anno è regolare e premia chi si concede un margine: arrivare un po' prima, lasciare spazio fra un impegno e l'altro, non riempire ogni ora. Gli imprevisti trovano meno presa e le piccole occasioni, una chiacchierata, un incontro casuale, hanno il tempo di accadere.
 - Che cosa fare: Da questa settimana esci dieci minuti prima per ogni appuntamento e lascia almeno mezz'ora libera fra due impegni importanti. Usa quel margine per guardarti intorno, salutare qualcuno, entrare in un posto mai visto. Una volta a settimana annota che cosa è successo in quei minuti.
-- Risposta, Lunga: La fretta è la prima nemica della buona sorte: chi corre non vede le porte aperte e arriva con l'affanno dove serve calma. Il margine non è tempo perso, è lo spazio in cui succede l'inatteso. Te ne accorgi quando arrivi agli appuntamenti con la mente libera.
+- Risposta, Lunga: La fretta è la prima nemica della buona sorte: chi corre non vede le porte aperte e arriva con l'affanno dove serve calma. Il margine non è tempo perso, è lo spazio in cui succede l'inatteso. Arrivare agli appuntamenti con la mente libera conferma che il margine funziona.
 
 ### Fortuna, In salita (livello 2 e sotto)
 

@@ -13,7 +13,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: È un mese favorevole per la vita di casa: hai l'energia giusta per rimettere ordine negli spazi dove vivi. Un mobile nel punto sbagliato, una stanza diventata deposito, un angolo che eviti: adesso spostare e sgombrare costa meno del solito e dà subito respiro alle giornate.
 - Che cosa fare: Scegli una stanza sola e dedicale due mezze giornate nelle prossime due settimane: la prima per svuotare ciò che non usi, la seconda per spostare i mobili. Se vivi con altri chiedi una mano. A lavoro finito lascia libero un ripiano e tienilo sgombro.
-- Risposta, Lunga: Quando gli oggetti trovano un ordine anche i pensieri si sciolgono: entri in quella stanza e respiri meglio. Te ne accorgi da un fatto semplice: smetti di evitarla. Viene voglia di allargarti a tutta la casa nello stesso slancio: una stanza finita vale più di tre cominciate.
+- Risposta, Lunga: Quando gli oggetti trovano un ordine anche i pensieri si sciolgono: entri in quella stanza e respiri meglio. Se smetti di evitarla, il lavoro è riuscito. Viene voglia di allargarti a tutta la casa nello stesso slancio: una stanza finita vale più di tre cominciate.
 
 #### Generale, favorevole, voce 2: Sedie da aggiungere
 
@@ -83,7 +83,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nei rapporti di ogni giorno il mese è delicato: le parole si fraintendono facilmente e una battuta può ferire più del previsto. Non serve chiudersi, basta parlare un po' più piano e lasciare che le frasi brusche, le tue e quelle degli altri, si raffreddino prima di rispondere.
 - Che cosa fare: Quando un messaggio ti irrita, aspetta un'ora prima di rispondere e rileggi la risposta ad alta voce. Per le questioni che contano preferisci una telefonata o un incontro allo scritto. Se una tua frase ha ferito qualcuno, dillo con parole brevi e senza giustificarti.
-- Risposta, Lunga: Nei periodi tesi le incomprensioni si allargano quando nessuno le nomina e si gonfiano quando le si discute per iscritto. La voce porta il tono che il testo perde. Lo vedi da un dato: meno conversazioni da ricucire alla fine di ogni settimana.
+- Risposta, Lunga: Nei periodi tesi le incomprensioni si allargano quando nessuno le nomina e si gonfiano quando le si discute per iscritto. La voce porta il tono che il testo perde. Meno conversazioni da ricucire alla fine di ogni settimana dicono che la voce sta aiutando.
 
 ## Amore
 
@@ -215,9 +215,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, equilibrio, voce 4: Archivio da riordinare
 
-- Risposta: Il mese è sereno e adatto al lavoro di riordino, quello che non si vede ma rende più facile tutto il resto. Cartelle con nomi vaghi, versioni doppie, appunti sparsi fanno perdere minuti ogni volta che cerchi qualcosa: è il momento di sistemarli una volta per tutte.
-- Che cosa fare: Dedica due pomeriggi all'archivio del computer o degli appunti: elimina i doppioni, dai alle cartelle nomi chiari con la data davanti, sposta a parte ciò che è chiuso. Scrivi una regola breve per nominare i documenti e, se li condividi, falla conoscere a chi li usa.
-- Risposta, Lunga: Un tavolo in ordine non è una questione di estetica: è il modo più semplice per pensare con chiarezza. Anche chi condivide i tuoi file trova ciò che serve. Per non tornare al disordine, fissa un quarto d'ora alla fine di ogni settimana per sistemare ciò che si è accumulato.
+- Risposta: Il mese è sereno nel lavoro e adatto al riordino, quello che non si vede ma rende più facile tutto il resto. Se hai cartelle con nomi vaghi, versioni doppie o appunti sparsi, ogni ricerca costa minuti: è il momento di sistemarli una volta per tutte.
+- Che cosa fare: Dedica due pomeriggi ai tuoi documenti, sul computer o su carta: elimina gli eventuali doppioni, dai alle cartelle nomi chiari con la data davanti, sposta a parte ciò che è chiuso. Scrivi una regola breve per nominare i documenti e, se li condividi, falla conoscere a chi li usa.
+- Risposta, Lunga: Un tavolo in ordine non è una questione di estetica: è il modo più semplice per pensare con chiarezza. Ne guadagna anche chi usa i tuoi file. Per non tornare al disordine, fissa un quarto d'ora alla fine di ogni settimana per sistemare ciò che si è accumulato.
 
 ### Carriera, In salita (livello 2 e sotto)
 
@@ -297,7 +297,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Per la fortuna il mese è regolare: le piccole cose girano meglio quando scegli tu il momento invece di subirlo. Code più corte, uffici meno affollati, persone più disponibili: la buona sorte minuta di queste settimane premia chi esce nelle ore tranquille e chiede con garbo.
 - Che cosa fare: Raggruppa le commissioni delle prossime settimane e falle nelle ore meno affollate, a metà mattina o nel primo pomeriggio. Prepara prima ciò che serve. Allo sportello o in negozio chiedi sempre se esiste un'alternativa più comoda: spesso c'è ma nessuno la propone.
-- Risposta, Lunga: La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Ti accorgi che è l'ora giusta quando torni a casa con qualcosa in più di ciò che cercavi.
+- Risposta, Lunga: La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Tornare a casa con qualcosa in più di ciò che cercavi vuol dire che l'ora era quella giusta.
 
 ### Fortuna, In salita (livello 2 e sotto)
 

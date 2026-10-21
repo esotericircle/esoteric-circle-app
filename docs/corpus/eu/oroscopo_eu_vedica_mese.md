@@ -51,7 +51,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese scorre sereno e senza scosse, ma chiede un po' d'aria nella routine. Quando le giornate si somigliano, il rischio è passare dalla casa agli impegni senza mai un tempo all'aperto che sia soltanto tuo. Queste settimane premiano un appuntamento fisso con l'esterno, anche breve.
 - Che cosa fare: Scegli oggi un percorso a piedi vicino a casa, come un parco o una strada alberata. Fissa due uscite ogni settimana alla stessa ora. Esci senza cuffie e senza fretta. A ogni passeggiata nota una cosa nuova lungo la strada e scrivila la sera, prima di cena.
-- Risposta, Lunga: Un'abitudine all'aperto dà alle settimane tranquille un punto fermo che le distingue una dall'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Capisci che sta funzionando quando, dopo qualche uscita, ti accorgi di aspettarla invece di doverti convincere a farla.
+- Risposta, Lunga: Un'abitudine all'aperto dà alle settimane tranquille un punto fermo che le distingue una dall'altra. Camminare con lentezza mette ordine nei pensieri senza bisogno di cercarlo. Se dopo qualche uscita ti ritrovi ad aspettarla invece di doverti convincere a farla, l'abitudine ha attecchito.
 
 #### Generale, equilibrio, voce 4: Sere alterne
 
@@ -65,7 +65,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Il mese è faticoso e porta più pesi di quanti convenga reggere senza aiuto. Stringere i denti da soli porta in fondo alle settimane con le energie esaurite. Chiedere una mano, adesso, è la mossa giusta: non è debolezza ma buon senso.
 - Che cosa fare: Scrivi oggi tre cose concrete che ti costano fatica e accanto a ciascuna il nome di chi potrebbe aiutarti: una commissione, una faccenda di casa, un passaggio. Entro dieci giorni chiedi almeno una di queste con una richiesta precisa e offri qualcosa in cambio.
-- Risposta, Lunga: Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Ti accorgi che funziona quando alla fine della settimana ti resta un'ora in più da usare per riposare davvero.
+- Risposta, Lunga: Prudenza, adesso, vuol dire riconoscere un limite prima che diventi un ostacolo. Chi aiuta di solito lo fa volentieri, se la richiesta è chiara e misurata. Un'ora in più per riposare davvero, alla fine di ogni settimana, dice che la richiesta d'aiuto ha funzionato.
 
 #### Generale, salita, voce 2: Attriti di casa
 
@@ -130,7 +130,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, equilibrio, voce 3: La bilancia del dare
 
 - Risposta: In amore il mese è stabile e adatto a guardare l'equilibrio fra dare e ricevere. Nella vita sentimentale chi offre sempre per primo finisce per svuotarsi, chi riceve senza accorgersene si abitua. Queste settimane calme aiutano a rimettere in pari la bilancia senza rancore e senza scenate.
-- Che cosa fare: Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi risponde soltanto quando conviene a quella persona.
+- Che cosa fare: Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi si fa vivo solo quando gli fa comodo.
 - Risposta, Lunga: L'affetto è anche uno scambio fatto con giustizia: dare senza misura alla lunga sfinisce chi dà e impigrisce chi riceve. Rimettere confini chiari protegge proprio il legame che ti sta a cuore. Se il conto resta sbilanciato, parlane a voce, con un esempio preciso e nessun elenco di torti.
 
 #### Amore, equilibrio, voce 4: Gesti piccoli e regolari
@@ -163,7 +163,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: In amore è un mese faticoso, in cui gelosie e insicurezze si accendono facilmente. Un ritardo, un silenzio, uno sguardo altrove: piccoli segnali diventano sospetti. Se vivi una relazione, conviene parlarne prima che diventi accusa; se sei senza legame, attenzione a non leggere rifiuti dove c'è soltanto distrazione.
 - Che cosa fare: Quando senti la gelosia salire, scrivi il fatto preciso che l'ha accesa e separalo da ciò che immagini. Se hai una relazione, parlane a voce partendo da ciò che provi, senza interrogatori. Se sei senza legame, prima di trarre conclusioni su qualcuno aspetta un secondo segnale.
-- Risposta, Lunga: La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Te ne accorgi subito: dopo averne parlato il respiro torna più largo e i pensieri smettono di girare.
+- Risposta, Lunga: La gelosia nasce spesso da una paura vecchia più che da un fatto nuovo. Nominarla con calma la riduce a ciò che è, mentre tenerla dentro la ingrandisce. Se dopo averne parlato il respiro torna più largo e i pensieri smettono di girare, hai scelto la strada giusta.
 
 ## Carriera
 
@@ -171,9 +171,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 1: Farsi avanti con garbo
 
-- Risposta: Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Se c'è un incarico, un ruolo o un progetto che ti interessa, adesso conta proporsi senza giri di parole. Vale per chi lavora, per chi studia e per chi cerca: una richiesta precisa ottiene più ascolto.
-- Che cosa fare: Scrivi in mezza pagina che cosa vuoi fare e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni chiedi un colloquio a chi decide, oppure invia la tua candidatura se stai cercando. Porta il foglio con te e lascia una proposta precisa.
-- Risposta, Lunga: Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico chiesto adesso parte col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa subito tre traguardi da raggiungere nelle prossime tre settimane e condividili con chi ti ha dato fiducia.
+- Risposta: Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Vale per chi lavora, per chi studia, per chi cerca e per chi porta avanti un progetto personale o un impegno scelto: una richiesta o una proposta precisa di solito trova più ascolto.
+- Che cosa fare: Scrivi in mezza pagina che cosa vuoi proporre e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni, se lavori o studi, portala a chi decide; se cerchi, invia una candidatura; se il progetto è tuo, presentalo a chi può sostenerlo, come un gruppo o un'associazione.
+- Risposta, Lunga: Ci sono settimane adatte a cominciare e settimane adatte a proseguire: queste sono adatte a cominciare. Una proposta fatta adesso può partire col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa tre traguardi da raggiungere entro la fine del mese e condividili con chi ti sostiene.
 
 #### Carriera, favorevole, voce 2: Dieci nomi da riprendere
 

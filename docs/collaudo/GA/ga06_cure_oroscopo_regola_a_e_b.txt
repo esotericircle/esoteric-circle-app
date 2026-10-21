@@ -221,3 +221,40 @@ A7. i_riti_dell_oroscopo_seguono_il_periodo, prova nuova "i sedici riti di un re
     VERDE.
     Dopo la seconda passata sui riti (tre raccolte): lo strumento genera senza difetti, la prova
     "a pezzi" VERDE, "in due riti dello stesso reggente 0" su 14029 sequenze.
+
+LA TERZA CURA, DAL LETTORE CIECO INDIPENDENTE (21 ottobre 2026, sopra 6a7bedb4)
+
+Il lettore cieco indipendente lanciato sul campione della seconda cura: D1 46, D2 45, D3 39,
+tre si' 35 su 48; no 3, 6, 15, 17, 19, 20, 27, 34, 37, 45, 46, 47, 48. Difetti non contati: dati
+senza luogo 5, vite inventate 10, futuri certi 7, sala giochi 1, criptici 29, incoerenze 6,
+sgrammaticature 7, genere 0, sequenze di sette parole ripetute 384 (366 nelle code fisse del
+"Da dove viene").
+
+Regola B, prima di toccare:
+- test/l_anno_dal_compleanno_test.dart, carriera: la prova pretendeva la frase della casa di
+  Saturno dal corpus annuale dentro la lettura di lavoro (oroscopo-15, "i legami si fanno
+  seri" con Saturno in settima). Tolta quella riga da l_annuale.dart, la prova vecchia e'
+  ROSSA, 100 schede fuori su 400; con l'attesa giusta (solo il Medio Cielo, LAPIDE nella prova)
+  VERDE, 0 su 400.
+- test/language_rule_test.dart, "Nessuna stringa del codice viola la regola della virgola":
+  ROSSA durante questa stessa cura, sul difetto entrato con lei ("la settima casa,
+  dell'unione, e la quinta" in la_lettura_vedica.dart; e le righe nuove del Rahu Kalam e del
+  Tai Sui). Curate: VERDE.
+- test/la_lettura_vedica_test.dart, "testi con un difetto di scrittura": ROSSA, 51 testi (", e "
+  nella ragione nuova del livello, "una delle case di questo campo, e la mette in primo
+  piano"). Riscritta: VERDE, 0.
+
+Cure: i dodici corpora docs/corpus/eu (72 frasi "Te ne accorgi / Capisci che" riscritte come
+criterio condizionale; 21 voci del campione); sette riti (Marte detto anche Ares, il fiore nel
+bicchiere, "richiama alla mente", Mangala e la scrivania, quattro riti di Cheng con
+l'alternativa per chi non ha niente a meta', Mangala in amore senza lo stato del desiderio);
+i "Da dove viene" criptici (Naidhana, la casa delle uscite, il Buon Demone, "per gli
+astrologi", il Nutrimento, «Tenere», Saturno nell'anno, la media del periodo con il suo
+simbolo, l'anno cinese in una frase intera, la serie neutra dell'Amore cinese senza la frase
+doppia, il colore e il numero del giorno con il loro uso, il Rahu Kalam senza rimandi).
+
+Dopo: verdi le quattro guardie della lingua (la_parola_voce_resta_allaudio,
+i_nomi_del_menu_e_del_diario, la_carta_natale_sopravvive, language_rule), il_genere_non_si_
+indovina, accenti_veri e le prove dell'Oroscopo (31 file, 150 prove), dopo la tabella delle
+lunghezze e i campioni rigenerati. flutter analyze lib test: No issues found. Il campione delle
+rune, riscritto da GA06_SCRIVI, e' stato rimesso com'era (git checkout).

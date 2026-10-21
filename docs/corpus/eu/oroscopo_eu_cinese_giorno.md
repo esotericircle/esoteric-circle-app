@@ -517,7 +517,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi in amore la giornata è favorevole a dire ciò che senti con parole semplici. Le frasi sincere arrivano meglio del solito e non suonano pesanti. Se vivi una relazione, è il momento di nominare un affetto che dai per scontato; se sei senza legame, di esprimere interesse senza giri.
 - Che cosa fare: Prima di sera scegli una frase vera e dilla a voce, guardando negli occhi: mi piace come mi fai ridere, mi fa bene parlarti. Se hai un legame, rivolgila a chi ami; se non ce l'hai, dilla alla prossima persona che ti fa piacere incontrare, come un complimento sincero.
-- Risposta, Lunga: Le parole d'affetto taciute non spariscono: si accumulano e diventano distanza. Dette in una giornata limpida, invece, trovano spazio senza sembrare una richiesta. Troppe premesse le indeboliscono: meglio dirle nude. Te ne accorgi dopo averle dette, quando il respiro si fa più largo.
+- Risposta, Lunga: Le parole d'affetto taciute non spariscono: si accumulano e diventano distanza. Dette in una giornata limpida, invece, trovano spazio senza sembrare una richiesta. Troppe premesse le indeboliscono: meglio dirle nude. Se dopo averle dette il respiro si fa più largo, erano parole da dire.
 
 #### Amore, favorevole, voce 2: Il primo passo conviene
 
@@ -529,7 +529,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la vita sentimentale sorride alla gratitudine detta ad alta voce: riconoscere un gesto scalda più di un regalo. Se vivi una relazione, nomina le attenzioni che ricevi senza chiederle. Se sei senza legame, la giornata è buona per accorgerti di quanta cura sai dare e ricevere.
 - Che cosa fare: Stasera, se hai un legame, elenca a voce tre gesti precisi che l'altra persona fa per te e ringrazia per ciascuno, senza aggiungere richieste. Se non hai un legame, scrivi su un foglio tre attenzioni che desideri ricevere e tre che ti viene naturale offrire.
-- Risposta, Lunga: La gratitudine taciuta si consuma e lascia il dubbio che la cura non conti. Dirla con parole esatte, non generiche, restituisce valore ai gesti di tutti i giorni. Non serve un discorso solenne. Lo capisci da un sorriso sorpreso, oppure da una calma nuova dentro di te.
+- Risposta, Lunga: La gratitudine taciuta si consuma e lascia il dubbio che la cura non conti. Dirla con parole esatte, non generiche, restituisce valore ai gesti di tutti i giorni. Non serve un discorso solenne. Un sorriso sorpreso, oppure una calma nuova dentro di te, dice che il grazie è arrivato.
 
 #### Amore, favorevole, voce 4: Una sorpresa piccola vince
 
@@ -541,7 +541,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: In amore la giornata è luminosa per il fascino: ti mostri a tuo agio e chi ti incontra può notarlo. È un buon momento per curare l'aspetto che ti fa stare bene. Se vivi una relazione, la cura riaccende il desiderio; se sei senza legame, rende più naturali gli sguardi.
 - Che cosa fare: Scegli adesso un capo che ti piace davvero, di quelli tenuti per le occasioni: indossalo oggi. Aggiungi un profumo leggero e cammina con calma. Se incontri uno sguardo che ti interessa, sostienilo un attimo in più e sorridi. Se hai un legame, fatti trovare così stasera.
-- Risposta, Lunga: Il fascino non nasce dalla perfezione ma dall'agio con cui abiti il tuo corpo e i tuoi gesti. Quando ti piaci, lo sguardo degli altri cambia di conseguenza. Recitare una parte lo spegne subito. Lo noti quando ti viene voglia di parlare con qualcuno invece di nasconderti.
+- Risposta, Lunga: Il fascino non nasce dalla perfezione ma dall'agio con cui abiti il tuo corpo e i tuoi gesti. Quando ti piaci, lo sguardo degli altri cambia di conseguenza. Recitare una parte lo spegne subito. La voglia di parlare con qualcuno invece di nasconderti è un buon indizio.
 
 #### Amore, favorevole, voce 6: Ascoltare rende vicini
 
@@ -631,7 +631,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Nella vita sentimentale la giornata è limpida e premia la presenza piena: oggi conta più lo sguardo della quantità di tempo. Mezz'ora senza distrazioni vale una serata intera a metà. In coppia, dedica attenzione totale all'altra persona; se sei senza legame, porta la stessa presenza negli incontri che ti interessano.
 - Che cosa fare: Stasera metti il telefono in un'altra stanza per mezz'ora e guarda chi hai davanti mentre parla, senza preparare la risposta. Se hai un legame, fallo a tavola con l'altra persona; altrimenti scegli una conversazione che ti incuriosisce, anche al telefono: dedicale la stessa attenzione piena.
-- Risposta, Lunga: L'attenzione divisa si sente anche quando non si vede: l'altra persona percepisce se sei lì oppure altrove. La presenza piena è il regalo più raro e attraente. Lo schermo cercato per abitudine la incrina. Lo capisci quando ricordi i dettagli di ciò che hai ascoltato.
+- Risposta, Lunga: L'attenzione divisa si sente anche quando non si vede: l'altra persona percepisce se sei lì oppure altrove. La presenza piena è il regalo più raro e attraente. Lo schermo cercato per abitudine la incrina. Ricordare i dettagli di ciò che hai ascoltato vuol dire che eri presente davvero.
 
 #### Amore, favorevole, voce 21: Domande che sorprendono
 
@@ -667,7 +667,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata fertile per i sensi in amore: profumi, musica, tessuti morbidi parlano oggi più forte delle parole. È il momento di dare spazio al piacere senza fretta. Se vivi una relazione, crea un'atmosfera per la sera; se non hai un legame, concediti un piacere che di solito rimandi.
 - Che cosa fare: Stasera abbassa le luci, scegli un profumo e una musica lenta, togli dalla stanza ciò che ricorda gli impegni. Se hai un legame, invita l'altra persona a rallentare con te, senza programmi. Se non ce l'hai, scegli un piacere preciso: un dolce buono, un libro, una musica ascoltata al buio.
-- Risposta, Lunga: Il desiderio cresce dove c'è lentezza: i sensi hanno bisogno di tempo per accendersi, mentre la fretta li spegne. Un'atmosfera vissuta come prestazione da riuscire perde calore. Te ne accorgi dal corpo che si scioglie, dal respiro che rallenta, dalla voglia di restare.
+- Risposta, Lunga: Il desiderio cresce dove c'è lentezza: i sensi hanno bisogno di tempo per accendersi, mentre la fretta li spegne. Un'atmosfera vissuta come prestazione da riuscire perde calore. Un corpo che si scioglie, un respiro che rallenta e la voglia di restare dicono che il ritmo è giusto.
 
 #### Amore, favorevole, voce 27: Spazio che rende liberi
 
@@ -697,7 +697,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, equilibrio, voce 1: Una novità minima
 
-- Risposta: In amore la giornata è tranquilla, senza scosse e un po' abitudinaria. Niente di grave, ma la routine rischia di rendere tutto prevedibile. Se vivi una relazione, basta un piccolo strappo alla regola per ravvivare la sera; se sei senza legame, cambia un'abitudine che ti tiene sempre negli stessi posti.
+- Risposta: In amore la giornata è stabile e un po' abitudinaria. Niente di grave, ma la routine rischia di rendere tutto prevedibile. Se vivi una relazione, basta un piccolo strappo alla regola per ravvivare la sera; se sei senza legame, cambia un'abitudine che ti tiene sempre negli stessi posti.
 - Che cosa fare: Scegli una cosa sola da fare diversamente stasera: un altro percorso per tornare a casa, un locale mai provato, la cena in un'altra stanza. Se hai un legame, proponila senza spiegare il perché. Se non ce l'hai, scegli comunque la strada nuova e guarda chi incontri.
 - Risposta, Lunga: La routine protegge e rassicura, ma senza piccole variazioni spegne la curiosità che tiene vivo il desiderio. Non serve rivoluzionare nulla: una novità minima basta a far sentire la sera diversa. L'entusiasmo forzato si sente. Basta una conversazione che esce dai soliti binari per capirlo.
 
@@ -727,13 +727,13 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, equilibrio, voce 6: Cura i saluti
 
-- Risposta: Oggi in amore il clima è calmo e premia i gesti ordinari fatti bene, a cominciare dai saluti. Un buongiorno distratto e un bentornato frettoloso pesano più di quanto sembri. In coppia, cura l'arrivo e la partenza; senza legame, porta calore nei saluti a chi ti incuriosisce.
+- Risposta: Oggi in amore il clima è stabile e premia i gesti ordinari fatti bene, a cominciare dai saluti. Un buongiorno distratto e un bentornato frettoloso pesano più di quanto sembri. In coppia, cura l'arrivo e la partenza; senza legame, porta calore nei saluti a chi ti incuriosisce.
 - Che cosa fare: Oggi, quando saluti, fermati tre secondi in più: guarda negli occhi, sorridi, usa il nome. Se hai un legame, quando vi vedete lascia ciò che stai facendo e accogli l'altra persona con tutto il corpo. Se sei single, saluta per nome qualcuno che incroci spesso.
 - Risposta, Lunga: I saluti sono le cerniere della giornata: dicono all'altra persona se il suo arrivo è una gioia o un'interruzione. Curarli costa pochi secondi e cambia il tono delle ore insieme. Un rito meccanico, però, non scalda. Un sorriso ricambiato senza sforzo dice che stai facendo bene.
 
 #### Amore, equilibrio, voce 7: Lascia maturare
 
-- Risposta: Oggi l'amore procede quieto, adatto all'attesa paziente più che alle mosse decise. Ciò che sta nascendo ha bisogno di tempo per mostrarsi. Se una conoscenza ti incuriosisce, lasciala crescere senza forzare; se vivi una relazione, rinvia le domande grandi e goditi la vicinanza di oggi.
+- Risposta: Oggi l'amore procede regolare, adatto all'attesa paziente più che alle mosse decise. Ciò che sta nascendo ha bisogno di tempo per mostrarsi. Se una conoscenza ti incuriosisce, lasciala crescere senza forzare; se vivi una relazione, rinvia le domande grandi e goditi la vicinanza di oggi.
 - Che cosa fare: Oggi non chiedere definizioni e non sollecitare risposte con altri messaggi. Fai invece una cosa che ti piace mentre aspetti: una camminata, una lettura, un lavoro manuale. Prima di dormire annota che cosa provi, senza tirare conclusioni. Vale per chi ha un legame e per chi cerca.
 - Risposta, Lunga: Le cose del cuore hanno tempi che non si comandano: forzarle porta spesso a risposte affrettate, di cui poi ci si pente. Annotare ciò che provi aiuta a distinguere il desiderio dall'ansia. Pazienza non vuol dire indifferenza. Se la calma regge fino a sera, sei sulla buona via.
 
@@ -763,7 +763,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, equilibrio, voce 12: Cucinare a quattro mani
 
-- Risposta: Oggi in amore la giornata ha un ritmo tranquillo e domestico, adatto ai gesti semplici fatti insieme. Preparare da mangiare a quattro mani avvicina senza bisogno di discorsi. In coppia, cucinate qualcosa stasera; se sei senza legame, invita a cena chi ti incuriosisce o cucina con cura per te.
+- Risposta: Oggi in amore la giornata ha un ritmo misurato e domestico, adatto ai gesti semplici fatti insieme. Preparare da mangiare a quattro mani avvicina senza bisogno di discorsi. In coppia, cucinate qualcosa stasera; se sei senza legame, invita a cena chi ti incuriosisce o cucina con cura per te.
 - Che cosa fare: Scegli una ricetta facile da mezz'ora e dividete i compiti: chi taglia, chi mescola, chi apparecchia. Niente telefoni in cucina. Se sei senza legame e cucini per te, apparecchia come per un ospite caro, accendi una musica bassa e siediti a tavola davvero.
 - Risposta, Lunga: Lavorare con le mani accanto a qualcuno crea un dialogo silenzioso: ci si passa il sale, si ride degli errori, si aspettano i tempi dell'altra persona. È intimità senza solennità. La cucina non è una gara. A tavola, con i piatti, può arrivare anche il buonumore.
 
@@ -777,7 +777,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la vita sentimentale è lineare e invita a rivedere le aspettative, né troppo alte né troppo basse. Chiedere a un legame di essere tutto porta delusione; chiedere poco porta noia. In coppia, guarda che cosa pretendi dall'altra persona; da single, che cosa pretendi da un primo incontro.
 - Che cosa fare: Stasera scrivi tre cose che ti aspetti da chi ami o da chi vorresti incontrare. Accanto a ciascuna segna se è un desiderio giusto o una pretesa. Tieni i desideri e lascia andare una pretesa, con un gesto concreto: per esempio smettere di aspettare un messaggio a un'ora precisa.
-- Risposta, Lunga: Molte delusioni in amore non nascono da ciò che l'altra persona fa, ma da ciò che ci si aspettava in silenzio. Riportare le attese alla misura giusta libera entrambe le parti. Misura non è rinuncia. Te ne accorgi quando godi di più ciò che c'è.
+- Risposta, Lunga: Molte delusioni in amore non nascono da ciò che l'altra persona fa, ma da ciò che ci si aspettava in silenzio. Riportare le attese alla misura giusta libera entrambe le parti. Misura non è rinuncia. Godere di più ciò che c'è vuol dire che la misura è quella buona.
 
 #### Amore, equilibrio, voce 15: Il passato resta lì
 
@@ -817,13 +817,13 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Amore, equilibrio, voce 21: Il silenzio che sta bene
 
-- Risposta: Giornata quieta in amore, in cui anche il silenzio può essere buona compagnia. Non serve riempire ogni pausa. Se vivi una relazione, concedetevi un tempo insieme senza parlare, ognuno con le sue cose; se sei single, goditi la serata senza cercare subito qualcuno da sentire.
+- Risposta: Giornata lineare in amore, in cui anche il silenzio può essere buona compagnia. Non serve riempire ogni pausa. Se vivi una relazione, concedetevi un tempo insieme senza parlare, ognuno con le sue cose; se sei single, goditi la serata senza cercare subito qualcuno da sentire.
 - Che cosa fare: Stasera prenditi mezz'ora di quiete: una lettura, una musica, una tisana. Se hai un legame, proponi all'altra persona di stare nella stessa stanza, ognuno con la propria attività, senza televisione. Se sei single, resisti alla voglia di scorrere profili e messaggi per riempire il vuoto.
 - Risposta, Lunga: Saper stare in silenzio accanto a qualcuno è un segno di intimità matura: vuol dire che la presenza basta. Per chi non ha un legame, stare bene con sé è la base per scegliere. La quiete non va confusa con la distanza. Un silenzio comodo lo conferma.
 
 #### Amore, equilibrio, voce 22: Una poesia d'amore
 
-- Risposta: Oggi la vita sentimentale è calma e lascia spazio alle parole belle degli altri: una poesia d'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all'altra persona; senza legame, tienila con te come un augurio.
+- Risposta: Oggi la vita sentimentale è in equilibrio e lascia spazio alle parole belle degli altri: una poesia d'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all'altra persona; senza legame, tienila con te come un augurio.
 - Che cosa fare: Cerca oggi una poesia d'amore breve di un autore che ami e copiala a mano su un cartoncino. Se hai un legame, leggila stasera a voce bassa, senza spiegarla né commentarla. Se sei single, mettila dove cade lo sguardo quando rientri a casa.
 - Risposta, Lunga: I poeti hanno dato forma a sentimenti che tutti provano e pochi sanno dire. Prendere in prestito le loro parole non è un trucco: è un modo di riconoscersi. Versi troppo solenni stonano col momento. Basta una riga che ti resti in mente fino a sera.
 
@@ -975,7 +975,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la giornata è lucida per il lavoro e lo studio: è adatta a capire dove va davvero il tuo tempo. Le ore spese fra messaggi, interruzioni e compiti diversi si lasciano ricostruire con facilità e mostrano quale impegno ne assorbe più del dovuto, senza bisogno di indovinare.
 - Che cosa fare: Prendi un foglio e ricostruisci la mattina appena passata a blocchi di mezz'ora: che cosa hai fatto, per chi, con quale risultato. Dove non ricordi, guarda i messaggi inviati. Nel pomeriggio segna ogni passaggio mentre accade e cerchia il compito che ha chiesto più tempo del previsto.
-- Risposta, Lunga: Quando il conto delle ore torna, torna anche la serenità nel lavoro e nello studio. Sapere quanto pesa ogni impegno ti rende più chiaro nelle promesse e meno incline a concedere troppo. Lo capisci da una sorpresa: un compito che pesa più di quanto credevi.
+- Risposta, Lunga: Quando il conto delle ore torna, torna anche la serenità nel lavoro e nello studio. Sapere quanto pesa ogni impegno ti rende più chiaro nelle promesse e meno incline a concedere troppo. Se un compito pesa più di quanto credevi, il conto ha già fatto il suo lavoro.
 
 #### Carriera, favorevole, voce 8: Ricucire un rapporto
 
@@ -1065,7 +1065,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata favorevole nel lavoro a ritrovare un ordine nelle ore. Quando lavoro e studio si mescolano al resto e il giorno scivola senza un vero inizio, piccoli confini ben messi rendono il lavoro più rapido e restituiscono la sera, che spesso appartiene un po' anche alla scrivania.
 - Che cosa fare: Adesso siediti al lavoro a un'ora fissa e scrivi su un foglio i tre compiti principali. A metà giornata esci dieci minuti a camminare. A un orario deciso adesso chiudi il computer e spegni le notifiche di lavoro sul telefono per il resto della sera.
-- Risposta, Lunga: Il corpo segue i segnali dell'ambiente: un inizio riconoscibile e una fine dichiarata dicono alla mente quando è tempo di fare e quando di lasciar andare. Questo confine tiene alta la qualità del lavoro. Lo noti stasera, quando i pensieri di lavoro tacciono presto.
+- Risposta, Lunga: Il corpo segue i segnali dell'ambiente: un inizio riconoscibile e una fine dichiarata dicono alla mente quando è tempo di fare e quando di lasciar andare. Questo confine tiene alta la qualità del lavoro. Se stasera i pensieri di lavoro tacciono presto, il confine ha tenuto.
 
 #### Carriera, favorevole, voce 23: Chi ci è già passato
 
@@ -1156,7 +1156,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 7: Un lavoro alla volta
 
 - Risposta: Giornata piana nel lavoro, da mettere in fila e non da rincorrere: un compito alla volta, finito bene. Se oggi due impegni si contendono le stesse ore, scegliere quale viene prima evita di rovinarli entrambi e di arrivare a sera con due lavori a metà.
-- Che cosa fare: Metti accanto a ogni impegno di oggi la sua scadenza vera. Per quello che può aspettare chiedi subito un po' di tempo in più a chi lo attende, con un orario preciso. Con le ore guadagnate comincia dal passaggio più delicato del primo, quando la mente è fresca.
+- Che cosa fare: Metti accanto a ogni impegno di oggi la sua scadenza vera. Se due impegni si contendono le ore, sposta quello che può aspettare e, se qualcuno lo attende, avvisalo subito con un orario preciso. Poi comincia dal passaggio più delicato, quando la mente è fresca.
 - Risposta, Lunga: Le persone tollerano un'attesa annunciata con garbo molto meglio di un lavoro consegnato in fretta. Chiedere tempo prima, invece che scusarsi dopo, rafforza la fiducia nel tuo modo di lavorare. Dividere l'attenzione in due costa caro: chi passa da un compito all'altro paga ogni passaggio.
 
 #### Carriera, equilibrio, voce 8: Le osservazioni a blocchi
@@ -1409,7 +1409,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Nei negozi dove ti conoscono la fortuna di oggi è buona: chi lavora al banco della bottega che frequenti più spesso è ben disposto e può darti un consiglio o tenerti da parte ciò che cerchi. La cortesia di tutti i giorni apre corsie che nessuna vetrina mostra.
 - Che cosa fare: Entra nel negozio dove vai più spesso, il forno, l'edicola o la libreria: chiedi un consiglio preciso su ciò che ti serve. Lascia detto che cosa cerchi, con titolo, misura o colore. Se ancora non sai il nome di chi sta al banco, chiedilo prima di uscire.
-- Risposta, Lunga: Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone. È una fortuna costruita con la cortesia, una visita dopo l'altra. Meglio non chiedere troppo in una volta: un desiderio preciso resta in mente più di una lista. Te ne accorgi quando ti salutano per nome.
+- Risposta, Lunga: Chi vende e conosce i tuoi gusti pensa a te quando apre uno scatolone. È una fortuna costruita con la cortesia, una visita dopo l'altra. Meglio non chiedere troppo in una volta: un desiderio preciso resta in mente più di una lista. Un saluto per nome è già un frutto.
 
 #### Fortuna, favorevole, voce 10: Ciò che sai fare
 
@@ -1421,7 +1421,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la buona sorte è favorevole a chi apre la strada: nella tradizione cinese la fortuna entra dalla porta di casa e un ingresso ingombro la ferma sulla soglia. Liberare quel passaggio è un gesto piccolo che rende la giornata più leggera e lo sguardo più sgombro.
 - Che cosa fare: Togli dall'ingresso scarpe, borse e pacchi che non servono oggi e trova a ciascuno un posto. Pulisci la soglia e lo zerbino. Se c'è una lampadina spenta vicino alla porta, cambiala; se lo spazio lo permette, metti accanto all'entrata una pianta o una luce calda.
-- Risposta, Lunga: Il feng shui chiama bocca del qi la porta d'ingresso: da lì entrano le occasioni come entrano le persone. Un passaggio libero rende più facile anche uscire con calma, senza cercare le chiavi in un mucchio. Stasera te ne accorgi rientrando senza inciampare in niente.
+- Risposta, Lunga: Il feng shui chiama bocca del qi la porta d'ingresso: da lì entrano le occasioni come entrano le persone. Un passaggio libero rende più facile anche uscire con calma, senza cercare le chiavi in un mucchio. Se stasera rientri senza inciampare in niente, il passaggio è davvero libero.
 
 #### Fortuna, favorevole, voce 12: Il volto di ogni giorno
 
@@ -1439,7 +1439,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Giornata luminosa per la fortuna che nasce dalla gentilezza: un complimento preciso, detto a chi se lo merita, oggi torna indietro in forme inattese. Una parola buona apre porte che restano chiuse alle richieste. Costa pochissimo e mette in moto uno scambio di attenzioni che fa bene a tutti.
 - Che cosa fare: Scegli oggi una persona che fa bene qualcosa, a casa, al lavoro o in un negozio. Diglielo con un dettaglio vero: che cosa hai notato e perché ti piace. Niente frasi generiche. Se a voce ti viene difficile, scrivilo in un messaggio breve prima di sera.
-- Risposta, Lunga: Nella tradizione cinese la buona sorte cresce dove circola la benevolenza, come l'acqua che scorre in un canale pulito. Un complimento sincero rafforza chi lo riceve e chi lo fa. Diversa è l'adulazione: un elogio vago suona falso. Lo capisci da un sorriso sorpreso.
+- Risposta, Lunga: Nella tradizione cinese la buona sorte cresce dove circola la benevolenza, come l'acqua che scorre in un canale pulito. Un complimento sincero rafforza chi lo riceve e chi lo fa. Diversa è l'adulazione: un elogio vago suona falso. Un sorriso sorpreso dice che le parole erano vere.
 
 #### Fortuna, favorevole, voce 15: Spie accese di notte
 
@@ -1591,7 +1591,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Nelle abitudini abita oggi una buona sorte ordinaria: chiavi, occhiali e documenti che cambiano posto ogni sera sono la causa più comune dei piccoli contrattempi. Dare a ognuno una casa fissa toglie dalla giornata minuti di ansia e qualche ritardo.
 - Che cosa fare: Scegli vicino alla porta un punto preciso per le chiavi: una ciotola, un gancio, un piccolo vassoio. Mettici accanto ciò che porti sempre con te. Stasera, rientrando, lascia tutto lì prima ancora di toglierti le scarpe o di accendere la luce.
-- Risposta, Lunga: Un gesto ripetuto ogni giorno diventa automatico e smette di chiedere attenzione. Nella tradizione cinese l'ordine vicino all'ingresso accoglie le occasioni invece di respingerle. Il nuovo posto si dimentica in fretta, a volte già stasera. Lo capisci quando esci senza cercare niente.
+- Risposta, Lunga: Un gesto ripetuto ogni giorno diventa automatico e smette di chiedere attenzione. Nella tradizione cinese l'ordine vicino all'ingresso accoglie le occasioni invece di respingerle. Il nuovo posto si dimentica in fretta, a volte già stasera. Uscire senza cercare niente vuol dire che il gesto è entrato nell'abitudine.
 
 #### Fortuna, equilibrio, voce 10: Libri in circolo
 
@@ -1615,7 +1615,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Una fortuna regolare accompagna oggi chi lascia spazio fra un impegno e l'altro: una giornata troppo piena non lascia posto alle occasioni che arrivano per caso. Un margine di mezz'ora permette di accettare un invito, una chiacchierata o un aiuto imprevisto.
 - Che cosa fare: Guarda gli impegni di oggi e sposta o cancella quello che conta meno. Lascia libera almeno mezz'ora nel pomeriggio, senza riempirla in anticipo. Se in quel tempo non arriva nulla, usalo per una camminata o per una telefonata a cui tieni.
-- Risposta, Lunga: Le coincidenze fortunate hanno bisogno di spazio per accadere: chi corre da un appuntamento all'altro non le vede passare. Un margine nel calendario è una porta lasciata socchiusa. Non è tempo perso. Te ne accorgi arrivando a sera senza il fiato corto.
+- Risposta, Lunga: Le coincidenze fortunate hanno bisogno di spazio per accadere: chi corre da un appuntamento all'altro non le vede passare. Un margine nel calendario è una porta lasciata socchiusa. Non è tempo perso. Arrivare a sera senza il fiato corto dice che il margine ha retto.
 
 #### Fortuna, equilibrio, voce 14: L'ascolto fino in fondo
 
@@ -1743,7 +1743,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi la fortuna è in affanno negli spostamenti: mezzi in ritardo, traffico imprevisto e coincidenze perse sono più probabili del solito. Chi parte all'ultimo minuto rischia di arrivare col fiato corto proprio dove serve presentarsi bene. Un margine di tempo cambia l'esito della giornata.
 - Che cosa fare: Per ogni spostamento di oggi esci con un quarto d'ora di anticipo e controlla prima il percorso. Tieni nel telefono un'alternativa: un altro mezzo, un'altra strada. Se arrivi presto, usa il tempo in più per rileggere ciò che ti serve dove vai.
-- Risposta, Lunga: Le giornate storte si sentono soprattutto nei passaggi stretti, dove un ritardo ne chiama un altro. Partire prima toglie potere ai contrattempi. Quel margine va difeso all'ultimo minuto da un messaggio o da una commissione in più. Lo capisci quando arrivi senza correre.
+- Risposta, Lunga: Le giornate storte si sentono soprattutto nei passaggi stretti, dove un ritardo ne chiama un altro. Partire prima toglie potere ai contrattempi. Quel margine va difeso all'ultimo minuto da un messaggio o da una commissione in più. Se arrivi senza correre, partire prima ha funzionato.
 
 #### Fortuna, salita, voce 11: Non promettere troppo
 
