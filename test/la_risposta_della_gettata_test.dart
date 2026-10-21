@@ -811,8 +811,10 @@ void main() {
                   AmbitoDelicato.legge =>
                     RegExp(r'^Le rune non predicono l’esito di una '
                         r'(causa|vicenda legale)'),
-                  AmbitoDelicato.denaro =>
-                    RegExp(r'^Le rune non danno consigli'),
+                  AmbitoDelicato.denaro => q.sceltaDiVita
+                      ? RegExp(r'^(Le rune non valutano i conti|Sui conti di '
+                          r'questa scelta|I numeri di questa scelta)')
+                      : RegExp(r'^Le rune non danno consigli'),
                 }
               : switch (q.tipo) {
                   TipoDiDomanda.decisione => RegExp(r'^(Sì|Non |No)'),

@@ -107,6 +107,7 @@ class LaDomandaLetta {
     this.seconda,
     this.chiude = false,
     this.suTerapia = false,
+    this.sceltaDiVita = false,
   });
 
   final TipoDiDomanda tipo;
@@ -137,6 +138,16 @@ class LaDomandaLetta {
   /// sospendere una cura per una gettata. Lettura severa del terzo giro.
   final bool suTerapia;
 
+  /// **UNA SCELTA DI VITA CON UN LATO DI DENARO** ("Devo lasciare il lavoro per
+  /// tornare a studiare?", "E' il momento giusto per aprire la mia
+  /// attivita'?"). Il limite sui conti va detto, ma la domanda non e' sui
+  /// soldi: la risposta deve leggere la pietra sulla scelta e dare un
+  /// criterio. Il lettore cieco dell'ultimo giro ha letto "Le rune non danno
+  /// consigli di denaro" sopra una scelta di studio, con un cosa fare che
+  /// presumeva debiti (padre: l'estensione del denaro ad "aprire un'attivita'"
+  /// e "lasciare il lavoro", riapertura della voce GA.06, secondo giro).
+  final bool sceltaDiVita;
+
   /// **IL LETTORE.** Le regole sono scritte sulle forme della lingua, non su
   /// un elenco di domande: le domande dei lettori ciechi sono una prova, non
   /// la misura (`test/la_risposta_della_gettata_test.dart` ne porta altre,
@@ -150,13 +161,20 @@ class LaDomandaLetta {
     }
     final tema = IlPresagioDalCorpus.cosaDellaDomanda(originale);
     final delicato = ambitoDelicato(d);
+    final vita = delicato == AmbitoDelicato.denaro &&
+        _sceltaDiVita.hasMatch(d) &&
+        !_soldiVeriRe.hasMatch(d);
     final terapia = delicato == AmbitoDelicato.salute && _suTerapia.hasMatch(d);
     // Le domande del Cerchio hanno il loro tipo, scritto qui: sono dodici e
     // non cambiano senza che cambi questo file (la prova lo controlla).
     final delCerchio = _tipoDelCerchio[d];
     if (delCerchio != null) {
       return LaDomandaLetta(
-          tipo: delCerchio, tema: tema, delicato: delicato, suTerapia: terapia);
+          tipo: delCerchio,
+          tema: tema,
+          delicato: delicato,
+          suTerapia: terapia,
+          sceltaDiVita: vita);
     }
     final parti = _dividi(originale);
     if (parti != null) {
@@ -175,6 +193,7 @@ class LaDomandaLetta {
         seconda: seconda,
         chiude: prima.chiude,
         suTerapia: terapia || prima.suTerapia,
+        sceltaDiVita: vita,
       );
     }
     final tipo = _tipo(d);
@@ -186,6 +205,7 @@ class LaDomandaLetta {
       strade: tipo == TipoDiDomanda.scelta ? _strade(originale) : null,
       chiude: tipo == TipoDiDomanda.decisione && _chiusura.hasMatch(d),
       suTerapia: terapia,
+      sceltaDiVita: vita,
     );
   }
 
@@ -232,25 +252,31 @@ class LaDomandaLetta {
       r'causa|cause legali|tribunal\w*|avvocat\w*|giudice|giudici|processo|'
       r'denunc\w*|querel\w*|sentenz\w*|ricors[oi]|divorzi\w*|separazione|'
       r'affidamento|risarciment\w*');
-  static final RegExp _denaro = parola(
+  // Aprire un'attivita' e lasciare il lavoro sono scelte con un lato di
+  // denaro anche quando la domanda non lo dice (ordine GA voce GA.06,
+  // riapertura: il lettore cieco ha letto "Sì, adesso" a lasciare il lavoro e
+  // "vai avanti" ad aprire un'attivita' senza una parola sui conti). Ma non
+  // sono domande sui soldi: il limite sui conti si dice e poi si legge la
+  // pietra sulla scelta ([sceltaDiVita], secondo giro).
+  static const String _scelteDiVita =
+      r"apr\w* (la mia |una |un |un'|il mio |)(attività|negozio|impresa|"
+      r'azienda|studio)|mettermi in proprio|'
+      r'(lasciare|mollare|abbandonare) (il|la mia|il mio) (lavoro|posto)|'
+      r'licenziarmi|dimettermi';
+  static const String _soldiVeri =
       r'soldi|denaro|risparmi\w*|investi\w*|borsa|azioni|cripto\w*|bitcoin|'
       r'mutu[oi]|prestit\w*|debit\w*|finanz\w*|stipend\w*|eredit\w*|'
       r'compr\w* (casa|una casa|la casa|un appartamento)|'
       r'acquist\w* (casa|una casa|la casa|un appartamento)|'
-      // Aprire un'attivita' e lasciare il lavoro sono scelte di denaro anche
-      // quando la domanda non lo dice (ordine GA voce GA.06, riapertura: il
-      // lettore cieco ha letto "Sì, adesso" a lasciare il lavoro e "vai
-      // avanti" ad aprire un'attivita' senza una parola sui conti).
-      r'apr\w* (la mia |una |un |il mio |)(attività|negozio|impresa|azienda|'
-      r'studio)|'
-      r'(lasciare|mollare|abbandonare) (il|la mia|il mio) (lavoro|posto)|'
-      r'licenziarmi|dimettermi|'
       // Vendere o affittare una casa, un terreno, un negozio: "Dovrei vendere
       // l'appartamento di mia madre?" prendeva un "Sì, la volonta' c'e'"
       // (lettura severa del terzo giro).
       r"vend\w* (la |il |l'|lo |un |una )?(mia |mio |tua |tuo )?"
       r'(casa|appartament\w*|immobil\w*|terren\w*|negozi\w*|aziend\w*|'
-      r'auto|macchina)|affitt\w*|caparra');
+      r'auto|macchina)|affitt\w*|caparra';
+  static final RegExp _denaro = parola('$_soldiVeri|$_scelteDiVita');
+  static final RegExp _soldiVeriRe = parola(_soldiVeri);
+  static final RegExp _sceltaDiVita = parola(_scelteDiVita);
 
   /// L'ambito delicato di una domanda gia' normalizzata. Il denaro prima
   /// della salute: "un'operazione in borsa" e' denaro. "Causa" vale solo
@@ -1193,8 +1219,8 @@ abstract final class LaRispostaDellaGettata {
     final doveSono = _elenco(luoghi);
     if (k == 0) {
       return [
-        'Le ${_numeri[n]} pietre sono tutte dritte e sostengono questa '
-            'lettura.',
+        'Le ${_numeri[n]} pietre sono tutte dritte e nessuna si oppone alle '
+            'altre.',
         'Le ${_numeri[n]} pietre sono tutte dritte.',
       ];
     }
@@ -1352,28 +1378,114 @@ abstract final class LaRispostaDellaGettata {
   /// stato con lui" sopra una frase che manda dal consulente (simulazione sul
   /// Realme, gruppo C, D8), "Apri la mano" su un investimento. Qui il titolo
   /// dice il limite, nelle parole dell'ambito.
-  static String titoloDelicato(AmbitoDelicato a, RunaGettata decide) {
-    final titoli = switch (a) {
-      AmbitoDelicato.salute => [
-          'Le rune non sostituiscono chi ti cura.',
-          'Prima di ogni decisione ascolta chi ti segue.',
-          'Su questo parla il medico, la runa ti accompagna.',
-        ],
-      AmbitoDelicato.legge => [
-          'Le rune non sostituiscono un avvocato.',
-          'Prima di ogni mossa parla con chi ti assiste.',
-          'Su questo parla chi conosce la legge.',
-        ],
-      AmbitoDelicato.denaro => [
-          'Prima di muovere denaro, fermati.',
-          'Su questo parla chi conosce i tuoi numeri.',
-          'Per i tuoi soldi serve un consulente, non un presagio.',
-        ],
-    };
+  static String titoloDelicato(AmbitoDelicato a, RunaGettata decide,
+      {bool sceltaDiVita = false}) {
+    final titoli = sceltaDiVita
+        ? _titoliSceltaDiVita
+        : switch (a) {
+            AmbitoDelicato.salute => [
+                'Le rune non sostituiscono chi ti cura.',
+                'Prima di ogni decisione ascolta chi ti segue.',
+                'Su questo parla il medico, la runa ti accompagna.',
+              ],
+            AmbitoDelicato.legge => [
+                'Le rune non sostituiscono un avvocato.',
+                'Prima di ogni mossa parla con chi ti assiste.',
+                'Su questo parla chi conosce la legge.',
+              ],
+            AmbitoDelicato.denaro => [
+                'Prima di muovere denaro, fermati.',
+                'Su questo parla chi conosce i tuoi numeri.',
+                'Per i tuoi soldi serve un consulente, non un presagio.',
+              ],
+          };
     return titoli[
         IlPresagioDalCorpus.seme('${decide.rune.name}|${decide.inOmbra}') %
             titoli.length];
   }
+
+  /// **LA SCELTA DI VITA CON UN LATO DI DENARO**, secondo giro dell'ultima
+  /// riapertura della voce GA.06. Il lettore cieco ha letto "Le rune non danno
+  /// consigli di denaro" sopra "Devo lasciare il lavoro per tornare a
+  /// studiare?" e ha trovato la pietra ignorata. Qui il limite sui conti sta
+  /// in una frase, poi la pietra che decide dice che cosa mostra e, sulla
+  /// scelta in se', il criterio per scegliere (come fa l'Oracolo: un
+  /// criterio, non un verdetto). Mai una somma o un debito dato per presente.
+  static String? _paragrafoSceltaDiVita(
+      LaDomandaLetta domanda, EsitoGettata esito, int variante) {
+    final pietra = IlPresagioDalCorpus.pietraCheDecide(esito);
+    final p = LaPietraLetta.di(pietra);
+    final r = '${pietra.rune.name} ${_versoParola(pietra)}';
+    final senso = sensoDelicato(AmbitoDelicato.denaro, pietra) ?? p.senso;
+    final limiti = _ruotata(const [
+      'Le rune non valutano i conti di questa scelta: per quelli serve un '
+          'consulente che conosca i tuoi numeri.',
+      'Sui conti di questa scelta le rune non dicono niente: li guarda un '
+          'consulente che conosca i tuoi numeri.',
+      'I numeri di questa scelta non si leggono nelle rune: li guarda un '
+          'consulente che conosca la tua situazione.',
+    ], variante);
+    // Le parole di chi chiede, quando si leggono bene: "la scelta di lasciare
+    // il lavoro per tornare a studiare".
+    final azione = domanda.azione;
+    final laScelta = azione != null && azione.split(' ').length <= 8
+        ? 'sulla scelta di $azione'
+        : 'sulla scelta in sé';
+    final pietre = _ruotata([
+      '$r indica $senso; $laScelta il criterio è questo: preferisci '
+          'la strada che ${p.criterio}.',
+      '${maiuscola(laScelta)} $r mostra $senso e suggerisce un criterio: '
+          'preferisci la strada che ${p.criterio}.',
+      '${esito.rune.length == 1 ? 'La runa uscita' : 'La pietra che decide'}, '
+          '$r, indica $senso. Come criterio, preferisci la strada che '
+          '${p.criterio}.',
+    ], variante);
+    const code = [
+      '',
+      ' La scelta resta tua e non ha bisogno di fretta.',
+      ' Il criterio non decide al posto tuo: ti aiuta a guardare.',
+      ' Prima di muoverti guarda se la strada scelta regge anche nei giorni '
+          'storti.',
+    ];
+    final candidati = [
+      for (final l in limiti)
+        for (final n in notaDellaSeconda(domanda))
+          for (final s in pietre)
+            for (final c in code)
+              [l, n, s + c].where((x) => x.isNotEmpty).join(' '),
+    ];
+    return primaCheSta(
+        candidati, LaFormaDelResponso.minimo, LaFormaDelResponso.massimo);
+  }
+
+  static const List<String> _titoliSceltaDiVita = [
+    'Il conto lo guarda un consulente, la scelta resta tua.',
+    'Sui numeri decide chi li conosce: la scelta è tua.',
+    'Prima i numeri con chi li conosce, poi la scelta.',
+  ];
+
+  static const List<String> _riquadriSceltaDiVita = [
+    'Scrivi in due colonne che cosa speri di trovare con questa scelta e che '
+        'cosa temi di lasciare, poi sottolinea ciò che non dipende dai soldi. '
+        'Prima di fare il passo, fai guardare la parte economica a un '
+        'consulente che conosca i tuoi numeri.',
+    'Descrivi in dieci righe la tua giornata fra sei mesi se fai questa '
+        'scelta e in altre dieci quella in cui non la fai. Rileggile dopo '
+        'qualche giorno: la versione che ti dà più quiete merita attenzione. '
+        'Per i numeri, parlane con un consulente.',
+    'Racconta a una persona di fiducia perché vuoi fare questa scelta e '
+        'ascolta se le tue ragioni reggono quando le dici ad alta voce. Poi '
+        'fissa un incontro con un consulente e portagli le cifre che '
+        'conosci, per capire che cosa è sostenibile.',
+    'Elenca che cosa ti serve sapere prima di scegliere, per esempio tempi, '
+        'requisiti e passi concreti. Cerca le risposte una per una e non '
+        'decidere finché la lista non è chiusa. Poi fai verificare la parte '
+        'economica da un consulente che conosca i tuoi numeri.',
+    'Vivi per tre giorni come se la scelta fosse già fatta e annota ogni '
+        'sera come ti senti. In questi giorni non cambiare nulla di '
+        'irreversibile. Poi porta le tue annotazioni, insieme alle cifre, a '
+        'un consulente prima di decidere davvero.',
+  ];
 
   /// **IL PARAGRAFO DELLA RISPOSTA QUANDO LA DOMANDA TOCCA SALUTE, LEGGE O
   /// DENARO** (ordine S voce 17, voce GA.06): il limite per primo, poi
@@ -1388,6 +1500,9 @@ abstract final class LaRispostaDellaGettata {
     int variante = 0,
   }) {
     final ambito = domanda.delicato!;
+    if (domanda.sceltaDiVita) {
+      return _paragrafoSceltaDiVita(domanda, esito, variante);
+    }
     final animo = animoDelicato(IlPresagioDalCorpus.pietraCheDecide(esito));
     final tempo = _tempoDelicato(ambito);
     final seconde = _ruotata([
@@ -1631,6 +1746,9 @@ abstract final class LaRispostaDellaGettata {
     final p = LaPietraLetta.di(IlPresagioDalCorpus.pietraCheDecide(esito));
     final g = _gruppo(classe(esito, chiude: domanda.chiude));
     if (domanda.delicato != null) {
+      if (domanda.sceltaDiVita) {
+        return _riquadriSceltaDiVita[variante % _riquadriSceltaDiVita.length];
+      }
       return _riquadroDelicato(domanda.delicato!, variante,
           terapia: domanda.suTerapia);
     }
@@ -1934,6 +2052,7 @@ abstract final class LaRispostaDellaGettata {
     final chiA = _chiA(ambito, chi);
     final chiCon = _chiCon(ambito, chi + 1);
     final nonSa = _cheNonSa(ambito);
+    final animo = animoDelicato(pietra);
     // Le code cambiano da una scheda all'altra: "un giorno alla volta" in
     // fondo a quattro schede su sette era la formula che il lettore cieco ha
     // contato (rune-31: "un giorno alla volta" tre volte).
@@ -1942,19 +2061,19 @@ abstract final class LaRispostaDellaGettata {
       ' Un giorno alla volta.',
       ' Passo dopo passo, con calma.',
       ' Senza forzare i tempi.',
-      ' Senza fretta, un giorno alla volta.',
+      ' Senza fretta di sapere, con un po’ di pazienza.',
       ' Con calma e senza fretta, passo dopo passo.',
-      ' Un giorno alla volta, senza cercare certezze che nessuno può dare.',
-      ' Non serve altro, per ora: un giorno alla volta, senza cercare '
-          'certezze che nessuno può dare.',
+      ' Senza cercare certezze che nessuno può dare.',
+      ' Non serve altro, per ora: basta non cercare certezze che nessuno '
+          'può dare.',
     ], chi);
     final nuclei = [
       '$r, $dov, indica $senso. Non dice come andrà $cosa: nessuna runa lo '
           'sa e la parola decisiva spetta $chiA. Ti dice invece con che '
           'animo attraversare questo tratto.',
       '$r $dov: $senso. Non è una previsione su $cosa e nessuna gettata '
-          'può esserlo. È un invito a stare presente a ciò che senti, mentre '
-          'le decisioni che contano restano $chiA.',
+          'può esserlo. Come atteggiamento dice solo questo: $animo. Le '
+          'decisioni che contano restano $chiA.',
       'Il segno di $r $dov è $senso. Su $cosa la runa non sa niente di '
           'concreto, perché non conosce $nonSa. Per il resto rivolgiti '
           '$chiA.',
@@ -2379,7 +2498,20 @@ abstract final class LaRispostaDellaGettata {
   // -------------------------------------------------------------------------
 
   /// Che cosa dice una posizione, come titolo della scheda.
-  static String ruolo(PosizioneGettata p) => switch (p.titolo) {
+  /// I modi di dire una pietra ai margini del telo: "Una voce lieve" apriva
+  /// dieci titoli di dodici gettate (lettore cieco dell'ultimo giro). La
+  /// pietra sceglie il suo, sempre lo stesso per quella pietra.
+  static const List<String> ruoliAiMargini = [
+    'Una voce lieve',
+    'Un richiamo discreto',
+    'Un segno più piano',
+    'Un’eco dal bordo',
+    'Un sussurro ai margini',
+    'Un tratto più lontano',
+  ];
+
+  static String ruolo(PosizioneGettata p, [String pietra = '']) =>
+      switch (p.titolo) {
         'Urdhr' => 'Da dove vieni',
         'Verdhandi' => 'Dove sei adesso',
         'Skuld' => 'Dove tende la strada',
@@ -2390,7 +2522,9 @@ abstract final class LaRispostaDellaGettata {
         'Esito' => 'Dove tende la questione',
         'Al centro' => 'Ciò che pesa di più',
         'Presso il centro' => 'Ciò che accompagna',
-        'Ai margini' => 'Una voce lieve',
+        'Ai margini' => ruoliAiMargini[
+            IlPresagioDalCorpus.seme('$pietra|ai margini') %
+                ruoliAiMargini.length],
         _ => maiuscola(p.titolo),
       };
 
@@ -2420,6 +2554,6 @@ abstract final class LaRispostaDellaGettata {
       'Consiglio' => p.animo,
       _ => p.senso,
     };
-    return '${ruolo(pietra.posizione)}: $che.';
+    return '${ruolo(pietra.posizione, pietra.rune.name)}: $che.';
   }
 }

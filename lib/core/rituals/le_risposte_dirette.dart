@@ -1,5 +1,6 @@
 import '../chat/user_profile.dart';
 import '../responsi/la_forma_del_responso.dart';
+import 'il_presagio_dal_corpus.dart';
 import 'l_oggetto_della_domanda.dart';
 import 'la_risposta_della_gettata.dart';
 
@@ -105,7 +106,17 @@ abstract final class LeRisposteDirette {
     if (tipo == null) return [q.tema];
     switch (tipo) {
       case 'decisione':
-        return const ['questa decisione'];
+        // La scelta con le parole di chi chiede, quando e' corta ("la scelta
+        // di lasciare Roma"): le schede pari la nominano, le dispari dicono
+        // "questa decisione" (lettore cieco dell'ultimo giro: nessuna scheda
+        // nominava la cosa della domanda).
+        final a = q.azione;
+        return [
+          // "per lasciare Roma", "per accettare l'offerta": ogni spazio delle
+          // voci sta dopo "per", e l'infinito ci sta.
+          if (a != null && a.split(' ').length <= 5) a,
+          'questa decisione',
+        ];
       case 'scelta':
         return const ['questa scelta'];
       case 'vaga':
@@ -178,27 +189,33 @@ abstract final class LeRisposteDirette {
     return null;
   }
 
-  static String _conPreposizione(String preposizione, String persona) {
+  /// Le preposizioni articolate, una riga per preposizione: davanti a il, a
+  /// lo, a la, a l'. Sono scritte per intero e non per chiave perche' una
+  /// preposizione isolata fra virgolette nel codice e' una parola che la
+  /// guardia degli accenti legge come un verbo.
+  static const String _fuseA = 'al|allo|alla|all’';
+  static const String _fuseDa = 'dal|dallo|dalla|dall’';
+  static const String _fuseDi = 'del|dello|della|dell’';
+
+  /// [fuse] e' una delle tre righe qui sopra, oppure 'con' (che non si fonde).
+  static String _conPreposizione(String fuse, String persona) {
+    final semplice = fuse.startsWith('del')
+        ? 'di'
+        : fuse.startsWith('con')
+            ? 'con'
+            : fuse.substring(0, fuse.indexOf('l'));
     final m = RegExp(r'^(?:(il|la|lo) |(l’))(.*)$').firstMatch(persona);
-    if (m == null || preposizione == 'con') {
-      return '$preposizione $persona';
+    if (m == null || fuse == 'con') {
+      return '$semplice $persona';
     }
     final articolo = m.group(1) ?? m.group(2)!;
     final resto = m.group(3)!;
-    final fusa = switch ((preposizione, articolo)) {
-      ('a', 'il') => 'al',
-      ('a', 'lo') => 'allo',
-      ('a', 'la') => 'alla',
-      ('a', 'l’') => 'all’',
-      ('da', 'il') => 'dal',
-      ('da', 'lo') => 'dallo',
-      ('da', 'la') => 'dalla',
-      ('da', 'l’') => 'dall’',
-      ('di', 'il') => 'del',
-      ('di', 'lo') => 'dello',
-      ('di', 'la') => 'della',
-      ('di', 'l’') => 'dell’',
-      _ => '$preposizione $articolo',
+    final forme = fuse.split('|');
+    final fusa = switch (articolo) {
+      'il' => forme[0],
+      'lo' => forme[1],
+      'la' => forme[2],
+      _ => forme[3],
     };
     return articolo == 'l’' ? '$fusa$resto' : '$fusa $resto';
   }
@@ -212,18 +229,26 @@ abstract final class LeRisposteDirette {
     t = t.replaceAllMapped(
         RegExp(r'(?<![a-zà-ÿ])(A|a|Da|da|Di|di|Con|con) chi è coinvolt[oa]'),
         (m) => _maiuscolaSeServe(
-            m.group(1)!, _conPreposizione(m.group(1)!.toLowerCase(), persona)));
+            m.group(1)!,
+            _conPreposizione(
+                switch (m.group(1)!.toLowerCase()) {
+                  'con' => 'con',
+                  'di' => _fuseDi,
+                  'a' => _fuseA,
+                  _ => _fuseDa,
+                },
+                persona)));
     t = t.replaceAllMapped(
         RegExp(
             r'(?<![a-zà-ÿ])(Alla|alla|Dalla|dalla|Della|della|Con la|con la) '
             r'persona coinvolta'), (m) {
       final p = m.group(1)!.toLowerCase();
       final prep = p.startsWith('alla')
-          ? 'a'
+          ? _fuseA
           : p.startsWith('dalla')
-              ? 'da'
+              ? _fuseDa
               : p.startsWith('della')
-                  ? 'di'
+                  ? _fuseDi
                   : 'con';
       return _maiuscolaSeServe(m.group(1)!, _conPreposizione(prep, persona));
     });
@@ -232,11 +257,11 @@ abstract final class LeRisposteDirette {
             r'altra persona'), (m) {
       final p = m.group(1)!.toLowerCase();
       final prep = p.startsWith('all')
-          ? 'a'
+          ? _fuseA
           : p.startsWith('dall')
-              ? 'da'
+              ? _fuseDa
               : p.startsWith('dell')
-                  ? 'di'
+                  ? _fuseDi
                   : 'con';
       return _maiuscolaSeServe(m.group(1)!, _conPreposizione(prep, persona));
     });
@@ -245,10 +270,10 @@ abstract final class LeRisposteDirette {
         (m) {
       final p = m.group(1)!.toLowerCase();
       final prep = p.startsWith('all')
-          ? 'a'
+          ? _fuseA
           : p.startsWith('dall')
-              ? 'da'
-              : 'di';
+              ? _fuseDa
+              : _fuseDi;
       return _maiuscolaSeServe(m.group(1)!, _conPreposizione(prep, persona));
     });
     t = t.replaceAllMapped(RegExp(r'(?<![a-zà-ÿ])(L’|l’)altra parte'),
@@ -296,15 +321,71 @@ abstract final class LeRisposteDirette {
 
   /// La voce con lo spazio riempito (e la nota della domanda doppia, se
   /// c'e'), fra 40 e 50 parole; null se nessun valore la fa stare.
+  ///
+  /// **Il riquadro (comeAzione)**: "per questo momento" detto due volte, nel
+  /// paragrafo e nel riquadro di una domanda vaga, e' una cucitura (lettore
+  /// cieco dell'ultimo giro: "per questo momento infilato a forza"); nel
+  /// riquadro diventa "per adesso".
+  ///
+  /// **Una cosa generica non apre il testo**: "Per questa situazione procedi"
+  /// apriva quindici testi di dodici gettate (stesso lettore). Con "questa
+  /// situazione", "questa decisione", "questa scelta" o "questo legame" una
+  /// voce che comincia con "Per {cosa}" comincia dal verbo, se il testo resta
+  /// a misura.
+  static const Set<String> _cosaGenerica = {
+    'questa situazione',
+    'questa decisione',
+    'questa scelta',
+    'questo legame',
+  };
+
+  static const List<String> _aperture = [
+    'In questo caso',
+    'Su questo punto',
+    'In questa fase',
+  ];
+
   static String? riempi(String voce, List<String> valori,
-      {List<String> note = const ['']}) {
+      {List<String> note = const [''], bool comeAzione = false}) {
     final spazio = voce.contains('{azione}') ? '{azione}' : '{cosa}';
     // Prima i valori che la voce non ripete gia' con parole sue ("Restringi
     // la domanda a ciò che ti sta più a cuore" con "per ciò che ti sta a
     // cuore" dentro), poi, se nessuno sta nella misura, anche quelli.
     final ordinati = senzaRipetizioni(voce, valori);
     for (final n in note) {
-      for (final v in ordinati) {
+      for (final v0 in ordinati) {
+        final v =
+            comeAzione && (v0 == 'questo momento' || v0 == 'il tuo momento')
+                ? 'adesso'
+                : v0;
+        if (spazio == '{cosa}' &&
+            _cosaGenerica.contains(v) &&
+            voce.startsWith('Per {cosa}')) {
+          var resto = voce.substring('Per {cosa}'.length);
+          if (resto.startsWith(',')) resto = resto.substring(1);
+          resto = resto.trimLeft();
+          if (resto.isNotEmpty) {
+            final aperta = resto[0].toUpperCase() + resto.substring(1);
+            final t = [aperta.replaceAll(spazio, v), n]
+                .where((x) => x.isNotEmpty)
+                .join(' ');
+            if (LaFormaDelResponso.aMisura(t)) return t;
+          }
+          // Se senza l'apertura il testo scende sotto le quaranta parole,
+          // l'apertura cambia a parita' di parole: tre modi, uno per voce.
+          final apertura = _aperture[voce.length % _aperture.length];
+          final t = [
+            voce.replaceFirst('Per {cosa}', apertura).replaceAll(spazio, v),
+            n
+          ].where((x) => x.isNotEmpty).join(' ');
+          if (LaFormaDelResponso.aMisura(t) &&
+              t.split(' ').length ==
+                  voce.replaceAll(spazio, v).split(' ').length &&
+              apertura.split(' ').length == 3 &&
+              v.split(' ').length == 2) {
+            return t;
+          }
+        }
         final t = [voce.replaceAll(spazio, v), n]
             .where((x) => x.isNotEmpty)
             .join(' ');
@@ -346,6 +427,17 @@ abstract final class LeRisposteDirette {
   static final RegExp _vociDiPaura = LaDomandaLetta.parola(
       r'paur\w*|timor\w*|ansi\w*|panic\w*|angosc\w*|terror\w*|'
       r'spavent\w*');
+
+  static final Map<String, bool> _paure = {};
+  static final Map<String, bool> _conflitti = {};
+  static final Map<String, bool> _lunghi = {};
+
+  static bool haLaPaura(String testo) => _paure.putIfAbsent(
+      testo, () => _vociDiPaura.hasMatch(testo.toLowerCase()));
+  static bool haIlConflitto(String testo) => _conflitti.putIfAbsent(
+      testo, () => _vociDiConflitto.hasMatch(testo.toLowerCase()));
+  static bool haUnTempoLungo(String testo) => _lunghi.putIfAbsent(
+      testo, () => _tempoLungo.hasMatch(testo.toLowerCase()));
 
   /// Che cosa la domanda dice di conflitto e di paura: le parole che
   /// licenziano le voci che li presuppongono.
@@ -392,6 +484,85 @@ abstract final class LeRisposteDirette {
       r'fidanzat\w*|nonn\w*|zi[oa]|cugin\w*|vicin[oa]|'
       r'relazione|coppia|matrimonio|persona');
 
+  /// Le voci che chiamano in causa altre persone oltre a chi chiede ("le tre
+  /// persone che contano di piu'", "chi ti sta vicino", un gruppo): sotto
+  /// "Devo dirle che sono innamorato di lei?" il lettore cieco dell'ultimo
+  /// giro ha letto una condizione che non c'entra con una dichiarazione
+  /// d'amore e un cosa fare che presumeva terzi. Una domanda che parla di
+  /// famiglia, amici, colleghi o di un gruppo le licenzia.
+  static final RegExp _vociConTerzi = LaDomandaLetta.parola(
+      r'persone che contano|tre persone|persone a cui tieni|persone care|'
+      r'chi ti (sta |è )?vicin[oa]|chi ti circonda|chi ti sta accanto|'
+      r'tuoi cari|cerchia|comunità|gruppo|squadra|famiglia|amici|colleghi|'
+      r'chi ti vuole bene|stare meglio con le persone');
+  static final RegExp _domandaConTerzi = LaDomandaLetta.parola(
+      r'famigli\w*|amici|amiche|colleghi|collegh[ei]|genitori|figli|fratelli|'
+      r'parenti|gruppo|squadra|team|persone|gente|tutti|suoceri|nonni|'
+      r'compagni di|vicini|amicizie|cerchia|comunità|soci');
+
+  /// **LA POSTURA DI UN TESTO: ATTENDERE O AGIRE.** Ordine GA voce GA.06,
+  /// ultimo giro. Il lettore cieco ha letto, nella stessa gettata, "Sospendi
+  /// per tre settimane ogni discorso decisivo" sotto "chiedi entro tre giorni
+  /// un momento a quattr'occhi", e un principale che dice "Rimanda di una
+  /// settimana" sopra schede che dicono "dichiaralo apertamente alla persona
+  /// interessata". Un testo chiede di attendere (sospendi, rimanda, non
+  /// parlare, aspetta alcuni giorni) o di agire subito (dillo, chiedi,
+  /// proponi entro pochi giorni, a quattr'occhi); se chiede entrambe le cose
+  /// o nessuna, non ha una postura.
+  static final RegExp _chiedeAttesa = LaDomandaLetta.parola(
+      r"sospendi|sospendere|rimand\w*|fermati|"
+      r'non (decidere|prendere|dire|scrivere|parlare|parlarne|chiedere|'
+      r'riaprire|affrontare|comunicare|annunciare|agire|firmare|rispondere|'
+      r'forzare|fare mosse)|'
+      r'niente (ultimatum|decisioni|mosse|chiarimenti|messaggi|annunci|'
+      r'iniziative|discorsi)|'
+      r'(aspetta|attendi|lascia passare|concediti) (almeno )?(un|due|tre|'
+      r'quattro|cinque|sette|dieci|quindici|ventiquattro|quarantotto|'
+      r'qualche) (ore|giorno|giorni|settimana|settimane|mese|notte|notti)|'
+      r'per (due|tre|quattro|cinque|sette|dieci|quindici) (giorni|settimane) '
+      r'(non|niente)');
+  static const String _scadenzaBreve =
+      r"(entro|fra|tra) (oggi|domani|stasera|(due|tre|quattro|cinque) giorni|"
+      r'venerdì|sabato|domenica|mercoledì|giovedì|lunedì|martedì)|oggi stesso|'
+      r'domattina|domani mattina';
+  static const String _gestoVersoUnAltro =
+      r"di'|dillo|dilla|dille|dirgli|dirle|chiedi|chiedile|chiedigli|proponi|"
+      r'proponile|proponigli|parla|parlane|manda|invia|comunica|dichiara\w*|'
+      r'fissa un incontro|incontra|telefona|chiama';
+  static final RegExp _chiedeAzione = LaDomandaLetta.parola(
+      "(?:$_scadenzaBreve)[^.]{0,90}(?:$_gestoVersoUnAltro)|"
+      "(?:$_gestoVersoUnAltro)[^.]{0,90}(?:$_scadenzaBreve)|"
+      r"a quattr'occhi|dichiaralo apertamente|apertamente (alla|a|con)|"
+      r'conversazione diretta|a viso aperto|parla in prima persona|'
+      r"(dillo|dilla|dille) (a voce|apertamente)");
+
+  /// 'attesa', 'azione' o null. Le voci sono le stesse migliaia di volte per
+  /// presagio: il risultato si ricorda (la prova dei sessanta giorni chiama
+  /// questa misura milioni di volte).
+  static final Map<String, String?> _posture = {};
+
+  static String? postura(String testo) {
+    if (_posture.containsKey(testo)) return _posture[testo];
+    final t = testo.toLowerCase().replaceAll('’', "'");
+    final attesa = _chiedeAttesa.hasMatch(t);
+    final azione = _chiedeAzione.hasMatch(t);
+    return _posture[testo] =
+        attesa == azione ? null : (attesa ? 'attesa' : 'azione');
+  }
+
+  /// La postura del verdetto con cui apre un paragrafo diretto.
+  static String? posturaDelVerdetto(String paragrafo) {
+    final p = paragrafo.trimLeft();
+    if (RegExp(r'^(Non ancora|Non adesso|Non ora|Non a caldo|Non così|'
+            r'Aspetta|Rimanda|Meglio rimandare|Meglio attendere|'
+            r'Meglio una sosta|Ancora no|Fermati)')
+        .hasMatch(p)) {
+      return 'attesa';
+    }
+    if (RegExp(r'^Sì, (adesso|subito|ora)').hasMatch(p)) return 'azione';
+    return null;
+  }
+
   /// La persona di cui si chiede non e' vicina: tornera', un'ex, la
   /// distanza, "come lo dimentico".
   static final RegExp _domandaDiAssenza = LaDomandaLetta.parola(
@@ -417,6 +588,7 @@ abstract final class LeRisposteDirette {
       if (_domandaDiPaura.hasMatch(d)) 'paura',
       if (_domandaDiAssenza.hasMatch(d)) 'assenza',
       if (_tempoBreve.hasMatch(d)) 'breve',
+      if (_domandaConTerzi.hasMatch(d)) 'terzi',
     };
   }
 
@@ -447,17 +619,17 @@ abstract final class LeRisposteDirette {
   ///   giro, scritte per il caso difficile di ogni tipo).
   static bool regge(String voce, String valore,
       {required bool chiude, Set<String> licenze = const {}}) {
-    final b = voce.toLowerCase();
-    if (!licenze.contains('conflitto') && _vociDiConflitto.hasMatch(b)) {
-      return false;
-    }
-    if (!licenze.contains('paura') && _vociDiPaura.hasMatch(b)) return false;
-    if (!licenze.contains('controparte') && _vociConControparte.hasMatch(b)) {
-      return false;
-    }
-    if (licenze.contains('assenza') && _vociDiPresenza.hasMatch(b)) {
-      return false;
-    }
+    final s = _segni(voce);
+    if (!licenze.contains('conflitto') && s.conflitto) return false;
+    if (!licenze.contains('paura') && s.paura) return false;
+    // Una scelta di vita col suo lato di denaro: niente voci che spingono a
+    // muovere, spendere o vendere beni.
+    if (licenze.contains('denaro') && s.beni) return false;
+    if (!licenze.contains('controparte') && s.controparte) return false;
+    if (!licenze.contains('terzi') && s.terzi) return false;
+    if (licenze.contains('noAzione') && s.postura == 'azione') return false;
+    if (licenze.contains('noAttesa') && s.postura == 'attesa') return false;
+    if (licenze.contains('assenza') && s.presenza) return false;
     // L'orizzonte breve lo dice la domanda intera, non il valore scelto per
     // lo spazio: sotto "Il colloquio di giovedi' andra' bene?" una scheda che
     // dice "questa situazione" non deve proporre di rileggere dopo sette
@@ -465,12 +637,33 @@ abstract final class LeRisposteDirette {
     if (!licenze.contains('senzaBreve') &&
         (licenze.contains('breve') ||
             _tempoBreve.hasMatch(valore.toLowerCase())) &&
-        _tempoLungo.hasMatch(b)) {
+        s.tempoLungo) {
       return false;
     }
-    if (!chiude && _chiudeUnLegame.hasMatch(b)) return false;
+    if (!chiude && s.chiudeUnLegame) return false;
     return true;
   }
+
+  /// I segni di una voce, misurati una volta sola: le voci sono le stesse
+  /// migliaia di volte per presagio, e la prova dei sessanta giorni chiede
+  /// "questa voce regge?" milioni di volte.
+  static final Map<String, _SegniDiUnaVoce> _segniMemoria = {};
+
+  static _SegniDiUnaVoce _segni(String voce) =>
+      _segniMemoria.putIfAbsent(voce, () {
+        final b = voce.toLowerCase();
+        return _SegniDiUnaVoce(
+          conflitto: _vociDiConflitto.hasMatch(b),
+          paura: _vociDiPaura.hasMatch(b),
+          beni: IlPresagioDalCorpus.spintaAMuovereBeni.hasMatch(b),
+          controparte: _vociConControparte.hasMatch(b),
+          terzi: _vociConTerzi.hasMatch(b),
+          presenza: _vociDiPresenza.hasMatch(b),
+          tempoLungo: _tempoLungo.hasMatch(b),
+          chiudeUnLegame: _chiudeUnLegame.hasMatch(b),
+          postura: postura(voce),
+        );
+      });
 
   /// **IL VALORE E LE VOCI CHE CI STANNO.** Per il primo valore (dal piu'
   /// fedele) che fa stare nella misura almeno una coppia di voci, quali
@@ -487,6 +680,8 @@ abstract final class LeRisposteDirette {
     CourtesyForm? forma,
     String? preferito,
     Set<String> licenze = const {},
+    bool Function(int i)? occupata,
+    bool soloSicuri = false,
   }) {
     final n = dirette.length;
     if (azioni != null && azioni.length != n) return null;
@@ -501,22 +696,51 @@ abstract final class LeRisposteDirette {
     // paura, che e' un'attesa naturale prima di un esito), poi l'orizzonte
     // breve, poi la persona vicina, poi il conflitto, e in fondo nessun
     // filtro, perche' meglio una coppia che sta nella misura che nessuna.
+    // La postura (attendere o agire) e' il primo filtro a cadere: fra schede
+    // di una stessa gettata una contraddizione e' un difetto, ma meno di una
+    // paura o di un conflitto che la domanda non porta.
+    Set<String> senzaPostura(Set<String> s) =>
+        {...s}..removeAll(const ['noAzione', 'noAttesa']);
+    final base = senzaPostura(licenze);
+    // **Le schede (soloSicuri)** non scendono mai sotto i filtri: se nel
+    // gruppo non resta una coppia che non contraddice, non presuppone e non
+    // porta persone care, la scheda passa alla coppia neutra della pietra. Il
+    // principale invece ha sempre la sua risposta.
     final livelli = <Set<String>?>[
       licenze,
-      {...licenze, 'paura'},
-      {...licenze, 'paura', 'controparte'},
-      {...licenze, 'paura', 'controparte', 'senzaBreve'},
-      {...licenze, 'paura', 'controparte', 'senzaBreve'}..remove('assenza'),
-      {...licenze, 'paura', 'controparte', 'senzaBreve', 'conflitto'}
-        ..remove('assenza'),
-      null,
+      if (soloSicuri) ...[
+        {...licenze}..remove('terzi'),
+      ] else ...[
+        base,
+        {...base, 'terzi'},
+        {...base, 'terzi', 'paura'},
+        {...base, 'terzi', 'paura', 'controparte'},
+        {...base, 'terzi', 'paura', 'controparte', 'senzaBreve'},
+        {...base, 'terzi', 'paura', 'controparte', 'senzaBreve'}
+          ..remove('assenza'),
+        {...base, 'terzi', 'paura', 'controparte', 'senzaBreve', 'conflitto'}
+          ..remove('assenza'),
+        null,
+      ],
     ];
+    // Che una voce stia nella misura con un valore non cambia da un livello
+    // all'altro: si misura una volta sola per valore.
+    final misure = <String, List<bool>>{};
+    List<bool> inMisura(String v) => misure.putIfAbsent(
+        v,
+        () => [
+              for (var i = 0; i < n; i++)
+                riempi(r(dirette[i]), [v], note: note) != null &&
+                    (azioni == null ||
+                        riempi(r(azioni[i]), [v], comeAzione: true) != null),
+            ]);
     for (final lic in livelli) {
       for (final v in ordine) {
+        final misura = inMisura(v);
         final stanno = [
           for (var i = 0; i < n; i++)
-            riempi(r(dirette[i]), [v], note: note) != null &&
-                (azioni == null || riempi(r(azioni[i]), [v]) != null) &&
+            (occupata == null || !occupata(i)) &&
+                misura[i] &&
                 (lic == null ||
                     (regge(dirette[i], v, chiude: chiude, licenze: lic) &&
                         (azioni == null ||
@@ -528,4 +752,29 @@ abstract final class LeRisposteDirette {
     }
     return null;
   }
+}
+
+/// I segni di una voce per [LeRisposteDirette.regge].
+class _SegniDiUnaVoce {
+  const _SegniDiUnaVoce({
+    required this.conflitto,
+    required this.paura,
+    required this.beni,
+    required this.controparte,
+    required this.terzi,
+    required this.presenza,
+    required this.tempoLungo,
+    required this.chiudeUnLegame,
+    required this.postura,
+  });
+
+  final bool conflitto;
+  final bool paura;
+  final bool beni;
+  final bool controparte;
+  final bool terzi;
+  final bool presenza;
+  final bool tempoLungo;
+  final bool chiudeUnLegame;
+  final String? postura;
 }

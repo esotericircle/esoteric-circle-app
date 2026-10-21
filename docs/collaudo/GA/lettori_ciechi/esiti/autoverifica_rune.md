@@ -149,3 +149,32 @@ Cosa so di non aver curato, e lo dico qui:
 
 Le mie letture sono sempre state più indulgenti di quelle dei lettori ciechi:
 il numero che conta è la lettura indipendente, non questa.
+
+## Ultimo giro, dopo la lettura cieca sul campione ridotto (21 ottobre 2026)
+
+Il lettore indipendente ha dato D1 10/12, D2 6/12, D3 9/12 sul campione
+ridotto di dodici gettate: il mio terzo giro era stato indulgente, come sempre.
+Ho riletto per intero le coppie "come" e "previsione" del corpus (80 gruppi,
+circa 450 coppie fra paragrafo e Cosa fare) e ho trovato le azioni scalate di un posto in molti
+gruppi: ne ho rifatte o rimesse a posto 119. Poi ho riletto le dodici gettate
+del campione e altre quattro con tutte le schede.
+
+Difetti che ho trovato rileggendo il campione nuovo e che ho curato prima di
+consegnare:
+
+- Una scheda di Perthro che sospende per tre settimane accanto a una scheda di
+  Tiwaz che dice di parlare a viso aperto: la postura (attendere o agire) ora
+  si misura, e le schede non si contraddicono.
+- "Entro domani scegli per la scelta di lasciare Roma": la cosa nominata come
+  "la scelta di" fa una cucitura; ora sta all'infinito dopo "per" ("per
+  lasciare Roma").
+- Sotto "Dimmi qualcosa": due voci neutre davano per presente "qualcosa che ti
+  è stato preso" e un "lavoro" in cui si sistema la stanza: riscritte.
+- Sotto una dichiarazione d'amore: il Sì condizionato alle "persone che
+  contano" era di un'altra domanda; la gioia come criterio ora regge la scelta.
+
+Che cosa non so: la lettura ha coperto tutte le coppie "come" e "previsione",
+ma solo una parte di "quando", "decisione", "scelta", "altrui" e "vaga"; le
+altre possono avere ancora le azioni scalate. Le mie letture sono sempre state
+più indulgenti di quelle dei lettori ciechi: il numero che conta è la lettura
+indipendente, non questa.

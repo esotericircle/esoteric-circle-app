@@ -657,11 +657,11 @@
 8. Nessun responso delle rune abbraccia tutto per {cosa}: riformula la domanda attorno a una sola questione e la risposta diventa più chiara. Il segno di oggi è il patto: chiediti quale legame ti sostiene e che cosa puoi dare in cambio già questa settimana.
 
 ## Wunjo, dritta, decisione
-1. Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece ti toglie una gioia che hai già, non adesso: prima guarda che cosa ti lega a chi ti sta vicino e che cosa rischi di perdere.
-2. Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta ti allontana da qualcuno, parlane prima.
-3. Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non una mossa presa da soli.
-4. Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera e condivisa. Ma se la scelta allontana da te chi ti dà gioia, fermati e domandati se esiste un modo che tenga insieme decisione e affetti.
-5. Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se ti toglie la compagnia di chi ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.
+1. Sì, purché la scelta di {azione} nasca dalla gioia e non dalla paura di restare indietro. La gioia vera non è sentirsi a posto davanti a qualcuno: immagina il giorno dopo averla fatta e guarda se prevale la leggerezza o il peso.
+2. Sì: la decisione di {azione} può darti la pienezza che cerchi, se è una gioia che scegli e non un'ansia da placare. Una gioia vera si riconosce perché non ha fretta: se pensarci ti scalda anche nei giorni grigi, la strada è giusta per te.
+3. Sì, quando pensando al dopo senti leggerezza e non dovere: allora la scelta di {azione} è quella giusta. Se al contrario senti soltanto obbligo, non adesso: qui si chiede una gioia da scegliere, non un compito da assolvere o da dimostrare a qualcuno.
+4. Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera. Ma se nasce soltanto dal bisogno di liberarti da un peso, fermati e domandati se esiste un modo di farlo che ti lasci anche un poco di gioia.
+5. Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se la prendi con leggerezza e non con rigidità. Solo se senti che ti toglie serenità invece di dartela, rallenta e chiediti da dove viene quel peso.
 
 ## Wunjo, dritta, scelta
 1. Scegli, per {cosa}, la strada che ti lascia accanto alle persone che ti fanno stare bene. La gioia vera di questa pietra è condivisa: una scelta che ti isola, anche se brillante a prima vista, toglie più gioia di quanta ne promette.
@@ -928,7 +928,7 @@
 3. Aspetta qualche settimana prima di {azione}: la situazione adesso è ferma, come un fiume sotto la corteccia di gelo. Sotto la superficie l'acqua si muove ancora: decidere ora vorrebbe dire scegliere su metà dei fatti, mentre più avanti il quadro può mostrarsi intero.
 4. Sì, dopo una sosta voluta: la decisione di {azione} va presa a mente fredda, quando l'urgenza si è calmata. Il gelo non chiede di rinunciare, chiede di vedere chiaro: ciò che regge dopo qualche giorno di silenzio è una scelta che puoi sostenere.
 5. Fermati e guarda, prima di decidere di {azione}: è il momento di osservare, non di muovere. Non si tratta di rinunciare per sempre: una sosta breve e voluta ti permette di capire se il desiderio regge anche quando la fretta si è spenta.
-6. Rimanda di una settimana la decisione di {azione}: adesso ogni spinta forzerebbe ciò che è ancora bloccato. Il ghiaccio è un ponte largo che regge chi lo attraversa con calma: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.
+6. Rimanda di una settimana la decisione di {azione}: adesso ogni spinta rischierebbe di forzare ciò che ha ancora bisogno di tempo. Il ghiaccio regge chi lo attraversa con calma e passo regolare: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.
 7. Non adesso, ma non per paura: il desiderio di {azione} merita la chiarezza del ghiaccio che lascia vedere il fondo. Finché le ragioni dentro di te si contraddicono, una decisione d'impeto pesa più di una sosta; quando smettono, la risposta può farsi evidente.
 8. Meglio una sosta di qualche giorno prima di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell'urgenza.
 
@@ -945,7 +945,7 @@
 ## Isa, dritta, come
 1. Per {cosa} il modo è fermarti un momento prima di agire: niente mosse affrettate, niente frasi d'impulso. Il ghiaccio insegna che una sosta voluta toglie fretta alle reazioni e rende le cose limpide: quando parli o agisci sai già che cosa vuoi ottenere.
 2. Con calma e senza forzare: per {cosa} vale più una pausa lucida che dieci tentativi di sciogliere tutto subito. Il ghiaccio non si scioglie spingendolo; se qualcosa si è irrigidito, insistere lo irrigidisce di più: lascia spazio e torna sull'argomento quando hai chiarezza.
-3. Prima guardare, poi muoversi: per {cosa} osserva come stanno davvero le cose prima di intervenire. Sotto la superficie gelata l'acqua continua a scorrere; anche sotto ciò che appare fermo c'è qualcosa che si muove: capirlo ti dice dove mettere le mani senza forzare.
+3. Prima guardare, poi muoversi: per {cosa} osserva come stanno davvero le cose prima di intervenire. Il ghiaccio tiene le cose ferme perché tu le veda con calma: capire dove stanno i punti deboli e dove no ti dice dove mettere le mani senza forzare.
 4. Abbassa il ritmo invece di alzarlo, per {cosa}. Quando qualcosa si blocca la tentazione è spingere: il ghiaccio chiede il contrario, meno parole, meno richieste, più ascolto, finché ciò che è fermo trova da sé il momento di muoversi di nuovo.
 5. Chiarezza fredda, non impeto: per {cosa} decidi che cosa vuoi dire o fare prima di farlo. Il ghiaccio limpido lascia vedere il fondo: una richiesta chiara, detta con voce tranquilla e senza accuse, ha più forza di molte frasi cariche di emozione.
 6. Procedi piano per {cosa}, come chi attraversa una distesa gelata: un passo, una verifica lucida, poi il passo successivo. Niente gesti bruschi né richieste pesanti tutte insieme: una cosa per volta, controllando ogni volta come viene accolta prima di aggiungerne un'altra.

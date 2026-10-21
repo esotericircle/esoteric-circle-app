@@ -665,11 +665,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Nessun responso delle rune abbraccia tutto per {cosa}: riformula la domanda attorno a una sola questione e la risposta diventa più chiara. Il segno di oggi è il patto: chiediti quale legame ti sostiene e che cosa puoi dare in cambio già questa settimana.',
     ],
     'Wunjo/dritta/decisione': [
-      'Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece ti toglie una gioia che hai già, non adesso: prima guarda che cosa ti lega a chi ti sta vicino e che cosa rischi di perdere.',
-      'Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta ti allontana da qualcuno, parlane prima.',
-      'Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non una mossa presa da soli.',
-      'Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera e condivisa. Ma se la scelta allontana da te chi ti dà gioia, fermati e domandati se esiste un modo che tenga insieme decisione e affetti.',
-      'Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se ti toglie la compagnia di chi ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.',
+      'Sì, purché la scelta di {azione} nasca dalla gioia e non dalla paura di restare indietro. La gioia vera non è sentirsi a posto davanti a qualcuno: immagina il giorno dopo averla fatta e guarda se prevale la leggerezza o il peso.',
+      'Sì: la decisione di {azione} può darti la pienezza che cerchi, se è una gioia che scegli e non un\'ansia da placare. Una gioia vera si riconosce perché non ha fretta: se pensarci ti scalda anche nei giorni grigi, la strada è giusta per te.',
+      'Sì, quando pensando al dopo senti leggerezza e non dovere: allora la scelta di {azione} è quella giusta. Se al contrario senti soltanto obbligo, non adesso: qui si chiede una gioia da scegliere, non un compito da assolvere o da dimostrare a qualcuno.',
+      'Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera. Ma se nasce soltanto dal bisogno di liberarti da un peso, fermati e domandati se esiste un modo di farlo che ti lasci anche un poco di gioia.',
+      'Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se la prendi con leggerezza e non con rigidità. Solo se senti che ti toglie serenità invece di dartela, rallenta e chiediti da dove viene quel peso.',
     ],
     'Wunjo/dritta/scelta': [
       'Scegli, per {cosa}, la strada che ti lascia accanto alle persone che ti fanno stare bene. La gioia vera di questa pietra è condivisa: una scelta che ti isola, anche se brillante a prima vista, toglie più gioia di quanta ne promette.',
@@ -936,7 +936,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Aspetta qualche settimana prima di {azione}: la situazione adesso è ferma, come un fiume sotto la corteccia di gelo. Sotto la superficie l\'acqua si muove ancora: decidere ora vorrebbe dire scegliere su metà dei fatti, mentre più avanti il quadro può mostrarsi intero.',
       'Sì, dopo una sosta voluta: la decisione di {azione} va presa a mente fredda, quando l\'urgenza si è calmata. Il gelo non chiede di rinunciare, chiede di vedere chiaro: ciò che regge dopo qualche giorno di silenzio è una scelta che puoi sostenere.',
       'Fermati e guarda, prima di decidere di {azione}: è il momento di osservare, non di muovere. Non si tratta di rinunciare per sempre: una sosta breve e voluta ti permette di capire se il desiderio regge anche quando la fretta si è spenta.',
-      'Rimanda di una settimana la decisione di {azione}: adesso ogni spinta forzerebbe ciò che è ancora bloccato. Il ghiaccio è un ponte largo che regge chi lo attraversa con calma: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.',
+      'Rimanda di una settimana la decisione di {azione}: adesso ogni spinta rischierebbe di forzare ciò che ha ancora bisogno di tempo. Il ghiaccio regge chi lo attraversa con calma e passo regolare: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.',
       'Non adesso, ma non per paura: il desiderio di {azione} merita la chiarezza del ghiaccio che lascia vedere il fondo. Finché le ragioni dentro di te si contraddicono, una decisione d\'impeto pesa più di una sosta; quando smettono, la risposta può farsi evidente.',
       'Meglio una sosta di qualche giorno prima di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell\'urgenza.',
     ],
@@ -953,7 +953,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Isa/dritta/come': [
       'Per {cosa} il modo è fermarti un momento prima di agire: niente mosse affrettate, niente frasi d\'impulso. Il ghiaccio insegna che una sosta voluta toglie fretta alle reazioni e rende le cose limpide: quando parli o agisci sai già che cosa vuoi ottenere.',
       'Con calma e senza forzare: per {cosa} vale più una pausa lucida che dieci tentativi di sciogliere tutto subito. Il ghiaccio non si scioglie spingendolo; se qualcosa si è irrigidito, insistere lo irrigidisce di più: lascia spazio e torna sull\'argomento quando hai chiarezza.',
-      'Prima guardare, poi muoversi: per {cosa} osserva come stanno davvero le cose prima di intervenire. Sotto la superficie gelata l\'acqua continua a scorrere; anche sotto ciò che appare fermo c\'è qualcosa che si muove: capirlo ti dice dove mettere le mani senza forzare.',
+      'Prima guardare, poi muoversi: per {cosa} osserva come stanno davvero le cose prima di intervenire. Il ghiaccio tiene le cose ferme perché tu le veda con calma: capire dove stanno i punti deboli e dove no ti dice dove mettere le mani senza forzare.',
       'Abbassa il ritmo invece di alzarlo, per {cosa}. Quando qualcosa si blocca la tentazione è spingere: il ghiaccio chiede il contrario, meno parole, meno richieste, più ascolto, finché ciò che è fermo trova da sé il momento di muoversi di nuovo.',
       'Chiarezza fredda, non impeto: per {cosa} decidi che cosa vuoi dire o fare prima di farlo. Il ghiaccio limpido lascia vedere il fondo: una richiesta chiara, detta con voce tranquilla e senza accuse, ha più forza di molte frasi cariche di emozione.',
       'Procedi piano per {cosa}, come chi attraversa una distesa gelata: un passo, una verifica lucida, poi il passo successivo. Niente gesti bruschi né richieste pesanti tutte insieme: una cosa per volta, controllando ogni volta come viene accolta prima di aggiungerne un\'altra.',
@@ -2166,7 +2166,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Fehu/dritta/previsione': [
       'Per {cosa} scrivi stasera tre cose che sai fare o che hai già e accanto a ciascuna una persona con cui condividerla o a cui offrirla. Entro tre giorni parlane con almeno una di quelle persone: ciò che hai cresce quando lo metti in circolo.',
-      'Chiedi entro due giorni un parere per {cosa} a una persona esperta o fidata e mettilo subito al lavoro: un consiglio ricevuto e usato vale più di dieci pensati senza confronto. Non tenere per te i dubbi, condividili con chi può aiutarti.',
+      'Per {cosa} annota stasera che cosa tieni fermo: un talento, un\'amicizia, un\'idea. Scegline una e mettila in circolo entro tre giorni, per esempio proponendo l\'idea o riprendendo il contatto. Ciò che gira cresce; ciò che resta chiuso a chiave non lavora per te.',
       'Per {cosa} individua oggi la risorsa che forse sottovaluti (un\'esperienza passata, un\'abilità, una persona disposta ad aiutarti) e decidi come usarla entro la settimana. Scrivila su un foglio da tenere con te e mettila in gioco senza timidezza né falsa modestia.',
       'Elenca per {cosa} tre capacità tue che potresti usare di più. Scegline una e mettila al servizio di qualcuno entro la settimana: una spiegazione data, un\'idea proposta, un aiuto offerto. Non tenere mai ferme le tue risorse per paura di sprecarle.',
       'Per {cosa} chiedi entro domenica a due persone che stimi quale tua risorsa usi meno di quanto potresti. Annota le risposte, scegline una e mettila in pratica tre volte entro la settimana seguente: un bene messo in circolo rende più di uno custodito.',
@@ -2202,15 +2202,15 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Fehu/ombra/come': [
       'Per {cosa} individua oggi una cosa sola che forse stringi troppo (un controllo, un\'aspettativa, una richiesta insistente) e allentala per una settimana intera. Annota ogni sera che cosa cambia intorno a te quando smetti di trattenere, senza giudicarti e senza tornare indietro.',
       'Stasera scrivi per {cosa} dove se ne vanno tempo, attenzione e pazienza senza portare niente: un pensiero che rimugini, un\'attesa, una cosa fatta due volte. Scegline una e lasciala cadere da domani; la forza risparmiata mettila in una parola calma a chi è coinvolto.',
-      'Se torni spesso sulle stesse richieste per {cosa}, smetti per sette giorni: lascia che le cose respirino. Nel frattempo scegli una sola frase gentile da dire a voce alla persona coinvolta e dilla una volta con calma, senza aggiungere altro né aspettarti niente.',
+      'Per {cosa} fai un piccolo bilancio di ciò che dai e di ciò che trattieni: scrivi due colonne, una per ogni cosa. Dove dai troppo, riduci di un poco questa settimana; dove trattieni più del necessario, apri la mano su una cosa sola.',
       'Prendi un foglio e dividi per {cosa} in due colonne ciò che serve davvero e ciò che pesa senza servire. Domani lascia cadere una voce della seconda colonna e parla della prima con calma, in un momento tranquillo e a quattr\'occhi.',
       'Entro domenica chiudi per {cosa} una piccola perdita di energia, se c\'è: una discussione che si ripete, un\'attesa inutile, un impegno preso controvoglia. Comunicalo con una frase semplice alla persona coinvolta, non aggiungere lunghe spiegazioni e usa il tempo ritrovato per qualcosa che ti sostiene.',
     ],
     'Fehu/ombra/quando': [
       'Per {cosa} scegli oggi una dispersione da fermare (ore perse a rimuginare, impegni che ti svuotano, attese senza fine) e chiudila entro una settimana. Poi rifai lo stesso la settimana dopo con un\'altra: l\'attesa può accorciarsi una falla alla volta, senza fretta.',
-      'Smetti per {cosa} di contare i giorni: scrivi su un foglio la data che speri, mettilo in un cassetto e non riaprirlo per quindici giorni. Usa quel tempo per riordinare le forze, con una sera alla settimana dedicata a ciò che ti ricarica.',
-      'Ogni sera per {cosa} annota una cosa che ti ha tolto energia e una che te l\'ha restituita. Dopo dieci giorni rileggi: elimina la perdita che torna più spesso e moltiplica ciò che ti rimette in forze, senza fissare date né contare i giorni.',
       'Per {cosa} lascia cadere entro tre giorni un\'attività che tieni in piedi solo per paura di perdere qualcosa. Usa il tempo liberato per una sola cosa che conta e fino ad allora non cercare altri segnali: guarda soltanto come cambia la tua giornata.',
+      'Ogni sera per {cosa} annota una cosa che ti ha tolto energia e una che te l\'ha restituita. Dopo dieci giorni rileggi: elimina la perdita che torna più spesso e moltiplica ciò che ti rimette in forze, senza fissare date né contare i giorni.',
+      'Smetti per {cosa} di contare i giorni: scrivi su un foglio la data che speri, mettilo in un cassetto e non riaprirlo per quindici giorni. Usa quel tempo per riordinare le forze, con una sera alla settimana dedicata a ciò che ti ricarica.',
       'Fissa per {cosa} un controllo fra tre settimane e fino a quel giorno rinuncia a cercare segnali nuovi ogni mattina. Metti invece da parte un\'ora alla settimana per chiudere ciò che è rimasto in sospeso e ti pesa addosso da troppo tempo.',
     ],
     'Fehu/ombra/previsione': [
@@ -2250,9 +2250,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Uruz/dritta/come': [
       'Domani, per {cosa}, chiedi venti minuti a quattr\'occhi con chi è coinvolto e apri con la frase che conta di più, detta con voce calma. Poi ascolta fino in fondo senza ribattere: la tua forza si vede nella fermezza, non nel volume.',
-      'Prima di dormire scrivi per {cosa} tre cose che sai fare bene e che possono servire: la pazienza, l\'ascolto, la capacità di proporre. Domani metti in pratica la prima in un momento di energia, senza aspettare che sia un altro a muoversi.',
+      'Scegli, per {cosa}, la cosa che pensi davvero e non hai ancora detto: riducila a due frasi dirette. Dille a voce a chi è coinvolto, con tono pacato e voce ferma, nel primo momento tranquillo. Non girare intorno e non alzare il volume.',
       'Ogni giorno di questa settimana dedica un quarto d\'ora fisso per {cosa}, sempre alla stessa ora e con tutta la tua attenzione: niente telefono, niente altre faccende. Meglio poco ogni giorno con forza piena che molto, di rado, con la testa altrove.',
-      'Scegli per {cosa} la mossa che richiede più coraggio fra quelle utili: una richiesta, una proposta, una frase sincera da dire a chi è coinvolto. Falla entro mercoledì, di mattina, quando le energie sono piene; non aspettare di sentirti all\'altezza prima di cominciare.',
+      'Scegli, per {cosa}, tre cose da portare avanti e scrivile su un foglio, poi tieni solo la più importante per questa settimana. Dedicale ogni giorno un tempo fisso e breve, anche senza voglia. Chiudi la giornata segnando che l\'hai fatto.',
       'Stasera prepara per {cosa} una proposta concreta da portare tu, invece di aspettare quella altrui: che cosa offri, che cosa chiedi, entro quando. Presentala domani con calma e fermezza; se incontri resistenza, non spingere più forte ma ripeti le stesse parole.',
     ],
     'Uruz/dritta/quando': [
@@ -2263,15 +2263,15 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Prendi l\'agenda e segna per {cosa} tre momenti fissi in questa settimana, ciascuno di mezz\'ora, dedicati solo a far avanzare la situazione. Rispettali come impegni presi con altri e non spostarli per nessun motivo: l\'attesa si accorcia quando ci metti una forza regolare.',
     ],
     'Uruz/dritta/previsione': [
-      'Se per {cosa} c\'è una cosa che rimandi perché non ti senti all\'altezza, scrivila stasera e falla entro quarantotto ore, anche in forma imperfetta. Poi annota com\'è andata: la forza c\'è già, si vede quando la usi e non quando aspetti di sentirla.',
+      'Per {cosa} muovi il corpo prima della mente: per sette mattine cammina venti minuti a passo svelto e al ritorno scrivi una sola cosa da fare in giornata che richieda coraggio. Falla prima di sera, senza aspettare di sentirti in forma.',
       'Per {cosa} scegli ogni mattina, per una settimana, la cosa più faticosa fra quelle che puoi fare tu e falla per prima, prima di messaggi e distrazioni. Segna sul calendario ogni mattina riuscita: la forza cresce usandola ogni giorno, non risparmiandola.',
       'Per {cosa} scrivi la cosa che ti fa più timore e chiediti che cosa faresti se avessi tutta la forza che ti serve. Scrivi la risposta in una riga e mettila in pratica entro tre giorni: la forza dell\'uro è tua, non va attesa.',
-      'Racconta a una persona fidata, per {cosa}, che cosa desideri e che cosa puoi fare da subito. Chiedile di domandarti fra una settimana come sta andando e fai la prima di quelle cose entro domani: dirlo ad alta voce dà corpo alla forza.',
-      'Per {cosa} muovi il corpo prima della mente: per sette mattine cammina venti minuti a passo svelto e al ritorno scrivi una sola cosa da fare in giornata che richieda coraggio. Falla prima di sera, senza aspettare di sentirti in forma.',
+      'Se per {cosa} c\'è una cosa che rimandi perché non ti senti all\'altezza, scrivila stasera e falla entro quarantotto ore, anche in forma imperfetta. Poi annota com\'è andata: la forza c\'è già, si vede quando la usi e non quando aspetti di sentirla.',
+      'Scrivi, per {cosa}, tre momenti passati in cui hai retto quando qualcosa vacillava, con ciò che hai fatto allora. Rileggili alla sera con calma. Se in questi giorni arriva un intoppo, rifai la prima di quelle cose prima di cercare altro.',
     ],
     'Uruz/dritta/altrui': [
       'Invece di indovinare, per {cosa} fai tu una domanda semplice e diretta entro questa settimana, di persona se puoi: che cosa provi, che cosa vuoi. Accogli la risposta, qualunque sia, senza insistere né chiedere altro; la tua forza sta nel saperla reggere.',
-      'Per {cosa} fai questa settimana una cosa concreta per l\'altra persona che richieda un po\' del tuo impegno, come un aiuto pratico o un\'ora del tuo tempo, senza annunciarla prima. La forza vera si mostra coi fatti; poi non chiedere niente in cambio.',
+      'Per {cosa} metti in due righe che cosa vuoi tu da questo legame, con parole tue. Dillo a voce, con calma, alla prima occasione tranquilla di questa settimana. Poi guarda i fatti dell\'altra persona nei giorni seguenti: dicono più di ogni supposizione.',
       'Scrivi per {cosa} che cosa desideri tu, in tre righe chiare, senza nominare ciò che temi. Poi dillo con calma alla persona coinvolta, una volta sola e senza pressioni: la forza vera si mostra e lascia all\'altro la libertà di rispondere.',
       'Per {cosa} metti la tua energia in un impegno che ti fa sentire forte, lo sport o un progetto tuo, almeno tre volte questa settimana. Poi, a mente sgombra, decidi se c\'è qualcosa che vuoi dire all\'altra persona e dillo con calma.',
       'Proponi per {cosa} un incontro tranquillo entro dieci giorni, in un luogo dove stai bene. Lì prendi la parola tu, con frasi semplici su ciò che senti; poi lascia spazio senza incalzare e accogli ciò che ricevi senza pretendere una risposta subito.',
@@ -2364,7 +2364,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} scrivi che cosa per te non è negoziabile e che cosa puoi concedere. Tieni il foglio a portata di mano per una settimana: se qualcuno o qualcosa ti spinge oltre quel limite, rispondi con calma e poche parole, senza alzare la voce.',
       'Proteggi per {cosa} il tempo che ti serve: segna in agenda i momenti che vuoi dedicarci questa settimana e difendili dicendo di no a chi prova a occuparli. Se qualcuno insiste, ripeti il tuo no: un tempo difeso con fermezza rende di più.',
       'Per {cosa} decidi oggi chi può dirti la sua e chi no: scegli due persone di cui ascolti il parere e a tutti gli altri rispondi con un grazie, senza discutere. Difendere la tua calma da troppe voci è una protezione, non una chiusura.',
-      'Per {cosa} individua il lato su cui hai meno difese e scrivi una sola mossa per proteggerlo, da fare entro tre giorni: una domanda chiarita, un limite detto, un aiuto chiesto. Non sprecare energie in allarmi su ciò che regge già da solo.',
+      'Per {cosa} prepara due argomenti chiari per difendere la tua posizione, uno di fatti e uno di valori. Scrivili in due righe. Se qualcuno li contesta, ascolta tutto fino in fondo prima di rispondere e poi usa solo quei due, senza aggiungerne altri.',
       'Stabilisci oggi per {cosa} una regola che ti protegge, per esempio niente discussioni a tarda sera o niente confronti con chi ti mette ansia. Rispettala per tutta la settimana, anche quando qualcuno prova a trascinarti: la tua calma è la difesa migliore.',
     ],
     'Thurisaz/dritta/altrui': [
@@ -2378,7 +2378,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Scrivi in una riga, per {cosa}, la domanda che ti preme davvero, con un nome o una scelta dentro: poi riportala alle pietre. Nel frattempo scegli un piccolo limite da difendere questa settimana, per esempio un\'ora serale tutta per te, senza eccezioni.',
       'Elenca per {cosa} le tre situazioni che ti occupano di più la mente e cerchia quella che pesa maggiormente: è da lì che parte una domanda precisa. Intanto, se qualcuno ti mette alla prova, rispondi con calma e senza durezza.',
       'Stasera prenditi dieci minuti per {cosa} e scrivi che cosa vuoi proteggere in questo periodo: una persona, un progetto, la tua calma. Da quella risposta nasce la domanda da porre alle rune; intanto difendi quella cosa con misura, senza irrigidirti.',
-      'Questa settimana, per {cosa}, prova a dire un no gentile ma netto, senza scusarti troppo, alla prima richiesta che ti pesa, se arriva. Poi torna con una domanda più precisa: sapere che cosa difendi rende la lettura molto più utile.',
+      'Per {cosa} annota in una riga che cosa vuoi proteggere in questo periodo: il tuo tempo, la tua calma, una persona. Sceglilo e difendilo con una frase calma. Poi torna con una domanda più precisa: sapere che cosa difendi rende la lettura più utile.',
       'Per tre sere annota il momento della giornata in cui hai sentito il bisogno di difenderti: chi c\'era, che cosa è successo. Il quarto giorno trasforma la nota che torna più spesso in una domanda precisa per {cosa} e riportala qui.',
     ],
     'Thurisaz/ombra/decisione': [
@@ -2447,9 +2447,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Ansuz/dritta/come': [
       'Per {cosa} chiedi entro tre giorni un momento a quattr\'occhi con la persona coinvolta e apri con una frase sola, senza premesse, su ciò che desideri. Poi fai una domanda e ascolta la risposta fino in fondo prima di replicare.',
       'Prepara per {cosa} tre frasi scritte: che cosa noti, che cosa senti, che cosa chiedi. Rileggile ad alta voce due volte, togli ogni parola che suona come un\'accusa e pronunciale di persona a chi è coinvolto, nel primo momento tranquillo della settimana.',
-      'Per {cosa} scrivi stasera una domanda aperta, di quelle che non si chiudono con un sì o un no: falla domani, a voce, a chi è coinvolto. Annota la risposta appena puoi: le parole esatte mostrano il punto da cui ripartire.',
-      'Questa settimana, per {cosa}, chiedi a chi è coinvolto di spiegarti con parole sue che cosa si aspetta, poi ripeti ad alta voce ciò che hai capito e chiedi se è giusto. Scrivi la frase finale in un appunto e tienila come base.',
-      'Se per {cosa} c\'è qualcosa che tieni dentro da tempo, scrivilo in una frase e dillo a voce a chi è coinvolto entro domenica, con calma, senza aspettare il momento perfetto. Il silenzio prolungato riempie lo spazio di supposizioni; una parola semplice lo libera.',
+      'Per {cosa} metti in una frase sola ciò che vuoi davvero, nei termini più semplici che trovi. Dilla a voce a chi è coinvolto entro due giorni, come richiesta precisa e non come allusione. Poi lascia spazio alla risposta senza aggiungere spiegazioni.',
+      'Per {cosa} prepara tre frasi brevi: che cosa vuoi ottenere, perché ti sta a cuore, che cosa chiedi. Provale ad alta voce e togli ogni premessa lunga. Poi dille a chi è coinvolto in un momento tranquillo, senza leggere e senza improvvisare.',
+      'Stasera, per {cosa}, scrivi la domanda con cui vuoi capire che cosa si aspetta l\'altra persona, una sola e senza accuse. Falla a voce entro domenica, poi ripeti con parole tue ciò che hai sentito e chiedi se hai capito bene.',
     ],
     'Ansuz/dritta/quando': [
       'Per {cosa} smetti di aspettare in silenzio: entro venerdì individua chi può darti un\'informazione utile e fagli una domanda diretta su che cosa manca. Annota subito la risposta su un quaderno; se resta vaga, chiedi un esempio concreto o una data indicativa.',
@@ -2460,9 +2460,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Ansuz/dritta/previsione': [
       'Per {cosa} scrivi in tre frasi semplici che cosa desideri e perché, poi leggile a una persona di fiducia. Chiedile quale frase suona meno chiara e riscrivila finché la capisce al primo ascolto: ciò che sai dire con chiarezza lo vedi meglio anche tu.',
-      'Trova entro domenica una persona che ha affrontato una situazione simile e chiedile, per {cosa}, i due consigli più utili che avrebbe voluto ricevere. Scrivili subito su un piccolo biglietto e rileggili a voce alta prima di ogni momento importante.',
       'Se per {cosa} c\'è una persona a cui devi o vuoi dire qualcosa, scrivi la prima frase senza preamboli e dilla a voce entro tre giorni. Se non c\'è, parlane con chi ti è vicino: le parole dette chiariscono più dei pensieri ripetuti.',
-      'Per {cosa} individua l\'informazione che ti manca di più e chiedila entro domani a chi può dartela con precisione. Scrivi la risposta in una frase sola e tienila sotto gli occhi: affrontare tutto con un dubbio in meno vale più di ogni pronostico.',
+      'Trova entro domenica una persona che ha affrontato una situazione simile e chiedile, per {cosa}, i due consigli più utili che avrebbe voluto ricevere. Scrivili subito su un piccolo biglietto e rileggili a voce alta prima di ogni momento importante.',
+      'Per {cosa} annota due righe: che cosa offri tu e che cosa chiedi, con parole precise e senza aggettivi vaghi. Rileggile togliendo ogni frase che potrebbe significare due cose. Poi dille a una persona fidata e chiedi se le ha capite.',
       'Per {cosa} tieni per una settimana un quaderno delle domande: ogni volta che un dubbio torna, scrivilo come domanda precisa. Domenica scegli le due più importanti e falle a voce a chi può rispondere: una domanda detta chiaramente vale più di molte notti di congetture.',
     ],
     'Ansuz/dritta/altrui': [
@@ -2496,7 +2496,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Ansuz/ombra/come': [
       'Per {cosa}, quando una frase ti pesa o ti confonde, non rispondere subito: chiedi «che cosa intendi esattamente?» e ascolta la spiegazione. Annota le parole precise: spesso il senso vero è diverso da quello che avevi sentito al primo ascolto.',
       'Dopo ogni conversazione importante per {cosa}, scrivi in tre righe ciò che hai capito e rileggilo il giorno dopo: segna con un punto interrogativo ogni frase che puoi aver frainteso e chiariscila con calma, a voce, alla prima occasione utile.',
-      'Questa settimana non chiedere pareri a terzi per {cosa}: fai le tue domande soltanto a chi è direttamente coinvolto, semplici e calme. Le opinioni di altri, anche affettuose, adesso aggiungono rumore; ciò che senti dalla fonte diretta annotalo la sera stessa.',
+      'Per {cosa} alla prossima conversazione importante non rispondere subito: ripeti con parole tue ciò che hai sentito e chiedi se è proprio quello che si voleva dire. Solo dopo la conferma dai la tua risposta, in poche frasi. Annota la frase esatta.',
       'Se ti arriva per {cosa} una notizia di seconda mano, non agire: chiedi conferma alla persona interessata entro due giorni, con una domanda neutra come «mi hanno detto questo, è così?». Fino ad allora tienila per ciò che è: una voce.',
       'Per {cosa} usa questa settimana la regola del riassunto: prima di rispondere a chi è coinvolto, ripeti con parole tue ciò che ha detto e aspetta che confermi che hai capito bene. Solo dopo aggiungi il tuo punto di vista, in poche frasi.',
     ],
@@ -2547,7 +2547,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Scrivi per {cosa} tre piccoli passi in ordine di difficoltà, ciascuno in una riga. Questa settimana compi solo il primo, la prossima il secondo, quella dopo il terzo; non saltare avanti anche se tutto va bene, perché il ritmo regolare conta più della velocità.',
       'Domani mattina scrivi in una riga, per {cosa}, il prossimo tratto da percorrere e assegnagli un\'ora precisa della giornata. Percorrilo con calma e poi fermati; ripeti lo stesso schema per sette giorni, un tratto al giorno, prima di aggiungere qualcosa di più impegnativo.',
       'Per {cosa} prepara un calendario di quattro settimane con una tappa per ciascuna, scritta in una riga. Appendilo dove lo vedi ogni mattina e spunta la tappa solo quando è compiuta; se una settimana salta, riprendi dalla stessa senza raddoppiare la successiva.',
-      'Questa sera cammina mezz\'ora a passo costante pensando soltanto a come muoverti per {cosa}. Al ritorno annota la prima idea pratica che ti è venuta e mettila in atto entro due giorni, con la stessa calma che hai tenuto camminando.',
+      'Scegli, per {cosa}, oggi il tono che vuoi tenere, per esempio calmo e cordiale. Scrivilo in due parole su un biglietto. Tienilo uguale in ogni contatto di questa settimana, anche quando gli altri cambiano umore. Alla sera segna se hai mantenuto il tono.',
     ],
     'Raidho/dritta/quando': [
       'Per {cosa} smetti di contare i giorni e conta le tappe: scrivi le tre cose che puoi compiere nel prossimo mese, una ogni dieci giorni. Quando ne completi una, spuntala sul calendario con un tratto ben visibile; così il tempo si misura in cammino fatto.',
@@ -2561,7 +2561,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} scrivi stasera dove sei adesso e dove vorresti essere fra un mese, poi segna tre tappe in mezzo, una per settimana. Ogni domenica guarda la tappa raggiunta e aggiusta la successiva al tuo passo, senza confrontarti con il passo degli altri.',
       'Per {cosa} tieni per due settimane un diario di marcia: ogni sera una riga su ciò che hai fatto e una su come ti senti. La domenica rileggilo e segna i giorni di troppa corsa: la settimana dopo distribuisci meglio le cose, senza strappi.',
       'Per {cosa} decidi ogni sera la prima cosa da fare il giorno dopo e scrivila su un biglietto. La mattina falla prima di ogni altra e spunta il biglietto: dopo due settimane rileggi la fila delle cose fatte, ognuna nel suo tempo, senza rincorse.',
-      'Cerca questa settimana qualcuno che ha già affrontato una situazione simile e chiedigli, per {cosa}, come ha distribuito il tempo e le energie. Prendi il suo schema come una mappa, poi adattalo alla tua andatura senza copiarne mai la velocità né i tempi.',
+      'Scrivi, per {cosa}, gli impegni di questa settimana e cancellane uno che non riesci davvero a tenere. Metti gli altri in un ordine fisso, sempre agli stessi orari. Una giornata ordinata, anche se piena, vale più di una improvvisata: guarda domenica come stai.',
     ],
     'Raidho/dritta/altrui': [
       'Per {cosa} proponi all\'altra persona un momento condiviso semplice, come una passeggiata o un caffè, a intervalli regolari: una volta a settimana, senza aspettative. Osserva per un mese come risponde ai tuoi tempi; i fatti costanti dicono più delle supposizioni.',
@@ -2643,7 +2643,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Kenaz/dritta/come': [
       'Per {cosa} prepara stasera per iscritto la domanda più importante che vuoi porre, in una sola frase senza giri. Domani cerca un momento tranquillo, falla a voce guardando negli occhi la persona coinvolta e ascolta tutta la risposta senza interrompere.',
       'Entro questa settimana proponi per {cosa} una conversazione tranquilla faccia a faccia, con i telefoni lontani e senza fretta. Apri dicendo con semplicità che cosa desideri tu, poi chiedi che cosa desidera l\'altra parte e riassumi ad alta voce ciò che hai capito.',
-      'Scrivi per {cosa} tre fatti che hai visto con i tuoi occhi e tre interpretazioni tue, in due colonne separate. Domani parla solo dei fatti, chiedi spiegazioni sulle cose che non capisci e lascia da parte le interpretazioni finché non trovano conferma.',
+      'Per {cosa} metti in tre righe ciò che senti e ciò che desideri, con parole semplici e senza giri. Rileggile e togli ogni frase che lascia solo intuire. Poi dille a voce, con calore, a chi è coinvolto in un momento tranquillo di questa settimana.',
       'Cerca idee nuove per {cosa}: stasera scrivine dieci in un quarto d\'ora, anche strane, senza correggerti. Domani scegli la più semplice da provare, mettila in pratica entro venerdì e osserva con attenzione che cosa porta alla luce nei giorni successivi.',
       'Non lasciare in ombra ciò che senti per {cosa}: questa settimana di\' in una frase chiara e calma che cosa desideri, senza rimproveri e senza allusioni. Poi chiedi direttamente come vede la cosa la persona coinvolta e ascolta fino in fondo prima di replicare.',
     ],
@@ -2657,8 +2657,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Kenaz/dritta/previsione': [
       'Scrivi stasera per {cosa} i tre punti che ti sono ancora meno chiari e accanto a ciascuno ciò che può rischiararli: una domanda, una ricerca, un ripasso, una conversazione. Dedica a ognuno mezz\'ora nei prossimi giorni, cominciando dal più difficile.',
       'Per {cosa} scrivi in una frase che cosa desideri davvero e in un\'altra che cosa ti è ancora oscuro. Porta la seconda frase a una persona che può aiutarti a vederci chiaro e parlane entro la settimana: la luce si accende con le domande giuste.',
-      'Per {cosa} chiedi entro questa settimana a una persona competente o vicina che cosa vede di forte e che cosa di debole nel tuo modo di muoverti. Annota le due risposte e scegli una cosa da migliorare, cominciando da domani mattina.',
-      'Non spegnere le tue idee per paura del giudizio: per {cosa} tieni un quaderno e scrivi ogni intuizione utile che ti viene in questi giorni. Domenica rileggile tutte e mettine in pratica una entro la settimana seguente, quella che ti accende di più.',
+      'Per {cosa} annota la domanda che temi di più e, sotto, che cosa sai già per rispondere. Poi guardala in faccia: leggila ad alta voce una volta, con calma. Quello che manca porta a chi può chiarirlo entro la settimana.',
+      'Scrivi, per {cosa}, in una riga esatta che cosa vuoi, senza aggettivi vaghi. Leggila a voce alta e togli ogni parola che non serve. Tienila dove la vedi: quando parli di questa attesa con gli altri, parti da quella riga.',
       'Per {cosa} scegli la domanda che ti fai senza trovare risposta e scrivila in cima a un foglio. Sotto, per tre sere, annota ciò che sai per rispondere e ciò che ti manca: alla fine porta la parte che manca a chi può rischiararla.',
     ],
     'Kenaz/dritta/altrui': [
@@ -2747,11 +2747,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Gebo/dritta/come': [
       'Entro domani scegli per {cosa} una cosa concreta da offrire, mezz\'ora del tuo tempo, un aiuto pratico, un ascolto senza interruzioni: offrila questa settimana. Poi chiedi apertamente una cosa di cui hai bisogno. Non dare tutto in silenzio aspettando che capiscano.',
       'Questa sera scrivi due frasi per {cosa}: "posso offrire questo" e "mi servirebbe quest\'altro". Completale con parole semplici e sincere e dille a voce entro venerdì a chi è coinvolto, in un momento tranquillo. Non trasformarle in una lista di rimproveri.',
-      'Per {cosa} ringrazia entro due giorni chi è coinvolto per una cosa che hai ricevuto, anche minima, dicendo il motivo in una frase sola. Aspetta almeno una settimana prima di chiedere qualcosa in cambio. Non accompagnare il grazie con una richiesta.',
+      'Stasera, per {cosa}, scrivi due righe: che cosa offri tu e che cosa ti aspetti in cambio. Proponile a chi è coinvolto entro tre giorni e chiedigli di scrivere le sue due. Confronta i due fogli senza discutere: dove coincidono c\'è già un accordo.',
       'Per {cosa} accetta il primo aiuto che qualcuno ti offre questa settimana, senza sminuirlo e senza rifiutarlo per orgoglio. Annota che cosa hai ricevuto e, entro sette giorni, ricambia con qualcosa che sai fare bene. Non tenere tutto sulle tue spalle.',
       'Per {cosa} proponi entro sabato un accordo semplice a chi è coinvolto: una cosa che fai tu, una che fa l\'altra persona, per due settimane. Scrivilo su un foglio da tenere in vista. Alla scadenza riparlane insieme per vedere se regge.',
-      'Domani prepara per {cosa} un segno di attenzione adatto a chi è coinvolto: un biglietto scritto a mano, un caffè offerto, un aiuto in una faccenda pratica. Offrilo senza chiedere niente e senza spiegare troppo. Non usarlo come merce di scambio.',
-      'Per {cosa} fissa questa settimana un momento di dialogo in cui parli tu per cinque minuti e poi ascolti per cinque minuti, senza interrompere. Annota ciò che hai ascoltato e ripeti lo scambio la settimana dopo. Non trasformare l\'ascolto in attesa del tuo turno.',
+      'Per {cosa} scegli una cosa concreta di cui hai bisogno e chiedila a voce a chi è coinvolto, in una frase semplice e senza giustificarti. Poi lascia il tempo di rispondere. Se finora hai solo dato, questa settimana limita il dare a una cosa piccola.',
+      'Per {cosa} pensa a una cosa, anche piccola, che hai ricevuto da chi è coinvolto e di\' ad alta voce perché ti è servita. Fallo di persona entro due giorni, in una frase sola e senza aggiungere richieste. Poi guarda come cambia il tono.',
       'Stasera scrivi in due colonne, per {cosa}, che cosa dai e che cosa ricevi da chi è coinvolto. Se pende verso il dare, entro venerdì chiedi aiuto su una cosa concreta; se pende verso il ricevere, ricambia con un\'attenzione. Non lasciare lo squilibrio senza nome.',
     ],
     'Gebo/dritta/quando': [
@@ -2795,11 +2795,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} scegli una persona cara e proponi entro venerdì uno scambio semplice: tu le insegni una cosa che sai fare, lei te ne insegna una sua. Fissa il primo incontro entro due settimane. Poi torna con la domanda che ti preme di più.',
     ],
     'Wunjo/dritta/decisione': [
-      'Prima di confermare la scelta di {azione}, scrivi i nomi delle tre persone che contano di più per te e accanto a ciascuno se la decisione ti avvicina o ti allontana. Se prevalgono gli avvicinamenti procedi; altrimenti parlane con loro entro domenica.',
-      'Questa settimana racconta a una persona cara, davanti a un caffè, la decisione di {azione}: mentre ne parli nota se senti più leggerezza o più peso. La leggerezza dice sì; il peso chiede di aspettare qualche giorno e di parlarne ancora.',
-      'Scrivi stasera tre cose che oggi ti danno gioia e accanto a ciascuna se la scelta di {azione} la conserva o la toglie. Se le conserva tutte, procedi; se ne toglie una, parlane prima a voce con chi la condivide con te.',
-      'Se la scelta di {azione} ti avvicina a chi ami, fissa entro dieci giorni il momento di comunicarla e scegli con chi condividere il giorno dopo. Se invece ti allontana da chi ti dà ancora gioia, aspetta un mese e parlane con chi è coinvolto.',
-      'Dedica un pomeriggio di questa settimana, prima di {azione}, a qualcosa che ti fa stare bene insieme a chi ami, senza parlare della scelta: decidi il giorno dopo, con l\'animo disteso. Non decidere mai sotto pressione o in un momento di malumore.',
+      'Prima di confermare la scelta di {azione}, immaginala già fatta e scrivi in tre righe che cosa senti: leggerezza o peso. Rileggi le righe domani: se prevale la leggerezza, fissa entro dieci giorni il momento di agire; se prevale il peso, aspetta ancora.',
+      'Questa settimana, prima di {azione}, nota ogni sera se pensare alla scelta ti scalda o ti stringe il petto. Segna un sì o un no su un biglietto. Dopo sette sere conta i sì: se prevalgono nettamente puoi procedere, altrimenti aspetta ancora.',
+      'Scrivi stasera tre cose che oggi ti danno gioia e accanto a ciascuna se la scelta di {azione} la conserva, la accresce o la toglie. Se nessuna viene tolta, procedi; se una viene tolta, rifletti ancora per una settimana prima di muoverti.',
+      'Se la scelta di {azione} ti dà slancio, fissa entro dieci giorni il giorno in cui realizzarla e preparalo con cura: un luogo, un\'ora, le parole giuste. Se invece senti soprattutto il sollievo di scappare, aspetta un mese e scrivi che cosa speri di trovare.',
+      'Dedica un pomeriggio di questa settimana, prima di {azione}, a qualcosa che ti fa stare bene, senza pensare alla scelta: decidi il giorno dopo, con l\'animo disteso. Non decidere mai sotto pressione o in un momento di malumore, perché la gioia non si impone.',
     ],
     'Wunjo/dritta/scelta': [
       'Prendi un foglio e, per {cosa}, scrivi le due strade in colonna e sotto ciascuna le persone con cui condivideresti la vita di ogni giorno. Rileggilo domani sera: scegli la colonna dove i nomi ti fanno sorridere. Non decidere solo sul prestigio.',
@@ -2824,7 +2824,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Wunjo/dritta/previsione': [
       'Fai con impegno la tua parte per {cosa} e, nei giorni di maggiore tensione, concediti una serata piacevole con una persona cara invece di rimuginare fino a tardi. Un animo disteso dà il meglio. Non isolarti per paura del risultato.',
-      'Scrivi stasera, per {cosa}, tre ragioni per cui questo percorso ti dà gioia anche indipendentemente dall\'esito finale e rileggile quando sale l\'ansia. Raccontale poi a una persona cara, a voce. Non legare tutta la tua serenità a un solo risultato.',
+      'Per {cosa} fissa questa settimana un\'ora di qualcosa che ti diverte, meglio in compagnia, senza parlare dell\'attesa. Scrivila in agenda e tienila comunque, anche se corri. La serenità aiuta più dell\'ansia: guarda se il giorno dopo hai la testa più leggera.',
       'Individua oggi una persona che crede in te e, per {cosa}, chiedile di esserci nei giorni più tesi, anche solo con un messaggio la sera. Accetta il suo sostegno senza imbarazzo e ringraziala. Non affrontare l\'attesa tenendo tutto per te.',
       'Per {cosa} fissa questa settimana una serata con le persone che ti vogliono bene, senza aspettare di sapere come va a finire. Scrivila in agenda e tienila anche se ti sembra di non avere tempo: la gioia condivisa adesso alleggerisce ogni attesa.',
       'Ricorda stasera, per {cosa}, un momento in cui le cose sono andate bene grazie anche ad altri e annota chi ti ha dato una mano. Domani scrivi un saluto a una di quelle persone: sentirti in compagnia ti restituisce fiducia e leggerezza.',
@@ -2862,7 +2862,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Quando senti salire il malumore per {cosa}, rimanda la conversazione di un giorno e scrivi su un foglio che cosa vorresti davvero ottenere. Poi riprendi il discorso partendo da lì, con calma. Non dire nulla di importante mentre il malumore ti guida.',
       'Questa settimana proponi, per {cosa}, un tempo condiviso con chi è coinvolto, dedicato a qualcosa che piace a tutti: una passeggiata, una cena semplice, un film. In quelle ore lascia fuori problemi e richieste. Non usare l\'incontro per fare bilanci.',
       'Entro domani, per {cosa}, di\' tu a chi è coinvolto una frase sincera su ciò che ti sta a cuore, per esempio «ci tengo che vada bene». Dilla a voce, senza richieste, poi ascolta fino in fondo. Non aspettare che si muova prima qualcun altro.',
-      'Chiedi stasera a chi è coinvolto, per {cosa}, che cosa renderebbe più sereno questo periodo, poi fai davvero una di quelle cose entro tre giorni, senza commenti. Ascoltare un bisogno vale più di cento spiegazioni. Non rispondere subito con le tue ragioni.',
+      'Per {cosa} di\' a chi è coinvolto, con semplicità, che ci tieni e che vuoi stare bene insieme: una frase sola, detta a voce e senza giri. Fallo entro tre giorni, prima di parlare di problemi. Poi ascolta la risposta senza difenderti.',
     ],
     'Wunjo/ombra/quando': [
       'Mentre aspetti, per {cosa}, scegli una persona che senti meno di quanto vorresti, scrivile oggi stesso e proponi un incontro entro dieci giorni. L\'attesa pesa meno quando i legami tornano vivi. Non vivere l\'attesa chiudendoti in casa e nel malumore.',
@@ -2917,10 +2917,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Quando senti salire la tensione per {cosa}, aspetta dieci minuti prima di dire qualsiasi cosa: esci, cammina, bevi un bicchiere d\'acqua. Poi di\' una frase sola, calma e chiara. Non parlare mentre la scossa è ancora forte: nella raffica le parole pesano il doppio.',
       'Scrivi in tre righe che cosa, per {cosa}, ti sembra fragile e che cosa regge ancora. Parti da ciò che regge: questa settimana fai una sola cosa che lo rafforzi; il resto lascialo stare. Non puntellare ciò che non tiene più.',
       'Per {cosa} chiedi un momento tranquillo con chi è coinvolto, a quattr\'occhi: di\' con franchezza che cosa non vuoi portarti dietro e che cosa vorresti al suo posto, senza accusare. Una frase per ciascuna, poi ascolta. Lascia andare ciò che non regge invece di difenderlo.',
+      'Per {cosa} individua il punto che non regge e dillo in una frase onesta, per esempio «così com\'è non funziona». Dillo a voce a chi è coinvolto con calma, senza accusare nessuno. Poi ascolta con attenzione come lo vede l\'altra persona.',
       'Per {cosa}, se dentro c\'è agitazione, lasciala uscire prima di parlare con chiunque: stasera scrivi su un foglio tutto ciò che ti pesa, senza filtri, poi strappalo. Domani parti da ciò che resta dopo lo sfogo. Non portare la grandine dentro la conversazione.',
-      'Elimina per {cosa}, da oggi e per un mese, una cosa che fai solo per abitudine e che non porta più niente di buono: una discussione ripetuta, un\'insistenza, un silenzio. Al suo posto prova una cosa nuova ogni settimana. Non tornare alla vecchia per comodità.',
       'Fissa per {cosa} una settimana in cui non aggiungi interventi né spiegazioni e osservi soltanto ciò che resta stabile anche senza di te. Alla fine della settimana riparti da quello e lascia cadere il resto. Non riempire di parole i vuoti: guarda che cosa tiene.',
-      'Per {cosa} scegli una pretesa o un\'aspettativa che ti tiene in tensione e scrivila su un foglio. Entro domenica decidi se rinunciarvi del tutto o ridurla a metà; poi comportati di conseguenza per due settimane. Non trattenere per orgoglio ciò che ti pesa.',
+      'Per {cosa} appoggiati solo a ciò che è solido: una cosa che funziona e una persona su cui puoi contare. Annotale in due righe e per questa settimana rimanda tutto il resto. Non aggiungere nuove prove finché le basi non ti sembrano ferme.',
     ],
     'Hagalaz/dritta/quando': [
       'Mentre aspetti, per {cosa} individua una cosa che trattieni solo per paura di perderla e lasciala andare entro sabato: un impegno inutile, un\'abitudine, un\'attesa. Ogni peso tolto accorcia un poco la scossa. Non riempire subito il vuoto con qualcosa di nuovo.',
@@ -2935,12 +2935,12 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Hagalaz/dritta/previsione': [
       'Se per {cosa} c\'è qualcosa che tieni in piedi per paura di cambiarlo, scrivilo e chiediti che cosa succederebbe se lo lasciassi andare. Se la risposta ti dà sollievo, comincia a lasciarlo entro la settimana: ciò che non regge più toglie spazio al nuovo.',
       'Per {cosa} scrivi in una riga come deve andare secondo te e in un\'altra come potrebbe andare in modo diverso ma accettabile. Rileggi la seconda ogni mattina per una settimana: chi lascia cadere l\'unica versione possibile regge meglio qualunque scossa arrivi.',
-      'Per {cosa} chiedi a una persona fidata di dirti con franchezza, questa settimana, dove ti vede vacillare. Annota le sue parole senza difenderti e rinforza solo quei punti. Non sprecare tempo a rifinire ciò che regge già: la scossa mette alla prova le basi.',
-      'Per {cosa} guarda la tua settimana e cancella ciò che tieni in piedi per abitudine e che ormai non regge: un impegno svuotato, un\'attesa sterile, un\'abitudine che ti pesa. Usa il tempo liberato per ciò che ti sta più a cuore, senza rimpianti.',
       'Scrivi per {cosa} la frase che ti diresti se le cose non andassero come speri, una frase gentile e vera. Tienila in tasca o fra gli appunti: sapere che reggi anche l\'urto toglie metà della paura. Non costruire tutto sull\'unica ipotesi del successo.',
-      'Per {cosa} individua l\'unica cosa che ti agita di più e scrivila su un foglio stasera. Accanto scrivi che cosa puoi fare per ridurla entro domenica e fallo. Ciò che non puoi toccare lascialo passare come grandine. Non ripassare all\'infinito le stesse paure.',
       'Per {cosa} scrivi su che cosa conti di più: un\'idea, un piano, un\'abitudine. Per tre sere chiediti se regge davvero o se lo stai puntellando; se è incrinato, lascialo cadere e annota con che cosa ricominciare entro la fine della settimana.',
-      'Per {cosa} fissa adesso un momento tutto per te, qualunque cosa accada: una passeggiata, una telefonata a una persona cara, un\'ora di silenzio. Segnalo sul calendario: sapere che c\'è uno spazio tuo alleggerisce l\'attesa. Non legare il tuo valore a un solo risultato.',
+      'Per {cosa} chiedi a una persona fidata di dirti con franchezza, questa settimana, dove ti vede vacillare. Annota le sue parole senza difenderti e rinforza solo quei punti. Non sprecare tempo a rifinire ciò che regge già: la scossa mette alla prova le basi.',
+      'Per {cosa} individua l\'unica cosa che ti agita di più e scrivila su un foglio stasera. Accanto scrivi che cosa puoi fare per ridurla entro domenica e fallo. Ciò che non puoi toccare lascialo passare come grandine. Non ripassare all\'infinito le stesse paure.',
+      'Per {cosa} annota quale difficoltà ti aspetti e che cosa ti direbbe di utile se si presentasse. Se arriva, prima di reagire rileggi quella riga e fai la cosa più semplice che suggerisce. Considerala soltanto un\'informazione utile, non una bocciatura.',
+      'Scrivi, per {cosa}, in tre righe su che cosa puoi contare davvero: una capacità, una persona, un\'abitudine. Rinforza la più fragile con un gesto concreto entro la settimana. Ciò che non controlli lascialo da parte, senza inseguirlo. Poi controlla se qualcosa è cambiato.',
     ],
     'Hagalaz/dritta/altrui': [
       'Per {cosa} scrivi in due colonne ciò che l\'altra persona ha fatto davvero nelle ultime settimane e ciò che temi o speri. Rileggi solo la prima colonna e domenica decidi da lì come comportarti. Non puntellare il legame con le interpretazioni.',
@@ -2992,10 +2992,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Nauthiz/dritta/previsione': [
       'Individua per {cosa} il punto che preferiresti non guardare e scrivilo in cima a un foglio. Dedicagli un momento ogni giorno per due settimane, annotando sotto ciò che hai fatto. Non affidarti alla fortuna dell\'ultimo minuto: la pazienza vale più di un colpo di genio.',
-      'Scrivi per {cosa} cinque cose che puoi fare tu nelle prossime settimane, ognuna col suo giorno sul calendario. Comincia domani dalla più faticosa e spunta ogni cosa fatta. Non sprecare energie a immaginare come va a finire: mettile nelle cose da fare.',
       'Entro venerdì chiedi a una persona di fiducia un parere franco sul tuo impegno per {cosa}: che cosa manca, che cosa è solido. Ascolta senza difenderti e lavora sul punto principale nei giorni seguenti. Evita le scorciatoie che promettono di saltare la fatica.',
       'Per {cosa} scegli una regola di metodo che puoi tenere per un mese, per esempio fare il punto per iscritto ogni domenica sera. Rispettala anche nei giorni di poca voglia e segna sul calendario ogni domenica fatta: il metodo regge dove l\'entusiasmo si stanca.',
       'Scrivi per {cosa} le tre difficoltà che temi di più e accanto a ciascuna il modo concreto in cui puoi affrontarla. Rileggi il foglio ogni mattina per una settimana intera. Una paura guardata con metodo pesa meno di una paura evitata.',
+      'Scrivi per {cosa} cinque cose che puoi fare tu nelle prossime settimane, ognuna col suo giorno sul calendario. Comincia domani dalla più faticosa e spunta ogni cosa fatta. Non sprecare energie a immaginare come va a finire: mettile nelle cose da fare.',
     ],
     'Nauthiz/dritta/altrui': [
       'Per {cosa} scegli un\'abitudine che ti aiuti a reggere l\'attesa con metodo: una camminata ogni sera, una pagina di diario sui tuoi pensieri, un\'attività manuale. Tienila per tre settimane. Se ti viene l\'impulso di chiedere conferme, dedicati subito a quella invece.',
@@ -3041,7 +3041,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Nauthiz/ombra/previsione': [
       'Per {cosa} accorgiti di quando la paura di non farcela ti spinge a strafare: scrivi su un foglio ogni volta che succede, con l\'ora. Dopo una settimana rileggi e cambia una sola di quelle abitudini: forzare per paura toglie lucidità, non aggiunge forza.',
-      'Per {cosa} smetti di inseguire conferme a ogni ora: niente ricerche notturne, niente messaggi per sapere, niente confronti con gli altri. Concentrati su ciò che hai già in mano e rafforzalo con calma: la fame di risposte immediate toglie lucidità invece di darla.',
+      'Per {cosa} scegli una sola cosa da fare bene questa settimana e scrivila su un biglietto. Fai soltanto quella, senza aggiungere altro per dimostrare di più. Ogni sera segna se l\'hai fatta e poi fermati lì: il resto può aspettare.',
       'Stasera scrivi per {cosa} la paura più grande in una frase, poi accanto scrivi che cosa faresti se succedesse davvero. Chiudi il foglio in un cassetto. Nei giorni seguenti, quando l\'ansia sale, ricorda che hai già un piano e torna a ciò che stai facendo.',
       'Concediti per {cosa} una pausa vera questa settimana: un pomeriggio intero senza rimuginare, senza parlarne con altri, senza controllare niente. Fallo entro domenica, senza sensi di colpa: tornare con la mente sgombra vale più di un\'ora passata nell\'affanno di chi forza.',
       'Prima di fare altro per {cosa}, scrivi su due colonne che cosa ti manca davvero e che cosa ti sembra mancare solo per la paura. Lavora soltanto sulla prima, con calma e con costanza; non aggiungere impegni nuovi solo per placare l\'ansia.',
@@ -3084,11 +3084,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} stabilisci tre giorni di pausa in cui non riapri l\'argomento e non prendi iniziative. Usa quel tempo per scrivere in una frase che cosa vuoi ottenere; quando la frase è chiara, dilla alla persona coinvolta in un momento tranquillo, senza aggiungere altro.',
       'Prima di ogni conversazione importante per {cosa}, conta lentamente fino a dieci e chiediti se stai per reagire o per rispondere. Se è una reazione, rimanda di un\'ora: scrivi su un foglio ciò che vorresti dire e rileggilo quando torna la calma.',
       'Tieni per una settimana un quaderno per {cosa}: annota ogni sera un fatto concreto che hai visto, senza giudizi né interpretazioni. Alla fine rileggi le sette righe di seguito: ciò che emerge dai fatti ti dice dove intervenire e dove invece lasciare spazio.',
-      'Per {cosa} scegli una sola cosa da dire o da chiedere, non tre: scrivila in una frase breve e senza accuse. Aspetta un momento in cui nessuno ha fretta, dilla con voce tranquilla e poi lascia all\'altra persona il tempo di rispondere senza incalzarla.',
-      'Sospendi per dieci giorni ogni pressione per {cosa}: niente domande insistenti, niente promemoria, niente confronti con altri. Intanto sii presente nelle piccole cose quotidiane; alla fine di quei giorni nota che cosa è cambiato da quando hai smesso di spingere.',
-      'Chiedi a una persona fidata ed esterna di ascoltarti mezz\'ora su come stanno le cose per {cosa}. Non cercare soluzioni: racconta i fatti e chiedi che cosa vede. Prova per una settimana la sua osservazione più utile, prima di cambiare approccio.',
-      'Per {cosa} smetti per qualche giorno di cercare la soluzione: ogni sera scrivi tre righe su come ti senti tu, non su come si comportano gli altri. Quando le righe diventano più tranquille, è il momento di riprendere l\'iniziativa con chiarezza.',
       'Per {cosa} rallenta di proposito: niente decisioni il giorno stesso, niente risposte immediate ai messaggi, niente frasi definitive. Per due settimane lascia passare una notte prima di ogni mossa importante e annota sul telefono che cosa hai deciso il mattino dopo.',
+      'Per {cosa} scegli una sola cosa da dire o da chiedere, non tre: scrivila in una frase breve e senza accuse. Aspetta un momento in cui nessuno ha fretta, dilla con voce tranquilla e poi lascia all\'altra persona il tempo di rispondere senza incalzarla.',
+      'Per {cosa} procedi a gradini: oggi fai una sola richiesta piccola e osserva per due giorni come viene accolta, senza aggiungere altro. Se è andata bene, passa alla successiva; se qualcosa si irrigidisce, torna indietro di un passo. Annota ogni sera che cosa hai verificato.',
+      'Chiedi a una persona fidata ed esterna di ascoltarti mezz\'ora su come stanno le cose per {cosa}. Non cercare soluzioni: racconta i fatti e chiedi che cosa vede. Prova per una settimana la sua osservazione più utile, prima di cambiare approccio.',
+      'Sospendi per dieci giorni ogni pressione per {cosa}: niente domande insistenti, niente promemoria, niente confronti con altri. Intanto sii presente nelle piccole cose quotidiane; alla fine di quei giorni nota che cosa è cambiato da quando hai smesso di spingere.',
     ],
     'Isa/dritta/quando': [
       'Smetti di controllare ogni giorno se per {cosa} qualcosa si è mosso: scegli la domenica come giorno fisso e solo allora fai il punto, in dieci righe scritte. Negli altri giorni dedica le energie a un impegno che hai lasciato indietro.',
@@ -3158,7 +3158,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Annota ogni domenica sera, per quattro settimane, che cosa hai fatto per {cosa} nei sette giorni appena passati, anche poco. Quelle righe mostrano la maturazione che giorno per giorno non vedi e ti trattengono dal forzare i tempi o dal mollare troppo presto.',
       'Fai oggi per {cosa} in piccolo ciò che vorresti vedere più avanti: se desideri più dialogo, una domanda sincera; se desideri più serenità, dieci minuti senza fretta. Ripetilo ogni giorno per due settimane senza aspettarti risultati immediati: il campo cresce a suo tempo.',
       'Rinuncia per {cosa} a risolvere tutto in un colpo: scegli una sola cosa da migliorare questo mese e lascia le altre al mese seguente. Scrivila su un biglietto, tienila in vista e ogni sera controlla se le hai dedicato tempo davvero.',
-      'Segna in agenda per {cosa} una verifica fra trenta giorni: fino a quel giorno fai la tua parte con regolarità e non giudicare i risultati. Quel giorno guarda che cosa è cresciuto e decidi il passo seguente in base ai fatti, non all\'umore.',
+      'Per {cosa} annota che cosa ti serve per fare bene il passo che hai in mente: un\'informazione, un momento, una risposta. Quando hai ottenuto quelle cose, agisci entro due giorni. Non rimandare per scrupolo e non anticipare per pura impazienza.',
     ],
     'Jera/dritta/quando': [
       'Ripercorri per {cosa} le stagioni già passate: scrivi su un foglio che cosa è cambiato negli ultimi tre mesi, anche di poco. Quei movimenti sono il ciclo che gira; poi scegli una sola cosa da fare ogni settimana, senza contare i giorni.',
@@ -3177,8 +3177,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Togli per {cosa} la fretta dal calendario: guarda che cosa puoi ancora fare e distribuiscilo in parti regolari, una per giorno o per settimana. Se non resta niente da fare, distribuisci la calma: un\'ora al giorno lontano dal pensiero di come andrà.',
       'Per {cosa} chiediti ogni domenica sera che cosa hai seminato nella settimana e che cosa puoi seminare nella prossima: scrivilo in due righe. Non pretendere di vedere subito i frutti: il raccolto matura con la regolarità, non con gli sforzi dell\'ultimo momento.',
       'Evita per {cosa} di interrogarti ogni giorno sull\'esito: concediti una sola verifica alla settimana, la domenica, scrivendo che cosa hai fatto e che cosa resta. Negli altri sei giorni lavora con regolarità e lascia che il tempo faccia la sua parte.',
-      'Prepara anche il dopo per {cosa}: scrivi che cosa fare se l\'esito è buono e che cosa fare se è diverso da come speri. Con un piano per tutte e due le stagioni, qualunque risposta venga non ti trova senza una strada da prendere.',
-      'Cerca per {cosa} una persona che ha già attraversato una prova simile e chiedile che cosa, a distanza di mesi, ha fatto davvero la differenza. Annota la risposta e mettila in pratica da questa settimana, con regolarità, giorno dopo giorno.',
+      'Per {cosa} scegli ciò che puoi ancora curare e dagli ogni giorno un tempo fisso, per esempio mezz\'ora dopo colazione. Quando il tempo è finito, chiudi e passa ad altro. Non interrogare l\'esito ogni ora: la stagione fa il suo corso.',
+      'Per {cosa} disegna il tuo cammino in quattro fasi, per esempio preparare, fare, verificare, rifinire. Scrivi accanto a ciascuna una data. Lavora a una fase alla volta, senza saltarne e senza rimandarne. Offri al risultato il terreno migliore che puoi.',
     ],
     'Jera/dritta/altrui': [
       'Decidi per {cosa} la frase che vuoi dire tu e scrivila su un biglietto, in poche parole chiare. Aspetta un momento tranquillo nei prossimi dieci giorni, dilla a voce senza chiedere una risposta immediata e lascia all\'altra persona tutto il tempo di maturare una risposta.',
@@ -3223,11 +3223,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Eihwaz/dritta/come': [
       'Per {cosa} decidi in anticipo il tono che vuoi tenere, per esempio calmo e cordiale: scrivilo in due parole sul telefono. Rileggilo prima di ogni incontro e mantienilo anche se gli altri cambiano umore: la regolarità calma vale più di un discorso perfetto.',
       'Scrivi in una frase che cosa vuoi ottenere per {cosa} e tienila dove la vedi ogni mattina, per esempio sullo specchio. Ogni volta che la tensione sale, rileggila prima di rispondere: ti aiuta a tenere la linea senza irrigidirti né cedere.',
-      'Per {cosa} scegli un impegno piccolo che puoi ripetere a ogni occasione: un ascolto senza fretta, un aiuto pratico, una parola chiara. Mantienilo anche nei giorni in cui non vedi risultati e annota ogni volta che l\'hai tenuto: il tasso cresce così, poco ma sempre.',
+      'Scrivi, per {cosa}, in una frase ciò che per te è importante e dillo a voce, con calma, alla prima occasione. Poi mantienilo nei giorni seguenti: se arrivano obiezioni, ripeti la stessa frase senza alzare la voce. Annota ogni sera se hai tenuto la linea.',
       'Prima della prossima conversazione importante per {cosa}, scrivi l\'unica cosa su cui non vuoi cedere e due su cui puoi venire incontro. Durante il confronto tieni ferma la prima e concedi le altre, come il tasso che si piega nei rami e non nel tronco.',
-      'Tieni un quaderno del tuo impegno per {cosa}: ogni volta che fai qualcosa, anche minimo, scrivilo in una riga. Quando senti la tentazione di mollare, rileggilo tutto: la strada fatta, vista per intero, ti dà la forza di continuare senza forzare.',
       'Ogni volta che per {cosa} senti l\'impulso di forzare o di arrenderti, aspetta ventiquattro ore prima di agire e intanto fai una cosa ordinaria che ti tenga in piedi: una camminata, il lavoro di sempre, una telefonata a un amico.',
-      'Scegli un momento tranquillo dei prossimi giorni e di\' con calma a chi è coinvolto, in tre frasi, ciò che per {cosa} ti sta più a cuore. Poi tieni quella linea nelle settimane seguenti, senza ripeterla a ogni occasione e senza ritirarla.',
+      'Tieni un quaderno del tuo impegno per {cosa}: ogni volta che fai qualcosa, anche minimo, scrivilo in una riga. Quando senti la tentazione di mollare, rileggilo tutto: la strada fatta, vista per intero, ti dà la forza di continuare senza forzare.',
+      'Per {cosa} decidi oggi quanto tempo e quanta attenzione puoi dare ogni giorno senza svuotarti, per esempio venti minuti. Scrivilo su un biglietto e mantieni quell\'impegno per due settimane, né di più né di meno. Alla fine rileggi com\'è andata, prima di giudicare.',
       'Per {cosa} fai un patto con te: niente gesti clamorosi, solo parole misurate e una presenza costante fino in fondo. Segna sul calendario ogni giorno in cui l\'hai rispettato: se salti un giorno, riprendi il successivo senza ricominciare da capo e senza colpe.',
     ],
     'Eihwaz/dritta/quando': [
@@ -3241,11 +3241,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Stabilisci per {cosa} un ritmo che puoi reggere a lungo: decidi quanta energia dedicarci ogni settimana e non superarla, anche quando l\'ansia ti spinge a fare di più. Le stagioni lunghe si attraversano con il passo costante, non con le corse.',
     ],
     'Eihwaz/dritta/previsione': [
-      'Scrivi su un foglio che cosa fare per {cosa} in caso di esito buono e che cosa in caso contrario, con un passo pratico per ciascuno. Sapere di reggere in entrambi i casi toglie peso alla paura e ti lascia la forza intera.',
+      'Per {cosa} annota quale parte dell\'impegno è più faticosa e come la divideresti in tratti più piccoli, uno per giorno. Comincia da domani e segna ogni tratto concluso. Nelle settimane pesanti non saltare il tuo ritmo: ridurre va bene, mollare no.',
       'Scegli tre abitudini che reggono la tua energia, per esempio un orario fisso per alzarti, una camminata e una sera senza schermi: tienile ferme in queste settimane, qualunque cosa accada per {cosa}. Il tasso regge le tempeste perché non cambia radici a ogni vento.',
       'Per {cosa} individua il momento in cui potresti cedere alla stanchezza, per esempio la sera tardi o dopo una brutta notizia: decidi oggi che cosa fare allora invece di arrenderti. Scrivilo su un biglietto e tienilo a portata di mano.',
       'Per {cosa} tieni un diario di tenuta per due settimane: ogni sera una riga su ciò che hai fatto per restare in piedi, anche nei giorni in cui avresti voluto lasciar perdere. Rileggilo quando l\'ansia sale: ti mostra quanto hai già retto.',
-      'Elenca per iscritto le tre risorse su cui puoi contare per {cosa}: una capacità tua, una persona, un\'esperienza passata che hai superato. Leggile ad alta voce la sera prima di ogni passaggio importante: sono le tue radici, quelle che tengono quando soffia il vento.',
+      'Per {cosa} elenca tre risorse su cui puoi contare: una capacità tua, una persona, un\'esperienza passata che hai superato. Rileggi l\'elenco ogni sera per una settimana. Sono le tue radici: restano uguali anche nei giorni in cui l\'attesa si fa lunga.',
       'Per {cosa} scegli un impegno piccolo che puoi mantenere ogni giorno per un mese, qualunque cosa succeda: segna sul calendario ogni giorno tenuto. Nei giorni storti fallo lo stesso, anche in forma ridotta: la tenuta si costruisce non mollando, non strafacendo.',
       'Prima di ogni passaggio difficile per {cosa}, concediti un\'ora senza rimuginare né controllare niente: cammina all\'aperto, respira a fondo, guarda lontano. Arrivarci con le radici calme e il respiro lento vale più di un\'ultima ora passata nell\'affanno di recuperare tutto.',
       'Scegli una frase breve che dica la tua tenuta, per esempio «reggo anche questo»: scrivila dove la vedi ogni mattina e rileggila prima di ogni passo importante per {cosa}. Il tasso non chiede al vento quanto durerà: resta e regge.',
@@ -3285,8 +3285,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Su un foglio scrivi, per {cosa}, la domanda più scomoda che ti fai su ciascuna strada. Entro sabato portale una per una a chi conosce bene quella realtà e può risponderti: preferisci la strada le cui risposte ti lasciano più curiosità che timore.',
     ],
     'Perthro/dritta/come': [
-      'Nel prossimo momento tranquillo, per {cosa}, fai tre domande aperte, come «tu come la vedi?», poi ascolta le risposte fino in fondo senza ribattere. Annota quella sera ciò che hai scoperto: è il materiale da cui partire per muoverti con giudizio.',
       'Una settimana di sola osservazione, per {cosa}: annota ogni giorno un segnale piccolo, un tono, un orario, una reazione, senza intervenire. Domenica rileggi tutto e cerca ciò che si ripete: è da lì, da ciò che non vedevi prima, che conviene partire.',
+      'Nel prossimo momento tranquillo, per {cosa}, fai tre domande aperte, come «tu come la vedi?», poi ascolta le risposte fino in fondo senza ribattere. Annota quella sera ciò che hai scoperto: è il materiale da cui partire per muoverti con giudizio.',
       'Proponi questa settimana, per {cosa}, un momento leggero, una passeggiata o un caffè, senza un ordine del giorno. Parla di altro, ridi se capita, lascia che sia un momento sereno: spesso ciò che conta viene fuori quando nessuno lo sta cercando.',
       'Prima di agire, per {cosa}, scrivi ciò che credi di sapere e accanto, in un\'altra colonna, ciò che stai solo supponendo. Nei prossimi giorni verifica una supposizione alla volta con una domanda diretta o un\'osservazione: muoviti solo su ciò che hai visto confermato.',
       'Chiedi entro venerdì, per {cosa}, a una persona di fiducia, che guarda la situazione da fuori, che cosa vede che a te sfugge ancora. Ascolta senza giustificarti, ringrazia e lascia passare almeno un giorno intero prima di decidere con calma come muoverti.',
@@ -3299,9 +3299,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Concediti due settimane di attesa attiva per {cosa}: ogni mattina chiediti che cosa puoi osservare oggi, non che cosa puoi ottenere. Alla fine delle due settimane parla con una persona di fiducia di ciò che hai notato: due sguardi vedono più lontano di uno.',
     ],
     'Perthro/dritta/previsione': [
-      'Prepara stasera due liste per {cosa}: ciò che puoi sapere o preparare prima e ciò che resta fuori dalla tua portata. Dedica i prossimi giorni solo alla prima, una voce al giorno; la seconda rileggila una volta e poi mettila da parte, senza rimuginarci sopra.',
-      'Immagina tre esiti per {cosa}, uno buono, uno deludente e uno inatteso: per ciascuno scrivi in due righe che cosa faresti il giorno dopo. Così l\'incertezza smette a poco a poco di spaventarti: qualunque carta esca, hai già pensato alla tua mossa.',
       'Nei prossimi giorni parla con leggerezza a una persona amica di ciò che speri e di ciò che temi per {cosa}, poi ridi con lei di ciò che non puoi controllare. Il peso diviso a metà lascia più spazio alla lucidità.',
+      'Immagina tre esiti per {cosa}, uno buono, uno deludente e uno inatteso: per ciascuno scrivi in due righe che cosa faresti il giorno dopo. Così l\'incertezza smette a poco a poco di spaventarti: qualunque carta esca, hai già pensato alla tua mossa.',
+      'Prepara stasera due liste per {cosa}: ciò che puoi sapere o preparare prima e ciò che resta fuori dalla tua portata. Dedica i prossimi giorni solo alla prima, una voce al giorno; la seconda rileggila una volta e poi mettila da parte, senza rimuginarci sopra.',
       'Scrivi la domanda o la situazione che temi di più per {cosa} e prepara una risposta onesta in tre frasi. Ripetila a voce alta due volte nei prossimi giorni: ciò che oggi è coperto fa meno paura quando hai già pensato a come accoglierlo.',
       'Da oggi a domenica, per {cosa}, smetti di chiedere pareri e rassicurazioni a chiunque: ogni volta che senti l\'impulso, scrivi su un foglio una cosa che puoi fare subito e falla. L\'esito resta coperto, ma la tua parte si rafforza giorno dopo giorno.',
     ],
@@ -3384,10 +3384,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Algiz/dritta/come': [
       'Prima della prossima conversazione importante per {cosa}, scrivi su un foglio il confine che vuoi difendere e la frase con cui esprimerlo. Dilla con voce calma, una volta sola, senza alzare il tono: poi ascolta la risposta fino in fondo senza interrompere.',
+      'Da oggi, prima di ogni parola importante per {cosa}, chiediti: questa frase protegge ciò che conta o lo espone? Se lo espone, aspetta un\'ora e riformulala con parole più miti; se lo protegge, dilla con calma guardando negli occhi chi hai davanti.',
       'Scegli una persona fidata che conosca la situazione e chiedile di essere il tuo punto d\'appoggio per {cosa}: un caffè alla settimana, dieci minuti per raccontare come va. Non portare tutto il peso senza nessuno accanto: un riparo condiviso regge meglio.',
       'Tieni per {cosa} un piccolo diario dell\'istinto: ogni sera, per sette giorni, scrivi che cosa ti ha messo in allerta e che cosa ti ha dato quiete. Domenica rileggilo e regola il tuo modo di fare su ciò che si ripete.',
-      'Proteggi prima le tue forze: per {cosa} fissa ogni giorno un\'ora tutta tua, senza telefono né impegni, in cui recuperare energia e lucidità. Affronta i momenti delicati solo dopo quella pausa, mai a fine giornata quando la guardia è più bassa.',
-      'Da oggi, prima di ogni parola importante per {cosa}, chiediti: questa frase protegge ciò che conta o lo espone? Se lo espone, aspetta un\'ora e riformulala con parole più miti; se lo protegge, dilla con calma guardando negli occhi chi hai davanti.',
+      'Per {cosa} immagina che cosa vuoi custodire fra un anno: una persona, un equilibrio, un risultato. Prima di ogni scelta di questa settimana chiediti se quella cosa ne esce protetta o esposta. Rimanda ciò che la espone e fai per prima ciò che la protegge.',
     ],
     'Algiz/dritta/quando': [
       'Mentre aspetti, per {cosa} rinforza le tue difese: questa settimana scegli una cosa concreta che ti dà stabilità e mettila in piedi entro domenica: una routine, un appoggio, un margine di tempo. Così l\'attesa diventa un tempo di preparazione, non di logoramento.',
@@ -3398,10 +3398,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Algiz/dritta/previsione': [
       'Per {cosa} scrivi i due punti dove hai meno riparo e per ciascuno una protezione da mettere in piedi entro tre giorni: una persona da avvisare, un\'informazione da chiedere, un tempo da riservare. Il resto lascialo andare: hai più difese di quante ne conti.',
-      'Spiega a una persona di cui ti fidi che cosa vivi per {cosa} e chiedile di esserci, anche solo con un messaggio, nei giorni più delicati. Decidi con lei come restare in contatto: chi sa che qualcuno veglia tiene la guardia alta senza irrigidirsi.',
+      'Per {cosa} chiediti quale punto debole ti preoccupa di più e che cosa lo coprirebbe: un\'informazione, una persona, un po\' di riposo. Metti in piedi quella protezione prima di qualunque altra mossa. Chi protegge prima i punti deboli vive l\'attesa con più calma.',
+      'Scrivi, per {cosa}, le risorse su cui puoi contare: due persone, due capacità, un\'esperienza passata. Rileggi la lista quando l\'ansia sale, prima di cercare altro. Se ne manca una, scegli a chi chiederla entro tre giorni. Poi tieni la lista a portata di mano.',
       'Per {cosa} proteggi la tua calma: individua le due fonti che ti agitano di più (voci, paragoni, notizie) e tienile lontane per una settimana. Annota ogni sera se la giornata è stata più tranquilla: lo scudo funziona quando lo alzi presto.',
-      'Fai oggi per {cosa} l\'elenco di ciò che è nelle tue mani e di ciò che non lo è: sul primo agisci entro tre giorni, il secondo lascialo fuori dalla porta. Lo scudo si alza su ciò che puoi governare.',
-      'Per {cosa} chiedi a chi ha già attraversato una prova simile di raccontarti che cosa gli è servito di più, poi scegli un consiglio solo da mettere in pratica entro la settimana. L\'esperienza di chi è passato prima di te è uno scudo in più.',
+      'Spiega a una persona di cui ti fidi che cosa vivi per {cosa} e chiedile di esserci, anche solo con un messaggio, nei giorni più delicati. Decidi con lei come restare in contatto: chi sa che qualcuno veglia tiene la guardia alta senza irrigidirsi.',
     ],
     'Algiz/dritta/altrui': [
       'Invece di chiederti che cosa prova l\'altra persona, per {cosa} osserva per due settimane come ti senti dopo ogni contatto: annotalo in una parola, la sera stessa. Lascia che sia quel diario a dirti dove stare al riparo e in pace.',
@@ -3434,7 +3434,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Algiz/ombra/come': [
       'Da domani, per {cosa}, separa su un quaderno ciò che hai visto con i tuoi occhi da ciò che hai solo sentito dire o immaginato. Agisci soltanto sulla prima colonna e tieni la seconda in sospeso finché non trova conferma.',
       'Scrivi per {cosa} la domanda di cui ti serve davvero la risposta e falla a voce entro tre giorni, con parole semplici e senza accuse. Poi riassumi la risposta, per controllare di aver capito bene e di non aver riempito i vuoti.',
-      'Datti, per {cosa}, una regola sola e scrivila: nessuna decisione importante senza averne parlato prima con una persona di cui ti fidi. Tienila per un mese, anche nei giorni in cui ti sembra superflua: è così che la guardia torna in piedi.',
+      'Per {cosa} annota in tre righe che cosa ti mette in allerta, senza giudicarlo. Il giorno dopo rileggile e sottolinea la riga che pesa di più. Poi scegli chi può aiutarti a chiarirla e fissa il momento entro tre giorni.',
       'Nei prossimi dieci giorni, per {cosa}, non concedere niente di nuovo a scatola chiusa: a ogni richiesta rispondi «ci penso e ti dico domani», poi verifica prima di dire sì o no: una guardia rialzata non è sfiducia, è rispetto per ciò che conta.',
       'Entro venerdì cerca per {cosa} un riscontro da fuori: racconta la situazione in cinque minuti a qualcuno che non è coinvolto e chiedigli che cosa vede. Annota la risposta senza ribattere e confrontala con la tua idea prima di muoverti di nuovo.',
     ],
@@ -3446,7 +3446,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Invece di contare i giorni, per {cosa} verifica una cosa sola: che cosa sai davvero e che cosa hai aggiunto tu con la speranza. Raccontalo stasera a una persona fidata e chiedile di aiutarti con franchezza a separare le due cose.',
     ],
     'Algiz/ombra/previsione': [
-      'Prepara per {cosa} un piano di riserva scritto: se le cose vanno diversamente dal previsto, che cosa fai il giorno dopo, a chi ti rivolgi, dove riparte il tuo impegno. Averlo in tasca rialza la guardia senza toglierti la fiducia.',
+      'Per {cosa} annota i punti che consideri già chiusi e accanto a ciascuno se ne hai una prova o solo un\'impressione. Per i punti senza prova chiedi una conferma a chi può dartela entro tre giorni. Poi tieni il foglio con te.',
       'Entro domani individua per {cosa} una cosa che dai per scontata e verificala con una domanda diretta, fatta a chi può davvero risponderti. Non andare avanti sulla sola fiducia: un controllo fatto per tempo può risparmiarti più di una brutta sorpresa.',
       'Ascolta il disagio, se c\'è: scrivi per {cosa} in una frase ciò che ti preoccupa e porta quella frase a una persona esperta o fidata entro tre giorni. Meglio guardarlo in faccia adesso, quando hai margine, che scoprirlo a cose fatte.',
       'Diffida per {cosa} delle rassicurazioni troppo facili: se qualcuno ti dice che è tutto a posto, chiedi gentilmente su che cosa si basa. Poi controlla da te almeno un punto entro la settimana, con calma e senza fidarti a occhi chiusi.',
@@ -3489,11 +3489,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Sowilo/dritta/come': [
       'Questa sera scrivi in una frase che cosa vuoi che cambi per {cosa}, in concreto. Domani dillo con calma alla persona coinvolta, guardandola negli occhi; poi chiedile che cosa desidera lei. Torna su quella frase ogni sera per una settimana.',
       'Per sette giorni dedica dieci minuti alla stessa ora a un\'unica azione per {cosa}: ascoltare la persona coinvolta senza interrompere, senza consigli e senza giudizi. Non cambiare strategia a metà settimana: la costanza mostra la tua direzione più di ogni discorso.',
-      'Fai da luce, non da spinta: questa settimana, per {cosa}, mostra con un esempio concreto ciò che vorresti vedere, prima di chiederlo a parole. Se vuoi più calma, comincia tu ad abbassare la voce; se vuoi più ascolto, ascolta fino in fondo.',
+      'Prepara per {cosa} un messaggio breve e luminoso: che cosa apprezzi, che cosa desideri, che cosa proponi. Mandalo o dillo a voce entro tre giorni alla persona coinvolta, poi lascia spazio alla risposta senza incalzare e senza abbandonare la tua direzione.',
       'Prendi un foglio e scrivi tre obiettivi per {cosa}; poi cancellane due e tieni quello che conta di più. Nelle due settimane successive misura su quell\'unico obiettivo ogni tua parola e ogni tua scelta. Le altre questioni possono aspettare la loro volta.',
       'Fissa entro venerdì mezz\'ora tranquilla per {cosa}: siediti con la persona coinvolta e di\' in una frase dove vorresti arrivare insieme. Poi chiedi quale sia la sua meta e cerca con lei un punto comune su cui lavorare da subito.',
       'Ogni mattina, per due settimane, prima di uscire chiediti: che cosa posso fare oggi per {cosa} che vada nella direzione giusta? Scrivilo in una riga e fallo prima che finisca la giornata. Non lasciare che l\'umore della giornata ti faccia cambiare rotta.',
-      'Prepara per {cosa} un messaggio breve e luminoso: che cosa apprezzi, che cosa desideri, che cosa proponi. Mandalo o dillo a voce entro tre giorni alla persona coinvolta, poi lascia spazio alla risposta senza incalzare e senza abbandonare la tua direzione.',
+      'Fai da luce, non da spinta: questa settimana, per {cosa}, mostra con un esempio concreto ciò che vorresti vedere, prima di chiederlo a parole. Se vuoi più calma, comincia tu ad abbassare la voce; se vuoi più ascolto, ascolta fino in fondo.',
       'Scrivi su un biglietto la direzione che vuoi tenere per {cosa}, in sette parole al massimo; mettilo accanto alla porta, dove lo vedi ogni mattina. Prima di ogni incontro o discussione rileggilo: ti ricorda dove vuoi arrivare quando l\'umore spinge altrove.',
     ],
     'Sowilo/dritta/quando': [
@@ -3552,8 +3552,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Tiwaz/dritta/come': [
       'Prepara per {cosa} tre frasi sincere: che cosa vedi, che cosa ti pesa, che cosa proponi. Entro venerdì chiedi un momento a quattr\'occhi alla persona coinvolta e di\' quelle frasi senza giri di parole; ascolta la risposta fino in fondo, senza frecciate.',
-      'Questa settimana scegli un impegno per {cosa} che sai di poter mantenere, anche minimo: dichiaralo apertamente alla persona interessata e mantienilo alla lettera. Non promettere di più per fare bella figura; la fiducia nasce dalla parola tenuta, non dalle grandi dichiarazioni.',
       'Entro domani scrivi per {cosa} ciò che ritieni giusto chiedere e ciò che puoi offrire, in due righe ciascuno. Portale con te nella prossima conversazione e parla in prima persona: io sento, io vorrei. Lascia fuori accuse e confronti col passato.',
+      'Questa settimana scegli un impegno per {cosa} che sai di poter mantenere, anche minimo: dichiaralo apertamente alla persona interessata e mantienilo alla lettera. Non promettere di più per fare bella figura; la fiducia nasce dalla parola tenuta, non dalle grandi dichiarazioni.',
       'Per {cosa}, alla prossima occasione, di\' apertamente ciò che pensi davvero, anche se è più scomodo di una mezza verità, con calma e con rispetto. Se serve, scrivilo prima su un biglietto per trovare le parole giuste; poi dillo guardando negli occhi.',
       'Fissa per {cosa} una regola sola, valida per te come per gli altri: applicala da domani senza eccezioni di comodo. Dopo dieci giorni guarda che cosa è cambiato e parlane apertamente con la persona coinvolta, senza nascondere i tuoi errori.',
     ],
@@ -3567,9 +3567,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Tiwaz/dritta/previsione': [
       'Prepara per {cosa} un elenco onesto dei tuoi punti forti e dei punti deboli, poi scegli un punto debole e lavoraci per tre sere invece di nasconderlo. Non promettere ciò che non puoi mantenere e non sminuire ciò che vali: mostrati per ciò che sei.',
       'Stasera scrivi per {cosa} le tre ragioni vere per cui ci tieni e ripetile ad alta voce prima di dormire. Non gonfiarle e non inventarne: se una non regge, sostituiscila con una cosa che puoi fare domani a viso aperto.',
-      'Se per {cosa} senti la tentazione di aggiustare la verità, con te o con altri, scrivi dove. Entro due giorni dì le cose come stanno, a voce e con calma, a chi è giusto che le sappia: la sincerità regge più di qualunque scorciatoia.',
-      'Chiedi entro due giorni a una persona franca di farti, per {cosa}, le domande più scomode che le vengono in mente. Rispondi a voce, senza scuse né giri; dove esiti, annota il punto e pensaci con onestà la sera stessa, senza cercare alibi.',
       'Se per {cosa} c\'è una cosa giusta che rimandi per timore, una parola, una richiesta, una scelta, scrivila stasera su un foglio. Falla entro tre giorni a viso aperto, poi annota com\'è andata; non cercare scorciatoie né favori che non potresti spiegare.',
+      'Chiedi entro due giorni a una persona franca di farti, per {cosa}, le domande più scomode che le vengono in mente. Rispondi a voce, senza scuse né giri; dove esiti, annota il punto e pensaci con onestà la sera stessa, senza cercare alibi.',
+      'Se per {cosa} senti la tentazione di aggiustare la verità, con te o con altri, scrivi dove. Entro due giorni dì le cose come stanno, a voce e con calma, a chi è giusto che le sappia: la sincerità regge più di qualunque scorciatoia.',
     ],
     'Tiwaz/dritta/altrui': [
       'Scegli un momento tranquillo entro questa settimana e fai per {cosa} la domanda diretta che ti preme davvero: che cosa senti, che cosa vuoi. Poi ascolta senza interrompere e prendi la risposta per ciò che dice, senza cercarne un\'altra fra le righe.',
@@ -3602,8 +3602,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Tiwaz/ombra/come': [
       'Prima di agire per {cosa}, scrivi in una frase che cosa ritieni giusto ottenere e rileggila ogni mattina per tre giorni. Solo dopo parla con la persona coinvolta, partendo da quella frase; se senti salire la voglia di ripicca, interrompi e rimanda la conversazione.',
       'Questa settimana, per {cosa}, rinuncia a ogni battuta, frecciata o risposta di rivalsa, anche quando ti sembra meritata. Annota ogni sera le occasioni in cui hai scelto la calma: dopo sette giorni possono diventare la base per un confronto sereno con la persona coinvolta.',
-      'Per {cosa} stabilisci un unico punto fermo che non vuoi cedere: scrivilo stasera, poi lascia andare tutto il resto. Nel prossimo confronto difendi solo quello, con parole tranquille e frasi brevi; non aggiungere altre richieste e non alzare il tono, nemmeno se ti provocano.',
       'Concediti due giorni di distanza per {cosa}: niente messaggi lunghi, niente decisioni a caldo. Nel frattempo chiedi a una persona di fiducia di aiutarti a distinguere ciò che ti preme davvero da ciò che è solo orgoglio; poi parla soltanto del primo.',
+      'Per {cosa} stabilisci un unico punto fermo che non vuoi cedere: scrivilo stasera, poi lascia andare tutto il resto. Nel prossimo confronto difendi solo quello, con parole tranquille e frasi brevi; non aggiungere altre richieste e non alzare il tono, nemmeno se ti provocano.',
       'Comincia per {cosa} da un impegno minimo che puoi mantenere anche con poca energia: dieci minuti di ascolto oggi, una piccola promessa rispettata domani. Senza aspettarti riconoscimenti, annota la sera che cosa hai mantenuto: così ritrovi la misura di ciò che è giusto per te.',
     ],
     'Tiwaz/ombra/quando': [
@@ -3614,11 +3614,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Chiedi a una persona di fiducia di farti da testimone: dichiara per {cosa} che cosa ritieni giusto fare e quando pensi di farlo, al più tardi entro un mese. Se la data si avvicina e la convinzione manca, rimandala apertamente invece di forzarti.',
     ],
     'Tiwaz/ombra/previsione': [
+      'Scrivi, per {cosa}, le tue ragioni e i tuoi punti forti in una pagina sola. Rileggila domani senza correggerla e senza pensare a chi la leggerebbe. Tieni solo le frasi che ti suonano vere: sono la tua mira. Mettila dove la vedi.',
       'Per tre sere di fila scrivi per {cosa} perché ci tieni davvero, lasciando fuori il giudizio degli altri e ogni voglia di rivalsa. Poi rileggi tutto: se trovi frasi scritte per orgoglio, cancellale e tieni quelle che restano come bussola per le prossime settimane.',
-      'Per {cosa} smetti di misurarti con chi sembra più avanti: ogni volta che ti viene un paragone, scrivilo e accanto annota un tuo progresso reale. Dopo una settimana rileggi la colonna dei progressi: la mira si raddrizza quando guardi il tuo bersaglio.',
       'Questa settimana prepara per {cosa} un elenco breve dei tuoi punti solidi e leggilo ogni mattina, a voce alta. Lascia stare i pronostici altrui e i paragoni; riposa almeno due sere, perché la mano torna ferma quando l\'energia risale e la mente si schiarisce.',
       'Rinuncia per {cosa} a ogni scorciatoia o mossa di rivalsa, anche se ti sembra utile: oggi la mira devia facilmente. Scegli invece la cosa che ti preoccupa di più e affrontala ogni giorno per due settimane, con calma, senza disperderti.',
-      'Scrivi per {cosa} la paura più grande che hai e accanto la risposta più onesta che puoi darle. Rileggi entrambe ogni mattina per una settimana; se la paura torna, ripeti la risposta a mezza voce e prosegui senza cercare conferme negli altri.',
+      'Per {cosa} smetti di misurarti con chi sembra più avanti: ogni volta che ti viene un paragone, scrivilo e accanto annota un tuo progresso reale. Dopo una settimana rileggi la colonna dei progressi: la mira si raddrizza quando guardi il tuo bersaglio.',
     ],
     'Tiwaz/ombra/altrui': [
       'Se ti viene voglia di controllare messaggi, orari o profili per {cosa}, fermati e annota invece che cosa ritieni giusto chiedere in un legame. Dopo sette giorni rileggi l\'elenco e scegli una sola richiesta da fare a voce, con calma.',
@@ -3663,11 +3663,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Annota stasera, per {cosa}, una cosa che puoi cominciare questa settimana senza aspettare nessuno: cominciala entro tre giorni e curala ogni giorno per due settimane. Non passare le giornate a domandarti quando: la risposta prende forma mentre curi ciò che nasce.',
     ],
     'Berkano/dritta/previsione': [
-      'Scrivi stasera tre cose che puoi ancora curare, per {cosa}, prima di sapere come va: un dettaglio da rifinire, una persona da sentire, un punto da rafforzare. Dedica a ciascuna un giorno di questa settimana. Non aspettare l\'esito con le mani ferme.',
-      'Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Prima di conoscere l\'esito rileggilo dall\'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.',
-      'Chiedi un parere sincero, per {cosa}, a una persona competente entro venerdì, su ciò che hai preparato o costruito: lavora da subito sul punto che ti indica. Non chiedere rassicurazioni, chiedi correzioni: sono il nutrimento di ciò che cresce davvero.',
-      'Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina finché non conosci l\'esito. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all\'ultimo momento: ciò che nasce vuole cura distribuita.',
       'Ogni sera, per {cosa}, prenditi dieci minuti per rivedere ciò che hai fatto nella giornata e scegliere che cosa curare domani. Mantienili anche nei giorni più pieni, senza saltarne nessuno. Non affidarti all\'ispirazione dell\'ultimo momento: affidati a ciò che hai coltivato con pazienza.',
+      'Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Prima di conoscere l\'esito rileggilo dall\'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.',
+      'Per {cosa} scegli una cosa piccola da fare ogni giorno e fissa l\'orario, per esempio dieci minuti la mattina. Segna sul calendario ogni giorno fatto. Non cercare l\'intensità di un solo momento: conta la fila dei giorni, come per una pianta giovane.',
+      'Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina finché non conosci l\'esito. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all\'ultimo momento: ciò che nasce vuole cura distribuita.',
+      'Scrivi stasera tre cose che puoi ancora curare, per {cosa}, prima di sapere come va: un dettaglio da rifinire, una persona da sentire, un punto da rafforzare. Dedica a ciascuna un giorno di questa settimana. Non aspettare l\'esito con le mani ferme.',
     ],
     'Berkano/dritta/altrui': [
       'Per {cosa}, se c\'è un contatto aperto, scegli tre attenzioni semplici da offrire senza chiedere nulla, come ascoltare fino in fondo: distribuiscile in due settimane. Poi guarda i fatti, non le parole. Non chiedere dichiarazioni né promesse in questo periodo.',
@@ -3713,10 +3713,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Berkano/ombra/previsione': [
       'Per {cosa} scrivi entro domani che cosa ti sostiene di più (persone, abitudini, momenti) e che cosa ha smesso di nutrirti. Per due settimane dai più spazio alla prima lista, almeno una volta al giorno: le radici si rafforzano prima che si veda la crescita.',
-      'Cerca questa settimana, per {cosa}, una persona che possa sostenerti davvero, chi conosce la materia o chi ti conosce bene: fissa con lei due incontri brevi entro sabato. Prepara per ciascuno una domanda precisa. Non rimandare la richiesta d\'aiuto per orgoglio.',
+      'Per {cosa} annota qual è la parte più fragile e che cosa le serve per stare in piedi: tempo, un metodo, una mano. Dedicale ogni giorno un quarto d\'ora per due settimane. Rinuncia agli strappi dell\'ultimo minuto: conta ciò che consolidi adesso.',
       'Se per {cosa} c\'è qualcosa che hai lasciato a metà perché non vedevi progressi, riprendilo questa settimana con un momento fisso al giorno e segna ogni giorno fatto sul calendario. Non giudicarlo prima di un mese: ciò che ha radici deboli chiede tempo.',
       'Scegli entro stasera, per {cosa}, il sostegno che ti manca di più tra un metodo, una persona e un tempo regolare: procuratelo entro tre giorni e usalo ogni settimana. Non cambiare strategia ogni volta che qualcosa sembra fermo: dagli il tempo di attecchire.',
-      'Per {cosa} chiedi entro sabato a una persona che ti vuole bene che cosa hai costruito finora secondo lei. Annota le sue parole e rileggile nei giorni in cui tutto sembra immobile: anche quando non si vede, la radice continua a lavorare sotto terra.',
+      'Per {cosa} fissa ogni giorno dieci minuti, sempre alla stessa ora, per ciò che è più debole. Usali per una cosa semplice e ripetibile, come rileggere gli appunti o sentire una persona. Segna sul calendario i giorni fatti: la ripresa passa dalla regolarità.',
     ],
     'Berkano/ombra/altrui': [
       'In due elenchi, stasera, scrivi per {cosa} che cosa stai dando e che cosa stai solo aspettando. Da domani trasforma una voce del secondo elenco in una cura concreta, offerta senza condizioni. Non chiedere chiarimenti all\'altra persona prima di averlo fatto.',
@@ -3762,7 +3762,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Ehwaz/dritta/previsione': [
       'Entro tre giorni racconta a una persona di cui ti fidi che cosa temi per {cosa} e che cosa speri, poi chiedile di indicarti un punto da rafforzare. Lavora su quel punto con il suo aiuto e non affrontare l\'attesa senza nessuno accanto.',
-      'Chiedi per {cosa} a un alleato fidato di esserci nei momenti di dubbio: accordati oggi stesso su quando sentirti, per esempio con una telefonata la sera prima dei passaggi importanti. Sapere che qualcuno c\'è rende il passo più fermo e toglie peso all\'attesa.',
+      'Chiedi per {cosa} a un alleato fidato di esserci nei momenti di dubbio: accordati oggi stesso su quando sentirti, per esempio con una telefonata di dieci minuti ogni due sere. Sapere che qualcuno c\'è rende il passo più fermo e toglie peso all\'attesa.',
       'Scrivi per {cosa} tre cose che puoi fare tu e accanto a ognuna il nome di chi può aiutarti a farla. Entro la fine della settimana chiedi quell\'aiuto ad almeno una di queste persone, con una richiesta chiara, breve e detta a voce.',
       'Questa settimana, invece di immaginare l\'esito per {cosa} in solitudine, siediti con una persona che crede in te e chiedile di scriverti due tue qualità utili in questo passaggio. Rileggile quando arriva il dubbio e tienile con te, in tasca o sul telefono.',
       'Per {cosa} individua chi può camminare accanto a te: un amico, un familiare, qualcuno che vive qualcosa di simile. Proponi a quella persona mezz\'ora entro domenica per parlarne insieme. Non portare tutto il peso sulle tue spalle: chiedere compagnia è un passo.',
@@ -3800,7 +3800,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per tre giorni non fare pressioni per {cosa}: niente insistenze, niente messaggi ripetuti, niente rimproveri. Il quarto giorno chiedi a chi è coinvolto un momento tranquillo per parlare e proponi un accordo semplice su come procedere da lì in avanti, insieme.',
       'Scrivi per {cosa} una frase che riassume ciò che chiedi e una che riassume ciò che puoi offrire, poi leggile a chi è coinvolto entro domenica e chiedi di fare lo stesso. Il ritmo comune si cerca a partire da quelle frasi.',
       'Per {cosa} fissa con chi ti sta vicino un piccolo impegno condiviso da rispettare per due settimane: un orario, una chiamata serale, un\'abitudine comune come un caffè a metà settimana. Mantenerlo insieme, senza saltarlo, rimette d\'accordo il passo più di qualunque discussione.',
-      'Scegli per {cosa} una persona neutrale di cui ti fidi e chiedile di ascoltare la tua versione e di dirti con onestà dove tiri troppo o dove resti indietro. Porta poi quel punto di vista nel confronto con chi è coinvolto, entro la settimana.',
+      'Per {cosa} annota tre cose che hai in comune con chi è coinvolto: un obiettivo, un valore, un desiderio. Poi proponi di cominciare da una di quelle, con una piccola cosa da fare insieme questa settimana. Rimanda i punti di disaccordo a dopo.',
     ],
     'Ehwaz/ombra/quando': [
       'Per {cosa} smetti di misurare il tempo e misura l\'accordo: entro domenica chiedi a chi è coinvolto un confronto di mezz\'ora su che cosa serve a ciascuno per ripartire. Annota i punti comuni e riparti da quelli, uno alla volta.',
@@ -3846,9 +3846,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Mannaz/dritta/come': [
       'Chiama entro domani una persona che stimi e chiedile un quarto d\'ora per {cosa}: racconta i fatti in ordine, senza giudizi. Alla fine domandale soltanto: che cosa faresti al mio posto? Scrivi la risposta e rileggila con calma prima di muoverti.',
-      'Prova la conversazione con un amico che faccia la parte della persona coinvolta, prima di affrontarla davvero. Per {cosa} ripetila due volte, cambiando le parole che suonano dure, poi scegli un momento tranquillo di questa settimana per il dialogo vero.',
-      'La persona più esperta che conosci su questioni simili è la prima da sentire per {cosa}: scrivile oggi due righe per chiederle un consiglio. Quando risponde, prova il suo suggerimento per una settimana prima di giudicarlo. Non scartarlo perché è diverso dalla tua idea.',
       'Questa sera scrivi che cosa senti e che cosa desideri per {cosa}, in due frasi chiare e senza accuse. Domani leggile a una persona che ti conosce e chiedi se quelle parole ti somigliano; solo dopo portale a chi è coinvolto, a voce.',
+      'Per {cosa} chiedi a chi è coinvolto un momento tranquillo e lascia che dica tutto senza interromperlo. Poi ripeti con parole tue ciò che hai capito e chiedi se è giusto, prima di dire la tua. Annota la parola che ti colpisce di più.',
+      'La persona più esperta che conosci su questioni simili è la prima da sentire per {cosa}: scrivile oggi due righe per chiederle un consiglio. Quando risponde, prova il suo suggerimento per una settimana prima di giudicarlo. Non scartarlo perché è diverso dalla tua idea.',
       'Chi ti conosce bene può indicarti un tuo modo di reagire che complica le cose senza volerlo: per {cosa} chiediglielo con franchezza. Ascolta senza difenderti, scegli una sola abitudine da cambiare e provala per sette giorni, annotando ogni sera com\'è andata.',
     ],
     'Mannaz/dritta/quando': [
@@ -3859,10 +3859,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Fra due settimane una persona che ti conosce bene può dirti se nota un cambiamento in te: chiediglielo oggi, per {cosa}. Nel frattempo annota ogni sera una cosa che si è mossa: il suo sguardo e i tuoi appunti insieme aiutano a leggere i tempi.',
     ],
     'Mannaz/dritta/previsione': [
+      'Per {cosa} cerca una persona che ha già vissuto qualcosa di simile e chiedile mezz\'ora entro domenica. Domandale che cosa ha imparato e che cosa rifarebbe diversamente. Annota due cose e usane una subito, senza copiare tutto il suo percorso.',
+      'Scrivi, per {cosa}, tre cose vere che puoi dire di te senza abbellirle, per esempio un limite e due punti forti. Se qualcuno ti chiede come stai, dilla così com\'è. Mostrarti per quello che sei convince più di una parte recitata.',
       'Una persona competente può indicarti con franchezza il punto più debole del tuo approccio per {cosa}: chiediglielo entro tre giorni. Lavora su quel punto per una settimana, poi torna da lei e chiedi se lo vede migliorato. Non cercare complimenti, cerca la verità.',
       'Su due colonne scrivi per {cosa} tre cose che sono nelle tue mani e tre che non lo sono. Porta la lista a una persona fidata e chiedile di aiutarti sulla prima entro domenica; le ultime tre lasciale andare, senza rimuginarci ogni notte.',
-      'Chi ti vuole bene può ricordare un momento in cui hai superato una prova difficile: per {cosa} chiedigli di raccontartelo. Scrivi quel ricordo in tre righe e rileggilo nei momenti di dubbio: sapere chi sei ti sostiene più di ogni rassicurazione.',
-      'A un amico racconta che cosa ti aspetti per {cosa} e chiedigli di farti due domande scomode che ancora non hai considerato. Rispondi per iscritto a entrambe entro domenica: ciò che scopri adesso non ti coglie di sorpresa più avanti.',
       'Scegli fin da oggi la persona con cui condividere ciò che vivi per {cosa}, nel bello e nel difficile: avvisala adesso. Sapere che qualcuno è con te alleggerisce la tensione e ricorda che il tuo valore non coincide con un risultato. Non chiuderti ad aspettare.',
     ],
     'Mannaz/dritta/altrui': [
@@ -3908,9 +3908,9 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Che cosa ti dici di te mentre aspetti, per {cosa}? Scrivilo stasera e cancella ogni frase che non diresti a un amico nella stessa situazione. Leggi ciò che resta a una persona cara entro domenica: l\'attesa diventa più leggera quando smetti di condannarti.',
     ],
     'Mannaz/ombra/previsione': [
-      'Due persone che ti conoscono bene possono nominare una tua qualità utile per {cosa}: chiediglielo entro domani. Scrivi le due qualità su un biglietto e tienilo con te: quando il giudizio su di te si fa severo, rileggilo prima di dare retta alla paura.',
-      'Lo scenario peggiore che temi per {cosa}: scrivilo e mandalo a una persona fidata con una domanda, che cosa faresti se capitasse a te? La sua risposta ti mostra che anche il caso peggiore si può affrontare, purché in buona compagnia.',
       'Non tenere per te ciò che vivi per {cosa}: parlane a due persone care e chiedi loro di cercarti se per qualche giorno sparisci. Una rete di affetti non cambia come va a finire, ma cambia il modo in cui lo affronti e lo vivi.',
+      'Per {cosa} chiedi a una persona che ti conosce da tempo di ricordarti che cosa hai già superato. Scrivi ciò che dice in tre righe e rileggile quando il giudizio su di te si fa severo. La sua memoria vale più della tua paura.',
+      'Due persone che ti conoscono bene possono nominare una tua qualità utile per {cosa}: chiediglielo entro domani. Scrivi le due qualità su un biglietto e tienilo con te: quando il giudizio su di te si fa severo, rileggilo prima di dare retta alla paura.',
       'Per {cosa} esci dal giro dei pensieri solitari: questa settimana partecipa a un\'occasione con altre persone (una cena, un gruppo, una serata fra amici) e parla d\'altro per qualche ora. Il giudizio su di te si ammorbidisce quando torni fra la gente.',
       'Ogni sera di questa settimana, per {cosa}, racconta a una persona vicina una cosa che hai fatto nella giornata, anche minima. Dirla a un\'altra persona la rende reale e toglie forza al vecchio sospetto di non fare mai abbastanza. Non tenerla per te.',
     ],
@@ -3946,8 +3946,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} prova questo: la prossima volta che ci pensi, chiudi gli occhi per un minuto e chiediti che cosa desideri davvero che accada. Scrivi la risposta in una frase senza correggerla e usala come bussola per le parole e i gesti dei prossimi giorni.',
       'Per {cosa} scegli un momento senza fretta e lascia che sia il tuo sentire a dare il tono: prima di parlare, nota se dentro c\'è più bisogno di vicinanza o di spazio. Rispetta quel bisogno nelle parole e nei tempi che scegli.',
       'Stasera scrivi a mano, senza rileggere, tutto ciò che senti per {cosa}, per dieci minuti di fila. Domani sottolinea la frase che ti sorprende di più: è lì che il tuo intuito indica il modo. Parti da quella frase quando agisci o parli.',
-      'Per {cosa} parti da un ascolto vero: la prossima volta, per i primi cinque minuti, fai solo domande aperte e non dare consigli né giudizi. Lascia che l\'intuito colga il non detto (tono, pause, sguardo); poi rispondi a quello, con una frase semplice e calda.',
       'Prima di agire per {cosa}, concediti un quarto d\'ora vicino all\'acqua, un fiume, il mare o anche solo una fontana: lascia scorrere i pensieri senza trattenerli. Quando torni, scrivi o di\' la prima frase che ti viene spontanea, purché gentile: è quella la tua apertura.',
+      'Per {cosa} parti da un ascolto vero: la prossima volta, per i primi cinque minuti, fai solo domande aperte e non dare consigli né giudizi. Lascia che l\'intuito colga il non detto (tono, pause, sguardo); poi rispondi a quello, con una frase semplice e calda.',
     ],
     'Laguz/dritta/quando': [
       'Invece di contare i giorni per {cosa}, tieni per due settimane un diario di una riga: ogni sera scrivi se oggi senti le cose più ferme o più in movimento. Tre sere di fila in movimento sono il segnale per riprendere l\'iniziativa.',
@@ -4048,13 +4048,13 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Ingwaz/dritta/come': [
       'Scrivi stasera su un foglio le tre frasi che vuoi dire per {cosa}, rileggile domani e togli ciò che accusa o pretende. Entro la settimana chiedi un momento tranquillo a chi è coinvolto e di\' quelle frasi così come le hai preparate.',
-      'Tieni per {cosa} un taccuino di sette giorni: ogni sera una riga su ciò che hai visto succedere e una su ciò che avresti voluto fare. L\'ottavo giorno scegli una di quelle azioni mancate e falla davvero alla prima occasione che si presenta.',
+      'Scrivi, per {cosa}, stasera in una riga che cosa desideri ottenere. Entro due giorni fai un gesto visibile che lo rispecchi, anche piccolo: una telefonata, un invito, una cosa sistemata. Senza il secondo passo la riga resta soltanto sul foglio.',
       'Fissa in agenda un\'ora tranquilla, che sia soltanto per {cosa}, senza telefono e senza altri impegni accanto: usala per preparare in silenzio ciò che vuoi dire o fare. Non parlarne in giro prima del tempo: ciò che matura nel riserbo si mostra dopo.',
       'Prima di parlarne con chi è coinvolto, scrivi per {cosa} una lettera che non spedisci, con tutto, anche ciò che a voce non diresti. Rileggila dopo tre giorni, tieni soltanto le due frasi più vere e portale a voce, con calma, nel primo momento tranquillo.',
       'Questa settimana, per {cosa}, osserva prima di agire: sette giorni in cui annoti ciò che noti senza correggere niente. Poi scegli una sola mossa, la più semplice fra quelle suggerite dalle note: falla con calma nella settimana che segue, senza commenti.',
+      'Prepara per {cosa} il prossimo momento insieme con un esercizio: ripeti a voce alta, in una stanza chiusa, ciò che vuoi dire finché le parole escono senza tensione. Poi cerca chi è coinvolto entro tre giorni e parla una volta sola, senza ripeterti.',
       'Per {cosa}, se c\'è qualcosa rimasto a metà da parte tua, una promessa, una risposta, un impegno, portalo a termine entro venerdì senza farlo notare. Il compimento silenzioso cambia il clima più di una lunga spiegazione e prepara il terreno a parlarsi.',
       'Fai per {cosa} una domanda sola e semplice a chi è coinvolto: «Che cosa ti aiuterebbe adesso?». Ascolta tutta la risposta senza ribattere, annotala la sera stessa e nei giorni seguenti fai esattamente quello, senza aggiungere altro né chiedere riconoscimento.',
-      'Prepara per {cosa} il prossimo momento insieme con un esercizio: ripeti a voce alta, in una stanza chiusa, ciò che vuoi dire finché le parole escono senza tensione. Poi cerca chi è coinvolto entro tre giorni e parla una volta sola, senza ripeterti.',
     ],
     'Ingwaz/dritta/quando': [
       'Fai per {cosa} una lista di ciò che vuoi aver preparato quando questa fase finisce: una competenza, un ordine, una decisione chiara. Ogni settimana spunta una voce; se la lista avanza, si accorcia anche il tempo che ti separa dal cambiamento.',
@@ -4068,13 +4068,13 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Ingwaz/dritta/previsione': [
       'Scrivi per {cosa} su un foglio due colonne: ciò che è ancora nelle tue mani e ciò che ormai non lo è. Nei prossimi sette giorni lavora soltanto sulla prima colonna, una voce al giorno; sulla seconda smetti di tornare col pensiero.',
-      'Prepara per {cosa} tre righe su come vuoi muoverti qualunque sia l\'esito: che cosa fai se va come speri, che cosa fai se va diversamente. Chiudile in un cassetto; sapere già il passo successivo libera le forze per il lavoro di adesso.',
-      'Se per {cosa} ti aspetta ancora qualcosa da fare o da dire, preparalo in silenzio e provalo una volta ad alta voce. Se invece la tua parte è compiuta, scrivi che cosa hai fatto bene e chiudi il foglio in un cassetto.',
       'Tieni per {cosa} un riserbo di qualche giorno: non raccontare a tutti come pensi che vada e non chiedere pronostici agli amici. Metti quell\'energia in una sola azione utile al giorno, annotala la sera e rileggi la lista a fine settimana.',
+      'Se per {cosa} ti aspetta ancora qualcosa da fare o da dire, preparalo in silenzio e provalo una volta ad alta voce. Se invece la tua parte è compiuta, scrivi che cosa hai fatto bene e chiudi il foglio in un cassetto.',
+      'Per {cosa} scegli la cosa che è più vicina a essere finita e portala a termine per intero entro tre giorni. Solo dopo passa alla successiva. Non aprire più fronti insieme: ciò che è compiuto davvero resiste anche all\'emozione di un momento.',
       'Per {cosa} tieni dieci giorni un quaderno tuo: ogni sera una riga su ciò che hai fatto e una su ciò che senti maturare. Non farlo leggere a nessuno e non tirare conclusioni prima: ciò che cresce al chiuso si mostra quando è pronto.',
       'Per {cosa} smetti di ritoccare ciò che è già compiuto: scrivi su un foglio ciò che consideri chiuso e non tornarci sopra per una settimana. Metti le energie che risparmi su ciò che è ancora aperto, con calma e senza annunci.',
-      'Fissa per {cosa} un giorno della settimana in cui ti concedi di pensare all\'esito, mezz\'ora soltanto, scrivendo tutto ciò che ti viene. Negli altri giorni, quando il pensiero torna, rimandalo a quell\'appuntamento e rimetti l\'attenzione su ciò che stai facendo.',
-      'Annota per {cosa} su un foglio le ragioni per cui ci tieni davvero e i passi fatti dall\'inizio. Rileggilo ogni mattina per una settimana: ricordare quanto è maturato dentro di te ti dà la calma che serve davanti all\'attesa dell\'esito.',
+      'Per {cosa} chiediti quale pezzo manca, in te o in ciò che fai: scrivilo in una riga. Cura quel pezzo in silenzio, un quarto d\'ora al giorno per una settimana. Non annunciare niente a nessuno finché non senti che è al suo posto.',
+      'Prepara per {cosa} tre righe su come vuoi muoverti qualunque sia l\'esito: che cosa fai se va come speri, che cosa fai se va diversamente. Chiudile in un cassetto; sapere già il passo successivo libera le forze per il lavoro di adesso.',
     ],
     'Ingwaz/dritta/altrui': [
       'Scrivi per {cosa} in tre righe che cosa desideri davvero, senza pensare a che cosa vuole l\'altra persona. Quando le righe sono chiare, cerca un momento a quattr\'occhi entro dieci giorni e di\' la prima riga con parole semplici, senza chiedere una risposta subito.',
@@ -4123,8 +4123,8 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} metti per iscritto, alla luce del giorno, i fatti come sono: tre righe, senza aggettivi né ipotesi. Rileggile domattina e scegli la mossa che quei fatti rendono evidente; falla entro due giorni, lasciando da parte i timori notturni.',
       'Per {cosa} porta entro sabato un segno di apertura che nessuno si aspetta: un invito, un ringraziamento detto a voce, una proposta nuova. Fallo di giorno, di persona e con parole semplici, senza attendere che siano gli altri a fare il primo movimento.',
       'Individua per {cosa} una tua abitudine di sempre che non serve più, se c\'è: un orario, una frase, un silenzio. Lasciala del tutto per due settimane e mettici al posto un\'alternativa scelta in anticipo, per non restare sulla soglia fra il vecchio e il nuovo.',
-      'Per {cosa} scegli una data vicina e dichiarala, a voce o per iscritto, l\'inizio di una fase nuova. Quel giorno fai una cosa visibile che prima non facevi, anche breve; da lì in avanti ripetila ogni settimana, senza lasciarla cadere al primo intoppo.',
       'Domattina, per {cosa}, apri la giornata con dieci minuti alla luce vera, alla finestra o fuori, senza telefono, pensando a una sola mossa. Poi falla entro mezzogiorno: un messaggio chiaro, una richiesta, una proposta concreta. Non rimandarla alla sera, quando tutto pesa.',
+      'Per {cosa} scegli una data vicina e dichiarala, a voce o per iscritto, l\'inizio di una fase nuova. Quel giorno fai una cosa visibile che prima non facevi, anche breve; da lì in avanti ripetila ogni settimana, senza lasciarla cadere al primo intoppo.',
     ],
     'Dagaz/dritta/quando': [
       'Invece di contare i giorni, per {cosa} scegli una cosa che puoi cambiare tu entro venerdì: un orario, un\'abitudine, una richiesta mai fatta. Falla, poi segna la data sul calendario e osserva per due settimane che cosa si muove a partire da lì.',
@@ -4141,10 +4141,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} cerca entro tre giorni la zona d\'ombra più grande: un\'informazione che manca, un punto poco chiaro, una domanda mai fatta a chi può rispondere. Fai quella domanda apertamente e annota la risposta: si va avanti meglio alla luce piena.',
       'Per {cosa} scrivi su un foglio che cosa può cominciare per te, qualunque sia l\'esito: un\'abilità acquisita, una persona conosciuta, una chiarezza nuova. Rileggilo ogni mattina per una settimana, così da vivere ciò che viene come una svolta e non come un verdetto.',
       'Per {cosa} scegli fin da ora un\'abitudine del mattino da tenere ogni giorno: dieci minuti per pensarci con calma, una passeggiata alla prima luce, la lettura dei tuoi punti fermi. Tienila per tutta la settimana: la mente sveglia vede ciò che quella stanca non nota.',
-      'Scrivi le tre paure più forti per {cosa} e accanto a ciascuna un fatto che la ridimensiona. Rileggi il foglio domattina, quando la notte non ingrandisce più niente: porta con te solo i fatti e lascia sul tavolo le paure.',
-      'Per {cosa} racconta entro due giorni a una persona di fiducia ciò che hai fatto finora, a voce e con parole semplici. Il racconto ad alta voce porta alla luce i punti forti e quelli da rinforzare: lavora sui secondi entro la settimana.',
-      'Per {cosa} decidi fin da ora una cosa nuova da cominciare comunque vada: un corso, un progetto personale, un\'abitudine. Scrivila sul calendario con una data entro un mese. Una svolta già scelta toglie peso all\'attesa dell\'esito e ti fa andare avanti con fiducia.',
       'Per {cosa} smetti di immaginare l\'esito di notte: se il pensiero torna mentre sei a letto, scrivilo su un foglio e rimandalo a domattina. Al mattino rileggi, scegli una cosa utile da fare in giornata e falla prima di pranzo.',
+      'Scrivi le tre paure più forti per {cosa} e accanto a ciascuna un fatto che la ridimensiona. Rileggi il foglio domattina, quando la notte non ingrandisce più niente: porta con te solo i fatti e lascia sul tavolo le paure.',
+      'Per {cosa} decidi fin da ora una cosa nuova da cominciare comunque vada: un corso, un progetto personale, un\'abitudine. Scrivila sul calendario con una data entro un mese. Una svolta già scelta toglie peso all\'attesa dell\'esito e ti fa andare avanti con fiducia.',
+      'Per {cosa} racconta entro due giorni a una persona di fiducia ciò che hai fatto finora, a voce e con parole semplici. Il racconto ad alta voce porta alla luce i punti forti e quelli da rinforzare: lavora sui secondi entro la settimana.',
     ],
     'Dagaz/dritta/altrui': [
       'Per {cosa} scegli entro sabato un momento di giorno, tranquillo e senza fretta: fai a voce la domanda che ti porti dentro, in una frase sola. Poi ascolta la risposta senza interrompere: ciò che senti alla luce vale più di ogni ipotesi notturna.',
@@ -4233,7 +4233,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} individua oggi la tua reazione automatica, quella che ripeti da sempre: domani, al primo momento utile, fanne una diversa, anche minima, come tacere invece di cedere o chiedere invece di indovinare. Annota stasera com\'è andata; un cambio alla volta basta.',
       'Scegli per {cosa} una regola non scritta che segui da anni, come non chiedere, non disturbare o cedere sempre tu. Questa settimana infrangila una volta con gentilezza e osserva che cosa succede davvero, senza scusarti. Annota il risultato: è la prova che puoi scegliere.',
       'Per {cosa} scrivi su un foglio ciò che vuoi tenere del modo in cui hai sempre fatto e ciò che vuoi lasciare. Strappa la metà con ciò che lasci; tieni l\'altra in vista per un mese e guardala prima di ogni conversazione importante.',
-      'Entro domenica di\' a chi è coinvolto, per {cosa}, una frase che finora hai taciuto solo per non rompere un\'abitudine, per esempio ciò che desideri o ciò che non accetti più. Preparala prima, breve e calma; non devi giustificarti né rinfacciare il passato.',
+      'Per {cosa} elenca le abitudini che ti accompagnano in questa situazione e accanto a ciascuna scrivi se funziona o resta solo per ricordo. Porta via una sola di quelle che restano per ricordo, questa settimana. Tieni le altre e guarda come respira la situazione.',
       'Cambia per {cosa} il luogo o l\'ora in cui di solito affronti la questione: un posto nuovo invece di quello abituale, il mattino invece della sera. Cambiare la cornice aiuta a cambiare lo schema di sempre; parla lì, con calma e con frasi brevi.',
     ],
     'Othala/ombra/quando': [
