@@ -44,7 +44,7 @@ percio' le lunghezze nuove.
 | Rune, scheda di una pietra: cosa fare | 3000 | 256 | 308 |
 | Rune, scheda di una pietra: paragrafo | 3000 | 252 | 294 |
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
-| Rune, singola runa: verso d'ombra | 24 | 44 | 57 |
+| Rune, singola runa: verso d'ombra | 24 | 44 | 53 |
 | Rune, singola runa: verso dritto | 24 | 44 | 51 |
 | Tarocchi, bolla di posizione | 576 | 263 | 311 |
 | Tarocchi, cosa fare di una carta | 576 | 262 | 304 |
@@ -73,7 +73,7 @@ percio' le lunghezze nuove.
 - **Rune, scheda di una pietra: cosa fare** (308 caratteri): Scegli un piccolo segno di affidabilità da ripetere ogni giorno per due settimane: rispond...
 - **Rune, scheda di una pietra: paragrafo** (294 caratteri): Ansuz in ombra mostra un'ispirazione annebbiata: per la tua giornata le idee non arrivano ...
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
-- **Rune, singola runa: verso d'ombra** (57 caratteri): Ritrova il ritmo comune, poi riparti con chi ti affianca.
+- **Rune, singola runa: verso d'ombra** (53 caratteri): Ritrova il passo comune: riparti con chi ti affianca.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
 - **Tarocchi, bolla di posizione** (311 caratteri): Hai lasciato andare un'occasione importante, forse per non averne compreso il valore o per...
 - **Tarocchi, cosa fare di una carta** (304 caratteri): Scegli adesso un'abilità che vuoi coltivare, come cucinare, scrivere o riparare: praticala...
