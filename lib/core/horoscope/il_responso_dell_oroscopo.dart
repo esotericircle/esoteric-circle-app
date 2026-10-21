@@ -74,17 +74,23 @@ abstract final class IlResponsoDellOroscopo {
       };
 
   /// La chiave del rito: il reggente, il dominio col nome dell'intestazione
-  /// (Generale, Amore, Carriera, Fortuna) e 'giorno' per il Giorno,
-  /// 'periodo' per la Settimana, il Mese e l'Anno.
+  /// (Generale, Amore, Carriera, Fortuna) e il periodo col suo nome
+  /// ('giorno', 'settimana', 'mese', 'anno').
+  ///
+  /// **ORDINE GA VOCE GA.06, UN RITO PER OGNI PERIODO.** Prima la Settimana,
+  /// il Mese e l'Anno avevano un solo rito "periodo": la Settimana e l'Anno
+  /// con lo stesso reggente mostravano lo stesso rito parola per parola
+  /// (lettore cieco, oroscopo-7 e 15, 37 e 45, 39 e 47), la Settimana e il
+  /// Mese, che cominciano tutti e due oggi, lo mostravano lo stesso giorno, e
+  /// un rito scritto per un periodo che comincia oggi ("Al primo mattino del
+  /// periodo", "Inaugura il tratto") finiva sotto un Anno cominciato da sette
+  /// mesi (oroscopo-32, 45, 47). Adesso ogni periodo ha il suo rito, e quello
+  /// dell'Anno e' scritto per valere in qualunque punto dell'anno.
   static List<String>? chiaveDelRito(TradizioneEu t, PeriodoEu periodo,
       HoroscopeDomain dominio, DateTime primoGiorno) {
     final chi = reggente(t, primoGiorno);
     if (chi == null) return null;
-    return [
-      chi,
-      dominio.label,
-      periodo == PeriodoEu.giorno ? 'giorno' : 'periodo',
-    ];
+    return [chi, dominio.label, periodo.name];
   }
 
   static const List<String> _giorni = [
@@ -106,17 +112,31 @@ abstract final class IlResponsoDellOroscopo {
   /// **IL "DA DOVE VIENE" DELLA SCHEDA**: la riga di oggi ([cielo]) e, nella
   /// Lunga, in coda la fonte del rito, legata da una frase che dice quale
   /// giorno il rito segue.
+  ///
+  /// **ORDINE GA VOCE GA.06**: il legame dice il periodo col suo nome ("il
+  /// primo giorno della settimana", "del tuo anno, il compleanno", "dell'anno
+  /// cinese, il Capodanno"): "il primo giorno del periodo" sotto un Anno
+  /// cominciato mesi prima non diceva a chi legge di quale giorno si parla.
   static String? daDoveViene(String? cielo,
       {String? fonteDelRito,
       required PeriodoEu periodo,
-      required DateTime primoGiorno}) {
+      required DateTime primoGiorno,
+      TradizioneEu tradizione = TradizioneEu.occidentale}) {
     final riga = cielo?.trim() ?? '';
     if (fonteDelRito == null || fonteDelRito.trim().isEmpty) {
       return riga.isEmpty ? null : riga;
     }
+    final quale = switch (periodo) {
+      PeriodoEu.giorno => '',
+      PeriodoEu.settimana => 'il primo giorno della settimana',
+      PeriodoEu.mese => 'il primo giorno del mese',
+      PeriodoEu.anno => tradizione == TradizioneEu.cinese
+          ? 'il primo giorno dell\'anno cinese, il Capodanno lunare'
+          : 'il primo giorno del tuo anno, il compleanno',
+    };
     final legame = periodo == PeriodoEu.giorno
         ? 'Il rito propiziatorio segue il giorno: '
-        : 'Il rito propiziatorio segue il primo giorno del periodo, '
+        : 'Il rito propiziatorio segue $quale, '
             '${_data(primoGiorno, conLAnno: periodo == PeriodoEu.anno)}: ';
     final coda = '$legame${_minuscola(fonteDelRito.trim())}';
     return riga.isEmpty ? coda : '$riga $coda';
@@ -155,7 +175,10 @@ abstract final class IlResponsoDellOroscopo {
       approfondimento: lunga ? voce.rispostaLunga : null,
       rito: rito,
       daDoveViene: daDoveViene(cielo,
-          fonteDelRito: fonte, periodo: periodo, primoGiorno: primoGiorno),
+          fonteDelRito: fonte,
+          periodo: periodo,
+          primoGiorno: primoGiorno,
+          tradizione: tradizione),
     );
   }
 

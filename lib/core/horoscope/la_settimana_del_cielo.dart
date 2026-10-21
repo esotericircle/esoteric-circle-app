@@ -152,8 +152,17 @@ class DominioDelPeriodo {
   String cieloDelPeriodo(TradizioneEu tradizione, {required bool lunga}) {
     if (tradizione != TradizioneEu.occidentale) {
       if (lunga) {
-        return 'Il livello del periodo viene dai suoi giorni: i tre '
-            'migliori, qui sopra, dicono ciascuno da dove viene il suo.';
+        // **ORDINE GA VOCE GA.06**: qui stava "i tre migliori, qui sopra,
+        // dicono ciascuno da dove viene il suo", un rimando a una parte che
+        // il responso letto fuori dalla schermata (la chat, il Diario, il
+        // PDF) non ha: il lettore cieco l'ha trovato otto volte su otto Lunghe
+        // della Vedica e della Cinese. Adesso la riga sta in piedi da sola:
+        // dice da che cosa viene il livello e qual e' il giorno migliore,
+        // senza ripetere la sua ragione, che sta gia' nella riga dei tre
+        // giorni migliori (la guardia il_da_dove_non_si_ripete_nel_periodo).
+        return 'Il livello del periodo è la media dei livelli dei suoi '
+            'giorni, ciascuno letto col metodo del Giorno; il più alto è '
+            '${LaSettimanaDelCielo.data(migliore.giorno)}.';
       }
       return _maiuscola(momentoChiave);
     }

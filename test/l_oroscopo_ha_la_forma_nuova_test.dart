@@ -172,10 +172,17 @@ void main() {
                 colpe.add('$dove: il riquadro del rito si intitola '
                     '"${LaFormaDelResponso.titoloDelRito(r.arte)}"');
               }
+              // Ordine GA voce GA.06: un rito per ogni periodo, col suo nome
+              // (prima "periodo" per la Settimana, il Mese e l'Anno).
               final chiave = [
                 reggente(t, primoGiorno(p, t, periodo)),
                 d.label,
-                periodo == PeriodoEu.giorno ? 'giorno' : 'periodo',
+                switch (periodo) {
+                  PeriodoEu.giorno => 'giorno',
+                  PeriodoEu.settimana => 'settimana',
+                  PeriodoEu.mese => 'mese',
+                  PeriodoEu.anno => 'anno',
+                },
               ];
               final atteso = IRitiPropiziatori.rito(raccolte[t]!, chiave);
               ritiGuardati++;
@@ -316,7 +323,11 @@ void main() {
           for (final d in periodo.domini) {
             // Il rito atteso, dalla tabella della prova: il primo giorno
             // della Settimana e del Mese e' oggi.
-            final chiave = [reggente(t, oggi), d.dominio.label, 'periodo'];
+            final chiave = [
+              reggente(t, oggi),
+              d.dominio.label,
+              mese ? 'mese' : 'settimana',
+            ];
             guardaAVideo(tester, 'oroscopo_periodo_${d.dominio.name}',
                 '$nome ${d.dominio.label}', t,
                 lungo: lunga,

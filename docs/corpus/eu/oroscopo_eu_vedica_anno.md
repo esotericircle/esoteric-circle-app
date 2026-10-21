@@ -9,89 +9,89 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 ### Generale, Favorevole (livello 4 e 5)
 
-#### Generale, favorevole, voce 1: Un anno per cominciare
+#### Generale, favorevole, voce 1: Un buon avvio
 
-- Risposta: L'anno che si apre con il tuo compleanno è favorevole agli inizi. Un desiderio rimandato a lungo, un progetto grande o un cambiamento di vita trovano adesso un terreno adatto per mettere radici, a patto di scegliere bene da dove partire e di non disperdere le forze.
-- Che cosa fare: Scegli adesso un solo progetto da avviare e dagli una data di partenza entro la prossima stagione. Scrivi su un foglio il primo passo e fallo entro trenta giorni. Poi fissa un appuntamento con il progetto, la prima domenica di ogni mese, per decidere il gesto successivo.
-- Risposta, Lunga: Cominciare bene vuol dire scegliere il momento e mantenere il passo. Quest'anno sostiene gli avvii ma chiede fedeltà: un progetto grande cresce con gesti piccoli ripetuti con cura. Attenzione ai mesi centrali, quando la novità si consuma: annotare ogni progresso in un quaderno tiene viva la direzione.
+- Risposta: Nel suo insieme l'anno è favorevole agli avvii: un progetto rimandato, un cambiamento di abitudini, un desiderio che aspetta da tempo possono trovare un terreno adatto. Conta scegliere bene da dove partire e non disperdere le forze in troppe direzioni. Vale anche se il tuo compleanno è vicino.
+- Che cosa fare: Scegli adesso un solo progetto da avviare e scrivi il primo passo concreto, così piccolo da poterlo fare entro tre settimane. Fallo davvero, poi decidi subito il secondo. Ogni settimana dedica al progetto un gesto, anche di dieci minuti, da qui al tuo prossimo compleanno.
+- Risposta, Lunga: Cominciare bene vuol dire scegliere il momento e poi mantenere il passo. Un progetto grande cresce con gesti piccoli ripetuti con cura, come la lampada che nelle case indiane si accende ogni sera. Il rischio è l'entusiasmo che si consuma presto: un gesto minimo tiene viva la direzione.
 
-#### Generale, favorevole, voce 2: La porta più larga
+#### Generale, favorevole, voce 2: Il dono che torna
 
-- Risposta: Quest'anno è favorevole agli incontri e alle persone nuove. Vicini, colleghi, amicizie nate per caso: la cerchia può allargarsi con naturalezza, se apri la casa e lasci entrare gente nuova. È un tempo generoso, che premia l'ospitalità più dell'attesa. Le occasioni nascono spesso attorno a una tavola.
-- Che cosa fare: Da subito prendi l'abitudine di invitare qualcuno a casa una volta al mese, anche solo per un caffè o una cena semplice. Alterna volti di sempre e persone conosciute da poco. Tieni un piccolo quaderno degli ospiti per ricordare chi è passato.
-- Risposta, Lunga: Una porta che si apre con regolarità diventa un punto di riferimento per gli altri. La lampada accesa alla finestra, nell'immaginario indiano, dice che in quella casa c'è posto per chi arriva. A metà anno rileggi il quaderno: mostra quali legami crescono e quali meritano un invito in più.
+- Risposta: Nel tuo quotidiano l'anno è generoso con chi dà: un aiuto offerto, un tempo regalato, un gesto gentile tendono a tornare indietro in forme inattese. La tradizione indiana chiama dana il dono fatto senza calcolo: questo è un periodo adatto a praticarlo con semplicità.
+- Che cosa fare: Ogni settimana fai un dono concreto senza aspettarti nulla: un'ora di aiuto a qualcuno, una commissione per un vicino, un oggetto utile a chi ne ha bisogno, un sostegno a una raccolta del quartiere. Comincia entro sette giorni e scegli ogni volta una persona diversa.
+- Risposta, Lunga: Il dono senza calcolo cambia anzitutto chi lo fa: sposta l'attenzione dalle proprie preoccupazioni a ciò che si può offrire. La trappola è trasformarlo in un dovere o in una vetrina, raccontandolo a tutti. Tienilo discreto: il segno buono è la leggerezza che ti lascia addosso.
 
 ### Generale, In equilibrio (livello 3)
 
-#### Generale, equilibrio, voce 1: Le stagioni in fila
+#### Generale, equilibrio, voce 1: Un traguardo alla volta
 
-- Risposta: L'anno davanti a te è equilibrato: non spinge verso grandi svolte e non le impedisce. Chiede di distribuire le energie con giudizio, perché chi prova a fare tutto subito rischia di arrivare a metà strada con il fiato corto. Funziona meglio un passo misurato, stagione dopo stagione.
-- Che cosa fare: Dividi da adesso l'anno in quattro stagioni e assegna a ciascuna un obiettivo soltanto: la casa, gli affetti, il lavoro, qualcosa di tuo. Scrivili su un foglio sempre in vista. Alla fine di ogni stagione prenditi una sera per segnare ciò che è riuscito.
-- Risposta, Lunga: Ogni periodo ha la sua misura e il suo ritmo. Dare a ogni stagione il suo compito evita di sovrapporre gli sforzi e lascia spazio al riposo fra un traguardo e il successivo. La revisione serve a correggere il piano: un anno in equilibrio si tiene senza irrigidirlo.
+- Risposta: Il tuo anno è equilibrato nel suo insieme: non spinge verso grandi svolte e non le impedisce. Chiede di distribuire le energie con giudizio, perché chi prova a fare tutto insieme arriva a metà strada con il fiato corto, mentre un traguardo alla volta regge.
+- Che cosa fare: Fissa adesso un obiettivo concreto per le prossime tre settimane: la casa, un rapporto, il movimento, una cosa tua. Scrivilo dove lo vedi ogni giorno. Alla scadenza prenditi mezz'ora per segnare che cosa è riuscito, poi scegli il successivo senza sovrapporlo al precedente.
+- Risposta, Lunga: Ogni periodo ha la sua misura. Dare a ogni tratto di strada un compito soltanto evita di sovrapporre gli sforzi e lascia spazio al riposo fra un traguardo e il successivo. Se un obiettivo non riesce, riducilo invece di abbandonarlo: un anno in equilibrio si tiene senza irrigidirlo.
 
 #### Generale, equilibrio, voce 2: Ciò che già regge
 
-- Risposta: È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua vita funzionano già: un'amicizia solida, una casa accogliente, un'abitudine buona. Dare loro attenzione adesso le rende più forti e più capaci di durare, nei mesi in cui tutto il resto si muove.
-- Che cosa fare: Scegli tre cose che vanno bene e dai a ciascuna una piccola cura regolare a partire da questo mese: una telefonata ogni quindici giorni, un controllo della casa a ogni cambio di stagione, una camminata fissa. Segnale su un calendario semplice e ogni mese verifica di averle tenute.
-- Risposta, Lunga: Ciò che funziona tende a essere dato per scontato fino al giorno in cui scricchiola. Una cura costante, fatta senza fretta, è il lavoro silenzioso che dura nel tempo. Se ne trascuri una, riprendila senza aspettare: un anno in equilibrio si costruisce un gesto alla volta.
+- Risposta: È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua giornata probabilmente funzionano già: un'abitudine buona, un angolo di casa accogliente, un rapporto su cui contare. Dare loro attenzione adesso le rende più forti e capaci di durare anche quando il resto si muove.
+- Che cosa fare: Scegli tre cose che vanno bene e dai a ciascuna una cura piccola e regolare: una telefonata ogni dieci giorni, un angolo di casa riordinato ogni settimana, una camminata fissa. Annotale in un promemoria e ogni settimana controlla di averle tenute, senza aggiungerne altre.
+- Risposta, Lunga: Ciò che funziona tende a essere dato per scontato fino al giorno in cui scricchiola. Una cura costante, fatta senza fretta, è il lavoro silenzioso che fa durare le cose. Se ne trascuri una, riprendila subito senza rimproverarti: la continuità conta più della perfezione.
 
 ### Generale, In salita (livello 2 e sotto)
 
-#### Generale, salita, voce 1: Radici prima dei frutti
+#### Generale, salita, voce 1: Basi prima dei piani
 
-- Risposta: È un anno in salita, che chiede di consolidare più che di espandere. Qualche cambiamento intorno a te può rendere il terreno meno stabile del solito: è il tempo di rafforzare le basi prima di aggiungere piani nuovi, senza fretta e senza scoraggiarti.
-- Che cosa fare: Individua adesso le due abitudini che ti sostengono di più, come una sera fissa per ordinare la settimana o una spesa organizzata: rendile stabili. Rimanda le decisioni grandi che non hanno una scadenza. Tieni ogni mese mezza giornata vuota per gli imprevisti.
-- Risposta, Lunga: Un anno in salita non è un anno perso: è il periodo in cui si lavora sotto la superficie. Le radici crescono quando nessuno le vede e la pazienza prepara le stagioni successive. Se la mezza giornata non serve, regalala al riposo o a una persona cara.
+- Risposta: È un anno in salita, che chiede di consolidare più che di espandere. Qualche cambiamento intorno a te può rendere il terreno meno stabile del solito: è il tempo di rafforzare le basi della vita quotidiana prima di aggiungere piani nuovi, senza fretta e senza scoraggiarti.
+- Che cosa fare: Individua adesso due abitudini che ti sostengono di più, come una sera per preparare la settimana o una spesa organizzata: rendile fisse. Rimanda le decisioni grandi che non hanno una scadenza. Tieni ogni settimana mezza giornata senza impegni per gli imprevisti, anche se ti sembra un lusso.
+- Risposta, Lunga: Un anno in salita non è un anno perso: è il periodo in cui si rinforza ciò che non si vede. Le basi si consolidano in silenzio e la pazienza prepara i passi successivi. Se la mezza giornata libera non serve, regalala al riposo o a una persona cara.
 
-#### Generale, salita, voce 2: Promesse vecchie
+#### Generale, salita, voce 2: Promesse in sospeso
 
-- Risposta: Quest'anno è in salita per gli impegni rimasti in sospeso. Possono riaffacciarsi promesse fatte tempo fa: una visita, un aiuto offerto, un lavoro iniziato per qualcuno. Pesano più del previsto e chiedono una risposta chiara, che può essere un sì oppure un congedo gentile.
-- Che cosa fare: Fai adesso l'elenco delle promesse ancora aperte e per ciascuna decidi con onestà: mantenerla entro una data o scioglierla con una parola chiara. Comincia da quella che ti pesa di più, entro i prossimi due mesi. Per le promesse che mantieni, segna in agenda il passo successivo.
-- Risposta, Lunga: La parola mantenuta ha un grande valore, ma anche una parola ritirata con rispetto è un gesto pulito. Ciò che pesa è l'impegno lasciato a metà, che non si chiude e non si scioglie. Quando sciogli una promessa, fallo di persona e offri un gesto più piccolo.
+- Risposta: Quest'anno è pesante per gli impegni rimasti in sospeso: promesse fatte tempo fa, aiuti offerti, cose cominciate per altri possono tornare a chiedere una risposta. Pesano più del previsto e chiedono una scelta chiara, che può essere un sì mantenuto oppure un congedo gentile.
+- Che cosa fare: Fai adesso l'elenco delle promesse ancora aperte, anche piccole: per ciascuna decidi se mantenerla entro una data precisa o scioglierla con una parola chiara. Comincia entro una settimana da quella che pesa di più. Per quelle che mantieni, segna subito il prossimo passo e il giorno in cui farlo.
+- Risposta, Lunga: La parola mantenuta ha grande valore, ma anche una parola ritirata con rispetto è un gesto pulito. Ciò che pesa è l'impegno lasciato a metà, che non si chiude e non si scioglie. Quando sciogli una promessa, fallo di persona e offri un gesto più piccolo al suo posto.
 
 ## Amore
 
 ### Amore, Favorevole (livello 4 e 5)
 
-#### Amore, favorevole, voce 1: Una lingua per due
+#### Amore, favorevole, voce 1: Il fascino curato
 
-- Risposta: Per la coppia è un anno di inizi, adatto a trasformare un sogno in progetto. Con chi ami coltivate da tempo il desiderio di un lungo viaggio in un paese lontano, sempre rimandato: adesso potete renderlo concreto e condiviso, un passo alla volta.
-- Che cosa fare: Cercate da subito un corso serale della lingua di quel paese, con una lezione fissa a settimana. Scegliete una data indicativa per la partenza e scrivetela in grande sul calendario di cucina. Una volta al mese cucinate un piatto di là e parlate solo la lingua nuova.
-- Risposta, Lunga: Imparare insieme vi mette alla pari: si sbaglia, si ride, ci si corregge a vicenda con tenerezza. Il viaggio comincia molto prima della partenza, in ogni sera passata a ripetere parole nuove allo stesso tavolo. A metà anno fate il punto: se il ritmo regge, fissate le date.
+- Risposta: In amore l'anno è favorevole alla seduzione e al piacere di piacere. Il fascino nasce dalla cura di te, dalla voce, dallo sguardo e dall'ascolto: chi ha un legame può ritrovare il gioco degli inizi, chi è senza legame può attirare attenzioni nuove senza forzare nulla.
+- Che cosa fare: Entro tre settimane regalati un dettaglio che ti fa sentire bene con te: un profumo, un capo che ami, un taglio nuovo, un colore diverso. Se vivi una relazione, prepara una sera di corteggiamento come agli inizi; se sei senza legame, portalo in un luogo dove incontri persone nuove.
+- Risposta, Lunga: Nella tradizione indiana la bellezza curata è un'offerta, non una vanità: si orna ciò che si rispetta. Chi si piace si muove con più libertà e quella libertà attira. Il pericolo è recitare una parte per conquistare: il fascino che regge è quello che ti somiglia davvero.
 
-#### Amore, favorevole, voce 2: Un luogo dove tornare
+#### Amore, favorevole, voce 2: Il futuro desiderato
 
-- Risposta: In amore è un anno di aperture, soprattutto se allarghi i luoghi che frequenti. Senza un legame in corso, senti che la tua vita sociale gira sempre negli stessi posti: un ambiente nuovo, frequentato con regolarità, può portare incontri che adesso non immagini.
-- Che cosa fare: Entro i prossimi due mesi scegli un'attività di gruppo con un appuntamento fisso: un coro, una squadra di cammino, un laboratorio di teatro. Iscriviti e non saltare i primi dieci incontri. Dopo qualche mese proponi tu un'uscita al gruppo e occupati dell'organizzazione.
-- Risposta, Lunga: Chi torna nello stesso luogo con passo regolare smette presto di essere un volto nuovo. Le conoscenze nascono dalla ripetizione, poi diventano amicizie e a volte qualcosa di più. Prendere l'iniziativa nel gruppo ti rende un punto di riferimento e crea occasioni naturali per avvicinare chi ti interessa.
+- Risposta: Nella vita sentimentale l'anno è propizio a immaginare il futuro che desideri e a fare un primo passo verso di esso. Se vivi una relazione, un sogno condiviso può diventare un progetto concreto; se sei senza legame, chiarire che tipo di storia cerchi aiuta a riconoscere gli incontri giusti.
+- Che cosa fare: Scegli adesso un desiderio sentimentale da far crescere da qui al tuo prossimo compleanno. Se vivi una relazione, parlatene una sera e decidete insieme il primo gesto da fare entro tre settimane; se sei senza legame, scegli un ambiente legato a ciò che desideri e frequentalo ogni settimana.
+- Risposta, Lunga: Un desiderio detto e condiviso smette di essere un sogno vago e diventa una direzione. L'errore tipico è caricarlo di aspettative troppo grandi e sentirsi in ritardo a ogni passo lento. Il segno buono è che parlarne porti voglia e non ansia: se porta ansia, riduci il primo gesto.
 
 ### Amore, In equilibrio (livello 3)
 
-#### Amore, equilibrio, voce 1: Tempo tuo, tempo vostro
+#### Amore, equilibrio, voce 1: Uno spazio tuo
 
-- Risposta: Per la tua storia è un anno solido, che chiede misura fra il tempo in coppia e quello personale. Negli ultimi tempi tutto si fa insieme, anche ciò che prima apparteneva solo a te: un legame respira meglio quando ciascuna delle due persone conserva un angolo proprio.
-- Che cosa fare: Da subito scegliete una sera al mese a testa per i propri amici o per una passione personale. Accanto a quella fissate una sera tutta per voi due, da non spostare per nessun motivo. Ogni tre mesi fate un bilancio sincero davanti a un caffè.
-- Risposta, Lunga: Due persone che tornano a casa con qualcosa da raccontare hanno più da dirsi a cena. Lo spazio personale non sottrae niente alla coppia: porta aria nuova nelle abitudini. Nel bilancio correggete una cosa alla volta, con la pazienza di chi tiene accesa una lampada senza farla fumare.
+- Risposta: Per la vita sentimentale è un anno stabile, che chiede misura fra il tempo personale e quello dedicato all'amore. Un legame respira meglio quando ciascuno conserva un angolo proprio; e chi è senza legame può trovare più facilmente l'incontro giusto se la sua vita è già piena di cose amate.
+- Che cosa fare: Da questa settimana scegli una sera tutta per te, dedicata a una passione personale: difendila come un appuntamento. Se vivi una relazione, accanto a quella fissate una sera per voi due da non spostare; se sei senza legame, usa la tua per un ambiente dove conosci gente nuova.
+- Risposta, Lunga: Due persone che tornano a casa con qualcosa da raccontare hanno più da dirsi. Lo spazio personale non toglie niente all'amore: porta aria nuova nelle abitudini e rende il desiderio più vivo. Il rischio è usarlo per fuggire: se la sera tua diventa una scusa, parlane apertamente.
 
-#### Amore, equilibrio, voce 2: Tre amicizie da custodire
+#### Amore, equilibrio, voce 2: I gesti piccoli
 
-- Risposta: Nelle amicizie è un anno dal ritmo pari, adatto a scegliere con cura. La cerchia di un tempo si è sfilacciata fra traslochi, figli e lavori: resta un gruppo di chat dove si scrive per gli auguri. Non serve recuperare tutti: conviene puntare su pochi legami veri.
-- Che cosa fare: Scegli adesso tre amicizie che vuoi davvero tenere vive e proponi a ciascuna un appuntamento ricorrente: una cena a turno, ogni due mesi, con le date fissate per tutto l'anno. Tieni tu il calendario e ricorda le date a tutti con anticipo.
-- Risposta, Lunga: Alcune amicizie hanno fatto il loro tempo e va bene così. Le scelte nette fatte con gentilezza tolgono dispersione e danno profondità a ciò che resta. Per i legami che lasci andare basta un messaggio affettuoso quando affiora un ricordo comune, senza sensi di colpa.
+- Risposta: L'anno è tranquillo in amore e premia la tenerezza dei gesti piccoli più delle grandi dichiarazioni. Se vivi una relazione, la gratitudine detta ad alta voce rinnova il legame; se sei senza legame, la gentilezza che offri negli incontri dice di te più di qualunque presentazione.
+- Che cosa fare: Ogni settimana fai un gesto piccolo e concreto di attenzione. Se vivi una relazione, ringrazia l'altra persona per una cosa precisa che ha fatto, guardandola negli occhi; se sei senza legame, a ogni incontro lascia un complimento sincero su qualcosa che hai notato davvero, senza secondi fini.
+- Risposta, Lunga: Dire grazie per una cosa precisa fa sentire all'altra persona il proprio valore e invita a ricambiare. Nei periodi calmi è facile dimenticarlo, perché tutto sembra scontato. Il segno che funziona è un clima più morbido, con meno puntualizzazioni e più sorrisi.
 
 ### Amore, In salita (livello 2 e sotto)
 
-#### Amore, salita, voce 1: Rituali da riaccendere
+#### Amore, salita, voce 1: Fiducia prima dei dubbi
 
-- Risposta: In coppia l'anno è opaco e chiede pazienza e cura costante. Con chi ami si parla di bollette, impegni e spesa, molto meno di voi due: i legami lunghi però si rinsaldano con piccoli gesti ripetuti, più che con grandi chiarimenti.
-- Che cosa fare: Riprendete da questo mese una camminata dopo cena, ogni martedì e ogni venerdì, con il telefono lasciato a casa. Una volta al mese scrivete a testa su un biglietto una cosa che vi è mancata e una che vi ha fatto piacere, poi leggetele insieme.
-- Risposta, Lunga: Le fasi stanche non significano che il legame sia finito: chiedono di essere attraversate con attenzione invece che subite. Il cammino fianco a fianco rende più facili anche le parole difficili. Se una conversazione si blocca, riprendetela il giorno dopo con calma invece di forzarla.
+- Risposta: In amore l'anno è teso sul fronte della fiducia: dubbi, confronti e gelosie possono affiorare più facilmente del solito. Se vivi una relazione, conviene parlarne prima che diventino accuse; se sei senza legame, attenzione a non leggere ogni silenzio di chi ti interessa come un rifiuto.
+- Che cosa fare: Quando senti salire la gelosia, aspetta un'ora prima di scrivere o di chiedere spiegazioni. Se vivi una relazione, scegli un momento calmo e racconta ciò che provi senza accusare, con frasi che partono da te; se sei senza legame, chiedi direttamente invece di interpretare i segnali.
+- Risposta, Lunga: La gelosia si nutre di supposizioni: più resta muta, più costruisce storie che spesso non esistono. Nominata con calma perde forza e diventa una richiesta di rassicurazione, non un'accusa. Il rischio di un anno teso è controllare l'altra persona; il segno buono è la calma che resta dopo averne parlato.
 
-#### Amore, salita, voce 2: Ricominciare dalle stanze
+#### Amore, salita, voce 2: Vecchi schemi
 
-- Risposta: In amore è un anno di ripartenza lenta, che chiede di non correre. Una relazione lunga si è chiusa da poco e la casa, le abitudini, perfino gli amici comuni portano ancora la sua impronta: prima di cercare qualcuno conviene ritrovare il tuo passo.
-- Che cosa fare: Cambia da subito qualcosa negli spazi che abiti: sposta un mobile, ridipingi una parete, libera un cassetto dagli oggetti di prima. Scegli un'abitudine nuova tutta tua, come un corso o una camminata del mattino. Riallaccia le amicizie trascurate, una per volta, con un invito semplice.
-- Risposta, Lunga: Chi esce da un legame importante tende a riempire subito il vuoto, con il rischio di ripetere gli stessi schemi. Il tempo di chiudere viene prima di quello di ricominciare: adesso conta chiudere bene. Fra sei mesi chiediti con onestà se hai voglia di nuovi incontri.
+- Risposta: L'anno è faticoso in amore e tende a riproporre gli stessi schemi: rincorrere chi si allontana, chiudersi quando qualcuno si avvicina, cedere per paura di perdere. Riconoscerli è il primo passo, che tu viva una relazione o sia senza legame, per non ripetere la stessa storia.
+- Che cosa fare: Scrivi in tre righe lo schema che ritorna più spesso nelle tue storie e il momento in cui di solito scatta. Da qui al tuo prossimo compleanno, quando lo senti arrivare, fai una volta sola il gesto opposto: se scappi, resta; se rincorri, aspetta; se taci, parla.
+- Risposta, Lunga: Gli schemi sentimentali nascono come difese e un tempo avevano un senso. Ripeterli oggi porta di solito allo stesso finale con volti diversi. La trappola è giudicarti con durezza ogni volta che ci ricadi: basta accorgersene un po' prima della volta precedente.
 
 ## Carriera
 
@@ -99,84 +99,84 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 1: Il mestiere allargato
 
-- Risposta: Nel lavoro l'anno è favorevole per allargare il tuo mestiere. Da tempo coltivi l'idea di aggiungere qualcosa al lavoro di sempre: una specializzazione, un servizio nuovo, un'attività in proprio. Quest'anno offre il terreno adatto per cominciare davvero, con calma e un piano chiaro.
-- Che cosa fare: Scrivi da subito un piano semplice su un solo foglio: che cosa offri, a chi, con quali tempi. Presentalo a tre persone di cui stimi il giudizio entro la prossima stagione. Poi dedica al progetto un tempo fisso ogni settimana, anche breve.
-- Risposta, Lunga: Ci sono periodi in cui un seme piantato con cura mette radici profonde: questo è uno di quelli. Ciò che avvii quest'anno può reggere a lungo, se lo fai crescere con pazienza. Ogni tre mesi rileggi il foglio iniziale e aggiornalo con ciò che hai imparato.
+- Risposta: Nel lavoro l'anno è favorevole ad allargare ciò che sai fare: una specializzazione, un servizio in più, un ambito vicino al tuo. Chi lavora, chi studia e chi cerca possono trovare adesso il terreno adatto per aggiungere una competenza che renda il proprio profilo più ricco e riconoscibile.
+- Che cosa fare: Scrivi adesso in dieci righe che cosa vorresti aggiungere al tuo lavoro, per chi e con quali tempi. Entro tre settimane mostrale a due persone di cui stimi il giudizio e chiedi una critica onesta. Poi dedica al nuovo ambito un tempo fisso ogni settimana, anche breve.
+- Risposta, Lunga: Ci sono periodi in cui un seme piantato con cura attecchisce più in fretta del solito: questo è uno di quelli. Ciò che avvii adesso può reggere a lungo, se cresce con pazienza. Il pericolo è disperdersi in troppe aggiunte: un ambito solo, approfondito bene, vale più di tre accennati.
 
-#### Carriera, favorevole, voce 2: Una competenza riconosciuta
+#### Carriera, favorevole, voce 2: La tua competenza riconosciuta
 
-- Risposta: Quest'anno il lavoro ti è favorevole proprio dove sei più competente. C'è un ambito in cui i colleghi vengono già a chiederti consiglio: quella competenza può uscire dall'ombra e diventare il tuo tratto distintivo, dentro e fuori il luogo di lavoro.
-- Che cosa fare: Proponi già questo mese una breve presentazione interna sul tema che conosci meglio, con esempi concreti tratti dal tuo lavoro. Alla fine chiedi a chi partecipa un parere scritto. Raccogli quanto insegni in un archivio di note ordinate, da arricchire mese dopo mese.
-- Risposta, Lunga: Condividere ciò che si sa è come accendere una lampada in una stanza comune: la luce non diminuisce, si moltiplica. Chi insegna con generosità è la persona che si cerca quando arrivano le occasioni migliori. Verso metà anno valuta di portare il tuo archivio a un evento di settore.
+- Risposta: Quest'anno il lavoro ti è favorevole proprio dove sei più competente: condividere ciò che sai può farti riconoscere come la persona a cui rivolgersi. Vale per chi lavora con altri, per chi ha clienti e per chi studia: spiegare bene una cosa rende visibile il tuo valore.
+- Che cosa fare: Scegli adesso il tema che conosci meglio e preparane una spiegazione breve, con due esempi concreti. Entro tre settimane offrila a chi può usarla: un collega, un cliente, un compagno di studi, un gruppo online del tuo campo. Alla fine chiedi che cosa è stato utile e che cosa no.
+- Risposta, Lunga: Condividere ciò che si sa è come accendere una lampada in una stanza comune: la luce non diminuisce, si moltiplica. Chi spiega con generosità diventa la persona che si cerca quando nasce un'occasione. L'errore tipico è spiegare troppo: tieni il tema stretto e lascia spazio alle domande.
 
 ### Carriera, In equilibrio (livello 3)
 
-#### Carriera, equilibrio, voce 1: Quattro tappe nell'anno
+#### Carriera, equilibrio, voce 1: La rete del mestiere
 
-- Risposta: Nel lavoro è un anno stabile, senza grandi svolte all'orizzonte. Chiede di consolidare: rendere più solide le basi, curare i rapporti che contano, scegliere con misura dove crescere. Chi lo usa bene arriva alla fine con fondamenta più forti di prima.
-- Che cosa fare: Spezza adesso i prossimi dodici mesi in quattro tappe e assegna a ciascuna un obiettivo preciso e verificabile. Scrivile su un foglio da tenere nella scrivania e fissa le date delle verifiche. Alla fine di ogni tappa prenditi un'ora per un bilancio onesto.
-- Risposta, Lunga: Non ogni periodo è fatto per gli slanci: alcuni servono a rinforzare le fondamenta prima di aggiungere un piano. Il lavoro di quest'anno è meno visibile, ma regge tutto ciò che viene dopo. Condividi i bilanci con chi coordina il tuo lavoro, così i progressi restano documentati.
+- Risposta: Nel lavoro è un anno stabile, senza grandi svolte all'orizzonte, adatto a curare i rapporti professionali che contano. Colleghi, ex compagni di studi, clienti passati, persone del tuo campo: una rete tenuta viva con regolarità sostiene nei momenti pieni e può portare notizie utili anche a chi cerca lavoro.
+- Che cosa fare: Ogni settimana scrivi a una persona del tuo ambito di lavoro o di studio che non senti da tempo: un saluto, un articolo utile, un complimento per un risultato. Comincia entro tre giorni. Non chiedere favori nei primi messaggi: offri qualcosa e ascolta che cosa fa.
+- Risposta, Lunga: Una rete professionale non si costruisce quando serve, ma prima, con gesti piccoli e senza richieste. Chi si fa vivo soltanto per chiedere viene ricordato per quello. Il segno che funziona è quando qualcuno ti scrive per primo con una notizia o una proposta.
 
-#### Carriera, equilibrio, voce 2: Studiare mentre lavori
+#### Carriera, equilibrio, voce 2: Imparare senza strappi
 
-- Risposta: Nel lavoro è un anno adatto a imparare senza strappi. Senti il bisogno di qualcosa di nuovo senza lasciare l'impiego che hai: il periodo non spinge verso salti bruschi, ma favorisce chi tiene insieme studio e lavoro con un passo sostenibile.
-- Che cosa fare: Scegli entro due mesi un percorso compatibile con i tuoi orari, serale o a distanza. Prima di iscriverti parla con chi l'ha già frequentato per capire quanto tempo richiede. Accordati con chi vive accanto a te su due sere fisse dedicate allo studio.
-- Risposta, Lunga: Il passo regolare vale più della velocità. Un percorso affrontato con costanza, una sera dopo l'altra, lascia competenze più salde di un corso intensivo che si dimentica in fretta. Ogni fine stagione valuta se il ritmo regge o va alleggerito: arrivare in fondo conta più che correre.
+- Risposta: L'anno è regolare nel lavoro e adatto a imparare senza strappi, accanto agli impegni che hai. Non spinge verso salti bruschi, ma favorisce chi tiene insieme studio e lavoro con un passo sostenibile, anche soltanto un'ora alla volta. Conta il ritmo più dello slancio.
+- Che cosa fare: Scegli entro tre settimane una competenza da imparare compatibile con i tuoi orari, in presenza o a distanza. Prima di cominciare chiedi a chi l'ha già imparata quanto tempo richiede davvero. Poi fissa due momenti a settimana, sempre gli stessi: proteggili da altri impegni.
+- Risposta, Lunga: Il passo regolare vale più della velocità: una competenza costruita una sera dopo l'altra resta più salda di uno sforzo intensivo che si dimentica in fretta. Il rischio è caricarsi troppo e mollare. Ogni tre settimane chiediti se il ritmo regge o va alleggerito: arrivare in fondo conta.
 
 ### Carriera, In salita (livello 2 e sotto)
 
-#### Carriera, salita, voce 1: Quando l'ufficio cambia
+#### Carriera, salita, voce 1: Affidabile nei cambiamenti
 
-- Risposta: Nel lavoro è un anno in salita, segnato da cambiamenti intorno a te. Si annunciano nuove persone alla guida, ruoli ridisegnati, priorità diverse: il periodo chiede prudenza e chiarezza, più che reazioni d'istinto alle voci di corridoio. La costanza è la tua carta migliore.
-- Che cosa fare: Tieni da adesso un registro semplice dei risultati ottenuti, con date e numeri dove possibile. Quando arrivano i nuovi responsabili, chiedi presto un colloquio per presentare il tuo lavoro. Evita di schierarti nelle discussioni sui cambiamenti, anche quando si accendono intorno alla tua scrivania.
-- Risposta, Lunga: Nei passaggi di stagione la parola mantenuta diventa un punto fermo per tutti. Chi resta affidabile mentre intorno le cose si muovono costruisce una reputazione che i nuovi arrivati notano in fretta. Concentra le energie su due o tre competenze utili alla nuova organizzazione e aggiornale con regolarità.
+- Risposta: Nel lavoro è un anno in salita, con possibili cambiamenti intorno a te: persone nuove alla guida, ruoli ridisegnati, priorità diverse. Il periodo chiede prudenza e chiarezza più che reazioni d'istinto: la costanza è la carta migliore per chi lavora, per chi studia e per chi cerca.
+- Che cosa fare: Tieni da adesso un registro semplice dei risultati ottenuti, con date e numeri. Se cambiano i responsabili, chiedi presto un colloquio per presentare il tuo lavoro; se lavori in proprio o studi, presenta i risultati a chi decide su di te. Non schierarti nelle discussioni sui cambiamenti.
+- Risposta, Lunga: Nei passaggi difficili la parola mantenuta diventa un punto fermo per tutti. Chi resta affidabile mentre intorno le cose si muovono costruisce una reputazione che i nuovi arrivati notano in fretta. La trappola è reagire alle voci di corridoio: aspetta i fatti prima di cambiare strategia.
 
-#### Carriera, salita, voce 2: Radici sotto la superficie
+#### Carriera, salita, voce 2: Crescere dove non si vede
 
-- Risposta: Nel lavoro l'anno procede lento, ma lento non vuol dire fermo. Hai l'impressione che la carriera non si muova: promozioni che tardano, progetti che non decollano, riconoscimenti che arrivano ad altri. È il tempo di crescere dove ancora non si vede.
-- Che cosa fare: Scegli da questo mese una sola abilità da coltivare, legata al lavoro che vorresti fare fra qualche anno. Dedicale un'ora fissa ogni settimana con un libro, un corso breve o una persona da cui imparare. Tieni un quaderno dei piccoli progressi e rileggilo nei mesi faticosi.
-- Risposta, Lunga: Ci sono stagioni in cui il lavoro cresce sotto la superficie, come radici che si allungano prima del fusto. Ciò che coltivi con pazienza prepara il momento in cui le porte tornano ad aprirsi. Una volta per stagione incontra qualcuno del tuo settore, per un confronto senza richieste.
+- Risposta: Nel lavoro l'anno procede lento, ma lento non vuol dire fermo. Promozioni, risposte alle candidature o riconoscimenti possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti che servono quando le porte tornano ad aprirsi, senza smettere di bussare.
+- Che cosa fare: Scegli adesso una sola abilità legata al lavoro che vorresti fare e dedicale un'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare. Ogni tre settimane incontra o chiama qualcuno del settore per un confronto, senza chiedere niente.
+- Risposta, Lunga: Il lavoro a volte cresce sotto la superficie, come radici che si allungano prima dei frutti. Ciò che coltivi con pazienza prepara il momento della ripresa. Il pericolo è misurarti con chi corre più veloce: confrontati con te di tre settimane fa.
 
 ## Fortuna
 
 ### Fortuna, Favorevole (livello 4 e 5)
 
-#### Fortuna, favorevole, voce 1: Una cerchia che cresce
+#### Fortuna, favorevole, voce 1: Le coincidenze
 
-- Risposta: Quest'anno la buona sorte passa soprattutto dalle persone che incontri con regolarità. Più che i colpi fortunati contano i legami coltivati: un gruppo frequentato con costanza diventa una rete che ti sostiene e ti segnala le occasioni giuste. È un anno generoso per chi partecipa.
-- Che cosa fare: Scegli entro questo mese un'associazione, un gruppo di volontariato o un circolo legato a ciò che ti appassiona e partecipa ad almeno un incontro al mese, sempre nello stesso giorno. Dopo i primi mesi offriti per un compito preciso, come tenere i contatti.
-- Risposta, Lunga: Ciò che si coltiva con pazienza dura più di ciò che arriva in fretta. Un anno favorevole è un campo buono: chiede semi messi con cura. Chi si prende una responsabilità piccola e la porta a termine diventa la persona a cui si pensa quando nasce un'opportunità.
+- Risposta: Per la buona sorte l'anno è favorevole alle coincidenze: un nome che ritorna, un invito inatteso, un'idea che senti nominare da più persone. È un periodo che premia chi presta attenzione ai segnali piccoli e risponde in fretta, invece di lasciarli scivolare via per distrazione o per prudenza eccessiva.
+- Che cosa fare: Da questa settimana, quando una persona, un luogo o un'idea ti torna davanti per la terza volta, dagli seguito entro sette giorni: una telefonata, una visita, una domanda. Annota ogni coincidenza con la data e rileggi le note ogni tanto.
+- Risposta, Lunga: Molte occasioni non arrivano con un annuncio ma con una ripetizione discreta, che solo chi è attento nota. Dare seguito costa poco e a volte apre strade inattese. L'errore tipico è vedere segnali ovunque: tieni la regola della terza volta e lascia andare il resto.
 
-#### Fortuna, favorevole, voce 2: Un mestiere nelle mani
+#### Fortuna, favorevole, voce 2: Gli inviti inattesi
 
-- Risposta: È un anno fortunato per chi impara qualcosa con le mani e lo coltiva. Dalla falegnameria alla cucina, dalla sartoria alla fotografia, una competenza nuova può aprire porte che ora nemmeno immagini: incontri, richieste, occasioni nate dal lavoro fatto bene. Il primo passo conviene farlo presto.
-- Che cosa fare: Iscriviti entro due mesi a un corso serale o a un laboratorio pratico che duri tutto l'anno, su qualcosa che ti incuriosisce da tempo. Porta a termine almeno un lavoro al mese e fotografalo, annotando in un quaderno ciò che hai imparato.
-- Risposta, Lunga: Ogni capacità imparata bene è una risorsa che nessuno ti toglie: ti rende utile a chi ti sta intorno. La sorte ha la forma della preparazione: quando arriva una richiesta, trova le mani già pronte. Verso fine anno mostra i tuoi lavori e offri il tuo aiuto.
+- Risposta: Quest'anno la fortuna sorride a chi dice sì agli inviti inattesi: una festa, una presentazione, un evento dove conosci poche persone. Le occasioni nascono spesso ai margini, in una conversazione fuori programma: il periodo favorisce chi si concede di uscire anche quando sarebbe più comodo restare a casa.
+- Che cosa fare: Da adesso accetta almeno un invito su due fra quelli che di solito declini. A ogni occasione presentati a due persone nuove e chiedi di che cosa si occupano. Il giorno dopo manda un messaggio breve alla persona con cui hai parlato meglio.
+- Risposta, Lunga: Chi esce dal proprio giro incontra persone che sanno cose diverse e conoscono altre persone ancora: lì le coincidenze utili hanno più spazio. Il rischio è restare in un angolo con chi conosci già: concediti il disagio dei primi minuti, che passa presto.
 
 ### Fortuna, In equilibrio (livello 3)
 
-#### Fortuna, equilibrio, voce 1: Il calendario delle cure
+#### Fortuna, equilibrio, voce 1: Botteghe di fiducia
 
-- Risposta: Per la sorte l'anno è in equilibrio e premia l'ordine più degli slanci. Caldaia, bicicletta, scarpe buone, mobili: le cose che usi di continuo durano di più quando qualcuno se ne occupa prima che si rompano. Così i contrattempi non arrivano nei momenti sbagliati.
-- Che cosa fare: Prepara entro questo mese un calendario delle manutenzioni di casa: segna per ogni oggetto importante quando va controllato, pulito o sistemato. Comincia dal primo controllo in scadenza. Tieni in una cartella libretti di istruzioni, ricevute degli interventi e numeri dei tecnici di fiducia.
-- Risposta, Lunga: Un anno in equilibrio premia il passo regolare: niente grandi svolte, molte piccole cure ripetute. Proteggere ciò che hai è un modo concreto di tenere lontana la sfortuna spicciola, quella che fa saltare un appuntamento o una partenza. Ogni volta che ripari invece di sostituire, annota la data.
+- Risposta: Quest'anno la sorte è quieta e nasce dalla fiducia delle persone vicine: il fornaio, il ciabattino, la ferramenta, il mercato del quartiere. Chi ti vede tornare con regolarità ti riserva attenzioni, consigli e piccoli aiuti che uno sconosciuto non riceve. Sono legami semplici che possono portare occasioni.
+- Che cosa fare: Scegli entro una settimana due o tre botteghe vicine a casa e diventa una presenza abituale. Presentati per nome, chiedi un consiglio e torna a raccontare come è andata. Quando ricevi un buon servizio dillo a voce e consiglialo ai tuoi conoscenti.
+- Risposta, Lunga: Un rapporto con chi lavora vicino a te si costruisce lentamente, con la cortesia e la parola mantenuta. In un anno senza grandi spinte questi legami semplici diventano una piccola rete di aiuti e segnalazioni. Alla persona puntuale e gentile si pensa per prima quando arriva qualcosa di buono.
 
-#### Fortuna, equilibrio, voce 2: Botteghe di fiducia
+#### Fortuna, equilibrio, voce 2: Dieci minuti di anticipo
 
-- Risposta: Quest'anno la sorte è quieta e nasce dalla fiducia delle persone vicine. Il fornaio, il ciabattino, la ferramenta sotto casa: chi ti vede tornare con regolarità ti riserva attenzioni, segnalazioni e piccoli aiuti che uno sconosciuto non riceve mai. Sono questi legami a portare le occasioni.
-- Che cosa fare: Scegli da subito tre botteghe del tuo quartiere e diventa una presenza abituale. Presentati per nome, chiedi consigli e torna a raccontare come è andata. Quando ricevi un buon servizio, dillo a voce e consiglialo ai tuoi conoscenti. Ritira ciò che ordini nei tempi promessi.
-- Risposta, Lunga: Un rapporto con chi lavora vicino a te si costruisce lentamente, con la cortesia e la parola mantenuta. In un anno senza grandi spinte questi legami semplici diventano una piccola rete di aiuti e favori. Alla persona puntuale si pensa per prima quando arriva qualcosa di buono.
+- Risposta: Per la fortuna l'anno è regolare e premia chi si concede un margine: arrivare un po' prima, lasciare spazio fra un impegno e l'altro, non riempire ogni ora. Gli imprevisti trovano meno presa e le piccole occasioni, una chiacchierata, un incontro casuale, hanno il tempo di accadere.
+- Che cosa fare: Da questa settimana esci dieci minuti prima per ogni appuntamento e lascia almeno mezz'ora libera fra due impegni importanti. Usa quel margine per guardarti intorno, salutare qualcuno, entrare in un posto mai visto. Una volta a settimana annota che cosa è successo in quei minuti.
+- Risposta, Lunga: La fretta è la prima nemica della buona sorte: chi corre non vede le porte aperte e arriva con l'affanno dove serve calma. Il margine non è tempo perso, è lo spazio in cui succede l'inatteso. Te ne accorgi quando arrivi agli appuntamenti con la mente libera.
 
 ### Fortuna, In salita (livello 2 e sotto)
 
-#### Fortuna, salita, voce 1: Meno sì, più scelta
+#### Fortuna, salita, voce 1: Le piccole perdite
 
-- Risposta: Per la sorte è un anno in salita, in cui conviene scegliere più che accettare. Possono arrivare molte proposte insieme: collaborazioni, inviti, impegni presi per cortesia. Non tutte le porte aperte portano dove vuoi andare: dire sì a tutto disperde le occasioni vere.
-- Che cosa fare: Da adesso prenditi sempre almeno tre giorni prima di accettare un impegno che costa tempo ed energie. Scrivi su un foglio che cosa ti chiede e che cosa ti restituisce, poi decidi. Ogni tre mesi rileggi l'elenco dei tuoi impegni e chiudi con gentilezza quello che pesa.
-- Risposta, Lunga: In un anno in salita conviene portare avanti bene ciò che hai già avviato piuttosto che aprire troppi fronti e lasciarli a metà. Il tempo che liberi tienilo per le due o tre cose che contano davvero: lì le occasioni trovano spazio per crescere.
+- Risposta: Per la sorte è un anno delicato con oggetti, chiavi e scadenze: le piccole distrazioni possono costare tempo e fatica più del solito. Il periodo premia chi dà a ogni cosa importante un posto fisso e mette al riparo ciò che conta prima di averne bisogno.
+- Che cosa fare: Entro una settimana scegli un posto fisso per chiavi, documenti e portafoglio: rispettalo ogni sera. Fai una copia delle chiavi principali e affidala a una persona di fiducia. Segna le prossime scadenze in un promemoria che ti avvisi con una settimana di anticipo.
+- Risposta, Lunga: Un anno delicato non è un anno sfortunato: premia chi prepara la soglia prima di attraversarla. Sapere dove trovare una chiave o un certificato in un momento di fretta vale più di quanto sembri. Quando rinnovi un documento, metti subito il nuovo al suo posto e butta il vecchio.
 
-#### Fortuna, salita, voce 2: Carte al riparo
+#### Fortuna, salita, voce 2: Il passo di lato
 
-- Risposta: È un anno delicato per la sorte, soprattutto con documenti e chiavi. Scadenze dimenticate, chiavi di scorta smarrite, carte importanti sparse fra cassetti diversi: le piccole distrazioni possono costare fatica e tempo. Il periodo premia chi mette al riparo ciò che conta prima di averne bisogno.
-- Che cosa fare: Entro due mesi raccogli i documenti di casa in un unico raccoglitore e scrivi sulla prima pagina le scadenze dell'anno. Fai una copia delle chiavi principali e affidala a una persona di cui ti fidi. Imposta un promemoria sul telefono un mese prima di ogni scadenza.
-- Risposta, Lunga: Un anno in salita non è un anno sfortunato: premia chi prepara la soglia prima di attraversarla. Sapere dove trovare un certificato o una chiave in un momento di fretta vale più di quanto sembri. Quando rinnovi un documento, metti subito la copia nuova al suo posto.
+- Risposta: L'anno è in salita per la buona sorte e chiede di non insistere dove le cose si inceppano. Quando un tentativo si blocca più volte di fila, il periodo suggerisce di fermarti, cambiare strada o rimandare, invece di spingere con più forza contro una porta che resta chiusa.
+- Che cosa fare: Da adesso, quando una cosa si blocca per la seconda volta, fermati un giorno prima di riprovare. Scrivi due strade diverse per arrivare allo stesso risultato e prova quella che non hai ancora tentato. Chiedi un parere a chi ha già affrontato una situazione simile.
+- Risposta, Lunga: Insistere sulla stessa porta logora le forze e la fiducia, mentre un passo di lato rivela spesso un ingresso che prima non si vedeva. Non è rinuncia, è intelligenza del momento. La trappola è leggere ogni ostacolo come un segnale di sfortuna: a volte basta aspettare un giorno.
