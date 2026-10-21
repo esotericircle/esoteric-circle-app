@@ -5,7 +5,8 @@ Scrive scambio3_<arte>.json (per il lettore, solo testo libero) e chiave3_<arte>
 Meta' delle schede, scelte col seme, ricevono i simboli di un'altra scheda del gruppo
 scambiato (un giro chiuso, nessuna resta con i suoi). Oroscopo: si scambiano periodo,
 dominio e fascia fra schede con dati diversi. Oracolo: si scambiano gli angeli, la
-domanda resta col suo testo. Al lettore arrivano solo risposta, cosa fare e
+domanda resta col suo testo. Rune: si scambiano le pietre fra gettate della
+stessa forma, la domanda resta col suo testo. Al lettore arrivano solo risposta, cosa fare e
 approfondimento: titolo, rito e da dove viene nominano i simboli e li direbbero.
 """
 import json, random, sys
@@ -26,29 +27,44 @@ def simboli(r):
     if arte == 'oroscopo':
         s = r['senzaDomanda']
         return {'periodo': s['periodo'], 'dominio': s['dominio'], 'fascia': s['fascia']}
+    if arte == 'rune':
+        return [{k: v for k, v in x.items() if k in ('posizione', 'runa', 'verso', 'parolaChiave', 'significato')} for x in r['simboli']]
     return [{k: v for k, v in x.items() if k in ('ruolo', 'posizione', 'angelo', 'coro', 'dominioDelCoro', 'coperta')} for x in r['simboli']]
+
+def gruppo(r):
+    # Le Rune si scambiano solo fra gettate della stessa forma, perche' il
+    # numero delle pietre non tradisca lo scambio.
+    return r.get('gettata', '') if arte == 'rune' else ''
 
 n = len(d)
 indici = list(range(n))
 rnd.shuffle(indici)
 scelti = sorted(indici[: n // 2])
-# un giro chiuso fra gli scelti, rimescolato finche' ogni scheda riceve simboli diversi dai suoi
-for _ in range(1000):
-    giro = scelti[:]
-    rnd.shuffle(giro)
-    dest = {giro[i]: giro[(i + 1) % len(giro)] for i in range(len(giro))}
-    if all(json.dumps(simboli(d[a]), sort_keys=True) != json.dumps(simboli(d[b]), sort_keys=True) for a, b in dest.items()):
-        break
-else:
-    sys.exit('nessun giro valido')
+# un giro chiuso per gruppo fra gli scelti, rimescolato finche' ogni scheda riceve simboli diversi dai suoi
+dest = {}
+for g in sorted({gruppo(d[i]) for i in scelti}):
+    membri = [i for i in scelti if gruppo(d[i]) == g]
+    if len(membri) < 2:
+        continue
+    for _ in range(1000):
+        giro = membri[:]
+        rnd.shuffle(giro)
+        prova = {giro[i]: giro[(i + 1) % len(giro)] for i in range(len(giro))}
+        if all(json.dumps(simboli(d[a]), sort_keys=True) != json.dumps(simboli(d[b]), sort_keys=True) for a, b in prova.items()):
+            dest.update(prova)
+            break
+    else:
+        sys.exit('nessun giro valido per ' + g)
 
 schede, chiave = [], []
 for i, r in enumerate(d):
     sorgente = dest.get(i, i)
     s = {'scheda': i + 1}
-    if arte == 'oracolo':
+    if arte in ('oracolo', 'rune'):
         s['domanda'] = r['domanda']
-    s['simboli' if arte == 'oracolo' else 'dati'] = simboli(d[sorgente])
+    if arte == 'rune':
+        s['gettata'] = r['gettata']
+    s['dati' if arte == 'oroscopo' else 'simboli'] = simboli(d[sorgente])
     s['testo'] = testo(r)
     schede.append(s)
     chiave.append({'scheda': i + 1, 'id': r['id'], 'scambiato': sorgente != i, 'simboliDi': d[sorgente]['id']})
